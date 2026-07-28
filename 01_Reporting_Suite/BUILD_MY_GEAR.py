@@ -545,6 +545,24 @@ def build():
         for n, i in enumerate(ms):
             crew_avg[i], crew_rank[i], crew_total[i] = avg, n + 1, len(members)
 
+    #  Crew standings (Andrew, 28 Jul 2026: "how they score against
+    #  other - their company or even onsite"). Every crew ranked by its
+    #  average score so a card can say "your crew sits #2 of 12 on
+    #  site". A crew of one still ranks - the wording stays kind.
+    _co_avg = {}
+    for co in set(comp_of.values()):
+        members = [i for i in order if comp_of[i] == co]
+        _co_avg[co] = int(sum(computed[i]['score'] for i in members) /
+                          len(members) + 0.5)
+    _co_rank = {co: n + 1 for n, (co, _a) in enumerate(
+        sorted(_co_avg.items(), key=lambda kv: (-kv[1], kv[0])))}
+    #  Top crew for the landing pulse: judged only among crews of 3+ so
+    #  one bloke with one perfect return doesn't outrank a whole squad.
+    _big = [co for co in _co_avg
+            if sum(1 for i in order if comp_of[i] == co) >= 3]
+    top_crew = (max(_big, key=lambda co: _co_avg[co]) if _big
+                else (max(_co_avg, key=_co_avg.get) if _co_avg else ''))
+
     # ---------------- payloads --------------------------------------------
     DATA, warn_dupes = {}, {}
     tot_items = rad_out_tot = gas_out_tot = dmg_tot = 0
@@ -648,7 +666,11 @@ def build():
             'rating': rating, 'score': score, 'hasReturns': ret > 0,
             'rank': {'comp': crew_rank[idno], 'compTotal': crew_total[idno],
                      'site': site_rank[idno], 'siteTotal': total,
-                     'pct': int(site_rank[idno] / total * 100 + 0.5)},
+                     'pct': int(site_rank[idno] / total * 100 + 0.5),
+                     #  the whole crew's standing on site, for the
+                     #  "your crew sits #N of M" line on the card
+                     'crewPos': _co_rank.get(comp_of[idno], 0),
+                     'crewOf': len(_co_rank)},
             'cmp': {'you': score, 'crew': crew_avg[idno], 'site': site_avg},
             'mix': mix, 'story': story, 'items': items, 'aging': aging,
             'badges': badges, 'comp': _cn,
@@ -689,8 +711,27 @@ def build():
               'work on phones with a built-in reader. Typing the ID still '
               'works everywhere.')
     _shelf = mygear_ui.shelf_html(mygear_guides.guide_buttons())
+    #  The site pulse - live numbers on the front door (Andrew, 28 Jul
+    #  2026: "utilising all reports to provide as much data as we can").
+    #  Every figure is computed above from today's exports; the counters
+    #  animate up on load, neon so they read from a metre away.
+    _sd_site = sum(c['same'] for c in computed.values())
+    _esc_py = lambda s: (str(s).replace('&', '&amp;').replace('<', '&lt;')
+                         .replace('>', '&gt;'))
+    pulse = ('<div class="pulse">'
+             '<span class="pu"><b class="pv" data-to="{i}">0</b>'
+             'ITEMS OUT NOW</span>'
+             '<span class="pu"><b class="pv" data-to="{c}">0</b>'
+             'CREW CARDED</span>'
+             '<span class="pu"><b class="pv" data-to="{s}">0</b>'
+             'SAME-DAY RETURNS</span>'
+             + ('<span class="pu"><b class="pvt">{t}</b>TOP CREW</span>'
+                if top_crew else '')
+             + '</div>').format(i=tot_items, c=total, s=_sd_site,
+                                t=_esc_py(top_crew.title()))
     page = (TEMPLATE
             .replace('__DATA__', json.dumps(DATA))
+            .replace('__PULSE__', pulse)
             .replace('__ASOF__', asof or 'last refresh')
             .replace('__UICSS__', mygear_ui.CSS)
             .replace('__IDROW__', mygear_ui.ID_ROW)
@@ -832,6 +873,24 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .alert b{color:#fff}
 .okline{color:#8fe9b8;font-size:12px;margin-top:9px}
 .subline{color:var(--mut);font-size:11.5px;margin-top:7px}
+/* ---- ELITE PASS 2 (Andrew, 28 Jul 2026): neon numbers, the site
+   pulse on the front door, shimmer on the title, and a contacts
+   button that is never more than one thumb away. ---- */
+.pulse{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;margin:12px 0 2px;animation:fup .6s .15s ease both}
+.pulse .pu{display:flex;flex-direction:column;align-items:center;font-size:8.5px;letter-spacing:1.6px;color:var(--mut);font-weight:700}
+.pulse .pv{font-size:22px;letter-spacing:0;color:#EFFF3D;font-weight:850;text-shadow:0 0 14px rgba(239,255,61,.4);line-height:1.15;font-variant-numeric:tabular-nums}
+.pulse .pvt{font-size:13px;letter-spacing:.4px;color:#EFFF3D;font-weight:850;text-shadow:0 0 12px rgba(239,255,61,.35);line-height:1.65;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mg b{background:linear-gradient(100deg,#F26222 25%,#FFB347 42%,#EFFF3D 50%,#FFB347 58%,#F26222 75%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:mgshine 6s ease-in-out infinite}
+@keyframes mgshine{0%,100%{background-position:90% 0}45%,55%{background-position:10% 0}}
+.qcall{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--org),#D24E12);color:#fff;font-weight:800;font-size:12px;letter-spacing:1.4px;padding:11px 16px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.45);cursor:pointer;animation:qring 3.2s ease-out infinite}
+.qcall svg{width:15px;height:15px}
+@keyframes qring{0%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 0 rgba(242,98,34,.5)}70%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 12px rgba(242,98,34,0)}100%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 0 rgba(242,98,34,0)}}
+.neon{color:#EFFF3D !important;text-shadow:0 0 12px rgba(239,255,61,.45)}
+.crewline{margin-top:9px;font-size:12.5px;color:var(--mut)}
+.crewline b{color:#EFFF3D;text-shadow:0 0 10px rgba(239,255,61,.4)}
+.lgheld{margin-top:10px;font-size:12.5px;color:var(--mut);background:var(--panel);border:1px solid var(--line);border-left:3px solid #EFFF3D;border-radius:0 9px 9px 0;padding:9px 12px;line-height:1.5}
+.lgheld b{color:var(--tx)}
+@media (prefers-reduced-motion: reduce){.pulse,.mg b,.qcall{animation:none}}
 __UICSS__
 </style></head><body><div class="wrap">
 <div class="brand"><div class="logo">coates<b>Equipped for anything</b></div><div class="siteiq">POWERED BY SITEIQ<br><span style="color:#8B9099;font-weight:600;letter-spacing:0">Cement Australia K2 &middot; Gladstone</span></div></div>
@@ -839,6 +898,7 @@ __UICSS__
 <h1 class="mg">MY <b>GEAR</b></h1>
 <div class="mgkick">K2 Digital Tool Store</div>
 <div class="mgsub">Your gear. Your responsibility. One scan.</div>
+__PULSE__
 <div class="cabs">
 <div class="cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4 2.6-2.6z"/></svg><b>Tooling</b></div>
 <div class="cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M10 2h4M13 9l-3 4h4l-3 4"/></svg><b>Battery gear</b></div>
@@ -861,6 +921,7 @@ __SHELF__
 </div>
 <div id="result" class="card"></div>
 </div>
+<div class="qcall" onclick="openGuide('contacts')" role="button" tabindex="0" title="Site contacts - tap to call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>CONTACTS</div>
 __SHEET__
 <script>var DATA=__DATA__;
 
@@ -895,16 +956,16 @@ function go(){
  var rankline;
  if(!p.hasReturns){rankline='Your score starts with your first return &mdash; easy points from your next drop-off'}
  else if(!(st.sameday>0)){rankline=st.returned+' returned so far &mdash; same-day returns are what lift your score'}
- else{rankline='#'+rk.comp+' of '+rk.compTotal+' in your crew &middot; top '+rk.pct+'% on site'}
+ else{rankline='<b class="neon">#'+rk.comp+'</b> of '+rk.compTotal+' in your crew &middot; top '+rk.pct+'% on site'}
  var html='<div class="pcard"><div class="ph"><div class="pavatar">'+esc(p.initials||'K2')+'</div><div class="pmeta"><div class="nm">'+esc(p.name)+'</div><div class="co">'+esc(p.company)+'</div></div><div class="idb">ID '+esc(p.id)+'</div></div>'
  +'<div class="scorewrap">'+ring+'<div class="scoremeta"><div class="scorelab">Returns Score</div><div class="rankline">'+rankline+'</div><div class="rate2"><span class="stars">'+stars(r.stars)+'</span> <b>'+esc(r.label)+'</b></div></div></div>'
  +(badges?'<div class="badges">'+badges+'</div>':'')
  +'<div class="stats">'
- +'<div class="st"><div class="v" data-to="'+st.items+'">0</div><div class="l">Items out</div></div>'
+ +'<div class="st"><div class="v'+(st.items>0?' neon':'')+'" data-to="'+st.items+'">0</div><div class="l">Items out</div></div>'
  +'<div class="st"><div class="v" data-to="'+st.types+'">0</div><div class="l">Item types</div></div>'
  +'<div class="st good"><div class="v" data-to="'+st.returned+'">0</div><div class="l">Returned</div></div>'
- +'<div class="st good"><div class="v" data-to="'+st.sameday+'">0</div><div class="l">Same-day</div></div></div>'
- +(p.cmp?'<h3 class="sec">How you compare</h3><div class="cmp">'+cmpbar('You',p.cmp.you,1)+cmpbar('Your crew',p.cmp.crew,0)+cmpbar('Site avg',p.cmp.site,0)+'</div>':'')
+ +'<div class="st good"><div class="v'+(st.sameday>0?' neon':'')+'" data-to="'+st.sameday+'">0</div><div class="l">Same-day</div></div></div>'
+ +(p.cmp?'<h3 class="sec">How you compare</h3><div class="cmp">'+cmpbar('You',p.cmp.you,1)+cmpbar('Your crew',p.cmp.crew,0)+cmpbar('Site avg',p.cmp.site,0)+(rk.crewPos?'<div class="crewline">'+esc(p.company)+' sits <b>#'+rk.crewPos+'</b> of '+rk.crewOf+' crews on site</div>':'')+'</div>':'')
  +(segs?'<h3 class="sec">Your kit mix</h3><div class="mix">'+segs+'</div><div class="legend">'+legend+'</div>':'')
  +'<div class="story">'+p.story+'</div>'
  +'<h3 class="sec">Your gear on hire now</h3>';
@@ -915,6 +976,10 @@ function go(){
  // it in esc() or the crew see markup instead of the tag colour. Every
  // other field still goes through esc().
  p.items.forEach(function(it,ii){html+='<div class="item" style="animation-delay:'+Math.min(ii*0.05,0.65).toFixed(2)+'s"><span class="idot" style="background:'+(it.c||"#8A97A8")+'"></span><div class="itxt"><div class="d">'+esc(it.d)+'</div><div class="n">Item '+esc(it.n)+(it.pid?'<span class="pid">ID '+esc(it.pid)+'</span>':'')+'</div>'+(it.b?'<div class="cb">'+it.b+'</div>':'')+'</div><div class="age '+ageCls(it.days)+'">'+(it.days==='-'?'—':it.days+'d')+'</div></div>'});
+ // The one item that's been out longest gets its own line - a story,
+ // not a nag. Only shows from 3 days out, so a fresh kit stays clean.
+ var lgh=null;p.items.forEach(function(it){var d=parseInt(it.days);if(!isNaN(d)&&(!lgh||d>lgh.d))lgh={d:d,nm:it.d}});
+ if(lgh&&lgh.d>=3){html+='<div class="lgheld">Longest out: <b>'+esc(lgh.nm)+'</b> &mdash; <span class="neon" style="font-weight:800">'+lgh.d+' days</span>. Finished with it? Straight to the counter and it\'s off your list.</div>'}
  // One plain-English summary of what the whole list obliges them to do -
  // the chips say it per item, this says it once so nothing gets skimmed.
  if(p.comp&&p.comp.any){var cbits=[];

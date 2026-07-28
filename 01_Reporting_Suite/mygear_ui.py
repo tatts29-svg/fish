@@ -789,6 +789,10 @@ function stopScan(){
   }catch(e){}
 })();
 
+/* the site-pulse counters on the front door count up on arrival -
+   go() runs animate() again later for the card's own numbers */
+try{animate()}catch(e){}
+
 
 /* ------------------------------------------------------------------
    REAL BARCODES - Code 39, drawn as SVG, no library, works offline.
