@@ -2882,6 +2882,19 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
     # this machine, fall back to the framed summary body as before.
     r_to, r_cc = recipients.resolve(KIT_DIR, "", report_tag)
     imgs = email_images.capture_report_images(html_path, EMAILS_DIR, stem)
+    #  Pages go in the body only when the whole message will actually
+    #  arrive. DGH's 21-page report built a 17.3 MB draft - over what
+    #  plenty of corporate gateways accept, so it bounces AFTER the send
+    #  button. Too heavy = drop to the PDF-attached form below: same
+    #  report, same recipients, always fits. (28 Jul 2026)
+    if imgs:
+        est_mb = email_images.email_weight_mb(imgs)
+        if est_mb > email_images.MAX_EMAIL_MB:
+            print("  {}: {} pages would make a {:.0f} MB email - over the "
+                  "{:.0f} MB safe-send limit, so the PDF rides the "
+                  "paperclip instead.".format(
+                      title, len(imgs), est_mb, email_images.MAX_EMAIL_MB))
+            imgs = []
     if imgs:
         msg = email_images.build_image_eml(subject, imgs, to=r_to, cc=r_cc)
         email_images.save_eml(msg, eml_path)

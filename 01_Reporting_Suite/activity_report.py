@@ -205,6 +205,49 @@ def note(html):
             "line-height:1.7\">{h}</div>").format(m=MUTED, h=html)
 
 
+def hstack(title, segments):
+    """One thin stacked colour band with its legend - the age or return
+    mix at a glance. segments = [(label, count, colour)]. Zero segments
+    are dropped and an all-zero band never prints. Table-based, inline
+    styles only, so it renders identically in the browser, the PDF print
+    and the email page capture."""
+    live = [(l, v, c) for l, v, c in segments if v]
+    if not live:
+        return ""
+    total = float(sum(v for _l, v, _c in live))
+    tds = "".join(
+        "<td style=\"width:{w:.2f}%;background:{c};height:16px;font-size:0;"
+        "line-height:0\">&nbsp;</td>".format(w=100.0 * v / total, c=c)
+        for _l, v, c in live)
+    legend = " &nbsp;&nbsp; ".join(
+        "<span style=\"color:{c}\">&#9632;</span> "
+        "<b style=\"color:{ik}\">{v}</b> "
+        "<span style=\"color:{m}\">{l}</span>".format(
+            c=c, v=v, l=_esc(l), ik=INK, m=MUTED) for l, v, c in live)
+    return (
+        "<div class=\"keepnext\" style=\"font-size:7.5pt;letter-spacing:2px;"
+        "color:{o};font-weight:800;text-transform:uppercase;"
+        "margin:9px 0 3px\">{t}</div>"
+        "<div class=\"keepnext\" style=\"border-radius:8px;overflow:hidden;"
+        "line-height:0\">"
+        "<table style=\"width:100%;border-collapse:collapse\"><tr>{r}</tr>"
+        "</table></div>"
+        "<div style=\"font-size:8.5pt;margin:4px 0 2px;line-height:1.5\">{lg}"
+        "</div>").format(o=ORANGE, t=_esc(title), r=tds, lg=legend)
+
+
+def story(inner):
+    """The position in one plain paragraph - the highlight colours carry
+    the numbers. Same look as the .intro.story card on the on-hire
+    reports, so the two report families read as one suite. inner is
+    already-built HTML: escape any data values before they go in."""
+    return ("<div class=\"keepnext\" style=\"background:{bg};border-left:"
+            "4px solid {o};border-radius:0 10px 10px 0;padding:10px 16px;"
+            "margin:8px 0 5px;font-size:10pt;color:{tx};line-height:1.65\">"
+            "{h}</div>").format(
+        bg="#FFF3EC" if _LIGHT else "#221A15", o=ORANGE, tx=TEXT, h=inner)
+
+
 # ---------------------------------------------------------------------
 #  LEVEL 1 - the company page
 # ---------------------------------------------------------------------
@@ -233,6 +276,33 @@ def company_page(co, period):
         (a["8-30"], "On hire 8–30 days", AMBER, ""),
         (a["30+"], "On hire 30+ days", BAD if a["30+"] else MUTED, ""),
     ])
+    #  The position in one paragraph - the numbers a manager repeats on
+    #  the phone, wearing the same colours the scorecards gave them.
+    #  Every value is the exact field the cards above show; nothing is
+    #  recomputed here. One .format() on one literal - see the cards()
+    #  comment for why splicing colours with + is banned in this file.
+    if a["30+"]:
+        tail = ("<b style=\"color:{b}\">{n} item{s} out 30+ days</b> "
+                "&mdash; today's chase list.").format(
+            b=BAD, n=a["30+"], s="" if a["30+"] == 1 else "s")
+    elif co["oldest"] >= 5:
+        tail = ("Oldest item out <b style=\"color:{a}\">{d} days</b> "
+                "&mdash; worth a nudge when they're at the counter.").format(
+            a=AMBER, d=co["oldest"])
+    else:
+        tail = ("<b style=\"color:{g}\">Nothing overdue</b> &mdash; the "
+                "book is current.").format(g=GOOD)
+    body += story(
+        "<b>The position:</b> {n} has <b style=\"color:{ik}\">{still} "
+        "item{sp}</b> on hire &mdash; replacement exposure {exp}. This "
+        "period <b style=\"color:{g}\">{ret} returned</b> ({same} same-day) "
+        "and <b style=\"color:{o}\">{iss} went out</b>. {tail}".format(
+            n=_esc(co["display"]), ik=INK, still=c["still"],
+            sp="" if c["still"] == 1 else "s",
+            exp=_repl_hl(co["exposure"]) if co["exposure"] else
+            "<b>TBC</b>", g=GOOD, ret=c["returned"], same=c["same"],
+            o=ORANGE, iss=c["issued"], tail=tail))
+
     #  How the company actually used the tool store. Every item is
     #  scanned on its own, so the item count is items - the visit count is
     #  trips to the counter. (A. Fisher, 25 Jul 2026)
@@ -242,6 +312,20 @@ def company_page(co, period):
         (co.get("visits", 0), "visits to the counter"),
         (co.get("movements", 0), "items handled over the counter"),
     ])
+    #  The same age and return numbers the cards carry, as two thin
+    #  colour bands - the shape of the book at a glance. Both draw from
+    #  the fields already on this page, so the bar and the card can
+    #  never disagree.
+    body += hstack("Age of gear on hire now", [
+        ("on 1–7 days", a["1-7"], GOOD),
+        ("on 8–30 days", a["8-30"], AMBER),
+        ("on 30+ days", a["30+"], BAD),
+    ])
+    if c["returned"]:
+        body += hstack("Returns this period", [
+            ("back same day", c["same"], GOOD),
+            ("back later", max(0, c["returned"] - c["same"]), BLUE),
+        ])
     body += mix_strip(co["mix"], "Equipment mix — on hire now")
 
     # ---- consumables, entirely on their own -------------------------

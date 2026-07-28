@@ -103,11 +103,12 @@ def main():
         return 1
 
     only_today = "--all" not in sys.argv
-    files = []
+    files, emails = [], []
     for root in roots:
         for dirpath, _dirs, names in os.walk(root):
             for n in names:
-                if not n.lower().endswith((".html", ".htm")):
+                low = n.lower()
+                if not low.endswith((".html", ".htm", ".eml")):
                     continue
                 p = os.path.join(dirpath, n)
                 if only_today and today not in p and today not in n:
@@ -115,14 +116,15 @@ def main():
                     #  Reports\<today> tree is already scoped
                     if os.path.join("Reports", today) not in p:
                         continue
-                files.append(p)
+                (emails if low.endswith(".eml") else files).append(p)
 
     if not files:
         print(" No report pages found for {}.".format(today))
         print(" (Add --all to check every report ever built.)")
         return 1
 
-    print(" Checked : {} page(s)".format(len(files)))
+    print(" Checked : {} page(s), {} email draft(s)".format(
+        len(files), len(emails)))
     bad, total = {}, 0
     for p in sorted(files):
         h = scan(p)
@@ -130,11 +132,47 @@ def main():
             bad[p] = h
             total += len(h)
 
-    if not bad:
+    #  An email nobody receives is not a report. The .eml on disk is
+    #  already base64-encoded, so its file size IS its wire size - a
+    #  draft over the limit here bounces at a corporate gateway AFTER
+    #  the send button, which is the worst place to find out. The limit
+    #  is the suite's one number (email_images.MAX_EMAIL_MB). 28 Jul 2026.
+    try:
+        from email_images import MAX_EMAIL_MB
+    except Exception:
+        MAX_EMAIL_MB = 10.0
+    heavy = []
+    for p in sorted(emails):
+        try:
+            mb = os.path.getsize(p) / 1048576.0
+        except OSError:
+            continue
+        if mb > MAX_EMAIL_MB:
+            heavy.append((p, mb))
+
+    if not bad and not heavy:
         print("")
-        print(" PASS - every number on every page came out filled in.")
+        print(" PASS - every number on every page came out filled in, and")
+        print(" every email draft is under the {:.0f} MB safe-send limit."
+              .format(MAX_EMAIL_MB))
         print(" Safe to send.")
         return 0
+
+    if heavy:
+        print("")
+        print(" *** {} EMAIL DRAFT(S) TOO HEAVY TO SEND - a corporate mail"
+              .format(len(heavy)))
+        print(" *** gateway may bounce anything over {:.0f} MB:"
+              .format(MAX_EMAIL_MB))
+        for p, mb in heavy:
+            print("   {:>6.1f} MB  {}".format(mb, os.path.relpath(p, HERE)))
+        print("")
+        print(" Fix: run 36_RUN_EMAILS_ONLY.bat again - reports too big for")
+        print(" the body now go out with the PDF attached instead, which")
+        print(" always fits. If one still shows here after that, send me")
+        print(" this screen.")
+        if not bad:
+            return 1
 
     print("")
     print(" *** {} PROBLEM(S) ON {} PAGE(S) - DO NOT SEND ***"

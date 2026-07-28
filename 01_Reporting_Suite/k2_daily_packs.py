@@ -152,10 +152,15 @@ CEMENT_ATTACHMENTS = [
     "Consumables Usage Report",
 ]
 
-#  An email nobody receives is not a report. Exchange usually stops at
-#  25 MB including encoding overhead, so anything over this is held back
-#  rather than bounced back.
-MAX_EMAIL_MB = 20.0
+#  An email nobody receives is not a report. The limit lives in
+#  email_images.MAX_EMAIL_MB (10 MB - plenty of receiving gateways stop
+#  there, well under Exchange's 25) so the packs, the report emitter and
+#  the checks all hold the same line. The fallback only exists so this
+#  module still imports if email_images is somehow missing.
+try:
+    from email_images import MAX_EMAIL_MB
+except Exception:
+    MAX_EMAIL_MB = 10.0
 
 
 def _txt(v):

@@ -44,6 +44,29 @@ BLANK_BYTES = 60000
 #  report is 22 pages, and an email that stops at 16 looks complete.
 MAX_SLICES = 40
 
+#  The one email-size limit for the whole suite. An email nobody
+#  receives is not a report: Exchange stops around 25 MB, but plenty of
+#  receiving gateways stop at 10 - DGH's 21-page draft came out at
+#  17.3 MB and would have bounced AFTER Andrew pressed send, which is
+#  the worst possible place to find out. Anything estimated over this
+#  goes out as the same email with the PDF on the paperclip instead of
+#  pages in the body - smaller, always arrives, nothing lost.
+#  (28 Jul 2026.) k2_daily_packs reads this too - one number, one rule.
+MAX_EMAIL_MB = 10.0
+
+
+def email_weight_mb(paths):
+    """What the finished email will weigh, in MB: the files' bytes plus
+    the ~37% base64 puts on top. Missing files count zero - the caller
+    is asking 'is this too heavy', not 'does everything exist'."""
+    total = 0
+    for p in paths:
+        try:
+            total += os.path.getsize(p)
+        except OSError:
+            pass
+    return total * 1.37 / 1048576.0
+
 
 def _tmp_dir():
     """Somewhere to put browser profiles. TEMP is a Windows variable -
