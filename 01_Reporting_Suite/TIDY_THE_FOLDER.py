@@ -88,6 +88,13 @@ def main():
     if os.path.isfile(lp):
         with open(lp, encoding="utf-8", errors="replace") as f:
             applied_log = f.read()
+    #  The which-machine button was renumbered 46 -> 53 (46 belongs to
+    #  APPLY UPDATE in daily use). Once 53 is here, the old 46 copy is
+    #  clutter and retires itself.
+    old46 = os.path.join(HERE, "46_WHICH_MACHINE.bat")
+    if (os.path.isfile(old46)
+            and os.path.isfile(os.path.join(HERE, "53_WHICH_MACHINE.bat"))):
+        moved += move(old46, ARCH, "renumbered to 53_WHICH_MACHINE")
     for pat in TO_ARCH_PATTERNS:
         for p in sorted(glob.glob(os.path.join(HERE, pat))):
             if not os.path.isfile(p):

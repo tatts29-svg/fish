@@ -135,51 +135,16 @@ def main():
         print(" No Gear_Lookup folder - run 04_RUN_MY_GEAR.bat first.")
         return 1
 
-    #  Pick the address by ASKING, not by guessing. The old default came
-    #  from "which card doesn't face the internet", which put the wrong
-    #  address on the poster on Andrew's own laptop. A number off a list,
-    #  or the phone's own IP, cannot be wrong. (28 Jul 2026.)
-    ip = ""
     try:
         import net_pick
-        addrs = [a for a, _n, _b in net_pick.candidates()]
-        if addrs:
-            print("")
-            print(" This laptop's addresses:")
-            for i, a in enumerate(addrs, 1):
-                print("   {}  {}".format(i, a))
-            print("")
-            print(" Type the NUMBER of the one to put on the poster.")
-            print(" Not sure which? Put your PHONE on the store Wi-Fi, find")
-            print(" its IP address, and type THAT instead - I'll work out")
-            print(" which of the above it can reach.")
-            print("")
-            pick = ask("Number, or your phone's IP")
-            if pick.isdigit() and 1 <= int(pick) <= len(addrs):
-                ip = addrs[int(pick) - 1]
-            elif pick in addrs:
-                #  he typed one of THIS laptop's own addresses - take it
-                #  at face value rather than treating it as a phone
-                ip = pick
-            elif pick.count(".") == 3:
-                hits = net_pick.match_phone(pick, addrs)
-                if hits:
-                    ip = hits[0]
-                    print(" Phone on {}.x reaches {} - using that."
-                          .format(net_pick.subnet(pick), ip))
-                else:
-                    print(" ! Nothing on this laptop is on {}.x, so a phone"
-                          .format(net_pick.subnet(pick)))
-                    print("   there cannot reach it at all. Put the laptop on")
-                    print("   the same network as the phones first.")
-                    return 1
-            else:
-                ip = pick
+        print("")
+        print(" Addresses this laptop has right now:")
+        for line in net_pick.report():
+            print(line)
+        print("")
     except Exception:
         pass
-    if not ip:
-        ip = ask("Store server address (the one the PHONES can reach)",
-                 lan_ip())
+    ip = ask("Store server address (the one the PHONES can reach)", lan_ip())
     secure = ask("Secure https (needed for phone scanning)? y/n", "y")
     scheme, port = ("https", "8443") if secure.lower().startswith("y") \
         else ("http", "8123")
@@ -188,51 +153,11 @@ def main():
 
     print("")
     print(" My Gear address for the QR : " + url)
-    #  The LEFT code is the join-the-Wi-Fi one. Leave this blank and the
-    #  poster quietly becomes a different poster - two My Gear codes and
-    #  nothing to join the network with. It used to do that in silence.
-    #  (Andrew, 28 Jul 2026: "left barcode is meant to join the WiFi.")
-    print("")
-    print(" The LEFT QR code joins the Wi-Fi. That is the network the")
-    print(" CREWS join - the same one your phone is on, not the corporate")
-    print(" site Wi-Fi.")
-    #  Don't make him TYPE it. His store has 'Tool Store' AND 'Tool Store
-    #  2' in the list, and one character between them is the difference
-    #  between a QR that joins the crews to the server and one that joins
-    #  them to nothing. The laptop is already on the right network - it is
-    #  serving the page - so ask Windows and offer that.
-    #  (Andrew, 28 Jul 2026: "I have a dual router.")
-    here = ""
-    try:
-        import net_pick
-        here = net_pick.wifi_ssid()
-    except Exception:
-        here = ""
-    if here:
-        print("")
-        print(" This laptop is on Wi-Fi  : {}".format(here))
-        print(" That is the network serving the page, so it is almost")
-        print(" certainly the one to put on the poster. Press Enter to take")
-        print(" it, or type a different name.")
-    wifi_ssid = ask("Wi-Fi name (exactly as it appears on the phone)", here)
+    wifi_ssid = ask("Wi-Fi name for the join QR (blank = leave that QR alone)")
     wifi = None
-    pw = ""
     if wifi_ssid:
         pw = ask("Wi-Fi password")
-        if not pw:
-            print(" ! No password given. The QR will offer an OPEN network")
-            print("   and will not join a secured one.")
         wifi = "WIFI:T:WPA;S:{};P:{};;".format(wifi_ssid, pw)
-    else:
-        print("")
-        print(" ** NO WI-FI NAME GIVEN **")
-        print(" The poster will have NO join-the-network code - both codes")
-        print(" will point at My Gear instead. That is probably not what")
-        print(" you want.")
-        if ask("Carry on anyway? y/n", "n").lower() != "y":
-            print(" Stopped. Nothing was changed. Get the Wi-Fi name and")
-            print(" password and run me again.")
-            return 1
 
     os.makedirs(BK, exist_ok=True)
     #  BUILT, not patched (Andrew, 27 Jul 2026 - "looks very boring very
@@ -247,23 +172,18 @@ def main():
     done = 0
     for name, html in [
             ("MyGear_A3_Poster.html",
-             build_posters.poster_html(url, wifi, wifi_ssid, wifi_pw=pw)),
+             build_posters.poster_html(url, wifi, wifi_ssid)),
             ("MyGear_A3_Poster_BW.html",
-             build_posters.poster_html(url, wifi, wifi_ssid, mono=True,
-                                       wifi_pw=pw)),
+             build_posters.poster_html(url, wifi, wifi_ssid, mono=True)),
             ("QR_Window_Poster.html", build_posters.window_html(url)),
             ("QR_Window_Poster_BW.html",
              build_posters.window_html(url, mono=True)),
             #  The process sheet lives with the posters so it can never
-            #  quote an address the store has moved away from - and it
-            #  carries the Wi-Fi name and password so the counter can
-            #  answer "what's the Wi-Fi" without going hunting.
+            #  quote an address the store has moved away from.
             ("MyGear_How_It_Works.html",
-             build_posters.process_html(url, wifi_name=wifi_ssid,
-                                        wifi_pw=pw)),
+             build_posters.process_html(url)),
             ("MyGear_How_It_Works_BW.html",
-             build_posters.process_html(url, mono=True, wifi_name=wifi_ssid,
-                                        wifi_pw=pw))]:
+             build_posters.process_html(url, mono=True))]:
         path = os.path.join(GEAR, name)
         if os.path.isfile(path):
             shutil.copy2(path, os.path.join(BK, name))

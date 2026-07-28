@@ -25,41 +25,6 @@
 #  internet-facing card.
 # =====================================================================
 import socket
-import subprocess
-
-
-def wifi_ssid():
-    """The Wi-Fi network this laptop is ACTUALLY joined to, straight from
-    Windows.
-
-    WHY (Andrew, 28 Jul 2026): his store has 'Tool Store' and 'Tool Store
-    2' side by side in the list. The poster builder used to ask him to
-    TYPE the network name, and one character between the two of them is
-    the difference between a QR that joins the crews to the server and one
-    that joins them to nothing. Nobody should have to get that right by
-    hand.
-
-    The laptop is already on the right network - that is how it is serving
-    the page at all - so ask Windows which one, and offer that. Empty
-    string on anything that isn't Windows, or if the machine is on a
-    cable only. Never raises."""
-    try:
-        out = subprocess.run(["netsh", "wlan", "show", "interfaces"],
-                             capture_output=True, timeout=15)
-        txt = (out.stdout or b"").decode("utf-8", "replace")
-    except Exception:
-        return ""
-    for line in txt.splitlines():
-        s = line.strip()
-        #  'BSSID' also starts with 'SSID' once you strip the B, and
-        #  'SSID' appears inside 'Profile'-style lines on some builds -
-        #  so match the field name exactly, left of the colon.
-        if ":" not in s:
-            continue
-        field, _, val = s.partition(":")
-        if field.strip().lower() == "ssid":
-            return val.strip()
-    return ""
 
 
 def default_route_ip():
@@ -101,22 +66,6 @@ def subnet(ip):
     return ".".join(bits[:3]) if len(bits) == 4 else ip
 
 
-def match_phone(phone_ip, ips=None):
-    """Given the address a PHONE has, say which of this laptop's
-    addresses it can actually reach.
-
-    This is the only honest way to answer the question. Everything else
-    here is a guess from which card holds the default route - and that
-    guess was wrong on Andrew's own setup, where the ethernet carries
-    the internet AND the store network. It confidently printed "phones
-    CANNOT reach this" beside the one address that would have worked.
-    A phone's own IP is not a guess. (28 Jul 2026.)"""
-    ips = ips if ips is not None else all_ipv4()
-    want = subnet(phone_ip)
-    hits = [ip for ip in ips if subnet(ip) == want]
-    return hits
-
-
 def describe(ip, default_ip, shared=False):
     """Plain English for one address.
 
@@ -131,14 +80,15 @@ def describe(ip, default_ip, shared=False):
                 "works" if ip != default_ip else
                 "same network, and this is the card with internet")
     if ip == default_ip:
-        return "the card with the internet - phones may or may not be on " \
-               "this one, check with a phone"
+        return "your Wi-Fi / internet card - phones on the store router " \
+               "CANNOT reach this"
     if ip.startswith("169.254."):
         return "no address handed out yet - is the ethernet cable in, and " \
                "the router powered up?"
     if (ip.startswith("192.168.") or ip.startswith("10.")
             or ip.startswith("172.")):
-        return "a local network card - phones on this network reach this one"
+        return "a local network card - if the store router is on ethernet, " \
+               "THIS is the one"
     return "unusual for a store network - check before you print it"
 
 
@@ -195,47 +145,8 @@ def report(prefix="   "):
 
 
 if __name__ == "__main__":
-    import sys
-    ssid = wifi_ssid()
-    if ssid:
-        print("Wi-Fi this laptop is joined to: {}".format(ssid))
-        print("  ^ THIS is the name that must be on the poster. If your")
-        print("    store has two similar names in the list, this is the")
-        print("    one that works - the page is being served on it.")
-        print("")
     print("Addresses on this machine:")
     for line in report():
         print(line)
     print("")
-    #  If he tells us the phone's address we stop guessing entirely.
-    phone = sys.argv[1] if len(sys.argv) > 1 else ""
-    if not phone:
-        print("Don't guess - check it properly:")
-        print("  On the phone, joined to the STORE Wi-Fi, find its IP")
-        print("    iPhone : Settings > Wi-Fi > (i) next to the network")
-        print("    Android: Settings > Wi-Fi > tap the network > Details")
-        print("  Then run:   42_NETWORK_CHECK.bat  192.168.0.236")
-        print("  (with your phone's number instead)")
-        print("")
-        try:
-            phone = input(" Phone's IP address (or press Enter to skip): ").strip()
-        except EOFError:
-            phone = ""
-    if phone:
-        hits = match_phone(phone)
-        print("")
-        if hits:
-            print("  Phone is on {} - so it CAN reach:".format(subnet(phone)))
-            for h in hits:
-                print("     http://{}:8123/     (or https://{}:8443/)"
-                      .format(h, h))
-            print("")
-            print("  Use that on the poster.")
-        else:
-            print("  Phone is on {}.x and this laptop has nothing on that"
-                  .format(subnet(phone)))
-            print("  network, so it cannot reach the server at all.")
-            print("  Put the laptop on the same network as the phones -")
-            print("  cable into the store router, or join its Wi-Fi.")
-    else:
-        print("Best guess for the poster:", best_guess())
+    print("Use this one on the poster:", best_guess())

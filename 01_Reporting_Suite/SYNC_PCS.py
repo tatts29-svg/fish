@@ -45,7 +45,10 @@ BK = os.path.join(HERE, "Updates", "sync_backups")
 CODE_EXT = (".py", ".bat", ".ps1")
 
 #  Never sync these - they are this machine's own business.
-CODE_SKIP = {"SYNC_FOLDER.txt", "NO_OUTLOOK.txt"}
+#  MACHINE.txt especially: it is the file that says WHICH laptop this
+#  is. Copy it across and both machines claim the same name, which is
+#  worse than having no name at all. (28 Jul 2026.)
+CODE_SKIP = {"SYNC_FOLDER.txt", "NO_OUTLOOK.txt", "MACHINE.txt"}
 
 #  The files that hold your work. Compared and reported, never
 #  overwritten without you saying so.

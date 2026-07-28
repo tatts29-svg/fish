@@ -67,10 +67,31 @@ def read_manifest(path):
     return got
 
 
+def machine_name():
+    """What this laptop is called - 'Andrews Laptop' or 'Work Laptop'.
+    Set once by 53_WHICH_MACHINE.bat. This is the file Andrew sends up
+    most often, so it should say which machine it came from without
+    anyone having to remember. (28 Jul 2026.)"""
+    try:
+        with open(os.path.join(HERE, "MACHINE.txt"), encoding="utf-8") as f:
+            for line in f:
+                if line.lower().startswith("machine"):
+                    return line.split(":", 1)[1].strip()
+    except Exception:
+        pass
+    return ""
+
+
 def main():
     print("=" * 70)
     print(" COATES | WHAT VERSION AM I")
     print("=" * 70)
+    who = machine_name()
+    if who:
+        print(" Machine: {}".format(who))
+    else:
+        print(" Machine: not named yet - run 53_WHICH_MACHINE.bat once")
+    print("-" * 70)
     mine = scan()
     theirs = read_manifest(MASTER) if os.path.isfile(MASTER) else {}
 
@@ -95,6 +116,11 @@ def main():
     with open(OUT, "w", encoding="utf-8") as f:
         f.write("# Coates K2 suite version - {} files - overall {}\n"
                 .format(len(mine), overall))
+        #  Name the machine INSIDE the file, not just on screen. This is
+        #  the file that gets uploaded, and a version list with no name
+        #  on it is the reason we kept having to ask which laptop it came
+        #  from. (Andrew, 28 Jul 2026.)
+        f.write("# MACHINE: {}\n".format(who or "not named - run 46_"))
         f.write("# {}\n".format(HERE))
         f.write("# taken {}\n".format(time.strftime("%Y-%m-%d %H:%M:%S")))
         for k, v in sorted(mine.items()):

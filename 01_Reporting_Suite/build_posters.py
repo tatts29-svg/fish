@@ -187,7 +187,7 @@ def _shell(title, css, mono, body):
             "</style></head><body>" + body + "</body></html>")
 
 
-def poster_html(url, wifi=None, wifi_name="", mono=False, wifi_pw=""):
+def poster_html(url, wifi=None, wifi_name="", mono=False):
     cabs = "".join(
         "<div class='cab'>{}<b>{}</b></div>".format(_icon(p), n)
         for n, p in CABS)
@@ -205,26 +205,11 @@ def poster_html(url, wifi=None, wifi_name="", mono=False, wifi_pw=""):
 
     cards = ""
     if wifi:
-        #  Print the network name AND password in plain words under the
-        #  code. An old phone with a camera that won't read a Wi-Fi QR
-        #  otherwise has nothing to go on, and the QR is that password in
-        #  cleartext anyway - so writing it costs nothing and saves a trip
-        #  to the counter. (28 Jul 2026.)
-        under = wifi_name or "store network"
-        if wifi_name and wifi_pw:
-            under = "{} &middot; password {}".format(wifi_name, wifi_pw)
         cards += qcard(1, "Join the store Wi-Fi",
                        "Point your camera here &mdash; tap join",
-                       wifi, under)
-        #  A "not secure" warning only happens on https with a
-        #  self-made certificate. Warn about it when it will actually
-        #  appear, and say nothing when it won't - a warning about a
-        #  warning that never comes just makes people nervous.
-        #  (Andrew, 28 Jul 2026: "that will scare people away.")
-        hint2 = ("Then scan this one &mdash; tap through the &quot;not "
-                 "secure&quot; warning, it is expected"
-                 if url.lower().startswith("https") else "Then scan this one")
-        cards += qcard(2, "Open My Gear", hint2, url, url)
+                       wifi, wifi_name or "store network")
+        cards += qcard(2, "Open My Gear",
+                       "Then scan this one", url, url)
     else:
         cards += qcard(1, "Open My Gear",
                        "Point your camera here", url, url)
@@ -324,11 +309,6 @@ PROCESS_STEPS_CREW = [
 ]
 
 FIXES = [
-    ("It says not secure / not private",
-     "Normal, and safe. The page is served by the tool store laptop, not "
-     "from the internet, so the certificate is one it made itself. Tap "
-     "through - iPhone: Show Details then visit this website. Android: "
-     "Advanced then Proceed."),
     ("Page won't open",
      "The store server isn't running. Ask the tool store to start it."),
     ("Camera won't scan my card",
@@ -344,42 +324,13 @@ FIXES = [
 ]
 
 
-def process_html(url, mono=False, store="the Coates tool store",
-                 wifi_name="", wifi_pw=""):
-    secure = url.lower().startswith("https")
-    store_steps = list(PROCESS_STEPS_STORE)
-    crew_steps = list(PROCESS_STEPS_CREW)
-    fixes = list(FIXES)
-    #  The counter gets asked "what's the Wi-Fi?" all day. Put the answer
-    #  on the sheet the counter is already holding. (28 Jul 2026.)
-    if wifi_name:
-        crew_steps[0] = (
-            "Join the store Wi-Fi",
-            "scan QR 1 on the poster, tap join &mdash; or join <b>{}</b> by "
-            "hand{}".format(
-                wifi_name,
-                ", password <b>{}</b>".format(wifi_pw) if wifi_pw else ""))
-    if not secure:
-        #  plain http: no certificate warning to explain, and the phone
-        #  will not offer the camera scan - so the sheet must not promise
-        #  a button that is not there.
-        fixes = [f for f in fixes
-                 if "not secure" not in f[0].lower()
-                 and "camera" not in f[0].lower()]
-        fixes.insert(0, ("Where do I type my number",
-                         "Straight on the page when it opens. Your hire ID "
-                         "is the number on your Coates card."))
-        store_steps[2] = ("Serve it", "run <code>05_START_GEAR_LOOKUP.bat</code> "
-                          "and <b>leave that window open</b> - close it and "
-                          "the QR codes stop working")
-        crew_steps[2] = ("Put your ID in", "type your hire ID - the number on "
-                         "your Coates card")
+def process_html(url, mono=False, store="the Coates tool store"):
     def steps(items):
         return "<ol>" + "".join(
             "<li><b>{}</b> &mdash; {}</li>".format(a, b) for a, b in items) \
             + "</ol>"
-    fixes_html = "".join("<tr><td>{}</td><td>{}</td></tr>".format(a, b)
-                         for a, b in fixes)
+    fixes = "".join("<tr><td>{}</td><td>{}</td></tr>".format(a, b)
+                    for a, b in FIXES)
     return _shell("My Gear - How It Works", CSS + PROC_CSS, mono,
             "<div class='frame'>"
             "<div class='top'><div class='logo'>coates"
@@ -391,10 +342,10 @@ def process_html(url, mono=False, store="the Coates tool store",
             "<div class='cols'>"
             "<div class='col'><h3>Every morning</h3>"
             "<div class='who'>Tool store &mdash; about 15 minutes</div>"
-            + steps(store_steps) + "</div>"
+            + steps(PROCESS_STEPS_STORE) + "</div>"
             "<div class='col'><h3>Getting your list</h3>"
             "<div class='who'>Anyone on site &mdash; about 30 seconds</div>"
-            + steps(crew_steps) + "</div>"
+            + steps(PROCESS_STEPS_CREW) + "</div>"
             "</div>"
             "<div class='when'><h4>Updated once a day</h4>"
             "<p>The list is built <b>about 7:00 AM</b> from that morning's "
@@ -403,7 +354,7 @@ def process_html(url, mono=False, store="the Coates tool store",
             "live feed &mdash; if it looks wrong, check the time before you "
             "chase it.</p></div>"
             "<div class='fix'><h4>If something looks wrong</h4>"
-            "<table>" + fixes_html + "</table></div>"
+            "<table>" + fixes + "</table></div>"
             "<div class='foot'>" + url + " &middot; <b>" + store +
             "</b> &middot; Author: Andrew Fisher</div>"
             "</div>")
@@ -424,17 +375,9 @@ def window_html(url, mono=False):
             "<div class='qbox'><i class='c1'></i><i class='c2'></i>"
             "<i class='c3'></i><i class='c4'></i>"
             + qr_lite.qr_svg(url, px=330, dark=dark) + "</div></div>"
-            + ("<div class='note' style='margin-top:9mm;font-size:13pt'>"
-               "Scan with your phone camera &middot; enter or "
-               "<b>scan your ID</b> &middot; your gear appears</div>"
-               "<div class='note' style='margin-top:4mm;font-size:10.5pt'>"
-               "A <b>&quot;not secure&quot;</b> warning is normal &mdash; the "
-               "page comes from the tool store laptop, not the internet. "
-               "Tap through it.</div>"
-               if url.lower().startswith("https") else
-               "<div class='note' style='margin-top:9mm;font-size:13pt'>"
-               "Scan with your phone camera &middot; type your "
-               "<b>hire ID</b> &middot; your gear appears</div>")
-            + "<div class='foot'>" + url + " &middot; <b>Updated once a day, "
+            "<div class='note' style='margin-top:9mm;font-size:13pt'>"
+            "Scan with your phone camera &middot; enter or "
+            "<b>scan your ID</b> &middot; your gear appears</div>"
+            "<div class='foot'>" + url + " &middot; <b>Updated once a day, "
             "about 7:00 AM</b> &middot; Author: Andrew Fisher</div>"
             "</div>")
