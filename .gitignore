@@ -1,0 +1,10 @@
+# The delivery zip is built from the files in this repo, so it is not
+# committed - a checked-in copy would silently go stale the moment
+# FIX_THIS_MACHINE.py changed. Rebuild it with:
+#
+#   python3 -c "import zipfile; z=zipfile.ZipFile('FIX_THIS_MACHINE.zip','w',zipfile.ZIP_DEFLATED); [z.write(n,n) for n in ('FIX_THIS_MACHINE.bat','FIX_THIS_MACHINE.py','README.txt')]; z.close()"
+#
+FIX_THIS_MACHINE.zip
+
+__pycache__/
+*.pyc
