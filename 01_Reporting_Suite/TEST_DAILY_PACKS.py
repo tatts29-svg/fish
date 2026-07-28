@@ -246,6 +246,16 @@ def verify_packs(root, wbk, date_tag):
             glob.glob(os.path.join(folder, "Executive Daily Summary*.html"))
 
         if not os.path.isfile(eml):
+            held = glob.glob(os.path.join(
+                folder, "HOLD - Email Draft - {}*".format(date_tag)))
+            if held:
+                #  A held draft is the guard WORKING, not a draft gone
+                #  missing - the record names exactly which check failed
+                #  (e.g. an attachment not built yet). Held is never
+                #  counted as "no draft".
+                check("{}: draft held, record names the reason".format(co),
+                      os.path.isfile(rec), "held, record on file")
+                continue
             #  no draft is only correct when there is no report either
             check("{}: no draft AND no report (nothing on hire)".format(co),
                   not body, "folder and record only")
@@ -279,9 +289,15 @@ def verify_packs(root, wbk, date_tag):
                   "missing " + ", ".join(sorted(fixed - set(got["cc"])))
                   if not fixed.issubset(set(got["cc"])) else "all four")
             names = [n for n, _d in got["attachments"]]
-            check("{}: the safety PDF is the attachment".format(co),
-                  len(names) == 1
-                  and names[0].startswith("Daily Safety & Compliance Report"),
+            #  The company email model (Andrew, 28 Jul 2026): the story
+            #  in the body, and on the paperclip exactly two things -
+            #  their own full report as ONE PDF, plus the safety PDF.
+            check("{}: report PDF + safety PDF are the attachments"
+                  .format(co),
+                  len(names) == 2
+                  and any(n.startswith("Daily Safety & Compliance Report")
+                          for n in names)
+                  and any("On-Hire Report" in n for n in names),
                   "; ".join(names))
         else:
             want = ["Daily Safety & Compliance Report",
@@ -289,9 +305,15 @@ def verify_packs(root, wbk, date_tag):
                     "Cement Australia On-Hire Report",
                     "Consumables Usage Report"]
             names = [n for n, _d in got["attachments"]]
+            #  When the exec-summary body is too heavy to paste as
+            #  pages (the 10 MB safe-send rule), the builder rightly
+            #  attaches it as a sixth PDF - allowed, and only that.
+            extras = [n for n in names
+                      if not any(n.startswith(w) for w in want)]
             check("{}: all five client attachments present".format(co),
-                  len(names) == 5
-                  and all(any(n.startswith(w) for n in names) for w in want),
+                  all(any(n.startswith(w) for n in names) for w in want)
+                  and all(n.startswith("Executive Daily Summary")
+                          for n in extras),
                   "{} attached".format(len(names)))
 
         #  every attachment matches the file filed beside it, byte for byte
@@ -793,6 +815,15 @@ def quiet_failures(date_tag, book):
             reports = _mirror_reports(date_tag, tmp)
             emails = os.path.join(reports, date_tag, "Emails")
             stem = "Coates_K2_Activity_DGH_ENGINEERING_{}".format(date_tag)
+            if not glob.glob(os.path.join(emails, stem + "_Email*.png")):
+                #  Company emails carry the report as ONE attached PDF
+                #  now (Andrew, 28 Jul 2026) - there are no page images
+                #  to go missing, so this failure cannot exist for them.
+                #  Scenario 8 above proves the PDF path instead.
+                print("   (skipped: {} - company emails are story + PDF "
+                      "now, no page images exist to lose)".format(label))
+                shutil.rmtree(tmp, ignore_errors=True)
+                continue
             wreck(emails, stem)
             root = os.path.join(tmp, "OUT")
             run_builder(["--date", date_tag, "--root", root, "--book", book,

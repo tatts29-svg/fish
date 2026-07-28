@@ -1,0 +1,595 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>Coates On-Hire Report - Veolia</title><style>
+  /* Layout v2 - 24 Jul 2026: bigger type, lifted greys, roomier tiles and
+     tables across EVERY report in the suite - same design, much clearer.
+     Story cards (.intro) lead each report; scorecard tiles carry the
+     figures; tables carry the detail. */
+  * { box-sizing: border-box; margin: 0; padding: 0;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #0E1116; }
+  body { font-family: Calibri, 'Segoe UI', Arial, sans-serif; color: #E6E9EE;
+         font-size: 11pt; line-height: 1.5; }
+  .page { max-width: 200mm; margin: 0 auto; padding: 6mm 5mm; background: #0E1116; }
+  .band { background: #171B22; color: #fff; padding: 16px 20px;
+          border-bottom: 3px solid #F26222; border-radius: 12px 12px 0 0; }
+  .band .kicker { color: #F26222; font-weight: bold; letter-spacing: 2px;
+                  font-size: 9pt; text-transform: uppercase; }
+  .band h1 { font-size: 20pt; margin: 2px 0 1px 0; color: #fff; }
+  .band .sub { color: #c9cfd8; font-size: 10.5pt; }
+  .band .meta { color: #A9B1BD; font-size: 9pt; margin-top: 6px; }
+  .band .meta b { color: #fff; }
+  .siteiq { float: right; text-align: right; color: #fff; font-weight: bold;
+            font-size: 9pt; letter-spacing: 1px; padding-top: 4px; }
+  .siteiq .o { color: #F26222; }
+  h2 { font-size: 13pt; color: #fff; border-bottom: 2px solid #2A313C;
+       padding-bottom: 4px; margin: 20px 0 10px 0; }
+  table.tiles { width: 100%; border-collapse: separate; border-spacing: 8px 0;
+                table-layout: fixed; margin-top: 12px; }
+  table.tiles td { background: #171B22; color: #fff; text-align: center;
+                   padding: 14px 6px; border-radius: 10px; border: 1px solid #2A313C;
+                   border-top: 3px solid #F26222; }
+  /* Status tints (the look Andrew picked, 28 Jul 2026): a tile only
+     wears colour when its number IS a judgement - red action, amber
+     watch, green healthy. Plain facts stay plain; the old cycle of
+     colours-by-position was decoration and is gone. */
+  table.tiles td.tg { background:#12271A; border-color:#3FB950; border-top:3px solid #3FB950; }
+  table.tiles td.tg .v { color:#3FB950; }
+  table.tiles td.ta { background:#2A2210; border-color:#fab219; border-top:3px solid #fab219; }
+  table.tiles td.ta .v { color:#fab219; }
+  table.tiles td.tr { background:#2A1512; border-color:#F85149; border-top:3px solid #F85149; }
+  table.tiles td.tr .v { color:#F85149; }
+  table.tiles .v { font-size: 17pt; font-weight: bold; display: block; color: #fff; }
+  .hb { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+  .hb .hl { width: 225px; color: #A9B1BD; font-size: 12px; }
+  .hb .ht { flex: 1; background: #20262e; border-radius: 6px; overflow: hidden; }
+  .hb .hf { height: 13px; border-radius: 6px;
+            background: linear-gradient(90deg, #F26222, #EFFF3D); }
+  .hb .hv { width: 120px; text-align: right; color: #fff; font-size: 12px; font-weight: 600; }
+  table.tiles .l { font-size: 8.5pt; color: #A9B1BD; text-transform: uppercase;
+                   letter-spacing: 0.5px; display: block; margin-top: 4px; }
+  table.data { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  table.data th { background: #20262F; color: #fff; text-align: left;
+                  padding: 7px 8px; font-size: 9pt; text-transform: uppercase;
+                  letter-spacing: 0.4px; }
+  table.data td { padding: 7px 8px; border-bottom: 1px solid #232A34;
+                  font-size: 10.5pt; vertical-align: top; color: #D7DBE2; }
+  table.data tr:nth-child(even) td { background: #141922; }
+  /* .num is applied by _tbl to every column after the first, whatever it
+     holds - so a long description or header in one of those columns used
+     to be unbreakable and pushed the last column clean off the sheet
+     (Exec Summary, RightSize, Consumables and the all-companies summary
+     all lost a column that way). Numbers and money have no spaces in
+     them, so they still never break; only long text does, and only when
+     the column is squeezed - which beats being invisible.
+     (A. Fisher, 25 Jul 2026) */
+  table.data .num { text-align: right; white-space: normal; }
+  table.data th { white-space: normal; }
+  table.aging { border-collapse: collapse; margin-top: 4px; }
+  table.aging td, table.aging th { border: 1px solid #2A313C; padding: 8px 16px;
+                                   text-align: center; font-size: 10.5pt; color: #D7DBE2; }
+  table.aging th { background: #20262F; font-size: 9pt;
+                   text-transform: uppercase; color: #fff; }
+  .g { background: #14301b; color: #cfe8d4; } .a { background: #33280c; color: #f3e2b0; }
+  .r { background: #3a1a17; color: #f3c4bb; }
+  .note { font-size: 9.5pt; color: #A9B1BD; margin-top: 8px; line-height: 1.5; }
+  .intro { background: #171B22; border-left: 4px solid #F26222;
+           padding: 14px 18px; margin-top: 14px; font-size: 11pt; color: #D7DBE2;
+           line-height: 1.65; border-radius: 0 10px 10px 0; }
+  .intro b { color: #fff; }
+  /* Story emphasis (26 Jul 2026): the bold words and numbers inside a
+     story card carry the colour - the eye lands on the numbers first,
+     which is the whole point of a story card. */
+  .limits { font-size: 8.5pt; color: #A9B1BD; border-top: 1px solid #2A313C;
+            margin-top: 16px; padding-top: 7px; line-height: 1.5; }
+  /* Replacement money wears the highlighter - Andrew's rule (26 Jul 2026):
+     when a replacement cost is on a page, you SEE it. Dark ink on neon
+     reads on white pages, dark pages and email screenshots alike. */
+  /* No white-space:nowrap here - money has no spaces so it never breaks
+     internally, and nowrap was pushing the cost column clean off the
+     sheet on busy tables (the exact bug the .num note above records).
+     Found again 26 Jul 2026 by the overflow sweep. */
+  .repl { background: #EFFF3D; color: #101317; font-weight: 800;
+          padding: 0 5px; border-radius: 4px; }
+  .footer { background: #171B22; color: #c9cfd8; padding: 14px 20px;
+            margin-top: 18px; font-size: 9pt; border-top: 3px solid #F26222;
+            border-radius: 0 0 12px 12px; }
+  .footer .values { color: #F26222; font-weight: bold; margin-top: 6px; }
+  .footer .auth { color: #fff; margin-top: 6px; }
+  @page { size: A4 portrait; margin: 11mm 10mm; }
+  @media print {
+    .page { max-width: none; padding: 4mm 3mm; }
+    table.data thead { display: table-header-group; }
+    table.data tr { page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+  }
+
+#stage{display:none}
+.psheet{width:794px;height:1123px;overflow:hidden;margin:0 auto;padding:34px;background:#fff}
+.psheet + .psheet{page-break-before:always}
+.ppanel{background:#0E1116;box-sizing:border-box;border:6px solid #F26222;border-top:9px solid #F26222;border-radius:18px;padding:20px 26px 16px;height:1055px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.pcontent{flex:1 1 auto;min-height:0;overflow:hidden}
+.prule{height:2px;background:linear-gradient(90deg,#F26222,#EFFF3D,transparent);margin:12px 0 4px;flex:none}
+.band{flex:none;border-bottom:0}
+.bandc{display:flex;justify-content:space-between;align-items:flex-start;flex:none;padding:2px 2px 0}
+.bandc .k{color:#F26222;font-weight:bold;letter-spacing:2px;font-size:9pt;text-transform:uppercase}
+.bandc h1{font-size:14pt;color:#fff;margin:3px 0 0;border:0;padding:0}
+.bandc .m{text-align:right;color:#A9B1BD;font-size:8.5pt;line-height:1.7;text-transform:uppercase}
+.bandc .m .siq{color:#F26222;font-weight:800;letter-spacing:1px;font-size:9pt}
+.bandc .m b{color:#fff}
+.pcontent > h2:first-child{margin-top:8px}
+.pcontent .footer{margin-top:14px}
+.pteam{flex:none;border-top:1px solid #2A313C;margin-top:8px;padding-top:7px}
+.pteam .tl{color:#F26222;font-size:7pt;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.pteam .tn{color:#A9B1BD;font-size:7.5pt;line-height:1.55;margin-top:2px}
+.pteam .tn b{color:#E6E9EE}
+@media print{body{background:#fff}.psheet{margin:0}}
+@page{size:A4;margin:0}
+
+html,body{background:#fff}
+body{color:#20242B}
+.page{background:#fff}
+.ppanel{background:#fff}
+.bandc h1{color:#14181F}
+.bandc .m{color:#6B7380}
+.bandc .m b{color:#14181F}
+h2{color:#14181F;background:#F6F7F9;border:1px solid #E3E6EB;
+   border-left:5px solid #F26222;border-radius:9px;padding:7px 12px;
+   margin:18px 0 10px}
+table.tiles td{background:#F9FAFB;color:#14181F;border:1px solid #E3E6EB}
+table.tiles .v{color:#14181F}
+table.tiles .l{color:#5B6472}
+table.tiles td.tg{background:#E8F6EC;border:1px solid #3FB950}
+table.tiles td.tg .v{color:#0C6B2D}
+table.tiles td.ta{background:#FFF4D6;border:1px solid #F2B01E}
+table.tiles td.ta .v{color:#7A5A00}
+table.tiles td.tr{background:#FBE3DF;border:1px solid #F85149}
+table.tiles td.tr .v{color:#A02A16}
+table.data td{color:#262C35;border-bottom:1px solid #E7EAEF;background:#fff}
+table.data tr:nth-child(even) td{background:#F6F8FA}
+table.aging td{color:#262C35;border:1px solid #DFE3E9;background:#fff}
+table.aging th{border:1px solid #14181F}
+.g{background:#DCF3E3;color:#0C6B2D}
+.a{background:#FFF0C2;color:#7A5A00}
+.r{background:#FBDDD7;color:#A02A16}
+.note,.limits{color:#5B6472}
+.limits{border-top:1px solid #E3E6EB}
+.intro{background:#FFF3EC;color:#33393F}
+.intro b{color:#E04E00}
+.hb .hl{color:#5B6472}
+.hb .ht{background:#EDF0F4}
+.hb .hv{color:#14181F}
+.pteam{border-top:1px solid #E3E6EB}
+.pteam .tn{color:#5B6472}
+.pteam .tn b{color:#20242B}
+</style><style>html,body{background:#0E1116 !important}.psheet{padding:0 !important;background:#ffffff !important;height:1123px !important}.ppanel{height:100% !important;border-radius:0 !important;border-top:0 !important;border-bottom:0 !important}.psheet:first-of-type .ppanel{border-top:9px solid #F26222 !important;border-radius:18px 18px 0 0 !important}.psheet:last-of-type .ppanel{border-bottom:6px solid #F26222 !important;border-radius:0 0 18px 18px !important}</style></head><body><div id='stage'><div class="intro story">Right now there are <b>74 items</b> out with the K2 tool store in Veolia's name, across <b>28 people</b>, covering 99 item types. The oldest item has been out <b>6 days</b> - the chase list below runs oldest first. If everything on this list went missing today, the replacement cost would be <span class='repl'>$14,878.16</span> - that's the only dollar figure on this report.</div><div class="intro">Coates is on site to keep your crew equipped - this report is how we help you keep control of it. One ask that saves everyone money: <b>when gear is finished with, bring it back</b>. Returned gear is double-scanned off your record, checked and maintained, and ready for the next crew - that is Best Service &amp; Value working for you.</div><table style='width:100%;border-collapse:separate;border-spacing:8px 0;table-layout:fixed;margin-top:10px'><tr><td style='background:#171B22;border:1px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center;vertical-align:top'><div><svg width='22' height='22' viewBox='0 0 24 24' style='vertical-align:middle'><path d='M12 2l9 4.5v11L12 22l-9-4.5v-11zm0 2.2L5.7 7 12 9.8 18.3 7zM5 8.6v7l6 3v-7zm14 0l-6 3v7l6-3z' fill='#F26222' fill-rule='evenodd'/></svg></div><div style='font-size:17pt;font-weight:800;color:#fff;margin-top:2px'>74</div><div style='font-size:7.5pt;color:#8B9099;text-transform:uppercase;letter-spacing:.5px;margin-top:2px'>Items on hire now</div><div style='margin-top:3px'></div></td><td style='background:#171B22;border:1px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center;vertical-align:top'><div><svg width='22' height='22' viewBox='0 0 24 24' style='vertical-align:middle'><path d='M9 11a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 9 11zm7 1a3 3 0 1 0-3-3 3 3 0 0 0 3 3zM2.5 19c0-2.8 3.6-4.2 6.5-4.2s6.5 1.4 6.5 4.2V20h-13zm14.6 1H21v-.8c0-1.9-2-3.2-4.2-3.6a5.6 5.6 0 0 1 .3 4.4z' fill='#F26222' fill-rule='evenodd'/></svg></div><div style='font-size:17pt;font-weight:800;color:#fff;margin-top:2px'>28</div><div style='font-size:7.5pt;color:#8B9099;text-transform:uppercase;letter-spacing:.5px;margin-top:2px'>People holding gear</div><div style='margin-top:3px'></div></td><td style='background:#171B22;border:1px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center;vertical-align:top'><div><svg width='22' height='22' viewBox='0 0 24 24' style='vertical-align:middle'><path d='M12 2L1 21h22zm1 14h-2v2h2zm0-7h-2v5h2z' fill='#F26222' fill-rule='evenodd'/></svg></div><div style='font-size:17pt;font-weight:800;color:#fff;margin-top:2px'>28</div><div style='font-size:7.5pt;color:#8B9099;text-transform:uppercase;letter-spacing:.5px;margin-top:2px'>Out 4 days or more</div><div style='margin-top:3px'><span style='color:#F85149;font-size:8pt;font-weight:700'>oldest 6d</span></div></td><td style='background:#171B22;border:1px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center;vertical-align:top'><div><svg width='22' height='22' viewBox='0 0 24 24' style='vertical-align:middle'><path d='M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5zm-1 13l6-6-1.4-1.4L11 12.2l-2-2L7.6 11.6z' fill='#F26222' fill-rule='evenodd'/></svg></div><div style='font-size:17pt;font-weight:800;color:#fff;margin-top:2px'><span class='repl'>$14,878.16</span></div><div style='font-size:7.5pt;color:#8B9099;text-transform:uppercase;letter-spacing:.5px;margin-top:2px'>Replacement exposure</div><div style='margin-top:3px'></div></td></tr></table><table style='width:100%;border-collapse:separate;border-spacing:8px 0;table-layout:fixed;margin-top:10px'><tr><td style='background:#171B22;border:1px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center;vertical-align:top'><div><svg width='22' height='22' viewBox='0 0 24 24' style='vertical-align:middle'><path d='M7 7h10l-2.5-2.5L16 3l5 5-5 5-1.5-1.5L17 9H7zm10 8H7l2.5 2.5L8 19l-5-5 5-5 1.5 1.5L7 13h10z' fill='#F26222' fill-rule='evenodd'/></svg></div><div style='font-size:17pt;font-weight:800;color:#fff;margin-top:2px'>119</div><div style='font-size:7.5pt;color:#8B9099;text-transform:uppercase;letter-spacing:.5px;margin-top:2px'>Transactions this shut</div><div style='margin-top:3px'></div></td><td style='background:#171B22;border:1px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center;vertical-align:top'><div><svg width='22' height='22' viewBox='0 0 24 24' style='vertical-align:middle'><path d='M14.7 6.3a4.5 4.5 0 0 0-6 5.6L3 17.6 6.4 21l5.7-5.7a4.5 4.5 0 0 0 5.6-6l-2.8 2.8-2.5-.6-.6-2.5z' fill='#F26222' fill-rule='evenodd'/></svg></div><div style='font-size:17pt;font-weight:800;color:#fff;margin-top:2px'>99</div><div style='font-size:7.5pt;color:#8B9099;text-transform:uppercase;letter-spacing:.5px;margin-top:2px'>Item types used</div><div style='margin-top:3px'></div></td><td style='background:#171B22;border:1px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center;vertical-align:top'><div><svg width='22' height='22' viewBox='0 0 24 24' style='vertical-align:middle'><path d='M9.6 17.4L4.8 12.6l1.7-1.7 3.1 3.1 7.9-7.9 1.7 1.7z' fill='#F26222' fill-rule='evenodd'/></svg></div><div style='font-size:17pt;font-weight:800;color:#fff;margin-top:2px'>19</div><div style='font-size:7.5pt;color:#8B9099;text-transform:uppercase;letter-spacing:.5px;margin-top:2px'>Same-day returns</div><div style='margin-top:3px'></div></td><td style='background:#171B22;border:1px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center;vertical-align:top'><div><svg width='22' height='22' viewBox='0 0 24 24' style='vertical-align:middle'><path d='M16 4h-2V2h-4v2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-3 14h-2v-3H9l4-6v3h2z' fill='#F26222' fill-rule='evenodd'/></svg></div><div style='font-size:17pt;font-weight:800;color:#fff;margin-top:2px'>8</div><div style='font-size:7.5pt;color:#8B9099;text-transform:uppercase;letter-spacing:.5px;margin-top:2px'>High-care items out</div><div style='margin-top:3px'></div></td></tr></table><h2>How the gear is moving</h2><table class="aging"><tr><th>Returned same day</th><th>Kept longer, returned</th><th>Still on hire now</th></tr><tr><td class="g">19</td><td class="a">28</td><td class="r">74</td></tr></table><div class="note">Same-day returns keep your record clean and the gear maintained - thank your crew for those. Anything still out is listed below, oldest first.</div><h2>Aging - days on hire</h2><table class="aging"><tr><th>0-2 days (on track)</th><th>3-4 days (at risk)</th><th>5+ days (action needed)</th></tr><tr><td class="g">42</td><td class="a">19</td><td class="r">13</td></tr></table><div class="note">K2 workbook accountability thresholds for reference: overdue at 2 days, high at 3, critical at 4+. Anything 3 days or older warrants follow-up - the detail below is sorted oldest first so the chase list is at the top.</div><div style='display:flex;border-radius:7px;overflow:hidden;height:26px;margin:8px 0'><div style='width:56.8%;background:#3FB950;display:flex;align-items:center;justify-content:center;color:#14181F;font-weight:700;font-size:10.5px;white-space:nowrap;overflow:hidden'>Fresh 0-2d 42</div><div style='width:25.7%;background:#fab219;display:flex;align-items:center;justify-content:center;color:#14181F;font-weight:700;font-size:10.5px;white-space:nowrap;overflow:hidden'>Watch 3-4d 19</div><div style='width:17.6%;background:#F85149;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10.5px;white-space:nowrap;overflow:hidden'>Chase 5d+ 13</div></div><div class='hb'><div class='hl'>Fresh - out 0-2 days</div><div class='ht'><div class='hf' style='width:56.8%;background:#3FB950'></div></div><div class='hv'>42 items</div></div><div class='hb'><div class='hl'>Watch - out 3-4 days</div><div class='ht'><div class='hf' style='width:25.7%;background:#fab219'></div></div><div class='hv'>19 items</div></div><div class='hb'><div class='hl'>Chase - out 5+ days</div><div class='ht'><div class='hf' style='width:17.6%;background:#F85149'></div></div><div class='hv'>13 items</div></div><h2>High-care gear in your name</h2><div class="note"><b>Gas monitors (3):</b> every monitor is bump-tested and calibrated before issue - that is life-safety equipment under the Coates Life Saving Rules (SEQ-GL-009). Return them to the tool store daily for charging and checks; never swap between crews without going through the store.</div><div class="note"><b>Radios (5):</b> charged daily and pooled site-wide - return to the store for overnight charging so the next shift picks up a working unit.</div><h2>Outstanding - on hire to you, not yet returned (oldest first)</h2><table class="data"><thead><tr><th>Description</th><th>Asset No</th><th>Hirer &middot; ID</th><th>On Hire</th><th class='num'>Replacement Cost</th></tr></thead><tbody><tr><td>Forklift Container Mast 3.5t Diesel<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>1312732 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 19</span></span></td><td style='white-space:nowrap'>Richard Katic<br><span style='color:#8B9099;font-size:8.5pt'>10003548</span></td><td style='white-space:nowrap'>22 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 6 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Forklift - With Rotator 2.5t Diesel<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>1312610 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 20</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Forklift 2.5t Container Diesel<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>1312691 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 17</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Generator - 20kVA (Diesel)<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>1320991 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 42</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Motorola DP4801e Two-Way Radio - Serial 871TRBL679<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING AND CHANNEL CHECK</span></td><td style='white-space:nowrap'>16816-590505-0001</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$600.28</span></td></tr><tr><td>Radio Battery - Motorola NNTN8129 IMPRES<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING</span></td><td style='white-space:nowrap'>16816-590534-0028</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$61.43</span></td></tr><tr><td>Welder Diesel 500A<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'>1235657</td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Welding Air Vantage Diesel 500(HGA032)<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>16816-590736-0001 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 72</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Welding Vantage Diesel 500(HGA044)<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>16816-590738-0001 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 79</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Welding Vantage Diesel 580 (HGA047)<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>16816-590739-0001 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 75</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Welding Vantage Diesel 580(HGA035)<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>16816-590740-0001 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 80</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Welding Vantage Diesel 580(HGA041<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>16816-590741-0001 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 78</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Welding Vantage Diesel 580(HGA042)<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>16816-590742-0001 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 76</span></span></td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>23 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 5 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Shackle - Bow - Alloy - 4 t<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>BOWSHACKALL4 T-0088</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$11.00</span></td></tr><tr><td>Shackle - Bow - Alloy - 4 t<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>BOWSHACKALL4 T-0089</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$11.00</span></td></tr><tr><td>Shackle - Bow - Alloy - 4 t<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>BOWSHACKALL4 T-0090</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$11.00</span></td></tr><tr><td>Shackle - Bow - Alloy - 6 t<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>BOWSHACKALL6 T-0142</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$16.35</span></td></tr><tr><td>Shackle - Bow - Alloy - 6 t<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>BOWSHACKALL6 T-0151</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$16.35</span></td></tr><tr><td>Sling - Round - 3 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587959-0002</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$7.95</span></td></tr><tr><td>Sling - Round - 3 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587959-0010</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$7.95</span></td></tr><tr><td>Sling - Round - 3 t - 2 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587960-0003</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$14.95</span></td></tr><tr><td>Sling - Round - 3 t - 2 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587960-0006</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$14.95</span></td></tr><tr><td>Sling - Round - 3 t - 3 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587961-0010</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$22.10</span></td></tr><tr><td>Sling - Round - 3 t - 3 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587961-0008</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$22.10</span></td></tr><tr><td>Sling - Round - 3 t - 6 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587963-0003</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$41.10</span></td></tr><tr><td>Sling - Round - 3 t - 6 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587963-0007</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$41.10</span></td></tr><tr><td>Sling - Round - 3 t - 6 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587963-0002</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$41.10</span></td></tr><tr><td>Sling - Round - 3 t - 6 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587963-0006</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>24 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 4 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$41.10</span></td></tr><tr><td>1/2&quot; Drive Impact Inhex Socket - 10 mm<br><span style='color:#8B9099;font-size:8.5pt'>Tooling</span></td><td style='white-space:nowrap'>16816-589416-0001</td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>25 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 3 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$19.00</span></td></tr><tr><td>1/2&quot; Drive Socket Extension - 250 mm<br><span style='color:#8B9099;font-size:8.5pt'>Tooling</span></td><td style='white-space:nowrap'>SKT1/22501-0035</td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>25 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 3 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$35.00</span></td></tr><tr><td>3/4&quot; Drive Deep Impact Socket - 46 mm<br><span style='color:#8B9099;font-size:8.5pt'>Tooling</span></td><td style='white-space:nowrap'>SKT-3/4-46mm1-0012</td><td style='white-space:nowrap'>Mathew Schroeder<br><span style='color:#8B9099;font-size:8.5pt'>10003543</span></td><td style='white-space:nowrap'>25 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 3 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$60.00</span></td></tr><tr><td>Scissor Lift With Operator Protection 19ft (5.7m)  Electric - Greener Choice<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>1280188 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 65</span></span></td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>25 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 3 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>0.8 t Lever Block - 1.5 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1253862</td><td style='white-space:nowrap'>Bruce Lee<br><span style='color:#8B9099;font-size:8.5pt'>10005154</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$188.08</span></td></tr><tr><td>1.5 t Lever Block<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1148218</td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$289.00</span></td></tr><tr><td>1.5 t Lever Block<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>216039</td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$289.00</span></td></tr><tr><td>1.5 t Lever Block<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1178794</td><td style='white-space:nowrap'>Matthew Ryles<br><span style='color:#8B9099;font-size:8.5pt'>10005371</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$289.00</span></td></tr><tr><td>1.5 t Lever Block - 1.5 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1279028</td><td style='white-space:nowrap'>Craig Woods<br><span style='color:#8B9099;font-size:8.5pt'>10004436</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$289.00</span></td></tr><tr><td>1.5 t Lever Block - 1.5 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1279031</td><td style='white-space:nowrap'>Angus Arstall<br><span style='color:#8B9099;font-size:8.5pt'>10004908</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$289.00</span></td></tr><tr><td>3 t Lever Block - 1.5 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1258197</td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$245.00</span></td></tr><tr><td>Chain Block - Manual - 1 t - 3 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1258162</td><td style='white-space:nowrap'>Matthew Ryles<br><span style='color:#8B9099;font-size:8.5pt'>10005371</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$235.25</span></td></tr><tr><td>Chain Block - Manual - 1 t - 3 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1163544</td><td style='white-space:nowrap'>Matthew Ryles<br><span style='color:#8B9099;font-size:8.5pt'>10005371</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$235.25</span></td></tr><tr><td>Chain Block - Manual - 1 t - 6 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1178768</td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$249.00</span></td></tr><tr><td>Chain Block - Manual - 2 t - 6 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1284899</td><td style='white-space:nowrap'>Matthew Ryles<br><span style='color:#8B9099;font-size:8.5pt'>10005371</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$399.00</span></td></tr><tr><td>Chain Block - Manual - 2 t - 6 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1282088</td><td style='white-space:nowrap'>Matthew Ryles<br><span style='color:#8B9099;font-size:8.5pt'>10005371</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$399.00</span></td></tr><tr><td>Chain Block - Manual - 3 t - 3 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1268750</td><td style='white-space:nowrap'>Craig Woods<br><span style='color:#8B9099;font-size:8.5pt'>10004436</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$399.00</span></td></tr><tr><td>Chain Block - Manual - 3 t - 6 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1253892</td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$567.00</span></td></tr><tr><td>Chain Block - Manual - 3 t - 6 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1253872</td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$567.00</span></td></tr><tr><td>Exhaust Fan - Electric - 300 mm<br><span style='color:#8B9099;font-size:8.5pt'>Electrical</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;ELECTRICAL</span></td><td style='white-space:nowrap'>1242377</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$297.70</span></td></tr><tr><td>Pallet Truck 1.8t Electric<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>1280586 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 29</span></span></td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Sling - Round - 1 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>SLINGROUND1T1M-0404</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$3.45</span></td></tr><tr><td>Sling - Round - 1 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587951-0014</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$3.45</span></td></tr><tr><td>Sling - Round - 1 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587951-0011</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$3.45</span></td></tr><tr><td>Sling - Round - 1 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587951-0003</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$3.45</span></td></tr><tr><td>Sling - Round - 2 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>SLINGROUND2T1M-0272</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$6.00</span></td></tr><tr><td>Sling - Round - 2 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>SLINGROUND2T1M-0276</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$6.00</span></td></tr><tr><td>Sling - Round - 2 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587955-0017</td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$6.00</span></td></tr><tr><td>Sling - Round - 2 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587955-0015</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$6.00</span></td></tr><tr><td>Sling - Round - 2 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587955-0001</td><td style='white-space:nowrap'>Jennifer Conn<br><span style='color:#8B9099;font-size:8.5pt'>10000843</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$6.00</span></td></tr><tr><td>Sling - Round - 2 t - 1 m<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>16816-587955-0003</td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>26 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 2 days</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$6.00</span></td></tr><tr><td>1/2&quot; Drive Impact Socket - 19 mm<br><span style='color:#8B9099;font-size:8.5pt'>Tooling</span></td><td style='white-space:nowrap'>SKTET1/2191-0110</td><td style='white-space:nowrap'>David Williams<br><span style='color:#8B9099;font-size:8.5pt'>10003496</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$12.48</span></td></tr><tr><td>Chain Block - Manual - 2 t - 6 m Drop<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>1235754</td><td style='white-space:nowrap'>Matthew Ryles<br><span style='color:#8B9099;font-size:8.5pt'>10005371</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$399.00</span></td></tr><tr><td>Light Telescopic 4 Head LED 27000lm (3m) - Hybrid<br><span style='color:#8B9099;font-size:8.5pt'>Cement Site Plant</span> &nbsp;<span style="color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span></td><td style='white-space:nowrap'><span style='white-space:nowrap'>1270839 <span style='background:#F26222;color:#fff;border-radius:9px;padding:1px 8px;font-weight:800;font-size:9pt'>ID 47</span></span></td><td style='white-space:nowrap'>Kale duffie<br><span style='color:#8B9099;font-size:8.5pt'>10000953</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span style='color:#8B9099'>TBC</span></td></tr><tr><td>Motorola DP4801e Two-Way Radio - Serial 871TRBL674<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING AND CHANNEL CHECK</span></td><td style='white-space:nowrap'>16816-590504-0001</td><td style='white-space:nowrap'>Bruce Lee<br><span style='color:#8B9099;font-size:8.5pt'>10005154</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$600.28</span></td></tr><tr><td>Motorola DP4801e Two-Way Radio - Serial 871TRZT722<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING AND CHANNEL CHECK</span></td><td style='white-space:nowrap'>16816-590514-0001</td><td style='white-space:nowrap'>Phil Rouse<br><span style='color:#8B9099;font-size:8.5pt'>10000825</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$600.28</span></td></tr><tr><td>Motorola DP4801e Two-Way Radio - Serial 871TSH9016<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING AND CHANNEL CHECK</span></td><td style='white-space:nowrap'>16816-590524-0001</td><td style='white-space:nowrap'>Phil Rouse<br><span style='color:#8B9099;font-size:8.5pt'>10000825</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$600.28</span></td></tr><tr><td>Motorola DP4801e Two-Way Radio - Serial 871TSH9247<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING AND CHANNEL CHECK</span></td><td style='white-space:nowrap'>16816-590532-0001</td><td style='white-space:nowrap'>Phil Rouse<br><span style='color:#8B9099;font-size:8.5pt'>10000825</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$600.28</span></td></tr><tr><td>Multi-Gas Detector - Honeywell BW Flex - Serial GM206140<br><span style='color:#8B9099;font-size:8.5pt'>Gas Monitors</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR BUMP TEST AND RECHARGE</span></td><td style='white-space:nowrap'>16816-589987-0025</td><td style='white-space:nowrap'>Phil Rouse<br><span style='color:#8B9099;font-size:8.5pt'>10000825</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$1,815.00</span></td></tr><tr><td>Multi-Gas Detector - Honeywell BW Flex - Serial GM206145<br><span style='color:#8B9099;font-size:8.5pt'>Gas Monitors</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR BUMP TEST AND RECHARGE</span></td><td style='white-space:nowrap'>16816-589987-0021</td><td style='white-space:nowrap'>Bruce Lee<br><span style='color:#8B9099;font-size:8.5pt'>10005154</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$1,815.00</span></td></tr><tr><td>Multi-Gas Detector - Honeywell BW Flex - Serial GM206166<br><span style='color:#8B9099;font-size:8.5pt'>Gas Monitors</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR BUMP TEST AND RECHARGE</span></td><td style='white-space:nowrap'>16816-589987-0020</td><td style='white-space:nowrap'>Phil Rouse<br><span style='color:#8B9099;font-size:8.5pt'>10000825</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$1,815.00</span></td></tr><tr><td>Radio Battery - Motorola NNTN8129 IMPRES<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING</span></td><td style='white-space:nowrap'>16816-590534-0034</td><td style='white-space:nowrap'>Bruce Lee<br><span style='color:#8B9099;font-size:8.5pt'>10005154</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$61.43</span></td></tr><tr><td>Radio Battery - Motorola NNTN8129 IMPRES<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING</span></td><td style='white-space:nowrap'>16816-590534-0071</td><td style='white-space:nowrap'>Phil Rouse<br><span style='color:#8B9099;font-size:8.5pt'>10000825</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$61.43</span></td></tr><tr><td>Radio Battery - Motorola NNTN8129 IMPRES<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING</span></td><td style='white-space:nowrap'>16816-590534-0092</td><td style='white-space:nowrap'>Phil Rouse<br><span style='color:#8B9099;font-size:8.5pt'>10000825</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$61.43</span></td></tr><tr><td>Radio Battery - Motorola NNTN8129 IMPRES<br><span style='color:#8B9099;font-size:8.5pt'>Radios</span> &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING</span></td><td style='white-space:nowrap'>16816-590534-0102</td><td style='white-space:nowrap'>Phil Rouse<br><span style='color:#8B9099;font-size:8.5pt'>10000825</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$61.43</span></td></tr><tr><td>Shackle - Bow - Alloy - 1 t<br><span style='color:#8B9099;font-size:8.5pt'>Rigging</span> &nbsp;<span style="color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RIGGING</span></td><td style='white-space:nowrap'>BOWSHACKALL1 T-0051</td><td style='white-space:nowrap'>Codey Lyons<br><span style='color:#8B9099;font-size:8.5pt'>10006633</span></td><td style='white-space:nowrap'>27 Jul 2026<br><span style='color:#8B9099;font-size:8.5pt'>out 1 day</span></td><td class='num' style='white-space:nowrap'><span class='repl'>$2.95</span></td></tr><tr><td colspan='4' style='color:#14181F;font-weight:700'>Replacement cost exposure - if nothing came back</td><td class='num' style='white-space:nowrap'><span class='repl'>$14,878.16</span></td></tr></tbody></table><div class='note'>14 item(s) show TBC - not yet in the replacement cost schedule, so they are excluded from the exposure total rather than guessed. They are being priced.</div><div style="font-size:7.5pt;color:#5B6472;margin:6px 0 0;padding:4px 2px 0;border-top:1px solid #E3E6EB;line-height:1.6"><b style="letter-spacing:1.5px">KEY</b> &nbsp;&nbsp; <span style="color:#2F80ED;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;ELECTRICAL / RIGGING</span> <span>test &amp; tag current &middot; tag colour <b style="color:#2F80ED">BLUE</b> &middot; stays <b style="color:#2F80ED">BLUE</b> through August</span> &nbsp;&nbsp; <span style="color:#E0A500;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;LOGBOOK</span> <span>daily pre-start &amp; logbook entry</span> &nbsp;&nbsp; <span style="color:#F26222;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY</span> <span>back to the tool store every shift</span></div><h2>Consumables taken (2 draws)</h2><table class="data"><thead><tr><th>SKU Description</th><th>Hirer</th><th>Hirer ID</th><th class="num">Total Qty Taken</th><th>Last Taken</th></tr></thead><tbody><tr><td>OIL - PENETRATING CRC 5-56 400G - K2/26</td><td>David Williams</td><td>-</td><td class='num'>4</td><td>24 Jul 2026</td></tr><tr><td>OIL - PENETRATING CRC 5-56 400G - K2/26</td><td>Jason Turley</td><td>-</td><td class='num'>1</td><td>24 Jul 2026</td></tr></tbody></table><div class="note">Each draw counts as one transaction regardless of quantity taken. Quantities only - no consumables price feed is loaded, so no dollar values are shown for consumables.</div><h2>The tool store has your back</h2><table style="width:100%;border-collapse:separate;border-spacing:6px"><tr><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Scan &amp; look - double scanned, every time</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Every item is scanned <b>and</b> sighted going out, and scanned and sighted coming back - our scan-and-look process. If it moved, it is on the record. That is your protection as much as ours.</div></td><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Stock you can trust</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">The store runs stock rotation with full stock checks every <b>3 days</b> - what the register says is on the shelf is what is on the shelf.</div></td></tr><tr><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">SDS on your phone</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Safety Data Sheets are available <b>inside the tool store</b>, and outside it - scan the QR code on the wall and the SDS downloads straight to your phone.</div></td><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Logbook gear</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Anything marked LOGBOOK needs its daily pre-start and logbook entry before it operates - books and blank pages are at the counter.</div></td></tr><tr><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Breakdowns - tell us everything</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Something stops? Report it straight away with the details: <b>where it is, what is wrong, what it was doing</b>. We will get it swapped or fixed - no drama, no waiting.</div></td><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Floggers &amp; the small stuff</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Using floggers? <b>Flogger holders are available at the store.</b> How-to cards, radio channel cards and gas monitor guides live on the counter - just ask.</div></td></tr></table><div style="font-size:9.5pt;color:#33393F;margin-top:6px">We are here to help - <b>reach out if you require anything</b>. Your Coates tool store team.</div><h2>Meet the tool store team</h2><div class='note'>The crew running your K2 tool store - getting the right gear to the right crew, keeping it looked after and ready, and making sure everything that leaves the store is right. Day and night, so the shutdown keeps moving. Something not on hand or not right? Tell us and we'll sort it.</div><table style='width:44%;margin:0 auto;border-collapse:separate;border-spacing:8px 0'><tr><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #F26222;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#F26222;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>AF</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Andrew Fisher</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Shutdown Manager</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>andrew.fisher<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Oversees the whole store and the whole shutdown - anything at all, start here</div></td></tr></table><table style='width:100%;border-collapse:separate;border-spacing:8px 0;table-layout:fixed;margin-top:8px'><tr><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>TM</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Thomas Maher</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Dayshift Lead</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>thomas.maher<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Runs the day-to-day of days - your first call on day shift</div></td><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>HO</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Helen O&#x27;Grady</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Dayshift Tool Store Controller</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>helen.ogrady<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Expertise, solutions and help at the counter</div></td><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>LA</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Lucas Armstrong</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Day Shift Mechanic</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>lucas.armstrong<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Looks after every breakdown on site - report it, he&#x27;s on it</div></td><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>CM</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Cody Mitchell</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Nightshift Tool Store Controller</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>cody.mitchell<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Runs the nights - your first call after dark</div></td><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>AB</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Adam Boyce</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Night Shift Tool Store Controller</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>adam.boyce<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Expertise, solutions and help at the counter</div></td></tr></table><div style='text-align:center;margin-top:10px'><span style='display:inline-block;background:#171B22;border:1px solid #2A313C;border-radius:14px;padding:5px 12px;margin:3px 4px;font-size:9pt;color:#D7DBE2'><b style='color:#3FB950'>&#10003;</b> The right gear to the right crew</span><span style='display:inline-block;background:#171B22;border:1px solid #2A313C;border-radius:14px;padding:5px 12px;margin:3px 4px;font-size:9pt;color:#D7DBE2'><b style='color:#3FB950'>&#10003;</b> Looked after, maintained &amp; ready</span><span style='display:inline-block;background:#171B22;border:1px solid #2A313C;border-radius:14px;padding:5px 12px;margin:3px 4px;font-size:9pt;color:#D7DBE2'><b style='color:#3FB950'>&#10003;</b> Checked and right - every time</span></div><div class='limits'><b>Honest limits:</b> This report shows replacement cost exposure only - hire rates and hire spend are not shown on company reports. Replacement costs come from the K2 replacement cost schedule where an item matches by description; unmatched items show TBC and are excluded from the exposure total. Consumables are quantities only - no consumables price feed is loaded, so no dollar values are shown or implied for them. Transaction counts come from the SiteIQ TRANSACTIONS export (attributed per item) plus consumables draws - a draw counts as ONE transaction regardless of quantity taken. All data reflects SiteIQ as at the data-as-at stamp above - this report is a point-in-time snapshot.</div></div><div id='sheets'></div><script>var PAGES_HDR1="<div class=\"band\"><div class=\"siteiq\">POWERED BY <span class=\"o\">SITEIQ</span><br><span style=\"font-weight:normal;color:#bbb;\">Equipped for anything</span></div><div class=\"kicker\">COATES &middot; Company On-Hire Report</div><h1>Veolia</h1><div class=\"sub\">Cement Australia K2 Shutdown 2026 - Gladstone</div><div class=\"meta\">Generated: <b>28 Jul 2026 13:49</b> &nbsp;|&nbsp; Data as at: <b>27 Jul 2026 03:11</b> (RENTAL_STOCK export file time) &nbsp;|&nbsp; Author: <b>Andrew Fisher</b></div></div><div style=\"font-size:7.5pt;color:#5B6472;margin:6px 0 0;padding:4px 2px 0;border-top:1px solid #E3E6EB;line-height:1.6\"><b style=\"letter-spacing:1.5px\">KEY</b> &nbsp;&nbsp; <span style=\"color:#2F80ED;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL / RIGGING</span> <span>test &amp; tag current &middot; tag colour <b style=\"color:#2F80ED\">BLUE</b> &middot; stays <b style=\"color:#2F80ED\">BLUE</b> through August</span> &nbsp;&nbsp; <span style=\"color:#E0A500;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span> <span>daily pre-start &amp; logbook entry</span> &nbsp;&nbsp; <span style=\"color:#F26222;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;RETURN DAILY</span> <span>back to the tool store every shift</span></div><div style='text-align:right;color:#A9B1BD;font-size:8.5pt;text-transform:uppercase;margin-top:4px'><span class='pgnum'>&nbsp;</span></div>",PAGES_HDRN="<div class='bandc'><div><div class='k'>COATES &middot; Company On-Hire Report</div><h1>Veolia</h1></div><div class='m'><span class='siq'>POWERED BY SITEIQ</span><br>As at <b>27 Jul 2026 03:11</b><br><span class='pgnum'>&nbsp;</span></div></div><div style=\"font-size:7.5pt;color:#5B6472;margin:6px 0 0;padding:4px 2px 0;border-top:1px solid #E3E6EB;line-height:1.6\"><b style=\"letter-spacing:1.5px\">KEY</b> &nbsp;&nbsp; <span style=\"color:#2F80ED;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL / RIGGING</span> <span>test &amp; tag current &middot; tag colour <b style=\"color:#2F80ED\">BLUE</b> &middot; stays <b style=\"color:#2F80ED\">BLUE</b> through August</span> &nbsp;&nbsp; <span style=\"color:#E0A500;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span> <span>daily pre-start &amp; logbook entry</span> &nbsp;&nbsp; <span style=\"color:#F26222;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;RETURN DAILY</span> <span>back to the tool store every shift</span></div>",PAGES_FOOT="<div class=\"footer\">All returns go through the Coates tool store, handed to the stores team and double-scanned. Nothing is returned unless it is scanned.<div class=\"values\">Care Deeply &middot; Customer Focused &middot; Be Our Best &middot; One Team &middot; Competitive Spirit</div><div class=\"auth\">Author: Andrew Fisher &nbsp;|&nbsp; POWERED BY <span style=\"color:#F26222;font-weight:bold;\">SITEIQ</span> &nbsp;|&nbsp; Source: RENTAL_STOCK.xlsx | Extract (file time): 27 Jul 2026 03:11 | Hirer IDs: ON_HIRE.xlsx (EXTERNAL_ID)</div></div>",PAGES_TEAM="<div class='tl'>Your Coates tool store team</div><div class='tn'><b>Andrew Fisher</b> Shutdown Manager QLD &amp; NT &nbsp;|&nbsp; <span style='color:#F26222;font-weight:700'>DAY</span> <b>Thomas Maher</b> Dayshift Lead &middot; <b>Helen O&#x27;Grady</b> Dayshift Tool Store Controller &middot; <b>Lucas Armstrong</b> Day Shift Mechanic &nbsp;|&nbsp; <span style='color:#F26222;font-weight:700'>NIGHT</span> <b>Cody Mitchell</b> Nightshift Tool Store Controller &middot; <b>Adam Boyce</b> Night Shift Tool Store Controller</div>";</script><script>
+(function(){
+  function run(){
+    var stage = document.getElementById('stage');
+    var out = document.getElementById('sheets');
+    if (!stage || !out) return;
+    var sheets = [];
+    var cur = null;
+
+    function mkSheet(first){
+      var sheet = document.createElement('div'); sheet.className = 'psheet';
+      var panel = document.createElement('div'); panel.className = 'ppanel';
+      panel.innerHTML = (first ? PAGES_HDR1 : PAGES_HDRN) + "<div class='prule'></div>";
+      var content = document.createElement('div'); content.className = 'pcontent';
+      panel.appendChild(content);
+      // Meet the team on EVERY page, not just the last one
+      // (A. Fisher, 25 Jul 2026). The panel is a flex column and
+      // .pcontent is flex:1, so the strip takes its height off the
+      // content area automatically - nothing can be pushed off.
+      if (typeof PAGES_TEAM === 'string' && PAGES_TEAM){
+        var tm = document.createElement('div');
+        tm.className = 'pteam'; tm.innerHTML = PAGES_TEAM;
+        panel.appendChild(tm);
+      }
+      sheet.appendChild(panel);
+      out.appendChild(sheet);
+      cur = {sheet: sheet, panel: panel, content: content};
+      sheets.push(cur);
+      return cur;
+    }
+    function overflows(){
+      return cur.content.scrollHeight > cur.content.clientHeight + 1;
+    }
+    function place(node){                 // true if node fits on current page
+      cur.content.appendChild(node);
+      if (!overflows()) return true;
+      cur.content.removeChild(node);
+      return false;
+    }
+    function splitTable(t){               // whole rows only, header repeated
+      var tb = (t.tBodies && t.tBodies.length) ? t.tBodies[0] : null;
+      if (!tb || tb.rows.length < 2){     // nothing to split - force-place
+        if (!place(t)){ mkSheet(false); cur.content.appendChild(t); }
+        return;
+      }
+      var rows = [];
+      while (tb.rows.length) rows.push(tb.removeChild(tb.rows[0]));
+      function shell(){
+        var s = t.cloneNode(false);
+        if (t.tHead) s.appendChild(t.tHead.cloneNode(true));
+        var b = document.createElement('tbody'); s.appendChild(b);
+        return {table: s, tbody: b};
+      }
+      var sh = shell();
+      if (!place(sh.table)){ mkSheet(false); cur.content.appendChild(sh.table); }
+      var q = rows;                       // queue of rows still to place
+      while (q.length){
+        var row = q.shift();
+        // a row marked pgbrk starts something new (a new company in the
+        // demob pack) - it opens a fresh page, per Andrew's page rule
+        var rc = '' + (row.className || '');
+        if (rc.indexOf('pgbrk') >= 0 && sh.tbody.rows.length){
+          mkSheet(false);
+          sh = shell(); cur.content.appendChild(sh.table);
+        }
+        var freshSolo = (sh.tbody.rows.length === 0 &&
+                         cur.content.childElementCount === 1);
+        sh.tbody.appendChild(row);
+        if (overflows()){
+          if (freshSolo){
+            // a single row taller than a whole fresh page: keep it (the
+            // old force behaviour) rather than loop forever - never seen
+            // in practice, tables don't carry page-tall rows
+            continue;
+          }
+          sh.tbody.removeChild(row);
+          var carry = [row];
+          // taking that row out re-flows the column widths - earlier rows
+          // can re-wrap TALLER, so re-check this page and peel rows off
+          // the end until it truly fits (the 5-11px clip found in the
+          // 24 Jul 2026 fleet sweep - nothing is ever cut)
+          while (overflows() && sh.tbody.rows.length){
+            carry.unshift(sh.tbody.removeChild(
+              sh.tbody.rows[sh.tbody.rows.length - 1]));
+          }
+          if (!sh.tbody.rows.length && sh.table.parentNode)
+            sh.table.parentNode.removeChild(sh.table);   // header-only shell: drop
+          mkSheet(false);
+          sh = shell(); cur.content.appendChild(sh.table);
+          q = carry.concat(q);
+        }
+      }
+      if (!sh.tbody.rows.length && sh.table.parentNode)
+        sh.table.parentNode.removeChild(sh.table);
+    }
+    function isHeadish(n){
+      // a real heading, or anything the report marked keep-with-next
+      // (the coloured section bands on the activity pack)
+      if (!n) return false;
+      if (/^H[1-4]$/i.test(n.tagName)) return true;
+      return ('' + (n.className || '')).indexOf('keepnext') >= 0;
+    }
+    function probeOf(n){
+      // a light stand-in for "the start of this block", used to decide
+      // whether a section can BEGIN on the current page. A table only
+      // needs its header and a couple of rows to be worth starting.
+      if (/^TABLE$/i.test(n.tagName)){
+        var s = n.cloneNode(false);
+        if (n.tHead) s.appendChild(n.tHead.cloneNode(true));
+        var tb = (n.tBodies && n.tBodies.length) ? n.tBodies[0] : null;
+        var b = document.createElement('tbody'); s.appendChild(b);
+        if (tb) for (var i = 0; i < Math.min(3, tb.rows.length); i++)
+          b.appendChild(tb.rows[i].cloneNode(true));
+        return s;
+      }
+      return n.cloneNode(true);
+    }
+    function placeBlock(b, next, all, idx){
+      // 'newpage' always starts a fresh sheet - that is how a hirer's
+      // section, or the log book notice, gets a page of its own.
+      //
+      // A HEADING no longer forces one. It used to, and a report with ten
+      // short sections burned ten pages, most of them 90% white - the
+      // client packs were running 7% full. Now a section starts here if
+      // its heading AND the start of its content fit; only when they
+      // don't does it move to a fresh page. Nothing is ever split
+      // awkwardly, and the pages actually fill. (A. Fisher, 25 Jul 2026)
+      var cn = '' + (b.className || '');
+      if (cn.indexOf('newpage') >= 0 && cur.content.childElementCount > 0){
+        mkSheet(false);
+      } else if (isHeadish(b) && cur.content.childElementCount > 0){
+        // `next` may itself be a heading (an H2 followed by its first H3).
+        // Probing only that would pass - a 26px heading always fits - and
+        // leave the H2 stranded at the foot of the page, which is exactly
+        // what it is trying to prevent. So walk forward over any run of
+        // headings and probe the first real block, carrying the headings
+        // in between. (A. Fisher, 25 Jul 2026)
+        cur.content.appendChild(b);
+        var ok = !overflows(), probes = [];
+        if (ok){
+          var j = idx + 1;
+          while (j < all.length && isHeadish(all[j])){
+            probes.push(all[j].cloneNode(true)); j++;
+          }
+          if (j < all.length) probes.push(probeOf(all[j]));
+          for (var q = 0; q < probes.length; q++)
+            cur.content.appendChild(probes[q]);
+          ok = !overflows();
+          for (var q2 = 0; q2 < probes.length; q2++)
+            cur.content.removeChild(probes[q2]);
+        }
+        cur.content.removeChild(b);
+        if (!ok) mkSheet(false);
+      }
+      if (place(b)) return;
+      // heading stranded at the bottom? it travels with its content -
+      // UNLESS the heading is alone on its page already (a fresh section
+      // page whose first block is bigger than a whole page): then the
+      // block splits right here under it, never leaving an empty page
+      // behind. (Fixed 24 Jul 2026 - the empty-page bug.)
+      var tail = cur.content.lastElementChild;
+      // a block marked keepprev (the "End of <person>" sign-off) must
+      // never be marooned on a page of its own - bring the block above it
+      // along, provided that block is small enough to travel
+      if (cn.indexOf('keepprev') >= 0 && tail &&
+          tail.offsetHeight < cur.content.clientHeight * 0.5){
+        var carryPrev = tail;
+        mkSheet(false);
+        cur.content.appendChild(carryPrev);
+        if (place(b)) return;
+      }
+      tail = cur.content.lastElementChild;
+      var pull = isHeadish(tail) ? tail : null;
+      var alone = pull && cur.content.childElementCount === 1;
+      if (!alone){
+        var prevSheet = cur;
+        mkSheet(false);
+        if (pull) cur.content.appendChild(pull);
+        if (place(b)) return;
+        // It will not fit on a FRESH page either, so it is going to be
+        // split whichever page it starts on. Splitting it here would
+        // leave the page we just walked away from half white - which is
+        // exactly what the client sees. So undo the page break, put the
+        // heading back where it was, and split the table from there: the
+        // page fills, the heading keeps its rows, and the remainder flows
+        // on as normal. (A. Fisher, 25 Jul 2026)
+        if (/^TABLE$/i.test(b.tagName)){
+          if (cur.sheet.parentNode) cur.sheet.parentNode.removeChild(cur.sheet);
+          sheets.pop();
+          cur = prevSheet;
+          if (pull) cur.content.appendChild(pull);
+          splitTable(b);
+          return;
+        }
+      }
+      // taller than a whole fresh page: split tables by rows; unwrap
+      // plain containers; anything else is placed and clipped (rare)
+      if (/^TABLE$/i.test(b.tagName)){ splitTable(b); return; }
+      if (/^(DIV|SECTION)$/i.test(b.tagName) && b.children.length > 1){
+        var kids = []; while (b.firstElementChild) kids.push(b.removeChild(b.firstElementChild));
+        for (var i = 0; i < kids.length; i++)
+          placeBlock(kids[i], kids[i + 1], kids, i);
+        return;
+      }
+      cur.content.appendChild(b);
+    }
+
+    mkSheet(true);
+    var blocks = [];
+    while (stage.firstElementChild) blocks.push(stage.removeChild(stage.firstElementChild));
+    for (var i = 0; i < blocks.length; i++)
+      placeBlock(blocks[i], blocks[i + 1], blocks, i);
+
+    // footer rides on the last page - or its own page if it can't fit
+    if (typeof PAGES_FOOT === 'string' && PAGES_FOOT){
+      var fw = document.createElement('div'); fw.innerHTML = PAGES_FOOT;
+      var fnode = fw.firstElementChild;
+      if (fnode && !place(fnode)){ mkSheet(false); cur.content.appendChild(fnode); }
+    }
+
+    // PULL UP. A sparse page is often just the tail of the section on the
+    // page before it - a band, a short table, a sign-off - that got pushed
+    // over even though there was room left behind. Hand those blocks back
+    // up while they fit. A page that begins a section of its own (a
+    // hirer's page, the log book notice) is never merged into the one
+    // before it. (A. Fisher, 25 Jul 2026)
+    function fillOf0(c){
+      var last = null;
+      for (var i = 0; i < c.children.length; i++)
+        if (c.children[i].offsetHeight > 0) last = c.children[i];
+      if (!last) return 0;
+      return (last.offsetTop + last.offsetHeight - c.offsetTop) / c.clientHeight;
+    }
+    function over0(c){ return c.scrollHeight > c.clientHeight + 1; }
+    function headish0(n){
+      if (!n) return false;
+      if (/^H[1-4]$/i.test(n.tagName)) return true;
+      return ('' + (n.className || '')).indexOf('keepnext') >= 0;
+    }
+    function startsSection(c){
+      // a page OWNS its section when it opens with a newpage marker, or
+      // when its first table leads with a pgbrk row (the demob pack's
+      // one-company-per-page rule). Those pages are never merged upward -
+      // that is the whole point of them.
+      var f = c.firstElementChild;
+      if (f && ('' + (f.className || '')).indexOf('newpage') >= 0) return true;
+      var t = c.querySelector('table');
+      if (t && t.tBodies && t.tBodies.length && t.tBodies[0].rows.length){
+        var r0 = t.tBodies[0].rows[0];
+        if (('' + (r0.className || '')).indexOf('pgbrk') >= 0) return true;
+      }
+      return false;
+    }
+    for (var ui = 1; ui < sheets.length; ui++){
+      var uc = sheets[ui].content;
+      if (fillOf0(uc) >= 0.45) continue;
+      if (startsSection(uc)) continue;
+      var up = sheets[ui - 1].content;
+      if (!up.childElementCount) continue;
+      // All or nothing. Moving half a tail up just leaves a different
+      // stray block behind and the passes below fight over it - so take
+      // the whole tail or leave it exactly where it is.
+      var take = [], k0 = uc.firstElementChild;
+      while (k0){
+        if (('' + (k0.className || '')).indexOf('newpage') >= 0) break;
+        take.push(k0); k0 = k0.nextElementSibling;
+      }
+      if (!take.length) continue;
+      for (var mi = 0; mi < take.length; mi++) up.appendChild(take[mi]);
+      if (over0(up)){
+        for (var mj = 0; mj < take.length; mj++)
+          uc.insertBefore(take[mj], null);
+        // put them back in their original order at the top of the page
+        for (var mk = take.length - 1; mk >= 0; mk--)
+          uc.insertBefore(take[mk], uc.firstChild);
+      }
+      // never leave a heading behind on the page above with its content
+      // stranded below - hand it back if that happened
+      var t2 = up.lastElementChild;
+      while (t2 && t2.offsetHeight === 0) t2 = t2.previousElementSibling;
+      if (t2 && headish0(t2) && uc.childElementCount &&
+          up.childElementCount > 1){
+        uc.insertBefore(t2, uc.firstChild);
+      }
+    }
+
+    // FINAL SWEEP - belt and braces on the keep-with-next rule.
+    // Whatever route a block took through the layout above, no page is
+    // allowed to END on a heading or a section band with its content on
+    // the next page: it reads as a broken report. Walk the finished
+    // sheets backwards and hand any trailing heading down to the top of
+    // the page that follows it. Repeated until nothing moves, so a run of
+    // headings travels together. (A. Fisher, 25 Jul 2026)
+    for (var pass = 0; pass < 4; pass++){
+      var moved = false;
+      for (var si = 0; si < sheets.length - 1; si++){
+        var here = sheets[si].content, nxt = sheets[si + 1].content;
+        var tail = here.lastElementChild;
+        while (tail && tail.offsetHeight === 0) tail = tail.previousElementSibling;
+        if (!tail || !isHeadish(tail)) continue;
+        if (here.childElementCount <= 1) continue;   // never leave it blank
+        nxt.insertBefore(tail, nxt.firstChild);
+        moved = true;
+      }
+      if (!moved) break;
+    }
+
+    // ...and the mirror: a page must never hold nothing but a one-line
+    // sign-off. Pull the block above it down to keep it company.
+    for (var sj = sheets.length - 1; sj > 0; sj--){
+      var cnt = sheets[sj].content;
+      var vis = [];
+      for (var ci = 0; ci < cnt.children.length; ci++)
+        if (cnt.children[ci].offsetHeight > 0) vis.push(cnt.children[ci]);
+      if (vis.length !== 1) continue;
+      if (('' + (vis[0].className || '')).indexOf('keepprev') < 0) continue;
+      var prev = sheets[sj - 1].content;
+      var take = prev.lastElementChild;
+      while (take && take.offsetHeight === 0) take = take.previousElementSibling;
+      if (!take || prev.childElementCount <= 1) continue;
+      if (take.offsetHeight > cnt.clientHeight * 0.6) continue;
+      cnt.insertBefore(take, cnt.firstChild);
+    }
+
+    // REBALANCE THE TAIL of a split table. A long table can fill one page
+    // exactly and leave its last few blocks - an Action Required band, a
+    // sign-off line - marooned on a page that is 85% white. It is not
+    // broken, but it reads as though the report gave up. So where a page
+    // is sparse and the page before it ends in a split table, hand rows
+    // back down until both pages carry a fair share. Whole rows only, the
+    // repeated header comes with them, and nothing ever overflows.
+    // (A. Fisher, 25 Jul 2026)
+    function fillOf(c){
+      var last = null;
+      for (var i = 0; i < c.children.length; i++)
+        if (c.children[i].offsetHeight > 0) last = c.children[i];
+      if (!last) return 0;
+      return (last.offsetTop + last.offsetHeight - c.offsetTop) / c.clientHeight;
+    }
+    function over(c){ return c.scrollHeight > c.clientHeight + 1; }
+    for (var ri = 1; ri < sheets.length; ri++){
+      var cc2 = sheets[ri].content;
+      if (fillOf(cc2) >= 0.45) continue;
+      if (startsSection(cc2)) continue;
+      var pc = sheets[ri - 1].content;
+      // find the last TABLE on the previous page, stepping back over any
+      // SMALL trailing blocks (a note, a legend) - those travel down with
+      // the rows so the tail page reads as one continuous section
+      var pTable = pc.lastElementChild, trailers = [];
+      while (pTable && (pTable.offsetHeight === 0 ||
+                        !/^TABLE$/i.test(pTable.tagName))){
+        if (pTable.offsetHeight > 0){
+          if (pTable.offsetHeight > 140 || trailers.length >= 3){ pTable = null; break; }
+          trailers.unshift(pTable);
+        }
+        pTable = pTable.previousElementSibling;
+      }
+      if (!pTable || !/^TABLE$/i.test(pTable.tagName)) continue;
+      for (var ti = trailers.length - 1; ti >= 0; ti--)
+        cc2.insertBefore(trailers[ti], cc2.firstChild);
+      if (over(cc2)){                       // put them back, nothing gained
+        for (var tj = 0; tj < trailers.length; tj++) pc.appendChild(trailers[tj]);
+        continue;
+      }
+      var pBody = (pTable.tBodies && pTable.tBodies.length) ? pTable.tBodies[0] : null;
+      if (!pBody || pBody.rows.length < 2) continue;
+      // Where the sparse page ALREADY opens with a continuation of this
+      // same table, feed the rows straight into it. Adding a second shell
+      // above it prints the column headers twice on one page, which reads
+      // as two different tables. (A. Fisher, 25 Jul 2026)
+      function headText(t){
+        return t && t.tHead ? t.tHead.textContent.replace(/\s+/g, ' ').trim() : '';
+      }
+      var shell2 = null, sBody = null, madeShell = false;
+      var f2 = cc2.firstElementChild;
+      while (f2 && f2.offsetHeight === 0) f2 = f2.nextElementSibling;
+      if (f2 && /^TABLE$/i.test(f2.tagName) && f2.tBodies && f2.tBodies.length &&
+          headText(f2) && headText(f2) === headText(pTable)){
+        shell2 = f2; sBody = f2.tBodies[0];
+      } else {
+        shell2 = pTable.cloneNode(false);
+        if (pTable.tHead) shell2.appendChild(pTable.tHead.cloneNode(true));
+        sBody = document.createElement('tbody'); shell2.appendChild(sBody);
+        cc2.insertBefore(shell2, cc2.firstChild);
+        madeShell = true;
+        if (over(cc2)){ cc2.removeChild(shell2); continue; }
+      }
+      var moved2 = 0;
+      while (pBody.rows.length > 1){
+        var row2 = pBody.rows[pBody.rows.length - 1];
+        sBody.insertBefore(row2, sBody.firstChild);
+        if (over(cc2)){ pBody.appendChild(row2); break; }
+        moved2++;
+        if (fillOf(cc2) >= 0.62 || fillOf(pc) < 0.55) break;
+      }
+      if (!moved2 && madeShell && shell2.parentNode)
+        shell2.parentNode.removeChild(shell2);
+    }
+
+    // any page left with nothing on it is removed outright
+    for (var sk = sheets.length - 1; sk >= 0; sk--){
+      var cc = sheets[sk].content, live = 0;
+      for (var cj = 0; cj < cc.children.length; cj++)
+        if (cc.children[cj].offsetHeight > 0) live++;
+      if (live === 0 && sheets[sk].sheet.parentNode){
+        sheets[sk].sheet.parentNode.removeChild(sheets[sk].sheet);
+        sheets.splice(sk, 1);
+      }
+    }
+
+    // stamp Page X of N on every header
+    for (var p = 0; p < sheets.length; p++){
+      var tags = sheets[p].panel.querySelectorAll('.pgnum');
+      for (var q = 0; q < tags.length; q++)
+        tags[q].textContent = 'Page ' + (p + 1) + ' of ' + sheets.length;
+    }
+
+    // #page=k -> show ONLY that sheet (how the email images are captured)
+    function applyHash(){
+      var m = (location.hash || '').match(/page=(\d+)/);
+      for (var s = 0; s < sheets.length; s++)
+        sheets[s].sheet.style.display =
+          (!m || s + 1 === parseInt(m[1], 10)) ? '' : 'none';
+      window.scrollTo(0, 0);
+    }
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+  }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script></body></html>

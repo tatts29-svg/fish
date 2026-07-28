@@ -1,0 +1,57 @@
+COATES | K2 SHUTDOWN 2026 - EMAIL RECORD
+Cement Australia K2 - Gladstone
+Author: Andrew Fisher | POWERED BY SITEIQ
+==================================================================
+Company       : DGH Engineering
+Package       : External contractor
+Report date   : 2026-07-28
+Created       : 28 Jul 2026 14:09
+Status        : Draft Ready
+
+SUBJECT
+  DGH Engineering | Daily On-Hire Report | 28 July 2026
+
+TO (4)
+  ross.gould@dgh.com.au
+  jadams@dgh.com.au
+  aburgun@dgh.com.au
+  btooma@dgh.com.au
+
+CC (4)
+  thomas.maher@coates.com.au
+  cody.mitchell@coates.com.au
+  benjamin.vandenbroek@cemaust.com.au
+  david.moore@cemaust.com.au
+
+PASTED INTO THE EMAIL BODY
+  DGH Engineering - On-Hire Report - 2026-07-28.html
+
+ATTACHMENTS (2)
+  DGH Engineering - On-Hire Report - 2026-07-28.pdf
+  Daily Safety & Compliance Report - 2026-07-28.pdf
+
+PRE-SEND CHECKS
+  [PASS] Company matched to the on-hire register  -  DGH Engineering
+  [PASS] Folder is this company's, and everything in it is today's  -  DGH Engineering/2026-07-28
+  [PASS] Company named in the subject line  -  DGH Engineering | Daily On-Hire Report | 28 July 2026
+  [PASS] At least one confirmed address in To  -  4 in To
+  [PASS] Four fixed oversight contacts in Cc  -  4 in Cc
+  [PASS] Report in the body is today's, and still the current one  -  DGH Engineering - On-Hire Report - 2026-07-28.html
+  [PASS] Report ready for the email body  -  DGH Engineering - On-Hire Report - 2026-07-28.html
+  [PASS] Daily Safety & Compliance PDF attached  -  2 attachment(s)
+  [PASS] No other company's information in the pack  -  clean
+  [PASS] Every address on the contact register for this company  -  8 address(es) confirmed
+  [PASS] Every attachment on disk, listed once  -  2 file(s)
+  [PASS] Draft reads back exactly as addressed  -  To, Cc, body and attachments all confirmed
+  [PASS] Email size within the mail server's limit  -  4.2 MB (limit 10 MB)
+  [PASS] Every PDF built from today's report  -  all current
+
+SENT CONFIRMATION
+  Sent by      : ____________________
+  Date / time  : ____________________
+  Update the status above to 'Sent' once it has gone.
+
+------------------------------------------------------------------
+Routing taken from K2_Daily_Email_Report_Allocation.xlsx
+Nothing in this record was typed by hand - change the workbook and
+the next run follows it.

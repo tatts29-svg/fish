@@ -1,0 +1,56 @@
+COATES | K2 - ROUTING IN USE ON 2026-07-28
+Taken from K2_Daily_Email_Report_Allocation.xlsx
+======================================================================
+FIXED OVERSIGHT Cc ON EVERY EXTERNAL PACK
+  thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Cleanaway  [External contractor]
+  To: jayden.andrew@cleanaway.com.au
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+DGH Engineering  [External contractor]
+  To: ross.gould@dgh.com.au; jadams@dgh.com.au; aburgun@dgh.com.au; btooma@dgh.com.au
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+DKE Group  [External contractor]
+  To: louis.miller@dkegroup.com.au; illy.reitsma@dkegroup.com.au; warren.wilson@dkegroup.com.au; tim.lalor@dkegroup.com.au
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+High Risk Solutions  [External contractor]
+  To: ca@highrisksolutions.com.au; david.nunn@highrisksolutions.com.au; jzuniga@highrisksolutions.com.au
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Industec  [External contractor]
+  To: m.clayton@industec.com.au
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Programmed  [External contractor]
+  To: debra.rogers@programmed.com.au
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Synclift  [External contractor]
+  To: jbeard@synclift.com.au; blynch@synclift.com.au
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Tasman Rope Access  [External contractor]
+  To: c.sheppardkadel@tasmanropeaccess.com
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Universal Cranes  [External contractor]
+  To: joshua.breslin@universalcranes.com
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Veolia Refractory  [External contractor]
+  To: melissa.rowlands1@veolia.com; andrew.macloughlin@veolia.com; tim.lang1@veolia.com
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Xtreme Engineering  [External contractor]
+  To: kkay@xtremeengineering.com.au; scotth@xtremeengineering.com.au
+  Cc: thomas.maher@coates.com.au; cody.mitchell@coates.com.au; benjamin.vandenbroek@cemaust.com.au; david.moore@cemaust.com.au
+
+Cement Australia  [Client master report]
+  To: david.moore@cemaust.com.au; benjamin.vandenbroek@cemaust.com.au; john.pickels@cemaust.com.au
+  Cc: grant.holdsworth@cemaust.com.au; hazel.barba@cemaust.com.au; carmen.groat@cemaust.com.au; daniel.osborne@cemaust.com.au; aaron.watts@cemaust.com.au; thomas.maher@coates.com.au; cody.mitchell@coates.com.au; adam.mcinnes@cemaust.com.au; kris.tierney@cemaust.com.au; melissa.cooper@cemaust.com.au; nicole.ward@cemaust.com.au
+
+Change the workbook, not this file - this is only the
+record of what the packs used on the day.
