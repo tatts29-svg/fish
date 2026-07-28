@@ -1914,6 +1914,13 @@ def build_plant_model(plant, rates, cats, today, infra=None):
         rate = rates.get(p["variant"])
         if rate is None and info:
             rate = info["rate"]
+        if is_sep_invoice(p):
+            # Forklifts (and any welder classed as plant) are charged on
+            # the SEPARATE INVOICE - no dollar from them may join a
+            # SiteIQ-stream total, or the same machine-day counts on
+            # both streams. Tracked here for use/idle/audit as always;
+            # the Separate Invoice Tracker (49) carries the money.
+            rate = None
         p["rate"] = rate
         if is_site_plant_equipment(p["hirer"]):
             # Back on site, still on hire = still being charged. The saving.
