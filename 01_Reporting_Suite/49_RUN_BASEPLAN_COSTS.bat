@@ -1,13 +1,13 @@
 @echo off
 rem ==========================================================
-rem  COATES | BASEPLAN CHARGES TRACKER - the OTHER invoice
+rem  COATES | SEPARATE INVOICE TRACKER - the second stream
 rem  Cement Australia K2 Shutdown 2026 - Gladstone
 rem  Author: Andrew Fisher | POWERED BY SITEIQ
 rem
-rem  The gear billed out of Baseplan - radios, gas monitors,
-rem  welders, forklift, crib gear - tracked SEPARATE to
-rem  SiteIQ, with its own transport, split by invoice month
-rem  (Baseplan bills calendar months).
+rem  The separate invoice - radios, gas monitors, welders,
+rem  forklift, crib gear - tracked SEPARATE to SiteIQ, with
+rem  its own transport, split by invoice month (it bills
+rem  calendar months).
 rem
 rem  Save the Baseplan pull (any .xlsx starting "Baseplan")
 rem  into Downloads or this folder, double-click me. It files

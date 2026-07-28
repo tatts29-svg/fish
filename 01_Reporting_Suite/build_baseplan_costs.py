@@ -220,29 +220,29 @@ def build(today=None):
     past_term = [x for x in hire if not x["live"]]
 
     #  ---- the page ---------------------------------------------------
-    body = ("<div class='intro story'><b>THIS IS THE BASEPLAN STREAM - "
-            "INVOICED SEPARATELY TO SITEIQ.</b> Nothing on this page "
+    body = ("<div class='intro story'><b>THIS IS THE SEPARATE INVOICE - "
+            "THE SECOND STREAM, NOT SITEIQ.</b> Nothing on this page "
             "appears on a SiteIQ invoice, and no SiteIQ number appears "
-            "here. Transport on this page is Baseplan transport only - "
-            "the SiteIQ stream carries its own. Baseplan invoices by "
-            "calendar month (July bills to and including 31 Jul; August "
-            "opens its own invoice), so every line below is split by "
-            "month, ready to check each invoice when it lands. Start "
-            "dates and rates are trusted from the pull; expected end "
-            "dates change all the time and are treated as the current "
-            "plan, never as truth.</div>")
+            "here. Transport on this page belongs to this invoice only - "
+            "the SiteIQ stream carries its own. The separate invoice "
+            "bills by calendar month (July bills to and including 31 "
+            "Jul; August opens its own invoice), so every line below is "
+            "split by month, ready to check each invoice when it lands. "
+            "Start dates and rates are trusted from the pull; expected "
+            "end dates change all the time and are treated as the "
+            "current plan, never as truth.</div>")
     body += B.tiles_html([
         (("<span class='repl'>{}</span>".format(money(hire_spend))),
          "Hire spend to date"),
         (money(runrate) + "/day", "Daily run rate (live lines)",
          "a" if runrate else "g"),
-        (money(trans_spend), "Baseplan transport"),
+        (money(trans_spend), "Transport (this invoice)"),
         (money(misc_spend), "One-off supply"),
         ("{}".format(live_n), "Lines on hire now"),
     ])
 
     #  ---- month by month - the invoice check -------------------------
-    body += "<h2>Invoice months - what each Baseplan bill should read</h2>"
+    body += "<h2>Invoice months - what each separate invoice should read</h2>"
     mrows = []
     for mf in months:
         ml = month_span(mf)[1]
@@ -281,7 +281,7 @@ def build(today=None):
              "run me the morning an invoice lands and compare.</div>")
 
     #  ---- the hire lines ---------------------------------------------
-    body += "<h2>On hire through Baseplan - line by line</h2>"
+    body += "<h2>On hire on the separate invoice - line by line</h2>"
     rows_h = ""
     for x in sorted(hire, key=lambda x: -x["spend"]):
         rows_h += (
@@ -312,7 +312,7 @@ def build(today=None):
         body += ("<div class='note' style='border-left:4px solid #F2B01E'>"
                  "<b>{} line(s) past their expected end date</b> - {}. "
                  "Either it came back (good - the next pull should drop "
-                 "it) or the end date needs pushing out in Baseplan. "
+                 "it) or the end date needs pushing out in the hire system. "
                  "Worth a look before the invoice lands.</div>").format(
             len(past_term), "; ".join(
                 "{} (ended {})".format(esc(x["desc"]),
@@ -320,11 +320,11 @@ def build(today=None):
                 for x in past_term[:6]))
     if min_extra_total:
         body += ("<div class='note'>Minimum-term top-up riding on the "
-                 "crib gear: <b>{}</b> beyond actual days - a Baseplan "
-                 "term, not an error.</div>").format(money(min_extra_total))
+                 "crib gear: <b>{}</b> beyond actual days - a term of "
+                 "the hire, not an error.</div>").format(money(min_extra_total))
 
     #  ---- transport + misc, each their own -----------------------------
-    body += "<h2>Baseplan transport - this stream's own freight</h2>"
+    body += "<h2>Separate-invoice transport - this stream's own freight</h2>"
     if trans:
         body += ("<table class='data'><thead><tr><th>Charge</th>"
                  "<th class='num'>Qty</th><th class='num'>Rate</th>"
@@ -353,7 +353,7 @@ def build(today=None):
                  + "</tbody></table>")
 
     #  ---- cross-check with what the site tracks ----------------------
-    body += "<h2>Cross-check - Baseplan's bill v what we track on site</h2>"
+    body += "<h2>Cross-check - the separate invoice v what we track on site</h2>"
     try:
         (items, _p, _mt, radio_fleet, plant, _infra, gas_fleet,
          _roh, _goh, _mb, _mt2) = B.load_rental()
@@ -390,10 +390,10 @@ def build(today=None):
                        "<td class='{c}'>{w}</td></tr>").format(
                 l=lab, b=bp, s=site, c="g" if ok else "a",
                 w=("MATCHES" if ok else
-                   "CHECK - bill says {}, site register says {}".format(
+                   "CHECK - invoice says {}, site register says {}".format(
                        bp, site)))
         body += ("<table class='data'><thead><tr><th>Group</th>"
-                 "<th class='num'>On Baseplan's bill</th>"
+                 "<th class='num'>On the separate invoice</th>"
                  "<th class='num'>On the site register</th><th>Call</th>"
                  "</tr></thead><tbody>" + rows_c + "</tbody></table>")
         body += ("<div class='note'>Site side reads the SiteIQ "
@@ -422,24 +422,25 @@ def build(today=None):
               "SiteIQ charge appears here.").format(
         f=os.path.basename(path), ts=asof.strftime("%d %b %Y %H:%M"))
     B.emit_report(
-        "Coates_K2_Baseplan_Charges_{}".format(date_tag),
-        "Baseplan Charges Tracker",
-        "Invoiced separately to SiteIQ - the second stream",
+        "Coates_K2_Separate_Invoice_{}".format(date_tag),
+        "Separate Invoice Tracker",
+        "The second invoice stream - monthly, separate to SiteIQ",
         body, hero,
         [B._e_note(esc(
-            "{} Baseplan hire lines running at {}/day, {} to date plus "
-            "{} transport. Split by invoice month in the attached "
-            "tracker - Baseplan bills calendar months, separate to "
+            "{} hire lines on the separate invoice running at {}/day, {} to "
+            "date plus {} transport. Split by invoice month in the "
+            "attached tracker - it bills calendar months, separate to "
             "SiteIQ.".format(len(hire), money(runrate),
                              money(hire_spend), money(trans_spend))),
             "The second stream.")],
         limits,
-        "Coates K2 - Baseplan Charges Tracker - {}".format(
+        "Coates K2 - Separate Invoice Tracker - {}".format(
             today.strftime("%d %B %Y")),
         asof, dt.datetime.now(),
-        "Baseplan charge export - NOT SiteIQ", report_tag="BASEPLAN",
+        "Baseplan charge export (the separate invoice) - NOT SiteIQ",
+        report_tag="SEPINVOICE",
         pdf_attach_only=True)
-    print("  Baseplan tracker: {} hire lines | spend to date {} | run "
+    print("  Separate Invoice tracker: {} hire lines | spend to date {} | run "
           "rate {}/day | transport {} | SEPARATE stream".format(
               len(hire), money(hire_spend), money(runrate),
               money(trans_spend)))

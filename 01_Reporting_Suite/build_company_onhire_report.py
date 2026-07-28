@@ -228,6 +228,19 @@ def is_radio_handset(item):
     d = (item["description"] + " " + item.get("desc0", "")).upper()
     return any(k in d for k in RADIO_HANDSET_KEYWORDS)
 
+
+#  Gear charged on the SEPARATE INVOICE (Andrew, 28 Jul 2026): billed
+#  monthly outside SiteIQ, so its hire dollars must never join the
+#  SiteIQ-stream totals - the Separate Invoice Tracker (49) carries
+#  them. Radios and gas monitors are handled at fleet level already;
+#  these are the per-item groups.
+SEP_INVOICE_WORDS = ("WELDER", "FORKLIFT")
+
+
+def is_sep_invoice(item):
+    d = (item["description"] + " " + item.get("desc0", "")).upper()
+    return any(w in d for w in SEP_INVOICE_WORDS)
+
 SHUTDOWN_NAME = "Cement Australia K2 Shutdown 2026 - Gladstone"
 COATES_ORANGE = "#F26222"   # sampled from the official Coates Way cog artwork
 COATES_DARK = "#1D1D1B"
@@ -1163,6 +1176,15 @@ def build_company_model(company, items, rates, repl, sales, today,
             # would count the same handset-days twice in the same pack.
             rate = None
             charge_days = None
+        if is_sep_invoice(it):
+            # Welders and forklifts are charged on the SEPARATE INVOICE
+            # (Andrew, 28 Jul 2026) - their dollars live on the Separate
+            # Invoice Tracker (49), never in the SiteIQ-stream totals,
+            # or the same welder-day would be counted on both streams.
+            # The gear itself still tracks here for issue, return and
+            # stocktake - that is the whole point of tracking it onsite.
+            rate = None
+            charge_days = None
         #  Customer-owned gear carries no replacement cost, and the reason
         #  is simply that it isn't ours to replace. Charging Cement a
         #  replacement figure for bollards they bought themselves - and
@@ -1191,10 +1213,13 @@ def build_company_model(company, items, rates, repl, sales, today,
     spend = sum(r["rate"] * r["charge_days"] for r in rows
                 if r["rate"] is not None and r["charge_days"] is not None)
     repl_exposure = sum(r["repl"] for r in rows if r["repl"] is not None)
-    # Handsets are deliberately rate-less here (fleet-level billing) - they
-    # are not "unpriced" in the missing-a-rate sense.
+    # Handsets are deliberately rate-less here (fleet-level billing), and
+    # separate-invoice gear (welders, forklifts) deliberately carries its
+    # value on the other stream - neither is "unpriced" in the
+    # missing-a-rate sense.
     unpriced = sum(1 for r in rows
-                   if r["rate"] is None and not is_radio_handset(r))
+                   if r["rate"] is None and not is_radio_handset(r)
+                   and not is_sep_invoice(r))
 
     aging = {"0-2": 0, "3-4": 0, "5+": 0, "unknown": 0}
     for r in rows:
@@ -1810,8 +1835,12 @@ def render_summary_html(models, asof, generated, source_line, radio_fleet=0,
                          'excluded from the charge.').format(
                 sp=spares, pl2="" if spares == 1 else "s")
         radio_line = (
-            '<h2>Radio fleet daily charge</h2>'
-            '<div class="note">{n} radio handsets in RENTAL_STOCK (batteries '
+            '<h2>Radio fleet daily charge - on the separate invoice</h2>'
+            '<div class="note"><b>Charged on the separate invoice, not '
+            'through SiteIQ</b> - shown here so the whole cost picture is '
+            'on one page, never added to the SiteIQ totals above. '
+            'Cross-checked line-for-line by the Separate Invoice Tracker '
+            '(button 49). {n} radio handsets in RENTAL_STOCK (batteries '
             'and covers excluded); <b>{b} billable</b> at {r} each per day, '
             'charged whether on hire or not, from {s} (no backdating): '
             '<b>{dv} per day</b>; accrued to date ({d} charged day{pl}): '
@@ -1822,14 +1851,25 @@ def render_summary_html(models, asof, generated, source_line, radio_fleet=0,
             d=radio_days, pl="" if radio_days == 1 else "s",
             acc=fmt_money(billable * RADIO_DAILY_RATE * radio_days),
             spare=spare_txt)
+    radio_line += (
+        '<div class="note">Welders and forklifts on hire are the same '
+        'deal: <b>charged on the separate invoice</b>, so they are '
+        'listed and tracked in this pack but carry no rate in the '
+        'SiteIQ totals - the Separate Invoice Tracker (button 49) holds '
+        'their dollars. Nothing is counted twice.</div>')
     gas_line = ""
     if gas_fleet:
         gas_daily = gas_fleet * GAS_RATE
         if dt.date.today() >= GAS_START:
             gas_days = (dt.date.today() - GAS_START).days + 1
             gas_line = (
-                '<h2>Gas monitor fleet daily charge</h2>'
-                '<div class="note">{n}-unit gas monitor fleet; billed at {r} '
+                '<h2>Gas monitor fleet daily charge - on the separate '
+                'invoice</h2>'
+                '<div class="note"><b>Charged on the separate invoice, not '
+                'through SiteIQ</b> - shown for the whole picture, never '
+                'added to the SiteIQ totals above; the Separate Invoice '
+                'Tracker (button 49) carries and cross-checks it. '
+                '{n}-unit gas monitor fleet; billed at {r} '
                 'each per day, charged whether on hire or not, from {s} until '
                 'the last forecast day in Daily Tracking: <b>{dv} per day</b>; '
                 'accrued to date ({d} charged day{pl}): <b>{acc}</b>.'
