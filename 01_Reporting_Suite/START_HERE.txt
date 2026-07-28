@@ -83,6 +83,14 @@
    41_PEOPLE_LIST.bat            everyone on site and their hire ID
    29_ADD_GEAR.bat               add gear that isn't in SiteIQ yet
 
+   47_MAKE_MY_QR_CARDS.bat       a personal QR sticker for every hire
+                                 card. Scan it with the phone's normal
+                                 camera app on the store Wi-Fi and YOUR
+                                 gear opens - nothing to type, no
+                                 warnings. 21 per A4 page (Avery L7160),
+                                 grouped by company. Re-run if the
+                                 store address changes.
+
 
 ----------------------------------------------------------------------
  WHEN SOMETHING IS WRONG
