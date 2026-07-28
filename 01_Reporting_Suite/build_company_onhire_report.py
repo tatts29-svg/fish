@@ -1325,10 +1325,16 @@ BASE_CSS = """
   table.tiles td { background: #171B22; color: #fff; text-align: center;
                    padding: 14px 6px; border-radius: 10px; border: 1px solid #2A313C;
                    border-top: 3px solid __ORANGE__; }
-  table.tiles td:nth-child(4n+1) { border-top-color: __ORANGE__; }
-  table.tiles td:nth-child(4n+2) { border-top-color: #3FB950; }
-  table.tiles td:nth-child(4n+3) { border-top-color: #fab219; }
-  table.tiles td:nth-child(4n+4) { border-top-color: #8B9099; }
+  /* Status tints (the look Andrew picked, 28 Jul 2026): a tile only
+     wears colour when its number IS a judgement - red action, amber
+     watch, green healthy. Plain facts stay plain; the old cycle of
+     colours-by-position was decoration and is gone. */
+  table.tiles td.tg { background:#12271A; border-color:#3FB950; border-top:3px solid #3FB950; }
+  table.tiles td.tg .v { color:#3FB950; }
+  table.tiles td.ta { background:#2A2210; border-color:#fab219; border-top:3px solid #fab219; }
+  table.tiles td.ta .v { color:#fab219; }
+  table.tiles td.tr { background:#2A1512; border-color:#F85149; border-top:3px solid #F85149; }
+  table.tiles td.tr .v { color:#F85149; }
   table.tiles .v { font-size: 17pt; font-weight: bold; display: block; color: #fff; }
   .hb { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
   .hb .hl { width: 225px; color: #A9B1BD; font-size: 12px; }
@@ -2960,6 +2966,23 @@ def _tbl(headers, rows):
             "<tbody>{}</tbody></table>").format(h, b)
 
 
+def tiles_html(cells):
+    """One row of KPI tiles, the suite standard. cells = (value, label)
+    or (value, label, status) with status 'g'/'a'/'r'. Colour ONLY where
+    the number is a judgement (the look Andrew picked, 28 Jul 2026):
+    red action, amber watch, green healthy - a plain fact stays a plain
+    tile. Values go in as given (some carry entities or the neon money
+    highlight); labels are escaped here."""
+    tds = ""
+    for c in cells:
+        v, l = c[0], c[1]
+        st = c[2] if len(c) > 2 and c[2] in ("g", "a", "r") else ""
+        tds += ("<td{cls}><span class='v'>{v}</span>"
+                "<span class='l'>{l}</span></td>").format(
+            cls=" class='t{}'".format(st) if st else "", v=v, l=esc(l))
+    return "<table class='tiles'><tr>" + tds + "</tr></table>"
+
+
 def hbar(label, val_text, frac, colour="#F26222"):
     """One horizontal bar row - the suite's standard visual (same look as
     the Cost Tracking Snapshot's plan bars). frac is clamped 0..1; a zero
@@ -4068,13 +4091,11 @@ def generate_store_report(sales, sales_loaded, asof, generated, source_line,
 
     tiles = [(str(sm["stocked"]), "Lines Stocked"),
              (str(sm["managed"]), "Min/Max Managed"),
-             (str(sm["out"]), "Out Of Stock"),
-             (str(sm["low"]), "At / Under Min"),
+             (str(sm["out"]), "Out Of Stock", "r" if sm["out"] else "g"),
+             (str(sm["low"]), "At / Under Min", "a" if sm["low"] else "g"),
              ("{:,}".format(sm["draws"]), "Draws This Shut"),
              (_qty(sm["used_qty"]), "Items Issued")]
-    body += "<table class='tiles'><tr>" + "".join(
-        "<td><span class='v'>{}</span><span class='l'>{}</span></td>".format(
-            esc(v), esc(l)) for v, l in tiles) + "</tr></table>"
+    body += tiles_html(tiles)
 
     # -- what we need: the reorder list, worst first -----------------------
     if sm["need"]:
@@ -4256,13 +4277,12 @@ def generate_requests_report(asof, generated, source_line, date_tag):
             "store sees real demand, not guesswork.")
     body = "<div class='intro story'>" + story + "</div>"
 
-    tiles = [(str(len(by["New"])), "Open - Action Needed"),
+    tiles = [(str(len(by["New"])), "Open - Action Needed",
+              "a" if by["New"] else "g"),
              (str(len(by["Ordered"])), "On Order"),
              (str(len(by["Arrived"])), "Arrived / Closed"),
              (str(len(reqs)), "Total Requests")]
-    body += "<table class='tiles'><tr>" + "".join(
-        "<td><span class='v'>{}</span><span class='l'>{}</span></td>".format(
-            esc(v), esc(l)) for v, l in tiles) + "</tr></table>"
+    body += tiles_html(tiles)
 
     def req_table(rows):
         return ("<table class='data'><thead><tr><th>Date</th><th>Item</th>"
@@ -4478,13 +4498,13 @@ def generate_stocktake(asof, generated, source_line, date_tag):
                     "{} due a count today".format(sm["due"]), "current",
                     colour=rag_colour(1 - (sm["due"] / sm["total"] if sm["total"] else 0)))
              + "</div>")
-    tiles = [("{:.0%}".format(pct), "Store On The 3-Day Cycle"),
+    tiles = [("{:.0%}".format(pct), "Store On The 3-Day Cycle",
+              "g" if pct >= 0.95 else "a" if pct >= 0.80 else "r"),
              ("{:,}/{:,}".format(sm["cyc"], sm["total"]), "Items Sighted (3 Days)"),
-             (str(sm["due"]), "Due A Count Today"),
+             (str(sm["due"]), "Due A Count Today",
+              "g" if sm["due"] == 0 else "a"),
              (str(sm["days_left"]), "Days To Shut End")]
-    body += "<table class='tiles'><tr>" + "".join(
-        "<td><span class='v'>{}</span><span class='l'>{}</span></td>".format(
-            esc(v), esc(l)) for v, l in tiles) + "</tr></table>"
+    body += tiles_html(tiles)
 
     # ---- scorecards by storage unit ----------------------------------
     rows_h = ""
@@ -5202,13 +5222,12 @@ def generate_stocktake_team(asof, generated, source_line, date_tag):
         due=sm["due"], r=rate3, steady=sm["steady"],
         fd=finish_days if finish_days else 0,
         end=SHUT_END.strftime("%d %b")) + "</div>"
-    body += "<table class='tiles'><tr>" + "".join(
-        "<td><span class='v'>{}</span><span class='l'>{}</span></td>".format(
-            esc(v), esc(l)) for v, l in [
-            (str(sm["due"]), "Due Now"),
-            ("{:.0f}/day".format(rate3), "Your 3-Day Average"),
-            ("{:,}/day".format(sm["steady"]), "Keeps The Wheel Turning"),
-            (str(sm["days_left"]), "Days To Shut End")]) + "</tr></table>"
+    body += tiles_html([
+        (str(sm["due"]), "Due Now", "g" if sm["due"] == 0 else "a"),
+        ("{:.0f}/day".format(rate3), "Your 3-Day Average",
+         "g" if rate3 >= sm["steady"] else "a"),
+        ("{:,}/day".format(sm["steady"]), "Keeps The Wheel Turning"),
+        (str(sm["days_left"]), "Days To Shut End")])
 
     # ---- the next 24 hours: who counts what -------------------------------
     # (A. Fisher, 25 Jul 2026): the 24-hour plan, fresh every run - what's
@@ -6311,14 +6330,14 @@ def generate_mygear_mail(models, asof, generated, source_line, date_tag):
 
         body = story
         tiles = [("{}".format(score) if score is not None else "&mdash;",
-                  "Returns Score / 100"),
+                  "Returns Score / 100",
+                  "" if score is None else
+                  "g" if score >= 75 else "a" if score >= 55 else "r"),
                  (str(out_now), "In Your Name Now"),
                  ("{} &middot; {} same-day".format(rets, same), "Returned"),
                  (str(h.get("days_active", 0)), "Active Days"),
                  (esc(hid) if hid else "&mdash;", "Your Hirer ID")]
-        body += "<table class='tiles'><tr>" + "".join(
-            "<td><span class='v'>{}</span><span class='l'>{}</span></td>".format(
-                v, esc(l)) for v, l in tiles) + "</tr></table>"
+        body += tiles_html(tiles)
 
         # ---- everything through the store -----------------------------
         thru = []
@@ -6991,10 +7010,7 @@ def diphoterine_safety_html(models):
 
 
 def _tiles_diph(cells):
-    tds = "".join("<td><span class='v'>{}</span>"
-                  "<span class='l'>{}</span></td>".format(v, esc(l))
-                  for v, l in cells)
-    return "<table class='tiles'><tr>{}</tr></table>".format(tds)
+    return tiles_html(cells)
 
 
 def generate_safety_report(models, radio_fleet, gas_fleet, stocktake, asof,
@@ -9980,10 +9996,7 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
         return sum(r["repl"] for _m, r in pairs if r["repl"] is not None)
 
     def _tiles(cells):
-        tds = "".join("<td><span class='v'>{}</span>"
-                      "<span class='l'>{}</span></td>".format(v, esc(l))
-                      for v, l in cells)
-        return "<table class='tiles'><tr>{}</tr></table>".format(tds)
+        return tiles_html(cells)
 
     def _chase_tbl(pairs, show_days=True):
         """Person | Company | Item | Out | Replacement - oldest first, the

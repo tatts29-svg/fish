@@ -86,6 +86,12 @@ h2{color:#14181F;background:#F6F7F9;border:1px solid #E3E6EB;
 table.tiles td{background:#F9FAFB;color:#14181F;border:1px solid #E3E6EB}
 table.tiles .v{color:#14181F}
 table.tiles .l{color:#5B6472}
+table.tiles td.tg{background:#E8F6EC;border:1px solid #3FB950}
+table.tiles td.tg .v{color:#0C6B2D}
+table.tiles td.ta{background:#FFF4D6;border:1px solid #F2B01E}
+table.tiles td.ta .v{color:#7A5A00}
+table.tiles td.tr{background:#FBE3DF;border:1px solid #F85149}
+table.tiles td.tr .v{color:#A02A16}
 table.data td{color:#262C35;border-bottom:1px solid #E7EAEF;background:#fff}
 table.data tr:nth-child(even) td{background:#F6F8FA}
 table.aging td{color:#262C35;border:1px solid #DFE3E9;background:#fff}
