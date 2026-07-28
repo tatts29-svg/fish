@@ -118,6 +118,25 @@
 
 
 ----------------------------------------------------------------------
+ GETTING IMPROVEMENTS DONE
+----------------------------------------------------------------------
+
+   Want something changed or added? The whole process is:
+
+     1. Ask Claude in the chat for the improvement.
+     2. Download the K2_UPDATE zip it sends back.
+     3. 46_APPLY_UPDATE.bat - double-click. Done.
+
+   46_APPLY_UPDATE.bat finds the zip itself (Downloads, here, or
+   Updates), backs up everything it replaces, and refuses to touch
+   your address book, charge register or SiteIQ data. If an update
+   turns out to be broken it puts everything back by itself. Safe
+   to run twice - it will not apply the same zip again.
+
+   Then 39_SYNC_PCS.bat carries the update to the other laptop.
+
+
+----------------------------------------------------------------------
  HOUSEKEEPING
 ----------------------------------------------------------------------
 
