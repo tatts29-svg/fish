@@ -895,6 +895,17 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
         "<div class='meta'>As at<br><b>{asat}</b><br><br>Author<br><b>Andrew Fisher</b><br><br>PAGEMARK</div></div></div>"
         "<div class='rule'></div>"
         "<div class='banner'><span class='pill'>On plan</span><p>{banner}</p></div>"
+        #  THE STREAM STAMP (Andrew, 28 Jul 2026): every dollar on this
+        #  snapshot is the SiteIQ stream. The separate monthly invoice is
+        #  its own page and its own money - said plainly on page one so
+        #  the two can never be read as one figure.
+        "<div class='banner watch'><span class='pill watch'>Cost stream</span>"
+        "<p><b>SiteIQ invoicing only.</b> Every figure on this snapshot "
+        "bills through SiteIQ. The separate monthly invoice &mdash; "
+        "radios, gas monitors, sub-hired welders and forklift, "
+        "compressor, crib gear and its own transport &mdash; is tracked "
+        "on its own page and <b>none of its dollars appear here</b>. "
+        "The two streams never share a figure.</p></div>"
         "<div class='kpis'>{kpis}</div>"
     ).format(period=period, days=cost["days"], asat=asat, banner=banner, kpis=kpis) + story
 

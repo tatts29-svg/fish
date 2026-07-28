@@ -247,6 +247,20 @@ def is_radio_handset(item):
 #  comes off the register and the Baseplan pull, run by run.
 SEP_BARCODES = ("FK505",)          # supplier codes without the SUB prefix
 
+#  The stream stamp (Andrew, 28 Jul 2026: "make sure with any costs its
+#  clearly viewed and nothing overlaps onto another figure"). Printed
+#  wherever SiteIQ dollars appear, so no figure can ever be read as the
+#  other stream's - the Separate Invoice Tracker carries the mirror
+#  statement on its own banner.
+STREAM_NOTE_SITEIQ = (
+    "<div class='note' style='border-left:4px solid #F26222'>"
+    "<b>COST STREAM: SiteIQ invoicing only.</b> Every dollar on this "
+    "page bills through SiteIQ. The separate monthly invoice - radios, "
+    "gas monitors, sub-hired welders and forklift, compressor, crib "
+    "gear and its own transport - is tracked on its own page (button "
+    "49) and none of its dollars appear here. The two streams never "
+    "share a figure.</div>")
+
 
 def is_sep_invoice(item):
     bc = str(item.get("barcode") or "").strip().upper()
@@ -1835,6 +1849,7 @@ def render_summary_html(models, asof, generated, source_line, radio_fleet=0,
         n=sum(m["n_items"] for m in models), c=len(models),
         dv=fmt_money(sum(m["daily_value"] or 0 for m in models)),
         sp=fmt_money(sum(m["spend"] or 0 for m in models)))
+    totals += STREAM_NOTE_SITEIQ
     radio_days = max(1, (dt.date.today() - RADIO_CHARGE_START).days + 1)
     radio_line = ""
     if radio_fleet:
@@ -2014,6 +2029,7 @@ def render_plant_html(pm, asof, generated, source_line, cats_found):
     tiles_h = '<table class="tiles"><tr>{}</tr></table>'.format(
         "".join('<td><span class="v">{}</span><span class="l">{}</span></td>'
                 .format(esc(v), esc(l)) for v, l in tiles))
+    tiles_h += STREAM_NOTE_SITEIQ
 
     # ---- in use, grouped by Andrew's register categories ----
     rows = []
