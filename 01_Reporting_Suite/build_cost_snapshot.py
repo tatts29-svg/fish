@@ -2041,6 +2041,22 @@ def main():
     eml_out = os.path.join(dirs["emails"], "Coates_K2_Cost_Tracking_Snapshot_{}.eml".format(stamp))
     made_email = False
     r_to, r_cc = recipients.resolve(HERE, "", "COST")
+    #  THE CEMENT MASTER EMAIL (Andrew, 28 Jul 2026): the snapshot stays
+    #  pasted in the body, and the full daily pack rides the paperclip -
+    #  exec summary, safety, returns, site plant, consumables, Cement's
+    #  own on-hire report and the all-companies summary. The PDFs are
+    #  built later in the same 00 run (company reports are step 6, this
+    #  is step 5); the draft is created at step 9, after everything
+    #  exists - MAKE_OUTLOOK_DRAFTS skips and names anything missing.
+    _pack = [os.path.join(dirs["pdf"], n.format(stamp)) for n in (
+        "Coates_K2_Executive_Summary_{}.pdf",
+        "Coates_K2_Safety_Assurance_{}.pdf",
+        "Coates_K2_Returns_Performance_{}.pdf",
+        "Coates_SitePlant_Report_{}.pdf",
+        "Coates_K2_Consumables_Report_{}.pdf",
+        "Coates_OnHire_Report_CEMENT_AUSTRALIA_HOLDINGS_PTY_LTD_{}.pdf",
+        "Coates_OnHire_Summary_ALL_COMPANIES_{}.pdf",
+    )]
     pngs = render_page_images(page_htmls, dirs["emails"], stamp)
     if pngs:
         try:
@@ -2050,7 +2066,8 @@ def main():
             cids = ["pg{}".format(i) for i in range(1, len(pngs) + 1)]
             email_images.write_manifest(eml_out, str(m["Subject"]),
                                         email_images.images_body(cids, baked=False), pngs,
-                                        report="COST")
+                                        report="COST",
+                                        attachments=_pack)
             print(" Email ({}-page): {}".format(n_pages, eml_out))
             made_email = True
         except Exception as exc:

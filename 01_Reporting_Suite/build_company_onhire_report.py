@@ -2857,10 +2857,59 @@ def _drop_prep(html_path, emails_dir, stem):
         pass          # still holding the next report's page - fine
 
 
+def _oversight_cc():
+    """The fixed oversight names CC'd on every company report email -
+    read off the routing workbook's Summary sheet, the same block the
+    daily packs read (add a person there, never here). Cached for the
+    run; empty string if the workbook isn't on this machine - the email
+    still goes, just without the CC."""
+    if _oversight_cc._memo is None:
+        got = []
+        try:
+            wb = openpyxl.load_workbook(
+                os.path.join(KIT_DIR,
+                             "K2_Daily_Email_Report_Allocation.xlsx"),
+                read_only=True, data_only=True)
+            if "Summary" in wb.sheetnames:
+                rows = [[("" if c is None else str(c).strip()) for c in r]
+                        for r in wb["Summary"].iter_rows(values_only=True)]
+                grab = False
+                for r in rows:
+                    head = " ".join(r).upper()
+                    if not grab and "FIXED" in head and "CC" in head:
+                        grab = True
+                        continue
+                    if grab:
+                        found = re.findall(r"[\w.+-]+@[\w.-]+\.\w+",
+                                           " ".join(r))
+                        if not found:
+                            if got or any(r):
+                                break
+                            continue
+                        for e in found:
+                            if e.lower() not in [x.lower() for x in got]:
+                                got.append(e)
+            wb.close()
+        except Exception:
+            got = []
+        _oversight_cc._memo = ", ".join(got)
+    return _oversight_cc._memo
+
+
+_oversight_cc._memo = None
+
+
 def emit_report(stem, title, company_line, body_html, hero, inner_email,
                 limits, subject, asof, generated, source_line,
-                report_tag=""):
-    """Shared emitter: PDF + framed email + native-draft manifest."""
+                report_tag="", pdf_attach_only=False, cc_extra=""):
+    """Shared emitter: PDF + framed email + native-draft manifest.
+
+    pdf_attach_only is THE COMPANY EMAIL RULE (Andrew, 28 Jul 2026):
+    "give them a story of what their full report is... say see attached
+    full report... thats the only report they get." No page pictures at
+    all - a friendly note in the body, the finished PDF on the
+    paperclip. Cuts each company from minutes of browser captures to
+    seconds, and the drafts open and send instantly."""
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     work = os.path.join(OUTPUT_DIR, "_work") if EMAIL_ONLY else PAGES_DIR
     os.makedirs(work, exist_ok=True)
@@ -2887,7 +2936,41 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
     # same look as the Cost Tracking Snapshot email. If no browser is on
     # this machine, fall back to the framed summary body as before.
     r_to, r_cc = recipients.resolve(KIT_DIR, "", report_tag)
-    imgs = email_images.capture_report_images(html_path, EMAILS_DIR, stem)
+    if cc_extra:
+        r_cc = ", ".join(x for x in (r_cc, cc_extra) if x)
+    if pdf_attach_only:
+        #  Story + PDF, never pictures. Make sure the PDF exists even in
+        #  email-only mode, and sweep any page images an earlier run of
+        #  the same day left behind so the pack builder can't pick a
+        #  stale picture email over the new PDF one.
+        if not pdf_ok:
+            pdf_ok = html_to_pdf(html_path, pdf_path)
+            attach_path = pdf_path if pdf_ok else html_path
+        import glob as _glob
+        for leftover in _glob.glob(os.path.join(EMAILS_DIR,
+                                                stem + "_Email*")):
+            try:
+                os.remove(leftover)
+            except OSError:
+                pass
+        inner_email = ([_e_intro(
+            "G'day team &mdash; thanks for looking after the gear. "
+            "Here's your position at a glance, and <b>your full report "
+            "is attached as a PDF</b> &mdash; every number, and a page "
+            "for each of your people. Reckon something on it has "
+            "already come back? Reply or see us at the counter and "
+            "we'll run the same-day double-check return so your list "
+            "stays right.")]
+            + list(inner_email)
+            + [_e_note("Thanks for doing your bit &mdash; it keeps the "
+                       "whole site moving. Care Deeply &middot; Customer "
+                       "Focused &middot; Be Our Best &middot; One Team "
+                       "&middot; Competitive Spirit",
+                       "One team.")])
+        imgs = []
+    else:
+        imgs = email_images.capture_report_images(html_path, EMAILS_DIR,
+                                                  stem)
     #  Pages go in the body only when the whole message will actually
     #  arrive. DGH's 21-page report built a 17.3 MB draft - over what
     #  plenty of corporate gateways accept, so it bounces AFTER the send
@@ -10479,7 +10562,8 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                 "dollar value.",
                 "Coates K2 - {} - Equipment Activity & Accountability".format(
                     co["display"]),
-                asof, generated, source_line, report_tag="ACTIVITY")
+                asof, generated, source_line, report_tag="ACTIVITY",
+                pdf_attach_only=True, cc_extra=_oversight_cc())
         print("  Activity & Accountability: {} company pack(s), {} hirer "
               "pages, period {} to {}".format(
                   len(am["companies"]),

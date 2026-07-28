@@ -200,6 +200,7 @@ foreach ($mf in $manifests) {
         foreach ($a in @($j.attachments)) {
             $p = Join-Path $dir ([string]$a)
             if (Test-Path $p) { [void]$mail.Attachments.Add($p) }
+            else { Write-Host ("  ! attachment not built, left off {0}: {1}" -f $j.subject, [string]$a) }
         }
         # Reports pasted into the body as inline images: attach each image
         # with its Content-ID so it renders in place in the body, and mark
