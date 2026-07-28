@@ -241,6 +241,35 @@ def build(today=None):
         ("{}".format(live_n), "Lines on hire now"),
     ])
 
+    #  ---- how the two streams can never double up --------------------
+    #  (Andrew, 28 Jul 2026: "how are you supplying this info in the
+    #  report to ensure we are not doubling up costs") - the answer
+    #  lives ON the page, not in anyone's memory.
+    body += "<h2>How this stream stays separate - no double-ups</h2>"
+    body += (
+        "<div class='intro'>"
+        "<b>1. This page IS the separate-invoice list.</b> Every line "
+        "below comes straight off the pull, run by run - nothing is "
+        "remembered, nothing is assumed. What is not on this page bills "
+        "through SiteIQ.<br>"
+        "<b>2. On the SiteIQ side, sub-hired units are recognised by "
+        "BARCODE</b> - the SUB prefix (SUBHARVEY welders) or a known "
+        "supplier code (forklift FK505) - and carry <b>no rate in any "
+        "SiteIQ total</b>: not the internal summary, not the plant "
+        "report, nowhere. Coates machines with plain numeric or COA "
+        "barcodes keep their SiteIQ rates - they are the other stream."
+        "<br>"
+        "<b>3. Radios and gas monitors are fleet rules</b>, headed 'on "
+        "the separate invoice' on the internal summary and never added "
+        "into its totals.<br>"
+        "<b>4. The cross-check below proves it every run</b> - the "
+        "invoice's quantities against the sub-marked units on the site "
+        "register. Agreement reads green; any drift flashes amber the "
+        "same morning it appears.<br>"
+        "<b>New sub gear:</b> load it with a SUB-prefixed barcode and "
+        "every rule above picks it up automatically - nothing to "
+        "change anywhere.</div>")
+
     #  ---- month by month - the invoice check -------------------------
     body += "<h2>Invoice months - what each separate invoice should read</h2>"
     mrows = []
