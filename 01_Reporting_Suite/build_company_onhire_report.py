@@ -4030,9 +4030,13 @@ def load_charge_feed():
                         return r[i] if i is not None and i < len(r) else None
                     if not g("Charge ID"):
                         continue
-                    when = g("Date")
-                    if isinstance(when, dt.datetime):
-                        when = when.date()
+                    #  The Date cell arrives as a real Excel date OR as
+                    #  text, depending on what wrote the row - 50_ADD_
+                    #  LIFTING_CHARGES wrote text on 28 Jul 2026 and the
+                    #  mixed sort crashed the whole morning build
+                    #  (str < date). Parse whatever shape turns up;
+                    #  junk parses to None and sorts first, never crashes.
+                    when = parse_date_au(g("Date"))
                     try:
                         amt = float(g("Amount") or 0)
                     except (TypeError, ValueError):

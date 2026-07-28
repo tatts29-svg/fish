@@ -81,7 +81,10 @@ def _d(v):
     if isinstance(v, dt.date):
         return v
     s = str(v or "").strip()
-    for f in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d", "%d/%m/%Y"):
+    #  Every shape a date cell has been seen to take - Excel serial text
+    #  aside, junk parses to None and the line is reported, not guessed.
+    for f in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d", "%d/%m/%Y",
+              "%d/%m/%Y %H:%M", "%d/%m/%Y %I:%M %p", "%d/%m/%y"):
         try:
             return dt.datetime.strptime(s, f).date()
         except ValueError:

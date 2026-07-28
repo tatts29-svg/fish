@@ -161,6 +161,11 @@
  HOUSEKEEPING
 ----------------------------------------------------------------------
 
+   51_TIDY_THE_FOLDER.bat        moves the read-once paperwork into
+                                 Docs\ and dated one-offs into
+                                 _Archive\. Nothing deleted, no code
+                                 or register ever moves. Safe anytime.
+
    45_ARCHIVE_OLD_REPORTS.bat    puts every report day older than today
                                  into ONE zip in Updates\report_archives,
                                  checks that zip opens and holds every

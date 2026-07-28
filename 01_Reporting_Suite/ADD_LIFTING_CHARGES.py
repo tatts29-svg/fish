@@ -111,17 +111,21 @@ def main():
     for i, (desc, qty, unit, total) in enumerate(LINES):
         cid = "CON-{}-{:03d}".format(tag, nxt + i)
         ids.append(cid)
+        #  REAL date objects, never text - the register's older rows are
+        #  Excel dates, and one text date in the same column crashed the
+        #  whole 29 Jul morning build (str and date can't sort together).
         ws.append([cid, "Cement Australia",
-                   CHARGE_DATE.strftime("%Y-%m-%d"), "14:00",
+                   dt.datetime(CHARGE_DATE.year, CHARGE_DATE.month,
+                               CHARGE_DATE.day), "14:00",
                    "Andrew Fisher", "", BATCH_REF + " - K2",
                    desc, qty, "Each", unit, total])
         if feed is not None:
-            feed.append([CHARGE_DATE.strftime("%Y-%m-%d"), cid,
+            feed.append([dt.datetime(CHARGE_DATE.year, CHARGE_DATE.month,
+                                     CHARGE_DATE.day), cid,
                          "Consumables sold", "Consumables Sales",
                          "Cement Australia",
                          BATCH_REF + " - " + desc, total, "Approved",
-                         APPROVED_BY, "",
-                         dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+                         APPROVED_BY, "", dt.datetime.now()])
     wb.save(REG)
 
     print("")
