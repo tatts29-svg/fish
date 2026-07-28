@@ -1,5 +1,6 @@
-# Coates K2 suite MASTER version - 96 files - overall 0c4ddbfb
-# built by Claude, elite improvements pass, 28 Jul 2026
+# Coates K2 suite version - 98 files - overall 357fa3dc
+# /home/user/fish/01_Reporting_Suite
+# taken 2026-07-28 09:56:55
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -43,17 +44,19 @@ cc1c399e2c 40_WHAT_VERSION_AM_I.bat
 be641a59a8 44_ALLOW_PHONES_IN.bat
 d584cad4e8 45_ARCHIVE_OLD_REPORTS.bat
 27d0de6e78 46_APPLY_UPDATE.bat
+8bf2675af9 47_MAKE_MY_QR_CARDS.bat
 4abea8c170 ADD_GEAR.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
 df79c593c3 APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 ba630f9f70 BUILD_DAILY_EMAIL_PACKS.py
-b9b9996f6c BUILD_MY_GEAR.py
+926363f7b5 BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 c08a355aeb CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
 218fb4912a IS_IT_WORKING.py
+d7e5f12668 MAKE_MY_QR_CARDS.py
 5dcbd4e16c MAKE_OUTLOOK_DRAFTS.ps1
 1c5c7eaecd PEOPLE_LIST.py
 756523866c PICK_REPORT.py
@@ -88,7 +91,7 @@ fc7018a232 equipment_compliance.py
 37690b04c6 logbook_poster.py
 2cd99a683d master_equipment.py
 12111f3895 mygear_guides.py
-672a925a41 mygear_ui.py
+04e98bd07f mygear_ui.py
 50df326173 net_pick.py
 baf96d6e18 qr_lite.py
 64177bb894 recipients.py
