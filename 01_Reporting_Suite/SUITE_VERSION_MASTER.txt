@@ -1,6 +1,6 @@
-# Coates K2 suite version - 98 files - overall 201fc1c6
+# Coates K2 suite version - 100 files - overall 7ba1eae0
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-28 11:54:40
+# taken 2026-07-28 12:14:19
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -45,7 +45,9 @@ be641a59a8 44_ALLOW_PHONES_IN.bat
 d584cad4e8 45_ARCHIVE_OLD_REPORTS.bat
 27d0de6e78 46_APPLY_UPDATE.bat
 8bf2675af9 47_MAKE_MY_QR_CARDS.bat
+4d2d7a8028 48_ADD_NEW_CONTACTS.bat
 4abea8c170 ADD_GEAR.py
+07d791a5e5 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
 df79c593c3 APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
@@ -57,7 +59,7 @@ c08a355aeb CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
 218fb4912a IS_IT_WORKING.py
 d7e5f12668 MAKE_MY_QR_CARDS.py
-5dcbd4e16c MAKE_OUTLOOK_DRAFTS.ps1
+536d1d43c3 MAKE_OUTLOOK_DRAFTS.ps1
 1c5c7eaecd PEOPLE_LIST.py
 756523866c PICK_REPORT.py
 87cb5cb733 PREFILL_DAILY_TRACKING.ps1
@@ -80,8 +82,8 @@ a49f1ea35c activity_model.py
 46330a6f6d activity_report.py
 0200824f71 browser_engine.py
 064ec01f28 build_clean_report.py
-24d65c57cd build_company_onhire_report.py
-7e18f310a6 build_cost_snapshot.py
+e58fcea6fd build_company_onhire_report.py
+d9ca62288d build_cost_snapshot.py
 3db5a9a8de build_plant_dashboard.py
 aa39080564 build_posters.py
 9902310cbf build_workbook_html.py
