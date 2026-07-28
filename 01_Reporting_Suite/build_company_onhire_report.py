@@ -229,17 +229,28 @@ def is_radio_handset(item):
     return any(k in d for k in RADIO_HANDSET_KEYWORDS)
 
 
-#  Gear charged on the SEPARATE INVOICE (Andrew, 28 Jul 2026): billed
-#  monthly outside SiteIQ, so its hire dollars must never join the
-#  SiteIQ-stream totals - the Separate Invoice Tracker (49) carries
-#  them. Radios and gas monitors are handled at fleet level already;
-#  these are the per-item groups.
-SEP_INVOICE_WORDS = ("WELDER", "FORKLIFT")
+#  Gear charged on the SEPARATE INVOICE (billed monthly outside
+#  SiteIQ), told apart the way Andrew showed on 28 Jul 2026 - by the
+#  BARCODE, never by the description:
+#
+#    sub-hired (separate invoice):  ITEM_BARCODE SUBHARVEY001 / FK505
+#    Coates, charged via SiteIQ:    ITEM_BARCODE 1312691 / COA~5564082
+#
+#  The dashed ITEM_NUMBER (16816-...) is NOT enough on its own - every
+#  site-created item carries it, including the Cement radios, gas
+#  monitors and the purchased slings (verified against the live
+#  register, 28 Jul 2026). Description words are not used either -
+#  there are Coates welders and forklifts legitimately charged through
+#  SiteIQ in the same storage unit. Radios and gas monitors stay
+#  fleet-level rules. The Separate Invoice Tracker (49) carries every
+#  sub-hired dollar. NO COUNTS live in this rule - what is sub-hired
+#  comes off the register and the Baseplan pull, run by run.
+SEP_BARCODES = ("FK505",)          # supplier codes without the SUB prefix
 
 
 def is_sep_invoice(item):
-    d = (item["description"] + " " + item.get("desc0", "")).upper()
-    return any(w in d for w in SEP_INVOICE_WORDS)
+    bc = str(item.get("barcode") or "").strip().upper()
+    return bc.startswith("SUB") or bc in SEP_BARCODES
 
 SHUTDOWN_NAME = "Cement Australia K2 Shutdown 2026 - Gladstone"
 COATES_ORANGE = "#F26222"   # sampled from the official Coates Way cog artwork
@@ -1177,12 +1188,13 @@ def build_company_model(company, items, rates, repl, sales, today,
             rate = None
             charge_days = None
         if is_sep_invoice(it):
-            # Welders and forklifts are charged on the SEPARATE INVOICE
-            # (Andrew, 28 Jul 2026) - their dollars live on the Separate
-            # Invoice Tracker (49), never in the SiteIQ-stream totals,
-            # or the same welder-day would be counted on both streams.
-            # The gear itself still tracks here for issue, return and
-            # stocktake - that is the whole point of tracking it onsite.
+            # Sub-hired gear (dashed item number / SUB barcode) is
+            # charged on the SEPARATE INVOICE - its dollars live on the
+            # Separate Invoice Tracker (49), never in SiteIQ-stream
+            # totals, or the same machine-day counts on both streams.
+            # Coates welders/forklifts with plain numeric IDs keep
+            # their SiteIQ rates - they ARE SiteIQ-charged. The gear
+            # itself still tracks here for issue, return and stocktake.
             rate = None
             charge_days = None
         #  Customer-owned gear carries no replacement cost, and the reason
@@ -1852,11 +1864,14 @@ def render_summary_html(models, asof, generated, source_line, radio_fleet=0,
             acc=fmt_money(billable * RADIO_DAILY_RATE * radio_days),
             spare=spare_txt)
     radio_line += (
-        '<div class="note">Welders and forklifts on hire are the same '
-        'deal: <b>charged on the separate invoice</b>, so they are '
-        'listed and tracked in this pack but carry no rate in the '
-        'SiteIQ totals - the Separate Invoice Tracker (button 49) holds '
-        'their dollars. Nothing is counted twice.</div>')
+        '<div class="note"><b>Sub-hired gear is the same deal</b> - the '
+        'units whose barcodes carry the SUB prefix (the SUBHARVEY '
+        'welders) or a supplier code (forklift FK505) are <b>charged '
+        'on the separate invoice</b>: listed and tracked in this pack, '
+        'no rate in the SiteIQ totals, dollars on the Separate Invoice '
+        'Tracker (button 49). Coates welders and forklifts with plain '
+        'numeric barcodes ARE SiteIQ-charged and keep their rates. '
+        'Nothing counted twice, nothing stripped wrongly.</div>')
     gas_line = ""
     if gas_fleet:
         gas_daily = gas_fleet * GAS_RATE
@@ -1915,11 +1930,12 @@ def build_plant_model(plant, rates, cats, today, infra=None):
         if rate is None and info:
             rate = info["rate"]
         if is_sep_invoice(p):
-            # Forklifts (and any welder classed as plant) are charged on
-            # the SEPARATE INVOICE - no dollar from them may join a
-            # SiteIQ-stream total, or the same machine-day counts on
-            # both streams. Tracked here for use/idle/audit as always;
-            # the Separate Invoice Tracker (49) carries the money.
+            # Sub-hired plant (dashed item number / SUB barcode - the
+            # 8 SUBHARVEY welders and forklift FK505) is charged on the
+            # SEPARATE INVOICE - no dollar from it joins a SiteIQ-stream
+            # total. Coates plant with plain numeric IDs keeps its
+            # rates. Tracked for use/idle/audit as always; the Separate
+            # Invoice Tracker (49) carries the sub-hire money.
             rate = None
         p["rate"] = rate
         if is_site_plant_equipment(p["hirer"]):

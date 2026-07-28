@@ -359,28 +359,40 @@ def build(today=None):
          _roh, _goh, _mb, _mt2) = B.load_rental()
 
         def _site_count(word):
-            n = 0
-            for it in items:
+            """Sub-hired units only - barcode SUB prefix or a known
+            supplier code (the way Andrew showed, 28 Jul 2026). Coates
+            machines with plain numeric barcodes are SiteIQ-charged and
+            deliberately NOT counted against the separate invoice.
+            Deduped on barcode - the same unit can appear in both the
+            hire rows and the plant register."""
+            seen = set()
+            for it in list(items) + list(plant):
+                if not B.is_sep_invoice(it):
+                    continue
                 d = (it.get("description", "") + " "
                      + it.get("desc0", "")).upper()
                 if word in d:
-                    n += 1
-            for it in plant:
-                d = (it.get("description", "") + " "
-                     + it.get("desc0", "")).upper()
-                if word in d:
-                    n += 1
-            return n
+                    seen.add(str(it.get("barcode") or id(it)).upper())
+            return len(seen)
 
         def _bp_qty(word):
             return int(sum(x["qty"] for x in hire
                            if word in x["desc"].upper()))
 
+        #  Radios compare against the BILLABLE fleet (the site rule caps
+        #  billing at 70; spares above that are disclosed, unbilled) -
+        #  comparing the invoice to the raw fleet count would flag the
+        #  spares as a mismatch when they are the agreement working.
+        _billable_radios = min(radio_fleet,
+                               getattr(B, "RADIO_BILLABLE_CAP", radio_fleet))
         checks = [
-            ("Radios", _bp_qty("RADIO"), radio_fleet),
+            ("Radios (billable)", _bp_qty("RADIO"), _billable_radios),
             ("Gas monitors", _bp_qty("GAS MONITOR"), gas_fleet),
-            ("Welders", _bp_qty("WELDER"), _site_count("WELDER")),
-            ("Forklifts", _bp_qty("FORKLIFT"), _site_count("FORKLIFT")),
+            #  "WELD" catches both spellings on site: the sub units say
+            #  "Welding ...", the invoice says "Welder ..."
+            ("Welders (sub-hired)", _bp_qty("WELDER"), _site_count("WELD")),
+            ("Forklifts (sub-hired)", _bp_qty("FORKLIFT"),
+             _site_count("FORKLIFT")),
         ]
         rows_c = ""
         for lab, bp, site in checks:
@@ -397,11 +409,15 @@ def build(today=None):
                  "<th class='num'>On the site register</th><th>Call</th>"
                  "</tr></thead><tbody>" + rows_c + "</tbody></table>")
         body += ("<div class='note'>Site side reads the SiteIQ "
-                 "RENTAL_STOCK register (store + plant) - the gear we "
-                 "physically track every day, which is exactly why we "
-                 "track it. A mismatch is a conversation, not an "
-                 "accusation: gear in transit or a pull taken at a "
-                 "different time reads different for a day.</div>")
+                 "RENTAL_STOCK register - and for welders and forklifts "
+                 "it counts <b>only the sub-hired units</b> (dashed "
+                 "item numbers / SUB barcodes). Coates machines with "
+                 "plain numeric IDs are SiteIQ-charged and belong to "
+                 "the other stream, so they never muddy this check. A "
+                 "mismatch is a conversation, not an accusation - but "
+                 "if the site holds MORE sub units than this invoice "
+                 "bills, something is out for free: check the pull "
+                 "before the invoice lands.</div>")
     except Exception as exc:
         body += ("<div class='note'>Site register not readable on this "
                  "run ({}) - cross-check skipped, never guessed."
