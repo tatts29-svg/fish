@@ -995,9 +995,12 @@ def build_pack(c, book, root, date_tag, disp, dirs, filed_master, masters,
         #  Will the whole thing actually go? Base64 adds about a third.
         #  A report too big to email is attached as its PDF instead, and
         #  the email says so - it is never quietly cut short.
+        #  +0.5 MB for MIME headers and the HTML body - the same margin
+        #  email_images.email_weight_mb carries (a 33-page email once
+        #  estimated 9.9 MB and landed 10.2, just over the line).
         weight = (sum(os.path.getsize(p) for _c, p in imgs)
                   + sum(os.path.getsize(x) for x in pack["attachments"]
-                        if os.path.isfile(x))) * 1.37 / 1048576.0
+                        if os.path.isfile(x))) * 1.37 / 1048576.0 + 0.5
         if imgs and weight > K.MAX_EMAIL_MB:
             report_pdf = None
             if external and data_company:

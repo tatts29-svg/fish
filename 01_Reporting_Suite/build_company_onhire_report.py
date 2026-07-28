@@ -8962,6 +8962,17 @@ def generate_exec(x, asof, generated, source_line, date_tag):
     r_to, r_cc = recipients.resolve(KIT_DIR, "", "EXEC")
     _stem = os.path.splitext(os.path.basename(html_path))[0]
     imgs = email_images.capture_report_images(html_path, EMAILS_DIR, _stem)
+    #  Same safe-send rule as every other email: pages in the body only
+    #  when the whole message will arrive. The exec summary is 33 pages
+    #  and landed at 10.2 MB on 28 Jul 2026 - just over the line. Too
+    #  heavy = the PDF-attached form below: same report, always fits.
+    if imgs and email_images.email_weight_mb(imgs) > email_images.MAX_EMAIL_MB:
+        print("  Executive Summary: {} pages would make a {:.0f} MB email "
+              "- over the {:.0f} MB safe-send limit, so the PDF rides the "
+              "paperclip instead.".format(
+                  len(imgs), email_images.email_weight_mb(imgs),
+                  email_images.MAX_EMAIL_MB))
+        imgs = []
     if imgs:
         msg = email_images.build_image_eml(subject, imgs, to=r_to, cc=r_cc)
         email_images.save_eml(msg, eml_path)

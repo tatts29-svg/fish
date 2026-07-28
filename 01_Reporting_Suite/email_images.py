@@ -57,15 +57,18 @@ MAX_EMAIL_MB = 10.0
 
 def email_weight_mb(paths):
     """What the finished email will weigh, in MB: the files' bytes plus
-    the ~37% base64 puts on top. Missing files count zero - the caller
-    is asking 'is this too heavy', not 'does everything exist'."""
+    the ~37% base64 puts on top, plus half a meg for MIME headers and
+    the HTML body - measured 28 Jul 2026 when a 33-page exec summary
+    estimated 9.9 MB and landed at 10.2, just over the line. Missing
+    files count zero - the caller is asking 'is this too heavy', not
+    'does everything exist'."""
     total = 0
     for p in paths:
         try:
             total += os.path.getsize(p)
         except OSError:
             pass
-    return total * 1.37 / 1048576.0
+    return total * 1.37 / 1048576.0 + 0.5
 
 
 def _tmp_dir():
