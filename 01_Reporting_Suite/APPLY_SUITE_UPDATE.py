@@ -59,7 +59,7 @@ PROTECTED = (
     "sync_folder.txt",
     "no_outlook.txt",
 )
-PROTECTED_DIRS = ("data_siteiq",)
+PROTECTED_DIRS = ("data_siteiq", "data_baseplan")
 
 
 def sha(path):

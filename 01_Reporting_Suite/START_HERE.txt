@@ -127,6 +127,16 @@
                                  twice, so you can run it safely if
                                  you're not sure whether one went in.
 
+   49_RUN_BASEPLAN_COSTS.bat     the OTHER invoice stream - the gear
+                                 billed out of Baseplan (radios, gas
+                                 monitors, welders, forklift, crib),
+                                 kept completely separate from SiteIQ,
+                                 with its own transport, split by
+                                 invoice month. Save the Baseplan pull
+                                 into Downloads and double-click. Run
+                                 it the morning an invoice lands and
+                                 compare.
+
 
 ----------------------------------------------------------------------
  GETTING IMPROVEMENTS DONE
