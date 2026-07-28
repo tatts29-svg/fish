@@ -6647,7 +6647,12 @@ def diphoterine_safety_html(models):
     for m in models.values():
         for r in m["rows"]:
             du = (r["description"] + " " + r.get("desc0", "")).upper()
-            if "DIPHOTERINE" in du:
+            #  Match the loaded barcodes (DIPH50K2..., DIPHDAP...) as well
+            #  as the word, so a SiteIQ rename can never hide a unit from
+            #  the who-has-it table. (28 Jul 2026)
+            if ("DIPHOTERINE" in du or
+                    str(r.get("barcode") or "").strip().upper()
+                    .startswith("DIPH")):
                 holders.append((m, r))
 
     expiries = sorted(str(u.get("EXPIRY") or "")[:10] for u in units
@@ -9813,16 +9818,29 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
 
     gas = _rows_where(lambda r, m: r["storage_unit"].upper() == "GAS MONITORS")
     radios = _rows_where(lambda r, m: is_radio_handset(r))
+    #  Radio batteries chase with the handsets (Andrew, 28 Jul 2026:
+    #  "radios and radio batteries") - a handset home without its
+    #  batteries is only half a return. Covers and chargers stay off.
+    radio_batt = _rows_where(
+        lambda r, m: r["storage_unit"].upper() == "RADIOS"
+        and not is_radio_handset(r)
+        and "BATTER" in (r["description"] + " "
+                         + r.get("desc0", "")).upper())
+    radios_all = radios + radio_batt
     milw = _rows_where(lambda r, m: "MILWAUKEE" in r["description"].upper()
                        or "MILWAUKEE" in r.get("desc0", "").upper())
     milw_batt = [(m, r) for m, r in milw
                  if "BATTER" in r["description"].upper()
                  or "BATTER" in r.get("desc0", "").upper()]
-    milw_tools = [(m, r) for m, r in milw if (m, r) not in milw_batt]
-    week_plus = _rows_where(
-        lambda r, m: (r["days"] or 0) >= 7
-        and r["storage_unit"].upper() not in ("GAS MONITORS",)
-        and not is_radio_handset(r))
+    #  The rest of the Milwaukee fleet only makes the list once it has
+    #  been out 3 days (Andrew, 28 Jul 2026: "other milwaukee lets do
+    #  after 3 days. lets leave it at that rest can stay off") - a tool
+    #  in daily use isn't chased; one that has gone quiet is. The old
+    #  everything-out-7-days section is gone for the same reason: the
+    #  list was collecting too much and the real asks drowned.
+    milw_tools_all = [(m, r) for m, r in milw if (m, r) not in milw_batt]
+    milw_tools = [(m, r) for m, r in milw_tools_all
+                  if (r["days"] or 0) >= 3]
 
     body = ("<div class='intro'><b>The day's walking list.</b> Everything "
             "on these pages is out with a named person right now. The ask "
@@ -9830,7 +9848,11 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
             "<b>bring it back to the store</b> - the team will clean it, "
             "check it and have it safe and ready for the next person. "
             "That is how we look after the crews, the client and the "
-            "gear, all at once.</div>")
+            "gear, all at once. The list is kept deliberately tight: "
+            "<b>gas monitors, radios and radio batteries, and Milwaukee "
+            "batteries every day</b>, plus <b>Milwaukee tools once "
+            "they've been out 3 days</b>. Everything else stays off it "
+            "so the real asks stand out.</div>")
 
     # ---- gas monitors ----------------------------------------------------
     body += "<h2>Gas monitors - back every day, no exceptions</h2>"
@@ -9860,12 +9882,12 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
         "on the counter, and the <b>bump-testing register</b> is kept in "
         "the store - every test recorded, every unit accounted for.")
 
-    # ---- radios ----------------------------------------------------------
-    body += "<h2>Radios - same deal, back daily</h2>"
-    blk = _tiles([(radio_fleet, "Handset fleet"), (len(radios), "Out with crews"),
-                    (max(0, radio_fleet - len(radios)), "On charge ready"),
+    # ---- radios + radio batteries ---------------------------------------
+    body += "<h2>Radios and radio batteries - same deal, back daily</h2>"
+    blk = _tiles([(radio_fleet, "Handset fleet"), (len(radios), "Handsets out"),
+                    (len(radio_batt), "Radio batteries out"),
                     ("<span class='repl'>{}</span>".format(
-                        fmt_money(_repl_total(radios))), "Replacement value out")])
+                        fmt_money(_repl_total(radios_all))), "Replacement value out")])
     if radio_fleet:
         blk += hbar("Out with crews",
                      "{} of {}".format(len(radios), radio_fleet),
@@ -9876,12 +9898,14 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
                      max(0, radio_fleet - len(radios)) / radio_fleet,
                      "#3FB950")
     body += "<div>" + blk + "</div>"
-    body += ("<div class='note'>Handsets come back to the store overnight "
-             "for cleaning, checks and charging - the next shift picks up "
-             "a working, charged unit every time.</div>")
-    if radios:
-        body += _chase_tbl(radios)
-        body += _company_rollup(radios)
+    body += ("<div class='note'>Handsets <b>and their batteries</b> come "
+             "back to the store overnight for cleaning, checks and "
+             "charging - the next shift picks up a working, charged unit "
+             "every time. A handset home without its batteries is only "
+             "half a return.</div>")
+    if radios_all:
+        body += _chase_tbl(radios_all)
+        body += _company_rollup(radios_all)
     else:
         body += "<div class='note'>Nothing out - the whole fleet is home.</div>"
     body += _store_note(
@@ -9912,60 +9936,42 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
     else:
         body += "<div class='note'>No batteries out under a name right now.</div>"
 
-    # ---- milwaukee tools -------------------------------------------------
-    body += "<h2>Milwaukee battery-powered tools</h2>"
+    # ---- milwaukee tools - only once they've been out 3 days -------------
+    body += "<h2>Milwaukee battery-powered tools - out 3 days or more</h2>"
     blk = _tiles([(milw_tool_fleet, "On site total"),
-                    (len(milw_tools), "Out with crews"),
-                    (max(0, milw_tool_fleet - len(milw_tools)), "In the store ready"),
+                    (len(milw_tools_all), "Out with crews"),
+                    (len(milw_tools), "Out 3+ days - on the list"),
                     ("<span class='repl'>{}</span>".format(
-                        fmt_money(_repl_total(milw_tools))), "Replacement value out")])
+                        fmt_money(_repl_total(milw_tools))), "Replacement value on the list")])
     if milw_tool_fleet:
         blk += hbar("Out with crews",
-                     "{} of {}".format(len(milw_tools), milw_tool_fleet),
-                     len(milw_tools) / milw_tool_fleet)
+                     "{} of {}".format(len(milw_tools_all), milw_tool_fleet),
+                     len(milw_tools_all) / milw_tool_fleet)
         blk += hbar("In the store ready",
-                     "{} of {}".format(max(0, milw_tool_fleet - len(milw_tools)),
+                     "{} of {}".format(max(0, milw_tool_fleet - len(milw_tools_all)),
                                        milw_tool_fleet),
-                     max(0, milw_tool_fleet - len(milw_tools)) / milw_tool_fleet,
+                     max(0, milw_tool_fleet - len(milw_tools_all)) / milw_tool_fleet,
                      "#3FB950")
     body += "<div>" + blk + "</div>"
+    body += ("<div class='note'>A tool in daily use is doing its job - it "
+             "isn't chased. Once one has sat out <b>3 days</b> it makes "
+             "this list for a friendly check-in.</div>")
     if milw_tools:
         body += _chase_tbl(milw_tools)
         body += _company_rollup(milw_tools)
     else:
-        body += "<div class='note'>No Milwaukee tools out under a name right now.</div>"
+        body += ("<div class='note'>Nothing out 3 days or more - the "
+                 "Milwaukee fleet is turning over nicely.</div>")
     body += _store_note(
         "<b>At the store:</b> high replacement value tooling - when it is "
         "not in a hand it belongs in the tool store, not a crib room. "
         "Care cards available at the counter.")
 
-    # ---- the 7-day chase -------------------------------------------------
-    body += "<h2>Out 7 days or more - time for a friendly visit</h2>"
-    body += ("<div class='intro'><b>Bring it back to the store.</b> "
-             "Anything on this list has been out a week or more. The team "
-             "will check it over, clean it and make sure it is fit for "
-             "use - if you still need it, that is fine, we will note it "
-             "and it goes straight back out to you. Keep the site happy "
-             "and safe, and let's look after the equipment.</div>")
-    if week_plus:
-        body += _tiles([(len(week_plus), "Items out 7+ days"),
-                        (len({(m["display"],
-                               activity_model._clean_name(r["hirer"]))
-                              for m, r in week_plus}), "People to see"),
-                        ("<span class='repl'>{}</span>".format(
-                            fmt_money(_repl_total(week_plus))),
-                         "Replacement value riding on it")])
-        body += _chase_tbl(week_plus)
-    else:
-        body += ("<div class='note'>Nothing has been out longer than a "
-                 "week. That is a tidy site - say so at pre-start.</div>")
-
     # ---- the money picture, one glance -------------------------------
     cats = [("Gas monitors", _repl_total(gas), "#3FB950"),
-            ("Radios", _repl_total(radios), "#4C8DD6"),
+            ("Radios + batteries", _repl_total(radios_all), "#4C8DD6"),
             ("Milwaukee batteries", _repl_total(milw_batt), "#F2B01E"),
-            ("Milwaukee tools", _repl_total(milw_tools), "#F26222"),
-            ("Out 7+ days", _repl_total(week_plus), "#F85149")]
+            ("Milwaukee tools 3d+", _repl_total(milw_tools), "#F26222")]
     mx = max([v for _l, v, _c in cats] or [1]) or 1
     body += ("<h2>Replacement value out right now - by category</h2>"
              "<div class='note'>The size of what is riding on today's "
@@ -9974,8 +9980,7 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
         body += hbar(lab, fmt_money(v), v / mx, colr)
     body += EC.store_story_html()
 
-    unpriced = sum(1 for pairs in (gas, radios, milw_batt, milw_tools,
-                                   week_plus)
+    unpriced = sum(1 for pairs in (gas, radios_all, milw_batt, milw_tools)
                    for _m, r in pairs
                    if r["repl"] is None and not r.get("cust_owned"))
     limits = ("Counts come from today's RENTAL_STOCK export; fleet totals "
@@ -9990,25 +9995,25 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
         "Coates_K2_Daily_Hit_List_{}".format(date_tag),
         "Daily Hit List", "Coates Tool Store - who we need to see today",
         body,
-        "{g} gas &bull; {r} radios &bull; {mb} batteries &bull; "
-        "{mt} Milwaukee tools &bull; {w} items 7d+".format(
-            g=len(gas), r=len(radios), mb=len(milw_batt),
-            mt=len(milw_tools), w=len(week_plus)),
+        "{g} gas &bull; {r} radios + batteries &bull; {mb} Milwaukee "
+        "batteries &bull; {mt} Milwaukee tools 3d+".format(
+            g=len(gas), r=len(radios_all), mb=len(milw_batt),
+            mt=len(milw_tools)),
         [_e_note(esc(
-            "{} gas monitors, {} radios, {} Milwaukee batteries and {} "
-            "Milwaukee tools are out with named people right now; {} "
-            "item(s) have been out 7 days or more. The walking list with "
-            "names, companies and replacement values is attached.".format(
-                len(gas), len(radios), len(milw_batt), len(milw_tools),
-                len(week_plus))), "Today's hit list.")],
+            "{} gas monitors, {} radios and radio batteries, and {} "
+            "Milwaukee batteries are out with named people right now; {} "
+            "Milwaukee tool(s) have been out 3 days or more. The walking "
+            "list with names, companies and replacement values is "
+            "attached.".format(
+                len(gas), len(radios_all), len(milw_batt),
+                len(milw_tools))), "Today's hit list.")],
         limits,
         "Coates K2 - Daily Hit List - {}".format(
             generated.strftime("%d %B %Y") if generated else date_tag),
         asof, generated, source_line, report_tag="HITLIST")
-    print("  Daily Hit List: gas {} | radios {} | Milwaukee batt {} / "
-          "tools {} | 7d+ chase {}".format(
-              len(gas), len(radios), len(milw_batt), len(milw_tools),
-              len(week_plus)))
+    print("  Daily Hit List: gas {} | radios+batt {} | Milwaukee batt {} "
+          "| tools 3d+ {}".format(
+              len(gas), len(radios_all), len(milw_batt), len(milw_tools)))
 
 
 def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
@@ -10409,7 +10414,8 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
         print("   U. Plant utilisation & right-size")
         print("   F. End-of-shut close-out pack")
         print("   G. Gear lookup page (QR at the window - scan, enter ID)")
-        print("   H. Daily hit list (gas, radios, Milwaukee, 7-day chase)")
+        print("   H. Daily hit list (gas, radios + batteries, Milwaukee; "
+              "tools at 3d+)")
         print("   Q. Quit")
         try:
             choice = input("Pick a number, A, P, E, L, D or Q: ").strip().upper()
@@ -10561,7 +10567,8 @@ def main():
     ap.add_argument("--lookup", action="store_true",
                     help="Gear lookup page (QR at the window)")
     ap.add_argument("--hitlist", action="store_true",
-                    help="Daily hit list - gas, radios, Milwaukee, 7-day chase")
+                    help="Daily hit list - gas, radios + batteries, "
+                         "Milwaukee batteries; other Milwaukee at 3d+")
     ap.add_argument("--email-only", dest="email_only", action="store_true",
                     help="Produce only the emails - no Pages\\ HTML, no "
                          "print PDFs, no working files left behind")
