@@ -99,13 +99,33 @@ def main():
             import ctypes
             a = ctypes.windll.kernel32.GetFileAttributesW(str(HERE))
             if a != -1 and (a & 0x1):     # FILE_ATTRIBUTE_READONLY
-                say(BAD, "THIS FOLDER is marked READ-ONLY")
-                problems.append(
-                    "This folder has Read-only ticked (right-click the "
-                    "folder > Properties > Attributes). That blocks Excel "
-                    "and Python from the workbook. Untick it, apply to all "
-                    "subfolders and files - or just run "
-                    "22_FIX_FILE_ACCESS.bat.")
+                say(BAD, "THIS FOLDER is marked READ-ONLY - fixing it "
+                         "for you now...")
+                #  A copied folder carries Read-only with it and hands it
+                #  to every file inside - it has bitten every new machine
+                #  so far (27 Jul, again 29 Jul 2026). The check can
+                #  simply fix it: clear the attribute on the folder and
+                #  everything in it, then prove it took.
+                import subprocess
+                try:
+                    subprocess.run(["attrib", "-R", str(HERE)],
+                                   capture_output=True, timeout=60)
+                    subprocess.run(["attrib", "-R",
+                                    os.path.join(str(HERE), "*"),
+                                    "/S", "/D"],
+                                   capture_output=True, timeout=300)
+                except Exception:
+                    pass
+                a2 = ctypes.windll.kernel32.GetFileAttributesW(str(HERE))
+                if a2 != -1 and not (a2 & 0x1):
+                    say(OK, "Read-only cleared on the folder and "
+                            "everything in it - fixed.")
+                else:
+                    problems.append(
+                        "This folder has Read-only ticked and I couldn't "
+                        "clear it myself. Right-click the folder > "
+                        "Properties > untick Read-only > OK > apply to "
+                        "all subfolders and files.")
         except Exception:
             pass
 
