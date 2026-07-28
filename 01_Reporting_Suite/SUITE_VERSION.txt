@@ -1,8 +1,8 @@
 K2 REPORTING SUITE
 
-  Build   : 2026-07-28 CLEAN REBUILD
-  Code    : 207d04fc
-  Files   : 94
+  Build   : 2026-07-28 ELITE IMPROVEMENTS
+  Code    : 0c4ddbfb
+  Files   : 96
 
   Run 40_WHAT_VERSION_AM_I.bat on both machines.
   Same Code line = same suite.

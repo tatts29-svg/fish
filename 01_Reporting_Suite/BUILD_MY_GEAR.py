@@ -701,6 +701,19 @@ def build():
                      + mygear_ui.JS))
     out_dir = os.path.join(BASE, 'Gear_Lookup')
     os.makedirs(out_dir, exist_ok=True)
+    #  Gear_Lookup is SERVED to every phone on the store Wi-Fi, so the
+    #  office People List (the whole site's names and hire IDs in one
+    #  file) must never sit in it. It now builds into People_List\, and
+    #  this sweep - run every morning with the page - removes any copy an
+    #  older build left behind. (Security, 28 Jul 2026.)
+    for _office in ('People_List.csv', 'People_List.html', 'Needs_An_ID.csv'):
+        _p = os.path.join(out_dir, _office)
+        if os.path.isfile(_p):
+            try:
+                os.remove(_p)
+                print('  cleaned out of the served folder: ' + _office)
+            except OSError:
+                pass
     out = os.path.join(out_dir, 'index.html')
     with io.open(out, 'w', encoding='utf-8') as f:
         f.write(page)

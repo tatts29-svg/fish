@@ -97,6 +97,35 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ## Recently done
 
+- **Elite improvements pass (28 Jul 2026, this repo's branch):**
+  - **46_APPLY_UPDATE.bat** — the improvement loop. Ask Claude → download
+    the `K2_UPDATE_*.zip` → double-click 46. Finds the zip itself, backs
+    up what it replaces, never touches live data, auto-rolls-back a
+    broken update, refuses to double-apply. Update zips must be named
+    `K2_UPDATE_<thing>.zip`.
+  - **My Gear security fixes** (worker experience unchanged — same Wi-Fi,
+    same address, same type-your-ID page): the office People List
+    (whole-site names + hire IDs) now writes to `People_List\`, NOT the
+    served `Gear_Lookup\` folder, and old served copies are purged on
+    every run; the HTTPS server now binds the store-router address via
+    `net_pick.best_guess()` (never 0.0.0.0, never the 4G card); firewall
+    rule tightened to Private profile + local subnet; the committed
+    HTTPS private key was removed (regenerates on demand);
+    `Old\TEST_SERVE_EVERYWHERE.bat` retired for real.
+  - **One 10 MB email limit** in `email_images.MAX_EMAIL_MB` (was 20 in
+    k2_daily_packs only). The report emitter weighs the captured pages
+    and drops to PDF-attached when the body would be too heavy — that's
+    the DGH 17.3 MB fix. `35_CHECK_REPORTS` now also flags any .eml over
+    the limit.
+  - **Activity report visuals**: company page gained a "The position"
+    story callout with highlight colours, an age-of-gear stacked bar and
+    a returns-mix stacked bar — all drawn from the same fields the
+    scorecards show.
+  - **HOW_IT_WORKS.html** — the whole machine on one printable page,
+    linked from START_HERE.txt.
+  - **`coates-site-suite` skill** — the whole suite pattern captured for
+    standing up the next job; lives in the repo at
+    `Skill_coates-site-suite/` and installed in Claude's skills.
 - **4 charges submitted 28/07/2026** — 1 transport (conveyor Brisbane→
   Gladstone, $1134) and 3 consumables (Paramount Safety Bollard Stem
   24 × $21.30; Paramount Bollard Bases 6 KG 24 × $16.22; Squids 3155
@@ -117,11 +146,14 @@ and waits. `26_`/`27_` turn draft creation off and on.
    Long-standing, not started.
 2. **Replacement-cost gap list** — 38 descriptions covering 58 items
    still have no replacement cost. `Replacement_Costs_GAP_LIST_2026-07-25.xlsx`.
-3. **DGH's email is 17.3 MB** — real bounce risk on a corporate mail
-   server. Needs the attachments trimmed or split.
+3. ~~DGH's email is 17.3 MB~~ **Fixed 28 Jul 2026** — over-10 MB reports
+   now go out PDF-attached instead of pages-in-body, and 35 flags any
+   heavy .eml before send.
 4. **Duplicate report variants** — a single run produces 37 files where
-   about 14 would do. Worth fixing properly; do not fix by deleting
-   old days, the older folders are the only copy of some output.
+   about 14 would do. Investigated 28 Jul: ~21 of the 37 are the page
+   PNGs that ARE the email body (structural, not waste), and the rest
+   are deliberate no-overwrite records. 45_ARCHIVE handles the bulk.
+   Left as-is on purpose — do not "fix" by deleting old days.
 5. **Report output is ~1.1 GB** across `Reports\` and
    `K2 DAILY REPORTING\`. All the company reports are dated 2026-07-26
    — that is the last full run and the only copy. Do not prune by

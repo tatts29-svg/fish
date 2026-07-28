@@ -9,6 +9,9 @@
 
  The numbers have not changed. What you knew still works.
 
+ Want the whole machine on one page, with pictures? Open
+ HOW_IT_WORKS.html - the full flow, end to end, printable.
+
 
 ----------------------------------------------------------------------
  EVERY MORNING - about 15 minutes
