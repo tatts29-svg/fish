@@ -1,7 +1,7 @@
-# Coates K2 suite version - 110 files - overall d7c107a7
+# Coates K2 suite version - 110 files - overall d60b6e48
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-28 20:33:50
+# taken 2026-07-28 20:34:44
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -82,7 +82,7 @@ b0c58cff1b START_GEAR_LOOKUP.ps1
 c73dc44e7e SWITCH_ON.py
 9379a70c16 SYNC_PCS.py
 1f59a09e8f TEST_DAILY_PACKS.py
-6fc2391f4f TIDY_THE_FOLDER.py
+e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
 b37ba7ee4c VERSION_CHECK.py
