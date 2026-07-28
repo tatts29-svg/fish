@@ -1,6 +1,6 @@
-# Coates K2 suite version - 104 files - overall 14ed832e
+# Coates K2 suite version - 106 files - overall d68c79e7
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-28 14:15:12
+# taken 2026-07-28 20:00:11
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -48,8 +48,9 @@ d584cad4e8 45_ARCHIVE_OLD_REPORTS.bat
 4d2d7a8028 48_ADD_NEW_CONTACTS.bat
 dbfd4c834e 49_RUN_BASEPLAN_COSTS.bat
 d803266ea1 50_ADD_LIFTING_CHARGES.bat
+750842a869 51_TIDY_THE_FOLDER.bat
 4abea8c170 ADD_GEAR.py
-a531fb6f7f ADD_LIFTING_CHARGES.py
+0216ade5c5 ADD_LIFTING_CHARGES.py
 07d791a5e5 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
 46ac5624c3 APPLY_SUITE_UPDATE.py
@@ -76,6 +77,7 @@ b0c58cff1b START_GEAR_LOOKUP.ps1
 c73dc44e7e SWITCH_ON.py
 7fbac0917e SYNC_PCS.py
 1f59a09e8f TEST_DAILY_PACKS.py
+6fc2391f4f TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 dee74623be UPDATE_POSTERS.py
 5e13f27a06 VERSION_CHECK.py
@@ -84,9 +86,9 @@ cf858250b9 _align_prep.py
 a49f1ea35c activity_model.py
 46330a6f6d activity_report.py
 0200824f71 browser_engine.py
-5c60f6f497 build_baseplan_costs.py
+28e7cf093a build_baseplan_costs.py
 064ec01f28 build_clean_report.py
-ceee75b54a build_company_onhire_report.py
+becd5b13fc build_company_onhire_report.py
 7930993d3c build_cost_snapshot.py
 3db5a9a8de build_plant_dashboard.py
 aa39080564 build_posters.py
