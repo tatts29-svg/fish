@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SiteIQ My Gear — Dual Router Setup | Coates K2 Tool Store</title>
+<style>
+  :root { --orange:#F26222; --ink:#1D1D1B; --grey:#555; --line:#ddd; --paper:#fff; --wash:#FBF6F2; }
+  * { box-sizing:border-box; }
+  body { font-family:'Segoe UI',Calibri,Arial,sans-serif; color:var(--ink); background:#eee; margin:0; }
+  .page { background:var(--paper); max-width:880px; margin:18px auto; padding:34px 44px 26px; box-shadow:0 2px 14px rgba(0,0,0,.15); }
+  .rule { height:10px; background:var(--orange); border-radius:5px; margin:-14px -20px 20px; }
+  .kicker { font-size:13px; font-weight:800; color:var(--orange); letter-spacing:3px; }
+  h1 { font-size:34px; margin:4px 0 2px; font-weight:900; }
+  h1 .o { color:var(--orange); }
+  .meta { font-size:12.5px; color:var(--grey); margin-bottom:16px; }
+  h2 { font-size:19px; margin:26px 0 8px; border-bottom:3px solid var(--orange); padding-bottom:4px; }
+  p, li { font-size:14px; line-height:1.55; }
+  .rec { background:var(--wash); border-left:6px solid var(--orange); padding:12px 16px; margin:14px 0; }
+  .rec b.t { color:var(--orange); letter-spacing:1px; font-size:12.5px; }
+  ol.steps { padding-left:22px; margin:8px 0; }
+  ol.steps li { margin-bottom:9px; }
+  ul.tight { padding-left:20px; margin:6px 0; }
+  ul.tight li { margin-bottom:6px; }
+  table { border-collapse:collapse; width:100%; margin:10px 0; font-size:13.5px; }
+  th { background:var(--ink); color:#fff; text-align:left; padding:7px 10px; font-size:12.5px; }
+  td { border:1px solid var(--line); padding:7px 10px; vertical-align:top; }
+  tr:nth-child(even) td { background:#fafafa; }
+  .donot { border:2px solid #B3261E; border-radius:8px; padding:10px 16px; margin:12px 0; }
+  .donot b.t { color:#B3261E; }
+  .foot { margin-top:26px; border-top:1px solid var(--line); padding-top:10px; font-size:11.5px; color:var(--grey); }
+  code { background:#f4f4f4; border:1px solid var(--line); border-radius:4px; padding:1px 5px; font-size:12.5px; }
+  /* the two-network picture */
+  .pic { display:flex; gap:14px; align-items:stretch; margin:14px 0; flex-wrap:wrap; }
+  .net { flex:1 1 240px; border:2px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .net h3 { margin:0 0 6px; font-size:14.5px; }
+  .net.work h3 { color:var(--grey); }
+  .net.mine { border-color:var(--orange); background:var(--wash); }
+  .net.mine h3 { color:var(--orange); }
+  .net p { font-size:12.5px; margin:4px 0; }
+  .lap { flex:0 0 150px; border:2px solid var(--ink); border-radius:10px; padding:12px 10px; text-align:center; font-size:12.5px; display:flex; flex-direction:column; justify-content:center; }
+  .lap b { font-size:14px; }
+  .nolink { text-align:center; font-size:12px; color:#B3261E; font-weight:700; margin:2px 0 0; }
+  @media print {
+    body { background:#fff; }
+    .page { box-shadow:none; margin:0; max-width:none; padding:10mm 12mm; }
+    h2 { page-break-after:avoid; }
+    table, .rec, .donot, .pic { page-break-inside:avoid; }
+    @page { size:A4; margin:10mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="rule"></div>
+  <div class="kicker">COATES &middot; CEMENT AUSTRALIA &middot; K2 SHUTDOWN &middot; GLADSTONE TOOL STORE</div>
+  <h1>SiteIQ <span class="o">My Gear</span> — Dual Router Setup</h1>
+  <div class="meta">Getting the QR-at-the-window lookup running on your own router, off the work wifi &nbsp;|&nbsp; 22 Jul 2026 &nbsp;|&nbsp; Author: Andrew Fisher &nbsp;|&nbsp; POWERED BY SITEIQ</div>
+
+  <div class="rec">
+    <b class="t">THE CALL</b><br>
+    Run My Gear on <b>your own router as a stand-alone island network</b> at the tool store. Phones join your router's wifi to see their gear; the laptop stays on the work wifi for email and SiteIQ pulls. <b>Nothing is ever cabled between the two networks</b>, and the updated launcher serves the page on your router's side only — so nobody on the work network can tap in, and site IT has nothing running on their infrastructure.
+  </div>
+
+  <h2>The picture</h2>
+  <div class="pic">
+    <div class="net work">
+      <h3>WORK WIFI</h3>
+      <p>Email, SiteIQ exports, normal work.</p>
+      <p>My Gear is <b>not served here</b>.</p>
+    </div>
+    <div class="lap">
+      <b>YOUR LAPTOP</b>
+      <p>wifi &rarr; work network<br>ethernet cable &rarr; your router</p>
+      <p>My Gear bound to the<br><b>router side only</b></p>
+    </div>
+    <div class="net mine">
+      <h3>YOUR ROUTER — e.g. "K2 TOOL STORE" wifi</h3>
+      <p>Crew phones join this wifi, scan the window QR, enter their ID.</p>
+      <p><b>Internet/WAN port stays empty.</b> An island — no path to the work network.</p>
+    </div>
+  </div>
+  <p class="nolink">The only "link" between the two networks is the laptop itself — and the server is bound so it only answers on the router side.</p>
+
+  <h2>One-time setup (about 15 minutes)</h2>
+  <ol class="steps">
+    <li><b>Power up your router.</b> Leave the <b>Internet/WAN port empty</b> — nothing ever gets plugged into it. That empty port is the whole security story.</li>
+    <li><b>Set up its wifi</b> (router's app, or browse to the address on its sticker while connected to it): wifi name e.g. <b>K2 TOOL STORE</b>, a strong WPA2 password, and change the router's admin password while you're in there.</li>
+    <li><b>Recommended:</b> in the router settings, give the laptop a <b>reserved / static address</b> (usually under DHCP &rarr; address reservation). Then the QR poster address never changes and one printed poster lasts the whole shutdown.</li>
+    <li><b>Cable the laptop to the router</b> — laptop into one of the router's <b>LAN ports</b> (a USB-to-ethernet adapter is fine). The laptop's wifi stays on the work network as normal.</li>
+    <li>If Windows asks about the new network, choose <b>Yes / Private</b>. (If it doesn't ask: Settings &rarr; Network &amp; internet &rarr; Ethernet &rarr; network profile &rarr; Private.)</li>
+    <li><b>Double-click <code>START_GEAR_LOOKUP.bat</code>.</b> First run, it lists the laptop's networks — <b>pick the router line</b> (the cabled Ethernet/USB one, not the work wifi) and type your wifi name. It saves the choice to <code>MY_GEAR_NETWORK.txt</code>; every morning after that it's automatic.</li>
+    <li>When Windows Firewall asks about Python, tick <b>Private networks</b> and Allow. (No admin rights? See the IT ask below.)</li>
+    <li><b>Print the poster</b> it writes — <code>Gear_Lookup\QR_Window_Poster.html</code> — and stick it at the window.</li>
+    <li><b>Test with your own phone:</b> join the K2 TOOL STORE wifi, scan the poster, enter your ID. If your list comes up, you're in business.</li>
+  </ol>
+
+  <h2>Every morning (two minutes)</h2>
+  <ol class="steps">
+    <li>Pull the fresh SiteIQ exports into the kit folder as usual.</li>
+    <li>Run the report kit — option <b>G</b> (or <code>--lookup</code>) rebuilds the page with today's on-hire data.</li>
+    <li>Double-click <code>START_GEAR_LOOKUP.bat</code> and leave the black window open. Closing it stops the site — nothing keeps running behind your back.</li>
+  </ol>
+
+  <h2>Why this is safe to run</h2>
+  <ul class="tight">
+    <li><b>Island network.</b> Your router touches nothing of the work network — WAN port empty, no bridging, no repeating. There is no path from crew phones to Coates or Cement Australia systems.</li>
+    <li><b>Served on one side only.</b> The launcher binds the page to your router's address, not to every network on the laptop. From the work wifi, there is nothing to connect to.</li>
+    <li><b>Private by design.</b> Each person's list is encrypted against their own ID — the page carries no open register, a wrong ID shows nothing, and the screen clears itself after 45 seconds.</li>
+    <li><b>Runs only while the window's open.</b> End of day, close it — server gone.</li>
+    <li><b>One Team:</b> worth a quick heads-up to site IT that a stand-alone router runs at the tool store window, not connected to their network. Thirty seconds of courtesy now saves a conversation later.</li>
+  </ul>
+
+  <div class="donot">
+    <b class="t">NEVER DO THESE</b>
+    <ul class="tight">
+      <li>Never plug your router's <b>Internet/WAN port</b> into a site wall socket or anything on the work network — that's the one move that turns "island" into "tap in".</li>
+      <li>Don't set your router to repeat / extend / bridge the work wifi.</li>
+      <li>Wifi password on a card at the counter is fine — the router's <b>admin</b> password stays with you.</li>
+    </ul>
+  </div>
+
+  <h2>If it plays up</h2>
+  <table>
+    <tr><th>Symptom</th><th>Fix</th></tr>
+    <tr><td>Phone can't see the K2 TOOL STORE wifi</td><td>Router power, and check 2.4&nbsp;GHz is on — older phones don't see 5&nbsp;GHz-only.</td></tr>
+    <tr><td>Phone joined but the page won't load</td><td>Laptop cabled into a <b>LAN</b> port (not WAN); firewall allowed on <b>Private</b>; re-run the .bat and check the address it prints matches the poster.</td></tr>
+    <tr><td>Phone says "no internet" on the wifi</td><td>Normal — My Gear doesn't need internet. If the phone offers to switch networks, tell it to stay connected.</td></tr>
+    <tr><td>Poster QR goes to the wrong address</td><td>The laptop got a new address from the router. Set the reservation (setup step 3) — or just print the fresh poster today's run wrote.</td></tr>
+    <tr><td>Launcher warns the saved network isn't live</td><td>Router off or cable out. Plug in, run again — or pick again from its list.</td></tr>
+    <tr><td>Firewall prompt never appeared / no admin rights</td><td>Ready-made ask for IT: <i>"Inbound allow rule: python.exe, TCP 8123, Private profile only — serves a static read-only page to a stand-alone router at the tool store, not connected to the corporate network."</i></td></tr>
+    <tr><td>Page loads but says "engine check failed"</td><td>Rebuild the page — report kit option G — then refresh the phone.</td></tr>
+    <tr><td>Poster shows the address in text instead of a QR square</td><td>The little QR library isn't installed and there's no internet to fetch it. Run the launcher once anywhere with internet — it installs and keeps for good. The text-address poster still works meantime.</td></tr>
+  </table>
+
+  <div class="foot">
+    Serves whatever <code>Gear_Lookup\index.html</code> the report kit last built (data as at the morning SiteIQ pull shown on the page itself). Launcher: <code>START_GEAR_LOOKUP.ps1</code> dual-router edition, 22 Jul 2026. &nbsp;<b>Author: Andrew Fisher</b> &nbsp;|&nbsp; <b>POWERED BY SITEIQ</b> &nbsp;|&nbsp; Coates — Equipped for anything
+  </div>
+</div>
+</body>
+</html>

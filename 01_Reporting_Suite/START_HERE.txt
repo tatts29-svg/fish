@@ -1,0 +1,144 @@
+======================================================================
+ COATES | K2 REPORTING SUITE - START HERE
+ Cement Australia K2 Shutdown 2026 - Gladstone
+ Author: Andrew Fisher | POWERED BY SITEIQ
+======================================================================
+
+ Everything is a numbered .bat file. Double-click it. That's the whole
+ idea - you should never need to open Python or a command prompt.
+
+ The numbers have not changed. What you knew still works.
+
+
+----------------------------------------------------------------------
+ EVERY MORNING - about 15 minutes
+----------------------------------------------------------------------
+
+   28_PULL_SITEIQ_EXPORTS.bat    takes the SiteIQ exports out of
+                                 Downloads and files them properly
+
+   00_RUN_EVERYTHING.bat         builds the lot
+
+   35_CHECK_REPORTS.bat          reads what was built and tells you if
+                                 anything came out blank or broken.
+                                 Run this BEFORE you send anything.
+
+ That's the full run. If you only want some of it, see the next block.
+
+
+----------------------------------------------------------------------
+ WHEN YOU ONLY WANT ONE THING
+----------------------------------------------------------------------
+
+   37_PICK_A_REPORT.bat          a menu. Pick one, it builds just that.
+                                 About 30 seconds instead of the full
+                                 run. This is the one to use most days.
+
+   36_RUN_EMAILS_ONLY.bat        skips building the preview pages and
+                                 goes straight to the finished emails
+
+
+----------------------------------------------------------------------
+ SENDING
+----------------------------------------------------------------------
+
+   NOTHING SENDS BY ITSELF. Everything lands in Outlook Drafts and sits
+   there until you press Send. Running the reports cannot email a
+   customer by accident.
+
+   12_MAKE_OUTLOOK_DRAFTS.bat    put today's emails into Drafts
+   06_SEND_TODAYS_REPORTS.bat    build + draft in one go
+
+   27_OUTLOOK_DRAFTS_ON.bat      allow drafts to be created
+   26_OUTLOOK_DRAFTS_OFF.bat     stop them being created at all
+
+   34_SWITCH_ON.bat              choose which companies get a report
+   33_UPDATE_CONTACTS.bat        add or fix email addresses
+
+
+----------------------------------------------------------------------
+ THE TOOL STORE - MY GEAR
+----------------------------------------------------------------------
+
+   04_RUN_MY_GEAR.bat            build today's page from the roster
+
+   05_START_GEAR_LOOKUP.bat      SERVE IT. Leave this window open.
+                                 Close it and the posters stop working.
+                                 This is the plain one - no warnings.
+
+   31_START_GEAR_LOOKUP_HTTPS.bat  the secure version. Only use this if
+                                 you want camera card-scanning. It puts
+                                 a "not secure" warning in front of
+                                 every single person. Usually not worth
+                                 it. If you switch, re-run 32_.
+
+   32_UPDATE_POSTERS.bat         rebuild the posters. Run this any time
+                                 the address or the Wi-Fi changes. It
+                                 reads the Wi-Fi name off Windows so
+                                 you don't have to type it.
+
+   41_PEOPLE_LIST.bat            everyone on site and their hire ID
+   29_ADD_GEAR.bat               add gear that isn't in SiteIQ yet
+
+
+----------------------------------------------------------------------
+ WHEN SOMETHING IS WRONG
+----------------------------------------------------------------------
+
+   Phones can't reach My Gear:
+
+     43_WHY_CANT_MY_PHONE_CONNECT.bat   walks the whole chain and stops
+                                        at the first real problem
+     44_ALLOW_PHONES_IN.bat             opens the firewall. Asks Windows
+                                        for permission itself - just
+                                        double-click, say YES
+     42_NETWORK_CHECK.bat               which Wi-Fi and which address
+
+   Reports look wrong:
+
+     35_CHECK_REPORTS.bat               finds blanks and broken numbers
+     25_CHECK_DATA_SOURCES.bat          is the data actually there
+     24_IS_IT_WORKING.bat               general health check
+
+   Two machines out of step:
+
+     40_WHAT_VERSION_AM_I.bat           run on both, compare the code
+     39_SYNC_PCS.bat                    package one up for the other
+     30_ARE_WE_IN_SYNC.bat              are the data files matching
+
+
+----------------------------------------------------------------------
+ CHARGES
+----------------------------------------------------------------------
+
+   38_SUBMIT_CHARGES.bat         transport, consumables, damage. It
+                                 refuses to submit the same charge
+                                 twice, so you can run it safely if
+                                 you're not sure whether one went in.
+
+
+----------------------------------------------------------------------
+ HOUSEKEEPING
+----------------------------------------------------------------------
+
+   45_ARCHIVE_OLD_REPORTS.bat    puts every report day older than today
+                                 into ONE zip in Updates\report_archives,
+                                 checks that zip opens and holds every
+                                 file, and only then clears the folders.
+                                 About a gigabyte a week comes back.
+
+                                 It will not delete anything it has not
+                                 first archived and read back. Your email
+                                 routing in "02 EMAIL CONTROL" and
+                                 "03 CONTACTS & SETTINGS" is never touched.
+
+
+----------------------------------------------------------------------
+ Old\  folder
+----------------------------------------------------------------------
+
+   One-time setup and test tools that have done their job. Nothing in
+   there is needed to run the suite. Left in place rather than deleted
+   in case you ever want them back.
+
+======================================================================

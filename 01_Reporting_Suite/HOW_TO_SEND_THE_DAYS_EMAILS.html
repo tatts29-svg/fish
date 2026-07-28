@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>How-To: The Day's Emails</title></head><body><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Calibri,'Segoe UI',Arial,sans-serif;background:#fff;color:#20242B;
+     font-size:11.5pt;line-height:1.55;max-width:200mm;margin:0 auto;padding:10mm 8mm}
+.frame{border:6px solid #F26222;border-top:9px solid #F26222;border-radius:18px;padding:22px 26px}
+.band{background:#14181F;color:#fff;padding:14px 18px;border-radius:10px;margin-bottom:14px}
+.band .k{color:#F26222;font-weight:800;letter-spacing:2px;font-size:9pt;text-transform:uppercase}
+.band h1{font-size:17pt;margin-top:2px}
+h2{font-size:12pt;color:#14181F;background:#F6F7F9;border:1px solid #E3E6EB;
+   border-left:5px solid #F26222;border-radius:9px;padding:6px 12px;margin:16px 0 8px}
+.step{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.n{flex:none;width:34px;height:34px;border-radius:50%;background:#F26222;color:#fff;
+   font-weight:800;font-size:14pt;display:flex;align-items:center;justify-content:center}
+.n.go{background:#EFFF3D;color:#101317}
+.hl{background:#EFFF3D;color:#101317;font-weight:800;padding:0 5px;border-radius:4px}
+.note{background:#FFF3EC;border-left:4px solid #F26222;border-radius:0 8px 8px 0;
+      padding:10px 14px;font-size:10.5pt;margin:12px 0}
+.ft{color:#5B6472;font-size:9pt;border-top:1px solid #E3E6EB;margin-top:16px;padding-top:8px}
+b.o{color:#F26222}
+@page{size:A4;margin:10mm}
+</style>
+<div class="frame">
+<div class="band"><div class="k">COATES &middot; HOW-TO</div>
+<h1>The day's emails - one click, then Send</h1></div>
+
+<p>Everything is already wired. Your only job is <b>press the buttons in
+order, check, and hit Send</b>. Nothing ever sends by itself.</p>
+
+<h2>The morning (it's already part of RUN EVERYTHING)</h2>
+<div class="step"><div class="n">1</div><div><b>00_RUN_EVERYTHING.bat</b> -
+the one button. It builds every report, every company pack and every email
+draft. If you ran this, steps 2 and 3 below are ALREADY DONE - skip to 4.</div></div>
+
+<h2>Or piece by piece</h2>
+<div class="step"><div class="n">2</div><div><b>17_BUILD_DAILY_EMAIL_PACKS.bat</b> -
+builds today's company folders: the addressed draft, the report PDFs and the
+record. Every address comes from <b>K2_Daily_Email_Report_Allocation.xlsx</b> -
+nothing typed into code.</div></div>
+<div class="step"><div class="n">3</div><div><b>18_CHECK_DAILY_EMAIL_PACKS.bat</b> -
+the 203-check prover. It re-opens every pack and proves the right report is in
+the right email to the right company. Anything doubtful is <span class="hl">HELD</span>
+and named - a held pack cannot be sent by accident.</div></div>
+<div class="step"><div class="n">4</div><div><b>Open Outlook</b> - the drafts are
+sitting in your <b>Drafts</b> folder, report pasted into the body, PDF attached,
+addresses filled. (If they're not there, run <b>12_MAKE_OUTLOOK_DRAFTS.bat</b>
+with Outlook open.)</div></div>
+<div class="step"><div class="n go">5</div><div><b>Read it like the client will.</b>
+Right company? Right day? Looks right? Then press <b>Send</b>. That's the whole
+job - <span class="hl">you are the only send button in this system</span>.</div></div>
+
+<div class="note"><b>Rule of the house:</b> nothing sends without YES at
+<b>06_SEND_TODAYS_REPORTS.bat</b> / your press of Send in Outlook. The suite
+builds and proves; <b>you</b> decide.</div>
+
+<div class="ft">Author: Andrew Fisher &nbsp;|&nbsp; <b class="o">POWERED BY SITEIQ</b>
+&nbsp;|&nbsp; Coates K2 - Cement Australia Shutdown 2026, Gladstone</div>
+</div></body></html>

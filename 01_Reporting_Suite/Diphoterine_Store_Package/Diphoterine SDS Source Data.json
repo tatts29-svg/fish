@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "client": "Cement Australia",
+    "site": "Cement Australia — Gladstone (K2 Shutdown 2026)",
+    "location": "Coates Shutdown Store (container)",
+    "prepared_by": "Andrew Fisher",
+    "asof": "27 Jul 2026",
+    "asof_iso": "2026-07-27"
+  },
+  "products": [
+    {
+      "no": 1,
+      "product": "PREVOR DIPHOTERINE\u00ae SIEW / LIS Individual Eye Wash 50 mL",
+      "maker": "Prevor (France) \u00b7 AU supplier: Amare Safety Pty Ltd, Rowville VIC",
+      "use": "Single-use sterile emergency eye rinse for corrosive/irritant chemical splash",
+      "pack": "50 mL bottle with eye-cup top (REF SIEW / LIS \u00b7 Amare 18H055)",
+      "loc": "Coates Shutdown Store \u00b7 First-aid / rescue bin",
+      "sds_date": "02 Dec 2022",
+      "sds_sort": "2022-12-02",
+      "ver": "4.1",
+      "review": "02 Dec 2027",
+      "signal": "NOT CLASSIFIED",
+      "hazard": "Not classified as hazardous to Safe Work Australia criteria. No signal word, pictogram or hazard statements allocated. TGA Class 2A medical device; conforms to EN 15154-4.",
+      "dg": "Not a Dangerous Good",
+      "is_dg": false,
+      "url": "https://amaresafety.com.au/wp-content/uploads/2023/09/DIPHOTERINE-EYEWASH.pdf",
+      "backup": "amaresafety.com.au \u203a Prevor Safety \u203a Diphoterine solution; also Infosafe No. LPW5P at csinfosafe.com",
+      "note": "Single use only \u2014 a broken seal means the unit is spent and must NOT be returned to stock. Shelf life 2 years from manufacture in sealed original packaging; check the printed expiry on each unit before issue. Qty on hand 14."
+    },
+    {
+      "no": 2,
+      "product": "PREVOR DIPHOTERINE\u00ae MICRO DAP Autonomous Portable Shower 100 mL",
+      "maker": "Prevor (France) \u00b7 AU supplier: Amare Safety Pty Ltd, Rowville VIC",
+      "use": "Single-use sterile micronised spray for corrosive/irritant chemical splash to skin (approx. 3% TBSA)",
+      "pack": "100 mL aerosol spray (REF MICRO D \u00b7 Amare 18H050)",
+      "loc": "Coates Shutdown Store \u00b7 First-aid / rescue bin",
+      "sds_date": "03 Aug 2022",
+      "sds_sort": "2022-08-03",
+      "ver": "5",
+      "review": "03 Aug 2027",
+      "signal": "WARNING",
+      "hazard": "Aerosols Category 3 \u2014 H229 Pressurised container: may burst if heated. Not classified as a health or environmental hazard. Do not pierce or burn. Protect from sunlight; do not exceed 50 \u00b0C.",
+      "dg": "Class 2.2 \u00b7 UN1950 AEROSOLS \u00b7 no PG \u00b7 Hazchem 2YE",
+      "is_dg": true,
+      "url": "https://amaresafety.com.au/wp-content/uploads/2023/09/DIPHOTERINE-MINI-AND-MICRO-AUTONOMOUS-PORTABLE-SHOWER-1.pdf",
+      "backup": "amaresafety.com.au \u203a Prevor Safety \u203a Diphoterine solution (SDS covers MINI DAP and MICRO DAP)",
+      "note": "Dangerous Good (non-flammable gas, Class 2.2) \u2014 store below 50 \u00b0C, out of direct sun, not in a hot vehicle or crib room window. Single use only; a discharged or unsealed can must NOT be returned to stock. Shelf life 2 years from manufacture; check the printed expiry on each can before issue. Oldest SDS on this register \u2014 5-yearly review due 03 Aug 2027. Qty on hand 18."
+    }
+  ]
+}
