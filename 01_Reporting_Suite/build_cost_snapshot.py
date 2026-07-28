@@ -400,6 +400,12 @@ def cost_story(wb, ds=None, sub=None, hs=None):
         d = rowdate(r)
         fc_day = num(r, 2) + num(r, 5)                # plant fc + tooling fc
         tracked = num(r, 3) + num(r, 6)               # tracked actuals (live)
+        # blank is not zero: a day whose tracking cells were never filled
+        # in must say "not logged", not "$0 tracked" - $0 reads like
+        # nothing happened and drags a phantom drift into the net figure
+        # (29 Jul 2026 - the 27th)
+        tracked_logged = (isinstance(ws.cell(r, 3).value, (int, float))
+                          or isinstance(ws.cell(r, 6).value, (int, float)))
         hire_full += fc_day
         p_full += num(r, 2)
         t_full += num(r, 5)
@@ -417,8 +423,9 @@ def cost_story(wb, ds=None, sub=None, hs=None):
         if ds_locked:                                 # invoiced - locked
             act_day = ds[d]["hire"]
             invoiced_total += act_day
-            recon.append({"d": d, "tracked": tracked, "invoiced": act_day,
-                          "status": "Invoiced"})
+            recon.append({"d": d,
+                          "tracked": tracked if tracked_logged else None,
+                          "invoiced": act_day, "status": "Invoiced"})
         elif is_active and d <= today and tracked > 0:
             act_day = tracked                         # run, not yet invoiced
             provisional_total += act_day
@@ -444,6 +451,16 @@ def cost_story(wb, ds=None, sub=None, hs=None):
                     # row added in the workbook - flagged on the true-up page
     ds_only = sorted(d for d in ds
                      if d not in {rowdate(r) for r in rows} and ds[d]["hire"])
+    # "Trued to SiteIQ" has to mean every invoiced day is IN the table and
+    # the totals - a day SiteIQ charged that Daily Tracking doesn't carry
+    # yet still gets a real row, flagged so the workbook row gets added
+    # (29 Jul 2026 - the missing 28th)
+    for d in ds_only:
+        invoiced_total += ds[d]["hire"]
+        hire_act += ds[d]["hire"]
+        recon.append({"d": d, "tracked": None, "invoiced": ds[d]["hire"],
+                      "status": "Invoiced", "noworkbook": True})
+    recon.sort(key=lambda x: x["d"])
 
     # Split the hire line into Plant and Tooling when the charge lines can
     # do it truthfully: the split must land on SiteIQ's invoiced total to
@@ -519,6 +536,13 @@ def cost_story(wb, ds=None, sub=None, hs=None):
             m["run"] += hire_day + others_act + welders_day
         else:
             m["ahead"] += fc_total + welders_day
+    # invoiced days missing from Daily Tracking still belong to their month
+    for d in ds_only:
+        welders_day = (sum(1 for a in sub["arrivals"].values() if a and a <= d)
+                       * sub["rate"]) if sub["arrivals"] else 0.0
+        m = months.setdefault(d.strftime("%B %Y"),
+                              {"run": 0.0, "ahead": 0.0, "order": d.replace(day=1)})
+        m["run"] += ds[d]["hire"] + welders_day
     month_rows = sorted(months.items(), key=lambda kv: kv[1]["order"])
 
     return {"streams": streams, "F": F, "A": A, "V": A - F, "FULL": FULL,
@@ -832,6 +856,16 @@ td.n{color:#14181F}
 .twedo span{background:#F6F7F9;border-color:#E3E6EB;color:#33393F}
 """ if _LIGHT else ""
 
+#  Inline styles always beat the LIGHT_CSS overrides above, so anything
+#  coloured inline must pick its ink by theme - #fff ink on the white
+#  executive page was Andrew's "some words you just cant see"
+#  (29 Jul 2026). White-on-ORANGE (the plant/tooling bar labels) is
+#  readable on both themes and stays #fff on purpose.
+INK = "#14181F" if _LIGHT else "#fff"        # strong ink (totals, headings)
+MUTED = "#5B6472" if _LIGHT else "#A9B1BD"   # secondary ink (notes, labels)
+FAINT = "#6B7380" if _LIGHT else "#9BA3AF"   # small caps section labels
+TRACK = "#EDF0F4" if _LIGHT else "#20262e"   # bar track behind the fill
+
 
 
 def build_html(cost, ov, charges_data, roster, wbname, svc=None):
@@ -920,13 +954,13 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
         # columns always reconcile to the eye - never out by $1 on a client page
         var_disp = round(s["act"]) - round(s["fc"])
         body.append(
-            "<tr><td>{name}</td><td class='n' style='color:#A9B1BD'>{full}</td>"
-            "<td class='n'>{fc}</td><td class='n'>{act}</td>"
-            "<td class='n' style='color:{vc}'>{var}</td>"
-            "<td><span class='dot' style='background:{c}'></span>{st}</td></tr>".format(
+            ("<tr><td>{name}</td><td class='n' style='color:" + MUTED + "'>{full}</td>"
+             "<td class='n'>{fc}</td><td class='n'>{act}</td>"
+             "<td class='n' style='color:{vc}'>{var}</td>"
+             "<td><span class='dot' style='background:{c}'></span>{st}</td></tr>").format(
                 name=html.escape(s["name"]), full=money0(s["full"]),
                 fc=money0(s["fc"]), act=money0(s["act"]),
-                var=money0(var_disp), vc=("#A9B1BD" if abs(var_disp) < 1 else "#fff"),
+                var=money0(var_disp), vc=(MUTED if abs(var_disp) < 1 else INK),
                 c=colour, st=status))
     drivers_cap = " and ".join(s["name"].split(" / ")[0] for s in top2) or "Timing"
     hire_is_split = any(s["name"] == "Plant hire" for s in cost["streams"])
@@ -965,17 +999,23 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
     # or clipped one. (A. Fisher's rule: it fits, or it goes to the next page.)
     st_dot = {"Invoiced": GOOD, "Provisional": AMBER, "No charges": "#5b6472"}
 
-    def rec_row(d_lab, tracked, invoiced, status):
+    def rec_row(d_lab, tracked, invoiced, status, flag=""):
+        # tracked None = the workbook never logged that day - a dash, not
+        # a phantom $0 (there is no drift to show when there is no tracking)
+        no_track = tracked is None
         drift_disp = (money0(round(tracked) - round(invoiced))
-                      if invoiced is not None else "&mdash;")
-        quiet = invoiced is None or abs(tracked - invoiced) < 1
+                      if (invoiced is not None and not no_track) else "&mdash;")
+        quiet = no_track or invoiced is None or abs(tracked - invoiced) < 1
+        # drift you can read on EITHER theme - #fff on the light page was
+        # Andrew's "some words you just cant see" (29 Jul 2026)
+        loud = INK
         return ("<tr><td style='white-space:nowrap'>{d}</td><td class='n'>{t}</td><td class='n'>{i}</td>"
                 "<td class='n' style='color:{dc}'>{dr}</td>"
                 "<td style='white-space:nowrap'><span class='dot' style='background:{c}'></span>{st}</td></tr>").format(
-            d=d_lab, t=money0(tracked),
+            d=d_lab, t="&mdash;" if no_track else money0(tracked),
             i=money0(invoiced) if invoiced is not None else "&mdash;",
-            dr=drift_disp, dc="#A9B1BD" if quiet else "#fff", c=st_dot[status],
-            st=status + (" &middot; locked" if status == "Invoiced" else ""))
+            dr=drift_disp, dc="#A9B1BD" if quiet else loud, c=st_dot[status],
+            st=status + (" &middot; locked" if status == "Invoiced" else "") + flag)
 
     rec_rows = []
     net_drift = 0.0
@@ -996,20 +1036,26 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
                 0.0, None, "No charges"))
             i0 = j
             continue
-        drift = (x["tracked"] - x["invoiced"]) if x["invoiced"] is not None else None
-        if drift is not None:
-            net_drift += drift
+        flag = ""
+        if x.get("noworkbook"):
+            flag = " &middot; not in Daily Tracking"
+        elif x["tracked"] is None:
+            flag = " &middot; tracking not logged"
         rec_rows.append(rec_row(x["d"].strftime("%d %b"), x["tracked"],
-                                x["invoiced"], x["status"]))
+                                x["invoiced"], x["status"], flag))
         i0 += 1
-    # net drift must count every invoiced day, collapsed rows included
+    # net drift must count every invoiced day, collapsed rows included -
+    # but only days that were actually tracked can drift (a never-logged
+    # day has nothing to measure against)
     net_drift = sum((x["tracked"] - x["invoiced"]) for x in recon
-                    if x["invoiced"] is not None)
+                    if x["invoiced"] is not None and x["tracked"] is not None)
     ds_note = ""
     if cost["ds_only"]:
-        ds_note = (" SiteIQ also shows charges on {} &mdash; date(s) not in the "
-                   "workbook's Daily Tracking; add the row(s) so everything "
-                   "lines up.".format(", ".join(d.strftime("%d %b") for d in cost["ds_only"])))
+        ds_note = (" SiteIQ shows charges on {} &mdash; date(s) not yet in the "
+                   "workbook's Daily Tracking. They are in this table and in "
+                   "every total (trued to SiteIQ); add the workbook row(s) and "
+                   "the tracked column fills in.".format(
+                       ", ".join(d.strftime("%d %b") for d in cost["ds_only"])))
     TRUEUP_ROWS_PER_PAGE = 18
     row_chunks = [rec_rows[k:k + TRUEUP_ROWS_PER_PAGE]
                   for k in range(0, len(rec_rows), TRUEUP_ROWS_PER_PAGE)] or [[]]
@@ -1086,8 +1132,8 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
             lrows += ("<tr><td style='white-space:nowrap'>{w}</td><td>{d}</td>"
                       "<td class='n'>${a:,.2f}</td></tr>").format(
                           w=claim_when(w), d=html.escape(de[:70]), a=a)
-        lrows += ("<tr><td></td><td style='color:#fff;font-weight:700'>Total claimed</td>"
-                  "<td class='n' style='color:#fff;font-weight:700'>${a:,.2f}</td></tr>"
+        lrows += ("<tr><td></td><td style='color:" + INK + ";font-weight:700'>Total claimed</td>"
+                  "<td class='n' style='color:" + INK + ";font-weight:700'>${a:,.2f}</td></tr>"
                   ).format(a=svc["total"])
         claims_page = (
             "<div class='card'>"
@@ -1115,7 +1161,7 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
     util_page = (
         "<div class='card'>"
         "<div><span class='pill watch'>Idle plant · client insight</span></div>"
-        "<div style='color:#fff;font-size:19px;font-weight:800;margin-top:14px'>Plant utilisation</div>"
+        "<div style='color:" + INK + ";font-size:19px;font-weight:800;margin-top:14px'>Plant utilisation</div>"
         "<div class='cap'>Site plant on charge, as at {d}</div>"
         "<div class='util'>{util}%<span> deployed</span></div>"
         "<div class='bar'><i style='width:{util}%'></i></div>"
@@ -1137,11 +1183,11 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
     pred_rows, pred_total = predicted_breakdown(cost)   # composition sums to the plan (FULL)
     pmax = max([a for _l, a in pred_rows] + [1.0])
     pbars = "".join(
-        "<div style='display:flex;align-items:center;gap:10px;margin:8px 0'>"
-        "<div style='width:230px;color:#A9B1BD;font-size:12.5px'>{l}</div>"
-        "<div style='flex:1;background:#20262e;border-radius:6px;overflow:hidden'>"
-        "<div style='height:14px;width:{w:.1f}%;background:#F26222;border-radius:6px'></div></div>"
-        "<div style='width:90px;text-align:right;color:#fff;font-size:12.5px'>{v}</div></div>".format(
+        ("<div style='display:flex;align-items:center;gap:10px;margin:8px 0'>"
+         "<div style='width:230px;color:" + MUTED + ";font-size:12.5px'>{l}</div>"
+         "<div style='flex:1;background:" + TRACK + ";border-radius:6px;overflow:hidden'>"
+         "<div style='height:14px;width:{w:.1f}%;background:#F26222;border-radius:6px'></div></div>"
+         "<div style='width:90px;text-align:right;color:" + INK + ";font-size:12.5px'>{v}</div></div>").format(
             l=l, w=max(2.0, a / pmax * 100), v=money0(a)) for l, a in pred_rows)
 
     charges_strip = ""
@@ -1159,10 +1205,10 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
         "<div class='bigsub'>Predicted landing · locked + plan ahead</div>"
         "<div class='ceiling'>The plan / forecast to completion is <b>{FULL}</b> &mdash; that's the ceiling, "
         "and we won't bill over it.</div>"
-        "<div style='margin-top:20px;color:#9BA3AF;font-size:11px;text-transform:uppercase;letter-spacing:.6px;"
+        "<div style='margin-top:20px;color:" + FAINT + ";font-size:11px;text-transform:uppercase;letter-spacing:.6px;"
         "font-weight:700'>What the plan is made of</div>"
         "<div style='margin-top:6px'>{bars}</div>"
-        "<div style='margin-top:20px;color:#9BA3AF;font-size:11px;text-transform:uppercase;letter-spacing:.6px;"
+        "<div style='margin-top:20px;color:" + FAINT + ";font-size:11px;text-transform:uppercase;letter-spacing:.6px;"
         "font-weight:700'>The month view &mdash; where the landing falls</div>"
         "<div style='margin-top:6px'>{months}</div>"
         "<div class='footnote'>Month figures are the days already run at their trued value plus the days "
@@ -1171,13 +1217,13 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
         "outside the hire plan and are added as they're logged.</div></div>"
     ).format(TR=money0(tracking), FULL=money0(FULL), bars=pbars,
              months="".join(
-                 "<div style='display:flex;align-items:center;gap:10px;margin:8px 0'>"
-                 "<div style='width:230px;color:#A9B1BD;font-size:12.5px'>{m}</div>"
-                 "<div style='flex:1;background:#20262e;border-radius:6px;overflow:hidden'>"
-                 "<div style='height:14px;width:{w:.1f}%;background:linear-gradient(90deg,#F26222,#f7883f);"
-                 "border-radius:6px'></div></div>"
-                 "<div style='width:150px;text-align:right;color:#fff;font-size:12.5px'>{v}"
-                 "<span style='color:#9BA3AF;font-size:10.5px'> ({run} run)</span></div></div>".format(
+                 ("<div style='display:flex;align-items:center;gap:10px;margin:8px 0'>"
+                  "<div style='width:230px;color:" + MUTED + ";font-size:12.5px'>{m}</div>"
+                  "<div style='flex:1;background:" + TRACK + ";border-radius:6px;overflow:hidden'>"
+                  "<div style='height:14px;width:{w:.1f}%;background:linear-gradient(90deg,#F26222,#f7883f);"
+                  "border-radius:6px'></div></div>"
+                  "<div style='width:150px;text-align:right;color:" + INK + ";font-size:12.5px'>{v}"
+                  "<span style='color:" + FAINT + ";font-size:10.5px'> ({run} run)</span></div></div>").format(
                      m=k, v=money0(v["run"] + v["ahead"]), run=money0(v["run"]),
                      w=max(2.0, (v["run"] + v["ahead"]) /
                            max(1.0, max(mv["run"] + mv["ahead"] for _k, mv in cost["months"])) * 100))
@@ -1462,13 +1508,13 @@ def billing_doc(bill, asat, wbname, ds_name, svc=None, charges_data=None):
                  for cm in mlist)
 
     def allin_row(name, vals, total, note, bold=False):
-        style = " style='color:#fff;font-weight:700'" if bold else ""
+        style = " style='color:" + INK + ";font-weight:700'" if bold else ""
         cells = "".join("<td class='n'{s}>{v}</td>".format(s=style, v=money0(v))
                         for v in vals)
         return ("<tr><td{s}>{n}</td>{c}<td class='n'{s2}>{t}</td>"
-                "<td style='color:#A9B1BD;white-space:normal'>{note}</td></tr>").format(
+                "<td style='color:" + MUTED + ";white-space:normal'>{note}</td></tr>").format(
             s=style, n=name, c=cells, t=money0(total),
-            s2=" style='color:#fff;font-weight:700'", note=note)
+            s2=" style='color:" + INK + ";font-weight:700'", note=note)
 
     roll_note = "; ".join("{} &rarr; {}".format(x["d"].strftime("%d %b"),
                                                 x["to"].split()[0])
@@ -1545,8 +1591,8 @@ def billing_doc(bill, asat, wbname, ds_name, svc=None, charges_data=None):
         if bits:
             note = "; ".join(bits)
         body_rows += ("<tr><td>{m}</td><td class='n'>{run}</td><td class='n'>{ah}</td>"
-                      "<td class='n' style='color:#fff;font-weight:700'>{tot}</td>"
-                      "<td style='color:#A9B1BD'>{note}</td></tr>").format(
+                      "<td class='n' style='color:" + INK + ";font-weight:700'>{tot}</td>"
+                      "<td style='color:" + MUTED + "'>{note}</td></tr>").format(
             m=k.strftime("%B %Y"), run=money0(m["run"]), ah=money0(m["ahead"]),
             tot=money0(m["run"] + m["ahead"]), note=note)
     if bill["split_ok"]:
@@ -1578,18 +1624,18 @@ def billing_doc(bill, asat, wbname, ds_name, svc=None, charges_data=None):
         mtot_v = (mtot["run"] + mtot["ahead"]) if mtot else comp
         split_rows += ("<tr><td>{m}</td><td class='n'>{p}</td>"
                        "<td class='n'>{t}</td>"
-                       "<td class='n' style='color:#fff;font-weight:700'>{tot}</td></tr>").format(
+                       "<td class='n' style='color:" + INK + ";font-weight:700'>{tot}</td></tr>").format(
             m=cm.strftime("%B %Y"), p=money0(e["plant"]), t=money0(e["tool"]),
             tot=money0(mtot_v))
         if comp > 0:
             pw = e["plant"] / comp * 100
             split_bars += (
                 "<div style='display:flex;align-items:center;gap:10px;margin:7px 0'>"
-                "<div style='width:110px;color:#A9B1BD;font-size:12px'>{m}</div>"
+                "<div style='width:110px;color:" + MUTED + ";font-size:12px'>{m}</div>"
                 "<div style='flex:1;display:flex;border-radius:6px;overflow:hidden;height:15px'>"
                 "<div style='width:{pw:.1f}%;background:#F26222'></div>"
                 "<div style='width:{tw:.1f}%;background:#fab219'></div></div>"
-                "<div style='width:190px;text-align:right;color:#fff;font-size:11.5px'>"
+                "<div style='width:190px;text-align:right;color:" + INK + ";font-size:11.5px'>"
                 "{pp:.0f}% plant &middot; {tp:.0f}% tooling</div></div>").format(
                 m=cm.strftime("%b %Y"), pw=pw, tw=100 - pw,
                 pp=pw, tp=100 - pw)
