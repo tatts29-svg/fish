@@ -1,7 +1,7 @@
-# Coates K2 suite version - 110 files - overall d16703e4
+# Coates K2 suite version - 110 files - overall 05b113df
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-28 21:27:07
+# taken 2026-07-28 21:46:20
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -54,7 +54,7 @@ d803266ea1 50_ADD_LIFTING_CHARGES.bat
 90bab58fae 53_WHICH_MACHINE.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
-07d791a5e5 ADD_NEW_CONTACTS.py
+3ec44ba3f8 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
 46ac5624c3 APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
@@ -81,7 +81,7 @@ b0c58cff1b START_GEAR_LOOKUP.ps1
 905295bfe6 SUBMIT_CHARGES.py
 c73dc44e7e SWITCH_ON.py
 9379a70c16 SYNC_PCS.py
-1f59a09e8f TEST_DAILY_PACKS.py
+f9f3f2c2b6 TEST_DAILY_PACKS.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
@@ -93,14 +93,14 @@ a49f1ea35c activity_model.py
 0200824f71 browser_engine.py
 28e7cf093a build_baseplan_costs.py
 064ec01f28 build_clean_report.py
-becd5b13fc build_company_onhire_report.py
+3f8dc50d72 build_company_onhire_report.py
 41bb1c838d build_cost_snapshot.py
 3db5a9a8de build_plant_dashboard.py
 9cc61b0521 build_posters.py
 9902310cbf build_workbook_html.py
 3dd28e5c7a email_images.py
 fc7018a232 equipment_compliance.py
-303f35eeb0 k2_daily_packs.py
+f64b1b9997 k2_daily_packs.py
 37690b04c6 logbook_poster.py
 2cd99a683d master_equipment.py
 12111f3895 mygear_guides.py
