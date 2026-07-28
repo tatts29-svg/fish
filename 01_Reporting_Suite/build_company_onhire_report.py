@@ -4693,6 +4693,21 @@ def _shift_window(h):
     return "day" if 6 <= h < 18 else "night"
 
 
+def _txn_hour(s):
+    """The hour out of a TRANSACTIONS time cell ('01:07 PM', '13:07').
+    None when the cell is blank or unreadable - an unstamped event is
+    left out of the shift split and the page says so, never guessed."""
+    s = str(s or "").strip().upper()
+    if not s:
+        return None
+    for f in ("%I:%M %p", "%I:%M%p", "%H:%M:%S", "%H:%M"):
+        try:
+            return dt.datetime.strptime(s, f).hour
+        except ValueError:
+            continue
+    return None
+
+
 def _shift_day(d, h):
     """The date a shift event BELONGS to (A. Fisher, 25 Jul 2026): night
     shift runs 18:00 into 06:00 next morning and belongs to the day it
@@ -4890,7 +4905,8 @@ def generate_stocktake_team(asof, generated, source_line, date_tag):
         ("alert", "{:,}".format(sm["due"]), "Left to count today",
          "<span style='color:{c};font-size:8pt;font-weight:700'>{t}</span>".format(
              c=V3_GOOD if sm["due"] == 0 else ORANGE_HEX,
-             t="all caught up" if sm["due"] == 0 else "fair split below")),
+             t="all caught up" if sm["due"] == 0
+             else "the 70/30 deal below")),
     ])
     body += ("<div style='text-align:center'>"
              + ring(pct, "Whole store on the cycle", "on cycle")
@@ -4899,6 +4915,100 @@ def generate_stocktake_team(asof, generated, source_line, date_tag):
                                                       sm["total"]),
                     "coverage", colour=ORANGE_HEX)
              + "</div>")
+
+    # ---- THE DAILY THREE -------------------------------------------------
+    #  (Andrew, 28 Jul 2026): "the 3 things we want stock taked daily.
+    #  gas monitors. radios. radio batteries. and we must show this data.
+    #  and whats been missed." Life-safety and comms gear is counted
+    #  EVERY DAY, not on the 3-day wheel. On-hire units count as sighted
+    #  at issue (store convention) - the daily walk is the shelf.
+    def _d3(label, pred):
+        shelf = [x for x in sm["rows"]
+                 if pred(x) and x["status"] != "On Hire"]
+        out_n = sum(1 for x in sm["rows"]
+                    if pred(x) and x["status"] == "On Hire")
+        done = [x for x in shelf if x["days"] <= 0]
+        missed = sorted((x for x in shelf if x["days"] >= 1),
+                        key=lambda x: -x["days"])
+        return {"label": label, "shelf": shelf, "out": out_n,
+                "done": done, "missed": missed}
+
+    def _is_radio_batt(x):
+        return "BATTER" in x["desc"].upper()
+
+    d3 = [
+        _d3("Gas monitors",
+            lambda x: x["su"].upper() == "GAS MONITORS"),
+        _d3("Radios",
+            lambda x: x["su"].upper() == "RADIOS"
+            and not _is_radio_batt(x)),
+        _d3("Radio batteries",
+            lambda x: x["su"].upper() == "RADIOS" and _is_radio_batt(x)),
+    ]
+    d3_missed = sum(len(g["missed"]) for g in d3)
+    body += "<h2>The daily three &mdash; counted every single day</h2>"
+    body += ("<div class='intro story'><b>Three groups are on a DAILY "
+             "count, not the {c}-day wheel: gas monitors, radios and "
+             "radio batteries.</b> Gas monitors keep people alive, radios "
+             "keep the site talking, and batteries are what walks. Every "
+             "shelf unit in these three gets eyes on it every day - gear "
+             "out with a crew counts as sighted at issue. Below is "
+             "today's position and <b>exactly what was missed</b>."
+             "</div>").format(c=STOCKTAKE_CYCLE_DAYS)
+    kcells = []
+    for g in d3:
+        n_shelf = len(g["shelf"])
+        ok = not g["missed"]
+        kcells.append((
+            "tick" if ok else "alert",
+            "{}/{}".format(len(g["done"]), n_shelf) if n_shelf
+            else "0/0",
+            "{} sighted today".format(g["label"]),
+            "<span style='color:{c};font-size:8pt;font-weight:700'>{t}"
+            "</span>".format(
+                c=V3_GOOD if ok else V3_BAD,
+                t=("CLEAN - all counted" if ok and n_shelf else
+                   "nothing on the shelf" if not n_shelf else
+                   "{} MISSED".format(len(g["missed"]))))))
+    body += v3_kpis(kcells, per_row=3)
+    for g in d3:
+        n_shelf = len(g["shelf"])
+        body += ("<h3 style='margin:14px 0 4px'>{l} &mdash; {n} on the "
+                 "shelf &middot; {o} out with crews</h3>").format(
+            l=esc(g["label"]), n=n_shelf, o=g["out"])
+        if n_shelf:
+            body += hbar("Sighted in the last 24h",
+                         "{} of {}".format(len(g["done"]), n_shelf),
+                         len(g["done"]) / n_shelf,
+                         "#3FB950" if not g["missed"] else "#F2B01E")
+        if g["missed"]:
+            rows_h = "".join(
+                "<tr><td>{d}</td><td>{b}</td><td class='num'>{dy}d ago</td>"
+                "<td>{by}</td></tr>".format(
+                    d=esc(x["desc"]), b=esc(x["barcode"] or "-"),
+                    dy=x["days"], by=esc(x["by"] or "-"))
+                for x in g["missed"][:12])
+            more = len(g["missed"]) - 12
+            body += ("<div class='note' style='border-left:4px solid "
+                     "#F85149'><b>Missed - not sighted in the last 24 "
+                     "hours:</b></div>"
+                     "<table class='data'><thead><tr><th>Item</th>"
+                     "<th>Barcode</th><th class='num'>Last sighted</th>"
+                     "<th>By</th></tr></thead><tbody>" + rows_h
+                     + "</tbody></table>")
+            if more > 0:
+                body += ("<div class='note'>&hellip; and {} more in this "
+                         "group - the Daily Run Sheet lists the lot."
+                         "</div>").format(more)
+        elif n_shelf:
+            body += ("<div class='note' style='border-left:4px solid "
+                     "#3FB950'><b>Clean</b> - every shelf unit sighted "
+                     "inside 24 hours. Say so at pre-start.</div>")
+    if d3_missed == 0 and any(len(g["shelf"]) for g in d3):
+        body += ("<div class='intro story'><b>The daily three are clean "
+                 "today</b> - every gas monitor, radio and radio battery "
+                 "on the shelf has been sighted inside 24 hours. That is "
+                 "the standard - hold it.</div>")
 
     # ---- what you've done: trend + shifts + people -----------------------
     body += "<h2>What you've done &mdash; day by day</h2>"
@@ -4919,6 +5029,116 @@ def generate_stocktake_team(asof, generated, source_line, date_tag):
         body += ("<div class='note'>Every count so far is stamped in day "
                  "hours - the night window hasn't put counts on the board "
                  "yet. The moment it does, it shows here in blue.</div>")
+
+    # ---- DAY v NIGHT - the power board -----------------------------------
+    #  (Andrew, 28 Jul 2026): "what shift is busier what shift does the
+    #  most transactions. lets really show some high detail." Two decks:
+    #  the stocktake wheel AND the counter, each split day/night off the
+    #  SiteIQ stamps. Unstamped counter events are left out of the split
+    #  and said out loud - never guessed onto a shift.
+    tx_all, _txp = load_transactions()
+    ctr = {"day": {"ev": 0, "out": 0, "back": 0, "hours": {}},
+           "night": {"ev": 0, "out": 0, "back": 0, "hours": {}}}
+    ctr_by_day = {}
+    unstamped = 0
+    for t in tx_all:
+        for when, tm, kind in ((t["start"], t["start_time"], "out"),
+                               (t["end"], t["end_time"], "back")):
+            if not when:
+                continue
+            h = _txn_hour(tm)
+            if h is None:
+                unstamped += 1
+                continue
+            w = _shift_window(h)
+            ctr[w]["ev"] += 1
+            ctr[w][kind] += 1
+            ctr[w]["hours"][h] = ctr[w]["hours"].get(h, 0) + 1
+            sd = _shift_day(when, h)
+            e = ctr_by_day.setdefault(sd, {"day": 0, "night": 0})
+            e[w] += 1
+
+    def _peak(hours):
+        if not hours:
+            return "-"
+        h = max(hours, key=hours.get)
+        return "{:02d}:00 ({})".format(h, hours[h])
+
+    body += "<h2>Day v night &mdash; the power board</h2>"
+    tot_ct = by_shift["day"] + by_shift["night"]
+    tot_ev = ctr["day"]["ev"] + ctr["night"]["ev"]
+    deck = ""
+    for w, nm, col in (("day", "DAY SHIFT 06:00&ndash;18:00", _DAY_COL),
+                       ("night", "NIGHT SHIFT 18:00&ndash;06:00",
+                        _NIGHT_COL)):
+        c = ctr[w]
+        dhrs = {h: n for h, n in by_hour.items() if _shift_window(h) == w}
+        deck += (
+            "<td style='width:50%;vertical-align:top;background:{cd};"
+            "border:1px solid {ln};border-top:4px solid {cl};"
+            "border-radius:12px;padding:12px 14px'>"
+            "<div style='font-weight:800;letter-spacing:1.5px;color:{cl};"
+            "font-size:10pt'>{nm}</div>"
+            "<table style='width:100%;margin-top:8px'><tr>"
+            "<td><span style='font-size:20pt;font-weight:800;color:{ik}'>"
+            "{cnt:,}</span><br><span style='font-size:7.5pt;color:{mut};"
+            "letter-spacing:1px'>COUNTS LOGGED ({cp:.0%})</span></td>"
+            "<td><span style='font-size:20pt;font-weight:800;color:{ik}'>"
+            "{ev:,}</span><br><span style='font-size:7.5pt;color:{mut};"
+            "letter-spacing:1px'>COUNTER EVENTS ({ep:.0%})</span></td>"
+            "</tr><tr>"
+            "<td style='padding-top:7px'><span style='font-size:13pt;"
+            "font-weight:800;color:{ik}'>{go:,} / {gb:,}</span><br>"
+            "<span style='font-size:7.5pt;color:{mut};letter-spacing:1px'>"
+            "GEAR OUT / GEAR BACK</span></td>"
+            "<td style='padding-top:7px'><span style='font-size:13pt;"
+            "font-weight:800;color:{ik}'>{pkc}</span><br>"
+            "<span style='font-size:7.5pt;color:{mut};letter-spacing:1px'>"
+            "BUSIEST COUNT HOUR</span></td>"
+            "</tr><tr>"
+            "<td colspan='2' style='padding-top:7px'><span style="
+            "'font-size:13pt;font-weight:800;color:{ik}'>{pke}</span><br>"
+            "<span style='font-size:7.5pt;color:{mut};letter-spacing:1px'>"
+            "BUSIEST COUNTER HOUR</span></td>"
+            "</tr></table></td>").format(
+            cd=V3_CARD, ln=V3_LINE, cl=col, nm=nm, ik="#fff",
+            mut="#8B9099",
+            cnt=by_shift[w], cp=(by_shift[w] / tot_ct) if tot_ct else 0,
+            ev=c["ev"], ep=(c["ev"] / tot_ev) if tot_ev else 0,
+            go=c["out"], gb=c["back"], pkc=_peak(dhrs),
+            pke=_peak(c["hours"]))
+    body += ("<table style='width:100%;border-collapse:separate;"
+             "border-spacing:8px 0'><tr>" + deck + "</tr></table>")
+    #  the verdict, in words - who is busier at what
+    if tot_ct or tot_ev:
+        cw = "day" if by_shift["day"] >= by_shift["night"] else "night"
+        ew = "day" if ctr["day"]["ev"] >= ctr["night"]["ev"] else "night"
+        cwp = (by_shift[cw] / tot_ct) if tot_ct else 0
+        ewp = (ctr[ew]["ev"] / tot_ev) if tot_ev else 0
+        body += ("<div class='intro story'><b>The verdict:</b> "
+                 "<b>{cn} shift turns the wheel</b> - {cwp:.0%} of all "
+                 "stocktake counts - and <b>{en} shift owns the counter"
+                 "</b> with {ewp:.0%} of counter events (gear out and "
+                 "back). Different shifts, different strengths - the "
+                 "70/30 count deal below plays to exactly that."
+                 "</div>").format(
+            cn=cw.title(), cwp=cwp, en=ew.title(), ewp=ewp)
+    #  counter events, day v night, last 7 shift-days - the busy chart
+    if ctr_by_day:
+        last7 = sorted(ctr_by_day)[-7:]
+        sa = [(d.strftime("%d %b"), ctr_by_day[d]["day"]) for d in last7]
+        sb = [(d.strftime("%d %b"), ctr_by_day[d]["night"]) for d in last7]
+        body += ("<div class='note'><b>The counter, day v night, last 7 "
+                 "shift-days</b> - every issue and every return with a "
+                 "time stamp on it.</div>")
+        body += v3_bars_pair(sa, sb, "Day shift", "Night shift",
+                             col_a=_DAY_COL, col_b=_NIGHT_COL)
+    if unstamped:
+        body += ("<div class='note'>{:,} counter event(s) carry no time "
+                 "stamp in the export and are left out of the day/night "
+                 "split - counted in totals elsewhere, never guessed "
+                 "onto a shift.</div>").format(unstamped)
+
     prs = sorted(by_person.items(), key=lambda kv: -kv[1]["n"])
     rows_h = ""
     for name, e in prs:
@@ -5011,10 +5231,19 @@ def generate_stocktake_team(asof, generated, source_line, date_tag):
     due_total = sum(p["due"] for p in plan_units)
     fall_total = sum(p["falling"] for p in plan_units)
     work_total = due_total + fall_total
+    #  THE 70/30 DEAL (Andrew, 28 Jul 2026): nights carry 70% of the
+    #  wheel, days 30. Nights have the quiet hours and full shelves;
+    #  days have the counter traffic - the split matches the work to
+    #  the hours that can actually do it. Whole units still deal
+    #  biggest-first, each onto whichever pile is furthest under ITS
+    #  OWN share - so the final split lands as close to 70/30 as whole
+    #  storage units allow.
+    SHIFT_SHARE = {"Day shift": 0.30, "Night shift": 0.70}
     alloc = {"Day shift": [], "Night shift": []}
     tally = {"Day shift": 0, "Night shift": 0}
     for p in sorted(plan_units, key=lambda p: -p["w"]):
-        pick = min(tally, key=lambda k: tally[k])
+        pick = min(tally,
+                   key=lambda k: (tally[k] + p["w"]) / SHIFT_SHARE[k])
         alloc[pick].append(p)
         tally[pick] += p["w"]
     body += "<h2>The next 24 hours &mdash; who counts what</h2>"
@@ -5022,18 +5251,21 @@ def generate_stocktake_team(asof, generated, source_line, date_tag):
         body += ("<div class='intro story'><b>The wheel is clear for the "
                  "next 24 hours</b> - nothing due, nothing falling due "
                  "before this time tomorrow. Keep it that way: roughly "
-                 "{steady:,} sightings across the day, about half each "
-                 "shift, oldest sightings first - the Daily Run Sheet "
-                 "orders the walk for you.</div>").format(
+                 "{steady:,} sightings across the day on the 70/30 deal "
+                 "- nights carry about 70%, days about 30 - oldest "
+                 "sightings first. The Daily Run Sheet orders the walk "
+                 "for you.</div>").format(
             steady=sm["steady"])
     else:
         body += ("<div class='intro story'>Fresh from this run's export: "
                  "<b>{d:,} item{ds} due now</b> plus <b>{f:,} falling due "
                  "before this time tomorrow</b> = <b>{w:,} items to sight "
                  "in the next 24 hours</b>. Dealt below as whole storage "
-                 "units, biggest workload first onto the lighter pile - "
-                 "so both shifts carry a fair share of the wheel, every "
-                 "single day.</div>").format(
+                 "units on <b>the 70/30 deal - nights carry 70% of the "
+                 "wheel, days 30</b>: nights have the quiet hours and "
+                 "full shelves, days have the counter. Biggest workload "
+                 "first, each unit onto whichever shift is furthest "
+                 "under its share.</div>").format(
             d=due_total, ds="" if due_total == 1 else "s",
             f=fall_total, w=work_total)
         body += v3_kpis([
@@ -5048,8 +5280,9 @@ def generate_stocktake_team(asof, generated, source_line, date_tag):
         dpct = tally["Day shift"] / float(work_total) if work_total else 0
         body += (
             "<div style='margin:10px 0 4px;font-size:9.5pt;color:#A9B1BD'>"
-            "<b>The fair-share meter</b> - whole units can't split to the "
-            "item, this is as even as the areas deal:</div>"
+            "<b>The 70/30 meter</b> - target: nights 70%, days 30%. Whole "
+            "units can't split to the item, this is as close as the "
+            "areas deal:</div>"
             "<div style='display:flex;height:30px;border-radius:9px;"
             "overflow:hidden;font-size:10pt;font-weight:800'>"
             "<div style='width:{dp:.1%};background:{dc};display:flex;"

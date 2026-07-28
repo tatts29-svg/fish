@@ -81,13 +81,24 @@ def _d(v):
 # ---------------------------------------------------------------------
 #  building blocks
 # ---------------------------------------------------------------------
+#  Status tints for the scorecards - colour only where a judgement
+#  exists (Andrew picked this look, 28 Jul 2026: white tiles by default,
+#  a tinted tile means the number IS the status). RAG discipline: red is
+#  action, amber is watch, green is healthy - never decoration.
+_TINT = {GOOD: ("#E8F6EC", "#12271A"), AMBER: ("#FFF4D6", "#2A2210"),
+         BAD: ("#FBE3DF", "#2A1512")}
+
+
 def cards(items, per_row=6):
-    """The big scorecards. items = [(value, label, colour, sub)]."""
+    """The big scorecards. items = [(value, label, colour, sub)] - or a
+    5th element truthy to TINT the tile with its status colour."""
     out = []
     for chunk in [items[i:i + per_row] for i in range(0, len(items), per_row)]:
         w = 100.0 / len(chunk)
         tds = []
-        for val, label, colour, sub in chunk:
+        for item in chunk:
+            val, label, colour, sub = item[:4]
+            tinted = len(item) > 4 and item[4] and colour in _TINT
             #  One literal, one .format(). Splicing a colour in with
             #  " + FAINT + " ends the string expression, so .format()
             #  binds only to the last chunk and every {v} before it is
@@ -96,14 +107,19 @@ def cards(items, per_row=6):
             #  as named fields like everything else.
             tds.append(
                 "<td style=\"width:{w}%;background:{cd};border-top:3px solid "
-                "{c};border-radius:8px;padding:11px 12px 9px;"
+                "{c};{edge}border-radius:8px;padding:11px 12px 9px;"
                 "vertical-align:top\">"
                 "<div style=\"font-size:23pt;font-weight:800;color:{c};"
                 "line-height:1\">{v}</div>"
                 "<div style=\"font-size:7.5pt;color:{fa};letter-spacing:1px;"
                 "text-transform:uppercase;margin-top:5px;line-height:1.35\">"
                 "{l}</div>{s}</td>".format(
-                    w=w, cd=CARD, c=colour, v=val, l=_esc(label), fa=FAINT,
+                    w=w,
+                    cd=(_TINT[colour][0 if _LIGHT else 1] if tinted
+                        else CARD),
+                    edge=("border:1px solid {};".format(colour) if tinted
+                          else ""),
+                    c=colour, v=val, l=_esc(label), fa=FAINT,
                     s=("<div style='font-size:7.5pt;color:{};margin-top:3px'>"
                        "{}</div>".format(MUTED, _esc(sub))) if sub else ""))
         out.append("<table style=\"width:100%;border-collapse:separate;"
@@ -263,18 +279,20 @@ def company_page(co, period):
         (c["returned"], "Equipment returned", GOOD, "this period"),
         (c["same"], "Returned same day", GOOD, ""),
         (c["not_same"], "Not returned same day",
-         BAD if c["not_same"] else GOOD, "daily-return gear"),
+         BAD if c["not_same"] else GOOD, "daily-return gear",
+         c["not_same"] > 0),
         (c["recovered"], "Recovered", GOOD, "outstanding, now back"),
     ])
     body += cards([
         (c["still"], "Currently still on hire", INK, ""),
         ("{}d".format(co["oldest"]), "Oldest item", AMBER if co["oldest"] >= 5
-         else INK, ""),
+         else INK, "", co["oldest"] >= 5),
         (_repl_hl(co["exposure"]) if co["exposure"] else
          _money(co["exposure"]), "Replacement exposure", ORANGE, ""),
-        (a["1-7"], "On hire 1–7 days", GOOD, ""),
-        (a["8-30"], "On hire 8–30 days", AMBER, ""),
-        (a["30+"], "On hire 30+ days", BAD if a["30+"] else MUTED, ""),
+        (a["1-7"], "On hire 1–7 days", GOOD, "", a["1-7"] > 0),
+        (a["8-30"], "On hire 8–30 days", AMBER, "", a["8-30"] > 0),
+        (a["30+"], "On hire 30+ days", BAD if a["30+"] else MUTED, "",
+         a["30+"] > 0),
     ])
     #  The position in one paragraph - the numbers a manager repeats on
     #  the phone, wearing the same colours the scorecards gave them.
