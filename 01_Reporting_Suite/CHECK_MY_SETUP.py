@@ -109,6 +109,24 @@ def main():
         except Exception:
             pass
 
+    # ---- 0b. living under OneDrive? (the work laptop does) ---------------
+    #  The suite RUNS fine under OneDrive - IF the folder is pinned to
+    #  the device and the workbook's AutoSave is off. Unpinned, OneDrive
+    #  keeps files as cloud-only placeholders that Excel and Python both
+    #  fail on, and it can lock files mid-run while it syncs. Andrew's
+    #  work laptop lives at OneDrive...\Desktop\Cement\ (29 Jul 2026).
+    if "onedrive" in HERE.lower():
+        say(WARN, "This folder lives under OneDrive - three settings "
+                  "keep it safe:")
+        print("        1. Right-click the Cement folder in Explorer >")
+        print("           'Always keep on this device' - so every file is")
+        print("           really on the disk, not a cloud placeholder.")
+        print("        2. In Excel, AutoSave OFF for the K2 workbook -")
+        print("           AutoSave breaks the workbook's folder path")
+        print("           (then run 13_ALIGN_EXCEL_DATA.bat once).")
+        print("        3. Run 45_ARCHIVE_OLD_REPORTS.bat weekly - keeps")
+        print("           OneDrive from syncing gigabytes of old days.")
+
     # ---- 1. the workbook ------------------------------------------------
     wbs = [p for p in glob.glob(os.path.join(HERE, "Cement_Australia_Report*K2*.xlsm"))
            if not os.path.basename(p).startswith("~$")]
