@@ -1,6 +1,6 @@
-# Coates K2 suite version - 106 files - overall 57a58e79
+# Coates K2 suite version - 106 files - overall 6c9ef66d
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-28 20:08:44
+# taken 2026-07-28 20:14:34
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -59,7 +59,7 @@ e5ec7cc70f ARE_WE_IN_SYNC.py
 7df01af922 BUILD_DAILY_EMAIL_PACKS.py
 926363f7b5 BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
-058003c804 CHECK_MY_SETUP.py
+da2adf9601 CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
 218fb4912a IS_IT_WORKING.py
 d7e5f12668 MAKE_MY_QR_CARDS.py
