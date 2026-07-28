@@ -75,8 +75,25 @@ def head(title):
 #  Read the workbook ourselves - the whole point of an independent test
 # ---------------------------------------------------------------------
 def emails_in(text):
-    return [p.strip() for p in re.split(r"[;,\r\n\t]+", str(text or ""))
-            if p.strip() and "@" in p and " " not in p.strip()]
+    #  Same rule as the builder's _emails: "John Pickels <john@...>" is a
+    #  perfectly normal way to write an address - take the address out of
+    #  it rather than dropping the person. The old space-means-skip rule
+    #  made this prover blind to exactly that row (29 Jul 2026).
+    out = []
+    for p in re.split(r"[;,\r\n\t]+", str(text or "")):
+        p = p.strip()
+        if not p:
+            continue
+        m = re.search(r"<([^<>@\s]+@[^<>@\s]+)>", p)
+        if m:
+            p = m.group(1)
+        elif " " in p:
+            m = re.search(r"([^<>@\s]+@[^<>@\s]+)", p)
+            p = m.group(1) if m else ""
+        p = p.strip("<>.,; ")
+        if p and "@" in p and " " not in p and p not in out:
+            out.append(p)
+    return out
 
 
 def slug(name):
@@ -724,18 +741,39 @@ def quiet_failures(date_tag, book):
             if "FIXED" in joined and "CC" in joined:
                 row = r
                 break
-        four = emails_in(ws.cell(row + 1, 1).value)
-        ws.cell(row + 1, 1).value = four[0]
-        ws.insert_rows(row + 2, len(four) - 1)
-        for i, e in enumerate(four[1:], start=2):
-            ws.cell(row + i, 1).value = e
+        #  Gather EVERY address already in the block, however it is laid
+        #  out - the live book mixes a four-in-one-cell row with John
+        #  Pickels on his own row (added 28 Jul 2026). Assuming the first
+        #  cell held them all made this scenario plant 4 and find 5.
+        block = []
+        rr = row + 1
+        while rr <= ws.max_row:
+            got = emails_in(" ".join(str(ws.cell(rr, c).value or "")
+                                     for c in range(1, ws.max_column + 1)))
+            if not got:
+                break
+            block += [e for e in got if e not in block]
+            rr += 1
+        n_have = rr - (row + 1)          # rows the block occupies today
+        if len(block) > n_have:
+            ws.insert_rows(row + 1 + n_have, len(block) - n_have)
+        #  the Summary sheet merges cells for looks - a merged follower
+        #  cell is read-only, and clearing it doesn't matter anyway (the
+        #  block's addresses only ever lived in column 1)
+        for i, e in enumerate(block):    # rewrite strictly one per row
+            for c in range(1, ws.max_column + 1):
+                try:
+                    ws.cell(row + 1 + i, c).value = None
+                except AttributeError:
+                    pass                 # merged follower - nothing in it
+            ws.cell(row + 1 + i, 1).value = e
         wb.save(dest)
         root = os.path.join(tmp, "OUT")
         r = run_builder(["--date", date_tag, "--root", root, "--book", dest])
         m = re.search(r"Fixed Cc\s*:\s*(\d+)", r.stdout or "")
         check("Oversight contacts listed one per row are all found",
-              bool(m) and int(m.group(1)) == len(four),
-              "{} of {}".format(m.group(1) if m else "?", len(four)))
+              bool(m) and int(m.group(1)) == len(block),
+              "{} of {}".format(m.group(1) if m else "?", len(block)))
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 

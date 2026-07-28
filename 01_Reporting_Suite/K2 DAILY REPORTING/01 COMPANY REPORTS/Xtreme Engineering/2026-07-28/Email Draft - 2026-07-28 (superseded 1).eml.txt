@@ -1,25 +1,24 @@
-Content-Type: multipart/mixed; boundary="===============3065317912114055909=="
+Content-Type: multipart/mixed; boundary="===============0210882790211930801=="
 MIME-Version: 1.0
 Subject: Xtreme Engineering | Daily On-Hire Report | 28 July 2026
 From: Coates Tool Store
 To: kkay@xtremeengineering.com.au, scotth@xtremeengineering.com.au
 Cc: thomas.maher@coates.com.au, cody.mitchell@coates.com.au,
- benjamin.vandenbroek@cemaust.com.au, david.moore@cemaust.com.au,
- John.Pickels@cemaust.com.au
+ benjamin.vandenbroek@cemaust.com.au, david.moore@cemaust.com.au
 X-Unsent: 1
-X-Coates-Pack: 9dc806ff3b71ed1ccec1420fc960d50e
+X-Coates-Pack: 6464db322601253a78918d5e8058d590
 
---===============3065317912114055909==
+--===============0210882790211930801==
 Content-Type: multipart/related;
- boundary="===============1404159675547094764=="
+ boundary="===============9011992668140741760=="
 MIME-Version: 1.0
 
---===============1404159675547094764==
+--===============9011992668140741760==
 Content-Type: multipart/alternative;
- boundary="===============7155750499993379975=="
+ boundary="===============2274638947979328565=="
 MIME-Version: 1.0
 
---===============7155750499993379975==
+--===============2274638947979328565==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -27,7 +26,7 @@ Content-Transfer-Encoding: base64
 VGhpcyByZXBvcnQgaXMgYmVzdCB2aWV3ZWQgaW4gSFRNTCAtIHRoZSByZXBvcnQgaXMgaW4gdGhl
 IG1lc3NhZ2UgYm9keS4=
 
---===============7155750499993379975==
+--===============2274638947979328565==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -69,11 +68,11 @@ OiMxQjFGMjQ7bGluZS1oZWlnaHQ6MS41NTttYXJnaW46MTZweCAwIDAiPlJlZ2FyZHMsPGJyPllv
 dXIgQ29hdGVzIFRvb2wgU3RvcmUgVGVhbTwvcD48L3RkPjwvdHI+PC90YWJsZT48L3RkPjwvdHI+
 PC90YWJsZT48L2JvZHk+PC9odG1sPg==
 
---===============7155750499993379975==--
+--===============2274638947979328565==--
 
---===============1404159675547094764==--
+--===============9011992668140741760==--
 
---===============3065317912114055909==
+--===============0210882790211930801==
 Content-Type: application/pdf
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -15286,7 +15285,7 @@ MDAwIG4gCjAwMDA4MDU1NzQgMDAwMDAgbiAKMDAwMDgwNTgyNyAwMDAwMCBuIAowMDAwODA2MzA4
 IDAwMDAwIG4gCnRyYWlsZXIKPDwvU2l6ZSAyOTg2Ci9Sb290IDI4ODcgMCBSCi9JbmZvIDEgMCBS
 Pj4Kc3RhcnR4cmVmCjgwNjg0OQolJUVPRgo=
 
---===============3065317912114055909==
+--===============0210882790211930801==
 Content-Type: application/pdf
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -26274,4 +26273,4 @@ MCBuIAowMDAwNTkwODk0IDAwMDAwIG4gCjAwMDA1OTExNDcgMDAwMDAgbiAKMDAwMDU5MTg0OSAw
 MDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgMTY2NQovUm9vdCAxNTQ0IDAgUgovSW5mbyAxIDAgUj4+
 CnN0YXJ0eHJlZgo1OTI0NDIKJSVFT0YK
 
---===============3065317912114055909==--
+--===============0210882790211930801==--

@@ -1,26 +1,25 @@
-Content-Type: multipart/mixed; boundary="===============1890033796273189416=="
+Content-Type: multipart/mixed; boundary="===============7103787363868981110=="
 MIME-Version: 1.0
 Subject: Veolia Refractory | Daily On-Hire Report | 28 July 2026
 From: Coates Tool Store
 To: melissa.rowlands1@veolia.com, andrew.macloughlin@veolia.com,
  tim.lang1@veolia.com
 Cc: thomas.maher@coates.com.au, cody.mitchell@coates.com.au,
- benjamin.vandenbroek@cemaust.com.au, david.moore@cemaust.com.au,
- John.Pickels@cemaust.com.au
+ benjamin.vandenbroek@cemaust.com.au, david.moore@cemaust.com.au
 X-Unsent: 1
-X-Coates-Pack: 466d5e8622cca4c2633b9b175ea849d9
+X-Coates-Pack: a16fb663cd871b881c47b5408a4653db
 
---===============1890033796273189416==
+--===============7103787363868981110==
 Content-Type: multipart/related;
- boundary="===============4324354864025787508=="
+ boundary="===============8379427908511254961=="
 MIME-Version: 1.0
 
---===============4324354864025787508==
+--===============8379427908511254961==
 Content-Type: multipart/alternative;
- boundary="===============3625221417772951577=="
+ boundary="===============5533627938867540714=="
 MIME-Version: 1.0
 
---===============3625221417772951577==
+--===============5533627938867540714==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -28,7 +27,7 @@ Content-Transfer-Encoding: base64
 VGhpcyByZXBvcnQgaXMgYmVzdCB2aWV3ZWQgaW4gSFRNTCAtIHRoZSByZXBvcnQgaXMgaW4gdGhl
 IG1lc3NhZ2UgYm9keS4=
 
---===============3625221417772951577==
+--===============5533627938867540714==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -70,11 +69,11 @@ MUIxRjI0O2xpbmUtaGVpZ2h0OjEuNTU7bWFyZ2luOjE2cHggMCAwIj5SZWdhcmRzLDxicj5Zb3Vy
 IENvYXRlcyBUb29sIFN0b3JlIFRlYW08L3A+PC90ZD48L3RyPjwvdGFibGU+PC90ZD48L3RyPjwv
 dGFibGU+PC9ib2R5PjwvaHRtbD4=
 
---===============3625221417772951577==--
+--===============5533627938867540714==--
 
---===============4324354864025787508==--
+--===============8379427908511254961==--
 
---===============1890033796273189416==
+--===============7103787363868981110==
 Content-Type: application/pdf
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -22960,7 +22959,7 @@ MDAgbiAKMDAwMTIwMDExOSAwMDAwMCBuIAowMDAxMjA3MDE0IDAwMDAwIG4gCjAwMDEyMDcyNjcg
 MDAwMDAgbiAKMDAwMTIwNzc0OCAwMDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgNDc4MwovUm9vdCA0
 NjgwIDAgUgovSW5mbyAxIDAgUj4+CnN0YXJ0eHJlZgoxMjA4Mjg5CiUlRU9GCg==
 
---===============1890033796273189416==
+--===============7103787363868981110==
 Content-Type: application/pdf
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -33948,4 +33947,4 @@ MCBuIAowMDAwNTkwODk0IDAwMDAwIG4gCjAwMDA1OTExNDcgMDAwMDAgbiAKMDAwMDU5MTg0OSAw
 MDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgMTY2NQovUm9vdCAxNTQ0IDAgUgovSW5mbyAxIDAgUj4+
 CnN0YXJ0eHJlZgo1OTI0NDIKJSVFT0YK
 
---===============1890033796273189416==--
+--===============7103787363868981110==--

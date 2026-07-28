@@ -373,6 +373,16 @@ def write_once(path, text, ignore=("Created ",), scrub=()):
                 with open(alt, "w", encoding="utf-8") as fh:
                     fh.write(text)
                 return alt, "changed since the first run - written as ({})".format(n)
+            #  the same correction filed again is NOT another correction -
+            #  without this, one genuine re-issue meant every later run
+            #  filed an identical (3), (4), (5)... (29 Jul 2026, and the
+            #  same rule _place has always had)
+            try:
+                with open(alt, "r", encoding="utf-8") as fh:
+                    if strip(fh.read()) == strip(text):
+                        return alt, "already filed as ({})".format(n)
+            except Exception:
+                pass
         return path, "already filed - left untouched"
     with open(path, "w", encoding="utf-8") as fh:
         fh.write(text)

@@ -212,6 +212,49 @@ def main():
             print(" CC block: John Pickels added - every company email now")
             print(" CCs David, John, Ben, Thomas and Cody automatically.")
 
+    # ---- 3. John into every EXTERNAL company's Cc row ------------------
+    #  The Summary block is the MUST list; the Company Routing row is what
+    #  the draft actually carries - and the guard rightly holds any pack
+    #  whose row is missing a fixed contact (29 Jul 2026: six packs HELD,
+    #  "missing: john.pickels"). The builder must never add him silently -
+    #  a dropped oversight contact HAS to hold the pack - so the fix
+    #  belongs here, in the workbook, where it can be seen and audited.
+    if "Company Routing" not in wb2.sheetnames:
+        print(" No Company Routing sheet - Cc rows unchanged. Tell Claude.")
+        return 1
+    ws3 = wb2["Company Routing"]
+    hdr3 = cix = None
+    for i, r in enumerate(ws3.iter_rows(values_only=True), 1):
+        vals = [str(c or "").strip() for c in r]
+        if "Company" in vals and "Cc" in vals:
+            hdr3 = i
+            cix = {v: j for j, v in enumerate(vals, 1) if v}
+            break
+    if hdr3 is None:
+        print(" Couldn't find the routing header row - Cc rows unchanged.")
+        return 1
+    fixed_rows = []
+    for rr in range(hdr3 + 1, ws3.max_row + 1):
+        comp = str(ws3.cell(rr, cix["Company"]).value or "").strip()
+        kind = str(ws3.cell(rr, cix["Email Type"]).value or "").strip()
+        if not comp or not kind.lower().startswith("external"):
+            continue
+        cc = str(ws3.cell(rr, cix["Cc"]).value or "").strip()
+        if JOHN[1].lower() in cc.lower():
+            continue
+        ws3.cell(rr, cix["Cc"]).value = (
+            (cc.rstrip("; ") + "; " if cc else "") + JOHN[1])
+        fixed_rows.append(comp)
+    if fixed_rows:
+        backup(ROUTE, "pre_john_cc_rows")
+        wb2.save(ROUTE)
+        print(" Cc rows: John Pickels added to {} external compan{}:".format(
+            len(fixed_rows), "y" if len(fixed_rows) == 1 else "ies"))
+        print("   " + ", ".join(fixed_rows))
+        print("   Held packs release on the next pack run (button 10).")
+    else:
+        print(" Cc rows: every external company already CCs John Pickels.")
+
     print("")
     print(" Next run of the reports picks all of this up. Check with")
     print(" 18_CHECK_DAILY_EMAIL_PACKS.bat before you send.")

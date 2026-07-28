@@ -1,26 +1,25 @@
-Content-Type: multipart/mixed; boundary="===============4513310439410919720=="
+Content-Type: multipart/mixed; boundary="===============6834085985234085941=="
 MIME-Version: 1.0
 Subject: DKE Group | Daily On-Hire Report | 28 July 2026
 From: Coates Tool Store
 To: louis.miller@dkegroup.com.au, illy.reitsma@dkegroup.com.au,
  warren.wilson@dkegroup.com.au, tim.lalor@dkegroup.com.au
 Cc: thomas.maher@coates.com.au, cody.mitchell@coates.com.au,
- benjamin.vandenbroek@cemaust.com.au, david.moore@cemaust.com.au,
- John.Pickels@cemaust.com.au
+ benjamin.vandenbroek@cemaust.com.au, david.moore@cemaust.com.au
 X-Unsent: 1
-X-Coates-Pack: 80cc64573c34b47a495d520053dd9f1c
+X-Coates-Pack: 94eefcd62fb2e915fb2bf7ab4f8c061e
 
---===============4513310439410919720==
+--===============6834085985234085941==
 Content-Type: multipart/related;
- boundary="===============6961667826769624193=="
+ boundary="===============8220211944458306569=="
 MIME-Version: 1.0
 
---===============6961667826769624193==
+--===============8220211944458306569==
 Content-Type: multipart/alternative;
- boundary="===============7969419085351507693=="
+ boundary="===============6405844508398795981=="
 MIME-Version: 1.0
 
---===============7969419085351507693==
+--===============6405844508398795981==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -28,7 +27,7 @@ Content-Transfer-Encoding: base64
 VGhpcyByZXBvcnQgaXMgYmVzdCB2aWV3ZWQgaW4gSFRNTCAtIHRoZSByZXBvcnQgaXMgaW4gdGhl
 IG1lc3NhZ2UgYm9keS4=
 
---===============7969419085351507693==
+--===============6405844508398795981==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -70,11 +69,11 @@ aHQ6MS41NTttYXJnaW46MTZweCAwIDAiPlJlZ2FyZHMsPGJyPllvdXIgQ29hdGVzIFRvb2wgU3Rv
 cmUgVGVhbTwvcD48L3RkPjwvdHI+PC90YWJsZT48L3RkPjwvdHI+PC90YWJsZT48L2JvZHk+PC9o
 dG1sPg==
 
---===============7969419085351507693==--
+--===============6405844508398795981==--
 
---===============6961667826769624193==--
+--===============8220211944458306569==--
 
---===============4513310439410919720==
+--===============6834085985234085941==
 Content-Type: application/pdf
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -10339,7 +10338,7 @@ MDA1NDI4NzQgMDAwMDAgbiAKMDAwMDU0OTc2OSAwMDAwMCBuIAowMDAwNTUwMDIyIDAwMDAwIG4g
 CjAwMDA1NTA1MDMgMDAwMDAgbiAKdHJhaWxlcgo8PC9TaXplIDE2NzUKL1Jvb3QgMTU4MSAwIFIK
 L0luZm8gMSAwIFI+PgpzdGFydHhyZWYKNTUxMDQ0CiUlRU9GCg==
 
---===============4513310439410919720==
+--===============6834085985234085941==
 Content-Type: application/pdf
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -21327,4 +21326,4 @@ MCBuIAowMDAwNTkwODk0IDAwMDAwIG4gCjAwMDA1OTExNDcgMDAwMDAgbiAKMDAwMDU5MTg0OSAw
 MDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgMTY2NQovUm9vdCAxNTQ0IDAgUgovSW5mbyAxIDAgUj4+
 CnN0YXJ0eHJlZgo1OTI0NDIKJSVFT0YK
 
---===============4513310439410919720==--
+--===============6834085985234085941==--

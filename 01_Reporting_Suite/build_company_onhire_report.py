@@ -9087,6 +9087,16 @@ def _pdf_via_edge(edge, html_path, pdf_path):
             cmd.insert(1, "--no-sandbox")
         try:
             subprocess.run(cmd, capture_output=True, timeout=180)
+        except subprocess.TimeoutExpired as e:
+            #  A stall is not a verdict - on the OneDrive laptop the first
+            #  print can hang while files hydrate (29 Jul 2026: two pages
+            #  lost to single stalls). A timeout gets the same fresh-profile
+            #  retry as an empty PDF; only the third strike gives up.
+            if attempt < 2:
+                print("  Edge PDF timed out - fresh profile, trying again...")
+                continue
+            print("  Edge PDF conversion failed: {}".format(e))
+            return False
         except Exception as e:
             print("  Edge PDF conversion failed: {}".format(e))
             return False
