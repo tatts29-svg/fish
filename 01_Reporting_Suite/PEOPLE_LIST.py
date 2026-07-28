@@ -26,6 +26,16 @@
 #     People_List.csv    - the lot, for sorting and filtering
 #     Needs_An_ID.csv    - just the gap, ready to paste into ID Cards
 #     People_List.html   - the printable version
+#
+#  WHERE THEY LAND, AND WHY IT MATTERS (security, 28 Jul 2026): these are
+#  OFFICE files - the whole site's names, companies and hire IDs in one
+#  place. They must NOT sit in Gear_Lookup\, because that folder is what
+#  05_START_GEAR_LOOKUP.bat serves to every phone on the store Wi-Fi: a
+#  file there is one guessed web address away from the whole roster. So
+#  they are written to a People_List\ folder that is NEVER served, and any
+#  older copy left in Gear_Lookup\ is deleted on every run. My Gear itself
+#  is unchanged - a worker still only ever sees their own gear, locked to
+#  their own ID.
 # =====================================================================
 import csv
 import datetime as dt
@@ -34,7 +44,31 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "Gear_Lookup")
+#  OFFICE-ONLY output folder - deliberately NOT Gear_Lookup (never served).
+OUT = os.path.join(HERE, "People_List")
+#  The served web root, so we can clear any roster files an older version
+#  of this script left sitting in it.
+SERVED = os.path.join(HERE, "Gear_Lookup")
+OFFICE_FILES = ("People_List.csv", "Needs_An_ID.csv", "People_List.html")
+
+
+def _purge_served():
+    """Delete any roster file an earlier build wrote into the served
+    folder. Silent when there is nothing to clean - it usually is."""
+    removed = []
+    for n in OFFICE_FILES:
+        p = os.path.join(SERVED, n)
+        if os.path.isfile(p):
+            try:
+                os.remove(p)
+                removed.append(n)
+            except OSError:
+                pass
+    if removed:
+        print(" Cleaned {} roster file(s) out of the served Gear_Lookup "
+              "folder:".format(len(removed)))
+        for n in removed:
+            print("   removed  Gear_Lookup\\" + n)
 
 
 def _openpyxl():
@@ -79,6 +113,7 @@ def main():
     print("=" * 72)
     openpyxl = _openpyxl()
     os.makedirs(OUT, exist_ok=True)
+    _purge_served()
     people = {}          # normalised name -> record
 
     def rec(name):
@@ -277,7 +312,7 @@ def main():
         print("   not people       : {} (cost centres, pools) - left out"
               .format(dropped))
     print("")
-    print(" Written to Gear_Lookup\\ :")
+    print(" Written to People_List\\ (office only - NEVER the served page):")
     print("   People_List.csv    every person, every source")
     print("   Needs_An_ID.csv    just the gap - paste STRAIGHT into the")
     print("                      'ID Cards' sheet of")

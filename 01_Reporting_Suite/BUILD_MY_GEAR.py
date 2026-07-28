@@ -30,7 +30,7 @@
 #
 #  Author: Andrew Fisher | POWERED BY SITEIQ
 # ==========================================================================
-import base64, glob, io, json, os, re, sys
+import base64, glob, html, io, json, os, re, sys
 import datetime as dt
 import master_equipment
 # The site guides (contact board, radio, gas monitor) and the
@@ -555,7 +555,11 @@ def build():
             print('  WARNING: IDs {} and {} normalise the same - only the first '
                   'is served.'.format(warn_dupes[norm], idno)); continue
         warn_dupes[norm] = idno
-        name = p['name']; first = name.split(' ')[0] or name
+        # first goes straight into the story card via innerHTML, so it is
+        # HTML-escaped here - a name with a stray < or & can never break or
+        # inject into the page. The story's own <b> tags are added below,
+        # around this already-safe value.
+        name = p['name']; first = html.escape(name.split(' ')[0] or name, quote=False)
         initials = ''.join(w[0] for w in name.split()[:2]).upper() or 'K2'
         company = re.sub(r'\s+', ' ', p['company']).title()
         items, mixc, aging = [], {}, {'g': 0, 'a': 0, 'r': 0}

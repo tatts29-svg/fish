@@ -42,7 +42,7 @@ if %errorlevel% neq 0 (
     echo    4. Click YES
     echo    5. Paste this line and press Enter:
     echo.
-    echo       netsh advfirewall firewall add rule name="%RULE%" dir=in action=allow protocol=TCP localport=8443,8123
+    echo       netsh advfirewall firewall add rule name="%RULE%" dir=in action=allow protocol=TCP localport=8443,8123 profile=private remoteip=localsubnet
     echo.
     pause
 )
@@ -61,13 +61,20 @@ netsh advfirewall firewall delete rule name="%RULE%" >nul 2>&1
 rem  BOTH doors: 8443 is the secure server (31_), 8123 the plain one
 rem  (05_). Opening only one meant switching servers silently shut the
 rem  phones out again. (Andrew, 28 Jul 2026.)
-netsh advfirewall firewall add rule name="%RULE%" dir=in action=allow protocol=TCP localport=8443,8123 profile=private,domain
+rem
+rem  PRIVATE profile and the LOCAL subnet only (tightened 28 Jul 2026):
+rem  the store router is a Private network, so that is all the phones
+rem  ever need. Domain (the Coates corporate network) and anything
+rem  routed in from another network stay shut - My Gear is for the
+rem  store Wi-Fi, nowhere else.
+netsh advfirewall firewall add rule name="%RULE%" dir=in action=allow protocol=TCP localport=8443,8123 profile=private remoteip=localsubnet
 if %errorlevel% equ 0 (
     echo  DONE - phones on the store network can now reach BOTH
     echo  port 8443 ^(secure^) and port 8123 ^(plain^).
     echo.
-    echo  Note: allowed on Private and Domain networks only. On a
-    echo  public network - a cafe, an airport - this stays shut.
+    echo  Note: allowed on Private networks and the store's own
+    echo  subnet only. On the work network, or a public one - a
+    echo  cafe, an airport - this stays shut.
 ) else (
     echo  That did not work. Send Claude this screen.
 )

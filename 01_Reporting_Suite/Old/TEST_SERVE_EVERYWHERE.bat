@@ -1,22 +1,26 @@
 @echo off
 REM ============================================================
-REM  COATES | MY GEAR - TEMPORARY TEST (serve on EVERY network)
-REM  Serves the page on every connection at once, like the old
-REM  launcher did. Use it to test the phones, then close this
-REM  and go back to 05_START_GEAR_LOOKUP.bat for normal running.
+REM  COATES | MY GEAR - RETIRED (this used to serve EVERY network)
+REM
+REM  This tool served the page on every connection the laptop
+REM  had at once - including the 4G / internet-facing card. That
+REM  put the whole My Gear page one address away from a network
+REM  the phones were never on, so it has been retired
+REM  (28 Jul 2026). It no longer serves anything.
+REM
+REM  What to use instead:
+REM    43_WHY_CANT_MY_PHONE_CONNECT.bat  walks the whole chain
+REM                                      and stops at the first
+REM                                      real problem
+REM    42_NETWORK_CHECK.bat              which Wi-Fi + address
+REM    44_ALLOW_PHONES_IN.bat            opens the firewall
+REM    05_START_GEAR_LOOKUP.bat          the real server
 REM ============================================================
-cd /d "%~dp0"
-if not exist "Gear_Lookup\index.html" (
-  echo PROBLEM: run this from the 01_Reporting_Suite folder - it
-  echo needs the Gear_Lookup folder next to it.
-  pause & exit /b 1
-)
-echo Your laptop's addresses right now (try each on the phone):
-ipconfig | findstr /i "IPv4"
 echo.
-echo Serving on ALL of them - phones try  http://ADDRESS:8123
-echo Watch below: a phone that gets through prints a new line.
-echo Close this window when done testing.
-cd Gear_Lookup
-python -m http.server 8123 --bind 0.0.0.0
+echo  This test tool is retired - it served My Gear on EVERY
+echo  network the laptop had, including the internet-facing one.
+echo.
+echo  Use 43_WHY_CANT_MY_PHONE_CONNECT.bat instead - it finds
+echo  the actual problem and names it.
+echo.
 pause

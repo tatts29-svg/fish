@@ -35,6 +35,23 @@ PORT = 8443
 
 
 def lan_ip():
+    """The address to SERVE ON and print in the poster.
+
+    Andrew's laptop is on two cards at once: a 4G stick (internet) and the
+    store router (no internet, the phones' network). The old code here
+    opened a socket towards the internet and took whichever card answered -
+    that is the 4G/internet card, exactly the WRONG side to serve My Gear
+    on. net_pick.best_guess() returns the store-router card instead (the
+    same one the plain-http launcher already binds to), so both paths agree
+    and nothing is ever served on the internet-facing card. Falls back to
+    the old behaviour only if net_pick can't be read."""
+    try:
+        import net_pick
+        ip = net_pick.best_guess()
+        if ip and not ip.startswith("127."):
+            return ip
+    except Exception:
+        pass
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("10.255.255.255", 1))
@@ -132,7 +149,11 @@ def main():
         def log_message(self, *a):
             pass
 
-    srv = ThreadingHTTPServer(("0.0.0.0", PORT), Quiet)
+    #  Bind to the STORE address only - never 0.0.0.0. 0.0.0.0 would put
+    #  My Gear (and everyone's names and IDs) on EVERY card the laptop
+    #  holds, including the 4G/internet stick. Binding one address is the
+    #  same dual-router isolation the plain-http launcher already does.
+    srv = ThreadingHTTPServer((ip, PORT), Quiet)
     srv.socket = ctx.wrap_socket(srv.socket, server_side=True)
     print("")
     print(" SERVING - leave this window open.")

@@ -1,0 +1,110 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><meta name="viewport" content="width=device-width,initial-scale=1"><title>How the K2 Suite Works</title></head><body><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Calibri,'Segoe UI',Arial,sans-serif;background:#fff;color:#20242B;
+     font-size:11.5pt;line-height:1.55;max-width:200mm;margin:0 auto;padding:10mm 8mm}
+.frame{border:6px solid #F26222;border-top:9px solid #F26222;border-radius:18px;padding:22px 26px}
+.band{background:#14181F;color:#fff;padding:14px 18px;border-radius:10px;margin-bottom:14px}
+.band .k{color:#F26222;font-weight:800;letter-spacing:2px;font-size:9pt;text-transform:uppercase}
+.band h1{font-size:17pt;margin-top:2px}
+.band p{color:#C9CFD8;font-size:10pt;margin-top:4px}
+h2{font-size:12pt;color:#14181F;background:#F6F7F9;border:1px solid #E3E6EB;
+   border-left:5px solid #F26222;border-radius:9px;padding:6px 12px;margin:18px 0 8px}
+.flow{margin:10px 0}
+.fbox{border:2px solid #14181F;border-radius:10px;padding:8px 14px;background:#F6F7F9}
+.fbox b{display:block}
+.fbox .sub{font-size:10pt;color:#5B6472}
+.fbox.orange{border-color:#F26222;background:#FFF3EC}
+.fbox.dark{background:#14181F;color:#fff;border-color:#14181F}
+.fbox.dark .sub{color:#C9CFD8}
+.fbox.go{border-color:#7A8A00;background:#F8FFD0}
+.arrow{text-align:center;color:#F26222;font-weight:800;font-size:13pt;line-height:1.2;padding:2px 0}
+.arrow span{color:#5B6472;font-weight:400;font-size:9.5pt;padding-left:8px}
+.split{display:flex;gap:12px;flex-wrap:wrap}
+.split>div{flex:1;min-width:230px}
+.step{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.n{flex:none;width:34px;height:34px;border-radius:50%;background:#F26222;color:#fff;
+   font-weight:800;font-size:14pt;display:flex;align-items:center;justify-content:center}
+.n.go{background:#EFFF3D;color:#101317}
+.hl{background:#EFFF3D;color:#101317;font-weight:800;padding:0 5px;border-radius:4px}
+.note{background:#FFF3EC;border-left:4px solid #F26222;border-radius:0 8px 8px 0;
+      padding:10px 14px;font-size:10.5pt;margin:12px 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10.5pt}
+td,th{border:1px solid #E3E6EB;padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#14181F;color:#fff;font-size:9.5pt;letter-spacing:1px;text-transform:uppercase}
+td b.btn{white-space:nowrap}
+.ft{color:#5B6472;font-size:9pt;border-top:1px solid #E3E6EB;margin-top:16px;padding-top:8px}
+b.o{color:#F26222}
+@media print{.pb{page-break-before:always}}
+@page{size:A4;margin:10mm}
+</style>
+<div class="frame">
+<div class="band"><div class="k">COATES &middot; K2 REPORTING SUITE</div>
+<h1>How the whole thing works</h1>
+<p>One page. The full machine, end to end. Cement Australia K2 Shutdown 2026 &middot; Gladstone</p></div>
+
+<p>The suite is a folder of numbered buttons. Data flows in one direction, and
+<b>you are the only send button in the system</b>. Here is the entire flow:</p>
+
+<h2>The big picture</h2>
+<div class="flow">
+<div class="fbox"><b>SiteIQ</b><span class="sub">You export the six morning files &mdash; they land in Downloads.
+RENTAL_STOCK &middot; ON_HIRE &middot; TRANSACTIONS &middot; SALES_STOCK &middot; STOCKTAKE &middot; DAILY_SUMMARY</span></div>
+<div class="arrow">&#9660;<span>28_PULL_SITEIQ_EXPORTS files them into Data_SiteIQ\ (dated copies kept)</span></div>
+<div class="fbox orange"><b>00_RUN_EVERYTHING</b><span class="sub">Aligns the K2 Excel workbook, then builds every report
+as branded pages + PDFs: company on-hire, exec summary, plant, safety, consumables, stocktake,
+demob &mdash; and rebuilds My Gear. Everything lands in Reports\&lt;today&gt;\</span></div>
+<div class="arrow">&#9660;<span>35_CHECK_REPORTS reads what was built &mdash; flags blanks and broken numbers BEFORE anyone sees them</span></div>
+<div class="split">
+<div>
+<div class="fbox dark"><b>Outlook Drafts</b><span class="sub">Every email pre-addressed from the
+recipients workbook, report pasted in the body, PDFs attached. Sitting. Waiting.</span></div>
+<div class="arrow">&#9660;<span>you read it like the client will</span></div>
+<div class="fbox go"><b>YOU press Send</b><span class="sub">Nothing ever sends by itself. No YES, no send.</span></div>
+</div>
+<div>
+<div class="fbox dark"><b>My Gear</b><span class="sub">05_START_GEAR_LOOKUP serves the page on the
+store Wi-Fi. Leave the window open all day.</span></div>
+<div class="arrow">&#9660;<span>Wi-Fi &ldquo;Tool Store&rdquo; &middot; http://192.168.0.17:8123/</span></div>
+<div class="fbox go"><b>Workers' phones</b><span class="sub">Type the hire ID off the card &mdash; see only your own gear.</span></div>
+</div>
+</div>
+</div>
+
+<h2>The morning &mdash; three buttons, about 15 minutes</h2>
+<div class="step"><div class="n">1</div><div><b>28_PULL_SITEIQ_EXPORTS.bat</b> &mdash; takes the fresh exports out of Downloads and files them properly.</div></div>
+<div class="step"><div class="n">2</div><div><b>00_RUN_EVERYTHING.bat</b> &mdash; builds the lot. (Only want one thing? <b>37_PICK_A_REPORT.bat</b> instead &mdash; 30 seconds.)</div></div>
+<div class="step"><div class="n">3</div><div><b>35_CHECK_REPORTS.bat</b> &mdash; run this <span class="hl">before</span> you send anything.</div></div>
+
+<h2>Getting an improvement made &mdash; the loop</h2>
+<div class="step"><div class="n">1</div><div><b>Ask Claude in the chat</b> for the change you want &mdash; a new report, a colour, a fix, anything.</div></div>
+<div class="step"><div class="n">2</div><div><b>Download the K2_UPDATE zip</b> it sends back. It lands in Downloads &mdash; that's fine, leave it there.</div></div>
+<div class="step"><div class="n go">3</div><div><b>46_APPLY_UPDATE.bat</b> &mdash; finds the zip itself, backs up everything it replaces, never touches your address book / charges / SiteIQ data, and <b>puts everything back automatically</b> if the update is broken. Safe to run twice.</div></div>
+<div class="note"><b>Two laptops?</b> After an update: <b>39_SYNC_PCS.bat</b> carries it across,
+<b>40_WHAT_VERSION_AM_I.bat</b> on both proves they match &mdash; same code line = same suite.</div>
+
+<h2 class="pb">When something is wrong &mdash; which button</h2>
+<table>
+<tr><th>Symptom</th><th>Button</th><th>What it does</th></tr>
+<tr><td>Phones can't reach My Gear</td><td><b class="btn">43_WHY_CANT_MY_PHONE_CONNECT</b></td><td>Walks the whole chain, stops at the first real problem</td></tr>
+<tr><td>Firewall ate it</td><td><b class="btn">44_ALLOW_PHONES_IN</b></td><td>Re-creates the &ldquo;Coates My Gear&rdquo; firewall rule &mdash; double-click, say YES</td></tr>
+<tr><td>Which Wi-Fi / address am I on?</td><td><b class="btn">42_NETWORK_CHECK</b></td><td>Shows both addresses &mdash; the Wi-Fi one is what goes on posters</td></tr>
+<tr><td>A report looks wrong</td><td><b class="btn">35_CHECK_REPORTS</b></td><td>Finds blanks, {broken} numbers, $nan</td></tr>
+<tr><td>Is the data even there?</td><td><b class="btn">25_CHECK_DATA_SOURCES</b></td><td>Names each export and how fresh it is</td></tr>
+<tr><td>General health check</td><td><b class="btn">24_IS_IT_WORKING</b></td><td>The lot, quickly</td></tr>
+<tr><td>Machines out of step</td><td><b class="btn">40_WHAT_VERSION_AM_I</b></td><td>Run on both &mdash; same code = same suite</td></tr>
+<tr><td>Disk filling up</td><td><b class="btn">45_ARCHIVE_OLD_REPORTS</b></td><td>Zips old report days, verifies the zip, only then clears</td></tr>
+</table>
+
+<h2>The rules of the house</h2>
+<table>
+<tr><th>Rule</th><th>Why you can trust it</th></tr>
+<tr><td><b>Nothing sends by itself</b></td><td>Everything goes to Drafts and waits for you. 26/27 switch draft-making off/on entirely.</td></tr>
+<tr><td><b>Nothing is guessed</b></td><td>No price, no email address, no hirer ID is ever invented. Missing = TBC or a dash, and the report says so.</td></tr>
+<tr><td><b>Nothing is overwritten</b></td><td>Dated folders are append-only; reruns write (2) beside the original. Updates and sync back up before replacing.</td></tr>
+<tr><td><b>Safe to run twice</b></td><td>Charges, contacts, gear additions, update zips &mdash; all refuse to double-apply.</td></tr>
+<tr><td><b>The company name ties everything</b></td><td>Data, folder and recipient list must match, or the pack is HELD &mdash; a DGH report cannot go out on another company's list.</td></tr>
+</table>
+
+<div class="ft">Author: Andrew Fisher &nbsp;|&nbsp; <b class="o">POWERED BY SITEIQ</b>
+&nbsp;|&nbsp; Coates K2 &mdash; Cement Australia Shutdown 2026, Gladstone &nbsp;|&nbsp; Full detail: START_HERE.txt</div>
+</div></body></html>

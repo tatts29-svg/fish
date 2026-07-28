@@ -1,0 +1,17 @@
+# Secrets - the HTTPS server mints its own certificate+key on first run;
+# the key must never be committed or carried in an update zip.
+01_Reporting_Suite/Updates/gear_https_cert.pem
+*.pem
+*.key
+
+# The office-only roster (whole site's names + hire IDs). Never in the
+# served Gear_Lookup folder, never in git.
+01_Reporting_Suite/People_List/
+01_Reporting_Suite/Gear_Lookup/People_List.*
+01_Reporting_Suite/Gear_Lookup/Needs_An_ID.csv
+
+# Per-machine state
+01_Reporting_Suite/SYNC_FOLDER.txt
+01_Reporting_Suite/NO_OUTLOOK.txt
+__pycache__/
+*.pyc
