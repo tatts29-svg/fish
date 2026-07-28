@@ -147,6 +147,34 @@ def main():
         print("        3. Run 45_ARCHIVE_OLD_REPORTS.bat weekly - keeps")
         print("           OneDrive from syncing gigabytes of old days.")
 
+    # ---- 0c. leftover Excel lock files ------------------------------------
+    #  A copied folder brings the hidden ~$ lock markers with it, and
+    #  Excel then swears the workbook is "locked for editing by you"
+    #  (bit Andrew's laptop 29 Jul 2026). If Excel isn't running, the
+    #  markers are stale and safe to remove - so remove them.
+    locks = glob.glob(os.path.join(HERE, "~$*.xls*"))
+    if locks and os.name == "nt":
+        import subprocess
+        try:
+            r = subprocess.run(["tasklist", "/FI", "IMAGENAME eq EXCEL.EXE"],
+                               capture_output=True, text=True, timeout=30)
+            excel_running = "EXCEL.EXE" in (r.stdout or "").upper()
+        except Exception:
+            excel_running = True     # can't tell - don't touch them
+        if excel_running:
+            say(WARN, "{} Excel lock file(s) here and Excel is open - "
+                      "close Excel, run me again, and I'll clear them."
+                      .format(len(locks)))
+        else:
+            for p in locks:
+                try:
+                    os.remove(p)
+                    say(OK, "Stale Excel lock removed - "
+                            + os.path.basename(p))
+                except OSError:
+                    say(WARN, "Couldn't remove " + os.path.basename(p)
+                        + " - delete it by hand (View > Hidden items).")
+
     # ---- 1. the workbook ------------------------------------------------
     wbs = [p for p in glob.glob(os.path.join(HERE, "Cement_Australia_Report*K2*.xlsm"))
            if not os.path.basename(p).startswith("~$")]
