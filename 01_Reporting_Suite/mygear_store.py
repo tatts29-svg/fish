@@ -47,24 +47,105 @@ def _qty(v):
 
 AVAILABLE = 'available for hire'
 
-#  The aisles, in the order a person walks them, with the icon each one
-#  wears on the poster and the cabinet tiles. Anything SiteIQ files
-#  under a unit we don't know still shows - it lands in "Elsewhere"
-#  rather than disappearing.
-UNITS = [
-    ('Tooling',      'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 '
-                     '5.4-5.4l-2.6 2.6-2.4-2.4z'),
-    ('Electrical',   'M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-5 5 5 5 0 0 1-5-5V8zM12 16v5'),
-    ('Rigging',      'M12 3v6M12 9l-5 8h10l-5-8zM5 21h14'),
-    ('Welding',      'M3 15h7l3-9 3 6h5M6 21h12'),
-    ('Air',          'M4 12h10a3 3 0 1 0-3-3M4 17h8a2.5 2.5 0 1 1-2.5 2.5'),
-    ('Radios',       'RECT:8,7,8,14,2|M12 7V2M12 2l3 2M10.5 11h3M10.5 14h3'),
-    ('Gas Monitors', 'RECT:7,5,10,16,2.5|M9.5 2.5h5'),
-    ('Hydraulics',   'M4 10h9l3-4h4v12h-4l-3-4H4zM7 10v4'),
-    ('Laydown',      'M3 19h18M6 19v-6h5v6M13 19v-9h5v9'),
-    ('Safety',       'M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z'),
-    ('Cement Plant', 'M3 20h18M5 20V9l5-3v14M14 20V11l5-2v11'),
+#  THE AISLES - named the way a bloke asks for the thing.
+#
+#  SiteIQ's own taxonomy is no use for browsing: 1,888 of the 2,230
+#  items in the Tooling unit are all filed as "Industrial Tools &
+#  Equipment", so its categories collapse into one giant bucket. The
+#  real signal is in the item names, and those are already written in
+#  crew language - Socket, Spanner, Grinder, Chain Block, Extension
+#  Lead. So the categories are mined from the names, first rule wins.
+#
+#  ORDER MATTERS. "Welding Lead" has to reach WELDING before "Lead"
+#  reaches LEADS & POWER, and "Tool Lanyard" has to reach its own
+#  category before "Tool" reaches HAND TOOLS. Read the list as a
+#  sequence of questions, not a set. (29 Jul 2026)
+CATS = [
+    ('Sockets',        'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10z',
+     ('socket', 'ratchet ring', 'ratchet spanner', 'torque bar',
+      'crowsfeet', 'crows feet', 'drive adaptor', 'extension bar',
+      'universal joint', 'wobble')),
+    ('Spanners',       'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4z',
+     ('spanner', 'wrench', 'allen key', 'hex key', 'podger')),
+    ('Tool lanyards',  'M12 3v7M9 10h6l-1 11h-4z',
+     ('lanyard', 'tool tether', 'tether')),
+    ('Lifting & rigging', 'M12 3v6M12 9l-5 8h10l-5-8zM5 21h14',
+     ('sling', 'shackle', 'bow ', 'chain block', 'lever block', 'cumalong',
+      'come along', 'eye bolt', 'eyebolt', 'turnbuckle', 'hoist', 'winch',
+      'strop', 'safety anchor', 'load bind', 'round ,', 'plate clamp',
+      'beam clamp', 'girder', 'spreader', 'lifting', 'rope', 'webbing')),
+    ('Power tools',    'M10 4h6l4 4-4 4h-6l-2-4zM8 8H3M8 8l-4 8h6',
+     ('impact wrench', 'rattle gun', 'drill', 'saw', 'nut runner',
+      'multi tool', 'sander', 'planer', 'router', 'nibbler', 'shear',
+      'power tool', 'jigsaw', 'recip', 'annular', 'magnetic base',
+      'mag drill', 'plasma cutter', 'tap and die', 'reamer')),
+    ('Grinding & cutting', 'M6 18a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM11 13h10M17 9l4 4-4 4',
+     ('grinder', 'bi metal', 'hole saw', 'cut off', 'cutoff', 'abrasive',
+      'disc', 'burr', 'chop saw', 'band saw')),
+    ('Hand tools',     'M4 20l8-8M14 6l4 4M12 4l8 8-4 4-8-8z',
+     ('plier', 'hammer', 'screwdriver', 'drift pin', 'chisel', 'file ',
+      'punch', 'crowbar', 'pry bar', 'knife', 'snip', 'vice', 'clamp',
+      'mallet', 'saw horse', 'hacksaw', 'brush', 'scraper', 'shovel',
+      'broom', 'bucket', 'wheelbarrow', 'wheel barrow', 'screw driver',
+      'podge', 'stilsen', 'stillson', 'bolt cutter', 'crow bar',
+      'wedge', 'pick up tool', 'grease gun', 'oil can', 'funnel',
+      'tin snip', 'rivet', 'stapler', 'sledge')),
+    ('Leads & power',  'M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-5 5 5 5 0 0 1-5-5V8zM12 16v5',
+     ('extension lead', 'lead ext', 'distribution board', 'earth leakage',
+      'generator', 'transformer', 'power board', 'rcd', 'switchboard',
+      'cable', 'inverter', 'adaptor', 'adapter', 'ceeform', 'clipsal',
+      'plug', 'socket outlet')),
+    ('Air & hoses',    'M4 12h10a3 3 0 1 0-3-3M4 17h8a2.5 2.5 0 1 1-2.5 2.5',
+     ('air hose', 'hose whip', 'air ', 'compressor', 'fitting', 'coupling',
+      'regulator', 'blow gun', 'hose', 'airline', 'air line',
+      'y piece', 'manifold')),
+    ('Welding',        'M3 15h7l3-9 3 6h5M6 21h12',
+     ('weld', 'argon', 'electrode', 'oxy', 'acetylene', 'gouging',
+      'purge', 'tig', 'mig')),
+    ('Lighting',       'M9 21h6M10 17h4a5 5 0 1 0-4 0zM12 3v2',
+     ('light', 'lamp', 'flood', 'torch')),
+    ('Fans & ventilation', 'M12 12a4 4 0 0 0 4-4 4 4 0 0 0-8 0 4 4 0 0 0 4 4zm0 0a4 4 0 0 1 4 4 4 4 0 0 1-8 0 4 4 0 0 1 4-4z',
+     ('fan', 'ducting', 'blower', 'ventilat', 'extract')),
+    ('Hydraulics',     'M4 10h9l3-4h4v12h-4l-3-4H4zM7 10v4',
+     ('hydraulic', 'porta power', 'jack', 'torque wrench', 'tensioner',
+      'hi torque', 'ram ')),
+    ('Radios',         'RECT:8,7,8,14,2|M12 7V2M12 2l3 2M10.5 11h3M10.5 14h3',
+     ('motorola', 'radio', 'impres', 'aerial', 'antenna', 'earpiece')),
+    ('Gas monitors',   'RECT:7,5,10,16,2.5|M9.5 2.5h5',
+     ('honeywell bw', 'gas det', 'gas mon', 'flex4', 'clip4', 'calibration gas')),
+    ('Batteries & chargers', 'RECT:6,4,12,17,2|M10 2h4M13 9l-3 4h4l-3 4',
+     ('battery', 'batt ', 'charger')),
+    ('Measuring',      'M2 9h20v6H2zM6 9v3M10 9v4M14 9v3M18 9v4',
+     ('tape measure', 'measur', 'level', 'square', 'caliper', 'gauge',
+      'thermometer', 'multimeter', 'laser', 'dial indicator', 'divider',
+      'steel rule', 'straight edge', 'stamp', 'marker', 'scriber',
+      'protractor', 'feeler')),
+    ('Safety gear',    'M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z',
+     ('safety', 'harness', 'fall arrest', 'barrier', 'bunting', 'sign',
+      'first aid', 'eyewash', 'eye wash', 'diphoterine', 'spill',
+      'extinguisher', 'respirator', 'ear muff', 'glove', 'overall',
+      'goggle', 'visor', 'helmet', 'vest', 'wipes', 'cloth', 'rag',
+      'cleaner', 'degreaser', 'absorbent')),
+    ('Ladders & access', 'M7 3v18M17 3v18M7 7h10M7 12h10M7 17h10',
+     ('ladder', 'platform', 'trestle', 'scaffold', 'step ', 'staging')),
+    ('Pumps & cleaning', 'M5 20h14M8 20v-6a4 4 0 0 1 8 0v6M12 4v6',
+     ('pump', 'vacuum', 'vac ', 'pressure clean', 'hoover', 'blaster')),
 ]
+
+#  Whatever no rule claims. Kept as a real category rather than hidden -
+#  a bloke can still browse it, and a fat "Other" is the signal that a
+#  rule is missing.
+OTHER = ('Other gear', 'M5 8h14v11H5zM9 8V5h6v3')
+
+
+def _cat_of(name):
+    n = ' ' + (name or '').lower() + ' '
+    for cat, _p, keys in CATS:
+        for k in keys:
+            if k in n:
+                return cat
+    return OTHER[0]
+
 
 #  Gear that must never be offered. SiteIQ keeps retired assets on the
 #  register with the reason written into the description; a catalogue
@@ -97,24 +178,27 @@ def _icon(spec, size=22):
 
 
 def _unit_of(raw):
-    """Map SiteIQ's storage unit onto one of the aisles above."""
-    s = (raw or '').strip().lower()
+    """Where the thing physically lives - the aisle you walk to.
+
+    This is no longer how the catalogue is BROWSED (the crew-language
+    categories above do that); it is the direction you give a bloke
+    once he has found it. So it only has to be tidy and honest.
+    """
+    s = (raw or '').strip()
     if not s:
-        return 'Elsewhere'
-    for name, _p in UNITS:
-        if name.lower() in s:
-            return name
-    if 'hi torque' in s or 'hydraulic' in s:
+        return 'Ask at the counter'
+    low = s.lower()
+    if 'hi torque' in low or 'hydraulic' in low:
         return 'Hydraulics'
-    if 'gas' in s:
-        return 'Gas Monitors'
-    if 'safety' in s:
-        return 'Safety'
-    #  the client's own gear the store looks after - kept visible, but
-    #  named honestly so nobody thinks it is Coates hire stock
-    if 'cement' in s or 'site plant' in s or 'own equipment' in s:
-        return 'Cement Plant'
-    return 'Elsewhere'
+    if 'cement' in low or 'site plant' in low or 'own equipment' in low:
+        #  the client's own gear the store looks after - named honestly
+        #  so nobody mistakes it for Coates hire stock
+        return 'Cement own gear'
+    if 'consumable' in low:
+        return 'Consumables'
+    #  SiteIQ writes them plainly already (Tooling, Electrical, Rigging,
+    #  Welding, Air, Radios, Laydown, Gas Monitors) - keep its word
+    return s.split('-')[0].strip().title()
 
 
 def _tidy(desc, master=None, item_number=''):
@@ -169,7 +253,7 @@ def read_availability(rental_path, sales_path, master=None):
                 if not name or not _offerable(name):
                     continue
                 unit = _unit_of(r[ix['STORAGE_UNIT']])
-                k = (name, unit)
+                k = (name, _cat_of(name), unit)
                 hire[k] = hire.get(k, 0) + 1
         wb.close()
 
@@ -196,14 +280,16 @@ def read_availability(rental_path, sales_path, master=None):
                     continue
                 unit = _unit_of(r[ix['STORAGE_UNIT']]) if 'STORAGE_UNIT' in ix \
                     else 'Consumables'
-                k = (name, 'Consumables' if unit == 'Elsewhere' else unit)
+                k = (name, _cat_of(name), unit)
                 cons[k] = cons.get(k, 0) + q
         wb.close()
 
     def pack(d, kind):
         out = []
-        for (name, unit), n in d.items():
-            out.append({'n': name, 'u': unit, 'q': int(n), 'k': kind})
+        for (name, cat, unit), n in d.items():
+            #  c = the category you look under, u = the aisle you walk to
+            out.append({'n': name, 'c': cat, 'u': unit,
+                        'q': int(n), 'k': kind})
         out.sort(key=lambda x: x['n'].lower())
         return out
 
@@ -294,9 +380,11 @@ function stRender(reset){
   var words = term.split(/\\s+/).filter(function(w){return w.length>1;});
   var cat = window.ST_CAT || 'All';
   var hits = STORE.filter(function(it){
-    if(cat !== 'All' && it.u !== cat) return false;
+    if(cat !== 'All' && it.c !== cat) return false;
     if(!words.length) return true;
-    var hay = stNorm(it.n + ' ' + it.u);
+    /* search across the name, the category and the aisle - a bloke who
+       types "rigging" or "sockets" should get somewhere too */
+    var hay = stNorm(it.n + ' ' + it.c + ' ' + it.u);
     for(var i=0;i<words.length;i++) if(hay.indexOf(words[i])<0) return false;
     return true;
   });
@@ -348,28 +436,26 @@ function stMore(){ STORE_SHOWN += 60; stRender(false); }
 def pane(data, asof):
     """The whole screen, ready to drop in as a guide pane."""
     st = data['stats']
-    cats = ''
     counts = {}
     for it in data['hire'] + data['cons']:
-        counts[it['u']] = counts.get(it['u'], 0) + 1
-    cats += ("<button class='stcat on' type='button' "
-             "onclick=\"stCat('All',this)\">" + _icon(
-                 'M4 6h16M4 12h16M4 18h16') +
-             "<b>EVERYTHING</b><span>{}</span></button>".format(
-                 len(data['hire']) + len(data['cons'])))
-    for name, path in UNITS:
+        counts[it['c']] = counts.get(it['c'], 0) + 1
+    total = len(data['hire']) + len(data['cons'])
+
+    cats = ("<button class='stcat on' type='button' onclick=\"stCat('All',this)\">"
+            + _icon('M4 6h16M4 12h16M4 18h16')
+            + "<b>EVERYTHING</b><span>{}</span></button>".format(total))
+    #  biggest first: the aisles a crew actually reaches for, at the top
+    for name, path, _keys in sorted(CATS, key=lambda c: -counts.get(c[0], 0)):
         if not counts.get(name):
             continue
         cats += ("<button class='stcat' type='button' onclick=\"stCat('{n}',this)\">"
                  "{i}<b>{u}</b><span>{c}</span></button>".format(
                      n=name, u=name.upper(), i=_icon(path), c=counts[name]))
-    for extra in ('Consumables', 'Elsewhere'):
-        if counts.get(extra):
-            cats += ("<button class='stcat' type='button' "
-                     "onclick=\"stCat('{n}',this)\">{i}<b>{u}</b>"
-                     "<span>{c}</span></button>".format(
-                         n=extra, u=extra.upper(), i=_icon('M5 8h14v11H5zM9 8V5h6v3'),
-                         c=counts[extra]))
+    if counts.get(OTHER[0]):
+        cats += ("<button class='stcat' type='button' onclick=\"stCat('{n}',this)\">"
+                 "{i}<b>{u}</b><span>{c}</span></button>".format(
+                     n=OTHER[0], u=OTHER[0].upper(), i=_icon(OTHER[1]),
+                     c=counts[OTHER[0]]))
 
     mag = ("<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' "
            "stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' "
