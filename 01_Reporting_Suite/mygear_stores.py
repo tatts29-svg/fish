@@ -536,10 +536,26 @@ def read(rental_path, stocktake_path, master=None, today=None,
             if age <= 7:
                 stock['w7'] += 1
             else:
+                #  the not-found sheet needs the item number and the
+                #  hire status: an AVAILABLE uncounted item should be
+                #  findable on its shelf; an ON-HIRE one is out with a
+                #  crew and must NOT be hunted for. (Andrew, 29 Jul
+                #  2026: "print out of items per storage unit of items
+                #  missing in stock take... only looking for things
+                #  that are available... option here for just onhire
+                #  so they know areas to look and items no to look
+                #  for")
+                _st = sg(r, 'SIGHTED_STATUS')
                 stock['stale'].append({
                     'n': sg(r, 'DESCRIPTION')[:60],
                     'u': sg(r, 'STORAGE_UNIT') or 'Unfiled',
-                    'd': age, 'by': sg(r, 'LAST_SIGHTED_BY')[:26]})
+                    'd': age, 'by': sg(r, 'LAST_SIGHTED_BY')[:26],
+                    'i': sg(r, 'ITEM_OR_CONSUMABLE')
+                         or sg(r, 'SKU_NUMBER'),
+                    's': ('O' if _st == 'On Hire' else
+                          'A' if _st in ('Available for Hire',
+                                         'In Stock', 'Stock Low')
+                          else 'X')})
     stock['stale'].sort(key=lambda x: -x['d'])
 
     battle = _battle(txn_path, stocktake_path) if txn_path else None
@@ -583,6 +599,18 @@ def read(rental_path, stocktake_path, master=None, today=None,
                         for x in rows[:n]]
             cons = {
                 'folded': cd.get('folded', 0),
+                #  the full register travels too - the stock check &
+                #  reorder sheet is a walk of EVERY line with a pen,
+                #  not a summary (Andrew, 29 Jul 2026: "updated stock
+                #  check. qty we have. stock last stock check info.
+                #  then a reorder column so we can put down a number")
+                'all': [{'n': x['desc'], 'k': x['sku'],
+                         'a': int(x['avail']), 'u': int(x['used']),
+                         'ct': (None if x['counted'] is None
+                                else int(x['counted'])),
+                         'co': x['countedOn'], 'by': x['countedBy']}
+                        for x in sorted(cd['items'],
+                                        key=lambda i: i['desc'].upper())],
                 'avail': int(cd['avail']), 'used': int(cd['used']),
                 'skus': cd['skus'], 'moves': cd['moves'],
                 'end': cd['end'], 'daysLeft': cd['daysLeft'],
@@ -1042,6 +1070,17 @@ select.srch{appearance:none;-webkit-appearance:none}
  #prsheet .ptab td{padding:5px 8px;border-bottom:1px solid #EDF0F4;vertical-align:top}
  #prsheet .ptab .pn{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
  #prsheet .ptab .pn.late{color:#C1440E;font-weight:800}
+ /* write-in furniture: ruled boxes, tick squares and signature lines
+    for the clipboard sheets - drawn, not typed, because the whole
+    point of these pages is a pen */
+ #prsheet .pbox{display:inline-block;width:17mm;height:6.5mm;
+  border:1.2px solid #14181F;border-radius:2px;vertical-align:middle}
+ #prsheet .ptick{display:inline-block;width:5.5mm;height:5.5mm;
+  border:1.2px solid #14181F;border-radius:2px;vertical-align:middle}
+ #prsheet .pline{display:inline-block;width:52mm;
+  border-bottom:1.2px solid #14181F;height:5.5mm;vertical-align:baseline}
+ #prsheet .pline.short{width:26mm}
+ #prsheet .pchk td{padding:6px 8px}
  #prsheet .pintr{background:#FDECE7;border:1.5px solid #F26222;color:#C1440E;
   border-radius:8px;padding:7px 12px;margin:0 0 12px;font-size:10.5px;
   font-weight:800;letter-spacing:.8px}
@@ -1418,18 +1457,65 @@ function paneStock(){
   Object.keys(byU).sort(function(a,b){return byU[b].length-byU[a].length})
    .forEach(function(u){
     var list=byU[u];
+    var nA=list.filter(function(x){return x.s==='A'}).length;
+    var nO=list.filter(function(x){return x.s==='O'}).length;
     h+='<div class="grp"><button type="button" onclick="tog(this)">'
       +'<div class="gn"><b>'+esc(u)+'</b><span>not counted in 7 days</span></div>'
       +'<div class="gq"><b style="color:var(--rd)">'+list.length+'</b><span>assets</span></div>'
       +'</button><div class="kids">'
+      /* the two sheets for this aisle (Andrew, 29 Jul 2026): the hunt
+         list is AVAILABLE items only - they should be on the shelf and
+         findable. The on-hire list is the opposite: out with crews, so
+         do not waste the walk hunting them. */
+      +'<div class="prbtns">'
+      +(nA?'<button class="stmore" type="button" onclick="stPrint(\\''+esc(u)
+        +'\\',\\'A\\')">&#128424; Not found sheet ('+nA+')</button>':'')
+      +(nO?'<button class="stmore" type="button" onclick="stPrint(\\''+esc(u)
+        +'\\',\\'O\\')">&#128424; On hire &mdash; do not hunt ('+nO+')</button>':'')
+      +'</div>'
       +list.slice(0,60).map(function(x){
         return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
-          +'<em class="o">'+x.d+' days</em></div>'
-          +(x.by?'<div class="kw">last sighted by <b>'+esc(x.by)+'</b></div>':'')+'</div>';
+          +'<em class="'+(x.s==='O'?'':'o')+'">'+(x.s==='O'?'on hire':x.d+' days')+'</em></div>'
+          +'<div class="kw">'+(x.i?'Item '+esc(x.i)+' &middot; ':'')
+          +(x.by?'last sighted by <b>'+esc(x.by)+'</b>':'')+'</div></div>';
       }).join('')+more(60,list.length,'assets')
       +'</div></div>';
   });
   return h;
+}
+/* THE NOT-FOUND SHEET - one aisle, one piece of paper, a tick box per
+   line. kind A = available: should be on the shelf, go and lay eyes
+   on it. kind O = on hire: out with a crew, printed so the counter
+   knows what NOT to hunt for. */
+function stPrint(unit,kind){
+  var rows=D.stock.stale.filter(function(x){
+    return x.u===unit && x.s===kind;});
+  if(!rows.length) return;
+  rows=rows.slice().sort(function(a,b){
+    if(a.d!==b.d) return b.d-a.d;
+    return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;});
+  var isA=kind==='A';
+  var body='<table class="ptab pchk">'
+   +'<tr><th>Item</th><th>Item no</th><th class="pn">Days uncounted</th>'
+   +'<th>Last sighted by</th>'
+   +(isA?'<th class="pn">FOUND</th><th>Where / note</th>':'')
+   +'</tr>'
+   +rows.map(function(x){
+     return '<tr><td>'+esc(x.n)+'</td><td>'+esc(x.i||'—')+'</td>'
+       +'<td class="pn">'+x.d+'</td><td>'+esc(x.by||'—')+'</td>'
+       +(isA?'<td class="pn"><span class="ptick"></span></td>'
+            +'<td><span class="pline"></span></td>':'')
+       +'</tr>';
+   }).join('')+'</table>'
+   +(isA?'<div class="pwho" style="margin-top:14px">Walked by '
+     +'<span class="pline"></span> &nbsp; Date <span class="pline short"></span></div>':'');
+  prFrame(
+    isA?('Stocktake — '+unit+' — not yet found')
+       :('Stocktake — '+unit+' — on hire, do not hunt'),
+    rows.length+' item'+(rows.length===1?'':'s')+' &middot; '
+     +(isA?'should be on the shelf in this aisle &mdash; tick each one as you lay eyes on it'
+          :'out with crews right now &mdash; they count when they come back, not on the walk'),
+    ASOF, body, false);
 }
 /* WALK AN AISLE - one screen per aisle, for a bloke standing in it.
    Everything about that aisle in one place: what should be on the shelf,
@@ -1733,14 +1819,23 @@ function prGo(){
           +(x.d==null?'—':x.d)+'</td></tr>';
       }).join('')+'</table>';
   });
+  prFrame(PRCUR.t,
+    PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')+' &middot; '
+      +(PRCUR.sub||'on hire &middot; anything over 4 days is marked'),
+    PRCUR.asof||ASOF, body, PRCUR.interim);
+}
+/* One frame for EVERY printed sheet - brand rule, title, as-at,
+   footer - so a stock check, a hit list and a company report all
+   come off the printer as the same family of document. */
+function prFrame(title,sub,asof,body,interim){
+  var el=document.getElementById('prsheet');
   el.innerHTML='<div class="phead"><div class="pbrand">COATES<b>.</b>'
    +'<span>POWERED BY SITEIQ</span></div>'
    +'<div class="pmeta">Cement Australia K2 Shutdown 2026 &middot; Gladstone'
-   +'<br>As at '+esc(PRCUR.asof||ASOF)+'</div></div>'
-   +'<div class="ptitle">'+esc(PRCUR.t)+'</div>'
-   +'<div class="psub">'+PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')
-   +' &middot; '+(PRCUR.sub||'on hire &middot; anything over 4 days is marked')+'</div>'
-   +(PRCUR.interim?'<div class="pintr">INTERIM &mdash; phone-loaded fresh look. '
+   +'<br>As at '+esc(asof||ASOF)+'</div></div>'
+   +'<div class="ptitle">'+esc(title)+'</div>'
+   +'<div class="psub">'+sub+'</div>'
+   +(interim?'<div class="pintr">INTERIM &mdash; phone-loaded fresh look. '
      +'The next morning build is the record.</div>':'')
    +body
    +'<div class="pfoot">Built from this morning&rsquo;s SiteIQ exports '
@@ -1927,6 +2022,38 @@ function frShow(kind){
   out.innerHTML=h;
 }
 
+/* CONSUMABLE STOCK CHECK & REORDER SHEET - the clipboard walk.
+   (Andrew, 29 Jul 2026: "i want a consumable print out like updated
+   stock check. qty we have stock last stock check info then a reorder
+   column so we can put down a number we need.")
+   Every line, A-Z, with an empty ruled box to write the count and the
+   reorder number in pen. Paper is the interface here on purpose - a
+   clipboard walk beats a phone walk in a dusty aisle. */
+function consPrint(){
+  var c=D.cons; if(!c||!c.all) return;
+  var body='<table class="ptab pchk">'
+   +'<tr><th>Item</th><th>SKU</th><th class="pn">On shelf</th>'
+   +'<th class="pn">Used so far</th><th>Last counted</th>'
+   +'<th class="pn">Counted now</th><th class="pn">REORDER</th></tr>'
+   +c.all.map(function(x){
+     var last=(x.ct==null?'never':(x.ct+' on '
+       +(x.co?x.co.split('-').reverse().join('/'):'?')
+       +(x.by?' by '+esc(x.by):'')));
+     return '<tr><td>'+esc(x.n)+'</td><td>'+esc(x.k)+'</td>'
+       +'<td class="pn">'+x.a+'</td><td class="pn">'+x.u+'</td>'
+       +'<td>'+last+'</td>'
+       +'<td class="pn"><span class="pbox"></span></td>'
+       +'<td class="pn"><span class="pbox"></span></td></tr>';
+   }).join('')+'</table>'
+   +'<div class="pwho" style="margin-top:14px">Counted by '
+   +'<span class="pline"></span> &nbsp; Date <span class="pline short"></span>'
+   +' &nbsp; Sign <span class="pline short"></span></div>';
+  prFrame('Consumables — stock check & reorder sheet',
+    c.all.length+' lines A&ndash;Z &middot; write the count and the reorder '
+     +'number in the boxes &middot; shelf figures as at the morning build',
+    ASOF, body, false);
+}
+
 /* CONSUMABLES - the shelf, the count, and what has to be ordered.
    (Andrew, 29 Jul 2026: "consumables stock. how many available. how many
    used. have we stock checked was it right was it ok. percentage of stock
@@ -1941,7 +2068,10 @@ function paneCons(){
   var c=D.cons;
   var h='<div class="note"><b>The consumables shelf.</b> What we hold, what '
    +'has gone out the window, and what has to be on order before '
-   +c.end.split('-').reverse().join('/')+' &mdash; '+c.daysLeft+' days away.</div>'
+   +c.end.split('-').reverse().join('/')+' &mdash; '+c.daysLeft+' days away.'
+   +'<br><button class="stmore" style="margin-top:10px" type="button" '
+   +'onclick="consPrint()">&#128424; Print the stock check &amp; reorder sheet</button>'
+   +'</div>'
    +'<div class="tiles">'
    +tile(c.avail.toLocaleString(),'On the shelf','g')
    +tile(c.used.toLocaleString(),'Issued so far')
