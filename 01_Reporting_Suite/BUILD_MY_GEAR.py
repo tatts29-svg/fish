@@ -857,6 +857,18 @@ def build():
         _alias = mygear_stores.keypad_alias(_code)
         if _alias:
             _stores_tag += ',' + mygear_stores.tag(_alias)
+        #  Say which code this build actually answers to - masked, but
+        #  enough to see AT A GLANCE that the laptop is running "2***"
+        #  when everyone has been told the code starts with N. A whole
+        #  evening was lost to exactly that on 29 Jul 2026: the
+        #  protected stores_code.txt had been created with the default
+        #  on one machine while the code everyone knew lived on
+        #  another. The file wins, so the build must show the file.
+        print('  Stores door: code {}{} ({} chars, from stores_code.txt)'
+              '{}'.format(_code[0], '*' * (len(_code) - 1), len(_code),
+                          ' | phone keypad twin {}{} works too'.format(
+                              _alias[0], '*' * (len(_alias) - 1))
+                          if _alias else ''))
         _t = _sd['tiles']
         print('  Stores team page: {} on the shelf | {} out | {} to chase '
               '| stocktake {}% | {} not counted | {} arriving'.format(
@@ -866,8 +878,15 @@ def build():
             print('  Manager layer: ${:,.2f}/day on hire, {} zero-rate '
                   'line(s) flagged.'.format(_pr['perDay'], _pr['zeroN']))
     except Exception as _e:
-        print('  NOTE: stores team page not built ({}) - the crew page is '
-              'unaffected.'.format(_e))
+        #  This is not a side dish failing - if this block dies, the
+        #  stores DOOR dies with it: no code of any kind will open the
+        #  board, and the front page just says "no gear found". Shout.
+        print('  ' + '!' * 62)
+        print('  WARNING: the stores page FAILED to build ({}).'.format(_e))
+        print('  The stores door is DEAD this build - NO code will open')
+        print('  the board until this is fixed and 04 is run again.')
+        print('  The crew page itself is unaffected.')
+        print('  ' + '!' * 62)
 
     page = (TEMPLATE
             .replace('__DATA__', json.dumps(DATA))
