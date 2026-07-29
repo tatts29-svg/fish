@@ -61,6 +61,15 @@ EMERGENCY = {
 }
 
 CONTACT_GROUPS = [
+    #  The tool store first. This is the tool store's own page, read by a
+    #  bloke standing at the window - the person who runs it should not be
+    #  twenty rows down under "contractors". (Andrew, 29 Jul 2026)
+    ("Your tool store &mdash; ask us first", "#F26222", [
+        ("Andrew Fisher", "Coates Shutdown Manager QLD &middot; "
+         "andrew.fisher@coates.com.au", "0429 352 788"),
+        ("The tool store window", "Gear in and out, consumables, "
+         "damage and returns", ""),
+    ]),
     ("Safety advisors &amp; isolation officers", "#C0392B", [
         ("Adam McInnes", "Shutdown Safety Lead", "0428 671 885"),
         ("Kris Tierney", "Safety Manager", "0428 283 694"),
@@ -103,7 +112,6 @@ CONTACT_GROUPS = [
     ]),
     ("Contractors on site", "#F26222", [
         ("Cleanaway", "Jayden Andrew", "0499 511 437"),
-        ("Coates", "Andrew Fisher", "0429 352 788"),
         ("Control System Technology", "Justin Sheehan", "07 4952 1580"),
         ("DGH", "Jake Adams", "0439 475 725"),
         ("DKE", "Tim Lalor", "0416 088 669"),

@@ -22,9 +22,16 @@
 #  IT IS A MORNING SNAPSHOT, NOT A LIVE FEED. The page is built once a
 #  day from that morning's export. If a bloke reads "4 available" at ten
 #  o'clock and three went at eight, we have made his day worse and he
-#  will never trust the page again. So every single line carries the
-#  time it was true, and the page says plainly: ring the store to have
-#  one put aside. Under-promise here, over-deliver at the counter.
+#  will never trust the page again. So every line carries the time it
+#  was true.
+#
+#  AND HE IS STANDING RIGHT THERE. The page is only reachable on the
+#  store's own Wi-Fi - a bloke reads it at the front of the store, not
+#  from the other side of site. So "ring us and we'll put one aside" is
+#  daft advice: the counter is two metres away. The wording sends him
+#  to the window, which is where he already is.
+#  (Andrew, 29 Jul 2026: "people can only view this info from out the
+#  front. so saying ring the store is wrong.")
 #
 #  BROWSE THE WAY THE STORE IS LAID OUT. SiteIQ's STORAGE_UNIT is where
 #  the thing physically lives - Tooling, Electrical, Rigging, Welding,
@@ -465,8 +472,8 @@ def pane(data, asof):
         "<div class='stwrap'>"
         "<div class='stnote'>Everything the store had on the shelf "
         "<b>as at {asof}</b>. It is this morning's count, not a live one "
-        "&mdash; if it matters, ring the store and we'll put one aside "
-        "before you walk down.</div>"
+        "&mdash; if it's the last one, or you can't see it here, "
+        "<b>ask at the window</b>. We'll have more out the back.</div>"
         "<div class='stsearch'>{mag}<input id='st-q' type='search' "
         "inputmode='search' autocomplete='off' "
         "placeholder='Type what you need &mdash; grinder, batt, hose' "
