@@ -715,6 +715,9 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .bar .ba{background:var(--gd)}.bar .bo{background:var(--org)}
 .kids{display:none;padding:0 12px 12px}
 .kids.on{display:block}
+.kfam{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+ color:var(--org);border-left:3px solid var(--org);padding:3px 0 3px 8px;
+ margin:12px 0 6px}
 .kid{background:var(--pnl2);border:1px solid var(--line);border-radius:10px;
  padding:10px 12px;margin-bottom:7px}
 .kid .kt{display:flex;gap:10px;align-items:baseline}
@@ -1078,9 +1081,29 @@ function paneGroups(){
       +'</button>'
       +'<div class="bar"><i class="ba" style="width:'+(100*av/tot)+'%"></i>'
       +'<i class="bo" style="width:'+(100*oh/tot)+'%"></i></div>'
-      +'<div class="kids">'+list.map(kid).join('')+'</div></div>';
+      +'<div class="kids">'+kidsWithSeams(list)+'</div></div>';
   });
   return h+'</div>';
+}
+/* Family seams inside a big category - same rule as the crew
+   catalogue, so the counter and the crew read the same shelves.
+   Sockets is 283 lines; a seam every family turns the scroll into
+   signposted shelving. Small categories stay flat. */
+function famOf(n){
+  var f=String(n||'')
+    .replace(/[-\\u2013]\\s*[\\d,\\/. ]+\\s*(mm|in|inch|")?\\s*$/i,'')
+    .split(' - ')[0].replace(/[-\\s]+$/,'').trim();
+  return f||String(n||'');
+}
+function kidsWithSeams(list){
+  if(list.length<=25) return list.map(kid).join('');
+  var out='',last=null;
+  list.forEach(function(g){
+    var f=famOf(g.n);
+    if(f!==last){out+='<div class="kfam">'+esc(f)+'</div>';last=f;}
+    out+=kid(g);
+  });
+  return out;
 }
 function kid(g){
   var units=Object.keys(g.u||{}).map(function(u){return u+' ('+g.u[u]+')'}).join(' &middot; ');
