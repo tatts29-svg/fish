@@ -74,7 +74,7 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
 .siq small{display:block;color:#8A97A8;font-size:9.5pt;font-weight:600;
   letter-spacing:.6px;margin-top:1.6mm;text-transform:none}
 .hero{text-align:center;margin:8mm 0 2mm}
-.hero h1{font-size:84pt;font-weight:900;letter-spacing:-3.5px;line-height:.9;
+.hero h1{font-size:97pt;font-weight:900;letter-spacing:-4px;line-height:.9;
   color:#fff;text-shadow:0 0 16mm rgba(242,98,34,.55)}
 .hero h1 span{color:#F26222;text-shadow:0 0 10mm rgba(242,98,34,.8)}
 .hero h1 em{font-style:normal}
@@ -131,8 +131,8 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
     sheet: without it the poster runs out of words 5cm early and reads
     unfinished.  */
 .promise{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;
-  margin-top:5mm}
-.promise div{position:relative;text-align:center;padding:5mm 3mm 4.5mm;
+  margin-top:8mm}
+.promise div{position:relative;text-align:center;padding:6.5mm 3mm 6mm;
   border:.4mm solid #2A313C;border-radius:4mm;
   background:linear-gradient(180deg,#151A22,#10141B);overflow:hidden}
 .promise div:before{content:"";position:absolute;top:0;left:20%;right:20%;
@@ -141,17 +141,81 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
 .promise b{display:block;font-size:15pt;font-weight:900;color:#fff;
   letter-spacing:.3px}
 .promise span{display:block;font-size:10pt;color:#8A97A8;margin-top:1.6mm}
-.after{margin-top:6mm;background:linear-gradient(180deg,#151C27,#0E141D);
+
+/* =================================================================
+   THE OFFICEWORKS A3 - the one that goes on the wall
+   Andrew, 29 Jul 2026: "make it like WOW what is this."
+   A poster has one job at ten metres: stop someone. So the sheet
+   leads with the product itself - a phone showing what actually
+   opens - because "what is this?" is the question, and a picture
+   of the answer beats a paragraph about it. Everything here is
+   drawn, not photographed: it stays vector, prints sharp at any
+   size, and can never go stale.
+   ================================================================= */
+.ghost{position:absolute;top:26mm;left:0;right:0;text-align:center;
+  font-size:190pt;font-weight:900;letter-spacing:-8px;line-height:1;
+  color:rgba(242,98,34,.055);pointer-events:none;z-index:0}
+.hero,.strip,.show,.after,.promise,.note{position:relative;z-index:1}
+/*  the wordmark carries a metal-to-neon rake - the single most
+    looked-at thing on the sheet, so it earns the gradient  */
+.hero h1 span.grad{background:linear-gradient(178deg,#FFC489 2%,#F26222 46%,
+  #EFFF3D 128%);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:#F26222}
+/*  the six cabinets, reduced to one confident strip - they say what
+    the store holds without eating a third of the poster  */
+.strip{display:flex;justify-content:space-between;gap:3mm;margin:9mm 0 9mm;
+  padding:4.5mm 5mm;border-radius:4mm;border:.4mm solid #2A313C;
+  background:linear-gradient(180deg,#151A22,#10141B)}
+.strip div{flex:1;text-align:center;color:#F26222}
+.strip b{display:block;font-size:8.6pt;font-weight:900;letter-spacing:1.2px;
+  text-transform:uppercase;color:#C3CDDA;margin-top:1.8mm}
+/*  product left, the two scans right - one row, one read  */
+.show{display:grid;grid-template-columns:1.22fr 1fr 1fr;gap:5mm;
+  align-items:stretch}
+.show .qc{padding:6mm 3.5mm 5mm;display:flex;flex-direction:column;
+  justify-content:center}
+.show .qbox svg{width:55mm;height:55mm}
+.pcard{position:relative;background:linear-gradient(180deg,#151C27,#0E141D);
+  border:.5mm solid #28323F;border-radius:6mm;padding:6mm 4mm 5mm;
+  text-align:center;overflow:hidden}
+.pcard:before{content:"";position:absolute;top:0;left:12%;right:12%;height:1mm;
+  background:linear-gradient(90deg,transparent,#EFFF3D,transparent);
+  filter:blur(.35mm)}
+.pcard .lab{font-size:10.5pt;font-weight:900;letter-spacing:2.4px;
+  text-transform:uppercase;color:#EFFF3D;margin-bottom:4mm}
+.phone{margin:0 auto;width:74mm;border-radius:7mm;background:#05070B;
+  border:1.1mm solid #2F3945;padding:4mm 3mm;box-shadow:0 0 12mm rgba(242,98,34,.22)}
+.notch{width:16mm;height:1.4mm;border-radius:1mm;background:#2F3945;
+  margin:0 auto 3mm}
+.scr{background:#0B0F16;border-radius:4mm;padding:5mm 4mm;text-align:left}
+.ph-top{font-size:13pt;font-weight:900;color:#fff;letter-spacing:-.4px;
+  line-height:1}
+.ph-top b{color:#F26222}
+.ph-sub{font-size:6.6pt;color:#8A97A8;letter-spacing:1.5px;margin-top:1.2mm;
+  text-transform:uppercase}
+.ph-score{margin:4.5mm 0;padding:4mm 4mm;border-radius:3mm;
+  background:linear-gradient(135deg,#F26222,#c94c16);color:#fff}
+.ph-score b{display:block;font-size:25pt;font-weight:900;line-height:1}
+.ph-score span{display:block;font-size:7pt;font-weight:700;letter-spacing:.8px;
+  opacity:.92;margin-top:.8mm}
+.ph-row{display:flex;align-items:center;gap:2mm;padding:3.4mm 0;
+  border-top:.25mm solid #1C232E;font-size:7.4pt;color:#C3CDDA}
+.ph-row i{width:2.5mm;height:2.5mm;border-radius:50%;flex:none}
+.ph-row em{margin-left:auto;font-style:normal;color:#7E8B9C;font-size:6.8pt}
+.ph-rank{margin-top:4mm;padding:3.2mm;border-radius:2.5mm;text-align:center;
+  border:.35mm solid #3A4657;font-size:7pt;font-weight:900;letter-spacing:.9px;
+  color:#EFFF3D}
+.after{margin-top:10mm;background:linear-gradient(180deg,#151C27,#0E141D);
   border:.5mm solid #28323F;border-left:1.4mm solid #F26222;
   border-radius:5mm;padding:6mm 7mm}
 .after h4{font-size:12pt;font-weight:900;letter-spacing:2.5px;color:#F26222;
   text-transform:uppercase}
 .after h4 span{color:#EFFF3D}
 .after .row{display:grid;grid-template-columns:repeat(4,1fr);gap:5mm;
-  margin-top:4mm}
+  margin-top:5.5mm}
 .after .row div{font-size:11pt;color:#C3CDDA;line-height:1.5}
 .after .row b{display:block;color:#fff;font-size:12pt;margin-bottom:1mm}
-.note{margin-top:5mm;text-align:center;font-size:11pt;color:#C3CDDA}
+.note{margin-top:7mm;text-align:center;font-size:11pt;color:#C3CDDA}
 .note b{color:#F26222}
 .foot{position:absolute;left:11mm;right:11mm;bottom:6mm;text-align:center;
   font-size:9pt;color:#6C7A8C;border-top:.3mm solid #28323F;padding-top:3.5mm}
@@ -210,6 +274,27 @@ body{background:#fff;color:#111}
 .promise div:before{background:#111;filter:none;height:1mm}
 .promise b{color:#111}
 .promise span{color:#444}
+/*  one-ink versions of the showcase: gradients and glows dither into
+    grey mush on a laser, so they come off entirely and weight does
+    the work instead  */
+.ghost{color:rgba(0,0,0,.05)}
+.hero h1 span.grad{background:none;-webkit-text-fill-color:#111;color:#111}
+.strip{background:#fff;border:.5mm solid #111}
+.strip div{color:#111}
+.strip b{color:#111}
+.pcard{background:#fff;border:.6mm solid #111}
+.pcard:before{background:#111;filter:none;height:1mm}
+.pcard .lab{color:#111}
+.phone{background:#fff;border:.8mm solid #111;box-shadow:none}
+.notch{background:#111}
+.scr{background:#fff;border:.3mm solid #BBB}
+.ph-top{color:#111}
+.ph-top b{color:#111}
+.ph-sub{color:#444}
+.ph-score{background:#111;color:#fff}
+.ph-row{color:#333;border-top:.25mm solid #CCC}
+.ph-row em{color:#666}
+.ph-rank{border:.35mm solid #111;color:#111}
 .foot{color:#444;border-top:.3mm solid #111}
 .foot b{color:#111}
 """
@@ -223,10 +308,33 @@ def _shell(title, css, mono, body):
 
 
 def poster_html(url, wifi=None, wifi_name="", mono=False):
-    cabs = "".join(
-        "<div class='cab'>{}<b>{}</b></div>".format(_icon(p), n)
-        for n, p in CABS)
+    strip = "".join(
+        "<div>{}<b>{}</b></div>".format(_icon(p, 26), n) for n, p in CABS)
     dark = "#000000" if mono else "#101317"
+
+    #  The phone. Drawn, never a screenshot - a screenshot ages the
+    #  moment the page changes and carries somebody's real gear list
+    #  onto a wall. The rows below are plainly a sample: no name, no
+    #  ID, ordinary tool store items.
+    phone = (
+        "<div class='pcard'><div class='lab'>This is what opens</div>"
+        "<div class='phone'><div class='notch'></div><div class='scr'>"
+        "<div class='ph-top'>MY <b>GEAR</b></div>"
+        "<div class='ph-sub'>Your name &middot; your hire ID</div>"
+        "<div class='ph-score'><b>12</b>"
+        "<span>ITEMS IN YOUR NAME</span></div>"
+        "<div class='ph-row'><i style='background:#12B76A'></i>"
+        "Grinder 125mm<em>4 days</em></div>"
+        "<div class='ph-row'><i style='background:#12B76A'></i>"
+        "Milwaukee battery<em>4 days</em></div>"
+        "<div class='ph-row'><i style='background:#FAB219'></i>"
+        "Radio + battery<em>back daily</em></div>"
+        "<div class='ph-row'><i style='background:#FAB219'></i>"
+        "Gas monitor<em>back daily</em></div>"
+        "<div class='ph-row'><i style='background:#E14434'></i>"
+        "Chain block 1t<em>logbook due</em></div>"
+        "<div class='ph-rank'>RETURNS RANK &middot; 3rd IN YOUR CREW</div>"
+        "</div></div></div>")
 
     def qcard(n, title, hint, code, under):
         return (
@@ -258,13 +366,15 @@ def poster_html(url, wifi=None, wifi_name="", mono=False):
             "<small>Equipped for anything</small></div>"
             "<div class='siq'>POWERED BY SITEIQ"
             "<small>Cement Australia K2 &middot; Gladstone</small></div></div>"
-            "<div class='hero'><h1><em>MY</em> <span>GEAR</span></h1>"
+            "<div class='ghost'>K2</div>"
+            "<div class='hero'><h1><em>MY</em> "
+            "<span class='grad'>GEAR</span></h1>"
             "<div class='sweep'></div>"
             "<div class='kick'>K2 DIGITAL TOOL STORE</div>"
-            "<div class='tag'>Your gear. Your score. Your crew's standing. "
-            "<b>One scan.</b></div></div>"
-            + "<div class='cabs'>" + cabs + "</div>"
-            + "<div class='steps'>" + cards + "</div>"
+            "<div class='tag'>Every tool in your name, on your phone, "
+            "<b>in 30 seconds.</b></div></div>"
+            + "<div class='strip'>" + strip + "</div>"
+            + "<div class='show'>" + phone + cards + "</div>"
             + "<div class='after'><h4>What you get when you're in "
               "<span>&mdash; live, every morning</span></h4>"
               "<div class='row'>"
