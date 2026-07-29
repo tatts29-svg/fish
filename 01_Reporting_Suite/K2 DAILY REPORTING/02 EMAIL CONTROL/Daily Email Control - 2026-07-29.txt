@@ -1,0 +1,24 @@
+COATES | K2 SHUTDOWN 2026 - DAILY EMAIL CONTROL
+Reporting day 2026-07-29   built 29 Jul 2026 14:15
+Routing from K2_Daily_Email_Report_Allocation.xlsx
+==========================================================================
+Cleanaway              Not Generated              To  1  Cc  5  Attach 0
+    ! Cleanaway holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
+DGH Engineering        Draft Ready                To  4  Cc  5  Attach 2
+DKE Group              Draft Ready                To  4  Cc  5  Attach 2
+High Risk Solutions    Draft Ready                To  3  Cc  5  Attach 2
+Industec               Not Generated              To  1  Cc  5  Attach 0
+    ! Industec holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
+Programmed             Draft Ready                To  1  Cc  5  Attach 2
+Synclift               Not Generated              To  2  Cc  5  Attach 0
+    ! Synclift holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
+Tasman Rope Access     Not Generated              To  1  Cc  5  Attach 0
+    ! Tasman Rope Access holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
+Universal Cranes       Not Generated              To  1  Cc  5  Attach 0
+    ! Universal Cranes holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
+Veolia Refractory      Draft Ready                To  3  Cc  5  Attach 2
+Xtreme Engineering     Draft Ready                To  2  Cc  5  Attach 2
+Cement Australia       Draft Ready                To  3  Cc 11  Attach 6
+==========================================================================
+Nothing has been sent. Open the .eml in each company folder and
+press Send when you are happy with it.

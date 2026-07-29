@@ -847,8 +847,8 @@ function go(){
  // counter that is the wrong answer - scan the next bloke's card from
  // right here. Hidden unless the browser will actually allow a camera,
  // same rule as the landing page.
- html+='<div class="actions"><button class="primary" onclick="saveCard()">&#128241; Save to my phone</button><button onclick="printCard()">&#128424;&#65039; Print A4</button><button id="cardscan" onclick="startScan()" hidden>&#9635; Scan another</button><button onclick="reset()">Done</button></div>'
- +'<div class="subline" style="text-align:center">Save keeps a copy on your phone — no signal needed. Print gives you one clean A4 page at the store.</div>'
+ html+='<div class="actions"><button class="primary" onclick="saveCard()">&#128241; Save picture</button><button onclick="printCard()">&#128424;&#65039; Print A4</button><button id="cardscan" onclick="startScan()" hidden>&#9635; Scan another</button><button onclick="reset()">Done</button></div>'
+ +'<div class="subline" style="text-align:center">Save puts your report on your phone as a picture — no signal needed. Print gives you one clean A4 page; pick the store Wi-Fi printer in the print menu.</div>'
  +'<div class="ft">Coates · K2 Shutdown 2026 · Gladstone &middot; a keepsake of your shutdown<div class="val">Care Deeply · Customer Focused · Be Our Best · One Team · Competitive Spirit</div>POWERED BY SITEIQ · Author: Andrew Fisher</div></div>';
  document.getElementById('result').innerHTML=html;
  // the card's own Scan button lives inside that HTML, so reveal it now
@@ -949,7 +949,118 @@ function cardFile(){
     +'style="display:block">'+card+'</div></div></body></html>';
   return new File([html],'My Gear - Coates K2.html',{type:'text/html'});
 }
+/* SAVE AS A PICTURE (Andrew, 29 Jul 2026: "ensure workers have the
+   option to save their onhire report as a image").
+   The picture is DRAWN onto a canvas from the decoded payload, not
+   screenshotted from the page - a drawn report cannot inherit a layout
+   bug, cannot catch a button mid-animation, and needs no library. It
+   comes out as a PNG the phone treats like any photo. */
+function drawPic(){
+  var p=window.LASTP; if(!p) return null;
+  var items=p.items||[], st=p.stats||{};
+  var W=1000,pad=52,rowH=66,S=2;
+  var mons=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var t=new Date(),asof=t.getDate()+' '+mons[t.getMonth()]+' '+t.getFullYear();
+  var listH=items.length?items.length*rowH:64;
+  var H=286+128+34+listH+120;
+  var c=document.createElement('canvas');
+  c.width=W*S; c.height=H*S;
+  var x=c.getContext('2d'); x.scale(S,S);
+  function rr(x0,y0,w,h,r){x.beginPath();x.moveTo(x0+r,y0);
+    x.arcTo(x0+w,y0,x0+w,y0+h,r);x.arcTo(x0+w,y0+h,x0,y0+h,r);
+    x.arcTo(x0,y0+h,x0,y0,r);x.arcTo(x0,y0,x0+w,y0,r);x.closePath();}
+  function trunc(s,max){ if(x.measureText(s).width<=max) return s;
+    while(s.length>1 && x.measureText(s+'…').width>max) s=s.slice(0,-1);
+    return s+'…'; }
+  var F='system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';
+  x.fillStyle='#0A0E14'; x.fillRect(0,0,W,H);
+  var g=x.createLinearGradient(0,0,W,0);
+  g.addColorStop(0,'#F26222'); g.addColorStop(1,'#C44C28');
+  x.fillStyle=g; x.fillRect(0,0,W,10);
+  x.fillStyle='#fff'; x.font='800 30px '+F; x.fillText('COATES',pad,66);
+  x.fillStyle='#F26222'; x.fillText('.',pad+x.measureText('COATES').width+2,66);
+  x.fillStyle='#8A97A8'; x.font='700 13px '+F; x.textAlign='right';
+  x.fillText('POWERED BY SITEIQ',W-pad,52);
+  x.fillText('Cement Australia K2 · Gladstone',W-pad,72);
+  x.textAlign='left';
+  x.fillStyle='#fff'; x.font='800 54px '+F; x.fillText('MY',pad,140);
+  x.fillStyle='#F26222'; x.fillText('GEAR',pad+x.measureText('MY').width+16,140);
+  x.fillStyle='#EAEDF1'; x.font='700 24px '+F;
+  x.fillText(trunc(String(p.name||''),W-2*pad),pad,186);
+  x.fillStyle='#8A97A8'; x.font='500 17px '+F;
+  x.fillText(trunc(String(p.company||'')+'  ·  ID '+String(p.id||''),W-2*pad),pad,214);
+  if(p.hasReturns){
+    var sc='Returns Score '+(Number(p.score)||0);
+    x.font='800 15px '+F;
+    var scw=x.measureText(sc).width+34;
+    x.fillStyle='#F26222'; rr(pad,236,scw,36,18); x.fill();
+    x.fillStyle='#fff'; x.fillText(sc,pad+17,260);
+  }
+  var boxes=[[String(st.items||0),'ITEMS OUT','#EFFF3D'],
+             [String(st.returned||0),'RETURNED','#35D68A'],
+             [String(st.sameday||0),'SAME-DAY','#35D68A']];
+  var bw=(W-2*pad-2*14)/3, by=292;
+  boxes.forEach(function(b,i){
+    var bx=pad+i*(bw+14);
+    x.fillStyle='#151A22'; rr(bx,by,bw,104,14); x.fill();
+    x.strokeStyle='#2A3340'; x.lineWidth=1; rr(bx,by,bw,104,14); x.stroke();
+    x.fillStyle=b[2]; x.font='800 36px '+F; x.textAlign='center';
+    x.fillText(b[0],bx+bw/2,by+50);
+    x.fillStyle='#8A97A8'; x.font='800 12px '+F;
+    x.fillText(b[1],bx+bw/2,by+80); x.textAlign='left';
+  });
+  var y=by+104+44;
+  x.fillStyle='#F26222'; x.fillRect(pad,y-15,3,18);
+  x.fillStyle='#EAEDF1'; x.font='800 16px '+F;
+  x.fillText('GEAR ON HIRE IN YOUR NAME',pad+12,y); y+=18;
+  if(!items.length){
+    x.fillStyle='#35D68A'; x.font='700 18px '+F;
+    x.fillText('✓  Nothing on hire — fully cleared. Legend.',pad,y+38);
+    y+=64;
+  }
+  items.forEach(function(it){
+    var d=parseInt(it.days), late=!isNaN(d)&&d>4, mid=!isNaN(d)&&d>2&&!late;
+    x.fillStyle='#151A22'; rr(pad,y+8,W-2*pad,rowH-14,12); x.fill();
+    x.fillStyle=isNaN(d)?'#8A97A8':(late?'#FF5A4D':(mid?'#F0B429':'#35D68A'));
+    x.beginPath(); x.arc(pad+26,y+8+(rowH-14)/2,7,0,7); x.fill();
+    x.fillStyle='#EAEDF1'; x.font='700 17px '+F;
+    x.fillText(trunc(String(it.d||''),W-2*pad-170),pad+48,y+34);
+    x.fillStyle='#8A97A8'; x.font='500 13px '+F;
+    x.fillText(trunc('Item '+String(it.n||''),W-2*pad-170),pad+48,y+56);
+    x.textAlign='right';
+    x.fillStyle=isNaN(d)?'#8A97A8':(late?'#FF5A4D':(mid?'#F0B429':'#35D68A'));
+    x.font='800 20px '+F;
+    x.fillText(isNaN(d)?'—':d+'d',W-pad-22,y+42);
+    x.textAlign='left';
+    y+=rowH;
+  });
+  y+=34;
+  x.strokeStyle='#2A3340'; x.beginPath(); x.moveTo(pad,y); x.lineTo(W-pad,y); x.stroke();
+  x.fillStyle='#8A97A8'; x.font='500 13px '+F; x.textAlign='center';
+  x.fillText('As at '+asof+'  ·  updated each morning  ·  POWERED BY SITEIQ',W/2,y+30);
+  x.fillText('Author: Andrew Fisher',W/2,y+52);
+  x.textAlign='left';
+  return c;
+}
 function saveCard(){
+  var c=null;
+  try{ c=drawPic(); }catch(e){ c=null; }
+  if(c && c.toBlob){
+    c.toBlob(function(b){
+      if(!b){ saveCardHtml(); return; }
+      var f=new File([b],'My Gear - Coates K2.png',{type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[f]}) && navigator.share){
+        navigator.share({files:[f],title:'My Gear - Coates K2'})
+          .catch(function(){ downloadCard(f); });
+      }else{ downloadCard(f); }
+    },'image/png');
+    return;
+  }
+  saveCardHtml();
+}
+/* the old HTML-file save stays as the fallback for any browser whose
+   canvas is crippled - a worker always gets SOMETHING saved */
+function saveCardHtml(){
   var f;
   try{ f=cardFile(); }catch(e){ window.print(); return; }
   if(navigator.canShare && navigator.canShare({files:[f]}) && navigator.share){

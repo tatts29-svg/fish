@@ -1166,8 +1166,8 @@ function go(){
  // counter that is the wrong answer - scan the next bloke's card from
  // right here. Hidden unless the browser will actually allow a camera,
  // same rule as the landing page.
- html+='<div class="actions"><button class="primary" onclick="saveCard()">&#128241; Save to my phone</button><button onclick="printCard()">&#128424;&#65039; Print A4</button><button id="cardscan" onclick="startScan()" hidden>&#9635; Scan another</button><button onclick="reset()">Done</button></div>'
- +'<div class="subline" style="text-align:center">Save keeps a copy on your phone — no signal needed. Print gives you one clean A4 page at the store.</div>'
+ html+='<div class="actions"><button class="primary" onclick="saveCard()">&#128241; Save picture</button><button onclick="printCard()">&#128424;&#65039; Print A4</button><button id="cardscan" onclick="startScan()" hidden>&#9635; Scan another</button><button onclick="reset()">Done</button></div>'
+ +'<div class="subline" style="text-align:center">Save puts your report on your phone as a picture — no signal needed. Print gives you one clean A4 page; pick the store Wi-Fi printer in the print menu.</div>'
  +'<div class="ft">Coates · K2 Shutdown 2026 · Gladstone &middot; a keepsake of your shutdown<div class="val">Care Deeply · Customer Focused · Be Our Best · One Team · Competitive Spirit</div>POWERED BY SITEIQ · Author: Andrew Fisher</div></div>';
  document.getElementById('result').innerHTML=html;
  // the card's own Scan button lives inside that HTML, so reveal it now

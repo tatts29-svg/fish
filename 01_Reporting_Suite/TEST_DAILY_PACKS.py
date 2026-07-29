@@ -473,9 +473,23 @@ def verify_packs(root, wbk, date_tag):
         ws = openpyxl.load_workbook(reg_x, data_only=True)["Register"]
         rows = [r for r in ws.iter_rows(min_row=2, values_only=True)
                 if r and str(r[0])[:10] == date_tag]
-        check("Register holds one row per company for the day",
-              len(rows) == len(companies),
-              "{} rows / {} companies".format(len(rows), len(companies)))
+        #  The register is a LEDGER, not a snapshot - the builder's own
+        #  rule (write_register, Rule 7) says a company appears AGAIN on
+        #  the same day when its status changes, so the trail shows a
+        #  pack that was held and then fixed. Demanding exactly one row
+        #  per company failed the first real day a pack was re-run -
+        #  which is exactly the day the register is doing its job.
+        #  What the ledger actually promises: every company has a row,
+        #  and the same company+status pair is never written twice.
+        #  (Caught 29 Jul 2026, on a day the packs were built 3 times.)
+        row_cos = {str(r[1]).strip() for r in rows}
+        missing = sorted({c["company"] for c in companies} - row_cos)
+        check("Every company has a register row for the day",
+              not missing, ", ".join(missing))
+        pairs = [(str(r[1]).strip(), str(r[3] or '').strip()) for r in rows]
+        dups = sorted({p for p in pairs if pairs.count(p) > 1})
+        check("No company+status pair is ever written twice",
+              not dups, "; ".join("{} / {}".format(*p) for p in dups))
         allowed_status = {"Not Generated", "Generated", "Checked",
                           "Draft Ready", "Sent", "Failed - Review Required"}
         odd = sorted({str(r[3]) for r in rows} - allowed_status)

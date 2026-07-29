@@ -396,6 +396,10 @@ def read(rental_path, stocktake_path, master=None, today=None,
 
     groups, chase_t, chase_p, idle = {}, [], [], []
     arrivals, plant = [], {'out': [], 'idle': [], 'free': []}
+    roster = []                                   # every on-hire item
+    #  Same four rules as the daily hit list in the company report
+    #  builder (menu H) - one standard across the suite, not two.
+    hits = {'radio': [], 'gas': [], 'bat': [], 'tool': []}
     for r in rs:
         status = g(r, 'ITEM_STATUS')
         #  Anything not yet on the shelf and not out - ordered, in
@@ -411,6 +415,45 @@ def read(rental_path, stocktake_path, master=None, today=None,
                     's': status})
             continue
         raw = g(r, 'ITEM_DESCRIPTION')
+
+        #  --- the full on-hire roster and the hit list ---
+        #  Collected BEFORE the offerable filter on purpose: an item
+        #  marked DO NOT HIRE that is somehow out with a crew is exactly
+        #  the item the counter must be able to chase and print. The
+        #  crew-facing catalogue hides it; the counter's roster cannot.
+        if status == 'On Hire':
+            d0 = au_date(g(r, 'ON_HIRE_DATE'))
+            dy0 = (today - d0).days if d0 else None
+            who0 = g(r, 'HIRER_NAME') or 'Not named'
+            co0 = g(r, 'COMPANY_NAME') or 'Not named'
+            unit0 = g(r, 'STORAGE_UNIT') or 'Unfiled'
+            nm0 = MS._tidy(raw, master, g(r, 'ITEM_NUMBER')) if raw \
+                else 'Unnamed item'
+            roster.append({'n': nm0, 'u': unit0, 'w': who0, 'co': co0,
+                           'd': dy0})
+            #  The hit list (Andrew, 29 Jul 2026): "who has not brought
+            #  back radios after one day. and milwaukee batteries after
+            #  1 day and milwaukee tooling after 3 days."
+            #  "After N days" is read conservatively - flagged once the
+            #  item is PAST its allowance, so a radio issued yesterday
+            #  for a shift that ended this morning is not accused an
+            #  hour before the bloke walks it back in.
+            if dy0 is not None and 'site plant' not in who0.lower():
+                up0 = raw.upper()
+                hit = {'n': nm0, 'w': who0, 'co': co0, 'd': dy0,
+                       'u': unit0}
+                if unit0 == 'Radios' and dy0 > 1:
+                    hits['radio'].append(hit)
+                elif unit0 == 'Gas Monitors' and dy0 > 1:
+                    hits['gas'].append(hit)
+                elif 'MILWAUKEE' in up0:
+                    if (('BATT' in up0 or 'CHARGER' in up0)
+                            and dy0 > 1):
+                        hits['bat'].append(hit)
+                    elif ('BATT' not in up0 and 'CHARGER' not in up0
+                          and dy0 > 3):
+                        hits['tool'].append(hit)
+
         if not raw or not MS._offerable(raw):
             continue
         name = MS._tidy(raw, master, g(r, 'ITEM_NUMBER'))
@@ -523,11 +566,19 @@ def read(rental_path, stocktake_path, master=None, today=None,
                 'countDays': cd['countDays'],
             }
 
+    for k in hits:
+        hits[k].sort(key=lambda x: -x['d'])
+    roster.sort(key=lambda x: (x['co'].upper(), x['w'].upper(),
+                               -(x['d'] if x['d'] is not None else -1)))
+
     return {
         'battle': battle,
         'arrivals': arrivals,
         'cons': cons,
         'hasCons': bool(cons),
+        'hits': hits,
+        'hitN': sum(len(v) for v in hits.values()),
+        'roster': roster,
         'plant': plant,
         'hasPlant': bool(plant['out'] or plant['idle'] or plant['free']),
         'groups': G,
@@ -656,6 +707,52 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
  cursor:pointer}
 .stmore:hover{background:var(--org);color:#fff}
 .kw.cut{color:var(--dim);font-style:italic;padding:9px 2px 2px}
+/* the hit-list tab glows - it is the one tab that means walk somewhere */
+.tab.hot{border-color:var(--rd);color:#FF8A80;
+ animation:hotpulse 2.2s ease-in-out infinite}
+@keyframes hotpulse{0%,100%{box-shadow:0 0 0 0 rgba(226,59,46,0)}
+ 50%{box-shadow:0 0 14px 1px rgba(226,59,46,.45)}}
+.tab.hot.on{background:var(--rd);border-color:var(--rd);color:#fff;animation:none}
+/* print & send */
+.prpick{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:6px}
+.prbtns{display:flex;gap:9px;flex-wrap:wrap;margin:4px 0 13px}
+a.stmore{display:inline-block;text-decoration:none;line-height:1.55}
+select.srch{appearance:none;-webkit-appearance:none}
+/* THE PRINT SHEET. Hidden on screen; when the html element carries
+   class "pr" and the print dialog opens, the board disappears and only
+   this white Coates A4 page goes to the printer. Print colours are
+   forced so the orange rule and the late-day marks survive "save ink"
+   defaults. */
+#prsheet{display:none}
+@media print{
+ html.pr header,html.pr #gate,html.pr #app,html.pr .wrap{display:none!important}
+ html.pr body{background:#fff}
+ html.pr #prsheet{display:block;background:#fff;color:#14181F;
+  font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:12.5px;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact}
+ #prsheet .phead{display:flex;justify-content:space-between;align-items:flex-start;
+  border-top:5px solid #F26222;padding:12px 2px 10px;margin-bottom:6px}
+ #prsheet .pbrand{font-size:21px;font-weight:800;letter-spacing:.5px;color:#14181F}
+ #prsheet .pbrand b{color:#F26222}
+ #prsheet .pbrand span{display:block;font-size:9.5px;letter-spacing:2px;
+  color:#8A94A2;font-weight:700;margin-top:2px}
+ #prsheet .pmeta{text-align:right;font-size:10.5px;color:#5B6472;line-height:1.6}
+ #prsheet .ptitle{font-size:18px;font-weight:800;margin:6px 2px 2px}
+ #prsheet .psub{font-size:11px;color:#5B6472;margin:0 2px 12px}
+ #prsheet .pwho{font-weight:800;font-size:12.5px;margin:14px 2px 4px;
+  padding-left:8px;border-left:3px solid #F26222;page-break-after:avoid}
+ #prsheet .pwho span{color:#8A94A2;font-weight:700;font-size:10.5px}
+ #prsheet .ptab{width:100%;border-collapse:collapse;page-break-inside:auto}
+ #prsheet .ptab tr{page-break-inside:avoid}
+ #prsheet .ptab th{text-align:left;font-size:9px;text-transform:uppercase;
+  letter-spacing:.8px;color:#8A94A2;padding:4px 8px;border-bottom:1px solid #D5DBE3}
+ #prsheet .ptab td{padding:5px 8px;border-bottom:1px solid #EDF0F4;vertical-align:top}
+ #prsheet .ptab .pn{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+ #prsheet .ptab .pn.late{color:#C1440E;font-weight:800}
+ #prsheet .pfoot{margin-top:16px;padding-top:9px;border-top:1px solid #D5DBE3;
+  text-align:center;font-size:9.5px;color:#8A94A2;line-height:1.7}
+}
+@page{size:A4;margin:12mm}
 .where{font-size:11px;color:var(--neon);font-weight:800;letter-spacing:.5px;
  text-transform:uppercase;margin-top:5px}
 .uhead{font-size:12px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;
@@ -741,8 +838,9 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 
 <div id="app" style="display:none"></div>
 </div>
+<div id="prsheet"></div>
 <script>
-var PAYLOAD="__PAYLOAD__",TAG="__TAG__";
+var PAYLOAD="__PAYLOAD__",TAG="__TAG__",ASOF="__ASOF__";
 var MPAY="__MPAYLOAD__",MTAG="__MTAG__",MKEY="__MKEY__";
 var MGR=null,SHOW_PLANT=true;
 function xmur3(s){for(var i=0,h=1779033703^s.length;i<s.length;i++){
@@ -836,6 +934,8 @@ function render(){
    +'<div class="tabs">'
    +'<button class="tab on" data-p="groups" onclick="tab(this)">Product groups</button>'
    +'<button class="tab" data-p="chase" onclick="tab(this)">Chase up ('+t.chase+')</button>'
+   +(D.hitN?'<button class="tab hot" data-p="hits" onclick="tab(this)">Hit list ('+D.hitN+')</button>':'')
+   +'<button class="tab" data-p="print" onclick="tab(this)">Print &amp; send</button>'
    +'<button class="tab" data-p="stock" onclick="tab(this)">Stocktake</button>'
    +'<button class="tab" data-p="aisle" onclick="tab(this)">Walk an aisle</button>'
    +'<button class="tab" data-p="battle" onclick="tab(this)">Day v Night</button>'
@@ -850,6 +950,8 @@ function render(){
    +'</div>'
    +'<div class="pane on" id="p-groups">'+paneGroups()+'</div>'
    +'<div class="pane" id="p-chase">'+paneChase()+'</div>'
+   +(D.hitN?'<div class="pane" id="p-hits">'+paneHits()+'</div>':'')
+   +'<div class="pane" id="p-print">'+panePrint()+'</div>'
    +'<div class="pane" id="p-stock">'+paneStock()+'</div>'
    +'<div class="pane" id="p-aisle">'+paneAisle()+'</div>'
    +'<div class="pane" id="p-battle">'+paneBattle()+'</div>'
@@ -1073,6 +1175,185 @@ function paneBattle(){
 /* OUR STANDARDS - quoted from SWMS-CTS-001 Rev 4, not paraphrased. The
    store's own procedure is the authority; this screen is a reminder of
    it at the counter, never a replacement for signing on to it. */
+/* HIT LIST - the three overdue rules, holder first.
+   (Andrew, 29 Jul 2026: "who has not brought back radios after one day
+   and milwaukee batteries after 1 day and milwaukee tooling after 3
+   days.") Named by person because that is how you chase gear - you do
+   not ring an item description. */
+function paneHits(){
+  var H=D.hits;
+  var rules=[
+    ['radio','Radios','allowed a day &mdash; these have been kept longer',H.radio],
+    ['gas','Gas monitors','allowed a day &mdash; these have been kept longer',H.gas||[]],
+    ['bat','Milwaukee batteries','allowed a day &mdash; these have been kept longer',H.bat],
+    ['tool','Milwaukee tooling','allowed three days &mdash; these have been kept longer',H.tool]];
+  var h='<div class="note"><b>The hit list.</b> Gear with a hard return '
+   +'rule that is past it. Radios, gas monitors and Milwaukee batteries '
+   +'come back daily; Milwaukee tooling gets three days. Same four rules '
+   +'as the daily hit list in the report pack. Walk this list before '
+   +'smoko and most of it walks back in.</div>';
+  rules.forEach(function(rl){
+    if(!rl[3].length){
+      h+='<div class="grp"><button type="button" onclick="tog(this)">'
+        +'<div class="gn"><b>'+rl[1]+'</b><span>'+rl[2]+'</span></div>'
+        +'<div class="gq"><b style="color:var(--gd)">0</b><span>clear</span>'
+        +'</div></button><div class="kids"><div class="kw" style="padding:8px 2px">'
+        +'Nothing overdue. Whoever is running this rule, keep going.</div>'
+        +'</div></div>';
+      return;
+    }
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>'+rl[1]+'</b><span>'+rl[2]+'</span></div>'
+      +'<div class="gq"><b style="color:var(--rd)">'+rl[3].length+'</b>'
+      +'<span>to chase</span></div></button><div class="kids">'
+      +rl[3].map(function(x){
+        return '<div class="kid"><div class="kt"><b>'+esc(x.w)+'</b>'
+          +'<em class="o">'+x.d+' day'+(x.d===1?'':'s')+'</em></div>'
+          +'<div class="kw">'+esc(x.co)+' &middot; '+esc(x.n)+'</div></div>';
+      }).join('')+'</div></div>';
+  });
+  return h;
+}
+
+/* PRINT & SEND - clean Coates printouts of anything on hire, straight
+   from the counter. (Andrew, 29 Jul 2026: "section for printing onhire
+   reports via company and person... radio print out of all onhire and
+   how long for. same with gas monitors. this can be sent via phone to
+   outlook email or wifi printer.")
+
+   Print goes through the phone or laptop's own print dialog - that is
+   where the Wi-Fi printer lives. Email opens the phone's Outlook with
+   the report already written into the body; a static offline page
+   cannot attach a file to an email, so the body IS the report, and the
+   print button is there when paper is wanted. */
+function panePrint(){
+  var cos={},pps={};
+  D.roster.forEach(function(x){
+    cos[x.co]=(cos[x.co]||0)+1;
+    var k=x.w+'\\u001F'+x.co; pps[k]=(pps[k]||0)+1;
+  });
+  var coOpts=Object.keys(cos).sort().map(function(c){
+    return '<option value="'+esc(c)+'">'+esc(c)+' ('+cos[c]+')</option>';}).join('');
+  var ppOpts=Object.keys(pps).sort().map(function(k){
+    var p=k.split('\\u001F');
+    return '<option value="'+esc(k)+'">'+esc(p[0])+' &middot; '+esc(p[1])
+      +' ('+pps[k]+')</option>';}).join('');
+  return '<div class="note"><b>Pick it, look at it, print it or send it.</b> '
+   +'Print uses this device&rsquo;s print menu &mdash; pick the store '
+   +'Wi-Fi printer there, or Save as PDF. Email opens Outlook on this '
+   +'phone with the whole report written in, ready to send.</div>'
+   +'<div class="prpick">'
+   +'<button class="stmore" type="button" onclick="prSet(\\'radios\\')">Radios on hire</button>'
+   +'<button class="stmore" type="button" onclick="prSet(\\'gas\\')">Gas monitors on hire</button>'
+   +'</div>'
+   +'<div class="uhead">One company</div>'
+   +'<select id="prco" class="srch" onchange="prSet(\\'co\\')">'
+   +'<option value="">Pick a company&hellip;</option>'+coOpts+'</select>'
+   +'<div class="uhead">One person</div>'
+   +'<select id="prpp" class="srch" onchange="prSet(\\'pp\\')">'
+   +'<option value="">Pick a person&hellip;</option>'+ppOpts+'</select>'
+   +'<div id="prout"></div>';
+}
+var PRCUR=null;
+function prRows(kind){
+  var v;
+  if(kind==='radios') return {t:'Radios on hire',
+    r:D.roster.filter(function(x){return x.u==='Radios'})};
+  if(kind==='gas') return {t:'Gas monitors on hire',
+    r:D.roster.filter(function(x){return x.u==='Gas Monitors'})};
+  if(kind==='co'){v=document.getElementById('prco').value;
+    return v?{t:v+' — gear on hire',
+      r:D.roster.filter(function(x){return x.co===v})}:null;}
+  if(kind==='pp'){v=document.getElementById('prpp').value;
+    if(!v) return null;
+    var p=v.split('\\u001F');
+    return {t:p[0]+' ('+p[1]+') — gear on hire',
+      r:D.roster.filter(function(x){return x.w===p[0]&&x.co===p[1]})};}
+  return null;
+}
+function prSet(kind){
+  var got=prRows(kind);
+  var out=document.getElementById('prout');
+  if(!got||!got.r.length){
+    out.innerHTML=got?'<div class="kw" style="padding:10px 2px">Nothing on hire there right now.</div>':'';
+    PRCUR=null; return;
+  }
+  PRCUR=got;
+  var days={g:0,a:0,r:0};
+  got.r.forEach(function(x){var d=x.d==null?0:x.d;
+    if(d<=2)days.g++;else if(d<=4)days.a++;else days.r++;});
+  var h='<div class="uhead">'+esc(got.t)+' &mdash; '+got.r.length+' item'
+   +(got.r.length===1?'':'s')+'</div>'
+   +'<div class="prbtns">'
+   +'<button class="stmore" type="button" onclick="prGo()">&#128424; Print / save PDF</button>'
+   +'<a class="stmore" id="prmail" href="#">&#9993; Email via Outlook</a>'
+   +'</div>'
+   +got.r.slice(0,200).map(function(x){
+     return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+       +'<em class="'+((x.d||0)>4?'o':'')+'">'+(x.d==null?'&mdash;':x.d+'d')+'</em></div>'
+       +'<div class="kw">'+esc(x.w)+' &middot; '+esc(x.co)+' &middot; '+esc(x.u)+'</div></div>';
+   }).join('')+more(200,got.r.length,'items');
+  out.innerHTML=h;
+  var m=document.getElementById('prmail');
+  m.href=prMailto(got);
+}
+function prMailto(got){
+  /* NL is built with fromCharCode so this survives living inside a
+     Python template - a literal backslash-n here has already been
+     eaten once by Python and broken the whole script block.
+     (Caught 29 Jul 2026 by node --check on the built page.) */
+  var NL=String.fromCharCode(10), RULE=Array(41).join('-');
+  var b='COATES | K2 TOOL STORE - ON HIRE'+NL+got.t.replace(/—/g,'-')
+   +NL+'As at '+ASOF+NL+RULE+NL;
+  var lines=got.r.map(function(x){
+    return (x.d==null?'-':x.d+'d')+'  '+x.n+'  |  '+x.w+' - '+x.co;});
+  var body=b, cut=0;
+  for(var i=0;i<lines.length;i++){
+    if(body.length+lines[i].length>1700){cut=lines.length-i;break;}
+    body+=lines[i]+NL;
+  }
+  if(cut)body+='...plus '+cut+' more - see the printed report.'+NL;
+  body+=RULE+NL+got.r.length+' items on hire.'+NL
+   +'POWERED BY SITEIQ | Author: Andrew Fisher'+NL;
+  return 'mailto:?subject='+encodeURIComponent('Coates K2 on hire - '+got.t)
+   +'&body='+encodeURIComponent(body);
+}
+function prGo(){
+  if(!PRCUR)return;
+  var el=document.getElementById('prsheet');
+  var byWho={};
+  PRCUR.r.forEach(function(x){var k=x.w+' — '+x.co;
+    (byWho[k]=byWho[k]||[]).push(x);});
+  var body='';
+  Object.keys(byWho).sort().forEach(function(k){
+    var list=byWho[k];
+    body+='<div class="pwho">'+esc(k)+' <span>'+list.length+' item'
+      +(list.length===1?'':'s')+'</span></div><table class="ptab">'
+      +'<tr><th>Item</th><th>Aisle</th><th class="pn">Days on hire</th></tr>'
+      +list.map(function(x){
+        return '<tr><td>'+esc(x.n)+'</td><td>'+esc(x.u)+'</td>'
+          +'<td class="pn'+((x.d||0)>4?' late':'')+'">'
+          +(x.d==null?'—':x.d)+'</td></tr>';
+      }).join('')+'</table>';
+  });
+  el.innerHTML='<div class="phead"><div class="pbrand">COATES<b>.</b>'
+   +'<span>POWERED BY SITEIQ</span></div>'
+   +'<div class="pmeta">Cement Australia K2 Shutdown 2026 &middot; Gladstone'
+   +'<br>As at '+esc(ASOF)+'</div></div>'
+   +'<div class="ptitle">'+esc(PRCUR.t)+'</div>'
+   +'<div class="psub">'+PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')
+   +' on hire &middot; anything over 4 days is marked</div>'
+   +body
+   +'<div class="pfoot">Built from this morning&rsquo;s SiteIQ exports '
+   +'&middot; read-only &middot; POWERED BY SITEIQ &middot; '
+   +'Author: Andrew Fisher</div>';
+  document.documentElement.className='pr';
+  window.print();
+}
+window.addEventListener('afterprint',function(){
+  document.documentElement.className='';
+});
+
 /* CONSUMABLES - the shelf, the count, and what has to be ordered.
    (Andrew, 29 Jul 2026: "consumables stock. how many available. how many
    used. have we stock checked was it right was it ok. percentage of stock
