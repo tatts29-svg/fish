@@ -170,20 +170,34 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
 .strip b{display:block;font-size:8.6pt;font-weight:900;letter-spacing:1.2px;
   text-transform:uppercase;color:#C3CDDA;margin-top:1.8mm}
 /*  product left, the two scans right - one row, one read  */
-.show{display:grid;grid-template-columns:1.22fr 1fr 1fr;gap:5mm;
+.show{display:grid;grid-template-columns:1fr 1.34fr 1fr;gap:4.5mm;
   align-items:stretch}
 .show .qc{padding:6mm 3.5mm 5mm;display:flex;flex-direction:column;
-  justify-content:center}
+  justify-content:center;position:relative}
+.arw{position:absolute;top:50%;margin-top:-4.5mm;width:9mm;height:9mm;
+  border-radius:50%;background:#F26222;color:#fff;display:flex;
+  align-items:center;justify-content:center;z-index:3;
+  box-shadow:0 0 6mm rgba(242,98,34,.7)}
+.show .qc.l .arw{right:-6.7mm}
+.show .qc.r .arw{left:-6.7mm;transform:rotate(180deg)}
 .show .qbox svg{width:55mm;height:55mm}
-.pcard{position:relative;background:linear-gradient(180deg,#151C27,#0E141D);
-  border:.5mm solid #28323F;border-radius:6mm;padding:6mm 4mm 5mm;
-  text-align:center;overflow:hidden}
+/*  the middle card is the hero of the sheet - it sits in a pool of
+    orange light, wears the neon edge, and is the thing the two
+    chevrons point at  */
+.pcard{position:relative;background:linear-gradient(180deg,#18202C,#0E141D);
+  border:.6mm solid #F26222;border-radius:6mm;padding:6mm 4mm 5mm;
+  text-align:center;overflow:hidden;
+  box-shadow:0 0 16mm rgba(242,98,34,.28)}
+.pcard:after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;
+  background:radial-gradient(58% 42% at 50% 40%,rgba(242,98,34,.22),
+  transparent 72%);pointer-events:none}
+.pcard>*{position:relative;z-index:1}
 .pcard:before{content:"";position:absolute;top:0;left:12%;right:12%;height:1mm;
   background:linear-gradient(90deg,transparent,#EFFF3D,transparent);
   filter:blur(.35mm)}
-.pcard .lab{font-size:10.5pt;font-weight:900;letter-spacing:2.4px;
-  text-transform:uppercase;color:#EFFF3D;margin-bottom:4mm}
-.phone{margin:0 auto;width:74mm;border-radius:7mm;background:#05070B;
+.pcard .lab{font-size:11.5pt;font-weight:900;letter-spacing:2.6px;
+  text-transform:uppercase;color:#EFFF3D;margin-bottom:4.5mm}
+.phone{margin:0 auto;width:82mm;border-radius:7mm;background:#05070B;
   border:1.1mm solid #2F3945;padding:4mm 3mm;box-shadow:0 0 12mm rgba(242,98,34,.22)}
 .notch{width:16mm;height:1.4mm;border-radius:1mm;background:#2F3945;
   margin:0 auto 3mm}
@@ -282,9 +296,11 @@ body{background:#fff;color:#111}
 .strip{background:#fff;border:.5mm solid #111}
 .strip div{color:#111}
 .strip b{color:#111}
-.pcard{background:#fff;border:.6mm solid #111}
+.pcard{background:#fff;border:.9mm solid #111;box-shadow:none}
 .pcard:before{background:#111;filter:none;height:1mm}
+.pcard:after{background:none}
 .pcard .lab{color:#111}
+.arw{background:#111;color:#fff;box-shadow:none}
 .phone{background:#fff;border:.8mm solid #111;box-shadow:none}
 .notch{background:#111}
 .scr{background:#fff;border:.3mm solid #BBB}
@@ -293,6 +309,11 @@ body{background:#fff;color:#111}
 .ph-sub{color:#444}
 .ph-score{background:#111;color:#fff}
 .ph-row{color:#333;border-top:.25mm solid #CCC}
+/*  the tag dots are set inline (they are data, not decoration), so the
+    one-ink build has to shout them down - a green and an amber dot
+    print as two identical grey blobs on a laser. The words beside
+    them carry the meaning.  */
+.ph-row i{background:#111 !important}
 .ph-row em{color:#666}
 .ph-rank{border:.35mm solid #111;color:#111}
 .foot{color:#444;border-top:.3mm solid #111}
@@ -336,29 +357,36 @@ def poster_html(url, wifi=None, wifi_name="", mono=False):
         "<div class='ph-rank'>RETURNS RANK &middot; 3rd IN YOUR CREW</div>"
         "</div></div></div>")
 
-    def qcard(n, title, hint, code, under):
+    #  The chevron points INWARD, at the phone. Both scans lead to the
+    #  same place, so the sheet is read as two steps feeding one result
+    #  rather than three things sitting in a row.
+    chev = ("<div class='arw'><svg viewBox='0 0 24 24' width='22' height='22' "
+            "fill='none' stroke='currentColor' stroke-width='3' "
+            "stroke-linecap='round' stroke-linejoin='round'>"
+            "<path d='M9 5l7 7-7 7'/></svg></div>")
+
+    def qcard(n, title, hint, code, under, side):
         return (
-            "<div class='qc'><div class='n'>{n}</div><h3>{t}</h3>"
+            "<div class='qc {s}'><div class='n'>{n}</div><h3>{t}</h3>"
             "<div class='h'>{h}</div>"
             "<div class='qbox'><i class='c1'></i><i class='c2'></i>"
             "<i class='c3'></i><i class='c4'></i>{q}</div>"
-            "<div class='u'>{u}</div></div>"
-        ).format(n=n, t=title, h=hint,
+            "<div class='u'>{u}</div>{a}</div>"
+        ).format(n=n, t=title, h=hint, s=side, a=chev,
                  q=qr_lite.qr_svg(code, px=250, dark=dark), u=under)
 
-    cards = ""
     if wifi:
-        cards += qcard(1, "Join the store Wi-Fi",
-                       "Point your camera here &mdash; tap join",
-                       wifi, wifi_name or "store network")
-        cards += qcard(2, "Open My Gear",
-                       "Then scan this one", url, url)
+        card1 = qcard(1, "Join the store Wi-Fi",
+                      "Point your camera here &mdash; tap join",
+                      wifi, wifi_name or "store network", "l")
+        card2 = qcard(2, "Open My Gear",
+                      "Then scan this one", url, url, "r")
     else:
-        cards += qcard(1, "Open My Gear",
-                       "Point your camera here", url, url)
-        cards += qcard(2, "Or scan your card",
-                       "Tap SCAN on the page, hold your card up",
-                       url, "your list opens in seconds")
+        card1 = qcard(1, "Open My Gear",
+                      "Point your camera here", url, url, "l")
+        card2 = qcard(2, "Or scan your card",
+                      "Tap SCAN on the page, hold your card up",
+                      url, "your list opens in seconds", "r")
 
     return _shell("My Gear - A3 Poster", CSS, mono,
             "<div class='frame'>"
@@ -374,7 +402,7 @@ def poster_html(url, wifi=None, wifi_name="", mono=False):
             "<div class='tag'>Every tool in your name, on your phone, "
             "<b>in 30 seconds.</b></div></div>"
             + "<div class='strip'>" + strip + "</div>"
-            + "<div class='show'>" + phone + cards + "</div>"
+            + "<div class='show'>" + card1 + phone + card2 + "</div>"
             + "<div class='after'><h4>What you get when you're in "
               "<span>&mdash; live, every morning</span></h4>"
               "<div class='row'>"
