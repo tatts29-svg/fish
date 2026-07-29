@@ -566,10 +566,19 @@ def read(rental_path, stocktake_path, master=None, today=None,
                 'countDays': cd['countDays'],
             }
 
+    #  ONE ordering rule for the whole board (Andrew, 29 Jul 2026):
+    #  companies A-Z, hirers inside a company A-Z, and a person's items
+    #  longest-held first with A-Z breaking ties. The same list always
+    #  reads in the same order, so the counter finds a name by eye
+    #  instead of by scanning.
     for k in hits:
-        hits[k].sort(key=lambda x: -x['d'])
+        hits[k].sort(key=lambda x: (-x['d'], x['w'].upper(), x['n'].upper()))
     roster.sort(key=lambda x: (x['co'].upper(), x['w'].upper(),
-                               -(x['d'] if x['d'] is not None else -1)))
+                               -(x['d'] if x['d'] is not None else -1),
+                               x['n'].upper()))
+    for e in groups.values():
+        e['who'].sort(key=lambda w: (-(w['d'] if w['d'] is not None else -1),
+                                     w['w'].upper()))
 
     return {
         'battle': battle,
@@ -1380,14 +1389,26 @@ function prMailto(got){
 function prGo(){
   if(!PRCUR)return;
   var el=document.getElementById('prsheet');
+  /* One ordering rule, same as the screen: companies A-Z, hirers
+     inside a company A-Z, items longest-held first then A-Z. The
+     group key leads with the company so the sort and the page read
+     the same way. */
   var byWho={};
-  PRCUR.r.forEach(function(x){var k=x.w+' — '+x.co;
+  PRCUR.r.forEach(function(x){var k=x.co+'\\u001F'+x.w;
     (byWho[k]=byWho[k]||[]).push(x);});
   var body='';
-  Object.keys(byWho).sort().forEach(function(k){
-    var list=byWho[k];
-    body+='<div class="pwho">'+esc(k)+' <span>'+list.length+' item'
-      +(list.length===1?'':'s')+'</span></div><table class="ptab">'
+  Object.keys(byWho).sort(function(a,b){
+    return a.toUpperCase()<b.toUpperCase()?-1:1;
+  }).forEach(function(k){
+    var list=byWho[k].slice().sort(function(a,b){
+      var da=(a.d==null?-1:a.d), db=(b.d==null?-1:b.d);
+      if(da!==db) return db-da;
+      return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;
+    });
+    var p=k.split('\\u001F');
+    body+='<div class="pwho">'+esc(p[1])+' <span>'+esc(p[0])+' &middot; '
+      +list.length+' item'+(list.length===1?'':'s')
+      +'</span></div><table class="ptab">'
       +'<tr><th>Item</th><th>Aisle</th><th class="pn">Days on hire</th></tr>'
       +list.map(function(x){
         return '<tr><td>'+esc(x.n)+'</td><td>'+esc(x.u)+'</td>'

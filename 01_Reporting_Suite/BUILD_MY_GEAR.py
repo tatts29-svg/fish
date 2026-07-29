@@ -616,7 +616,13 @@ def build():
         initials = ''.join(w[0] for w in name.split()[:2]).upper() or 'K2'
         company = re.sub(r'\s+', ' ', p['company']).title()
         items, mixc, aging = [], {}, {'g': 0, 'a': 0, 'r': 0}
-        for it in sorted(p['items'], key=lambda x: -( (today - x['start']).days if x['start'] else -1)):
+        #  Longest-held first, then A-Z within the same day count, so two
+        #  items out the same three days always sit in the same order.
+        #  (Andrew, 29 Jul 2026: "starting longest days a-z")
+        for it in sorted(p['items'],
+                         key=lambda x: (-((today - x['start']).days
+                                          if x['start'] else -1),
+                                        (x['desc'] or '').upper())):
             days = max(0, (today - it['start']).days) if it['start'] else '-'
             # RENTAL_STOCK wins on asset number + current description
             asset, desc = it['item'], it['desc']
