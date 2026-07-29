@@ -213,18 +213,48 @@ def read(sales_path, stocktake_path, base, today=None):
     #  --- twins: the same item carrying two SKU records ---
     #  Six items on this job have two SKUs each: a live one holding the
     #  stock and a duplicate sitting on zero. The duplicate is what
-    #  trips SiteIQ's "Stock Low". Finding them is what stops us
-    #  ordering 200 tubes of sealant we already have.
+    #  trips SiteIQ's "Stock Low". SiteIQ will not merge them (Andrew,
+    #  29 Jul 2026: "the twins dont merge can we hide"), so this engine
+    #  FOLDS them instead: the duplicate's shelf figures, counts and
+    #  sales are absorbed into the live record and the duplicate line
+    #  disappears from every page. One item, one line, no false alarm -
+    #  and if SiteIQ ever grows a third record for the same item, it
+    #  folds in with no code change.
     by_desc = collections.defaultdict(list)
     for sku, s in shelf.items():
         by_desc[s['desc'].strip().upper()].append(sku)
-    twin_of = {}
+    folded = 0
+    folded_skus = []
     for _d, skus in by_desc.items():
         if len(skus) < 2:
             continue
-        for sku in skus:
-            others = [x for x in skus if x != sku]
-            twin_of[sku] = others
+        #  the record with the most stock is the live one; ties break
+        #  by SKU so two zero-stock twins still fold deterministically
+        skus.sort(key=lambda k: (-shelf[k]['avail'], k))
+        prime = skus[0]
+        for dup in skus[1:]:
+            shelf[prime]['avail'] += shelf[dup]['avail']
+            shelf[prime]['min'] += shelf[dup]['min']
+            shelf[prime]['reorder'] += shelf[dup]['reorder']
+            sales[prime].extend(sales.pop(dup, []))
+            cdup = counted.pop(dup, None)
+            if cdup:
+                cp = counted.setdefault(prime, {
+                    'qty': 0.0, 'when': cdup['when'], 'by': cdup['by'],
+                    'status': cdup['status'], 'unit': cdup['unit']})
+                cp['qty'] += cdup['qty']
+                #  the freshest count wins the date and the status -
+                #  except "Stock Low", which never survives a fold that
+                #  just proved the stock exists on the other record
+                if cdup['when'] and (not cp['when']
+                                     or cdup['when'] > cp['when']):
+                    cp['when'] = cdup['when']
+                    cp['by'] = cdup['by']
+                if cp['status'] == 'Stock Low' and shelf[prime]['avail'] > 0:
+                    cp['status'] = 'In Stock'
+            del shelf[dup]
+            folded += 1
+            folded_skus.append((dup, prime))
 
     items = []
     for sku, s in sorted(shelf.items(), key=lambda kv: kv[1]['desc']):
@@ -255,12 +285,6 @@ def read(sales_path, stocktake_path, base, today=None):
             var_adj = (c['qty'] - sold_since) - s['avail']
 
         low = bool(c and c['status'] == 'Stock Low')
-        twins = twin_of.get(sku) or []
-        #  A "Stock Low" on a SKU whose twin is holding the stock is a
-        #  records problem, not a shortage.
-        twin_holds = 0.0
-        for t in twins:
-            twin_holds += shelf.get(t, {}).get('avail', 0.0)
 
         items.append({
             'sku': sku, 'desc': s['desc'], 'unit': s['unit'],
@@ -275,17 +299,20 @@ def read(sales_path, stocktake_path, base, today=None):
             'status': (c['status'] if c else ''),
             'low': low, 'var': var, 'varAdj': var_adj,
             'soldSince': sold_since,
-            'twins': twins, 'twinHolds': twin_holds,
+            #  twins are folded before this loop ever runs; the fields
+            #  stay so the pages need no schema change
+            'twins': [], 'twinHolds': 0.0,
         })
 
     #  --- classify. Order of these tests matters: a false alarm must
     #  be caught BEFORE it lands on the order list. ---
     order, watch, dead, empty, records = [], [], [], [], []
     for it in items:
-        #  1. flagged low but the stock is really there (twin SKU, or
-        #     a count that found stock the system says it has none of)
-        if it['low'] and (it['twinHolds'] > 0 or (it['counted'] or 0) > 0):
-            it['why'] = ('twin' if it['twinHolds'] > 0 else 'uncounted')
+        #  1. flagged low but a count found stock the system has at
+        #     zero - a records problem, not a shortage. (Twin-SKU false
+        #     alarms no longer reach here; they are folded away above.)
+        if it['low'] and (it['counted'] or 0) > 0:
+            it['why'] = 'uncounted'
             records.append(it)
             continue
         #  2. will run out before the finish date at the current rate
@@ -345,6 +372,8 @@ def read(sales_path, stocktake_path, base, today=None):
         'dead': dead,
         'empty': empty,
         'records': records,
+        'folded': folded,
+        'foldedSkus': folded_skus,
         'lowFlags': sum(1 for it in items if it['low']),
         #  every reorder point in the export is zero - say so rather
         #  than let a reader assume the trigger came from SiteIQ

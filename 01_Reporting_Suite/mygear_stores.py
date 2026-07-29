@@ -567,6 +567,7 @@ def read(rental_path, stocktake_path, master=None, today=None,
                          'w': x.get('why', '')}
                         for x in rows[:n]]
             cons = {
+                'folded': cd.get('folded', 0),
                 'avail': int(cd['avail']), 'used': int(cd['used']),
                 'skus': cd['skus'], 'moves': cd['moves'],
                 'end': cd['end'], 'daysLeft': cd['daysLeft'],
@@ -1301,7 +1302,10 @@ function paneHits(){
    +'rule that is past it. Radios, gas monitors and Milwaukee batteries '
    +'come back daily; Milwaukee tooling gets three days. Same four rules '
    +'as the daily hit list in the report pack. Walk this list before '
-   +'smoko and most of it walks back in.</div>';
+   +'smoko and most of it walks back in.'
+   +'<br><button class="stmore" style="margin-top:10px" type="button" '
+   +'onclick="prSet(\\'hits\\');prGo()">&#128424; Print the walk-around sheet</button>'
+   +'</div>';
   rules.forEach(function(rl){
     if(!rl[3].length){
       h+='<div class="grp"><button type="button" onclick="tog(this)">'
@@ -1356,6 +1360,7 @@ function panePrint(){
    +'Wi-Fi printer there, or Save as PDF. Email opens Outlook on this '
    +'phone with the whole report written in, ready to send.</div>'
    +'<div class="prpick">'
+   +(D.hitN?'<button class="stmore" type="button" onclick="prSet(\\'hits\\')">Hit list ('+D.hitN+')</button>':'')
    +'<button class="stmore" type="button" onclick="prSet(\\'radios\\')">Radios on hire</button>'
    +'<button class="stmore" type="button" onclick="prSet(\\'gas\\')">Gas monitors on hire</button>'
    +'</div>'
@@ -1370,6 +1375,20 @@ function panePrint(){
 var PRCUR=null;
 function prRows(kind){
   var v;
+  if(kind==='hits'){
+    /* the walk-around sheet: every overdue item under its rule, so one
+       lap of the site clears the lot (Andrew, 29 Jul 2026: "add the
+       hit list print") */
+    var rows=[];
+    [['Radios - allowed a day',D.hits.radio],
+     ['Gas monitors - allowed a day',D.hits.gas||[]],
+     ['Milwaukee batteries - allowed a day',D.hits.bat],
+     ['Milwaukee tooling - allowed three days',D.hits.tool]]
+     .forEach(function(rl){ rl[1].forEach(function(x){
+       rows.push({n:x.n,u:rl[0],w:x.w,co:x.co,d:x.d,i:x.i,p:x.p}); }); });
+    return {t:'Hit list — overdue returns', r:rows,
+            sub:'past their return rule — the rule sits beside each item; one visit per name clears the lot'};
+  }
   if(kind==='radios') return {t:'Radios on hire',
     r:D.roster.filter(function(x){return x.u==='Radios'})};
   if(kind==='gas') return {t:'Gas monitors on hire',
@@ -1475,7 +1494,7 @@ function prGo(){
    +'<br>As at '+esc(ASOF)+'</div></div>'
    +'<div class="ptitle">'+esc(PRCUR.t)+'</div>'
    +'<div class="psub">'+PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')
-   +' on hire &middot; anything over 4 days is marked</div>'
+   +' &middot; '+(PRCUR.sub||'on hire &middot; anything over 4 days is marked')+'</div>'
    +body
    +'<div class="pfoot">Built from this morning&rsquo;s SiteIQ exports '
    +'&middot; read-only &middot; POWERED BY SITEIQ &middot; '
@@ -1511,23 +1530,26 @@ function paneCons(){
    +tile(c.order.length,'To order',c.order.length?'r':'g')
    +'</div>';
 
+  if(c.folded){
+    h+='<div class="note">'+c.folded+' duplicate SKU record'
+      +(c.folded===1?'':'s')+' folded into their live line &mdash; SiteIQ '
+      +'will not merge them, so this board does. One item, one line, the '
+      +'true total, and no false stock-low flags.</div>';
+  }
   if(c.records.length){
     h+='<div class="note"><b>Do not tell anyone we are out of these.</b> '
-      +'SiteIQ flags '+c.records.length+' lines as stock low. Every one of '
-      +'them was counted with gear on the shelf &mdash; they are records to '
-      +'fix, not gear to chase.</div>'
+      +'The system has them at zero, the count found gear on the shelf. '
+      +'Post the count in SiteIQ and the flag clears.</div>'
       +'<div class="grp"><button type="button" onclick="tog(this)">'
-      +'<div class="gn"><b>Says low, but the stock is there</b>'
+      +'<div class="gn"><b>Says low, but the count found stock</b>'
       +'<span>check the shelf before you say no</span></div>'
       +'<div class="gq"><b style="color:var(--am)">'+c.records.length+'</b>'
       +'<span>lines</span></div></button><div class="kids">'
       +c.records.map(function(x){
         return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em>'+(x.ct||0)+' counted</em></div><div class="kw">'
-          +(x.w==='twin'
-             ? 'Two SKU records for the one item &mdash; the other holds '+x.tw
-             : 'System says none, the count found stock')
-          +' &middot; '+esc(x.k)+'</div></div>';
+          +'System says none, the count found stock &middot; '+esc(x.k)
+          +'</div></div>';
       }).join('')+'</div></div>';
   }
 

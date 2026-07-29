@@ -406,30 +406,27 @@ def consumables_section(c):
       '<em>on the shelf all job</em></div>'.format(n0(len(c['dead']))))
     a('</div>')
 
-    # -- the false alarms first, because acting on them costs money --
+    # -- records noise, silenced at the source --
+    if c.get('folded'):
+        a('<div class="note"><b>{n} duplicate SKU record(s) folded away.</b> '
+          'SiteIQ carries the same item on two SKU records and will not '
+          'merge them, so this page does it instead: the duplicate&rsquo;s '
+          'stock, counts and sales are absorbed into the live line and the '
+          'false &ldquo;stock low&rdquo; flags they used to raise are gone. '
+          'One item, one line, the true total.</div>'.format(n=c['folded']))
     if c['records']:
-        a('<h3>Says &ldquo;stock low&rdquo; &mdash; but the stock is there</h3>')
-        a('<div class="note warn"><b>Do not order these.</b> SiteIQ flags '
-          '{n} lines as Stock Low. Every one of them either has a duplicate '
-          'SKU record holding the stock, or was counted with gear physically '
-          'on the shelf that the system thinks is at zero. These are records '
-          'to fix, not gear to buy.</div>'.format(n=len(c['records'])))
+        a('<h3>Says &ldquo;stock low&rdquo; &mdash; but the count found '
+          'stock</h3>')
+        a('<div class="note warn"><b>Do not order these.</b> The system has '
+          'them at zero, the stocktake found gear on the shelf. Post the '
+          'count in SiteIQ and the flag clears.</div>')
         a('<div class="scroll"><table><tr><th>Item</th><th>SKU</th>'
-          '<th class="n">System says</th><th class="n">Count found</th>'
-          '<th>What is actually wrong</th></tr>')
+          '<th class="n">System says</th><th class="n">Count found</th></tr>')
         for it in c['records']:
-            if it['why'] == 'twin':
-                what = ('Same item is on two SKU records &mdash; the other '
-                        'one ({t}) holds {n}. Merge them.'.format(
-                            t=esc(', '.join(it['twins'])),
-                            n=n0(it['twinHolds'])))
-            else:
-                what = ('System has it at zero, the count found stock. '
-                        'Post the count.')
             a('<tr><td>{d}</td><td>{s}</td><td class="n">{a}</td>'
-              '<td class="n">{c}</td><td>{w}</td></tr>'.format(
+              '<td class="n">{c}</td></tr>'.format(
                   d=esc(it['desc']), s=esc(it['sku']), a=n0(it['avail']),
-                  c=n0(it['counted'] or 0), w=what))
+                  c=n0(it['counted'] or 0)))
         a('</table></div>')
 
     # -- the real order list --
