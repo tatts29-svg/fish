@@ -280,6 +280,15 @@ def build():
     tc, eq = read_transactions(txn_path)
     rental_bc = read_rental(rental_path)    # barcode -> (asset no, current desc)
     sales_names = read_sales(sales_path)    # sku/barcode -> consumable name
+    #  What is actually ON THE SHELF this morning - the store catalogue
+    #  (Andrew, 29 Jul 2026: "saves them waiting and then being told no")
+    try:
+        import mygear_store
+        STOCK = mygear_store.read_availability(rental_path, sales_path, MASTER)
+    except Exception as _e:
+        print('  NOTE: store catalogue not built ({}) - the rest of the '
+              'page is unaffected.'.format(_e))
+        STOCK = {'hire': [], 'cons': [], 'stats': {}}
     # transactions run a day behind billing - the true coverage boundary is
     # the latest date actually present in the file; the card says so.
     txn_dates = [parse_date(r.get(k)) for r in tc + eq
@@ -536,6 +545,32 @@ def build():
     site_sorted = sorted(order, key=lambda i: (-computed[i]['score'], order.index(i)))
     site_rank = {i: n + 1 for n, i in enumerate(site_sorted)}
     site_avg = int(sum(c['score'] for c in computed.values()) / total + 0.5)
+
+    #  MOVEMENT - how each person is tracking against the last build.
+    #  Yesterday's board is read BEFORE today's is written, or everyone
+    #  would be compared against themselves and hold their spot forever.
+    _MOVE = {}
+    try:
+        import mygear_movement as _mv
+        _today_key = _mv.today_key()
+        _prev_day, _prev = _mv.previous_day(BASE, _today_key)
+        for _i in computed:
+            m = _mv.movement(_prev, _i, computed[_i]['score'], site_rank[_i])
+            if m:
+                _MOVE[_i] = m
+        _days = _mv.save(BASE, _today_key,
+                         {_i: {'score': computed[_i]['score'],
+                               'rank': site_rank[_i]} for _i in computed})
+        if _prev_day:
+            _up = sum(1 for m in _MOVE.values() if m['places'] > 0)
+            print('  Movement: compared against {} - {} people moved up, '
+                  '{} day(s) of history kept.'.format(_prev_day, _up, _days))
+        else:
+            print('  Movement: first scoreboard saved - arrows start '
+                  'appearing on tomorrow\'s build.')
+    except Exception as _e:
+        print('  NOTE: movement not available ({}) - scores still build.'
+              .format(_e))
     comp_of = {i: people[i]['company'].strip().upper() for i in order}
     crew_avg, crew_rank, crew_total = {}, {}, {}
     for co in set(comp_of.values()):
@@ -672,6 +707,9 @@ def build():
                      'crewPos': _co_rank.get(comp_of[idno], 0),
                      'crewOf': len(_co_rank)},
             'cmp': {'you': score, 'crew': crew_avg[idno], 'site': site_avg},
+            #  how they are tracking against yesterday - None on the very
+            #  first day, so the card says nothing rather than guessing
+            'move': _MOVE.get(idno),
             'mix': mix, 'story': story, 'items': items, 'aging': aging,
             'badges': badges, 'comp': _cn,
             'act': {'visits': visits, 'txns': txns, 'to': txn_to},
@@ -710,7 +748,24 @@ def build():
         print('  NOTE: jsQR.min.js is missing, so the Scan button will only '
               'work on phones with a built-in reader. Typing the ID still '
               'works everywhere.')
-    _shelf = mygear_ui.shelf_html(mygear_guides.guide_buttons())
+    #  the store catalogue rides in as one more guide screen - same
+    #  shelf button, same full-screen sheet, nothing new to learn
+    _store_btn, _store_pane = '', ''
+    if STOCK.get('hire') or STOCK.get('cons'):
+        _sst = STOCK['stats']
+        _store_btn = (
+            "<button class='gbtn' onclick=\"openGuide('store')\">"
+            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' "
+            "stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'>"
+            "<path d='M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zM4 8l2-4h12l2 4"
+            "M9 12h6'/></svg>"
+            "<div><b>What's in the store</b><span>{h} ready to hire &middot; "
+            "{c} consumable lines &mdash; search it</span></div>"
+            "<em>&rsaquo;</em></button>").format(
+                h=_sst.get('hireItems', 0), c=_sst.get('consLines', 0))
+        _store_pane = ("<div id='g-store' class='gpane'>"
+                       + mygear_store.pane(STOCK, asof) + "</div>")
+    _shelf = mygear_ui.shelf_html(mygear_guides.guide_buttons() + _store_btn)
     #  The site pulse - live numbers on the front door (Andrew, 28 Jul
     #  2026: "utilising all reports to provide as much data as we can").
     #  Every figure is computed above from today's exports; the counters
@@ -718,17 +773,33 @@ def build():
     _sd_site = sum(c['same'] for c in computed.values())
     _esc_py = lambda s: (str(s).replace('&', '&amp;').replace('<', '&lt;')
                          .replace('>', '&gt;'))
+    #  ACTIVE people, not carded people (Andrew, 29 Jul 2026: "total
+    #  active people using the store, not total of people added into the
+    #  database"). A card in the drawer is not a user - a transaction is.
+    #  The site plant pool is a location, not a person, and is excluded
+    #  or it would sit top of every board with hundreds of movements.
+    _active = {norm_name(r.get('HIRER_NAME')) for r in tc + eq}
+    _active = {n for n in _active if n and not skip_pool(n)}
+    _firms = {str(r.get('EMPLOYER_NAME') or '').strip() for r in tc + eq}
+    _firms |= {str(p.get('comp') or '').strip() for p in people.values()}
+    _firms = {f for f in _firms if f and f.lower() not in ('', 'none')}
+    _st = STOCK.get('stats', {})
+    def _pu(v, label, sub=''):
+        return ('<span class="pu"><b class="pv" data-to="{v}">0</b>{l}'
+                '{s}</span>').format(v=v, l=label,
+                                     s=('<i>' + sub + '</i>') if sub else '')
     pulse = ('<div class="pulse">'
-             '<span class="pu"><b class="pv" data-to="{i}">0</b>'
-             'ITEMS OUT NOW</span>'
-             '<span class="pu"><b class="pv" data-to="{c}">0</b>'
-             'CREW CARDED</span>'
-             '<span class="pu"><b class="pv" data-to="{s}">0</b>'
-             'SAME-DAY RETURNS</span>'
+             + _pu(len(_active), 'USING THE STORE',
+                   '{} carded'.format(total))
+             + _pu(len(_firms), 'COMPANIES')
+             + _pu(tot_items, 'ITEMS OUT NOW')
+             + (_pu(_st.get('hireItems', 0), 'READY TO HIRE',
+                    '{} different things'.format(_st.get('hireLines', 0)))
+                if _st.get('hireItems') else '')
+             + _pu(_sd_site, 'SAME-DAY RETURNS')
              + ('<span class="pu"><b class="pvt">{t}</b>TOP CREW</span>'
                 if top_crew else '')
-             + '</div>').format(i=tot_items, c=total, s=_sd_site,
-                                t=_esc_py(top_crew.title()))
+             + '</div>').format(t=_esc_py(top_crew.title()) if top_crew else '')
     page = (TEMPLATE
             .replace('__DATA__', json.dumps(DATA))
             .replace('__PULSE__', pulse)
@@ -737,7 +808,13 @@ def build():
             .replace('__IDROW__', mygear_ui.ID_ROW)
             .replace('__SHELF__', _shelf)
             .replace('__SHEET__', mygear_ui.sheet_html(
-                mygear_guides.guides_html()))
+                mygear_guides.guides_html() + _store_pane))
+            .replace('__STORECSS__', mygear_store.CSS if _store_pane else '')
+            .replace('__STOREJS__',
+                     ('var STORE=' + json.dumps(
+                         STOCK['hire'] + STOCK['cons'],
+                         separators=(',', ':')) + ';\n' + mygear_store.JS)
+                     if _store_pane else 'var STORE=[];')
             .replace('__UIJS__', (_jsqr + '\n' if _jsqr else '')
                      + mygear_ui.JS))
     out_dir = os.path.join(BASE, 'Gear_Lookup')
@@ -876,8 +953,9 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 /* ---- ELITE PASS 2 (Andrew, 28 Jul 2026): neon numbers, the site
    pulse on the front door, shimmer on the title, and a contacts
    button that is never more than one thumb away. ---- */
-.pulse{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;margin:12px 0 2px;animation:fup .6s .15s ease both}
-.pulse .pu{display:flex;flex-direction:column;align-items:center;font-size:8.5px;letter-spacing:1.6px;color:var(--mut);font-weight:700}
+.pulse{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;margin:12px 0 2px;animation:fup .6s .15s ease both}
+.pulse .pu{display:flex;flex-direction:column;align-items:center;font-size:8.5px;letter-spacing:1.6px;color:var(--mut);font-weight:700;text-align:center}
+.pulse .pu i{display:block;font-style:normal;font-size:8px;letter-spacing:.7px;color:#6E7A8A;margin-top:2px;text-transform:none}
 .pulse .pv{font-size:22px;letter-spacing:0;color:#EFFF3D;font-weight:850;text-shadow:0 0 14px rgba(239,255,61,.4);line-height:1.15;font-variant-numeric:tabular-nums}
 .pulse .pvt{font-size:13px;letter-spacing:.4px;color:#EFFF3D;font-weight:850;text-shadow:0 0 12px rgba(239,255,61,.35);line-height:1.65;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mg b{background:linear-gradient(100deg,#F26222 25%,#FFB347 42%,#EFFF3D 50%,#FFB347 58%,#F26222 75%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:mgshine 6s ease-in-out infinite}
@@ -892,6 +970,7 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .lgheld b{color:var(--tx)}
 @media (prefers-reduced-motion: reduce){.pulse,.mg b,.qcall{animation:none}}
 __UICSS__
+__STORECSS__
 </style></head><body><div class="wrap">
 <div class="brand"><div class="logo">coates<b>Equipped for anything</b></div><div class="siteiq">POWERED BY SITEIQ<br><span style="color:#8B9099;font-weight:600;letter-spacing:0">Cement Australia K2 &middot; Gladstone</span></div></div>
 <div id="landing"><div class="hero">
@@ -1033,6 +1112,7 @@ function go(){
 }
 function reset(){document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
 document.getElementById('idno').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+__STOREJS__
 __UIJS__
 // self-test
 try{var ok=JSON.parse(dec('SELFTEST',DATA[tag('SELFTEST')])).name==='SELFTEST';if(!ok)console.warn('selftest fail')}catch(e){console.warn('selftest err',e)}

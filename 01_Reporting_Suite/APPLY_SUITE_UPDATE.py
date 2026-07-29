@@ -58,6 +58,10 @@ PROTECTED = (
     "consumable_requests.xlsx",
     "sync_folder.txt",
     "no_outlook.txt",
+    #  the My Gear scoreboard - the only record of yesterday there is.
+    #  An update that overwrote it would wipe every "up 3 places" arrow
+    #  on site and there is no way to rebuild it. (29 Jul 2026)
+    "mygear_history.json",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan")
 

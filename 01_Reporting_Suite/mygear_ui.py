@@ -607,7 +607,7 @@ function downloadCard(f){
    THE SITE GUIDES - contact board, radio, gas monitor
 ------------------------------------------------------------------ */
 var GUIDE_TITLES={contacts:'Contact board',radio:'Your two-way radio',
-                  gas:'Your gas monitor'};
+                  gas:'Your gas monitor',store:"What's in the store"};
 function openGuide(k){
   var panes=document.querySelectorAll('.gpane');
   for(var i=0;i<panes.length;i++) panes[i].className='gpane';
@@ -616,6 +616,10 @@ function openGuide(k){
   document.getElementById('gsheet').className='gsheet on';
   document.getElementById('gsbody').scrollTop=0;
   document.body.style.overflow='hidden';
+  /* the store screen paints its list the first time it is opened, and
+     puts the cursor nowhere - a keyboard flying up in a bloke's face
+     before he has even looked at the aisles is not helpful */
+  if(k==='store' && typeof stRender==='function') stRender(true);
   if(history&&history.pushState) history.pushState({guide:k},'');
 }
 function closeGuide(){
