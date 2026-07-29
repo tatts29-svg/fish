@@ -57,8 +57,11 @@ CSS = """
   print-color-adjust:exact}
 body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   font-family:'Segoe UI',Calibri,Arial,sans-serif;padding:14mm 13mm}
+/*  bottom padding reserves the strip the absolute .foot sits in, so
+    flow content can never run underneath it however much the sheet
+    grows (it did, 29 Jul 2026)  */
 .frame{height:100%;border:2.2mm solid #F26222;border-radius:9mm;
-  padding:11mm 11mm 9mm;position:relative;overflow:hidden;
+  padding:11mm 11mm 17mm;position:relative;overflow:hidden;
   background:radial-gradient(120% 60% at 50% -8%,#1A2432 0%,#0C111A 55%,#0A0E14 100%);
   box-shadow:inset 0 0 26mm rgba(242,98,34,.10)}
 .top{display:flex;justify-content:space-between;align-items:flex-start}
@@ -70,22 +73,26 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   letter-spacing:2px}
 .siq small{display:block;color:#8A97A8;font-size:9.5pt;font-weight:600;
   letter-spacing:.6px;margin-top:1.6mm;text-transform:none}
-.hero{text-align:center;margin:9mm 0 2mm}
-.hero h1{font-size:74pt;font-weight:900;letter-spacing:-3px;line-height:.92;
-  color:#fff;text-shadow:0 0 14mm rgba(242,98,34,.45)}
-.hero h1 span{color:#F26222}
+.hero{text-align:center;margin:8mm 0 2mm}
+.hero h1{font-size:84pt;font-weight:900;letter-spacing:-3.5px;line-height:.9;
+  color:#fff;text-shadow:0 0 16mm rgba(242,98,34,.55)}
+.hero h1 span{color:#F26222;text-shadow:0 0 10mm rgba(242,98,34,.8)}
 .hero h1 em{font-style:normal}
-.kick{font-size:12.5pt;font-weight:900;letter-spacing:7px;color:#8A97A8;
-  margin-top:4mm}
-.tag{font-size:15pt;color:#C3CDDA;margin-top:3.5mm}
+.hero .sweep{width:96mm;height:1.6mm;margin:4mm auto 0;border-radius:1mm;
+  background:linear-gradient(90deg,transparent,#F26222 30%,#EFFF3D 50%,
+  #F26222 70%,transparent);filter:blur(.15mm)}
+.kick{font-size:13pt;font-weight:900;letter-spacing:8px;color:#EFFF3D;
+  margin-top:4mm;text-shadow:0 0 6mm rgba(239,255,61,.5)}
+.tag{font-size:16pt;color:#C3CDDA;margin-top:3mm}
 .tag b{color:#fff}
-.cabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin:9mm 0 8mm}
+.cabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin:7mm 0 6mm}
 .cab{position:relative;background:linear-gradient(180deg,#151A22,#10141B);
   border:.4mm solid #2A313C;border-radius:4mm;padding:6mm 2mm 4.5mm;
   text-align:center;overflow:hidden;color:#F26222}
 .cab:before{content:"";position:absolute;top:0;left:14%;right:14%;height:1mm;
   border-radius:0 0 2mm 2mm;
-  background:linear-gradient(90deg,transparent,#F26222,transparent);
+  background:linear-gradient(90deg,transparent,#F26222 35%,#EFFF3D 50%,
+  #F26222 65%,transparent);
   filter:blur(.4mm)}
 .cab b{display:block;font-size:10pt;font-weight:900;letter-spacing:1.6px;
   text-transform:uppercase;color:#EAF0F7;margin-top:2.5mm}
@@ -94,14 +101,15 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   border:.5mm solid #28323F;border-radius:6mm;padding:7mm 6mm 6mm;
   text-align:center}
 .qc .n{position:absolute;top:-6mm;left:50%;transform:translateX(-50%);
-  width:12mm;height:12mm;border-radius:50%;background:#F26222;color:#fff;
-  font-size:17pt;font-weight:900;display:flex;align-items:center;
-  justify-content:center;box-shadow:0 0 9mm rgba(242,98,34,.65)}
-.qc h3{font-size:16pt;font-weight:900;margin:3mm 0 1.5mm;color:#fff;
+  width:13mm;height:13mm;border-radius:50%;background:#F26222;color:#fff;
+  font-size:18pt;font-weight:900;display:flex;align-items:center;
+  justify-content:center;box-shadow:0 0 10mm rgba(242,98,34,.75),
+  0 0 0 .8mm #0A0E14,0 0 0 1.4mm #EFFF3D}
+.qc h3{font-size:17pt;font-weight:900;margin:3.5mm 0 1.5mm;color:#fff;
   letter-spacing:.4px}
-.qc .h{font-size:10.5pt;color:#8A97A8;margin-bottom:4mm}
+.qc .h{font-size:11pt;color:#8A97A8;margin-bottom:4mm}
 .qbox{position:relative;display:inline-block;background:#fff;
-  padding:4mm;border-radius:4mm;box-shadow:0 0 12mm rgba(242,98,34,.30)}
+  padding:4mm;border-radius:4mm;box-shadow:0 0 14mm rgba(242,98,34,.40)}
 .qbox i{position:absolute;width:7mm;height:7mm;border:1mm solid #F26222}
 .qbox .c1{top:-2mm;left:-2mm;border-right:0;border-bottom:0;
   border-radius:2mm 0 0 0}
@@ -111,18 +119,39 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   border-radius:0 0 0 2mm}
 .qbox .c4{bottom:-2mm;right:-2mm;border-left:0;border-top:0;
   border-radius:0 0 2mm 0}
-.qc .u{font-size:9.5pt;color:#8A97A8;margin-top:4mm;word-break:break-all;
+.qc .u{font-size:10pt;color:#8A97A8;margin-top:4mm;word-break:break-all;
   font-family:Consolas,monospace}
-.after{margin-top:8mm;background:linear-gradient(180deg,#151C27,#0E141D);
+/*  A3 only (.steps exists on the big poster alone): the codes are the
+    whole point of the sheet, so on A3 they are drawn as large as the
+    card allows - a bloke reads this from across the store, not with
+    the sheet in his hand. SVG, so it scales with no loss.  */
+.steps .qbox svg{display:block;width:82mm;height:82mm}
+/*  The promise band - three things that are true of My Gear and that
+    every crew asks before they scan. It also carries the bottom of the
+    sheet: without it the poster runs out of words 5cm early and reads
+    unfinished.  */
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;
+  margin-top:5mm}
+.promise div{position:relative;text-align:center;padding:5mm 3mm 4.5mm;
+  border:.4mm solid #2A313C;border-radius:4mm;
+  background:linear-gradient(180deg,#151A22,#10141B);overflow:hidden}
+.promise div:before{content:"";position:absolute;top:0;left:20%;right:20%;
+  height:.9mm;background:linear-gradient(90deg,transparent,#EFFF3D,transparent);
+  filter:blur(.3mm)}
+.promise b{display:block;font-size:15pt;font-weight:900;color:#fff;
+  letter-spacing:.3px}
+.promise span{display:block;font-size:10pt;color:#8A97A8;margin-top:1.6mm}
+.after{margin-top:6mm;background:linear-gradient(180deg,#151C27,#0E141D);
   border:.5mm solid #28323F;border-left:1.4mm solid #F26222;
   border-radius:5mm;padding:6mm 7mm}
 .after h4{font-size:12pt;font-weight:900;letter-spacing:2.5px;color:#F26222;
   text-transform:uppercase}
+.after h4 span{color:#EFFF3D}
 .after .row{display:grid;grid-template-columns:repeat(4,1fr);gap:5mm;
   margin-top:4mm}
 .after .row div{font-size:11pt;color:#C3CDDA;line-height:1.5}
 .after .row b{display:block;color:#fff;font-size:12pt;margin-bottom:1mm}
-.note{margin-top:6mm;text-align:center;font-size:11pt;color:#C3CDDA}
+.note{margin-top:5mm;text-align:center;font-size:11pt;color:#C3CDDA}
 .note b{color:#F26222}
 .foot{position:absolute;left:11mm;right:11mm;bottom:6mm;text-align:center;
   font-size:9pt;color:#6C7A8C;border-top:.3mm solid #28323F;padding-top:3.5mm}
@@ -153,9 +182,10 @@ body{background:#fff;color:#111}
 .siq{color:#111}
 .siq small{color:#444}
 .hero h1{color:#111;text-shadow:none}
-.hero h1 span{color:#111}
+.hero h1 span{color:#111;text-shadow:none}
 .hero h1 em{font-style:normal;color:#666}
-.kick{color:#444}
+.hero .sweep{background:#111;filter:none;height:1mm}
+.kick{color:#444;text-shadow:none}
 .tag{color:#333}
 .tag b{color:#111}
 .cab{background:#fff;border:.5mm solid #111;color:#111}
@@ -163,7 +193,7 @@ body{background:#fff;color:#111}
   border-radius:0 0 1mm 1mm}
 .cab b{color:#111}
 .qc{background:#fff;border:.6mm solid #111}
-.qc .n{background:#111;color:#fff;box-shadow:none}
+.qc .n{background:#111;color:#fff;box-shadow:0 0 0 .8mm #fff,0 0 0 1.4mm #111}
 .qc h3{color:#111}
 .qc .h{color:#444}
 .qbox{box-shadow:none;padding:3mm;border-radius:0}
@@ -171,10 +201,15 @@ body{background:#fff;color:#111}
 .qc .u{color:#333}
 .after{background:#fff;border:.5mm solid #111;border-left:1.8mm solid #111}
 .after h4{color:#111}
+.after h4 span{color:#444}
 .after .row div{color:#333}
 .after .row b{color:#111}
 .note{color:#333}
 .note b{color:#111}
+.promise div{background:#fff;border:.5mm solid #111}
+.promise div:before{background:#111;filter:none;height:1mm}
+.promise b{color:#111}
+.promise span{color:#444}
 .foot{color:#444;border-top:.3mm solid #111}
 .foot b{color:#111}
 """
@@ -224,18 +259,28 @@ def poster_html(url, wifi=None, wifi_name="", mono=False):
             "<div class='siq'>POWERED BY SITEIQ"
             "<small>Cement Australia K2 &middot; Gladstone</small></div></div>"
             "<div class='hero'><h1><em>MY</em> <span>GEAR</span></h1>"
+            "<div class='sweep'></div>"
             "<div class='kick'>K2 DIGITAL TOOL STORE</div>"
-            "<div class='tag'>Your gear. Your responsibility. "
+            "<div class='tag'>Your gear. Your score. Your crew's standing. "
             "<b>One scan.</b></div></div>"
             + "<div class='cabs'>" + cabs + "</div>"
             + "<div class='steps'>" + cards + "</div>"
-            + "<div class='after'><h4>What you get when you're in</h4>"
+            + "<div class='after'><h4>What you get when you're in "
+              "<span>&mdash; live, every morning</span></h4>"
               "<div class='row'>"
               "<div><b>Every item</b>in your name, oldest first</div>"
               "<div><b>What it needs</b>tag colour, logbook, back daily</div>"
-              "<div><b>Your score</b>returns rank across the site</div>"
-              "<div><b>Print or save</b>A4 sheet or straight to your phone</div>"
+              "<div><b>Your scorecard</b>you v your crew v the site</div>"
+              "<div><b>Site contacts</b>one tap to call the store</div>"
               "</div></div>"
+              "<div class='promise'>"
+              "<div><b>No app to install</b><span>It's a web page &mdash; "
+              "nothing to download</span></div>"
+              "<div><b>No login, no password</b><span>Your hire ID opens "
+              "your list, and only yours</span></div>"
+              "<div><b>Any phone, 30 seconds</b><span>Two scans and you're "
+              "looking at your gear</span></div>"
+              "</div>"
               "<div class='note'><b>Updated once a day, about 7:00 AM.</b> "
               "Anything taken or handed back since then shows tomorrow.</div>"
               "<div class='foot'>Locked to your own ID &mdash; a wrong number "
