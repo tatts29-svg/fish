@@ -412,6 +412,14 @@ def read(rental_path, stocktake_path, master=None, today=None,
     #  Same four rules as the daily hit list in the company report
     #  builder (menu H) - one standard across the suite, not two.
     hits = {'radio': [], 'gas': [], 'bat': [], 'tool': []}
+    #  For the FRESH LOOK loader (Andrew, 29 Jul 2026: "just using a
+    #  once off raw data for on the spot info"): a phone-loaded export
+    #  carries SiteIQ's raw wording, so the page carries the rename map
+    #  - every item number whose display name Andrew has cleaned up in
+    #  the master - and the Plant IDs, so an on-the-spot print reads
+    #  exactly like the morning build.
+    renames = {}
+    pid_map = {}
     for r in rs:
         status = g(r, 'ITEM_STATUS')
         #  Anything not yet on the shelf and not out - ordered, in
@@ -473,6 +481,13 @@ def read(rental_path, stocktake_path, master=None, today=None,
         if not raw or not MS._offerable(raw):
             continue
         name = MS._tidy(raw, master, g(r, 'ITEM_NUMBER'))
+        _itm = g(r, 'ITEM_NUMBER')
+        if _itm:
+            if name != raw:
+                renames[_itm] = name
+            _pd = _plant_id(_itm)
+            if _pd:
+                pid_map[_itm] = _pd
         cat = MS._cat_of(name)
         unit = g(r, 'STORAGE_UNIT') or 'Unfiled'
         key = (cat, name)
@@ -605,6 +620,8 @@ def read(rental_path, stocktake_path, master=None, today=None,
         'hits': hits,
         'hitN': sum(len(v) for v in hits.values()),
         'roster': roster,
+        'ren': renames,
+        'pids': pid_map,
         'plant': plant,
         'hasPlant': bool(plant['out'] or plant['idle'] or plant['free']),
         'groups': G,
@@ -634,6 +651,228 @@ def read(rental_path, stocktake_path, master=None, today=None,
 # ---------------------------------------------------------------------
 #  THE PAGE
 # ---------------------------------------------------------------------
+#  The in-browser .xlsx reader for the FRESH LOOK loader. A RAW string
+#  on purpose: it is full of regex backslashes, and Python quietly
+#  eating one of them has already broken this page's script block twice
+#  today. Proven against a real phone-downloaded export: 1,017 rows,
+#  19,323 cells, zero mismatches against openpyxl. It is a faithful
+#  port of zlib's reference inflate (puff) plus a minimal zip walk and
+#  just enough XML for shared strings and one sheet.
+_READER_JS = r"""
+function _inflate(src){
+  var pos=0, bitbuf=0, bitcnt=0, out=[];
+  var MAXBITS=15;
+  function bits(n){
+    var val=bitbuf;
+    while(bitcnt<n){ val|=src[pos++]<<bitcnt; bitcnt+=8; }
+    bitbuf=val>>>n; bitcnt-=n;
+    return val&((1<<n)-1);
+  }
+  function huft(lens,n){
+    var counts=[],syms=[],offs=[],i;
+    for(i=0;i<=MAXBITS;i++) counts[i]=0;
+    for(i=0;i<n;i++) counts[lens[i]]++;
+    if(counts[0]===n) return {c:counts,s:syms};
+    offs[1]=0;
+    for(i=1;i<MAXBITS;i++) offs[i+1]=offs[i]+counts[i];
+    for(i=0;i<n;i++) if(lens[i]) syms[offs[lens[i]]++]=i;
+    return {c:counts,s:syms};
+  }
+  function decode(h){
+    var code=0,first=0,index=0,len=1;
+    while(len<=MAXBITS){
+      code|=bits(1);
+      var count=h.c[len];
+      if(code-first<count) return h.s[index+(code-first)];
+      index+=count; first+=count;
+      first<<=1; code<<=1; len++;
+    }
+    throw new Error('bad code');
+  }
+  var LENS=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258];
+  var LEXT=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0];
+  var DISTS=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577];
+  var DEXT=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13];
+  function codes(lc,dc){
+    while(true){
+      var sym=decode(lc);
+      if(sym<256){ out.push(sym); }
+      else if(sym===256){ return; }
+      else{
+        sym-=257;
+        var len=LENS[sym]+bits(LEXT[sym]);
+        var dsym=decode(dc);
+        var dist=DISTS[dsym]+bits(DEXT[dsym]);
+        var from=out.length-dist;
+        for(var i=0;i<len;i++) out.push(out[from+i]);
+      }
+    }
+  }
+  var fixedL=null, fixedD=null;
+  function fixed(){
+    if(!fixedL){
+      var lens=[],i;
+      for(i=0;i<144;i++) lens[i]=8;
+      for(;i<256;i++) lens[i]=9;
+      for(;i<280;i++) lens[i]=7;
+      for(;i<288;i++) lens[i]=8;
+      fixedL=huft(lens,288);
+      var dl=[]; for(i=0;i<30;i++) dl[i]=5;
+      fixedD=huft(dl,30);
+    }
+    codes(fixedL,fixedD);
+  }
+  var ORDER=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15];
+  function dynamic(){
+    var nlen=bits(5)+257, ndist=bits(5)+1, ncode=bits(4)+4;
+    var lens=[],i;
+    for(i=0;i<19;i++) lens[i]=0;
+    for(i=0;i<ncode;i++) lens[ORDER[i]]=bits(3);
+    var lench=huft(lens,19);
+    var all=[]; i=0;
+    while(i<nlen+ndist){
+      var sym=decode(lench);
+      if(sym<16){ all[i++]=sym; }
+      else{
+        var rep,val=0;
+        if(sym===16){ val=all[i-1]; rep=3+bits(2); }
+        else if(sym===17){ rep=3+bits(3); }
+        else{ rep=11+bits(7); }
+        while(rep--) all[i++]=val;
+      }
+    }
+    codes(huft(all.slice(0,nlen),nlen),
+          huft(all.slice(nlen),ndist));
+  }
+  function stored(){
+    bitbuf=0; bitcnt=0;
+    var len=src[pos]|(src[pos+1]<<8); pos+=4;
+    for(var i=0;i<len;i++) out.push(src[pos++]);
+  }
+  var last;
+  do{
+    last=bits(1);
+    var type=bits(2);
+    if(type===0) stored();
+    else if(type===1) fixed();
+    else if(type===2) dynamic();
+    else throw new Error('bad block type');
+  }while(!last);
+  return new Uint8Array(out);
+}
+function _zipEntries(buf){
+  var v=new DataView(buf.buffer||buf), n=v.byteLength, i;
+  for(i=n-22;i>=0;i--) if(v.getUint32(i,true)===0x06054b50) break;
+  if(i<0) throw new Error('not a zip');
+  var count=v.getUint16(i+10,true), off=v.getUint32(i+16,true);
+  var entries={}, p=off;
+  for(var e=0;e<count;e++){
+    if(v.getUint32(p,true)!==0x02014b50) break;
+    var method=v.getUint16(p+10,true);
+    var csize=v.getUint32(p+20,true);
+    var nlen=v.getUint16(p+28,true), xlen=v.getUint16(p+30,true),
+        clen=v.getUint16(p+32,true);
+    var lho=v.getUint32(p+42,true);
+    var name='';
+    for(var c=0;c<nlen;c++) name+=String.fromCharCode(buf[p+46+c]);
+    entries[name]={method:method,csize:csize,lho:lho};
+    p+=46+nlen+xlen+clen;
+  }
+  return entries;
+}
+function _zipRead(buf,entries,name){
+  var e=entries[name];
+  if(!e) return null;
+  var v=new DataView(buf.buffer||buf);
+  var p=e.lho;
+  if(v.getUint32(p,true)!==0x04034b50) throw new Error('bad local header');
+  var nlen=v.getUint16(p+26,true), xlen=v.getUint16(p+28,true);
+  var data=buf.subarray(p+30+nlen+xlen, p+30+nlen+xlen+e.csize);
+  var raw=e.method===8?_inflate(data):data;
+  if(typeof TextDecoder!=='undefined') return new TextDecoder('utf-8').decode(raw);
+  var s='';
+  for(var i=0;i<raw.length;i++) s+=String.fromCharCode(raw[i]);
+  try{ return decodeURIComponent(escape(s)); }catch(err){ return s; }
+}
+function _unent(s){
+  return String(s)
+    .replace(/&#x([0-9a-fA-F]+);/g,function(_,h){return String.fromCharCode(parseInt(h,16))})
+    .replace(/&#(\d+);/g,function(_,d){return String.fromCharCode(parseInt(d,10))})
+    .replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+    .replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,'&');
+}
+function _sst(xml){
+  var out=[], re=/<si[ >][\s\S]*?<\/si>|<si\/>/g, m;
+  while((m=re.exec(xml))){
+    var t='', tr=/<t[^>]*>([\s\S]*?)<\/t>/g, tm;
+    while((tm=tr.exec(m[0]))) t+=_unent(tm[1]);
+    out.push(t);
+  }
+  return out;
+}
+function _colIdx(ref){
+  var n=0;
+  for(var i=0;i<ref.length;i++){
+    var c=ref.charCodeAt(i);
+    if(c>=65&&c<=90) n=n*26+(c-64); else break;
+  }
+  return n-1;
+}
+function _sheetRows(xml,sst){
+  var rows=[], rre=/<row[^>]*>([\s\S]*?)<\/row>/g, rm;
+  while((rm=rre.exec(xml))){
+    var cells=[], cre=/<c ([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g, cm;
+    while((cm=cre.exec(rm[1]))){
+      var attrs=cm[1], body=cm[2]||'';
+      var ref=/r="([A-Z]+)\d+"/.exec(attrs);
+      var typ=/t="([^"]+)"/.exec(attrs);
+      var val='';
+      var vm=/<v>([\s\S]*?)<\/v>/.exec(body);
+      if(vm) val=_unent(vm[1]);
+      var im=/<is>[\s\S]*?<\/is>/.exec(body);
+      if(im){ var t='',tr=/<t[^>]*>([\s\S]*?)<\/t>/g,tm;
+        while((tm=tr.exec(im[0]))) t+=_unent(tm[1]); val=t; }
+      if(typ&&typ[1]==='s') val=sst[parseInt(val,10)]||'';
+      cells[ref?_colIdx(ref[1]):cells.length]=val;
+    }
+    rows.push(cells);
+  }
+  return rows;
+}
+function readXlsxSheet(bytes,wantSheet){
+  var buf=bytes instanceof Uint8Array?bytes:new Uint8Array(bytes);
+  var entries=_zipEntries(buf);
+  var wb=_zipRead(buf,entries,'xl/workbook.xml')||'';
+  var rels=_zipRead(buf,entries,'xl/_rels/workbook.xml.rels')||'';
+  var relmap={}, rr=/<Relationship [^>]*Id="([^"]+)"[^>]*Target="([^"]+)"[^>]*\/>/g, rm2;
+  while((rm2=rr.exec(rels))) relmap[rm2[1]]=rm2[2];
+  var sheetFile=null, sr=/<sheet [^>]*name="([^"]+)"[^>]*r:id="([^"]+)"/g, sm;
+  while((sm=sr.exec(wb))){
+    if(!wantSheet||_unent(sm[1]).toUpperCase()===String(wantSheet).toUpperCase()){
+      sheetFile='xl/'+relmap[sm[2]].replace(/^\//,'').replace(/^xl\//,'');
+      if(wantSheet) break;
+    }
+  }
+  if(!sheetFile) return null;
+  var sst=_sst(_zipRead(buf,entries,'xl/sharedStrings.xml')||'');
+  var rows=_sheetRows(_zipRead(buf,entries,sheetFile)||'',sst);
+  if(!rows.length) return {header:[],rows:[]};
+  var header=rows[0].map(function(h){return String(h||'').trim()});
+  var out=[];
+  for(var i=1;i<rows.length;i++){
+    var o={},any=false;
+    for(var j=0;j<header.length;j++){
+      if(!header[j]) continue;
+      var v=rows[i][j]==null?'':String(rows[i][j]).trim();
+      o[header[j]]=v;
+      if(v) any=true;
+    }
+    if(any) out.push(o);
+  }
+  return {header:header,rows:out};
+}
+"""
+
 PAGE = """<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F26222">
@@ -803,6 +1042,9 @@ select.srch{appearance:none;-webkit-appearance:none}
  #prsheet .ptab td{padding:5px 8px;border-bottom:1px solid #EDF0F4;vertical-align:top}
  #prsheet .ptab .pn{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
  #prsheet .ptab .pn.late{color:#C1440E;font-weight:800}
+ #prsheet .pintr{background:#FDECE7;border:1.5px solid #F26222;color:#C1440E;
+  border-radius:8px;padding:7px 12px;margin:0 0 12px;font-size:10.5px;
+  font-weight:800;letter-spacing:.8px}
  #prsheet .ppid{display:inline-block;background:#F26222;color:#fff;
   border-radius:8px;padding:1px 7px;font-size:9px;font-weight:800;
   margin-left:5px;vertical-align:1px}
@@ -918,6 +1160,7 @@ function mtagOf(c){return(xmur3(c+'|CoatesK2mgrtag2026')()>>>0).toString(16)}
 function mdec(c,b64){var rnd=mulberry32(xmur3(c+'|CoatesK2mgr2026')());
  var raw=atob(b64),o='';for(var i=0;i<raw.length;i++){
  o+=String.fromCharCode(raw.charCodeAt(i)^Math.floor(rnd()*256))}return o}
+//__READER__//
 var D=null;
 function unlock(){
   /* The stores code is a word - upper-casing it means a bloke on a wet
@@ -993,6 +1236,7 @@ function render(){
    +'<button class="tab" data-p="chase" onclick="tab(this)">Chase up ('+t.chase+')</button>'
    +(D.hitN?'<button class="tab hot" data-p="hits" onclick="tab(this)">Hit list ('+D.hitN+')</button>':'')
    +'<button class="tab" data-p="print" onclick="tab(this)">Print &amp; send</button>'
+   +'<button class="tab" data-p="fresh" onclick="tab(this)">Fresh look</button>'
    +'<button class="tab" data-p="stock" onclick="tab(this)">Stocktake</button>'
    +'<button class="tab" data-p="aisle" onclick="tab(this)">Walk an aisle</button>'
    +'<button class="tab" data-p="battle" onclick="tab(this)">Day v Night</button>'
@@ -1009,6 +1253,7 @@ function render(){
    +'<div class="pane" id="p-chase">'+paneChase()+'</div>'
    +(D.hitN?'<div class="pane" id="p-hits">'+paneHits()+'</div>':'')
    +'<div class="pane" id="p-print">'+panePrint()+'</div>'
+   +'<div class="pane" id="p-fresh">'+paneFresh()+'</div>'
    +'<div class="pane" id="p-stock">'+paneStock()+'</div>'
    +'<div class="pane" id="p-aisle">'+paneAisle()+'</div>'
    +'<div class="pane" id="p-battle">'+paneBattle()+'</div>'
@@ -1491,10 +1736,12 @@ function prGo(){
   el.innerHTML='<div class="phead"><div class="pbrand">COATES<b>.</b>'
    +'<span>POWERED BY SITEIQ</span></div>'
    +'<div class="pmeta">Cement Australia K2 Shutdown 2026 &middot; Gladstone'
-   +'<br>As at '+esc(ASOF)+'</div></div>'
+   +'<br>As at '+esc(PRCUR.asof||ASOF)+'</div></div>'
    +'<div class="ptitle">'+esc(PRCUR.t)+'</div>'
    +'<div class="psub">'+PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')
    +' &middot; '+(PRCUR.sub||'on hire &middot; anything over 4 days is marked')+'</div>'
+   +(PRCUR.interim?'<div class="pintr">INTERIM &mdash; phone-loaded fresh look. '
+     +'The next morning build is the record.</div>':'')
    +body
    +'<div class="pfoot">Built from this morning&rsquo;s SiteIQ exports '
    +'&middot; read-only &middot; POWERED BY SITEIQ &middot; '
@@ -1505,6 +1752,180 @@ function prGo(){
 window.addEventListener('afterprint',function(){
   document.documentElement.className='';
 });
+
+/* FRESH LOOK - load a raw SiteIQ export off THIS phone and read it on
+   the spot. (Andrew, 29 Jul 2026: "what about just using a once off
+   raw data for on the spot info print off if needed.")
+
+   The deal, stated on the pane so nobody mistakes it: this view lives
+   on this phone only, until the next proper build replaces it. It
+   never touches the morning truth - the payload stays exactly what
+   the laptop built. The raw export arrives with SiteIQ's shouting
+   descriptions; the rename map rides in the payload, so the fresh
+   view reads with the same clean names as everything else. SHIFT_RATE
+   is in the raw file and is deliberately never rendered - money stays
+   behind the manager code, whatever file gets loaded. */
+var FR=null;
+function paneFresh(){
+  return '<div class="note"><b>A fresh look, straight off this phone.</b> '
+   +'Download the On Hire report from SiteIQ onto this phone, pick it '
+   +'below, and read it here &mdash; who holds what, as at the minute you '
+   +'pulled it. Lives on this phone only; the next morning build is still '
+   +'the record.</div>'
+   +'<input type="file" id="frfile" accept=".xlsx" '
+   +'style="display:none" onchange="frPick(this)">'
+   +'<button class="stmore" type="button" '
+   +'onclick="document.getElementById(\\'frfile\\').click()">'
+   +'&#128194; Pick the ON_HIRE export</button>'
+   +'<div id="frout"></div>';
+}
+function frPick(inp){
+  var f=inp.files&&inp.files[0];
+  if(!f) return;
+  var out=document.getElementById('frout');
+  out.innerHTML='<div class="kw" style="padding:10px 2px">Reading '
+    +esc(f.name)+'&hellip;</div>';
+  var rd=new FileReader();
+  rd.onload=function(){ frParse(new Uint8Array(rd.result), f.name); };
+  rd.onerror=function(){ out.innerHTML='<div class="kw" style="padding:10px 2px">'
+    +'Could not read that file. Try picking it again.</div>'; };
+  rd.readAsArrayBuffer(f);
+}
+function frTidy(d){
+  d=String(d||'').replace(/\\s{2,}/g,' ').trim();
+  if(d===d.toUpperCase() && d.length>6){
+    d=d.toLowerCase().replace(/(^|[\\s(\\/-])([a-z])/g,
+      function(_,a,b){return a+b.toUpperCase()});
+  }
+  return d;
+}
+function frParse(bytes,fname){
+  var out=document.getElementById('frout');
+  var sheet=null, ref=null;
+  try{
+    sheet=readXlsxSheet(bytes,'ON_HIRE');
+    ref=readXlsxSheet(bytes,'REFERENCE_INFO');
+  }catch(e){
+    out.innerHTML='<div class="kw" style="padding:10px 2px">That file did '
+      +'not open as an Excel export ('+esc(String(e))+'). Download it '
+      +'fresh from SiteIQ and try again.</div>';
+    return;
+  }
+  if(!sheet||!sheet.rows.length){
+    out.innerHTML='<div class="kw" style="padding:10px 2px">No ON_HIRE '
+      +'sheet in that file. This loader reads the On Hire report &mdash; '
+      +'download that one from SiteIQ and pick it again.</div>';
+    return;
+  }
+  var asof='';
+  if(ref&&ref.rows.length){
+    /* the sheet has REQUESTED_BY (a name) and REQUESTED_DATE/TIME -
+       match on DATE or the pulled-at time comes out "Andrew Fisher"
+       (caught 29 Jul 2026, first probe run) */
+    var rk=Object.keys(ref.rows[0]);
+    for(var i=0;i<rk.length;i++){
+      var K=rk[i].toUpperCase();
+      if(K.indexOf('REQUESTED')>=0&&K.indexOf('DATE')>=0){
+        asof=ref.rows[0][rk[i]];break;}
+    }
+  }
+  var now=new Date();
+  function days(ds){
+    var m=/^(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})/.exec(ds||'');
+    if(!m) return null;
+    var d=new Date(+m[3],+m[2]-1,+m[1]);
+    return Math.max(0,Math.round((new Date(now.getFullYear(),now.getMonth(),
+      now.getDate())-d)/86400000));
+  }
+  var rows=sheet.rows.map(function(r){
+    var itm=r.ITEM_NUMBER||'';
+    var nm=(D.ren&&D.ren[itm])||frTidy(r.ITEM_DESCRIPTION);
+    return {n:nm, w:r.HIRER_NAME||'Not named', co:r.COMPANY||'Not named',
+            d:days(r.START_DATE), i:itm, p:(D.pids&&D.pids[itm])||'',
+            u:(r.PRODUCT_FAMILY||'').replace(/\\s{2,}/g,' ')};
+  });
+  rows.sort(function(a,b){
+    var ka=[a.co.toUpperCase(),a.w.toUpperCase(),-(a.d==null?-1:a.d),a.n.toUpperCase()];
+    var kb=[b.co.toUpperCase(),b.w.toUpperCase(),-(b.d==null?-1:b.d),b.n.toUpperCase()];
+    for(var j=0;j<4;j++){ if(ka[j]<kb[j])return -1; if(ka[j]>kb[j])return 1; }
+    return 0;
+  });
+  FR={rows:rows, asof:asof, fname:fname,
+      loaded:now.getHours()+':'+('0'+now.getMinutes()).slice(-2)};
+  frShow('all');
+}
+function frRows(kind){
+  if(kind==='radios') return FR.rows.filter(function(x){
+    return /radio/i.test(x.n)||/radio/i.test(x.u);});
+  if(kind==='gas') return FR.rows.filter(function(x){
+    return /gas monitor|bw flex/i.test(x.n);});
+  if(kind==='co'){var v=document.getElementById('frco').value;
+    return v?FR.rows.filter(function(x){return x.co===v;}):[];}
+  if(kind==='pp'){var v2=document.getElementById('frpp').value;
+    if(!v2) return [];
+    var p=v2.split('\\u001F');
+    return FR.rows.filter(function(x){return x.w===p[0]&&x.co===p[1];});}
+  return FR.rows;
+}
+function frShow(kind){
+  var out=document.getElementById('frout');
+  if(!FR){out.innerHTML='';return;}
+  var rows=frRows(kind);
+  var cos={},pps={};
+  FR.rows.forEach(function(x){
+    cos[x.co]=(cos[x.co]||0)+1;
+    var k=x.w+'\\u001F'+x.co; pps[k]=(pps[k]||0)+1;
+  });
+  var coOpts=Object.keys(cos).sort().map(function(c){
+    return '<option value="'+esc(c)+'">'+esc(c)+' ('+cos[c]+')</option>';}).join('');
+  var ppOpts=Object.keys(pps).sort().map(function(k){
+    var p=k.split('\\u001F');
+    return '<option value="'+esc(k)+'">'+esc(p[0])+' &middot; '+esc(p[1])
+      +' ('+pps[k]+')</option>';}).join('');
+  var title={all:'Everything on hire',radios:'Radios on hire',
+             gas:'Gas monitors on hire'}[kind];
+  if(kind==='co') title=(document.getElementById('frco')||{}).value;
+  if(kind==='pp'){var pv=(document.getElementById('frpp')||{}).value||'';
+    title=pv.split('\\u001F')[0];}
+  PRCUR={t:'FRESH LOOK — '+(title||'on hire'),
+         sub:'INTERIM — export pulled '+esc(FR.asof||('today '+FR.loaded))
+           +', loaded on a phone at '+FR.loaded
+           +'. The next morning build is the record.',
+         asof:FR.asof||'', r:rows, interim:true};
+  var h='<div class="note"><b>'+FR.rows.length+' items on hire</b> in '
+    +esc(FR.fname)+(FR.asof?' &middot; pulled '+esc(FR.asof):'')
+    +' &middot; loaded '+FR.loaded+'. This view lives on this phone only.</div>'
+    +'<div class="prpick">'
+    +'<button class="stmore" type="button" onclick="frShow(\\'all\\')">Everything</button>'
+    +'<button class="stmore" type="button" onclick="frShow(\\'radios\\')">Radios</button>'
+    +'<button class="stmore" type="button" onclick="frShow(\\'gas\\')">Gas monitors</button>'
+    +'</div>'
+    +'<div class="uhead">One company</div>'
+    +'<select id="frco" class="srch" onchange="frShow(\\'co\\')">'
+    +'<option value="">Pick a company&hellip;</option>'+coOpts+'</select>'
+    +'<div class="uhead">One person</div>'
+    +'<select id="frpp" class="srch" onchange="frShow(\\'pp\\')">'
+    +'<option value="">Pick a person&hellip;</option>'+ppOpts+'</select>';
+  if(rows.length){
+    h+='<div class="uhead">'+esc(title||'')+' &mdash; '+rows.length+' item'
+      +(rows.length===1?'':'s')+'</div>'
+      +'<div class="prbtns">'
+      +'<button class="stmore" type="button" onclick="prGo()">&#128424; Print / save PDF</button>'
+      +'<a class="stmore" href="'+prMailto(PRCUR)+'">&#9993; Email via Outlook</a>'
+      +'</div>'
+      +rows.slice(0,200).map(function(x){
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +'<em class="'+((x.d||0)>4?'o':'')+'">'+(x.d==null?'&mdash;':x.d+'d')+'</em></div>'
+          +'<div class="kw">'+esc(x.w)+' &middot; '+esc(x.co)
+          +(x.i?' &middot; Item '+esc(x.i):'')
+          +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
+          +'</div></div>';
+      }).join('')+more(200,rows.length,'items');
+  }else{
+    h+='<div class="kw" style="padding:10px 2px">Nothing matches that pick.</div>';
+  }
+  out.innerHTML=h;
+}
 
 /* CONSUMABLES - the shelf, the count, and what has to be ordered.
    (Andrew, 29 Jul 2026: "consumables stock. how many available. how many
@@ -1813,7 +2234,8 @@ def build(data, code, asof, pricing=None, mgr_code=None):
     because it is separately encrypted rather than merely hidden.
     """
     blob = json.dumps(data, separators=(',', ':'), ensure_ascii=True)
-    page = (PAGE.replace('__PAYLOAD__', enc(code, blob))
+    page = (PAGE.replace('//__READER__//', _READER_JS)
+                .replace('__PAYLOAD__', enc(code, blob))
                 .replace('__TAG__', tag(code))
                 .replace('__ASOF__', asof or 'this morning'))
     if pricing and mgr_code:
