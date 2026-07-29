@@ -121,7 +121,114 @@ def _is_plant(unit):
     return any(k in u for k in PLANT_UNITS)
 
 
-def read(rental_path, stocktake_path, master=None, today=None):
+def _hm(v):
+    m = re.match(r'\s*(\d{1,2}):(\d{2})', str(v or ''))
+    return (int(m.group(1)), int(m.group(2))) if m else None
+
+
+def _shift_of(d, hm):
+    """Which shift-day a movement belongs to.
+
+    Nights run 18:00 to 06:00, so they straddle midnight: 02:00 on the
+    14th is still the NIGHT OF THE 13th and has to score for the crew
+    that was actually standing there. Andrew's own example, 29 Jul 2026:
+    "they do 18:00 to 6:00 so 13/07/2026 into 14/07/2026".
+    """
+    if not d or not hm:
+        return None, None
+    h = hm[0]
+    if h >= 18:
+        return d, 'N'
+    if h < 6:
+        return d - dt.timedelta(days=1), 'N'
+    return d, 'D'
+
+
+def _battle(txn_path):
+    """Day versus night, every shift-day of the shut.
+
+    An issue is counted at its start, a return at its end - so a tool
+    taken on days and dropped back at night scores one for each crew,
+    which is exactly right: both did a piece of work.
+
+    FAIRNESS. Nights did not start until part-way through the shut, and
+    scoring the empty nights as day-shift wins would rig the ladder and
+    the night crew would dismiss the whole board in one look. So a
+    shift-day only counts as a contest once BOTH crews are running; the
+    earlier days are shown, and plainly marked as days-only.
+    """
+    import openpyxl
+    if not os.path.isfile(txn_path):
+        return None
+    wb = openpyxl.load_workbook(txn_path, read_only=True, data_only=True)
+    if 'TRANSACTION_CHARGES' not in wb.sheetnames:
+        wb.close()
+        return None
+    rows = list(wb['TRANSACTION_CHARGES'].iter_rows(values_only=True))
+    wb.close()
+    if not rows:
+        return None
+    hdr = [str(c or '').strip() for c in rows[0]]
+    ix = {h: i for i, h in enumerate(hdr) if h}
+    need = ('TRAN_START_DATE', 'TRAN_START_TIME')
+    if not all(k in ix for k in need):
+        return None
+
+    tally = {}
+
+    def slot(d):
+        return tally.setdefault(d, {'D': {'i': 0, 'r': 0},
+                                    'N': {'i': 0, 'r': 0}})
+    for r in rows[1:]:
+        if not r or not any(c not in (None, '') for c in r):
+            continue
+        d, sh = _shift_of(au_date(r[ix['TRAN_START_DATE']]),
+                          _hm(r[ix['TRAN_START_TIME']]))
+        if d:
+            slot(d)[sh]['i'] += 1
+        if 'TRAN_END_DATE' in ix and 'TRAN_END_TIME' in ix:
+            d2, sh2 = _shift_of(au_date(r[ix['TRAN_END_DATE']]),
+                                _hm(r[ix['TRAN_END_TIME']]))
+            if d2:
+                slot(d2)[sh2]['r'] += 1
+
+    days = sorted(tally)
+    if not days:
+        return None
+    first_night = next((d for d in days
+                        if tally[d]['N']['i'] + tally[d]['N']['r'] > 0), None)
+    out, dw, nw, tie = [], 0, 0, 0
+    for d in days:
+        v = tally[d]
+        D = v['D']['i'] + v['D']['r']
+        N = v['N']['i'] + v['N']['r']
+        contest = first_night is not None and d >= first_night
+        w = ''
+        if contest:
+            if D > N:
+                w = 'D'
+                dw += 1
+            elif N > D:
+                w = 'N'
+                nw += 1
+            else:
+                w = 'T'
+                tie += 1
+        out.append({'d': d.strftime('%a %d %b'), 'iso': d.isoformat(),
+                    'di': v['D']['i'], 'dr': v['D']['r'],
+                    'ni': v['N']['i'], 'nr': v['N']['r'],
+                    'D': D, 'N': N, 'w': w, 'c': contest})
+    return {
+        'days': out,
+        'dayTotal': sum(x['D'] for x in out),
+        'nightTotal': sum(x['N'] for x in out),
+        'dayWins': dw, 'nightWins': nw, 'ties': tie,
+        'nightsFrom': first_night.strftime('%d %b') if first_night else '',
+    }
+
+
+def read(rental_path, stocktake_path, master=None, today=None,
+         txn_path=None):
     """Everything the counter needs, from the two registers."""
     import openpyxl
     today = today or dt.date.today()
@@ -198,6 +305,8 @@ def read(rental_path, stocktake_path, master=None, today=None):
                     'd': age, 'by': sg(r, 'LAST_SIGHTED_BY')[:26]})
     stock['stale'].sort(key=lambda x: -x['d'])
 
+    battle = _battle(txn_path) if txn_path else None
+
     G = sorted(groups.values(), key=lambda e: (e['c'], e['n'].lower()))
     chase_t.sort(key=lambda x: (-x['d'], x['u']))
     chase_p.sort(key=lambda x: -x['d'])
@@ -209,6 +318,7 @@ def read(rental_path, stocktake_path, master=None, today=None):
         return sorted(out.items(), key=lambda t: -t[1])
 
     return {
+        'battle': battle,
         'groups': G,
         'chase': {'tools': chase_t, 'plant': chase_p,
                   'toolUnits': by_unit(chase_t),
@@ -325,6 +435,55 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .ring .rt{flex:1;font-size:13px;color:var(--dim);line-height:1.6}
 .ring .rt b{display:block;color:#fff;font-size:15px;font-weight:800;margin-bottom:3px}
 .foot{text-align:center;color:#6E7A8A;font-size:11px;padding:24px 8px;line-height:1.8}
+/* battle */
+.score{display:flex;align-items:stretch;gap:10px;margin-bottom:14px}
+.sc{flex:1;background:var(--pnl);border:1px solid var(--line);border-radius:14px;
+ padding:14px 10px;text-align:center}
+.sc.day{border-color:#F5A623}.sc.night{border-color:#2E9BF0}
+.sc b{display:block;font-size:34px;font-weight:900;line-height:1;
+ font-variant-numeric:tabular-nums}
+.sc.day b{color:#F5A623}.sc.night b{color:#2E9BF0}
+.sc span{display:block;font-size:10px;color:var(--dim);font-weight:800;
+ letter-spacing:1px;text-transform:uppercase;margin-top:6px}
+.sc em{display:block;font-style:normal;font-size:11.5px;color:#C7CED8;
+ font-weight:700;margin-top:4px}
+.vs{display:flex;align-items:center;font-size:13px;font-weight:900;color:var(--dim)}
+.brow{background:var(--pnl);border:1px solid var(--line);border-radius:12px;
+ padding:11px 13px;margin-bottom:8px}
+.brow .bd{display:flex;justify-content:space-between;align-items:baseline;
+ font-size:12.5px;font-weight:800;margin-bottom:7px}
+.brow .bd .win{font-size:10.5px;font-weight:900;letter-spacing:.8px;
+ text-transform:uppercase;padding:3px 8px;border-radius:99px}
+.win.d{background:#F5A623;color:#2a1e05}.win.n{background:#2E9BF0;color:#04223b}
+.win.t{background:#3A4553;color:#C7CED8}.win.x{background:none;color:#6E7A8A}
+.bb{display:flex;height:22px;border-radius:7px;overflow:hidden;background:#0E1319}
+.bb i{display:flex;align-items:center;justify-content:center;font-size:10.5px;
+ font-weight:900;color:#151A22;min-width:0}
+.bb .bd2{background:linear-gradient(90deg,#F5A623,#e0940f)}
+.bb .bn{background:linear-gradient(90deg,#2E9BF0,#1c7fcc);color:#fff}
+.bnums{display:flex;justify-content:space-between;font-size:10.5px;color:var(--dim);
+ font-weight:700;margin-top:5px}
+/* standards */
+.std{background:var(--pnl);border:1px solid var(--line);border-left:4px solid var(--org);
+ border-radius:12px;padding:14px 15px;margin-bottom:10px}
+.std h3{font-size:14.5px;font-weight:900;margin-bottom:7px;letter-spacing:-.2px}
+.std p{font-size:13.5px;color:#C7CED8;line-height:1.7}
+.std p b{color:#fff}
+.sop{background:var(--pnl2);border:1px solid var(--line);border-radius:10px;
+ padding:11px 13px;margin-top:9px}
+.sop .n{display:inline-block;background:var(--org);color:#fff;font-size:11px;
+ font-weight:900;padding:2px 9px;border-radius:99px;margin-bottom:6px}
+.sop>b{display:block;font-size:13.5px;margin-bottom:4px}
+/*  only the SOP's own title is a block - a nested bold inside the
+    body must stay inline or the procedure reads as a column of
+    fragments instead of a sentence  */
+.sop span b{display:inline;color:#fff}
+.sop span{font-size:12.5px;color:var(--dim);line-height:1.65}
+.rule{display:flex;gap:10px;align-items:flex-start;padding:9px 0;
+ border-top:1px solid var(--line);font-size:13px;color:#C7CED8;line-height:1.6}
+.rule:first-of-type{border-top:0}
+.rule i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--org);
+ margin-top:7px}
 </style></head><body>
 <div class="wrap">
 <header><div class="brand"><span>COATES</span>STORES TEAM</div>
@@ -398,12 +557,16 @@ function render(){
    +'<button class="tab" data-p="chase" onclick="tab(this)">Chase up ('+t.chase+')</button>'
    +'<button class="tab" data-p="stock" onclick="tab(this)">Stocktake</button>'
    +'<button class="tab" data-p="aisle" onclick="tab(this)">Walk an aisle</button>'
+   +'<button class="tab" data-p="battle" onclick="tab(this)">Day v Night</button>'
+   +'<button class="tab" data-p="std" onclick="tab(this)">Our standards</button>'
    +'<button class="tab" data-p="idle" onclick="tab(this)">Idle plant ('+t.idle+')</button>'
    +'</div>'
    +'<div class="pane on" id="p-groups">'+paneGroups()+'</div>'
    +'<div class="pane" id="p-chase">'+paneChase()+'</div>'
    +'<div class="pane" id="p-stock">'+paneStock()+'</div>'
    +'<div class="pane" id="p-aisle">'+paneAisle()+'</div>'
+   +'<div class="pane" id="p-battle">'+paneBattle()+'</div>'
+   +'<div class="pane" id="p-std">'+paneStd()+'</div>'
    +'<div class="pane" id="p-idle">'+paneIdle()+'</div>'
    +'<div class="foot">Built from this morning\\'s SiteIQ exports &middot; '
    +'read-only &middot; POWERED BY SITEIQ<br>Author: Andrew Fisher</div>';
@@ -580,6 +743,92 @@ function paneAisle(){
     h+='</div></div>';
   });
   return h;
+}
+/* DAY v NIGHT - the power bar. Issues counted at the start, returns at
+   the end, so a tool taken on days and dropped back at night scores one
+   for each crew: both did a piece of work. */
+function paneBattle(){
+  var b=D.battle;
+  if(!b) return '<div class="note">No transaction export this morning, so '
+    +'the ladder could not be built.</div>';
+  var h='<div class="score">'
+   +'<div class="sc day"><b>'+b.dayWins+'</b><span>Day shift</span>'
+   +'<em>'+b.dayTotal.toLocaleString()+' movements</em></div>'
+   +'<div class="vs">v</div>'
+   +'<div class="sc night"><b>'+b.nightWins+'</b><span>Night shift</span>'
+   +'<em>'+b.nightTotal.toLocaleString()+' movements</em></div></div>';
+  h+='<div class="note"><b>Every issue and every return, shift by shift, '
+   +'since the shut started.</b> Nights run 18:00 to 06:00, so a movement at '
+   +'two in the morning counts for the night before &mdash; the crew that was '
+   +'actually standing there.'
+   +(b.nightsFrom?' Nights started '+b.nightsFrom+', so only the days both '
+     +'crews were running are scored.':'')+'</div>';
+  b.days.slice().reverse().forEach(function(x){
+    var tot=x.D+x.N||1;
+    var w=x.w==='D'?'<span class="win d">Day</span>'
+        :x.w==='N'?'<span class="win n">Night</span>'
+        :x.w==='T'?'<span class="win t">Tie</span>'
+        :'<span class="win x">days only</span>';
+    h+='<div class="brow"><div class="bd"><span>'+x.d+'</span>'+w+'</div>'
+      +'<div class="bb">'
+      +(x.D?'<i class="bd2" style="width:'+(100*x.D/tot)+'%">'+(x.D>tot*0.12?x.D:'')+'</i>':'')
+      +(x.N?'<i class="bn" style="width:'+(100*x.N/tot)+'%">'+(x.N>tot*0.12?x.N:'')+'</i>':'')
+      +'</div>'
+      +'<div class="bnums"><span>DAY '+x.di+' out &middot; '+x.dr+' back</span>'
+      +'<span>NIGHT '+x.ni+' out &middot; '+x.nr+' back</span></div></div>';
+  });
+  return h;
+}
+/* OUR STANDARDS - quoted from SWMS-CTS-001 Rev 4, not paraphrased. The
+   store's own procedure is the authority; this screen is a reminder of
+   it at the counter, never a replacement for signing on to it. */
+function paneStd(){
+  return '<div class="note"><b>SWMS-CTS-001 Rev 4</b> &middot; Tool Store '
+   +'Operation, Cement Australia K2 2026 &middot; issued 15 Jul 2026. '
+   +'This is the reminder at the counter. The SWMS itself is the document '
+   +'you sign on to.</div>'
+   +'<div class="std"><h3>The one that never bends</h3>'
+   +'<p><b>Nothing issues or returns without scanning.</b> No exceptions, '
+   +'no doing it later, no verbal hand-outs.</p></div>'
+   +'<div class="std"><h3>The two SOPs</h3>'
+   +'<div class="sop"><span class="n">SOP 1</span><b>Issue</b>'
+   +'<span>Verify the hirer and their company. Inspect tools and leads; '
+   +'confirm electrical tags, rigging inspection status, torque and '
+   +'hydraulic compliance, and gas monitor bump and charge status. '
+   +'<b style="color:#fff">Do not issue non-compliant gear.</b> '
+   +'Scan every issue in SiteIQ.</span></div>'
+   +'<div class="sop"><span class="n">SOP 2</span><b>Return &mdash; two stages, '
+   +'two scans</b>'
+   +'<span><b style="color:#fff">Stage 1:</b> receive, identify and '
+   +'<b style="color:#fff">scan immediately</b>; place in the controlled '
+   +'returns bay. Confirm condition with the returning person and record '
+   +'faults.<br><b style="color:#fff">Stage 2:</b> inspect, clean, test, '
+   +'charge and confirm compliance, then <b style="color:#fff">scan it '
+   +'available</b>.<br>Never bypass either stage. Task gloves and P2 where '
+   +'contamination or dust requires it.</span></div></div>'
+   +'<div class="std"><h3>Why two scans</h3>'
+   +'<p>The first scan says <b>it is back and it is ours again</b>. The '
+   +'second says <b>it is fit to go out</b>. One scan cannot say both, and '
+   +'the gap between them is where a faulty tool would otherwise walk '
+   +'straight back onto a job.</p></div>'
+   +'<div class="std"><h3>Faults &mdash; every time</h3>'
+   +'<p>Out of Service tag, photograph, written report, SiteIQ status and '
+   +'physical quarantine. Record the asset, the fault, who reported it and '
+   +'their company and contact, the location, date and time, the action and '
+   +'who was notified.</p></div>'
+   +'<div class="std"><h3>Handover</h3>'
+   +'<p>Communicate open risks, faults, deliveries, equipment status, client '
+   +'actions and owners to the incoming shift.</p></div>'
+   +'<div class="std"><h3>The Coates Way at the counter</h3>'
+   +'<div class="rule"><i></i><span><b>Care Deeply</b> &mdash; check in on '
+   +'your workmates. A smile and "how are you?" matters. Concerns and '
+   +'fatigue get raised, not carried.</span></div>'
+   +'<div class="rule"><i></i><span><b>Stop Work Authority</b> &mdash; '
+   +'anyone can stop the job. If it is not safe, stop, make the call, '
+   +'ask.</span></div>'
+   +'<div class="rule"><i></i><span><b>Best Service &amp; Value</b> &mdash; '
+   +'gear that leaves this window bumped, charged and understood is a crew '
+   +'that walks straight to the job.</span></div></div>';
 }
 function paneIdle(){
   var h='<div class="note"><b>Held by the site plant pool.</b> On charge, on site, '

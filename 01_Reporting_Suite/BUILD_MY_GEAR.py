@@ -821,7 +821,8 @@ def build():
             print('  Stores code file created: stores_code.txt (code 2026 - '
                   'change it and re-run).')
         _sk = find_export('STOCKTAKE*.xlsx', 'STOCKTAKE', required=False)
-        _sd = mygear_stores.read(rental_path, _sk, MASTER)
+        _sd = mygear_stores.read(rental_path, _sk, MASTER,
+                                 txn_path=txn_path)
         with io.open(os.path.join(_gl_dir, 'stores.html'), 'w',
                      encoding='utf-8') as _fh:
             _fh.write(mygear_stores.build(_sd, _code, asof))
