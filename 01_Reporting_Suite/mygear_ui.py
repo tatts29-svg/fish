@@ -560,7 +560,8 @@ h1.mg{text-align:center;font-size:56px}
 
 #  The landing-page ID row: type it, or let the camera do it.
 ID_ROW = """<div class="idrow">
-<input id="idno" inputmode="numeric" autocomplete="off" placeholder="ENTER ID NUMBER">
+<input id="idno" autocomplete="off" autocapitalize="characters"
+ autocorrect="off" spellcheck="false" placeholder="ENTER ID NUMBER">
 <button class="scanbtn" id="scanbtn" onclick="startScan()" type="button" hidden>
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
  stroke-linecap="round" stroke-linejoin="round"><path d="M3 8V5a2 2 0 012-2h3M16 3h3a2 2 0 012 2v3M21 16v3a2 2 0 01-2 2h-3M8 21H5a2 2 0 01-2-2v-3M7 12h10"/></svg>Scan</button>
@@ -812,11 +813,21 @@ function camPossible(){
 ------------------------------------------------------------------ */
 var _scanStream=null,_scanRAF=null,_scanDet=null,_scanCv=null;
 function idFromScan(txt){
+  /* IDs are not always pure digits - 18479CEM and 10005013CEM are real
+     cards on this job (caught 29 Jul 2026: "some people do have
+     letters in their barcode"). Accept an alphanumeric token, but
+     require at least three digits in it so a stray word on a label
+     never reads as an ID. */
   if(!txt) return '';
-  var m=String(txt).match(/(?:[?&]id=)(\d{3,})/i);      // a My Gear link
+  var m=String(txt).match(/(?:[?&]id=)([A-Za-z0-9]{3,})/i); // a My Gear link
   if(m) return m[1];
-  m=String(txt).match(/\d{3,}/);                          // a bare number
-  return m?m[0]:'';
+  var toks=String(txt).match(/[A-Za-z0-9]{4,}/g)||[];
+  var best='';
+  for(var i=0;i<toks.length;i++){
+    var digits=(toks[i].match(/\d/g)||[]).length;
+    if(digits>=3 && toks[i].length>best.length) best=toks[i];
+  }
+  return best;
 }
 function startScan(){
   var w=document.getElementById('scanwrap');

@@ -848,7 +848,15 @@ def build():
                      encoding='utf-8') as _fh:
             _fh.write(mygear_stores.build(_sd, _code, asof,
                                           pricing=_pr, mgr_code=_mgr))
+        #  the front-door override answers to the code AND its numeric
+        #  phone-keypad twin - the crew ID box only offers a number
+        #  keypad on phones, so a letters-only code could never be
+        #  typed there (caught 29 Jul 2026: "no option to enter
+        #  letters"). NOIS answers to 6647.
         _stores_tag = mygear_stores.tag(_code.upper())
+        _alias = mygear_stores.keypad_alias(_code)
+        if _alias:
+            _stores_tag += ',' + mygear_stores.tag(_alias)
         _t = _sd['tiles']
         print('  Stores team page: {} on the shelf | {} out | {} to chase '
               '| stocktake {}% | {} not counted | {} arriving'.format(
@@ -1101,12 +1109,19 @@ function go(){
     a URL ends up in history and over someone's shoulder.
     (Andrew, 29 Jul 2026: "a stores override to get into the raw") */
  if(typeof STORES_TAG==='string' && STORES_TAG &&
-    (xmur3(id.toUpperCase()+'|CoatesK2storestag2026')()>>>0).toString(16)===STORES_TAG){
+    STORES_TAG.split(',').indexOf(
+      (xmur3(id.toUpperCase()+'|CoatesK2storestag2026')()>>>0).toString(16))>=0){
    try{ sessionStorage.setItem('k2stores', id.toUpperCase()); }catch(e){}
    window.location.href='stores.html';
    return;
  }
- var blob=DATA[tag(id)];
+ /* IDs with letters exist (18479CEM) and SiteIQ stores them upper-case.
+    Try the ID exactly as typed, then upper-cased, so a bloke typing
+    his card in lower case still lands on his own record. */
+ var blob=null, cand=[id, id.toUpperCase()];
+ for(var ci=0;ci<cand.length;ci++){
+   if(DATA[tag(cand[ci])]){ id=cand[ci]; blob=DATA[tag(id)]; break; }
+ }
  if(!blob){err.textContent='No gear found for that ID. Check the number on your card.';return}
  var p;try{p=JSON.parse(dec(id,blob))}catch(e){err.textContent='Could not read that record.';return}
  err.textContent='';

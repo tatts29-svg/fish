@@ -367,6 +367,38 @@ def _pricing(onhire_path, master=None):
     }
 
 
+#  The phone-keypad alias. The crew page's ID box brings up the
+#  number-only keypad on a phone - right for 900 workers typing digit
+#  IDs, and a wall for a stores code made of letters (caught 29 Jul
+#  2026: "no option to enter letters"). Every letter code therefore
+#  gets a numeric twin spelled on the phone keypad - NOIS is 6647 -
+#  so the same door opens from a numeric keypad. The alias never
+#  appears in the page; it works exactly like the manager code does,
+#  by decrypting the real code out of a key blob.
+_KEYPAD = {c: d for d, letters in
+           (('2', 'ABC'), ('3', 'DEF'), ('4', 'GHI'), ('5', 'JKL'),
+            ('6', 'MNO'), ('7', 'PQRS'), ('8', 'TUV'), ('9', 'WXYZ'))
+           for c in letters}
+
+
+def keypad_alias(code):
+    """The numeric twin of a letter code, or '' when there isn't one
+    (already all digits, too short, or carries characters with no
+    keypad home)."""
+    code = (code or '').upper().strip()
+    if not code or code.isdigit() or len(code) < 3:
+        return ''
+    out = []
+    for ch in code:
+        if ch.isdigit():
+            out.append(ch)
+        elif ch in _KEYPAD:
+            out.append(_KEYPAD[ch])
+        else:
+            return ''
+    return ''.join(out)
+
+
 def _plant_id(item):
     """The orange Plant ID for an asset, via the compliance module the
     rest of the suite already uses. BUILD_MY_GEAR binds the master file
@@ -1179,6 +1211,7 @@ select.srch{appearance:none;-webkit-appearance:none}
 <div id="prsheet"></div>
 <script>
 var PAYLOAD="__PAYLOAD__",TAG="__TAG__",ASOF="__ASOF__";
+var ATAG="__ATAG__",AKEY="__AKEY__";
 var MPAY="__MPAYLOAD__",MTAG="__MTAG__",MKEY="__MKEY__";
 var MGR=null,SHOW_PLANT=true;
 function xmur3(s){for(var i=0,h=1779033703^s.length;i<s.length;i++){
@@ -1216,6 +1249,11 @@ function unlock(){
     var mc=(mtagOf(raw)===MTAG)?raw:((mtagOf(c)===MTAG)?c:null);
     if(mc){ try{ MGR=JSON.parse(mdec(mc,MPAY)); }catch(e){ MGR=null; }
             if(MGR){ c=mc; } }
+  }
+  /* the phone-keypad alias: the numeric twin decrypts the real code
+     out of its blob, then walks through the same gate as everyone */
+  if(!MGR && ATAG && AKEY && tagOf(c)===ATAG){
+    try{ c=dec(c,AKEY).toUpperCase(); }catch(e){}
   }
   if(tagOf(c)!==TAG && !MGR){document.getElementById('gerr').textContent=
     'That code does not open this board. Ask Andrew.';return}
@@ -2364,9 +2402,12 @@ def build(data, code, asof, pricing=None, mgr_code=None):
     because it is separately encrypted rather than merely hidden.
     """
     blob = json.dumps(data, separators=(',', ':'), ensure_ascii=True)
+    _alias = keypad_alias(code)
     page = (PAGE.replace('//__READER__//', _READER_JS)
                 .replace('__PAYLOAD__', enc(code, blob))
                 .replace('__TAG__', tag(code))
+                .replace('__ATAG__', tag(_alias) if _alias else '')
+                .replace('__AKEY__', enc(_alias, code) if _alias else '')
                 .replace('__ASOF__', asof or 'this morning'))
     if pricing and mgr_code:
         mblob = json.dumps(pricing, separators=(',', ':'), ensure_ascii=True)
