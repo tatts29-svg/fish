@@ -62,6 +62,8 @@ PROTECTED = (
     #  An update that overwrote it would wipe every "up 3 places" arrow
     #  on site and there is no way to rebuild it. (29 Jul 2026)
     "mygear_history.json",
+    #  the stores team code - set on site, never shipped
+    "stores_code.txt",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan")
 

@@ -832,6 +832,37 @@ def build():
                 print('  cleaned out of the served folder: ' + _office)
             except OSError:
                 pass
+    #  THE STORES TEAM PAGE - the counter's own view, behind a code.
+    #  A separate file on purpose: the crew page stays light, and the
+    #  staff view can carry who-has-what without putting it in front of
+    #  900 people. The code lives in stores_code.txt (protected from
+    #  updates); change the file, re-run 04, done.
+    try:
+        import mygear_stores
+        _code_p = os.path.join(BASE, 'stores_code.txt')
+        _code = '2026'
+        if os.path.isfile(_code_p):
+            with io.open(_code_p, encoding='utf-8') as _fh:
+                _code = (_fh.read().strip() or _code)
+        else:
+            with io.open(_code_p, 'w', encoding='utf-8') as _fh:
+                _fh.write('2026\n')
+            print('  Stores code file created: stores_code.txt (code 2026 - '
+                  'change it and re-run).')
+        _sk = find_export('STOCKTAKE*.xlsx', 'STOCKTAKE', required=False)
+        _sd = mygear_stores.read(rental_path, _sk, MASTER)
+        with io.open(os.path.join(out_dir, 'stores.html'), 'w',
+                     encoding='utf-8') as _fh:
+            _fh.write(mygear_stores.build(_sd, _code, asof))
+        _t = _sd['tiles']
+        print('  Stores team page: {} on the shelf | {} out | {} to chase '
+              '| stocktake {}% | {} not counted'.format(
+                  _t['avail'], _t['onhire'], _t['chase'], _t['stockPct'],
+                  _t['stale']))
+    except Exception as _e:
+        print('  NOTE: stores team page not built ({}) - the crew page is '
+              'unaffected.'.format(_e))
+
     out = os.path.join(out_dir, 'index.html')
     with io.open(out, 'w', encoding='utf-8') as f:
         f.write(page)
