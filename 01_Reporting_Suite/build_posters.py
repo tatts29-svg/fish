@@ -157,10 +157,22 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   color:rgba(242,98,34,.055);pointer-events:none;z-index:0}
 .hero,.strip,.show,.after,.promise,.note{position:relative;z-index:1}
 /*  the wordmark carries a metal-to-neon rake - the single most
-    looked-at thing on the sheet, so it earns the gradient  */
+    looked-at thing on the sheet, so it earns the gradient.
+    BUT gradient-filled text is emitted into a PDF as a soft-masked
+    transparency group, and simple PDF viewers (the Officeworks print
+    kiosk, 29 Jul 2026) drop the mask and paint the bare gradient box -
+    the word GEAR vanished behind a solid orange rectangle at the
+    counter. So print gets plain filled glyphs, which every renderer on
+    earth can draw. The screen keeps the rake.  */
 .hero h1 span.grad{background:linear-gradient(178deg,#FFC489 2%,#F26222 46%,
   #EFFF3D 128%);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:#F26222}
+@media print{
+  .hero h1 span.grad{background:none !important;
+    -webkit-background-clip:border-box !important;
+    background-clip:border-box !important;
+    -webkit-text-fill-color:#F26222 !important;color:#F26222 !important}
+}
 /*  the six cabinets, reduced to one confident strip - they say what
     the store holds without eating a third of the poster  */
 .strip{display:flex;justify-content:space-between;gap:3mm;margin:9mm 0 9mm;
