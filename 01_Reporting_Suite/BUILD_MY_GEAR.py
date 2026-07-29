@@ -1022,8 +1022,16 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .pulse .pvt{font-size:13px;letter-spacing:.4px;color:#EFFF3D;font-weight:850;text-shadow:0 0 12px rgba(239,255,61,.35);line-height:1.65;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mg b{background:linear-gradient(100deg,#F26222 25%,#FFB347 42%,#EFFF3D 50%,#FFB347 58%,#F26222 75%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:mgshine 6s ease-in-out infinite}
 @keyframes mgshine{0%,100%{background-position:90% 0}45%,55%{background-position:10% 0}}
-.qcall{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--org),#D24E12);color:#fff;font-weight:800;font-size:12px;letter-spacing:1.4px;padding:11px 16px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.45);cursor:pointer;animation:qring 3.2s ease-out infinite}
+/* The floating pill STACK (Andrew, 29 Jul 2026: "did you not add the
+   floating pills for gas monitors and radios"). Contacts keeps the
+   colour and the ring - it is the one that means "call us". Radio and
+   gas sit above it as quiet dark pills: always in reach, never
+   competing with the call button for attention. */
+.qstack{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+.qcall{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--org),#D24E12);color:#fff;font-weight:800;font-size:12px;letter-spacing:1.4px;padding:11px 16px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.45);cursor:pointer;animation:qring 3.2s ease-out infinite}
 .qcall svg{width:15px;height:15px}
+.qmini{display:flex;align-items:center;gap:6px;background:#151A22;border:1.5px solid var(--org);color:#FFB38A;font-weight:800;font-size:10.5px;letter-spacing:1.2px;padding:8px 13px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.4);cursor:pointer}
+.qmini svg{width:13px;height:13px}
 @keyframes qring{0%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 0 rgba(242,98,34,.5)}70%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 12px rgba(242,98,34,0)}100%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 0 rgba(242,98,34,0)}}
 .neon{color:#EFFF3D !important;text-shadow:0 0 12px rgba(239,255,61,.45)}
 .crewline{margin-top:9px;font-size:12.5px;color:var(--mut)}
@@ -1062,7 +1070,11 @@ __SHELF__
 </div>
 <div id="result" class="card"></div>
 </div>
+<div class="qstack">
+<div class="qmini" onclick="openGuide('radio')" role="button" tabindex="0" title="Two-way radio guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 6h2M10 18h4"/></svg>RADIO</div>
+<div class="qmini" onclick="openGuide('gas')" role="button" tabindex="0" title="Gas monitor guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>GAS</div>
 <div class="qcall" onclick="openGuide('contacts')" role="button" tabindex="0" title="Site contacts - tap to call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>CONTACTS</div>
+</div>
 __SHEET__
 <script>var DATA=__DATA__;
 

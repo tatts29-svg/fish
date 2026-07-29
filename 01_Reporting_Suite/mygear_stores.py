@@ -367,6 +367,18 @@ def _pricing(onhire_path, master=None):
     }
 
 
+def _plant_id(item):
+    """The orange Plant ID for an asset, via the compliance module the
+    rest of the suite already uses. BUILD_MY_GEAR binds the master file
+    before calling read(), so the lookup is free; run standalone with
+    nothing bound, it degrades to blank rather than breaking."""
+    try:
+        import equipment_compliance as _EC
+        return _EC.plant_id(item) or ''
+    except Exception:
+        return ''
+
+
 def read(rental_path, stocktake_path, master=None, today=None,
          txn_path=None, sales_path=None, base=None):
     """Everything the counter needs, from the two registers.
@@ -427,10 +439,14 @@ def read(rental_path, stocktake_path, master=None, today=None,
             who0 = g(r, 'HIRER_NAME') or 'Not named'
             co0 = g(r, 'COMPANY_NAME') or 'Not named'
             unit0 = g(r, 'STORAGE_UNIT') or 'Unfiled'
-            nm0 = MS._tidy(raw, master, g(r, 'ITEM_NUMBER')) if raw \
-                else 'Unnamed item'
+            itm0 = g(r, 'ITEM_NUMBER')
+            nm0 = MS._tidy(raw, master, itm0) if raw else 'Unnamed item'
+            #  the item number and the orange Plant ID travel with every
+            #  row - "bring number 41 back" is how a machine is actually
+            #  asked for over the counter (Andrew, 29 Jul 2026)
+            pid0 = _plant_id(itm0)
             roster.append({'n': nm0, 'u': unit0, 'w': who0, 'co': co0,
-                           'd': dy0})
+                           'd': dy0, 'i': itm0, 'p': pid0})
             #  The hit list (Andrew, 29 Jul 2026): "who has not brought
             #  back radios after one day. and milwaukee batteries after
             #  1 day and milwaukee tooling after 3 days."
@@ -441,7 +457,7 @@ def read(rental_path, stocktake_path, master=None, today=None,
             if dy0 is not None and 'site plant' not in who0.lower():
                 up0 = raw.upper()
                 hit = {'n': nm0, 'w': who0, 'co': co0, 'd': dy0,
-                       'u': unit0}
+                       'u': unit0, 'i': itm0, 'p': pid0}
                 if unit0 == 'Radios' and dy0 > 1:
                     hits['radio'].append(hit)
                 elif unit0 == 'Gas Monitors' and dy0 > 1:
@@ -783,6 +799,9 @@ select.srch{appearance:none;-webkit-appearance:none}
  #prsheet .ptab td{padding:5px 8px;border-bottom:1px solid #EDF0F4;vertical-align:top}
  #prsheet .ptab .pn{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
  #prsheet .ptab .pn.late{color:#C1440E;font-weight:800}
+ #prsheet .ppid{display:inline-block;background:#F26222;color:#fff;
+  border-radius:8px;padding:1px 7px;font-size:9px;font-weight:800;
+  margin-left:5px;vertical-align:1px}
  #prsheet .pfoot{margin-top:16px;padding-top:9px;border-top:1px solid #D5DBE3;
   text-align:center;font-size:9.5px;color:#8A94A2;line-height:1.7}
 }
@@ -1277,7 +1296,10 @@ function paneHits(){
       +rl[3].map(function(x){
         return '<div class="kid"><div class="kt"><b>'+esc(x.w)+'</b>'
           +'<em class="o">'+x.d+' day'+(x.d===1?'':'s')+'</em></div>'
-          +'<div class="kw">'+esc(x.co)+' &middot; '+esc(x.n)+'</div></div>';
+          +'<div class="kw">'+esc(x.co)+' &middot; '+esc(x.n)
+          +(x.i?' &middot; Item '+esc(x.i):'')
+          +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
+          +'</div></div>';
       }).join('')+'</div></div>';
   });
   return h;
@@ -1359,7 +1381,10 @@ function prSet(kind){
    +got.r.slice(0,200).map(function(x){
      return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
        +'<em class="'+((x.d||0)>4?'o':'')+'">'+(x.d==null?'&mdash;':x.d+'d')+'</em></div>'
-       +'<div class="kw">'+esc(x.w)+' &middot; '+esc(x.co)+' &middot; '+esc(x.u)+'</div></div>';
+       +'<div class="kw">'+esc(x.w)+' &middot; '+esc(x.co)+' &middot; '+esc(x.u)
+       +(x.i?' &middot; Item '+esc(x.i):'')
+       +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
+       +'</div></div>';
    }).join('')+more(200,got.r.length,'items');
   out.innerHTML=h;
   var m=document.getElementById('prmail');
@@ -1374,7 +1399,9 @@ function prMailto(got){
   var b='COATES | K2 TOOL STORE - ON HIRE'+NL+got.t.replace(/—/g,'-')
    +NL+'As at '+ASOF+NL+RULE+NL;
   var lines=got.r.map(function(x){
-    return (x.d==null?'-':x.d+'d')+'  '+x.n+'  |  '+x.w+' - '+x.co;});
+    return (x.d==null?'-':x.d+'d')+'  '+x.n
+      +(x.i?' (Item '+x.i+')':'')+(x.p?' [Plant ID '+x.p+']':'')
+      +'  |  '+x.w+' - '+x.co;});
   var body=b, cut=0;
   for(var i=0;i<lines.length;i++){
     if(body.length+lines[i].length>1700){cut=lines.length-i;break;}
@@ -1409,9 +1436,12 @@ function prGo(){
     body+='<div class="pwho">'+esc(p[1])+' <span>'+esc(p[0])+' &middot; '
       +list.length+' item'+(list.length===1?'':'s')
       +'</span></div><table class="ptab">'
-      +'<tr><th>Item</th><th>Aisle</th><th class="pn">Days on hire</th></tr>'
+      +'<tr><th>Item</th><th>Item no</th><th>Aisle</th>'
+      +'<th class="pn">Days on hire</th></tr>'
       +list.map(function(x){
-        return '<tr><td>'+esc(x.n)+'</td><td>'+esc(x.u)+'</td>'
+        return '<tr><td>'+esc(x.n)
+          +(x.p?' <span class="ppid">Plant ID '+esc(x.p)+'</span>':'')
+          +'</td><td>'+esc(x.i||'—')+'</td><td>'+esc(x.u)+'</td>'
           +'<td class="pn'+((x.d||0)>4?' late':'')+'">'
           +(x.d==null?'—':x.d)+'</td></tr>';
       }).join('')+'</table>';
