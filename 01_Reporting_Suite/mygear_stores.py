@@ -707,6 +707,31 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
  cursor:pointer}
 .stmore:hover{background:var(--org);color:#fff}
 .kw.cut{color:var(--dim);font-style:italic;padding:9px 2px 2px}
+/* ENTRANCE MOTION - one second of life when the board unlocks, then
+   everything sits still. Working screens hold still; only the unlock
+   moves, and the hit-list pulse below stays the single looping thing
+   on the page so it keeps its meaning. Bars inside a hidden pane run
+   their entrance the first time that pane is opened - a display:none
+   element does not start animating until it is shown.
+   (Andrew, 29 Jul 2026: "proceed".) */
+@media (prefers-reduced-motion: no-preference){
+ .bar i,.bb i{transform-origin:left;animation:growx .7s ease-out both}
+ .brow .bb i{animation-duration:.55s}
+ .score .sc b{animation:bpunch .55s cubic-bezier(.2,1.6,.4,1) both}
+ .score .sc:last-child b{animation-delay:.12s}
+ .tiles .tile{animation:tfup .4s ease both}
+ .tiles .tile:nth-child(2){animation-delay:.05s}
+ .tiles .tile:nth-child(3){animation-delay:.1s}
+ .tiles .tile:nth-child(4){animation-delay:.15s}
+ .tiles .tile:nth-child(5){animation-delay:.2s}
+ .tiles .tile:nth-child(6){animation-delay:.25s}
+}
+@keyframes growx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes bpunch{0%{opacity:0;transform:scale(.4)}
+ 70%{transform:scale(1.12)}100%{opacity:1;transform:none}}
+@keyframes tfup{from{opacity:0;transform:translateY(7px)}
+ to{opacity:1;transform:none}}
+@media print{.bar i,.bb i,.score .sc b,.tiles .tile{animation:none!important}}
 /* the hit-list tab glows - it is the one tab that means walk somewhere */
 .tab.hot{border-color:var(--rd);color:#FF8A80;
  animation:hotpulse 2.2s ease-in-out infinite}
@@ -964,6 +989,40 @@ function render(){
    +'<div class="foot">Built from this morning\\'s SiteIQ exports &middot; '
    +'read-only &middot; POWERED BY SITEIQ<br>Author: Andrew Fisher</div>';
   document.getElementById('app').innerHTML=h;
+  countTiles();
+}
+/* The unlock count-up. Numbers run from zero to their real value in
+   three-quarters of a second, once, then never move again. The REAL
+   value is parsed off the page and written back at the end, so a
+   glitch mid-animation can never leave a wrong number standing - the
+   worst failure mode is the right number appearing instantly. */
+function countTiles(){
+  try{
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  }catch(e){}
+  var els=[].slice.call(document.querySelectorAll('#app .tiles .tile b'));
+  els.forEach(function(el){
+    var raw=(el.textContent||'').trim();
+    var m=raw.match(/^([0-9,]+)(%?)$/);
+    if(!m)return;
+    var target=parseInt(m[1].replace(/,/g,''),10);
+    if(isNaN(target)||target===0)return;
+    var pct=m[2],t0=null,DUR=750,done=false;
+    function fin(){ if(!done){done=true; el.textContent=raw;} }
+    function step(ts){
+      if(done)return;
+      if(t0===null)t0=ts;
+      var k=Math.min(1,(ts-t0)/DUR);
+      k=1-Math.pow(1-k,3);
+      el.textContent=Math.round(target*k).toLocaleString()+pct;
+      if(k<1)requestAnimationFrame(step); else fin();
+    }
+    requestAnimationFrame(step);
+    /* the guarantee: whatever happens to the animation frames - a
+       background tab, a throttled webview, a headless browser - the
+       real number is standing 900ms after unlock, full stop */
+    setTimeout(fin,DUR+150);
+  });
 }
 function tab(el){
   var all=document.querySelectorAll('.tab');
