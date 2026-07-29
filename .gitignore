@@ -15,3 +15,10 @@
 01_Reporting_Suite/NO_OUTLOOK.txt
 __pycache__/
 *.pyc
+
+# Gate codes for the stores team page. These are set on site and live in
+# 46_APPLY_UPDATE's PROTECTED list, so they survive updates. They are not
+# version-controlled: a code belongs on the machine at the counter, not in
+# a repo. Missing files are recreated with defaults by 04_BUILD_MY_GEAR.
+01_Reporting_Suite/stores_code.txt
+01_Reporting_Suite/manager_code.txt

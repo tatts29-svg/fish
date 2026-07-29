@@ -64,6 +64,8 @@ PROTECTED = (
     "mygear_history.json",
     #  the stores team code - set on site, never shipped
     "stores_code.txt",
+    #  the manager code that unlocks the money view - same rule
+    "manager_code.txt",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan")
 

@@ -823,15 +823,29 @@ def build():
         _sk = find_export('STOCKTAKE*.xlsx', 'STOCKTAKE', required=False)
         _sd = mygear_stores.read(rental_path, _sk, MASTER,
                                  txn_path=txn_path)
+        #  the manager layer - money, under its own code
+        _mgr_p = os.path.join(BASE, 'manager_code.txt')
+        _mgr = 'army8686ARRA'
+        if os.path.isfile(_mgr_p):
+            with io.open(_mgr_p, encoding='utf-8') as _fh:
+                _mgr = (_fh.read().strip() or _mgr)
+        else:
+            with io.open(_mgr_p, 'w', encoding='utf-8') as _fh:
+                _fh.write('army8686ARRA\n')
+        _pr = mygear_stores._pricing(onhire_path, MASTER)
         with io.open(os.path.join(_gl_dir, 'stores.html'), 'w',
                      encoding='utf-8') as _fh:
-            _fh.write(mygear_stores.build(_sd, _code, asof))
+            _fh.write(mygear_stores.build(_sd, _code, asof,
+                                          pricing=_pr, mgr_code=_mgr))
         _stores_tag = mygear_stores.tag(_code.upper())
         _t = _sd['tiles']
         print('  Stores team page: {} on the shelf | {} out | {} to chase '
-              '| stocktake {}% | {} not counted'.format(
+              '| stocktake {}% | {} not counted | {} arriving'.format(
                   _t['avail'], _t['onhire'], _t['chase'], _t['stockPct'],
-                  _t['stale']))
+                  _t['stale'], _t['arrivals']))
+        if _pr:
+            print('  Manager layer: ${:,.2f}/day on hire, {} zero-rate '
+                  'line(s) flagged.'.format(_pr['perDay'], _pr['zeroN']))
     except Exception as _e:
         print('  NOTE: stores team page not built ({}) - the crew page is '
               'unaffected.'.format(_e))

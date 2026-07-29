@@ -111,6 +111,27 @@ def au_date(v):
         return None
 
 
+def au_dt(v):
+    """Date AND time. STOCKTAKE writes "25/07/2026 08:47 AM", so a count
+    can be put on the shift that actually did it."""
+    sv = str(v or '').strip()
+    m = re.match(r'\s*(\d{1,2})/(\d{1,2})/(\d{4})\s+(\d{1,2}):(\d{2})\s*([AaPp][Mm])?', sv)
+    if not m:
+        d = au_date(v)
+        return (d, None) if d else (None, None)
+    try:
+        day = dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+    except ValueError:
+        return None, None
+    h, mi = int(m.group(4)), int(m.group(5))
+    ap = (m.group(6) or '').lower()
+    if ap == 'pm' and h != 12:
+        h += 12
+    elif ap == 'am' and h == 12:
+        h = 0
+    return day, (h, mi)
+
+
 #  Storage units that live on site by design - out for days is normal,
 #  not a thing to chase round the store.
 PLANT_UNITS = ('site plant', 'barrier', 'chute', 'laydown')
@@ -144,7 +165,22 @@ def _shift_of(d, hm):
     return d, 'D'
 
 
-def _battle(txn_path):
+def _night_ran(hm):
+    """Was a night crew really on?
+
+    Andrew, 29 Jul 2026: "if there is no transactions after 18:30
+    through to 5:00 generally means no nightshift." The SHIFT runs
+    18:00-06:00, but the DETECTION window is deliberately tighter - a
+    day-shift straggler scanning at 18:05, or an early bird at 05:40,
+    must not conjure a night crew that was never there.
+    """
+    if not hm:
+        return False
+    h, m = hm
+    return (h > 18 or (h == 18 and m >= 30)) or h < 5
+
+
+def _battle(txn_path, stocktake_path=None):
     """Day versus night, every shift-day of the shut.
 
     An issue is counted at its start, a return at its end - so a tool
@@ -176,33 +212,61 @@ def _battle(txn_path):
 
     tally = {}
 
+    nights_on = {}
+
     def slot(d):
-        return tally.setdefault(d, {'D': {'i': 0, 'r': 0},
-                                    'N': {'i': 0, 'r': 0}})
+        return tally.setdefault(d, {'D': {'i': 0, 'r': 0, 's': 0},
+                                    'N': {'i': 0, 'r': 0, 's': 0}})
     for r in rows[1:]:
         if not r or not any(c not in (None, '') for c in r):
             continue
-        d, sh = _shift_of(au_date(r[ix['TRAN_START_DATE']]),
-                          _hm(r[ix['TRAN_START_TIME']]))
+        _t = _hm(r[ix['TRAN_START_TIME']])
+        d, sh = _shift_of(au_date(r[ix['TRAN_START_DATE']]), _t)
         if d:
             slot(d)[sh]['i'] += 1
+            if _night_ran(_t):
+                nights_on[d] = True
         if 'TRAN_END_DATE' in ix and 'TRAN_END_TIME' in ix:
-            d2, sh2 = _shift_of(au_date(r[ix['TRAN_END_DATE']]),
-                                _hm(r[ix['TRAN_END_TIME']]))
+            _t2 = _hm(r[ix['TRAN_END_TIME']])
+            d2, sh2 = _shift_of(au_date(r[ix['TRAN_END_DATE']]), _t2)
             if d2:
                 slot(d2)[sh2]['r'] += 1
+                if _night_ran(_t2):
+                    nights_on[d2] = True
+
+    #  stocktake counts, scored onto the same shift-days
+    if stocktake_path and os.path.isfile(stocktake_path):
+        wb2 = openpyxl.load_workbook(stocktake_path, read_only=True,
+                                     data_only=True)
+        ws2 = wb2['STOCKTAKE'] if 'STOCKTAKE' in wb2.sheetnames else wb2.active
+        srows = list(ws2.iter_rows(values_only=True))
+        wb2.close()
+        if srows:
+            sh_ = [str(c or '').strip() for c in srows[0]]
+            si = {h: i for i, h in enumerate(sh_) if h}
+            if 'LAST_SIGHTED_DATE_TIME' in si:
+                for r in srows[1:]:
+                    if not r:
+                        continue
+                    d0, hm = au_dt(r[si['LAST_SIGHTED_DATE_TIME']])
+                    if not d0:
+                        continue
+                    dd, ss = _shift_of(d0, hm or (12, 0))
+                    if dd:
+                        slot(dd)[ss]['s'] += 1
+                        if _night_ran(hm):
+                            nights_on[dd] = True
 
     days = sorted(tally)
     if not days:
         return None
-    first_night = next((d for d in days
-                        if tally[d]['N']['i'] + tally[d]['N']['r'] > 0), None)
     out, dw, nw, tie = [], 0, 0, 0
     for d in days:
         v = tally[d]
         D = v['D']['i'] + v['D']['r']
         N = v['N']['i'] + v['N']['r']
-        contest = first_night is not None and d >= first_night
+        #  a day is only a contest if a night crew actually worked it
+        contest = bool(nights_on.get(d))
         w = ''
         if contest:
             if D > N:
@@ -217,13 +281,89 @@ def _battle(txn_path):
         out.append({'d': d.strftime('%a %d %b'), 'iso': d.isoformat(),
                     'di': v['D']['i'], 'dr': v['D']['r'],
                     'ni': v['N']['i'], 'nr': v['N']['r'],
+                    'ds': v['D']['s'], 'ns': v['N']['s'],
                     'D': D, 'N': N, 'w': w, 'c': contest})
     return {
         'days': out,
         'dayTotal': sum(x['D'] for x in out),
         'nightTotal': sum(x['N'] for x in out),
         'dayWins': dw, 'nightWins': nw, 'ties': tie,
-        'nightsFrom': first_night.strftime('%d %b') if first_night else '',
+        'dayStock': sum(x['ds'] for x in out),
+        'nightStock': sum(x['ns'] for x in out),
+        'nightDays': sum(1 for x in out if x['c']),
+    }
+
+
+def _money(v):
+    try:
+        return float(str(v).strip().replace('$', '').replace(',', ''))
+    except (TypeError, ValueError):
+        return None
+
+
+def _pricing(onhire_path, master=None):
+    """What the gear on hire is costing per day, for the manager view.
+
+    The point is a manager glancing down a column and spotting the line
+    that is wrong - so the odd ones are surfaced, not buried: anything on
+    hire at a zero rate (earning nothing), and the dearest lines.
+    Everything here is SiteIQ's own SHIFT_RATE; nothing is calculated up
+    or estimated. (Andrew, 29 Jul 2026: "see visually if anything does
+    not look correct or wrong")
+    """
+    import openpyxl
+    if not onhire_path or not os.path.isfile(onhire_path):
+        return None
+    import mygear_store as MS
+    wb = openpyxl.load_workbook(onhire_path, read_only=True, data_only=True)
+    ws = wb['ON_HIRE'] if 'ON_HIRE' in wb.sheetnames else wb.active
+    rows = list(ws.iter_rows(values_only=True))
+    wb.close()
+    if not rows:
+        return None
+    hdr = [str(c or '').strip() for c in rows[0]]
+    ix = {h: i for i, h in enumerate(hdr) if h}
+    if 'SHIFT_RATE' not in ix:
+        return None
+
+    def g(r, k):
+        return str(r[ix[k]] or '').strip() if k in ix else ''
+
+    cats, firms, items, zero = {}, {}, {}, []
+    total = 0.0
+    for r in rows[1:]:
+        if not r or not any(c not in (None, '') for c in r):
+            continue
+        rate = _money(r[ix['SHIFT_RATE']])
+        desc = g(r, 'ITEM_DESCRIPTION')
+        if not desc:
+            continue
+        name = MS._tidy(desc, master, g(r, 'ITEM_NUMBER'))
+        co = g(r, 'COMPANY') or 'Not named'
+        cat = MS._cat_of(name)
+        if rate is None or rate <= 0:
+            zero.append({'n': name, 'co': co, 'w': g(r, 'HIRER_NAME')})
+            rate = 0.0
+        total += rate
+        cats[cat] = cats.get(cat, 0.0) + rate
+        firms[co] = firms.get(co, 0.0) + rate
+        e = items.setdefault(name, {'n': name, 'q': 0, 'r': rate, 'v': 0.0})
+        e['q'] += 1
+        e['v'] += rate
+        e['r'] = max(e['r'], rate)
+
+    top = sorted(items.values(), key=lambda x: -x['v'])[:60]
+    return {
+        'perDay': round(total, 2),
+        'cats': sorted(([k, round(v, 2)] for k, v in cats.items()),
+                       key=lambda t: -t[1]),
+        'firms': sorted(([k, round(v, 2)] for k, v in firms.items()),
+                        key=lambda t: -t[1]),
+        'top': [{'n': x['n'], 'q': x['q'], 'r': round(x['r'], 2),
+                 'v': round(x['v'], 2)} for x in top],
+        'zero': zero[:80],
+        'zeroN': len(zero),
+        'week': round(total * 7, 2),
     }
 
 
@@ -250,9 +390,20 @@ def read(rental_path, stocktake_path, master=None, today=None,
         return str(r[ix[k]] or '').strip() if k in ix else d
 
     groups, chase_t, chase_p, idle = {}, [], [], []
+    arrivals, plant = [], {'out': [], 'idle': [], 'free': []}
     for r in rs:
         status = g(r, 'ITEM_STATUS')
+        #  Anything not yet on the shelf and not out - ordered, in
+        #  transit, or stuck in Baseplan. The counter needs to know it is
+        #  coming rather than wonder where it went.
+        #  (Andrew, 29 Jul 2026: "flag anything that is in arrival status")
         if status not in ('Available for Hire', 'On Hire'):
+            if status:
+                arrivals.append({
+                    'n': MS._tidy(g(r, 'ITEM_DESCRIPTION'), master,
+                                  g(r, 'ITEM_NUMBER')),
+                    'u': g(r, 'STORAGE_UNIT') or 'Unfiled',
+                    's': status})
             continue
         raw = g(r, 'ITEM_DESCRIPTION')
         if not raw or not MS._offerable(raw):
@@ -266,6 +417,8 @@ def read(rental_path, stocktake_path, master=None, today=None,
         if status == 'Available for Hire':
             e['av'] += 1
             e['u'][unit] = e['u'].get(unit, 0) + 1
+            if _is_plant(unit):
+                plant['free'].append({'n': name, 'u': unit})
         else:
             e['oh'] += 1
             d = au_date(g(r, 'ON_HIRE_DATE'))
@@ -278,6 +431,11 @@ def read(rental_path, stocktake_path, master=None, today=None,
                 (chase_p if _is_plant(unit) else chase_t).append(row)
             if 'site plant' in who.lower():
                 idle.append({'n': name, 'u': unit, 'd': days})
+                if _is_plant(unit):
+                    plant['idle'].append({'n': name, 'u': unit, 'd': days})
+            elif _is_plant(unit):
+                plant['out'].append({'n': name, 'u': unit, 'w': who,
+                                     'co': co, 'd': days})
 
     #  stocktake - how much of the store has actually been laid eyes on
     stock = {'total': 0, 'w1': 0, 'w3': 0, 'w7': 0, 'stale': []}
@@ -305,7 +463,7 @@ def read(rental_path, stocktake_path, master=None, today=None,
                     'd': age, 'by': sg(r, 'LAST_SIGHTED_BY')[:26]})
     stock['stale'].sort(key=lambda x: -x['d'])
 
-    battle = _battle(txn_path) if txn_path else None
+    battle = _battle(txn_path, stocktake_path) if txn_path else None
 
     G = sorted(groups.values(), key=lambda e: (e['c'], e['n'].lower()))
     chase_t.sort(key=lambda x: (-x['d'], x['u']))
@@ -317,8 +475,12 @@ def read(rental_path, stocktake_path, master=None, today=None,
             out[x['u']] = out.get(x['u'], 0) + 1
         return sorted(out.items(), key=lambda t: -t[1])
 
+    arrivals.sort(key=lambda x: (x['s'], x['n'].lower()))
     return {
         'battle': battle,
+        'arrivals': arrivals,
+        'plant': plant,
+        'hasPlant': bool(plant['out'] or plant['idle'] or plant['free']),
         'groups': G,
         'chase': {'tools': chase_t, 'plant': chase_p,
                   'toolUnits': by_unit(chase_t),
@@ -335,6 +497,10 @@ def read(rental_path, stocktake_path, master=None, today=None,
             'stockPct': int(100.0 * stock['w7'] / stock['total'] + 0.5)
                         if stock['total'] else 0,
             'stale': len(stock['stale']),
+            'arrivals': len(arrivals),
+            'plantOn': len(plant['out']),
+            'plantIdle': len(plant['idle']),
+            'plantFree': len(plant['free']),
         },
     }
 
@@ -376,16 +542,27 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 #gerr{color:var(--rd);font-size:13.5px;margin-top:12px;font-weight:700;min-height:20px}
 /* board */
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+/* min-width:0 - a grid item defaults to min-width:auto, so a long label
+   like FREE ON THE GROUND could push the whole row wider than a 360px
+   phone. This lets the tile shrink and the label wrap instead. */
 .tile{background:var(--pnl);border:1px solid var(--line);border-radius:12px;
- padding:12px 10px;text-align:center}
+ padding:12px 10px;text-align:center;min-width:0}
 .tile b{display:block;font-size:24px;font-weight:900;color:var(--neon);line-height:1.1;
  font-variant-numeric:tabular-nums}
 .tile.g b{color:var(--gd)}.tile.a b{color:var(--am)}.tile.r b{color:var(--rd)}
 .tile span{display:block;font-size:9.5px;color:var(--dim);font-weight:800;
  letter-spacing:.8px;text-transform:uppercase;margin-top:5px;line-height:1.3}
 /* tabs */
+/* Ten tabs do not fit one row. On a phone they scroll sideways, which is
+   the natural thing to do with a thumb - but on a laptop nobody swipes a
+   tab strip, so the last tabs (Money among them) sat off the right edge
+   where a manager would never find them. Wrap once there is width for it.
+   (Caught 29 Jul 2026 in a 1100px screenshot - OUR STANDA... cut in half.) */
 .tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;position:sticky;top:0;
- background:var(--ink);z-index:5}
+ background:var(--ink);z-index:5;
+ -webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+@media(min-width:700px){.tabs{flex-wrap:wrap;overflow-x:visible}}
 .tab{flex:none;background:var(--pnl);border:1px solid var(--line);color:var(--dim);
  font-family:inherit;font-weight:800;font-size:12.5px;letter-spacing:.5px;
  padding:11px 15px;border-radius:999px;min-height:44px;text-transform:uppercase}
@@ -421,6 +598,15 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .kid .kt em.o{color:var(--org)}
 .kid .kw{font-size:11.5px;color:var(--dim);margin-top:5px;line-height:1.6}
 .kid .kw b{color:#C7CED8;font-weight:700}
+/* .stmore was being used on the plant toggle but never defined here, so it
+   rendered as a grey system button in the middle of a Coates page.
+   (Caught 29 Jul 2026 in a screenshot.) */
+.stmore{background:var(--pnl2);border:1.5px solid var(--org);color:var(--org);
+ font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.5px;
+ padding:11px 16px;border-radius:999px;min-height:44px;text-transform:uppercase;
+ cursor:pointer}
+.stmore:hover{background:var(--org);color:#fff}
+.kw.cut{color:var(--dim);font-style:italic;padding:9px 2px 2px}
 .where{font-size:11px;color:var(--neon);font-weight:800;letter-spacing:.5px;
  text-transform:uppercase;margin-top:5px}
 .uhead{font-size:12px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;
@@ -468,6 +654,9 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
  border-radius:12px;padding:14px 15px;margin-bottom:10px}
 .std h3{font-size:14.5px;font-weight:900;margin-bottom:7px;letter-spacing:-.2px}
 .std p{font-size:13.5px;color:#C7CED8;line-height:1.7}
+.std p.ref{font-size:12px;color:var(--dim);margin-top:10px;
+ border-left:2px solid var(--org);padding-left:10px}
+.std p.ref b{color:#C7CED8}
 .std p b{color:#fff}
 .sop{background:var(--pnl2);border:1px solid var(--line);border-radius:10px;
  padding:11px 13px;margin-top:9px}
@@ -494,7 +683,8 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
   <h2>Coates stores staff</h2>
   <p>Enter the store code to open the board.<br>
   This page is for the team behind the counter.</p>
-  <input id="code" type="password" inputmode="numeric" autocomplete="off"
+  <input id="code" type="password" inputmode="text" autocomplete="off"
+         autocapitalize="none" autocorrect="off" spellcheck="false"
          placeholder="CODE" aria-label="Store code">
   <button onclick="unlock()" type="button">OPEN THE BOARD</button>
   <div id="gerr"></div>
@@ -504,6 +694,8 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 </div>
 <script>
 var PAYLOAD="__PAYLOAD__",TAG="__TAG__";
+var MPAY="__MPAYLOAD__",MTAG="__MTAG__",MKEY="__MKEY__";
+var MGR=null,SHOW_PLANT=true;
 function xmur3(s){for(var i=0,h=1779033703^s.length;i<s.length;i++){
  h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}
  return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);
@@ -515,12 +707,44 @@ function tagOf(c){return(xmur3(c+'|CoatesK2storestag2026')()>>>0).toString(16)}
 function dec(c,b64){var rnd=mulberry32(xmur3(c+'|CoatesK2stores2026')());
  var raw=atob(b64),o='';for(var i=0;i<raw.length;i++){
  o+=String.fromCharCode(raw.charCodeAt(i)^Math.floor(rnd()*256))}return o}
+/* The manager layer is a SECOND payload under its own code. Money is not
+   the counter's business, so it is not merely hidden on the stores view -
+   it is not decryptable with the stores code at all. */
+function mtagOf(c){return(xmur3(c+'|CoatesK2mgrtag2026')()>>>0).toString(16)}
+function mdec(c,b64){var rnd=mulberry32(xmur3(c+'|CoatesK2mgr2026')());
+ var raw=atob(b64),o='';for(var i=0;i<raw.length;i++){
+ o+=String.fromCharCode(raw.charCodeAt(i)^Math.floor(rnd()*256))}return o}
 var D=null;
 function unlock(){
-  var c=(document.getElementById('code').value||'').trim().toUpperCase();
-  if(!c){return}
-  if(tagOf(c)!==TAG){document.getElementById('gerr').textContent=
+  /* The stores code is a word - upper-casing it means a bloke on a wet
+     tablet at 5am does not fail the gate over a lower-case letter. The
+     MANAGER code is a password with deliberate mixed case, so upper-casing
+     it destroyed it - the lower-case half arrived upper-case and the tag
+     never matched. Keep the raw string for the manager check.
+     (Caught 29 Jul 2026, in the browser probe - the manager path had been
+     "verified" in Python, where the upper-casing does not happen.) */
+  var raw=(document.getElementById('code').value||'').trim();
+  var c=raw.toUpperCase();
+  if(!raw){return}
+  if(MTAG){
+    var mc=(mtagOf(raw)===MTAG)?raw:((mtagOf(c)===MTAG)?c:null);
+    if(mc){ try{ MGR=JSON.parse(mdec(mc,MPAY)); }catch(e){ MGR=null; }
+            if(MGR){ c=mc; } }
+  }
+  if(tagOf(c)!==TAG && !MGR){document.getElementById('gerr').textContent=
     'That code does not open this board. Ask Andrew.';return}
+  if(MGR && tagOf(c)!==TAG){
+    /* The manager code opens the board as well - it is a superset, not a
+       second door to remember. It gets there by decrypting the STORES
+       code out of a tiny key blob: writing the stores code into the page
+       so the manager could reach the board would have handed it to
+       anyone who opened View Source, which is the whole gate gone.
+       (Caught 29 Jul 2026, in the build.) */
+    try{ D=JSON.parse(dec(mdec(c,MKEY),PAYLOAD)); }catch(e){}
+    if(D){ document.getElementById('gate').style.display='none';
+           document.getElementById('app').style.display='block';
+           render(); return; }
+  }
   try{ D=JSON.parse(dec(c,PAYLOAD)); }catch(e){
     document.getElementById('gerr').textContent='Could not open the board.';return}
   document.getElementById('gate').style.display='none';
@@ -541,6 +765,14 @@ document.getElementById('code').addEventListener('keydown',function(e){
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;')
   .replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function tile(v,l,cls){return '<div class="tile '+(cls||'')+'"><b>'+v+'</b><span>'+l+'</span></div>'}
+/* Long lists are cut short so the page stays quick on a tablet. A cut list
+   that says nothing is a lie by omission - a storeman scrolling 80 of 253
+   idle machines would swear the other 173 are not on site. Every cut says
+   so. (29 Jul 2026.) */
+function more(shown,total,word){
+  return total>shown?'<div class="kw cut">Showing the first '+shown+' of '
+    +total.toLocaleString()+' '+(word||'lines')+' &mdash; the rest are in SiteIQ.</div>':'';
+}
 
 function render(){
   var t=D.tiles;
@@ -559,6 +791,10 @@ function render(){
    +'<button class="tab" data-p="aisle" onclick="tab(this)">Walk an aisle</button>'
    +'<button class="tab" data-p="battle" onclick="tab(this)">Day v Night</button>'
    +'<button class="tab" data-p="std" onclick="tab(this)">Our standards</button>'
+   +(t.arrivals?'<button class="tab" data-p="arr" onclick="tab(this)">Arriving ('
+     +t.arrivals+')</button>':'')
+   +(D.hasPlant?'<button class="tab" data-p="plant" onclick="tab(this)">Plant</button>':'')
+   +(MGR?'<button class="tab" data-p="mgr" onclick="tab(this)">Money</button>':'')
    +'<button class="tab" data-p="idle" onclick="tab(this)">Idle plant ('+t.idle+')</button>'
    +'</div>'
    +'<div class="pane on" id="p-groups">'+paneGroups()+'</div>'
@@ -567,6 +803,9 @@ function render(){
    +'<div class="pane" id="p-aisle">'+paneAisle()+'</div>'
    +'<div class="pane" id="p-battle">'+paneBattle()+'</div>'
    +'<div class="pane" id="p-std">'+paneStd()+'</div>'
+   +(t.arrivals?'<div class="pane" id="p-arr">'+paneArr()+'</div>':'')
+   +(D.hasPlant?'<div class="pane" id="p-plant">'+panePlant()+'</div>':'')
+   +(MGR?'<div class="pane" id="p-mgr">'+paneMgr()+'</div>':'')
    +'<div class="pane" id="p-idle">'+paneIdle()+'</div>'
    +'<div class="foot">Built from this morning\\'s SiteIQ exports &middot; '
    +'read-only &middot; POWERED BY SITEIQ<br>Author: Andrew Fisher</div>';
@@ -677,7 +916,7 @@ function paneStock(){
         return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div>'
           +(x.by?'<div class="kw">last sighted by <b>'+esc(x.by)+'</b></div>':'')+'</div>';
-      }).join('')+(list.length>60?'<div class="kw">+ '+(list.length-60)+' more</div>':'')
+      }).join('')+more(60,list.length,'assets')
       +'</div></div>';
   });
   return h;
@@ -725,21 +964,21 @@ function paneAisle(){
         return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div>'
           +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)+'</div></div>';
-      }).join('');
+      }).join('')+more(40,a.chase.length,'items');
     }
     if(a.stale.length){
       h+='<div class="uhead">Not counted in over a week</div>';
       h+=a.stale.slice(0,40).map(function(x){
         return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div></div>';
-      }).join('');
+      }).join('')+more(40,a.stale.length,'assets');
     }
     h+='<div class="uhead">Should be on this shelf</div>';
     h+=a.shelf.sort(function(x,y){return y.q-x.q}).slice(0,80).map(function(x){
       return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
         +'<em>'+x.q+'</em></div></div>';
     }).join('');
-    if(a.shelf.length>80) h+='<div class="kw">+ '+(a.shelf.length-80)+' more lines</div>';
+    h+=more(80,a.shelf.length,'lines');
     h+='</div></div>';
   });
   return h;
@@ -810,7 +1049,10 @@ function paneStd(){
    +'<p>The first scan says <b>it is back and it is ours again</b>. The '
    +'second says <b>it is fit to go out</b>. One scan cannot say both, and '
    +'the gap between them is where a faulty tool would otherwise walk '
-   +'straight back onto a job.</p></div>'
+   +'straight back onto a job.</p>'
+   +'<p class="ref">Same words as the two A3 posters at the counter &mdash; '
+   +'<b>Issue: Double Scan</b> and <b>Return: Double Scan</b>. If the poster '
+   +'and this page ever disagree, the SWMS wins.</p></div>'
    +'<div class="std"><h3>Faults &mdash; every time</h3>'
    +'<p>Out of Service tag, photograph, written report, SiteIQ status and '
    +'physical quarantine. Record the asset, the fault, who reported it and '
@@ -830,6 +1072,107 @@ function paneStd(){
    +'gear that leaves this window bumped, charged and understood is a crew '
    +'that walks straight to the job.</span></div></div>';
 }
+function paneArr(){
+  var h='<div class="note"><b>On its way, or stuck.</b> Not on a shelf and '
+   +'not out with a crew &mdash; ordered, in transit, or held up in Baseplan. '
+   +'Worth knowing before you tell someone we have not got one.</div>';
+  var by={};
+  D.arrivals.forEach(function(x){(by[x.s]=by[x.s]||[]).push(x)});
+  Object.keys(by).sort().forEach(function(st){
+    var list=by[st];
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>'+esc(st)+'</b><span>status in SiteIQ</span></div>'
+      +'<div class="gq"><b style="color:var(--am)">'+list.length+'</b>'
+      +'<span>items</span></div></button><div class="kids">'
+      +list.map(function(x){
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b></div>'
+          +'<div class="kw">bound for '+esc(x.u)+'</div></div>';
+      }).join('')+'</div></div>';
+  });
+  return h;
+}
+/* PLANT - shown only where there is plant, because not every store has
+   it. (Andrew, 29 Jul 2026: "some sites will be different so maybe a
+   toggle on and off for when we have plant onsite") */
+function panePlant(){
+  var p=D.plant, t=D.tiles;
+  var h='<div class="note"><b>Plant on this site.</b> Out with a crew, idle '
+   +'on charge, or free on the ground. Turn it off if this store is tools '
+   +'only.<br><button class="stmore" style="margin-top:10px" type="button" '
+   +'onclick="togglePlant()">Hide plant from this board</button></div>'
+   +'<div class="tiles">'
+   +tile(t.plantOn,'Out with crews')
+   +tile(t.plantIdle,'Idle on charge','a')
+   +tile(t.plantFree,'Free on the ground','g')
+   +'</div>';
+  [['Out with crews',p.out],['Idle - on charge, not out',p.idle],
+   ['Free on the ground',p.free]].forEach(function(pair){
+    if(!pair[1].length) return;
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>'+pair[0]+'</b><span>plant</span></div>'
+      +'<div class="gq"><b>'+pair[1].length+'</b><span>items</span></div>'
+      +'</button><div class="kids">'
+      +pair[1].slice(0,80).map(function(x){
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +(x.d!=null?'<em class="o">'+x.d+' days</em>':'')+'</div>'
+          +'<div class="kw">'+esc(x.u)+(x.w?' &middot; <b>'+esc(x.w)+'</b>':'')+'</div></div>';
+      }).join('')+more(80,pair[1].length,'machines')+'</div></div>';
+  });
+  return h;
+}
+function togglePlant(){
+  SHOW_PLANT=!SHOW_PLANT;
+  D.hasPlant=SHOW_PLANT;
+  render();
+}
+/* MONEY - the manager layer. A day rate against every line so a wrong
+   one shows itself. */
+function paneMgr(){
+  var m=MGR;
+  if(!m||!m.perDay) return '<div class="note">No rate data in the on-hire export.</div>';
+  var h='<div class="ring"><div class="rv" style="font-size:30px">$'
+   +m.perDay.toLocaleString(undefined,{minimumFractionDigits:2})+'</div>'
+   +'<div class="rt"><b>on hire, per day</b>'
+   +'$'+m.week.toLocaleString(undefined,{maximumFractionDigits:0})
+   +' a week at today&rsquo;s rates. Every figure is SiteIQ&rsquo;s own '
+   +'SHIFT_RATE &mdash; nothing here is estimated.</div></div>';
+  if(m.zeroN){
+    h+='<div class="note" style="border-left-color:var(--rd)"><b>'+m.zeroN
+     +' items are on hire at a zero rate.</b> Earning nothing while they sit '
+     +'with a crew. Worth a look &mdash; it is usually a rate that never got '
+     +'set, not gear that is meant to be free.</div>'
+     +'<div class="grp"><button type="button" onclick="tog(this)">'
+     +'<div class="gn"><b>Zero-rate lines</b><span>check these first</span></div>'
+     +'<div class="gq"><b style="color:var(--rd)">'+m.zeroN+'</b><span>items</span></div>'
+     +'</button><div class="kids">'
+     +m.zero.map(function(x){
+       return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b></div>'
+         +'<div class="kw">'+esc(x.co)+(x.w?' &middot; '+esc(x.w):'')+'</div></div>';
+     }).join('')+'</div></div>';
+  }
+  function money(v){return '$'+v.toLocaleString(undefined,{maximumFractionDigits:0})}
+  function barlist(title,rows,sub){
+    if(!rows.length) return '';
+    var max=rows[0][1]||1;
+    var o='<div class="uhead">'+title+'</div>';
+    rows.slice(0,14).forEach(function(r){
+      o+='<div class="brow"><div class="bd"><span>'+esc(r[0])+'</span>'
+        +'<span>'+money(r[1])+sub+'</span></div>'
+        +'<div class="bb"><i class="bd2" style="width:'+(100*r[1]/max)+'%"></i></div></div>';
+    });
+    return o+more(14,rows.length,'groups');
+  }
+  h+=barlist('By product group',m.cats,'/day');
+  h+=barlist('By company',m.firms,'/day');
+  h+='<div class="uhead">Dearest lines &mdash; per day</div>';
+  m.top.slice(0,30).forEach(function(x){
+    h+='<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+      +'<em>'+money(x.v)+'/day</em></div>'
+      +'<div class="kw">'+x.q+' out &middot; '+money(x.r)+' each</div></div>';
+  });
+  h+=more(30,m.top.length,'lines');
+  return h;
+}
 function paneIdle(){
   var h='<div class="note"><b>Held by the site plant pool.</b> On charge, on site, '
    +'not out with a crew &mdash; the cost-saving watch list.</div>';
@@ -845,16 +1188,43 @@ function paneIdle(){
       +list.slice(0,60).map(function(x){
         return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
           +(x.d==null?'':'<em class="o">'+x.d+' days</em>')+'</div></div>';
-      }).join('')+'</div></div>';
+      }).join('')+more(60,list.length,'machines')+'</div></div>';
   });
   return h;
 }
 </script></body></html>"""
 
 
-def build(data, code, asof):
-    """The finished, gated page. The code never appears in the file."""
+def menc(code, s):
+    r = _mulberry32(_xmur3(code + '|CoatesK2mgr2026')())
+    return base64.b64encode(
+        bytes((ord(c) ^ (r() >> 24)) & 0xFF for c in s)).decode('ascii')
+
+
+def mtag(code):
+    return format(_xmur3(code + '|CoatesK2mgrtag2026')(), 'x')
+
+
+def build(data, code, asof, pricing=None, mgr_code=None):
+    """The finished, gated page. Neither code appears in the file.
+
+    Two payloads under two codes: the stores board, and the money. A
+    manager code opens both - it is a superset, not a second door to
+    remember - but the stores code cannot reach the money at all,
+    because it is separately encrypted rather than merely hidden.
+    """
     blob = json.dumps(data, separators=(',', ':'), ensure_ascii=True)
-    return (PAGE.replace('__PAYLOAD__', enc(code, blob))
+    page = (PAGE.replace('__PAYLOAD__', enc(code, blob))
                 .replace('__TAG__', tag(code))
                 .replace('__ASOF__', asof or 'this morning'))
+    if pricing and mgr_code:
+        mblob = json.dumps(pricing, separators=(',', ':'), ensure_ascii=True)
+        page = (page.replace('__MPAYLOAD__', menc(mgr_code, mblob))
+                    .replace('__MTAG__', mtag(mgr_code))
+                    #  the stores code, encrypted under the manager code -
+                    #  never the code itself
+                    .replace('__MKEY__', menc(mgr_code, code)))
+    else:
+        page = (page.replace('__MPAYLOAD__', '').replace('__MTAG__', '')
+                    .replace('__MKEY__', ''))
+    return page
