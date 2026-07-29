@@ -821,8 +821,13 @@ def build():
             print('  Stores code file created: stores_code.txt (code 2026 - '
                   'change it and re-run).')
         _sk = find_export('STOCKTAKE*.xlsx', 'STOCKTAKE', required=False)
+        #  SALES_STOCK feeds the consumables pane. Optional on purpose -
+        #  a store with no consumables still gets a board.
+        _sales = find_export('SALES_STOCK*.xlsx', 'SALES_STOCK',
+                             required=False)
         _sd = mygear_stores.read(rental_path, _sk, MASTER,
-                                 txn_path=txn_path)
+                                 txn_path=txn_path,
+                                 sales_path=_sales, base=BASE)
         #  the manager layer - money, under its own code
         _mgr_p = os.path.join(BASE, 'manager_code.txt')
         _mgr = 'army8686ARRA'

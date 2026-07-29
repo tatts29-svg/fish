@@ -368,8 +368,13 @@ def _pricing(onhire_path, master=None):
 
 
 def read(rental_path, stocktake_path, master=None, today=None,
-         txn_path=None):
-    """Everything the counter needs, from the two registers."""
+         txn_path=None, sales_path=None, base=None):
+    """Everything the counter needs, from the two registers.
+
+    sales_path/base bring in the consumables shelf. They are optional so
+    a site with no consumables export still gets a board rather than an
+    error - the pane simply does not appear.
+    """
     import openpyxl
     today = today or dt.date.today()
 
@@ -476,9 +481,53 @@ def read(rental_path, stocktake_path, master=None, today=None,
         return sorted(out.items(), key=lambda t: -t[1])
 
     arrivals.sort(key=lambda x: (x['s'], x['n'].lower()))
+
+    #  --- consumables (Andrew, 29 Jul 2026) ---
+    #  The counter gets the same shelf figures as the manager's
+    #  utilisation report, from the same engine, so the two can never
+    #  drift apart and tell a crew two different stories. Only the
+    #  lines that need a decision travel into the page - the full
+    #  71-line register belongs in the report, not on a tablet.
+    cons = None
+    if sales_path:
+        try:
+            import k2_consumables
+            cd = k2_consumables.read(sales_path, stocktake_path,
+                                     base or '.', today=today)
+        except Exception:
+            cd = None                     # never stop the board over this
+        if cd:
+            def slim(rows, n):
+                return [{'n': x['desc'], 'a': x['avail'], 'u': x['used'],
+                         'b': round(x['burn'], 1),
+                         'c': (int(x['cover']) if x['cover'] is not None
+                               else None),
+                         'k': x['sku'],
+                         'ct': x['counted'], 'v': x['varAdj'],
+                         'tw': x['twinHolds'],
+                         'w': x.get('why', '')}
+                        for x in rows[:n]]
+            cons = {
+                'avail': int(cd['avail']), 'used': int(cd['used']),
+                'skus': cd['skus'], 'moves': cd['moves'],
+                'end': cd['end'], 'daysLeft': cd['daysLeft'],
+                'checkedPct': int(cd['checkedPct'] + .5),
+                'matchPct': int(cd['matchPct'] + .5),
+                'checked': cd['checked'],
+                'order': slim(cd['order'], 40),
+                'watch': slim(cd['watch'], 20),
+                'records': slim(cd['records'], 20),
+                'off': slim(cd['off'], 30),
+                'dead': len(cd['dead']),
+                'explained': cd['explained'],
+                'countDays': cd['countDays'],
+            }
+
     return {
         'battle': battle,
         'arrivals': arrivals,
+        'cons': cons,
+        'hasCons': bool(cons),
         'plant': plant,
         'hasPlant': bool(plant['out'] or plant['idle'] or plant['free']),
         'groups': G,
@@ -790,6 +839,8 @@ function render(){
    +'<button class="tab" data-p="stock" onclick="tab(this)">Stocktake</button>'
    +'<button class="tab" data-p="aisle" onclick="tab(this)">Walk an aisle</button>'
    +'<button class="tab" data-p="battle" onclick="tab(this)">Day v Night</button>'
+   +(D.hasCons?'<button class="tab" data-p="cons" onclick="tab(this)">Consumables'
+     +(D.cons.order.length?' ('+D.cons.order.length+')':'')+'</button>':'')
    +'<button class="tab" data-p="std" onclick="tab(this)">Our standards</button>'
    +(t.arrivals?'<button class="tab" data-p="arr" onclick="tab(this)">Arriving ('
      +t.arrivals+')</button>':'')
@@ -802,6 +853,7 @@ function render(){
    +'<div class="pane" id="p-stock">'+paneStock()+'</div>'
    +'<div class="pane" id="p-aisle">'+paneAisle()+'</div>'
    +'<div class="pane" id="p-battle">'+paneBattle()+'</div>'
+   +(D.hasCons?'<div class="pane" id="p-cons">'+paneCons()+'</div>':'')
    +'<div class="pane" id="p-std">'+paneStd()+'</div>'
    +(t.arrivals?'<div class="pane" id="p-arr">'+paneArr()+'</div>':'')
    +(D.hasPlant?'<div class="pane" id="p-plant">'+panePlant()+'</div>':'')
@@ -1021,6 +1073,117 @@ function paneBattle(){
 /* OUR STANDARDS - quoted from SWMS-CTS-001 Rev 4, not paraphrased. The
    store's own procedure is the authority; this screen is a reminder of
    it at the counter, never a replacement for signing on to it. */
+/* CONSUMABLES - the shelf, the count, and what has to be ordered.
+   (Andrew, 29 Jul 2026: "consumables stock. how many available. how many
+   used. have we stock checked was it right was it ok. percentage of stock
+   take. do we need to order.")
+
+   The order of the blocks is deliberate and is NOT the order of the
+   questions. The false alarms come first, because SiteIQ flags ten lines
+   as Stock Low and not one of them is an empty shelf - and a storeman who
+   reads "stock low" at the counter will say "we are out of those" to the
+   next bloke who asks. Kill that before anything else. */
+function paneCons(){
+  var c=D.cons;
+  var h='<div class="note"><b>The consumables shelf.</b> What we hold, what '
+   +'has gone out the window, and what has to be on order before '
+   +c.end.split('-').reverse().join('/')+' &mdash; '+c.daysLeft+' days away.</div>'
+   +'<div class="tiles">'
+   +tile(c.avail.toLocaleString(),'On the shelf','g')
+   +tile(c.used.toLocaleString(),'Issued so far')
+   +tile(c.skus,'Different lines')
+   +tile(c.checkedPct+'%','Stocktake done','g')
+   +tile(c.matchPct+'%','Counts that matched',c.matchPct>=95?'g':'a')
+   +tile(c.order.length,'To order',c.order.length?'r':'g')
+   +'</div>';
+
+  if(c.records.length){
+    h+='<div class="note"><b>Do not tell anyone we are out of these.</b> '
+      +'SiteIQ flags '+c.records.length+' lines as stock low. Every one of '
+      +'them was counted with gear on the shelf &mdash; they are records to '
+      +'fix, not gear to chase.</div>'
+      +'<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>Says low, but the stock is there</b>'
+      +'<span>check the shelf before you say no</span></div>'
+      +'<div class="gq"><b style="color:var(--am)">'+c.records.length+'</b>'
+      +'<span>lines</span></div></button><div class="kids">'
+      +c.records.map(function(x){
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +'<em>'+(x.ct||0)+' counted</em></div><div class="kw">'
+          +(x.w==='twin'
+             ? 'Two SKU records for the one item &mdash; the other holds '+x.tw
+             : 'System says none, the count found stock')
+          +' &middot; '+esc(x.k)+'</div></div>';
+      }).join('')+'</div></div>';
+  }
+
+  h+='<div class="uhead">Do we need to order?</div>';
+  if(!c.order.length){
+    h+='<div class="note">Nothing needs ordering. Every line that is moving '
+      +'has enough on the shelf to reach the finish date at the rate it is '
+      +'going.</div>';
+  }else{
+    h+='<div class="note">Worked out from what actually went out the window '
+      +'&mdash; the rate each line is going since it first moved, against the '
+      +c.daysLeft+' days left. The minimum and reorder fields in SiteIQ are '
+      +'all set to zero on this job, so there is no trigger in there to '
+      +'read.</div>'
+      +'<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>Order these</b><span>runs out before the finish '
+      +'date</span></div><div class="gq"><b style="color:var(--rd)">'
+      +c.order.length+'</b><span>lines</span></div></button>'
+      +'<div class="kids">'
+      +c.order.map(function(x){
+        var need=Math.max(0,Math.round(x.b*c.daysLeft-x.a));
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+          /* cover is floored to whole days, so anything under 24 hours
+             arrives as 0. "0 days left" reads like a rounding error;
+             "under a day" reads like the warning it is. */
+          +'<em class="o">'+(x.c==null?'&mdash;':(x.c===0?'under a day'
+             :x.c+(x.c===1?' day left':' days left')))
+          +'</em></div><div class="kw">'+x.a+' on the shelf &middot; '
+          +'going out '+x.b+'/day &middot; <b>order about '+need+' more</b>'
+          +'</div></div>';
+      }).join('')+'</div></div>';
+  }
+  if(c.watch.length){
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>Worth watching</b><span>tight, not short</span>'
+      +'</div><div class="gq"><b style="color:var(--am)">'+c.watch.length
+      +'</b><span>lines</span></div></button><div class="kids">'
+      +c.watch.map(function(x){
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +'<em>'+x.c+' days left</em></div><div class="kw">'+x.a
+          +' on the shelf &middot; going out '+x.b+'/day</div></div>';
+      }).join('')+'</div></div>';
+  }
+
+  h+='<div class="uhead">Was the count right?</div>'
+    +'<div class="note"><b>'+c.checked+' of '+c.skus+' lines counted &mdash; '
+    +c.checkedPct+'%.</b> Anything sold after a count is taken off before the '
+    +'line is called wrong, so a count from last week is judged fairly. '
+    +(c.off.length
+       ? 'That leaves <b>'+c.off.length+'</b> real gaps.'
+       : 'Every count lines up.')
+    +'</div>';
+  if(c.off.length){
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>Counts that did not line up</b>'
+      +'<span>system against the shelf</span></div>'
+      +'<div class="gq"><b style="color:var(--am)">'+c.off.length+'</b>'
+      +'<span>lines</span></div></button><div class="kids">'
+      +c.off.map(function(x){
+        var v=x.v||0;
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +'<em class="'+(v<0?'o':'')+'">'+(v>0?'+':'')+Math.round(v)+'</em>'
+          +'</div><div class="kw">system '+x.a+' &middot; counted '+(x.ct||0)
+          +' &middot; '+(v>0?'more on the shelf than the system knows'
+                            :'less on the shelf than the system says')
+          +'</div></div>';
+      }).join('')+'</div></div>';
+  }
+  return h;
+}
 function paneStd(){
   return '<div class="note"><b>SWMS-CTS-001 Rev 4</b> &middot; Tool Store '
    +'Operation, Cement Australia K2 2026 &middot; issued 15 Jul 2026. '

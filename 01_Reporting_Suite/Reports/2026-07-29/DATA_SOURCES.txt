@@ -1,0 +1,7 @@
+DATA SOURCES FOR THIS DAY'S REPORTS
+Generated 29 Jul 2026 - 13:11
+------------------------------------------------------------
+RENTAL_STOCK.xlsx                                    refreshed 28 Jul 2026 - 21:09
+TRANSACTIONS.xlsx                                    refreshed 28 Jul 2026 - 21:09
+SALES_STOCK.xlsx                                     refreshed 28 Jul 2026 - 21:09
+STOCKTAKE.xlsx                                       refreshed 28 Jul 2026 - 21:11
