@@ -358,7 +358,7 @@ function dec(c,b64){var rnd=mulberry32(xmur3(c+'|CoatesK2stores2026')());
  o+=String.fromCharCode(raw.charCodeAt(i)^Math.floor(rnd()*256))}return o}
 var D=null;
 function unlock(){
-  var c=(document.getElementById('code').value||'').trim();
+  var c=(document.getElementById('code').value||'').trim().toUpperCase();
   if(!c){return}
   if(tagOf(c)!==TAG){document.getElementById('gerr').textContent=
     'That code does not open this board. Ask Andrew.';return}
@@ -370,6 +370,14 @@ function unlock(){
 }
 document.getElementById('code').addEventListener('keydown',function(e){
   if(e.key==='Enter') unlock();});
+/* Came through the override on the crew page? Open straight up. The code
+   travels in sessionStorage, never the address bar, and is cleared the
+   moment it is used so a shared tablet does not stay unlocked. */
+(function(){ try{
+  var h=sessionStorage.getItem('k2stores');
+  if(h){ sessionStorage.removeItem('k2stores');
+         document.getElementById('code').value=h; unlock(); }
+}catch(e){} })();
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;')
   .replace(/</g,'&lt;').replace(/>/g,'&gt;')}
@@ -389,11 +397,13 @@ function render(){
    +'<button class="tab on" data-p="groups" onclick="tab(this)">Product groups</button>'
    +'<button class="tab" data-p="chase" onclick="tab(this)">Chase up ('+t.chase+')</button>'
    +'<button class="tab" data-p="stock" onclick="tab(this)">Stocktake</button>'
+   +'<button class="tab" data-p="aisle" onclick="tab(this)">Walk an aisle</button>'
    +'<button class="tab" data-p="idle" onclick="tab(this)">Idle plant ('+t.idle+')</button>'
    +'</div>'
    +'<div class="pane on" id="p-groups">'+paneGroups()+'</div>'
    +'<div class="pane" id="p-chase">'+paneChase()+'</div>'
    +'<div class="pane" id="p-stock">'+paneStock()+'</div>'
+   +'<div class="pane" id="p-aisle">'+paneAisle()+'</div>'
    +'<div class="pane" id="p-idle">'+paneIdle()+'</div>'
    +'<div class="foot">Built from this morning\\'s SiteIQ exports &middot; '
    +'read-only &middot; POWERED BY SITEIQ<br>Author: Andrew Fisher</div>';
@@ -506,6 +516,68 @@ function paneStock(){
           +(x.by?'<div class="kw">last sighted by <b>'+esc(x.by)+'</b></div>':'')+'</div>';
       }).join('')+(list.length>60?'<div class="kw">+ '+(list.length-60)+' more</div>':'')
       +'</div></div>';
+  });
+  return h;
+}
+/* WALK AN AISLE - one screen per aisle, for a bloke standing in it.
+   Everything about that aisle in one place: what should be on the shelf,
+   what is out, what to chase, what has not been counted. He is holding
+   the phone in the aisle, so the aisle is the unit of thought - not the
+   product group. (Andrew, 29 Jul 2026: "when we walk the aisle, be good
+   to click on it and it gives you the detailed list of what you're
+   looking for and in which aisle") */
+function paneAisle(){
+  var A={};
+  function slot(u){ return A[u]=A[u]||{shelf:[],out:[],chase:[],stale:[]}; }
+  D.groups.forEach(function(g){
+    Object.keys(g.u||{}).forEach(function(u){
+      slot(u).shelf.push({n:g.n,q:g.u[u]});
+    });
+    (g.who||[]).forEach(function(w){ slot(w.u).out.push({n:g.n,w:w.w,co:w.co,d:w.d}); });
+  });
+  D.chase.tools.forEach(function(x){ slot(x.u).chase.push(x); });
+  D.chase.plant.forEach(function(x){ slot(x.u).chase.push(x); });
+  (D.stock.stale||[]).forEach(function(x){ slot(x.u).stale.push(x); });
+
+  var h='<div class="note"><b>Pick the aisle you are standing in.</b> '
+   +'Everything about it in one place &mdash; what should be on the shelf, '
+   +'what is out, what to chase, and what has not been counted.</div>';
+  Object.keys(A).sort(function(a,b){
+    return (A[b].shelf.length+A[b].chase.length)-(A[a].shelf.length+A[a].chase.length);
+  }).forEach(function(u){
+    var a=A[u];
+    var onShelf=a.shelf.reduce(function(s,x){return s+x.q},0);
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>'+esc(u)+'</b><span>'+a.shelf.length+' lines &middot; '
+      +a.out.length+' out</span></div>'
+      +'<div class="gq"><b>'+onShelf+'</b><span>on shelf</span></div>'
+      +(a.chase.length?'<div class="gq"><b style="color:var(--am)">'+a.chase.length
+        +'</b><span>chase</span></div>':'')
+      +(a.stale.length?'<div class="gq"><b style="color:var(--rd)">'+a.stale.length
+        +'</b><span>uncounted</span></div>':'')
+      +'</button><div class="kids">';
+    if(a.chase.length){
+      h+='<div class="uhead">Look for these first &mdash; out over 3 days</div>';
+      h+=a.chase.slice(0,40).map(function(x){
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +'<em class="o">'+x.d+' days</em></div>'
+          +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)+'</div></div>';
+      }).join('');
+    }
+    if(a.stale.length){
+      h+='<div class="uhead">Not counted in over a week</div>';
+      h+=a.stale.slice(0,40).map(function(x){
+        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +'<em class="o">'+x.d+' days</em></div></div>';
+      }).join('');
+    }
+    h+='<div class="uhead">Should be on this shelf</div>';
+    h+=a.shelf.sort(function(x,y){return y.q-x.q}).slice(0,80).map(function(x){
+      return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+        +'<em>'+x.q+'</em></div></div>';
+    }).join('');
+    if(a.shelf.length>80) h+='<div class="kw">+ '+(a.shelf.length-80)+' more lines</div>';
+    h+='</div></div>';
   });
   return h;
 }

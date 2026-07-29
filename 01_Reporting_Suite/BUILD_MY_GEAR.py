@@ -800,9 +800,45 @@ def build():
              + ('<span class="pu"><b class="pvt">{t}</b>TOP CREW</span>'
                 if top_crew else '')
              + '</div>').format(t=_esc_py(top_crew.title()) if top_crew else '')
+    _gl_dir = os.path.join(BASE, 'Gear_Lookup')
+    os.makedirs(_gl_dir, exist_ok=True)
+    _stores_tag = ''
+    #  THE STORES TEAM PAGE - the counter's own view, behind a code.
+    #  A separate file on purpose: the crew page stays light, and the
+    #  staff view can carry who-has-what without putting it in front of
+    #  900 people. The code lives in stores_code.txt (protected from
+    #  updates); change the file, re-run 04, done.
+    try:
+        import mygear_stores
+        _code_p = os.path.join(BASE, 'stores_code.txt')
+        _code = '2026'
+        if os.path.isfile(_code_p):
+            with io.open(_code_p, encoding='utf-8') as _fh:
+                _code = (_fh.read().strip() or _code)
+        else:
+            with io.open(_code_p, 'w', encoding='utf-8') as _fh:
+                _fh.write('2026\n')
+            print('  Stores code file created: stores_code.txt (code 2026 - '
+                  'change it and re-run).')
+        _sk = find_export('STOCKTAKE*.xlsx', 'STOCKTAKE', required=False)
+        _sd = mygear_stores.read(rental_path, _sk, MASTER)
+        with io.open(os.path.join(_gl_dir, 'stores.html'), 'w',
+                     encoding='utf-8') as _fh:
+            _fh.write(mygear_stores.build(_sd, _code, asof))
+        _stores_tag = mygear_stores.tag(_code.upper())
+        _t = _sd['tiles']
+        print('  Stores team page: {} on the shelf | {} out | {} to chase '
+              '| stocktake {}% | {} not counted'.format(
+                  _t['avail'], _t['onhire'], _t['chase'], _t['stockPct'],
+                  _t['stale']))
+    except Exception as _e:
+        print('  NOTE: stores team page not built ({}) - the crew page is '
+              'unaffected.'.format(_e))
+
     page = (TEMPLATE
             .replace('__DATA__', json.dumps(DATA))
             .replace('__PULSE__', pulse)
+            .replace('__STORESTAG__', _stores_tag)
             .replace('__ASOF__', asof or 'last refresh')
             .replace('__UICSS__', mygear_ui.CSS)
             .replace('__IDROW__', mygear_ui.ID_ROW)
@@ -832,37 +868,6 @@ def build():
                 print('  cleaned out of the served folder: ' + _office)
             except OSError:
                 pass
-    #  THE STORES TEAM PAGE - the counter's own view, behind a code.
-    #  A separate file on purpose: the crew page stays light, and the
-    #  staff view can carry who-has-what without putting it in front of
-    #  900 people. The code lives in stores_code.txt (protected from
-    #  updates); change the file, re-run 04, done.
-    try:
-        import mygear_stores
-        _code_p = os.path.join(BASE, 'stores_code.txt')
-        _code = '2026'
-        if os.path.isfile(_code_p):
-            with io.open(_code_p, encoding='utf-8') as _fh:
-                _code = (_fh.read().strip() or _code)
-        else:
-            with io.open(_code_p, 'w', encoding='utf-8') as _fh:
-                _fh.write('2026\n')
-            print('  Stores code file created: stores_code.txt (code 2026 - '
-                  'change it and re-run).')
-        _sk = find_export('STOCKTAKE*.xlsx', 'STOCKTAKE', required=False)
-        _sd = mygear_stores.read(rental_path, _sk, MASTER)
-        with io.open(os.path.join(out_dir, 'stores.html'), 'w',
-                     encoding='utf-8') as _fh:
-            _fh.write(mygear_stores.build(_sd, _code, asof))
-        _t = _sd['tiles']
-        print('  Stores team page: {} on the shelf | {} out | {} to chase '
-              '| stocktake {}% | {} not counted'.format(
-                  _t['avail'], _t['onhire'], _t['chase'], _t['stockPct'],
-                  _t['stale']))
-    except Exception as _e:
-        print('  NOTE: stores team page not built ({}) - the crew page is '
-              'unaffected.'.format(_e))
-
     out = os.path.join(out_dir, 'index.html')
     with io.open(out, 'w', encoding='utf-8') as f:
         f.write(page)
@@ -1050,6 +1055,19 @@ function go(){
  var id=(document.getElementById('idno').value||'').replace(/\s+/g,'');
  var err=document.getElementById('err');
  if(!id){err.textContent='Type the ID number off your card.';return}
+ /* STORES OVERRIDE - the counter types its own code into the same box
+    and lands on the stores board. One door for everybody: a crew member
+    types his hire ID, the stores team types theirs. The code is checked
+    by hash, never stored in this page, and it is handed to the stores
+    page through sessionStorage rather than the address bar - a code in
+    a URL ends up in history and over someone's shoulder.
+    (Andrew, 29 Jul 2026: "a stores override to get into the raw") */
+ if(typeof STORES_TAG==='string' && STORES_TAG &&
+    (xmur3(id.toUpperCase()+'|CoatesK2storestag2026')()>>>0).toString(16)===STORES_TAG){
+   try{ sessionStorage.setItem('k2stores', id.toUpperCase()); }catch(e){}
+   window.location.href='stores.html';
+   return;
+ }
  var blob=DATA[tag(id)];
  if(!blob){err.textContent='No gear found for that ID. Check the number on your card.';return}
  var p;try{p=JSON.parse(dec(id,blob))}catch(e){err.textContent='Could not read that record.';return}
@@ -1143,6 +1161,7 @@ function go(){
 }
 function reset(){document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
 document.getElementById('idno').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+var STORES_TAG='__STORESTAG__';
 __STOREJS__
 __UIJS__
 // self-test
