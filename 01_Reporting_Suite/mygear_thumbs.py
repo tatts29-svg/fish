@@ -119,12 +119,21 @@ def variant_register(here=None):
 
 
 def _photo_files(here=None):
+    """Photos\\ and one level of subfolders - a zip of pictures dragged
+    in whole (folder and all) still counts, nobody has to know to
+    flatten it first (30 Jul 2026, Andrew's consumables pack arrived
+    exactly like that)."""
     d = photos_dir(here)
     out = {}
-    for fn in sorted(os.listdir(d)):
-        stem, ext = os.path.splitext(fn)
-        if ext.lower() in ('.jpg', '.jpeg', '.png') and not fn.startswith('_'):
-            out[stem.strip().upper()] = os.path.join(d, fn)
+    dirs = [d] + sorted(os.path.join(d, s) for s in os.listdir(d)
+                        if os.path.isdir(os.path.join(d, s)))
+    for dd in dirs:
+        for fn in sorted(os.listdir(dd)):
+            stem, ext = os.path.splitext(fn)
+            if (ext.lower() in ('.jpg', '.jpeg', '.png')
+                    and not fn.startswith('_')
+                    and stem.strip().upper() not in out):
+                out[stem.strip().upper()] = os.path.join(dd, fn)
     return out
 
 
