@@ -1,7 +1,7 @@
-# Coates K2 suite version - 116 files - overall 971dd122
+# Coates K2 suite version - 118 files - overall 971dd122
 # MACHINE: master (built by Claude)
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-30 02:43:40
+# taken 2026-07-30 03:21:20
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -64,6 +64,8 @@ e5ec7cc70f ARE_WE_IN_SYNC.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
+b48951fe84 FIX_DELETE_LIFTING_CHARGES_28JUL.bat
+33084bfd46 FIX_DELETE_LIFTING_CHARGES_28JUL.py
 218fb4912a IS_IT_WORKING.py
 e0416bf106 MACHINE_ID.py
 d7e5f12668 MAKE_MY_QR_CARDS.py
