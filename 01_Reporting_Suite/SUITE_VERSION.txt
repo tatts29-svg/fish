@@ -1,7 +1,7 @@
-# Coates K2 suite version - 118 files - overall b19a918e
+# Coates K2 suite version - 120 files - overall c172efae
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-30 05:21:43
+# taken 2026-07-30 05:45:19
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -52,6 +52,7 @@ d803266ea1 50_ADD_LIFTING_CHARGES.bat
 750842a869 51_TIDY_THE_FOLDER.bat
 9ae49effec 52_PACK_FOR_CLAUDE.bat
 90bab58fae 53_WHICH_MACHINE.bat
+8b35641322 54_RUN_INVOICE_BREAKDOWN.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
@@ -72,7 +73,7 @@ d7e5f12668 MAKE_MY_QR_CARDS.py
 536d1d43c3 MAKE_OUTLOOK_DRAFTS.ps1
 14a01ac147 PACK_FOR_CLAUDE.py
 1c5c7eaecd PEOPLE_LIST.py
-756523866c PICK_REPORT.py
+b98cae26ae PICK_REPORT.py
 87cb5cb733 PREFILL_DAILY_TRACKING.ps1
 0da565dcb9 PULL_SITEIQ_EXPORTS.py
 77e9335253 REFRESH_BILLING_RECONCILIATION.ps1
@@ -96,7 +97,8 @@ a49f1ea35c activity_model.py
 28e7cf093a build_baseplan_costs.py
 064ec01f28 build_clean_report.py
 3f8dc50d72 build_company_onhire_report.py
-a9dff2a116 build_cost_snapshot.py
+1215cf56b4 build_cost_snapshot.py
+a03115ce96 build_invoice_breakdown.py
 3db5a9a8de build_plant_dashboard.py
 ce2058e40b build_posters.py
 06fd0346ff build_utilisation_report.py
