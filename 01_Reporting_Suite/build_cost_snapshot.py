@@ -207,6 +207,55 @@ def read_subhire_welders():
     return {"arrivals": arrivals, "rate": SUBHIRE_RATE}
 
 
+#  Seed for MISC_CLAIM_NAMES.txt - the four lines Andrew named on
+#  30 Jul 2026, each checked to the cent (qty x unit price = the line).
+_MISC_NAMES_SEED = """\
+# MISC claim lines - what they actually are.
+# SiteIQ books ad-hoc consumable claims as "MISC" with no description
+# at all, so the cost snapshot fills the words in from this file.
+# One line each:   amount = what it is
+# Add a new line whenever a new MISC claim appears, save, run 02.
+1090.50 = Ledlenser MH10 600lm Rechargeable Headlamp - 5 x $218.10
+511.20 = Paramount Safety Bollard Stem - 24 x $21.30
+389.76 = Paramount Bollard Bases 6KG - 24 x $16.24
+306.00 = Squids 3155 Elastic Tool Lanyard and Clamp - 20 x $15.30
+"""
+
+
+def read_misc_names():
+    """SiteIQ books ad-hoc consumable claims as bare "MISC" lines - the
+    export genuinely carries no description (SKU/ITEM_NUMBER says MISC,
+    the description column is blank). This file supplies the real words,
+    keyed by the line's dollar amount. Created with Andrew's four named
+    lines on first run; he adds a line in Notepad whenever a new MISC
+    claim appears. Lives beside the suite like every register - never
+    in git, never in an update zip."""
+    path = os.path.join(HERE, "MISC_CLAIM_NAMES.txt")
+    if not os.path.isfile(path):
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(_MISC_NAMES_SEED)
+        except OSError:
+            return {}
+    names = {}
+    try:
+        with open(path, encoding="utf-8-sig") as f:
+            for ln in f:
+                ln = ln.strip()
+                if not ln or ln.startswith("#") or "=" not in ln:
+                    continue
+                a, d = ln.split("=", 1)
+                try:
+                    amt = round(float(a.replace("$", "").replace(",", "")), 2)
+                except ValueError:
+                    continue
+                if d.strip():
+                    names[amt] = d.strip()
+    except OSError:
+        pass
+    return names
+
+
 def read_service_invoiced():
     """Progress claims booked into SiteIQ as PRODUCT_CATEGORY 'Service'
     (labour, accommodation and the like). These are LUMP claims covering a
@@ -215,7 +264,9 @@ def read_service_invoiced():
     cost story stays on the daily accrual (so days read evenly); these
     claims are reconciled openly on the true-up page - never double
     counted, never treated as one day's cost. Per A. Fisher 24 Jul 2026."""
-    out = {"labour": 0.0, "accom": 0.0, "other": [], "total": 0.0, "rows": []}
+    out = {"labour": 0.0, "accom": 0.0, "other": [], "total": 0.0,
+           "rows": [], "unnamed": 0}
+    misc_names = read_misc_names()
     tx = _gfind("TRANSACTIONS*.xlsx")
     if not tx:
         return out
@@ -254,6 +305,15 @@ def read_service_invoiced():
         if not amt:
             continue
         desc = str(cell(r, "SKU/ITEM DESCRIPTION") or cell(r, "SKU/ITEM_NUMBER") or "").strip()
+        if not desc or desc.upper() in ("MISC", "MISCELLANEOUS"):
+            #  SiteIQ sent no words at all - fill them in from Andrew's
+            #  names file (keyed by the line's exact dollar amount)
+            nm = misc_names.get(round(amt, 2))
+            if nm:
+                desc = nm
+            else:
+                desc = "MISC"
+                out["unnamed"] += 1
         du = desc.upper()
         when = str(cell(r, "SHIFT_CHARGE_DATE FROM") or cell(r, "TRAN_START_DATE") or "")
         out["rows"].append((when, desc, amt))
@@ -1220,9 +1280,6 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
                    "every total (trued to SiteIQ); add the workbook row(s) and "
                    "the tracked column fills in.".format(
                        ", ".join(d.strftime("%d %b") for d in cost["ds_only"])))
-    TRUEUP_ROWS_PER_PAGE = 18
-    row_chunks = [rec_rows[k:k + TRUEUP_ROWS_PER_PAGE]
-                  for k in range(0, len(rec_rows), TRUEUP_ROWS_PER_PAGE)] or [[]]
     _tu_head = ("<table style='font-size:11.5px'><thead><tr><th>Day</th><th style='text-align:right'>Tracked</th>"
                 "<th style='text-align:right'>SiteIQ invoiced</th>"
                 "<th style='text-align:right'>Plant</th>"
@@ -1258,6 +1315,34 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
                 "totals.{extra}{sp}</div>").format(nd=money0(round(net_drift)),
                                                    extra=ds_note,
                                                    sp=split_note)
+    #  Page budget. The panel is 1055px with overflow hidden - anything
+    #  past the edge is simply gone. The footnote above grew its split
+    #  and timing notes until rows + footnote pushed past that edge
+    #  ("cant see the bottom", A.F. 30 Jul 2026), so the LAST page now
+    #  gives the footnote its room first: estimate its rendered lines
+    #  from the text length (~105 chars a line at 11.5px), budget what's
+    #  left for table rows (~44px each after ~330px of header, rule and
+    #  card chrome), and balance the rows across the pages that need.
+    TRUEUP_ROWS_PER_PAGE = 18
+    _foot_chars = len(re.sub(r"<[^>]+>", "", _tu_foot))
+    _foot_px = 20 + 18 * max(2, (_foot_chars + 104) // 105)
+    _last_max = max(4, min(TRUEUP_ROWS_PER_PAGE, (1055 - 330 - _foot_px) // 44))
+    _n = len(rec_rows)
+    _pages = (1 if _n <= _last_max else
+              1 + (_n - _last_max + TRUEUP_ROWS_PER_PAGE - 1) // TRUEUP_ROWS_PER_PAGE)
+    _sizes = [_n // _pages + (1 if k < _n % _pages else 0) for k in range(_pages)]
+    _k = 0
+    while _sizes[-1] > _last_max and _k < len(_sizes) - 1:
+        if _sizes[_k] < TRUEUP_ROWS_PER_PAGE:
+            _sizes[_k] += 1
+            _sizes[-1] -= 1
+        else:
+            _k += 1
+    row_chunks, _at = [], 0
+    for _s in _sizes:
+        row_chunks.append(rec_rows[_at:_at + _s])
+        _at += _s
+    row_chunks = row_chunks or [[]]
     trueup_pages = []
     for ci, chunk in enumerate(row_chunks):
         first, last_c = (ci == 0), (ci == len(row_chunks) - 1)
@@ -1279,6 +1364,7 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
     # SiteIQ booked them - an invoice register, shown to the cent.
     svc = svc or {"labour": 0.0, "accom": 0.0, "other": [], "total": 0.0, "rows": []}
     claims_page = ""
+    claims_lines_page = ""
     if svc["total"] > 0:
         acc_lab = next((s2["act"] for s2 in cost["streams"]
                         if s2["name"] == "Personnel / Labour"), 0.0)
@@ -1299,7 +1385,7 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
             crows += ("<tr><td>{d}</td><td class='n'>&mdash;</td>"
                       "<td class='n'>{a}</td><td class='n'>&mdash;</td>"
                       "<td>other service line</td></tr>").format(
-                          d=html.escape(desc[:48]), a=money0(amt))
+                          d=html.escape(desc[:70]), a=money0(amt))
 
         def claim_when(w):
             s = str(w or "").strip().split()[0] if str(w or "").strip() else ""
@@ -1339,8 +1425,18 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
             "<th>Position</th></tr></thead><tbody>" + crows + "</tbody></table>"
             "<div class='footnote'>A claim ahead of accrual is simply billing for days the accrual "
             "hasn't reached yet &mdash; it does not change the landing, and the total claimed will "
-            "finish level with the plan, not over it.</div></div>"
-            "<div class='card' style='margin-top:16px'>"
+            "finish level with the plan, not over it."
+            + ((" {n} line(s) still read MISC &mdash; SiteIQ sent no description and "
+                "MISC_CLAIM_NAMES.txt doesn't name that amount yet. Open the file in "
+                "Notepad, add a line like &ldquo;1090.50 = what it is&rdquo;, save, "
+                "run 02.").format(n=svc.get("unnamed", 0))
+               if svc.get("unnamed") else "")
+            + "</div></div>")
+        #  The invoice register rides on its OWN sheet - two cards on one
+        #  1055px panel clipped this one at the edge once the claim lines
+        #  grew ("cant see the bottom", A.F. 30 Jul 2026).
+        claims_lines_page = (
+            "<div class='card'>"
             "<h2>The claims as SiteIQ booked them</h2>"
             "<div class='cap'>Straight from the TRANSACTIONS export (PRODUCT_CATEGORY &ldquo;Service&rdquo;), "
             "to the cent &mdash; the same lines that appear on the invoice.</div>"
@@ -1485,6 +1581,8 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
         sections.append(("The true-up · tracked v SiteIQ invoiced", tp))
     if claims_page:
         sections.append(("Progress claims · labour &amp; accommodation", claims_page))
+    if claims_lines_page:
+        sections.append(("Progress claims · as SiteIQ booked them", claims_lines_page))
     sections += [("Plant on the ground · utilisation &amp; idle plant", util_page),
                  ("The landing · predicted cost &amp; the month view", landing_page)]
     if charges_page:

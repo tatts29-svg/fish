@@ -22,3 +22,7 @@ __pycache__/
 # a repo. Missing files are recreated with defaults by 04_BUILD_MY_GEAR.
 01_Reporting_Suite/stores_code.txt
 01_Reporting_Suite/manager_code.txt
+
+# Names for SiteIQ "MISC" claim lines - site data typed on site, recreated
+# with Andrew's seeded lines by 02 if missing. Data, not code.
+01_Reporting_Suite/MISC_CLAIM_NAMES.txt

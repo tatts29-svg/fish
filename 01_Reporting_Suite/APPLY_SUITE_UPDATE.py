@@ -66,6 +66,9 @@ PROTECTED = (
     "stores_code.txt",
     #  the manager code that unlocks the money view - same rule
     "manager_code.txt",
+    #  the names Andrew gives SiteIQ's blank "MISC" claim lines -
+    #  typed on site in Notepad, never shipped (30 Jul 2026)
+    "misc_claim_names.txt",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan")
 
