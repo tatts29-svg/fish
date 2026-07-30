@@ -550,7 +550,10 @@ def read(rental_path, stocktake_path, master=None, today=None,
             co = g(r, 'COMPANY_NAME') or 'Not named'
             e['who'].append({'w': who, 'co': co, 'd': days, 'u': unit})
             if days is not None and days > 3:
-                row = {'n': name, 'u': unit, 'w': who, 'co': co, 'd': days}
+                #  item number rides along so the aisle chase list can
+                #  print and scan like everything else (30 Jul 2026)
+                row = {'n': name, 'u': unit, 'w': who, 'co': co, 'd': days,
+                       'i': _itm}
                 (chase_p if _is_plant(unit) else chase_t).append(row)
             if 'site plant' in who.lower():
                 idle.append({'n': name, 'u': unit, 'd': days})
@@ -774,6 +777,208 @@ def read(rental_path, stocktake_path, master=None, today=None,
 #  19,323 cells, zero mismatches against openpyxl. It is a faithful
 #  port of zlib's reference inflate (puff) plus a minimal zip walk and
 #  just enough XML for shared strings and one sheet.
+#  QR LITE, PORTED TO JS - the same encoder as qr_lite.py, line for
+#  line, so a QR printed off this board and a QR on a poster come from
+#  ONE proven implementation. Ported (not rewritten) 30 Jul 2026 for
+#  Andrew's "add a QR Code for all Item Numbers ... this allows us to
+#  scan these sheets"; verified against qr_lite.qr_matrix byte for byte
+#  in the headless browser before shipping. Byte mode, level M,
+#  versions 1-10, all eight masks scored per the standard. No external
+#  library, nothing fetched - the sheets stay offline like everything
+#  else. Raw string: keep backslashes out of the JS.
+_QR_JS = r"""
+var QRL=(function(){
+var EXP=new Array(512),LOG=new Array(256);
+(function(){var x=1,i;for(i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&256)x^=285;}
+for(i=255;i<512;i++)EXP[i]=EXP[i-255];})();
+function mul(a,b){return(a===0||b===0)?0:EXP[LOG[a]+LOG[b]];}
+function rsGen(n){var g=[1],i,j;
+ for(i=0;i<n;i++){var g2=[],k;for(k=0;k<g.length+1;k++)g2.push(0);
+  for(j=0;j<g.length;j++){g2[j]^=g[j];g2[j+1]^=mul(g[j],EXP[i]);}g=g2;}
+ return g;}
+function rsEnc(data,n){var g=rsGen(n),res=data.slice(),i,j;
+ for(i=0;i<n;i++)res.push(0);
+ for(i=0;i<data.length;i++){var c=res[i];
+  if(c){for(j=1;j<g.length;j++)res[i+j]^=mul(g[j],c);}}
+ return res.slice(data.length);}
+var M={1:[26,10,1],2:[44,16,1],3:[70,26,1],4:[100,18,2],5:[134,24,2],
+ 6:[172,16,4],7:[196,18,4],8:[242,22,4],9:[292,22,5],10:[346,26,5]};
+var ALIGN={1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],
+ 7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+var FORMAT=[0x5412,0x5125,0x5E7C,0x5B4B,0x45F9,0x40CE,0x4F97,0x4AA0];
+var VBITS={7:0x07C94,8:0x085BC,9:0x09A99,10:0x0A4D3};
+function cap(v){return M[v][0]-M[v][1]*M[v][2];}
+function pickVer(n){var v,cci,need;
+ for(v=1;v<=10;v++){cci=v<10?8:16;
+  need=Math.floor((4+cci+n*8+7)/8);
+  if(need<=cap(v))return v;}
+ return 0;}
+function bitstream(data,ver){var cci=ver<10?8:16,bits=[],i,j;
+ function put(val,n){for(var k=n-1;k>=0;k--)bits.push((val>>k)&1);}
+ put(4,4);put(data.length,cci);
+ for(i=0;i<data.length;i++)put(data[i],8);
+ var capb=cap(ver)*8;
+ put(0,Math.min(4,capb-bits.length));
+ while(bits.length%8)bits.push(0);
+ var words=[];
+ for(i=0;i<bits.length;i+=8){var w=0;for(j=0;j<8;j++)w=(w<<1)|bits[i+j];words.push(w);}
+ var pad=[236,17],k2=0;
+ while(words.length<cap(ver)){words.push(pad[k2%2]);k2++;}
+ return words;}
+function interleave(words,ver){var eccN=M[ver][1],nb=M[ver][2];
+ var dcount=cap(ver),shrt=Math.floor(dcount/nb),extra=dcount%nb;
+ var blocks=[],ecs=[],pos=0,i,b;
+ for(b=0;b<nb;b++){var size=shrt+((b>=nb-extra)?1:0);
+  var blk=words.slice(pos,pos+size);pos+=size;
+  blocks.push(blk);ecs.push(rsEnc(blk,eccN));}
+ var out=[],mx=0;
+ for(b=0;b<blocks.length;b++)if(blocks[b].length>mx)mx=blocks[b].length;
+ for(i=0;i<mx;i++)for(b=0;b<blocks.length;b++)
+  if(i<blocks[b].length)out.push(blocks[b][i]);
+ for(i=0;i<eccN;i++)for(b=0;b<ecs.length;b++)out.push(ecs[b][i]);
+ return out;}
+function matrix(ver,words){var size=ver*4+17,m=[],r,c,i,j;
+ for(r=0;r<size;r++){var row=[];for(c=0;c<size;c++)row.push(null);m.push(row);}
+ function finder(r0,c0){for(var i2=-1;i2<8;i2++)for(var j2=-1;j2<8;j2++){
+  var rr=r0+i2,cc=c0+j2;
+  if(rr>=0&&rr<size&&cc>=0&&cc<size){
+   var on=((i2>=0&&i2<=6)&&(j2===0||j2===6))
+    ||((j2>=0&&j2<=6)&&(i2===0||i2===6))
+    ||(i2>=2&&i2<=4&&j2>=2&&j2<=4);
+   m[rr][cc]=on?1:0;}}}
+ finder(0,0);finder(0,size-7);finder(size-7,0);
+ for(i=8;i<size-8;i++){var v=(i%2===0)?1:0;m[6][i]=v;m[i][6]=v;}
+ var al=ALIGN[ver],a,b2;
+ for(a=0;a<al.length;a++)for(b2=0;b2<al.length;b2++){
+  r=al[a];c=al[b2];
+  if(m[r][c]!==null)continue;
+  for(i=-2;i<3;i++)for(j=-2;j<3;j++)
+   m[r+i][c+j]=(Math.max(Math.abs(i),Math.abs(j))!==1)?1:0;}
+ m[size-8][8]=1;
+ for(i=0;i<9;i++){if(m[8][i]===null)m[8][i]=0;if(m[i][8]===null)m[i][8]=0;}
+ for(i=0;i<8;i++){if(m[8][size-1-i]===null)m[8][size-1-i]=0;
+  if(m[size-1-i][8]===null)m[size-1-i][8]=0;}
+ if(ver>=7){var vb=VBITS[ver];
+  for(i=0;i<18;i++){var bb=(vb>>i)&1;
+   m[Math.floor(i/3)][size-11+i%3]=bb;
+   m[size-11+i%3][Math.floor(i/3)]=bb;}}
+ var bits=[];
+ for(i=0;i<words.length;i++)for(j=7;j>=0;j--)bits.push((words[i]>>j)&1);
+ var idx=0,up=true,col=size-1;
+ while(col>0){
+  if(col===6)col-=1;
+  var rows=[];
+  if(up){for(r=size-1;r>=0;r--)rows.push(r);}
+  else{for(r=0;r<size;r++)rows.push(r);}
+  for(var ri=0;ri<rows.length;ri++){r=rows[ri];
+   for(var ci=0;ci<2;ci++){c=(ci===0)?col:col-1;
+    if(m[r][c]===null){m[r][c]=(idx<bits.length)?bits[idx]:0;idx++;}}}
+  up=!up;col-=2;}
+ return {m:m,size:size};}
+function reservedMap(size,ver){var res=[],r,c,i;
+ for(r=0;r<size;r++){var row=[];for(c=0;c<size;c++)row.push(false);res.push(row);}
+ function block(r0,c0,h,w){for(var i2=0;i2<h;i2++)for(var j2=0;j2<w;j2++){
+  var rr=r0+i2,cc=c0+j2;
+  if(rr>=0&&rr<size&&cc>=0&&cc<size)res[rr][cc]=true;}}
+ block(0,0,9,9);block(0,size-8,9,8);block(size-8,0,8,9);
+ for(i=0;i<size;i++){res[6][i]=true;res[i][6]=true;}
+ var al=ALIGN[ver],a,b2;
+ for(a=0;a<al.length;a++)for(b2=0;b2<al.length;b2++){
+  r=al[a];c=al[b2];
+  if((r<9&&c<9)||(r<9&&c>size-10)||(r>size-10&&c<9))continue;
+  block(r-2,c-2,5,5);}
+ if(ver>=7){block(0,size-11,6,3);block(size-11,0,3,6);}
+ return res;}
+function applyMask(m,size,mask,ver){var g=[],r,c,i;
+ for(r=0;r<size;r++)g.push(m[r].slice());
+ var res=reservedMap(size,ver);
+ for(r=0;r<size;r++)for(c=0;c<size;c++){
+  if(res[r][c])continue;
+  var cond;
+  switch(mask){
+   case 0:cond=((r+c)%2===0);break;
+   case 1:cond=(r%2===0);break;
+   case 2:cond=(c%3===0);break;
+   case 3:cond=((r+c)%3===0);break;
+   case 4:cond=((Math.floor(r/2)+Math.floor(c/3))%2===0);break;
+   case 5:cond=(((r*c)%2+(r*c)%3)===0);break;
+   case 6:cond=((((r*c)%2+(r*c)%3)%2)===0);break;
+   default:cond=((((r+c)%2+(r*c)%3)%2)===0);}
+  if(cond)g[r][c]^=1;}
+ var fmt=FORMAT[mask];
+ for(i=0;i<15;i++){var b=(fmt>>i)&1;
+  if(i<6)g[i][8]=b;
+  else if(i===6)g[7][8]=b;
+  else if(i===7)g[8][8]=b;
+  else if(i===8)g[8][7]=b;
+  else g[8][14-i]=b;
+  if(i<8)g[8][size-1-i]=b;
+  else g[size-15+i][8]=b;}
+ g[size-8][8]=1;
+ return g;}
+function penalty(g,size){var p=0,r,c,i,k;
+ var lines=[];
+ for(r=0;r<size;r++)lines.push(g[r]);
+ for(c=0;c<size;c++){var col=[];for(r=0;r<size;r++)col.push(g[r][c]);lines.push(col);}
+ for(i=0;i<lines.length;i++){var run=0,prev=-1,line=lines[i];
+  for(k=0;k<line.length;k++){var v=line[k];
+   if(v===prev){run+=1;}
+   else{if(run>=5)p+=3+(run-5);run=1;prev=v;}}
+  if(run>=5)p+=3+(run-5);}
+ for(r=0;r<size-1;r++)for(c=0;c<size-1;c++){
+  var s=g[r][c]+g[r][c+1]+g[r+1][c]+g[r+1][c+1];
+  if(s===0||s===4)p+=3;}
+ var dark=0;
+ for(r=0;r<size;r++)for(c=0;c<size;c++)dark+=g[r][c];
+ p+=10*Math.floor(Math.abs(Math.floor(dark*100/(size*size))-50)/5);
+ return p;}
+function toBytes(s){var out=[],i,c;
+ for(i=0;i<s.length;i++){c=s.charCodeAt(i);
+  if(c<128)out.push(c);
+  else if(c<2048){out.push(192|(c>>6));out.push(128|(c&63));}
+  else{out.push(224|(c>>12));out.push(128|((c>>6)&63));out.push(128|(c&63));}}
+ return out;}
+var MEMO={};
+function qrMatrix(text){
+ if(MEMO[text])return MEMO[text];
+ var data=toBytes(String(text));
+ var ver=pickVer(data.length);
+ if(!ver)return null;
+ var words=interleave(bitstream(data,ver),ver);
+ var base=matrix(ver,words);
+ var best=null,bestp=-1;
+ for(var mask=0;mask<8;mask++){
+  var g=applyMask(base.m,base.size,mask,ver);
+  var p=penalty(g,base.size);
+  if(bestp<0||p<bestp){best=g;bestp=p;}}
+ MEMO[text]=best;
+ return best;}
+function qrSvg(text,px){
+ var m=qrMatrix(text);
+ if(!m)return '';
+ var n=m.length,quiet=2,total=n+quiet*2,rects='',r,c;
+ for(r=0;r<n;r++){c=0;
+  while(c<n){
+   if(m[r][c]){var run=1;
+    while(c+run<n&&m[r][c+run])run++;
+    rects+='<rect x="'+(c+quiet)+'" y="'+(r+quiet)
+      +'" width="'+run+'" height="1"/>';
+    c+=run;}
+   else c++;}}
+ return '<svg class="qrs" width="'+px+'" height="'+px+'" viewBox="0 0 '
+  +total+' '+total+'" shape-rendering="crispEdges" '
+  +'xmlns="http://www.w3.org/2000/svg">'
+  +'<rect width="'+total+'" height="'+total+'" fill="#ffffff"/>'
+  +'<g fill="#101317">'+rects+'</g></svg>';}
+return {matrix:qrMatrix,svg:qrSvg};
+})();
+/* the one call every list uses: the QR IS the item number - scan it
+   with the store scanner or a phone and you get the number itself,
+   exactly as typed. Empty when a row has no number: never a QR of
+   nothing. */
+function qr(t,px){ if(t==null||t===''){return '';} return QRL.svg(String(t),px||46); }
+"""
+
 _READER_JS = r"""
 function _inflate(src){
   var pos=0, bitbuf=0, bitcnt=0, out=[];
@@ -1082,6 +1287,14 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .kid .kt em.o{color:var(--org)}
 .kid .kw{font-size:11.5px;color:var(--dim);margin-top:5px;line-height:1.6}
 .kid .kw b{color:#C7CED8;font-weight:700}
+/* the on-screen scan sticker: white QR tile pinned to the row's right,
+   room reserved with padding so text never runs underneath it */
+.kid.hasqr{position:relative;padding-right:64px}
+.kqr{position:absolute;right:9px;top:50%;transform:translateY(-50%);line-height:0}
+.kqr svg{border-radius:5px;display:block}
+.kw.kwq{display:flex;align-items:center;gap:10px}
+.kw.kwq span{flex:1;min-width:0}
+.kw.kwq svg{flex:none;border-radius:4px}
 /* .stmore was being used on the plant toggle but never defined here, so it
    rendered as a grey system button in the middle of a Coates page.
    (Caught 29 Jul 2026 in a screenshot.) */
@@ -1175,6 +1388,11 @@ select.srch{appearance:none;-webkit-appearance:none}
  #prsheet .ppid{display:inline-block;background:#F26222;color:#fff;
   border-radius:8px;padding:1px 7px;font-size:9px;font-weight:800;
   margin-left:5px;vertical-align:1px}
+ /* the scan column: the QR IS the item number - sized so a store
+    scanner or a phone reads it off paper first go (12.5mm with its
+    own quiet zone), crisp SVG so it prints razor sharp */
+ #prsheet .pqr{width:14mm;padding:3px 4px}
+ #prsheet .pqr svg{width:12.5mm;height:12.5mm;display:block}
  #prsheet .pfoot{margin-top:16px;padding-top:9px;border-top:1px solid #D5DBE3;
   text-align:center;font-size:9.5px;color:#8A94A2;line-height:1.7}
 }
@@ -1289,6 +1507,7 @@ function mdec(c,b64){var rnd=mulberry32(xmur3(c+'|CoatesK2mgr2026')());
  var raw=atob(b64),o='';for(var i=0;i<raw.length;i++){
  o+=String.fromCharCode(raw.charCodeAt(i)^Math.floor(rnd()*256))}return o}
 //__READER__//
+//__QRJS__//
 var D=null;
 function unlock(){
   /* The stores code is a word - upper-casing it means a bloke on a wet
@@ -1580,9 +1799,10 @@ function paneStock(){
             +'<em>'+o.n+' to sight</em></div>'
             +(fline?'<div class="kw"><b>'+fline+'</b></div>':'')
             +its.slice(0,25).map(function(x){
-              return '<div class="kw">&bull; '+esc(x.n)
+              return '<div class="kw kwq"><span>&bull; '+esc(x.n)
                 +(x.i?' &middot; Item '+esc(x.i):'')
-                +' &middot; <b style="color:var(--org)">'+x.d+'d unsighted</b></div>';
+                +' &middot; <b style="color:var(--org)">'+x.d+'d unsighted</b></span>'
+                +(x.i?qr(x.i,40):'')+'</div>';
             }).join('')
             +(its.length>25?'<div class="kw cut">Showing the first 25 of '
               +its.length+' &mdash; the full list is on this aisle&rsquo;s '
@@ -1618,7 +1838,9 @@ function paneStock(){
         +'\\',\\'O\\')">&#128424; On hire &mdash; do not hunt ('+nO+')</button>':'')
       +'</div>'
       +list.slice(0,60).map(function(x){
-        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+        return '<div class="kid'+(x.i?' hasqr':'')+'">'
+          +(x.i?'<div class="kqr">'+qr(x.i,44)+'</div>':'')
+          +'<div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="'+(x.s==='O'?'':'o')+'">'+(x.s==='O'?'on hire':x.d+' days')+'</em></div>'
           +'<div class="kw">'+(x.i?'Item '+esc(x.i)+' &middot; ':'')
           +(x.by?'last sighted by <b>'+esc(x.by)+'</b>':'')+'</div></div>';
@@ -1640,12 +1862,13 @@ function stPrint(unit,kind){
     return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;});
   var isA=kind==='A';
   var body='<table class="ptab pchk">'
-   +'<tr><th>Item</th><th>Item no</th><th class="pn">Days uncounted</th>'
+   +'<tr><th>Item</th><th>Item no</th><th>Scan</th><th class="pn">Days uncounted</th>'
    +'<th>Last sighted by</th>'
    +(isA?'<th class="pn">FOUND</th><th>Where / note</th>':'')
    +'</tr>'
    +rows.map(function(x){
      return '<tr><td>'+esc(x.n)+'</td><td>'+esc(x.i||'—')+'</td>'
+       +'<td class="pqr">'+qr(x.i)+'</td>'
        +'<td class="pn">'+x.d+'</td><td>'+esc(x.by||'—')+'</td>'
        +(isA?'<td class="pn"><span class="ptick"></span></td>'
             +'<td><span class="pline"></span></td>':'')
@@ -1701,9 +1924,12 @@ function paneAisle(){
     if(a.chase.length){
       h+='<div class="uhead">Look for these first &mdash; out over 3 days</div>';
       h+=a.chase.slice(0,40).map(function(x){
-        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+        return '<div class="kid'+(x.i?' hasqr':'')+'">'
+          +(x.i?'<div class="kqr">'+qr(x.i,44)+'</div>':'')
+          +'<div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div>'
-          +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)+'</div></div>';
+          +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)
+          +(x.i?' &middot; Item '+esc(x.i):'')+'</div></div>';
       }).join('')+more(40,a.chase.length,'items');
     }
     if(a.stale.length){
@@ -1846,7 +2072,9 @@ function paneHits(){
       +'<div class="gq"><b style="color:var(--rd)">'+rl[3].length+'</b>'
       +'<span>to chase</span></div></button><div class="kids">'
       +rl[3].map(function(x){
-        return '<div class="kid"><div class="kt"><b>'+esc(x.w)+'</b>'
+        return '<div class="kid'+(x.i?' hasqr':'')+'">'
+          +(x.i?'<div class="kqr">'+qr(x.i,44)+'</div>':'')
+          +'<div class="kt"><b>'+esc(x.w)+'</b>'
           +'<em class="o">'+x.d+' day'+(x.d===1?'':'s')+'</em></div>'
           +'<div class="kw">'+esc(x.co)+' &middot; '+esc(x.n)
           +(x.i?' &middot; Item '+esc(x.i):'')
@@ -2003,12 +2231,13 @@ function prGo(){
     body+='<div class="pwho">'+esc(p[1])+' <span>'+esc(p[0])+' &middot; '
       +list.length+' item'+(list.length===1?'':'s')
       +'</span></div><table class="ptab">'
-      +'<tr><th>Item</th><th>Item no</th><th>Aisle</th>'
+      +'<tr><th>Item</th><th>Item no</th><th>Scan</th><th>Aisle</th>'
       +'<th class="pn">Days on hire</th></tr>'
       +list.map(function(x){
         return '<tr><td>'+esc(x.n)
           +(x.p?' <span class="ppid">Plant ID '+esc(x.p)+'</span>':'')
-          +'</td><td>'+esc(x.i||'—')+'</td><td>'+esc(x.u)+'</td>'
+          +'</td><td>'+esc(x.i||'—')+'</td>'
+          +'<td class="pqr">'+qr(x.i)+'</td><td>'+esc(x.u)+'</td>'
           +'<td class="pn'+((x.d||0)>4?' late':'')+'">'
           +(x.d==null?'—':x.d)+'</td></tr>';
       }).join('')+'</table>';
@@ -2226,7 +2455,7 @@ function frShow(kind){
 function consPrint(){
   var c=D.cons; if(!c||!c.all) return;
   var body='<table class="ptab pchk">'
-   +'<tr><th>Item</th><th>SKU</th><th class="pn">On shelf</th>'
+   +'<tr><th>Item</th><th>SKU</th><th>Scan</th><th class="pn">On shelf</th>'
    +'<th class="pn">Used so far</th><th>Last counted</th>'
    +'<th class="pn">Counted now</th><th class="pn">REORDER</th></tr>'
    +c.all.map(function(x){
@@ -2234,6 +2463,7 @@ function consPrint(){
        +(x.co?x.co.split('-').reverse().join('/'):'?')
        +(x.by?' by '+esc(x.by):'')));
      return '<tr><td>'+esc(x.n)+'</td><td>'+esc(x.k)+'</td>'
+       +'<td class="pqr">'+qr(x.k)+'</td>'
        +'<td class="pn">'+x.a+'</td><td class="pn">'+x.u+'</td>'
        +'<td>'+last+'</td>'
        +'<td class="pn"><span class="pbox"></span></td>'
@@ -2560,6 +2790,7 @@ def build(data, code, asof, pricing=None, mgr_code=None):
     blob = json.dumps(data, separators=(',', ':'), ensure_ascii=True)
     _alias = keypad_alias(code)
     page = (PAGE.replace('//__READER__//', _READER_JS)
+                .replace('//__QRJS__//', _QR_JS)
                 .replace('__PAYLOAD__', enc(code, blob))
                 .replace('__TAG__', tag(code))
                 .replace('__ATAG__', tag(_alias) if _alias else '')
