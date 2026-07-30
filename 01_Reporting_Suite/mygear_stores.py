@@ -541,11 +541,18 @@ def read(rental_path, stocktake_path, master=None, today=None,
             #  the photo key - one thumbnail per variant covers every
             #  item behind it (Andrew, 30 Jul 2026)
             e['v'] = str(g(r, 'PRODUCT_VARIANT') or '').strip().upper()
+        #  plant rows carry their SiteIQ family, item number and Plant
+        #  ID so the Plant tab can read by CATEGORY - "find welder,
+        #  see what's available, what's idle, who's got the rest"
+        #  (Andrew, 30 Jul 2026)
+        _fam = str(g(r, 'PRODUCT_FAMILY') or '').strip().title() or 'Other Plant'
+        _pidv = pid_map.get(_itm, '')
         if status == 'Available for Hire':
             e['av'] += 1
             e['u'][unit] = e['u'].get(unit, 0) + 1
             if _is_plant(unit):
-                plant['free'].append({'n': name, 'u': unit})
+                plant['free'].append({'n': name, 'u': unit, 'f': _fam,
+                                      'i': _itm, 'p': _pidv})
         else:
             e['oh'] += 1
             d = au_date(g(r, 'ON_HIRE_DATE'))
@@ -562,10 +569,12 @@ def read(rental_path, stocktake_path, master=None, today=None,
             if 'site plant' in who.lower():
                 idle.append({'n': name, 'u': unit, 'd': days})
                 if _is_plant(unit):
-                    plant['idle'].append({'n': name, 'u': unit, 'd': days})
+                    plant['idle'].append({'n': name, 'u': unit, 'd': days,
+                                          'f': _fam, 'i': _itm, 'p': _pidv})
             elif _is_plant(unit):
                 plant['out'].append({'n': name, 'u': unit, 'w': who,
-                                     'co': co, 'd': days})
+                                     'co': co, 'd': days,
+                                     'f': _fam, 'i': _itm, 'p': _pidv})
 
     #  stocktake - how much of the store has actually been laid eyes on
     stock = {'total': 0, 'w1': 0, 'w3': 0, 'w7': 0, 'stale': []}
@@ -2541,6 +2550,25 @@ function paneCons(){
       +'will not merge them, so this board does. One item, one line, the '
       +'true total, and no false stock-low flags.</div>';
   }
+  /* EVERY LINE, A-Z - picture, SKU, what's on the shelf, and a scan
+     code per line (Andrew, 30 Jul 2026: "ensure qr codes are added
+     for tooling and consumables"). The QR is the SKU number, so the
+     counter scans the screen or the printed sheet the same way. */
+  if(c.all&&c.all.length){
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>Every line A&ndash;Z</b>'
+      +'<span>picture &middot; SKU &middot; on shelf &middot; scan code</span></div>'
+      +'<div class="gq"><b>'+c.all.length+'</b><span>lines</span></div>'
+      +'</button><div class="kids">'
+      +c.all.map(function(x){
+        return '<div class="kid kidth hasqr">'
+          +thTile(x.k,x.n)
+          +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +'<em'+(x.a?'':' class="o"')+'>'+x.a+' on shelf</em></div>'
+          +'<div class="kw">SKU '+esc(x.k)+' &middot; '+x.u+' issued so far</div></div>'
+          +'<div class="kqr">'+qr(x.k,40)+'</div></div>';
+      }).join('')+'</div></div>';
+  }
   if(c.records.length){
     h+='<div class="note"><b>Do not tell anyone we are out of these.</b> '
       +'The system has them at zero, the count found gear on the shelf. '
@@ -2699,28 +2727,75 @@ function paneArr(){
    it. (Andrew, 29 Jul 2026: "some sites will be different so maybe a
    toggle on and off for when we have plant onsite") */
 function panePlant(){
+  /* BY CATEGORY (Andrew, 30 Jul 2026: "with the plant gear lets
+     categorise it better so if i want to find welder in there it
+     shows me what is available and what in idle and who onhire and
+     company"). One group per SiteIQ product family: free and idle
+     first (the answer to "have we got one?"), then who holds the
+     rest, named with company, days, Plant ID and a scan code. */
   var p=D.plant, t=D.tiles;
-  var h='<div class="note"><b>Plant on this site.</b> Out with a crew, idle '
-   +'on charge, or free on the ground. Turn it off if this store is tools '
-   +'only.<br><button class="stmore" style="margin-top:10px" type="button" '
+  var h='<div class="note"><b>Plant on this site, by category.</b> Open a '
+   +'category: what is free right now, what sits idle on charge, and who '
+   +'holds the rest. Turn it off if this store is tools only.'
+   +'<br><button class="stmore" style="margin-top:10px" type="button" '
    +'onclick="togglePlant()">Hide plant from this board</button></div>'
    +'<div class="tiles">'
    +tile(t.plantOn,'Out with crews')
    +tile(t.plantIdle,'Idle on charge','a')
    +tile(t.plantFree,'Free on the ground','g')
    +'</div>';
-  [['Out with crews',p.out],['Idle - on charge, not out',p.idle],
-   ['Free on the ground',p.free]].forEach(function(pair){
-    if(!pair[1].length) return;
+  var cats={};
+  function slot(f){return cats[f]=cats[f]||{free:[],idle:[],out:[]};}
+  (p.free||[]).forEach(function(x){slot(x.f||'Other Plant').free.push(x);});
+  (p.idle||[]).forEach(function(x){slot(x.f||'Other Plant').idle.push(x);});
+  (p.out||[]).forEach(function(x){slot(x.f||'Other Plant').out.push(x);});
+  function byDays(a,b){var da=(a.d==null?-1:a.d),db=(b.d==null?-1:b.d);
+    if(da!==db)return db-da;
+    return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;}
+  function byName(a,b){return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;}
+  function prow(x,em,emCls){
+    return '<div class="kid'+(x.i?' hasqr':'')+'">'
+      +(x.i?'<div class="kqr">'+qr(x.i,40)+'</div>':'')
+      +'<div class="kt"><b>'+esc(x.n)
+      +(x.p?' <span style="color:var(--org);font-weight:800">&middot; Plant ID '
+        +esc(x.p)+'</span>':'')
+      +'</b><em'+(emCls?' class="'+emCls+'"':'')+'>'+em+'</em></div>'
+      +'<div class="kw">'+(x.i?'Item '+esc(x.i)+' &middot; ':'')+esc(x.u)
+      +(x.w?' &middot; <b>'+esc(x.w)+'</b>'+(x.co?' &middot; '+esc(x.co):''):'')
+      +'</div></div>';
+  }
+  Object.keys(cats).sort(function(a,b){
+    var A=cats[a],B=cats[b];
+    return (B.free.length+B.idle.length+B.out.length)
+          -(A.free.length+A.idle.length+A.out.length);
+  }).forEach(function(f){
+    var c=cats[f], total=c.free.length+c.idle.length+c.out.length;
     h+='<div class="grp"><button type="button" onclick="tog(this)">'
-      +'<div class="gn"><b>'+pair[0]+'</b><span>plant</span></div>'
-      +'<div class="gq"><b>'+pair[1].length+'</b><span>items</span></div>'
-      +'</button><div class="kids">'
-      +pair[1].slice(0,80).map(function(x){
-        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
-          +(x.d!=null?'<em class="o">'+x.d+' days</em>':'')+'</div>'
-          +'<div class="kw">'+esc(x.u)+(x.w?' &middot; <b>'+esc(x.w)+'</b>':'')+'</div></div>';
-      }).join('')+more(80,pair[1].length,'machines')+'</div></div>';
+      +'<div class="gn"><b>'+esc(f)+'</b><span>'+total+' machine'
+      +(total===1?'':'s')+' on site</span></div>'
+      +'<div class="gq"><b style="color:var(--gd)">'+c.free.length+'</b><span>free</span></div>'
+      +'<div class="gq"><b style="color:var(--am)">'+c.idle.length+'</b><span>idle</span></div>'
+      +'<div class="gq"><b style="color:var(--org)">'+c.out.length+'</b><span>out</span></div>'
+      +'</button><div class="kids">';
+    if(c.free.length){
+      h+='<div class="uhead">Free on the ground &mdash; take one</div>'
+        +c.free.slice().sort(byName).slice(0,40).map(function(x){
+          return prow(x,'free','');}).join('')
+        +more(40,c.free.length,'free');
+    }
+    if(c.idle.length){
+      h+='<div class="uhead">Idle &mdash; on charge, nobody using it</div>'
+        +c.idle.slice().sort(byDays).slice(0,40).map(function(x){
+          return prow(x,(x.d!=null?x.d+'d idle':'idle'),'o');}).join('')
+        +more(40,c.idle.length,'idle');
+    }
+    if(c.out.length){
+      h+='<div class="uhead">Out with crews &mdash; who holds what</div>'
+        +c.out.slice().sort(byDays).slice(0,60).map(function(x){
+          return prow(x,(x.d!=null?x.d+'d out':'out'),'o');}).join('')
+        +more(60,c.out.length,'machines');
+    }
+    h+='</div></div>';
   });
   return h;
 }
