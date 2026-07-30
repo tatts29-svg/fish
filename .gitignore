@@ -26,3 +26,8 @@ __pycache__/
 # Names for SiteIQ "MISC" claim lines - site data typed on site, recreated
 # with Andrew's seeded lines by 02 if missing. Data, not code.
 01_Reporting_Suite/MISC_CLAIM_NAMES.txt
+
+# The store Zebra's IP and label size - belongs to the machine at the
+# counter, recreated with instructions by 55 if missing.
+01_Reporting_Suite/zebra_printer.txt
+01_Reporting_Suite/ZEBRA_PREVIEW.zpl

@@ -69,6 +69,9 @@ PROTECTED = (
     #  the names Andrew gives SiteIQ's blank "MISC" claim lines -
     #  typed on site in Notepad, never shipped (30 Jul 2026)
     "misc_claim_names.txt",
+    #  the store Zebra's IP and label size - set at the counter,
+    #  never shipped (30 Jul 2026)
+    "zebra_printer.txt",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan")
 
