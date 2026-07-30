@@ -31,3 +31,9 @@ __pycache__/
 # counter, recreated with instructions by 55 if missing.
 01_Reporting_Suite/zebra_printer.txt
 01_Reporting_Suite/ZEBRA_PREVIEW.zpl
+
+# Gear pictures - collected on site, thumbnails rebuilt from them by 04.
+# Site data, never in git or update zips.
+01_Reporting_Suite/Photos/
+01_Reporting_Suite/Photo_Hunt.html
+01_Reporting_Suite/Gear_Lookup/thumbs/

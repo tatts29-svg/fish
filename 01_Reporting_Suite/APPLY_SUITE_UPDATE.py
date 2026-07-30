@@ -73,7 +73,9 @@ PROTECTED = (
     #  never shipped (30 Jul 2026)
     "zebra_printer.txt",
 )
-PROTECTED_DIRS = ("data_siteiq", "data_baseplan")
+PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
+                  #  gear pictures collected on site (30 Jul 2026)
+                  "photos")
 
 
 def sha(path):

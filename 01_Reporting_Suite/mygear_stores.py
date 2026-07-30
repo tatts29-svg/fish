@@ -536,7 +536,11 @@ def read(rental_path, stocktake_path, master=None, today=None,
         unit = g(r, 'STORAGE_UNIT') or 'Unfiled'
         key = (cat, name)
         e = groups.setdefault(key, {'c': cat, 'n': name, 'av': 0, 'oh': 0,
-                                    'u': {}, 'who': []})
+                                    'u': {}, 'who': [], 'v': ''})
+        if not e['v']:
+            #  the photo key - one thumbnail per variant covers every
+            #  item behind it (Andrew, 30 Jul 2026)
+            e['v'] = str(g(r, 'PRODUCT_VARIANT') or '').strip().upper()
         if status == 'Available for Hire':
             e['av'] += 1
             e['u'][unit] = e['u'].get(unit, 0) + 1
@@ -1287,6 +1291,13 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .kid .kt em.o{color:var(--org)}
 .kid .kw{font-size:11.5px;color:var(--dim);margin-top:5px;line-height:1.6}
 .kid .kw b{color:#C7CED8;font-weight:700}
+/* the catalogue picture tile - photo when collected, monogram until */
+.kid.kidth{display:flex;gap:11px;align-items:flex-start}
+.kid.kidth .kbody{flex:1;min-width:0}
+.kth2{flex:none;width:46px;height:46px;border-radius:9px;overflow:hidden;
+ background:#20262e;display:flex;align-items:center;justify-content:center}
+.kth2 img{width:100%;height:100%;object-fit:cover;display:block}
+.kth2.mono{color:#8A97A8;font-weight:900;font-size:14px;letter-spacing:.5px}
 /* the on-screen scan sticker: white QR tile pinned to the row's right,
    room reserved with padding so text never runs underneath it */
 .kid.hasqr{position:relative;padding-right:64px}
@@ -1712,9 +1723,28 @@ function kid(g){
         +(w.d==null?'':' &middot; '+w.d+(w.d===1?' day':' days')+' out');
     }).join('<br>')+(g.who.length>12?'<br>+ '+(g.who.length-12)+' more':'')+'</div>';
   }
-  return '<div class="kid"><div class="kt"><b>'+esc(g.n)+'</b>'
+  return '<div class="kid kidth">'+thTile(g.v,g.n)
+    +'<div class="kbody"><div class="kt"><b>'+esc(g.n)+'</b>'
     +'<em>'+g.av+' free</em>'+(g.oh?'<em class="o">'+g.oh+' out</em>':'')+'</div>'
-    +(units?'<div class="where">'+esc(units)+'</div>':'')+who+'</div>';
+    +(units?'<div class="where">'+esc(units)+'</div>':'')+who+'</div></div>';
+}
+/* the picture tile: the variant's thumbnail (Gear_Lookup/thumbs), or
+   a two-letter monogram until its photo is collected - 56_PHOTO_HUNT
+   is the wanted list. Lazy-loaded; a missing file falls back clean. */
+function thMono(n){
+  var w=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
+  return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
+}
+function thTile(v,n){
+  if(!v) return '<span class="kth2 mono">'+thMono(n)+'</span>';
+  return '<span class="kth2"><img src="thumbs/'+encodeURIComponent(v)
+    +'.jpg" loading="lazy" alt="" data-m="'+thMono(n)
+    +'" onerror="thx(this)"></span>';
+}
+function thx(img){
+  var s=img.parentNode;
+  s.className=s.className.replace(' mono','')+' mono';
+  s.textContent=img.getAttribute('data-m')||'?';
 }
 function tog(b){
   var k=b.parentNode.querySelector('.kids');

@@ -237,6 +237,11 @@ def read_availability(rental_path, sales_path, master=None):
     Every line: name, how many, which aisle. Nothing inferred."""
     import openpyxl
     hire, cons = {}, {}
+    #  the photo key: PRODUCT_VARIANT for hire gear, SKU number for
+    #  consumables - one thumbnail in Gear_Lookup\thumbs covers every
+    #  item behind the code (Andrew, 30 Jul 2026: "thumbnails for
+    #  everything ... for product variants")
+    vkey = {}
 
     if rental_path and os.path.isfile(rental_path):
         wb = openpyxl.load_workbook(rental_path, read_only=True, data_only=True)
@@ -262,6 +267,8 @@ def read_availability(rental_path, sales_path, master=None):
                 unit = _unit_of(r[ix['STORAGE_UNIT']])
                 k = (name, _cat_of(name), unit)
                 hire[k] = hire.get(k, 0) + 1
+                if k not in vkey and 'PRODUCT_VARIANT' in ix:
+                    vkey[k] = str(r[ix['PRODUCT_VARIANT']] or '').strip().upper()
         wb.close()
 
     if sales_path and os.path.isfile(sales_path):
@@ -289,6 +296,8 @@ def read_availability(rental_path, sales_path, master=None):
                     else 'Consumables'
                 k = (name, _cat_of(name), unit)
                 cons[k] = cons.get(k, 0) + q
+                if k not in vkey and 'SKU_NUMBER' in ix:
+                    vkey[k] = str(r[ix['SKU_NUMBER']] or '').strip().upper()
         wb.close()
 
     def pack(d, kind):
@@ -296,7 +305,8 @@ def read_availability(rental_path, sales_path, master=None):
         for (name, cat, unit), n in d.items():
             #  c = the category you look under, u = the aisle you walk to
             out.append({'n': name, 'c': cat, 'u': unit,
-                        'q': int(n), 'k': kind})
+                        'q': int(n), 'k': kind,
+                        'v': vkey.get((name, cat, unit), '')})
         out.sort(key=lambda x: x['n'].lower())
         return out
 
@@ -350,6 +360,10 @@ CSS = """
   padding:12px 13px;margin-bottom:8px;min-height:60px}
 .strow.few{border-left-color:#F5A623}
 .strow.none{border-left-color:#E23B2E;opacity:.72}
+.strow .sth{flex:none;width:46px;height:46px;border-radius:9px;overflow:hidden;
+ background:#20262e;display:flex;align-items:center;justify-content:center}
+.strow .sth img{width:100%;height:100%;object-fit:cover;display:block}
+.strow .sth.mono{color:#8A97A8;font-weight:900;font-size:14px;letter-spacing:.5px}
 .strow .stn{flex:1;min-width:0}
 .strow .stn b{display:block;font-size:14.5px;font-weight:700;color:#EAF0F7;
   line-height:1.35}
@@ -447,6 +461,7 @@ function stRender(reset){
     var lab = it.q === 0 ? 'right now' : (it.k === 'c' ? 'on the shelf' : 'ready to hire');
     html += '<div class="strow ' + cls + '" style="animation-delay:'
       + Math.min(i*14,280) + 'ms">'
+      + thTile(it.v, it.n)
       + '<div class="stn"><b>' + it.n + '</b><span>' + it.u + '</span></div>'
       + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
   }
@@ -459,6 +474,24 @@ function stRender(reset){
         + ' more of ' + hits.length;
     } else { more.style.display = 'none'; }
   }
+}
+/* the picture tile: the variant's thumbnail out of Gear_Lookup/thumbs,
+   or a two-letter monogram until its photo is collected (56_PHOTO_HUNT
+   is the wanted list). Lazy-loaded so a thousand rows stay quick. */
+function thMono(n){
+  var w=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
+  return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
+}
+function thTile(v,n){
+  if(!v) return '<span class="sth mono">'+thMono(n)+'</span>';
+  return '<span class="sth"><img src="thumbs/'+encodeURIComponent(v)
+    +'.jpg" loading="lazy" alt="" data-m="'+thMono(n)
+    +'" onerror="thx(this)"></span>';
+}
+function thx(img){
+  var s=img.parentNode;
+  s.className='sth mono';
+  s.textContent=img.getAttribute('data-m')||'?';
 }
 function stCat(name, el){
   window.ST_CAT = name;

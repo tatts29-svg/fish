@@ -932,6 +932,18 @@ def build():
               ' ({} awaiting a card)'.format(len(dmg_unattached))
               if dmg_unattached else ''))
     print('  Data as at: ' + (asof or 'unknown') + ' | Output: ' + out)
+    #  gear pictures: shrink anything new in Photos\ into the served
+    #  thumbs folder, and say where the hunt stands (30 Jul 2026)
+    try:
+        import mygear_thumbs
+        _n, _made, _ready = mygear_thumbs.refresh(BASE)
+        _reg = len(mygear_thumbs.variant_register(BASE))
+        print('  Gear pictures: {} of {} variants have a photo{} - run '
+              '56_PHOTO_HUNT for the wanted list.'.format(
+                  _ready, _reg,
+                  ' ({} shrunk this build)'.format(_made) if _made else ''))
+    except Exception as _e:
+        print('  Gear pictures: skipped this build ({})'.format(_e))
 
 TEMPLATE = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%23F36F21%22/%3E%3C/svg%3E"><title>My Gear · Coates K2</title><style>
