@@ -784,8 +784,32 @@ function paneStock(){
         +(row[2]==='d'?od.dN:od.nN)+'</b><span>items to sight</span></div>'
         +'</button><div class="kids on">'
         +(row[1].length?row[1].map(function(o){
+          /* name EXACTLY what to sight in this aisle - the types with
+             counts, then every item with its number and how long it
+             has been unsighted (Andrew, 30 Jul 2026: "mention what
+             exactly they need to sight like product group or types so
+             they actually know what they are doing") */
+          var its=D.stock.stale.filter(function(x){
+            return x.u===o.u&&x.s==='A';});
+          its.sort(function(a,b){ if(a.d!==b.d) return b.d-a.d;
+            return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;});
+          var fams={};
+          its.forEach(function(x){var f=famOf(x.n);fams[f]=(fams[f]||0)+1;});
+          var fline=Object.keys(fams).sort(function(a,b){return fams[b]-fams[a];})
+            .map(function(f){return esc(f)+(fams[f]>1?' &times;'+fams[f]:'');})
+            .join(' &middot; ');
           return '<div class="kid"><div class="kt"><b>'+esc(o.u)+'</b>'
-            +'<em>'+o.n+' to sight</em></div></div>';
+            +'<em>'+o.n+' to sight</em></div>'
+            +(fline?'<div class="kw"><b>'+fline+'</b></div>':'')
+            +its.slice(0,25).map(function(x){
+              return '<div class="kw">&bull; '+esc(x.n)
+                +(x.i?' &middot; Item '+esc(x.i):'')
+                +' &middot; <b style="color:var(--org)">'+x.d+'d unsighted</b></div>';
+            }).join('')
+            +(its.length>25?'<div class="kw cut">Showing the first 25 of '
+              +its.length+' &mdash; the full list is on this aisle&rsquo;s '
+              +'not-found sheet.</div>':'')
+            +'</div>';
         }).join(''):'<div class="kw" style="padding:8px 2px">Nothing assigned '
           +'&mdash; the other shift carries today&rsquo;s backlog.</div>')
         +'</div></div>';
