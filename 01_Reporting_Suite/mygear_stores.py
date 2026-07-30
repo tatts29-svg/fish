@@ -2544,22 +2544,20 @@ function paneCons(){
    +tile(c.order.length,'To order',c.order.length?'r':'g')
    +'</div>';
 
-  if(c.folded){
-    h+='<div class="note">'+c.folded+' duplicate SKU record'
-      +(c.folded===1?'':'s')+' folded into their live line &mdash; SiteIQ '
-      +'will not merge them, so this board does. One item, one line, the '
-      +'true total, and no false stock-low flags.</div>';
-  }
-  /* EVERY LINE, A-Z - picture, SKU, what's on the shelf, and a scan
-     code per line (Andrew, 30 Jul 2026: "ensure qr codes are added
-     for tooling and consumables"). The QR is the SKU number, so the
-     counter scans the screen or the printed sheet the same way. */
+  /* THE SHELF, SHOWCASED - every line A-Z with its picture, SKU,
+     live shelf count and a scan code, OPEN by default: this is the
+     front window of the consumables area (Andrew, 30 Jul 2026: "get
+     these consumable picture and their barcodes in the stores team
+     section under consumables too please lets show case this area").
+     The QR is the SKU number, so the counter scans the screen or the
+     printed sheet the same way. Twins are already folded - one item,
+     one line, the true total. */
   if(c.all&&c.all.length){
     h+='<div class="grp"><button type="button" onclick="tog(this)">'
-      +'<div class="gn"><b>Every line A&ndash;Z</b>'
+      +'<div class="gn"><b>The shelf &mdash; every line A&ndash;Z</b>'
       +'<span>picture &middot; SKU &middot; on shelf &middot; scan code</span></div>'
       +'<div class="gq"><b>'+c.all.length+'</b><span>lines</span></div>'
-      +'</button><div class="kids">'
+      +'</button><div class="kids on">'
       +c.all.map(function(x){
         return '<div class="kid kidth hasqr">'
           +thTile(x.k,x.n)
@@ -2568,6 +2566,12 @@ function paneCons(){
           +'<div class="kw">SKU '+esc(x.k)+' &middot; '+x.u+' issued so far</div></div>'
           +'<div class="kqr">'+qr(x.k,40)+'</div></div>';
       }).join('')+'</div></div>';
+  }
+  if(c.folded){
+    h+='<div class="note">'+c.folded+' duplicate SKU record'
+      +(c.folded===1?'':'s')+' folded into their live line &mdash; SiteIQ '
+      +'will not merge them, so this board does. One item, one line, the '
+      +'true total, and no false stock-low flags.</div>';
   }
   if(c.records.length){
     h+='<div class="note"><b>Do not tell anyone we are out of these.</b> '
@@ -2604,7 +2608,8 @@ function paneCons(){
       +'<div class="kids">'
       +c.order.map(function(x){
         var need=Math.max(0,Math.round(x.b*c.daysLeft-x.a));
-        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+        return '<div class="kid kidth hasqr">'+thTile(x.k,x.n)
+          +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
           /* cover is floored to whole days, so anything under 24 hours
              arrives as 0. "0 days left" reads like a rounding error;
              "under a day" reads like the warning it is. */
@@ -2612,7 +2617,8 @@ function paneCons(){
              :x.c+(x.c===1?' day left':' days left')))
           +'</em></div><div class="kw">'+x.a+' on the shelf &middot; '
           +'going out '+x.b+'/day &middot; <b>order about '+need+' more</b>'
-          +'</div></div>';
+          +'</div></div>'
+          +'<div class="kqr">'+qr(x.k,40)+'</div></div>';
       }).join('')+'</div></div>';
   }
   if(c.watch.length){

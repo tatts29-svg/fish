@@ -294,10 +294,20 @@ def read_availability(rental_path, sales_path, master=None):
                     continue
                 unit = _unit_of(r[ix['STORAGE_UNIT']]) if 'STORAGE_UNIT' in ix \
                     else 'Consumables'
-                k = (name, _cat_of(name), unit)
-                cons[k] = cons.get(k, 0) + q
-                if k not in vkey and 'SKU_NUMBER' in ix:
-                    vkey[k] = str(r[ix['SKU_NUMBER']] or '').strip().upper()
+                #  duplicate SKU records fold here the same way the
+                #  consumables watch folds them: SiteIQ carries dead
+                #  twin records at zero stock beside the live line, and
+                #  a crew reading "NONE right now" under an item the
+                #  shelf holds plenty of is worse than no list at all
+                #  (Andrew, 30 Jul 2026: "remove the 6 duplicates these
+                #  will be ones with 0 stock")
+                #  "(alt)" is the master list's marker for a twin record
+                #  it had to rename - fold it with its live line too
+                _fk = re.sub(r'\s*\(alt\)\s*$', '', name, flags=re.I).upper()
+                cons.setdefault((_fk, _cat_of(name)), []).append(
+                    {'n': name, 'u': unit, 'q': q,
+                     'sku': str(r[ix['SKU_NUMBER']] or '').strip().upper()
+                            if 'SKU_NUMBER' in ix else ''})
         wb.close()
 
     def pack(d, kind):
@@ -310,7 +320,16 @@ def read_availability(rental_path, sales_path, master=None):
         out.sort(key=lambda x: x['n'].lower())
         return out
 
-    H, C = pack(hire, 'h'), pack(cons, 'c')
+    H = pack(hire, 'h')
+    #  one line per consumable: quantities summed across its records,
+    #  aisle and photo/scan key taken from the LIVE record (most stock)
+    C = []
+    for (_fk, cat), recs in cons.items():
+        live = max(recs, key=lambda x: x['q'])
+        C.append({'n': live['n'], 'c': cat, 'u': live['u'],
+                  'q': int(sum(x['q'] for x in recs)), 'k': 'c',
+                  'v': live['sku']})
+    C.sort(key=lambda x: x['n'].lower())
     stats = {
         'hireItems': sum(x['q'] for x in H),
         'hireLines': len(H),

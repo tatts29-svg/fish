@@ -53,6 +53,7 @@ import collections
 import datetime as dt
 import io
 import os
+import re
 
 #  The finish date the ordering question is asked against. Andrew:
 #  "looking at the date range ending around 11th august". Kept in a
@@ -222,7 +223,12 @@ def read(sales_path, stocktake_path, base, today=None):
     #  folds in with no code change.
     by_desc = collections.defaultdict(list)
     for sku, s in shelf.items():
-        by_desc[s['desc'].strip().upper()].append(sku)
+        #  "(alt)" is the master list's marker for a twin record it had
+        #  to rename apart - strip it for the fold key so the renamed
+        #  twin folds with its live line like any other (the caution
+        #  tape twin rode through on that suffix, 30 Jul 2026)
+        _k = re.sub(r'\s*\(alt\)\s*$', '', s['desc'].strip(), flags=re.I)
+        by_desc[_k.upper()].append(sku)
     folded = 0
     folded_skus = []
     for _d, skus in by_desc.items():
