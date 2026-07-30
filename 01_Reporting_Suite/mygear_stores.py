@@ -213,6 +213,7 @@ def _battle(txn_path, stocktake_path=None):
     tally = {}
 
     nights_on = {}
+    counters = {'D': {}, 'N': {}}   # name -> stocktake sightings, by shift
 
     def slot(d):
         return tally.setdefault(d, {'D': {'i': 0, 'r': 0, 's': 0},
@@ -245,6 +246,9 @@ def _battle(txn_path, stocktake_path=None):
             sh_ = [str(c or '').strip() for c in srows[0]]
             si = {h: i for i, h in enumerate(sh_) if h}
             if 'LAST_SIGHTED_DATE_TIME' in si:
+                #  WHO is doing the counting, by shift - the power bar
+                #  means nothing if nobody is named (Andrew, 30 Jul
+                #  2026: "who what shift is doing what")
                 for r in srows[1:]:
                     if not r:
                         continue
@@ -256,6 +260,10 @@ def _battle(txn_path, stocktake_path=None):
                         slot(dd)[ss]['s'] += 1
                         if _night_ran(hm):
                             nights_on[dd] = True
+                        _by = (str(r[si['LAST_SIGHTED_BY']] or '').strip()
+                               if 'LAST_SIGHTED_BY' in si else '')
+                        if _by:
+                            counters[ss][_by] = counters[ss].get(_by, 0) + 1
 
     days = sorted(tally)
     if not days:
@@ -291,6 +299,10 @@ def _battle(txn_path, stocktake_path=None):
         'dayStock': sum(x['ds'] for x in out),
         'nightStock': sum(x['ns'] for x in out),
         'nightDays': sum(1 for x in out if x['c']),
+        'whoD': sorted(([w, n] for w, n in counters['D'].items()),
+                       key=lambda x: -x[1])[:6],
+        'whoN': sorted(([w, n] for w, n in counters['N'].items()),
+                       key=lambda x: -x[1])[:6],
     }
 
 
@@ -590,6 +602,49 @@ def read(rental_path, stocktake_path, master=None, today=None,
                           else 'X')})
     stock['stale'].sort(key=lambda x: -x['d'])
 
+    #  TODAY'S COUNTING ORDERS (Andrew, 30 Jul 2026: "daily dayshift
+    #  what to check like a category or categories... for both shifts
+    #  so they know exactly what they need to do. split needs to be 30%
+    #  days and 70% nights - that part we dont wanna show on here").
+    #
+    #  The workload is the findable backlog: AVAILABLE items not laid
+    #  eyes on in 7 days, per storage unit. On-hire items are excluded
+    #  - they count when they come back, not on a walk. Nights carry
+    #  the bigger share because nights are quieter at the counter; the
+    #  weighting is deliberate policy and deliberately NOT printed.
+    #  The pick rotates with the date so the same crew does not own the
+    #  same aisle forever, and both shifts see the same orders all day.
+    _backlog = {}
+    for x in stock['stale']:
+        if x['s'] == 'A':
+            _backlog[x['u']] = _backlog.get(x['u'], 0) + 1
+    orders = {'d': [], 'n': [], 'dN': 0, 'nN': 0}
+    _units = sorted(_backlog.items(), key=lambda kv: (-kv[1], kv[0]))
+    if _units:
+        _rot = today.toordinal() % len(_units)
+        _units = _units[_rot:] + _units[:_rot]
+        _total = sum(n for _u, n in _units)
+        _NIGHT_SHARE = 0.7          # policy, never rendered
+        for _u, _n in _units:
+            if (orders['nN'] < _total * _NIGHT_SHARE
+                    or not orders['n']):
+                orders['n'].append({'u': _u, 'n': _n})
+                orders['nN'] += _n
+            else:
+                orders['d'].append({'u': _u, 'n': _n})
+                orders['dN'] += _n
+        #  a shift with nothing to do reads as a mistake - if days got
+        #  nothing and there are at least two aisles, hand them the
+        #  lightest night aisle
+        if not orders['d'] and len(orders['n']) > 1:
+            _mv = min(orders['n'], key=lambda o: o['n'])
+            orders['n'].remove(_mv)
+            orders['nN'] -= _mv['n']
+            orders['d'].append(_mv)
+            orders['dN'] += _mv['n']
+        orders['d'].sort(key=lambda o: -o['n'])
+        orders['n'].sort(key=lambda o: -o['n'])
+
     battle = _battle(txn_path, stocktake_path) if txn_path else None
 
     G = sorted(groups.values(), key=lambda e: (e['c'], e['n'].lower()))
@@ -689,6 +744,7 @@ def read(rental_path, stocktake_path, master=None, today=None,
                   'toolUnits': by_unit(chase_t),
                   'plantUnits': by_unit(chase_p)},
         'stock': stock,
+        'orders': orders,
         'idle': idle,
         'tiles': {
             'avail': sum(e['av'] for e in G),
@@ -1487,6 +1543,32 @@ function paneStock(){
    +s.w1.toLocaleString()+' counted in the last day &middot; '
    +s.w3.toLocaleString()+' in three &middot; '+s.total.toLocaleString()+' on the register'
    +'</div></div>';
+  /* TODAY'S COUNTING ORDERS - each shift told exactly what to count,
+     so nobody has to decide at 18:05 what "do some stocktake" means.
+     The share between the shifts is set in the build and is not
+     printed anywhere on this pane - deliberately. */
+  var od=D.orders||{d:[],n:[]};
+  if((od.d.length+od.n.length)>0){
+    h+='<div class="uhead">Today&rsquo;s counting orders</div>'
+     +'<div class="note"><b>Count your list, tick it off, hand over clean.</b> '
+     +'These aisles hold gear nobody has laid eyes on in over a week. '
+     +'Open the aisle below and print its not-found sheet &mdash; that is '
+     +'your walk list.</div>';
+    [['DAY SHIFT &middot; 06:00&ndash;18:00',od.d,'d'],
+     ['NIGHT SHIFT &middot; 18:00&ndash;06:00',od.n,'n']].forEach(function(row){
+      h+='<div class="grp"><button type="button" onclick="tog(this)">'
+        +'<div class="gn"><b>'+row[0]+'</b><span>count these aisles this shift</span></div>'
+        +'<div class="gq"><b style="color:var(--'+(row[2]==='d'?'am':'org')+')">'
+        +(row[2]==='d'?od.dN:od.nN)+'</b><span>items to sight</span></div>'
+        +'</button><div class="kids on">'
+        +(row[1].length?row[1].map(function(o){
+          return '<div class="kid"><div class="kt"><b>'+esc(o.u)+'</b>'
+            +'<em>'+o.n+' to sight</em></div></div>';
+        }).join(''):'<div class="kw" style="padding:8px 2px">Nothing assigned '
+          +'&mdash; the other shift carries today&rsquo;s backlog.</div>')
+        +'</div></div>';
+    });
+  }
   h+='<div class="note"><b>'+s.stale.length+' assets have not been laid eyes on '
    +'in over a week.</b> That is the missing-asset hunt list &mdash; grouped by '
    +'where they are meant to live, so you can walk it.</div>';
@@ -1650,6 +1732,56 @@ function paneBattle(){
       +'<div class="bnums"><span>DAY '+x.di+' out &middot; '+x.dr+' back</span>'
       +'<span>NIGHT '+x.ni+' out &middot; '+x.nr+' back</span></div></div>';
   });
+  /* THE STOCK COUNT BATTLE (Andrew, 30 Jul 2026: "how many stock
+     counts are being done between nightshift and dayshift... a power
+     bar who what shift is doing what"). Same shift windows as the
+     movements above - day 06:00-18:00, night 18:00-06:00 rolling into
+     the next morning - and every count scored by its OWN sighting
+     timestamp, so a 02:00 count belongs to the crew that stood there. */
+  var sd=b.dayStock||0, sn=b.nightStock||0;
+  if(sd+sn>0){
+    h+='<div class="uhead">Stock counts &mdash; shift by shift</div>'
+     +'<div class="score">'
+     +'<div class="sc day"><b>'+sd.toLocaleString()+'</b><span>Day shift</span>'
+     +'<em>items sighted</em></div>'
+     +'<div class="vs">v</div>'
+     +'<div class="sc night"><b>'+sn.toLocaleString()+'</b><span>Night shift</span>'
+     +'<em>items sighted</em></div></div>';
+    b.days.slice().reverse().forEach(function(x){
+      if(!(x.ds+x.ns)) return;
+      var tot=x.ds+x.ns;
+      h+='<div class="brow"><div class="bd"><span>'+x.d+'</span>'
+        +(x.ds>x.ns?'<span class="win d">Day</span>'
+          :x.ns>x.ds?'<span class="win n">Night</span>'
+          :'<span class="win t">Tie</span>')+'</div>'
+        +'<div class="bb">'
+        +(x.ds?'<i class="bd2" style="width:'+(100*x.ds/tot)+'%">'+(x.ds>tot*0.12?x.ds:'')+'</i>':'')
+        +(x.ns?'<i class="bn" style="width:'+(100*x.ns/tot)+'%">'+(x.ns>tot*0.12?x.ns:'')+'</i>':'')
+        +'</div>'
+        +'<div class="bnums"><span>DAY '+x.ds+' sighted</span>'
+        +'<span>NIGHT '+x.ns+' sighted</span></div></div>';
+    });
+    /* the names behind the bars - a scoreboard nobody is on is a
+       scoreboard nobody reads */
+    var wD=b.whoD||[], wN=b.whoN||[];
+    if(wD.length||wN.length){
+      h+='<div class="uhead">Who is doing the counting</div>';
+      [['Day shift',wD],['Night shift',wN]].forEach(function(row){
+        if(!row[1].length) return;
+        h+='<div class="grp"><button type="button" onclick="tog(this)">'
+          +'<div class="gn"><b>'+row[0]+'</b><span>top counters, whole shut</span></div>'
+          +'<div class="gq"><b>'+row[1].length+'</b><span>named</span></div>'
+          +'</button><div class="kids on">'
+          +row[1].map(function(w){
+            return '<div class="kid"><div class="kt"><b>'+esc(w[0])+'</b>'
+              +'<em>'+w[1].toLocaleString()+' sighted</em></div></div>';
+          }).join('')+'</div></div>';
+      });
+    }
+    h+='<div class="note">Today&rsquo;s counting orders for each shift live on '
+      +'the <b>Stocktake</b> tab &mdash; each crew has its aisles named, '
+      +'with the not-found sheet ready to print.</div>';
+  }
   return h;
 }
 /* OUR STANDARDS - quoted from SWMS-CTS-001 Rev 4, not paraphrased. The
