@@ -1,7 +1,7 @@
-# Coates K2 suite version - 120 files - overall d44ddc4f
+# Coates K2 suite version - 122 files - overall 4bde7ead
 # MACHINE: master (built by Claude)
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-30 06:18:47
+# taken 2026-07-30 07:35:46
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -53,11 +53,12 @@ d803266ea1 50_ADD_LIFTING_CHARGES.bat
 9ae49effec 52_PACK_FOR_CLAUDE.bat
 90bab58fae 53_WHICH_MACHINE.bat
 8b35641322 54_RUN_INVOICE_BREAKDOWN.bat
+a4a050f5e2 55_PRINT_ITEM_LABELS.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
-740860868e APPLY_SUITE_UPDATE.py
+4cd029286a APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 7df01af922 BUILD_DAILY_EMAIL_PACKS.py
@@ -90,6 +91,7 @@ d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
 b37ba7ee4c VERSION_CHECK.py
 fc76e59527 WHY_NO_CONNECT.py
+23e39e5418 ZEBRA_LABELS.py
 cf858250b9 _align_prep.py
 a49f1ea35c activity_model.py
 46330a6f6d activity_report.py
