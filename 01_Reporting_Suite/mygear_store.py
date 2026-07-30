@@ -379,7 +379,7 @@ CSS = """
   padding:12px 13px;margin-bottom:8px;min-height:60px}
 .strow.few{border-left-color:#F5A623}
 .strow.none{border-left-color:#E23B2E;opacity:.72}
-.strow .sth{flex:none;width:46px;height:46px;border-radius:9px;overflow:hidden;
+.strow .sth{flex:none;width:64px;height:64px;border-radius:10px;overflow:hidden;
  background:#20262e;display:flex;align-items:center;justify-content:center}
 .strow .sth img{width:100%;height:100%;object-fit:cover;display:block}
 .strow .sth.mono{color:#8A97A8;font-weight:900;font-size:14px;letter-spacing:.5px}

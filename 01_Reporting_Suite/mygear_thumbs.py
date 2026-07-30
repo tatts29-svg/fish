@@ -35,7 +35,7 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SIZE = 120           # thumbnail edge, px - crisp on a phone row, tiny on disk
+SIZE = 160           # thumbnail edge, px - crisp at the bigger on-screen tiles
 
 PHOTOS_README = """\
 DROP GEAR PHOTOS IN HERE

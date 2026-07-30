@@ -94,13 +94,13 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 /* the catalogue picture tile - photo when collected, monogram until */
 .kid.kidth{display:flex;gap:11px;align-items:flex-start}
 .kid.kidth .kbody{flex:1;min-width:0}
-.kth2{flex:none;width:46px;height:46px;border-radius:9px;overflow:hidden;
+.kth2{flex:none;width:64px;height:64px;border-radius:10px;overflow:hidden;
  background:#20262e;display:flex;align-items:center;justify-content:center}
 .kth2 img{width:100%;height:100%;object-fit:cover;display:block}
 .kth2.mono{color:#8A97A8;font-weight:900;font-size:14px;letter-spacing:.5px}
 /* the on-screen scan sticker: white QR tile pinned to the row's right,
    room reserved with padding so text never runs underneath it */
-.kid.hasqr{position:relative;padding-right:64px}
+.kid.hasqr{position:relative;padding-right:70px}
 .kqr{position:absolute;right:9px;top:50%;transform:translateY(-50%);line-height:0}
 .kqr svg{border-radius:5px;display:block}
 .kw.kwq{display:flex;align-items:center;gap:10px}
@@ -1036,7 +1036,7 @@ function paneStock(){
               return '<div class="kw kwq"><span>&bull; '+esc(x.n)
                 +(x.i?' &middot; Item '+esc(x.i):'')
                 +' &middot; <b style="color:var(--org)">'+x.d+'d unsighted</b></span>'
-                +(x.i?qr(x.i,40):'')+'</div>';
+                +(x.i?qr(x.i,48):'')+'</div>';
             }).join('')
             +(its.length>25?'<div class="kw cut">Showing the first 25 of '
               +its.length+' &mdash; the full list is on this aisle&rsquo;s '
@@ -1073,7 +1073,7 @@ function paneStock(){
       +'</div>'
       +list.slice(0,60).map(function(x){
         return '<div class="kid'+(x.i?' hasqr':'')+'">'
-          +(x.i?'<div class="kqr">'+qr(x.i,44)+'</div>':'')
+          +(x.i?'<div class="kqr">'+qr(x.i,48)+'</div>':'')
           +'<div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="'+(x.s==='O'?'':'o')+'">'+(x.s==='O'?'on hire':x.d+' days')+'</em></div>'
           +'<div class="kw">'+(x.i?'Item '+esc(x.i)+' &middot; ':'')
@@ -1159,7 +1159,7 @@ function paneAisle(){
       h+='<div class="uhead">Look for these first &mdash; out over 3 days</div>';
       h+=a.chase.slice(0,40).map(function(x){
         return '<div class="kid'+(x.i?' hasqr':'')+'">'
-          +(x.i?'<div class="kqr">'+qr(x.i,44)+'</div>':'')
+          +(x.i?'<div class="kqr">'+qr(x.i,48)+'</div>':'')
           +'<div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div>'
           +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)
@@ -1307,7 +1307,7 @@ function paneHits(){
       +'<span>to chase</span></div></button><div class="kids">'
       +rl[3].map(function(x){
         return '<div class="kid'+(x.i?' hasqr':'')+'">'
-          +(x.i?'<div class="kqr">'+qr(x.i,44)+'</div>':'')
+          +(x.i?'<div class="kqr">'+qr(x.i,48)+'</div>':'')
           +'<div class="kt"><b>'+esc(x.w)+'</b>'
           +'<em class="o">'+x.d+' day'+(x.d===1?'':'s')+'</em></div>'
           +'<div class="kw">'+esc(x.co)+' &middot; '+esc(x.n)
@@ -1759,7 +1759,7 @@ function paneCons(){
           +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em'+(x.a?'':' class="o"')+'>'+x.a+' on shelf</em></div>'
           +'<div class="kw">SKU '+esc(x.k)+' &middot; '+x.u+' issued so far</div></div>'
-          +'<div class="kqr">'+qr(x.k,40)+'</div></div>';
+          +'<div class="kqr">'+qr(x.k,48)+'</div></div>';
       }).join('')+'</div></div>';
   }
   if(c.folded){
@@ -1813,7 +1813,7 @@ function paneCons(){
           +'</em></div><div class="kw">'+x.a+' on the shelf &middot; '
           +'going out '+x.b+'/day &middot; <b>order about '+need+' more</b>'
           +'</div></div>'
-          +'<div class="kqr">'+qr(x.k,40)+'</div></div>';
+          +'<div class="kqr">'+qr(x.k,48)+'</div></div>';
       }).join('')+'</div></div>';
   }
   if(c.watch.length){
@@ -1956,7 +1956,7 @@ function panePlant(){
   function byName(a,b){return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;}
   function prow(x,em,emCls){
     return '<div class="kid'+(x.i?' hasqr':'')+'">'
-      +(x.i?'<div class="kqr">'+qr(x.i,40)+'</div>':'')
+      +(x.i?'<div class="kqr">'+qr(x.i,48)+'</div>':'')
       +'<div class="kt"><b>'+esc(x.n)
       +(x.p?' <span style="color:var(--org);font-weight:800">&middot; Plant ID '
         +esc(x.p)+'</span>':'')
