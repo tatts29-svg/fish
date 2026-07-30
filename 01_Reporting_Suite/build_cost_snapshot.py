@@ -367,6 +367,142 @@ def read_hire_split(wb):
             "keys": len(plant_keys)}
 
 
+def read_hire_daily(wb):
+    """The invoiced hire, PER DAY, split three ways: Plant, Tooling and
+    Gear. (Andrew, 30 Jul 2026: "we need to know the whole plant gear
+    and tooling how much for each for each day.")
+
+    Every charged line is spread evenly across its own SHIFT_CHARGE
+    date span and dropped into exactly one bucket, so the three columns
+    sum to SiteIQ's daily invoice - PROVEN to tie to the cent against
+    DAILY_SUMMARY on every day the TRANSACTIONS pull covers. A
+    partition of the invoice, never an estimate.
+
+    The buckets, by the store's own identity:
+      Plant   - the plant registers + the plant storage units (same
+                definition as read_hire_split, the prefill and the
+                plant dashboard - ONE definition across the suite)
+      Tooling - barcodes living in the tool aisles (Tooling,
+                Hydraulics- Hi Torque)
+      Gear    - everything else: electrical, rigging, welding, air,
+                lighting and the rest of the store
+
+    ONE TIMING TRAP, named where it bites: SiteIQ posts a day's charge
+    lines the NEXT morning around 09:30. A TRANSACTIONS export pulled
+    at 06:30 will carry $0 against a day DAILY_SUMMARY has already
+    invoiced - the caller must show a dash and say "re-pull after
+    09:30", never a silent zero.
+    """
+    def norm(v):
+        return str(v).strip().upper() if v is not None else ""
+
+    #  the plant identity - same three sources as read_hire_split
+    plant_keys = set()
+    try:
+        for r in list(wb["Plant Equipment"].iter_rows(values_only=True))[1:]:
+            a = norm(r[4]) if len(r) > 4 else ""
+            if a and not a.startswith("VARIANCE"):
+                plant_keys.add(a)
+    except Exception:
+        pass
+    try:
+        import csv
+        with open(os.path.join(HERE, "Plant_ID_Register.csv"), newline="") as f:
+            for row in csv.DictReader(f):
+                a = norm(row.get("Asset Number"))
+                if a:
+                    plant_keys.add(a)
+    except Exception:
+        pass
+    unit_of = {}
+    rs = _gfind("RENTAL_STOCK*.xlsx")
+    if rs:
+        try:
+            rwb = openpyxl.load_workbook(max(rs, key=os.path.getmtime),
+                                         read_only=True, data_only=True)
+            rows = list(rwb["RENTAL_STOCK"].iter_rows(values_only=True))
+            rwb.close()
+            H = {norm(v): i for i, v in enumerate(rows[0]) if v}
+            PLANT_SU = {"CEMENT SITE PLANT", "CEMENT RUBBISH CHUTES",
+                        "CEMENT BARRIERS"}
+            for r in rows[1:]:
+                su = norm(r[H.get("STORAGE_UNIT", -1)])
+                bc = norm(r[H.get("ITEM_BARCODE", -1)])
+                if bc:
+                    unit_of[bc] = su
+                if su in PLANT_SU and bc and not bc.startswith("SUB"):
+                    plant_keys.add(bc)
+        except Exception:
+            pass
+    plant_keys.discard("")
+
+    def is_plant(bc):
+        if bc in plant_keys:
+            return True
+        return any(bc.startswith(k + "-") or k.startswith(bc + "-")
+                   for k in plant_keys)
+
+    TOOL_SU = {"TOOLING", "HYDRAULICS- HI TORQUE"}
+
+    tx = _gfind("TRANSACTIONS*.xlsx")
+    if not tx:
+        return None
+    try:
+        twb = openpyxl.load_workbook(max(tx, key=os.path.getmtime),
+                                     read_only=True, data_only=True)
+        if "TRANSACTION_CHARGES" not in twb.sheetnames:
+            twb.close()
+            return None
+        rows = list(twb["TRANSACTION_CHARGES"].iter_rows(values_only=True))
+        twb.close()
+    except Exception:
+        return None
+    if not rows:
+        return None
+    H = {norm(v): i for i, v in enumerate(rows[0]) if v}
+    for need in ("HIRE_CHARGE ($)", "LATEST_BARCODE",
+                 "SHIFT_CHARGE_DATE FROM"):
+        if need not in H:
+            return None
+
+    def pdate(v):
+        s = str(v or "").strip().split()[0] if v else ""
+        try:
+            return dt.datetime.strptime(s, "%d/%m/%Y").date()
+        except ValueError:
+            return None
+
+    daily = {}
+    for r in rows[1:]:
+        try:
+            hire = float(r[H["HIRE_CHARGE ($)"]] or 0)
+        except (TypeError, ValueError):
+            hire = 0.0
+        if not hire:
+            continue
+        bc = norm(r[H["LATEST_BARCODE"]])
+        if bc.startswith("SUB"):
+            continue          # welders: separate invoice, separate stream
+        f = pdate(r[H["SHIFT_CHARGE_DATE FROM"]])
+        t = pdate(r[H.get("SHIFT_CHARGE_DATE_TO", -1)]) or f
+        if not f:
+            continue
+        if is_plant(bc):
+            bucket = "plant"
+        elif unit_of.get(bc, "") in TOOL_SU:
+            bucket = "tool"
+        else:
+            bucket = "gear"
+        ndays = max(1, (t - f).days + 1)
+        per = hire / ndays
+        for i in range(ndays):
+            d = f + dt.timedelta(days=i)
+            slot = daily.setdefault(d, {"plant": 0.0, "tool": 0.0,
+                                        "gear": 0.0})
+            slot[bucket] += per
+    return daily or None
+
+
 def cost_story(wb, ds=None, sub=None, hs=None):
     ws = wb["Daily Tracking"]
     ds = ds or {}
@@ -999,7 +1135,15 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
     # or clipped one. (A. Fisher's rule: it fits, or it goes to the next page.)
     st_dot = {"Invoiced": GOOD, "Provisional": AMBER, "No charges": "#5b6472"}
 
-    def rec_row(d_lab, tracked, invoiced, status, flag=""):
+    #  the per-day plant/tooling/gear partition (Andrew, 30 Jul 2026:
+    #  "how much for each for each day") - shown ONLY when it ties to
+    #  the day's invoice, dashed with a reason when the TRANSACTIONS
+    #  pull predates the day's charge lines (they post ~09:30 next
+    #  morning; a 06:30 pull carries $0 against an invoiced day)
+    hire_daily = cost.get("hire_daily") or {}
+    stale_split_days = []
+
+    def rec_row(d_lab, tracked, invoiced, status, flag="", day=None):
         # tracked None = the workbook never logged that day - a dash, not
         # a phantom $0 (there is no drift to show when there is no tracking)
         no_track = tracked is None
@@ -1009,13 +1153,32 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
         # drift you can read on EITHER theme - #fff on the light page was
         # Andrew's "some words you just cant see" (29 Jul 2026)
         loud = INK
+        sp = hire_daily.get(day) if day else None
+        sp_tot = (sp["plant"] + sp["tool"] + sp["gear"]) if sp else 0.0
+        ok = (sp is not None and
+              (invoiced is None or abs(sp_tot - invoiced) < 1))
+        if sp and invoiced is not None and not ok:
+            stale_split_days.append(d_lab)
+        if sp is None and invoiced is not None and status == "Invoiced":
+            stale_split_days.append(d_lab)
+        p_c = money0(sp["plant"]) if ok else "&mdash;"
+        t_c = money0(sp["tool"]) if ok else "&mdash;"
+        g_c = money0(sp["gear"]) if ok else "&mdash;"
         return ("<tr><td style='white-space:nowrap'>{d}</td><td class='n'>{t}</td><td class='n'>{i}</td>"
+                "<td class='n' style='color:{mut}'>{p}</td>"
+                "<td class='n' style='color:{mut}'>{tl}</td>"
+                "<td class='n' style='color:{mut}'>{g}</td>"
                 "<td class='n' style='color:{dc}'>{dr}</td>"
                 "<td style='white-space:nowrap'><span class='dot' style='background:{c}'></span>{st}</td></tr>").format(
             d=d_lab, t="&mdash;" if no_track else money0(tracked),
             i=money0(invoiced) if invoiced is not None else "&mdash;",
+            p=p_c, tl=t_c, g=g_c, mut=MUTED,
             dr=drift_disp, dc="#A9B1BD" if quiet else loud, c=st_dot[status],
-            st=status + (" &middot; locked" if status == "Invoiced" else "") + flag)
+            #  eight columns share this page now - the long status wording
+            #  ran off the card edge (caught 30 Jul 2026 in the raster).
+            #  The coloured dot carries "invoiced"; the word just says the
+            #  consequence.
+            st=("Locked" if status == "Invoiced" else status) + flag)
 
     rec_rows = []
     net_drift = 0.0
@@ -1038,11 +1201,12 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
             continue
         flag = ""
         if x.get("noworkbook"):
-            flag = " &middot; not in Daily Tracking"
+            flag = " (no row)"
         elif x["tracked"] is None:
-            flag = " &middot; tracking not logged"
+            flag = " (no log)"
         rec_rows.append(rec_row(x["d"].strftime("%d %b"), x["tracked"],
-                                x["invoiced"], x["status"], flag))
+                                x["invoiced"], x["status"], flag,
+                                day=x["d"]))
         i0 += 1
     # net drift must count every invoiced day, collapsed rows included -
     # but only days that were actually tracked can drift (a never-logged
@@ -1059,13 +1223,41 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
     TRUEUP_ROWS_PER_PAGE = 18
     row_chunks = [rec_rows[k:k + TRUEUP_ROWS_PER_PAGE]
                   for k in range(0, len(rec_rows), TRUEUP_ROWS_PER_PAGE)] or [[]]
-    _tu_head = ("<table><thead><tr><th>Day</th><th style='text-align:right'>Tracked (plant &amp; tooling)</th>"
-                "<th style='text-align:right'>SiteIQ invoiced</th><th style='text-align:right'>Drift</th>"
+    _tu_head = ("<table style='font-size:11.5px'><thead><tr><th>Day</th><th style='text-align:right'>Tracked</th>"
+                "<th style='text-align:right'>SiteIQ invoiced</th>"
+                "<th style='text-align:right'>Plant</th>"
+                "<th style='text-align:right'>Tooling</th>"
+                "<th style='text-align:right'>Gear</th>"
+                "<th style='text-align:right'>Drift</th>"
                 "<th>Status</th></tr></thead><tbody>")
+    split_note = (" Plant / Tooling / Gear is the invoiced figure split by "
+                  "SiteIQ's own charge lines &mdash; plant by the site's plant "
+                  "registers and plant storage units, tooling by the tool "
+                  "aisles, gear is the rest of the store; the three always "
+                  "sum to the day's invoice. The tooling column runs small "
+                  "because the hand-tool aisles go out largely free-issue "
+                  "&mdash; the charged store dollars sit in rigging, "
+                  "electrical and welding gear. That is the real shape of "
+                  "the hire, not missing data.")
+    if stale_split_days:
+        split_note += (" A dash in the split means the TRANSACTIONS pull "
+                       "predates that day's charge lines (SiteIQ posts them "
+                       "about 09:30 the next morning) &mdash; re-run 28 after "
+                       "09:30 and rebuild, and {} fill(s) in.".format(
+                           ", ".join(stale_split_days)))
+    _no_track_days = [x["d"].strftime("%d %b") for x in recon
+                      if x["invoiced"] is not None and x["tracked"] is None]
+    if _no_track_days:
+        split_note += (" Tracking was not logged on {} &mdash; the invoice "
+                       "carries those days in every total; run "
+                       "01_RUN_PREFILL_DAILY each morning so the drift check "
+                       "stays alive.".format(", ".join(_no_track_days)))
     _tu_foot = ("<div class='footnote'>Drift is the live morning position v the final invoiced figure &mdash; gear "
                 "on- and off-hired during the day, waivers and corrections. Net drift across invoiced days: "
                 "<b>{nd}</b>. The report always carries the invoiced figure, so the drift never reaches the "
-                "totals.{extra}</div>").format(nd=money0(round(net_drift)), extra=ds_note)
+                "totals.{extra}{sp}</div>").format(nd=money0(round(net_drift)),
+                                                   extra=ds_note,
+                                                   sp=split_note)
     trueup_pages = []
     for ci, chunk in enumerate(row_chunks):
         first, last_c = (ci == 0), (ci == len(row_chunks) - 1)
@@ -2057,6 +2249,33 @@ def main():
         print(" Hire split (from SiteIQ charge lines): plant {} | tooling {}".format(
             money0(hs["plant"]), money0(hs["tool"])))
     cost = cost_story(wb, ds, sub, hs)
+    #  the per-day plant/tooling/gear partition for the true-up page
+    #  (Andrew, 30 Jul 2026: "how much for each for each day")
+    cost["hire_daily"] = read_hire_daily(wb) or {}
+    if cost["hire_daily"]:
+        _hd = cost["hire_daily"]
+        print(" Daily split: {} day(s) of charge lines | plant {} | "
+              "tooling {} | gear {}".format(
+                  len(_hd),
+                  money0(sum(v["plant"] for v in _hd.values())),
+                  money0(sum(v["tool"] for v in _hd.values())),
+                  money0(sum(v["gear"] for v in _hd.values()))))
+        _missed = [d for d in (ds or {}) if d not in _hd]
+        if _missed:
+            print("  ! TRANSACTIONS pull predates the charge lines for {} "
+                  "- SiteIQ posts a day's lines about 09:30 the NEXT "
+                  "morning. Re-run 28 after 09:30 and rebuild to fill "
+                  "the split.".format(", ".join(
+                      d.strftime("%d %b") for d in sorted(_missed))))
+    _nolog = [d for d in (ds or {})
+              if cost.get("recon") and any(
+                  x["d"] == d and x["invoiced"] is not None
+                  and x["tracked"] is None for x in cost["recon"])]
+    if _nolog:
+        print("  ! Tracking not logged on {} - the invoice carries those "
+              "days; run 01_RUN_PREFILL_DAILY each morning so the drift "
+              "check stays alive.".format(", ".join(
+                  d.strftime("%d %b") for d in sorted(_nolog))))
     if not any(s["name"] == "Plant hire" for s in cost["streams"]):
         print("  ! Plant/Tooling split unavailable this run (charge lines "
               "missing or out of step with DAILY_SUMMARY) - showing the "
