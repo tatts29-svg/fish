@@ -2262,11 +2262,34 @@ def main():
                   money0(sum(v["gear"] for v in _hd.values()))))
         _missed = [d for d in (ds or {}) if d not in _hd]
         if _missed:
-            print("  ! TRANSACTIONS pull predates the charge lines for {} "
-                  "- SiteIQ posts a day's lines about 09:30 the NEXT "
-                  "morning. Re-run 28 after 09:30 and rebuild to fill "
-                  "the split.".format(", ".join(
-                      d.strftime("%d %b") for d in sorted(_missed))))
+            #  say WHEN the pull happened, off the export's own
+            #  REFERENCE_INFO - "your file was too early" lands harder
+            #  with the clock time on it (Andrew, 30 Jul 2026: a 06:26
+            #  TRANSACTIONS against a 09:33 DAILY_SUMMARY left 29 Jul
+            #  blank and looked like missing data)
+            _pulled = ""
+            try:
+                _txf = _gfind("TRANSACTIONS*.xlsx")
+                if _txf:
+                    _twb = openpyxl.load_workbook(
+                        max(_txf, key=os.path.getmtime),
+                        read_only=True, data_only=True)
+                    if "REFERENCE_INFO" in _twb.sheetnames:
+                        _rr = list(_twb["REFERENCE_INFO"]
+                                   .iter_rows(values_only=True))
+                        if len(_rr) > 1 and _rr[1]:
+                            _pulled = str(_rr[1][-1] or "").strip()
+                    _twb.close()
+            except Exception:
+                _pulled = ""
+            print("  ! The split is blank for {days}. Your TRANSACTIONS "
+                  "export was pulled{at} - BEFORE SiteIQ posted those "
+                  "days' charge lines (they post about 09:30 the next "
+                  "morning). Download TRANSACTIONS again now, run 28, "
+                  "then re-run 02 - the blanks fill in.".format(
+                      days=", ".join(d.strftime("%d %b")
+                                     for d in sorted(_missed)),
+                      at=(" at " + _pulled) if _pulled else " too early"))
     _nolog = [d for d in (ds or {})
               if cost.get("recon") and any(
                   x["d"] == d and x["invoiced"] is not None

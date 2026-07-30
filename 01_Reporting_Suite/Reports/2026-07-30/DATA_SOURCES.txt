@@ -1,8 +1,8 @@
 DATA SOURCES FOR THIS DAY'S REPORTS
-Generated 30 Jul 2026 - 02:10
+Generated 30 Jul 2026 - 02:42
 ------------------------------------------------------------
 Cement_Australia_Report_2026_K2_v11_4.xlsm           refreshed 26 Jul 2026 - 10:51
-DAILY_SUMMARY.xlsx                                   refreshed 28 Jul 2026 - 21:09
+DAILY_SUMMARY.xlsx                                   refreshed 30 Jul 2026 - 02:42
 CHARGE_REGISTER.xlsx                                 refreshed 28 Jul 2026 - 01:45
 ON_HIRE.xlsx                                         refreshed 28 Jul 2026 - 21:09
 RENTAL_STOCK.xlsx                                    refreshed 28 Jul 2026 - 21:09
