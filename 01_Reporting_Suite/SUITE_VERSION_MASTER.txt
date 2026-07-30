@@ -1,7 +1,7 @@
-# Coates K2 suite version - 118 files - overall 971dd122
+# Coates K2 suite version - 118 files - overall b19a918e
 # MACHINE: master (built by Claude)
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-30 03:21:20
+# taken 2026-07-30 05:21:43
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -56,7 +56,7 @@ d803266ea1 50_ADD_LIFTING_CHARGES.bat
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
-171d1965ee APPLY_SUITE_UPDATE.py
+740860868e APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 7df01af922 BUILD_DAILY_EMAIL_PACKS.py
@@ -96,7 +96,7 @@ a49f1ea35c activity_model.py
 28e7cf093a build_baseplan_costs.py
 064ec01f28 build_clean_report.py
 3f8dc50d72 build_company_onhire_report.py
-527e39573a build_cost_snapshot.py
+a9dff2a116 build_cost_snapshot.py
 3db5a9a8de build_plant_dashboard.py
 ce2058e40b build_posters.py
 06fd0346ff build_utilisation_report.py
