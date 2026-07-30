@@ -1,0 +1,425 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# =====================================================================
+#  COATES | INVOICE BREAKDOWN - what the SiteIQ invoice is made of
+#  Cement Australia K2 Shutdown 2026 - Gladstone
+#  Author: Andrew Fisher | POWERED BY SITEIQ
+#
+#  WHY (Andrew, 30 Jul 2026): "generally its a one line invoice so i
+#  just want to supply clarity professionally on whats it made of...
+#  product group in plant and tooling so they get a nice outlay."
+#  SiteIQ renders the month's invoice as a single line; this report is
+#  the professional companion that goes with it - the invoice broken
+#  into its streams, the hire split into Plant / Tooling / Gear, and
+#  each of those laid out by SiteIQ's own product groups. A progress
+#  invoice this month; the final invoice follows next month.
+#
+#  EVERY DOLLAR IS SITEIQ'S OWN: streams come straight from
+#  DAILY_SUMMARY's invoiced columns, the hire split and product groups
+#  from SiteIQ's charge lines - the same partition the cost snapshot
+#  PROVES ties to the cent, day by day. Nothing estimated, nothing
+#  invented. The month-end rule applies: SiteIQ registers the last day
+#  of a month into the NEXT month's invoice.
+#
+#  The separate monthly invoice (radios, gas monitors, welders) never
+#  appears here - the two streams never share a dollar.
+# =====================================================================
+import datetime as dt
+import os
+import re
+import sys
+
+import openpyxl
+
+import report_paths
+import build_cost_snapshot as CS
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+money0 = CS.money0
+
+
+def registers_in(d):
+    """The billing month a charge day lands in. THE MONTH-END RULE
+    (A. Fisher, 24 Jul 2026): SiteIQ does not invoice the last day of a
+    month within that month - it registers into the next month."""
+    nxt = d + dt.timedelta(days=1)
+    if nxt.month != d.month:
+        return dt.date(nxt.year, nxt.month, 1)
+    return dt.date(d.year, d.month, 1)
+
+
+def au_date(v):
+    s = str(v or "").strip().split()[0] if str(v or "").strip() else ""
+    for fmt in ("%d/%m/%Y", "%Y-%m-%d"):
+        try:
+            return dt.datetime.strptime(s, fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def read_family_split(wb, inv_days):
+    """The hire dollars inside the invoice window, by bucket and by
+    SiteIQ's own PRODUCT_FAMILY - the product groups Andrew wants the
+    client to see. Same spread and same classifier as read_hire_daily
+    (ONE definition across the suite), restricted to the invoice's
+    days, so the family sums tie to the bucket sums by construction.
+    Returns {bucket: {family: {"amt": $, "items": set(barcodes)}}}."""
+    bucket_of = CS.hire_classifier(wb)
+    tx = CS._gfind("TRANSACTIONS*.xlsx")
+    if not tx:
+        return None
+    try:
+        twb = openpyxl.load_workbook(max(tx, key=os.path.getmtime),
+                                     read_only=True, data_only=True)
+        if "TRANSACTION_CHARGES" not in twb.sheetnames:
+            twb.close()
+            return None
+        rows = list(twb["TRANSACTION_CHARGES"].iter_rows(values_only=True))
+        twb.close()
+    except Exception:
+        return None
+    if not rows:
+        return None
+    H = {str(v).strip().upper(): i for i, v in enumerate(rows[0]) if v}
+    for need in ("HIRE_CHARGE ($)", "LATEST_BARCODE", "SHIFT_CHARGE_DATE FROM"):
+        if need not in H:
+            return None
+    days = set(inv_days)
+    out = {"plant": {}, "tool": {}, "gear": {}}
+    for r in rows[1:]:
+        try:
+            hire = float(r[H["HIRE_CHARGE ($)"]] or 0)
+        except (TypeError, ValueError):
+            hire = 0.0
+        if not hire:
+            continue
+        bc = str(r[H["LATEST_BARCODE"]] or "").strip().upper()
+        if bc.startswith("SUB"):
+            continue          # welders: separate invoice, separate stream
+        f = au_date(r[H["SHIFT_CHARGE_DATE FROM"]])
+        t = au_date(r[H.get("SHIFT_CHARGE_DATE_TO", -1)]) or f
+        if not f:
+            continue
+        fam = str(r[H.get("PRODUCT_FAMILY", -1)] or "").strip().title() or "Other"
+        bucket = bucket_of(bc)
+        ndays = max(1, (t - f).days + 1)
+        per = hire / ndays
+        for i in range(ndays):
+            d = f + dt.timedelta(days=i)
+            if d not in days:
+                continue
+            slot = out[bucket].setdefault(fam, {"amt": 0.0, "items": set()})
+            slot["amt"] += per
+            if bc:
+                slot["items"].add(bc)
+    return out
+
+
+#  DAILY_SUMMARY's invoiced columns -> the streams the client reads.
+#  Order is the story order: the hire first, then people, then the rest.
+STREAMS = (
+    ("hire", "Plant, tooling &amp; equipment hire"),
+    ("labour", "Personnel / labour &mdash; progress claims"),
+    ("service", "Service claims &mdash; accommodation &amp; consumables"),
+    ("transport", "Transport"),
+    ("consumable", "Consumables"),
+    ("fuel", "Fuel"),
+    ("damage", "Damage recovery"),
+    ("disposal", "Disposal"),
+    ("other", "Other charges"),
+    ("waiver", "Waivers"),
+    ("stamp", "Stamp duty"),
+)
+
+
+def fam_rows(fams, total, keep=9):
+    """Family table rows for one bucket: biggest first, an honest
+    'everything else' line for the tail, a share bar on every row."""
+    items = sorted(fams.items(), key=lambda kv: -kv[1]["amt"])
+    shown, rest_amt, rest_items, rest_n = items[:keep], 0.0, set(), 0
+    for f, v in items[keep:]:
+        rest_amt += v["amt"]
+        rest_items |= v["items"]
+        rest_n += 1
+    rows = ""
+    for f, v in shown:
+        pc = (v["amt"] / total * 100.0) if total else 0.0
+        rows += ("<tr><td>{f}</td><td class='n'>{n}</td><td class='n'>{a}</td>"
+                 "<td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'>"
+                 "<i style='width:{w:.0f}%'></i></div></td>"
+                 "<td class='n' style='color:" + CS.MUTED + "'>{p:.0f}%</td></tr>").format(
+            f=f, n=len(v["items"]), a=money0(v["amt"]), w=min(100.0, pc), p=pc)
+    if rest_amt > 0.005:
+        pc = (rest_amt / total * 100.0) if total else 0.0
+        rows += ("<tr><td style='color:" + CS.MUTED + "'>{n} more product group(s)</td>"
+                 "<td class='n'>{i}</td><td class='n'>{a}</td>"
+                 "<td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'>"
+                 "<i style='width:{w:.0f}%'></i></div></td>"
+                 "<td class='n' style='color:" + CS.MUTED + "'>{p:.0f}%</td></tr>").format(
+            n=rest_n, i=len(rest_items), a=money0(rest_amt), w=min(100.0, pc), p=pc)
+    rows += ("<tr><td style='color:" + CS.INK + ";font-weight:700'>Total</td>"
+             "<td class='n'></td><td class='n' style='color:" + CS.INK + ";font-weight:700'>{a}</td>"
+             "<td></td><td></td></tr>").format(a=money0(total))
+    return rows
+
+
+def fam_card(title, cap, fams, total):
+    return ("<div class='card' style='margin-top:14px'><h2>" + title + "</h2>"
+            "<div class='cap'>" + cap + "</div>"
+            "<table class='tight'><thead><tr><th>Product group</th>"
+            "<th style='text-align:right'>Items</th>"
+            "<th style='text-align:right'>Amount</th><th></th>"
+            "<th style='text-align:right'>Share</th></tr></thead><tbody>"
+            + fam_rows(fams, total) + "</tbody></table></div>")
+
+
+def main():
+    print("=" * 70)
+    print(" COATES | INVOICE BREAKDOWN - what the SiteIQ invoice is made of")
+    print("=" * 70)
+    ds, ds_path, ds_asat = CS.read_daily_summary()
+    if not ds:
+        print(" DAILY_SUMMARY export not found - download it from SiteIQ,")
+        print(" save it over the top, and run this again.")
+        return 1
+
+    #  which invoice? the latest billing month in the data, unless told
+    #  (python build_invoice_breakdown.py 2026-07)
+    if len(sys.argv) > 1 and re.match(r"^\d{4}-\d{2}$", sys.argv[1]):
+        month = dt.date(int(sys.argv[1][:4]), int(sys.argv[1][5:7]), 1)
+    else:
+        month = max(registers_in(d) for d in ds)
+    inv_days = sorted(d for d in ds if registers_in(d) == month)
+    if not inv_days:
+        print(" No invoiced days register into {:%B %Y} yet.".format(month))
+        return 1
+    mname = month.strftime("%B %Y")
+    print(" Invoice month : {}  ({} invoiced day(s), {} - {})".format(
+        mname, len(inv_days), inv_days[0].strftime("%d %b"),
+        inv_days[-1].strftime("%d %b")))
+
+    #  ---- the streams, straight from SiteIQ's invoiced columns --------
+    sums = {k: sum(ds[d][k] for d in inv_days) for k, _l in STREAMS}
+    total = sum(ds[d]["total"] for d in inv_days)
+    alloc = sum(sums.values())
+    gap = total - alloc
+    if abs(gap) >= 0.01:
+        #  never hide a cent: whatever DAILY_SUMMARY's total carries
+        #  beyond the named columns gets its own honest line
+        sums["_unalloc"] = gap
+    tie = "PROVEN" if abs(gap) < 0.01 else "gap ${:,.2f} shown as its own line".format(gap)
+    print(" Invoice total : {}   (streams sum {} - {})".format(
+        money0(total), money0(alloc), tie))
+    for k, lab in STREAMS:
+        if sums.get(k):
+            print("   {:<12} {}".format(k, money0(sums[k])))
+
+    #  ---- the hire split & the product groups -------------------------
+    wb = openpyxl.load_workbook(CS.find_workbook(), data_only=True)
+    hire_daily = CS.read_hire_daily(wb) or {}
+    tied, stale = [], []
+    for d in inv_days:
+        sp = hire_daily.get(d)
+        if sp and abs((sp["plant"] + sp["tool"] + sp["gear"]) - ds[d]["hire"]) < 1:
+            tied.append(d)
+        elif ds[d]["hire"]:
+            stale.append(d)
+    split = {k: sum(hire_daily[d][k] for d in tied) for k in ("plant", "tool", "gear")}
+    stale_amt = sum(ds[d]["hire"] for d in stale)
+    print(" Hire split    : plant {} | tooling {} | gear {}  ({}/{} day(s) tie to the cent)".format(
+        money0(split["plant"]), money0(split["tool"]), money0(split["gear"]),
+        len(tied), len(tied) + len(stale)))
+    if stale:
+        print(" !! {} day(s) not yet posted by SiteIQ ({}) - {} of hire can't be".format(
+            len(stale), ", ".join(d.strftime("%d %b") for d in stale), money0(stale_amt)))
+        print("    split yet. Re-download TRANSACTIONS after 09:30 and run this again.")
+    fams = read_family_split(wb, tied) or {"plant": {}, "tool": {}, "gear": {}}
+
+    #  ---- the claims booked into this invoice --------------------------
+    svc = CS.read_service_invoiced()
+    claim_lines = [(w, de, a) for w, de, a in svc.get("rows", [])
+                   if au_date(w) and registers_in(au_date(w)) == month]
+
+    #  =================== the pages =====================================
+    now = dt.datetime.now()
+    asat = now.strftime("%d %b %Y - %H:%M")
+    hire_sum = sums.get("hire", 0.0)
+    claims_sum = total - hire_sum
+
+    #  ---- sheet 1 - what the invoice is made of ------------------------
+    srows = ""
+    for k, lab in STREAMS:
+        v = sums.get(k, 0.0)
+        if not v:
+            continue
+        pc = v / total * 100.0 if total else 0.0
+        srows += ("<tr><td>{l}</td><td class='n'>{a}</td>"
+                  "<td style='width:150px'><div class='bar' style='height:10px;margin:4px 0'>"
+                  "<i style='width:{w:.0f}%'></i></div></td>"
+                  "<td class='n' style='color:" + CS.MUTED + "'>{p:.0f}%</td></tr>").format(
+            l=lab, a=money0(v), w=min(100.0, pc), p=pc)
+    if sums.get("_unalloc"):
+        srows += ("<tr><td style='color:" + CS.MUTED + "'>Other invoiced adjustments</td>"
+                  "<td class='n'>{a}</td><td></td><td></td></tr>").format(
+            a=money0(sums["_unalloc"]))
+    srows += ("<tr><td style='color:" + CS.INK + ";font-weight:700'>Invoice total</td>"
+              "<td class='n' style='color:" + CS.INK + ";font-weight:700'>{a}</td>"
+              "<td></td><td></td></tr>").format(a=money0(total))
+
+    roll_day = (month - dt.timedelta(days=1))          # last day of prior month
+    next_m = (month + dt.timedelta(days=32)).replace(day=1)
+    last_of_month = next_m - dt.timedelta(days=1)
+    page1 = (
+        "<div class='banner'><span class='pill'>Progress invoice</span>"
+        "<p>SiteIQ renders the {m} invoice as a <b>single line</b>. This breakdown is the "
+        "companion that shows what that line is made of &mdash; every dollar grouped by stream, "
+        "straight from SiteIQ's own daily invoicing, covering <b>{d0} &ndash; {d1}</b> "
+        "({n} invoiced day(s)). A <b>final invoice</b> follows next month as the shutdown "
+        "closes out.</p></div>"
+        "<div class='kpis' style='grid-template-columns:repeat(3,1fr)'>"
+        "<div class='kpi b'><div class='v'>{tot}</div><div class='l'>{m} invoice &middot; all in</div>"
+        "<div class='s'>every stream on this invoice</div></div>"
+        "<div class='kpi'><div class='v'>{h}</div><div class='l'>Hire</div>"
+        "<div class='s'>plant, tooling &amp; equipment</div></div>"
+        "<div class='kpi'><div class='v'>{c}</div><div class='l'>Claims &amp; services</div>"
+        "<div class='s'>labour, accommodation, transport &amp; the rest</div></div></div>"
+        "<div class='card'><h2>What the invoice is made of</h2>"
+        "<div class='cap'>Each stream as SiteIQ invoiced it &mdash; the rows sum to the "
+        "invoice total to the cent.</div>"
+        "<table><thead><tr><th>Stream</th><th style='text-align:right'>Amount</th><th></th>"
+        "<th style='text-align:right'>Share</th></tr></thead><tbody>" + srows + "</tbody></table>"
+        "<div class='footnote'>The month-end rule: SiteIQ registers the <b>last day of a month</b> "
+        "into the next month's invoice &mdash; {lst}'s hire sits in next month's final invoice"
+        + (", and {rd}'s sits in this one".format(rd=roll_day.strftime("%d %b"))
+           if roll_day in inv_days else "") +
+        ". Radios, gas monitors and the welders are invoiced separately and are "
+        "<b>not in this figure</b> &mdash; the two invoices never share a dollar.</div></div>"
+    ).format(m=mname, d0=inv_days[0].strftime("%d %b"),
+             d1=inv_days[-1].strftime("%d %b %Y"), n=len(inv_days),
+             tot=money0(total), h=money0(hire_sum), c=money0(claims_sum),
+             lst=last_of_month.strftime("%d %b"))
+
+    #  ---- sheet 2 - inside the hire: the split + plant groups ----------
+    hire_tied = split["plant"] + split["tool"] + split["gear"]
+
+    def pct(v):
+        return (v / hire_tied * 100.0) if hire_tied else 0.0
+    stale_note = ""
+    if stale:
+        stale_note = (" {a} of hire across {n} day(s) is invoiced but its charge lines "
+                      "haven't posted yet (SiteIQ posts them about 09:30 the next morning) "
+                      "&mdash; it is in every total above, just not split below yet.").format(
+            a=money0(stale_amt), n=len(stale))
+    page2 = (
+        "<div class='kpis' style='grid-template-columns:repeat(3,1fr)'>"
+        "<div class='kpi b'><div class='v'>{p}</div><div class='l'>Plant</div>"
+        "<div class='s'>{pp:.0f}% of the hire</div></div>"
+        "<div class='kpi'><div class='v'>{t}</div><div class='l'>Tooling</div>"
+        "<div class='s'>{tp:.0f}% of the hire</div></div>"
+        "<div class='kpi'><div class='v'>{g}</div><div class='l'>General gear</div>"
+        "<div class='s'>{gp:.0f}% of the hire</div></div></div>"
+    ).format(p=money0(split["plant"]), pp=pct(split["plant"]),
+             t=money0(split["tool"]), tp=pct(split["tool"]),
+             g=money0(split["gear"]), gp=pct(split["gear"]))
+    page2 += fam_card(
+        "Plant &mdash; by product group",
+        "The site's plant on charge &mdash; plant registers and the plant storage units "
+        "(site plant, rubbish chutes, barriers) &mdash; grouped by SiteIQ's own product "
+        "families." + stale_note,
+        fams["plant"], split["plant"])
+    page2 += ("<div class='footnote' style='margin-top:14px'>Every dollar on this page is "
+              "SiteIQ's own charge line, split by the store's proven plant identity &mdash; "
+              "the same partition the cost snapshot ties to the invoice to the cent, "
+              "day by day. Items = individual pieces of gear that earned within the group.</div>")
+
+    #  ---- sheet 3 - tooling & general gear groups ----------------------
+    page3 = fam_card(
+        "Tooling &mdash; by product group",
+        "The tool aisles (Tooling, Hydraulics &amp; Hi-Torque). The number runs small "
+        "because the hand-tool aisles go out largely free-issue &mdash; that is the real "
+        "shape of the hire, not missing data.",
+        fams["tool"], split["tool"])
+    page3 += fam_card(
+        "General gear &mdash; by product group",
+        "The rest of the store &mdash; rigging, electrical, welding, air, lighting and "
+        "the like, grouped by SiteIQ's own product families.",
+        fams["gear"], split["gear"])
+
+    #  ---- sheet 4 - the claims & services on this invoice --------------
+    page4 = ""
+    if claim_lines:
+        lrows = ""
+        for w, de, a in claim_lines:
+            d = au_date(w)
+            lrows += ("<tr><td style='white-space:nowrap'>{w}</td><td>{d}</td>"
+                      "<td class='n'>${a:,.2f}</td></tr>").format(
+                w=d.strftime("%d %b %Y"), d=CS.html.escape(de[:70]), a=a)
+        lrows += ("<tr><td></td><td style='color:" + CS.INK + ";font-weight:700'>Total claims "
+                  "on this invoice</td><td class='n' style='color:" + CS.INK +
+                  ";font-weight:700'>${a:,.2f}</td></tr>").format(
+            a=sum(a for _w, _de, a in claim_lines))
+        page4 = (
+            "<div class='card'><h2>The claims &amp; services on this invoice</h2>"
+            "<div class='cap'>Booked through SiteIQ as service claims &mdash; to the cent, "
+            "the same lines that appear on the invoice.</div>"
+            "<table><thead><tr><th>Booked</th><th>Claim line</th>"
+            "<th style='text-align:right'>Amount</th></tr></thead><tbody>" + lrows +
+            "</tbody></table>"
+            "<div class='footnote'>Labour and accommodation are invoiced in lump progress "
+            "claims covering a stretch of days at a time; consumable claims are one-off "
+            "supply items. Neither is ever double counted against the daily hire.</div></div>")
+
+    #  ---- assemble ------------------------------------------------------
+    sections = [("What the invoice is made of", page1),
+                ("Inside the hire &middot; plant by product group", page2),
+                ("Inside the hire &middot; tooling &amp; general gear", page3)]
+    if page4:
+        sections.append(("Claims &amp; services on this invoice", page4))
+    total_pages = len(sections)
+    footer = ("<div class='foot'><span>Data source: <b>SiteIQ</b> &middot; Extract {a} &middot; "
+              "Progress invoice breakdown &mdash; final invoice next month &middot; every figure "
+              "is SiteIQ's own invoiced line.</span>"
+              "<span style='white-space:nowrap'>Author: <b>Andrew Fisher</b> &middot; "
+              "POWERED BY SITEIQ</span></div>").format(a=asat)
+    sheets = []
+    for i, (sub, inner) in enumerate(sections, 1):
+        hd = ("<div class='hd2'><div>"
+              "<div class='brand'>COATES<span>Equipped for anything</span></div>"
+              "<h1>Invoice Breakdown &mdash; {m}</h1><div class='rp'>{sub}</div>"
+              "</div><div><div class='siteiq'>POWERED BY SITEIQ</div>"
+              "<div class='meta'>As at <b>{a}</b><br>Page {p} of {tp}</div></div></div>"
+              ).format(m=mname, sub=sub, a=asat, p=i, tp=total_pages)
+        sheets.append("<section class='sheet'><div class='panel'>" + hd +
+                      "<div class='rule'></div>" + inner + "<div class='grow'></div>" +
+                      (footer if i == total_pages else "") + "</div></section>")
+    #  concatenate (never .format) around the CSS - it has its own { }
+    page = ("<!DOCTYPE html><html><head><meta charset='utf-8'>"
+            "<meta name='viewport' content='width=device-width,initial-scale=1'>"
+            "<title>Coates K2 - Invoice Breakdown</title><style>"
+            + CS.PANEL_CSS + CS.LIGHT_CSS + "</style></head><body>"
+            + "".join(sheets) + "</body></html>")
+
+    dirs = report_paths.out_dirs(HERE)
+    stamp = dt.datetime.now().strftime("%Y-%m-%d")
+    out = os.path.join(dirs["pages"], "Coates_K2_Invoice_Breakdown_{}_{}.html".format(
+        month.strftime("%B%Y"), stamp))
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(page)
+    print(" Saved: {}".format(out))
+    pdf_out = os.path.join(dirs["pdf"], os.path.basename(out).replace(".html", ".pdf"))
+    if CS.make_pdf(out, pdf_out):
+        print(" PDF  : {}".format(pdf_out))
+        print("")
+        print(" Attach the PDF alongside the SiteIQ invoice - it is the")
+        print(" clarity page: one sheet of what the line is made of, then")
+        print(" the product-group outlay for plant, tooling and gear.")
+    if stale:
+        print("")
+        print(" REMINDER: re-download TRANSACTIONS + DAILY_SUMMARY after")
+        print(" 09:30, run this again, and the not-yet-posted day(s) fill in.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

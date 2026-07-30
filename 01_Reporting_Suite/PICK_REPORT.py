@@ -47,6 +47,8 @@ REPORTS = [
     ("End-of-shut close-out",                      KIT, "--closeout"),
     ("Gear lookup page (the QR at the window)",    KIT, "--lookup"),
     ("Cost tracking snapshot",        "build_cost_snapshot.py", ""),
+    ("Invoice breakdown - what the SiteIQ invoice is made of",
+                                      "build_invoice_breakdown.py", ""),
     ("My Gear - personal scorecards",  "BUILD_MY_GEAR.py",      ""),
 ]
 

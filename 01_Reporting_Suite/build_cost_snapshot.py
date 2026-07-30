@@ -427,36 +427,16 @@ def read_hire_split(wb):
             "keys": len(plant_keys)}
 
 
-def read_hire_daily(wb):
-    """The invoiced hire, PER DAY, split three ways: Plant, Tooling and
-    Gear. (Andrew, 30 Jul 2026: "we need to know the whole plant gear
-    and tooling how much for each for each day.")
-
-    Every charged line is spread evenly across its own SHIFT_CHARGE
-    date span and dropped into exactly one bucket, so the three columns
-    sum to SiteIQ's daily invoice - PROVEN to tie to the cent against
-    DAILY_SUMMARY on every day the TRANSACTIONS pull covers. A
-    partition of the invoice, never an estimate.
-
-    The buckets, by the store's own identity:
-      Plant   - the plant registers + the plant storage units (same
-                definition as read_hire_split, the prefill and the
-                plant dashboard - ONE definition across the suite)
-      Tooling - barcodes living in the tool aisles (Tooling,
-                Hydraulics- Hi Torque)
-      Gear    - everything else: electrical, rigging, welding, air,
-                lighting and the rest of the store
-
-    ONE TIMING TRAP, named where it bites: SiteIQ posts a day's charge
-    lines the NEXT morning around 09:30. A TRANSACTIONS export pulled
-    at 06:30 will carry $0 against a day DAILY_SUMMARY has already
-    invoiced - the caller must show a dash and say "re-pull after
-    09:30", never a silent zero.
-    """
+def hire_classifier(wb):
+    """ONE plant/tooling/gear identity for every hire split in the suite
+    (read_hire_daily and the invoice breakdown share it - the definition
+    must never fork). Returns bucket_of(barcode) -> 'plant' | 'tool' |
+    'gear', built from the same three sources read_hire_split proved
+    out: the workbook's Plant Equipment register, Plant_ID_Register.csv,
+    and everything RENTAL_STOCK holds in the plant storage units."""
     def norm(v):
         return str(v).strip().upper() if v is not None else ""
 
-    #  the plant identity - same three sources as read_hire_split
     plant_keys = set()
     try:
         for r in list(wb["Plant Equipment"].iter_rows(values_only=True))[1:]:
@@ -504,6 +484,46 @@ def read_hire_daily(wb):
 
     TOOL_SU = {"TOOLING", "HYDRAULICS- HI TORQUE"}
 
+    def bucket_of(bc):
+        if is_plant(bc):
+            return "plant"
+        if unit_of.get(bc, "") in TOOL_SU:
+            return "tool"
+        return "gear"
+    return bucket_of
+
+
+def read_hire_daily(wb):
+    """The invoiced hire, PER DAY, split three ways: Plant, Tooling and
+    Gear. (Andrew, 30 Jul 2026: "we need to know the whole plant gear
+    and tooling how much for each for each day.")
+
+    Every charged line is spread evenly across its own SHIFT_CHARGE
+    date span and dropped into exactly one bucket, so the three columns
+    sum to SiteIQ's daily invoice - PROVEN to tie to the cent against
+    DAILY_SUMMARY on every day the TRANSACTIONS pull covers. A
+    partition of the invoice, never an estimate.
+
+    The buckets, by the store's own identity:
+      Plant   - the plant registers + the plant storage units (same
+                definition as read_hire_split, the prefill and the
+                plant dashboard - ONE definition across the suite)
+      Tooling - barcodes living in the tool aisles (Tooling,
+                Hydraulics- Hi Torque)
+      Gear    - everything else: electrical, rigging, welding, air,
+                lighting and the rest of the store
+
+    ONE TIMING TRAP, named where it bites: SiteIQ posts a day's charge
+    lines the NEXT morning around 09:30. A TRANSACTIONS export pulled
+    at 06:30 will carry $0 against a day DAILY_SUMMARY has already
+    invoiced - the caller must show a dash and say "re-pull after
+    09:30", never a silent zero.
+    """
+    def norm(v):
+        return str(v).strip().upper() if v is not None else ""
+
+    bucket_of = hire_classifier(wb)
+
     tx = _gfind("TRANSACTIONS*.xlsx")
     if not tx:
         return None
@@ -547,12 +567,7 @@ def read_hire_daily(wb):
         t = pdate(r[H.get("SHIFT_CHARGE_DATE_TO", -1)]) or f
         if not f:
             continue
-        if is_plant(bc):
-            bucket = "plant"
-        elif unit_of.get(bc, "") in TOOL_SU:
-            bucket = "tool"
-        else:
-            bucket = "gear"
+        bucket = bucket_of(bc)
         ndays = max(1, (t - f).days + 1)
         per = hire / ndays
         for i in range(ndays):
