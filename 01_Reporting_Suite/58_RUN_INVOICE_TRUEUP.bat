@@ -4,8 +4,10 @@ rem  COATES | INVOICE TRUE-UP - the monthly invoice, proven
 rem  Cement Australia K2 Shutdown 2026 - Gladstone
 rem  Author: Andrew Fisher | POWERED BY SITEIQ
 rem
-rem  Download the BASEPLAN_CHARGES export (Downloads is fine)
-rem  and double-click me. Every line is recomputed from its own
+rem  Drop the invoice PDF into Invoices\ and the Baseplan
+rem  charges export into Baseplan\ (both folders make
+rem  themselves on first run - newest file wins), then
+rem  double-click me. Every line is recomputed from its own
 rem  dates, quantity and rate, tied against what was billed,
 rem  the streams re-added, GST checked, and the radio/gas fleet
 rem  counts crossed against the rental stock register.

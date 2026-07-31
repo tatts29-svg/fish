@@ -75,7 +75,10 @@ PROTECTED = (
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
                   #  gear pictures collected on site (30 Jul 2026)
-                  "photos")
+                  "photos",
+                  #  the invoice PDFs and Baseplan exports Andrew drops
+                  #  for the 58 true-up (31 Jul 2026)
+                  "invoices", "baseplan")
 
 
 def sha(path):

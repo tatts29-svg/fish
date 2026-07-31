@@ -17,26 +17,99 @@
 #  This is the SEPARATE monthly stream - it never shares a dollar with
 #  the SiteIQ daily invoice that 54_RUN_INVOICE_BREAKDOWN covers.
 #
-#  HOW: download the BASEPLAN_CHARGES export (Downloads is fine), run
-#  58. Newest export wins. The workbook opens itself.
+#  HOW (Andrew, 31 Jul 2026: "a set folder where i drop the invoices
+#  and a set folder for the baseplan excel"): two folders live next to
+#  the buttons and make themselves on first run -
+#      Invoices\   <- the Coates invoice PDFs go here
+#      Baseplan\   <- the BASEPLAN_CHARGES exports go here
+#  Drop the files in, run 58, newest of each wins. Downloads still
+#  works as a fallback for the Baseplan export, so muscle memory
+#  doesn't break anything.
 # =====================================================================
 import datetime as dt
 import glob
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+INV_DIR = os.path.join(HERE, 'Invoices')
+BP_DIR = os.path.join(HERE, 'Baseplan')
+
+
+def make_folders():
+    for d, blurb in (
+        (INV_DIR, 'DROP THE COATES INVOICE PDFs IN HERE\n'
+                  '=====================================\n'
+                  'One file per invoice, e.g. INV24955507.PDF - the number\n'
+                  'in the filename names the true-up. Newest file wins.\n'
+                  'Then double-click 58_RUN_INVOICE_TRUEUP.bat.\n'),
+        (BP_DIR, 'DROP THE BASEPLAN CHARGES EXPORTS IN HERE\n'
+                 '==========================================\n'
+                 'The charge-lines export out of Baseplan, as .xlsx.\n'
+                 'Any name is fine in this folder - newest file wins.\n'
+                 'Then double-click 58_RUN_INVOICE_TRUEUP.bat.\n')):
+        os.makedirs(d, exist_ok=True)
+        rd = os.path.join(d, '_READ_ME_FIRST.txt')
+        if not os.path.isfile(rd):
+            try:
+                with open(rd, 'w', encoding='utf-8') as f:
+                    f.write(blurb)
+            except OSError:
+                pass
 
 
 def find_baseplan():
-    """Newest BASEPLAN_CHARGES*.xlsx anywhere Andrew would drop it."""
-    hits = []
+    """Newest charges export: the Baseplan folder first (any .xlsx),
+    then the old haunts by the BASEPLAN_CHARGES name."""
+    hits = [p for p in glob.glob(os.path.join(BP_DIR, '*.xlsx'))
+            if not os.path.basename(p).startswith('~$')]
+    if hits:
+        return max(hits, key=os.path.getmtime)
     for d in (os.path.join(os.path.expanduser('~'), 'Downloads'),
               os.path.join(HERE, 'Data_SiteIQ'), HERE):
         if os.path.isdir(d):
             hits += [p for p in glob.glob(os.path.join(d, 'BASEPLAN_CHARGES*.xlsx'))
                      if not os.path.basename(p).startswith('~$')]
     return max(hits, key=os.path.getmtime) if hits else None
+
+
+def find_invoice():
+    """Newest invoice PDF in Invoices\\ - names the true-up, and if the
+    pypdf library happens to be on this machine, the printed total is
+    read out of it and tied against the computed total. No pypdf = the
+    filename still names it and the comparison is done by eye."""
+    pdfs = [p for p in glob.glob(os.path.join(INV_DIR, '*.pdf'))
+            + glob.glob(os.path.join(INV_DIR, '*.PDF'))
+            if not os.path.basename(p).startswith('~$')]
+    if not pdfs:
+        return None, None, None
+    p = max(pdfs, key=os.path.getmtime)
+    m = re.search(r'(\d{6,})', os.path.basename(p))
+    number = m.group(1) if m else ''
+    total = None
+    try:
+        import pypdf
+        txt = ''
+        for pg in pypdf.PdfReader(p).pages:
+            txt += pg.extract_text() or ''
+        mt = re.search(r'Invoice\s+Total\s*\$?([\d,]+\.\d{2})', txt)
+        if mt:
+            total = float(mt.group(1).replace(',', ''))
+        if not number:
+            mn = re.search(r'Tax\s+Invoice\s+Number\s*(\d+)', txt)
+            if mn:
+                number = mn.group(1)
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except BaseException:
+        #  BaseException on purpose: a half-installed pdf library can
+        #  die with a low-level panic that is not an Exception, and an
+        #  optional nicety must never take the true-up down with it
+        #  (seen 31 Jul 2026). No pypdf = the filename still names the
+        #  invoice and the total is compared by eye.
+        total = None
+    return p, number, total
 
 
 def fleet_counts():
@@ -71,12 +144,22 @@ def main():
     print('=' * 66)
     print(' COATES | INVOICE TRUE-UP - the monthly invoice, proven')
     print('=' * 66)
+    make_folders()
     bp_path = find_baseplan()
     if not bp_path:
-        print(' No BASEPLAN_CHARGES*.xlsx found. Download the charges export')
-        print(' from Baseplan (Downloads is fine) and run me again.')
+        print(' No charges export found. Drop the Baseplan export into:')
+        print('   ' + BP_DIR)
+        print(' and run me again. (Downloads works too.)')
         return 1
+    inv_path, inv_no, inv_total = find_invoice()
     print(' Charges  : ' + bp_path)
+    if inv_path:
+        print(' Invoice  : ' + os.path.basename(inv_path)
+              + ('  (total ${:,.2f} read from the PDF)'.format(inv_total)
+                 if inv_total else ''))
+    else:
+        print(' Invoice  : none in ' + INV_DIR + ' - true-up still runs;')
+        print('            drop the PDF there and the report names itself.')
 
     import openpyxl
     from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -190,7 +273,7 @@ def main():
     verdict = ('TIES TO THE CENT, {} of {} recomputable lines'.format(ties, ties + checks)
                if not checks else
                '{} LINE(S) NEED A LOOK - marked CHECK in red'.format(checks))
-    brand(w1, 'INVOICE TRUE-UP',
+    brand(w1, 'INVOICE TRUE-UP' + (' - INV ' + inv_no if inv_no else ''),
           'Built {} off {} - every dated line recomputed from its own dates, '
           'quantity and rate on the 7-day week. Verdict: {}.'.format(
               dt.datetime.now().strftime('%d %b %Y %H:%M'),
@@ -218,14 +301,24 @@ def main():
         w1.cell(row=r, column=12, value=L.get('note', '')).border = thin
         r += 1
     r += 1
-    for lab, val in [('Hire charges (dated lines)', round(hire_total, 2)),
-                     ('Other charges (flat lines)', round(other_total, 2)),
-                     ('Price ex GST', ex_gst), ('GST (10%)', gst),
-                     ('THE INVOICE SHOULD TOTAL', round(ex_gst + gst, 2))]:
+    should = round(ex_gst + gst, 2)
+    total_rows = [('Hire charges (dated lines)', round(hire_total, 2)),
+                  ('Other charges (flat lines)', round(other_total, 2)),
+                  ('Price ex GST', ex_gst), ('GST (10%)', gst),
+                  ('THE INVOICE SHOULD TOTAL', should)]
+    if inv_total is not None:
+        total_rows.append(('PRINTED INVOICE TOTAL (read from the PDF)',
+                           inv_total))
+    for lab, val in total_rows:
         w1.cell(row=r, column=2, value=lab).font = Font(bold=True)
         c = w1.cell(row=r, column=9, value=val)
         c.number_format = '#,##0.00'
         c.font = Font(bold=True, color=ORANGE if 'SHOULD' in lab else INK)
+        if 'PRINTED' in lab:
+            ok = abs(inv_total - should) < 0.01
+            vc = w1.cell(row=r, column=11,
+                         value='TIES' if ok else 'CHECK')
+            vc.font = Font(bold=True, color=GREEN if ok else RED)
         r += 1
     w1.cell(row=r + 1, column=2,
             value='Check the bottom line against the printed PDF. Daily '
@@ -261,6 +354,17 @@ def main():
     notes.append('PROGRESS INVOICE: dated lines keep charging at '
                  '${:,.2f} ex GST per day until off-hired - the final '
                  'invoice washes up the rest.'.format(runrate))
+    if inv_total is not None and abs(inv_total - should) >= 0.01:
+        notes.insert(0, 'THE PRINTED INVOICE DOES NOT MATCH: the PDF says '
+                        '${:,.2f}, the charge lines compute to ${:,.2f} - '
+                        'a ${:,.2f} gap to chase before anything is paid or '
+                        'passed on.'.format(inv_total, should,
+                                            abs(inv_total - should)))
+    elif inv_total is None and not inv_path:
+        notes.append('NO INVOICE PDF in the Invoices folder - the computed '
+                     'total stands alone. Drop the PDF in and re-run to have '
+                     'the report named and (with pypdf installed) the '
+                     'printed total tied automatically.')
     if checks:
         notes.insert(0, '{} LINE(S) MARKED CHECK on the TRUE-UP sheet - the '
                         'recomputed dollars or days do not match what was '
@@ -273,12 +377,16 @@ def main():
         w2.row_dimensions[r].height = 56
         r += 1
 
-    out = os.path.join(HERE, 'Invoice_TrueUp_{}.xlsx'.format(
-        dt.date.today().isoformat()))
+    out = os.path.join(HERE, 'Invoice_TrueUp_{}{}.xlsx'.format(
+        ('INV' + inv_no + '_') if inv_no else '', dt.date.today().isoformat()))
     out_wb.save(out)
     print(' Lines    : {} ({} tie, {} to check, {} flat)'.format(
         len(lines), ties, checks, len(lines) - ties - checks))
-    print(' Should   : ${:,.2f} inc GST'.format(ex_gst + gst))
+    print(' Should   : ${:,.2f} inc GST'.format(should))
+    if inv_total is not None:
+        print(' Printed  : ${:,.2f} - {}'.format(
+            inv_total, 'TIES' if abs(inv_total - should) < 0.01
+            else 'DOES NOT MATCH - read the CHECKS sheet'))
     print('')
     print(' Written to : ' + out)
     print('')
