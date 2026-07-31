@@ -96,44 +96,68 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
                 shifts[b] += KU._num(r.get('SHIFTS'))
     rates = read_rates(onhire_path)
 
-    U = collections.defaultdict(lambda: {
-        'n': 0, 'billed': 0.0, 'occ': 0.0, 'out': 0, 'plant': False,
-        'repl': 0.0, 'priced': 0, 'rev': 0.0, 'rated': 0,
-        'rate_sum': 0.0, 'pend': []})
+    #  the variant fold: PRODUCT_VARIANT where SiteIQ gives one, the
+    #  derived model key where it doesn't (radios and gas monitors fold
+    #  serial by serial into their fleet) - same rule as the photos,
+    #  so this page and My Gear agree on what "a variant" is
+    import mygear_thumbs as TH
+
+    def _blank():
+        return {'n': 0, 'billed': 0.0, 'occ': 0.0, 'out': 0,
+                'plant': False, 'repl': 0.0, 'priced': 0, 'rev': 0.0,
+                'rated': 0, 'rate_sum': 0.0, 'pend': []}
+    U = collections.defaultdict(_blank)
+    V = collections.defaultdict(_blank)
+    vname = {}
     for r in stock:
         unit = KU._txt(r, 'STORAGE_UNIT') or 'Unassigned'
-        u = U[unit]
-        u['n'] += 1
-        u['plant'] = KU._is_plant(unit)
+        desc = KU._txt(r, 'ITEM_DESCRIPTION')
+        var = KU._txt(r, 'PRODUCT_VARIANT').upper()
+        if not var:
+            _ser, var = TH.derived_keys(desc)
+            var = var or (desc.upper()[:40] or 'UNCODED')
+            #  the fleet name reads clean - no one serial's tail on it
+            import re as _re
+            desc = _re.sub(r'\s*-?\s*Serial\s+\S+\s*$', '', desc,
+                           flags=_re.I) or desc
+        vk = (unit, var)
+        if vk not in vname:
+            vname[vk] = desc or var
         bc = KU._txt(r, 'ITEM_BARCODE')
         it = KU._txt(r, 'ITEM_NUMBER')
         sh = shifts.get(bc, 0.0)
-        u['billed'] += sh
-        if KU._txt(r, 'ITEM_STATUS') == 'On Hire':
-            u['out'] += 1
+        on_hire = KU._txt(r, 'ITEM_STATUS') == 'On Hire'
+        od = 0
+        if on_hire:
             d = KU._date(r.get('ON_HIRE_DATE'))
             if d:
-                u['occ'] += min(days_in, max(0, (today - d).days))
+                od = min(days_in, max(0, (today - d).days))
         p = master.price(it) if master else None
-        if p:
-            u['repl'] += p
-            u['priced'] += 1
         rt = rates.get(it)
-        if rt:
-            u['rated'] += 1
-            u['rate_sum'] += rt
-            u['rev'] += sh * rt
-        elif sh:
-            u['pend'].append(sh)      # billed days awaiting a rate
+        for agg in (U[unit], V[vk]):
+            agg['n'] += 1
+            agg['plant'] = KU._is_plant(unit)
+            agg['billed'] += sh
+            if on_hire:
+                agg['out'] += 1
+                agg['occ'] += od
+            if p:
+                agg['repl'] += p
+                agg['priced'] += 1
+            if rt:
+                agg['rated'] += 1
+                agg['rate_sum'] += rt
+                agg['rev'] += sh * rt
+            elif sh:
+                agg['pend'].append(sh)   # billed days awaiting a rate
 
-    rows = []
-    for name, u in U.items():
+    def _row(name, u, extra=None):
         fleet_days = u['n'] * days_in
-        #  billed days with no current rate line price at the unit's
+        #  billed days with no current rate line price at the group's
         #  own average - estimate, and counted as such
         avg = (u['rate_sum'] / u['rated']) if u['rated'] else 0.0
         rev = u['rev'] + sum(u['pend']) * avg
-        rows.append({
+        out = {
             'name': name, 'n': u['n'], 'out': u['out'],
             'plant': u['plant'],
             'fleetDays': fleet_days,
@@ -144,7 +168,20 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
             'repl': u['repl'], 'priced': u['priced'],
             'rev': rev,
             'roc': 100.0 * rev / u['repl'] if u['repl'] else None,
-        })
+        }
+        if extra:
+            out.update(extra)
+        return out
+
+    rows = []
+    for name, u in U.items():
+        r = _row(name, u)
+        #  the variant drill-down under this unit, biggest fleet first
+        vrows = [_row(vname[(un, vc)], V[(un, vc)], {'code': vc})
+                 for (un, vc) in V if un == name]
+        vrows.sort(key=lambda x: (-x['fleetDays'], x['name'].upper()))
+        r['vars'] = vrows
+        rows.append(r)
     rows.sort(key=lambda x: -x['fleetDays'])
 
     tot = {'n': sum(r['n'] for r in rows),
@@ -289,6 +326,47 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
         rev=money(tot['rev']),
         p=('{:.1f}%'.format(tot['roc']) if tot['roc'] is not None else '&mdash;'),
         a=('{:.0f}%'.format(tot['roc'] * ann) if tot['roc'] is not None else '&mdash;')))
+
+    #  ---- the drill-down: every product variant, unit by unit --------
+    h.append("<h2>The drill-down &mdash; TU &amp; ROC by product variant"
+             "</h2>"
+             "<div class='note'>Every variant in every unit &mdash; the "
+             "radios and gas monitors fold serial by serial into their "
+             "fleet, same rule as My Gear. This is where the fleet-cut "
+             "conversation gets specific: a variant at 0% billed and 0% "
+             "occupied since day one is a demob candidate by name, not "
+             "by feel. Sorted biggest fleet first inside each unit.</div>")
+    for r in rows:
+        vs = r.get('vars') or []
+        if not vs:
+            continue
+        h.append("<h3 style='font-size:13px;margin:16px 0 4px;color:#1D1D1B'>"
+                 + r['name']
+                 + " <span style='color:#8A94A2;font-weight:400'>&middot; "
+                 + str(len(vs)) + " variant" + ('' if len(vs) == 1 else 's')
+                 + "</span></h3>")
+        h.append("<table><tr><th>Product variant</th><th class='r'>Items</th>"
+                 "<th class='r'>Out</th><th>TU occupied</th>"
+                 "<th>TU billed</th><th class='r'>Capital</th>"
+                 "<th class='r'>Revenue est.</th>"
+                 "<th class='r'>ROC ann.</th></tr>")
+        for v in vs:
+            roc = v['roc']
+            h.append(("<tr><td><b>{nm}</b><br><span style='color:#8A94A2;"
+                      "font-family:Consolas,monospace;font-size:10px'>{cd}"
+                      "</span></td>"
+                      "<td class='r'>{n}</td><td class='r'>{out}</td>"
+                      "<td>{b1}</td><td>{b2}</td>"
+                      "<td class='r'>{cap}</td><td class='r'>{rev}</td>"
+                      "<td class='r'><b>{a}</b></td></tr>").format(
+                nm=v['name'], cd=v.get('code', ''), n=v['n'], out=v['out'],
+                b1=bar(v['tuO'], tu_col(v['tuO'])),
+                b2=bar(v['tuB'], tu_col(v['tuB'])),
+                cap=(money(v['repl']) if v['repl'] else '&mdash;'),
+                rev=(money(v['rev']) if v['rev'] else '&mdash;'),
+                a=('{:.0f}%'.format(roc * ann) if roc is not None
+                   else '&mdash;')))
+        h.append("</table>")
 
     h.append("<div class='foot'>Built from this morning's SiteIQ exports "
              "&middot; COATES INTERNAL &middot; POWERED BY SITEIQ &middot; "
