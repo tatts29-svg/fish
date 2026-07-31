@@ -768,6 +768,29 @@ def cost_story(wb, ds=None, sub=None, hs=None):
 CHARGE_LINES = ["Damage Recovery", "Consumables Sales", "Fuel", "Transport"]
 
 
+def read_invoice_register():
+    """The invoices 58_RUN_INVOICE_TRUEUP has proven, off the register
+    it keeps in Invoices\\. Empty list = no register yet, and the
+    snapshot simply doesn't mention invoices - nothing changes until
+    the first true-up has run. Best effort by design."""
+    try:
+        import json
+        p = os.path.join(HERE, 'Invoices', 'invoice_register.json')
+        if not os.path.isfile(p):
+            return []
+        with open(p, encoding='utf-8') as f:
+            reg = json.load(f)
+        out = []
+        for k, v in reg.items():
+            e = dict(v) if isinstance(v, dict) else {}
+            e['no'] = k
+            out.append(e)
+        out.sort(key=lambda e: str(e.get('run', '')) + str(e['no']))
+        return out
+    except Exception:
+        return []
+
+
 def read_charges():
     """Pull the Charge Reporter's Costing Feed (Damage/Consumables/Fuel/Transport)
     so logged charges show up in the report. Empty-safe."""
@@ -1372,6 +1395,43 @@ def build_html(cost, ov, charges_data, roster, wbname, svc=None):
             "<div class='card'><h2>" + h2 + "</h2><div class='cap'>" + cap + "</div>"
             + _tu_head + "".join(chunk) + "</tbody></table>"
             + (_tu_foot if last_c else "") + "</div>")
+
+    # -- the invoices themselves, once 58 has proven them ------------------
+    # The register 58_RUN_INVOICE_TRUEUP keeps turns the true-up section
+    # from "tracked v invoiced" into "and here are the actual invoices,
+    # proven". No register yet = the block simply isn't there.
+    _invreg = read_invoice_register()
+    if _invreg:
+        _ir = ("<table style='font-size:12px'><thead><tr><th>Invoice</th>"
+               "<th>Stream</th><th>Period</th>"
+               "<th style='text-align:right'>Ex GST</th>"
+               "<th style='text-align:right'>Inc GST</th>"
+               "<th>Verdict</th></tr></thead><tbody>")
+        def _c2(v):
+            try:
+                return "${:,.2f}".format(float(v))
+            except (TypeError, ValueError):
+                return "&mdash;"
+        for _e in _invreg:
+            _ok = _e.get("verdict") == "TIES"
+            _ir += ("<tr><td><b>INV " + str(_e["no"]) + "</b></td>"
+                    "<td>" + str(_e.get("kind", "")) + "</td>"
+                    "<td>" + str(_e.get("period", "")) + "</td>"
+                    "<td style='text-align:right'>" + _c2(_e.get("ex", 0)) + "</td>"
+                    "<td style='text-align:right'>" + _c2(_e.get("inc", 0)) + "</td>"
+                    "<td><b style='color:" + (GOOD if _ok else BAD) + "'>"
+                    + str(_e.get("verdict", "")) +
+                    ("" if _ok or not _e.get("gap") else
+                     " (" + _c2(abs(_e["gap"])) + " gap)")
+                    + "</b></td></tr>")
+        _ir += "</tbody></table>"
+        trueup_pages.insert(0, (
+            "<div class='card'><h2>The invoices &mdash; issued and proven</h2>"
+            "<div class='cap'>Every Coates invoice for this job, trued up "
+            "line by line by the 58 button on the day it landed. TIES means "
+            "the printed invoice equals the recomputed truth to the cent - "
+            "the day-by-day reconciliation that makes it provable follows "
+            "on the next pages.</div>" + _ir + "</div>"))
 
     # -- labour & accommodation progress claims (SERVICE in SiteIQ) -------
     # A story of its own, so it gets its OWN page (never squeezed under the

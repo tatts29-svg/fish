@@ -149,6 +149,12 @@ def scan_invoices():
     return out
 
 
+def _dmkey(s):
+    """dd/mm sorted by month then day - '05/08' comes AFTER '27/07'."""
+    d, m = s.split('/')[:2]
+    return (int(m), int(d))
+
+
 def siteiq_days():
     """SiteIQ's own invoiced dollars, day by day, off the newest
     DAILY_SUMMARY export - read by the same code the cost snapshot
@@ -464,8 +470,15 @@ def main():
                               value='TIES' if s_ok else 'CHECK')
                 vc.font = Font(bold=True, color=GREEN if s_ok else RED)
             r3 += 1
+        s_verdict, s_gap = None, 0.0
+        s_period_str = ('{} to {}'.format(period[0].strftime('%d/%m'),
+                                          period[1].strftime('%d/%m'))
+                        if period else 'all invoiced days')
         if p_ex is not None:
             gap = round(p_ex - s_ex, 2)
+            s_gap = gap
+            s_verdict = ('CHECK' if (missing or abs(gap) >= 0.01)
+                         else 'TIES')
             if missing:
                 sq_note = ('SITEIQ INVOICE: {} charge day(s) of the printed '
                            'period are not in the DAILY_SUMMARY export - '
@@ -540,6 +553,53 @@ def main():
     out = os.path.join(HERE, 'Invoice_TrueUp_{}{}.xlsx'.format(
         nos + '_' if nos else '', dt.date.today().isoformat()))
     out_wb.save(out)
+
+    #  ---- the invoice register: how this ties into the daily reports.
+    #  Each proven invoice is logged here, and the morning cost
+    #  snapshot's true-up section shows the register - so the daily
+    #  pack says not just "tracked v invoiced" but "these are the
+    #  actual invoices issued, and they tie" (Andrew, 31 Jul 2026).
+    #  Lives in Invoices\ - update-proof, and each machine keeps its
+    #  own. Best effort: a register hiccup never fails the true-up.
+    try:
+        import json
+        reg_p = os.path.join(INV_DIR, 'invoice_register.json')
+        reg = {}
+        if os.path.isfile(reg_p):
+            with open(reg_p, encoding='utf-8') as f:
+                reg = json.load(f)
+        dated = [L for L in lines if L['start']]
+        m_verdict = ('CHECK' if checks or (
+            inv_total is not None and abs(inv_total - should) >= 0.01)
+            else 'TIES')
+        if inv_no or minv:
+            reg[inv_no or os.path.basename(bp_path)] = {
+                'kind': 'Monthly (radios, gas, plant, transport)',
+                'period': ('{} to {}'.format(
+                    min((L['start'] for L in dated), key=_dmkey),
+                    max((L['to'] for L in dated), key=_dmkey))
+                    if dated else ''),
+                'ex': ex_gst, 'inc': round(should, 2),
+                'verdict': m_verdict,
+                'gap': round((inv_total - should), 2) if inv_total else 0.0,
+                'run': dt.date.today().isoformat()}
+        if sinv and sinv['no'] and days and s_verdict:
+            reg[sinv['no']] = {
+                'kind': 'SiteIQ (the one-line invoice)',
+                'period': s_period_str,
+                'ex': s_ex,
+                'inc': sinv['total'] if sinv['total'] else round(s_ex * 1.1, 2),
+                'verdict': s_verdict, 'gap': s_gap,
+                'run': dt.date.today().isoformat()}
+        with open(reg_p, 'w', encoding='utf-8') as f:
+            json.dump(reg, f, indent=1, sort_keys=True)
+        print(' Register : {} invoice(s) logged - tomorrow\'s cost snapshot'
+              .format(len(reg)))
+        print('            shows them on the true-up page.')
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except BaseException:
+        pass
     print(' Lines    : {} ({} tie, {} to check, {} flat)'.format(
         len(lines), ties, checks, len(lines) - ties - checks))
     print(' Should   : ${:,.2f} inc GST'.format(should))
