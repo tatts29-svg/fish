@@ -2879,8 +2879,13 @@ function panePlant(){
   var h='<div class="note"><b>Plant on this site, by category.</b> Open a '
    +'category: what is free right now, what sits idle on charge, and who '
    +'holds the rest. Turn it off if this store is tools only.'
-   +'<br><button class="stmore" style="margin-top:10px" type="button" '
-   +'onclick="togglePlant()">Hide plant from this board</button></div>'
+   +'<div class="prbtns" style="margin-top:10px">'
+   +'<button class="stmore" type="button" onclick="plantAudit()">&#128424; '
+   +'Idle plant audit sheet ('+(t.plantIdle+t.plantFree)+')</button>'
+   +'<button class="stmore" type="button" onclick="plantDemob()">&#128424; '
+   +'Plant demob checklist ('+(t.plantOn+t.plantIdle+t.plantFree)+')</button>'
+   +'<button class="stmore" type="button" onclick="togglePlant()">Hide plant '
+   +'from this board</button></div></div>'
    +'<div class="tiles">'
    +tile(t.plantOn,'Out with crews')
    +tile(t.plantIdle,'Idle on charge','a')
@@ -2945,6 +2950,130 @@ function togglePlant(){
   SHOW_PLANT=!SHOW_PLANT;
   D.hasPlant=SHOW_PLANT;
   render();
+}
+/* THE IDLE PLANT AUDIT SHEET (Andrew, 31 Jul 2026: "someone can print
+   and go check it off to ensure it matches up"). Every machine the
+   register says is ON THE GROUND - idle on charge or free - one line
+   each with a SIGHTED tick and a condition note. Plant ID printed
+   where the register has one; a WRITE-IN box where it does not, so
+   the walk that checks the plant also completes the ID register. */
+function plantByCat(lists){
+  var cats={};
+  lists.forEach(function(pair){
+    pair[1].forEach(function(x){
+      var f=x.f||'Other Plant';
+      (cats[f]=cats[f]||[]).push({x:x,tag:pair[0]});
+    });
+  });
+  return cats;
+}
+function pidCell(x){
+  return x.p?'<span class="ppid">'+esc(x.p)+'</span>'
+            :'<span class="pbox" title="write the Plant ID on"></span>';
+}
+function byDaysName(a,b){
+  var da=(a.x.d==null?-1:a.x.d), db=(b.x.d==null?-1:b.x.d);
+  if(da!==db) return db-da;
+  return a.x.n.toUpperCase()<b.x.n.toUpperCase()?-1:1;
+}
+function plantAudit(){
+  var p=D.plant;
+  var cats=plantByCat([['idle',p.idle||[]],['free',p.free||[]]]);
+  var total=0, noid=0, body='';
+  Object.keys(cats).sort(function(a,b){return cats[b].length-cats[a].length;})
+   .forEach(function(f){
+    var list=cats[f].slice().sort(byDaysName);
+    total+=list.length;
+    body+='<div class="pwho">'+esc(f)+' <span>'+list.length+' machine'
+      +(list.length===1?'':'s')+' on the ground</span></div>'
+      +'<table class="ptab pchk">'
+      +'<tr><th>Plant ID</th><th>Machine</th><th>Scan</th><th>Where</th>'
+      +'<th class="pn">Idle</th><th class="pn">SIGHTED</th><th>Condition / note</th></tr>'
+      +list.map(function(e){var x=e.x;
+        if(!x.p)noid++;
+        return '<tr><td>'+pidCell(x)+'</td>'
+          +'<td>'+esc(x.n)+'<br><span style="color:#8A94A2">Item '+esc(x.i||'&mdash;')+'</span></td>'
+          +'<td class="pqr">'+qr(x.i)+'</td>'
+          +'<td>'+esc(x.u||'')+(e.tag==='free'?' &middot; free':'')+'</td>'
+          +'<td class="pn">'+(x.d!=null?x.d+'d':'&mdash;')+'</td>'
+          +'<td class="pn"><span class="ptick"></span></td>'
+          +'<td><span class="pline"></span></td></tr>';
+      }).join('')+'</table>';
+  });
+  body+='<div class="pwho" style="margin-top:14px">Walked by '
+   +'<span class="pline"></span> &nbsp; Date <span class="pline short"></span>'
+   +' &nbsp; Sign <span class="pline short"></span></div>';
+  prFrame('Plant — idle & free audit sheet',
+    total+' machine'+(total===1?'':'s')+' the register says are on the ground '
+     +'&middot; lay eyes on every line, tick SIGHTED, note anything wrong'
+     +(noid?' &middot; '+noid+' line'+(noid===1?'':'s')+' missing a Plant ID '
+       +'&mdash; write it in the box and it goes on the register':''),
+    ASOF, body, false);
+}
+/* THE PLANT DEMOB CHECKLIST - the whole plant fleet in demob order:
+   first what is still out (who to chase), then the ground gear to
+   off-hire and have collected. One paper trail from full site to
+   clean site. */
+function plantDemob(){
+  var p=D.plant;
+  var out=(p.out||[]).slice().sort(function(a,b){
+    var ca=(a.co||'').toUpperCase(), cb=(b.co||'').toUpperCase();
+    if(ca!==cb) return ca<cb?-1:1;
+    var da=(a.d==null?-1:a.d), db=(b.d==null?-1:b.d);
+    if(da!==db) return db-da;
+    return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;
+  });
+  var body='';
+  if(out.length){
+    body+='<div class="pintr">STILL OUT WITH CREWS &mdash; '+out.length
+      +' MACHINE'+(out.length===1?'':'S')+' TO GET BACK FIRST</div>'
+      +'<table class="ptab pchk">'
+      +'<tr><th>Plant ID</th><th>Machine</th><th>Scan</th>'
+      +'<th>Who has it</th><th class="pn">Days</th>'
+      +'<th class="pn">BACK</th><th>Note</th></tr>'
+      +out.map(function(x){
+        return '<tr><td>'+pidCell(x)+'</td>'
+          +'<td>'+esc(x.n)+'<br><span style="color:#8A94A2">Item '+esc(x.i||'&mdash;')+'</span></td>'
+          +'<td class="pqr">'+qr(x.i)+'</td>'
+          +'<td><b>'+esc(x.w||'?')+'</b><br><span style="color:#8A94A2">'+esc(x.co||'')+'</span></td>'
+          +'<td class="pn">'+(x.d!=null?x.d:'&mdash;')+'</td>'
+          +'<td class="pn"><span class="ptick"></span></td>'
+          +'<td><span class="pline"></span></td></tr>';
+      }).join('')+'</table>';
+  }
+  var cats=plantByCat([['idle',p.idle||[]],['free',p.free||[]]]);
+  var ground=0;
+  Object.keys(cats).sort(function(a,b){return cats[b].length-cats[a].length;})
+   .forEach(function(f){
+    var list=cats[f].slice().sort(byDaysName);
+    ground+=list.length;
+    body+='<div class="pwho">'+esc(f)+' <span>'+list.length+' on the ground '
+      +'&mdash; off-hire, then collection</span></div>'
+      +'<table class="ptab pchk">'
+      +'<tr><th>Plant ID</th><th>Machine</th><th>Scan</th><th>Where</th>'
+      +'<th class="pn">OFF-HIRED</th><th class="pn">PICKED UP</th><th>Note</th></tr>'
+      +list.map(function(e){var x=e.x;
+        return '<tr><td>'+pidCell(x)+'</td>'
+          +'<td>'+esc(x.n)+'<br><span style="color:#8A94A2">Item '+esc(x.i||'&mdash;')+'</span></td>'
+          +'<td class="pqr">'+qr(x.i)+'</td>'
+          +'<td>'+esc(x.u||'')+'</td>'
+          +'<td class="pn"><span class="ptick"></span></td>'
+          +'<td class="pn"><span class="ptick"></span></td>'
+          +'<td><span class="pline"></span></td></tr>';
+      }).join('')+'</table>';
+  });
+  body+='<div class="pwho" style="margin-top:14px">Demob led by '
+   +'<span class="pline"></span> &nbsp; Date <span class="pline short"></span>'
+   +' &nbsp; Sign <span class="pline short"></span></div>';
+  var fin=(D.cons&&D.cons.end)
+    ?' &middot; finish date '+D.cons.end.split('-').reverse().join('/')
+      +(D.cons.daysLeft!=null?' &mdash; '+D.cons.daysLeft+' days away':'')
+    :'';
+  prFrame('Plant demob checklist',
+    (out.length+ground)+' machines on the books: '+out.length+' still out, '
+     +ground+' on the ground'+fin
+     +' &middot; back &rarr; off-hired &rarr; picked up, ticked in that order',
+    ASOF, body, false);
 }
 /* MONEY - the manager layer. A day rate against every line so a wrong
    one shows itself. */
