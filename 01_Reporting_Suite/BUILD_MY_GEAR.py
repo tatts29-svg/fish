@@ -217,6 +217,7 @@ def read_onhire(path):
 #  "next level for people ... to see what it looks like what they have
 #  in their name"). Filled by read_rental as it walks the register.
 VAR_OF_ITEM = {}
+ALT_OF_ITEM = {}
 
 
 def read_rental(path):
@@ -240,6 +241,17 @@ def read_rental(path):
             _v = str(r[ix['PRODUCT_VARIANT']] or '').strip().upper()
             if _v:
                 VAR_OF_ITEM[_itm2] = _v
+            else:
+                #  radios / gas monitors: serial photo first, model
+                #  photo as the fallback (31 Jul 2026)
+                import mygear_thumbs as _T3
+                _ser3, _mod3 = _T3.derived_keys(
+                    r[ix.get('ITEM_DESCRIPTION', 0)])
+                if _ser3:
+                    VAR_OF_ITEM[_itm2] = _ser3
+                    ALT_OF_ITEM[_itm2] = _mod3
+                elif _mod3:
+                    VAR_OF_ITEM[_itm2] = _mod3
         if bc and bc not in by_bc:
             _itm = str(r[ix['ITEM_NUMBER']] or '').strip()
             by_bc[bc] = (_itm,
@@ -657,6 +669,7 @@ def build():
                           # the photo key - shows WHAT the item looks like
                           # on the card once its variant photo is collected
                           'v': VAR_OF_ITEM.get(asset, ''),
+                          'va': ALT_OF_ITEM.get(asset, ''),
                           # replacement cost, printed on the A4 in the
                           # highlighter - null shows TBC, never $0
                           'r': _repl_cost(asset, desc)})
@@ -1159,9 +1172,14 @@ function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
 function wthumb(it){
  if(!it.v) return '<span class="ith mono">'+thMono(it.d)+'</span>';
  return '<span class="ith"><img src="thumbs/'+encodeURIComponent(tsafe(it.v))
-  +'.jpg" loading="lazy" alt="" data-m="'+thMono(it.d)+'" onerror="thx(this)"></span>';
+  +'.jpg" loading="lazy" alt="" data-m="'+thMono(it.d)
+  +(it.va&&it.va!==it.v?'" data-a="'+esc(it.va):'')
+  +'" onerror="thx(this)"></span>';
 }
 function thx(img){
+ var a=img.getAttribute('data-a');
+ if(a){img.removeAttribute('data-a');
+  img.src='thumbs/'+encodeURIComponent(tsafe(a))+'.jpg';return;}
  var s=img.parentNode;
  s.className='ith mono';
  s.textContent=img.getAttribute('data-m')||'?';

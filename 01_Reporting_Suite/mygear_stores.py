@@ -498,6 +498,11 @@ def read(rental_path, stocktake_path, master=None, today=None,
     #  item number -> product variant, so the stocktake pane can show
     #  the same photos as everywhere else (Andrew, 31 Jul 2026)
     var_by_item = {}
+    #  ...and the model-photo fallback for serial-keyed gear (radios,
+    #  gas monitors - SiteIQ gives them NO variant, so the photo key is
+    #  derived: serial first, model second)
+    alt_by_item = {}
+    import mygear_thumbs as _TH
     for r in rs:
         status = g(r, 'ITEM_STATUS')
         #  Anything not yet on the shelf and not out - ordered, in
@@ -575,12 +580,26 @@ def read(rental_path, stocktake_path, master=None, today=None,
         if not e['fl']:
             e['fl'] = _comp_fl(_itm, name)
         _vrow = str(g(r, 'PRODUCT_VARIANT') or '').strip().upper()
+        if _vrow:
+            if _itm:
+                var_by_item[_itm] = _vrow
+        else:
+            #  no variant from SiteIQ (radios, gas monitors): derive -
+            #  serial-named photo covers the one unit, model-named
+            #  photo covers the fleet
+            _dser, _dmod = _TH.derived_keys(raw)
+            _vrow = _dmod
+            if _itm:
+                if _dser:
+                    var_by_item[_itm] = _dser
+                    if _dmod:
+                        alt_by_item[_itm] = _dmod
+                elif _dmod:
+                    var_by_item[_itm] = _dmod
         if not e['v']:
             #  the photo key - one thumbnail per variant covers every
             #  item behind it (Andrew, 30 Jul 2026)
             e['v'] = _vrow
-        if _itm and _vrow:
-            var_by_item[_itm] = _vrow
         #  plant rows carry their SiteIQ family, item number and Plant
         #  ID so the Plant tab can read by CATEGORY - "find welder,
         #  see what's available, what's idle, who's got the rest"
@@ -613,7 +632,7 @@ def read(rental_path, stocktake_path, master=None, today=None,
                        'i': _itm}
                 (chase_p if _is_plant(unit) else chase_t).append(row)
             if 'site plant' in who.lower():
-                idle.append({'n': name, 'u': unit, 'd': days})
+                idle.append({'n': name, 'u': unit, 'd': days, 'i': _itm})
                 if _is_plant(unit):
                     plant['idle'].append({'n': name, 'u': unit, 'd': days,
                                           'f': _fam, 'i': _itm, 'p': _pidv,
@@ -623,6 +642,61 @@ def read(rental_path, stocktake_path, master=None, today=None,
                                      'co': co, 'd': days,
                                      'f': _fam, 'i': _itm, 'p': _pidv,
                                      'fl': _comp_fl(_itm, name)})
+
+    #  every list row gets its photo keys - "every time a tool or
+    #  consumable is mentioned a thumbnail is to be shown" (Andrew,
+    #  31 Jul 2026). Serial key first, model fallback in 'va'.
+    def _attach_v(_row):
+        _iv = _row.get('i', '')
+        _row['v'] = var_by_item.get(_iv, '')
+        _av = alt_by_item.get(_iv, '')
+        if _av:
+            _row['va'] = _av
+    for _row in roster:
+        _attach_v(_row)
+    for _hl in hits.values():
+        for _row in _hl:
+            _attach_v(_row)
+    for _row in chase_t + chase_p + idle:
+        _attach_v(_row)
+    for _row in (plant.get('out', []) + plant.get('idle', [])
+                 + plant.get('free', [])):
+        if 'v' not in _row:
+            _attach_v(_row)
+
+    #  HIRE HISTORY off the charge feed: how many times each item went
+    #  out this shut, and who had it last (Andrew, 31 Jul 2026)
+    hire_hist = {}
+    try:
+        if txn_path and os.path.isfile(txn_path):
+            import openpyxl as _px
+            _wbt = _px.load_workbook(txn_path, read_only=True,
+                                     data_only=True)
+            if 'TRANSACTION_CHARGES' in _wbt.sheetnames:
+                _tr = _wbt['TRANSACTION_CHARGES'].iter_rows(
+                    values_only=True)
+                _hd = [str(c or '').strip() for c in next(_tr)]
+                _tix = {h: i for i, h in enumerate(_hd)}
+                if 'ITEM_NUMBER' in _tix:
+                    _hn = _tix.get('HIRER_NAME')
+                    _sdx = _tix.get('TRAN_START_DATE')
+                    for _r2 in _tr:
+                        if not _r2:
+                            continue
+                        _iv = str(_r2[_tix['ITEM_NUMBER']] or '').strip()
+                        if not _iv:
+                            continue
+                        _d2 = au_date(_r2[_sdx]) if _sdx is not None else None
+                        _e2 = hire_hist.setdefault(_iv, [0, '', None])
+                        _e2[0] += 1
+                        _w2 = (str(_r2[_hn] or '').strip()
+                               if _hn is not None else '')
+                        if _d2 and (_e2[2] is None or _d2 >= _e2[2]):
+                            _e2[2] = _d2
+                            if _w2:
+                                _e2[1] = _w2[:24]
+    except Exception:
+        hire_hist = {}
 
     #  stocktake - how much of the store has actually been laid eyes on
     stock = {'total': 0, 'w1': 0, 'w3': 0, 'w7': 0, 'stale': []}
@@ -675,11 +749,18 @@ def read(rental_path, stocktake_path, master=None, today=None,
                    else 14 if age <= 14 else 30 if age <= 30 else 99)
             _fold = _unit_rows.setdefault(_u_st, {})
             _fr = _fold.setdefault((_bk, _nm_st, _sfl),
-                                   {'q': 0, 'a': 0, 'v': ''})
+                                   {'q': 0, 'a': 0, 'v': '', 'ii': []})
             _fr['q'] += 1
             _fr['a'] = max(_fr['a'], age)
             if not _fr['v']:
-                _fr['v'] = var_by_item.get(_it_st, '')
+                #  group tile prefers the MODEL photo; serial photos
+                #  belong to single items
+                _fr['v'] = (alt_by_item.get(_it_st)
+                            or var_by_item.get(_it_st, ''))
+            if len(_fr['ii']) < 40 and _it_st:
+                #  grouped item numbers, not scattered - the counter
+                #  ticks these off under one picture
+                _fr['ii'].append([_it_st, age])
             _unit_walks.setdefault(_u_st, set()).add(d)
             _d0, _hm0 = au_dt(r[six['LAST_SIGHTED_DATE_TIME']])
             if _d0:
@@ -704,12 +785,15 @@ def read(rental_path, stocktake_path, master=None, today=None,
                 #  so they know areas to look and items no to look
                 #  for")
                 _st = sg(r, 'SIGHTED_STATUS')
+                _hh = hire_hist.get(_it_st, [0, '', None])
                 stock['stale'].append({
                     'n': _nm_st,
                     'u': _u_st,
                     'd': age, 'by': sg(r, 'LAST_SIGHTED_BY')[:26],
                     'i': _it_st,
-                    'v': _fr['v'],
+                    'v': var_by_item.get(_it_st, '') or _fr['v'],
+                    'va': alt_by_item.get(_it_st, ''),
+                    'hc': _hh[0], 'lh': _hh[1],
                     's': _sfl})
     stock['stale'].sort(key=lambda x: -x['d'])
 
@@ -730,7 +814,7 @@ def read(rental_path, stocktake_path, master=None, today=None,
     stock['areas'] = _areas
     stock['rows'] = [
         {'u': _u_st, 'b': _k[0], 'n': _k[1], 's': _k[2],
-         'q': _x['q'], 'a': _x['a'], 'v': _x['v']}
+         'q': _x['q'], 'a': _x['a'], 'v': _x['v'], 'ii': _x['ii']}
         for _u_st, _fold in _unit_rows.items()
         for _k, _x in _fold.items()]
 
@@ -2128,13 +2212,18 @@ function thMono(n){
   return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
 }
 function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
-function thTile(v,n){
+function thTile(v,n,a){
   if(!v) return '<span class="kth2 mono">'+thMono(n)+'</span>';
   return '<span class="kth2"><img src="thumbs/'+encodeURIComponent(tsafe(v))
     +'.jpg" loading="lazy" alt="" data-m="'+thMono(n)
+    +(a&&a!==v?'" data-a="'+esc(a):'')
     +'" onerror="thx(this)"></span>';
 }
 function thx(img){
+  /* photo chain: serial photo -> model photo (data-a) -> monogram */
+  var a=img.getAttribute('data-a');
+  if(a){img.removeAttribute('data-a');
+    img.src='thumbs/'+encodeURIComponent(tsafe(a))+'.jpg';return;}
   var s=img.parentNode;
   s.className=s.className.replace(' mono','')+' mono';
   s.textContent=img.getAttribute('data-m')||'?';
@@ -2168,9 +2257,11 @@ function paneChase(){
       +'<div class="gq"><b style="color:var(--am)">'+list.length+'</b><span>items</span></div>'
       +'</button><div class="kids">'
       +list.map(function(x){
-        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+        return '<div class="kid kidth">'+thTile(x.v,x.n,x.va)
+          +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div>'
-          +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)+'</div></div>';
+          +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)
+          +(x.i?' &middot; Item '+esc(x.i):'')+'</div></div></div>';
       }).join('')+'</div></div>';
   });
   h+='<div class="uhead">Site plant, barriers &amp; chutes &mdash; '+c.plant.length
@@ -2203,11 +2294,13 @@ function paneStock(){
      +'up.</b> Stop re-hunting them on every lap: one proper look, then flag '
      +'it to Andrew so the loss conversation starts now, not at demob.</div>'
      +gh.slice(0,12).map(function(x){
-       return '<div class="kid kidth">'+thTile(x.v,x.n)
+       return '<div class="kid kidth">'+thTile(x.v,x.n,x.va)
         +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
         +'<em class="o">'+x.d+'d</em></div>'
         +'<div class="kw">Lives in <b>'+esc(x.u)+'</b>'
-        +(x.i?' &middot; Item '+esc(x.i):'')+'</div>'
+        +(x.i?' &middot; Item '+esc(x.i):'')
+        +(x.hc?' &middot; hired '+x.hc+'&times; this shut':'')
+        +(x.lh?' &middot; last had it: <b>'+esc(x.lh)+'</b>':'')+'</div>'
         +'<div class="kw" style="margin-top:4px"><span class="ghp">MISSED ON '
         +x.m+' WALK'+(x.m===1?'':'S')+'</span></div></div></div>';
      }).join('')+more(12,gh.length,'items');
@@ -2353,11 +2446,23 @@ function stArea(i,b){
     return x.n.toUpperCase()<y.n.toUpperCase()?-1:1; }); return l; }
   var old=b>7;
   function line(x){
+    /* grouped, not all over the shop: one picture, the variant code,
+       then the item numbers as tidy chips under it */
+    var chips='';
+    if(x.ii&&x.ii.length&&old){
+      chips='<div class="kw" style="margin-top:5px;line-height:2">'
+       +x.ii.slice(0,14).map(function(p){
+         return '<span class="vcode">'+esc(p[0])+' &middot; '+p[1]+'d</span>';
+       }).join(' ')
+       +(x.ii.length>14?' <b>+'+(x.ii.length-14)+' more on the sheet</b>':'')
+       +'</div>';
+    }
     return '<div class="kid kidth">'+thTile(x.v,x.n)
      +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
      +'<em'+(old?' class="o"':'')+'>&times;'+x.q+'</em></div>'
-     +'<div class="kw">'+(old?'oldest sighting <b>'+x.a+' days</b> ago'
-       :'sighted inside this window')+'</div></div></div>';
+     +'<div class="kw">'+(x.v?'<span class="vcode">'+esc(x.v)+'</span> &middot; ':'')
+     +(old?'oldest sighting <b>'+x.a+' days</b> ago'
+       :'sighted inside this window')+'</div>'+chips+'</div></div>';
   }
   if(av.length){
     h+='<div class="uhead">'+(old?'Go and lay eyes on these':'Counted &mdash; ticked off')
@@ -2788,14 +2893,15 @@ function paneHits(){
       +'<div class="gq"><b style="color:var(--rd)">'+rl[3].length+'</b>'
       +'<span>to chase</span></div></button><div class="kids">'
       +rl[3].map(function(x){
-        return '<div class="kid'+(x.i?' hasqr':'')+'">'
+        return '<div class="kid kidth'+(x.i?' hasqr':'')+'">'+thTile(x.v,x.n,x.va)
+          +'<div class="kbody">'
           +(x.i?'<div class="kqr">'+qr(x.i,56)+'</div>':'')
           +'<div class="kt"><b>'+esc(x.w)+'</b>'
           +'<em class="o">'+x.d+' day'+(x.d===1?'':'s')+'</em></div>'
           +'<div class="kw">'+esc(x.co)+' &middot; '+esc(x.n)
           +(x.i?' &middot; Item '+esc(x.i):'')
           +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
-          +'</div></div>';
+          +'</div></div></div>';
       }).join('')+'</div></div>';
   });
   return h;
@@ -2902,12 +3008,13 @@ function prSet(kind){
    +'<a class="stmore" id="prmail" href="#">&#9993; Email via Outlook</a>'
    +'</div>'
    +got.r.slice(0,200).map(function(x){
-     return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
+     return '<div class="kid kidth">'+thTile(x.v,x.n,x.va)
+       +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
        +'<em class="'+((x.d||0)>4?'o':'')+'">'+(x.d==null?'&mdash;':x.d+'d')+'</em></div>'
        +'<div class="kw">'+esc(x.w)+' &middot; '+esc(x.co)+' &middot; '+esc(x.u)
        +(x.i?' &middot; Item '+esc(x.i):'')
        +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
-       +'</div></div>';
+       +'</div></div></div>';
    }).join('')+more(200,got.r.length,'items');
   out.innerHTML=h;
   var m=document.getElementById('prmail');

@@ -268,7 +268,13 @@ def read_availability(rental_path, sales_path, master=None):
                 k = (name, _cat_of(name), unit)
                 hire[k] = hire.get(k, 0) + 1
                 if k not in vkey and 'PRODUCT_VARIANT' in ix:
-                    vkey[k] = str(r[ix['PRODUCT_VARIANT']] or '').strip().upper()
+                    _vk = str(r[ix['PRODUCT_VARIANT']] or '').strip().upper()
+                    if not _vk:
+                        #  radios / gas monitors have no variant - the
+                        #  MODEL photo key is derived off the name
+                        import mygear_thumbs as _T2
+                        _vk = _T2.derived_keys(name)[1]
+                    vkey[k] = _vk
         wb.close()
 
     if sales_path and os.path.isfile(sales_path):
@@ -379,6 +385,8 @@ CSS = """
   padding:12px 6px 10px;text-align:center;color:var(--org);cursor:pointer;
   font-family:inherit;min-height:74px}
 .stcat.on{border-color:var(--org);background:#1E1710}
+.stcat .cimg{width:46px;height:46px;border-radius:10px;object-fit:cover;
+ display:block;margin:0 auto 5px}
 .stcat b{display:block;color:#EAF0F7;font-size:11.5px;font-weight:800;
   letter-spacing:.4px;margin-top:5px}
 .stcat span{display:block;color:#8A97A8;font-size:11px;font-weight:700;
@@ -614,6 +622,29 @@ def pane(data, asof):
         counts[it['c']] = counts.get(it['c'], 0) + 1
     total = len(data['hire']) + len(data['cons'])
 
+    #  category cards wear a REAL photo when one of their lines has one
+    #  - picked at build time against the thumbs folder, so nothing 404s
+    #  (Andrew, 31 Jul 2026: "product categories - images for these too")
+    import mygear_thumbs as _T4
+    _tdir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                         'Gear_Lookup', 'thumbs')
+    catv = {}
+    for it in data['hire'] + data['cons']:
+        _c0 = it['c']
+        if _c0 in catv:
+            continue
+        _v0 = (it.get('v') or '').strip()
+        if _v0 and os.path.isfile(
+                os.path.join(_tdir, _T4.safe_name(_v0) + '.jpg')):
+            catv[_c0] = _T4.safe_name(_v0)
+
+    def _cface(name, path):
+        if name in catv:
+            return ("<img class='cimg' src='thumbs/{v}.jpg' alt='' "
+                    "onerror=\"this.style.display='none'\">").format(
+                        v=catv[name])
+        return _icon(path)
+
     cats = ("<button class='stcat on' type='button' onclick=\"stCat('All',this)\">"
             + _icon('M4 6h16M4 12h16M4 18h16')
             + "<b>EVERYTHING</b><span>{}</span></button>".format(total))
@@ -623,11 +654,13 @@ def pane(data, asof):
             continue
         cats += ("<button class='stcat' type='button' onclick=\"stCat('{n}',this)\">"
                  "{i}<b>{u}</b><span>{c}</span></button>".format(
-                     n=name, u=name.upper(), i=_icon(path), c=counts[name]))
+                     n=name, u=name.upper(), i=_cface(name, path),
+                     c=counts[name]))
     if counts.get(OTHER[0]):
         cats += ("<button class='stcat' type='button' onclick=\"stCat('{n}',this)\">"
                  "{i}<b>{u}</b><span>{c}</span></button>".format(
-                     n=OTHER[0], u=OTHER[0].upper(), i=_icon(OTHER[1]),
+                     n=OTHER[0], u=OTHER[0].upper(),
+                     i=_cface(OTHER[0], OTHER[1]),
                      c=counts[OTHER[0]]))
 
     mag = ("<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' "

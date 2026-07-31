@@ -52,6 +52,27 @@ any source (phone photo of the shelf beats a studio shot). The next
 """
 
 
+_SER_RE = re.compile(r'^[0-9]{3}[A-Z0-9]{5,}$')
+
+
+def derived_keys(desc):
+    """Photo keys for gear SiteIQ gives NO product variant - the radios
+    and gas monitors (31 Jul 2026). 'Motorola DP4801e Two-Way Radio
+    871TRBL679' -> ('871TRBL679', 'MOTOROLADP4801ETWOWAYRADIO'):
+    a photo named by the SERIAL covers that one radio; a photo named by
+    the model code covers the lot. The pages try serial first, then
+    model, then the monogram."""
+    d = re.sub(r'[^A-Z0-9 ]', '', str(desc or '').strip().upper())
+    toks = d.split()
+    ser = ''
+    if (toks and _SER_RE.match(toks[-1])
+            and any(c.isdigit() for c in toks[-1])
+            and any(c.isalpha() for c in toks[-1])):
+        ser = toks[-1]
+        toks = toks[:-1]
+    return ser, ''.join(toks)[:40]
+
+
 def safe_name(code):
     """The filename a code can actually be saved under. Windows bans
     \\ / : * ? " < > | in filenames, and 275 register codes carry one
@@ -100,7 +121,11 @@ def variant_register(here=None):
         for r in rows[1:]:
             code = str(r[ix.get('PRODUCT_VARIANT', -1)] or '').strip().upper()
             if not code:
-                continue
+                #  radios / gas monitors: no variant in SiteIQ, so the
+                #  wanted list asks for a MODEL photo instead
+                _ser, code = derived_keys(r[ix.get('ITEM_DESCRIPTION', -1)])
+                if not code:
+                    continue
             e = out.setdefault(code, {'n': '', 'f': '', 'q': 0, 'k': 'hire'})
             e['q'] += 1
             if not e['n']:
