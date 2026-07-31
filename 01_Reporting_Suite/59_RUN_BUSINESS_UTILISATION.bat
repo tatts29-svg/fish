@@ -12,6 +12,11 @@ rem  and billed both shown) and ROC (revenue earned against the
 rem  replacement value of the fleet deployed - an estimate,
 rem  labelled with its coverage).
 rem
+rem  A picker runs first: Enter for the full scorecard, or
+rem  choose TU / FU / ROC in any mix. (Power move: run me with
+rem  arguments - "59_RUN_BUSINESS_UTILISATION.bat TU FU" skips
+rem  the menu.)
+rem
 rem  COATES INTERNAL - this page never joins the client packs.
 rem  The client's view of the invoice is 54; this is ours.
 rem

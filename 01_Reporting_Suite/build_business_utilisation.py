@@ -272,7 +272,46 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
             'hasMonthly': bool(mrates)}
 
 
-def html(d):
+MENU = {'1': {'tu', 'fu', 'roc'}, '2': {'tu'}, '3': {'fu'}, '4': {'roc'},
+        '5': {'tu', 'fu'}, '6': {'tu', 'roc'}, '7': {'fu', 'roc'}}
+
+
+def parse_show(text):
+    """'2', 'TU FU', 'roc' ... -> the set of metrics to show. Empty or
+    unreadable = the lot, so Enter-and-go never breaks."""
+    t = str(text or '').strip().upper()
+    if not t:
+        return {'tu', 'fu', 'roc'}
+    if t in MENU:
+        return MENU[t]
+    got = set(m for m in ('TU', 'FU', 'ROC') if m in t.replace(',', ' ').split())
+    return set(x.lower() for x in got) or {'tu', 'fu', 'roc'}
+
+
+def ask_show(argv):
+    """The picker (Andrew, 31 Jul 2026: 'options to pick what to show
+    before the script starts'). Arguments win - 59 can be scripted -
+    otherwise a plain menu, Enter for everything."""
+    if argv:
+        return parse_show(' '.join(argv))
+    print('')
+    print(' What should this run show?  (Enter = the lot)')
+    print('   1  TU + FU + ROC - the full scorecard')
+    print('   2  TU only  - the time story')
+    print('   3  FU only  - money earned v money possible')
+    print('   4  ROC only - return on capital')
+    print('   5  TU + FU')
+    print('   6  TU + ROC')
+    print('   7  FU + ROC')
+    try:
+        return parse_show(input(' Pick a number, or type e.g. TU FU : '))
+    except (EOFError, KeyboardInterrupt):
+        return {'tu', 'fu', 'roc'}
+
+
+def html(d, show=None):
+    show = show or {'tu', 'fu', 'roc'}
+    tu, fu, roc_on = 'tu' in show, 'fu' in show, 'roc' in show
     tot, rows, days_in = d['tot'], d['rows'], d['daysIn']
     ann = 365.0 / days_in
 
@@ -312,7 +351,7 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
 @media print{body{margin:10mm}}
 </style></head><body>
 <div class='brand'><b>COATES</b><span>POWERED BY SITEIQ</span></div>
-<h1>Business utilisation &mdash; TU &amp; ROC</h1>
+<h1>Business utilisation &mdash; __PICKED__</h1>
 <div class='meta'>Cement Australia K2 Shutdown 2026 &middot; Gladstone
  &middot; day __DAYS__ of the shut &middot; as at __ASOF__
  &middot; Author: Andrew Fisher</div>
@@ -321,57 +360,75 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
              #  token swap, never .format - the CSS above is full of
              #  { } braces (the suite's own documented trap)
              .replace('__DAYS__', str(days_in))
-             .replace('__ASOF__', d['today'].strftime('%d %b %Y'))]
+             .replace('__ASOF__', d['today'].strftime('%d %b %Y'))
+             .replace('__PICKED__', ' &amp; '.join(
+                 m for m, on in (('TU', tu), ('FU', fu), ('ROC', roc_on))
+                 if on))]
 
-    h.append(
-        "<div class='story'><b>The position:</b> the fleet has stood "
-        "{fd:,} fleet-days on site and spent {occ:,.0f} of them in "
-        "workers' hands &mdash; site TU {tuO:.0f}% occupied, {tuB:.0f}% "
-        "billed. Estimated revenue to date {rev} of a possible {pot} "
-        "&mdash; <b>FU {fu}</b> &mdash; against {repl} of capital "
-        "deployed ({pr} of {n} items priced): ROC {roc} for the period, "
-        "{rocA} annualised.</div>".format(
-            fd=tot['fleetDays'], occ=tot['occ'], tuO=tot['tuO'],
-            tuB=tot['tuB'], rev=money(tot['rev']), pot=money(tot['pot']),
-            fu=('{:.0f}%'.format(tot['fu']) if tot['fu'] is not None else 'n/a'),
-            repl=money(tot['repl']),
-            pr=tot['priced'], n=tot['n'],
-            roc=('{:.1f}%'.format(tot['roc']) if tot['roc'] is not None else 'n/a'),
-            rocA=('{:.0f}%'.format(tot['roc'] * ann) if tot['roc'] is not None else 'n/a')))
+    pos = ["<div class='story'><b>The position:</b> the fleet has stood "
+           "{fd:,} fleet-days on site".format(fd=tot['fleetDays'])]
+    if tu:
+        pos.append(" and spent {occ:,.0f} of them in workers' hands "
+                   "&mdash; site TU {tuO:.0f}% occupied, {tuB:.0f}% "
+                   "billed".format(occ=tot['occ'], tuO=tot['tuO'],
+                                   tuB=tot['tuB']))
+    if fu:
+        pos.append(". Estimated revenue to date {rev} of a possible {pot} "
+                   "&mdash; <b>FU {v}</b>".format(
+                       rev=money(tot['rev']), pot=money(tot['pot']),
+                       v=('{:.0f}%'.format(tot['fu'])
+                          if tot['fu'] is not None else 'n/a')))
+    if roc_on:
+        pos.append(". Against {repl} of capital deployed ({pr} of {n} "
+                   "items priced): ROC {p} for the period, {a} annualised"
+                   .format(repl=money(tot['repl']), pr=tot['priced'],
+                           n=tot['n'],
+                           p=('{:.1f}%'.format(tot['roc'])
+                              if tot['roc'] is not None else 'n/a'),
+                           a=('{:.0f}%'.format(tot['roc'] * ann)
+                              if tot['roc'] is not None else 'n/a')))
+    pos.append(".</div>")
+    h.append(''.join(pos).replace('. .', '.'))
 
-    h.append("<h2>TU &mdash; time utilisation by storage unit</h2>"
-             "<div class='note'>TU OCCUPIED counts every day an item has "
-             "stood on hire. TU BILLED counts shift-days that charged "
-             "through the SiteIQ lines, plus the monthly-stream gear "
-             "(radios, gas, welders) whose every day out bills on the "
-             "Baseplan invoice. Fleet-days = items held &times; {d} days; "
-             "gear that arrived mid-shut reads slightly low, never "
-             "flattered.</div>".format(d=days_in))
-    h.append("<table><tr><th>Storage unit</th><th class='r'>Items</th>"
-             "<th class='r'>Out now</th><th class='r'>Fleet-days</th>"
-             "<th class='r'>Occupied days</th><th>TU occupied</th>"
-             "<th class='r'>Billed days</th><th>TU billed</th></tr>")
-    for r in rows:
-        h.append(("<tr><td><b>{name}</b>{pl}</td><td class='r'>{n}</td>"
-                  "<td class='r'>{out}</td><td class='r'>{fd:,}</td>"
-                  "<td class='r'>{occ:,.0f}</td><td>{tb1}</td>"
-                  "<td class='r'>{bd:,.0f}</td><td>{tb2}</td></tr>").format(
-            name=r['name'],
-            pl=(" <span style='color:#8A94A2;font-size:10px'>PLANT</span>"
-                if r['plant'] else ''),
-            n=r['n'], out=r['out'], fd=r['fleetDays'], occ=r['occ'],
-            tb1=bar(r['tuO'], tu_col(r['tuO'])),
-            bd=r['billed'], tb2=bar(r['tuB'], tu_col(r['tuB']))))
-    h.append(("<tr class='tot'><td>WHOLE SITE</td><td class='r'>{n}</td>"
-              "<td></td><td class='r'>{fd:,}</td><td class='r'>{occ:,.0f}</td>"
-              "<td>{b1}</td><td class='r'>{bd:,.0f}</td><td>{b2}</td></tr>"
-              "</table>").format(
-        n=tot['n'], fd=tot['fleetDays'], occ=tot['occ'],
-        b1=bar(tot['tuO'], tu_col(tot['tuO'])),
-        bd=tot['billed'], b2=bar(tot['tuB'], tu_col(tot['tuB']))))
+    if tu:
+        h.append("<h2>TU &mdash; time utilisation by storage unit</h2>"
+                 "<div class='note'>TU OCCUPIED counts every day an item "
+                 "has stood on hire. TU BILLED counts shift-days that "
+                 "charged through the SiteIQ lines, plus the "
+                 "monthly-stream gear (radios, gas, welders) whose every "
+                 "day out bills on the Baseplan invoice. Fleet-days = "
+                 "items held &times; {d} days; gear that arrived mid-shut "
+                 "reads slightly low, never flattered.</div>"
+                 .format(d=days_in))
+        h.append("<table><tr><th>Storage unit</th><th class='r'>Items</th>"
+                 "<th class='r'>Out now</th><th class='r'>Fleet-days</th>"
+                 "<th class='r'>Occupied days</th><th>TU occupied</th>"
+                 "<th class='r'>Billed days</th><th>TU billed</th></tr>")
+        for r in rows:
+            h.append(("<tr><td><b>{name}</b>{pl}</td><td class='r'>{n}</td>"
+                      "<td class='r'>{out}</td><td class='r'>{fd:,}</td>"
+                      "<td class='r'>{occ:,.0f}</td><td>{tb1}</td>"
+                      "<td class='r'>{bd:,.0f}</td><td>{tb2}</td></tr>")
+                     .format(
+                name=r['name'],
+                pl=(" <span style='color:#8A94A2;font-size:10px'>PLANT"
+                    "</span>" if r['plant'] else ''),
+                n=r['n'], out=r['out'], fd=r['fleetDays'], occ=r['occ'],
+                tb1=bar(r['tuO'], tu_col(r['tuO'])),
+                bd=r['billed'], tb2=bar(r['tuB'], tu_col(r['tuB']))))
+        h.append(("<tr class='tot'><td>WHOLE SITE</td><td class='r'>{n}"
+                  "</td><td></td><td class='r'>{fd:,}</td>"
+                  "<td class='r'>{occ:,.0f}</td>"
+                  "<td>{b1}</td><td class='r'>{bd:,.0f}</td><td>{b2}</td>"
+                  "</tr></table>").format(
+            n=tot['n'], fd=tot['fleetDays'], occ=tot['occ'],
+            b1=bar(tot['tuO'], tu_col(tot['tuO'])),
+            bd=tot['billed'], b2=bar(tot['tuB'], tu_col(tot['tuB']))))
 
-    h.append("<h2>The money view &mdash; FU &amp; ROC by storage unit "
-             "(estimate)</h2>"
+    if fu or roc_on:
+        h.append("<h2>The money view &mdash; "
+             + ('FU &amp; ROC' if fu and roc_on else ('FU' if fu else 'ROC'))
+             + " by storage unit (estimate)</h2>"
              "<div class='note'>FU (financial utilisation) = revenue "
              "earned &divide; revenue if every item hired every day at "
              "its rate. Revenue: billed shift-days &times; the item's "
@@ -384,52 +441,54 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
              + ". Items with no rate anywhere ride at the unit average. "
              "Capital = the master's replacement cost; units missing "
              "prices read LOW on capital, HIGH on ROC.</div>")
-    h.append("<table><tr><th>Storage unit</th>"
-             "<th class='r'>Revenue est.</th>"
-             "<th class='r'>Potential</th><th>FU</th>"
-             "<th class='r'>Capital</th>"
-             "<th class='r'>Priced</th>"
-             "<th class='r'>ROC period</th><th class='r'>ROC annualised"
-             "</th></tr>")
-    rocrows = sorted([r for r in rows if r['repl'] or r['rev'] or r['pot']],
-                     key=lambda x: -(x['rev']))
-    for r in rocrows:
-        roc = r['roc']
-        h.append(("<tr><td><b>{name}</b></td><td class='r'>{rev}</td>"
-                  "<td class='r'>{pot}</td><td>{fu}</td>"
-                  "<td class='r'>{repl}</td>"
-                  "<td class='r'>{pr}/{n}</td>"
-                  "<td class='r'>{p}</td><td class='r'><b>{a}</b></td>"
-                  "</tr>").format(
-            name=r['name'], rev=money(r['rev']), pot=money(r['pot']),
-            fu=(bar(r['fu'], tu_col(r['fu'])) if r['fu'] is not None
-                else '&mdash;'),
-            repl=money(r['repl']),
-            pr=r['priced'], n=r['n'],
-            p=('{:.1f}%'.format(roc) if roc is not None else '&mdash;'),
-            a=('{:.0f}%'.format(roc * ann) if roc is not None else '&mdash;')))
-    h.append(("<tr class='tot'><td>WHOLE SITE</td><td class='r'>{rev}</td>"
-              "<td class='r'>{pot}</td><td>{fu}</td>"
-              "<td class='r'>{repl}</td>"
-              "<td class='r'>{pr}/{n}</td>"
-              "<td class='r'>{p}</td><td class='r'>{a}</td></tr></table>")
-             .format(
-        rev=money(tot['rev']), pot=money(tot['pot']),
-        fu=(bar(tot['fu'], tu_col(tot['fu'])) if tot['fu'] is not None
-            else '&mdash;'),
-        repl=money(tot['repl']), pr=tot['priced'], n=tot['n'],
-        p=('{:.1f}%'.format(tot['roc']) if tot['roc'] is not None else '&mdash;'),
-        a=('{:.0f}%'.format(tot['roc'] * ann) if tot['roc'] is not None else '&mdash;')))
+        def _mcells(r, is_tot=False):
+            cs = ["<td class='r'>" + money(r['rev']) + "</td>"]
+            if fu:
+                cs.append("<td class='r'>" + money(r['pot']) + "</td>")
+                cs.append("<td>" + (bar(r['fu'], tu_col(r['fu']))
+                                    if r['fu'] is not None else '&mdash;')
+                          + "</td>")
+            if roc_on:
+                roc = r['roc']
+                cs.append("<td class='r'>" + money(r['repl']) + "</td>")
+                cs.append("<td class='r'>{}/{}</td>".format(r['priced'],
+                                                            r['n']))
+                cs.append("<td class='r'>" + ('{:.1f}%'.format(roc)
+                          if roc is not None else '&mdash;') + "</td>")
+                cs.append("<td class='r'><b>" + ('{:.0f}%'.format(roc * ann)
+                          if roc is not None else '&mdash;') + "</b></td>")
+            return ''.join(cs)
+
+        head = ["<table><tr><th>Storage unit</th>",
+                "<th class='r'>Revenue est.</th>"]
+        if fu:
+            head.append("<th class='r'>Potential</th><th>FU</th>")
+        if roc_on:
+            head.append("<th class='r'>Capital</th><th class='r'>Priced"
+                        "</th><th class='r'>ROC period</th>"
+                        "<th class='r'>ROC annualised</th>")
+        head.append("</tr>")
+        h.append(''.join(head))
+        rocrows = sorted([r for r in rows
+                          if r['repl'] or r['rev'] or r['pot']],
+                         key=lambda x: -(x['rev']))
+        for r in rocrows:
+            h.append("<tr><td><b>" + r['name'] + "</b></td>"
+                     + _mcells(r) + "</tr>")
+        h.append("<tr class='tot'><td>WHOLE SITE</td>"
+                 + _mcells(tot, True) + "</tr></table>")
 
     #  ---- the drill-down: every product variant, unit by unit --------
-    h.append("<h2>The drill-down &mdash; TU &amp; ROC by product variant"
-             "</h2>"
+    picked = ' &amp; '.join(m for m, on in
+                            (('TU', tu), ('FU', fu), ('ROC', roc_on)) if on)
+    h.append("<h2>The drill-down &mdash; " + picked
+             + " by product variant</h2>"
              "<div class='note'>Every variant in every unit &mdash; the "
              "radios and gas monitors fold serial by serial into their "
              "fleet, same rule as My Gear. This is where the fleet-cut "
-             "conversation gets specific: a variant at 0% billed and 0% "
-             "occupied since day one is a demob candidate by name, not "
-             "by feel. Sorted biggest fleet first inside each unit.</div>")
+             "conversation gets specific: a variant at 0% since day one "
+             "is a demob candidate by name, not by feel. Sorted biggest "
+             "fleet first inside each unit.</div>")
     for r in rows:
         vs = r.get('vars') or []
         if not vs:
@@ -439,31 +498,48 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
                  + " <span style='color:#8A94A2;font-weight:400'>&middot; "
                  + str(len(vs)) + " variant" + ('' if len(vs) == 1 else 's')
                  + "</span></h3>")
-        h.append("<table><tr><th>Product variant</th><th class='r'>Items</th>"
-                 "<th class='r'>Out</th><th>TU occupied</th>"
-                 "<th>TU billed</th>"
-                 "<th class='r'>Revenue est.</th><th class='r'>FU</th>"
-                 "<th class='r'>Capital</th>"
-                 "<th class='r'>ROC ann.</th></tr>")
+        vh = ["<table><tr><th>Product variant</th><th class='r'>Items</th>"
+              "<th class='r'>Out</th>"]
+        if tu:
+            vh.append("<th>TU occupied</th><th>TU billed</th>")
+        if fu or roc_on:
+            vh.append("<th class='r'>Revenue est.</th>")
+        if fu:
+            vh.append("<th class='r'>FU</th>")
+        if roc_on:
+            vh.append("<th class='r'>Capital</th><th class='r'>ROC ann."
+                      "</th>")
+        vh.append("</tr>")
+        h.append(''.join(vh))
         for v in vs:
             roc = v['roc']
-            h.append(("<tr><td><b>{nm}</b><br><span style='color:#8A94A2;"
-                      "font-family:Consolas,monospace;font-size:10px'>{cd}"
-                      "</span></td>"
-                      "<td class='r'>{n}</td><td class='r'>{out}</td>"
-                      "<td>{b1}</td><td>{b2}</td>"
-                      "<td class='r'>{rev}</td><td class='r'><b>{fu}</b></td>"
-                      "<td class='r'>{cap}</td>"
-                      "<td class='r'><b>{a}</b></td></tr>").format(
-                nm=v['name'], cd=v.get('code', ''), n=v['n'], out=v['out'],
-                b1=bar(v['tuO'], tu_col(v['tuO'])),
-                b2=bar(v['tuB'], tu_col(v['tuB'])),
-                rev=(money(v['rev']) if v['rev'] else '&mdash;'),
-                fu=('{:.0f}%'.format(v['fu']) if v['fu'] is not None
-                    else '&mdash;'),
-                cap=(money(v['repl']) if v['repl'] else '&mdash;'),
-                a=('{:.0f}%'.format(roc * ann) if roc is not None
-                   else '&mdash;')))
+            cs = [("<tr><td><b>{nm}</b><br><span style='color:#8A94A2;"
+                   "font-family:Consolas,monospace;font-size:10px'>{cd}"
+                   "</span></td><td class='r'>{n}</td>"
+                   "<td class='r'>{out}</td>").format(
+                nm=v['name'], cd=v.get('code', ''), n=v['n'], out=v['out'])]
+            if tu:
+                cs.append("<td>" + bar(v['tuO'], tu_col(v['tuO']))
+                          + "</td><td>" + bar(v['tuB'], tu_col(v['tuB']))
+                          + "</td>")
+            if fu or roc_on:
+                cs.append("<td class='r'>"
+                          + (money(v['rev']) if v['rev'] else '&mdash;')
+                          + "</td>")
+            if fu:
+                cs.append("<td class='r'><b>"
+                          + ('{:.0f}%'.format(v['fu'])
+                             if v['fu'] is not None else '&mdash;')
+                          + "</b></td>")
+            if roc_on:
+                cs.append("<td class='r'>"
+                          + (money(v['repl']) if v['repl'] else '&mdash;')
+                          + "</td><td class='r'><b>"
+                          + ('{:.0f}%'.format(roc * ann)
+                             if roc is not None else '&mdash;')
+                          + "</b></td>")
+            cs.append("</tr>")
+            h.append(''.join(cs))
         h.append("</table>")
 
     h.append("<div class='foot'>Built from this morning's SiteIQ exports "
@@ -474,8 +550,12 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
 
 def main():
     print('=' * 66)
-    print(' COATES | BUSINESS UTILISATION - TU & ROC, Coates eyes only')
+    print(' COATES | BUSINESS UTILISATION - TU, FU & ROC, Coates eyes only')
     print('=' * 66)
+    show = ask_show(sys.argv[1:])
+    print(' Showing  : ' + ' + '.join(
+        m for m, k in (('TU', 'tu'), ('FU', 'fu'), ('ROC', 'roc'))
+        if k in show))
     rental = RP.find_export(HERE, 'RENTAL_STOCK*.xlsx')
     txn = RP.find_export(HERE, 'TRANSACTIONS*.xlsx')
     onhire = RP.find_export(HERE, 'ON_HIRE*.xlsx')
@@ -494,7 +574,7 @@ def main():
     out = os.path.join(out_dir, 'Coates_K2_Business_Utilisation_{}.html'
                        .format(d['today'].isoformat()))
     with open(out, 'w', encoding='utf-8') as f:
-        f.write(html(d))
+        f.write(html(d, show))
     t = d['tot']
     print(' Site TU  : {:.0f}% occupied | {:.0f}% billed  (day {} of the shut)'
           .format(t['tuO'], t['tuB'], d['daysIn']))
