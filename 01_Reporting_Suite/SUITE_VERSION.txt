@@ -1,7 +1,7 @@
-# Coates K2 suite version - 129 files - overall acb9c21d
+# Coates K2 suite version - 129 files - overall fc3a2324
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-31 23:10:12
+# taken 2026-07-31 23:17:28
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -71,7 +71,7 @@ da2adf9601 CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
 b48951fe84 FIX_DELETE_LIFTING_CHARGES_28JUL.bat
 33084bfd46 FIX_DELETE_LIFTING_CHARGES_28JUL.py
-418a5e43c1 INVOICE_TRUEUP.py
+21a048d705 INVOICE_TRUEUP.py
 218fb4912a IS_IT_WORKING.py
 e0416bf106 MACHINE_ID.py
 d7e5f12668 MAKE_MY_QR_CARDS.py
@@ -105,7 +105,7 @@ a49f1ea35c activity_model.py
 28e7cf093a build_baseplan_costs.py
 064ec01f28 build_clean_report.py
 3f8dc50d72 build_company_onhire_report.py
-1215cf56b4 build_cost_snapshot.py
+6e6ab04d8a build_cost_snapshot.py
 a03115ce96 build_invoice_breakdown.py
 3db5a9a8de build_plant_dashboard.py
 ce2058e40b build_posters.py
