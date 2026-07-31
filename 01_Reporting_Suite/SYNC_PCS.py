@@ -44,6 +44,13 @@ BK = os.path.join(HERE, "Updates", "sync_backups")
 
 CODE_EXT = (".py", ".bat", ".ps1")
 
+#  Not code, but part of the machinery all the same: the picture
+#  audit's blocklist rides with the code so both laptops agree on
+#  which gear pictures were binned as wrong. mygear_history.json and
+#  friends stay per-machine - only files named here come along.
+#  (31 Jul 2026)
+CODE_EXTRA = {"wrong_pictures.json"}
+
 #  Never sync these - they are this machine's own business.
 #  MACHINE.txt especially: it is the file that says WHICH laptop this
 #  is. Copy it across and both machines claim the same name, which is
@@ -99,7 +106,8 @@ def sync_folder():
 def code_files():
     out = []
     for n in sorted(os.listdir(HERE)):
-        if n in CODE_SKIP or not n.lower().endswith(CODE_EXT):
+        if n in CODE_SKIP or (not n.lower().endswith(CODE_EXT)
+                              and n not in CODE_EXTRA):
             continue
         p = os.path.join(HERE, n)
         if os.path.isfile(p):

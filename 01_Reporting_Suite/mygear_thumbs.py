@@ -128,11 +128,24 @@ def variant_register(here=None):
     return out
 
 
+#  what a browser will decode on a canvas - so what a photo may arrive
+#  as. Google Images saves .webp and .jfif more often than .jpg, and
+#  those used to be silently ignored: the file sat in Photos\ while the
+#  hunt said wanted. (31 Jul 2026)
+PHOTO_EXTS = ('.jpg', '.jpeg', '.png', '.webp', '.jfif', '.gif', '.bmp')
+
+
 def _photo_files(here=None):
     """Photos\\ and one level of subfolders - a zip of pictures dragged
     in whole (folder and all) still counts, nobody has to know to
     flatten it first (30 Jul 2026, Andrew's consumables pack arrived
-    exactly like that)."""
+    exactly like that).
+
+    Browsers save a replacement download as "CODE (1).jpg" instead of
+    overwriting - that suffix is stripped so the replacement still
+    lands on its code, and where two files claim the same code the
+    NEWEST wins, so saving a better picture always takes effect
+    (31 Jul 2026)."""
     d = photos_dir(here)
     out = {}
     dirs = [d] + sorted(os.path.join(d, s) for s in os.listdir(d)
@@ -140,16 +153,50 @@ def _photo_files(here=None):
     for dd in dirs:
         for fn in sorted(os.listdir(dd)):
             stem, ext = os.path.splitext(fn)
-            if (ext.lower() in ('.jpg', '.jpeg', '.png')
-                    and not fn.startswith('_')
-                    and stem.strip().upper() not in out):
-                out[stem.strip().upper()] = os.path.join(dd, fn)
+            if ext.lower() not in PHOTO_EXTS or fn.startswith('_'):
+                continue
+            stem = re.sub(r'\s*\(\d+\)$', '', stem.strip()).strip().upper()
+            if not stem:
+                continue
+            p = os.path.join(dd, fn)
+            if stem in out and os.path.getmtime(out[stem]) >= os.path.getmtime(p):
+                continue
+            out[stem] = p
     return out
+
+
+def blocklist(here=None):
+    """Pictures ruled WRONG by the audit - wrong_pictures.json in the
+    suite root maps a code to the reason its picture was binned
+    ("shows a drill, item is a grinder"). A blocked code stays
+    pictureless until a photo NEWER than the blocklist file lands in
+    Photos\\ - dropping a replacement in just works, nothing to edit.
+    Returns ({safe_code: reason}, blocklist_mtime). (31 Jul 2026)"""
+    p = os.path.join(here or HERE, 'wrong_pictures.json')
+    try:
+        with open(p, encoding='utf-8') as f:
+            raw = json.load(f)
+        return ({safe_name(str(k)).upper(): str(v) for k, v in raw.items()},
+                os.path.getmtime(p))
+    except (OSError, ValueError):
+        return ({}, 0)
+
+
+def thumb_count(here=None):
+    """How many pictures the pages can actually serve - counts
+    Gear_Lookup\\thumbs itself, so thumbnails that ARRIVED ready-made
+    (the audited variant pack ships straight into that folder, 31 Jul
+    2026) count the same as ones shrunk from Photos\\ on this machine."""
+    tdir = os.path.join(here or HERE, 'Gear_Lookup', 'thumbs')
+    try:
+        return sum(1 for n in os.listdir(tdir) if n.lower().endswith('.jpg'))
+    except OSError:
+        return 0
 
 
 def refresh(here=None, quiet=False):
     """Shrink new/changed photos into Gear_Lookup\\thumbs. Returns
-    (photos_found, thumbs_made_now, thumbs_ready_total)."""
+    (photos_found, thumbs_made_now, thumbs_served_total)."""
     here = here or HERE
     photos = _photo_files(here)
     tdir = os.path.join(here, 'Gear_Lookup', 'thumbs')
@@ -157,6 +204,21 @@ def refresh(here=None, quiet=False):
 
     def tpath(code):
         return os.path.join(tdir, code + '.jpg')
+    #  the audit's blocklist: a picture ruled wrong is ignored - and its
+    #  already-shrunk thumb cleared, photo or no photo behind it - unless
+    #  a picture NEWER than the blocklist has been dropped in, which
+    #  means it was replaced and the replacement is welcome.
+    blocked, bstamp = blocklist(here)
+    for c in blocked:
+        if c in photos and os.path.getmtime(photos[c]) > bstamp:
+            continue
+        photos.pop(c, None)
+        try:
+            if (os.path.isfile(tpath(c))
+                    and os.path.getmtime(tpath(c)) <= bstamp):
+                os.remove(tpath(c))
+        except OSError:
+            pass
     #  bumping SIZE regenerates the lot once: a marker file remembers
     #  the size the folder was built at (31 Jul 2026 - grid went big)
     marker = os.path.join(tdir, '_size.txt')
@@ -168,9 +230,8 @@ def refresh(here=None, quiet=False):
     pend = [(c, p) for c, p in photos.items()
             if rebuild_all or not os.path.isfile(tpath(c))
             or os.path.getmtime(tpath(c)) < os.path.getmtime(p)]
-    ready = sum(1 for c in photos if os.path.isfile(tpath(c)))
     if not pend:
-        return (len(photos), 0, ready)
+        return (len(photos), 0, thumb_count(here))
     try:
         with open(marker, 'w') as f:
             f.write(str(SIZE))
@@ -186,7 +247,7 @@ def refresh(here=None, quiet=False):
         if not quiet:
             print('  Thumbnails: {} new photo(s) waiting - no headless '
                   'browser on this machine to shrink them.'.format(len(pend)))
-        return (len(photos), 0, ready)
+        return (len(photos), 0, thumb_count(here))
 
     made = 0
     prof = os.path.join(tempfile.gettempdir(), 'coates_thumbs_prof')
@@ -244,8 +305,7 @@ def refresh(here=None, quiet=False):
                 made += 1
             except Exception:
                 continue
-    ready = sum(1 for c in photos if os.path.isfile(tpath(c)))
-    return (len(photos), made, ready)
+    return (len(photos), made, thumb_count(here))
 
 
 if __name__ == '__main__':

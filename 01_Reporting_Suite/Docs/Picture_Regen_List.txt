@@ -1,0 +1,407 @@
+COATES K2 - GEAR PICTURE REGENERATION LIST
+Cement Australia K2 Shutdown 2026 - Gladstone
+Author: Andrew Fisher | POWERED BY SITEIQ | built 31 Jul 2026
+
+THE LOOK (use this same style line for every new picture so they
+all match the pack):
+  Studio product photo of <ITEM>, centred, slight hero angle,
+  near-black charcoal background, subtle orange rim lighting and
+  a warm orange glow on the floor, photorealistic, no text, no
+  people, square 1024x1024 JPEG.
+
+Save each picture as EXACTLY the filename shown (.jpg), drop into
+Photos\, run 04. The audit blocklist lifts by itself the moment a
+newer picture lands.
+
+======================================================================
+1) BINNED BY THE AUDIT - old picture showed the wrong thing
+   These 21 show nothing on My Gear until replaced.
+======================================================================
+
+  FILE : CUMALONG0.5T.jpg
+  ITEM : Cumalong - 0.5t
+  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
+  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
+
+  FILE : CUMALONG0.75T.jpg
+  ITEM : Cumalong - 0.75t
+  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
+  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
+
+  FILE : CUMALONG0.80TX1.5M.jpg
+  ITEM : Cumalong - 0.80T x 1.5M
+  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
+  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
+
+  FILE : CUMALONG1.6TX1.5M.jpg
+  ITEM : Cumalong - 1.6T x 1.5M
+  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
+  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
+
+  FILE : CUMALONG3.2TX1.5M.jpg
+  ITEM : Cumalong - 3.2t x 1.5M
+  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
+  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
+
+  FILE : CUMALONG3T.jpg
+  ITEM : Cumalong - 3.0t
+  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
+  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
+
+  FILE : CUMALONG3TX1.5M.jpg
+  ITEM : Cumalong - 3t x 1.5M
+  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
+  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
+
+  FILE : CUMALONG6.3T.jpg
+  ITEM : Cumalong 6.3t (1.5m)
+  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
+  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
+
+  FILE : DIVIDER100MM.jpg
+  ITEM : Divider - 100mm
+  WAS  : picture showed an excavator ripper attachment - a divider is a spring-leg compass hand tool
+  SHOW : a spring-leg divider: two pointed steel legs joined by a pivot and spring bow, like a compass
+
+  FILE : DIVIDER150MM.jpg
+  ITEM : Divider - 150mm
+  WAS  : picture showed an excavator ripper attachment - a divider is a spring-leg compass hand tool
+  SHOW : a spring-leg divider: two pointed steel legs joined by a pivot and spring bow, like a compass
+
+  FILE : GRINDERDIEELECT.jpg
+  ITEM : Grinder - Die (240V)
+  WAS  : picture showed a pipe threading machine - a die grinder is a small handheld rotary grinder
+  SHOW : a small handheld electric die grinder: slim inline body with a collet nose and small burr bit
+
+  FILE : HAMMERCHIPPINGSOLIDSTEEL.jpg
+  ITEM : Hammer - Chipping
+  WAS  : picture showed the AIR chipping hammer - this code is the solid steel hand slag hammer
+  SHOW : a one-piece solid forged steel welders chipping hammer: chisel one end, point the other, coil or plain steel handle
+
+  FILE : JIGSAWBAT.jpg
+  ITEM : Jig Saw  Battery
+  WAS  : picture showed only a battery pack - no jigsaw in shot
+  SHOW : a cordless jigsaw power tool: D-handle body, flat shoe plate, thin vertical blade
+
+  FILE : LEADSTANDMAG.jpg
+  ITEM : Lead Stand - Magnetic
+  WAS  : picture showed a machinist indicator base - the item is the magnetic pole stand leads hang off
+  SHOW : a site lead stand with a heavy magnetic base and tall upright pole with hooks for draping extension leads
+
+  FILE : LEADSTANDW_FILL.jpg
+  ITEM : Extension Lead Stand Water Filled
+  WAS  : picture showed a powered cord reel - the item is the water-filled base and pole leads hang off
+  SHOW : a lead stand on a water-fillable plastic ballast base: tall pole with a hook on top for extension leads
+
+  FILE : NEEDLEGUNAIR.jpg
+  ITEM : Needlegun Air
+  WAS  : picture showed a wheeled trolley machine - the item is a handheld air needle gun
+  SHOW : a handheld pneumatic needle gun / needle scaler: cylindrical air tool with a bundle of steel needles at the nose and an air hose fitting
+
+  FILE : PINCHBAR.jpg
+  ITEM : Pinch Bar
+  WAS  : picture showed a hydraulic machine - a pinch bar is a plain steel pry bar
+  SHOW : a plain steel pinch bar / crow bar: long hexagonal steel bar, one chisel end, one angled point
+
+  FILE : SQUARE200MM.jpg
+  ITEM : Square - 200mm
+  WAS  : picture showed a concrete power trowel - the item is a 200mm engineers square
+  SHOW : an engineers try square: steel blade at exactly 90 degrees to a thicker stock, small hand measuring tool
+
+  FILE : STILSEN900MM.jpg
+  ITEM : Stilsen - 900mm
+  WAS  : picture showed a concrete power trowel - a stilsen is a pipe wrench
+  SHOW : a 900mm Stillson pipe wrench: long straight handle, serrated adjustable jaw
+
+  FILE : STILSENALUMINIUM350MM.jpg
+  ITEM : Stilsen - Aluminium - 350mm
+  WAS  : picture showed a concrete bull float - a stilsen is a pipe wrench
+  SHOW : a 350mm aluminium Stillson pipe wrench: silver alloy handle, serrated adjustable jaw
+
+  FILE : WELDPIPEWRAP.jpg
+  ITEM : Welding - Pipe Wrap
+  WAS  : picture showed a pipe clamp machine - pipe wrap is the flexible wrap-around marking strip
+  SHOW : a flexible wrap-around pipe marking strip, coiled dark band used to mark a straight cutting line around pipe
+
+======================================================================
+2) COULD BE BETTER - still serving, but the render is off
+======================================================================
+
+  FILE : AIRARCGOUG.jpg
+  ITEM : Air Arc Gouging Torch
+  SHOW : an Arcair-style carbon arc gouging torch: pistol grip with air lever, rotating copper head clamping a carbon electrode, combined cable and air hose
+
+  FILE : AIRNOZZLELGE.jpg
+  ITEM : Air Nozzle - Large
+  SHOW : check what the store actually issues as an air nozzle - blow gun tip or air-mover horn - and photograph/generate that
+
+  FILE : AIRNOZZLESMALL.jpg
+  ITEM : Air Nozzle - Small
+  SHOW : same as AIRNOZZLELGE, smaller
+
+  FILE : HYDCYL10T.jpg
+  ITEM : Hydraulic Cylinder - 10t
+  SHOW : a squat porta-power style hydraulic jacking cylinder with saddle and coupler, not a machinery ram with clevis eyes
+
+  FILE : HYDCYL10TGP.jpg
+  ITEM : Hydraulic Cylinder - General Purpose Cylinder 10t
+  SHOW : same as HYDCYL10T
+
+  FILE : HYDCYL10TGP105MM.jpg
+  ITEM : Hydraulic Cylinder - General Purpose Cylinder 10t/105mm Stroke
+  SHOW : same as HYDCYL10T
+
+  FILE : QUICKCLAMP300MM.jpg
+  ITEM : Quickclamp - 300mm
+  SHOW : a one-handed trigger bar clamp (Irwin Quick-Grip style)
+
+  FILE : QUICKCLAMP500MM.jpg
+  ITEM : Quickclamp - 500mm
+  SHOW : same as QUICKCLAMP300MM, longer bar
+
+  FILE : SASHCLAMP400MM.jpg
+  ITEM : Sash Clamp 400mm
+  SHOW : a T-bar sash clamp with sliding tail stop, flat bar
+
+  FILE : WADPUNCHSET14-19MM.jpg
+  ITEM : Wad Punch - 14 - 19mm
+  SHOW : a set of hand-held hollow wad punches struck with a hammer, in a case
+
+======================================================================
+3) NO PICTURE YET - consumables (71)
+======================================================================
+  CEME9016-584189.jpg          ABRASIVE - METALCUT ROCOL RTD 500G - K2/26
+  CEME9016-590668.jpg          ABRASIVE DISC - CUTOFF FH38 127 X 2.5 X 22.2 - K2/26
+  CEME9016-590669.jpg          ABRASIVE DISC - GRINDING RAISED HUB A24/30T 127 X 6.8 X 22 - K2/26
+  CEME9016-590670.jpg          ABRASIVE DISC - GRINDING RAISED HUB A30S 115 X 6 X 22 - K2/26
+  CEME9016-590671.jpg          ABSORBENT PAD - OIL 300G 403 X 48CM - K2/26
+  CEME9016-590672.jpg          ADHESIVE - HIGH STRENGTH 3M 90 AEROSOL CAN 471G - K2/26
+  CEME9016-590673.jpg          ANTI-SEIZE - COPPER 1090 DEG C 500G CAN - K2/26
+  CEME9016-590674.jpg          BATTERY - AA 1.5VDC ALKALINE SUPER HEAVY DUTY - K2/26
+  CEME9016-590675.jpg          BATTERY - AAA 1.5VDC ALKALINE PROCELL - K2/26
+  CEME9016-590676.jpg          BOTTLE - SPRAY APPLICATOR 500ML - K2/26
+  CEME9016-590677.jpg          BROOM - HEAVY DUTY HAIR/FIBRE 600MM (NO HANDLE) - K2/26
+  CEME9016-590678.jpg          BROOM - HEAVY DUTY HAIR/FIBRE 600MM (NO HANDLE) - K2/26
+  CEME9016-590679.jpg          BUCKET - PLASTIC 9L BLACK WITH HANDLE - K2/26
+  CEME9016-590680.jpg          BUCKET - UTILITY PLASTIC 10L WHITE (WITH LID) - K2/26
+  CEME9016-590681.jpg          BUCKET - UTILITY PLASTIC 20L WHITE (WITH LID) - K2/26
+  CEME9016-590682.jpg          CABLE TIE - NYLON UV BLACK 152 X 3.5MM PK100 - K2/26
+  CEME9016-590683.jpg          CLEANER - ELECTRICAL CONTACT CRC CO 2016 350G - K2/26
+  CEME9016-590684.jpg          CLEANER - LENS UVEX 1009 SPRAY PACK 500ML - K2/26
+  CEME9016-590685.jpg          CLOTH - CLEAN ABSORBENT 490MM X 70M - K2/26
+  CEME9016-590686.jpg          CLOTH - CLEAN ROAR 245MM X 70M - K2/26
+  CEME9016-590687.jpg          DIPHOTERINE - EYEWASH EYE-SIEW 50ML - K2/26
+  CEME9016-590688.jpg          DIPHOTERINE - EYEWASH EYE-SIEW 50ML - K2/26
+  CEME9016-590689.jpg          DIPHOTERINE - FACE/HAND SPRAY 100ML - K2/26
+  CEME9016-590690.jpg          DUSTPAN - METAL D-HANDLE - K2/26
+  CEME9016-590691.jpg          FLAP DISC WHEEL - 127MM 60 GRIT - K2/26
+  CEME9016-590692.jpg          GASKET FORMING COMPOUND - MASTER 51531 - K2/26
+  CEME9016-590693.jpg          HAMMER - WELDERS CHIPPING SPRING HANDLE - K2/26
+  CEME9016-590694.jpg          ICE BLOCK - ELECTROLYTE MIXED PK15 - K2/26
+  CEME9016-590695.jpg          OIL - PENETRATING CRC 5-56 400G - K2/26
+  CEME9016-590696.jpg          OIL - PENETRATING PENETRENE 500ML - K2/26
+  CEME9016-590697.jpg          OVERALL - TYVEK CHEMICAL RESISTANT HOODED XL - K2/26
+  CEME9016-590698.jpg          OVERALL - TYVEK CHEMICAL RESISTANT HOODED XXL - K2/26
+  CEME9016-590699.jpg          PADLOCK - LOCKOUT MASTER 410 (RED) - K2/26
+  CEME9016-590700.jpg          PADLOCK - LOCKOUT MASTER 410 (RED) - K2/26
+  CEME9016-590701.jpg          PAINT - ZINC COLD GALVANISE SPRAY 400G - K2/26
+  CEME9016-590702.jpg          PAINT BRUSH - BUDGET 50MM - K2/26
+  CEME9016-590703.jpg          PAINT BRUSH - BUDGET 75MM - K2/26
+  CEME9016-590704.jpg          PAINT BRUSH - TRADESMAN 25MM - K2/26
+  CEME9016-590705.jpg          RAG - COTTON WIPING 10KG SLAB - K2/26
+  CEME9016-590706.jpg          RESPIRATOR - P2 DISPOSABLE 8822 - K2/26
+  CEME9016-590707.jpg          RESPIRATOR - P2V FLATFOLD CARBON - K2/26
+  CEME9016-590708.jpg          ROPE - POLYPROPYLENE 10MM X 250M - K2/26
+  CEME9016-590709.jpg          ROPE - SISAL 6MM DIAMETER - K2/26
+  CEME9016-590710.jpg          SAFETY GLASSES - DAY/NIGHT - K2/26
+  CEME9016-590711.jpg          SAFETY TAG - GROUP ISOLATION - K2/26
+  CEME9016-590712.jpg          SAFETY TAG - INFORMATION - K2/26
+  CEME9016-590713.jpg          SAFETY TAG - OUT OF SERVICE - K2/26
+  CEME9016-590714.jpg          SAFETY TAG - PERSONAL ISOLATION - K2/26
+  CEME9016-590715.jpg          SEALANT - HEAT RESISTANT RTV736 RED 305ML - K2/26
+  CEME9016-590716.jpg          SEALANT - HEAT RESISTANT RTV736 RED 305ML - K2/26
+  CEME9016-590717.jpg          SHOVEL - SQUARE MOUTH LONG HANDLE MEDIUM 265 X 315MM - K2/26
+  CEME9016-590718.jpg          SQWINCHER SACHET - LEMON LIME 185ML PK50 - K2/26
+  CEME9016-590719.jpg          SQWINCHER SACHET - LEMON LIME 185ML PK50 - K2/26
+  CEME9016-590720.jpg          SQWINCHER SACHET - ORANGE 185ML PK50 - K2/26
+  CEME9016-590721.jpg          SQWINCHER SACHET - ORANGE 185ML PK50 - K2/26
+  CEME9016-590722.jpg          SQWINCHER SACHET - WILD BERRY 185ML PK50 - K2/26
+  CEME9016-590723.jpg          TAPE - BARRIER 'DO NOT ENTER' BLACK/RED/WHITE - K2/26
+  CEME9016-590724.jpg          TAPE - CAUTION BARRICADE YELLOW/BLACK 75MM X 100M - K2/26
+  CEME9016-590725.jpg          TAPE - CAUTION BARRICADE YELLOW/BLACK 75MM X 100M - K2/26 (alt)
+  CEME9016-590726.jpg          TAPE - DUCT PVC SILVER TESA 48 X 30M - K2/26
+  CEME9016-590727.jpg          WATER - BOTTLED 600ML PK24 - K2/26
+  CEME9016-590728.jpg          WIPES - ANTIBACTERIAL 42 X 14.3CM PK75 - K2/26
+  CEME9016-590729.jpg          WIPES - INDUSTRIAL ULTRAGRIME PK100 - K2/26
+  CEME9016-590867.jpg          Hi Vis Breathable Rain Jacket Medium
+  CEME9016-590868.jpg          Hi Vis Breathable Rain Jacket Small
+  CEME9016-590869.jpg          Hi Vis Breathable Rain Jacket X Large
+  CEME9016-590870.jpg          Hi Vis Breathable Rain Jacket XX Large
+  CEME9016-590871.jpg          Pelican Pick
+  CEME9016-590872.jpg          Rain Jacket Set  Coat And Pants
+  CEME9016-590873.jpg          Solvent Resistent Barrier Cream 500ml
+  WEL802-L50PIN.jpg            LOCH 6mm Pin suits 50mm Cutter
+
+======================================================================
+4) NO PICTURE YET - hire gear (158) - these look like the Part 5
+   zip that has not come through yet. If Part 5 exists, drop it in
+   the chat before generating any of these fresh.
+======================================================================
+  ACETYLEGUAGE.jpg             Acetylene Gauge
+  AIRHADMINANITTO.jpg          Air Hose Adaptor - Minsup A To Nitto
+  ALLENKEYMET19MM.jpg          Allen Key Metric - 19mm
+  BATCHGEMILMXFUELSING.jpg     Battery Charger - Milwaukee MX Fuel Single
+  BATCORDMIL18V8AH.jpg         Battery - Cordless - Milwaukee 18V 8AH
+  BOWSHACKLEALLOY1T.jpg        Bow - Shackle - Alloy - 1t
+  BOWSHACKLEALLOY9T.jpg        Bow - Shackle - Alloy - 9t
+  BREAKERAIRLIGHT.jpg          Breaker - Air - Light
+  BULLHOSESTD50MM(2IN)7.5M.jpg Bull Hose Std - 50MM (2in) - 7.5Mtr
+  CENTREPUNCHSET.jpg           Centre Punch Set
+  CHAINBLOCKAIR1T10M.jpg       Chain Block - Air Operated - 1t/10M Drop
+  CHAINBLOCKAIR6T15M.jpg       Chain Block - Air Operated - 6T/15M Drop
+  CHAINBLOCKMAN10T6M.jpg       Chain Block - Manual - 10.0t/6M Drop
+  CHAINBLOCKMAN5T6M.jpg        Chain Block - Manual - 5.0t/6M Drop
+  CHIPPINGHAMMERAIR.jpg        Chipping Hammer - Air
+  COLDCHISEL.jpg               Cold Chisel
+  COMP1050D.jpg                Compressor 1050CFM (Diesel)
+  COMP185D.jpg                 Compressor 185CFM (Diesel)
+  CRANEGASBOTTLECARRIER.jpg    Crane Gas Bottle Carrier
+  CROWBARSM.jpg                Crow Bar - Small
+  CUMALONG1.5T.jpg             Cumalong - 1.5t
+  CUMALONG6T.jpg               Cumalong - 6.0t
+  DISTBOARD.jpg                Distribution Board
+  DISTBOARDLIFEGUARD4-15A.jpg  Distribution Board Lifeguard 4 15A
+  DISTBOARDLIFEGUARD6-10A.jpg  Distribution Board Lifeguard 6 10A
+  DRIFTPINBARREL22MM.jpg       Drift Pin - Barrel - 22mm
+  DRILLCORDLESSHAMMER12MM.jpg  Drill Hammer 12mm Cordless
+  DRILLHAMMER13MMBAT.jpg       Drill Hammer 13mm  Battery
+  EXHAUSTFAN240V300MM.jpg      Exhaust Fan - Electric 300mm
+  EXTLEAD415V5PIN50AMP15M.jpg  Extension Lead - 415V 63A
+  FORKLIFT2.5TWROTD.jpg        Forklift - With Rotator 2.5t Diesel
+  FORKLIFTREACHWB1.5TELEC.jpg  Forklift - Reach - Walk Behind 1.5t Electric - Greener Choice
+  GCLAMP100MM.jpg              G Clamp - 100mm
+  GCLAMP300MM.jpg              G Clamp - 300mm
+  GENERATOR20KVAD.jpg          Generator - 20kVA (Diesel)
+  GRINDERANGLE175MME.jpg       Grinder - Angle 175mm (240V)
+  GRINDERDIE18V.jpg            Grinder Die  Battery 18v
+  HAMMERSLEDGE4LB.jpg          Hammer - Sledge 4Lb
+  HYDCYL20TGP102MM.jpg         Hydraulic Cylinder - General Purpose Cylinder 25t/102mm Stroke
+  HYDCYL20TLH.jpg              Hydraulic Cylinder - Low Height Cylinder 20t
+  HYDCYLPUMPMANP80.jpg         Hydraulic Cylinder Pump - Hand Pump 2 Speed - P80
+  HYDTORQPUMPELECTQ700E.jpg    Hydraulic Torque Pump - Electric 240v - TQ700E
+  HYDTORQUEWRCAS41MM2000.jpg   Hydraulic Torque Wrench - Cassette - 41mm - 2000ftlb
+  IMPACTDRIVE6.35MMBAT.jpg     Impact Driver 1/4in (6.35mm) Battery
+  IMPACTWRENCH12.7MMBAT.jpg    Impact Wrench 12.7mm  Battery
+  IMPACTWRENCHAIR12MM.jpg      Impact Wrench - Air - 12mm
+  IMPACTWRENCHAIR19MM.jpg      Impact Wrench - Air - 19mm
+  KIBBLEGROUT1M3.jpg           Grout Kibble 1m3
+  KNUCKLE45D.jpg               Knuckle Boom 45ft (13.7M) - Diesel
+  LADDERPLATFORMGLASS1.2M.jpg  Ladder - Platform Step Fibreglass 1.2M
+  LADDERSTEPFGLASS1.8M(6).jpg  Ladder - Step Fibreglass 1.8M
+  LEADEXT240V15AMP.jpg         Extension Lead - 240V 15A
+  LIGHTLED4400LMBAT.jpg        Light LED 4400lm: Battery
+  LIGHTLED500LBAT.jpg          Light LED 500lm Battery
+  LIGHTTELELED3000LMBAT.jpg    Light Telescopic LED 3000lm (2.10m): Battery - Greener Choice
+  LIGHTTLEDVRTMETRO.jpg        Lighting Tower LED Metro
+  MIRRORINSPECTION.jpg         Mirror - Inspection
+  OXY_ACETHANDPIECE.jpg        Welding - Oxy/Acetylene Hand Piece
+  PALLETTR1.8TELEC.jpg         Pallet Truck 1.8t Electric
+  PLASMACUT10MM240V.jpg        Plasma Cutter 10mm Electric
+  POPRIVETERBAT.jpg            Pop Riveter - Battery - Greener Choice
+  POPRIVETGUNHANDHELD.jpg      Hand Held Rivetgun
+  QUICKCLAMP600MM.jpg          Quickclamp - 600mm
+  RIVETBUSTERAIR.jpg           Rivet Buster – Air
+  SAFETYHOOKFLOGG.jpg          Safety Holder - Flogger
+  SAFETYLANYARD2M.jpg          Safety Lanyard - 2m
+  SAWCIRC184MMBAT.jpg          Saw Circular 184mm Battery
+  SAWCIRCULAR240V185MM.jpg     Saw - Circular- 185mm - 240V
+  SCABBLERAIR3HEAD.jpg         Scabbler - Air - 3 Head
+  SCREWDRIVERINSULFLAT.jpg     Screwdriver - insulated - Flat
+  SCREWDRIVERSQUARE.jpg        Screwdriver - Square
+  SHEARSCORDLESS.jpg           Shears Metal – Cordless (18V) - Greener Choice
+  SHOVELSHSQMTH.jpg            Shovel - Short Handle - Square Mouth
+  SLINGROUND1T3M.jpg           Sling Round - 1t - 3M
+  SOCKET1_2DR13MM.jpg          Socket - Impact - 13mm 1/2in Drive
+  SOCKET1_2DR16MM.jpg          Socket -   1/2inch Drive - Metric - 16mm
+  SOCKET1_2DR22MM.jpg          Socket -   1/2inch Drive - Metric - 22mm
+  SOCKET1_2DR31MM.jpg          Socket -   1/2inch Drive - Metric - 31mm
+  SOCKET1_2INDR20MM.jpg        Socket - Impact - 1/2in Drive 20mm
+  SOCKET1DR41MM.jpg            Socket -  1inch Drive - Metric - 41mm
+  SOCKET1DR46MM.jpg            Socket - Impact - 46mm 1in Drive
+  SOCKET1INDR30MM.jpg          Socket - Impact - 30mm 1in Drive
+  SOCKET3_4DR28MM.jpg          Socket -   3/4inch Drive - Metric - 28mm
+  SOCKET3_4DR55MM.jpg          Socket -   3/4inch Drive - Metric - 55mm
+  SOCKETEXT3_4DR175MM.jpg      Socket - Extension - 3/4 - 175mm
+  SOCKETIMP1-DR1--1_2.jpg      Socket - Impact - 1 1/2in 1in Drive
+  SOCKETIMP1DR2-1_16.jpg       Socket - Impact - 21/16in 1in Drive
+  SOCKETIMP1DR2-5_8.jpg        Socket - Impact - 25/8in 1in Drive
+  SOCKETIMP3_4-DR1--7_8.jpg    Socket - Impact - 1 7/8in 3/4in Drive
+  SOCKETIMP3_4-DR211_16.jpg    Socket - Impact - 211/16in 3/4in Drive
+  SOCKETIMP3_4-DR23_4.jpg      Socket - Impact - 23/4in 3/4in Drive
+  SOCKETIMP3_4-DR27_16.jpg     Socket - Impact - 27/16in 3/4in Drive
+  SOCKETIMP3_4-DR29_16.jpg     Socket - Impact - 29/16in 3/4in Drive
+  SOCKETIMP3_4-DR3_4.jpg       Socket - Impact - 3/4in 3/4in Drive
+  SOCKETIMP3_4-DR7_8.jpg       Socket - Impact - 7/8in 3/4in Drive
+  SOCKETIMP3_4DR1-1_16.jpg     Socket - Impact -   3/4inch Drive - Imperial - 1 1/16inch
+  SOCKETIMP3_4DR1-1_8D.jpg     Socket - Impact - 1 1/8in 3/4in Drive
+  SOCKETIMP3_4DR1-3_16D.jpg    Socket - Impact - 1 3/16in 3/4in Drive
+  SOCKETIMP3_4DR1-5_16D.jpg    Socket - Impact - 1 5/16in 3/4in Drive
+  SOCKETIMP3_4DR1D.jpg         Socket - Impact - 1in 3/4in Drive
+  SOCKETIMP3_4DR36MMD.jpg      Socket - Impact - 36mm 3/4in Drive
+  SOCKETIMPADAPT3_4-1_2DR.jpg  Socket Adaptor 3/4in To 1/2in Drive
+  SOCKETIMPEXT1DR330MM.jpg     Socket - Impact -Extension - 1in - Drive - 330mm
+  SOCKETIMPL-1_2-DR27MM.jpg    Socket - Impact - Long 27mm 1/2in Drive
+  SOCKETIMPL-1_2-DR32MM.jpg    Socket - Impact - Long 32mm 1/2in Drive
+  SOCKETIMPL-3_4-DR21MM.jpg    Socket - Impact - Long 21mm 3/4in Drive
+  SOCKETIMPL-3_4-DR38MM.jpg    Socket - Impact - Long 38mm 3/4in Drive
+  SOCKETIMPL1INDR60MM.jpg      Socket - Impact - Long 60mm 1in Drive
+  SOCKETIMPLG-3_4-DR1-1_16.jpg Socket - Impact - Long 1-1/16-3/4in Drive
+  SOCKETIMPLG1-7_16IN3_4IND.jpg Socket - Impact - Long 1-7/16in 3/4in Drive
+  SOCKETINHEX1_2-1_2.jpg       Socket - Inhex - 1/2in -1/2in Drive
+  SOCKETINHEX5_16-1_2.jpg      Socket - Inhex - 5/16in -1/2in Drive
+  SOCKETRATCHETBAR1_2DR.jpg    Socket - Ratchet Bar - 1/2inch Drive
+  SOCKETTORQUE1D2-7_16.jpg     Socket - Torque 2-7/16in 1in Drive
+  SOCKETTORQUE25MM3_4DR.jpg    Socket -Torque 25mm 3/4in Drive
+  SOCKETTORQUE3_4D13_4.jpg     Socket - Torque 13/4in 3/4in Drive
+  SOCKETTORQUE38MM3_4DR.jpg    Socket -Torque 38mm 3/4in Drive
+  SOCKSET3_4DAF.jpg            Socket Set - 3/4in Drive - Af
+  SPANNERCOM1-1_16.jpg         Spanner - Combo 1 - 1/16
+  SPANNERCOM1-13_16.jpg        Spanner - Combo 1 - 13/16
+  SPANNERCOM1-5_16.jpg         Spanner - Combo 1 - 5/16
+  SPANNERCOM11_16.jpg          Spanner - Combo 11/16
+  SPANNERCOM15_16.jpg          Spanner - Combo 15/16
+  SPANNERCOM2-1_8.jpg          Spanner - Combo 2 - 1/8
+  SPANNERCOM2-9_16.jpg         Spanner - Combo 2-9/16
+  SPANNERCOM7_16.jpg           Spanner - Combo 7/16
+  SPANNERCOMBO-13MM.jpg        Spanner - Combo (13mm)
+  SPANNERCOMBO-19MM.jpg        Spanner - Combo 19mm
+  SPANNERCOMBO-26MM.jpg        Spanner - Combo 26mm
+  SPANNERCOMBO-27MM.jpg        Spanner - Combo (27mm)
+  SPANNERCOMBO-38MM.jpg        Spanner - Combo (38mm)
+  SPANNERCOMBO-7MM.jpg         Spanner - Combo (7mm)
+  SPANNERCOMBO60MM.jpg         Spanner - Combo (60mm)
+  SPANNERFLOG1-3_16.jpg        Spanner - Flogging - 1 3/16inch
+  SPANNERFLOG1-7_16.jpg        Spanner - Flogging - 1 7/16inch
+  SPANNERFLOG2-1_4.jpg         Spanner Flogging 2 1/4in
+  SPANNERFLOG22MM.jpg          Spanner - Flogging - 22mm
+  SPANNERFLOG36MM.jpg          Spanner - Flogging - 36mm
+  SPANNERFLOG55MM.jpg          Spanner - Flogging - 55mm
+  SPANNERFLOG7_8.jpg           Spanner - Flogging 7/8in
+  SPANNERFLOGOF60MM.jpg        Spanner - Flogging - Offset - 60mm
+  SPANNERPODGERRAT36MM41MM.jpg Spanner - Podger - Ratchet - 36mm / 41mm
+  SPANNERSHIFTER250MM10IN.jpg  Spanner - Shifter - 250mm (10in)
+  SPANNERSHIFTER770MM.jpg      Spanner - Shifter - 770mm
+  SPIRITLEVEL900MM.jpg         Spirit Level 900mm
+  STAMPLETTER5MM.jpg           Stamp - Letter - 5mm
+  STILSEN600MM.jpg             Stilsen - 600mm
+  TAPDIESETIMPMET.jpg          Tap And Die Set - Imperial/Metric
+  TAPEMEASURE8M.jpg            Tape Measure - 8M
+  TIRFORWINCH3.2T.jpg          Tirfor Winch - 3.2t
+  TOILETFWF.jpg                Toilet Portable - Fresh Water Flush
+  TOOLLANYBUNSWL2.5KGTEC.jpg   Tool Lanyard Bungee Swl2.5Kg Technique
+  TORQUEWRMAN3_4DR.jpg         Torque Wrench - Manual - 19mm (3/4inch) Drive
+  TROLLEYHAND.jpg              Multi Purpose Trolley
+  TROLLEYMULTIPUR.jpg          Trolley - Multi Purpose
+  VALVEV66.jpg                 Load Holding Valve – V66
+  VERNIERCALIPER300MM.jpg      Vernier Callipers - 300mm
+  WHEELBARROWHD.jpg            Wheel Barrow - Heavy Duty

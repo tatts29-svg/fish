@@ -30,6 +30,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "SUITE_VERSION.txt")
 MASTER = os.path.join(HERE, "SUITE_VERSION_MASTER.txt")
 EXT = (".py", ".bat", ".ps1")
+#  not scripts, but versioned all the same - the picture audit's
+#  blocklist must match across machines or one laptop serves gear
+#  pictures the audit binned. Mirrors SYNC_PCS.CODE_EXTRA. (31 Jul 2026)
+EXTRA = {"wrong_pictures.json"}
 SKIP = {"SUITE_VERSION.txt", "SUITE_VERSION_MASTER.txt", "SYNC_FOLDER.txt"}
 
 
@@ -46,7 +50,7 @@ def fingerprint(path):
 def scan():
     out = {}
     for n in sorted(os.listdir(HERE)):
-        if n in SKIP or not n.lower().endswith(EXT):
+        if n in SKIP or (not n.lower().endswith(EXT) and n not in EXTRA):
             continue
         p = os.path.join(HERE, n)
         if os.path.isfile(p):

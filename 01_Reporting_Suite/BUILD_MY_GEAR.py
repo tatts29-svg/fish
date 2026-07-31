@@ -959,7 +959,7 @@ def build():
         import mygear_thumbs
         _n, _made, _ready = mygear_thumbs.refresh(BASE)
         _reg = len(mygear_thumbs.variant_register(BASE))
-        print('  Gear pictures: {} of {} variants have a photo{} - run '
+        print('  Gear pictures: {} of {} variants show a picture{} - run '
               '56_PHOTO_HUNT for the wanted list.'.format(
                   _ready, _reg,
                   ' ({} shrunk this build)'.format(_made) if _made else ''))

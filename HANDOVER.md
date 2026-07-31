@@ -97,6 +97,31 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ## Recently done
 
+- **Gear picture pack audited and served (31 Jul 2026, this repo's branch):**
+  Andrew generated a "cinematic" picture pack for the 790 hire variants
+  (dark background, orange rim light - that IS the house look) and sent
+  it up as 5 zips. **Part 5 never arrived in the chat** - parts 1-4 =
+  632 pictures, all filenames matched the register exactly, no renames.
+  Every picture was audited against its plain-English name; **21 were
+  binned as wrong** (`wrong_pictures.json` - the "cumalongs" showed a
+  floor crane, "stilsens"/"square" showed concreting machines, "jigsaw"
+  was just a battery, etc.) and 10 kept-but-listed as could-be-better.
+  Andrew ruled spanners and sockets fine as rendered. **611 audited
+  384px thumbs ship straight into `Gear_Lookup\thumbs`** via the
+  K2_UPDATE zip (Photos\ is protected from updates by design - thumbs
+  folder is not). Mechanics: `mygear_thumbs.refresh()` ignores a
+  blocked photo and deletes its stale thumb UNLESS a photo newer than
+  `wrong_pictures.json` lands in Photos\ - dropping a replacement in
+  lifts the block by itself, nothing to edit. Photo Hunt now shows the
+  picture being served on every row, counts served thumbs as DONE and
+  carries a "binned by the audit" section with reasons. The photo
+  matcher now accepts .webp/.jfif/.gif/.bmp, strips browser "(1)" copy
+  suffixes, and lets the newest file win - three silent reasons photos
+  used to not appear. `wrong_pictures.json` rides 39_SYNC and the 40
+  version manifest (`CODE_EXTRA` / `EXTRA` sets - keep them mirrored).
+  `Docs\Picture_Regen_List.txt` = regeneration prompts with the shared
+  style line for the 21 binned + 71 consumables + anything part 5
+  doesn't cover.
 - **Elite improvements pass (28 Jul 2026, this repo's branch):**
   - **46_APPLY_UPDATE.bat** — the improvement loop. Ask Claude → download
     the `K2_UPDATE_*.zip` → double-click 46. Finds the zip itself, backs
@@ -142,6 +167,11 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ## Outstanding
 
+0. **Part 5 of the thumbnail pack never arrived** - 158 hire variants
+   still have no picture (list in `Docs\Picture_Regen_List.txt`
+   section 4). Get the zip from Andrew, run the same match + audit,
+   ship a top-up K2_UPDATE. The 71 consumable SKUs were never in the
+   packs at all (section 3).
 1. **Verify pricing and take in Andrew's newer register sheet.**
    Long-standing, not started.
 2. **Replacement-cost gap list** — 38 descriptions covering 58 items

@@ -1,7 +1,7 @@
-# Coates K2 suite version - 125 files - overall 162643bb
+# Coates K2 suite version - 126 files - overall f7237533
 # MACHINE: master (built by Claude)
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-31 02:15:47
+# taken 2026-07-31 04:08:00
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -63,7 +63,7 @@ a4a050f5e2 55_PRINT_ITEM_LABELS.bat
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 7df01af922 BUILD_DAILY_EMAIL_PACKS.py
-d3048b5dff BUILD_MY_GEAR.py
+c516c090ec BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
@@ -75,7 +75,7 @@ d7e5f12668 MAKE_MY_QR_CARDS.py
 536d1d43c3 MAKE_OUTLOOK_DRAFTS.ps1
 14a01ac147 PACK_FOR_CLAUDE.py
 1c5c7eaecd PEOPLE_LIST.py
-d242c431a4 PHOTO_HUNT.py
+188cfe97c8 PHOTO_HUNT.py
 b98cae26ae PICK_REPORT.py
 87cb5cb733 PREFILL_DAILY_TRACKING.ps1
 0da565dcb9 PULL_SITEIQ_EXPORTS.py
@@ -86,12 +86,12 @@ b98cae26ae PICK_REPORT.py
 b0c58cff1b START_GEAR_LOOKUP.ps1
 905295bfe6 SUBMIT_CHARGES.py
 c73dc44e7e SWITCH_ON.py
-9379a70c16 SYNC_PCS.py
+03cb2c128b SYNC_PCS.py
 8ddb081ceb TEST_DAILY_PACKS.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
-b37ba7ee4c VERSION_CHECK.py
+929e996198 VERSION_CHECK.py
 fc76e59527 WHY_NO_CONNECT.py
 23e39e5418 ZEBRA_LABELS.py
 cf858250b9 _align_prep.py
@@ -118,7 +118,7 @@ af82507aa3 mygear_guides.py
 6ade9a441b mygear_movement.py
 433fee8dd7 mygear_store.py
 83f053bec3 mygear_stores.py
-8d2bae6e41 mygear_thumbs.py
+7fff4a1f5b mygear_thumbs.py
 4fb1169ba8 mygear_ui.py
 5dbf7b3d91 net_pick.py
 baf96d6e18 qr_lite.py
@@ -127,3 +127,4 @@ c60bd527af report_pages.py
 752b950757 report_paths.py
 75eec11f9f safety_conversation.py
 f4b08a2c35 verify_excel_alignment.py
+9ff2e0ea7e wrong_pictures.json
