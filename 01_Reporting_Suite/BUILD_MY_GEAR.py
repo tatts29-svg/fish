@@ -212,6 +212,13 @@ def read_onhire(path):
 # RENTAL_STOCK is the fleet register - the authoritative asset number and
 # CURRENT description for every barcode (descriptions get corrected there,
 # and everything joins on to replacement costs the same way).
+#  item number -> PRODUCT_VARIANT code: the photo key, so a worker's own
+#  gear list can show what each item LOOKS like (Andrew, 31 Jul 2026:
+#  "next level for people ... to see what it looks like what they have
+#  in their name"). Filled by read_rental as it walks the register.
+VAR_OF_ITEM = {}
+
+
 def read_rental(path):
     import openpyxl
     by_bc = {}
@@ -228,6 +235,11 @@ def read_rental(path):
     for r in rows:
         if not r: continue
         bc = str(r[ix['ITEM_BARCODE']] or '').strip().upper()
+        _itm2 = str(r[ix['ITEM_NUMBER']] or '').strip()
+        if _itm2 and 'PRODUCT_VARIANT' in ix and _itm2 not in VAR_OF_ITEM:
+            _v = str(r[ix['PRODUCT_VARIANT']] or '').strip().upper()
+            if _v:
+                VAR_OF_ITEM[_itm2] = _v
         if bc and bc not in by_bc:
             _itm = str(r[ix['ITEM_NUMBER']] or '').strip()
             by_bc[bc] = (_itm,
@@ -642,6 +654,9 @@ def build():
                           # the orange Plant ID pill - the number the crews
                           # actually say out loud (A. Fisher, 25 Jul 2026)
                           'pid': EC.plant_id(asset),
+                          # the photo key - shows WHAT the item looks like
+                          # on the card once its variant photo is collected
+                          'v': VAR_OF_ITEM.get(asset, ''),
                           # replacement cost, printed on the A4 in the
                           # highlighter - null shows TBC, never $0
                           'r': _repl_cost(asset, desc)})
@@ -981,6 +996,12 @@ input:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 4px rgba(242,9
 h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px}
 .item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-bottom:7px}
 .item .d{font-size:13px;color:#eef2f8;font-weight:600}.item .n{font-size:11px;color:var(--mut);margin-top:1px}
+/* the item's own picture - what the thing in your name LOOKS like.
+   Photo when its variant shot is collected, two-letter tile until. */
+.item .ith{flex:none;width:72px;height:72px;border-radius:12px;overflow:hidden;background:#1B2330;display:flex;align-items:center;justify-content:center}
+.item .ith img{width:100%;height:100%;object-fit:cover;display:block}
+.item .ith.mono{color:#8A97A8;font-weight:900;font-size:17px;letter-spacing:.5px}
+.item .itxt{flex:1;min-width:0}
 /* .cb = compliance chips under an item. Deliberately NOT .badge/.badges -
    those are the achievement pills above and must not change. The chips
    themselves are inline-styled so they survive print and email. */
@@ -1119,6 +1140,22 @@ __SHEET__
 
 function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
 function ageCls(d){d=parseInt(d);if(isNaN(d))return'a';return d<=2?'g':(d<=4?'a':'r')}
+/* the item's picture tile: its variant photo out of thumbs/, or a clean
+   two-letter tile until the photo hunt collects it (31 Jul 2026) */
+function thMono(n){
+ var w=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
+ return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
+}
+function wthumb(it){
+ if(!it.v) return '<span class="ith mono">'+thMono(it.d)+'</span>';
+ return '<span class="ith"><img src="thumbs/'+encodeURIComponent(it.v)
+  +'.jpg" loading="lazy" alt="" data-m="'+thMono(it.d)+'" onerror="thx(this)"></span>';
+}
+function thx(img){
+ var s=img.parentNode;
+ s.className='ith mono';
+ s.textContent=img.getAttribute('data-m')||'?';
+}
 function xmur3(str){for(var i=0,h=1779033703^str.length;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19}return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);h^=h>>>16;return h>>>0}}
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 function tag(id){return(xmur3(id+'|CoatesK2tag2026')()>>>0).toString(16)}
@@ -1187,7 +1224,7 @@ function go(){
  // encrypted into the payload. It goes in as HTML on purpose - do NOT wrap
  // it in esc() or the crew see markup instead of the tag colour. Every
  // other field still goes through esc().
- p.items.forEach(function(it,ii){html+='<div class="item" style="animation-delay:'+Math.min(ii*0.05,0.65).toFixed(2)+'s"><span class="idot" style="background:'+(it.c||"#8A97A8")+'"></span><div class="itxt"><div class="d">'+esc(it.d)+'</div><div class="n">Item '+esc(it.n)+(it.pid?'<span class="pid">ID '+esc(it.pid)+'</span>':'')+'</div>'+(it.b?'<div class="cb">'+it.b+'</div>':'')+'</div><div class="age '+ageCls(it.days)+'">'+(it.days==='-'?'—':it.days+'d')+'</div></div>'});
+ p.items.forEach(function(it,ii){html+='<div class="item" style="animation-delay:'+Math.min(ii*0.05,0.65).toFixed(2)+'s">'+wthumb(it)+'<div class="itxt"><div class="d">'+esc(it.d)+'</div><div class="n"><span class="idot" style="background:'+(it.c||"#8A97A8")+';width:8px;height:8px;display:inline-block;border-radius:50%;margin-right:5px;vertical-align:0"></span>Item '+esc(it.n)+(it.pid?'<span class="pid">ID '+esc(it.pid)+'</span>':'')+'</div>'+(it.b?'<div class="cb">'+it.b+'</div>':'')+'</div><div class="age '+ageCls(it.days)+'">'+(it.days==='-'?'—':it.days+'d')+'</div></div>'});
  // The one item that's been out longest gets its own line - a story,
  // not a nag. Only shows from 3 days out, so a fresh kit stays clean.
  var lgh=null;p.items.forEach(function(it){var d=parseInt(it.days);if(!isNaN(d)&&(!lgh||d>lgh.d))lgh={d:d,nm:it.d}});
