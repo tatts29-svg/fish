@@ -107,16 +107,20 @@ and waits. `26_`/`27_` turn draft creation off and on.
   flag); **25 were binned as wrong** (`wrong_pictures.json` - the "cumalongs" showed a
   floor crane, "stilsens"/"square" showed concreting machines, "jigsaw"
   was just a battery, etc.) and 10 kept-but-listed as could-be-better.
-  Andrew ruled spanners and sockets fine as rendered. **765 audited
-  384px thumbs ship straight into `Gear_Lookup\thumbs`** via the
-  K2_UPDATE zip (Photos\ is protected from updates by design - thumbs
-  folder is not). One clone-fix: `BULLHOSESTD50MM(2IN)7.5M`'s pack
-  picture was a blue WATER layflat with camlocks - a safety mislead on
-  an air line - so its served thumb is the generic black air-hose
-  render until a real bull hose picture is generated (regen list has
-  the note). The whole HYDCYL GP/plain family shows a clevis machinery
-  ram (kept, listed as could-be-better); the LH/FJ/pancake cylinders
-  are correct. Mechanics: `mygear_thumbs.refresh()` ignores a
+  Andrew ruled spanners and sockets fine as rendered. **All 790
+  audited 384px thumbs ship straight into `Gear_Lookup\thumbs`** via
+  the K2_UPDATE zip (Photos\ is protected from updates by design -
+  thumbs folder is not). Same evening Andrew sent **corrected packs**
+  re-rendering all 44 flagged pictures (every bin + every
+  could-be-better + 2 bonus welders) - all verified right on sight,
+  including the safety one: the bull hose had been a blue WATER
+  layflat with camlocks (dangerous idea next to an air line), now a
+  proper heavy-wall claw-coupling bull hose. `wrong_pictures.json` is
+  now EMPTY - the blocklist mechanism stays for future audits. Trap:
+  the ORIGINAL wrong pack images still sit in Photos\ on his laptops;
+  if one is ever re-extracted with a fresh timestamp, 04 would
+  re-shrink it over the corrected thumb - he was told to replace the
+  originals in Photos\ with the corrected packs. Mechanics: `mygear_thumbs.refresh()` ignores a
   blocked photo and deletes its stale thumb UNLESS a photo newer than
   `wrong_pictures.json` lands in Photos\ - dropping a replacement in
   lifts the block by itself, nothing to edit. Photo Hunt now shows the
@@ -174,10 +178,12 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ## Outstanding
 
-0. **Picture gaps that remain:** 25 binned-as-wrong variants show a
-   letter tile until regenerated, and the 71 consumable SKUs were
-   never in the packs at all. `Docs\Picture_Regen_List.txt` carries
-   the exact filenames, what to show, and the shared style line.
+0. **Picture gaps that remain:** only the 71 consumable SKUs - they
+   were never in any pack. `Docs\Picture_Regen_List.txt` carries the
+   exact filenames and the shared style line. (Andrew's corrected
+   packs, 31 Jul evening, re-rendered every flagged hire picture -
+   all 44 verified right, blocklist emptied, all 790 hire variants
+   serve a correct picture.)
 1. **Verify pricing and take in Andrew's newer register sheet.**
    Long-standing, not started.
 2. **Replacement-cost gap list** — 38 descriptions covering 58 items

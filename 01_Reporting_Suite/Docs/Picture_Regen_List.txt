@@ -1,9 +1,16 @@
 COATES K2 - GEAR PICTURE REGENERATION LIST
 Cement Australia K2 Shutdown 2026 - Gladstone
-Author: Andrew Fisher | POWERED BY SITEIQ | built 31 Jul 2026 (part 5 in)
+Author: Andrew Fisher | POWERED BY SITEIQ | built 31 Jul 2026
+(corrected packs 1-5 in: every flagged picture re-rendered right)
 
-All 790 hire variants now have a picture on the pages except the
-25 binned below. Only consumables have none at all.
+ALL 790 hire variants now show an audited, correct picture.
+Nothing is binned. The only gap left is the consumables below.
+
+HOUSEKEEPING: in Photos\ on the laptops, replace the ORIGINAL
+pack folders with the CORRECTED ones (same filenames - just let
+them overwrite, or bin the old folders first). If an original
+wrong picture is ever re-extracted fresh into Photos\, the 04
+build would trustingly re-shrink it over the corrected thumb.
 
 THE LOOK (use this same style line for every new picture so they
 all match the pack):
@@ -13,213 +20,10 @@ all match the pack):
   people, square 1024x1024 JPEG.
 
 Save each picture as EXACTLY the filename shown (.jpg), drop into
-Photos\, run 04. The audit blocklist lifts by itself the moment a
-newer picture lands.
+Photos\, run 04.
 
 ======================================================================
-1) BINNED BY THE AUDIT - old picture showed the wrong thing
-   These 25 show a letter tile on My Gear until replaced.
-======================================================================
-
-  FILE : CUMALONG0.5T.jpg
-  ITEM : Cumalong - 0.5t
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG0.75T.jpg
-  ITEM : Cumalong - 0.75t
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG0.80TX1.5M.jpg
-  ITEM : Cumalong - 0.80T x 1.5M
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG1.5T.jpg
-  ITEM : Cumalong - 1.5t
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG1.6TX1.5M.jpg
-  ITEM : Cumalong - 1.6T x 1.5M
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG3.2TX1.5M.jpg
-  ITEM : Cumalong - 3.2t x 1.5M
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG3T.jpg
-  ITEM : Cumalong - 3.0t
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG3TX1.5M.jpg
-  ITEM : Cumalong - 3t x 1.5M
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG6.3T.jpg
-  ITEM : Cumalong 6.3t (1.5m)
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : CUMALONG6T.jpg
-  ITEM : Cumalong - 6.0t
-  WAS  : picture showed a wheeled floor crane - a cumalong is a hand lever hoist with chain and two hooks
-  SHOW : a hand lever hoist (lever block / come-along): compact steel body, ratchet lever handle, load chain with a hook each end
-
-  FILE : DIVIDER100MM.jpg
-  ITEM : Divider - 100mm
-  WAS  : picture showed an excavator ripper attachment - a divider is a spring-leg compass hand tool
-  SHOW : a spring-leg divider: two pointed steel legs joined by a pivot and spring bow, like a compass
-
-  FILE : DIVIDER150MM.jpg
-  ITEM : Divider - 150mm
-  WAS  : picture showed an excavator ripper attachment - a divider is a spring-leg compass hand tool
-  SHOW : a spring-leg divider: two pointed steel legs joined by a pivot and spring bow, like a compass
-
-  FILE : GRINDERDIE18V.jpg
-  ITEM : Grinder Die  Battery 18v
-  WAS  : picture showed a cordless pipe-threader style tool - a die grinder is a slim tool with a small collet nose
-  SHOW : a cordless 18V die grinder: slim inline battery tool with a collet nose and small burr bit
-
-  FILE : GRINDERDIEELECT.jpg
-  ITEM : Grinder - Die (240V)
-  WAS  : picture showed a pipe threading machine - a die grinder is a small handheld rotary grinder
-  SHOW : a small handheld electric die grinder: slim inline body with a collet nose and small burr bit
-
-  FILE : HAMMERCHIPPINGSOLIDSTEEL.jpg
-  ITEM : Hammer - Chipping
-  WAS  : picture showed the AIR chipping hammer - this code is the solid steel hand slag hammer
-  SHOW : a one-piece solid forged steel welders chipping hammer: chisel one end, point the other, coil or plain steel handle
-
-  FILE : JIGSAWBAT.jpg
-  ITEM : Jig Saw  Battery
-  WAS  : picture showed only a battery pack - no jigsaw in shot
-  SHOW : a cordless jigsaw power tool: D-handle body, flat shoe plate, thin vertical blade
-
-  FILE : LEADSTANDMAG.jpg
-  ITEM : Lead Stand - Magnetic
-  WAS  : picture showed a machinist indicator base - the item is the magnetic pole stand leads hang off
-  SHOW : a site lead stand with a heavy magnetic base and tall upright pole with hooks for draping extension leads
-
-  FILE : LEADSTANDW_FILL.jpg
-  ITEM : Extension Lead Stand Water Filled
-  WAS  : picture showed a powered cord reel - the item is the water-filled base and pole leads hang off
-  SHOW : a lead stand on a water-fillable plastic ballast base: tall pole with a hook on top for extension leads
-
-  FILE : NEEDLEGUNAIR.jpg
-  ITEM : Needlegun Air
-  WAS  : picture showed a wheeled trolley machine - the item is a handheld air needle gun
-  SHOW : a handheld pneumatic needle gun / needle scaler: cylindrical air tool with a bundle of steel needles at the nose and an air hose fitting
-
-  FILE : PINCHBAR.jpg
-  ITEM : Pinch Bar
-  WAS  : picture showed a hydraulic machine - a pinch bar is a plain steel pry bar
-  SHOW : a plain steel pinch bar / crow bar: long hexagonal steel bar, one chisel end, one angled point
-
-  FILE : SQUARE200MM.jpg
-  ITEM : Square - 200mm
-  WAS  : picture showed a concrete power trowel - the item is a 200mm engineers square
-  SHOW : an engineers try square: steel blade at exactly 90 degrees to a thicker stock, small hand measuring tool
-
-  FILE : STILSEN600MM.jpg
-  ITEM : Stilsen - 600mm
-  WAS  : picture showed a concrete power trowel - a stilsen is a pipe wrench
-  SHOW : a Stillson pipe wrench: long straight handle, serrated adjustable jaw
-
-  FILE : STILSEN900MM.jpg
-  ITEM : Stilsen - 900mm
-  WAS  : picture showed a concrete power trowel - a stilsen is a pipe wrench
-  SHOW : a Stillson pipe wrench: long straight handle, serrated adjustable jaw
-
-  FILE : STILSENALUMINIUM350MM.jpg
-  ITEM : Stilsen - Aluminium - 350mm
-  WAS  : picture showed a concrete bull float - a stilsen is a pipe wrench
-  SHOW : a Stillson pipe wrench: long straight handle, serrated adjustable jaw
-
-  FILE : WELDPIPEWRAP.jpg
-  ITEM : Welding - Pipe Wrap
-  WAS  : picture showed a pipe clamp machine - pipe wrap is the flexible wrap-around marking strip
-  SHOW : a flexible wrap-around pipe marking strip, coiled dark band used to mark a straight cutting line around pipe
-
-======================================================================
-2) COULD BE BETTER - still serving, but the render is off
-======================================================================
-
-  FILE : AIRARCGOUG.jpg
-  ITEM : Air Arc Gouging Torch
-  SHOW : an Arcair-style carbon arc gouging torch: pistol grip with air lever, rotating copper head clamping a carbon electrode, combined cable and air hose
-
-  FILE : AIRNOZZLELGE.jpg
-  ITEM : Air Nozzle - Large
-  SHOW : check what the store actually issues as an air nozzle - blow gun tip or air-mover horn - and photograph/generate that
-
-  FILE : AIRNOZZLESMALL.jpg
-  ITEM : Air Nozzle - Small
-  SHOW : same as AIRNOZZLELGE, smaller
-
-  FILE : BULLHOSESTD50MM(2IN)7.5M.jpg
-  ITEM : Bull Hose Std - 50MM (2in) - 7.5Mtr
-  SHOW : NOTE: currently serving a stand-in generic black air-hose picture (the pack's own picture was a blue WATER layflat with camlocks - unsafe mislead for an air line). Generate a proper heavy-wall 2in rubber bull hose with Minsup/claw couplings and safety whips
-
-  FILE : HYDCYL10T.jpg
-  ITEM : Hydraulic Cylinder - 10t
-  SHOW : a squat porta-power style hydraulic jacking cylinder with saddle and coupler, not a machinery ram with clevis eyes
-
-  FILE : HYDCYL10TGP.jpg
-  ITEM : Hydraulic Cylinder - General Purpose Cylinder 10t
-  SHOW : same as HYDCYL10T
-
-  FILE : HYDCYL10TGP105MM.jpg
-  ITEM : Hydraulic Cylinder - General Purpose Cylinder 10t/105mm Stroke
-  SHOW : same as HYDCYL10T
-
-  FILE : HYDCYL10TGP203MM.jpg
-  ITEM : Hydraulic Cylinder - General Purpose Cylinder 10t/203mm Stroke
-  SHOW : same as HYDCYL10T
-
-  FILE : HYDCYL10TGP257MM.jpg
-  ITEM : Hydraulic Cylinder - General Purpose Cylinder 10t/257mm Stroke
-  SHOW : same as HYDCYL10T
-
-  FILE : HYDCYL20T.jpg
-  ITEM : Hydraulic Cylinder - 20t
-  SHOW : same as HYDCYL10T
-
-  FILE : HYDCYL20TGP102MM.jpg
-  ITEM : Hydraulic Cylinder - General Purpose Cylinder 25t/102mm Stroke
-  SHOW : same as HYDCYL10T
-
-  FILE : HYDCYL25TGP.jpg
-  ITEM : Hydraulic Cylinder - General Purpose Cylinder 25t
-  SHOW : same as HYDCYL10T
-
-  FILE : QUICKCLAMP300MM.jpg
-  ITEM : Quickclamp - 300mm
-  SHOW : a one-handed trigger bar clamp (Irwin Quick-Grip style)
-
-  FILE : QUICKCLAMP500MM.jpg
-  ITEM : Quickclamp - 500mm
-  SHOW : same as QUICKCLAMP300MM, longer bar
-
-  FILE : QUICKCLAMP600MM.jpg
-  ITEM : Quickclamp - 600mm
-  SHOW : same as QUICKCLAMP300MM, longer bar
-
-  FILE : SASHCLAMP400MM.jpg
-  ITEM : Sash Clamp 400mm
-  SHOW : a T-bar sash clamp with sliding tail stop, flat bar
-
-  FILE : WADPUNCHSET14-19MM.jpg
-  ITEM : Wad Punch - 14 - 19mm
-  SHOW : a set of hand-held hollow wad punches struck with a hammer, in a case
-
-======================================================================
-3) NO PICTURE YET - consumables (71)
+NO PICTURE YET - consumables (71)
 ======================================================================
   CEME9016-584189.jpg          ABRASIVE - METALCUT ROCOL RTD 500G - K2/26
   CEME9016-590668.jpg          ABRASIVE DISC - CUTOFF FH38 127 X 2.5 X 22.2 - K2/26
