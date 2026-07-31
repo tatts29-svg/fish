@@ -317,8 +317,13 @@ def refresh(here=None, quiet=False):
 
     made = 0
     prof = os.path.join(tempfile.gettempdir(), 'coates_thumbs_prof')
-    for k in range(0, len(pend), 50):
-        batch = pend[k:k + 50]
+    #  smaller batches and a longer clock: 50 x 1024px images could
+    #  outrun the old 30s budget on a slow laptop, and every image in a
+    #  timed-out batch was silently skipped - the page then shows a
+    #  monogram while the hunt says DONE ("some pictures dont show",
+    #  31 Jul 2026). Failures now get a second, smaller go, and
+    #  whatever still won't shrink is NAMED at the end.
+    def _shrink(batch):
         items = []
         for code, p in batch:
             url = 'file:///' + os.path.abspath(p).replace('\\', '/').replace(' ', '%20')
@@ -348,19 +353,20 @@ def refresh(here=None, quiet=False):
             r = subprocess.run(
                 [browser, '--headless', '--disable-gpu', '--no-first-run',
                  '--user-data-dir=' + prof, '--allow-file-access-from-files',
-                 '--virtual-time-budget=30000', '--dump-dom'] + extra +
+                 '--virtual-time-budget=90000', '--dump-dom'] + extra +
                 ['file:///' + hp.replace('\\', '/')],
-                capture_output=True, timeout=180)
+                capture_output=True, timeout=300)
             dom = r.stdout.decode('utf-8', 'replace')
         except Exception:
             dom = ''
         m = re.search(r'@@(\{.*?\})@@', dom, re.S)
         if not m:
-            continue
+            return 0
         try:
             res = json.loads(m.group(1))
         except ValueError:
-            continue
+            return 0
+        n_ok = 0
         for code, dataurl in res.items():
             if not dataurl or ',' not in dataurl:
                 continue
@@ -368,9 +374,26 @@ def refresh(here=None, quiet=False):
                 raw = base64.b64decode(dataurl.split(',', 1)[1])
                 with open(tpath(code), 'wb') as f:
                     f.write(raw)
-                made += 1
+                n_ok += 1
             except Exception:
                 continue
+        return n_ok
+
+    for k in range(0, len(pend), 25):
+        made += _shrink(pend[k:k + 25])
+    #  second, gentler go for anything the first pass dropped
+    failed = [(c, p) for c, p in pend if not os.path.isfile(tpath(c))]
+    for k in range(0, len(failed), 5):
+        made += _shrink(failed[k:k + 5])
+    still = sorted(c for c, p in pend if not os.path.isfile(tpath(c)))
+    if still and not quiet:
+        print('  Thumbnails: {} photo(s) would NOT shrink - the page shows'
+              ' their two-letter tile until they do:'.format(len(still)))
+        for c in still[:10]:
+            print('     ' + c)
+        if len(still) > 10:
+            print('     ...and {} more'.format(len(still) - 10))
+        print('  Open each in Paint, Save As JPEG over itself, run 04 again.')
     ready = sum(1 for c in photos if os.path.isfile(tpath(c)))
     return (len(photos), made, ready)
 

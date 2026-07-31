@@ -51,7 +51,14 @@ def main():
         dict(mygear_thumbs._photo_files(HERE)), reg.keys(),
         loose={c: v.get('n', '') for c, v in reg.items() if v.get('drv')})
 
+    #  "covered" is not "on the page": the page shows the SHRUNK thumb
+    #  out of Gear_Lookup\thumbs, built by 04. A photo sitting in
+    #  Photos\ that hasn't shrunk yet still shows a two-letter tile -
+    #  so this list says which it is, honestly ("some pictures dont
+    #  show and it says i have all images", 31 Jul 2026).
+    tdir = os.path.join(HERE, 'Gear_Lookup', 'thumbs')
     missing, covered = [], []
+    unshrunk = 0
     for code, e in reg.items():
         row = {'code': code, 'n': e['n'] or code, 'f': e['f'] or '',
                'q': e['q'],
@@ -62,6 +69,9 @@ def main():
             missing.append(row)
         else:
             row['by'] = os.path.basename(hit)
+            row['sh'] = os.path.isfile(os.path.join(tdir, safe(code) + '.jpg'))
+            if not row['sh']:
+                unshrunk += 1
             covered.append(row)
     #  biggest wins first: the photo that pictures 24 bollards beats
     #  the one that pictures a single spanner
@@ -146,11 +156,17 @@ def main():
     #  ---- sheet 2: covered, and by which file ------------------------
     w2 = wb.create_sheet('COVERED ({})'.format(len(covered)))
     brand(w2, 'PICTURES ALREADY COVERED',
-          'Every register code with a photo, and the file covering it - '
-          'including near-enough names doing their job.')
+          'Every register code with a photo, the file covering it, and '
+          'whether the PAGE is actually showing it yet.'
+          + (' {} row(s) say RUN 04 - the photo is in the folder but not '
+             'shrunk onto the page yet.'.format(unshrunk) if unshrunk
+             else ''))
     header(w2, 5, [('WHAT IT IS', 52), ('AISLE / FAMILY', 20),
                    ('ITEMS BEHIND IT', 16), ('KIND', 16),
-                   ('COVERED BY (file in Photos)', 48)])
+                   ('COVERED BY (file in Photos)', 48),
+                   ('ON THE PAGE?', 22)])
+    #  the not-on-the-page rows first, so the problem is at the top
+    covered.sort(key=lambda m: (m['sh'], m['n'].upper()))
     r = 6
     for m in covered:
         w2.cell(row=r, column=1, value=m['n']).border = thin
@@ -160,6 +176,11 @@ def main():
         bc = w2.cell(row=r, column=5, value=m['by'])
         bc.font = Font(name='Consolas', size=10)
         bc.border = thin
+        sc = w2.cell(row=r, column=6,
+                     value='YES' if m['sh'] else 'RUN 04 - not shrunk yet')
+        sc.font = (Font(bold=True, color='2BB673') if m['sh']
+                   else Font(bold=True, color='E23B2E'))
+        sc.border = thin
         r += 1
 
     out = os.path.join(HERE, 'Missing_Pictures_{}.xlsx'.format(
@@ -169,6 +190,10 @@ def main():
     print(' Register codes            : {}'.format(len(reg)))
     print(' Covered by a photo        : {}'.format(len(covered)))
     print(' Still missing a picture   : {}'.format(len(missing)))
+    if unshrunk:
+        print(' In the folder, NOT on the : {}  <-- run 04; if a row stays'
+              .format(unshrunk))
+        print(' page yet (see COVERED)         red, 04 will name the file')
     print('')
     print(' Written to : {}'.format(out))
     print('')
