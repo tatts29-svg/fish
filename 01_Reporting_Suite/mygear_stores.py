@@ -1031,6 +1031,10 @@ def read(rental_path, stocktake_path, master=None, today=None,
         #  windows (Jul-Aug = BLUE) - the page prints the word it is
         #  told, so a new quarter needs no page change
         'tag': _tag_now(),
+        #  hire history per item off the charge feed - times out this
+        #  shut + who had it last, shown wherever an item is named
+        #  (Andrew, 31 Jul 2026)
+        'hist': {k: [v[0], v[1]] for k, v in hire_hist.items() if v[0]},
         'chase': {'tools': chase_t, 'plant': chase_p,
                   'toolUnits': by_unit(chase_t),
                   'plantUnits': by_unit(chase_p)},
@@ -2123,6 +2127,12 @@ function findGo(){
    +(hits.length>=12?'<div class="kw cut">Showing the first 12 &mdash; keep '
      +'typing to narrow it.</div>':'');
 }
+function histLine(i){
+  var h2=(D.hist||{})[i];
+  if(!h2)return '';
+  return ' &middot; hired '+h2[0]+'&times; this shut'
+    +(h2[1]?' &middot; last: <b>'+esc(h2[1])+'</b>':'');
+}
 function findCard(it,e,F){
   var v=F.nv[(e.n||'').toUpperCase()]||'';
   var th=v?'<span class="kth2"><img src="thumbs/'+encodeURIComponent(tsafe(v))
@@ -2133,7 +2143,7 @@ function findCard(it,e,F){
     cls='fo'; head='OUT WITH A CREW';
     body='<b>'+esc(e.w||'?')+'</b> &middot; '+esc(e.co||'')
       +(e.d!=null?' &middot; <b>'+e.d+(e.d===1?' day':' days')+'</b> out':'')
-      +'<br>Lives in '+esc(e.u||'?');
+      +'<br>Lives in '+esc(e.u||'?')+histLine(it);
   } else if(e.s==='A'){
     cls='fa'; head='ON THE SHELF';
     var mates=(F.av[e.k||'']||[]).length;
@@ -2147,7 +2157,7 @@ function findCard(it,e,F){
     cls='fw';
     head=(e.hs==='O')?'ON HIRE - NOT COUNTED'
         :'NOT SEEN IN '+(e.d2!=null?e.d2+'d':'A WHILE');
-    body='Lives in <b>'+esc(e.u||'?')+'</b>'
+    body='Lives in <b>'+esc(e.u||'?')+'</b>'+histLine(it)
       +(e.by?' &middot; last sighted by <b>'+esc(e.by)+'</b>':'')
       +'<br>On this aisle&rsquo;s hunt list &mdash; Stocktake tab.';
   }
@@ -2288,7 +2298,7 @@ function paneChase(){
           +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div>'
           +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)
-          +(x.i?' &middot; Item '+esc(x.i):'')+'</div></div></div>';
+          +(x.i?' &middot; Item '+esc(x.i):'')+histLine(x.i)+'</div></div></div>';
       }).join('')+'</div></div>';
   });
   h+='<div class="uhead">Site plant, barriers &amp; chutes &mdash; '+c.plant.length
@@ -3630,7 +3640,8 @@ function panePlant(){
     return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;}
   function byName(a,b){return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;}
   function prow(x,em,emCls){
-    return '<div class="kid'+(x.i?' hasqr':'')+'">'
+    return '<div class="kid kidth'+(x.i?' hasqr':'')+'">'+thTile(x.v,x.n,x.va)
+      +'<div class="kbody">'
       +(x.i?'<div class="kqr">'+qr(x.i,56)+'</div>':'')
       +'<div class="kt"><b>'+esc(x.n)
       +(x.p?' <span style="color:var(--org);font-weight:800">&middot; Plant ID '
@@ -3638,7 +3649,8 @@ function panePlant(){
       +'</b><em'+(emCls?' class="'+emCls+'"':'')+'>'+em+'</em></div>'
       +'<div class="kw">'+(x.i?'Item '+esc(x.i)+' &middot; ':'')+esc(x.u)
       +(x.w?' &middot; <b>'+esc(x.w)+'</b>'+(x.co?' &middot; '+esc(x.co):''):'')
-      +'</div>'+compChips(x.fl)+'</div>';
+      +histLine(x.i)
+      +'</div>'+compChips(x.fl)+'</div></div>';
   }
   Object.keys(cats).sort(function(a,b){
     var A=cats[a],B=cats[b];
@@ -3928,8 +3940,11 @@ function paneIdle(){
       +'<div class="gq"><b>'+list.length+'</b><span>items</span></div>'
       +'</button><div class="kids">'
       +list.slice(0,60).map(function(x){
-        return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
-          +(x.d==null?'':'<em class="o">'+x.d+' days</em>')+'</div></div>';
+        return '<div class="kid kidth">'+thTile(x.v,x.n,x.va)
+          +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
+          +(x.d==null?'':'<em class="o">'+x.d+' days</em>')+'</div>'
+          +'<div class="kw">'+(x.i?'Item '+esc(x.i):'')
+          +histLine(x.i)+'</div></div></div>';
       }).join('')+more(60,list.length,'machines')+'</div></div>';
   });
   return h;
