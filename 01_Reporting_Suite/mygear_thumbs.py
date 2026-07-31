@@ -49,6 +49,13 @@ Run 56_PHOTO_HUNT.bat for the full wanted list - every code, what it
 is in plain English, and a search button each. jpg or png, any size,
 any source (phone photo of the shelf beats a studio shot). The next
 04 build shrinks them and the pictures appear in My Gear.
+
+CLOSE COUNTS. Underscores and spaces in the filename don't matter,
+and extra words on the end are fine once the code part is there:
+
+    MOTOROLA_DP4801E_TWO_WAY_RADIO_WITH_HANDPIECE.jpg
+      -> covers the model key MOTOROLADP4801ETWOWAYRADIO,
+         and through it EVERY radio, every serial number.
 """
 
 
@@ -57,12 +64,26 @@ _SER_RE = re.compile(r'^[0-9]{3}[A-Z0-9]{5,}$')
 
 def derived_keys(desc):
     """Photo keys for gear SiteIQ gives NO product variant - the radios
-    and gas monitors (31 Jul 2026). 'Motorola DP4801e Two-Way Radio
-    871TRBL679' -> ('871TRBL679', 'MOTOROLADP4801ETWOWAYRADIO'):
-    a photo named by the SERIAL covers that one radio; a photo named by
-    the model code covers the lot. The pages try serial first, then
-    model, then the monogram."""
+    and gas monitors (31 Jul 2026).
+
+    'Motorola DP4801e Two-Way Radio - Serial 871TNK7668'
+        -> ('871TNK7668', 'MOTOROLADP4801ETWOWAYRADIO')
+    'Multi-Gas Detector - Honeywell BW Flex - Serial GM206136'
+        -> ('GM206136', 'MULTIGASDETECTORHONEYWELLBWFLEX')
+
+    A photo named by the SERIAL covers that one unit; a photo named by
+    the model code covers the fleet. The pages try serial first, then
+    model, then the monogram.
+
+    The register writes the serial behind the word SERIAL, so split on
+    the word, not on guessing the serial's shape - gas serials like
+    GM206136 start with letters and a shape-guess misses them, which
+    left every monitor keyed apart from its own fleet and no photo able
+    to cover them (caught 31 Jul 2026: 'none have pictures attached')."""
     d = re.sub(r'[^A-Z0-9 ]', '', str(desc or '').strip().upper())
+    m = re.search(r'\bSERIAL\s+([A-Z0-9]+)\s*$', d)
+    if m:
+        return m.group(1), ''.join(d[:m.start()].split())[:40]
     toks = d.split()
     ser = ''
     if (toks and _SER_RE.match(toks[-1])
@@ -120,13 +141,19 @@ def variant_register(here=None):
         ix = {str(v or '').strip(): i for i, v in enumerate(rows[0])}
         for r in rows[1:]:
             code = str(r[ix.get('PRODUCT_VARIANT', -1)] or '').strip().upper()
+            drv = 0
             if not code:
                 #  radios / gas monitors: no variant in SiteIQ, so the
-                #  wanted list asks for a MODEL photo instead
+                #  wanted list asks for a MODEL photo instead. Marked
+                #  'drv' so photo matching may read the words loosely -
+                #  these codes never came off a register sheet anyone
+                #  could copy a filename from.
                 _ser, code = derived_keys(r[ix.get('ITEM_DESCRIPTION', -1)])
+                drv = 1
                 if not code:
                     continue
-            e = out.setdefault(code, {'n': '', 'f': '', 'q': 0, 'k': 'hire'})
+            e = out.setdefault(code, {'n': '', 'f': '', 'q': 0, 'k': 'hire',
+                                      'drv': drv})
             e['q'] += 1
             if not e['n']:
                 e['n'] = str(r[ix.get('ITEM_DESCRIPTION', -1)] or '').strip()
@@ -172,11 +199,86 @@ def _photo_files(here=None):
     return out
 
 
+def _norm(s):
+    """A code with everything but the letters and digits stripped -
+    what two names have to share to be the same thing."""
+    return re.sub(r'[^A-Z0-9]', '', str(s or '').upper())
+
+
+def alias_photos(photos, codes, loose=None):
+    """Photos named ALMOST right still land (Andrew's radio and gas
+    monitor shots, 31 Jul 2026: none matched - underscores, a trailing
+    WITH_HANDPIECE, and a gas photo worded like the box while the
+    register words it like the report).
+
+    Three ways a photo is claimed for a code it wasn't exactly named as:
+      1. Same letters and digits - underscores, spaces and dashes in
+         the filename don't matter.
+      2. The filename STARTS with the code and runs on - extra words
+         like WITH_HANDPIECE are fine - but only for long codes
+         (16+ characters), so a photo called SOCKET.jpg can never
+         claim every socket in the register.
+      3. For DERIVED codes only (loose = {code: plain name} - the
+         radios and gas monitors, whose codes never appear on any
+         sheet a filename could be copied from): the photo's words are
+         matched against the item's plain name. HONEYWELL_BW_FLEX_4_
+         GAS_MONITOR shares Honeywell, BW, Flex and Gas with
+         'Multi-Gas Detector - Honeywell BW Flex' - that's a claim.
+         Needs at least 3 shared words and 60% of the photo's words,
+         so it stays too tight to misfire on the rest of the store.
+
+    The register keys for radios and gas monitors are model codes;
+    every serialised unit falls back to its model photo on the pages,
+    so one claimed photo pictures the whole fleet."""
+    if not photos:
+        return photos
+    loose = loose or {}
+    normed, toks = {}, {}
+    for stem, path in photos.items():
+        normed.setdefault(_norm(stem), path)
+        toks[path] = set(t for t in re.split(r'[^A-Z0-9]+', stem.upper()) if t)
+    for code in codes:
+        code = safe_name(str(code or '').strip().upper())
+        if not code or code in photos:
+            continue
+        nc = _norm(code)
+        if not nc:
+            continue
+        hit = normed.get(nc)
+        if hit is None and len(nc) >= 16:
+            for ns in normed:
+                if ns.startswith(nc):
+                    hit = normed[ns]
+                    break
+        if hit is None and code in loose:
+            name = set(t for t in re.split(
+                r'[^A-Z0-9]+', str(loose[code] or '').upper()) if t)
+            best, bestn = None, 0
+            for path, ft in toks.items():
+                got = len(ft & name)
+                if got >= 3 and got >= 0.6 * len(ft) and got > bestn:
+                    best, bestn = path, got
+            hit = best
+        if hit is not None:
+            photos[code] = hit
+    return photos
+
+
 def refresh(here=None, quiet=False):
     """Shrink new/changed photos into Gear_Lookup\\thumbs. Returns
     (photos_found, thumbs_made_now, thumbs_ready_total)."""
     here = here or HERE
     photos = _photo_files(here)
+    #  near-enough filenames claim their register code - the register
+    #  read can fail quietly (no exports on this machine = no aliases,
+    #  exact names still work)
+    try:
+        reg = variant_register(here)
+        photos = alias_photos(photos, reg.keys(),
+                              loose={c: v.get('n', '') for c, v in reg.items()
+                                     if v.get('drv')})
+    except Exception:
+        pass
     tdir = os.path.join(here, 'Gear_Lookup', 'thumbs')
     os.makedirs(tdir, exist_ok=True)
 
