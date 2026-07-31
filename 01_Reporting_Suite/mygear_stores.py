@@ -637,6 +637,11 @@ def read(rental_path, stocktake_path, master=None, today=None,
     #                  so a stale item can say "missed on N walks"
     _unit_rows = {}
     _unit_walks = {}
+    #  sightings per (shift-day, D/N) per area - the raw material of the
+    #  completion record (Andrew, 31 Jul 2026: "a record of what they
+    #  actually did on the previous night... how do i know what they
+    #  have done i dont")
+    _sight = {}
     if stocktake_path and os.path.isfile(stocktake_path):
         six, sk = sheet(stocktake_path, 'STOCKTAKE')
 
@@ -676,6 +681,12 @@ def read(rental_path, stocktake_path, master=None, today=None,
             if not _fr['v']:
                 _fr['v'] = var_by_item.get(_it_st, '')
             _unit_walks.setdefault(_u_st, set()).add(d)
+            _d0, _hm0 = au_dt(r[six['LAST_SIGHTED_DATE_TIME']])
+            if _d0:
+                _sd, _sh = _shift_of(_d0, _hm0 or (12, 0))
+                if _sd and 0 <= (today - _sd).days <= 14:
+                    _se = _sight.setdefault((_sd.isoformat(), _sh), {})
+                    _se[_u_st] = _se.get(_u_st, 0) + 1
             if age <= 1:
                 stock['w1'] += 1
             if age <= 3:
@@ -782,6 +793,58 @@ def read(rental_path, stocktake_path, master=None, today=None,
             orders['dN'] += _mv['n']
         orders['d'].sort(key=lambda o: -o['n'])
         orders['n'].sort(key=lambda o: -o['n'])
+
+    #  clear direction, no overlap: every area card carries WHOSE aisle
+    #  it is today, so day and night never walk the same patch
+    _own = {}
+    for _o in orders['d']:
+        _own[_o['u']] = 'd'
+    for _o in orders['n']:
+        _own[_o['u']] = 'n'
+    for _a in stock.get('areas', []):
+        _a['own'] = _own.get(_a['u'], '')
+
+    #  THE COMPLETION RECORD - writes itself, every build. Today's
+    #  orders are remembered in stocktake_log.json; the sightings each
+    #  shift actually made (off the scanner timestamps) are written
+    #  against each day. Nobody fills in a form; the record simply
+    #  exists next morning. Local data file - never in git or a zip.
+    stock['log'] = []
+    try:
+        import json as _json
+        _lp = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           'stocktake_log.json')
+        try:
+            with open(_lp, 'r', encoding='utf-8') as _f:
+                _slog = _json.load(_f)
+        except (OSError, ValueError):
+            _slog = {}
+        _tiso = today.isoformat()
+        _e0 = _slog.setdefault(_tiso, {})
+        if 'orders' not in _e0:
+            _e0['orders'] = {
+                'd': [[_o['u'], _o['n']] for _o in orders['d']],
+                'n': [[_o['u'], _o['n']] for _o in orders['n']]}
+        for (_di, _sh), _cnts in _sight.items():
+            _e = _slog.setdefault(_di, {})
+            _e.setdefault('done', {})[_sh.lower()] = _cnts
+        _cut = (today - dt.timedelta(days=30)).isoformat()
+        for _k in [k for k in list(_slog) if k < _cut]:
+            del _slog[_k]
+        with open(_lp, 'w', encoding='utf-8') as _f:
+            _json.dump(_slog, _f)
+        for _di in sorted([k for k in _slog if k <= _tiso],
+                          reverse=True)[:7]:
+            _e = _slog.get(_di, {})
+            _dd = dt.date.fromisoformat(_di)
+            stock['log'].append({
+                'dt': _dd.strftime('%a %d %b'),
+                'today': _di == _tiso,
+                'o': _e.get('orders', {'d': [], 'n': []}),
+                'c': _e.get('done', {})})
+    except Exception as _le:
+        stock['log'] = []
+        print('  Stocktake record: skipped this build ({})'.format(_le))
 
     battle = _battle(txn_path, stocktake_path) if txn_path else None
 
@@ -2172,19 +2235,78 @@ function paneStock(){
        +'</div>';
     });
   }
+  /* THE RECORD - what each shift actually counted, written by the
+     scanner timestamps. The answer to "how do I know what they did". */
+  var lg=s.log||[];
+  if(lg.length){
+    h+='<div class="uhead">The record &mdash; what each shift actually did</div>'
+     +'<div class="note"><b>This writes itself from the scanner timestamps '
+     +'&mdash; nobody fills in a form.</b> Every day: what was assigned, '
+     +'what actually got sighted, what got missed. An aisle walked by both '
+     +'shifts shows up too &mdash; that&rsquo;s wasted legs.</div>';
+    lg.forEach(function(dy){
+      var cd=dy.c.d||{}, cn=dy.c.n||{};
+      var totD=0, totN=0, u2;
+      for(u2 in cd) totD+=cd[u2];
+      for(u2 in cn) totN+=cn[u2];
+      h+='<div class="grp"><button type="button" onclick="tog(this)">'
+       +'<div class="gn"><b>'+dy.dt+(dy.today?' &middot; today so far':'')+'</b>'
+       +'<span>assigned v actually counted, both shifts</span></div>'
+       +'<div class="gq"><b>'+(totD+totN)+'</b><span>sighted</span></div>'
+       +'</button><div class="kids'+(dy.today?' on':'')+'">'
+       +stLogShift('DAY SHIFT',dy.o.d||[],cd,cn)
+       +stLogShift('NIGHT SHIFT',dy.o.n||[],cn,cd)
+       +'</div></div>';
+    });
+  }
   /* the area scoreboard - pin-point where counting is needed: worst
      areas first, a percentage on every card */
   h+='<div class="uhead">Where to walk &mdash; every storage area</div>';
   h+=(s.areas||[]).map(function(a,i){
     var c=a.p>=90?'var(--gd)':a.p>=70?'var(--am)':'var(--rd)';
     return '<button type="button" class="ucard" onclick="stArea('+i+')">'
-     +'<div class="urow"><div class="un"><b>'+esc(a.u)+'</b>'
-     +'<span>'+a.s7+' of '+a.t+' sighted this week</span></div>'
+     +'<div class="urow"><div class="un"><b>'+esc(a.u)
+     +(a.own==='d'?' <span class="ghp" style="background:var(--am)">DAYS TODAY</span>'
+      :a.own==='n'?' <span class="ghp" style="background:var(--org)">NIGHTS TODAY</span>':'')
+     +'</b><span>'+a.s7+' of '+a.t+' sighted this week</span></div>'
      +'<div class="upct" style="color:'+c+'">'+a.p+'%</div></div>'
      +'<div class="ubar"><i style="width:'+a.p+'%;background:'+c+'"></i></div>'
      +(a.b[5]?'<div class="uwarn">'+a.b[5]+' not seen in 30+ days</div>':'')
      +'</button>';
   }).join('');
+  return h;
+}
+/* one shift's line in the record: each assigned aisle scored CLEARED /
+   PARTIAL / NOT TOUCHED, plus anything counted off-list, plus a flag
+   when the other shift walked the same aisle the same day */
+function stLogShift(lab,assigned,counted,other){
+  var tot=0,u; for(u in counted) tot+=counted[u];
+  var h='<div class="kw" style="padding:8px 2px 4px;font-weight:800;color:var(--dim)">'
+   +lab+' &middot; '+tot+' line'+(tot===1?'':'s')+' sighted</div>';
+  if(!assigned.length&&!tot){
+    return h+'<div class="kw" style="padding:0 2px 8px">Nothing assigned, '
+     +'nothing counted.</div>';
+  }
+  var seen={};
+  assigned.forEach(function(o){
+    var u3=o[0], n3=o[1], c3=counted[u3]||0; seen[u3]=1;
+    var pill,pc;
+    if(c3>=n3){pill='CLEARED';pc='var(--gd)';}
+    else if(c3>0){pill='PARTIAL &middot; '+c3+' of '+n3;pc='var(--am)';}
+    else{pill='NOT TOUCHED';pc='var(--rd)';}
+    h+='<div class="kid"><div class="kt"><b>'+esc(u3)+'</b>'
+     +'<em><span class="ghp" style="background:'+pc+'">'+pill+'</span></em></div>'
+     +'<div class="kw">'+n3+' assigned &middot; '+c3+' sighted'
+     +(other[u3]?' &middot; <b style="color:var(--rd)">also walked by the '
+       +'other shift &mdash; overlap</b>':'')
+     +'</div></div>';
+  });
+  var extra=[];
+  for(u in counted){ if(!seen[u]) extra.push(esc(u)+' ('+counted[u]+')'); }
+  if(extra.length){
+    h+='<div class="kw" style="padding:4px 2px 8px">Also counted off-list: '
+     +extra.join(' &middot; ')+'</div>';
+  }
   return h;
 }
 /* ONE AREA, ZOOMED IN - freshness buckets you can tap: seen today /
@@ -2211,7 +2333,10 @@ function stArea(i,b){
    +'<button class="stmore" type="button" onclick="stBack()">&larr; All areas</button>'
    +'</div>'
    +'<div class="ring"><div class="rv" style="color:'+c+'">'+a.p+'%</div>'
-   +'<div class="rt"><b>'+esc(a.u)+'</b>'+a.s7+' of '+a.t
+   +'<div class="rt"><b>'+esc(a.u)
+   +(a.own==='d'?' <span class="ghp" style="background:var(--am)">DAYS TODAY</span>'
+    :a.own==='n'?' <span class="ghp" style="background:var(--org)">NIGHTS TODAY</span>':'')
+   +'</b>'+a.s7+' of '+a.t
    +' lines sighted in the last 7 days</div></div>'
    +'<div class="stchips">'
    +_BK.map(function(bk,j){
@@ -2334,7 +2459,11 @@ var HOWTO={
      'Print the NOT-FOUND SHEET for the aisle. Walk it, scan or tick every '
      +'line you lay eyes on, sign it, hand it in.',
      'Gear marked &ldquo;out with crews&rdquo; is NOT hunted &mdash; it '
-     +'counts itself when it comes back through the window.'],
+     +'counts itself when it comes back through the window.',
+     'Stay on YOUR shift&rsquo;s aisles &mdash; every area card wears a '
+     +'DAYS TODAY or NIGHTS TODAY badge. THE RECORD underneath shows what '
+     +'each shift actually counted, straight off the scanner timestamps '
+     +'&mdash; cleared, partial, or not touched. It writes itself.'],
   g:'Your aisles sitting green (90%+) at handover. And the WALKED PAST '
    +'list shrinking: if something isn&rsquo;t there after two proper looks, '
    +'flag it to Andrew the same day. Reporting a missing item early is a '
