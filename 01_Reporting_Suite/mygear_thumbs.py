@@ -145,13 +145,16 @@ def _photo_files(here=None):
     overwriting - that suffix is stripped so the replacement still
     lands on its code, and where two files claim the same code the
     NEWEST wins, so saving a better picture always takes effect
-    (31 Jul 2026)."""
+    (31 Jul 2026).
+
+    Scans ALL the way down, not just one folder deep - the regen pack
+    zip carries its pictures inside PackName\\Photos\\, which used to
+    land two levels down and silently not count (31 Jul 2026)."""
     d = photos_dir(here)
     out = {}
-    dirs = [d] + sorted(os.path.join(d, s) for s in os.listdir(d)
-                        if os.path.isdir(os.path.join(d, s)))
-    for dd in dirs:
-        for fn in sorted(os.listdir(dd)):
+    for dd, dnames, fnames in os.walk(d):
+        dnames.sort()
+        for fn in sorted(fnames):
             stem, ext = os.path.splitext(fn)
             if ext.lower() not in PHOTO_EXTS or fn.startswith('_'):
                 continue

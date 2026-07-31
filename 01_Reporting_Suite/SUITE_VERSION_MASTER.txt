@@ -1,7 +1,7 @@
-# Coates K2 suite version - 126 files - overall e11d90ef
+# Coates K2 suite version - 126 files - overall 96f2b3c2
 # MACHINE: master (built by Claude)
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-31 05:18:12
+# taken 2026-07-31 05:38:23
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -118,7 +118,7 @@ af82507aa3 mygear_guides.py
 6ade9a441b mygear_movement.py
 433fee8dd7 mygear_store.py
 83f053bec3 mygear_stores.py
-7fff4a1f5b mygear_thumbs.py
+b7c0f48251 mygear_thumbs.py
 4fb1169ba8 mygear_ui.py
 5dbf7b3d91 net_pick.py
 baf96d6e18 qr_lite.py
