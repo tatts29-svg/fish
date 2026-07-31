@@ -1564,7 +1564,7 @@ function prSet(kind){
     out.innerHTML=got?'<div class="kw" style="padding:10px 2px">Nothing on hire there right now.</div>':'';
     PRCUR=null; return;
   }
-  PRCUR=got;
+  PRCUR=got; PRCUR.kind=kind;
   var days={g:0,a:0,r:0};
   got.r.forEach(function(x){var d=x.d==null?0:x.d;
     if(d<=2)days.g++;else if(d<=4)days.a++;else days.r++;});
@@ -1572,6 +1572,7 @@ function prSet(kind){
    +(got.r.length===1?'':'s')+'</div>'
    +'<div class="prbtns">'
    +'<button class="stmore" type="button" onclick="prGo()">&#128424; Print / save PDF</button>'
+   +(kind==='co'?'<button class="stmore" type="button" onclick="prGo(1)">&#128424; Print A to Z &mdash; one table</button>':'')
    +'<a class="stmore" id="prmail" href="#">&#9993; Email via Outlook</a>'
    +'</div>'
    +got.r.slice(0,200).map(function(x){
@@ -1609,10 +1610,10 @@ function prMailto(got){
   return 'mailto:?subject='+encodeURIComponent('Coates K2 on hire - '+got.t)
    +'&body='+encodeURIComponent(body);
 }
-function prGo(){
+function prGo(flat){
   if(!PRCUR)return;
   var el=document.getElementById('prsheet');
-  if(PRCUR.flat){
+  if(PRCUR.flat||flat){
     /* the whole-site sheet reads like a dictionary: items A-Z in one
        table, who and company on the line - no grouping to hunt through */
     var flat=PRCUR.r.slice().sort(function(a,b){
@@ -1633,8 +1634,9 @@ function prGo(){
           +'<td class="pn'+((x.d||0)>4?' late':'')+'">'
           +(x.d==null?'—':x.d)+'</td></tr>';
       }).join('')+'</table>';
-    prFrame(PRCUR.t,
-      PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')+' &middot; '+PRCUR.sub,
+    prFrame(PRCUR.t+(PRCUR.flat?'':' — A to Z'),
+      PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')+' &middot; '
+        +(PRCUR.sub||'alphabetical, with who has it and their company on every line'),
       PRCUR.asof||ASOF, fbody, PRCUR.interim);
     return;
   }
