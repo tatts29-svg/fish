@@ -495,6 +495,9 @@ def read(rental_path, stocktake_path, master=None, today=None,
     #  exactly like the morning build.
     renames = {}
     pid_map = {}
+    #  item number -> product variant, so the stocktake pane can show
+    #  the same photos as everywhere else (Andrew, 31 Jul 2026)
+    var_by_item = {}
     for r in rs:
         status = g(r, 'ITEM_STATUS')
         #  Anything not yet on the shelf and not out - ordered, in
@@ -571,10 +574,13 @@ def read(rental_path, stocktake_path, master=None, today=None,
                                     'u': {}, 'who': [], 'v': '', 'fl': ''})
         if not e['fl']:
             e['fl'] = _comp_fl(_itm, name)
+        _vrow = str(g(r, 'PRODUCT_VARIANT') or '').strip().upper()
         if not e['v']:
             #  the photo key - one thumbnail per variant covers every
             #  item behind it (Andrew, 30 Jul 2026)
-            e['v'] = str(g(r, 'PRODUCT_VARIANT') or '').strip().upper()
+            e['v'] = _vrow
+        if _itm and _vrow:
+            var_by_item[_itm] = _vrow
         #  plant rows carry their SiteIQ family, item number and Plant
         #  ID so the Plant tab can read by CATEGORY - "find welder,
         #  see what's available, what's idle, who's got the rest"
@@ -620,6 +626,17 @@ def read(rental_path, stocktake_path, master=None, today=None,
 
     #  stocktake - how much of the store has actually been laid eyes on
     stock = {'total': 0, 'w1': 0, 'w3': 0, 'w7': 0, 'stale': []}
+    #  the pin-point rebuild (Andrew, 31 Jul 2026: "pin point where they
+    #  need to be doing the stock... click into that storage area...
+    #  seen last 30/14/7/3/1 days all pickable... a percentage... and
+    #  highlight things of concern that keep not being found"):
+    #    _unit_rows  - per storage area, lines folded by (bucket, name,
+    #                  status) with a quantity - the screen shows types
+    #                  and counts, never a wall of asset numbers
+    #    _unit_walks - the DATES a team counted anything in that area,
+    #                  so a stale item can say "missed on N walks"
+    _unit_rows = {}
+    _unit_walks = {}
     if stocktake_path and os.path.isfile(stocktake_path):
         six, sk = sheet(stocktake_path, 'STOCKTAKE')
 
@@ -642,6 +659,23 @@ def read(rental_path, stocktake_path, master=None, today=None,
                 continue
             age = (today - d).days
             stock['total'] += 1
+            _u_st = sg(r, 'STORAGE_UNIT') or 'Unfiled'
+            _nm_st = sg(r, 'DESCRIPTION')[:60]
+            _it_st = sg(r, 'ITEM_OR_CONSUMABLE') or sg(r, 'SKU_NUMBER')
+            _st_raw = sg(r, 'SIGHTED_STATUS')
+            _sfl = ('O' if _st_raw == 'On Hire' else
+                    'A' if _st_raw in ('Available for Hire',
+                                       'In Stock', 'Stock Low') else 'X')
+            _bk = (1 if age <= 1 else 3 if age <= 3 else 7 if age <= 7
+                   else 14 if age <= 14 else 30 if age <= 30 else 99)
+            _fold = _unit_rows.setdefault(_u_st, {})
+            _fr = _fold.setdefault((_bk, _nm_st, _sfl),
+                                   {'q': 0, 'a': 0, 'v': ''})
+            _fr['q'] += 1
+            _fr['a'] = max(_fr['a'], age)
+            if not _fr['v']:
+                _fr['v'] = var_by_item.get(_it_st, '')
+            _unit_walks.setdefault(_u_st, set()).add(d)
             if age <= 1:
                 stock['w1'] += 1
             if age <= 3:
@@ -660,16 +694,51 @@ def read(rental_path, stocktake_path, master=None, today=None,
                 #  for")
                 _st = sg(r, 'SIGHTED_STATUS')
                 stock['stale'].append({
-                    'n': sg(r, 'DESCRIPTION')[:60],
-                    'u': sg(r, 'STORAGE_UNIT') or 'Unfiled',
+                    'n': _nm_st,
+                    'u': _u_st,
                     'd': age, 'by': sg(r, 'LAST_SIGHTED_BY')[:26],
-                    'i': sg(r, 'ITEM_OR_CONSUMABLE')
-                         or sg(r, 'SKU_NUMBER'),
-                    's': ('O' if _st == 'On Hire' else
-                          'A' if _st in ('Available for Hire',
-                                         'In Stock', 'Stock Low')
-                          else 'X')})
+                    'i': _it_st,
+                    'v': _fr['v'],
+                    's': _sfl})
     stock['stale'].sort(key=lambda x: -x['d'])
+
+    #  the area scoreboard: worst-counted first, so "where do we walk
+    #  today" is answered by reading top to bottom
+    _areas = []
+    for _u_st, _fold in _unit_rows.items():
+        _tot_u = sum(x['q'] for x in _fold.values())
+        _s7 = sum(x['q'] for (_b, _n, _s), x in _fold.items() if _b <= 7)
+        _bks = {1: 0, 3: 0, 7: 0, 14: 0, 30: 0, 99: 0}
+        for (_b, _n, _s), x in _fold.items():
+            _bks[_b] += x['q']
+        _areas.append({
+            'u': _u_st, 't': _tot_u, 's7': _s7,
+            'p': int(round(100.0 * _s7 / _tot_u)) if _tot_u else 100,
+            'b': [_bks[1], _bks[3], _bks[7], _bks[14], _bks[30], _bks[99]]})
+    _areas.sort(key=lambda a: (a['p'], -a['t']))
+    stock['areas'] = _areas
+    stock['rows'] = [
+        {'u': _u_st, 'b': _k[0], 'n': _k[1], 's': _k[2],
+         'q': _x['q'], 'a': _x['a'], 'v': _x['v']}
+        for _u_st, _fold in _unit_rows.items()
+        for _k, _x in _fold.items()]
+
+    #  THE GHOST LIST - the real worry: an area the team HAS walked,
+    #  more than once, and the item still has not turned up. Every walk
+    #  date in the area after the item's own last sighting counts as a
+    #  miss. Two misses = it is not "waiting its turn" any more.
+    _ghosts = []
+    for _x in stock['stale']:
+        if _x['s'] != 'A':
+            continue
+        _ld = today - dt.timedelta(days=_x['d'])
+        _m = sum(1 for _w in _unit_walks.get(_x['u'], ()) if _w > _ld)
+        if _m >= 2:
+            _g = dict(_x)
+            _g['m'] = min(_m, 9)
+            _ghosts.append(_g)
+    _ghosts.sort(key=lambda g: (-g['m'], -g['d']))
+    stock['ghosts'] = _ghosts[:40]
 
     #  TODAY'S COUNTING ORDERS (Andrew, 30 Jul 2026: "daily dayshift
     #  what to check like a category or categories... for both shifts
@@ -1381,6 +1450,28 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 /* the catalogue picture tile - photo when collected, monogram until */
 .kid.kidth{display:flex;gap:11px;align-items:flex-start}
 .kid.kidth .kbody{flex:1;min-width:0}
+/* stocktake v2 - area cards, freshness chips, ghost list (31 Jul 2026) */
+.ucard{display:block;width:100%;text-align:left;background:var(--pnl);
+ border:1px solid var(--line);border-radius:14px;padding:12px 14px;
+ margin:8px 0;cursor:pointer;font-family:inherit;color:var(--txt)}
+.ucard:active{border-color:var(--org)}
+.urow{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.urow .un{min-width:0}
+.urow .un b{font-size:15px;display:block}
+.urow .un span{font-size:12px;color:var(--dim)}
+.upct{font-size:21px;font-weight:900;flex:none}
+.ubar{height:8px;background:#20262e;border-radius:5px;overflow:hidden;margin-top:9px}
+.ubar i{display:block;height:100%}
+.uwarn{color:var(--rd);font-size:11.5px;font-weight:700;margin-top:6px}
+.stchips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chipk{background:var(--pnl);border:1.5px solid var(--line);border-radius:999px;
+ padding:8px 13px;font-family:inherit;color:var(--txt);font-size:12.5px;
+ font-weight:700;cursor:pointer}
+.chipk b{margin-left:5px}
+.chipk.on{border-color:var(--org);background:rgba(242,98,34,.16)}
+.chipk:disabled{opacity:.35;cursor:default}
+.ghp{display:inline-block;background:var(--rd);color:#fff;border-radius:999px;
+ font-size:10.5px;font-weight:800;padding:2px 9px;letter-spacing:.5px}
 .kth2{flex:none;width:80px;height:80px;border-radius:12px;overflow:hidden;
  background:#20262e;display:flex;align-items:center;justify-content:center}
 .kth2 img{width:100%;height:100%;object-fit:cover;display:block}
@@ -2009,101 +2100,150 @@ function paneChase(){
   return h;
 }
 function paneStock(){
+  /* STOCKTAKE v2 (Andrew, 31 Jul 2026): no walls of asset numbers on
+     screen. Pin-point WHERE to count (area cards, worst first, each
+     with a percentage), tap in for tappable freshness buckets, and
+     lead with the ghost list - items the team has walked past more
+     than once and still not found. Numbers live on the printed sheet
+     where the scanner needs them, not on the phone. */
   var s=D.stock, t=D.tiles;
   var h='<div class="ring"><div class="rv">'+t.stockPct+'%</div>'
    +'<div class="rt"><b>of the store counted in the last 7 days</b>'
-   +s.w1.toLocaleString()+' counted in the last day &middot; '
-   +s.w3.toLocaleString()+' in three &middot; '+s.total.toLocaleString()+' on the register'
+   +s.w1.toLocaleString()+' sighted in the last day &middot; '
+   +s.total.toLocaleString()+' lines on the register &middot; plant, chutes, '
+   +'hoppers and barriers are audited on the Plant tab, not counted here'
    +'</div></div>';
-  /* TODAY'S COUNTING ORDERS - each shift told exactly what to count,
-     so nobody has to decide at 18:05 what "do some stocktake" means.
-     The share between the shifts is set in the build and is not
+  var aIx={}; (s.areas||[]).forEach(function(a,i){aIx[a.u]=i;});
+  /* the ghost list first - the thing actually worth worrying about */
+  var gh=s.ghosts||[];
+  if(gh.length){
+    h+='<div class="uhead">Walked past &mdash; still not found</div>'
+     +'<div class="note" style="border-left-color:var(--rd)"><b>'+gh.length
+     +' item'+(gh.length===1?'':'s')+' live in aisles the team has already '
+     +'counted &mdash; more than once &mdash; and still have not turned '
+     +'up.</b> Stop re-hunting them on every lap: one proper look, then flag '
+     +'it to Andrew so the loss conversation starts now, not at demob.</div>'
+     +gh.slice(0,12).map(function(x){
+       return '<div class="kid kidth">'+thTile(x.v,x.n)
+        +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
+        +'<em class="o">'+x.d+'d</em></div>'
+        +'<div class="kw">Lives in <b>'+esc(x.u)+'</b>'
+        +(x.i?' &middot; Item '+esc(x.i):'')+'</div>'
+        +'<div class="kw" style="margin-top:4px"><span class="ghp">MISSED ON '
+        +x.m+' WALK'+(x.m===1?'':'S')+'</span></div></div></div>';
+     }).join('')+more(12,gh.length,'items');
+  }
+  /* today's counting orders - one aisle chip per shift, no item walls.
+     The 70/30 share between the shifts is set in the build and is not
      printed anywhere on this pane - deliberately. */
   var od=D.orders||{d:[],n:[]};
   if((od.d.length+od.n.length)>0){
     h+='<div class="uhead">Today&rsquo;s counting orders</div>'
-     +'<div class="note"><b>Count your list, tick it off, hand over clean.</b> '
-     +'These aisles hold gear nobody has laid eyes on in over a week. '
-     +'Open the aisle below and print its not-found sheet &mdash; that is '
-     +'your walk list.</div>';
-    [['DAY SHIFT &middot; 06:00&ndash;18:00',od.d,'d'],
-     ['NIGHT SHIFT &middot; 18:00&ndash;06:00',od.n,'n']].forEach(function(row){
-      h+='<div class="grp"><button type="button" onclick="tog(this)">'
-        +'<div class="gn"><b>'+row[0]+'</b><span>count these aisles this shift</span></div>'
-        +'<div class="gq"><b style="color:var(--'+(row[2]==='d'?'am':'org')+')">'
-        +(row[2]==='d'?od.dN:od.nN)+'</b><span>items to sight</span></div>'
-        +'</button><div class="kids on">'
-        +(row[1].length?row[1].map(function(o){
-          /* name EXACTLY what to sight in this aisle - the types with
-             counts, then every item with its number and how long it
-             has been unsighted (Andrew, 30 Jul 2026: "mention what
-             exactly they need to sight like product group or types so
-             they actually know what they are doing") */
-          var its=D.stock.stale.filter(function(x){
-            return x.u===o.u&&x.s==='A';});
-          its.sort(function(a,b){ if(a.d!==b.d) return b.d-a.d;
-            return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;});
-          var fams={};
-          its.forEach(function(x){var f=famOf(x.n);fams[f]=(fams[f]||0)+1;});
-          var fline=Object.keys(fams).sort(function(a,b){return fams[b]-fams[a];})
-            .map(function(f){return esc(f)+(fams[f]>1?' &times;'+fams[f]:'');})
-            .join(' &middot; ');
-          return '<div class="kid"><div class="kt"><b>'+esc(o.u)+'</b>'
-            +'<em>'+o.n+' to sight</em></div>'
-            +(fline?'<div class="kw"><b>'+fline+'</b></div>':'')
-            +its.slice(0,25).map(function(x){
-              return '<div class="kw kwq"><span>&bull; '+esc(x.n)
-                +(x.i?' &middot; Item '+esc(x.i):'')
-                +' &middot; <b style="color:var(--org)">'+x.d+'d unsighted</b></span>'
-                +(x.i?qr(x.i,56):'')+'</div>';
-            }).join('')
-            +(its.length>25?'<div class="kw cut">Showing the first 25 of '
-              +its.length+' &mdash; the full list is on this aisle&rsquo;s '
-              +'not-found sheet.</div>':'')
-            +'</div>';
-        }).join(''):'<div class="kw" style="padding:8px 2px">Nothing assigned '
-          +'&mdash; the other shift carries today&rsquo;s backlog.</div>')
-        +'</div></div>';
+     +'<div class="note"><b>Tap your aisle, count the oldest bucket first, '
+     +'tick the paper sheet as you walk.</b> The board picks the aisles so '
+     +'nobody has to decide at 18:05 what &ldquo;do some stocktake&rdquo; '
+     +'means.</div>';
+    [['DAY SHIFT &middot; 06:00&ndash;18:00',od.d],
+     ['NIGHT SHIFT &middot; 18:00&ndash;06:00',od.n]].forEach(function(rw){
+      h+='<div class="kw" style="padding:6px 2px;font-weight:800;color:var(--dim)">'
+       +rw[0]+'</div><div class="prpick">'
+       +(rw[1].length?rw[1].map(function(o){
+          return '<button class="stmore" type="button" onclick="stArea('
+           +(aIx[o.u]!=null?aIx[o.u]:0)+')">'+esc(o.u)
+           +' &middot; '+o.n+' to sight</button>';
+        }).join(''):'<span class="kw">Nothing assigned &mdash; the other '
+          +'shift carries today&rsquo;s backlog.</span>')
+       +'</div>';
     });
   }
-  h+='<div class="note"><b>'+s.stale.length+' assets have not been laid eyes on '
-   +'in over a week.</b> That is the missing-asset hunt list &mdash; grouped by '
-   +'where they are meant to live, so you can walk it. Plant, chutes, hoppers '
-   +'and barriers are <b>not counted here</b> &mdash; they live on the Plant '
-   +'tab&rsquo;s audit sheet.</div>';
-  var byU={};
-  s.stale.forEach(function(x){(byU[x.u]=byU[x.u]||[]).push(x)});
-  Object.keys(byU).sort(function(a,b){return byU[b].length-byU[a].length})
-   .forEach(function(u){
-    var list=byU[u];
-    var nA=list.filter(function(x){return x.s==='A'}).length;
-    var nO=list.filter(function(x){return x.s==='O'}).length;
-    h+='<div class="grp"><button type="button" onclick="tog(this)">'
-      +'<div class="gn"><b>'+esc(u)+'</b><span>not counted in 7 days</span></div>'
-      +'<div class="gq"><b style="color:var(--rd)">'+list.length+'</b><span>assets</span></div>'
-      +'</button><div class="kids">'
-      /* the two sheets for this aisle (Andrew, 29 Jul 2026): the hunt
-         list is AVAILABLE items only - they should be on the shelf and
-         findable. The on-hire list is the opposite: out with crews, so
-         do not waste the walk hunting them. */
-      +'<div class="prbtns">'
-      +(nA?'<button class="stmore" type="button" onclick="stPrint(\\''+esc(u)
-        +'\\',\\'A\\')">&#128424; Not found sheet ('+nA+')</button>':'')
-      +(nO?'<button class="stmore" type="button" onclick="stPrint(\\''+esc(u)
-        +'\\',\\'O\\')">&#128424; On hire &mdash; do not hunt ('+nO+')</button>':'')
-      +'</div>'
-      +list.slice(0,60).map(function(x){
-        return '<div class="kid'+(x.i?' hasqr':'')+'">'
-          +(x.i?'<div class="kqr">'+qr(x.i,56)+'</div>':'')
-          +'<div class="kt"><b>'+esc(x.n)+'</b>'
-          +'<em class="'+(x.s==='O'?'':'o')+'">'+(x.s==='O'?'on hire':x.d+' days')+'</em></div>'
-          +'<div class="kw">'+(x.i?'Item '+esc(x.i)+' &middot; ':'')
-          +(x.by?'last sighted by <b>'+esc(x.by)+'</b>':'')+'</div></div>';
-      }).join('')+more(60,list.length,'assets')
-      +'</div></div>';
-  });
+  /* the area scoreboard - pin-point where counting is needed: worst
+     areas first, a percentage on every card */
+  h+='<div class="uhead">Where to walk &mdash; every storage area</div>';
+  h+=(s.areas||[]).map(function(a,i){
+    var c=a.p>=90?'var(--gd)':a.p>=70?'var(--am)':'var(--rd)';
+    return '<button type="button" class="ucard" onclick="stArea('+i+')">'
+     +'<div class="urow"><div class="un"><b>'+esc(a.u)+'</b>'
+     +'<span>'+a.s7+' of '+a.t+' sighted this week</span></div>'
+     +'<div class="upct" style="color:'+c+'">'+a.p+'%</div></div>'
+     +'<div class="ubar"><i style="width:'+a.p+'%;background:'+c+'"></i></div>'
+     +(a.b[5]?'<div class="uwarn">'+a.b[5]+' not seen in 30+ days</div>':'')
+     +'</button>';
+  }).join('');
   return h;
 }
+/* ONE AREA, ZOOMED IN - freshness buckets you can tap: seen today /
+   3 / 7 / 14 / 30 days / longer. Pictures and counts, never a wall of
+   asset numbers - those live on the printed sheet with the scan codes. */
+var _BK=[1,3,7,14,30,99];
+var _BKL=['Seen today','2&ndash;3 days','4&ndash;7 days',
+          '8&ndash;14 days','15&ndash;30 days','30+ days'];
+function stArea(i,b){
+  var s=D.stock, a=s.areas[i];
+  if(!a) return;
+  if(b==null){
+    /* land on the oldest bucket that holds WALKABLE gear - a bucket
+       of nothing but on-hire lines is not a job */
+    var av0={};
+    (s.rows||[]).forEach(function(x){
+      if(x.u===a.u&&x.s!=='O') av0[x.b]=true;});
+    for(var j=5;j>=0;j--){ if(av0[_BK[j]]){ b=_BK[j]; break; } }
+    if(b==null){ for(var j2=5;j2>=0;j2--){ if(a.b[j2]>0){ b=_BK[j2]; break; } } }
+    if(b==null) b=7;
+  }
+  var c=a.p>=90?'var(--gd)':a.p>=70?'var(--am)':'var(--rd)';
+  var h='<div class="prbtns" style="margin-top:2px">'
+   +'<button class="stmore" type="button" onclick="stBack()">&larr; All areas</button>'
+   +'</div>'
+   +'<div class="ring"><div class="rv" style="color:'+c+'">'+a.p+'%</div>'
+   +'<div class="rt"><b>'+esc(a.u)+'</b>'+a.s7+' of '+a.t
+   +' lines sighted in the last 7 days</div></div>'
+   +'<div class="stchips">'
+   +_BK.map(function(bk,j){
+     var n=a.b[j];
+     var cc=j<2?'var(--gd)':j<4?'var(--am)':'var(--rd)';
+     return '<button type="button" class="chipk'+(bk===b?' on':'')+'" '
+      +(n?'onclick="stArea('+i+','+bk+')"':'disabled')+'>'
+      +_BKL[j]+'<b style="color:'+cc+'">'+n+'</b></button>';
+   }).join('')+'</div>';
+  var rows=(s.rows||[]).filter(function(x){return x.u===a.u&&x.b===b;});
+  var av=rows.filter(function(x){return x.s!=='O';});
+  var oh=rows.filter(function(x){return x.s==='O';});
+  function srt(l){ l.sort(function(x,y){ if(y.q!==x.q) return y.q-x.q;
+    return x.n.toUpperCase()<y.n.toUpperCase()?-1:1; }); return l; }
+  var old=b>7;
+  function line(x){
+    return '<div class="kid kidth">'+thTile(x.v,x.n)
+     +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
+     +'<em'+(old?' class="o"':'')+'>&times;'+x.q+'</em></div>'
+     +'<div class="kw">'+(old?'oldest sighting <b>'+x.a+' days</b> ago'
+       :'sighted inside this window')+'</div></div></div>';
+  }
+  if(av.length){
+    h+='<div class="uhead">'+(old?'Go and lay eyes on these':'Counted &mdash; ticked off')
+     +' &middot; '+av.reduce(function(t2,x){return t2+x.q;},0)+'</div>'
+     +srt(av).slice(0,40).map(line).join('')
+     +more(40,av.length,'lines');
+  }
+  if(oh.length){
+    h+='<div class="uhead">Out with crews &mdash; do not hunt these</div>'
+     +'<div class="kw" style="padding:0 2px 6px">They count when they come '
+     +'back through the window, not on a walk.</div>'
+     +srt(oh).slice(0,25).map(line).join('')
+     +more(25,oh.length,'lines');
+  }
+  var nA=s.stale.filter(function(x){return x.u===a.u&&x.s==='A';}).length;
+  var nO=s.stale.filter(function(x){return x.u===a.u&&x.s==='O';}).length;
+  if(nA||nO){
+    h+='<div class="prbtns">'
+     +(nA?'<button class="stmore" type="button" onclick="stPrint(\\''+esc(a.u)
+       +'\\',\\'A\\')">&#128424; Not found sheet ('+nA+')</button>':'')
+     +(nO?'<button class="stmore" type="button" onclick="stPrint(\\''+esc(a.u)
+       +'\\',\\'O\\')">&#128424; On hire &mdash; do not hunt ('+nO+')</button>':'')
+     +'</div>';
+  }
+  document.getElementById('p-stock').innerHTML=h;
+}
+function stBack(){document.getElementById('p-stock').innerHTML=paneStock();}
 /* THE NOT-FOUND SHEET - one aisle, one piece of paper, a tick box per
    line. kind A = available: should be on the shelf, go and lay eyes
    on it. kind O = on hire: out with a crew, printed so the counter
