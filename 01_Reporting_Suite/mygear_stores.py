@@ -451,6 +451,7 @@ def read(rental_path, stocktake_path, master=None, today=None,
         return str(r[ix[k]] or '').strip() if k in ix else d
 
     groups, chase_t, chase_p, idle = {}, [], [], []
+    find_av = {}          # the finder's shelf index: name\x1funit -> [items]
     arrivals, plant = [], {'out': [], 'idle': [], 'free': []}
     roster = []                                   # every on-hire item
     #  Same four rules as the daily hit list in the company report
@@ -550,6 +551,11 @@ def read(rental_path, stocktake_path, master=None, today=None,
         if status == 'Available for Hire':
             e['av'] += 1
             e['u'][unit] = e['u'].get(unit, 0) + 1
+            #  THE FINDER's shelf index (Andrew, 31 Jul 2026: "where's
+            #  grinder 1219644?"). Item numbers grouped under
+            #  name+unit so names are stored once, not 4,000 times.
+            if _itm:
+                find_av.setdefault(name + '\x1f' + unit, []).append(_itm)
             if _is_plant(unit):
                 plant['free'].append({'n': name, 'u': unit, 'f': _fam,
                                       'i': _itm, 'p': _pidv})
@@ -756,6 +762,8 @@ def read(rental_path, stocktake_path, master=None, today=None,
         'plant': plant,
         'hasPlant': bool(plant['out'] or plant['idle'] or plant['free']),
         'groups': G,
+        #  THE FINDER: every available item by number, names stored once
+        'find': {'av': find_av},
         'chase': {'tools': chase_t, 'plant': chase_p,
                   'toolUnits': by_unit(chase_t),
                   'plantUnits': by_unit(chase_p)},
@@ -1300,6 +1308,19 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .kid .kt em.o{color:var(--org)}
 .kid .kw{font-size:11.5px;color:var(--dim);margin-top:5px;line-height:1.6}
 .kid .kw b{color:#C7CED8;font-weight:700}
+/* the finder's answer cards - shelf green, out orange, hunt red */
+.fcard{display:flex;gap:12px;align-items:center;background:var(--pnl);
+ border:1px solid var(--line);border-left:5px solid var(--gd);
+ border-radius:14px;padding:14px;padding-right:84px;margin-bottom:10px;
+ position:relative}
+.fcard.fo{border-left-color:var(--org)}
+.fcard.fw{border-left-color:var(--rd)}
+.fcard .fbody{flex:1;min-width:0}
+.fhead{font-size:11px;font-weight:900;letter-spacing:1.2px}
+.fcard.fa .fhead{color:var(--gd)}
+.fcard.fo .fhead{color:var(--org)}
+.fcard.fw .fhead{color:var(--rd)}
+.fname{font-size:15px;font-weight:800;color:#fff;margin:3px 0}
 /* the catalogue picture tile - photo when collected, monogram until */
 .kid.kidth{display:flex;gap:11px;align-items:flex-start}
 .kid.kidth .kbody{flex:1;min-width:0}
@@ -1604,7 +1625,8 @@ function render(){
    +tile(t.stale,'Not counted','r')
    +'</div>'
    +'<div class="tabs">'
-   +'<button class="tab on" data-p="groups" onclick="tab(this)">Product groups</button>'
+   +'<button class="tab on" data-p="find" onclick="tab(this)">&#128269; Find it</button>'
+   +'<button class="tab" data-p="groups" onclick="tab(this)">Product groups</button>'
    +'<button class="tab" data-p="chase" onclick="tab(this)">Chase up ('+t.chase+')</button>'
    +(D.hitN?'<button class="tab hot" data-p="hits" onclick="tab(this)">Hit list ('+D.hitN+')</button>':'')
    +'<button class="tab" data-p="print" onclick="tab(this)">Print &amp; send</button>'
@@ -1621,7 +1643,8 @@ function render(){
    +(MGR?'<button class="tab" data-p="mgr" onclick="tab(this)">Money</button>':'')
    +'<button class="tab" data-p="idle" onclick="tab(this)">Idle plant ('+t.idle+')</button>'
    +'</div>'
-   +'<div class="pane on" id="p-groups">'+paneGroups()+'</div>'
+   +'<div class="pane on" id="p-find">'+paneFind()+'</div>'
+   +'<div class="pane" id="p-groups">'+paneGroups()+'</div>'
    +'<div class="pane" id="p-chase">'+paneChase()+'</div>'
    +(D.hitN?'<div class="pane" id="p-hits">'+paneHits()+'</div>':'')
    +'<div class="pane" id="p-print">'+panePrint()+'</div>'
@@ -1681,6 +1704,119 @@ function tab(el){
   for(var j=0;j<panes.length;j++) panes[j].className='pane';
   document.getElementById('p-'+el.getAttribute('data-p')).className='pane on';
   window.scrollTo(0,0);
+}
+/* THE FINDER - the counter's most-asked question, answered in one box
+   (Andrew, 31 Jul 2026: "where's grinder 1219644?"). Scan or type an
+   item number, Plant ID or name; the answer is the shelf, the person,
+   or the hunt list. The index is built once, on first search, from
+   the three truths already in the payload: the shelf (find.av), the
+   roster (out with crews) and the stocktake stale list (missing). */
+var FIND_IDX=null;
+function findIdx(){
+  if(FIND_IDX) return FIND_IDX;
+  var ix={}, SEP=String.fromCharCode(31);
+  var av=(D.find&&D.find.av)||{};
+  Object.keys(av).forEach(function(k){
+    var p=k.split(SEP), n=p[0], u=p[1]||'';
+    av[k].forEach(function(it){ ix[String(it).toUpperCase()]={s:'A',n:n,u:u,k:k}; });
+  });
+  D.roster.forEach(function(x){
+    if(x.i) ix[String(x.i).toUpperCase()]={s:'O',n:x.n,u:x.u,w:x.w,co:x.co,d:x.d,p:x.p};
+  });
+  (D.stock.stale||[]).forEach(function(x){
+    if(!x.i) return;
+    var key=String(x.i).toUpperCase(), e=ix[key];
+    if(e&&e.s==='A'){ e.st=x.d; e.by=x.by; }
+    else if(!e) ix[key]={s:'M',n:x.n,u:x.u,d2:x.d,by:x.by,hs:x.s};
+  });
+  var nv={};
+  D.groups.forEach(function(g){ if(g.v) nv[g.n.toUpperCase()]=g.v; });
+  FIND_IDX={ix:ix,nv:nv,av:av};
+  return FIND_IDX;
+}
+function paneFind(){
+  return '<div class="note"><b>Where is it?</b> Scan the barcode with the '
+   +'hand scanner, or type the item number off a sheet or sticker. The '
+   +'answer is the shelf, the person holding it, or the hunt list. Plant '
+   +'IDs and names work too.</div>'
+   +'<input class="srch" id="fq" placeholder="Scan or type an item number, Plant ID or name" '
+   +'autocomplete="off" autocapitalize="characters" oninput="findGo()" '
+   +'onkeydown="if(event.keyCode===13)findGo()">'
+   +'<div id="fout"><div class="kw" style="padding:12px 2px">Waiting for a '
+   +'number&hellip; the hand scanner types it and presses Enter for you.</div></div>';
+}
+function findGo(){
+  var q=(document.getElementById('fq').value||'').trim().toUpperCase();
+  var out=document.getElementById('fout');
+  if(q.length<3){out.innerHTML='<div class="kw" style="padding:12px 2px">'
+    +'Keep typing&hellip; three characters gets it looking.</div>';return}
+  var F=findIdx(), hits=[], i;
+  if(F.ix[q]) hits.push([q,F.ix[q]]);
+  if(!hits.length){
+    var ks=Object.keys(F.ix);
+    for(i=0;i<ks.length&&hits.length<12;i++){
+      if(ks[i].indexOf(q)>=0) hits.push([ks[i],F.ix[ks[i]]]);
+    }
+  }
+  if(!hits.length){
+    D.roster.forEach(function(x){
+      if(hits.length<12&&x.p&&String(x.p).toUpperCase()===q)
+        hits.push([x.i||'',{s:'O',n:x.n,u:x.u,w:x.w,co:x.co,d:x.d,p:x.p}]);
+    });
+  }
+  if(!hits.length){
+    var ks2=Object.keys(F.ix);
+    for(i=0;i<ks2.length&&hits.length<12;i++){
+      var e2=F.ix[ks2[i]];
+      if(e2.n&&e2.n.toUpperCase().indexOf(q)>=0) hits.push([ks2[i],e2]);
+    }
+  }
+  if(!hits.length){
+    out.innerHTML='<div class="note" style="border-left-color:var(--rd)">'
+      +'<b>Nothing on the register matches.</b> Check the number &mdash; or '
+      +'it may have arrived after this morning&rsquo;s build. A fresh SiteIQ '
+      +'export in the Fresh look tab covers the gap.</div>';
+    return;
+  }
+  out.innerHTML=hits.map(function(h){return findCard(h[0],h[1],F)}).join('')
+   +(hits.length>=12?'<div class="kw cut">Showing the first 12 &mdash; keep '
+     +'typing to narrow it.</div>':'');
+}
+function findCard(it,e,F){
+  var v=F.nv[(e.n||'').toUpperCase()]||'';
+  var th=v?'<span class="kth2"><img src="thumbs/'+encodeURIComponent(v)
+    +'.jpg" loading="lazy" alt="" data-m="'+thMono(e.n)+'" onerror="thx(this)"></span>'
+    :'<span class="kth2 mono">'+thMono(e.n)+'</span>';
+  var head,body,cls;
+  if(e.s==='O'){
+    cls='fo'; head='OUT WITH A CREW';
+    body='<b>'+esc(e.w||'?')+'</b> &middot; '+esc(e.co||'')
+      +(e.d!=null?' &middot; <b>'+e.d+(e.d===1?' day':' days')+'</b> out':'')
+      +'<br>Lives in '+esc(e.u||'?');
+  } else if(e.s==='A'){
+    cls='fa'; head='ON THE SHELF';
+    var mates=(F.av[e.k||'']||[]).length;
+    body='Aisle: <b>'+esc(e.u||'?')+'</b>'
+      +(mates>1?' &middot; '+mates+' of these available':'');
+    if(e.st!=null){cls='fw';head='SHOULD BE ON THE SHELF';
+      body+='<br><b>Not sighted in '+e.st+'d</b>'
+        +(e.by?' &middot; last seen by '+esc(e.by):'')
+        +' &mdash; confirm it is really there.';}
+  } else {
+    cls='fw';
+    head=(e.hs==='O')?'ON HIRE - NOT COUNTED'
+        :'NOT SEEN IN '+(e.d2!=null?e.d2+'d':'A WHILE');
+    body='Lives in <b>'+esc(e.u||'?')+'</b>'
+      +(e.by?' &middot; last sighted by <b>'+esc(e.by)+'</b>':'')
+      +'<br>On this aisle&rsquo;s hunt list &mdash; Stocktake tab.';
+  }
+  return '<div class="fcard '+cls+'">'+th
+   +'<div class="fbody"><div class="fhead">'+head+'</div>'
+   +'<div class="fname">'+esc(e.n||'Unnamed item')+'</div>'
+   +'<div class="kw">Item '+esc(it)
+   +(e.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(e.p)+'</b>':'')+'</div>'
+   +'<div class="kw">'+body+'</div></div>'
+   +'<div class="kqr">'+qr(it,56)+'</div></div>';
 }
 function paneGroups(){
   var cats={};
