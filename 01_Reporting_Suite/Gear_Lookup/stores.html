@@ -1507,6 +1507,7 @@ function panePrint(){
    +(D.hitN?'<button class="stmore" type="button" onclick="prSet(\'hits\')">Hit list ('+D.hitN+')</button>':'')
    +'<button class="stmore" type="button" onclick="prSet(\'radios\')">Radios on hire</button>'
    +'<button class="stmore" type="button" onclick="prSet(\'gas\')">Gas monitors on hire</button>'
+   +'<button class="stmore" type="button" onclick="prSet(\'all\')">Whole site on hire &mdash; A to Z ('+D.roster.length+')</button>'
    +'</div>'
    +'<div class="uhead">One company</div>'
    +'<select id="prco" class="srch" onchange="prSet(\'co\')">'
@@ -1532,6 +1533,15 @@ function prRows(kind){
        rows.push({n:x.n,u:rl[0],w:x.w,co:x.co,d:x.d,i:x.i,p:x.p}); }); });
     return {t:'Hit list — overdue returns', r:rows,
             sub:'past their return rule — the rule sits beside each item; one visit per name clears the lot'};
+  }
+  if(kind==='all'){
+    /* the whole book in one sheet: every item on hire across every
+       company, one flat A-Z table with who and company on each row
+       (Andrew, 31 Jul 2026: "Whole Company Onhire report with all
+       details, alphabetical order, with company as well") */
+    return {t:'Whole site — everything on hire (A to Z)', flat:true,
+      r:D.roster.slice(),
+      sub:'every item on hire, alphabetical, with who has it and their company on every line'};
   }
   if(kind==='radios') return {t:'Radios on hire',
     r:D.roster.filter(function(x){return x.u==='Radios'})};
@@ -1602,6 +1612,32 @@ function prMailto(got){
 function prGo(){
   if(!PRCUR)return;
   var el=document.getElementById('prsheet');
+  if(PRCUR.flat){
+    /* the whole-site sheet reads like a dictionary: items A-Z in one
+       table, who and company on the line - no grouping to hunt through */
+    var flat=PRCUR.r.slice().sort(function(a,b){
+      var an=a.n.toUpperCase(),bn=b.n.toUpperCase();
+      if(an!==bn) return an<bn?-1:1;
+      var aw=(a.w||'').toUpperCase(),bw=(b.w||'').toUpperCase();
+      return aw<bw?-1:(aw>bw?1:0);
+    });
+    var fbody='<table class="ptab">'
+      +'<tr><th>Item</th><th>Item no</th><th>Scan</th><th>Who has it</th>'
+      +'<th>Company</th><th>Aisle</th><th class="pn">Days on hire</th></tr>'
+      +flat.map(function(x){
+        return '<tr><td>'+esc(x.n)
+          +(x.p?' <span class="ppid">Plant ID '+esc(x.p)+'</span>':'')
+          +'</td><td>'+esc(x.i||'—')+'</td>'
+          +'<td class="pqr">'+qr(x.i)+'</td>'
+          +'<td>'+esc(x.w)+'</td><td>'+esc(x.co)+'</td><td>'+esc(x.u)+'</td>'
+          +'<td class="pn'+((x.d||0)>4?' late':'')+'">'
+          +(x.d==null?'—':x.d)+'</td></tr>';
+      }).join('')+'</table>';
+    prFrame(PRCUR.t,
+      PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')+' &middot; '+PRCUR.sub,
+      PRCUR.asof||ASOF, fbody, PRCUR.interim);
+    return;
+  }
   /* One ordering rule, same as the screen: companies A-Z, hirers
      inside a company A-Z, items longest-held first then A-Z. The
      group key leads with the company so the sort and the page read
