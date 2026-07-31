@@ -135,6 +135,15 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .chipk:disabled{opacity:.35;cursor:default}
 .ghp{display:inline-block;background:var(--rd);color:#fff;border-radius:999px;
  font-size:10.5px;font-weight:800;padding:2px 9px;letter-spacing:.5px}
+/* the call cards - folded how-to at the top of every tab (31 Jul 2026) */
+.hgrp button .gn b{color:var(--org)}
+.hcard{padding:4px 2px 8px}
+.hcard .hs{margin:10px 0}
+.hcard .hs>b{display:block;font-size:11px;letter-spacing:2px;color:var(--dim);
+ margin-bottom:4px}
+.hcard .hs span{font-size:14px;line-height:1.6;color:var(--txt)}
+.hcard .hs ol{margin:0 0 0 20px;font-size:14px;line-height:1.65;color:var(--txt)}
+.hcard .hs ol li{margin-bottom:5px}
 .kth2{flex:none;width:80px;height:80px;border-radius:12px;overflow:hidden;
  background:#20262e;display:flex;align-items:center;justify-content:center}
 .kth2 img{width:100%;height:100%;object-fit:cover;display:block}
@@ -245,6 +254,13 @@ select.srch{appearance:none;-webkit-appearance:none}
     own quiet zone), crisp SVG so it prints razor sharp */
  #prsheet .pqr{width:14mm;padding:3px 4px}
  #prsheet .pqr svg{width:12.5mm;height:12.5mm;display:block}
+ #prsheet .hcv{border:2.5px solid #F26222;border-radius:14px;
+  padding:14px 18px;margin-bottom:9mm;page-break-inside:avoid}
+ #prsheet .hct{font-size:19px;font-weight:900;color:#F26222;margin-bottom:6px}
+ #prsheet .hcs{font-size:12px;line-height:1.62;margin:7px 0;color:#14181F}
+ #prsheet .hcs>b{letter-spacing:1.5px;font-size:9.5px;color:#5B6472;display:block}
+ #prsheet .hcs ol{margin:3px 0 0 18px}
+ #prsheet .hcs ol li{margin-bottom:3px}
  #prsheet .pfoot{margin-top:16px;padding-top:9px;border-top:1px solid #D5DBE3;
   text-align:center;font-size:9.5px;color:#8A94A2;line-height:1.7}
 }
@@ -858,21 +874,21 @@ function render(){
    +(MGR?'<button class="tab" data-p="mgr" onclick="tab(this)">Money</button>':'')
    +'<button class="tab" data-p="idle" onclick="tab(this)">Idle plant ('+t.idle+')</button>'
    +'</div>'
-   +'<div class="pane on" id="p-find">'+paneFind()+'</div>'
-   +'<div class="pane" id="p-groups">'+paneGroups()+'</div>'
-   +'<div class="pane" id="p-chase">'+paneChase()+'</div>'
-   +(D.hitN?'<div class="pane" id="p-hits">'+paneHits()+'</div>':'')
-   +'<div class="pane" id="p-print">'+panePrint()+'</div>'
-   +'<div class="pane" id="p-fresh">'+paneFresh()+'</div>'
-   +'<div class="pane" id="p-stock">'+paneStock()+'</div>'
-   +'<div class="pane" id="p-aisle">'+paneAisle()+'</div>'
-   +'<div class="pane" id="p-battle">'+paneBattle()+'</div>'
-   +(D.hasCons?'<div class="pane" id="p-cons">'+paneCons()+'</div>':'')
-   +'<div class="pane" id="p-std">'+paneStd()+'</div>'
-   +(t.arrivals?'<div class="pane" id="p-arr">'+paneArr()+'</div>':'')
-   +(D.hasPlant?'<div class="pane" id="p-plant">'+panePlant()+'</div>':'')
+   +'<div class="pane on" id="p-find">'+helpBar('find')+paneFind()+'</div>'
+   +'<div class="pane" id="p-groups">'+helpBar('groups')+paneGroups()+'</div>'
+   +'<div class="pane" id="p-chase">'+helpBar('chase')+paneChase()+'</div>'
+   +(D.hitN?'<div class="pane" id="p-hits">'+helpBar('hits')+paneHits()+'</div>':'')
+   +'<div class="pane" id="p-print">'+helpBar('print')+panePrint()+'</div>'
+   +'<div class="pane" id="p-fresh">'+helpBar('fresh')+paneFresh()+'</div>'
+   +'<div class="pane" id="p-stock">'+helpBar('stock')+paneStock()+'</div>'
+   +'<div class="pane" id="p-aisle">'+helpBar('aisle')+paneAisle()+'</div>'
+   +'<div class="pane" id="p-battle">'+helpBar('battle')+paneBattle()+'</div>'
+   +(D.hasCons?'<div class="pane" id="p-cons">'+helpBar('cons')+paneCons()+'</div>':'')
+   +'<div class="pane" id="p-std">'+helpBar('std')+paneStd()+'</div>'
+   +(t.arrivals?'<div class="pane" id="p-arr">'+helpBar('arr')+paneArr()+'</div>':'')
+   +(D.hasPlant?'<div class="pane" id="p-plant">'+helpBar('plant')+panePlant()+'</div>':'')
    +(MGR?'<div class="pane" id="p-mgr">'+paneMgr()+'</div>':'')
-   +'<div class="pane" id="p-idle">'+paneIdle()+'</div>'
+   +'<div class="pane" id="p-idle">'+helpBar('idle')+paneIdle()+'</div>'
    +'<div class="foot">Built from this morning\'s SiteIQ exports &middot; '
    +'read-only &middot; POWERED BY SITEIQ<br>Author: Andrew Fisher</div>';
   document.getElementById('app').innerHTML=h;
@@ -1310,7 +1326,183 @@ function stArea(i,b){
   }
   document.getElementById('p-stock').innerHTML=h;
 }
-function stBack(){document.getElementById('p-stock').innerHTML=paneStock();}
+function stBack(){document.getElementById('p-stock').innerHTML=helpBar('stock')+paneStock();}
+/* THE CALL CARDS (Andrew, 31 Jul 2026: "how-to cards... dummy it down
+   so anyone understands... call cards on all areas so it helps people
+   with no knowledge"). One card per tab: what it is, how to use it,
+   what good looks like. They sit folded at the top of every tab and
+   print as a laminate deck for the counter. */
+var HOWTO={
+ find:{t:'Find it',
+  w:'The where-is-it tool. Somebody asks &ldquo;have we got a 2-tonne '
+   +'lever block?&rdquo; or &ldquo;where&rsquo;s item 1312687?&rdquo; &mdash; '
+   +'this answers it in seconds.',
+  h:['Point the hand scanner at any barcode &mdash; a sheet, a sticker or '
+     +'the gear itself. It types the number for you.',
+     'No scanner? Type the item number, a Plant ID, or just a word like '
+     +'&ldquo;welder&rdquo;.',
+     'Read the card that comes back &mdash; that is the answer.'],
+  g:'GREEN card = it&rsquo;s on the shelf &mdash; the card names the aisle '
+   +'and how many. ORANGE = out with a crew &mdash; who, which company, how '
+   +'many days. So you never promise gear we don&rsquo;t have, and you never '
+   +'hunt for gear that&rsquo;s legitimately out.'},
+ groups:{t:'Product groups',
+  w:'The whole store sorted by type, like supermarket aisles &mdash; '
+   +'batteries, leads, rigging, hand tools and so on.',
+  h:['Tap a group to open it and see every line inside.',
+     'Green number = on the shelf right now. Orange = out with crews.',
+     'Or type in the search box and jump straight to the thing.'],
+  g:'Use it whenever someone asks &ldquo;have we got&hellip;&rdquo;. The '
+   +'green/orange bar shows in one look whether a group is running dry.'},
+ chase:{t:'Chase up',
+  w:'Gear that&rsquo;s been out longer than its return rule. Radios and gas '
+   +'monitors come back daily; Milwaukee tooling gets three days.',
+  h:['Open a group and read the lines: who has it, their company, how many '
+     +'days.',
+     'One name at a time &mdash; ring them or walk to their crew.',
+     'When it comes through the window, it drops off this list by itself '
+     +'tomorrow morning.'],
+  g:'A shrinking number. If your group grows day after day, say so at '
+   +'handover &mdash; don&rsquo;t let it become demob&rsquo;s problem.'},
+ hits:{t:'Hit list',
+  w:'Today&rsquo;s worst overdues boiled down to one short list &mdash; the '
+   +'stuff that actually matters this shift.',
+  h:['Print the walk-around sheet (button is right there).',
+     'One lap of site &mdash; every stop is on the sheet with a scan code.',
+     'Tick each line as gear lands back, hand the sheet in at handover.'],
+  g:'An empty hit list by end of shift. One lap, done properly, clears it.'},
+ print:{t:'Print &amp; send',
+  w:'The paper shop. Any slice of the board as a branded COATES report '
+   +'&mdash; printed at the counter or dropped into an Outlook email.',
+  h:['Pick what you want: whole site A to Z, one company, one person, '
+     +'radios, gas, the hit list.',
+     'Look at it on the screen first &mdash; it shows you before you print.',
+     'Tap Print (pick the store printer or Save as PDF) or Email via '
+     +'Outlook.'],
+  g:'A company asks &ldquo;what do we have on hire?&rdquo; and walks away '
+   +'with the answer on paper, same visit. That&rsquo;s the standard.'},
+ fresh:{t:'Fresh look',
+  w:'What moved since yesterday morning &mdash; everything that came back '
+   +'and everything that went out.',
+  h:['Open it at the start of your shift.',
+     'Scan the returns &mdash; anything back early or late tells a story.',
+     'Use the print button if you want it on paper for the handover.'],
+  g:'You start the shift already knowing what happened &mdash; nobody has '
+   +'to tell you.'},
+ stock:{t:'Stocktake',
+  w:'Proof we&rsquo;ve laid eyes on everything we own. Every storage area '
+   +'has a percentage &mdash; 100% means every line in it was sighted in '
+   +'the last 7 days. The store&rsquo;s overall score is the big ring.',
+  h:['Find your aisle under TODAY&rsquo;S COUNTING ORDERS and tap it &mdash; '
+     +'the board picks the aisles, you don&rsquo;t have to choose.',
+     'Work the OLDEST bucket first (30+ days, then 15&ndash;30, and so on). '
+     +'The buckets are the row of pills &mdash; tap one to see what&rsquo;s '
+     +'in it, with pictures.',
+     'Print the NOT-FOUND SHEET for the aisle. Walk it, scan or tick every '
+     +'line you lay eyes on, sign it, hand it in.',
+     'Gear marked &ldquo;out with crews&rdquo; is NOT hunted &mdash; it '
+     +'counts itself when it comes back through the window.'],
+  g:'Your aisles sitting green (90%+) at handover. And the WALKED PAST '
+   +'list shrinking: if something isn&rsquo;t there after two proper looks, '
+   +'flag it to Andrew the same day. Reporting a missing item early is a '
+   +'win for honesty &mdash; sitting on it is the only fail.'},
+ aisle:{t:'Walk an aisle',
+  w:'One aisle, everything about it, on one screen &mdash; built for '
+   +'standing in the aisle with a phone in your hand.',
+  h:['Pick the aisle you&rsquo;re standing in.',
+     'It shows what should be on the shelf, what&rsquo;s out, what to '
+     +'chase and what hasn&rsquo;t been counted.',
+     'Sort one aisle completely before moving to the next.'],
+  g:'The aisle you just walked has nothing left to ask you.'},
+ battle:{t:'Day v Night',
+  w:'The shift-against-shift scorecard &mdash; who counted more, who '
+   +'matched more, night by night. Bragging rights only, but the numbers '
+   +'are real.',
+  h:['Have a look at the start of shift.',
+     'The bar chart shows each day&rsquo;s scores side by side.',
+     'Win the night. That&rsquo;s it, that&rsquo;s the instruction.'],
+  g:'Both shifts pushing the stocktake percentage up because neither wants '
+   +'to lose. Rivalry does what memos can&rsquo;t.'},
+ cons:{t:'Consumables',
+  w:'The consumables shelf &mdash; gloves, discs, tape, batteries-in-'
+   +'packets. Pictures, live counts, what&rsquo;s gone out, and what needs '
+   +'ordering before the next delivery cutoff.',
+  h:['The tiles up top are the story: on the shelf, issued so far, and TO '
+     +'ORDER in red.',
+     'Scroll the A&ndash;Z shelf &mdash; every line has its picture and '
+     +'scan code.',
+     'Print the stock check &amp; reorder sheet when you do the count.'],
+  g:'Nothing hits zero unannounced. The 13 in red today is tomorrow&rsquo;s '
+   +'order, placed in time.'},
+ std:{t:'Our standards',
+  w:'The rules of this store &mdash; what we promise every person at the '
+   +'window, and what we expect back.',
+  h:['Read it once properly on your first day.',
+     'When a call is unclear mid-shift, this is the tie-breaker.',
+     'Hold each other to it &mdash; politely.'],
+  g:'Be nice, be polite &mdash; we&rsquo;re here to help. Every visitor '
+   +'leaves with the right gear and a straight answer.'},
+ arr:{t:'Arriving',
+  w:'What&rsquo;s already on order and inbound to the store.',
+  h:['Check here BEFORE you re-order anything.',
+     'Each line shows what&rsquo;s coming and how many.',
+     'If a crew is waiting on it, you can tell them it&rsquo;s inbound.'],
+  g:'No double-orders, no &ldquo;didn&rsquo;t know it was coming&rdquo;.'},
+ plant:{t:'Plant',
+  w:'The machines &mdash; welders, generators, forklifts, towers &mdash; '
+   +'sorted by type, split into FREE to hire, IDLE on the ground, and OUT '
+   +'with a company.',
+  h:['Tap a category to see its machines &mdash; Plant IDs ride on every '
+     +'line.',
+     'Machines with a &#128221; LOG BOOK chip need their daily pre-start '
+     +'filled in &mdash; remind the crew taking one.',
+     'Print the IDLE PLANT AUDIT SHEET to physically sight machines, or '
+     +'the DEMOB CHECKLIST when we&rsquo;re packing the job up.'],
+  g:'Every machine accounted for on paper anyone can follow: back &rarr; '
+   +'off-hired &rarr; picked up.'},
+ idle:{t:'Idle plant',
+  w:'Machines that are on hire but parked doing nothing &mdash; costing '
+   +'without earning.',
+  h:['Scan the list &mdash; anything sitting long is a question.',
+     'Ask the holder: still needed, or can it come back?',
+     'Tell Andrew what can come off &mdash; he runs the off-hire.'],
+  g:'A short list. Machines either work here or go home.'}};
+function helpBar(k){
+  var c=HOWTO[k]; if(!c) return '';
+  return '<div class="grp hgrp"><button type="button" onclick="tog(this)">'
+   +'<div class="gn"><b>&#10067; New here? How &ldquo;'+c.t
+   +'&rdquo; works</b><span>plain English &middot; 20 seconds &middot; tap to open</span></div>'
+   +'</button><div class="kids"><div class="hcard">'
+   +'<div class="hs"><b>WHAT IT IS</b><span>'+c.w+'</span></div>'
+   +'<div class="hs"><b>HOW TO USE IT</b><ol>'
+   +c.h.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ol></div>'
+   +'<div class="hs"><b>WHAT GOOD LOOKS LIKE</b><span>'+c.g+'</span></div>'
+   +'<div class="prbtns" style="margin-top:10px"><button class="stmore" '
+   +'type="button" onclick="howtoPrint()">&#128424; Print the full deck '
+   +'&mdash; laminate for the counter</button></div>'
+   +'</div></div></div>';
+}
+/* the printable deck - one call card per tab, big type, laminate-ready */
+function howtoPrint(){
+  var order=['find','groups','chase','hits','stock','aisle','cons','plant',
+             'idle','fresh','arr','print','battle','std'];
+  var body=order.map(function(k){
+    var c=HOWTO[k]; if(!c) return '';
+    return '<div class="hcv">'
+     +'<div class="hct">'+c.t+'</div>'
+     +'<div class="hcs"><b>WHAT IT IS</b> '+c.w+'</div>'
+     +'<div class="hcs"><b>HOW TO USE IT</b><ol>'
+     +c.h.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ol></div>'
+     +'<div class="hcs"><b>WHAT GOOD LOOKS LIKE</b> '+c.g+'</div>'
+     +'</div>';
+  }).join('');
+  /* prFrame titles are esc()'d - literal dash, never &mdash; here */
+  prFrame('The stores board — call cards',
+   'one card per tab &middot; plain English &middot; print, cut, laminate, '
+    +'keep at the counter &mdash; built for a first-day start with zero '
+    +'knowledge',
+   ASOF, body, false);
+}
 /* THE NOT-FOUND SHEET - one aisle, one piece of paper, a tick box per
    line. kind A = available: should be on the shelf, go and lay eyes
    on it. kind O = on hire: out with a crew, printed so the counter
@@ -1579,6 +1771,7 @@ function panePrint(){
    +'<button class="stmore" type="button" onclick="prSet(\'radios\')">Radios on hire</button>'
    +'<button class="stmore" type="button" onclick="prSet(\'gas\')">Gas monitors on hire</button>'
    +'<button class="stmore" type="button" onclick="prSet(\'all\')">Whole site on hire &mdash; A to Z ('+D.roster.length+')</button>'
+   +'<button class="stmore" type="button" onclick="howtoPrint()">How-to call cards &mdash; the deck</button>'
    +'</div>'
    +'<div class="uhead">One company</div>'
    +'<select id="prco" class="srch" onchange="prSet(\'co\')">'
