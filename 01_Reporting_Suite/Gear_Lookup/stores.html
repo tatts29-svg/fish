@@ -814,13 +814,26 @@ function unlock(){
     try{ D=JSON.parse(dec(mdec(c,MKEY),PAYLOAD)); }catch(e){}
     if(D){ document.getElementById('gate').style.display='none';
            document.getElementById('app').style.display='block';
-           render(); return; }
+           safeRender(); return; }
   }
   try{ D=JSON.parse(dec(c,PAYLOAD)); }catch(e){
     document.getElementById('gerr').textContent='Could not open the board.';return}
   document.getElementById('gate').style.display='none';
   var a=document.getElementById('app'); a.style.display='block';
-  render();
+  safeRender();
+}
+function safeRender(){
+  /* NEVER a blank screen: if drawing the board throws for any reason,
+     put the gate straight back up with the code still typed in - one
+     Enter from in, no refreshing (Andrew, 31 Jul 2026: "cant refresh
+     to see things its silly") */
+  try{ render(); }
+  catch(e){
+    document.getElementById('app').style.display='none';
+    document.getElementById('gate').style.display='';
+    var ge=document.getElementById('gerr');
+    if(ge)ge.textContent='The board hiccupped opening - press Enter to go again.';
+  }
 }
 document.getElementById('code').addEventListener('keydown',function(e){
   if(e.key==='Enter') unlock();});
@@ -836,7 +849,15 @@ document.getElementById('code').addEventListener('keydown',function(e){
             page Andrew hit coming through the crew-page shortcut
             (31 Jul 2026) */
          setTimeout(function(){
-           document.getElementById('code').value=h; unlock(); },0); }
+           try{ document.getElementById('code').value=h; unlock(); }
+           catch(e2){}
+           /* belt and braces: whatever happened, never leave a blank
+              page - if the board is not up, the gate must be */
+           var ap=document.getElementById('app');
+           if(!ap||ap.style.display!=='block'||!ap.innerHTML){
+             document.getElementById('gate').style.display='';
+           }
+         },50); }
 }catch(e){} })();
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;')
