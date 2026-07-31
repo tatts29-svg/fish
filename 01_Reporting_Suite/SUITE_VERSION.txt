@@ -1,7 +1,7 @@
-# Coates K2 suite version - 129 files - overall fc3a2324
+# Coates K2 suite version - 131 files - overall c88218bc
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-31 23:17:28
+# taken 2026-07-31 23:37:27
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -57,6 +57,7 @@ a4a050f5e2 55_PRINT_ITEM_LABELS.bat
 622c10829f 56_PHOTO_HUNT.bat
 6d4d226ed2 57_FIND_MISSING_PICTURES.bat
 6f5211f594 58_RUN_INVOICE_TRUEUP.bat
+543e1b099f 59_RUN_BUSINESS_UTILISATION.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
@@ -103,6 +104,7 @@ a49f1ea35c activity_model.py
 46330a6f6d activity_report.py
 0200824f71 browser_engine.py
 28e7cf093a build_baseplan_costs.py
+b5f92a1959 build_business_utilisation.py
 064ec01f28 build_clean_report.py
 3f8dc50d72 build_company_onhire_report.py
 6e6ab04d8a build_cost_snapshot.py
