@@ -917,7 +917,13 @@ def build():
             .replace('__STOREJS__',
                      ('var STORE=' + json.dumps(
                          STOCK['hire'] + STOCK['cons'],
-                         separators=(',', ':')) + ';\n' + mygear_store.JS)
+                         separators=(',', ':')) + ';\n'
+                      #  the CURRENT tag colour word, stamped from the
+                      #  compliance master (Jul-Aug = BLUE) so a new
+                      #  quarter needs a rebuild, never a code change
+                      + mygear_store.JS
+                          .replace('__TAGC__', (EC.tag_colour()[0] or ''))
+                          .replace('__TAGX__', EC.tag_hex() or '#8A97A8'))
                      if _store_pane else 'var STORE=[];')
             .replace('__UIJS__', (_jsqr + '\n' if _jsqr else '')
                      + mygear_ui.JS))

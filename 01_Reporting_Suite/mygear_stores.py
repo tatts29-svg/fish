@@ -423,6 +423,36 @@ def _plant_id(item):
         return ''
 
 
+def _comp_fl(item, name):
+    """Compact compliance letters for a row: E electrical tag, R rigging
+    / height tag (both BLUE for Jul-Aug per the master), L logbook -
+    generators, forklifts, booms and the like that need the daily
+    pre-start written up (Andrew, 31 Jul 2026: "have like a log book so
+    they know it's a piece of equipment that needs the log book filled
+    in"). Same authority as the worker card: equipment_compliance."""
+    try:
+        import equipment_compliance as _EC
+        f = _EC.flags(item, name)
+    except Exception:
+        return ''
+    s = ''
+    if f.get('electrical'):
+        s += 'E'
+    if f.get('rigging'):
+        s += 'R'
+    if f.get('logbook'):
+        s += 'L'
+    return s
+
+
+def _tag_now():
+    try:
+        import equipment_compliance as _EC
+        return {'c': _EC.tag_colour()[0] or '', 'x': _EC.tag_hex()}
+    except Exception:
+        return {'c': '', 'x': '#8A97A8'}
+
+
 def read(rental_path, stocktake_path, master=None, today=None,
          txn_path=None, sales_path=None, base=None):
     """Everything the counter needs, from the two registers.
@@ -499,7 +529,8 @@ def read(rental_path, stocktake_path, master=None, today=None,
             #  asked for over the counter (Andrew, 29 Jul 2026)
             pid0 = _plant_id(itm0)
             roster.append({'n': nm0, 'u': unit0, 'w': who0, 'co': co0,
-                           'd': dy0, 'i': itm0, 'p': pid0})
+                           'd': dy0, 'i': itm0, 'p': pid0,
+                           'fl': _comp_fl(itm0, nm0)})
             #  The hit list (Andrew, 29 Jul 2026): "who has not brought
             #  back radios after one day. and milwaukee batteries after
             #  1 day and milwaukee tooling after 3 days."
@@ -537,7 +568,9 @@ def read(rental_path, stocktake_path, master=None, today=None,
         unit = g(r, 'STORAGE_UNIT') or 'Unfiled'
         key = (cat, name)
         e = groups.setdefault(key, {'c': cat, 'n': name, 'av': 0, 'oh': 0,
-                                    'u': {}, 'who': [], 'v': ''})
+                                    'u': {}, 'who': [], 'v': '', 'fl': ''})
+        if not e['fl']:
+            e['fl'] = _comp_fl(_itm, name)
         if not e['v']:
             #  the photo key - one thumbnail per variant covers every
             #  item behind it (Andrew, 30 Jul 2026)
@@ -558,7 +591,8 @@ def read(rental_path, stocktake_path, master=None, today=None,
                 find_av.setdefault(name + '\x1f' + unit, []).append(_itm)
             if _is_plant(unit):
                 plant['free'].append({'n': name, 'u': unit, 'f': _fam,
-                                      'i': _itm, 'p': _pidv})
+                                      'i': _itm, 'p': _pidv,
+                                      'fl': _comp_fl(_itm, name)})
         else:
             e['oh'] += 1
             d = au_date(g(r, 'ON_HIRE_DATE'))
@@ -576,11 +610,13 @@ def read(rental_path, stocktake_path, master=None, today=None,
                 idle.append({'n': name, 'u': unit, 'd': days})
                 if _is_plant(unit):
                     plant['idle'].append({'n': name, 'u': unit, 'd': days,
-                                          'f': _fam, 'i': _itm, 'p': _pidv})
+                                          'f': _fam, 'i': _itm, 'p': _pidv,
+                                          'fl': _comp_fl(_itm, name)})
             elif _is_plant(unit):
                 plant['out'].append({'n': name, 'u': unit, 'w': who,
                                      'co': co, 'd': days,
-                                     'f': _fam, 'i': _itm, 'p': _pidv})
+                                     'f': _fam, 'i': _itm, 'p': _pidv,
+                                     'fl': _comp_fl(_itm, name)})
 
     #  stocktake - how much of the store has actually been laid eyes on
     stock = {'total': 0, 'w1': 0, 'w3': 0, 'w7': 0, 'stale': []}
@@ -775,6 +811,10 @@ def read(rental_path, stocktake_path, master=None, today=None,
         'groups': G,
         #  THE FINDER: every available item by number, names stored once
         'find': {'av': find_av},
+        #  the CURRENT test-tag colour, from the compliance master's
+        #  windows (Jul-Aug = BLUE) - the page prints the word it is
+        #  told, so a new quarter needs no page change
+        'tag': _tag_now(),
         'chase': {'tools': chase_t, 'plant': chase_p,
                   'toolUnits': by_unit(chase_t),
                   'plantUnits': by_unit(chase_p)},
@@ -1319,6 +1359,12 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .kid .kt em.o{color:var(--org)}
 .kid .kw{font-size:11.5px;color:var(--dim);margin-top:5px;line-height:1.6}
 .kid .kw b{color:#C7CED8;font-weight:700}
+/* compliance chips + the variant code (the photo key, worth knowing) */
+.cchips{margin-top:6px}
+.cchip{display:inline-block;color:#fff;border-radius:6px;padding:2.5px 9px;
+ font-size:10px;font-weight:800;letter-spacing:.4px;margin:0 6px 4px 0}
+.cchip.lbk{background:#3A2E08;color:#F5C032;border:1px solid #6b551b}
+.vcode{font-family:Consolas,Menlo,monospace;font-size:10.5px;color:#8A97A8}
 /* the finder's answer cards - shelf green, out orange, hunt red */
 .fcard{display:flex;gap:12px;align-items:center;background:var(--pnl);
  border:1px solid var(--line);border-left:5px solid var(--gd);
@@ -1740,9 +1786,12 @@ function findIdx(){
     if(e&&e.s==='A'){ e.st=x.d; e.by=x.by; }
     else if(!e) ix[key]={s:'M',n:x.n,u:x.u,d2:x.d,by:x.by,hs:x.s};
   });
-  var nv={};
-  D.groups.forEach(function(g){ if(g.v) nv[g.n.toUpperCase()]=g.v; });
-  FIND_IDX={ix:ix,nv:nv,av:av};
+  var nv={}, fln={};
+  D.groups.forEach(function(g){
+    if(g.v) nv[g.n.toUpperCase()]=g.v;
+    if(g.fl) fln[g.n.toUpperCase()]=g.fl;
+  });
+  FIND_IDX={ix:ix,nv:nv,fln:fln,av:av};
   return FIND_IDX;
 }
 function paneFind(){
@@ -1825,8 +1874,9 @@ function findCard(it,e,F){
    +'<div class="fbody"><div class="fhead">'+head+'</div>'
    +'<div class="fname">'+esc(e.n||'Unnamed item')+'</div>'
    +'<div class="kw">Item '+esc(it)
-   +(e.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(e.p)+'</b>':'')+'</div>'
-   +'<div class="kw">'+body+'</div></div>'
+   +(e.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(e.p)+'</b>':'')
+   +(v?' &middot; <span class="vcode">'+esc(v)+'</span>':'')+'</div>'
+   +'<div class="kw">'+body+'</div>'+compChips(e.fl||(F.fln?F.fln[(e.n||'').toUpperCase()]:''))+'</div>'
    +'<div class="kqr">'+qr(it,56)+'</div></div>';
 }
 function paneGroups(){
@@ -1882,11 +1932,27 @@ function kid(g){
   return '<div class="kid kidth">'+thTile(g.v,g.n)
     +'<div class="kbody"><div class="kt"><b>'+esc(g.n)+'</b>'
     +'<em>'+g.av+' free</em>'+(g.oh?'<em class="o">'+g.oh+' out</em>':'')+'</div>'
-    +(units?'<div class="where">'+esc(units)+'</div>':'')+who+'</div></div>';
+    +(units?'<div class="where">'+esc(units)
+      +(g.v?' &middot; <span class="vcode">'+esc(g.v)+'</span>':'')+'</div>':'')
+    +compChips(g.fl)+who+'</div></div>';
 }
 /* the picture tile: the variant's thumbnail (Gear_Lookup/thumbs), or
    a two-letter monogram until its photo is collected - 56_PHOTO_HUNT
    is the wanted list. Lazy-loaded; a missing file falls back clean. */
+/* compliance chips: the tag colour word comes from the payload (the
+   master's windows - Jul/Aug is BLUE), LOG BOOK marks the machines
+   that need the daily pre-start written up. One helper, every list. */
+function compChips(fl){
+  if(!fl) return '';
+  var t=D.tag||{c:'',x:'#8A97A8'}, out='';
+  if(fl.indexOf('E')>=0&&t.c)
+    out+='<span class="cchip" style="background:'+t.x+'">TAG '+esc(t.c)+' &middot; ELECTRICAL</span>';
+  if(fl.indexOf('R')>=0&&t.c)
+    out+='<span class="cchip" style="background:'+t.x+'">TAG '+esc(t.c)+' &middot; RIGGING / HEIGHT</span>';
+  if(fl.indexOf('L')>=0)
+    out+='<span class="cchip lbk">&#128221; LOG BOOK &middot; DAILY PRE-START</span>';
+  return out?'<div class="cchips">'+out+'</div>':'';
+}
 function thMono(n){
   var w=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
   return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
@@ -2937,7 +3003,7 @@ function panePlant(){
       +'</b><em'+(emCls?' class="'+emCls+'"':'')+'>'+em+'</em></div>'
       +'<div class="kw">'+(x.i?'Item '+esc(x.i)+' &middot; ':'')+esc(x.u)
       +(x.w?' &middot; <b>'+esc(x.w)+'</b>'+(x.co?' &middot; '+esc(x.co):''):'')
-      +'</div></div>';
+      +'</div>'+compChips(x.fl)+'</div>';
   }
   Object.keys(cats).sort(function(a,b){
     var A=cats[a],B=cats[b];

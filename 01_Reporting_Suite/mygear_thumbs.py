@@ -35,7 +35,7 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SIZE = 160           # thumbnail edge, px - crisp at the bigger on-screen tiles
+SIZE = 384           # thumbnail edge, px - showroom-grid sharp on phones
 
 PHOTOS_README = """\
 DROP GEAR PHOTOS IN HERE
@@ -147,12 +147,25 @@ def refresh(here=None, quiet=False):
 
     def tpath(code):
         return os.path.join(tdir, code + '.jpg')
+    #  bumping SIZE regenerates the lot once: a marker file remembers
+    #  the size the folder was built at (31 Jul 2026 - grid went big)
+    marker = os.path.join(tdir, '_size.txt')
+    try:
+        old_size = open(marker).read().strip()
+    except OSError:
+        old_size = ''
+    rebuild_all = old_size != str(SIZE)
     pend = [(c, p) for c, p in photos.items()
-            if not os.path.isfile(tpath(c))
+            if rebuild_all or not os.path.isfile(tpath(c))
             or os.path.getmtime(tpath(c)) < os.path.getmtime(p)]
     ready = sum(1 for c in photos if os.path.isfile(tpath(c)))
     if not pend:
         return (len(photos), 0, ready)
+    try:
+        with open(marker, 'w') as f:
+            f.write(str(SIZE))
+    except OSError:
+        pass
     try:
         import browser_engine
         browser = browser_engine.find_browser()

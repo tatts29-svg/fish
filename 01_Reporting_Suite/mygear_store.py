@@ -310,13 +310,26 @@ def read_availability(rental_path, sales_path, master=None):
                             if 'SKU_NUMBER' in ix else ''})
         wb.close()
 
+    def _fl(name):
+        #  compliance letters by description - same authority as the
+        #  worker card (equipment_compliance); blank when unbound
+        try:
+            import equipment_compliance as _EC
+            f = _EC.flags(None, name)
+        except Exception:
+            return ''
+        return (('E' if f.get('electrical') else '')
+                + ('R' if f.get('rigging') else '')
+                + ('L' if f.get('logbook') else ''))
+
     def pack(d, kind):
         out = []
         for (name, cat, unit), n in d.items():
             #  c = the category you look under, u = the aisle you walk to
             out.append({'n': name, 'c': cat, 'u': unit,
                         'q': int(n), 'k': kind,
-                        'v': vkey.get((name, cat, unit), '')})
+                        'v': vkey.get((name, cat, unit), ''),
+                        'fl': _fl(name)})
         out.sort(key=lambda x: x['n'].lower())
         return out
 
@@ -328,7 +341,7 @@ def read_availability(rental_path, sales_path, master=None):
         live = max(recs, key=lambda x: x['q'])
         C.append({'n': live['n'], 'c': cat, 'u': live['u'],
                   'q': int(sum(x['q'] for x in recs)), 'k': 'c',
-                  'v': live['sku']})
+                  'v': live['sku'], 'fl': ''})
     C.sort(key=lambda x: x['n'].lower())
     stats = {
         'hireItems': sum(x['q'] for x in H),
@@ -379,6 +392,30 @@ CSS = """
   padding:12px 13px;margin-bottom:8px;min-height:60px}
 .strow.few{border-left-color:#F5A623}
 .strow.none{border-left-color:#E23B2E;opacity:.72}
+/* THE SHOWROOM GRID - browsing a category faces you with the gear,
+   big photo cards two across, count badge on the corner (31 Jul 2026:
+   "get these this big and bigger... make this elite") */
+.stgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stgrid .stfam{grid-column:1/-1}
+.stcard{background:#151A22;border:1px solid #28323F;border-radius:16px;
+ overflow:hidden;display:flex;flex-direction:column}
+.stcard.none{border-color:#5a2622}
+.stcard .im{position:relative;aspect-ratio:1/1;background:#1B2330;
+ display:flex;align-items:center;justify-content:center;overflow:hidden}
+.stcard .im img{width:100%;height:100%;object-fit:cover;display:block}
+.stcard .gmono{color:#8A97A8;font-weight:900;font-size:34px;letter-spacing:1px}
+.stcard .qb{position:absolute;top:8px;right:8px;border-radius:9px;
+ padding:3px 10px;font-size:14px;font-weight:900;color:#08210c;background:#35D68A}
+.stcard .qb.a{background:#F0B429;color:#2a1e05}
+.stcard .qb.r{background:#FF5A4D;color:#fff}
+.stcard .bd{padding:9px 11px 11px}
+.stcard .bd b{display:block;font-size:13px;font-weight:700;color:#EAF0F7;line-height:1.35}
+.stcard .bd span{display:block;font-size:10.5px;color:#8A97A8;margin-top:3px;line-height:1.5}
+.vc{font-family:Consolas,Menlo,monospace;font-style:normal;font-size:9.5px;color:#6E7A8A}
+.cchips{margin-top:5px}
+.cchip{display:inline-block;color:#fff;border-radius:6px;padding:2px 8px;
+ font-size:9.5px;font-weight:800;letter-spacing:.4px;margin:0 5px 3px 0}
+.cchip.lbk{background:#3A2E08;color:#F5C032;border:1px solid #6b551b}
 .strow .sth{flex:none;width:80px;height:80px;border-radius:12px;overflow:hidden;
  background:#20262e;display:flex;align-items:center;justify-content:center}
 .strow .sth img{width:100%;height:100%;object-fit:cover;display:block}
@@ -459,10 +496,17 @@ function stRender(reset){
     return;
   }
   var slice = hits.slice(0, STORE_SHOWN), html = '';
+  /* BROWSING is a showroom, SEARCHING is a list. Walk into a category
+     and the gear faces you as big photo cards - the picture IS the
+     catalogue (Andrew, 31 Jul 2026: "get these this big and bigger
+     again for their sub folder locations, make this elite"). Type a
+     search and it drops back to the quick list. */
+  var grid = !words.length;
   /* family seams only when BROWSING a big aisle - a search result or a
      small aisle stays a flat list, seams there are just noise */
   var seams = !words.length && cat !== 'All' && hits.length > 25;
   var lastFam = null;
+  if(grid) html += '<div class="stgrid">';
   for(var i=0;i<slice.length;i++){
     var it = slice[i];
     if(seams){
@@ -478,12 +522,30 @@ function stRender(reset){
     var cls = it.q === 0 ? 'none' : (it.q <= 3 ? 'few' : '');
     var big = it.q === 0 ? 'NONE' : it.q;
     var lab = it.q === 0 ? 'right now' : (it.k === 'c' ? 'on the shelf' : 'ready to hire');
-    html += '<div class="strow ' + cls + '" style="animation-delay:'
-      + Math.min(i*14,280) + 'ms">'
-      + thTile(it.v, it.n)
-      + '<div class="stn"><b>' + it.n + '</b><span>' + it.u + '</span></div>'
-      + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
+    if(grid){
+      html += '<div class="stcard ' + cls + '">'
+        + '<div class="im">'
+        + (it.v ? '<img src="thumbs/' + encodeURIComponent(it.v)
+            + '.jpg" loading="lazy" alt="" data-m="' + thMono(it.n)
+            + '" onerror="thxg(this)">'
+          : '<span class="gmono">' + thMono(it.n) + '</span>')
+        + '<span class="qb ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '">'
+        + big + '</span></div>'
+        + '<div class="bd"><b>' + it.n + '</b>'
+        + '<span>' + it.u + ' &middot; ' + lab
+        + (it.v ? '<br><i class="vc">' + it.v + '</i>' : '') + '</span>'
+        + stChips(it.fl) + '</div></div>';
+    } else {
+      html += '<div class="strow ' + cls + '" style="animation-delay:'
+        + Math.min(i*14,280) + 'ms">'
+        + thTile(it.v, it.n)
+        + '<div class="stn"><b>' + it.n + '</b><span>' + it.u
+        + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
+        + stChips(it.fl) + '</div>'
+        + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
+    }
   }
+  if(grid) html += '</div>';
   box.innerHTML = html;
   var more = document.getElementById('st-more');
   if(more){
@@ -511,6 +573,25 @@ function thx(img){
   var s=img.parentNode;
   s.className='sth mono';
   s.textContent=img.getAttribute('data-m')||'?';
+}
+/* grid-card photo fallback: the big two-letter tile */
+function thxg(img){
+  var d=img.parentNode;
+  var q=d.querySelector('.qb');
+  d.innerHTML='<span class="gmono">'+(img.getAttribute('data-m')||'?')+'</span>';
+  if(q)d.appendChild(q);
+}
+/* compliance chips for the crew: the tag colour word and the log book.
+   __TAGC__/__TAGX__ are stamped by the build from the compliance
+   master's windows - Jul/Aug prints BLUE. */
+function stChips(fl){
+  if(!fl) return '';
+  var out='';
+  if((fl.indexOf('E')>=0||fl.indexOf('R')>=0)&&'__TAGC__')
+    out+='<span class="cchip" style="background:__TAGX__">TAG __TAGC__</span>';
+  if(fl.indexOf('L')>=0)
+    out+='<span class="cchip lbk">&#128221; LOG BOOK</span>';
+  return out?'<div class="cchips">'+out+'</div>':'';
 }
 function stCat(name, el){
   window.ST_CAT = name;
