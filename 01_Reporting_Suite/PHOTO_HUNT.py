@@ -40,7 +40,12 @@ def main():
         print(' No RENTAL_STOCK / SALES_STOCK exports found - run the')
         print(' morning downloads first.')
         return 1
-    have = set(mygear_thumbs._photo_files(HERE))
+    #  count DONE the way the build counts it - exact names, near-enough
+    #  names, and the radio/gas word match - so the hunt never asks for
+    #  a photo the build already has (31 Jul 2026)
+    have = set(mygear_thumbs.alias_photos(
+        dict(mygear_thumbs._photo_files(HERE)), reg.keys(),
+        loose={c: v.get('n', '') for c, v in reg.items() if v.get('drv')}))
     safe = mygear_thumbs.safe_name
     total, done = len(reg), sum(1 for c in reg if safe(c) in have)
     print(' Variants & SKUs on the register : {}'.format(total))
