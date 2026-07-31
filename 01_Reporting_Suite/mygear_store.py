@@ -380,6 +380,15 @@ CSS = """
 .stsearch{position:relative}
 .stsearch svg{position:absolute;left:14px;top:23px;width:19px;height:19px;
   color:#7B8798;pointer-events:none}
+/* THE CONTAINER LOOK (Andrew, 31 Jul 2026: "like you're inside the
+   tooling container... like a Coates catalogue") - corrugated-steel
+   banner, rack-ticket bay labels */
+.ctop{background:repeating-linear-gradient(90deg,#141922 0 16px,#1A212C 16px 32px);
+ border:1px solid #2A313C;border-left:5px solid var(--org);border-radius:12px;
+ padding:12px 16px;margin:2px 0 12px}
+.ctop b{display:block;color:#EAF0F7;font-size:13px;letter-spacing:2.5px;
+ font-weight:900}
+.ctop span{display:block;color:#8A97A8;font-size:11.5px;margin-top:3px}
 .stcats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:4px 0 14px}
 .stcat{background:#151A22;border:1px solid #2A313C;border-radius:12px;
   padding:12px 6px 10px;text-align:center;color:var(--org);cursor:pointer;
@@ -387,7 +396,8 @@ CSS = """
 .stcat.on{border-color:var(--org);background:#1E1710}
 .stcat .cimg{width:100%;height:104px;border-radius:10px;object-fit:cover;
  display:block;margin:0 0 7px}
-.stcat b{display:block;color:#EAF0F7;font-size:11.5px;font-weight:800;
+.stcat b{display:block;background:var(--org);color:#fff;border-radius:6px;
+ padding:3px 6px;margin:2px 4px 0;font-size:11.5px;font-weight:800;
   letter-spacing:.4px;margin-top:5px}
 .stcat span{display:block;color:#8A97A8;font-size:11px;font-weight:700;
   margin-top:2px}
@@ -685,6 +695,10 @@ def pane(data, asof):
         "inputmode='search' autocomplete='off' "
         "placeholder='Type what you need &mdash; grinder, batt, hose' "
         "oninput='stRender(true)' aria-label='Search the store'></div>"
+        "<div class='ctop'><b>STEP INTO THE TOOL STORE</b>"
+        "<span>Walk the bays below &mdash; every picture is the real gear "
+        "on these shelves. Tap a bay, or ask the search like you'd ask at "
+        "the window.</span></div>"
         "<div class='stcats'>{cats}</div>"
         "<div class='stcount' id='st-count'></div>"
         "<div id='st-list'></div>"
