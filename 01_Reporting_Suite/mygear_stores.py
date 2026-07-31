@@ -1544,10 +1544,10 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 .hcard .hs span{font-size:14px;line-height:1.6;color:var(--txt)}
 .hcard .hs ol{margin:0 0 0 20px;font-size:14px;line-height:1.65;color:var(--txt)}
 .hcard .hs ol li{margin-bottom:5px}
-.kth2{flex:none;width:80px;height:80px;border-radius:12px;overflow:hidden;
+.kth2{flex:none;width:112px;height:112px;border-radius:14px;overflow:hidden;
  background:#20262e;display:flex;align-items:center;justify-content:center}
 .kth2 img{width:100%;height:100%;object-fit:cover;display:block}
-.kth2.mono{color:#8A97A8;font-weight:900;font-size:17px;letter-spacing:.5px}
+.kth2.mono{color:#8A97A8;font-weight:900;font-size:23px;letter-spacing:.5px}
 /* the on-screen scan sticker: white QR tile pinned to the row's right,
    room reserved with padding so text never runs underneath it */
 .kid.hasqr{position:relative;padding-right:80px}

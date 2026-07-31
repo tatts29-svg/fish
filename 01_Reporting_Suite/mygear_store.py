@@ -416,10 +416,10 @@ CSS = """
 .cchip{display:inline-block;color:#fff;border-radius:6px;padding:2px 8px;
  font-size:9.5px;font-weight:800;letter-spacing:.4px;margin:0 5px 3px 0}
 .cchip.lbk{background:#3A2E08;color:#F5C032;border:1px solid #6b551b}
-.strow .sth{flex:none;width:80px;height:80px;border-radius:12px;overflow:hidden;
+.strow .sth{flex:none;width:112px;height:112px;border-radius:14px;overflow:hidden;
  background:#20262e;display:flex;align-items:center;justify-content:center}
 .strow .sth img{width:100%;height:100%;object-fit:cover;display:block}
-.strow .sth.mono{color:#8A97A8;font-weight:900;font-size:17px;letter-spacing:.5px}
+.strow .sth.mono{color:#8A97A8;font-weight:900;font-size:23px;letter-spacing:.5px}
 .strow .stn{flex:1;min-width:0}
 .strow .stn b{display:block;font-size:14.5px;font-weight:700;color:#EAF0F7;
   line-height:1.35}

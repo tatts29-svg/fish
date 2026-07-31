@@ -1004,9 +1004,9 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .item .d{font-size:13px;color:#eef2f8;font-weight:600}.item .n{font-size:11px;color:var(--mut);margin-top:1px}
 /* the item's own picture - what the thing in your name LOOKS like.
    Photo when its variant shot is collected, two-letter tile until. */
-.item .ith{flex:none;width:72px;height:72px;border-radius:12px;overflow:hidden;background:#1B2330;display:flex;align-items:center;justify-content:center}
+.item .ith{flex:none;width:100px;height:100px;border-radius:14px;overflow:hidden;background:#1B2330;display:flex;align-items:center;justify-content:center}
 .item .ith img{width:100%;height:100%;object-fit:cover;display:block}
-.item .ith.mono{color:#8A97A8;font-weight:900;font-size:17px;letter-spacing:.5px}
+.item .ith.mono{color:#8A97A8;font-weight:900;font-size:21px;letter-spacing:.5px}
 .item .itxt{flex:1;min-width:0}
 /* .cb = compliance chips under an item. Deliberately NOT .badge/.badges -
    those are the achievement pills above and must not change. The chips
