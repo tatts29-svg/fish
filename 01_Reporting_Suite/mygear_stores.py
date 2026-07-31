@@ -1910,7 +1910,13 @@ document.getElementById('code').addEventListener('keydown',function(e){
 (function(){ try{
   var h=sessionStorage.getItem('k2stores');
   if(h){ sessionStorage.removeItem('k2stores');
-         document.getElementById('code').value=h; unlock(); }
+         /* wait for EVERY script block to parse before unlocking -
+            render() reaches helpers defined further down the page, and
+            firing early left a hidden gate and an empty app: the blank
+            page Andrew hit coming through the crew-page shortcut
+            (31 Jul 2026) */
+         setTimeout(function(){
+           document.getElementById('code').value=h; unlock(); },0); }
 }catch(e){} })();
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;')

@@ -380,13 +380,13 @@ CSS = """
 .stsearch{position:relative}
 .stsearch svg{position:absolute;left:14px;top:23px;width:19px;height:19px;
   color:#7B8798;pointer-events:none}
-.stcats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 14px}
+.stcats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:4px 0 14px}
 .stcat{background:#151A22;border:1px solid #2A313C;border-radius:12px;
   padding:12px 6px 10px;text-align:center;color:var(--org);cursor:pointer;
   font-family:inherit;min-height:74px}
 .stcat.on{border-color:var(--org);background:#1E1710}
-.stcat .cimg{width:46px;height:46px;border-radius:10px;object-fit:cover;
- display:block;margin:0 auto 5px}
+.stcat .cimg{width:100%;height:104px;border-radius:10px;object-fit:cover;
+ display:block;margin:0 0 7px}
 .stcat b{display:block;color:#EAF0F7;font-size:11.5px;font-weight:800;
   letter-spacing:.4px;margin-top:5px}
 .stcat span{display:block;color:#8A97A8;font-size:11px;font-weight:700;
@@ -639,6 +639,14 @@ def pane(data, asof):
             catv[_c0] = _T4.safe_name(_v0)
 
     def _cface(name, path):
+        #  a DEDICATED category render wins (Andrew's pack, 31 Jul 2026:
+        #  CATEGORY_SOCKETS.jpg and friends); else the first pictured
+        #  item in the aisle; else the line icon
+        _ck = 'CATEGORY_' + re.sub(r'[^A-Z0-9]+', '_',
+                                   name.upper()).strip('_')
+        if os.path.isfile(os.path.join(_tdir, _ck + '.jpg')):
+            return ("<img class='cimg' src='thumbs/{v}.jpg' alt='' "
+                    "onerror=\"this.style.display='none'\">").format(v=_ck)
         if name in catv:
             return ("<img class='cimg' src='thumbs/{v}.jpg' alt='' "
                     "onerror=\"this.style.display='none'\">").format(
@@ -646,7 +654,7 @@ def pane(data, asof):
         return _icon(path)
 
     cats = ("<button class='stcat on' type='button' onclick=\"stCat('All',this)\">"
-            + _icon('M4 6h16M4 12h16M4 18h16')
+            + _cface('Everything', 'M4 6h16M4 12h16M4 18h16')
             + "<b>EVERYTHING</b><span>{}</span></button>".format(total))
     #  biggest first: the aisles a crew actually reaches for, at the top
     for name, path, _keys in sorted(CATS, key=lambda c: -counts.get(c[0], 0)):
