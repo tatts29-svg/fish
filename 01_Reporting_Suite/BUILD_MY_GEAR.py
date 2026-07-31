@@ -799,7 +799,10 @@ def build():
                 h=_sst.get('hireItems', 0), c=_sst.get('consLines', 0))
         _store_pane = ("<div id='g-store' class='gpane'>"
                        + mygear_store.pane(STOCK, asof) + "</div>")
-    _shelf = mygear_ui.shelf_html(mygear_guides.guide_buttons() + _store_btn)
+    #  guides live on the corner pills (RADIO / GAS / CONTACTS) - the
+    #  big duplicate cards came off the front page (Andrew, 31 Jul 2026:
+    #  'we have those pills on the right side... hence why i asked')
+    _shelf = mygear_ui.shelf_html(_store_btn)
     #  The site pulse - live numbers on the front door (Andrew, 28 Jul
     #  2026: "utilising all reports to provide as much data as we can").
     #  Every figure is computed above from today's exports; the counters
@@ -1127,14 +1130,6 @@ __STORECSS__
 <div class="mgkick">K2 Digital Tool Store</div>
 <div class="mgsub">Your gear. Your responsibility. One scan.</div>
 __PULSE__
-<div class="cabs">
-<div class="cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4 2.6-2.6z"/></svg><b>Tooling</b></div>
-<div class="cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M10 2h4M13 9l-3 4h4l-3 4"/></svg><b>Battery gear</b></div>
-<div class="cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-5 5 5 5 0 0 1-5-5V8zM12 16v5"/></svg><b>Electrical</b></div>
-<div class="cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h13M5 19v-4h7l2-5h3l2 4v5M14 10 11 5H8"/><circle cx="7" cy="19" r="1.6"/><circle cx="14" cy="19" r="1.6"/></svg><b>Plant</b></div>
-<div class="cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="7" width="8" height="14" rx="2"/><path d="M12 7V2M12 2l3 2M10.5 11h3M10.5 14h3"/></svg><b>Radios</b></div>
-<div class="cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="5" width="10" height="16" rx="2.5"/><circle cx="12" cy="12" r="2.6"/><path d="M9.5 2.5h5"/></svg><b>Gas monitors</b></div>
-</div>
 <div class="scanpanel" id="scanpanel" role="button" tabindex="0">
 <span class="crn c1"></span><span class="crn c2"></span><span class="crn c3"></span><span class="crn c4"></span>
 <div class="sptitle">Scan your ID barcode</div>
