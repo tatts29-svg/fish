@@ -401,10 +401,14 @@ CSS = """
   letter-spacing:.4px;margin-top:5px}
 .stcat span{display:block;color:#8A97A8;font-size:11px;font-weight:700;
   margin-top:2px}
-.stfam{display:flex;align-items:baseline;gap:8px;font-size:11.5px;font-weight:800;
+.stfam{display:flex;align-items:center;gap:9px;font-size:11.5px;font-weight:800;
  letter-spacing:1px;text-transform:uppercase;color:#F26222;
- border-left:3px solid #F26222;padding:4px 0 4px 9px;margin:14px 0 7px}
-.stfam span{color:#8A97A8;font-weight:700;letter-spacing:.4px;text-transform:none}
+ padding:0;margin:14px 0 7px}
+.stfam b{background:var(--org);color:#fff;border-radius:6px;padding:3px 9px;
+ font-weight:800}
+.stfam span{color:#8A97A8;font-weight:700;letter-spacing:.4px;text-transform:none;
+ flex:none}
+.stfam::after{content:'';flex:1;height:1px;background:#2A313C;min-width:14px}
 .strow{display:flex;align-items:center;gap:12px;background:#151A22;
   border:1px solid #2A313C;border-left:4px solid #2BB673;border-radius:12px;
   padding:12px 13px;margin-bottom:8px;min-height:60px}
@@ -415,6 +419,28 @@ CSS = """
    "get these this big and bigger... make this elite") */
 .stgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .stgrid .stfam{grid-column:1/-1}
+/* STAGE TWO - THE CATALOGUE SPREAD (Andrew, 31 Jul 2026: "like a
+   Coates catalogue") - open a bay and it reads like the catalogue:
+   the bay-front hero over the corrugated steel, shelf tickets, and
+   the lead item of every shelf running full-width like the
+   catalogue's feature shot */
+.cspread{position:relative;grid-column:1/-1;border:1px solid #2A313C;
+ border-radius:14px;overflow:hidden;min-height:118px;
+ background:repeating-linear-gradient(90deg,#141922 0 16px,#1A212C 16px 32px)}
+.cspread img{position:absolute;top:0;left:0;width:100%;height:100%;
+ object-fit:cover;opacity:.42}
+.cspread .ct{position:relative;padding:32px 14px 13px;
+ background:linear-gradient(180deg,rgba(10,14,20,0) 0%,rgba(10,14,20,.94) 74%)}
+.cspread .ct b{display:inline-block;background:var(--org);color:#fff;
+ border-radius:7px;padding:4px 12px;font-size:15px;font-weight:900;
+ letter-spacing:2px}
+.cspread .ct span{display:block;color:#C7CED8;font-size:11.5px;
+ font-weight:700;margin-top:6px}
+.stcard.wide{grid-column:1/-1;flex-direction:row}
+.stcard.wide .im{width:132px;flex:none;aspect-ratio:auto;align-self:stretch;
+ min-height:112px}
+.stcard.wide .bd{flex:1;display:flex;flex-direction:column;justify-content:center}
+.stcard.wide .bd b{font-size:15px}
 .stcard{background:#151A22;border:1px solid #28323F;border-radius:16px;
  overflow:hidden;display:flex;flex-direction:column}
 .stcard.none{border-color:#5a2622}
@@ -523,8 +549,22 @@ function stRender(reset){
   /* family seams only when BROWSING a big aisle - a search result or a
      small aisle stays a flat list, seams there are just noise */
   var seams = !words.length && cat !== 'All' && hits.length > 25;
-  var lastFam = null;
+  var lastFam = null, feat = false;
   if(grid) html += '<div class="stgrid">';
+  /* STAGE TWO - the bay-front spread: walk into a bay and it opens
+     like a catalogue page - the bay's rack photo big over the
+     corrugated steel, and how much the bay holds */
+  if(grid && cat !== 'All'){
+    var fams = {}, famT = 0;
+    for(var j2=0;j2<hits.length;j2++) fams[stFam(hits[j2].n)] = 1;
+    for(var k2 in fams) famT++;
+    html += '<div class="cspread">'
+      + (window.ST_FACE ? '<img src="' + window.ST_FACE + '" alt="">' : '')
+      + '<div class="ct"><b>' + cat.toUpperCase() + '</b>'
+      + '<span>' + hits.length + (hits.length===1?' line':' lines')
+      + ' in this bay' + (famT>1 ? ' &middot; ' + famT + ' shelves' : '')
+      + '</span></div></div>';
+  }
   for(var i=0;i<slice.length;i++){
     var it = slice[i];
     if(seams){
@@ -532,16 +572,20 @@ function stRender(reset){
       if(fam !== lastFam){
         var famN = 0;
         for(var j=0;j<hits.length;j++) if(stFam(hits[j].n)===fam) famN++;
-        html += '<div class="stfam">' + fam
+        html += '<div class="stfam"><b>' + fam + '</b>'
           + '<span>' + famN + (famN===1?' size':' sizes / kinds') + '</span></div>';
         lastFam = fam;
+        /* the shelf's lead item runs full-width - the catalogue's
+           feature shot - then the size run follows as cards */
+        feat = true;
       }
     }
     var cls = it.q === 0 ? 'none' : (it.q <= 3 ? 'few' : '');
     var big = it.q === 0 ? 'NONE' : it.q;
     var lab = it.q === 0 ? 'right now' : (it.k === 'c' ? 'on the shelf' : 'ready to hire');
     if(grid){
-      html += '<div class="stcard ' + cls + '">'
+      var wide = feat; feat = false;
+      html += '<div class="stcard ' + (wide?'wide ':'') + cls + '">'
         + '<div class="im">'
         + (it.v ? '<img src="thumbs/' + encodeURIComponent(tsafe(it.v))
             + '.jpg" loading="lazy" alt="" data-m="' + thMono(it.n)
@@ -614,11 +658,25 @@ function stChips(fl){
 }
 function stCat(name, el){
   window.ST_CAT = name;
+  /* the tapped bay's rack photo becomes the spread's hero shot */
+  window.ST_FACE = '';
+  if(el && name !== 'All'){
+    var im = el.querySelector('.cimg');
+    if(im && im.style.display !== 'none') window.ST_FACE = im.getAttribute('src');
+  }
   var all = document.querySelectorAll('.stcat');
   for(var i=0;i<all.length;i++) all[i].className = 'stcat';
   if(el) el.className = 'stcat on';
   stRender(true);
-  var b = document.getElementById('gsbody'); if(b) b.scrollTop = 0;
+  /* stepping into a bay lands you IN the bay - at its spread, not
+     back at the top of the bay wall. EVERYTHING goes back to the top. */
+  var b = document.getElementById('gsbody'); if(b){
+    var L = document.getElementById('st-count');
+    if(name !== 'All' && L){
+      b.scrollTop = Math.max(0, L.getBoundingClientRect().top
+        - b.getBoundingClientRect().top + b.scrollTop - 78);
+    } else { b.scrollTop = 0; }
+  }
 }
 function stMore(){ STORE_SHOWN += 60; stRender(false); }
 """
