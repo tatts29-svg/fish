@@ -980,7 +980,7 @@ function findGo(){
 }
 function findCard(it,e,F){
   var v=F.nv[(e.n||'').toUpperCase()]||'';
-  var th=v?'<span class="kth2"><img src="thumbs/'+encodeURIComponent(v)
+  var th=v?'<span class="kth2"><img src="thumbs/'+encodeURIComponent(tsafe(v))
     +'.jpg" loading="lazy" alt="" data-m="'+thMono(e.n)+'" onerror="thx(this)"></span>'
     :'<span class="kth2 mono">'+thMono(e.n)+'</span>';
   var head,body,cls;
@@ -1093,9 +1093,10 @@ function thMono(n){
   var w=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
   return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
 }
+function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
 function thTile(v,n){
   if(!v) return '<span class="kth2 mono">'+thMono(n)+'</span>';
-  return '<span class="kth2"><img src="thumbs/'+encodeURIComponent(v)
+  return '<span class="kth2"><img src="thumbs/'+encodeURIComponent(tsafe(v))
     +'.jpg" loading="lazy" alt="" data-m="'+thMono(n)
     +'" onerror="thx(this)"></span>';
 }

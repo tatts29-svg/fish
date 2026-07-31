@@ -52,6 +52,16 @@ any source (phone photo of the shelf beats a studio shot). The next
 """
 
 
+def safe_name(code):
+    """The filename a code can actually be saved under. Windows bans
+    \\ / : * ? " < > | in filenames, and 275 register codes carry one
+    (SOCKET1/2DR11MM, TRAILERMINIEXCAVATOR<4.5T) - so their photos
+    arrive with those swapped to _ (Andrew's 790-variant pack,
+    31 Jul 2026). Every lookup between a code and a file goes
+    through here; the pages do the same swap in tsafe()."""
+    return re.sub(r'[\\/:*?"<>|]', '_', code)
+
+
 def photos_dir(here=None):
     d = os.path.join(here or HERE, 'Photos')
     os.makedirs(d, exist_ok=True)

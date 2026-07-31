@@ -41,12 +41,13 @@ def main():
         print(' morning downloads first.')
         return 1
     have = set(mygear_thumbs._photo_files(HERE))
-    total, done = len(reg), sum(1 for c in reg if c in have)
+    safe = mygear_thumbs.safe_name
+    total, done = len(reg), sum(1 for c in reg if safe(c) in have)
     print(' Variants & SKUs on the register : {}'.format(total))
     print(' Photos already in Photos\\       : {}'.format(done))
 
     def row(code, e):
-        got = code in have
+        got = safe(code) in have
         name = e['n'] or code
         links = ('<a href="https://www.google.com/search?q={cq}" target="_blank">'
                  'Coates site</a>'
@@ -62,7 +63,7 @@ def main():
                 '<td class="lk">{links}</td></tr>').format(
             cls='done' if got else '', st='&#10003; DONE' if got else 'wanted',
             n=html.escape(name), f=html.escape(e['f'] or '?'), q=e['q'],
-            code=html.escape(code), links=links)
+            code=html.escape(safe(code)), links=links)
 
     #  the big hitters first - most items behind one photo
     ordered = sorted(reg.items(), key=lambda kv: -kv[1]['q'])
@@ -76,7 +77,7 @@ def main():
             + '</table></div>')
     for f in sorted(fams):
         rows = fams[f]
-        got = sum(1 for c, _e in rows if c in have)
+        got = sum(1 for c, _e in rows if safe(c) in have)
         secs += ('<div class="sec"><h2>{f} <span>{g} of {t} collected</span></h2>'
                  '<table>'.format(f=html.escape(f), g=got, t=len(rows))
                  + ''.join(row(c, e) for c, e in rows) + '</table></div>')

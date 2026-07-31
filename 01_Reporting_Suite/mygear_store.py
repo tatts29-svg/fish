@@ -525,7 +525,7 @@ function stRender(reset){
     if(grid){
       html += '<div class="stcard ' + cls + '">'
         + '<div class="im">'
-        + (it.v ? '<img src="thumbs/' + encodeURIComponent(it.v)
+        + (it.v ? '<img src="thumbs/' + encodeURIComponent(tsafe(it.v))
             + '.jpg" loading="lazy" alt="" data-m="' + thMono(it.n)
             + '" onerror="thxg(this)">'
           : '<span class="gmono">' + thMono(it.n) + '</span>')
@@ -563,9 +563,10 @@ function thMono(n){
   var w=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
   return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
 }
+function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
 function thTile(v,n){
   if(!v) return '<span class="sth mono">'+thMono(n)+'</span>';
-  return '<span class="sth"><img src="thumbs/'+encodeURIComponent(v)
+  return '<span class="sth"><img src="thumbs/'+encodeURIComponent(tsafe(v))
     +'.jpg" loading="lazy" alt="" data-m="'+thMono(n)
     +'" onerror="thx(this)"></span>';
 }

@@ -1152,9 +1152,13 @@ function thMono(n){
  var w=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
  return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
 }
+/* Windows can't save a file named SOCKET1/2DR11MM.jpg - photos for
+   codes carrying \ / : * ? " < > | land with those swapped to _ ,
+   so the lookup swaps the same way (matches safe_name in Python) */
+function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
 function wthumb(it){
  if(!it.v) return '<span class="ith mono">'+thMono(it.d)+'</span>';
- return '<span class="ith"><img src="thumbs/'+encodeURIComponent(it.v)
+ return '<span class="ith"><img src="thumbs/'+encodeURIComponent(tsafe(it.v))
   +'.jpg" loading="lazy" alt="" data-m="'+thMono(it.d)+'" onerror="thx(this)"></span>';
 }
 function thx(img){
