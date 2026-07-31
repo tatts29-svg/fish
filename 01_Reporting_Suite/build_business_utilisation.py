@@ -81,6 +81,49 @@ def read_rates(onhire_path):
     return rates
 
 
+_STOP = {'AND', 'THE', 'FOR', 'WITH', 'OF', 'TWO', 'WAY', 'PER', 'NEW'}
+
+
+def _toks(s):
+    import re as _re
+    return set(t for t in _re.split(r'[^A-Z0-9]+', str(s or '').upper())
+               if len(t) >= 3 and t not in _STOP)
+
+
+def read_monthly_rates():
+    """The monthly-stream day rates off the newest Baseplan charges
+    export (the 58 folder) - the radios, gas monitors and welders earn
+    THERE, not through the SiteIQ lines, so without this their FU and
+    revenue would read zero while they earn every day. Returns a list
+    of (token-set, rate) to word-match item descriptions against."""
+    import glob as _g
+    import openpyxl
+    hits = [p for p in _g.glob(os.path.join(HERE, 'Baseplan', '*.xlsx'))
+            if not os.path.basename(p).startswith('~$')]
+    for d in (os.path.join(HERE, 'Data_SiteIQ'), HERE):
+        hits += [p for p in _g.glob(os.path.join(d, 'BASEPLAN_CHARGES*.xlsx'))
+                 if not os.path.basename(p).startswith('~$')]
+    if not hits:
+        return []
+    out = []
+    try:
+        wb = openpyxl.load_workbook(max(hits, key=os.path.getmtime),
+                                    read_only=True, data_only=True)
+        rows = list(wb.active.iter_rows(values_only=True))
+        wb.close()
+        ix = {str(c or '').strip(): i for i, c in enumerate(rows[0])}
+        if 'Description' not in ix or 'Rate 1' not in ix:
+            return []
+        for r in rows[1:]:
+            rate = KU._num(r[ix['Rate 1']])
+            tk = _toks(r[ix['Description']])
+            if rate > 0 and tk:
+                out.append((tk, rate))
+    except Exception:
+        return []
+    return out
+
+
 def build(rental_path, txn_path, onhire_path, master, today=None):
     today = today or dt.date.today()
     days_in = max(1, (today - KU.SHUT_START).days)
@@ -95,6 +138,17 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
             if b:
                 shifts[b] += KU._num(r.get('SHIFTS'))
     rates = read_rates(onhire_path)
+    mrates = read_monthly_rates()
+
+    def kw_rate(desc):
+        """Best word-match against the Baseplan lines, or 0."""
+        tk = _toks(desc)
+        best, score = 0.0, 0
+        for btk, rate in mrates:
+            got = len(tk & btk)
+            if got > score:
+                best, score = rate, got
+        return best if score else 0.0
 
     #  the variant fold: PRODUCT_VARIANT where SiteIQ gives one, the
     #  derived model key where it doesn't (radios and gas monitors fold
@@ -105,7 +159,8 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
     def _blank():
         return {'n': 0, 'billed': 0.0, 'occ': 0.0, 'out': 0,
                 'plant': False, 'repl': 0.0, 'priced': 0, 'rev': 0.0,
-                'rated': 0, 'rate_sum': 0.0, 'pend': []}
+                'rated': 0, 'rate_sum': 0.0, 'pend': [],
+                'pot': 0.0, 'unrated': 0, 'monthly': 0}
     U = collections.defaultdict(_blank)
     V = collections.defaultdict(_blank)
     vname = {}
@@ -134,6 +189,10 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
                 od = min(days_in, max(0, (today - d).days))
         p = master.price(it) if master else None
         rt = rates.get(it)
+        #  no SiteIQ rate line = maybe the monthly stream: radios, gas,
+        #  welders earn on the Baseplan invoice, occupancy IS their
+        #  billing, so their revenue = days out x the invoice rate
+        mrt = 0.0 if rt else kw_rate(desc)
         for agg in (U[unit], V[vk]):
             agg['n'] += 1
             agg['plant'] = KU._is_plant(unit)
@@ -148,15 +207,26 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
                 agg['rated'] += 1
                 agg['rate_sum'] += rt
                 agg['rev'] += sh * rt
-            elif sh:
-                agg['pend'].append(sh)   # billed days awaiting a rate
+                agg['pot'] += rt * days_in
+            elif mrt:
+                agg['monthly'] += 1
+                agg['rev'] += od * mrt
+                agg['billed'] += od      # monthly gear: days out ARE billed days
+                agg['pot'] += mrt * days_in
+            else:
+                agg['unrated'] += 1
+                if sh:
+                    agg['pend'].append(sh)   # billed days awaiting a rate
 
     def _row(name, u, extra=None):
         fleet_days = u['n'] * days_in
         #  billed days with no current rate line price at the group's
-        #  own average - estimate, and counted as such
+        #  own average - estimate, and counted as such. The same average
+        #  stands in for the unrated items' POTENTIAL, so FU's
+        #  denominator covers the whole fleet, not just the rated bit.
         avg = (u['rate_sum'] / u['rated']) if u['rated'] else 0.0
         rev = u['rev'] + sum(u['pend']) * avg
+        pot = u['pot'] + u['unrated'] * days_in * avg
         out = {
             'name': name, 'n': u['n'], 'out': u['out'],
             'plant': u['plant'],
@@ -166,7 +236,8 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
             'tuB': 100.0 * u['billed'] / fleet_days if fleet_days else 0.0,
             'tuO': 100.0 * u['occ'] / fleet_days if fleet_days else 0.0,
             'repl': u['repl'], 'priced': u['priced'],
-            'rev': rev,
+            'rev': rev, 'pot': pot, 'monthly': u['monthly'],
+            'fu': 100.0 * rev / pot if pot else None,
             'roc': 100.0 * rev / u['repl'] if u['repl'] else None,
         }
         if extra:
@@ -190,11 +261,15 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
            'occ': sum(r['occ'] for r in rows),
            'repl': sum(r['repl'] for r in rows),
            'priced': sum(r['priced'] for r in rows),
-           'rev': sum(r['rev'] for r in rows)}
+           'rev': sum(r['rev'] for r in rows),
+           'pot': sum(r['pot'] for r in rows),
+           'monthly': sum(r['monthly'] for r in rows)}
     tot['tuB'] = 100.0 * tot['billed'] / tot['fleetDays'] if tot['fleetDays'] else 0.0
     tot['tuO'] = 100.0 * tot['occ'] / tot['fleetDays'] if tot['fleetDays'] else 0.0
     tot['roc'] = 100.0 * tot['rev'] / tot['repl'] if tot['repl'] else None
-    return {'rows': rows, 'tot': tot, 'daysIn': days_in, 'today': today}
+    tot['fu'] = 100.0 * tot['rev'] / tot['pot'] if tot['pot'] else None
+    return {'rows': rows, 'tot': tot, 'daysIn': days_in, 'today': today,
+            'hasMonthly': bool(mrates)}
 
 
 def html(d):
@@ -252,23 +327,26 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
         "<div class='story'><b>The position:</b> the fleet has stood "
         "{fd:,} fleet-days on site and spent {occ:,.0f} of them in "
         "workers' hands &mdash; site TU {tuO:.0f}% occupied, {tuB:.0f}% "
-        "billed through the charge lines. Estimated revenue to date "
-        "{rev} against {repl} of capital deployed ({pr} of {n} items "
-        "priced) &mdash; ROC {roc} for the period, {rocA} annualised."
-        "</div>".format(
+        "billed. Estimated revenue to date {rev} of a possible {pot} "
+        "&mdash; <b>FU {fu}</b> &mdash; against {repl} of capital "
+        "deployed ({pr} of {n} items priced): ROC {roc} for the period, "
+        "{rocA} annualised.</div>".format(
             fd=tot['fleetDays'], occ=tot['occ'], tuO=tot['tuO'],
-            tuB=tot['tuB'], rev=money(tot['rev']), repl=money(tot['repl']),
+            tuB=tot['tuB'], rev=money(tot['rev']), pot=money(tot['pot']),
+            fu=('{:.0f}%'.format(tot['fu']) if tot['fu'] is not None else 'n/a'),
+            repl=money(tot['repl']),
             pr=tot['priced'], n=tot['n'],
             roc=('{:.1f}%'.format(tot['roc']) if tot['roc'] is not None else 'n/a'),
             rocA=('{:.0f}%'.format(tot['roc'] * ann) if tot['roc'] is not None else 'n/a')))
 
     h.append("<h2>TU &mdash; time utilisation by storage unit</h2>"
              "<div class='note'>TU OCCUPIED counts every day an item has "
-             "stood on hire (catches the free-issue radios, which bill on "
-             "the separate monthly invoice). TU BILLED counts only "
-             "shift-days that charged through the SiteIQ lines. Fleet-days "
-             "= items held &times; {d} days; gear that arrived mid-shut "
-             "reads slightly low, never flattered.</div>".format(d=days_in))
+             "stood on hire. TU BILLED counts shift-days that charged "
+             "through the SiteIQ lines, plus the monthly-stream gear "
+             "(radios, gas, welders) whose every day out bills on the "
+             "Baseplan invoice. Fleet-days = items held &times; {d} days; "
+             "gear that arrived mid-shut reads slightly low, never "
+             "flattered.</div>".format(d=days_in))
     h.append("<table><tr><th>Storage unit</th><th class='r'>Items</th>"
              "<th class='r'>Out now</th><th class='r'>Fleet-days</th>"
              "<th class='r'>Occupied days</th><th>TU occupied</th>"
@@ -292,38 +370,54 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
         b1=bar(tot['tuO'], tu_col(tot['tuO'])),
         bd=tot['billed'], b2=bar(tot['tuB'], tu_col(tot['tuB']))))
 
-    h.append("<h2>ROC &mdash; return on capital by storage unit "
+    h.append("<h2>The money view &mdash; FU &amp; ROC by storage unit "
              "(estimate)</h2>"
-             "<div class='note'>Revenue = billed shift-days &times; the "
-             "item's own SiteIQ SHIFT_RATE (unit average where an item "
-             "has no current rate line). Capital = the master's "
-             "replacement cost; units missing prices show their coverage "
-             "and read LOW on capital, HIGH on ROC &mdash; read them with "
-             "that in mind. Free-issue gear earns on the monthly invoice, "
-             "not here.</div>")
+             "<div class='note'>FU (financial utilisation) = revenue "
+             "earned &divide; revenue if every item hired every day at "
+             "its rate. Revenue: billed shift-days &times; the item's "
+             "SiteIQ SHIFT_RATE; the monthly-stream gear (radios, gas, "
+             "welders) earns its Baseplan invoice rate for every day "
+             "out, read straight off the 58 folder"
+             + ("" if d.get('hasMonthly') else
+                " &mdash; <b>no Baseplan export found, so the monthly "
+                "stream reads zero this run</b>")
+             + ". Items with no rate anywhere ride at the unit average. "
+             "Capital = the master's replacement cost; units missing "
+             "prices read LOW on capital, HIGH on ROC.</div>")
     h.append("<table><tr><th>Storage unit</th>"
-             "<th class='r'>Capital (replacement)</th>"
-             "<th class='r'>Priced</th><th class='r'>Revenue est.</th>"
+             "<th class='r'>Revenue est.</th>"
+             "<th class='r'>Potential</th><th>FU</th>"
+             "<th class='r'>Capital</th>"
+             "<th class='r'>Priced</th>"
              "<th class='r'>ROC period</th><th class='r'>ROC annualised"
              "</th></tr>")
-    rocrows = sorted([r for r in rows if r['repl'] or r['rev']],
+    rocrows = sorted([r for r in rows if r['repl'] or r['rev'] or r['pot']],
                      key=lambda x: -(x['rev']))
     for r in rocrows:
         roc = r['roc']
-        h.append(("<tr><td><b>{name}</b></td><td class='r'>{repl}</td>"
-                  "<td class='r'>{pr}/{n}</td><td class='r'>{rev}</td>"
+        h.append(("<tr><td><b>{name}</b></td><td class='r'>{rev}</td>"
+                  "<td class='r'>{pot}</td><td>{fu}</td>"
+                  "<td class='r'>{repl}</td>"
+                  "<td class='r'>{pr}/{n}</td>"
                   "<td class='r'>{p}</td><td class='r'><b>{a}</b></td>"
                   "</tr>").format(
-            name=r['name'], repl=money(r['repl']),
-            pr=r['priced'], n=r['n'], rev=money(r['rev']),
+            name=r['name'], rev=money(r['rev']), pot=money(r['pot']),
+            fu=(bar(r['fu'], tu_col(r['fu'])) if r['fu'] is not None
+                else '&mdash;'),
+            repl=money(r['repl']),
+            pr=r['priced'], n=r['n'],
             p=('{:.1f}%'.format(roc) if roc is not None else '&mdash;'),
             a=('{:.0f}%'.format(roc * ann) if roc is not None else '&mdash;')))
-    h.append(("<tr class='tot'><td>WHOLE SITE</td><td class='r'>{repl}</td>"
-              "<td class='r'>{pr}/{n}</td><td class='r'>{rev}</td>"
+    h.append(("<tr class='tot'><td>WHOLE SITE</td><td class='r'>{rev}</td>"
+              "<td class='r'>{pot}</td><td>{fu}</td>"
+              "<td class='r'>{repl}</td>"
+              "<td class='r'>{pr}/{n}</td>"
               "<td class='r'>{p}</td><td class='r'>{a}</td></tr></table>")
              .format(
+        rev=money(tot['rev']), pot=money(tot['pot']),
+        fu=(bar(tot['fu'], tu_col(tot['fu'])) if tot['fu'] is not None
+            else '&mdash;'),
         repl=money(tot['repl']), pr=tot['priced'], n=tot['n'],
-        rev=money(tot['rev']),
         p=('{:.1f}%'.format(tot['roc']) if tot['roc'] is not None else '&mdash;'),
         a=('{:.0f}%'.format(tot['roc'] * ann) if tot['roc'] is not None else '&mdash;')))
 
@@ -347,8 +441,9 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
                  + "</span></h3>")
         h.append("<table><tr><th>Product variant</th><th class='r'>Items</th>"
                  "<th class='r'>Out</th><th>TU occupied</th>"
-                 "<th>TU billed</th><th class='r'>Capital</th>"
-                 "<th class='r'>Revenue est.</th>"
+                 "<th>TU billed</th>"
+                 "<th class='r'>Revenue est.</th><th class='r'>FU</th>"
+                 "<th class='r'>Capital</th>"
                  "<th class='r'>ROC ann.</th></tr>")
         for v in vs:
             roc = v['roc']
@@ -357,13 +452,16 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
                       "</span></td>"
                       "<td class='r'>{n}</td><td class='r'>{out}</td>"
                       "<td>{b1}</td><td>{b2}</td>"
-                      "<td class='r'>{cap}</td><td class='r'>{rev}</td>"
+                      "<td class='r'>{rev}</td><td class='r'><b>{fu}</b></td>"
+                      "<td class='r'>{cap}</td>"
                       "<td class='r'><b>{a}</b></td></tr>").format(
                 nm=v['name'], cd=v.get('code', ''), n=v['n'], out=v['out'],
                 b1=bar(v['tuO'], tu_col(v['tuO'])),
                 b2=bar(v['tuB'], tu_col(v['tuB'])),
-                cap=(money(v['repl']) if v['repl'] else '&mdash;'),
                 rev=(money(v['rev']) if v['rev'] else '&mdash;'),
+                fu=('{:.0f}%'.format(v['fu']) if v['fu'] is not None
+                    else '&mdash;'),
+                cap=(money(v['repl']) if v['repl'] else '&mdash;'),
                 a=('{:.0f}%'.format(roc * ann) if roc is not None
                    else '&mdash;')))
         h.append("</table>")
@@ -400,6 +498,9 @@ def main():
     t = d['tot']
     print(' Site TU  : {:.0f}% occupied | {:.0f}% billed  (day {} of the shut)'
           .format(t['tuO'], t['tuB'], d['daysIn']))
+    if t['fu'] is not None:
+        print(' Site FU  : {:.0f}%  ({} earned of {} possible)'.format(
+            t['fu'], money(t['rev']), money(t['pot'])))
     if t['roc'] is not None:
         print(' Site ROC : {:.1f}% period | {:.0f}% annualised  '
               '({} of {} items priced)'.format(
