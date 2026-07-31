@@ -178,12 +178,15 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ## Outstanding
 
-0. **Picture gaps that remain:** only the 71 consumable SKUs - they
-   were never in any pack. `Docs\Picture_Regen_List.txt` carries the
-   exact filenames and the shared style line. (Andrew's corrected
-   packs, 31 Jul evening, re-rendered every flagged hire picture -
-   all 44 verified right, blocklist emptied, all 790 hire variants
-   serve a correct picture.)
+0. **Gear pictures: COMPLETE.** All 861 register codes (790 hire +
+   71 consumables) serve an audited, correct picture. Andrew's
+   corrected packs re-rendered all 44 flagged pictures and his regen
+   pack covered every consumable - each verified on sight. Blocklist
+   empty. Three regen-pack extras (Motorola DP4801E radio, Honeywell
+   BW Flex 4 gas monitor, lifting eye bolt) match no register code
+   and were NOT shipped - ask Andrew where they belong if he raises
+   it. `Docs\Picture_Regen_List.txt` is now the complete-state record
+   with the style line for future pictures.
 1. **Verify pricing and take in Andrew's newer register sheet.**
    Long-standing, not started.
 2. **Replacement-cost gap list** — 38 descriptions covering 58 items

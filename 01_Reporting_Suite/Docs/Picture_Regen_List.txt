@@ -1,98 +1,28 @@
-COATES K2 - GEAR PICTURE REGENERATION LIST
+COATES K2 - GEAR PICTURE REGISTER - COMPLETE
 Cement Australia K2 Shutdown 2026 - Gladstone
-Author: Andrew Fisher | POWERED BY SITEIQ | built 31 Jul 2026
-(corrected packs 1-5 in: every flagged picture re-rendered right)
+Author: Andrew Fisher | POWERED BY SITEIQ | 31 Jul 2026
 
-ALL 790 hire variants now show an audited, correct picture.
-Nothing is binned. The only gap left is the consumables below.
+Every code on the register - 790 hire variants + 71 consumable
+SKUs = 861 - now serves an audited, correct picture on My Gear
+and the stores pages. Nothing is binned; wrong_pictures.json is
+empty and stays as the mechanism for any future audit.
 
-HOUSEKEEPING: in Photos\ on the laptops, replace the ORIGINAL
-pack folders with the CORRECTED ones (same filenames - just let
-them overwrite, or bin the old folders first). If an original
-wrong picture is ever re-extracted fresh into Photos\, the 04
-build would trustingly re-shrink it over the corrected thumb.
+THREE PICTURES WITH NO HOME (from the regen pack): two-way radio
+(Motorola DP4801E), gas monitor (Honeywell BW Flex 4), lifting
+eye bolt. These are not register variant codes, so the thumbnail
+system has nowhere to hang them. If they should show on a page,
+tell Claude which code/tile they belong to.
 
-THE LOOK (use this same style line for every new picture so they
-all match the pack):
+HOUSEKEEPING: in Photos\ keep only the CORRECTED pack folders +
+the regen pack. If an ORIGINAL (pre-correction) pack image is
+ever re-extracted fresh, the 04 build would re-shrink the old
+wrong picture over the corrected thumb.
+
+FOR ANY FUTURE PICTURE (new stock, replacements) use the pack's
+style line so it matches:
   Studio product photo of <ITEM>, centred, slight hero angle,
   near-black charcoal background, subtle orange rim lighting and
   a warm orange glow on the floor, photorealistic, no text, no
   people, square 1024x1024 JPEG.
-
-Save each picture as EXACTLY the filename shown (.jpg), drop into
-Photos\, run 04.
-
-======================================================================
-NO PICTURE YET - consumables (71)
-======================================================================
-  CEME9016-584189.jpg          ABRASIVE - METALCUT ROCOL RTD 500G - K2/26
-  CEME9016-590668.jpg          ABRASIVE DISC - CUTOFF FH38 127 X 2.5 X 22.2 - K2/26
-  CEME9016-590669.jpg          ABRASIVE DISC - GRINDING RAISED HUB A24/30T 127 X 6.8 X 22 - K2/26
-  CEME9016-590670.jpg          ABRASIVE DISC - GRINDING RAISED HUB A30S 115 X 6 X 22 - K2/26
-  CEME9016-590671.jpg          ABSORBENT PAD - OIL 300G 403 X 48CM - K2/26
-  CEME9016-590672.jpg          ADHESIVE - HIGH STRENGTH 3M 90 AEROSOL CAN 471G - K2/26
-  CEME9016-590673.jpg          ANTI-SEIZE - COPPER 1090 DEG C 500G CAN - K2/26
-  CEME9016-590674.jpg          BATTERY - AA 1.5VDC ALKALINE SUPER HEAVY DUTY - K2/26
-  CEME9016-590675.jpg          BATTERY - AAA 1.5VDC ALKALINE PROCELL - K2/26
-  CEME9016-590676.jpg          BOTTLE - SPRAY APPLICATOR 500ML - K2/26
-  CEME9016-590677.jpg          BROOM - HEAVY DUTY HAIR/FIBRE 600MM (NO HANDLE) - K2/26
-  CEME9016-590678.jpg          BROOM - HEAVY DUTY HAIR/FIBRE 600MM (NO HANDLE) - K2/26
-  CEME9016-590679.jpg          BUCKET - PLASTIC 9L BLACK WITH HANDLE - K2/26
-  CEME9016-590680.jpg          BUCKET - UTILITY PLASTIC 10L WHITE (WITH LID) - K2/26
-  CEME9016-590681.jpg          BUCKET - UTILITY PLASTIC 20L WHITE (WITH LID) - K2/26
-  CEME9016-590682.jpg          CABLE TIE - NYLON UV BLACK 152 X 3.5MM PK100 - K2/26
-  CEME9016-590683.jpg          CLEANER - ELECTRICAL CONTACT CRC CO 2016 350G - K2/26
-  CEME9016-590684.jpg          CLEANER - LENS UVEX 1009 SPRAY PACK 500ML - K2/26
-  CEME9016-590685.jpg          CLOTH - CLEAN ABSORBENT 490MM X 70M - K2/26
-  CEME9016-590686.jpg          CLOTH - CLEAN ROAR 245MM X 70M - K2/26
-  CEME9016-590687.jpg          DIPHOTERINE - EYEWASH EYE-SIEW 50ML - K2/26
-  CEME9016-590688.jpg          DIPHOTERINE - EYEWASH EYE-SIEW 50ML - K2/26
-  CEME9016-590689.jpg          DIPHOTERINE - FACE/HAND SPRAY 100ML - K2/26
-  CEME9016-590690.jpg          DUSTPAN - METAL D-HANDLE - K2/26
-  CEME9016-590691.jpg          FLAP DISC WHEEL - 127MM 60 GRIT - K2/26
-  CEME9016-590692.jpg          GASKET FORMING COMPOUND - MASTER 51531 - K2/26
-  CEME9016-590693.jpg          HAMMER - WELDERS CHIPPING SPRING HANDLE - K2/26
-  CEME9016-590694.jpg          ICE BLOCK - ELECTROLYTE MIXED PK15 - K2/26
-  CEME9016-590695.jpg          OIL - PENETRATING CRC 5-56 400G - K2/26
-  CEME9016-590696.jpg          OIL - PENETRATING PENETRENE 500ML - K2/26
-  CEME9016-590697.jpg          OVERALL - TYVEK CHEMICAL RESISTANT HOODED XL - K2/26
-  CEME9016-590698.jpg          OVERALL - TYVEK CHEMICAL RESISTANT HOODED XXL - K2/26
-  CEME9016-590699.jpg          PADLOCK - LOCKOUT MASTER 410 (RED) - K2/26
-  CEME9016-590700.jpg          PADLOCK - LOCKOUT MASTER 410 (RED) - K2/26
-  CEME9016-590701.jpg          PAINT - ZINC COLD GALVANISE SPRAY 400G - K2/26
-  CEME9016-590702.jpg          PAINT BRUSH - BUDGET 50MM - K2/26
-  CEME9016-590703.jpg          PAINT BRUSH - BUDGET 75MM - K2/26
-  CEME9016-590704.jpg          PAINT BRUSH - TRADESMAN 25MM - K2/26
-  CEME9016-590705.jpg          RAG - COTTON WIPING 10KG SLAB - K2/26
-  CEME9016-590706.jpg          RESPIRATOR - P2 DISPOSABLE 8822 - K2/26
-  CEME9016-590707.jpg          RESPIRATOR - P2V FLATFOLD CARBON - K2/26
-  CEME9016-590708.jpg          ROPE - POLYPROPYLENE 10MM X 250M - K2/26
-  CEME9016-590709.jpg          ROPE - SISAL 6MM DIAMETER - K2/26
-  CEME9016-590710.jpg          SAFETY GLASSES - DAY/NIGHT - K2/26
-  CEME9016-590711.jpg          SAFETY TAG - GROUP ISOLATION - K2/26
-  CEME9016-590712.jpg          SAFETY TAG - INFORMATION - K2/26
-  CEME9016-590713.jpg          SAFETY TAG - OUT OF SERVICE - K2/26
-  CEME9016-590714.jpg          SAFETY TAG - PERSONAL ISOLATION - K2/26
-  CEME9016-590715.jpg          SEALANT - HEAT RESISTANT RTV736 RED 305ML - K2/26
-  CEME9016-590716.jpg          SEALANT - HEAT RESISTANT RTV736 RED 305ML - K2/26
-  CEME9016-590717.jpg          SHOVEL - SQUARE MOUTH LONG HANDLE MEDIUM 265 X 315MM - K2/26
-  CEME9016-590718.jpg          SQWINCHER SACHET - LEMON LIME 185ML PK50 - K2/26
-  CEME9016-590719.jpg          SQWINCHER SACHET - LEMON LIME 185ML PK50 - K2/26
-  CEME9016-590720.jpg          SQWINCHER SACHET - ORANGE 185ML PK50 - K2/26
-  CEME9016-590721.jpg          SQWINCHER SACHET - ORANGE 185ML PK50 - K2/26
-  CEME9016-590722.jpg          SQWINCHER SACHET - WILD BERRY 185ML PK50 - K2/26
-  CEME9016-590723.jpg          TAPE - BARRIER 'DO NOT ENTER' BLACK/RED/WHITE - K2/26
-  CEME9016-590724.jpg          TAPE - CAUTION BARRICADE YELLOW/BLACK 75MM X 100M - K2/26
-  CEME9016-590725.jpg          TAPE - CAUTION BARRICADE YELLOW/BLACK 75MM X 100M - K2/26 (alt)
-  CEME9016-590726.jpg          TAPE - DUCT PVC SILVER TESA 48 X 30M - K2/26
-  CEME9016-590727.jpg          WATER - BOTTLED 600ML PK24 - K2/26
-  CEME9016-590728.jpg          WIPES - ANTIBACTERIAL 42 X 14.3CM PK75 - K2/26
-  CEME9016-590729.jpg          WIPES - INDUSTRIAL ULTRAGRIME PK100 - K2/26
-  CEME9016-590867.jpg          Hi Vis Breathable Rain Jacket Medium
-  CEME9016-590868.jpg          Hi Vis Breathable Rain Jacket Small
-  CEME9016-590869.jpg          Hi Vis Breathable Rain Jacket X Large
-  CEME9016-590870.jpg          Hi Vis Breathable Rain Jacket XX Large
-  CEME9016-590871.jpg          Pelican Pick
-  CEME9016-590872.jpg          Rain Jacket Set  Coat And Pants
-  CEME9016-590873.jpg          Solvent Resistent Barrier Cream 500ml
-  WEL802-L50PIN.jpg            LOCH 6mm Pin suits 50mm Cutter
+Name it exactly <VARIANT_CODE>.jpg (Windows-banned characters
+swapped to _), drop into Photos\, run 04.
