@@ -589,9 +589,20 @@ def read(rental_path, stocktake_path, master=None, today=None,
 
         def sg(r, k):
             return str(r[six[k]] or '').strip() if k in six else ''
+        def _is_plant_stock(unit_s, name_s):
+            #  plant and the bulk yard gear (chutes, hoppers, frames,
+            #  barriers) are OUT of the daily stock count - they are
+            #  audited on the Plant tab's audit sheet instead (Andrew,
+            #  31 Jul 2026: "remove these off our stock checks... as
+            #  well as plant gear out of the daily stock count checks")
+            uu, nn = unit_s.upper(), name_s.upper()
+            return (_is_plant(unit_s) or 'CHUTE' in uu or 'BARRIER' in uu
+                    or 'CHUTE' in nn or 'HOPPER' in nn or 'BARRIER' in nn)
         for r in sk:
             d = au_date(sg(r, 'LAST_SIGHTED_DATE_TIME'))
             if not d:
+                continue
+            if _is_plant_stock(sg(r, 'STORAGE_UNIT'), sg(r, 'DESCRIPTION')):
                 continue
             age = (today - d).days
             stock['total'] += 1
@@ -1990,7 +2001,9 @@ function paneStock(){
   }
   h+='<div class="note"><b>'+s.stale.length+' assets have not been laid eyes on '
    +'in over a week.</b> That is the missing-asset hunt list &mdash; grouped by '
-   +'where they are meant to live, so you can walk it.</div>';
+   +'where they are meant to live, so you can walk it. Plant, chutes, hoppers '
+   +'and barriers are <b>not counted here</b> &mdash; they live on the Plant '
+   +'tab&rsquo;s audit sheet.</div>';
   var byU={};
   s.stale.forEach(function(x){(byU[x.u]=byU[x.u]||[]).push(x)});
   Object.keys(byU).sort(function(a,b){return byU[b].length-byU[a].length})
@@ -2893,9 +2906,24 @@ function panePlant(){
    +'</div>';
   var cats={};
   function slot(f){return cats[f]=cats[f]||{free:[],idle:[],out:[]};}
-  (p.free||[]).forEach(function(x){slot(x.f||'Other Plant').free.push(x);});
-  (p.idle||[]).forEach(function(x){slot(x.f||'Other Plant').idle.push(x);});
+  (p.free||[]).forEach(function(x){if(!isBulk(x))slot(x.f||'Other Plant').free.push(x);});
+  (p.idle||[]).forEach(function(x){if(!isBulk(x))slot(x.f||'Other Plant').idle.push(x);});
   (p.out||[]).forEach(function(x){slot(x.f||'Other Plant').out.push(x);});
+  /* bulk yard gear reads as counts, one line per kind - nobody scrolls
+     86 identical chutes (Andrew, 31 Jul 2026) */
+  var bulkS=bulkAgg([['idle',p.idle||[]],['free',p.free||[]]]);
+  if(bulkS.length){
+    var bqS=bulkS.reduce(function(s,b){return s+b.q},0);
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+      +'<div class="gn"><b>Bulk gear &mdash; chutes, hoppers &amp; barriers</b>'
+      +'<span>counted stock, not serial-chased &middot; audit sheet covers it</span></div>'
+      +'<div class="gq"><b>'+bqS+'</b><span>pieces</span></div>'
+      +'</button><div class="kids">'
+      +bulkS.map(function(b){
+        return '<div class="kw kwq"><span>&bull; '+esc(b.n)+' &middot; '
+          +esc(b.u)+'</span><b style="color:var(--am)">'+b.q+' on the ground</b></div>';
+      }).join('')+'</div></div>';
+  }
   function byDays(a,b){var da=(a.d==null?-1:a.d),db=(b.d==null?-1:b.d);
     if(da!==db)return db-da;
     return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;}
@@ -2957,6 +2985,30 @@ function togglePlant(){
    each with a SIGHTED tick and a condition note. Plant ID printed
    where the register has one; a WRITE-IN box where it does not, so
    the walk that checks the plant also completes the ID register. */
+/* BULK PLANT is counted, never ticked line by line (Andrew, 31 Jul
+   2026: "the Rubbish chutes and the Hopers and the frames as well as
+   both type of barriers can be just counts please"). One line per
+   KIND with the expected number and a write-in COUNTED box - that is
+   how a yard actually checks 86 chutes. */
+function isBulk(x){
+  var u=(x.u||'').toUpperCase(), n=(x.n||'').toUpperCase();
+  return u.indexOf('CHUTE')>=0 || u.indexOf('BARRIER')>=0
+      || n.indexOf('CHUTE')>=0 || n.indexOf('HOPPER')>=0
+      || n.indexOf('BARRIER')>=0
+      || (n.indexOf('FRAME')>=0 && (u.indexOf('CHUTE')>=0||n.indexOf('CHUTE')>=0));
+}
+function bulkAgg(lists){
+  var agg={};
+  lists.forEach(function(pair){
+    pair[1].forEach(function(x){
+      if(!isBulk(x)) return;
+      var k=x.n+' | '+(x.u||'');
+      var e=agg[k]=agg[k]||{n:x.n,u:x.u||'',q:0};
+      e.q++;
+    });
+  });
+  return Object.keys(agg).sort().map(function(k){return agg[k];});
+}
 function plantByCat(lists){
   var cats={};
   lists.forEach(function(pair){
@@ -2978,8 +3030,26 @@ function byDaysName(a,b){
 }
 function plantAudit(){
   var p=D.plant;
-  var cats=plantByCat([['idle',p.idle||[]],['free',p.free||[]]]);
+  var ground=[['idle',(p.idle||[]).filter(function(x){return !isBulk(x)})],
+              ['free',(p.free||[]).filter(function(x){return !isBulk(x)})]];
+  var bulk=bulkAgg([['idle',p.idle||[]],['free',p.free||[]]]);
+  var cats=plantByCat(ground);
   var total=0, noid=0, body='';
+  if(bulk.length){
+    var bq=bulk.reduce(function(s,b){return s+b.q},0);
+    body+='<div class="pintr">COUNT THESE &mdash; CHUTES, HOPPERS, FRAMES '
+      +'&amp; BARRIERS &mdash; '+bq+' PIECES, COUNTED NOT TICKED</div>'
+      +'<table class="ptab pchk">'
+      +'<tr><th>Kind</th><th>Where</th><th class="pn">Register says</th>'
+      +'<th class="pn">Counted</th><th class="pn">Matches</th><th>Note</th></tr>'
+      +bulk.map(function(b){
+        return '<tr><td>'+esc(b.n)+'</td><td>'+esc(b.u)+'</td>'
+          +'<td class="pn"><b>'+b.q+'</b></td>'
+          +'<td class="pn"><span class="pbox"></span></td>'
+          +'<td class="pn"><span class="ptick"></span></td>'
+          +'<td><span class="pline"></span></td></tr>';
+      }).join('')+'</table>';
+  }
   Object.keys(cats).sort(function(a,b){return cats[b].length-cats[a].length;})
    .forEach(function(f){
     var list=cats[f].slice().sort(byDaysName);
@@ -3003,9 +3073,11 @@ function plantAudit(){
   body+='<div class="pwho" style="margin-top:14px">Walked by '
    +'<span class="pline"></span> &nbsp; Date <span class="pline short"></span>'
    +' &nbsp; Sign <span class="pline short"></span></div>';
+  var bq2=bulk.reduce(function(s,b){return s+b.q},0);
   prFrame('Plant — idle & free audit sheet',
-    total+' machine'+(total===1?'':'s')+' the register says are on the ground '
-     +'&middot; lay eyes on every line, tick SIGHTED, note anything wrong'
+    total+' machine'+(total===1?'':'s')+' ticked one by one'
+     +(bq2?' &middot; '+bq2+' pieces of bulk gear on count lines':'')
+     +' &middot; lay eyes on every line, note anything wrong'
      +(noid?' &middot; '+noid+' line'+(noid===1?'':'s')+' missing a Plant ID '
        +'&mdash; write it in the box and it goes on the register':''),
     ASOF, body, false);
@@ -3041,8 +3113,27 @@ function plantDemob(){
           +'<td><span class="pline"></span></td></tr>';
       }).join('')+'</table>';
   }
-  var cats=plantByCat([['idle',p.idle||[]],['free',p.free||[]]]);
+  var bulkD=bulkAgg([['idle',p.idle||[]],['free',p.free||[]]]);
   var ground=0;
+  if(bulkD.length){
+    var bqD=bulkD.reduce(function(s,b){return s+b.q},0);
+    ground+=bqD;
+    body+='<div class="pwho">Bulk gear &mdash; chutes, hoppers, frames &amp; '
+      +'barriers <span>'+bqD+' pieces &middot; count them back, off-hire by '
+      +'the line</span></div>'
+      +'<table class="ptab pchk">'
+      +'<tr><th>Kind</th><th>Where</th><th class="pn">Register says</th>'
+      +'<th class="pn">Counted back</th><th class="pn">OFF-HIRED</th><th>Note</th></tr>'
+      +bulkD.map(function(b){
+        return '<tr><td>'+esc(b.n)+'</td><td>'+esc(b.u)+'</td>'
+          +'<td class="pn"><b>'+b.q+'</b></td>'
+          +'<td class="pn"><span class="pbox"></span></td>'
+          +'<td class="pn"><span class="ptick"></span></td>'
+          +'<td><span class="pline"></span></td></tr>';
+      }).join('')+'</table>';
+  }
+  var cats=plantByCat([['idle',(p.idle||[]).filter(function(x){return !isBulk(x)})],
+                       ['free',(p.free||[]).filter(function(x){return !isBulk(x)})]]);
   Object.keys(cats).sort(function(a,b){return cats[b].length-cats[a].length;})
    .forEach(function(f){
     var list=cats[f].slice().sort(byDaysName);
