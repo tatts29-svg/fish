@@ -1,7 +1,7 @@
-# Coates K2 suite version - 127 files - overall 2f1b40e5
+# Coates K2 suite version - 127 files - overall 01d56524
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-31 20:54:14
+# taken 2026-07-31 22:35:43
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -74,7 +74,7 @@ b48951fe84 FIX_DELETE_LIFTING_CHARGES_28JUL.bat
 e0416bf106 MACHINE_ID.py
 d7e5f12668 MAKE_MY_QR_CARDS.py
 536d1d43c3 MAKE_OUTLOOK_DRAFTS.ps1
-6737b5358c MISSING_PICTURES.py
+a209295395 MISSING_PICTURES.py
 14a01ac147 PACK_FOR_CLAUDE.py
 1c5c7eaecd PEOPLE_LIST.py
 439cc7c285 PHOTO_HUNT.py
@@ -120,7 +120,7 @@ af82507aa3 mygear_guides.py
 6ade9a441b mygear_movement.py
 b4a8c57077 mygear_store.py
 d84b23474a mygear_stores.py
-e251861e56 mygear_thumbs.py
+a3244309df mygear_thumbs.py
 4fb1169ba8 mygear_ui.py
 5dbf7b3d91 net_pick.py
 baf96d6e18 qr_lite.py
