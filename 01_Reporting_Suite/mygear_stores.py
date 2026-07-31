@@ -1536,16 +1536,47 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
    tab strip, so the last tabs (Money among them) sat off the right edge
    where a manager would never find them. Wrap once there is width for it.
    (Caught 29 Jul 2026 in a 1100px screenshot - OUR STANDA... cut in half.) */
-.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;position:sticky;top:0;
- background:var(--ink);z-index:5;
- -webkit-overflow-scrolling:touch;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-@media(min-width:700px){.tabs{flex-wrap:wrap;overflow-x:visible}}
-.tab{flex:none;background:var(--pnl);border:1px solid var(--line);color:var(--dim);
- font-family:inherit;font-weight:800;font-size:12.5px;letter-spacing:.5px;
- padding:11px 15px;border-radius:999px;min-height:44px;text-transform:uppercase}
-.tab.on{background:var(--org);border-color:var(--org);color:#fff}
+/* THE STORE MENU - the board opens on a menu you can read, not a wall
+   of fifteen tabs (Andrew, 31 Jul 2026: "easily understood and move
+   yourself around easily... find my gear should be easily found").
+   One tap in, the MENU button brings you straight back. */
+.crumb{display:flex;align-items:center;gap:11px;position:sticky;top:0;z-index:9;
+ background:var(--ink);padding:8px 0 10px}
+.crumb button{background:var(--org);border:0;color:#fff;font-family:inherit;
+ font-weight:900;font-size:12px;letter-spacing:1.2px;padding:11px 15px;
+ border-radius:11px;min-height:44px}
+.crumb b{color:var(--dim);font-size:13px;font-weight:800;letter-spacing:.8px;
+ text-transform:uppercase}
+.home{padding:2px 0 20px}
+.hgroup{font-size:11px;font-weight:900;letter-spacing:1.6px;color:var(--dim);
+ margin:17px 2px 7px;text-transform:uppercase}
+.hbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+ background:var(--pnl);border:1px solid var(--line);border-radius:14px;
+ color:var(--txt);font-family:inherit;padding:13px 14px;margin-bottom:8px;
+ min-height:64px;cursor:pointer}
+.hbtn .hn{flex:1;min-width:0}
+.hbtn b{display:block;font-size:14.5px;font-weight:800}
+.hbtn span{display:block;color:var(--dim);font-size:11.5px;margin-top:3px;
+ line-height:1.5}
+.hbtn .hc{flex:none;background:var(--pnl2);color:#C7CED8;border-radius:9px;
+ padding:5px 11px;font-size:13px;font-weight:900}
+.hbtn.hero{background:#1E1710;border-color:var(--org);border-left:5px solid var(--org)}
+.hbtn.hero b{font-size:16px}
+.hbtn.hot{border-color:var(--rd)}
+.hbtn.hot .hc{background:var(--rd);color:#fff}
 .pane{display:none}.pane.on{display:block}
+/* the print hub wizard - one step at a time */
+.prstep{font-size:11px;font-weight:900;letter-spacing:1.4px;color:var(--org);
+ margin:15px 2px 6px;text-transform:uppercase}
+.prchips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px}
+.chip{background:var(--pnl);border:1.5px solid var(--line);color:var(--dim);
+ font-family:inherit;font-weight:800;font-size:12.5px;padding:11px 14px;
+ border-radius:11px;min-height:44px;cursor:pointer}
+.chip.on{background:var(--org);border-color:var(--org);color:#fff}
+.prq{width:100%;background:var(--pnl);border:1.5px solid var(--line);color:#fff;
+ font-family:inherit;font-size:16px;padding:13px 14px;border-radius:12px;
+ -webkit-appearance:none;margin:2px 0 8px}
+.prq:focus{outline:none;border-color:var(--org)}
 /* rows */
 .srch{width:100%;background:var(--pnl);border:1.5px solid var(--line);color:#fff;
  font-family:inherit;font-size:16px;padding:13px 15px;border-radius:12px;margin-bottom:12px}
@@ -1678,12 +1709,10 @@ h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
 @keyframes tfup{from{opacity:0;transform:translateY(7px)}
  to{opacity:1;transform:none}}
 @media print{.bar i,.bb i,.score .sc b,.tiles .tile{animation:none!important}}
-/* the hit-list tab glows - it is the one tab that means walk somewhere */
-.tab.hot{border-color:var(--rd);color:#FF8A80;
- animation:hotpulse 2.2s ease-in-out infinite}
+/* the hit-list menu button glows - it is the one that means walk somewhere */
+.hbtn.hot{animation:hotpulse 2.2s ease-in-out infinite}
 @keyframes hotpulse{0%,100%{box-shadow:0 0 0 0 rgba(226,59,46,0)}
  50%{box-shadow:0 0 14px 1px rgba(226,59,46,.45)}}
-.tab.hot.on{background:var(--rd);border-color:var(--rd);color:#fff;animation:none}
 /* print & send */
 .prpick{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:6px}
 .prbtns{display:flex;gap:9px;flex-wrap:wrap;margin:4px 0 13px}
@@ -1956,9 +1985,65 @@ function more(shown,total,word){
     +total.toLocaleString()+' '+(word||'lines')+' &mdash; the rest are in SiteIQ.</div>':'';
 }
 
+/* THE STORE MENU. The board used to open on fifteen tabs in a row;
+   now it opens on a menu grouped by the job you came to do, with
+   FIND IT and the PRINT HUB standing out (Andrew, 31 Jul 2026:
+   "easily understood and move yourself around easily... find my
+   gear should be easily found"). MENU on the crumb bar brings you
+   straight back from anywhere. */
+function homeBtn(k,n,d,c,cls){
+  return '<button class="hbtn '+(cls||'')+'" type="button" '
+   +'onclick="nav(\\''+k+'\\')"><div class="hn"><b>'+n+'</b>'
+   +'<span>'+d+'</span></div>'
+   +(c!=null&&c!==''?'<span class="hc">'+c+'</span>':'')+'</button>';
+}
+function homeMenu(){
+  var t=D.tiles;
+  return '<div class="home">'
+   +homeBtn('find','&#128269; Find it &mdash; My Gear for the counter',
+     'Scan or type anything &mdash; the answer is the shelf, the person, '
+     +'or the hunt. Start here.',null,'hero')
+   +'<div class="hgroup">The hunt</div>'
+   +homeBtn('chase','Chase up','Out past its return rule &mdash; who has '
+     +'it and for how long.',t.chase)
+   +(D.hitN?homeBtn('hits','Hit list','Today&rsquo;s worst overdues &mdash; '
+     +'print the walk-around sheet.',D.hitN,'hot'):'')
+   +(t.arrivals?homeBtn('arr','Arriving','On order and inbound &mdash; '
+     +'check here before you re-order.',t.arrivals):'')
+   +'<div class="hgroup">The store</div>'
+   +homeBtn('groups','Product groups','Every aisle, every line &mdash; '
+     +'green on the shelf, orange out with crews.',t.lines)
+   +homeBtn('aisle','Walk an aisle','One aisle on one screen &mdash; '
+     +'stand in it, sort it.')
+   +homeBtn('stock','Stocktake','Aisle scores and today&rsquo;s counting '
+     +'orders.',t.stockPct+'%')
+   +homeBtn('battle','Day v Night','The shift-against-shift scorecard.')
+   +(D.hasCons?homeBtn('cons','Consumables','Gloves, discs, tape &mdash; '
+     +'counts and reorders.',D.cons.order.length||null):'')
+   +'<div class="hgroup">Printing</div>'
+   +homeBtn('print','&#128424; Print hub &mdash; the one-stop print shop',
+     'Every report from one place: person, company, whole site, radios, '
+     +'gas, hit list. Pick it, shape it, print it.',null,'hero')
+   +'<div class="hgroup">Plant</div>'
+   +(D.hasPlant?homeBtn('plant','Plant','The machines &mdash; free to '
+     +'hire, idle on the ground, out with companies.'):'')
+   +homeBtn('idle','Idle plant','On hire but parked &mdash; costing '
+     +'without earning.',t.idle)
+   +'<div class="hgroup">Extras</div>'
+   +homeBtn('fresh','Fresh look','Load a raw SiteIQ export on this phone '
+     +'for an on-the-spot read.')
+   +homeBtn('std','Our standards','The rules of this store &mdash; read '
+     +'once, hold each other to it.')
+   +(MGR?homeBtn('mgr','Money','Rates and exposure &mdash; behind the '
+     +'manager code.'):'')
+   +'</div>';
+}
 function render(){
   var t=D.tiles;
-  var h='<div class="tiles">'
+  var h='<div class="crumb" id="crumb" style="display:none">'
+   +'<button type="button" onclick="home()">&#8962; MENU</button>'
+   +'<b id="crumb-t"></b></div>'
+   +'<div class="pane on" id="p-home"><div class="tiles">'
    +tile(t.avail.toLocaleString(),'On the shelf','g')
    +tile(t.onhire.toLocaleString(),'Out with crews')
    +tile(t.lines.toLocaleString(),'Different things')
@@ -1966,26 +2051,9 @@ function render(){
    +tile(t.stockPct+'%','Counted in 7 days','g')
    +tile(t.stale,'Not counted','r')
    +'</div>'
-   +'<div class="tabs">'
-   +'<button class="tab on" data-p="find" onclick="tab(this)">&#128269; Find it</button>'
-   +'<button class="tab" data-p="groups" onclick="tab(this)">Product groups</button>'
-   +'<button class="tab" data-p="chase" onclick="tab(this)">Chase up ('+t.chase+')</button>'
-   +(D.hitN?'<button class="tab hot" data-p="hits" onclick="tab(this)">Hit list ('+D.hitN+')</button>':'')
-   +'<button class="tab" data-p="print" onclick="tab(this)">Print &amp; send</button>'
-   +'<button class="tab" data-p="fresh" onclick="tab(this)">Fresh look</button>'
-   +'<button class="tab" data-p="stock" onclick="tab(this)">Stocktake</button>'
-   +'<button class="tab" data-p="aisle" onclick="tab(this)">Walk an aisle</button>'
-   +'<button class="tab" data-p="battle" onclick="tab(this)">Day v Night</button>'
-   +(D.hasCons?'<button class="tab" data-p="cons" onclick="tab(this)">Consumables'
-     +(D.cons.order.length?' ('+D.cons.order.length+')':'')+'</button>':'')
-   +'<button class="tab" data-p="std" onclick="tab(this)">Our standards</button>'
-   +(t.arrivals?'<button class="tab" data-p="arr" onclick="tab(this)">Arriving ('
-     +t.arrivals+')</button>':'')
-   +(D.hasPlant?'<button class="tab" data-p="plant" onclick="tab(this)">Plant</button>':'')
-   +(MGR?'<button class="tab" data-p="mgr" onclick="tab(this)">Money</button>':'')
-   +'<button class="tab" data-p="idle" onclick="tab(this)">Idle plant ('+t.idle+')</button>'
+   +homeMenu()
    +'</div>'
-   +'<div class="pane on" id="p-find">'+helpBar('find')+paneFind()+'</div>'
+   +'<div class="pane" id="p-find">'+helpBar('find')+paneFind()+'</div>'
    +'<div class="pane" id="p-groups">'+helpBar('groups')+paneGroups()+'</div>'
    +'<div class="pane" id="p-chase">'+helpBar('chase')+paneChase()+'</div>'
    +(D.hitN?'<div class="pane" id="p-hits">'+helpBar('hits')+paneHits()+'</div>':'')
@@ -2038,13 +2106,25 @@ function countTiles(){
     setTimeout(fin,DUR+150);
   });
 }
-function tab(el){
-  var all=document.querySelectorAll('.tab');
-  for(var i=0;i<all.length;i++) all[i].className='tab';
-  el.className='tab on';
+/* one pane at a time: nav(key) steps in, home() steps back out. The
+   crumb bar names where you are and MENU is always one tap away. */
+function nav(k){
+  var p=document.getElementById('p-'+k);
+  if(!p){ home(); return; }
   var panes=document.querySelectorAll('.pane');
   for(var j=0;j<panes.length;j++) panes[j].className='pane';
-  document.getElementById('p-'+el.getAttribute('data-p')).className='pane on';
+  p.className='pane on';
+  var names={mgr:'Money',print:'Print hub'};
+  document.getElementById('crumb').style.display='flex';
+  document.getElementById('crumb-t').textContent=
+    names[k]||(HOWTO[k]?HOWTO[k].t:k);
+  window.scrollTo(0,0);
+}
+function home(){
+  var panes=document.querySelectorAll('.pane');
+  for(var j=0;j<panes.length;j++) panes[j].className='pane';
+  document.getElementById('p-home').className='pane on';
+  document.getElementById('crumb').style.display='none';
   window.scrollTo(0,0);
 }
 /* THE FINDER - the counter's most-asked question, answered in one box
@@ -2571,14 +2651,18 @@ var HOWTO={
      'One lap of site &mdash; every stop is on the sheet with a scan code.',
      'Tick each line as gear lands back, hand the sheet in at handover.'],
   g:'An empty hit list by end of shift. One lap, done properly, clears it.'},
- print:{t:'Print &amp; send',
-  w:'The paper shop. Any slice of the board as a branded COATES report '
-   +'&mdash; printed at the counter or dropped into an Outlook email.',
-  h:['Pick what you want: whole site A to Z, one company, one person, '
-     +'radios, gas, the hit list.',
-     'Look at it on the screen first &mdash; it shows you before you print.',
-     'Tap Print (pick the store printer or Save as PDF) or Email via '
-     +'Outlook.'],
+ print:{t:'Print hub',
+  w:'The one-stop print shop. Every report the board can make, picked '
+   +'from one dropdown and walked through step by step &mdash; branded '
+   +'COATES paper or an Outlook email.',
+  h:['STEP 1: pick the report from the dropdown &mdash; one person, one '
+     +'company, whole site, radios, gas, hit list, or the call-card deck.',
+     'STEP 2: pick who it&rsquo;s for &mdash; type a name, or go company '
+     +'first then the person.',
+     'STEP 3: pick how it reads &mdash; grouped by worker (names A to Z) '
+     +'or one big table; products A to Z or longest out first.',
+     'Look at the preview, then tap Print (store printer or Save as PDF) '
+     +'or Email via Outlook. Nothing prints before you&rsquo;ve seen it.'],
   g:'A company asks &ldquo;what do we have on hire?&rdquo; and walks away '
    +'with the answer on paper, same visit. That&rsquo;s the standard.'},
  fresh:{t:'Fresh look',
@@ -2955,38 +3039,163 @@ function paneHits(){
    the report already written into the body; a static offline page
    cannot attach a file to an email, so the body IS the report, and the
    print button is there when paper is wanted. */
+/* THE PRINT HUB WIZARD (Andrew, 31 Jul 2026: "one stop shop for all
+   your printing needs... a drop down box to advise what report we
+   want... then once picked there is more options to do with that kind
+   of report and so on, until you're comfortable enough to print").
+
+   One dropdown carries EVERY report this board can print. Picking one
+   opens the next step - who it's for - then how it should read
+   (workers A to Z, products A to Z, or longest out first), then the
+   preview, and only then the print button. Nothing prints before
+   you've seen it. Workers print their own gear from their My Gear
+   page - this hub is the stores team's. */
 function panePrint(){
-  var cos={},pps={};
-  D.roster.forEach(function(x){
-    cos[x.co]=(cos[x.co]||0)+1;
-    var k=x.w+'\\u001F'+x.co; pps[k]=(pps[k]||0)+1;
-  });
-  var coOpts=Object.keys(cos).sort().map(function(c){
-    return '<option value="'+esc(c)+'">'+esc(c)+' ('+cos[c]+')</option>';}).join('');
-  var ppOpts=Object.keys(pps).sort().map(function(k){
-    var p=k.split('\\u001F');
-    return '<option value="'+esc(k)+'">'+esc(p[0])+' &middot; '+esc(p[1])
-      +' ('+pps[k]+')</option>';}).join('');
-  return '<div class="note"><b>Pick it, look at it, print it or send it.</b> '
-   +'Print uses this device&rsquo;s print menu &mdash; pick the store '
-   +'Wi-Fi printer there, or Save as PDF. Email opens Outlook on this '
-   +'phone with the whole report written in, ready to send.</div>'
+  return '<div class="note"><b>Every print, one place, step by step.</b> '
+   +'Pick the report, pick who it&rsquo;s for, pick how it reads, look '
+   +'at the preview, then print. Print uses this device&rsquo;s print '
+   +'menu &mdash; pick the store Wi-Fi printer there, or Save as PDF. '
+   +'Email opens Outlook with the report written in.</div>'
+   +'<div class="prstep">Step 1 &mdash; what do you want to print?</div>'
+   +'<select id="prkind" class="srch" onchange="prWiz(1)">'
+   +'<option value="">Pick a report&hellip;</option>'
+   +'<option value="pp">One person &mdash; their personal on-hire report</option>'
+   +'<option value="co">One company &mdash; everything they have on hire</option>'
+   +'<option value="all">Whole site &mdash; everything on hire ('+D.roster.length+' items)</option>'
+   +(D.hitN?'<option value="hits">Hit list &mdash; overdue returns walk-around ('+D.hitN+')</option>':'')
+   +'<option value="radios">Radios on hire</option>'
+   +'<option value="gas">Gas monitors on hire</option>'
+   +'<option value="deck">How-to call cards &mdash; the counter deck</option>'
+   +'</select>'
+   +'<div id="prsteps"></div><div id="prout"></div>'
+   +'<div class="uhead">Prints that live with their job</div>'
    +'<div class="prpick">'
-   +(D.hitN?'<button class="stmore" type="button" onclick="prSet(\\'hits\\')">Hit list ('+D.hitN+')</button>':'')
-   +'<button class="stmore" type="button" onclick="prSet(\\'radios\\')">Radios on hire</button>'
-   +'<button class="stmore" type="button" onclick="prSet(\\'gas\\')">Gas monitors on hire</button>'
-   +'<button class="stmore" type="button" onclick="prSet(\\'all\\')">Whole site on hire &mdash; A to Z ('+D.roster.length+')</button>'
-   +'<button class="stmore" type="button" onclick="howtoPrint()">How-to call cards &mdash; the deck</button>'
-   +'</div>'
-   +'<div class="uhead">One company</div>'
-   +'<select id="prco" class="srch" onchange="prSet(\\'co\\')">'
-   +'<option value="">Pick a company&hellip;</option>'+coOpts+'</select>'
-   +'<div class="uhead">One person</div>'
-   +'<select id="prpp" class="srch" onchange="prSet(\\'pp\\')">'
-   +'<option value="">Pick a person&hellip;</option>'+ppOpts+'</select>'
-   +'<div id="prout"></div>';
+   +'<button class="stmore" type="button" onclick="nav(\\'stock\\')">Not-found sheet &mdash; in Stocktake</button>'
+   +'<button class="stmore" type="button" onclick="nav(\\'aisle\\')">Aisle sheets &mdash; in Walk an aisle</button>'
+   +(D.hasCons?'<button class="stmore" type="button" onclick="nav(\\'cons\\')">Stock check &amp; reorder &mdash; in Consumables</button>':'')
+   +(D.hasPlant?'<button class="stmore" type="button" onclick="nav(\\'plant\\')">Idle plant audit &amp; demob &mdash; in Plant</button>':'')
+   +'</div>';
 }
 var PRCUR=null;
+/* the wizard's memory: what report, who for, and how it should read */
+var PRW={kind:'',co:'',pp:'',pco:'',q:'',layout:'grp',order:'days'};
+var PRPPL=[];
+function prWiz(reset){
+  var sel=document.getElementById('prkind');
+  var k=sel?sel.value:PRW.kind;
+  if(reset){
+    PRW.kind=k; PRW.co=''; PRW.pp=''; PRW.pco=''; PRW.q='';
+    /* sensible starting shape per report - still changeable below */
+    PRW.layout=(k==='all')?'flat':'grp';
+    PRW.order='days';
+  }
+  var s=document.getElementById('prsteps'), h='';
+  if(!k){ s.innerHTML=''; prShow(); return; }
+  if(k==='deck'){
+    s.innerHTML='<div class="prstep">Step 2 &mdash; it&rsquo;s one deck, '
+     +'ready to go</div>'
+     +'<div class="prbtns"><button class="stmore" type="button" '
+     +'onclick="howtoPrint()">&#128424; Print the call-card deck</button></div>';
+    document.getElementById('prout').innerHTML=''; PRCUR=null; return;
+  }
+  if(k==='pp') h+=prStepPerson();
+  if(k==='co') h+=prStepCompany();
+  h+=prStepOpts(k);
+  s.innerHTML=h;
+  if(k==='pp') prPplFilter();
+  prShow();
+}
+function prCoOpts(sel){
+  var cos={};
+  D.roster.forEach(function(x){ cos[x.co]=(cos[x.co]||0)+1; });
+  return Object.keys(cos).sort().map(function(c){
+    return '<option value="'+esc(c)+'"'+(c===sel?' selected':'')+'>'
+      +esc(c)+' ('+cos[c]+' items)</option>';}).join('');
+}
+function prStepCompany(){
+  return '<div class="prstep">Step 2 &mdash; which company?</div>'
+   +'<select id="prco" class="srch" '
+   +'onchange="PRW.co=this.value;prWiz()">'
+   +'<option value="">Pick a company&hellip;</option>'+prCoOpts(PRW.co)
+   +'</select>';
+}
+function prStepPerson(){
+  return '<div class="prstep">Step 2 &mdash; who is it for?</div>'
+   +'<input class="prq" id="prq" type="search" autocomplete="off" '
+   +'placeholder="Type a name&hellip;" value="'+esc(PRW.q)+'" '
+   +'oninput="PRW.q=this.value;prPplFilter()">'
+   +'<div class="kw" style="padding:0 2px 6px">&hellip;or go company '
+   +'first, then the person:</div>'
+   +'<select id="prco2" class="srch" '
+   +'onchange="PRW.pco=this.value;prPplFilter()">'
+   +'<option value="">Any company</option>'+prCoOpts(PRW.pco)+'</select>'
+   +'<div id="prppl"></div>';
+}
+function prPplFilter(){
+  var box=document.getElementById('prppl'); if(!box) return;
+  var q=(PRW.q||'').toLowerCase(), co=PRW.pco||'';
+  var pps={};
+  D.roster.forEach(function(x){
+    if(co&&x.co!==co) return;
+    var k=x.w+'\\u001F'+x.co; pps[k]=(pps[k]||0)+1;
+  });
+  PRPPL=Object.keys(pps).sort().filter(function(k){
+    return !q||k.split('\\u001F')[0].toLowerCase().indexOf(q)>=0;});
+  if(!PRPPL.length){
+    box.innerHTML='<div class="kw" style="padding:8px 2px">No one matches '
+     +'that&hellip; shorter word? They may also have nothing on hire.</div>';
+    return;
+  }
+  var shown=PRPPL.slice(0,30);
+  box.innerHTML='<div class="prpick">'+shown.map(function(k,i){
+    var p=k.split('\\u001F');
+    return '<button class="chip'+(k===PRW.pp?' on':'')+'" type="button" '
+     +'onclick="prPickPp('+i+')">'+esc(p[0])+' &middot; '+esc(p[1])
+     +' ('+pps[k]+')</button>';
+  }).join('')+'</div>'
+  +(PRPPL.length>shown.length?'<div class="kw" style="padding:2px">'
+    +(PRPPL.length-shown.length)+' more &mdash; keep typing to narrow it.</div>':'');
+}
+function prPickPp(i){
+  PRW.pp=PRPPL[i]||'';
+  prWiz();
+}
+function prChip(f,v,n){
+  return '<button type="button" class="chip'+(PRW[f]===v?' on':'')
+   +'" onclick="PRW.'+f+'=\\''+v+'\\';prWiz()">'+n+'</button>';
+}
+function prStepOpts(k){
+  var h='', step=(k==='co'||k==='pp')?'Step 3':'Step 2';
+  if(k==='hits') return '';
+  if(k==='co'&&!PRW.co) return '';
+  if(k==='pp'&&!PRW.pp) return '';
+  if(k==='co'||k==='all'){
+    h+='<div class="prstep">'+step+' &mdash; how should it read?</div>'
+     +'<div class="prchips">'
+     +prChip('layout','grp','Grouped by worker &mdash; names A to Z')
+     +prChip('layout','flat','One big table &mdash; no grouping')
+     +'</div>';
+  } else {
+    h+='<div class="prstep">'+step+' &mdash; what order?</div>';
+  }
+  h+='<div class="prchips">'
+   +prChip('order','days','Longest out first')
+   +prChip('order','az','Products A to Z')
+   +'</div>';
+  return h;
+}
+/* items in the order the wizard asked for - products A to Z, or days
+   on hire highest to lowest (ties break the other way) */
+function prOrd(list){
+  var az=(PRW.order==='az');
+  return list.slice().sort(function(a,b){
+    var an=a.n.toUpperCase(), bn=b.n.toUpperCase();
+    var da=(a.d==null?-1:a.d), db=(b.d==null?-1:b.d);
+    if(az){ if(an!==bn) return an<bn?-1:1; return db-da; }
+    if(da!==db) return db-da;
+    return an<bn?-1:(an>bn?1:0);
+  });
+}
 function prRows(kind){
   var v;
   if(kind==='hits'){
@@ -3005,43 +3214,44 @@ function prRows(kind){
   }
   if(kind==='all'){
     /* the whole book in one sheet: every item on hire across every
-       company, one flat A-Z table with who and company on each row
-       (Andrew, 31 Jul 2026: "Whole Company Onhire report with all
-       details, alphabetical order, with company as well") */
-    return {t:'Whole site — everything on hire (A to Z)', flat:true,
-      r:D.roster.slice(),
-      sub:'every item on hire, alphabetical, with who has it and their company on every line'};
+       company, with who and company on each row (Andrew, 31 Jul 2026:
+       "Whole Company Onhire report with all details, alphabetical
+       order, with company as well") - the wizard picks the layout */
+    return {t:'Whole site — everything on hire',
+      r:D.roster.slice()};
   }
   if(kind==='radios') return {t:'Radios on hire',
     r:D.roster.filter(function(x){return x.u==='Radios'})};
   if(kind==='gas') return {t:'Gas monitors on hire',
     r:D.roster.filter(function(x){return x.u==='Gas Monitors'})};
-  if(kind==='co'){v=document.getElementById('prco').value;
+  if(kind==='co'){v=PRW.co;
     return v?{t:v+' — gear on hire',
       r:D.roster.filter(function(x){return x.co===v})}:null;}
-  if(kind==='pp'){v=document.getElementById('prpp').value;
+  if(kind==='pp'){v=PRW.pp;
     if(!v) return null;
     var p=v.split('\\u001F');
-    return {t:p[0]+' ('+p[1]+') — gear on hire',
+    return {t:p[0]+' ('+p[1]+') — personal on-hire report',
       r:D.roster.filter(function(x){return x.w===p[0]&&x.co===p[1]})};}
   return null;
 }
-function prSet(kind){
-  var got=prRows(kind);
-  var out=document.getElementById('prout');
+/* kept for the Hit list pane's one-tap "print the walk-around sheet" -
+   and any old habit of calling prSet directly */
+function prSet(kind){ PRW.kind=kind; prShow(); }
+function prShow(){
+  var out=document.getElementById('prout'); if(!out) return;
+  if(!PRW.kind){ out.innerHTML=''; PRCUR=null; return; }
+  var got=prRows(PRW.kind);
   if(!got||!got.r.length){
     out.innerHTML=got?'<div class="kw" style="padding:10px 2px">Nothing on hire there right now.</div>':'';
     PRCUR=null; return;
   }
-  PRCUR=got; PRCUR.kind=kind;
-  var days={g:0,a:0,r:0};
-  got.r.forEach(function(x){var d=x.d==null?0:x.d;
-    if(d<=2)days.g++;else if(d<=4)days.a++;else days.r++;});
-  var h='<div class="uhead">'+esc(got.t)+' &mdash; '+got.r.length+' item'
+  got.r=prOrd(got.r);
+  PRCUR=got; PRCUR.kind=PRW.kind;
+  var h='<div class="prstep">Last look &mdash; then print</div>'
+   +'<div class="uhead">'+esc(got.t)+' &mdash; '+got.r.length+' item'
    +(got.r.length===1?'':'s')+'</div>'
    +'<div class="prbtns">'
    +'<button class="stmore" type="button" onclick="prGo()">&#128424; Print / save PDF</button>'
-   +(kind==='co'?'<button class="stmore" type="button" onclick="prGo(1)">&#128424; Print A to Z &mdash; one table</button>':'')
    +'<a class="stmore" id="prmail" href="#">&#9993; Email via Outlook</a>'
    +'</div>'
    +got.r.slice(0,200).map(function(x){
@@ -3083,15 +3293,13 @@ function prMailto(got){
 function prGo(flat){
   if(!PRCUR)return;
   var el=document.getElementById('prsheet');
-  if(PRCUR.flat||flat){
-    /* the whole-site sheet reads like a dictionary: items A-Z in one
-       table, who and company on the line - no grouping to hunt through */
-    var flat=PRCUR.r.slice().sort(function(a,b){
-      var an=a.n.toUpperCase(),bn=b.n.toUpperCase();
-      if(an!==bn) return an<bn?-1:1;
-      var aw=(a.w||'').toUpperCase(),bw=(b.w||'').toUpperCase();
-      return aw<bw?-1:(aw>bw?1:0);
-    });
+  var ordTxt=(PRW.order==='az')?'products A to Z':'longest out first';
+  if(PRCUR.flat||flat
+     ||(PRW.layout==='flat'&&(PRCUR.kind==='co'||PRCUR.kind==='all'))){
+    /* the one-big-table sheet reads like a dictionary: every item on
+       one flat table, who and company on the line - in the order the
+       wizard asked for */
+    var flat=prOrd(PRCUR.r);
     var fbody='<table class="ptab">'
       +'<tr><th>Item</th><th>Item no</th><th>Scan</th><th>Who has it</th>'
       +'<th>Company</th><th>Aisle</th><th class="pn">Days on hire</th></tr>'
@@ -3104,16 +3312,16 @@ function prGo(flat){
           +'<td class="pn'+((x.d||0)>4?' late':'')+'">'
           +(x.d==null?'—':x.d)+'</td></tr>';
       }).join('')+'</table>';
-    prFrame(PRCUR.t+(PRCUR.flat?'':' — A to Z'),
+    prFrame(PRCUR.t+' — one table',
       PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')+' &middot; '
-        +(PRCUR.sub||'alphabetical, with who has it and their company on every line'),
+        +(PRCUR.sub||ordTxt+', with who has it and their company on every line'),
       PRCUR.asof||ASOF, fbody, PRCUR.interim);
     return;
   }
-  /* One ordering rule, same as the screen: companies A-Z, hirers
-     inside a company A-Z, items longest-held first then A-Z. The
-     group key leads with the company so the sort and the page read
-     the same way. */
+  /* The grouped sheet: companies A-Z, hirers inside a company A-Z,
+     items inside a name in the order the wizard asked for - longest
+     out first, or products A to Z. The group key leads with the
+     company so the sort and the page read the same way. */
   var byWho={};
   PRCUR.r.forEach(function(x){var k=x.co+'\\u001F'+x.w;
     (byWho[k]=byWho[k]||[]).push(x);});
@@ -3121,11 +3329,7 @@ function prGo(flat){
   Object.keys(byWho).sort(function(a,b){
     return a.toUpperCase()<b.toUpperCase()?-1:1;
   }).forEach(function(k){
-    var list=byWho[k].slice().sort(function(a,b){
-      var da=(a.d==null?-1:a.d), db=(b.d==null?-1:b.d);
-      if(da!==db) return db-da;
-      return a.n.toUpperCase()<b.n.toUpperCase()?-1:1;
-    });
+    var list=prOrd(byWho[k]);
     var p=k.split('\\u001F');
     body+='<div class="pwho">'+esc(p[1])+' <span>'+esc(p[0])+' &middot; '
       +list.length+' item'+(list.length===1?'':'s')
@@ -3143,7 +3347,8 @@ function prGo(flat){
   });
   prFrame(PRCUR.t,
     PRCUR.r.length+' item'+(PRCUR.r.length===1?'':'s')+' &middot; '
-      +(PRCUR.sub||'on hire &middot; anything over 4 days is marked'),
+      +(PRCUR.sub||'names A to Z, items '+ordTxt
+        +' &middot; anything over 4 days is marked'),
     PRCUR.asof||ASOF, body, PRCUR.interim);
 }
 /* One frame for EVERY printed sheet - brand rule, title, as-at,
