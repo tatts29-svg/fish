@@ -803,7 +803,9 @@ def build():
     #  guides live on the corner pills (RADIO / GAS / CONTACTS) - the
     #  big duplicate cards came off the front page (Andrew, 31 Jul 2026:
     #  'we have those pills on the right side... hence why i asked')
-    _shelf = mygear_ui.shelf_html(_store_btn)
+    #  retired 1 Aug 2026 - the front door tiles replaced the shelf.
+    #  Kept because it is one line and the next site may want it back.
+    _shelf = mygear_ui.shelf_html(_store_btn)  # noqa: F841
     #  The site pulse - live numbers on the front door (Andrew, 28 Jul
     #  2026: "utilising all reports to provide as much data as we can").
     #  Every figure is computed above from today's exports; the counters
@@ -838,6 +840,16 @@ def build():
              + ('<span class="pu"><b class="pvt">{t}</b>TOP CREW</span>'
                 if top_crew else '')
              + '</div>').format(t=_esc_py(top_crew.title()) if top_crew else '')
+    #  The front door's instrument strip - three numbers, one row. The
+    #  full six-stat pulse still exists above for anyone who wants it
+    #  back; the door only ever needed the three a worker reads.
+    _strip = ('<div class="fdstats">'
+              '<div><b>' + str(len(_active)) + '</b><span>STORE USERS</span></div>'
+              '<div><b>' + str(tot_items) + '</b><span>ITEMS OUT NOW</span></div>'
+              + ('<div><b>' + str(_st.get('hireItems', 0))
+                 + '</b><span>READY TO HIRE</span></div>'
+                 if _st.get('hireItems') else '')
+              + '</div>')
     _gl_dir = os.path.join(BASE, 'Gear_Lookup')
     os.makedirs(_gl_dir, exist_ok=True)
     _stores_tag = ''
@@ -924,6 +936,9 @@ def build():
             .replace('__DATA__', json.dumps(DATA))
             .replace('__PULSE__', pulse)
             .replace('__TOPIC__', _topic_banner())
+            .replace('__STATSTRIP__', _strip)
+            .replace('__TILES__', _front_tiles(_sst if _store_pane else {},
+                                               bool(_store_pane)))
             .replace('__STORESTAG__', _stores_tag)
             .replace('__ASOF__', asof or 'last refresh')
             .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS)
@@ -932,7 +947,6 @@ def build():
                      + '\nfunction qr(t,px){if(t==null||t===\'\'){return \'\';}'
                        'return QRL.svg(String(t),px||46);}')
             .replace('__IDROW__', mygear_ui.ID_ROW)
-            .replace('__SHELF__', _shelf)
             .replace('__SHEET__', mygear_ui.sheet_html(
                 mygear_guides.guides_html() + _store_pane))
             .replace('__STORECSS__', mygear_store.CSS if _store_pane else '')
@@ -995,14 +1009,65 @@ def _topic_banner():
     try:
         import safety_conversation as _SC
         tp = _SC.topic_for()
-        return ("<div class='ttop'><span>TODAY'S TOOLBOX TOPIC &middot; "
-                "{d} OF {of}</span><b>{t}</b><i>{k}</i></div>").format(
+        return ("<div class='fdtop'><b>TODAY'S TOOLBOX TOPIC &middot; "
+                "{d} OF {of}</b><i>{t}</i><span>{k}</span></div>").format(
             d=tp["day"], of=tp["of"],
             t=html.escape(str(tp["title"])),
             k=html.escape(str(tp.get("takeaway") or "")))
     except Exception as _e:
         print("  Toolbox topic skipped ({})".format(_e))
         return ""
+
+
+#  THE FRONT DOOR TILES (Andrew, 1 Aug 2026: "include the contacts.
+#  radio and gas monitor as well as viewing what we have in the store").
+#  Everything a worker needs is ON the door now - and it fixed a real
+#  hole: the trade tables guide had no way in at all, because the crew
+#  page never called guide_buttons().
+_FD_ICONS = {
+    'store': ("<path d='M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zM4 8l2-4h12"
+              "l2 4M9 12h6'/>"),
+    'radio': ("<rect x='7' y='2' width='10' height='20' rx='2'/>"
+              "<path d='M11 6h2M10 18h4'/>"),
+    'gas': "<circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 3'/>",
+    'contacts': ("<path d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1"
+                 " 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2"
+                 "h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9"
+                 "a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2"
+                 " 2 0 0 1 1.7 2z'/>"),
+    'tables': "<path d='M3 5h18v14H3zM3 10h18M9 5v14M15 5v14'/>",
+}
+
+
+def _fd_tile(key, title, sub, wide=False):
+    ico = ("<i><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' "
+           "stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>"
+           + _FD_ICONS[key] + "</svg></i>")
+    if wide:
+        body = "<u><b>" + title + "</b><span>" + sub + "</span></u><em>&rsaquo;</em>"
+    else:
+        body = "<b>" + title + "</b><span>" + sub + "</span>"
+    return ("<button class='fdt " + ('store wide' if wide else '')
+            + "' type='button' onclick=\"openGuide('" + key + "')\">"
+            + ico + body + "</button>")
+
+
+def _front_tiles(stats, has_store):
+    """The store first and widest - it is what most blokes came for -
+    then the four they need one thumb away."""
+    out = ""
+    if has_store:
+        n = stats.get('hireItems', 0)
+        c = stats.get('consLines', 0)
+        out += _fd_tile('store', "What's in the store",
+                        "{:,} ready to hire &middot; {:,} consumable lines"
+                        .format(n, c), wide=True)
+    out += _fd_tile('radio', "Your two-way radio", "Channels, calls and care")
+    out += _fd_tile('gas', "Your gas monitor", "BW Flex4 &mdash; check it, wear it")
+    out += _fd_tile('contacts', "Contact board", "Every number &mdash; tap to call")
+    out += _fd_tile('tables', "Trade tables",
+                    "Spanners &middot; taps &middot; WLL")
+    return out
 
 
 TEMPLATE = r'''<!doctype html><!-- MY GEAR HQ · the Coates digital tool store · designed and built by Andrew Fisher --><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1134,12 +1199,60 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .mgx{font-family:'Archivo Black','Arial Black',Arial,sans-serif;font-size:60px;line-height:1;display:flex;justify-content:center;align-items:baseline;gap:13px;letter-spacing:2px;margin:4px 0 0}
 .mgxw{color:#f4f6f8;text-shadow:0 2px 8px rgba(0,0,0,.6)}
 .mgxo{background:linear-gradient(180deg,#ffa25c 0%,#F26222 46%,#d94e12 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px rgba(242,98,34,.45)) drop-shadow(0 2px 6px rgba(0,0,0,.55))}
-.ttop{margin:12px auto 2px;max-width:430px;background:#151C27;
-  border:1px solid #28323F;border-left:3px solid #F0B429;border-radius:0 10px 10px 0;
-  padding:9px 12px;text-align:left}
-.ttop span{display:block;font-size:9px;letter-spacing:2px;color:#F0B429;font-weight:800}
-.ttop b{display:block;font-size:13.5px;color:#EAF0F7;margin-top:3px}
-.ttop i{display:block;font-style:normal;font-size:11.5px;color:#8A97A8;margin-top:2px;line-height:1.5}
+/* ---- THE FRONT DOOR (Andrew, 1 Aug 2026) -------------------------
+   "include the contacts. radio and gas monitor as well as viewing what
+   we have in the store... keeping in mind people have to enter there
+   number. not scan."
+   So the camera panel is gone, the typed number IS the door, and the
+   four things a worker needs sit under it as tiles. The orange section
+   chips are the same rack tickets as the shelves in the container -
+   the phone looks like the store.
+------------------------------------------------------------------ */
+.fd{margin:13px 0 0}
+.fdtop{display:block;width:100%;text-align:left;background:#161B24;
+ border:1px solid #2A313C;border-left:3px solid var(--amb);
+ border-radius:0 12px 12px 0;padding:9px 12px;margin:0 0 12px}
+.fdtop b{display:block;font-size:9px;letter-spacing:2px;color:var(--amb);font-weight:800}
+.fdtop i{display:block;font-style:normal;font-size:13.5px;color:#EAF0F7;font-weight:700;margin-top:3px}
+.fdtop span{display:block;font-size:11.5px;color:var(--mut);margin-top:3px;line-height:1.5}
+.fdstats{display:flex;background:#11161F;border:1px solid #232A34;border-radius:14px;overflow:hidden;margin:0}
+.fdstats div{flex:1;text-align:center;padding:10px 4px;border-left:1px solid #232A34}
+.fdstats div:first-child{border-left:0}
+.fdstats b{display:block;font-size:21px;font-weight:850;color:var(--neon);line-height:1.1;font-variant-numeric:tabular-nums}
+.fdstats span{display:block;font-size:8.5px;letter-spacing:1.4px;color:var(--mut);font-weight:700;margin-top:3px}
+.fdsec{display:flex;align-items:center;margin:16px 0 9px}
+.fdsec b{background:var(--org);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:2.2px;padding:6px 14px;border-radius:999px;flex:none;box-shadow:0 2px 10px rgba(242,98,34,.35)}
+.fdsec i{flex:1;height:1px;background:linear-gradient(90deg,rgba(242,98,34,.55),rgba(242,98,34,0));margin-left:10px}
+.fddoor{position:relative;background:linear-gradient(180deg,#151C27,#101620);border:1px solid #2E3947;border-radius:18px;padding:16px 14px 14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.fddoor:before{content:"";position:absolute;inset:-1px;border-radius:18px;border:1px solid rgba(242,98,34,.35);pointer-events:none}
+.fdask{text-align:center;font-size:18px;font-weight:800;color:#EAF0F7;margin:1px 0 3px}
+.fdhint{text-align:center;font-size:11.5px;color:var(--mut);margin-bottom:11px}
+.fdhint b{color:var(--bright)}
+.fddoor .idrow{margin:0}
+.fddoor #idno{height:56px;font-size:19px;letter-spacing:3px;text-align:center;font-weight:800}
+.fddoor .btn{margin-top:10px}
+.fddoor .err{min-height:0;margin-top:8px}
+.fddoor .err:empty{display:none}
+.fddoor .subline{display:none}
+.fdnoscan{text-align:center;font-size:11px;color:#6E7A8A;margin-top:10px;font-style:italic}
+.fdgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0}
+.fdt{display:flex;flex-direction:column;align-items:flex-start;gap:7px;background:linear-gradient(180deg,#151A22,#11151C);border:1px solid #232A34;border-radius:14px;padding:12px 12px 11px;text-align:left;color:#E6E9EE;font:inherit;cursor:pointer;min-height:92px;transition:transform .12s,border-color .12s}
+.fdt:active{transform:scale(.985);border-color:var(--org)}
+.fdt i{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(242,98,34,.14);flex:none}
+.fdt svg{width:19px;height:19px;color:var(--org)}
+.fdt b{display:block;font-size:13.5px;font-weight:800;line-height:1.25}
+.fdt span{display:block;font-size:10.5px;color:var(--mut);margin-top:2px;line-height:1.45}
+.fdt em{font-style:normal;color:#4A525E;font-size:20px;line-height:1}
+.fdt.wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:11px;min-height:0;padding:12px 13px}
+.fdt.wide i{width:38px;height:38px}
+.fdt.wide svg{width:21px;height:21px}
+.fdt.wide u{flex:1;min-width:0;text-decoration:none;display:block}
+.fdt.wide b{font-size:14.5px}
+.fdt.wide span{margin-top:1px}
+.fdt.store i{background:rgba(242,98,34,.2)}
+.fdt.store{border-color:#3A2A1E}
+.fddoor .scanbtn{display:none!important}
+body:not(.hascard) .qstack{display:none}
 .mgxline{width:78%;max-width:420px;height:3px;margin:10px auto 8px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(242,98,34,.9) 20%,#ffc891 50%,rgba(242,98,34,.9) 80%,transparent);box-shadow:0 0 14px 2px rgba(242,98,34,.55),0 0 40px 8px rgba(242,98,34,.25)}
 /* The floating pill STACK (Andrew, 29 Jul 2026: "did you not add the
    floating pills for gas monitors and radios"). Contacts keeps the
@@ -1166,20 +1279,30 @@ __STORECSS__
 <div class="mgx"><span class="mgxw">MY</span><span class="mgxo">GEAR</span></div>
 <div class="mgxline"></div>
 <div class="mgkick">DIGITAL TOOL STORE</div>
-<div class="mgsub">Your gear. Your responsibility. One scan.</div>
+<div class="mgsub">Your gear. Your responsibility.</div>
+
+<div class="fd">
 __TOPIC__
-__PULSE__
-<div class="scanpanel" id="scanpanel" role="button" tabindex="0">
-<span class="crn c1"></span><span class="crn c2"></span><span class="crn c3"></span><span class="crn c4"></span>
-<div class="sptitle">Scan your ID barcode</div>
-<div class="spsub" id="scancap">Hold your card up to the camera</div>
-<div class="bcode"><i class="bline"></i></div>
-</div>
-<div class="idbox">__IDROW__
+__STATSTRIP__
+
+<div class="fdsec"><b>YOUR ID</b><i></i></div>
+<div class="fddoor">
+<div class="fdask">Type your ID number</div>
+<div class="fdhint">The number off your site card &mdash; letters are fine, like <b>18479CEM</b></div>
+__IDROW__
 <button class="btn" onclick="go()">OPEN MY GEAR</button>
-<div class="err" id="err"></div><div class="subline" id="scanhelp"></div></div></div>
+<div class="err" id="err"></div>
+<div class="subline" id="scanhelp"></div>
+<div class="fdnoscan">Nothing to scan &mdash; typing your number is the way in.</div>
+</div>
+
+<div class="fdsec"><b>THE STORE</b><i></i></div>
+<div class="fdgrid">
+__TILES__
+</div>
+</div>
+</div>
 <div class="ft"><b style="color:#F26222">Updated once a day, about 7:00 AM.</b> Anything taken or handed back since then shows on tomorrow's refresh.<br>Read-only SiteIQ snapshot as at __ASOF__ &middot; locked to your own ID — a wrong number shows nothing.<br><span class="val">MY GEAR HQ</span> · POWERED BY SITEIQ · Designed &amp; built by Andrew Fisher</div>
-__SHELF__
 </div>
 <div id="result" class="card"></div>
 </div>
@@ -1334,6 +1457,7 @@ function go(){
  +'<div class="subline" style="text-align:center">Save puts your report on your phone as a picture — no signal needed. Print gives you one clean A4 page; pick the store Wi-Fi printer in the print menu.</div>'
  +'<div class="ft">Coates · K2 Shutdown 2026 · Gladstone &middot; a keepsake of your shutdown<div class="val">Care Deeply · Customer Focused · Be Our Best · One Team · Competitive Spirit</div>POWERED BY SITEIQ · Author: Andrew Fisher</div></div>';
  document.getElementById('result').innerHTML=html;
+ document.body.classList.add('hascard');
  // the card's own Scan button lives inside that HTML, so reveal it now
  try{ revealScanControls(); }catch(e){}
  document.getElementById('landing').style.display='none';
@@ -1343,7 +1467,7 @@ function go(){
  if(rp){requestAnimationFrame(function(){requestAnimationFrame(function(){rp.style.strokeDashoffset=rp.getAttribute('data-off')})})}
  animate(); if((p.score||0)>=85||st.items===0||st.sameday>0) confetti();
 }
-function reset(){document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
+function reset(){document.body.classList.remove('hascard');document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
 document.getElementById('idno').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
 var STORES_TAG='__STORESTAG__';
 __STOREJS__
