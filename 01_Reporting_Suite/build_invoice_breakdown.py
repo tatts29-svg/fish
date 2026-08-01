@@ -273,7 +273,7 @@ def read_charge_lines(inv_days, comap):
                 pass
         return it, (desc or ("Item " + it if it else bc))
     days = set(inv_days)
-    fold = {}
+    fold, costats = {}, {}
     for r in rows[1:]:
         try:
             hire = float(r[H["HIRE_CHARGE ($)"]] or 0)
@@ -302,6 +302,18 @@ def read_charge_lines(inv_days, comap):
         #  very end (Andrew, 1 Aug 2026)
         sp = ("SITE PLANT" in who.upper() or "SITE PLANT" in co.upper())
         it, desc = identify(r, bc)
+        #  the window traffic: every raw charge line is one trip to the
+        #  store window; a line whose spell ends before the cutoff came
+        #  BACK inside the month (Andrew, 1 Aug 2026: "how many times
+        #  they used the store, how many transactions in and out")
+        if not sp:
+            cs = costats.setdefault(co, {"trips": 0, "backs": 0,
+                                         "still": 0})
+            cs["trips"] += 1
+            if t and t < max(days):
+                cs["backs"] += 1
+            else:
+                cs["still"] += 1
         e = fold.setdefault((bc, who), {
             "n": desc, "i": it, "w": who, "co": co, "sp": sp,
             "fam": gv(r, "PRODUCT_FAMILY").title() or "Other",
@@ -310,10 +322,16 @@ def read_charge_lines(inv_days, comap):
         e["d"] += len(inwin)
         e["f"] = min(e["f"], inwin[0])
         e["t"] = max(e["t"], inwin[-1])
-    return sorted(fold.values(), key=lambda e: (e["co"].upper(), -e["amt"]))
+    #  out the whole window = the idle-watch candidates
+    lo, hi, span = min(days), max(days), len(days)
+    for e in fold.values():
+        e["full"] = (e["f"] == lo and e["t"] == hi and e["d"] >= span)
+    return (sorted(fold.values(),
+                   key=lambda e: (e["co"].upper(), -e["amt"])), costats)
 
 
-def appendix_pages(lines):
+def appendix_pages(lines, costats=None):
+    costats = costats or {}
     """The charge register the way Andrew specified it (1 Aug 2026):
     every company and its split of the total, companies in
     ALPHABETICAL order, and inside each company the lines by ITEM
@@ -467,22 +485,80 @@ def appendix_pages(lines):
         ls = sorted(cos[co], key=by_name_then_item)
         amt = sum(e["amt"] for e in ls)
         biggest = max(ls, key=lambda e: e["amt"])
+        cs = costats.get(co, {})
+        traffic = ""
+        if cs.get("trips"):
+            traffic = (" Their people used the store <b>{tr} time{ts}</b> "
+                       "this invoice &mdash; {bk} line{bs} back through "
+                       "the window inside the month, {st} still on hire "
+                       "at the cutoff.").format(
+                tr=cs["trips"], ts="" if cs["trips"] == 1 else "s",
+                bk=cs.get("backs", 0),
+                bs="" if cs.get("backs", 0) == 1 else "s",
+                st=cs.get("still", 0))
         story = (
             "<div class='cap'><b>{co}</b> &mdash; {n} hire line{s} "
             "through {w} of their people, {d:,} charge-days &mdash; "
-            "<b>${a:,.2f}</b>, {p:.1f}% of the hire on this invoice. "
-            "Biggest single line: {big} at ${ba:,.2f}. People A to Z, "
-            "their gear by item number.</div>"
+            "<b>${a:,.2f}</b>, {p:.1f}% of the hire on this invoice."
+            "{traffic} Biggest single line: {big} at ${ba:,.2f}. "
+            "People A to Z, their gear by item number.</div>"
         ).format(co=CS.html.escape(co), n=len(ls),
                  s="" if len(ls) == 1 else "s",
                  w=len(set(e["w"] for e in ls)),
                  d=int(sum(e["d"] for e in ls)),
                  a=amt, p=100.0 * amt / total if total else 0.0,
+                 traffic=traffic,
                  big=CS.html.escape(biggest["n"][:46]), ba=biggest["amt"])
         chapter(CS.html.escape(co), ls, story,
                 CS.html.escape(co) + " total &mdash; "
                 + "{:.1f}% of the hire on this invoice".format(
                     100.0 * amt / total if total else 0.0), amt)
+
+    #  ---- the idle watch: out the whole month ------------------------
+    #  the client-care story (Andrew, 1 Aug 2026: "a story with the
+    #  idle gear"): lines that charged every single day of the window.
+    #  Nothing wrong with that - but if any of it is finished with, an
+    #  off-hire ends the meter. Site plant excluded: on site by design.
+    watch = sorted((e for e in coline if e.get("full")),
+                   key=lambda e: -e["amt"])
+    if watch:
+        w_amt = sum(e["amt"] for e in watch)
+        TOP = 14
+        wrows = "".join(
+            ("<tr><td style='white-space:nowrap'>{co}</td><td>{n}</td>"
+             "<td style='white-space:nowrap'>{w}</td>"
+             "<td style='text-align:right'>{d}</td>"
+             "<td style='text-align:right'>${a:,.2f}</td></tr>").format(
+                co=CS.html.escape(e["co"][:26]),
+                n=CS.html.escape(e["n"][:42]),
+                w=CS.html.escape(e["w"][:20]), d=e["d"], a=e["amt"])
+            for e in watch[:TOP])
+        if len(watch) > TOP:
+            rest = watch[TOP:]
+            wrows += ("<tr><td colspan='4' style='color:#8A94A2'>...plus "
+                      "{n} more line{s} out the whole month</td>"
+                      "<td style='text-align:right;color:#8A94A2'>"
+                      "${a:,.2f}</td></tr>").format(
+                n=len(rest), s="" if len(rest) == 1 else "s",
+                a=sum(e["amt"] for e in rest))
+        pages.append((
+            "The full charge register &middot; the idle watch",
+            "<div class='card'><h2>The idle watch &mdash; out the whole "
+            "month</h2>"
+            "<div class='cap'>These {n} line{s} charged every single day "
+            "of the invoice window &mdash; <b>${a:,.2f}</b>, {p:.1f}% of "
+            "the hire. Nothing wrong with a full month's hire on a busy "
+            "shut &mdash; but gear that is finished with keeps charging "
+            "until it comes back through the window. If anything here is "
+            "done, an off-hire call ends the meter. That is us keeping "
+            "your spend honest. Biggest first.</div>"
+            .format(n=len(watch), s="" if len(watch) == 1 else "s",
+                    a=w_amt, p=100.0 * w_amt / total if total else 0.0)
+            + "<table class='tight' style='font-size:11px'><thead><tr>"
+            "<th>Company</th><th>Item</th><th>Hirer</th>"
+            "<th style='text-align:right'>Days</th>"
+            "<th style='text-align:right'>Total</th></tr></thead><tbody>"
+            + wrows + "</tbody></table></div>"))
 
     #  ---- site plant, at the very end as asked ----------------------
     if splant:
@@ -641,10 +717,11 @@ def main():
         print("    split yet. Re-download TRANSACTIONS after 09:30 and run this again.")
     fams = read_family_split(wb, tied) or {"plant": {}, "tool": {}, "gear": {}}
 
-    appx = None
+    appx, costats = None, {}
     if full:
-        appx = read_charge_lines(tied, hirer_company_map())
-        if appx:
+        got = read_charge_lines(tied, hirer_company_map())
+        if got:
+            appx, costats = got
             print(" Register      : {} charge lines across {} companies "
                   "ride along".format(
                       len(appx), len(set(e["co"] for e in appx))))
@@ -793,7 +870,7 @@ def main():
     if page4:
         sections.append(("Claims &amp; services on this invoice", page4))
     if appx:
-        sections.extend(appendix_pages(appx))
+        sections.extend(appendix_pages(appx, costats))
     total_pages = len(sections)
     footer = ("<div class='foot'><span>Data source: <b>SiteIQ</b> &middot; Extract {a} &middot; "
               "Progress invoice breakdown &mdash; final invoice next month &middot; every figure "
