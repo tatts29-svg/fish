@@ -351,6 +351,35 @@ def read_availability(rental_path, sales_path, master=None):
         return rules
     KITS = _kits()
 
+    #  SDS links (Andrew, 1 Aug 2026): "my qr codes is the direct link
+    #  to the sds" - the A3 quick-scan board, living on every chemical's
+    #  card. sds.txt (protected) beats the shipped sds_EXAMPLE.txt.
+    def _sds_rules():
+        rules = []
+        for fn in ('sds.txt', 'sds_EXAMPLE.txt'):
+            p = os.path.join(os.path.dirname(os.path.abspath(__file__)), fn)
+            if not os.path.isfile(p):
+                continue
+            with open(p, encoding='utf-8', errors='replace') as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line or line.startswith('#') or '|' not in line:
+                        continue
+                    w, u = line.split('|', 1)
+                    ws = tuple(x.upper() for x in w.split() if x)
+                    if ws and u.strip().startswith('http'):
+                        rules.append((ws, u.strip()))
+            break
+        return rules
+    SDS = _sds_rules()
+
+    def _sds_of(name):
+        up = ' ' + name.upper() + ' '
+        for ws, u in SDS:
+            if all(w in up for w in ws):
+                return u
+        return ''
+
     def _kit_of(name):
         up = ' ' + name.upper() + ' '
         for words, c in KITS:
@@ -369,6 +398,9 @@ def read_availability(rental_path, sales_path, master=None):
             _kt = _kit_of(name)
             if _kt:
                 it['kt'] = _kt
+            _sd = _sds_of(name)
+            if _sd:
+                it['sd'] = _sd
             out.append(it)
         out.sort(key=lambda x: x['n'].lower())
         return out
@@ -379,9 +411,13 @@ def read_availability(rental_path, sales_path, master=None):
     C = []
     for (_fk, cat), recs in cons.items():
         live = max(recs, key=lambda x: x['q'])
-        C.append({'n': live['n'], 'c': cat, 'u': live['u'],
-                  'q': int(sum(x['q'] for x in recs)), 'k': 'c',
-                  'v': live['sku'], 'fl': ''})
+        _ci = {'n': live['n'], 'c': cat, 'u': live['u'],
+               'q': int(sum(x['q'] for x in recs)), 'k': 'c',
+               'v': live['sku'], 'fl': ''}
+        _sd = _sds_of(live['n'])
+        if _sd:
+            _ci['sd'] = _sd
+        C.append(_ci)
     C.sort(key=lambda x: x['n'].lower())
     stats = {
         'hireItems': sum(x['q'] for x in H),
@@ -482,10 +518,21 @@ CSS = """
 .loc{font-style:normal;color:#FFB347;font-weight:800;letter-spacing:.4px;
   text-transform:uppercase;font-size:10px}
 .loc:before{content:"📍 ";font-size:9px}
+.stsds{display:block;margin-top:5px;font-size:10px;font-weight:800;
+  letter-spacing:.5px;color:#F0B429;text-decoration:none;
+  border:1px solid #4a3a10;border-radius:8px;padding:5px 8px;text-align:center}
 .stkit{margin-top:5px;font-size:10.5px;color:#8A97A8;line-height:1.5}
 .stkit b{color:#FFB347}
 .strider{margin-top:4px;font-size:10px;font-weight:800;letter-spacing:.5px;
   color:#F0B429;text-transform:uppercase}
+.stt{display:block;margin-top:4px;font-size:10.5px;font-weight:800;
+  letter-spacing:.6px}
+.stt i{display:inline-block;width:7px;height:7px;border-radius:50%;
+  margin-right:5px;vertical-align:1px}
+.stt.g{color:#35D68A}.stt.g i{background:#35D68A}
+.stt.a{color:#F0B429}.stt.a i{background:#F0B429}
+.stt.r{color:#FF5A4D}.stt.r i{background:#FF5A4D}
+.stask{margin-top:4px;font-size:10px;color:#8A97A8;font-style:italic}
 .stalt{margin-top:5px;font-size:10.5px;color:#8A97A8;line-height:1.55}
 .stalt b{color:#35D68A;letter-spacing:.3px}
 .stalt span{color:#C3CDDA;font-weight:700}
@@ -567,13 +614,16 @@ function stAlt(it){
     if(stFam(s.n) !== fam) continue;
     out.push(s); if(out.length >= 3) break;
   }
-  if(!out.length) return '';
+  var ask='<div class="stask">or ask at the window &mdash; two metres away.</div>';
+  if(!out.length) return ask;
   return '<div class="stalt"><b>But on the shelf:</b> '
     + out.map(function(s){return '<span>' + s.n + ' &times;' + s.q + '</span>'})
-         .join(' &middot; ') + '</div>';
+         .join(' &middot; ') + '</div>' + ask;
 }
 function stKit(it){
   var h='';
+  if(it.sd) h+='<a class="stsds" href="'+it.sd+'" target="_blank" rel="noopener">'
+    +'&#9888; SAFETY DATA SHEET &mdash; tap to open</a>';
   if(it.kt) h+='<div class="stkit"><b>Goes out &amp; comes back with:</b> '+it.kt+'</div>';
   if(it.fl && it.fl.indexOf('R')>=0)
     h+='<div class="strider">Rated lifting &mdash; check it before you rig it</div>';
@@ -661,8 +711,13 @@ function stRender(reset){
         + '<span class="qb ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '">'
         + big + '</span></div>'
         + '<div class="bd"><b>' + it.n + '</b>'
-        + '<span><i class="loc">' + it.u + '</i> &middot; ' + lab
-        + (it.v ? '<br><i class="vc">' + it.v + '</i>' : '') + '</span>'
+        + '<span><i class="loc">' + it.u + '</i>'
+        + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
+        + '<span class="stt ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '"><i></i>'
+        + (it.q===0 ? 'NONE RIGHT NOW'
+           : (it.q<=3 ? 'RUNNING LOW &mdash; ' + it.q
+              : (it.k==='c' ? 'ON THE SHELF &mdash; ' : 'READY TO HIRE &mdash; ') + it.q))
+        + '</span>'
         + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div></div>';
     } else {
       html += '<div class="strow ' + cls + '" style="animation-delay:'
@@ -670,6 +725,11 @@ function stRender(reset){
         + thTile(it.v, it.n)
         + '<div class="stn"><b>' + it.n + '</b><span><i class="loc">' + it.u + '</i>'
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
+        + '<span class="stt ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '"><i></i>'
+        + (it.q===0 ? 'NONE RIGHT NOW'
+           : (it.q<=3 ? 'RUNNING LOW &mdash; ' + it.q
+              : (it.k==='c' ? 'ON THE SHELF &mdash; ' : 'READY TO HIRE &mdash; ') + it.q))
+        + '</span>'
         + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div>'
         + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
     }

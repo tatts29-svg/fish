@@ -1,0 +1,26 @@
+# =====================================================================
+#  MY GEAR HQ | SDS LINKS - safety data sheets on the cards
+#  Author: Andrew Fisher
+#
+#  HOW IT WORKS
+#  ------------
+#  1. This file works out of the box - the 12 entries below were read
+#     straight off Andrew's SDS Quick-Scan A3 board (24 Jul 2026).
+#  2. To make it yours, copy it to  sds.txt  (same folder) and add
+#     lines. sds.txt is protected - updates never touch it.
+#  3. One rule per line:   match words | direct SDS link
+#     Every match word must appear in the item's name. First rule wins.
+#  4. Run 04 - matching cards grow a "SAFETY DATA SHEET" link.
+# =====================================================================
+hi-strength 90 | https://multimedia.3m.com/mws/mediawebserver?mwsId=SSSSSuUn_zu8lZ09482ZPxm9Pv70k17zHvu9lxtD7SSSSSS--
+ultragrime | https://ultragrime.com/wp-content/uploads/2026/06/5900-UltraGrime-PRO-Multiuse-SDS-English-UK-v1.0.pdf
+isowipe | https://www.halyardhealth.com.au/wp-content/uploads/ISOWIPE_BACTERICIDAL_WIPE_and_ISOWIPE_MINIS_BACTERICIDAL_WIPE-GHS_SDS-1.pdf
+lens cleaning | https://d3nan4w00fsv2d.cloudfront.net/MSDS/9972103_SDS_EN.pdf
+contact cleaner | https://crcindustries.com.au/media/sds/crc_aus/sds-10006.pdf
+5-56 | https://www.csinfosafe.com/CSIAU/SDS/SDSExternalView.aspx?type=9&ID=a4ac2dd3-fccf-4239-94ff-2fdfa3f22e08
+loctite 596 | https://api.henkeldx.com/v1/mysds/SafetyDataSheetSet?Appid=%27YPSSW_SDSUA_EXT%27&Matnr=%27287421%27&Laiso=%27EN%27&Rvlid=%27AU%27&Dmskey=%27%27
+coldgal | https://go.lupinsys.com/itw/harms/pm/5a39b3b7b0fe55e4147ca821290e9368-published/attachment/sds-aus.pdf
+stop-seize | https://www.itwpf.co.nz/devcon/wp-content/uploads/sites/3/2021/07/D19020-Devcon_Stop_Seize_Copper-SDS_-_Aus.pdf
+energizer aa | https://data.energizer.com/wp-content/uploads/2026/01/alkaline-12-25-Energizer.pdf
+energizer aaa | https://data.energizer.com/wp-content/uploads/2026/01/alkaline-12-25-Energizer.pdf
+diphoterine | https://www.csinfosafe.com/CSIAU/SDS/SDSExternalView.aspx?type=9&ID=df98b287-c590-4215-9d46-a0078a9e4786

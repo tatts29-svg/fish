@@ -74,6 +74,8 @@ PROTECTED = (
     "zebra_printer.txt",
     #  the kit lists Andrew writes at the counter (1 Aug 2026)
     "kits.txt",
+    #  the SDS link map Andrew grows at the counter (1 Aug 2026)
+    "sds.txt",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
                   #  gear pictures collected on site (30 Jul 2026)
