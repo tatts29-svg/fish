@@ -447,10 +447,30 @@ def main():
     #  (python build_invoice_breakdown.py 2026-07)
     marg = next((a for a in sys.argv[1:]
                  if re.match(r"^\d{4}-\d{2}$", str(a))), None)
+    months = sorted(set(registers_in(d) for d in ds))
     if marg:
         month = dt.date(int(marg[:4]), int(marg[5:7]), 1)
     else:
-        month = max(registers_in(d) for d in ds)
+        month = months[-1]
+        #  more than one billing month in the data = ask which invoice
+        #  (Andrew, 1 Aug 2026: "i dont have an option for July, only
+        #  says august" - the month-end rule had rolled 31 Jul into
+        #  August's invoice and taken 'latest' with it)
+        if len(months) > 1:
+            try:
+                if sys.stdin is not None and sys.stdin.isatty():
+                    print(" Billing months in the data:")
+                    for i, m in enumerate(months, 1):
+                        nd = sum(1 for d in ds if registers_in(d) == m)
+                        print("   {}  {:<16} ({} invoiced day{})".format(
+                            i, m.strftime("%B %Y"), nd,
+                            "" if nd == 1 else "s"))
+                    ans = input(" Which invoice? (Enter = {}) : ".format(
+                        month.strftime("%B %Y"))).strip()
+                    if ans.isdigit() and 1 <= int(ans) <= len(months):
+                        month = months[int(ans) - 1]
+            except (EOFError, KeyboardInterrupt):
+                pass
     inv_days = sorted(d for d in ds if registers_in(d) == month)
     if not inv_days:
         print(" No invoiced days register into {:%B %Y} yet.".format(month))
