@@ -72,6 +72,8 @@ PROTECTED = (
     #  the store Zebra's IP and label size - set at the counter,
     #  never shipped (30 Jul 2026)
     "zebra_printer.txt",
+    #  the kit lists Andrew writes at the counter (1 Aug 2026)
+    "kits.txt",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
                   #  gear pictures collected on site (30 Jul 2026)

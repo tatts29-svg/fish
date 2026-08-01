@@ -1,0 +1,26 @@
+# =====================================================================
+#  MY GEAR HQ | KIT LISTS - "this item goes out and comes back with"
+#  Author: Andrew Fisher
+#
+#  HOW IT WORKS
+#  ------------
+#  1. Copy this file and save it as  kits.txt  (same folder).
+#     kits.txt is YOURS - protected, never touched by updates.
+#  2. One rule per line:   match words | what rides with it
+#     Every match word must appear in the item's name (any order,
+#     not case sensitive). First matching rule wins.
+#  3. Run 04 - the lists appear on the crew cards:
+#     "Goes out & comes back with: ..."
+#
+#  EXAMPLES (these work out of the box until kits.txt exists)
+# =====================================================================
+welder tig | welding leads, TIG torch, earth lead, regulator
+welder | welding leads, handpiece, earth lead
+plasma | plasma handpiece, earth lead, air line
+drill 18v | 2x batteries, charger, carry case
+impact wrench | 2x batteries, charger, socket retainers
+magnetic base drill | safety chain, coolant bottle, arbor + pilot
+gas monitor | charging cradle, calibration cert in date
+radio | battery, antenna, belt clip
+lever block | load chain free of knots, rated hook + latch
+chain block | load chain free of knots, rated hook + latch

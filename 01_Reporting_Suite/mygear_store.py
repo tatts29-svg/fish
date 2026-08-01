@@ -328,14 +328,48 @@ def read_availability(rental_path, sales_path, master=None):
                 + ('R' if f.get('rigging') else '')
                 + ('L' if f.get('logbook') else ''))
 
+    #  the kit list (Andrew, 1 Aug 2026): "this item goes out and comes
+    #  back with" - the same lists as the tool store stickers. Lives in
+    #  kits.txt (protected, written at the counter); the shipped
+    #  kits_EXAMPLE.txt shows the format:  match words | contents
+    def _kits():
+        rules = []
+        for fn in ('kits.txt', 'kits_EXAMPLE.txt'):
+            p = os.path.join(os.path.dirname(os.path.abspath(__file__)), fn)
+            if not os.path.isfile(p):
+                continue
+            with open(p, encoding='utf-8', errors='replace') as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line or line.startswith('#') or '|' not in line:
+                        continue
+                    w, c = line.split('|', 1)
+                    words = tuple(x.upper() for x in w.split() if x)
+                    if words and c.strip():
+                        rules.append((words, c.strip()))
+            break
+        return rules
+    KITS = _kits()
+
+    def _kit_of(name):
+        up = ' ' + name.upper() + ' '
+        for words, c in KITS:
+            if all(w in up for w in words):
+                return c
+        return ''
+
     def pack(d, kind):
         out = []
         for (name, cat, unit), n in d.items():
             #  c = the category you look under, u = the aisle you walk to
-            out.append({'n': name, 'c': cat, 'u': unit,
-                        'q': int(n), 'k': kind,
-                        'v': vkey.get((name, cat, unit), ''),
-                        'fl': _fl(name)})
+            it = {'n': name, 'c': cat, 'u': unit,
+                  'q': int(n), 'k': kind,
+                  'v': vkey.get((name, cat, unit), ''),
+                  'fl': _fl(name)}
+            _kt = _kit_of(name)
+            if _kt:
+                it['kt'] = _kt
+            out.append(it)
         out.sort(key=lambda x: x['n'].lower())
         return out
 
@@ -448,6 +482,10 @@ CSS = """
 .loc{font-style:normal;color:#FFB347;font-weight:800;letter-spacing:.4px;
   text-transform:uppercase;font-size:10px}
 .loc:before{content:"\1F4CD ";font-size:9px}
+.stkit{margin-top:5px;font-size:10.5px;color:#8A97A8;line-height:1.5}
+.stkit b{color:#FFB347}
+.strider{margin-top:4px;font-size:10px;font-weight:800;letter-spacing:.5px;
+  color:#F0B429;text-transform:uppercase}
 .stalt{margin-top:5px;font-size:10.5px;color:#8A97A8;line-height:1.55}
 .stalt b{color:#35D68A;letter-spacing:.3px}
 .stalt span{color:#C3CDDA;font-weight:700}
@@ -534,6 +572,13 @@ function stAlt(it){
     + out.map(function(s){return '<span>' + s.n + ' &times;' + s.q + '</span>'})
          .join(' &middot; ') + '</div>';
 }
+function stKit(it){
+  var h='';
+  if(it.kt) h+='<div class="stkit"><b>Goes out &amp; comes back with:</b> '+it.kt+'</div>';
+  if(it.fl && it.fl.indexOf('R')>=0)
+    h+='<div class="strider">Rated lifting &mdash; check it before you rig it</div>';
+  return h;
+}
 function stRender(reset){
   var box = document.getElementById('st-list'); if(!box) return;
   if(reset) STORE_SHOWN = 60;
@@ -618,14 +663,14 @@ function stRender(reset){
         + '<div class="bd"><b>' + it.n + '</b>'
         + '<span><i class="loc">' + it.u + '</i> &middot; ' + lab
         + (it.v ? '<br><i class="vc">' + it.v + '</i>' : '') + '</span>'
-        + stChips(it.fl) + (it.q===0 ? stAlt(it) : '') + '</div></div>';
+        + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div></div>';
     } else {
       html += '<div class="strow ' + cls + '" style="animation-delay:'
         + Math.min(i*14,280) + 'ms">'
         + thTile(it.v, it.n)
         + '<div class="stn"><b>' + it.n + '</b><span><i class="loc">' + it.u + '</i>
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
-        + stChips(it.fl) + (it.q===0 ? stAlt(it) : '') + '</div>'
+        + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div>'
         + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
     }
   }
