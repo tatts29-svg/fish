@@ -843,15 +843,43 @@ def build():
     #  The front door's instrument strip - three numbers, one row. The
     #  full six-stat pulse still exists above for anyone who wants it
     #  back; the door only ever needed the three a worker reads.
-    _strip = ('<div class="fdstats">'
-              '<div><b>' + str(len(_active)) + '</b><span>STORE USERS</span></div>'
-              '<div><b>' + str(tot_items) + '</b><span>ITEMS OUT NOW</span></div>'
-              + ('<div><b>' + str(_st.get('hireItems', 0))
-                 + '</b><span>READY TO HIRE</span></div>'
-                 if _st.get('hireItems') else '')
+    def _stat(art, n, label, tone=''):
+        return ("<div class='s3" + (" " + tone if tone else "") + "'>"
+                "<i style=\"background-image:url('art/" + art + ".jpg')\"></i>"
+                "<div><b>" + "{:,}".format(n) + "</b><span>" + label
+                + "</span></div></div>")
+
+    _strip = ('<div class="stats3">'
+              + _stat('st_users', len(_active), 'USERS')
+              + _stat('st_onhire', tot_items, 'ON HIRE', 'amb')
+              + (_stat('st_ready', _st.get('hireItems', 0), 'READY TO HIRE',
+                       'grn') if _st.get('hireItems') else '')
               + '</div>')
     _gl_dir = os.path.join(BASE, 'Gear_Lookup')
     os.makedirs(_gl_dir, exist_ok=True)
+    #  the front door's artwork (Andrew's own renders, 1 Aug 2026) - copied
+    #  beside the page so phones load it off the store Wi-Fi like the
+    #  thumbnails, not baked into the HTML where it would bloat every load
+    try:
+        import shutil as _sh
+        _art_src = os.path.join(BASE, 'Art')
+        _art_dst = os.path.join(_gl_dir, 'art')
+        if os.path.isdir(_art_src):
+            os.makedirs(_art_dst, exist_ok=True)
+            _n_art = 0
+            for _a in sorted(os.listdir(_art_src)):
+                if _a.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                    _sh.copyfile(os.path.join(_art_src, _a),
+                                 os.path.join(_art_dst, _a))
+                    _n_art += 1
+            print('  Front door artwork: {} file(s) copied.'.format(_n_art))
+        else:
+            print('  Front door artwork: Art\\ folder not found - the page '
+                  'still builds, the cards just wear their plain look.')
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except BaseException as _e:
+        print('  Front door artwork skipped ({!r})'.format(_e))
     _stores_tag = ''
     #  THE STORES TEAM PAGE - the counter's own view, behind a code.
     #  A separate file on purpose: the crew page stays light, and the
@@ -937,8 +965,9 @@ def build():
             .replace('__PULSE__', pulse)
             .replace('__TOPIC__', _topic_banner())
             .replace('__STATSTRIP__', _strip)
-            .replace('__TILES__', _front_tiles(_sst if _store_pane else {},
-                                               bool(_store_pane)))
+            .replace('__TILES__', _front_tiles())
+            .replace('__HERO__', _hero(_sst if _store_pane else {},
+                                       bool(_store_pane)))
             .replace('__STORESTAG__', _stores_tag)
             .replace('__ASOF__', asof or 'last refresh')
             .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS
@@ -1004,16 +1033,26 @@ def build():
         print('  Gear pictures: skipped this build ({})'.format(_e))
 
 def _topic_banner():
-    """Today's toolbox topic on the front door (Andrew, 1 Aug 2026) -
-    the safety conversation the reports already carry, on the page
-    every worker opens anyway. Never allowed to take the build down."""
+    """Today's toolbox talk on the front door (Andrew, 1 Aug 2026), now
+    wearing a photograph. The art follows the topic where we have one
+    that fits - the radio shot on radio day, the gas monitor on gas day -
+    and the tool montage the rest of the time. Never allowed to take the
+    daily build down."""
     try:
         import safety_conversation as _SC
         tp = _SC.topic_for()
-        return ("<div class='fdtop'><b>TODAY'S TOOLBOX TOPIC &middot; "
-                "{d} OF {of}</b><i>{t}</i><span>{k}</span></div>").format(
-            d=tp["day"], of=tp["of"],
-            t=html.escape(str(tp["title"])),
+        title = str(tp["title"])
+        low = title.lower()
+        art = ('radio' if 'radio' in low else
+               'gas' if 'gas' in low else
+               'tables' if ('sling' in low or 'lift' in low or 'rig' in low
+                            or 'torque' in low) else
+               'store')
+        return ("<div class='talk'>"
+                "<i style=\"background-image:url('art/" + art + ".jpg')\"></i>"
+                "<div><span>TOOLBOX TALK &middot; {d} OF {of}</span>"
+                "<b>{t}</b><p>{k}</p></div></div>").format(
+            d=tp["day"], of=tp["of"], t=html.escape(title),
             k=html.escape(str(tp.get("takeaway") or "")))
     except Exception as _e:
         print("  Toolbox topic skipped ({})".format(_e))
@@ -1040,35 +1079,46 @@ _FD_ICONS = {
 }
 
 
-def _fd_tile(key, title, sub, wide=False):
-    ico = ("<i><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' "
-           "stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>"
-           + _FD_ICONS[key] + "</svg></i>")
-    if wide:
-        body = "<u><b>" + title + "</b><span>" + sub + "</span></u><em>&rsaquo;</em>"
-    else:
-        body = "<b>" + title + "</b><span>" + sub + "</span>"
-    return ("<button class='fdt " + ('store wide' if wide else '')
-            + "' type='button' onclick=\"openGuide('" + key + "')\">"
-            + ico + body + "</button>")
+def _fd_tile(key, chip, title, sub, opens):
+    """Andrew's navigation cards (1 Aug 2026): the photograph IS the card,
+    a category chip says what kind of thing it is, and the bottom line
+    states exactly what opens before a thumb goes anywhere near it."""
+    return ("<button class='navt' type='button' onclick=\"openGuide('"
+            + key + "')\" style=\"background-image:url('art/" + key
+            + ".jpg')\">"
+            "<span class='ntchip'>" + chip + "</span>"
+            "<span class='ntgo'>&rsaquo;</span>"
+            "<span class='ntb'><b>" + title + "</b>"
+            "<span>" + sub + "</span>"
+            "<em>" + opens + " &rarr;</em></span></button>")
 
 
-def _front_tiles(stats, has_store):
-    """The store first and widest - it is what most blokes came for -
-    then the four they need one thumb away."""
-    out = ""
-    if has_store:
-        n = stats.get('hireItems', 0)
-        c = stats.get('consLines', 0)
-        out += _fd_tile('store', "What's in the store",
-                        "{:,} ready to hire &middot; {:,} consumable lines"
-                        .format(n, c), wide=True)
-    out += _fd_tile('radio', "Your two-way radio", "Channels, calls and care")
-    out += _fd_tile('gas', "Your gas monitor", "BW Flex4 &mdash; check it, wear it")
-    out += _fd_tile('contacts', "Contact board", "Every number &mdash; tap to call")
-    out += _fd_tile('tables', "Trade tables",
-                    "Spanners &middot; taps &middot; WLL")
-    return out
+def _front_tiles():
+    """Radio, gas, the contact board and the trade tables. The store is
+    not here - it is the hero card at the top of the door."""
+    return (_fd_tile('radio', 'GUIDE', 'Two-way radio',
+                     'Channels, calls &amp; care', 'OPEN RADIO GUIDE')
+            + _fd_tile('gas', 'GUIDE', 'Gas monitor',
+                       'Check it. Wear it.', 'OPEN GAS GUIDE')
+            + _fd_tile('contacts', 'DIRECTORY', 'Contact board',
+                       'Every number. Tap to call.', 'OPEN CONTACTS')
+            + _fd_tile('tables', 'REFERENCE', 'Trade tables',
+                       'Spanners &middot; taps &middot; WLL',
+                       'OPEN TRADE TABLES'))
+
+
+def _hero(stats, has_store):
+    """The store, across the top, wearing its own photograph."""
+    if not has_store:
+        return ""
+    n = stats.get('hireItems', 0)
+    c = stats.get('consLines', 0)
+    return ("<button class='hero' type='button' onclick=\"openGuide('store')\">"
+            "<span class='hchip'>EXPLORE</span>"
+            "<span class='hb'><b>What&rsquo;s in the store</b>"
+            "<span>{:,} ready to hire &nbsp;&middot;&nbsp; {:,} consumable "
+            "lines</span></span>"
+            "<span class='hgo'>&rsaquo;</span></button>").format(n, c)
 
 
 TEMPLATE = r'''<!doctype html><!-- MY GEAR HQ · the Coates digital tool store · designed and built by Andrew Fisher --><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1200,58 +1250,181 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .mgx{font-family:'Archivo Black','Arial Black',Arial,sans-serif;font-size:60px;line-height:1;display:flex;justify-content:center;align-items:baseline;gap:13px;letter-spacing:2px;margin:4px 0 0}
 .mgxw{color:#f4f6f8;text-shadow:0 2px 8px rgba(0,0,0,.6)}
 .mgxo{background:linear-gradient(180deg,#ffa25c 0%,#F26222 46%,#d94e12 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px rgba(242,98,34,.45)) drop-shadow(0 2px 6px rgba(0,0,0,.55))}
-/* ---- THE FRONT DOOR (Andrew, 1 Aug 2026) -------------------------
-   "include the contacts. radio and gas monitor as well as viewing what
-   we have in the store... keeping in mind people have to enter there
-   number. not scan."
-   So the camera panel is gone, the typed number IS the door, and the
-   four things a worker needs sit under it as tiles. The orange section
-   chips are the same rack tickets as the shelves in the container -
-   the phone looks like the store.
+/* ---- THE FRONT DOOR (Andrew's own design, 1 Aug 2026) -----------
+   His spec, followed: page gradient #070A10 -> #0B111A -> #080C13, an
+   orange glow off the top, panels #121A27 -> #0C121C, the CTA running
+   #FF681F -> #E94713, and every tile stating what it opens BEFORE a
+   thumb goes near it. The photographs are his renders, sitting in
+   art/ beside the page.
+   Typing the ID is still the only way in - there is nothing to scan.
 ------------------------------------------------------------------ */
-.fd{margin:13px 0 0}
-.fdtop{display:block;width:100%;text-align:left;background:#161B24;
- border:1px solid #2A313C;border-left:3px solid var(--amb);
- border-radius:0 12px 12px 0;padding:9px 12px;margin:0 0 12px}
-.fdtop b{display:block;font-size:9px;letter-spacing:2px;color:var(--amb);font-weight:800}
-.fdtop i{display:block;font-style:normal;font-size:13.5px;color:#EAF0F7;font-weight:700;margin-top:3px}
-.fdtop span{display:block;font-size:11.5px;color:var(--mut);margin-top:3px;line-height:1.5}
-.fdstats{display:flex;background:#11161F;border:1px solid #232A34;border-radius:14px;overflow:hidden;margin:0}
-.fdstats div{flex:1;text-align:center;padding:10px 4px;border-left:1px solid #232A34}
-.fdstats div:first-child{border-left:0}
-.fdstats b{display:block;font-size:21px;font-weight:850;color:var(--neon);line-height:1.1;font-variant-numeric:tabular-nums}
-.fdstats span{display:block;font-size:8.5px;letter-spacing:1.4px;color:var(--mut);font-weight:700;margin-top:3px}
-.fdsec{display:flex;align-items:center;margin:16px 0 9px}
-.fdsec b{background:var(--org);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:2.2px;padding:6px 14px;border-radius:999px;flex:none;box-shadow:0 2px 10px rgba(242,98,34,.35)}
-.fdsec i{flex:1;height:1px;background:linear-gradient(90deg,rgba(242,98,34,.55),rgba(242,98,34,0));margin-left:10px}
-.fddoor{position:relative;background:linear-gradient(180deg,#151C27,#101620);border:1px solid #2E3947;border-radius:18px;padding:16px 14px 14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.fddoor:before{content:"";position:absolute;inset:-1px;border-radius:18px;border:1px solid rgba(242,98,34,.35);pointer-events:none}
-.fdask{text-align:center;font-size:18px;font-weight:800;color:#EAF0F7;margin:1px 0 3px}
-.fdhint{text-align:center;font-size:11.5px;color:var(--mut);margin-bottom:11px}
-.fdhint b{color:var(--bright)}
-.fddoor .idrow{margin:0}
-.fddoor #idno{height:56px;font-size:19px;letter-spacing:3px;text-align:center;font-weight:800}
-.fddoor .btn{margin-top:10px}
-.fddoor .err{min-height:0;margin-top:8px}
-.fddoor .err:empty{display:none}
-.fddoor .subline{display:none}
-.fdnoscan{text-align:center;font-size:11px;color:#6E7A8A;margin-top:10px;font-style:italic}
-.fdgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0}
-.fdt{display:flex;flex-direction:column;align-items:flex-start;gap:7px;background:linear-gradient(180deg,#151A22,#11151C);border:1px solid #232A34;border-radius:14px;padding:12px 12px 11px;text-align:left;color:#E6E9EE;font:inherit;cursor:pointer;min-height:92px;transition:transform .12s,border-color .12s}
-.fdt:active{transform:scale(.985);border-color:var(--org)}
-.fdt i{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(242,98,34,.14);flex:none}
-.fdt svg{width:19px;height:19px;color:var(--org)}
-.fdt b{display:block;font-size:13.5px;font-weight:800;line-height:1.25}
-.fdt span{display:block;font-size:10.5px;color:var(--mut);margin-top:2px;line-height:1.45}
-.fdt em{font-style:normal;color:#4A525E;font-size:20px;line-height:1}
-.fdt.wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:11px;min-height:0;padding:12px 13px}
-.fdt.wide i{width:38px;height:38px}
-.fdt.wide svg{width:21px;height:21px}
-.fdt.wide u{flex:1;min-width:0;text-decoration:none;display:block}
-.fdt.wide b{font-size:14.5px}
-.fdt.wide span{margin-top:1px}
-.fdt.store i{background:rgba(242,98,34,.2)}
-.fdt.store{border-color:#3A2A1E}
+body{background:linear-gradient(160deg,#070A10 0%,#0B111A 55%,#080C13 100%)}
+body:before{content:"";position:fixed;left:0;right:0;top:0;height:280px;
+ background:radial-gradient(75% 100% at 50% 0,rgba(255,91,34,.12),transparent 70%);
+ pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1}
+
+.mast{display:flex;align-items:baseline;gap:11px;margin:14px 0 0;
+ font-family:'Archivo Black','Arial Black',Arial,sans-serif;font-size:44px;
+ line-height:1;letter-spacing:.5px}
+.mast .mw{color:#F5F7FB}
+.mast .mo{background:linear-gradient(180deg,#ffa25c,#F26222 55%,#d94e12);
+ -webkit-background-clip:text;background-clip:text;
+ -webkit-text-fill-color:transparent;
+ filter:drop-shadow(0 0 16px rgba(242,98,34,.4))}
+.mast .mhq{font-size:15px;color:#F5F7FB;align-self:flex-start;margin-top:3px;
+ letter-spacing:.5px}
+.mast i{flex:1;height:1px;background:linear-gradient(90deg,
+ rgba(242,98,34,.75),rgba(242,98,34,0));margin-left:4px;align-self:center}
+.mkick{font-size:11px;font-weight:800;letter-spacing:4px;color:#8794A6;
+ margin:7px 0 0}
+
+/* the store, across the top, wearing its photograph */
+.hero{display:block;position:relative;width:100%;text-align:left;margin:16px 0 0;
+ border:1px solid #2A3547;border-radius:20px;overflow:hidden;cursor:pointer;
+ min-height:140px;padding:16px 62px 16px 16px;color:#F5F7FB;font:inherit;
+ background:#0A0E14 url('art/store.jpg') 72% center/cover no-repeat;
+ transition:transform .12s,border-color .12s}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,
+ rgba(7,10,16,.97) 0%,rgba(7,10,16,.9) 34%,rgba(7,10,16,.5) 62%,
+ rgba(7,10,16,.12) 88%)}
+.hero:active{transform:scale(.99);border-color:#F26222}
+.hero>*{position:relative}
+.hchip{display:inline-block;background:#F26222;color:#fff;font-size:9.5px;
+ font-weight:800;letter-spacing:2.2px;padding:5px 11px;border-radius:999px}
+.hb{display:block;margin-top:12px}
+.hb b{display:block;font-size:21px;font-weight:800;letter-spacing:-.2px}
+.hb span{display:block;font-size:11.5px;color:#9EAABB;margin-top:5px}
+.hgo{position:absolute;right:14px;top:50%;transform:translateY(-50%);
+ width:34px;height:34px;border-radius:50%;border:1.5px solid #F26222;
+ color:#F26222;font-size:22px;line-height:31px;text-align:center}
+
+/* THE DOOR - typed ID, and nothing competing with it */
+.door{position:relative;margin:16px 0 0;padding:16px 15px 15px;
+ background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;
+ border-radius:18px}
+.dbar{position:absolute;left:0;top:16px;bottom:16px;width:4px;
+ background:#F26222;border-radius:0 4px 4px 0}
+.dk{font-size:10px;font-weight:800;letter-spacing:2.2px;color:#F26222}
+.dt{font-size:20px;font-weight:800;color:#F5F7FB;margin-top:6px}
+.ds{font-size:12.5px;color:#8794A6;margin-top:3px}
+.drow{display:flex;justify-content:space-between;align-items:baseline;
+ margin:14px 0 6px}
+.drow span{font-size:10px;font-weight:800;letter-spacing:2px;color:#8794A6}
+.drow i{font-style:normal;font-size:10.5px;color:#6B7789}
+.door .idrow{margin:0}
+.door #idno{height:54px;font-size:17px;letter-spacing:1.5px;text-align:left;
+ padding:0 16px;background:#0B111A;border-color:#2A3547;font-weight:700}
+.door #idno::placeholder{letter-spacing:.5px;font-weight:600;color:#5B6675}
+.door .scanbtn{display:none!important}
+.door .btn{margin-top:12px;height:52px;border-radius:13px;font-size:15.5px;
+ letter-spacing:.5px;background:linear-gradient(90deg,#FF681F,#E94713);
+ position:relative;overflow:hidden}
+.door .btn:after{content:"";position:absolute;top:0;bottom:0;width:45%;
+ left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),
+ transparent);transform:skewX(-18deg)}
+.door .btn.sweep:after{animation:sweep .55s ease}
+@keyframes sweep{to{left:120%}}
+.door .err{min-height:0;margin-top:8px}
+.door .err:empty{display:none}
+.door .subline{display:none}
+
+/* what the box is doing, said plainly */
+.dstate{display:none;margin-top:10px;font-size:12px;line-height:1.5;
+ padding:9px 11px;border-radius:10px;border:1px solid #263143;background:#0B111A}
+.dstate.on{display:block}
+.dstate b{font-weight:800}
+.dstate .sp{display:inline-block;width:12px;height:12px;margin-right:7px;
+ border-radius:50%;border:2px solid #2A3547;border-top-color:#F26222;
+ vertical-align:-2px;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dstate.look{color:#9EAABB}
+.dstate.bad{color:#FF8A7A;border-color:#4A2621;background:#180E0D}
+.dstate.warn{color:#F0B429;border-color:#4a3a10;background:#191307}
+
+/* the welcome - who you are and what you hold, before you go in */
+.wel{display:none;margin:12px 0 0;padding:15px;border-radius:18px;
+ border:1px solid #2C4A38;background:linear-gradient(160deg,#101C17,#0B1210)}
+.wel.on{display:block}
+.welh{display:flex;align-items:center;gap:12px}
+.welav{width:46px;height:46px;border-radius:14px;flex:none;display:flex;
+ align-items:center;justify-content:center;font-weight:900;font-size:16px;
+ color:#0A0E14;background:linear-gradient(160deg,#4FE39B,#2BB673)}
+.welh b{display:block;font-size:18px;font-weight:800;color:#F5F7FB}
+.welh span{display:block;font-size:11.5px;color:#8794A6;margin-top:2px}
+.welsum{display:flex;gap:8px;margin:13px 0 0}
+.welsum div{flex:1;text-align:center;border-radius:11px;padding:9px 4px;
+ background:#0B111A;border:1px solid #263143}
+.welsum b{display:block;font-size:19px;font-weight:850;line-height:1.1}
+.welsum span{display:block;font-size:8.5px;letter-spacing:1.2px;color:#8794A6;
+ font-weight:700;margin-top:3px}
+.welsum .g b{color:#35D68A}.welsum .a b{color:#F0B429}.welsum .r b{color:#FF5A4D}
+.wel .btn{margin-top:12px}
+.welback{display:block;width:100%;margin-top:8px;background:none;border:0;
+ color:#6B7789;font:inherit;font-size:11.5px;text-decoration:underline;
+ cursor:pointer;padding:4px}
+
+/* the store in three numbers, each with its own shot */
+.stats3{display:flex;gap:8px;margin:16px 0 0}
+.s3{flex:1;display:flex;align-items:center;gap:8px;padding:9px 8px;
+ background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;
+ border-radius:14px;min-width:0}
+.s3 i{width:36px;height:36px;border-radius:11px;flex:none;
+ background:#0B111A center/cover no-repeat;border:1px solid #2A3547}
+.s3 div{min-width:0}
+.s3 b{display:block;font-size:18px;font-weight:850;color:#F5F7FB;line-height:1.1}
+.s3 span{display:block;font-size:8px;letter-spacing:.5px;color:#8794A6;
+ font-weight:700;margin-top:2px;line-height:1.25}
+.s3.grn b{color:#35D68A}
+.s3.amb b{color:#F0B429}
+
+/* today's talk */
+.talk{display:flex;gap:13px;margin:16px 0 0;padding:13px;
+ background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;
+ border-radius:18px}
+.talk i{width:78px;height:78px;border-radius:14px;flex:none;
+ background:#0B111A center/cover no-repeat;border:1px solid #2A3547}
+.talk div{min-width:0}
+.talk span{display:block;font-size:9.5px;font-weight:800;letter-spacing:2px;
+ color:#F26222}
+.talk b{display:block;font-size:16px;font-weight:800;color:#F5F7FB;margin-top:4px}
+.talk p{font-size:11.5px;color:#8794A6;line-height:1.5;margin-top:4px}
+
+/* the four cards */
+.navh{font-size:10px;font-weight:800;letter-spacing:2.4px;color:#6B7789;
+ margin:20px 0 9px}
+.navg{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.navt{position:relative;display:block;text-align:left;border:1px solid #2A3547;
+ border-radius:18px;overflow:hidden;cursor:pointer;color:#F5F7FB;font:inherit;
+ padding:0;aspect-ratio:1/1.06;background:#0A0E14 center/cover no-repeat;
+ transition:transform .12s,border-color .12s}
+.navt:active{transform:scale(.985);border-color:#F26222}
+.navt:before{content:"";position:absolute;inset:0;background:linear-gradient(
+ 180deg,rgba(7,10,16,.55) 0%,rgba(7,10,16,.05) 34%,rgba(7,10,16,.92) 78%)}
+.ntchip{position:absolute;top:10px;left:10px;background:#F26222;color:#fff;
+ font-size:8px;font-weight:800;letter-spacing:1.6px;padding:4px 9px;
+ border-radius:999px}
+.ntgo{position:absolute;top:9px;right:9px;width:26px;height:26px;
+ border-radius:50%;border:1.4px solid #F26222;color:#F26222;font-size:17px;
+ line-height:23px;text-align:center;background:rgba(7,10,16,.5)}
+.ntb{position:absolute;left:11px;right:11px;bottom:10px;
+ border-left:3px solid #F26222;padding-left:9px}
+.ntb b{display:block;font-size:14.5px;font-weight:800;line-height:1.2}
+.ntb span{display:block;font-size:10.5px;color:#9EAABB;margin-top:2px}
+.ntb em{display:block;font-style:normal;font-size:8.5px;font-weight:800;
+ letter-spacing:1.1px;color:#F26222;margin-top:6px}
+
+/* no app, no password, any phone */
+.trust{display:flex;justify-content:space-between;gap:6px;margin:16px 0 0;
+ padding:11px 12px;background:linear-gradient(160deg,#121A27,#0C121C);
+ border:1px solid #263143;border-radius:14px}
+.trust span{display:flex;align-items:center;gap:6px;font-size:11px;
+ color:#9EAABB;font-weight:600}
+.trust i{width:15px;height:15px;flex:none;border-radius:5px;
+ background:center/11px 11px no-repeat}
+.trust .tg{background-color:rgba(242,98,34,.16);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F26222' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='4' y='4' width='7' height='7' rx='1.6'/%3E%3Crect x='13' y='4' width='7' height='7' rx='1.6'/%3E%3Crect x='4' y='13' width='7' height='7' rx='1.6'/%3E%3Cpath d='M14 21 21 14'/%3E%3C/svg%3E")}
+.trust .tk{background-color:rgba(242,98,34,.16);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F26222' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='4' y='10' width='16' height='11' rx='2'/%3E%3Cpath d='M8 10V7a4 4 0 0 1 7-2.6'/%3E%3C/svg%3E")}
+.trust .tp{background-color:rgba(53,214,138,.16);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2335D68A' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='6' y='2.5' width='12' height='19' rx='2.5'/%3E%3Cpath d='M10.5 18.5h3'/%3E%3C/svg%3E")}
 .fddoor .scanbtn{display:none!important}
 body:not(.hascard) .qstack{display:none}
 .mgxline{width:78%;max-width:420px;height:3px;margin:10px auto 8px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(242,98,34,.9) 20%,#ffc891 50%,rgba(242,98,34,.9) 80%,transparent);box-shadow:0 0 14px 2px rgba(242,98,34,.55),0 0 40px 8px rgba(242,98,34,.25)}
@@ -1276,32 +1449,43 @@ __UICSS__
 __STORECSS__
 </style></head><body><div class="wrap">
 <div class="brand"><div class="logo">coates<b>Equipped for anything</b></div><div class="siteiq">POWERED BY SITEIQ<br><span style="color:#8B9099;font-weight:600;letter-spacing:0">Cement Australia K2 &middot; Gladstone</span></div></div>
-<div id="landing"><div class="hero">
-<div class="mgx"><span class="mgxw">MY</span><span class="mgxo">GEAR</span></div>
-<div class="mgxline"></div>
-<div class="mgkick">DIGITAL TOOL STORE</div>
-<div class="mgsub">Your gear. Your responsibility.</div>
+<div id="landing">
 
-<div class="fd">
-__TOPIC__
-__STATSTRIP__
+<div class="mast"><span class="mw">MY</span><span class="mo">GEAR</span><span class="mhq">HQ</span><i></i></div>
+<div class="mkick">K2 DIGITAL TOOL STORE</div>
 
-<div class="fdsec"><b>YOUR ID</b><i></i></div>
-<div class="fddoor">
-<div class="fdask">Type your ID number</div>
-<div class="fdhint">The number off your site card &mdash; letters are fine, like <b>18479CEM</b></div>
+__HERO__
+
+<div class="door">
+<span class="dbar"></span>
+<div class="dk">ACCESS MY GEAR</div>
+<div class="dt">Enter your site ID</div>
+<div class="ds">Use the number printed on your site card.</div>
+<div class="drow"><span>SITE ID</span><i>Letters and numbers accepted</i></div>
 __IDROW__
-<button class="btn" onclick="go()">OPEN MY GEAR</button>
+<button class="btn" id="gobtn" onclick="go()">OPEN MY GEAR HQ</button>
+<div class="dstate" id="dstate"></div>
 <div class="err" id="err"></div>
 <div class="subline" id="scanhelp"></div>
-<div class="fdnoscan">Nothing to scan &mdash; typing your number is the way in.</div>
 </div>
 
-<div class="fdsec"><b>THE STORE</b><i></i></div>
-<div class="fdgrid">
+<div id="welcome" class="wel"></div>
+
+__STATSTRIP__
+
+__TOPIC__
+
+<div class="navh">GUIDES &amp; QUICK ACCESS</div>
+<div class="navg">
 __TILES__
 </div>
+
+<div class="trust">
+<span><i class="tg"></i>No app</span>
+<span><i class="tk"></i>No password</span>
+<span><i class="tp"></i>Any phone</span>
 </div>
+
 </div>
 <div class="ft"><b style="color:#F26222">Updated once a day, about 7:00 AM.</b> Anything taken or handed back since then shows on tomorrow's refresh.<br>Read-only SiteIQ snapshot as at __ASOF__ &middot; locked to your own ID — a wrong number shows nothing.<br><span class="val">MY GEAR HQ</span> · POWERED BY SITEIQ · Designed &amp; built by Andrew Fisher</div>
 </div>
@@ -1352,10 +1536,32 @@ function countUp(el,to,ms){var t0=null;function s(ts){if(!t0)t0=ts;var k=Math.mi
 function animate(){var els=document.querySelectorAll('[data-to]');for(var i=0;i<els.length;i++)countUp(els[i],parseInt(els[i].getAttribute('data-to'))||0,900)}
 function confetti(){var cs=['#F26222','#FFA24D','#FFD27A','#ffffff'];for(var i=0;i<70;i++){var d=document.createElement('div');d.className='confp';d.style.left=(Math.random()*100)+'vw';d.style.background=cs[i%4];d.style.animationDelay=(Math.random()*0.35)+'s';document.body.appendChild(d);(function(x){setTimeout(function(){x.remove()},2700)})(d)}}
 function cmpbar(l,v,me){v=Math.round(v||0);return '<div class="cmpr"><span class="cl">'+l+'</span><span class="cbar"><i style="width:'+v+'%" '+(me?'class="me"':'')+'></i></span><span class="cvv">'+v+'</span></div>'}
+/* THE DOOR'S STATES (Andrew, 1 Aug 2026: "searching, ID found, invalid
+   ID and connection unavailable"). Three of those are real here and one
+   is not: the whole register is already inside this page, so there is no
+   connection to lose once it has loaded. The honest fourth state is a
+   page that never finished loading - that is what 'cold' says. */
+function idState(kind,msg){
+ var d=document.getElementById('dstate'); if(!d) return;
+ if(!kind){ d.className='dstate'; d.innerHTML=''; return; }
+ d.className='dstate on '+kind;
+ d.innerHTML=(kind==='look'?'<span class="sp"></span>':'')+msg;
+}
 function go(){
+ var b=document.getElementById('gobtn');
+ if(b){ b.classList.remove('sweep'); void b.offsetWidth; b.classList.add('sweep'); }
+ var id0=(document.getElementById('idno').value||'').replace(/\s+/g,'');
+ if(!id0){ idState('bad','Type the ID number off your site card.'); return; }
+ if(typeof DATA!=='object'||DATA===null||!Object.keys(DATA).length){
+   idState('warn','<b>This page did not finish loading.</b> Pull down to '
+    +'refresh, or ask at the window.'); return; }
+ idState('look','Checking the register&hellip;');
+ setTimeout(goNow,220);
+}
+function goNow(){
  var id=(document.getElementById('idno').value||'').replace(/\s+/g,'');
  var err=document.getElementById('err');
- if(!id){err.textContent='Type the ID number off your card.';return}
+ if(!id){idState('bad','Type the ID number off your site card.');return}
  /* STORES OVERRIDE - the counter types its own code into the same box
     and lands on the stores board. One door for everybody: a crew member
     types his hire ID, the stores team types theirs. The code is checked
@@ -1377,9 +1583,55 @@ function go(){
  for(var ci=0;ci<cand.length;ci++){
    if(DATA[tag(cand[ci])]){ id=cand[ci]; blob=DATA[tag(id)]; break; }
  }
- if(!blob){err.textContent='No gear found for that ID. Check the number on your card.';return}
- var p;try{p=JSON.parse(dec(id,blob))}catch(e){err.textContent='Could not read that record.';return}
- err.textContent='';
+ if(!blob){idState('bad','<b>That ID is not on the register.</b> Check the '
+   +'number on your site card, or ask at the window &mdash; two metres away.');
+   return}
+ var p;try{p=JSON.parse(dec(id,blob))}catch(e){
+   idState('bad','<b>That record would not open.</b> Show this at the window.');
+   return}
+ idState('');
+ showWelcome(p);
+}
+
+/* THE WELCOME (Andrew, 1 Aug 2026: "after a valid ID, show the person's
+   name and item count before opening their gear"). A beat between typing
+   a number and a wall of detail - and it is the moment a bloke spots he
+   typed someone else's ID. */
+function showWelcome(p){
+ window.PENDING=p;
+ var st=p.stats||{}, ag=p.aging||{g:0,a:0,r:0};
+ var w=document.getElementById('welcome');
+ w.innerHTML='<div class="welh"><div class="welav">'+esc(p.initials||'K2')
+  +'</div><div><b>'+esc(p.name)+'</b><span>'+esc(p.company)+' &middot; ID '
+  +esc(p.id)+'</span></div></div>'
+  +'<div class="welsum">'
+  +'<div><b>'+(st.items||0)+'</b><span>IN YOUR NAME</span></div>'
+  /* the traffic lights only earn their space when the export carried
+     hire dates - four boxes of zeros tells a bloke nothing */
+  +((ag.g+ag.a+ag.r)>0
+    ? '<div class="g"><b>'+ag.g+'</b><span>0&ndash;2 DAYS</span></div>'
+     +'<div class="a"><b>'+ag.a+'</b><span>3&ndash;4 DAYS</span></div>'
+     +'<div class="r"><b>'+ag.r+'</b><span>5+ DAYS</span></div>'
+    : '<div style="flex:3"><b style="font-size:13px;color:#8794A6;'
+     +'font-weight:700">How long you have had them is inside</b>'
+     +'<span>OPEN TO SEE THE DAYS</span></div>')
+  +'</div>'
+  +'<button class="btn" onclick="openGear()">OPEN MY GEAR</button>'
+  +'<button class="welback" onclick="notMe()">That is not me &mdash; try '
+  +'another ID</button>';
+ w.className='wel on';
+ document.querySelector('.door').style.display='none';
+ w.scrollIntoView({block:'center'});
+}
+function notMe(){
+ document.getElementById('welcome').className='wel';
+ var d=document.querySelector('.door'); d.style.display='';
+ idState(''); var i=document.getElementById('idno'); i.value=''; i.focus();
+}
+function openGear(){ if(window.PENDING) renderCard(window.PENDING); }
+
+function renderCard(p){
+ var err=document.getElementById('err');
  window.LASTP=p;   // the print sheet builds from the same decoded payload
  var st=p.stats,r=p.rating,rk=p.rank||{comp:1,compTotal:1,pct:100};
  var C=326.7, off=p.hasReturns?(C-C*Math.min(100,p.score||0)/100):C;
@@ -1468,7 +1720,7 @@ function go(){
  if(rp){requestAnimationFrame(function(){requestAnimationFrame(function(){rp.style.strokeDashoffset=rp.getAttribute('data-off')})})}
  animate(); if((p.score||0)>=85||st.items===0||st.sameday>0) confetti();
 }
-function reset(){document.body.classList.remove('hascard');document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
+function reset(){document.body.classList.remove('hascard');document.getElementById('welcome').className='wel';var _d=document.querySelector('.door');if(_d)_d.style.display='';idState('');window.PENDING=null;document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
 document.getElementById('idno').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
 var STORES_TAG='__STORESTAG__';
 __STOREJS__
