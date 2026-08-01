@@ -1,7 +1,7 @@
-# Coates K2 suite version - 131 files - overall 1b7100aa
+# Coates K2 suite version - 131 files - overall ad9f8158
 # MACHINE: master (built by Claude)
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-01 00:43:46
+# taken 2026-08-01 00:48:41
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -108,7 +108,7 @@ a49f1ea35c activity_model.py
 064ec01f28 build_clean_report.py
 3f8dc50d72 build_company_onhire_report.py
 6e6ab04d8a build_cost_snapshot.py
-2d4e4fbe47 build_invoice_breakdown.py
+1a3898ae51 build_invoice_breakdown.py
 3db5a9a8de build_plant_dashboard.py
 ce2058e40b build_posters.py
 06fd0346ff build_utilisation_report.py
