@@ -133,10 +133,20 @@ STREAMS = (
 )
 
 
+def name_key(s):
+    """One key for 'Matthew Wooldridge' AND 'WOOLDRIDGE MATTHEW': the
+    name's words, uppercased and sorted. The charge sheet and the
+    register write the same person both ways round, and an unmatched
+    name dumped everyone into 'Not named' (caught 1 Aug 2026)."""
+    return " ".join(sorted(re.sub(r"[^A-Z ]", "", str(s or "").upper())
+                           .split()))
+
+
 def hirer_company_map():
     """Who works for whom, off the newest ON_HIRE and RENTAL_STOCK
     exports - the charge lines name the hirer, the client wants the
-    COMPANY totals (Andrew, 1 Aug 2026)."""
+    COMPANY totals (Andrew, 1 Aug 2026). Keyed by name_key so the
+    word order of a name never matters."""
     out = {}
     for pat, sheet_name, wcol, ccol in (
             ("RENTAL_STOCK*.xlsx", "RENTAL_STOCK", "HIRER_NAME",
@@ -160,7 +170,7 @@ def hirer_company_map():
         if wcol not in ix or ccol not in ix:
             continue
         for r in rows[1:]:
-            w = str(r[ix[wcol]] or "").strip().upper()
+            w = name_key(r[ix[wcol]])
             c = str(r[ix[ccol]] or "").strip()
             if w and c and w not in out:
                 out[w] = c
@@ -206,7 +216,7 @@ def read_charge_lines(inv_days, comap):
     #  always carry a description, so item numbers resolve through the
     #  rental register and then the master's renames - the same clean
     #  names the client sees everywhere else in the suite.
-    namemap = {}
+    namemap, bybc = {}, {}
     rs = CS._gfind("RENTAL_STOCK*.xlsx")
     if rs:
         try:
@@ -218,12 +228,23 @@ def read_charge_lines(inv_days, comap):
             rwb.close()
             rix = {str(v or "").strip().upper(): i
                    for i, v in enumerate(rrows[0])}
-            if "ITEM_NUMBER" in rix and "ITEM_DESCRIPTION" in rix:
-                for r in rrows[1:]:
-                    k = str(r[rix["ITEM_NUMBER"]] or "").strip()
-                    v = str(r[rix["ITEM_DESCRIPTION"]] or "").strip()
-                    if k and v and k not in namemap:
-                        namemap[k] = v
+
+            def rg(r, k):
+                i = rix.get(k)
+                return "" if i is None else str(r[i] or "").strip()
+            for r in rrows[1:]:
+                k = rg(r, "ITEM_NUMBER")
+                v = rg(r, "ITEM_DESCRIPTION")
+                b = rg(r, "ITEM_BARCODE").upper()
+                if k and v and k not in namemap:
+                    namemap[k] = v
+                #  the charge sheet's LATEST_BARCODE is the register's
+                #  ITEM_BARCODE - and on the real export the barcode IS
+                #  often the only identity a charge line carries
+                #  (caught 1 Aug 2026: item numbers blank, descriptions
+                #  showing as numbers)
+                if b and b not in bybc:
+                    bybc[b] = (k, v)
         except Exception:
             pass
     try:
@@ -232,16 +253,25 @@ def read_charge_lines(inv_days, comap):
     except Exception:
         MM = None
 
-    def item_name(r, bc):
+    def identify(r, bc):
+        """(item_number, plain description) for a charge line - the
+        charge sheet's own columns first, then the register by item
+        number or barcode, then the master's rename on top."""
         it = gv(r, "ITEM_NUMBER")
-        raw = (gv(r, "ITEM_DESCRIPTION") or namemap.get(it, "")
-               or ("Item " + it if it else bc))
+        desc = gv(r, "ITEM_DESCRIPTION")
+        if (not it or not desc) and bc in bybc:
+            rit, rdesc = bybc[bc]
+            it = it or rit
+            desc = desc or rdesc
+        if not it and bc and not bc.startswith("BC"):
+            it = bc               # SiteIQ often barcodes BY item number
+        desc = desc or namemap.get(it, "")
         if MM is not None and it:
             try:
-                return MM.disp(it, raw)
+                desc = MM.disp(it, desc or ("Item " + it))
             except Exception:
-                return raw
-        return raw
+                pass
+        return it, (desc or ("Item " + it if it else bc))
     days = set(inv_days)
     fold = {}
     for r in rows[1:]:
@@ -266,10 +296,14 @@ def read_charge_lines(inv_days, comap):
             continue
         who = gv(r, "HIRER_NAME") or "Site"
         co = (gv(r, "COMPANY") or gv(r, "COMPANY_NAME")
-              or comap.get(who.upper(), "") or "Not named")
+              or comap.get(name_key(who), "") or "Not named")
+        #  SITE PLANT is idle-capable gear that lives on site by design
+        #  - kept OUT of the company splits and shown on its own at the
+        #  very end (Andrew, 1 Aug 2026)
+        sp = ("SITE PLANT" in who.upper() or "SITE PLANT" in co.upper())
+        it, desc = identify(r, bc)
         e = fold.setdefault((bc, who), {
-            "n": item_name(r, bc),
-            "i": gv(r, "ITEM_NUMBER"), "w": who, "co": co,
+            "n": desc, "i": it, "w": who, "co": co, "sp": sp,
             "fam": gv(r, "PRODUCT_FAMILY").title() or "Other",
             "f": inwin[0], "t": inwin[-1], "d": 0, "amt": 0.0})
         e["amt"] += per * len(inwin)
@@ -286,8 +320,12 @@ def appendix_pages(lines):
     NUMBER - description, start date, end date, hire rate and line
     total on every row. Chunked so the PDF paginates cleanly."""
     total = sum(e["amt"] for e in lines)
+    #  site plant rides at the very end, never inside a company split
+    splant = [e for e in lines if e.get("sp")]
+    coline = [e for e in lines if not e.get("sp")]
+    sp_amt = sum(e["amt"] for e in splant)
     cos = {}
-    for e in lines:
+    for e in coline:
         cos.setdefault(e["co"], []).append(e)
     order = sorted(cos, key=lambda c: c.upper())
 
@@ -331,6 +369,15 @@ def appendix_pages(lines):
         "<th style='text-align:right'>Amount</th>"
         "<th style='text-align:right'>Share</th></tr></thead><tbody>"
         + "".join(srows) +
+        (("<tr><td style='color:#8A94A2'>Site plant &mdash; on site by "
+          "design, kept separate (last pages)</td>"
+          "<td style='text-align:right'>{n}</td><td></td>"
+          "<td style='text-align:right'>{d:,}</td>"
+          "<td style='text-align:right'>${a:,.2f}</td>"
+          "<td style='text-align:right'>{p:.1f}%</td></tr>").format(
+             n=len(splant), d=int(sum(e["d"] for e in splant)), a=sp_amt,
+             p=100.0 * sp_amt / total if total else 0.0)
+         if splant else "") +
         ("<tr><td style='font-weight:700;border-top:2px solid " + CS.INK
          + "'>Total hire</td><td></td><td></td><td></td>"
          "<td style='text-align:right;font-weight:700;border-top:2px "
@@ -381,7 +428,8 @@ def appendix_pages(lines):
                      "<td style='text-align:right'>{d}</td>"
                      "<td style='text-align:right'>${r:,.2f}</td>"
                      "<td style='text-align:right'>${a:,.2f}</td></tr>")
-                    .format(i=CS.html.escape(e["i"] or "&mdash;"),
+                    .format(i=(CS.html.escape(e["i"]) if e["i"]
+                               else "&mdash;"),
                             n=CS.html.escape(e["n"][:48]),
                             w=CS.html.escape(e["w"][:22]),
                             f=e["f"].strftime("%d %b %Y"),
@@ -401,6 +449,62 @@ def appendix_pages(lines):
             body.append("</tbody></table></div>")
             pages.append(("The full charge register &middot; "
                           + CS.html.escape(co), "".join(body)))
+
+    #  ---- site plant, at the very end as asked ----------------------
+    if splant:
+        ls = sorted(splant, key=by_item)
+        chunks = [ls[i:i + PER] for i in range(0, len(ls), PER)]
+        for ci, chunk in enumerate(chunks):
+            body = ["<div class='card'><h2>Site plant &mdash; on site "
+                    "by design" + ("" if ci == 0 else " (continued)")
+                    + "</h2>"]
+            if ci == 0:
+                body.append(
+                    ("<div class='cap'>The barriers, chutes, hoppers and "
+                     "site infrastructure that live on site for the whole "
+                     "shut &mdash; on hire by design, idle-capable, and "
+                     "deliberately kept OUT of the company splits above. "
+                     "{n} line{s}, {d:,} charge-days, "
+                     "<b>${a:,.2f}</b> ({p:.1f}% of the hire on this "
+                     "invoice). Lines by item number.</div>").format(
+                        n=len(ls), s="" if len(ls) == 1 else "s",
+                        d=int(sum(e["d"] for e in ls)), a=sp_amt,
+                        p=100.0 * sp_amt / total if total else 0.0))
+            body.append("<table><thead><tr><th>Item no</th>"
+                        "<th>Description</th>"
+                        "<th>Hirer</th><th>Start</th><th>End</th>"
+                        "<th style='text-align:right'>Days</th>"
+                        "<th style='text-align:right'>Day rate</th>"
+                        "<th style='text-align:right'>Total</th></tr>"
+                        "</thead><tbody>")
+            for e in chunk:
+                rate = e["amt"] / e["d"] if e["d"] else 0.0
+                body.append(
+                    ("<tr><td style='white-space:nowrap'>{i}</td>"
+                     "<td>{n}</td><td>{w}</td>"
+                     "<td style='white-space:nowrap'>{f}</td>"
+                     "<td style='white-space:nowrap'>{t}</td>"
+                     "<td style='text-align:right'>{d}</td>"
+                     "<td style='text-align:right'>${r:,.2f}</td>"
+                     "<td style='text-align:right'>${a:,.2f}</td></tr>")
+                    .format(i=(CS.html.escape(e["i"]) if e["i"]
+                               else "&mdash;"),
+                            n=CS.html.escape(e["n"][:48]),
+                            w=CS.html.escape(e["w"][:22]),
+                            f=e["f"].strftime("%d %b %Y"),
+                            t=e["t"].strftime("%d %b %Y"),
+                            d=e["d"], r=rate, a=e["amt"]))
+            if ci == len(chunks) - 1:
+                body.append(
+                    ("<tr><td colspan='7' style='font-weight:700;color:"
+                     + CS.INK + ";border-top:2px solid " + CS.INK +
+                     "'>Site plant total</td>"
+                     "<td style='text-align:right;font-weight:700;color:"
+                     + CS.INK + ";border-top:2px solid " + CS.INK +
+                     "'>${a:,.2f}</td></tr>").format(a=sp_amt))
+            body.append("</tbody></table></div>")
+            pages.append(("The full charge register &middot; site plant",
+                          "".join(body)))
     return pages
 
 
