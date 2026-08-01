@@ -78,7 +78,10 @@ PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
                   "photos",
                   #  the invoice PDFs and Baseplan exports Andrew drops
                   #  for the 58 true-up (31 Jul 2026)
-                  "invoices", "baseplan")
+                  "invoices", "baseplan",
+                  #  the MyBranch fleet exports for the 60 finder
+                  #  (1 Aug 2026)
+                  "fleet")
 
 
 def sha(path):

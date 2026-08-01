@@ -1,7 +1,7 @@
-# Coates K2 suite version - 132 files - overall 31a424cd
+# Coates K2 suite version - 134 files - overall 2c5868fa
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-01 08:04:12
+# taken 2026-08-01 10:59:09
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -58,11 +58,12 @@ a4a050f5e2 55_PRINT_ITEM_LABELS.bat
 6d4d226ed2 57_FIND_MISSING_PICTURES.bat
 6f5211f594 58_RUN_INVOICE_TRUEUP.bat
 9abe5394c8 59_RUN_BUSINESS_UTILISATION.bat
+e9567c02db 60_RUN_FLEET_FINDER.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
-634b2bcf25 APPLY_SUITE_UPDATE.py
+c2dfc33605 APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 7df01af922 BUILD_DAILY_EMAIL_PACKS.py
@@ -108,6 +109,7 @@ a49f1ea35c activity_model.py
 064ec01f28 build_clean_report.py
 e7dc06f2e8 build_company_onhire_report.py
 6e6ab04d8a build_cost_snapshot.py
+0de1946e50 build_fleet_finder.py
 1a3898ae51 build_invoice_breakdown.py
 e8e188b1cb build_plant_dashboard.py
 ce2058e40b build_posters.py
