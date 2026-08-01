@@ -1869,6 +1869,171 @@ select.srch{appearance:none;-webkit-appearance:none}
 .rule:first-of-type{border-top:0}
 .rule i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--org);
  margin-top:7px}
+
+/* ---- THE STORES COMMAND CENTRE ENTRY (Andrew's pack, 2 Aug 2026) --
+   The crew get the shutter and walk into a shelf list. The stores team
+   are walking into the counter system, so their door does not stop at
+   the threshold - it goes THROUGH it.
+
+   The clever part is his, and it is worth spelling out: there is no
+   fade between two unrelated screens. A small STORES COMMAND CENTRE
+   screen is powered up on the counter while the shutter is still
+   rising. When the shutter clears, the camera crosses the threshold,
+   the door rails pass out of frame, and that little screen GROWS into
+   the real board. The phone has physically walked to the counter.
+
+   Which means the board has to be built BEFORE the crossing starts -
+   what grows into frame is the live board with today's numbers already
+   in it, not a picture of one.
+
+   6.8s shutter + 2.3s crossing. SKIP ENTRY and Escape land you at the
+   counter immediately, reduced motion never sees it, and a missing
+   image opens the board rather than trapping the counter behind a door.
+------------------------------------------------------------------ */
+#sdoor{position:fixed;inset:0;z-index:90;display:none;background:#060A10;
+ overflow:hidden}
+#sdoor.on{display:block}
+.sd-stage,.sd-int,.sd-rig,.sd-shut,.sd-vig,.sd-light{position:absolute;
+ inset:0;width:100%;height:100%}
+.sd-stage{z-index:1;overflow:hidden;background:#05080D}
+.sd-int{object-fit:cover;object-position:center;transform:scale(1.02);
+ filter:brightness(.5) saturate(.86) contrast(1.06)}
+#sdoor.op .sd-int{animation:sd-cam 6.8s cubic-bezier(.19,.72,.16,1) both}
+#sdoor.cr .sd-int{animation:sd-cross 2.3s cubic-bezier(.22,.72,.12,1) both}
+.sd-light{z-index:2;opacity:0;mix-blend-mode:screen;background:
+ linear-gradient(180deg,rgba(255,126,50,.12),transparent 25%),
+ radial-gradient(ellipse at 50% 44%,rgba(255,111,33,.22),transparent 53%)}
+#sdoor.op .sd-light{animation:sd-wake 6.8s ease-out both}
+#sdoor.cr .sd-light,#sdoor.in .sd-light{opacity:.42}
+/* three lighting circuits waking front to back - his detail, and it is
+   the thing that makes the depth read */
+.sd-cl{position:absolute;z-index:2;left:50%;width:17%;height:2px;opacity:0;
+ margin-left:-8.5%;background:#FFB16E;
+ box-shadow:0 0 16px rgba(255,119,35,.9),0 12px 36px rgba(255,94,22,.35);
+ transform:perspective(160px) rotateX(58deg) scaleX(.72)}
+.sd-c1{top:20%}.sd-c2{top:27%;width:13%;margin-left:-6.5%}
+.sd-c3{top:33%;width:10%;margin-left:-5%}
+#sdoor.op .sd-c1{animation:sd-circuit .5s 2.35s ease-out both}
+#sdoor.op .sd-c2{animation:sd-circuit .5s 3.15s ease-out both}
+#sdoor.op .sd-c3{animation:sd-circuit .5s 3.9s ease-out both}
+#sdoor.cr .sd-cl,#sdoor.in .sd-cl{opacity:.9}
+/* the counter screen, powered up before you get to it */
+.sd-mark{position:absolute;z-index:3;top:27%;left:50%;width:40%;
+ padding:9px 10px;opacity:0;color:#EEF3FA;text-align:center;
+ transform:translateX(-50%) perspective(420px) rotateX(-1deg) scale(.96);
+ border:1px solid rgba(242,98,34,.68);border-radius:4px;
+ background:linear-gradient(160deg,rgba(14,25,39,.96),rgba(3,8,15,.98));
+ box-shadow:inset 0 0 0 2px rgba(7,14,23,.72),0 8px 22px rgba(0,0,0,.8),
+  0 0 18px rgba(255,83,18,.13)}
+.sd-mark:before{content:"";display:block;width:28%;height:2px;
+ margin:0 auto 6px;background:#F26222}
+.sd-mark small,.sd-mark span{display:block;color:#FF7A3C;
+ font:800 7px/1 ui-monospace,monospace;letter-spacing:1.2px}
+.sd-mark strong{display:block;margin:7px 0;font-size:11px;line-height:1.1;
+ letter-spacing:.6px}
+.sd-mark span{color:#8D9AAE}
+#sdoor.op .sd-mark{animation:sd-mark 1.2s 4.65s ease-out both}
+/* The counter screen hands over rather than being covered. His pack
+   tunes the grow so the marker is always hidden behind the dashboard;
+   our board is a different shape, so its clipped top edge left the
+   marker peeking over it for about half a second. It now fades as the
+   board comes forward - you walked into it, so it stops being a thing
+   in the distance. */
+#sdoor.cr .sd-mark{animation:none;opacity:0;transition:opacity .55s ease}
+/* the shutter itself - the same rig and the same motion as the crew door */
+.sd-rig{z-index:5}
+.sd-shut{object-fit:cover;object-position:center top;transform-origin:top center}
+#sdoor.op .sd-shut{animation:sd-lift 6.8s cubic-bezier(.33,.02,.24,1) both}
+#sdoor.cr .sd-rig,#sdoor.in .sd-rig{transform:translate3d(0,-104.5%,0)}
+.sd-thresh{position:absolute;z-index:3;left:4%;right:4%;bottom:-2%;height:28%;
+ opacity:0;pointer-events:none;transform-origin:50% 100%;
+ background:radial-gradient(ellipse at 50% 100%,rgba(255,89,22,.6),
+  rgba(255,89,22,.12) 42%,transparent 74%);mix-blend-mode:screen}
+#sdoor.op .sd-thresh{animation:sd-thresh 6.8s ease-out both}
+#sdoor.cr .sd-thresh{animation:sd-pass 2.3s ease-out both}
+.sd-rail{position:absolute;z-index:6;top:0;bottom:0;width:4.5%;
+ background:linear-gradient(90deg,#070A0F,#39424F 42%,#141A23 68%,#04060A)}
+.sd-rl{left:0}.sd-rr{right:0;transform:scaleX(-1)}
+#sdoor.cr .sd-rl{animation:sd-rail-l 2.3s cubic-bezier(.22,.7,.18,1) both}
+#sdoor.cr .sd-rr{animation:sd-rail-r 2.3s cubic-bezier(.22,.7,.18,1) both}
+.sd-head{position:absolute;z-index:7;top:0;left:0;right:0;height:7%;
+ background:linear-gradient(180deg,#141A23,#080C12);
+ box-shadow:0 6px 18px rgba(0,0,0,.7)}
+#sdoor.cr .sd-head{animation:sd-head 2.3s cubic-bezier(.22,.7,.18,1) both}
+.sd-vig{z-index:8;pointer-events:none;
+ background:radial-gradient(ellipse at 50% 44%,transparent 40%,rgba(0,0,0,.6) 100%)}
+#sdoor.cr .sd-vig{animation:sd-vig 2.3s ease-out both}
+.sd-skip{position:absolute;z-index:12;right:14px;
+ top:14px;top:calc(14px + env(safe-area-inset-top));
+ background:rgba(8,13,20,.78);border:1px solid #2A3547;color:#DCE3EC;
+ font:inherit;font-size:12px;font-weight:800;letter-spacing:1.4px;
+ border-radius:999px;padding:12px 18px;cursor:pointer;
+ -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.sd-cap{position:absolute;z-index:11;left:16px;right:16px;bottom:30px;
+ opacity:0;animation:sd-cap .7s 1.1s ease both}
+.sd-cap span{display:block;font-size:10px;font-weight:800;letter-spacing:3px;
+ color:#F26222}
+.sd-cap b{display:block;margin-top:4px;font-size:19px;color:#F5F7FB;
+ letter-spacing:-.2px}
+/* the caption's own animation holds opacity:1 with fill-mode both, so it
+   has to be switched OFF here - an opacity rule alone loses to it */
+#sdoor.cr .sd-cap{animation:none;opacity:0;transition:opacity .3s ease}
+/* THE BOARD GROWING INTO FRAME. #app is the real board - this drives it
+   from the counter screen's footprint out to the full page.
+   It has to sit ABOVE the doorway while it grows, or the store interior
+   covers the very thing you are walking towards. */
+#app.sdgrow{position:relative;z-index:95;
+ animation:sd-approach 2.3s cubic-bezier(.16,.72,.1,1) both}
+@keyframes sd-approach{
+ 0%,7%{opacity:0;transform:translateY(21%) scale(.34);
+  clip-path:inset(18% 22% 31% 22% round 4px)}
+ 16%{opacity:.24}
+ 44%{opacity:.72;transform:translateY(10%) scale(.58);
+  clip-path:inset(10% 15% 19% 15% round 3px)}
+ 76%{opacity:1;transform:translateY(2%) scale(.88);
+  clip-path:inset(3% 4% 5% 4% round 2px)}
+ 100%{opacity:1;transform:none;clip-path:inset(0)}}
+@keyframes sd-lift{
+ 0%{transform:translate3d(0,0,0)}
+ 3%{transform:translate3d(0,.9%,0)}
+ 9%{transform:translate3d(0,-2.2%,0)}
+ 22%{transform:translate3d(0,-19%,0)}
+ 34%{transform:translate3d(0,-31%,0)}
+ 41%{transform:translate3d(0,-33.5%,0)}
+ 58%{transform:translate3d(0,-58%,0)}
+ 66%{transform:translate3d(0,-61%,0)}
+ 86%{transform:translate3d(0,-92%,0)}
+ 96%{transform:translate3d(0,-103.5%,0)}
+ 100%{transform:translate3d(0,-104.5%,0)}}
+@keyframes sd-cam{0%,10%{transform:scale(1.02)}
+ 60%{transform:scale(1.045) translateY(-.4%)}
+ 100%{transform:scale(1.065) translateY(-.8%);
+  filter:brightness(.96) saturate(1.04) contrast(1.02)}}
+@keyframes sd-cross{0%{transform:scale(1.065) translateY(-.8%)}
+ 58%{transform:scale(1.13) translateY(-1.3%)}
+ 100%{transform:scale(1.22) translateY(-2.2%);
+  filter:brightness(.88) saturate(.96) contrast(1.05)}}
+@keyframes sd-wake{0%,18%{opacity:0}62%{opacity:.25}100%{opacity:.42}}
+@keyframes sd-circuit{0%{opacity:0}38%{opacity:.95}64%{opacity:.28}
+ 100%{opacity:.9}}
+@keyframes sd-mark{0%,18%{opacity:0}24%{opacity:.82}29%{opacity:.34}
+ 36%,100%{opacity:1}}
+@keyframes sd-thresh{0%,8%{opacity:0;transform:scaleX(.72)}
+ 24%{opacity:.2;transform:scaleX(.84)}62%,100%{opacity:.5;transform:scaleX(1)}}
+@keyframes sd-pass{0%{opacity:.5;transform:translateY(0) scaleX(1)}
+ 55%{opacity:.28;transform:translateY(28%) scaleX(1.18)}
+ 100%{opacity:0;transform:translateY(85%) scaleX(1.55)}}
+@keyframes sd-rail-l{0%{opacity:1;transform:translateX(0)}70%{opacity:.82}
+ 100%{opacity:0;transform:translateX(-230%)}}
+@keyframes sd-rail-r{0%{opacity:1;transform:scaleX(-1) translateX(0)}
+ 70%{opacity:.82}100%{opacity:0;transform:scaleX(-1) translateX(-230%)}}
+@keyframes sd-head{0%{opacity:1;transform:translateY(0)}
+ 100%{opacity:0;transform:translateY(-120%)}}
+@keyframes sd-vig{0%{opacity:1}72%{opacity:.36}100%{opacity:0}}
+@keyframes sd-cap{from{opacity:0;transform:translateY(10px)}
+ to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce){#sdoor{display:none!important}
+ #app.sdgrow{animation:none!important}}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -1892,6 +2057,24 @@ select.srch{appearance:none;-webkit-appearance:none}
 </div>
 
 <div id="app" style="display:none"></div>
+</div>
+<div id="sdoor">
+ <div class="sd-stage">
+  <img class="sd-int" src="art/tool-store-interior.webp" alt="" onerror="sdBail()">
+  <div class="sd-light"></div>
+  <i class="sd-cl sd-c1"></i><i class="sd-cl sd-c2"></i><i class="sd-cl sd-c3"></i>
+  <div class="sd-mark"><small>K2 &middot; LIVE</small>
+   <strong>STORES<br>COMMAND CENTRE</strong><span>COUNTER SYSTEM READY</span></div>
+ </div>
+ <div class="sd-thresh"></div>
+ <div class="sd-rail sd-rl"></div><div class="sd-rail sd-rr"></div>
+ <div class="sd-rig">
+  <img class="sd-shut" src="art/roller-shutter.webp" alt="" onerror="sdBail()">
+ </div>
+ <div class="sd-head"></div>
+ <div class="sd-vig"></div>
+ <button type="button" class="sd-skip" onclick="sdSkip()">SKIP ENTRY</button>
+ <div class="sd-cap"><span>OPENING</span><b>Stores Command Centre</b></div>
 </div>
 <div id="prsheet"></div>
 <script>
@@ -1951,16 +2134,67 @@ function unlock(){
        anyone who opened View Source, which is the whole gate gone.
        (Caught 29 Jul 2026, in the build.) */
     try{ D=JSON.parse(dec(mdec(c,MKEY),PAYLOAD)); }catch(e){}
-    if(D){ document.getElementById('gate').style.display='none';
-           document.getElementById('app').style.display='block';
-           safeRender(); return; }
+    if(D){ openBoard(); return; }
   }
   try{ D=JSON.parse(dec(c,PAYLOAD)); }catch(e){
     document.getElementById('gerr').textContent='Could not open the board.';return}
-  document.getElementById('gate').style.display='none';
-  var a=document.getElementById('app'); a.style.display='block';
-  safeRender();
+  openBoard();
 }
+
+/* ================= THE STORES COMMAND CENTRE ENTRY ===============
+   Andrew's third pack, 2 Aug 2026. Both unlock paths - stores code and
+   manager code - now come through here, so there is one way in and one
+   place the door can be turned off.
+
+   ORDER MATTERS. safeRender() runs FIRST, before a frame of animation.
+   What grows into view during the crossing is the real board carrying
+   today's real numbers, not a mock-up of one. If anything at all goes
+   wrong with the door the board is already built and already on screen.
+================================================================= */
+function openBoard(){
+  document.getElementById('gate').style.display='none';
+  var a=document.getElementById('app');
+  a.style.display='block';
+  safeRender();                       // the board is live before the door moves
+  if(sdCan()) sdPlay(); else window.scrollTo(0,0);
+}
+var SD_DEAD=false, SD_BUSY=false, SD_T=[];
+function sdCan(){
+  try{
+    if(SD_DEAD||SD_BUSY) return false;
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)
+      return false;
+  }catch(e){}
+  return !!document.getElementById('sdoor');
+}
+function sdBail(){ SD_DEAD=true; sdEnd(); }
+function sdSkip(){ sdEnd(); }
+function sdEnd(){
+  var d=document.getElementById('sdoor'), a=document.getElementById('app');
+  for(var i=0;i<SD_T.length;i++) clearTimeout(SD_T[i]);
+  SD_T=[]; SD_BUSY=false;
+  if(d) d.className='';
+  if(a) a.className=a.className.replace(/\bsdgrow\b/,'').trim();
+  document.body.style.overflow='';
+  window.scrollTo(0,0);
+}
+function sdPlay(){
+  var d=document.getElementById('sdoor'), a=document.getElementById('app');
+  if(!d){ window.scrollTo(0,0); return; }
+  SD_BUSY=true;
+  document.body.style.overflow='hidden';
+  d.className='on';
+  void d.offsetWidth;                 // restart the animation cleanly
+  d.className='on op';                // the shutter rises, the lights wake
+  SD_T.push(setTimeout(function(){    // then we walk through the doorway
+    d.className='on op cr';
+    if(a) a.className=(a.className+' sdgrow').trim();
+  }, 6800));
+  SD_T.push(setTimeout(sdEnd, 6800+2300));
+}
+document.addEventListener('keydown',function(e){
+  if(SD_BUSY&&(e.key==='Escape'||e.keyCode===27)) sdSkip();
+});
 function safeRender(){
   /* NEVER a blank screen: if drawing the board throws for any reason,
      put the gate straight back up with the code still typed in - one
