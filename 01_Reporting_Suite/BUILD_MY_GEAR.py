@@ -1157,10 +1157,10 @@ input:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 4px rgba(242,9
    an orange light leak ride the bottom rail, and a fixed steel head box
    swallows the door.
 
-   ONE JUDGEMENT CALL: it plays ONCE a session. 6.8 seconds is a joy the
-   first time and a wall the fifth, and a bloke hunting a socket at 3am
-   should not have to watch a door. Skip is always there, Escape works,
-   and a phone set to reduced motion goes straight in.
+   IT PLAYS EVERY TIME the store is opened - Andrew's call. No latch, no
+   memory. The escape hatches are there on every single run instead: SKIP
+   OPENING bottom right, Escape on a keyboard, and a phone set to reduced
+   motion goes straight in without ever seeing it.
 ------------------------------------------------------------------ */
 .dw{position:fixed;inset:0;z-index:80;display:none;background:#060a10;
  overflow:hidden}
@@ -1188,9 +1188,12 @@ input:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 4px rgba(242,9
  background:linear-gradient(180deg,#161d28,#0b1119 62%,#070c13);
  box-shadow:0 10px 26px rgba(0,0,0,.72),inset 0 -2px 0 rgba(255,255,255,.05)}
 .dw-vig{z-index:7;pointer-events:none;box-shadow:inset 0 0 120px rgba(0,0,0,.75)}
-.dw-skip{position:absolute;z-index:9;top:14px;right:14px;background:rgba(8,13,20,.72);
- border:1px solid #2A3547;color:#DCE3EC;font:inherit;font-size:11px;font-weight:800;
- letter-spacing:1.4px;border-radius:999px;padding:9px 15px;cursor:pointer;
+/* the skip is now the everyday exit, not a rare one - big enough for a
+   gloved thumb and clear of the notch on a phone */
+.dw-skip{position:absolute;z-index:9;right:14px;background:rgba(8,13,20,.78);
+ top:14px;top:calc(14px + env(safe-area-inset-top));
+ border:1px solid #2A3547;color:#DCE3EC;font:inherit;font-size:12px;font-weight:800;
+ letter-spacing:1.4px;border-radius:999px;padding:12px 18px;cursor:pointer;
  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .dw-cap{position:absolute;z-index:8;left:16px;right:16px;bottom:34px;
  opacity:0;animation:dwcap .7s 1.1s ease both}

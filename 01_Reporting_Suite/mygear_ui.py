@@ -724,28 +724,30 @@ var GUIDE_TITLES={contacts:'Contact board',radio:'Your two-way radio',
    Rules it obeys, in order of importance:
      1. It can never trap anybody. A missing image, a second tap, Escape,
         the skip button or a slow phone all end with the store open.
-     2. It plays ONCE a session. The wow is worth 6.8 seconds the first
-        time and nothing at all the fifth - a bloke hunting a socket at
-        3am should not have to watch a door.
-     3. A phone set to reduce motion never sees it. */
-var DW_DONE=false, DW_BUSY=false, DW_T=null, DW_MS=6800;
+     2. It plays EVERY time the store is opened (Andrew's call, 2 Aug 2026).
+        No once-a-session latch, no memory of a skip - every tap on the
+        store card runs the door. SKIP OPENING and Escape are there on
+        every single run for the bloke hunting a socket at 3am.
+     3. A phone set to reduce motion never sees it.
+   DW_DEAD is the broken-artwork latch and nothing else - a shutter image
+   that failed to load will still be missing on the next tap, so once it
+   has bailed it stops trying and just opens the store. */
+var DW_DEAD=false, DW_BUSY=false, DW_T=null, DW_MS=6800;
 function dwCan(){
   try{
-    if(DW_DONE||DW_BUSY) return false;
+    if(DW_DEAD||DW_BUSY) return false;
     if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)
       return false;
-    if(sessionStorage.getItem('k2door')==='1') return false;
   }catch(e){}
   return !!document.getElementById('doorway');
 }
-function dwBail(){ DW_DONE=true; dwEnd(); }
+function dwBail(){ DW_DEAD=true; dwEnd(); }
 function dwSkip(){ dwEnd(); }
 function dwEnd(){
   var d=document.getElementById('doorway');
   if(DW_T){clearTimeout(DW_T);DW_T=null}
   if(d) d.className='dw';
-  DW_BUSY=false; DW_DONE=true;
-  try{sessionStorage.setItem('k2door','1')}catch(e){}
+  DW_BUSY=false;
   openStoreNow();
 }
 function dwPlay(){
@@ -774,7 +776,7 @@ document.addEventListener('keydown',function(e){
 });
 
 function openGuide(k){
-  /* the store gets the roller door, once a session */
+  /* the store gets the roller door, every single time */
   if(k==='store'&&dwCan()){
     var p0=document.querySelectorAll('.gpane');
     for(var z=0;z<p0.length;z++) p0[z].className='gpane';
