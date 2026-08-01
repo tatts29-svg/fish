@@ -133,6 +133,223 @@ STREAMS = (
 )
 
 
+def hirer_company_map():
+    """Who works for whom, off the newest ON_HIRE and RENTAL_STOCK
+    exports - the charge lines name the hirer, the client wants the
+    COMPANY totals (Andrew, 1 Aug 2026)."""
+    out = {}
+    for pat, sheet_name, wcol, ccol in (
+            ("RENTAL_STOCK*.xlsx", "RENTAL_STOCK", "HIRER_NAME",
+             "COMPANY_NAME"),
+            ("ON_HIRE*.xlsx", "ON_HIRE", "HIRER_NAME", "COMPANY")):
+        hits = CS._gfind(pat)
+        if not hits:
+            continue
+        try:
+            wb2 = openpyxl.load_workbook(max(hits, key=os.path.getmtime),
+                                         read_only=True, data_only=True)
+            ws = (wb2[sheet_name] if sheet_name in wb2.sheetnames
+                  else wb2.active)
+            rows = list(ws.iter_rows(values_only=True))
+            wb2.close()
+        except Exception:
+            continue
+        if not rows:
+            continue
+        ix = {str(v or "").strip().upper(): i for i, v in enumerate(rows[0])}
+        if wcol not in ix or ccol not in ix:
+            continue
+        for r in rows[1:]:
+            w = str(r[ix[wcol]] or "").strip().upper()
+            c = str(r[ix[ccol]] or "").strip()
+            if w and c and w not in out:
+                out[w] = c
+    return out
+
+
+def read_charge_lines(inv_days, comap):
+    """Every hire charge line inside the invoice window, folded per
+    item-and-hirer with the hirer's company on it - the full cost-check
+    detail the client may ask for (Andrew, 1 Aug 2026: "they may want a
+    full breakdown to check over costs... like a story - this company
+    did this and that, and here is the breakdown and total"). Same
+    source sheet, same day-proration and same welder exclusion as the
+    product-group split, so the appendix total ties to the hire split
+    BY CONSTRUCTION, not by luck."""
+    tx = CS._gfind("TRANSACTIONS*.xlsx")
+    if not tx:
+        return None
+    try:
+        twb = openpyxl.load_workbook(max(tx, key=os.path.getmtime),
+                                     read_only=True, data_only=True)
+        if "TRANSACTION_CHARGES" not in twb.sheetnames:
+            twb.close()
+            return None
+        rows = list(twb["TRANSACTION_CHARGES"].iter_rows(values_only=True))
+        twb.close()
+    except Exception:
+        return None
+    if not rows:
+        return None
+    H = {str(v).strip().upper(): i for i, v in enumerate(rows[0]) if v}
+    for need in ("HIRE_CHARGE ($)", "LATEST_BARCODE",
+                 "SHIFT_CHARGE_DATE FROM"):
+        if need not in H:
+            return None
+
+    def gv(r, k):
+        i = H.get(k)
+        return "" if i is None else str(r[i] or "").strip()
+    days = set(inv_days)
+    fold = {}
+    for r in rows[1:]:
+        try:
+            hire = float(r[H["HIRE_CHARGE ($)"]] or 0)
+        except (TypeError, ValueError):
+            hire = 0.0
+        if not hire:
+            continue
+        bc = gv(r, "LATEST_BARCODE").upper()
+        if bc.startswith("SUB"):
+            continue          # welders: separate invoice, separate stream
+        f = au_date(r[H["SHIFT_CHARGE_DATE FROM"]])
+        t = au_date(r[H.get("SHIFT_CHARGE_DATE_TO", -1)]) or f
+        if not f:
+            continue
+        ndays = max(1, (t - f).days + 1)
+        per = hire / ndays
+        inwin = [f + dt.timedelta(days=i) for i in range(ndays)
+                 if f + dt.timedelta(days=i) in days]
+        if not inwin:
+            continue
+        who = gv(r, "HIRER_NAME") or "Site"
+        co = (gv(r, "COMPANY") or gv(r, "COMPANY_NAME")
+              or comap.get(who.upper(), "") or "Not named")
+        e = fold.setdefault((bc, who), {
+            "n": gv(r, "ITEM_DESCRIPTION") or gv(r, "ITEM_NUMBER") or bc,
+            "i": gv(r, "ITEM_NUMBER"), "w": who, "co": co,
+            "fam": gv(r, "PRODUCT_FAMILY").title() or "Other",
+            "f": inwin[0], "t": inwin[-1], "d": 0, "amt": 0.0})
+        e["amt"] += per * len(inwin)
+        e["d"] += len(inwin)
+        e["f"] = min(e["f"], inwin[0])
+        e["t"] = max(e["t"], inwin[-1])
+    return sorted(fold.values(), key=lambda e: (e["co"].upper(), -e["amt"]))
+
+
+def appendix_pages(lines):
+    """The charge register told the way the client reads it: company
+    by company. First the who-had-what totals, then each company's own
+    chapter - a plain-English story line, then their charge lines and
+    their subtotal - then the next company. Chunked so the PDF
+    paginates cleanly."""
+    total = sum(e["amt"] for e in lines)
+    cos = {}
+    for e in lines:
+        cos.setdefault(e["co"], []).append(e)
+    order = sorted(cos, key=lambda c: -sum(e["amt"] for e in cos[c]))
+
+    #  ---- page: who the hire went to ------------------------------
+    srows = []
+    for co in order:
+        ls = cos[co]
+        amt = sum(e["amt"] for e in ls)
+        srows.append(
+            ("<tr><td style='font-weight:700'>{co}</td>"
+             "<td style='text-align:right'>{n}</td>"
+             "<td style='text-align:right'>{w}</td>"
+             "<td style='text-align:right'>{d:,}</td>"
+             "<td style='text-align:right'>${a:,.2f}</td>"
+             "<td style='text-align:right'>{p:.1f}%</td></tr>").format(
+                co=CS.html.escape(co), n=len(ls),
+                w=len(set(e["w"] for e in ls)),
+                d=int(sum(e["d"] for e in ls)), a=amt,
+                p=100.0 * amt / total if total else 0.0))
+    summary = (
+        "<div class='card'><h2>Who the hire went to</h2>"
+        "<div class='cap'>The invoice's hire dollars, company by "
+        "company. Each company then gets its own pages: the story, "
+        "every charge line, and the total - so any cost can be checked "
+        "line by line. A line spanning the month-end carries only its "
+        "in-window days, so these companies add to the hire total "
+        "exactly. Welders, radios and gas monitors bill on their own "
+        "monthly invoice and are itemised there.</div>"
+        "<table><thead><tr><th>Company</th>"
+        "<th style='text-align:right'>Lines</th>"
+        "<th style='text-align:right'>People</th>"
+        "<th style='text-align:right'>Charge-days</th>"
+        "<th style='text-align:right'>Amount</th>"
+        "<th style='text-align:right'>Share</th></tr></thead><tbody>"
+        + "".join(srows) +
+        ("<tr><td style='font-weight:700;border-top:2px solid " + CS.INK
+         + "'>Total hire</td><td></td><td></td><td></td>"
+         "<td style='text-align:right;font-weight:700;border-top:2px "
+         "solid " + CS.INK + "'>${a:,.2f}</td><td></td></tr>")
+        .format(a=total)
+        + "</tbody></table></div>")
+    pages = [("The full charge register &middot; who the hire went to",
+              summary)]
+
+    #  ---- each company's chapter ----------------------------------
+    PER = 24
+    for co in order:
+        ls = sorted(cos[co], key=lambda e: -e["amt"])
+        amt = sum(e["amt"] for e in ls)
+        fams = {}
+        for e in ls:
+            fams[e["fam"]] = fams.get(e["fam"], 0.0) + e["amt"]
+        top_f = sorted(fams, key=lambda f: -fams[f])[:3]
+        story = (
+            "<div class='cap'><b>{co}</b> ran {n} hire line{s} through "
+            "{w} of their people &mdash; {d:,} charge-days, mostly {f} "
+            "&mdash; <b>${a:,.2f}</b>, {p:.1f}% of the hire on this "
+            "invoice. Biggest single line: {big} at ${ba:,.2f}.</div>"
+        ).format(co=CS.html.escape(co), n=len(ls),
+                 s="" if len(ls) == 1 else "s",
+                 w=len(set(e["w"] for e in ls)),
+                 d=int(sum(e["d"] for e in ls)),
+                 f=CS.html.escape(" &amp; ".join(top_f) or "general gear"),
+                 a=amt, p=100.0 * amt / total if total else 0.0,
+                 big=CS.html.escape(ls[0]["n"][:46]), ba=ls[0]["amt"])
+        chunks = [ls[i:i + PER] for i in range(0, len(ls), PER)]
+        for ci, chunk in enumerate(chunks):
+            body = ["<div class='card'><h2>" + CS.html.escape(co)
+                    + ("" if ci == 0 else " (continued)") + "</h2>"]
+            if ci == 0:
+                body.append(story)
+            body.append("<table><thead><tr><th>Item</th><th>Item no</th>"
+                        "<th>Hirer</th><th>From</th><th>To</th>"
+                        "<th style='text-align:right'>Days</th>"
+                        "<th style='text-align:right'>Amount</th></tr>"
+                        "</thead><tbody>")
+            for e in chunk:
+                body.append(
+                    ("<tr><td>{n}</td><td>{i}</td><td>{w}</td>"
+                     "<td style='white-space:nowrap'>{f}</td>"
+                     "<td style='white-space:nowrap'>{t}</td>"
+                     "<td style='text-align:right'>{d}</td>"
+                     "<td style='text-align:right'>${a:,.2f}</td></tr>")
+                    .format(n=CS.html.escape(e["n"][:50]),
+                            i=CS.html.escape(e["i"]),
+                            w=CS.html.escape(e["w"][:24]),
+                            f=e["f"].strftime("%d %b"),
+                            t=e["t"].strftime("%d %b"),
+                            d=e["d"], a=e["amt"]))
+            if ci == len(chunks) - 1:
+                body.append(
+                    ("<tr><td colspan='6' style='font-weight:700;color:"
+                     + CS.INK + ";border-top:2px solid " + CS.INK +
+                     "'>{co} total</td>"
+                     "<td style='text-align:right;font-weight:700;color:"
+                     + CS.INK + ";border-top:2px solid " + CS.INK +
+                     "'>${a:,.2f}</td></tr>").format(
+                        co=CS.html.escape(co), a=amt))
+            body.append("</tbody></table></div>")
+            pages.append(("The full charge register &middot; "
+                          + CS.html.escape(co), "".join(body)))
+    return pages
+
+
 def fam_rows(fams, total, keep=9):
     """Family table rows for one bucket: biggest first, an honest
     'everything else' line for the tail, a share bar on every row."""
@@ -199,6 +416,20 @@ def main():
         mname, len(inv_days), inv_days[0].strftime("%d %b"),
         inv_days[-1].strftime("%d %b")))
 
+    #  the full charge register is OPT-IN - the standard client pack
+    #  stays lean; when the client asks to check costs, run with FULL
+    #  (or answer F here) and every line rides along, company by
+    #  company (Andrew, 1 Aug 2026)
+    full = any(str(a).upper() in ("FULL", "F") for a in sys.argv[1:])
+    if not full:
+        try:
+            if sys.stdin is not None and sys.stdin.isatty():
+                ans = input(" Enter = summary pack | F = add the FULL "
+                            "charge register, company by company : ")
+                full = str(ans).strip().upper() in ("F", "FULL")
+        except (EOFError, KeyboardInterrupt):
+            full = False
+
     #  ---- the streams, straight from SiteIQ's invoiced columns --------
     sums = {k: sum(ds[d][k] for d in inv_days) for k, _l in STREAMS}
     total = sum(ds[d]["total"] for d in inv_days)
@@ -235,6 +466,17 @@ def main():
             len(stale), ", ".join(d.strftime("%d %b") for d in stale), money0(stale_amt)))
         print("    split yet. Re-download TRANSACTIONS after 09:30 and run this again.")
     fams = read_family_split(wb, tied) or {"plant": {}, "tool": {}, "gear": {}}
+
+    appx = None
+    if full:
+        appx = read_charge_lines(tied, hirer_company_map())
+        if appx:
+            print(" Register      : {} charge lines across {} companies "
+                  "ride along".format(
+                      len(appx), len(set(e["co"] for e in appx))))
+        else:
+            print(" Register      : charge lines not readable this run - "
+                  "summary only")
 
     #  ---- the claims booked into this invoice --------------------------
     svc = CS.read_service_invoiced()
@@ -376,6 +618,8 @@ def main():
                 ("Inside the hire &middot; tooling &amp; general gear", page3)]
     if page4:
         sections.append(("Claims &amp; services on this invoice", page4))
+    if appx:
+        sections.extend(appendix_pages(appx))
     total_pages = len(sections)
     footer = ("<div class='foot'><span>Data source: <b>SiteIQ</b> &middot; Extract {a} &middot; "
               "Progress invoice breakdown &mdash; final invoice next month &middot; every figure "
