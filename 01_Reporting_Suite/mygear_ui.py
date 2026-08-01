@@ -1181,7 +1181,7 @@ function printCard(){
   el.innerHTML=
     '<div class="pframe"></div>'
     +'<div class="pmast"><div class="pbrand"><div class="pmg">MY <b>GEAR</b></div>'
-    +'<div class="pmk">K2 Digital Tool Store</div>'
+    +'<div class="pmk">MY GEAR HQ · Digital Tool Store</div>'
     +'<div class="preporttitle">Personal equipment &amp; return accountability report</div></div>'
     +'<div class="pdoc"><div class="pstatusstamp '+(cleared?'cleared':'open')+'"><span>Report status</span><b>'+(cleared?'Cleared':'Open')+'</b></div>'
     +'<div><span class="pdl">Site</span><span class="pdv">K2 Shutdown 2026 - Gladstone</span></div>'
@@ -1268,7 +1268,8 @@ function printCard(){
     +'<i>NIGHT</i> Cody Mitchell \u2013 cody.mitchell@coates.com.au \u00b7 '
     +'<i>BREAKDOWNS</i> Lucas Armstrong \u2013 lucas.armstrong@coates.com.au \u00b7 '
     +'Helen O\u2019Grady &amp; Adam Boyce at the counter \u2013 expertise, solutions, help. '
-    +'We are here to help \u2013 reach out if you require anything.</div>';
+    +'We are here to help \u2013 reach out if you require anything. '
+    +'<i>MY GEAR HQ</i> \u00b7 designed &amp; built by Andrew Fisher.</div>';
 
   window.print();
 }

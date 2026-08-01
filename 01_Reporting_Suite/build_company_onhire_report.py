@@ -3409,7 +3409,9 @@ def v3_team_strip():
             "<div class='tn'><b>Andrew Fisher</b> Shutdown Manager QLD &amp; "
             "NT &nbsp;|&nbsp; <span style='color:#F26222;font-weight:700'>"
             "DAY</span> {d} &nbsp;|&nbsp; <span style='color:#F26222;"
-            "font-weight:700'>NIGHT</span> {n}</div>").format(d=day, n=night)
+            "font-weight:700'>NIGHT</span> {n} &nbsp;|&nbsp; "
+            "<span style='color:#8B9099;font-weight:800;letter-spacing:1px'>"
+            "MY GEAR HQ</span></div>").format(d=day, n=night)
 
 
 def v3_team_page():

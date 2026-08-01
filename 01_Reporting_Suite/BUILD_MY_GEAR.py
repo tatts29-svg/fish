@@ -35,6 +35,7 @@ import datetime as dt
 import master_equipment
 # The site guides (contact board, radio, gas monitor) and the
 # phone-first bits: save-to-phone, scan-your-card, ?id= links.
+import mygear_font
 import mygear_guides
 import mygear_ui
 import equipment_compliance as EC
@@ -924,7 +925,7 @@ def build():
             .replace('__PULSE__', pulse)
             .replace('__STORESTAG__', _stores_tag)
             .replace('__ASOF__', asof or 'last refresh')
-            .replace('__UICSS__', mygear_ui.CSS)
+            .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS)
             .replace('__IDROW__', mygear_ui.ID_ROW)
             .replace('__SHELF__', _shelf)
             .replace('__SHEET__', mygear_ui.sheet_html(
@@ -982,8 +983,8 @@ def build():
     except Exception as _e:
         print('  Gear pictures: skipped this build ({})'.format(_e))
 
-TEMPLATE = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%23F36F21%22/%3E%3C/svg%3E"><title>My Gear · Coates K2</title><style>
+TEMPLATE = r'''<!doctype html><!-- MY GEAR HQ · the Coates digital tool store · designed and built by Andrew Fisher --><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%23F36F21%22/%3E%3C/svg%3E"><title>MY GEAR · Coates Tool Store</title><style>
 :root{--org:#F26222;--org2:#C44C28;--bright:#FFA24D;--ink:#0A0E14;--panel:#151C27;--panel2:#1B2330;--line:#28323F;--tx:#EAF0F7;--mut:#8A97A8;--soft:#C3CDDA;--grn:#35D68A;--amb:#F0B429;--red:#FF5A4D;--glow:rgba(242,98,34,.5)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 body{background:radial-gradient(900px 500px at 80% -10%,rgba(242,98,34,.16),transparent 60%),linear-gradient(180deg,#0B1017,#0A0E14);color:var(--tx);font-family:"Segoe UI",Arial,sans-serif;min-height:100vh}
@@ -1104,6 +1105,14 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .pulse .pvt{font-size:13px;letter-spacing:.4px;color:#EFFF3D;font-weight:850;text-shadow:0 0 12px rgba(239,255,61,.35);line-height:1.65;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mg b{background:linear-gradient(100deg,#F26222 25%,#FFB347 42%,#EFFF3D 50%,#FFB347 58%,#F26222 75%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:mgshine 6s ease-in-out infinite}
 @keyframes mgshine{0%,100%{background-position:90% 0}45%,55%{background-position:10% 0}}
+/* ---- the MY GEAR masthead (the brand, 1 Aug 2026). Archivo Black
+   carried inside the page, white MY, forged-orange GEAR, and the
+   glow line off the rack tickets. K2 left the wordmark the same day -
+   the site is an address now, not the identity. ---- */
+.mgx{font-family:'Archivo Black','Arial Black',Arial,sans-serif;font-size:60px;line-height:1;display:flex;justify-content:center;align-items:baseline;gap:13px;letter-spacing:2px;margin:4px 0 0}
+.mgxw{color:#f4f6f8;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.mgxo{background:linear-gradient(180deg,#ffa25c 0%,#F26222 46%,#d94e12 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px rgba(242,98,34,.45)) drop-shadow(0 2px 6px rgba(0,0,0,.55))}
+.mgxline{width:78%;max-width:420px;height:3px;margin:10px auto 8px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(242,98,34,.9) 20%,#ffc891 50%,rgba(242,98,34,.9) 80%,transparent);box-shadow:0 0 14px 2px rgba(242,98,34,.55),0 0 40px 8px rgba(242,98,34,.25)}
 /* The floating pill STACK (Andrew, 29 Jul 2026: "did you not add the
    floating pills for gas monitors and radios"). Contacts keeps the
    colour and the ring - it is the one that means "call us". Radio and
@@ -1126,8 +1135,9 @@ __STORECSS__
 </style></head><body><div class="wrap">
 <div class="brand"><div class="logo">coates<b>Equipped for anything</b></div><div class="siteiq">POWERED BY SITEIQ<br><span style="color:#8B9099;font-weight:600;letter-spacing:0">Cement Australia K2 &middot; Gladstone</span></div></div>
 <div id="landing"><div class="hero">
-<h1 class="mg">MY <b>GEAR</b></h1>
-<div class="mgkick">K2 Digital Tool Store</div>
+<div class="mgx"><span class="mgxw">MY</span><span class="mgxo">GEAR</span></div>
+<div class="mgxline"></div>
+<div class="mgkick">DIGITAL TOOL STORE</div>
 <div class="mgsub">Your gear. Your responsibility. One scan.</div>
 __PULSE__
 <div class="scanpanel" id="scanpanel" role="button" tabindex="0">
@@ -1139,7 +1149,7 @@ __PULSE__
 <div class="idbox">__IDROW__
 <button class="btn" onclick="go()">OPEN MY GEAR</button>
 <div class="err" id="err"></div><div class="subline" id="scanhelp"></div></div></div>
-<div class="ft"><b style="color:#F26222">Updated once a day, about 7:00 AM.</b> Anything taken or handed back since then shows on tomorrow's refresh.<br>Read-only SiteIQ snapshot as at __ASOF__ &middot; locked to your own ID — a wrong number shows nothing.<br><span class="val">POWERED BY SITEIQ</span> · Built by Andrew Fisher</div>
+<div class="ft"><b style="color:#F26222">Updated once a day, about 7:00 AM.</b> Anything taken or handed back since then shows on tomorrow's refresh.<br>Read-only SiteIQ snapshot as at __ASOF__ &middot; locked to your own ID — a wrong number shows nothing.<br><span class="val">MY GEAR HQ</span> · POWERED BY SITEIQ · Designed &amp; built by Andrew Fisher</div>
 __SHELF__
 </div>
 <div id="result" class="card"></div>

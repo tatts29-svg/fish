@@ -1486,25 +1486,46 @@ function readXlsxSheet(bytes,wantSheet){
 }
 """
 
-PAGE = """<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8">
+PAGE = """<!DOCTYPE html><!-- MY GEAR HQ · the Coates stores board · designed and built by Andrew Fisher --><html lang="en-AU"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F26222">
-<title>Coates Stores Team - K2</title><style>
+<title>MY GEAR HQ · Coates Stores Team</title><style>__FONTCSS__
 :root{--org:#F26222;--ink:#0A0E14;--pnl:#151A22;--pnl2:#1C232D;--line:#2A3340;
  --txt:#E9EEF5;--dim:#98A4B4;--gd:#2BB673;--am:#F5A623;--rd:#E23B2E;--neon:#EFFF3D}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{background:var(--ink);color:var(--txt);font-family:-apple-system,
  BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;line-height:1.5}
 .wrap{max-width:820px;margin:0 auto;padding:0 13px 90px}
-header{background:linear-gradient(135deg,#F26222,#C44C28 62%,#8E3218);
- padding:16px 15px;margin:0 -13px 14px;position:relative;overflow:hidden}
-header:after{content:"";position:absolute;right:-40px;top:-40px;width:170px;
- height:170px;border-radius:50%;background:rgba(255,255,255,.10)}
-.brand{font-size:19px;font-weight:900;letter-spacing:-.4px}
-.brand span{background:#fff;color:#F26222;padding:3px 9px;border-radius:6px;
- margin-right:8px}
-h1{font-size:23px;font-weight:900;margin:9px 0 2px;letter-spacing:-.4px}
-.sub{font-size:12.5px;opacity:.95;font-weight:600}
+/* ---- the MY GEAR HQ masthead (the brand, 1 Aug 2026). Forged
+   carbon: the weave, the brushed-steel MY, the forged-orange GEAR,
+   the ember line. The counter's page stopped being a tab and became
+   the headquarters. ---- */
+header{background:#0a0b0d;padding:20px 15px 13px;margin:0 -13px 14px;
+ position:relative;overflow:hidden;text-align:center}
+header:before{content:"";position:absolute;inset:0;opacity:.5;
+ background:repeating-linear-gradient(45deg,#101216 0 5px,#16181d 5px 10px),
+ repeating-linear-gradient(-45deg,rgba(255,255,255,.02) 0 5px,transparent 5px 10px)}
+header:after{content:"";position:absolute;inset:0;
+ background:radial-gradient(ellipse 90% 130% at 50% 28%,transparent 40%,rgba(0,0,0,.72) 100%)}
+.hqmast{position:relative;z-index:2;font-family:'Archivo Black','Arial Black',Arial,sans-serif;
+ font-size:52px;line-height:1;letter-spacing:2px;display:flex;justify-content:center;
+ align-items:baseline;gap:11px}
+.hqmy{background:linear-gradient(180deg,#fff 0%,#d9dde3 45%,#9aa2ad 58%,#e8ebef 80%,#b6bcc5 100%);
+ -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+ filter:drop-shadow(0 2px 4px rgba(0,0,0,.8))}
+.hqgear{background:linear-gradient(180deg,#ffb877 0%,#F26222 40%,#b93c0a 58%,#ff8a3d 80%,#cc4a10 100%);
+ -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+ filter:drop-shadow(0 0 12px rgba(242,98,34,.5)) drop-shadow(0 2px 5px rgba(0,0,0,.8))}
+.hqtag{font-family:'Archivo Black','Arial Black',Arial,sans-serif;font-size:19px;
+ align-self:flex-start;background:linear-gradient(180deg,#fff,#aeb5bf);
+ -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+ filter:drop-shadow(0 0 8px rgba(242,98,34,.4))}
+.hqline{position:relative;z-index:2;width:84%;margin:11px auto 9px;height:3px;border-radius:2px;
+ background:linear-gradient(90deg,transparent,#7a2f08 12%,#F26222 34%,#ffd9ae 50%,#F26222 66%,#7a2f08 88%,transparent);
+ box-shadow:0 0 14px 3px rgba(242,98,34,.6),0 0 44px 9px rgba(242,98,34,.3)}
+.sub{position:relative;z-index:2;font-size:10.5px;letter-spacing:2px;color:#98A4B4;
+ font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub b{color:#F26222;font-weight:800}
 /* gate */
 #gate{padding:46px 6px;text-align:center}
 #gate h2{font-size:19px;font-weight:900;margin-bottom:6px}
@@ -1850,9 +1871,11 @@ select.srch{appearance:none;-webkit-appearance:none}
  margin-top:7px}
 </style></head><body>
 <div class="wrap">
-<header><div class="brand"><span>COATES</span>STORES TEAM</div>
-<h1>The counter's view</h1>
-<div class="sub">Cement Australia K2 &middot; __ASOF__</div></header>
+<header>
+<div class="hqmast"><span class="hqmy">MY</span><span class="hqgear">GEAR</span><span class="hqtag">HQ</span></div>
+<div class="hqline"></div>
+<div class="sub"><b>COATES</b> STORES TEAM &middot; K2 &middot; __ASOF__</div>
+</header>
 
 <div id="gate">
   <h2>Coates stores staff</h2>
@@ -1863,6 +1886,9 @@ select.srch{appearance:none;-webkit-appearance:none}
          placeholder="CODE" aria-label="Store code">
   <button onclick="unlock()" type="button">OPEN THE BOARD</button>
   <div id="gerr"></div>
+  <div style="margin-top:26px;font-size:9.5px;letter-spacing:2px;color:#5A6472;
+   font-weight:700">MY GEAR HQ &middot; POWERED BY SITEIQ &middot;
+   DESIGNED &amp; BUILT BY ANDREW FISHER</div>
 </div>
 
 <div id="app" style="display:none"></div>
@@ -4177,7 +4203,9 @@ def build(data, code, asof, pricing=None, mgr_code=None):
     """
     blob = json.dumps(data, separators=(',', ':'), ensure_ascii=True)
     _alias = keypad_alias(code)
-    page = (PAGE.replace('//__READER__//', _READER_JS)
+    import mygear_font
+    page = (PAGE.replace('__FONTCSS__', mygear_font.FONT_CSS)
+                .replace('//__READER__//', _READER_JS)
                 .replace('//__QRJS__//', _QR_JS)
                 .replace('__PAYLOAD__', enc(code, blob))
                 .replace('__TAG__', tag(code))

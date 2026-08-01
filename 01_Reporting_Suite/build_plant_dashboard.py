@@ -92,7 +92,8 @@ if wb_path:
 # Meet the team - printed on every page of the dashboard, the same crew
 # strip the report packs carry. (A. Fisher, 25 Jul 2026)
 TEAM_STRIP = (
-    "<div class='tl'>Your Coates tool store team</div>"
+    "<div class='tl'>Your Coates tool store team &middot; "
+    "<span style='color:#8B9099;letter-spacing:1px'>MY GEAR HQ</span></div>"
     "<div class='tn'><b>Andrew Fisher</b> Shutdown Manager QLD &amp; NT"
     " &nbsp;|&nbsp; <span style='color:#F26222;font-weight:700'>DAY</span>"
     " <b>Thomas Maher</b> Dayshift Lead &middot; <b>Helen O'Grady</b>"

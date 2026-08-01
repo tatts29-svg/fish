@@ -406,7 +406,10 @@ def store_story_html():
             "border-spacing:6px\">" + trs + "</table>"
             "<div style=\"font-size:9.5pt;color:#33393F;margin-top:6px\">"
             "We are here to help - <b>reach out if you require "
-            "anything</b>. Your Coates tool store team.</div>")
+            "anything</b>. Your Coates tool store team. "
+            "<span style=\"color:#8B9099;font-weight:700;"
+            "letter-spacing:1px\">MY GEAR HQ &middot; POWERED BY SITEIQ"
+            "</span></div>")
 
 
 def badges_text(item=None, desc=None, on=None, sep=" | "):
