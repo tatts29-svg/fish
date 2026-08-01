@@ -518,6 +518,18 @@ CSS = """
 .loc{font-style:normal;color:#FFB347;font-weight:800;letter-spacing:.4px;
   text-transform:uppercase;font-size:10px}
 .loc:before{content:"📍 ";font-size:9px}
+.stqr.s2{position:static;display:inline-block;margin-top:6px}
+.stqr{position:absolute;bottom:8px;right:8px;background:#fff;border-radius:7px;
+  padding:3px;line-height:0;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.45)}
+#stqrbig{display:none;position:fixed;inset:0;z-index:99;background:rgba(6,9,14,.96);
+  flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  text-align:center;padding:24px}
+#stqrbig .qrs{background:#fff;border-radius:16px;padding:16px;line-height:0}
+#stqrbig b{color:#EAF0F7;font-size:16px;max-width:320px}
+#stqrbig span{color:#8A97A8;font-size:12px;letter-spacing:1px}
+#stqrbig i{color:#F26222;font-style:normal;font-weight:900;letter-spacing:2px;
+  font-size:12px}
+#stqrbig u{color:#5A6472;font-size:10.5px;text-decoration:none}
 .stsds{display:block;margin-top:5px;font-size:10px;font-weight:800;
   letter-spacing:.5px;color:#F0B429;text-decoration:none;
   border:1px solid #4a3a10;border-radius:8px;padding:5px 8px;text-align:center}
@@ -620,6 +632,18 @@ function stAlt(it){
     + out.map(function(s){return '<span>' + s.n + ' &times;' + s.q + '</span>'})
          .join(' &middot; ') + '</div>' + ask;
 }
+/* tap the corner QR: full-screen "show this at the window" (Andrew,
+   1 Aug 2026) - the counter's scanner reads it straight off the phone */
+function stQR(ev,el){
+  ev.stopPropagation();
+  var c=el.getAttribute('data-c'), n=el.getAttribute('data-n');
+  var o=document.getElementById('stqrbig');
+  if(!o){o=document.createElement('div');o.id='stqrbig';document.body.appendChild(o);}
+  o.innerHTML='<div class="qrs">'+qr(c,240)+'</div><b>'+n+'</b><span>'+c+'</span>'
+    +'<i>SHOW THIS AT THE WINDOW</i><u>tap anywhere to close</u>';
+  o.style.display='flex';
+  o.onclick=function(){o.style.display='none';};
+}
 function stKit(it){
   var h='';
   if(it.sd) h+='<a class="stsds" href="'+it.sd+'" target="_blank" rel="noopener">'
@@ -709,7 +733,10 @@ function stRender(reset){
             + '" onerror="thxg(this)">'
           : '<span class="gmono">' + thMono(it.n) + '</span>')
         + '<span class="qb ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '">'
-        + big + '</span></div>'
+        + big + '</span>'
+        + (window.qr ? '<span class="stqr" data-c="' + (it.v||it.n) + '" data-n="' + it.n
+           + '" onclick="stQR(event,this)">' + qr(it.v||it.n,40) + '</span>' : '')
+        + '</div>'
         + '<div class="bd"><b>' + it.n + '</b>'
         + '<span><i class="loc">' + it.u + '</i>'
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
@@ -731,7 +758,10 @@ function stRender(reset){
               : (it.k==='c' ? 'ON THE SHELF &mdash; ' : 'READY TO HIRE &mdash; ') + it.q))
         + '</span>'
         + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div>'
-        + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
+        + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span>'
+        + (window.qr ? '<span class="stqr s2" data-c="' + (it.v||it.n) + '" data-n="' + it.n
+           + '" onclick="stQR(event,this)">' + qr(it.v||it.n,34) + '</span>' : '')
+        + '</div></div>';
     }
   }
   if(grid) html += '</div>';
@@ -767,9 +797,10 @@ function thx(img){
 /* grid-card photo fallback: the big two-letter tile */
 function thxg(img){
   var d=img.parentNode;
-  var q=d.querySelector('.qb');
+  var q=d.querySelector('.qb'), s=d.querySelector('.stqr');
   d.innerHTML='<span class="gmono">'+(img.getAttribute('data-m')||'?')+'</span>';
   if(q)d.appendChild(q);
+  if(s)d.appendChild(s);
 }
 /* compliance chips for the crew: the tag colour word and the log book.
    __TAGC__/__TAGX__ are stamped by the build from the compliance

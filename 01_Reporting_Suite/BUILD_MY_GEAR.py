@@ -926,6 +926,10 @@ def build():
             .replace('__STORESTAG__', _stores_tag)
             .replace('__ASOF__', asof or 'last refresh')
             .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS)
+            .replace('//__QRJS__//',
+                     __import__('mygear_stores')._QR_JS
+                     + '\nfunction qr(t,px){if(t==null||t===\'\'){return \'\';}'
+                       'return QRL.svg(String(t),px||46);}')
             .replace('__IDROW__', mygear_ui.ID_ROW)
             .replace('__SHELF__', _shelf)
             .replace('__SHEET__', mygear_ui.sheet_html(
@@ -1160,7 +1164,8 @@ __SHELF__
 <div class="qcall" onclick="openGuide('contacts')" role="button" tabindex="0" title="Site contacts - tap to call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>CONTACTS</div>
 </div>
 __SHEET__
-<script>var DATA=__DATA__;
+<script>//__QRJS__//
+var DATA=__DATA__;
 
 function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
 function ageCls(d){d=parseInt(d);if(isNaN(d))return'a';return d<=2?'g':(d<=4?'a':'r')}
