@@ -392,37 +392,77 @@ def appendix_pages(lines):
     pages = [("The full charge register &middot; who the hire went to",
               summary)]
 
-    #  ---- each company's chapter: people A-Z, gear by item number ----
-    #  one tidy row per line - small print, short dates, hard caps on
-    #  the text columns, and few enough rows that a page never spills
-    #  (Andrew, 1 Aug 2026: "all things still dont fit on the page")
-    PER = 20
-    RHEAD = ("<table class='tight' style='font-size:10.5px'>"
-             "<thead><tr><th>Hirer</th><th>Item no</th>"
-             "<th>Description</th>"
-             "<th style='text-align:right'>Start</th>"
-             "<th style='text-align:right'>End</th>"
-             "<th style='text-align:right'>Days</th>"
-             "<th style='text-align:right'>Rate</th>"
-             "<th style='text-align:right'>Total</th></tr></thead><tbody>")
+    #  ---- each company's chapter: people A-Z, TWO LINES PER ITEM -----
+    #  the person gets a shaded header with their subtotal; each item
+    #  under them runs description + total on the first line and the
+    #  working detail on a quiet second line - full names, full
+    #  descriptions, nothing squeezed (Andrew, 1 Aug 2026: "two line
+    #  for each item... give you more space for more detail")
+    ITEMS_PER_PAGE = 11
+    RHEAD = "<table class='tight' style='font-size:11px'><tbody>"
 
-    def rrow(e):
+    def person_hdr(w, items, cont=False):
+        sub = sum(e["amt"] for e in items)
+        return (
+            "<tr><td style='background:#F7F3EF;font-weight:700;color:"
+            + CS.INK + ";padding:7px 9px;border-top:1px solid #e5ded6'>"
+            + CS.html.escape(w) + (" (continued)" if cont else
+            " &mdash; {n} item{s}".format(n=len(items),
+                                          s="" if len(items) == 1 else "s"))
+            + "</td><td style='background:#F7F3EF;text-align:right;"
+            "font-weight:700;padding:7px 9px;border-top:1px solid #e5ded6'>"
+            + ("" if cont else "${:,.2f}".format(sub)) + "</td></tr>")
+
+    def item_rows(e):
         rate = e["amt"] / e["d"] if e["d"] else 0.0
         return (
-            "<tr><td style='white-space:nowrap'>{w}</td>"
-            "<td style='white-space:nowrap'>{i}</td>"
-            "<td style='white-space:nowrap;overflow:hidden;"
-            "max-width:220px;text-overflow:ellipsis'>{n}</td>"
-            "<td style='text-align:right;white-space:nowrap'>{f}</td>"
-            "<td style='text-align:right;white-space:nowrap'>{t}</td>"
-            "<td style='text-align:right'>{d}</td>"
-            "<td style='text-align:right'>${r:,.2f}</td>"
-            "<td style='text-align:right'>${a:,.2f}</td></tr>").format(
-            w=CS.html.escape(e["w"][:20]),
-            i=(CS.html.escape(e["i"]) if e["i"] else "&mdash;"),
-            n=CS.html.escape(e["n"][:40]),
-            f=e["f"].strftime("%d %b"), t=e["t"].strftime("%d %b"),
-            d=e["d"], r=rate, a=e["amt"])
+            "<tr><td style='padding:6px 9px 1px 18px;font-weight:600;"
+            "color:" + CS.INK + "'>" + CS.html.escape(e["n"])
+            + "</td><td style='padding:6px 9px 1px;text-align:right;"
+            "font-weight:700'>${:,.2f}</td></tr>".format(e["amt"])
+            + "<tr><td colspan='2' style='padding:0 9px 6px 18px;color:"
+            "#8A94A2;font-size:9.5px;border-bottom:1px solid #f0ece7'>"
+            "Item " + (CS.html.escape(e["i"]) if e["i"] else "&mdash;")
+            + " &middot; {f} &ndash; {t} &middot; {d} day{ds} &middot; "
+            "${r:,.2f}/day</td></tr>".format(
+                f=e["f"].strftime("%d %b"), t=e["t"].strftime("%d %b"),
+                d=e["d"], ds="" if e["d"] == 1 else "s", r=rate))
+
+    def chapter(title, ls, story, total_label, chap_amt):
+        """Pages for one chapter: person headers, two-line items,
+        chunked by item count so a sheet never spills."""
+        by_person = {}
+        for e in ls:
+            by_person.setdefault(e["w"], []).append(e)
+        chunks = [ls[i:i + ITEMS_PER_PAGE]
+                  for i in range(0, len(ls), ITEMS_PER_PAGE)] or [[]]
+        started = set()
+        for ci, chunk in enumerate(chunks):
+            body = ["<div class='card'><h2>" + title
+                    + ("" if ci == 0 else " (continued)") + "</h2>"]
+            if ci == 0 and story:
+                body.append(story)
+            body.append(RHEAD)
+            last_w = None
+            for e in chunk:
+                if e["w"] != last_w:
+                    body.append(person_hdr(e["w"], by_person[e["w"]],
+                                           cont=e["w"] in started))
+                    started.add(e["w"])
+                    last_w = e["w"]
+                body.append(item_rows(e))
+            if ci == len(chunks) - 1:
+                body.append(
+                    "<tr><td style='font-weight:700;color:" + CS.INK
+                    + ";border-top:2px solid " + CS.INK + ";padding:7px 9px'>"
+                    + total_label
+                    + "</td><td style='text-align:right;font-weight:700;"
+                    "color:" + CS.INK + ";border-top:2px solid " + CS.INK
+                    + ";padding:7px 9px'>${:,.2f}</td></tr>".format(chap_amt))
+            body.append("</tbody></table></div>")
+            pages.append(("The full charge register &middot; "
+                          + title, "".join(body)))
+
     for co in order:
         ls = sorted(cos[co], key=by_name_then_item)
         amt = sum(e["amt"] for e in ls)
@@ -439,79 +479,26 @@ def appendix_pages(lines):
                  d=int(sum(e["d"] for e in ls)),
                  a=amt, p=100.0 * amt / total if total else 0.0,
                  big=CS.html.escape(biggest["n"][:46]), ba=biggest["amt"])
-        chunks = [ls[i:i + PER] for i in range(0, len(ls), PER)]
-        for ci, chunk in enumerate(chunks):
-            body = ["<div class='card'><h2>" + CS.html.escape(co)
-                    + ("" if ci == 0 else " (continued)") + "</h2>"]
-            if ci == 0:
-                body.append(story)
-            body.append(RHEAD)
-            last_w = None
-            for e in chunk:
-                #  a person's name prints once, their gear lines under it
-                if e["w"] == last_w:
-                    e2 = dict(e)
-                    e2["w"] = ""
-                    body.append(rrow(e2))
-                else:
-                    body.append(rrow(e))
-                    last_w = e["w"]
-            if ci == len(chunks) - 1:
-                body.append(
-                    ("<tr><td colspan='7' style='font-weight:700;color:"
-                     + CS.INK + ";border-top:2px solid " + CS.INK +
-                     "'>{co} total &mdash; {p:.1f}% of the hire on this "
-                     "invoice</td>"
-                     "<td style='text-align:right;font-weight:700;color:"
-                     + CS.INK + ";border-top:2px solid " + CS.INK +
-                     "'>${a:,.2f}</td></tr>").format(
-                        co=CS.html.escape(co), a=amt,
-                        p=100.0 * amt / total if total else 0.0))
-            body.append("</tbody></table></div>")
-            pages.append(("The full charge register &middot; "
-                          + CS.html.escape(co), "".join(body)))
+        chapter(CS.html.escape(co), ls, story,
+                CS.html.escape(co) + " total &mdash; "
+                + "{:.1f}% of the hire on this invoice".format(
+                    100.0 * amt / total if total else 0.0), amt)
 
     #  ---- site plant, at the very end as asked ----------------------
     if splant:
         ls = sorted(splant, key=by_item)
-        chunks = [ls[i:i + PER] for i in range(0, len(ls), PER)]
-        for ci, chunk in enumerate(chunks):
-            body = ["<div class='card'><h2>Site plant &mdash; on site "
-                    "by design" + ("" if ci == 0 else " (continued)")
-                    + "</h2>"]
-            if ci == 0:
-                body.append(
-                    ("<div class='cap'>The barriers, chutes, hoppers and "
-                     "site infrastructure that live on site for the whole "
-                     "shut &mdash; on hire by design, idle-capable, and "
-                     "deliberately kept OUT of the company splits above. "
-                     "{n} line{s}, {d:,} charge-days, "
-                     "<b>${a:,.2f}</b> ({p:.1f}% of the hire on this "
-                     "invoice). Lines by item number.</div>").format(
-                        n=len(ls), s="" if len(ls) == 1 else "s",
-                        d=int(sum(e["d"] for e in ls)), a=sp_amt,
-                        p=100.0 * sp_amt / total if total else 0.0))
-            body.append(RHEAD)
-            last_w = None
-            for e in chunk:
-                if e["w"] == last_w:
-                    e2 = dict(e)
-                    e2["w"] = ""
-                    body.append(rrow(e2))
-                else:
-                    body.append(rrow(e))
-                    last_w = e["w"]
-            if ci == len(chunks) - 1:
-                body.append(
-                    ("<tr><td colspan='7' style='font-weight:700;color:"
-                     + CS.INK + ";border-top:2px solid " + CS.INK +
-                     "'>Site plant total</td>"
-                     "<td style='text-align:right;font-weight:700;color:"
-                     + CS.INK + ";border-top:2px solid " + CS.INK +
-                     "'>${a:,.2f}</td></tr>").format(a=sp_amt))
-            body.append("</tbody></table></div>")
-            pages.append(("The full charge register &middot; site plant",
-                          "".join(body)))
+        story = (
+            "<div class='cap'>The barriers, chutes, hoppers and site "
+            "infrastructure that live on site for the whole shut &mdash; "
+            "on hire by design, idle-capable, and deliberately kept OUT "
+            "of the company splits above. {n} line{s}, {d:,} "
+            "charge-days, <b>${a:,.2f}</b> ({p:.1f}% of the hire on "
+            "this invoice). Lines by item number.</div>").format(
+                n=len(ls), s="" if len(ls) == 1 else "s",
+                d=int(sum(e["d"] for e in ls)), a=sp_amt,
+                p=100.0 * sp_amt / total if total else 0.0)
+        chapter("Site plant &mdash; on site by design", ls, story,
+                "Site plant total", sp_amt)
     return pages
 
 
