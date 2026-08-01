@@ -336,6 +336,11 @@ def appendix_pages(lines):
         except (TypeError, ValueError):
             return (1, str(e["i"]))
 
+    def by_name_then_item(e):
+        #  inside a company: people A-Z, then their gear by item number
+        #  (Andrew, 1 Aug 2026: "alphabetical order please by name too")
+        return (e["w"].upper(),) + by_item(e)
+
     #  ---- page: who the hire went to ------------------------------
     srows = []
     for co in order:
@@ -387,18 +392,47 @@ def appendix_pages(lines):
     pages = [("The full charge register &middot; who the hire went to",
               summary)]
 
-    #  ---- each company's chapter: lines by ITEM NUMBER --------------
-    PER = 24
+    #  ---- each company's chapter: people A-Z, gear by item number ----
+    #  one tidy row per line - small print, short dates, hard caps on
+    #  the text columns, and few enough rows that a page never spills
+    #  (Andrew, 1 Aug 2026: "all things still dont fit on the page")
+    PER = 20
+    RHEAD = ("<table class='tight' style='font-size:10.5px'>"
+             "<thead><tr><th>Hirer</th><th>Item no</th>"
+             "<th>Description</th>"
+             "<th style='text-align:right'>Start</th>"
+             "<th style='text-align:right'>End</th>"
+             "<th style='text-align:right'>Days</th>"
+             "<th style='text-align:right'>Rate</th>"
+             "<th style='text-align:right'>Total</th></tr></thead><tbody>")
+
+    def rrow(e):
+        rate = e["amt"] / e["d"] if e["d"] else 0.0
+        return (
+            "<tr><td style='white-space:nowrap'>{w}</td>"
+            "<td style='white-space:nowrap'>{i}</td>"
+            "<td style='white-space:nowrap;overflow:hidden;"
+            "max-width:220px;text-overflow:ellipsis'>{n}</td>"
+            "<td style='text-align:right;white-space:nowrap'>{f}</td>"
+            "<td style='text-align:right;white-space:nowrap'>{t}</td>"
+            "<td style='text-align:right'>{d}</td>"
+            "<td style='text-align:right'>${r:,.2f}</td>"
+            "<td style='text-align:right'>${a:,.2f}</td></tr>").format(
+            w=CS.html.escape(e["w"][:20]),
+            i=(CS.html.escape(e["i"]) if e["i"] else "&mdash;"),
+            n=CS.html.escape(e["n"][:40]),
+            f=e["f"].strftime("%d %b"), t=e["t"].strftime("%d %b"),
+            d=e["d"], r=rate, a=e["amt"])
     for co in order:
-        ls = sorted(cos[co], key=by_item)
+        ls = sorted(cos[co], key=by_name_then_item)
         amt = sum(e["amt"] for e in ls)
         biggest = max(ls, key=lambda e: e["amt"])
         story = (
             "<div class='cap'><b>{co}</b> &mdash; {n} hire line{s} "
             "through {w} of their people, {d:,} charge-days &mdash; "
             "<b>${a:,.2f}</b>, {p:.1f}% of the hire on this invoice. "
-            "Biggest single line: {big} at ${ba:,.2f}. Lines below in "
-            "item-number order.</div>"
+            "Biggest single line: {big} at ${ba:,.2f}. People A to Z, "
+            "their gear by item number.</div>"
         ).format(co=CS.html.escape(co), n=len(ls),
                  s="" if len(ls) == 1 else "s",
                  w=len(set(e["w"] for e in ls)),
@@ -411,30 +445,17 @@ def appendix_pages(lines):
                     + ("" if ci == 0 else " (continued)") + "</h2>"]
             if ci == 0:
                 body.append(story)
-            body.append("<table><thead><tr><th>Item no</th>"
-                        "<th>Description</th>"
-                        "<th>Hirer</th><th>Start</th><th>End</th>"
-                        "<th style='text-align:right'>Days</th>"
-                        "<th style='text-align:right'>Day rate</th>"
-                        "<th style='text-align:right'>Total</th></tr>"
-                        "</thead><tbody>")
+            body.append(RHEAD)
+            last_w = None
             for e in chunk:
-                rate = e["amt"] / e["d"] if e["d"] else 0.0
-                body.append(
-                    ("<tr><td style='white-space:nowrap'>{i}</td>"
-                     "<td>{n}</td><td>{w}</td>"
-                     "<td style='white-space:nowrap'>{f}</td>"
-                     "<td style='white-space:nowrap'>{t}</td>"
-                     "<td style='text-align:right'>{d}</td>"
-                     "<td style='text-align:right'>${r:,.2f}</td>"
-                     "<td style='text-align:right'>${a:,.2f}</td></tr>")
-                    .format(i=(CS.html.escape(e["i"]) if e["i"]
-                               else "&mdash;"),
-                            n=CS.html.escape(e["n"][:48]),
-                            w=CS.html.escape(e["w"][:22]),
-                            f=e["f"].strftime("%d %b %Y"),
-                            t=e["t"].strftime("%d %b %Y"),
-                            d=e["d"], r=rate, a=e["amt"]))
+                #  a person's name prints once, their gear lines under it
+                if e["w"] == last_w:
+                    e2 = dict(e)
+                    e2["w"] = ""
+                    body.append(rrow(e2))
+                else:
+                    body.append(rrow(e))
+                    last_w = e["w"]
             if ci == len(chunks) - 1:
                 body.append(
                     ("<tr><td colspan='7' style='font-weight:700;color:"
@@ -470,30 +491,16 @@ def appendix_pages(lines):
                         n=len(ls), s="" if len(ls) == 1 else "s",
                         d=int(sum(e["d"] for e in ls)), a=sp_amt,
                         p=100.0 * sp_amt / total if total else 0.0))
-            body.append("<table><thead><tr><th>Item no</th>"
-                        "<th>Description</th>"
-                        "<th>Hirer</th><th>Start</th><th>End</th>"
-                        "<th style='text-align:right'>Days</th>"
-                        "<th style='text-align:right'>Day rate</th>"
-                        "<th style='text-align:right'>Total</th></tr>"
-                        "</thead><tbody>")
+            body.append(RHEAD)
+            last_w = None
             for e in chunk:
-                rate = e["amt"] / e["d"] if e["d"] else 0.0
-                body.append(
-                    ("<tr><td style='white-space:nowrap'>{i}</td>"
-                     "<td>{n}</td><td>{w}</td>"
-                     "<td style='white-space:nowrap'>{f}</td>"
-                     "<td style='white-space:nowrap'>{t}</td>"
-                     "<td style='text-align:right'>{d}</td>"
-                     "<td style='text-align:right'>${r:,.2f}</td>"
-                     "<td style='text-align:right'>${a:,.2f}</td></tr>")
-                    .format(i=(CS.html.escape(e["i"]) if e["i"]
-                               else "&mdash;"),
-                            n=CS.html.escape(e["n"][:48]),
-                            w=CS.html.escape(e["w"][:22]),
-                            f=e["f"].strftime("%d %b %Y"),
-                            t=e["t"].strftime("%d %b %Y"),
-                            d=e["d"], r=rate, a=e["amt"]))
+                if e["w"] == last_w:
+                    e2 = dict(e)
+                    e2["w"] = ""
+                    body.append(rrow(e2))
+                else:
+                    body.append(rrow(e))
+                    last_w = e["w"]
             if ci == len(chunks) - 1:
                 body.append(
                     ("<tr><td colspan='7' style='font-weight:700;color:"
