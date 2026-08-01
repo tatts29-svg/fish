@@ -545,6 +545,8 @@ CSS = """
 .stt.a{color:#F0B429}.stt.a i{background:#F0B429}
 .stt.r{color:#FF5A4D}.stt.r i{background:#FF5A4D}
 .stask{margin-top:4px;font-size:10px;color:#8A97A8;font-style:italic}
+.stsdsoff{margin-top:5px;font-size:10px;line-height:1.5;color:#F0B429;background:#191307;border:1px solid #4a3a10;border-radius:8px;padding:6px 8px}
+.stsdsoff b{color:#FFD27A}
 .stalt{margin-top:5px;font-size:10.5px;color:#8A97A8;line-height:1.55}
 .stalt b{color:#35D68A;letter-spacing:.3px}
 .stalt span{color:#C3CDDA;font-weight:700}
@@ -644,10 +646,29 @@ function stQR(ev,el){
   o.style.display='flex';
   o.onclick=function(){o.style.display='none';};
 }
+/* The one thing on this page that genuinely needs the internet: the SDS
+   itself lives on the manufacturer's site. Everything else is already in
+   the phone. So if a bloke taps it out of range, say so plainly instead
+   of handing him a browser error page - and point him at the A3 board on
+   the wall, which never needs a signal. (1 Aug 2026) */
+function sdsGo(a){
+  if(navigator && navigator.onLine === false){
+    var w=a.nextSibling;
+    if(!w || w.className!=='stsdsoff'){
+      w=document.createElement('div'); w.className='stsdsoff';
+      a.parentNode.insertBefore(w, a.nextSibling);
+    }
+    w.innerHTML='<b>Connection unavailable.</b> The safety data sheet lives '
+      +'on the maker&rsquo;s website. Use the SDS board on the store wall, '
+      +'or try again in Wi-Fi range.';
+    return false;
+  }
+  return true;
+}
 function stKit(it){
   var h='';
-  if(it.sd) h+='<a class="stsds" href="'+it.sd+'" target="_blank" rel="noopener">'
-    +'&#9888; SAFETY DATA SHEET &mdash; tap to open</a>';
+  if(it.sd) h+='<a class="stsds" href="'+it.sd+'" target="_blank" rel="noopener"'
+    +' onclick="return sdsGo(this)">&#9888; SAFETY DATA SHEET &mdash; tap to open</a>';
   if(it.kt) h+='<div class="stkit"><b>Goes out &amp; comes back with:</b> '+it.kt+'</div>';
   if(it.fl && it.fl.indexOf('R')>=0)
     h+='<div class="strider">Rated lifting &mdash; check it before you rig it</div>';

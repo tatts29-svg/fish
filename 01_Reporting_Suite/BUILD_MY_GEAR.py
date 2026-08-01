@@ -1537,10 +1537,14 @@ function animate(){var els=document.querySelectorAll('[data-to]');for(var i=0;i<
 function confetti(){var cs=['#F26222','#FFA24D','#FFD27A','#ffffff'];for(var i=0;i<70;i++){var d=document.createElement('div');d.className='confp';d.style.left=(Math.random()*100)+'vw';d.style.background=cs[i%4];d.style.animationDelay=(Math.random()*0.35)+'s';document.body.appendChild(d);(function(x){setTimeout(function(){x.remove()},2700)})(d)}}
 function cmpbar(l,v,me){v=Math.round(v||0);return '<div class="cmpr"><span class="cl">'+l+'</span><span class="cbar"><i style="width:'+v+'%" '+(me?'class="me"':'')+'></i></span><span class="cvv">'+v+'</span></div>'}
 /* THE DOOR'S STATES (Andrew, 1 Aug 2026: "searching, ID found, invalid
-   ID and connection unavailable"). Three of those are real here and one
-   is not: the whole register is already inside this page, so there is no
-   connection to lose once it has loaded. The honest fourth state is a
-   page that never finished loading - that is what 'cold' says. */
+   ID and connection unavailable").
+
+   Worth knowing WHEN each one can honestly fire. The whole register
+   travels inside this page, so once it has loaded a worker can walk out
+   of Wi-Fi range and still read his gear - there is no connection to
+   lose at that point. But there IS one before that point: if the page
+   comes down half-made, DATA arrives empty and nothing will ever match.
+   That is a connection failure, and it says so. */
 function idState(kind,msg){
  var d=document.getElementById('dstate'); if(!d) return;
  if(!kind){ d.className='dstate'; d.innerHTML=''; return; }
@@ -1553,8 +1557,9 @@ function go(){
  var id0=(document.getElementById('idno').value||'').replace(/\s+/g,'');
  if(!id0){ idState('bad','Type the ID number off your site card.'); return; }
  if(typeof DATA!=='object'||DATA===null||!Object.keys(DATA).length){
-   idState('warn','<b>This page did not finish loading.</b> Pull down to '
-    +'refresh, or ask at the window.'); return; }
+   idState('warn','<b>Connection unavailable.</b> This page did not finish '
+    +'loading from the store. Step closer to the store Wi-Fi and pull down '
+    +'to refresh &mdash; or ask at the window.'); return; }
  idState('look','Checking the register&hellip;');
  setTimeout(goNow,220);
 }
