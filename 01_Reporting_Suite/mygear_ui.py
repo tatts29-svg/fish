@@ -720,7 +720,66 @@ function downloadCard(f){
 ------------------------------------------------------------------ */
 var GUIDE_TITLES={contacts:'Contact board',radio:'Your two-way radio',
                   gas:'Your gas monitor',store:"What's in the store"};
+/* THE ROLLER DOOR (Andrew's own pack, 2 Aug 2026).
+   Rules it obeys, in order of importance:
+     1. It can never trap anybody. A missing image, a second tap, Escape,
+        the skip button or a slow phone all end with the store open.
+     2. It plays ONCE a session. The wow is worth 6.8 seconds the first
+        time and nothing at all the fifth - a bloke hunting a socket at
+        3am should not have to watch a door.
+     3. A phone set to reduce motion never sees it. */
+var DW_DONE=false, DW_BUSY=false, DW_T=null, DW_MS=6800;
+function dwCan(){
+  try{
+    if(DW_DONE||DW_BUSY) return false;
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)
+      return false;
+    if(sessionStorage.getItem('k2door')==='1') return false;
+  }catch(e){}
+  return !!document.getElementById('doorway');
+}
+function dwBail(){ DW_DONE=true; dwEnd(); }
+function dwSkip(){ dwEnd(); }
+function dwEnd(){
+  var d=document.getElementById('doorway');
+  if(DW_T){clearTimeout(DW_T);DW_T=null}
+  if(d) d.className='dw';
+  DW_BUSY=false; DW_DONE=true;
+  try{sessionStorage.setItem('k2door','1')}catch(e){}
+  openStoreNow();
+}
+function dwPlay(){
+  var d=document.getElementById('doorway');
+  if(!d){ openStoreNow(); return; }
+  DW_BUSY=true;
+  d.className='dw on';
+  void d.offsetWidth;          // restart the animation cleanly
+  d.className='dw on run';
+  DW_T=setTimeout(dwEnd, DW_MS+120);
+}
+function openStoreNow(){
+  var p=document.getElementById('g-store');
+  if(p) p.className='gpane on';
+  var ttl=document.getElementById('gsheet-title');
+  if(ttl) ttl.textContent=(GUIDE_TITLES&&GUIDE_TITLES.store)||'The store';
+  var sh=document.getElementById('gsheet');
+  if(sh) sh.className='gsheet on';
+  var bd=document.getElementById('gsbody'); if(bd) bd.scrollTop=0;
+  document.body.style.overflow='hidden';
+  if(typeof stRender==='function') stRender(true);
+  if(history&&history.pushState) history.pushState({guide:'store'},'');
+}
+document.addEventListener('keydown',function(e){
+  if(DW_BUSY&&(e.key==='Escape'||e.keyCode===27)) dwSkip();
+});
+
 function openGuide(k){
+  /* the store gets the roller door, once a session */
+  if(k==='store'&&dwCan()){
+    var p0=document.querySelectorAll('.gpane');
+    for(var z=0;z<p0.length;z++) p0[z].className='gpane';
+    dwPlay(); return;
+  }
   var panes=document.querySelectorAll('.gpane');
   for(var i=0;i<panes.length;i++) panes[i].className='gpane';
   var p=document.getElementById('g-'+k); if(p) p.className='gpane on';

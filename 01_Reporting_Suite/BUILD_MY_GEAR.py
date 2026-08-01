@@ -685,14 +685,17 @@ def build():
         else: rating = {'stars': 0, 'label': 'No returns logged yet'}
         # badges - thresholds documented here, all data-driven
         badges = []
-        if out_now >= 8: badges.append(['▣', 'Big Kit'])
-        if len(mixc) >= 4: badges.append(['✦', 'All-Rounder'])
-        if len(s['txn_keys']) >= 8: badges.append(['⚡', 'Store Regular'])
-        if mixc.get('Rigging'): badges.append(['⛓', 'Rigger'])
-        if mixc.get('Electrical'): badges.append(['⭐', 'Powerhouse'])
-        if sd >= 1: badges.append(['↺', 'Same-Day Legend'])
-        if crew_rank[idno] == 1 and sd >= 1: badges.append(['\U0001f3c6', 'Top of the Store'])
-        if site_rank[idno] == 1 and sd >= 1: badges.append(['\U0001f525', 'Site Legend'])
+        #  third slot is the icon slug in Art\icons\ (Andrew's elite
+        #  pack, 2 Aug 2026). The character stays as the fallback for
+        #  any build where the artwork is missing.
+        if out_now >= 8: badges.append(['▣', 'Big Kit', 'big-kit'])
+        if len(mixc) >= 4: badges.append(['✦', 'All-Rounder', 'all-rounder'])
+        if len(s['txn_keys']) >= 8: badges.append(['⚡', 'Store Regular', 'store-regular'])
+        if mixc.get('Rigging'): badges.append(['⛓', 'Rigger', 'rigger'])
+        if mixc.get('Electrical'): badges.append(['⭐', 'Powerhouse', 'powerhouse'])
+        if sd >= 1: badges.append(['↺', 'Same-Day Legend', 'same-day-legend'])
+        if crew_rank[idno] == 1 and sd >= 1: badges.append(['\U0001f3c6', 'Top of the Store', 'top-of-store'])
+        if site_rank[idno] == 1 and sd >= 1: badges.append(['\U0001f525', 'Site Legend', 'site-legend'])
         # approved wording (22 Jul 2026) - do not reintroduce "Good on ya"
         if sd > 0:
             story = ("Nice work, " + first + " — you've brought back <b>" +
@@ -865,13 +868,20 @@ def build():
         _art_src = os.path.join(BASE, 'Art')
         _art_dst = os.path.join(_gl_dir, 'art')
         if os.path.isdir(_art_src):
-            os.makedirs(_art_dst, exist_ok=True)
+            #  walk it - the icon pack lives in Art\icons\ and a flat
+            #  listdir silently skipped every one of them (found 2 Aug
+            #  2026: the cards fell back to line drawings and nobody
+            #  would have known why)
             _n_art = 0
-            for _a in sorted(os.listdir(_art_src)):
-                if _a.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
-                    _sh.copyfile(os.path.join(_art_src, _a),
-                                 os.path.join(_art_dst, _a))
-                    _n_art += 1
+            for _root, _dirs, _files in os.walk(_art_src):
+                _rel = os.path.relpath(_root, _art_src)
+                _dst = _art_dst if _rel == '.' else os.path.join(_art_dst, _rel)
+                os.makedirs(_dst, exist_ok=True)
+                for _a in sorted(_files):
+                    if _a.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                        _sh.copyfile(os.path.join(_root, _a),
+                                     os.path.join(_dst, _a))
+                        _n_art += 1
             print('  Front door artwork: {} file(s) copied.'.format(_n_art))
         else:
             print('  Front door artwork: Art\\ folder not found - the page '
@@ -1140,6 +1150,90 @@ input:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 4px rgba(242,9
 .btn:active{transform:translateY(1px)}
 .err{color:var(--amb);font-size:13px;margin-top:10px;min-height:18px}
 .card{display:none}
+/* ---- THE ROLLER DOOR (Andrew's own pack, 2 Aug 2026) ------------
+   His motion, lifted as designed: the latch recoil, the motor take-up,
+   the two load pauses, the slow creep into the housing and the end-stop.
+   The camera pushes into the store as the shutter clears, a shadow and
+   an orange light leak ride the bottom rail, and a fixed steel head box
+   swallows the door.
+
+   ONE JUDGEMENT CALL: it plays ONCE a session. 6.8 seconds is a joy the
+   first time and a wall the fifth, and a bloke hunting a socket at 3am
+   should not have to watch a door. Skip is always there, Escape works,
+   and a phone set to reduced motion goes straight in.
+------------------------------------------------------------------ */
+.dw{position:fixed;inset:0;z-index:80;display:none;background:#060a10;
+ overflow:hidden}
+.dw.on{display:block}
+.dw-stage,.dw-int,.dw-rig,.dw-shut,.dw-vig{position:absolute;inset:0;
+ width:100%;height:100%}
+.dw-stage{z-index:1;overflow:hidden;background:#060a10}
+.dw-int{object-fit:cover;transform:scale(1.015);transform-origin:50% 60%;
+ filter:brightness(.58) saturate(.82) contrast(1.08)}
+.dw-light{position:absolute;inset:44% -20% -12%;opacity:0;mix-blend-mode:screen;
+ background:radial-gradient(ellipse at 50% 100%,rgba(255,104,30,.34),transparent 63%)}
+.dw-rig{z-index:5;will-change:transform;transform:translate3d(0,0,0)}
+.dw-shut{display:block;object-fit:cover;filter:contrast(1.06) brightness(.9)}
+.dw-shadow{position:absolute;left:-6%;right:-6%;bottom:-2px;height:8%;
+ transform:translateY(48%);filter:blur(5px);
+ background:linear-gradient(to bottom,rgba(0,0,0,.08),rgba(0,0,0,.96));
+ box-shadow:0 10px 26px rgba(0,0,0,.85)}
+.dw-leak{position:absolute;left:3%;right:3%;bottom:-3px;height:18px;opacity:0;
+ mix-blend-mode:screen;background:linear-gradient(to bottom,
+ rgba(255,118,44,.92) 0 2px,rgba(255,83,18,.28) 3px,transparent 100%)}
+.dw-thresh{position:absolute;z-index:3;left:4%;right:4%;bottom:-2%;height:28%;
+ opacity:0;mix-blend-mode:screen;background:radial-gradient(ellipse at 50% 100%,
+ rgba(255,89,20,.62),rgba(255,89,20,.14) 34%,transparent 70%)}
+.dw-head{position:absolute;z-index:6;left:0;right:0;top:0;height:54px;
+ background:linear-gradient(180deg,#161d28,#0b1119 62%,#070c13);
+ box-shadow:0 10px 26px rgba(0,0,0,.72),inset 0 -2px 0 rgba(255,255,255,.05)}
+.dw-vig{z-index:7;pointer-events:none;box-shadow:inset 0 0 120px rgba(0,0,0,.75)}
+.dw-skip{position:absolute;z-index:9;top:14px;right:14px;background:rgba(8,13,20,.72);
+ border:1px solid #2A3547;color:#DCE3EC;font:inherit;font-size:11px;font-weight:800;
+ letter-spacing:1.4px;border-radius:999px;padding:9px 15px;cursor:pointer;
+ -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.dw-cap{position:absolute;z-index:8;left:16px;right:16px;bottom:34px;
+ opacity:0;animation:dwcap .7s 1.1s ease both}
+.dw-cap span{display:block;font-size:10px;font-weight:800;letter-spacing:3px;
+ color:#F26222}
+.dw-cap b{display:block;font-size:24px;font-weight:800;color:#F5F7FB;margin-top:5px;
+ text-shadow:0 4px 18px rgba(0,0,0,.8)}
+@keyframes dwcap{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.dw.run .dw-rig{animation:dw-lift 6.8s both}
+.dw.run .dw-int{animation:dw-cam 6.8s cubic-bezier(.2,.72,.16,1) both}
+.dw.run .dw-light{animation:dw-wake 6.8s ease-out both}
+.dw.run .dw-shadow{animation:dw-shadow 6.8s ease-out both}
+.dw.run .dw-leak{animation:dw-leak 6.8s ease-out both}
+.dw.run .dw-thresh{animation:dw-thresh 6.8s ease-out both}
+@keyframes dw-lift{
+ 0%{transform:translate3d(0,0,0);animation-timing-function:cubic-bezier(.42,0,.76,.44)}
+ 2.8%{transform:translate3d(0,.35%,0)}
+ 5.5%{transform:translate3d(0,-.8%,0);animation-timing-function:cubic-bezier(.2,.5,.22,1)}
+ 9%{transform:translate3d(0,-.35%,0)}
+ 14%{transform:translate3d(0,-4%,0)}
+ 27%{transform:translate3d(0,-21%,0)}
+ 32%{transform:translate3d(0,-22%,0)}
+ 47%{transform:translate3d(0,-43%,0)}
+ 52%{transform:translate3d(0,-44%,0)}
+ 68%{transform:translate3d(0,-69%,0)}
+ 73%{transform:translate3d(0,-70%,0)}
+ 89%{transform:translate3d(0,-94%,0);animation-timing-function:cubic-bezier(.12,.8,.24,1)}
+ 96%{transform:translate3d(0,-102%,0)}
+ 100%{transform:translate3d(0,-104.5%,0)}}
+@keyframes dw-cam{
+ 0%,10%{transform:scale(1.015);filter:brightness(.58) saturate(.82) contrast(1.08)}
+ 34%{transform:scale(1.026) translateY(-.15%);filter:brightness(.7) saturate(.9) contrast(1.07)}
+ 72%{transform:scale(1.048) translateY(-.48%);filter:brightness(.88) saturate(1) contrast(1.04)}
+ 100%{transform:scale(1.065) translateY(-.8%);filter:brightness(.96) saturate(1.04) contrast(1.02)}}
+@keyframes dw-wake{0%,18%{opacity:0}62%{opacity:.25}100%{opacity:.42}}
+@keyframes dw-shadow{0%,8%{opacity:1;transform:translateY(48%) scaleY(1)}
+ 60%{opacity:.58;transform:translateY(44%) scaleY(.72)}
+ 100%{opacity:.24;transform:translateY(40%) scaleY(.48)}}
+@keyframes dw-leak{0%,7%{opacity:0}15%{opacity:.46}72%{opacity:.78}100%{opacity:.38}}
+@keyframes dw-thresh{0%,8%{opacity:0;transform:scaleX(.72)}
+ 24%{opacity:.2;transform:scaleX(.84)}62%,100%{opacity:.5;transform:scaleX(1)}}
+@media (prefers-reduced-motion: reduce){.dw{display:none!important}}
+
 /* ---- THE REPORT, IN THE DOOR'S MATERIALS (2 Aug 2026) ------------
    Andrew: "elite style matching and designing like we have done with
    the main page. any icons added. must be generated in such a way it
@@ -1168,10 +1262,29 @@ input:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 4px rgba(242,9
 .st{display:flex;align-items:center;gap:9px;background:linear-gradient(160deg,#121A27,#0C121C);
  border:1px solid #263143;border-radius:14px;padding:10px;text-align:left;min-width:0}
 .st .sti{width:34px;height:34px;border-radius:11px;flex:none;display:flex;
- align-items:center;justify-content:center;background:rgba(242,98,34,.14)}
+ align-items:center;justify-content:center;background:rgba(242,98,34,.14);
+ overflow:hidden}
 .st .sti svg{width:18px;height:18px;color:#F26222}
 .st.good .sti{background:rgba(53,214,138,.14)}
 .st.good .sti svg{color:#35D68A}
+/* Andrew's photographic tiles: the artwork IS the tile, so the orange
+   wash comes off and a hairline keeps it seated in the card. They pop
+   in on a short stagger - enough to feel built, not enough to wait for. */
+.st .sti.art{background:#0B111A;border:1px solid #2A3547;width:38px;height:38px;
+ border-radius:12px}
+.st .sti.art img{width:100%;height:100%;object-fit:cover;display:block;
+ animation:icpop .42s cubic-bezier(.2,.9,.3,1.4) both}
+.st:nth-child(2) .sti.art img{animation-delay:.06s}
+.st:nth-child(3) .sti.art img{animation-delay:.12s}
+.st:nth-child(4) .sti.art img{animation-delay:.18s}
+@keyframes icpop{from{opacity:0;transform:scale(.62)}to{opacity:1;transform:none}}
+.badge .bimg{width:22px;height:22px;border-radius:7px;object-fit:cover;
+ flex:none;margin-right:1px}
+.clr .clrimg{width:52px;height:52px;border-radius:14px;object-fit:cover;
+ flex:none;border:1px solid #2A3547;animation:icpop .5s cubic-bezier(.2,.9,.3,1.4) both}
+.clr .ci{width:38px;height:38px;font-size:16px}
+@media (prefers-reduced-motion: reduce){
+ .st .sti.art img,.clr .clrimg{animation:none}}
 .st .sv{min-width:0}
 .st .v{font-size:20px;font-weight:850;color:#F5F7FB;line-height:1.1}
 .st .l{font-size:8.5px;color:#8794A6;text-transform:uppercase;letter-spacing:.6px;
@@ -1539,6 +1652,22 @@ __TILES__
 <div class="qmini" onclick="openGuide('gas')" role="button" tabindex="0" title="Gas monitor guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>GAS</div>
 <div class="qcall" onclick="openGuide('contacts')" role="button" tabindex="0" title="Site contacts - tap to call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>CONTACTS</div>
 </div>
+<div id="doorway" class="dw" aria-hidden="true">
+ <div class="dw-stage">
+  <img class="dw-int" src="art/tool-store-interior.webp" alt="" onerror="dwBail()">
+  <div class="dw-light"></div>
+ </div>
+ <div class="dw-thresh"></div>
+ <div class="dw-rig">
+  <img class="dw-shut" src="art/roller-shutter.webp" alt="" onerror="dwBail()">
+  <div class="dw-shadow"></div>
+  <div class="dw-leak"></div>
+ </div>
+ <div class="dw-head"></div>
+ <div class="dw-vig"></div>
+ <button type="button" class="dw-skip" onclick="dwSkip()">SKIP OPENING</button>
+ <div class="dw-cap"><span>OPENING</span><b>What&rsquo;s in the store</b></div>
+</div>
 __SHEET__
 <script>//__QRJS__//
 var DATA=__DATA__;
@@ -1556,10 +1685,28 @@ var STI={
  back:"<path d='M9 14 4 9l5-5'/><path d='M4 9h11a5 5 0 0 1 5 5v6'/>",
  bolt:"<path d='M13 2 4.8 13.6H11l-1 8.4 8.2-11.6H12z'/>"
 };
-function sticon(k){
- return "<i class='sti'><svg viewBox='0 0 24 24' fill='none' "
-  +"stroke='currentColor' stroke-width='1.8' stroke-linecap='round' "
-  +"stroke-linejoin='round'>"+(STI[k]||'')+"</svg></i>";
+/* THE ICONS (Andrew's elite pack, 2 Aug 2026). Photographic tiles out of
+   art/icons/, with the old stroke glyph kept underneath as the fallback -
+   if the artwork is ever missing the report still reads properly rather
+   than showing a broken picture. */
+function sticon(k,slug,good){
+ if(!slug) return "<i class='sti"+(good?' g':'')+"'>"+stiSvg(k)+"</i>";
+ return "<i class='sti art"+(good?' g':'')+"' data-k='"+k+"'>"
+  +"<img src='art/icons/"+slug+".webp' alt='' loading='lazy' "
+  +"onerror='stiFallback(this)'></i>";
+}
+function stiSvg(k){
+ return "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' "
+  +"stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>"
+  +(STI[k]||'')+"</svg>";
+}
+/* artwork missing? fall back to the stroke glyph rather than a broken
+   picture - the report has to read properly on a machine that never got
+   the Art folder. */
+function stiFallback(img){
+ var i=img.parentNode, good=i.className.indexOf(' g')>=0;
+ i.className='sti'+(good?' g':'');
+ i.innerHTML=stiSvg(i.getAttribute('data-k')||'');
 }
 function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
 function ageCls(d){d=parseInt(d);if(isNaN(d))return'a';return d<=2?'g':(d<=4?'a':'r')}
@@ -1703,7 +1850,12 @@ function renderCard(p){
  var C=326.7, off=p.hasReturns?(C-C*Math.min(100,p.score||0)/100):C;
  var ringtx=p.hasReturns?'<text x="60" y="70" text-anchor="middle" class="ringtxt" data-to="'+(p.score||0)+'">0</text>':'<text x="60" y="68" text-anchor="middle" class="ringtxt" style="font-size:26px">—</text>';
  var ring='<svg class="ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#28323F" stroke-width="12"/><circle class="ringp" cx="60" cy="60" r="52" fill="none" stroke="url(#rg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" data-off="'+off+'" transform="rotate(-90 60 60)"/><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFA24D"/><stop offset="1" stop-color="#F26222"/></linearGradient></defs>'+ringtx+'</svg>';
- var badges=(p.badges||[]).map(function(b,bi){return '<span class="badge" style="animation-delay:'+(0.25+bi*0.13).toFixed(2)+'s"><span class="bi">'+b[0]+'</span>'+esc(b[1])+'</span>'}).join('');
+ var badges=(p.badges||[]).map(function(b,bi){
+   var ic=b[2]?'<img class="bimg" src="art/icons/'+b[2]+'.webp" alt="" '
+     +'loading="lazy" onerror="this.outerHTML=\'<span class=&quot;bi&quot;>'
+     +b[0]+'</span>\'">':'<span class="bi">'+b[0]+'</span>';
+   return '<span class="badge" style="animation-delay:'+(0.25+bi*0.13).toFixed(2)
+     +'s">'+ic+esc(b[1])+'</span>'}).join('');
  var tot=(p.mix||[]).reduce(function(a,m){return a+m[1]},0)||1;
  var segs=(p.mix||[]).map(function(m){return '<div class="seg" style="width:'+(100*m[1]/tot)+'%;background:'+m[2]+'"></div>'}).join('');
  var legend=(p.mix||[]).map(function(m){return '<span class="lg"><span class="dot" style="background:'+m[2]+'"></span>'+esc(m[0])+' '+m[1]+'</span>'}).join('');
@@ -1715,10 +1867,10 @@ function renderCard(p){
  +'<div class="scorewrap">'+ring+'<div class="scoremeta"><div class="scorelab">Returns Score</div><div class="rankline">'+rankline+'</div><div class="rate2"><span class="stars">'+stars(r.stars)+'</span> <b>'+esc(r.label)+'</b></div></div></div>'
  +(badges?'<div class="badges">'+badges+'</div>':'')
  +'<div class="stats">'
- +'<div class="st">'+sticon('out')+'<div class="sv"><div class="v'+(st.items>0?' neon':'')+'" data-to="'+st.items+'">0</div><div class="l">Items out</div></div></div>'
- +'<div class="st">'+sticon('types')+'<div class="sv"><div class="v" data-to="'+st.types+'">0</div><div class="l">Item types</div></div></div>'
- +'<div class="st good">'+sticon('back')+'<div class="sv"><div class="v" data-to="'+st.returned+'">0</div><div class="l">Returned</div></div></div>'
- +'<div class="st good">'+sticon('bolt')+'<div class="sv"><div class="v'+(st.sameday>0?' neon':'')+'" data-to="'+st.sameday+'">0</div><div class="l">Same-day</div></div></div></div>'
+ +'<div class="st">'+sticon('out','items-out')+'<div class="sv"><div class="v'+(st.items>0?' neon':'')+'" data-to="'+st.items+'">0</div><div class="l">Items out</div></div></div>'
+ +'<div class="st">'+sticon('types','item-types')+'<div class="sv"><div class="v" data-to="'+st.types+'">0</div><div class="l">Item types</div></div></div>'
+ +'<div class="st good">'+sticon('back','returned',1)+'<div class="sv"><div class="v" data-to="'+st.returned+'">0</div><div class="l">Returned</div></div></div>'
+ +'<div class="st good">'+sticon('bolt','same-day',1)+'<div class="sv"><div class="v'+(st.sameday>0?' neon':'')+'" data-to="'+st.sameday+'">0</div><div class="l">Same-day</div></div></div></div>'
  +(p.cmp?'<h3 class="sec">How you compare</h3><div class="cmp">'+cmpbar('You',p.cmp.you,1)+cmpbar('Your crew',p.cmp.crew,0)+cmpbar('Site avg',p.cmp.site,0)+(rk.crewPos?'<div class="crewline">'+esc(p.company)+' sits <b>#'+rk.crewPos+'</b> of '+rk.crewOf+' crews on site</div>':'')+'</div>':'')
  +(segs?'<h3 class="sec">Your kit mix</h3><div class="mix">'+segs+'</div><div class="legend">'+legend+'</div>':'')
  +'<div class="story">'+p.story+'</div>'
@@ -1743,13 +1895,16 @@ function renderCard(p){
   if(p.comp.ret)cbits.push(p.comp.ret+' due back today');
   html+='<div class="alert amb"><b>Check before you use it.</b> Of the gear in your name: '+cbits.join(', ')+'. Anything showing a tag colour needs a current tag with a readable date &mdash; if it hasn\'t got one, don\'t use it, bring it to the store and we\'ll sort it.</div>'}
  var cleared=st.items===0;
- html+='<h3 class="sec">Return clearance</h3><div class="clr '+(cleared?'done':'open')+'"><div class="ci">'+(cleared?'&#10003;':st.items)+'</div><div class="ct">'+(cleared?'<b>Cleared — all gear returned</b><span>Nothing on hire in your name. Legend — thanks for bringing it all back.</span>':'<b>'+st.items+' still to clear</b><span>Bring these back to the tool store and you\'re fully cleared of tools on hire.</span>')+'</div></div>';
+ html+='<h3 class="sec">Return clearance</h3><div class="clr '+(cleared?'done':'open')+'">'
+  +'<img class="clrimg" src="art/icons/'+(cleared?'cleared':'still-to-clear')+'.webp" '
+  +'alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+  +'<div class="ci">'+(cleared?'&#10003;':st.items)+'</div><div class="ct">'+(cleared?'<b>Cleared — all gear returned</b><span>Nothing on hire in your name. Legend — thanks for bringing it all back.</span>':'<b>'+st.items+' still to clear</b><span>Bring these back to the tool store and you\'re fully cleared of tools on hire.</span>')+'</div></div>';
  if(p.act){
  html+='<h3 class="sec">Your store scorecard</h3><div class="stats">'
- +'<div class="st"><div class="v" data-to="'+p.act.visits+'">0</div><div class="l">Store visits</div></div>'
- +'<div class="st"><div class="v" data-to="'+p.act.txns+'">0</div><div class="l">Transactions</div></div>'
- +'<div class="st"><div class="v" data-to="'+((p.cons&&p.cons.n)||0)+'">0</div><div class="l">Consumables</div></div>'
- +'<div class="st"><div class="v" data-to="'+((p.radios&&p.radios.taken)||0)+'">0</div><div class="l">Radio gear</div></div></div>';
+ +'<div class="st">'+sticon('out','store-visits')+'<div class="sv"><div class="v" data-to="'+p.act.visits+'">0</div><div class="l">Store visits</div></div></div>'
+ +'<div class="st">'+sticon('types','transactions')+'<div class="sv"><div class="v" data-to="'+p.act.txns+'">0</div><div class="l">Transactions</div></div></div>'
+ +'<div class="st">'+sticon('back','consumables')+'<div class="sv"><div class="v" data-to="'+((p.cons&&p.cons.n)||0)+'">0</div><div class="l">Consumables</div></div></div>'
+ +'<div class="st">'+sticon('bolt','radio-gear')+'<div class="sv"><div class="v" data-to="'+((p.radios&&p.radios.taken)||0)+'">0</div><div class="l">Radio gear</div></div></div></div>';
  var xl=[];
  if(p.radios&&p.radios.taken){xl.push('Radio gear: '+p.radios.back+' of '+p.radios.taken+' back')}
  if(p.gas&&p.gas.taken){xl.push('Gas monitors: '+p.gas.back+' of '+p.gas.taken+' back')}
