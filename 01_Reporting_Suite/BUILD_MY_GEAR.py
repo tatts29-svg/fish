@@ -923,6 +923,7 @@ def build():
     page = (TEMPLATE
             .replace('__DATA__', json.dumps(DATA))
             .replace('__PULSE__', pulse)
+            .replace('__TOPIC__', _topic_banner())
             .replace('__STORESTAG__', _stores_tag)
             .replace('__ASOF__', asof or 'last refresh')
             .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS)
@@ -986,6 +987,23 @@ def build():
                   ' ({} shrunk this build)'.format(_made) if _made else ''))
     except Exception as _e:
         print('  Gear pictures: skipped this build ({})'.format(_e))
+
+def _topic_banner():
+    """Today's toolbox topic on the front door (Andrew, 1 Aug 2026) -
+    the safety conversation the reports already carry, on the page
+    every worker opens anyway. Never allowed to take the build down."""
+    try:
+        import safety_conversation as _SC
+        tp = _SC.topic_for()
+        return ("<div class='ttop'><span>TODAY'S TOOLBOX TOPIC &middot; "
+                "{d} OF {of}</span><b>{t}</b><i>{k}</i></div>").format(
+            d=tp["day"], of=tp["of"],
+            t=html.escape(str(tp["title"])),
+            k=html.escape(str(tp.get("takeaway") or "")))
+    except Exception as _e:
+        print("  Toolbox topic skipped ({})".format(_e))
+        return ""
+
 
 TEMPLATE = r'''<!doctype html><!-- MY GEAR HQ · the Coates digital tool store · designed and built by Andrew Fisher --><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%23F36F21%22/%3E%3C/svg%3E"><title>MY GEAR · Coates Tool Store</title><style>
@@ -1116,6 +1134,12 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .mgx{font-family:'Archivo Black','Arial Black',Arial,sans-serif;font-size:60px;line-height:1;display:flex;justify-content:center;align-items:baseline;gap:13px;letter-spacing:2px;margin:4px 0 0}
 .mgxw{color:#f4f6f8;text-shadow:0 2px 8px rgba(0,0,0,.6)}
 .mgxo{background:linear-gradient(180deg,#ffa25c 0%,#F26222 46%,#d94e12 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px rgba(242,98,34,.45)) drop-shadow(0 2px 6px rgba(0,0,0,.55))}
+.ttop{margin:12px auto 2px;max-width:430px;background:#151C27;
+  border:1px solid #28323F;border-left:3px solid #F0B429;border-radius:0 10px 10px 0;
+  padding:9px 12px;text-align:left}
+.ttop span{display:block;font-size:9px;letter-spacing:2px;color:#F0B429;font-weight:800}
+.ttop b{display:block;font-size:13.5px;color:#EAF0F7;margin-top:3px}
+.ttop i{display:block;font-style:normal;font-size:11.5px;color:#8A97A8;margin-top:2px;line-height:1.5}
 .mgxline{width:78%;max-width:420px;height:3px;margin:10px auto 8px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(242,98,34,.9) 20%,#ffc891 50%,rgba(242,98,34,.9) 80%,transparent);box-shadow:0 0 14px 2px rgba(242,98,34,.55),0 0 40px 8px rgba(242,98,34,.25)}
 /* The floating pill STACK (Andrew, 29 Jul 2026: "did you not add the
    floating pills for gas monitors and radios"). Contacts keeps the
@@ -1143,6 +1167,7 @@ __STORECSS__
 <div class="mgxline"></div>
 <div class="mgkick">DIGITAL TOOL STORE</div>
 <div class="mgsub">Your gear. Your responsibility. One scan.</div>
+__TOPIC__
 __PULSE__
 <div class="scanpanel" id="scanpanel" role="button" tabindex="0">
 <span class="crn c1"></span><span class="crn c2"></span><span class="crn c3"></span><span class="crn c4"></span>

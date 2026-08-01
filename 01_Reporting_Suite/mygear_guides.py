@@ -328,6 +328,76 @@ def gas_guide():
 # ---------------------------------------------------------------------
 #  the guides, wrapped for the page
 # ---------------------------------------------------------------------
+# ---------------------------------------------------------------------
+#  TRADE TABLES (Andrew, 1 Aug 2026: "an experience... what else can
+#  we give the workers") - the laminated crib cards, digitised. Pure
+#  reference data, works offline, lives one tap from the front door.
+#  Every table carries the honesty line: the STAMP and the lift plan
+#  always beat a quick-reference table.
+# ---------------------------------------------------------------------
+def _tt_table(title, note, head, rows):
+    h = ("<div style='margin:14px 0 6px;font-size:13.5px;font-weight:800;"
+         "color:#E6E9EE'>" + title + "</div>")
+    if note:
+        h += ("<div style='font-size:11px;color:#8A97A8;margin-bottom:6px;"
+              "line-height:1.5'>" + note + "</div>")
+    h += ("<table style='width:100%;border-collapse:collapse;font-size:12.5px'>"
+          "<tr>" + "".join(
+              "<th style='text-align:left;color:#F26222;font-size:10.5px;"
+              "letter-spacing:1px;padding:4px 6px;border-bottom:1px solid "
+              "#28323F'>" + c + "</th>" for c in head) + "</tr>")
+    for r in rows:
+        h += "<tr>" + "".join(
+            "<td style='padding:5px 6px;border-bottom:1px solid #1D242E;"
+            "color:#C3CDDA'>" + str(c) + "</td>" for c in r) + "</tr>"
+    return h + "</table>"
+
+
+def trade_tables():
+    out = ("<div style='font-size:12px;color:#8A97A8;line-height:1.6;"
+           "margin-bottom:4px'><b style='color:#F0B429'>Quick reference "
+           "only.</b> The stamp on the gear, the tag on the sling and the "
+           "lift plan always beat this page.</div>")
+    out += _tt_table(
+        "Spanner for the bolt (metric, hex AF)",
+        "Standard hex heads. Flanged and structural heads can differ - "
+        "if the spanner fights you, it is the wrong spanner.",
+        ("BOLT", "SPANNER", "BOLT", "SPANNER"),
+        [("M5", "8 mm", "M16", "24 mm"),
+         ("M6", "10 mm", "M18", "27 mm"),
+         ("M8", "13 mm", "M20", "30 mm"),
+         ("M10", "16/17 mm", "M22", "34 mm"),
+         ("M12", "18/19 mm", "M24", "36 mm"),
+         ("M14", "21 mm", "M30", "46 mm")])
+    out += _tt_table(
+        "Drill for the tap (metric coarse)",
+        "",
+        ("TAP", "DRILL", "TAP", "DRILL"),
+        [("M5 &times; 0.8", "4.2 mm", "M12 &times; 1.75", "10.2 mm"),
+         ("M6 &times; 1.0", "5.0 mm", "M14 &times; 2.0", "12.0 mm"),
+         ("M8 &times; 1.25", "6.8 mm", "M16 &times; 2.0", "14.0 mm"),
+         ("M10 &times; 1.5", "8.5 mm", "M20 &times; 2.5", "17.5 mm")])
+    out += _tt_table(
+        "Round sling colours (AS 4497)",
+        "Straight vertical lift. Angles and hitches CHANGE the WLL - "
+        "read the tag, follow the lift plan.",
+        ("COLOUR", "WLL", "COLOUR", "WLL"),
+        [("Violet", "1.0 t", "Red", "5.0 t"),
+         ("Green", "2.0 t", "Brown", "6.0 t"),
+         ("Yellow", "3.0 t", "Blue", "8.0 t"),
+         ("Grey", "4.0 t", "Orange", "10 t+")])
+    out += _tt_table(
+        "Rated bow shackles - typical grade S",
+        "TYPICAL only. The WLL stamped on the bow is the law for that "
+        "shackle - always read the stamp.",
+        ("PIN &Oslash;", "WLL", "PIN &Oslash;", "WLL"),
+        [("10 mm", "1.0 t", "22 mm", "6.5 t"),
+         ("13 mm", "2.0 t", "25 mm", "8.5 t"),
+         ("16 mm", "3.2 t", "32 mm", "12 t"),
+         ("19 mm", "4.7 t", "", "")])
+    return out
+
+
 GUIDES = [
     ("contacts", "Contact board", "Every number for the shut — tap to call",
      "M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11.4 11.4 0 "
@@ -338,13 +408,17 @@ GUIDES = [
      "4h4M17 3l-4 5"),
     ("gas", "Your gas monitor", "BW Flex4 — check it, wear it, trust it",
      "M12 2a7 7 0 017 7c0 4-3 5-3 8H8c0-3-3-4-3-8a7 7 0 017-7zm-3 19h6"),
+    ("tables", "Trade tables", "Spanner sizes · tap drills · sling WLL",
+     "M3 5h18v14H3zM3 10h18M9 5v14M15 5v14"),
 ]
 
 
 def guides_html():
     return ("<div id='g-contacts' class='gpane'>" + contact_board() +
             "</div><div id='g-radio' class='gpane'>" + radio_guide() +
-            "</div><div id='g-gas' class='gpane'>" + gas_guide() + "</div>")
+            "</div><div id='g-gas' class='gpane'>" + gas_guide() +
+            "</div><div id='g-tables' class='gpane'>" + trade_tables() +
+            "</div>")
 
 
 def guide_buttons():
