@@ -200,6 +200,48 @@ def read_charge_lines(inv_days, comap):
     def gv(r, k):
         i = H.get(k)
         return "" if i is None else str(r[i] or "").strip()
+
+    #  WHAT THE ITEM IS (Andrew, 1 Aug 2026: "we need to have a
+    #  description of what the item is"): the charge sheet doesn't
+    #  always carry a description, so item numbers resolve through the
+    #  rental register and then the master's renames - the same clean
+    #  names the client sees everywhere else in the suite.
+    namemap = {}
+    rs = CS._gfind("RENTAL_STOCK*.xlsx")
+    if rs:
+        try:
+            rwb = openpyxl.load_workbook(max(rs, key=os.path.getmtime),
+                                         read_only=True, data_only=True)
+            rws = (rwb["RENTAL_STOCK"] if "RENTAL_STOCK" in rwb.sheetnames
+                   else rwb.active)
+            rrows = list(rws.iter_rows(values_only=True))
+            rwb.close()
+            rix = {str(v or "").strip().upper(): i
+                   for i, v in enumerate(rrows[0])}
+            if "ITEM_NUMBER" in rix and "ITEM_DESCRIPTION" in rix:
+                for r in rrows[1:]:
+                    k = str(r[rix["ITEM_NUMBER"]] or "").strip()
+                    v = str(r[rix["ITEM_DESCRIPTION"]] or "").strip()
+                    if k and v and k not in namemap:
+                        namemap[k] = v
+        except Exception:
+            pass
+    try:
+        import master_equipment
+        MM = master_equipment.load(HERE, quiet=True)
+    except Exception:
+        MM = None
+
+    def item_name(r, bc):
+        it = gv(r, "ITEM_NUMBER")
+        raw = (gv(r, "ITEM_DESCRIPTION") or namemap.get(it, "")
+               or ("Item " + it if it else bc))
+        if MM is not None and it:
+            try:
+                return MM.disp(it, raw)
+            except Exception:
+                return raw
+        return raw
     days = set(inv_days)
     fold = {}
     for r in rows[1:]:
@@ -226,7 +268,7 @@ def read_charge_lines(inv_days, comap):
         co = (gv(r, "COMPANY") or gv(r, "COMPANY_NAME")
               or comap.get(who.upper(), "") or "Not named")
         e = fold.setdefault((bc, who), {
-            "n": gv(r, "ITEM_DESCRIPTION") or gv(r, "ITEM_NUMBER") or bc,
+            "n": item_name(r, bc),
             "i": gv(r, "ITEM_NUMBER"), "w": who, "co": co,
             "fam": gv(r, "PRODUCT_FAMILY").title() or "Other",
             "f": inwin[0], "t": inwin[-1], "d": 0, "amt": 0.0})
@@ -403,8 +445,10 @@ def main():
 
     #  which invoice? the latest billing month in the data, unless told
     #  (python build_invoice_breakdown.py 2026-07)
-    if len(sys.argv) > 1 and re.match(r"^\d{4}-\d{2}$", sys.argv[1]):
-        month = dt.date(int(sys.argv[1][:4]), int(sys.argv[1][5:7]), 1)
+    marg = next((a for a in sys.argv[1:]
+                 if re.match(r"^\d{4}-\d{2}$", str(a))), None)
+    if marg:
+        month = dt.date(int(marg[:4]), int(marg[5:7]), 1)
     else:
         month = max(registers_in(d) for d in ds)
     inv_days = sorted(d for d in ds if registers_in(d) == month)
