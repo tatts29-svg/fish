@@ -444,6 +444,10 @@ CSS = """
 .stcard{background:#151A22;border:1px solid #28323F;border-radius:16px;
  overflow:hidden;display:flex;flex-direction:column}
 .stcard.none{border-color:#5a2622}
+/* the aisle IS the address - wear it like one (Andrew, 1 Aug 2026) */
+.loc{font-style:normal;color:#FFB347;font-weight:800;letter-spacing:.4px;
+  text-transform:uppercase;font-size:10px}
+.loc:before{content:"\1F4CD ";font-size:9px}
 .stalt{margin-top:5px;font-size:10.5px;color:#8A97A8;line-height:1.55}
 .stalt b{color:#35D68A;letter-spacing:.3px}
 .stalt span{color:#C3CDDA;font-weight:700}
@@ -612,14 +616,14 @@ function stRender(reset){
         + '<span class="qb ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '">'
         + big + '</span></div>'
         + '<div class="bd"><b>' + it.n + '</b>'
-        + '<span>' + it.u + ' &middot; ' + lab
+        + '<span><i class="loc">' + it.u + '</i> &middot; ' + lab
         + (it.v ? '<br><i class="vc">' + it.v + '</i>' : '') + '</span>'
         + stChips(it.fl) + (it.q===0 ? stAlt(it) : '') + '</div></div>';
     } else {
       html += '<div class="strow ' + cls + '" style="animation-delay:'
         + Math.min(i*14,280) + 'ms">'
         + thTile(it.v, it.n)
-        + '<div class="stn"><b>' + it.n + '</b><span>' + it.u
+        + '<div class="stn"><b>' + it.n + '</b><span><i class="loc">' + it.u + '</i>
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
         + stChips(it.fl) + (it.q===0 ? stAlt(it) : '') + '</div>'
         + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
