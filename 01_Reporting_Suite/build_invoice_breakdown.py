@@ -280,16 +280,23 @@ def read_charge_lines(inv_days, comap):
 
 
 def appendix_pages(lines):
-    """The charge register told the way the client reads it: company
-    by company. First the who-had-what totals, then each company's own
-    chapter - a plain-English story line, then their charge lines and
-    their subtotal - then the next company. Chunked so the PDF
-    paginates cleanly."""
+    """The charge register the way Andrew specified it (1 Aug 2026):
+    every company and its split of the total, companies in
+    ALPHABETICAL order, and inside each company the lines by ITEM
+    NUMBER - description, start date, end date, hire rate and line
+    total on every row. Chunked so the PDF paginates cleanly."""
     total = sum(e["amt"] for e in lines)
     cos = {}
     for e in lines:
         cos.setdefault(e["co"], []).append(e)
-    order = sorted(cos, key=lambda c: -sum(e["amt"] for e in cos[c]))
+    order = sorted(cos, key=lambda c: c.upper())
+
+    def by_item(e):
+        #  numeric item numbers sort as numbers, oddballs after them
+        try:
+            return (0, int(e["i"]))
+        except (TypeError, ValueError):
+            return (1, str(e["i"]))
 
     #  ---- page: who the hire went to ------------------------------
     srows = []
@@ -309,13 +316,14 @@ def appendix_pages(lines):
                 p=100.0 * amt / total if total else 0.0))
     summary = (
         "<div class='card'><h2>Who the hire went to</h2>"
-        "<div class='cap'>The invoice's hire dollars, company by "
-        "company. Each company then gets its own pages: the story, "
-        "every charge line, and the total - so any cost can be checked "
-        "line by line. A line spanning the month-end carries only its "
-        "in-window days, so these companies add to the hire total "
-        "exactly. Welders, radios and gas monitors bill on their own "
-        "monthly invoice and are itemised there.</div>"
+        "<div class='cap'>Every company's split of the invoice's hire "
+        "dollars, A to Z. Each company then gets its own pages: every "
+        "charge line by item number - what it is, who had it, start "
+        "and end date, the day rate and the line total - so any cost "
+        "can be checked line by line. A line spanning the month-end "
+        "carries only its in-window days, so these companies add to "
+        "the hire total exactly. Welders, radios and gas monitors bill "
+        "on their own monthly invoice and are itemised there.</div>"
         "<table><thead><tr><th>Company</th>"
         "<th style='text-align:right'>Lines</th>"
         "<th style='text-align:right'>People</th>"
@@ -332,60 +340,64 @@ def appendix_pages(lines):
     pages = [("The full charge register &middot; who the hire went to",
               summary)]
 
-    #  ---- each company's chapter ----------------------------------
+    #  ---- each company's chapter: lines by ITEM NUMBER --------------
     PER = 24
     for co in order:
-        ls = sorted(cos[co], key=lambda e: -e["amt"])
+        ls = sorted(cos[co], key=by_item)
         amt = sum(e["amt"] for e in ls)
-        fams = {}
-        for e in ls:
-            fams[e["fam"]] = fams.get(e["fam"], 0.0) + e["amt"]
-        top_f = sorted(fams, key=lambda f: -fams[f])[:3]
+        biggest = max(ls, key=lambda e: e["amt"])
         story = (
-            "<div class='cap'><b>{co}</b> ran {n} hire line{s} through "
-            "{w} of their people &mdash; {d:,} charge-days, mostly {f} "
-            "&mdash; <b>${a:,.2f}</b>, {p:.1f}% of the hire on this "
-            "invoice. Biggest single line: {big} at ${ba:,.2f}.</div>"
+            "<div class='cap'><b>{co}</b> &mdash; {n} hire line{s} "
+            "through {w} of their people, {d:,} charge-days &mdash; "
+            "<b>${a:,.2f}</b>, {p:.1f}% of the hire on this invoice. "
+            "Biggest single line: {big} at ${ba:,.2f}. Lines below in "
+            "item-number order.</div>"
         ).format(co=CS.html.escape(co), n=len(ls),
                  s="" if len(ls) == 1 else "s",
                  w=len(set(e["w"] for e in ls)),
                  d=int(sum(e["d"] for e in ls)),
-                 f=CS.html.escape(" &amp; ".join(top_f) or "general gear"),
                  a=amt, p=100.0 * amt / total if total else 0.0,
-                 big=CS.html.escape(ls[0]["n"][:46]), ba=ls[0]["amt"])
+                 big=CS.html.escape(biggest["n"][:46]), ba=biggest["amt"])
         chunks = [ls[i:i + PER] for i in range(0, len(ls), PER)]
         for ci, chunk in enumerate(chunks):
             body = ["<div class='card'><h2>" + CS.html.escape(co)
                     + ("" if ci == 0 else " (continued)") + "</h2>"]
             if ci == 0:
                 body.append(story)
-            body.append("<table><thead><tr><th>Item</th><th>Item no</th>"
-                        "<th>Hirer</th><th>From</th><th>To</th>"
+            body.append("<table><thead><tr><th>Item no</th>"
+                        "<th>Description</th>"
+                        "<th>Hirer</th><th>Start</th><th>End</th>"
                         "<th style='text-align:right'>Days</th>"
-                        "<th style='text-align:right'>Amount</th></tr>"
+                        "<th style='text-align:right'>Day rate</th>"
+                        "<th style='text-align:right'>Total</th></tr>"
                         "</thead><tbody>")
             for e in chunk:
+                rate = e["amt"] / e["d"] if e["d"] else 0.0
                 body.append(
-                    ("<tr><td>{n}</td><td>{i}</td><td>{w}</td>"
+                    ("<tr><td style='white-space:nowrap'>{i}</td>"
+                     "<td>{n}</td><td>{w}</td>"
                      "<td style='white-space:nowrap'>{f}</td>"
                      "<td style='white-space:nowrap'>{t}</td>"
                      "<td style='text-align:right'>{d}</td>"
+                     "<td style='text-align:right'>${r:,.2f}</td>"
                      "<td style='text-align:right'>${a:,.2f}</td></tr>")
-                    .format(n=CS.html.escape(e["n"][:50]),
-                            i=CS.html.escape(e["i"]),
-                            w=CS.html.escape(e["w"][:24]),
-                            f=e["f"].strftime("%d %b"),
-                            t=e["t"].strftime("%d %b"),
-                            d=e["d"], a=e["amt"]))
+                    .format(i=CS.html.escape(e["i"] or "&mdash;"),
+                            n=CS.html.escape(e["n"][:48]),
+                            w=CS.html.escape(e["w"][:22]),
+                            f=e["f"].strftime("%d %b %Y"),
+                            t=e["t"].strftime("%d %b %Y"),
+                            d=e["d"], r=rate, a=e["amt"]))
             if ci == len(chunks) - 1:
                 body.append(
-                    ("<tr><td colspan='6' style='font-weight:700;color:"
+                    ("<tr><td colspan='7' style='font-weight:700;color:"
                      + CS.INK + ";border-top:2px solid " + CS.INK +
-                     "'>{co} total</td>"
+                     "'>{co} total &mdash; {p:.1f}% of the hire on this "
+                     "invoice</td>"
                      "<td style='text-align:right;font-weight:700;color:"
                      + CS.INK + ";border-top:2px solid " + CS.INK +
                      "'>${a:,.2f}</td></tr>").format(
-                        co=CS.html.escape(co), a=amt))
+                        co=CS.html.escape(co), a=amt,
+                        p=100.0 * amt / total if total else 0.0))
             body.append("</tbody></table></div>")
             pages.append(("The full charge register &middot; "
                           + CS.html.escape(co), "".join(body)))
