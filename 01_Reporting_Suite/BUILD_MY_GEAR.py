@@ -941,7 +941,8 @@ def build():
                                                bool(_store_pane)))
             .replace('__STORESTAG__', _stores_tag)
             .replace('__ASOF__', asof or 'last refresh')
-            .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS)
+            .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS
+                     + mygear_guides.TT_CSS)
             .replace('//__QRJS__//',
                      __import__('mygear_stores')._QR_JS
                      + '\nfunction qr(t,px){if(t==null||t===\'\'){return \'\';}'
