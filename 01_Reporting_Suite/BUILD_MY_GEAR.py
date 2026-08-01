@@ -1140,22 +1140,46 @@ input:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 4px rgba(242,9
 .btn:active{transform:translateY(1px)}
 .err{color:var(--amb);font-size:13px;margin-top:10px;min-height:18px}
 .card{display:none}
-.pcard{background:linear-gradient(160deg,#18202C,#0E141D);border:1px solid var(--line);border-top:5px solid var(--org);border-radius:16px;padding:20px;margin-bottom:14px}
+/* ---- THE REPORT, IN THE DOOR'S MATERIALS (2 Aug 2026) ------------
+   Andrew: "elite style matching and designing like we have done with
+   the main page. any icons added. must be generated in such a way it
+   matches our style on the main page."
+   So: the same panel gradient, the same #263143 borders, the same 18px
+   corners, and the orange bar down the LEFT the way the door wears it -
+   the card used to wear it across the top, which read as a different
+   product. Icons are drawn the same way as the door's tiles: a stroke
+   glyph in a rounded orange-tinted square.
+------------------------------------------------------------------ */
+.pcard{position:relative;background:linear-gradient(160deg,#121A27,#0C121C);
+ border:1px solid #263143;border-radius:18px;padding:18px 16px 16px;
+ margin-bottom:14px;overflow:hidden}
+.pcard:before{content:"";position:absolute;left:0;top:16px;bottom:16px;
+ width:4px;background:#F26222;border-radius:0 4px 4px 0}
 .ph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.ph .nm{font-size:22px;font-weight:900;color:#fff}
-.ph .co{color:var(--mut);font-size:12.5px;margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
-.ph .idb{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-weight:800;color:var(--bright);font-size:13px;white-space:nowrap}
+.ph .nm{font-size:21px;font-weight:800;color:#F5F7FB;letter-spacing:-.2px}
+.ph .co{color:#8794A6;font-size:11.5px;margin-top:3px;letter-spacing:.3px}
+.ph .idb{background:#0B111A;border:1px solid #2A3547;border-radius:10px;
+ padding:6px 11px;font-weight:800;color:#F26222;font-size:11.5px;
+ letter-spacing:1px;white-space:nowrap}
 .rate{display:flex;align-items:center;gap:12px;background:rgba(242,98,34,.09);border:1px solid rgba(242,98,34,.4);border-radius:12px;padding:12px 15px;margin:15px 0}
 .rate .stars{font-size:26px;letter-spacing:3px;color:var(--org);line-height:1}
 .rate .rl b{color:#fff;font-size:15px}.rate .rl div{color:var(--soft);font-size:11.5px;margin-top:2px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:6px}
-.st{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 6px;text-align:center;border-top:3px solid var(--org)}
-.st .v{font-size:26px;font-weight:900;color:#fff;line-height:1}
-.st .l{font-size:9px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;margin-top:5px;font-weight:700}
-.story{background:var(--panel);border-left:4px solid var(--org);border-radius:0 10px 10px 0;padding:13px 15px;margin:14px 0;font-size:13.5px;line-height:1.6;color:#eef2f8}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:6px}
+.st{display:flex;align-items:center;gap:9px;background:linear-gradient(160deg,#121A27,#0C121C);
+ border:1px solid #263143;border-radius:14px;padding:10px;text-align:left;min-width:0}
+.st .sti{width:34px;height:34px;border-radius:11px;flex:none;display:flex;
+ align-items:center;justify-content:center;background:rgba(242,98,34,.14)}
+.st .sti svg{width:18px;height:18px;color:#F26222}
+.st.good .sti{background:rgba(53,214,138,.14)}
+.st.good .sti svg{color:#35D68A}
+.st .sv{min-width:0}
+.st .v{font-size:20px;font-weight:850;color:#F5F7FB;line-height:1.1}
+.st .l{font-size:8.5px;color:#8794A6;text-transform:uppercase;letter-spacing:.6px;
+ margin-top:2px;font-weight:700;line-height:1.25}
+.story{background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;border-left:3px solid #F26222;border-radius:0 14px 14px 0;padding:13px 15px;margin:14px 0;font-size:13px;line-height:1.6;color:#DCE3EC}
 .story b{color:var(--bright)}
-h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px}
-.item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-bottom:7px}
+h3.sec{font-size:10px;color:#6B7789;text-transform:uppercase;letter-spacing:2.4px;font-weight:800;margin:18px 0 9px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;border-radius:14px;padding:10px 12px;margin-bottom:8px}
 .item .d{font-size:13px;color:#eef2f8;font-weight:600}.item .n{font-size:11px;color:var(--mut);margin-top:1px}
 /* the item's own picture - what the thing in your name LOOKS like.
    Photo when its variant shot is collected, two-letter tile until. */
@@ -1191,7 +1215,7 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .rankline{color:var(--soft);font-size:12px;margin-top:3px}
 .rate2{margin-top:9px;font-size:13px;color:#fff}.rate2 .stars{color:var(--org);letter-spacing:2px}.rate2 b{color:var(--bright)}
 .badges{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
-.badge{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--org);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:700;color:#eef2f8}
+.badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;border-left:3px solid #F26222;border-radius:999px;padding:6px 13px;font-size:11.5px;font-weight:700;color:#DCE3EC}
 .badge .bi{font-size:14px}
 .mix{display:flex;height:18px;border-radius:9px;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
 .mix .seg{height:100%}
@@ -1223,8 +1247,8 @@ h3.sec{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1
 .idot{flex:none;width:10px;height:10px;border-radius:50%}
 .itxt{flex:1}
 .actions{display:flex;gap:10px;margin-top:16px}
-.actions button{flex:1;background:var(--panel2);border:1px solid var(--line);color:var(--tx);border-radius:11px;padding:13px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
-.actions button.primary{background:linear-gradient(135deg,var(--org),var(--org2));color:#fff;border:none}
+.actions button{flex:1;background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;color:#DCE3EC;border-radius:13px;padding:13px;font-weight:700;font-size:13.5px;cursor:pointer;font-family:inherit}
+.actions button.primary{background:linear-gradient(90deg,#FF681F,#E94713);color:#fff;border:none}
 .ft{color:var(--mut);font-size:10.5px;text-align:center;margin-top:18px;line-height:1.7}
 .ft .val{color:var(--org);font-weight:700}
 .alert{border-radius:11px;padding:11px 14px;margin-top:9px;font-size:12.8px;line-height:1.5}
@@ -1427,6 +1451,25 @@ body:before{content:"";position:fixed;left:0;right:0;top:0;height:280px;
 .trust .tp{background-color:rgba(53,214,138,.16);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2335D68A' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='6' y='2.5' width='12' height='19' rx='2.5'/%3E%3Cpath d='M10.5 18.5h3'/%3E%3C/svg%3E")}
 .fddoor .scanbtn{display:none!important}
 body:not(.hascard) .qstack{display:none}
+/* THE FLOATING PILLS, RECONSIDERED (2 Aug 2026).
+   They earned their place when the front door had no tiles. Now radio,
+   gas and contacts are all big cards on the door, and inside a worker's
+   report the stack sat on top of his kit mix and his story - three
+   buttons covering the words underneath them.
+   So only CONTACTS floats now. It is the one that means "call someone",
+   which is worth a thumb anywhere on the page; the other two are
+   reading, and they are one tap away on the door. */
+body.hascard .qmini{display:none}
+
+/* THE CARD SITS IN THE SAME GUTTER AS THE DOOR (2 Aug 2026).
+   #result has always lived outside .wrap, so the report ran full-bleed
+   to the screen edge while the front door sat in a 16px gutter - the
+   new orange bar down the card's left made that obvious, it was touching
+   the glass. And .wrap's 60px bottom padding was left hanging above the
+   card once the landing hid, which is where that dead band came from. */
+#result{max-width:560px;margin:0 auto;padding:0 16px}
+body.hascard .wrap{padding-bottom:0}
+body.hascard #result{padding-bottom:78px}
 .mgxline{width:78%;max-width:420px;height:3px;margin:10px auto 8px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(242,98,34,.9) 20%,#ffc891 50%,rgba(242,98,34,.9) 80%,transparent);box-shadow:0 0 14px 2px rgba(242,98,34,.55),0 0 40px 8px rgba(242,98,34,.25)}
 /* The floating pill STACK (Andrew, 29 Jul 2026: "did you not add the
    floating pills for gas monitors and radios"). Contacts keeps the
@@ -1500,6 +1543,24 @@ __SHEET__
 <script>//__QRJS__//
 var DATA=__DATA__;
 
+/* THE CARD'S ICONS (2 Aug 2026). Same drawing rules as the front
+   door's tiles - 24 viewBox, 1.8 stroke, round caps, currentColor - so
+   the two screens look like they were drawn by the same hand. */
+var STI={
+ out:"<path d='M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z'/>"
+    +"<path d='M4 8l2-4h12l2 4'/><path d='M12 18v-6M9.6 14.4 12 12l2.4 2.4'/>",
+ types:"<rect x='3.5' y='3.5' width='7' height='7' rx='1.6'/>"
+    +"<rect x='13.5' y='3.5' width='7' height='7' rx='1.6'/>"
+    +"<rect x='3.5' y='13.5' width='7' height='7' rx='1.6'/>"
+    +"<rect x='13.5' y='13.5' width='7' height='7' rx='1.6'/>",
+ back:"<path d='M9 14 4 9l5-5'/><path d='M4 9h11a5 5 0 0 1 5 5v6'/>",
+ bolt:"<path d='M13 2 4.8 13.6H11l-1 8.4 8.2-11.6H12z'/>"
+};
+function sticon(k){
+ return "<i class='sti'><svg viewBox='0 0 24 24' fill='none' "
+  +"stroke='currentColor' stroke-width='1.8' stroke-linecap='round' "
+  +"stroke-linejoin='round'>"+(STI[k]||'')+"</svg></i>";
+}
 function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
 function ageCls(d){d=parseInt(d);if(isNaN(d))return'a';return d<=2?'g':(d<=4?'a':'r')}
 /* the item's picture tile: its variant photo out of thumbs/, or a clean
@@ -1654,10 +1715,10 @@ function renderCard(p){
  +'<div class="scorewrap">'+ring+'<div class="scoremeta"><div class="scorelab">Returns Score</div><div class="rankline">'+rankline+'</div><div class="rate2"><span class="stars">'+stars(r.stars)+'</span> <b>'+esc(r.label)+'</b></div></div></div>'
  +(badges?'<div class="badges">'+badges+'</div>':'')
  +'<div class="stats">'
- +'<div class="st"><div class="v'+(st.items>0?' neon':'')+'" data-to="'+st.items+'">0</div><div class="l">Items out</div></div>'
- +'<div class="st"><div class="v" data-to="'+st.types+'">0</div><div class="l">Item types</div></div>'
- +'<div class="st good"><div class="v" data-to="'+st.returned+'">0</div><div class="l">Returned</div></div>'
- +'<div class="st good"><div class="v'+(st.sameday>0?' neon':'')+'" data-to="'+st.sameday+'">0</div><div class="l">Same-day</div></div></div>'
+ +'<div class="st">'+sticon('out')+'<div class="sv"><div class="v'+(st.items>0?' neon':'')+'" data-to="'+st.items+'">0</div><div class="l">Items out</div></div></div>'
+ +'<div class="st">'+sticon('types')+'<div class="sv"><div class="v" data-to="'+st.types+'">0</div><div class="l">Item types</div></div></div>'
+ +'<div class="st good">'+sticon('back')+'<div class="sv"><div class="v" data-to="'+st.returned+'">0</div><div class="l">Returned</div></div></div>'
+ +'<div class="st good">'+sticon('bolt')+'<div class="sv"><div class="v'+(st.sameday>0?' neon':'')+'" data-to="'+st.sameday+'">0</div><div class="l">Same-day</div></div></div></div>'
  +(p.cmp?'<h3 class="sec">How you compare</h3><div class="cmp">'+cmpbar('You',p.cmp.you,1)+cmpbar('Your crew',p.cmp.crew,0)+cmpbar('Site avg',p.cmp.site,0)+(rk.crewPos?'<div class="crewline">'+esc(p.company)+' sits <b>#'+rk.crewPos+'</b> of '+rk.crewOf+' crews on site</div>':'')+'</div>':'')
  +(segs?'<h3 class="sec">Your kit mix</h3><div class="mix">'+segs+'</div><div class="legend">'+legend+'</div>':'')
  +'<div class="story">'+p.story+'</div>'
