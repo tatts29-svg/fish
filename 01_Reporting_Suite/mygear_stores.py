@@ -2255,6 +2255,15 @@ function findCard(it,e,F){
     var mates=(F.av[e.k||'']||[]).length;
     body='Aisle: <b>'+esc(e.u||'?')+'</b>'
       +(mates>1?' &middot; '+mates+' of these available':'');
+    /* who has the rest (Andrew, 1 Aug 2026): the shelf answer also
+       says where the others went - the chase starts from the tool */
+    var outm=[], nrest=0, j2, x2;
+    for(j2=0;j2<D.roster.length;j2++){ x2=D.roster[j2];
+      if(x2.n===e.n){ nrest++; if(outm.length<3) outm.push(x2); } }
+    if(nrest) body+='<br>Out with crews: <b>'+nrest+'</b> &middot; '
+      +outm.map(function(x3){return esc(x3.w||'?')+' ('
+        +(x3.d!=null?x3.d+'d':'?')+')'}).join(' &middot; ')
+      +(nrest>3?' &middot; +'+(nrest-3)+' more in CHASE UP':'');
     if(e.st!=null){cls='fw';head='SHOULD BE ON THE SHELF';
       body+='<br><b>Not sighted in '+e.st+'d</b>'
         +(e.by?' &middot; last seen by '+esc(e.by):'')
