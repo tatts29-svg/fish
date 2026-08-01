@@ -47,6 +47,26 @@ import report_paths as RP
 import k2_utilisation as KU
 import master_equipment
 
+
+def read_fleet_costs():
+    """Real dollars from the MyBranch fleet file (the 60 Fleet folder):
+    plant number -> (original cost, WDV). K2 asset numbers ARE the
+    network plant numbers (proven 1 Aug 2026), so plant-tracked gear
+    prices from what Coates actually paid, not the master's estimate.
+    No file, no fuss - ROC falls back to the estimates, labelled."""
+    try:
+        import build_fleet_finder as FF
+        src = FF.find_export()
+        if not src:
+            return {}
+        return {r['p']: (float(r['oc'] or 0), float(r['wv'] or 0))
+                for r in FF.read_fleet(src) if r.get('p')}
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except BaseException as e:
+        print('  Fleet file skipped (%r) - using estimates.' % (e,))
+        return {}
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ORG, INK, DIM = '#F26222', '#1D1D1B', '#8A94A2'
 GOOD, AMBER, BAD = '#0ca30c', '#fab219', '#d03b3b'
@@ -155,12 +175,16 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
     #  serial by serial into their fleet) - same rule as the photos,
     #  so this page and My Gear agree on what "a variant" is
     import mygear_thumbs as TH
+    FLEET = read_fleet_costs()
+    if FLEET:
+        print('  Fleet file: real cost/WDV for {:,} plant numbers.'.format(len(FLEET)))
 
     def _blank():
         return {'n': 0, 'billed': 0.0, 'occ': 0.0, 'out': 0,
                 'plant': False, 'repl': 0.0, 'priced': 0, 'rev': 0.0,
                 'rated': 0, 'rate_sum': 0.0, 'pend': [],
-                'pot': 0.0, 'unrated': 0, 'monthly': 0}
+                'pot': 0.0, 'unrated': 0, 'monthly': 0,
+                'realp': 0, 'wdv': 0.0, 'wdv0': 0}
     U = collections.defaultdict(_blank)
     V = collections.defaultdict(_blank)
     vname = {}
@@ -188,6 +212,13 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
             if d:
                 od = min(days_in, max(0, (today - d).days))
         p = master.price(it) if master else None
+        flc = None
+        for cand in (it, KU._txt(r, 'ASSET_NUMBER'), bc):
+            if cand and cand in FLEET:
+                flc = FLEET[cand]
+                break
+        if flc and flc[0] > 0:
+            p = flc[0]
         rt = rates.get(it)
         #  no SiteIQ rate line = maybe the monthly stream: radios, gas,
         #  welders earn on the Baseplan invoice, occupancy IS their
@@ -203,6 +234,11 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
             if p:
                 agg['repl'] += p
                 agg['priced'] += 1
+            if flc and flc[0] > 0:
+                agg['realp'] += 1
+                agg['wdv'] += flc[1]
+                if flc[1] <= 0 and sh > 0:
+                    agg['wdv0'] += 1
             if rt:
                 agg['rated'] += 1
                 agg['rate_sum'] += rt
@@ -236,6 +272,7 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
             'tuB': 100.0 * u['billed'] / fleet_days if fleet_days else 0.0,
             'tuO': 100.0 * u['occ'] / fleet_days if fleet_days else 0.0,
             'repl': u['repl'], 'priced': u['priced'],
+            'realp': u['realp'], 'wdv': u['wdv'], 'wdv0': u['wdv0'],
             'rev': rev, 'pot': pot, 'monthly': u['monthly'],
             'fu': 100.0 * rev / pot if pot else None,
             'roc': 100.0 * rev / u['repl'] if u['repl'] else None,
@@ -261,6 +298,9 @@ def build(rental_path, txn_path, onhire_path, master, today=None):
            'occ': sum(r['occ'] for r in rows),
            'repl': sum(r['repl'] for r in rows),
            'priced': sum(r['priced'] for r in rows),
+           'realp': sum(r['realp'] for r in rows),
+           'wdv': sum(r['wdv'] for r in rows),
+           'wdv0': sum(r['wdv0'] for r in rows),
            'rev': sum(r['rev'] for r in rows),
            'pot': sum(r['pot'] for r in rows),
            'monthly': sum(r['monthly'] for r in rows)}
@@ -440,7 +480,15 @@ tr.tot td{font-weight:700;border-top:2px solid #1D1D1B}
                 "stream reads zero this run</b>")
              + ". Items with no rate anywhere ride at the unit average. "
              "Capital = the master's replacement cost; units missing "
-             "prices read LOW on capital, HIGH on ROC.</div>")
+             "prices read LOW on capital, HIGH on ROC."
+             + ((" <b>Real dollars:</b> {rp} unit(s) priced from the "
+                "MyBranch fleet file (what Coates actually paid); "
+                "book value (WDV) {wd} - and <b>{w0} written-down "
+                "unit(s) (WDV $0) earned hire this period - pure "
+                "return on dead capital.</b>").format(
+                 rp=tot.get('realp', 0), wd=money(tot.get('wdv', 0)),
+                 w0=tot.get('wdv0', 0)) if tot.get('realp') else '')
+             + "</div>")
         def _mcells(r, is_tot=False):
             cs = ["<td class='r'>" + money(r['rev']) + "</td>"]
             if fu:
