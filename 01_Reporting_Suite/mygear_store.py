@@ -481,7 +481,7 @@ CSS = """
 /* the aisle IS the address - wear it like one (Andrew, 1 Aug 2026) */
 .loc{font-style:normal;color:#FFB347;font-weight:800;letter-spacing:.4px;
   text-transform:uppercase;font-size:10px}
-.loc:before{content:"\1F4CD ";font-size:9px}
+.loc:before{content:"📍 ";font-size:9px}
 .stkit{margin-top:5px;font-size:10.5px;color:#8A97A8;line-height:1.5}
 .stkit b{color:#FFB347}
 .strider{margin-top:4px;font-size:10px;font-weight:800;letter-spacing:.5px;
@@ -668,7 +668,7 @@ function stRender(reset){
       html += '<div class="strow ' + cls + '" style="animation-delay:'
         + Math.min(i*14,280) + 'ms">'
         + thTile(it.v, it.n)
-        + '<div class="stn"><b>' + it.n + '</b><span><i class="loc">' + it.u + '</i>
+        + '<div class="stn"><b>' + it.n + '</b><span><i class="loc">' + it.u + '</i>'
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
         + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div>'
         + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
