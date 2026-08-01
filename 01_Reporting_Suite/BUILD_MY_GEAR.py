@@ -1486,8 +1486,8 @@ __TILES__
 <span><i class="tp"></i>Any phone</span>
 </div>
 
-</div>
 <div class="ft"><b style="color:#F26222">Updated once a day, about 7:00 AM.</b> Anything taken or handed back since then shows on tomorrow's refresh.<br>Read-only SiteIQ snapshot as at __ASOF__ &middot; locked to your own ID — a wrong number shows nothing.<br><span class="val">MY GEAR HQ</span> · POWERED BY SITEIQ · Designed &amp; built by Andrew Fisher</div>
+</div>
 </div>
 <div id="result" class="card"></div>
 </div>
