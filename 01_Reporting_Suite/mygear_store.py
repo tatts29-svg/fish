@@ -444,6 +444,9 @@ CSS = """
 .stcard{background:#151A22;border:1px solid #28323F;border-radius:16px;
  overflow:hidden;display:flex;flex-direction:column}
 .stcard.none{border-color:#5a2622}
+.stalt{margin-top:5px;font-size:10.5px;color:#8A97A8;line-height:1.55}
+.stalt b{color:#35D68A;letter-spacing:.3px}
+.stalt span{color:#C3CDDA;font-weight:700}
 .stcard .im{position:relative;aspect-ratio:1/1;background:#1B2330;
  display:flex;align-items:center;justify-content:center;overflow:hidden}
 .stcard .im img{width:100%;height:100%;object-fit:cover;display:block}
@@ -511,6 +514,21 @@ function stFam(n){
     .replace(/[-\\u2013]\\s*[\\d,\\/. ]+\\s*(mm|in|inch|")?\\s*$/i,'')
     .split(' - ')[0].replace(/[-\\s]+$/,'').trim();
   return f||String(n||'');
+}
+/* NONE never dead-ends (Andrew, 1 Aug 2026): when the shelf is empty,
+   the card offers the nearest sizes of the same family that ARE on the
+   shelf - every "no" comes with a "but here's your answer". */
+function stAlt(it){
+  var fam = stFam(it.n), out = [], i, s;
+  for(i=0;i<STORE.length;i++){ s = STORE[i];
+    if(s.n === it.n || !s.q || s.q <= 0) continue;
+    if(stFam(s.n) !== fam) continue;
+    out.push(s); if(out.length >= 3) break;
+  }
+  if(!out.length) return '';
+  return '<div class="stalt"><b>But on the shelf:</b> '
+    + out.map(function(s){return '<span>' + s.n + ' &times;' + s.q + '</span>'})
+         .join(' &middot; ') + '</div>';
 }
 function stRender(reset){
   var box = document.getElementById('st-list'); if(!box) return;
@@ -596,14 +614,14 @@ function stRender(reset){
         + '<div class="bd"><b>' + it.n + '</b>'
         + '<span>' + it.u + ' &middot; ' + lab
         + (it.v ? '<br><i class="vc">' + it.v + '</i>' : '') + '</span>'
-        + stChips(it.fl) + '</div></div>';
+        + stChips(it.fl) + (it.q===0 ? stAlt(it) : '') + '</div></div>';
     } else {
       html += '<div class="strow ' + cls + '" style="animation-delay:'
         + Math.min(i*14,280) + 'ms">'
         + thTile(it.v, it.n)
         + '<div class="stn"><b>' + it.n + '</b><span>' + it.u
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
-        + stChips(it.fl) + '</div>'
+        + stChips(it.fl) + (it.q===0 ? stAlt(it) : '') + '</div>'
         + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span></div></div>';
     }
   }
