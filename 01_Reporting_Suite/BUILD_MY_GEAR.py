@@ -1458,6 +1458,80 @@ input:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 4px rgba(242,9
 .story{background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;border-left:3px solid #F26222;border-radius:0 14px 14px 0;padding:13px 15px;margin:14px 0;font-size:13px;line-height:1.6;color:#DCE3EC}
 .story b{color:var(--bright)}
 h3.sec{font-size:10px;color:#6B7789;text-transform:uppercase;letter-spacing:2.4px;font-weight:800;margin:18px 0 9px}
+/* ---- THE INSTRUMENT PANEL (Andrew's pack, 2 Aug 2026) -----------
+   "The panel should feel like physical store equipment" - his rule,
+   and it is the right one. So: a power rail that energises once when
+   the report lands, every section numbered like a module on a rack,
+   and the hire ages read as three lit cells instead of a thin bar.
+   No blur, no fog, no particles, no looping pulses. Everything below
+   settles once and then sits still, the way a real gauge does.
+------------------------------------------------------------------ */
+.pcard{counter-reset:mod}
+h3.sec:before{counter-increment:mod;
+ content:"MODULE " counter(mod,decimal-leading-zero);display:block;
+ color:#F26222;font-size:9px;letter-spacing:2.4px;margin-bottom:4px}
+.prail{position:relative;height:3px;border-radius:3px;margin:13px 0 0;
+ background:#1A2331;overflow:hidden}
+.prail:after{content:"";position:absolute;inset:0;transform:scaleX(0);
+ transform-origin:left;animation:prail .9s .12s cubic-bezier(.16,1,.3,1) both;
+ background:linear-gradient(90deg,#F26222,#FFA24D 55%,rgba(255,162,77,0))}
+@keyframes prail{to{transform:scaleX(1)}}
+.prsub{margin-top:7px;font-size:9px;font-weight:800;letter-spacing:1.8px;
+ color:#6B7789;text-transform:uppercase}
+/* the hire age tracker - clear / watch / return */
+.hage{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:9px}
+.hcell{border:1px solid #263143;border-radius:14px;padding:11px 5px 9px;
+ text-align:center;background:linear-gradient(160deg,#121A27,#0C121C)}
+.hcell small{display:block;font-size:8px;font-weight:800;letter-spacing:1.2px;
+ color:#8794A6}
+.hcell b{display:block;margin:5px 0 3px;font-size:24px;font-weight:800;
+ color:#F5F7FB;line-height:1}
+.hcell em{display:block;font-style:normal;font-size:8px;font-weight:800;
+ letter-spacing:1.6px;color:#6B7789}
+/* green is the good column so it always reads green. Amber and red only
+   light up when they have something in them - a zero glowing red is a
+   lie about a bloke who is square with the store. */
+.hcell.g{border-color:rgba(53,214,138,.45);
+ background:linear-gradient(160deg,rgba(53,214,138,.13),#0C121C)}
+.hcell.g em{color:#35D68A}
+.hcell.a.hot{border-color:rgba(240,180,41,.5);
+ background:linear-gradient(160deg,rgba(240,180,41,.14),#0C121C)}
+.hcell.a.hot em{color:#F0B429}
+.hcell.r.hot{border-color:rgba(255,90,77,.5);
+ background:linear-gradient(160deg,rgba(255,90,77,.14),#0C121C)}
+.hcell.r.hot em{color:#FF5A4D}
+.hold{font-size:9px;font-weight:800;letter-spacing:1.6px;color:#8794A6;
+ text-align:right;margin:-4px 0 9px}
+/* the shift docket - his stamp, wrapped round the story that was
+   already there rather than repeating it underneath */
+.sdock{display:flex;gap:12px;align-items:flex-start;margin:14px 0;padding:13px 15px;
+ border:1px solid #263143;border-left:3px solid #F26222;border-radius:0 14px 14px 0;
+ background:linear-gradient(160deg,#121A27,#0C121C)}
+.stamp{flex:none;width:66px;padding:9px 5px;border:2px solid #F26222;
+ border-radius:10px;transform:rotate(-3deg);text-align:center;color:#F26222;
+ font-size:9px;font-weight:900;letter-spacing:1.2px;line-height:1.35}
+.sdbody{min-width:0;flex:1}
+.sdbody .sdlab{font-size:9px;font-weight:800;letter-spacing:2.2px;color:#6B7789;
+ margin-bottom:5px}
+.sdtx{font-size:13px;line-height:1.6;color:#DCE3EC}
+.sdtx b{color:var(--bright)}
+.sdnums{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}
+.sdnums span{padding:9px 4px;text-align:center;border:1px solid #263143;
+ border-radius:11px;background:#0B111A;font-size:8px;font-weight:800;
+ letter-spacing:.9px;color:#8794A6}
+.sdnums b{display:block;margin-bottom:3px;font-size:17px;color:#F5F7FB}
+/* NEXT ACTION - only ever fires on a real 5+ day item */
+.nact{display:flex;gap:11px;align-items:center;margin-top:10px;padding:12px 14px;
+ border:1px solid rgba(255,90,77,.5);border-left:3px solid #FF5A4D;
+ border-radius:0 14px 14px 0;
+ background:linear-gradient(90deg,rgba(255,90,77,.12),rgba(255,90,77,.02))}
+.nact .nal{font-size:9px;font-weight:800;letter-spacing:2.2px;color:#FF5A4D}
+.nact .nab{display:block;margin-top:4px;font-size:14.5px;font-weight:800;
+ color:#F5F7FB;line-height:1.3}
+.nact .nas{display:block;margin-top:3px;font-size:11.5px;color:#8794A6}
+.nact .nax{flex:none;width:34px;height:34px;border-radius:11px;display:flex;
+ align-items:center;justify-content:center;font-size:19px;font-weight:800;
+ color:#fff;background:#E5443A}
 .item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;border-radius:14px;padding:10px 12px;margin-bottom:8px}
 .item .d{font-size:13px;color:#eef2f8;font-weight:600}.item .n{font-size:11px;color:var(--mut);margin-top:1px}
 /* the item's own picture - what the thing in your name LOOKS like.
@@ -1861,6 +1935,8 @@ __TILES__
 __SHEET__
 <script>//__QRJS__//
 var DATA=__DATA__;
+/* the snapshot date, for the power rail's line under the header */
+var ASOF="__ASOF__";
 
 /* THE CARD'S ICONS (2 Aug 2026). Same drawing rules as the front
    door's tiles - 24 viewBox, 1.8 stroke, round caps, currentColor - so
@@ -2066,6 +2142,15 @@ function renderCard(p){
  else if(!(st.sameday>0)){rankline=st.returned+' returned so far &mdash; same-day returns are what lift your score'}
  else{rankline='<b class="neon">#'+rk.comp+'</b> of '+rk.compTotal+' in your crew &middot; top '+rk.pct+'% on site'}
  var html='<div class="pcard"><div class="ph"><div class="pavatar">'+esc(p.initials||'K2')+'</div><div class="pmeta"><div class="nm">'+esc(p.name)+'</div><div class="co">'+esc(p.company)+'</div></div><div class="idb">ID '+esc(p.id)+'</div></div>'
+ /* the power rail energises once as the report lands - his idea, and
+    it is the thing that makes the card read as equipment rather than
+    a web page. The line under it says what this snapshot IS. */
+ /* one line, one line only - a wrapped subtitle under a power rail
+    looks like a mistake. The date only earns its place when the export
+    actually carried one. */
+ +'<div class="prail"></div><div class="prsub">Cement Australia K2 &middot; Gladstone'
+ +((typeof ASOF==='string'&&ASOF&&ASOF!=='last refresh')?' &middot; '+esc(ASOF):'')
+ +'</div>'
  +'<div class="scorewrap">'+ring+'<div class="scoremeta"><div class="scorelab">Returns Score</div><div class="rankline">'+rankline+'</div><div class="rate2"><span class="stars">'+stars(r.stars)+'</span> <b>'+esc(r.label)+'</b></div></div></div>'
  +(badges?'<div class="badges">'+badges+'</div>':'')
  +'<div class="stats">'
@@ -2075,10 +2160,40 @@ function renderCard(p){
  +'<div class="st good">'+sticon('bolt','same-day',1)+'<div class="sv"><div class="v'+(st.sameday>0?' neon':'')+'" data-to="'+st.sameday+'">0</div><div class="l">Same-day</div></div></div></div>'
  +(p.cmp?'<h3 class="sec">How you compare</h3><div class="cmp">'+cmpbar('You',p.cmp.you,1)+cmpbar('Your crew',p.cmp.crew,0)+cmpbar('Site avg',p.cmp.site,0)+(rk.crewPos?'<div class="crewline">'+esc(p.company)+' sits <b>#'+rk.crewPos+'</b> of '+rk.crewOf+' crews on site</div>':'')+'</div>':'')
  +(segs?'<h3 class="sec">Your kit mix</h3><div class="mix">'+segs+'</div><div class="legend">'+legend+'</div>':'')
- +'<div class="story">'+p.story+'</div>'
- +'<h3 class="sec">Your gear on hire now</h3>';
- var ag=p.aging||{g:0,a:0,r:0},att=(ag.g+ag.a+ag.r)||1;
- html+='<div class="agingbar"><div class="ab" style="width:'+(100*ag.g/att)+'%;background:#35D68A"></div><div class="ab" style="width:'+(100*ag.a/att)+'%;background:#F0B429"></div><div class="ab" style="width:'+(100*ag.r/att)+'%;background:#FF5A4D"></div></div><div class="legend"><span class="lg"><span class="dot" style="background:#35D68A"></span>0–2d '+ag.g+'</span><span class="lg"><span class="dot" style="background:#F0B429"></span>3–4d '+ag.a+'</span><span class="lg"><span class="dot" style="background:#FF5A4D"></span>5+d '+ag.r+'</span></div>';
+ /* THE SHIFT DOCKET (his module 04). The story was already written and
+    already true - this frames it as a docket off the counter and puts
+    the three numbers it mentions in prose where they can be read at a
+    glance instead of hunted for in a sentence. */
+ +'<div class="sdock"><div class="stamp">SHIFT<br>DOCKET</div><div class="sdbody">'
+ +'<div class="sdlab">PERSONAL RETURN SUMMARY</div>'
+ +'<div class="sdtx">'+p.story+'</div>'
+ /* His docket carries three counters. Ours does NOT: store visits and
+    transactions are already the store scorecard below, and returned is
+    already a stat tile above. Printing them a third time inside the
+    docket made the card look padded. The stamp and the summary are the
+    value here - the numbers have their own homes. */
+ +'</div></div>';
+ /* THE HIRE AGE TRACKER (his module 03). This replaces the thin
+    three-colour bar that used to sit here: same three numbers, but now
+    they are readable without a legend and each one says what it wants
+    a bloke to DO - clear, watch, return. */
+ var ag=p.aging||{g:0,a:0,r:0};
+ var oldest=null;
+ (p.items||[]).forEach(function(it){var d=parseInt(it.days);
+   if(!isNaN(d)&&(!oldest||d>oldest.d)) oldest={d:d,nm:it.d}});
+ /* A bloke who is square with the store gets NOTHING here - no heading,
+    no three empty cells. The old thin bar drew nothing so it hid this;
+    the tracker's cells are big enough that three zeros would read as a
+    fault. Return clearance below already tells him he is cleared. */
+ if(st.items>0){
+  html+='<h3 class="sec">Your gear on hire now</h3>'
+  +'<div class="hage">'
+  +'<div class="hcell g"><small>0&ndash;2 DAYS</small><b>'+ag.g+'</b><em>CLEAR</em></div>'
+  +'<div class="hcell a'+(ag.a>0?' hot':'')+'"><small>3&ndash;4 DAYS</small><b>'+ag.a+'</b><em>WATCH</em></div>'
+  +'<div class="hcell r'+(ag.r>0?' hot':'')+'"><small>5+ DAYS</small><b>'+ag.r+'</b><em>RETURN</em></div>'
+  +'</div>'
+  +(oldest?'<div class="hold">OLDEST &middot; '+oldest.d+' DAY'+(oldest.d===1?'':'S')+'</div>':'');
+ }
  // it.b is the compliance chips, built and escaped in Python before it was
  // encrypted into the payload. It goes in as HTML on purpose - do NOT wrap
  // it in esc() or the crew see markup instead of the tag colour. Every
@@ -2086,8 +2201,16 @@ function renderCard(p){
  p.items.forEach(function(it,ii){html+='<div class="item" style="animation-delay:'+Math.min(ii*0.05,0.65).toFixed(2)+'s">'+wthumb(it)+'<div class="itxt"><div class="d">'+esc(it.d)+'</div><div class="n"><span class="idot" style="background:'+(it.c||"#8A97A8")+';width:8px;height:8px;display:inline-block;border-radius:50%;margin-right:5px;vertical-align:0"></span>Item '+esc(it.n)+(it.pid?'<span class="pid">ID '+esc(it.pid)+'</span>':'')+'</div>'+(it.b?'<div class="cb">'+it.b+'</div>':'')+'</div><div class="age '+ageCls(it.days)+'">'+(it.days==='-'?'—':it.days+'d')+'</div></div>'});
  // The one item that's been out longest gets its own line - a story,
  // not a nag. Only shows from 3 days out, so a fresh kit stays clean.
- var lgh=null;p.items.forEach(function(it){var d=parseInt(it.days);if(!isNaN(d)&&(!lgh||d>lgh.d))lgh={d:d,nm:it.d}});
- if(lgh&&lgh.d>=3){html+='<div class="lgheld">Longest out: <b>'+esc(lgh.nm)+'</b> &mdash; <span class="neon" style="font-weight:800">'+lgh.d+' days</span>. Finished with it? Straight to the counter and it\'s off your list.</div>'}
+ // From 5 days it becomes NEXT ACTION in his instrument style: red is
+ // reserved for a genuine 5+ day return and nothing else, so when a
+ // bloke sees red on this card it always means the same thing.
+ var lgh=oldest;
+ if(lgh&&lgh.d>=5){html+='<div class="nact"><div><span class="nal">NEXT ACTION</span>'
+   +'<b class="nab">'+ag.r+' item'+(ag.r===1?'':'s')+' now 5+ days out</b>'
+   +'<span class="nas">Oldest: '+esc(lgh.nm)+' &middot; '+lgh.d+' days. Finished with it? '
+   +'Straight to the counter and it\'s off your list.</span></div>'
+   +'<span class="nax">!</span></div>'}
+ else if(lgh&&lgh.d>=3){html+='<div class="lgheld">Longest out: <b>'+esc(lgh.nm)+'</b> &mdash; <span class="neon" style="font-weight:800">'+lgh.d+' days</span>. Finished with it? Straight to the counter and it\'s off your list.</div>'}
  // One plain-English summary of what the whole list obliges them to do -
  // the chips say it per item, this says it once so nothing gets skimmed.
  if(p.comp&&p.comp.any){var cbits=[];
@@ -2121,9 +2244,13 @@ function renderCard(p){
  }
  html+='<div class="help"><b>We\'re here to help.</b> Finished with something? Bring it back and we\'ll clean it and get it ready for the next crew. Need gear, or something\'s not right? Tell the tool store team, day or night — we\'ll sort it, no fuss.</div>';
   html+='<div class="guidelink" onclick="openGuide(\'contacts\')"><b>Site guides</b><span>Contact board &middot; radio &middot; gas monitor</span><em>&rsaquo;</em></div>';
- // BOTH barcodes - the card number and SiteIQ's hirer ID, drawn
- // properly so a counter scanner reads them straight off the phone.
- html+=barcodePair(p.id,p.hid)
+ // THE BARCODES CAME OFF THE PHONE SCREEN (Andrew, 2 Aug 2026: "can we
+ // remove this part"). Two white blocks in the middle of a dark report
+ // is a hard stop for the eye, and in practice the counter scans the
+ // bloke's actual Coates card, not a picture of one on his phone.
+ // They are STILL ON THE PRINTED A4, where a scanner genuinely needs
+ // them - see barcodePair() in the print sheet. Nothing else changed:
+ // the ID still shows in the header badge and on the welcome card.
  // A Scan button HERE too (Andrew, 27 Jul 2026): once you are in, the
  // only way to look up another card was Done then re-type. At a busy
  // counter that is the wrong answer - scan the next bloke's card from
