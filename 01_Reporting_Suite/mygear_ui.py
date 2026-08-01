@@ -771,11 +771,157 @@ function openStoreNow(){
   if(typeof stRender==='function') stRender(true);
   if(history&&history.pushState) history.pushState({guide:'store'},'');
 }
+/* ================= THE PERSONAL GEAR BAY =========================
+   Andrew's second pack, 2 Aug 2026, and his reasoning drives it: the
+   stores team comes through the big roller shutter because they are
+   walking into the WHOLE store. A bloke's ID unlocks only HIS gear, so
+   he comes through a smaller secured mesh gate. Two doors, two rights.
+
+   It sits in exactly one seam - between the welcome card's OPEN MY GEAR
+   button and renderCard() - so if any part of it fails, the report
+   still lands. Same safeties as the roller door: SKIP ENTRY, Escape,
+   reduced motion, and a bail if the bay photograph will not load.
+
+   It plays EVERY time, matching the call Andrew made on the shutter.
+
+   The sound is generated live in the browser - two access tones, a
+   magnetic-lock clunk, filtered gate travel and three docket ticks.
+   There are no audio files. It is ON by default the way his pack
+   shipped it, and the SOUND button parks that choice in this browser
+   so a bloke in a quiet crib room only has to say it once.
+================================================================= */
+var WG_DEAD=false, WG_BUSY=false, WG_T=[], WG_HOLD=490, WG_MS=4280, WG_AC=null;
+function wgCan(){
+  try{
+    if(WG_DEAD||WG_BUSY) return false;
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)
+      return false;
+  }catch(e){}
+  return !!document.getElementById('gatebay');
+}
+function wgSoundOn(){
+  try{ return localStorage.getItem('k2gatesound')!=='off'; }catch(e){ return true; }
+}
+function wgSound(){
+  var on=!wgSoundOn();
+  try{ localStorage.setItem('k2gatesound', on?'on':'off'); }catch(e){}
+  wgPaintSnd();
+  if(!on) wgHush();
+}
+function wgPaintSnd(){
+  var b=document.getElementById('wg-snd'); if(!b) return;
+  var on=wgSoundOn();
+  b.className='wg-snd'+(on?'':' off');
+  b.textContent=on?'SOUND':'MUTED';
+  b.setAttribute('aria-pressed', on?'true':'false');
+}
+function wgHush(){ try{ if(WG_AC){WG_AC.close(); WG_AC=null;} }catch(e){} }
+/* one oscillator, shaped - the same helper his pack uses */
+function wgTone(c,d,at,hz,dur,vol,type){
+  var o=c.createOscillator(), g=c.createGain();
+  o.type=type||'sine'; o.frequency.setValueAtTime(hz,at);
+  g.gain.setValueAtTime(0.0001,at);
+  g.gain.exponentialRampToValueAtTime(vol,at+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001,at+dur);
+  o.connect(g).connect(d); o.start(at); o.stop(at+dur+0.02);
+}
+function wgNoise(){
+  var A=window.AudioContext||window.webkitAudioContext;
+  if(!A||!wgSoundOn()) return;
+  try{
+    wgHush(); WG_AC=new A();
+    var c=WG_AC, now=c.currentTime, m=c.createGain();
+    m.gain.value=0.72; m.connect(c.destination);
+    /* the ID confirm */
+    wgTone(c,m,now+0.03,560,0.085,0.07);
+    wgTone(c,m,now+0.12,735,0.12,0.06);
+    /* the magnetic lock letting go */
+    var ka=now+0.32, k=c.createOscillator(), kg=c.createGain();
+    k.type='triangle'; k.frequency.setValueAtTime(102,ka);
+    k.frequency.exponentialRampToValueAtTime(36,ka+0.19);
+    kg.gain.setValueAtTime(0.0001,ka);
+    kg.gain.exponentialRampToValueAtTime(0.24,ka+0.012);
+    kg.gain.exponentialRampToValueAtTime(0.0001,ka+0.23);
+    k.connect(kg).connect(m); k.start(ka); k.stop(ka+0.25);
+    /* the gates travelling - filtered noise, not a recording */
+    var ss=now+0.90, sd=2.35;
+    var buf=c.createBuffer(1,Math.floor(c.sampleRate*sd),c.sampleRate),
+        dat=buf.getChannelData(0);
+    for(var i=0;i<dat.length;i++) dat[i]=(Math.random()*2-1)*0.22;
+    var ns=c.createBufferSource(), f=c.createBiquadFilter(), sg=c.createGain();
+    f.type='bandpass'; f.frequency.value=245; f.Q.value=0.72;
+    sg.gain.setValueAtTime(0.0001,ss);
+    sg.gain.exponentialRampToValueAtTime(0.034,ss+0.12);
+    sg.gain.setValueAtTime(0.028,ss+sd-0.12);
+    sg.gain.exponentialRampToValueAtTime(0.0001,ss+sd);
+    ns.buffer=buf; ns.connect(f).connect(sg).connect(m); ns.start(ss);
+    /* the docket printing */
+    var fa=now+3.66;
+    wgTone(c,m,fa,158,0.07,0.032,'square');
+    wgTone(c,m,fa+0.11,171,0.065,0.026,'square');
+    wgTone(c,m,fa+0.22,188,0.06,0.021,'square');
+  }catch(e){}
+}
+/* the plate and the docket carry HIS numbers, never demo ones */
+function wgFill(p){
+  var st=(p&&p.stats)||{}, ag=(p&&p.aging)||{g:0,a:0,r:0};
+  var nm=document.getElementById('wg-nameplate');
+  var si=document.getElementById('wg-siteplate');
+  var dk=document.getElementById('wg-docket');
+  if(nm) nm.textContent=p.name||'';
+  if(si) si.textContent=(p.company||'')+' · ID '+(p.id||'');
+  if(!dk) return;
+  var cells;
+  if((ag.g+ag.a+ag.r)>0){
+    cells='<span><b>'+(st.items||0)+'</b>IN YOUR NAME</span>'
+     +'<span class="a"><b>'+ag.a+'</b>3&ndash;4 DAYS</span>'
+     +'<span class="'+(ag.r>0?'r':'g')+'"><b>'+ag.r+'</b>5+ DAYS</span>';
+  }else{
+    /* no hire dates in the export - say what we DO know rather than
+       printing three zeros and calling it a docket */
+    cells='<span><b>'+(st.items||0)+'</b>IN YOUR NAME</span>'
+     +'<span><b>'+(st.types||0)+'</b>ITEM TYPES</span>'
+     +'<span class="g"><b>'+(st.returned||0)+'</b>RETURNED</span>';
+  }
+  var who=String(p.name||'').toUpperCase();
+  who=(typeof esc==='function')?esc(who):who.replace(/[<>&"]/g,'');
+  dk.innerHTML='<small>YOUR GEAR TODAY</small><b class="who">'+who+'</b>'
+   +'<div class="wg-dnums">'+cells+'</div>';
+}
+function wgBail(){ WG_DEAD=true; wgEnd(); }
+function wgSkip(){ wgEnd(); }
+function wgEnd(){
+  var g=document.getElementById('gatebay');
+  for(var i=0;i<WG_T.length;i++) clearTimeout(WG_T[i]);
+  WG_T=[]; wgHush();
+  if(g) g.className='wg';
+  WG_BUSY=false;
+  document.body.style.overflow='';
+  if(window.PENDING && typeof renderCard==='function') renderCard(window.PENDING);
+}
+function wgPlay(p){
+  var g=document.getElementById('gatebay');
+  if(!g){ if(window.PENDING&&typeof renderCard==='function') renderCard(window.PENDING); return; }
+  WG_BUSY=true;
+  wgFill(p); wgPaintSnd(); wgNoise();
+  try{ if(navigator.vibrate) navigator.vibrate([35,45,80]); }catch(e){}
+  document.body.style.overflow='hidden';
+  g.className='wg on';              // latch recoil + the name plate
+  void g.offsetWidth;               // restart the animation cleanly
+  WG_T.push(setTimeout(function(){  // then the gates take the weight
+    g.className='wg on run';
+  }, WG_HOLD));
+  WG_T.push(setTimeout(wgEnd, WG_MS));
+}
 document.addEventListener('keydown',function(e){
   if(DW_BUSY&&(e.key==='Escape'||e.keyCode===27)) dwSkip();
+  else if(WG_BUSY&&(e.key==='Escape'||e.keyCode===27)) wgSkip();
 });
 
 function openGuide(k){
+  /* the door covers the screen, but the hero card keeps keyboard focus -
+     a second Enter would otherwise open the store behind the shutter */
+  if(DW_BUSY) return;
   /* the store gets the roller door, every single time */
   if(k==='store'&&dwCan()){
     var p0=document.querySelectorAll('.gpane');

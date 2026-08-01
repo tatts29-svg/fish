@@ -1237,6 +1237,169 @@ input:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 4px rgba(242,9
  24%{opacity:.2;transform:scaleX(.84)}62%,100%{opacity:.5;transform:scaleX(1)}}
 @media (prefers-reduced-motion: reduce){.dw{display:none!important}}
 
+/* ---- THE PERSONAL GEAR BAY (Andrew's own pack, 2 Aug 2026) -------
+   His second door, and the thinking behind it is his: the stores team
+   comes through the big roller shutter because they are walking into
+   the WHOLE store. A bloke's ID only unlocks HIS OWN gear, so he comes
+   through a smaller secured mesh gate. Two different doors for two
+   different rights, which is exactly right.
+
+   The motion is his: a short latch recoil, the two panels sliding
+   apart under weight with a load pause at 58-72%, the bay lighting
+   waking front to back, warm floor light spreading as the gap widens,
+   and a personal docket rising with his name and counts before the
+   report takes the screen.
+
+   Every panel here is CSS. The only photograph is his bay image, so
+   the whole thing costs one 107 KB WebP.
+
+   IT PLAYS EVERY TIME, same call he made on the roller door. SKIP
+   ENTRY and Escape are on screen for every run, and a phone set to
+   reduce motion never sees it.
+------------------------------------------------------------------ */
+.wg{position:fixed;inset:0;z-index:82;display:none;background:#050a10;
+ overflow:hidden}
+.wg.on{display:block}
+.wg-stage,.wg-bay,.wg-wake,.wg-floor,.wg-vig{position:absolute;inset:0;
+ width:100%;height:100%}
+.wg-stage{z-index:1;overflow:hidden;background:#050a10}
+.wg-bay{object-fit:cover;object-position:center;transform:scale(1.018);
+ filter:brightness(.43) saturate(.76) contrast(1.12)}
+.wg.run .wg-bay{animation:wg-cam 3.52s cubic-bezier(.18,.78,.18,1) both}
+.wg-wake{opacity:0;mix-blend-mode:screen;background:
+ linear-gradient(180deg,rgba(255,126,50,.12),transparent 25%),
+ radial-gradient(ellipse at 50% 44%,rgba(255,111,33,.22),transparent 53%)}
+.wg.run .wg-wake{animation:wg-wake 3.3s ease-out both}
+.wg-floor{inset:56% -12% -8%;width:auto;height:auto;opacity:0;
+ transform:scaleX(.55);mix-blend-mode:screen;
+ background:radial-gradient(ellipse at 50% 100%,rgba(255,89,22,.65),
+  rgba(255,89,22,.13) 40%,transparent 72%)}
+.wg.run .wg-floor{animation:wg-floor 3.4s ease-out both}
+/* the two mesh panels - steel frame, expanded mesh, centre brace */
+.wg-panel{position:absolute;z-index:7;top:0;bottom:0;width:51.5%;
+ overflow:hidden;will-change:transform;background:linear-gradient(90deg,
+  rgba(6,9,13,.9),rgba(18,25,34,.82) 9%,rgba(8,12,17,.68) 94%,
+  rgba(1,3,5,.92));
+ box-shadow:inset 0 0 0 7px #171F2A,inset 0 0 0 9px rgba(102,119,139,.38),
+  0 0 24px rgba(0,0,0,.72)}
+.wg-left{left:0}
+.wg-right{right:0;transform:scaleX(-1)}
+.wg-mesh{position:absolute;inset:8px;opacity:.82;
+ background-color:rgba(6,10,15,.74);background-size:20px 14px;
+ background-image:
+  linear-gradient(54deg,transparent 43%,rgba(101,115,132,.78) 44%,
+   rgba(31,40,51,.94) 49%,rgba(120,133,149,.68) 53%,transparent 54%),
+  linear-gradient(-54deg,transparent 43%,rgba(96,111,128,.68) 44%,
+   rgba(27,36,47,.94) 49%,rgba(111,126,143,.66) 53%,transparent 54%);
+ box-shadow:inset 0 0 55px rgba(0,0,0,.78)}
+.wg-brace{position:absolute;top:10%;bottom:10%;left:47%;width:7px;
+ border-radius:4px;box-shadow:0 0 12px rgba(0,0,0,.72);
+ background:linear-gradient(90deg,#080B0F,#657287 35%,#1B2430 63%,#05070A)}
+.wg-seam{position:absolute;z-index:8;top:0;bottom:0;left:calc(50% - 3px);
+ width:6px;box-shadow:0 0 16px #000;
+ background:linear-gradient(90deg,#080B10,#758195 47%,#101722 55%,#020304)}
+.wg-shadow{position:absolute;z-index:6;inset:0;pointer-events:none;
+ opacity:.86;background:linear-gradient(90deg,rgba(0,0,0,.65),transparent 22%,
+  transparent 78%,rgba(0,0,0,.65))}
+.wg.on .wg-panel{animation:wg-recoil .48s cubic-bezier(.2,.8,.2,1) both}
+.wg.on .wg-right{animation-name:wg-recoil-r}
+.wg.run .wg-left{animation:wg-open-l 3.52s cubic-bezier(.32,.05,.18,1) both}
+.wg.run .wg-right{animation:wg-open-r 3.52s cubic-bezier(.32,.05,.18,1) both}
+.wg.run .wg-seam{animation:wg-seam .34s ease-out both}
+.wg.run .wg-shadow{animation:wg-shadowout 3.1s ease-out both}
+/* The sign over the bay, in the door's materials. It sits BELOW the
+   two buttons on purpose - at 3.2% the SKIP pill landed on top of it
+   and the whole corner read as clutter. */
+.wg-sign{position:absolute;z-index:11;left:7%;right:7%;display:grid;
+ top:70px;top:calc(70px + env(safe-area-inset-top));
+ grid-template-columns:auto 1fr;align-items:end;gap:4px 12px;
+ padding:11px 13px 10px;border:1px solid #263143;border-radius:12px;
+ background:linear-gradient(160deg,#121A27,#0C121C);
+ box-shadow:0 10px 22px rgba(0,0,0,.54)}
+.wg-sign span{grid-row:1/3;align-self:center;color:#F26222;font-size:10px;
+ font-weight:800;letter-spacing:3px;writing-mode:vertical-rl;
+ transform:rotate(180deg)}
+.wg-sign strong{font-size:14px;font-weight:800;color:#F5F7FB;letter-spacing:1.2px}
+.wg-sign i{display:block;width:100%;height:2px;
+ background:linear-gradient(90deg,#F26222,transparent)}
+/* the name plate - the beat that says WE FOUND YOU before the gate moves */
+.wg-plate{position:absolute;z-index:12;left:8%;right:8%;bottom:7%;
+ display:flex;align-items:flex-start;gap:11px;padding:14px 15px;
+ border:1px solid #263143;border-radius:18px;
+ background:linear-gradient(160deg,#121A27,#0C121C);
+ box-shadow:0 18px 34px rgba(0,0,0,.58);
+ opacity:0;transform:translateY(14px);
+ transition:opacity .3s ease,transform .3s ease}
+.wg.on .wg-plate{opacity:1;transform:translateY(0)}
+.wg.run .wg-plate{opacity:0;transform:translateY(18px)}
+.wg-lamp{width:12px;height:12px;flex:none;margin-top:4px;border-radius:50%;
+ border:1px solid #65E8A8;background:#27B974;
+ box-shadow:0 0 0 4px rgba(53,199,132,.1),0 0 15px rgba(53,199,132,.82)}
+.wg-plate small{display:block;color:#8794A6;font-size:9.5px;font-weight:800;
+ letter-spacing:2.4px}
+.wg-plate strong{display:block;margin-top:4px;font-size:17px;font-weight:800;
+ color:#F5F7FB;letter-spacing:-.2px}
+.wg-plate em{display:block;margin-top:3px;font-style:normal;color:#8794A6;
+ font-size:11.5px;letter-spacing:.3px}
+/* the docket - his counts, in the report's own tile materials */
+.wg-docket{position:absolute;z-index:13;left:8%;right:8%;bottom:7%;
+ padding:15px 16px;pointer-events:none;opacity:0;
+ transform:translateY(70px) scale(.9);
+ border:1px solid rgba(242,98,34,.55);border-radius:18px;
+ background:linear-gradient(160deg,#121A27,#0C121C);
+ box-shadow:0 25px 52px rgba(0,0,0,.64),0 0 30px rgba(242,98,34,.13)}
+.wg.run .wg-docket{animation:wg-docket 1.15s 2.15s cubic-bezier(.16,1,.3,1) both}
+.wg-docket small{display:block;color:#F26222;font-size:9.5px;font-weight:800;
+ letter-spacing:2.4px}
+.wg-docket b.who{display:block;margin-top:5px;font-size:16px;font-weight:800;
+ color:#F5F7FB;letter-spacing:-.2px}
+.wg-dnums{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+ margin-top:12px}
+.wg-dnums span{padding:9px 5px;color:#8794A6;font-size:8.5px;font-weight:800;
+ letter-spacing:.6px;text-align:center;border:1px solid #263143;
+ border-radius:11px;background:#0B111A}
+.wg-dnums b{display:block;margin-bottom:3px;color:#F5F7FB;font-size:17px}
+.wg-dnums .a b{color:#FFB020}.wg-dnums .r b{color:#FF5A4D}
+.wg-dnums .g b{color:#35D68A}
+.wg-vig{z-index:14;pointer-events:none;background:radial-gradient(ellipse at 50% 46%,
+ transparent 42%,rgba(0,0,0,.55) 100%)}
+.wg-btns{position:absolute;z-index:16;right:14px;display:flex;gap:8px;
+ top:14px;top:calc(14px + env(safe-area-inset-top))}
+.wg-skip,.wg-snd{background:rgba(8,13,20,.78);border:1px solid #2A3547;
+ color:#DCE3EC;font:inherit;font-size:12px;font-weight:800;letter-spacing:1.4px;
+ border-radius:999px;padding:12px 18px;cursor:pointer;
+ -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.wg-snd{padding:12px 14px;letter-spacing:1px}
+.wg-snd.off{color:#6C7A8C}
+@keyframes wg-recoil{0%{transform:translateX(0)}55%{transform:translateX(-.7%)}
+ 100%{transform:translateX(0)}}
+@keyframes wg-recoil-r{0%{transform:scaleX(-1) translateX(0)}
+ 55%{transform:scaleX(-1) translateX(-.7%)}
+ 100%{transform:scaleX(-1) translateX(0)}}
+@keyframes wg-open-l{0%{transform:translateX(0)}8%{transform:translateX(-1.2%)}
+ 16%{transform:translateX(-.6%)}58%{transform:translateX(-70%)}
+ 72%{transform:translateX(-72%)}100%{transform:translateX(-107%)}}
+@keyframes wg-open-r{0%{transform:scaleX(-1) translateX(0)}
+ 8%{transform:scaleX(-1) translateX(-1.2%)}
+ 16%{transform:scaleX(-1) translateX(-.6%)}
+ 58%{transform:scaleX(-1) translateX(-70%)}
+ 72%{transform:scaleX(-1) translateX(-72%)}
+ 100%{transform:scaleX(-1) translateX(-107%)}}
+@keyframes wg-seam{from{opacity:1}to{opacity:0}}
+@keyframes wg-shadowout{from{opacity:.86}to{opacity:.06}}
+@keyframes wg-cam{0%,8%{transform:scale(1.018);
+  filter:brightness(.43) saturate(.76) contrast(1.12)}
+ 52%{transform:scale(1.045) translateY(-.3%);
+  filter:brightness(.72) saturate(.92) contrast(1.08)}
+ 100%{transform:scale(1.07) translateY(-.7%);
+  filter:brightness(.9) saturate(1.02) contrast(1.04)}}
+@keyframes wg-wake{0%,12%{opacity:0}58%{opacity:.24}100%{opacity:.42}}
+@keyframes wg-floor{0%,12%{opacity:0;transform:scaleX(.55)}
+ 64%{opacity:.34}100%{opacity:.46;transform:scaleX(1)}}
+@keyframes wg-docket{from{opacity:0;transform:translateY(70px) scale(.9)}
+ to{opacity:1;transform:translateY(0) scale(1)}}
+@media (prefers-reduced-motion: reduce){.wg{display:none!important}}
+
 /* ---- THE REPORT, IN THE DOOR'S MATERIALS (2 Aug 2026) ------------
    Andrew: "elite style matching and designing like we have done with
    the main page. any icons added. must be generated in such a way it
@@ -1671,6 +1834,30 @@ __TILES__
  <button type="button" class="dw-skip" onclick="dwSkip()">SKIP OPENING</button>
  <div class="dw-cap"><span>OPENING</span><b>What&rsquo;s in the store</b></div>
 </div>
+<div id="gatebay" class="wg" aria-hidden="true">
+ <div class="wg-stage">
+  <img class="wg-bay" src="art/personal-gear-bay.webp" alt="" onerror="wgBail()">
+  <div class="wg-wake"></div>
+  <div class="wg-floor"></div>
+ </div>
+ <div class="wg-sign"><span>MY GEAR HQ</span><strong>PERSONAL GEAR BAY</strong><i></i></div>
+ <div class="wg-panel wg-left"><div class="wg-mesh"></div><div class="wg-brace"></div></div>
+ <div class="wg-panel wg-right"><div class="wg-mesh"></div><div class="wg-brace"></div></div>
+ <div class="wg-seam"></div>
+ <div class="wg-shadow"></div>
+ <div class="wg-plate" id="wg-plate">
+  <span class="wg-lamp"></span>
+  <div><small>PERSONAL ACCESS</small><strong id="wg-nameplate">&nbsp;</strong>
+   <em id="wg-siteplate">&nbsp;</em></div>
+ </div>
+ <div class="wg-docket" id="wg-docket"></div>
+ <div class="wg-vig"></div>
+ <div class="wg-btns">
+  <button type="button" class="wg-snd" id="wg-snd" onclick="wgSound()"
+   title="Turn the entry sound on or off">SOUND</button>
+  <button type="button" class="wg-skip" onclick="wgSkip()">SKIP ENTRY</button>
+ </div>
+</div>
 __SHEET__
 <script>//__QRJS__//
 var DATA=__DATA__;
@@ -1844,7 +2031,19 @@ function notMe(){
  var d=document.querySelector('.door'); d.style.display='';
  idState(''); var i=document.getElementById('idno'); i.value=''; i.focus();
 }
-function openGear(){ if(window.PENDING) renderCard(window.PENDING); }
+/* OPEN MY GEAR. The personal gear bay goes in this one seam - if the
+   gate is unavailable for any reason the report lands exactly as it
+   always did, so the animation can never stand between a bloke and his
+   own record. (Andrew's Personal Gear Bay pack, 2 Aug 2026.) */
+function openGear(){
+ if(!window.PENDING) return;
+ /* the gate covers the screen, but the button keeps keyboard focus -
+    a second Enter would otherwise render the card behind the gate and
+    again when it finished */
+ if(typeof WG_BUSY!=='undefined' && WG_BUSY) return;
+ if(typeof wgCan==='function' && wgCan()){ wgPlay(window.PENDING); return; }
+ renderCard(window.PENDING);
+}
 
 function renderCard(p){
  var err=document.getElementById('err');
