@@ -53,6 +53,11 @@ import sys
 import day_rates as DR
 import mygear_intel as MI
 
+try:
+    import hidden_stock as HS
+except Exception:
+    HS = None
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 try:
@@ -95,6 +100,24 @@ BASEPLAN_ALIAS = [
     (__import__('re').compile(r'vantage', __import__('re').I),
      'Welder - Motorised - Diesel - 600A Air Vantage'),
 ]
+
+#  HIDDEN_ITEMS.txt APPLIES HERE TOO. (Andrew, 2 Aug 2026: "remove a
+#  8th welder".) The exports are pulled fresh every morning and written
+#  over the top, so a line cannot be removed once - it has to come out
+#  on every build, forever, without anybody remembering. That is what
+#  HIDDEN_ITEMS.txt already does for the shelf; this sheet now honours
+#  it as well. Put the item number in that file and it leaves this
+#  sheet - and every count, every day figure and every dollar on it -
+#  from the next build on.
+#
+#  WHAT IT REMOVES IS ALWAYS NAMED. Silent removal is not allowed
+#  anywhere in this suite, and it is least allowed on a sheet that
+#  carries money.
+#
+#  THE ZERO-CHARGE LINES ARE APPROVED (Andrew, 2 Aug 2026). 24 lines on
+#  the holding account record a shift and bill nothing - mostly
+#  forklifts. That is deliberate, so nothing here flags them and the
+#  cost check does not treat them as a fault.
 
 #  Statuses that mean the asset is no longer standing on site as plant.
 #  Andrew, 2 Aug 2026: departed gear shows as pending baseplan, or
@@ -283,6 +306,21 @@ def collect(today=None):
     while d <= last:
         days.append(d)
         d += dt.timedelta(days=1)
+
+    #  hidden first, before a single number is counted
+    dropped = []
+    if HS is not None:
+        try:
+            for item in sorted(on_account):
+                row = stock.get(item)
+                unit = MI._txt(row, 'STORAGE_UNIT') if row else ''
+                if HS.hidden(item, unit):
+                    dropped.append((item, MI._txt(row, 'ITEM_DESCRIPTION')
+                                    if row else ''))
+            for item, _d in dropped:
+                on_account.discard(item)
+        except Exception:
+            dropped = []
 
     lines = []
     grouped = collections.defaultdict(
@@ -499,7 +537,7 @@ def collect(today=None):
         '$used': sum(r['$used'] or 0 for r in rows),
         '$plant': sum(r['$plant'] or 0 for r in rows),
         '$idle': sum(r['$idle'] or 0 for r in rows),
-        'nearNames': near.most_common(),
+        'nearNames': near.most_common(), 'hidden': dropped,
     }
 
 
@@ -668,6 +706,13 @@ def main():
         d['neverUsed']))
     print(' Billed by    : {:,} SiteIQ | {:,} another stream (no SiteIQ '
           'charge line)'.format(d['billedSiteIQ'], d['billedOther']))
+    if d.get('hidden'):
+        print(' Hidden       : {} line(s) left out by HIDDEN_ITEMS.txt - '
+              'they are in'.format(len(d['hidden'])))
+        print('                no count, no day figure and no dollar on this')
+        print('                sheet:')
+        for it, ds in d['hidden'][:8]:
+            print('     {:<22} {}'.format(str(it)[:22], str(ds)[:44]))
     print(' Departed     : {:,} asset(s) have left site ({})'.format(
         d['departed'], ' / '.join(DEPARTED_STATUS)))
     if d['nearNames']:
