@@ -1662,7 +1662,19 @@ h3.sec:before{counter-increment:mod;
 .rnav button b:empty{display:none}
 body.hasrnav #result{padding-bottom:70px}
 @media print{.rnav,.gtools{display:none!important}
- [data-rv]{opacity:1!important;transform:none!important}}
+ [data-rv]{opacity:1!important;transform:none!important}
+ /* BIG ON THE PHONE, TIGHT ON PAPER. (Andrew, 3 Aug 2026: "i want
+    workers photo to be the same as stores, and when it prints it
+    stays tight.")
+    The photo is 132px on screen so it matches the store and stores
+    boards - the same tool the same size wherever a bloke looks at it.
+    On paper that costs 32px a row across every item a worker holds,
+    and this report gets printed and emailed, so it goes back to 88
+    for print only. Screen size is untouched; the two never argue
+    because they are two different media. */
+ .item .ith{width:88px!important;height:88px!important;
+  border-radius:10px!important}
+ .item{padding:7px 10px!important;margin-bottom:5px!important}}
 @media (min-width:900px){.rnav{max-width:560px;margin:0 auto;
  border-left:1px solid #263143;border-right:1px solid #263143;
  border-radius:14px 14px 0 0}}
