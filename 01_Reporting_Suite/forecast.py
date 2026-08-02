@@ -572,3 +572,119 @@ def run():
 
 if __name__ == '__main__':
     print('\n'.join(lines(run())))
+
+
+# =====================================================================
+#  DOES EVERY CHARGE LINE LAND SOMEWHERE?
+#
+#  WHY (Andrew, 2 Aug 2026): "so this is all good now then, everything
+#  lines up? no charges missed in siteiq" - and then, on the zero-charge
+#  lines this turned up: "same day return they are legitimate. any
+#  charges in siteiq are all legitimate, no false, all true."
+#
+#  ---------------------------------------------------------------
+#  THIS RECONCILES. IT DOES NOT AUDIT.
+#  ---------------------------------------------------------------
+#  Andrew's rule, and it is a rule not an opinion: every charge line in
+#  SiteIQ is true. This check exists to prove nothing was DROPPED on the
+#  way through this suite - that the money on the export equals the
+#  money in the buckets - and for no other purpose. It does not decide
+#  whether a charge should have been raised, it does not rank lines as
+#  suspect, and it must never grow a "questionable charges" list.
+#
+#  ---------------------------------------------------------------
+#  ZERO-CHARGE LINES ARE SAME-DAY RETURNS
+#  ---------------------------------------------------------------
+#  241 lines on the 30 Jul pull carry a rate and a shift and no money.
+#  They came up as a possible $2,742.49 of missed billing across 92
+#  assets. They are not. Andrew: same-day returns, legitimate. 106 of
+#  them are also structural - a charged line for N shifts with a
+#  companion 1-shift line at $0 on the same transaction, which is
+#  simply how SiteIQ writes a hire.
+#
+#  Counted here so the total is explained, never flagged. Anyone
+#  reading this later: do not re-raise it.
+# =====================================================================
+def reconcile(data, txn_path=None):
+    """Every charge line on the export, against the buckets it landed
+    in. A difference here means this suite lost money in transit."""
+    import openpyxl
+    path = txn_path or _newest('TRANSACTIONS*.xlsx')
+    out = {'lines': 0, 'raw': 0.0, 'zero': 0, 'path': path or ''}
+    if path:
+        try:
+            wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+            rows = wb['TRANSACTION_CHARGES'].iter_rows(values_only=True)
+            hdr = [str(c).strip() if c is not None else '' for c in next(rows)]
+            ci = hdr.index('TOTAL_CHARGE ($)')
+            for r in rows:
+                if not r:
+                    continue
+                out['lines'] += 1
+                try:
+                    v = float(r[ci] or 0) if ci < len(r) else 0.0
+                except (TypeError, ValueError):
+                    v = 0.0
+                out['raw'] += v
+                if not v:
+                    out['zero'] += 1
+            wb.close()
+        except Exception as e:
+            out['problem'] = str(e)
+            return out
+    t = data['totals']
+    out['asset'] = t['revenue']
+    out['offRegister'] = t['revenueOffRegister']
+    out['admin'] = t['revenueService']
+    out['buckets'] = t['revenue'] + t['revenueOffRegister'] + t['revenueService']
+    out['gap'] = round(out['raw'] - out['buckets'], 2)
+    out['splitGap'] = t.get('splitGap') or 0.0
+    return out
+
+
+def reconcile_lines(r):
+    L = []
+    A = L.append
+    A('  DOES EVERY CHARGE LINE LAND SOMEWHERE?')
+    if r.get('problem'):
+        A('    could not read the charge lines: ' + r['problem'])
+        return L
+    A('    {:,} charge lines on the export   ${:>12,.2f}'.format(
+        r['lines'], r['raw']))
+    A('      store assets                   ${:>12,.2f}'.format(r['asset']))
+    A('      off this register              ${:>12,.2f}'.format(
+        r['offRegister']))
+    A('      admin - transport, labour, svc ${:>12,.2f}'.format(r['admin']))
+    A('      ' + '-' * 37)
+    A('      all three                      ${:>12,.2f}'.format(r['buckets']))
+    if abs(r['gap']) < 0.005 and abs(r['splitGap']) < 0.005:
+        A('    RECONCILED. Every line is in exactly one bucket, and')
+        A('    plant plus tooling adds back to the store total.')
+    else:
+        #  TWO DIFFERENT FAULTS, AND THEY NEED DIFFERENT WORDS.
+        #  `gap` is money on the export that reached no bucket at all.
+        #  `splitGap` is money that reached a bucket but never reached
+        #  an ASSET, so plant plus tooling stops adding back. They come
+        #  off separate accumulators and only one of them may be wrong -
+        #  a test that dropped charges over $1,500 left the bucket total
+        #  perfect and blew the split by $10,756.76, and the first
+        #  version of this block announced "OUT BY $0.00", which is not
+        #  a sentence anyone can act on.
+        A('    ' + '!' * 56)
+        if abs(r['gap']) >= 0.005:
+            A('    OUT BY ${:,.2f} ON THE BUCKETS. Money on the export'
+              .format(abs(r['gap'])))
+            A('    that this suite has not put anywhere at all.')
+        if abs(r['splitGap']) >= 0.005:
+            A('    OUT BY ${:,.2f} ON THE SPLIT. That money is in the'
+              .format(abs(r['splitGap'])))
+            A('    store total but on no individual asset, so plant plus')
+            A('    tooling no longer adds back to it.')
+        A('    Nothing on any page is safe to quote until that is found.')
+    if r['zero']:
+        A('    {:,} of those lines carry no money. Same-day returns,'
+          .format(r['zero']))
+        A('    and the paired 1-shift line SiteIQ writes against a hire.')
+        A('    Legitimate - counted so the total is explained, never')
+        A('    flagged. (Andrew, 2 Aug 2026.)')
+    return L

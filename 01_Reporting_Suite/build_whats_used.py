@@ -466,6 +466,38 @@ def build(today=None):
             'figures are a floor, not a total. A blank rate is not $0.'
             .format(unp)))
 
+    # ---------------- does every line land somewhere? -------------
+    #  Runs on every pull. If money on the export ever stops equalling
+    #  money in the buckets, this says so before anybody quotes a
+    #  figure off this page.
+    rec = FC.reconcile(data, txn)
+    ok = (abs(rec.get('gap', 0)) < 0.005
+          and abs(rec.get('splitGap', 0)) < 0.005)
+    H.append("<h2>DOES EVERY CHARGE LINE <span>LAND SOMEWHERE</span>"
+             "</h2>")
+    if ok:
+        H.append(_note(
+            '{:,} charge lines on the export, {} between them, and every '
+            'one is in exactly one bucket. Plant plus tooling adds back to '
+            'the store total. {:,} lines carry no money - same-day returns, '
+            'and the paired one-shift line SiteIQ writes against a hire. '
+            'Legitimate, counted so the total is explained, never flagged.'
+            .format(rec['lines'], _m(rec['raw']), rec['zero'])))
+    else:
+        H.append("<div class='warn'><b>OUT BY "
+                 + _esc(_m(abs(rec.get('gap', 0))))
+                 + ".</b> Money on the export that this suite has not put "
+                   "anywhere. Nothing on this page is safe to quote until "
+                   "that is found.</div>")
+    H.append("<div class='tiles'>")
+    H.append(_tile('{:,}'.format(rec['lines']), 'charge lines'))
+    H.append(_tile(_m(rec['raw']), 'on the export'))
+    H.append(_tile(_m(rec.get('buckets', 0)), 'in the buckets',
+                   '' if ok else 'org'))
+    H.append(_tile(_m(abs(rec.get('gap', 0))), 'difference',
+                   '' if ok else 'org'))
+    H.append("</div>")
+
     # ---------------- the timeline -------------------------------
     #  TWO CHARTS, NOT ONE WITH TWO SCALES. Gear counts and dollars do
     #  not share an axis - a second y-scale is the fastest way to make
@@ -584,6 +616,8 @@ def build(today=None):
     #  was not at the laptop reads the identical wording rather than a
     #  summary of it.
     H.append("<h2>THE FULL <span>PRINT-OUT</span></h2>")
+    H.append("<pre class='rep'>"
+             + _esc('\n'.join(FC.reconcile_lines(rec))) + "</pre>")
     H.append("<pre class='rep'>" + _esc('\n'.join(FC.lines(c))) + "</pre>")
     H.append("<pre class='rep'>" + _esc('\n'.join(WU.lines(b))) + "</pre>")
     H.append("</div>")
@@ -672,6 +706,8 @@ def build(today=None):
     with io.open(out, 'w', encoding='utf-8') as fh:
         fh.write(page)
 
+    print('\n'.join(FC.reconcile_lines(rec)))
+    print('')
     print('\n'.join(FC.lines(c)))
     print('')
     print('\n'.join(WU.lines(b)))
