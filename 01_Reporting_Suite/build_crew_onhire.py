@@ -45,6 +45,7 @@
 #
 #  Run it:  py build_crew_onhire.py       (or 69_WHOS_GOT_WHAT)
 # =====================================================================
+import base64
 import datetime as dt
 import html
 import io
@@ -54,6 +55,9 @@ import re
 
 import forecast as FC
 import mygear_intel as MI
+import mygear_stores as MS
+import ownership as OWN
+import whats_used as WU
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
@@ -66,6 +70,25 @@ STORE_ACCOUNT_NOTE = ('the store’s own account, not a person - '
 
 def _esc(s):
     return html.escape('' if s is None else str(s), quote=True)
+
+
+def _mdec(code, b64):
+    """menc run backwards, so the build can check its own work.
+
+    There is no mdec in mygear_stores - the page decrypts, Python only
+    ever encrypts - so the inverse lives here purely to prove the blob
+    that is about to be written can be opened by the code that gates it
+    and by nothing simpler.
+    """
+    r = MS._mulberry32(MS._xmur3(code + '|CoatesK2mgr2026')())
+    try:
+        raw = base64.b64decode(b64)
+    except Exception:
+        return None
+    try:
+        return ''.join(chr(b ^ (r() >> 24)) for b in raw)
+    except Exception:
+        return None
 
 
 def _name_key(n):
@@ -121,6 +144,110 @@ def first_word_clashes(companies):
     return {w: v for w, v in by.items() if len(v) > 1}
 
 
+MONEY_JS = r"""
+/* THE MANAGER LAYER, decrypted in the phone and nowhere else.
+   Same cipher as the stores board's money pane - a stream keyed off
+   the code, with only a hash of the code in the file. Get it wrong and
+   nothing decrypts; there is no rate sitting in plain text to find.
+
+   CASE MATTERS. The stores code is a word and gets upper-cased so a
+   bloke on a wet tablet at 5am cannot fail on a capital. The MANAGER
+   code is a password with deliberate mixed case - upper-casing it
+   destroyed it once already on the stores board, so it is compared
+   exactly as typed. */
+function xmur3(s){var h=1779033703^s.length,i;
+ for(i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);
+ h=h<<13|h>>>19;}
+ return function(){h=Math.imul(h^h>>>16,2246822507);
+ h=Math.imul(h^h>>>13,3266489909);return (h^=h>>>16)>>>0;}}
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;
+ var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;
+ return ((t^t>>>14)>>>0)/4294967296;}}
+function mtagOf(c){return(xmur3(c+'|CoatesK2mgrtag2026')()>>>0).toString(16)}
+function mdec(c,b64){var rnd=mulberry32(xmur3(c+'|CoatesK2mgr2026')());
+ var raw=atob(b64),o='',i;for(i=0;i<raw.length;i++){
+ o+=String.fromCharCode(raw.charCodeAt(i)^Math.floor(rnd()*256))}return o}
+var MONEY = null;
+function money(n){
+  return '$' + Number(n).toLocaleString('en-AU',
+    {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function tryUnlock(){
+  var c = (document.getElementById('mcode')||{}).value || '';
+  var msg = document.getElementById('mmsg');
+  if(!window.__MTAG__){ msg.textContent =
+    'No manager layer in this build - manager_code.txt was missing when '
+    + 'it was made.'; return; }
+  if(mtagOf(c) !== window.__MTAG__){
+    msg.textContent = 'That code does not open it. Mind the capitals.';
+    return;
+  }
+  try{ MONEY = JSON.parse(mdec(c, window.__M__)); }
+  catch(e){ msg.textContent = 'Code accepted but the money would not '
+    + 'read back. Rebuild with 69.'; return; }
+  document.body.classList.add('mgr');
+  setGate(true);
+  draw();
+}
+
+/* THE WAY BACK OUT. He unlocks this on his own phone and then hands it
+   to a supervisor to look at - so locking it again has to be one tap
+   in front of him, not a reload he has to think of. */
+function setGate(open){
+  var g = document.getElementById('mgate');
+  var f = document.getElementById('mline');
+  if(open){
+    g.innerHTML = "<b>Manager</b><div class='row'><span class='on'>"
+      + 'Day rates are showing.</span>'
+      + "<button type='button' id='mlock'>Lock</button></div>";
+    document.getElementById('mlock').addEventListener('click', function(){
+      MONEY = null;
+      document.body.classList.remove('mgr');
+      setGate(false);
+      draw();
+    });
+    if(f) f.textContent = 'Manager view — day rates showing. Tap Lock '
+      + 'before you hand the phone over.';
+  } else {
+    g.innerHTML = "<b>Manager</b><div class='row'>"
+      + "<input id='mcode' type='password' autocomplete='off' "
+      + "autocapitalize='off' autocorrect='off' spellcheck='false' "
+      + "placeholder='Manager code' aria-label='Manager code'>"
+      + "<button type='button' id='munlock'>Costs</button></div>"
+      + "<small id='mmsg'>Opens the day rates. Mind the capitals.</small>";
+    document.getElementById('munlock').addEventListener('click', tryUnlock);
+    document.getElementById('mcode').addEventListener('keydown',
+      function(e){ if(e.key === 'Enter'){ e.preventDefault(); tryUnlock(); } });
+    if(f) f.textContent = 'No money on this screen';
+  }
+}
+
+/* WHAT A FIGURE MEANS HERE. It is the day rate on that asset, so a
+   worker total is what that bloke costs the job per day while he is
+   holding it - not what has been billed. Gear that carries no figure
+   (tracked, client-owned, or never priced on this export) is counted
+   separately rather than folded in as zero, because a total that
+   quietly swallows unpriced gear reads as complete when it is not. */
+function rateOf(i){
+  if(!MONEY || !i.item) return null;
+  var r = MONEY[i.item];
+  return (typeof r === 'number') ? r : null;
+}
+function tally(items){
+  var t = {sum: 0, off: 0};
+  items.forEach(function(i){
+    var r = rateOf(i);
+    if(r === null) t.off++; else t.sum += r;
+  });
+  return t;
+}
+function tallyText(t){
+  return money(t.sum) + '/day'
+    + (t.off ? ' · ' + t.off + ' not in it' : '');
+}
+"""
+
+
 CSS = """
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0D1218;color:#DCE3EC;font-family:'Segoe UI',Arial,sans-serif;
@@ -141,7 +268,7 @@ select{width:100%;background:#161E28;border:1px solid #2A3646;border-radius:12px
  margin-top:10px;-webkit-appearance:none;appearance:none}
 select:focus{outline:none;border-color:#F26222}
 .co{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
- margin:16px 0 4px}
+ margin:16px 0 4px;flex-wrap:wrap}
 .co h2{font-size:20px;font-weight:800;color:#F5F7FB}
 .co span{color:#8794A6;font-size:13px;white-space:nowrap}
 .hit{background:#131A22;border:1px solid #263143;border-radius:12px;
@@ -174,6 +301,26 @@ select:focus{outline:none;border-color:#F26222}
 .warn{background:#2A1206;border:1px solid #7A3A12;border-radius:11px;
  padding:11px 13px;color:#FFD9CC;font-size:12.5px;margin-top:10px}
 .foot{color:#4A5768;font-size:11px;text-align:center;padding:26px 16px 40px}
+.mgate{background:#131A22;border:1px solid #263143;border-radius:12px;
+ padding:12px 14px;margin-top:12px}
+.mgate b{display:block;font-size:13px;color:#8794A6;font-weight:700;
+ margin-bottom:8px}
+.mgate .row{display:flex;gap:8px}
+.mgate input{flex:1;background:#0D141C;border:1px solid #2A3646;
+ border-radius:10px;padding:12px;color:#DCE3EC;font-size:15px;
+ font-family:inherit}
+.mgate input:focus{outline:none;border-color:#F26222}
+.mgate button{background:#2A3646;border:0;color:#DCE3EC;border-radius:10px;
+ padding:12px 16px;font-weight:700;font-family:inherit;cursor:pointer}
+.mgate small{display:block;color:#4A5768;font-size:11.5px;margin-top:7px}
+.mgate .on{flex:1;align-self:center;color:#F2B01E;font-weight:700;
+ font-size:13.5px}
+.rate{color:#F2B01E;font-weight:800;white-space:nowrap}
+.person>h3 u{text-decoration:none;color:#F2B01E;font-weight:800;
+ font-size:13.5px;white-space:nowrap;margin-left:auto;margin-right:8px}
+body:not(.mgr) .rate,body:not(.mgr) .person>h3 u,
+body:not(.mgr) .co em{display:none}
+.co em{font-style:normal;color:#F2B01E;font-weight:800;white-space:nowrap}
 @media print{
  /* PRINT WHAT HE IS LOOKING AT, AND NOTHING ELSE. The search box, the
     dropdown and the buttons are how he got here - they are not part of
@@ -188,6 +335,9 @@ select:focus{outline:none;border-color:#F26222}
  .person td.d b{color:#000}
  .person td.d span,.person td.n{color:#444}
  .co h2{color:#000}.co span{color:#444}
+ /* if he unlocked it, the figures print - in black, because amber on
+    white is a smudge on a store printer */
+ .rate,.person>h3 u,.co em{color:#000!important}
  .hideprint{display:none!important}
 }
 """
@@ -216,14 +366,21 @@ function find(q){
 }
 
 function personBlock(p){
+  var t = tally(p.items);
   var h = "<div class='person' data-p='" + esc(p.name) + "'><h3><span>"
-    + esc(p.name) + "</span><i>" + p.count + '</i></h3><table><tbody>';
+    + esc(p.name) + '</span><u>' + esc(tallyText(t)) + '</u><i>'
+    + p.count + '</i></h3><table><tbody>';
   h += p.items.map(function(i){
     var sub = [i.unit];
     if(i.days) sub.push('out ' + i.days + ' day' + (i.days===1?'':'s'));
     else if(i.out) sub.push('out ' + i.out);
+    var r = rateOf(i);
     return "<tr><td class='d'><b>" + esc(i.desc) + '</b><span>'
       + esc(sub.join(' · ')) + "</span></td><td class='n'>"
+      /* the <br> lives INSIDE the span so that hiding the money on the
+         locked page does not leave a blank line where it was */
+      + (r === null ? '' : "<span class='rate'>" + esc(money(r))
+         + '<br></span>')
       + esc(i.item) + '</td></tr>';
   }).join('');
   return h + '</tbody></table></div>';
@@ -235,9 +392,12 @@ function draw(){
   var people = who === '*' ? CO.people
     : CO.people.filter(function(p){ return p.name === who; });
   var n = people.reduce(function(a,p){ return a + p.count; }, 0);
+  var all = [];
+  people.forEach(function(p){ all = all.concat(p.items); });
   var head = "<div class='co'><h2>" + esc(CO.company) + '</h2><span>'
     + (who === '*' ? CO.heads + (CO.heads===1?' person':' people') + ' · '
-       : '') + n + ' on hire</span></div>';
+       : '') + n + ' on hire</span><em>' + esc(tallyText(tally(all)))
+    + '</em></div>';
   el('out').innerHTML = head + people.map(personBlock).join('');
   el('ptxt').textContent = who === '*'
     ? 'Print the whole company' : 'Print ' + who;
@@ -299,6 +459,7 @@ el('print').addEventListener('click', function(){ window.print(); });
 el('clear').addEventListener('click', function(){
   el('q').value = ''; search(); el('q').focus();
 });
+setGate(false);   /* draws the box and wires it, locked */
 """
 
 
@@ -319,8 +480,60 @@ def build(today=None):
     payload = {'companies': companies,
                'asof': data.get('sourceTo') or ''}
 
-    #  NO MONEY ON THIS PAGE. Same rule as the counter screens, and the
-    #  same kind of check - the payload is searched before it is
+    # ---------------------------------------------------------------
+    #  THE MANAGER LAYER. (Andrew, 3 Aug 2026: "can I have the manager,
+    #  which is me, enter the password and get taken straight to the
+    #  cost version - my password is already set up.")
+    #
+    #  It is. manager_code.txt has been in the folder since the stores
+    #  board got its money pane, it is in 46_APPLY_UPDATE's PROTECTED
+    #  list so an update cannot flatten it, and it is gitignored so it
+    #  never leaves the machine.
+    #
+    #  THE MONEY IS ENCRYPTED, NOT HIDDEN. This reuses the stores
+    #  board's own menc/mtag rather than inventing a second scheme -
+    #  the rates are XORed against a stream keyed off the code, and the
+    #  code itself never appears in the file, only a hash of it. A JS
+    #  "if password ok then show" would have put every rate in plain
+    #  text in a file anyone on the store Wi-Fi can download, which is
+    #  Andrew's no-money-on-the-Wi-Fi rule broken while looking like it
+    #  was kept.
+    #
+    #  Honest about what it is: it keeps rates out of reach of anyone
+    #  at the counter and out of plain text on the wire. It is not
+    #  bank-grade and is not meant to be.
+    #
+    #  TRACKED AND CLIENT GEAR CARRY NO FIGURE even here - Andrew's
+    #  rule from 2 Aug holds inside the manager view too.
+    seqs = OWN.zero_cost_sequences(list(data['assets'].values()))
+    rates = WU.load_rates(BASE, txn_path=txn)
+    money, priced, skipped, unpriced = {}, 0, 0, 0
+    for a in data['assets'].values():
+        if a.get('status') != MI.OUT_STATUS:
+            continue
+        if OWN.stream(a, seqs)[0] in ('COATES_TRACKED', 'CLIENT'):
+            skipped += 1
+            continue
+        r, _src = WU._rate_of(rates, a)
+        if r:
+            money[a.get('item') or ''] = round(r, 2)
+            priced += 1
+        else:
+            unpriced += 1
+
+    mgr_p = os.path.join(BASE, 'manager_code.txt')
+    mgr = ''
+    if os.path.isfile(mgr_p):
+        with io.open(mgr_p, encoding='utf-8') as fh:
+            mgr = fh.read().strip()
+    if not mgr:
+        money = {}          # no code, no money layer - and it says so
+    enc_money = (MS.menc(mgr, json.dumps(money, separators=(',', ':')))
+                 if money else '')
+    enc_tag = MS.mtag(mgr) if money else ''
+
+    #  NO MONEY IN THE OPEN PAYLOAD. Same rule as the counter screens,
+    #  and the same kind of check - it is searched before it is
     #  written, so a future edit that adds a rate cannot ship quietly.
     blob = json.dumps(payload)
     if re.search(r'"(revenue|rate|charge|\$)"', blob, re.I):
@@ -346,17 +559,82 @@ def build(today=None):
         "<div id='note'></div>",
         "<div id='list'></div>",
         "<div id='out'></div>",
+        #  The manager's way in. It sits at the bottom, quiet and grey,
+        #  because a supervisor came here to see his blokes' gear and
+        #  does not need a password box at the top of the screen
+        #  inviting him to wonder what he is missing.
+        "<div class='mgate hideprint' id='mgate'>"
+        "<b>Manager</b><div class='row'>"
+        "<input id='mcode' type='password' autocomplete='off' "
+        "autocapitalize='off' autocorrect='off' spellcheck='false' "
+        "placeholder='Manager code' aria-label='Manager code'>"
+        "<button type='button' id='munlock'>Costs</button></div>"
+        "<small id='mmsg'>Opens the day rates. Mind the capitals.</small>"
+        "</div>",
         "<div class='foot'>Cement Australia K2 Shutdown 2026 &middot; "
         "Gladstone<br>What is on hire as at " + _esc(payload['asof'])
-        + "<br>No money on this screen</div>",
+        + "<br><span id='mline'>No money on this screen</span></div>",
         "</div></div>",
     ]
     page = ("<!doctype html><html lang='en-AU'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width,"
             "initial-scale=1'><title>Coates | Who&rsquo;s got what</title>"
             "<style>" + CSS + "</style></head><body>" + ''.join(body)
-            + "<script>window.__CREW__=" + blob + ";\n" + JS
-            + "</script></body></html>")
+            + "<script>window.__CREW__=" + blob + ";\n"
+            + "window.__M__=" + json.dumps(enc_money) + ";\n"
+            + "window.__MTAG__=" + json.dumps(enc_tag) + ";\n"
+            + MONEY_JS + JS + "</script></body></html>")
+
+    #  AND THE CIPHER ACTUALLY CIPHERED.
+    #
+    #  The first version of this check looked right and did nothing. It
+    #  searched the page for {"1232776":18.67 - but that money goes into
+    #  the page through json.dumps, which turns every " into \", so the
+    #  leak ships as {\"1232776\":18.67 and the search sails past it. A
+    #  pass-through menc was injected on purpose and the guard waved it
+    #  through, which is worse than having no guard at all: it says the
+    #  rates are safe while they sit in plain text on the store Wi-Fi.
+    #
+    #  So this checks what is ACTUALLY in the file, three ways, and each
+    #  one is proved by injecting the fault it is meant to catch:
+    #    1. the plain JSON as written,
+    #    2. the same thing after JSON escaping - the one that got through,
+    #    3. one bare "number":rate pair, which survives either escaping.
+    if money:
+        plain = json.dumps(money, separators=(',', ':'))
+        k, v = next(iter(money.items()))
+        for probe in (plain[:60], json.dumps(plain)[1:60],
+                      '{}":{}'.format(k, v)):
+            if probe and probe in page:
+                raise SystemExit(
+                    '\n  REFUSED TO WRITE - the manager rates are sitting in '
+                    'the page in plain\n  text. Anyone on the store Wi-Fi '
+                    'could read them straight out of the\n  file. Check '
+                    'menc() and manager_code.txt.')
+
+        #  AND IT IS LOCKED TO HIS CODE, NOT JUST SCRAMBLED. The blob is
+        #  decrypted back here, twice: once with his code, which must
+        #  return the rates exactly, and once with a blank code, which
+        #  must not. Scrambling against a key anyone could guess looks
+        #  identical in the file and is worth nothing.
+        if _mdec(mgr, enc_money) != plain:
+            raise SystemExit('\n  REFUSED TO WRITE - the manager blob will '
+                             'not decrypt back with the code in\n  '
+                             'manager_code.txt. The page would refuse him. '
+                             'Check menc().')
+        if _mdec('', enc_money) == plain:
+            raise SystemExit('\n  REFUSED TO WRITE - the rates decrypt with a '
+                             'BLANK code, so the lock is\n  cosmetic. Check '
+                             'that menc() is keyed off manager_code.txt.')
+
+        #  And the doorman is checking the same code the lock uses. If
+        #  the tag is keyed off anything else, the blob is fine and the
+        #  page still turns Andrew away at his own screen - a fault that
+        #  only shows up on site, on a phone, in front of someone.
+        if enc_tag != MS.mtag(mgr):
+            raise SystemExit('\n  REFUSED TO WRITE - the code the page checks '
+                             'is not the code the rates\n  are locked to. '
+                             'Your own code would be rejected. Check mtag().')
 
     out = os.path.join(BASE, 'Gear_Lookup', 'crew.html')
     d = os.path.dirname(out)
@@ -393,9 +671,29 @@ def build(today=None):
         print('   ... and {} more'.format(len(companies) - 8))
     print('')
     print(' Written      : {}'.format(out))
-    print(' No money on it - checked before writing. No photos, and no')
-    print(' worker profile: gear only, which is what a supervisor asked')
-    print(' for. It is NOT gated - anyone on the store Wi-Fi can open it.')
+    print('')
+    print(' MANAGER LAYER')
+    if not mgr:
+        print('   manager_code.txt is missing, so this build has NO money in')
+        print('   it at all. The Costs box will say so rather than pretend.')
+    elif not money:
+        print('   Nothing on hire carries a rate, so no money layer was made.')
+    else:
+        print('   {:,} of the {:,} on hire carry a day rate. Your code opens'
+              .format(priced, sum(c['assets'] for c in companies)))
+        print('   them - the rates are ENCRYPTED against it, not just hidden,')
+        print('   and the code itself is not in the file, only a hash.')
+        print('   {:,} tracked/client asset(s) carry no figure - your own rule'
+              .format(skipped))
+        print('   from 2 Aug holds inside the manager view too. {:,} more had'
+              .format(unpriced))
+        print('   no rate on this export; a total says how many it left out')
+        print('   rather than counting them as nothing.')
+    print('')
+    print(' Locked, it is what a supervisor asked for: gear only, no photos,')
+    print(' no worker profile, no money - checked before writing.')
+    print(' It is NOT gated - anyone on the store Wi-Fi can open it and look')
+    print(' up a company. They just cannot see a figure.')
     return out
 
 
