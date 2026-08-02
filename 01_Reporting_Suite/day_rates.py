@@ -34,6 +34,32 @@
 #  column - still reads. Both are supported; the variant is tried first
 #  because it is the only one that cannot be ambiguous.
 #
+#  ---------------------------------------------------------------
+#  THREE SOURCES, IN ORDER, AND EVERY LINE SAYS WHICH ONE IT USED
+#  ---------------------------------------------------------------
+#  (Andrew, 2 Aug 2026: "if you look in transactions it will tell you
+#  the product variant and the hire rates for ones your missing", and
+#  "the ones on baseplan are charged on baseplan and only base plan but
+#  yes this will come part of the plant equipment costs".)
+#
+#    1. CONTRACT   the contracted rate card, keyed on product variant.
+#                  The agreed rate. Covers 99% of the register.
+#    2. CHARGED    the RATE column on TRANSACTION_CHARGES - what was
+#                  actually billed. Every one of the 1,079 lines carries
+#                  one, across 800 items, and NOT ONE item is charged at
+#                  two different rates, so it is unambiguous. This is
+#                  what fills the gaps the card cannot reach - the
+#                  externally hired plant that has no variant.
+#    3. BASEPLAN   the other invoice stream's own Rate 1. Baseplan gear
+#                  is billed on Baseplan and ONLY Baseplan - but it is
+#                  still part of the plant equipment COST, so it is
+#                  priced here for utilisation and marked BASEPLAN on
+#                  every line that uses it. Marking it is the whole
+#                  point: a Baseplan figure must never be mistaken for
+#                  something SiteIQ will invoice.
+#
+#  Nothing found in any of the three prices as TBC. Never $0.
+#
 #  TWO INVOICE STREAMS, TWO RATE CARDS, AND THEY NEVER CROSS.
 #  Baseplan bills its own 16 lines - radios, gas, two welders, fridges,
 #  freezer, ice, tables, chairs and their transport - and carries its
@@ -274,6 +300,202 @@ def charge(rec, qty, days):
     if days > done:
         total += rate * (days - done)
     return total * qty
+
+
+def from_transactions(txn_path):
+    """{item: rate} and {variant: rate} off the charge sheet's RATE.
+
+    What was actually billed, which is the only rate that cannot be
+    argued with. Checked across the whole sheet: no item is charged at
+    two different rates, so one rate per item is a safe statement. If
+    that ever stops being true the disagreement is recorded rather than
+    a winner being picked.
+    """
+    out = {'byItem': {}, 'byVariant': {}, 'lines': 0, 'conflicts': []}
+    if not txn_path or not os.path.isfile(txn_path):
+        return out
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(txn_path, read_only=True, data_only=True)
+    except Exception:
+        return out
+    if 'TRANSACTION_CHARGES' not in wb.sheetnames:
+        wb.close()
+        return out
+    ws = wb['TRANSACTION_CHARGES']
+    it = ws.iter_rows(values_only=True)
+    try:
+        hdr = [str(c).strip() if c is not None else '' for c in next(it)]
+    except StopIteration:
+        wb.close()
+        return out
+    ix = {h: i for i, h in enumerate(hdr) if h}
+    ii = ix.get('SKU/ITEM_NUMBER')
+    vi = ix.get('PRODUCT_VARIANT')
+    ri = ix.get('RATE')
+    if ri is None:
+        wb.close()
+        return out
+    seen = {}
+    for r in it:
+        if not r:
+            continue
+        rate = _num(r[ri]) if ri < len(r) else 0.0
+        if rate <= 0:
+            continue
+        item = (str(r[ii]).strip() if ii is not None and ii < len(r)
+                and r[ii] else '')
+        var = (str(r[vi]).strip() if vi is not None and vi < len(r)
+               and r[vi] else '')
+        if item:
+            prev = seen.get(item)
+            if prev is not None and abs(prev - rate) > 0.005:
+                out['conflicts'].append((item, prev, rate))
+            seen[item] = rate
+            out['byItem'][item] = {'rate': rate, 'qty': 1, 'desc': '',
+                                   'item': item, 'variant': var,
+                                   'tiers': [], 'source': 'CHARGED'}
+        if var:
+            out['byVariant'].setdefault(var.upper(), {
+                'rate': rate, 'qty': 1, 'desc': var, 'item': item,
+                'variant': var, 'tiers': [], 'source': 'CHARGED'})
+        out['lines'] += 1
+    wb.close()
+    return out
+
+
+def from_baseplan(here=None):
+    """{normalised description: rate} off the Baseplan stream's Rate 1.
+
+    Baseplan bills its own gear and ONLY Baseplan bills it - but that
+    gear is still a plant equipment cost, so it can be priced for
+    utilisation. Every line that uses this is marked BASEPLAN so it can
+    never be read as something SiteIQ will invoice.
+    """
+    here = here or BASE
+    out = {'byDesc': {}, 'lines': 0}
+    hits = [p for p in glob.glob(os.path.join(here, 'Data_Baseplan',
+                                              '*.xlsx'))
+            if not os.path.basename(p).startswith('~')]
+    if not hits:
+        return out
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(max(hits, key=os.path.getmtime),
+                                    read_only=True, data_only=True)
+    except Exception:
+        return out
+    for sn in wb.sheetnames:
+        rows = list(wb[sn].iter_rows(values_only=True))
+        if not rows:
+            continue
+        hdr = [str(c).strip() if c is not None else '' for c in rows[0]]
+        ix = {h: i for i, h in enumerate(hdr) if h}
+        ri = ix.get('Rate 1')
+        if ri is None:
+            continue
+        for r in rows[1:]:
+            if not r:
+                continue
+            rate = _num(r[ri]) if ri < len(r) else 0.0
+            if rate <= 0:
+                continue
+            for col in ('Description', 'Bundle Equipment'):
+                ci = ix.get(col)
+                nm = (str(r[ci]).strip()
+                      if ci is not None and ci < len(r) and r[ci] else '')
+                if nm:
+                    out['byDesc'].setdefault(_norm(nm), {
+                        'rate': rate, 'qty': 1, 'desc': nm, 'item': '',
+                        'variant': '', 'tiers': [], 'source': 'BASEPLAN'})
+                    out['lines'] += 1
+    wb.close()
+    return out
+
+
+def resolve(card, txn, base, variant='', item='', desc=''):
+    """The rate card first, then what was charged, then Baseplan.
+
+    Returns the record with a 'source' on it, or None. The source is
+    not decoration - a BASEPLAN rate and a CONTRACT rate mean different
+    things to an invoice and the sheet has to be able to say which.
+    """
+    r = record_for(card, variant=variant, item=item, desc=desc)
+    if r:
+        r = dict(r)
+        r.setdefault('source', 'CONTRACT')
+        return r
+    if txn:
+        if item and item in txn['byItem']:
+            return txn['byItem'][item]
+        if variant and variant.upper() in txn['byVariant']:
+            return txn['byVariant'][variant.upper()]
+        if desc and _norm(desc):
+            k = _norm(desc).upper()
+            for vk, vv in txn['byVariant'].items():
+                if _norm(vk) == _norm(desc):
+                    return vv
+    if base and desc:
+        n = _norm(desc)
+        if n in base['byDesc']:
+            return base['byDesc'][n]
+        best = None
+        for k, v in base['byDesc'].items():
+            if len(k) < 10:
+                continue
+            if n.startswith(k) or k.startswith(n):
+                if best is None or len(k) > len(best[0]):
+                    best = (k, v)
+        if best:
+            return best[1]
+        #  THE REGISTER AND BASEPLAN DO NOT SPELL THE SAME MACHINE THE
+        #  SAME WAY. "Welding Vantage Diesel 580(HGA035)" against
+        #  "Welder - Motorized - Diesel - Vantage 580". A prefix match
+        #  cannot bridge that, so words are compared - but carefully,
+        #  because a loose match here puts the wrong rate on an
+        #  expensive machine.
+        #
+        #  EVERY NUMBER HAS TO AGREE. A 500 never matches a 580. Beyond
+        #  that it needs two more real words in common. Every match made
+        #  this way is RECORDED and printed, so it is auditable rather
+        #  than trusted.
+        m = _token_match(n, base['byDesc'])
+        if m:
+            rec = dict(m[1])
+            rec['fuzzy'] = m[0]
+            return rec
+    return None
+
+
+def _tokens(s):
+    return [t for t in _norm(s).split() if len(t) >= 4 or t.isdigit()]
+
+
+def _token_match(n, table):
+    """Best word-overlap match, or None. Numbers must agree exactly."""
+    nt = set(_tokens(n))
+    nums = {t for t in nt if any(c.isdigit() for c in t)}
+    best = None
+    for k, v in table.items():
+        kt = set(_tokens(k))
+        knums = {t for t in kt if any(c.isdigit() for c in t)}
+        #  every number one side carries must appear on the other, or
+        #  they are different machines wearing similar words
+        common_nums = nums & knums
+        if (nums and knums) and not common_nums:
+            continue
+        if nums and knums and (nums ^ knums) - common_nums:
+            #  a number on one side the other does not have - only
+            #  forgiven when it is clearly a unit tag, not a model
+            extra = (nums ^ knums) - common_nums
+            if any(len(e) <= 3 for e in extra):
+                continue
+        shared = (nt & kt) - common_nums
+        score = len(shared) + 2 * len(common_nums)
+        if len(shared) >= 2 and common_nums and (best is None
+                                                 or score > best[0]):
+            best = (score, k, v)
+    return (best[1], best[2]) if best else None
 
 
 def rate_for(rates, item='', desc='', variant=''):

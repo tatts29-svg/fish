@@ -324,15 +324,25 @@ def collect(today=None):
 
     #  ---- price it, if the quote is in --------------------------------
     rates = DR.load(BASE)
+    txn_rates = DR.from_transactions(txn)
+    base_rates = DR.from_baseplan(BASE)
     priced = unpriced = 0
+    src_count = collections.Counter()
+    fuzzy_made = []
     for r in rows:
         first = (r['key'] if r['type'] == 'INDIVIDUAL' else '')
         #  variant first - the rate card is keyed on it and it is the
         #  only key that cannot be ambiguous
-        rec = DR.record_for(rates, variant=r.get('variant', ''), item=first,
-                            desc=r.get('priceDesc') or r['desc'])
+        rec = DR.resolve(rates, txn_rates, base_rates,
+                         variant=r.get('variant', ''), item=first,
+                         desc=r.get('priceDesc') or r['desc'])
         rate = rec['rate'] if rec else None
         r['rec'] = rec
+        r['source'] = rec.get('source', 'CONTRACT') if rec else ''
+        r['fuzzy'] = rec.get('fuzzy', '') if rec else ''
+        if r['fuzzy']:
+            fuzzy_made.append((r['desc'], r['fuzzy'], rec['rate']))
+        src_count[r['source'] or 'TBC'] += 1
         r['rate'] = rate
         if rate is None:
             unpriced += 1
@@ -381,6 +391,8 @@ def collect(today=None):
                           if r['status'] == MI.READY_STATUS),
         'unknownStatus': unknown.most_common(),
         'rates': rates, 'priced': priced, 'unpriced': unpriced,
+        'txnRates': txn_rates, 'baseRates': base_rates,
+        'sources': src_count.most_common(), 'fuzzy': fuzzy_made,
         'chargedPlant': charged_plant,
         '$used': sum(r['$used'] or 0 for r in rows),
         '$plant': sum(r['$plant'] or 0 for r in rows),
@@ -425,6 +437,11 @@ def write_xlsx(d, path):
                 + ' or '.join(DEPARTED_STATUS) + '. '
                 'AVAILABLE FOR HIRE = on site and NOT being charged until '
                 'it goes back on hire - here, but earning nothing.')
+    ws['A6'] = ('Rate Source: CONTRACT = the contracted rate card. '
+                'CHARGED = the rate actually billed on TRANSACTIONS. '
+                'BASEPLAN = the other invoice stream - part of the plant '
+                'equipment cost, but billed on Baseplan and only Baseplan, '
+                'never by SiteIQ.')
     ws['A5'] = ('Day rates are PER EACH - rate x quantity x days. '
                 + (('Priced from ' + os.path.basename(d['rates']['path'])
                     + ': ' + str(d['priced']) + ' line(s) priced, '
@@ -452,7 +469,8 @@ def write_xlsx(d, path):
     head = ['Asset No / Group', 'Asset Description', 'Day Rate', 'Qty',
             'Line Type', 'Status', 'First Used', 'Last Used', 'Days Used',
             'Days Site Plant', 'Days Departed', 'Utilisation %',
-            '$ Used', '$ Site Plant', '$ On Site Not Charging', 'Used By']
+            'Rate Source', '$ Used', '$ Site Plant',
+            '$ On Site Not Charging', 'Used By']
     R = 9
     for i, h in enumerate(head, start=1):
         c = ws.cell(row=R, column=i, value=h)
@@ -487,20 +505,21 @@ def write_xlsx(d, path):
         ws.cell(row=row, column=11, value=r['daysGone'])
         c = ws.cell(row=row, column=12, value=r['util'])
         c.number_format = '0%'
-        for off, key in ((13, '$used'), (14, '$plant'), (15, '$idle')):
+        ws.cell(row=row, column=13, value=r.get('source') or 'TBC')
+        for off, key in ((14, '$used'), (15, '$plant'), (16, '$idle')):
             v = r[key]
             c = ws.cell(row=row, column=off,
                         value='TBC' if v is None else v)
             if v is not None:
                 c.number_format = '"$"#,##0.00'
-        ws.cell(row=row, column=16, value=', '.join(r['employers'][:4]))
+        ws.cell(row=row, column=17, value=', '.join(r['employers'][:4]))
         for j, s in enumerate(r['states']):
             c = ws.cell(row=row, column=len(head) + 1 + j, value=s)
             c.fill = used_fill if s.startswith('USED:') else fills.get(
                 s, fills[S_OFF])
             c.font = Font(size=8)
 
-    widths = [22, 40, 10, 6, 12, 16, 12, 12, 10, 13, 12, 11,
+    widths = [22, 40, 10, 6, 12, 16, 12, 12, 10, 13, 12, 11, 12,
               13, 14, 20, 34]
     for i, w in enumerate(widths, start=1):
         ws.column_dimensions[
@@ -576,6 +595,18 @@ def main():
     if r.get('path'):
         print(' Day rates    : {} - {} line(s) priced, {} still TBC'.format(
             os.path.basename(r['path']), d['priced'], d['unpriced']))
+        print(' Rate sources : ' + ' | '.join(
+            '{} {}'.format(n, k) for k, n in d['sources']))
+        print('                CONTRACT = the rate card. CHARGED = the RATE')
+        print('                actually billed in TRANSACTIONS. BASEPLAN =')
+        print('                the other invoice stream - a plant cost, but')
+        print('                never something SiteIQ will invoice.')
+        if d['fuzzy']:
+            print('')
+            print(' Matched on words, not an exact name - CHECK THESE:')
+            for a, b, rt in d['fuzzy'][:10]:
+                print('     {:<38} -> {:<34} ${:.2f}'.format(
+                    str(a)[:38], str(b)[:34], rt))
         print(' Per each     : rate x quantity x days.')
         print('   Used          ${:>12,.2f}'.format(d['$used']))
         print('   Site plant    ${:>12,.2f}   charged, nobody allocated'
