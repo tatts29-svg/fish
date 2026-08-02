@@ -154,6 +154,31 @@ S_OFF = 'OFF / NOT SEEN'
 S_GONE = 'DEPARTED'
 
 
+def _shift_value(tc):
+    """rate x shifts x qty across the holding account."""
+    return sum(MI._num(r.get('RATE')) * MI._num(r.get('SHIFTS'))
+               * (MI._num(r.get('QUANTITY')) or 1)
+               for r in tc if _is_plant_account(MI._txt(r, 'HIRER_NAME')))
+
+
+def _zero_charge(tc):
+    """The approved zero-charge lines - a shift recorded, nothing billed.
+
+    Andrew, 2 Aug 2026: "the zero charge lines these are ok and
+    approved". Counted so the reconciliation can show its working, not
+    flagged.
+    """
+    n = v = 0
+    for r in tc:
+        if not _is_plant_account(MI._txt(r, 'HIRER_NAME')):
+            continue
+        if MI._num(r.get('TOTAL_CHARGE ($)')) == 0:
+            n += 1
+            v += (MI._num(r.get('RATE')) * MI._num(r.get('SHIFTS'))
+                  * (MI._num(r.get('QUANTITY')) or 1))
+    return (n, v)
+
+
 def _baseplan_count(rows, base_rates):
     """Records billed outside SiteIQ, against what Baseplan bills.
 
@@ -236,6 +261,20 @@ def collect(today=None):
     #  with no overlap either direction.
     charged_items = {MI._txt(r, 'SKU/ITEM_NUMBER') for r in tc}
     charged_items.discard('')
+
+    #  WHAT WAS ACTUALLY BILLED, per item, off the holding account. The
+    #  sheet then carries both numbers and they answer their own
+    #  questions: WORTH is the rate by the days it sat there, BILLED is
+    #  what went on the invoice. Proven to reconcile exactly - rate x
+    #  shifts x quantity across the account comes to $48,549.81, and
+    #  taking off the 24 approved zero-charge lines ($1,991.21) leaves
+    #  $46,558.60, which is the charge to the cent.
+    billed_by_item = collections.Counter()
+    for r in tc:
+        if _is_plant_account(MI._txt(r, 'HIRER_NAME')):
+            it_ = MI._txt(r, 'SKU/ITEM_NUMBER')
+            if it_:
+                billed_by_item[it_] += MI._num(r.get('TOTAL_CHARGE ($)'))
 
     ds = [MI._date(r.get(k)) for r in tc + ec
           for k in ('TRAN_START_DATE', 'TRAN_END_DATE')]
@@ -390,6 +429,7 @@ def collect(today=None):
                   else 'OTHER')
         rows.append({'key': item, 'desc': desc, 'priceDesc': desc,
                      'variant': var, 'qty': 1, 'type': 'INDIVIDUAL',
+                     'items': items,
                      'billed': billed, 'status': status, 'states': st})
     for label, g in grouped.items():
         st, status = states_for(g['items'])
@@ -399,6 +439,7 @@ def collect(today=None):
                      'priceDesc': g['sample'],
                      'variant': g.get('variant', ''),
                      'qty': g['qty'], 'type': 'GROUPED',
+                     'items': g['items'],
                      'billed': billed, 'status': status, 'states': st})
 
     #  ---- the measures, off the states, so they can never disagree ---
@@ -471,6 +512,8 @@ def collect(today=None):
         idle = sum(1 for x in r['states'] if x == S_OFF)
         r['idleDays'] = idle
         r['$idle'] = DR.charge(rec, r['qty'], idle)
+        r['$billed'] = sum(billed_by_item.get(i, 0.0)
+                           for i in r.get('items', [r['key']]))
 
     #  any status we have no rule for, named so it cannot hide
     unknown = collections.Counter()
@@ -534,6 +577,10 @@ def collect(today=None):
                            if r.get('billed') != 'SITEIQ'),
         'daysPlantSiteIQ': sum(r['daysPlant'] * r['qty'] for r in rows
                                if r.get('billed') == 'SITEIQ'),
+        '$billed': sum(r.get('$billed') or 0 for r in rows),
+        #  the shifts arithmetic, proven rather than asserted
+        'shiftValue': _shift_value(tc),
+        'zeroCharge': _zero_charge(tc),
         '$used': sum(r['$used'] or 0 for r in rows),
         '$plant': sum(r['$plant'] or 0 for r in rows),
         '$idle': sum(r['$idle'] or 0 for r in rows),
@@ -610,7 +657,7 @@ def write_xlsx(d, path):
             'Line Type', 'Status', 'First Used', 'Last Used', 'Days Used',
             'Days Site Plant', 'Days Departed', 'Utilisation %',
             'Billed By', 'Rate Source', '$ Used', '$ Site Plant',
-            '$ On Site Not Charging', 'Used By']
+            '$ On Site Not Charging', '$ Actually Billed', 'Used By']
     R = 9
     for i, h in enumerate(head, start=1):
         c = ws.cell(row=R, column=i, value=h)
@@ -647,13 +694,14 @@ def write_xlsx(d, path):
         c.number_format = '0%'
         ws.cell(row=row, column=13, value=r.get('billed') or '')
         ws.cell(row=row, column=14, value=r.get('source') or 'TBC')
-        for off, key in ((15, '$used'), (16, '$plant'), (17, '$idle')):
+        for off, key in ((15, '$used'), (16, '$plant'), (17, '$idle'),
+                         (18, '$billed')):
             v = r[key]
             c = ws.cell(row=row, column=off,
                         value='TBC' if v is None else v)
             if v is not None:
                 c.number_format = '"$"#,##0.00'
-        ws.cell(row=row, column=18, value=', '.join(r['employers'][:4]))
+        ws.cell(row=row, column=19, value=', '.join(r['employers'][:4]))
         for j, s in enumerate(r['states']):
             c = ws.cell(row=row, column=len(head) + 1 + j, value=s)
             c.fill = used_fill if s.startswith('USED:') else fills.get(
@@ -661,7 +709,7 @@ def write_xlsx(d, path):
             c.font = Font(size=8)
 
     widths = [22, 40, 10, 6, 12, 16, 12, 12, 10, 13, 12, 11, 11, 12,
-              13, 14, 20, 34]
+              13, 14, 20, 17, 34]
     for i, w in enumerate(widths, start=1):
         ws.column_dimensions[
             openpyxl.utils.get_column_letter(i)].width = w
@@ -797,6 +845,20 @@ def main():
                       'kept out of this'.format(d['$plantOther']))
                 print('                comparison - SiteIQ never invoices '
                       'it.')
+            #  THE RECONCILIATION, WHICH DOES COME OUT AT NIL.
+            zn, zv = d['zeroCharge']
+            recon = d['shiftValue'] - zv - cp
+            print('')
+            print(' Reconciles   : rate x shifts x qty  ${:,.2f}'.format(
+                d['shiftValue']))
+            print('                less {} approved zero-charge line(s)'
+                  .format(zn))
+            print('                                    -${:,.2f}'.format(zv))
+            print('                actually charged    -${:,.2f}'.format(cp))
+            print('                                    ={:,.2f}'.format(recon))
+            if abs(recon) < 0.01:
+                print('                Nil. The rates, the shifts and the')
+                print('                invoice agree exactly.')
             if pct > 15:
                 print(' ' + '!' * 58)
                 print(' That is wider than days-against-shifts explains.')
