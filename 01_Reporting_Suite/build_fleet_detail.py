@@ -37,6 +37,7 @@ import re
 
 import fleet_detail as FD
 import forecast as FC
+import mybranch as MB
 import mygear_intel as MI
 import racks as RK
 
@@ -183,7 +184,7 @@ function assetHtml(r){
     + '</div>';
   if(r.x){
     s += "<div class='m'><span class='dot' style='background:__EXCL__'></span>"
-      + esc(r.w) + '</div>';
+      + esc(r.w) + (r.D ? ' · ' + esc(r.D) + ' days' : '') + '</div>';
     s += "<div class='s'>Not included in utilisation</div>";
     return s + '</div></div>';
   }
@@ -206,6 +207,11 @@ function assetHtml(r){
   if(r.k) line.push(esc(r.k));
   if(!r.O && r.d !== null && r.d !== undefined) line.push('idle ' + r.d + 'd');
   s += "<div class='s'>" + line.join(' · ') + '</div>';
+  /* A branch flag on gear that is ALREADY OUT is a note, never an
+     exclusion - a bloke is holding it. Worth saying, because the
+     branch may want it back. */
+  if(r.B) s += "<div class='s' style='color:__EXCL__'>Branch: "
+    + esc(r.B) + '</div>';
   s += "<div class='bar2'>" + bar(r.s, r.b) + '<span>'
     + (r.s === null || r.s === undefined ? '-' : r.s.toFixed(0) + '%')
     + '</span></div>';
@@ -331,7 +337,9 @@ def payload(data, with_money):
                    'c': r['cycles'], 'o': r['open'], 'b': r['band'],
                    'x': r['excluded'], 'w': r['why'], 'O': r['out'],
                    'h': r['holder'], 'C': r['holderCo'], 'k': r['rack'],
-                   'd': r['idle'], 'u': bool(r.get('useNext'))}
+                   'd': r['idle'], 'u': bool(r.get('useNext')),
+                   'B': r.get('branchNote') or '',
+                   'D': r.get('branchDays') or ''}
             if with_money:
                 row['$'] = round(r.get('revenue') or 0.0, 2)
             rows.append(row)
@@ -473,6 +481,25 @@ def build(today=None):
     print(' Rotation     : {:,} fleet(s) where one asset has been out at '
           'least'.format(len(rot)))
     print('                twice as often as the one nobody is touching')
+    cov = MB.covers(list(data['assets']))
+    if cov['known']:
+        blocked = sum(1 for a in data['assets']
+                      if MB.blocked(a)[0]
+                      and data['assets'][a]['status'] != MI.OUT_STATUS)
+        print(' Branch check : {:,} of {:,} assets are in the MyBranch export'
+              .format(cov['known'], cov['total']))
+        print('                {:,} of those cannot be issued - reserved, in'
+              .format(blocked))
+        print('                transfer, inspection pending - and are now')
+        print('                excluded and labelled on the screen.')
+        print('                The other {:,} have NO branch record. They are'
+              .format(cov['total'] - cov['known']))
+        print('                left as the store register has them, which is')
+        print('                not the same as being checked and cleared.')
+    else:
+        print(' Branch check : no MyBranch export in Data_MyBranch\\, so')
+        print('                reserved and inspection-pending gear cannot')
+        print('                be spotted. The screen still builds.')
     if novar:
         print(' NOT ON HERE  : {:,} asset(s) carry no PRODUCT_VARIANT, so they'
               .format(novar))

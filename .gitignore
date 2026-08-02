@@ -43,3 +43,9 @@ __pycache__/
 # Andrew's machines, not in git and not in an update zip. The
 # code that reads it ships; the rates do not.
 01_Reporting_Suite/Data_Quote/
+
+# The MyBranch fleet listing. 21,494 assets across every QLD branch,
+# with Original Cost and WDV against each one. That is Coates commercial
+# data for the whole state, not this job's - the code that reads it
+# ships, the file never does. Same rule as Data_Quote.
+01_Reporting_Suite/Data_MyBranch/

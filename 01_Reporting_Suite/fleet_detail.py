@@ -39,6 +39,7 @@
 # =====================================================================
 import datetime as dt
 
+import mybranch as MB
 import mygear_intel as MI
 import racks as RK
 
@@ -88,7 +89,28 @@ def _d(v):
 def asset_row(a, span, with_money):
     """One asset, told plainly enough that a store hand can argue with
     it. Money only when the caller is allowed to see money."""
+    #  TWO SOURCES OF EXCLUSION, and the register is only one of them.
+    #  The store register knows an asset has not arrived or has gone to
+    #  Baseplan. It does NOT know the branch has the thing reserved for
+    #  another job - 44 assets on the 2 Aug pull read "Available for
+    #  Hire" here and "Reserved" at the branch, and this screen was
+    #  putting them top of the list. The branch's word wins on that,
+    #  because the branch is the one that will come and take it.
     why = EXCLUDED_STATUS.get(a.get('status') or '')
+    bwhy, bdays = MB.blocked(a.get('item') or '')
+    #  A BRANCH RESERVATION CANNOT UN-ISSUE GEAR THAT IS ALREADY OUT.
+    #  First cut applied it to everything, and the Air Arc Gouging
+    #  Torch fleet went from 68% to 0% - two torches on a workfront got
+    #  marked EXCLUDED and dropped out of both halves of the fraction.
+    #  A bloke is holding it. It is in use, whatever the branch has
+    #  pencilled against it.
+    #
+    #  So the branch's word decides what can be issued NEXT, not what
+    #  is happening now. On gear that is out it becomes a note - worth
+    #  knowing, because the branch may want it back - and nothing else.
+    out_now = a.get('status') == MI.OUT_STATUS
+    if not why and bwhy and not out_now:
+        why = bwhy
     score = _pct(a.get('clientDays') or 0.0, span) if span else None
     commercial = _pct(a.get('commercialDays') or 0.0, span) if span else None
     cls, word = band(None if why else score)
@@ -113,6 +135,9 @@ def asset_row(a, span, with_money):
         'rack': RK.where(a.get('item') or '', a.get('bc') or '',
                          a.get('variant') or ''),
         'band': cls, 'word': word,
+        'branchDays': bdays if bwhy else '',
+        #  said on the row, never used to exclude it
+        'branchNote': (bwhy if (bwhy and out_now) else ''),
     }
     if with_money:
         row['revenue'] = a.get('revenue') or 0.0
@@ -159,9 +184,16 @@ def fleet(data, variant, with_money=False):
     live = [r for r in rows if not r['excluded']]
     #  THE DENOMINATOR IS THE ISSUABLE FLEET. Excluded gear is out of
     #  it, and the screen says so out loud.
+    #
+    #  NUMERATOR AND DENOMINATOR OFF THE SAME LIST. The first cut
+    #  counted the denominator off the rows (which know about branch
+    #  reservations) but summed the days off the raw assets filtered on
+    #  register status alone - so a branch-reserved asset left the
+    #  bottom of the fraction while its days stayed in the top, and the
+    #  percentage came out too high. One list decides both.
     n = len(live)
-    src = [a for a in assets
-           if not EXCLUDED_STATUS.get(a.get('status') or '')]
+    keep = {r['item'] for r in live}
+    src = [a for a in assets if (a.get('item') or '') in keep]
     client = _pct(sum(a.get('clientDays') or 0.0 for a in src), span * n) \
         if (span and n) else 0.0
     comm = _pct(sum(a.get('commercialDays') or 0.0 for a in src), span * n) \
