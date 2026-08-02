@@ -50,6 +50,37 @@ try:
 except Exception:
     _HID = None
 
+#  Days from Flame Off. Optional the same way - a suite without the
+#  module simply shows no day tag.
+try:
+    import shutdown_day as _SD
+except Exception:
+    _SD = None
+
+
+def _day_tag(d=None):
+    """The header chip, whole. A named day wears the orange; an ordinary
+    one stays quiet steel so the named ones actually stand out. Returns
+    an empty string if the module is missing, so the header just loses
+    the chip rather than the page losing the header."""
+    if _SD is None:
+        return ''
+    try:
+        n = _SD.day(d)
+        m = _SD.milestone(d)
+        bits = '<b>DAY {}</b>'.format(n)
+        if m:
+            bits += ' &middot; ' + m
+        else:
+            nx = _SD.next_milestone(d)
+            #  only shout about what is close enough to plan around
+            if nx and nx['away'] <= 7:
+                bits += ' &middot; {} in {} day{}'.format(
+                    nx['name'], nx['away'], '' if nx['away'] == 1 else 's')
+        return '<div class="fday{}">{}</div>'.format(' big' if m else '', bits)
+    except Exception:
+        return ''
+
 M32 = 0xFFFFFFFF
 
 
@@ -755,14 +786,31 @@ def read(rental_path, stocktake_path, master=None, today=None,
             if _HID is not None and _HID.hidden(
                     sg(r, 'SKU_NUMBER'), sg(r, 'STORAGE_UNIT')):
                 continue
+            _st_raw = sg(r, 'SIGHTED_STATUS')
+            #  ON HIRE IS NOT A STOCK COUNT (Andrew, 2 Aug 2026: "ensure
+            #  anything in here is not items onhire that guys are trying
+            #  to stock take").
+            #
+            #  It is not in the store. It is in a bloke's ute or up a
+            #  scaffold. Putting it on a counting sheet asks the night
+            #  shift to walk an aisle looking for something that was
+            #  never going to be on the shelf, and then marks the store
+            #  down when they cannot find it. Every one of those lines
+            #  was a guaranteed fail dragging the score with it.
+            #
+            #  Out of the list, out of the total, out of the percentage.
+            #  Where that gear actually is stays answerable at the
+            #  counter - it is on the roster, the chase list and the
+            #  hit list, which is where a missing item belongs.
+            if _st_raw == 'On Hire':
+                stock['onhire_skipped'] = stock.get('onhire_skipped', 0) + 1
+                continue
             age = (today - d).days
             stock['total'] += 1
             _u_st = sg(r, 'STORAGE_UNIT') or 'Unfiled'
             _nm_st = sg(r, 'DESCRIPTION')[:60]
             _it_st = sg(r, 'ITEM_OR_CONSUMABLE') or sg(r, 'SKU_NUMBER')
-            _st_raw = sg(r, 'SIGHTED_STATUS')
-            _sfl = ('O' if _st_raw == 'On Hire' else
-                    'A' if _st_raw in ('Available for Hire',
+            _sfl = ('A' if _st_raw in ('Available for Hire',
                                        'In Stock', 'Stock Low') else 'X')
             _bk = (1 if age <= 1 else 3 if age <= 3 else 7 if age <= 7
                    else 14 if age <= 14 else 30 if age <= 30 else 99)
@@ -999,7 +1047,12 @@ def read(rental_path, stocktake_path, master=None, today=None,
                          'a': int(x['avail']), 'u': int(x['used']),
                          'ct': (None if x['counted'] is None
                                 else int(x['counted'])),
-                         'co': x['countedOn'], 'by': x['countedBy']}
+                         'co': x['countedOn'], 'by': x['countedBy'],
+                         #  every movement this line has had, so the
+                         #  counter can tap a consumable and see who
+                         #  took what and when (2 Aug 2026)
+                         'tx': x.get('tx') or [],
+                         'un': x.get('unit', '')}
                         for x in sorted(cd['items'],
                                         key=lambda i: i['desc'].upper())],
                 'avail': int(cd['avail']), 'used': int(cd['used']),
@@ -1946,6 +1999,113 @@ select.srch{appearance:none;-webkit-appearance:none}
 .rule:first-of-type{border-top:0}
 .rule i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--org);
  margin-top:7px}
+/*  THE MASTER SEARCH (2 Aug 2026)  */
+.wcard{display:block;width:100%;text-align:left;margin-bottom:8px;
+ padding:12px 14px;border:1px solid var(--line);border-radius:14px;
+ background:var(--pnl);color:#DCE3EC;font:inherit;cursor:pointer}
+.wcard:active{background:var(--pnl2)}
+.wtop{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.wtop b{font-size:14.5px;font-weight:800;color:#F5F7FB;min-width:0}
+.wtop em{flex:none;font-style:normal;font-weight:800;font-size:12px;
+ color:var(--org);background:#1E1710;border:1px solid var(--org);
+ border-radius:9px;padding:3px 9px}
+.wsub{margin-top:4px;font-size:11.5px;color:var(--dim)}
+.wbs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.wb{font-size:9px;font-weight:800;letter-spacing:1px;padding:4px 9px;
+ border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+.wb.a{border-color:var(--am);color:var(--am)}
+.wb.r{border-color:var(--rd);color:var(--rd)}
+.wback{margin:2px 0 12px;padding:9px 14px;border:1px solid var(--line);
+ border-radius:999px;background:var(--pnl);color:#C7CED8;font:inherit;
+ font-size:12px;font-weight:800;letter-spacing:.6px;cursor:pointer}
+.wprof{padding:15px 16px;border:1px solid var(--line);
+ border-left:3px solid var(--org);border-radius:0 16px 16px 0;
+ background:linear-gradient(160deg,#121A27,#0C121C)}
+.wpn{font-size:20px;font-weight:800;color:#F5F7FB;letter-spacing:-.3px;
+ line-height:1.2}
+.wpc{margin-top:4px;font-size:12px;color:var(--dim)}
+.wnums{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:13px}
+.wnums span{padding:10px 5px;text-align:center;border:1px solid var(--line);
+ border-radius:11px;background:#0B111A;font-size:8px;font-weight:800;
+ letter-spacing:.7px;color:var(--dim)}
+.wnums b{display:block;margin-bottom:3px;font-size:19px;color:#F5F7FB}
+.wnums .g b{color:var(--gd)}.wnums .r b{color:var(--rd)}
+.wage{display:flex;height:10px;margin-top:12px;border-radius:6px;
+ overflow:hidden;border:1px solid var(--line);background:var(--pnl)}
+.wage i{display:block}
+.wage .g{background:var(--gd)}.wage .a{background:var(--am)}
+.wage .r{background:var(--rd)}
+.wlg{display:flex;flex-wrap:wrap;gap:11px;margin-top:8px;font-size:10.5px;
+ color:var(--dim)}
+.wlg i{display:inline-block;width:8px;height:8px;border-radius:50%;
+ margin-right:5px;background:#4E5A6B}
+.wlg .g{background:var(--gd)}.wlg .a{background:var(--am)}
+.wlg .r{background:var(--rd)}
+.wold{margin-top:10px;font-size:12px;color:var(--dim)}
+.wold b{color:#F5F7FB}
+.wunits{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.wunits span{font-size:11px;color:var(--dim);border:1px solid var(--line);
+ border-radius:9px;padding:6px 10px;background:var(--pnl)}
+.wunits b{color:#F5F7FB}
+/*  a name you can walk through  */
+.wlink{color:var(--org);font-weight:800;cursor:pointer;
+ border-bottom:1px dotted rgba(242,98,34,.6)}
+/*  a consumable you can open  */
+.kid.tapme{cursor:pointer}
+.kid.tapme:active{background:var(--pnl2)}
+.txn{color:var(--org)}
+.txh{padding:14px 15px;border:1px solid var(--line);
+ border-left:3px solid var(--org);border-radius:0 16px 16px 0;
+ background:linear-gradient(160deg,#121A27,#0C121C);margin-bottom:14px}
+.txn1{font-size:17px;font-weight:800;color:#F5F7FB;line-height:1.25}
+.txn2{margin-top:4px;font-size:11.5px;color:var(--dim)}
+.txr{display:flex;align-items:center;gap:10px;padding:10px 12px;
+ border:1px solid var(--line);border-radius:12px;background:var(--pnl);
+ margin-bottom:7px}
+.txd{flex:none;width:88px;font-size:11px;color:var(--dim);
+ font-variant-numeric:tabular-nums}
+.txw{flex:1;min-width:0;font-size:12.5px;color:#DCE3EC}
+.txw span{display:block;font-size:10.5px;color:var(--dim);margin-top:2px}
+.txq{flex:none;font-weight:800;font-size:13px;color:var(--am);
+ font-variant-numeric:tabular-nums}
+.txq.back{color:var(--gd)}
+/*  the light sheet  */
+.shs{position:fixed;inset:0;z-index:96;display:none}
+.shs.on{display:block}
+.shbg{position:absolute;inset:0;background:rgba(3,6,11,.72);
+ -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.shcard{position:absolute;left:0;right:0;bottom:0;max-height:88%;
+ display:flex;flex-direction:column;border-top:1px solid var(--line);
+ border-radius:20px 20px 0 0;background:#0A0F16;
+ box-shadow:0 -18px 44px rgba(0,0,0,.6);
+ animation:shup .32s cubic-bezier(.16,1,.3,1) both}
+@keyframes shup{from{transform:translateY(14%);opacity:0}
+ to{transform:none;opacity:1}}
+.shhd{display:flex;align-items:center;justify-content:space-between;gap:10px;
+ padding:14px 16px;border-bottom:1px solid var(--line)}
+.shhd b{font-size:11px;font-weight:800;letter-spacing:2.2px;color:var(--org);
+ text-transform:uppercase}
+.shhd button{padding:9px 15px;border:1px solid var(--line);border-radius:999px;
+ background:var(--pnl);color:#C7CED8;font:inherit;font-size:12px;
+ font-weight:800;cursor:pointer}
+.shbd{overflow-y:auto;-webkit-overflow-scrolling:touch;
+ padding:14px 16px calc(20px + env(safe-area-inset-bottom))}
+@media (min-width:900px){.shcard{left:50%;right:auto;bottom:0;
+ width:min(760px,94vw);transform:translateX(-50%);
+ border-radius:20px 20px 0 0}
+ @keyframes shup{from{transform:translateX(-50%) translateY(14%);opacity:0}
+  to{transform:translateX(-50%);opacity:1}}}
+/*  DAYS FROM FLAME OFF (Andrew, 2 Aug 2026). Nobody on a shutdown
+    thinks in calendar dates - they think "we're on day 9". A named day
+    wears the orange; an ordinary one stays quiet steel so the named
+    ones actually stand out. */
+.fday{margin-top:9px;display:inline-flex;align-items:center;gap:8px;
+ padding:7px 13px;border:1px solid var(--line);border-radius:999px;
+ background:var(--pnl);color:var(--dim);font-size:10px;font-weight:800;
+ letter-spacing:1.8px;text-transform:uppercase}
+.fday.big{border-color:var(--org);color:#FFC7A6;background:#1E1710}
+.fday b{color:#F5F7FB}
+.fday.big b{color:var(--org)}
 
 /* ---- STORE STREET (Andrew's pack, 2 Aug 2026) --------------------
    His own words in the README: "This replaces the roller-door idea
@@ -2094,6 +2254,7 @@ body.hasdock{padding-bottom:64px}
 <div class="hqmast"><span class="hqmy">MY</span><span class="hqgear">GEAR</span><span class="hqtag">HQ</span></div>
 <div class="hqline"></div>
 <div class="sub"><b>COATES</b> STORES TEAM &middot; K2 &middot; __ASOF__</div>
+__DAYTAG__
 </header>
 
 <div id="gate">
@@ -2407,7 +2568,8 @@ function homeMenu(){
   h+=bay(1,'org','find','Find It Counter',
     'Scan or type anything &mdash; the answer is the shelf, the person, '
     +'or the hunt.','g','SEARCH READY',
-    bayDoor('find','Open the counter search',null,'wide'));
+    bayDoor('find','Open the counter search',null,'wide')
+    +bayDoor('who','Any company or name'));
 
   /* BAY 02 - the hunt. Red when there is a hit list, amber when there
      is only a chase list, green when the store is square. */
@@ -2477,6 +2639,7 @@ function render(){
    +homeMenu()
    +'</div>'
    +'<div class="pane" id="p-find">'+helpBar('find')+paneFind()+'</div>'
+   +'<div class="pane" id="p-who">'+helpBar('who')+paneWho()+'</div>'
    +'<div class="pane" id="p-groups">'+helpBar('groups')+paneGroups()+'</div>'
    +'<div class="pane" id="p-chase">'+helpBar('chase')+paneChase()+'</div>'
    +(D.hitN?'<div class="pane" id="p-hits">'+helpBar('hits')+paneHits()+'</div>':'')
@@ -2537,11 +2700,14 @@ function nav(k){
   var panes=document.querySelectorAll('.pane');
   for(var j=0;j<panes.length;j++) panes[j].className='pane';
   p.className='pane on';
-  var names={mgr:'Money',print:'Print hub'};
+  var names={mgr:'Money',print:'Print hub',who:'Master search'};
   document.getElementById('crumb').style.display='flex';
   document.getElementById('crumb-t').textContent=
     names[k]||(HOWTO[k]?HOWTO[k].t:k);
   window.scrollTo(0,0);
+  /* the master search opens with the biggest holders already on screen -
+     an empty box tells a bloke nothing about what is in here */
+  if(k==='who'&&typeof whoFind==='function'){ try{ whoFind(); }catch(e){} }
   /* keep the dock honest - a pane it does not carry lights nothing
      rather than leaving the last one lit and lying about where you are */
   if(typeof dockMark==='function') dockMark(k);
@@ -2648,7 +2814,12 @@ function findCard(it,e,F){
   var head,body,cls;
   if(e.s==='O'){
     cls='fo'; head='OUT WITH A CREW';
-    body='<b>'+esc(e.w||'?')+'</b> &middot; '+esc(e.co||'')
+    /*  the name is tappable straight off the finder card (Andrew,
+        2 Aug 2026: "if you see things onhire to someone you also should
+        be able to clkick on the name and it maybe take you to that
+        person to find out more info")  */
+    body='<b>'+(typeof whoLink==='function'?whoLink(e.w||'?',e.co||'')
+                :esc(e.w||'?'))+'</b> &middot; '+esc(e.co||'')
       +(e.d!=null?' &middot; <b>'+e.d+(e.d===1?' day':' days')+'</b> out':'')
       +'<br>Lives in '+esc(e.u||'?')+histLine(it);
   } else if(e.s==='A'){
@@ -2662,7 +2833,8 @@ function findCard(it,e,F){
     for(j2=0;j2<D.roster.length;j2++){ x2=D.roster[j2];
       if(x2.n===e.n){ nrest++; if(outm.length<3) outm.push(x2); } }
     if(nrest) body+='<br>Out with crews: <b>'+nrest+'</b> &middot; '
-      +outm.map(function(x3){return esc(x3.w||'?')+' ('
+      +outm.map(function(x3){return (typeof whoLink==='function'
+          ?whoLink(x3.w||'?',x3.co||''):esc(x3.w||'?'))+' ('
         +(x3.d!=null?x3.d+'d':'?')+')'}).join(' &middot; ')
       +(nrest>3?' &middot; +'+(nrest-3)+' more in CHASE UP':'');
     if(e.st!=null){cls='fw';head='SHOULD BE ON THE SHELF';
@@ -2813,7 +2985,7 @@ function paneChase(){
         return '<div class="kid kidth">'+thTile(x.v,x.n,x.va)
           +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div>'
-          +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)
+          +'<div class="kw"><b>'+wl(x)+'</b> &middot; '+esc(x.co)
           +(x.i?' &middot; Item '+esc(x.i):'')+histLine(x.i)+'</div></div></div>';
       }).join('')+'</div></div>';
   });
@@ -3048,7 +3220,302 @@ function stBack(){document.getElementById('p-stock').innerHTML=helpBar('stock')+
    with no knowledge"). One card per tab: what it is, how to use it,
    what good looks like. They sit folded at the top of every tab and
    print as a laminate deck for the counter. */
+/* ==================================================================
+   THE MASTER SEARCH (Andrew, 2 Aug 2026: "a master serach file that
+   alow the team to seravh any company any hirer and find out all
+   infomation as much infomation as possible about that company or
+   hirer").
+
+   Everything the board knows about a name, in one place: what they
+   hold, how old it is, what is overdue, what is on the hit list, which
+   aisles it came from, and the whole list.
+
+   It is built off the SAME roster every other pane uses, so it can
+   never disagree with the chase list or a printed sheet. One truth,
+   read six ways.
+================================================================== */
+var WHO_IX=null, WHO_LAST=null;
+function whoKey(w,co){ return String(w)+'\u001F'+String(co); }
+function whoIndex(){
+  if(WHO_IX) return WHO_IX;
+  var co={}, pp={};
+  (D.roster||[]).forEach(function(x){
+    var c=x.co||'Not named', w=x.w||'Not named';
+    (co[c]=co[c]||{n:c,rows:[],people:{}}).rows.push(x);
+    co[c].people[w]=(co[c].people[w]||0)+1;
+    var k=whoKey(w,c);
+    (pp[k]=pp[k]||{n:w,co:c,rows:[]}).rows.push(x);
+  });
+  /* the chase list and the hit list folded onto the same names, so a
+     profile shows the trouble as well as the count */
+  var mark=function(list,key){
+    (list||[]).forEach(function(x){
+      var c=x.co||'Not named', w=x.w||'Not named', k=whoKey(w,c);
+      if(co[c]) co[c][key]=(co[c][key]||0)+1;
+      if(pp[k]) pp[k][key]=(pp[k][key]||0)+1;
+    });
+  };
+  mark((D.chase&&D.chase.tools)||[], 'chase');
+  var H=D.hits||{};
+  ['radio','gas','bat','tool'].forEach(function(g){ mark(H[g]||[], 'hit'); });
+  WHO_IX={co:co, pp:pp};
+  return WHO_IX;
+}
+function whoAges(rows){
+  var a={g:0,a:0,r:0,u:0,old:null};
+  rows.forEach(function(x){
+    var d=(x.d==null?null:parseInt(x.d));
+    if(d==null||isNaN(d)){a.u++;return}
+    if(d<=2)a.g++; else if(d<=4)a.a++; else a.r++;
+    if(!a.old||d>a.old.d) a.old={d:d,n:x.n};
+  });
+  return a;
+}
+/* A SAFELY QUOTED ARGUMENT FOR AN INLINE onclick.
+   Names carry apostrophes - O'Brien - and one of those ends the JS
+   string early and breaks the whole button.
+   Backslash-escaping is the obvious fix and it is the WRONG one here:
+   this JavaScript is written out of a Python string, so every
+   backslash gets halved on the way through and the escaping arrives
+   mangled. (It did, and node caught it.)
+   encodeURIComponent has no backslashes at all, turns the apostrophe
+   into %27 and the quote into %22, and is safe inside an HTML
+   attribute as well as a JS string. Every reader decodes it back. */
+/*  encodeURIComponent does NOT escape the apostrophe - it is an
+    unreserved mark, so O'BRIEN came through intact and ended the JS
+    string early, exactly the fault this function exists to prevent.
+    Caught on the rig with a deliberate O'Brien. Escape it by hand.  */
+function jq(s){ return "'"+encodeURIComponent(String(s==null?'':s))
+  .split("'").join('%27')+"'"; }
+function jd(s){ try{ return decodeURIComponent(String(s==null?'':s)); }
+                catch(e){ return String(s==null?'':s); } }
+function whoBadges(o){
+  var b='';
+  if(o.hit) b+='<span class="wb r">'+o.hit+' on the hit list</span>';
+  if(o.chase) b+='<span class="wb a">'+o.chase+' to chase</span>';
+  return b;
+}
+function whoCoCard(o){
+  var np=0; for(var k in o.people) np++;
+  return '<button class="wcard" type="button" onclick="whoOpen(\\'co\\','
+   +jq(o.n)+')"><div class="wtop"><b>'+esc(o.n)+'</b><em>'+o.rows.length
+   +'</em></div><div class="wsub">'+np+' name'+(np===1?'':'s')
+   +' &middot; '+o.rows.length+' item'+(o.rows.length===1?'':'s')
+   +' on hire</div>'+(whoBadges(o)?'<div class="wbs">'+whoBadges(o)+'</div>':'')
+   +'</button>';
+}
+function whoPpCard(o){
+  return '<button class="wcard" type="button" onclick="whoOpen(\\'pp\\','
+   +jq(o.n)+','+jq(o.co)+')"><div class="wtop"><b>'+esc(o.n)+'</b><em>'
+   +o.rows.length+'</em></div><div class="wsub">'+esc(o.co)+'</div>'
+   +(whoBadges(o)?'<div class="wbs">'+whoBadges(o)+'</div>':'')+'</button>';
+}
+function whoTop(){
+  /* nothing typed yet - show the biggest holders, because that is who
+     the counter is usually chasing anyway */
+  var ix=whoIndex(), rc=[];
+  for(var c in ix.co) rc.push(ix.co[c]);
+  rc.sort(function(a,b){return b.rows.length-a.rows.length});
+  if(!rc.length) return '';
+  return '<div class="uhead">Holding the most right now</div>'
+    +rc.slice(0,6).map(whoCoCard).join('');
+}
+function whoFind(){
+  var q=(document.getElementById('wq')||{value:''}).value
+        .toUpperCase().replace(/^\s+|\s+$/g,'');
+  var out=document.getElementById('wout'); if(!out) return;
+  if(q.length<2){
+    out.innerHTML='<div class="kw" style="padding:12px 2px">Type two '
+      +'letters of a company or a person&rsquo;s name. Every name the '
+      +'store has gear out to is in here.</div>'+whoTop();
+    return;
+  }
+  var ix=whoIndex(), rc=[], rp=[];
+  for(var c in ix.co) if(c.toUpperCase().indexOf(q)>=0) rc.push(ix.co[c]);
+  for(var k in ix.pp) if(ix.pp[k].n.toUpperCase().indexOf(q)>=0) rp.push(ix.pp[k]);
+  rc.sort(function(a,b){return b.rows.length-a.rows.length});
+  rp.sort(function(a,b){return b.rows.length-a.rows.length});
+  if(!rc.length&&!rp.length){
+    out.innerHTML='<div class="kw cut" style="padding:12px 2px">Nothing '
+      +'matches &ldquo;'+esc(q)+'&rdquo;. Only names holding gear right '
+      +'now are in here &mdash; somebody who has brought everything back '
+      +'will not show.</div>'; return;
+  }
+  var h='';
+  if(rc.length){
+    h+='<div class="uhead">Companies &mdash; '+rc.length+'</div>'
+      +rc.slice(0,30).map(whoCoCard).join('');
+  }
+  if(rp.length){
+    h+='<div class="uhead">People &mdash; '+rp.length+'</div>'
+      +rp.slice(0,40).map(whoPpCard).join('');
+  }
+  out.innerHTML=h;
+}
+function whoOpen(kind,a,b){
+  a=jd(a); b=jd(b);
+  var ix=whoIndex(), o=(kind==='co')?ix.co[a]:ix.pp[whoKey(a,b)];
+  var out=document.getElementById('wout'); if(!out) return;
+  if(!o){
+    /* Not on the roster - so they are holding no hire gear. That is a
+       true answer but a dead end, and a bloke who just tapped a name
+       deserves better than a shrug. Show what we DO have on them: the
+       consumables they have taken. Caught on the rig by tapping a name
+       out of a movements sheet who had never held a tool. */
+    out.innerHTML='<button class="wback" type="button" onclick="whoFind()">'
+      +'&lsaquo; Back to the search</button>'
+      +'<div class="wprof"><div class="wph"><div class="wpn">'+esc(a)+'</div>'
+      +'<div class="wpc">'+esc(b||'')+'</div></div>'
+      +'<div class="wold"><b>No hire gear in this name right now.</b> '
+      +'Nothing to chase &mdash; everything is back.</div></div>'
+      +whoCons(a);
+    window.scrollTo(0,0); return; }
+  WHO_LAST={kind:kind,a:a,b:b};
+  var rows=o.rows.slice().sort(function(x,y){
+    return (y.d||0)-(x.d||0) || String(x.n).localeCompare(String(y.n)); });
+  var ag=whoAges(rows), kinds={}, units={};
+  rows.forEach(function(x){ kinds[x.n]=1; units[x.u]=(units[x.u]||0)+1; });
+  var nk=0; for(var z in kinds) nk++;
+  var ul=[]; for(var u in units) ul.push([u,units[u]]);
+  ul.sort(function(x,y){return y[1]-x[1]});
+  var np=0; if(kind==='co'){ for(var k0 in o.people) np++; }
+
+  var h='<button class="wback" type="button" onclick="whoFind()">'
+   +'&lsaquo; Back to the search</button>'
+   +'<div class="wprof"><div class="wph"><div class="wpn">'+esc(o.n)+'</div>'
+   +'<div class="wpc">'+esc(kind==='co'
+       ? (np+' name'+(np===1?'':'s')+' with gear out')
+       : o.co)+'</div></div>'
+   +'<div class="wnums">'
+   +'<span><b>'+rows.length+'</b>ITEMS OUT</span>'
+   +'<span><b>'+nk+'</b>DIFFERENT THINGS</span>'
+   +'<span class="'+(ag.r?'r':'g')+'"><b>'+ag.r+'</b>5+ DAYS</span>'
+   +'</div>'
+   +'<div class="wage"><i class="g" style="flex:'+(ag.g||0.001)+'"></i>'
+   +'<i class="a" style="flex:'+(ag.a||0.001)+'"></i>'
+   +'<i class="r" style="flex:'+(ag.r||0.001)+'"></i></div>'
+   +'<div class="wlg"><span><i class="g"></i>0&ndash;2d '+ag.g+'</span>'
+   +'<span><i class="a"></i>3&ndash;4d '+ag.a+'</span>'
+   +'<span><i class="r"></i>5+d '+ag.r+'</span>'
+   +(ag.u?'<span><i></i>no date '+ag.u+'</span>':'')+'</div>'
+   +(ag.old?'<div class="wold">Longest out: <b>'+esc(ag.old.n)
+     +'</b> &middot; '+ag.old.d+' days</div>':'')
+   +(whoBadges(o)?'<div class="wbs">'+whoBadges(o)+'</div>':'')
+   +'</div>';
+
+  if(ul.length>1){
+    h+='<div class="uhead">Across '+ul.length+' aisles</div><div class="wunits">'
+      +ul.slice(0,12).map(function(x){return '<span>'+esc(x[0])
+        +' <b>'+x[1]+'</b></span>'}).join('')+'</div>';
+  }
+  if(kind==='co'){
+    var ppl=[]; for(var w in o.people) ppl.push([w,o.people[w]]);
+    ppl.sort(function(x,y){return y[1]-x[1]});
+    h+='<div class="uhead">Who has it &mdash; '+ppl.length+'</div>'
+     +ppl.map(function(x){
+        var po=ix.pp[whoKey(x[0],o.n)]||{rows:[]};
+        return '<button class="wcard" type="button" onclick="whoOpen(\\'pp\\','
+          +jq(x[0])+','+jq(o.n)+')"><div class="wtop"><b>'+esc(x[0])
+          +'</b><em>'+x[1]+'</em></div>'
+          +(whoBadges(po)?'<div class="wbs">'+whoBadges(po)+'</div>':'')
+          +'</button>'; }).join('');
+  }
+  h+='<div class="uhead">Every item &mdash; longest out first</div>'
+   +rows.slice(0,300).map(function(x){
+      return '<div class="kid kidth">'+thTile(x.v,x.n,x.va)
+       +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
+       +'<em class="'+((x.d||0)>4?'o':'')+'">'
+       +(x.d==null?'&mdash;':x.d+'d')+'</em></div>'
+       +'<div class="kw">'+esc(x.u)
+       +(x.i?' &middot; Item '+esc(x.i):'')
+       +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
+       +(kind==='co'?' &middot; '+whoLink(x.w,x.co):'')
+       +'</div></div></div>'; }).join('')
+   +more(300,rows.length,'items');
+
+  if(kind==='pp') h+=whoCons(o.n);
+  h+='<div class="prbtns" style="margin-top:14px">'
+   +'<button class="stmore" type="button" onclick="whoPrint()">'
+   +'&#128424; Print this list</button></div>';
+  out.innerHTML=h;
+  window.scrollTo(0,0);
+}
+/* A hirer's name, wherever it appears, is a door to their profile
+   (Andrew: "you also should be able to clkick on the name and it maybe
+   take you to that person to find out more info"). */
+/* the same door from any list row that carries a hirer */
+function wl(x){ return (x&&x.w)?whoLink(x.w,x.co||''):''; }
+/* every consumable movement in a person's name, gathered off the sales
+   feed. Used both on a full profile and on the "holding nothing" one,
+   because a bloke who has taken forty pairs of gloves and no tools is
+   still somebody the store knows about. */
+function whoCons(w){
+  var c=D.cons; if(!c||!c.all) return '';
+  var rows=[];
+  c.all.forEach(function(x){
+    (x.tx||[]).forEach(function(m){
+      if(m.w===w) rows.push({n:x.n,k:x.k,d:m.d,q:m.q,r:m.r});
+    });
+  });
+  if(!rows.length) return '';
+  rows.sort(function(p1,p2){return String(p2.d).localeCompare(String(p1.d))});
+  var took=0; rows.forEach(function(m){took+=(m.q||0)});
+  return '<div class="uhead">Consumables taken &mdash; '+rows.length
+   +' movement'+(rows.length===1?'':'s')+', '+Math.round(took)+' item'
+   +(Math.round(took)===1?'':'s')+'</div>'
+   +rows.slice(0,120).map(function(m){
+     return '<div class="txr"><div class="txd">'+esc(m.d||'&mdash;')+'</div>'
+      +'<div class="txw">'+esc(m.n)+'<span>SKU '+esc(m.k)+'</span></div>'
+      +'<div class="txq'+((m.r||0)>0?' back':'')+'">'
+      +((m.q||0)?'-'+Math.round(m.q):'')
+      +((m.r||0)?' +'+Math.round(m.r):'')+'</div></div>';
+   }).join('')+more(120,rows.length,'movements');
+}
+function whoLink(w,co){
+  if(!w) return '';
+  return '<span class="wlink" onclick="whoJump(event,'+jq(w)+','+jq(co)+')">'
+    +esc(w)+'</span>';
+}
+function whoJump(ev,w,co){
+  if(ev&&ev.stopPropagation) ev.stopPropagation();
+  w=jd(w); co=jd(co);
+  /* a name tapped inside the movements sheet has to close it on the
+     way out, or the profile opens underneath and nothing appears to
+     happen (caught on the rig) */
+  if(typeof shClose==='function') shClose();
+  nav('who');
+  var i=document.getElementById('wq'); if(i) i.value=w;
+  whoOpen('pp',w,co);
+}
+function whoPrint(){
+  if(!WHO_LAST) return;
+  nav('print');
+  if(WHO_LAST.kind==='co'){ PRW.kind='co'; PRW.co=WHO_LAST.a; }
+  else { PRW.kind='pp'; PRW.pp=whoKey(WHO_LAST.a,WHO_LAST.b); }
+  prShow();
+}
+function paneWho(){
+  return '<input class="srch" id="wq" placeholder="Any company, any name"'
+   +' oninput="whoFind()" autocomplete="off" autocapitalize="characters"'
+   +' spellcheck="false">'
+   +'<div id="wout"></div>';
+}
 var HOWTO={
+ who:{t:'Master search',
+  w:'Everything the board knows about a company or a person, on one '
+   +'screen. Somebody rings and asks &ldquo;what have my blokes got?&rdquo; '
+   +'&mdash; this is the answer, without opening five tabs.',
+  h:['Type two letters of a company or a name.',
+     'Tap a company to see every one of its people, or tap a name to go '
+     +'straight to that bloke.',
+     'Anywhere you see a name in orange &mdash; on this screen, in the '
+     +'finder, on a chase list &mdash; tap it and it brings you here.',
+     'Print this list sends it straight to the print hub, already loaded.'],
+  g:'The profile gives you the count, how old it all is, the aisles it '
+   +'came out of, the longest-held item, and anything on the chase or hit '
+   +'list. Only names holding gear RIGHT NOW appear &mdash; somebody who '
+   +'has brought everything back will not show, and that is the answer '
+   +'too.'},
  find:{t:'Find it',
   w:'The where-is-it tool. Somebody asks &ldquo;have we got a 2-tonne '
    +'lever block?&rdquo; or &ldquo;where&rsquo;s item 1312687?&rdquo; &mdash; '
@@ -3306,7 +3773,7 @@ function paneAisle(){
           +(x.i?'<div class="kqr">'+qr(x.i,56)+'</div>':'')
           +'<div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="o">'+x.d+' days</em></div>'
-          +'<div class="kw"><b>'+esc(x.w)+'</b> &middot; '+esc(x.co)
+          +'<div class="kw"><b>'+wl(x)+'</b> &middot; '+esc(x.co)
           +(x.i?' &middot; Item '+esc(x.i):'')+'</div></div>';
       }).join('')+more(40,a.chase.length,'items');
     }
@@ -3453,7 +3920,7 @@ function paneHits(){
         return '<div class="kid kidth'+(x.i?' hasqr':'')+'">'+thTile(x.v,x.n,x.va)
           +'<div class="kbody">'
           +(x.i?'<div class="kqr">'+qr(x.i,56)+'</div>':'')
-          +'<div class="kt"><b>'+esc(x.w)+'</b>'
+          +'<div class="kt"><b>'+wl(x)+'</b>'
           +'<em class="o">'+x.d+' day'+(x.d===1?'':'s')+'</em></div>'
           +'<div class="kw">'+esc(x.co)+' &middot; '+esc(x.n)
           +(x.i?' &middot; Item '+esc(x.i):'')
@@ -3694,7 +4161,7 @@ function prShow(){
      return '<div class="kid kidth">'+thTile(x.v,x.n,x.va)
        +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
        +'<em class="'+((x.d||0)>4?'o':'')+'">'+(x.d==null?'&mdash;':x.d+'d')+'</em></div>'
-       +'<div class="kw">'+esc(x.w)+' &middot; '+esc(x.co)+' &middot; '+esc(x.u)
+       +'<div class="kw">'+wl(x)+' &middot; '+esc(x.co)+' &middot; '+esc(x.u)
        +(x.i?' &middot; Item '+esc(x.i):'')
        +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
        +'</div></div></div>';
@@ -3974,7 +4441,7 @@ function frShow(kind){
       +rows.slice(0,200).map(function(x){
         return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="'+((x.d||0)>4?'o':'')+'">'+(x.d==null?'&mdash;':x.d+'d')+'</em></div>'
-          +'<div class="kw">'+esc(x.w)+' &middot; '+esc(x.co)
+          +'<div class="kw">'+wl(x)+' &middot; '+esc(x.co)
           +(x.i?' &middot; Item '+esc(x.i):'')
           +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
           +'</div></div>';
@@ -4028,6 +4495,85 @@ function consPrint(){
    as Stock Low and not one of them is an empty shelf - and a storeman who
    reads "stock low" at the counter will say "we are out of those" to the
    next bloke who asks. Kill that before anything else. */
+/* ==================================================================
+   EVERY MOVEMENT A CONSUMABLE HAS HAD (Andrew, 2 Aug 2026: "same with
+   consumable we sjhould be able to click on it and come up with all
+   transactions that product has had").
+
+   Tap a line on the shelf and this opens its whole history off the
+   sales feed - who took it, which company, how many, and when, newest
+   first. Every name in it is a door to that person's profile, so the
+   counter can go from "who took the last of the gloves" to "what else
+   has that bloke got" in two taps.
+================================================================== */
+/* A LIGHT SHEET. The board had no overlay of its own - every pane was
+   full-screen and swapped. A movement history does not deserve a pane
+   (you are not navigating to it, you are glancing at it and coming
+   straight back), so this is a sheet that slides up over whatever you
+   were reading and leaves it exactly where it was.
+   Escape closes it, the browser back button closes it, and tapping the
+   dark area closes it. Three ways out, because one is never enough on
+   a phone with gloves on. */
+function shSheet(title,html){
+  var el=document.getElementById('shsheet');
+  if(!el){
+    el=document.createElement('div'); el.id='shsheet'; el.className='shs';
+    el.innerHTML='<div class="shbg" onclick="shClose()"></div>'
+      +'<div class="shcard"><div class="shhd"><b id="shttl"></b>'
+      +'<button type="button" onclick="shClose()">Close</button></div>'
+      +'<div class="shbd" id="shbd"></div></div>';
+    document.body.appendChild(el);
+  }
+  document.getElementById('shttl').textContent=title||'';
+  var bd=document.getElementById('shbd');
+  bd.innerHTML=html||''; bd.scrollTop=0;
+  el.className='shs on';
+  document.body.style.overflow='hidden';
+  try{ history.pushState({sh:1},''); }catch(e){}
+}
+function shClose(){
+  var el=document.getElementById('shsheet');
+  if(el) el.className='shs';
+  document.body.style.overflow='';
+}
+window.addEventListener('popstate',function(){ shClose(); });
+document.addEventListener('keydown',function(e){
+  var el=document.getElementById('shsheet');
+  if(el&&el.className.indexOf('on')>=0&&(e.key==='Escape'||e.keyCode===27))
+    shClose();
+});
+function consTx(i){
+  var c=D.cons, x=c&&c.all&&c.all[i]; if(!x) return;
+  var tx=x.tx||[];
+  var took=0, back=0, who={};
+  tx.forEach(function(m){ took+=(m.q||0); back+=(m.r||0);
+    if(m.w) who[m.w]=(who[m.w]||0)+(m.q||0); });
+  var wl2=[]; for(var w in who) wl2.push([w,who[w]]);
+  wl2.sort(function(a,b){return b[1]-a[1]});
+  var h='<div class="txh"><div class="txn1">'+esc(x.n)+'</div>'
+   +'<div class="txn2">SKU '+esc(x.k)+(x.un?' &middot; '+esc(x.un):'')+'</div>'
+   +'<div class="wnums" style="margin-top:12px">'
+   +'<span><b>'+x.a+'</b>ON SHELF</span>'
+   +'<span><b>'+Math.round(took)+'</b>TAKEN</span>'
+   +'<span><b>'+Math.round(back)+'</b>BROUGHT BACK</span></div></div>';
+  if(wl2.length){
+    h+='<div class="uhead">Who has taken them</div><div class="wunits">'
+      +wl2.slice(0,12).map(function(a){
+         return '<span>'+whoLink(a[0],'')+' <b>'+Math.round(a[1])+'</b></span>';
+       }).join('')+'</div>';
+  }
+  h+='<div class="uhead">Every movement &mdash; newest first ('+tx.length+')</div>';
+  h+=tx.length?tx.map(function(m){
+      return '<div class="txr"><div class="txd">'+esc(m.d||'&mdash;')+'</div>'
+       +'<div class="txw">'+(m.w?whoLink(m.w,m.co||''):'<i>not named</i>')
+       +(m.co?'<span>'+esc(m.co)+'</span>':'')+'</div>'
+       +'<div class="txq'+((m.r||0)>0?' back':'')+'">'
+       +((m.q||0)?'-'+Math.round(m.q):'')
+       +((m.r||0)?' +'+Math.round(m.r):'')+'</div></div>';
+    }).join('')
+   :'<div class="kw">Nothing has moved on this line yet.</div>';
+  shSheet('Movements', h);
+}
 function paneCons(){
   var c=D.cons;
   var h='<div class="note"><b>The consumables shelf.</b> What we hold, what '
@@ -4059,12 +4605,16 @@ function paneCons(){
       +'<span>picture &middot; SKU &middot; on shelf &middot; scan code</span></div>'
       +'<div class="gq"><b>'+c.all.length+'</b><span>lines</span></div>'
       +'</button><div class="kids on">'
-      +c.all.map(function(x){
-        return '<div class="kid kidth hasqr">'
+      +c.all.map(function(x,xi){
+        var nt=(x.tx||[]).length;
+        return '<div class="kid kidth hasqr'+(nt?' tapme':'')+'"'
+          +(nt?' onclick="consTx('+xi+')"':'')+'>'
           +thTile(x.k,x.n)
           +'<div class="kbody"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em'+(x.a?'':' class="o"')+'>'+x.a+' on shelf</em></div>'
-          +'<div class="kw">SKU '+esc(x.k)+' &middot; '+x.u+' issued so far</div></div>'
+          +'<div class="kw">SKU '+esc(x.k)+' &middot; '+x.u+' issued so far'
+          +(nt?' &middot; <b class="txn">'+nt+' movement'+(nt===1?'':'s')
+              +' &rsaquo;</b>':'')+'</div></div>'
           +'<div class="kqr">'+qr(x.k,56)+'</div></div>';
       }).join('')+'</div></div>';
   }
@@ -4621,7 +5171,8 @@ def build(data, code, asof, pricing=None, mgr_code=None):
                 .replace('__TAG__', tag(code))
                 .replace('__ATAG__', tag(_alias) if _alias else '')
                 .replace('__AKEY__', enc(_alias, code) if _alias else '')
-                .replace('__ASOF__', asof or 'this morning'))
+                .replace('__ASOF__', asof or 'this morning')
+                .replace('__DAYTAG__', _day_tag()))
     if pricing and mgr_code:
         mblob = json.dumps(pricing, separators=(',', ':'), ensure_ascii=True)
         page = (page.replace('__MPAYLOAD__', menc(mgr_code, mblob))

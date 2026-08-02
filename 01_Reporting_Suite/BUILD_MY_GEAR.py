@@ -294,6 +294,28 @@ def read_transactions(path):
     return sheet_rows('TRANSACTION_CHARGES'), sheet_rows('CUSTOMER_CONTRACTOR_EQUIP')
 
 # --------------------------- build ----------------------------------------
+#  DAYS FROM FLAME OFF (Andrew, 2 Aug 2026: "days from Flame Off - this
+#  starts at 0 on the 24/07/2026 ... 02/08/2026 being the Power Outage
+#  day which is 9"). Optional import so a suite without the module just
+#  loses the tag rather than the build.
+try:
+    import shutdown_day as _SDAY
+except Exception:
+    _SDAY = None
+
+
+def _flame_tag(d=None):
+    """DAY 9 - POWER OUTAGE, or DAY 9, or nothing at all."""
+    if _SDAY is None:
+        return ''
+    try:
+        n = _SDAY.day(d)
+        m = _SDAY.milestone(d)
+        return 'DAY {}{}'.format(n, (' - ' + m) if m else '')
+    except Exception:
+        return ''
+
+
 def build():
     onhire_path = find_export('ON_HIRE*.xlsx', 'ON_HIRE')
     txn_path = find_export('TRANSACTIONS*.xlsx', 'TRANSACTIONS')
@@ -963,6 +985,11 @@ def build():
         #  trusts. If a count ever looks light, this line already said
         #  why. (Andrew's hidden items, 2 Aug 2026.)
         try:
+            if _SDAY is not None:
+                print('  Shutdown clock: ' + _SDAY.label())
+        except Exception:
+            pass
+        try:
             import hidden_stock as _HS
             if _HS.count():
                 print('  Hidden items: {} rule(s) applied from '
@@ -991,6 +1018,7 @@ def build():
                                        bool(_store_pane)))
             .replace('__STORESTAG__', _stores_tag)
             .replace('__ASOF__', asof or 'last refresh')
+            .replace('__FDAY__', _flame_tag())
             .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS
                      + mygear_guides.TT_CSS)
             .replace('//__QRJS__//',
@@ -1489,6 +1517,8 @@ h3.sec:before{counter-increment:mod;
 @keyframes prail{to{transform:scaleX(1)}}
 .prsub{margin-top:7px;font-size:9px;font-weight:800;letter-spacing:1.8px;
  color:#6B7789;text-transform:uppercase}
+/* the day number is the bit a bloke on site actually navigates by */
+.prsub .fd{color:#F26222}
 /* the hire age tracker - clear / watch / return */
 .hage{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:9px}
 .hcell{border:1px solid #263143;border-radius:14px;padding:11px 5px 9px;
@@ -2008,6 +2038,9 @@ __SHEET__
 var DATA=__DATA__;
 /* the snapshot date, for the power rail's line under the header */
 var ASOF="__ASOF__";
+/* days from Flame Off - a date means nothing on a shutdown, a day
+   number means everything (Andrew, 2 Aug 2026) */
+var FDAY="__FDAY__";
 
 /* THE CARD'S ICONS (2 Aug 2026). Same drawing rules as the front
    door's tiles - 24 viewBox, 1.8 stroke, round caps, currentColor - so
@@ -2303,6 +2336,7 @@ function renderCard(p){
     actually carried one. */
  +'<div class="prail"></div><div class="prsub">Cement Australia K2 &middot; Gladstone'
  +((typeof ASOF==='string'&&ASOF&&ASOF!=='last refresh')?' &middot; '+esc(ASOF):'')
+ +((typeof FDAY==='string'&&FDAY)?' &middot; <b class="fd">'+esc(FDAY)+'</b>':'')
  +'</div>'
  +'<div data-sec="sum"></div>'
  +'<div class="scorewrap" data-rv>'+ring+'<div class="scoremeta"><div class="scorelab">Returns Score</div><div class="rankline">'+rankline+'</div><div class="rate2"><span class="stars">'+stars(r.stars)+'</span> <b>'+esc(r.label)+'</b></div></div></div>'

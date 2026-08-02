@@ -312,6 +312,18 @@ def read(sales_path, stocktake_path, base, today=None):
             'barcode': s['barcode'],
             'avail': s['avail'], 'min': s['min'], 'reorder': s['reorder'],
             'used': used, 'returned': returned, 'moves': len(moves),
+            #  EVERY MOVEMENT THIS LINE HAS HAD (Andrew, 2 Aug 2026:
+            #  "same with consumable we sjhould be able to click on it
+            #  and come up with all transactions that product has had").
+            #  Newest first, because the question is nearly always "who
+            #  took the last of them". Capped at 200 - past that it is a
+            #  report, not a tap.
+            'tx': [{'d': (m['when'].isoformat() if m['when'] else ''),
+                    'q': m['qty'], 'r': m['ret'],
+                    'w': m['who'], 'co': m['co']}
+                   for m in sorted(moves,
+                                   key=lambda m: (m['when'] or dt.date.min),
+                                   reverse=True)[:200]],
             'first': first.isoformat() if first else '',
             'span': span, 'burn': burn, 'cover': cover,
             'counted': (c['qty'] if c else None),
