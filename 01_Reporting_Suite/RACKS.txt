@@ -1,0 +1,14 @@
+# WHERE THE GEAR SITS - Andrew's file. Updates never overwrite it.
+#
+# SiteIQ does not carry a shelf or bin location, so this is the only
+# place it can come from. Anything not listed here simply shows no rack
+# on the Fleet Details screen - which is better than a guess.
+#
+# One per line:      <item number, barcode or variant> | <where>
+#
+#   1120347         | Rack B3
+#   COA~60593       | Rack B4
+#   HYDCYL45TLH60MM | Rack B
+#
+# Most specific wins: item number, then barcode, then variant.
+# Lines starting with # are ignored. Blank lines are fine.
