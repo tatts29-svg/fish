@@ -225,7 +225,7 @@ def collect(today=None):
 
     lines = []
     grouped = collections.defaultdict(
-        lambda: {'qty': 0, 'items': [], 'sample': ''})
+        lambda: {'qty': 0, 'items': [], 'sample': '', 'variant': ''})
     for item in sorted(on_account):
         row = stock.get(item)
         desc = (MI._txt(row, 'ITEM_DESCRIPTION') if row
@@ -241,8 +241,10 @@ def collect(today=None):
             #  matched on what the gear is actually called.
             if not grouped[g]['sample']:
                 grouped[g]['sample'] = desc
+                grouped[g]['variant'] = MI._variant(row) if row else ''
             continue
-        lines.append((item, desc, row, [item]))
+        lines.append((item, desc, row, [item],
+                      MI._variant(row) if row else ''))
 
     def states_for(items):
         """One row of day states for an asset (or a group of them)."""
@@ -283,15 +285,16 @@ def collect(today=None):
         return out, status
 
     rows = []
-    for item, desc, row, items in lines:
+    for item, desc, row, items, var in lines:
         st, status = states_for(items)
         rows.append({'key': item, 'desc': desc, 'priceDesc': desc,
-                     'qty': 1, 'type': 'INDIVIDUAL',
+                     'variant': var, 'qty': 1, 'type': 'INDIVIDUAL',
                      'status': status, 'states': st})
     for label, g in grouped.items():
         st, status = states_for(g['items'])
         rows.append({'key': 'GROUP - ' + label, 'desc': label,
                      'priceDesc': g['sample'],
+                     'variant': g.get('variant', ''),
                      'qty': g['qty'], 'type': 'GROUPED',
                      'status': status, 'states': st})
 
@@ -309,24 +312,38 @@ def collect(today=None):
     for r in rows:
         r['util'] = (r['daysUsed'] / source_days) if source_days else 0.0
 
+    #  WHAT SITEIQ ACTUALLY CHARGED against the account, so the rate
+    #  card can be checked rather than believed. If rate x days lands
+    #  near the real charge, the rates are the right ones and applied
+    #  the right way. If it does not, one of the two is wrong and the
+    #  sheet says so instead of quietly publishing a number.
+    charged_plant = 0.0
+    for r in tc:
+        if _is_plant_account(MI._txt(r, 'HIRER_NAME')):
+            charged_plant += MI._num(r.get('TOTAL_CHARGE ($)'))
+
     #  ---- price it, if the quote is in --------------------------------
     rates = DR.load(BASE)
     priced = unpriced = 0
     for r in rows:
         first = (r['key'] if r['type'] == 'INDIVIDUAL' else '')
-        rate = DR.rate_for(rates, item=first,
-                           desc=r.get('priceDesc') or r['desc'])
+        #  variant first - the rate card is keyed on it and it is the
+        #  only key that cannot be ambiguous
+        rec = DR.record_for(rates, variant=r.get('variant', ''), item=first,
+                            desc=r.get('priceDesc') or r['desc'])
+        rate = rec['rate'] if rec else None
+        r['rec'] = rec
         r['rate'] = rate
         if rate is None:
             unpriced += 1
         else:
             priced += 1
-        r['$used'] = DR.money(rate, r['qty'], r['daysUsed'])
-        r['$plant'] = DR.money(rate, r['qty'], r['daysPlant'])
+        r['$used'] = DR.charge(rec, r['qty'], r['daysUsed'])
+        r['$plant'] = DR.charge(rec, r['qty'], r['daysPlant'])
         #  days on site with no charge at all - the other money story
         idle = sum(1 for x in r['states'] if x == S_OFF)
         r['idleDays'] = idle
-        r['$idle'] = DR.money(rate, r['qty'], idle)
+        r['$idle'] = DR.charge(rec, r['qty'], idle)
 
     #  any status we have no rule for, named so it cannot hide
     unknown = collections.Counter()
@@ -364,6 +381,7 @@ def collect(today=None):
                           if r['status'] == MI.READY_STATUS),
         'unknownStatus': unknown.most_common(),
         'rates': rates, 'priced': priced, 'unpriced': unpriced,
+        'chargedPlant': charged_plant,
         '$used': sum(r['$used'] or 0 for r in rows),
         '$plant': sum(r['$plant'] or 0 for r in rows),
         '$idle': sum(r['$idle'] or 0 for r in rows),
@@ -564,6 +582,26 @@ def main():
               .format(d['$plant']))
         print('   Not charging  ${:>12,.2f}   on site, earning nothing'
               .format(d['$idle']))
+        #  the check
+        cp, comp = d['chargedPlant'], d['$plant']
+        if cp:
+            gap = comp - cp
+            pct = abs(gap) / cp * 100.0
+            print('')
+            print(' Rate check   : site plant priced at ${:,.2f} against '
+                  '${:,.2f}'.format(comp, cp))
+            print('                actually charged in SiteIQ - {:+,.2f} '
+                  '({:.0f}%).'.format(gap, pct))
+            if pct > 15:
+                print(' ' + '!' * 58)
+                print(' That is a wide gap. Either the rate card is not the')
+                print(' one this job bills on, or days are being counted')
+                print(' differently to the way SiteIQ charges shifts.')
+                print(' Worth resolving before this sheet goes anywhere.')
+                print(' ' + '!' * 58)
+            else:
+                print('                Close enough to trust the rates and')
+                print('                the way they are being applied.')
         if r.get('skipped'):
             print(' {} quote line(s) carried no rate: {}'.format(
                 len(r['skipped']),

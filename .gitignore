@@ -38,3 +38,8 @@ __pycache__/
 01_Reporting_Suite/Photo_Hunt.html
 01_Reporting_Suite/Gear_Lookup/thumbs/
 01_Reporting_Suite/stocktake_log.json
+
+# Contracted rates. Commercial pricing for the job - it lives on
+# Andrew's machines, not in git and not in an update zip. The
+# code that reads it ships; the rates do not.
+01_Reporting_Suite/Data_Quote/

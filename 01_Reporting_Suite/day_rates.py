@@ -15,10 +15,24 @@
 #  AND by days, in that order, and says so on the page.
 #
 #  WHERE TO PUT IT:
-#      Data_Quote\   <- drop the quote in here. Newest .xlsx wins.
-#                       Anything with an item or description column and
-#                       a rate column will read; the header names vary
-#                       between quotes and this tries the usual ones.
+#      Data_Quote\   <- drop the rate card in here. Newest .xlsx wins.
+#
+#  THE SHAPE IT ACTUALLY COMES IN (Andrew, 2 Aug 2026 - the Contracted
+#  Rates and Prices export): one row per PRODUCT VARIANT with a Base
+#  Rate. 880 lines, and it keys straight onto the variant the register
+#  already speaks - 779 of 790 stock variants matched, covering 4,487
+#  of the 4,528 assets that carry a variant. RUBCHUTE1M comes back at
+#  $1.04/day, the same figure Andrew has on his own sheet.
+#
+#  TIERS. The card carries T2/T3 tier columns - a shift number and a
+#  rate that takes over past it. Every one of them is empty on this
+#  contract, so today every line is a flat base rate. They are read and
+#  applied anyway, because the day they ARE filled the sums must not
+#  quietly keep using the base rate.
+#
+#  A quote in the older shape - item number or description plus a rate
+#  column - still reads. Both are supported; the variant is tried first
+#  because it is the only one that cannot be ambiguous.
 #
 #  TWO INVOICE STREAMS, TWO RATE CARDS, AND THEY NEVER CROSS.
 #  Baseplan bills its own 16 lines - radios, gas, two welders, fridges,
@@ -42,12 +56,18 @@ QUOTE_DIR = 'Data_Quote'
 
 #  Header names seen on quotes, lowest-fuss first. Matched loosely
 #  because a quote is a human document and nobody spells these twice.
+VARIANT_COLS = ('product variant id', 'product variant', 'variant id',
+                'variant')
 ITEM_COLS = ('item number', 'item no', 'item', 'asset no', 'asset number',
              'sku', 'product code', 'code')
 DESC_COLS = ('description', 'item description', 'equipment', 'asset',
              'bundle equipment', 'product')
-RATE_COLS = ('day rate', 'daily rate', 'rate per day', 'rate 1', 'rate',
-             'unit rate', 'price per day')
+RATE_COLS = ('base rate', 'day rate', 'daily rate', 'rate per day',
+             'rate 1', 'rate', 'unit rate', 'price per day')
+T2_FROM = ('t2 first shift nr',)
+T2_RATE = ('t2 tier rate',)
+T3_FROM = ('t3 first shift nr',)
+T3_RATE = ('t3 tier rate',)
 QTY_COLS = ('quantity', 'qty')
 
 
@@ -107,8 +127,8 @@ def load(here=None):
     Empty and harmless when there is no quote yet - every caller then
     shows TBC exactly as it did before this module existed.
     """
-    out = {'byItem': {}, 'byDesc': {}, 'lines': 0, 'path': '',
-           'problem': '', 'skipped': []}
+    out = {'byVariant': {}, 'byItem': {}, 'byDesc': {}, 'lines': 0,
+           'path': '', 'problem': '', 'skipped': [], 'tiered': 0}
     p = quote_path(here)
     if not p:
         out['problem'] = ('no quote found - drop it in {}\\ and the day '
@@ -132,16 +152,26 @@ def load(here=None):
         for i, r in enumerate(rows[:25]):
             cand = [('' if c is None else str(c)) for c in r]
             if _pick(cand, RATE_COLS) is not None and (
-                    _pick(cand, ITEM_COLS) is not None
+                    _pick(cand, VARIANT_COLS) is not None
+                    or _pick(cand, ITEM_COLS) is not None
                     or _pick(cand, DESC_COLS) is not None):
                 head_at, hdr = i, cand
                 break
         if head_at is None:
             continue
+        vi = _pick(hdr, VARIANT_COLS)
         ii = _pick(hdr, ITEM_COLS)
         di = _pick(hdr, DESC_COLS)
         ri = _pick(hdr, RATE_COLS)
         qi = _pick(hdr, QTY_COLS)
+        t2f, t2r = _pick(hdr, T2_FROM), _pick(hdr, T2_RATE)
+        t3f, t3r = _pick(hdr, T3_FROM), _pick(hdr, T3_RATE)
+        #  "Product Variant ID" contains "product" and would otherwise
+        #  be grabbed as the description column too
+        if vi is not None and di == vi:
+            di = None
+        if vi is not None and ii == vi:
+            ii = None
         for r in rows[head_at + 1:]:
             if not r or not any(c not in (None, '') for c in r):
                 continue
@@ -151,13 +181,29 @@ def load(here=None):
             desc = (str(r[di]).strip()
                     if di is not None and di < len(r) and r[di] else '')
             qty = _num(r[qi]) if qi is not None and qi < len(r) else 0.0
-            if not (item or desc):
-                continue
             if rate <= 0:
                 #  a line with no rate is REPORTED, not read as free
                 out['skipped'].append(item or desc)
                 continue
-            rec = {'rate': rate, 'qty': qty, 'desc': desc, 'item': item}
+            var = (str(r[vi]).strip()
+                   if vi is not None and vi < len(r) and r[vi] else '')
+            if not (item or desc or var):
+                continue
+
+            def _cell(i):
+                return (r[i] if i is not None and i < len(r) else None)
+
+            tiers = []
+            for fi, ri2 in ((t2f, t2r), (t3f, t3r)):
+                frm, rt = _num(_cell(fi)), _num(_cell(ri2))
+                if frm > 0 and rt > 0:
+                    tiers.append((int(frm), rt))
+            if tiers:
+                out['tiered'] += 1
+            rec = {'rate': rate, 'qty': qty, 'desc': desc, 'item': item,
+                   'variant': var, 'tiers': sorted(tiers)}
+            if var:
+                out['byVariant'][var.upper()] = rec
             if item:
                 out['byItem'][item] = rec
             if desc:
@@ -171,8 +217,72 @@ def load(here=None):
     return out
 
 
-def rate_for(rates, item='', desc=''):
-    """The day rate for one item, or None. Never a guess, never zero."""
+def record_for(rates, variant='', item='', desc=''):
+    """The rate card line for one thing, or None. Variant first - it is
+    the only key that cannot be ambiguous."""
+    if not rates:
+        return None
+    if variant:
+        r = rates['byVariant'].get(str(variant).strip().upper())
+        if r:
+            return r
+    if item:
+        r = rates['byItem'].get(str(item).strip())
+        if r:
+            return r
+    if desc:
+        n = _norm(desc)
+        r = rates['byDesc'].get(n)
+        if r:
+            return r
+        best = None
+        for k, v in rates['byDesc'].items():
+            if len(k) < 8:
+                continue
+            if n.startswith(k) or k.startswith(n):
+                if best is None or len(k) > len(best[0]):
+                    best = (k, v)
+        if best:
+            return best[1]
+    return None
+
+
+def charge(rec, qty, days):
+    """PER EACH, and through the tiers if the card has any.
+
+    Base rate up to the first tier's shift number, then that tier's
+    rate, and so on. Every tier is empty on the current contract, so
+    this comes out as rate x qty x days - but it will not silently keep
+    doing that if the card is ever filled in.
+    """
+    if not rec:
+        return None
+    days = float(days or 0)
+    qty = max(1, int(qty or 1))
+    if days <= 0:
+        return 0.0
+    tiers = rec.get('tiers') or []
+    if not tiers:
+        return rec['rate'] * qty * days
+    total, done, rate = 0.0, 0.0, rec['rate']
+    for start, trate in tiers:
+        upto = min(days, max(0.0, float(start) - 1))
+        if upto > done:
+            total += rate * (upto - done)
+            done = upto
+        rate = trate
+    if days > done:
+        total += rate * (days - done)
+    return total * qty
+
+
+def rate_for(rates, item='', desc='', variant=''):
+    """The base day rate, or None. Never a guess, never zero."""
+    r = record_for(rates, variant=variant, item=item, desc=desc)
+    return r['rate'] if r else None
+
+
+def _legacy_rate_for(rates, item='', desc=''):
     if not rates:
         return None
     if item:
@@ -212,11 +322,11 @@ if __name__ == '__main__':
     if r['problem']:
         print('  ' + r['problem'])
     else:
-        print('  Quote: {}'.format(os.path.basename(r['path'])))
-        print('  {} rate line(s) read'.format(r['lines']))
-        for k, v in list(r['byItem'].items())[:8]:
-            print('     {:<14} ${:>9.2f}/day  {}'.format(
-                k, v['rate'], v['desc'][:34]))
+        print('  Rate card: {}'.format(os.path.basename(r['path'])))
+        print('  {} line(s) read, {} keyed on product variant, {} tiered'
+              .format(r['lines'], len(r['byVariant']), r['tiered']))
+        for k, v in list(r['byVariant'].items())[:8]:
+            print('     {:<30} ${:>9.2f}/day'.format(k[:30], v['rate']))
     if r['skipped']:
         print('  {} line(s) had no rate and were skipped: {}'.format(
             len(r['skipped']), ', '.join(str(x)[:24] for x in r['skipped'][:5])))
