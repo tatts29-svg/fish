@@ -289,18 +289,19 @@ function tfail(img){
    scale as the headline pair - the steel bar is commercial days, the
    orange is the share of those days it was in a named hirer's hands.
 
-   The denominator is days since the shutdown started, because arrival
-   dates are not exported. An asset that landed late therefore reads
-   lower than it deserves, and the limits at the foot of the page say
-   so rather than the bar pretending otherwise. */
+   The denominator is the number of days the TRANSACTIONS COVER, not
+   the length of the shutdown - Andrew's Flame Off rule, and the right
+   one: a day the export does not reach is not a day the gear sat idle,
+   it is a day nobody can see. */
 var OPEN = null;
 function ubar(cd, md){
-  var span = D.daysIn || 1;
+  var span = D.sourceDays || D.daysIn || 1;
   var m = Math.min(100, 100 * md / span), c = Math.min(100, 100 * cd / span);
   return '<div class="ubar"><i class="com" style="width:' + m.toFixed(1)
     + '%"></i><i class="cli" style="width:' + c.toFixed(1) + '%"></i></div>'
     + '<div class="ulab"><b>' + cd.toFixed(1) + 'd client-issued</b> of '
-    + md.toFixed(1) + 'd on charge <i>&middot; ' + span + 'd shutdown</i></div>';
+    + md.toFixed(1) + 'd on charge <i>&middot; ' + span
+    + 'd supplied</i></div>';
 }
 /* GROUPED BY NAME, because you chase a bloke, not a description - the
    same rule the hit list follows. One visit clears a name, so one line
@@ -650,6 +651,8 @@ def build(today=None):
     payload = {'variants': d['variants'], 'rank': rank, 'lookup': lookup,
                'assets': by_variant, 'daysIn': d['daysIn'],
                'noVariant': j['noVariantAssets'], 'thumbs': thumbs,
+               'sourceDays': d['sourceDays'], 'sourceFrom': d['sourceFrom'],
+               'sourceTo': d['sourceTo'],
                'thumbBase': '../../../Gear_Lookup/thumbs/'}
 
     # ---------------- the page --------------------------------------

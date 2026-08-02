@@ -114,8 +114,11 @@ LIMITS = [
     "either, so an asset held back on purpose will look idle. If you "
     "keep passing over a tool the page recommends, say why - that is "
     "how the hidden problem gets found.",
-    "Arrival dates are not exported, so an asset that landed mid-shut "
-    "is measured over the whole shutdown and reads worse than it is.",
+    "Utilisation is measured against the days the TRANSACTIONS ACTUALLY "
+    "COVER, not the length of the shutdown. A day the export does not "
+    "reach is not a day the gear sat idle - it is a day we cannot see.",
+    "Arrival dates are not exported, so an asset that landed part way "
+    "through the supplied period still reads against all of it.",
     "Revenue is summed from the charge lines. The Daily Summary is a "
     "job total by category and cannot be split per asset, so a lagging "
     "Daily Summary shows here as PENDING, never as zero.",
@@ -310,6 +313,7 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             'revenue': 0.0, 'pendingRevenue': False,
             'lastOut': None, 'firstOut': None,
             'issued': False, 'clientIssued': False, 'holdingOnly': False,
+            'spans': [],
         }
     by_bc = {a['bc']: a for a in assets.values() if a['bc']}
 
@@ -361,6 +365,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
     money = {'asset': 0.0, 'offRegister': 0.0, 'service': 0.0}
     off_register = {}
     unmatched_lines = 0
+
+    cap = None
 
     def _activity(rows, charged):
         nonlocal tx_rows, unmatched_lines
@@ -419,15 +425,22 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                 a['openLines'] += 1
 
             if start:
+                #  a span cannot run past the data. Beyond src_to is NO
+                #  DATA, not more usage and not idleness.
+                if cap and end is None:
+                    end = cap
+                elif cap and end and end > cap:
+                    end = cap
                 a['firstOut'] = min(a['firstOut'] or start, start)
                 a['lastOut'] = max(a['lastOut'] or start, end or start)
-                days = max(0.0, ((end or now) - start).total_seconds()
-                           / 86400.0)
-                a['commercialDays'] += days
-                if holding:
-                    a['holdingDays'] += days
-                else:
-                    a['clientDays'] += days
+                #  COLLECTED, NOT SUMMED. The same physical hire can
+                #  appear in both transaction sheets, so adding span
+                #  lengths as they arrive double-counts the days - 36
+                #  assets came out billed for more days than the export
+                #  even covers, which is impossible on its face. The
+                #  intervals are merged per asset below, exactly the way
+                #  peak concurrent already had to be fixed.
+                a['spans'].append((start, end or now, holding))
                 #  keyed on the ASSET's variant, never the transaction's
                 #  spelling of it - see variant_name above
                 if a['variant']:
@@ -456,9 +469,26 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
     #  sheet that carries them, which is the same reason it exists.
     tc_rows = ec_rows = []
     backfilled = 0
+    #  THE SOURCE WINDOW. (Andrew's Flame Off sheet, 2 Aug 2026.) His
+    #  rule, and it is a better one than mine was: "NO DATA = outside
+    #  supplied transaction period". A day the export does not cover is
+    #  not a day the asset sat idle - it is a day we cannot see, and
+    #  measuring against it marks gear down for our own reporting gap.
+    #
+    #  So utilisation is measured against the days the TRANSACTIONS
+    #  ACTUALLY COVER, not against the length of the shutdown. His sheet
+    #  reads 21 source days off a 13/07-02/08 pull and divides by that;
+    #  this engine was dividing by days-since-flame-off, which is a
+    #  different and more flattering number every morning.
+    src_from = src_to = None
     if txn_path and os.path.isfile(txn_path):
         tc_rows = _sheet(txn_path, 'TRANSACTION_CHARGES')
         ec_rows = _sheet(txn_path, 'CUSTOMER_CONTRACTOR_EQUIP')
+        _ds = [_date(r.get(k)) for r in tc_rows + ec_rows
+               for k in ('TRAN_START_DATE', 'TRAN_END_DATE')]
+        _ds = [x for x in _ds if x]
+        if _ds:
+            src_from, src_to = min(_ds), max(_ds)
         for r in ec_rows + tc_rows:
             item = _txt(r, 'SKU/ITEM_NUMBER') or _txt(r, 'ITEM_NUMBER')
             a = assets.get(item) or by_bc.get(_txt(r, 'LATEST_BARCODE'))
@@ -478,9 +508,35 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                 merged_names[n].add(a['variant'])
             a['variant'] = n
 
+    if src_to:
+        cap = dt.datetime.combine(src_to, dt.time(23, 59, 59))
     if tc_rows or ec_rows:
         _activity(tc_rows, True)
         _activity(ec_rows, False)
+
+    # ---------------- per asset: merge the intervals, then measure ---
+    def _merged_days(ivs):
+        """Days covered by these intervals, counting overlap once."""
+        if not ivs:
+            return 0.0
+        ivs = sorted(ivs)
+        total = 0.0
+        cs, ce = ivs[0]
+        for st, en in ivs[1:]:
+            if st <= ce:
+                ce = max(ce, en)
+            else:
+                total += (ce - cs).total_seconds()
+                cs, ce = st, en
+        total += (ce - cs).total_seconds()
+        return max(0.0, total / 86400.0)
+
+    for a in assets.values():
+        sp = a.pop('spans', [])
+        a['commercialDays'] = _merged_days([(s0, e0) for s0, e0, _h in sp])
+        a['clientDays'] = _merged_days([(s0, e0) for s0, e0, h in sp if not h])
+        #  what was on charge but never in a named hirer's hands
+        a['holdingDays'] = max(0.0, a['commercialDays'] - a['clientDays'])
 
     # ---------------- per asset: idle, and the third signal ----------
     for a in assets.values():
@@ -501,6 +557,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         a['neverIssued'] = not a['issued']
 
     days_in = max(1, (today - SHUT_START).days)
+    #  the denominator every utilisation figure on this page divides by
+    source_days = ((src_to - src_from).days + 1) if (src_from and src_to) else 0
 
     # ---------------- per variant ------------------------------------
     #  An asset with no PRODUCT_VARIANT cannot be compared with anything,
@@ -695,6 +753,9 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         'asof': today.isoformat(),
         'shutStart': SHUT_START.isoformat(),
         'daysIn': days_in,
+        'sourceFrom': src_from.isoformat() if src_from else '',
+        'sourceTo': src_to.isoformat() if src_to else '',
+        'sourceDays': source_days,
         'dayStartHour': DAY_START_HOUR,
         'contingencyPct': CONTINGENCY_PCT,
         'totals': tot,
