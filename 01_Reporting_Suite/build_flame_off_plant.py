@@ -69,12 +69,15 @@ GROUPS = [
 ]
 
 #  Statuses that mean the asset is no longer standing on site as plant.
-#  Andrew, 2 Aug 2026: departed gear shows as pending baseplan, "or may
-#  show as available", and "could show as pending branch receipt".
-#  Branch receipt is the branch waiting to book it back in - it has
-#  left site, so it is departed. Available stays OUT of this list on
-#  purpose: it is genuinely ambiguous, and guessing it would be a lie
-#  with a straight face. See the unresolved count.
+#  Andrew, 2 Aug 2026: departed gear shows as pending baseplan, or
+#  "could show as pending branch receipt". Branch receipt is the branch
+#  waiting to book it back in - it has left site, so it is departed.
+#
+#  AVAILABLE FOR HIRE IS NOT DEPARTED. He settled it: "available for
+#  hire means its generally onsite. not being charged until such time
+#  it going onhire." So it is standing on site earning nothing, which
+#  is a different fact from gone, and commercially the sharper of the
+#  two - see the three states below.
 DEPARTED_STATUS = ('Pending Baseplan', 'Failed Baseplan',
                    'Pending Branch Receipt')
 
@@ -298,7 +301,12 @@ def collect(today=None):
         #  gone off site, and nothing in the export separates the two.
         #  It is counted and named as unresolved rather than guessed
         #  into whichever column makes the sheet look tidier.
-        'offAccount': sum(r['qty'] for r in rows
+        #  ON SITE AND EARNING NOTHING. Not departed, not allocated,
+        #  not even on charge. Site Plant days are revenue Coates IS
+        #  taking with nobody allocated against it; these are days the
+        #  gear is here and taking nothing at all. Two different
+        #  arguments, and lumping them together loses both.
+        'onSiteIdle': sum(r['qty'] for r in rows
                           if r['status'] == MI.READY_STATUS),
         'unknownStatus': unknown.most_common(),
     }
@@ -336,18 +344,21 @@ def write_xlsx(d, path):
     ws['A3'] = ('Rule: SITE PLANT = onsite and chargeable but not allocated. '
                 'USED = on hire to another employer/person. '
                 'NO DATA = outside supplied transaction period. '
-                'DEPARTED = off site, showing ' + ' or '.join(DEPARTED_STATUS)
-                + '.')
+                'DEPARTED = off site, showing '
+                + ' or '.join(DEPARTED_STATUS) + '. '
+                'AVAILABLE FOR HIRE = on site and NOT being charged until '
+                'it goes back on hire - here, but earning nothing.')
     ws['A4'] = ('Day rates are not in any SiteIQ export - the rate column '
-                'reads TBC rather than a guess. An asset reading Available '
-                'for Hire is either back on the shelf or departed; no '
-                'export separates the two, so it is counted as neither.')
+                'reads TBC rather than a guess. With rates, SITE PLANT days '
+                'price what is being charged with nobody allocated, and '
+                'ON SITE NOT CHARGING prices what is standing here earning '
+                'nothing at all.')
 
     labels = ['TOTAL UNIQUE ASSETS', 'INDIVIDUAL LINES', 'GROUPED LINES',
               'ASSETS / GROUPS USED', 'NEVER USED IN SOURCE', 'DEPARTED',
-              'BACK ON SHELF OR DEPARTED', 'SOURCE DAYS']
+              'ON SITE, NOT CHARGING', 'SOURCE DAYS']
     vals = [d['totalAssets'], d['individual'], d['groups'], d['used'],
-            d['neverUsed'], d['departed'], d['offAccount'], d['sourceDays']]
+            d['neverUsed'], d['departed'], d['onSiteIdle'], d['sourceDays']]
     for i, (lab, v) in enumerate(zip(labels, vals)):
         c = ws.cell(row=6, column=1 + i * 2, value=lab)
         c.font = hdrf
@@ -453,12 +464,14 @@ def main():
         print(' Add them to DEPARTED_STATUS or KNOWN_STATUS in')
         print(' build_flame_off_plant.py once you know which they are.')
         print(' ' + '!' * 58)
-    if d['offAccount']:
-        print(' Unresolved   : {:,} asset(s) now read Available for Hire.'
-              .format(d['offAccount']))
-        print('                That is either back on the shelf or departed,')
-        print('                and no export separates the two - so they are')
-        print('                not counted as either. Stocktake settles it.')
+    if d['onSiteIdle']:
+        print(' On site,     : {:,} asset(s) read Available for Hire - here,'
+              .format(d['onSiteIdle']))
+        print(' not charging   on the shelf, and not being charged at all')
+        print('                until they go back on hire. Site Plant days')
+        print('                earn with nobody allocated; these earn')
+        print('                nothing. Different arguments, both worth')
+        print('                having.')
     print('')
     print(' Day rates    : TBC - no SiteIQ export carries a per-asset day')
     print('                rate. Tell me where they live and this fills in.')
