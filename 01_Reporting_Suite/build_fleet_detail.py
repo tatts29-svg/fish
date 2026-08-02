@@ -139,6 +139,66 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
  padding:0;cursor:pointer;font-family:inherit}
 .foot{color:#4A5768;font-size:11px;text-align:center;padding:22px 16px 34px;
  letter-spacing:.4px}
+/* ---- the product cards, Andrew's design 2 Aug ------------------ */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+ gap:12px;margin-top:10px}
+.card{background:#131A22;border:1px solid #263143;border-radius:16px;
+ overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
+.card:hover{border-color:#3A4757}
+.card .pic{position:relative;aspect-ratio:4/3;background:#0B111A;
+ display:flex;align-items:center;justify-content:center;overflow:hidden}
+/* NO PHOTO, NO EMPTY TILE. A 4:3 plate with nothing in it is 285px of
+   dead space per card, and with 48 cards and an empty thumbs folder
+   that is most of the screen. Collapse it to a strip that still carries
+   the fleet count, and let the words do the work until PHOTO_HUNT has
+   filled the folder. */
+.card .pic.empty{aspect-ratio:auto;height:44px;
+ border-bottom:1px solid #1E2733}
+.card .pic.empty .badge{top:7px;height:26px;font-size:13px}
+.card .pic img{width:100%;height:100%;object-fit:cover}
+/* NO PHOTO IS NOT A BROKEN TILE. Empty picture tiles have been a fault
+   on this suite before, so a fleet with no thumbnail gets a plain
+   lettered plate that says which category it is - never a grey box and
+   never a broken image icon. */
+.card .pic .noimg{color:#3A4757;font-size:11px;font-weight:800;
+ letter-spacing:2px;text-transform:uppercase;text-align:center;padding:0 12px}
+.card .badge{position:absolute;top:10px;right:10px;background:#E2AE48;
+ color:#241905;font-weight:800;font-size:15px;min-width:34px;height:30px;
+ border-radius:9px;display:flex;align-items:center;justify-content:center;
+ padding:0 8px}
+.card .body{padding:13px 14px 14px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:16px;font-weight:800;line-height:1.25;color:#F5F7FB}
+.card .sub{color:#6B7789;font-size:12.5px;margin-top:5px}
+.card .vc{color:#4A5768;font-size:11.5px;letter-spacing:.6px;margin-top:2px;
+ word-break:break-all;font-family:Consolas,'Courier New',monospace}
+.card .urow{display:flex;justify-content:space-between;align-items:baseline;
+ margin-top:12px}
+.card .urow em{font-style:normal;color:#8794A6;font-size:11px;font-weight:800;
+ letter-spacing:1.4px;text-transform:uppercase}
+.card .urow b{font-size:19px;font-weight:800}
+.card .foot2{display:flex;justify-content:space-between;align-items:center;
+ gap:8px;margin-top:11px;color:#6B7789;font-size:12.5px}
+/* ---- RECOMMENDED NEXT ------------------------------------------ */
+.rec{border:1px solid #1C9FAE;border-radius:16px;overflow:hidden;
+ background:#101822;margin-top:10px}
+.rec .tag{display:inline-block;background:#1C9FAE;color:#04222A;
+ font-size:10px;font-weight:800;letter-spacing:1.4px;border-radius:20px;
+ padding:5px 11px;margin:13px 0 0 13px}
+.rec .in{padding:10px 14px 14px}
+.rec h3{font-size:18px;font-weight:800;margin-top:6px}
+.rec .item{color:#8794A6;font-size:13px;margin-top:3px;word-break:break-all;
+ font-family:Consolas,'Courier New',monospace}
+.rec ul{list-style:none;margin:10px 0 0}
+.rec li{color:#C6D0DD;font-size:13px;margin-top:5px}
+.rec .why{background:#0B131B;border:1px solid #22303F;border-radius:10px;
+ padding:10px 12px;color:#8794A6;font-size:12.5px;margin-top:12px}
+.rec .bc{background:#0B131B;border:1px solid #22303F;border-radius:10px;
+ padding:12px;margin-top:10px;text-align:center}
+.rec .bc b{display:block;font-size:20px;letter-spacing:3px;color:#F5F7FB;
+ font-family:Consolas,'Courier New',monospace;word-break:break-all}
+.rec .bc span{display:block;color:#6B7789;font-size:11px;margin-top:5px}
+.tick{color:#52AC36;font-weight:800}
+.cross{color:#FF6B5A;font-weight:800}
 """
 
 JS = r"""
@@ -266,7 +326,8 @@ function showFleet(v){
       + f.rot.lh + '.</p><b>Issue ' + esc(f.rot.li)
       + ' next</b></div></div>');
   }
-  H.push("<h2>Individual assets</h2>");
+  H.push(recommend(f));
+  H.push("<h2>Alternatives &mdash; every asset in this fleet</h2>");
   H.push(f.rows.map(assetHtml).join(''));
   if(!f.rk){
     H.push("<div class='note'>No rack recorded for this fleet. SiteIQ "
@@ -275,6 +336,73 @@ function showFleet(v){
   }
   el('view').innerHTML = H.join('');
   window.scrollTo(0, 0);
+}
+
+/* ONE PRODUCT, ONE CARD. Andrew's design, 2 Aug 2026: photo, how many
+   we have, the utilisation with its bar, hires, and a word for the
+   band. Money is not on it and cannot be - the counter build has no
+   revenue in its payload at all. */
+function card(r){
+  var t = D.thumbs && D.thumbs[r.v];
+  var pic = t
+    ? "<img src='thumbs/" + esc(t) + "' alt='' loading='lazy'>"
+    : "<div class='noimg'>" + esc(r.u || 'no photo yet') + '</div>';
+  var picCls = t ? 'pic' : 'pic empty';
+  var chip = '';
+  if(r.b === 'low') chip = "<span class='pill' style='background:#0E2E35;"
+    + "color:__LOW__'>USE NEXT</span>";
+  else if(r.b === 'high') chip = "<span class='pill' style='background:"
+    + "#3A2110;color:__HIGH__'>HIGH USE</span>";
+  else chip = "<span class='pill' style='background:#1B2430;color:#8794A6'>"
+    + esc(r.w) + '</span>';
+  var col = COL[r.b] || COL.none;
+  return "<div class='card' data-v='" + esc(r.v) + "'>"
+    + "<div class='" + picCls + "'>" + pic + "<div class='badge'>" + r.a
+    + '</div></div>'
+    + "<div class='body'><h3>" + esc(r.n) + '</h3>'
+    + "<div class='sub'>" + esc(r.u) + ' · ' + r.rd + ' ready</div>'
+    + "<div class='vc'>" + esc(r.v) + '</div>'
+    + "<div class='urow'><em>Utilisation</em><b style='color:" + col + "'>"
+    + r.c.toFixed(0) + '%</b></div>'
+    + bar(r.c, r.b)
+    + "<div class='foot2'><span>" + r.cy + ' hire'
+    + (r.cy === 1 ? '' : 's') + (r.ex ? ' · ' + r.ex + ' excluded' : '')
+    + '</span>' + chip + '</div></div></div>';
+}
+
+/* NEXT TOOL UP - the recommendation, with its proof under it.
+   The button does NOT say "issue". Nothing in this suite writes back
+   to SiteIQ, and a button that implies it did would be a lie a store
+   hand only finds out about later. It shows the barcode big enough to
+   scan at the counter, and the issue still happens in SiteIQ. */
+function recommend(f){
+  var r = null, i;
+  for(i = 0; i < f.rows.length; i++){ if(f.rows[i].u){ r = f.rows[i]; break; } }
+  if(!r) return "<div class='note'>Nothing in this fleet can be issued "
+    + 'right now - everything is out, or excluded and listed below.</div>';
+  var s = "<div class='rec'><span class='tag'>RECOMMENDED NEXT</span>"
+    + "<div class='in'><h3>" + esc(f.n) + '</h3>'
+    + "<div class='item'>" + esc(r.i) + '</div><ul>';
+  s += "<li><span class='tick'>&#10004;</span> Ready to hire</li>";
+  if(r.k) s += "<li><span class='tick'>&#10004;</span> " + esc(r.k) + '</li>';
+  s += '</ul>';
+  s += "<div class='urow' style='display:flex;justify-content:space-between;"
+    + "align-items:baseline;margin-top:12px'><em style='font-style:normal;"
+    + "color:#8794A6;font-size:11px;font-weight:800;letter-spacing:1.4px'>"
+    + "CLIENT-ISSUED UTILISATION</em><b style='font-size:19px;font-weight:800;"
+    + "color:__LOW__'>" + (r.s === null || r.s === undefined ? '-'
+      : r.s.toFixed(0) + '%') + '</b></div>';
+  s += bar(r.s, r.b);
+  var bits = [hires(r)];
+  if(r.d !== null && r.d !== undefined) bits.push('idle ' + r.d + ' days');
+  s += "<div class='note' style='margin-top:8px'>" + esc(bits.join(' · '))
+    + '</div>';
+  s += "<div class='why'>&#9432; Lowest-used asset in this product variant "
+    + 'that can actually be issued today.</div>';
+  if(r.bc) s += "<div class='bc'><b>" + esc(r.bc) + '</b>'
+    + '<span>SCAN THIS AT THE COUNTER &mdash; the issue still happens '
+    + 'in SiteIQ</span></div>';
+  return s + '</div></div>';
 }
 
 function showList(q){
@@ -293,15 +421,10 @@ function showList(q){
     H.push("<div class='note'>Nothing matches “" + esc(q)
       + '”. Try fewer words, or part of the item description.</div>');
   }
-  H.push(hits.slice(0, 60).map(function(r){
-    return "<div class='hit' data-v='" + esc(r.v) + "'><b>" + esc(r.n)
-      + "</b><span>" + r.a + ' asset' + (r.a === 1 ? '' : 's') + ' · '
-      + r.c.toFixed(0) + '% client-issued'
-      + (r.s >= 2 ? ' · ' + r.s + ' hire spread' : '')
-      + ' · ' + esc(r.u) + '</span></div>';
-  }).join(''));
-  if(hits.length > 60){
-    H.push("<div class='note'>" + (hits.length - 60)
+  H.push("<div class='cards'>" + hits.slice(0, 48).map(card).join('')
+    + '</div>');
+  if(hits.length > 48){
+    H.push("<div class='note'>" + (hits.length - 48)
       + ' more. Type a bit more to narrow it.</div>');
   }
   el('view').innerHTML = H.join('');
@@ -367,6 +490,7 @@ def payload(data, with_money):
                    'c': r['cycles'], 'o': r['open'], 'b': r['band'],
                    'w': r['why'], 'h': r['holder'], 'C': r['holderCo'],
                    'k': r['rack'], 'd': r['idle'],
+                   'bc': r['bc'],
                    'B': r.get('branchNote') or '',
                    'D': r.get('branchDays') or '',
                    'S': r['streamLabel'] if r['billsElsewhere'] else ''}
@@ -395,7 +519,9 @@ def payload(data, with_money):
                          'li': rt['lowItem'], 'lh': rt['lowHires']}
         fleets[v['variant']] = fl
         lst.append({'v': v['variant'], 'n': v['name'], 'u': v['unit'],
-                    'a': v['assets'], 'c': v['client'], 's': v['spread']})
+                    'a': v['assets'], 'c': v['client'], 's': v['spread'],
+                    'rd': v['ready'], 'cy': v['cycles'], 'ex': v['excluded'],
+                    'b': v['band'], 'w': v['word']})
     return {'fleets': fleets, 'list': lst, 'money': bool(with_money)}
 
 
@@ -410,6 +536,20 @@ def build_one(data, with_money, out_path, today):
         dt.date.fromisoformat(src_to).strftime('%d %b')
         if src_to else '?')
     p = payload(data, with_money)
+    #  THUMBNAILS, TOLD NOT ASKED. Only variants that actually have a
+    #  file go in, so a card can never point at a picture that is not
+    #  there. Empty picture tiles have been a fault on this suite
+    #  before; a fleet with no photo gets a lettered plate instead.
+    tdir = os.path.join(BASE, 'Gear_Lookup', 'thumbs')
+    have = set(os.listdir(tdir)) if os.path.isdir(tdir) else set()
+    thumbs = {}
+    for v in p['fleets']:
+        for ext in ('.jpg', '.jpeg', '.png', '.webp'):
+            fn = _tsafe(v) + ext
+            if fn in have:
+                thumbs[v] = fn
+                break
+    p['thumbs'] = thumbs
     p['window'] = win
     p['store'] = 'Main Store'
     p['updated'] = (dt.date.fromisoformat(src_to).strftime('%d %b %Y')

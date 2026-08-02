@@ -281,15 +281,26 @@ def variants(data, limit=None):
         hires = [(a.get('cycles') or 0) + (a.get('openLines') or 0)
                  for a in live]
         spread = (max(hires) - min(hires)) if hires else 0
+        pct = _pct(cd, span * n) if (span and n) else 0.0
+        cls, word = band(pct)
         out.append({
             'variant': v,
             'name': (ass[0].get('desc') or v),
             'unit': ass[0].get('unit') or '',
             'assets': len(ass),
             'live': n,
-            'client': _pct(cd, span * n) if (span and n) else 0.0,
+            'client': pct,
             'spread': spread,
             'neverIssued': sum(1 for a in live if not a.get('issued')),
+            #  the card needs to say what a store hand can walk to, not
+            #  just how big the fleet is
+            'ready': sum(1 for a in live
+                         if a.get('status') == MI.READY_STATUS),
+            'out': sum(1 for a in live if a.get('status') == MI.OUT_STATUS),
+            'excluded': len(ass) - n,
+            'cycles': sum((a.get('cycles') or 0) + (a.get('openLines') or 0)
+                          for a in live),
+            'band': cls, 'word': word,
         })
     out.sort(key=lambda r: (-r['spread'], -r['assets']))
     return out[:limit] if limit else out
