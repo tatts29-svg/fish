@@ -39,6 +39,7 @@ import fleet_detail as FD
 import forecast as FC
 import mybranch as MB
 import mygear_intel as MI
+import mygear_thumbs as TH
 import ownership as OWN
 import racks as RK
 
@@ -145,17 +146,24 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
 .card{background:#131A22;border:1px solid #263143;border-radius:16px;
  overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
 .card:hover{border-color:#3A4757}
-.card .pic{position:relative;aspect-ratio:4/3;background:#0B111A;
- display:flex;align-items:center;justify-content:center;overflow:hidden}
+/* ONE SIZE, EVERY CARD, NO EXCEPTIONS. (Andrew, 3 Aug 2026: "images
+   of tall assets now are coming out all odd sizes - can we ensure we
+   stick to one size only please".)
+   The plate is SQUARE because the thumbnails are square - 384x384 out
+   of mygear_thumbs - so a tall ladder and a flat cylinder land in an
+   identical box with nothing stretched. A card with no photo keeps the
+   same box rather than collapsing, because a grid of two different
+   card heights is exactly the mess he is describing. */
+.card .pic{position:relative;aspect-ratio:1/1;background:#0B111A;
+ display:flex;align-items:center;justify-content:center;overflow:hidden;
+ border-bottom:1px solid #1E2733}
 /* NO PHOTO, NO EMPTY TILE. A 4:3 plate with nothing in it is 285px of
    dead space per card, and with 48 cards and an empty thumbs folder
    that is most of the screen. Collapse it to a strip that still carries
    the fleet count, and let the words do the work until PHOTO_HUNT has
    filled the folder. */
-.card .pic.empty{aspect-ratio:auto;height:44px;
- border-bottom:1px solid #1E2733}
-.card .pic.empty .badge{top:7px;height:26px;font-size:13px}
-.card .pic img{width:100%;height:100%;object-fit:cover}
+
+.card .pic img{width:100%;height:100%;object-fit:contain;display:block}
 /* NO PHOTO IS NOT A BROKEN TILE. Empty picture tiles have been a fault
    on this suite before, so a fleet with no thumbnail gets a plain
    lettered plate that says which category it is - never a grey box and
@@ -167,12 +175,20 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
  border-radius:9px;display:flex;align-items:center;justify-content:center;
  padding:0 8px}
 .card .body{padding:13px 14px 14px;display:flex;flex-direction:column;flex:1}
-.card h3{font-size:16px;font-weight:800;line-height:1.25;color:#F5F7FB}
+/* THE TITLE IS PINNED TO TWO LINES. With it free-flowing the cards
+   came out 408, 428 and 448 tall in the same row depending on how the
+   description wrapped - the plates matched and the cards still did
+   not. Two lines, clipped, with the full name on hover and in the
+   fleet header underneath. */
+.card h3{font-size:15.5px;font-weight:800;line-height:1.28;color:#F5F7FB;
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+ overflow:hidden;min-height:2.56em}
+.card .sub,.card .vc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card .sub{color:#6B7789;font-size:12.5px;margin-top:5px}
 .card .vc{color:#4A5768;font-size:11.5px;letter-spacing:.6px;margin-top:2px;
  word-break:break-all;font-family:Consolas,'Courier New',monospace}
 .card .urow{display:flex;justify-content:space-between;align-items:baseline;
- margin-top:12px}
+ margin-top:auto;padding-top:12px}
 .card .urow em{font-style:normal;color:#8794A6;font-size:11px;font-weight:800;
  letter-spacing:1.4px;text-transform:uppercase}
 .card .urow b{font-size:19px;font-weight:800}
@@ -347,7 +363,7 @@ function card(r){
   var pic = t
     ? "<img src='thumbs/" + esc(t) + "' alt='' loading='lazy'>"
     : "<div class='noimg'>" + esc(r.u || 'no photo yet') + '</div>';
-  var picCls = t ? 'pic' : 'pic empty';
+
   var chip = '';
   if(r.b === 'low') chip = "<span class='pill' style='background:#0E2E35;"
     + "color:__LOW__'>USE NEXT</span>";
@@ -357,9 +373,9 @@ function card(r){
     + esc(r.w) + '</span>';
   var col = COL[r.b] || COL.none;
   return "<div class='card' data-v='" + esc(r.v) + "'>"
-    + "<div class='" + picCls + "'>" + pic + "<div class='badge'>" + r.a
-    + '</div></div>'
-    + "<div class='body'><h3>" + esc(r.n) + '</h3>'
+    + "<div class='pic'>" + pic + "<div class='badge'>" + r.a + '</div></div>'
+    + "<div class='body'><h3 title='" + esc(r.n) + "'>" + esc(r.n)
+    + '</h3>'
     + "<div class='sub'>" + esc(r.u) + ' · ' + r.rd + ' ready</div>'
     + "<div class='vc'>" + esc(r.v) + '</div>'
     + "<div class='urow'><em>Utilisation</em><b style='color:" + col + "'>"
@@ -540,16 +556,30 @@ def build_one(data, with_money, out_path, today):
     #  file go in, so a card can never point at a picture that is not
     #  there. Empty picture tiles have been a fault on this suite
     #  before; a fleet with no photo gets a lettered plate instead.
+    #  ONE NAMING, THE SUITE'S. This built its own _tsafe() and it
+    #  turned every dot and space into an underscore, so it went looking
+    #  for FORKLIFT2_5TDIESEL.jpg while the photo on the disk is called
+    #  FORKLIFT2.5TDIESEL.jpg. 281 of 830 fleets differed - Andrew had
+    #  the pictures the whole time and this file could not find them.
+    #  mygear_thumbs.safe_name is what every other page in the suite
+    #  uses and it is the only name allowed here now.
     tdir = os.path.join(BASE, 'Gear_Lookup', 'thumbs')
+    try:
+        TH.refresh(BASE, quiet=True)
+    except Exception:
+        pass
     have = set(os.listdir(tdir)) if os.path.isdir(tdir) else set()
-    thumbs = {}
+    thumbs, missing = {}, []
     for v in p['fleets']:
-        for ext in ('.jpg', '.jpeg', '.png', '.webp'):
-            fn = _tsafe(v) + ext
-            if fn in have:
-                thumbs[v] = fn
-                break
+        fn = TH.safe_name(v) + '.jpg'
+        if fn in have:
+            thumbs[v] = fn
+        else:
+            missing.append(v)
     p['thumbs'] = thumbs
+    p['thumbsHave'] = len(thumbs)
+    p['thumbsMissing'] = len(missing)
+    build_one.missing = missing
     p['window'] = win
     p['store'] = 'Main Store'
     p['updated'] = (dt.date.fromisoformat(src_to).strftime('%d %b %Y')
@@ -684,6 +714,30 @@ def build(today=None):
     #  WHO BILLS WHAT. Printed so a $0 fleet is never read as a dead
     #  fleet, and so the prefixes nothing could place get named rather
     #  than guessed at.
+    #  PHOTOS: how many fleets have one, and how many do not. Andrew
+    #  has a picture for everything, so a miss here is a NAMING miss,
+    #  not a missing photo - which is exactly the fault this had.
+    tdir = os.path.join(BASE, 'Gear_Lookup', 'thumbs')
+    nthumb = len([f for f in os.listdir(tdir)
+                  if f.lower().endswith('.jpg')]) if os.path.isdir(tdir) else 0
+    fl = FD.variants(data)
+    miss = [v for v in fl
+            if not os.path.isfile(os.path.join(tdir,
+                                               TH.safe_name(v['variant'])
+                                               + '.jpg'))]
+    print(' Photos       : {:,} thumbnail(s) in Gear_Lookup\\thumbs'
+          .format(nthumb))
+    print('                {:,} of {:,} fleets have one, {:,} do not'
+          .format(len(fl) - len(miss), len(fl), len(miss)))
+    if miss:
+        print('                Every card is the same size whether it has a')
+        print('                photo or not. These are the fleets with none -')
+        print('                if you have the picture, it is a NAMING miss:')
+        for v in miss[:10]:
+            print('                  {:<34} {}'.format(
+                TH.safe_name(v['variant'])[:34] + '.jpg', v['name'][:30]))
+        if len(miss) > 10:
+            print('                  ... and {:,} more'.format(len(miss) - 10))
     own = OWN.summary(data['assets'].values())
     print(' Billing      : item-number sequence(s) that never charge: {}'
           .format(', '.join(own['sequences']) or 'none found'))
