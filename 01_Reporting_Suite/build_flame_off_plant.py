@@ -32,11 +32,15 @@
 #  not be counted as though it were sitting there earning nothing, so
 #  it gets its own state.
 #
-#  WHAT IS MISSING, AND SAID OUT LOUD: his sheet carries a DAY RATE per
-#  asset - $311.10 for the compressor, $2.07 for a crash barrier. No
-#  SiteIQ export this suite receives carries a per-asset day rate, so
-#  the money column is written as TBC rather than invented. Point this
-#  file at wherever those rates live and it will fill them in.
+#  THE MONEY. Day rates come off the QUOTE, read by day_rates.py - drop
+#  it in Data_Quote\ and the columns fill in. PER EACH (Andrew, 2 Aug
+#  2026): a quoted rate is per item per day, so 50 crash barriers at
+#  $2.07 is $103.50 a day, not $2.07. Every figure here is
+#  rate x quantity x days.
+#
+#  No quote, or a line the quote does not price, and the cell reads TBC.
+#  Never $0 - a nought says "this earned nothing", which is a different
+#  claim and a wrong one.
 #
 #  Run it:  py build_flame_off_plant.py   (or 66_RUN_FLAME_OFF_PLANT)
 # =====================================================================
@@ -46,6 +50,7 @@ import glob
 import os
 import sys
 
+import day_rates as DR
 import mygear_intel as MI
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -219,7 +224,8 @@ def collect(today=None):
         d += dt.timedelta(days=1)
 
     lines = []
-    grouped = collections.defaultdict(lambda: {'qty': 0, 'items': []})
+    grouped = collections.defaultdict(
+        lambda: {'qty': 0, 'items': [], 'sample': ''})
     for item in sorted(on_account):
         row = stock.get(item)
         desc = (MI._txt(row, 'ITEM_DESCRIPTION') if row
@@ -228,6 +234,13 @@ def collect(today=None):
         if g:
             grouped[g]['qty'] += 1
             grouped[g]['items'].append(item)
+            #  the REGISTER's wording, kept for pricing. The quote says
+            #  "Barrier - Crash Rated Water filled - Armorzone"; the
+            #  group label says "Crash Barriers". Matching the label
+            #  against the quote priced 3 lines of 150 - it has to be
+            #  matched on what the gear is actually called.
+            if not grouped[g]['sample']:
+                grouped[g]['sample'] = desc
             continue
         lines.append((item, desc, row, [item]))
 
@@ -272,11 +285,13 @@ def collect(today=None):
     rows = []
     for item, desc, row, items in lines:
         st, status = states_for(items)
-        rows.append({'key': item, 'desc': desc, 'qty': 1, 'type': 'INDIVIDUAL',
+        rows.append({'key': item, 'desc': desc, 'priceDesc': desc,
+                     'qty': 1, 'type': 'INDIVIDUAL',
                      'status': status, 'states': st})
     for label, g in grouped.items():
         st, status = states_for(g['items'])
         rows.append({'key': 'GROUP - ' + label, 'desc': label,
+                     'priceDesc': g['sample'],
                      'qty': g['qty'], 'type': 'GROUPED',
                      'status': status, 'states': st})
 
@@ -293,6 +308,25 @@ def collect(today=None):
     source_days = (src_to - src_from).days + 1
     for r in rows:
         r['util'] = (r['daysUsed'] / source_days) if source_days else 0.0
+
+    #  ---- price it, if the quote is in --------------------------------
+    rates = DR.load(BASE)
+    priced = unpriced = 0
+    for r in rows:
+        first = (r['key'] if r['type'] == 'INDIVIDUAL' else '')
+        rate = DR.rate_for(rates, item=first,
+                           desc=r.get('priceDesc') or r['desc'])
+        r['rate'] = rate
+        if rate is None:
+            unpriced += 1
+        else:
+            priced += 1
+        r['$used'] = DR.money(rate, r['qty'], r['daysUsed'])
+        r['$plant'] = DR.money(rate, r['qty'], r['daysPlant'])
+        #  days on site with no charge at all - the other money story
+        idle = sum(1 for x in r['states'] if x == S_OFF)
+        r['idleDays'] = idle
+        r['$idle'] = DR.money(rate, r['qty'], idle)
 
     #  any status we have no rule for, named so it cannot hide
     unknown = collections.Counter()
@@ -329,6 +363,10 @@ def collect(today=None):
         'onSiteIdle': sum(r['qty'] for r in rows
                           if r['status'] == MI.READY_STATUS),
         'unknownStatus': unknown.most_common(),
+        'rates': rates, 'priced': priced, 'unpriced': unpriced,
+        '$used': sum(r['$used'] or 0 for r in rows),
+        '$plant': sum(r['$plant'] or 0 for r in rows),
+        '$idle': sum(r['$idle'] or 0 for r in rows),
         'nearNames': near.most_common(),
     }
 
@@ -369,6 +407,12 @@ def write_xlsx(d, path):
                 + ' or '.join(DEPARTED_STATUS) + '. '
                 'AVAILABLE FOR HIRE = on site and NOT being charged until '
                 'it goes back on hire - here, but earning nothing.')
+    ws['A5'] = ('Day rates are PER EACH - rate x quantity x days. '
+                + (('Priced from ' + os.path.basename(d['rates']['path'])
+                    + ': ' + str(d['priced']) + ' line(s) priced, '
+                    + str(d['unpriced']) + ' still TBC.')
+                   if d['rates'].get('path') else
+                   ('No quote loaded yet - ' + d['rates'].get('problem', ''))))
     ws['A4'] = ('Day rates are not in any SiteIQ export - the rate column '
                 'reads TBC rather than a guess. With rates, SITE PLANT days '
                 'price what is being charged with nobody allocated, and '
@@ -390,7 +434,7 @@ def write_xlsx(d, path):
     head = ['Asset No / Group', 'Asset Description', 'Day Rate', 'Qty',
             'Line Type', 'Status', 'First Used', 'Last Used', 'Days Used',
             'Days Site Plant', 'Days Departed', 'Utilisation %',
-            'Used By']
+            '$ Used', '$ Site Plant', '$ On Site Not Charging', 'Used By']
     R = 9
     for i, h in enumerate(head, start=1):
         c = ws.cell(row=R, column=i, value=h)
@@ -409,7 +453,8 @@ def write_xlsx(d, path):
         row = R + 1 + k
         ws.cell(row=row, column=1, value=r['key'])
         ws.cell(row=row, column=2, value=r['desc'])
-        ws.cell(row=row, column=3, value='TBC')
+        ws.cell(row=row, column=3,
+                value='TBC' if r['rate'] is None else r['rate'])
         ws.cell(row=row, column=4, value=r['qty'])
         ws.cell(row=row, column=5, value=r['type'])
         ws.cell(row=row, column=6, value=r['status'])
@@ -424,14 +469,21 @@ def write_xlsx(d, path):
         ws.cell(row=row, column=11, value=r['daysGone'])
         c = ws.cell(row=row, column=12, value=r['util'])
         c.number_format = '0%'
-        ws.cell(row=row, column=13, value=', '.join(r['employers'][:4]))
+        for off, key in ((13, '$used'), (14, '$plant'), (15, '$idle')):
+            v = r[key]
+            c = ws.cell(row=row, column=off,
+                        value='TBC' if v is None else v)
+            if v is not None:
+                c.number_format = '"$"#,##0.00'
+        ws.cell(row=row, column=16, value=', '.join(r['employers'][:4]))
         for j, s in enumerate(r['states']):
             c = ws.cell(row=row, column=len(head) + 1 + j, value=s)
             c.fill = used_fill if s.startswith('USED:') else fills.get(
                 s, fills[S_OFF])
             c.font = Font(size=8)
 
-    widths = [22, 40, 9, 6, 12, 16, 12, 12, 10, 13, 12, 11, 34]
+    widths = [22, 40, 10, 6, 12, 16, 12, 12, 10, 13, 12, 11,
+              13, 14, 20, 34]
     for i, w in enumerate(widths, start=1):
         ws.column_dimensions[
             openpyxl.utils.get_column_letter(i)].width = w
@@ -502,8 +554,52 @@ def main():
         print('                nothing. Different arguments, both worth')
         print('                having.')
     print('')
-    print(' Day rates    : TBC - no SiteIQ export carries a per-asset day')
-    print('                rate. Tell me where they live and this fills in.')
+    r = d['rates']
+    if r.get('path'):
+        print(' Day rates    : {} - {} line(s) priced, {} still TBC'.format(
+            os.path.basename(r['path']), d['priced'], d['unpriced']))
+        print(' Per each     : rate x quantity x days.')
+        print('   Used          ${:>12,.2f}'.format(d['$used']))
+        print('   Site plant    ${:>12,.2f}   charged, nobody allocated'
+              .format(d['$plant']))
+        print('   Not charging  ${:>12,.2f}   on site, earning nothing'
+              .format(d['$idle']))
+        if r.get('skipped'):
+            print(' {} quote line(s) carried no rate: {}'.format(
+                len(r['skipped']),
+                ', '.join(str(x)[:22] for x in r['skipped'][:4])))
+    else:
+        #  Make the folder and say what goes in it. The update zip is
+        #  flat, so it cannot ship an empty directory - if this did not
+        #  create it, the instruction would point at somewhere that does
+        #  not exist.
+        qd = os.path.join(BASE, DR.QUOTE_DIR)
+        try:
+            if not os.path.isdir(qd):
+                os.makedirs(qd)
+            rd = os.path.join(qd, 'READ_ME.txt')
+            if not os.path.isfile(rd):
+                with open(rd, 'w') as fh:
+                    fh.write(
+                        'DAY RATES - drop the job quote in this folder.\n'
+                        '=============================================\n\n'
+                        'Any .xlsx in here is read as the quote. Newest\n'
+                        'wins. It needs two things:\n\n'
+                        '  * an item number OR a description column\n'
+                        '  * a day rate column\n\n'
+                        'Rates are PER EACH - per item, per day. 50 crash\n'
+                        'barriers at $2.07 is $103.50 a day.\n\n'
+                        'A line with no rate is skipped and named, never\n'
+                        'read as free. An item the quote does not price\n'
+                        'shows TBC, never $0.\n\n'
+                        'This is the SiteIQ stream only. Baseplan bills\n'
+                        'its own 16 lines and carries its own rates - the\n'
+                        'two never mix.\n')
+        except Exception:
+            pass
+        print(' Day rates    : {}'.format(r.get('problem', 'not loaded')))
+        print('                Every money column reads TBC until it is in.')
+        print('                Folder ready: {}\\'.format(DR.QUOTE_DIR))
     print('')
     print(' Workbook     : ' + out)
     print(' COATES INTERNAL - do not send this to the client.')
