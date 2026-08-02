@@ -161,7 +161,43 @@ button.f.on{background:#F26222;border-color:#F26222;color:#fff}
  vertical-align:middle;margin-right:9px}
 .tth img{width:100%;height:100%;object-fit:cover;display:block}
 .tth.mono{color:#8A97A8;font-weight:900;font-size:13px}
-.vcell{display:flex;align-items:center}
+.vcell{display:flex;align-items:center;cursor:pointer}
+#fleet tbody tr{cursor:pointer}
+/* the per-asset panel */
+.apanel{border:1px solid rgba(242,98,34,.45);border-radius:14px;margin:10px 0;
+ background:linear-gradient(160deg,#121A27,#0C121C);overflow:hidden}
+.apanel .ah{display:flex;justify-content:space-between;align-items:center;
+ gap:12px;padding:12px 15px;border-bottom:1px solid #263143}
+.apanel .ah b{font-size:16px;color:#F5F7FB}
+.apanel .ah .x{cursor:pointer;color:#8794A6;font-weight:800;font-size:12px;
+ letter-spacing:1px;border:1px solid #2A3547;border-radius:9px;padding:5px 11px}
+.apanel .ah .x:hover{color:#F5F7FB;border-color:#F26222}
+.arow{display:flex;gap:12px;align-items:center;padding:10px 15px;
+ border-bottom:1px solid #161F2C}
+.arow:last-child{border-bottom:0}
+.arow:hover{background:#111926}
+.arow .who{flex:1;min-width:0}
+.arow .itm{font-size:13px;font-weight:700;color:#F5F7FB}
+.arow .nm{font-size:12px;color:#FFA24D;font-weight:700;margin-top:2px}
+.arow .nm span{color:#8794A6;font-weight:400}
+.arow .sub{font-size:11px;color:#6B7789;margin-top:2px}
+.arow .ub{flex:none;width:230px}
+.arow .st{flex:none;width:74px;text-align:right;font-size:9px;font-weight:800;
+ letter-spacing:1px}
+.arow .st.o{color:#FFA24D}.arow .st.r{color:#35D68A}
+.arow .st.a{color:#8794A6}.arow .st.x{color:#6B7789}
+/* the per-asset utilisation bar - same language as the headline pair */
+.ubar{height:9px;background:#0B111A;border:1px solid #263143;border-radius:5px;
+ overflow:hidden;position:relative}
+.ubar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.ubar i.com{background:#3A4757}
+.ubar i.cli{background:linear-gradient(90deg,#FFA24D,#F26222)}
+.ulab{font-size:10px;color:#8794A6;margin-top:3px;
+ font-variant-numeric:tabular-nums}
+.ulab b{color:#FFA24D}
+.ulab i{font-style:normal;color:#6B7789}
+@media (max-width:760px){
+ .arow{flex-wrap:wrap}.arow .ub{width:100%;order:3}.arow .st{width:auto}}
 .rec .h{font-size:9px;font-weight:800;letter-spacing:2px;color:#F26222}
 .rec .a{font-size:21px;font-weight:800;color:#F5F7FB;margin:4px 0 2px}
 .rec .loc{font-size:12px;color:#8794A6}
@@ -246,6 +282,133 @@ function tfail(img){
   s.textContent = img.getAttribute('data-m') || '?';
 }
 
+/* ---- WHO HAS IT, AND HOW HARD IT HAS WORKED --------------------------
+   Open a variant and every asset in it is listed: the ones that are OUT
+   first with the name and company holding them, then the rest longest-
+   worked first. Each carries its own two-bar utilisation on the same
+   scale as the headline pair - the steel bar is commercial days, the
+   orange is the share of those days it was in a named hirer's hands.
+
+   The denominator is days since the shutdown started, because arrival
+   dates are not exported. An asset that landed late therefore reads
+   lower than it deserves, and the limits at the foot of the page say
+   so rather than the bar pretending otherwise. */
+var OPEN = null;
+function ubar(cd, md){
+  var span = D.daysIn || 1;
+  var m = Math.min(100, 100 * md / span), c = Math.min(100, 100 * cd / span);
+  return '<div class="ubar"><i class="com" style="width:' + m.toFixed(1)
+    + '%"></i><i class="cli" style="width:' + c.toFixed(1) + '%"></i></div>'
+    + '<div class="ulab"><b>' + cd.toFixed(1) + 'd client-issued</b> of '
+    + md.toFixed(1) + 'd on charge <i>&middot; ' + span + 'd shutdown</i></div>';
+}
+/* GROUPED BY NAME, because you chase a bloke, not a description - the
+   same rule the hit list follows. One visit clears a name, so one line
+   should carry it however many he has. */
+function byHolder(rows){
+  var g = {}, order = [], i, k;
+  for (i = 0; i < rows.length; i++){
+    k = rows[i].h || 'not recorded';
+    if (!g[k]){ g[k] = {n: 0, co: rows[i].c, d: 0}; order.push(k); }
+    g[k].n++;
+    if (rows[i].d != null && rows[i].d > g[k].d) g[k].d = rows[i].d;
+  }
+  order.sort(function(a, b){ return g[b].n - g[a].n || g[b].d - g[a].d; });
+  var out = order.slice(0, 6).map(function(k){
+    return '<b>' + esc(k) + '</b>' + (g[k].n > 1 ? ' &times;' + g[k].n : '')
+      + (g[k].co ? ' (' + esc(g[k].co) + ')' : '')
+      + (g[k].d ? ' &middot; ' + g[k].d + 'd' : '');
+  }).join(' &middot; ');
+  if (order.length > 6) out += ' &middot; and ' + (order.length - 6) + ' more';
+  return out;
+}
+function statusWord(s){
+  return s === 'o' ? 'ON HIRE' : s === 'r' ? 'ON SHELF'
+       : s === 'a' ? 'ARRIVING' : 'OTHER';
+}
+function openVariant(code){
+  if (OPEN === code){ closeVariant(); return; }
+  OPEN = code;
+  var v = null, i;
+  for (i = 0; i < D.variants.length; i++){
+    if (D.variants[i].variant === code){ v = D.variants[i]; break; }
+  }
+  var rows = D.assets[code] || [];
+  var out = rows.filter(function(r){ return r.s === 'o'; }).length;
+  var h = '<div class="apanel"><div class="ah"><b>'
+    + esc((v && (v.name || v.variant)) || code) + '</b>'
+    + '<span class="vcode">' + rows.length + ' asset(s) &middot; ' + out
+    + ' out now</span>'
+    + '<span class="x" onclick="closeVariant()">CLOSE</span></div>';
+  if (!rows.length) h += '<div class="none" style="padding:12px 15px">'
+    + 'No assets on the register for this variant.</div>';
+  /* THE INTERESTING ROWS FIRST, AND THE REST BEHIND A LINE. 86 leads
+     with 73 that have never moved renders as a wall of identical rows
+     and the 13 you actually wanted get lost in it. Out first, then
+     anything with history, then ONE line for the untouched - which is
+     itself the useful fact about them. Never silently dropped. */
+  var live = rows.filter(function(r){
+    return r.s === 'o' || r.cy > 0 || r.md > 0; });
+  var idle = rows.filter(function(r){
+    return !(r.s === 'o' || r.cy > 0 || r.md > 0); });
+  var CAP = 200;
+  live.slice(0, CAP).forEach(function(r){
+    h += '<div class="arow"><div class="who">'
+      + '<div class="itm">' + esc(r.i) + '</div>'
+      + (r.s === 'o'
+          ? '<div class="nm">' + esc(r.h || 'holder not recorded')
+            + (r.c ? ' <span>&middot; ' + esc(r.c) + '</span>' : '')
+            + (r.d != null ? ' <span>&middot; ' + r.d + ' day'
+               + (r.d === 1 ? '' : 's') + ' out</span>' : '') + '</div>'
+          : '')
+      + '<div class="sub">' + esc(r.u) + ' &middot; ' + r.cy + ' hire cycle'
+      + (r.cy === 1 ? '' : 's')
+      + (r.s !== 'o' && r.dl != null ? ' &middot; idle ' + r.dl + ' days'
+         : (r.s !== 'o' ? ' &middot; not issued yet' : ''))
+      + ' &middot; ' + (r.p ? 'revenue PENDING' : '$' + r.rv.toFixed(0))
+      + '</div></div>'
+      + '<div class="ub">' + ubar(r.cd, r.md) + '</div>'
+      + '<div class="st ' + r.s + '">' + statusWord(r.s) + '</div></div>';
+  });
+  if (live.length > CAP){
+    h += '<div class="none" style="padding:10px 15px">Showing the first '
+      + CAP + ' of ' + live.length + ' with history.</div>';
+  }
+  if (idle.length){
+    h += '<div class="arow" style="cursor:pointer" onclick="showIdle()">'
+      + '<div class="who"><div class="itm">' + idle.length
+      + ' more have never been issued this shutdown</div>'
+      + '<div class="sub">All on the shelf, no hire cycles, no charge '
+      + 'against them &mdash; tap to list them</div></div>'
+      + '<div class="st r">SHOW</div></div>'
+      + '<div id="idlelist" style="display:none">';
+    idle.slice(0, 400).forEach(function(r){
+      h += '<div class="arow"><div class="who">'
+        + '<div class="itm">' + esc(r.i) + '</div>'
+        + '<div class="sub">' + esc(r.u) + ' &middot; never issued</div>'
+        + '</div><div class="ub">' + ubar(r.cd, r.md) + '</div>'
+        + '<div class="st ' + r.s + '">' + statusWord(r.s) + '</div></div>';
+    });
+    if (idle.length > 400){
+      h += '<div class="none" style="padding:10px 15px">Showing the first '
+        + '400 of ' + idle.length + '.</div>';
+    }
+    h += '</div>';
+  }
+  h += '</div>';
+  var box = document.getElementById('vpanel');
+  box.innerHTML = h;
+  box.scrollIntoView({block: 'nearest'});
+}
+function showIdle(){
+  var el = document.getElementById('idlelist');
+  if (el) el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+}
+function closeVariant(){
+  OPEN = null;
+  document.getElementById('vpanel').innerHTML = '';
+}
+
 /* ---- the fleet table filter ---- */
 var CALLF = 'all';
 function fleet(){
@@ -263,7 +426,7 @@ function fleet(){
     + '<th class="n">Recommend</th><th>Call</th>'
     + '<th class="hidesm">Confidence</th></tr></thead><tbody>';
   shown.forEach(function(v){
-    h += '<tr><td><div class="vcell">'
+    h += '<tr data-v="' + esc(v.variant) + '"><td><div class="vcell">'
       + tile(v.variant, v.name || v.variant, 'tth')
       + '<div><div class="vname">' + esc(v.name || v.variant) + '</div>'
       + '<div class="vcode">' + esc(v.variant)
@@ -339,11 +502,20 @@ function nextUp(){
   hits.slice(0, 3).forEach(function(v){
     var list = D.rank[v.variant] || [];
     if (!list.length){
+      /* NOTHING ON THE SHELF IS WHEN YOU MOST NEED THE NAMES. The old
+         card said "nothing available" and stopped, which leaves the
+         counter with a dead end. Now it says who has them, longest
+         held first, so the next move is a phone call. */
+      var held = (D.assets[v.variant] || []).filter(function(r){
+        return r.s === 'o'; });
       h += '<div class="rec">' + tile(v.variant, v.name || v.variant, 'thumb')
         + '<div class="body"><div class="h">' + esc(v.name || v.variant)
         + '</div><div class="a">Nothing on the shelf</div>'
         + '<div class="loc">' + v.assets + ' in the fleet, ' + v.out
-        + ' out, ' + v.ready + ' showing available.</div></div></div>';
+        + ' out, ' + v.ready + ' showing available.</div>'
+        + (held.length ? '<div class="why">Held by: ' + byHolder(held) + '</div>'
+                       : '')
+        + '</div></div>';
       return;
     }
     var a = list[0];
@@ -374,6 +546,12 @@ function nextUp(){
 document.addEventListener('DOMContentLoaded', function(){
   fleet();
   nextUp();
+  /* delegated, so it survives every re-render of the table */
+  document.getElementById('fleet').addEventListener('click', function(e){
+    var tr = e.target;
+    while (tr && tr.nodeName !== 'TR') tr = tr.parentNode;
+    if (tr && tr.getAttribute('data-v')) openVariant(tr.getAttribute('data-v'));
+  });
 });
 """
 
@@ -435,7 +613,42 @@ def build(today=None):
         sn = _tsafe(v['variant'])
         if sn in have:
             thumbs[v['variant']] = sn
+    #  EVERY ASSET, BY VARIANT. (Andrew, 2 Aug 2026: "can i see who its
+    #  onhire to and company.. what are we doing about a utilisation bar
+    #  on eqch asset".) Both answers live in one place - open a variant
+    #  and you get its assets, who holds each one, and each one's own
+    #  two-bar utilisation. Short keys because this is 5,337 rows.
+    #    i item  s status  h holder  c company  d days out  u unit
+    #    cd client days  md commercial days  cy cycles  rv revenue
+    #    dl idle days  p revenue pending
+    ST = {MI.READY_STATUS: 'r', MI.OUT_STATUS: 'o', 'Awaiting Arrival': 'a'}
+    by_variant = {}
+    for a in d['assets'].values():
+        if not a['variant']:
+            continue
+        row = {'i': a['item'], 's': ST.get(a['status'], 'x'),
+               'u': a['unit'], 'cy': a['cycles'],
+               'cd': round(a['clientDays'], 2),
+               'md': round(a['commercialDays'], 2),
+               'rv': round(a['revenue'], 2), 'dl': a['idleDays']}
+        if a['pendingRevenue']:
+            row['p'] = 1
+        if a['status'] == MI.OUT_STATUS:
+            row['h'] = a['holder']
+            row['c'] = a['holderCo']
+            if a['onHireDate']:
+                row['d'] = (dt.date.fromisoformat(d['asof'])
+                            - a['onHireDate']).days
+        by_variant.setdefault(a['variant'], []).append(row)
+    #  out first (that is who you are chasing), then longest held,
+    #  then the ones that have never moved - same ordering rule the
+    #  rest of the suite uses.
+    for v in by_variant.values():
+        v.sort(key=lambda r: (0 if r['s'] == 'o' else 1,
+                              -(r.get('d') or 0), -r['cd'], r['i']))
+
     payload = {'variants': d['variants'], 'rank': rank, 'lookup': lookup,
+               'assets': by_variant, 'daysIn': d['daysIn'],
                'noVariant': j['noVariantAssets'], 'thumbs': thumbs,
                'thumbBase': '../../../Gear_Lookup/thumbs/'}
 
@@ -520,7 +733,10 @@ def build(today=None):
     H.append("<div class='lede'>Sized on <b>peak concurrent demand</b> plus a "
              "{:.0f}% contingency buffer, never on average utilisation &mdash; "
              "averages are how a store runs out of what it just sent back. "
-             "Confidence says how much weight the number carries.</div>"
+             "Confidence says how much weight the number carries. "
+             "<b>Tap any row</b> to see every asset in it, who is holding "
+             "the ones that are out, and how hard each one has "
+             "worked.</div>"
              .format(d['contingencyPct'] * 100))
     H.append("<div class='tools'><input class='s' id='fq' type='search' "
              "placeholder='Filter variants' oninput='fleet()' "
@@ -537,6 +753,7 @@ def build(today=None):
              "NONE ISSUED</button></span>"
              "<span class='conf' id='fcount'></span></div>")
     H.append("<div id='fleet'></div>")
+    H.append("<div id='vpanel'></div>")
 
     # --- ready fleets
     H.append("<h2>Ready fleets <span>&mdash; a radio without a battery is "
