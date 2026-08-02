@@ -1591,10 +1591,6 @@ h3.sec:before{counter-increment:mod;
  font-size:9px;line-height:1.5;text-align:center}
 .rnav button b:empty{display:none}
 body.hasrnav #result{padding-bottom:70px}
-/* The CONTACTS pill sat straight on top of STORE and HELP. The bottom
-   offset belongs on .qstack - the pill is a flex child of it, so a
-   bottom on .qcall itself does nothing at all. */
-body.hasrnav .qstack{bottom:calc(74px + env(safe-area-inset-bottom,0px))}
 @media print{.rnav,.gtools{display:none!important}
  [data-rv]{opacity:1!important;transform:none!important}}
 @media (min-width:900px){.rnav{max-width:560px;margin:0 auto;
@@ -1871,16 +1867,16 @@ body:before{content:"";position:fixed;left:0;right:0;top:0;height:280px;
 .trust .tk{background-color:rgba(242,98,34,.16);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F26222' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='4' y='10' width='16' height='11' rx='2'/%3E%3Cpath d='M8 10V7a4 4 0 0 1 7-2.6'/%3E%3C/svg%3E")}
 .trust .tp{background-color:rgba(53,214,138,.16);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2335D68A' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='6' y='2.5' width='12' height='19' rx='2.5'/%3E%3Cpath d='M10.5 18.5h3'/%3E%3C/svg%3E")}
 .fddoor .scanbtn{display:none!important}
-body:not(.hascard) .qstack{display:none}
-/* THE FLOATING PILLS, RECONSIDERED (2 Aug 2026).
-   They earned their place when the front door had no tiles. Now radio,
-   gas and contacts are all big cards on the door, and inside a worker's
-   report the stack sat on top of his kit mix and his story - three
-   buttons covering the words underneath them.
-   So only CONTACTS floats now. It is the one that means "call someone",
-   which is worth a thumb anywhere on the page; the other two are
-   reading, and they are one tap away on the door. */
-body.hascard .qmini{display:none}
+/* THE FLOATING PILLS ARE GONE (Andrew, 2 Aug 2026: "remove the contacts
+   pill from everywhere").
+   They earned their place when the front door had no tiles. Then radio
+   and gas became big cards on the door and only CONTACTS was left
+   floating - and once the section rail landed along the bottom of the
+   report, that pill was one more thing hovering over a bloke's own
+   words. It is off every page now.
+   NOTHING WAS LOST. The contact board is a full photo card on the front
+   door, and inside a report the Site guides link opens the same board -
+   contact board, radio and gas monitor. Both checked on the rig. */
 
 /* THE CARD SITS IN THE SAME GUTTER AS THE DOOR (2 Aug 2026).
    #result has always lived outside .wrap, so the report ran full-bleed
@@ -1897,18 +1893,12 @@ body.hascard #result{padding-bottom:78px}
    colour and the ring - it is the one that means "call us". Radio and
    gas sit above it as quiet dark pills: always in reach, never
    competing with the call button for attention. */
-.qstack{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
-.qcall{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--org),#D24E12);color:#fff;font-weight:800;font-size:12px;letter-spacing:1.4px;padding:11px 16px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.45);cursor:pointer;animation:qring 3.2s ease-out infinite}
-.qcall svg{width:15px;height:15px}
-.qmini{display:flex;align-items:center;gap:6px;background:#151A22;border:1.5px solid var(--org);color:#FFB38A;font-weight:800;font-size:10.5px;letter-spacing:1.2px;padding:8px 13px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.4);cursor:pointer}
-.qmini svg{width:13px;height:13px}
-@keyframes qring{0%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 0 rgba(242,98,34,.5)}70%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 12px rgba(242,98,34,0)}100%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 0 rgba(242,98,34,0)}}
 .neon{color:#EFFF3D !important;text-shadow:0 0 12px rgba(239,255,61,.45)}
 .crewline{margin-top:9px;font-size:12.5px;color:var(--mut)}
 .crewline b{color:#EFFF3D;text-shadow:0 0 10px rgba(239,255,61,.4)}
 .lgheld{margin-top:10px;font-size:12.5px;color:var(--mut);background:var(--panel);border:1px solid var(--line);border-left:3px solid #EFFF3D;border-radius:0 9px 9px 0;padding:9px 12px;line-height:1.5}
 .lgheld b{color:var(--tx)}
-@media (prefers-reduced-motion: reduce){.pulse,.mg b,.qcall{animation:none}}
+@media (prefers-reduced-motion: reduce){.pulse,.mg b{animation:none}}
 __UICSS__
 __STORECSS__
 </style></head><body><div class="wrap">
@@ -1961,11 +1951,6 @@ __TILES__
  <button type="button" data-g="gear" onclick="rvGo('gear')"><svg viewBox="0 0 24 24"><path d="m4 7 8-4 8 4-8 4-8-4ZM4 7v10l8 4 8-4V7M12 11v10"/></svg>GEAR<b id="rnavn"></b></button>
  <button type="button" data-g="store" onclick="rvGo('store')"><svg viewBox="0 0 24 24"><path d="M4 4v16M20 4v16M4 8h16M4 14h16M7 5.5h3M13 5.5h4"/></svg>STORE</button>
  <button type="button" data-g="help" onclick="rvGo('help')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.4v.3M12 17h.01"/></svg>HELP</button>
-</div>
-<div class="qstack">
-<div class="qmini" onclick="openGuide('radio')" role="button" tabindex="0" title="Two-way radio guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 6h2M10 18h4"/></svg>RADIO</div>
-<div class="qmini" onclick="openGuide('gas')" role="button" tabindex="0" title="Gas monitor guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>GAS</div>
-<div class="qcall" onclick="openGuide('contacts')" role="button" tabindex="0" title="Site contacts - tap to call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>CONTACTS</div>
 </div>
 <div id="doorway" class="dw" aria-hidden="true">
  <div class="dw-stage">

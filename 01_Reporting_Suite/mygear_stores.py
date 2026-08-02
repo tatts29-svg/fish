@@ -1592,6 +1592,12 @@ button.tile:active{background:var(--pnl2)}
  align-items:center;justify-content:center;background:rgba(242,98,34,.14)}
 .bic svg{width:21px;height:21px;fill:none;stroke:var(--org);stroke-width:1.7;
  stroke-linecap:round;stroke-linejoin:round}
+/* the photographed bay. Bigger than the line drawing was, because it is
+   a picture of the place and not a glyph - it has to be worth looking
+   at. Thin steel edge, no orange wash over the top of it. */
+.bic.art{width:74px;height:74px;border-radius:15px;overflow:hidden;
+ background:#0B111A;border:1px solid #2A3547;padding:0}
+.bic.art img{width:100%;height:100%;object-fit:cover;display:block}
 .bay.amb .bic{background:rgba(240,180,41,.14)}.bay.amb .bic svg{stroke:var(--am)}
 .bay.red .bic{background:rgba(255,90,77,.14)}.bay.red .bic svg{stroke:var(--rd)}
 .bmeta{min-width:0;flex:1}
@@ -2349,9 +2355,24 @@ function bayDoor(k,label,n,cls){
    +label+(n!=null&&n!==''?'<span class="bn">'+n+'</span>':'')
    +'<em>&rsaquo;</em></button>';
 }
+/* Andrew's own bay photographs, 2 Aug 2026. Each bay gets the picture
+   of the place it is, at 320px and about 13 KB apiece - the whole set
+   is 80 KB. If the Art folder ever goes missing the line drawing takes
+   over on the spot, so the board never shows a broken square. */
+var BAYART={find:'01-find-it-counter',hunt:'02-the-hunt',
+ floor:'03-store-floor',print:'04-print-works',plant:'05-plant-desk',
+ ctrl:'06-store-control'};
+function bayArt(ic){
+  var f=BAYART[ic];
+  if(!f) return '<div class="bic">'+bayIcon(ic)+'</div>';
+  return '<div class="bic art"><img src="art/bays/'+f+'.webp" alt="" '
+   +'loading="lazy" decoding="async" '
+   +'onerror="this.parentNode.className=\\'bic\\';'
+   +'this.parentNode.innerHTML=bayIcon(\\''+ic+'\\')"></div>';
+}
 function bay(n,cls,ic,title,sub,stCls,stTx,doors){
   return '<section class="bay '+(cls||'')+'"><div class="bhd">'
-   +'<div class="bic">'+bayIcon(ic)+'</div><div class="bmeta">'
+   +bayArt(ic)+'<div class="bmeta">'
    +'<small>BAY 0'+n+'</small><b>'+title+'</b><span>'+sub+'</span>'
    +'</div></div>'
    +'<div class="bst '+(stCls||'')+'"><i></i>'+stTx+'</div>'

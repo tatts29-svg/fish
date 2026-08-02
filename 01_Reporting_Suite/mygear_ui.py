@@ -581,7 +581,7 @@ function cardFile(){
   var html='<!doctype html><html lang="en"><head><meta charset="utf-8">'
     +'<meta name="viewport" content="width=device-width,initial-scale=1">'
     +'<title>My Gear - Coates K2</title><style>'+css
-    +'body{background:#0A0E14}.actions,.gshelf,.gsheet,.scanwrap,.qstack{display:none!important}'
+    +'body{background:#0A0E14}.actions,.gshelf,.gsheet,.scanwrap,.rnav,.gtools{display:none!important}'
     +'</style></head><body><div class="wrap"><div class="card" '
     +'style="display:block">'+card+'</div></div></body></html>';
   return new File([html],'My Gear - Coates K2.html',{type:'text/html'});
