@@ -43,6 +43,13 @@ import json
 import os
 import re
 
+#  The permanent do-not-show list (Andrew, 2 Aug 2026: "can we permently
+#  remove these"). Optional, so a suite without the module still builds.
+try:
+    import hidden_stock as _HID
+except Exception:
+    _HID = None
+
 M32 = 0xFFFFFFFF
 
 
@@ -503,7 +510,13 @@ def read(rental_path, stocktake_path, master=None, today=None,
     #  derived: serial first, model second)
     alt_by_item = {}
     import mygear_thumbs as _TH
+    _hidden_n = 0
     for r in rs:
+        #  the do-not-show list, applied before anything is counted
+        if _HID is not None and _HID.hidden(g(r, 'SKU_NUMBER'),
+                                            g(r, 'STORAGE_UNIT')):
+            _hidden_n += 1
+            continue
         status = g(r, 'ITEM_STATUS')
         #  Anything not yet on the shelf and not out - ordered, in
         #  transit, or stuck in Baseplan. The counter needs to know it is
@@ -735,6 +748,12 @@ def read(rental_path, stocktake_path, master=None, today=None,
             if not d:
                 continue
             if _is_plant_stock(sg(r, 'STORAGE_UNIT'), sg(r, 'DESCRIPTION')):
+                continue
+            #  hidden lines never reach the stocktake either - if they
+            #  did they would drag the counted-in-7-days percentage
+            #  down forever for stock the store does not care about
+            if _HID is not None and _HID.hidden(
+                    sg(r, 'SKU_NUMBER'), sg(r, 'STORAGE_UNIT')):
                 continue
             age = (today - d).days
             stock['total'] += 1

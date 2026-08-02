@@ -1,0 +1,48 @@
+# =====================================================================
+#  MY GEAR HQ - HIDDEN ITEMS
+#  Cement Australia K2 Shutdown 2026 - Gladstone
+#  Author: Andrew Fisher
+#
+#  Lines listed here are removed from EVERY report, every build, for
+#  good. The SiteIQ exports get pulled fresh each morning and written
+#  over the top, so deleting a row out of a spreadsheet only lasts until
+#  tomorrow. This list is applied on every run instead, before anything
+#  is counted - so a hidden line never reaches a screen, a print, a line
+#  count or a stocktake percentage.
+#
+#  HOW TO WRITE A RULE
+#     CEME9016-590670                      hide it everywhere
+#     WEL802-L50PIN | Consumables - Cement  hide it ONLY on that shelf
+#
+#  Case and spacing do not matter. A line starting with # is a note.
+#  Delete a line to bring an item back - it returns on the next build.
+#  Run 63_HIDDEN_ITEMS.bat to see exactly what is on this list.
+#
+#  Every rule below is written with its storage unit ON PURPOSE, exactly
+#  as it appeared in Andrew's list (2 Aug 2026). WEL802-L50PIN is the
+#  reason: it is dead on the consumables shelf and LIVE in Tooling with
+#  3 on the shelf. A bare rule would have taken the good one out too.
+# =====================================================================
+
+# --- Andrew's list, 2 Aug 2026 - client-owned consumables ------------
+CEME9016-584189 | Consumables - Cement
+CEME9016-590670 | Consumables - Cement
+CEME9016-590678 | Consumables - Cement
+CEME9016-590686 | Consumables - Cement
+CEME9016-590688 | Consumables - Cement
+CEME9016-590687 | Consumables - Cement
+CEME9016-590689 | Consumables - Cement
+CEME9016-590692 | Consumables - Cement
+CEME9016-590700 | Consumables - Cement
+CEME9016-590710 | Consumables - Cement
+CEME9016-590716 | Consumables - Cement
+CEME9016-590719 | Consumables - Cement
+CEME9016-590721 | Consumables - Cement
+CEME9016-590722 | Consumables - Cement
+CEME9016-590725 | Consumables - Cement
+CEME9016-590727 | Consumables - Cement
+
+# --- the Coates pin, consumables shelf only --------------------------
+#  Tooling still shows this one, with 3 on the shelf. Do NOT make this
+#  rule bare or the live line goes with it.
+WEL802-L50PIN | Consumables - Cement

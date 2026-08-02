@@ -77,6 +77,22 @@ PROTECTED = (
     #  the SDS link map Andrew grows at the counter (1 Aug 2026)
     "sds.txt",
 )
+
+#  SEED ONCE, THEN HANDS OFF (2 Aug 2026).
+#
+#  A different problem to PROTECTED. The hidden-items list has to ARRIVE
+#  with the first zip that carries it - Andrew's seventeen lines are in
+#  it - and then it becomes his file to edit at the counter, and no
+#  later update may ever touch it again.
+#
+#  PROTECTED could not do that on its own: it is checked before the
+#  does-this-file-exist check, so a protected file never installs at
+#  all. Rather than loosen PROTECTED - which guards the store code, the
+#  manager code and the only copy of yesterday's scoreboard - this is
+#  its own small rule that cannot affect any of them.
+SEED_ONCE = (
+    "hidden_items.txt",
+)
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
                   #  gear pictures collected on site (30 Jul 2026)
                   "photos",
@@ -207,6 +223,10 @@ def main():
                 continue
             dest = os.path.join(HERE, *rel.split("/"))
             if is_protected(rel):
+                skipped.append(rel)
+            elif (os.path.basename(rel).lower() in SEED_ONCE
+                    and os.path.isfile(dest)):
+                #  it is already here, so it is Andrew's now
                 skipped.append(rel)
             elif not os.path.isfile(dest):
                 new.append((m, rel, dest))

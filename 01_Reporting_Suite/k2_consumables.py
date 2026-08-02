@@ -50,6 +50,13 @@
 #  see below, because today all ten of those flags are false alarms.
 # =====================================================================
 import collections
+
+#  The permanent do-not-show list (Andrew, 2 Aug 2026). Optional, so a
+#  suite without the module still builds and hides nothing.
+try:
+    import hidden_stock as _HID
+except Exception:
+    _HID = None
 import datetime as dt
 import io
 import os
@@ -163,9 +170,15 @@ def read(sales_path, stocktake_path, base, today=None):
     #  --- split the sheet in two. See the header comment. ---
     shelf = {}
     sales = collections.defaultdict(list)
+    _hidden_n = 0
     for r in rows:
         sku = _txt(r, 'SKU_NUMBER')
         if not sku:
+            continue
+        #  removed for good, before anything is counted, so a hidden
+        #  line cannot pad a shelf total or a reorder list either
+        if _HID is not None and _HID.hidden(sku, _txt(r, 'STORAGE_UNIT')):
+            _hidden_n += 1
             continue
         if _txt(r, 'SALES_DATE'):
             sales[sku].append({
@@ -202,6 +215,8 @@ def read(sales_path, stocktake_path, base, today=None):
                 continue
             sku = _txt(r, 'SKU_NUMBER')
             if not sku:
+                continue
+            if _HID is not None and _HID.hidden(sku, _txt(r, 'STORAGE_UNIT')):
                 continue
             c = counted.setdefault(sku, {
                 'qty': 0.0, 'when': _date(r.get('LAST_SIGHTED_DATE_TIME')),

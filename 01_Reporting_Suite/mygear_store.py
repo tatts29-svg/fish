@@ -41,6 +41,13 @@
 import os
 import re
 
+#  The permanent do-not-show list. Optional on purpose: a suite missing
+#  the module still builds and simply hides nothing.
+try:
+    import hidden_stock as _HID
+except Exception:
+    _HID = None
+
 #  Quantities come out of SALES_STOCK as TEXT ("10", "0"), not numbers.
 #  Read as numbers they silently become nothing, and every consumable
 #  reads "none left" - which is the exact wrong answer, and a confident
@@ -237,6 +244,9 @@ def read_availability(rental_path, sales_path, master=None):
     Every line: name, how many, which aisle. Nothing inferred."""
     import openpyxl
     hire, cons = {}, {}
+    #  how many lines the do-not-show list took out this run - reported,
+    #  never silent
+    _hid_n = [0]
     #  the photo key: PRODUCT_VARIANT for hire gear, SKU number for
     #  consumables - one thumbnail in Gear_Lookup\thumbs covers every
     #  item behind the code (Andrew, 30 Jul 2026: "thumbnails for
@@ -294,6 +304,15 @@ def read_availability(rental_path, sales_path, master=None):
                     continue
                 if not _offerable(r[ix['SKU_DESCRIPTION']]):
                     continue
+                #  THE DO-NOT-SHOW LIST (Andrew, 2 Aug 2026: "can we
+                #  permently remove these and ensure these dont show up
+                #  again"). Applied before the line is counted, so a
+                #  hidden item cannot pad a shelf count either.
+                if _HID is not None and 'SKU_NUMBER' in ix:
+                    if _HID.hidden(r[ix['SKU_NUMBER']],
+                                   r[ix['STORAGE_UNIT']] if 'STORAGE_UNIT' in ix else ''):
+                        _hid_n[0] += 1
+                        continue
                 name = _tidy(r[ix['SKU_DESCRIPTION']], master)
                 q = _qty(r[ix['AVAILABLE_QUANTITY']])
                 if not name or q is None:
@@ -428,6 +447,7 @@ def read_availability(rental_path, sales_path, master=None):
         'consOut': len([x for x in C if x['q'] == 0]),
         'consLow': len([x for x in C if 0 < x['q'] <= 5]),
     }
+    stats['hidden'] = _hid_n[0]
     return {'hire': H, 'cons': C, 'stats': stats}
 
 

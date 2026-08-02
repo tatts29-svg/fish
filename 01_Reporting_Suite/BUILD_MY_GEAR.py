@@ -959,6 +959,17 @@ def build():
         if _pr:
             print('  Manager layer: ${:,.2f}/day on hire, {} zero-rate '
                   'line(s) flagged.'.format(_pr['perDay'], _pr['zeroN']))
+        #  A filter that removes lines silently is a filter nobody
+        #  trusts. If a count ever looks light, this line already said
+        #  why. (Andrew's hidden items, 2 Aug 2026.)
+        try:
+            import hidden_stock as _HS
+            if _HS.count():
+                print('  Hidden items: {} rule(s) applied from '
+                      'HIDDEN_ITEMS.txt - those lines are left out of '
+                      'every report.'.format(_HS.count()))
+        except Exception:
+            pass
     except Exception as _e:
         #  This is not a side dish failing - if this block dies, the
         #  stores DOOR dies with it: no code of any kind will open the
