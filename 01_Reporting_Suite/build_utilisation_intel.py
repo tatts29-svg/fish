@@ -905,6 +905,17 @@ def build(today=None):
                                   t['clientPct']))
     print(' Holding acct : {:,} asset(s) only ever booked to the site holding '
           'account'.format(t['holdingOnly']))
+    if j.get('nearHoldingNames'):
+        #  A name that ALMOST reads as the holding account decides
+        #  whether a lot of days count as client-issued or not. It is
+        #  never guessed either way - it is put in front of Andrew.
+        print('  ' + '!' * 60)
+        print('  Hirer name(s) that look like the Site Plant Equipment')
+        print('  account but are not it. They are being counted as REAL')
+        print('  hirers - say if that is wrong:')
+        for nm, n in j['nearHoldingNames'][:6]:
+            print('      {:<40} {} line(s)'.format(nm[:40], n))
+        print('  ' + '!' * 60)
     print(' Money        : assets {} | off-register {} | service {} | all {}'
           .format(_money(t['revenue']), _money(t['revenueOffRegister']),
                   _money(t['revenueService']), _money(t['revenueAll'])))

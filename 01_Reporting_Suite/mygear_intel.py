@@ -94,10 +94,32 @@ CONTINGENCY_PCT = 0.10
 CONTINGENCY_MIN = 1
 
 #  SiteIQ's own holding account. Not a person, not a workfront - gear
-#  parked against the site rather than issued to anybody. BUILD_MY_GEAR
-#  already skips this name when building crew cards; the spelling is
-#  kept identical here on purpose.
-HOLDING_ACCOUNT = 'site plant equipment'
+#  parked against the site rather than issued to anybody.
+#
+#  THE FULL NAME IS "Site Plant Equipment ." (Andrew, 2 Aug 2026), and
+#  SiteIQ stores it two ways: RENTAL_STOCK and ON_HIRE write it as
+#  "Site Plant Equipment - ." because they use a First - Last layout,
+#  while the transaction sheets flatten it to "Site Plant Equipment .".
+#  Both are the same account and both must match. Swept the exports:
+#  those are the only two spellings, 506 rows and 361 rows, and the
+#  name appears in HIRER_NAME only - never in EMPLOYER_NAME.
+#
+#  MATCHED EXACTLY, NOT BY PREFIX. Everything in this engine hangs off
+#  this one name: match too loosely and a genuine hirer called
+#  something like "Site Plant Equipment Hire Pty Ltd" gets counted as
+#  the holding account, and all of their days stop being client-issued;
+#  match too tightly and the pool itself reads as a customer and
+#  inflates the very figure this is here to separate. So it is an exact
+#  match on the canonical name, and anything that comes CLOSE without
+#  matching is reported rather than silently decided either way.
+HOLDING_ACCOUNT = 'site plant equipment .'
+HOLDING_NEAR = 'site plant equipment'
+
+
+def _norm_hirer(name):
+    """SiteIQ's First - Last layout and its flattened twin, as one."""
+    s = ' '.join(str(name or '').split())
+    return s.replace(' - ', ' ').strip().lower()
 
 #  What "ready to hire" means in ITEM_STATUS terms. Everything else is
 #  either out, not here yet, or on its way off site.
@@ -220,7 +242,13 @@ def opday(when):
 
 
 def _is_holding(name):
-    return str(name or '').strip().lower().startswith(HOLDING_ACCOUNT)
+    return _norm_hirer(name) == HOLDING_ACCOUNT
+
+
+def is_near_holding(name):
+    """Looks like the holding account but is not it. Never guessed."""
+    n = _norm_hirer(name)
+    return n.startswith(HOLDING_NEAR) and n != HOLDING_ACCOUNT
 
 
 def _variant(row):
@@ -373,6 +401,7 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
     money = {'asset': 0.0, 'offRegister': 0.0, 'service': 0.0}
     off_register = {}
     unmatched_lines = 0
+    near_names = collections.Counter()
 
     cap = None
 
@@ -413,6 +442,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             end = _stamp(r.get('TRAN_END_DATE'), r.get('TRAN_END_TIME'))
             hirer = _txt(r, 'HIRER_NAME')
             holding = _is_holding(hirer)
+            if is_near_holding(hirer):
+                near_names[hirer] += 1
 
             a['issued'] = True
             if holding:
@@ -822,6 +853,7 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             'variantsBackfilled': backfilled + oh_backfilled,
             'variantsFromTransactions': backfilled,
             'variantsFromOnHire': oh_backfilled,
+            'nearHoldingNames': near_names.most_common(),
             'variantsMerged': sum(len(v) for v in merged_names.values()),
             'variantMergeGroups': len(merged_names),
         },

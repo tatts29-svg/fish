@@ -112,6 +112,8 @@ def _newest(pattern):
 
 
 def _is_plant_account(name):
+    #  ONE definition, in mygear_intel, so this sheet and the
+    #  intelligence page can never disagree about what the account is.
     return MI._is_holding(name)
 
 
@@ -160,6 +162,19 @@ def collect(today=None):
         if _is_plant_account(MI._txt(r, 'HIRER_NAME')):
             on_account.add(MI._txt(r, 'SKU/ITEM_NUMBER'))
     on_account.discard('')
+
+    #  names that look like the account but are not - reported, because
+    #  a spelling nobody told us about is exactly what would quietly
+    #  drop assets off this sheet
+    near = collections.Counter()
+    for r in list(stock.values()) + oh:
+        nm = MI._txt(r, 'HIRER_NAME')
+        if MI.is_near_holding(nm):
+            near[nm] += 1
+    for r in tc + ec:
+        nm = MI._txt(r, 'HIRER_NAME')
+        if MI.is_near_holding(nm):
+            near[nm] += 1
 
     #  ---- every span, with who held it -------------------------------
     spans = collections.defaultdict(list)
@@ -309,6 +324,7 @@ def collect(today=None):
         'onSiteIdle': sum(r['qty'] for r in rows
                           if r['status'] == MI.READY_STATUS),
         'unknownStatus': unknown.most_common(),
+        'nearNames': near.most_common(),
     }
 
 
@@ -455,6 +471,14 @@ def main():
         d['neverUsed']))
     print(' Departed     : {:,} asset(s) have left site ({})'.format(
         d['departed'], ' / '.join(DEPARTED_STATUS)))
+    if d['nearNames']:
+        print(' ' + '!' * 58)
+        print(' Name(s) that look like the Site Plant Equipment account')
+        print(' but do not match it exactly. Nothing of theirs is on this')
+        print(' sheet - say if it should be:')
+        for nm, n in d['nearNames'][:6]:
+            print('     {:<38} {} row(s)'.format(nm[:38], n))
+        print(' ' + '!' * 58)
     if d['unknownStatus']:
         print(' ' + '!' * 58)
         print(' SiteIQ sent status values this sheet has no rule for.')
