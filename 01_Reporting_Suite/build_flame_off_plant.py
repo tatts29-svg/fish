@@ -1,0 +1,429 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# =====================================================================
+#  COATES | FLAME OFF - SITE PLANT UTILISATION - INTERNAL ONLY
+#  Cement Australia K2 Shutdown 2026 - Gladstone
+#  Author: Andrew Fisher | POWERED BY SITEIQ
+#
+#  Andrew built this by hand on 2 Aug 2026. This rebuilds it from the
+#  exports so it comes out with the morning pull instead of an evening.
+#  His workbook is the specification - the rule, the states, the
+#  columns and the day grid are all his.
+#
+#  HIS RULE, VERBATIM, AND IT IS THE WHOLE FILE:
+#      SITE PLANT = onsite and chargeable but not allocated.
+#      USED       = on hire to another employer/person.
+#      NO DATA    = outside supplied transaction period.
+#
+#  WHAT COUNTS AS SITE PLANT (Andrew, 2 Aug 2026: "what ever was in the
+#  site plant equipment"). It is an ACCOUNT HISTORY, not a storage unit
+#  and not a category: any asset that has been on the Site Plant
+#  Equipment account at any point in the supplied period belongs on
+#  this sheet, wherever it sits now. Checked against his own list - the
+#  rule finds 137 of his 138 individual assets, and the one it misses
+#  is a water blaster that had moved on by the pull this was tested
+#  against. It finds 321 in total, of which 176 are the bulk lines he
+#  groups: 70 chutes, 50 crash barriers, 40 crowd barriers, 8 frames,
+#  8 hoppers. That is his grouped total exactly.
+#
+#  AND THINGS GET DEPARTED (his words). Gear leaves site, and that
+#  turns up at stocktake - the asset then reads Pending Baseplan, or
+#  simply Available. A departed asset is NOT idle site plant and must
+#  not be counted as though it were sitting there earning nothing, so
+#  it gets its own state.
+#
+#  WHAT IS MISSING, AND SAID OUT LOUD: his sheet carries a DAY RATE per
+#  asset - $311.10 for the compressor, $2.07 for a crash barrier. No
+#  SiteIQ export this suite receives carries a per-asset day rate, so
+#  the money column is written as TBC rather than invented. Point this
+#  file at wherever those rates live and it will fill them in.
+#
+#  Run it:  py build_flame_off_plant.py   (or 66_RUN_FLAME_OFF_PLANT)
+# =====================================================================
+import collections
+import datetime as dt
+import glob
+import os
+import sys
+
+import mygear_intel as MI
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+
+try:
+    import shutdown_day as SD
+except Exception:
+    SD = None
+
+#  The bulk lines. These go out by the pallet, not by the asset - a
+#  crash barrier is not rotated, it is dropped where it is wanted and
+#  collected at the end. Counting their "utilisation" per asset would
+#  be a number with nothing behind it, so they are one line with a
+#  quantity, exactly as Andrew has them.
+GROUPS = [
+    ('Crash Barriers', 'Barrier - Crash Rated'),
+    ('Crowd Barriers', 'Barrier - Crowd Control'),
+    ('Rubbish Chute Frames', 'Rubbish Chute Frame'),
+    ('Rubbish Chute Hoppers', 'Rubbish Chute Top Hopper'),
+    ('Rubbish Chutes', 'Rubbish Chute 1M'),
+]
+
+#  Statuses that mean the asset is no longer standing on site as plant.
+DEPARTED_STATUS = ('Pending Baseplan', 'Failed Baseplan')
+
+S_NODATA = 'NO DATA'
+S_PLANT = 'SITE PLANT'
+S_OFF = 'OFF / NOT SEEN'
+S_GONE = 'DEPARTED'
+
+
+def _newest(pattern):
+    hits = [q for q in glob.glob(os.path.join(BASE, 'Data_SiteIQ', pattern))
+            if not os.path.basename(q).startswith('~')]
+    hits += [q for q in glob.glob(os.path.join(BASE, pattern))
+             if not os.path.basename(q).startswith('~')]
+    return max(hits, key=os.path.getmtime) if hits else None
+
+
+def _is_plant_account(name):
+    return MI._is_holding(name)
+
+
+def _group_of(desc):
+    d = (desc or '').lower()
+    for label, needle in GROUPS:
+        if needle.lower() in d:
+            return label
+    return None
+
+
+def collect(today=None):
+    """Every asset that has been on the Site Plant account, with its
+    day-by-day state across the shutdown window."""
+    today = today or dt.date.today()
+    rental = _newest('RENTAL_STOCK*.xlsx')
+    txn = _newest('TRANSACTIONS*.xlsx')
+    onhire = _newest('ON_HIRE*.xlsx')
+    if not rental or not txn:
+        return None
+
+    stock = {MI._txt(r, 'ITEM_NUMBER'): r
+             for r in MI._sheet(rental, 'RENTAL_STOCK')
+             if MI._txt(r, 'ITEM_NUMBER')}
+    oh = MI._sheet(onhire, 'ON_HIRE') if onhire else []
+    tc = MI._sheet(txn, 'TRANSACTION_CHARGES')
+    ec = MI._sheet(txn, 'CUSTOMER_CONTRACTOR_EQUIP')
+
+    #  the supplied window - outside it is NO DATA, never idleness
+    ds = [MI._date(r.get(k)) for r in tc + ec
+          for k in ('TRAN_START_DATE', 'TRAN_END_DATE')]
+    ds = [d for d in ds if d]
+    if not ds:
+        return None
+    src_from, src_to = min(ds), max(ds)
+
+    #  ---- who has been on the account, from every source we have ----
+    on_account = set()
+    for r in stock.values():
+        if _is_plant_account(MI._txt(r, 'HIRER_NAME')):
+            on_account.add(MI._txt(r, 'ITEM_NUMBER'))
+    for r in oh:
+        if _is_plant_account(MI._txt(r, 'HIRER_NAME')):
+            on_account.add(MI._txt(r, 'ITEM_NUMBER'))
+    for r in tc + ec:
+        if _is_plant_account(MI._txt(r, 'HIRER_NAME')):
+            on_account.add(MI._txt(r, 'SKU/ITEM_NUMBER'))
+    on_account.discard('')
+
+    #  ---- every span, with who held it -------------------------------
+    spans = collections.defaultdict(list)
+    desc_of = {}
+    for r in tc + ec:
+        item = MI._txt(r, 'SKU/ITEM_NUMBER')
+        if item not in on_account:
+            continue
+        s = MI._date(r.get('TRAN_START_DATE'))
+        e = MI._date(r.get('TRAN_END_DATE')) or src_to
+        if not s:
+            continue
+        who = MI._txt(r, 'HIRER_NAME')
+        emp = MI._txt(r, 'EMPLOYER_NAME') or who
+        spans[item].append((s, e, _is_plant_account(who), emp))
+        desc_of.setdefault(item, MI._txt(r, 'SKU/ITEM DESCRIPTION'))
+    #  ON_HIRE is the truth about right now, and carries hires that
+    #  started before the transaction period ever began
+    for r in oh:
+        item = MI._txt(r, 'ITEM_NUMBER')
+        if item not in on_account:
+            continue
+        s = MI._date(r.get('START_DATE'))
+        if not s:
+            continue
+        who = MI._txt(r, 'HIRER_NAME')
+        emp = MI._txt(r, 'COMPANY') or who
+        spans[item].append((s, src_to, _is_plant_account(who), emp))
+
+    #  ---- the timeline ----------------------------------------------
+    first = SD.date_of(SD.FIRST_DAY) if SD else src_from
+    last = SD.date_of(SD.LAST_DAY) if SD else src_to
+    days = []
+    d = first
+    while d <= last:
+        days.append(d)
+        d += dt.timedelta(days=1)
+
+    lines = []
+    grouped = collections.defaultdict(lambda: {'qty': 0, 'items': []})
+    for item in sorted(on_account):
+        row = stock.get(item)
+        desc = (MI._txt(row, 'ITEM_DESCRIPTION') if row
+                else desc_of.get(item, ''))
+        g = _group_of(desc)
+        if g:
+            grouped[g]['qty'] += 1
+            grouped[g]['items'].append(item)
+            continue
+        lines.append((item, desc, row, [item]))
+
+    def states_for(items):
+        """One row of day states for an asset (or a group of them)."""
+        out = []
+        status = ''
+        for it in items:
+            r = stock.get(it)
+            if r is not None:
+                status = MI._txt(r, 'ITEM_STATUS')
+                break
+        departed = status in DEPARTED_STATUS
+        for day_d in days:
+            if day_d < src_from or day_d > src_to:
+                out.append(S_NODATA)
+                continue
+            used_by, on_plant = None, False
+            for it in items:
+                for s, e, holding, emp in spans.get(it, ()):
+                    if s <= day_d <= e:
+                        if holding:
+                            on_plant = True
+                        else:
+                            used_by = emp or 'another hirer'
+                            break
+                if used_by:
+                    break
+            if used_by:
+                out.append('USED: ' + used_by)
+            elif on_plant:
+                out.append(S_PLANT)
+            elif departed:
+                #  gear that has left site. NOT idle plant - it is not
+                #  here. Andrew: "things get departed too. this happens
+                #  in stock take."
+                out.append(S_GONE)
+            else:
+                out.append(S_OFF)
+        return out, status
+
+    rows = []
+    for item, desc, row, items in lines:
+        st, status = states_for(items)
+        rows.append({'key': item, 'desc': desc, 'qty': 1, 'type': 'INDIVIDUAL',
+                     'status': status, 'states': st})
+    for label, g in grouped.items():
+        st, status = states_for(g['items'])
+        rows.append({'key': 'GROUP - ' + label, 'desc': label,
+                     'qty': g['qty'], 'type': 'GROUPED',
+                     'status': status, 'states': st})
+
+    #  ---- the measures, off the states, so they can never disagree ---
+    for r in rows:
+        used = [i for i, s in enumerate(r['states']) if s.startswith('USED:')]
+        r['daysUsed'] = len(used)
+        r['daysPlant'] = sum(1 for s in r['states'] if s == S_PLANT)
+        r['daysGone'] = sum(1 for s in r['states'] if s == S_GONE)
+        r['firstUsed'] = days[used[0]] if used else None
+        r['lastUsed'] = days[used[-1]] if used else None
+        r['employers'] = sorted({s[6:] for s in r['states']
+                                 if s.startswith('USED:')})
+    source_days = (src_to - src_from).days + 1
+    for r in rows:
+        r['util'] = (r['daysUsed'] / source_days) if source_days else 0.0
+
+    rows.sort(key=lambda r: (r['type'] != 'GROUPED', r['desc'] or r['key']))
+    return {
+        'days': days, 'rows': rows, 'srcFrom': src_from, 'srcTo': src_to,
+        'sourceDays': source_days, 'today': today,
+        'totalAssets': sum(r['qty'] for r in rows),
+        'individual': sum(1 for r in rows if r['type'] == 'INDIVIDUAL'),
+        'groups': sum(1 for r in rows if r['type'] == 'GROUPED'),
+        'used': sum(1 for r in rows if r['daysUsed'] > 0),
+        'neverUsed': sum(r['qty'] for r in rows if r['daysUsed'] == 0),
+        'departed': sum(r['qty'] for r in rows if r['daysGone'] > 0),
+        #  AMBIGUOUS ON PURPOSE. Andrew: departed gear "will show as
+        #  pending baseplan. or may show as available." Pending Baseplan
+        #  is unarguable and gets called DEPARTED. Available is NOT -
+        #  an asset reading Available is either back on the shelf or
+        #  gone off site, and nothing in the export separates the two.
+        #  It is counted and named as unresolved rather than guessed
+        #  into whichever column makes the sheet look tidier.
+        'offAccount': sum(r['qty'] for r in rows
+                          if r['status'] == MI.READY_STATUS),
+    }
+
+
+def write_xlsx(d, path):
+    import openpyxl
+    from openpyxl.styles import Font, PatternFill, Alignment
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = 'Flame Off Analysis'
+    ORANGE = 'F26222'
+    org = Font(bold=True, color='FFFFFF', size=13)
+    hdrf = Font(bold=True, color='FFFFFF', size=9)
+    fill_org = PatternFill('solid', fgColor=ORANGE)
+    fill_hdr = PatternFill('solid', fgColor='1D1D1B')
+    fills = {
+        S_PLANT: PatternFill('solid', fgColor='FFE9DC'),
+        S_NODATA: PatternFill('solid', fgColor='EFEFEF'),
+        S_OFF: PatternFill('solid', fgColor='FFFFFF'),
+        S_GONE: PatternFill('solid', fgColor='E4E9F0'),
+    }
+    used_fill = PatternFill('solid', fgColor='C9E7D2')
+
+    ws['A1'] = 'FLAME OFF - SITE PLANT UTILISATION'
+    ws['A1'].font = org
+    ws['A1'].fill = fill_org
+    dayno = (' | Day 0 = {}'.format(SD.FLAME_OFF.strftime('%A %d/%m/%Y'))
+             if SD else '')
+    ws['A2'] = ('Built {}{} | Source coverage {} to {} ({} days)'.format(
+        d['today'].strftime('%d/%m/%Y'), dayno,
+        d['srcFrom'].strftime('%d/%m/%Y'), d['srcTo'].strftime('%d/%m/%Y'),
+        d['sourceDays']))
+    ws['A3'] = ('Rule: SITE PLANT = onsite and chargeable but not allocated. '
+                'USED = on hire to another employer/person. '
+                'NO DATA = outside supplied transaction period. '
+                'DEPARTED = off site, showing ' + ' or '.join(DEPARTED_STATUS)
+                + '.')
+    ws['A4'] = ('Day rates are not in any SiteIQ export - the rate column '
+                'reads TBC rather than a guess. An asset reading Available '
+                'for Hire is either back on the shelf or departed; no '
+                'export separates the two, so it is counted as neither.')
+
+    labels = ['TOTAL UNIQUE ASSETS', 'INDIVIDUAL LINES', 'GROUPED LINES',
+              'ASSETS / GROUPS USED', 'NEVER USED IN SOURCE', 'DEPARTED',
+              'BACK ON SHELF OR DEPARTED', 'SOURCE DAYS']
+    vals = [d['totalAssets'], d['individual'], d['groups'], d['used'],
+            d['neverUsed'], d['departed'], d['offAccount'], d['sourceDays']]
+    for i, (lab, v) in enumerate(zip(labels, vals)):
+        c = ws.cell(row=6, column=1 + i * 2, value=lab)
+        c.font = hdrf
+        c.fill = fill_hdr
+        ws.cell(row=7, column=1 + i * 2, value=v).font = Font(bold=True,
+                                                              size=12)
+
+    head = ['Asset No / Group', 'Asset Description', 'Day Rate', 'Qty',
+            'Line Type', 'Status', 'First Used', 'Last Used', 'Days Used',
+            'Days Site Plant', 'Days Departed', 'Utilisation %',
+            'Used By']
+    R = 9
+    for i, h in enumerate(head, start=1):
+        c = ws.cell(row=R, column=i, value=h)
+        c.font = hdrf
+        c.fill = fill_hdr
+        c.alignment = Alignment(wrap_text=True, vertical='center')
+    for j, day_d in enumerate(d['days']):
+        n = SD.day(day_d) if SD else j
+        c = ws.cell(row=R, column=len(head) + 1 + j,
+                    value='{}\n{}'.format(n, day_d.strftime('%d/%m')))
+        c.font = hdrf
+        c.fill = fill_hdr
+        c.alignment = Alignment(wrap_text=True, horizontal='center')
+
+    for k, r in enumerate(d['rows']):
+        row = R + 1 + k
+        ws.cell(row=row, column=1, value=r['key'])
+        ws.cell(row=row, column=2, value=r['desc'])
+        ws.cell(row=row, column=3, value='TBC')
+        ws.cell(row=row, column=4, value=r['qty'])
+        ws.cell(row=row, column=5, value=r['type'])
+        ws.cell(row=row, column=6, value=r['status'])
+        ws.cell(row=row, column=7,
+                value=r['firstUsed'].strftime('%d/%m/%Y') if r['firstUsed']
+                else '')
+        ws.cell(row=row, column=8,
+                value=r['lastUsed'].strftime('%d/%m/%Y') if r['lastUsed']
+                else '')
+        ws.cell(row=row, column=9, value=r['daysUsed'])
+        ws.cell(row=row, column=10, value=r['daysPlant'])
+        ws.cell(row=row, column=11, value=r['daysGone'])
+        c = ws.cell(row=row, column=12, value=r['util'])
+        c.number_format = '0%'
+        ws.cell(row=row, column=13, value=', '.join(r['employers'][:4]))
+        for j, s in enumerate(r['states']):
+            c = ws.cell(row=row, column=len(head) + 1 + j, value=s)
+            c.fill = used_fill if s.startswith('USED:') else fills.get(
+                s, fills[S_OFF])
+            c.font = Font(size=8)
+
+    widths = [22, 40, 9, 6, 12, 16, 12, 12, 10, 13, 12, 11, 34]
+    for i, w in enumerate(widths, start=1):
+        ws.column_dimensions[
+            openpyxl.utils.get_column_letter(i)].width = w
+    for j in range(len(d['days'])):
+        ws.column_dimensions[openpyxl.utils.get_column_letter(
+            len(head) + 1 + j)].width = 15
+    ws.freeze_panes = ws.cell(row=R + 1, column=3)
+    wb.save(path)
+
+
+def main():
+    today = dt.date.today()
+    d = collect(today)
+    if not d:
+        print('PROBLEM: need RENTAL_STOCK and TRANSACTIONS exports in '
+              'Data_SiteIQ. Pull them from SiteIQ and run again.')
+        return 1
+    out_dir = os.path.join(BASE, 'Reports', today.isoformat(), 'Pages')
+    if not os.path.isdir(out_dir):
+        os.makedirs(out_dir)
+    out = os.path.join(out_dir,
+                       'Flame_Off_Site_Plant_Utilisation_{}.xlsx'.format(
+                           today.strftime('%d%b%Y')))
+    write_xlsx(d, out)
+
+    print('=' * 62)
+    print(' COATES | FLAME OFF - SITE PLANT UTILISATION')
+    print('=' * 62)
+    print('')
+    print(' Scope        : whatever has been on the Site Plant Equipment')
+    print('                account in the supplied period, wherever it')
+    print('                sits now.')
+    print(' Source       : {} to {} ({} days)'.format(
+        d['srcFrom'].strftime('%d/%m/%Y'), d['srcTo'].strftime('%d/%m/%Y'),
+        d['sourceDays']))
+    print('')
+    print(' Total assets : {:,}   ({} individual lines, {} grouped)'.format(
+        d['totalAssets'], d['individual'], d['groups']))
+    print(' Used         : {} line(s) went out to a named employer'.format(
+        d['used']))
+    print(' Never used   : {:,} asset(s) never left the account'.format(
+        d['neverUsed']))
+    print(' Departed     : {:,} asset(s) have left site ({})'.format(
+        d['departed'], ' / '.join(DEPARTED_STATUS)))
+    if d['offAccount']:
+        print(' Unresolved   : {:,} asset(s) now read Available for Hire.'
+              .format(d['offAccount']))
+        print('                That is either back on the shelf or departed,')
+        print('                and no export separates the two - so they are')
+        print('                not counted as either. Stocktake settles it.')
+    print('')
+    print(' Day rates    : TBC - no SiteIQ export carries a per-asset day')
+    print('                rate. Tell me where they live and this fills in.')
+    print('')
+    print(' Workbook     : ' + out)
+    print(' COATES INTERNAL - do not send this to the client.')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
