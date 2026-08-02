@@ -515,6 +515,37 @@ def collect(today=None):
         r['$billed'] = sum(billed_by_item.get(i, 0.0)
                            for i in r.get('items', [r['key']]))
 
+        #  ---- WHAT IT COSTS TO LEAVE IT THERE, PER DAY ---------------
+        #  (Andrew, 2 Aug 2026: "how much money the client can be saving
+        #  daily with gear sitting there doing nothing. per day".)
+        #  The line's rate by its quantity is what ANOTHER day of it
+        #  costs. Which of the three buckets that day falls into depends
+        #  on what the gear is doing on the last day the data covers.
+        r['$perDay'] = (rate * r['qty']) if rate is not None else None
+        last = len(r['states']) - 1
+        for _i in range(len(r['states']) - 1, -1, -1):
+            if r['states'][_i] != S_NODATA:
+                last = _i
+                break
+        r['today'] = r['states'][last]
+
+        #  ---- AND WHEN IT COULD HAVE COME IN --------------------------
+        #  Days it sat on site BEFORE anybody first used it. That is the
+        #  answer to "when could this have arrived instead", and the rate
+        #  turns it into what the wait cost. Only counted where the gear
+        #  HAS been used - an asset nobody has touched yet has not proved
+        #  it was early, it may simply not be needed at all, and those
+        #  are a different conversation.
+        waited = 0
+        for st in r['states']:
+            if st.startswith('USED:'):
+                break
+            if st in (S_PLANT, S_OFF):
+                waited += 1
+        r['waitedDays'] = waited if r['daysUsed'] else 0
+        r['$waited'] = ((rate * r['qty'] * r['waitedDays'])
+                        if rate is not None else None)
+
     #  any status we have no rule for, named so it cannot hide
     unknown = collections.Counter()
     for item in on_account:
@@ -580,6 +611,16 @@ def collect(today=None):
         '$billed': sum(r.get('$billed') or 0 for r in rows),
         #  the shifts arithmetic, proven rather than asserted
         'shiftValue': _shift_value(tc),
+        #  the daily burn, split by what the gear is doing right now
+        'perDay': {
+            'used': sum(r['$perDay'] or 0 for r in rows
+                        if str(r.get('today', '')).startswith('USED:')),
+            'plant': sum(r['$perDay'] or 0 for r in rows
+                         if r.get('today') == S_PLANT),
+            'idle': sum(r['$perDay'] or 0 for r in rows
+                        if r.get('today') == S_OFF),
+        },
+        'waitedTotal': sum(r['$waited'] or 0 for r in rows),
         'zeroCharge': _zero_charge(tc),
         '$used': sum(r['$used'] or 0 for r in rows),
         '$plant': sum(r['$plant'] or 0 for r in rows),
@@ -657,7 +698,9 @@ def write_xlsx(d, path):
             'Line Type', 'Status', 'First Used', 'Last Used', 'Days Used',
             'Days Site Plant', 'Days Departed', 'Utilisation %',
             'Billed By', 'Rate Source', '$ Used', '$ Site Plant',
-            '$ On Site Not Charging', '$ Actually Billed', 'Used By']
+            '$ On Site Not Charging', '$ Actually Billed',
+            '$ Per Day', 'Doing Now', 'Days Waited Before First Use',
+            '$ That Wait Cost', 'Used By']
     R = 9
     for i, h in enumerate(head, start=1):
         c = ws.cell(row=R, column=i, value=h)
@@ -695,13 +738,15 @@ def write_xlsx(d, path):
         ws.cell(row=row, column=13, value=r.get('billed') or '')
         ws.cell(row=row, column=14, value=r.get('source') or 'TBC')
         for off, key in ((15, '$used'), (16, '$plant'), (17, '$idle'),
-                         (18, '$billed')):
+                         (18, '$billed'), (19, '$perDay'), (22, '$waited')):
             v = r[key]
             c = ws.cell(row=row, column=off,
                         value='TBC' if v is None else v)
             if v is not None:
                 c.number_format = '"$"#,##0.00'
-        ws.cell(row=row, column=19, value=', '.join(r['employers'][:4]))
+        ws.cell(row=row, column=20, value=r.get('today') or '')
+        ws.cell(row=row, column=21, value=r.get('waitedDays') or 0)
+        ws.cell(row=row, column=23, value=', '.join(r['employers'][:4]))
         for j, s in enumerate(r['states']):
             c = ws.cell(row=row, column=len(head) + 1 + j, value=s)
             c.fill = used_fill if s.startswith('USED:') else fills.get(
@@ -709,7 +754,7 @@ def write_xlsx(d, path):
             c.font = Font(size=8)
 
     widths = [22, 40, 10, 6, 12, 16, 12, 12, 10, 13, 12, 11, 11, 12,
-              13, 14, 20, 17, 34]
+              13, 14, 20, 17, 11, 16, 15, 16, 34]
     for i, w in enumerate(widths, start=1):
         ws.column_dimensions[
             openpyxl.utils.get_column_letter(i)].width = w
@@ -915,6 +960,82 @@ def main():
         print(' Day rates    : {}'.format(r.get('problem', 'not loaded')))
         print('                Every money column reads TBC until it is in.')
         print('                Folder ready: {}\\'.format(DR.QUOTE_DIR))
+    #  ---- THE TWO LISTS THAT ARE ACTUALLY ACTIONABLE -----------------
+    pd = d['perDay']
+    #  ONLY THE CHARGED IDLE TIME IS A SAVING. The first cut added the
+    #  not-charging bucket in and called the total stoppable, which
+    #  overstates it by $1,468 a day: that gear is already costing the
+    #  client nothing, so sending it back saves them nothing. It is a
+    #  Coates cost - freight and yard space on gear that is not earning
+    #  - and it belongs in a different sentence.
+    stoppable = pd['plant']
+    print('')
+    print(' ' + '=' * 60)
+    print(' WHAT ANOTHER DAY OF THIS COSTS')
+    print(' ' + '=' * 60)
+    print('   in a hirer\'s hands        ${:>10,.2f} /day   earning its keep'
+          .format(pd['used']))
+    print('   on the site plant account ${:>10,.2f} /day   charged, nobody'
+          .format(pd['plant']))
+    print('                                            using it')
+    print('   ' + '-' * 56)
+    print('   THE CLIENT SAVES          ${:>10,.2f} /day   the day it goes'
+          .format(stoppable))
+    print('                                            back')
+    print('     a week of it            ${:>10,.2f}'.format(stoppable * 7))
+    print('     to {}          ${:>10,.2f}'.format(
+        SD.date_of(SD.LAST_DAY).strftime('%d %b %Y').lstrip('0') if SD
+        else 'the end', stoppable * max(0, (
+            (SD.date_of(SD.LAST_DAY) - d['srcTo']).days if SD else 0))))
+    print('')
+    print('   Separately, ${:,.2f}/day of gear is standing on site NOT'
+          .format(pd['idle']))
+    print('   being charged at all. That saves the client nothing because')
+    print('   they are not paying for it - it is Coates freight and yard')
+    print('   space on gear that is not earning. Different argument, worth')
+    print('   having, but do not put it in a client saving.')
+
+    live = [r for r in d['rows']
+            if r.get('$perDay') and r.get('today') in (S_PLANT, S_OFF)]
+    live.sort(key=lambda r: -r['$perDay'])
+    if live:
+        print('')
+        print(' SEND THESE BACK FIRST - biggest daily saving at the top')
+        print('   {:<38} {:>4} {:>10} {:>6}  {}'.format(
+            'WHAT', 'QTY', '$/DAY', 'IDLE', 'DOING NOW'))
+        for r in live[:15]:
+            idle = (r['daysPlant'] if r['today'] == S_PLANT
+                    else r['idleDays'])
+            print('   {:<38} {:>4} {:>10,.2f} {:>5}d  {}'.format(
+                (r['desc'] or r['key'])[:38], r['qty'], r['$perDay'],
+                idle, r['today']))
+        if len(live) > 15:
+            print('   ...and {} more on the sheet, {:,.2f}/day between them'
+                  .format(len(live) - 15,
+                          sum(x['$perDay'] for x in live[15:])))
+
+    #  what arrived before it was wanted - the mobilisation lesson
+    early = [r for r in d['rows'] if (r.get('$waited') or 0) > 0]
+    early.sort(key=lambda r: -(r['$waited'] or 0))
+    if early:
+        print('')
+        print(' BRING THESE IN LATER NEXT TIME')
+        print('   Days each one sat on site before anybody first used it,')
+        print('   and what that wait cost. Only gear that HAS been used is')
+        print('   counted - something nobody has touched has not proved it')
+        print('   came early, it may not be wanted at all.')
+        print('   {:<38} {:>6} {:>9} {:>12}'.format(
+            'WHAT', 'WAITED', '$/DAY', 'THE WAIT COST'))
+        for r in early[:15]:
+            print('   {:<38} {:>5}d {:>9,.2f} {:>12,.2f}'.format(
+                (r['desc'] or r['key'])[:38], r['waitedDays'],
+                r['$perDay'] or 0, r['$waited']))
+        print('   ' + '-' * 68)
+        print('   {:<38} {:>5}  {:>9} {:>12,.2f}'.format(
+            'EVERYTHING THAT WAITED', '', '', d['waitedTotal']))
+        print('   Mobilise that gear when the job wants it and that is what')
+        print('   comes off the next shutdown.')
+
     print('')
     print(' Workbook     : ' + out)
     print(' COATES INTERNAL - do not send this to the client.')
