@@ -373,6 +373,44 @@ def build(today=None):
          "<div class='rt'>POWERED BY <span class='siq'>SITEIQ</span></div>"
          "</div>".format(_esc(b['asof'].strftime('%d %b %Y')))]
 
+    # ---------------- HOW OLD IS THIS -----------------------------
+    #  (Andrew, 2 Aug 2026: "is this recent date utlisation".) Fair
+    #  question, and the page was not answering it loudly enough.
+    #
+    #  The file is NAMED for the day it was built and a reader sees the
+    #  name before the masthead, so a page called ..._02Aug built on
+    #  gear data that stops on 30 Jul reads as today's picture when it
+    #  is three days old. Utilisation divides by days the data covers,
+    #  so a stale pull does not make the percentages wrong - it makes
+    #  them answer a question about last week.
+    #
+    #  The two exports go stale at different speeds and are named
+    #  separately: the charge lines carry the gear, the daily summary
+    #  carries the money, and on most pulls the summary is the older of
+    #  the two.
+    gear_lag = (today - b['asof']).days
+    ds_last = max(ds['daily'])[0] if (ds and ds['daily']) else None
+    ds_lag = (today - ds_last).days if ds_last else None
+    if gear_lag > 0 or (ds_lag or 0) > 0:
+        bits = []
+        if gear_lag > 0:
+            bits.append('Gear and utilisation stop at <b>{}</b> &mdash; {} '
+                        'day{} back.'.format(
+                            _esc(b['asof'].strftime('%a %d %b')), gear_lag,
+                            '' if gear_lag == 1 else 's'))
+        if ds_lag:
+            bits.append('The money stops at <b>{}</b> &mdash; {} day{} '
+                        'back.'.format(_esc(ds_last.strftime('%a %d %b')),
+                                       ds_lag, '' if ds_lag == 1 else 's'))
+        H.append(
+            "<div class='warn'><b>THIS IS NOT TODAY.</b> "
+            + ' '.join(bits)
+            + " Anything issued, returned or charged since then is not on "
+              "this page &mdash; not as zero, just not seen. Pull fresh "
+              "SiteIQ exports over the top of the old ones and run "
+              "67_MONEY_AND_WHATS_USED again to move both dates forward."
+              "</div>")
+
     # ---------------- forecast v actual --------------------------
     H.append("<h2>FORECAST v <span>ACTUAL</span></h2>")
     H.append(_note(
