@@ -39,6 +39,7 @@ import fleet_detail as FD
 import forecast as FC
 import mybranch as MB
 import mygear_intel as MI
+import ownership as OWN
 import racks as RK
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -212,6 +213,10 @@ function assetHtml(r){
      branch may want it back. */
   if(r.B) s += "<div class='s' style='color:__EXCL__'>Branch: "
     + esc(r.B) + '</div>';
+  /* $0 IS NOT "EARNED NOTHING". Say whose invoice it is on, so a
+     welder that has been out all week stops reading as dead weight. */
+  if(r.S) s += "<div class='s' style='color:__LOW__'>" + esc(r.S)
+    + '</div>';
   s += "<div class='bar2'>" + bar(r.s, r.b) + '<span>'
     + (r.s === null || r.s === undefined ? '-' : r.s.toFixed(0) + '%')
     + '</span></div>';
@@ -363,7 +368,8 @@ def payload(data, with_money):
                    'w': r['why'], 'h': r['holder'], 'C': r['holderCo'],
                    'k': r['rack'], 'd': r['idle'],
                    'B': r.get('branchNote') or '',
-                   'D': r.get('branchDays') or ''}
+                   'D': r.get('branchDays') or '',
+                   'S': r['streamLabel'] if r['billsElsewhere'] else ''}
             #  EMPTY IS NOT WORTH SENDING. Most assets have no rack, no
             #  branch note and no holder, and writing "k":"" on 4,853
             #  rows is bytes a phone has to download and parse to learn
@@ -517,6 +523,26 @@ def build(today=None):
     print(' Rotation     : {:,} fleet(s) where one asset has been out at '
           'least'.format(len(rot)))
     print('                twice as often as the one nobody is touching')
+    #  WHO BILLS WHAT. Printed so a $0 fleet is never read as a dead
+    #  fleet, and so the prefixes nothing could place get named rather
+    #  than guessed at.
+    own = OWN.summary(data['assets'].values())
+    print(' Billing      : item-number sequence(s) that never charge: {}'
+          .format(', '.join(own['sequences']) or 'none found'))
+    for r in own['streams']:
+        print('                {:<22} {:>5,} assets, {:>4,} issued'
+              .format(r['label'], r['assets'], r['issued']))
+    if own['unknown']:
+        print('                NOT PLACED - inside that sequence, charging')
+        print('                nothing, and the barcode is not one this')
+        print('                suite has been told about. Name these and')
+        print('                they get labelled:')
+        for u in own['unknown'][:8]:
+            print('                  {:<18} {:>4,}  {}'.format(
+                u['prefix'], u['assets'],
+                ', '.join('{} {}'.format(k, v)
+                          for k, v in sorted(u['units'].items(),
+                                             key=lambda kv: -kv[1])[:2])))
     cov = MB.covers(list(data['assets']))
     if cov['known']:
         blocked = sum(1 for a in data['assets']

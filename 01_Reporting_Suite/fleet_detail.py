@@ -41,6 +41,7 @@ import datetime as dt
 
 import mybranch as MB
 import mygear_intel as MI
+import ownership as OWN
 import racks as RK
 
 #  Statuses that mean the asset cannot be issued today. Off the
@@ -86,7 +87,7 @@ def _d(v):
     return v.date() if isinstance(v, dt.datetime) else v
 
 
-def asset_row(a, span, with_money):
+def asset_row(a, span, with_money, seqs=None):
     """One asset, told plainly enough that a store hand can argue with
     it. Money only when the caller is allowed to see money."""
     #  TWO SOURCES OF EXCLUSION, and the register is only one of them.
@@ -139,6 +140,16 @@ def asset_row(a, span, with_money):
         #  said on the row, never used to exclude it
         'branchNote': (bwhy if (bwhy and out_now) else ''),
     }
+    #  WHO BILLS IT. Without this a sub-hired welder that has been on a
+    #  workfront all week reads as $0 and looks like dead weight - the
+    #  money is simply on Baseplan's invoice, not this one. Andrew's
+    #  rule, 2 Aug: the odd item-number sequence plus a zero charge is
+    #  the tell, and the barcode says which stream.
+    code, short, _long = OWN.stream(a, seqs)
+    row['stream'] = code
+    row['streamLabel'] = short
+    row['billsElsewhere'] = code in ('SUBHIRE', 'CLIENT', 'COATES_FREE',
+                                     'UNKNOWN')
     if with_money:
         row['revenue'] = a.get('revenue') or 0.0
     return row
@@ -161,10 +172,18 @@ def hires_text(row):
 def fleet(data, variant, with_money=False):
     """One product variant, asset by asset, ranked least-used first."""
     span = data.get('sourceDays') or 0
+    #  A BLANK VARIANT IS NOT A FLEET. 484 assets on this register carry
+    #  no PRODUCT_VARIANT, and asking for variant=None quietly matched
+    #  every one of them - a "fleet" of 484 unlike things with a name
+    #  taken off whichever happened to be first. The screen never asks
+    #  for one, but nothing stopped a caller doing it.
+    if not variant:
+        return None
     assets = [a for a in data['assets'].values() if a.get('variant') == variant]
     if not assets:
         return None
-    rows = [asset_row(a, span, with_money) for a in assets]
+    seqs = OWN.zero_cost_sequences(data['assets'].values())
+    rows = [asset_row(a, span, with_money, seqs) for a in assets]
 
     #  RANKED LEAST-USED FIRST, which is the whole point of the screen:
     #  the top of the list is what should go out next. Excluded gear is
