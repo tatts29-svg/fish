@@ -1532,6 +1532,74 @@ h3.sec:before{counter-increment:mod;
 .nact .nax{flex:none;width:34px;height:34px;border-radius:11px;display:flex;
  align-items:center;justify-content:center;font-size:19px;font-weight:800;
  color:#fff;background:#E5443A}
+/* ---- THE REPORT BUILDS ITSELF AS YOU GO DOWN IT (2 Aug 2026) -----
+   Each block waits below the fold, then lifts into place when it
+   arrives. Twelve pixels and a fade - enough to feel alive, not enough
+   to make anybody wait. A phone on reduce motion, or a browser with no
+   IntersectionObserver, gets .rv-in put on everything immediately, so
+   nothing can ever be left invisible behind an animation that did not
+   run. THAT is the rule this whole thing is built on.
+------------------------------------------------------------------ */
+[data-rv]{opacity:0;transform:translateY(12px);
+ transition:opacity .5s cubic-bezier(.16,1,.3,1),
+            transform .5s cubic-bezier(.16,1,.3,1)}
+[data-rv].rv-in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+ [data-rv]{opacity:1!important;transform:none!important;transition:none!important}}
+/* search and filter a bloke's own gear */
+.gtools{margin:2px 0 10px}
+.gsrch{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:14px;
+ border:1px solid #263143;background:#0B111A;color:#F5F7FB;font:inherit;
+ font-size:14px;outline:none;-webkit-appearance:none}
+.gsrch::placeholder{color:#6B7789}
+.gsrch:focus{border-color:#F26222;box-shadow:0 0 0 3px rgba(242,98,34,.13)}
+/* four across, always. As a wrapping flex row RETURN dropped onto a
+   line of its own at 412px and the set stopped reading as one control */
+.glanes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.gl{min-width:0;display:inline-flex;align-items:center;justify-content:center;
+ gap:5px;padding:9px 4px;border:1px solid #263143;border-radius:11px;
+ background:#0B111A;color:#8794A6;font:800 9px/1 inherit;letter-spacing:.6px;
+ cursor:pointer}
+.gl b{color:#F5F7FB;font-size:11px}
+.gl.on{border-color:#F26222;color:#F5F7FB;background:#1B1410}
+.gl.g.on{border-color:#35D68A;background:rgba(53,214,138,.12)}
+.gl.a.on{border-color:#F0B429;background:rgba(240,180,41,.12)}
+.gl.r.on{border-color:#FF5A4D;background:rgba(255,90,77,.12)}
+.gnone{margin-top:10px;padding:12px 14px;border:1px solid #263143;
+ border-left:3px solid #F0B429;border-radius:0 12px 12px 0;background:#0B111A;
+ color:#8794A6;font-size:12.5px;line-height:1.55}
+/* ---- THE SECTION RAIL --------------------------------------------
+   Same shape and same materials as the stores dock, on purpose: the
+   crew page and the counter page should feel like one system.
+------------------------------------------------------------------ */
+.rnav{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;
+ grid-template-columns:repeat(5,1fr);gap:2px;
+ padding:6px 6px calc(6px + env(safe-area-inset-bottom));
+ border-top:1px solid #263143;background:rgba(9,14,21,.94);
+ -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.rnav.on{display:grid}
+.rnav button{position:relative;display:flex;flex-direction:column;
+ align-items:center;gap:4px;padding:8px 2px 6px;border:0;border-radius:12px;
+ background:transparent;color:#8794A6;font:800 8.5px/1 inherit;
+ letter-spacing:1.1px;cursor:pointer}
+.rnav button svg{width:19px;height:19px;fill:none;stroke:currentColor;
+ stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rnav button.on{color:#F26222}
+.rnav button:active{background:#111A27}
+.rnav button b{position:absolute;top:2px;right:calc(50% - 20px);min-width:15px;
+ padding:1px 4px;border-radius:99px;background:#F26222;color:#fff;
+ font-size:9px;line-height:1.5;text-align:center}
+.rnav button b:empty{display:none}
+body.hasrnav #result{padding-bottom:70px}
+/* The CONTACTS pill sat straight on top of STORE and HELP. The bottom
+   offset belongs on .qstack - the pill is a flex child of it, so a
+   bottom on .qcall itself does nothing at all. */
+body.hasrnav .qstack{bottom:calc(74px + env(safe-area-inset-bottom,0px))}
+@media print{.rnav,.gtools{display:none!important}
+ [data-rv]{opacity:1!important;transform:none!important}}
+@media (min-width:900px){.rnav{max-width:560px;margin:0 auto;
+ border-left:1px solid #263143;border-right:1px solid #263143;
+ border-radius:14px 14px 0 0}}
 .item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(160deg,#121A27,#0C121C);border:1px solid #263143;border-radius:14px;padding:10px 12px;margin-bottom:8px}
 .item .d{font-size:13px;color:#eef2f8;font-weight:600}.item .n{font-size:11px;color:var(--mut);margin-top:1px}
 /* the item's own picture - what the thing in your name LOOKS like.
@@ -1887,6 +1955,13 @@ __TILES__
 </div>
 <div id="result" class="card"></div>
 </div>
+<div id="rnav" class="rnav">
+ <button type="button" data-g="sum" onclick="rvGo('sum')"><svg viewBox="0 0 24 24"><path d="M4 19V9M9.5 19V5M15 19v-7M20.5 19v-4"/></svg>SUMMARY</button>
+ <button type="button" data-g="score" onclick="rvGo('score')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>SCORE</button>
+ <button type="button" data-g="gear" onclick="rvGo('gear')"><svg viewBox="0 0 24 24"><path d="m4 7 8-4 8 4-8 4-8-4ZM4 7v10l8 4 8-4V7M12 11v10"/></svg>GEAR<b id="rnavn"></b></button>
+ <button type="button" data-g="store" onclick="rvGo('store')"><svg viewBox="0 0 24 24"><path d="M4 4v16M20 4v16M4 8h16M4 14h16M7 5.5h3M13 5.5h4"/></svg>STORE</button>
+ <button type="button" data-g="help" onclick="rvGo('help')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.4v.3M12 17h.01"/></svg>HELP</button>
+</div>
 <div class="qstack">
 <div class="qmini" onclick="openGuide('radio')" role="button" tabindex="0" title="Two-way radio guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 6h2M10 18h4"/></svg>RADIO</div>
 <div class="qmini" onclick="openGuide('gas')" role="button" tabindex="0" title="Gas monitor guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>GAS</div>
@@ -2006,8 +2081,90 @@ function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a
 function tag(id){return(xmur3(id+'|CoatesK2tag2026')()>>>0).toString(16)}
 function dec(id,b64){var rnd=mulberry32(xmur3(id+'|CoatesK2gear2026')());var raw=atob(b64),o='';for(var i=0;i<raw.length;i++){o+=String.fromCharCode(raw.charCodeAt(i)^Math.floor(rnd()*256))}return o}
 function stars(n){var s='';for(var i=0;i<5;i++)s+=(i<n?'★':'☆');return s}
-function countUp(el,to,ms){var t0=null;function s(ts){if(!t0)t0=ts;var k=Math.min(1,(ts-t0)/ms);el.textContent=Math.round(k*to);if(k<1)requestAnimationFrame(s)}requestAnimationFrame(s)}
-function animate(){var els=document.querySelectorAll('[data-to]');for(var i=0;i<els.length;i++)countUp(els[i],parseInt(els[i].getAttribute('data-to'))||0,900)}
+function countUp(el,to,ms){var t0=null;function s(ts){if(!t0)t0=ts;var k=Math.min(1,(ts-t0)/ms);el.textContent=Math.round(k*to);if(k<1)requestAnimationFrame(s);else el.textContent=to}requestAnimationFrame(s)}
+/* ------------------------------------------------------------------
+   ANIMATE WHAT YOU ARE ACTUALLY LOOKING AT (2 Aug 2026).
+
+   This used to fire every counter on the page the moment the card was
+   drawn. On a phone that meant the four tiles up top animated where a
+   bloke could see them and EVERYTHING ELSE - the scorecard, the
+   comparison bars, the clearance count - finished counting while it
+   was still two screens below him. He scrolled down to numbers that
+   had already stopped moving. All that work, seen by nobody.
+
+   Now each number waits until it is on screen and then counts. Same
+   with the score ring and every section of the report. Scroll the card
+   and it builds itself in front of you the whole way down.
+
+   Everything degrades safely: no IntersectionObserver (an old tablet)
+   or a phone set to reduce motion, and the whole report is simply
+   there, finished, instantly. Nothing is ever hidden behind an
+   animation that did not run.
+------------------------------------------------------------------ */
+function rvReduced(){
+  try{ return !!(window.matchMedia &&
+    matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){ return false; }
+}
+function rvShowAll(root){
+  var i,e;
+  e=(root||document).querySelectorAll('[data-rv]');
+  for(i=0;i<e.length;i++) e[i].className+=' rv-in';
+  e=(root||document).querySelectorAll('[data-to]');
+  for(i=0;i<e.length;i++) e[i].textContent=parseInt(e[i].getAttribute('data-to'))||0;
+  var rp=(root||document).querySelector('.ringp');
+  if(rp) rp.style.strokeDashoffset=rp.getAttribute('data-off');
+}
+function animate(root){
+  root=root||document;
+  if(!('IntersectionObserver' in window) || rvReduced()){ rvShowAll(root); return; }
+  /* the numbers */
+  var nio=new IntersectionObserver(function(en){
+    for(var i=0;i<en.length;i++){
+      if(!en[i].isIntersecting) continue;
+      var el=en[i].target; nio.unobserve(el);
+      countUp(el, parseInt(el.getAttribute('data-to'))||0, 900);
+    }
+  },{rootMargin:'0px 0px -12% 0px',threshold:.01});
+  var ns=root.querySelectorAll('[data-to]');
+  for(var i=0;i<ns.length;i++) nio.observe(ns[i]);
+  /* the sections */
+  var rio=new IntersectionObserver(function(en){
+    for(var j=0;j<en.length;j++){
+      if(!en[j].isIntersecting) continue;
+      rio.unobserve(en[j].target);
+      en[j].target.className+=' rv-in';
+    }
+  /* rootMargin 0 on the bottom, deliberately. Shrinking it by 8% read
+     nicely in the middle of the report and then stranded the LAST block
+     on the page: once you have scrolled as far as the page goes, an
+     element sitting inside that shrunken strip can never enter it, so
+     the help panel stayed invisible forever. Caught on the rig. */
+  },{rootMargin:'0px',threshold:.01});
+  var rs=root.querySelectorAll('[data-rv]');
+  for(var k=0;k<rs.length;k++) rio.observe(rs[k]);
+  /* and a backstop: anything somehow still hidden once the page has
+     been scrolled to the bottom gets shown. A block a bloke cannot see
+     is worse than a block that did not animate. */
+  var sweep=function(){
+    if(window.innerHeight+window.pageYOffset < document.body.scrollHeight-4) return;
+    var left=root.querySelectorAll('[data-rv]:not(.rv-in)');
+    for(var q=0;q<left.length;q++) left[q].className+=' rv-in';
+    if(!left.length) window.removeEventListener('scroll',sweep);
+  };
+  window.addEventListener('scroll',sweep,{passive:true});
+  /* the score ring draws when you reach it, not before */
+  var rp=root.querySelector('.ringp');
+  if(rp){
+    var gio=new IntersectionObserver(function(en){
+      for(var m=0;m<en.length;m++){
+        if(!en[m].isIntersecting) continue;
+        gio.unobserve(en[m].target);
+        en[m].target.style.strokeDashoffset=en[m].target.getAttribute('data-off');
+      }
+    },{threshold:.3});
+    gio.observe(rp);
+  }
+}
 function confetti(){var cs=['#F26222','#FFA24D','#FFD27A','#ffffff'];for(var i=0;i<70;i++){var d=document.createElement('div');d.className='confp';d.style.left=(Math.random()*100)+'vw';d.style.background=cs[i%4];d.style.animationDelay=(Math.random()*0.35)+'s';document.body.appendChild(d);(function(x){setTimeout(function(){x.remove()},2700)})(d)}}
 function cmpbar(l,v,me){v=Math.round(v||0);return '<div class="cmpr"><span class="cl">'+l+'</span><span class="cbar"><i style="width:'+v+'%" '+(me?'class="me"':'')+'></i></span><span class="cvv">'+v+'</span></div>'}
 /* THE DOOR'S STATES (Andrew, 1 Aug 2026: "searching, ID found, invalid
@@ -2151,20 +2308,21 @@ function renderCard(p){
  +'<div class="prail"></div><div class="prsub">Cement Australia K2 &middot; Gladstone'
  +((typeof ASOF==='string'&&ASOF&&ASOF!=='last refresh')?' &middot; '+esc(ASOF):'')
  +'</div>'
- +'<div class="scorewrap">'+ring+'<div class="scoremeta"><div class="scorelab">Returns Score</div><div class="rankline">'+rankline+'</div><div class="rate2"><span class="stars">'+stars(r.stars)+'</span> <b>'+esc(r.label)+'</b></div></div></div>'
- +(badges?'<div class="badges">'+badges+'</div>':'')
- +'<div class="stats">'
+ +'<div data-sec="sum"></div>'
+ +'<div class="scorewrap" data-rv>'+ring+'<div class="scoremeta"><div class="scorelab">Returns Score</div><div class="rankline">'+rankline+'</div><div class="rate2"><span class="stars">'+stars(r.stars)+'</span> <b>'+esc(r.label)+'</b></div></div></div>'
+ +(badges?'<div class="badges" data-rv>'+badges+'</div>':'')
+ +'<div class="stats" data-rv>'
  +'<div class="st">'+sticon('out','items-out')+'<div class="sv"><div class="v'+(st.items>0?' neon':'')+'" data-to="'+st.items+'">0</div><div class="l">Items out</div></div></div>'
  +'<div class="st">'+sticon('types','item-types')+'<div class="sv"><div class="v" data-to="'+st.types+'">0</div><div class="l">Item types</div></div></div>'
  +'<div class="st good">'+sticon('back','returned',1)+'<div class="sv"><div class="v" data-to="'+st.returned+'">0</div><div class="l">Returned</div></div></div>'
  +'<div class="st good">'+sticon('bolt','same-day',1)+'<div class="sv"><div class="v'+(st.sameday>0?' neon':'')+'" data-to="'+st.sameday+'">0</div><div class="l">Same-day</div></div></div></div>'
- +(p.cmp?'<h3 class="sec">How you compare</h3><div class="cmp">'+cmpbar('You',p.cmp.you,1)+cmpbar('Your crew',p.cmp.crew,0)+cmpbar('Site avg',p.cmp.site,0)+(rk.crewPos?'<div class="crewline">'+esc(p.company)+' sits <b>#'+rk.crewPos+'</b> of '+rk.crewOf+' crews on site</div>':'')+'</div>':'')
- +(segs?'<h3 class="sec">Your kit mix</h3><div class="mix">'+segs+'</div><div class="legend">'+legend+'</div>':'')
+ +(p.cmp?'<h3 class="sec" data-sec="score">How you compare</h3><div class="cmp" data-rv>'+cmpbar('You',p.cmp.you,1)+cmpbar('Your crew',p.cmp.crew,0)+cmpbar('Site avg',p.cmp.site,0)+(rk.crewPos?'<div class="crewline">'+esc(p.company)+' sits <b>#'+rk.crewPos+'</b> of '+rk.crewOf+' crews on site</div>':'')+'</div>':'')
+ +(segs?'<h3 class="sec">Your kit mix</h3><div class="mix" data-rv>'+segs+'</div><div class="legend">'+legend+'</div>':'')
  /* THE SHIFT DOCKET (his module 04). The story was already written and
     already true - this frames it as a docket off the counter and puts
     the three numbers it mentions in prose where they can be read at a
     glance instead of hunted for in a sentence. */
- +'<div class="sdock"><div class="stamp">SHIFT<br>DOCKET</div><div class="sdbody">'
+ +'<div class="sdock" data-rv><div class="stamp">SHIFT<br>DOCKET</div><div class="sdbody">'
  +'<div class="sdlab">PERSONAL RETURN SUMMARY</div>'
  +'<div class="sdtx">'+p.story+'</div>'
  /* His docket carries three counters. Ours does NOT: store visits and
@@ -2186,19 +2344,43 @@ function renderCard(p){
     the tracker's cells are big enough that three zeros would read as a
     fault. Return clearance below already tells him he is cleared. */
  if(st.items>0){
-  html+='<h3 class="sec">Your gear on hire now</h3>'
-  +'<div class="hage">'
+  html+='<h3 class="sec" data-sec="gear">Your gear on hire now</h3>'
+  +'<div class="hage" data-rv>'
   +'<div class="hcell g"><small>0&ndash;2 DAYS</small><b>'+ag.g+'</b><em>CLEAR</em></div>'
   +'<div class="hcell a'+(ag.a>0?' hot':'')+'"><small>3&ndash;4 DAYS</small><b>'+ag.a+'</b><em>WATCH</em></div>'
   +'<div class="hcell r'+(ag.r>0?' hot':'')+'"><small>5+ DAYS</small><b>'+ag.r+'</b><em>RETURN</em></div>'
   +'</div>'
   +(oldest?'<div class="hold">OLDEST &middot; '+oldest.d+' DAY'+(oldest.d===1?'':'S')+'</div>':'');
+  /* SEARCH AND FILTER YOUR OWN LIST. A bloke with five items scrolls;
+     a bloke with thirty scrolls past the one he came to find. The box
+     only appears once the list is long enough to be worth it - eight
+     items - so a small kit stays clean, and the three lanes are the
+     same CLEAR / WATCH / RETURN the tracker above already taught him.
+     Type nothing and tap nothing and the list behaves exactly as it
+     always did. (2 Aug 2026.) */
+  if(p.items.length>=8){
+   html+='<div class="gtools" data-rv>'
+    +'<input class="gsrch" id="gitq" type="search" inputmode="search"'
+    +' placeholder="Find something in your own gear" oninput="gfilt()"'
+    +' autocomplete="off" autocapitalize="none" spellcheck="false">'
+    +'<div class="glanes">'
+    +'<button type="button" class="gl on" data-l="all" onclick="gfilt(\'all\')">ALL <b>'+p.items.length+'</b></button>'
+    +'<button type="button" class="gl g" data-l="g" onclick="gfilt(\'g\')">CLEAR <b>'+ag.g+'</b></button>'
+    +'<button type="button" class="gl a" data-l="a" onclick="gfilt(\'a\')">WATCH <b>'+ag.a+'</b></button>'
+    +'<button type="button" class="gl r" data-l="r" onclick="gfilt(\'r\')">RETURN <b>'+ag.r+'</b></button>'
+    +'</div><div class="gnone" id="gnone" hidden>Nothing in your gear matches that. '
+    +'Try part of the name or the item number &mdash; or ask at the window.</div></div>';
+  }
  }
  // it.b is the compliance chips, built and escaped in Python before it was
  // encrypted into the payload. It goes in as HTML on purpose - do NOT wrap
  // it in esc() or the crew see markup instead of the tag colour. Every
  // other field still goes through esc().
- p.items.forEach(function(it,ii){html+='<div class="item" style="animation-delay:'+Math.min(ii*0.05,0.65).toFixed(2)+'s">'+wthumb(it)+'<div class="itxt"><div class="d">'+esc(it.d)+'</div><div class="n"><span class="idot" style="background:'+(it.c||"#8A97A8")+';width:8px;height:8px;display:inline-block;border-radius:50%;margin-right:5px;vertical-align:0"></span>Item '+esc(it.n)+(it.pid?'<span class="pid">ID '+esc(it.pid)+'</span>':'')+'</div>'+(it.b?'<div class="cb">'+it.b+'</div>':'')+'</div><div class="age '+ageCls(it.days)+'">'+(it.days==='-'?'—':it.days+'d')+'</div></div>'});
+ p.items.forEach(function(it,ii){
+  var _d=parseInt(it.days), _ln=isNaN(_d)?'u':(_d<=2?'g':(_d<=4?'a':'r'));
+  html+='<div class="item" data-l="'+_ln+'" data-q="'
+   +esc(((it.d||'')+' '+(it.n||'')+' '+(it.pid||'')).toLowerCase())+'"'
+   +' style="animation-delay:'+Math.min(ii*0.05,0.65).toFixed(2)+'s">'+wthumb(it)+'<div class="itxt"><div class="d">'+esc(it.d)+'</div><div class="n"><span class="idot" style="background:'+(it.c||"#8A97A8")+';width:8px;height:8px;display:inline-block;border-radius:50%;margin-right:5px;vertical-align:0"></span>Item '+esc(it.n)+(it.pid?'<span class="pid">ID '+esc(it.pid)+'</span>':'')+'</div>'+(it.b?'<div class="cb">'+it.b+'</div>':'')+'</div><div class="age '+ageCls(it.days)+'">'+(it.days==='-'?'—':it.days+'d')+'</div></div>'});
  // The one item that's been out longest gets its own line - a story,
  // not a nag. Only shows from 3 days out, so a fresh kit stays clean.
  // From 5 days it becomes NEXT ACTION in his instrument style: red is
@@ -2220,12 +2402,12 @@ function renderCard(p){
   if(p.comp.ret)cbits.push(p.comp.ret+' due back today');
   html+='<div class="alert amb"><b>Check before you use it.</b> Of the gear in your name: '+cbits.join(', ')+'. Anything showing a tag colour needs a current tag with a readable date &mdash; if it hasn\'t got one, don\'t use it, bring it to the store and we\'ll sort it.</div>'}
  var cleared=st.items===0;
- html+='<h3 class="sec">Return clearance</h3><div class="clr '+(cleared?'done':'open')+'">'
+ html+='<h3 class="sec" data-sec="store">Return clearance</h3><div class="clr '+(cleared?'done':'open')+'" data-rv>'
   +'<img class="clrimg" src="art/icons/'+(cleared?'cleared':'still-to-clear')+'.webp" '
   +'alt="" loading="lazy" onerror="this.style.display=\'none\'">'
   +'<div class="ci">'+(cleared?'&#10003;':st.items)+'</div><div class="ct">'+(cleared?'<b>Cleared — all gear returned</b><span>Nothing on hire in your name. Legend — thanks for bringing it all back.</span>':'<b>'+st.items+' still to clear</b><span>Bring these back to the tool store and you\'re fully cleared of tools on hire.</span>')+'</div></div>';
  if(p.act){
- html+='<h3 class="sec">Your store scorecard</h3><div class="stats">'
+ html+='<h3 class="sec">Your store scorecard</h3><div class="stats" data-rv>'
  +'<div class="st">'+sticon('out','store-visits')+'<div class="sv"><div class="v" data-to="'+p.act.visits+'">0</div><div class="l">Store visits</div></div></div>'
  +'<div class="st">'+sticon('types','transactions')+'<div class="sv"><div class="v" data-to="'+p.act.txns+'">0</div><div class="l">Transactions</div></div></div>'
  +'<div class="st">'+sticon('back','consumables')+'<div class="sv"><div class="v" data-to="'+((p.cons&&p.cons.n)||0)+'">0</div><div class="l">Consumables</div></div></div>'
@@ -2242,7 +2424,7 @@ function renderCard(p){
  if(p.dmg&&p.dmg.n>0){html+='<div class="alert amb"><b>'+p.dmg.n+' damage charge'+(p.dmg.n===1?'':'s')+' recorded in your name'+(p.dmg.list&&p.dmg.list.length?' ('+esc(p.dmg.list.join(', '))+')':'')+'.</b> Doesn&rsquo;t look right? See us at the counter &mdash; easy fixed.</div>'}
  else{html+='<div class="okline">&#10003; No damage recorded in your name this shutdown &mdash; gear looked after.</div>'}
  }
- html+='<div class="help"><b>We\'re here to help.</b> Finished with something? Bring it back and we\'ll clean it and get it ready for the next crew. Need gear, or something\'s not right? Tell the tool store team, day or night — we\'ll sort it, no fuss.</div>';
+ html+='<div class="help" data-sec="help" data-rv><b>We\'re here to help.</b> Finished with something? Bring it back and we\'ll clean it and get it ready for the next crew. Need gear, or something\'s not right? Tell the tool store team, day or night — we\'ll sort it, no fuss.</div>';
   html+='<div class="guidelink" onclick="openGuide(\'contacts\')"><b>Site guides</b><span>Contact board &middot; radio &middot; gas monitor</span><em>&rsaquo;</em></div>';
  // THE BARCODES CAME OFF THE PHONE SCREEN (Andrew, 2 Aug 2026: "can we
  // remove this part"). Two white blocks in the middle of a dark report
@@ -2266,11 +2448,106 @@ function renderCard(p){
  document.getElementById('landing').style.display='none';
  document.getElementById('result').style.display='block';
  window.scrollTo(0,0);
- var rp=document.querySelector('.ringp');
- if(rp){requestAnimationFrame(function(){requestAnimationFrame(function(){rp.style.strokeDashoffset=rp.getAttribute('data-off')})})}
- animate(); if((p.score||0)>=85||st.items===0||st.sameday>0) confetti();
+ /* two frames so the browser has laid the card out before anything is
+    asked to move - a transition set on the same frame as the markup
+    just snaps */
+ requestAnimationFrame(function(){requestAnimationFrame(function(){
+   animate(document.getElementById('result'));
+   rvNav();
+ })});
+ if((p.score||0)>=85||st.items===0||st.sameday>0) confetti();
 }
-function reset(){document.body.classList.remove('hascard');document.getElementById('welcome').className='wel';var _d=document.querySelector('.door');if(_d)_d.style.display='';idState('');window.PENDING=null;document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
+/* ------------------------------------------------------------------
+   THE SECTION RAIL. The report is five screens long on a phone. This
+   is the same idea as the stores dock, in the same materials, so the
+   suite has one way of moving around and not two.
+
+   It tracks where you actually are rather than only where you tapped,
+   so scrolling with a thumb keeps it honest. GEAR carries the number
+   of items in his name, because that is the one a bloke jumps to.
+------------------------------------------------------------------ */
+/* the filter itself. It only ever hides rows - it never rebuilds the
+   list, so the compliance chips, photos and QR codes already drawn stay
+   exactly as they were. */
+var GLANE='all';
+function gfilt(lane){
+  if(lane) GLANE=lane;
+  var q=(document.getElementById('gitq')||{value:''}).value
+         .toLowerCase().replace(/^\s+|\s+$/g,'');
+  var rows=document.querySelectorAll('#result .item'), shown=0;
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i];
+    var okL=(GLANE==='all')||(r.getAttribute('data-l')===GLANE);
+    var okQ=!q||(r.getAttribute('data-q')||'').indexOf(q)>=0;
+    if(okL&&okQ){ r.style.display=''; shown++; } else { r.style.display='none'; }
+  }
+  var bs=document.querySelectorAll('#result .gl');
+  for(var j=0;j<bs.length;j++)
+    bs[j].className='gl '+(bs[j].getAttribute('data-l')==='all'?'':bs[j].getAttribute('data-l'))
+      +(bs[j].getAttribute('data-l')===GLANE?' on':'');
+  var none=document.getElementById('gnone');
+  if(none) none.hidden=(shown>0);
+}
+var RVN_IO=null;
+function rvNav(){
+  var bar=document.getElementById('rnav');
+  if(!bar) return;
+  var n=document.getElementById('rnavn');
+  if(n){ var st=(window.LASTP&&window.LASTP.stats)||{};
+         n.textContent=st.items>0?st.items:''; }
+  /* a bloke who is fully cleared has no gear list to jump to */
+  var gb=bar.querySelector('[data-g="gear"]');
+  if(gb) gb.style.display=document.querySelector('[data-sec="gear"]')?'':'none';
+  bar.className='rnav on';
+  document.body.classList.add('hasrnav');
+  rvMark('sum');
+  if(RVN_IO){ window.removeEventListener('scroll',RVN_IO); RVN_IO=null; }
+  /* Tracked with an IntersectionObserver first and it was wrong: the
+     markers are headings and one empty div, so they are only a few
+     pixels tall. Watching for them to cross a band in the middle of
+     the screen meant whichever heading passed through LAST stayed lit
+     no matter where you actually were - scroll back to the top and the
+     rail still said STORE.
+     A marker's position is the honest question, so ask it directly:
+     the section you are in is the last marker above the line. */
+  var tick=false;
+  RVN_IO=function(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      tick=false;
+      var m=document.querySelectorAll('[data-sec]'), line=window.innerHeight*0.34,
+          cur=null;
+      for(var i=0;i<m.length;i++){
+        if(m[i].offsetParent===null && m[i].getAttribute('data-sec')!=='sum') continue;
+        if(m[i].getBoundingClientRect().top<=line) cur=m[i].getAttribute('data-sec');
+      }
+      /* at the very bottom the last section is the one you are reading,
+         whatever the maths says about a line a third of the way down */
+      if(window.innerHeight+window.pageYOffset >= document.body.scrollHeight-4 && m.length)
+        cur=m[m.length-1].getAttribute('data-sec');
+      rvMark(cur||'sum');
+    });
+  };
+  window.addEventListener('scroll',RVN_IO,{passive:true});
+  RVN_IO();
+}
+function rvMark(k){
+  var bs=document.querySelectorAll('#rnav button');
+  for(var i=0;i<bs.length;i++)
+    bs[i].className=(bs[i].getAttribute('data-g')===k)?'on':'';
+}
+function rvGo(k){
+  var t=document.querySelector('[data-sec="'+k+'"]');
+  if(!t) return;
+  rvMark(k);
+  try{ t.scrollIntoView({behavior:'smooth',block:'start'}); }
+  catch(e){ t.scrollIntoView(); }
+}
+function reset(){document.body.classList.remove('hascard');
+ /* the rail belongs to a card - it goes when the card goes */
+ document.body.classList.remove('hasrnav');
+ var _rn=document.getElementById('rnav'); if(_rn)_rn.className='rnav';
+ if(RVN_IO){window.removeEventListener('scroll',RVN_IO);RVN_IO=null} GLANE='all';document.getElementById('welcome').className='wel';var _d=document.querySelector('.door');if(_d)_d.style.display='';idState('');window.PENDING=null;document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
 document.getElementById('idno').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
 var STORES_TAG='__STORESTAG__';
 __STOREJS__
