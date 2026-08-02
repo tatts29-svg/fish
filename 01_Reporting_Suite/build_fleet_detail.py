@@ -221,7 +221,8 @@ function assetHtml(r){
 function showFleet(v){
   var f = D.fleets[v];
   if(!f) return;
-  location.hash = v;
+  //  writing the hash re-fires route(); harmless, but skip the work
+  if(location.hash.slice(1) !== v) location.hash = v;
   var H = [];
   H.push("<button class='back' data-back='1'>&#8592; All fleets</button>");
   H.push("<h2 style='margin-top:10px'>" + esc(f.n) + '</h2>');
@@ -314,13 +315,37 @@ el('q').addEventListener('input', function(){
   if(location.hash) location.hash = '';
   showList(el('q').value);
 });
-if(location.hash && D.fleets[location.hash.slice(1)]){
-  showFleet(location.hash.slice(1));
-} else {
-  showList('');
+/* BACK HAS TO WORK. The hash is read on first load AND on every
+   change, because on a phone Back is the main way out of a screen -
+   and without this listener it did nothing at all: the hash moved,
+   the page stayed on the fleet you were already looking at. Same
+   fault made a shared #VARIANT link show whatever the last person
+   had open. Found by opening two fleets in a row. */
+function route(){
+  var v = location.hash.slice(1);
+  if(v && D.fleets[v]) showFleet(v);
+  else { el('q').value = ''; showList(''); }
 }
+window.addEventListener('hashchange', route);
+route();
 """.replace('__LOW__', C_LOW).replace('__OK__', C_OK) \
    .replace('__HIGH__', C_HIGH).replace('__EXCL__', C_EXCL)
+
+
+def _js_string(obj):
+    """The payload as a JS STRING for JSON.parse, not an object literal.
+
+    A 1.1 MB object literal has to go through the JavaScript parser,
+    which is far slower than JSON.parse over the same bytes - it was
+    2.2 seconds to first paint on a phone-class CPU. Same data, same
+    file, a fraction of the wait.
+
+    Double-encoded on purpose: the inner dumps makes the JSON, the
+    outer one makes a correctly escaped JS string literal of it. The
+    "</" guard stops a description containing that pair from closing
+    the script tag early.
+    """
+    return json.dumps(json.dumps(obj)).replace('</', '<\\/')
 
 
 def payload(data, with_money):
@@ -335,11 +360,22 @@ def payload(data, with_money):
         for r in f['rows']:
             row = {'r': r['rank'], 'i': r['item'], 's': r['score'],
                    'c': r['cycles'], 'o': r['open'], 'b': r['band'],
-                   'x': r['excluded'], 'w': r['why'], 'O': r['out'],
-                   'h': r['holder'], 'C': r['holderCo'], 'k': r['rack'],
-                   'd': r['idle'], 'u': bool(r.get('useNext')),
+                   'w': r['why'], 'h': r['holder'], 'C': r['holderCo'],
+                   'k': r['rack'], 'd': r['idle'],
                    'B': r.get('branchNote') or '',
                    'D': r.get('branchDays') or ''}
+            #  EMPTY IS NOT WORTH SENDING. Most assets have no rack, no
+            #  branch note and no holder, and writing "k":"" on 4,853
+            #  rows is bytes a phone has to download and parse to learn
+            #  nothing. The reader already treats missing as absent.
+            row = {k: v for k, v in row.items() if v not in ('', None)}
+            #  flags only when true, same reason
+            if r['excluded']:
+                row['x'] = 1
+            if r['out']:
+                row['O'] = 1
+            if r.get('useNext'):
+                row['u'] = 1
             if with_money:
                 row['$'] = round(r.get('revenue') or 0.0, 2)
             rows.append(row)
@@ -393,8 +429,8 @@ def build_one(data, with_money, out_path, today):
             "initial-scale=1,viewport-fit=cover'>"
             "<title>Coates | Fleet Details</title>"
             "<style>" + CSS + "</style></head><body>" + ''.join(body)
-            + "<script>window.__FLEET__=" + json.dumps(p) + ";\n"
-            + JS + "</script></body></html>")
+            + "<script>window.__FLEET__=JSON.parse(" + _js_string(p)
+            + ");\n" + JS + "</script></body></html>")
 
     #  THE GUARD. Andrew's rule is that nothing on the store Wi-Fi
     #  carries money, and a rule nobody checks is a rule that breaks
