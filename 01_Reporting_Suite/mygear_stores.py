@@ -1817,7 +1817,15 @@ button.tile:active{background:var(--pnl2)}
 .hcard .hs span{font-size:14px;line-height:1.6;color:var(--txt)}
 .hcard .hs ol{margin:0 0 0 20px;font-size:14px;line-height:1.65;color:var(--txt)}
 .hcard .hs ol li{margin-bottom:5px}
-.kth2{flex:none;width:112px;height:112px;border-radius:14px;overflow:hidden;
+/* 132px. ONE PICTURE SIZE ACROSS THE WHOLE SUITE. (Andrew,
+   3 Aug 2026: "needs to be fixed in stores and workers".)
+   The store board ran 132, the stores board 112 and the worker
+   page 100 - three sizes for the same photo of the same tool,
+   so the gear changed size as a bloke moved between screens.
+   132 is the one Andrew pointed at. If this ever moves, it moves
+   on all four: mygear_store, mygear_stores, BUILD_MY_GEAR and
+   build_fleet_detail. */
+.kth2{flex:none;width:132px;height:132px;border-radius:14px;overflow:hidden;
  background:#20262e;display:flex;align-items:center;justify-content:center}
 .kth2 img{width:100%;height:100%;object-fit:cover;display:block}
 .kth2.mono{color:#8A97A8;font-weight:900;font-size:23px;letter-spacing:.5px}

@@ -1670,7 +1670,15 @@ body.hasrnav #result{padding-bottom:70px}
 .item .d{font-size:13px;color:#eef2f8;font-weight:600}.item .n{font-size:11px;color:var(--mut);margin-top:1px}
 /* the item's own picture - what the thing in your name LOOKS like.
    Photo when its variant shot is collected, two-letter tile until. */
-.item .ith{flex:none;width:100px;height:100px;border-radius:14px;overflow:hidden;background:#1B2330;display:flex;align-items:center;justify-content:center}
+/* 132px. ONE PICTURE SIZE ACROSS THE WHOLE SUITE. (Andrew,
+   3 Aug 2026: "needs to be fixed in stores and workers".)
+   The store board ran 132, the stores board 112 and the worker
+   page 100 - three sizes for the same photo of the same tool,
+   so the gear changed size as a bloke moved between screens.
+   132 is the one Andrew pointed at. If this ever moves, it moves
+   on all four: mygear_store, mygear_stores, BUILD_MY_GEAR and
+   build_fleet_detail. */
+.item .ith{flex:none;width:132px;height:132px;border-radius:14px;overflow:hidden;background:#1B2330;display:flex;align-items:center;justify-content:center}
 .item .ith img{width:100%;height:100%;object-fit:cover;display:block}
 .item .ith.mono{color:#8A97A8;font-weight:900;font-size:21px;letter-spacing:.5px}
 .item .itxt{flex:1;min-width:0}

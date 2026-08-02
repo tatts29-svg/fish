@@ -1,7 +1,7 @@
-# Coates K2 suite version - 158 files - overall d15e5e90
+# Coates K2 suite version - 158 files - overall 6e4d7df1
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-02 22:29:04
+# taken 2026-08-02 22:31:59
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -75,7 +75,7 @@ e2db0400e6 APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 7df01af922 BUILD_DAILY_EMAIL_PACKS.py
-8ec1e07aef BUILD_MY_GEAR.py
+47611df447 BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
@@ -145,7 +145,7 @@ f013359327 mybranch.py
 fed373b865 mygear_intel.py
 6ade9a441b mygear_movement.py
 3a9a24ce13 mygear_store.py
-1344f0af35 mygear_stores.py
+2ed3b0ccdd mygear_stores.py
 a3244309df mygear_thumbs.py
 b6af9bce5e mygear_ui.py
 5dbf7b3d91 net_pick.py
