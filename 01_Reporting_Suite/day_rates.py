@@ -405,8 +405,11 @@ def from_baseplan(here=None):
                 nm = (str(r[ci]).strip()
                       if ci is not None and ci < len(r) and r[ci] else '')
                 if nm:
+                    qi = ix.get('Quantity')
+                    q = (_num(r[qi]) if qi is not None and qi < len(r)
+                         else 0)
                     out['byDesc'].setdefault(_norm(nm), {
-                        'rate': rate, 'qty': 1, 'desc': nm, 'item': '',
+                        'rate': rate, 'qty': q, 'desc': nm, 'item': '',
                         'variant': '', 'tiers': [], 'source': 'BASEPLAN'})
                     out['lines'] += 1
     wb.close()

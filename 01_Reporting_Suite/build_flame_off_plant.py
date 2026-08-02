@@ -78,6 +78,18 @@ GROUPS = [
     ('Rubbish Chutes', 'Rubbish Chute 1M'),
 ]
 
+#  BASEPLAN GEAR THE REGISTER SPELLS ITS OWN WAY. Andrew, 2 Aug 2026:
+#  the 500-series Vantage welders "are baseplan welders same cost as
+#  the others" - $72.59/day. The word matcher will not bridge a 500 to
+#  Baseplan's 580 or 600A on its own, and it SHOULD NOT: refusing that
+#  is what stops a wrong rate landing on an expensive machine. So the
+#  mapping is stated here, by a human, rather than loosened into a rule
+#  that would also match things nobody checked.
+BASEPLAN_ALIAS = [
+    (_RE_VANTAGE := __import__('re').compile(r'vantage', __import__('re').I),
+     'Welder - Motorized - Diesel - Vantage 580'),
+]
+
 #  Statuses that mean the asset is no longer standing on site as plant.
 #  Andrew, 2 Aug 2026: departed gear shows as pending baseplan, or
 #  "could show as pending branch receipt". Branch receipt is the branch
@@ -111,6 +123,31 @@ S_NODATA = 'NO DATA'
 S_PLANT = 'SITE PLANT'
 S_OFF = 'OFF / NOT SEEN'
 S_GONE = 'DEPARTED'
+
+
+def _baseplan_count(rows, base_rates):
+    """Register records against the quantity Baseplan actually bills.
+
+    More records than machines is not a cosmetic problem once rates are
+    in - every duplicate is a second machine's worth of cost on a sheet
+    that goes to a cost conversation.
+    """
+    out = []
+    if not base_rates or not base_rates.get('byDesc'):
+        return out
+    by_target = collections.Counter()
+    for r in rows:
+        if r.get('source') == 'BASEPLAN':
+            key = (r.get('fuzzy') or r['desc']).split('  (')[0]
+            by_target[DR._norm(key)] += r['qty']
+    for k, n in by_target.items():
+        rec = base_rates['byDesc'].get(k)
+        qty = 0
+        if rec:
+            qty = int(rec.get('qty') or 0)
+        if qty and n != qty:
+            out.append((rec.get('desc', k), n, qty))
+    return out
 
 
 def _newest(pattern):
@@ -333,9 +370,19 @@ def collect(today=None):
         first = (r['key'] if r['type'] == 'INDIVIDUAL' else '')
         #  variant first - the rate card is keyed on it and it is the
         #  only key that cannot be ambiguous
+        pd = r.get('priceDesc') or r['desc']
         rec = DR.resolve(rates, txn_rates, base_rates,
-                         variant=r.get('variant', ''), item=first,
-                         desc=r.get('priceDesc') or r['desc'])
+                         variant=r.get('variant', ''), item=first, desc=pd)
+        if rec is None:
+            #  the human-stated Baseplan mappings, last, so they can
+            #  never override a rate the data actually carries
+            for rx, target in BASEPLAN_ALIAS:
+                if rx.search(pd or ''):
+                    alias = DR.resolve(None, None, base_rates, desc=target)
+                    if alias:
+                        rec = dict(alias)
+                        rec['fuzzy'] = target + '  (stated mapping)'
+                        break
         rate = rec['rate'] if rec else None
         r['rec'] = rec
         r['source'] = rec.get('source', 'CONTRACT') if rec else ''
@@ -393,6 +440,13 @@ def collect(today=None):
         'rates': rates, 'priced': priced, 'unpriced': unpriced,
         'txnRates': txn_rates, 'baseRates': base_rates,
         'sources': src_count.most_common(), 'fuzzy': fuzzy_made,
+        #  BASEPLAN KNOWS HOW MANY THERE ARE. Andrew, 2 Aug 2026: "there
+        #  is only 7 not 8". He is right, and the register is worse than
+        #  that - it carries 13 Vantage welder records for 7 machines,
+        #  under two different numbering schemes. Baseplan bills the
+        #  real quantity, so it can be used to check the register
+        #  instead of the register being believed.
+        'baseplanCount': _baseplan_count(rows, base_rates),
         'chargedPlant': charged_plant,
         '$used': sum(r['$used'] or 0 for r in rows),
         '$plant': sum(r['$plant'] or 0 for r in rows),
@@ -633,6 +687,17 @@ def main():
             else:
                 print('                Close enough to trust the rates and')
                 print('                the way they are being applied.')
+        for nm, got, want in d.get('baseplanCount', []):
+            print('')
+            print(' ' + '!' * 58)
+            print(' COUNT DOES NOT MATCH BASEPLAN')
+            print('   {}'.format(str(nm)[:52]))
+            print('   register carries {} record(s); Baseplan bills {}.'
+                  .format(got, want))
+            print('   Every extra record is another machine\'s worth of')
+            print('   cost on this sheet. Worth fixing in SiteIQ before')
+            print('   this goes to a cost conversation.')
+            print(' ' + '!' * 58)
         if r.get('skipped'):
             print(' {} quote line(s) carried no rate: {}'.format(
                 len(r['skipped']),
