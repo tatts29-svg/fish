@@ -278,6 +278,11 @@ function assetHtml(r){
      rack prints nothing at all - never a guess that walks a bloke to
      the wrong end of the store. */
   if(r.k) line.push(esc(r.k));
+  /* THE SERIAL, when there is a genuine one. It rides beside the plant
+     number because that is the pair anyone arguing about a machine
+     needs: our name for it and the manufacturer's. Absent for the
+     4,390 barcode-suffixed tooling assets, which do not have one. */
+  if(r.sn) line.push('S/N ' + esc(r.sn));
   if(!r.O && r.d !== null && r.d !== undefined) line.push('idle ' + r.d + 'd');
   s += "<div class='s'>" + line.join(' · ') + '</div>';
   /* A branch flag on gear that is ALREADY OUT is a note, never an
@@ -503,7 +508,7 @@ def payload(data, with_money):
                    'c': r['cycles'], 'o': r['open'], 'b': r['band'],
                    'w': r['why'], 'h': r['holder'], 'C': r['holderCo'],
                    'k': r['rack'], 'd': r['idle'],
-                   'bc': r['bc'],
+                   'bc': r['bc'], 'sn': r.get('serial') or '',
                    'B': r.get('branchNote') or '',
                    'D': r.get('branchDays') or '',
                    'S': r['streamLabel'] if r['billsElsewhere'] else ''}

@@ -101,7 +101,11 @@ PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
                   "invoices", "baseplan",
                   #  the MyBranch fleet exports for the 60 finder
                   #  (1 Aug 2026)
-                  "fleet")
+                  "fleet",
+                  #  the Baseplan serial listing - Andrew's export, and a
+                  #  newer one must never be replaced by whatever was in
+                  #  the zip (3 Aug 2026)
+                  "data_serials")
 
 
 def sha(path):

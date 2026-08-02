@@ -43,6 +43,7 @@ import mybranch as MB
 import mygear_intel as MI
 import ownership as OWN
 import racks as RK
+import serials as SR
 
 #  Statuses that mean the asset cannot be issued today. Off the
 #  register itself, not from a judgement call - and every one of them
@@ -135,6 +136,12 @@ def asset_row(a, span, with_money, seqs=None):
         'idle': a.get('idleDays'),
         'rack': RK.where(a.get('item') or '', a.get('bc') or '',
                          a.get('variant') or ''),
+        #  THE PLATE ON THE MACHINE. Andrew, 3 Aug: "Fleet_No =
+        #  Item_Number, and the column Serial_No is the Item_Number's
+        #  serial number." Blank unless it is a genuine serial - a row
+        #  that reads Coates1302153 is our own plant number handed back
+        #  to us, and putting that on a damage claim proves nothing.
+        'serial': SR.serial_of(a.get('item') or ''),
         'band': cls, 'word': word,
         'branchDays': bdays if bwhy else '',
         #  said on the row, never used to exclude it

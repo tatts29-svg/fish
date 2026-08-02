@@ -57,6 +57,7 @@ import forecast as FC
 import mygear_intel as MI
 import mygear_stores as MS
 import ownership as OWN
+import serials as SR
 import whats_used as WU
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -113,7 +114,7 @@ def collect(data):
         c = out.setdefault(co, {'company': co, 'people': {}, 'assets': 0})
         p = c['people'].setdefault(who, {'name': who, 'items': []})
         d = a.get('onHireDate')
-        p['items'].append({
+        it = {
             'desc': a.get('desc') or '',
             'item': a.get('item') or '',
             'bc': a.get('bc') or '',
@@ -121,7 +122,20 @@ def collect(data):
             'out': d.isoformat() if d else '',
             'days': ((dt.date.fromisoformat(data['sourceTo']) - d).days + 1)
                     if (d and data.get('sourceTo')) else None,
-        })
+        }
+        #  THE PLATE ON THE MACHINE. Andrew, 3 Aug: "Fleet_No =
+        #  Item_Number and the column Serial_No is the Item_Number's
+        #  serial number." This is the screen a supervisor is looking at
+        #  when a machine comes back damaged, so the manufacturer's
+        #  number belongs beside ours. Only when it is genuinely a
+        #  serial - never our own plant number echoed back with COATES
+        #  in front of it - and only when there is one, because 922 of
+        #  these 1,156 lines are tooling that has no serial and does not
+        #  need "sn":"" carried down a phone to say so.
+        sn = SR.serial_of(a.get('item') or '')
+        if sn:
+            it['sn'] = sn
+        p['items'].append(it)
         c['assets'] += 1
     for c in out.values():
         for p in c['people'].values():
@@ -290,6 +304,7 @@ select:focus{outline:none;border-color:#F26222}
  font-size:12px;white-space:nowrap;text-align:right}
 .person td.d b{display:block;color:#EAF0F7;font-weight:600}
 .person td.d span{color:#6B7789;font-size:12px}
+.person td.n .sn{color:#8794A6}
 .tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
 .tools button{flex:1 1 auto;background:#161E28;border:1px solid #2A3646;
  color:#DCE3EC;border-radius:11px;padding:12px 14px;font-size:14px;
@@ -381,7 +396,9 @@ function personBlock(p){
          locked page does not leave a blank line where it was */
       + (r === null ? '' : "<span class='rate'>" + esc(money(r))
          + '<br></span>')
-      + esc(i.item) + '</td></tr>';
+      + esc(i.item)
+      + (i.sn ? "<br><span class='sn'>S/N " + esc(i.sn) + '</span>' : '')
+      + '</td></tr>';
   }).join('');
   return h + '</tbody></table></div>';
 }
