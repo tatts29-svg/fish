@@ -507,6 +507,26 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             elif not end:
                 a['openLines'] += 1
 
+            #  MONEY BEFORE DATES, deliberately. Further down there is a
+            #  `continue` that throws away a span whose start is after
+            #  its end - nonsense dates, rightly not turned into usage.
+            #  While this block sat below it, that same `continue` also
+            #  threw away the CHARGE on those lines: $192.04 counted in
+            #  the store total but in neither the plant book nor the
+            #  tooling book, so the two never summed back to the whole.
+            #  A date this suite cannot read is a reason to distrust the
+            #  span. It is not a reason to lose the money.
+            if charged:
+                shifts = _num(r.get('SHIFTS'))
+                if total:
+                    a['revenue'] += total
+                elif shifts:
+                    #  Charged shifts recorded but the money has not
+                    #  landed yet. PENDING, never $0 - a nought here
+                    #  reads as "this earned nothing", which is a
+                    #  different and wrong statement.
+                    a['pendingRevenue'] = True
+
             if start:
                 #  a span cannot run past the data. Beyond src_to is NO
                 #  DATA, not more usage and not idleness.
@@ -533,16 +553,6 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                 if a['variant']:
                     spans[a['variant']].append(
                         (start, end or now, holding, a['item']))
-            if charged:
-                shifts = _num(r.get('SHIFTS'))
-                if total:
-                    a['revenue'] += total
-                elif shifts:
-                    #  Charged shifts recorded but the money has not
-                    #  landed yet. PENDING, never $0 - a nought here
-                    #  reads as "this earned nothing", which is a
-                    #  different and wrong statement.
-                    a['pendingRevenue'] = True
 
     #  ---- BACKFILL THE MISSING VARIANTS, BEFORE ANYTHING IS POOLED --
     #  (Andrew, 2 Aug 2026: "radios and gas monitors some welders are
@@ -878,6 +888,16 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             'revenue': sum(a['revenue'] for a in grp),
             'clientPct': _pct(cd, md),
         }
+    #  THE TWO BOOKS MUST ADD BACK TO THE ONE TOTAL. Every asset is
+    #  either plant or it is tooling, so plant + tooling has to equal
+    #  the store's charged revenue to the cent. When it did not, the
+    #  difference was money silently dropped by a data-quality skip -
+    #  which read as if the job had spent less. This carries the gap so
+    #  a page can refuse to quote a split that does not reconcile,
+    #  rather than showing two numbers that quietly do not meet.
+    tot['splitGap'] = round(
+        tot['revenue'] - tot['plant']['revenue'] - tot['tooling']['revenue'],
+        2)
     tot['clientPct'] = _pct(tot['clientDays'], tot['commercialDays'])
     tot['everIssuedPct'] = _pct(tot['issuedOnce'], tot['assets'])
     tot['neverPct'] = _pct(tot['neverIssued'], tot['assets'])
