@@ -43,6 +43,7 @@ import datetime as dt
 
 import day_rates as DR
 import mygear_intel as MI
+import shutdown_day as SD
 
 #  Days with no issue before a used asset counts as STOPPED. Andrew's
 #  shutdown runs in bursts, so a couple of quiet days is normal work.
@@ -269,6 +270,164 @@ def breakdown(data, rates=None, today=None, txn_path=None):
             'revenue': sum(a.get('revenue') or 0.0 for a in g),
         }
     return out
+
+
+# =====================================================================
+#  THE TIMELINE
+#
+#  WHY (Andrew, 2 Aug 2026): "a nice visual time line. and costs line
+#  showing beautifully."
+#
+#  ---------------------------------------------------------------
+#  ONE ASSET, ONE DAY, ONCE
+#  ---------------------------------------------------------------
+#  The same physical hire turns up on both transaction sheets, so
+#  counting transaction lines per day double-counts it - the same
+#  mistake that once put peak at 8 on a fleet of 4. Each asset is
+#  tested against the day ONCE and lands in one bucket, so the bars
+#  are a count of gear, not a count of paperwork.
+#
+#  ---------------------------------------------------------------
+#  WITH A CREW, OR JUST OUT
+#  ---------------------------------------------------------------
+#  An asset booked to the site holding account is out of the store but
+#  no crew has signed for it. Stacking that on top of client-issued
+#  gear as if they were the same thing hides the entire problem this
+#  suite exists to show, so they are two bands and the top one is the
+#  one that means "nobody asked for this".
+#
+#  ---------------------------------------------------------------
+#  THE LINE STOPS WHERE THE DATA STOPS
+#  ---------------------------------------------------------------
+#  Days past the export are NOT zero. A chart that runs a line to the
+#  right-hand edge through days nobody pulled is drawing a cliff that
+#  did not happen. Both series end on their own last real day and the
+#  rest of the axis is marked as not covered.
+#
+#  Money and gear are on SEPARATE charts, deliberately. They are
+#  different scales and a second y-axis on one chart is the fastest
+#  way to make two unrelated shapes look like they explain each other.
+# =====================================================================
+def timeline(data, ds=None):
+    """Day by day: how much gear was out, and what it billed."""
+    assets = list(data['assets'].values())
+    frm = (dt.date.fromisoformat(data['sourceFrom'])
+           if data.get('sourceFrom') else None)
+    to = (dt.date.fromisoformat(data['sourceTo'])
+          if data.get('sourceTo') else None)
+    if not frm or not to:
+        return None
+
+    #  the money series carries further than the gear series on some
+    #  pulls and less far on others, so the axis is the union and each
+    #  series says where IT stops.
+    money = {}
+    if ds and ds['daily']:
+        money = {d: v for d, v in ds['daily']}
+    last_money = max(money) if money else None
+    right = max([x for x in (to, last_money) if x])
+    left = min([x for x in (frm, min(money)) if x]) if money else frm
+
+    days, cur = [], left
+    while cur <= right:
+        days.append(cur)
+        cur += dt.timedelta(days=1)
+
+    rows = []
+    for d in days:
+        client = holding = 0
+        for a in assets:
+            out_today = any(s <= d <= e for s, e in a.get('outSpans') or ())
+            if not out_today:
+                continue
+            #  ONE ASSET, ONE BUCKET. A crew's claim beats the holding
+            #  account - if someone signed for it that day, it was
+            #  working, whatever else it was also booked to that day.
+            if any(s <= d <= e for s, e in a.get('clientSpans') or ()):
+                client += 1
+            else:
+                holding += 1
+        rows.append({
+            'date': d,
+            'client': client, 'holding': holding,
+            'out': client + holding,
+            'gear': frm <= d <= to,
+            #  THE LAST COVERED DAY IS THE EXPORT'S EDGE, not the end of
+            #  the job. A pull taken mid-morning has only the hires that
+            #  were already keyed, so the final column reads low for a
+            #  reason that has nothing to do with gear going home. Named
+            #  here so the chart can say so rather than let the reader
+            #  see a drop that is not there.
+            'edge': d == to,
+            'money': money.get(d),
+            'day': (d - SD.FLAME_OFF).days,
+            'milestone': SD.MILESTONES.get((d - SD.FLAME_OFF).days, ''),
+        })
+    return {
+        'rows': rows,
+        'gearTo': to, 'gearFrom': frm,
+        'moneyTo': last_money,
+        'maxOut': max([r['out'] for r in rows] or [0]),
+        'maxMoney': max([r['money'] or 0 for r in rows] or [0]),
+        'moneyTotal': sum(r['money'] or 0 for r in rows),
+    }
+
+
+# =====================================================================
+#  THE PER-ASSET USAGE SCORE
+#
+#  WHY (Andrew, 2 Aug 2026): "where did we get to to have each tool
+#  having a utilisation bar or a score on usage."
+#
+#  The bar already exists on the intelligence page. This is the number
+#  that goes with it, and it uses THE SAME denominator - days the
+#  transactions cover, from mobilisation - so the two can never tell a
+#  different story about the same tool.
+#
+#  0-100, and it is a percentage of days, not a mark out of ten. A tool
+#  that was with a crew every day the data covers scores 100. Nothing
+#  is curved and nothing is rounded up to look better.
+# =====================================================================
+#  Floors, high to low. A score sits in the first band it clears, and
+#  zero is its own band - "never issued" and "barely out" are different
+#  conversations and must not share a label.
+SCORE_BANDS = (
+    (60.0, 'WORKING HARD'),
+    (25.0, 'EARNING'),
+    (0.01, 'BARELY OUT'),
+)
+
+
+def score_of(a, span_days):
+    """Client days over days the data covers. Nothing else."""
+    if not span_days:
+        return None
+    return max(0.0, min(100.0, 100.0 * (a.get('clientDays') or 0.0)
+                        / span_days))
+
+
+def band(score):
+    if score is None:
+        return 'NO DATA'
+    for floor, lab in SCORE_BANDS:
+        if score >= floor:
+            return lab
+    return 'NEVER ISSUED'
+
+
+def scored(data, limit=None):
+    """Every asset with a score, hardest-worked first."""
+    span = data.get('sourceDays') or 0
+    out = []
+    for a in data['assets'].values():
+        s = score_of(a, span)
+        r = dict(a)
+        r['score'] = s
+        r['band'] = band(s)
+        r['spanDays'] = span
+        out.append(r)
+    out.sort(key=lambda r: -(r['score'] or 0))
+    return out[:limit] if limit else out
 
 
 def lines(b):

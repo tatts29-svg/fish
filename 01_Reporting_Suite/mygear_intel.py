@@ -648,12 +648,39 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         total += (ce - cs).total_seconds()
         return max(0.0, total / 86400.0)
 
+    def _merge(ivs):
+        """The same merge, but handing back the intervals themselves.
+
+        _merged_days answers "how many days" and throws the shape away.
+        A timeline needs the shape - which days, not how many - and it
+        has to be the SAME merge or the chart and the utilisation figure
+        will disagree about the same tool on the same day.
+        """
+        if not ivs:
+            return []
+        ivs = sorted(ivs)
+        out = [list(ivs[0])]
+        for st, en in ivs[1:]:
+            if st <= out[-1][1]:
+                out[-1][1] = max(out[-1][1], en)
+            else:
+                out.append([st, en])
+        return [tuple(x) for x in out]
+
     for a in assets.values():
         sp = a.pop('spans', [])
         a['commercialDays'] = _merged_days([(s0, e0) for s0, e0, _h in sp])
         a['clientDays'] = _merged_days([(s0, e0) for s0, e0, h in sp if not h])
         #  what was on charge but never in a named hirer's hands
         a['holdingDays'] = max(0.0, a['commercialDays'] - a['clientDays'])
+        #  KEPT FOR THE TIMELINE, as dates. Merged, so one asset can
+        #  only ever count once on a given day - the same rule that had
+        #  to be put on peak concurrent when it read 8 on a fleet of 4.
+        a['outSpans'] = [(s0.date(), e0.date()) for s0, e0
+                         in _merge([(s0, e0) for s0, e0, _h in sp])]
+        a['clientSpans'] = [(s0.date(), e0.date()) for s0, e0
+                            in _merge([(s0, e0) for s0, e0, h in sp
+                                       if not h])]
 
     # ---------------- per asset: idle, and the third signal ----------
     for a in assets.values():
