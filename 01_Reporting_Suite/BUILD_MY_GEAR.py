@@ -1008,8 +1008,49 @@ def build():
         print('  The crew page itself is unaffected.')
         print('  ' + '!' * 62)
 
+    #  GEAR PICTURES, BEFORE THE PAGE IS WRITTEN, NOT AFTER.
+    #  This used to run at the very end, which meant the page could
+    #  never know which photos existed - so every tile shipped an
+    #  <img> and found out by 404 whether there was anything behind
+    #  it. On the rig: 60 cards in a bay, 56 still holding an image
+    #  that had not failed yet, and 56 empty holes on the phone until
+    #  the store Wi-Fi returned each miss. Andrew photographed exactly
+    #  that (2 Aug 2026) - a socket card with nothing in it.
+    #
+    #  Now the shrink runs FIRST and the page is handed the list of
+    #  thumbnails that actually exist, so a tile with no photo draws
+    #  its monogram immediately and asks the network for nothing.
+    #  None = the build could NOT tell (the shrink threw, old suite).
+    #  [] = it looked and there are genuinely none. The page treats the
+    #  two differently: unknown means ask the network the way it always
+    #  did, empty means draw every monogram now. Conflating them is how
+    #  the first cut of this fix quietly did nothing on a store with no
+    #  photos yet - which is exactly the store this was written for.
+    _THUMBSET = None
+    try:
+        import mygear_thumbs
+        _n, _made, _ready = mygear_thumbs.refresh(BASE)
+        _reg = len(mygear_thumbs.variant_register(BASE))
+        _tdir = os.path.join(BASE, 'Gear_Lookup', 'thumbs')
+        if os.path.isdir(_tdir):
+            _THUMBSET = sorted(f[:-4] for f in os.listdir(_tdir)
+                               if f.lower().endswith('.jpg'))
+        print('  Gear pictures: {} of {} variants have a photo{} - run '
+              '56_PHOTO_HUNT for the wanted list.'.format(
+                  _ready, _reg,
+                  ' ({} shrunk this build)'.format(_made) if _made else ''))
+        if _reg and _ready < _reg:
+            print('    The other {} draw a two-letter tile instead - no '
+                  'empty boxes, and no wasted lookups on the store '
+                  'Wi-Fi.'.format(_reg - _ready))
+    except Exception as _e:
+        #  No manifest = every tile falls back to asking, exactly as it
+        #  did before. Degraded, not broken.
+        print('  Gear pictures: skipped this build ({})'.format(_e))
+
     page = (TEMPLATE
             .replace('__DATA__', json.dumps(DATA))
+            .replace('__THUMBS__', json.dumps(_THUMBSET))
             .replace('__PULSE__', pulse)
             .replace('__TOPIC__', _topic_banner())
             .replace('__STATSTRIP__', _strip)
@@ -1068,18 +1109,6 @@ def build():
               ' ({} awaiting a card)'.format(len(dmg_unattached))
               if dmg_unattached else ''))
     print('  Data as at: ' + (asof or 'unknown') + ' | Output: ' + out)
-    #  gear pictures: shrink anything new in Photos\ into the served
-    #  thumbs folder, and say where the hunt stands (30 Jul 2026)
-    try:
-        import mygear_thumbs
-        _n, _made, _ready = mygear_thumbs.refresh(BASE)
-        _reg = len(mygear_thumbs.variant_register(BASE))
-        print('  Gear pictures: {} of {} variants have a photo{} - run '
-              '56_PHOTO_HUNT for the wanted list.'.format(
-                  _ready, _reg,
-                  ' ({} shrunk this build)'.format(_made) if _made else ''))
-    except Exception as _e:
-        print('  Gear pictures: skipped this build ({})'.format(_e))
 
 def _topic_banner():
     """Today's toolbox talk on the front door (Andrew, 1 Aug 2026), now
@@ -2062,6 +2091,20 @@ __TILES__
 __SHEET__
 <script>//__QRJS__//
 var DATA=__DATA__;
+/* WHICH VARIANTS ACTUALLY HAVE A PHOTO. Stamped by the build from the
+   thumbs folder itself, so a tile never has to ask the network to find
+   out there is nothing there. Empty list = fall back to asking, which
+   is what the page did before this existed. */
+var THUMBS_LIST=__THUMBS__;   /* null = could not tell; [] = none */
+var THUMBS=(function(){var o={},a=THUMBS_LIST||[],i;
+  for(i=0;i<a.length;i++)o[a[i]]=1;return o;})();
+function hasThumb(v){
+  if(!v) return false;
+  /* could not tell - ask, and let the onerror fallback do its job the
+     way it always did. An EMPTY list is an answer, not an absence. */
+  if(THUMBS_LIST===null||THUMBS_LIST===undefined) return true;
+  return !!THUMBS[tsafe(v)];
+}
 /* the snapshot date, for the power rail's line under the header */
 var ASOF="__ASOF__";
 /* days from Flame Off - a date means nothing on a shutdown, a day
@@ -2117,7 +2160,7 @@ function thMono(n){
    so the lookup swaps the same way (matches safe_name in Python) */
 function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
 function wthumb(it){
- if(!it.v) return '<span class="ith mono">'+thMono(it.d)+'</span>';
+ if(!it.v || !hasThumb(it.v)) return '<span class="ith mono">'+thMono(it.d)+'</span>';
  return '<span class="ith"><img src="thumbs/'+encodeURIComponent(tsafe(it.v))
   +'.jpg" loading="lazy" alt="" data-m="'+thMono(it.d)
   +(it.va&&it.va!==it.v?'" data-a="'+esc(it.va):'')

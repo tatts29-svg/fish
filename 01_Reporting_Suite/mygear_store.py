@@ -769,7 +769,8 @@ function stRender(reset){
       var wide = feat; feat = false;
       html += '<div class="stcard ' + (wide?'wide ':'') + cls + '">'
         + '<div class="im">'
-        + (it.v ? '<img src="thumbs/' + encodeURIComponent(tsafe(it.v))
+        + ((it.v && (typeof hasThumb!=='function' || hasThumb(it.v)))
+            ? '<img src="thumbs/' + encodeURIComponent(tsafe(it.v))
             + '.jpg" loading="lazy" alt="" data-m="' + thMono(it.n)
             + '" onerror="thxg(this)">'
           : '<span class="gmono">' + thMono(it.n) + '</span>')
@@ -825,7 +826,12 @@ function thMono(n){
 }
 function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
 function thTile(v,n){
-  if(!v) return '<span class="sth mono">'+thMono(n)+'</span>';
+  /* ASK THE MANIFEST, NOT THE NETWORK. Emitting an <img> for a photo
+     that does not exist leaves an empty hole on the phone until the
+     404 comes back - and below the fold, lazy loading means it never
+     even asks, so the hole stays. See hasThumb in BUILD_MY_GEAR. */
+  if(!v || (typeof hasThumb==='function' && !hasThumb(v)))
+    return '<span class="sth mono">'+thMono(n)+'</span>';
   return '<span class="sth"><img src="thumbs/'+encodeURIComponent(tsafe(v))
     +'.jpg" loading="lazy" alt="" data-m="'+thMono(n)
     +'" onerror="thx(this)"></span>';

@@ -2939,6 +2939,12 @@ function thMono(n){
 function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
 function thTile(v,n,a){
   if(!v) return '<span class="kth2 mono">'+thMono(n)+'</span>';
+  /* If the build told us which photos exist, believe it rather than
+     firing a request to find out. Neither the serial shot nor the
+     model shot present = draw the monogram now. Guarded, so a page
+     built without a manifest behaves exactly as it always did. */
+  if(typeof hasThumb==='function' && !hasThumb(v) && !(a && hasThumb(a)))
+    return '<span class="kth2 mono">'+thMono(n)+'</span>';
   return '<span class="kth2"><img src="thumbs/'+encodeURIComponent(tsafe(v))
     +'.jpg" loading="lazy" alt="" data-m="'+thMono(n)
     +(a&&a!==v?'" data-a="'+esc(a):'')
