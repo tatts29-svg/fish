@@ -57,11 +57,16 @@ import re
 #  Barcode prefixes, longest first so COATESTOOLING is tested before
 #  any shorter prefix could swallow it.
 PREFIXES = [
-    ('COATESEQUIPMENT', 'COATES_FREE'),
-    ('COATESTOOLING', 'COATES_FREE'),
-    ('COATESSHUT', 'COATES_FREE'),
-    ('NRG', 'COATES_FREE'),
+    ('COATESEQUIPMENT', 'COATES_TRACKED'),
+    ('COATESTOOLING', 'COATES_TRACKED'),
+    ('COATESSHUT', 'COATES_TRACKED'),
+    ('USAGEPURCHASE', 'COATES_TRACKED'),
+    ('PLAMAHANDPIECE', 'COATES_TRACKED'),
+    ('THREADIMPERIAL', 'COATES_TRACKED'),
+    ('THREADMETRIC', 'COATES_TRACKED'),
+    ('NRG', 'COATES_TRACKED'),
     ('CEM', 'CLIENT'),
+    ('GM', 'SUBHIRE'),
     ('SUB', 'SUBHIRE'),
 ]
 
@@ -78,8 +83,19 @@ STREAMS = {
                 'never on the SiteIQ invoice'),
     'CLIENT': ('client owned',
                 'Cement Australia\'s own gear, managed in the store'),
-    'COATES_FREE': ('Coates, not charged',
-                    'Coates gear on site that is not being charged for'),
+    #  WORDING IS THE POINT HERE, NOT THE NUMBER. Andrew, 2 Aug 2026:
+    #  "anything that is coates that is 0 cost, don't tell the business
+    #  these are 0 cost, or to the client it's 0 cost. these are just
+    #  tracked."
+    #
+    #  So this stream is TRACKED. Not free, not $0, not "no charge" -
+    #  those are commercial statements about an arrangement that is
+    #  nobody's business on a utilisation report, and once a client
+    #  reads "no charge" against a tool it is very hard to unsay. The
+    #  gear is in the store, it is counted, and that is all a report
+    #  needs to say about it.
+    'COATES_TRACKED': ('Coates owned · tracked',
+                       'Coates gear tracked in the store'),
     'UNKNOWN': ('not charging',
                 'no charge on this contract and the stream is not '
                 'recorded - worth naming'),
@@ -166,7 +182,7 @@ def stream(asset, seqs=None):
     bc = _norm(asset.get('bc'))
     for p, code in PREFIXES:
         if bc.startswith(p):
-            if code == 'COATES_FREE' and not is_store_unit(asset.get('unit')):
+            if code == 'COATES_TRACKED' and not is_store_unit(asset.get('unit')):
                 break
             s, l = STREAMS[code]
             return code, s, l
@@ -180,7 +196,7 @@ def bills_elsewhere(asset, seqs=None):
     The one test a page needs before it prints $0 against something a
     crew has been using all week.
     """
-    return stream(asset, seqs)[0] in ('SUBHIRE', 'CLIENT', 'COATES_FREE',
+    return stream(asset, seqs)[0] in ('SUBHIRE', 'CLIENT', 'COATES_TRACKED',
                                       'UNKNOWN')
 
 

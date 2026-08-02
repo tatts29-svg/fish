@@ -382,7 +382,7 @@ def payload(data, with_money):
                 row['O'] = 1
             if r.get('useNext'):
                 row['u'] = 1
-            if with_money:
+            if with_money and not r.get('noMoney'):
                 row['$'] = round(r.get('revenue') or 0.0, 2)
             rows.append(row)
         fl = {'n': f['name'], 'u': f['unit'], 'st': f['store'],
@@ -460,6 +460,24 @@ def build_one(data, with_money, out_path, today):
     #  So it checks the DATA, before it is serialised: no revenue key on
     #  any row, and the money flag off. That is the thing that would
     #  actually reach a phone.
+    #  TRACKED GEAR CARRIES NO MONEY ANYWHERE - not on the counter copy,
+    #  not on Andrew's copy, not as $0.00. Andrew, 2 Aug 2026: "anything
+    #  that is coates that is 0 cost, don't tell the business these are
+    #  0 cost, or to the client it's 0 cost. these are just tracked."
+    #  This one is not about which folder the file lands in, so unlike
+    #  the guard below it runs on every build.
+    for v, fl in p['fleets'].items():
+        for r in fl['rows']:
+            if r.get('S') == OWN.STREAMS['COATES_TRACKED'][0] and '$' in r:
+                raise SystemExit(
+                    '\n  REFUSED TO WRITE {}\n'
+                    '  Asset {} in fleet {} is Coates owned and tracked,\n'
+                    '  and it is carrying a money figure ({!r}).\n'
+                    '  Tracked gear is counted, not costed - not even as\n'
+                    '  $0.00. Fix the builder.'
+                    .format(os.path.basename(out_path), r.get('i'), v,
+                            r['$']))
+
     served = os.path.normcase(os.path.join(BASE, 'Gear_Lookup'))
     on_wifi = os.path.normcase(os.path.abspath(out_path)).startswith(served)
     if on_wifi or not with_money:

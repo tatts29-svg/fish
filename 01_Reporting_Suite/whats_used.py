@@ -43,6 +43,7 @@ import datetime as dt
 
 import day_rates as DR
 import mygear_intel as MI
+import ownership as OWN
 import shutdown_day as SD
 
 #  Days with no issue before a used asset counts as STOPPED. Andrew's
@@ -156,13 +157,37 @@ def breakdown(data, rates=None, today=None, txn_path=None):
     #  only one of them is true.
     rates = rates or load_rates(txn_path=txn_path)
     src_used = collections.Counter()
+    #  GEAR THAT IS ONLY TRACKED NEVER GETS A DOLLAR FIGURE.
+    #  (Andrew, 2 Aug 2026: "anything that is coates that is 0 cost,
+    #  don't tell the business these are 0 cost, or to the client it's
+    #  0 cost. these are just tracked.")
+    #
+    #  On this machine that happens to cost nothing anyway, because
+    #  those assets have never charged so there is no charged rate to
+    #  find. On Andrew's laptop the contracted rate card is present and
+    #  resolves by VARIANT - so a tracked spanner sharing a variant with
+    #  charged stock would quietly pick up a contract rate and land in a
+    #  "what idle gear is costing" total. Skipped explicitly, so the
+    #  behaviour is the same on every machine instead of depending on
+    #  which files happen to be in the folder.
+    seqs = OWN.zero_cost_sequences(assets)
+    skip_money = {'COATES_TRACKED', 'CLIENT'}
+    tracked_out = 0
     for key in ('never', 'stopped', 'holdingOnly'):
         on, off = 0.0, 0.0
         n_on, n_off, unpriced = 0, 0, 0
         for a in out[key]:
-            r, src = _rate_of(rates, a)
+            code = OWN.stream(a, seqs)[0]
+            a['stream'] = code
+            a['streamLabel'] = OWN.STREAMS[code][0]
             charging = a.get('status') == MI.OUT_STATUS
             a['charging'] = charging
+            if code in skip_money:
+                a['dayRate'] = None
+                a['rateSource'] = ''
+                tracked_out += 1
+                continue
+            r, src = _rate_of(rates, a)
             if r:
                 a['dayRate'] = r
                 a['rateSource'] = src
@@ -183,6 +208,7 @@ def breakdown(data, rates=None, today=None, txn_path=None):
         out[key + 'NotChargingN'] = n_off
         out[key + 'Unpriced'] = unpriced
     out['rateSources'] = dict(src_used)
+    out['trackedNotPriced'] = tracked_out
     #  THE ONLY NUMBER THAT MAY BE CALLED A SAVING: on hire, on charge,
     #  and nobody using it.
     out['stoppablePerDay'] = (out['stoppedOnCharge']
@@ -475,6 +501,13 @@ def lines(b):
     A('    bill and must never be quoted as one - it is what the site')
     A('    would pay if all of it went on hire, and it is the size of')
     A('    the over-mobilisation, which is next time\'s conversation.')
+    if b.get('trackedNotPriced'):
+        A('')
+        A('    {:,} of these are Coates owned and tracked, or the'.format(
+            b['trackedNotPriced']))
+        A('    client\'s own gear. They carry no dollar figure here and')
+        A('    they are not in either total above - they are counted,')
+        A('    not costed.')
     unp = (b['neverUnpriced'] + b['stoppedUnpriced']
            + b['holdingOnlyUnpriced'])
     if unp:

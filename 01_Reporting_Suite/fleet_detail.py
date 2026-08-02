@@ -148,8 +148,15 @@ def asset_row(a, span, with_money, seqs=None):
     code, short, _long = OWN.stream(a, seqs)
     row['stream'] = code
     row['streamLabel'] = short
-    row['billsElsewhere'] = code in ('SUBHIRE', 'CLIENT', 'COATES_FREE',
+    row['billsElsewhere'] = code in ('SUBHIRE', 'CLIENT', 'COATES_TRACKED',
                                      'UNKNOWN')
+    #  TRACKED GEAR NEVER SHOWS A DOLLAR FIGURE, not even $0.00 and not
+    #  even on Andrew's own copy. Andrew, 2 Aug 2026: "anything that is
+    #  coates that is 0 cost, don't tell the business these are 0 cost,
+    #  or to the client it's 0 cost. these are just tracked." A nought
+    #  in a money column IS telling them, and it is the one number on
+    #  the page a reader will ask about.
+    row['noMoney'] = code == 'COATES_TRACKED'
     if with_money:
         row['revenue'] = a.get('revenue') or 0.0
     return row

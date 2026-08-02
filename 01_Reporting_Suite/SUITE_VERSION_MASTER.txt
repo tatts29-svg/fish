@@ -1,7 +1,7 @@
-# Coates K2 suite version - 158 files - overall 08ac78f2
+# Coates K2 suite version - 158 files - overall 92e8efcc
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-02 19:16:20
+# taken 2026-08-02 20:25:17
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -118,7 +118,7 @@ a49f1ea35c activity_model.py
 e7dc06f2e8 build_company_onhire_report.py
 6e6ab04d8a build_cost_snapshot.py
 f07fdf7710 build_flame_off_plant.py
-b6d985fe51 build_fleet_detail.py
+e56d0f8b5a build_fleet_detail.py
 0de1946e50 build_fleet_finder.py
 1a3898ae51 build_invoice_breakdown.py
 831892f416 build_offline_day.py
@@ -131,7 +131,7 @@ b0889512bb build_whats_used.py
 33eafe231a day_rates.py
 3dd28e5c7a email_images.py
 a47bad928c equipment_compliance.py
-6173c4c325 fleet_detail.py
+c659e338a1 fleet_detail.py
 9d6e31aad0 forecast.py
 32bd4ae378 hidden_stock.py
 ec472b59fc k2_consumables.py
@@ -149,7 +149,7 @@ ac9bc7e77e mygear_store.py
 a3244309df mygear_thumbs.py
 b6af9bce5e mygear_ui.py
 5dbf7b3d91 net_pick.py
-8b003df89f ownership.py
+51d4d07a40 ownership.py
 baf96d6e18 qr_lite.py
 6817897106 racks.py
 64177bb894 recipients.py
@@ -159,4 +159,4 @@ c60bd527af report_pages.py
 75eec11f9f safety_conversation.py
 34f14f8a91 shutdown_day.py
 f4b08a2c35 verify_excel_alignment.py
-88f2b71d4e whats_used.py
+afca56a3b1 whats_used.py
