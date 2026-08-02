@@ -209,11 +209,54 @@ def breakdown(data, rates=None, today=None, txn_path=None):
         out[key + 'Unpriced'] = unpriced
     out['rateSources'] = dict(src_used)
     out['trackedNotPriced'] = tracked_out
-    #  THE ONLY NUMBER THAT MAY BE CALLED A SAVING: on hire, on charge,
-    #  and nobody using it.
-    out['stoppablePerDay'] = (out['stoppedOnCharge']
-                              + out['holdingOnlyOnCharge']
-                              + out['neverOnCharge'])
+    #  ---------------------------------------------------------
+    #  PLACED GEAR IS NOT IDLE GEAR
+    #  ---------------------------------------------------------
+    #  (Andrew, 3 Aug 2026: "that 475 is plant sitting idle you mean" -
+    #  and the honest answer was no, and the label was wrong.)
+    #
+    #  This suite cannot see idle. It sees WHO SIGNED FOR IT. Those are
+    #  not the same thing, and for some gear they never will be: every
+    #  one of the 176 barriers and rubbish chutes on this register has
+    #  been out on the store's own account and NOT ONE has ever been
+    #  signed to a person. They get placed around site. Nobody walks up
+    #  to a counter and puts their name on a crash barrier.
+    #
+    #  So a category where gear moves but nothing is EVER signed out is
+    #  placed gear, and its cost is not a saving waiting to be taken -
+    #  it is just how that gear works. Worked out from the data rather
+    #  than named here, so chutes and barriers are caught on this job
+    #  and whatever the equivalent is on the next one is caught too.
+    #
+    #  It matters because it was 176 of the 185 assets in the headline.
+    #  Left in, the number a manager acts on is drowned by gear that
+    #  was never going to have a name against it.
+    issued_by_unit, client_by_unit = collections.Counter(), collections.Counter()
+    for a in assets:
+        u = a.get('unit') or ''
+        if a.get('issued'):
+            issued_by_unit[u] += 1
+        if a.get('clientIssued'):
+            client_by_unit[u] += 1
+    placed = {u for u, n in issued_by_unit.items() if n and not client_by_unit[u]}
+    out['placedUnits'] = sorted(placed)
+
+    on_charge = [a for k in ('never', 'stopped', 'holdingOnly')
+                 for a in out[k] if a.get('charging') and a.get('dayRate')]
+    out['placedOnCharge'] = sum(a['dayRate'] for a in on_charge
+                                if (a.get('unit') or '') in placed)
+    out['placedOnChargeN'] = sum(1 for a in on_charge
+                                 if (a.get('unit') or '') in placed)
+    #  THE ONLY NUMBER THAT MAY BE CALLED A SAVING: on charge, and no
+    #  crew has signed for it, in a category where crews DO sign for
+    #  things.
+    out['stoppablePerDay'] = sum(a['dayRate'] for a in on_charge
+                                 if (a.get('unit') or '') not in placed)
+    out['stoppableN'] = sum(1 for a in on_charge
+                            if (a.get('unit') or '') not in placed)
+    out['stoppableList'] = sorted(
+        [a for a in on_charge if (a.get('unit') or '') not in placed],
+        key=lambda a: -a['dayRate'])
     out['sittingNotCharging'] = (out['neverNotCharging']
                                  + out['stoppedNotCharging']
                                  + out['holdingOnlyNotCharging'])
@@ -492,9 +535,26 @@ def lines(b):
             '${:,.2f} ({})'.format(b[key + 'NotCharging'],
                                    b[key + 'NotChargingN'])))
     A('')
-    A('    STOPPABLE TODAY   ${:,.2f}/day'.format(b['stoppablePerDay']))
-    A('    That is gear on hire, on charge, that no crew is using. It')
-    A('    is the only figure on this page that is a saving.')
+    A('    STOPPABLE TODAY   ${:,.2f}/day   ({:,} asset(s))'.format(
+        b['stoppablePerDay'], b['stoppableN']))
+    A('    On charge, and no crew has ever signed for it - in a')
+    A('    category where crews DO sign things out. That is the only')
+    A('    figure on this page that is a saving.')
+    A('')
+    A('    NOT "idle". This suite cannot see idle. It can see who put')
+    A('    their name against a tool, and that is a different thing.')
+    for a in b['stoppableList'][:10]:
+        A('      {:<12} {:<40} ${:>7.2f}/day'.format(
+            a['item'][:12], (a['desc'] or '')[:40], a['dayRate']))
+    if b.get('placedOnChargeN'):
+        A('')
+        A('    Kept OUT of that figure: {:,} asset(s), ${:,.2f}/day, in'
+          .format(b['placedOnChargeN'], b['placedOnCharge']))
+        A('    categories where nothing has ever been signed to a person')
+        A('    - {}. That gear gets placed'.format(
+            ', '.join(b['placedUnits'])[:52]))
+        A('    around site, not issued over a counter, so its cost is')
+        A('    not a saving sitting there waiting to be taken.')
     A('')
     A('    ${:,.2f}/day sits on site NOT charging. That is not a'.format(
         b['sittingNotCharging']))

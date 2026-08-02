@@ -452,12 +452,36 @@ def build(today=None):
         "for Hire is on site and is NOT being charged. Only the first kind "
         "can be stopped to save anything today - so only the first kind is "
         "called a saving here."))
+    H.append(_note(
+        "And it is not \u201cidle\u201d. This suite cannot see idle. It can "
+        "see who put their name against a tool, which is a different thing. "
+        "Categories where nothing has ever been signed to a person - "
+        "barriers, rubbish chutes - are placed around site rather than "
+        "issued over a counter, so they are counted separately and kept out "
+        "of the saving."))
     H.append("<div class='tiles'>")
     H.append(_tile(_m(b['stoppablePerDay']) + '/day',
-                   'stoppable today - on hire, nobody using it', 'org'))
+                   'stoppable today - on charge, nobody has signed for it',
+                   'org'))
     H.append(_tile(_m(b['sittingNotCharging']) + '/day',
                    'on site NOT charging - not a bill'))
     H.append("</div>")
+    if b.get('stoppableList'):
+        H.append(_table(
+            ['$/day', 'asset', 'item', 'category', 'last out'],
+            [['${:,.2f}'.format(a['dayRate']), a.get('desc') or '',
+              a.get('item') or '', a.get('unit') or '',
+              WU._d(a['lastOut']).strftime('%d %b') if a.get('lastOut')
+              else '-']
+             for a in b['stoppableList'][:25]]))
+    if b.get('placedOnChargeN'):
+        H.append(_note(
+            'Kept out of that figure: {:,} assets, {}/day, in {} - placed '
+            'around site rather than issued over a counter. Every one of '
+            'them has moved and not one has ever been signed to a person, '
+            'so its cost is not a saving waiting to be taken.'
+            .format(b['placedOnChargeN'], _m(b['placedOnCharge']),
+                    ' and '.join(b['placedUnits']))))
     unp = (b['neverUnpriced'] + b['stoppedUnpriced']
            + b['holdingOnlyUnpriced'])
     if unp:
