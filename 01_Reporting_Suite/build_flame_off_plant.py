@@ -85,9 +85,15 @@ GROUPS = [
 #  is what stops a wrong rate landing on an expensive machine. So the
 #  mapping is stated here, by a human, rather than loosened into a rule
 #  that would also match things nobody checked.
+#  Routed to the RIGHT Baseplan line, not collapsed onto one. Both
+#  welder lines cost $72.59 so the rate is the same either way - but
+#  the COUNT is not, and the count is what caught the extra record.
 BASEPLAN_ALIAS = [
-    (_RE_VANTAGE := __import__('re').compile(r'vantage', __import__('re').I),
+    (__import__('re').compile(r'vantage.*580|580.*vantage',
+                              __import__('re').I),
      'Welder - Motorized - Diesel - Vantage 580'),
+    (__import__('re').compile(r'vantage', __import__('re').I),
+     'Welder - Motorised - Diesel - 600A Air Vantage'),
 ]
 
 #  Statuses that mean the asset is no longer standing on site as plant.
@@ -126,28 +132,36 @@ S_GONE = 'DEPARTED'
 
 
 def _baseplan_count(rows, base_rates):
-    """Register records against the quantity Baseplan actually bills.
+    """Records billed outside SiteIQ, against what Baseplan bills.
 
-    More records than machines is not a cosmetic problem once rates are
-    in - every duplicate is a second machine's worth of cost on a sheet
-    that goes to a cost conversation.
+    Compared as a FAMILY, not line by line. Baseplan names a machine
+    its own way and the register names it another, so a line-for-line
+    comparison would report differences that are only spelling. What
+    can be said honestly is: this many records on the register bill
+    outside SiteIQ, and Baseplan bills this many machines between the
+    lines they matched. If those disagree, one of them is wrong.
+
+    It is not cosmetic once rates are in - every extra record is
+    another machine's worth of cost on a sheet that goes to a cost
+    conversation.
     """
-    out = []
     if not base_rates or not base_rates.get('byDesc'):
-        return out
-    by_target = collections.Counter()
+        return []
+    records = 0
+    matched = {}
     for r in rows:
-        if r.get('source') == 'BASEPLAN':
-            key = (r.get('fuzzy') or r['desc']).split('  (')[0]
-            by_target[DR._norm(key)] += r['qty']
-    for k, n in by_target.items():
-        rec = base_rates['byDesc'].get(k)
-        qty = 0
+        if r.get('source') != 'BASEPLAN':
+            continue
+        records += r['qty']
+        key = DR._norm((r.get('fuzzy') or r['desc']).split('  (')[0])
+        rec = base_rates['byDesc'].get(key)
         if rec:
-            qty = int(rec.get('qty') or 0)
-        if qty and n != qty:
-            out.append((rec.get('desc', k), n, qty))
-    return out
+            matched[key] = rec
+    billed = sum(int(v.get('qty') or 0) for v in matched.values())
+    if billed and records != billed:
+        return [(' / '.join(sorted(v.get('desc', '') for v in
+                                   matched.values())), records, billed)]
+    return []
 
 
 def _newest(pattern):
@@ -190,6 +204,16 @@ def collect(today=None):
     ec = MI._sheet(txn, 'CUSTOMER_CONTRACTOR_EQUIP')
 
     #  the supplied window - outside it is NO DATA, never idleness
+    #  WHICH STREAM BILLS IT, read off the data rather than assumed.
+    #  (Andrew, 2 Aug 2026: "some are baseplan some are siteiq".) The
+    #  split is exact on this pull: an asset that appears in
+    #  TRANSACTION_CHARGES is billed by SiteIQ; one that only ever shows
+    #  in the movement sheet is billed somewhere else, which on this job
+    #  means Baseplan. Thirteen Vantage welders split 5 and 8 that way,
+    #  with no overlap either direction.
+    charged_items = {MI._txt(r, 'SKU/ITEM_NUMBER') for r in tc}
+    charged_items.discard('')
+
     ds = [MI._date(r.get(k)) for r in tc + ec
           for k in ('TRAN_START_DATE', 'TRAN_END_DATE')]
     ds = [d for d in ds if d]
@@ -324,16 +348,20 @@ def collect(today=None):
     rows = []
     for item, desc, row, items, var in lines:
         st, status = states_for(items)
+        billed = ('SITEIQ' if any(i in charged_items for i in items)
+                  else 'OTHER')
         rows.append({'key': item, 'desc': desc, 'priceDesc': desc,
                      'variant': var, 'qty': 1, 'type': 'INDIVIDUAL',
-                     'status': status, 'states': st})
+                     'billed': billed, 'status': status, 'states': st})
     for label, g in grouped.items():
         st, status = states_for(g['items'])
+        billed = ('SITEIQ' if any(i in charged_items for i in g['items'])
+                  else 'OTHER')
         rows.append({'key': 'GROUP - ' + label, 'desc': label,
                      'priceDesc': g['sample'],
                      'variant': g.get('variant', ''),
                      'qty': g['qty'], 'type': 'GROUPED',
-                     'status': status, 'states': st})
+                     'billed': billed, 'status': status, 'states': st})
 
     #  ---- the measures, off the states, so they can never disagree ---
     for r in rows:
@@ -358,6 +386,7 @@ def collect(today=None):
     for r in tc:
         if _is_plant_account(MI._txt(r, 'HIRER_NAME')):
             charged_plant += MI._num(r.get('TOTAL_CHARGE ($)'))
+
 
     #  ---- price it, if the quote is in --------------------------------
     rates = DR.load(BASE)
@@ -447,6 +476,10 @@ def collect(today=None):
         #  real quantity, so it can be used to check the register
         #  instead of the register being believed.
         'baseplanCount': _baseplan_count(rows, base_rates),
+        'billedSiteIQ': sum(r['qty'] for r in rows
+                            if r.get('billed') == 'SITEIQ'),
+        'billedOther': sum(r['qty'] for r in rows
+                           if r.get('billed') == 'OTHER'),
         'chargedPlant': charged_plant,
         '$used': sum(r['$used'] or 0 for r in rows),
         '$plant': sum(r['$plant'] or 0 for r in rows),
@@ -523,7 +556,7 @@ def write_xlsx(d, path):
     head = ['Asset No / Group', 'Asset Description', 'Day Rate', 'Qty',
             'Line Type', 'Status', 'First Used', 'Last Used', 'Days Used',
             'Days Site Plant', 'Days Departed', 'Utilisation %',
-            'Rate Source', '$ Used', '$ Site Plant',
+            'Billed By', 'Rate Source', '$ Used', '$ Site Plant',
             '$ On Site Not Charging', 'Used By']
     R = 9
     for i, h in enumerate(head, start=1):
@@ -559,21 +592,22 @@ def write_xlsx(d, path):
         ws.cell(row=row, column=11, value=r['daysGone'])
         c = ws.cell(row=row, column=12, value=r['util'])
         c.number_format = '0%'
-        ws.cell(row=row, column=13, value=r.get('source') or 'TBC')
-        for off, key in ((14, '$used'), (15, '$plant'), (16, '$idle')):
+        ws.cell(row=row, column=13, value=r.get('billed') or '')
+        ws.cell(row=row, column=14, value=r.get('source') or 'TBC')
+        for off, key in ((15, '$used'), (16, '$plant'), (17, '$idle')):
             v = r[key]
             c = ws.cell(row=row, column=off,
                         value='TBC' if v is None else v)
             if v is not None:
                 c.number_format = '"$"#,##0.00'
-        ws.cell(row=row, column=17, value=', '.join(r['employers'][:4]))
+        ws.cell(row=row, column=18, value=', '.join(r['employers'][:4]))
         for j, s in enumerate(r['states']):
             c = ws.cell(row=row, column=len(head) + 1 + j, value=s)
             c.fill = used_fill if s.startswith('USED:') else fills.get(
                 s, fills[S_OFF])
             c.font = Font(size=8)
 
-    widths = [22, 40, 10, 6, 12, 16, 12, 12, 10, 13, 12, 11, 12,
+    widths = [22, 40, 10, 6, 12, 16, 12, 12, 10, 13, 12, 11, 11, 12,
               13, 14, 20, 34]
     for i, w in enumerate(widths, start=1):
         ws.column_dimensions[
@@ -617,6 +651,8 @@ def main():
         d['used']))
     print(' Never used   : {:,} asset(s) never left the account'.format(
         d['neverUsed']))
+    print(' Billed by    : {:,} SiteIQ | {:,} another stream (no SiteIQ '
+          'charge line)'.format(d['billedSiteIQ'], d['billedOther']))
     print(' Departed     : {:,} asset(s) have left site ({})'.format(
         d['departed'], ' / '.join(DEPARTED_STATUS)))
     if d['nearNames']:
@@ -692,8 +728,10 @@ def main():
             print(' ' + '!' * 58)
             print(' COUNT DOES NOT MATCH BASEPLAN')
             print('   {}'.format(str(nm)[:52]))
-            print('   register carries {} record(s); Baseplan bills {}.'
-                  .format(got, want))
+            print('   {} record(s) on the register bill outside SiteIQ;'
+                  .format(got))
+            print('   Baseplan bills {} machine(s) between those lines.'
+                  .format(want))
             print('   Every extra record is another machine\'s worth of')
             print('   cost on this sheet. Worth fixing in SiteIQ before')
             print('   this goes to a cost conversation.')
