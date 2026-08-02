@@ -766,7 +766,17 @@ function stRender(reset){
     var big = it.q === 0 ? 'NONE' : it.q;
     var lab = it.q === 0 ? 'right now' : (it.k === 'c' ? 'on the shelf' : 'ready to hire');
     if(grid){
-      var wide = feat; feat = false;
+      /* ONE CARD SHAPE. (Andrew, 3 Aug 2026, pointing at the landscape
+         row: "this is now the size we go".)
+         This used to run only the LEAD item of each family full-width
+         as a feature shot, and everything after it as a stacked grid
+         card - so one screen held two different card shapes, the
+         stacked ones left a dead column beside them, and a tall photo
+         and a flat one came out completely different sizes. That is
+         the "all odd sizes" he is describing. Every card is the wide
+         row now: square photo left at a fixed 132px, everything else
+         right. */
+      var wide = true; feat = false;
       html += '<div class="stcard ' + (wide?'wide ':'') + cls + '">'
         + '<div class="im">'
         + ((it.v && (typeof hasThumb!=='function' || hasThumb(it.v)))

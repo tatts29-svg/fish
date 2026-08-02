@@ -140,60 +140,56 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
  padding:0;cursor:pointer;font-family:inherit}
 .foot{color:#4A5768;font-size:11px;text-align:center;padding:22px 16px 34px;
  letter-spacing:.4px}
-/* ---- the product cards, Andrew's design 2 Aug ------------------ */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
- gap:12px;margin-top:10px}
+/* ---- the product cards ------------------------------------------
+   ONE SHAPE, MATCHING THE STORE BOARD. (Andrew, 3 Aug 2026, pointing
+   at the stores board row: "this is now the size we go".)
+   Landscape: square photo left at a fixed 132px, everything else
+   right. Same as What's In The Store, so a store hand moving between
+   the two screens is looking at the same object twice, not two
+   different products. */
+.cards{display:flex;flex-direction:column;gap:10px;margin-top:10px}
 .card{background:#131A22;border:1px solid #263143;border-radius:16px;
- overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
+ overflow:hidden;cursor:pointer;display:flex;flex-direction:row;
+ align-items:stretch}
 .card:hover{border-color:#3A4757}
-/* ONE SIZE, EVERY CARD, NO EXCEPTIONS. (Andrew, 3 Aug 2026: "images
-   of tall assets now are coming out all odd sizes - can we ensure we
-   stick to one size only please".)
-   The plate is SQUARE because the thumbnails are square - 384x384 out
-   of mygear_thumbs - so a tall ladder and a flat cylinder land in an
-   identical box with nothing stretched. A card with no photo keeps the
-   same box rather than collapsing, because a grid of two different
-   card heights is exactly the mess he is describing. */
-.card .pic{position:relative;aspect-ratio:1/1;background:#0B111A;
- display:flex;align-items:center;justify-content:center;overflow:hidden;
- border-bottom:1px solid #1E2733}
-/* NO PHOTO, NO EMPTY TILE. A 4:3 plate with nothing in it is 285px of
-   dead space per card, and with 48 cards and an empty thumbs folder
-   that is most of the screen. Collapse it to a strip that still carries
-   the fleet count, and let the words do the work until PHOTO_HUNT has
-   filled the folder. */
-
-.card .pic img{width:100%;height:100%;object-fit:contain;display:block}
-/* NO PHOTO IS NOT A BROKEN TILE. Empty picture tiles have been a fault
-   on this suite before, so a fleet with no thumbnail gets a plain
-   lettered plate that says which category it is - never a grey box and
+.card .pic{position:relative;width:132px;flex:none;align-self:stretch;
+ background:#0B111A;display:flex;align-items:center;justify-content:center;
+ overflow:hidden;border-right:1px solid #1E2733}
+.card .pic img{width:100%;height:100%;object-fit:cover;display:block}
+/* NO PHOTO IS NOT A BROKEN TILE. A fleet with no thumbnail gets a
+   lettered plate the same size as the photo, never a grey box and
    never a broken image icon. */
-.card .pic .noimg{color:#3A4757;font-size:11px;font-weight:800;
- letter-spacing:2px;text-transform:uppercase;text-align:center;padding:0 12px}
-.card .badge{position:absolute;top:10px;right:10px;background:#E2AE48;
- color:#241905;font-weight:800;font-size:15px;min-width:34px;height:30px;
- border-radius:9px;display:flex;align-items:center;justify-content:center;
- padding:0 8px}
-.card .body{padding:13px 14px 14px;display:flex;flex-direction:column;flex:1}
-/* THE TITLE IS PINNED TO TWO LINES. With it free-flowing the cards
-   came out 408, 428 and 448 tall in the same row depending on how the
-   description wrapped - the plates matched and the cards still did
-   not. Two lines, clipped, with the full name on hover and in the
-   fleet header underneath. */
+.card .pic .noimg{color:#3A4757;font-size:10px;font-weight:800;
+ letter-spacing:1.4px;text-transform:uppercase;text-align:center;padding:0 8px}
+.card .badge{position:absolute;top:8px;right:8px;background:#E2AE48;
+ color:#241905;font-weight:800;font-size:13px;min-width:28px;height:26px;
+ border-radius:8px;display:flex;align-items:center;justify-content:center;
+ padding:0 7px}
+.card .body{padding:11px 13px;display:flex;flex-direction:column;flex:1;
+ min-width:0;justify-content:center}
+/* TWO LINES, PINNED. Free-flowing titles made the rows 156, 174, 176,
+   194 and 196 tall in the same list - the plate matched and the card
+   still did not. Full name on hover and in the fleet header. */
 .card h3{font-size:15.5px;font-weight:800;line-height:1.28;color:#F5F7FB;
  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
  overflow:hidden;min-height:2.56em}
-.card .sub,.card .vc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card .sub{color:#6B7789;font-size:12.5px;margin-top:5px}
-.card .vc{color:#4A5768;font-size:11.5px;letter-spacing:.6px;margin-top:2px;
- word-break:break-all;font-family:Consolas,'Courier New',monospace}
+.card .sub{color:#6B7789;font-size:12px;margin-top:4px;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis}
+.card .sub b{color:#F2B01E;font-weight:800;letter-spacing:.6px}
+.card .vc{color:#4A5768;font-size:11px;letter-spacing:.5px;margin-top:2px;
+ font-family:Consolas,'Courier New',monospace;overflow:hidden;
+ text-overflow:ellipsis;white-space:nowrap}
 .card .urow{display:flex;justify-content:space-between;align-items:baseline;
- margin-top:auto;padding-top:12px}
-.card .urow em{font-style:normal;color:#8794A6;font-size:11px;font-weight:800;
- letter-spacing:1.4px;text-transform:uppercase}
-.card .urow b{font-size:19px;font-weight:800}
+ margin-top:9px}
+.card .urow em{font-style:normal;color:#8794A6;font-size:10px;font-weight:800;
+ letter-spacing:1.3px;text-transform:uppercase}
+.card .urow b{font-size:17px;font-weight:800}
+/* THE LAST 18px. Two heights survived the pinned title - 176 and 194 -
+   because this row wrapped whenever a fleet had excluded assets to
+   name. One line, clipped, and every card in the list is identical. */
 .card .foot2{display:flex;justify-content:space-between;align-items:center;
- gap:8px;margin-top:11px;color:#6B7789;font-size:12.5px}
+ gap:8px;margin-top:9px;color:#6B7789;font-size:12px;white-space:nowrap}
+.card .foot2 span{overflow:hidden;text-overflow:ellipsis;min-width:0}
 /* ---- RECOMMENDED NEXT ------------------------------------------ */
 .rec{border:1px solid #1C9FAE;border-radius:16px;overflow:hidden;
  background:#101822;margin-top:10px}
@@ -376,7 +372,8 @@ function card(r){
     + "<div class='pic'>" + pic + "<div class='badge'>" + r.a + '</div></div>'
     + "<div class='body'><h3 title='" + esc(r.n) + "'>" + esc(r.n)
     + '</h3>'
-    + "<div class='sub'>" + esc(r.u) + ' · ' + r.rd + ' ready</div>'
+    + "<div class='sub'>&#128205; <b>" + esc((r.u || '').toUpperCase())
+    + '</b> &middot; ' + r.rd + ' ready of ' + r.a + '</div>'
     + "<div class='vc'>" + esc(r.v) + '</div>'
     + "<div class='urow'><em>Utilisation</em><b style='color:" + col + "'>"
     + r.c.toFixed(0) + '%</b></div>'
