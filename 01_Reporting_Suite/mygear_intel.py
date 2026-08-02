@@ -365,6 +365,9 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             'product': _txt(r, 'PRODUCT'),
             'store': _txt(r, 'TOOLSTORE'),
             'unit': _txt(r, 'STORAGE_UNIT') or 'Unassigned',
+            #  how the project splits the cost - k2_utilisation owns the
+            #  list of plant storage units, so there is one answer
+            'plant': bool(_K2 and _K2._is_plant(_txt(r, 'STORAGE_UNIT'))),
             'status': _txt(r, 'ITEM_STATUS'),
             'holder': _txt(r, 'HIRER_NAME'),
             'holderCo': _txt(r, 'COMPANY_NAME'),
@@ -857,6 +860,24 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         'holdingDays': sum(a['holdingDays'] for a in assets.values()),
         'variants': len(variant_rows),
     }
+    #  PLANT and TOOLING as separate books, because the project pays
+    #  for them separately. Tooling comes off the shutdown and Andrew's
+    #  toolstores; plant comes from wherever it can be got and is
+    #  managed on site - one average across the two answers nobody.
+    for lab, want in (('plant', True), ('tooling', False)):
+        grp = [a for a in assets.values() if a['plant'] is want]
+        cd = sum(a['clientDays'] for a in grp)
+        md = sum(a['commercialDays'] for a in grp)
+        tot[lab] = {
+            'assets': len(grp),
+            'out': sum(1 for a in grp if a['status'] == OUT_STATUS),
+            'ready': sum(1 for a in grp if a['status'] == READY_STATUS),
+            'neverIssued': sum(1 for a in grp if not a['issued']),
+            'holdingOnly': sum(1 for a in grp if a['holdingOnly']),
+            'clientDays': cd, 'commercialDays': md,
+            'revenue': sum(a['revenue'] for a in grp),
+            'clientPct': _pct(cd, md),
+        }
     tot['clientPct'] = _pct(tot['clientDays'], tot['commercialDays'])
     tot['everIssuedPct'] = _pct(tot['issuedOnce'], tot['assets'])
     tot['neverPct'] = _pct(tot['neverIssued'], tot['assets'])
@@ -894,6 +915,10 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             'variantsBackfilled': backfilled + oh_backfilled,
             'variantsFromTransactions': backfilled,
             'variantsFromOnHire': oh_backfilled,
+            'plantUnits': list(getattr(_K2, 'PLANT_UNITS', ())),
+            'unknownUnits': sorted({a['unit'] for a in assets.values()
+                                    if _K2 and a['unit']
+                                    and not _K2.is_known_unit(a['unit'])}),
             'nearHoldingNames': near_names.most_common(),
             'nearAdminNames': near_admin.most_common(),
             'accountVsCategory': [(h, c, round(v, 2))

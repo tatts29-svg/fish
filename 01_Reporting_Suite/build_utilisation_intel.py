@@ -694,6 +694,36 @@ def build(today=None):
                    'genuine issue-to-return, not scans'))
     H.append("</div>")
 
+    # --- how the project splits it
+    H.append("<h2>Plant and tooling <span>&mdash; the project pays for "
+             "them separately</span></h2>")
+    H.append("<div class='lede'>Everything in {units} is plant equipment; "
+             "the rest is tooling. Tooling comes off the shutdown and the "
+             "tool stores, plant comes from wherever it can be got and is "
+             "managed on site &mdash; so one average across the two answers "
+             "nobody.</div>".format(
+                 units=' , '.join('<b>' + _esc(u) + '</b>'
+                                  for u in j.get('plantUnits', ())) or 'the '
+                 'plant storage units'))
+    H.append("<div class='tiles'>")
+    for lab, key in (('PLANT EQUIPMENT', 'plant'), ('TOOLING', 'tooling')):
+        g = t.get(key) or {}
+        H.append(_tile('{:,}'.format(g.get('assets', 0)), lab,
+                       '{:,} out now &middot; {:,} never issued'.format(
+                           g.get('out', 0), g.get('neverIssued', 0))))
+        H.append(_tile('{:.0f}%'.format(g.get('clientPct', 0)),
+                       lab.split()[0] + ' CLIENT-ISSUED',
+                       '{:,.0f} of {:,.0f} days on charge were in a named '
+                       'hirer&rsquo;s hands'.format(
+                           g.get('clientDays', 0), g.get('commercialDays', 0)),
+                       cls='org' if g.get('clientPct', 0) < 60 else ''))
+    H.append("</div>")
+    if j.get('unknownUnits'):
+        H.append("<div class='warn'><b>Storage unit(s) nobody has "
+                 "classified:</b> " + _esc(', '.join(j['unknownUnits']))
+                 + ". They are counted as tooling by default. Say which "
+                 "they are and the split follows.</div>")
+
     # --- money
     H.append("<h2>The money, reconciled</h2>")
     H.append("<div class='lede'>Per-asset revenue can only come from the "

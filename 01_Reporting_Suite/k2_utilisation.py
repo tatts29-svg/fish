@@ -108,16 +108,44 @@ def _txt(d, k):
     return '' if v is None else str(v).strip()
 
 
-#  Storage units that are plant rather than tool store. Kept as a list
-#  of markers because SiteIQ has no "is this plant" flag - the storage
-#  unit is the only honest signal we have, and it is the one the store
-#  itself uses when it walks the yard.
-PLANT_MARKERS = ('SITE PLANT', 'PLANT', 'BARRIER', 'CHUTE', 'LAYDOWN')
+#  PLANT versus TOOLING - how the project splits the cost.
+#  (Andrew, 2 Aug 2026: "everything in the cement site plant, cement
+#  rubbish chutes and cement barriers storage units is classed under
+#  plant equipment. the rest is classed as tooling ... tooling comes
+#  from shutdowns and my toolstores and plant comes from all over the
+#  place sometimes and we just manage it onsite.")
+#
+#  THIS WAS A GUESS AND IT WAS WRONG. It used to match any unit whose
+#  name CONTAINED 'PLANT', 'BARRIER', 'CHUTE' or 'LAYDOWN', which swept
+#  in Laydown - 99 assets that are tooling. The split read 431 plant
+#  and 4,906 tool store when the true numbers are 332 and 5,005.
+#  Named units now, exactly, because Andrew has told us the answer and
+#  a heuristic has no business overruling it.
+PLANT_UNITS = (
+    'Cement Site Plant',
+    'Cement Rubbish Chutes',
+    'Cement Barriers',
+)
+_PLANT_NORM = {' '.join(u.split()).lower() for u in PLANT_UNITS}
+
+#  Every storage unit we know about. Anything else is TOOLING by
+#  Andrew's rule ("the rest is classed as tooling") - but it is also
+#  reported, because a unit nobody has classified is exactly the thing
+#  that should be asked about rather than assumed.
+KNOWN_UNITS = PLANT_UNITS + (
+    'Tooling', 'Electrical', 'Rigging', 'Welding', 'Air', 'Radios',
+    'Laydown', 'Hydraulics- Hi Torque', 'Cement Safety', 'Gas Monitors',
+    'Cement Own Equipment', 'Unassigned',
+)
+_KNOWN_NORM = {' '.join(u.split()).lower() for u in KNOWN_UNITS}
 
 
 def _is_plant(unit):
-    u = (unit or '').upper()
-    return any(m in u for m in PLANT_MARKERS)
+    return ' '.join(str(unit or '').split()).lower() in _PLANT_NORM
+
+
+def is_known_unit(unit):
+    return ' '.join(str(unit or '').split()).lower() in _KNOWN_NORM
 
 
 def read(rental_path, txn_path, today=None):
@@ -269,4 +297,7 @@ def read(rental_path, txn_path, today=None):
         'charged': len(charged),
         'movedOnly': len(moved - charged),
         'shiftsTotal': sum(shifts.values()),
+        'unknownUnits': sorted({_txt(r, 'STORAGE_UNIT') for r in stock
+                                if _txt(r, 'STORAGE_UNIT')
+                                and not is_known_unit(_txt(r, 'STORAGE_UNIT'))}),
     }
