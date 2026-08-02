@@ -1551,6 +1551,75 @@ header:after{content:"";position:absolute;inset:0;
 .tile.g b{color:var(--gd)}.tile.a b{color:var(--am)}.tile.r b{color:var(--rd)}
 .tile span{display:block;font-size:9.5px;color:var(--dim);font-weight:800;
  letter-spacing:.8px;text-transform:uppercase;margin-top:5px;line-height:1.3}
+/* the instrument bridge: the six numbers are CONTROLS, not decoration
+   (Andrew's pack - "the overhead figures are also controls"). A tile
+   that goes somewhere says so with a chevron; one that has nowhere to
+   go stays a plain tile rather than pretending. */
+button.tile{width:100%;font:inherit;cursor:pointer;position:relative;
+ display:block;border:1px solid var(--line)}
+button.tile:after{content:"\\203A";position:absolute;top:7px;right:9px;
+ font-size:13px;line-height:1;color:#4E5A6B;font-weight:800}
+button.tile:active{background:var(--pnl2)}
+
+/* ---- THE SIX BAYS (Andrew's Store Street pack, 2 Aug 2026) -------
+   His six physical destinations, built the way I said I would only
+   build them: WITHOUT costing the counter a tap. Each bay is a place
+   in the store, but every screen that used to be one tap from home is
+   STILL one tap - the bay carries its own doors on its face instead of
+   hiding them one level down. Twelve destinations, six bays, one tap.
+------------------------------------------------------------------ */
+.bays{padding:2px 0 22px}
+.youare{display:flex;align-items:center;gap:11px;margin:2px 0 14px;
+ padding:11px 14px;border:1px solid var(--line);border-radius:14px;
+ background:linear-gradient(160deg,#121A27,#0C121C)}
+.youare i{flex:none;width:26px;height:26px;border-radius:50%;
+ border:1px solid var(--org);display:flex;align-items:center;
+ justify-content:center;color:var(--org)}
+.youare i svg{width:14px;height:14px;fill:none;stroke:currentColor;
+ stroke-width:1.8;stroke-linecap:round}
+.youare small{display:block;font-size:8.5px;font-weight:800;letter-spacing:2.2px;
+ color:var(--dim)}
+.youare b{display:block;margin-top:3px;font-size:12.5px;letter-spacing:1.4px;
+ color:#F5F7FB}
+.bay{position:relative;margin-bottom:12px;padding:14px 15px 12px;
+ border:1px solid var(--line);border-left:3px solid #2A3547;
+ border-radius:0 16px 16px 0;background:linear-gradient(160deg,#121A27,#0C121C)}
+.bay.org{border-left-color:var(--org)}
+.bay.amb{border-left-color:var(--am)}
+.bay.red{border-left-color:var(--rd)}
+.bhd{display:flex;gap:12px;align-items:flex-start}
+.bic{flex:none;width:42px;height:42px;border-radius:13px;display:flex;
+ align-items:center;justify-content:center;background:rgba(242,98,34,.14)}
+.bic svg{width:21px;height:21px;fill:none;stroke:var(--org);stroke-width:1.7;
+ stroke-linecap:round;stroke-linejoin:round}
+.bay.amb .bic{background:rgba(240,180,41,.14)}.bay.amb .bic svg{stroke:var(--am)}
+.bay.red .bic{background:rgba(255,90,77,.14)}.bay.red .bic svg{stroke:var(--rd)}
+.bmeta{min-width:0;flex:1}
+.bmeta small{display:block;font-size:8.5px;font-weight:800;letter-spacing:2.2px;
+ color:var(--org)}
+.bmeta b{display:block;margin-top:4px;font-size:16.5px;font-weight:800;
+ color:#F5F7FB;letter-spacing:-.2px}
+.bmeta span{display:block;margin-top:3px;font-size:11.5px;color:var(--dim);
+ line-height:1.45}
+.bst{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:8.5px;
+ font-weight:800;letter-spacing:1.4px;color:var(--dim)}
+.bst i{width:7px;height:7px;border-radius:50%;background:#4E5A6B;flex:none}
+.bst.g i{background:var(--gd);box-shadow:0 0 8px rgba(53,214,138,.7)}
+.bst.a i{background:var(--am);box-shadow:0 0 8px rgba(240,180,41,.7)}
+.bst.r i{background:var(--rd);box-shadow:0 0 8px rgba(255,90,77,.7)}
+/* the bay's own doors - every one of them still a single tap */
+.bdoors{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.bdoors button{display:inline-flex;align-items:center;gap:7px;
+ padding:9px 12px;border:1px solid var(--line);border-radius:11px;
+ background:#0B111A;color:#DCE3EC;font:800 12px/1 inherit;cursor:pointer}
+.bdoors button:active{background:var(--pnl2)}
+.bdoors button em{font-style:normal;color:var(--org);font-weight:800}
+.bdoors button .bn{background:var(--pnl2);color:#C7CED8;border-radius:7px;
+ padding:2px 7px;font-size:11px}
+.bdoors button.hot{border-color:var(--rd)}
+.bdoors button.hot .bn{background:var(--rd);color:#fff}
+.bdoors button.wide{flex:1 1 100%;justify-content:space-between;
+ border-color:var(--org);background:#1E1710;font-size:13.5px;padding:12px 14px}
 /* tabs */
 /* Ten tabs do not fit one row. On a phone they scroll sideways, which is
    the natural thing to do with a thumb - but on a laptop nobody swipes a
@@ -1568,23 +1637,9 @@ header:after{content:"";position:absolute;inset:0;
  border-radius:11px;min-height:44px}
 .crumb b{color:var(--dim);font-size:13px;font-weight:800;letter-spacing:.8px;
  text-transform:uppercase}
-.home{padding:2px 0 20px}
-.hgroup{font-size:11px;font-weight:900;letter-spacing:1.6px;color:var(--dim);
- margin:17px 2px 7px;text-transform:uppercase}
-.hbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
- background:var(--pnl);border:1px solid var(--line);border-radius:14px;
- color:var(--txt);font-family:inherit;padding:13px 14px;margin-bottom:8px;
- min-height:64px;cursor:pointer}
-.hbtn .hn{flex:1;min-width:0}
-.hbtn b{display:block;font-size:14.5px;font-weight:800}
-.hbtn span{display:block;color:var(--dim);font-size:11.5px;margin-top:3px;
- line-height:1.5}
-.hbtn .hc{flex:none;background:var(--pnl2);color:#C7CED8;border-radius:9px;
- padding:5px 11px;font-size:13px;font-weight:900}
-.hbtn.hero{background:#1E1710;border-color:var(--org);border-left:5px solid var(--org)}
-.hbtn.hero b{font-size:16px}
-.hbtn.hot{border-color:var(--rd)}
-.hbtn.hot .hc{background:var(--rd);color:#fff}
+/* the old grouped menu's styling came out with the menu itself -
+   every rule in it (.home .hgroup .hbtn) had no markup left to
+   style once the bays landed */
 .pane{display:none}.pane.on{display:block}
 /* the print hub wizard - one step at a time */
 .prstep{font-size:11px;font-weight:900;letter-spacing:1.4px;color:var(--org);
@@ -1731,9 +1786,6 @@ header:after{content:"";position:absolute;inset:0;
  to{opacity:1;transform:none}}
 @media print{.bar i,.bb i,.score .sc b,.tiles .tile{animation:none!important}}
 /* the hit-list menu button glows - it is the one that means walk somewhere */
-.hbtn.hot{animation:hotpulse 2.2s ease-in-out infinite}
-@keyframes hotpulse{0%,100%{box-shadow:0 0 0 0 rgba(226,59,46,0)}
- 50%{box-shadow:0 0 14px 1px rgba(226,59,46,.45)}}
 /* print & send */
 .prpick{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:6px}
 .prbtns{display:flex;gap:9px;flex-wrap:wrap;margin:4px 0 13px}
@@ -1996,6 +2048,11 @@ select.srch{appearance:none;-webkit-appearance:none}
  border-top:1px solid var(--line);background:rgba(9,14,21,.94);
  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 #sdock.on{display:grid}
+/* on the counter laptop the dock lines up with the board above it
+   rather than sprawling across 1400px of empty screen */
+@media (min-width:900px){#sdock{max-width:820px;margin:0 auto;
+ border-left:1px solid var(--line);border-right:1px solid var(--line);
+ border-radius:14px 14px 0 0}}
 #sdock button{display:flex;flex-direction:column;align-items:center;gap:4px;
  padding:8px 2px 6px;border:0;border-radius:12px;background:transparent;
  color:#8794A6;font:800 8.5px/1 inherit;letter-spacing:1.2px;cursor:pointer}
@@ -2246,7 +2303,15 @@ document.getElementById('code').addEventListener('keydown',function(e){
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;')
   .replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function tile(v,l,cls){return '<div class="tile '+(cls||'')+'"><b>'+v+'</b><span>'+l+'</span></div>'}
+/* THE INSTRUMENT BRIDGE. Andrew's pack: "the overhead figures are also
+   controls." So a tile that has somewhere sensible to send you becomes
+   a button and wears a chevron; one that does not stays a plain tile
+   rather than looking tappable and doing nothing. */
+function tile(v,l,cls,go){
+  if(!go) return '<div class="tile '+(cls||'')+'"><b>'+v+'</b><span>'+l+'</span></div>';
+  return '<button type="button" class="tile '+(cls||'')+'" onclick="nav(\\''+go+'\\')">'
+   +'<b>'+v+'</b><span>'+l+'</span></button>';
+}
 /* Long lists are cut short so the page stays quick on a tablet. A cut list
    that says nothing is a lie by omission - a storeman scrolling 80 of 253
    idle machines would swear the other 173 are not on site. Every cut says
@@ -2256,58 +2321,105 @@ function more(shown,total,word){
     +total.toLocaleString()+' '+(word||'lines')+' &mdash; the rest are in SiteIQ.</div>':'';
 }
 
-/* THE STORE MENU. The board used to open on fifteen tabs in a row;
-   now it opens on a menu grouped by the job you came to do, with
-   FIND IT and the PRINT HUB standing out (Andrew, 31 Jul 2026:
-   "easily understood and move yourself around easily... find my
-   gear should be easily found"). MENU on the crumb bar brings you
-   straight back from anywhere. */
-function homeBtn(k,n,d,c,cls){
-  return '<button class="hbtn '+(cls||'')+'" type="button" '
-   +'onclick="nav(\\''+k+'\\')"><div class="hn"><b>'+n+'</b>'
-   +'<span>'+d+'</span></div>'
-   +(c!=null&&c!==''?'<span class="hc">'+c+'</span>':'')+'</button>';
+/* THE SIX BAYS (Andrew's Store Street pack, 2 Aug 2026).
+   The board used to open on fifteen tabs in a row, then on a grouped
+   menu, and now on his six physical bays.
+
+   THE ONE RULE I BUILT IT UNDER. I told him I would not swap twelve
+   doors for six, because Stocktake going from one tap to two is a real
+   cost at a counter with a bloke waiting at the window. So the bays
+   carry their own doors ON THEIR FACE. Six places in the store, every
+   destination still one tap. Nothing was buried to make it pretty.
+
+   MENU on the crumb bar brings you straight back from anywhere, and
+   the dock along the bottom carries the five most-used. */
+function bayIcon(k){
+  var P={
+   find:'<circle cx="10.5" cy="10.5" r="5.7"/><path d="m15 15 4.5 4.5M8 10.5h5M10.5 8v5"/>',
+   hunt:'<path d="M7.5 14.5h9l-1-7h-7zM6 17h12M9 4.5l-1-2M15 4.5l1-2M5.5 7 3.5 6M18.5 7l2-1"/>',
+   floor:'<path d="M4 4v16M20 4v16M4 8h16M4 14h16M7 5.5h3M13 5.5h4M7 11h5M15 11h2M7 17h4"/>',
+   print:'<path d="M7 9V4h10v5M7 17H4V9h16v8h-3M7 14h10v6H7zM16.5 11.5h.01"/>',
+   plant:'<path d="M4 17h13M6 17l2-7h6l2 7M9 10V6h4l3 4M16 10h3v7M7 20a2 2 0 1 0 0-4M17 20a2 2 0 1 0 0-4"/>',
+   ctrl:'<path d="M12 3 5 6v5c0 4.5 2.8 8 7 10 4.2-2 7-5.5 7-10V6l-7-3Zm-3.5 9 2.2 2.2 4.8-5"/>'};
+  return '<svg viewBox="0 0 24 24">'+(P[k]||P.find)+'</svg>';
+}
+/* one door on a bay's face. n = the live count on it, hot = it is red */
+function bayDoor(k,label,n,cls){
+  return '<button type="button" onclick="nav(\\''+k+'\\')" class="'+(cls||'')+'">'
+   +label+(n!=null&&n!==''?'<span class="bn">'+n+'</span>':'')
+   +'<em>&rsaquo;</em></button>';
+}
+function bay(n,cls,ic,title,sub,stCls,stTx,doors){
+  return '<section class="bay '+(cls||'')+'"><div class="bhd">'
+   +'<div class="bic">'+bayIcon(ic)+'</div><div class="bmeta">'
+   +'<small>BAY 0'+n+'</small><b>'+title+'</b><span>'+sub+'</span>'
+   +'</div></div>'
+   +'<div class="bst '+(stCls||'')+'"><i></i>'+stTx+'</div>'
+   +'<div class="bdoors">'+doors+'</div></section>';
 }
 function homeMenu(){
-  var t=D.tiles;
-  return '<div class="home">'
-   +homeBtn('find','&#128269; Find it &mdash; My Gear for the counter',
-     'Scan or type anything &mdash; the answer is the shelf, the person, '
-     +'or the hunt. Start here.',null,'hero')
-   +'<div class="hgroup">The hunt</div>'
-   +homeBtn('chase','Chase up','Out past its return rule &mdash; who has '
-     +'it and for how long.',t.chase)
-   +(D.hitN?homeBtn('hits','Hit list','Today&rsquo;s worst overdues &mdash; '
-     +'print the walk-around sheet.',D.hitN,'hot'):'')
-   +(t.arrivals?homeBtn('arr','Arriving','On order and inbound &mdash; '
-     +'check here before you re-order.',t.arrivals):'')
-   +'<div class="hgroup">The store</div>'
-   +homeBtn('groups','Product groups','Every aisle, every line &mdash; '
-     +'green on the shelf, orange out with crews.',t.lines)
-   +homeBtn('aisle','Walk an aisle','One aisle on one screen &mdash; '
-     +'stand in it, sort it.')
-   +homeBtn('stock','Stocktake','Aisle scores and today&rsquo;s counting '
-     +'orders.',t.stockPct+'%')
-   +homeBtn('battle','Day v Night','The shift-against-shift scorecard.')
-   +(D.hasCons?homeBtn('cons','Consumables','Gloves, discs, tape &mdash; '
-     +'counts and reorders.',D.cons.order.length||null):'')
-   +'<div class="hgroup">Printing</div>'
-   +homeBtn('print','&#128424; Print hub &mdash; the one-stop print shop',
-     'Every report from one place: person, company, whole site, radios, '
-     +'gas, hit list. Pick it, shape it, print it.',null,'hero')
-   +'<div class="hgroup">Plant</div>'
-   +(D.hasPlant?homeBtn('plant','Plant','The machines &mdash; free to '
-     +'hire, idle on the ground, out with companies.'):'')
-   +homeBtn('idle','Idle plant','On hire but parked &mdash; costing '
-     +'without earning.',t.idle)
-   +'<div class="hgroup">Extras</div>'
-   +homeBtn('fresh','Fresh look','Load a raw SiteIQ export on this phone '
-     +'for an on-the-spot read.')
-   +homeBtn('std','Our standards','The rules of this store &mdash; read '
-     +'once, hold each other to it.')
-   +(MGR?homeBtn('mgr','Money','Rates and exposure &mdash; behind the '
-     +'manager code.'):'')
-   +'</div>';
+  var t=D.tiles, h='<div class="bays">';
+  h+='<div class="youare"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/>'
+   +'<path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></i>'
+   +'<div><small>YOU ARE HERE</small><b>STORE STREET</b></div></div>';
+
+  /* BAY 01 - the counter's most-asked question */
+  h+=bay(1,'org','find','Find It Counter',
+    'Scan or type anything &mdash; the answer is the shelf, the person, '
+    +'or the hunt.','g','SEARCH READY',
+    bayDoor('find','Open the counter search',null,'wide'));
+
+  /* BAY 02 - the hunt. Red when there is a hit list, amber when there
+     is only a chase list, green when the store is square. */
+  var hcls=D.hitN?'red':(t.chase?'amb':''),
+      hst=D.hitN?'r':(t.chase?'a':'g'),
+      htx=D.hitN?(D.hitN+' ON THE HIT LIST')
+         :(t.chase?(t.chase+' TO CHASE'):'NOTHING OVERDUE');
+  h+=bay(2,hcls,'hunt','The Hunt',
+    'Out past its return rule &mdash; who has it and for how long.',
+    hst,htx,
+    bayDoor('chase','Chase up',t.chase)
+    +(D.hitN?bayDoor('hits','Hit list',D.hitN,'hot'):'')
+    +(t.arrivals?bayDoor('arr','Arriving',t.arrivals):''));
+
+  /* BAY 03 - the store floor */
+  h+=bay(3,'org','floor','Store Floor',
+    'Aisles, lines, counts and consumables &mdash; the shelf itself.',
+    (t.stale?'a':'g'),
+    t.lines.toLocaleString()+' LINES &middot; '+t.stockPct+'% COUNTED',
+    bayDoor('groups','Product groups',t.lines.toLocaleString())
+    +bayDoor('aisle','Walk an aisle')
+    +bayDoor('stock','Stocktake',t.stockPct+'%')
+    +bayDoor('battle','Day v Night')
+    +(D.hasCons?bayDoor('cons','Consumables',D.cons.order.length||null):''));
+
+  /* BAY 04 - print works */
+  h+=bay(4,'org','print','Print Works',
+    'Every report from one place: person, company, whole site, radios, '
+    +'gas, hit list.','g','PRINT READY',
+    bayDoor('print','Open the print hub',null,'wide'));
+
+  /* BAY 05 - plant desk. Only built when the export carried plant. */
+  if(D.hasPlant||t.idle){
+    h+=bay(5,(t.idle?'amb':''),'plant','Plant Desk',
+      'The machines &mdash; free to hire, out with companies, and what '
+      +'is parked doing nothing.',
+      (t.idle?'a':'g'),
+      (t.idle?t.idle+' IDLE ON HIRE':'NOTHING PARKED'),
+      (D.hasPlant?bayDoor('plant','Plant status'):'')
+      +bayDoor('idle','Idle plant',t.idle));
+  }
+
+  /* BAY 06 - store control. The manager's money screen only appears
+     for a manager code, same as it always has. */
+  h+=bay(6,'','ctrl','Store Control',
+    'A fresh read off a raw export, and the rules of this store.',
+    'g','STORE CONTROL',
+    bayDoor('fresh','Fresh look')
+    +bayDoor('std','Our standards')
+    +(MGR?bayDoor('mgr','Money'):''));
+
+  return h+'</div>';
 }
 function render(){
   var t=D.tiles;
@@ -2315,12 +2427,12 @@ function render(){
    +'<button type="button" onclick="home()">&#8962; MENU</button>'
    +'<b id="crumb-t"></b></div>'
    +'<div class="pane on" id="p-home"><div class="tiles">'
-   +tile(t.avail.toLocaleString(),'On the shelf','g')
-   +tile(t.onhire.toLocaleString(),'Out with crews')
-   +tile(t.lines.toLocaleString(),'Different things')
-   +tile(t.chase,'Chase up','a')
-   +tile(t.stockPct+'%','Counted in 7 days','g')
-   +tile(t.stale,'Not counted','r')
+   +tile(t.avail.toLocaleString(),'On the shelf','g','groups')
+   +tile(t.onhire.toLocaleString(),'Out with crews','','chase')
+   +tile(t.lines.toLocaleString(),'Different things','','groups')
+   +tile(t.chase,'Chase up','a','chase')
+   +tile(t.stockPct+'%','Counted in 7 days','g','stock')
+   +tile(t.stale,'Not counted','r','stock')
    +'</div>'
    +homeMenu()
    +'</div>'
