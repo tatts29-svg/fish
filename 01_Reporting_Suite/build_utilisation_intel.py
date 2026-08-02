@@ -177,10 +177,31 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
    found NOTHING on a plain indexOf - the dash was between his words.
    Every word he types has to appear somewhere in the haystack, in any
    order. Caught on the rig by typing what a human would type. */
+/* THE COUNTER'S WORDS, NOT THE REGISTER'S. A bloke asks for a "gas
+   monitor"; SiteIQ calls it a "Multi-Gas Detector", so an exact word
+   match found NOTHING for the most safety-critical item in the store.
+   These are the handful of pairs the store actually says out loud -
+   not invented data, just two names for one thing. Keep it short: a
+   loose synonym list is how a search starts returning the wrong tool. */
+var SYN = [['monitor','detector'],['radio','handset','twoway','two-way']];
+function alsoKnownAs(w){
+  for (var i = 0; i < SYN.length; i++){
+    if (SYN[i].indexOf(w) >= 0) return SYN[i];
+  }
+  return [w];
+}
 function hit(hay, q){
   hay = String(hay||'').toLowerCase();
-  var w = q.split(/\s+/), i;
-  for (i = 0; i < w.length; i++){ if (w[i] && hay.indexOf(w[i]) < 0) return false; }
+  var w = q.split(/\s+/), i, j, alts, ok;
+  for (i = 0; i < w.length; i++){
+    if (!w[i]) continue;
+    alts = alsoKnownAs(w[i]);
+    ok = false;
+    for (j = 0; j < alts.length; j++){
+      if (hay.indexOf(alts[j]) >= 0){ ok = true; break; }
+    }
+    if (!ok) return false;
+  }
   return true;
 }
 
@@ -266,8 +287,9 @@ function nextUp(){
     return v.variant === D.lookup[q]; });
   if (!hits.length){
     box.innerHTML = '<div class="none">Nothing in the register matches that. '
-      + 'Radios and gas monitors carry no product variant in SiteIQ, so they '
-      + 'cannot be ranked here &mdash; see the ready fleets below.</div>';
+      + D.noVariant + ' asset(s) carry no product variant in any export and '
+      + 'cannot be compared with anything, so they are never recommended.'
+      + '</div>';
     return;
   }
   var h = '';
@@ -352,7 +374,8 @@ def build(today=None):
             if a['bc']:
                 lookup[a['bc'].lower()] = a['variant']
 
-    payload = {'variants': d['variants'], 'rank': rank, 'lookup': lookup}
+    payload = {'variants': d['variants'], 'rank': rank, 'lookup': lookup,
+               'noVariant': j['noVariantAssets']}
 
     # ---------------- the page --------------------------------------
     H = []
@@ -511,15 +534,24 @@ def build(today=None):
              "({dup} duplicate item numbers), {oh:,} on-hire rows "
              "({ohx} unmatched), {tx:,} transaction lines ({txx} not on this "
              "register &mdash; service charges and off-register plant). "
-             "{nv:,} assets carry no product variant and cannot be compared "
-             "with anything, so they are never recommended and never size a "
-             "fleet. {gv} variant(s) are hired in quantities rather than as "
-             "individual assets and are marked low confidence."
+             "{bf:,} asset(s) had no product variant in the stock register and "
+             "were given one from the movement sheets ({bt:,}) and the "
+             "on-hire export ({bo:,}) - that is what lets radios, gas "
+             "monitors and welders be ranked at all. {vm} name(s) in "
+             "{vg} group(s) were pooled by stripping a per-unit serial or "
+             "plant tag, so identical handsets compare against each other. "
+             "{nv:,} assets still carry no variant anywhere and are never "
+             "recommended and never size a fleet. {gv} variant(s) are hired "
+             "in quantities rather than as individual assets and are marked "
+             "low confidence."
              .format(stock=j['stockRows'], assets=j['assets'],
                      dup=j['duplicateItemNumbers'], oh=j['onHireRows'],
                      ohx=j['onHireUnmatched'], tx=j['txnRows'],
                      txx=j['txnUnmatched'], nv=j['noVariantAssets'],
-                     gv=j['groupedVariants']) + "</div>")
+                     gv=j['groupedVariants'], bf=j['variantsBackfilled'],
+                     bt=j['variantsFromTransactions'],
+                     bo=j['variantsFromOnHire'], vm=j['variantsMerged'],
+                     vg=j['variantMergeGroups']) + "</div>")
 
     H.append("<div class='ft'><div>Coates &middot; Equipped for anything "
              "&middot; Cement Australia K2 Shutdown 2026 &middot; Gladstone"

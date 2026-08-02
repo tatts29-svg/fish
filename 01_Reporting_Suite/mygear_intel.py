@@ -67,6 +67,7 @@ import collections
 import datetime as dt
 import math
 import os
+import re as _RE
 
 try:
     import k2_utilisation as _K2
@@ -218,6 +219,49 @@ def _variant(row):
             or '')
 
 
+#  A UNIT TAG IS NOT A MODEL. (Andrew, 2 Aug 2026: "radios and gas
+#  monitors some welders are found in transactions customers contractor
+#  equip" - he was right, and this is the second half of using it.)
+#
+#  CUSTOMER_CONTRACTOR_EQUIP names each radio with its own serial -
+#  "Motorola DP4801e Two-Way Radio 871TNK7668" - so pooling on the raw
+#  string gives 72 pools of one, which can rank nothing. The serial is
+#  stripped so identical handsets pool. Welders carry a plant tag in
+#  brackets, "(HGA014)", and go the same way.
+#
+#  THE DANGER IS OVER-STRIPPING, and it is a real one: "Spanner - Combo
+#  (46mm)" through to (27mm) are different spanners, and merging them
+#  would put six sizes in one pool and recommend the wrong one. So a
+#  trailing token only counts as a serial if it has at least 3 digits
+#  AND 2 letters AND is not a unit of measure. Checked across every
+#  variant name in all three sheets: 4 merges, all of them genuine
+#  (72 radios, 7 welders), and zero collisions among the stock codes,
+#  the charged names, or anything carrying a size.
+_UNIT_TOKEN = _RE.compile(
+    r'^\d+(\.\d+)?\s*(V|A|AH|T|M|MM|CM|KG|KVA|LM|W|KW|HP|L|MTR|IN|FT|G)$',
+    _RE.I)
+_PAREN_TAIL = _RE.compile(r'\s*\(([A-Za-z0-9]{4,})\)\s*$')
+_BARE_TAIL = _RE.compile(r'\s+([A-Za-z0-9]{7,})$')
+
+
+def _is_serial(tok):
+    digits = sum(c.isdigit() for c in tok)
+    alpha = sum(c.isalpha() for c in tok)
+    return digits >= 3 and alpha >= 2 and not _UNIT_TOKEN.match(tok)
+
+
+def norm_variant(v):
+    """The model, with the individual unit's own tag taken off."""
+    s = (v or '').strip()
+    m = _PAREN_TAIL.search(s)
+    if m and _is_serial(m.group(1)):
+        s = s[:m.start()].strip()
+    m = _BARE_TAIL.search(s)
+    if m and _is_serial(m.group(1)):
+        s = s[:m.start()].strip()
+    return s
+
+
 def _pct(a, b):
     return (100.0 * a / b) if b else 0.0
 
@@ -277,6 +321,7 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
     if onhire_path and os.path.isfile(onhire_path):
         onhire_rows = _sheet(onhire_path, 'ON_HIRE')
     oh_unmatched = 0
+    oh_backfilled = 0
     for r in onhire_rows:
         item = _txt(r, 'ITEM_NUMBER')
         a = assets.get(item)
@@ -287,7 +332,10 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         a['holder'] = _txt(r, 'HIRER_NAME') or a['holder']
         a['holderCo'] = _txt(r, 'COMPANY') or a['holderCo']
         if not a['variant']:
-            a['variant'] = _variant(r)
+            v = _variant(r)
+            if v:
+                a['variant'] = v
+                oh_backfilled += 1
 
     # ---------------- activity, from BOTH transaction sheets ---------
     #  Charged lines AND moved-without-charge lines. Reading only the
@@ -344,7 +392,7 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                     o['lines'] += 1
                 continue
             money['asset'] += total
-            vn = _variant(r)
+            vn = norm_variant(_variant(r))
             if vn and a['variant'] and a['variant'] not in variant_name:
                 variant_name[a['variant']] = vn
             start = _stamp(r.get('TRAN_START_DATE'), r.get('TRAN_START_TIME'))
@@ -396,9 +444,43 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                     #  different and wrong statement.
                     a['pendingRevenue'] = True
 
+    #  ---- BACKFILL THE MISSING VARIANTS, BEFORE ANYTHING IS POOLED --
+    #  (Andrew, 2 Aug 2026: "radios and gas monitors some welders are
+    #  found in transactions customers contractor equip".) He is right,
+    #  and it matters: RENTAL_STOCK leaves PRODUCT_VARIANT blank on 809
+    #  assets - every radio, every gas monitor and 9 welders among them -
+    #  but CUSTOMER_CONTRACTOR_EQUIP names the variant on the lines that
+    #  moved them. Read it and 293 assets get a pool to be compared in;
+    #  skip it and the store's most-chased gear can never be ranked.
+    #  The charge sheet adds none of these, checked - it is the movement
+    #  sheet that carries them, which is the same reason it exists.
+    tc_rows = ec_rows = []
+    backfilled = 0
     if txn_path and os.path.isfile(txn_path):
-        _activity(_sheet(txn_path, 'TRANSACTION_CHARGES'), True)
-        _activity(_sheet(txn_path, 'CUSTOMER_CONTRACTOR_EQUIP'), False)
+        tc_rows = _sheet(txn_path, 'TRANSACTION_CHARGES')
+        ec_rows = _sheet(txn_path, 'CUSTOMER_CONTRACTOR_EQUIP')
+        for r in ec_rows + tc_rows:
+            item = _txt(r, 'SKU/ITEM_NUMBER') or _txt(r, 'ITEM_NUMBER')
+            a = assets.get(item) or by_bc.get(_txt(r, 'LATEST_BARCODE'))
+            if a and not a['variant']:
+                v = _variant(r)
+                if v:
+                    a['variant'] = v
+                    backfilled += 1
+
+    #  Every variant, from wherever it came, through the same normaliser
+    #  so a model pools as a model - see norm_variant.
+    merged_names = collections.defaultdict(set)
+    for a in assets.values():
+        if a['variant']:
+            n = norm_variant(a['variant'])
+            if n != a['variant']:
+                merged_names[n].add(a['variant'])
+            a['variant'] = n
+
+    if tc_rows or ec_rows:
+        _activity(tc_rows, True)
+        _activity(ec_rows, False)
 
     # ---------------- per asset: idle, and the third signal ----------
     for a in assets.values():
@@ -632,6 +714,11 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             'groupedVariants': len(grouped_variants),
             'noVariantAssets': len(novariant),
             'variantNamesLearned': len(variant_name),
+            'variantsBackfilled': backfilled + oh_backfilled,
+            'variantsFromTransactions': backfilled,
+            'variantsFromOnHire': oh_backfilled,
+            'variantsMerged': sum(len(v) for v in merged_names.values()),
+            'variantMergeGroups': len(merged_names),
         },
     }
 
@@ -688,19 +775,17 @@ def rank(data, variant, store=None, limit=5):
 #  Radio Cover is excluded from the radio count for the same reason: it
 #  is an accessory, and counting 37 covers as 37 radios would be a lie
 #  with a straight face.
-import re as _re
-
 KITS = [
     {'key': 'radio', 'name': 'Two-way radios',
-     'item': _re.compile(r'two-?way\s+radio', _re.I),
-     'itemNot': _re.compile(r'cover|charger|antenna', _re.I),
-     'mate': _re.compile(r'impres\s+battery|nntn', _re.I),
+     'item': _RE.compile(r'two-?way\s+radio', _RE.I),
+     'itemNot': _RE.compile(r'cover|charger|antenna', _RE.I),
+     'mate': _RE.compile(r'impres\s+battery|nntn', _RE.I),
      'mateName': 'IMPRES battery',
      'unit': 'a radio and a battery'},
     {'key': 'gas', 'name': 'Gas monitors',
-     'item': _re.compile(r'gas\s+(?:monitor|detector)|gasalert|microclip'
-                         r'|altair|multi-?gas', _re.I),
-     'itemNot': _re.compile(r'charger|cradle|dock', _re.I),
+     'item': _RE.compile(r'gas\s+(?:monitor|detector)|gasalert|microclip'
+                         r'|altair|multi-?gas', _RE.I),
+     'itemNot': _RE.compile(r'charger|cradle|dock', _RE.I),
      'mate': None, 'mateName': '', 'unit': 'a monitor'},
 ]
 
