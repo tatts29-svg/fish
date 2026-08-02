@@ -1666,8 +1666,26 @@ body.hasrnav #result{padding-bottom:70px}
 .pavatar{flex:none;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--org),var(--org2));color:#fff;font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center;letter-spacing:1px}
 .pmeta{flex:1}
 .scorewrap{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,rgba(242,98,34,.15),rgba(242,98,34,.03));border:1px solid rgba(242,98,34,.4);border-radius:16px;padding:14px 16px;margin:15px 0}
-.ring{width:98px;height:98px;flex:none}
-.ringtxt{fill:#fff;font-size:30px;font-weight:900;font-family:"Segoe UI",Arial,sans-serif}
+/* THE RETURNS GAUGE (Andrew's pack). Same number the ring carried, read
+   the way the rest of the panel reads - a dial with a needle that swings
+   up once and then sits still. The needle's ANGLE is written as the SVG
+   transform attribute, never as a CSS-only rotation, so a browser that
+   will not animate it still parks the needle on the right number. The
+   sweep is the animation; the reading is not. */
+.gauge{width:104px;height:94px;flex:none}
+.gtrack{stroke:#28323F}
+.gtick{stroke:#3A4757;stroke-width:2;stroke-linecap:round}
+.gtick.on{stroke:#6E7F94}
+.gend{fill:#5A6B80;font-size:8px;font-weight:800;
+ font-family:"Segoe UI",Arial,sans-serif;letter-spacing:.5px}
+.gneedle{fill:#F26222}
+.ghub{fill:#0B111A;stroke:#F26222;stroke-width:2}
+.ghubdot{fill:#F26222}
+.gnum{fill:#fff;font-size:27px;font-weight:900;
+ font-family:"Segoe UI",Arial,sans-serif}
+/* no returns yet = no needle and no reading. A needle parked on zero is
+   a lie about a bloke who simply has not brought anything back yet. */
+.gnum.none{font-size:23px;fill:#8794A6}
 .scoremeta{flex:1}
 .scorelab{font-weight:800;color:#fff;font-size:16px}
 .rankline{color:var(--soft);font-size:12px;margin-top:3px}
@@ -1691,7 +1709,15 @@ body.hasrnav #result{padding-bottom:70px}
 .item{animation:fup .4s ease both}
 @keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .clr .ci{animation:bpop .55s ease both}
-.ringp{transition:stroke-dashoffset 1.1s cubic-bezier(.22,.75,.3,1)}
+.gsweep{transition:stroke-dashoffset 1.1s cubic-bezier(.22,.75,.3,1)}
+/* the needle settles the way a real one does - quick off the stop, slow
+   into the number, no bounce. Motion only; see .gauge above. The pivot
+   is the hub, stated in viewBox units, which is what transform-box buys. */
+.gneedle{transform-box:view-box;transform-origin:60px 66px;
+ transform:rotate(-90deg);
+ transition:transform 1.15s cubic-bezier(.16,.9,.3,1)}
+@media (prefers-reduced-motion: reduce){
+ .gsweep,.gneedle{transition:none}}
 .st.good{border-top-color:var(--grn)}
 .cmp{display:flex;flex-direction:column;gap:9px;margin-bottom:4px}
 .cmpr{display:flex;align-items:center;gap:10px}
@@ -2134,14 +2160,45 @@ function rvReduced(){
   try{ return !!(window.matchMedia &&
     matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){ return false; }
 }
+/* THE GAUGE'S READING. Everything that makes the dial say a number goes
+   through here - the lit arc and the needle both - so there is exactly
+   one way for the reading to arrive, whether it swings in, is forced by
+   the backstop, or is written straight out on a reduced-motion phone.
+   data-rot carries the pivot as well as the angle, so the geometry is
+   stated once, in the markup that owns it. */
+/* Chrome will NOT transition an SVG transform ATTRIBUTE - set it and the
+   needle teleports. The swing only happens through the CSS transform
+   property, and that needs transform-box:view-box to pivot on the hub
+   instead of the needle's own middle. So: ask the browser whether it
+   understands transform-box. If it does, drive the CSS property and the
+   needle swings. If it does not, write the attribute and the needle
+   simply appears on the number. Both paths read the same; only one of
+   them moves. Caught on the rig - the first cut animated nothing. */
+var G_CSS=(function(){
+  try{ return !!(window.CSS && CSS.supports
+    && CSS.supports('transform-box','view-box')); }catch(e){ return false; }
+})();
+function gSet(el){
+  if(!el || el.getAttribute('data-set')) return;
+  el.setAttribute('data-set','1');
+  var off=el.getAttribute('data-off'), rot=el.getAttribute('data-rot');
+  if(off!==null) el.style.strokeDashoffset=off;
+  if(rot!==null){
+    el.setAttribute('transform','rotate('+rot+')');
+    if(G_CSS) el.style.transform='rotate('+parseFloat(rot)+'deg)';
+  }
+}
+function gSetAll(root){
+  var e=(root||document).querySelectorAll('.gsweep,.gneedle'),i;
+  for(i=0;i<e.length;i++) gSet(e[i]);
+}
 function rvShowAll(root){
   var i,e;
   e=(root||document).querySelectorAll('[data-rv]');
   for(i=0;i<e.length;i++) e[i].className+=' rv-in';
   e=(root||document).querySelectorAll('[data-to]');
   for(i=0;i<e.length;i++) e[i].textContent=parseInt(e[i].getAttribute('data-to'))||0;
-  var rp=(root||document).querySelector('.ringp');
-  if(rp) rp.style.strokeDashoffset=rp.getAttribute('data-off');
+  gSetAll(root);
 }
 function animate(root){
   root=root||document;
@@ -2171,28 +2228,62 @@ function animate(root){
   },{rootMargin:'0px',threshold:.01});
   var rs=root.querySelectorAll('[data-rv]');
   for(var k=0;k<rs.length;k++) rio.observe(rs[k]);
-  /* and a backstop: anything somehow still hidden once the page has
-     been scrolled to the bottom gets shown. A block a bloke cannot see
-     is worse than a block that did not animate. */
-  var sweep=function(){
-    if(window.innerHeight+window.pageYOffset < document.body.scrollHeight-4) return;
-    var left=root.querySelectorAll('[data-rv]:not(.rv-in)');
-    for(var q=0;q<left.length;q++) left[q].className+=' rv-in';
-    if(!left.length) window.removeEventListener('scroll',sweep);
-  };
-  window.addEventListener('scroll',sweep,{passive:true});
-  /* the score ring draws when you reach it, not before */
-  var rp=root.querySelector('.ringp');
-  if(rp){
-    var gio=new IntersectionObserver(function(en){
+  /* the gauge reads when you reach it, not before */
+  var gel=root.querySelectorAll('.gsweep,.gneedle');
+  var gio=null;
+  if(gel.length){
+    gio=new IntersectionObserver(function(en){
       for(var m=0;m<en.length;m++){
         if(!en[m].isIntersecting) continue;
         gio.unobserve(en[m].target);
-        en[m].target.style.strokeDashoffset=en[m].target.getAttribute('data-off');
+        gSet(en[m].target);
       }
     },{threshold:.3});
-    gio.observe(rp);
+    for(var g=0;g<gel.length;g++) gio.observe(gel[g]);
   }
+  /* ---- the backstops ---------------------------------------------
+     A throttled webview can hand out an IntersectionObserver that
+     never calls back. That is not "it did not animate" - the card sits
+     there with every tile reading 0 and the needle on the stop, which
+     is the WRONG NUMBER on a bloke's own report. Found on the rig with
+     a dead observer: the needle said 92 and the score under it said 0.
+
+     Two backstops, and neither of them spoils the scroll:
+       1. after 2.5s, fix anything that is ON SCREEN and still unwritten.
+          If he can see it and it is wrong, it gets corrected. Blocks
+          below the fold are left alone so they still build as he
+          scrolls to them - that is the whole point of the reveal.
+       2. once the page is scrolled to the bottom, fix the lot.
+     ------------------------------------------------------------------ */
+  var numFix=function(el){
+    var want=parseInt(el.getAttribute('data-to'))||0;
+    if(el.textContent.trim()!==String(want)) el.textContent=want;
+  };
+  var onScreen=function(el){
+    try{ var b=el.getBoundingClientRect();
+      return b.bottom>0 && b.top<(window.innerHeight||0); }
+    catch(e){ return true; }
+  };
+  var fixAll=function(vis){
+    var q,left=root.querySelectorAll('[data-rv]:not(.rv-in)');
+    for(q=0;q<left.length;q++)
+      if(!vis||onScreen(left[q])) left[q].className+=' rv-in';
+    var nn=root.querySelectorAll('[data-to]');
+    for(q=0;q<nn.length;q++) if(!vis||onScreen(nn[q])) numFix(nn[q]);
+    var gg=root.querySelectorAll('.gsweep,.gneedle');
+    for(q=0;q<gg.length;q++) if(!vis||onScreen(gg[q])) gSet(gg[q]);
+  };
+  setTimeout(function(){ fixAll(true); },2500);
+  /* rootMargin 0 on the bottom, deliberately - see the sections above.
+     A block a bloke cannot see is worse than a block that did not
+     animate, so the bottom of the page settles everything left. */
+  var sweep=function(){
+    if(window.innerHeight+window.pageYOffset < document.body.scrollHeight-4) return;
+    fixAll(false);
+    if(!root.querySelectorAll('[data-rv]:not(.rv-in)').length)
+      window.removeEventListener('scroll',sweep);
+  };
+  window.addEventListener('scroll',sweep,{passive:true});
 }
 function confetti(){var cs=['#F26222','#FFA24D','#FFD27A','#ffffff'];for(var i=0;i<70;i++){var d=document.createElement('div');d.className='confp';d.style.left=(Math.random()*100)+'vw';d.style.background=cs[i%4];d.style.animationDelay=(Math.random()*0.35)+'s';document.body.appendChild(d);(function(x){setTimeout(function(){x.remove()},2700)})(d)}}
 function cmpbar(l,v,me){v=Math.round(v||0);return '<div class="cmpr"><span class="cl">'+l+'</span><span class="cbar"><i style="width:'+v+'%" '+(me?'class="me"':'')+'></i></span><span class="cvv">'+v+'</span></div>'}
@@ -2307,13 +2398,65 @@ function openGear(){
  renderCard(window.PENDING);
 }
 
+/* THE RETURNS GAUGE (Andrew's pack, 2 Aug 2026). The ring said the same
+   number; this says it the way the rest of the instrument panel speaks -
+   a dial, a lit arc, five ticks and a needle that swings up once and
+   stops. Nothing about the reading is new: p.score is untouched, and the
+   printed A4 and the saved picture still carry it as a plain number.
+   0 is hard left, 100 is hard right, so 1.8 degrees per point.
+   A bloke with no returns yet gets NO needle and a dash - a needle
+   resting on zero would accuse him of a score he has not been given. */
+function gauge(p){
+ var CX=60, CY=66, R=46, RAD=Math.PI/180;
+ var has=!!p.hasReturns, v=Math.max(0,Math.min(100,Number(p.score)||0));
+ var L=Math.PI*R;                    // the lit arc is half a circumference
+ var off=has?(L-L*v/100):L;
+ var ticks='';
+ for(var t=0;t<=100;t+=25){
+  var a=(180-1.8*t)*RAD, c=Math.cos(a), s=Math.sin(a);
+  /* ticks sit just inside the rim, the needle reaches two thirds - the
+     way a dial you would find on the wall of a workshop is laid out.
+     They overlapped at first and the whole thing read as a smudge. */
+  ticks+='<line class="gtick'+((has&&t<=v)?' on':'')
+   +'" x1="'+(CX+34*c).toFixed(1)+'" y1="'+(CY-34*s).toFixed(1)
+   +'" x2="'+(CX+40*c).toFixed(1)+'" y2="'+(CY-40*s).toFixed(1)+'"/>';
+ }
+ /* the needle parks on the stop and is swung by gSet. The angle is
+    written as the SVG transform ATTRIBUTE, not a CSS-only rotation, so
+    a browser that will not run the transition still lands it on the
+    right number - the swing is decoration, the reading is not. */
+ var needle=has?('<g class="gneedle" transform="rotate(-90 '+CX+' '+CY+')"'
+   +' data-rot="'+(-90+1.8*v).toFixed(2)+' '+CX+' '+CY+'">'
+   +'<polygon points="'+(CX-3.1)+','+CY+' '+CX+','+(CY-30)+' '
+   +(CX+3.1)+','+CY+'"/></g>'
+   +'<circle class="ghub" cx="'+CX+'" cy="'+CY+'" r="5.5"/>'
+   +'<circle class="ghubdot" cx="'+CX+'" cy="'+CY+'" r="1.8"/>'):'';
+ var num=has
+   ?'<text class="gnum" x="60" y="103" text-anchor="middle" data-to="'
+     +Math.round(v)+'">0</text>'
+   :'<text class="gnum none" x="60" y="103" text-anchor="middle">&#8212;</text>';
+ var arc='d="M14 66A46 46 0 0 1 106 66" fill="none" stroke-width="9"'
+   +' stroke-linecap="round"';
+ return '<svg class="gauge" viewBox="0 0 120 108" role="img" aria-label="'
+  +'Returns score '+(has?Math.round(v)+' out of 100':'not scored yet')+'">'
+  +'<defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="0">'
+  +'<stop offset="0" stop-color="#FFA24D"/>'
+  +'<stop offset="1" stop-color="#F26222"/></linearGradient></defs>'
+  +'<path class="gtrack" '+arc+'/>'
+  +'<path class="gsweep" '+arc+' stroke="url(#gg)" stroke-dasharray="'
+  +L.toFixed(2)+'" stroke-dashoffset="'+L.toFixed(2)+'" data-off="'
+  +off.toFixed(2)+'"/>'
+  +ticks
+  +'<text class="gend" x="13" y="80" text-anchor="middle">0</text>'
+  +'<text class="gend" x="107" y="80" text-anchor="middle">100</text>'
+  +needle+num+'</svg>';
+}
+
 function renderCard(p){
  var err=document.getElementById('err');
  window.LASTP=p;   // the print sheet builds from the same decoded payload
  var st=p.stats,r=p.rating,rk=p.rank||{comp:1,compTotal:1,pct:100};
- var C=326.7, off=p.hasReturns?(C-C*Math.min(100,p.score||0)/100):C;
- var ringtx=p.hasReturns?'<text x="60" y="70" text-anchor="middle" class="ringtxt" data-to="'+(p.score||0)+'">0</text>':'<text x="60" y="68" text-anchor="middle" class="ringtxt" style="font-size:26px">—</text>';
- var ring='<svg class="ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#28323F" stroke-width="12"/><circle class="ringp" cx="60" cy="60" r="52" fill="none" stroke="url(#rg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" data-off="'+off+'" transform="rotate(-90 60 60)"/><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFA24D"/><stop offset="1" stop-color="#F26222"/></linearGradient></defs>'+ringtx+'</svg>';
+ var ring=gauge(p);
  var badges=(p.badges||[]).map(function(b,bi){
    var ic=b[2]?'<img class="bimg" src="art/icons/'+b[2]+'.webp" alt="" '
      +'loading="lazy" onerror="this.outerHTML=\'<span class=&quot;bi&quot;>'

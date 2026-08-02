@@ -1,7 +1,7 @@
-# Coates K2 suite version - 140 files - overall 204a0aad
+# Coates K2 suite version - 142 files - overall 4cbd2ef6
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-02 04:30:10
+# taken 2026-08-02 08:51:57
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -60,6 +60,7 @@ a4a050f5e2 55_PRINT_ITEM_LABELS.bat
 9abe5394c8 59_RUN_BUSINESS_UTILISATION.bat
 e9567c02db 60_RUN_FLEET_FINDER.bat
 e098950cd5 61_RUN_OFFLINE_DAY.bat
+356b690a3e 62_WHATS_ON_MY_REPORT.bat
 c817cf2ade 63_HIDDEN_ITEMS.bat
 822ae99368 64_SHUTDOWN_CLOCK.bat
 4abea8c170 ADD_GEAR.py
@@ -70,7 +71,7 @@ e2db0400e6 APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 7df01af922 BUILD_DAILY_EMAIL_PACKS.py
-83c44d1618 BUILD_MY_GEAR.py
+0333e2d245 BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
@@ -137,6 +138,7 @@ b6af9bce5e mygear_ui.py
 5dbf7b3d91 net_pick.py
 baf96d6e18 qr_lite.py
 64177bb894 recipients.py
+3a097afbe7 report_legend.py
 c60bd527af report_pages.py
 752b950757 report_paths.py
 75eec11f9f safety_conversation.py
