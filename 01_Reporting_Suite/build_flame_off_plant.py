@@ -383,9 +383,12 @@ def collect(today=None):
     #  the right way. If it does not, one of the two is wrong and the
     #  sheet says so instead of quietly publishing a number.
     charged_plant = 0.0
+    charged_shifts = 0.0
     for r in tc:
         if _is_plant_account(MI._txt(r, 'HIRER_NAME')):
             charged_plant += MI._num(r.get('TOTAL_CHARGE ($)'))
+            charged_shifts += (MI._num(r.get('SHIFTS'))
+                               * (MI._num(r.get('QUANTITY')) or 1))
 
 
     #  ---- price it, if the quote is in --------------------------------
@@ -481,6 +484,18 @@ def collect(today=None):
         'billedOther': sum(r['qty'] for r in rows
                            if r.get('billed') == 'OTHER'),
         'chargedPlant': charged_plant,
+        'chargedShifts': charged_shifts,
+        #  LIKE FOR LIKE. The charge figure above is SiteIQ's, so only
+        #  SiteIQ-billed gear may be set against it. Including the
+        #  Baseplan-billed records put $1,379 of gear SiteIQ never
+        #  invoices on the wrong side of the comparison and made the
+        #  sheet look 6% out when it was 3%.
+        '$plantSiteIQ': sum(r['$plant'] or 0 for r in rows
+                            if r.get('billed') == 'SITEIQ'),
+        '$plantOther': sum(r['$plant'] or 0 for r in rows
+                           if r.get('billed') != 'SITEIQ'),
+        'daysPlantSiteIQ': sum(r['daysPlant'] * r['qty'] for r in rows
+                               if r.get('billed') == 'SITEIQ'),
         '$used': sum(r['$used'] or 0 for r in rows),
         '$plant': sum(r['$plant'] or 0 for r in rows),
         '$idle': sum(r['$idle'] or 0 for r in rows),
@@ -704,25 +719,46 @@ def main():
         print('   Not charging  ${:>12,.2f}   on site, earning nothing'
               .format(d['$idle']))
         #  the check
-        cp, comp = d['chargedPlant'], d['$plant']
+        #  THE CHECK, LIKE FOR LIKE, AND HONEST ABOUT WHY IT IS NOT NIL.
+        #  Two different questions, not two attempts at one number:
+        #    priced  = what the time on the account is WORTH - the rate
+        #              by the calendar days it sat there
+        #    charged = what SiteIQ actually BILLED - the rate by shifts
+        #  A shift is not a day. On this pull the account sat 2,747 days
+        #  and billed 2,326 shifts, so priced reads high BY DESIGN. The
+        #  sheet says so rather than implying one of the two is broken.
+        #
+        #  And only SiteIQ-billed gear goes on the priced side, because
+        #  the charge figure is SiteIQ's. Including the Baseplan records
+        #  put $1,379 of gear SiteIQ never invoices on the wrong side and
+        #  made this read 6% out when it was 3%.
+        cp, comp = d['chargedPlant'], d['$plantSiteIQ']
         if cp:
             gap = comp - cp
             pct = abs(gap) / cp * 100.0
             print('')
-            print(' Rate check   : site plant priced at ${:,.2f} against '
-                  '${:,.2f}'.format(comp, cp))
-            print('                actually charged in SiteIQ - {:+,.2f} '
-                  '({:.0f}%).'.format(gap, pct))
+            print(' Cost check   : SiteIQ-billed site plant priced at '
+                  '${:,.2f}'.format(comp))
+            print('                against ${:,.2f} actually charged '
+                  '- {:+,.2f} ({:.1f}%)'.format(cp, gap, pct))
+            print('                {:,.0f} days on the account against '
+                  '{:,.0f} shifts billed.'.format(d['daysPlantSiteIQ'],
+                                                  d['chargedShifts']))
+            print('                A shift is not a day, so priced reads')
+            print('                high by design - it is what the time is')
+            print('                worth, not what went on an invoice.')
+            if d['$plantOther']:
+                print('                ${:,.2f} of Baseplan-billed gear is '
+                      'kept out of this'.format(d['$plantOther']))
+                print('                comparison - SiteIQ never invoices '
+                      'it.')
             if pct > 15:
                 print(' ' + '!' * 58)
-                print(' That is a wide gap. Either the rate card is not the')
-                print(' one this job bills on, or days are being counted')
-                print(' differently to the way SiteIQ charges shifts.')
-                print(' Worth resolving before this sheet goes anywhere.')
+                print(' That is wider than days-against-shifts explains.')
+                print(' Either the rate card is not the one this job bills')
+                print(' on, or something is being counted twice. Worth')
+                print(' resolving before this sheet goes anywhere.')
                 print(' ' + '!' * 58)
-            else:
-                print('                Close enough to trust the rates and')
-                print('                the way they are being applied.')
         for nm, got, want in d.get('baseplanCount', []):
             print('')
             print(' ' + '!' * 58)
