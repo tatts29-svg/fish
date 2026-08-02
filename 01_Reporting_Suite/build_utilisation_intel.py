@@ -704,11 +704,12 @@ def build(today=None):
     H.append("<div class='tiles'>")
     H.append(_tile(_money(t['revenue']), 'STORE ASSETS',
                    'earned by gear on this register'))
-    H.append(_tile(_money(t['revenueOffRegister']), 'OFF-REGISTER PLANT',
-                   'real gear, not in the store register'))
-    H.append(_tile(_money(t['revenueService']), 'SERVICE &amp; ADMIN',
-                   'labour, transport, travel, misc &mdash; no asset behind '
-                   'them'))
+    H.append(_tile(_money(t['revenueOffRegister']), 'OFF THIS REGISTER',
+                   'charged, but not against an asset on this register '
+                   '&mdash; mostly plant hired outside the store'))
+    H.append(_tile(_money(t['revenueService']), 'ADMIN COSTS',
+                   'labour, transport, travel and misc, booked to the Admin '
+                   'Costs account &mdash; no asset behind any of it'))
     H.append(_tile(_money(t['revenueAll']), 'EVERY CHARGE LINE',
                    'the three above, added back up', cls='grn'))
     H.append("</div>")
@@ -905,6 +906,20 @@ def build(today=None):
                                   t['clientPct']))
     print(' Holding acct : {:,} asset(s) only ever booked to the site holding '
           'account'.format(t['holdingOnly']))
+    if j.get('accountVsCategory'):
+        print('  ' + '!' * 60)
+        print('  Charge line(s) where the ACCOUNT and the CATEGORY disagree')
+        print('  about whether this is admin. Not resolved automatically:')
+        for h, c, v in j['accountVsCategory'][:6]:
+            print('      {:<34} {:<10} ${:,.2f}'.format(h[:34], c[:10], v))
+        print('  ' + '!' * 60)
+    if j.get('nearAdminNames'):
+        print('  ' + '!' * 60)
+        print('  Hirer name(s) that look like the Admin Costs account but')
+        print('  are not it - counted as real hirers:')
+        for nm, n in j['nearAdminNames'][:6]:
+            print('      {:<40} {} line(s)'.format(nm[:40], n))
+        print('  ' + '!' * 60)
     if j.get('nearHoldingNames'):
         #  A name that ALMOST reads as the holding account decides
         #  whether a lot of days count as client-issued or not. It is
@@ -916,7 +931,7 @@ def build(today=None):
         for nm, n in j['nearHoldingNames'][:6]:
             print('      {:<40} {} line(s)'.format(nm[:40], n))
         print('  ' + '!' * 60)
-    print(' Money        : assets {} | off-register {} | service {} | all {}'
+    print(' Money        : assets {} | off-register {} | admin {} | all {}'
           .format(_money(t['revenue']), _money(t['revenueOffRegister']),
                   _money(t['revenueService']), _money(t['revenueAll'])))
     for f in fleets:

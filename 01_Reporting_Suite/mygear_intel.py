@@ -115,6 +115,31 @@ CONTINGENCY_MIN = 1
 HOLDING_ACCOUNT = 'site plant equipment .'
 HOLDING_NEAR = 'site plant equipment'
 
+#  THE ADMIN ACCOUNT. (Andrew, 2 Aug 2026: "anything in admin is all
+#  admin costs".) Stored as "Admin Costs Admin Costs" - 4 lines worth
+#  $119,125 on the 29 Jul pull: LABOUR, TRANSPORT-EX, TRAVEL EXPENSES
+#  and MISC. Real money, and none of it belongs to a single asset, so
+#  it is counted and shown on its own rather than folded into what the
+#  fleet earned.
+#
+#  MATCHED ON THE ACCOUNT, NOT ON THE CATEGORY. Both rules pick the
+#  same four lines today, but they are not the same question: a service
+#  charge raised against a REAL hirer belongs to that hirer's machine,
+#  not to admin, and a category test would quietly send it to admin
+#  anyway. The account name is what Andrew actually means. Where the
+#  two disagree, the page says so instead of picking a winner.
+ADMIN_ACCOUNT = 'admin costs admin costs'
+ADMIN_NEAR = 'admin costs'
+
+
+def _is_admin(name):
+    return _norm_hirer(name) == ADMIN_ACCOUNT
+
+
+def is_near_admin(name):
+    n = _norm_hirer(name)
+    return n.startswith(ADMIN_NEAR) and n != ADMIN_ACCOUNT
+
 
 def _norm_hirer(name):
     """SiteIQ's First - Last layout and its flattened twin, as one."""
@@ -402,6 +427,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
     off_register = {}
     unmatched_lines = 0
     near_names = collections.Counter()
+    near_admin = collections.Counter()
+    money_split = collections.Counter()
 
     cap = None
 
@@ -411,6 +438,7 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             tx_rows += 1
             item = _txt(r, 'SKU/ITEM_NUMBER') or _txt(r, 'ITEM_NUMBER')
             bc = _txt(r, 'LATEST_BARCODE')
+            hirer_raw = _txt(r, 'HIRER_NAME')
             a = assets.get(item) or by_bc.get(bc)
             qty = _num(r.get('QUANTITY')) or 1.0
             total = _num(r.get('TOTAL_CHARGE ($)')) if charged else 0.0
@@ -422,7 +450,18 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             if not a:
                 unmatched_lines += 1
                 cat = _txt(r, 'PRODUCT_CATEGORY')
-                if cat == 'Service' or not bc:
+                admin = _is_admin(hirer_raw)
+                if admin != (cat == 'Service'):
+                    #  the account and the category disagree about what
+                    #  this line is. Recorded, never quietly resolved.
+                    money_split[(hirer_raw or '(no hirer)', cat)] += total
+                #  ADMIN MEANS THE ADMIN ACCOUNT. Andrew's rule, and a
+                #  service charge raised against a real hirer is not
+                #  admin just because it is a service - it belongs to
+                #  that hirer's work, not to the job's overheads. So
+                #  only the account decides, and the divergence above
+                #  is what gets a human to look.
+                if admin:
                     money['service'] += total
                 else:
                     #  plant hired outside the store's rental register -
@@ -444,6 +483,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             holding = _is_holding(hirer)
             if is_near_holding(hirer):
                 near_names[hirer] += 1
+            if is_near_admin(hirer):
+                near_admin[hirer] += 1
 
             a['issued'] = True
             if holding:
@@ -854,6 +895,9 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             'variantsFromTransactions': backfilled,
             'variantsFromOnHire': oh_backfilled,
             'nearHoldingNames': near_names.most_common(),
+            'nearAdminNames': near_admin.most_common(),
+            'accountVsCategory': [(h, c, round(v, 2))
+                                  for (h, c), v in money_split.most_common()],
             'variantsMerged': sum(len(v) for v in merged_names.values()),
             'variantMergeGroups': len(merged_names),
         },

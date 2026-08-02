@@ -55,11 +55,16 @@ try:
 except Exception:
     SD = None
 
-#  The bulk lines. These go out by the pallet, not by the asset - a
-#  crash barrier is not rotated, it is dropped where it is wanted and
-#  collected at the end. Counting their "utilisation" per asset would
-#  be a number with nothing behind it, so they are one line with a
-#  quantity, exactly as Andrew has them.
+#  The bulk lines. Andrew, 2 Aug 2026: "anything in rubbish chutes and
+#  barriers also part of siteplant. but it was put seperate as it was
+#  bulky." So they ARE site plant - they are in the 321 and in every
+#  total on this sheet - they are simply shown as one line with a
+#  quantity instead of 176 rows.
+#
+#  That is the right call for a second reason too: they go out by the
+#  pallet, not by the asset. A crash barrier is not rotated, it is
+#  dropped where it is wanted and collected at the end, so a per-asset
+#  utilisation figure on one would be a number with nothing behind it.
 GROUPS = [
     ('Crash Barriers', 'Barrier - Crash Rated'),
     ('Crowd Barriers', 'Barrier - Crowd Control'),
