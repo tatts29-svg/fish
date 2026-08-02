@@ -41,6 +41,14 @@ def _newest(pattern):
     return max(hits, key=os.path.getmtime) if hits else None
 
 
+def _tsafe(v):
+    """The filename a thumbnail is stored under - matches the pages."""
+    out = str(v)
+    for ch in '/:*?"<>|':
+        out = out.replace(ch, '_')
+    return out
+
+
 def _money(v):
     return '${:,.0f}'.format(v or 0)
 
@@ -142,6 +150,18 @@ button.f{background:#0B111A;border:1px solid #2A3547;border-radius:11px;
 button.f.on{background:#F26222;border-color:#F26222;color:#fff}
 .rec{border:1px solid rgba(242,98,34,.45);border-radius:14px;padding:14px 16px;
  margin:9px 0;background:linear-gradient(135deg,rgba(242,98,34,.13),rgba(242,98,34,.02))}
+.rec{display:flex;gap:14px;align-items:flex-start}
+.rec .body{flex:1;min-width:0}
+.thumb{flex:none;width:88px;height:88px;border-radius:12px;overflow:hidden;
+ background:#1B2330;display:flex;align-items:center;justify-content:center}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb.mono{color:#8A97A8;font-weight:900;font-size:26px;letter-spacing:.5px}
+.tth{flex:none;width:38px;height:38px;border-radius:9px;overflow:hidden;
+ background:#1B2330;display:inline-flex;align-items:center;justify-content:center;
+ vertical-align:middle;margin-right:9px}
+.tth img{width:100%;height:100%;object-fit:cover;display:block}
+.tth.mono{color:#8A97A8;font-weight:900;font-size:13px}
+.vcell{display:flex;align-items:center}
 .rec .h{font-size:9px;font-weight:800;letter-spacing:2px;color:#F26222}
 .rec .a{font-size:21px;font-weight:800;color:#F5F7FB;margin:4px 0 2px}
 .rec .loc{font-size:12px;color:#8794A6}
@@ -205,6 +225,27 @@ function hit(hay, q){
   return true;
 }
 
+/* ---- THE PICTURE TILE ----------------------------------------------
+   Told, not asked. D.thumbs holds only the variants that actually have
+   a thumbnail, so anything else draws its two-letter monogram straight
+   away. onerror is kept as the belt-and-braces landing. */
+function mono(n){
+  var w = String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x;});
+  return ((w[0]||'?').charAt(0) + (w[1]||w[0]||'').charAt(0)).toUpperCase();
+}
+function tile(v, name, cls){
+  var f = D.thumbs[v];
+  if (!f) return '<span class="' + cls + ' mono">' + esc(mono(name)) + '</span>';
+  return '<span class="' + cls + '"><img src="' + esc(D.thumbBase)
+    + encodeURIComponent(f) + '.jpg" loading="lazy" alt="" data-m="'
+    + esc(mono(name)) + '" onerror="tfail(this)"></span>';
+}
+function tfail(img){
+  var s = img.parentNode;
+  s.className += ' mono';
+  s.textContent = img.getAttribute('data-m') || '?';
+}
+
 /* ---- the fleet table filter ---- */
 var CALLF = 'all';
 function fleet(){
@@ -222,10 +263,12 @@ function fleet(){
     + '<th class="n">Recommend</th><th>Call</th>'
     + '<th class="hidesm">Confidence</th></tr></thead><tbody>';
   shown.forEach(function(v){
-    h += '<tr><td><div class="vname">' + esc(v.name || v.variant) + '</div>'
+    h += '<tr><td><div class="vcell">'
+      + tile(v.variant, v.name || v.variant, 'tth')
+      + '<div><div class="vname">' + esc(v.name || v.variant) + '</div>'
       + '<div class="vcode">' + esc(v.variant)
       + (v.units && v.units.length ? ' &middot; ' + esc(v.units[0][0]) : '')
-      + '</div></td>'
+      + '</div></div></div></td>'
       + '<td class="n">' + v.assets + '</td>'
       + '<td class="n">' + v.ready + '</td>'
       + '<td class="n">' + v.out + '</td>'
@@ -296,14 +339,16 @@ function nextUp(){
   hits.slice(0, 3).forEach(function(v){
     var list = D.rank[v.variant] || [];
     if (!list.length){
-      h += '<div class="rec"><div class="h">' + esc(v.name || v.variant)
+      h += '<div class="rec">' + tile(v.variant, v.name || v.variant, 'thumb')
+        + '<div class="body"><div class="h">' + esc(v.name || v.variant)
         + '</div><div class="a">Nothing on the shelf</div>'
         + '<div class="loc">' + v.assets + ' in the fleet, ' + v.out
-        + ' out, ' + v.ready + ' showing available.</div></div>';
+        + ' out, ' + v.ready + ' showing available.</div></div></div>';
       return;
     }
     var a = list[0];
-    h += '<div class="rec"><div class="h">RECOMMENDED NEXT &mdash; '
+    h += '<div class="rec">' + tile(v.variant, v.name || v.variant, 'thumb')
+      + '<div class="body"><div class="h">RECOMMENDED NEXT &mdash; '
       + esc(v.name || v.variant) + '</div>'
       + '<div class="a">' + esc(a.item) + '</div>'
       + '<div class="loc">' + esc(a.store || 'store not recorded')
@@ -322,7 +367,7 @@ function nextUp(){
         return '<b>' + esc(x.item) + '</b>';
       }).join(' &middot; ') + '</div>';
     }
-    h += '</div>';
+    h += '</div></div>';
   });
   box.innerHTML = h;
 }
@@ -374,8 +419,25 @@ def build(today=None):
             if a['bc']:
                 lookup[a['bc'].lower()] = a['variant']
 
+    #  PICTURES. Same thumbnails the crew pages serve and the same rule:
+    #  the page is TOLD what exists rather than finding out by 404, so a
+    #  variant with no photo draws its monogram and asks for nothing.
+    #  This page lives in Reports\<date>\Pages\, three deep, so the
+    #  thumbs are reached back up the tree. If that path is ever wrong
+    #  the onerror fallback still lands on the monogram - a wrong path
+    #  costs a picture, never a hole.
+    tdir = os.path.join(BASE, 'Gear_Lookup', 'thumbs')
+    have = set()
+    if os.path.isdir(tdir):
+        have = {f[:-4] for f in os.listdir(tdir) if f.lower().endswith('.jpg')}
+    thumbs = {}
+    for v in d['variants']:
+        sn = _tsafe(v['variant'])
+        if sn in have:
+            thumbs[v['variant']] = sn
     payload = {'variants': d['variants'], 'rank': rank, 'lookup': lookup,
-               'noVariant': j['noVariantAssets']}
+               'noVariant': j['noVariantAssets'], 'thumbs': thumbs,
+               'thumbBase': '../../../Gear_Lookup/thumbs/'}
 
     # ---------------- the page --------------------------------------
     H = []

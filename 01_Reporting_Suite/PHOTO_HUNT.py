@@ -27,6 +27,16 @@ import mygear_thumbs
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
+def gfind(pat):
+    """Newest matching export - Data_SiteIQ first, then the folder."""
+    import glob
+    hits = []
+    for d in (os.path.join(HERE, 'Data_SiteIQ'), HERE):
+        hits += [p for p in glob.glob(os.path.join(d, pat))
+                 if not os.path.basename(p).startswith('~$')]
+    return max(hits, key=os.path.getmtime) if hits else None
+
+
 def q(s):
     return urllib.parse.quote_plus(str(s))
 
@@ -60,7 +70,7 @@ def main():
                  'target="_blank">Images</a>').format(
             cq=q('site:coates.com.au ' + name), iq=q(name))
         return ('<tr class="{cls}"><td class="st">{st}</td>'
-                '<td><b>{n}</b><span>{f} &middot; {q} on the register</span></td>'
+                '<td><b>{n}</b><span>{f} &middot; {q} on the register{use}</span></td>'
                 '<td><input class="fn" readonly value="{code}.jpg" '
                 'onclick="this.select();try{{document.execCommand(&quot;copy&quot;);'
                 'this.className=&quot;fn ok&quot;}}catch(e){{}}" '
@@ -68,17 +78,68 @@ def main():
                 '<td class="lk">{links}</td></tr>').format(
             cls='done' if got else '', st='&#10003; DONE' if got else 'wanted',
             n=html.escape(name), f=html.escape(e['f'] or '?'), q=e['q'],
+            use=_usage(code),
             code=html.escape(safe(code)), links=links)
 
-    #  the big hitters first - most items behind one photo
-    ordered = sorted(reg.items(), key=lambda kv: -kv[1]['q'])
+    def _usage(code):
+        c, o = seen.get(code, (0, 0))
+        if not c and not o:
+            return ''
+        bits = []
+        if c:
+            bits.append('{} hire cycle{}'.format(c, '' if c == 1 else 's'))
+        if o:
+            bits.append('{} out now'.format(o))
+        return ' &middot; <b class="use">' + ' &middot; '.join(bits) + '</b>'
+
+    #  WHAT THE CREW ACTUALLY SEES, NOT WHAT WE OWN MOST OF.
+    #  (Andrew, 2 Aug 2026.) Ordering by fleet size put 221 tool
+    #  lanyards nobody has ever touched above a grinder that has been
+    #  issued 42 times - so the first photos taken were the ones least
+    #  likely to be looked at. The intelligence engine already knows
+    #  how many hire cycles each variant has had and how many are out
+    #  right now, so the hunt is ranked on that, and falls back to
+    #  fleet size only to break ties.
+    #
+    #  No engine, or no exports to run it on, and the list orders the
+    #  old way - and SAYS so, because a wanted list that has quietly
+    #  changed its mind about what matters is worse than one that
+    #  never claimed to know.
+    seen, rank_note = {}, ''
+    try:
+        import mygear_intel as _MI
+        _rp = gfind('RENTAL_STOCK*.xlsx')
+        _tp = gfind('TRANSACTIONS*.xlsx')
+        _op = gfind('ON_HIRE*.xlsx')
+        _d = _MI.read(_rp, _tp, _op) if _rp else None
+        if _d:
+            for _v in _d['variants']:
+                seen[_v['variant']] = (_v['cycles'], _v['out'])
+            rank_note = ('Ranked by what the crew actually sees &mdash; hire '
+                         'cycles first, then what is out right now, then how '
+                         'many we hold.')
+    except Exception as _e:
+        rank_note = ('Ranked by fleet size only &mdash; the utilisation '
+                     'engine could not be read ({}), so this list does not '
+                     'know what has actually been issued.'
+                     .format(html.escape(str(_e)[:80])))
+    if not seen and not rank_note:
+        rank_note = ('Ranked by fleet size only &mdash; no transaction '
+                     'history to rank on yet.')
+
+    def _pull(kv):
+        c, o = seen.get(kv[0], (0, 0))
+        return (-c, -o, -kv[1]['q'])
+
+    ordered = sorted(reg.items(), key=_pull)
     top = ordered[:60]
     fams = {}
     for code, e in sorted(reg.items(), key=lambda kv: (kv[1]['f'], -kv[1]['q'])):
         fams.setdefault(e['f'] or '?', []).append((code, e))
 
-    secs = ('<div class="sec"><h2>The big hitters &mdash; one photo covers the '
-            'most gear</h2><table>' + ''.join(row(c, e) for c, e in top)
+    secs = ('<div class="sec"><h2>Photograph these first &mdash; the gear '
+            'the crew actually sees</h2><div class="rn">' + rank_note
+            + '</div><table>' + ''.join(row(c, e) for c, e in top)
             + '</table></div>')
     for f in sorted(fams):
         rows = fams[f]
@@ -96,6 +157,8 @@ def main():
             '.hd b{font-size:26px;color:#F26222;letter-spacing:-.5px}'
             '.hd span{color:#fff;font-size:14px;margin-left:8px}'
             '.meta{color:#8A94A2;font-size:12px;margin-bottom:14px}'
+            '.rn{color:#8A94A2;font-size:12px;margin:-4px 0 10px}'
+            '.use{color:#FFA24D;font-weight:800}'
             '.prog{background:#171B22;border:1px solid #2A313C;border-radius:12px;'
             'padding:14px 18px;margin-bottom:18px;font-size:15px}'
             '.prog b{color:#EFFF3D;font-size:22px}'
