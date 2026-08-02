@@ -130,18 +130,34 @@ def read(rental_path, txn_path, today=None):
         return None
 
     #  --- the three signals of "this has been used" ---
+    #  MATCHED ON ITEM NUMBER AS WELL AS BARCODE (2 Aug 2026). This
+    #  used to key on LATEST_BARCODE alone, and that quietly lost 23
+    #  assets on the 29 Jul pull: the stock register spells their
+    #  barcode COA~60593 while the transaction that used them carries a
+    #  different one, so a genuine hire read as "never moved" and the
+    #  ever-used figure came out at 21.3% instead of 21.8%.
+    #
+    #  Item number is the safe key here - 5337 stock rows, 5337 distinct
+    #  item numbers, no duplicates, so it cannot collide. Checked both
+    #  ways: matching on item number finds every asset the barcode finds
+    #  AND those 23; there is not one asset the barcode finds that the
+    #  item number misses. Barcode is kept as the fallback for the two
+    #  stock rows that carry no item number of their own.
     charged, moved = set(), set()
     shifts = collections.defaultdict(float)
+
+    def _keys(r):
+        return [k for k in (_txt(r, 'SKU/ITEM_NUMBER'),
+                            _txt(r, 'LATEST_BARCODE')) if k]
+
     if txn_path and os.path.isfile(txn_path):
         for r in _sheet(txn_path, 'TRANSACTION_CHARGES'):
-            b = _txt(r, 'LATEST_BARCODE')
-            if b:
-                charged.add(b)
-                shifts[b] += _num(r.get('SHIFTS'))
+            ks = _keys(r)
+            charged.update(ks)
+            if ks:
+                shifts[ks[0]] += _num(r.get('SHIFTS'))
         for r in _sheet(txn_path, 'CUSTOMER_CONTRACTOR_EQUIP'):
-            b = _txt(r, 'LATEST_BARCODE')
-            if b:
-                moved.add(b)
+            moved.update(_keys(r))
 
     days_in = max(1, (today - SHUT_START).days)
 
@@ -156,18 +172,20 @@ def read(rental_path, txn_path, today=None):
 
     for r in stock:
         bc = _txt(r, 'ITEM_BARCODE')
+        itm = _txt(r, 'ITEM_NUMBER')
         unit = _txt(r, 'STORAGE_UNIT') or 'Unassigned'
         fam = _txt(r, 'PRODUCT_FAMILY') or 'Other'
         st = _txt(r, 'ITEM_STATUS')
         statuses[st] += 1
         is_out = (st == 'On Hire')
         #  the three-way test - see the header comment
-        is_used = is_out or (bc in charged) or (bc in moved)
+        is_used = (is_out or bc in charged or bc in moved
+                   or (itm and (itm in charged or itm in moved)))
 
         u = units[unit]
         u['n'] += 1
         u['plant'] = _is_plant(unit)
-        u['shifts'] += shifts.get(bc, 0.0)
+        u['shifts'] += shifts.get(itm, shifts.get(bc, 0.0))
         f = fams[fam]
         f['n'] += 1
         total['n'] += 1
