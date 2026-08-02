@@ -69,7 +69,30 @@ GROUPS = [
 ]
 
 #  Statuses that mean the asset is no longer standing on site as plant.
-DEPARTED_STATUS = ('Pending Baseplan', 'Failed Baseplan')
+#  Andrew, 2 Aug 2026: departed gear shows as pending baseplan, "or may
+#  show as available", and "could show as pending branch receipt".
+#  Branch receipt is the branch waiting to book it back in - it has
+#  left site, so it is departed. Available stays OUT of this list on
+#  purpose: it is genuinely ambiguous, and guessing it would be a lie
+#  with a straight face. See the unresolved count.
+DEPARTED_STATUS = ('Pending Baseplan', 'Failed Baseplan',
+                   'Pending Branch Receipt')
+
+#  Statuses this sheet has a rule for. Anything else SiteIQ starts
+#  sending gets NAMED rather than quietly filed under "not seen" - a
+#  status we do not understand is exactly the thing that should surface,
+#  not the thing that should vanish.
+KNOWN_STATUS = DEPARTED_STATUS + ('Available for Hire', 'On Hire',
+                                  'Awaiting Arrival')
+
+
+def _norm_status(s):
+    """Case and spacing must not decide whether gear counts as gone."""
+    return ' '.join(str(s or '').split()).lower()
+
+
+DEPARTED_NORM = {_norm_status(x) for x in DEPARTED_STATUS}
+KNOWN_NORM = {_norm_status(x) for x in KNOWN_STATUS}
 
 S_NODATA = 'NO DATA'
 S_PLANT = 'SITE PLANT'
@@ -194,7 +217,7 @@ def collect(today=None):
             if r is not None:
                 status = MI._txt(r, 'ITEM_STATUS')
                 break
-        departed = status in DEPARTED_STATUS
+        departed = _norm_status(status) in DEPARTED_NORM
         for day_d in days:
             if day_d < src_from or day_d > src_to:
                 out.append(S_NODATA)
@@ -248,6 +271,16 @@ def collect(today=None):
     for r in rows:
         r['util'] = (r['daysUsed'] / source_days) if source_days else 0.0
 
+    #  any status we have no rule for, named so it cannot hide
+    unknown = collections.Counter()
+    for item in on_account:
+        r = stock.get(item)
+        if r is None:
+            continue
+        st = MI._txt(r, 'ITEM_STATUS')
+        if st and _norm_status(st) not in KNOWN_NORM:
+            unknown[st] += 1
+
     rows.sort(key=lambda r: (r['type'] != 'GROUPED', r['desc'] or r['key']))
     return {
         'days': days, 'rows': rows, 'srcFrom': src_from, 'srcTo': src_to,
@@ -267,6 +300,7 @@ def collect(today=None):
         #  into whichever column makes the sheet look tidier.
         'offAccount': sum(r['qty'] for r in rows
                           if r['status'] == MI.READY_STATUS),
+        'unknownStatus': unknown.most_common(),
     }
 
 
@@ -410,6 +444,15 @@ def main():
         d['neverUsed']))
     print(' Departed     : {:,} asset(s) have left site ({})'.format(
         d['departed'], ' / '.join(DEPARTED_STATUS)))
+    if d['unknownStatus']:
+        print(' ' + '!' * 58)
+        print(' SiteIQ sent status values this sheet has no rule for.')
+        print(' They are being treated as "not seen", which may be wrong:')
+        for st, n in d['unknownStatus']:
+            print('     {:<34} {} asset(s)'.format(st[:34], n))
+        print(' Add them to DEPARTED_STATUS or KNOWN_STATUS in')
+        print(' build_flame_off_plant.py once you know which they are.')
+        print(' ' + '!' * 58)
     if d['offAccount']:
         print(' Unresolved   : {:,} asset(s) now read Available for Hire.'
               .format(d['offAccount']))

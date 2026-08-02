@@ -100,9 +100,17 @@ CONTINGENCY_MIN = 1
 HOLDING_ACCOUNT = 'site plant equipment'
 
 #  What "ready to hire" means in ITEM_STATUS terms. Everything else is
-#  either out, not here yet, or stuck in baseplan.
+#  either out, not here yet, or on its way off site.
 READY_STATUS = 'Available for Hire'
 OUT_STATUS = 'On Hire'
+
+#  GEAR THAT HAS LEFT. (Andrew, 2 Aug 2026: departed gear shows as
+#  pending baseplan, or "could show as pending branch receipt".) It is
+#  not part of the fleet any more, so it must not be counted as
+#  mobilised - doing that inflates the surplus and would have this page
+#  recommending a cut to a fleet that has already been cut.
+DEPARTED_STATUS = ('Pending Baseplan', 'Failed Baseplan',
+                   'Pending Branch Receipt')
 
 LIMITS = [
     "Issued is not used. A transaction proves an asset was booked out, "
@@ -605,6 +613,7 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                 'product': a['product'], 'store': a['store'],
                 'units': collections.Counter(),
                 'assets': 0, 'ready': 0, 'out': 0, 'awaiting': 0,
+                'departed': 0,
                 'otherStatus': 0, 'issuedOnce': 0, 'neverIssued': 0,
                 'clientIssuedOnce': 0, 'holdingOnly': 0,
                 'cycles': 0, 'revenue': 0.0, 'pendingRevenue': False,
@@ -620,6 +629,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             s['out'] += 1
         elif a['status'] == 'Awaiting Arrival':
             s['awaiting'] += 1
+        elif a['status'] in DEPARTED_STATUS:
+            s['departed'] += 1
         else:
             s['otherStatus'] += 1
         s['issuedOnce'] += 1 if a['issued'] else 0
@@ -686,7 +697,9 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             if base else 0
         s['contingency'] = buffer_n
         s['recommended'] = base + buffer_n if base else 0
-        mobilised = s['assets'] - s['awaiting']
+        #  what is actually standing on site: not the ones still
+        #  coming, and not the ones that have gone
+        mobilised = s['assets'] - s['awaiting'] - s['departed']
         s['mobilised'] = mobilised
         s['surplus'] = max(0, mobilised - s['recommended'])
         s['short'] = max(0, s['recommended'] - mobilised)
@@ -755,6 +768,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         'out': sum(1 for a in assets.values() if a['status'] == OUT_STATUS),
         'awaiting': sum(1 for a in assets.values()
                         if a['status'] == 'Awaiting Arrival'),
+        'departed': sum(1 for a in assets.values()
+                        if a['status'] in DEPARTED_STATUS),
         'issuedOnce': sum(1 for a in assets.values() if a['issued']),
         'neverIssued': sum(1 for a in assets.values() if not a['issued']),
         'clientIssuedOnce': sum(1 for a in assets.values() if a['clientIssued']),
