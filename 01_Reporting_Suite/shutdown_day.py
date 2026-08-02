@@ -42,9 +42,59 @@ LAST_DAY = 20            # 13/08/2026
 #  Days that have a name of their own. Add to this as the job runs -
 #  a named day on a report is worth ten lines of explanation.
 MILESTONES = {
+    -4: 'GEAR ON HIRE',
     0: 'FLAME OFF',
+    1: 'FIRST NIGHTSHIFT',
     9: 'POWER OUTAGE',
 }
+
+#  HOW THE JOB IS ACTUALLY MANNED AND MOBILISED. (Andrew, 2 Aug 2026:
+#  "majority of gear startee going onhire on the 20/07/2026, first
+#  nightshift stafted Saturday 26/07/2026, dayshift workforce 220,
+#  nightshift workforce 100".)
+#
+#  These are not decoration. Without them a fleet is judged against
+#  nothing:
+#    * MOBILISED is the day the gear actually started going out. Days
+#      before it are not idle days - there was nothing to issue yet -
+#      and measuring across them marks every asset down for the fact
+#      the job had not started.
+#    * NIGHTSHIFT_FROM is the day the site went to two shifts. Peak
+#      concurrent demand before and after that date are two different
+#      questions, and a fleet sized on the single-shift half of the job
+#      will be short the moment nights start.
+#    * The head counts are what "enough" means. 23 gas monitors ready
+#      is a number; 23 for 220 blokes on dayshift is a decision.
+#
+#  Change them here and every report follows.
+MOBILISED = dt.date(2026, 7, 20)          # day -4
+#  Andrew first gave this as "Saturday 26/07/2026", but 26 July 2026 is
+#  a Sunday - 24 July is the Friday, which is Day 0 on his own sheet.
+#  Checked with him: the shift went on Saturday EVENING the 25th and ran
+#  into Sunday morning. It is anchored to the 25th because the 06:00 to
+#  06:00 operational day already puts those small hours on the day the
+#  shift started - see DAY_START_HOUR in mygear_intel.
+NIGHTSHIFT_FROM = dt.date(2026, 7, 25)    # day +1, the Saturday night
+WORKFORCE = {'day': 220, 'night': 100}
+
+
+def workforce(d=None):
+    """Heads on site for a given day - nights only count once they start."""
+    d = d or dt.date.today()
+    if isinstance(d, dt.datetime):
+        d = d.date()
+    n = WORKFORCE['night'] if d >= NIGHTSHIFT_FROM else 0
+    return {'day': WORKFORCE['day'], 'night': n,
+            'total': WORKFORCE['day'] + n,
+            'shifts': 2 if n else 1}
+
+
+def mobilised(d=None):
+    """Has the gear started going out yet on this date?"""
+    d = d or dt.date.today()
+    if isinstance(d, dt.datetime):
+        d = d.date()
+    return d >= MOBILISED
 
 
 def day(d=None):

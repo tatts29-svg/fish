@@ -761,6 +761,23 @@ def build(today=None):
     # --- ready fleets
     H.append("<h2>Ready fleets <span>&mdash; a radio without a battery is "
              "not a radio</span></h2>")
+    #  HEADS ON SITE ARE WHAT "ENOUGH" MEANS. 23 gas monitors ready is a
+    #  number; 23 for 220 blokes on dayshift is a decision. The counts
+    #  live in shutdown_day.py so one file owns the job's facts.
+    _wf = None
+    try:
+        import shutdown_day as _SD
+        _wf = _SD.workforce(today)
+    except Exception:
+        _wf = None
+    if _wf:
+        H.append("<div class='lede'>Measured against the crew actually on "
+                 "site: <b>{d}</b> on dayshift{n}. Nightshift is counted "
+                 "from {ns}.</div>".format(
+                     d=_wf['day'],
+                     n=(" and <b>%d</b> on nights" % _wf['night'])
+                     if _wf['night'] else " (nights had not started yet)",
+                     ns=_SD.NIGHTSHIFT_FROM.strftime('%d %b %Y').lstrip('0')))
     for f in fleets:
         if f['mate'] if 'mate' in f else False:
             pass
@@ -781,6 +798,19 @@ def build(today=None):
                        'in {}'.format(f['name'].lower())))
         H.append(_tile('{}'.format(f['items']['total']), 'IN THE FLEET',
                        'handsets on the register'))
+        if _wf:
+            #  A RATIO, NOT A SHORTFALL. The first cut showed this as
+            #  "10% cover", which reads as ninety per cent short - and
+            #  that is not true, because not every bloke on site needs a
+            #  gas monitor or a radio. The page states the ratio and
+            #  stops; who needs one is a call the page cannot make and
+            #  should not imply.
+            per = ('1 per {:.0f}'.format(_wf['day'] / f['readySets'])
+                   if f['readySets'] else 'none ready')
+            H.append(_tile(per, 'READY PER DAYSHIFT HEAD',
+                           '{} complete set(s) for {} on days &mdash; how '
+                           'many of them need one is your call, not the '
+                           'page\'s'.format(f['readySets'], _wf['day'])))
         H.append("</div>")
     H.append("<div class='limits'>Pairing is read off the descriptions "
              "&mdash; Motorola DP4801e handsets against Motorola IMPRES "

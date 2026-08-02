@@ -431,6 +431,10 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                     end = cap
                 elif cap and end and end > cap:
                     end = cap
+                if floor and start < floor:
+                    start = floor
+                if end and start > end:
+                    continue
                 a['firstOut'] = min(a['firstOut'] or start, start)
                 a['lastOut'] = max(a['lastOut'] or start, end or start)
                 #  COLLECTED, NOT SUMMED. The same physical hire can
@@ -481,6 +485,18 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
     #  this engine was dividing by days-since-flame-off, which is a
     #  different and more flattering number every morning.
     src_from = src_to = None
+    #  MEASURE FROM MOBILISATION. (Andrew, 2 Aug 2026: "majority of gear
+    #  startee going onhire on the 20/07/2026".) Days before the gear
+    #  started going out are not idle days - there was nothing to issue
+    #  yet - so counting them marks every asset down for the job not
+    #  having started. Same principle as his NO DATA rule, at the other
+    #  end of the window.
+    mob = None
+    try:
+        import shutdown_day as _SD
+        mob = getattr(_SD, 'MOBILISED', None)
+    except Exception:
+        mob = None
     if txn_path and os.path.isfile(txn_path):
         tc_rows = _sheet(txn_path, 'TRANSACTION_CHARGES')
         ec_rows = _sheet(txn_path, 'CUSTOMER_CONTRACTOR_EQUIP')
@@ -508,8 +524,16 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                 merged_names[n].add(a['variant'])
             a['variant'] = n
 
-    if src_to:
-        cap = dt.datetime.combine(src_to, dt.time(23, 59, 59))
+    #  the window everything is measured in: from the later of the
+    #  export's first day and mobilisation, to the export's last day
+    win_from = src_from
+    if src_from and mob and mob > src_from:
+        win_from = mob
+    win_to = src_to
+    if win_to:
+        cap = dt.datetime.combine(win_to, dt.time(23, 59, 59))
+    floor = (dt.datetime.combine(win_from, dt.time(0, 0))
+             if win_from else None)
     if tc_rows or ec_rows:
         _activity(tc_rows, True)
         _activity(ec_rows, False)
@@ -558,7 +582,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
 
     days_in = max(1, (today - SHUT_START).days)
     #  the denominator every utilisation figure on this page divides by
-    source_days = ((src_to - src_from).days + 1) if (src_from and src_to) else 0
+    source_days = ((win_to - win_from).days + 1) if (win_from and win_to) else 0
+    supplied_days = ((src_to - src_from).days + 1) if (src_from and src_to) else 0
 
     # ---------------- per variant ------------------------------------
     #  An asset with no PRODUCT_VARIANT cannot be compared with anything,
@@ -753,9 +778,13 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         'asof': today.isoformat(),
         'shutStart': SHUT_START.isoformat(),
         'daysIn': days_in,
-        'sourceFrom': src_from.isoformat() if src_from else '',
-        'sourceTo': src_to.isoformat() if src_to else '',
+        'sourceFrom': win_from.isoformat() if win_from else '',
+        'sourceTo': win_to.isoformat() if win_to else '',
         'sourceDays': source_days,
+        'suppliedFrom': src_from.isoformat() if src_from else '',
+        'suppliedTo': src_to.isoformat() if src_to else '',
+        'suppliedDays': supplied_days,
+        'mobilised': mob.isoformat() if mob else '',
         'dayStartHour': DAY_START_HOUR,
         'contingencyPct': CONTINGENCY_PCT,
         'totals': tot,
