@@ -71,6 +71,35 @@ def email_weight_mb(paths):
     return total * 1.37 / 1048576.0 + 0.5
 
 
+def pages_that_fit(png_paths, label=""):
+    """The pages, or none of them if the email would be too heavy.
+
+    The rule was written once and then remembered six times, which is
+    the same as not having a rule: of the six places that paste a report
+    into an email body, only two checked the weight. DGH's on-hire
+    report came out at 32 pages and 10.0 MB through one of the four that
+    did not - over the limit, and it would have bounced AFTER Andrew
+    pressed send, which is the worst possible place to find out
+    (3 Aug 2026).
+
+    Empty means "put the PDF on the paperclip instead": every caller
+    already has that path, and it is the same report to the same people.
+    The reason is printed, never swallowed - a report that quietly
+    changed shape is one nobody can explain at the other end.
+    """
+    if not png_paths:
+        return png_paths
+    mb = email_weight_mb(png_paths)
+    if mb <= MAX_EMAIL_MB:
+        return png_paths
+    print("  {}{} pages would make a {:.1f} MB email - over the {:.0f} MB "
+          "safe-send limit, so the PDF rides the paperclip instead and "
+          "the body stays light.".format(
+              (label + ": ") if label else "", len(png_paths), mb,
+              MAX_EMAIL_MB))
+    return []
+
+
 def _tmp_dir():
     """Somewhere to put browser profiles. TEMP is a Windows variable -
     on anything else it was dropping profile folders into the kit."""

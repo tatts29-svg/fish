@@ -2427,7 +2427,9 @@ def generate_demob(models, stocktake, asof, generated, source_line, date_tag):
     attach = pdf_path if pdf_ok else html_path
     # the demob pack itself, pasted into the email body as images in order
     r_to, r_cc = recipients.resolve(KIT_DIR, "", "DEMOB")
-    imgs = email_images.capture_report_images(html_path, EMAILS_DIR, stem)
+    imgs = email_images.pages_that_fit(
+        email_images.capture_report_images(html_path, EMAILS_DIR, stem),
+        "Demob pack")
     if imgs:
         msg = email_images.build_image_eml(subject, imgs, to=r_to, cc=r_cc)
         email_images.save_eml(msg, eml_path)
@@ -2791,7 +2793,9 @@ def generate_consumables(sales, sales_loaded, asof, generated, source_line,
     attach_path = pdf_path if pdf_ok else html_path
     # the consumables report itself, pasted into the email body as images
     r_to, r_cc = recipients.resolve(KIT_DIR, "", "CONSUMABLES")
-    imgs = email_images.capture_report_images(html_path, EMAILS_DIR, stem)
+    imgs = email_images.pages_that_fit(
+        email_images.capture_report_images(html_path, EMAILS_DIR, stem),
+        "Consumables report")
     if imgs:
         msg = email_images.build_image_eml(subject, imgs, to=r_to, cc=r_cc)
         email_images.save_eml(msg, eml_path)
@@ -6608,6 +6612,25 @@ def generate_mygear_mail(models, asof, generated, source_line, date_tag):
         with open(html_path, "w", encoding="utf-8") as f:
             f.write(doc)
         imgs = email_images.capture_report_images(html_path, EMAILS_DIR, stem)
+        #  THIS ONE TRIMS, IT DOES NOT DROP. Everywhere else too-heavy
+        #  means "PDF on the paperclip instead" - but a person's My Gear
+        #  mail has no attachment path behind it, so emptying the list
+        #  here would silently send them nothing at all. A bloke with a
+        #  lot of gear out is exactly the one who needs the mail. So the
+        #  pages that fit go in the body, and the message says plainly
+        #  how many were left off and where to read the rest.
+        if imgs and email_images.email_weight_mb(imgs) \
+                > email_images.MAX_EMAIL_MB:
+            _keep = list(imgs)
+            while _keep and email_images.email_weight_mb(_keep) \
+                    > email_images.MAX_EMAIL_MB:
+                _keep.pop()
+            print("  ! {}: {} pages is over the {:.0f} MB safe-send limit "
+                  "- first {} page(s) in the body, full list on the Gear "
+                  "Lookup page.".format(
+                      p["name"], len(imgs), email_images.MAX_EMAIL_MB,
+                      len(_keep)))
+            imgs = _keep
         subject = "Coates K2 - your shutdown story - {} item{} in your name".format(
             out_now, "" if out_now == 1 else "s")
         if imgs:
@@ -10024,6 +10047,9 @@ def write_eml(m, asof, attach_path, eml_path, date_tag, generated=None,
     if html_path:
         stem = os.path.splitext(os.path.basename(html_path))[0]
         imgs = email_images.capture_report_images(html_path, EMAILS_DIR, stem)
+        #  too heavy = the PDF-attached form below. Same report, same
+        #  people, always arrives.
+        imgs = email_images.pages_that_fit(imgs, m["display"])
         if imgs:
             msg = email_images.build_image_eml(subject, imgs, to=r_to, cc=r_cc)
             email_images.save_eml(msg, eml_path)
