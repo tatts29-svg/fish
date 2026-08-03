@@ -1102,6 +1102,26 @@ def build():
         #  file wins the wording everywhere - but a lever block's
         #  tonnage is not wording, and if his file and SiteIQ disagree
         #  about one, that is his call to make, not mine to bury.
+        #  YOUR LOCKED-IN CALLS, COUNTED. RENAME_DECISIONS.txt promises
+        #  nothing in it is silent, and a rule that changes 48 assets'
+        #  names without saying so is exactly the thing this suite keeps
+        #  catching in other people's code (3 Aug 2026).
+        try:
+            if MASTER.decisions or MASTER.approved:
+                _dn = collections.Counter()
+                for _it, _raw in RAW_DESC_OF_ITEM.items():
+                    _k = MASTER._dkey(_raw) if hasattr(MASTER, '_dkey') \
+                        else master_equipment._dkey(_raw)
+                    if _k in MASTER.decisions:
+                        _dn[MASTER.decisions[_k]] += 1
+                print('  Your locked-in calls (RENAME_DECISIONS.txt): {} '
+                      'rename rule(s), {} approved as-is.'.format(
+                          len(MASTER.decisions), len(MASTER.approved)))
+                for _name, _n in _dn.most_common(6):
+                    print('    {:>5,}  asset(s) now read "{}"'.format(
+                        _n, _name))
+        except Exception as _e:
+            print('  NOTE: naming decisions not summarised ({}).'.format(_e))
         try:
             _nt = MASTER.name_tally(RAW_DESC_OF_ITEM.items())
             print('  Your wording: {:,} asset(s) named from your file by '

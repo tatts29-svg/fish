@@ -1,0 +1,58 @@
+# =====================================================================
+#  COATES | K2 - LOCKED-IN NAMING DECISIONS
+#  Cement Australia K2 Shutdown 2026 - Gladstone
+#  Author: Andrew Fisher
+#
+#  The change-of-description file (K2_MASTER_EQUIPMENT_PRICING.xlsx)
+#  renames gear by ASSET NUMBER. This file is for the calls that are
+#  not about one asset - where SiteIQ's own wording is wrong, or where
+#  two spellings of the same thing need to come under one name across
+#  the whole register, whether or not each asset happens to be listed.
+#
+#  It is also the record of a DECISION. When the master file disagrees
+#  with SiteIQ about a size or a rated capacity, the build shouts about
+#  it every run - correctly, because a rated capacity is not wording.
+#  A line here says "I looked at that and this is the right answer",
+#  and the build stops asking. Anything NEW still gets flagged; only
+#  what is written here goes quiet.
+#
+#  HOW TO WRITE A RULE
+#     Hose - Air - 19mm  =>  19 mm Air Hose      rename this wording
+#     Cumalong - 1.6T x 1.5M  =>  KEEP           approve what the
+#                                                master already does
+#
+#  Case and spacing do not matter. A line starting with # is a note.
+#  Delete a line and the build goes back to asking about it.
+#  Every rule applied is printed on every run - nothing here is silent.
+# =====================================================================
+
+# --- Andrew, 3 Aug 2026 ----------------------------------------------
+#  "anything 1.6t cumalong we are changing all to 1.5t please lock that
+#  in"
+#
+#  SiteIQ has these 18 assets at 1.6 T; the master file names them
+#  1.5 t. Andrew's call, and it is now the answer - the build no longer
+#  reports it as a capacity conflict. 18 assets.
+Cumalong - 1.6T x 1.5M  =>  KEEP
+
+# --- Andrew, 3 Aug 2026 ----------------------------------------------
+#  "anything 25mm air hose we are changing to 19mm, any air hoses that
+#  are 3/4 air hose fall under the one name"
+#
+#  Three spellings of the same hose. 3/4 inch IS 19 mm, and the 25 mm
+#  line is a SiteIQ wording error Andrew has ruled on. All of them read
+#  "19 mm Air Hose" from here on - one name on the shelf, on the
+#  counter sheet, on the crew cards and in the workers' catalogue.
+#
+#     57 assets   Hose - Air - 19mm                    (was untouched)
+#     19 assets   Hose - Air - Type A - 19mm - 3/4inch
+#      8 assets   Hose - Air - Type A - 25mm - 20m     (SiteIQ says 25)
+#     --
+#     84 assets under one name
+#
+#  NOT included, on purpose: the 13 mm / 1/2 inch hoses are a different
+#  size and keep their own name, and the Minsup fittings are adaptors,
+#  not hose.
+Hose - Air - 19mm  =>  19 mm Air Hose
+Hose - Air - Type A - 19mm - 3/4inch  =>  19 mm Air Hose
+Hose - Air - Type A - 25mm - 20m  =>  19 mm Air Hose

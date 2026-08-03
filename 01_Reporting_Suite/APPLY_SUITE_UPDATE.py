@@ -106,6 +106,11 @@ PROTECTED = (
 #  short, explicit, and holds no code and no credentials.
 SEED_ONCE = (
     "hidden_items.txt",
+    #  Andrew's locked-in naming calls. Same rule as the hidden list: it
+    #  has to ARRIVE the first time, and after that it is his file - an
+    #  update must never overwrite a decision he has made on site
+    #  (3 Aug 2026, the 1.6T cumalongs and the 3/4 air hose).
+    "rename_decisions.txt",
     #  the Baseplan serial listing, so serials work out of the box; a
     #  newer export dropped in Data_Serials\\ always wins from then on
     "serial_no_shutdowns.xlsx",

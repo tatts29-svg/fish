@@ -44,8 +44,50 @@ MASTER_PATTERN = "K2_MASTER_EQUIPMENT_PRICING*.xlsx"
 _HERE = os.path.dirname(os.path.abspath(__file__))
 
 
+DECISIONS_FILE = "RENAME_DECISIONS.txt"
+
+
+def _load_decisions(base):
+    """Andrew's locked-in naming calls. See RENAME_DECISIONS.txt.
+
+    Two kinds of line, both keyed on SiteIQ's own wording:
+      "<siteiq wording>  =>  <the name it reads>"   a rename
+      "<siteiq wording>  =>  KEEP"                  approve the master's
+                                                    answer and stop
+                                                    asking about it
+
+    Returns (renames, approved). Missing file = both empty and the suite
+    behaves exactly as it did before the file existed.
+    """
+    ren, keep = {}, set()
+    p = os.path.join(base or _HERE, DECISIONS_FILE)
+    if not os.path.isfile(p):
+        return ren, keep
+    try:
+        with open(p, encoding="utf-8", errors="replace") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line or line.startswith("#") or "=>" not in line:
+                    continue
+                left, right = line.split("=>", 1)
+                k, v = _dkey(left), right.strip()
+                if not k or not v:
+                    continue
+                if v.upper() == "KEEP":
+                    keep.add(k)
+                else:
+                    ren[k] = v
+    except OSError:
+        pass
+    return ren, keep
+
+
 class Master(object):
     def __init__(self):
+        #  Andrew's locked-in calls, applied over the top of the
+        #  spreadsheet - see RENAME_DECISIONS.txt
+        self.decisions = {}
+        self.approved = set()
         self.by_item = {}
         #  SiteIQ's old wording -> Andrew's new wording, built from the
         #  master file's own two description columns. See _index_desc.
@@ -103,10 +145,17 @@ class Master(object):
         Both stay on SiteIQ's words and get counted in the build.
         A rename nobody chose is not a tidier name.
         """
+        #  A LOCKED-IN DECISION OUTRANKS EVERYTHING, including the
+        #  asset's own row. That is the point of it: "any air hoses that
+        #  are 3/4 fall under the one name" is a call about the whole
+        #  register, not about whichever assets happen to be listed by
+        #  number - and 57 of the 84 hoses were not (Andrew, 3 Aug 2026).
+        k = _dkey(fallback)
+        if k and k in self.decisions:
+            return self.decisions[k]
         r = self.rec(item_number)
         if r and r["new_desc"]:
             return r["new_desc"]
-        k = _dkey(fallback)
         if k and k in self.by_desc:
             return self.by_desc[k]
         return fallback
@@ -193,6 +242,8 @@ class Master(object):
             new = self.disp(item, raw)
             if not new or new == raw:
                 continue
+            if _dkey(raw) in self.approved or _dkey(raw) in self.decisions:
+                continue
             seen.setdefault(new, {}).setdefault(raw, 0)
             seen[new][raw] += 1
         out = []
@@ -238,6 +289,12 @@ class Master(object):
                 continue
             a, b = _tonnes(raw), _tonnes(new)
             if not (a and b) or a == b:
+                continue
+            #  ...unless he has already looked at it and ruled. A
+            #  decision recorded in RENAME_DECISIONS.txt is an answer,
+            #  and a build that keeps asking a question already answered
+            #  trains people to scroll past the ones that are new.
+            if _dkey(raw) in self.approved or _dkey(raw) in self.decisions:
                 continue
             k = (raw, new)
             if k in seen:
@@ -518,6 +575,7 @@ def load(base_dir=None, quiet=False):
             if rec["ret"]:
                 m.n_ret += 1
         wb.close()
+        m.decisions, m.approved = _load_decisions(base)
         _index_desc(m, base)
         m.path = path
         m.mtime = dt.datetime.fromtimestamp(os.path.getmtime(path))
