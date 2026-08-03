@@ -80,6 +80,33 @@ except Exception:                                    # pragma: no cover
     _K2 = None
     SHUT_START = dt.date(2026, 7, 13)
 
+_MASTER_CACHE = [None]
+
+
+def _tidy_desc(desc, item=''):
+    """SiteIQ's words run through the change-of-description file.
+
+    Loaded once, lazily: mygear_intel is imported by nearly everything,
+    and a module-level import of the master reader would tie the
+    dependency graph in a knot for no gain.
+    """
+    if _MASTER_CACHE[0] is None:
+        try:
+            import master_equipment as _ME
+            _MASTER_CACHE[0] = _ME.load(
+                os.path.dirname(os.path.abspath(__file__)), quiet=True)
+        except Exception:
+            _MASTER_CACHE[0] = False
+    m = _MASTER_CACHE[0]
+    if not m:
+        return desc
+    try:
+        import mygear_store as _MST
+        return (_MST._tidy(desc, m, item) or desc or '').strip()
+    except Exception:
+        return desc
+
+
 #  The operational day runs 06:00 to 06:00. A radio booked out at 02:00
 #  belongs to the night shift that started the evening before, not to a
 #  new day - counting it as a new day would put a phantom peak in every
@@ -359,7 +386,22 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         assets[item] = {
             'item': item,
             'bc': _txt(r, 'ITEM_BARCODE'),
-            'desc': _txt(r, 'ITEM_DESCRIPTION'),
+            #  ANDREW'S WORDING, NOT SITEIQ'S (3 Aug 2026: "just making
+            #  sure your using the change of description file"). I was
+            #  not, here - and 4,393 of these 5,380 assets (82%) are
+            #  renamed by the master equipment list. So Fleet Details,
+            #  the crew page and Utilisation Control read "Motorola
+            #  NNTN8129 IMPRES Battery" while the stores board and the
+            #  workers' catalogue read "Radio Battery - Motorola
+            #  NNTN8129 IMPRES". One store, two vocabularies, and the
+            #  split ran through the middle of the suite.
+            #
+            #  The RAW description is kept alongside: photo keys and the
+            #  do-not-offer words are derived from what SiteIQ actually
+            #  wrote, and deriving them from a renamed string is exactly
+            #  how the crowsfoot photos went missing.
+            'descRaw': _txt(r, 'ITEM_DESCRIPTION'),
+            'desc': _tidy_desc(_txt(r, 'ITEM_DESCRIPTION'), item),
             'variant': _variant(r),
             'family': _txt(r, 'PRODUCT_FAMILY') or 'Other',
             'product': _txt(r, 'PRODUCT'),
@@ -477,9 +519,14 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                     o['lines'] += 1
                 continue
             money['asset'] += total
+            #  the fleet's display name comes off the charge feed's
+            #  PRODUCT_VARIANT wording, which is SiteIQ's - run it
+            #  through the change-of-description file too, or Fleet
+            #  Details keeps the raw name after every other screen has
+            #  moved to Andrew's (3 Aug 2026)
             vn = norm_variant(_variant(r))
             if vn and a['variant'] and a['variant'] not in variant_name:
-                variant_name[a['variant']] = vn
+                variant_name[a['variant']] = _tidy_desc(vn, item)
             start = _stamp(r.get('TRAN_START_DATE'), r.get('TRAN_START_TIME'))
             end = _stamp(r.get('TRAN_END_DATE'), r.get('TRAN_END_TIME'))
             hirer = _txt(r, 'HIRER_NAME')

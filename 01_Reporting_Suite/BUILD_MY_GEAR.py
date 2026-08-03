@@ -219,6 +219,11 @@ def read_onhire(path):
 #  in their name"). Filled by read_rental as it walks the register.
 VAR_OF_ITEM = {}
 ALT_OF_ITEM = {}
+#  what SiteIQ actually wrote for each asset, before the
+#  change-of-description file has its say. Kept so the build can check
+#  that a rename never moved a rated capacity - see the rating-conflict
+#  line in the reconciliation printout (3 Aug 2026).
+RAW_DESC_OF_ITEM = {}
 
 
 def read_rental(path):
@@ -238,6 +243,9 @@ def read_rental(path):
         if not r: continue
         bc = str(r[ix['ITEM_BARCODE']] or '').strip().upper()
         _itm2 = str(r[ix['ITEM_NUMBER']] or '').strip()
+        if _itm2 and _itm2 not in RAW_DESC_OF_ITEM:
+            RAW_DESC_OF_ITEM[_itm2] = str(
+                r[ix['ITEM_DESCRIPTION']] or '').strip()
         if _itm2 and 'PRODUCT_VARIANT' in ix and _itm2 not in VAR_OF_ITEM:
             _v = str(r[ix['PRODUCT_VARIANT']] or '').strip().upper()
             if _v:
@@ -1074,6 +1082,46 @@ def build():
         if _hid:
             print('    ({} consumable line(s) held back by your '
                   'HIDDEN_ITEMS list)'.format(_hid))
+        #  A rename that moved a rated capacity, said out loud. Andrew's
+        #  file wins the wording everywhere - but a lever block's
+        #  tonnage is not wording, and if his file and SiteIQ disagree
+        #  about one, that is his call to make, not mine to bury.
+        try:
+            _nt = MASTER.name_tally(RAW_DESC_OF_ITEM.items())
+            print('  Your wording: {:,} asset(s) named from your file by '
+                  'number, {:,} by matching wording, {:,} still on '
+                  "SiteIQ's words.".format(
+                      _nt['item'], _nt['wording'], _nt['siteiq']))
+        except Exception as _e:
+            print('  NOTE: naming tally did not run ({}).'.format(_e))
+        try:
+            _rc = MASTER.rating_conflicts(RAW_DESC_OF_ITEM.items())
+            if _rc:
+                print('  CHECK - the change-of-description file moves a '
+                      'RATED CAPACITY on {} asset(s):'.format(
+                          sum(x[2] for x in _rc)))
+                for _raw, _new, _n, _a, _b in _rc[:8]:
+                    print('    {:4d} x  SiteIQ "{}"  ->  yours "{}"'.format(
+                        _n, _raw, _new))
+                print('         Yours is what every screen and print '
+                      'shows. Tell me which number is right and I will '
+                      'fix the other.')
+            #  And the same question asked of SiteIQ alone: one set of
+            #  words covering two different products. On the 3 Aug pull
+            #  a GIRDERTROLLEY1T and a GIRDERTROLLEY2T are both
+            #  described "Girder Trolley - 1t" in the register, so a
+            #  2 t trolley reads 1 t on the shelf. Nothing here renames
+            #  it - that is a SiteIQ correction, not a reporting one -
+            #  but the build will not walk past it either.
+            if MASTER.desc_ambig:
+                print('  CHECK - {} description(s) in SiteIQ cover more '
+                      'than one product, so your renames are held back '
+                      'on them:'.format(len(MASTER.desc_ambig)))
+                for _k, _vs in list(MASTER.desc_ambig.items())[:5]:
+                    print('    "{}"  is  {}'.format(_k, ' and '.join(_vs)))
+        except Exception as _e:
+            print('  NOTE: rated-capacity cross-check did not run '
+                  '({}).'.format(_e))
         if _pr:
             print('  Manager layer: ${:,.2f}/day on hire, {} zero-rate '
                   'line(s) flagged.'.format(_pr['perDay'], _pr['zeroN']))
@@ -1131,14 +1179,23 @@ def build():
         if os.path.isdir(_tdir):
             _THUMBSET = sorted(f[:-4] for f in os.listdir(_tdir)
                                if f.lower().endswith('.jpg'))
+        #  COUNT THE THUMBNAILS, NOT THE SOURCE PHOTOS. refresh() reports
+        #  how many codes it could trace back to a file in Photos\, which
+        #  is not the same question: a thumbnail that arrived in an
+        #  update zip has no source photo on this machine and was being
+        #  counted as absent. On 3 Aug that printed "0 of 1154 variants
+        #  have a photo" while 36 thumbnails sat in the folder and drew
+        #  perfectly on the phone - the pages were right and the line
+        #  about them was wrong, which is the worse way round.
+        _have = len(_THUMBSET) if _THUMBSET is not None else _ready
         print('  Gear pictures: {} of {} variants have a photo{} - run '
               '56_PHOTO_HUNT for the wanted list.'.format(
-                  _ready, _reg,
+                  _have, _reg,
                   ' ({} shrunk this build)'.format(_made) if _made else ''))
-        if _reg and _ready < _reg:
+        if _reg and _have < _reg:
             print('    The other {} draw a two-letter tile instead - no '
                   'empty boxes, and no wasted lookups on the store '
-                  'Wi-Fi.'.format(_reg - _ready))
+                  'Wi-Fi.'.format(_reg - _have))
     except Exception as _e:
         #  No manifest = every tile falls back to asking, exactly as it
         #  did before. Degraded, not broken.

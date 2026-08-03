@@ -821,7 +821,14 @@ def read(rental_path, stocktake_path, master=None, today=None,
                             'd': _dd.isoformat(), 't': _tt, 'x': _dir,
                             'i': (str(_r3[_ci] or '').strip()
                                   if _ci is not None else ''),
-                            'n': (str(_r3[_cd] or '').strip()[:44]
+                            #  the change-of-description file applies
+                            #  here too - this list was shipping raw
+                            #  SiteIQ wording while every other pane on
+                            #  the same board showed Andrew's
+                            #  (3 Aug 2026)
+                            'n': (MS._tidy(_r3[_cd], master,
+                                        str(_r3[_ci] or '')
+                                        if _ci is not None else '')[:44]
                                   if _cd is not None else ''),
                             'w': (str(_r3[_cw] or '').strip()[:26]
                                   if _cw is not None else ''),
@@ -913,8 +920,16 @@ def read(rental_path, stocktake_path, master=None, today=None,
             age = (today - d).days
             stock['total'] += 1
             _u_st = sg(r, 'STORAGE_UNIT') or 'Unfiled'
-            _nm_st = sg(r, 'DESCRIPTION')[:60]
             _it_st = sg(r, 'ITEM_OR_CONSUMABLE') or sg(r, 'SKU_NUMBER')
+            #  the counting sheet reads Andrew's wording like everything
+            #  else. This line was still handing the night shift SiteIQ's
+            #  raw STOCKTAKE description - so the aisle list said
+            #  "Cumalong - 3.0t" while the shelf, the crew page and the
+            #  worker's own phone all said "3 t Lever Block", and the
+            #  bloke walking the aisle had to know they were the same
+            #  thing (3 Aug 2026). The rename is keyed on the item
+            #  number, which is why it is read first.
+            _nm_st = MS._tidy(sg(r, 'DESCRIPTION'), master, _it_st)[:60]
             _sfl = ('A' if _st_raw in ('Available for Hire',
                                        'In Stock', 'Stock Low') else 'X')
             _bk = (1 if age <= 1 else 3 if age <= 3 else 7 if age <= 7

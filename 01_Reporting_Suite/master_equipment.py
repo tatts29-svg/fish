@@ -37,6 +37,7 @@
 
 import os
 import glob
+import re
 import datetime as dt
 
 MASTER_PATTERN = "K2_MASTER_EQUIPMENT_PRICING*.xlsx"
@@ -46,6 +47,13 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 class Master(object):
     def __init__(self):
         self.by_item = {}
+        #  SiteIQ's old wording -> Andrew's new wording, built from the
+        #  master file's own two description columns. See _index_desc.
+        self.by_desc = {}
+        self.desc_split = {}
+        #  wordings SiteIQ uses for more than one product - never
+        #  carried by wording alone. See _index_desc.
+        self.desc_ambig = {}
         self.path = None
         self.mtime = None
         self.n_renames = 0
@@ -66,10 +74,41 @@ class Master(object):
 
     def disp(self, item_number, fallback):
         """Displayed name: the master's NEW_DESCRIPTION when this asset
-        has one, otherwise whatever the export said. Never blank."""
+        has one, otherwise whatever the export said. Never blank.
+
+        Two lookups, in order of how much they know:
+
+        1. THIS ASSET NUMBER. Exact, and it always wins - if Andrew has
+           named asset 1258193 specifically, that is its name.
+
+        2. THIS WORDING. The master covers 4,400-odd asset numbers, not
+           all 5,380, and the gap is not tidy: of the assets SiteIQ
+           calls "Bow Shackle - Alloy 3.25t", 13 are in his file and 17
+           are not. Keyed on the number alone, thirteen shackles read
+           "Shackle - Bow - Alloy - 3.25 t" and seventeen identical
+           shackles sat next to them still reading "Bow Shackle" - the
+           same product under two names on one screen, which is the
+           exact complaint the master file exists to end (3 Aug 2026).
+
+           So an asset with no entry of its own inherits the name his
+           file gives that wording elsewhere. Nothing is invented: the
+           new name is one he wrote, for gear SiteIQ describes with the
+           same words.
+
+        Step 2 is fenced twice, because a name carried too far is worse
+        than a raw one. It never fires for a wording SiteIQ uses for
+        more than one product (`desc_ambig` - three different boards are
+        all "Distribution Board"), and it never fires where his file has
+        renamed the same wording two irreconcilable ways (`desc_split`).
+        Both stay on SiteIQ's words and get counted in the build.
+        A rename nobody chose is not a tidier name.
+        """
         r = self.rec(item_number)
         if r and r["new_desc"]:
             return r["new_desc"]
+        k = _dkey(fallback)
+        if k and k in self.by_desc:
+            return self.by_desc[k]
         return fallback
 
     def price(self, item_number):
@@ -108,6 +147,204 @@ class Master(object):
     @property
     def n_compliance(self):
         return self.n_elec + self.n_rig + self.n_log + self.n_ret
+
+    def name_tally(self, pairs):
+        """Where each asset's displayed name came from.
+
+        Returns {'item': n, 'wording': n, 'siteiq': n} over any iterable
+        of (item_number, siteiq_description). The middle bucket is the
+        one worth watching: those assets are not in the master by number
+        and take their name from what Andrew called the same wording
+        elsewhere. Correct, and it should still be said out loud.
+        """
+        t = {"item": 0, "wording": 0, "siteiq": 0}
+        for item, raw in pairs:
+            r = self.rec(item)
+            if r and r["new_desc"]:
+                t["item"] += 1
+            elif _dkey(raw) in self.by_desc:
+                t["wording"] += 1
+            else:
+                t["siteiq"] += 1
+        return t
+
+    def rating_conflicts(self, pairs):
+        """Renames where the rated capacity itself moved.
+
+        The change-of-description file is Andrew's own wording and it is
+        meant to win - "Cumalong - 3.0t" reading "3 t Lever Block" on
+        every screen is the whole point of it. But a lever block's
+        tonnage is not wording. If SiteIQ has an asset at 1.6 t and the
+        master renames it to 1.5 t, one of the two is wrong about a
+        rated capacity on lifting gear, and quietly picking the master's
+        number would put a figure on a print that nobody chose.
+
+        So the swap still happens - his file wins, same as everywhere
+        else - and the build says out loud which ones moved and by how
+        much. A number that changed on its own is the one somebody
+        re-derives by hand at the worst moment.
+
+        `pairs` is any iterable of (item_number, siteiq_description).
+        Returns [(raw, renamed, count, from_t, to_t)], biggest first.
+        """
+        seen = {}
+        for item, raw in pairs:
+            raw = _clean(raw)
+            if not raw:
+                continue
+            new = self.disp(item, raw)
+            if not new or new == raw:
+                continue
+            a, b = _tonnes(raw), _tonnes(new)
+            if not (a and b) or a == b:
+                continue
+            k = (raw, new)
+            if k in seen:
+                seen[k][2] += 1
+            else:
+                seen[k] = [raw, new, 1, sorted(a), sorted(b)]
+        out = [tuple(v) for v in seen.values()]
+        out.sort(key=lambda x: -x[2])
+        return out
+
+
+def _dkey(desc):
+    """A description reduced to something joinable: case and run-on
+    spaces are noise, everything else is kept. Deliberately NOT
+    punctuation-stripped - "Spanner - Combo 1" and "Spanner - Combo 1/2"
+    must stay apart."""
+    return " ".join(_clean(desc).lower().split())
+
+
+def _common_stem(names):
+    """The leading fields every one of these names shares, or "".
+
+    Field-wise, never character-wise: "1 t Lever Block" and "10 t Lever
+    Block" share the characters "1" but nothing meaningful, and a stem
+    of "1" would be worse than no stem at all. Splitting on " - " first
+    means a stem is always a run of whole fields.
+
+    At least two fields required, so a stem is a name and not a
+    category - "Chain Block" alone, standing in for six capacities,
+    would lose the one detail that matters about a chain block.
+    """
+    parts = [n.split(" - ") for n in names]
+    stem = []
+    for i in range(min(len(p) for p in parts)):
+        f = parts[0][i]
+        if any(p[i] != f for p in parts):
+            break
+        stem.append(f)
+    if len(stem) < 2:
+        return ""
+    return " - ".join(stem).strip()
+
+
+def _register_variants(base):
+    """SiteIQ's own wording -> the set of PRODUCT_VARIANT codes using it.
+
+    Read off the fleet register, which is the only place that knows a
+    "Distribution Board" can be a DISTBOARDLIFEGUARD16, a
+    DISTBOARDLIFEGUARD17 or a DISTBOARDLIFEGUARD4-10A. The master file
+    cannot tell them apart - it files all three under a flat DISTBOARD -
+    so the check has to come from the register. Best effort: no export,
+    no map, and the caller falls back to naming by number only.
+    """
+    out = {}
+    for name in ("RENTAL_STOCK.xlsx", "SALES_STOCK.xlsx"):
+        for d in (os.path.join(base, "Data_SiteIQ"), base):
+            p = os.path.join(d, name)
+            if not os.path.isfile(p):
+                continue
+            try:
+                import openpyxl
+                wb = openpyxl.load_workbook(p, read_only=True,
+                                            data_only=True)
+                ws = wb[wb.sheetnames[-1]]
+                rows = ws.iter_rows(values_only=True)
+                hdr = [_clean(c).upper() for c in next(rows)]
+                ix = {h: i for i, h in enumerate(hdr) if h}
+                cd = ix.get("ITEM_DESCRIPTION", ix.get("SKU_DESCRIPTION"))
+                cv = ix.get("PRODUCT_VARIANT")
+                if cd is None or cv is None:
+                    wb.close()
+                    break
+                for r in rows:
+                    if not r:
+                        continue
+                    k = _dkey(r[cd])
+                    v = _clean(r[cv]).upper()
+                    if k and v:
+                        out.setdefault(k, set()).add(v)
+                wb.close()
+            except Exception:
+                pass
+            break
+    return out
+
+
+def _index_desc(m, base=None):
+    """Build the wording index, and record where it cannot decide.
+
+    The names themselves come only from the master file's own
+    ITEM_DESCRIPTION and NEW_DESCRIPTION columns, so the index can never
+    invent a name Andrew did not write. The register is read for one
+    purpose: to find the wordings that cover more than one product.
+    """
+    fleet = _register_variants(base) if base else {}
+    votes = {}
+    for rec in m.by_item.values():
+        old, new = rec["orig_desc"], rec["new_desc"]
+        if not (old and new) or _dkey(old) == _dkey(new):
+            continue
+        votes.setdefault(_dkey(old), {}).setdefault(new, 0)
+        votes[_dkey(old)][new] += 1
+    for k, names in votes.items():
+        #  ONE WORDING, SEVERAL PRODUCTS - leave it alone.
+        #
+        #  SiteIQ calls three different boards "Distribution Board" and
+        #  tells them apart only by variant: DISTBOARDLIFEGUARD16,
+        #  DISTBOARDLIFEGUARD17, DISTBOARDLIFEGUARD4-10A. Andrew has
+        #  named one of them, "Lifeguard 16". Carrying that name to the
+        #  other two by wording alone would put "Lifeguard 16" on a
+        #  Lifeguard 17 - a wrong name, printed confidently, on gear a
+        #  sparky picks up off a shelf (3 Aug 2026).
+        #
+        #  His entry still names his asset. The others keep SiteIQ's
+        #  words until he names them, and the build says how many.
+        if len(fleet.get(k, ())) > 1:
+            m.desc_ambig[k] = sorted(fleet[k])
+            continue
+        if len(names) == 1:
+            m.by_desc[k] = next(iter(names))
+            continue
+        #  One wording, several new names. Usually that is not two
+        #  products at all - it is one product named per unit, the way
+        #  the gas monitors carry their own serial: "Multi-Gas Detector
+        #  - Honeywell BW Flex - Serial GM206396". Thirty of those
+        #  disagree only about the last field.
+        #
+        #  So take what they all agree on, cut back to a whole field:
+        #  "Multi-Gas Detector - Honeywell BW Flex". His words, his
+        #  order, and no serial invented for a unit he never listed.
+        stem = _common_stem(names)
+        if stem:
+            m.by_desc[k] = stem
+        else:
+            #  genuinely two products behind one set of words. Left on
+            #  SiteIQ's wording and named out loud rather than silently
+            #  picking a winner.
+            m.desc_split[k] = sorted(names.items(), key=lambda x: -x[1])
+
+
+#  a rated capacity, in tonnes: "1.6T", "3.0t", "10 tonne". Deliberately
+#  strict - a bare "6" in "6M Drop" is a length, not a load, and reading
+#  it as one would invent conflicts that are not there.
+_TONNE_RE = re.compile(r"(\d+(?:\.\d+)?)\s*(?:t\b|tonne)", re.I)
+
+
+def _tonnes(s):
+    return set(float(x) for x in _TONNE_RE.findall(s or ""))
 
 
 def _clean(v):
@@ -213,12 +450,20 @@ def load(base_dir=None, quiet=False):
             if rec["ret"]:
                 m.n_ret += 1
         wb.close()
+        _index_desc(m, base)
         m.path = path
         m.mtime = dt.datetime.fromtimestamp(os.path.getmtime(path))
         if not quiet:
             print("  Master file : {}  ({:,} items | {:,} priced | {:,} "
                   "renamed)".format(os.path.basename(path), len(m.by_item),
                                     m.n_priced, m.n_renames))
+            _held = len(m.desc_ambig) + len(m.desc_split)
+            print("  Renaming    : {:,} wording(s) carry to assets not "
+                  "listed by number{}".format(
+                      len(m.by_desc),
+                      "; {:,} held back - SiteIQ uses those words for "
+                      "more than one product".format(_held)
+                      if _held else ""))
             print("  Compliance  : {:,} electrical | {:,} rigging | {:,} "
                   "logbook | {:,} return-daily".format(
                       m.n_elec, m.n_rig, m.n_log, m.n_ret))

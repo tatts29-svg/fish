@@ -38,7 +38,24 @@ PLACEHOLDER = re.compile(r"\{[A-Za-z_][A-Za-z0-9_]*(?:!\w)?(?::[^{}]{0,20})?\}"
                          r"|\{\d+(?::[^{}]{0,20})?\}")
 
 #  Values that mean "the number never turned up".
-DEAD = re.compile(r"(?<![A-Za-z])(?:nan|NaN|None|NULL|undefined)(?![A-Za-z])")
+#
+#  "None" is also an ordinary English word, and the suite writes plain
+#  English on purpose - "None of it is in any SiteIQ export" is a
+#  sentence, not a hole, and on 3 Aug it stamped DO NOT SEND across a
+#  page that was perfectly fine. A checker that cries wolf gets ignored,
+#  and then it is not checking anything.
+#
+#  So "None" - and only "None", the one that is also a word - is let
+#  through when an English function word follows it. "None of it",
+#  "None are tagged": sentences. "None days", "None items", "None" on
+#  its own: still a hole, still flagged. nan, NULL and undefined stay
+#  strict, because nobody writes those in a sentence.
+_PROSE = (r"of|but|and|at|in|on|to|is|are|was|were|will|would|can|could|"
+          r"has|have|had|the|that|this|these|those|which|so|since|yet|"
+          r"other|were|do|does|did|for|from|by|with|as|if|when|until")
+DEAD = re.compile(r"(?<![A-Za-z])(?:nan|NaN|NULL|undefined)(?![A-Za-z])"
+                  r"|(?<![A-Za-z])None(?![A-Za-z])(?!\s+(?:" + _PROSE +
+                  r")\b)")
 DEAD_MONEY = re.compile(r"\$\s*(?:nan|NaN|None)", re.I)
 
 STRIP = re.compile(r"<(script|style)\b.*?</\1>", re.S | re.I)

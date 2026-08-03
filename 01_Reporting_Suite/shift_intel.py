@@ -105,6 +105,40 @@ def shift_of(when):
     return 'NIGHT', when.date()
 
 
+_MASTER = [None]
+
+
+def _master():
+    """The change-of-description file, loaded once.
+
+    Andrew, 3 Aug 2026: "just making sure your using the change of
+    description file". I was not - and 1,260 of the 1,771 items on the
+    counter feed (71%) are renamed by it. So this page was showing raw
+    SiteIQ descriptions - "Motorola NNTN8129 IMPRES Battery" - while
+    every other screen in the suite showed his own wording, "Radio
+    Battery - Motorola NNTN8129 IMPRES". Same gear, two vocabularies,
+    on a page under high-level attention.
+    """
+    if _MASTER[0] is None:
+        try:
+            import master_equipment as _ME
+            import os
+            _MASTER[0] = _ME.load(
+                os.path.dirname(os.path.abspath(__file__)), quiet=True)
+        except Exception:
+            _MASTER[0] = False
+    return _MASTER[0] or None
+
+
+def tidy(desc, item=''):
+    """A description in Andrew's words, not SiteIQ's."""
+    try:
+        import mygear_store as _MST
+        return (_MST._tidy(desc, _master(), item) or desc or '').strip()
+    except Exception:
+        return (desc or '').strip()
+
+
 def read_counter(txn_path, days=21):
     """Every issue and return that carries a clock, newest first."""
     import openpyxl
@@ -152,8 +186,9 @@ def read_counter(txn_path, days=21):
                     'at': d, 'way': way,
                     'i': str(r[c_item] or '').strip() if c_item is not None
                          else '',
-                    'n': str(r[c_desc] or '').strip()[:52] if c_desc is not None
-                         else '',
+                    'n': tidy(r[c_desc],
+                              str(r[c_item] or '') if c_item is not None
+                              else '')[:52] if c_desc is not None else '',
                     'w': str(r[c_who] or '').strip()[:28] if c_who is not None
                          else '',
                     'co': str(r[c_co] or '').strip()[:30] if c_co is not None
@@ -197,7 +232,8 @@ def read_sightings(stocktake_path):
             'at': t, 'w': w,
             'act': str(r[ix.get('LAST_SIGHTED_ACTION', -1)] or '').strip(),
             'u': str(r[ix.get('STORAGE_UNIT', -1)] or '').strip(),
-            'd': str(r[ix.get('DESCRIPTION', -1)] or '').strip(),
+            'd': tidy(r[ix.get('DESCRIPTION', -1)],
+                      str(r[ix.get('SKU_NUMBER', -1)] or '')),
         })
     wb.close()
     return out
@@ -471,8 +507,9 @@ def short_hires(txn_path, minutes=30):
                     'mins': round(mins),
                     'at': a,
                     'i': str(r[ix.get('SKU/ITEM_NUMBER', -1)] or '').strip(),
-                    'n': str(r[ix.get('SKU/ITEM DESCRIPTION', -1)]
-                             or '').strip()[:44],
+                    'n': tidy(r[ix.get('SKU/ITEM DESCRIPTION', -1)],
+                              str(r[ix.get('SKU/ITEM_NUMBER', -1)]
+                                  or ''))[:44],
                     'w': str(r[ix.get('HIRER_NAME', -1)] or '').strip()[:26],
                 })
     wb.close()
