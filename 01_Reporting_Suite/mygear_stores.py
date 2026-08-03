@@ -1770,6 +1770,89 @@ button.tile:active{background:var(--pnl2)}
  font-size:10px;font-weight:800;letter-spacing:.4px;margin:0 6px 4px 0}
 .cchip.lbk{background:#3A2E08;color:#F5C032;border:1px solid #6b551b}
 .vcode{font-family:Consolas,Menlo,monospace;font-size:10.5px;color:#8A97A8}
+/* =================================================================
+   THE ASSET CARD (Andrew, 3 Aug 2026)
+   -----------------------------------------------------------------
+   "this look very clucnky writing looks all over the shit ... a line
+   should finish and never not finish in a line then start again like
+   try and finish off the sentence."
+   He was right, and it was arithmetic, not taste. The old .fcard laid
+   a 132px photo and an 84px QR gutter side by side with the words on
+   a 390px phone, which left the text 120px to live in - so "Grinder -
+   Angle - 175 mm - Electric - 240 V" came out over four lines and the
+   holder's company broke in half.
+   Two rules fix it and both are structural, not cosmetic:
+     1. the picture goes ON TOP, so the words get the full card width
+     2. every fact is its own labelled row, so a line is one whole
+        thought that ends where the thought ends
+   One column on a phone, two on anything wider - the grid decides,
+   nothing is hard-coded to a screen size.
+   ================================================================= */
+.acards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));
+ gap:11px;margin-top:4px}
+.acard{background:var(--pnl);border:1px solid var(--line);
+ border-left:5px solid var(--gd);border-radius:14px;overflow:hidden;
+ display:flex;flex-direction:column}
+.acard.fo{border-left-color:var(--org)}
+.acard.fw{border-left-color:var(--rd)}
+.aph{width:100%;height:150px;background:#20262e;display:flex;
+ align-items:center;justify-content:center;overflow:hidden}
+.aph img{width:100%;height:100%;object-fit:cover;display:block}
+.aph.mono{color:#8A97A8;font-weight:900;font-size:34px;letter-spacing:1px}
+.abody{padding:12px 13px 11px;display:flex;flex-direction:column;gap:7px}
+.ahead{font-size:10.5px;font-weight:900;letter-spacing:1.2px;color:var(--gd)}
+.acard.fo .ahead{color:var(--org)}
+.acard.fw .ahead{color:var(--rd)}
+/*  the name gets the whole width now, and breaks between words only -
+    never mid-number, so "175mm" and "240V" stay whole  */
+.aname{font-size:15.5px;font-weight:800;color:#fff;line-height:1.3;
+ overflow-wrap:break-word}
+/*  ONE FACT, ONE LINE. Label left, answer right, and the answer may
+    wrap inside its own column without ever colliding with the next
+    fact. This is the bit that stops a sentence starting, giving up
+    and starting again further down.  */
+.afacts{display:flex;flex-direction:column;gap:3px;margin-top:1px}
+.af{display:flex;gap:9px;font-size:11.5px;line-height:1.5;
+ align-items:baseline}
+.af>span{flex:none;width:74px;color:var(--dim);font-weight:700;
+ letter-spacing:.3px;text-transform:uppercase;font-size:9.5px}
+.af>b{flex:1;min-width:0;color:#D7DEE8;font-weight:700}
+/*  a plant or serial number must never be split across two lines -
+    half a serial is worse than none on a damage claim  */
+.af>b .wrow{display:block;margin-bottom:3px}
+.af>b .wrow:last-child{margin-bottom:0}
+.af>b .wco{color:var(--dim);font-weight:600}
+.af>b .wdy{color:var(--org);font-weight:700;white-space:nowrap}
+.af>b.at{font-family:Consolas,Menlo,monospace;font-size:11px;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/*  utilisation: the number, the bar, the word. No money here, ever -
+    Andrew, 3 Aug: "we dont need to know revenue on assest but we can
+    know utilisation."  */
+.autil{margin-top:3px;padding-top:9px;border-top:1px solid var(--line)}
+.aur{display:flex;align-items:baseline;gap:8px}
+.aur span{flex:1;font-size:9.5px;font-weight:800;letter-spacing:1.1px;
+ color:var(--dim)}
+.aur b{font-size:17px;font-weight:900;color:#fff}
+.abar{height:7px;background:#0B111A;border:1px solid #263143;
+ border-radius:5px;margin-top:5px;overflow:hidden}
+.abar i{display:block;height:100%;border-radius:4px;background:var(--gd)}
+.abar.low i{background:#2AA9C4}
+.abar.high i{background:var(--org)}
+.abar.none i{background:#44505f}
+.aw{display:inline-block;margin-top:7px;font-size:9.5px;font-weight:900;
+ letter-spacing:.8px;border-radius:6px;padding:3px 9px;
+ background:#123642;color:#5BD2EE}
+.aw.high{background:#3A1D0B;color:#F58B4C}
+.aw.ok{background:#0F2E1F;color:#4FD08A}
+/*  never a bare "0%" on gear nobody could have hired - it reads as a
+    failing tool instead of a tool that was reserved or off site  */
+.axcl{font-size:11px;color:var(--am);font-weight:700;line-height:1.5}
+.afoot{display:flex;align-items:center;gap:9px;margin-top:2px;
+ padding-top:9px;border-top:1px solid var(--line)}
+.afoot .fill{flex:1;min-width:0}
+.afoot .cchips{margin:0}
+.afoot .cchip{margin:0 5px 0 0}
+.afoot svg{flex:none;border-radius:5px;display:block}
 /* the finder's answer cards - shelf green, out orange, hunt red */
 .fcard{display:flex;gap:12px;align-items:center;background:var(--pnl);
  border:1px solid var(--line);border-left:5px solid var(--gd);
@@ -2804,7 +2887,8 @@ function findGo(){
       +'export in the Fresh look tab covers the gap.</div>';
     return;
   }
-  out.innerHTML=hits.map(function(h){return findCard(h[0],h[1],F)}).join('')
+  out.innerHTML='<div class="acards">'
+   +hits.map(function(h){return findCard(h[0],h[1],F)}).join('')+'</div>'
    +(hits.length>=12?'<div class="kw cut">Showing the first 12 &mdash; keep '
      +'typing to narrow it.</div>':'');
 }
@@ -2814,7 +2898,111 @@ function histLine(i){
   return ' &middot; hired '+h2[0]+'&times; this shut'
     +(h2[1]?' &middot; last: <b>'+esc(h2[1])+'</b>':'');
 }
+/*  WHAT WE KNOW ABOUT THIS ASSET NUMBER. Andrew, 3 Aug 2026: "The
+    stores area should show every bit of detail about that asset no.
+    Including Utilisation, how man times its been out ... as well as
+    the serial number." One lookup, used by every card on the board so
+    the grinder reads the same wherever you meet it. */
+function afOf(it){ return ((D.af||{}).item||{})[String(it||'')]||null; }
+/*  exact product code first; the punctuation-stripped alias only as a
+    fallback, and only where it is unambiguous - see asset_facts.vkey.
+    A 15/16 spanner must never be shown the 1-5/16 fleet's figure. */
+function avOf(v){
+  var A=(D.af||{}), V=A.variant||{}, k=String(v||'');
+  if(V[k]) return V[k];
+  var n=k.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  var real=(A.valias||{})[n];
+  return real&&V[real]?V[real]:null;
+}
+/*  one labelled row - the whole point of the layout. `t` marks a
+    number that must never break across lines. */
+function fact(label,value,t){
+  if(value===''||value==null) return '';
+  return '<div class="af"><span>'+label+'</span><b'+(t?' class="at"':'')
+    +'>'+value+'</b></div>';
+}
+/*  Times out, said in whole words and SHORT ENOUGH TO FINISH ON ITS
+    LINE. The first cut read "not been out yet this shutdown · out with
+    a crew now", which wrapped to "...· out with a / crew now" - the
+    exact fault Andrew pulled me up on. So: one short phrase, and the
+    fact that it is out right now is left to the card's own headline,
+    which already says OUT WITH A CREW in orange at the top. Saying it
+    twice was what made it too long to fit.  */
+function timesOut(a,isOut){
+  if(!a) return '';
+  var c=a.c||0, o=a.o||0;
+  if(c) return c+(c===1?' time':' times')+' this shutdown';
+  if(isOut||o) return 'First time out this shutdown';
+  return 'Not been out this shutdown';
+}
+/*  the utilisation block. Excluded gear says WHY instead of showing a
+    nought - a reserved tool reading 0% looks like a tool nobody wants,
+    which is the opposite of true. */
+function utilBlock(a){
+  if(!a) return '';
+  if(a.x) return '<div class="autil"><div class="axcl">Not counted in '
+    +'utilisation &mdash; '+esc(a.x)+'</div></div>';
+  if(a.u==null&&!a.c&&!a.o) return '';
+  var u=(a.u==null?0:a.u), b=a.b||'none';
+  var w=a.w?'<div class="aw '+(b==='high'?'high':(b==='ok'?'ok':''))+'">'
+    +esc(a.w)+'</div>':'';
+  return '<div class="autil"><div class="aur"><span>UTILISATION</span><b>'
+    +u+'%</b></div>'
+    +'<div class="abar '+esc(b)+'"><i style="width:'+Math.max(2,Math.min(100,u))
+    +'%"></i></div>'+w+'</div>';
+}
 function findCard(it,e,F){
+  var v=F.nv[(e.n||'').toUpperCase()]||'';
+  var a=afOf(it);
+  var th=(v && (typeof hasThumb!=='function' || hasThumb(v)))
+    ?'<div class="aph"><img src="thumbs/'+encodeURIComponent(tsafe(v))
+      +'.jpg" loading="lazy" alt="" data-m="'+thMono(e.n)+'" onerror="thx(this)"></div>'
+    :'<div class="aph mono">'+thMono(e.n)+'</div>';
+  var head,cls,rows='';
+  if(e.s==='O'){
+    cls='fo'; head='OUT WITH A CREW';
+    rows=fact('With', (typeof whoLink==='function'
+                ?whoLink(e.w||'?',e.co||''):esc(e.w||'?')))
+        +fact('Company', esc(e.co||''))
+        +fact('Out for', e.d!=null?('<b>'+e.d+'</b> '+(e.d===1?'day':'days')):'')
+        +fact('Lives in', esc(e.u||'?'));
+  } else if(e.s==='A'){
+    cls='fa'; head='ON THE SHELF';
+    var mates=(F.av[e.k||'']||[]).length;
+    var nrest=0,j2; for(j2=0;j2<D.roster.length;j2++)
+      if(D.roster[j2].n===e.n) nrest++;
+    rows=fact('Aisle', '<b>'+esc(e.u||'?')+'</b>')
+        +fact('Others', mates>1?(mates+' of these on the shelf'):'')
+        +fact('Out now', nrest?(nrest+' with crews'):'');
+    if(e.st!=null){ cls='fw'; head='SHOULD BE ON THE SHELF';
+      rows+=fact('Not sighted', '<b>'+e.st+' days</b>'
+        +(e.by?' &mdash; last seen by '+esc(e.by):'')); }
+  } else {
+    cls='fw';
+    head=(e.hs==='O')?'ON HIRE - NOT COUNTED'
+        :'NOT SEEN IN '+(e.d2!=null?e.d2+'d':'A WHILE');
+    rows=fact('Lives in', '<b>'+esc(e.u||'?')+'</b>')
+        +fact('Last seen', e.by?('by '+esc(e.by)):'')
+        +fact('Where', 'On this aisle&rsquo;s hunt list &mdash; Stocktake tab');
+  }
+  return '<div class="acard '+cls+'">'+th+'<div class="abody">'
+   +'<div class="ahead">'+head+'</div>'
+   +'<div class="aname">'+esc(e.n||'Unnamed item')+'</div>'
+   +'<div class="afacts">'
+     +fact('Item no', esc(it), 1)
+     +(e.p?fact('Plant ID','<span style="color:var(--org)">'+esc(e.p)+'</span>',1):'')
+     +(a&&a.s?fact('Serial', esc(a.s), 1):'')
+     +(v?fact('Code','<span class="vcode">'+esc(v)+'</span>',1):'')
+     +rows
+     +fact('Times out', timesOut(a, e.s==='O'))
+   +'</div>'
+   +utilBlock(a)
+   +'<div class="afoot"><span class="fill">'
+     +compChips(e.fl||(F.fln?F.fln[(e.n||'').toUpperCase()]:''))+'</span>'
+     +qr(it,54)+'</div>'
+   +'</div></div>';
+}
+function findCardOld(it,e,F){
   var v=F.nv[(e.n||'').toUpperCase()]||'';
   var th=v?'<span class="kth2"><img src="thumbs/'+encodeURIComponent(tsafe(v))
     +'.jpg" loading="lazy" alt="" data-m="'+thMono(e.n)+'" onerror="thx(this)"></span>'
@@ -2898,30 +3086,72 @@ function famOf(n){
   return f||String(n||'');
 }
 function kidsWithSeams(list){
-  if(list.length<=25) return list.map(kid).join('');
-  var out='',last=null;
+  if(list.length<=25)
+    return '<div class="acards">'+list.map(kid).join('')+'</div>';
+  /*  a family heading has to break the grid, not sit inside a cell,
+      so each run of one family is its own grid  */
+  var out='',last=null,run=[];
+  function flush(){ if(run.length){
+    out+='<div class="acards">'+run.join('')+'</div>'; run=[]; } }
   list.forEach(function(g){
     var f=famOf(g.n);
-    if(f!==last){out+='<div class="kfam">'+esc(f)+'</div>';last=f;}
-    out+=kid(g);
+    if(f!==last){flush();out+='<div class="kfam">'+esc(f)+'</div>';last=f;}
+    run.push(kid(g));
   });
+  flush();
   return out;
 }
+/*  THE PRODUCT CARD. Same rebuild as the finder card and for the same
+    reason - on the batteries screen the name was wrapping to three
+    lines while there was empty space beside "1 free 2 out". Picture on
+    top, words full width, one fact per line, and now the fleet's
+    utilisation with it. Andrew, 3 Aug 2026. */
 function kid(g){
-  var units=Object.keys(g.u||{}).map(function(u){return u+' ('+g.u[u]+')'}).join(' &middot; ');
-  var who='';
+  var units=Object.keys(g.u||{}).map(function(u){
+    return esc(u)+' ('+g.u[u]+')'}).join(' &middot; ');
+  var a=avOf(g.v), who='';
+  /*  WHO HAS THEM. One person per row, and the name, the company and
+      the days are three separate pieces so a long company name pushes
+      the days onto their own line instead of snapping the sentence in
+      half - "Bradley - Logiudice · DGH Engineering ·" then "12 days
+      out" on the next line was the fault Andrew pointed at.  */
   if(g.who && g.who.length){
-    who='<div class="kw">'+g.who.slice(0,12).map(function(w){
-      return '<b>'+esc(w.w)+'</b> &middot; '+esc(w.co)
-        +(w.d==null?'':' &middot; '+w.d+(w.d===1?' day':' days')+' out');
-    }).join('<br>')+(g.who.length>12?'<br>+ '+(g.who.length-12)+' more':'')+'</div>';
+    who='<div class="af"><span>Out with</span><b>'
+      +g.who.slice(0,8).map(function(w){
+        return '<span class="wrow">'
+          +(typeof whoLink==='function'?whoLink(w.w||'?',w.co||'')
+            :esc(w.w||'?'))
+          +(w.co?' <span class="wco">&middot; '+esc(w.co)+'</span>':'')
+          +(w.d==null?'':' <span class="wdy">'+w.d
+            +(w.d===1?' day':' days')+' out</span>')
+          +'</span>';
+      }).join('')
+      +(g.who.length>8?'<span class="wrow">+ '+(g.who.length-8)
+        +' more on the Chase up tab</span>':'')
+      +'</b></div>';
   }
-  return '<div class="kid kidth">'+thTile(g.v,g.n)
-    +'<div class="kbody"><div class="kt"><b>'+esc(g.n)+'</b>'
-    +'<em>'+g.av+' free</em>'+(g.oh?'<em class="o">'+g.oh+' out</em>':'')+'</div>'
-    +(units?'<div class="where">'+esc(units)
-      +(g.v?' &middot; <span class="vcode">'+esc(g.v)+'</span>':'')+'</div>':'')
-    +compChips(g.fl)+who+'</div></div>';
+  var th=(g.v && (typeof hasThumb!=='function' || hasThumb(g.v)))
+    ?'<div class="aph"><img src="thumbs/'+encodeURIComponent(tsafe(g.v))
+      +'.jpg" loading="lazy" alt="" data-m="'+thMono(g.n)+'" onerror="thx(this)"></div>'
+    :'<div class="aph mono">'+thMono(g.n)+'</div>';
+  return '<div class="acard'+(g.oh&&!g.av?' fo':'')+'">'+th
+    +'<div class="abody">'
+    +'<div class="ahead">'+g.av+' ON THE SHELF'
+      +(g.oh?' &middot; <span style="color:var(--org)">'+g.oh+' OUT</span>':'')
+      +'</div>'
+    +'<div class="aname">'+esc(g.n)+'</div>'
+    +'<div class="afacts">'
+      +(units?fact('Lives in', units):'')
+      +(g.v?fact('Code','<span class="vcode">'+esc(g.v)+'</span>',1):'')
+      +(a&&a.n?fact('Fleet', a.n+' of these on site'
+          +(a.nv?' &middot; '+a.nv+' never issued':'')):'')
+      +(a?fact('Times out', timesOut(a, 0)):'')
+      +who
+    +'</div>'
+    +utilBlock(a)
+    +(compChips(g.fl)?'<div class="afoot"><span class="fill">'
+       +compChips(g.fl)+'</span></div>':'')
+    +'</div></div>';
 }
 /* the picture tile: the variant's thumbnail (Gear_Lookup/thumbs), or
    a two-letter monogram until its photo is collected - 56_PHOTO_HUNT

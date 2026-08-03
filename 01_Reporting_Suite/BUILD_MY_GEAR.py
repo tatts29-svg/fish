@@ -938,6 +938,25 @@ def build():
         _sd = mygear_stores.read(rental_path, _sk, MASTER,
                                  txn_path=txn_path,
                                  sales_path=_sales, base=BASE)
+        #  WHAT WE KNOW ABOUT EACH ASSET NUMBER (Andrew, 3 Aug 2026):
+        #  "the stores area should show every bit of detail about that
+        #  asset no. Including Utilisation, how many times its been out
+        #  ... as well as the serial number." Same percentage Fleet
+        #  Details prints - taken from there, not worked out twice - and
+        #  no money in it, which asset_facts checks before handing it
+        #  over. A failure here costs the store its utilisation figures;
+        #  it must never cost it the board, so it is caught.
+        try:
+            import asset_facts as _AF
+            import mygear_intel as _MI
+            _sd['af'] = _AF.build(_MI.read(rental_path, txn_path,
+                                           onhire_path))
+        except SystemExit:
+            raise                       # the money guard - let it stop
+        except Exception as _e:
+            print('   asset facts unavailable, board built without '
+                  'utilisation: {}'.format(_e))
+            _sd['af'] = {'item': {}, 'variant': {}}
         #  the manager layer - money, under its own code
         _mgr_p = os.path.join(BASE, 'manager_code.txt')
         _mgr = 'army8686ARRA'
