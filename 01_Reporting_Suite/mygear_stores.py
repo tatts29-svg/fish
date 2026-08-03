@@ -668,7 +668,12 @@ def read(rental_path, stocktake_path, master=None, today=None,
             days = (today - d).days if d else None
             who = g(r, 'HIRER_NAME') or 'Not named'
             co = g(r, 'COMPANY_NAME') or 'Not named'
-            e['who'].append({'w': who, 'co': co, 'd': days, 'u': unit})
+            #  the item number rides on the holder row (Andrew, 3 Aug
+            #  2026: "does it tell you another item_Number to use") - it
+            #  is the join that beats every spelling problem, and it lets
+            #  the card say WHICH unit each person has, with its serial
+            e['who'].append({'w': who, 'co': co, 'd': days, 'u': unit,
+                             'i': _itm})
             if days is not None and days > 3:
                 #  item number rides along so the aisle chase list can
                 #  print and scan like everything else (30 Jul 2026)
@@ -1822,7 +1827,10 @@ button.tile:active{background:var(--pnl2)}
 .af>b .wrow{display:block;margin-bottom:3px}
 .af>b .wrow:last-child{margin-bottom:0}
 .af>b .wco{color:var(--dim);font-weight:600}
+.af>b .wid{display:block;font-family:Consolas,Menlo,monospace;
+ font-size:10.5px;color:#8A97A6;font-weight:600;margin-top:1px}
 .af>b .wdy{color:var(--org);font-weight:700;white-space:nowrap}
+.unext{color:#5BD2EE;font-weight:800}
 .af>b.at{font-family:Consolas,Menlo,monospace;font-size:11px;
  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /*  utilisation: the number, the bar, the word. No money here, ever -
@@ -2961,11 +2969,18 @@ function findCard(it,e,F){
   var head,cls,rows='';
   if(e.s==='O'){
     cls='fo'; head='OUT WITH A CREW';
+    /*  the answer, not a shrug: this one is out, so name the exact
+        unit on the shelf to issue instead (Andrew, 3 Aug 2026:
+        "does it tell you another item_Number to use")  */
+    var av2=avOf(v), ux=(av2&&av2.ux&&av2.ux!==it)?av2.ux:'';
     rows=fact('With', (typeof whoLink==='function'
                 ?whoLink(e.w||'?',e.co||''):esc(e.w||'?')))
         +fact('Company', esc(e.co||''))
         +fact('Out for', e.d!=null?('<b>'+e.d+'</b> '+(e.d===1?'day':'days')):'')
-        +fact('Lives in', esc(e.u||'?'));
+        +fact('Lives in', esc(e.u||'?'))
+        +(ux?fact('Use instead','<span class="unext">'+esc(ux)+'</span>'
+             +((av2.rd||0)>1?' <span style="color:var(--dim);font-weight:600">'
+               +'&middot; '+av2.rd+' on the shelf</span>':''),1):'');
   } else if(e.s==='A'){
     cls='fa'; head='ON THE SHELF';
     var mates=(F.av[e.k||'']||[]).length;
@@ -2991,7 +3006,17 @@ function findCard(it,e,F){
    +'<div class="afacts">'
      +fact('Item no', esc(it), 1)
      +(e.p?fact('Plant ID','<span style="color:var(--org)">'+esc(e.p)+'</span>',1):'')
-     +(a&&a.s?fact('Serial', esc(a.s), 1):'')
+     /*  THE SERIAL, with the honest empty state. Plant-numbered gear
+         either shows its serial or says straight out that Baseplan
+         has none recorded - a silently missing row is unfinished, and
+         Andrew asked "where is the serial number". Barcode tooling
+         (DUCTING300MMR-0308) shows no row because a length of ducting
+         has no serial to record - absence is the truth there.  */
+     +(a&&a.s?fact('Serial', esc(a.s), 1)
+       :(/^[0-9]+$/.test(String(it))
+         ?fact('Serial','<span style="color:var(--dim);font-weight:600">'
+           +'none recorded in Baseplan</span>')
+         :''))
      +(v?fact('Code','<span class="vcode">'+esc(v)+'</span>',1):'')
      +rows
      +fact('Times out', timesOut(a, e.s==='O'))
@@ -3001,58 +3026,6 @@ function findCard(it,e,F){
      +compChips(e.fl||(F.fln?F.fln[(e.n||'').toUpperCase()]:''))+'</span>'
      +qr(it,54)+'</div>'
    +'</div></div>';
-}
-function findCardOld(it,e,F){
-  var v=F.nv[(e.n||'').toUpperCase()]||'';
-  var th=v?'<span class="kth2"><img src="thumbs/'+encodeURIComponent(tsafe(v))
-    +'.jpg" loading="lazy" alt="" data-m="'+thMono(e.n)+'" onerror="thx(this)"></span>'
-    :'<span class="kth2 mono">'+thMono(e.n)+'</span>';
-  var head,body,cls;
-  if(e.s==='O'){
-    cls='fo'; head='OUT WITH A CREW';
-    /*  the name is tappable straight off the finder card (Andrew,
-        2 Aug 2026: "if you see things onhire to someone you also should
-        be able to clkick on the name and it maybe take you to that
-        person to find out more info")  */
-    body='<b>'+(typeof whoLink==='function'?whoLink(e.w||'?',e.co||'')
-                :esc(e.w||'?'))+'</b> &middot; '+esc(e.co||'')
-      +(e.d!=null?' &middot; <b>'+e.d+(e.d===1?' day':' days')+'</b> out':'')
-      +'<br>Lives in '+esc(e.u||'?')+histLine(it);
-  } else if(e.s==='A'){
-    cls='fa'; head='ON THE SHELF';
-    var mates=(F.av[e.k||'']||[]).length;
-    body='Aisle: <b>'+esc(e.u||'?')+'</b>'
-      +(mates>1?' &middot; '+mates+' of these available':'');
-    /* who has the rest (Andrew, 1 Aug 2026): the shelf answer also
-       says where the others went - the chase starts from the tool */
-    var outm=[], nrest=0, j2, x2;
-    for(j2=0;j2<D.roster.length;j2++){ x2=D.roster[j2];
-      if(x2.n===e.n){ nrest++; if(outm.length<3) outm.push(x2); } }
-    if(nrest) body+='<br>Out with crews: <b>'+nrest+'</b> &middot; '
-      +outm.map(function(x3){return (typeof whoLink==='function'
-          ?whoLink(x3.w||'?',x3.co||''):esc(x3.w||'?'))+' ('
-        +(x3.d!=null?x3.d+'d':'?')+')'}).join(' &middot; ')
-      +(nrest>3?' &middot; +'+(nrest-3)+' more in CHASE UP':'');
-    if(e.st!=null){cls='fw';head='SHOULD BE ON THE SHELF';
-      body+='<br><b>Not sighted in '+e.st+'d</b>'
-        +(e.by?' &middot; last seen by '+esc(e.by):'')
-        +' &mdash; confirm it is really there.';}
-  } else {
-    cls='fw';
-    head=(e.hs==='O')?'ON HIRE - NOT COUNTED'
-        :'NOT SEEN IN '+(e.d2!=null?e.d2+'d':'A WHILE');
-    body='Lives in <b>'+esc(e.u||'?')+'</b>'+histLine(it)
-      +(e.by?' &middot; last sighted by <b>'+esc(e.by)+'</b>':'')
-      +'<br>On this aisle&rsquo;s hunt list &mdash; Stocktake tab.';
-  }
-  return '<div class="fcard '+cls+'">'+th
-   +'<div class="fbody"><div class="fhead">'+head+'</div>'
-   +'<div class="fname">'+esc(e.n||'Unnamed item')+'</div>'
-   +'<div class="kw">Item '+esc(it)
-   +(e.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(e.p)+'</b>':'')
-   +(v?' &middot; <span class="vcode">'+esc(v)+'</span>':'')+'</div>'
-   +'<div class="kw">'+body+'</div>'+compChips(e.fl||(F.fln?F.fln[(e.n||'').toUpperCase()]:''))+'</div>'
-   +'<div class="kqr">'+qr(it,56)+'</div></div>';
 }
 function paneGroups(){
   var cats={};
@@ -3109,7 +3082,10 @@ function kidsWithSeams(list){
 function kid(g){
   var units=Object.keys(g.u||{}).map(function(u){
     return esc(u)+' ('+g.u[u]+')'}).join(' &middot; ');
-  var a=avOf(g.v), who='';
+  /*  fv is the fleet the BUILD pinned this group to - exact code,
+      safe alias, or its own member item numbers voting. See
+      asset_facts.resolve_groups. The page just believes it.  */
+  var a=avOf(g.fv||g.v), who='';
   /*  WHO HAS THEM. One person per row, and the name, the company and
       the days are three separate pieces so a long company name pushes
       the days onto their own line instead of snapping the sentence in
@@ -3118,12 +3094,19 @@ function kid(g){
   if(g.who && g.who.length){
     who='<div class="af"><span>Out with</span><b>'
       +g.who.slice(0,8).map(function(w){
+        var wf=afOf(w.i);
         return '<span class="wrow">'
           +(typeof whoLink==='function'?whoLink(w.w||'?',w.co||'')
             :esc(w.w||'?'))
           +(w.co?' <span class="wco">&middot; '+esc(w.co)+'</span>':'')
           +(w.d==null?'':' <span class="wdy">'+w.d
             +(w.d===1?' day':' days')+' out</span>')
+          /*  WHICH unit this person has - the item number, and its
+              serial when there is one. This is the line a damage
+              claim starts from. Its own row, so it never snaps the
+              name-company-days phrase above it.  */
+          +(w.i?'<span class="wid">'+esc(w.i)
+            +(wf&&wf.s?' &middot; S/N '+esc(wf.s):'')+'</span>':'')
           +'</span>';
       }).join('')
       +(g.who.length>8?'<span class="wrow">+ '+(g.who.length-8)
@@ -3145,6 +3128,7 @@ function kid(g){
       +(g.v?fact('Code','<span class="vcode">'+esc(g.v)+'</span>',1):'')
       +(a&&a.n?fact('Fleet', a.n+' of these on site'
           +(a.nv?' &middot; '+a.nv+' never issued':'')):'')
+      +(a&&a.ux?fact('Use next','<span class="unext">'+esc(a.ux)+'</span>',1):'')
       +(a?fact('Times out', timesOut(a, 0)):'')
       +who
     +'</div>'
@@ -3674,7 +3658,20 @@ function whoOpen(kind,a,b){
        +(x.i?' &middot; Item '+esc(x.i):'')
        +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
        +(kind==='co'?' &middot; '+whoLink(x.w,x.co):'')
-       +'</div></div></div>'; }).join('')
+       +'</div>'
+       /*  the asset's own facts, on the profile too - same lookup as
+           the finder card, so the two screens cannot disagree
+           (Andrew, 3 Aug 2026)  */
+       +(function(){
+          var f2=afOf(x.i); if(!f2) return '';
+          var b2=[];
+          if(f2.s) b2.push('S/N '+esc(f2.s));
+          if(f2.u!=null) b2.push(f2.u+'% utilisation');
+          if(f2.c) b2.push(f2.c+'&times; this shut');
+          return b2.length?'<div class="kw" style="margin-top:2px">'
+            +b2.join(' &middot; ')+'</div>':'';
+        })()
+       +'</div></div>'; }).join('')
    +more(300,rows.length,'items');
 
   if(kind==='pp') h+=whoCons(o.n);

@@ -949,8 +949,16 @@ def build():
         try:
             import asset_facts as _AF
             import mygear_intel as _MI
-            _sd['af'] = _AF.build(_MI.read(rental_path, txn_path,
-                                           onhire_path))
+            _af = _AF.build(_MI.read(rental_path, txn_path, onhire_path))
+            #  pin every product group to its fleet - exact code, safe
+            #  alias, then the members' own item numbers voting. The
+            #  item->fleet index stays on this side of the wire.
+            _ans, _tot = _AF.resolve_groups(_sd, _af)
+            _af.pop('iv', None)
+            _sd['af'] = _af
+            print('  Asset facts: utilisation, times out and serials on '
+                  '{:,} assets; {:,} of {:,} product groups pinned to a '
+                  'fleet.'.format(len(_af['item']), _ans, _tot))
         except SystemExit:
             raise                       # the money guard - let it stop
         except Exception as _e:
