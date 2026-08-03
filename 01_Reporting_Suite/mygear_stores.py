@@ -4698,18 +4698,56 @@ window.addEventListener('afterprint',function(){
    is in the raw file and is deliberately never rendered - money stays
    behind the manager code, whatever file gets loaded. */
 var FR=null;
+/*  FRESH LOOK v2 (Andrew, 3 Aug 2026): "I want to be able to do a few
+    raw data reports in here. rental stock. stock take. sales ... we
+    never know what type of raw data they want on the spot."
+
+    So it no longer asks for the On Hire report. It takes ANY of the
+    four SiteIQ exports, works out which one it is off the sheet names,
+    and offers the cuts that make sense for that one. Every cut prints
+    through the same hub as every other report on this suite - if it
+    comes off this page it looks like a Coates report, not a
+    spreadsheet dump.  */
+var FR_KINDS={
+  ON_HIRE:{label:'On Hire', key:'ITEM_NUMBER',
+    views:[['all','Everything on hire'],['co','By company'],
+           ['pp','By person'],['radios','Radios'],['gas','Gas monitors']]},
+  RENTAL_STOCK:{label:'Rental Stock', key:'ITEM_NUMBER',
+    views:[['all','Every asset'],['avail','On the shelf'],
+           ['out','Out on hire'],['aisle','By aisle'],['fam','By family']]},
+  STOCKTAKE:{label:'Stocktake', key:'SKU_NUMBER',
+    views:[['all','Every line'],['aisle','By aisle'],
+           ['who','By who counted'],['stale','Not sighted lately']]},
+  SALES_STOCK:{label:'Consumables', key:'SKU_NUMBER',
+    views:[['all','Every line'],['shelf','On the shelf'],
+           ['low','Running low'],['taken','Taken by someone'],
+           ['aisle','By aisle']]}
+};
 function paneFresh(){
   return '<div class="note"><b>A fresh look, straight off this phone.</b> '
-   +'Download the On Hire report from SiteIQ onto this phone, pick it '
-   +'below, and read it here &mdash; who holds what, as at the minute you '
-   +'pulled it. Lives on this phone only; the next morning build is still '
-   +'the record.</div>'
+   +'Download <b>any</b> SiteIQ export onto this phone &mdash; On Hire, '
+   +'Rental Stock, Stocktake or Consumables &mdash; pick it below, and '
+   +'read it here as at the minute you pulled it. Every view prints as a '
+   +'proper Coates report. Lives on this phone only; the next morning '
+   +'build is still the record.</div>'
    +'<input type="file" id="frfile" accept=".xlsx" '
    +'style="display:none" onchange="frPick(this)">'
    +'<button class="stmore" type="button" '
    +'onclick="document.getElementById(\\'frfile\\').click()">'
-   +'&#128194; Pick the ON_HIRE export</button>'
+   +'&#128194; Pick any SiteIQ export</button>'
    +'<div id="frout"></div>';
+}
+/*  which export is this? Named off the sheet it carries, not the file
+    name - a bloke renames a download without thinking about it.  */
+function frDetect(bytes){
+  var k;
+  for(k in FR_KINDS){
+    try{
+      var sh=readXlsxSheet(bytes,k);
+      if(sh&&sh.rows&&sh.rows.length) return {kind:k,sheet:sh};
+    }catch(e){}
+  }
+  return null;
 }
 function frPick(inp){
   var f=inp.files&&inp.files[0];
@@ -4733,9 +4771,9 @@ function frTidy(d){
 }
 function frParse(bytes,fname){
   var out=document.getElementById('frout');
-  var sheet=null, ref=null;
+  var det=null, ref=null;
   try{
-    sheet=readXlsxSheet(bytes,'ON_HIRE');
+    det=frDetect(bytes);
     ref=readXlsxSheet(bytes,'REFERENCE_INFO');
   }catch(e){
     out.innerHTML='<div class="kw" style="padding:10px 2px">That file did '
@@ -4743,12 +4781,15 @@ function frParse(bytes,fname){
       +'fresh from SiteIQ and try again.</div>';
     return;
   }
-  if(!sheet||!sheet.rows.length){
-    out.innerHTML='<div class="kw" style="padding:10px 2px">No ON_HIRE '
-      +'sheet in that file. This loader reads the On Hire report &mdash; '
-      +'download that one from SiteIQ and pick it again.</div>';
+  if(!det){
+    out.innerHTML='<div class="note" style="border-left-color:var(--rd)">'
+      +'<b>That is not one this page knows.</b> It reads the four SiteIQ '
+      +'exports: <b>On Hire</b>, <b>Rental Stock</b>, <b>Stocktake</b> and '
+      +'<b>Consumables</b> (SALES_STOCK). Pick one of those and it will '
+      +'open.</div>';
     return;
   }
+  var sheet=det.sheet, KIND=det.kind;
   var asof='';
   if(ref&&ref.rows.length){
     /* the sheet has REQUESTED_BY (a name) and REQUESTED_DATE/TIME -
@@ -4769,35 +4810,78 @@ function frParse(bytes,fname){
     return Math.max(0,Math.round((new Date(now.getFullYear(),now.getMonth(),
       now.getDate())-d)/86400000));
   }
+  /*  ONE ROW SHAPE, whichever export it came from, so the views and
+      the print hub do not each need four versions. Anything the source
+      does not carry simply stays blank rather than being invented.  */
   var rows=sheet.rows.map(function(r){
-    var itm=r.ITEM_NUMBER||'';
-    var nm=(D.ren&&D.ren[itm])||frTidy(r.ITEM_DESCRIPTION);
-    return {n:nm, w:r.HIRER_NAME||'Not named', co:r.COMPANY||'Not named',
-            d:days(r.START_DATE), i:itm, p:(D.pids&&D.pids[itm])||'',
-            u:(r.PRODUCT_FAMILY||'').replace(/\\s{2,}/g,' ')};
+    var itm=r.ITEM_NUMBER||r.SKU_NUMBER||r.LATEST_BARCODE||'';
+    var nm=(D.ren&&D.ren[itm])||frTidy(r.ITEM_DESCRIPTION||r.DESCRIPTION
+                                       ||r.SKU_DESCRIPTION);
+    return {n:nm,
+            w:r.HIRER_NAME||r.LAST_SIGHTED_BY||'',
+            co:r.COMPANY||r.COMPANY_NAME||r.OWNER||'',
+            d:days(r.START_DATE||r.ON_HIRE_DATE
+                   ||(r.LAST_SIGHTED_DATE_TIME||'').split(' ')[0]),
+            i:itm, p:(D.pids&&D.pids[itm])||'',
+            u:(r.PRODUCT_FAMILY||r.STORAGE_UNIT||'').replace(/\\s{2,}/g,' '),
+            st:r.ITEM_STATUS||r.SIGHTED_STATUS||'',
+            q:r.AVAILABLE_QUANTITY||r.SIGHTED_QUANTITY||'',
+            sn:(D.af&&D.af.item&&D.af.item[itm]&&D.af.item[itm].s)||'',
+            /*  SALES_STOCK carries BOTH the shelf line and every line
+                someone has taken - 437 of 511 on the 3 Aug pull have a
+                HIRER. Counting those as shelf stock made "running low"
+                report 476 of 511, which is not a warning, it is noise.
+                The morning build already draws this line; so does this
+                now.  */
+            hz:(r.HIRER||'').trim?String(r.HIRER||'').trim():''};
   });
   rows.sort(function(a,b){
-    var ka=[a.co.toUpperCase(),a.w.toUpperCase(),-(a.d==null?-1:a.d),a.n.toUpperCase()];
-    var kb=[b.co.toUpperCase(),b.w.toUpperCase(),-(b.d==null?-1:b.d),b.n.toUpperCase()];
+    var ka=[(a.co||'~').toUpperCase(),(a.w||'~').toUpperCase(),
+            -(a.d==null?-1:a.d),(a.n||'').toUpperCase()];
+    var kb=[(b.co||'~').toUpperCase(),(b.w||'~').toUpperCase(),
+            -(b.d==null?-1:b.d),(b.n||'').toUpperCase()];
     for(var j=0;j<4;j++){ if(ka[j]<kb[j])return -1; if(ka[j]>kb[j])return 1; }
     return 0;
   });
-  FR={rows:rows, asof:asof, fname:fname,
+  FR={rows:rows, asof:asof, fname:fname, kind:KIND,
       loaded:now.getHours()+':'+('0'+now.getMinutes()).slice(-2)};
   frShow('all');
 }
 function frRows(kind){
-  if(kind==='radios') return FR.rows.filter(function(x){
+  var R=FR.rows;
+  if(kind==='radios') return R.filter(function(x){
     return /radio/i.test(x.n)||/radio/i.test(x.u);});
-  if(kind==='gas') return FR.rows.filter(function(x){
-    return /gas monitor|bw flex/i.test(x.n);});
-  if(kind==='co'){var v=document.getElementById('frco').value;
-    return v?FR.rows.filter(function(x){return x.co===v;}):[];}
-  if(kind==='pp'){var v2=document.getElementById('frpp').value;
+  if(kind==='gas') return R.filter(function(x){
+    return /gas monitor|bw flex|multi-gas/i.test(x.n);});
+  /*  RENTAL STOCK cuts - the register's own word, never a guess  */
+  if(kind==='avail') return R.filter(function(x){
+    return /available/i.test(x.st||'');});
+  if(kind==='out') return R.filter(function(x){
+    return /on hire/i.test(x.st||'');});
+  /*  STOCKTAKE cuts  */
+  if(kind==='stale') return R.filter(function(x){
+    return x.d==null||x.d>=7;});
+  if(kind==='who'){var vw=(document.getElementById('frwho')||{}).value;
+    return vw?R.filter(function(x){return x.w===vw;}):[];}
+  /*  CONSUMABLES. A line with a HIRER is gear someone has taken, not
+      shelf stock - it must not be read as the shelf running dry.  */
+  if(kind==='shelf') return R.filter(function(x){ return !x.hz; });
+  if(kind==='taken') return R.filter(function(x){ return !!x.hz; });
+  if(kind==='low') return R.filter(function(x){
+    if(x.hz) return false;
+    var q=parseInt(x.q,10); return !isNaN(q)&&q<=3;});
+  /*  shared  */
+  if(kind==='aisle'){var va=(document.getElementById('frais')||{}).value;
+    return va?R.filter(function(x){return x.u===va;}):[];}
+  if(kind==='fam'){var vf=(document.getElementById('frais')||{}).value;
+    return vf?R.filter(function(x){return x.u===vf;}):[];}
+  if(kind==='co'){var v=(document.getElementById('frco')||{}).value;
+    return v?R.filter(function(x){return x.co===v;}):[];}
+  if(kind==='pp'){var v2=(document.getElementById('frpp')||{}).value;
     if(!v2) return [];
     var p=v2.split('\\u001F');
-    return FR.rows.filter(function(x){return x.w===p[0]&&x.co===p[1];});}
-  return FR.rows;
+    return R.filter(function(x){return x.w===p[0]&&x.co===p[1];});}
+  return R;
 }
 function frShow(kind){
   var out=document.getElementById('frout');
@@ -4814,30 +4898,56 @@ function frShow(kind){
     var p=k.split('\\u001F');
     return '<option value="'+esc(k)+'">'+esc(p[0])+' &middot; '+esc(p[1])
       +' ('+pps[k]+')</option>';}).join('');
-  var title={all:'Everything on hire',radios:'Radios on hire',
-             gas:'Gas monitors on hire'}[kind];
+  var K=FR_KINDS[FR.kind]||FR_KINDS.ON_HIRE;
+  var titles={};
+  K.views.forEach(function(v){ titles[v[0]]=v[1]; });
+  var title=titles[kind]||'';
   if(kind==='co') title=(document.getElementById('frco')||{}).value;
+  if(kind==='who') title=(document.getElementById('frwho')||{}).value;
+  if(kind==='aisle'||kind==='fam')
+    title=(document.getElementById('frais')||{}).value;
   if(kind==='pp'){var pv=(document.getElementById('frpp')||{}).value||'';
     title=pv.split('\\u001F')[0];}
-  PRCUR={t:'FRESH LOOK — '+(title||'on hire'),
+  PRCUR={t:'FRESH LOOK — '+K.label.toUpperCase()+' — '+(title||''),
          sub:'INTERIM — export pulled '+esc(FR.asof||('today '+FR.loaded))
            +', loaded on a phone at '+FR.loaded
            +'. The next morning build is the record.',
          asof:FR.asof||'', r:rows, interim:true};
-  var h='<div class="note"><b>'+FR.rows.length+' items on hire</b> in '
-    +esc(FR.fname)+(FR.asof?' &middot; pulled '+esc(FR.asof):'')
-    +' &middot; loaded '+FR.loaded+'. This view lives on this phone only.</div>'
-    +'<div class="prpick">'
-    +'<button class="stmore" type="button" onclick="frShow(\\'all\\')">Everything</button>'
-    +'<button class="stmore" type="button" onclick="frShow(\\'radios\\')">Radios</button>'
-    +'<button class="stmore" type="button" onclick="frShow(\\'gas\\')">Gas monitors</button>'
-    +'</div>'
-    +'<div class="uhead">One company</div>'
+  //  the aisle / family list, off whatever the rows carry
+  var ais={}; FR.rows.forEach(function(x){ if(x.u) ais[x.u]=(ais[x.u]||0)+1; });
+  var aisOpts=Object.keys(ais).sort().map(function(a){
+    return '<option value="'+esc(a)+'">'+esc(a)+' ('+ais[a]+')</option>';
+  }).join('');
+  var whoOpts=Object.keys(pps).map(function(k){return k.split('\\u001F')[0];})
+    .filter(function(v,i,a){return v&&a.indexOf(v)===i;}).sort()
+    .map(function(w){return '<option value="'+esc(w)+'">'+esc(w)+'</option>';})
+    .join('');
+  var h='<div class="note"><b>'+K.label+'</b> &mdash; <b>'+FR.rows.length
+    +'</b> line'+(FR.rows.length===1?'':'s')+' in '+esc(FR.fname)
+    +(FR.asof?' &middot; pulled '+esc(FR.asof):'')
+    +' &middot; loaded '+FR.loaded+'. This view lives on this phone only.'
+    +'</div><div class="prpick">'
+    + K.views.filter(function(v){
+        return ['co','pp','aisle','fam','who'].indexOf(v[0])<0; })
+       .map(function(v){
+        return '<button class="stmore'+(kind===v[0]?' on':'')+'" type="button" '
+          +'onclick="frShow(\\''+v[0]+'\\')">'+esc(v[1])+'</button>'; }).join('')
+    +'</div>';
+  function has(v){ return K.views.some(function(x){return x[0]===v;}); }
+  if(has('co')&&coOpts) h+='<div class="uhead">One company</div>'
     +'<select id="frco" class="srch" onchange="frShow(\\'co\\')">'
-    +'<option value="">Pick a company&hellip;</option>'+coOpts+'</select>'
-    +'<div class="uhead">One person</div>'
+    +'<option value="">Pick a company&hellip;</option>'+coOpts+'</select>';
+  if(has('pp')&&ppOpts) h+='<div class="uhead">One person</div>'
     +'<select id="frpp" class="srch" onchange="frShow(\\'pp\\')">'
     +'<option value="">Pick a person&hellip;</option>'+ppOpts+'</select>';
+  if((has('aisle')||has('fam'))&&aisOpts)
+    h+='<div class="uhead">'+(has('fam')&&FR.kind==='RENTAL_STOCK'
+        ?'One aisle or family':'One aisle')+'</div>'
+    +'<select id="frais" class="srch" onchange="frShow(\\'aisle\\')">'
+    +'<option value="">Pick one&hellip;</option>'+aisOpts+'</select>';
+  if(has('who')&&whoOpts) h+='<div class="uhead">One counter</div>'
+    +'<select id="frwho" class="srch" onchange="frShow(\\'who\\')">'
+    +'<option value="">Pick who counted&hellip;</option>'+whoOpts+'</select>';
   if(rows.length){
     h+='<div class="uhead">'+esc(title||'')+' &mdash; '+rows.length+' item'
       +(rows.length===1?'':'s')+'</div>'
@@ -4848,9 +4958,14 @@ function frShow(kind){
       +rows.slice(0,200).map(function(x){
         return '<div class="kid"><div class="kt"><b>'+esc(x.n)+'</b>'
           +'<em class="'+((x.d||0)>4?'o':'')+'">'+(x.d==null?'&mdash;':x.d+'d')+'</em></div>'
-          +'<div class="kw">'+wl(x)+' &middot; '+esc(x.co)
-          +(x.i?' &middot; Item '+esc(x.i):'')
+          +'<div class="kw">'
+          +(x.w?wl(x)+(x.co?' &middot; '+esc(x.co):''):(x.co?esc(x.co):''))
+          +(x.i?(x.w||x.co?' &middot; ':'')+'Item '+esc(x.i):'')
           +(x.p?' &middot; <b style="color:var(--org)">Plant ID '+esc(x.p)+'</b>':'')
+          +(x.sn?' &middot; S/N '+esc(x.sn):'')
+          +(x.u?'<br>'+esc(x.u):'')
+          +(x.st?' &middot; '+esc(x.st):'')
+          +(x.q!==''&&x.q!=null?' &middot; qty '+esc(x.q):'')
           +'</div></div>';
       }).join('')+more(200,rows.length,'items');
   }else{
