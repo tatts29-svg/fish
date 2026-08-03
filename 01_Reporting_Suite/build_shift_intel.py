@@ -63,6 +63,10 @@ def build(today=None):
     dur = SI.durations(txn)
     rental = FC._newest('RENTAL_STOCK*.xlsx')
     cov = SI.aisle_coverage(rental, sight) if rental else None
+    tp = SI.trips(counter)
+    shorts = SI.short_hires(txn)
+    chn = SI.churn(counter)
+    tr = SI.trend(counter)
     outs = [e for e in counter if e['way'] == 'OUT'][:500]
     backs = [e for e in counter if e['way'] == 'BACK'][:500]
 
@@ -267,6 +271,104 @@ def build(today=None):
                      "and the register has seen four of them."
                      if thin else ''))
 
+    # ---- 4d. the ramp -------------------------------------------------
+    if tr and len(tr['days']) > 3:
+        H.append("<div class='panel'><div class='ph'>The shape of the "
+                 "shut &mdash; movements a day</div>")
+        H.append("<div class='story'>First week averaged <b>{:.0f} "
+                 "movements a day</b>. The last seven days averaged "
+                 "<b>{:.0f}</b> &mdash; the counter is carrying <b>{:.1f} "
+                 "times</b> the load it opened with, on the same window "
+                 "and the same hands. Peak day so far: <b>{:,}</b>."
+                 "</div>".format(tr['firstAvg'], tr['lastAvg'],
+                                 tr['lastAvg'] / max(1.0, tr['firstAvg']),
+                                 tr['peak']))
+        H.append("<div class='hg tall'>")
+        for d, n in tr['days']:
+            H.append("<div class='hb' title='{} - {} movements'>"
+                     "<i class='{}' style='height:{}%'></i><em>{}</em>"
+                     "</div>".format(
+                         d.strftime('%a %d %b'), n,
+                         'n' if d.weekday() >= 5 else 'd',
+                         max(2, int(100.0 * n / tr['peak'])),
+                         d.strftime('%d')))
+        H.append("</div><div class='pnote'><i class='sw n'></i> weekend "
+                 "&middot; <i class='sw d'></i> weekday. If the ramp is "
+                 "still climbing, the two rush hours are about to get "
+                 "worse before they get better.</div></div>")
+
+    # ---- 4e. repeat trips ---------------------------------------------
+    H.append("<div class='panel'><div class='ph'>Repeat trips &mdash; who "
+             "keeps coming back to the window</div>")
+    H.append("<div class='story'>Counted as separate <b>visits</b>, not "
+             "lines: five items booked in one minute is one trip. The "
+             "median person makes <b>{}</b> trips a shift. But "
+             "<b>{:,} person-shifts</b> made five or more.</div>".format(
+                 tp['median'], tp['heavy']))
+    H.append("<div class='tw'><table><tr><th>Who</th><th>Shift</th>"
+             "<th>Separate trips</th></tr>")
+    for r in tp['worst']:
+        H.append("<tr><td><b>{}</b></td><td>{} {}</td>"
+                 "<td class='n'>{}</td></tr>".format(
+                     esc(r['who']), r['date'].strftime('%a %d %b'),
+                     r['shift'], r['trips']))
+    H.append("</table></div><div class='pnote'>This is a <b>process</b> "
+             "signal, not a discipline one. A bloke back a dozen times is "
+             "usually a leading hand collecting for a crew, or someone "
+             "who cannot get what he needs in one go. The store account "
+             "(<i>Site Plant Equipment</i>) sits top because it is the "
+             "store booking to itself &mdash; that is expected, and it "
+             "is left in so the list is not quietly edited.</div></div>")
+
+    # ---- 4f. short hires ----------------------------------------------
+    if shorts:
+        zero = sum(1 for x in shorts if x['mins'] == 0)
+        H.append("<div class='panel'><div class='ph'>Out and straight "
+                 "back &mdash; hires under 30 minutes</div>")
+        H.append("<div class='story'><b>{:,}</b> hires came back inside "
+                 "half an hour, <b>{}</b> of them inside the same "
+                 "minute. Almost none of these are hires: they are the "
+                 "wrong item picked up and swapped, or a booking put on "
+                 "and taken straight off. Each one is a trip to the "
+                 "window that produced nothing.</div>".format(
+                     len(shorts), zero))
+        H.append("<div class='tw'><table><tr><th>Out</th><th>Back after"
+                 "</th><th>Item</th><th>Who</th></tr>")
+        for x in shorts[:10]:
+            H.append("<tr><td><b>{}</b></td><td class='n {}'>{}</td>"
+                     "<td>{}</td><td>{}</td></tr>".format(
+                         x['at'].strftime('%a %d %b %H:%M'),
+                         'z' if x['mins'] == 0 else '',
+                         'same minute' if x['mins'] == 0
+                         else '{} min'.format(x['mins']),
+                         esc(x['n']), esc(x['w'] or '-')))
+        H.append("</table></div><div class='pnote'>A 100kVA generator "
+                 "back in the same minute it went out did not go "
+                 "anywhere. Worth knowing how often the window is being "
+                 "used to correct itself.</div></div>")
+
+    # ---- 4g. churn -----------------------------------------------------
+    if chn:
+        H.append("<div class='panel'><div class='ph'>Hardest-working "
+                 "assets &mdash; what keeps cycling</div>")
+        H.append("<div class='story'>Rental assets only. A consumable "
+                 "cannot churn &mdash; it is a different bucket every "
+                 "time &mdash; and leaving them in put a 20L bucket top "
+                 "of this list at 48 issues, which meant nothing.</div>")
+        cpk = chn[0]['out'] or 1
+        for x in chn[:10]:
+            H.append("<div class='pr'><span class='w'>{}</span>"
+                     "<div class='bar'><i style='width:{}%'></i>"
+                     "<b>{}</b></div></div>".format(
+                         esc(x['n'][:38]), max(4, int(87.0 * x['out'] / cpk)),
+                         x['out']))
+        H.append("<div class='pnote'>High churn is not automatically "
+                 "bad &mdash; a forklift <i>should</i> cycle. It is worth "
+                 "a look when one unit runs far above its family: usually "
+                 "it is the only good one left, one that keeps coming "
+                 "back broken, or one people take and find they cannot "
+                 "use.</div></div>")
+
     # ---- 5. scan pace -------------------------------------------------
     H.append("<div class='panel'><div class='ph'>Scan pace &mdash; the "
              "five-second rule</div>")
@@ -416,6 +518,9 @@ td.n.a{color:#F5A623}
 .er .nm{flex:1;min-width:0}
 .er .nm span{display:block;color:#8794A6;font-size:11px;margin-top:2px}
 .hg{display:flex;align-items:flex-end;gap:3px;height:120px;padding-bottom:16px}
+.hg.tall{height:150px}
+.pr>span.w{width:190px;color:#C7CED8;font-weight:700;font-size:11px;
+ letter-spacing:0}
 .hb{flex:1;height:100%;display:flex;align-items:flex-end;position:relative}
 .hb i{width:100%;border-radius:3px 3px 0 0;display:block}
 .hb i.d{background:#2AA9C4}.hb i.n{background:#F26222}

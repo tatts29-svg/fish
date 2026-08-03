@@ -132,6 +132,7 @@ def read_counter(txn_path, days=21):
         c_who = col('HIRER_NAME')
         c_co = col('EMPLOYER_NAME', 'COMPANY_NAME')
         c_fam = col('PRODUCT_FAMILY')
+        c_cat = col('PRODUCT_CATEGORY')
         pairs = ((col('TRAN_START_DATE'), col('TRAN_START_TIME'), 'OUT'),
                  (col('TRAN_END_DATE'), col('TRAN_END_TIME'), 'BACK'))
         for r in rows:
@@ -159,6 +160,8 @@ def read_counter(txn_path, days=21):
                           else '',
                     'f': str(r[c_fam] or '').strip()[:26] if c_fam is not None
                          else '',
+                    'cat': str(r[c_cat] or '').strip() if c_cat is not None
+                           else '',
                 })
     wb.close()
     if out:
@@ -397,4 +400,124 @@ def aisle_coverage(rental_path, sight):
         'aisles': len(units),
         'walked': sum(1 for r in rows_out if r['counted']),
         'unseen': sum(r['assets'] for r in rows_out if not r['counted']),
+    }
+
+
+def trips(counter):
+    """How many SEPARATE times a person came to the window in one shift.
+
+    Separate trips, not lines: five items booked in the same minute is
+    one visit. A bloke back at the window a dozen times in a shift is
+    not a discipline problem, it is a process one - he is not getting
+    what he needs first time, or he is collecting for a crew.
+    """
+    per = defaultdict(set)
+    for e in counter:
+        if not e['w']:
+            continue
+        sh, d = shift_of(e['at'])
+        per[(e['w'], d, sh)].add(e['at'].replace(second=0))
+    sizes = sorted(((len(v), k) for k, v in per.items()), reverse=True)
+    return {
+        'shifts': len(sizes),
+        'heavy': sum(1 for n, _ in sizes if n >= 5),
+        'worst': [{'who': k[0], 'date': k[1], 'shift': k[2], 'trips': n}
+                  for n, k in sizes[:8]],
+        'median': sizes[len(sizes) // 2][0] if sizes else 0,
+    }
+
+
+def short_hires(txn_path, minutes=30):
+    """Out and back inside half an hour.
+
+    Almost never a hire. It is the wrong item picked up and swapped, or
+    a booking put on and taken straight off - and either way it is a
+    minute of someone's day and a line in the charge feed that means
+    nothing. Worth seeing as a rate, not chased one by one.
+    """
+    import openpyxl
+    hits = []
+    wb = openpyxl.load_workbook(txn_path, read_only=True, data_only=True)
+    for sn in ('TRANSACTION_CHARGES', 'CUSTOMER_CONTRACTOR_EQUIP'):
+        if sn not in wb.sheetnames:
+            continue
+        rows = wb[sn].iter_rows(values_only=True)
+        try:
+            hdr = [str(c or '').strip() for c in next(rows)]
+        except StopIteration:
+            continue
+        ix = {h: i for i, h in enumerate(hdr)}
+        if 'TRAN_START_DATE' not in ix:
+            continue
+        for r in rows:
+            if not r:
+                continue
+            a, b = _ts(r[ix['TRAN_START_DATE']]), _ts(r.get(ix['TRAN_END_DATE'])
+                                                      if False else
+                                                      r[ix['TRAN_END_DATE']])
+            if not (a and b):
+                continue
+            ta = _clock(r[ix['TRAN_START_TIME']]) if 'TRAN_START_TIME' in ix \
+                else None
+            tb = _clock(r[ix['TRAN_END_TIME']]) if 'TRAN_END_TIME' in ix \
+                else None
+            if ta:
+                a = a.replace(hour=ta[0], minute=ta[1], second=ta[2])
+            if tb:
+                b = b.replace(hour=tb[0], minute=tb[1], second=tb[2])
+            mins = (b - a).total_seconds() / 60.0
+            if 0 <= mins <= minutes:
+                hits.append({
+                    'mins': round(mins),
+                    'at': a,
+                    'i': str(r[ix.get('SKU/ITEM_NUMBER', -1)] or '').strip(),
+                    'n': str(r[ix.get('SKU/ITEM DESCRIPTION', -1)]
+                             or '').strip()[:44],
+                    'w': str(r[ix.get('HIRER_NAME', -1)] or '').strip()[:26],
+                })
+    wb.close()
+    hits.sort(key=lambda x: (x['mins'], x['at']))
+    return hits
+
+
+def churn(counter, top=10):
+    """Assets that keep going out and coming back.
+
+    High churn is not automatically bad - a forklift SHOULD cycle. It
+    is worth seeing because a tool that cycles far above its family is
+    usually one of three things: the only good one left, one that keeps
+    coming back broken, or one people take and find they cannot use.
+    """
+    #  RENTAL ONLY. The first cut put a 20L bucket top of the churn
+    #  list at 48 issues - but a consumable is a DIFFERENT bucket every
+    #  time, so it cannot cycle. Churn only means anything for a
+    #  serialised asset that comes back and goes out again.
+    n = Counter()
+    name = {}
+    for e in counter:
+        if e['way'] != 'OUT' or not e['i']:
+            continue
+        if (e.get('cat') or '').lower() not in ('rental', ''):
+            continue
+        if not (e.get('cat') or '').strip():
+            continue          # no category = not provably a rental asset
+        n[e['i']] += 1
+        name.setdefault(e['i'], e['n'])
+    return [{'i': k, 'n': name.get(k, ''), 'out': v}
+            for k, v in n.most_common(top)]
+
+
+def trend(counter):
+    """The shut ramping up, day by day, with the first/last week rates."""
+    per = Counter(e['at'].date() for e in counter)
+    days = sorted(per)
+    if not days:
+        return None
+    first = [per[d] for d in days[:7]]
+    last = [per[d] for d in days[-7:]]
+    return {
+        'days': [(d, per[d]) for d in days],
+        'peak': max(per.values()),
+        'firstAvg': sum(first) / float(len(first)),
+        'lastAvg': sum(last) / float(len(last)),
     }
