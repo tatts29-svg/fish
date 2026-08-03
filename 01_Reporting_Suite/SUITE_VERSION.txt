@@ -1,7 +1,7 @@
-# Coates K2 suite version - 164 files - overall 3d25ff89
+# Coates K2 suite version - 166 files - overall 40538365
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-03 03:44:23
+# taken 2026-08-03 04:42:48
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -69,6 +69,7 @@ c817cf2ade 63_HIDDEN_ITEMS.bat
 ccedd9a8b3 68_FLEET_DETAILS.bat
 500f10b932 69_WHOS_GOT_WHAT.bat
 e487d6f141 70_SERIAL_NUMBERS.bat
+37a7a18bd8 71_UTILISATION_CONTROL.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
@@ -77,7 +78,7 @@ e487d6f141 70_SERIAL_NUMBERS.bat
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 7df01af922 BUILD_DAILY_EMAIL_PACKS.py
-ac78a6f678 BUILD_MY_GEAR.py
+ae16a64b81 BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
 1fada4c69c CHECK_REPORTS.py
@@ -119,10 +120,11 @@ a49f1ea35c activity_model.py
 10ee18222a build_business_utilisation.py
 064ec01f28 build_clean_report.py
 e7dc06f2e8 build_company_onhire_report.py
+6393f9a239 build_control_hub.py
 6e6ab04d8a build_cost_snapshot.py
 6312f79465 build_crew_onhire.py
 f07fdf7710 build_flame_off_plant.py
-f88872d4b9 build_fleet_detail.py
+9a158b2205 build_fleet_detail.py
 0de1946e50 build_fleet_finder.py
 1a3898ae51 build_invoice_breakdown.py
 831892f416 build_offline_day.py
@@ -148,7 +150,7 @@ f013359327 mybranch.py
 76c4ef0808 mygear_guides.py
 fed373b865 mygear_intel.py
 6ade9a441b mygear_movement.py
-3a9a24ce13 mygear_store.py
+1fd787cf0b mygear_store.py
 592fbb1723 mygear_stores.py
 d0d56a3a92 mygear_thumbs.py
 6e43e676db mygear_ui.py

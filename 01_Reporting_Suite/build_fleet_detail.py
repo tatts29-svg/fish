@@ -574,13 +574,38 @@ def build_one(data, with_money, out_path, today):
     except Exception:
         pass
     have = set(os.listdir(tdir)) if os.path.isdir(tdir) else set()
+    #  THE NORMALISED BRIDGE (Andrew, 3 Aug 2026: radios, monitors and
+    #  radio batteries "all missing from Fleet area too"). Their fleet
+    #  keys are plain names with spaces - 'Motorola DP4801e Two-Way
+    #  Radio' - while the claimed photo on disk is the register code,
+    #  MOTOROLADP4801ETWOWAYRADIO.jpg. Same picture, two spellings, so
+    #  the match runs on letters-and-digits only, exact filename first.
+    nhave = {}
+    for fn in have:
+        if fn.lower().endswith('.jpg'):
+            nhave.setdefault(TH._norm(fn[:-4]), fn)
     thumbs, missing = {}, []
     for v in p['fleets']:
         fn = TH.safe_name(v) + '.jpg'
         if fn in have:
             thumbs[v] = fn
         else:
-            missing.append(v)
+            nv = TH._norm(v)
+            hit = nhave.get(nv)
+            if hit is None:
+                #  the family rule, fleet-side: 'Motorola DP4801e
+                #  Two-Way Radio 871TNK7668' is one serialised unit of
+                #  a fleet whose photo is the model shot - the code is
+                #  a PREFIX of the fleet's normalised name. Same 12+
+                #  character guard as alias_photos, same reason.
+                for ns, fn2 in nhave.items():
+                    if len(ns) >= 12 and nv.startswith(ns):
+                        hit = fn2
+                        break
+            if hit:
+                thumbs[v] = hit
+            else:
+                missing.append(v)
     p['thumbs'] = thumbs
     p['thumbsHave'] = len(thumbs)
     p['thumbsMissing'] = len(missing)

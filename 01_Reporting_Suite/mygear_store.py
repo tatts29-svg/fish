@@ -261,11 +261,18 @@ def read_availability(rental_path, sales_path, master=None):
         ix = {h: i for i, h in enumerate(hdr) if h}
         need = {'ITEM_STATUS', 'ITEM_DESCRIPTION', 'STORAGE_UNIT'}
         if need <= set(ix):
+            #  BOTH SIDES OF THE SHELF (Andrew, 3 Aug 2026: "its
+            #  missing heaps of gear"). 27 of the 30 gas monitors were
+            #  out with crews, so the catalogue showed 3 and a worker
+            #  concluded the store barely owns any. Gear that is OUT is
+            #  still gear we HAVE - it is counted separately and the
+            #  page says "all out with crews" instead of hiding it.
+            out_n = {}
             for r in rows:
                 if not r:
                     continue
                 status = str(r[ix['ITEM_STATUS']] or '').strip().lower()
-                if status != AVAILABLE:
+                if status not in (AVAILABLE, 'on hire'):
                     continue          # SiteIQ's word, never our guess
                 raw = r[ix['ITEM_DESCRIPTION']]
                 if not _offerable(raw):
@@ -276,7 +283,11 @@ def read_availability(rental_path, sales_path, master=None):
                     continue
                 unit = _unit_of(r[ix['STORAGE_UNIT']])
                 k = (name, _cat_of(name), unit)
-                hire[k] = hire.get(k, 0) + 1
+                if status == 'on hire':
+                    out_n[k] = out_n.get(k, 0) + 1
+                    hire.setdefault(k, 0)
+                else:
+                    hire[k] = hire.get(k, 0) + 1
                 if k not in vkey and 'PRODUCT_VARIANT' in ix:
                     _vk = str(r[ix['PRODUCT_VARIANT']] or '').strip().upper()
                     if not _vk:
@@ -414,6 +425,11 @@ def read_availability(rental_path, sales_path, master=None):
                   'q': int(n), 'k': kind,
                   'v': vkey.get((name, cat, unit), ''),
                   'fl': _fl(name)}
+            #  how many of this line are out with crews - carried only
+            #  when the reader would otherwise be lied to by silence
+            _o = out_n.get((name, cat, unit), 0) if kind == 'h' else 0
+            if _o:
+                it['o'] = int(_o)
             _kt = _kit_of(name)
             if _kt:
                 it['kt'] = _kt
@@ -762,9 +778,9 @@ function stRender(reset){
         feat = true;
       }
     }
-    var cls = it.q === 0 ? 'none' : (it.q <= 3 ? 'few' : '');
-    var big = it.q === 0 ? 'NONE' : it.q;
-    var lab = it.q === 0 ? 'right now' : (it.k === 'c' ? 'on the shelf' : 'ready to hire');
+    var cls = it.q === 0 ? (it.o ? 'few' : 'none') : (it.q <= 3 ? 'few' : '');
+    var big = it.q === 0 ? (it.o ? it.o : 'NONE') : it.q;
+    var lab = it.q === 0 ? (it.o ? 'out with crews' : 'right now') : (it.k === 'c' ? 'on the shelf' : 'ready to hire');
     if(grid){
       /* ONE CARD SHAPE. (Andrew, 3 Aug 2026, pointing at the landscape
          row: "this is now the size we go".)
@@ -793,9 +809,10 @@ function stRender(reset){
         + '<span><i class="loc">' + it.u + '</i>'
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
         + '<span class="stt ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '"><i></i>'
-        + (it.q===0 ? 'NONE RIGHT NOW'
-           : (it.q<=3 ? 'RUNNING LOW &mdash; ' + it.q
-              : (it.k==='c' ? 'ON THE SHELF &mdash; ' : 'READY TO HIRE &mdash; ') + it.q))
+        + (it.q===0 ? (it.o ? 'WE HAVE ' + it.o + ' &mdash; ALL OUT WITH CREWS' : 'NONE RIGHT NOW')
+           : (it.q<=3 ? 'RUNNING LOW &mdash; ' + it.q + (it.o ? ' free &middot; ' + it.o + ' out' : '')
+              : (it.k==='c' ? 'ON THE SHELF &mdash; ' : 'READY TO HIRE &mdash; ') + it.q
+                + (it.o ? ' &middot; ' + it.o + ' out with crews' : '')))
         + '</span>'
         + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div></div>';
     } else {
@@ -805,9 +822,10 @@ function stRender(reset){
         + '<div class="stn"><b>' + it.n + '</b><span><i class="loc">' + it.u + '</i>'
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
         + '<span class="stt ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '"><i></i>'
-        + (it.q===0 ? 'NONE RIGHT NOW'
-           : (it.q<=3 ? 'RUNNING LOW &mdash; ' + it.q
-              : (it.k==='c' ? 'ON THE SHELF &mdash; ' : 'READY TO HIRE &mdash; ') + it.q))
+        + (it.q===0 ? (it.o ? 'WE HAVE ' + it.o + ' &mdash; ALL OUT WITH CREWS' : 'NONE RIGHT NOW')
+           : (it.q<=3 ? 'RUNNING LOW &mdash; ' + it.q + (it.o ? ' free &middot; ' + it.o + ' out' : '')
+              : (it.k==='c' ? 'ON THE SHELF &mdash; ' : 'READY TO HIRE &mdash; ') + it.q
+                + (it.o ? ' &middot; ' + it.o + ' out with crews' : '')))
         + '</span>'
         + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div>'
         + '<div class="stq"><b>' + big + '</b><span>' + lab + '</span>'
