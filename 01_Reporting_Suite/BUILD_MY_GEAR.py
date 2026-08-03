@@ -1206,7 +1206,8 @@ def build():
     import sys as _sys
     for _pg, _nm in (('build_fleet_detail.py', 'Fleet Details'),
                      ('build_crew_onhire.py', "Who's got what"),
-                     ('build_control_hub.py', 'Utilisation Control')):
+                     ('build_control_hub.py', 'Utilisation Control'),
+                     ('build_shift_intel.py', 'Shift & Counter Intel')):
         try:
             _env = dict(os.environ, K2_CHAINED='1')
             _r = subprocess.run([_sys.executable, os.path.join(BASE, _pg)],
