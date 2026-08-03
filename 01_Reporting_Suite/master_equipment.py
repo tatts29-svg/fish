@@ -47,6 +47,17 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 DECISIONS_FILE = "RENAME_DECISIONS.txt"
 
 
+def _vkey(v):
+    """A PRODUCT_VARIANT reduced to something joinable.
+
+    SiteIQ writes it two ways for the same asset: RENTAL_STOCK gives the
+    code GIRDERTROLLEY2T, STOCKTAKE gives the words "Girder Trolley -
+    2t". Stripping everything but letters and digits makes them the same
+    key, so one rule covers the asset wherever it turns up.
+    """
+    return re.sub(r"[^A-Z0-9]", "", _clean(v).upper())
+
+
 def _load_decisions(base):
     """Andrew's locked-in naming calls. See RENAME_DECISIONS.txt.
 
@@ -70,10 +81,20 @@ def _load_decisions(base):
                 if not line or line.startswith("#") or "=>" not in line:
                     continue
                 left, right = line.split("=>", 1)
-                k, v = _dkey(left), right.strip()
+                v = right.strip()
+                #  "<wording> | <PRODUCT_VARIANT>" pins the rule to ONE
+                #  of two products SiteIQ describes identically. Same
+                #  bar as HIDDEN_ITEMS.txt uses to pin a rule to one
+                #  shelf. Without it a rule is about the wording alone.
+                var = ""
+                if "|" in left:
+                    left, var = left.split("|", 1)
+                k = _dkey(left)
                 if not k or not v:
                     continue
-                if v.upper() == "KEEP":
+                if var.strip():
+                    ren[(k, _vkey(var))] = v
+                elif v.upper() == "KEEP":
                     keep.add(k)
                 else:
                     ren[k] = v
@@ -88,6 +109,9 @@ class Master(object):
         #  spreadsheet - see RENAME_DECISIONS.txt
         self.decisions = {}
         self.approved = set()
+        #  variant-pinned decisions, resolved to exact asset numbers
+        self.by_item_decision = {}
+        self.pinned_rules = {}
         self.by_item = {}
         #  SiteIQ's old wording -> Andrew's new wording, built from the
         #  master file's own two description columns. See _index_desc.
@@ -150,6 +174,10 @@ class Master(object):
         #  are 3/4 fall under the one name" is a call about the whole
         #  register, not about whichever assets happen to be listed by
         #  number - and 57 of the 84 hoses were not (Andrew, 3 Aug 2026).
+        if item_number is not None:
+            _d = self.by_item_decision.get(str(item_number).strip())
+            if _d:
+                return _d
         k = _dkey(fallback)
         if k and k in self.decisions:
             return self.decisions[k]
@@ -197,6 +225,32 @@ class Master(object):
     def n_compliance(self):
         return self.n_elec + self.n_rig + self.n_log + self.n_ret
 
+    def _ruled(self, item_number, raw):
+        """Has Andrew already settled this one? Then stop asking."""
+        if item_number is not None and \
+                str(item_number).strip() in self.by_item_decision:
+            return True
+        k = _dkey(raw)
+        return k in self.approved or k in self.decisions
+
+    def open_ambiguities(self):
+        """Wordings SiteIQ uses for two products that nobody has ruled on.
+
+        desc_ambig is the FENCE and it stays armed either way - one name
+        must never carry across two products by wording alone. But once
+        every variant behind a wording has a pinned decision, the
+        question is answered, and a build that keeps asking it trains
+        people to scroll past the ones that are still open
+        (3 Aug 2026 - the girder trolleys).
+        """
+        out = {}
+        decided = set(vk for _dk, vk in self.pinned_rules)
+        for k, variants in self.desc_ambig.items():
+            left = [v for v in variants if _vkey(v) not in decided]
+            if left:
+                out[k] = left
+        return out
+
     def name_tally(self, pairs):
         """Where each asset's displayed name came from.
 
@@ -242,7 +296,7 @@ class Master(object):
             new = self.disp(item, raw)
             if not new or new == raw:
                 continue
-            if _dkey(raw) in self.approved or _dkey(raw) in self.decisions:
+            if self._ruled(item, raw):
                 continue
             seen.setdefault(new, {}).setdefault(raw, 0)
             seen[new][raw] += 1
@@ -294,7 +348,11 @@ class Master(object):
             #  decision recorded in RENAME_DECISIONS.txt is an answer,
             #  and a build that keeps asking a question already answered
             #  trains people to scroll past the ones that are new.
-            if _dkey(raw) in self.approved or _dkey(raw) in self.decisions:
+            #  ...and a variant-pinned decision is an answer too. The
+            #  girder trolley whose capacity "moves" 1 t -> 2 t moves
+            #  because Andrew said so; reporting his own ruling back to
+            #  him as an open question is noise (3 Aug 2026).
+            if self._ruled(item, raw):
                 continue
             k = (raw, new)
             if k in seen:
@@ -338,8 +396,14 @@ def _common_stem(names):
     return " - ".join(stem).strip()
 
 
-def _register_variants(base):
+def _register_variants(base, item_map=None):
     """SiteIQ's own wording -> the set of PRODUCT_VARIANT codes using it.
+
+    Pass `item_map` (a dict) to have it filled with
+    item number -> (wording key, normalised variant) at the same time,
+    off the same read. That is what lets a decision be written against
+    ONE of two products SiteIQ describes identically - see
+    _apply_variant_decisions.
 
     Read off the fleet register, which is the only place that knows a
     "Distribution Board" can be a DISTBOARDLIFEGUARD16, a
@@ -374,6 +438,7 @@ def _register_variants(base):
                 ix = {h: i for i, h in enumerate(hdr) if h}
                 cd = ix.get("ITEM_DESCRIPTION", ix.get("SKU_DESCRIPTION"))
                 cv = ix.get("PRODUCT_VARIANT")
+                ci = ix.get("ITEM_NUMBER", ix.get("SKU_NUMBER"))
                 if cd is None or cv is None:
                     wb.close()
                     break
@@ -384,11 +449,43 @@ def _register_variants(base):
                     v = _clean(r[cv]).upper()
                     if k and v:
                         out.setdefault(k, set()).add(v)
+                    if item_map is not None and ci is not None and k:
+                        it = _clean(r[ci])
+                        if it:
+                            item_map[it] = (k, _vkey(v))
                 wb.close()
             except Exception:
                 pass
             break
     return out
+
+
+def _apply_variant_decisions(m, base):
+    """Turn "<wording> | <VARIANT> => <name>" rules into asset numbers.
+
+    Two girder trolleys are both described "Girder Trolley - 1t" in
+    SiteIQ and told apart only by variant - GIRDERTROLLEY1T and
+    GIRDERTROLLEY2T - so one of them is a 2 t trolley reading 1 t on the
+    shelf (Andrew, 3 Aug 2026: "all girder trolleys the correct way is
+    girder trolley 1T or 2T").
+
+    A rule keyed on wording alone cannot separate them. Resolving it to
+    ASSET NUMBERS here means everything downstream keeps working
+    unchanged - disp() already answers by asset number, and that is the
+    strongest key there is.
+    """
+    pinned = [k for k in m.decisions if isinstance(k, tuple)]
+    if not pinned:
+        return
+    item_map = {}
+    _register_variants(base, item_map)
+    for item, (dk, vk) in item_map.items():
+        name = m.decisions.get((dk, vk))
+        if name:
+            m.by_item_decision[item] = name
+    #  the pinned rules have done their job; leave only plain-wording
+    #  rules in decisions so nothing downstream trips over a tuple key
+    m.pinned_rules = {k: m.decisions.pop(k) for k in pinned}
 
 
 def _index_desc(m, base=None):
@@ -576,6 +673,7 @@ def load(base_dir=None, quiet=False):
                 m.n_ret += 1
         wb.close()
         m.decisions, m.approved = _load_decisions(base)
+        _apply_variant_decisions(m, base)
         _index_desc(m, base)
         m.path = path
         m.mtime = dt.datetime.fromtimestamp(os.path.getmtime(path))

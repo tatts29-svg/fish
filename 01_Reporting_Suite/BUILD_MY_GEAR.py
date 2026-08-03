@@ -1115,8 +1115,14 @@ def build():
                     if _k in MASTER.decisions:
                         _dn[MASTER.decisions[_k]] += 1
                 print('  Your locked-in calls (RENAME_DECISIONS.txt): {} '
-                      'rename rule(s), {} approved as-is.'.format(
-                          len(MASTER.decisions), len(MASTER.approved)))
+                      'rename rule(s){}, {} approved as-is.'.format(
+                          len(MASTER.decisions),
+                          ' + {} pinned to a variant'.format(
+                              len(MASTER.pinned_rules))
+                          if MASTER.pinned_rules else '',
+                          len(MASTER.approved)))
+                for _it, _nm in MASTER.by_item_decision.items():
+                    _dn[_nm] += 1
                 for _name, _n in _dn.most_common(6):
                     print('    {:>5,}  asset(s) now read "{}"'.format(
                         _n, _name))
@@ -1166,11 +1172,16 @@ def build():
                 if len(_sm) > 5:
                     print('    ...and {} more - full list in the build '
                           'log.'.format(len(_sm) - 5))
-            if MASTER.desc_ambig:
+            #  ...the ones nobody has ruled on yet. A wording he has
+            #  already settled per variant in RENAME_DECISIONS.txt is
+            #  answered, and asking again every morning is how a real
+            #  warning gets scrolled past.
+            _amb = MASTER.open_ambiguities()
+            if _amb:
                 print('  CHECK - {} description(s) in SiteIQ cover more '
                       'than one product, so your renames are held back '
-                      'on them:'.format(len(MASTER.desc_ambig)))
-                for _k, _vs in list(MASTER.desc_ambig.items())[:5]:
+                      'on them:'.format(len(_amb)))
+                for _k, _vs in list(_amb.items())[:5]:
                     print('    "{}"  is  {}'.format(_k, ' and '.join(_vs)))
         except Exception as _e:
             print('  NOTE: rated-capacity cross-check did not run '

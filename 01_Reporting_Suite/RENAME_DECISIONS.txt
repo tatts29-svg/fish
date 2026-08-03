@@ -56,3 +56,26 @@ Cumalong - 1.6T x 1.5M  =>  KEEP
 Hose - Air - 19mm  =>  19 mm Air Hose
 Hose - Air - Type A - 19mm - 3/4inch  =>  19 mm Air Hose
 Hose - Air - Type A - 25mm - 20m  =>  19 mm Air Hose
+
+# --- Andrew, 3 Aug 2026 ----------------------------------------------
+#  "all girder trolleys the correct way is girder trolley 1T or 2T"
+#
+#  SiteIQ describes TWO different trolleys as "Girder Trolley - 1t" and
+#  tells them apart only by variant. One of them is a 2 t trolley
+#  reading 1 t on the shelf - which is the wrong rated capacity on
+#  lifting gear, and the reason the build has been flagging it.
+#
+#  A rule on the wording alone cannot separate them, so these are
+#  pinned to the variant with a bar - the same way HIDDEN_ITEMS.txt
+#  pins a rule to one shelf.
+#
+#     2 assets   GIRDERTROLLEY1T   was "Girder Trolley - 1 t"
+#     1 asset    GIRDERTROLLEY2T   was "Girder Trolley - 1 t"  <-- wrong
+#     3 assets   GIRDERTROLLEY3T   was "Girder Trolley - 3 t"
+#
+#  The 3 t is written the same way for consistency - one shelf should
+#  not carry "Girder Trolley 1T" and "Girder Trolley - 3 t" side by
+#  side. Say the word if you want the 3 t left as it was.
+Girder Trolley - 1t | GIRDERTROLLEY1T  =>  Girder Trolley 1T
+Girder Trolley - 1t | GIRDERTROLLEY2T  =>  Girder Trolley 2T
+Girder Trolley - 3t | GIRDERTROLLEY3T  =>  Girder Trolley 3T
