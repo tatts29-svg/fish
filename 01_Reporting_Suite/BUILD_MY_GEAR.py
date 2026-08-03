@@ -1291,7 +1291,12 @@ def build():
         #  did before. Degraded, not broken.
         print('  Gear pictures: skipped this build ({})'.format(_e))
 
+    import mygear_nav as nav
     page = (TEMPLATE
+            .replace('__NAVCSS__', nav.CSS)
+            .replace('__NAVBAR__', nav.bar('index', 'My Gear'))
+            .replace('__NAVSHEET__', nav.sheet('index'))
+            .replace('__NAVJS__', nav.js('index', 'My Gear'))
             .replace('__DATA__', json.dumps(DATA))
             .replace('__THUMBS__', json.dumps(_THUMBSET))
             .replace('__PULSE__', pulse)
@@ -2365,7 +2370,10 @@ body.hascard #result{padding-bottom:78px}
 @media (prefers-reduced-motion: reduce){.pulse,.mg b{animation:none}}
 __UICSS__
 __STORECSS__
-</style></head><body><div class="wrap">
+__NAVCSS__
+</style></head><body>
+__NAVBAR__
+<div class="wrap">
 <div class="brand"><div class="logo">coates<b>Equipped for anything</b></div><div class="siteiq">POWERED BY SITEIQ<br><span style="color:#8B9099;font-weight:600;letter-spacing:0">Cement Australia K2 &middot; Gladstone</span></div></div>
 <div id="landing">
 
@@ -2457,6 +2465,13 @@ __TILES__
  </div>
 </div>
 __SHEET__
+__NAVSHEET__
+<!--  THE WAY AROUND GOES IN FIRST, IN ITS OWN BLOCK. What follows is
+      one script block carrying the whole page - a syntax error anywhere
+      in it and not a line runs. That has happened here (an apostrophe
+      in a non-raw Python string closed a JS string and the page shipped
+      dead). The bar has to still work on the day the rest does not.  -->
+<script>__NAVJS__</script>
 <script>//__QRJS__//
 var DATA=__DATA__;
 /* WHICH VARIANTS ACTUALLY HAVE A PHOTO. Stamped by the build from the
@@ -3039,6 +3054,15 @@ function renderCard(p){
  +'<div class="ft">Coates · K2 Shutdown 2026 · Gladstone &middot; a keepsake of your shutdown<div class="val">Care Deeply · Customer Focused · Be Our Best · One Team · Competitive Spirit</div>POWERED BY SITEIQ · Author: Andrew Fisher</div></div>';
  document.getElementById('result').innerHTML=html;
  document.body.classList.add('hascard');
+ /*  THE CARD IS A SCREEN, SO THE BAR SAYS SO. Before this the only way
+     back to the search box was the "Done" button at the BOTTOM of the
+     card - a bloke with forty items on hire had to scroll past the lot
+     to get out of it, and the phone&rsquo;s own Back button walked him
+     off the page altogether. Now BACK is at the top where his thumb
+     already is, and the phone button does the same thing.
+     (Andrew, 4 Aug 2026.)  */
+ try{ if(typeof k2View==='function')
+   k2View((p&&p.name)?p.name:'Your gear',reset,'Your card'); }catch(e){}
  // the card's own Scan button lives inside that HTML, so reveal it now
  try{ revealScanControls(); }catch(e){}
  document.getElementById('landing').style.display='none';
@@ -3140,6 +3164,7 @@ function rvGo(k){
   catch(e){ t.scrollIntoView(); }
 }
 function reset(){document.body.classList.remove('hascard');
+ if(typeof k2Home==='function'){ try{ k2Home(); }catch(e){} }
  /* the rail belongs to a card - it goes when the card goes */
  document.body.classList.remove('hasrnav');
  var _rn=document.getElementById('rnav'); if(_rn)_rn.className='rnav';

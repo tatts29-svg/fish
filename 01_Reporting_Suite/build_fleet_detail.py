@@ -39,6 +39,7 @@ import fleet_detail as FD
 import forecast as FC
 import mybranch as MB
 import mygear_intel as MI
+import mygear_nav as nav
 import mygear_thumbs as TH
 import ownership as OWN
 import racks as RK
@@ -69,11 +70,13 @@ CSS = """
 body{background:#0D1218;color:#DCE3EC;font-family:'Segoe UI',Arial,sans-serif;
  font-size:15px;line-height:1.45;-webkit-text-size-adjust:100%}
 .phone{max-width:520px;margin:0 auto;min-height:100vh;background:#0D1218}
-.crumbs{display:flex;gap:8px;padding:9px 14px 0}
-.crumbs a{color:#7FB1C8;text-decoration:none;font-size:11.5px;font-weight:800;
- letter-spacing:.4px;border:1px solid #2A3340;border-radius:9px;padding:5px 10px}
+/*  NOT STICKY ANY MORE. The nav bar above it is the sticky one, and
+    two things both pinned to top:0 in the same box means the second
+    one sits UNDER the first - the orange title slid behind the BACK
+    button the moment you scrolled. One sticky thing per page.
+    (4 Aug 2026.)  */
 .bar{background:#F26222;color:#fff;padding:14px 16px;display:flex;
- justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+ justify-content:space-between;align-items:center}
 .bar h1{font-size:18px;font-weight:800;letter-spacing:-.2px}
 .bar .siq{font-size:9px;letter-spacing:2px;font-weight:800;opacity:.85}
 .pad{padding:14px 16px}
@@ -307,7 +310,15 @@ function showFleet(v){
   var f = D.fleets[v];
   if(!f) return;
   //  writing the hash re-fires route(); harmless, but skip the work
-  if(location.hash.slice(1) !== v) location.hash = v;
+  //
+  //  ENCODED, BOTH WAYS. Every product name in here has a space in it,
+  //  and the browser percent-encodes a space the moment it goes in the
+  //  address bar. route() then read the encoded string straight back,
+  //  looked it up in D.fleets, found nothing and sent you to the list -
+  //  so tapping a fleet opened the detail and bounced off it again in
+  //  the same breath. Nothing on this page could be opened.
+  //  (Found by clicking one. 4 Aug 2026.)
+  if(hashNow() !== v) location.hash = encodeURIComponent(v);
   var H = [];
   H.push("<button class='back' data-back='1'>&#8592; All fleets</button>");
   H.push("<h2 style='margin-top:10px'>" + esc(f.n) + '</h2>');
@@ -470,10 +481,26 @@ el('q').addEventListener('input', function(){
    the page stayed on the fleet you were already looking at. Same
    fault made a shared #VARIANT link show whatever the last person
    had open. Found by opening two fleets in a row. */
+/*  what the address bar actually says, in the words D.fleets uses  */
+function hashNow(){
+  var h = location.hash.slice(1);
+  if(!h) return '';
+  try{ return decodeURIComponent(h); }catch(e){ return h; }
+}
 function route(){
-  var v = location.hash.slice(1);
-  if(v && D.fleets[v]) showFleet(v);
-  else { el('q').value = ''; showList(''); }
+  var v = hashNow();
+  if(v && D.fleets[v]){
+    showFleet(v);
+    /*  the bar names the fleet you are looking at, and BACK steps out
+        of it - k2ViewOwn, not k2View, because the hash above is this
+        page&rsquo;s own history entry and the bar must not push a
+        second one on top of it  */
+    if(typeof k2ViewOwn === 'function')
+      k2ViewOwn(D.fleets[v].n, function(){ location.hash = ''; }, 'Fleet');
+  } else {
+    el('q').value = ''; showList('');
+    if(typeof k2Home === 'function') k2Home();
+  }
 }
 window.addEventListener('hashchange', route);
 route();
@@ -619,11 +646,15 @@ def build_one(data, with_money, out_path, today):
     #  name for a day - built, pushed, and doorless (Andrew, 3 Aug
     #  2026: "no way for me to access how silly"). Never again: every
     #  page in Gear_Lookup names its neighbours.
-    head = ("<div class='bar'><h1>Fleet Details</h1>"
-            "<span class='siq'>POWERED BY SITEIQ</span></div>"
-            "<div class='crumbs'><a href='index.html'>&lsaquo; My Gear</a>"
-            "<a href='stores.html'>Stores board</a>"
-            "<a href='crew.html'>Who&rsquo;s got what</a></div>")
+    #
+    #  4 Aug 2026: the three blue crumbs were at the very top of a
+    #  1.1 MB list, so ten seconds of scrolling put every way off this
+    #  page above the screen. They are now the standard bar - BACK,
+    #  where you are, MENU - the same one on all four pages, and it
+    #  stays put no matter how far down the list you are.
+    head = (nav.bar('fleet', 'Fleet Details')
+            + "<div class='bar'><h1>Fleet Details</h1>"
+            "<span class='siq'>POWERED BY SITEIQ</span></div>")
     body = ["<div class='phone'>", head, "<div class='pad'>",
             "<input class='srch' id='q' type='search' "
             "placeholder='Search a product…' autocomplete='off'>",
@@ -635,13 +666,29 @@ def build_one(data, with_money, out_path, today):
         body.append("<br>COATES INTERNAL &mdash; carries revenue")
     else:
         body.append("<br>No revenue on this screen")
-    body += ["</div></div></div>"]
+    #  MENU had only the four page links on this page, so from deep
+    #  inside a fleet there was nothing it could take you to ON this
+    #  page - you had to scroll back to the top for the search box.
+    _doors = [
+        ("location.hash='';window.scrollTo(0,0)", "All fleets",
+         "Back to the whole list", None),
+        ("location.hash='';window.scrollTo(0,0);"
+         "var q=document.getElementById('q');q.focus();q.select()",
+         "Search a product", "Type a name or a word off the gear", None),
+    ]
+    body += ["</div></div></div>",
+             nav.sheet('fleet', extra=_doors, extra_heading='On this page')]
 
     page = ("<!doctype html><html lang='en-AU'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width,"
             "initial-scale=1,viewport-fit=cover'>"
             "<title>Coates | Fleet Details</title>"
-            "<style>" + CSS + "</style></head><body>" + ''.join(body)
+            "<style>" + CSS + nav.CSS + "</style></head><body>"
+            + ''.join(body)
+            #  The bar goes in FIRST and on its own. It is the way off
+            #  this page, so it must work even if the 1.1 MB payload
+            #  below it never parses.
+            + "<script>" + nav.js('fleet', 'Fleet Details') + "</script>"
             + "<script>window.__FLEET__=JSON.parse(" + _js_string(p)
             + ");\n" + JS + "</script></body></html>")
 

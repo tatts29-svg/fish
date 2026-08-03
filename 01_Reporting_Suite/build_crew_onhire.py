@@ -55,6 +55,7 @@ import re
 
 import forecast as FC
 import mygear_intel as MI
+import mygear_nav as nav
 import mygear_stores as MS
 import ownership as OWN
 import serials as SR
@@ -267,11 +268,13 @@ CSS = """
 body{background:#0D1218;color:#DCE3EC;font-family:'Segoe UI',Arial,sans-serif;
  font-size:15px;line-height:1.45;-webkit-text-size-adjust:100%}
 .phone{max-width:640px;margin:0 auto;min-height:100vh}
-.crumbs{display:flex;gap:8px;padding:9px 14px 0}
-.crumbs a{color:#7FB1C8;text-decoration:none;font-size:11.5px;font-weight:800;
- letter-spacing:.4px;border:1px solid #2A3340;border-radius:9px;padding:5px 10px}
+/*  NOT STICKY ANY MORE. The nav bar above it is the sticky one, and
+    two things both pinned to top:0 in the same box means the second
+    one sits UNDER the first - the orange title slid behind the BACK
+    button the moment you scrolled. One sticky thing per page.
+    (4 Aug 2026.)  */
 .bar{background:#F26222;color:#fff;padding:14px 16px;display:flex;
- justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
+ justify-content:space-between;align-items:center}
 .bar h1{font-size:18px;font-weight:800}
 .bar .siq{font-size:9px;letter-spacing:2px;font-weight:800;opacity:.85}
 .pad{padding:14px 16px 40px}
@@ -440,6 +443,16 @@ function openCo(c){
   else el('note').innerHTML = '';
   draw();
   window.scrollTo(0,0);
+  /*  the bar names the company you have open, and BACK closes it
+      instead of walking off the page  */
+  if(typeof k2View === 'function')
+    k2View(CO.company, function(){
+      /*  BACK RETURNS YOU TO THE LIST YOU CAME FROM, not to a blank
+          box. It used to clear the search, so a supervisor who typed
+          "C", got five companies and opened the wrong one had to type
+          it all again to see the other four. The query stays; search()
+          redraws the same list. (4 Aug 2026.)  */
+      search(); }, 'Company');
 }
 
 function search(){
@@ -447,6 +460,7 @@ function search(){
   el('pick').style.display = 'none';
   el('out').innerHTML = ''; el('note').innerHTML = '';
   CO = null;
+  if(typeof k2Home === 'function') k2Home();
   if(!el('q').value.trim()){ el('list').innerHTML = ''; return; }
   if(!hits.length){
     el('list').innerHTML = "<div class='note'>No company matches “"
@@ -563,11 +577,17 @@ def build(today=None):
 
     body = [
         "<div class='phone'>",
+        #  THE WAY BACK. Same rule as fleet.html - no doorless pages -
+        #  but the two blue crumbs said nothing about where you were and
+        #  scrolled off the top the moment a company was open. This page
+        #  is reached from THREE places (the front door, the stores
+        #  board, and the "that reads like a company name" hint), so
+        #  "back" meant three different things and the crumbs guessed at
+        #  one of them. The bar remembers which door you came in by.
+        #  (Andrew, 4 Aug 2026.)
+        nav.bar('crew', 'Who&rsquo;s got what'),
         "<div class='bar'><h1>Who&rsquo;s got what</h1>"
         "<span class='siq'>POWERED BY SITEIQ</span></div>",
-        #  the way back - same rule as fleet.html: no doorless pages
-        "<div class='crumbs'><a href='index.html'>&lsaquo; My Gear</a>"
-        "<a href='fleet.html'>Fleet Details</a></div>",
         "<div class='pad'>",
         "<p class='lead'>Type your company name &mdash; the first word is "
         "enough &mdash; then pick a bloke, or leave it on Everyone.</p>",
@@ -599,10 +619,33 @@ def build(today=None):
         + "<br><span id='mline'>No money on this screen</span></div>",
         "</div></div>",
     ]
+    #  MENU on this page was four page names and Close - nothing it
+    #  could do for a supervisor already deep in a company list. These
+    #  are the three things he actually reaches for, and they work from
+    #  the bottom of a long list without scrolling back up.
+    _doors = [
+        ("var q=document.getElementById('q');q.value='';"
+         "search();window.scrollTo(0,0);q.focus()",
+         "Look up another company", "Start again from the top", None),
+        ("var w=document.getElementById('who');"
+         "if(w&&w.offsetParent){window.scrollTo(0,0);w.focus()}",
+         "Pick a different bloke", "The worker list for this company",
+         None),
+        ("window.print()", "Print this list", "Whatever is on screen now",
+         None),
+    ]
+    body.append(nav.sheet('crew', extra=_doors,
+                          extra_heading='On this page'))
     page = ("<!doctype html><html lang='en-AU'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width,"
-            "initial-scale=1'><title>Coates | Who&rsquo;s got what</title>"
-            "<style>" + CSS + "</style></head><body>" + ''.join(body)
+            "initial-scale=1,viewport-fit=cover'>"
+            "<title>Coates | Who&rsquo;s got what</title>"
+            "<style>" + CSS + nav.CSS + "</style></head><body>"
+            + ''.join(body)
+            #  The bar goes in first and on its own, so the way off this
+            #  page works even if the payload below it never parses.
+            + "<script>" + nav.js('crew', 'Who&rsquo;s got what')
+            + "</script>"
             + "<script>window.__CREW__=" + blob + ";\n"
             + "window.__M__=" + json.dumps(enc_money) + ";\n"
             + "window.__MTAG__=" + json.dumps(enc_tag) + ";\n"

@@ -950,12 +950,38 @@ function openGuide(k){
   if(history&&history.pushState) history.pushState({guide:k},'');
 }
 function closeGuide(){
+  var open=document.getElementById('gsheet').className.indexOf('on')>=0;
   document.getElementById('gsheet').className='gsheet';
   document.body.style.overflow='';
+  /*  openGuide() puts a history entry on so the phone Back button
+      closes the sheet. Closing it with the Close button left that
+      entry standing, so the NEXT press of Back did nothing at all -
+      open and close four guides and a bloke is pressing Back five
+      times to get off the page. It comes off with the sheet now.
+      GUIDE_BACK marks the unwind as ours so the popstate handler
+      below does not treat it as the user pressing Back. (4 Aug 2026) */
+  if(open && !GUIDE_BACK){
+    GUIDE_BACK=1;
+    try{ history.back(); }catch(e){ GUIDE_BACK=0; }
+  }
 }
+var GUIDE_BACK=0;
 window.addEventListener('popstate',function(){
-  if(document.getElementById('gsheet').className.indexOf('on')>=0) closeGuide();
+  if(GUIDE_BACK){ GUIDE_BACK=0; return; }
+  if(document.getElementById('gsheet').className.indexOf('on')>=0){
+    /*  this Back already took the entry - close without asking for
+        another unwind  */
+    GUIDE_BACK=1; closeGuide(); GUIDE_BACK=0;
+  }
 });
+/*  The bar at the top of the page asks this before it acts on a Back.
+    While a guide is open that Back belongs to the guide - two handlers
+    answering one Back is how a bloke taps once and skips two screens.
+    (4 Aug 2026.)  */
+function k2OtherOpen(){
+  var g=document.getElementById('gsheet');
+  return !!(g && g.className.indexOf('on')>=0);
+}
 
 /* ------------------------------------------------------------------
    CAN THIS PHONE ACTUALLY USE THE CAMERA?

@@ -5,7 +5,7 @@ Author: Andrew Fisher | POWERED BY SITEIQ
 Company       : Cement Australia
 Package       : Client master report
 Report date   : 2026-08-03
-Created       : 03 Aug 2026 22:30
+Created       : 03 Aug 2026 12:30
 Status        : Draft Ready
 
 SUBJECT
@@ -35,7 +35,7 @@ PASTED INTO THE EMAIL BODY
 ATTACHMENTS (6)
   Executive Daily Summary - 2026-08-03.pdf
   Daily Safety & Compliance Report - 2026-08-03.pdf
-  Daily Cost Tracking Report - 2026-08-03 (3).pdf
+  Daily Cost Tracking Report - 2026-08-03 (2).pdf
   Site Plant Report - 2026-08-03.pdf
   Cement Australia On-Hire Report - 2026-08-03 (3).pdf
   Consumables Usage Report - 2026-08-03.pdf

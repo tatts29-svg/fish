@@ -2641,6 +2641,9 @@ select.srch{appearance:none;-webkit-appearance:none}
 body.hasdock{padding-bottom:64px}
 @media (prefers-reduced-motion: reduce){#sdoor{display:none!important}
  #app.sdgrow{animation:none!important}}
+/*  the bar is full width of the board, not inset with the panes  */
+.k2bar{margin:0 -13px 12px;border-radius:0}
+__NAVCSS__
 </style></head><body>
 <div class="wrap">
 <header>
@@ -2662,8 +2665,10 @@ __DAYTAG__
       encrypted under HIS manager code and are not in this file in any
       readable form - that is a different question to who may see the
       shelf, and his own rule on it has not moved.  -->
+__NAVBAR__
 <div id="app"></div>
 </div>
+__NAVSHEET__
 <div id="sdoor">
  <div class="sd-plate">
   <picture>
@@ -2694,6 +2699,11 @@ __DAYTAG__
  <button type="button" onclick="dock('print')" data-d="print"><svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 17H4V9h16v8h-3M7 14h10v6H7z"/></svg>PRINT</button>
 </div>
 <div id="prsheet"></div>
+<!--  THE WAY OFF THIS PAGE GOES IN FIRST, IN ITS OWN SCRIPT BLOCK.
+      Everything below is one block: a syntax error anywhere in it and
+      not a line of it runs. That has happened here before. The bar has
+      to still work on the day the board does not.  -->
+<script>__NAVJS__</script>
 <script>
 var PAYLOAD=__PAYLOAD__,TAG="__TAG__",ASOF="__ASOF__";
 var ATAG="__ATAG__",AKEY="__AKEY__";
@@ -2730,6 +2740,7 @@ function boot(){
     +'did not finish loading from the store.</b> Step closer to the '
     +'store Wi-Fi and pull down to refresh.</div>'; return; }
   safeRender();
+  dockOn();
   if(typeof storeDoor==='function') storeDoor();
 }
 /*  MONEY, and only money. Andrew's manager code opens the rates,
@@ -2892,7 +2903,22 @@ function bayIcon(k){
     an <a> underneath, because it leaves this file. Andrew, 3 Aug 2026:
     "you have all these good functions and no way for me to access."  */
 function bayLink(url,label,n,cls){
-  return '<a href="'+url+'" class="'+(cls||'')+'">'
+  /*  k2Leave() writes this page onto the trail on the way out, so the
+      page it opens knows to come BACK here and not to whatever its
+      parent happens to be. Without it a supervisor who stepped into
+      Who&rsquo;s got what off Bay 01 was sent to My Gear on the way
+      out - a page he had never been on. (4 Aug 2026.)
+
+      NO typeof GUARD IN HERE. It was written as
+      onclick="if(typeof k2Leave===...)" and the escaped apostrophes
+      did not survive the Python string - the JS shipped with a bare
+      quote in it, which closed the string it was in and stopped the
+      WHOLE script block parsing. The board came up dead: nav is not
+      defined. If k2Leave is ever missing this onclick throws and the
+      link still follows its href, which is the same outcome the guard
+      was for.  */
+  return '<a href="'+url+'" class="'+(cls||'')
+   +'" onclick="k2Leave()">'
    +label+(n!=null&&n!==''?'<span class="bn">'+n+'</span>':'')
    +'<em>&rsaquo;</em></a>';
 }
@@ -3019,9 +3045,16 @@ function homeMenu(){
 }
 function render(){
   var t=D.tiles;
-  var h='<div class="crumb" id="crumb" style="display:none">'
-   +'<button type="button" onclick="home()">&#8962; MENU</button>'
-   +'<b id="crumb-t"></b></div>'
+  /*  THE BAR. It used to be a crumb bar that appeared only once you
+      were inside a pane, carrying MENU and the pane name - so the home
+      screen of this board had NOTHING on it that led back to My Gear.
+      You came in through the front door and the door disappeared
+      behind you. (Andrew, 4 Aug 2026: "back button menu button so its
+      easy accessable going from one spot to the next".)
+      Now it is the same bar the other three pages carry, it is on the
+      home screen as well, and BACK is never dead: inside a pane it
+      steps out to the board, on the board it goes back to My Gear.  */
+  var h=''
    +'<div class="pane on" id="p-home"><div class="tiles">'
    +tile(t.avail.toLocaleString(),'On the shelf','g','groups')
    +tile(t.onhire.toLocaleString(),'Out with crews','','chase')
@@ -3099,9 +3132,11 @@ function nav(k){
   for(var j=0;j<panes.length;j++) panes[j].className='pane';
   p.className='pane on';
   var names={mgr:'Money',print:'Print hub',who:'Master search'};
-  document.getElementById('crumb').style.display='flex';
-  document.getElementById('crumb-t').textContent=
-    names[k]||(HOWTO[k]?HOWTO[k].t:k);
+  var title=names[k]||(HOWTO[k]?HOWTO[k].t:k);
+  /*  the bar names the pane, and BACK steps out of it to the board -
+      the phone&rsquo;s own Back button does the same thing, because
+      k2View puts a history entry on for it  */
+  if(typeof k2View==='function') k2View(title,home,'Store Street');
   window.scrollTo(0,0);
   /* the master search opens with the biggest holders already on screen -
      an empty box tells a bloke nothing about what is in here */
@@ -3114,8 +3149,8 @@ function home(){
   var panes=document.querySelectorAll('.pane');
   for(var j=0;j<panes.length;j++) panes[j].className='pane';
   document.getElementById('p-home').className='pane on';
-  document.getElementById('crumb').style.display='none';
   window.scrollTo(0,0);
+  if(typeof k2Home==='function') k2Home();
   if(typeof dockMark==='function') dockMark('home');
 }
 /* THE FINDER - the counter's most-asked question, answered in one box
@@ -5292,6 +5327,12 @@ function shClose(){
   document.body.style.overflow='';
 }
 window.addEventListener('popstate',function(){ shClose(); });
+/*  The bar asks this before it acts on a Back: while the detail sheet
+    is up, that Back belongs to the line above, not to the bar.  */
+function k2OtherOpen(){
+  var el=document.getElementById('shsheet');
+  return !!(el && el.className.indexOf('on')>=0);
+}
 document.addEventListener('keydown',function(e){
   var el=document.getElementById('shsheet');
   if(el&&el.className.indexOf('on')>=0&&(e.key==='Escape'||e.keyCode===27))
@@ -6097,6 +6138,25 @@ def mtag(code):
     return format(_xmur3(code + '|CoatesK2mgrtag2026')(), 'x')
 
 
+#  ------------------------------------------------------------------
+#  WHAT THE MENU OFFERS ON THIS PAGE. The six bays already put every
+#  destination one tap from the board - this is for the other case: you
+#  are three screens deep in the print hub and you want the stocktake.
+#  MENU, then the place. Two taps from anywhere, without going home
+#  first and finding the bay again.
+#  ------------------------------------------------------------------
+_NAV_DOORS = [
+    ("nav('find')",   "Find it",          "Scan or type - shelf, person or hunt", None),
+    ("nav('who')",    "Master search",    "Any company or any name", None),
+    ("nav('just')",   "Just happened",    "Every issue and return, last three days", None),
+    ("nav('chase')",  "Chase up",         "Out past its return rule", None),
+    ("nav('groups')", "Product groups",   "The shelf, by product", None),
+    ("nav('aisle')",  "Walk an aisle",    "Aisle by aisle", None),
+    ("nav('stock')",  "Stocktake",        "What has been counted", None),
+    ("nav('print')",  "Print hub",        "Every report from one place", None),
+]
+
+
 def build(data, code, asof, pricing=None, mgr_code=None):
     """The finished page. The board opens on arrival; the money does not.
 
@@ -6131,7 +6191,13 @@ def build(data, code, asof, pricing=None, mgr_code=None):
             .format(_leak.group(1)))
 
     import mygear_font
+    import mygear_nav as nav
     page = (PAGE.replace('__FONTCSS__', mygear_font.FONT_CSS)
+                .replace('__NAVCSS__', nav.CSS)
+                .replace('__NAVBAR__', nav.bar('stores', 'Store Street'))
+                .replace('__NAVSHEET__', nav.sheet(
+                    'stores', extra=_NAV_DOORS, extra_heading='On the board'))
+                .replace('__NAVJS__', nav.js('stores', 'Store Street'))
                 .replace('//__READER__//', _READER_JS)
                 .replace('//__QRJS__//', _QR_JS)
                 .replace('__PAYLOAD__', json.dumps(blob))
