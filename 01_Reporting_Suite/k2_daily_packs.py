@@ -114,6 +114,16 @@ ALIASES = {
     #  no address yet - the pack builds, files the record, and is HELD
     #  rather than drafted. Andrew fills the To in when he has it.
     "QWest Crane Hire": "QWEST CRANE HIRE",
+    #  NOTHING ON HIRE TODAY, AND THEY STILL GET THE REPORT.
+    #  Aestec and Cutrite hold zero items right now, but both have an
+    #  Activity & Accountability report built and Andrew has been
+    #  sending both by hand - Cutrite at 7:57 and Aestec yesterday. The
+    #  report covers what MOVED, not only what is still out, so a
+    #  company that returned everything last week still has a page worth
+    #  reading. Mapped to their SiteIQ spelling so the report is found;
+    #  the pack builder decides what to do with an empty on-hire list.
+    "Aestec": "AESTEC",
+    "Cutrite": "CUTRITE",
     #  Genuinely nothing on hire today - they get a folder and a record,
     #  never an email with no data. The guard watches this one too.
     "Cleanaway": None,
