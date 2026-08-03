@@ -773,31 +773,79 @@ def read(rental_path, stocktake_path, master=None, today=None,
                             _e2[2] = _d2
                             if _w2:
                                 _e2[1] = _w2[:24]
-                        #  both directions carry a clock time
-                        _co2 = (str(_r2[_cn] or '').strip()
-                                if _cn is not None else '')
-                        _ds2 = (str(_r2[_dsc] or '').strip()
-                                if _dsc is not None else '')
-                        for _dx, _tx, _dir in ((_sdx, _stx, 'OUT'),
-                                               (_edx, _etx, 'BACK')):
-                            if _dx is None:
-                                continue
-                            _dd = au_date(_r2[_dx])
-                            if not _dd or _dd < _cut or _dd > today:
-                                continue
-                            _tt = (str(_r2[_tx] or '').strip()[:5]
-                                   if _tx is not None else '')
-                            recent.append({
-                                'd': _dd.isoformat(), 't': _tt,
-                                'x': _dir, 'i': _iv, 'n': _ds2[:44],
-                                'w': _w2[:26], 'co': _co2[:30]})
+                        pass
         #  newest first; the cap is a guard, and it is SAID when it cuts
+        #  EVERY SHEET THAT CARRIES A MOVEMENT (3 Aug 2026). The first
+        #  cut read TRANSACTION_CHARGES only and shipped 542 issues
+        #  where the file held 1,545 - because slings, overalls and
+        #  every consumable live on CUSTOMER_CONTRACTOR_EQUIP. Two
+        #  thirds of "who took what five minutes ago" was missing, and
+        #  missing quietly. hire_hist is deliberately left on the
+        #  charges sheet, unchanged, because its counts are long proven.
+        if txn_path and os.path.isfile(txn_path):
+            for _sn in ('TRANSACTION_CHARGES', 'CUSTOMER_CONTRACTOR_EQUIP',
+                        'TRANSACTION_WITHOUT_CHARGES'):
+                if _sn not in _wbt.sheetnames:
+                    continue
+                _tr2 = _wbt[_sn].iter_rows(values_only=True)
+                try:
+                    _hd2 = [str(c or '').strip() for c in next(_tr2)]
+                except StopIteration:
+                    continue
+                _t2 = {h: i for i, h in enumerate(_hd2)}
+
+                def _c2(*names):
+                    for _n in names:
+                        if _n in _t2:
+                            return _t2[_n]
+                    return None
+
+                _ci = _c2('SKU/ITEM_NUMBER', 'ITEM_NUMBER')
+                _cd = _c2('SKU/ITEM DESCRIPTION', 'ITEM_DESCRIPTION')
+                _cw = _c2('HIRER_NAME')
+                _cc = _c2('EMPLOYER_NAME', 'COMPANY_NAME')
+                _p1 = (_c2('TRAN_START_DATE'), _c2('TRAN_START_TIME'), 'OUT')
+                _p2 = (_c2('TRAN_END_DATE'), _c2('TRAN_END_TIME'), 'BACK')
+                for _r3 in _tr2:
+                    if not _r3:
+                        continue
+                    for _dx, _tx, _dir in (_p1, _p2):
+                        if _dx is None or _dx >= len(_r3):
+                            continue
+                        _dd = au_date(_r3[_dx])
+                        if not _dd or _dd < _cut or _dd > today:
+                            continue
+                        _tt = (str(_r3[_tx] or '').strip()[:5]
+                               if (_tx is not None and _tx < len(_r3)) else '')
+                        recent.append({
+                            'd': _dd.isoformat(), 't': _tt, 'x': _dir,
+                            'i': (str(_r3[_ci] or '').strip()
+                                  if _ci is not None else ''),
+                            'n': (str(_r3[_cd] or '').strip()[:44]
+                                  if _cd is not None else ''),
+                            'w': (str(_r3[_cw] or '').strip()[:26]
+                                  if _cw is not None else ''),
+                            'co': (str(_r3[_cc] or '').strip()[:30]
+                                   if _cc is not None else '')})
         recent.sort(key=lambda r: (r['d'], r['t']), reverse=True)
-        if len(recent) > 600:
-            recent = recent[:600]
+        #  THE CAP IS FINE; A SILENT CAP IS NOT. At 600 rows the list
+        #  reached back about two days while the feed held 3,161 - so a
+        #  search for a time older than that returned "0 match", which
+        #  reads as "nothing happened" rather than "not in this list".
+        #  Raised to 1,200 (about 190KB) and the window it covers is
+        #  now stated on the page and in the no-match message.
+        _total = len(recent)
+        if len(recent) > 1200:
+            recent = recent[:1200]
+        recent_meta = {'shown': len(recent), 'total': _total,
+                       'from': (recent[-1]['d'] + ' ' + recent[-1]['t'])
+                               if recent else '',
+                       'to': (recent[0]['d'] + ' ' + recent[0]['t'])
+                             if recent else ''}
     except Exception:
         hire_hist = {}
         recent = []
+        recent_meta = {'shown': 0, 'total': 0, 'from': '', 'to': ''}
 
     #  stocktake - how much of the store has actually been laid eyes on
     stock = {'total': 0, 'w1': 0, 'w3': 0, 'w7': 0, 'stale': []}
@@ -1164,8 +1212,10 @@ def read(rental_path, stocktake_path, master=None, today=None,
         #  shut + who had it last, shown wherever an item is named
         #  (Andrew, 31 Jul 2026)
         'hist': {k: [v[0], v[1]] for k, v in hire_hist.items() if v[0]},
-        #  the just-happened list - three days of movements with times
+        #  the just-happened list - movements with times, newest first,
+        #  and the window it truly covers so nothing is implied
         'recent': recent,
+        'recentMeta': recent_meta,
         'chase': {'tools': chase_t, 'plant': chase_p,
                   'toolUnits': by_unit(chase_t),
                   'plantUnits': by_unit(chase_p)},
@@ -2950,10 +3000,22 @@ function findIdx(){
     Every movement of the last three days with its clock time, newest
     first. Type a time - "10:3" finds 10:30 to 10:39 - or a name, a
     company, an item, a word off the gear. One box searches the lot. */
+function jWin(){
+  var m=(D.recentMeta||{});
+  if(!m.from) return '';
+  return 'Covers <b>'+esc(jWhen(m.from))+'</b> to <b>'+esc(jWhen(m.to))
+    +'</b>'+(m.total>m.shown?' &mdash; the newest '+m.shown+' of '+m.total
+      +' movements. Older than that is on the laptop, button 72.':'.');
+}
+function jWhen(s){
+  var p=String(s||'').split(' ');
+  if(p.length<2) return s||'';
+  return p[0].slice(8,10)+'/'+p[0].slice(5,7)+' '+p[1];
+}
 function paneJust(){
   return '<div class="note"><b>Who took what, and when.</b> Newest first, '
    +'with the clock time off the charge feed. Type a rough time like '
-   +'<b>10:3</b>, or a name, company or item number.</div>'
+   +'<b>10:3</b>, or a name, company or item number.<br>'+jWin()+'</div>'
    +'<input class="srch" id="jq" placeholder="Time (10:3), name, company or item" '
    +'autocomplete="off" oninput="justGo()">'
    +'<div id="jout"></div>';
@@ -2983,12 +3045,19 @@ function justGo(){
       || (r.i||'').toUpperCase().indexOf(q)>=0
       || (r.n||'').toUpperCase().indexOf(q)>=0;
   }):L;
+  /*  a no-match must never read as "nothing happened" - it has to say
+      what window was actually searched (3 Aug 2026)  */
+  if(q&&!hits.length){
+    out.innerHTML='<div class="note" style="border-left-color:var(--am)">'
+      +'<b>Nothing matches &ldquo;'+esc(q)+'&rdquo; in the window this '
+      +'list holds.</b> '+jWin()+'</div>';
+    return;
+  }
   out.innerHTML=(q?'<div class="kw" style="padding:6px 2px">'+hits.length
     +' of '+L.length+' movements match</div>':'')
    +hits.slice(0,80).map(justRow).join('')
    +more(80,hits.length,'movements')
-   +(D.recent.length>=600?'<div class="kw cut">The feed holds more than '
-     +'600 movements in three days - showing the newest 600.</div>':'');
+   +'<div class="kw cut">'+jWin()+'</div>';
 }
 /*  D is null until the gate opens - top-level access here killed the
     whole board once (caught in the browser probe, 3 Aug 2026). Lazy. */
