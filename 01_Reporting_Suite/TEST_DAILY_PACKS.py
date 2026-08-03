@@ -313,16 +313,31 @@ def verify_packs(root, wbk, date_tag):
                   "missing " + ", ".join(sorted(fixed - set(got["cc"])))
                   if not fixed.issubset(set(got["cc"])) else "all four")
             names = [n for n, _d in got["attachments"]]
-            #  The company email model (Andrew, 28 Jul 2026): the story
-            #  in the body, and on the paperclip exactly two things -
-            #  their own full report as ONE PDF, plus the safety PDF.
-            check("{}: report PDF + safety PDF are the attachments"
+            #  The company email model (Andrew, 3 Aug 2026): the story in
+            #  the body, and on the paperclip ONE thing - their own
+            #  report. The site safety report used to ride along here.
+            #  It is one file for the whole site, so it named every other
+            #  contractor's overdue gear, asset number and days out, and
+            #  it went to all of them. Never again.
+            check("{}: their own report is the only attachment".format(co),
+                  len(names) == 1 and "On-Hire Report" in names[0],
+                  "; ".join(names) or "nothing attached")
+            check("{}: nothing else on the paperclip".format(co),
+                  not any(n.startswith("Daily Safety & Compliance Report")
+                          or n.startswith("Daily Cost Tracking")
+                          or n.startswith("Site Plant Report")
+                          or n.startswith("Consumables Usage")
+                          or n.startswith("Executive Daily Summary")
+                          for n in names),
+                  "; ".join(names) or "nothing attached")
+            #  Named for THIS company. The test spells the name out of
+            #  the workbook rather than calling the suite's own slug
+            #  helper - a bug in that helper would otherwise agree with
+            #  itself on both sides and prove nothing.
+            check("{}: the attachment names this company and no other"
                   .format(co),
-                  len(names) == 2
-                  and any(n.startswith("Daily Safety & Compliance Report")
-                          for n in names)
-                  and any("On-Hire Report" in n for n in names),
-                  "; ".join(names))
+                  all(n.startswith(co + " -") for n in names),
+                  "; ".join(names) or "nothing attached")
         else:
             want = ["Daily Safety & Compliance Report",
                     "Daily Cost Tracking Report", "Site Plant Report",
@@ -705,8 +720,14 @@ def quiet_failures(date_tag, book):
         root = os.path.join(tmp, "OUT")
         run_builder(["--date", date_tag, "--root", root, "--book", book,
                      "--reports", reports])
-        safety = os.path.join(reports, date_tag, "PDF",
-                              "Coates_K2_Safety_Assurance_{}.pdf".format(date_tag))
+        #  Re-issue the report THIS PACK CARRIES. It used to poke the
+        #  site safety PDF, which every contractor pack carried - once
+        #  that came off contractor email (3 Aug 2026) poking it changed
+        #  nothing about DGH's pack, and the test was checking that a
+        #  rebuild it never triggered had happened.
+        safety = os.path.join(
+            reports, date_tag, "PDF",
+            "Coates_K2_Activity_DGH_ENGINEERING_{}.pdf".format(date_tag))
         with open(safety, "ab") as fh:
             fh.write(b"%% re-issued %%")
         run_builder(["--date", date_tag, "--root", root, "--book", book,
@@ -902,6 +923,74 @@ def quiet_failures(date_tag, book):
                   st.startswith("Failed"), "status was " + st)
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
+
+    # 10. THE ONE THAT GOT THROUGH. For a week every contractor email
+    #     carried the site-wide Daily Safety & Compliance Report - one
+    #     file, naming every OTHER contractor's overdue gear with item,
+    #     asset number and days out. Every pack recorded "No other
+    #     company's information in the pack - clean", because the check
+    #     read the email body and never opened the attachment.
+    #
+    #     This is the only place the test reaches into the suite's own
+    #     code. It has to: the builder will not attach that file any
+    #     more, so the only way to prove the CHECK would catch it is to
+    #     hand it a pack that has it. A test that can only be written
+    #     black-box would have to wait for the bug to ship again.
+    tmp = tempfile.mkdtemp(prefix="k2pack_foreign_")
+    try:
+        sys.path.insert(0, HERE)
+        import k2_daily_packs as _K
+        reports = _mirror_reports(date_tag, tmp)
+        root = os.path.join(tmp, "OUT")
+        run_builder(["--date", date_tag, "--root", root, "--book", book,
+                     "--reports", reports])
+        folder = os.path.join(root, "01 COMPANY REPORTS", "DGH Engineering",
+                              date_tag)
+        body = os.path.join(folder, "DGH Engineering - On-Hire Report - "
+                            "{}.html".format(date_tag))
+        own = body[:-5] + ".pdf"
+
+        def verdict(pack):
+            for name, ok, detail in _K.run_checks(pack, date_tag):
+                if name.startswith("No other company"):
+                    return ok, detail
+            return None, "the check is gone"
+
+        #  The pack shape the builder makes, filled in only where this
+        #  scenario needs it. Only the isolation check's verdict is read
+        #  - the address and folder checks have their own scenarios.
+        base = {"company": "DGH Engineering", "kind": "External contractor",
+                "data_company": "DGH Engineering", "folder": folder,
+                "date_tag": date_tag, "book": book, "to": [], "cc": [],
+                "fixed_cc": [], "body_file": body, "attachments": [own],
+                "errors": [], "status": "", "size_mb": 0.0, "stale": [],
+                "checks": [], "readback": [], "mapped": True, "reissued": [],
+                "report_attached": "", "superseded": "", "subject": "",
+                "unknown_addresses": [], "outsiders": []}
+        ok, detail = verdict(dict(base))
+        check("The pack as it is built now reads clean", ok is True, detail)
+
+        #  Put the site safety report back on it, exactly as it used to be
+        masters = os.path.join(root, "00 MASTER DAILY REPORTS", date_tag)
+        safety = "Daily Safety & Compliance Report - {}".format(date_tag)
+        planted = os.path.join(folder, safety + ".pdf")
+        for ext in (".pdf", ".html"):
+            src = os.path.join(masters, safety + ext)
+            if os.path.isfile(src):
+                shutil.copy2(src, os.path.join(folder, safety + ext))
+        pack = dict(base, attachments=[own, planted])
+        ok, detail = verdict(pack)
+        check("Caught: the site safety report attached to a contractor",
+              ok is False and "Daily Safety" in detail, detail)
+
+        #  And an attachment nothing can read must never come back clean
+        mystery = os.path.join(folder, "Some Other Report.pdf")
+        shutil.copy2(own, mystery)
+        ok, detail = verdict(dict(base, attachments=[own, mystery]))
+        check("Caught: an attachment nothing could open",
+              ok is False and "not cleared" in detail, detail)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 # =====================================================================

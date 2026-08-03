@@ -1054,9 +1054,19 @@ def build_pack(c, book, root, date_tag, disp, dirs, filed_master, masters,
             pack["stale"].append(os.path.basename(pdf_src))
 
     #  --- what goes on the paperclip -----------------------------------
+    #  A CONTRACTOR GETS ONE ATTACHMENT: THEIR OWN ACTIVITY REPORT.
+    #  The site-wide Daily Safety & Compliance Report used to ride along
+    #  on every contractor email. It is one file, built once, and it
+    #  names every OTHER contractor's overdue gear - item, asset number
+    #  and days out - so DGH's email carried Programmed's, Veolia's and
+    #  Xtreme's accountability lists. It is a site report for the client
+    #  and the store, and it is off contractor email for good.
+    #  (A. Fisher, 3 Aug 2026: "contractors i only want to see their
+    #  activity report as an attachment".)
+    #
     #  Nothing on hire means nothing to attach either - the folder and
     #  the record are made so the day is complete, and that is all.
-    wanted = ([K.SAFETY_PDF] if external else list(K.CEMENT_ATTACHMENTS))
+    wanted = [] if external else list(K.CEMENT_ATTACHMENTS)
     if not data_company:
         wanted = []
     for label in wanted:
@@ -1072,6 +1082,45 @@ def build_pack(c, book, root, date_tag, disp, dirs, filed_master, masters,
         if reissued:
             pack["reissued"].append(os.path.basename(dest))
         pack["attachments"].append(dest)
+
+    #  The contractor's own report, as the paperclip. It is also pasted
+    #  into the body as page pictures, which is how he reads it on the
+    #  phone - the attachment is the copy they keep and forward.
+    if external and data_company and pack["body_file"]:
+        own = built([dirs["pdf"]], stem, date_tag, ".pdf")
+        if own:
+            name = "{} - {}.pdf".format(
+                os.path.splitext(os.path.basename(pack["body_file"]))[0]
+                .rsplit(" - ", 1)[0], date_tag)
+            dest, _n, reissued = K._place(own, folder, name)
+            if reissued:
+                pack["reissued"].append(os.path.basename(dest))
+            pack["attachments"].append(dest)
+            pack["report_attached"] = os.path.basename(dest)
+        else:
+            pack["errors"].append(
+                "Activity & Accountability report has no PDF - it was not "
+                "built for {}".format(disp))
+
+    #  Yesterday's copy of the site safety report is still sitting in the
+    #  contractor's folder from when it used to be attached. Leaving it
+    #  there invites it back onto the email by hand, so it goes - but
+    #  ONLY when the identical file is still in the masters folder, so
+    #  nothing that exists in one place only is ever removed.
+    if external:
+        old = os.path.join(folder, K.FILED_NAME[K.SAFETY_PDF]
+                           .format(d=date_tag) + ".pdf")
+        master = masters.get(K.SAFETY_PDF, {}).get("pdf")
+        if os.path.isfile(old) and master and os.path.isfile(master):
+            try:
+                import filecmp
+                if filecmp.cmp(old, master, shallow=False):
+                    os.remove(old)
+                    say("     {}: removed the site safety report from the "
+                        "folder - it is not a contractor attachment".format(
+                            company))
+            except Exception:
+                pass
 
     #  --- the draft -----------------------------------------------------
     eml = os.path.join(folder, "Email Draft - {}.eml".format(date_tag))
@@ -1089,22 +1138,30 @@ def build_pack(c, book, root, date_tag, disp, dirs, filed_master, masters,
                   + sum(os.path.getsize(x) for x in pack["attachments"]
                         if os.path.isfile(x))) * 1.37 / 1048576.0 + 0.5
         if imgs and weight > K.MAX_EMAIL_MB:
-            report_pdf = None
-            if external and data_company:
-                report_pdf = built([dirs["pdf"]], stem, date_tag, ".pdf")
-            else:
-                report_pdf = masters.get("Executive Daily Summary",
-                                         {}).get("pdf")
-            if report_pdf:
-                name = "{} - {}.pdf".format(
-                    os.path.splitext(os.path.basename(pack["body_file"]))[0]
-                    .rsplit(" - ", 1)[0], date_tag)
-                dest, _n, _r = K._place(report_pdf, folder, name)
-                pack["attachments"].insert(0, dest)
-                pack["report_attached"] = os.path.basename(dest)
-                say("     {}: report is {:.0f} MB of pages - attached as a "
-                    "PDF instead of pasted in".format(company, weight))
+            #  A contractor's report is already on the paperclip, so all
+            #  this has to do is drop the pictures - re-attaching would
+            #  put the same PDF on the email twice.
+            if pack["report_attached"]:
+                say("     {}: report is {:.0f} MB of pages - the attached "
+                    "PDF is the report".format(company, weight))
                 imgs = []
+            else:
+                report_pdf = None
+                if external and data_company:
+                    report_pdf = built([dirs["pdf"]], stem, date_tag, ".pdf")
+                else:
+                    report_pdf = masters.get("Executive Daily Summary",
+                                             {}).get("pdf")
+                if report_pdf:
+                    name = "{} - {}.pdf".format(
+                        os.path.splitext(os.path.basename(pack["body_file"]))[0]
+                        .rsplit(" - ", 1)[0], date_tag)
+                    dest, _n, _r = K._place(report_pdf, folder, name)
+                    pack["attachments"].insert(0, dest)
+                    pack["report_attached"] = os.path.basename(dest)
+                    say("     {}: report is {:.0f} MB of pages - attached as a "
+                        "PDF instead of pasted in".format(company, weight))
+                    imgs = []
 
         if imgs:
             #  The pictures carry their own baked orange border - the

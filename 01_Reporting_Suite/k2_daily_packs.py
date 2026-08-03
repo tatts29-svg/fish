@@ -228,6 +228,12 @@ MASTERS = [
     ("Consumables Usage Report", "Coates_K2_Consumables_Report"),
 ]
 
+#  The site-wide safety report. It goes to Cement Australia and stays in
+#  the store folder. It is NOT a contractor attachment and must not
+#  become one again: it is one file for the whole site, so it names every
+#  contractor's overdue gear, asset numbers and days out. Attached to a
+#  contractor email it hands them everyone else's accountability list.
+#  (Off contractor email 3 Aug 2026 - A. Fisher.)
 SAFETY_PDF = "Daily Safety & Compliance Report"
 
 #  The filed names, exactly as the workbook's Folder Rules sheet sets
@@ -601,6 +607,11 @@ def _body_names_other_companies(body_file, own_company, own_data_company):
     #  name - a blank or wrong-entity report would otherwise sail through.
     if _txt(own_data_company).lower() not in text:
         return ["(this report does not name {})".format(own_data_company)]
+    return _others_in(text, own_company, own_data_company)
+
+
+def _others_in(text, own_company, own_data_company):
+    """Which OTHER contractors does this text name?"""
     mine = {_txt(own_company).lower(), _txt(own_data_company).lower()}
     found = []
     for name, data_name in ALIASES.items():
@@ -613,6 +624,69 @@ def _body_names_other_companies(body_file, own_company, own_data_company):
             if c in text and name not in found:
                 found.append(name)
     return found
+
+
+#  A PDF built by the browser stores its words as glyph numbers in a
+#  subset font, so reading the PDF bytes finds no names even when the
+#  page is full of them. Every PDF this suite attaches is printed from
+#  an HTML page, and that page is the readable twin - so the check reads
+#  the twin. If a PDF turns up with no twin to read, the check FAILS.
+#  It never says "clean" about a document it could not open. (3 Aug 2026)
+def _unversioned(stem):
+    """'Report - 2026-08-03 (2)' -> 'Report - 2026-08-03'. A report
+    re-issued mid-day is filed beside the first copy as (2), (3)... so
+    anything matching on the filed name has to see through that."""
+    return re.sub(r"\s*\(\d+\)$", "", _txt(stem))
+
+
+def _twin_of(pdf_path, extra_dirs=()):
+    """The HTML page a filed PDF was printed from, if it can be found."""
+    stem = os.path.splitext(os.path.basename(pdf_path))[0]
+    here = os.path.dirname(pdf_path)
+    for s in (stem, _unversioned(stem)):
+        for d in [here] + [x for x in extra_dirs if x]:
+            cand = os.path.join(d, s + ".html")
+            if os.path.isfile(cand):
+                return cand
+    return None
+
+
+def _pack_names_other_companies(pack, own_company, own_data_company,
+                                extra_dirs=()):
+    """EVERY document on this email - the one in the body and every one
+    on the paperclip - read for another contractor's name.
+
+    Until 3 Aug 2026 this only read the body. The site-wide safety report
+    was attached to all eleven contractor emails and named every other
+    contractor's overdue gear, item, asset number and days out - and the
+    pack still recorded 'No other company's information in the pack -
+    clean', because nothing ever opened the attachment."""
+    strays = list(_body_names_other_companies(
+        pack.get("body_file"), own_company, own_data_company))
+    body = os.path.abspath(pack.get("body_file") or "")
+    for att in pack.get("attachments") or []:
+        if os.path.abspath(att) == body:
+            continue
+        if att.lower().endswith((".html", ".htm")):
+            src = att
+        else:
+            src = _twin_of(att, extra_dirs)
+        if not src:
+            strays.append("(nothing could read {} - not cleared)".format(
+                os.path.basename(att)))
+            continue
+        try:
+            with open(src, "r", encoding="utf-8", errors="ignore") as fh:
+                text = _unescape(fh.read()).lower()
+        except Exception as exc:
+            strays.append("(could not read {}: {})".format(
+                os.path.basename(att), exc))
+            continue
+        for n in _others_in(text, own_company, own_data_company):
+            label = "{} (in {})".format(n, os.path.basename(att))
+            if label not in strays:
+                strays.append(label)
+    return strays
 
 
 def run_checks(pack, date_tag):
@@ -683,12 +757,22 @@ def run_checks(pack, date_tag):
           bool(pack["body_file"]),
           os.path.basename(pack["body_file"] or "") or "nothing generated")
 
-    #  8. the safety attachment
+    #  8. the attachment
     if external:
-        check("Daily Safety & Compliance PDF attached",
-              any(SAFETY_PDF.lower() in os.path.basename(a).lower()
-                  for a in pack["attachments"]),
-              "{} attachment(s)".format(len(pack["attachments"])))
+        #  ONE attachment, and it is their own report. Not "their report
+        #  is in there somewhere" - the site safety report used to be in
+        #  there too, and it named everyone else's overdue gear.
+        names = [os.path.basename(a) for a in pack["attachments"]]
+        own = _unversioned(os.path.splitext(os.path.basename(
+            pack["body_file"] or ""))[0])
+        #  Compared without the (2), (3)... a mid-day re-issue adds -
+        #  that copy is still their own report, just the newer print.
+        ours = [n for n in names
+                if own and _unversioned(os.path.splitext(n)[0]) == own]
+        check("Their own report is the only attachment",
+              bool(own) and len(names) == 1 and len(ours) == 1,
+              "attached: " + ", ".join(names) if names
+              else "nothing attached")
     else:
         names = [os.path.basename(a).lower() for a in pack["attachments"]]
         missing = [w for w in CEMENT_ATTACHMENTS
@@ -704,11 +788,12 @@ def run_checks(pack, date_tag):
     #     design, so for that pack the same principle is checked at the
     #     other end: no contractor is on the distribution list.
     if external:
-        stray = _body_names_other_companies(pack["body_file"], co,
-                                            pack["data_company"])
+        stray = _pack_names_other_companies(pack, co, pack["data_company"])
         check("No other company's information in the pack",
               not stray,
-              "found: " + ", ".join(stray) if stray else "clean")
+              "found: " + ", ".join(stray) if stray
+              else "body and {} attachment(s) all read - clean".format(
+                  len(pack["attachments"])))
     else:
         outsiders = sorted(pack.get("outsiders") or [])
         check("Client master goes to Cement and Coates only",

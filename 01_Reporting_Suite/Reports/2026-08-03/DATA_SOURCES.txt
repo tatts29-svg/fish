@@ -1,5 +1,5 @@
 DATA SOURCES FOR THIS DAY'S REPORTS
-Generated 03 Aug 2026 - 11:50
+Generated 03 Aug 2026 - 21:36
 ------------------------------------------------------------
 RENTAL_STOCK.xlsx                                    refreshed 02 Aug 2026 - 20:45
 TRANSACTIONS.xlsx                                    refreshed 02 Aug 2026 - 20:45

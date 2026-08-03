@@ -5,7 +5,7 @@ Author: Andrew Fisher | POWERED BY SITEIQ
 Company       : Veolia Refractory
 Package       : External contractor
 Report date   : 2026-08-03
-Created       : 03 Aug 2026 12:27
+Created       : 03 Aug 2026 21:19
 Status        : Draft Ready
 
 SUBJECT
@@ -26,9 +26,8 @@ CC (5)
 PASTED INTO THE EMAIL BODY
   Veolia Refractory - On-Hire Report - 2026-08-03.html
 
-ATTACHMENTS (2)
+ATTACHMENTS (1)
   Veolia Refractory - On-Hire Report - 2026-08-03.pdf
-  Daily Safety & Compliance Report - 2026-08-03.pdf
 
 PRE-SEND CHECKS
   [PASS] Company matched to the on-hire register  -  Veolia
@@ -38,12 +37,12 @@ PRE-SEND CHECKS
   [PASS] Four fixed oversight contacts in Cc  -  5 in Cc
   [PASS] Report in the body is today's, and still the current one  -  Veolia Refractory - On-Hire Report - 2026-08-03.html
   [PASS] Report ready for the email body  -  Veolia Refractory - On-Hire Report - 2026-08-03.html
-  [PASS] Daily Safety & Compliance PDF attached  -  2 attachment(s)
-  [PASS] No other company's information in the pack  -  clean
+  [PASS] Their own report is the only attachment  -  attached: Veolia Refractory - On-Hire Report - 2026-08-03.pdf
+  [PASS] No other company's information in the pack  -  body and 1 attachment(s) all read - clean
   [PASS] Every address on the contact register for this company  -  8 address(es) confirmed
-  [PASS] Every attachment on disk, listed once  -  2 file(s)
+  [PASS] Every attachment on disk, listed once  -  1 file(s)
   [PASS] Draft reads back exactly as addressed  -  To, Cc, body and attachments all confirmed
-  [PASS] Email size within the mail server's limit  -  6.1 MB (limit 10 MB)
+  [PASS] Email size within the mail server's limit  -  5.1 MB (limit 10 MB)
   [PASS] Every PDF built from today's report  -  all current
 
 SENT CONFIRMATION
