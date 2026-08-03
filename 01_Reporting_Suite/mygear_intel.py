@@ -178,13 +178,32 @@ def _norm_hirer(name):
 READY_STATUS = 'Available for Hire'
 OUT_STATUS = 'On Hire'
 
-#  GEAR THAT HAS LEFT. (Andrew, 2 Aug 2026: departed gear shows as
-#  pending baseplan, or "could show as pending branch receipt".) It is
-#  not part of the fleet any more, so it must not be counted as
-#  mobilised - doing that inflates the surplus and would have this page
-#  recommending a cut to a fleet that has already been cut.
-DEPARTED_STATUS = ('Pending Baseplan', 'Failed Baseplan',
-                   'Pending Branch Receipt')
+#  NOT USABLE, AND NOT GONE EITHER.
+#
+#  This tuple used to be called DEPARTED_STATUS - "gear that has left".
+#  It is not. Checked against the 3 Aug exports: of the three statuses
+#  in it, only Failed Baseplan appears in the register at all, and those
+#  11 assets have ARRIVED and are stuck in Baseplan. They are standing
+#  in the yard. The other two never appear in RENTAL_STOCK, because
+#  gear that genuinely departs leaves the register altogether - the
+#  stocktake is the only place its departure is recorded, as
+#  LAST_SIGHTED_ACTION = Departure, and that is what the plant life
+#  pane reads (plant_life.py).
+#
+#  So the two definitions never met: this one counted 11 items that had
+#  arrived, and the real departures - 96 assets since 15 July - were
+#  invisible to it.
+#
+#  THE ARITHMETIC IS UNCHANGED on purpose. These assets still come out
+#  of "mobilised", which is right for what mobilised is used for: it
+#  feeds the surplus and cut recommendations, and gear nobody can hire
+#  is not capacity. Only the name was wrong, and a wrong name on a
+#  number that drives a fleet cut is worth fixing on its own.
+#  (3 Aug 2026.)
+NOT_USABLE_STATUS = ('Pending Baseplan', 'Failed Baseplan',
+                     'Pending Branch Receipt')
+#  the old name, kept so nothing outside this file breaks on it
+DEPARTED_STATUS = NOT_USABLE_STATUS
 
 LIMITS = [
     "Issued is not used. A transaction proves an asset was booked out, "
@@ -817,6 +836,8 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
                 'product': a['product'], 'store': a['store'],
                 'units': collections.Counter(),
                 'assets': 0, 'ready': 0, 'out': 0, 'awaiting': 0,
+                #  on site and not hireable - see NOT_USABLE_STATUS
+                'stuck': 0,
                 'departed': 0,
                 'otherStatus': 0, 'issuedOnce': 0, 'neverIssued': 0,
                 'clientIssuedOnce': 0, 'holdingOnly': 0,
@@ -833,8 +854,9 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             s['out'] += 1
         elif a['status'] == 'Awaiting Arrival':
             s['awaiting'] += 1
-        elif a['status'] in DEPARTED_STATUS:
-            s['departed'] += 1
+        elif a['status'] in NOT_USABLE_STATUS:
+            s['stuck'] += 1
+            s['departed'] += 1      # same number, old key kept
         else:
             s['otherStatus'] += 1
         s['issuedOnce'] += 1 if a['issued'] else 0
@@ -903,7 +925,10 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
         s['recommended'] = base + buffer_n if base else 0
         #  what is actually standing on site: not the ones still
         #  coming, and not the ones that have gone
-        mobilised = s['assets'] - s['awaiting'] - s['departed']
+        #  what can actually be put to work: not the ones still coming,
+        #  and not the ones that cannot be hired. Same arithmetic as
+        #  before, honest name on the second term.
+        mobilised = s['assets'] - s['awaiting'] - s['stuck']
         s['mobilised'] = mobilised
         s['surplus'] = max(0, mobilised - s['recommended'])
         s['short'] = max(0, s['recommended'] - mobilised)

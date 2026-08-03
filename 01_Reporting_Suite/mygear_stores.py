@@ -5561,19 +5561,28 @@ function paneLife(){
   var L=D.life||{rows:[],stats:{}}, st=L.stats||{}, rs=L.rows||[];
   if(!rs.length) return '<div class="note">No plant history yet - it is '
     +'built from the TRANSACTIONS export and the stocktake.</div>';
-  var h='<div class="note"><b>Every machine the job took on the site '
-   +'plant account, and what happened to it.</b> Four dates in the order '
-   +'they happen: the day the job took it, the first time a person '
+  var h='<div class="note"><b>What came on to this job, what got used, '
+   +'and what has left.</b> Four dates in the order they happen: the day '
+   +'the job took it on the plant account, the first time a person '
    +'actually took it out, the day it came back, and the day the '
-   +'stocktake recorded it leaving site.</div>'
+   +'stocktake recorded it leaving site.'
+   +(st.offPlant?' Anything that has DEPARTED is here whether or not it '
+     +'ever sat on the plant account &mdash; a departure is the end of '
+     +'that asset&rsquo;s life on this job, and the record should not '
+     +'depend '
+     +'on whose account it happened to be on.':'')
+   +'</div>'
    +'<div class="shutwrap"><div id="shutClock" class="shutclock"></div>'
    +'<div id="shutWord" class="shutword">until the job finishes</div></div>'
    +'<div class="tiles">'
-   +tile(st.total,'On the plant account')
+   +tile(st.plant,'On the plant account')
    +tile(st.everOut,'Went out to someone','g')
    +tile(st.never,'Never went out',st.never?'r':'')
    +tile(st.departed,'Departed site','a')
-   +'</div>';
+   +'</div>'
+   +(st.offPlant?'<div class="note">'+st.offPlant+' of the '+st.departed
+     +' departures were never on the plant account &mdash; they are in '
+     +'the DEPARTED group below with the date and who recorded it.</div>':'');
   if(st.avgWait!=null)
     h+='<div class="note">Average wait from arriving on site to the '
       +'first time somebody took it: <b>'+st.avgWait+' days</b>. The '
@@ -5594,6 +5603,8 @@ function paneLife(){
             ['back','Came back, still on site','off hire, not gone yet'],
             ['out','Out with someone now',''],
             ['onsite','Never went out','sat on the account the whole time']];
+  function plTag(r){return r.pl?'':'<span class="lf">not on the plant '
+    +'account</span>';}
   GRPS.forEach(function(gp){
     var list=rs.filter(function(r){return r.s===gp[0]});
     if(!list.length) return;
@@ -5610,7 +5621,8 @@ function paneLife(){
           +'<span>'+(who?esc(who):(on?'':'no record'))+'</span></div>';
       }
       h+='<div class="lcard"><div class="lhead"><b>'+esc(r.n||r.i)+'</b>'
-       +'<span>'+esc(r.i)+(r.f?' &middot; '+esc(r.f):'')+'</span></div>'
+       +'<span>'+esc(r.i)+(r.f?' &middot; '+esc(r.f):'')+'</span>'
+       +plTag(r)+'</div>'
        +'<div class="lsteps">'
        +step(!!r.p,'On site',r.p,'')
        +step(!!r.o,'First out',r.o,r.ow)

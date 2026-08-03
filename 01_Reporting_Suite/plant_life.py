@@ -165,6 +165,9 @@ def build(base=None, master=None):
         return {"rows": [], "stats": {"note": "no TRANSACTIONS export"}}
 
     plant_on, first_out, came_back, desc, fam = {}, {}, {}, {}, {}
+    #  every asset the transaction feed mentions at all, so a departure
+    #  can be reported for gear that never touched the plant account
+    seen_any = set()
     n_rows = 0
     for sh in TXN_SHEETS:
         ix, rs = _sheet(txn, sh)
@@ -183,6 +186,7 @@ def build(base=None, master=None):
             if not item:
                 continue
             n_rows += 1
+            seen_any.add(item)
             who = _txt(r[c_wh])
             start = _date(r[c_s]) if c_s is not None else None
             end = _date(r[c_e]) if c_e is not None else None
@@ -227,7 +231,7 @@ def build(base=None, master=None):
                 if d0 and (item not in plant_on or d0 < plant_on[item]):
                     plant_on[item] = d0
 
-    departed, sighted = {}, {}
+    departed, sighted, stk_desc, stk_unit = {}, {}, {}, {}
     if stk:
         ix, rs = _sheet(stk, "STOCKTAKE")
         c_it = ix.get("SKU_NUMBER", ix.get("ITEM_OR_CONSUMABLE"))
@@ -243,6 +247,15 @@ def build(base=None, master=None):
             act = _txt(r[c_ac])
             when = _stamp(r[c_dt]) if c_dt is not None else None
             by = _txt(r[c_by]) if c_by is not None else ""
+            #  the stocktake names the gear too, and for anything that
+            #  never touched the transaction feed it is the ONLY name
+            #  there is - 82 departed assets came out blank without it
+            c_ds = ix.get("DESCRIPTION")
+            c_un = ix.get("STORAGE_UNIT")
+            if c_ds is not None and item not in stk_desc:
+                stk_desc[item] = _txt(r[c_ds])
+            if c_un is not None and item not in stk_unit:
+                stk_unit[item] = _txt(r[c_un])
             if act.lower().startswith("depart"):
                 departed[item] = (when, by)
             elif when:
@@ -251,12 +264,19 @@ def build(base=None, master=None):
     def iso(d):
         return d.isoformat() if d else ""
 
+    #  THE PLANT ACCOUNT IS NO LONGER THE GATE (Andrew, 3 Aug 2026:
+    #  "the plant id is not needed"). Anything that has DEPARTED gets a
+    #  row whether or not it ever sat on the plant barcode - a departure
+    #  is the end of that asset's life on this job and the record should
+    #  not depend on whose account it happened to be on. The plant ones
+    #  are still marked, so they can still be read on their own.
+    population = set(plant_on) | set(departed)
     rows = []
-    for item in sorted(plant_on):
+    for item in sorted(population):
         fo = first_out.get(item)
         cb = came_back.get(item)
         dp = departed.get(item)
-        name = desc.get(item, "")
+        name = desc.get(item, "") or stk_desc.get(item, "")
         if master is not None:
             try:
                 name = master.disp(item, name) or name
@@ -276,9 +296,10 @@ def build(base=None, master=None):
             stage = "onsite"
         rows.append({
             "i": item,
+            "pl": 1 if item in plant_on else 0,
             "n": name,
-            "f": fam.get(item, ""),
-            "p": iso(plant_on[item]),
+            "f": fam.get(item, "") or stk_unit.get(item, ""),
+            "p": iso(plant_on.get(item)),
             "o": iso(fo[0]) if fo else "",
             "ow": (fo[1][:30] if fo else ""),
             "b": iso(cb[0]) if cb else "",
@@ -291,18 +312,25 @@ def build(base=None, master=None):
             "s": stage,
             #  days it sat on the account before anybody took it - the
             #  number that answers "did we need it this early"
-            "w": ((fo[0] - plant_on[item]).days if fo else None),
+            "w": ((fo[0] - plant_on[item]).days
+                  if (fo and item in plant_on) else None),
         })
 
     #  newest arrivals first, then the ones that never went out, so the
     #  page opens on the question worth asking
     rows.sort(key=lambda r: (r["o"] != "", r["p"]), reverse=True)
 
-    never = [r for r in rows if not r["o"]]
+    plants = [r for r in rows if r["pl"]]
+    never = [r for r in plants if not r["o"]]
     waits = [r["w"] for r in rows if r["w"] is not None]
     stats = {
         "total": len(rows),
-        "everOut": sum(1 for r in rows if r["o"]),
+        "plant": len(plants),
+        "offPlant": len(rows) - len(plants),
+        #  "never went out" only means anything for gear the job took on
+        #  the account - an asset that only appears here because it
+        #  departed was never on the account to sit on it
+        "everOut": sum(1 for r in plants if r["o"]),
         "never": len(never),
         "back": sum(1 for r in rows if r["b"]),
         "departed": sum(1 for r in rows if r["d"]),
