@@ -46,6 +46,10 @@ import datetime as dt
 HERE = os.path.dirname(os.path.abspath(__file__))
 BUILDER = os.path.join(HERE, "BUILD_DAILY_EMAIL_PACKS.py")
 
+#  The placeholder for "a company nobody has mapped". Deliberately not
+#  a plausible trading name - see the brand-new-company case below.
+NEVER_A_COMPANY = "ZZ Not A Real Contractor (test only)"
+
 PASS, FAIL = [], []
 #  checks that could not run, and why - counted separately from
 #  passes, because "did not run" is not "passed"
@@ -650,10 +654,20 @@ def quiet_failures(date_tag, book):
              lambda ws, r, c, n: ws.cell(r, c["Company"]).__setattr__(
                  "value", "Dark Knight Engineering") if n == "DKE Group" else None,
              "Dark Knight Engineering"),
+            #  A NAME THAT CAN NEVER BECOME REAL. This case used to
+            #  use "Aestec" as its stand-in for a company nobody has
+            #  mapped - and on 3 Aug 2026 Aestec became a real mapped
+            #  company, so the sabotage stopped being sabotage and the
+            #  test failed while the suite was behaving correctly.
+            #
+            #  The property under test is unchanged and is one of the
+            #  important ones: a company the map has never heard of must
+            #  be HELD, never drafted. Only the placeholder moved, to
+            #  something no contractor will ever be called.
             ("A brand-new company added to the routing sheet",
              lambda ws, r, c, n: ws.cell(r, c["Company"]).__setattr__(
-                 "value", "Aestec") if n == "Industec" else None,
-             "Aestec")):
+                 "value", NEVER_A_COMPANY) if n == "Industec" else None,
+             NEVER_A_COMPANY)):
         tmp = tempfile.mkdtemp(prefix="k2pack_rename_")
         try:
             bad_book = doctor(book, os.path.join(
