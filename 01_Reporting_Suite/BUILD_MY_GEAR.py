@@ -1146,19 +1146,29 @@ def build():
     #  page that did not match or did not exist. One button, one
     #  storefront: this build finishes by rebuilding both. Guarded, so
     #  a fault in either page costs that page, never the scorecard.
+    #  Their output is CAPTURED AND SHOWN ON FAILURE - the first cut
+    #  piped it to DEVNULL, and on Andrew's machine build_crew_onhire
+    #  died without a word: the board shipped, crew.html 404'd on the
+    #  store Wi-Fi, and the only evidence was a phone at the counter.
+    #  A silent failure is the one kind this suite is not allowed.
     import subprocess
     import sys as _sys
     for _pg, _nm in (('build_fleet_detail.py', 'Fleet Details'),
                      ('build_crew_onhire.py', "Who's got what")):
         try:
-            _rc = subprocess.call([_sys.executable, os.path.join(BASE, _pg)],
-                                  cwd=BASE, stdout=subprocess.DEVNULL,
-                                  stderr=subprocess.STDOUT)
-            print('  {} page: {}.'.format(
-                _nm, 'rebuilt with this run' if _rc == 0
-                else 'FAILED (run {} by itself to see why)'.format(_pg)))
+            _r = subprocess.run([_sys.executable, os.path.join(BASE, _pg)],
+                                cwd=BASE, stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT, timeout=600)
+            if _r.returncode == 0:
+                print('  {} page: rebuilt with this run.'.format(_nm))
+            else:
+                print('  *** {} page FAILED - its last words:'.format(_nm))
+                _tail = (_r.stdout or b'').decode('utf-8', 'replace')
+                for _ln in _tail.strip().splitlines()[-8:]:
+                    print('      ' + _ln.rstrip())
+                print('      (full run: {} by itself)'.format(_pg))
         except Exception as _e:
-            print('  {} page: skipped ({!r})'.format(_nm, _e))
+            print('  *** {} page: could not run ({!r})'.format(_nm, _e))
     #  THE STOREFRONT CHECK (Andrew, 3 Aug 2026, after a 404 on site).
     #  Four pages must exist and hold real content when this build ends.
     #  Said out loud either way, so "did it work?" is answered by the
