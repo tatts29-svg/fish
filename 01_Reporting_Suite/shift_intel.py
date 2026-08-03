@@ -282,3 +282,119 @@ def scan_pace(sight):
         'counters': len({k[0] for k in per}),
         'looks': sum(len(v) for v in per.values()),
     }
+
+
+def queue(counter):
+    """The rush at the window, counted in PEOPLE not rows.
+
+    Counting rows makes a stack of seventy chutes look like seventy
+    blokes queueing. Distinct hirers served inside one minute is the
+    honest measure of how many were standing there.
+    """
+    per = defaultdict(set)
+    for e in counter:
+        if e['w']:
+            per[e['at'].replace(second=0)].add(e['w'])
+    sizes = {k: len(v) for k, v in per.items()}
+    by_hour = defaultdict(int)
+    for k, n in sizes.items():
+        if n >= 3:
+            by_hour[k.hour] += 1
+    worst = sorted(sizes.items(), key=lambda x: -x[1])[:8]
+    return {
+        'minutes': len(sizes),
+        'busy': sum(1 for n in sizes.values() if n >= 3),
+        'peak': max(sizes.values()) if sizes else 0,
+        'worst': worst,
+        'byHour': [by_hour.get(h, 0) for h in range(24)],
+    }
+
+
+def durations(txn_path):
+    """How long gear actually stays out, off paired start/end times."""
+    import openpyxl
+    hours = []
+    wb = openpyxl.load_workbook(txn_path, read_only=True, data_only=True)
+    for sn in ('TRANSACTION_CHARGES', 'CUSTOMER_CONTRACTOR_EQUIP'):
+        if sn not in wb.sheetnames:
+            continue
+        rows = wb[sn].iter_rows(values_only=True)
+        try:
+            hdr = [str(c or '').strip() for c in next(rows)]
+        except StopIteration:
+            continue
+        ix = {h: i for i, h in enumerate(hdr)}
+        if 'TRAN_START_DATE' not in ix or 'TRAN_END_DATE' not in ix:
+            continue
+        for r in rows:
+            if not r:
+                continue
+            a, b = _ts(r[ix['TRAN_START_DATE']]), _ts(r[ix['TRAN_END_DATE']])
+            if not (a and b):
+                continue
+            ta = _clock(r[ix['TRAN_START_TIME']]) if 'TRAN_START_TIME' in ix \
+                else None
+            tb = _clock(r[ix['TRAN_END_TIME']]) if 'TRAN_END_TIME' in ix \
+                else None
+            if ta:
+                a = a.replace(hour=ta[0], minute=ta[1], second=ta[2])
+            if tb:
+                b = b.replace(hour=tb[0], minute=tb[1], second=tb[2])
+            h = (b - a).total_seconds() / 3600.0
+            if 0 <= h < 24 * 45:
+                hours.append(h)
+    wb.close()
+    if not hours:
+        return None
+    hours.sort()
+    #  the buckets a store hand thinks in, not equal-width maths
+    buckets = [('Under 2h', 0, 2), ('2-6h', 2, 6), ('6-12h', 6, 12),
+               ('12-24h', 12, 24), ('1-3 days', 24, 72),
+               ('3-7 days', 72, 168), ('Over a week', 168, 10 ** 6)]
+    counts = []
+    for label, lo, hi in buckets:
+        counts.append((label, sum(1 for h in hours if lo <= h < hi)))
+    return {
+        'n': len(hours),
+        'median': hours[len(hours) // 2],
+        'shift': sum(1 for h in hours if h <= 12),
+        'week': sum(1 for h in hours if h > 168),
+        'buckets': counts,
+    }
+
+
+def aisle_coverage(rental_path, sight):
+    """Which aisles get walked, and which have never been laid eyes on."""
+    import openpyxl
+    units = Counter()
+    wb = openpyxl.load_workbook(rental_path, read_only=True, data_only=True)
+    ws = wb['RENTAL_STOCK'] if 'RENTAL_STOCK' in wb.sheetnames else wb.active
+    rows = ws.iter_rows(values_only=True)
+    hdr = [str(c or '').strip() for c in next(rows)]
+    ix = {h: i for i, h in enumerate(hdr)}
+    if 'STORAGE_UNIT' in ix:
+        for r in rows:
+            if not r:
+                continue
+            u = str(r[ix['STORAGE_UNIT']] or '').strip()
+            if u:
+                units[u] += 1
+    wb.close()
+    counted = Counter()
+    last = {}
+    for x in sight:
+        if x['act'] != 'Stocktake' or not x['u']:
+            continue
+        counted[x['u']] += 1
+        if x['u'] not in last or x['at'] > last[x['u']]:
+            last[x['u']] = x['at']
+    rows_out = []
+    for u, n in units.most_common():
+        rows_out.append({'unit': u, 'assets': n, 'counted': counted.get(u, 0),
+                         'last': last.get(u)})
+    return {
+        'rows': rows_out,
+        'aisles': len(units),
+        'walked': sum(1 for r in rows_out if r['counted']),
+        'unseen': sum(r['assets'] for r in rows_out if not r['counted']),
+    }

@@ -59,6 +59,10 @@ def build(today=None):
     shifts = SI.by_shift(counter, sight)
     pace = SI.scan_pace(sight)
     hrs = SI.hourly(counter)
+    q = SI.queue(counter)
+    dur = SI.durations(txn)
+    rental = FC._newest('RENTAL_STOCK*.xlsx')
+    cov = SI.aisle_coverage(rental, sight) if rental else None
     outs = [e for e in counter if e['way'] == 'OUT'][:500]
     backs = [e for e in counter if e['way'] == 'BACK'][:500]
 
@@ -115,6 +119,36 @@ def build(today=None):
                  min(range(24), key=lambda h: hrs[h] if hrs[h] else 10 ** 9),
                  min(x for x in hrs if x) if any(hrs) else 0))
 
+    # ---- 2b. the rush ------------------------------------------------
+    qpk = max(q['byHour']) or 1
+    rush = sorted(range(24), key=lambda h: -q['byHour'][h])[:2]
+    H.append("<div class='panel'><div class='ph'>The rush at the window "
+             "&mdash; how many blokes are standing there</div>")
+    H.append("<div class='story'>Counted in <b>people</b>, not lines: a "
+             "stack of seventy chutes booked in one go is one bloke, not "
+             "seventy. The worst minute of the shut served <b>{}</b> "
+             "different people, and <b>{:,}</b> minutes served three or "
+             "more.</div>".format(q['peak'], q['busy']))
+    H.append("<div class='hg'>")
+    for h in range(24):
+        cls = 'd' if SI.DAY_FROM <= h < SI.DAY_TO else 'n'
+        H.append("<div class='hb' title='{:02d}:00 - {} busy minutes'>"
+                 "<i class='{}' style='height:{}%'></i><em>{}</em></div>"
+                 .format(h, q['byHour'][h], cls,
+                         max(2, int(100.0 * q['byHour'][h] / qpk)),
+                         h if h % 3 == 0 else ''))
+    H.append("</div><div class='pnote'>Minutes with three or more people "
+             "waiting, by hour. It stacks into <b>{:02d}:00</b> and "
+             "<b>{:02d}:00</b> &mdash; knock-off and start-up. Two hands "
+             "on the window for those two hours is worth more than two "
+             "hands all day.</div>".format(*sorted(rush)))
+    H.append("<div class='uh'>The worst minutes</div><div class='tw'><table>"
+             "<tr><th>When</th><th>People at the window</th></tr>")
+    for k, n in q['worst'][:6]:
+        H.append("<tr><td><b>{}</b></td><td class='n'>{}</td></tr>".format(
+            k.strftime('%a %d %b %H:%M'), n))
+    H.append("</table></div></div>")
+
     # ---- 3. day v night ---------------------------------------------
     H.append("<div class='panel'><div class='ph'>Day v Night &mdash; "
              "the whole shut</div><div class='vs'>")
@@ -152,6 +186,86 @@ def build(today=None):
              "Counted did no stocktake at all &mdash; that is the "
              "number this table exists to make impossible to miss."
              "</div></div>")
+
+    # ---- 4b. how long gear stays out ---------------------------------
+    if dur:
+        dpk = max(n for _, n in dur['buckets']) or 1
+        H.append("<div class='panel'><div class='ph'>How long gear "
+                 "actually stays out</div>")
+        H.append("<div class='story'>Median hire: <b>{:.0f} hours</b>. "
+                 "<b>{:,} of {:,}</b> closed hires ({:.0f}%) come back "
+                 "inside twelve hours &mdash; this store is a "
+                 "<b>shift loan</b>, not a hire desk. That is the number "
+                 "that decides how much stock you need on the shelf at "
+                 "06:00.</div>".format(
+                     dur['median'], dur['shift'], dur['n'],
+                     100.0 * dur['shift'] / dur['n']))
+        for label, n in dur['buckets']:
+            #  87% not 100% - the widest bar has to leave room for its
+            #  own number, or the biggest bucket is the one you cannot
+            #  read (caught on the rig: 2,021 ran off the page edge)
+            H.append("<div class='pr'><span>{}</span><div class='bar'>"
+                     "<i style='width:{}%'></i><b>{:,}</b></div></div>"
+                     .format(label, max(1, int(87.0 * n / dpk)), n))
+        H.append("<div class='pnote'><b>{:,}</b> hires ran over a week. "
+                 "On a shift-loan store those are the ones worth a look "
+                 "&mdash; either they are genuinely long jobs, or they "
+                 "are gear nobody has thought about since.</div></div>"
+                 .format(dur['week']))
+
+    # ---- 4c. aisle coverage ------------------------------------------
+    if cov:
+        H.append("<div class='panel'><div class='ph'>Aisle coverage "
+                 "&mdash; what has actually been laid eyes on</div>")
+        H.append("<div class='story'>{} aisles in the register. "
+                 "<b>{} have been walked</b>. The other {} have never had "
+                 "a single stocktake scan &mdash; that is "
+                 "<b>{:,} assets</b> nobody has confirmed are still on "
+                 "site.</div>".format(
+                     cov['aisles'], cov['walked'],
+                     cov['aisles'] - cov['walked'], cov['unseen']))
+        cpk = max(r['assets'] for r in cov['rows']) or 1
+        H.append("<div class='tw'><table><tr><th>Aisle</th><th>Assets</th>"
+                 "<th>Scans</th><th>Last walked</th><th></th></tr>")
+        #  WALKED / BARELY / NEVER. A binary walked-or-not hid the
+        #  worst line on the board: Radios, 217 assets, FOUR scans.
+        #  Under a tenth of an aisle counted is not coverage, and
+        #  calling it green would have been the report lying politely.
+        thin = 0
+        for r in cov['rows']:
+            share = (100.0 * r['counted'] / r['assets']) if r['assets'] \
+                else 0
+            if not r['counted']:
+                band, word, cls = 'never', 'NEVER', 'r'
+            elif share < 10:
+                band, word, cls = 'thin', '{:,}'.format(r['counted']), 'a'
+                thin += 1
+            else:
+                band, word, cls = '', '{:,}'.format(r['counted']), 'g'
+            H.append("<tr class='{}'><td><b>{}</b></td>"
+                     "<td class='n'>{:,}</td><td class='n {}'>{}</td>"
+                     "<td>{}{}</td>"
+                     "<td style='width:34%'><div class='bar'><i class='{}' "
+                     "style='width:{}%'></i></div></td></tr>".format(
+                         band, esc(r['unit']), r['assets'],
+                         'z' if band == 'never' else
+                         ('a' if band == 'thin' else ''), word,
+                         r['last'].strftime('%a %d %b') if r['last']
+                         else '&mdash;',
+                         ' <span class="thinw">barely touched</span>'
+                         if band == 'thin' else '',
+                         cls, max(2, int(100.0 * r['assets'] / cpk))))
+        H.append("</table></div><div class='pnote'>Never-walked aisles "
+                 "are not necessarily a problem &mdash; site plant, "
+                 "barriers and chutes live outside and get counted by "
+                 "eye. But they are counted by <b>nobody</b> in the "
+                 "register, so if one walks off site there is nothing "
+                 "to prove it was ever here.{}</div></div>".format(
+                     " <b>Amber</b> is worse than it looks: the aisle "
+                     "has been opened but under a tenth of it counted. "
+                     "Radios is the one to look at &mdash; 217 assets, "
+                     "and the register has seen four of them."
+                     if thin else ''))
 
     # ---- 5. scan pace -------------------------------------------------
     H.append("<div class='panel'><div class='ph'>Scan pace &mdash; the "
@@ -264,6 +378,26 @@ body{background:#0A0E14;color:#E9EEF5;
 .ph{font-size:11px;font-weight:900;letter-spacing:1.2px;color:#98A4B4;
  text-transform:uppercase;margin-bottom:10px}
 .pnote{color:#6B7789;font-size:11.5px;margin-top:9px;line-height:1.55}
+.story{background:#0B111A;border-left:3px solid #F26222;border-radius:0 10px 10px 0;
+ padding:10px 13px;margin-bottom:12px;font-size:12.5px;line-height:1.6;
+ color:#C7CED8}
+.story b{color:#fff}
+.pr{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.pr>span{flex:none;width:104px;font-size:10.5px;font-weight:800;
+ letter-spacing:.3px;color:#98A4B4}
+.bar{flex:1;display:flex;align-items:center;gap:8px;min-width:60px}
+.bar i{display:block;height:9px;border-radius:5px;background:#2AA9C4;
+ min-width:2px;flex:none}
+.bar i.g{background:#2BB673}.bar i.r{background:#E23B2E}
+.bar b{font-size:12px;font-weight:900;color:#fff;flex:none;width:52px;
+ text-align:right}
+.bar i{max-width:calc(100% - 4px)}
+tr.never td{color:#E9A9A3}
+tr.thin td{color:#E8CE9A}
+td.n.a{color:#F5A623}
+.bar i.a{background:#F5A623}
+.thinw{font-size:9.5px;font-weight:900;letter-spacing:.5px;color:#F5A623;
+ text-transform:uppercase}
 .uh{font-size:10.5px;font-weight:900;letter-spacing:1px;color:#F26222;
  text-transform:uppercase;margin:14px 0 7px}
 .seg{display:flex;gap:7px;margin-bottom:9px}
