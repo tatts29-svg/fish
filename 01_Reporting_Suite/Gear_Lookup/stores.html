@@ -127,16 +127,17 @@ button.tile:active{background:var(--pnl2)}
 .bst.r i{background:var(--rd);box-shadow:0 0 8px rgba(255,90,77,.7)}
 /* the bay's own doors - every one of them still a single tap */
 .bdoors{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
-.bdoors button{display:inline-flex;align-items:center;gap:7px;
+.bdoors button,.bdoors a{display:inline-flex;align-items:center;gap:7px;
  padding:9px 12px;border:1px solid var(--line);border-radius:11px;
- background:#0B111A;color:#DCE3EC;font:800 12px/1 inherit;cursor:pointer}
-.bdoors button:active{background:var(--pnl2)}
-.bdoors button em{font-style:normal;color:var(--org);font-weight:800}
-.bdoors button .bn{background:var(--pnl2);color:#C7CED8;border-radius:7px;
+ background:#0B111A;color:#DCE3EC;font:800 12px/1 inherit;cursor:pointer;
+ text-decoration:none;font-weight:800;font-size:12px}
+.bdoors button:active,.bdoors a:active{background:var(--pnl2)}
+.bdoors button em,.bdoors a em{font-style:normal;color:var(--org);font-weight:800}
+.bdoors button .bn,.bdoors a .bn{background:var(--pnl2);color:#C7CED8;border-radius:7px;
  padding:2px 7px;font-size:11px}
-.bdoors button.hot{border-color:var(--rd)}
+.bdoors button.hot,.bdoors a.hot{border-color:var(--rd)}
 .bdoors button.hot .bn{background:var(--rd);color:#fff}
-.bdoors button.wide{flex:1 1 100%;justify-content:space-between;
+.bdoors button.wide,.bdoors a.wide{flex:1 1 100%;justify-content:space-between;
  border-color:var(--org);background:#1E1710;font-size:13.5px;padding:12px 14px}
 /* tabs */
 /* Ten tabs do not fit one row. On a phone they scroll sideways, which is
@@ -1467,6 +1468,15 @@ function bayIcon(k){
    ctrl:'<path d="M12 3 5 6v5c0 4.5 2.8 8 7 10 4.2-2 7-5.5 7-10V6l-7-3Zm-3.5 9 2.2 2.2 4.8-5"/>'};
   return '<svg viewBox="0 0 24 24">'+(P[k]||P.find)+'</svg>';
 }
+/*  a door to another PAGE in Gear_Lookup - Fleet Details, the crew
+    screen. Same face as a pane door, so the board reads as one thing;
+    an <a> underneath, because it leaves this file. Andrew, 3 Aug 2026:
+    "you have all these good functions and no way for me to access."  */
+function bayLink(url,label,n,cls){
+  return '<a href="'+url+'" class="'+(cls||'')+'">'
+   +label+(n!=null&&n!==''?'<span class="bn">'+n+'</span>':'')
+   +'<em>&rsaquo;</em></a>';
+}
 /* one door on a bay's face. n = the live count on it, hot = it is red */
 function bayDoor(k,label,n,cls){
   return '<button type="button" onclick="nav(\''+k+'\')" class="'+(cls||'')+'">'
@@ -1507,7 +1517,8 @@ function homeMenu(){
     'Scan or type anything &mdash; the answer is the shelf, the person, '
     +'or the hunt.','g','SEARCH READY',
     bayDoor('find','Open the counter search',null,'wide')
-    +bayDoor('who','Any company or name'));
+    +bayDoor('who','Any company or name')
+    +bayLink('crew.html','Who&rsquo;s got what &mdash; supervisor page'));
 
   /* BAY 02 - the hunt. Red when there is a hit list, amber when there
      is only a chase list, green when the store is square. */
@@ -1531,7 +1542,8 @@ function homeMenu(){
     +bayDoor('aisle','Walk an aisle')
     +bayDoor('stock','Stocktake',t.stockPct+'%')
     +bayDoor('battle','Day v Night')
-    +(D.hasCons?bayDoor('cons','Consumables',D.cons.order.length||null):''));
+    +(D.hasCons?bayDoor('cons','Consumables',D.cons.order.length||null):'')
+    +bayLink('fleet.html','Fleet Details &mdash; every asset ranked',null,'wide'));
 
   /* BAY 04 - print works */
   h+=bay(4,'org','print','Print Works',

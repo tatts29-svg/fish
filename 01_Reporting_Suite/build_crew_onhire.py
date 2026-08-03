@@ -267,6 +267,9 @@ CSS = """
 body{background:#0D1218;color:#DCE3EC;font-family:'Segoe UI',Arial,sans-serif;
  font-size:15px;line-height:1.45;-webkit-text-size-adjust:100%}
 .phone{max-width:640px;margin:0 auto;min-height:100vh}
+.crumbs{display:flex;gap:8px;padding:9px 14px 0}
+.crumbs a{color:#7FB1C8;text-decoration:none;font-size:11.5px;font-weight:800;
+ letter-spacing:.4px;border:1px solid #2A3340;border-radius:9px;padding:5px 10px}
 .bar{background:#F26222;color:#fff;padding:14px 16px;display:flex;
  justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
 .bar h1{font-size:18px;font-weight:800}
@@ -562,6 +565,9 @@ def build(today=None):
         "<div class='phone'>",
         "<div class='bar'><h1>Who&rsquo;s got what</h1>"
         "<span class='siq'>POWERED BY SITEIQ</span></div>",
+        #  the way back - same rule as fleet.html: no doorless pages
+        "<div class='crumbs'><a href='index.html'>&lsaquo; My Gear</a>"
+        "<a href='fleet.html'>Fleet Details</a></div>",
         "<div class='pad'>",
         "<p class='lead'>Type your company name &mdash; the first word is "
         "enough &mdash; then pick a bloke, or leave it on Everyone.</p>",

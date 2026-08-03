@@ -169,6 +169,8 @@ a.tel:active{background:#1b3f25}
 .grd span{display:block;font-size:19px;font-weight:800;color:#fff;margin-top:3px}
 
 /* ---- scan ---- */
+.suplink{display:block;text-align:center;margin:10px auto 0;color:#7FB1C8;
+ text-decoration:none;font-size:12.5px;font-weight:800;letter-spacing:.3px}
 .idrow{display:flex;gap:8px}
 .idrow input{flex:1;min-width:0}
 .scanbtn[hidden]{display:none}
@@ -559,13 +561,19 @@ h1.mg{text-align:center;font-size:56px}
 """
 
 #  The landing-page ID row: type it, or let the camera do it.
+#  Under it, the supervisor door (Andrew, 3 Aug 2026: crew.html was
+#  built and doorless - "no way for me to access how silly"). A boss
+#  standing at the counter has no site card ID; his page is the one
+#  that takes a company name, so the front door names it.
 ID_ROW = """<div class="idrow">
 <input id="idno" autocomplete="off" autocapitalize="characters"
  autocorrect="off" spellcheck="false" placeholder="ENTER ID NUMBER">
 <button class="scanbtn" id="scanbtn" onclick="startScan()" type="button" hidden>
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
  stroke-linecap="round" stroke-linejoin="round"><path d="M3 8V5a2 2 0 012-2h3M16 3h3a2 2 0 012 2v3M21 16v3a2 2 0 01-2 2h-3M8 21H5a2 2 0 01-2-2v-3M7 12h10"/></svg>Scan</button>
-</div>"""
+</div>
+<a class="suplink" href="crew.html">Supervisor? See what your crew has
+ on hire &rsaquo;</a>"""
 
 JS = r"""
 /* ------------------------------------------------------------------

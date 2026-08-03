@@ -69,6 +69,9 @@ CSS = """
 body{background:#0D1218;color:#DCE3EC;font-family:'Segoe UI',Arial,sans-serif;
  font-size:15px;line-height:1.45;-webkit-text-size-adjust:100%}
 .phone{max-width:520px;margin:0 auto;min-height:100vh;background:#0D1218}
+.crumbs{display:flex;gap:8px;padding:9px 14px 0}
+.crumbs a{color:#7FB1C8;text-decoration:none;font-size:11.5px;font-weight:800;
+ letter-spacing:.4px;border:1px solid #2A3340;border-radius:9px;padding:5px 10px}
 .bar{background:#F26222;color:#fff;padding:14px 16px;display:flex;
  justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9}
 .bar h1{font-size:18px;font-weight:800;letter-spacing:-.2px}
@@ -587,8 +590,15 @@ def build_one(data, with_money, out_path, today):
     p['updated'] = (dt.date.fromisoformat(src_to).strftime('%d %b %Y')
                     if src_to else 'unknown')
 
+    #  the way back. This page was reachable only by typing its file
+    #  name for a day - built, pushed, and doorless (Andrew, 3 Aug
+    #  2026: "no way for me to access how silly"). Never again: every
+    #  page in Gear_Lookup names its neighbours.
     head = ("<div class='bar'><h1>Fleet Details</h1>"
-            "<span class='siq'>POWERED BY SITEIQ</span></div>")
+            "<span class='siq'>POWERED BY SITEIQ</span></div>"
+            "<div class='crumbs'><a href='index.html'>&lsaquo; My Gear</a>"
+            "<a href='stores.html'>Stores board</a>"
+            "<a href='crew.html'>Who&rsquo;s got what</a></div>")
     body = ["<div class='phone'>", head, "<div class='pad'>",
             "<input class='srch' id='q' type='search' "
             "placeholder='Search a product…' autocomplete='off'>",
