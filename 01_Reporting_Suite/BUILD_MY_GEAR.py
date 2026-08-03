@@ -1156,8 +1156,9 @@ def build():
     for _pg, _nm in (('build_fleet_detail.py', 'Fleet Details'),
                      ('build_crew_onhire.py', "Who's got what")):
         try:
+            _env = dict(os.environ, K2_CHAINED='1')
             _r = subprocess.run([_sys.executable, os.path.join(BASE, _pg)],
-                                cwd=BASE, stdout=subprocess.PIPE,
+                                cwd=BASE, stdout=subprocess.PIPE, env=_env,
                                 stderr=subprocess.STDOUT, timeout=600)
             if _r.returncode == 0:
                 print('  {} page: rebuilt with this run.'.format(_nm))

@@ -737,7 +737,24 @@ def build(today=None):
     print('\n'.join(WU.lines(b)))
     print('')
     print('  Written: ' + out)
+    _open_for_andrew(out)
     return out
+
+
+def _open_for_andrew(path):
+    """Pop the finished page in the default browser - Windows only, and
+    never when this builder was chained by 04 (a morning refresh must
+    not open three browser tabs). Andrew, 3 Aug 2026: "where did this
+    go" - a report nobody is shown may as well not exist.
+    """
+    import os as _os
+    if _os.environ.get('K2_CHAINED'):
+        return
+    if hasattr(_os, 'startfile'):
+        try:
+            _os.startfile(path)
+        except OSError:
+            pass
 
 
 if __name__ == '__main__':

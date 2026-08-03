@@ -978,6 +978,7 @@ def build(today=None):
     print(' Page         : ' + out)
     print(' COATES INTERNAL - carries revenue per asset. Do not put this on')
     print(' the store Wi-Fi and do not send it to the client.')
+    _open_for_andrew(out)
     return 0
 
 
@@ -987,6 +988,23 @@ def _tile(v, label, sub='', cls=''):
         c=cls, v=v, l=label,
         s="<div class='s'>{}</div>".format(sub) if sub else '')
 
+
+
+
+def _open_for_andrew(path):
+    """Pop the finished page in the default browser - Windows only, and
+    never when this builder was chained by 04 (a morning refresh must
+    not open three browser tabs). Andrew, 3 Aug 2026: "where did this
+    go" - a report nobody is shown may as well not exist.
+    """
+    import os as _os
+    if _os.environ.get('K2_CHAINED'):
+        return
+    if hasattr(_os, 'startfile'):
+        try:
+            _os.startfile(path)
+        except OSError:
+            pass
 
 if __name__ == '__main__':
     sys.exit(build())
