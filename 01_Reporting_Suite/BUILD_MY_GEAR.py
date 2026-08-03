@@ -30,7 +30,7 @@
 #
 #  Author: Andrew Fisher | POWERED BY SITEIQ
 # ==========================================================================
-import base64, glob, html, io, json, os, re, sys
+import base64, collections, glob, html, io, json, os, re, sys
 import datetime as dt
 import master_equipment
 # The site guides (contact board, radio, gas monitor) and the
@@ -160,6 +160,15 @@ GAS_RE = re.compile(r'gas monitor|gas detector|gasalert|microclip|altair'
 RADIO_RE = re.compile(r'radio|battery|batte|antenna', re.I)
 
 # --------------------------- read ON_HIRE ---------------------------------
+#  Rows of ON_HIRE that never reach a person's card, and why. The stores
+#  board says 1,156 out and My Gear says 965, and until now nothing on
+#  either screen explained the other 191 - they are the Site Plant
+#  Equipment pool, gear on the site's own holding account rather than in
+#  a bloke's name. Both numbers were right and the pair of them looked
+#  like a mistake (3 Aug 2026).
+ONHIRE_SKIPPED = collections.Counter()
+
+
 def read_onhire(path):
     import openpyxl
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
@@ -187,10 +196,13 @@ def read_onhire(path):
                 'cannot be built from it. Re-pull the standard ON_HIRE report.')
     people = {}
     for r in rows[1:]:
-        if not r or r[ix['EXTERNAL_ID']] in (None, ''): continue
+        if not r or r[ix['EXTERNAL_ID']] in (None, ''):
+            ONHIRE_SKIPPED['no card'] += 1
+            continue
         # the site idle pool ("Site Plant Equipment") is not a person -
         # its barriers/chutes would otherwise become a 300-item "card"
         if norm_name(r[ix['HIRER_NAME']]).lower().startswith('site plant equipment'):
+            ONHIRE_SKIPPED['site pool'] += 1
             continue
         idno = str(r[ix['EXTERNAL_ID']]).strip()
         p = people.setdefault(idno, {
@@ -224,6 +236,9 @@ ALT_OF_ITEM = {}
 #  that a rename never moved a rated capacity - see the rating-conflict
 #  line in the reconciliation printout (3 Aug 2026).
 RAW_DESC_OF_ITEM = {}
+#  how many rows the fleet register actually had - the one number the
+#  asset ladder is checked against
+REG_ROWS = [0]
 
 
 def read_rental(path):
@@ -241,6 +256,7 @@ def read_rental(path):
         return by_bc
     for r in rows:
         if not r: continue
+        REG_ROWS[0] += 1
         bc = str(r[ix['ITEM_BARCODE']] or '').strip().upper()
         _itm2 = str(r[ix['ITEM_NUMBER']] or '').strip()
         if _itm2 and _itm2 not in RAW_DESC_OF_ITEM:
@@ -1318,6 +1334,42 @@ def build():
           'and run 05_START_GEAR_LOOKUP again.')
     print('My Gear scorecard page built: {} people, {} items on hire.'.format(
         len(warn_dupes), tot_items))
+    #  THE LADDER. Every asset on the register, accounted for once, in
+    #  one place. The individual numbers were all correct and all over
+    #  the place - 5,380 here, 4,208 there, 1,156 on the stores board,
+    #  965 on My Gear - with nothing saying how they fit together. Four
+    #  right numbers that look like they disagree cost more trust than
+    #  one wrong one, because there is nothing to check.
+    try:
+        _pool = ONHIRE_SKIPPED['site pool']
+        _nocard = ONHIRE_SKIPPED['no card']
+        _ss2 = STOCK.get('stats') or {}
+        _shelf = _t['avail']
+        _obs2 = _ss2.get('obsolete') or 0
+        _arr = _t['arrivals']
+        _onh = tot_items + _pool + _nocard
+        _sum = _shelf + _obs2 + _onh + _arr
+        _reg_rows = REG_ROWS[0]
+        print('  Every asset accounted for:')
+        print('    {:>6,}  on the shelf and offered'.format(_shelf))
+        print('    {:>6,}  held back - OBSOLETE or faulty in '
+              'SiteIQ'.format(_obs2))
+        print('    {:>6,}  out in a named person\'s hands (My Gear '
+              'cards)'.format(tot_items))
+        print('    {:>6,}  out on the Site Plant Equipment pool - no '
+              'person to chase'.format(_pool))
+        if _nocard:
+            print('    {:>6,}  out with no card number on the '
+                  'export'.format(_nocard))
+        print('    {:>6,}  arriving - failed baseplan, not on the shelf '
+              'yet'.format(_arr))
+        print('    {:>6,}  TOTAL against a register of {:,}{}'.format(
+            _sum, _reg_rows,
+            '' if _sum == _reg_rows
+            else '   *** {:+,} UNACCOUNTED - tell me ***'.format(
+                _sum - _reg_rows)))
+    except Exception as _e:
+        print('  NOTE: the asset ladder did not run ({}).'.format(_e))
     print('  Radios still out across site: {} | Gas monitors out: {} | '
           'Damage charges: {}{}'.format(
               rad_out_tot, gas_out_tot, dmg_tot + len(dmg_unattached),
