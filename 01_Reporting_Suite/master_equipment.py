@@ -168,6 +168,47 @@ class Master(object):
                 t["siteiq"] += 1
         return t
 
+    def size_merges(self, pairs):
+        """Renames that put two DIFFERENT sizes under one name.
+
+        Most merges in the file are the point of it: SiteIQ writes the
+        same fan three ways - "Exhaust Fan - Electric 300mm", "Exhaust
+        Fan 300MM", "Exhaust Fan - Electric - 300mm" - and one name for
+        all three is exactly the tidy-up. 57 names merge something, and
+        56 of them are that.
+
+        The one to catch is the merge where a MEASUREMENT moves: a 19 mm
+        air hose and a 25 mm air hose both landing on "19 mm Air Hose".
+        That is not tidier wording, it is two sizes wearing one label,
+        and the bloke who orders off the label gets the wrong hose.
+
+        Returns [(new_name, [(raw, count), ...])] worst first. Reports
+        only; his file still wins the name, same as everywhere.
+        """
+        seen = {}
+        for item, raw in pairs:
+            raw = _clean(raw)
+            if not raw:
+                continue
+            new = self.disp(item, raw)
+            if not new or new == raw:
+                continue
+            seen.setdefault(new, {}).setdefault(raw, 0)
+            seen[new][raw] += 1
+        out = []
+        for new, raws in seen.items():
+            if len(raws) < 2:
+                continue
+            #  the measurements each raw description declares. If two of
+            #  them declare different ones, the merge lost a size.
+            sizes = [_sizes(r) for r in raws]
+            real = [s for s in sizes if s]
+            if len(real) < 2 or all(s == real[0] for s in real):
+                continue
+            out.append((new, sorted(raws.items(), key=lambda x: -x[1])))
+        out.sort(key=lambda x: -sum(c for _, c in x[1]))
+        return out
+
     def rating_conflicts(self, pairs):
         """Renames where the rated capacity itself moved.
 
@@ -345,6 +386,23 @@ _TONNE_RE = re.compile(r"(\d+(?:\.\d+)?)\s*(?:t\b|tonne)", re.I)
 
 def _tonnes(s):
     return set(float(x) for x in _TONNE_RE.findall(s or ""))
+
+
+#  Any declared measurement: 300mm, 20m, 10A, 240V, 18V, 5AH, 1.5t.
+#  Normalised so "300mm" and "300 MM" are one thing and a merge is not
+#  reported for a spacing difference.
+_SIZE_RE = re.compile(
+    r"(\d+(?:\.\d+)?)\s*(mm|cm|m|kg|t|tonne|a|amp|v|volt|ah|w|lm|in|inch)\b",
+    re.I)
+_SIZE_ALIAS = {"tonne": "t", "amp": "a", "volt": "v", "inch": "in"}
+
+
+def _sizes(s):
+    out = set()
+    for num, unit in _SIZE_RE.findall(s or ""):
+        u = unit.lower()
+        out.add((float(num), _SIZE_ALIAS.get(u, u)))
+    return out
 
 
 def _clean(v):

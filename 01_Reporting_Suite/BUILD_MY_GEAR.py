@@ -1129,6 +1129,23 @@ def build():
             #  2 t trolley reads 1 t on the shelf. Nothing here renames
             #  it - that is a SiteIQ correction, not a reporting one -
             #  but the build will not walk past it either.
+            #  And the merges that lost a size. Most merges in the file
+            #  are the point of it - one fan written three ways becomes
+            #  one name. The ones worth a look are where a MEASUREMENT
+            #  moved: a 25 mm air hose landing on "19 mm Air Hose" is
+            #  two sizes wearing one label, and the bloke who orders off
+            #  the label gets the wrong hose.
+            _sm = MASTER.size_merges(RAW_DESC_OF_ITEM.items())
+            if _sm:
+                print('  CHECK - {} of your names cover two different '
+                      'sizes:'.format(len(_sm)))
+                for _new, _raws in _sm[:5]:
+                    print('    "{}"'.format(_new))
+                    for _raw, _n in _raws[:3]:
+                        print('        {:4d} x  {}'.format(_n, _raw))
+                if len(_sm) > 5:
+                    print('    ...and {} more - full list in the build '
+                          'log.'.format(len(_sm) - 5))
             if MASTER.desc_ambig:
                 print('  CHECK - {} description(s) in SiteIQ cover more '
                       'than one product, so your renames are held back '
