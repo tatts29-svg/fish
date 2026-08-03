@@ -328,8 +328,20 @@ def _variant(row):
 #  variant name in all three sheets: 4 merges, all of them genuine
 #  (72 radios, 7 welders), and zero collisions among the stock codes,
 #  the charged names, or anything carrying a size.
+#  A MEASUREMENT IS NOT A SERIAL. "2000ftlb" is four digits and four
+#  letters, same shape as a model tag, so the unit-tag stripper was
+#  taking the RATING off a hydraulic torque wrench: a 2000 ft-lb and a
+#  4000 ft-lb wrench both came out "Hydraulic Torque Wrench - Cassette
+#  - 36 - 37mm" and pooled together. Twelve descriptions, all of them
+#  rigging gear where the rating is the point (3 Aug 2026 - found while
+#  fixing the serials, and older than that fix).
+#
+#  Torque and pressure added alongside the electrical and dimensional
+#  units already here. ZU4408JE and 871TNK7668 still read as tags,
+#  because they are.
 _UNIT_TOKEN = _RE.compile(
-    r'^\d+(\.\d+)?\s*(V|A|AH|T|M|MM|CM|KG|KVA|LM|W|KW|HP|L|MTR|IN|FT|G)$',
+    r'^\d+(\.\d+)?\s*(V|A|AH|T|M|MM|CM|KG|KVA|LM|W|KW|HP|L|MTR|IN|FT|G'
+    r'|FTLB|FTLBS|NM|LB|LBS|PSI|BAR|KN|RPM|CFM|LPM|MPA|TONNE|TON)$',
     _RE.I)
 _PAREN_TAIL = _RE.compile(r'\s*\(([A-Za-z0-9]{4,})\)\s*$')
 _BARE_TAIL = _RE.compile(r'\s+([A-Za-z0-9]{7,})$')
@@ -341,8 +353,21 @@ def _is_serial(tok):
     return digits >= 3 and alpha >= 2 and not _UNIT_TOKEN.match(tok)
 
 
+#  "- Serial GM206136" / "Serial 871TNK7668" on the end. SiteIQ writes
+#  the tag bare; the master equipment list writes the word in front of
+#  it, and stripping only the bare form left "Motorola DP4801e Two-Way
+#  Radio - Serial" hanging off a fleet label (3 Aug 2026).
+_WORD_TAIL = _RE.compile(r'\s*[-,:]?\s*\bSERIALS?\b\.?\s*([A-Z0-9-]*)\s*$',
+                         _RE.I)
+
+
 def norm_variant(v):
-    """The model, with the individual unit's own tag taken off."""
+    """The model, with the individual unit's own tag taken off.
+
+    A serial names ONE unit. A fleet label wearing one is a pool of 72
+    handsets called after whichever handset happened to be read first -
+    and it is never the one sitting next to it on the same record.
+    """
     s = (v or '').strip()
     m = _PAREN_TAIL.search(s)
     if m and _is_serial(m.group(1)):
@@ -350,7 +375,12 @@ def norm_variant(v):
     m = _BARE_TAIL.search(s)
     if m and _is_serial(m.group(1)):
         s = s[:m.start()].strip()
-    return s
+    #  the worded form, and the bare "- Serial" left behind by the line
+    #  above when the code was stripped first
+    m = _WORD_TAIL.search(s)
+    if m:
+        s = s[:m.start()].strip()
+    return s.rstrip(' -,:')
 
 
 def _pct(a, b):
@@ -524,9 +554,24 @@ def read(rental_path, txn_path, onhire_path=None, today=None):
             #  through the change-of-description file too, or Fleet
             #  Details keeps the raw name after every other screen has
             #  moved to Andrew's (3 Aug 2026)
+            #  NO ITEM NUMBER HERE, AND THAT IS THE WHOLE POINT.
+            #  norm_variant has just stripped the unit tag off, because a
+            #  serial is not a model - that is what the block at the top
+            #  of this file is about. Handing the asset number to disp()
+            #  makes it answer for THAT ONE UNIT, serial and all, and the
+            #  serial goes straight back on. It named the 72-handset
+            #  radio pool "Motorola DP4801e Two-Way Radio - Serial
+            #  871TRZT755" and the 30-monitor gas pool after one
+            #  monitor - a fleet wearing one unit's number, and not even
+            #  the unit sat beside it on the same record (caught on
+            #  review, 3 Aug 2026).
+            #
+            #  Without the number, disp() falls to the wording index and
+            #  gives the model name Andrew wrote for that wording, which
+            #  is what a pool label is.
             vn = norm_variant(_variant(r))
             if vn and a['variant'] and a['variant'] not in variant_name:
-                variant_name[a['variant']] = _tidy_desc(vn, item)
+                variant_name[a['variant']] = _tidy_desc(vn)
             start = _stamp(r.get('TRAN_START_DATE'), r.get('TRAN_START_TIME'))
             end = _stamp(r.get('TRAN_END_DATE'), r.get('TRAN_END_TIME'))
             hirer = _txt(r, 'HIRER_NAME')

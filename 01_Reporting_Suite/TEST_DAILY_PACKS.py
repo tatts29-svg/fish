@@ -1023,8 +1023,15 @@ def main():
     #  whose actual message is "run the company report first". A test
     #  that cannot say what is missing is not a test, it is a stack
     #  trace with a job title (3 Aug 2026).
-    _co = glob.glob(os.path.join(HERE, "Reports", date_tag, "Pages",
-                                 "Coates_OnHire_Report_*.html"))
+    #  THE FILE PART 3b ACTUALLY OPENS, not any company report. Reports
+    #  are only built for companies holding gear that day, so on a day
+    #  DGH has returned the lot and the other fourteen have not, a
+    #  wildcard finds fourteen hits, the guard passes, and copy2 throws
+    #  the very traceback this check exists to prevent (caught on
+    #  review, 3 Aug 2026).
+    _co = glob.glob(os.path.join(
+        HERE, "Reports", date_tag, "Pages",
+        "Coates_OnHire_Report_DGH_ENGINEERING_{}.html".format(date_tag)))
 
     wbk = read_workbook(book)
     verify_packs(root, wbk, date_tag)

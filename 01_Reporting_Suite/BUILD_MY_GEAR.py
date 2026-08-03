@@ -1220,7 +1220,19 @@ def build():
         #  have a photo" while 36 thumbnails sat in the folder and drew
         #  perfectly on the phone - the pages were right and the line
         #  about them was wrong, which is the worse way round.
-        _have = len(_THUMBSET) if _THUMBSET is not None else _ready
+        #  ...but count the thumbnails that answer to a REGISTER CODE,
+        #  not every .jpg in the folder. refresh() writes a thumb for
+        #  each source photo stem, and two of Andrew's are named after
+        #  his own filenames rather than a variant
+        #  (HONEYWELL_BW_FLEX_4_GAS_MONITOR), so a straight file count
+        #  read 35 of 1154 when 33 codes were actually covered. Fixing
+        #  a count by overshooting it is not fixing it (3 Aug 2026).
+        if _THUMBSET is not None:
+            _codes = set(mygear_thumbs.safe_name(str(c).strip().upper())
+                         for c in mygear_thumbs.variant_register(BASE))
+            _have = sum(1 for t in _THUMBSET if t.upper() in _codes)
+        else:
+            _have = _ready
         print('  Gear pictures: {} of {} variants have a photo{} - run '
               '56_PHOTO_HUNT for the wanted list.'.format(
                   _have, _reg,

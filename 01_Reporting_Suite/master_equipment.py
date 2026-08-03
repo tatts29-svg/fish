@@ -292,11 +292,21 @@ def _register_variants(base):
     no map, and the caller falls back to naming by number only.
     """
     out = {}
-    for name in ("RENTAL_STOCK.xlsx", "SALES_STOCK.xlsx"):
+    #  GLOB, like every other export reader in the suite. SiteIQ's raw
+    #  downloads carry their timestamp - "RENTAL_STOCK_23_07_2026 08_50
+    #  AM 1.xlsx" - and an exact filename finds none of them. On a
+    #  machine that has not renamed its pulls this returned nothing, so
+    #  the one-wording-two-products fence never armed and the build's
+    #  CHECK line about it vanished without a word. A guard that turns
+    #  itself off quietly is worse than no guard (caught on review,
+    #  3 Aug 2026).
+    for pat in ("RENTAL_STOCK*.xlsx", "SALES_STOCK*.xlsx"):
         for d in (os.path.join(base, "Data_SiteIQ"), base):
-            p = os.path.join(d, name)
-            if not os.path.isfile(p):
+            hits = [h for h in glob.glob(os.path.join(d, pat))
+                    if not os.path.basename(h).startswith("~$")]
+            if not hits:
                 continue
+            p = max(hits, key=os.path.getmtime)
             try:
                 import openpyxl
                 wb = openpyxl.load_workbook(p, read_only=True,

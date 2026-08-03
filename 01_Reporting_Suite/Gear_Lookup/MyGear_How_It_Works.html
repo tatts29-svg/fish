@@ -4,8 +4,11 @@
   print-color-adjust:exact}
 body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   font-family:'Segoe UI',Calibri,Arial,sans-serif;padding:14mm 13mm}
+/*  bottom padding reserves the strip the absolute .foot sits in, so
+    flow content can never run underneath it however much the sheet
+    grows (it did, 29 Jul 2026)  */
 .frame{height:100%;border:2.2mm solid #F26222;border-radius:9mm;
-  padding:11mm 11mm 9mm;position:relative;overflow:hidden;
+  padding:11mm 11mm 17mm;position:relative;overflow:hidden;
   background:radial-gradient(120% 60% at 50% -8%,#1A2432 0%,#0C111A 55%,#0A0E14 100%);
   box-shadow:inset 0 0 26mm rgba(242,98,34,.10)}
 .top{display:flex;justify-content:space-between;align-items:flex-start}
@@ -17,22 +20,26 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   letter-spacing:2px}
 .siq small{display:block;color:#8A97A8;font-size:9.5pt;font-weight:600;
   letter-spacing:.6px;margin-top:1.6mm;text-transform:none}
-.hero{text-align:center;margin:9mm 0 2mm}
-.hero h1{font-size:74pt;font-weight:900;letter-spacing:-3px;line-height:.92;
-  color:#fff;text-shadow:0 0 14mm rgba(242,98,34,.45)}
-.hero h1 span{color:#F26222}
+.hero{text-align:center;margin:8mm 0 2mm}
+.hero h1{font-size:97pt;font-weight:900;letter-spacing:-4px;line-height:.9;
+  color:#fff;text-shadow:0 0 16mm rgba(242,98,34,.55)}
+.hero h1 span{color:#F26222;text-shadow:0 0 10mm rgba(242,98,34,.8)}
 .hero h1 em{font-style:normal}
-.kick{font-size:12.5pt;font-weight:900;letter-spacing:7px;color:#8A97A8;
-  margin-top:4mm}
-.tag{font-size:15pt;color:#C3CDDA;margin-top:3.5mm}
+.hero .sweep{width:96mm;height:1.6mm;margin:4mm auto 0;border-radius:1mm;
+  background:linear-gradient(90deg,transparent,#F26222 30%,#EFFF3D 50%,
+  #F26222 70%,transparent);filter:blur(.15mm)}
+.kick{font-size:13pt;font-weight:900;letter-spacing:8px;color:#EFFF3D;
+  margin-top:4mm;text-shadow:0 0 6mm rgba(239,255,61,.5)}
+.tag{font-size:16pt;color:#C3CDDA;margin-top:3mm}
 .tag b{color:#fff}
-.cabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin:9mm 0 8mm}
+.cabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin:7mm 0 6mm}
 .cab{position:relative;background:linear-gradient(180deg,#151A22,#10141B);
   border:.4mm solid #2A313C;border-radius:4mm;padding:6mm 2mm 4.5mm;
   text-align:center;overflow:hidden;color:#F26222}
 .cab:before{content:"";position:absolute;top:0;left:14%;right:14%;height:1mm;
   border-radius:0 0 2mm 2mm;
-  background:linear-gradient(90deg,transparent,#F26222,transparent);
+  background:linear-gradient(90deg,transparent,#F26222 35%,#EFFF3D 50%,
+  #F26222 65%,transparent);
   filter:blur(.4mm)}
 .cab b{display:block;font-size:10pt;font-weight:900;letter-spacing:1.6px;
   text-transform:uppercase;color:#EAF0F7;margin-top:2.5mm}
@@ -41,14 +48,15 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   border:.5mm solid #28323F;border-radius:6mm;padding:7mm 6mm 6mm;
   text-align:center}
 .qc .n{position:absolute;top:-6mm;left:50%;transform:translateX(-50%);
-  width:12mm;height:12mm;border-radius:50%;background:#F26222;color:#fff;
-  font-size:17pt;font-weight:900;display:flex;align-items:center;
-  justify-content:center;box-shadow:0 0 9mm rgba(242,98,34,.65)}
-.qc h3{font-size:16pt;font-weight:900;margin:3mm 0 1.5mm;color:#fff;
+  width:13mm;height:13mm;border-radius:50%;background:#F26222;color:#fff;
+  font-size:18pt;font-weight:900;display:flex;align-items:center;
+  justify-content:center;box-shadow:0 0 10mm rgba(242,98,34,.75),
+  0 0 0 .8mm #0A0E14,0 0 0 1.4mm #EFFF3D}
+.qc h3{font-size:17pt;font-weight:900;margin:3.5mm 0 1.5mm;color:#fff;
   letter-spacing:.4px}
-.qc .h{font-size:10.5pt;color:#8A97A8;margin-bottom:4mm}
+.qc .h{font-size:11pt;color:#8A97A8;margin-bottom:4mm}
 .qbox{position:relative;display:inline-block;background:#fff;
-  padding:4mm;border-radius:4mm;box-shadow:0 0 12mm rgba(242,98,34,.30)}
+  padding:4mm;border-radius:4mm;box-shadow:0 0 14mm rgba(242,98,34,.40)}
 .qbox i{position:absolute;width:7mm;height:7mm;border:1mm solid #F26222}
 .qbox .c1{top:-2mm;left:-2mm;border-right:0;border-bottom:0;
   border-radius:2mm 0 0 0}
@@ -58,18 +66,129 @@ body{width:297mm;height:420mm;background:#0A0E14;color:#EAF0F7;
   border-radius:0 0 0 2mm}
 .qbox .c4{bottom:-2mm;right:-2mm;border-left:0;border-top:0;
   border-radius:0 0 2mm 0}
-.qc .u{font-size:9.5pt;color:#8A97A8;margin-top:4mm;word-break:break-all;
+.qc .u{font-size:10pt;color:#8A97A8;margin-top:4mm;word-break:break-all;
   font-family:Consolas,monospace}
-.after{margin-top:8mm;background:linear-gradient(180deg,#151C27,#0E141D);
+/*  A3 only (.steps exists on the big poster alone): the codes are the
+    whole point of the sheet, so on A3 they are drawn as large as the
+    card allows - a bloke reads this from across the store, not with
+    the sheet in his hand. SVG, so it scales with no loss.  */
+.steps .qbox svg{display:block;width:82mm;height:82mm}
+/*  The promise band - three things that are true of My Gear and that
+    every crew asks before they scan. It also carries the bottom of the
+    sheet: without it the poster runs out of words 5cm early and reads
+    unfinished.  */
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;
+  margin-top:8mm}
+.promise div{position:relative;text-align:center;padding:6.5mm 3mm 6mm;
+  border:.4mm solid #2A313C;border-radius:4mm;
+  background:linear-gradient(180deg,#151A22,#10141B);overflow:hidden}
+.promise div:before{content:"";position:absolute;top:0;left:20%;right:20%;
+  height:.9mm;background:linear-gradient(90deg,transparent,#EFFF3D,transparent);
+  filter:blur(.3mm)}
+.promise b{display:block;font-size:15pt;font-weight:900;color:#fff;
+  letter-spacing:.3px}
+.promise span{display:block;font-size:10pt;color:#8A97A8;margin-top:1.6mm}
+
+/* =================================================================
+   THE OFFICEWORKS A3 - the one that goes on the wall
+   Andrew, 29 Jul 2026: "make it like WOW what is this."
+   A poster has one job at ten metres: stop someone. So the sheet
+   leads with the product itself - a phone showing what actually
+   opens - because "what is this?" is the question, and a picture
+   of the answer beats a paragraph about it. Everything here is
+   drawn, not photographed: it stays vector, prints sharp at any
+   size, and can never go stale.
+   ================================================================= */
+.ghost{position:absolute;top:26mm;left:0;right:0;text-align:center;
+  font-size:190pt;font-weight:900;letter-spacing:-8px;line-height:1;
+  color:rgba(242,98,34,.055);pointer-events:none;z-index:0}
+.hero,.strip,.show,.after,.promise,.note{position:relative;z-index:1}
+/*  the wordmark carries a metal-to-neon rake - the single most
+    looked-at thing on the sheet, so it earns the gradient.
+    BUT gradient-filled text is emitted into a PDF as a soft-masked
+    transparency group, and simple PDF viewers (the Officeworks print
+    kiosk, 29 Jul 2026) drop the mask and paint the bare gradient box -
+    the word GEAR vanished behind a solid orange rectangle at the
+    counter. So print gets plain filled glyphs, which every renderer on
+    earth can draw. The screen keeps the rake.  */
+.hero h1 span.grad{background:linear-gradient(178deg,#FFC489 2%,#F26222 46%,
+  #EFFF3D 128%);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:#F26222}
+@media print{
+  .hero h1 span.grad{background:none !important;
+    -webkit-background-clip:border-box !important;
+    background-clip:border-box !important;
+    -webkit-text-fill-color:#F26222 !important;color:#F26222 !important}
+}
+/*  the six cabinets, reduced to one confident strip - they say what
+    the store holds without eating a third of the poster  */
+.strip{display:flex;justify-content:space-between;gap:3mm;margin:9mm 0 9mm;
+  padding:4.5mm 5mm;border-radius:4mm;border:.4mm solid #2A313C;
+  background:linear-gradient(180deg,#151A22,#10141B)}
+.strip div{flex:1;text-align:center;color:#F26222}
+.strip b{display:block;font-size:8.6pt;font-weight:900;letter-spacing:1.2px;
+  text-transform:uppercase;color:#C3CDDA;margin-top:1.8mm}
+/*  product left, the two scans right - one row, one read  */
+.show{display:grid;grid-template-columns:1fr 1.34fr 1fr;gap:4.5mm;
+  align-items:stretch}
+.show .qc{padding:6mm 3.5mm 5mm;display:flex;flex-direction:column;
+  justify-content:center;position:relative}
+.arw{position:absolute;top:50%;margin-top:-4.5mm;width:9mm;height:9mm;
+  border-radius:50%;background:#F26222;color:#fff;display:flex;
+  align-items:center;justify-content:center;z-index:3;
+  box-shadow:0 0 6mm rgba(242,98,34,.7)}
+.show .qc.l .arw{right:-6.7mm}
+.show .qc.r .arw{left:-6.7mm;transform:rotate(180deg)}
+.show .qbox svg{width:55mm;height:55mm}
+/*  the middle card is the hero of the sheet - it sits in a pool of
+    orange light, wears the neon edge, and is the thing the two
+    chevrons point at  */
+.pcard{position:relative;background:linear-gradient(180deg,#18202C,#0E141D);
+  border:.6mm solid #F26222;border-radius:6mm;padding:6mm 4mm 5mm;
+  text-align:center;overflow:hidden;
+  box-shadow:0 0 16mm rgba(242,98,34,.28)}
+.pcard:after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;
+  background:radial-gradient(58% 42% at 50% 40%,rgba(242,98,34,.22),
+  transparent 72%);pointer-events:none}
+.pcard>*{position:relative;z-index:1}
+.pcard:before{content:"";position:absolute;top:0;left:12%;right:12%;height:1mm;
+  background:linear-gradient(90deg,transparent,#EFFF3D,transparent);
+  filter:blur(.35mm)}
+.pcard .lab{font-size:11.5pt;font-weight:900;letter-spacing:2.6px;
+  text-transform:uppercase;color:#EFFF3D;margin-bottom:4.5mm}
+.phone{margin:0 auto;width:82mm;border-radius:7mm;background:#05070B;
+  border:1.1mm solid #2F3945;padding:4mm 3mm;box-shadow:0 0 12mm rgba(242,98,34,.22)}
+.notch{width:16mm;height:1.4mm;border-radius:1mm;background:#2F3945;
+  margin:0 auto 3mm}
+.scr{background:#0B0F16;border-radius:4mm;padding:5mm 4mm;text-align:left}
+.ph-top{font-size:13pt;font-weight:900;color:#fff;letter-spacing:-.4px;
+  line-height:1}
+.ph-top b{color:#F26222}
+.ph-sub{font-size:6.6pt;color:#8A97A8;letter-spacing:1.5px;margin-top:1.2mm;
+  text-transform:uppercase}
+.ph-score{margin:4.5mm 0;padding:4mm 4mm;border-radius:3mm;
+  background:linear-gradient(135deg,#F26222,#c94c16);color:#fff}
+.ph-score b{display:block;font-size:25pt;font-weight:900;line-height:1}
+.ph-score span{display:block;font-size:7pt;font-weight:700;letter-spacing:.8px;
+  opacity:.92;margin-top:.8mm}
+.ph-row{display:flex;align-items:center;gap:2mm;padding:3.4mm 0;
+  border-top:.25mm solid #1C232E;font-size:7.4pt;color:#C3CDDA}
+.ph-row i{width:2.5mm;height:2.5mm;border-radius:50%;flex:none}
+.ph-row em{margin-left:auto;font-style:normal;color:#7E8B9C;font-size:6.8pt}
+.ph-rank{margin-top:4mm;padding:3.2mm;border-radius:2.5mm;text-align:center;
+  border:.35mm solid #3A4657;font-size:7pt;font-weight:900;letter-spacing:.9px;
+  color:#EFFF3D}
+.after{margin-top:10mm;background:linear-gradient(180deg,#151C27,#0E141D);
   border:.5mm solid #28323F;border-left:1.4mm solid #F26222;
   border-radius:5mm;padding:6mm 7mm}
 .after h4{font-size:12pt;font-weight:900;letter-spacing:2.5px;color:#F26222;
   text-transform:uppercase}
+.after h4 span{color:#EFFF3D}
 .after .row{display:grid;grid-template-columns:repeat(4,1fr);gap:5mm;
-  margin-top:4mm}
+  margin-top:5.5mm}
 .after .row div{font-size:11pt;color:#C3CDDA;line-height:1.5}
 .after .row b{display:block;color:#fff;font-size:12pt;margin-bottom:1mm}
-.note{margin-top:6mm;text-align:center;font-size:11pt;color:#C3CDDA}
+.note{margin-top:7mm;text-align:center;font-size:11pt;color:#C3CDDA}
 .note b{color:#F26222}
 .foot{position:absolute;left:11mm;right:11mm;bottom:6mm;text-align:center;
   font-size:9pt;color:#6C7A8C;border-top:.3mm solid #28323F;padding-top:3.5mm}
@@ -108,4 +227,4 @@ ol li code{font-family:Consolas,monospace;font-size:8.4pt;color:#EFFF3D}
   border-top:.3mm solid #28323F;vertical-align:top;line-height:1.35}
 .fix td:first-child{color:#fff;font-weight:700;width:36%}
 .foot{bottom:5mm}
-</style></head><body><div class='frame'><div class='top'><div class='logo'>coates<small>Equipped for anything</small></div><div class='siq'>POWERED BY SITEIQ<small>Cement Australia K2 &middot; Gladstone</small></div></div><div class='hero'><h1><em>MY</em> <span>GEAR</span></h1><div class='kick'>HOW IT WORKS</div></div><div class='cols'><div class='col'><h3>Every morning</h3><div class='who'>Tool store &mdash; about 15 minutes</div><ol><li><b>Pull today's numbers</b> &mdash; run <code>28_PULL_SITEIQ_EXPORTS.bat</code> - it takes the SiteIQ exports out of Downloads and files them</li><li><b>Build the page</b> &mdash; run <code>04_RUN_MY_GEAR.bat</code></li><li><b>Serve it</b> &mdash; run <code>05_START_GEAR_LOOKUP.bat</code> and <b>leave that window open</b> - close it and the QR codes stop working</li><li><b>Check the address</b> &mdash; if it prints something other than the address at the foot of this sheet, run <code>32_UPDATE_POSTERS.bat</code> and reprint the posters</li></ol></div><div class='col'><h3>Getting your list</h3><div class='who'>Anyone on site &mdash; about 30 seconds</div><ol><li><b>Join the store Wi-Fi</b> &mdash; scan QR 1 on the poster, tap join &mdash; or join <b>Tool Store</b> by hand, password <b>coates2026</b></li><li><b>Open My Gear</b> &mdash; scan QR 2, or type the address at the foot of this sheet</li><li><b>Put your ID in</b> &mdash; type your hire ID - the number on your Coates card</li><li><b>Your gear appears</b> &mdash; everything in your name, oldest first, with what each item needs</li><li><b>Take it with you</b> &mdash; print the A4 sheet, or just keep it open on your phone</li></ol></div></div><div class='when'><h4>Updated once a day</h4><p>The list is built <b>about 7:00 AM</b> from that morning's SiteIQ pull. Anything taken or handed back after that shows up <b>tomorrow</b>. It is a record of what is in your name, not a live feed &mdash; if it looks wrong, check the time before you chase it.</p></div><div class='fix'><h4>If something looks wrong</h4><table><tr><td>Where do I type my number</td><td>Straight on the page when it opens. Your hire ID is the number on your Coates card.</td></tr><tr><td>Page won't open</td><td>The store server isn't running. Ask the tool store to start it.</td></tr><tr><td>Gear I handed back is still listed</td><td>The list is built once a day at 7:00 AM. It'll be right tomorrow.</td></tr><tr><td>Gear I took this morning isn't there</td><td>Same reason - anything after 7:00 AM shows tomorrow.</td></tr><tr><td>It says nothing is in my name</td><td>Wrong ID number. A number that isn't yours shows an empty list, never someone else's gear.</td></tr></table></div><div class='foot'>http://192.168.0.17:8123/ &middot; <b>the Coates tool store</b> &middot; Author: Andrew Fisher</div></div></body></html>
+</style></head><body><div class='frame'><div class='top'><div class='logo'>coates<small>Equipped for anything</small></div><div class='siq'>POWERED BY SITEIQ<small>Cement Australia K2 &middot; Gladstone</small></div></div><div class='hero'><h1><em>MY</em> <span>GEAR</span></h1><div class='kick'>HOW IT WORKS</div></div><div class='cols'><div class='col'><h3>Every morning</h3><div class='who'>Tool store &mdash; about 15 minutes</div><ol><li><b>Pull today's numbers</b> &mdash; run <code>28_PULL_SITEIQ_EXPORTS.bat</code> - it takes the SiteIQ exports out of Downloads and files them</li><li><b>Build the page</b> &mdash; run <code>04_RUN_MY_GEAR.bat</code></li><li><b>Serve it</b> &mdash; run <code>31_START_GEAR_LOOKUP_HTTPS.bat</code> and <b>leave that window open</b> - close it and the QR codes stop working</li><li><b>Check the address</b> &mdash; if it prints something other than the address at the foot of this sheet, run <code>32_UPDATE_POSTERS.bat</code> and reprint the posters</li></ol></div><div class='col'><h3>Getting your list</h3><div class='who'>Anyone on site &mdash; about 30 seconds</div><ol><li><b>Join the store Wi-Fi</b> &mdash; scan QR 1 on the poster, tap join</li><li><b>Open My Gear</b> &mdash; scan QR 2, or type the address at the foot of this sheet</li><li><b>Put your ID in</b> &mdash; type your hire ID, or tap <b>SCAN</b> and hold your card up to the camera</li><li><b>Your gear appears</b> &mdash; everything in your name, oldest first, with what each item needs</li><li><b>Take it with you</b> &mdash; print the A4 sheet, or just keep it open on your phone</li></ol></div></div><div class='when'><h4>Updated once a day</h4><p>The list is built <b>about 7:00 AM</b> from that morning's SiteIQ pull. Anything taken or handed back after that shows up <b>tomorrow</b>. It is a record of what is in your name, not a live feed &mdash; if it looks wrong, check the time before you chase it.</p></div><div class='fix'><h4>If something looks wrong</h4><table><tr><td>Page won't open</td><td>The store server isn't running. Ask the tool store to start it.</td></tr><tr><td>Camera won't scan my card</td><td>The scan button only appears on a secure (https) connection. Type your ID in instead - it works the same.</td></tr><tr><td>Gear I handed back is still listed</td><td>The list is built once a day at 7:00 AM. It'll be right tomorrow.</td></tr><tr><td>Gear I took this morning isn't there</td><td>Same reason - anything after 7:00 AM shows tomorrow.</td></tr><tr><td>It says nothing is in my name</td><td>Wrong ID number. A number that isn't yours shows an empty list, never someone else's gear.</td></tr></table></div><div class='foot'>https://192.0.2.2:8443/ &middot; <b>the Coates tool store</b> &middot; Author: Andrew Fisher</div></div></body></html>

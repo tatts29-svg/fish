@@ -1,0 +1,128 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Coates K2 - Invoice Breakdown</title><style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;background:#fff}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#E6E9EE}
+/* A4 geometry in px (1px = 1/96in, exact in Edge/Chrome headless AND print;
+   mm heights render short in some headless modes, so we never use them here).
+   Sheet 794x1123px = 210x297mm; panel fills the sheet inside 34px margins. */
+.sheet{width:794px;height:1123px;overflow:hidden;margin:0 auto;padding:34px;background:#fff}
+.sheet + .sheet{page-break-before:always}
+.panel{background:#0E1116;border-radius:16px;border-top:9px solid #F26222;padding:26px 30px 20px;box-shadow:0 2px 12px rgba(0,0,0,.15);height:1055px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.grow{flex:1 1 auto;min-height:8px}
+@media print{.panel{box-shadow:none}}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.hd .brand{font-size:30px;font-weight:900;color:#F26222;letter-spacing:-.5px}
+.hd .brand span{color:#fff;font-size:15px;font-weight:600;margin-left:8px}
+.hd .site{color:#A9B1BD;font-size:12px;letter-spacing:.5px;margin-top:10px;text-transform:uppercase}
+.hd h1{color:#fff;font-size:24px;margin:9px 0 3px}
+.hd .rp{color:#A9B1BD;font-size:13px}
+.hd .siteiq{text-align:right;color:#F26222;font-weight:800;font-size:12px;letter-spacing:1px}
+.hd .meta{text-align:right;color:#A9B1BD;font-size:10.5px;line-height:1.7;margin-top:8px;text-transform:uppercase}
+.hd .meta b{color:#fff;font-size:12.5px}
+.hd2{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.hd2 .brand{font-size:22px;font-weight:900;color:#F26222;letter-spacing:-.5px}
+.hd2 .brand span{color:#fff;font-size:12px;font-weight:600;margin-left:7px}
+.hd2 h1{color:#fff;font-size:19px;margin:6px 0 2px}
+.hd2 .rp{color:#A9B1BD;font-size:12.5px}
+.hd2 .siteiq{text-align:right;color:#F26222;font-weight:800;font-size:11px;letter-spacing:1px}
+.hd2 .meta{text-align:right;color:#A9B1BD;font-size:10.5px;margin-top:6px;text-transform:uppercase;line-height:1.7}.hd2 .meta b{color:#fff;font-size:11.5px}
+.rule{height:2px;background:linear-gradient(90deg,#F26222,transparent);margin:16px 0 20px}
+.banner{display:flex;gap:16px;align-items:flex-start;background:#131a15;border:1px solid #24422a;border-left:5px solid #0ca30c;border-radius:12px;padding:18px 20px;margin-bottom:20px}
+.banner.watch{background:#1c1710;border-color:#4a3a14;border-left-color:#fab219}
+.pill{flex:none;background:#0ca30c;color:#08210c;font-weight:900;font-size:12px;letter-spacing:.5px;padding:6px 13px;border-radius:16px;text-transform:uppercase;margin-top:2px}
+.pill.watch{background:#fab219;color:#2a1e05}
+.banner p{margin:0;font-size:14.5px;line-height:1.65;color:#D7DBE2}.banner b{color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.kpi{background:#171B22;border:1px solid #2A313C;border-left:4px solid #F26222;border-radius:11px;padding:16px 14px;min-width:0}
+.kpi.g{border-left-color:#0ca30c}.kpi.b{border-left-color:#F26222}
+.kpi .v{font-size:20px;font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.3px}
+.kpi .l{font-size:11px;color:#A9B1BD;text-transform:uppercase;letter-spacing:.5px;margin-top:8px;font-weight:700}
+.kpi .s{font-size:11.5px;color:#949CA8;margin-top:4px;line-height:1.4}
+.storyc{background:#171B22;border:1px solid #2A313C;border-left:4px solid #F26222;border-radius:12px;padding:20px 24px;margin-top:4px}
+.storyc h2{color:#fff;font-size:16px;margin:0 0 10px}
+.storyc p{color:#D7DBE2;font-size:14px;line-height:1.75;margin:0 0 12px}.storyc p:last-child{margin-bottom:0}.storyc b{color:#fff}.storyc .hl{color:#F26222;font-weight:700}
+.card{background:#171B22;border:1px solid #2A313C;border-radius:12px;padding:18px 22px}
+.card h2{color:#fff;font-size:17px;margin:0 0 5px}
+.card .cap{color:#9BA3AF;font-size:12.5px;margin-bottom:12px;line-height:1.5}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{color:#9BA3AF;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;padding:0 8px 9px;border-bottom:1px solid #2A313C}
+td{padding:10px 8px;border-bottom:1px solid #20262e;vertical-align:top;color:#D7DBE2}
+td.n{text-align:right;font-variant-numeric:tabular-nums;color:#fff}
+tr:last-child td{border-bottom:0}
+table.tight{font-size:12px}
+table.tight td{padding:9px 6px}
+table.tight th{padding:0 6px 8px}
+table.tight td:first-child,table.tight td:last-child{white-space:nowrap}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:0}
+.footnote{color:#A9B1BD;font-size:11.5px;line-height:1.55;margin-top:10px;border-top:1px dashed #2A313C;padding-top:9px}
+.footnote b{color:#F26222}
+.util{font-size:52px;font-weight:900;color:#fff;line-height:1;margin:10px 0 4px;letter-spacing:-1px}.util span{font-size:18px;color:#A9B1BD;font-weight:600;letter-spacing:0}
+.bar{height:15px;background:#20262e;border-radius:8px;overflow:hidden;margin:16px 0 8px}
+.bar > i{display:block;height:100%;background:linear-gradient(90deg,#F26222,#f7883f);border-radius:8px}
+.barends{display:flex;justify-content:space-between;color:#A9B1BD;font-size:12.5px}
+.callout{background:#0E1116;border:1px solid #2A313C;border-left:4px solid #fab219;border-radius:10px;padding:14px 18px;margin-top:18px;font-size:15px;color:#D7DBE2}.callout b{color:#fff;font-size:17px}
+.uln{font-size:13.5px;color:#D7DBE2;line-height:1.7;margin-top:14px}.uln b{color:#fff}
+.bigmoney{font-size:44px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-1px}
+.bigsub{color:#A9B1BD;font-size:11px;text-transform:uppercase;letter-spacing:.6px;margin-top:8px;font-weight:700}
+.ceiling{margin-top:12px;color:#A9B1BD;font-size:12.5px}.ceiling b{color:#D7DBE2}
+.strip{display:flex;align-items:flex-start;gap:12px;margin-top:16px;padding:14px 18px}
+.strip p{margin:0;font-size:13px;line-height:1.6;color:#D7DBE2}.strip b{color:#fff}
+.foot{position:absolute;left:30px;right:30px;bottom:14px;display:flex;justify-content:space-between;gap:20px;color:#9BA3AF;font-size:10px;line-height:1.55;border-top:1px solid #2A313C;padding-top:8px}
+.foot b{color:#A9B1BD}.foot span:first-child{flex:1}
+.team-top{display:flex;justify-content:center;margin:8px 0 0}
+.tperson{display:flex;align-items:center;gap:10px;background:#171B22;border:1px solid #2A313C;border-radius:9px;padding:8px 13px}
+.tperson.boss{border-left:4px solid #F26222;padding-right:22px}
+.tavatar{width:34px;height:34px;border-radius:50%;background:#F26222;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none;letter-spacing:.5px}
+.tperson .tn{color:#fff;font-weight:700;font-size:13.5px}
+.tperson .tr{color:#9BA3AF;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.tconn{height:10px;border-left:2px solid #2A313C;width:0;margin:2px auto}
+.tgroups{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.tgroup{background:#141922;border:1px solid #2A313C;border-radius:10px;padding:11px 13px}
+.tgroup h4{color:#F26222;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px}
+.tgroup .tperson{margin-bottom:7px;background:#0E1116}
+.tgroup .tperson:last-child{margin-bottom:0}
+.twedo{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0 4px}
+.twedo span{background:#171B22;border:1px solid #2A313C;border-left:3px solid #F26222;border-radius:8px;padding:7px 12px;font-size:12px;color:#D7DBE2}
+.twedo b{color:#F26222}
+
+body{color:#20242B}
+.panel{background:#fff;border:6px solid #F26222;border-top:9px solid #F26222;box-shadow:none}
+.hd .brand span{color:#14181F}.hd .site{color:#6B7380}
+.hd h1{color:#14181F}.hd .rp{color:#5B6472}
+.hd .meta{color:#6B7380}.hd .meta b{color:#14181F}
+.hd2 .brand span{color:#14181F}.hd2 h1{color:#14181F}.hd2 .rp{color:#5B6472}
+.hd2 .meta{color:#6B7380}.hd2 .meta b{color:#14181F}
+.rule{background:linear-gradient(90deg,#F26222,#EFFF3D,transparent)}
+.banner{background:#E9F6EC;border-color:#BFE3C8}
+.banner.watch{background:#FFF4D6;border-color:#F0DCA0}
+.banner p{color:#33393F}.banner b{color:#14181F}
+.kpi{background:#F6F7F9;border-color:#E3E6EB}
+.kpi .v{color:#14181F}.kpi .l{color:#5B6472}.kpi .s{color:#6B7380}
+.storyc{background:#FFF3EC;border-color:#F5DECD}
+.storyc h2{color:#14181F}.storyc p{color:#33393F}.storyc b{color:#14181F}
+.card{background:#F6F7F9;border-color:#E3E6EB}
+.card h2{color:#14181F}.card .cap{color:#6B7380}
+th{color:#5B6472;border-bottom-color:#E3E6EB}
+td{color:#262C35;border-bottom-color:#EDF0F3}
+td.n{color:#14181F}
+.footnote{color:#5B6472;border-top-color:#E3E6EB}
+.util{color:#14181F}.util span{color:#5B6472}
+.bar{background:#EDF0F4}
+.bar > i{background:linear-gradient(90deg,#F26222,#EFFF3D)}
+.barends{color:#5B6472}
+.callout{background:#FFFBEA;border-color:#F0DCA0;color:#33393F}
+.callout b{color:#14181F}
+.uln{color:#33393F}.uln b{color:#14181F}
+.bigmoney{color:#14181F}.bigsub{color:#5B6472}
+.ceiling{color:#5B6472}.ceiling b{color:#33393F}
+.strip p{color:#33393F}.strip b{color:#14181F}
+.foot{color:#6B7380;border-top-color:#E3E6EB}.foot b{color:#5B6472}
+.tperson{background:#F6F7F9;border-color:#E3E6EB}
+.tperson .tn{color:#14181F}.tperson .tr{color:#5B6472}
+.tconn{border-left-color:#E3E6EB}
+.tgroup{background:#F9FAFB;border-color:#E3E6EB}
+.tgroup .tperson{background:#fff}
+.twedo span{background:#F6F7F9;border-color:#E3E6EB;color:#33393F}
+</style></head><body><section class='sheet'><div class='panel'><div class='hd2'><div><div class='brand'>COATES<span>Equipped for anything</span></div><h1>Invoice Breakdown &mdash; August 2026</h1><div class='rp'>What the invoice is made of</div></div><div><div class='siteiq'>POWERED BY SITEIQ</div><div class='meta'>As at <b>03 Aug 2026 - 11:50</b><br>Page 1 of 3</div></div></div><div class='rule'></div><div class='banner'><span class='pill'>Progress invoice</span><p>SiteIQ renders the August 2026 invoice as a <b>single line</b>. This breakdown is the companion that shows what that line is made of &mdash; every dollar grouped by stream, straight from SiteIQ's own daily invoicing, covering <b>31 Jul &ndash; 01 Aug 2026</b> (2 invoiced day(s)). A <b>final invoice</b> follows next month as the shutdown closes out.</p></div><div class='kpis' style='grid-template-columns:repeat(3,1fr)'><div class='kpi b'><div class='v'>$22,096</div><div class='l'>August 2026 invoice &middot; all in</div><div class='s'>every stream on this invoice</div></div><div class='kpi'><div class='v'>$22,096</div><div class='l'>Hire</div><div class='s'>plant, tooling &amp; equipment</div></div><div class='kpi'><div class='v'>$0</div><div class='l'>Claims &amp; services</div><div class='s'>labour, accommodation, transport &amp; the rest</div></div></div><div class='card'><h2>What the invoice is made of</h2><div class='cap'>Each stream as SiteIQ invoiced it &mdash; the rows sum to the invoice total to the cent.</div><table><thead><tr><th>Stream</th><th style='text-align:right'>Amount</th><th></th><th style='text-align:right'>Share</th></tr></thead><tbody><tr><td>Plant, tooling &amp; equipment hire</td><td class='n'>$22,096</td><td style='width:150px'><div class='bar' style='height:10px;margin:4px 0'><i style='width:100%'></i></div></td><td class='n' style='color:#5B6472'>100%</td></tr><tr><td style='color:#14181F;font-weight:700'>Invoice total</td><td class='n' style='color:#14181F;font-weight:700'>$22,096</td><td></td><td></td></tr></tbody></table><div class='footnote'>The month-end rule: SiteIQ registers the <b>last day of a month</b> into the next month's invoice &mdash; 31 Aug's hire sits in next month's final invoice, and 31 Jul's sits in this one. Radios, gas monitors and the welders are invoiced separately and are <b>not in this figure</b> &mdash; the two invoices never share a dollar.</div></div><div class='grow'></div></div></section><section class='sheet'><div class='panel'><div class='hd2'><div><div class='brand'>COATES<span>Equipped for anything</span></div><h1>Invoice Breakdown &mdash; August 2026</h1><div class='rp'>Inside the hire &middot; plant by product group</div></div><div><div class='siteiq'>POWERED BY SITEIQ</div><div class='meta'>As at <b>03 Aug 2026 - 11:50</b><br>Page 2 of 3</div></div></div><div class='rule'></div><div class='kpis' style='grid-template-columns:repeat(3,1fr)'><div class='kpi b'><div class='v'>$14,576</div><div class='l'>Plant</div><div class='s'>66% of the hire</div></div><div class='kpi'><div class='v'>$82</div><div class='l'>Tooling</div><div class='s'>0% of the hire</div></div><div class='kpi'><div class='v'>$7,438</div><div class='l'>General gear</div><div class='s'>34% of the hire</div></div></div><div class='card' style='margin-top:14px'><h2>Plant &mdash; by product group</h2><div class='cap'>The site's plant on charge &mdash; plant registers and the plant storage units (site plant, rubbish chutes, barriers) &mdash; grouped by SiteIQ's own product families.</div><table class='tight'><thead><tr><th>Product group</th><th style='text-align:right'>Items</th><th style='text-align:right'>Amount</th><th></th><th style='text-align:right'>Share</th></tr></thead><tbody><tr><td>Generators & Power Distribution</td><td class='n'>25</td><td class='n'>$3,357</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:23%'></i></div></td><td class='n' style='color:#5B6472'>23%</td></tr><tr><td>Materials Handling</td><td class='n'>20</td><td class='n'>$2,499</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:17%'></i></div></td><td class='n' style='color:#5B6472'>17%</td></tr><tr><td>Access</td><td class='n'>8</td><td class='n'>$2,170</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:15%'></i></div></td><td class='n' style='color:#5B6472'>15%</td></tr><tr><td>Concrete & Masonry</td><td class='n'>2</td><td class='n'>$1,568</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:11%'></i></div></td><td class='n' style='color:#5B6472'>11%</td></tr><tr><td>Lighting</td><td class='n'>11</td><td class='n'>$1,213</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:8%'></i></div></td><td class='n' style='color:#5B6472'>8%</td></tr><tr><td>Earthmoving</td><td class='n'>5</td><td class='n'>$897</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:6%'></i></div></td><td class='n' style='color:#5B6472'>6%</td></tr><tr><td>Air & Air Accessories</td><td class='n'>2</td><td class='n'>$747</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:5%'></i></div></td><td class='n' style='color:#5B6472'>5%</td></tr><tr><td>Welding</td><td class='n'>5</td><td class='n'>$726</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:5%'></i></div></td><td class='n' style='color:#5B6472'>5%</td></tr><tr><td>Trucks, Vehicles & Trailers</td><td class='n'>3</td><td class='n'>$338</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:2%'></i></div></td><td class='n' style='color:#5B6472'>2%</td></tr><tr><td style='color:#5B6472'>5 more product group(s)</td><td class='n'>193</td><td class='n'>$1,062</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:7%'></i></div></td><td class='n' style='color:#5B6472'>7%</td></tr><tr><td style='color:#14181F;font-weight:700'>Total</td><td class='n'></td><td class='n' style='color:#14181F;font-weight:700'>$14,576</td><td></td><td></td></tr></tbody></table></div><div class='footnote' style='margin-top:14px'>Every dollar on this page is SiteIQ's own charge line, split by the store's proven plant identity &mdash; the same partition the cost snapshot ties to the invoice to the cent, day by day. Items = individual pieces of gear that earned within the group.</div><div class='grow'></div></div></section><section class='sheet'><div class='panel'><div class='hd2'><div><div class='brand'>COATES<span>Equipped for anything</span></div><h1>Invoice Breakdown &mdash; August 2026</h1><div class='rp'>Inside the hire &middot; tooling &amp; general gear</div></div><div><div class='siteiq'>POWERED BY SITEIQ</div><div class='meta'>As at <b>03 Aug 2026 - 11:50</b><br>Page 3 of 3</div></div></div><div class='rule'></div><div class='card' style='margin-top:14px'><h2>Tooling &mdash; by product group</h2><div class='cap'>The tool aisles (Tooling, Hydraulics &amp; Hi-Torque). The number runs small because the hand-tool aisles go out largely free-issue &mdash; that is the real shape of the hire, not missing data.</div><table class='tight'><thead><tr><th>Product group</th><th style='text-align:right'>Items</th><th style='text-align:right'>Amount</th><th></th><th style='text-align:right'>Share</th></tr></thead><tbody><tr><td>Industrial Tools & Equipment</td><td class='n'>162</td><td class='n'>$43</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:52%'></i></div></td><td class='n' style='color:#5B6472'>52%</td></tr><tr><td>Lift, Shift & Propping</td><td class='n'>8</td><td class='n'>$38</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:47%'></i></div></td><td class='n' style='color:#5B6472'>47%</td></tr><tr><td>Landscaping</td><td class='n'>3</td><td class='n'>$1</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:1%'></i></div></td><td class='n' style='color:#5B6472'>1%</td></tr><tr><td style='color:#14181F;font-weight:700'>Total</td><td class='n'></td><td class='n' style='color:#14181F;font-weight:700'>$82</td><td></td><td></td></tr></tbody></table></div><div class='card' style='margin-top:14px'><h2>General gear &mdash; by product group</h2><div class='cap'>The rest of the store &mdash; rigging, electrical, welding, air, lighting and the like, grouped by SiteIQ's own product families.</div><table class='tight'><thead><tr><th>Product group</th><th style='text-align:right'>Items</th><th style='text-align:right'>Amount</th><th></th><th style='text-align:right'>Share</th></tr></thead><tbody><tr><td>Lift, Shift & Propping</td><td class='n'>208</td><td class='n'>$3,455</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:46%'></i></div></td><td class='n' style='color:#5B6472'>46%</td></tr><tr><td>Welding</td><td class='n'>125</td><td class='n'>$1,749</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:24%'></i></div></td><td class='n' style='color:#5B6472'>24%</td></tr><tr><td>Tools & Equipment</td><td class='n'>240</td><td class='n'>$1,485</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:20%'></i></div></td><td class='n' style='color:#5B6472'>20%</td></tr><tr><td>Lighting</td><td class='n'>32</td><td class='n'>$320</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:4%'></i></div></td><td class='n' style='color:#5B6472'>4%</td></tr><tr><td>Generators & Power Distribution</td><td class='n'>9</td><td class='n'>$114</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:2%'></i></div></td><td class='n' style='color:#5B6472'>2%</td></tr><tr><td>Air & Air Accessories</td><td class='n'>29</td><td class='n'>$79</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:1%'></i></div></td><td class='n' style='color:#5B6472'>1%</td></tr><tr><td>Industrial Tools & Equipment</td><td class='n'>15</td><td class='n'>$78</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:1%'></i></div></td><td class='n' style='color:#5B6472'>1%</td></tr><tr><td>Access</td><td class='n'>1</td><td class='n'>$68</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:1%'></i></div></td><td class='n' style='color:#5B6472'>1%</td></tr><tr><td>Concrete & Masonry</td><td class='n'>4</td><td class='n'>$34</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:0%'></i></div></td><td class='n' style='color:#5B6472'>0%</td></tr><tr><td style='color:#5B6472'>4 more product group(s)</td><td class='n'>9</td><td class='n'>$55</td><td style='width:130px'><div class='bar' style='height:9px;margin:4px 0'><i style='width:1%'></i></div></td><td class='n' style='color:#5B6472'>1%</td></tr><tr><td style='color:#14181F;font-weight:700'>Total</td><td class='n'></td><td class='n' style='color:#14181F;font-weight:700'>$7,438</td><td></td><td></td></tr></tbody></table></div><div class='grow'></div><div class='foot'><span>Data source: <b>SiteIQ</b> &middot; Extract 03 Aug 2026 - 11:50 &middot; Progress invoice breakdown &mdash; final invoice next month &middot; every figure is SiteIQ's own invoiced line.</span><span style='white-space:nowrap'>Author: <b>Andrew Fisher</b> &middot; POWERED BY SITEIQ</span></div></div></section></body></html>

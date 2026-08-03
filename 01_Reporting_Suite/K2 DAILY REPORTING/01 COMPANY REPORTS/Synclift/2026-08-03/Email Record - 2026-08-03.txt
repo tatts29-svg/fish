@@ -1,0 +1,58 @@
+COATES | K2 SHUTDOWN 2026 - EMAIL RECORD
+Cement Australia K2 - Gladstone
+Author: Andrew Fisher | POWERED BY SITEIQ
+==================================================================
+Company       : Synclift
+Package       : External contractor
+Report date   : 2026-08-03
+Created       : 03 Aug 2026 11:24
+Status        : Not Generated
+
+SUBJECT
+  Synclift | Daily On-Hire Report | 3 August 2026
+
+TO (2)
+  jbeard@synclift.com.au
+  blynch@synclift.com.au
+
+CC (5)
+  thomas.maher@coates.com.au
+  cody.mitchell@coates.com.au
+  benjamin.vandenbroek@cemaust.com.au
+  david.moore@cemaust.com.au
+  John.Pickels@cemaust.com.au
+
+PASTED INTO THE EMAIL BODY
+  (nothing - no report generated)
+
+ATTACHMENTS (0)
+  (none)
+
+PRE-SEND CHECKS
+  [FAIL] Company matched to the on-hire register  -  'Synclift' holds nothing on hire - no report to send
+  [PASS] Folder is this company's, and everything in it is today's  -  Synclift/2026-08-03
+  [PASS] Company named in the subject line  -  Synclift | Daily On-Hire Report | 3 August 2026
+  [PASS] At least one confirmed address in To  -  2 in To
+  [PASS] Four fixed oversight contacts in Cc  -  5 in Cc
+  [FAIL] Report in the body is today's, and still the current one  -  nothing generated
+  [FAIL] Report ready for the email body  -  nothing generated
+  [FAIL] Daily Safety & Compliance PDF attached  -  0 attachment(s)
+  [FAIL] No other company's information in the pack  -  found: (there is no report to read)
+  [PASS] Every address on the contact register for this company  -  7 address(es) confirmed
+  [PASS] Every attachment on disk, listed once  -  0 file(s)
+  [PASS] Draft reads back exactly as addressed  -  To, Cc, body and attachments all confirmed
+  [PASS] Email size within the mail server's limit  -  0.0 MB (limit 10 MB)
+  [PASS] Every PDF built from today's report  -  all current
+
+WHY THIS IS NOT READY TO SEND
+  - Synclift holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
+
+SENT CONFIRMATION
+  Sent by      : ____________________
+  Date / time  : ____________________
+  Update the status above to 'Sent' once it has gone.
+
+------------------------------------------------------------------
+Routing taken from K2_Daily_Email_Report_Allocation.xlsx
+Nothing in this record was typed by hand - change the workbook and
+the next run follows it.

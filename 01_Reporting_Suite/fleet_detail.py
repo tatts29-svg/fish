@@ -235,7 +235,14 @@ def fleet(data, variant, with_money=False):
     a0 = assets[0]
     out = {
         'variant': variant,
-        'name': a0.get('desc') or variant,
+        #  A POOL LABEL, NOT ONE UNIT'S NAME. assets[0] is whichever
+        #  asset happened to be read first, and for radios and gas
+        #  monitors its description carries that unit's own serial - so
+        #  a fleet of 72 handsets was labelled after one of them, and
+        #  never the one shown beside it. norm_variant takes the unit
+        #  tag off and leaves the model, which is what a pool is
+        #  (3 Aug 2026).
+        'name': MI.norm_variant(a0.get('desc') or '') or variant,
         'unit': a0.get('unit') or '',
         'store': a0.get('store') or '',
         'onsite': len(rows),
@@ -292,7 +299,8 @@ def variants(data, limit=None):
         cls, word = band(pct)
         out.append({
             'variant': v,
-            'name': (ass[0].get('desc') or v),
+            #  same reason as above - the pool's name, not unit one's
+            'name': MI.norm_variant(ass[0].get('desc') or '') or v,
             'unit': ass[0].get('unit') or '',
             'assets': len(ass),
             'live': n,
