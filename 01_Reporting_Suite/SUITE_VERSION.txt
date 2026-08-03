@@ -1,7 +1,7 @@
-# Coates K2 suite version - 170 files - overall 4291b8d0
+# Coates K2 suite version - 170 files - overall 8cc5a96b
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-03 18:38:01
+# taken 2026-08-03 19:31:11
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -78,7 +78,7 @@ e487d6f141 70_SERIAL_NUMBERS.bat
 8bce6d250a APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
-d6e053189c BUILD_DAILY_EMAIL_PACKS.py
+1f7be28de4 BUILD_DAILY_EMAIL_PACKS.py
 5583fe4dff BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
@@ -105,7 +105,7 @@ b0c58cff1b START_GEAR_LOOKUP.ps1
 905295bfe6 SUBMIT_CHARGES.py
 c73dc44e7e SWITCH_ON.py
 9379a70c16 SYNC_PCS.py
-52d795eac9 TEST_DAILY_PACKS.py
+6d97cecf15 TEST_DAILY_PACKS.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
@@ -143,7 +143,7 @@ d4f489938a fleet_detail.py
 f05b0d6241 forecast.py
 32bd4ae378 hidden_stock.py
 ec472b59fc k2_consumables.py
-5f565b087a k2_daily_packs.py
+15f4126af7 k2_daily_packs.py
 960df8a568 k2_utilisation.py
 37690b04c6 logbook_poster.py
 0c1066c270 master_equipment.py
