@@ -205,6 +205,22 @@ def _norm(s):
     return re.sub(r'[^A-Z0-9]', '', str(s or '').upper())
 
 
+#  ANDREW'S OWN PHOTOS, PINNED BY HAND (3 Aug 2026: "just hardcode
+#  these in be easier in the update"). His filenames on his machine,
+#  spelled exactly as he saved them, mapped straight to their register
+#  codes - no fuzzy rule between him and his own pictures. A FAMILY:
+#  value claims every code that starts with the stem, so the one
+#  crowsfoot photo covers all fourteen sizes without a rename.
+#  Keys are matched on the normalised stem, so underscores don't count.
+PINNED = {
+    'HONEYWELLBWFLEX4GASMONITOR': ['HONEYWELLBWFLEXMULTIGASDETECTOR'],
+    'MOTOROLADP4801ETWOWAYRADIOWITHHANDPIECE':
+        ['MOTOROLADP4801ETWOWAYRADIO'],
+    'MOTOROLANNTN8129IMPRESBATTERY': ['MOTOROLANNTN8129IMPRESBATTERY'],
+    '12DRIVECROWSFEET43MM': ['FAMILY:12DRIVECROWSFEET'],
+}
+
+
 def alias_photos(photos, codes, loose=None):
     """Photos named ALMOST right still land (Andrew's radio and gas
     monitor shots, 31 Jul 2026: none matched - underscores, a trailing
@@ -237,6 +253,22 @@ def alias_photos(photos, codes, loose=None):
     for stem, path in photos.items():
         normed.setdefault(_norm(stem), path)
         toks[path] = set(t for t in re.split(r'[^A-Z0-9]+', stem.upper()) if t)
+    #  the hand-pinned claims first - they are the spoken word, and no
+    #  automatic rule below may overrule or miss them
+    for pstem, targets in PINNED.items():
+        path = normed.get(pstem)
+        if not path:
+            continue
+        for t in targets:
+            if t.startswith('FAMILY:'):
+                fam = _norm(t[7:])
+                for code in codes:
+                    c = safe_name(str(code or '').strip().upper())
+                    if c and _norm(c).startswith(fam) and c not in photos:
+                        photos[c] = path
+            else:
+                if t not in photos:
+                    photos[t] = path
     for code in codes:
         code = safe_name(str(code or '').strip().upper())
         if not code or code in photos:
