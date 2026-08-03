@@ -716,6 +716,14 @@ def read(rental_path, stocktake_path, master=None, today=None,
     #  HIRE HISTORY off the charge feed: how many times each item went
     #  out this shut, and who had it last (Andrew, 31 Jul 2026)
     hire_hist = {}
+    #  THE JUST-HAPPENED LIST (Andrew, 3 Aug 2026: "someone hired out
+    #  something 5 min ago ... how can I quickly search for it. I don't
+    #  know what it could of been, I just know a rough time"). Every
+    #  issue and return of the last three days, WITH ITS CLOCK TIME,
+    #  newest first - so "he was at the window about 10:30" is a search,
+    #  not a memory test. Three days, not the whole shut: this list is
+    #  for just-happened questions and the phone downloads every byte.
+    recent = []
     try:
         if txn_path and os.path.isfile(txn_path):
             import openpyxl as _px
@@ -726,9 +734,30 @@ def read(rental_path, stocktake_path, master=None, today=None,
                     values_only=True)
                 _hd = [str(c or '').strip() for c in next(_tr)]
                 _tix = {h: i for i, h in enumerate(_hd)}
-                if 'ITEM_NUMBER' in _tix:
+                #  SiteIQ has shipped BOTH spellings of these columns
+                #  at different times - ITEM_NUMBER one week,
+                #  SKU/ITEM_NUMBER the next. Gate on either, or the
+                #  whole history and the just-happened list silently
+                #  vanish on the weeks it renames them (3 Aug 2026:
+                #  they had, and it did).
+                _itc = ('ITEM_NUMBER' if 'ITEM_NUMBER' in _tix
+                        else ('SKU/ITEM_NUMBER'
+                              if 'SKU/ITEM_NUMBER' in _tix else None))
+                if _itc:
+                    _tix = dict(_tix)
+                    _tix['ITEM_NUMBER'] = _tix[_itc]
                     _hn = _tix.get('HIRER_NAME')
+                    _cn = (_tix.get('COMPANY_NAME')
+                           if _tix.get('COMPANY_NAME') is not None
+                           else _tix.get('EMPLOYER_NAME'))
+                    _dsc = (_tix.get('ITEM_DESCRIPTION')
+                            if _tix.get('ITEM_DESCRIPTION') is not None
+                            else _tix.get('SKU/ITEM DESCRIPTION'))
                     _sdx = _tix.get('TRAN_START_DATE')
+                    _stx = _tix.get('TRAN_START_TIME')
+                    _edx = _tix.get('TRAN_END_DATE')
+                    _etx = _tix.get('TRAN_END_TIME')
+                    _cut = today - dt.timedelta(days=3)
                     for _r2 in _tr:
                         if not _r2:
                             continue
@@ -744,8 +773,31 @@ def read(rental_path, stocktake_path, master=None, today=None,
                             _e2[2] = _d2
                             if _w2:
                                 _e2[1] = _w2[:24]
+                        #  both directions carry a clock time
+                        _co2 = (str(_r2[_cn] or '').strip()
+                                if _cn is not None else '')
+                        _ds2 = (str(_r2[_dsc] or '').strip()
+                                if _dsc is not None else '')
+                        for _dx, _tx, _dir in ((_sdx, _stx, 'OUT'),
+                                               (_edx, _etx, 'BACK')):
+                            if _dx is None:
+                                continue
+                            _dd = au_date(_r2[_dx])
+                            if not _dd or _dd < _cut or _dd > today:
+                                continue
+                            _tt = (str(_r2[_tx] or '').strip()[:5]
+                                   if _tx is not None else '')
+                            recent.append({
+                                'd': _dd.isoformat(), 't': _tt,
+                                'x': _dir, 'i': _iv, 'n': _ds2[:44],
+                                'w': _w2[:26], 'co': _co2[:30]})
+        #  newest first; the cap is a guard, and it is SAID when it cuts
+        recent.sort(key=lambda r: (r['d'], r['t']), reverse=True)
+        if len(recent) > 600:
+            recent = recent[:600]
     except Exception:
         hire_hist = {}
+        recent = []
 
     #  stocktake - how much of the store has actually been laid eyes on
     stock = {'total': 0, 'w1': 0, 'w3': 0, 'w7': 0, 'stale': []}
@@ -1112,6 +1164,8 @@ def read(rental_path, stocktake_path, master=None, today=None,
         #  shut + who had it last, shown wherever an item is named
         #  (Andrew, 31 Jul 2026)
         'hist': {k: [v[0], v[1]] for k, v in hire_hist.items() if v[0]},
+        #  the just-happened list - three days of movements with times
+        'recent': recent,
         'chase': {'tools': chase_t, 'plant': chase_p,
                   'toolUnits': by_unit(chase_t),
                   'plantUnits': by_unit(chase_p)},
@@ -1938,6 +1992,14 @@ button.tile:active{background:var(--pnl2)}
 .kid.hasqr{position:relative;padding-right:80px}
 .kqr{position:absolute;right:9px;top:50%;transform:translateY(-50%);line-height:0}
 .kqr svg{border-radius:5px;display:block}
+.mbar{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.mbar span{flex:none;width:150px;font-size:9.5px;font-weight:800;
+ letter-spacing:.4px;color:var(--dim)}
+.mbar .bb{flex:1}
+.mbar b{flex:none;font-size:13px;font-weight:900}
+.htl{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:8px}
+.htd{flex:1;min-width:5px;height:100%;display:flex;align-items:flex-end;gap:1px}
+.htd i{flex:1;border-radius:2px 2px 0 0;display:block}
 .kw.kwq{display:flex;align-items:center;gap:10px}
 .kw.kwq span{flex:1;min-width:0}
 .kw.kwq svg{flex:none;border-radius:4px}
@@ -2691,6 +2753,7 @@ function homeMenu(){
     +'or the hunt.','g','SEARCH READY',
     bayDoor('find','Open the counter search',null,'wide')
     +bayDoor('who','Any company or name')
+    +bayDoor('just','Just happened',(D.recent&&D.recent.length)||null)
     +bayLink('crew.html','Who&rsquo;s got what &mdash; supervisor page'));
 
   /* BAY 02 - the hunt. Red when there is a hit list, amber when there
@@ -2761,6 +2824,7 @@ function render(){
    +'</div>'
    +homeMenu()
    +'</div>'
+   +'<div class="pane" id="p-just">'+helpBar('just')+paneJust()+'</div>'
    +'<div class="pane" id="p-find">'+helpBar('find')+paneFind()+'</div>'
    +'<div class="pane" id="p-who">'+helpBar('who')+paneWho()+'</div>'
    +'<div class="pane" id="p-groups">'+helpBar('groups')+paneGroups()+'</div>'
@@ -2818,6 +2882,7 @@ function countTiles(){
 /* one pane at a time: nav(key) steps in, home() steps back out. The
    crumb bar names where you are and MENU is always one tap away. */
 function nav(k){
+  if(k==='just'){ setTimeout(justGo,50); }
   var p=document.getElementById('p-'+k);
   if(!p){ home(); return; }
   var panes=document.querySelectorAll('.pane');
@@ -2875,6 +2940,55 @@ function findIdx(){
   FIND_IDX={ix:ix,nv:nv,fln:fln,av:av};
   return FIND_IDX;
 }
+/*  JUST HAPPENED (Andrew, 3 Aug 2026: "someone hired out something
+    5 min ago ... I just know a rough time that person was here").
+    Every movement of the last three days with its clock time, newest
+    first. Type a time - "10:3" finds 10:30 to 10:39 - or a name, a
+    company, an item, a word off the gear. One box searches the lot. */
+function paneJust(){
+  return '<div class="note"><b>Who took what, and when.</b> Newest first, '
+   +'with the clock time off the charge feed. Type a rough time like '
+   +'<b>10:3</b>, or a name, company or item number.</div>'
+   +'<input class="srch" id="jq" placeholder="Time (10:3), name, company or item" '
+   +'autocomplete="off" oninput="justGo()">'
+   +'<div id="jout"></div>';
+}
+function justRow(r){
+  var when=(r.d===todayIso()?'':r.d.slice(8,10)+'/'+r.d.slice(5,7)+' ')
+    +(r.t||'--:--');
+  return '<div class="kid"><div class="kt">'
+   +'<b>'+esc(r.n||('Item '+r.i))+'</b>'
+   +'<em class="'+(r.x==='OUT'?'o':'')+'">'+r.x+' '+esc(when)+'</em></div>'
+   +'<div class="kw">'+(r.w?(typeof whoLink==='function'
+       ?whoLink(r.w,r.co||''):esc(r.w)):'&mdash;')
+   +(r.co?' &middot; '+esc(r.co):'')
+   +' &middot; <span class="vcode">'+esc(r.i)+'</span></div></div>';
+}
+function justGo(){
+  var q=((document.getElementById('jq')||{}).value||'')
+        .trim().toUpperCase();
+  var out=document.getElementById('jout'); if(!out) return;
+  var L=D.recent||[];
+  if(!L.length){out.innerHTML='<div class="kw" style="padding:12px 2px">'
+    +'No movements on the charge feed in the last three days.</div>';return}
+  var hits=q?L.filter(function(r){
+    return (r.t||'').indexOf(q)===0
+      || (r.w||'').toUpperCase().indexOf(q)>=0
+      || (r.co||'').toUpperCase().indexOf(q)>=0
+      || (r.i||'').toUpperCase().indexOf(q)>=0
+      || (r.n||'').toUpperCase().indexOf(q)>=0;
+  }):L;
+  out.innerHTML=(q?'<div class="kw" style="padding:6px 2px">'+hits.length
+    +' of '+L.length+' movements match</div>':'')
+   +hits.slice(0,80).map(justRow).join('')
+   +more(80,hits.length,'movements')
+   +(D.recent.length>=600?'<div class="kw cut">The feed holds more than '
+     +'600 movements in three days - showing the newest 600.</div>':'');
+}
+/*  D is null until the gate opens - top-level access here killed the
+    whole board once (caught in the browser probe, 3 Aug 2026). Lazy. */
+function todayIso(){
+  return (D&&D.recent&&D.recent.length)?D.recent[0].d:''; }
 function paneFind(){
   return '<div class="note"><b>Where is it?</b> Scan the barcode with the '
    +'hand scanner, or type the item number off a sheet or sticker. The '
@@ -3775,6 +3889,20 @@ function paneWho(){
    +'<div id="wout"></div>';
 }
 var HOWTO={
+ just:{t:'Just happened',
+  w:'Every issue and return of the last three days, newest first, with '
+   +'the clock time off the charge feed. For the &ldquo;someone took '
+   +'something ten minutes ago and I don&rsquo;t know what&rdquo; moment.',
+  h:['Refresh the morning data first &mdash; this list is only as fresh '
+     +'as the last SiteIQ pull.',
+     'Type a rough time: <b>10:3</b> finds everything between 10:30 and '
+     +'10:39.',
+     'Or type a name, a company, an item number, or a word off the gear.',
+     'ORANGE = went out. Green time = came back. Tap a name for their '
+     +'profile.'],
+  g:'The feed is SiteIQ&rsquo;s own record - if a movement is not here, '
+   +'it has not hit the charge feed yet. Pull fresh exports and rebuild, '
+   +'and it will be.'},
  who:{t:'Master search',
   w:'Everything the board knows about a company or a person, on one '
    +'screen. Somebody rings and asks &ldquo;what have my blokes got?&rdquo; '
@@ -5349,7 +5477,41 @@ function plantDemob(){
 function paneMgr(){
   var m=MGR;
   if(!m||!m.perDay) return '<div class="note">No rate data in the on-hire export.</div>';
-  var h='<div class="ring"><div class="rv" style="font-size:30px">$'
+  var h='';
+  /*  UTILISATION CONTROL, phone edition (Andrew, 3 Aug 2026: "can I
+      get there from the phone"). Same numbers as the 71 hub page,
+      inside the manager-encrypted payload - the store code cannot
+      reach any of this. */
+  if(m.hub){
+    var hb=m.hub;
+    h+='<div class="uhead">Utilisation Control &middot; '+esc(hb.day||'')+'</div>'
+     +'<div class="mbar"><span>OF CHARGED DAYS, CREW-HELD</span>'
+     +'<div class="bb"><i class="bd2" style="width:'+hb.clientPct+'%;background:#2AA9C4"></i></div>'
+     +'<b>'+hb.clientPct+'%</b></div>'
+     +'<div class="mbar"><span>OF ALL ASSET-DAYS, CHARGED</span>'
+     +'<div class="bb"><i class="bd2" style="width:'+hb.commPct+'%"></i></div>'
+     +'<b>'+hb.commPct+'%</b></div>'
+     +'<div class="htl">'
+     +(hb.tl||[]).map(function(x){
+        var o=x[1],i2=x[2],pk=hb.peak||1;
+        return '<div class="htd" title="'+x[0]+' - '+o+' out, '+i2+' back">'
+         +'<i style="height:'+Math.max(2,Math.round(100*o/pk))+'%;background:var(--org)"></i>'
+         +'<i style="height:'+Math.max(2,Math.round(100*i2/pk))+'%;background:var(--gd)"></i></div>';
+      }).join('')+'</div>'
+     +'<div class="kw" style="margin:2px 0 10px">Timeline of the shut &mdash; '
+     +'<span style="color:var(--org)">out</span> / '
+     +'<span style="color:var(--gd)">back</span> each day &middot; tallest day '
+     +hb.peak+' movements</div>'
+     +'<div class="wnums" style="margin-bottom:10px">'
+     +'<span><b>'+hb.onsite.toLocaleString()+'</b>ONSITE</span>'
+     +'<span><b>'+hb.outNow.toLocaleString()+'</b>OUT NOW</span>'
+     +'<span><b>'+hb.never.toLocaleString()+'</b>NEVER ISSUED</span>'
+     +'</div>'
+     +(hb.rotate?'<div class="kw">&#9888; <b>'+hb.rotate+'</b> fleets have fresh '
+       +'gear shelved while worked units are out &middot; <b>'+hb.allOut
+       +'</b> lines completely out</div>':'');
+  }
+  h+='<div class="ring"><div class="rv" style="font-size:30px">$'
    +m.perDay.toLocaleString(undefined,{minimumFractionDigits:2})+'</div>'
    +'<div class="rt"><b>on hire, per day</b>'
    +'$'+m.week.toLocaleString(undefined,{maximumFractionDigits:0})

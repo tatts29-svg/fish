@@ -975,6 +975,53 @@ def build():
             with io.open(_mgr_p, 'w', encoding='utf-8') as _fh:
                 _fh.write('army8686ARRA\n')
         _pr = mygear_stores._pricing(onhire_path, MASTER)
+        #  THE HUB, ON THE PHONE (Andrew, 3 Aug 2026: "can I get there
+        #  from the phone"). The Utilisation Control numbers ride inside
+        #  the MANAGER-encrypted payload - his code opens them on the
+        #  stores board's Money pane, and without the code there is
+        #  nothing in the file to read. The store code cannot reach it.
+        #  Same engines as the laptop hub page, computed once here.
+        try:
+            import build_control_hub as _HUB
+            import shutdown_day as _SD2
+            _mid = _MI.read(rental_path, txn_path, onhire_path)
+            _mas = list(_mid['assets'].values())
+            _haf = _AF.build(_mid)
+            _cl = sum(a.get('clientDays') or 0.0 for a in _mas)
+            _cm = sum(a.get('commercialDays') or 0.0 for a in _mas)
+            import datetime as _dt2
+            try:
+                _sp = max(1, (_dt2.date.fromisoformat(_mid['sourceTo'])
+                              - _dt2.date.fromisoformat(_mid['sourceFrom'])
+                              ).days + 1)
+            except Exception:
+                _sp = 1
+            _tl = _HUB._timeline(txn_path,
+                                 _SD2.FLAME_OFF - _dt2.timedelta(days=12),
+                                 _dt2.date.today())
+            _pk = max([max(o, i) for _, o, i in _tl] or [1]) or 1
+            _pr['hub'] = {
+                'clientPct': int(100.0 * _cl / _cm + 0.5) if _cm else 0,
+                'commPct': int(100.0 * _cm
+                               / (float(_sp) * max(1, len(_mas))) + 0.5),
+                'onsite': len(_mas),
+                'outNow': sum(1 for a in _mas
+                              if a.get('status') == _MI.OUT_STATUS),
+                'never': sum(1 for a in _mas if not (a.get('cycles') or 0)
+                             and a.get('status') != _MI.OUT_STATUS),
+                'rotate': sum(1 for v in _haf['variant'].values()
+                              if v.get('w') == 'USE NEXT'
+                              and (v.get('rd') or 0) > 0
+                              and (v.get('out') or 0) > 0),
+                'allOut': sum(1 for v in _haf['variant'].values()
+                              if (v.get('rd') or 0) == 0
+                              and (v.get('out') or 0) > 0),
+                'day': _SD2.label(),
+                'tl': [[d.isoformat()[5:], o, i] for d, o, i in _tl],
+                'peak': _pk,
+            }
+        except Exception as _e:
+            print('   phone hub skipped ({!r})'.format(_e))
         with io.open(os.path.join(_gl_dir, 'stores.html'), 'w',
                      encoding='utf-8') as _fh:
             _fh.write(mygear_stores.build(_sd, _code, asof,
