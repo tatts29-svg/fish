@@ -96,6 +96,16 @@ PAGES = [
 #  scanned a QR code straight onto this page and has no history behind
 #  them. index is the front door, so it has no parent and its Back
 #  hides itself rather than sitting there doing nothing.
+#  THE PAGES ANYONE CAN OPEN. index is the QR in the window; crew is
+#  one tap off it, by Andrew's own "Supervisor? See what your crew has
+#  on hire" link. Neither may name a staff screen.
+#
+#  Locking index alone did nothing: crew.html listed the board in its
+#  own menu, so the route was window QR -> Supervisor link -> MENU ->
+#  Store Street. Three taps, and I had just told him it was shut.
+#  (Found by attacking it, 4 Aug 2026.)
+WORKER_PAGES = ("index", "crew")
+
 PARENT = {
     "index":  None,
     "stores": "index.html",
@@ -271,7 +281,7 @@ def sheet(page_key, extra=None, extra_heading="On this page"):
             #  greyed, not revealed later. A door that is not in the
             #  file cannot be opened by tapping around, by a stale
             #  session, or by anything I did not think of.
-            if who == "staff" and page_key == "index":
+            if who == "staff" and page_key in WORKER_PAGES:
                 continue
             h.append(
                 '<a href="{u}" data-k2="{k}" onclick="k2Leave()">'
@@ -326,10 +336,25 @@ def js(page_key, home_label, home_where="You are here"):
             .replace("__PAGEKEY__", page_key)
             .replace("__PARENT__", "null" if not parent
                      else "'{}'".format(parent))
+            .replace("__PARENTKEY__", _key_of(parent))
+            .replace("__STAFF__", _json([p[0] for p in PAGES
+                                         if p[4] == "staff"]))
+            .replace("__WORKER__", _json(list(WORKER_PAGES)))
             .replace("__HOMELABEL__", _plain(home_label))
             .replace("__HOMEWHERE__", _plain(home_where))
             .replace("__HOMESUB__", _plain(
                 next((x[3] for x in PAGES if x[0] == page_key), ""))))
+
+
+def _json(seq):
+    return "[" + ",".join("'{}'".format(x) for x in seq) + "]"
+
+
+def _key_of(href):
+    for k, u, _n, _s, _w in PAGES:
+        if u == href:
+            return k
+    return ""
 
 
 def _plain(s):
@@ -361,7 +386,7 @@ _JS = r"""
    It dies with the browser tab, which is right - tomorrow morning is
    a fresh walk up to the window, not a continuation of yesterday.
 ------------------------------------------------------------------ */
-var K2PAGE='__PAGEKEY__', K2PARENT=__PARENT__;
+var K2PAGE='__PAGEKEY__', K2PARENT=__PARENT__, K2PARENTKEY='__PARENTKEY__';
 var K2HOME={t:'__HOMELABEL__',w:'__HOMEWHERE__'}, K2SUB='__HOMESUB__';
 /* the page hands this over when it opens an inner screen: a name for
    the bar, and the one function that closes it again */
@@ -397,6 +422,27 @@ function k2Href(k){
 }
 var K2MAP=[['index','index.html'],['stores','stores.html'],
            ['crew','crew.html'],['fleet','fleet.html']];
+/*  the staff screens, and the pages that may not name them  */
+var K2STAFFPAGES=__STAFF__, K2WORKER=__WORKER__;
+function k2IsWorkerPage(){ return K2WORKER.indexOf(K2PAGE)>=0; }
+function k2Nameable(k){
+  /*  THE LINE, drawn where it belongs.
+
+      A MENU row is an unconditional door - it is there for anyone who
+      opens the sheet, whether or not they have ever been near the
+      board. That is disclosure, and it is shut.
+
+      A BACK destination off the TRAIL is not the same thing. The trail
+      only ever holds pages this session actually opened, so BACK is
+      returning a bloke to where he just was - which is its whole job,
+      and is how a storeman gets from the board to the crew page and
+      home again.
+
+      This guard is for the PARENT fallback only: the invented
+      destination used when there is no trail at all. Nothing may be
+      invented onto a worker page.  */
+  return !(k2IsWorkerPage() && K2STAFFPAGES.indexOf(k)>=0);
+}
 
 /* WHAT BACK SAYS IT WILL DO, so the label never lies */
 function k2BackTo(){
@@ -412,7 +458,8 @@ function k2BackTo(){
         Two taps and a bloke is going in circles. (4 Aug 2026.)  */
     if(u && t[i]!==K2PAGE) return {kind:'page',url:u,label:t[i],at:i};
   }
-  if(K2PARENT) return {kind:'page',url:K2PARENT,label:'parent',at:-1};
+  if(K2PARENT && k2Nameable(K2PARENTKEY))
+    return {kind:'page',url:K2PARENT,label:'parent',at:-1};
   return null;
 }
 function k2Bar(){
@@ -452,13 +499,27 @@ function k2View(title,close,where){
     an unwind WE asked for, so the popstate handler below lets it
     through instead of treating it as the user pressing Back.  */
 var K2PUSHED=0, K2EATEN=0;
+var K2QUEUE=0;
 function k2Push(st){
+  /*  an unwind is queued and we are pushing again - they cancel, and
+      the pair becomes what it always meant: replace this entry  */
+  if(K2QUEUE>0){
+    K2QUEUE--;
+    try{ history.replaceState(st,''); }catch(e){}
+    return;
+  }
   try{ history.pushState(st,''); K2PUSHED++; }catch(e){}
 }
 function k2Unwind(){
   if(K2PUSHED<=0) return;
-  K2PUSHED--; K2EATEN++;
-  try{ history.back(); }catch(e){ K2EATEN--; }
+  K2QUEUE++;
+  setTimeout(function(){
+    if(K2QUEUE<=0) return;          /* a push cancelled it */
+    K2QUEUE--;
+    if(K2PUSHED<=0) return;
+    K2PUSHED--; K2EATEN++;
+    try{ history.back(); }catch(e){ K2EATEN--; }
+  }, 0);
 }
 /* SOME PAGES ALREADY DRIVE THEIR OWN HISTORY - fleet.html routes off
    location.hash and has done since before this bar existed. Those call

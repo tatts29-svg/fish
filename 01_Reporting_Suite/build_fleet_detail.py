@@ -500,7 +500,13 @@ function findAssets(q){
 }
 function assetHitHtml(a){
   var r = a.r, line = [];
-  line.push(r.O ? 'In use' : 'Ready');
+  /*  EXCLUDED IS NOT READY. The hit line read r.O alone, so an asset
+      SiteIQ has marked out of service - off hired at the branch,
+      faulty, obsolete - came back as "Ready" and sent a storeman to
+      the shelf for it. r.x carries the exclusion and r.w says why.
+      (Found by attacking it, 4 Aug 2026.)  */
+  line.push(r.x ? (r.w ? esc(r.w) : 'Excluded')
+                : (r.O ? 'In use' : 'Ready'));
   if(r.O && r.h) line.push(esc(r.h) + (r.C ? ' · ' + esc(r.C) : ''));
   if(r.k) line.push(esc(r.k));
   if(r.sn) line.push('S/N ' + esc(r.sn));
@@ -600,7 +606,15 @@ function route(){
     if(typeof k2ViewOwn === 'function')
       k2ViewOwn(D.fleets[v].n, function(){ location.hash = ''; }, 'Fleet');
   } else {
-    el('q').value = ''; showList('');
+    /*  DO NOT WIPE THE BOX. This runs whenever the hash clears, and
+        the search box clears the hash on every keystroke - so typing
+        the first character of the next asset number fired this and
+        threw that character away. Coming out of a fleet now keeps
+        what is in the box and redraws its results, which is also the
+        answer to "BACK made me retype the number".
+        The explicit ways out - the All fleets button and the menu -
+        clear the box themselves. (4 Aug 2026.)  */
+    showList(el('q').value);
     if(typeof k2Home === 'function') k2Home();
   }
 }

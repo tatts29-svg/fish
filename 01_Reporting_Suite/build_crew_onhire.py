@@ -220,6 +220,13 @@ function setGate(open){
       document.body.classList.remove('mgr');
       setGate(false);
       draw();
+      /*  AND THE CARD OVER THE TOP. draw() redraws the table
+          underneath, but a gear card open at that moment was written
+          while the money was showing and keeps the day rate on it - so
+          Lock, hand the phone across, and the rate is still on screen.
+          The whole point of the button is that it is safe to hand over.
+          (Found by attacking it, 4 Aug 2026.)  */
+      mgrCloseCard();
     });
     if(f) f.textContent = 'Manager view — day rates showing. Tap Lock '
       + 'before you hand the phone over.';
@@ -275,7 +282,7 @@ body{background:#0D1218;color:#DCE3EC;font-family:'Segoe UI',Arial,sans-serif;
     (4 Aug 2026.)  */
 tr.gl{cursor:pointer}
 tr.gl:active td{background:#1C232D}
-tr.gl td.d b:after{content:' \203a';color:#F26222;font-weight:800}
+tr.gl td.d b:after{content:' ›';color:#F26222;font-weight:800}
 @media print{tr.gl td.d b:after{content:''}}
 .bar{background:#F26222;color:#fff;padding:14px 16px;display:flex;
  justify-content:space-between;align-items:center}
@@ -454,14 +461,36 @@ function openCo(c){
   window.scrollTo(0,0);
   /*  the bar names the company you have open, and BACK closes it
       instead of walking off the page  */
-  if(typeof k2View === 'function')
-    k2View(CO.company, function(){
-      /*  BACK RETURNS YOU TO THE LIST YOU CAME FROM, not to a blank
-          box. It used to clear the search, so a supervisor who typed
-          "C", got five companies and opened the wrong one had to type
-          it all again to see the other four. The query stays; search()
-          redraws the same list. (4 Aug 2026.)  */
-      search(); }, 'Company');
+  if(typeof k2View === 'function') k2View(CO.company, closeCo, 'Company');
+}
+
+/*  COMING BACK OUT of a company. It is NOT search() - search() opens
+    a company when the query matches exactly one, which is the normal
+    case, so using it as the way out closed the company and reopened it
+    in the same breath. A supervisor could not get out of a company at
+    all: BACK, the phone Back button and Escape all put him straight
+    back in. (Found by attacking it, 4 Aug 2026.)
+
+    This shows the LIST the query matches - even when that is one - and
+    keeps what he typed, so he is where he was before he tapped in.  */
+function closeCo(){
+  CO = null;
+  el('pick').style.display = 'none';
+  el('out').innerHTML = ''; el('note').innerHTML = '';
+  var q = el('q').value, hits = find(q);
+  if(!q.trim()){ el('list').innerHTML = ''; }
+  else if(!hits.length){
+    el('list').innerHTML = "<div class='note'>No company matches \u201c"
+      + esc(q) + '\u201d. Try the first word of the company name.</div>';
+  } else {
+    el('list').innerHTML = hits.map(function(c){
+      return "<div class='hit' data-c='" + esc(c.company) + "'><b>"
+        + esc(c.company) + '</b><span>' + c.heads + ' people &middot; '
+        + c.assets + ' on hire</span></div>';
+    }).join('');
+  }
+  window.scrollTo(0,0);
+  if(typeof k2Home === 'function') k2Home();
 }
 
 function search(){
@@ -581,6 +610,11 @@ el('q').addEventListener('keydown', function(e){
 });
 el('who').addEventListener('change', draw);
 el('print').addEventListener('click', function(){ window.print(); });
+/*  and the card over the top goes with it - it was written when the
+    money was open and does not redraw itself  */
+function mgrCloseCard(){
+  if(typeof k2DetOpen === 'function' && k2DetOpen()) k2DetShut();
+}
 el('clear').addEventListener('click', function(){
   el('q').value = ''; search(); el('q').focus();
 });

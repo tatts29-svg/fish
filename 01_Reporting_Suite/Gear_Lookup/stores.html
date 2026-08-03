@@ -1061,7 +1061,7 @@ body.hasdock{padding-bottom:64px}
    It dies with the browser tab, which is right - tomorrow morning is
    a fresh walk up to the window, not a continuation of yesterday.
 ------------------------------------------------------------------ */
-var K2PAGE='stores', K2PARENT='index.html';
+var K2PAGE='stores', K2PARENT='index.html', K2PARENTKEY='index';
 var K2HOME={t:'Store Street',w:'You are here'}, K2SUB='The stores team board';
 /* the page hands this over when it opens an inner screen: a name for
    the bar, and the one function that closes it again */
@@ -1097,6 +1097,27 @@ function k2Href(k){
 }
 var K2MAP=[['index','index.html'],['stores','stores.html'],
            ['crew','crew.html'],['fleet','fleet.html']];
+/*  the staff screens, and the pages that may not name them  */
+var K2STAFFPAGES=['stores','crew','fleet'], K2WORKER=['index','crew'];
+function k2IsWorkerPage(){ return K2WORKER.indexOf(K2PAGE)>=0; }
+function k2Nameable(k){
+  /*  THE LINE, drawn where it belongs.
+
+      A MENU row is an unconditional door - it is there for anyone who
+      opens the sheet, whether or not they have ever been near the
+      board. That is disclosure, and it is shut.
+
+      A BACK destination off the TRAIL is not the same thing. The trail
+      only ever holds pages this session actually opened, so BACK is
+      returning a bloke to where he just was - which is its whole job,
+      and is how a storeman gets from the board to the crew page and
+      home again.
+
+      This guard is for the PARENT fallback only: the invented
+      destination used when there is no trail at all. Nothing may be
+      invented onto a worker page.  */
+  return !(k2IsWorkerPage() && K2STAFFPAGES.indexOf(k)>=0);
+}
 
 /* WHAT BACK SAYS IT WILL DO, so the label never lies */
 function k2BackTo(){
@@ -1112,7 +1133,8 @@ function k2BackTo(){
         Two taps and a bloke is going in circles. (4 Aug 2026.)  */
     if(u && t[i]!==K2PAGE) return {kind:'page',url:u,label:t[i],at:i};
   }
-  if(K2PARENT) return {kind:'page',url:K2PARENT,label:'parent',at:-1};
+  if(K2PARENT && k2Nameable(K2PARENTKEY))
+    return {kind:'page',url:K2PARENT,label:'parent',at:-1};
   return null;
 }
 function k2Bar(){
@@ -1152,13 +1174,27 @@ function k2View(title,close,where){
     an unwind WE asked for, so the popstate handler below lets it
     through instead of treating it as the user pressing Back.  */
 var K2PUSHED=0, K2EATEN=0;
+var K2QUEUE=0;
 function k2Push(st){
+  /*  an unwind is queued and we are pushing again - they cancel, and
+      the pair becomes what it always meant: replace this entry  */
+  if(K2QUEUE>0){
+    K2QUEUE--;
+    try{ history.replaceState(st,''); }catch(e){}
+    return;
+  }
   try{ history.pushState(st,''); K2PUSHED++; }catch(e){}
 }
 function k2Unwind(){
   if(K2PUSHED<=0) return;
-  K2PUSHED--; K2EATEN++;
-  try{ history.back(); }catch(e){ K2EATEN--; }
+  K2QUEUE++;
+  setTimeout(function(){
+    if(K2QUEUE<=0) return;          /* a push cancelled it */
+    K2QUEUE--;
+    if(K2PUSHED<=0) return;
+    K2PUSHED--; K2EATEN++;
+    try{ history.back(); }catch(e){ K2EATEN--; }
+  }, 0);
 }
 /* SOME PAGES ALREADY DRIVE THEIR OWN HISTORY - fleet.html routes off
    location.hash and has done since before this bar existed. Those call

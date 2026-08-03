@@ -186,9 +186,14 @@ def main(pages):
             PAGENAMES = ("My Gear", "Store Street", "Who’s got what",
                          "Fleet Details")
             listed = [n for n in names if n in PAGENAMES]
-            if key == "index":
-                check(key + ": the worker menu lists NO staff screen",
-                      listed == ["My Gear"], json.dumps(names))
+            # index AND crew are the pages anyone can open - crew is one
+            # tap off the window QR by the Supervisor link - so neither
+            # may name a staff screen.
+            if key in ("index", "crew"):
+                check(key + ": this worker page names NO staff screen",
+                      [n for n in listed if n in ("Store Street",
+                                                  "Fleet Details")] == [],
+                      json.dumps(names))
             else:
                 check(key + ": the menu lists all four pages",
                       len(listed) == 4, json.dumps(names))
@@ -557,6 +562,104 @@ def main(pages):
               "YOU ARE HERE" in row2, row2)
         pg.click(".k2close"); pg.wait_for_timeout(250)
 
+        print("\n=== THREE TAPS FROM THE WINDOW QR TO THE BOARD - SHUT")
+        go("index")
+        pg.eval_on_selector("a.suplink", "a=>a.click()")
+        pg.wait_for_timeout(1600)
+        check("the Supervisor link still works - it is his door",
+              pg.url.endswith("crew.html"), pg.url.rsplit("/", 1)[-1])
+        raw = pg.evaluate("()=>document.getElementById('k2sheet').innerHTML")
+        for page in ("stores.html", "fleet.html"):
+            check("crew: %s is not in its menu markup at all" % page,
+                  page not in raw,
+                  "found it" if page in raw else "absent")
+
+        print("\n=== BUT A STOREMAN OFF THE BOARD KEEPS HIS WAY BACK")
+        go("stores")
+        pg.eval_on_selector("a[href='crew.html']", "a=>a.click()")
+        pg.wait_for_timeout(1600)
+        pg.click(".k2back")
+        pg.wait_for_timeout(1600)
+        check("board -> crew -> BACK still lands on the board",
+              pg.url.endswith("stores.html"), pg.url.rsplit("/", 1)[-1])
+
+        print("\n=== THE TAP CHEVRON IS A CHEVRON")
+        go("crew")
+        pg.evaluate("()=>openCo(__CREW__.companies[0])")
+        pg.wait_for_timeout(400)
+        chev = pg.evaluate(
+            "()=>{var b=document.querySelector('tr.gl td.d b');"
+            "return b?getComputedStyle(b,':after').content:null}")
+        check("crew: the tap marker is a real chevron, not an escape "
+              "Python ate", chev is not None and "\u203a" in chev,
+              repr(chev))
+
+        print("\n=== TYPING DOES NOT WALK YOU OFF THE PAGE")
+        go("crew")
+        co = pg.evaluate("()=>(__CREW__.companies[0]||{}).company")
+        pg.click("#q")
+        for ch in (co or "programmed")[:6]:
+            pg.keyboard.type(ch)
+            pg.wait_for_timeout(140)
+        check("crew: six keystrokes and you are still on the page",
+              pg.url.rsplit("/", 1)[-1].split("#")[0] == "crew.html",
+              pg.url.rsplit("/", 1)[-1])
+
+        print("\n=== YOU CAN GET BACK OUT OF A COMPANY")
+        go("crew")
+        pg.evaluate("()=>{var c=__CREW__.companies[0];"
+                    "document.getElementById('q').value=c.company;"
+                    "search();}")
+        pg.wait_for_timeout(600)
+        inside = pg.evaluate("()=>!!CO")
+        pg.click(".k2back")
+        pg.wait_for_timeout(700)
+        check("crew: BACK out of a company actually gets you out",
+              inside and not pg.evaluate("()=>!!CO"),
+              "was in: %s, still in: %s" % (inside, pg.evaluate("()=>!!CO")))
+        check("crew: and the search box still holds what you typed",
+              bool(pg.evaluate("()=>document.getElementById('q').value")),
+              repr(pg.evaluate("()=>document.getElementById('q').value")))
+
+        print("\n=== THE FIRST CHARACTER OF THE NEXT SEARCH SURVIVES")
+        go("fleet")
+        smp2 = pg.evaluate(
+            "()=>{var k=Object.keys(D.fleets);var f=D.fleets[k[0]];"
+            "return {i:f.rows[0].i, v:k[0]}}")
+        pg.evaluate("(v)=>{location.hash=encodeURIComponent(v)}", smp2["v"])
+        pg.wait_for_timeout(700)
+        pg.click("#q")
+        pg.keyboard.type(smp2["i"][:6])
+        pg.wait_for_timeout(600)
+        check("fleet: coming out of a fleet and typing keeps every "
+              "character",
+              pg.evaluate("()=>document.getElementById('q').value")
+              == smp2["i"][:6],
+              repr(pg.evaluate("()=>document.getElementById('q').value")))
+
+        print("\n=== LOCKING THE MONEY TAKES IT OFF AN OPEN CARD")
+        go("crew")
+        shown = pg.evaluate("""()=>{
+            /* pretend the code opened: put a rate in and open a card */
+            MONEY = {}; var c=__CREW__.companies[0];
+            var p=c.people[0], it=p.items[0];
+            MONEY[it.item] = 12.34;
+            document.body.classList.add('mgr');
+            openCo(c); gearCard(it.item, p.name);
+            return document.getElementById('k2det-b').innerText; }""")
+        pg.wait_for_timeout(400)
+        check("crew: with the money open the card carries the day rate",
+              "12.34" in shown, "rate on the card")
+        after = pg.evaluate("""()=>{
+            MONEY = null; document.body.classList.remove('mgr');
+            mgrCloseCard();
+            return {open: k2DetOpen(),
+                    text: document.getElementById('k2det-b').innerText}; }""")
+        check("crew: Lock takes the card away with the money",
+              not after["open"],
+              "card still open with %r on it" % after["text"][:40]
+              if after["open"] else "card closed")
+
         print("\n=== BACK ON THE CREW PAGE KEEPS THE LIST YOU SEARCHED")
         go("crew")
         n_before = pg.evaluate(
@@ -580,6 +683,10 @@ def main(pages):
                   False, "could not set up a multi-company search")
 
         print("\n=== TAP A GEAR LINE AND FIND OUT WHAT IT IS")
+        # come in from somewhere, so "leaves the page" has a page to
+        # leave TO - landing straight on crew with nothing behind it
+        # made the last Back a no-op and the test blamed the code
+        go("index")
         go("crew")
         co = pg.evaluate(
             "()=>{var c=(window.__CREW__&&__CREW__.companies||[])[0];"
