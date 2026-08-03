@@ -327,6 +327,10 @@ def main():
         print(" The replaced copies are in Updates\\update_backups\\{}\\"
               .format(stamp))
     print("")
+    print(" NOW RUN 04_RUN_MY_GEAR.bat. This zip carries the code, not")
+    print(" the pages - nothing changes on a phone until 04 rebuilds")
+    print(" them. Then close the black serving window and run 05 again.")
+    print("")
     print(" If you use both laptops: run 39_SYNC_PCS.bat to carry this")
     print(" update to the other machine, and 40_WHAT_VERSION_AM_I.bat on")
     print(" both to prove they match.")

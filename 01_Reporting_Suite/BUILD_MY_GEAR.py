@@ -1159,6 +1159,24 @@ def build():
                 else 'FAILED (run {} by itself to see why)'.format(_pg)))
         except Exception as _e:
             print('  {} page: skipped ({!r})'.format(_nm, _e))
+    #  THE STOREFRONT CHECK (Andrew, 3 Aug 2026, after a 404 on site).
+    #  Four pages must exist and hold real content when this build ends.
+    #  Said out loud either way, so "did it work?" is answered by the
+    #  window that just ran, not by walking to the store with a phone.
+    _missing = []
+    for _f in ('index.html', 'stores.html', 'fleet.html', 'crew.html'):
+        _fp = os.path.join(_gl_dir, _f)
+        if not os.path.isfile(_fp) or os.path.getsize(_fp) < 10000:
+            _missing.append(_f)
+    if _missing:
+        print('  *** STOREFRONT INCOMPLETE: {} missing or empty. The '
+              'phones will 404 on those pages.'.format(', '.join(_missing)))
+    else:
+        print('  Storefront complete: index, stores, fleet and crew all '
+              'present in Gear_Lookup.')
+    print('  If a phone shows "Error 404" on EVERY page: the serving '
+          'window is holding an old folder. Close the black 05 window '
+          'and run 05_START_GEAR_LOOKUP again.')
     print('My Gear scorecard page built: {} people, {} items on hire.'.format(
         len(warn_dupes), tot_items))
     print('  Radios still out across site: {} | Gas monitors out: {} | '
