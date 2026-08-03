@@ -1835,9 +1835,9 @@ header:after{content:"";position:absolute;inset:0;
 /* the four-date card - reads top to bottom, no sideways scrolling */
 .lcard{border:1px solid #22304A;border-radius:12px;padding:10px 12px;
  margin:0 0 8px;background:#101825}
-.lhead b{display:block;font-size:13.5px;font-weight:700;line-height:1.25}
-.lhead span{display:block;font-size:10.5px;color:var(--dim);
- font-weight:600;margin-top:2px}
+.lhead{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.lhead b{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.lifekey b{color:var(--txt)}
 .lsteps{margin-top:9px;border-left:2px solid #22304A;padding-left:12px}
 .lstep{position:relative;display:grid;
  grid-template-columns:74px 1fr;gap:2px 8px;padding:4px 0;
@@ -1851,6 +1851,13 @@ header:after{content:"";position:absolute;inset:0;
 .lstep em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums}
 .lstep span{grid-column:2;font-size:10.5px;color:var(--dim);font-weight:600}
 .lwait{margin-top:8px;font-size:10.5px;color:var(--am);font-weight:700}
+.lquiet{border:1px dashed #22304A;border-radius:12px;padding:10px 12px;
+ margin:0 0 8px;background:#0E1520}
+.lquiet b{display:block;font-size:12.5px;font-weight:700}
+.lquiet>span{display:block;font-size:10.5px;color:var(--dim);
+ font-weight:600;margin-top:2px}
+.lnums{margin-top:7px;font-size:10.5px;color:var(--dim);line-height:1.7;
+ word-break:break-word;font-variant-numeric:tabular-nums}
 .lifekey{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
 .lf{display:inline-block;font-size:10.5px;font-weight:800;padding:3px 8px;
  border-radius:999px;text-transform:uppercase;letter-spacing:.4px;
@@ -5594,25 +5601,70 @@ function paneLife(){
     +'what the export says - the transaction period does not reach back '
     +'far enough to show the earlier account. Shown as-is, not '
     +'reordered.</div>';
-  /* ONE CARD PER MACHINE, FOUR DATES DOWN THE PAGE. A six-column
-     table needs sideways scrolling on a phone and Andrew has told me
-     before what that reads like. The dates run top to bottom in the
-     order they happen, and a step that never happened says so rather
-     than showing an empty cell. */
-  var GRPS=[['departed','Departed site','the record is closed'],
-            ['back','Came back, still on site','off hire, not gone yet'],
-            ['out','Out with someone now',''],
-            ['onsite','Never went out','sat on the account the whole time']];
-  function plTag(r){return r.pl?'':'<span class="lf">not on the plant '
-    +'account</span>';}
-  GRPS.forEach(function(gp){
-    var list=rs.filter(function(r){return r.s===gp[0]});
-    if(!list.length) return;
+  /* GROUPED BY PRODUCT, A TO Z (Andrew, 3 Aug 2026: "can we some how
+     group by product and alphabetical order for this too"). 405 assets
+     collapse to 138 products, so the pane opens as a list you can scan
+     down rather than a wall - and the 70 rubbish chutes sit under one
+     heading instead of seventy.
+
+     Each heading carries its own tally, so a CLOSED group still answers
+     the question: how many we took, and how many have gone. The stage
+     lives on each card instead of being the grouping - the summary
+     tiles above already carry those totals.
+
+     One card per asset, four dates down the page. A six-column table
+     needs sideways scrolling on a phone and Andrew has told me before
+     what that reads like. */
+  var byProd={};
+  rs.forEach(function(r){
+    var k=r.n||r.i; (byProd[k]=byProd[k]||[]).push(r);
+  });
+  var names=Object.keys(byProd).sort(function(a,b){
+    return a.toLowerCase()<b.toLowerCase()?-1:(a.toLowerCase()>b.toLowerCase()?1:0);
+  });
+  var STAGE={onsite:'on site',out:'out with someone',
+             back:'came back',departed:'departed'};
+  h+='<div class="lifekey"><b>'+names.length+' product'
+   +(names.length===1?'':'s')+'</b> &middot; A to Z &middot; tap one to '
+   +'open it</div>';
+  names.forEach(function(nm){
+    var list=byProd[nm].slice().sort(function(a,b){
+      /* newest arrival first inside a product, then by asset number, so
+         two identical machines always sit in the same order */
+      if(a.p!==b.p) return a.p<b.p?1:-1;
+      return a.i<b.i?-1:(a.i>b.i?1:0);
+    });
+    var gone=list.filter(function(r){return r.s==='departed'}).length,
+        nev =list.filter(function(r){return r.pl&&!r.o}).length,
+        fam =(list[0]&&list[0].f)||'';
+    var sub=[];
+    if(gone) sub.push(gone+' departed');
+    if(nev)  sub.push(nev+' never went out');
+    if(fam)  sub.push(fam);
     h+='<div class="grp"><button type="button" onclick="tog(this)">'
-     +'<div class="gn"><b><span class="lf '+gp[0]+'">'+esc(gp[1])+'</span></b>'
-     +(gp[2]?'<span>'+esc(gp[2])+'</span>':'')+'</div>'
-     +'<div class="gq"><b>'+list.length+'</b><span>item'
-     +(list.length===1?'':'s')+'</span></div></button><div class="kids">';
+     +'<div class="gn"><b>'+esc(nm)+'</b>'
+     +(sub.length?'<span>'+esc(sub.join(' \u00b7 '))+'</span>':'')+'</div>'
+     +'<div class="gq"><b>'+list.length+'</b><span>'
+     +(list.length===1?'asset':'assets')+'</span></div>'
+     +'</button><div class="kids">';
+    /* NOTHING EVER HAPPENED TO THESE, so they do not each need four
+       lines saying so. 70 rubbish chutes that arrived and sat there is
+       ONE fact, not seventy - and this board already learned that
+       lesson once with the bulk yard gear. The asset numbers are all
+       still listed, because "which ones" is a real question at a
+       counter; it is the four empty date rows that are noise.
+       Anything with a real event keeps its full timeline. */
+    var quiet=list.filter(function(r){return !r.o&&!r.b&&!r.d}),
+        moved=list.filter(function(r){return r.o||r.b||r.d});
+    if(quiet.length>3){
+      h+='<div class="lquiet"><b>'+quiet.length+' arrived '
+        +esc(quiet[0].p||'')+' and never moved</b>'
+        +'<span>no hire, no return, no departure on record</span>'
+        +'<div class="lnums">'
+        +quiet.map(function(r){return esc(r.i)}).join(' &middot; ')
+        +'</div></div>';
+      list=moved;
+    }
     list.forEach(function(r){
       function step(on,label,date,who){
         return '<div class="lstep'+(on?' on':'')+'">'
@@ -5620,9 +5672,11 @@ function paneLife(){
           +'<em>'+(date?esc(date):'&mdash;')+'</em>'
           +'<span>'+(who?esc(who):(on?'':'no record'))+'</span></div>';
       }
-      h+='<div class="lcard"><div class="lhead"><b>'+esc(r.n||r.i)+'</b>'
-       +'<span>'+esc(r.i)+(r.f?' &middot; '+esc(r.f):'')+'</span>'
-       +plTag(r)+'</div>'
+      h+='<div class="lcard"><div class="lhead">'
+       +'<span class="lf '+esc(r.s)+'">'+(STAGE[r.s]||r.s)+'</span>'
+       +'<b>'+esc(r.i)+'</b>'
+       +(r.pl?'':'<span class="lf">not on the plant account</span>')
+       +'</div>'
        +'<div class="lsteps">'
        +step(!!r.p,'On site',r.p,'')
        +step(!!r.o,'First out',r.o,r.ow)
