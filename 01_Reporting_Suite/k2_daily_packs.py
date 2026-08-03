@@ -77,13 +77,25 @@ ALIASES = {
     "Programmed": "Programmed",
     "Veolia Refractory": "Veolia",
     "Xtreme Engineering": "Xtreme Engineering",
-    #  On the routing list, nothing on hire in the current register.
-    #  They get a folder and a record, never an email with no data.
+    #  THESE FOUR WERE MAPPED TO None - "nothing on hire in the current
+    #  register". That was true the day it was written and stopped being
+    #  true without anybody touching the file: on 3 Aug 2026 Sync Lift
+    #  held 12 items, Universal Cranes 9, Tasman Rope Access 7 and
+    #  Industec 2. Thirty items across four contractors whose daily pack
+    #  said "no gear on hire" and sent no email at all - no chase list,
+    #  no record, and nothing anywhere saying they had been skipped.
+    #
+    #  The routing workbook spells them short; SiteIQ spells them long,
+    #  or in capitals. Mapped properly now, and check_stale_aliases()
+    #  below reads the live export every run so this can never rot
+    #  quietly again.
+    "Industec": "Industec Filtration",
+    "Synclift": "Sync Lift Engineering",
+    "Tasman Rope Access": "TASMAN ROPE ACCESS",
+    "Universal Cranes": "UNIVERSAL CRANES",
+    #  Genuinely nothing on hire today - they get a folder and a record,
+    #  never an email with no data. The guard watches this one too.
     "Cleanaway": None,
-    "Industec": None,
-    "Synclift": None,
-    "Tasman Rope Access": None,
-    "Universal Cranes": None,
 }
 
 
@@ -113,6 +125,63 @@ def resolve_company(name):
     if k not in _ALIAS_KEYS:
         return None, False
     return _ALIAS_KEYS[k], True
+
+
+def check_stale_aliases(onhire_path):
+    """Companies mapped to "holds nothing" that are holding something.
+
+    A hardcoded snapshot of who has gear is right until the day it is
+    not, and nothing about it looks wrong in the meantime - the pack
+    says "no gear on hire", files a tidy record, and the contractor
+    never gets a chase list. Four of them had gone stale by 3 Aug 2026
+    with thirty items between them.
+
+    So the map is checked against the live export on every run. Returns
+    [(workbook name, siteiq name, items)], loudest first, empty when the
+    map is honest. Best effort: no export, nothing to say.
+    """
+    if not onhire_path or not os.path.isfile(onhire_path):
+        return []
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(onhire_path, read_only=True,
+                                    data_only=True)
+        ws = wb["ON_HIRE"] if "ON_HIRE" in wb.sheetnames else wb.active
+        rows = ws.iter_rows(values_only=True)
+        hdr = [_txt(c) for c in next(rows)]
+        ix = {h: i for i, h in enumerate(hdr) if h}
+        if "COMPANY" not in ix:
+            wb.close()
+            return []
+        held = {}
+        for r in rows:
+            if not r:
+                continue
+            c = _txt(r[ix["COMPANY"]]).strip()
+            if c:
+                held[_key(c)] = held.get(_key(c), 0) + 1
+                _SEEN_SPELLING[_key(c)] = c
+        wb.close()
+    except Exception:
+        return []
+    out = []
+    for wb_name, mapped in ALIASES.items():
+        if mapped is not None:
+            continue
+        #  the workbook's own spelling, and the near-misses SiteIQ uses
+        #  for it - "Synclift" for "Sync Lift Engineering"
+        kk = _key(wb_name)
+        squash = kk.replace(" ", "")
+        for hk, n in held.items():
+            if hk == kk or hk.replace(" ", "").startswith(squash) \
+                    or squash.startswith(hk.replace(" ", "")):
+                out.append((wb_name, _SEEN_SPELLING.get(hk, hk), n))
+                break
+    out.sort(key=lambda x: -x[2])
+    return out
+
+
+_SEEN_SPELLING = {}
 
 
 #  The master reports, by the names A. Fisher uses, mapped to what the

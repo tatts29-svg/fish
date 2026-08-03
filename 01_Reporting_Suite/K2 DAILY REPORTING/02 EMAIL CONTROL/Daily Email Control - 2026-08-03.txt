@@ -1,60 +1,20 @@
 COATES | K2 SHUTDOWN 2026 - DAILY EMAIL CONTROL
-Reporting day 2026-08-03   built 03 Aug 2026 11:32
+Reporting day 2026-08-03   built 03 Aug 2026 12:30
 Routing from K2_Daily_Email_Report_Allocation.xlsx
 ==========================================================================
 Cleanaway              Not Generated              To  1  Cc  5  Attach 0
     ! Cleanaway holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
-DGH Engineering        Failed - Review Required   To  4  Cc  5  Attach 0
-    ! Daily Safety & Compliance Report has no PDF - it was not built for 03 Aug 2026
-    ! Report in the body is today's, and still the current one (nothing generated)
-    ! Report ready for the email body (nothing generated)
-    ! Daily Safety & Compliance PDF attached (0 attachment(s))
-    ! No other company's information in the pack (found: (there is no report to read))
-DKE Group              Failed - Review Required   To  4  Cc  5  Attach 0
-    ! Daily Safety & Compliance Report has no PDF - it was not built for 03 Aug 2026
-    ! Report in the body is today's, and still the current one (nothing generated)
-    ! Report ready for the email body (nothing generated)
-    ! Daily Safety & Compliance PDF attached (0 attachment(s))
-    ! No other company's information in the pack (found: (there is no report to read))
-High Risk Solutions    Failed - Review Required   To  3  Cc  5  Attach 0
-    ! Daily Safety & Compliance Report has no PDF - it was not built for 03 Aug 2026
-    ! Report in the body is today's, and still the current one (nothing generated)
-    ! Report ready for the email body (nothing generated)
-    ! Daily Safety & Compliance PDF attached (0 attachment(s))
-    ! No other company's information in the pack (found: (there is no report to read))
-Industec               Not Generated              To  1  Cc  5  Attach 0
-    ! Industec holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
-Programmed             Failed - Review Required   To  1  Cc  5  Attach 0
-    ! Daily Safety & Compliance Report has no PDF - it was not built for 03 Aug 2026
-    ! Report in the body is today's, and still the current one (nothing generated)
-    ! Report ready for the email body (nothing generated)
-    ! Daily Safety & Compliance PDF attached (0 attachment(s))
-    ! No other company's information in the pack (found: (there is no report to read))
-Synclift               Not Generated              To  2  Cc  5  Attach 0
-    ! Synclift holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
-Tasman Rope Access     Not Generated              To  1  Cc  5  Attach 0
-    ! Tasman Rope Access holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
-Universal Cranes       Not Generated              To  1  Cc  5  Attach 0
-    ! Universal Cranes holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
-Veolia Refractory      Failed - Review Required   To  3  Cc  5  Attach 0
-    ! Daily Safety & Compliance Report has no PDF - it was not built for 03 Aug 2026
-    ! Report in the body is today's, and still the current one (nothing generated)
-    ! Report ready for the email body (nothing generated)
-    ! Daily Safety & Compliance PDF attached (0 attachment(s))
-    ! No other company's information in the pack (found: (there is no report to read))
-Xtreme Engineering     Failed - Review Required   To  2  Cc  5  Attach 0
-    ! Daily Safety & Compliance Report has no PDF - it was not built for 03 Aug 2026
-    ! Report in the body is today's, and still the current one (nothing generated)
-    ! Report ready for the email body (nothing generated)
-    ! Daily Safety & Compliance PDF attached (0 attachment(s))
-    ! No other company's information in the pack (found: (there is no report to read))
-Cement Australia       Failed - Review Required   To  3  Cc 11  Attach 2
-    ! Daily Safety & Compliance Report has no PDF - it was not built for 03 Aug 2026
-    ! Site Plant Report has no PDF - it was not built for 03 Aug 2026
-    ! Consumables Usage Report has no PDF - it was not built for 03 Aug 2026
-    ! Report in the body is today's, and still the current one (nothing generated)
-    ! Report ready for the email body (nothing generated)
-    ! All five Cement attachments present (missing: Daily Safety & Compliance Report, Site Plant Report, Consumables Usage Report)
+DGH Engineering        Draft Ready                To  4  Cc  5  Attach 2
+DKE Group              Draft Ready                To  4  Cc  5  Attach 2
+High Risk Solutions    Draft Ready                To  3  Cc  5  Attach 2
+Industec               Draft Ready                To  1  Cc  5  Attach 2
+Programmed             Draft Ready                To  1  Cc  5  Attach 2
+Synclift               Draft Ready                To  2  Cc  5  Attach 2
+Tasman Rope Access     Draft Ready                To  1  Cc  5  Attach 2
+Universal Cranes       Draft Ready                To  1  Cc  5  Attach 2
+Veolia Refractory      Draft Ready                To  3  Cc  5  Attach 2
+Xtreme Engineering     Draft Ready                To  2  Cc  5  Attach 2
+Cement Australia       Draft Ready                To  3  Cc 11  Attach 6
 ==========================================================================
 Nothing has been sent. Open the .eml in each company folder and
 press Send when you are happy with it.

@@ -328,6 +328,24 @@ def images_for(report_html, emails_dir):
                         "({} found)".format(len(numbers),
                                             ", ".join(map(str, numbers[:8]))))
     elif want and len(hits) != want:
+        #  TOO LONG TO PASTE IS NOT THE SAME AS BROKEN. The photographer
+        #  stops at MAX_SLICES pages, so a 41-page report yields exactly
+        #  40 pictures - a clean run 1..40, nothing damaged, just a
+        #  report longer than an email body can hold. Counting that as a
+        #  fault held Cement Australia's own daily pack: 6 attachments
+        #  ready, addresses right, and the whole thing unsendable
+        #  because the report grew by one page (3 Aug 2026).
+        #
+        #  No pictures, no error: the caller already has the path for
+        #  that, and it attaches the complete PDF and says so in the
+        #  body. Same report, all 41 pages, and it goes.
+        try:
+            import email_images as _EI
+            _cap = _EI.MAX_SLICES
+        except Exception:
+            _cap = 40
+        if len(hits) == _cap and want > _cap:
+            return [], []
         problems.append("{} page picture(s) for a {}-page report".format(
             len(hits), want))
     if problems:
@@ -863,6 +881,31 @@ def main():
         say("")
         say(" NO GEAR ON HIRE - folder and record made, no email:")
         say("   " + ", ".join(p["company"] for p in nogear))
+        #  ...and prove that claim against the live export before
+        #  anybody believes it. "No gear on hire" is the one line here
+        #  that closes a contractor's day without sending them
+        #  anything, so it is the one that has to be right. It was
+        #  wrong for four of them on 3 Aug - thirty items between
+        #  Sync Lift, Universal Cranes, Tasman Rope Access and Industec
+        #  - because the map behind it was a snapshot of an older week.
+        try:
+            _oh = sorted(
+                [p for p in glob.glob(os.path.join(HERE, "Data_SiteIQ",
+                                                   "ON_HIRE*.xlsx"))
+                 + glob.glob(os.path.join(HERE, "ON_HIRE*.xlsx"))
+                 if not os.path.basename(p).startswith("~$")],
+                key=os.path.getmtime)
+            _stale = K.check_stale_aliases(_oh[-1]) if _oh else []
+        except Exception:
+            _stale = []
+        if _stale:
+            say("")
+            say(" *** THAT IS WRONG - the company map is out of date:")
+            for _wb, _siq, _n in _stale:
+                say("     {} shows nothing, but SiteIQ has {} item(s) "
+                    "under \"{}\"".format(_wb, _n, _siq))
+            say("     Those contractors got no email and no chase list.")
+            say("     Fix ALIASES in k2_daily_packs.py and run again.")
     if stale_all:
         say("")
         say(" REBUILD THESE - the PDF is older than the report it came from:")
