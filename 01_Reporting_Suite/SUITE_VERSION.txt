@@ -1,7 +1,7 @@
-# Coates K2 suite version - 169 files - overall d795b1cf
+# Coates K2 suite version - 169 files - overall 798cfb55
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-03 06:40:00
+# taken 2026-08-03 07:36:56
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -131,7 +131,7 @@ f07fdf7710 build_flame_off_plant.py
 831892f416 build_offline_day.py
 e8e188b1cb build_plant_dashboard.py
 ce2058e40b build_posters.py
-861bab78d7 build_shift_intel.py
+54d6e543ff build_shift_intel.py
 4cf7373296 build_utilisation_intel.py
 06fd0346ff build_utilisation_report.py
 d95b1e1f0b build_whats_used.py
@@ -140,7 +140,7 @@ d95b1e1f0b build_whats_used.py
 3dd28e5c7a email_images.py
 a47bad928c equipment_compliance.py
 370bcd0ef5 fleet_detail.py
-005415ef4e forecast.py
+f05b0d6241 forecast.py
 32bd4ae378 hidden_stock.py
 ec472b59fc k2_consumables.py
 f64b1b9997 k2_daily_packs.py
@@ -167,7 +167,7 @@ c60bd527af report_pages.py
 75eec11f9f safety_conversation.py
 324631bb32 serial_report.py
 8b224da9a5 serials.py
-c805d9a2c9 shift_intel.py
+9819e97bce shift_intel.py
 34f14f8a91 shutdown_day.py
 f4b08a2c35 verify_excel_alignment.py
 f48f6bded8 whats_used.py

@@ -553,12 +553,55 @@ def lines(c):
     return L
 
 
+#  Exports already reported as damaged - said once per run, not once
+#  per builder, or a morning refresh prints the same warning nine times.
+_BAD_SEEN = set()
+
+
+def _readable_xlsx(path):
+    """Is this actually a workbook, or half a download?
+
+    An .xlsx is a zip. A pull that was interrupted, or a file SiteIQ is
+    still writing, leaves something that passes every is-it-there check
+    and then throws a raw zipfile traceback out of openpyxl - which is
+    what a store hand saw at 5am (found on the rig, 3 Aug 2026).
+    """
+    import zipfile
+    try:
+        if os.path.getsize(path) < 512:
+            return False
+        with zipfile.ZipFile(path) as z:
+            return '[Content_Types].xml' in z.namelist()
+    except Exception:
+        return False
+
+
 def _newest(pattern):
+    """The newest export that can ACTUALLY BE OPENED.
+
+    A damaged newest file no longer takes the suite down with it: it is
+    named, skipped, and the next-newest readable copy is used instead -
+    which on this machine is usually yesterday's pull in Data_SiteIQ\\
+    previous\\. A stale number with a loud warning beats a traceback.
+    """
     hits = [q for q in glob.glob(os.path.join(BASE, 'Data_SiteIQ', pattern))
             if not os.path.basename(q).startswith('~')]
     hits += [q for q in glob.glob(os.path.join(BASE, pattern))
              if not os.path.basename(q).startswith('~')]
-    return max(hits, key=os.path.getmtime) if hits else None
+    hits.sort(key=os.path.getmtime, reverse=True)
+    for i, q in enumerate(hits):
+        if _readable_xlsx(q):
+            if i and q not in _BAD_SEEN:
+                print('  NOTE: using {} - the newer copy would not open.'
+                      .format(os.path.basename(q)))
+            return q
+        if q not in _BAD_SEEN:
+            _BAD_SEEN.add(q)
+            print('  *** DAMAGED EXPORT: {} will not open (a part-finished '
+                  'download?).\n      Pull it again from SiteIQ. Falling '
+                  'back to an older copy if there is one.'
+                  .format(os.path.basename(q)))
+    return None
 
 
 def run():

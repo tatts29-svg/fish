@@ -55,6 +55,14 @@ def build(today=None):
         print(' No TRANSACTIONS export - nothing to build.')
         return 1
     counter = SI.read_counter(txn)
+    if not counter:
+        #  a readable file with no usable rows - renamed columns, an
+        #  empty pull, or a date range with nothing in it. Say so
+        #  rather than building a page of noughts (rig, 3 Aug 2026).
+        print(' The TRANSACTIONS export opened but carried no movements '
+              'with a date.')
+        print(' Nothing to report on. Pull a fresh export and run again.')
+        return 1
     sight = SI.read_sightings(stk) if stk else []
     shifts = SI.by_shift(counter, sight)
     pace = SI.scan_pace(sight)
@@ -83,7 +91,12 @@ def build(today=None):
         t[0] += b['out']
         t[1] += b['back']
         t[2] += b['count']
-    peak = max(hrs) or 1
+    #  peakHour off the REAL max, not the divide-by-zero guard. The
+    #  first cut did hrs.index(max(hrs) or 1), which on an all-zero
+    #  day looked up a 1 that was not there and threw ValueError.
+    peak_real = max(hrs)
+    peak_hour = hrs.index(peak_real) if peak_real else 0
+    peak = peak_real or 1
 
     H = ["<div class='wrap'>",
          "<div class='bar0'><h1>Shift &amp; Counter Intel</h1>"
@@ -119,7 +132,7 @@ def build(today=None):
              "hour {:02d}:00 with {:,} movements, quietest working hour "
              "{:02d}:00 with {:,}. The peaks are the handovers &mdash; "
              "the flat hours are where a job can go.</div></div>".format(
-                 hrs.index(peak), peak,
+                 peak_hour, peak_real,
                  min(range(24), key=lambda h: hrs[h] if hrs[h] else 10 ** 9),
                  min(x for x in hrs if x) if any(hrs) else 0))
 
@@ -451,7 +464,7 @@ def build(today=None):
                                                     if e['way'] == 'OUT'),
                                   sum(1 for e in counter
                                       if e['way'] == 'BACK'),
-                                  hrs.index(peak)))
+                                  peak_hour))
     print(' Scan pace    : {} counting minutes, {} under 5s a look, {} '
           'sustained run(s)'.format(pace['minutes'], pace['fastMinutes'],
                                     sum(1 for r in pace['runs']
