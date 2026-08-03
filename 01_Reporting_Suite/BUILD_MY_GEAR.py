@@ -1085,6 +1085,16 @@ def build():
             .replace('__HERO__', _hero(_sst if _store_pane else {},
                                        bool(_store_pane)))
             .replace('__STORESTAG__', _stores_tag)
+            #  the first word of every company holding gear, so the ID
+            #  box can recognise a supervisor typing his company name
+            #  and hand him the right page instead of a dead end
+            #  (Andrew, 3 Aug 2026: "when I enter in the company name I
+            #  can't get in. nothing works"). Company names only - they
+            #  are already all over the crew page; no money, no people.
+            .replace('__COWORDS__', json.dumps(sorted({
+                (p.get('company') or '').split()[0].upper()
+                for p in people.values()
+                if (p.get('company') or '').strip()})))
             .replace('__ASOF__', asof or 'last refresh')
             .replace('__FDAY__', _flame_tag())
             .replace('__UICSS__', mygear_font.FONT_CSS + mygear_ui.CSS
@@ -1128,6 +1138,27 @@ def build():
     out = os.path.join(out_dir, 'index.html')
     with io.open(out, 'w', encoding='utf-8') as f:
         f.write(page)
+    #  THE WHOLE STORE FRONT REBUILDS TOGETHER (Andrew, 3 Aug 2026:
+    #  "i still have not seen any utilisation bars ... nothing works").
+    #  Fleet Details and the crew page used to rebuild only from their
+    #  own buttons, so an update could leave them stale - or missing -
+    #  while the board moved on, and the front door then linked to a
+    #  page that did not match or did not exist. One button, one
+    #  storefront: this build finishes by rebuilding both. Guarded, so
+    #  a fault in either page costs that page, never the scorecard.
+    import subprocess
+    import sys as _sys
+    for _pg, _nm in (('build_fleet_detail.py', 'Fleet Details'),
+                     ('build_crew_onhire.py', "Who's got what")):
+        try:
+            _rc = subprocess.call([_sys.executable, os.path.join(BASE, _pg)],
+                                  cwd=BASE, stdout=subprocess.DEVNULL,
+                                  stderr=subprocess.STDOUT)
+            print('  {} page: {}.'.format(
+                _nm, 'rebuilt with this run' if _rc == 0
+                else 'FAILED (run {} by itself to see why)'.format(_pg)))
+        except Exception as _e:
+            print('  {} page: skipped ({!r})'.format(_nm, _e))
     print('My Gear scorecard page built: {} people, {} items on hire.'.format(
         len(warn_dupes), tot_items))
     print('  Radios still out across site: {} | Gas monitors out: {} | '
@@ -2429,7 +2460,19 @@ function goNow(){
  for(var ci=0;ci<cand.length;ci++){
    if(DATA[tag(cand[ci])]){ id=cand[ci]; blob=DATA[tag(id)]; break; }
  }
- if(!blob){idState('bad','<b>That ID is not on the register.</b> Check the '
+ if(!blob){
+   /* A supervisor at this box types his COMPANY, not a card ID -
+      that is exactly what the crew page is for, so say so and hand
+      him the door rather than a shrug (Andrew, 3 Aug 2026). */
+   var word=id.toUpperCase().replace(/[^A-Z]/g,'');
+   if(word && CO_WORDS && CO_WORDS.indexOf(word)>=0){
+     idState('warn','<b>That reads like a company name.</b> This box '
+      +'takes the ID number off a site card. To see what your crew has '
+      +'on hire, use the supervisor page: '
+      +'<a href="crew.html" style="color:#7FB1C8;font-weight:800">'
+      +'Who&rsquo;s got what &rsaquo;</a>');
+     return}
+   idState('bad','<b>That ID is not on the register.</b> Check the '
    +'number on your site card, or ask at the window &mdash; two metres away.');
    return}
  var p;try{p=JSON.parse(dec(id,blob))}catch(e){
@@ -2813,6 +2856,7 @@ function reset(){document.body.classList.remove('hascard');
  if(RVN_IO){window.removeEventListener('scroll',RVN_IO);RVN_IO=null} GLANE='all';document.getElementById('welcome').className='wel';var _d=document.querySelector('.door');if(_d)_d.style.display='';idState('');window.PENDING=null;document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
 document.getElementById('idno').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
 var STORES_TAG='__STORESTAG__';
+var CO_WORDS=__COWORDS__;
 __STOREJS__
 __UIJS__
 // self-test
