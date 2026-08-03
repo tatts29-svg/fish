@@ -157,11 +157,18 @@ def build(today=None):
     denom = float(span or 1) * max(1, onsite)
     comm_pct = 100.0 * cm / denom
 
-    #  money per day on charge - the manager number, same rates the
-    #  crew page's manager layer uses
-    #  same exclusions as the crew page's manager layer - tracked and
-    #  client-owned gear carries no figure ANYWHERE, Andrew's 2 Aug
-    #  rule, so this tile lands on the same dollar the phone shows
+    #  MONEY PER DAY ON CHARGE. Same exclusions as the crew page's
+    #  manager layer - tracked and client-owned gear carries no figure
+    #  anywhere, Andrew's 2 Aug rule.
+    #
+    #  It does NOT match the stores board's Money pane, and that is not
+    #  a bug. This prices off what was actually charged on the job,
+    #  falling back to the contracted card; the board prices strictly
+    #  off SiteIQ's SHIFT_RATE and leaves 244 lines at nought. About
+    #  $265/day between them. An earlier comment here claimed the two
+    #  landed on the same dollar - they never did, and the claim went
+    #  unchecked until the numbers were compared side by side
+    #  (3 Aug 2026). Both screens now name their source on the page.
     import ownership as OWN
     seqs = OWN.zero_cost_sequences(assets)
     rates = WU.load_rates(BASE, txn_path=txn)
@@ -240,6 +247,19 @@ def build(today=None):
         H.append("<div class='tile'><b class='{}'>{}</b><span>{}</span>"
                  "</div>".format(c, v, l))
     H.append("</div>")
+    #  WHY THIS DOLLAR IS NOT THE BOARD'S DOLLAR (3 Aug 2026). The
+    #  stores board's Money pane prices strictly off SiteIQ's own
+    #  SHIFT_RATE and leaves 244 lines at zero. This page fills those
+    #  from the charged rates and the contract card, so it reads about
+    #  $265/day higher. Both are honest; two screens answering the same
+    #  question with different numbers and no explanation is not. Each
+    #  now names its source.
+    H.append("<div class='pnote'>Per-day is priced off what was actually "
+             "<b>charged</b> on this job, falling back to the contracted "
+             "card. The stores board&rsquo;s Money pane prices strictly "
+             "off SiteIQ&rsquo;s SHIFT_RATE and leaves unrated lines at "
+             "nought, so it reads lower &mdash; same gear, different "
+             "source, and each screen says which.</div>")
 
     H.append("<div class='panel'><div class='ph'>Timeline of the shut "
              "&mdash; issues out, returns home</div>")

@@ -1056,6 +1056,24 @@ def build():
               '| stocktake {}% | {} not counted | {} arriving'.format(
                   _t['avail'], _t['onhire'], _t['chase'], _t['stockPct'],
                   _t['stale'], _t['arrivals']))
+        #  RECONCILE OUT LOUD. The shelf count is deliberately smaller
+        #  than the register's, and every reason is named here so the
+        #  difference never has to be worked out by hand.
+        #  The two exclusions come off DIFFERENT registers and must not
+        #  be added together: obsolete is rental gear, hidden is
+        #  consumable lines. The first cut summed them and reported a
+        #  register of 4,230 against a real 4,213 - a reconciliation
+        #  line that itself did not reconcile (caught immediately,
+        #  3 Aug 2026).
+        _ss = STOCK.get('stats') or {}
+        _obs, _hid = _ss.get('obsolete') or 0, _ss.get('hidden') or 0
+        if _obs:
+            print('    (rental register says {} available; {} not offered '
+                  '- marked OBSOLETE or faulty in SiteIQ)'.format(
+                      _t['avail'] + _obs, _obs))
+        if _hid:
+            print('    ({} consumable line(s) held back by your '
+                  'HIDDEN_ITEMS list)'.format(_hid))
         if _pr:
             print('  Manager layer: ${:,.2f}/day on hire, {} zero-rate '
                   'line(s) flagged.'.format(_pr['perDay'], _pr['zeroN']))

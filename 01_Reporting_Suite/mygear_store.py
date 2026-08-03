@@ -247,6 +247,14 @@ def read_availability(rental_path, sales_path, master=None):
     #  how many lines the do-not-show list took out this run - reported,
     #  never silent
     _hid_n = [0]
+    #  and how many the register itself marks unofferable. Five assets
+    #  on the 3 Aug pull read "Available for Hire" in SiteIQ while
+    #  carrying **OBSOLETE** in the description, so the shelf count
+    #  came out 4,208 against a register saying 4,213 and said nothing
+    #  about the difference. Correct to exclude them; wrong to be quiet
+    #  about it - a gap nobody explains is the one somebody re-derives
+    #  by hand at the worst moment (3 Aug 2026).
+    _obs_n = [0]
     #  the photo key: PRODUCT_VARIANT for hire gear, SKU number for
     #  consumables - one thumbnail in Gear_Lookup\thumbs covers every
     #  item behind the code (Andrew, 30 Jul 2026: "thumbnails for
@@ -276,6 +284,7 @@ def read_availability(rental_path, sales_path, master=None):
                     continue          # SiteIQ's word, never our guess
                 raw = r[ix['ITEM_DESCRIPTION']]
                 if not _offerable(raw):
+                    _obs_n[0] += 1
                     continue          # retired, faulty or written off
                 name = _tidy(raw, master,
                              r[ix['ITEM_NUMBER']] if 'ITEM_NUMBER' in ix else '')
@@ -464,6 +473,7 @@ def read_availability(rental_path, sales_path, master=None):
         'consLow': len([x for x in C if 0 < x['q'] <= 5]),
     }
     stats['hidden'] = _hid_n[0]
+    stats['obsolete'] = _obs_n[0]
     return {'hire': H, 'cons': C, 'stats': stats}
 
 
