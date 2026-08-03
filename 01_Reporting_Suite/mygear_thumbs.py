@@ -250,6 +250,19 @@ def alias_photos(photos, codes, loose=None):
                 if ns.startswith(nc):
                     hit = normed[ns]
                     break
+        #  ONE PHOTO, WHOLE FAMILY (Andrew, 3 Aug 2026: "crows feet
+        #  all look the same"). A photo named WITHOUT the size claims
+        #  every size behind it: 12DRIVECROWSFEET.jpg covers
+        #  1/2DRIVECROWSFEET27MM through 50MM, one picture for nine
+        #  codes. The stem must be 12+ characters and the code must
+        #  START with it, so a photo called SOCKET.jpg still cannot
+        #  claim every socket in the register - and a photo that DOES
+        #  name a size (43MM) claims only that size, exactly as now.
+        if hit is None:
+            for ns in normed:
+                if len(ns) >= 12 and nc.startswith(ns):
+                    hit = normed[ns]
+                    break
         if hit is None and code in loose:
             name = set(t for t in re.split(
                 r'[^A-Z0-9]+', str(loose[code] or '').upper()) if t)
