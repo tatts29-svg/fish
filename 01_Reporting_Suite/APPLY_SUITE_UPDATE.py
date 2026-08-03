@@ -90,8 +90,25 @@ PROTECTED = (
 #  all. Rather than loosen PROTECTED - which guards the store code, the
 #  manager code and the only copy of yesterday's scoreboard - this is
 #  its own small rule that cannot affect any of them.
+#
+#  3 Aug 2026: it now also beats PROTECTED_DIRS, which it previously did
+#  not. Andrew asked for the Baseplan serial export to travel in the zip
+#  so 70_SERIAL_NUMBERS works the moment it lands. Its folder is a
+#  protected one - his newer export must never be flattened - and with
+#  PROTECTED checked first, the file could only ever install on a
+#  machine running an OLD copy of this updater. Apply the same zip to a
+#  machine already carrying the new one and the file is silently skipped
+#  and the report says "no export", which is the worst kind of fault:
+#  it depends on what you happened to run last.
+#
+#  Reordering is safe because a SEED_ONCE entry installs ONLY when the
+#  file is absent. It can never overwrite anything, and the tuple is
+#  short, explicit, and holds no code and no credentials.
 SEED_ONCE = (
     "hidden_items.txt",
+    #  the Baseplan serial listing, so serials work out of the box; a
+    #  newer export dropped in Data_Serials\\ always wins from then on
+    "serial_no_shutdowns.xlsx",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
                   #  gear pictures collected on site (30 Jul 2026)
@@ -226,11 +243,15 @@ def main():
             if not rel:
                 continue
             dest = os.path.join(HERE, *rel.split("/"))
-            if is_protected(rel):
-                skipped.append(rel)
-            elif (os.path.basename(rel).lower() in SEED_ONCE
-                    and os.path.isfile(dest)):
-                #  it is already here, so it is Andrew's now
+            if os.path.basename(rel).lower() in SEED_ONCE:
+                #  arrives once, then it is Andrew's. Checked BEFORE
+                #  protection - see the note on SEED_ONCE - and it can
+                #  only ever add a file that is not there.
+                if os.path.isfile(dest):
+                    skipped.append(rel)
+                else:
+                    new.append((m, rel, dest))
+            elif is_protected(rel):
                 skipped.append(rel)
             elif not os.path.isfile(dest):
                 new.append((m, rel, dest))

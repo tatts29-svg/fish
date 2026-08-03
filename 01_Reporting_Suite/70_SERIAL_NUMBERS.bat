@@ -20,6 +20,10 @@ echo   a serial. That is our own plant number handed back to us,
 echo   and it proves nothing on a damage claim. Those go in
 echo   SERIALS_TO_FIX.csv so they can be fixed in Baseplan.
 echo.
-echo   New export? Drop it in Data_Serials\ and run this again.
+echo   The export came in the update zip, so this works straight away -
+echo   it is put into Data_Serials\ the first time anything runs.
+echo.
+echo   New export? Drop it in Data_Serials\ and run this again. Yours
+echo   always wins - the shipped one is never put back over the top.
 echo.
 pause

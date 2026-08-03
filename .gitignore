@@ -49,3 +49,10 @@ __pycache__/
 # data for the whole state, not this job's - the code that reads it
 # ships, the file never does. Same rule as Data_Quote.
 01_Reporting_Suite/Data_MyBranch/
+
+# The Baseplan serial export. Andrew's data folder - a newer export he
+# drops in must always win. The suite ships ONE copy, as
+# SERIAL_EXPORT_SEED.xlsx at the top level, and serials.py moves it in
+# here on first run if the folder is empty. Tracking both would carry
+# the same 330KB spreadsheet twice.
+01_Reporting_Suite/Data_Serials/

@@ -64,9 +64,32 @@
 import glob
 import os
 import re
+import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FOLDER = os.path.join(HERE, 'Data_Serials')
+
+#  HOW THE FIRST EXPORT ARRIVES (3 Aug 2026).
+#
+#  Andrew asked for the export to travel in the update zip so the serial
+#  numbers work the moment it lands. Putting it straight into
+#  Data_Serials\ does not reliably do that, and the reason is worth
+#  writing down.
+#
+#  A zip is unpacked by the copy of APPLY_SUITE_UPDATE.py that is ALREADY
+#  on the machine - the new one only takes over next time. Data_Serials
+#  is a protected folder, so on a machine whose updater already knows
+#  that, an export inside the zip is skipped and 70_SERIAL_NUMBERS says
+#  "no export" - while on a machine one update behind, the same zip
+#  installs it. Tested both: the first drops the file, the second does
+#  not. Behaviour that depends on which zip you happened to run last is
+#  the worst kind.
+#
+#  So the export rides at the top level under this name, where no
+#  version of the updater protects anything, and is moved into place
+#  here on first use. It never overwrites: one real export in the folder
+#  and the seed is ignored forever after.
+SEED_NAME = 'SERIAL_EXPORT_SEED.xlsx'
 
 HOME_BRANCH = 'GLST'
 
@@ -78,7 +101,29 @@ PLACEHOLDER = re.compile(r'^(n/?a|nil|none|tbc|tba|unknown|[-_/.0\s]*)$',
 _CACHE = None
 
 
+def _seed(folder=None):
+    """Put the shipped export in place if there is nothing there yet.
+
+    Silent, and never destructive - if the folder already holds a
+    spreadsheet, Andrew has dropped one in and this does nothing.
+    """
+    d = folder or FOLDER
+    try:
+        if not os.path.isdir(d):
+            os.makedirs(d)
+        if glob.glob(os.path.join(d, '*.xlsx')):
+            return
+        seed = os.path.join(HERE, SEED_NAME)
+        if os.path.isfile(seed):
+            shutil.copy2(seed, os.path.join(d, 'Serial_No_Shutdowns.xlsx'))
+    except Exception:
+        #  A read-only folder or a locked file is not worth stopping a
+        #  build for. No serials is a small loss; no screen is a real one.
+        pass
+
+
 def newest(folder=None):
+    _seed(folder)
     hits = [p for p in glob.glob(os.path.join(folder or FOLDER, '*.xlsx'))
             if not os.path.basename(p).startswith('~')]
     return max(hits, key=os.path.getmtime) if hits else None
