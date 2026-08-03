@@ -53,28 +53,41 @@ from __future__ import print_function
 #  --------------------------------------------------------------
 #  The last field is WHO THE DOOR IS FOR.
 #    ""      anyone who scanned the QR at the window
-#    "staff" the stores team's own screens
+#    "staff" the stores team's own screens - NEVER on the worker menu
 #
-#  WHY THAT MATTERS. index.html is the CONTRACTOR-facing page - the QR
-#  taped in the window, scanned by anyone walking past. Listing the
-#  stores board on it would put the hit list, the chase list and every
-#  worker name one tap from a contractor who came to ask about a hose.
-#  The board is not password-locked any more (Andrew, 3 Aug: the store
-#  Wi-Fi password is the door), so nothing STOPS them - but there is a
-#  difference between "not locked" and "advertised on the front door",
-#  and only one of those is a decision he made.
+#  ANDREW, 4 AUG 2026: "we need to make sure the main Worker menu does
+#  not have access to everything."
 #
-#  So on the front door the staff screens are shown only to somebody
-#  who has ALREADY been on one this session. A storeman who came in
-#  through the board keeps his way back; a contractor is never shown a
-#  door he was not already through. (4 Aug 2026.)
+#  index.html is the worker and contractor page - the QR taped in the
+#  window, scanned by anyone walking past. The stores board carries the
+#  hit list, the chase list, the stocktake and every worker name; the
+#  fleet list ranks every asset on site. Neither belongs on a menu a
+#  contractor can open.
+#
+#  Neither is password-locked any more (3 Aug: the store Wi-Fi password
+#  is the door) so nothing STOPS somebody typing the filename - but
+#  "not locked" and "listed on the worker menu" are different things,
+#  and only one of them is a decision he made.
+#
+#  I first built this to reveal the staff doors once a session had been
+#  through one. He asked for it tighter than that, so it is tighter:
+#  they are not on the worker menu at all, under any condition. The
+#  stores team reaches the board the way they always have - their code
+#  in the ID box on the front door.
 PAGES = [
     ("index",  "index.html",  "My Gear",
      "Your own gear, by site ID", ""),
     ("stores", "stores.html", "Store Street",
      "The stores team board", "staff"),
+    #  4 Aug 2026: OFF THE WORKER MENU TOO, on Andrew's call. It takes
+    #  any company name and shows that company's people and what each
+    #  of them holds - a contractor who scanned the window QR should
+    #  not be handed that in a menu. The "Supervisor? See what your
+    #  crew has on hire" link he asked for on 3 Aug stays exactly where
+    #  it is on the landing page, so a supervisor at the counter still
+    #  walks straight in.
     ("crew",   "crew.html",   "Who&rsquo;s got what",
-     "Supervisor &mdash; your crew&rsquo;s gear", ""),
+     "Supervisor &mdash; your crew&rsquo;s gear", "staff"),
     ("fleet",  "fleet.html",  "Fleet Details",
      "Every asset ranked", "staff"),
 ]
@@ -97,7 +110,14 @@ PARENT = {
 #  under it is a mile long.
 #  --------------------------------------------------------------
 CSS = """
-.k2bar{position:sticky;top:0;z-index:60;display:flex;align-items:stretch;
+/*  THE BAR SITS ABOVE THE DETAIL SHEET (78 > 75) so BACK is still
+    tappable while a card is open - it closes the card. A visible BACK
+    button that cannot be pressed is the exact thing this bar was built
+    to get rid of; the card's own scrim was covering it.
+    The MENU (80) does cover the bar, and should: it IS the navigation
+    while it is open, and its top row is the way back out.
+    (Found by the checker trying to press BACK. 4 Aug 2026.)  */
+.k2bar{position:sticky;top:0;z-index:78;display:flex;align-items:stretch;
  gap:8px;background:#11161D;border-bottom:1px solid #2A3340;
  padding:7px 10px;min-height:56px}
 .k2bar button{font-family:inherit;font-size:12px;font-weight:800;
@@ -125,7 +145,7 @@ CSS = """
 /*  THE MENU. It comes up from the BOTTOM, because that is where the
     thumb already is - a list that drops from the top of a phone is a
     list you have to shuffle the phone up your hand to reach.  */
-.k2sheet{position:fixed;inset:0;z-index:70;display:none}
+.k2sheet{position:fixed;inset:0;z-index:80;display:none}
 .k2sheet.on{display:block}
 .k2sheet .k2scrim{position:absolute;inset:0;background:rgba(4,7,11,.72)}
 .k2sheet .k2panel{position:absolute;left:0;right:0;bottom:0;
@@ -157,10 +177,44 @@ CSS = """
  color:#DCE3EC;font-family:inherit;font-size:13px;font-weight:800;
  border-radius:13px;padding:13px;margin-top:6px;min-height:50px;
  letter-spacing:.6px;cursor:pointer}
+/*  THE DETAIL SHEET. Same shape as the menu, because a bloke should
+    only ever have to learn one thing that slides up from the bottom.
+    Used for "what IS this?" - tap a line, read the answer, tap away.  */
+.k2det{position:fixed;inset:0;z-index:75;display:none}
+.k2det.on{display:block}
+.k2det .k2scrim{position:absolute;inset:0;background:rgba(4,7,11,.74)}
+.k2det .k2panel{position:absolute;left:0;right:0;bottom:0;max-height:88vh;
+ display:flex;flex-direction:column;background:#151A22;
+ border-top:3px solid #F26222;border-radius:18px 18px 0 0;
+ max-width:640px;margin:0 auto}
+.k2det .k2dhd{display:flex;align-items:flex-start;gap:10px;
+ padding:14px 14px 10px;border-bottom:1px solid #2A3340}
+.k2det .k2dhd b{flex:1;min-width:0;font-size:16px;font-weight:800;
+ color:#F0F4F9;line-height:1.3}
+.k2det .k2dhd button{flex:0 0 auto;background:#1C232D;border:1px solid #38424F;
+ color:#DCE3EC;font-family:inherit;font-size:12px;font-weight:800;
+ border-radius:11px;min-height:42px;min-width:64px;padding:0 12px;
+ letter-spacing:.6px;cursor:pointer}
+.k2det .k2dbd{overflow:auto;-webkit-overflow-scrolling:touch;
+ padding:12px 14px calc(16px + env(safe-area-inset-bottom,0px))}
+.k2det .k2row{display:flex;gap:10px;padding:9px 0;
+ border-bottom:1px solid #222B36}
+.k2det .k2row:last-child{border-bottom:0}
+.k2det .k2row em{flex:0 0 108px;font-style:normal;font-size:11px;
+ font-weight:800;letter-spacing:1.1px;color:#7C8899;text-transform:uppercase;
+ padding-top:2px}
+.k2det .k2row span{flex:1;min-width:0;font-size:14px;color:#E9EEF5;
+ word-break:break-word}
+.k2det .k2row span small{display:block;color:#8B96A6;font-size:12px}
+.k2det .k2note{background:#1C232D;border:1px solid #2A3340;border-left:3px solid
+ #F26222;border-radius:0 11px 11px 0;padding:10px 12px;margin-top:11px;
+ font-size:13px;color:#C6D0DD;line-height:1.5}
+.k2det .k2note b{color:#F0F4F9}
+
 /*  NOT ON PAPER. The crew page prints a supervisor's handout and the
     fleet page prints too - a BACK button on a printed sheet is just
     ink. (4 Aug 2026.)  */
-@media print{.k2bar,.k2sheet{display:none!important}}
+@media print{.k2bar,.k2sheet,.k2det{display:none!important}}
 """
 
 
@@ -213,17 +267,17 @@ def sheet(page_key, extra=None, extra_heading="On this page"):
                 '<span class="k2chev" id="k2here-c">YOU ARE HERE</span>'
                 '</a>'.format(n=name, s=sub))
         else:
-            #  A staff door on the crew-facing front page is hidden
-            #  until this session has actually been through it. Marked
-            #  in the markup, not decided in the markup - k2Doors()
-            #  reads the trail on load and shows what belongs.
-            hide = (' class="k2staff" hidden' if (who == "staff"
-                    and page_key == "index") else '')
+            #  NOT WRITTEN AT ALL on the worker page - not hidden, not
+            #  greyed, not revealed later. A door that is not in the
+            #  file cannot be opened by tapping around, by a stale
+            #  session, or by anything I did not think of.
+            if who == "staff" and page_key == "index":
+                continue
             h.append(
-                '<a href="{u}" data-k2="{k}"{x} onclick="k2Leave()">'
+                '<a href="{u}" data-k2="{k}" onclick="k2Leave()">'
                 '<div class="k2t"><b>{n}</b><span>{s}</span></div>'
                 '<span class="k2chev">&rsaquo;</span></a>'.format(
-                    u=href, k=key, x=hide, n=name, s=sub))
+                    u=href, k=key, n=name, s=sub))
     if extra:
         h.append('<h4>{}</h4>'.format(extra_heading))
         for call, label, sub, n in extra:
@@ -239,6 +293,28 @@ def sheet(page_key, extra=None, extra_heading="On this page"):
              'Close</button>')
     h.append('</div></div>')
     return ''.join(h)
+
+
+def detail_sheet():
+    """An empty bottom sheet a page fills in and shows with k2Detail().
+
+    It is a LAYER, not a screen: it sits over whatever you were looking
+    at and BACK closes it before it does anything else. That way tapping
+    a line to read it can never lose your place."""
+    return ('<div class="k2det" id="k2det">'
+            '<div class="k2scrim" onclick="k2DetShut()"></div>'
+            '<div class="k2panel" role="dialog" aria-label="Detail">'
+            '<div class="k2dhd"><b id="k2det-t"></b>'
+            '<button type="button" onclick="k2DetShut()">CLOSE</button></div>'
+            '<div class="k2dbd" id="k2det-b"></div>'
+            '</div></div>')
+
+
+def row(label, value, sub=""):
+    """One line of a detail sheet: what it is, and what it says."""
+    return ('<div class="k2row"><em>{l}</em><span>{v}{s}</span></div>'
+            .format(l=label, v=value,
+                    s='<small>{}</small>'.format(sub) if sub else ''))
 
 
 def js(page_key, home_label, home_where="You are here"):
@@ -404,6 +480,8 @@ function k2Home(){
   if(had) k2Unwind();
 }
 function k2Back(){
+  /*  a sheet over the page comes off first - it is the thing on top  */
+  if(k2DetOpen()){ k2DetShut(); return; }
   var to=k2BackTo();
   if(!to) return;
   if(to.kind==='view'){
@@ -444,6 +522,39 @@ function k2Menu(){
   }
   s.className='k2sheet on';
   k2Push({k2menu:1});
+}
+/* ------------------------------------------------------------------
+   THE DETAIL SHEET. A LAYER, not a screen.
+
+   Tapping a line to read what it is must never cost you your place, so
+   this sits OVER whatever you were looking at and BACK takes it off
+   again before it does anything else. Order of precedence on a Back,
+   from the top down: the menu, then a detail sheet, then an inner
+   screen, then the page you came from. Each one is taken off by
+   exactly one handler.
+------------------------------------------------------------------ */
+function k2DetOpen(){
+  var d=document.getElementById('k2det');
+  return !!(d && d.className.indexOf('on')>=0);
+}
+function k2Detail(title,html){
+  var d=document.getElementById('k2det');
+  if(!d) return;
+  document.getElementById('k2det-t').innerHTML=title||'';
+  var b=document.getElementById('k2det-b');
+  b.innerHTML=html||''; b.scrollTop=0;
+  if(!k2DetOpen()){
+    d.className='k2det on';
+    document.body.style.overflow='hidden';
+    k2Push({k2det:1});
+  }
+}
+function k2DetShut(){
+  var d=document.getElementById('k2det');
+  if(!d||!k2DetOpen()) return;
+  d.className='k2det';
+  document.body.style.overflow='';
+  k2Unwind();
 }
 /*  Tapping the row you are standing on. Inside a screen it takes you
     back out - but only AFTER the menu has finished putting its own
@@ -488,6 +599,12 @@ window.addEventListener('popstate',function(){
     if(sh) sh.className='k2sheet';
     return;
   }
+  if(k2DetOpen()){
+    var dt=document.getElementById('k2det');
+    if(dt) dt.className='k2det';
+    document.body.style.overflow='';
+    return;
+  }
   if(typeof k2OtherOpen==='function' && k2OtherOpen()) return;
   /* A screen the PAGE routes itself (fleet.html and its hash) is the
      page&rsquo;s to close. Touching it here would close it twice and
@@ -504,25 +621,14 @@ window.addEventListener('popstate',function(){
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'||e.keyCode===27){
     if(k2MenuOpen()) k2Shut();
+    else if(k2DetOpen()) k2DetShut();
     else if(K2VIEW) k2Back();
   }
 });
-/*  A staff door hidden on the front door comes back the moment the
-    trail shows this session has been through it - so a storeman who
-    came in off the board still has his way back, and a contractor who
-    scanned the window QR is never shown a screen he was not already
-    on. */
-function k2Doors(){
-  var t=k2Trail(), a=document.querySelectorAll('#k2sheet a.k2staff'), i;
-  for(i=0;i<a.length;i++){
-    var k=a[i].getAttribute('data-k2');
-    if(t.indexOf(k)>=0) a[i].removeAttribute('hidden');
-  }
-}
 /* Record the arrival as soon as the bar exists. Never inside a
    DOMContentLoaded that might already have fired. */
 (function(){
-  function go(){ try{ k2Here(); k2Doors(); }catch(e){} }
+  function go(){ try{ k2Here(); }catch(e){} }
   if(document.readyState==='loading')
     document.addEventListener('DOMContentLoaded',go);
   else go();

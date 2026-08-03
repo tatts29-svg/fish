@@ -140,6 +140,7 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
 .srch::placeholder{color:#6B7789}
 .hit{background:#131A22;border:1px solid #263143;border-radius:12px;
  padding:11px 13px;margin-top:8px;cursor:pointer}
+.asset.found{border-color:#EFFF3D;box-shadow:0 0 0 2px rgba(239,255,61,.28)}
 .hit b{display:block;font-size:14px}
 .hit span{color:#8794A6;font-size:12px}
 .back{background:none;border:0;color:#1C9FAE;font-size:13px;font-weight:800;
@@ -258,7 +259,8 @@ function assetHtml(r){
     + '__HIGH__' + "'>IN USE</span>";
   else if(r.u) pill = "<span class='pill' style='background:#0E2E35;color:"
     + '__LOW__' + "'>USE NEXT</span>";
-  var s = "<div class='" + klass + "'><div class='n'>" + r.r + '</div>'
+  var s = "<div class='" + klass + "' id='a-" + esc(assetKey(r.i))
+    + "'><div class='n'>" + r.r + '</div>'
     + "<div class='b'><div class='t'><b>" + esc(r.i) + '</b>' + pill
     + '</div>';
   if(r.x){
@@ -367,6 +369,13 @@ function showFleet(v){
   }
   el('view').innerHTML = H.join('');
   window.scrollTo(0, 0);
+  /*  came in off a number? walk to that one and light it up, rather
+      than dropping a bloke at the top of seventy-two rows and letting
+      him hunt for the one he just typed  */
+  if(JUMP){
+    var j = JUMP; JUMP = null;
+    setTimeout(function(){ jumpTo(j); }, 60);
+  }
 }
 
 /* ONE PRODUCT, ONE CARD. Andrew's design, 2 Aug 2026: photo, how many
@@ -437,6 +446,81 @@ function recommend(f){
   return s + '</div></div>';
 }
 
+
+/* ------------------------------------------------------------------
+   FIND ONE ASSET, NOT A PRODUCT. (Andrew, 4 Aug 2026.)
+
+   The search box only ever matched product names, so a storeman
+   holding a machine with a number stuck to it - or a supervisor who
+   had just read one off the crew screen - could type it in full and be
+   told nothing matches. Every number is already in this page: the
+   asset number, the barcode on the sticker, and the manufacturer's
+   serial where there is a genuine one.
+
+   Built once, on the first search, from the fleets already loaded.
+------------------------------------------------------------------ */
+function assetKey(v){
+  return String(v == null ? '' : v).toUpperCase()
+    .replace(/[^A-Z0-9]+/g, '');
+}
+var A_IDX = null;
+function assetIdx(){
+  if(A_IDX) return A_IDX;
+  var ix = [];
+  Object.keys(D.fleets).forEach(function(v){
+    var f = D.fleets[v];
+    (f.rows || []).forEach(function(r){
+      ix.push({v: v, n: f.n, u: f.u, r: r,
+               keys: [assetKey(r.i), assetKey(r.bc), assetKey(r.sn)]
+                       .filter(function(k){ return k.length > 2; })});
+    });
+  });
+  A_IDX = ix;
+  return ix;
+}
+/*  EXACT FIRST, THEN CONTAINS. A bloke who types the whole number off
+    a sticker wants that one asset, not forty that share a prefix. Only
+    when nothing matches exactly does it widen - and a very short
+    fragment is not widened at all, because "12" would drag half the
+    store back.  */
+function findAssets(q){
+  var k = assetKey(q);
+  if(k.length < 3) return [];
+  var ix = assetIdx(), exact = [], part = [], i, j;
+  for(i = 0; i < ix.length; i++){
+    var hit = 0, near = 0;
+    for(j = 0; j < ix[i].keys.length; j++){
+      if(ix[i].keys[j] === k) hit = 1;
+      else if(k.length >= 4 && ix[i].keys[j].indexOf(k) >= 0) near = 1;
+    }
+    if(hit) exact.push(ix[i]);
+    else if(near) part.push(ix[i]);
+  }
+  return exact.length ? exact : part;
+}
+function assetHitHtml(a){
+  var r = a.r, line = [];
+  line.push(r.O ? 'In use' : 'Ready');
+  if(r.O && r.h) line.push(esc(r.h) + (r.C ? ' · ' + esc(r.C) : ''));
+  if(r.k) line.push(esc(r.k));
+  if(r.sn) line.push('S/N ' + esc(r.sn));
+  if(r.bc && r.bc !== r.i) line.push(esc(r.bc));
+  return "<div class='hit' data-ai='" + esc(a.v) + "' data-ak='"
+    + esc(assetKey(r.i)) + "'><b>" + esc(r.i) + '</b><span>'
+    + esc(a.n) + ' · #' + r.r + ' of ' + (D.fleets[a.v].rows || []).length
+    + ' · ' + line.join(' · ') + '</span></div>';
+}
+/*  which asset to walk to once its fleet is open  */
+var JUMP = null;
+function jumpTo(key){
+  var el2 = document.getElementById('a-' + key);
+  if(!el2) return;
+  try{ el2.scrollIntoView({behavior: 'smooth', block: 'center'}); }
+  catch(e){ el2.scrollIntoView(); }
+  el2.classList.add('found');
+  setTimeout(function(){ el2.classList.remove('found'); }, 2600);
+}
+
 function showList(q){
   location.hash = '';
   var all = D.list, s = (q || '').trim().toLowerCase();
@@ -449,9 +533,21 @@ function showList(q){
     });
   }
   var H = [];
-  if(!hits.length){
+  var av = findAssets(q);
+  if(av.length){
+    H.push("<h2 style='margin-top:4px'>" + (av.length === 1
+      ? 'One asset with that number' : av.length + ' assets match that number')
+      + '</h2>');
+    H.push(av.slice(0, 24).map(assetHitHtml).join(''));
+    if(av.length > 24)
+      H.push("<div class='note'>" + (av.length - 24)
+        + ' more. Type a bit more of the number to narrow it.</div>');
+    if(hits.length) H.push("<h2>Products</h2>");
+  }
+  if(!hits.length && !av.length){
     H.push("<div class='note'>Nothing matches “" + esc(q)
-      + '”. Try fewer words, or part of the item description.</div>');
+      + '”. Try fewer words, part of the item description, or the '
+      + 'number off the sticker.</div>');
   }
   H.push("<div class='cards'>" + hits.slice(0, 48).map(card).join('')
     + '</div>');
@@ -466,6 +562,12 @@ function showList(q){
    handler. A hirer called O'Brien has taken a page down before by
    riding an apostrophe straight through an onclick. */
 document.addEventListener('click', function(ev){
+  var a = ev.target.closest ? ev.target.closest('[data-ai]') : null;
+  if(a){
+    JUMP = a.getAttribute('data-ak');
+    showFleet(a.getAttribute('data-ai'));
+    return;
+  }
   var h = ev.target.closest ? ev.target.closest('[data-v]') : null;
   if(h){ showFleet(h.getAttribute('data-v')); return; }
   var b = ev.target.closest ? ev.target.closest('[data-back]') : null;
@@ -657,7 +759,7 @@ def build_one(data, with_money, out_path, today):
             "<span class='siq'>POWERED BY SITEIQ</span></div>")
     body = ["<div class='phone'>", head, "<div class='pad'>",
             "<input class='srch' id='q' type='search' "
-            "placeholder='Search a product…' autocomplete='off'>",
+            "placeholder='Product, item number or serial…' autocomplete='off'>",
             "<div id='view'></div>",
             "<div class='foot'>Cement Australia K2 Shutdown 2026 "
             "&middot; Gladstone<br>Author: Andrew Fisher &middot; "

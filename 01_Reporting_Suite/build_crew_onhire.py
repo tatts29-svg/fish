@@ -273,6 +273,10 @@ body{background:#0D1218;color:#DCE3EC;font-family:'Segoe UI',Arial,sans-serif;
     one sits UNDER the first - the orange title slid behind the BACK
     button the moment you scrolled. One sticky thing per page.
     (4 Aug 2026.)  */
+tr.gl{cursor:pointer}
+tr.gl:active td{background:#1C232D}
+tr.gl td.d b:after{content:' \203a';color:#F26222;font-weight:800}
+@media print{tr.gl td.d b:after{content:''}}
 .bar{background:#F26222;color:#fff;padding:14px 16px;display:flex;
  justify-content:space-between;align-items:center}
 .bar h1{font-size:18px;font-weight:800}
@@ -396,7 +400,12 @@ function personBlock(p){
     if(i.days) sub.push('out ' + i.days + ' day' + (i.days===1?'':'s'));
     else if(i.out) sub.push('out ' + i.out);
     var r = rateOf(i);
-    return "<tr><td class='d'><b>" + esc(i.desc) + '</b><span>'
+    /*  TAPPABLE. A supervisor standing on his bloke&rsquo;s list would
+        tap the row, the number, the count - and nothing happened. The
+        row now carries its own item number and the person holding it,
+        and one tap opens the card. (Andrew, 4 Aug 2026.)  */
+    return "<tr class='gl' data-gi='" + esc(i.item) + "' data-gp='"
+      + esc(p.name) + "'><td class='d'><b>" + esc(i.desc) + '</b><span>'
       + esc(sub.join(' · ')) + "</span></td><td class='n'>"
       /* the <br> lives INSIDE the span so that hiding the money on the
          locked page does not leave a blank line where it was */
@@ -476,7 +485,89 @@ function search(){
   }).join('');
 }
 
+
+/* ------------------------------------------------------------------
+   WHAT IS THIS THING? (Andrew, 4 Aug 2026 - the supervisor journey:
+   "standing on his bloke's gear list with item 1232776 on the screen,
+   tapping it, and nothing happening.")
+
+   One tap on any gear line opens the card for that asset. Everything
+   on it is already in this page - no extra download, and it works with
+   the store Wi-Fi at its worst.
+
+   THE MONEY RULE IS UNCHANGED. The rate appears here on exactly the
+   same terms it appears in the table: only when the manager code is
+   open. Locked, the line is not written at all - not written as blank,
+   not written as zero. rateOf() returns null unless MONEY is decrypted,
+   which cannot happen without his code.
+------------------------------------------------------------------ */
+function itemOf(name, item){
+  var out = null;
+  (D.companies || []).forEach(function(c){
+    (c.people || []).forEach(function(p){
+      if(name && p.name !== name) return;
+      (p.items || []).forEach(function(i){
+        if(i.item === item && !out)
+          out = {i: i, person: p.name, company: c.company};
+      });
+    });
+  });
+  return out;
+}
+/*  Who else in THIS company is holding the same product. A supervisor
+    asking "what is this" is usually one question away from "who else
+    has one". Same page, no extra data.  */
+function alsoHolding(company, desc, notName){
+  var who = [];
+  (D.companies || []).forEach(function(c){
+    if(c.company !== company) return;
+    (c.people || []).forEach(function(p){
+      if(p.name === notName) return;
+      var n = (p.items || []).filter(function(i){ return i.desc === desc; }).length;
+      if(n) who.push(p.name + (n > 1 ? ' ×' + n : ''));
+    });
+  });
+  return who;
+}
+function gearCard(item, person){
+  var f = itemOf(person, item);
+  if(!f){ return; }
+  var i = f.i, h = '';
+  h += k2r('Item number', esc(i.item));
+  if(i.bc && i.bc !== i.item) h += k2r('Barcode', esc(i.bc));
+  if(i.sn) h += k2r('Serial', esc(i.sn));
+  if(i.unit) h += k2r('Product group', esc(i.unit));
+  h += k2r('Who has it', esc(f.person), esc(f.company));
+  if(i.out) h += k2r('Taken out', esc(i.out),
+    i.days ? (i.days + ' day' + (i.days === 1 ? '' : 's') + ' ago') : '');
+  else if(i.days) h += k2r('Out for', i.days + ' day' + (i.days===1?'':'s'));
+  var r = rateOf(i);
+  if(r !== null) h += k2r('Day rate', esc(money(r)),
+    'while it is out - not what has been billed');
+  var also = alsoHolding(f.company, i.desc, f.person);
+  if(also.length)
+    h += '<div class="k2note">Others at <b>' + esc(f.company)
+      + '</b> holding the same thing: ' + esc(also.join(', ')) + '</div>';
+  else
+    h += '<div class="k2note">Nobody else at <b>' + esc(f.company)
+      + '</b> is holding one of these.</div>';
+  h += '<div class="k2note">This is what SiteIQ had at the morning pull. '
+    + 'Anything handed back since shows on tomorrow&rsquo;s refresh.</div>';
+  k2Detail(esc(i.desc), h);
+}
+/*  the detail-sheet row helper, so this page writes cards the same
+    shape the rest of My Gear does  */
+function k2r(label, value, sub){
+  return '<div class="k2row"><em>' + label + '</em><span>' + value
+    + (sub ? '<small>' + sub + '</small>' : '') + '</span></div>';
+}
+
 document.addEventListener('click', function(ev){
+  var g = ev.target.closest ? ev.target.closest('tr.gl') : null;
+  if(g){
+    gearCard(g.getAttribute('data-gi'), g.getAttribute('data-gp'));
+    return;
+  }
   var h = ev.target.closest ? ev.target.closest('[data-c]') : null;
   if(h){
     var n = h.getAttribute('data-c');
@@ -636,6 +727,7 @@ def build(today=None):
     ]
     body.append(nav.sheet('crew', extra=_doors,
                           extra_heading='On this page'))
+    body.append(nav.detail_sheet())
     page = ("<!doctype html><html lang='en-AU'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width,"
             "initial-scale=1,viewport-fit=cover'>"

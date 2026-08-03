@@ -179,10 +179,19 @@ def main(pages):
             names = pg.evaluate(
                 "()=>Array.from(document.querySelectorAll('#k2sheet .k2t b'))"
                 ".map(x=>x.textContent.trim())")
-            check(key + ": the menu lists all four pages",
-                  len([n for n in names if n in
-                       ("My Gear", "Store Street", "Who’s got what",
-                        "Fleet Details")]) == 4, json.dumps(names))
+            # The WORKER page lists no staff screen at all - that is
+            # deliberate (Andrew, 4 Aug: "make sure the main Worker menu
+            # does not have access to everything"). Every staff page
+            # lists the others.
+            PAGENAMES = ("My Gear", "Store Street", "Who’s got what",
+                         "Fleet Details")
+            listed = [n for n in names if n in PAGENAMES]
+            if key == "index":
+                check(key + ": the worker menu lists NO staff screen",
+                      listed == ["My Gear"], json.dumps(names))
+            else:
+                check(key + ": the menu lists all four pages",
+                      len(listed) == 4, json.dumps(names))
             here = pg.evaluate(
                 "()=>{var a=document.querySelector('#k2sheet .k2on .k2t b');"
                 "return a?a.textContent.trim():null}")
@@ -450,7 +459,7 @@ def main(pages):
                   shown == "none", shown)
             pg.emulate_media(media="screen")
 
-        print("\n=== THE FRONT DOOR DOES NOT ADVERTISE THE STAFF SCREENS")
+        print("\n=== THE WORKER MENU CANNOT REACH THE STAFF SCREENS")
         ctx3 = br.new_context(viewport={"width": 390, "height": 844},
                               is_mobile=True, has_touch=True)
         p3 = ctx3.new_page()
@@ -461,13 +470,17 @@ def main(pages):
         shown = p3.evaluate(
             "()=>Array.from(document.querySelectorAll('#k2sheet a[data-k2]'))"
             ".filter(a=>!a.hasAttribute('hidden')).map(a=>a.getAttribute('data-k2'))")
-        check("index: a contractor off the window QR is not shown the "
-              "stores board or the fleet list",
-              "stores" not in shown and "fleet" not in shown,
-              json.dumps(shown))
-        check("index: but the supervisor page IS offered - it always was",
-              "crew" in shown, json.dumps(shown))
-        # now walk the board first, the way a storeman does
+        check("index: no staff screen on the worker menu",
+              shown == [], json.dumps(shown))
+        # not hidden - NOT IN THE FILE. Nothing to reveal by tapping
+        # around, by a stale session, or by anything I did not think of.
+        raw = p3.evaluate(
+            "()=>document.getElementById('k2sheet').innerHTML")
+        for page in ("stores.html", "crew.html", "fleet.html"):
+            check("index: %s is not written into the worker menu at all"
+                  % page, page not in raw,
+                  "found it in the markup" if page in raw else "absent")
+        # and having been on the board does not unlock it either
         p3.goto("file://" + os.path.join(GL, "stores.html"),
                 wait_until="load", timeout=90000)
         p3.wait_for_timeout(1100)
@@ -478,9 +491,22 @@ def main(pages):
         p3.click(".k2menu"); p3.wait_for_timeout(300)
         shown2 = p3.evaluate(
             "()=>Array.from(document.querySelectorAll('#k2sheet a[data-k2]'))"
-            ".filter(a=>!a.hasAttribute('hidden')).map(a=>a.getAttribute('data-k2'))")
-        check("index: a storeman who came off the board keeps his way back",
-              "stores" in shown2, json.dumps(shown2))
+            ".map(a=>a.getAttribute('data-k2'))")
+        check("index: and a session that HAS been on the board still "
+              "cannot see it on the worker menu",
+              shown2 == [], json.dumps(shown2))
+        # it still has to be worth opening
+        guides = p3.evaluate(
+            "()=>Array.from(document.querySelectorAll('#k2sheet button.k2go'))"
+            ".map(b=>b.querySelector('b').textContent.trim())")
+        check("index: the worker menu still carries this page's guides",
+              len(guides) >= 4, json.dumps(guides))
+        # the supervisor door he asked for on 3 Aug is still on the page
+        sup = p3.evaluate(
+            "()=>{var a=document.querySelector('a.suplink');"
+            "return a?a.getAttribute('href'):null}")
+        check("index: the Supervisor link is still on the landing page",
+              sup == "crew.html", str(sup))
         ctx3.close()
 
         print("\n=== A GUIDE CLOSED WITH ITS OWN BUTTON LEAVES NO DEAD PRESS")
@@ -552,6 +578,80 @@ def main(pages):
         else:
             check("crew: BACK out of a company returns the same list",
                   False, "could not set up a multi-company search")
+
+        print("\n=== TAP A GEAR LINE AND FIND OUT WHAT IT IS")
+        go("crew")
+        co = pg.evaluate(
+            "()=>{var c=(window.__CREW__&&__CREW__.companies||[])[0];"
+            "if(!c)return null;openCo(c);return c.company}")
+        pg.wait_for_timeout(500)
+        rows = pg.evaluate("()=>document.querySelectorAll('tr.gl').length")
+        check("crew: every gear line is a tap target", rows > 0,
+              "%s, %d lines" % (co, rows))
+        pg.eval_on_selector("tr.gl", "e=>e.click()")
+        pg.wait_for_timeout(600)
+        check("crew: tapping one opens its card", pg.evaluate("()=>k2DetOpen()"))
+        card = pg.eval_on_selector("#k2det-b", "e=>e.innerText")
+        check("crew: the card names the item number and who has it",
+              "ITEM NUMBER" in card.upper() and "WHO HAS IT" in card.upper(),
+              card.replace("\n", " / ")[:100])
+        check("crew: NO money on the card while the code is locked",
+              "$" not in card and "/day" not in card,
+              "clean" if "$" not in card else card)
+        pg.click(".k2back")
+        pg.wait_for_timeout(600)
+        check("crew: BACK closes the card and leaves you on the list",
+              not pg.evaluate("()=>k2DetOpen()")
+              and pg.url.rsplit("/", 1)[-1].split("#")[0] == "crew.html"
+              and pg.evaluate("()=>document.querySelectorAll('tr.gl').length") > 0)
+        pg.go_back()
+        pg.wait_for_timeout(1000)
+        check("crew: the next Back closes the company, one layer at a time",
+              pg.url.rsplit("/", 1)[-1].split("#")[0] == "crew.html"
+              and pg.eval_on_selector("#k2where-t", "e=>e.textContent")
+              == "Who\u2019s got what",
+              pg.eval_on_selector("#k2where-t", "e=>e.textContent"))
+        pg.go_back()
+        pg.wait_for_timeout(1200)
+        check("crew: and the one after that leaves - no dead presses",
+              not pg.url.endswith("crew.html"), pg.url.rsplit("/", 1)[-1])
+
+        print("\n=== FIND ONE ASSET BY ITS NUMBER")
+        go("fleet")
+        smp = pg.evaluate(
+            "()=>{var k=Object.keys(D.fleets);"
+            "for(var a=0;a<k.length;a++){var f=D.fleets[k[a]];"
+            "if(f.rows&&f.rows.length>10){var r=f.rows[8];"
+            "return {i:r.i,bc:r.bc||r.i,n:f.n,rank:r.r};}}return null}")
+        if not smp:
+            check("fleet: find an asset by its number", False, "no sample")
+        else:
+            for label, q in (("its asset number", smp["i"]),
+                             ("the barcode off the sticker", smp["bc"])):
+                n = pg.evaluate("(q)=>findAssets(q).length", q)
+                check("fleet: %s finds exactly one asset" % label, n == 1,
+                      "%r -> %d" % (q, n))
+            check("fleet: two characters does not drag the store back",
+                  pg.evaluate("()=>findAssets('12').length") == 0,
+                  "%d hits for '12'" % pg.evaluate("()=>findAssets('12').length"))
+            pg.fill("#q", smp["bc"])
+            pg.wait_for_timeout(700)
+            check("fleet: the results say an asset was found",
+                  "asset" in pg.eval_on_selector(
+                      "#view", "e=>e.innerText.slice(0,120)").lower(),
+                  pg.eval_on_selector("#view", "e=>e.innerText.split('\\n')[0]"))
+            pg.eval_on_selector("[data-ai]", "e=>e.click()")
+            pg.wait_for_timeout(1300)
+            found = pg.evaluate(
+                "()=>{var x=document.querySelector('.asset.found');"
+                "return x?x.querySelector('b').textContent:null}")
+            check("fleet: tapping it opens its fleet and walks to THAT asset",
+                  found == smp["i"], "%s (wanted %s)" % (found, smp["i"]))
+            check("fleet: and it is on screen, not somewhere below",
+                  pg.evaluate(
+                      "()=>{var x=document.querySelector('.asset.found');"
+                      "if(!x)return false;var r=x.getBoundingClientRect();"
+                      "return r.top>0&&r.top<window.innerHeight}"))
 
         br.close()
 

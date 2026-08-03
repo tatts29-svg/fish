@@ -886,7 +886,14 @@ body.hasdock{padding-bottom:64px}
 /*  the bar is full width of the board, not inset with the panes  */
 .k2bar{margin:0 -13px 12px;border-radius:0}
 
-.k2bar{position:sticky;top:0;z-index:60;display:flex;align-items:stretch;
+/*  THE BAR SITS ABOVE THE DETAIL SHEET (78 > 75) so BACK is still
+    tappable while a card is open - it closes the card. A visible BACK
+    button that cannot be pressed is the exact thing this bar was built
+    to get rid of; the card's own scrim was covering it.
+    The MENU (80) does cover the bar, and should: it IS the navigation
+    while it is open, and its top row is the way back out.
+    (Found by the checker trying to press BACK. 4 Aug 2026.)  */
+.k2bar{position:sticky;top:0;z-index:78;display:flex;align-items:stretch;
  gap:8px;background:#11161D;border-bottom:1px solid #2A3340;
  padding:7px 10px;min-height:56px}
 .k2bar button{font-family:inherit;font-size:12px;font-weight:800;
@@ -914,7 +921,7 @@ body.hasdock{padding-bottom:64px}
 /*  THE MENU. It comes up from the BOTTOM, because that is where the
     thumb already is - a list that drops from the top of a phone is a
     list you have to shuffle the phone up your hand to reach.  */
-.k2sheet{position:fixed;inset:0;z-index:70;display:none}
+.k2sheet{position:fixed;inset:0;z-index:80;display:none}
 .k2sheet.on{display:block}
 .k2sheet .k2scrim{position:absolute;inset:0;background:rgba(4,7,11,.72)}
 .k2sheet .k2panel{position:absolute;left:0;right:0;bottom:0;
@@ -946,10 +953,44 @@ body.hasdock{padding-bottom:64px}
  color:#DCE3EC;font-family:inherit;font-size:13px;font-weight:800;
  border-radius:13px;padding:13px;margin-top:6px;min-height:50px;
  letter-spacing:.6px;cursor:pointer}
+/*  THE DETAIL SHEET. Same shape as the menu, because a bloke should
+    only ever have to learn one thing that slides up from the bottom.
+    Used for "what IS this?" - tap a line, read the answer, tap away.  */
+.k2det{position:fixed;inset:0;z-index:75;display:none}
+.k2det.on{display:block}
+.k2det .k2scrim{position:absolute;inset:0;background:rgba(4,7,11,.74)}
+.k2det .k2panel{position:absolute;left:0;right:0;bottom:0;max-height:88vh;
+ display:flex;flex-direction:column;background:#151A22;
+ border-top:3px solid #F26222;border-radius:18px 18px 0 0;
+ max-width:640px;margin:0 auto}
+.k2det .k2dhd{display:flex;align-items:flex-start;gap:10px;
+ padding:14px 14px 10px;border-bottom:1px solid #2A3340}
+.k2det .k2dhd b{flex:1;min-width:0;font-size:16px;font-weight:800;
+ color:#F0F4F9;line-height:1.3}
+.k2det .k2dhd button{flex:0 0 auto;background:#1C232D;border:1px solid #38424F;
+ color:#DCE3EC;font-family:inherit;font-size:12px;font-weight:800;
+ border-radius:11px;min-height:42px;min-width:64px;padding:0 12px;
+ letter-spacing:.6px;cursor:pointer}
+.k2det .k2dbd{overflow:auto;-webkit-overflow-scrolling:touch;
+ padding:12px 14px calc(16px + env(safe-area-inset-bottom,0px))}
+.k2det .k2row{display:flex;gap:10px;padding:9px 0;
+ border-bottom:1px solid #222B36}
+.k2det .k2row:last-child{border-bottom:0}
+.k2det .k2row em{flex:0 0 108px;font-style:normal;font-size:11px;
+ font-weight:800;letter-spacing:1.1px;color:#7C8899;text-transform:uppercase;
+ padding-top:2px}
+.k2det .k2row span{flex:1;min-width:0;font-size:14px;color:#E9EEF5;
+ word-break:break-word}
+.k2det .k2row span small{display:block;color:#8B96A6;font-size:12px}
+.k2det .k2note{background:#1C232D;border:1px solid #2A3340;border-left:3px solid
+ #F26222;border-radius:0 11px 11px 0;padding:10px 12px;margin-top:11px;
+ font-size:13px;color:#C6D0DD;line-height:1.5}
+.k2det .k2note b{color:#F0F4F9}
+
 /*  NOT ON PAPER. The crew page prints a supervisor's handout and the
     fleet page prints too - a BACK button on a printed sheet is just
     ink. (4 Aug 2026.)  */
-@media print{.k2bar,.k2sheet{display:none!important}}
+@media print{.k2bar,.k2sheet,.k2det{display:none!important}}
 
 </style></head><body>
 <div class="wrap">
@@ -1139,6 +1180,8 @@ function k2Home(){
   if(had) k2Unwind();
 }
 function k2Back(){
+  /*  a sheet over the page comes off first - it is the thing on top  */
+  if(k2DetOpen()){ k2DetShut(); return; }
   var to=k2BackTo();
   if(!to) return;
   if(to.kind==='view'){
@@ -1179,6 +1222,39 @@ function k2Menu(){
   }
   s.className='k2sheet on';
   k2Push({k2menu:1});
+}
+/* ------------------------------------------------------------------
+   THE DETAIL SHEET. A LAYER, not a screen.
+
+   Tapping a line to read what it is must never cost you your place, so
+   this sits OVER whatever you were looking at and BACK takes it off
+   again before it does anything else. Order of precedence on a Back,
+   from the top down: the menu, then a detail sheet, then an inner
+   screen, then the page you came from. Each one is taken off by
+   exactly one handler.
+------------------------------------------------------------------ */
+function k2DetOpen(){
+  var d=document.getElementById('k2det');
+  return !!(d && d.className.indexOf('on')>=0);
+}
+function k2Detail(title,html){
+  var d=document.getElementById('k2det');
+  if(!d) return;
+  document.getElementById('k2det-t').innerHTML=title||'';
+  var b=document.getElementById('k2det-b');
+  b.innerHTML=html||''; b.scrollTop=0;
+  if(!k2DetOpen()){
+    d.className='k2det on';
+    document.body.style.overflow='hidden';
+    k2Push({k2det:1});
+  }
+}
+function k2DetShut(){
+  var d=document.getElementById('k2det');
+  if(!d||!k2DetOpen()) return;
+  d.className='k2det';
+  document.body.style.overflow='';
+  k2Unwind();
 }
 /*  Tapping the row you are standing on. Inside a screen it takes you
     back out - but only AFTER the menu has finished putting its own
@@ -1223,6 +1299,12 @@ window.addEventListener('popstate',function(){
     if(sh) sh.className='k2sheet';
     return;
   }
+  if(k2DetOpen()){
+    var dt=document.getElementById('k2det');
+    if(dt) dt.className='k2det';
+    document.body.style.overflow='';
+    return;
+  }
   if(typeof k2OtherOpen==='function' && k2OtherOpen()) return;
   /* A screen the PAGE routes itself (fleet.html and its hash) is the
      page&rsquo;s to close. Touching it here would close it twice and
@@ -1239,25 +1321,14 @@ window.addEventListener('popstate',function(){
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'||e.keyCode===27){
     if(k2MenuOpen()) k2Shut();
+    else if(k2DetOpen()) k2DetShut();
     else if(K2VIEW) k2Back();
   }
 });
-/*  A staff door hidden on the front door comes back the moment the
-    trail shows this session has been through it - so a storeman who
-    came in off the board still has his way back, and a contractor who
-    scanned the window QR is never shown a screen he was not already
-    on. */
-function k2Doors(){
-  var t=k2Trail(), a=document.querySelectorAll('#k2sheet a.k2staff'), i;
-  for(i=0;i<a.length;i++){
-    var k=a[i].getAttribute('data-k2');
-    if(t.indexOf(k)>=0) a[i].removeAttribute('hidden');
-  }
-}
 /* Record the arrival as soon as the bar exists. Never inside a
    DOMContentLoaded that might already have fired. */
 (function(){
-  function go(){ try{ k2Here(); k2Doors(); }catch(e){} }
+  function go(){ try{ k2Here(); }catch(e){} }
   if(document.readyState==='loading')
     document.addEventListener('DOMContentLoaded',go);
   else go();

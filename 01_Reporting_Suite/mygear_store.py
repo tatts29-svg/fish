@@ -565,24 +565,39 @@ CSS = """
  letter-spacing:2px}
 .cspread .ct span{display:block;color:#C7CED8;font-size:11.5px;
  font-weight:700;margin-top:6px}
-/*  THE WIDE CARD, UNSQUEEZED (Andrew, 3 Aug 2026 - the same fault he
-    pulled me up on for the stores board, still living here). A 132px
-    picture and a QR tile beside the words left roughly 120px of a
-    390px phone for the text, so "Multi-Gas Detector - Honeywell BW
-    Flex - Serial GM206136" came down the screen five words high and
-    the alternatives list became a wall.
-    On a phone the picture goes on top and the words get the full
-    width; from 560px up, where there is room for both, it goes back
-    to side-by-side.  */
-.stcard.wide{grid-column:1/-1;flex-direction:column}
-.stcard.wide .im{width:100%;flex:none;aspect-ratio:auto;height:132px}
-.stcard.wide .bd{flex:1;display:flex;flex-direction:column;
- justify-content:center;min-width:0}
-.stcard.wide .bd b{font-size:15px;overflow-wrap:break-word}
+/*  THE PICTURE IS A PICTURE, NOT A BILLBOARD.
+    (Andrew, 4 Aug 2026: "in the section whats in the store you have
+    enlarged the pics so so so much. needs to look like how we use
+    things in our area.")
+
+    On a phone this card stacked - a 132px-tall photograph running the
+    FULL WIDTH of the screen with the words underneath. One item filled
+    half a phone, so walking an aisle of forty lines was forty screens
+    of photography. That is not how anything else in here reads: the
+    toolbox talk, the guide rows and the stores board are all a small
+    square picture on the left with the words beside it.
+
+    So this is that shape too, at every width. 96px square on a phone,
+    132px from 560px up where there is room. The reason it was stacked
+    in the first place was that a 132px photo AND a QR tile left about
+    120px of a 390px phone for the text - so the QR comes out of the
+    picture and sits in the body as a chip instead (.stqr.s2, which was
+    already here for the list rows). Roughly 265px for the words on a
+    390px phone, and the photo still reads at a glance.  */
+.stcard.wide{grid-column:1/-1;flex-direction:row;align-items:flex-start;
+ gap:11px;padding:11px}
+/*  A SQUARE, not a strip. align-self:stretch made the picture as tall
+    as the whole card - 96 wide by 228 tall on a card with a few chips
+    on it - so a spanner lying flat came out cropped to a sliver. It is
+    a fixed square at the top left, exactly like the toolbox talk and
+    the guide rows.  */
+.stcard.wide .im{width:96px;height:96px;flex:none;align-self:flex-start;
+ aspect-ratio:auto;border-radius:12px;overflow:hidden}
+.stcard.wide .bd{flex:1;min-width:0;padding:0}
+.stcard.wide .bd b{font-size:14px;overflow-wrap:break-word}
 @media(min-width:560px){
-  .stcard.wide{flex-direction:row}
-  .stcard.wide .im{width:132px;height:auto;align-self:stretch;
-   min-height:112px}
+  .stcard.wide .im{width:132px;height:132px}
+  .stcard.wide .bd b{font-size:15px}
 }
 /*  the alternatives list reads as a list, not a paragraph  */
 .stalt span{display:block;margin-top:3px}
@@ -593,7 +608,13 @@ CSS = """
 .loc{font-style:normal;color:#FFB347;font-weight:800;letter-spacing:.4px;
   text-transform:uppercase;font-size:10px}
 .loc:before{content:"📍 ";font-size:9px}
-.stqr.s2{position:static;display:inline-block;margin-top:6px}
+/*  THE SCAN CHIP, SIZED. Moving it out of the photograph and into the
+    body made it a static element, and a static SVG with no width takes
+    the whole line - a white block right across the card, bigger than
+    the product photo next to it. It is a 46px chip. (4 Aug 2026.)  */
+.stqr.s2{position:static;display:inline-block;margin-top:7px;
+ width:46px;height:46px;box-shadow:none}
+.stqr.s2 svg{width:100%;height:100%;display:block}
 .stqr{position:absolute;bottom:8px;right:8px;background:#fff;border-radius:7px;
   padding:3px;line-height:0;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.45)}
 #stqrbig{display:none;position:fixed;inset:0;z-index:99;background:rgba(6,9,14,.96);
@@ -628,7 +649,11 @@ CSS = """
 .stcard .im{position:relative;aspect-ratio:1/1;background:#1B2330;
  display:flex;align-items:center;justify-content:center;overflow:hidden}
 .stcard .im img{width:100%;height:100%;object-fit:cover;display:block}
-.stcard .gmono{color:#8A97A8;font-weight:900;font-size:34px;letter-spacing:1px}
+.stcard .gmono{color:#8A97A8;font-weight:900;font-size:30px;letter-spacing:1px;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ width:100%;height:100%}
+.stcard .gmono u{display:block;font-size:7.5px;font-weight:800;letter-spacing:.8px;
+ color:#6B7789;text-decoration:none;margin-top:4px;text-align:center}
 .stcard .qb{position:absolute;top:8px;right:8px;border-radius:9px;
  padding:3px 10px;font-size:14px;font-weight:900;color:#08210c;background:#35D68A}
 .stcard .qb.a{background:#F0B429;color:#2a1e05}
@@ -806,8 +831,27 @@ function stRender(reset){
   });
   var head = document.getElementById('st-count');
   if(head){
-    head.textContent = hits.length ? (hits.length + (hits.length===1?' thing':' things')
-      + (cat==='All'?'':' in ' + cat)) : '';
+    /*  AND HOW MANY OF THEM HAVE NO PHOTO YET.
+        (Andrew, 4 Aug 2026: "this is missing so so many pics in this
+        area please fix.")
+        The pictures are not lost - they were never taken. 1,073 lines
+        on the shelf and 35 photographs between them. A screen full of
+        two-letter monograms with nothing saying why reads as broken,
+        and a bloke stops trusting the ones that ARE photographs.
+        So it says the number, the same way every other cut list in
+        here says what it left out. Drop a photo named after the code
+        into Photos\ and the next 04 build closes the gap - the wanted
+        list is 56_PHOTO_HUNT.  */
+    var noPic = 0;
+    for(var z=0; z<hits.length; z++){
+      var hv = hits[z].v;
+      if(!hv || (typeof hasThumb==='function' && !hasThumb(hv))) noPic++;
+    }
+    head.textContent = hits.length
+      ? (hits.length + (hits.length===1?' thing':' things')
+         + (cat==='All'?'':' in ' + cat)
+         + (noPic ? ' \u00b7 ' + noPic + ' with no photo yet' : ''))
+      : '';
   }
   if(!hits.length){
     box.innerHTML = '<div class="stnil"><b>Nothing matches that</b>'
@@ -878,11 +922,12 @@ function stRender(reset){
             ? '<img src="thumbs/' + encodeURIComponent(tsafe(it.v))
             + '.jpg" loading="lazy" alt="" data-m="' + thMono(it.n)
             + '" onerror="thxg(this)">'
-          : '<span class="gmono">' + thMono(it.n) + '</span>')
+          /*  no photograph yet, and it says so - a bare monogram looks
+              like a picture that failed to load  */
+          : '<span class="gmono">' + thMono(it.n)
+            + '<u>NO PHOTO YET</u></span>')
         + '<span class="qb ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '">'
         + big + '</span>'
-        + (window.qr ? '<span class="stqr" data-c="' + (it.v||it.n) + '" data-n="' + it.n
-           + '" onclick="stQR(event,this)">' + qr(it.v||it.n,40) + '</span>' : '')
         + '</div>'
         + '<div class="bd"><b>' + it.n + '</b>'
         + '<span><i class="loc">' + it.u + '</i>'
@@ -893,7 +938,13 @@ function stRender(reset){
               : (it.k==='c' ? 'ON THE SHELF &mdash; ' : 'READY TO HIRE &mdash; ') + it.q
                 + (it.o ? ' &middot; ' + it.o + ' out with crews' : '')))
         + '</span>'
-        + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '') + '</div></div>';
+        + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '')
+        /*  the scan code, as a chip under the words rather than a white
+            square sitting on top of the product photograph  */
+        + (window.qr ? '<span class="stqr s2" data-c="' + (it.v||it.n)
+           + '" data-n="' + it.n + '" onclick="stQR(event,this)">'
+           + qr(it.v||it.n,40) + '</span>' : '')
+        + '</div></div>';
     } else {
       html += '<div class="strow ' + cls + '" style="animation-delay:'
         + Math.min(i*14,280) + 'ms">'
@@ -928,7 +979,17 @@ function stRender(reset){
    or a two-letter monogram until its photo is collected (56_PHOTO_HUNT
    is the wanted list). Lazy-loaded so a thousand rows stay quick. */
 function thMono(n){
-  var w=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
+  /*  LETTERS, NOT THE SIZE. It took the first character of the first
+      two words, so every spanner on the shelf wore "11" - 1 1/16",
+      1 1/2", 1 1/4" all came out identical, which is worse than no
+      monogram at all because it looks like information.
+      The size is already on the line underneath; this wants the WORDS.
+      "1 1/16 Combination Spanner" -> CS. (4 Aug 2026.)  */
+  var all=String(n||'').split(/[^A-Za-z0-9]+/).filter(function(x){return x});
+  /*  a word has to START with letters - "25mm" is a size, not a word,
+      and "25mm Air Hose" was coming out as 2A instead of AH  */
+  var w=all.filter(function(x){ return /^[A-Za-z]{2,}/.test(x); });
+  if(!w.length) w=all;
   return ((w[0]||'?').charAt(0)+(w[1]||w[0]||'').charAt(0)).toUpperCase();
 }
 function tsafe(v){return String(v).replace(/[/:*?"<>|]/g,'_')}
@@ -938,7 +999,8 @@ function thTile(v,n){
      404 comes back - and below the fold, lazy loading means it never
      even asks, so the hole stays. See hasThumb in BUILD_MY_GEAR. */
   if(!v || (typeof hasThumb==='function' && !hasThumb(v)))
-    return '<span class="sth mono">'+thMono(n)+'</span>';
+    return '<span class="sth mono" title="No photo collected yet">'
+      +thMono(n)+'</span>';
   return '<span class="sth"><img src="thumbs/'+encodeURIComponent(tsafe(v))
     +'.jpg" loading="lazy" alt="" data-m="'+thMono(n)
     +'" onerror="thx(this)"></span>';

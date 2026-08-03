@@ -1295,7 +1295,21 @@ def build():
     page = (TEMPLATE
             .replace('__NAVCSS__', nav.CSS)
             .replace('__NAVBAR__', nav.bar('index', 'My Gear'))
-            .replace('__NAVSHEET__', nav.sheet('index'))
+            #  THE WORKER MENU. Not one staff screen on it - and it
+            #  still has to be worth opening, or a MENU button that
+            #  offers nothing is just another thing that does nothing.
+            #  So it carries what this page already has: the guides,
+            #  which are the four tiles a bloke scrolls past anyway.
+            .replace('__NAVSHEET__', nav.sheet('index', extra=[
+                ("openGuide('store')", "What&rsquo;s in the store",
+                 "Every line on the shelf, by aisle", None),
+                ("openGuide('contacts')", "Who to call",
+                 "The contact board", None),
+                ("openGuide('radio')", "Your two-way radio",
+                 "Channels and how to use it", None),
+                ("openGuide('gas')", "Your gas monitor",
+                 "What the readings mean", None),
+            ], extra_heading='On this page'))
             .replace('__NAVJS__', nav.js('index', 'My Gear'))
             .replace('__DATA__', json.dumps(DATA))
             .replace('__THUMBS__', json.dumps(_THUMBSET))
@@ -1511,17 +1525,27 @@ _FD_ICONS = {
 
 
 def _fd_tile(key, chip, title, sub, opens):
-    """Andrew's navigation cards (1 Aug 2026): the photograph IS the card,
-    a category chip says what kind of thing it is, and the bottom line
-    states exactly what opens before a thumb goes anywhere near it."""
+    """Andrew's navigation cards (1 Aug 2026), resized 4 Aug 2026.
+
+    They were full-bleed photographs, two across, each about as tall as
+    it was wide - so four of them filled a phone screen and a half, and
+    the door under them was a long scroll away. He pointed at the
+    toolbox talk sitting directly above them: "these are way too big we
+    need to make same size as the tool box talks."
+
+    So they ARE the toolbox talk now - the same row, the same 78px
+    square, the same padding and border and radius. Four rows instead of
+    two screens of photographs, and the picture is still there, just
+    doing the job a picture does at a glance rather than taking the
+    screen to do it."""
     return ("<button class='navt' type='button' onclick=\"openGuide('"
-            + key + "')\" style=\"background-image:url('art/" + key
-            + ".jpg')\">"
-            "<span class='ntchip'>" + chip + "</span>"
-            "<span class='ntgo'>&rsaquo;</span>"
-            "<span class='ntb'><b>" + title + "</b>"
-            "<span>" + sub + "</span>"
-            "<em>" + opens + " &rarr;</em></span></button>")
+            + key + "')\">"
+            "<i style=\"background-image:url('art/" + key + ".jpg')\"></i>"
+            "<div><span>" + chip + "</span>"
+            "<b>" + title + "</b>"
+            "<p>" + sub + "</p>"
+            "<em>" + opens + " &rarr;</em></div>"
+            "<u>&rsaquo;</u></button>")
 
 
 def _front_tiles():
@@ -2300,29 +2324,34 @@ body:before{content:"";position:fixed;left:0;right:0;top:0;height:280px;
 .talk b{display:block;font-size:16px;font-weight:800;color:#F5F7FB;margin-top:4px}
 .talk p{font-size:11.5px;color:#8794A6;line-height:1.5;margin-top:4px}
 
-/* the four cards */
+/* the four cards - the SAME ROW as the toolbox talk above them
+   (Andrew, 4 Aug 2026: "these are way to big we need to make same size
+   as the tool box talks"). Every measurement here is lifted off .talk
+   on purpose: change one, change both, or they drift apart again. */
 .navh{font-size:10px;font-weight:800;letter-spacing:2.4px;color:#6B7789;
  margin:20px 0 9px}
-.navg{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.navt{position:relative;display:block;text-align:left;border:1px solid #2A3547;
- border-radius:18px;overflow:hidden;cursor:pointer;color:#F5F7FB;font:inherit;
- padding:0;aspect-ratio:1/1.06;background:#0A0E14 center/cover no-repeat;
- transition:transform .12s,border-color .12s}
-.navt:active{transform:scale(.985);border-color:#F26222}
-.navt:before{content:"";position:absolute;inset:0;background:linear-gradient(
- 180deg,rgba(7,10,16,.55) 0%,rgba(7,10,16,.05) 34%,rgba(7,10,16,.92) 78%)}
-.ntchip{position:absolute;top:10px;left:10px;background:#F26222;color:#fff;
- font-size:8px;font-weight:800;letter-spacing:1.6px;padding:4px 9px;
- border-radius:999px}
-.ntgo{position:absolute;top:9px;right:9px;width:26px;height:26px;
- border-radius:50%;border:1.4px solid #F26222;color:#F26222;font-size:17px;
- line-height:23px;text-align:center;background:rgba(7,10,16,.5)}
-.ntb{position:absolute;left:11px;right:11px;bottom:10px;
- border-left:3px solid #F26222;padding-left:9px}
-.ntb b{display:block;font-size:14.5px;font-weight:800;line-height:1.2}
-.ntb span{display:block;font-size:10.5px;color:#9EAABB;margin-top:2px}
-.ntb em{display:block;font-style:normal;font-size:8.5px;font-weight:800;
- letter-spacing:1.1px;color:#F26222;margin-top:6px}
+.navg{display:grid;grid-template-columns:1fr;gap:9px}
+.navt{display:flex;gap:13px;align-items:center;width:100%;text-align:left;
+ padding:13px;background:linear-gradient(160deg,#121A27,#0C121C);
+ border:1px solid #263143;border-radius:18px;cursor:pointer;
+ color:#F5F7FB;font:inherit;transition:transform .12s,border-color .12s}
+.navt:active{transform:scale(.99);border-color:#F26222}
+.navt i{width:78px;height:78px;border-radius:14px;flex:none;
+ background:#0B111A center/cover no-repeat;border:1px solid #2A3547}
+.navt div{flex:1;min-width:0}
+.navt span{display:block;font-size:9.5px;font-weight:800;letter-spacing:2px;
+ color:#F26222}
+.navt b{display:block;font-size:16px;font-weight:800;color:#F5F7FB;
+ margin-top:4px;line-height:1.2}
+.navt p{font-size:11.5px;color:#8794A6;line-height:1.5;margin-top:3px}
+.navt em{display:block;font-style:normal;font-size:8.5px;font-weight:800;
+ letter-spacing:1.1px;color:#F26222;margin-top:5px}
+.navt u{flex:none;width:26px;height:26px;border-radius:50%;
+ border:1.4px solid #F26222;color:#F26222;font-size:17px;line-height:23px;
+ text-align:center;text-decoration:none}
+/* a wide screen gets two across again - a tablet has the room and the
+   rows would otherwise stretch to a metre wide */
+@media (min-width:620px){.navg{grid-template-columns:1fr 1fr}}
 
 /* no app, no password, any phone */
 .trust{display:flex;justify-content:space-between;gap:6px;margin:16px 0 0;
