@@ -129,6 +129,11 @@ SEED_ONCE = (
     "racks.txt",
     "my_gear_network.txt",
     "shutdown_end.txt",
+    #  which arrival statuses are held off the board. His to change the
+    #  day Baseplan is sorted out - an update must not put the eleven
+    #  Failed Baseplan items back on the counter's screen behind his
+    #  back (3 Aug 2026).
+    "arrivals_hide.txt",
     #  the Baseplan serial listing, so serials work out of the box; a
     #  newer export dropped in Data_Serials\\ always wins from then on
     "serial_no_shutdowns.xlsx",

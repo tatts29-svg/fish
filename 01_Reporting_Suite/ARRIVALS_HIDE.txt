@@ -1,0 +1,32 @@
+# =====================================================================
+#  COATES | K2 - ARRIVAL STATUSES TO HOLD BACK
+#  Cement Australia K2 Shutdown 2026 - Gladstone
+#  Author: Andrew Fisher
+#
+#  The stores board flags anything that is neither on the shelf nor out
+#  with a crew as ARRIVING, so the counter knows it is coming rather
+#  than wonders where it went.
+#
+#  Some of those cannot be actioned from the counter at all. A line
+#  listed here keeps that status OFF the arrivals tile and out of the
+#  arrivals list - the gear stays on the register and is still counted
+#  in the build's asset ladder, it just stops sitting on a screen
+#  telling somebody to do something they cannot do.
+#
+#  DELETE THE LINE AND IT COMES STRAIGHT BACK on the next build. That
+#  is the point - this is a "not yet", not a "never".
+#
+#  The build prints how many were held and under which status, every
+#  run. Nothing here is silent.
+#
+#  Case and spacing do not matter. A line starting with # is a note.
+# =====================================================================
+
+# --- Andrew, 3 Aug 2026 ----------------------------------------------
+#  "i cant do anything with them so its just easier to hide them until
+#  i can fix"
+#
+#  11 assets sit in Failed Baseplan - 9 safety steps, a telescopic
+#  light and an air arc gouging torch. Nothing at the counter can move
+#  them; it is fixed in Baseplan, not in the store.
+Failed Baseplan

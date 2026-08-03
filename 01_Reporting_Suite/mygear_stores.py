@@ -491,6 +491,30 @@ def _tag_now():
         return {'c': '', 'x': '#8A97A8'}
 
 
+ARRIVALS_HIDE_FILE = 'ARRIVALS_HIDE.txt'
+
+
+def _arrivals_hidden(here=None):
+    """Arrival statuses to keep off the board. See ARRIVALS_HIDE.txt.
+
+    Returns a set of lower-cased statuses. No file = empty set and the
+    board behaves exactly as it did before the file existed.
+    """
+    import os as _os
+    base = here or _os.path.dirname(_os.path.abspath(__file__))
+    p = _os.path.join(base, ARRIVALS_HIDE_FILE)
+    out = set()
+    try:
+        with open(p, encoding='utf-8', errors='replace') as fh:
+            for line in fh:
+                line = line.split('#', 1)[0].strip()
+                if line:
+                    out.add(line.lower())
+    except OSError:
+        pass
+    return out
+
+
 def read(rental_path, stocktake_path, master=None, today=None,
          txn_path=None, sales_path=None, base=None):
     """Everything the counter needs, from the two registers.
@@ -521,6 +545,12 @@ def read(rental_path, stocktake_path, master=None, today=None,
     groups, chase_t, chase_p, idle = {}, [], [], []
     find_av = {}          # the finder's shelf index: name\x1funit -> [items]
     arrivals, plant = [], {'out': [], 'idle': [], 'free': []}
+    #  Arrival statuses the counter cannot action - see ARRIVALS_HIDE.txt.
+    #  The gear stays on the register and stays in the asset ladder; it
+    #  just stops sitting on a screen asking somebody to do something
+    #  that can only be done in Baseplan (Andrew, 3 Aug 2026).
+    _arr_hide = _arrivals_hidden()
+    _arr_held = {}
     roster = []                                   # every on-hire item
     #  Same four rules as the daily hit list in the company report
     #  builder (menu H) - one standard across the suite, not two.
@@ -554,6 +584,9 @@ def read(rental_path, stocktake_path, master=None, today=None,
         #  coming rather than wonder where it went.
         #  (Andrew, 29 Jul 2026: "flag anything that is in arrival status")
         if status not in ('Available for Hire', 'On Hire'):
+            if status and status.strip().lower() in _arr_hide:
+                _arr_held[status] = _arr_held.get(status, 0) + 1
+                continue
             if status:
                 arrivals.append({
                     'n': MS._tidy(g(r, 'ITEM_DESCRIPTION'), master,
@@ -1248,6 +1281,10 @@ def read(rental_path, stocktake_path, master=None, today=None,
                         if stock['total'] else 0,
             'stale': len(stock['stale']),
             'arrivals': len(arrivals),
+            #  held out of arrivals by ARRIVALS_HIDE.txt - reported by
+            #  the build so the count is never quietly short
+            'arrHeld': sum(_arr_held.values()),
+            'arrHeldBy': dict(_arr_held),
             'plantOn': len(plant['out']),
             'plantIdle': len(plant['idle']),
             'plantFree': len(plant['free']),

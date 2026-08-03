@@ -1089,6 +1089,20 @@ def build():
         #  register of 4,230 against a real 4,213 - a reconciliation
         #  line that itself did not reconcile (caught immediately,
         #  3 Aug 2026).
+        #  ARRIVALS HELD BACK. Andrew asked for the Failed Baseplan
+        #  items off the board because nothing at the counter can move
+        #  them - but a tile that quietly reads 0 instead of 11 is the
+        #  thing this suite keeps catching everywhere else. Held, and
+        #  said out loud, every run (3 Aug 2026).
+        _held = _t.get('arrHeld') or 0
+        if _held:
+            _by = _t.get('arrHeldBy') or {}
+            print('    ({} item(s) held OFF the arrivals tile by '
+                  'ARRIVALS_HIDE.txt: {}. Still on the register and '
+                  'still counted below - delete the line to bring them '
+                  'back.)'.format(
+                      _held, ', '.join('{} x {}'.format(v, k)
+                                       for k, v in sorted(_by.items()))))
         _ss = STOCK.get('stats') or {}
         _obs, _hid = _ss.get('obsolete') or 0, _ss.get('hidden') or 0
         if _obs:
@@ -1406,7 +1420,12 @@ def build():
         _ss2 = STOCK.get('stats') or {}
         _shelf = _t['avail']
         _obs2 = _ss2.get('obsolete') or 0
-        _arr = _t['arrivals']
+        #  the ladder counts what is ON THE REGISTER, so the held
+        #  arrivals are counted here even though the tile does not show
+        #  them. Otherwise hiding 11 items would put the total 11 short
+        #  and the ladder would stop tying - which is the whole point of
+        #  having it.
+        _arr = _t['arrivals'] + (_t.get('arrHeld') or 0)
         _onh = tot_items + _pool + _nocard
         _sum = _shelf + _obs2 + _onh + _arr
         _reg_rows = REG_ROWS[0]
@@ -1421,8 +1440,10 @@ def build():
         if _nocard:
             print('    {:>6,}  out with no card number on the '
                   'export'.format(_nocard))
-        print('    {:>6,}  arriving - failed baseplan, not on the shelf '
-              'yet'.format(_arr))
+        print('    {:>6,}  arriving - not on the shelf yet{}'.format(
+            _arr,
+            ' ({} held off the tile)'.format(_t.get('arrHeld'))
+            if _t.get('arrHeld') else ''))
         print('    {:>6,}  TOTAL against a register of {:,}{}'.format(
             _sum, _reg_rows,
             '' if _sum == _reg_rows

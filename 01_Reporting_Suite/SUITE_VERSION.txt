@@ -1,7 +1,7 @@
-# Coates K2 suite version - 169 files - overall f32e589f
+# Coates K2 suite version - 169 files - overall 89449470
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-03 16:29:47
+# taken 2026-08-03 16:44:50
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -75,11 +75,11 @@ e487d6f141 70_SERIAL_NUMBERS.bat
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
-cec07ecabf APPLY_SUITE_UPDATE.py
+8bce6d250a APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 d6e053189c BUILD_DAILY_EMAIL_PACKS.py
-df11c8fe23 BUILD_MY_GEAR.py
+5583fe4dff BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
 bc00d71105 CHECK_REPORTS.py
@@ -153,7 +153,7 @@ f013359327 mybranch.py
 0643367cb0 mygear_intel.py
 6ade9a441b mygear_movement.py
 3c8d860f4b mygear_store.py
-e12d6422a3 mygear_stores.py
+0fc4aa2fb6 mygear_stores.py
 83d68fee44 mygear_thumbs.py
 6e43e676db mygear_ui.py
 5dbf7b3d91 net_pick.py
