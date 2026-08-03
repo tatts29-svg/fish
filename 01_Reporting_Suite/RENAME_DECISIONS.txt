@@ -79,3 +79,27 @@ Hose - Air - Type A - 25mm - 20m  =>  19 mm Air Hose
 Girder Trolley - 1t | GIRDERTROLLEY1T  =>  Girder Trolley 1T
 Girder Trolley - 1t | GIRDERTROLLEY2T  =>  Girder Trolley 2T
 Girder Trolley - 3t | GIRDERTROLLEY3T  =>  Girder Trolley 3T
+
+# --- Andrew, 3 Aug 2026 ----------------------------------------------
+#  "with the Milwaukee Hammer Drill lets leave it at that and remove
+#  13mm and 12mm out"
+#
+#  SiteIQ writes the same drill five ways and three of them carry a
+#  chuck size. One name, no size, across all of them - 19 assets:
+#
+#      8   Drill Hammer 13mm  Battery
+#      7   Drill - Cordless (18V) - Greener Choice
+#      2   Drill Hammer 12mm Cordless - Greener Choice
+#      1   Drill 13mm Battery
+#      1   Drill Hammer 12mm Cordless
+#
+#  The build was flagging this as a name covering two sizes. It is, and
+#  that is the decision - so it stops asking about these five.
+#
+#  The SDS Plus drill keeps its own name: different tool, different
+#  chuck, not part of this.
+Drill Hammer 13mm  Battery  =>  KEEP
+Drill - Cordless (18V) - Greener Choice  =>  KEEP
+Drill Hammer 12mm Cordless - Greener Choice  =>  KEEP
+Drill 13mm Battery  =>  KEEP
+Drill Hammer 12mm Cordless  =>  KEEP

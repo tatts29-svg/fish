@@ -111,6 +111,24 @@ SEED_ONCE = (
     #  update must never overwrite a decision he has made on site
     #  (3 Aug 2026, the 1.6T cumalongs and the 3/4 air hose).
     "rename_decisions.txt",
+    #  THREE FILES THAT WERE ALREADY HIS AND NOBODY HAD SAID SO.
+    #  RACKS.txt opens with the line "Andrew's file. Updates never
+    #  overwrite it" - and nothing enforced that. Proved it on 3 Aug by
+    #  putting a rack line in and shipping a different copy over the
+    #  top: the layout was gone, and SiteIQ carries no shelf location,
+    #  so that file is the only place it exists. Nothing could rebuild
+    #  it.
+    #
+    #  MY_GEAR_NETWORK.txt is the store's own Wi-Fi prefix, name and
+    #  port - it is different on every machine and an update carrying
+    #  one machine's copy would take the phones off the air.
+    #  shutdown_end.txt is the end date the whole clock counts to.
+    #
+    #  Same rule as the rest: they ARRIVE on a machine that has none,
+    #  and are never written over on a machine that does.
+    "racks.txt",
+    "my_gear_network.txt",
+    "shutdown_end.txt",
     #  the Baseplan serial listing, so serials work out of the box; a
     #  newer export dropped in Data_Serials\\ always wins from then on
     "serial_no_shutdowns.xlsx",

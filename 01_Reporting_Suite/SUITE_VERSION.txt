@@ -1,7 +1,7 @@
-# Coates K2 suite version - 169 files - overall d838bb12
+# Coates K2 suite version - 169 files - overall f32e589f
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-03 16:03:45
+# taken 2026-08-03 16:29:47
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -75,7 +75,7 @@ e487d6f141 70_SERIAL_NUMBERS.bat
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
-c06adc0634 APPLY_SUITE_UPDATE.py
+cec07ecabf APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 d6e053189c BUILD_DAILY_EMAIL_PACKS.py
