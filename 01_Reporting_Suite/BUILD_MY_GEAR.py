@@ -3096,6 +3096,50 @@ if __name__ == '__main__':
         raise
     except Exception as e:
         print('PROBLEM: the build fell over - ' + str(e))
+        #  NAME THE FILE. "File is not a zip file" is what openpyxl says
+        #  when an .xlsx is half-downloaded or the sync dropped mid-copy,
+        #  and it tells the man standing at the counter nothing at all.
+        #  Every export gets opened here and the broken ones get named,
+        #  with their size and age, because a 4 KB RENTAL_STOCK from two
+        #  minutes ago is a re-pull, not a mystery (3 Aug 2026).
+        if 'zip file' in str(e).lower() or 'corrupt' in str(e).lower():
+            print()
+            print('That message means one of the Excel exports is damaged '
+                  '- usually half-downloaded, or copied while SiteIQ was '
+                  'still writing it. Checking which one:')
+            import glob as _g
+            _base = os.path.dirname(os.path.abspath(__file__))
+            _bad = []
+            for _p in sorted(_g.glob(os.path.join(_base, 'Data_SiteIQ',
+                                                  '*.xlsx'))
+                             + _g.glob(os.path.join(_base, '*.xlsx'))):
+                if os.path.basename(_p).startswith('~$'):
+                    continue
+                try:
+                    import openpyxl as _ox
+                    _wb = _ox.load_workbook(_p, read_only=True,
+                                            data_only=True)
+                    _wb.close()
+                except Exception:
+                    _kb = os.path.getsize(_p) / 1024.0
+                    _mins = (dt.datetime.now() - dt.datetime.fromtimestamp(
+                        os.path.getmtime(_p))).total_seconds() / 60.0
+                    _bad.append((os.path.basename(_p), _kb, _mins))
+            if _bad:
+                for _n, _kb, _mins in _bad:
+                    print('    {:<28} {:>8.0f} KB   saved {} ago'.format(
+                        _n, _kb,
+                        '{:.0f} min'.format(_mins) if _mins < 120
+                        else '{:.0f} hr'.format(_mins / 60)))
+                print()
+                print('  Re-pull {} from SiteIQ, let the download finish, '
+                      'and run this again.'.format(
+                          _bad[0][0] if len(_bad) == 1
+                          else 'those {} report(s)'.format(len(_bad))))
+            else:
+                print('    ...every .xlsx beside the suite opens fine, so '
+                      'the damaged one is somewhere else. Send me this '
+                      'whole message.')
         print('Nothing was overwritten. Check the exports are the standard '
               'SiteIQ pulls and run again.')
         sys.exit(1)

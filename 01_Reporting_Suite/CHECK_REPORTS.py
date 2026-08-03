@@ -74,13 +74,44 @@ def visible_text(html):
     return WS.sub(" ", s)
 
 
+#  A row that names customer-owned gear, and any dollar figure on it.
+#  Andrew's standing rule: tracked and client-owned gear carries NO
+#  dollar figure anywhere, not even $0. It is not our gear, so a number
+#  beside it is either a charge we are not making or a value we have no
+#  business publishing - and the person reading it has no way to tell
+#  which. Checked row by row, because a page can be perfectly clean
+#  everywhere except the eight lines that matter (3 Aug 2026).
+ROW = re.compile(r"<tr\b.*?</tr>", re.S | re.I)
+OWNED = re.compile(r"customer\s*owned|client[-\s]*owned", re.I)
+MONEY = re.compile(r"\$\s?[0-9][0-9,]*(?:\.[0-9]{2})?")
+
+
+def scan_owned(path):
+    """Dollar figures sitting on customer-owned lines. Raw HTML, not
+    visible_text - the table rows have to still be rows."""
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            raw = f.read()
+    except Exception:
+        return []
+    hits = []
+    for row in ROW.findall(raw):
+        if not OWNED.search(row):
+            continue
+        for m in MONEY.finditer(row):
+            name = " ".join(TAG.sub(" ", row).split())[:60]
+            hits.append(("money on customer-owned gear",
+                         "{}  on:  {}".format(m.group(0), name), 0))
+    return hits
+
+
 def scan(path):
     try:
         with open(path, encoding="utf-8", errors="replace") as f:
             txt = visible_text(f.read())
     except Exception as e:
         return [("unreadable", str(e), 0)]
-    hits = []
+    hits = scan_owned(path)
     for line_no, line in enumerate(txt.split("\n"), 1):
         line = line.strip()
         if not line:
@@ -202,10 +233,27 @@ def main():
         print("")
         print("   " + rel)
         for (kind, what), n in sorted(seen.items(), key=lambda x: -x[1]):
-            print("      {:<12} {:<22} x{}".format(kind, what[:22], n))
+            #  the money finding needs its whole line - the item it is
+            #  sitting on IS the finding, and 22 characters cuts it off
+            wide = kind.startswith("money")
+            print("      {:<12} {} x{}".format(
+                kind, what if wide else "{:<22}".format(what[:22]), n))
     print("")
-    print(" An unfilled {placeholder} means a value never reached the page -")
-    print(" the report built cleanly and is still wrong. Send me this list.")
+    #  ADVICE THAT MATCHES WHAT WAS FOUND. One closing line about
+    #  placeholders was printed whatever the problem was, so a page
+    #  held back for a rate on customer-owned gear was explained as a
+    #  missing number - the wrong instruction, confidently given.
+    _kinds = set(k for p in bad for k, _w, _l in bad[p])
+    if any(k.startswith("money") for k in _kinds):
+        print(" A dollar figure on customer-owned gear is not ours to")
+        print(" publish - it is not our gear. Take the figure off that")
+        print(" line, or take the line off the report, before it goes.")
+    if any(k in ("placeholder", "empty value") for k in _kinds):
+        print(" An unfilled {placeholder} means a value never reached the")
+        print(" page - the report built cleanly and is still wrong.")
+    if "unreadable" in _kinds:
+        print(" An unreadable page means the file is damaged. Rebuild it.")
+    print(" Send me this list.")
     return 1
 
 

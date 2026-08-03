@@ -47,6 +47,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BUILDER = os.path.join(HERE, "BUILD_DAILY_EMAIL_PACKS.py")
 
 PASS, FAIL = [], []
+#  checks that could not run, and why - counted separately from
+#  passes, because "did not run" is not "passed"
+SKIPPED = []
 
 
 def ok(name, detail=""):
@@ -1014,17 +1017,46 @@ def main():
         print("  py TEST_DAILY_PACKS.py --date 2026-07-25")
         return 2
 
+    #  PART 3b MEDDLES WITH THE COMPANY REPORTS, so it needs them to
+    #  exist. Without them it used to walk straight into shutil.copy2
+    #  and throw a FileNotFoundError traceback - forty lines of Python
+    #  whose actual message is "run the company report first". A test
+    #  that cannot say what is missing is not a test, it is a stack
+    #  trace with a job title (3 Aug 2026).
+    _co = glob.glob(os.path.join(HERE, "Reports", date_tag, "Pages",
+                                 "Coates_OnHire_Report_*.html"))
+
     wbk = read_workbook(book)
     verify_packs(root, wbk, date_tag)
     sabotage(date_tag, book)
-    quiet_failures(date_tag, book)
+    if _co:
+        quiet_failures(date_tag, book)
+    else:
+        print("")
+        print("-" * 68)
+        print(" PART 3b - SKIPPED, and here is exactly why")
+        print("-" * 68)
+        print("  These checks meddle with a copy of the per-company")
+        print("  on-hire reports, and none are built for {}.".format(date_tag))
+        print("")
+        print("  Build them first:   py build_company_onhire_report.py --all")
+        print("                 or:   03_RUN_COMPANY_REPORT.bat")
+        print("")
+        print("  Then run me again and Part 3b will run with the rest.")
+        SKIPPED.append("Part 3b - no company on-hire reports built")
     record_handling(date_tag, book)
     no_overwrite(root, date_tag)
 
     print("")
     print("=" * 68)
-    print(" {} passed, {} failed".format(len(PASS), len(FAIL)))
+    print(" {} passed, {} failed{}".format(
+        len(PASS), len(FAIL),
+        ", {} SKIPPED".format(len(SKIPPED)) if SKIPPED else ""))
     print("=" * 68)
+    #  A skipped check reported as a pass is how a suite says "all
+    #  good" about work it never did.
+    for _s in SKIPPED:
+        print("  SKIPPED: " + _s)
     if FAIL:
         print("")
         for name, detail in FAIL:
@@ -1035,6 +1067,10 @@ def main():
     print("")
     print(" Every pack matches the workbook. Nothing was overwritten, and")
     print(" four deliberate routing mistakes were all caught and held.")
+    if SKIPPED:
+        print("")
+        print(" {} check(s) above did NOT run. Read them before you treat".format(len(SKIPPED)))
+        print(" this as a clean day.")
     print("")
     return 0
 
