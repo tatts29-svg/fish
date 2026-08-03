@@ -311,6 +311,24 @@ def alias_photos(photos, codes, loose=None):
     if not photos:
         return photos
     loose = loose or {}
+    #  walked three times below, so never leave it as a one-shot iterator
+    codes = list(codes)
+    #  every register code, punctuation stripped - so the family rule
+    #  below can tell "a name that is deliberately incomplete" from
+    #  "a name that is already an exact code"
+    _codeset = set()
+    #  normalised forms that more than one code answers to - ambiguous,
+    #  so only an exact filename may claim them
+    _ambig, _seen = set(), {}
+    for c in codes:
+        sn = safe_name(str(c or '').strip().upper())
+        n = _norm(sn)
+        if not n:
+            continue
+        _codeset.add(n)
+        if n in _seen and _seen[n] != sn:
+            _ambig.add(n)
+        _seen[n] = sn
     normed, toks = {}, {}
     for stem, path in photos.items():
         normed.setdefault(_norm(stem), path)
@@ -338,10 +356,23 @@ def alias_photos(photos, codes, loose=None):
         nc = _norm(code)
         if not nc:
             continue
-        hit = normed.get(nc)
+        #  Rule 1, but only where stripping the punctuation still leaves
+        #  one answer. SPANNERCOM1-5/16 and SPANNERCOM15/16 are a
+        #  1-5/16" spanner and a 15/16" spanner; with the dashes and
+        #  slashes taken out they are the same fourteen characters. The
+        #  FILENAMES stay apart - Windows takes SPANNERCOM1-5_16 and
+        #  SPANNERCOM15_16 - so an exact filename is still honoured
+        #  above. It is only the loose match that must stand down, and
+        #  while a photo pack is half-collected that is exactly the case
+        #  that fires: one photo present, the other size borrowing it
+        #  and nothing on the page saying so (3 Aug 2026).
+        hit = None if nc in _ambig else normed.get(nc)
         if hit is None and len(nc) >= 16:
             for ns in normed:
-                if ns.startswith(nc):
+                #  and a photo whose name IS another code belongs to
+                #  that code: LEADEXT415V5PIN32AMPBRAID is a braided
+                #  lead, not a longer way of writing the plain one.
+                if ns.startswith(nc) and ns not in _codeset:
                     hit = normed[ns]
                     break
         #  ONE PHOTO, WHOLE FAMILY (Andrew, 3 Aug 2026: "crows feet
@@ -352,9 +383,22 @@ def alias_photos(photos, codes, loose=None):
         #  START with it, so a photo called SOCKET.jpg still cannot
         #  claim every socket in the register - and a photo that DOES
         #  name a size (43MM) claims only that size, exactly as now.
+        #  ...but a photo named after a REAL code is that code's photo
+        #  and nothing else's. Strip the punctuation out and
+        #  SPANNERFLOG1 is the front of SPANNERFLOG1-1/16, so a photo of
+        #  the 1" flogging spanner was set to become the picture for the
+        #  1-1/16, the 1-1/4, the 1-1/2 - fifteen sizes, all wearing the
+        #  wrong one's face, and nothing on any screen to say so.
+        #  29 codes in the register did this, mostly sockets and
+        #  spanners, where the size IS the whole difference.
+        #
+        #  A family stem is a name that is deliberately incomplete -
+        #  12DRIVECROWSFEET, which is no code at all, claiming the
+        #  fourteen sizes behind it. A name that IS a code has already
+        #  said exactly which item it means (3 Aug 2026).
         if hit is None:
             for ns in normed:
-                if len(ns) >= 12 and nc.startswith(ns):
+                if len(ns) >= 12 and nc.startswith(ns) and ns not in _codeset:
                     hit = normed[ns]
                     break
         if hit is None and code in loose:
