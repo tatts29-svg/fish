@@ -555,6 +555,33 @@ def hold_or_release(pack, folder, date_tag):
     this is that rule, made physical."""
     live = os.path.join(folder, "Email Draft - {}.eml".format(date_tag))
     held = os.path.join(folder, "HOLD - Email Draft - {}.eml.txt".format(date_tag))
+
+    def _same_draft(a, b):
+        """Two drafts that differ only by when they were built.
+
+        The Date and Message-ID headers move every run by design, so a
+        byte compare would call every rebuild a change. Everything else -
+        recipients, subject, body, every attachment - must match.
+        """
+        try:
+            import email as _em
+            import email.policy as _pol
+            out = []
+            for p in (a, b):
+                with open(p, "rb") as fh:
+                    m = _em.message_from_binary_file(fh, policy=_pol.default)
+                parts = []
+                for part in m.walk():
+                    if part.get_content_maintype() == "multipart":
+                        continue
+                    parts.append((part.get_content_type(),
+                                  part.get_filename() or "",
+                                  part.get_payload(decode=True) or b""))
+                out.append((str(m["To"] or ""), str(m["Cc"] or ""),
+                            str(m["Subject"] or ""), parts))
+            return out[0] == out[1]
+        except Exception:
+            return False          # cannot prove they match - keep both
     ready = pack["status"] == K.ST_DRAFT_READY
 
     if ready:
@@ -577,9 +604,26 @@ def hold_or_release(pack, folder, date_tag):
     if not os.path.isfile(live):
         return ""
 
-    #  Keep any earlier held draft rather than writing over it - rule 7
-    #  applies to these too.
+    #  SAME PACK, SAME HOLD - no second copy. Rule 7 says never write
+    #  over an earlier draft, and that is right when the draft has
+    #  CHANGED. When it has not, superseding it is not preserving
+    #  anything: it just leaves (earlier 1), (earlier 2), (earlier 3)
+    #  behind, one per run, for a pack that is held for the same reason
+    #  every time. QWest Crane Hire has no address yet, so it is held
+    #  every run - it grew a new file each time and broke the suite's
+    #  own "not one filed byte changed on the second run" test
+    #  (3 Aug 2026).
+    #
+    #  Compared on content, not on timestamps - two builds of the same
+    #  pack differ by their Date header alone otherwise.
     if os.path.isfile(held):
+        if _same_draft(live, held):
+            try:
+                os.remove(live)          # nothing new to file
+            except OSError:
+                pass
+            pack["draft"] = held
+            return "held - unchanged since the last run"
         for n in range(1, 60):
             keep = os.path.join(folder, "HOLD - Email Draft - {} (earlier {})"
                                         ".eml.txt".format(date_tag, n))

@@ -93,6 +93,27 @@ ALIASES = {
     "Synclift": "Sync Lift Engineering",
     "Tasman Rope Access": "TASMAN ROPE ACCESS",
     "Universal Cranes": "UNIVERSAL CRANES",
+    #  FOUR COMPANIES THE PACKS HAD NEVER HEARD OF (3 Aug 2026).
+    #
+    #  Andrew sent a photograph of a contact card: three days of
+    #  Coates_K2_Activity_BOSCH_REXROTH_*.pdf sitting against
+    #  gerhardus.vanderwesthuizen@boschrexroth.com.au, timestamped 7:45,
+    #  8:16 and 7:53 in the morning. The suite BUILDS that report - it
+    #  just had nobody to address it to, because Bosch was not on this
+    #  map or in the routing workbook. So he had been attaching it by
+    #  hand every morning, which is also why his own name kept turning
+    #  up in the To: he opens a draft addressed to himself and adds the
+    #  contractor.
+    #
+    #  Four companies holding gear were in that state - 12 items and 6
+    #  people between them. Small enough to go unnoticed, which is
+    #  exactly why they did.
+    "Bosch Rexroth": "BOSCH REXROTH",
+    "Industrial Rescue": "Industrial Rescue & Emergency Training",
+    "Filtercare": "Filtercare",
+    #  no address yet - the pack builds, files the record, and is HELD
+    #  rather than drafted. Andrew fills the To in when he has it.
+    "QWest Crane Hire": "QWEST CRANE HIRE",
     #  Genuinely nothing on hire today - they get a folder and a record,
     #  never an email with no data. The guard watches this one too.
     "Cleanaway": None,
@@ -529,6 +550,17 @@ def domains_of(by_company, names):
     return out
 
 
+def _unescape(s):
+    """HTML back to the words a person reads. &amp; -> & and so on."""
+    try:
+        import html as _html
+        return _html.unescape(s)
+    except Exception:
+        return (s.replace("&amp;", "&").replace("&nbsp;", " ")
+                 .replace("&#38;", "&").replace("&quot;", '"')
+                 .replace("&lt;", "<").replace("&gt;", ">"))
+
+
 def _body_names_other_companies(body_file, own_company, own_data_company):
     """Read the report that is about to be pasted into the email and look
     for ANOTHER contractor's name in it. Checking the filename is not
@@ -538,7 +570,20 @@ def _body_names_other_companies(body_file, own_company, own_data_company):
         return ["(there is no report to read)"]
     try:
         with open(body_file, "r", encoding="utf-8", errors="ignore") as fh:
-            text = fh.read().lower()
+            #  UNESCAPE BEFORE COMPARING. The report writes the company
+            #  name as HTML - "Industrial Rescue &amp; Emergency
+            #  Training" - and this check was looking for the raw "&".
+            #  It never matched, so the report "did not name" the very
+            #  company it was about, and the pack was held for ever.
+            #
+            #  ANY company with an ampersand hits this. The dangerous
+            #  part is not the held pack: it is that the obvious way to
+            #  make a stuck pack go out is to loosen this check, and
+            #  this check is the thing standing between a DGH gear list
+            #  and a Cleanaway inbox. Unescaping makes it STRICTER -
+            #  both halves now compare real text against real text.
+            #  (3 Aug 2026.)
+            text = _unescape(fh.read()).lower()
     except Exception as exc:
         #  Can't read it, can't clear it. A check never passes by default.
         return ["(could not read the report: {})".format(exc)]
