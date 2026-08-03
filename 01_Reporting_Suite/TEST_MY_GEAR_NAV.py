@@ -499,6 +499,38 @@ def main(pages):
               "leaves the page",
               not pg.url.endswith("index.html"), pg.url.rsplit("/", 1)[-1])
 
+        print("\n=== MENU CAN GET YOU BACK TO THE BOARD")
+        go("stores")
+        pg.evaluate("()=>nav('print')")
+        pg.wait_for_timeout(400)
+        pg.click(".k2menu"); pg.wait_for_timeout(320)
+        row = pg.evaluate(
+            "()=>({sub:document.getElementById('k2here-s').textContent,"
+            "chev:document.getElementById('k2here-c').textContent})")
+        check("stores: standing inside a pane, the top row does NOT claim "
+              "you are on the board",
+              "YOU ARE HERE" not in row["chev"]
+              and "You are in" in row["sub"], json.dumps(row))
+        pg.eval_on_selector("#k2here", "a=>a.click()")
+        pg.wait_for_timeout(900)
+        check("stores: and tapping it brings you back to the board",
+              pg.evaluate("()=>document.getElementById('p-home')"
+                          ".className.indexOf('on')>=0")
+              and not pg.evaluate("()=>k2MenuOpen()"),
+              pg.eval_on_selector("#k2where-t", "e=>e.textContent"))
+        pg.go_back()
+        pg.wait_for_timeout(1300)
+        check("stores: and that left no dead press behind it",
+              not pg.url.endswith("stores.html"), pg.url.rsplit("/", 1)[-1])
+
+        go("stores")
+        pg.click(".k2menu"); pg.wait_for_timeout(320)
+        row2 = pg.evaluate(
+            "()=>document.getElementById('k2here-c').textContent")
+        check("stores: standing ON the board, it says YOU ARE HERE",
+              "YOU ARE HERE" in row2, row2)
+        pg.click(".k2close"); pg.wait_for_timeout(250)
+
         print("\n=== BACK ON THE CREW PAGE KEEPS THE LIST YOU SEARCHED")
         go("crew")
         n_before = pg.evaluate(

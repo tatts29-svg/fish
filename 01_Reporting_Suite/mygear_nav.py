@@ -195,11 +195,23 @@ def sheet(page_key, extra=None, extra_heading="On this page"):
          '<h4>Where do you want to go</h4>']
     for key, href, name, sub, who in PAGES:
         if key == page_key:
+            #  THE ROW FOR THE PAGE YOU ARE ON, and it has to tell the
+            #  truth. It used to be a dead tap marked YOU ARE HERE -
+            #  which is a lie when you are three screens into the money
+            #  pane, and a manager tapped it twice and then went hunting
+            #  the edges of the screen. It is written by k2Menu() every
+            #  time the sheet opens: standing on the page it says YOU
+            #  ARE HERE and does nothing, standing INSIDE one of its
+            #  screens it says so and takes you back out.
+            #  (4 Aug 2026 - the one thing MENU could not do was get you
+            #  home, and MENU covers up the two controls that could.)
             h.append(
-                '<a class="k2on" href="#" onclick="k2Shut();return false">'
-                '<div class="k2t"><b>{n}</b><span>{s}</span></div>'
-                '<span class="k2chev">YOU ARE HERE</span></a>'.format(
-                    n=name, s=sub))
+                '<a class="k2on" id="k2here" href="#"'
+                ' onclick="return k2HereTap()">'
+                '<div class="k2t"><b>{n}</b>'
+                '<span id="k2here-s">{s}</span></div>'
+                '<span class="k2chev" id="k2here-c">YOU ARE HERE</span>'
+                '</a>'.format(n=name, s=sub))
         else:
             #  A staff door on the crew-facing front page is hidden
             #  until this session has actually been through it. Marked
@@ -239,7 +251,9 @@ def js(page_key, home_label, home_where="You are here"):
             .replace("__PARENT__", "null" if not parent
                      else "'{}'".format(parent))
             .replace("__HOMELABEL__", _plain(home_label))
-            .replace("__HOMEWHERE__", _plain(home_where)))
+            .replace("__HOMEWHERE__", _plain(home_where))
+            .replace("__HOMESUB__", _plain(
+                next((x[3] for x in PAGES if x[0] == page_key), ""))))
 
 
 def _plain(s):
@@ -272,7 +286,7 @@ _JS = r"""
    a fresh walk up to the window, not a continuation of yesterday.
 ------------------------------------------------------------------ */
 var K2PAGE='__PAGEKEY__', K2PARENT=__PARENT__;
-var K2HOME={t:'__HOMELABEL__',w:'__HOMEWHERE__'};
+var K2HOME={t:'__HOMELABEL__',w:'__HOMEWHERE__'}, K2SUB='__HOMESUB__';
 /* the page hands this over when it opens an inner screen: a name for
    the bar, and the one function that closes it again */
 var K2VIEW=null;
@@ -412,9 +426,35 @@ function k2Back(){
 function k2Menu(){
   var s=document.getElementById('k2sheet');
   if(!s||k2MenuOpen()) return;
+  /*  say what the top row actually does BEFORE the sheet is on screen  */
+  var sub=document.getElementById('k2here-s'),
+      chev=document.getElementById('k2here-c'),
+      row=document.getElementById('k2here');
+  if(sub&&chev&&row){
+    if(K2VIEW){
+      sub.textContent='You are in '+K2VIEW.t+' — tap to come back out';
+      chev.textContent='›';
+      chev.style.fontSize='19px';
+      row.style.opacity='';
+    }else{
+      sub.textContent=K2HOME.w==='You are here'?K2SUB:K2HOME.w;
+      chev.textContent='YOU ARE HERE';
+      chev.style.fontSize='11px';
+    }
+  }
   s.className='k2sheet on';
   k2Push({k2menu:1});
 }
+/*  Tapping the row you are standing on. Inside a screen it takes you
+    back out - but only AFTER the menu has finished putting its own
+    history entry back, or the two unwinds race and one is lost. The
+    menu hands the job to the popstate handler below.  */
+function k2HereTap(){
+  if(K2VIEW) K2AFTER=k2Back;
+  k2Shut();
+  return false;
+}
+var K2AFTER=null;
 function k2Shut(){
   var s=document.getElementById('k2sheet');
   if(!s||!k2MenuOpen()) return;
@@ -435,7 +475,12 @@ function k2MenuOpen(){
    closing something on one Back is how you skip a screen. */
 window.addEventListener('popstate',function(){
   /*  an unwind we asked for - already accounted for, nothing to do  */
-  if(K2EATEN>0){ K2EATEN--; return; }
+  if(K2EATEN>0){
+    K2EATEN--;
+    var f=K2AFTER; K2AFTER=null;
+    if(f) setTimeout(f,0);
+    return;
+  }
   if(K2PUSHED>0) K2PUSHED--;
   if(k2MenuOpen()){
     /*  close it WITHOUT unwinding: this Back already took the entry  */

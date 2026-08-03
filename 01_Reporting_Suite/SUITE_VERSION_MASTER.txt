@@ -1,7 +1,7 @@
-# Coates K2 suite version - 170 files - overall 7961366d
+# Coates K2 suite version - 173 files - overall e068f443
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-03 21:38:11
+# taken 2026-08-03 22:34:48
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -71,6 +71,7 @@ ccedd9a8b3 68_FLEET_DETAILS.bat
 e487d6f141 70_SERIAL_NUMBERS.bat
 37a7a18bd8 71_UTILISATION_CONTROL.bat
 9a591e3592 72_SHIFT_AND_COUNTER_INTEL.bat
+f7bff68054 73_CHECK_MY_GEAR_NAV.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
@@ -79,7 +80,7 @@ e487d6f141 70_SERIAL_NUMBERS.bat
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 9027347b09 BUILD_DAILY_EMAIL_PACKS.py
-5583fe4dff BUILD_MY_GEAR.py
+b16e29e318 BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
 bc00d71105 CHECK_REPORTS.py
@@ -106,6 +107,7 @@ b0c58cff1b START_GEAR_LOOKUP.ps1
 c73dc44e7e SWITCH_ON.py
 9379a70c16 SYNC_PCS.py
 b465157039 TEST_DAILY_PACKS.py
+294b31238d TEST_MY_GEAR_NAV.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
@@ -123,9 +125,9 @@ a49f1ea35c activity_model.py
 a7b9aebd15 build_company_onhire_report.py
 8f6fdbfb38 build_control_hub.py
 6e6ab04d8a build_cost_snapshot.py
-6312f79465 build_crew_onhire.py
+fbf87e5a7e build_crew_onhire.py
 f07fdf7710 build_flame_off_plant.py
-9a158b2205 build_fleet_detail.py
+4adbac21c4 build_fleet_detail.py
 0de1946e50 build_fleet_finder.py
 1a3898ae51 build_invoice_breakdown.py
 831892f416 build_offline_day.py
@@ -152,10 +154,11 @@ f013359327 mybranch.py
 76c4ef0808 mygear_guides.py
 de6fa43089 mygear_intel.py
 6ade9a441b mygear_movement.py
+45741a4054 mygear_nav.py
 3c8d860f4b mygear_store.py
-81a01d545f mygear_stores.py
+10691b2126 mygear_stores.py
 83d68fee44 mygear_thumbs.py
-6e43e676db mygear_ui.py
+a4b6299d22 mygear_ui.py
 5dbf7b3d91 net_pick.py
 51d4d07a40 ownership.py
 50eec7237f plant_life.py

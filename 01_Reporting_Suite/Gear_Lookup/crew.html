@@ -161,7 +161,7 @@ body:not(.mgr) .co em{display:none}
     fleet page prints too - a BACK button on a printed sheet is just
     ink. (4 Aug 2026.)  */
 @media print{.k2bar,.k2sheet{display:none!important}}
-</style></head><body><div class='phone'><div class="k2bar"><button type="button" class="k2back" id="k2back" onclick="k2Back()" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span class="k2lbl">BACK</span></button><div class="k2where"><small id="k2where-k">You are here</small><b id="k2where-t">Who&rsquo;s got what</b></div><button type="button" class="k2menu" onclick="k2Menu()" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="k2lbl">MENU</span></button></div><div class='bar'><h1>Who&rsquo;s got what</h1><span class='siq'>POWERED BY SITEIQ</span></div><div class='pad'><p class='lead'>Type your company name &mdash; the first word is enough &mdash; then pick a bloke, or leave it on Everyone.</p><input class='srch' id='q' type='search' autocomplete='off' placeholder='Company name&hellip;' aria-label='Company name'><div id='pick' style='display:none'><select id='who' aria-label='Which worker'></select><div class='tools'><button type='button' id='print' class='go'><span id='ptxt'>Print</span></button><button type='button' id='clear'>Start again</button></div></div><div id='note'></div><div id='list'></div><div id='out'></div><div class='mgate hideprint' id='mgate'><b>Manager</b><div class='row'><input id='mcode' type='password' autocomplete='off' autocapitalize='off' autocorrect='off' spellcheck='false' placeholder='Manager code' aria-label='Manager code'><button type='button' id='munlock'>Costs</button></div><small id='mmsg'>Opens the day rates. Mind the capitals.</small></div><div class='foot'>Cement Australia K2 Shutdown 2026 &middot; Gladstone<br>What is on hire as at 2026-08-03<br><span id='mline'>No money on this screen</span></div></div></div><div class="k2sheet" id="k2sheet"><div class="k2scrim" onclick="k2Shut()"></div><div class="k2panel" role="dialog" aria-label="Menu"><div class="k2grab"></div><h4>Where do you want to go</h4><a href="index.html" data-k2="index" onclick="k2Leave()"><div class="k2t"><b>My Gear</b><span>Your own gear, by site ID</span></div><span class="k2chev">&rsaquo;</span></a><a href="stores.html" data-k2="stores" onclick="k2Leave()"><div class="k2t"><b>Store Street</b><span>The stores team board</span></div><span class="k2chev">&rsaquo;</span></a><a class="k2on" href="#" onclick="k2Shut();return false"><div class="k2t"><b>Who&rsquo;s got what</b><span>Supervisor &mdash; your crew&rsquo;s gear</span></div><span class="k2chev">YOU ARE HERE</span></a><a href="fleet.html" data-k2="fleet" onclick="k2Leave()"><div class="k2t"><b>Fleet Details</b><span>Every asset ranked</span></div><span class="k2chev">&rsaquo;</span></a><h4>On this page</h4><button type="button" class="k2go" onclick="k2Shut();var q=document.getElementById('q');q.value='';search();window.scrollTo(0,0);q.focus()"><div class="k2t"><b>Look up another company</b><span>Start again from the top</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2go" onclick="k2Shut();var w=document.getElementById('who');if(w&&w.offsetParent){window.scrollTo(0,0);w.focus()}"><div class="k2t"><b>Pick a different bloke</b><span>The worker list for this company</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2go" onclick="k2Shut();window.print()"><div class="k2t"><b>Print this list</b><span>Whatever is on screen now</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2close" onclick="k2Shut()">Close</button></div></div><script>
+</style></head><body><div class='phone'><div class="k2bar"><button type="button" class="k2back" id="k2back" onclick="k2Back()" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span class="k2lbl">BACK</span></button><div class="k2where"><small id="k2where-k">You are here</small><b id="k2where-t">Who&rsquo;s got what</b></div><button type="button" class="k2menu" onclick="k2Menu()" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="k2lbl">MENU</span></button></div><div class='bar'><h1>Who&rsquo;s got what</h1><span class='siq'>POWERED BY SITEIQ</span></div><div class='pad'><p class='lead'>Type your company name &mdash; the first word is enough &mdash; then pick a bloke, or leave it on Everyone.</p><input class='srch' id='q' type='search' autocomplete='off' placeholder='Company name&hellip;' aria-label='Company name'><div id='pick' style='display:none'><select id='who' aria-label='Which worker'></select><div class='tools'><button type='button' id='print' class='go'><span id='ptxt'>Print</span></button><button type='button' id='clear'>Start again</button></div></div><div id='note'></div><div id='list'></div><div id='out'></div><div class='mgate hideprint' id='mgate'><b>Manager</b><div class='row'><input id='mcode' type='password' autocomplete='off' autocapitalize='off' autocorrect='off' spellcheck='false' placeholder='Manager code' aria-label='Manager code'><button type='button' id='munlock'>Costs</button></div><small id='mmsg'>Opens the day rates. Mind the capitals.</small></div><div class='foot'>Cement Australia K2 Shutdown 2026 &middot; Gladstone<br>What is on hire as at 2026-08-03<br><span id='mline'>No money on this screen</span></div></div></div><div class="k2sheet" id="k2sheet"><div class="k2scrim" onclick="k2Shut()"></div><div class="k2panel" role="dialog" aria-label="Menu"><div class="k2grab"></div><h4>Where do you want to go</h4><a href="index.html" data-k2="index" onclick="k2Leave()"><div class="k2t"><b>My Gear</b><span>Your own gear, by site ID</span></div><span class="k2chev">&rsaquo;</span></a><a href="stores.html" data-k2="stores" onclick="k2Leave()"><div class="k2t"><b>Store Street</b><span>The stores team board</span></div><span class="k2chev">&rsaquo;</span></a><a class="k2on" id="k2here" href="#" onclick="return k2HereTap()"><div class="k2t"><b>Who&rsquo;s got what</b><span id="k2here-s">Supervisor &mdash; your crew&rsquo;s gear</span></div><span class="k2chev" id="k2here-c">YOU ARE HERE</span></a><a href="fleet.html" data-k2="fleet" onclick="k2Leave()"><div class="k2t"><b>Fleet Details</b><span>Every asset ranked</span></div><span class="k2chev">&rsaquo;</span></a><h4>On this page</h4><button type="button" class="k2go" onclick="k2Shut();var q=document.getElementById('q');q.value='';search();window.scrollTo(0,0);q.focus()"><div class="k2t"><b>Look up another company</b><span>Start again from the top</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2go" onclick="k2Shut();var w=document.getElementById('who');if(w&&w.offsetParent){window.scrollTo(0,0);w.focus()}"><div class="k2t"><b>Pick a different bloke</b><span>The worker list for this company</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2go" onclick="k2Shut();window.print()"><div class="k2t"><b>Print this list</b><span>Whatever is on screen now</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2close" onclick="k2Shut()">Close</button></div></div><script>
 /* ------------------------------------------------------------------
    ONE WAY AROUND - the bar at the top of every My Gear page.
 
@@ -172,7 +172,7 @@ body:not(.mgr) .co em{display:none}
    a fresh walk up to the window, not a continuation of yesterday.
 ------------------------------------------------------------------ */
 var K2PAGE='crew', K2PARENT='index.html';
-var K2HOME={t:'Who’s got what',w:'You are here'};
+var K2HOME={t:'Who’s got what',w:'You are here'}, K2SUB='Supervisor — your crew’s gear';
 /* the page hands this over when it opens an inner screen: a name for
    the bar, and the one function that closes it again */
 var K2VIEW=null;
@@ -312,9 +312,35 @@ function k2Back(){
 function k2Menu(){
   var s=document.getElementById('k2sheet');
   if(!s||k2MenuOpen()) return;
+  /*  say what the top row actually does BEFORE the sheet is on screen  */
+  var sub=document.getElementById('k2here-s'),
+      chev=document.getElementById('k2here-c'),
+      row=document.getElementById('k2here');
+  if(sub&&chev&&row){
+    if(K2VIEW){
+      sub.textContent='You are in '+K2VIEW.t+' — tap to come back out';
+      chev.textContent='›';
+      chev.style.fontSize='19px';
+      row.style.opacity='';
+    }else{
+      sub.textContent=K2HOME.w==='You are here'?K2SUB:K2HOME.w;
+      chev.textContent='YOU ARE HERE';
+      chev.style.fontSize='11px';
+    }
+  }
   s.className='k2sheet on';
   k2Push({k2menu:1});
 }
+/*  Tapping the row you are standing on. Inside a screen it takes you
+    back out - but only AFTER the menu has finished putting its own
+    history entry back, or the two unwinds race and one is lost. The
+    menu hands the job to the popstate handler below.  */
+function k2HereTap(){
+  if(K2VIEW) K2AFTER=k2Back;
+  k2Shut();
+  return false;
+}
+var K2AFTER=null;
 function k2Shut(){
   var s=document.getElementById('k2sheet');
   if(!s||!k2MenuOpen()) return;
@@ -335,7 +361,12 @@ function k2MenuOpen(){
    closing something on one Back is how you skip a screen. */
 window.addEventListener('popstate',function(){
   /*  an unwind we asked for - already accounted for, nothing to do  */
-  if(K2EATEN>0){ K2EATEN--; return; }
+  if(K2EATEN>0){
+    K2EATEN--;
+    var f=K2AFTER; K2AFTER=null;
+    if(f) setTimeout(f,0);
+    return;
+  }
   if(K2PUSHED>0) K2PUSHED--;
   if(k2MenuOpen()){
     /*  close it WITHOUT unwinding: this Back already took the entry  */
