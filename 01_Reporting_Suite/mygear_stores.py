@@ -491,6 +491,34 @@ def _tag_now():
         return {'c': '', 'x': '#8A97A8'}
 
 
+def _shut_end():
+    """The shutdown finish, as an ISO string, for the countdown.
+
+    Same file the consumables ordering question reads, so the store and
+    the clock can never disagree about when this job ends.
+    """
+    try:
+        import k2_consumables
+        return k2_consumables.finish_date(
+            os.path.dirname(os.path.abspath(__file__))).isoformat()
+    except Exception:
+        return ''
+
+
+def _plant_life(master=None):
+    """The plant lifecycle table, or an empty one if it cannot be built.
+
+    Never allowed to break the board: this is one panel on one pane, and
+    a missing TRANSACTIONS export must not cost the counter its shelf.
+    """
+    try:
+        import plant_life
+        return plant_life.build(
+            os.path.dirname(os.path.abspath(__file__)), master)
+    except Exception:
+        return {'rows': [], 'stats': {}}
+
+
 ARRIVALS_HIDE_FILE = 'ARRIVALS_HIDE.txt'
 
 
@@ -1249,6 +1277,15 @@ def read(rental_path, stocktake_path, master=None, today=None,
         'pids': pid_map,
         'plant': plant,
         'hasPlant': bool(plant['out'] or plant['idle'] or plant['free']),
+        #  the finish date, for the live countdown on the plant pane.
+        #  Read from shutdown_end.txt so it moves without a code change -
+        #  shutdowns always move.
+        'shutEnd': _shut_end(),
+        #  THE LIFE OF EVERY MACHINE THE JOB TOOK ON THE PLANT ACCOUNT -
+        #  on site, first out to a person, back, departed. Four dates in
+        #  the order they happen, off the transaction feeds and the
+        #  stocktake. See plant_life.py (Andrew, 3 Aug 2026).
+        'life': _plant_life(master),
         'groups': G,
         #  THE FINDER: every available item by number, names stored once
         'find': {'av': find_av},
@@ -1782,6 +1819,61 @@ header:after{content:"";position:absolute;inset:0;
 .tile b{display:block;font-size:24px;font-weight:900;color:var(--neon);line-height:1.1;
  font-variant-numeric:tabular-nums}
 .tile.g b{color:var(--gd)}.tile.a b{color:var(--am)}.tile.r b{color:var(--rd)}
+/* THE COUNTDOWN. Big enough to read from across the counter, and the
+   seconds tick - a number that moves is a number people believe. Goes
+   amber once it is past the finish date and counts up instead. */
+.shutwrap{background:#0F1620;border:1px solid #22304A;border-radius:14px;
+ padding:14px 12px;margin:0 0 14px;text-align:center}
+.shutclock{display:flex;justify-content:center;align-items:baseline;
+ gap:4px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.shutclock .cdn{font-size:30px;font-weight:800;color:var(--neon);
+ letter-spacing:-.5px;min-width:44px}
+.shutclock .cdl{font-size:11px;font-weight:700;color:var(--dim);
+ text-transform:uppercase;letter-spacing:.6px;margin-right:10px}
+.shutclock.over .cdn{color:var(--am)}
+.shutword{font-size:12px;color:var(--dim);margin-top:6px;font-weight:600}
+/* the four-date card - reads top to bottom, no sideways scrolling */
+.lcard{border:1px solid #22304A;border-radius:12px;padding:10px 12px;
+ margin:0 0 8px;background:#101825}
+.lhead b{display:block;font-size:13.5px;font-weight:700;line-height:1.25}
+.lhead span{display:block;font-size:10.5px;color:var(--dim);
+ font-weight:600;margin-top:2px}
+.lsteps{margin-top:9px;border-left:2px solid #22304A;padding-left:12px}
+.lstep{position:relative;display:grid;
+ grid-template-columns:74px 1fr;gap:2px 8px;padding:4px 0;
+ font-size:12px;opacity:.45}
+.lstep.on{opacity:1}
+.lstep i{position:absolute;left:-17px;top:9px;width:8px;height:8px;
+ border-radius:50%;background:#22304A}
+.lstep.on i{background:var(--gd)}
+.lstep b{font-weight:700;color:var(--dim);font-size:10.5px;
+ text-transform:uppercase;letter-spacing:.4px;align-self:center}
+.lstep em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums}
+.lstep span{grid-column:2;font-size:10.5px;color:var(--dim);font-weight:600}
+.lwait{margin-top:8px;font-size:10.5px;color:var(--am);font-weight:700}
+.lifekey{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.lf{display:inline-block;font-size:10.5px;font-weight:800;padding:3px 8px;
+ border-radius:999px;text-transform:uppercase;letter-spacing:.4px;
+ background:#1B2740;color:var(--dim)}
+.lf.onsite{background:#1B2740;color:#7FA8E0}
+.lf.out{background:#1E3326;color:var(--gd)}
+.lf.back{background:#33290F;color:var(--am)}
+.lf.departed{background:#3A1C18;color:#FF8A7A}
+.lifetbl{overflow-x:auto;-webkit-overflow-scrolling:touch;
+ border:1px solid #22304A;border-radius:12px}
+.lifetbl table{border-collapse:collapse;width:100%;min-width:640px}
+.lifetbl th{position:sticky;top:0;background:#16203100;background:#162031;
+ font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;
+ color:var(--dim);text-align:left;padding:8px 10px;white-space:nowrap;
+ border-bottom:1px solid #22304A}
+.lifetbl td{padding:8px 10px;font-size:12.5px;vertical-align:top;
+ border-bottom:1px solid #1A2436;white-space:nowrap}
+.lifetbl tr:last-child td{border-bottom:0}
+.lifetbl td span{display:block;font-size:10.5px;color:var(--dim);
+ font-weight:600}
+.lifetbl td i{color:var(--dim);font-style:normal;opacity:.7}
+.lifetbl td.lin{white-space:normal;min-width:210px}
+.lifetbl td.lin b{font-weight:700}
 .tile span{display:block;font-size:9.5px;color:var(--dim);font-weight:800;
  letter-spacing:.8px;text-transform:uppercase;margin-top:5px;line-height:1.3}
 /* the instrument bridge: the six numbers are CONTROLS, not decoration
@@ -2880,6 +2972,8 @@ function homeMenu(){
       (t.idle?'a':'g'),
       (t.idle?t.idle+' IDLE ON HIRE':'NOTHING PARKED'),
       (D.hasPlant?bayDoor('plant','Plant status'):'')
+      +(D.life&&D.life.rows&&D.life.rows.length
+        ?bayDoor('life','Plant life on site',D.life.stats.total):'')
       +bayDoor('idle','Idle plant',t.idle));
   }
 
@@ -2946,6 +3040,8 @@ function render(){
    +'<div class="pane" id="p-std">'+helpBar('std')+paneStd()+'</div>'
    +(t.arrivals?'<div class="pane" id="p-arr">'+helpBar('arr')+paneArr()+'</div>':'')
    +(D.hasPlant?'<div class="pane" id="p-plant">'+helpBar('plant')+panePlant()+'</div>':'')
+   +(D.life&&D.life.rows&&D.life.rows.length
+     ?'<div class="pane" id="p-life">'+helpBar('life')+paneLife()+'</div>':'')
    +(MGR?'<div class="pane" id="p-mgr">'+paneMgr()+'</div>':'')
    +'<div class="pane" id="p-idle">'+helpBar('idle')+paneIdle()+'</div>'
    +'<div class="foot">Built from this morning\\'s SiteIQ exports &middot; '
@@ -4167,6 +4263,15 @@ var HOWTO={
      'Each line shows what&rsquo;s coming and how many.',
      'If a crew is waiting on it, you can tell them it&rsquo;s inbound.'],
   g:'No double-orders, no &ldquo;didn&rsquo;t know it was coming&rdquo;.'},
+ life:{t:'Plant life on site',
+  w:'Every machine the job took on the site plant account, with four '
+   +'dates in the order they happen &mdash; the day it arrived, the '
+   +'first time a person took it out, the day it came back, and the day '
+   +'the stocktake recorded it leaving site.',
+  h:['A machine that never went out is one the job did not need that early.',
+     'The wait from arriving to first use is the number that answers it.',
+     'Every date comes off an export. A blank means no record, not a guess.'],
+  g:'What we took, what got used, and when it left.'},
  plant:{t:'Plant',
   w:'The machines &mdash; welders, generators, forklifts, towers &mdash; '
    +'sorted by type, split into FREE to hire, IDLE on the ground, and OUT '
@@ -4203,7 +4308,7 @@ function helpBar(k){
 }
 /* the printable deck - one call card per tab, big type, laminate-ready */
 function howtoPrint(){
-  var order=['find','groups','chase','hits','stock','aisle','cons','plant',
+  var order=['find','groups','chase','hits','stock','aisle','cons','plant','life',
              'idle','fresh','arr','print','battle','std'];
   var body=order.map(function(k){
     var c=HOWTO[k]; if(!c) return '';
@@ -5426,6 +5531,102 @@ function paneArr(){
 /* PLANT - shown only where there is plant, because not every store has
    it. (Andrew, 29 Jul 2026: "some sites will be different so maybe a
    toggle on and off for when we have plant onsite") */
+/* THE COUNTDOWN, TO THE SECOND (Andrew, 3 Aug 2026: "a countdown to
+   the sec till the end"). Runs off shutdown_end.txt, so it moves when
+   the job moves. It counts to the END OF that day, not its midnight
+   start - the last day is a day you work, not a day you have already
+   lost. Past it, it counts up instead of showing zeros, because "3
+   days over" is the number that matters then. */
+function lifeClock(){
+  var el=document.getElementById('shutClock'); if(!el)return;
+  var end=D.shutEnd; if(!end){el.textContent='';return;}
+  var t=new Date(end+'T23:59:59').getTime()-Date.now();
+  var over=t<0; if(over)t=-t;
+  var d=Math.floor(t/86400000), h=Math.floor(t/3600000)%24,
+      m=Math.floor(t/60000)%60, sec=Math.floor(t/1000)%60;
+  function two(n){return (n<10?'0':'')+n}
+  el.innerHTML='<span class="cdn">'+d+'</span><span class="cdl">day'
+   +(d===1?'':'s')+'</span><span class="cdn">'+two(h)+'</span>'
+   +'<span class="cdl">hrs</span><span class="cdn">'+two(m)+'</span>'
+   +'<span class="cdl">min</span><span class="cdn">'+two(sec)+'</span>'
+   +'<span class="cdl">sec</span>';
+  el.className='shutclock'+(over?' over':'');
+  var w=document.getElementById('shutWord');
+  if(w)w.textContent=over?'past the finish date':'until the job finishes';
+}
+setInterval(lifeClock,1000);
+
+/* PLANT LIFE - four dates per machine, in the order they happen. */
+function paneLife(){
+  var L=D.life||{rows:[],stats:{}}, st=L.stats||{}, rs=L.rows||[];
+  if(!rs.length) return '<div class="note">No plant history yet - it is '
+    +'built from the TRANSACTIONS export and the stocktake.</div>';
+  var h='<div class="note"><b>Every machine the job took on the site '
+   +'plant account, and what happened to it.</b> Four dates in the order '
+   +'they happen: the day the job took it, the first time a person '
+   +'actually took it out, the day it came back, and the day the '
+   +'stocktake recorded it leaving site.</div>'
+   +'<div class="shutwrap"><div id="shutClock" class="shutclock"></div>'
+   +'<div id="shutWord" class="shutword">until the job finishes</div></div>'
+   +'<div class="tiles">'
+   +tile(st.total,'On the plant account')
+   +tile(st.everOut,'Went out to someone','g')
+   +tile(st.never,'Never went out',st.never?'r':'')
+   +tile(st.departed,'Departed site','a')
+   +'</div>';
+  if(st.avgWait!=null)
+    h+='<div class="note">Average wait from arriving on site to the '
+      +'first time somebody took it: <b>'+st.avgWait+' days</b>. The '
+      +st.never+' that never went out are still sitting on the account.'
+      +'</div>';
+  var oo=rs.filter(function(r){return r.o&&r.p&&r.o<r.p}).length;
+  if(oo) h+='<div class="note warn"><b>'+oo+' row(s) show a person '
+    +'holding the gear BEFORE it lands on the plant account.</b> That is '
+    +'what the export says - the transaction period does not reach back '
+    +'far enough to show the earlier account. Shown as-is, not '
+    +'reordered.</div>';
+  /* ONE CARD PER MACHINE, FOUR DATES DOWN THE PAGE. A six-column
+     table needs sideways scrolling on a phone and Andrew has told me
+     before what that reads like. The dates run top to bottom in the
+     order they happen, and a step that never happened says so rather
+     than showing an empty cell. */
+  var GRPS=[['departed','Departed site','the record is closed'],
+            ['back','Came back, still on site','off hire, not gone yet'],
+            ['out','Out with someone now',''],
+            ['onsite','Never went out','sat on the account the whole time']];
+  GRPS.forEach(function(gp){
+    var list=rs.filter(function(r){return r.s===gp[0]});
+    if(!list.length) return;
+    h+='<div class="grp"><button type="button" onclick="tog(this)">'
+     +'<div class="gn"><b><span class="lf '+gp[0]+'">'+esc(gp[1])+'</span></b>'
+     +(gp[2]?'<span>'+esc(gp[2])+'</span>':'')+'</div>'
+     +'<div class="gq"><b>'+list.length+'</b><span>item'
+     +(list.length===1?'':'s')+'</span></div></button><div class="kids">';
+    list.forEach(function(r){
+      function step(on,label,date,who){
+        return '<div class="lstep'+(on?' on':'')+'">'
+          +'<i></i><b>'+label+'</b>'
+          +'<em>'+(date?esc(date):'&mdash;')+'</em>'
+          +'<span>'+(who?esc(who):(on?'':'no record'))+'</span></div>';
+      }
+      h+='<div class="lcard"><div class="lhead"><b>'+esc(r.n||r.i)+'</b>'
+       +'<span>'+esc(r.i)+(r.f?' &middot; '+esc(r.f):'')+'</span></div>'
+       +'<div class="lsteps">'
+       +step(!!r.p,'On site',r.p,'')
+       +step(!!r.o,'First out',r.o,r.ow)
+       +step(!!r.b,'Came back',r.b,r.bw)
+       +step(!!r.d,'Departed',r.d,r.dw)
+       +'</div>'
+       +(r.w!=null&&r.w>=0
+         ?'<div class="lwait">sat '+r.w+' day'+(r.w===1?'':'s')
+           +' before anybody took it</div>':'')
+       +'</div>';
+    });
+    h+='</div></div>';
+  });
+  return h;
+}
+
 function panePlant(){
   /* BY CATEGORY (Andrew, 30 Jul 2026: "with the plant gear lets
      categorise it better so if i want to find welder in there it
