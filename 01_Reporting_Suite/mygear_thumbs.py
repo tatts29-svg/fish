@@ -117,6 +117,23 @@ def photos_dir(here=None):
     return d
 
 
+_MB_CACHE = {}
+
+
+def _master_book(here):
+    """The master equipment list, loaded once per folder. It is what
+    renames a register description into the words the workers' page
+    shows, so photo keys can be derived on both sides of that rename."""
+    key = here or HERE
+    if key not in _MB_CACHE:
+        try:
+            import master_equipment as _ME
+            _MB_CACHE[key] = _ME.load(key, quiet=True)
+        except Exception:
+            _MB_CACHE[key] = None
+    return _MB_CACHE[key]
+
+
 def variant_register(here=None):
     """Every code a photo can be named after: rental PRODUCT_VARIANTs
     and consumable SKU numbers, with plain names, families and how many
@@ -142,14 +159,35 @@ def variant_register(here=None):
         for r in rows[1:]:
             code = str(r[ix.get('PRODUCT_VARIANT', -1)] or '').strip().upper()
             drv = 0
+            alt2 = ''
             if not code:
-                #  radios / gas monitors: no variant in SiteIQ, so the
-                #  wanted list asks for a MODEL photo instead. Marked
-                #  'drv' so photo matching may read the words loosely -
-                #  these codes never came off a register sheet anyone
-                #  could copy a filename from.
-                _ser, code = derived_keys(r[ix.get('ITEM_DESCRIPTION', -1)])
+                #  radios / gas monitors / crowsfeet: no variant in
+                #  SiteIQ, so a MODEL key is derived from the name.
+                #
+                #  AND THE NAME DEPENDS WHO IS ASKING. The stores board
+                #  derives from the RAW register description; the
+                #  workers' catalogue derives from the name after the
+                #  master equipment list has tidied it. Same asset, two
+                #  codes: 12DRIVECROWSFEET27MM and CROWFOOT27MM12INDRIVE.
+                #  Registering only the first is why Andrew's crowsfoot
+                #  photo never appeared in the workers' catalogue no
+                #  matter how many times it was pinned (3 Aug 2026).
+                _raw = r[ix.get('ITEM_DESCRIPTION', -1)]
+                _ser, code = derived_keys(_raw)
                 drv = 1
+                try:
+                    import mygear_store as _MST
+                    _tidied = _MST._tidy(
+                        _raw, _master_book(here),
+                        r[ix.get('ITEM_NUMBER', -1)]
+                        if 'ITEM_NUMBER' in ix else '')
+                    _s2, alt2 = derived_keys(_tidied)
+                    if alt2 == code:
+                        alt2 = ''
+                except Exception:
+                    alt2 = ''
+                if not code:
+                    code, alt2 = alt2, ''
                 if not code:
                     continue
             e = out.setdefault(code, {'n': '', 'f': '', 'q': 0, 'k': 'hire',
@@ -158,6 +196,10 @@ def variant_register(here=None):
             if not e['n']:
                 e['n'] = str(r[ix.get('ITEM_DESCRIPTION', -1)] or '').strip()
                 e['f'] = str(r[ix.get('PRODUCT_FAMILY', -1)] or '').strip().title()
+            if alt2:
+                e2 = out.setdefault(alt2, {'n': e['n'], 'f': e['f'],
+                                           'q': 0, 'k': 'hire', 'drv': 1})
+                e2['q'] += 1
     sp = gfind('SALES_STOCK*.xlsx')
     if sp:
         wb = openpyxl.load_workbook(sp, read_only=True, data_only=True)
@@ -212,12 +254,32 @@ def _norm(s):
 #  value claims every code that starts with the stem, so the one
 #  crowsfoot photo covers all fourteen sizes without a rename.
 #  Keys are matched on the normalised stem, so underscores don't count.
+#  TWO VOCABULARIES, AND THE PINS MUST SPEAK BOTH (3 Aug 2026).
+#  The stores board and Fleet Details use SiteIQ's register codes.
+#  The workers' catalogue renames everything through the master
+#  equipment list, so the SAME gas monitor is
+#      HONEYWELLBWFLEXMULTIGASDETECTOR    on the board
+#      MULTIGASDETECTORHONEYWELLBWFLEX    in the workers' catalogue
+#  and the same crowsfoot is 12DRIVECROWSFEET27MM one side and
+#  CROWFOOT27MM12INDRIVE the other. Every earlier fix I made was on
+#  the register side alone, which is exactly why Andrew kept seeing
+#  the monitors and the crowsfeet missing after each one. Both
+#  spellings are pinned here now.
 PINNED = {
-    'HONEYWELLBWFLEX4GASMONITOR': ['HONEYWELLBWFLEXMULTIGASDETECTOR'],
-    'MOTOROLADP4801ETWOWAYRADIOWITHHANDPIECE':
-        ['MOTOROLADP4801ETWOWAYRADIO'],
-    'MOTOROLANNTN8129IMPRESBATTERY': ['MOTOROLANNTN8129IMPRESBATTERY'],
-    '12DRIVECROWSFEET43MM': ['FAMILY:12DRIVECROWSFEET'],
+    'HONEYWELLBWFLEX4GASMONITOR': [
+        'HONEYWELLBWFLEXMULTIGASDETECTOR',        # register / board
+        'MULTIGASDETECTORHONEYWELLBWFLEX',        # master / workers
+        'FAMILY:MULTIGASDETECTORHONEYWELLBWFLEX'],
+    'MOTOROLADP4801ETWOWAYRADIOWITHHANDPIECE': [
+        'MOTOROLADP4801ETWOWAYRADIO',
+        'FAMILY:MOTOROLADP4801ETWOWAYRADIO'],
+    'MOTOROLANNTN8129IMPRESBATTERY': [
+        'MOTOROLANNTN8129IMPRESBATTERY',
+        'RADIOBATTERYMOTOROLANNTN8129IMPRES',
+        'FAMILY:RADIOBATTERYMOTOROLANNTN8129IMPRES'],
+    '12DRIVECROWSFEET43MM': [
+        'FAMILY:12DRIVECROWSFEET',                # register spelling
+        'FAMILY:CROWFOOT'],                       # master spelling
 }
 
 

@@ -1042,11 +1042,15 @@ def build():
         #  protected stores_code.txt had been created with the default
         #  on one machine while the code everyone knew lived on
         #  another. The file wins, so the build must show the file.
-        print('  Stores door: code {}{} ({} chars, from stores_code.txt)'
-              '{}'.format(_code[0], '*' * (len(_code) - 1), len(_code),
-                          ' | phone keypad twin {}{} works too'.format(
-                              _alias[0], '*' * (len(_alias) - 1))
-                          if _alias else ''))
+        #  3 Aug 2026: the stores code is gone - Andrew authorised it,
+        #  the Wi-Fi password is the door. stores_code.txt is left in
+        #  place and untouched so nothing that reads it breaks, and so
+        #  the decision is reversible by putting the gate back, not by
+        #  hunting for a deleted file.
+        print('  Stores door: OPEN - no second code. The store Wi-Fi is '
+              'the door.')
+        print('               Money and Utilisation Control still need '
+              'the MANAGER code.')
         _t = _sd['tiles']
         print('  Stores team page: {} on the shelf | {} out | {} to chase '
               '| stocktake {}% | {} not counted | {} arriving'.format(

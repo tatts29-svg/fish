@@ -515,9 +515,22 @@ CSS = """
 .stfam span{color:#8A97A8;font-weight:700;letter-spacing:.4px;text-transform:none;
  flex:none}
 .stfam::after{content:'';flex:1;height:1px;background:#2A313C;min-width:14px}
-.strow{display:flex;align-items:center;gap:12px;background:#151A22;
+/*  THE SEARCH RESULT ROW (Andrew, 3 Aug 2026 - the last place the
+    squeeze was still living). A 112px picture and a 74px count column
+    beside the words left about 150px of a 390px phone for the text,
+    so a serial-named gas monitor came down the screen six lines high
+    and its alternatives list read as a wall of half-names.
+    On a phone: picture and count on the top row, the words underneath
+    at full width. From 560px up it goes back to one line.  */
+.strow{display:grid;grid-template-columns:112px 1fr;gap:10px 12px;
+  align-items:center;background:#151A22;
   border:1px solid #2A313C;border-left:4px solid #2BB673;border-radius:12px;
   padding:12px 13px;margin-bottom:8px;min-height:60px}
+.strow .stn{grid-column:1/-1}
+@media(min-width:560px){
+  .strow{display:flex;align-items:center;gap:12px}
+  .strow .stn{grid-column:auto}
+}
 .strow.few{border-left-color:#F5A623}
 .strow.none{border-left-color:#E23B2E;opacity:.72}
 /* THE SHOWROOM GRID - browsing a category faces you with the gear,
@@ -542,11 +555,27 @@ CSS = """
  letter-spacing:2px}
 .cspread .ct span{display:block;color:#C7CED8;font-size:11.5px;
  font-weight:700;margin-top:6px}
-.stcard.wide{grid-column:1/-1;flex-direction:row}
-.stcard.wide .im{width:132px;flex:none;aspect-ratio:auto;align-self:stretch;
- min-height:112px}
-.stcard.wide .bd{flex:1;display:flex;flex-direction:column;justify-content:center}
-.stcard.wide .bd b{font-size:15px}
+/*  THE WIDE CARD, UNSQUEEZED (Andrew, 3 Aug 2026 - the same fault he
+    pulled me up on for the stores board, still living here). A 132px
+    picture and a QR tile beside the words left roughly 120px of a
+    390px phone for the text, so "Multi-Gas Detector - Honeywell BW
+    Flex - Serial GM206136" came down the screen five words high and
+    the alternatives list became a wall.
+    On a phone the picture goes on top and the words get the full
+    width; from 560px up, where there is room for both, it goes back
+    to side-by-side.  */
+.stcard.wide{grid-column:1/-1;flex-direction:column}
+.stcard.wide .im{width:100%;flex:none;aspect-ratio:auto;height:132px}
+.stcard.wide .bd{flex:1;display:flex;flex-direction:column;
+ justify-content:center;min-width:0}
+.stcard.wide .bd b{font-size:15px;overflow-wrap:break-word}
+@media(min-width:560px){
+  .stcard.wide{flex-direction:row}
+  .stcard.wide .im{width:132px;height:auto;align-self:stretch;
+   min-height:112px}
+}
+/*  the alternatives list reads as a list, not a paragraph  */
+.stalt span{display:block;margin-top:3px}
 .stcard{background:#151A22;border:1px solid #28323F;border-radius:16px;
  overflow:hidden;display:flex;flex-direction:column}
 .stcard.none{border-color:#5a2622}
@@ -640,6 +669,42 @@ JS = """
    the aisles are there for the one who doesn't. */
 var STORE_SHOWN = 60;
 function stNorm(s){ return (s||'').toLowerCase().replace(/[^a-z0-9 ]+/g,' '); }
+/* WORDS PEOPLE ACTUALLY SAY vs words the register writes (Andrew,
+   3 Aug 2026: "monitors don't show... same with the crowfeet" - said
+   a thousand times because typing "crowfeet" can never substring-match
+   "Crowsfeet", it is one letter short, and the register calls a gas
+   monitor a Multi-Gas Detector). Each spoken word expands to the
+   register's spellings; a line matches if ANY expansion lands. */
+var ST_SYN={
+  /*  the workers' catalogue calls them CROWFOOT (the master's word);
+      the register calls them CROWSFEET. Every spelling a bloke might
+      type lands on both, in both directions - the one-way map was why
+      typing the register's own spelling found nothing.  */
+  'crowfeet':['crowsfeet','crows feet','crowfoot','crowsfoot'],
+  'crowsfeet':['crowfoot','crows feet','crowfeet'],
+  'crowsfoot':['crowfoot','crowsfeet'],
+  'crowfoot':['crowsfeet','crowfeet'],
+  'crows':['crowfoot','crowsfeet'],
+  'feet':['crowfoot','crowsfeet'],
+  'monitor':['detector','monitor'],
+  'monitors':['detector','monitors'],
+  'detector':['detector','monitor'],
+  'radio':['radio','two way'],
+  'battery':['battery','batteries'],
+  'extension':['extension','extn'],
+  'lead':['lead','extn lead']
+};
+function stWordHits(hay,hayFlat,w){
+  if(hay.indexOf(w)>=0) return true;
+  /* the no-spaces pass: "crows feet" typed as one word still lands */
+  if(hayFlat.indexOf(w.replace(/ /g,''))>=0) return true;
+  var alts=ST_SYN[w]||[];
+  for(var i=0;i<alts.length;i++){
+    if(hay.indexOf(alts[i])>=0) return true;
+    if(hayFlat.indexOf(alts[i].replace(/ /g,''))>=0) return true;
+  }
+  return false;
+}
 /* The FAMILY a line belongs to - the name with its trailing size cut
    off, then the first segment: "1/2in Drive Crowsfeet-27MM" and its 30
    siblings are one family, "Allen Key Metric - 12mm" one, "Hydraulic
@@ -666,9 +731,11 @@ function stAlt(it){
   }
   var ask='<div class="stask">or ask at the window &mdash; two metres away.</div>';
   if(!out.length) return ask;
-  return '<div class="stalt"><b>But on the shelf:</b> '
-    + out.map(function(s){return '<span>' + s.n + ' &times;' + s.q + '</span>'})
-         .join(' &middot; ') + '</div>' + ask;
+  /*  one alternative per line - joined with dots they wrapped into a
+      paragraph of half-names on a phone (3 Aug 2026)  */
+  return '<div class="stalt"><b>But on the shelf:</b>'
+    + out.map(function(s){return '<span>' + s.n + ' &times;' + s.q
+        + '</span>'}).join('') + '</div>' + ask;
 }
 /* tap the corner QR: full-screen "show this at the window" (Andrew,
    1 Aug 2026) - the counter's scanner reads it straight off the phone */
@@ -722,7 +789,9 @@ function stRender(reset){
     /* search across the name, the category and the aisle - a bloke who
        types "rigging" or "sockets" should get somewhere too */
     var hay = stNorm(it.n + ' ' + it.c + ' ' + it.u);
-    for(var i=0;i<words.length;i++) if(hay.indexOf(words[i])<0) return false;
+    var hayFlat = hay.replace(/ /g,'');
+    for(var i=0;i<words.length;i++)
+      if(!stWordHits(hay,hayFlat,words[i])) return false;
     return true;
   });
   var head = document.getElementById('st-count');

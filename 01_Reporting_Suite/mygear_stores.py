@@ -1992,6 +1992,24 @@ button.tile:active{background:var(--pnl2)}
 .kid.hasqr{position:relative;padding-right:80px}
 .kqr{position:absolute;right:9px;top:50%;transform:translateY(-50%);line-height:0}
 .kqr svg{border-radius:5px;display:block}
+.mgrbox{background:var(--pnl);border:1px solid var(--line);
+ border-left:4px solid var(--am);border-radius:12px;padding:12px 13px;
+ margin-top:11px}
+.mgrbox.on{border-left-color:var(--gd)}
+.mgrbox b{display:block;font-size:11px;font-weight:900;letter-spacing:1.1px;
+ color:var(--am);text-transform:uppercase}
+.mgrbox.on b{color:var(--gd)}
+.mgrbox span{display:block;color:var(--dim);font-size:11.5px;
+ line-height:1.5;margin-top:4px}
+.mgrow{display:flex;gap:8px;margin-top:9px}
+.mgrow input{flex:1;min-width:0;background:#0B111A;border:1px solid var(--line);
+ border-radius:9px;padding:9px 11px;color:var(--txt);font:800 13px/1 inherit;
+ letter-spacing:2px}
+.mgrow button{flex:none;background:var(--am);color:#1A1204;border:0;
+ border-radius:9px;padding:9px 15px;font:900 12px/1 inherit;cursor:pointer}
+.mgrow button.lk{background:var(--pnl2);color:var(--txt);
+ border:1px solid var(--line);flex:1}
+.merr{color:var(--rd);font-size:11.5px;font-weight:700;margin-top:7px}
 .mbar{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .mbar span{flex:none;width:150px;font-size:9.5px;font-weight:800;
  letter-spacing:.4px;color:var(--dim)}
@@ -2431,21 +2449,19 @@ body.hasdock{padding-bottom:64px}
 __DAYTAG__
 </header>
 
-<div id="gate">
-  <h2>Coates stores staff</h2>
-  <p>Enter the store code to open the board.<br>
-  This page is for the team behind the counter.</p>
-  <input id="code" type="password" inputmode="text" autocomplete="off"
-         autocapitalize="none" autocorrect="off" spellcheck="false"
-         placeholder="CODE" aria-label="Store code">
-  <button onclick="unlock()" type="button">OPEN THE BOARD</button>
-  <div id="gerr"></div>
-  <div style="margin-top:26px;font-size:9.5px;letter-spacing:2px;color:#5A6472;
-   font-weight:700">MY GEAR HQ &middot; POWERED BY SITEIQ &middot;
-   DESIGNED &amp; BUILT BY ANDREW FISHER</div>
-</div>
-
-<div id="app" style="display:none"></div>
+<!--  NO SECOND DOOR (Andrew, 3 Aug 2026, authorising it in writing:
+      "removing of the lock for staff when in stores, this is access
+      for all Coates staff, we already have a password to get in, we
+      don't need a 2nd which is what we have").
+      He is right: the store Wi-Fi password IS the door. This page is
+      only reachable from that network, so a second code asked every
+      Coates hand to prove twice what the network already proved once.
+      The board now opens on arrival.
+      WHAT DID NOT CHANGE: the money. Rates and revenue are still
+      encrypted under HIS manager code and are not in this file in any
+      readable form - that is a different question to who may see the
+      shelf, and his own rule on it has not moved.  -->
+<div id="app"></div>
 </div>
 <div id="sdoor">
  <div class="sd-plate">
@@ -2478,9 +2494,9 @@ __DAYTAG__
 </div>
 <div id="prsheet"></div>
 <script>
-var PAYLOAD="__PAYLOAD__",TAG="__TAG__",ASOF="__ASOF__";
+var PAYLOAD=__PAYLOAD__,TAG="__TAG__",ASOF="__ASOF__";
 var ATAG="__ATAG__",AKEY="__AKEY__";
-var MPAY="__MPAYLOAD__",MTAG="__MTAG__",MKEY="__MKEY__";
+var MPAY="__MPAYLOAD__",MTAG="__MTAG__";
 var MGR=null,SHOW_PLANT=true;
 function xmur3(s){for(var i=0,h=1779033703^s.length;i<s.length;i++){
  h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}
@@ -2503,61 +2519,38 @@ function mdec(c,b64){var rnd=mulberry32(xmur3(c+'|CoatesK2mgr2026')());
 //__READER__//
 //__QRJS__//
 var D=null;
-function unlock(){
-  /* The stores code is a word - upper-casing it means a bloke on a wet
-     tablet at 5am does not fail the gate over a lower-case letter. The
-     MANAGER code is a password with deliberate mixed case, so upper-casing
-     it destroyed it - the lower-case half arrived upper-case and the tag
-     never matched. Keep the raw string for the manager check.
-     (Caught 29 Jul 2026, in the browser probe - the manager path had been
-     "verified" in Python, where the upper-casing does not happen.) */
-  var raw=(document.getElementById('code').value||'').trim();
-  var c=raw.toUpperCase();
-  if(!raw){return}
-  if(MTAG){
-    var mc=(mtagOf(raw)===MTAG)?raw:((mtagOf(c)===MTAG)?c:null);
-    if(mc){ try{ MGR=JSON.parse(mdec(mc,MPAY)); }catch(e){ MGR=null; }
-            if(MGR){ c=mc; } }
-  }
-  /* the phone-keypad alias: the numeric twin decrypts the real code
-     out of its blob, then walks through the same gate as everyone */
-  if(!MGR && ATAG && AKEY && tagOf(c)===ATAG){
-    try{ c=dec(c,AKEY).toUpperCase(); }catch(e){}
-  }
-  if(tagOf(c)!==TAG && !MGR){document.getElementById('gerr').textContent=
-    'That code does not open this board. Ask Andrew.';return}
-  if(MGR && tagOf(c)!==TAG){
-    /* The manager code opens the board as well - it is a superset, not a
-       second door to remember. It gets there by decrypting the STORES
-       code out of a tiny key blob: writing the stores code into the page
-       so the manager could reach the board would have handed it to
-       anyone who opened View Source, which is the whole gate gone.
-       (Caught 29 Jul 2026, in the build.) */
-    try{ D=JSON.parse(dec(mdec(c,MKEY),PAYLOAD)); }catch(e){}
-    if(D){ openBoard(); return; }
-  }
-  try{ D=JSON.parse(dec(c,PAYLOAD)); }catch(e){
-    document.getElementById('gerr').textContent='Could not open the board.';return}
-  openBoard();
+/*  the board's own data, in the clear. It carries no money - the
+    manager layer is separately encrypted below - and it is served
+    only to devices already on the store Wi-Fi. */
+function boot(){
+  try{ D=JSON.parse(PAYLOAD); }catch(e){ D=null; }
+  if(!D){ document.getElementById('app').innerHTML=
+    '<div class="note" style="border-left-color:var(--rd)"><b>This page '
+    +'did not finish loading from the store.</b> Step closer to the '
+    +'store Wi-Fi and pull down to refresh.</div>'; return; }
+  safeRender();
+  if(typeof storeDoor==='function') storeDoor();
 }
-
-/* ================= THE STORES COMMAND CENTRE ENTRY ===============
-   Andrew's third pack, 2 Aug 2026. Both unlock paths - stores code and
-   manager code - now come through here, so there is one way in and one
-   place the door can be turned off.
-
-   ORDER MATTERS. safeRender() runs FIRST, before a frame of animation.
-   What grows into view during the crossing is the real board carrying
-   today's real numbers, not a mock-up of one. If anything at all goes
-   wrong with the door the board is already built and already on screen.
-================================================================= */
-function openBoard(){
-  document.getElementById('gate').style.display='none';
-  var a=document.getElementById('app');
-  a.style.display='block';
-  safeRender();                       // the board is live before the door moves
-  if(sdCan()) sdPlay(); else { window.scrollTo(0,0); dockOn(); }
+/*  MONEY, and only money. Andrew's manager code opens the rates,
+    the revenue and the Utilisation Control hub - the same door the
+    crew page uses, in the same cipher. Nothing else on this board
+    asks for a code any more. */
+function mgrUnlock(){
+  var raw=(document.getElementById('mcode')||{value:''}).value.trim();
+  var err=document.getElementById('merr');
+  if(!raw){ return; }
+  if(!MTAG){ if(err) err.textContent=
+    'No manager layer in this build - manager_code.txt was missing '
+    +'when it was made.'; return; }
+  var mc=(mtagOf(raw)===MTAG)?raw:null;
+  if(!mc){ if(err) err.textContent=
+    'That code does not open the money. Mind the capitals.'; return; }
+  try{ MGR=JSON.parse(mdec(mc,MPAY)); }catch(e){ MGR=null; }
+  if(!MGR){ if(err) err.textContent='The money would not open.'; return; }
+  render();
+  nav('mgr');
 }
+function mgrLock(){ MGR=null; render(); home(); }
 var SD_DEAD=false, SD_BUSY=false, SD_T=[];
 function sdCan(){
   try{
@@ -2630,36 +2623,26 @@ function safeRender(){
      to see things its silly") */
   try{ render(); }
   catch(e){
-    document.getElementById('app').style.display='none';
-    document.getElementById('gate').style.display='';
-    var ge=document.getElementById('gerr');
-    if(ge)ge.textContent='The board hiccupped opening - press Enter to go again.';
+    /*  there is no gate to fall back to any more - say what happened
+        rather than showing a blank page  */
+    var ap=document.getElementById('app');
+    if(ap&&!ap.innerHTML) ap.innerHTML='<div class="note" '
+      +'style="border-left-color:var(--rd)"><b>The board hiccupped '
+      +'opening.</b> Pull down to refresh. If it keeps happening, run '
+      +'04_RUN_MY_GEAR again on the laptop.</div>';
   }
 }
-document.getElementById('code').addEventListener('keydown',function(e){
-  if(e.key==='Enter') unlock();});
-/* Came through the override on the crew page? Open straight up. The code
-   travels in sessionStorage, never the address bar, and is cleared the
-   moment it is used so a shared tablet does not stay unlocked. */
-(function(){ try{
-  var h=sessionStorage.getItem('k2stores');
-  if(h){ sessionStorage.removeItem('k2stores');
-         /* wait for EVERY script block to parse before unlocking -
-            render() reaches helpers defined further down the page, and
-            firing early left a hidden gate and an empty app: the blank
-            page Andrew hit coming through the crew-page shortcut
-            (31 Jul 2026) */
-         setTimeout(function(){
-           try{ document.getElementById('code').value=h; unlock(); }
-           catch(e2){}
-           /* belt and braces: whatever happened, never leave a blank
-              page - if the board is not up, the gate must be */
-           var ap=document.getElementById('app');
-           if(!ap||ap.style.display!=='block'||!ap.innerHTML){
-             document.getElementById('gate').style.display='';
-           }
-         },50); }
-}catch(e){} })();
+/*  The board opens on arrival. Waits for every script block to parse
+    first - render() reaches helpers defined further down the page, and
+    firing early left a blank app once already (31 Jul 2026).
+    The old sessionStorage hand-off from the crew page went with the
+    gate: there is no longer a code to hand over.  */
+(function(){
+  function go(){ setTimeout(boot,0); }
+  if(document.readyState==='loading')
+    document.addEventListener('DOMContentLoaded',go);
+  else go();
+})();
 
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;')
   .replace(/</g,'&lt;').replace(/>/g,'&gt;')}
@@ -2805,7 +2788,29 @@ function homeMenu(){
     'g','STORE CONTROL',
     bayDoor('fresh','Fresh look')
     +bayDoor('std','Our standards')
-    +(MGR?bayDoor('mgr','Money'):''));
+    +(MGR?bayDoor('mgr','Money &middot; Utilisation Control','','hot'):''));
+  if(!MGR && MTAG){
+    /*  the ONLY code left on this board, and it guards money alone
+        (Andrew, 3 Aug 2026). Same cipher and same door as the crew
+        page's Costs box.  */
+    h+='<div class="mgrbox"><b>Manager</b>'
+     +'<span>Your code opens the rates, the revenue and Utilisation '
+     +'Control &mdash; the bars, the tiles and the timeline of the '
+     +'shut. Nothing else on this board asks for a code.</span>'
+     +'<div class="mgrow"><input id="mcode" type="password" '
+     +'inputmode="text" autocomplete="off" autocapitalize="none" '
+     +'autocorrect="off" spellcheck="false" placeholder="MANAGER CODE" '
+     +'aria-label="Manager code" '
+     +'onkeydown="if(event.keyCode===13)mgrUnlock()">'
+     +'<button type="button" onclick="mgrUnlock()">Open</button></div>'
+     +'<div id="merr" class="merr"></div></div>';
+  } else if(MGR){
+    h+='<div class="mgrbox on"><b>Manager view</b>'
+     +'<span>Rates and revenue are showing. Tap Lock before you hand '
+     +'the phone over.</span>'
+     +'<div class="mgrow"><button type="button" class="lk" '
+     +'onclick="mgrLock()">Lock the money away</button></div></div>';
+  }
 
   return h+'</div>';
 }
@@ -5590,33 +5595,54 @@ def mtag(code):
 
 
 def build(data, code, asof, pricing=None, mgr_code=None):
-    """The finished, gated page. Neither code appears in the file.
+    """The finished page. The board opens on arrival; the money does not.
 
-    Two payloads under two codes: the stores board, and the money. A
-    manager code opens both - it is a superset, not a second door to
-    remember - but the stores code cannot reach the money at all,
-    because it is separately encrypted rather than merely hidden.
+    ONE DOOR, NOT TWO (Andrew, 3 Aug 2026, authorising it in writing:
+    "this is access for all Coates staff, we already have a password to
+    get in, we don't need a 2nd which is what we have"). The store Wi-Fi
+    password is the door. This page is served only on that network, so
+    the board's own data now ships in the clear - and it is honest that
+    way rather than wearing a lock whose key is on the same wall.
+
+    THE MONEY DID NOT MOVE. Rates and revenue are encrypted under HIS
+    manager code, in a separate blob, and appear nowhere readable in
+    this file. Who may see the shelf and who may see the rates are two
+    different questions, and only the first one changed.
+
+    `code` is still taken so the signature does not break for callers,
+    and it is deliberately NOT used to encrypt anything now.
     """
     blob = json.dumps(data, separators=(',', ':'), ensure_ascii=True)
-    _alias = keypad_alias(code)
+
+    #  THE GUARD THAT MATTERS MORE THAN IT USED TO. The board's payload
+    #  is now readable by anyone on the store Wi-Fi, so a money field
+    #  reaching it is no longer merely wrong, it is published. Searched
+    #  before it is written, same rule as the counter screens.
+    _leak = re.search(r'"(revenue|rate|charge|price|cost)"', blob, re.I)
+    if _leak:
+        raise SystemExit(
+            '\n  REFUSED TO WRITE - {!r} reached the OPEN stores payload.\n'
+            '  That payload is no longer encrypted: it would be published\n'
+            '  to every phone on the store Wi-Fi. Money belongs in the\n'
+            '  manager blob. Fix mygear_stores.read().'
+            .format(_leak.group(1)))
+
     import mygear_font
     page = (PAGE.replace('__FONTCSS__', mygear_font.FONT_CSS)
                 .replace('//__READER__//', _READER_JS)
                 .replace('//__QRJS__//', _QR_JS)
-                .replace('__PAYLOAD__', enc(code, blob))
-                .replace('__TAG__', tag(code))
-                .replace('__ATAG__', tag(_alias) if _alias else '')
-                .replace('__AKEY__', enc(_alias, code) if _alias else '')
+                .replace('__PAYLOAD__', json.dumps(blob))
+                .replace('__TAG__', '')
+                .replace('__ATAG__', '')
+                .replace('__AKEY__', '')
                 .replace('__ASOF__', asof or 'this morning')
                 .replace('__DAYTAG__', _day_tag()))
     if pricing and mgr_code:
         mblob = json.dumps(pricing, separators=(',', ':'), ensure_ascii=True)
         page = (page.replace('__MPAYLOAD__', menc(mgr_code, mblob))
                     .replace('__MTAG__', mtag(mgr_code))
-                    #  the stores code, encrypted under the manager code -
-                    #  never the code itself
-                    .replace('__MKEY__', menc(mgr_code, code)))
+                    )
     else:
-        page = (page.replace('__MPAYLOAD__', '').replace('__MTAG__', '')
-                    .replace('__MKEY__', ''))
+        page = (page.replace('__MPAYLOAD__', '')
+                    .replace('__MTAG__', ''))
     return page
