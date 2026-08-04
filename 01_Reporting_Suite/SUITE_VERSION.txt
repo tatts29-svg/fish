@@ -1,7 +1,7 @@
-# Coates K2 suite version - 173 files - overall 36d31924
+# Coates K2 suite version - 175 files - overall 61d6d155
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-04 00:48:29
+# taken 2026-08-04 01:09:50
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -72,6 +72,7 @@ e487d6f141 70_SERIAL_NUMBERS.bat
 37a7a18bd8 71_UTILISATION_CONTROL.bat
 9a591e3592 72_SHIFT_AND_COUNTER_INTEL.bat
 f7bff68054 73_CHECK_MY_GEAR_NAV.bat
+60ef9beb68 74_WALK_THE_STORE.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
@@ -80,7 +81,7 @@ f7bff68054 73_CHECK_MY_GEAR_NAV.bat
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 9027347b09 BUILD_DAILY_EMAIL_PACKS.py
-8214a7ea49 BUILD_MY_GEAR.py
+ca33a1515d BUILD_MY_GEAR.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
 bc00d71105 CHECK_REPORTS.py
@@ -98,6 +99,7 @@ d7e5f12668 MAKE_MY_QR_CARDS.py
 b98cae26ae PICK_REPORT.py
 87cb5cb733 PREFILL_DAILY_TRACKING.ps1
 0da565dcb9 PULL_SITEIQ_EXPORTS.py
+2430a93569 RACK_WALK_SHEET.py
 77e9335253 REFRESH_BILLING_RECONCILIATION.ps1
 294958b630 REFRESH_GEAR_UTILISATION.ps1
 067a7a7151 SERVE_GEAR_HTTPS.py
@@ -107,7 +109,7 @@ b0c58cff1b START_GEAR_LOOKUP.ps1
 c73dc44e7e SWITCH_ON.py
 9379a70c16 SYNC_PCS.py
 b465157039 TEST_DAILY_PACKS.py
-cebb7ba3cb TEST_MY_GEAR_NAV.py
+8b70771f98 TEST_MY_GEAR_NAV.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
@@ -127,7 +129,7 @@ a7b9aebd15 build_company_onhire_report.py
 6e6ab04d8a build_cost_snapshot.py
 6e05124037 build_crew_onhire.py
 f07fdf7710 build_flame_off_plant.py
-a234ce1b3c build_fleet_detail.py
+fb1bd95e34 build_fleet_detail.py
 0de1946e50 build_fleet_finder.py
 1a3898ae51 build_invoice_breakdown.py
 831892f416 build_offline_day.py
@@ -154,9 +156,9 @@ f013359327 mybranch.py
 76c4ef0808 mygear_guides.py
 de6fa43089 mygear_intel.py
 6ade9a441b mygear_movement.py
-19a7f1dbf0 mygear_nav.py
-673151114f mygear_store.py
-10691b2126 mygear_stores.py
+7b69f91ecf mygear_nav.py
+904690f8e6 mygear_store.py
+f6628e50c9 mygear_stores.py
 83d68fee44 mygear_thumbs.py
 a4b6299d22 mygear_ui.py
 5dbf7b3d91 net_pick.py
