@@ -3042,7 +3042,14 @@ function homeMenu(){
   h+=bay(4,'org','print','Print Works',
     'Every report from one place: person, company, whole site, radios, '
     +'gas, hit list.','g','PRINT READY',
-    bayDoor('print','Open the print hub',null,'wide'));
+    bayDoor('print','Open the print hub',null,'wide')
+    /*  THIS MORNING&rsquo;S REPORTS, ON THE PHONE. The server serves
+        one folder and it held four pages, so 62 reports a day never
+        left the laptop (Andrew, 4 Aug 2026: "i have not seen half of
+        it on my phone"). They are in reports/ now - the money ones
+        locked under his code, everything else in the clear.  */
+    +bayLink('reports/','This morning&rsquo;s reports &mdash; on your phone',
+             null,'wide'));
 
   /* BAY 05 - plant desk. Only built when the export carried plant. */
   if(D.hasPlant||t.idle){

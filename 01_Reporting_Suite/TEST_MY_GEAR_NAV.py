@@ -205,8 +205,13 @@ def main(pages):
             hrefs = pg.evaluate(
                 "()=>Array.from(document.querySelectorAll('#k2sheet a[href]'))"
                 ".map(a=>a.getAttribute('href'))")
-            missing = [h for h in hrefs
-                       if h != "#" and not os.path.isfile(os.path.join(GL, h))]
+            # a destination can be a folder with an index.html in it -
+            # the reports shelf is reports/, not reports.html
+            def _there(h):
+                p = os.path.join(GL, h)
+                return (os.path.isfile(p)
+                        or os.path.isfile(os.path.join(p, "index.html")))
+            missing = [h for h in hrefs if h != "#" and not _there(h)]
             check(key + ": every menu destination exists on disk",
                   not missing, "missing: " + ", ".join(missing) if missing
                   else "%d links" % len(hrefs))
