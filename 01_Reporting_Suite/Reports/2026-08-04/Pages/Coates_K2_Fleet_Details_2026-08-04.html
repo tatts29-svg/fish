@@ -870,12 +870,21 @@ function assetIdx(){
 function findAssets(q){
   var k = assetKey(q);
   if(k.length < 3) return [];
+  /*  A WORD IS NOT A NUMBER. Item numbers on this register have words
+      in them - HOSEAIR19MM, WELDERTIG - so widening on any four
+      characters made "hose" match 271 assets and bury the 16 products
+      a storeman was actually after under a wall of numbers.
+      Widening now wants a DIGIT in the query: a number off a sticker
+      always has one and a word never does. An exact match still always
+      counts - that is a scan, and it means one asset.
+      (Found by attacking it, 4 Aug 2026.)  */
+  var widen = k.length >= 4 && /[0-9]/.test(k);
   var ix = assetIdx(), exact = [], part = [], i, j;
   for(i = 0; i < ix.length; i++){
     var hit = 0, near = 0;
     for(j = 0; j < ix[i].keys.length; j++){
       if(ix[i].keys[j] === k) hit = 1;
-      else if(k.length >= 4 && ix[i].keys[j].indexOf(k) >= 0) near = 1;
+      else if(widen && ix[i].keys[j].indexOf(k) >= 0) near = 1;
     }
     if(hit) exact.push(ix[i]);
     else if(near) part.push(ix[i]);
@@ -930,8 +939,8 @@ function showList(q){
       + '</h2>');
     H.push(av.slice(0, 24).map(assetHitHtml).join(''));
     if(av.length > 24)
-      H.push("<div class='note'>" + (av.length - 24)
-        + ' more. Type a bit more of the number to narrow it.</div>');
+      H.push("<div class='note'>Showing the first 24 of " + av.length
+        + ' &mdash; type a bit more of the number to narrow it.</div>');
     if(hits.length) H.push("<h2>Products</h2>");
   }
   if(!hits.length && !av.length){
