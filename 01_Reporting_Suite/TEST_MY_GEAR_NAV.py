@@ -723,6 +723,64 @@ def main(pages):
         check("crew: and the one after that leaves - no dead presses",
               not pg.url.endswith("crew.html"), pg.url.rsplit("/", 1)[-1])
 
+        print("\n=== THE WORKED GAUGE ON A GEAR CARD")
+        go("crew")
+        got = pg.evaluate("""()=>{
+          for(var ci=0;ci<__CREW__.companies.length;ci++){
+            var c=__CREW__.companies[ci];
+            for(var pi=0;pi<c.people.length;pi++){
+              var p=c.people[pi];
+              for(var ii=0;ii<p.items.length;ii++){
+                var it=p.items[ii];
+                if(it.s!==undefined&&it.fa!==undefined){
+                  openCo(c); gearCard(it.item,p.name);
+                  return {s:it.s,fa:it.fa,w:it.w,c:it.c};}}}}
+          return null}""")
+        pg.wait_for_timeout(600)
+        check("crew: every item carries a worked figure", got is not None,
+              json.dumps(got))
+        if got:
+            card = pg.eval_on_selector("#k2det-b", "e=>e.innerText")
+            check("crew: the card shows how much it has worked",
+                  "HOW MUCH IT HAS WORKED" in card.upper()
+                  and str(got["s"]) in card, str(got["s"]) + "%")
+            check("crew: and stands it against its own fleet",
+                  str(got["fa"]) in card, str(got["fa"]) + "% average")
+            # the band WORD must be there - the colours are only legal
+            # for colour-blind readers because a word carries it too
+            check("crew: the band carries a WORD, not just a colour",
+                  got["w"] and got["w"].upper() in card.upper(), got["w"])
+            bar = pg.evaluate(
+                "()=>{var i=document.querySelector('.k2gauge .k2gt i');"
+                "return i?i.style.width:null}")
+            check("crew: the gauge bar is drawn to the figure",
+                  bar is not None and bar.startswith(str(int(got["s"]))[:2]),
+                  str(bar))
+            check("crew: STILL no money on the gauge while locked",
+                  "$" not in card and "/day" not in card, "clean")
+
+        print("\n=== THE BARCODE SITS UNDER THE PHOTO, SAME WIDTH")
+        go("index")
+        pg.evaluate("()=>{try{DW_DEAD=true}catch(e){}; openGuide('store')}")
+        pg.wait_for_timeout(1500)
+        pg.evaluate("""()=>{var b=Array.from(document.querySelectorAll('[onclick*=stCat]'))
+          .find(x=>/rigging|lifting/i.test(x.textContent)); if(b)b.click();}""")
+        pg.wait_for_timeout(1300)
+        g = pg.evaluate(
+            "()=>{var c=document.querySelector('.stcard.wide');if(!c)return null;"
+            "var im=c.querySelector('.im').getBoundingClientRect();"
+            "var q=c.querySelector('.stqr.s2');if(!q)return null;"
+            "q=q.getBoundingClientRect();"
+            "return {pw:Math.round(im.width),qw:Math.round(q.width),"
+            "below:Math.round(q.top)>=Math.round(im.bottom)-2,"
+            "ph:Math.round(im.height)}}")
+        check("store: the code is the same width as the photo",
+              g and g["pw"] == g["qw"], json.dumps(g))
+        check("store: and it sits underneath it", g and g["below"],
+              json.dumps(g))
+        check("store: the photo is a square, not a banner",
+              g and g["ph"] == g["pw"], json.dumps(g))
+
         print("\n=== FIND ONE ASSET BY ITS NUMBER")
         go("fleet")
         smp = pg.evaluate(

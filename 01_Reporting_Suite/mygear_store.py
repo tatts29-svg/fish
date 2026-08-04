@@ -591,12 +591,20 @@ CSS = """
     on it - so a spanner lying flat came out cropped to a sliver. It is
     a fixed square at the top left, exactly like the toolbox talk and
     the guide rows.  */
-.stcard.wide .im{width:96px;height:96px;flex:none;align-self:flex-start;
+.stcard.wide .imcol{flex:none;width:96px;display:flex;
+ flex-direction:column;gap:7px;align-self:flex-start}
+.stcard.wide .im{width:96px;height:96px;flex:none;
  aspect-ratio:auto;border-radius:12px;overflow:hidden}
+/*  the scan code, directly under the picture and exactly as wide  */
+.stcard.wide .stqr.s2{position:static;width:96px;height:96px;margin:0;
+ padding:4px;border-radius:12px;box-shadow:none}
+.stcard.wide .stqr.s2 svg{width:100%;height:100%;display:block}
 .stcard.wide .bd{flex:1;min-width:0;padding:0}
 .stcard.wide .bd b{font-size:14px;overflow-wrap:break-word}
 @media(min-width:560px){
+  .stcard.wide .imcol{width:132px}
   .stcard.wide .im{width:132px;height:132px}
+  .stcard.wide .stqr.s2{width:132px;height:132px}
   .stcard.wide .bd b{font-size:15px}
 }
 /*  the alternatives list reads as a list, not a paragraph  */
@@ -917,6 +925,13 @@ function stRender(reset){
          right. */
       var wide = true; feat = false;
       html += '<div class="stcard ' + (wide?'wide ':'') + cls + '">'
+        /*  THE PICTURE AND THE CODE, ONE COLUMN. (Andrew, 4 Aug 2026:
+            "do we put the barcode underneath so its same size.")
+            The code was floating at the bottom of the words, so every
+            card ended at a different place and the left side of the
+            list was a ragged edge. It sits under the photograph now,
+            exactly as wide as it.  */
+        + '<div class="imcol">'
         + '<div class="im">'
         + ((it.v && (typeof hasThumb!=='function' || hasThumb(it.v)))
             ? '<img src="thumbs/' + encodeURIComponent(tsafe(it.v))
@@ -929,6 +944,10 @@ function stRender(reset){
         + '<span class="qb ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '">'
         + big + '</span>'
         + '</div>'
+        + (window.qr ? '<span class="stqr s2" data-c="' + (it.v||it.n)
+           + '" data-n="' + it.n + '" onclick="stQR(event,this)">'
+           + qr(it.v||it.n,96) + '</span>' : '')
+        + '</div>'
         + '<div class="bd"><b>' + it.n + '</b>'
         + '<span><i class="loc">' + it.u + '</i>'
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
@@ -939,11 +958,6 @@ function stRender(reset){
                 + (it.o ? ' &middot; ' + it.o + ' out with crews' : '')))
         + '</span>'
         + stChips(it.fl) + stKit(it) + (it.q===0 ? stAlt(it) : '')
-        /*  the scan code, as a chip under the words rather than a white
-            square sitting on top of the product photograph  */
-        + (window.qr ? '<span class="stqr s2" data-c="' + (it.v||it.n)
-           + '" data-n="' + it.n + '" onclick="stQR(event,this)">'
-           + qr(it.v||it.n,40) + '</span>' : '')
         + '</div></div>';
     } else {
       html += '<div class="strow ' + cls + '" style="animation-delay:'

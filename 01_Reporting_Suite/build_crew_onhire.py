@@ -104,6 +104,57 @@ def _name_key(n):
     return ' '.join(str(n or '').split()).upper()
 
 
+WORK = {}
+
+
+def work_index(data):
+    """One entry per asset: how much it has worked, and how that sits
+    against the rest of its own fleet.
+
+    Built off fleet_detail.asset_row - the SAME function the Fleet
+    Details screen ranks with - so a supervisor reading 62% here and a
+    storeman reading 62% there are reading one number, not two that
+    happen to look alike.
+
+    with_money is False and stays False. This payload is served to the
+    store Wi-Fi.
+    """
+    import fleet_detail as FD
+    import ownership as OWN
+    span = data.get('sourceDays') or 0
+    assets = list(data['assets'].values())
+    seqs = OWN.zero_cost_sequences(assets)
+    rows = {}
+    by_var = {}
+    for a in assets:
+        try:
+            r = FD.asset_row(a, span, False, seqs)
+        except Exception:
+            continue
+        rows[r['item']] = r
+        by_var.setdefault(a.get('variant') or '', []).append(r)
+    #  the fleet average is off the ISSUABLE fleet, the same denominator
+    #  the fleet screen uses - excluded gear is out of it
+    avg, size = {}, {}
+    for v, rs in by_var.items():
+        live = [r for r in rs if not r['excluded'] and r['score'] is not None]
+        size[v] = len(live)
+        avg[v] = (sum(r['score'] for r in live) / len(live)) if live else None
+    out = {}
+    for a in assets:
+        r = rows.get(a.get('item') or '')
+        if not r or r['score'] is None:
+            continue
+        v = a.get('variant') or ''
+        e = {'s': round(r['score'], 1), 'c': r['cycles'], 'w': r['word'],
+             'b': r['band']}
+        if avg.get(v) is not None and size.get(v, 0) > 1:
+            e['fa'] = round(avg[v], 1)
+            e['fn'] = size[v]
+        out[r['item']] = e
+    return out
+
+
 def collect(data):
     """Every company, its people, and what each of them is holding."""
     out = {}
@@ -136,6 +187,26 @@ def collect(data):
         sn = SR.serial_of(a.get('item') or '')
         if sn:
             it['sn'] = sn
+        #  HOW HARD THIS ONE HAS WORKED. (Andrew, 4 Aug 2026: "lets put
+        #  some more detail about the asset to the client. how much its
+        #  worked. almost like a worked gauge maybe.")
+        #
+        #  Straight off the same engine the Fleet Details screen uses,
+        #  so the two screens can never disagree about an asset:
+        #    s  the share of the shutdown so far this asset has been
+        #       out with a crew - that IS how much it has worked
+        #    c  how many separate hires it has been on
+        #    w  the word for the band, never the colour alone
+        #    fa what the rest of its fleet averages, so the number has
+        #       something to stand next to
+        #    fn how many of them there are
+        #
+        #  NO MONEY IN ANY OF IT. Days, counts and percentages only -
+        #  and the guard below still refuses to write if a rate ever
+        #  reaches this payload.
+        w = WORK.get(it['item'])
+        if w:
+            it.update(w)
         p['items'].append(it)
         c['assets'] += 1
     for c in out.values():
@@ -573,6 +644,7 @@ function gearCard(item, person){
   var r = rateOf(i);
   if(r !== null) h += k2r('Day rate', esc(money(r)),
     'while it is out - not what has been billed');
+  h += workGauge(i);
   var also = alsoHolding(f.company, i.desc, f.person);
   if(also.length)
     h += '<div class="k2note">Others at <b>' + esc(f.company)
@@ -584,6 +656,49 @@ function gearCard(item, person){
     + 'Anything handed back since shows on tomorrow&rsquo;s refresh.</div>';
   k2Detail(esc(i.desc), h);
 }
+/* ------------------------------------------------------------------
+   HOW MUCH THIS ONE HAS WORKED. (Andrew, 4 Aug 2026.)
+
+   The number is the share of the shutdown SO FAR that this asset has
+   been out with a crew - not a guess, not a rating: days out over days
+   elapsed, off the same engine the Fleet Details screen ranks with.
+
+   It is shown against its own fleet, because a percentage alone tells
+   a client nothing. 24% sounds low until you know the other 29 average
+   18%, and then it is the hardest-worked shackle on site.
+
+   THE WORD IS NOT DECORATION. The three band colours are only legal
+   for colour-blind readers because a word carries the same meaning.
+------------------------------------------------------------------ */
+function workGauge(i){
+  if(i.s === undefined || i.s === null) return '';
+  var b = i.b || 'none', pct = Math.max(0, Math.min(100, i.s));
+  var COL = {low:'#1C9FAE', ok:'#52AC36', high:'#C9550A', none:'#8A97A8'};
+  var h = '<div class="k2gauge"><div class="k2gh">'
+    + '<em>How much it has worked</em>'
+    + '<span class="k2gp k2' + b + '">' + i.s + '%</span></div>'
+    + '<div class="k2gt"><i style="width:' + pct + '%;background:'
+    + (COL[b] || COL.none) + '"></i>'
+    + (i.fa !== undefined
+       ? '<u style="left:' + Math.max(0, Math.min(100, i.fa)) + '%"></u>' : '')
+    + '</div>'
+    + '<div class="k2gs">Out with a crew <b>' + i.s + '%</b> of the '
+    + 'shutdown so far.';
+  if(i.fa !== undefined && i.fn)
+    h += ' The other <b>' + (i.fn - 1) + '</b> of these average <b>'
+      + i.fa + '%</b>'
+      + (i.s > i.fa ? ' &mdash; this one is working harder than most.'
+                    : (i.s < i.fa ? ' &mdash; this one has had an easier run.'
+                                  : '.'));
+  if(i.c) h += ' Hired out <b>' + i.c + '</b> time'
+    + (i.c === 1 ? '' : 's') + ' so far.';
+  else h += ' This is its first time out.';
+  h += '</div>'
+    + '<div style="margin-top:9px"><span class="k2gw k2bg' + b + '">'
+    + esc(i.w || 'NO DATA') + '</span></div></div>';
+  return h;
+}
+
 /*  the detail-sheet row helper, so this page writes cards the same
     shape the rest of My Gear does  */
 function k2r(label, value, sub){
@@ -630,6 +745,8 @@ def build(today=None):
         print('  No RENTAL_STOCK / TRANSACTIONS export found. Nothing built.')
         return
     data = MI.read(rental, txn, FC._newest('ON_HIRE*.xlsx'))
+    global WORK
+    WORK = work_index(data)
     companies = collect(data)
     for c in companies:
         if MI._is_holding(c['company']) or c['company'].upper() == 'COATES':

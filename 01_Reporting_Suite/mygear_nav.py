@@ -221,6 +221,34 @@ CSS = """
  font-size:13px;color:#C6D0DD;line-height:1.5}
 .k2det .k2note b{color:#F0F4F9}
 
+/*  THE WORKED GAUGE. (Andrew, 4 Aug 2026: "how much its worked. almost
+    like a worked gauge maybe.")
+    The three band colours sit in the colour-blind validator's WARN band
+    - worst pair dE 6.7 - which is only legal because every band also
+    carries a WORD. USE NEXT / GOOD / HIGH USE are not decoration; they
+    are the reason the colours are allowed at all. Never drop them.  */
+.k2gauge{background:#1C232D;border:1px solid #2A3340;border-radius:13px;
+ padding:12px 13px;margin:11px 0 4px}
+.k2gauge .k2gh{display:flex;align-items:baseline;gap:9px}
+.k2gauge .k2gh em{flex:1;font-style:normal;font-size:10px;font-weight:800;
+ letter-spacing:1.6px;color:#7C8899;text-transform:uppercase}
+.k2gauge .k2gp{font-size:30px;font-weight:800;line-height:1}
+.k2gauge .k2gw{font-size:9.5px;font-weight:800;letter-spacing:1.2px;
+ border-radius:20px;padding:4px 10px}
+.k2gauge .k2gt{height:10px;background:#0B111A;border:1px solid #2A3340;
+ border-radius:6px;overflow:hidden;position:relative;margin:9px 0 0}
+.k2gauge .k2gt i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+/*  where the rest of its own fleet sits, as a notch on the same track -
+    a number with nothing to stand next to says very little  */
+.k2gauge .k2gt u{position:absolute;top:-3px;bottom:-3px;width:2px;
+ background:#EAF0F7;opacity:.85}
+.k2gauge .k2gs{font-size:11.5px;color:#98A4B4;line-height:1.5;margin-top:8px}
+.k2gauge .k2gs b{color:#DCE3EC}
+.k2low{color:#1C9FAE}  .k2bglow{background:#0E2E35;color:#1C9FAE}
+.k2ok{color:#52AC36}   .k2bgok{background:#12280C;color:#7BD45C}
+.k2high{color:#C9550A} .k2bghigh{background:#3A2110;color:#E8804A}
+.k2none{color:#8A97A8} .k2bgnone{background:#232B36;color:#8A97A8}
+
 /*  NOT ON PAPER. The crew page prints a supervisor's handout and the
     fleet page prints too - a BACK button on a printed sheet is just
     ink. (4 Aug 2026.)  */
