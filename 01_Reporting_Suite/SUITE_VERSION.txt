@@ -1,7 +1,7 @@
-# Coates K2 suite version - 173 files - overall acb3e561
+# Coates K2 suite version - 173 files - overall 93a29b22
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-04 00:11:29
+# taken 2026-08-04 00:24:43
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -91,7 +91,7 @@ b48951fe84 FIX_DELETE_LIFTING_CHARGES_28JUL.bat
 e0416bf106 MACHINE_ID.py
 d7e5f12668 MAKE_MY_QR_CARDS.py
 536d1d43c3 MAKE_OUTLOOK_DRAFTS.ps1
-a209295395 MISSING_PICTURES.py
+682657af10 MISSING_PICTURES.py
 14a01ac147 PACK_FOR_CLAUDE.py
 1c5c7eaecd PEOPLE_LIST.py
 6dce95dd24 PHOTO_HUNT.py
@@ -107,7 +107,7 @@ b0c58cff1b START_GEAR_LOOKUP.ps1
 c73dc44e7e SWITCH_ON.py
 9379a70c16 SYNC_PCS.py
 b465157039 TEST_DAILY_PACKS.py
-26ecec385a TEST_MY_GEAR_NAV.py
+caaa9bebaa TEST_MY_GEAR_NAV.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
@@ -155,7 +155,7 @@ f013359327 mybranch.py
 de6fa43089 mygear_intel.py
 6ade9a441b mygear_movement.py
 19a7f1dbf0 mygear_nav.py
-cb35b74b4d mygear_store.py
+673151114f mygear_store.py
 10691b2126 mygear_stores.py
 83d68fee44 mygear_thumbs.py
 a4b6299d22 mygear_ui.py
