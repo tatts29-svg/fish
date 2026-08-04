@@ -1,8 +1,8 @@
-# Coates K2 suite version - 177 files - overall 46c06e3d
+# Coates K2 suite version - 182 files - overall 049e092d
 # MACHINE: not named - run 46_
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-04 01:20:30
-b2f7b8c2e0 00_RUN_EVERYTHING.bat
+# taken 2026-08-04 01:56:40
+bbc3616f4b 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
 d608c96ec2 03_RUN_COMPANY_REPORT.bat
@@ -74,11 +74,14 @@ e487d6f141 70_SERIAL_NUMBERS.bat
 f7bff68054 73_CHECK_MY_GEAR_NAV.bat
 60ef9beb68 74_WALK_THE_STORE.bat
 68b84a4d26 75_PRINT_HUB.bat
+178b596728 76_DESIGN_A_REPORT.bat
+eb40f1f497 77_RUN_MY_REPORTS.bat
+9294daf7a9 78_REPORTS_ON_MY_PHONE.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
 6713b854e6 ALIGN_EXCEL_DATA.ps1
-8bce6d250a APPLY_SUITE_UPDATE.py
+bb744884cc APPLY_SUITE_UPDATE.py
 01b910ecbf ARCHIVE_OLD_REPORTS.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 9027347b09 BUILD_DAILY_EMAIL_PACKS.py
@@ -110,7 +113,7 @@ b0c58cff1b START_GEAR_LOOKUP.ps1
 c73dc44e7e SWITCH_ON.py
 9379a70c16 SYNC_PCS.py
 b465157039 TEST_DAILY_PACKS.py
-8b70771f98 TEST_MY_GEAR_NAV.py
+c0402f2c9a TEST_MY_GEAR_NAV.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
@@ -136,7 +139,7 @@ fb1bd95e34 build_fleet_detail.py
 831892f416 build_offline_day.py
 e8e188b1cb build_plant_dashboard.py
 ce2058e40b build_posters.py
-35e8bf8b10 build_print_hub.py
+3171b11873 build_print_hub.py
 54d6e543ff build_shift_intel.py
 4cf7373296 build_utilisation_intel.py
 06fd0346ff build_utilisation_report.py
@@ -158,17 +161,19 @@ f013359327 mybranch.py
 76c4ef0808 mygear_guides.py
 de6fa43089 mygear_intel.py
 6ade9a441b mygear_movement.py
-7b69f91ecf mygear_nav.py
+4f0ab65753 mygear_nav.py
 904690f8e6 mygear_store.py
-f6628e50c9 mygear_stores.py
+360d265918 mygear_stores.py
 83d68fee44 mygear_thumbs.py
 a4b6299d22 mygear_ui.py
 5dbf7b3d91 net_pick.py
 51d4d07a40 ownership.py
+224b263124 phone_reports.py
 50eec7237f plant_life.py
 baf96d6e18 qr_lite.py
 6817897106 racks.py
 64177bb894 recipients.py
+cb912fcb7b report_designer.py
 3a097afbe7 report_legend.py
 c60bd527af report_pages.py
 752b950757 report_paths.py
