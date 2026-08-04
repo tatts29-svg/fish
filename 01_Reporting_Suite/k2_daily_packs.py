@@ -111,8 +111,10 @@ ALIASES = {
     "Bosch Rexroth": "BOSCH REXROTH",
     "Industrial Rescue": "Industrial Rescue & Emergency Training",
     "Filtercare": "Filtercare",
-    #  no address yet - the pack builds, files the record, and is HELD
-    #  rather than drafted. Andrew fills the To in when he has it.
+    #  QWest Crane Hire - NO PACK BY INSTRUCTION (4 Aug 2026). Kept
+    #  mapped so their rows still carry the right name on every
+    #  site-wide report; see NO_PACK below for why, and for what they
+    #  are still holding.
     "QWest Crane Hire": "QWEST CRANE HIRE",
     #  NOTHING ON HIRE TODAY, AND THEY STILL GET THE REPORT.
     #  Aestec and Cutrite hold zero items right now, but both have an
@@ -127,6 +129,28 @@ ALIASES = {
     #  Genuinely nothing on hire today - they get a folder and a record,
     #  never an email with no data. The guard watches this one too.
     "Cleanaway": None,
+}
+
+
+#  ---- COMPANIES THAT GET NO PACK, BY INSTRUCTION ---------------------
+#  Andrew, 4 Aug 2026: "qwest no longer needed."
+#
+#  DELETING THE LINE WOULD HAVE BEEN THE WRONG FIX. QWest is still on
+#  the register holding gear - two tool lanyards with Allan Watt, out
+#  since 29 Jul. Quietly dropping a company off the pack list stops
+#  anybody ever being told about those two again: the pack was the only
+#  thing that named them to QWest, and a company nobody reports on is a
+#  company nobody chases.
+#
+#  So they come off the packs and STAY on the books. The run prints them
+#  by name every morning with whatever they are still holding, and the
+#  site-wide reports carry their lines exactly as before. When the
+#  lanyards come back, the line here can go.
+#
+#  company (as spelled in ALIASES) -> (why, who said so and when)
+NO_PACK = {
+    "QWest Crane Hire": ("No longer needed - no pack, no draft, no held "
+                         "folder", "Andrew Fisher, 4 Aug 2026"),
 }
 
 
@@ -156,6 +180,38 @@ def resolve_company(name):
     if k not in _ALIAS_KEYS:
         return None, False
     return _ALIAS_KEYS[k], True
+
+
+def held_by(onhire_path):
+    """{company key: how many lines they are holding} from the live
+    export. Best effort - an unreadable export returns {} and the
+    caller says "not known" rather than "nothing", because those two
+    are not the same answer and only one of them is safe."""
+    out = {}
+    if not onhire_path or not os.path.isfile(onhire_path):
+        return out
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(onhire_path, read_only=True,
+                                    data_only=True)
+        ws = wb["ON_HIRE"] if "ON_HIRE" in wb.sheetnames else wb.active
+        rows = ws.iter_rows(values_only=True)
+        hdr = [_txt(c) for c in next(rows)]
+        ix = {h: i for i, h in enumerate(hdr) if h}
+        if "COMPANY" not in ix:
+            wb.close()
+            return out
+        for r in rows:
+            if not r:
+                continue
+            c = _txt(r[ix["COMPANY"]]).strip()
+            if c:
+                out[_key(c)] = out.get(_key(c), 0) + 1
+                _SEEN_SPELLING[_key(c)] = c
+        wb.close()
+    except Exception:
+        return {}
+    return out
 
 
 def check_stale_aliases(onhire_path):

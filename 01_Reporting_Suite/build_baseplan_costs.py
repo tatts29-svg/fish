@@ -45,35 +45,33 @@ money = B.fmt_money
 
 
 #  ---- GAPS THAT ARE A DECISION, NOT AN ERROR --------------------------
-#  Andrew, 4 Aug 2026: "don't charge for it at the moment."
-#
 #  The cross-check below compares what the separate invoice bills
 #  against what the site register can evidence. When those two disagree
 #  it says CHECK, in amber, and that is right - except when the gap is
-#  there BECAUSE somebody decided it should be.
+#  there BECAUSE somebody decided it should be. A named hold makes the
+#  row read HELD instead, still showing both numbers, and it goes amber
+#  again the moment the gap stops matching the hold.
 #
-#  The sub-hire welders are exactly that. Baseplan bills 8; the SiteIQ
-#  pull carries 7 (SUBHARVEY001 and 003-008 - 002 has no row). Left
-#  unexplained that reads as a data fault every single run, and the
-#  quickest way to make an amber row go green is to charge for the
-#  eighth - which is the one thing he has said not to do.
+#  EMPTY, AND THE REASON IS WORTH KEEPING.
 #
-#  So a known hold is named here, and the row says HELD instead of
-#  CHECK. It still shows both numbers. It never hides the gap - it
-#  explains it, and it goes amber again the moment the gap stops
-#  matching the hold.
+#  On 4 Aug 2026 I put the 8th sub-hire welder in here, on the reading
+#  that Baseplan billed 8 while SiteIQ carried only 7. That was wrong.
+#  Andrew's screenshot highlighted seven rows whose item numbers run
+#  16816-590736 to -590742, and I read the barcode gap at SUBHARVEY002
+#  as a missing row. It is not missing - it is 16816-590535-0001,
+#  "Welding Air Vantage Diesel 500 (HGA014)", On Hire. Its item number
+#  sits outside that consecutive block, which is the only reason it was
+#  not in the highlighted selection. All eight are on the register and
+#  always were, so there is no gap to explain and nothing to hold.
 #
-#  Take the entry out when it is time to charge, and the check goes
-#  back to plain CHECK on its own.
+#  A gap in a screenshot is not a gap in the data.
+#
+#  What was actually true is a BILLING question, not a register one,
+#  and it is handled by carry_forward() below: seven welders were
+#  invoiced to 31 Jul and the eighth was not invoiced at all.
 #
 #  group label -> (how many held back, what and why, who said so)
-HELD_BACK = {
-    "Welders (sub-hired)": (
-        1,
-        "SUBHARVEY002 - the 8th unit is on site but has no row in the "
-        "SiteIQ pull, and is deliberately not being charged yet",
-        "Andrew Fisher, 4 Aug 2026"),
-}
+HELD_BACK = {}
 
 
 def find_pull():
@@ -164,8 +162,104 @@ def load_lines(path):
             "code": str(col(r, "Sales Analysis Code") or "").strip().upper(),
             "supplier": str(col(r, "Supplier Sub Rental") or "").strip(),
             "serial": str(col(r, "Serial Number") or "").strip(),
+            #  WHAT THE BRANCH HAS ACTUALLY BILLED. Read from 4 Aug 2026
+            #  - see carry_forward() for why these three matter more
+            #  than they look.
+            "billed_to": _d(col(r, "Billed To Date")),
+            "billed_amt": _n(col(r, "Billed Amount")),
+            "billed_units": _n(col(r, "Billed Units")),
         })
     return out
+
+
+#  ---------------------------------------------------------------------
+#  WHAT DID NOT MAKE THE LAST INVOICE
+#
+#  Andrew, 4 Aug 2026, on the 8th welder: "this is a subhired unit so
+#  its just charged from the branch... the baseplan would of billed for
+#  the month of july already, so the 8th welder on this months will be
+#  billed in august from the branch."
+#
+#  He is right, and the pull shows it. Three welder lines, all starting
+#  20 Jul at $72.59, all supplier HAR062:
+#      line 3   6 x Vantage 580   billed to 31 Jul   $5,226.48
+#      line 4   1 x 600A Air      billed to 31 Jul     $871.08
+#      line 17  1 x 500A Air      billed to  -           $0.00
+#  Eight welders. Seven were invoiced for 20-31 Jul; the eighth was not
+#  invoiced at all.
+#
+#  WHY THIS NEEDS SAYING OUT LOUD. That line has been running since
+#  20 Jul, so when it does bill it carries its July days with it. The
+#  August invoice will be about $871 heavier than a month of hire, for
+#  a machine that has been on site the whole time. Nobody looking at
+#  the August invoice cold would know that, and an unexplained $871 on
+#  a supplier invoice is exactly what gets queried, held, and paid
+#  late - or worse, waved through as normal.
+#
+#  This suite already splits every line by calendar month. What it was
+#  NOT doing was reading what the branch has actually billed, so it
+#  quietly assumed July was invoiced when for this line it was not.
+#  ---------------------------------------------------------------------
+def carry_forward(lines, today):
+    """Lines running but not yet invoiced up to the last month end.
+
+    Returns [(line, unbilled_from, unbilled_to, days, amount)], biggest
+    first. An empty list means the branch has billed everything it
+    could have - which is the normal answer and still worth printing."""
+    first_of_this_month = today.replace(day=1)
+    last_month_end = first_of_this_month - dt.timedelta(days=1)
+    out = []
+    for x in lines:
+        if classify(x) != "hire" or not x["start"]:
+            continue
+        if x["start"] > last_month_end:
+            continue          # started this month; nothing was due yet
+        #  where the branch's billing has got to on this line
+        upto = x["billed_to"]
+        frm = x["start"] if not upto else upto + dt.timedelta(days=1)
+        if frm > last_month_end:
+            continue          # already billed to the month end or beyond
+        #  never bill past the line's own end
+        stop = last_month_end
+        if x["term"] and x["term"] < stop:
+            stop = x["term"]
+        days = incl_days(frm, stop)
+        if days <= 0:
+            continue
+        out.append((x, frm, stop, days,
+                    days * x["qty"] * x["rate"]))
+    out.sort(key=lambda t: -t[4])
+    return out
+
+
+def carried_by_month(cf):
+    """The carry-forward broken up by the month it was EARNED in.
+
+    Andrew, 4 Aug 2026: "all costs for the 8th welder will run into
+    august and only show in august invoice."
+
+    That is a different statement to "it is owed", and it changes a
+    number on this page. The suite splits every line by calendar month,
+    so the 8th welder's 20-31 Jul sat in the JULY row - a month whose
+    invoice has already gone out without it. Anybody reconciling July
+    would chase $871.08 that was never on it.
+
+    So the earned month is what this returns, and the caller moves the
+    money to the month it will actually be invoiced in. Both views stay
+    visible: the line-by-line table below still shows the hire earned
+    from its start date, because the machine really has been working
+    since 20 Jul. Only the INVOICE month moves."""
+    per = {}
+    for x, frm, to, _days, _amt in cf:
+        cur = frm
+        while cur <= to:
+            mf, ml = month_span(cur)
+            stop = min(ml, to)
+            days = incl_days(cur, stop)
+            if days > 0:
+                per[mf] = per.get(mf, 0.0) + days * x["qty"] * x["rate"]
+            cur = ml + dt.timedelta(days=1)
+    return per
 
 
 def incl_days(a, b):
@@ -306,14 +400,61 @@ def build(today=None):
         "change anywhere.</div>")
 
     #  ---- month by month - the invoice check -------------------------
+    #  ---- what the branch has NOT billed yet --------------------------
+    cf = carry_forward(lines, today)
+    body += ("<h2>Not on the last invoice - it lands on the next one</h2>")
+    if cf:
+        cf_total = sum(t[4] for t in cf)
+        body += (
+            "<div class='note'>These lines were running before the last "
+            "month end but the branch has not invoiced them for that "
+            "time. The days below are still owed and will arrive on the "
+            "NEXT invoice on top of that month's own hire - so it reads "
+            "heavier than a month of gear, for equipment that has been "
+            "on site the whole while. Checked against the pull's own "
+            "<b>Billed To Date</b>, not assumed.</div>")
+        rows_cf = ""
+        for x, frm, to, days, amt in cf:
+            rows_cf += (
+                "<tr><td>{ln}</td><td>{d}</td><td class='num'>{q:g}</td>"
+                "<td>{f} to {t}</td><td class='num'>{dy}</td>"
+                "<td class='num'>{a}</td></tr>").format(
+                    ln=esc(x["line"]), d=esc(x["desc"]), q=x["qty"],
+                    f=frm.strftime("%d %b"), t=to.strftime("%d %b"),
+                    dy=days, a=money(amt))
+        body += ("<table class='data'><thead><tr><th>Line</th>"
+                 "<th>Description</th><th class='num'>Qty</th>"
+                 "<th>Unbilled period</th><th class='num'>Days</th>"
+                 "<th class='num'>Expected on the next invoice</th>"
+                 "</tr></thead><tbody>" + rows_cf +
+                 "<tr><td colspan='5'><b>Total carrying forward</b></td>"
+                 "<td class='num'><b>" + money(cf_total) +
+                 "</b></td></tr></tbody></table>")
+    else:
+        body += ("<div class='note'>Nothing. Every line running before "
+                 "the last month end has been invoiced up to it, so the "
+                 "next invoice carries that month only.</div>")
+
     body += "<h2>Invoice months - what each separate invoice should read</h2>"
     mrows = []
+    #  Money earned in a month whose invoice has already gone without it
+    #  belongs on the NEXT invoice, not the one it was earned in.
+    moved = carried_by_month(cf)
+    this_month = today.replace(day=1)
+    moved_total = sum(moved.values())
     for mf in months:
         ml = month_span(mf)[1]
         h_todate = sum(x["qty"] * x["rate"] * x["by_month"]
                        .get(mf, {}).get("todate", 0) for x in hire)
         h_proj = sum(x["qty"] * x["rate"] * x["by_month"]
                      .get(mf, {}).get("proj", 0) for x in hire)
+        #  out of the month it was earned in...
+        h_todate -= moved.get(mf, 0.0)
+        h_proj -= moved.get(mf, 0.0)
+        #  ...and onto the invoice that will actually carry it
+        if mf == this_month:
+            h_todate += moved_total
+            h_proj += moved_total
         m_min = sum(x["min_extra"] * x["qty"] * x["rate"] for x in hire
                     if x["start"] and x["start"].replace(day=1) == mf)
         t_m = sum(x["spend"] for x in trans
@@ -343,6 +484,20 @@ def build(today=None):
              "its current expected term date (or month end). The end "
              "dates move - so will this number, and that is the point: "
              "run me the morning an invoice lands and compare.</div>")
+    if moved_total:
+        body += ("<div class='note'><b>" + money(moved_total) + " has been "
+                 "moved between months above</b>, out of the month it was "
+                 "earned in and onto <b>"
+                 + this_month.strftime("%B %Y") + "</b>, because that is "
+                 "the invoice it will appear on. "
+                 + "; ".join(
+                     "{} earned in {}".format(money(v), k.strftime("%B"))
+                     for k, v in sorted(moved.items()))
+                 + ". The line-by-line table below is NOT moved - it "
+                 "shows hire earned from each line's start date, because "
+                 "the gear really has been working since then. Only the "
+                 "invoice month moves, so that reconciling an invoice "
+                 "against this page compares like with like.</div>")
 
     #  ---- the hire lines ---------------------------------------------
     body += "<h2>On hire on the separate invoice - line by line</h2>"
@@ -541,6 +696,20 @@ def build(today=None):
           "rate {}/day | transport {} | SEPARATE stream".format(
               len(hire), money(hire_spend), money(runrate),
               money(trans_spend)))
+    #  The one thing on this report somebody has to know BEFORE the
+    #  invoice lands, so it gets said on the console too rather than
+    #  waiting to be found on page two.
+    if cf:
+        print("")
+        print("  NOT ON THE LAST INVOICE - lands on the next one:")
+        for x, frm, to, days, amt in cf:
+            print("    line {:<4} {:<42} {} to {}  {}d  {}".format(
+                x["line"], x["desc"][:42], frm.strftime("%d %b"),
+                to.strftime("%d %b"), days, money(amt)))
+        print("    Total carrying forward: {}".format(
+            money(sum(t[4] for t in cf))))
+        print("    The next invoice reads heavier than a month by this "
+              "much. That is owed time, not an overcharge.")
     return 0
 
 

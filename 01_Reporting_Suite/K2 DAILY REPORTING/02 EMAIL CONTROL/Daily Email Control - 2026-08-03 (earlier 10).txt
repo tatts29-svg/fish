@@ -1,5 +1,5 @@
 COATES | K2 SHUTDOWN 2026 - DAILY EMAIL CONTROL
-Reporting day 2026-08-03   built 04 Aug 2026 23:42
+Reporting day 2026-08-03   built 03 Aug 2026 21:19
 Routing from K2_Daily_Email_Report_Allocation.xlsx
 ==========================================================================
 Cleanaway              Not Generated              To  1  Cc  5  Attach 0
@@ -18,6 +18,8 @@ Cement Australia       Draft Ready                To  3  Cc 11  Attach 6
 Bosch Rexroth          Draft Ready                To  1  Cc  5  Attach 1
 Industrial Rescue      Draft Ready                To  1  Cc  5  Attach 1
 Filtercare             Draft Ready                To  1  Cc  5  Attach 1
+QWest Crane Hire       Failed - Review Required   To  0  Cc  5  Attach 1
+    ! At least one confirmed address in To (0 in To)
 Aestec                 Draft Ready                To  1  Cc  5  Attach 1
 Cutrite                Draft Ready                To  1  Cc  5  Attach 1
 ==========================================================================

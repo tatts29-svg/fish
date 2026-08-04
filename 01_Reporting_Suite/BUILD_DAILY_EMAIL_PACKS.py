@@ -871,7 +871,21 @@ def main():
     say("")
     say(" COMPANY PACKS")
     packs = []
+    #  COMPANIES TAKEN OFF THE PACKS BY INSTRUCTION. Skipped here and
+    #  NAMED below with whatever they are still holding - a company that
+    #  quietly stops being reported on is a company nobody chases, and
+    #  the gear does not walk back on its own.
+    dropped = []
     for c in book["companies"]:
+        _np = getattr(K, "NO_PACK", {})
+        why = None
+        for _k, _v in _np.items():
+            if K._key(_k) == K._key(c["company"]):
+                why = _v
+                break
+        if why:
+            dropped.append((c["company"], why))
+            continue
         try:
             packs.append(build_pack(c, book, root, date_tag, disp, dirs,
                                     filed_master, masters, fixed_cc,
@@ -885,6 +899,35 @@ def main():
                                      generated,
                                      traceback.format_exc().strip()
                                      .splitlines()[-1]))
+
+    #  ---- who got no pack, and what they are still holding -------------
+    if dropped:
+        held_map = {}
+        try:
+            _oh2 = sorted(
+                [p for p in glob.glob(os.path.join(HERE, "Data_SiteIQ",
+                                                   "ON_HIRE*.xlsx"))
+                 + glob.glob(os.path.join(HERE, "ON_HIRE*.xlsx"))
+                 if not os.path.basename(p).startswith("~$")],
+                key=os.path.getmtime)
+            held_map = K.held_by(_oh2[-1]) if _oh2 else {}
+        except Exception:
+            held_map = {}
+        say("")
+        say(" NO PACK BY INSTRUCTION")
+        for name, (reason, who) in dropped:
+            siq, _known = K.resolve_company(name)
+            n = held_map.get(K._key(siq or name),
+                             held_map.get(K._key(name), 0))
+            say("   {:<22} {}".format(name[:22], reason))
+            say("   {:<22} ({})".format("", who))
+            if n:
+                say("   {:<22} STILL HOLDING {} line(s). They stay on every "
+                    "site-wide".format("", n))
+                say("   {:<22} report - but nobody is being sent a pack "
+                    "about them.".format(""))
+            else:
+                say("   {:<22} Holding nothing today.".format(""))
 
     #  ---- the control sheet -------------------------------------------
     cdir = os.path.join(root, K.F_CONTROL)
