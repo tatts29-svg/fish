@@ -1512,16 +1512,20 @@ h1.mg{text-align:center;font-size:56px}
  flex-direction:column;gap:7px;align-self:flex-start}
 .stcard.wide .im{width:96px;height:96px;flex:none;
  aspect-ratio:auto;border-radius:12px;overflow:hidden}
-/*  the scan code, directly under the picture and exactly as wide  */
-.stcard.wide .stqr.s2{position:static;width:96px;height:96px;margin:0;
- padding:4px;border-radius:12px;box-shadow:none}
+/*  the scan code, directly under the picture and HALF ITS WIDTH.
+    (Andrew, 4 Aug 2026: "lets half the barcode again.") At the full
+    96px it was as big as the product photograph and left the right of
+    the card empty under the words - a scan code is something you point
+    a gun at, not the second-biggest thing on the screen.  */
+.stcard.wide .stqr.s2{position:static;width:48px;height:48px;margin:0;
+ padding:3px;border-radius:9px;box-shadow:none}
 .stcard.wide .stqr.s2 svg{width:100%;height:100%;display:block}
 .stcard.wide .bd{flex:1;min-width:0;padding:0}
 .stcard.wide .bd b{font-size:14px;overflow-wrap:break-word}
 @media(min-width:560px){
   .stcard.wide .imcol{width:132px}
   .stcard.wide .im{width:132px;height:132px}
-  .stcard.wide .stqr.s2{width:132px;height:132px}
+  .stcard.wide .stqr.s2{width:66px;height:66px}
   .stcard.wide .bd b{font-size:15px}
 }
 /*  the alternatives list reads as a list, not a paragraph  */
@@ -3317,7 +3321,7 @@ function stRender(reset){
         + '</div>'
         + (window.qr ? '<span class="stqr s2" data-c="' + (it.v||it.n)
            + '" data-n="' + it.n + '" onclick="stQR(event,this)">'
-           + qr(it.v||it.n,96) + '</span>' : '')
+           + qr(it.v||it.n,48) + '</span>' : '')
         + '</div>'
         + '<div class="bd"><b>' + it.n + '</b>'
         + '<span><i class="loc">' + it.u + '</i>'

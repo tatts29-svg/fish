@@ -774,8 +774,11 @@ def main(pages):
             "return {pw:Math.round(im.width),qw:Math.round(q.width),"
             "below:Math.round(q.top)>=Math.round(im.bottom)-2,"
             "ph:Math.round(im.height)}}")
-        check("store: the code is the same width as the photo",
-              g and g["pw"] == g["qw"], json.dumps(g))
+        # HALF the photo, not the same - at full width it was as big
+        # as the product shot (Andrew, 4 Aug 2026: "lets half the
+        # barcode again")
+        check("store: the code is half the width of the photo",
+              g and abs(g["qw"] * 2 - g["pw"]) <= 2, json.dumps(g))
         check("store: and it sits underneath it", g and g["below"],
               json.dumps(g))
         check("store: the photo is a square, not a banner",

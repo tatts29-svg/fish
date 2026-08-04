@@ -24,6 +24,7 @@
 # =====================================================================
 import datetime as dt
 import os
+import re
 import sys
 
 import mygear_thumbs
@@ -57,6 +58,35 @@ def main():
     #  so this list says which it is, honestly ("some pictures dont
     #  show and it says i have all images", 31 Jul 2026).
     tdir = os.path.join(HERE, 'Gear_Lookup', 'thumbs')
+
+    #  ------------------------------------------------------------------
+    #  COUNT WHAT THE PAGE READS, WHICH IS THE THUMBS FOLDER.
+    #
+    #  (Andrew, 4 Aug 2026: "these are in the thumbs location with the
+    #  rest and your stating they are missing - all thumbs are in there.")
+    #  He was right and this report had the same fault the build's own
+    #  counter had on 3 Aug: it measured coverage off Photos\ , the
+    #  SOURCE folder. A machine whose thumbnails arrived some other way -
+    #  copied from the other laptop, restored, handed over - has a full
+    #  thumbs folder and a thin Photos folder, and this called every one
+    #  of them missing while the phone drew them perfectly.
+    #
+    #  The page reads Gear_Lookup\thumbs. So that is what decides
+    #  COVERED, and a source photo not yet shrunk is the only other way
+    #  to be covered (it becomes a thumbnail on the next 04).
+    #  ------------------------------------------------------------------
+    thumb_files = {}
+    if os.path.isdir(tdir):
+        for f in os.listdir(tdir):
+            if f.lower().endswith('.jpg') and not f.startswith('_'):
+                thumb_files[os.path.splitext(f)[0]] = os.path.join(tdir, f)
+    #  the SAME claim rules the build uses, run over the thumbnails, so a
+    #  family picture is seen covering its whole family here too
+    thumb_claim = mygear_thumbs.alias_photos(
+        dict(thumb_files), reg.keys(),
+        loose={c: v.get('n', '') for c, v in reg.items() if v.get('drv')})
+    used = set()
+
     missing, covered = [], []
     unshrunk = 0
     for code, e in reg.items():
@@ -64,15 +94,54 @@ def main():
                'q': e['q'],
                'k': 'Consumable' if e['k'] == 'cons' else
                     ('Radio / gas fleet' if e.get('drv') else 'Hire gear')}
-        hit = claimed.get(safe(code))
-        if hit is None:
+        #  on the page NOW (a thumbnail claims it), or on the page after
+        #  the next 04 (a source photo claims it but has not shrunk yet)
+        t_hit = thumb_claim.get(safe(code))
+        p_hit = claimed.get(safe(code))
+        if t_hit is None and p_hit is None:
             missing.append(row)
         else:
-            row['by'] = os.path.basename(hit)
-            row['sh'] = os.path.isfile(os.path.join(tdir, safe(code) + '.jpg'))
+            if t_hit is not None:
+                #  the STEM, not the filename - thumb_files is keyed by
+                #  stem, and comparing the two made every thumbnail look
+                #  like an orphan
+                used.add(os.path.splitext(os.path.basename(t_hit))[0])
+            row['by'] = os.path.basename(t_hit or p_hit)
+            row['sh'] = t_hit is not None
             if not row['sh']:
                 unshrunk += 1
             covered.append(row)
+    #  ---- and the other half of the question ---------------------------
+    #  A PICTURE THAT ANSWERS TO NOTHING. He has 1,081 thumbnails and
+    #  items still saying NO PHOTO YET - both can be true at once, if a
+    #  file is named after what the thing IS rather than after its code.
+    #  Nothing has ever told him which ones those are, so the work went
+    #  in and the picture never appeared. This is that list.
+    orphans = sorted(n for n in thumb_files if n not in used)
+    #  BUT A SPARE COPY IS NOT A GAP. Two of the thumbnails on this
+    #  machine are the radio and the gas monitor saved under their full
+    #  product names as well as under their codes. Nothing claims the
+    #  long-named copy - but the item IS on the page, drawn by its
+    #  code-named twin. Calling that "will never appear" sends a bloke
+    #  hunting a problem that is not there, which is its own kind of
+    #  lie. So each one is asked the only question that matters: is the
+    #  thing it is a picture of on the page anyway?
+    #  compare with the punctuation OUT, the way the matcher does -
+    #  MOTOROLA_DP4801E_TWO_WAY_RADIO_WITH_HANDPIECE and
+    #  MOTOROLADP4801ETWOWAYRADIO are the same words with underscores
+    #  in between, and safe() keeps those
+    def _flat(x):
+        return re.sub(r'[^A-Z0-9]+', '', str(x or '').upper())
+    _covered_codes = set(_flat(m['code']) for m in covered)
+
+    def _spare(stem):
+        u = _flat(stem)
+        for c in _covered_codes:
+            if c and (c in u or u in c):
+                return True
+        return False
+    orphan_rows = [{'f': n, 'spare': _spare(n)} for n in orphans]
+    dead = [o for o in orphan_rows if not o['spare']]
     #  biggest wins first: the photo that pictures 24 bollards beats
     #  the one that pictures a single spanner
     missing.sort(key=lambda r: (-r['q'], r['n'].upper()))
@@ -183,17 +252,90 @@ def main():
         sc.border = thin
         r += 1
 
+    #  ---- sheet 3: pictures that answer to nothing --------------------
+    if orphans:
+        w3 = wb.create_sheet('NOT LANDING ({})'.format(len(dead)))
+        brand(w3, 'PICTURES THAT ANSWER TO NOTHING',
+              '{} thumbnail(s) no register code claims. {} of them are '
+              'SPARE COPIES - the thing IS on the page, drawn by another '
+              'file - and {} are doing no work at all: the file is named '
+              'after what the thing IS, not after its code.'.format(
+                  len(orphans), len(orphans) - len(dead), len(dead)))
+        w3['A5'] = ('TO FIX ONE: find what it is a picture of in the MISSING '
+                    'sheet, copy the SAVE AS name from there, and rename this '
+                    'file to it. Then run 04. Or leave it - nothing is broken, '
+                    'it is just a photo doing no work.')
+        w3['A5'].font = Font(size=10, color=INK)
+        w3.merge_cells('A5:C5')
+        w3.row_dimensions[5].height = 46
+        w3['A5'].alignment = Alignment(wrap_text=True, vertical='top')
+        header(w3, 7, [('FILE IN thumbs\\', 56),
+                       ('WHAT IT LOOKS LIKE IT MIGHT BE', 46),
+                       ('DOES IT MATTER?', 40)])
+        r = 8
+        #  the ones doing no work first - the spares are just noise
+        orphan_rows.sort(key=lambda o: (o['spare'], o['f'].upper()))
+        for o in orphan_rows:
+            n = o['f']
+            c = w3.cell(row=r, column=1, value=n + '.jpg')
+            c.font = Font(name='Consolas', size=10)
+            c.border = thin
+            #  a plain-English guess, from the register, so he is not
+            #  reading raw codes to work out what a file was meant to be
+            guess = ''
+            up = safe(n).upper()
+            for code, e in reg.items():
+                nm = (e['n'] or '').upper()
+                if nm and (safe(code).upper() in up
+                           or up[:10] in nm.replace(' ', '')):
+                    guess = e['n']
+                    break
+            w3.cell(row=r, column=2, value=guess or '-').border = thin
+            #  worded so neither line can mislead. "Rename it and it
+            #  appears" would be a promise this cannot keep - the file
+            #  might be a second picture of something already covered
+            #  under a different product name, and renaming it would
+            #  only make a duplicate.
+            sc = w3.cell(row=r, column=3, value=(
+                'No - the same thing is on the page under another name'
+                if o['spare']
+                else 'Nothing claims this file - check MISSING for the '
+                     'name to save it as'))
+            sc.font = (Font(color=GREY) if o['spare']
+                       else Font(bold=True, color='E23B2E'))
+            sc.border = thin
+            r += 1
+
     out = os.path.join(HERE, 'Missing_Pictures_{}.xlsx'.format(
         dt.date.today().isoformat()))
     wb.save(out)
     mygear_thumbs.photos_dir(HERE)
     print(' Register codes            : {}'.format(len(reg)))
-    print(' Covered by a photo        : {}'.format(len(covered)))
+    print(' ON THE PAGE right now     : {}'.format(
+        len(covered) - unshrunk))
     print(' Still missing a picture   : {}'.format(len(missing)))
     if unshrunk:
-        print(' In the folder, NOT on the : {}  <-- run 04; if a row stays'
-              .format(unshrunk))
-        print(' page yet (see COVERED)         red, 04 will name the file')
+        print(' In Photos, not shrunk yet : {}  <-- run 04'.format(unshrunk))
+    if dead:
+        print(' Photos doing no work      : {}  <-- see NOT LANDING; a'
+              .format(len(dead)))
+        print(' (named wrong, never shown)      rename fixes each one')
+    if len(orphans) - len(dead):
+        print(' Spare copies (harmless)   : {}'.format(
+            len(orphans) - len(dead)))
+    print('')
+    if not missing and not dead:
+        print(' EVERY register code has a picture on the page. Nothing')
+        print(' is waiting and nothing is going to waste.')
+    elif not missing:
+        print(' Every register code has a picture on the page. The')
+        print(' NOT LANDING list is spare work, not a gap.')
+    else:
+        print(' {} of {} register codes have a picture on the page.'.format(
+            len(covered) - unshrunk, len(reg)))
+        print(' The MISSING sheet names the other {} - one row each,'.format(
+            len(missing)))
+        print(' biggest wins first, with the exact filename to save as.')
     print('')
     print(' Written to : {}'.format(out))
     print('')
