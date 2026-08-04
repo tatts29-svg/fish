@@ -44,6 +44,38 @@ esc = B.esc
 money = B.fmt_money
 
 
+#  ---- GAPS THAT ARE A DECISION, NOT AN ERROR --------------------------
+#  Andrew, 4 Aug 2026: "don't charge for it at the moment."
+#
+#  The cross-check below compares what the separate invoice bills
+#  against what the site register can evidence. When those two disagree
+#  it says CHECK, in amber, and that is right - except when the gap is
+#  there BECAUSE somebody decided it should be.
+#
+#  The sub-hire welders are exactly that. Baseplan bills 8; the SiteIQ
+#  pull carries 7 (SUBHARVEY001 and 003-008 - 002 has no row). Left
+#  unexplained that reads as a data fault every single run, and the
+#  quickest way to make an amber row go green is to charge for the
+#  eighth - which is the one thing he has said not to do.
+#
+#  So a known hold is named here, and the row says HELD instead of
+#  CHECK. It still shows both numbers. It never hides the gap - it
+#  explains it, and it goes amber again the moment the gap stops
+#  matching the hold.
+#
+#  Take the entry out when it is time to charge, and the check goes
+#  back to plain CHECK on its own.
+#
+#  group label -> (how many held back, what and why, who said so)
+HELD_BACK = {
+    "Welders (sub-hired)": (
+        1,
+        "SUBHARVEY002 - the 8th unit is on site but has no row in the "
+        "SiteIQ pull, and is deliberately not being charged yet",
+        "Andrew Fisher, 4 Aug 2026"),
+}
+
+
 def find_pull():
     """Newest Baseplan export - Data_Baseplan\\, the suite folder, or
     Downloads - filed into Data_Baseplan\\ with the previous pull kept,
@@ -429,13 +461,30 @@ def build(today=None):
         rows_c = ""
         for lab, bp, site in checks:
             ok = bp == site
+            held = HELD_BACK.get(lab)
+            #  A gap that exactly matches a known hold is that hold, and
+            #  says so. Any other gap is still a CHECK - and if a hold
+            #  exists but no longer explains the numbers, the row says
+            #  that too rather than quietly leaning on a stale decision.
+            explained = bool(held) and not ok and (bp - site) == held[0]
+            if ok:
+                call, colour = "MATCHES", "g"
+            elif explained:
+                call = ("HELD - invoice {}, site register {}. {} ({})"
+                        .format(bp, site, esc(held[1]), esc(held[2])))
+                colour = "n"
+            else:
+                call = ("CHECK - invoice says {}, site register says {}"
+                        .format(bp, site))
+                if held:
+                    call += (" &mdash; note: {} held back is on record "
+                             "({}), which does not account for this gap"
+                             .format(held[0], esc(held[2])))
+                colour = "a"
             rows_c += ("<tr><td>{l}</td><td class='num'>{b}</td>"
                        "<td class='num'>{s}</td>"
                        "<td class='{c}'>{w}</td></tr>").format(
-                l=lab, b=bp, s=site, c="g" if ok else "a",
-                w=("MATCHES" if ok else
-                   "CHECK - invoice says {}, site register says {}".format(
-                       bp, site)))
+                l=lab, b=bp, s=site, c=colour, w=call)
         body += ("<table class='data'><thead><tr><th>Group</th>"
                  "<th class='num'>On the separate invoice</th>"
                  "<th class='num'>On the site register</th><th>Call</th>"

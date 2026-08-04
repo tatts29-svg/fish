@@ -110,9 +110,18 @@ CHARGES = [
 #  Take the line out when it is time to charge, and nothing here stops
 #  you - this is a "not yet", not a "never".
 #
+#  WHICH WELDER. Andrew sent the RENTAL_STOCK pull of 4 Aug 2026 with
+#  the sub-hire units highlighted. Seven rows, barcodes SUBHARVEY001 and
+#  003 through 008 - item numbers 16816-590736 to -590742, all "Welding
+#  Vantage Diesel" against Cement Site Plant. SUBHARVEY002 is the gap:
+#  the eighth unit is on site but has no row in the pull, which is why
+#  the separate invoice bills 8 and the site register can only evidence
+#  7. That eighth one is the one being held.
+#
 #  (what it is, why it is held, who said so and when)
 ON_HOLD = [
-    ("The welder", "Not to be charged at the moment.",
+    ("Welder SUBHARVEY002", "The 8th sub-hire Vantage - on site, but no "
+     "row in the SiteIQ pull. Not to be charged at the moment.",
      "Andrew Fisher, 4 Aug 2026"),
 ]
 

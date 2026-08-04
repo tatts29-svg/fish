@@ -1419,6 +1419,11 @@ BASE_CSS = """
                    text-transform: uppercase; color: #fff; }
   .g { background: #14301b; color: #cfe8d4; } .a { background: #33280c; color: #f3e2b0; }
   .r { background: #3a1a17; color: #f3c4bb; }
+  /*  Neither a match nor an exception: a gap somebody DECIDED on.
+      Amber would say "go and fix this", green would say "nothing to
+      see" - both wrong for a hold. Grey says "known, and here is
+      who said so".  (4 Aug 2026)  */
+  .n { background: #232B36; color: #c3ccd8; }
   .note { font-size: 9.5pt; color: #A9B1BD; margin-top: 8px; line-height: 1.5; }
   .intro { background: #171B22; border-left: 4px solid __ORANGE__;
            padding: 14px 18px; margin-top: 14px; font-size: 11pt; color: #D7DBE2;
@@ -1946,11 +1951,17 @@ def build_plant_model(plant, rates, cats, today, infra=None):
             rate = info["rate"]
         if is_sep_invoice(p):
             # Sub-hired plant (dashed item number / SUB barcode - the
-            # 8 SUBHARVEY welders and forklift FK505) is charged on the
+            # SUBHARVEY welders and forklift FK505) is charged on the
             # SEPARATE INVOICE - no dollar from it joins a SiteIQ-stream
             # total. Coates plant with plain numeric IDs keeps its
             # rates. Tracked for use/idle/audit as always; the Separate
             # Invoice Tracker (49) carries the sub-hire money.
+            #
+            # No count is assumed anywhere here - this tests the barcode
+            # on the row in front of it. Worth knowing though: Baseplan
+            # bills 8 welders and the SiteIQ pull evidences 7, because
+            # SUBHARVEY002 has no row in it. That gap is a decision, not
+            # a fault - see HELD_BACK in build_baseplan_costs.py.
             rate = None
         p["rate"] = rate
         if is_site_plant_equipment(p["hirer"]):
