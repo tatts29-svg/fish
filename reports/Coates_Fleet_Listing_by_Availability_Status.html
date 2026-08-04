@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en-AU"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coates | Fleet Listing by Availability Status</title>
+<style>
+:root{
+  --orange:#F26222; --orange-dk:#d95926;
+  --bg:#0D1117; --surface:#161B22; --surface2:#1C232D; --line:#252D38;
+  --ink:#FFFFFF; --ink2:#C3C7CE; --mut:#8A929E;
+  --green:#0ca30c; --amber:#fab219; --red:#d03b3b; --blue:#3987e5;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Calibri,sans-serif;font-size:14px;line-height:1.5}
+.wrap{max-width:1520px;margin:0 auto;padding:0 24px 64px}
+
+/* header */
+header{background:linear-gradient(180deg,#12171E 0%,#0D1117 100%);border-bottom:3px solid var(--orange)}
+.hdr{max-width:1520px;margin:0 auto;padding:20px 24px 18px;display:flex;flex-wrap:wrap;
+  gap:20px;align-items:flex-end;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:14px}
+.mark{background:var(--orange);color:#fff;font-weight:800;letter-spacing:.14em;
+  padding:9px 14px;font-size:19px;border-radius:3px}
+.tag{color:var(--ink2);font-size:12px;letter-spacing:.05em}
+.tag b{color:var(--ink);display:block;font-size:14px;letter-spacing:0}
+h1{margin:0;font-size:23px;font-weight:700;letter-spacing:-.2px}
+.sub{color:var(--ink2);font-size:13px;margin-top:3px}
+.siteiq{text-align:right;font-size:11px;color:var(--mut);letter-spacing:.16em;font-weight:700}
+.siteiq b{color:var(--orange)}
+.author{color:var(--ink2);font-size:12px;letter-spacing:0;font-weight:600;margin-top:5px}
+
+/* meta strip */
+.meta{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--line);background:var(--surface)}
+.meta div{padding:9px 18px;border-right:1px solid var(--line);font-size:12px;color:var(--mut)}
+.meta div b{color:var(--ink);font-weight:600}
+
+section{margin-top:30px}
+h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);
+  margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);font-weight:700}
+h2 span{color:var(--orange)}
+.note{color:var(--mut);font-size:12px;margin:8px 0 0}
+
+/* exec summary */
+.exec{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--red);
+  border-radius:4px;padding:20px 22px}
+.exec .verdict{font-size:17px;font-weight:700;margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.exec p{margin:0 0 9px;color:var(--ink2);max-width:106ch}
+.exec p:last-child{margin-bottom:0}
+.exec b{color:var(--ink)}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--line);
+  border-radius:4px;padding:14px 16px}
+.tile.red{border-top-color:var(--red)} .tile.amber{border-top-color:var(--amber)}
+.tile.green{border-top-color:var(--green)}
+.tl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);
+  font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tv{font-size:29px;font-weight:700;margin:7px 0 3px;letter-spacing:-.6px}
+.ts{font-size:12px;color:var(--ink2)}
+.tgt{font-size:10px;padding:2px 6px;border-radius:9px;background:var(--surface2);
+  color:var(--mut);letter-spacing:0;text-transform:none;white-space:nowrap}
+.tgt.red{color:#ffb3b3} .tgt.amber{color:#ffd98a} .tgt.green{color:#8fe08f}
+
+/* panels */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:18px 20px}
+.cols{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;align-items:start}
+@media(max-width:1020px){.cols{grid-template-columns:1fr}}
+
+/* stacked bar */
+.stack{display:flex;height:46px;border-radius:3px;overflow:hidden;gap:2px;background:var(--surface)}
+.seg{position:relative;display:flex;align-items:center;justify-content:center;min-width:2px}
+.seglab{font-size:12px;font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:12px;color:var(--ink2)}
+.lg{display:flex;align-items:center;gap:7px}
+.lg i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.lg b{color:var(--ink)} .mut{color:var(--mut)}
+
+/* ageing chart */
+.agechart{display:flex;align-items:flex-end;gap:10px;height:190px;padding-top:8px}
+.abar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.afill{width:100%;border-radius:4px 4px 0 0;min-height:3px;display:block}
+.aval{font-size:12px;font-weight:700;margin-bottom:5px}
+.alab{font-size:11px;color:var(--mut);margin-top:7px;white-space:nowrap}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.tbl th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);
+  padding:11px 12px;border-bottom:1px solid var(--line);background:var(--surface2);
+  position:sticky;top:0;white-space:nowrap;font-weight:700}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tbody tr:hover td{background:var(--surface2)}
+.tbl td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink)}
+.tbl td.b{font-weight:700;color:var(--ink)}
+.tbl td.t{color:var(--mut)}
+.tbl td.code{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600;white-space:nowrap}
+.tbl.actions td{font-size:12.5px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px}
+
+/* chips + minibars */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;
+  padding:2px 8px;border-radius:10px;letter-spacing:.04em;white-space:nowrap}
+.chip .ico{font-size:8px}
+.chip.green{background:rgba(12,163,12,.16);color:#7ede7e}
+.chip.amber{background:rgba(250,178,25,.16);color:#ffd07a}
+.chip.red{background:rgba(208,59,59,.18);color:#ff9c9c}
+.mb{position:relative;display:block;width:110px;height:8px;background:var(--surface2);border-radius:4px}
+.mbf{position:absolute;left:0;top:0;height:100%;border-radius:4px}
+.mbf.green{background:var(--green)} .mbf.amber{background:var(--amber)} .mbf.red{background:var(--red)}
+.mbt{position:absolute;top:-2px;width:2px;height:12px;background:var(--ink2);opacity:.75}
+td.bar{width:120px}
+
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+.ctrl input,.ctrl select{background:var(--surface2);border:1px solid var(--line);color:var(--ink);
+  padding:7px 11px;border-radius:4px;font-size:13px;font-family:inherit}
+.ctrl input{min-width:230px}
+.ctrl label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700}
+
+footer{margin-top:38px;border-top:1px solid var(--line);padding-top:18px;
+  color:var(--mut);font-size:11.5px;line-height:1.7}
+footer b{color:var(--ink2)}
+.tbc{color:var(--amber);font-weight:700}
+
+@media print{
+  body{background:#fff;color:#000}
+  .tile,.panel,.tblwrap,.exec,.meta{background:#fff;border-color:#ccc}
+  .tbl th{background:#f2f2f2;color:#000} .tbl td{color:#000}
+  h1,.tv,.tbl td.n{color:#000} .ctrl{display:none}
+  tr{page-break-inside:avoid} section{page-break-inside:avoid}
+  @page{size:A4 landscape;margin:12mm}
+}
+</style></head><body>
+
+<header><div class="hdr">
+  <div class="brand">
+    <div class="mark">COATES</div>
+    <div class="tag"><b>Equipped for anything</b>Best Service &amp; Value</div>
+  </div>
+  <div>
+    <h1>Fleet Listing by Availability Status</h1>
+    <div class="sub">MyBranch Metric Details &middot; QLD &amp; NT branch network &middot; point-in-time snapshot</div>
+  </div>
+  <div class="siteiq">POWERED BY <b>SITEIQ</b>
+    <div class="author">Author: Andrew Fisher</div></div>
+</div></header>
+
+<div class="meta">
+  <div>Report <b>Fleet Listing by Availability Status</b></div>
+  <div>Scope <b>40 branches &middot; 21,492 assets</b></div>
+  <div>Fleet value <b>$199,981,145 WDV</b></div>
+  <div>Prepared <b>04 Aug 2026</b></div>
+  <div>Extract date <b class="tbc">TBC</b> &mdash; not carried in the export</div>
+  <div>Source <b>5d0b5113-MyBranch_Metric_Details_for__Fleet_Listing_by_Availability_Status.xlsx</b></div>
+</div>
+
+<div class="wrap">
+
+<section>
+  <h2>Executive summary <span>&mdash; the position</span></h2>
+  <div class="exec">
+    <div class="verdict"><span class="chip amber"><span class="ico">▲</span>RED &mdash; ACTION NEEDED</span>
+      Redline is 16.26% against a &lt;15% target</div>
+    <p>Of <b>21,492</b> assets on hand across <b>40</b> QLD and NT branches
+       &mdash; <b>$336,502,703</b> at original cost, <b>$199,981,145</b> written down &mdash;
+       <b>3,495</b> are unavailable. That is <b>16.26%</b> of the fleet against the
+       Coates Way benchmark of under 15%, or <b>271 assets</b> too many, with
+       <b>$32.03M</b> of written-down value sitting out of service.</p>
+    <p><b>Inspection Pending is the single driver.</b> It accounts for <b>2,417</b> of the
+       <b>3,495</b> redline assets (69.2%), and
+       <b>859</b> of those have been in that status for more than 90 days &mdash; the longest
+       at <b>1,289 days</b>. Clearing the inspection backlog alone would take redline
+       below the benchmark.</p>
+    <p><b>The exposure is concentrated, not network-wide.</b> Branches of 100 assets or more with the
+       highest redline share: WOOS 38.4%, EAGS 34.5%, MEAD 30.9%, GYMP 26.3%, MRBH 25.9%. Across the network <b>1,345</b> redline assets have
+       been stalled beyond 90 days, holding <b>$7.64M</b> of WDV.
+       By category, <b>Compaction</b> carries the largest redline value at
+       <b>$5,734,411</b> (21.5% of that category unavailable).</p>
+    <p><b>Utilisation.</b> <b>11,525</b> assets (53.6%) are on hire, carrying
+       <b>$127.87M</b> of WDV. Read this as a point-in-time on-hire share of units on hand,
+       not as measured time utilisation &mdash; the 65% Coates Way target is the time-based measure and the two
+       are not interchangeable. A further <b>1,636</b> available assets have not moved in over
+       180 days.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Key numbers</h2>
+  <div class="tiles"><div class="tile"><div class="tl">Fleet on hand</div><div class="tv">21,492</div><div class="ts">assets in the export</div></div><div class="tile"><div class="tl">Original cost</div><div class="tv">$336,502,703</div><div class="ts">fleet at original cost</div></div><div class="tile"><div class="tl">Written-down value</div><div class="tv">$199,981,145</div><div class="ts">current WDV of the fleet</div></div><div class="tile red"><div class="tl">On hire<span class="tgt red">target 65%</span></div><div class="tv">11,525</div><div class="ts">53.6% of fleet &middot; WDV $127.87M</div></div><div class="tile amber"><div class="tl">Redline (unavailable)<span class="tgt amber">target &lt;15%</span></div><div class="tv">16.26%</div><div class="ts">3,495 assets &middot; WDV $32.03M</div></div><div class="tile red"><div class="tl">Redline over target</div><div class="tv">+271</div><div class="ts">assets above the &lt;15% benchmark</div></div><div class="tile amber"><div class="tl">Inspection pending</div><div class="tv">2,417</div><div class="ts">11.2% of fleet &middot; 859 over 90 days</div></div><div class="tile red"><div class="tl">Redline aged &gt;90 days</div><div class="tv">1,345</div><div class="ts">WDV $7.64M held out of service</div></div></div>
+</section>
+
+<section>
+  <h2>Fleet split by availability</h2>
+  <div class="cols">
+    <div class="panel">
+      <div class="stack"><div class="seg" style="width:53.6246%;background:#d95926" title="On hire: 11,525 assets (53.6%) &middot; WDV $127.87M"><span class="seglab">53.6%</span></div><div class="seg" style="width:27.6289%;background:#3987e5" title="Available: 5,938 assets (27.6%) &middot; WDV $32.94M"><span class="seglab">27.6%</span></div><div class="seg" style="width:2.4846%;background:#c98500" title="In transit / off hired: 534 assets (2.5%) &middot; WDV $7.15M"><span class="seglab">2.5%</span></div><div class="seg" style="width:16.2619%;background:#d03b3b" title="Redline (unavailable): 3,495 assets (16.3%) &middot; WDV $32.03M"><span class="seglab">16.3%</span></div></div><div class="legend"><span class="lg"><i style="background:#d95926"></i>On hire <b>11,525</b> <span class="mut">(53.6%)</span></span><span class="lg"><i style="background:#3987e5"></i>Available <b>5,938</b> <span class="mut">(27.6%)</span></span><span class="lg"><i style="background:#c98500"></i>In transit / off hired <b>534</b> <span class="mut">(2.5%)</span></span><span class="lg"><i style="background:#d03b3b"></i>Redline (unavailable) <b>3,495</b> <span class="mut">(16.3%)</span></span></div>
+      <p class="note">Share of 21,492 assets on hand. Redline groups Inspection Pending,
+      In Service, Off Site for Repair and Wait for config job &mdash; fleet that can neither be hired
+      nor offered. Hover any segment for asset count and written-down value.</p>
+    </div>
+    <div class="panel">
+      <div class="tl" style="margin-bottom:6px">Redline ageing &mdash; days in status</div>
+      <div class="agechart"><div class="abar" title="0-30 days in status: 1,255 assets &middot; WDV $16.99M"><span class="aval">1,255</span><span class="afill" style="height:100.00%;background:#3987e5"></span><span class="alab">0-30</span></div><div class="abar" title="31-60 days in status: 607 assets &middot; WDV $5.69M"><span class="aval">607</span><span class="afill" style="height:48.37%;background:#3987e5"></span><span class="alab">31-60</span></div><div class="abar" title="61-90 days in status: 288 assets &middot; WDV $1.72M"><span class="aval">288</span><span class="afill" style="height:22.95%;background:#3987e5"></span><span class="alab">61-90</span></div><div class="abar" title="91-180 days in status: 511 assets &middot; WDV $3.89M"><span class="aval">511</span><span class="afill" style="height:40.72%;background:#d03b3b"></span><span class="alab">91-180</span></div><div class="abar" title="181-365 days in status: 564 assets &middot; WDV $2.70M"><span class="aval">564</span><span class="afill" style="height:44.94%;background:#d03b3b"></span><span class="alab">181-365</span></div><div class="abar" title="365+ days in status: 270 assets &middot; WDV $1.04M"><span class="aval">270</span><span class="afill" style="height:21.51%;background:#d03b3b"></span><span class="alab">365+</span></div></div>
+      <p class="note">Red bands are past a normal inspection or repair cycle:
+      <b style="color:var(--ink)">1,345</b> assets over 90 days holding
+      <b style="color:var(--ink)">$7.64M</b> WDV.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Availability status detail</h2>
+  <div class="tblwrap"><table class="tbl">
+    <thead><tr><th>Availability status</th><th>Bucket</th><th class="n">Assets</th>
+      <th class="n">% fleet</th><th class="n">WDV</th><th class="n">Median days</th>
+      <th class="n">Max days</th><th class="n">Over 90 days</th></tr></thead>
+    <tbody><tr><td><span class="dot" style="background:#d95926"></span>On Hire</td><td class="t">On hire</td><td class="n">10,534</td><td class="n">49.0%</td><td class="n">$88,054,649</td><td class="n">103</td><td class="n">5,716</td><td class="n">5,606</td></tr><tr><td><span class="dot" style="background:#3987e5"></span>Available</td><td class="t">Available</td><td class="n">5,281</td><td class="n">24.6%</td><td class="n">$21,281,722</td><td class="n">81</td><td class="n">3,262</td><td class="n">2,541</td></tr><tr><td><span class="dot" style="background:#d03b3b"></span>Inspection Pending</td><td class="t">Redline (unavailable)</td><td class="n">2,417</td><td class="n">11.2%</td><td class="n">$19,693,128</td><td class="n">51</td><td class="n">1,289</td><td class="n">859</td></tr><tr><td><span class="dot" style="background:#d95926"></span>On Hire, In Service</td><td class="t">On hire</td><td class="n">920</td><td class="n">4.3%</td><td class="n">$37,346,907</td><td class="n">44</td><td class="n">661</td><td class="n">239</td></tr><tr><td><span class="dot" style="background:#d03b3b"></span>Wait for config job</td><td class="t">Redline (unavailable)</td><td class="n">658</td><td class="n">3.1%</td><td class="n">$3,694,222</td><td class="n">128</td><td class="n">1,040</td><td class="n">362</td></tr><tr><td><span class="dot" style="background:#3987e5"></span>Reserved</td><td class="t">Available</td><td class="n">657</td><td class="n">3.1%</td><td class="n">$11,654,284</td><td class="n">4</td><td class="n">595</td><td class="n">5</td></tr><tr><td><span class="dot" style="background:#c98500"></span>Off Hired</td><td class="t">In transit / off hired</td><td class="n">399</td><td class="n">1.9%</td><td class="n">$5,278,975</td><td class="n">3</td><td class="n">439</td><td class="n">23</td></tr><tr><td><span class="dot" style="background:#d03b3b"></span>In Service</td><td class="t">Redline (unavailable)</td><td class="n">338</td><td class="n">1.6%</td><td class="n">$6,551,382</td><td class="n">31</td><td class="n">697</td><td class="n">93</td></tr><tr><td><span class="dot" style="background:#c98500"></span>In Transfer</td><td class="t">In transit / off hired</td><td class="n">135</td><td class="n">0.6%</td><td class="n">$1,866,376</td><td class="n">4</td><td class="n">107</td><td class="n">2</td></tr><tr><td><span class="dot" style="background:#d03b3b"></span>Off Site for Repair</td><td class="t">Redline (unavailable)</td><td class="n">82</td><td class="n">0.4%</td><td class="n">$2,095,568</td><td class="n">51</td><td class="n">529</td><td class="n">31</td></tr><tr><td><span class="dot" style="background:#d95926"></span>Reserved, In Service</td><td class="t">On hire</td><td class="n">71</td><td class="n">0.3%</td><td class="n">$2,463,931</td><td class="n">3</td><td class="n">79</td><td class="n">0</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Exceptions <span>&mdash; redline assets stalled beyond 90 days</span></h2>
+  <p class="note" style="margin:0 0 10px">Top 25 of 1,345 by written-down value.
+     Full list sits in the source export.</p>
+  <div class="tblwrap"><table class="tbl">
+    <thead><tr><th>Plant no.</th><th>Description</th><th>Branch</th><th>Category</th>
+      <th>Status</th><th class="n">Days</th><th class="n">WDV</th><th class="n">Original cost</th></tr></thead>
+    <tbody><tr><td class="code">1281090</td><td>Generator - 750kVA (Diesel)</td><td>NVAC</td><td class="t">Generators &amp; Power Distribution</td><td>Inspection Pending</td><td class="n b">96</td><td class="n">$201,865</td><td class="n">$264,600</td></tr><tr><td class="code">1283388</td><td>Roller Smooth Single Drum With Intelligent Compaction 18t</td><td>CHIN</td><td class="t">Compaction</td><td>Inspection Pending</td><td class="n b">92</td><td class="n">$181,942</td><td class="n">$198,081</td></tr><tr><td class="code">1287375</td><td>Roller Padfoot 18t</td><td>CHIN</td><td class="t">Compaction</td><td>Off Site for Repair</td><td class="n b">103</td><td class="n">$171,658</td><td class="n">$189,927</td></tr><tr><td class="code">1287376</td><td>Roller Padfoot 18t</td><td>CHIN</td><td class="t">Compaction</td><td>Inspection Pending</td><td class="n b">285</td><td class="n">$165,259</td><td class="n">$189,927</td></tr><tr><td class="code">1275990</td><td>Roller Smooth Single Drum With Intelligent Compaction 18t</td><td>ROKH</td><td class="t">Compaction</td><td>In Service</td><td class="n b">122</td><td class="n">$138,378</td><td class="n">$186,644</td></tr><tr><td class="code">1276341</td><td>Backhoe 4x4 (66 - 69Kw)</td><td>ROKH</td><td class="t">Earthmoving</td><td>In Service</td><td class="n b">171</td><td class="n">$134,655</td><td class="n">$180,477</td></tr><tr><td class="code">1209322</td><td>Wheel Loader 13.5t</td><td>EMLD</td><td class="t">Earthmoving</td><td>Inspection Pending</td><td class="n b">296</td><td class="n">$119,145</td><td class="n">$237,619</td></tr><tr><td class="code">1298920</td><td>Articulated Dump Truck - With Cab 9t</td><td>MEAD</td><td class="t">Earthmoving</td><td>Inspection Pending</td><td class="n b">148</td><td class="n">$116,751</td><td class="n">$126,500</td></tr><tr><td class="code">1275965</td><td>Roller Smooth 10 - 12t - Single Drum</td><td>MEAD</td><td class="t">Compaction</td><td>Inspection Pending</td><td class="n b">407</td><td class="n">$105,268</td><td class="n">$140,701</td></tr><tr><td class="code">1267804</td><td>Water Cart 14000L</td><td>EMLD</td><td class="t">Earthmoving</td><td>In Service</td><td class="n b">130</td><td class="n">$104,449</td><td class="n">$203,942</td></tr><tr><td class="code">1289936</td><td>Roller Padfoot 10 - 12t - Single Drum</td><td>TSVP</td><td class="t">Compaction</td><td>Off Site for Repair</td><td class="n b">123</td><td class="n">$104,050</td><td class="n">$120,000</td></tr><tr><td class="code">1277463</td><td>Generator - 500kVA (Diesel)</td><td>NVAC</td><td class="t">Generators &amp; Power Distribution</td><td>Inspection Pending</td><td class="n b">232</td><td class="n">$101,351</td><td class="n">$135,150</td></tr><tr><td class="code">1264351</td><td>Knuckle Boom 80ft (24.4M) - Diesel</td><td>MEAD</td><td class="t">Access</td><td>Off Site for Repair</td><td class="n b">164</td><td class="n">$98,722</td><td class="n">$159,410</td></tr><tr><td class="code">1292475</td><td>Articulated Dump Truck - With Cab 9t</td><td>MEAD</td><td class="t">Earthmoving</td><td>In Service</td><td class="n b">240</td><td class="n">$94,975</td><td class="n">$117,275</td></tr><tr><td class="code">1312588</td><td>Forklift Rough Terrain 5.0t 4WD Diesel</td><td>TOWB</td><td class="t">Materials Handling</td><td>Inspection Pending</td><td class="n b">107</td><td class="n">$92,314</td><td class="n">$95,691</td></tr><tr><td class="code">1285689</td><td>Compressor 1250CFM Diesel</td><td>MEAD</td><td class="t">Air &amp; Air Accessories</td><td>Inspection Pending</td><td class="n b">108</td><td class="n">$90,160</td><td class="n">$128,250</td></tr><tr><td class="code">1292457</td><td>Articulated Dump Truck - With Cab 6t</td><td>MEAD</td><td class="t">Earthmoving</td><td>Inspection Pending</td><td class="n b">304</td><td class="n">$84,124</td><td class="n">$104,395</td></tr><tr><td class="code">1312043</td><td>Air Conditioner - Packaged 100kW</td><td>NVAC</td><td class="t">Heating Ventilation Air Conditioning</td><td>Inspection Pending</td><td class="n b">102</td><td class="n">$75,606</td><td class="n">$79,388</td></tr><tr><td class="code">1312045</td><td>Air Conditioner - Packaged 100kW</td><td>NVAC</td><td class="t">Heating Ventilation Air Conditioning</td><td>Inspection Pending</td><td class="n b">102</td><td class="n">$75,606</td><td class="n">$79,388</td></tr><tr><td class="code">1201630</td><td>Roller Padfoot 15t</td><td>ROKH</td><td class="t">Compaction</td><td>Wait for config job</td><td class="n b">228</td><td class="n">$74,225</td><td class="n">$142,811</td></tr><tr><td class="code">1297183</td><td>Generator - 250kVA (Diesel)</td><td>TSVP</td><td class="t">Generators &amp; Power Distribution</td><td>Off Site for Repair</td><td class="n b">206</td><td class="n">$71,950</td><td class="n">$85,822</td></tr><tr><td class="code">1239226</td><td>Roller Multi Tyre Articulated With Canopy 8.8t</td><td>MEAD</td><td class="t">Compaction</td><td>Inspection Pending</td><td class="n b">226</td><td class="n">$71,551</td><td class="n">$111,397</td></tr><tr><td class="code">1237440</td><td>Roller Padfoot 18t</td><td>WINN</td><td class="t">Compaction</td><td>Inspection Pending</td><td class="n b">228</td><td class="n">$68,632</td><td class="n">$137,519</td></tr><tr><td class="code">1201538</td><td>Roller Smooth 17t - Single Drum</td><td>WINN</td><td class="t">Compaction</td><td>Inspection Pending</td><td class="n b">206</td><td class="n">$67,011</td><td class="n">$139,331</td></tr><tr><td class="code">1232286</td><td>Compressor 1800CFM (Diesel)</td><td>MRBH</td><td class="t">Air &amp; Air Accessories</td><td>Off Site for Repair</td><td class="n b">101</td><td class="n">$64,639</td><td class="n">$154,000</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Branch performance <span>&mdash; redline against the &lt;15% benchmark</span></h2>
+  <div class="ctrl">
+    <label for="bsearch">Filter</label>
+    <input id="bsearch" type="search" placeholder="Branch code or name&hellip;">
+    <label for="brag">RAG</label>
+    <select id="brag"><option value="">All</option><option value="red">Red only</option>
+      <option value="amber">Amber only</option><option value="green">Green only</option></select>
+    <span class="note" id="bcount"></span>
+  </div>
+  <div class="tblwrap"><table class="tbl" id="btbl">
+    <thead><tr><th>Code</th><th>Branch</th><th class="n">Fleet</th><th class="n">On hire</th>
+      <th class="n">On hire %</th><th class="n">Redline</th><th class="n">Redline %</th>
+      <th>vs 15% target</th><th class="n">Redline WDV</th><th class="n">Aged &gt;90d</th><th>RAG</th></tr></thead>
+    <tbody><tr data-rag="green"><td class="code">KINP</td><td>Brisbane Portables (P)</td><td class="n">4,056</td><td class="n">3,084</td><td class="n">76.0%</td><td class="n">405</td><td class="n b">10.0%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:9.99%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,036,278</td><td class="n">147</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="red"><td class="code">WOOS</td><td>Brisbane Ground (G)</td><td class="n">693</td><td class="n">251</td><td class="n">36.2%</td><td class="n">266</td><td class="n b">38.4%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:38.38%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,567,389</td><td class="n">93</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="amber"><td class="code">MAKY</td><td>Mackay</td><td class="n">986</td><td class="n">452</td><td class="n">45.8%</td><td class="n">209</td><td class="n b">21.2%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:21.20%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$769,641</td><td class="n">98</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="red"><td class="code">KUNP</td><td>Sunshine Coast Portables (P)</td><td class="n">698</td><td class="n">430</td><td class="n">61.6%</td><td class="n">175</td><td class="n b">25.1%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:25.07%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$145,562</td><td class="n">108</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="red"><td class="code">EAGS</td><td>Eagle Farm (S)</td><td class="n">507</td><td class="n">167</td><td class="n">32.9%</td><td class="n">175</td><td class="n b">34.5%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:34.52%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,828,442</td><td class="n">68</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="amber"><td class="code">ROMA</td><td>Roma</td><td class="n">723</td><td class="n">390</td><td class="n">53.9%</td><td class="n">164</td><td class="n b">22.7%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:22.68%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,001,044</td><td class="n">47</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="red"><td class="code">MRBH</td><td>Moranbah</td><td class="n">590</td><td class="n">318</td><td class="n">53.9%</td><td class="n">153</td><td class="n b">25.9%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:25.93%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,285,535</td><td class="n">101</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="amber"><td class="code">CRNS</td><td>Cairns</td><td class="n">603</td><td class="n">259</td><td class="n">43.0%</td><td class="n">146</td><td class="n b">24.2%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:24.21%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$947,193</td><td class="n">61</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="green"><td class="code">NOIS</td><td>QLD Industrial Services</td><td class="n">1,558</td><td class="n">629</td><td class="n">40.4%</td><td class="n">143</td><td class="n b">9.2%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:9.18%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$399,080</td><td class="n">85</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="red"><td class="code">MTIS</td><td>Mt Isa</td><td class="n">471</td><td class="n">230</td><td class="n">48.8%</td><td class="n">119</td><td class="n b">25.3%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:25.27%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$980,048</td><td class="n">46</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="amber"><td class="code">WINN</td><td>Winnellie</td><td class="n">523</td><td class="n">218</td><td class="n">41.7%</td><td class="n">110</td><td class="n b">21.0%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:21.03%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$2,221,054</td><td class="n">20</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="red"><td class="code">GYMP</td><td>Gympie</td><td class="n">407</td><td class="n">114</td><td class="n">28.0%</td><td class="n">107</td><td class="n b">26.3%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:26.29%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,124,681</td><td class="n">29</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="amber"><td class="code">CHIN</td><td>Chinchilla</td><td class="n">645</td><td class="n">385</td><td class="n">59.7%</td><td class="n">102</td><td class="n b">15.8%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:15.81%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,344,969</td><td class="n">48</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="green"><td class="code">GLST</td><td>Gladstone</td><td class="n">1,510</td><td class="n">1,211</td><td class="n">80.2%</td><td class="n">99</td><td class="n b">6.6%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:6.56%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$564,311</td><td class="n">36</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="amber"><td class="code">EMLD</td><td>Emerald</td><td class="n">490</td><td class="n">207</td><td class="n">42.2%</td><td class="n">96</td><td class="n b">19.6%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:19.59%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,467,137</td><td class="n">35</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="green"><td class="code">TSVP</td><td>Townsville (P)</td><td class="n">840</td><td class="n">536</td><td class="n">63.8%</td><td class="n">94</td><td class="n b">11.2%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:11.19%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,904,999</td><td class="n">34</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="red"><td class="code">QASS</td><td>QLD Asset Management</td><td class="n">96</td><td class="n">0</td><td class="n">0.0%</td><td class="n">93</td><td class="n b">96.9%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:96.88%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$585,669</td><td class="n">21</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="green"><td class="code">ROKH</td><td>Rockhampton Specialist</td><td class="n">916</td><td class="n">635</td><td class="n">69.3%</td><td class="n">86</td><td class="n b">9.4%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:9.39%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$2,005,496</td><td class="n">29</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="amber"><td class="code">ROCL</td><td>Rocklea</td><td class="n">467</td><td class="n">166</td><td class="n">35.5%</td><td class="n">81</td><td class="n b">17.3%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:17.34%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$663,366</td><td class="n">25</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="amber"><td class="code">WEIP</td><td>Weipa</td><td class="n">401</td><td class="n">235</td><td class="n">58.6%</td><td class="n">74</td><td class="n b">18.5%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:18.45%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$811,120</td><td class="n">26</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="green"><td class="code">TSVL</td><td>Townsville</td><td class="n">485</td><td class="n">96</td><td class="n">19.8%</td><td class="n">71</td><td class="n b">14.6%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:14.64%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$403,124</td><td class="n">7</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="red"><td class="code">MEAD</td><td>Meadowbrook</td><td class="n">207</td><td class="n">78</td><td class="n">37.7%</td><td class="n">64</td><td class="n b">30.9%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:30.92%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$3,036,004</td><td class="n">21</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="amber"><td class="code">ROCT</td><td>Rockhampton T&amp;E</td><td class="n">377</td><td class="n">145</td><td class="n">38.5%</td><td class="n">61</td><td class="n b">16.2%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:16.18%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$310,236</td><td class="n">12</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="amber"><td class="code">NVAC</td><td>North Power and HVAC (L)</td><td class="n">269</td><td class="n">82</td><td class="n">30.5%</td><td class="n">53</td><td class="n b">19.7%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:19.70%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$2,291,417</td><td class="n">23</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="amber"><td class="code">STPS</td><td>Brisbane Traffic (T)</td><td class="n">198</td><td class="n">89</td><td class="n">44.9%</td><td class="n">48</td><td class="n b">24.2%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:24.24%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$40,497</td><td class="n">25</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="green"><td class="code">STRP</td><td>Strathpine</td><td class="n">279</td><td class="n">81</td><td class="n">29.0%</td><td class="n">41</td><td class="n b">14.7%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:14.70%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$313,314</td><td class="n">10</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="green"><td class="code">TOWB</td><td>Toowoomba</td><td class="n">466</td><td class="n">292</td><td class="n">62.7%</td><td class="n">41</td><td class="n b">8.8%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:8.80%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$584,441</td><td class="n">13</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="green"><td class="code">BURS</td><td>Burleigh (S)</td><td class="n">354</td><td class="n">80</td><td class="n">22.6%</td><td class="n">38</td><td class="n b">10.7%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:10.73%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$347,423</td><td class="n">15</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="green"><td class="code">IPSW</td><td>Ipswich</td><td class="n">314</td><td class="n">104</td><td class="n">33.1%</td><td class="n">31</td><td class="n b">9.9%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:9.87%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$414,170</td><td class="n">7</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="green"><td class="code">STPY</td><td>Stapylton</td><td class="n">248</td><td class="n">75</td><td class="n">30.2%</td><td class="n">29</td><td class="n b">11.7%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:11.69%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$110,365</td><td class="n">7</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="green"><td class="code">MARS</td><td>Maroochydore (S)</td><td class="n">371</td><td class="n">201</td><td class="n">54.2%</td><td class="n">29</td><td class="n b">7.8%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:7.82%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$364,629</td><td class="n">5</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="amber"><td class="code">REED</td><td>Gold Coast Specialists</td><td class="n">122</td><td class="n">41</td><td class="n">33.6%</td><td class="n">27</td><td class="n b">22.1%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:22.13%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$594,130</td><td class="n">14</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="green"><td class="code">TING</td><td>Tingalpa</td><td class="n">263</td><td class="n">57</td><td class="n">21.7%</td><td class="n">25</td><td class="n b">9.5%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:9.51%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$70,670</td><td class="n">10</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="amber"><td class="code">TVAC</td><td>Power &amp; HVAC QLD North</td><td class="n">109</td><td class="n">55</td><td class="n">50.5%</td><td class="n">22</td><td class="n b">20.2%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:20.18%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$416,592</td><td class="n">14</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr data-rag="green"><td class="code">BILO</td><td>Biloela</td><td class="n">122</td><td class="n">55</td><td class="n">45.1%</td><td class="n">6</td><td class="n b">4.9%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:4.92%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$81,937</td><td class="n">1</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="green"><td class="code">PHOS</td><td>Phosphate Hill</td><td class="n">111</td><td class="n">77</td><td class="n">69.4%</td><td class="n">5</td><td class="n b">4.5%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:4.50%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,915</td><td class="n">4</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr data-rag="red"><td class="code">NDIS</td><td>QLD Disposals</td><td class="n">14</td><td class="n">0</td><td class="n">0.0%</td><td class="n">5</td><td class="n b">35.7%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:35.71%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$421</td><td class="n">0</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="red"><td class="code">MEDE</td><td>Meadowbrook Earth &amp; Compaction</td><td class="n">1</td><td class="n">0</td><td class="n">0.0%</td><td class="n">1</td><td class="n b">100.0%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:100.00%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$0</td><td class="n">0</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="red"><td class="code">NSAL</td><td>NSW Allocatable Sales</td><td class="n">1</td><td class="n">0</td><td class="n">0.0%</td><td class="n">1</td><td class="n b">100.0%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:100.00%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$0</td><td class="n">0</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr data-rag="green"><td class="code">BFIS</td><td>Brisbane Field Service</td><td class="n">1</td><td class="n">0</td><td class="n">0.0%</td><td class="n">0</td><td class="n b">0.0%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:0.00%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$0</td><td class="n">0</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr></tbody></table></div>
+  <p class="note">Sorted by redline asset count. The marker on each bar is the 15% benchmark.
+     RAG: green under 15%, amber 15&ndash;25%, red over 25%.</p>
+</section>
+
+<section>
+  <h2>Category performance</h2>
+  <div class="tblwrap"><table class="tbl">
+    <thead><tr><th>Category</th><th class="n">Fleet</th><th class="n">On hire %</th>
+      <th class="n">Redline</th><th class="n">Redline %</th><th>vs 15% target</th>
+      <th class="n">Redline WDV</th><th class="n">Category WDV</th><th>RAG</th></tr></thead>
+    <tbody><tr><td>Compaction</td><td class="n">796</td><td class="n">44.3%</td><td class="n">171</td><td class="n b">21.5%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:21.48%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$5,734,411</td><td class="n">$34,481,884</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Access</td><td class="n">1,075</td><td class="n">55.9%</td><td class="n">155</td><td class="n b">14.4%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:14.42%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$4,553,034</td><td class="n">$42,791,876</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr><td>Generators &amp; Power Distribution</td><td class="n">1,164</td><td class="n">43.7%</td><td class="n">277</td><td class="n b">23.8%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:23.80%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$4,107,840</td><td class="n">$12,144,255</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Earthmoving</td><td class="n">730</td><td class="n">39.6%</td><td class="n">113</td><td class="n b">15.5%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:15.48%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$3,768,827</td><td class="n">$18,554,759</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Materials Handling</td><td class="n">930</td><td class="n">61.1%</td><td class="n">153</td><td class="n b">16.5%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:16.45%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$3,371,389</td><td class="n">$28,755,079</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Site Accommodation</td><td class="n">8,602</td><td class="n">71.2%</td><td class="n">1,150</td><td class="n b">13.4%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:13.37%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$2,817,292</td><td class="n">$24,656,243</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr><td>Air &amp; Air Accessories</td><td class="n">415</td><td class="n">44.1%</td><td class="n">93</td><td class="n b">22.4%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:22.41%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,748,856</td><td class="n">$6,726,347</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Lighting</td><td class="n">1,338</td><td class="n">52.8%</td><td class="n">188</td><td class="n b">14.1%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:14.05%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,707,121</td><td class="n">$14,410,753</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr><td>Pumps &amp; Fluid Management</td><td class="n">612</td><td class="n">31.7%</td><td class="n">200</td><td class="n b">32.7%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:32.68%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$1,632,886</td><td class="n">$5,709,711</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr><td>Trucks, Vehicles &amp; Trailers</td><td class="n">490</td><td class="n">48.2%</td><td class="n">87</td><td class="n b">17.8%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:17.76%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$763,610</td><td class="n">$5,298,920</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Ground Equipment</td><td class="n">514</td><td class="n">31.7%</td><td class="n">169</td><td class="n b">32.9%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:32.88%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$745,619</td><td class="n">$1,773,797</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr><td>Heating Ventilation Air Conditioning</td><td class="n">51</td><td class="n">29.4%</td><td class="n">19</td><td class="n b">37.3%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:37.25%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$605,016</td><td class="n">$1,574,155</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr><td>Landscaping</td><td class="n">364</td><td class="n">10.4%</td><td class="n">70</td><td class="n b">19.2%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:19.23%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$102,899</td><td class="n">$328,590</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Traffic Management</td><td class="n">465</td><td class="n">47.1%</td><td class="n">91</td><td class="n b">19.6%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:19.57%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$102,792</td><td class="n">$1,001,155</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Welding</td><td class="n">204</td><td class="n">45.6%</td><td class="n">52</td><td class="n b">25.5%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:25.49%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$74,153</td><td class="n">$454,304</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr><td>Floor &amp; Cleaning Equipment</td><td class="n">297</td><td class="n">19.9%</td><td class="n">75</td><td class="n b">25.3%</td><td class="bar"><span class="mb"><span class="mbf red" style="width:25.25%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$52,953</td><td class="n">$522,411</td><td><span class="chip red"><span class="ico">■</span>RED</span></td></tr><tr><td>Concrete &amp; Masonry</td><td class="n">1,042</td><td class="n">10.7%</td><td class="n">183</td><td class="n b">17.6%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:17.56%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$48,787</td><td class="n">$259,436</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Lift, Shift &amp; Propping</td><td class="n">664</td><td class="n">49.4%</td><td class="n">62</td><td class="n b">9.3%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:9.34%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$39,620</td><td class="n">$97,243</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr><td>Tools &amp; Equipment</td><td class="n">1,219</td><td class="n">51.0%</td><td class="n">119</td><td class="n b">9.8%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:9.76%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$29,728</td><td class="n">$322,519</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr><tr><td>Industrial Tools &amp; Equipment</td><td class="n">262</td><td class="n">19.8%</td><td class="n">41</td><td class="n b">15.6%</td><td class="bar"><span class="mb"><span class="mbf amber" style="width:15.65%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$25,009</td><td class="n">$102,832</td><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td></tr><tr><td>Ladders &amp; Scaffold</td><td class="n">258</td><td class="n">23.6%</td><td class="n">27</td><td class="n b">10.5%</td><td class="bar"><span class="mb"><span class="mbf green" style="width:10.47%"></span><span class="mbt" style="left:15.00%"></span></span></td><td class="n">$2,457</td><td class="n">$14,873</td><td><span class="chip green"><span class="ico">●</span>GREEN</span></td></tr></tbody></table></div>
+  <p class="note">Sorted by redline written-down value &mdash; where the idle capital actually sits.</p>
+</section>
+
+<section>
+  <h2>Idle available fleet <span>&mdash; ready but not moving for over 180 days</span></h2>
+  <p class="note" style="margin:0 0 10px">1,636 assets holding $1,155,682 WDV.
+     Top 15 by value shown.</p>
+  <div class="tblwrap"><table class="tbl">
+    <thead><tr><th>Plant no.</th><th>Description</th><th>Branch</th><th>Category</th>
+      <th>Status</th><th class="n">Days</th><th class="n">WDV</th></tr></thead>
+    <tbody><tr><td class="code">1291671</td><td>Fluid Chiller 700kW</td><td>NVAC</td><td class="t">Heating Ventilation Air Conditioning</td><td>Available</td><td class="n b">883</td><td class="n">$171,227</td></tr><tr><td class="code">1263722</td><td>Roller Multi Tyre Adjustable Ballast 27t</td><td>WINN</td><td class="t">Compaction</td><td>Available</td><td class="n b">206</td><td class="n">$106,053</td></tr><tr><td class="code">1298909</td><td>Articulated Dump Truck - With Cab 6t</td><td>ROMA</td><td class="t">Earthmoving</td><td>Available</td><td class="n b">311</td><td class="n">$104,292</td></tr><tr><td class="code">1239104</td><td>Roller Smooth 7 - 8t - Double Drum</td><td>REED</td><td class="t">Compaction</td><td>Available</td><td class="n b">227</td><td class="n">$86,664</td></tr><tr><td class="code">1303479</td><td>Fluid Chiller 50kW</td><td>NVAC</td><td class="t">Heating Ventilation Air Conditioning</td><td>Available</td><td class="n b">311</td><td class="n">$42,779</td></tr><tr><td class="code">1303481</td><td>Fluid Chiller 50kW</td><td>NVAC</td><td class="t">Heating Ventilation Air Conditioning</td><td>Available</td><td class="n b">311</td><td class="n">$42,779</td></tr><tr><td class="code">1239065</td><td>Roller Smooth 2 - 3t - Double Drum</td><td>MRBH</td><td class="t">Compaction</td><td>Available</td><td class="n b">261</td><td class="n">$26,711</td></tr><tr><td class="code">1299487</td><td>Scissor Lift 26ft (7.9M) - Electric</td><td>TSVL</td><td class="t">Access</td><td>Available</td><td class="n b">183</td><td class="n">$19,574</td></tr><tr><td class="code">1276422</td><td>Generator - Diesel - 80kVA</td><td>MTIS</td><td class="t">Generators &amp; Power Distribution</td><td>Available</td><td class="n b">226</td><td class="n">$18,685</td></tr><tr><td class="code">1270809</td><td>Variable Message Board - Colour - Senior</td><td>WINN</td><td class="t">Traffic Management</td><td>Available</td><td class="n b">268</td><td class="n">$17,893</td></tr><tr><td class="code">1278644</td><td>Container 6.0M x 2.4M Hazard</td><td>KINP</td><td class="t">Site Accommodation</td><td>Available</td><td class="n b">242</td><td class="n">$16,285</td></tr><tr><td class="code">1268888</td><td>Portable Building Shell Cyclone Rated 9.6m x 3m</td><td>KINP</td><td class="t">Site Accommodation</td><td>Available</td><td class="n b">260</td><td class="n">$15,700</td></tr><tr><td class="code">1286282</td><td>Scissor Lift With Operator Protection 19ft (5.7m)  Electric</td><td>BILO</td><td class="t">Access</td><td>Available</td><td class="n b">225</td><td class="n">$12,046</td></tr><tr><td class="code">1290305</td><td>HVAC Pump 8L FS</td><td>NVAC</td><td class="t">Heating Ventilation Air Conditioning</td><td>Available</td><td class="n b">857</td><td class="n">$11,371</td></tr><tr><td class="code">1290306</td><td>HVAC Pump 8L FS</td><td>NVAC</td><td class="t">Heating Ventilation Air Conditioning</td><td>Available</td><td class="n b">897</td><td class="n">$11,371</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Actions</h2>
+  <div class="tblwrap"><table class="tbl actions">
+    <thead><tr><th>RAG</th><th>Issue</th><th>Root cause</th><th>Action</th>
+      <th>Owner</th><th>Deadline</th><th>Measure of success</th></tr></thead>
+    <tbody><tr><td><span class="chip red"><span class="ico">■</span>RED</span></td><td class="b">Redline at 16.26% against a &lt;15% target</td><td>2,417 assets sit in Inspection Pending - 69.2% of all redline fleet. Root cause to confirm at branch level: inspection resourcing, parts, or assets awaiting a decision.</td><td>Clear 271 assets out of redline to reach the benchmark. Start with the 859 inspection-pending units over 90 days.</td><td class="t">TBC</td><td class="t">TBC</td><td class="t">Redline &lt;15% of fleet</td></tr><tr><td><span class="chip red"><span class="ico">■</span>RED</span></td><td class="b">1,345 redline assets aged over 90 days, WDV $7.64M</td><td>Fleet held out of service beyond a normal inspection or repair cycle. Ageing tail suggests these are stalled rather than in progress.</td><td>Branch-by-branch disposition: return to service, transfer to demand, or refer to disposals.</td><td class="t">TBC</td><td class="t">TBC</td><td class="t">Nil redline assets over 90 days</td></tr><tr><td><span class="chip red"><span class="ico">■</span>RED</span></td><td class="b">Worst branches by redline: WOOS 38.4%, EAGS 34.5%, MEAD 30.9%, GYMP 26.3%, MRBH 25.9%</td><td>Concentrated rather than network-wide - the top branches carry the bulk of the exposure.</td><td>Redline recovery plan per branch, reviewed at weekly PULSE until each is back under 15%.</td><td class="t">TBC</td><td class="t">TBC</td><td class="t">Every branch under 15% redline</td></tr><tr><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td><td class="b">1,636 available assets untouched for over 180 days (WDV $1.16M)</td><td>Fleet is technically available but not earning. Points to fleet mix or location rather than condition.</td><td>Test against demand: transfer to branches with fulfilment pressure, or refer for disposal.</td><td class="t">TBC</td><td class="t">TBC</td><td class="t">Idle available fleet reducing month on month</td></tr><tr><td><span class="chip amber"><span class="ico">▲</span>AMBER</span></td><td class="b">On hire at 53.6% of units on hand</td><td>Point-in-time snapshot, not measured time utilisation - directionally below the 65% benchmark.</td><td>Confirm against the SiteIQ time-utilisation measure before acting; the two are not interchangeable.</td><td class="t">TBC</td><td class="t">TBC</td><td class="t">Time utilisation 65%</td></tr></tbody></table></div>
+  <p class="note">Owners and deadlines are marked <span class="tbc">TBC</span> &mdash; they are not in the
+     export and have not been assumed. Assign them before this report is issued; a red item without a
+     named owner and a date is decoration.</p>
+</section>
+
+<footer>
+  <b>Data source:</b> SiteIQ &mdash; MyBranch Metric Details for: Fleet Listing by Availability Status
+  (<code>5d0b5113-MyBranch_Metric_Details_for__Fleet_Listing_by_Availability_Status.xlsx</code>, 21,492 asset records).<br>
+  <b>Export note:</b> No filters applied &mdash;
+  the export is unfiltered, so this is the whole QLD/NT branch network, not a subset.<br>
+  <b>Extract date and time:</b> <span class="tbc">TBC</span> &mdash; the export carries no extract
+  timestamp. Confirm in SiteIQ and record it here before the report is issued externally.<br>
+  <b>Report prepared:</b> 04 Aug 2026 &middot; <b>Author:</b> Andrew Fisher &middot; POWERED BY SITEIQ<br>
+  <b>Reconciliation:</b> Computed totals reconcile exactly to the export’s own Total row (21,492 units &middot; $336,502,703 original cost &middot; $199,981,145 WDV).<br>
+  <b>Definitions:</b> Redline = unavailable fleet (Inspection Pending, In Service, Off Site for Repair,
+  Wait for config job), Coates Way target under 15%. On hire = On Hire, On Hire In Service and Reserved
+  In Service. Available = Available and Reserved. In transit = Off Hired and In Transfer. Days in status
+  is taken from the export as supplied. Values are AUD; WDV is written-down value.<br>
+  <b>Disclaimer:</b> Point-in-time snapshot. Availability moves through the day, so figures will differ
+  from a later extract. Every number is computed from the export &mdash; nothing is estimated or inferred.
+</footer>
+</div>
+
+<script>
+(function(){
+  var q=document.getElementById('bsearch'), rag=document.getElementById('brag'),
+      tb=document.querySelector('#btbl tbody'), count=document.getElementById('bcount');
+  if(!tb) return;
+  var rows=[].slice.call(tb.rows);
+  function apply(){
+    var t=(q.value||'').toLowerCase(), r=rag.value, shown=0;
+    rows.forEach(function(row){
+      var ok=row.textContent.toLowerCase().indexOf(t)>-1 && (!r || row.dataset.rag===r);
+      row.style.display = ok ? '' : 'none';
+      if(ok) shown++;
+    });
+    count.textContent = shown + ' of ' + rows.length + ' branches';
+  }
+  q.addEventListener('input',apply); rag.addEventListener('change',apply); apply();
+})();
+</script>
+</body></html>
