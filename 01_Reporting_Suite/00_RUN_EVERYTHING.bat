@@ -41,33 +41,33 @@ echo.
 echo [0/10] COMPLIANCE FLAGS (new gear only - leaves your edits alone)
 %PYCMD% SETUP_COMPLIANCE_FLAGS.py
 echo.
-echo [1/11] ALIGN EXCEL DATA
+echo [1/12] ALIGN EXCEL DATA
 %PYCMD% _align_prep.py
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0ALIGN_EXCEL_DATA.ps1"
 %PYCMD% verify_excel_alignment.py
 echo.
-echo [2/11] PREFILL DAILY TRACKING
+echo [2/12] PREFILL DAILY TRACKING
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0PREFILL_DAILY_TRACKING.ps1"
 echo.
-echo [3/11] BILLING RECONCILIATION
+echo [3/12] BILLING RECONCILIATION
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0REFRESH_BILLING_RECONCILIATION.ps1"
 echo.
-echo [4/11] GEAR UTILISATION (radio + gas right-sizing)
+echo [4/12] GEAR UTILISATION (radio + gas right-sizing)
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0REFRESH_GEAR_UTILISATION.ps1"
 echo.
-echo [5/11] COST TRACKING SNAPSHOT
+echo [5/12] COST TRACKING SNAPSHOT
 %PYCMD% build_cost_snapshot.py
 echo.
-echo [6/11] COMPANY KIT - every report
+echo [6/12] COMPANY KIT - every report
 %PYCMD% build_company_onhire_report.py --all --exec --demob --consumables --daily --store --requests --stocktake --stocktake-team --store-health --safety --returns --lookup --activity --hitlist --plant
 echo.
-echo [7/11] MY GEAR
+echo [7/12] MY GEAR
 %PYCMD% BUILD_MY_GEAR.py
 echo.
-echo [8/11] CLEAN REGISTER
+echo [8/12] CLEAN REGISTER
 %PYCMD% build_clean_report.py
 echo.
-echo [9/11] OUTLOOK DRAFTS (rebuild all of today's)
+echo [9/12] OUTLOOK DRAFTS (rebuild all of today's)
 if exist "%~dp0NO_OUTLOOK.txt" (
     echo   SKIPPED - Outlook drafts are switched off on this machine.
     echo   The .eml files are in Reports\(today^)\Emails - open and send.
@@ -75,10 +75,13 @@ if exist "%~dp0NO_OUTLOOK.txt" (
     powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0MAKE_OUTLOOK_DRAFTS.ps1"
 )
 echo.
-echo [10/11] DAILY EMAIL PACKS (company folders, drafts, record)
+echo [10/12] DAILY EMAIL PACKS (company folders, drafts, record)
 %PYCMD% BUILD_DAILY_EMAIL_PACKS.py
 echo.
-echo [11/11] THE PRINT HUB - one page listing everything just built
+echo [11/12] YOUR OWN REPORTS - every idea you saved
+%PYCMD% report_designer.py --all
+echo.
+echo [12/12] THE PRINT HUB - one page listing everything just built
 %PYCMD% build_print_hub.py
 echo.
 %PYCMD% TEST_DAILY_PACKS.py

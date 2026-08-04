@@ -1,0 +1,19 @@
+# YOUR OWN REPORTS - Andrew's file. Updates never overwrite it.
+#
+# One recipe per line. 77_RUN_MY_REPORTS builds every one of them.
+# Delete a line and it stops building. Add one by hand or with
+# 76_DESIGN_A_REPORT. Lines starting with # are ignored.
+#
+#   rows=   asset | person | company | product | aisle
+#   where=  any of the eighteen filters, comma separated,
+#           a value after a colon:   overdue:7   company:DGH
+#   group=  none | company | person | aisle | product | family | band | status
+#   sort=   -days -worked worked -used used -count name -idle
+#           (the minus means biggest first)
+#
+# FOUR TO START YOU OFF. Change them, delete them, they are yours.
+#
+rows=asset;where=onhire,overdue:7;group=company;sort=-days;name=Out past 7 days, by company
+rows=asset;where=band:high;group=aisle;sort=-worked;name=Flogged - the hardest worked gear
+rows=product;where=never;group=aisle;sort=-count;name=Products nobody has touched
+rows=company;where=onhire;group=none;sort=-count;name=Who is holding what

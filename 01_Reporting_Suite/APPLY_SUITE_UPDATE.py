@@ -134,6 +134,12 @@ SEED_ONCE = (
     #  Failed Baseplan items back on the counter's screen behind his
     #  back (3 Aug 2026).
     "arrivals_hide.txt",
+    #  HIS OWN REPORTS. Every line in here is an idea he had and chose
+    #  to keep - "every socket out past 7 days, by company" - and an
+    #  update carrying the four starters over the top would wipe a
+    #  fortnight of them. It ARRIVES on a machine that has none, and is
+    #  never written over on a machine that does. (4 Aug 2026.)
+    "report_recipes.txt",
     #  the Baseplan serial listing, so serials work out of the box; a
     #  newer export dropped in Data_Serials\\ always wins from then on
     "serial_no_shutdowns.xlsx",

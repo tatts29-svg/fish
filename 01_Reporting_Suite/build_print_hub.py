@@ -343,6 +343,32 @@ def build(date_tag=None):
         else:
             H[mark] = ''
 
+    #  ---- HIS OWN, DESIGNED ONES -----------------------------------
+    #  Anything 76_DESIGN_A_REPORT made. They are named by him, so the
+    #  hub just reads the name off the filename rather than pretending
+    #  to know what each one is for.
+    import glob as _g
+    mine = sorted(_g.glob(os.path.join(pages,
+                                       'Coates_K2_Designed_*_' + date_tag
+                                       + '.html')))
+    if mine:
+        H.append("<h2>YOUR OWN &mdash; DESIGNED, NOT BUILT IN</h2>"
+                 "<p>Ideas you designed with 76_DESIGN_A_REPORT and kept. "
+                 "77_RUN_MY_REPORTS rebuilds them off this morning's "
+                 "numbers.</p>")
+        for f in mine:
+            nm = re.sub(r'^Coates_K2_Designed_|_\d{4}-\d{2}-\d{2}$', '',
+                        os.path.splitext(os.path.basename(f))[0])
+            H.append(
+                "<div class='r'><div class='t'><b>"
+                + _esc(nm.replace('_', ' ')) + "</b>"
+                "<span>Your own report. The recipe that made it is in "
+                "REPORT_RECIPES.txt.</span><em>built " + _when(f)
+                + " &middot; " + _size(f) + "</em></div>"
+                "<div class='go'><a class='pg' href='Pages/"
+                + _esc(os.path.basename(f)) + "'>OPEN</a></div></div>")
+            n_have += 1
+
     #  ---- AND WHAT IS NOT THERE ------------------------------------
     #  A hub that shows what built and says nothing about what did not
     #  reads as "all of it". Anything that has built before and did not
