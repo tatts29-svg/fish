@@ -1,0 +1,533 @@
+<!doctype html><html lang='en-AU'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='theme-color' content='#F26222'><title>Coates | Shutdown clock</title><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0D1218;color:#DCE3EC;font-family:-apple-system,
+ 'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.45;
+ -webkit-text-size-adjust:100%}
+.phone{max-width:720px;margin:0 auto;min-height:100vh}
+.bar2{background:#F26222;color:#fff;padding:14px 16px;display:flex;
+ justify-content:space-between;align-items:center;gap:10px}
+.bar2 h1{font-size:18px;font-weight:800;letter-spacing:-.2px}
+.bar2 .siq{font-size:9px;letter-spacing:2px;font-weight:800;opacity:.85;
+ white-space:nowrap}
+.pad{padding:14px 16px 44px}
+.lead{color:#8794A6;font-size:12.5px;line-height:1.6;margin-bottom:14px}
+.lead b{color:#F0F4F9}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
+ gap:9px;margin-bottom:16px}
+.tile{background:#131A22;border:1px solid #263143;border-radius:13px;
+ padding:12px 13px}
+.tile b{display:block;font-size:26px;font-weight:800;line-height:1.05}
+.tile span{display:block;color:#8794A6;font-size:11px;margin-top:4px;
+ line-height:1.35}
+.tile.g b{color:#2BB673} .tile.a b{color:#F5A623} .tile.r b{color:#FF6B5A}
+h2{font-size:11px;font-weight:800;letter-spacing:2px;color:#F26222;
+ margin:22px 0 4px;text-transform:uppercase}
+h2 span{float:right;color:#5F6B7C;letter-spacing:.6px;font-size:10px}
+h2+p{color:#8794A6;font-size:12.5px;line-height:1.55;margin-bottom:9px}
+.row{display:flex;gap:11px;align-items:flex-start;background:#151A22;
+ border:1px solid #2A3340;border-radius:13px;padding:11px 13px;
+ margin-bottom:7px}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font-size:14.5px;font-weight:800;color:#F0F4F9;
+ line-height:1.3;word-break:break-word}
+.row .t span{display:block;color:#98A4B4;font-size:12px;margin-top:2px;
+ line-height:1.45}
+.row .v{flex:none;font-size:15px;font-weight:800;color:#DCE3EC;
+ text-align:right;white-space:nowrap}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:2px;
+ border-radius:10px}
+table{width:100%;border-collapse:collapse;margin-top:2px}
+th{background:#1C232D;color:#8794A6;font-size:9.5px;letter-spacing:1px;
+ text-align:left;padding:8px 9px;text-transform:uppercase;white-space:nowrap}
+td{padding:8px 9px;border-bottom:1px solid #222B36;font-size:13px;
+ vertical-align:top;word-break:break-word}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.code{font-family:Consolas,monospace;font-size:11.5px;color:#98A4B4}
+.chip{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;
+ border-radius:20px;padding:3px 8px;white-space:nowrap}
+.c-g{background:#12280C;color:#7BD45C} .c-a{background:#3A2110;color:#F5A623}
+.c-r{background:#3A1512;color:#FF6B5A} .c-n{background:#232B36;color:#8A97A8}
+.note{background:#151A22;border:1px solid #2A3340;border-left:3px solid #F26222;
+ border-radius:0 12px 12px 0;padding:11px 13px;margin:12px 0;font-size:12.5px;
+ color:#C6D0DD;line-height:1.55}
+.note b{color:#F0F4F9}
+.foot{color:#4A5768;font-size:11px;text-align:center;padding:28px 0 12px;
+ line-height:1.7}
+@media print{
+  body{background:#fff;color:#111}
+  .phone{max-width:none}
+  .bar2{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .row,.tile{border-color:#ccc;background:#fff;break-inside:avoid}
+  .row .t b,.tile b{color:#111}
+  th{background:#eee;color:#333}
+  td{border-color:#ddd}
+  .foot{color:#666}
+}
+
+/*  THE BAR SITS ABOVE THE DETAIL SHEET (78 > 75) so BACK is still
+    tappable while a card is open - it closes the card. A visible BACK
+    button that cannot be pressed is the exact thing this bar was built
+    to get rid of; the card's own scrim was covering it.
+    The MENU (80) does cover the bar, and should: it IS the navigation
+    while it is open, and its top row is the way back out.
+    (Found by the checker trying to press BACK. 4 Aug 2026.)  */
+.k2bar{position:sticky;top:0;z-index:78;display:flex;align-items:stretch;
+ gap:8px;background:#11161D;border-bottom:1px solid #2A3340;
+ padding:7px 10px;min-height:62px}
+/*  48px, which is what the note above says and what the buttons were
+    NOT. 42 is fine for a thumb and marginal for a glove, and this is a
+    gloved-hand app. (4 Aug 2026.)  */
+.k2bar button{font-family:inherit;font-size:12px;font-weight:800;
+ letter-spacing:.6px;border-radius:11px;cursor:pointer;
+ display:flex;align-items:center;justify-content:center;gap:6px;
+ min-width:78px;min-height:48px;padding:0 12px}
+.k2bar .k2back{background:#1C232D;border:1px solid #38424F;color:#DCE3EC}
+.k2bar .k2back:active{background:#242D39}
+.k2bar .k2back[hidden]{display:none}
+.k2bar .k2menu{background:#F26222;border:0;color:#fff}
+.k2bar .k2menu:active{background:#D2551B}
+.k2bar svg{width:16px;height:16px;fill:none;stroke:currentColor;
+ stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.k2where{flex:1;min-width:0;display:flex;flex-direction:column;
+ justify-content:center;text-align:center;padding:0 2px}
+.k2where small{display:block;font-size:8.5px;letter-spacing:1.6px;
+ font-weight:800;color:#7C8899;text-transform:uppercase}
+.k2where b{display:block;font-size:14px;font-weight:800;color:#F0F4F9;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+@media (max-width:360px){
+ .k2bar button{min-width:60px;font-size:11px}
+ .k2bar .k2lbl{display:none}
+}
+
+/*  THE MENU. It comes up from the BOTTOM, because that is where the
+    thumb already is - a list that drops from the top of a phone is a
+    list you have to shuffle the phone up your hand to reach.  */
+.k2sheet{position:fixed;inset:0;z-index:80;display:none}
+.k2sheet.on{display:block}
+.k2sheet .k2scrim{position:absolute;inset:0;background:rgba(4,7,11,.72)}
+.k2sheet .k2panel{position:absolute;left:0;right:0;bottom:0;
+ max-height:86vh;overflow:auto;background:#151A22;
+ border-top:3px solid #F26222;border-radius:18px 18px 0 0;
+ padding:8px 12px calc(14px + env(safe-area-inset-bottom,0px));
+ max-width:640px;margin:0 auto;
+ -webkit-overflow-scrolling:touch}
+.k2sheet .k2grab{width:44px;height:5px;border-radius:3px;background:#38424F;
+ margin:6px auto 10px}
+.k2sheet h4{font-size:9.5px;letter-spacing:2px;color:#7C8899;
+ font-weight:800;text-transform:uppercase;margin:12px 4px 7px}
+.k2sheet a,.k2sheet button.k2go{display:flex;width:100%;align-items:center;
+ gap:11px;text-align:left;text-decoration:none;font-family:inherit;
+ background:#1C232D;border:1px solid #2A3340;border-radius:13px;
+ padding:11px 13px;margin-bottom:7px;min-height:56px;cursor:pointer}
+.k2sheet a:active,.k2sheet button.k2go:active{background:#242D39}
+.k2sheet .k2t{flex:1;min-width:0}
+.k2sheet .k2t b{display:block;font-size:14.5px;font-weight:800;
+ color:#F0F4F9;line-height:1.25}
+.k2sheet .k2t span{display:block;font-size:11.5px;color:#98A4B4;
+ line-height:1.3;margin-top:1px}
+.k2sheet .k2chev{color:#F26222;font-size:19px;font-weight:800}
+.k2sheet .k2n{background:#2A3340;color:#DCE3EC;border-radius:7px;
+ font-size:11px;font-weight:800;padding:2px 7px}
+.k2sheet .k2on{border-color:#F26222;background:#20262F}
+.k2sheet .k2on .k2chev{color:#2BB673;font-size:11px;letter-spacing:.8px}
+.k2sheet .k2warn{background:#2A1206;border:1px solid #7A3A12;
+ border-radius:11px;padding:10px 12px;margin:2px 2px 6px;
+ font-size:12.5px;color:#FFD9CC;line-height:1.45}
+.k2sheet .k2close{width:100%;background:#1C232D;border:1px solid #38424F;
+ color:#DCE3EC;font-family:inherit;font-size:13px;font-weight:800;
+ border-radius:13px;padding:13px;margin-top:6px;min-height:50px;
+ letter-spacing:.6px;cursor:pointer}
+/*  THE DETAIL SHEET. Same shape as the menu, because a bloke should
+    only ever have to learn one thing that slides up from the bottom.
+    Used for "what IS this?" - tap a line, read the answer, tap away.  */
+.k2det{position:fixed;inset:0;z-index:75;display:none}
+.k2det.on{display:block}
+.k2det .k2scrim{position:absolute;inset:0;background:rgba(4,7,11,.74)}
+.k2det .k2panel{position:absolute;left:0;right:0;bottom:0;max-height:88vh;
+ display:flex;flex-direction:column;background:#151A22;
+ border-top:3px solid #F26222;border-radius:18px 18px 0 0;
+ max-width:640px;margin:0 auto}
+.k2det .k2dhd{display:flex;align-items:flex-start;gap:10px;
+ padding:14px 14px 10px;border-bottom:1px solid #2A3340}
+.k2det .k2dhd b{flex:1;min-width:0;font-size:16px;font-weight:800;
+ color:#F0F4F9;line-height:1.3}
+.k2det .k2dhd button{flex:0 0 auto;background:#1C232D;border:1px solid #38424F;
+ color:#DCE3EC;font-family:inherit;font-size:12px;font-weight:800;
+ border-radius:11px;min-height:48px;min-width:70px;padding:0 12px;
+ letter-spacing:.6px;cursor:pointer}
+.k2det .k2dbd{overflow:auto;-webkit-overflow-scrolling:touch;
+ padding:12px 14px calc(16px + env(safe-area-inset-bottom,0px))}
+.k2det .k2row{display:flex;gap:10px;padding:9px 0;
+ border-bottom:1px solid #222B36}
+.k2det .k2row:last-child{border-bottom:0}
+.k2det .k2row em{flex:0 0 108px;font-style:normal;font-size:11px;
+ font-weight:800;letter-spacing:1.1px;color:#7C8899;text-transform:uppercase;
+ padding-top:2px}
+.k2det .k2row span{flex:1;min-width:0;font-size:14px;color:#E9EEF5;
+ word-break:break-word}
+.k2det .k2row span small{display:block;color:#8B96A6;font-size:12px}
+.k2det .k2note{background:#1C232D;border:1px solid #2A3340;border-left:3px solid
+ #F26222;border-radius:0 11px 11px 0;padding:10px 12px;margin-top:11px;
+ font-size:13px;color:#C6D0DD;line-height:1.5}
+.k2det .k2note b{color:#F0F4F9}
+
+/*  THE WORKED GAUGE. (Andrew, 4 Aug 2026: "how much its worked. almost
+    like a worked gauge maybe.")
+    The three band colours sit in the colour-blind validator's WARN band
+    - worst pair dE 6.7 - which is only legal because every band also
+    carries a WORD. USE NEXT / GOOD / HIGH USE are not decoration; they
+    are the reason the colours are allowed at all. Never drop them.  */
+.k2gauge{background:#1C232D;border:1px solid #2A3340;border-radius:13px;
+ padding:12px 13px;margin:11px 0 4px}
+.k2gauge .k2gh{display:flex;align-items:baseline;gap:9px}
+.k2gauge .k2gh em{flex:1;font-style:normal;font-size:10px;font-weight:800;
+ letter-spacing:1.6px;color:#7C8899;text-transform:uppercase}
+.k2gauge .k2gp{font-size:30px;font-weight:800;line-height:1}
+.k2gauge .k2gw{font-size:9.5px;font-weight:800;letter-spacing:1.2px;
+ border-radius:20px;padding:4px 10px}
+.k2gauge .k2gt{height:10px;background:#0B111A;border:1px solid #2A3340;
+ border-radius:6px;overflow:hidden;position:relative;margin:9px 0 0}
+.k2gauge .k2gt i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+/*  where the rest of its own fleet sits, as a notch on the same track -
+    a number with nothing to stand next to says very little  */
+.k2gauge .k2gt u{position:absolute;top:-3px;bottom:-3px;width:2px;
+ background:#EAF0F7;opacity:.85}
+.k2gauge .k2gs{font-size:11.5px;color:#98A4B4;line-height:1.5;margin-top:8px}
+.k2gauge .k2gs b{color:#DCE3EC}
+.k2low{color:#1C9FAE}  .k2bglow{background:#0E2E35;color:#1C9FAE}
+.k2ok{color:#52AC36}   .k2bgok{background:#12280C;color:#7BD45C}
+.k2high{color:#C9550A} .k2bghigh{background:#3A2110;color:#E8804A}
+.k2none{color:#8A97A8} .k2bgnone{background:#232B36;color:#8A97A8}
+
+/*  NOT ON PAPER. The crew page prints a supervisor's handout and the
+    fleet page prints too - a BACK button on a printed sheet is just
+    ink. (4 Aug 2026.)  */
+@media print{.k2bar,.k2sheet,.k2det{display:none!important}}
+</style></head><body><div class='phone'><div class="k2bar"><button type="button" class="k2back" id="k2back" onclick="k2Back()" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span class="k2lbl">BACK</span></button><div class="k2where"><small id="k2where-k">You are here</small><b id="k2where-t">Shutdown clock</b></div><button type="button" class="k2menu" onclick="k2Menu()" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="k2lbl">MENU</span></button></div><div class='bar2'><h1>Shutdown clock</h1><span class='siq'>POWERED BY SITEIQ</span></div><div class='pad'><div class='lead'>Where the job is up to, in days.</div><div class='tiles'><div class='tile '><b>+11</b><span>days from Flame Off</span></div><div class='tile '><b>04 Aug</b><span>today</span></div><div class='tile a'><b>7</b><span>days to the end</span></div><div class='tile '><b>320</b><span>on the tools</span></div><div class='tile '><b>2</b><span>shifts running</span></div></div><h2>THE DAYS THAT HAVE A NAME</h2><div class='row'><div class='t'><b>GEAR ON HIRE</b><span>Monday 20 July 2026 &middot; day -4</span></div><div class='v'>15 days ago</div></div><div class='row'><div class='t'><b>FLAME OFF</b><span>Friday 24 July 2026 &middot; day +0</span></div><div class='v'>11 days ago</div></div><div class='row'><div class='t'><b>FIRST NIGHTSHIFT</b><span>Saturday 25 July 2026 &middot; day +1</span></div><div class='v'>10 days ago</div></div><div class='row'><div class='t'><b>POWER OUTAGE</b><span>Sunday 02 August 2026 &middot; day +9</span></div><div class='v'>2 days ago</div></div><div class='row'><div class='t'><b>SHUTDOWN ENDS</b><span>Tuesday 11 August 2026 &middot; day +18</span></div><div class='v'>in 7 days</div></div><h2>HOW IT IS MANNED</h2><div class='row'><div class='t'><b>Dayshift</b><span>on the tools</span></div><div class='v'>220</div></div><div class='row'><div class='t'><b>Nightshift</b><span>on the tools</span></div><div class='v'>100</div></div><div class='note'><b>Flame Off is day 0</b> &mdash; 24 July 2026. Everything in this suite counts from it, so a fleet is never judged against days when there was nothing to issue.</div><div class='foot'>Cement Australia K2 Shutdown 2026 &middot; Gladstone<br>Built 04 Aug 2026<br>Read-only SiteIQ snapshot &middot; no money on this page<br>Author: Andrew Fisher &middot; POWERED BY SITEIQ</div></div></div><div class="k2sheet" id="k2sheet"><div class="k2scrim" onclick="k2Shut()"></div><div class="k2panel" role="dialog" aria-label="Menu"><div class="k2grab"></div><div class="k2warn" id="k2warn" style="display:none"></div><h4>Where do you want to go</h4><a href="index.html" data-k2="index" onclick="k2Leave()"><div class="k2t"><b>My Gear</b><span>Your own gear, by site ID</span></div><span class="k2chev">&rsaquo;</span></a><a href="stores.html" data-k2="stores" onclick="k2Leave()"><div class="k2t"><b>Store Street</b><span>The stores team board</span></div><span class="k2chev">&rsaquo;</span></a><a href="crew.html" data-k2="crew" onclick="k2Leave()"><div class="k2t"><b>Who&rsquo;s got what</b><span>Supervisor &mdash; your crew&rsquo;s gear</span></div><span class="k2chev">&rsaquo;</span></a><a href="fleet.html" data-k2="fleet" onclick="k2Leave()"><div class="k2t"><b>Fleet Details</b><span>Every asset ranked</span></div><span class="k2chev">&rsaquo;</span></a><a class="k2on" id="k2here" href="#" onclick="return k2HereTap()"><div class="k2t"><b>Reports</b><span id="k2here-s">This morning&rsquo;s reports</span></div><span class="k2chev" id="k2here-c">YOU ARE HERE</span></a><button type="button" class="k2close" onclick="k2Shut()">Close</button></div></div><script>
+/* ------------------------------------------------------------------
+   ONE WAY AROUND - the bar at the top of every My Gear page.
+
+   THE TRAIL. These are four separate documents, so "where did I come
+   from" cannot live in a variable. It lives in sessionStorage: each
+   page writes itself down on arrival, and Back reads the one before.
+   It dies with the browser tab, which is right - tomorrow morning is
+   a fresh walk up to the window, not a continuation of yesterday.
+------------------------------------------------------------------ */
+var K2PAGE='reports', K2PARENT='stores.html', K2PARENTKEY='stores';
+var K2HOME={t:'Shutdown clock',w:'You are here'}, K2SUB='This morning’s reports';
+/* the page hands this over when it opens an inner screen: a name for
+   the bar, and the one function that closes it again */
+var K2VIEW=null;
+
+function k2Trail(){
+  try{ return JSON.parse(sessionStorage.getItem('k2trail')||'[]'); }
+  catch(e){ return []; }
+}
+function k2Save(t){
+  try{ sessionStorage.setItem('k2trail',JSON.stringify(t.slice(-8))); }
+  catch(e){}
+}
+/* LEAVING ON PURPOSE. A menu tap is a step forward, so this page goes
+   on the trail for the next one to come back to. */
+function k2Leave(){
+  var t=k2Trail();
+  if(t[t.length-1]!==K2PAGE) t.push(K2PAGE);
+  k2Save(t);
+}
+/* ARRIVING. If this page is already the last thing on the trail we came
+   BACK to it, so take it off - otherwise Back would bounce between two
+   pages for ever. */
+function k2Here(){
+  var t=k2Trail();
+  while(t.length && t[t.length-1]===K2PAGE) t.pop();
+  k2Save(t);
+  k2Bar();
+}
+function k2Href(k){
+  for(var i=0;i<K2MAP.length;i++) if(K2MAP[i][0]===k) return K2MAP[i][1];
+  return null;
+}
+var K2MAP=[['index','index.html'],['stores','stores.html'],
+           ['crew','crew.html'],['fleet','fleet.html']];
+/*  the staff screens, and the pages that may not name them  */
+var K2STAFFPAGES=['stores','crew','fleet','reports'], K2WORKER=['index','crew'];
+function k2IsWorkerPage(){ return K2WORKER.indexOf(K2PAGE)>=0; }
+function k2Nameable(k){
+  /*  THE LINE, drawn where it belongs.
+
+      A MENU row is an unconditional door - it is there for anyone who
+      opens the sheet, whether or not they have ever been near the
+      board. That is disclosure, and it is shut.
+
+      A BACK destination off the TRAIL is not the same thing. The trail
+      only ever holds pages this session actually opened, so BACK is
+      returning a bloke to where he just was - which is its whole job,
+      and is how a storeman gets from the board to the crew page and
+      home again.
+
+      This guard is for the PARENT fallback only: the invented
+      destination used when there is no trail at all. Nothing may be
+      invented onto a worker page.  */
+  return !(k2IsWorkerPage() && K2STAFFPAGES.indexOf(k)>=0);
+}
+
+/* WHAT BACK SAYS IT WILL DO, so the label never lies */
+function k2BackTo(){
+  if(K2VIEW) return {kind:'view',label:K2HOME.t};
+  var t=k2Trail();
+  for(var i=t.length-1;i>=0;i--){
+    var u=k2Href(t[i]);
+    /*  i comes back too: BACK has to CUT the trail at the step it is
+        going to, not add to it. It used to call the same k2Leave() a
+        MENU tap calls, so walking back from the board to My Gear wrote
+        "stores" down as somewhere you had been - and BACK on My Gear
+        then offered to send you into the board you had just left.
+        Two taps and a bloke is going in circles. (4 Aug 2026.)  */
+    if(u && t[i]!==K2PAGE) return {kind:'page',url:u,label:t[i],at:i};
+  }
+  if(K2PARENT && k2Nameable(K2PARENTKEY))
+    return {kind:'page',url:K2PARENT,label:'parent',at:-1};
+  return null;
+}
+function k2Bar(){
+  var b=document.getElementById('k2back');
+  if(!b) return;
+  var to=k2BackTo();
+  /* Hidden, not disabled. A greyed-out button still asks to be pressed. */
+  if(to) b.removeAttribute('hidden'); else b.setAttribute('hidden','');
+}
+/* THE BAR NAMES THE SCREEN. An inner screen puts its own name up and
+   Back steps out of it; the front of the page puts the page name up. */
+function k2Say(title,where){
+  var t=document.getElementById('k2where-t'),
+      w=document.getElementById('k2where-k');
+  if(t) t.textContent=title;
+  if(w) w.textContent=where||'You are here';
+}
+/* A page calls this when it opens an inner screen. close() is the ONE
+   thing that puts it away again - the bar and the phone Back button
+   both use it, so they can never disagree. */
+function k2View(title,close,where){
+  var was=K2VIEW&&K2VIEW.push;
+  K2VIEW={t:title,close:close,push:1};
+  k2Say(title,where||'You are in');
+  k2Bar();
+  /*  ONE LEVEL DOWN, NEVER TWO. The board is home and a pane is one
+      step from it, so stepping straight from one pane to the next
+      REPLACES the entry instead of adding one. Otherwise hopping
+      find - chase - stocktake left three entries behind and a single
+      Back went home, leaving two presses that did nothing.  */
+  if(was){ try{ history.replaceState({k2:title},''); }catch(e){} }
+  else k2Push({k2:title});
+}
+/*  OUR OWN ENTRIES, COUNTED. Anything this bar pushes, this bar takes
+    back off - otherwise a closed menu leaves a live history entry and
+    the phone Back button spends a press doing nothing. K2EATEN marks
+    an unwind WE asked for, so the popstate handler below lets it
+    through instead of treating it as the user pressing Back.  */
+var K2PUSHED=0, K2EATEN=0;
+var K2QUEUE=0;
+function k2Push(st){
+  /*  an unwind is queued and we are pushing again - they cancel, and
+      the pair becomes what it always meant: replace this entry  */
+  if(K2QUEUE>0){
+    K2QUEUE--;
+    try{ history.replaceState(st,''); }catch(e){}
+    return;
+  }
+  try{ history.pushState(st,''); K2PUSHED++; }catch(e){}
+}
+function k2Unwind(){
+  if(K2PUSHED<=0) return;
+  K2QUEUE++;
+  setTimeout(function(){
+    if(K2QUEUE<=0) return;          /* a push cancelled it */
+    K2QUEUE--;
+    if(K2PUSHED<=0) return;
+    K2PUSHED--; K2EATEN++;
+    try{ history.back(); }catch(e){ K2EATEN--; }
+  }, 0);
+}
+/* SOME PAGES ALREADY DRIVE THEIR OWN HISTORY - fleet.html routes off
+   location.hash and has done since before this bar existed. Those call
+   this instead: the bar still names the screen and Back still steps out
+   of it, but nothing here touches the history stack. Two things both
+   pushing an entry is how one Back skips a screen. */
+function k2ViewOwn(title,close,where){
+  K2VIEW={t:title,close:close,push:0};
+  k2Say(title,where||'You are in');
+  k2Bar();
+}
+function k2Home(){
+  var had=K2VIEW && K2VIEW.push;
+  K2VIEW=null;
+  k2Say(K2HOME.t,K2HOME.w);
+  k2Bar();
+  /*  the page closed the screen itself (a Done button, a Start again,
+      a keystroke) - so the entry that screen put on comes off too  */
+  if(had) k2Unwind();
+}
+function k2Back(){
+  /*  a sheet over the page comes off first - it is the thing on top  */
+  if(k2DetOpen()){ k2DetShut(); return; }
+  var to=k2BackTo();
+  if(!to) return;
+  if(to.kind==='view'){
+    var v=K2VIEW;
+    /* A screen this bar pushed comes off the stack the same way the
+       phone Back button would take it off - one path, one outcome.
+       K2VIEW is left standing for the popstate handler to clear; the
+       page it belongs to is closed there, not here. */
+    if(v&&v.push){ K2VIEW=null; k2Unwind(); k2Say(K2HOME.t,K2HOME.w);
+      k2Bar(); if(v.close){ try{ v.close(); }catch(e){} } return; }
+    K2VIEW=null;
+    if(v&&v.close){ try{ v.close(); }catch(e){} }
+    k2Home();
+    return;
+  }
+  if(to.at>=0) k2Save(k2Trail().slice(0,to.at));
+  window.location.href=to.url;
+}
+/* THE MENU */
+function k2Menu(){
+  var s=document.getElementById('k2sheet');
+  if(!s||k2MenuOpen()) return;
+  /*  say what the top row actually does BEFORE the sheet is on screen  */
+  var sub=document.getElementById('k2here-s'),
+      chev=document.getElementById('k2here-c'),
+      row=document.getElementById('k2here');
+  if(sub&&chev&&row){
+    if(K2VIEW){
+      sub.textContent='You are in '+K2VIEW.t+' — tap to come back out';
+      chev.textContent='›';
+      chev.style.fontSize='19px';
+      row.style.opacity='';
+    }else{
+      sub.textContent=K2HOME.w==='You are here'?K2SUB:K2HOME.w;
+      chev.textContent='YOU ARE HERE';
+      chev.style.fontSize='11px';
+    }
+  }
+  /*  a page may have something a bloke should know BEFORE he taps a
+      row that leaves it - the stores board loses its manager unlock.
+      It says so here rather than after the fact.  */
+  var warn=document.getElementById('k2warn');
+  if(warn){
+    var msg=(typeof k2LeaveWarn==='function') ? k2LeaveWarn() : '';
+    warn.textContent=msg||'';
+    warn.style.display=msg?'block':'none';
+  }
+  s.className='k2sheet on';
+  k2Push({k2menu:1});
+}
+/* ------------------------------------------------------------------
+   THE DETAIL SHEET. A LAYER, not a screen.
+
+   Tapping a line to read what it is must never cost you your place, so
+   this sits OVER whatever you were looking at and BACK takes it off
+   again before it does anything else. Order of precedence on a Back,
+   from the top down: the menu, then a detail sheet, then an inner
+   screen, then the page you came from. Each one is taken off by
+   exactly one handler.
+------------------------------------------------------------------ */
+function k2DetOpen(){
+  var d=document.getElementById('k2det');
+  return !!(d && d.className.indexOf('on')>=0);
+}
+function k2Detail(title,html){
+  var d=document.getElementById('k2det');
+  if(!d) return;
+  document.getElementById('k2det-t').innerHTML=title||'';
+  var b=document.getElementById('k2det-b');
+  b.innerHTML=html||''; b.scrollTop=0;
+  if(!k2DetOpen()){
+    d.className='k2det on';
+    document.body.style.overflow='hidden';
+    k2Push({k2det:1});
+  }
+}
+function k2DetShut(){
+  var d=document.getElementById('k2det');
+  if(!d||!k2DetOpen()) return;
+  d.className='k2det';
+  document.body.style.overflow='';
+  k2Unwind();
+}
+/*  Tapping the row you are standing on. Inside a screen it takes you
+    back out - but only AFTER the menu has finished putting its own
+    history entry back, or the two unwinds race and one is lost. The
+    menu hands the job to the popstate handler below.  */
+function k2HereTap(){
+  if(K2VIEW) K2AFTER=k2Back;
+  k2Shut();
+  return false;
+}
+var K2AFTER=null;
+function k2Shut(){
+  var s=document.getElementById('k2sheet');
+  if(!s||!k2MenuOpen()) return;
+  s.className='k2sheet';
+  k2Unwind();
+}
+function k2MenuOpen(){
+  var s=document.getElementById('k2sheet');
+  return !!(s && s.className.indexOf('on')>=0);
+}
+/* THE PHONE&rsquo;S OWN BACK BUTTON.
+   It used to walk out of the whole app from any inner screen. Now it
+   steps back one screen at a time.
+
+   IT DOES NOT BARGE IN. Some pages already close a sheet or a guide on
+   popstate. If one of those is open this handler keeps its hands off and
+   lets the page&rsquo;s own handler do its job - two handlers both
+   closing something on one Back is how you skip a screen. */
+window.addEventListener('popstate',function(){
+  /*  an unwind we asked for - already accounted for, nothing to do  */
+  if(K2EATEN>0){
+    K2EATEN--;
+    var f=K2AFTER; K2AFTER=null;
+    if(f) setTimeout(f,0);
+    return;
+  }
+  if(K2PUSHED>0) K2PUSHED--;
+  if(k2MenuOpen()){
+    /*  close it WITHOUT unwinding: this Back already took the entry  */
+    var sh=document.getElementById('k2sheet');
+    if(sh) sh.className='k2sheet';
+    return;
+  }
+  if(k2DetOpen()){
+    var dt=document.getElementById('k2det');
+    if(dt) dt.className='k2det';
+    document.body.style.overflow='';
+    return;
+  }
+  if(typeof k2OtherOpen==='function' && k2OtherOpen()) return;
+  /* A screen the PAGE routes itself (fleet.html and its hash) is the
+     page&rsquo;s to close. Touching it here would close it twice and
+     skip a screen. */
+  if(K2VIEW && K2VIEW.push){
+    var c=K2VIEW.close;
+    /*  the entry is already off - this Back took it - so clear the
+        screen without asking for another unwind  */
+    K2VIEW=null;
+    k2Say(K2HOME.t,K2HOME.w); k2Bar();
+    if(c){ try{ c(); }catch(e){} }
+  }
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'||e.keyCode===27){
+    if(k2MenuOpen()) k2Shut();
+    else if(k2DetOpen()) k2DetShut();
+    else if(K2VIEW) k2Back();
+  }
+});
+/* Record the arrival as soon as the bar exists. Never inside a
+   DOMContentLoaded that might already have fired. */
+(function(){
+  function go(){ try{ k2Here(); }catch(e){} }
+  if(document.readyState==='loading')
+    document.addEventListener('DOMContentLoaded',go);
+  else go();
+})();
+</script></body></html>

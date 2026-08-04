@@ -145,5 +145,81 @@ def report():
     print(' for the machine and the manufacturer\'s, together.')
 
 
+def page(date_tag=None):
+    """THE SERIAL REGISTER, AS A PAGE. (Andrew, 4 Aug 2026 - 70 on the
+    phone. It wrote a CSV, which is the right thing for a laptop and no
+    use at all standing in front of a machine.)
+
+    Our number and the manufacturer's, side by side. That is the pair
+    anybody arguing about a damaged machine needs, and it is the pair
+    nobody can ever find."""
+    import datetime as _dt
+    import page_style as PS
+
+    path = SR.newest()
+    if not path:
+        blocks = [PS.note(
+            '<b>No serial export on this machine.</b> Drop the Baseplan '
+            'serial listing into <b>Data_Serials\\</b> - the one with '
+            'FLEET_NO, MODEL and SERIAL_NO across the top - and run 70 '
+            'again. Nothing breaks without it; the screens simply carry '
+            'no serial numbers.')]
+        return PS.write('Coates_K2_Serial_Numbers', 'Serial numbers',
+                        'Our plant number and the maker&rsquo;s, side by '
+                        'side.', blocks, date_tag=date_tag)
+
+    recs = SR.load()
+    real = [r for r in recs.values() if r.get('serial')]
+    place = [r for r in recs.values()
+             if not r.get('serial') and r.get('stated')]
+    none = len(recs) - len(real) - len(place)
+
+    rows = []
+    for r in sorted(real, key=lambda x: (x.get('desc') or '').lower()):
+        rows.append([r.get('item') or '', r.get('desc') or '',
+                     r.get('serial') or ''])
+    blocks = [PS.tiles([
+        ('{:,}'.format(len(recs)), 'plant records', ''),
+        ('{:,}'.format(len(real)), 'carry a real serial', 'g'),
+        ('{:,}'.format(len(place)), 'filled in, but not a serial', 'a'),
+        ('{:,}'.format(none), 'blank', ''),
+    ])]
+    if rows:
+        blocks.append("<h2>OUR NUMBER, AND THE MAKER&rsquo;S"
+                      "<span>{} machine(s)</span></h2>".format(len(rows)))
+        blocks.append(PS.table(['Plant no', 'What it is', 'Serial'],
+                               rows))
+    if place:
+        blocks.append("<h2>SAYS A SERIAL, IS NOT ONE"
+                      "<span>{} line(s)</span></h2>".format(len(place)))
+        blocks.append("<p>The column is filled in, but what is in it is our "
+                      "own plant number handed back to us. Putting that on "
+                      "a damage claim proves nothing, so these are counted "
+                      "apart rather than folded in.</p>")
+        blocks.append(PS.table(
+            ['Plant no', 'What it is', 'What it says'],
+            [[r.get('item') or '', r.get('desc') or '', r.get('stated') or '']
+             for r in sorted(place,
+                             key=lambda x: (x.get('desc') or '').lower())[:200]]))
+        if len(place) > 200:
+            blocks.append(PS.note(
+                'Showing the first 200 of {:,} - the rest are in the CSV '
+                'this button also writes.'.format(len(place))))
+    blocks.append(PS.note(
+        'From <b>' + PS.esc(os.path.basename(path)) + '</b>. Drop a newer '
+        'Baseplan listing into Data_Serials\\ and it wins from then on.'))
+
+    return PS.write('Coates_K2_Serial_Numbers', 'Serial numbers',
+                    'Our plant number and the maker&rsquo;s, side by side '
+                    '&mdash; the pair anybody arguing about a damaged '
+                    'machine needs.', blocks,
+                    asof='Built ' + _dt.date.today().strftime('%d %b %Y'),
+                    date_tag=date_tag)
+
+
 if __name__ == '__main__':
     report()
+    try:
+        print(' Page: ' + page())
+    except Exception as _e:
+        print(' (page not built: {})'.format(_e))

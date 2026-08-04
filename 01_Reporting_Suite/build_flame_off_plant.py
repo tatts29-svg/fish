@@ -1042,5 +1042,84 @@ def main():
     return 0
 
 
+def _cli():
+    rc = main()
+    #  and the same numbers as a page, so 66 lands on the phone too
+    try:
+        print(' Page: ' + page())
+    except Exception as _e:
+        print(' (page not built: {})'.format(_e))
+    return rc
+
+
+# ---------------------------------------------------------------------
+#  THE SAME NUMBERS, AS A PAGE. (Andrew, 4 Aug 2026 - 66 on the phone.
+#  It wrote a spreadsheet, which is the right thing at a desk and no
+#  use at all standing next to a machine.)
+#
+#  IT CARRIES MONEY, so it travels the way every money report travels:
+#  locked under his manager code by 78_REPORTS_ON_MY_PHONE. Nothing had
+#  to be decided about that here - the gate reads the page and works it
+#  out for itself.
+# ---------------------------------------------------------------------
+def page(date_tag=None):
+    import datetime as _dt
+    import page_style as PS
+
+    d = collect()
+    rows = d.get('rows') or []
+
+    def money(v):
+        try:
+            return '${:,.0f}'.format(float(v or 0))
+        except Exception:
+            return '-'
+
+    tiles = [
+        ('{:,}'.format(d.get('totalAssets') or 0), 'plant on site', ''),
+        ('{:,}'.format(d.get('used') or 0), 'used since Flame Off', 'g'),
+        ('{:,}'.format(d.get('neverUsed') or 0), 'never used', 'r'),
+        ('{:,}'.format(d.get('onSiteIdle') or 0), 'on site, idle now', 'a'),
+        (money(d.get('$plant')), 'plant on charge', ''),
+        (money(d.get('$idle')), 'idle time on charge', 'a'),
+    ]
+
+    body = []
+    for r in sorted(rows, key=lambda x: -(x.get('idleDays') or 0))[:180]:
+        u = r.get('util')
+        band = ('c-r' if (u is not None and u < 25)
+                else ('c-a' if (u is not None and u < 60) else 'c-g'))
+        body.append([
+            r.get('desc') or '',
+            r.get('qty') or 0,
+            r.get('daysUsed') or 0,
+            r.get('idleDays') or 0,
+            ("<span class='chip {}'>{}</span>".format(
+                band, '-' if u is None else '{:.0f}%'.format(u))),
+            money(r.get('$billed')),
+        ])
+
+    blocks = [PS.tiles(tiles),
+              "<h2>EVERY MACHINE, WORST IDLE FIRST"
+              "<span>{} line(s)</span></h2>".format(len(rows)),
+              PS.table(['What it is', 'Qty', 'Days used', 'Days idle',
+                        'Used', 'On charge'], body, nums=(1, 2, 3, 5))]
+    if len(rows) > 180:
+        blocks.append(PS.note(
+            'Showing the first 180 of {:,} &mdash; the whole lot is in the '
+            'spreadsheet this button also writes.'.format(len(rows))))
+    blocks.append(PS.note(
+        '<b>Idle days are counted from the day the gear started going out'
+        '</b>, not from the day it landed on site - measuring across days '
+        'when there was nothing to issue marks every machine down for '
+        'something nobody could have done.'))
+
+    return PS.write('Coates_K2_Flame_Off_Plant', 'Plant since Flame Off',
+                    'What every machine has actually done since day 0.',
+                    blocks,
+                    asof='Data to ' + str(d.get('srcTo') or ''),
+                    date_tag=date_tag)
+
+
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(_cli())

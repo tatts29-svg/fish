@@ -117,7 +117,7 @@ def note(dropped, where=''):
             'see HIDDEN_ITEMS.txt'.format(dropped, (' of ' + where) if where else ''))
 
 
-if __name__ == '__main__':
+def _cli():
     a, u = load()
     print('=' * 62)
     print(' COATES | HIDDEN ITEMS')
@@ -131,3 +131,66 @@ if __name__ == '__main__':
         print('   {}  (only in {})'.format(s, un))
     if not a and not u:
         print(' Nothing is hidden. Every line in the export is reported.')
+    print('')
+    print(' Page      : ' + page())
+    return 0
+
+
+# ---------------------------------------------------------------------
+#  WHAT IS HELD OFF THE BOARD, AND WHY. (Andrew, 4 Aug 2026 - 63 on the
+#  phone. It had no page: it edits a text file and prints a count.)
+#
+#  This list matters more than it looks. Every line on it is something
+#  a storeman will NOT see when he searches, and a screen that hides
+#  things without saying so is the one thing this suite refuses to be.
+#  So the hidden list is a page you can hold up.
+# ---------------------------------------------------------------------
+def page(date_tag=None):
+    import datetime as _dt
+    import page_style as PS
+
+    anywhere, in_unit = load()
+    rows_any = sorted(anywhere)
+    rows_unit = sorted(in_unit)
+
+    blocks = [PS.tiles([
+        (str(len(rows_any) + len(rows_unit)), 'lines held off the board',
+         'a' if (rows_any or rows_unit) else 'g'),
+        (str(len(rows_any)), 'hidden everywhere', ''),
+        (str(len(rows_unit)), 'hidden in one aisle only', ''),
+    ])]
+
+    if rows_any:
+        blocks.append("<h2>HIDDEN EVERYWHERE<span>{} line(s)</span></h2>"
+                      .format(len(rows_any)))
+        blocks.append("<p>These never appear on any screen, in any aisle.</p>")
+        blocks.append(PS.table(
+            ['Code / SKU'], [[c] for c in rows_any]))
+    if rows_unit:
+        blocks.append("<h2>HIDDEN IN ONE AISLE<span>{} line(s)</span></h2>"
+                      .format(len(rows_unit)))
+        blocks.append("<p>Held off that aisle only - the same thing still "
+                      "shows anywhere else it lives.</p>")
+        blocks.append(PS.table(
+            ['Code / SKU', 'Aisle'], [[c, u] for c, u in rows_unit]))
+    if not rows_any and not rows_unit:
+        blocks.append(PS.note(
+            '<b>Nothing is hidden.</b> Every line on the register is on '
+            'the board.'))
+
+    blocks.append(PS.note(
+        'This list lives in <b>HIDDEN_ITEMS.txt</b> - your file, and an '
+        'update never overwrites it. Take a line out and it is back on '
+        'the board at the next 04_RUN_MY_GEAR. '
+        'Nothing is hidden that is not on this page.'))
+
+    return PS.write('Coates_K2_Hidden_Items', 'Held off the board',
+                    'What a storeman will NOT see when he searches, '
+                    'and why.', blocks,
+                    asof='Built ' + _dt.date.today().strftime('%d %b %Y'),
+                    date_tag=date_tag)
+
+
+if __name__ == '__main__':
+    import sys as _sys
+    _sys.exit(_cli())

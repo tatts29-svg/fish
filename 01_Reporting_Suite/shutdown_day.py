@@ -185,3 +185,96 @@ if __name__ == '__main__':
         here = '  * today' if row['date'] == t else ''
         print('  day {:>3}   {}{}{}'.format(
             row['n'], row['date'].strftime('%a %d/%m/%Y'), star, here))
+
+
+# ---------------------------------------------------------------------
+#  THE CLOCK, AS A PAGE. (Andrew, 4 Aug 2026 - he asked for 64 on the
+#  phone, and 64 had no page: this module is a clock other screens read,
+#  and the console printed a line and stopped.)
+#
+#  Where the job is up to, what day it is against Flame Off, the named
+#  days behind and ahead, and how long is left. Nothing here is a
+#  number anybody has to work out.
+# ---------------------------------------------------------------------
+def page(date_tag=None):
+    import datetime as _dt
+    import os as _os
+    import page_style as PS
+
+    today = _dt.date.today()
+    d = day(today)
+    wf = workforce(today)
+
+    #  the end, from his own file - the whole clock counts to it
+    end = None
+    ef = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)),
+                       'shutdown_end.txt')
+    try:
+        with open(ef) as fh:
+            end = _dt.date.fromisoformat(fh.read().strip()[:10])
+    except Exception:
+        pass
+    left = (end - today).days if end else None
+
+    tiles = [(('+' if d >= 0 else '') + str(d), 'days from Flame Off',
+              '' if d >= 0 else 'a'),
+             (today.strftime('%d %b'), 'today', '')]
+    if left is not None:
+        tiles.append((str(left), 'days to the end',
+                      'r' if left <= 3 else ('a' if left <= 7 else 'g')))
+    if wf:
+        tiles.append((str(wf.get('total') or 0), 'on the tools',
+                      ''))
+        tiles.append((str(wf.get('shifts') or 0), 'shifts running', ''))
+
+    #  every named day, behind and ahead, so nobody counts on fingers
+    rows = []
+    for n in sorted(MILESTONES):
+        dd = date_of(n)
+        gone = dd < today
+        when = ('{} days ago'.format((today - dd).days) if gone
+                else ('TODAY' if dd == today
+                      else 'in {} days'.format((dd - today).days)))
+        rows.append(PS.row(
+            MILESTONES[n],
+            dd.strftime('%A %d %B %Y') + ' &middot; day '
+            + ('+' if n >= 0 else '') + str(n),
+            when))
+    if end:
+        gone = end < today
+        rows.append(PS.row(
+            'SHUTDOWN ENDS',
+            end.strftime('%A %d %B %Y') + ' &middot; day +' + str((end - FLAME_OFF).days),
+            ('{} days ago'.format((today - end).days) if gone
+             else ('TODAY' if end == today else 'in {} days'.format(left)))))
+
+    blocks = [
+        PS.tiles(tiles),
+        "<h2>THE DAYS THAT HAVE A NAME</h2>",
+        ''.join(rows),
+    ]
+    if wf:
+        blocks += [
+            "<h2>HOW IT IS MANNED</h2>",
+            PS.row('Dayshift', 'on the tools', str(wf.get('day') or 0)),
+            PS.row('Nightshift', 'on the tools', str(wf.get('night') or 0)),
+        ]
+    blocks.append(PS.note(
+        '<b>Flame Off is day 0</b> &mdash; ' + FLAME_OFF.strftime('%d %B %Y')
+        + '. Everything in this suite counts from it, so a fleet is never '
+        'judged against days when there was nothing to issue.'))
+
+    return PS.write('Coates_K2_Shutdown_Clock', 'Shutdown clock',
+                    'Where the job is up to, in days.',
+                    blocks, asof='Built ' + today.strftime('%d %b %Y'),
+                    date_tag=date_tag)
+
+
+if __name__ == '__main__':
+    out = page()
+    print('=' * 64)
+    print(' COATES | SHUTDOWN CLOCK')
+    print('=' * 64)
+    print(' ' + label())
+    print('')
+    print(' Page: ' + out)

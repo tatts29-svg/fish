@@ -125,6 +125,19 @@ SHELF = [
     #  locked, and only on a machine that has the MyBranch export.
     ('Coates_K2_Fleet_Finder_INTERNAL', 'Fleet finder (branch)',
      'What the branch has, against what we need.'),
+    #  ---- 63, 64, 66, 70 --------------------------------------------
+    #  Andrew, 4 Aug 2026: "i want these on phone." These four never had
+    #  a page - 66 wrote a spreadsheet, 70 a CSV, 63 edited a text file
+    #  and 64 was a clock the other reports read. They have pages now,
+    #  drawn by page_style so they read like everything above them.
+    ('Coates_K2_Hidden_Items', 'Held off the board',
+     'What a storeman will not see when he searches, and why.'),
+    ('Coates_K2_Shutdown_Clock', 'Shutdown clock',
+     'Where we are in the shut, and what is next.'),
+    ('Coates_K2_Serial_Numbers', 'Serial numbers',
+     'Which plant records carry a real serial and which do not.'),
+    ('Coates_K2_Flame_Off_Plant', 'Flame Off plant',
+     'Every machine since Flame Off, worst idle first.'),
 ]
 
 #  ALREADY IN Gear_Lookup AND NEVER LINKED. 62 writes its page straight

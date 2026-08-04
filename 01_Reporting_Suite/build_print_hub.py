@@ -114,6 +114,12 @@ STORE = [
      'Every asset ranked, and why one goes out before another.', 0),
     ('Coates_K2_Plant_Dashboard', 'Plant dashboard',
      'The machines, at a glance.', 0),
+    ('Coates_K2_Shutdown_Clock', 'Shutdown clock',
+     'Where we are in the shut, and what is next.', 0),
+    ('Coates_K2_Hidden_Items', 'Held off the board',
+     'What a storeman will not see when he searches, and why.', 0),
+    ('Coates_K2_Serial_Numbers', 'Serial numbers',
+     'Our plant number and the maker’s, side by side.', 0),
 ]
 
 MINE = [
@@ -137,6 +143,8 @@ MINE = [
      'What the counter actually did, hour by hour.', 0),
     ('Coates_K2_Business_Utilisation', 'Business utilisation',
      'The branch view.', 1),
+    ('Coates_K2_Flame_Off_Plant', 'Flame Off plant',
+     'Every machine since Flame Off, worst idle first. Carries rates.', 1),
 ]
 
 GROUPS = [('FOR CEMENT AUSTRALIA', CLIENT,
@@ -165,6 +173,10 @@ MAKES = {
     'Coates_K2_Business_Utilisation': '59_RUN_BUSINESS_UTILISATION',
     'Coates_K2_Money_And_Whats_Used': '67_MONEY_AND_WHATS_USED',
     'Coates_K2_Offline_Day': '61_RUN_OFFLINE_DAY',
+    'Coates_K2_Hidden_Items': '63_HIDDEN_ITEMS',
+    'Coates_K2_Shutdown_Clock': '64_SHUTDOWN_CLOCK',
+    'Coates_K2_Flame_Off_Plant': '66_RUN_FLAME_OFF_PLANT',
+    'Coates_K2_Serial_Numbers': '70_SERIAL_NUMBERS',
 }
 
 CSS = """
