@@ -723,6 +723,57 @@ def main(pages):
         check("crew: and the one after that leaves - no dead presses",
               not pg.url.endswith("crew.html"), pg.url.rsplit("/", 1)[-1])
 
+        print("\n=== THE FULL ASSET REPORTS ARE STILL THERE")
+        # Andrew, 4 Aug 2026: "make sure u have not taken things out and
+        # forgot to put back in." These three are the deep screens the
+        # stores team actually works off. Nothing in the nav work went
+        # near them - and now nothing can, without this failing.
+        go("stores")
+        pg.evaluate("()=>nav('find')")
+        pg.wait_for_timeout(500)
+        it = pg.evaluate("()=>{var r=(D.roster||[])[0];return r?r.i:null}")
+        pg.evaluate("""(it)=>{var b=document.querySelector('#p-find input');
+            if(b){b.value=it;b.dispatchEvent(new Event('input',{bubbles:true}));}}""",
+                    it)
+        pg.wait_for_timeout(900)
+        card = pg.evaluate("()=>document.getElementById('p-find').innerText")
+        for want in ("ITEM NO", "UTILISATION", "TIMES OUT", "LIVES IN"):
+            check("stores: Find it still gives the full card - " + want,
+                  want in card.upper(), it)
+
+        pg.evaluate("()=>nav('groups')")
+        pg.wait_for_timeout(900)
+        cards = pg.evaluate("()=>document.querySelectorAll('#glist .acard').length")
+        check("stores: Product groups still holds every asset card",
+              cards > 100, "%d cards" % cards)
+        pg.evaluate(
+            "()=>{var b=document.querySelector('#glist .grp [onclick*=tog]');"
+            "if(b)b.click();}")
+        pg.wait_for_timeout(800)
+        opened = pg.evaluate(
+            "()=>{var k=document.querySelector('#glist .kids.on');"
+            "return k?k.innerText:''}")
+        check("stores: tapping a group still opens its asset reports",
+              "UTILISATION" in opened.upper()
+              and "TIMES OUT" in opened.upper(),
+              "%d cards on screen" % pg.evaluate(
+                  "()=>document.querySelectorAll('#glist .kids.on .acard').length"))
+
+        # the route he takes: the board, Bay 03, then a product
+        go("stores")
+        pg.eval_on_selector("a[href='fleet.html']", "a=>a.click()")
+        pg.wait_for_timeout(1800)
+        pg.eval_on_selector("[data-v]", "e=>e.click()")
+        pg.wait_for_timeout(1000)
+        rep = pg.eval_on_selector("#view", "e=>e.innerText")
+        check("board -> Fleet Details -> a product opens the ranked report",
+              pg.evaluate("()=>document.querySelectorAll('#view .asset').length") > 1,
+              "%d assets ranked" % pg.evaluate(
+                  "()=>document.querySelectorAll('#view .asset').length"))
+        check("  and it still carries the utilisation and the rotation call",
+              "UTILISATION" in rep.upper(),
+              rep.split("\n")[0][:40])
+
         print("\n=== THE WORKED GAUGE ON A GEAR CARD")
         go("crew")
         got = pg.evaluate("""()=>{
