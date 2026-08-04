@@ -118,8 +118,6 @@ STORE = [
      'Where we are in the shut, and what is next.', 0),
     ('Coates_K2_Hidden_Items', 'Held off the board',
      'What a storeman will not see when he searches, and why.', 0),
-    ('Coates_K2_Serial_Numbers', 'Serial numbers',
-     'Our plant number and the maker’s, side by side.', 0),
 ]
 
 MINE = [
@@ -176,7 +174,6 @@ MAKES = {
     'Coates_K2_Hidden_Items': '63_HIDDEN_ITEMS',
     'Coates_K2_Shutdown_Clock': '64_SHUTDOWN_CLOCK',
     'Coates_K2_Flame_Off_Plant': '66_RUN_FLAME_OFF_PLANT',
-    'Coates_K2_Serial_Numbers': '70_SERIAL_NUMBERS',
 }
 
 CSS = """

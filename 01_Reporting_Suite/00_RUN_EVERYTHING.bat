@@ -81,10 +81,9 @@ echo.
 echo [11/14] YOUR OWN REPORTS - every idea you saved
 %PYCMD% report_designer.py --all
 echo.
-echo [12/14] THE FOUR EXTRA PAGES (clock, hidden list, serials, plant)
+echo [12/14] THE EXTRA PAGES (clock, hidden list, plant)
 %PYCMD% hidden_stock.py
 %PYCMD% shutdown_day.py
-%PYCMD% serial_report.py
 %PYCMD% build_flame_off_plant.py
 echo.
 echo [13/14] THE PRINT HUB - one page listing everything just built
