@@ -98,6 +98,25 @@ CHARGES = [
     },
 ]
 
+#  ---- NOT TO BE CHARGED, FOR NOW --------------------------------------
+#  Andrew, 4 Aug 2026, on the welder: "don't charge for it at the moment."
+#
+#  A decision not to charge is worth as much as a charge, and it is the
+#  one that goes missing - it lives in somebody's head until they are on
+#  leave and it gets billed by accident. So it is written down here, in
+#  the file that raises charges, and this script PRINTS it every single
+#  run. Nothing on this list is silent.
+#
+#  Take the line out when it is time to charge, and nothing here stops
+#  you - this is a "not yet", not a "never".
+#
+#  (what it is, why it is held, who said so and when)
+ON_HOLD = [
+    ("The welder", "Not to be charged at the moment.",
+     "Andrew Fisher, 4 Aug 2026"),
+]
+
+
 #  Prices that moved after the charge was first raised. Keyed by what the
 #  register already holds, so a re-run corrects the row in place instead
 #  of raising a second charge for the same goods.
@@ -241,6 +260,18 @@ def main():
             "${:,.2f}".format(float(c["charge_total"])), qty))
     print("")
 
+    #  Before the YES, not after it. What is deliberately NOT being
+    #  charged belongs in front of you while you are deciding whether
+    #  to submit - and it has to survive you cancelling.
+    if ON_HOLD:
+        print(" ON HOLD - deliberately NOT charged:")
+        for what, why, who in ON_HOLD:
+            print("   {:<28} {}".format(what, why))
+            print("   {:<28} ({})".format("", who))
+        print(" Take the line out of ON_HOLD in SUBMIT_CHARGES.py when it")
+        print(" is time to charge for it.")
+        print("")
+
     if "--yes" not in sys.argv:
         try:
             if input(" Type YES to submit: ").strip().upper() != "YES":
@@ -315,6 +346,9 @@ def main():
         print(" !! STOPPED: {} charge(s) are on the register at a price I "
               "wasn't given.".format(len(clash)))
         print("             Nothing was changed for those. Check them.")
+    if ON_HOLD:
+        print(" On hold   : {} thing(s) deliberately not charged - listed "
+              "above.".format(len(ON_HOLD)))
     if not done and not skipped and not fixed:
         print(" Nothing submitted.")
         return 1
