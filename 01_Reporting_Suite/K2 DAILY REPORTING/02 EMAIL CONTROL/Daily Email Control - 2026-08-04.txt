@@ -1,0 +1,99 @@
+COATES | K2 SHUTDOWN 2026 - DAILY EMAIL CONTROL
+Reporting day 2026-08-04   built 04 Aug 2026 01:06
+Routing from K2_Daily_Email_Report_Allocation.xlsx
+==========================================================================
+Cleanaway              Not Generated              To  1  Cc  5  Attach 0
+    ! Cleanaway holds nothing on hire today - no report to send. The folder and this record are made so the day is complete.
+DGH Engineering        Failed - Review Required   To  4  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+DKE Group              Failed - Review Required   To  4  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+High Risk Solutions    Failed - Review Required   To  3  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Industec               Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Programmed             Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Synclift               Failed - Review Required   To  2  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Tasman Rope Access     Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Universal Cranes       Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Veolia Refractory      Failed - Review Required   To  3  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Xtreme Engineering     Failed - Review Required   To  2  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Cement Australia       Failed - Review Required   To  3  Cc 11  Attach 0
+    ! Daily Safety & Compliance Report has no PDF - it was not built for 04 Aug 2026
+    ! Daily Cost Tracking Report has no PDF - it was not built for 04 Aug 2026
+    ! Site Plant Report has no PDF - it was not built for 04 Aug 2026
+    ! Cement Australia On-Hire Report has no PDF - it was not built for 04 Aug 2026
+    ! Consumables Usage Report has no PDF - it was not built for 04 Aug 2026
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! All five Cement attachments present (missing: Daily Safety & Compliance Report, Daily Cost Tracking Report, Site Plant Report, Cement Australia On-Hire Report, Consumables Usage Report)
+Bosch Rexroth          Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Industrial Rescue      Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Filtercare             Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+QWest Crane Hire       Failed - Review Required   To  0  Cc  5  Attach 0
+    ! At least one confirmed address in To (0 in To)
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Aestec                 Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+Cutrite                Failed - Review Required   To  1  Cc  5  Attach 0
+    ! Report in the body is today's, and still the current one (nothing generated)
+    ! Report ready for the email body (nothing generated)
+    ! Their own report is the only attachment (nothing attached)
+    ! No other company's information in the pack (found: (there is no report to read))
+==========================================================================
+Nothing has been sent. Open the .eml in each company folder and
+press Send when you are happy with it.

@@ -2202,14 +2202,29 @@ button.tile:active{background:var(--pnl2)}
 .mgrbox.on b{color:var(--gd)}
 .mgrbox span{display:block;color:var(--dim);font-size:11.5px;
  line-height:1.5;margin-top:4px}
+/*  THE ONE FLOW ON THIS BOARD THAT INVOLVES TYPING A SECRET IN
+    GLOVES had the smallest targets on it: the code box computed to
+    about 33px and the Open button to about 30. Everything else in
+    this suite is 48. (4 Aug 2026.)  */
 .mgrow{display:flex;gap:8px;margin-top:9px}
 .mgrow input{flex:1;min-width:0;background:#0B111A;border:1px solid var(--line);
- border-radius:9px;padding:9px 11px;color:var(--txt);font:800 13px/1 inherit;
- letter-spacing:2px}
+ border-radius:9px;padding:0 12px;min-height:48px;color:var(--txt);
+ font:800 14px/1 inherit;letter-spacing:2px}
 .mgrow button{flex:none;background:var(--am);color:#1A1204;border:0;
- border-radius:9px;padding:9px 15px;font:900 12px/1 inherit;cursor:pointer}
+ border-radius:9px;padding:0 18px;min-height:48px;font:900 13px/1 inherit;
+ cursor:pointer}
 .mgrow button.lk{background:var(--pnl2);color:var(--txt);
  border:1px solid var(--line);flex:1}
+/*  and the way in, from anywhere on the board, without scrolling six
+    bays to find it  */
+.mgrjump{display:block;width:100%;background:var(--pnl);color:var(--dim);
+ border:1px dashed var(--line);border-radius:11px;min-height:48px;
+ font:800 11px/1 inherit;letter-spacing:1.4px;cursor:pointer;
+ margin-top:14px}
+.mgrjump.on{border-style:solid;border-color:var(--gd);color:var(--gd)}
+.prback{background:none;border:0;color:var(--org);font:800 12px/1 inherit;
+ letter-spacing:.6px;cursor:pointer;padding:12px 0;min-height:48px;
+ text-align:left}
 .merr{color:var(--rd);font-size:11.5px;font-weight:700;margin-top:7px}
 .mbar{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .mbar span{flex:none;width:150px;font-size:9.5px;font-weight:800;
@@ -2763,6 +2778,28 @@ function mgrUnlock(){
   nav('mgr');
 }
 function mgrLock(){ MGR=null; render(); home(); }
+/*  from the top of the board: open it if it is shut, lock it if it is
+    open. One button, both jobs, so the lock is never somewhere a
+    manager has to hunt for.  */
+function mgrGo(){
+  if(MGR){ mgrLock(); return; }
+  var b=document.querySelector('.mgrbox');
+  if(b){
+    try{ b.scrollIntoView({behavior:'smooth',block:'center'}); }
+    catch(e){ b.scrollIntoView(); }
+  }
+  var i=document.getElementById('mcode');
+  if(i) setTimeout(function(){ try{ i.focus(); }catch(e){} }, 350);
+}
+/*  THE UNLOCK DOES NOT SURVIVE LEAVING THE PAGE - MGR is a page
+    variable and nothing carries it, by design, because a code that
+    followed you between pages would be a code sitting in storage. So
+    say so rather than let a manager tap My Gear and come back to a
+    locked board wondering what he did wrong. (4 Aug 2026.)  */
+function k2LeaveWarn(){
+  return MGR ? 'The money locks when you leave this page. Your code '
+             + 'opens it again.' : '';
+}
 var SD_DEAD=false, SD_BUSY=false, SD_T=[];
 function sdCan(){
   try{
@@ -2956,6 +2993,16 @@ function homeMenu(){
   h+='<div class="youare"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/>'
    +'<path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></i>'
    +'<div><small>YOU ARE HERE</small><b>STORE STREET</b></div></div>';
+  /*  THE MONEY DOOR, AT THE TOP AS WELL AS THE BOTTOM. The code box is
+      the last thing on this board, after six photo-headed bays - so
+      unlocking meant scrolling the whole street, and locking again
+      meant scrolling it a second time because home() returns you to
+      the top. A manager handing a tablet over should not have to go
+      looking for the lock. (4 Aug 2026.)  */
+  h+='<button type="button" class="mgrjump'+(MGR?' on':'')+'" '
+   +'onclick="mgrGo()">'+(MGR
+     ? '&#128275; MONEY IS OPEN &mdash; TAP TO LOCK IT AWAY'
+     : '&#128274; MANAGER &mdash; OPEN THE MONEY')+'</button>';
 
   /* BAY 01 - the counter's most-asked question */
   h+=bay(1,'org','find','Find It Counter',
@@ -4676,12 +4723,29 @@ function prWiz(reset){
      +'onclick="howtoPrint()">&#128424; Print the call-card deck</button></div>';
     document.getElementById('prout').innerHTML=''; PRCUR=null; return;
   }
+  /*  BACK TO STEP 1 WITHOUT LOSING THE LOT. Changing the Step 1
+      dropdown calls prWiz(1), which clears every pick - so a bloke
+      three steps into a company report who wanted to check the report
+      type had no way to look without starting again. This steps back
+      and KEEPS what he chose. (4 Aug 2026.)  */
+  h+='<button type="button" class="prback" onclick="prStep1()">'
+   +'&lsaquo; Back to step 1 &mdash; your picks are kept</button>';
   if(k==='pp') h+=prStepPerson();
   if(k==='co') h+=prStepCompany();
   h+=prStepOpts(k);
   s.innerHTML=h;
   if(k==='pp') prPplFilter();
   prShow();
+}
+/*  step 1 again, with everything still chosen - prWiz(reset) is the
+    one that wipes, so this deliberately does not pass it  */
+function prStep1(){
+  var sel=document.getElementById('prkind');
+  if(sel){
+    try{ sel.scrollIntoView({behavior:'smooth',block:'center'}); }
+    catch(e){ sel.scrollIntoView(); }
+    setTimeout(function(){ try{ sel.focus(); }catch(e){} }, 320);
+  }
 }
 function prCoOpts(sel){
   var cos={};

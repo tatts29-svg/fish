@@ -445,6 +445,20 @@ def read_availability(rental_path, sales_path, master=None):
             _sd = _sds_of(name)
             if _sd:
                 it['sd'] = _sd
+            #  THE SHELF. SiteIQ carries no shelf or bin, so RACKS.txt
+            #  is the only place it can come from - and the store screen
+            #  never showed it at all, even for lines that had one. The
+            #  aisle answers "which end of the store"; the shelf answers
+            #  "which one do I put my hand on", which is the question
+            #  actually being asked at the window. Carried only when it
+            #  is known: no line, never a guess. (4 Aug 2026.)
+            try:
+                import racks as _RK
+                _rk = _RK.where('', '', it['v'])
+                if _rk:
+                    it['r'] = _rk
+            except Exception:
+                pass
             out.append(it)
         out.sort(key=lambda x: x['n'].lower())
         return out
@@ -487,6 +501,9 @@ CSS = """
   border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:13px;
   line-height:1.6;color:#C7CED8}
 .stnote b{color:#fff}
+/*  the bays get out of the way of an answer  */
+.stwrap.searching .ctop,
+.stwrap.searching .stcats{display:none}
 .stsearch{position:sticky;top:0;z-index:5;background:#0A0E14;padding:8px 0 10px;
   margin:0 0 4px}
 .stsearch input{width:100%;background:#171B22;border:1.5px solid #2A313C;
@@ -620,6 +637,11 @@ CSS = """
 .loc{font-style:normal;color:#FFB347;font-weight:800;letter-spacing:.4px;
   text-transform:uppercase;font-size:10px}
 .loc:before{content:"📍 ";font-size:9px}
+/*  the shelf, when RACKS.txt knows it - louder than the aisle, because
+    it is the end of the question rather than the middle of it  */
+.shelf{font-style:normal;background:var(--org);color:#fff;font-weight:900;
+ letter-spacing:.6px;font-size:10px;border-radius:6px;padding:2px 7px;
+ margin-left:5px;white-space:nowrap}
 /*  THE SCAN CHIP, SIZED. Moving it out of the photograph and into the
     body made it a static element, and a static SVG with no width takes
     the whole line - a white block right across the card, bigger than
@@ -841,6 +863,17 @@ function stRender(reset){
       if(!stWordHits(hay,hayFlat,words[i])) return false;
     return true;
   });
+  /*  SEARCHING IS NOT BROWSING. (Andrew's storeman at the window:
+      he types "19mm air hose" and the screen does not move.) The
+      answer WAS there - about 1,900px down, under the 22-tile bay
+      wall, because the wall is written above the list and nothing
+      moved it out of the way. A bloke with a contractor waiting sees
+      a screen that did nothing.
+      Type anything and the bays step aside; clear the box and they
+      come back. (4 Aug 2026.)  */
+  var wrap = box.parentNode;
+  if(wrap) wrap.className = words.length ? 'stwrap searching' : 'stwrap';
+
   var head = document.getElementById('st-count');
   if(head){
     /*  AND HOW MANY OF THEM HAVE NO PHOTO YET.
@@ -954,6 +987,7 @@ function stRender(reset){
         + '</div>'
         + '<div class="bd"><b>' + it.n + '</b>'
         + '<span><i class="loc">' + it.u + '</i>'
+        + (it.r ? ' <i class="shelf">' + it.r + '</i>' : '')
         + (it.v ? ' &middot; <i class="vc">' + it.v + '</i>' : '') + '</span>'
         + '<span class="stt ' + (it.q===0?'r':(it.q<=3?'a':'g')) + '"><i></i>'
         + (it.q===0 ? (it.o ? 'WE HAVE ' + it.o + ' &mdash; ALL OUT WITH CREWS' : 'NONE RIGHT NOW')

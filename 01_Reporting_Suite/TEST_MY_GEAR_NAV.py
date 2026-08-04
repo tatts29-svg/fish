@@ -723,6 +723,72 @@ def main(pages):
         check("crew: and the one after that leaves - no dead presses",
               not pg.url.endswith("crew.html"), pg.url.rsplit("/", 1)[-1])
 
+        print("\n=== TYPING IN THE STORE PUTS THE ANSWER UNDER THE BOX")
+        go("index")
+        pg.evaluate("()=>{try{DW_DEAD=true}catch(e){}; openGuide('store')}")
+        pg.wait_for_timeout(1600)
+        before = pg.evaluate(
+            "()=>{var l=document.getElementById('st-list');"
+            "var s=document.querySelector('.stsearch');"
+            "return Math.round(l.getBoundingClientRect().top"
+            "-s.getBoundingClientRect().bottom)}")
+        pg.evaluate("""()=>{var q=document.getElementById('st-q');
+            q.value='hose';q.dispatchEvent(new Event('input',{bubbles:true}));}""")
+        pg.wait_for_timeout(800)
+        after = pg.evaluate(
+            "()=>{var l=document.getElementById('st-list');"
+            "var s=document.querySelector('.stsearch');"
+            "return Math.round(l.getBoundingClientRect().top"
+            "-s.getBoundingClientRect().bottom)}")
+        check("store: searching brings the answer up to the box",
+              after < 200 and after < before,
+              "%dpx below the box -> %dpx" % (before, after))
+        check("store: and the bays come back when you clear it",
+              pg.evaluate("""()=>{var q=document.getElementById('st-q');
+                q.value='';q.dispatchEvent(new Event('input',{bubbles:true}));
+                return true}""") and True)
+        pg.wait_for_timeout(600)
+        check("store: the bay wall is back",
+              pg.evaluate("()=>{var c=document.querySelector('.stcats');"
+                          "return c && getComputedStyle(c).display!=='none'}"))
+
+        print("\n=== GLOVE-SIZED, EVERYWHERE THE MODULE SAYS")
+        for key in ("index", "stores", "crew", "fleet"):
+            go(key)
+            small = pg.evaluate(
+                "()=>Array.from(document.querySelectorAll('.k2bar button'))"
+                ".filter(b=>!b.hasAttribute('hidden'))"
+                ".filter(b=>b.getBoundingClientRect().height<48)"
+                ".map(b=>Math.round(b.getBoundingClientRect().height))")
+            check(key + ": every bar button is at least 48px",
+                  small == [], json.dumps(small))
+
+        print("\n=== THE WORKER PAGE DOES NOT PUBLISH THE CONTRACTOR LIST")
+        go("index")
+        src = pg.evaluate("()=>document.documentElement.innerHTML")
+        leaked = [n for n in ("XTREME", "VEOLIA", "PROGRAMMED", "DGH",
+                              "CLEANAWAY", "TASMAN")
+                  if ('"%s"' % n) in src]
+        check("index: no contractor roster in the page source",
+              leaked == [], json.dumps(leaked))
+        for w in ("XTREME", "programmed"):
+            pg.fill("#idno", w)
+            pg.evaluate("()=>goNow()")
+            pg.wait_for_timeout(400)
+            t = pg.eval_on_selector("#dstate", "e=>e.innerText")
+            check("index: but it still recognises %r being typed" % w,
+                  "company name" in t.lower(), t[:46])
+
+        print("\n=== THE MANAGER DOOR IS AT THE TOP OF THE BOARD")
+        go("stores")
+        j = pg.evaluate(
+            "()=>{var b=document.querySelector('.mgrjump');if(!b)return null;"
+            "var r=b.getBoundingClientRect();"
+            "return {y:Math.round(r.top+window.scrollY),"
+            "h:Math.round(r.height),txt:b.innerText.slice(0,26)}}")
+        check("stores: there is a money door near the top, not six bays down",
+              j and j["y"] < 1400 and j["h"] >= 48, json.dumps(j))
+
         print("\n=== THE FULL ASSET REPORTS ARE STILL THERE")
         # Andrew, 4 Aug 2026: "make sure u have not taken things out and
         # forgot to put back in." These three are the deep screens the

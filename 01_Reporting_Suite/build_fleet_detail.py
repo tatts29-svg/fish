@@ -132,7 +132,11 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
 .asset .bar2 .track{flex:1}
 .asset .bar2 span{font-size:12px;color:#C6D0DD;font-weight:800;min-width:34px;
  text-align:right}
-.note{color:#6B7789;font-size:12px;margin-top:9px}
+/*  THE LINE THAT SAYS WHAT WAS LEFT OUT has to be readable, or the
+    saying is decorative. #6B7789 on this background measures 4.14:1 -
+    under the 4.5:1 floor for 12px text, and it is the one line on the
+    screen that stops a cut list being a lie by omission. (4 Aug 2026) */
+.note{color:#9AA7B8;font-size:12px;margin-top:9px}
 .warnbox{background:#2A1206;border:1px solid #7A3A12;border-radius:12px;
  padding:11px 13px;color:#FFD9CC;font-size:12.5px;margin:12px 0}
 .srch{width:100%;background:#161E28;border:1px solid #263143;border-radius:11px;
@@ -588,9 +592,16 @@ document.addEventListener('click', function(ev){
   var b = ev.target.closest ? ev.target.closest('[data-back]') : null;
   if(b){ el('q').value = ''; showList(''); }
 });
+/*  ONE REDRAW, NOT ONE PER KEY. showList rebuilds up to 48 product
+    cards plus the asset hits from scratch; doing that on every
+    keystroke made 8 of 14 keys a long frame on a phone-class CPU, so
+    a storeman typing a 17-character asset number felt the box stutter
+    under his thumb. 120ms after he stops. (4 Aug 2026.)  */
+var Q_T = null;
 el('q').addEventListener('input', function(){
   if(location.hash) location.hash = '';
-  showList(el('q').value);
+  if(Q_T) clearTimeout(Q_T);
+  Q_T = setTimeout(function(){ Q_T = null; showList(el('q').value); }, 120);
 });
 /* BACK HAS TO WORK. The hash is read on first load AND on every
    change, because on a phone Back is the main way out of a screen -

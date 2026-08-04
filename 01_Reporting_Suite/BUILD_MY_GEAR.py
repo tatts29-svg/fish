@@ -1326,8 +1326,14 @@ def build():
             #  (Andrew, 3 Aug 2026: "when I enter in the company name I
             #  can't get in. nothing works"). Company names only - they
             #  are already all over the crew page; no money, no people.
+            #  HASHED. The page has to RECOGNISE a company name being
+            #  typed; it does not have to CARRY the list. Same hash the
+            #  stores code uses. A contractor who opens the page source
+            #  now finds 42 hex strings and no roster.
             .replace('__COWORDS__', json.dumps(sorted({
-                (p.get('company') or '').split()[0].upper()
+                format(__import__('mygear_stores')._xmur3(
+                    (p.get('company') or '').split()[0].upper()
+                    + '|CoatesK2co2026')(), 'x')
                 for p in people.values()
                 if (p.get('company') or '').strip()})))
             .replace('__ASOF__', asof or 'last refresh')
@@ -2798,8 +2804,17 @@ function goNow(){
    /* A supervisor at this box types his COMPANY, not a card ID -
       that is exactly what the crew page is for, so say so and hand
       him the door rather than a shrug (Andrew, 3 Aug 2026). */
+   /*  HASHED, NOT LISTED. This used to ship the first word of every
+       contractor on site - 42 company names - in clear on the page a
+       contractor scans off the window, purely so the box could
+       recognise one being typed. It can still do that against hashes:
+       the box knows a name when it sees one and the page no longer
+       publishes the list. Same trick, same hash, as the stores code.
+       (Andrew, 4 Aug 2026 - he asked for the worker page shut, and a
+       roster of who is on site is part of that.)  */
    var word=id.toUpperCase().replace(/[^A-Z]/g,'');
-   if(word && CO_WORDS && CO_WORDS.indexOf(word)>=0){
+   if(word && CO_WORDS &&
+      CO_WORDS.indexOf((xmur3(word+'|CoatesK2co2026')()>>>0).toString(16))>=0){
      idState('warn','<b>That reads like a company name.</b> This box '
       +'takes the ID number off a site card. To see what your crew has '
       +'on hire, use the supervisor page: '

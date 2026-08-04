@@ -129,11 +129,14 @@ CSS = """
     (Found by the checker trying to press BACK. 4 Aug 2026.)  */
 .k2bar{position:sticky;top:0;z-index:78;display:flex;align-items:stretch;
  gap:8px;background:#11161D;border-bottom:1px solid #2A3340;
- padding:7px 10px;min-height:56px}
+ padding:7px 10px;min-height:62px}
+/*  48px, which is what the note above says and what the buttons were
+    NOT. 42 is fine for a thumb and marginal for a glove, and this is a
+    gloved-hand app. (4 Aug 2026.)  */
 .k2bar button{font-family:inherit;font-size:12px;font-weight:800;
  letter-spacing:.6px;border-radius:11px;cursor:pointer;
  display:flex;align-items:center;justify-content:center;gap:6px;
- min-width:78px;min-height:42px;padding:0 12px}
+ min-width:78px;min-height:48px;padding:0 12px}
 .k2bar .k2back{background:#1C232D;border:1px solid #38424F;color:#DCE3EC}
 .k2bar .k2back:active{background:#242D39}
 .k2bar .k2back[hidden]{display:none}
@@ -183,6 +186,9 @@ CSS = """
  font-size:11px;font-weight:800;padding:2px 7px}
 .k2sheet .k2on{border-color:#F26222;background:#20262F}
 .k2sheet .k2on .k2chev{color:#2BB673;font-size:11px;letter-spacing:.8px}
+.k2sheet .k2warn{background:#2A1206;border:1px solid #7A3A12;
+ border-radius:11px;padding:10px 12px;margin:2px 2px 6px;
+ font-size:12.5px;color:#FFD9CC;line-height:1.45}
 .k2sheet .k2close{width:100%;background:#1C232D;border:1px solid #38424F;
  color:#DCE3EC;font-family:inherit;font-size:13px;font-weight:800;
  border-radius:13px;padding:13px;margin-top:6px;min-height:50px;
@@ -203,7 +209,7 @@ CSS = """
  color:#F0F4F9;line-height:1.3}
 .k2det .k2dhd button{flex:0 0 auto;background:#1C232D;border:1px solid #38424F;
  color:#DCE3EC;font-family:inherit;font-size:12px;font-weight:800;
- border-radius:11px;min-height:42px;min-width:64px;padding:0 12px;
+ border-radius:11px;min-height:48px;min-width:70px;padding:0 12px;
  letter-spacing:.6px;cursor:pointer}
 .k2det .k2dbd{overflow:auto;-webkit-overflow-scrolling:touch;
  padding:12px 14px calc(16px + env(safe-area-inset-bottom,0px))}
@@ -284,6 +290,7 @@ def sheet(page_key, extra=None, extra_heading="On this page"):
          '<div class="k2scrim" onclick="k2Shut()"></div>',
          '<div class="k2panel" role="dialog" aria-label="Menu">',
          '<div class="k2grab"></div>',
+         '<div class="k2warn" id="k2warn" style="display:none"></div>',
          '<h4>Where do you want to go</h4>']
     for key, href, name, sub, who in PAGES:
         if key == page_key:
@@ -608,6 +615,15 @@ function k2Menu(){
       chev.textContent='YOU ARE HERE';
       chev.style.fontSize='11px';
     }
+  }
+  /*  a page may have something a bloke should know BEFORE he taps a
+      row that leaves it - the stores board loses its manager unlock.
+      It says so here rather than after the fact.  */
+  var warn=document.getElementById('k2warn');
+  if(warn){
+    var msg=(typeof k2LeaveWarn==='function') ? k2LeaveWarn() : '';
+    warn.textContent=msg||'';
+    warn.style.display=msg?'block':'none';
   }
   s.className='k2sheet on';
   k2Push({k2menu:1});

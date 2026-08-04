@@ -65,7 +65,11 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
 .asset .bar2 .track{flex:1}
 .asset .bar2 span{font-size:12px;color:#C6D0DD;font-weight:800;min-width:34px;
  text-align:right}
-.note{color:#6B7789;font-size:12px;margin-top:9px}
+/*  THE LINE THAT SAYS WHAT WAS LEFT OUT has to be readable, or the
+    saying is decorative. #6B7789 on this background measures 4.14:1 -
+    under the 4.5:1 floor for 12px text, and it is the one line on the
+    screen that stops a cut list being a lie by omission. (4 Aug 2026) */
+.note{color:#9AA7B8;font-size:12px;margin-top:9px}
 .warnbox{background:#2A1206;border:1px solid #7A3A12;border-radius:12px;
  padding:11px 13px;color:#FFD9CC;font-size:12.5px;margin:12px 0}
 .srch{width:100%;background:#161E28;border:1px solid #263143;border-radius:11px;
@@ -161,11 +165,14 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
     (Found by the checker trying to press BACK. 4 Aug 2026.)  */
 .k2bar{position:sticky;top:0;z-index:78;display:flex;align-items:stretch;
  gap:8px;background:#11161D;border-bottom:1px solid #2A3340;
- padding:7px 10px;min-height:56px}
+ padding:7px 10px;min-height:62px}
+/*  48px, which is what the note above says and what the buttons were
+    NOT. 42 is fine for a thumb and marginal for a glove, and this is a
+    gloved-hand app. (4 Aug 2026.)  */
 .k2bar button{font-family:inherit;font-size:12px;font-weight:800;
  letter-spacing:.6px;border-radius:11px;cursor:pointer;
  display:flex;align-items:center;justify-content:center;gap:6px;
- min-width:78px;min-height:42px;padding:0 12px}
+ min-width:78px;min-height:48px;padding:0 12px}
 .k2bar .k2back{background:#1C232D;border:1px solid #38424F;color:#DCE3EC}
 .k2bar .k2back:active{background:#242D39}
 .k2bar .k2back[hidden]{display:none}
@@ -215,6 +222,9 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
  font-size:11px;font-weight:800;padding:2px 7px}
 .k2sheet .k2on{border-color:#F26222;background:#20262F}
 .k2sheet .k2on .k2chev{color:#2BB673;font-size:11px;letter-spacing:.8px}
+.k2sheet .k2warn{background:#2A1206;border:1px solid #7A3A12;
+ border-radius:11px;padding:10px 12px;margin:2px 2px 6px;
+ font-size:12.5px;color:#FFD9CC;line-height:1.45}
 .k2sheet .k2close{width:100%;background:#1C232D;border:1px solid #38424F;
  color:#DCE3EC;font-family:inherit;font-size:13px;font-weight:800;
  border-radius:13px;padding:13px;margin-top:6px;min-height:50px;
@@ -235,7 +245,7 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
  color:#F0F4F9;line-height:1.3}
 .k2det .k2dhd button{flex:0 0 auto;background:#1C232D;border:1px solid #38424F;
  color:#DCE3EC;font-family:inherit;font-size:12px;font-weight:800;
- border-radius:11px;min-height:42px;min-width:64px;padding:0 12px;
+ border-radius:11px;min-height:48px;min-width:70px;padding:0 12px;
  letter-spacing:.6px;cursor:pointer}
 .k2det .k2dbd{overflow:auto;-webkit-overflow-scrolling:touch;
  padding:12px 14px calc(16px + env(safe-area-inset-bottom,0px))}
@@ -285,7 +295,7 @@ h2{font-size:16px;font-weight:800;margin:20px 0 9px}
     fleet page prints too - a BACK button on a printed sheet is just
     ink. (4 Aug 2026.)  */
 @media print{.k2bar,.k2sheet,.k2det{display:none!important}}
-</style></head><body><div class='phone'><div class="k2bar"><button type="button" class="k2back" id="k2back" onclick="k2Back()" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span class="k2lbl">BACK</span></button><div class="k2where"><small id="k2where-k">You are here</small><b id="k2where-t">Fleet Details</b></div><button type="button" class="k2menu" onclick="k2Menu()" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="k2lbl">MENU</span></button></div><div class='bar'><h1>Fleet Details</h1><span class='siq'>POWERED BY SITEIQ</span></div><div class='pad'><input class='srch' id='q' type='search' placeholder='Product, item number or serial…' autocomplete='off'><div id='view'></div><div class='foot'>Cement Australia K2 Shutdown 2026 &middot; Gladstone<br>Author: Andrew Fisher &middot; data to 03 Aug 2026<br>No revenue on this screen</div></div></div><div class="k2sheet" id="k2sheet"><div class="k2scrim" onclick="k2Shut()"></div><div class="k2panel" role="dialog" aria-label="Menu"><div class="k2grab"></div><h4>Where do you want to go</h4><a href="index.html" data-k2="index" onclick="k2Leave()"><div class="k2t"><b>My Gear</b><span>Your own gear, by site ID</span></div><span class="k2chev">&rsaquo;</span></a><a href="stores.html" data-k2="stores" onclick="k2Leave()"><div class="k2t"><b>Store Street</b><span>The stores team board</span></div><span class="k2chev">&rsaquo;</span></a><a href="crew.html" data-k2="crew" onclick="k2Leave()"><div class="k2t"><b>Who&rsquo;s got what</b><span>Supervisor &mdash; your crew&rsquo;s gear</span></div><span class="k2chev">&rsaquo;</span></a><a class="k2on" id="k2here" href="#" onclick="return k2HereTap()"><div class="k2t"><b>Fleet Details</b><span id="k2here-s">Every asset ranked</span></div><span class="k2chev" id="k2here-c">YOU ARE HERE</span></a><h4>On this page</h4><button type="button" class="k2go" onclick="k2Shut();location.hash='';window.scrollTo(0,0)"><div class="k2t"><b>All fleets</b><span>Back to the whole list</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2go" onclick="k2Shut();location.hash='';window.scrollTo(0,0);var q=document.getElementById('q');q.focus();q.select()"><div class="k2t"><b>Search a product</b><span>Type a name or a word off the gear</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2close" onclick="k2Shut()">Close</button></div></div><script>
+</style></head><body><div class='phone'><div class="k2bar"><button type="button" class="k2back" id="k2back" onclick="k2Back()" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span class="k2lbl">BACK</span></button><div class="k2where"><small id="k2where-k">You are here</small><b id="k2where-t">Fleet Details</b></div><button type="button" class="k2menu" onclick="k2Menu()" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="k2lbl">MENU</span></button></div><div class='bar'><h1>Fleet Details</h1><span class='siq'>POWERED BY SITEIQ</span></div><div class='pad'><input class='srch' id='q' type='search' placeholder='Product, item number or serial…' autocomplete='off'><div id='view'></div><div class='foot'>Cement Australia K2 Shutdown 2026 &middot; Gladstone<br>Author: Andrew Fisher &middot; data to 03 Aug 2026<br>No revenue on this screen</div></div></div><div class="k2sheet" id="k2sheet"><div class="k2scrim" onclick="k2Shut()"></div><div class="k2panel" role="dialog" aria-label="Menu"><div class="k2grab"></div><div class="k2warn" id="k2warn" style="display:none"></div><h4>Where do you want to go</h4><a href="index.html" data-k2="index" onclick="k2Leave()"><div class="k2t"><b>My Gear</b><span>Your own gear, by site ID</span></div><span class="k2chev">&rsaquo;</span></a><a href="stores.html" data-k2="stores" onclick="k2Leave()"><div class="k2t"><b>Store Street</b><span>The stores team board</span></div><span class="k2chev">&rsaquo;</span></a><a href="crew.html" data-k2="crew" onclick="k2Leave()"><div class="k2t"><b>Who&rsquo;s got what</b><span>Supervisor &mdash; your crew&rsquo;s gear</span></div><span class="k2chev">&rsaquo;</span></a><a class="k2on" id="k2here" href="#" onclick="return k2HereTap()"><div class="k2t"><b>Fleet Details</b><span id="k2here-s">Every asset ranked</span></div><span class="k2chev" id="k2here-c">YOU ARE HERE</span></a><h4>On this page</h4><button type="button" class="k2go" onclick="k2Shut();location.hash='';window.scrollTo(0,0)"><div class="k2t"><b>All fleets</b><span>Back to the whole list</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2go" onclick="k2Shut();location.hash='';window.scrollTo(0,0);var q=document.getElementById('q');q.focus();q.select()"><div class="k2t"><b>Search a product</b><span>Type a name or a word off the gear</span></div><span class="k2chev">&rsaquo;</span></button><button type="button" class="k2close" onclick="k2Shut()">Close</button></div></div><script>
 /* ------------------------------------------------------------------
    ONE WAY AROUND - the bar at the top of every My Gear page.
 
@@ -489,6 +499,15 @@ function k2Menu(){
       chev.textContent='YOU ARE HERE';
       chev.style.fontSize='11px';
     }
+  }
+  /*  a page may have something a bloke should know BEFORE he taps a
+      row that leaves it - the stores board loses its manager unlock.
+      It says so here rather than after the fact.  */
+  var warn=document.getElementById('k2warn');
+  if(warn){
+    var msg=(typeof k2LeaveWarn==='function') ? k2LeaveWarn() : '';
+    warn.textContent=msg||'';
+    warn.style.display=msg?'block':'none';
   }
   s.className='k2sheet on';
   k2Push({k2menu:1});
@@ -972,9 +991,16 @@ document.addEventListener('click', function(ev){
   var b = ev.target.closest ? ev.target.closest('[data-back]') : null;
   if(b){ el('q').value = ''; showList(''); }
 });
+/*  ONE REDRAW, NOT ONE PER KEY. showList rebuilds up to 48 product
+    cards plus the asset hits from scratch; doing that on every
+    keystroke made 8 of 14 keys a long frame on a phone-class CPU, so
+    a storeman typing a 17-character asset number felt the box stutter
+    under his thumb. 120ms after he stops. (4 Aug 2026.)  */
+var Q_T = null;
 el('q').addEventListener('input', function(){
   if(location.hash) location.hash = '';
-  showList(el('q').value);
+  if(Q_T) clearTimeout(Q_T);
+  Q_T = setTimeout(function(){ Q_T = null; showList(el('q').value); }, 120);
 });
 /* BACK HAS TO WORK. The hash is read on first load AND on every
    change, because on a phone Back is the main way out of a screen -
