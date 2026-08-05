@@ -340,6 +340,26 @@ def _flame_tag(d=None):
         return ''
 
 
+def _departed_payload():
+    """What has gone back to the branch, for the store search.
+
+    Andrew, 5 Aug 2026: "if someone searched for asset that has been
+    departed what will show. can we advise its been departed and on
+    what day."
+
+    Best effort on purpose. If the stocktake is missing or unreadable
+    the board carries an empty index and simply says nothing extra -
+    a broken export must never be able to take the store search down,
+    and it must never be able to invent a departure either."""
+    try:
+        import departures
+        return departures.payload()
+    except Exception as exc:
+        print('  ! departures index not built ({}) - the board will '
+              'answer as it always did'.format(str(exc)[:60]))
+        return {'items': [], 'keys': {}}
+
+
 def build():
     onhire_path = find_export('ON_HIRE*.xlsx', 'ON_HIRE')
     txn_path = find_export('TRANSACTIONS*.xlsx', 'TRANSACTIONS')
@@ -1352,6 +1372,15 @@ def build():
                      ('var STORE=' + json.dumps(
                          STOCK['hire'] + STOCK['cons'],
                          separators=(',', ':')) + ';\n'
+                      #  WHAT HAS GONE BACK TO THE BRANCH. Read from
+                      #  STOCKTAKE, never inferred - see departures.py.
+                      #  Without this a departed asset answers exactly
+                      #  like a typo, and for the hours between the gear
+                      #  leaving and the next build the board still
+                      #  offers it as out with a crew.
+                      + 'var GONE=' + json.dumps(
+                          _departed_payload(),
+                          separators=(',', ':')) + ';\n'
                       #  the CURRENT tag colour word, stamped from the
                       #  compliance master (Jul-Aug = BLUE) so a new
                       #  quarter needs a rebuild, never a code change

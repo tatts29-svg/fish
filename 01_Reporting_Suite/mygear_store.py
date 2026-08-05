@@ -725,6 +725,32 @@ CSS = """
 .stnil{text-align:center;color:#8A97A8;font-size:14px;padding:26px 10px;
   line-height:1.7}
 .stnil b{display:block;color:#fff;font-size:16px;margin-bottom:6px}
+/*  GONE FROM SITE. Deliberately NOT the grey shrug of .stnil - this is
+    an answer, not a failure to find one. Amber rather than red: the
+    gear going back to the branch is the shutdown working, not a
+    problem, and a red panel would have the counter chasing it. */
+.stgone{padding:16px 12px 18px;color:#C6D0DD;font-size:13.5px;
+  line-height:1.6}
+.stgone>b{display:block;color:#F5A623;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:4px}
+.stgs{display:block;color:#8A97A8;font-size:12.5px;line-height:1.6;
+  margin:8px 2px 0}
+.stgrow{background:#151A22;border:1px solid #2A3340;
+  border-left:3px solid #F5A623;border-radius:0 12px 12px 0;
+  padding:11px 13px;margin-top:9px}
+.stgrow b{display:block;color:#F0F4F9;font-size:14.5px;font-weight:800;
+  line-height:1.3;word-break:break-word}
+.stgcode{display:block;font-family:Consolas,monospace;font-size:11px;
+  color:#7E8896;margin-top:3px}
+.stgwhen{display:block;color:#F5A623;font-size:12.5px;margin-top:5px}
+.stgalso{background:#151A22;border:1px solid #2A3340;border-radius:12px;
+  padding:12px 14px;margin-top:10px;cursor:pointer;min-height:48px}
+.stgalso:hover{border-color:#F5A623}
+.stgalso b{display:block;color:#F5A623;font-size:13px;font-weight:800}
+.stgalso span{display:block;color:#8A97A8;font-size:12px;margin-top:3px}
+.stgback{color:#8A97A8;font-size:13px;padding:14px 4px 4px;cursor:pointer;
+  min-height:44px}
+.stgback:hover{color:#F0F4F9}
 @media (prefers-reduced-motion:no-preference){
   .strow{animation:strise .26s ease both}
   @keyframes strise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -846,6 +872,104 @@ function stKit(it){
     h+='<div class="strider">Rated lifting &mdash; check it before you rig it</div>';
   return h;
 }
+/*  GONE FROM SITE - the answer that used to be a shrug.
+    (Andrew, 5 Aug 2026: "can we advise its been departed and on what
+    day.")
+
+    GONE is built by departures.py off the STOCKTAKE export, where
+    SiteIQ records SIGHTED_STATUS "Pending Branch Receipt" against
+    LAST_SIGHTED_ACTION "Departure", with the date, the time and who
+    signed it off. Nothing here is worked out from an absence - if the
+    stocktake does not say a thing departed, this says nothing.
+
+    Two ways in, because a bloke either has the sticker in his hand or
+    the name in his head:
+      - the exact code off the sticker  ("1288079")
+      - the name of the gear            ("skid steer")            */
+function stWhen(w){
+  /*  "04/08/2026 06:56" -> "4 Aug at 6:56am". Anything that does not
+      parse is shown exactly as SiteIQ wrote it rather than dropped -
+      a date I do not recognise is still the date on the record.  */
+  var m = /^(\d{2})\/(\d{2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2}))?/.exec(w||'');
+  if(!m) return w||'';
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var out = String(parseInt(m[1],10))+' '+MON[parseInt(m[2],10)-1]+' '+m[3];
+  if(m[4]!==undefined){
+    var h=parseInt(m[4],10), ap=h<12?'am':'pm', h12=(h%12)||12;
+    out += ' at '+h12+':'+m[5]+ap;
+  }
+  return out;
+}
+function stGoneRows(raw, words){
+  if(typeof GONE==='undefined' || !GONE || !GONE.items || !GONE.items.length)
+    return [];
+  var key = String(raw||'').trim().toUpperCase();
+  var out = [], seen = {};
+  if(key && GONE.keys && GONE.keys[key] !== undefined){
+    out.push(GONE.items[GONE.keys[key]]);
+    seen[GONE.keys[key]] = 1;
+  }
+  if(words && words.length){
+    for(var i=0;i<GONE.items.length;i++){
+      if(seen[i]) continue;
+      var it = GONE.items[i];
+      var hay = stNorm((it.d||'') + ' ' + (it.u||'') + ' ' + (it.k||''));
+      var flat = hay.replace(/ /g,'');
+      var all = true;
+      for(var w=0;w<words.length;w++)
+        if(!stWordHits(hay,flat,words[w])){ all=false; break; }
+      if(all){ out.push(it); seen[i]=1; }
+    }
+  }
+  return out;
+}
+function stGone(raw, words){
+  var rows = stGoneRows(raw, words);
+  if(!rows.length) return '';
+  /*  Newest first - the thing that left this morning is the thing
+      somebody is standing there asking about.  */
+  rows.sort(function(a,b){
+    function k(x){ var m=/^(\d{2})\/(\d{2})\/(\d{4})\s*(\d{2}):(\d{2})/.exec(x.w||'');
+      return m ? (m[3]+m[2]+m[1]+m[4]+m[5]) : '0'; }
+    return k(b)<k(a)?-1:1;
+  });
+  var SHOW = 8;
+  var h = '<div class="stgone"><b>Gone from site</b>'
+        + '<span class="stgs">'
+        + (rows.length===1 ? 'This one has gone back to the branch.'
+           : rows.length + ' of these have gone back to the branch.')
+        + '</span>';
+  for(var i=0;i<Math.min(rows.length,SHOW);i++){
+    var r = rows[i];
+    h += '<div class="stgrow"><b>' + stEsc(r.d||r.k) + '</b>'
+       + '<span class="stgcode">' + stEsc(r.k||'') + '</span>'
+       + '<span class="stgwhen">Departed ' + stEsc(stWhen(r.w))
+       + (r.y ? ' &middot; signed off by ' + stEsc(r.y) : '') + '</span>'
+       + '</div>';
+  }
+  if(rows.length > SHOW)
+    h += '<span class="stgs">Showing ' + SHOW + ' of ' + rows.length
+       + ' &mdash; ' + (rows.length-SHOW) + ' more not shown.</span>';
+  h += '<span class="stgs">Off the shelf, off the register, and on its '
+     + 'way back to the branch. If you need one, it is a new order at '
+     + 'the counter &mdash; not a hunt around the yard.</span></div>';
+  return h;
+}
+function stGoneOpen(){
+  var box = document.getElementById('st-list'); if(!box) return;
+  var term = stNorm((document.getElementById('st-q')||{}).value);
+  var words = term.split(/\\s+/).filter(function(w){return w.length>1;});
+  var g = stGone((document.getElementById('st-q')||{}).value, words);
+  if(g){
+    box.innerHTML = g + '<div class="stgback" onclick="stRender(true)">'
+      + '&lsaquo; Back to what is on the shelf</div>';
+    box.scrollIntoView({block:'start'});
+  }
+}
+function stEsc(s){
+  return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});
+}
 function stRender(reset){
   var box = document.getElementById('st-list'); if(!box) return;
   if(reset) STORE_SHOWN = 60;
@@ -899,6 +1023,16 @@ function stRender(reset){
       : '';
   }
   if(!hits.length){
+    /*  BEFORE SAYING "no", CHECK WHETHER IT WENT HOME.
+        (Andrew, 5 Aug 2026: "if someone searched for asset that has
+        been departed what will show. can we advise its been departed
+        and on what day.")
+        An asset that leaves site drops out of the register entirely,
+        so its number used to answer exactly like a typo. It is not a
+        typo - it is a machine that went back to the branch, and the
+        stocktake knows the day, the time and who signed it off.  */
+    var g = stGone((document.getElementById('st-q')||{}).value, words);
+    if(g){ box.innerHTML = g; return; }
     box.innerHTML = '<div class="stnil"><b>Nothing matches that</b>'
       + 'Try a shorter word &mdash; <b style="display:inline">grinder</b>, '
       + '<b style="display:inline">batt</b>, <b style="display:inline">hose</b>. '
@@ -1017,6 +1151,22 @@ function stRender(reset){
     }
   }
   if(grid) html += '</div>';
+  /*  THE SHELF ANSWERED, BUT SOME OF THESE WENT HOME.
+      Searching "forklift" gives you the two on the shelf and used to
+      say nothing about the two that went back to the branch last week
+      - true about the shelf, and quietly incomplete about the gear.
+      A quiet line, not the full panel: the shelf is the answer he came
+      for, this is the footnote. Only while SEARCHING - browsing a bay
+      is a showroom and does not want a departures notice on it.  */
+  if(words.length){
+    var gr = stGoneRows((document.getElementById('st-q')||{}).value, words);
+    if(gr.length){
+      html += '<div class="stgalso" onclick="stGoneOpen()">'
+            + '<b>' + gr.length + (gr.length===1?' more of these has':
+              ' more of these have') + ' gone back to the branch</b>'
+            + '<span>Tap to see what left, and when.</span></div>';
+    }
+  }
   box.innerHTML = html;
   var more = document.getElementById('st-more');
   if(more){
