@@ -1,0 +1,17 @@
+COATES K2 | QUARANTINED 06 AUG 2026
+
+All 35 JPGs in this folder are ONE identical 384x384 cartoon
+placeholder (sha256 5797e41730a8..., 6,847 bytes, "LAYOUT ONLY"
+ghosted bottom-left) that sat in Gear_Lookup\thumbs under 35
+different names - including radio and gas-monitor codes - and was
+being counted, and reported, as "33 codes have a photo".
+
+The render production side caught it (06 Aug): the answers pack
+called these "real photographs". They are not. They were layout
+stand-ins, and a wrong picture is worse than the honest two-letter
+tile the pages draw without one.
+
+They are kept here, out of the served folder, purely as the record
+of what was wrong. Nothing reads this folder. Real coverage now
+comes from the render deliveries (button 82) and the counter-booth
+photographs.

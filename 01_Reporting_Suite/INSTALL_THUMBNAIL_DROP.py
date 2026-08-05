@@ -53,6 +53,36 @@ MANIFEST = os.path.join(THUMBS, 'RENDER_MANIFEST.txt')
 HARD_CAP = 96 * 1024
 
 
+#  THE LESSON OF 06 AUG 2026: the protection rule nearly protected a
+#  LIE. The "33 real photos" on this machine were one identical
+#  384x384 cartoon placeholder under 33 names - caught by the render
+#  production side, not by us - and the first cut of this installer
+#  would have defended every copy of it against a genuine render.
+#
+#  So protection is now EARNED, not assumed: before anything is
+#  protected, every existing thumb is hashed. A file whose bytes are
+#  identical to two or more other thumbs cannot be a photograph of a
+#  distinct tool - 33 different crowsfeet are not one file - and is
+#  treated as a placeholder: replaceable, and said out loud. The
+#  known placeholder is also named by hash. A REAL photo (distinct
+#  bytes) keeps full protection, exactly as before.
+KNOWN_PLACEHOLDER_SHA256 = {
+    '5797e41730a8',   # the 06 Aug cartoon "LAYOUT ONLY" stand-in
+}
+
+
+def _hashes():
+    import hashlib
+    from collections import Counter
+    out = {}
+    for p in glob.glob(os.path.join(THUMBS, '*.jpg')):
+        with open(p, 'rb') as fh:
+            out[os.path.basename(p)] = \
+                hashlib.sha256(fh.read()).hexdigest()[:12]
+    dupes = {h for h, c in Counter(out.values()).items() if c >= 3}
+    return out, dupes
+
+
 def _manifest():
     try:
         with io.open(MANIFEST, encoding='utf-8') as fh:
@@ -102,8 +132,14 @@ def main():
     stamp = dt.datetime.now().strftime('%Y-%m-%d_%H%M')
     bdir = os.path.join(BACKUPS, stamp)
     manifest = _manifest()
+    hashes, dupe_hashes = _hashes()
+
+    def _is_placeholder(fname):
+        h = hashes.get(fname, '')
+        return h in KNOWN_PLACEHOLDER_SHA256 or h in dupe_hashes
 
     installed, refreshed, protected, rejected = [], [], [], []
+    replaced_ph = []
     for zp in zips:
         try:
             zf = zipfile.ZipFile(zp)
@@ -137,15 +173,22 @@ def main():
             dest = os.path.join(THUMBS, base)
             exists = os.path.isfile(dest)
             if exists and stem not in manifest:
-                #  THE RULE. This thumb did not come from a render
-                #  drop, so it is a real photograph of our gear.
-                protected.append(base)
-                continue
+                if _is_placeholder(base):
+                    #  Not a photograph - identical bytes to other
+                    #  thumbs, or the known stand-in. A render is
+                    #  strictly better than a placeholder.
+                    replaced_ph.append(base)
+                else:
+                    #  THE RULE. Distinct bytes, no render history:
+                    #  a real photograph of our gear. Kept.
+                    protected.append(base)
+                    continue
             if exists:
                 if not os.path.isdir(bdir):
                     os.makedirs(bdir)
                 shutil.copy2(dest, os.path.join(bdir, base))
-                refreshed.append(base)
+                if base not in replaced_ph:
+                    refreshed.append(base)
             else:
                 installed.append(base)
             with open(dest, 'wb') as fh:
@@ -160,6 +203,10 @@ def main():
         len(refreshed),
         '  (previous copies in Thumbnail_Backups\\{}\\)'.format(stamp)
         if refreshed else ''))
+    if replaced_ph:
+        print(' Replaced PLACEHOLDERS: {:,} - identical-bytes stand-ins,'
+              ' not photographs;'.format(len(replaced_ph)))
+        print('     a render is strictly better (backups kept).')
     print(' PROTECTED          : {:,} - real photos a render tried to '
           'replace'.format(len(protected)))
     for p in protected[:30]:
