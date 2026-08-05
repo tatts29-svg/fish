@@ -1,0 +1,100 @@
+COATES K2 REPORTING SUITE - THE LUXURY POLISH UPDATE
+Cement Australia K2 Shutdown 2026 - Gladstone
+Andrew Fisher | POWERED BY SITEIQ
+
+HOW TO PUT IT ON
+  Copy every file in this zip into 01_Reporting_Suite\, over the top.
+  Your workbooks, exports, Reports folders and codes are untouched.
+  Then run 00_RUN_EVERYTHING as normal - tomorrow's drafts come out
+  in the new form.
+
+WHAT THIS ONE IS
+  The look-before-they-go-out. A 35-reader review went through every
+  finished draft and every attached pack the way a client will read
+  them tomorrow morning; 48 verified findings, every one fixed the
+  same evening, and the whole suite rebuilt and proved.
+
+THE HEADLINES
+
+  EVERY NUMBER NOW SURVIVES ITS OWN EMAIL
+  * "15 of your people holding gear" next to "8 items on hire" - the
+    tile was counting everyone who used the store this period. It
+    counts the people actually holding gear now, email and PDF both.
+  * "9 a day to finish clear" could not finish clear - 9 a day for 6
+    days is 54 of High Risk's 55. The rate now rounds UP, so what it
+    promises, it delivers. And it reads "returns a day", singular
+    when it is 1.
+  * The sentence explaining why issued/returned/on-hire do not match
+    ran time backwards. Now it says what actually happens: gear
+    handed back after the period closed on 03 Aug, before the
+    register was pulled. And "the higher of the two" names what it
+    is higher THAN.
+  * Nilsen was told "nobody came through the tool store" while their
+    own attached pack showed a consumables draw. The email now says
+    consumables-only, which is the truth.
+  * QWest was thanked for on-time returns on 0 recorded returns. The
+    thank-you now fits the record - "a clean sheet at the tool store
+    is its own kind of record" - and the numbers are joined up on
+    the page as well as in the email.
+  * The Daily Brief said the client day "closed at $0.00 actual" off
+    an untouched spreadsheet row. A formula zero never again
+    masquerades as a real nil.
+
+  IT READS LIKE ONE SUITE NOW
+  * Bosch Rexroth, Nilsen and QWest Crane Hire stop SHOUTING - the
+    three companies whose names only exist in the movement feed are
+    spelt the way they spell themselves.
+  * "of their people" is now "of your people" - the whole pack talks
+    TO the client. "1 visits" can never print again.
+  * The five values appear once, in the footer, instead of twice in
+    three lines. The all-clear card matches the light page instead
+    of sitting on it like a hole. The Safety page prints its heading
+    once. The exec counts read 6,809 not 6809. One spelling of
+    stocktake. Every subject follows one pattern.
+  * The chart is exactly 640px - the one width Outlook honours - so
+    the card never stretches.
+
+  AND SOMETHING WORTH OPENING
+  * Subjects carry the answer now:
+      "...Equipment Activity & Accountability - 233 on hire, 6 days to go"
+      "...Equipment Activity & Accountability - all clear, thank you"
+  * NEW: "Down 38 since your 03 Aug report - keep it coming." Every
+    email tells the client which way their list is moving, read off
+    the previous report itself - provable from two documents already
+    in their inbox. No previous report, no line, never a guess.
+
+  LEFT ALONE, ON PURPOSE, AND FLAGGED TO YOU
+  * The client packs carry replacement values on Coates-owned gear -
+    the accountability feature. The review flagged it against the
+    no-money rules; those rules cover the store Wi-Fi and
+    customer-owned gear, and the money sweep still passes. If you
+    ever want client packs fully money-free, say the word - it is a
+    one-evening change, but it is YOUR call, not a cleanup.
+
+  ALSO IN HERE
+  * START_HERE_HANDOVER.txt - the whole suite on one page: standing
+    rules, export quirks, routing facts, the bug classes, the proof
+    suite, and the exact state at handover. The new page starts
+    there.
+  * Plant Utilisation history copies now file under Pages\Versions\
+    so the day's folder prints once.
+
+PROOFS ON THIS EXACT BUILD
+  105 modules compile
+  CHECK_REPORTS ......... PASS (pages, sizes, and the email bodies
+                          themselves - stray blocks, entities as
+                          text, "1 items", missing alt, empty To:)
+  TEST_DAILY_PACKS ...... 363 passed, 0 failed
+  TEST_MY_GEAR_NAV ...... 148 passed, 0 failed
+
+BEFORE YOU SEND TOMORROW
+  1. Fresh exports in, 00_RUN_EVERYTHING, wait for PASS.
+  2. Fill To: addresses in Coates_Report_Recipients.xlsx (one row
+     per company, Reports = ACTIVITY, Include = Yes) - the build
+     names every company still missing one.
+  3. Read one draft end to end. Then send nineteen.
+
+STILL NEEDING YOU
+  * 98 photos - run MISSING_PICTURES on your machine.
+  * Filtercare and Industec share admin@industec.com.au - each can
+    read the other's gear. Your decision, not a code change.
