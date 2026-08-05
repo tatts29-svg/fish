@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K2 Plant On Site Dashboard — Cement Australia</title>
+<style>
+:root{--org:#F26222;--org2:#C44C28;--bg:#0E1116;--card:#171B22;--card2:#1E232C;--line:#2A313C;
+--tx:#EAEDF1;--mut:#95A0AF;--grn:#35B37E;--amb:#E8A32C;--red:#E5544B;--chip:#232935;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px 60px}
+header{border-top:5px solid var(--org);background:linear-gradient(180deg,#141922,#0E1116);padding:22px 0 18px;margin-bottom:20px}
+.hd{max-width:1180px;margin:0 auto;padding:0 18px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.brand .logo{font-weight:800;font-size:23px;letter-spacing:.5px}
+.brand .logo b{color:var(--org)}
+.brand .tag{color:var(--mut);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.brand h1{font-size:19px;margin-top:12px;font-weight:700}
+.brand .sub{color:var(--mut);font-size:13px;margin-top:3px}
+.meta{text-align:right;font-size:12px;color:var(--mut)}
+.meta .siteiq{color:var(--org);font-weight:700;letter-spacing:1px;font-size:11px}
+.meta .who{color:var(--tx);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px}
+@media(max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;position:relative;overflow:hidden}
+.kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--org)}
+.kpi.amber:before{background:var(--amb)}
+.kpi .n{font-size:30px;font-weight:800;letter-spacing:-.5px}
+.kpi .l{color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;margin-top:3px}
+.kpi .h{color:var(--mut);font-size:11px;margin-top:6px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:18px;flex-wrap:wrap}
+.tab{background:none;border:none;color:var(--mut);font-size:14px;font-weight:600;padding:11px 16px;cursor:pointer;border-bottom:3px solid transparent;font-family:inherit}
+.tab:hover{color:var(--tx)}
+.tab.on{color:var(--tx);border-bottom-color:var(--org)}
+.tab .b{background:var(--chip);color:var(--mut);border-radius:20px;padding:1px 8px;font-size:11px;margin-left:6px;font-weight:700}
+.tab.on .b{background:var(--org);color:#fff}
+.search{width:100%;background:var(--card);border:1px solid var(--line);border-radius:9px;color:var(--tx);
+padding:10px 13px;font-size:13.5px;font-family:inherit;margin-bottom:16px}
+.search:focus{outline:none;border-color:var(--org)}
+.note{background:rgba(232,163,44,.09);border:1px solid rgba(232,163,44,.35);border-radius:9px;padding:10px 14px;
+font-size:12.5px;color:#F0D9A8;margin-bottom:16px;display:flex;gap:9px;align-items:flex-start}
+.note b{color:var(--amb)}
+.cat{margin-bottom:14px;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--card)}
+.cat>summary{list-style:none;cursor:pointer;padding:12px 15px;display:flex;justify-content:space-between;align-items:center;
+background:var(--card2);font-weight:700;font-size:14.5px}
+.cat>summary::-webkit-details-marker{display:none}
+.cat>summary .cn{display:flex;align-items:center;gap:10px}
+.cat>summary .dot{width:9px;height:9px;border-radius:50%;background:var(--org)}
+.cat>summary .cc{background:var(--chip);color:var(--mut);border-radius:20px;padding:2px 11px;font-size:12px;font-weight:700}
+table{width:100%;border-collapse:separate;border-spacing:0 6px}
+th{text-align:left;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:4px 15px 2px;font-weight:600}
+td{padding:11px 15px;font-size:13.5px;background:#191E27;border-top:1px solid var(--line);border-bottom:1px solid var(--line);vertical-align:middle}
+.row td:first-child{border-left:1px solid var(--line);border-top-left-radius:9px;border-bottom-left-radius:9px}
+.row td:last-child{border-right:1px solid var(--line);border-top-right-radius:9px;border-bottom-right-radius:9px}
+.row:hover td{background:rgba(242,98,34,.07);border-color:rgba(242,98,34,.45)}
+.asset{font-family:"Consolas",ui-monospace,monospace;background:var(--chip);color:var(--org);border-radius:6px;
+padding:2px 8px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.pid{display:inline-block;min-width:34px;text-align:center;background:var(--org);color:#fff;border-radius:6px;
+padding:2px 7px;font-weight:800;font-size:13.5px}
+.pidnone{color:var(--mut);font-weight:400}
+/* .cb = the compliance chips under an item name. The chips themselves are
+   inline-styled so they survive print, PDF and an email body - this class
+   only spaces them off the description. */
+.cb{margin-top:3px;line-height:1.6}
+.mut{color:var(--mut)}
+.qtygrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.qtygrid{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.panel h3{font-size:15px;margin-bottom:3px}
+.panel .pt{color:var(--mut);font-size:12px;margin-bottom:15px}
+.qrow{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.qrow .ql{width:220px;font-size:13.5px}
+.qrow .qbar{flex:1;height:12px;background:var(--chip);border-radius:7px;overflow:hidden}
+.qrow .qfill{height:100%;background:linear-gradient(90deg,var(--org2),var(--org));border-radius:7px}
+.qrow .qn{width:40px;text-align:right;font-weight:800;font-size:16px}
+.qrow .qm{width:92px;text-align:right;color:var(--org);font-weight:700;font-size:13px}
+.ptot{border-top:1px solid var(--line);margin-top:6px;padding-top:12px;display:flex;align-items:center;gap:10px;font-weight:700}
+.ptot .sep2{flex:1}
+.ptot .qn{color:var(--org);font-size:18px;width:40px;text-align:right}
+.ptot .qm{width:92px;text-align:right;color:var(--org);font-size:15px}
+.ptot2{margin-top:8px;color:var(--mut);font-size:12.5px;text-align:right}
+.ptot2 b{color:var(--tx)}
+td.tocost{text-align:right;color:var(--org);font-weight:600}
+.csum{display:flex;align-items:center;gap:12px}
+.cmoney{color:var(--org);font-weight:700;font-size:13px}
+.tally{display:flex;gap:26px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:13px 18px;margin-bottom:16px}
+.tally .ti{display:flex;flex-direction:column}
+.tally .tl{color:var(--mut);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px}
+.tally .tv{font-size:23px;font-weight:800;margin-top:1px}
+.tally .tv.org{color:var(--org)} .tally .tv.amb{color:var(--amb)}
+.tally .sep{flex:1;min-width:8px}
+.tally .note2{color:var(--mut);font-size:11px;max-width:270px;line-height:1.4}
+.ovhero{display:grid;grid-template-columns:1fr 1.25fr;gap:16px;margin-bottom:16px}
+@media(max-width:820px){.ovhero{grid-template-columns:1fr}}
+.ovcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.ovcard.wide{margin-bottom:16px}
+.ovh{font-size:14.5px;font-weight:700;margin-bottom:14px}
+.ovh .ovmut{color:var(--mut);font-weight:400;font-size:12px}
+.ovdonut{display:flex;align-items:center;gap:22px}
+.ovleg{font-size:13.5px;line-height:2}
+.ovleg .ovmut{color:var(--mut);font-size:12px;margin-top:3px}
+.dotc{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.ovbig{font-size:40px;font-weight:800;color:var(--amb);line-height:1}
+.ovbigsub{font-size:15px;font-weight:600;color:var(--mut)}
+.ovsub{margin:8px 0 16px;color:var(--tx);font-size:13.5px}
+.ovsub .amb{color:var(--amb)}
+.splitbar{display:flex;height:30px;border-radius:8px;overflow:hidden;background:var(--chip)}
+.splitbar .seg{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;white-space:nowrap}
+.splitbar .seg.org{background:var(--org)}
+.splitbar .seg.amb{background:var(--amb);color:#3a2b06}
+.splitleg{display:flex;gap:22px;margin-top:11px;font-size:12.5px;color:var(--mut)}
+.ovtbl{width:100%;border-collapse:separate;border-spacing:0 6px}
+.ovtbl th{text-align:left;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:2px 12px 4px;font-weight:600}
+.ovtbl td{background:#191E27;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 12px;font-size:13px}
+.ovtbl td:first-child{border-left:1px solid var(--line);border-radius:8px 0 0 8px}
+.ovtbl td:last-child{border-right:1px solid var(--line);border-radius:0 8px 8px 0}
+.ovtbl tr:hover td{background:rgba(242,98,34,.06)}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:11.5px;line-height:1.7}
+footer b{color:var(--tx)}
+.hide{display:none}
+.empty{padding:24px 15px;color:var(--mut);text-align:center;font-size:13px}
+@media print{body{background:#fff;color:#000}.tabs,.search{display:none}.tabview{display:block!important}
+.cat,.kpi,.panel{border-color:#ccc}.tab{display:none}}
+</style></head>
+<body>
+<header><div class="hd">
+<div class="brand">
+<div class="logo"><b>COATES</b> &nbsp;<span style="color:var(--mut);font-weight:400;font-size:13px">Equipped for anything</span></div>
+<div class="tag">Cement Australia · K2 Shutdown 2026 · Gladstone</div>
+<h1>Plant On Site Dashboard</h1>
+<div class="sub">Site plant, barriers &amp; rubbish chutes — on hire, idle and quantities</div>
+</div>
+<div class="meta">
+<div class="siteiq">POWERED BY SITEIQ</div>
+<div style="margin-top:8px">As at<br><span class="who">05/08/2026 07:48 AM</span></div>
+<div style="margin-top:8px">Author<br><span class="who">Andrew Fisher</span></div>
+</div>
+</div></header>
+<div class="wrap">
+
+<div class="kpis">
+<div class="kpi"><div class="n">87</div><div class="l">Site Plant On Site</div><div class="h">on charge</div></div>
+<div class="kpi"><div class="n">78</div><div class="l">On Hire to Crews</div><div class="h">in use</div></div>
+<div class="kpi amber"><div class="n">9</div><div class="l">Idle Pool</div><div class="h">parked · still charged</div></div>
+<div class="kpi"><div class="n">86</div><div class="l">Rubbish Chutes</div><div class="h">on site</div></div>
+<div class="kpi"><div class="n">90</div><div class="l">Barriers</div><div class="h">on site</div></div>
+</div>
+
+<div id="site-tally"></div>
+<div id="comp-tally"></div>
+
+<div class="tabs">
+<button class="tab on" data-t="ov">Overview</button>
+<button class="tab" data-t="onhire">Plant On Hire <span class="b">78</span></button>
+<button class="tab" data-t="idle">Site Plant Idle <span class="b">9</span></button>
+<button class="tab" data-t="cb">Chutes &amp; Barriers</button>
+</div>
+
+<input class="search" id="q" placeholder="Search asset number or item…">
+
+<div class="tabview" id="v-ov"><div id="ov-body"></div></div>
+
+<div class="tabview hide" id="v-onhire">
+<div id="onhire-tally"></div>
+<div class="pt mut" style="margin-bottom:14px;color:var(--mut);font-size:12.5px">Site plant out with a crew, grouped by category. Daily $ is the contracted hire rate; To Date $ is that rate × days on hire. Category headers show the daily run-rate.</div>
+<div id="onhire-body"></div>
+</div>
+
+<div class="tabview hide" id="v-idle">
+<div class="note"><b>⚠ Cost-saving watch.</b><div>These units are parked in the Site Plant Equipment (Coates) pool — available but <b>still on charge</b>. The daily figure is what idle plant costs per day; the to-date figure is the spend so far — that's the saving on the table.</div></div>
+<div id="idle-tally"></div>
+<div id="idle-body"></div>
+</div>
+
+<div class="tabview hide" id="v-cb">
+<div class="qtygrid">
+<div class="panel"><h3>Rubbish Chutes</h3><div class="pt">By type · quantity on site</div><div id="chutes"></div></div>
+<div class="panel"><h3>Barriers</h3><div class="pt">By type · quantity on site</div><div id="barriers"></div></div>
+</div>
+</div>
+
+<footer>
+<b>Data source:</b> SiteIQ RENTAL_STOCK export · <b>Extract:</b> 05/08/2026 07:48 AM · Snapshot in time — refresh the export for a live picture.<br>
+<b>Definitions:</b> On Hire = out with a named crew/company. Idle Pool = on hire to "Site Plant Equipment" (Coates), available but still charged. "Available for Hire" plant (off charge) is excluded.<br>
+<b>Plant ID</b> is your site register number, matched to each unit by asset number. "—" = not on the register.<br>
+<b>Compliance chips</b> under an item name come from the K2 master equipment file — a current inspection tag, a daily pre-start and logbook entry, or a same-day return. No chip means the master has nothing recorded against that item; it is never guessed here.<br>
+<b>Costs:</b> Daily $ = contracted daily hire rate (Coates Equipment card, register fallback). To Date $ = daily rate × days on hire (inclusive of the on-hire day). Items with no rate on file show "—" and are excluded from every total — never estimated.<br>
+Care Deeply · Customer Focused · Be Our Best · One Team · Competitive Spirit &nbsp;|&nbsp; Author: Andrew Fisher · POWERED BY SITEIQ
+</footer>
+</div>
+
+<script>
+var DATA={"asat": "05/08/2026 07:48 AM", "onhire": {"Distribution Boards & Leads": [{"asset": "1207042", "desc": "Distribution Board Lifeguard 17", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "23/07/2026", "pid": "", "rate": 25.21, "days": 14, "todate": 352.94, "hirer": "Brad - O'Sullivan", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1207218", "desc": "Extension Lead - 415V 5 Pin 32A 20M - Braided", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "26/07/2026", "pid": "", "rate": 9.33, "days": 11, "todate": 102.63, "hirer": "Brendan - Lewicki", "company": "Sync Lift Engineering"}, {"asset": "1099976", "desc": "Extension Lead - 415V 5 Pin 32A 25M", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "20/07/2026", "pid": "", "rate": 9.33, "days": 17, "todate": 158.61, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1200729", "desc": "Extension Lead - 415V 5 Pin 32A 25M", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "23/07/2026", "pid": "", "rate": 9.33, "days": 14, "todate": 130.62, "hirer": "Brad - O'Sullivan", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1200734", "desc": "Extension Lead - 415V 5 Pin 32A 25M", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "30/07/2026", "pid": "", "rate": 9.33, "days": 7, "todate": 65.31, "hirer": "Phil - Rouse", "company": "VEOLIA"}, {"asset": "1200961", "desc": "Extension Lead - 415V 5 Pin 32A 25M", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "31/07/2026", "pid": "", "rate": 9.33, "days": 6, "todate": 55.98, "hirer": "Peter - Mifsud", "company": "DGH Engineering"}, {"asset": "1284817", "desc": "Extension Lead - 415V 5 Pin 32A 25M", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "28/07/2026", "pid": "", "rate": 9.33, "days": 9, "todate": 83.97, "hirer": "Kris - Slot", "company": "PROGRAMMED"}, {"asset": "10307", "desc": "Extension Lead - 415V 5 Pin 50A 25M", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "20/07/2026", "pid": "", "rate": 18.67, "days": 17, "todate": 317.39, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1207259", "desc": "Extension Lead - 415V 63A", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "23/07/2026", "pid": "", "rate": 18.67, "days": 14, "todate": 261.38, "hirer": "Brad - O'Sullivan", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1232776", "desc": "Extension Lead - 415V 63A", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "28/07/2026", "pid": "", "rate": 18.67, "days": 9, "todate": 168.03, "hirer": "Adam - Bull", "company": "DGH Engineering"}, {"asset": "1200718", "desc": "Lifeguard 16", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "26/07/2026", "pid": "", "rate": 17.64, "days": 11, "todate": 194.04, "hirer": "Brendan - Lewicki", "company": "Sync Lift Engineering"}, {"asset": "1200726", "desc": "Lifeguard 16", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "03/08/2026", "pid": "", "rate": 17.64, "days": 3, "todate": 52.92, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1200744", "desc": "Lifeguard 16", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "23/07/2026", "pid": "", "rate": 17.64, "days": 14, "todate": 246.96, "hirer": "Brad - O'Sullivan", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1200747", "desc": "Lifeguard 16", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "20/07/2026", "pid": "", "rate": 17.64, "days": 17, "todate": 299.88, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1206954", "desc": "Lifeguard 16", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "20/07/2026", "pid": "", "rate": 17.64, "days": 17, "todate": 299.88, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1207008", "desc": "Lifeguard 16", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "30/07/2026", "pid": "", "rate": 17.64, "days": 7, "todate": 123.48, "hirer": "Phil - Rouse", "company": "VEOLIA"}, {"asset": "1207010", "desc": "Lifeguard 16", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "02/08/2026", "pid": "", "rate": 17.64, "days": 4, "todate": 70.56, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "1207017", "desc": "Lifeguard 16", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "01/08/2026", "pid": "", "rate": 17.64, "days": 5, "todate": 88.2, "hirer": "Danny - Everett", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}], "Forklifts & Pallet Trucks": [{"asset": "1297534", "desc": "Forklift - Reach - Walk Behind 1.5t Electric - Greener Choice", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "01/08/2026", "pid": "24", "rate": 46.66, "days": 5, "todate": 233.3, "hirer": "Kale - duffie", "company": "VEOLIA"}, {"asset": "1312610", "desc": "Forklift - With Rotator 2.5t Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "20", "rate": 139.0, "days": 14, "todate": 1946.0, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "1235477", "desc": "Forklift 2.5t Container Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "12", "rate": 53.92, "days": 17, "todate": 916.64, "hirer": "Matthew - Wooldridge", "company": "HIGH RISK SOLUTIONS"}, {"asset": "1312690", "desc": "Forklift 2.5t Container Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "05/08/2026", "pid": "14", "rate": 53.92, "days": 1, "todate": 53.92, "hirer": "Toby - Cusack", "company": "HIGH RISK SOLUTIONS"}, {"asset": "1312691", "desc": "Forklift 2.5t Container Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "17", "rate": 53.92, "days": 14, "todate": 754.88, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "1312686", "desc": "Forklift 2t - 2.6t Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "27/07/2026", "pid": "15", "rate": 53.92, "days": 10, "todate": 539.2, "hirer": "Jason - Vasquez", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1312687", "desc": "Forklift 2t - 2.6t Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "21/07/2026", "pid": "", "rate": 53.92, "days": 16, "todate": 862.72, "hirer": "Paul - Lester", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "16816-590743-0001", "desc": "Forklift 5.0t Diesel (FK505)", "cb": "", "ct": "", "onhire": "05/08/2026", "pid": "", "rate": null, "days": 1, "todate": null, "hirer": "Rodney - Hird", "company": "DGH Engineering"}, {"asset": "1312732", "desc": "Forklift Container Mast 3.5t Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "22/07/2026", "pid": "19", "rate": 61.18, "days": 15, "todate": 917.7, "hirer": "Richard - Katic", "company": "VEOLIA"}, {"asset": "1312654", "desc": "Forklift Rough Terrain 2.5t 4WD Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "04/08/2026", "pid": "", "rate": 118.26, "days": 2, "todate": 236.52, "hirer": "Travis - Ollington", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1312655", "desc": "Forklift Rough Terrain 2.5t 4WD Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "21/07/2026", "pid": "", "rate": 118.26, "days": 16, "todate": 1892.16, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1280585", "desc": "Pallet Truck 1.8t Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "02/08/2026", "pid": "25", "rate": 62.0, "days": 4, "todate": 248.0, "hirer": "Anthony - Tilocca", "company": "VEOLIA"}, {"asset": "1280586", "desc": "Pallet Truck 1.8t Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "26/07/2026", "pid": "29", "rate": 62.0, "days": 11, "todate": 682.0, "hirer": "Kale - duffie", "company": "VEOLIA"}, {"asset": "1280591", "desc": "Pallet Truck 1.8t Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "28/07/2026", "pid": "26", "rate": 62.0, "days": 9, "todate": 558.0, "hirer": "Kale - duffie", "company": "VEOLIA"}, {"asset": "1280598", "desc": "Pallet Truck 1.8t Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "02/08/2026", "pid": "27", "rate": 62.0, "days": 4, "todate": 248.0, "hirer": "Anthony - Tilocca", "company": "VEOLIA"}, {"asset": "1297566", "desc": "Pallet Truck 1.8t Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "28", "rate": 62.0, "days": 14, "todate": 868.0, "hirer": "Casey - Christmas", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}], "Welders": [{"asset": "1226041", "desc": "Welder - Motorised - Diesel - 600A Air Vantage", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "24/07/2026", "pid": "71", "rate": 72.59, "days": 13, "todate": 943.67, "hirer": "Paul - Lester", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1226045", "desc": "Welder - Motorised - Diesel - 600A Air Vantage", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "26/07/2026", "pid": "67", "rate": 72.59, "days": 11, "todate": 798.49, "hirer": "Jake - Adams", "company": "DGH Engineering"}, {"asset": "1235624", "desc": "Welder - Motorised - Diesel - 600A Air Vantage", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "30/07/2026", "pid": "68", "rate": 72.59, "days": 7, "todate": 508.13, "hirer": "Matthew - Miller", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1235626", "desc": "Welder - Motorised - Diesel - 600A Air Vantage", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "69", "rate": 72.59, "days": 14, "todate": 1016.26, "hirer": "Brad - O'Sullivan", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1235657", "desc": "Welder Diesel 500A", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "", "rate": 72.59, "days": 14, "todate": 1016.26, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "16816-590535-0001", "desc": "Welding Air Vantage Diesel 500(HGA014)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "21/07/2026", "pid": "73", "rate": 72.59, "days": 16, "todate": 1161.44, "hirer": "Luke - Keevers", "company": "DGH Engineering"}, {"asset": "16816-590736-0001", "desc": "Welding Air Vantage Diesel 500(HGA032)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "72", "rate": 72.59, "days": 14, "todate": 1016.26, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "16816-590737-0001", "desc": "Welding Vantage Diesel 500(HGA009)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "77", "rate": 72.59, "days": 17, "todate": 1234.03, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "16816-590738-0001", "desc": "Welding Vantage Diesel 500(HGA044)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "79", "rate": 72.59, "days": 14, "todate": 1016.26, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "16816-590739-0001", "desc": "Welding Vantage Diesel 580 (HGA047)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "75", "rate": 72.59, "days": 14, "todate": 1016.26, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "16816-590740-0001", "desc": "Welding Vantage Diesel 580(HGA035)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "80", "rate": 72.59, "days": 14, "todate": 1016.26, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "16816-590741-0001", "desc": "Welding Vantage Diesel 580(HGA041", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "78", "rate": 72.59, "days": 14, "todate": 1016.26, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "16816-590742-0001", "desc": "Welding Vantage Diesel 580(HGA042)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "76", "rate": 72.59, "days": 14, "todate": 1016.26, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}], "Lighting": [{"asset": "1270837", "desc": "Light Telescopic 4 Head LED 27000lm (3m) - Hybrid", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "31/07/2026", "pid": "48", "rate": 46.67, "days": 6, "todate": 280.02, "hirer": "Stuart - Norris", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1270839", "desc": "Light Telescopic 4 Head LED 27000lm (3m) - Hybrid", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "27/07/2026", "pid": "47", "rate": 46.67, "days": 10, "todate": 466.7, "hirer": "Kale - duffie", "company": "VEOLIA"}, {"asset": "1229297", "desc": "Lighting Tower LED 170-240k Lumens Mine Spec", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "27/07/2026", "pid": "55", "rate": 57.03, "days": 10, "todate": 570.3, "hirer": "John - Pickels", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1281595", "desc": "Lighting Tower LED 170-240k Lumens Mine Spec", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "21/07/2026", "pid": "57", "rate": 57.03, "days": 16, "todate": 912.48, "hirer": "John - Pickels", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1295771", "desc": "Lighting Tower LED 170-240k Lumens Mine Spec", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "16/07/2026", "pid": "58", "rate": 57.03, "days": 21, "todate": 1197.63, "hirer": "John - Pickels", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1295773", "desc": "Lighting Tower LED 170-240k Lumens Mine Spec", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "54", "rate": 57.03, "days": 17, "todate": 969.51, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1226154", "desc": "Lighting Tower LED Cube Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "21/07/2026", "pid": "56", "rate": 57.03, "days": 16, "todate": 912.48, "hirer": "Luke - Keevers", "company": "DGH Engineering"}, {"asset": "1276086", "desc": "Lighting Tower LED Metro", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "25/07/2026", "pid": "53", "rate": 57.03, "days": 12, "todate": 684.36, "hirer": "Dean - Deroode", "company": "XTREME ENGINEERING"}, {"asset": "1276093", "desc": "Lighting Tower LED Metro", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "21/07/2026", "pid": "52", "rate": 57.03, "days": 16, "todate": 912.48, "hirer": "John - Pickels", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1219218", "desc": "Lighting Tower POD Metro", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "27/07/2026", "pid": "51", "rate": 57.03, "days": 10, "todate": 570.3, "hirer": "Mathew - McCrea", "company": "HIGH RISK SOLUTIONS"}], "Generators": [{"asset": "1276457", "desc": "Generator - 100kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "30/07/2026", "pid": "45", "rate": 103.7, "days": 7, "todate": 725.9, "hirer": "Phil - Rouse", "company": "VEOLIA"}, {"asset": "1276461", "desc": "Generator - 100kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "29/07/2026", "pid": "36", "rate": 103.7, "days": 8, "todate": 829.6, "hirer": "Paul - Mclean", "company": "VEOLIA"}, {"asset": "1276462", "desc": "Generator - 100kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "01/08/2026", "pid": "32", "rate": 103.7, "days": 5, "todate": 518.5, "hirer": "Michael - Neideck", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1276549", "desc": "Generator - 160kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "27/07/2026", "pid": "34", "rate": 103.7, "days": 10, "todate": 1037.0, "hirer": "Paul - Lester", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1276557", "desc": "Generator - 160kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "28/07/2026", "pid": "44", "rate": 103.7, "days": 9, "todate": 933.3, "hirer": "Paul - Mclean", "company": "VEOLIA"}, {"asset": "1320990", "desc": "Generator - 20kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "41", "rate": 57.22, "days": 17, "todate": 972.74, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1320991", "desc": "Generator - 20kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "42", "rate": 57.22, "days": 14, "todate": 801.08, "hirer": "Mathew - Schroeder", "company": "VEOLIA"}, {"asset": "1320977", "desc": "Generator - 30kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "30/07/2026", "pid": "40", "rate": 77.78, "days": 7, "todate": 544.46, "hirer": "Matthew - Miller", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}, {"asset": "1320825", "desc": "Generator - 60kVA (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "03/08/2026", "pid": "38", "rate": 72.59, "days": 3, "todate": 217.77, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}], "Miscellaneous": [{"asset": "1229549", "desc": "Conveyor 240V 4M", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>&nbsp; <span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL | DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "31/07/2026", "pid": "", "rate": 29.09, "days": 6, "todate": 174.54, "hirer": "Stephen - Webber", "company": "VEOLIA"}, {"asset": "1242856", "desc": "Exhaust Fan - Electric 610mm", "cb": " &nbsp;<span style=\"color:#2F80ED;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL</span>", "ct": "CURRENT TAG COLOUR: BLUE \u00b7 ELECTRICAL", "onhire": "26/07/2026", "pid": "", "rate": 16.62, "days": 11, "todate": 182.82, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1117098", "desc": "Fuel Trailer 1000L Double Bunded", "cb": "", "ct": "", "onhire": "05/08/2026", "pid": "81", "rate": 67.41, "days": 1, "todate": 67.41, "hirer": "Mark - Jenner", "company": "PROGRAMMED"}, {"asset": "1058029", "desc": "Toilet Portable - Fresh Water Flush", "cb": "", "ct": "", "onhire": "26/07/2026", "pid": "", "rate": 6.74, "days": 11, "todate": 74.14, "hirer": "Ken - Busteed", "company": "PROGRAMMED"}, {"asset": "1127069", "desc": "Toilet Portable - Fresh Water Flush", "cb": "", "ct": "", "onhire": "26/07/2026", "pid": "", "rate": 6.74, "days": 11, "todate": 74.14, "hirer": "Ken - Busteed", "company": "PROGRAMMED"}, {"asset": "1313742", "desc": "Water Blaster - 3000 PSI Hot / Cold on Trailer (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "03/08/2026", "pid": "", "rate": null, "days": 3, "todate": null, "hirer": "Lachlan - Kelly", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}], "Booms": [{"asset": "1221712", "desc": "Knuckle Boom 130ft (39.5M) - Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "31/07/2026", "pid": "1", "rate": 414.8, "days": 6, "todate": 2488.8, "hirer": "Mitchell - Goss", "company": "DGH Engineering"}, {"asset": "1312869", "desc": "Knuckle Boom 61ft (18.6M) - Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "23/07/2026", "pid": "4", "rate": 192.04, "days": 14, "todate": 2688.56, "hirer": "Nathan - Bartlett", "company": "DGH Engineering"}, {"asset": "1313105", "desc": "Straight Boom Lift 32.3m (105ft) Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "05/08/2026", "pid": "6", "rate": 263.72, "days": 1, "todate": 263.72, "hirer": "Frank - Ambrose", "company": "TASMAN ROPE ACCESS"}], "Scissor Lifts": [{"asset": "1280188", "desc": "Scissor Lift With Operator Protection 19ft (5.7m)  Electric - Greener Choice", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "25/07/2026", "pid": "65", "rate": 34.22, "days": 12, "todate": 410.64, "hirer": "David - Williams", "company": "VEOLIA"}, {"asset": "1247956", "desc": "Scissor Lift With Operator Protection 32ft (9.7m)  Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "04/08/2026", "pid": "66", "rate": 57.03, "days": 2, "todate": 114.06, "hirer": "Grant - Holdsworth", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}], "Compressors & Hoses": [{"asset": "1189303", "desc": "Compressor 1050CFM (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "22/07/2026", "pid": "10", "rate": 311.1, "days": 15, "todate": 4666.5, "hirer": "David - Beacon", "company": "CEMENT AUSTRALIA HOLDINGS PTY LTD"}]}, "idle": {"Miscellaneous": [{"asset": "872940", "desc": "Crane Brick/Block Cage 1240mm - 1290mm", "cb": "", "ct": "", "onhire": "20/07/2026", "pid": "", "rate": 13.48, "days": 17, "todate": 229.16}, {"asset": "1172006", "desc": "Grout Kibble 1m3", "cb": "", "ct": "", "onhire": "20/07/2026", "pid": "", "rate": 26.68, "days": 17, "todate": 453.56}, {"asset": "1193145", "desc": "Trailer - Water Cartage 950L With Pump", "cb": "", "ct": "", "onhire": "26/07/2026", "pid": "61", "rate": 70.52, "days": 11, "todate": 775.72}], "Booms": [{"asset": "1312860", "desc": "Knuckle Boom 45ft (13.7M) - Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "05/08/2026", "pid": "3", "rate": 127.0, "days": 1, "todate": 127.0}, {"asset": "1298793", "desc": "Trailer Mounted Boom 10.2m Diesel/Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "29/07/2026", "pid": "7", "rate": 98.52, "days": 8, "todate": 788.16}], "Forklifts & Pallet Trucks": [{"asset": "1297533", "desc": "Forklift - Reach - Walk Behind 1.5t Electric - Greener Choice", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "01/08/2026", "pid": "23", "rate": 46.66, "days": 5, "todate": 233.3}, {"asset": "1285098", "desc": "Water Blaster - 3000 PSI Cold - Petrol", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "", "rate": 72.59, "days": 17, "todate": 1234.03}], "Scissor Lifts": [{"asset": "1257525", "desc": "Scissor Lift With Operator Protection 19ft (5.7m)  Electric - Greener Choice", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "64", "rate": 34.22, "days": 17, "todate": 581.74}], "Compressors & Hoses": [{"asset": "1297777", "desc": "Compressor 185CFM (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "04/08/2026", "pid": "9", "rate": 62.22, "days": 2, "todate": 124.44}]}, "chutes": {"Rubbish Chute 1M": {"qty": 70, "daily": 72.8, "todate": 1237.6}, "Rubbish Chute Frame": {"qty": 8, "daily": 8.32, "todate": 141.44}, "Rubbish Chute Top Hopper": {"qty": 8, "daily": 8.32, "todate": 141.44}}, "barriers": {"Barrier - Crash Rated Water filled - Armorzone": {"qty": 50, "daily": 103.5, "todate": 1759.5}, "Barrier - Crowd Control": {"qty": 40, "daily": 32.0, "todate": 544.0}}, "tot": {"oh_daily": 5017.35, "oh_todate": 52067.6, "oh_unp": 2, "id_daily": 551.89, "id_todate": 4547.11, "id_unp": 0, "ch_daily": 89.44, "ch_todate": 1520.48, "ba_daily": 135.5, "ba_todate": 2303.5, "all_daily": 5794.18, "all_todate": 60438.69}, "ov": {"deployed": 78, "parked": 9, "total": 87, "util": 89.7, "oh_daily": 5017.35, "id_daily": 551.89, "plant_daily": 5569.24, "idle_share": 10, "cat_daily": {"Forklifts & Pallet Trucks": 1182.21, "Booms": 1096.08, "Welders": 943.67, "Generators": 783.31, "Lighting": 549.58, "Compressors & Hoses": 373.32, "Distribution Boards & Leads": 278.32, "Miscellaneous": 237.28, "Scissor Lifts": 125.47}, "top_idle": [{"asset": "1312860", "desc": "Knuckle Boom 45ft (13.7M) - Diesel", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "05/08/2026", "pid": "3", "rate": 127.0, "days": 1, "todate": 127.0, "cat": "Booms"}, {"asset": "1298793", "desc": "Trailer Mounted Boom 10.2m Diesel/Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "29/07/2026", "pid": "7", "rate": 98.52, "days": 8, "todate": 788.16, "cat": "Booms"}, {"asset": "1285098", "desc": "Water Blaster - 3000 PSI Cold - Petrol", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "", "rate": 72.59, "days": 17, "todate": 1234.03, "cat": "Forklifts & Pallet Trucks"}, {"asset": "1193145", "desc": "Trailer - Water Cartage 950L With Pump", "cb": "", "ct": "", "onhire": "26/07/2026", "pid": "61", "rate": 70.52, "days": 11, "todate": 775.72, "cat": "Miscellaneous"}, {"asset": "1297777", "desc": "Compressor 185CFM (Diesel)", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "04/08/2026", "pid": "9", "rate": 62.22, "days": 2, "todate": 124.44, "cat": "Compressors & Hoses"}, {"asset": "1297533", "desc": "Forklift - Reach - Walk Behind 1.5t Electric - Greener Choice", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "01/08/2026", "pid": "23", "rate": 46.66, "days": 5, "todate": 233.3, "cat": "Forklifts & Pallet Trucks"}, {"asset": "1257525", "desc": "Scissor Lift With Operator Protection 19ft (5.7m)  Electric - Greener Choice", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "64", "rate": 34.22, "days": 17, "todate": 581.74, "cat": "Scissor Lifts"}, {"asset": "1172006", "desc": "Grout Kibble 1m3", "cb": "", "ct": "", "onhire": "20/07/2026", "pid": "", "rate": 26.68, "days": 17, "todate": 453.56, "cat": "Miscellaneous"}], "long_idle": [{"asset": "872940", "desc": "Crane Brick/Block Cage 1240mm - 1290mm", "cb": "", "ct": "", "onhire": "20/07/2026", "pid": "", "rate": 13.48, "days": 17, "todate": 229.16, "cat": "Miscellaneous"}, {"asset": "1172006", "desc": "Grout Kibble 1m3", "cb": "", "ct": "", "onhire": "20/07/2026", "pid": "", "rate": 26.68, "days": 17, "todate": 453.56, "cat": "Miscellaneous"}, {"asset": "1285098", "desc": "Water Blaster - 3000 PSI Cold - Petrol", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "", "rate": 72.59, "days": 17, "todate": 1234.03, "cat": "Forklifts & Pallet Trucks"}, {"asset": "1257525", "desc": "Scissor Lift With Operator Protection 19ft (5.7m)  Electric - Greener Choice", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "20/07/2026", "pid": "64", "rate": 34.22, "days": 17, "todate": 581.74, "cat": "Scissor Lifts"}, {"asset": "1193145", "desc": "Trailer - Water Cartage 950L With Pump", "cb": "", "ct": "", "onhire": "26/07/2026", "pid": "61", "rate": 70.52, "days": 11, "todate": 775.72, "cat": "Miscellaneous"}, {"asset": "1298793", "desc": "Trailer Mounted Boom 10.2m Diesel/Electric", "cb": " &nbsp;<span style=\"color:#E0A500;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span>", "ct": "DAILY PRE-START AND LOGBOOK ENTRY REQUIRED", "onhire": "29/07/2026", "pid": "7", "rate": 98.52, "days": 8, "todate": 788.16, "cat": "Booms"}]}, "comp": {"electrical": 20, "rigging": 0, "logbook": 55, "ret": 0, "any": 74, "total": 78, "tagname": "Blue"}};
+function esc(s){return (s||'').replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+function money(n){ if(n==null) return '<span class="pidnone">—</span>'; return '$'+Number(n).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function money0(n){ return '$'+Math.round(Number(n)||0).toLocaleString('en-AU'); }
+function renderPlant(host, groups, withHirer){
+  var el=document.getElementById(host), html='';
+  Object.keys(groups).forEach(function(cat){
+    var items=groups[cat], cd=0;
+    items.forEach(function(it){ if(it.rate) cd+=it.rate; });
+    html+='<details class="cat" open><summary><span class="cn"><span class="dot"></span>'+esc(cat)+'</span>'
+        +'<span class="csum"><span class="cmoney">'+money0(cd)+'/day</span><span class="cc">'+items.length+'</span></span></summary>';
+    html+='<table><thead><tr><th style="width:66px">Plant ID</th><th style="width:126px">Asset No.</th><th>Item</th>'
+        +(withHirer?'<th style="width:180px">Hirer / Company</th>':'')
+        +'<th style="width:96px">On Hire</th><th style="width:90px;text-align:right">Daily $</th><th style="width:104px;text-align:right">To Date $</th></tr></thead><tbody>';
+    items.forEach(function(it){
+      html+='<tr class="row" data-s="'+esc(('plant '+(it.pid||'')+' '+it.asset+' '+it.desc+' '+(it.ct||'')+' '+(it.hirer||'')+' '+(it.company||'')).toLowerCase())+'">';
+      html+='<td>'+(it.pid!==''&&it.pid!=null?'<span class="pid">'+esc(String(it.pid))+'</span>':'<span class="pidnone">—</span>')+'</td>';
+      // it.cb is already-escaped chip HTML from equipment_compliance - it
+      // must NOT go through esc() or the badges print as raw tags.
+      html+='<td><span class="asset">'+esc(it.asset)+'</span></td><td>'+esc(it.desc)+(it.cb?'<div class="cb">'+it.cb+'</div>':'')+'</td>';
+      if(withHirer) html+='<td>'+esc(it.hirer||'—')+(it.company?'<br><span class="mut" style="font-size:11.5px">'+esc(it.company)+'</span>':'')+'</td>';
+      html+='<td class="mut">'+esc(it.onhire||'—')+(it.days?'<br><span style="font-size:11px">'+it.days+' day'+(it.days>1?'s':'')+'</span>':'')+'</td>';
+      html+='<td style="text-align:right">'+(it.rate!=null?'<b>'+money(it.rate)+'</b>':'<span class="pidnone">—</span>')+'</td>';
+      html+='<td class="tocost">'+(it.todate!=null?money(it.todate):'<span class="pidnone">—</span>')+'</td></tr>';
+    });
+    html+='</tbody></table></details>';
+  });
+  el.innerHTML=html||'<div class="empty">No items.</div>';
+}
+function renderQty(host, obj){
+  var el=document.getElementById(host), totq=0, totd=0, tott=0, max=0;
+  Object.keys(obj).forEach(function(k){ totq+=obj[k].qty; totd+=obj[k].daily; tott+=obj[k].todate; if(obj[k].qty>max)max=obj[k].qty; });
+  var html='';
+  Object.keys(obj).forEach(function(k){
+    var o=obj[k], pct=max?Math.round(o.qty/max*100):0;
+    html+='<div class="qrow"><div class="ql">'+esc(k)+'</div><div class="qbar"><div class="qfill" style="width:'+pct+'%"></div></div>'
+        +'<div class="qn">'+o.qty+'</div><div class="qm">'+money0(o.daily)+'/day</div></div>';
+  });
+  html+='<div class="ptot"><span>Total</span><span class="sep2"></span><span class="qn">'+totq+'</span><span class="qm">'+money0(totd)+'/day</span></div>';
+  html+='<div class="ptot2">Cost to date: <b>'+money0(tott)+'</b></div>';
+  el.innerHTML=html;
+}
+function tally(host, daily, todate, unp, kind){
+  document.getElementById(host).innerHTML='<div class="tally">'
+    +'<div class="ti"><span class="tl">Daily hire</span><span class="tv '+(kind==='idle'?'amb':'org')+'">'+money0(daily)+'<span style="font-size:13px;font-weight:600">/day</span></span></div>'
+    +'<div class="ti"><span class="tl">'+(kind==='idle'?'Idle cost to date':'Cost to date')+' (since on-hire)</span><span class="tv">'+money0(todate)+'</span></div>'
+    +'<div class="sep"></div>'
+    +(unp?'<div class="note2">'+unp+' item'+(unp>1?'s':'')+' with no rate on file — excluded from totals</div>':'')
+    +'</div>';
+}
+document.getElementById('site-tally').innerHTML='<div class="tally">'
+  +'<div class="ti"><span class="tl">Whole site — daily hire</span><span class="tv org">'+money0(DATA.tot.all_daily)+'<span style="font-size:13px;font-weight:600">/day</span></span></div>'
+  +'<div class="ti"><span class="tl">Whole site — cost to date</span><span class="tv">'+money0(DATA.tot.all_todate)+'</span></div>'
+  +'<div class="sep"></div><div class="note2">Site plant, chutes &amp; barriers at contracted daily rates · unpriced items excluded, never estimated</div></div>';
+// Compliance exposure - the same requirement that prints under each line,
+// counted for the plant that's out with crews. A cell only appears when
+// there is something to report, and the whole strip stays away when the
+// master flags nothing - the dashboard never shows an empty obligation.
+(function(){
+  var c=DATA.comp||{};
+  if(!c.any) return;
+  function ti(label,val,kind){ return val?('<div class="ti"><span class="tl">'+label+'</span>'
+    +'<span class="tv'+(kind?' '+kind:'')+'">'+val+'</span></div>'):''; }
+  document.getElementById('comp-tally').innerHTML='<div class="tally">'
+    +ti(esc(c.tagname)+' tag · electrical',c.electrical,'org')
+    +ti(esc(c.tagname)+' tag · rigging',c.rigging,'org')
+    +ti('Pre-start &amp; logbook',c.logbook,'amb')
+    +ti('Back daily',c.ret,'amb')
+    +'<div class="ti"><span class="tl">Lines with a check</span><span class="tv">'+c.any
+    +'<span style="font-size:13px;font-weight:600"> of '+c.total+'</span></span></div>'
+    +'<div class="sep"></div><div class="note2">Plant out with crews that needs a current tag, '
+    +'a logbook entry or a same-day return · straight off the master, never guessed</div></div>';
+})();
+tally('onhire-tally',DATA.tot.oh_daily,DATA.tot.oh_todate,DATA.tot.oh_unp,'onhire');
+tally('idle-tally',DATA.tot.id_daily,DATA.tot.id_todate,DATA.tot.id_unp,'idle');
+function renderOverview(){
+  var o=DATA.ov, C=314.159, dash=(o.util/100*C).toFixed(1);
+  var ohPct=o.plant_daily?Math.round(o.oh_daily/o.plant_daily*100):0, idPct=100-ohPct, h='';
+  h+='<div class="ovhero">';
+  h+='<div class="ovcard"><div class="ovh">Fleet deployment</div><div class="ovdonut">'
+    +'<svg viewBox="0 0 120 120" width="150" height="150"><circle cx="60" cy="60" r="50" fill="none" stroke="#232935" stroke-width="13"/>'
+    +'<circle cx="60" cy="60" r="50" fill="none" stroke="#F26222" stroke-width="13" stroke-linecap="round" transform="rotate(-90 60 60)" stroke-dasharray="'+dash+' '+C.toFixed(1)+'"/>'
+    +'<text x="60" y="58" text-anchor="middle" font-size="27" font-weight="800" fill="#EAEDF1">'+o.util+'%</text>'
+    +'<text x="60" y="77" text-anchor="middle" font-size="8.5" letter-spacing="1" fill="#95A0AF">DEPLOYED</text></svg>'
+    +'<div class="ovleg"><div><span class="dotc" style="background:#F26222"></span>'+o.deployed+' out with crews</div>'
+    +'<div><span class="dotc" style="background:#3A424E"></span>'+o.parked+' idle in the pool</div>'
+    +'<div class="ovmut">'+o.total+' units on charge</div></div></div></div>';
+  h+='<div class="ovcard"><div class="ovh">Daily plant spend — where it goes</div>'
+    +'<div class="ovbig">'+money0(o.id_daily)+'<span class="ovbigsub"> /day idle</span></div>'
+    +'<div class="ovsub"><b class="amb">'+o.idle_share+'%</b> of daily plant hire is sitting idle</div>'
+    +'<div class="splitbar"><div class="seg org" style="width:'+ohPct+'%">'+(ohPct>=14?'On hire':'')+'</div><div class="seg amb" style="width:'+idPct+'%">'+(idPct>=14?'Idle':'')+'</div></div>'
+    +'<div class="splitleg"><span><span class="dotc" style="background:#F26222"></span>On hire '+money0(o.oh_daily)+'/day</span><span><span class="dotc" style="background:#E8A32C"></span>Idle '+money0(o.id_daily)+'/day</span></div></div>';
+  h+='</div>';
+  var cats=o.cat_daily, mx=0; Object.keys(cats).forEach(function(k){if(cats[k]>mx)mx=cats[k]});
+  h+='<div class="ovcard wide"><div class="ovh">Daily hire by category <span class="ovmut">— all site plant on charge</span></div>';
+  Object.keys(cats).forEach(function(k){var pct=mx?Math.round(cats[k]/mx*100):0;
+    h+='<div class="qrow"><div class="ql" style="width:200px">'+esc(k)+'</div><div class="qbar"><div class="qfill" style="width:'+pct+'%"></div></div><div class="qm" style="width:96px">'+money0(cats[k])+'/day</div></div>';});
+  h+='</div>';
+  h+='<div class="ovcard wide"><div class="ovh">Top idle cost targets <span class="ovmut">— biggest daily saving if off-hired or redeployed</span></div>';
+  h+='<table class="ovtbl"><thead><tr><th style="width:64px">Plant ID</th><th style="width:118px">Asset</th><th>Item</th><th style="width:150px">Category</th><th style="width:82px;text-align:right">Daily $</th><th style="width:64px;text-align:right">Days</th><th style="width:100px;text-align:right">To Date $</th></tr></thead><tbody>';
+  o.top_idle.forEach(function(it){h+='<tr class="row"><td>'+(it.pid?'<span class="pid">'+esc(String(it.pid))+'</span>':'<span class="pidnone">—</span>')+'</td>'
+    +'<td><span class="asset">'+esc(it.asset)+'</span></td><td>'+esc(it.desc)+(it.cb?'<div class="cb">'+it.cb+'</div>':'')+'</td><td class="mut">'+esc(it.cat)+'</td>'
+    +'<td style="text-align:right"><b>'+money(it.rate)+'</b></td><td style="text-align:right" class="mut">'+(it.days||'—')+'</td><td class="tocost">'+money(it.todate)+'</td></tr>';});
+  h+='</tbody></table></div>';
+  document.getElementById('ov-body').innerHTML=h;
+}
+renderOverview();
+renderPlant('onhire-body',DATA.onhire,true);
+renderPlant('idle-body',DATA.idle,false);
+renderQty('chutes',DATA.chutes);
+renderQty('barriers',DATA.barriers);
+document.getElementById('q').style.display='none';
+// tabs
+document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});t.classList.add('on');
+  document.querySelectorAll('.tabview').forEach(function(v){v.classList.add('hide')});
+  document.getElementById('v-'+t.dataset.t).classList.remove('hide');
+  document.getElementById('q').style.display=(t.dataset.t==='onhire'||t.dataset.t==='idle')?'':'none';
+}});
+// search
+document.getElementById('q').oninput=function(){
+  var s=this.value.toLowerCase().trim();
+  document.querySelectorAll('.row').forEach(function(r){
+    r.style.display=(!s||r.dataset.s.indexOf(s)>=0)?'':'none';
+  });
+  document.querySelectorAll('.cat').forEach(function(c){
+    var vis=c.querySelectorAll('.row:not([style*="none"])').length;
+    c.style.display=(s&&vis===0)?'none':'';
+  });
+};
+</script>
+<style>
+#stage{display:none}
+.psheet{width:1000px;height:1414px;overflow:hidden;margin:0 auto;padding:34px;background:#fff}
+.psheet + .psheet{page-break-before:always}
+.ppanel{background:#0E1116;box-sizing:border-box;border:6px solid #F26222;border-top:9px solid #F26222;border-radius:18px;padding:20px 26px 16px;height:1346px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.pcontent{flex:1 1 auto;min-height:0;overflow:hidden}
+.prule{height:2px;background:linear-gradient(90deg,#F26222,#EFFF3D,transparent);margin:12px 0 4px;flex:none}
+.band{flex:none;border-bottom:0}
+.bandc{display:flex;justify-content:space-between;align-items:flex-start;flex:none;padding:2px 2px 0}
+.bandc .k{color:#F26222;font-weight:bold;letter-spacing:2px;font-size:9pt;text-transform:uppercase}
+.bandc h1{font-size:14pt;color:#fff;margin:3px 0 0;border:0;padding:0}
+.bandc .m{text-align:right;color:#A9B1BD;font-size:8.5pt;line-height:1.7;text-transform:uppercase}
+.bandc .m .siq{color:#F26222;font-weight:800;letter-spacing:1px;font-size:9pt}
+.bandc .m b{color:#fff}
+.pcontent > h2:first-child{margin-top:8px}
+.pcontent .footer{margin-top:14px}
+.pteam{flex:none;border-top:1px solid #2A313C;margin-top:8px;padding-top:7px}
+.pteam .tl{color:#F26222;font-size:7pt;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.pteam .tn{color:#A9B1BD;font-size:7.5pt;line-height:1.55;margin-top:2px}
+.pteam .tn b{color:#E6E9EE}
+@media print{body{background:#fff}.psheet{margin:0}}
+@page{size:A4;margin:0}
+body{background:#fff}.tabs,.search{display:none!important}.ppanel .hd{padding:4px 2px 0}</style><script>(function(){var stage=document.createElement('div');stage.id='stage';var sheets=document.createElement('div');sheets.id='sheets';var hd=document.querySelector('header .hd');window.PAGES_HDR1=hd?"<div class='hd'>"+hd.innerHTML+"</div>":'';window.PAGES_HDRN="<div class='bandc'><div><div class='k'>COATES &middot; PLANT ON SITE DASHBOARD</div><h1>Site plant, chutes &amp; barriers</h1></div><div class='m'><span class='siq'>POWERED BY SITEIQ</span><br>As at <b>05/08/2026 07:48 AM</b><br><span class='pgnum'></span></div></div>";var foot=document.querySelector('footer');window.PAGES_FOOT=foot?'<footer>'+foot.innerHTML+'</footer>':'';window.PAGES_TEAM="<div class='tl'>Your Coates tool store team &middot; <span style='color:#8B9099;letter-spacing:1px'>MY GEAR HQ</span></div><div class='tn'><b>Andrew Fisher</b> Shutdown Manager QLD &amp; NT &nbsp;|&nbsp; <span style='color:#F26222;font-weight:700'>DAY</span> <b>Thomas Maher</b> Dayshift Lead &middot; <b>Helen O'Grady</b> Dayshift Tool Store Controller &middot; <b>Lucas Armstrong</b> Day Shift Mechanic &nbsp;|&nbsp; <span style='color:#F26222;font-weight:700'>NIGHT</span> <b>Cody Mitchell</b> Nightshift Tool Store Controller &middot; <b>Adam Boyce</b> Night Shift Tool Store Controller</div>";if(foot&&foot.parentNode)foot.parentNode.removeChild(foot);var wrap=document.querySelector('.wrap');var kids=[];if(wrap){while(wrap.firstElementChild)kids.push(wrap.removeChild(wrap.firstElementChild));}for(var i=0;i<kids.length;i++){var k=kids[i];var cn=''+(k.className||'');if(k.id==='v-ov'){var ov=k.querySelector('#ov-body')||k;while(ov.firstElementChild)stage.appendChild(ov.removeChild(ov.firstElementChild));}else if(cn.indexOf('tabview')>=0||cn.indexOf('tabs')>=0||cn.indexOf('search')>=0){}else stage.appendChild(k);}var header=document.querySelector('header');if(header&&header.parentNode)header.parentNode.removeChild(header);if(wrap&&wrap.parentNode)wrap.parentNode.removeChild(wrap);document.body.appendChild(stage);document.body.appendChild(sheets);})();</script><script>
+(function(){
+  function run(){
+    var stage = document.getElementById('stage');
+    var out = document.getElementById('sheets');
+    if (!stage || !out) return;
+    var sheets = [];
+    var cur = null;
+
+    function mkSheet(first){
+      var sheet = document.createElement('div'); sheet.className = 'psheet';
+      var panel = document.createElement('div'); panel.className = 'ppanel';
+      panel.innerHTML = (first ? PAGES_HDR1 : PAGES_HDRN) + "<div class='prule'></div>";
+      var content = document.createElement('div'); content.className = 'pcontent';
+      panel.appendChild(content);
+      // Meet the team on EVERY page, not just the last one
+      // (A. Fisher, 25 Jul 2026). The panel is a flex column and
+      // .pcontent is flex:1, so the strip takes its height off the
+      // content area automatically - nothing can be pushed off.
+      if (typeof PAGES_TEAM === 'string' && PAGES_TEAM){
+        var tm = document.createElement('div');
+        tm.className = 'pteam'; tm.innerHTML = PAGES_TEAM;
+        panel.appendChild(tm);
+      }
+      sheet.appendChild(panel);
+      out.appendChild(sheet);
+      cur = {sheet: sheet, panel: panel, content: content};
+      sheets.push(cur);
+      return cur;
+    }
+    function overflows(){
+      return cur.content.scrollHeight > cur.content.clientHeight + 1;
+    }
+    function place(node){                 // true if node fits on current page
+      cur.content.appendChild(node);
+      if (!overflows()) return true;
+      cur.content.removeChild(node);
+      return false;
+    }
+    function splitTable(t){               // whole rows only, header repeated
+      var tb = (t.tBodies && t.tBodies.length) ? t.tBodies[0] : null;
+      if (!tb || tb.rows.length < 2){     // nothing to split - force-place
+        if (!place(t)){ mkSheet(false); cur.content.appendChild(t); }
+        return;
+      }
+      var rows = [];
+      while (tb.rows.length) rows.push(tb.removeChild(tb.rows[0]));
+      function shell(){
+        var s = t.cloneNode(false);
+        if (t.tHead) s.appendChild(t.tHead.cloneNode(true));
+        var b = document.createElement('tbody'); s.appendChild(b);
+        return {table: s, tbody: b};
+      }
+      var sh = shell();
+      if (!place(sh.table)){ mkSheet(false); cur.content.appendChild(sh.table); }
+      var q = rows;                       // queue of rows still to place
+      while (q.length){
+        var row = q.shift();
+        // a row marked pgbrk starts something new (a new company in the
+        // demob pack) - it opens a fresh page, per Andrew's page rule
+        var rc = '' + (row.className || '');
+        if (rc.indexOf('pgbrk') >= 0 && sh.tbody.rows.length){
+          mkSheet(false);
+          sh = shell(); cur.content.appendChild(sh.table);
+        }
+        var freshSolo = (sh.tbody.rows.length === 0 &&
+                         cur.content.childElementCount === 1);
+        sh.tbody.appendChild(row);
+        if (overflows()){
+          if (freshSolo){
+            // a single row taller than a whole fresh page: keep it (the
+            // old force behaviour) rather than loop forever - never seen
+            // in practice, tables don't carry page-tall rows
+            continue;
+          }
+          sh.tbody.removeChild(row);
+          var carry = [row];
+          // taking that row out re-flows the column widths - earlier rows
+          // can re-wrap TALLER, so re-check this page and peel rows off
+          // the end until it truly fits (the 5-11px clip found in the
+          // 24 Jul 2026 fleet sweep - nothing is ever cut)
+          while (overflows() && sh.tbody.rows.length){
+            carry.unshift(sh.tbody.removeChild(
+              sh.tbody.rows[sh.tbody.rows.length - 1]));
+          }
+          if (!sh.tbody.rows.length && sh.table.parentNode)
+            sh.table.parentNode.removeChild(sh.table);   // header-only shell: drop
+          mkSheet(false);
+          sh = shell(); cur.content.appendChild(sh.table);
+          q = carry.concat(q);
+        }
+      }
+      if (!sh.tbody.rows.length && sh.table.parentNode)
+        sh.table.parentNode.removeChild(sh.table);
+    }
+    function isHeadish(n){
+      // a real heading, or anything the report marked keep-with-next
+      // (the coloured section bands on the activity pack)
+      if (!n) return false;
+      if (/^H[1-4]$/i.test(n.tagName)) return true;
+      return ('' + (n.className || '')).indexOf('keepnext') >= 0;
+    }
+    function probeOf(n){
+      // a light stand-in for "the start of this block", used to decide
+      // whether a section can BEGIN on the current page. A table only
+      // needs its header and a couple of rows to be worth starting.
+      if (/^TABLE$/i.test(n.tagName)){
+        var s = n.cloneNode(false);
+        if (n.tHead) s.appendChild(n.tHead.cloneNode(true));
+        var tb = (n.tBodies && n.tBodies.length) ? n.tBodies[0] : null;
+        var b = document.createElement('tbody'); s.appendChild(b);
+        if (tb) for (var i = 0; i < Math.min(3, tb.rows.length); i++)
+          b.appendChild(tb.rows[i].cloneNode(true));
+        return s;
+      }
+      return n.cloneNode(true);
+    }
+    function placeBlock(b, next, all, idx){
+      // 'newpage' always starts a fresh sheet - that is how a hirer's
+      // section, or the log book notice, gets a page of its own.
+      //
+      // A HEADING no longer forces one. It used to, and a report with ten
+      // short sections burned ten pages, most of them 90% white - the
+      // client packs were running 7% full. Now a section starts here if
+      // its heading AND the start of its content fit; only when they
+      // don't does it move to a fresh page. Nothing is ever split
+      // awkwardly, and the pages actually fill. (A. Fisher, 25 Jul 2026)
+      var cn = '' + (b.className || '');
+      if (cn.indexOf('newpage') >= 0 && cur.content.childElementCount > 0){
+        mkSheet(false);
+      } else if (isHeadish(b) && cur.content.childElementCount > 0){
+        // `next` may itself be a heading (an H2 followed by its first H3).
+        // Probing only that would pass - a 26px heading always fits - and
+        // leave the H2 stranded at the foot of the page, which is exactly
+        // what it is trying to prevent. So walk forward over any run of
+        // headings and probe the first real block, carrying the headings
+        // in between. (A. Fisher, 25 Jul 2026)
+        cur.content.appendChild(b);
+        var ok = !overflows(), probes = [];
+        if (ok){
+          var j = idx + 1;
+          while (j < all.length && isHeadish(all[j])){
+            probes.push(all[j].cloneNode(true)); j++;
+          }
+          if (j < all.length) probes.push(probeOf(all[j]));
+          for (var q = 0; q < probes.length; q++)
+            cur.content.appendChild(probes[q]);
+          ok = !overflows();
+          for (var q2 = 0; q2 < probes.length; q2++)
+            cur.content.removeChild(probes[q2]);
+        }
+        cur.content.removeChild(b);
+        if (!ok) mkSheet(false);
+      }
+      if (place(b)) return;
+      // heading stranded at the bottom? it travels with its content -
+      // UNLESS the heading is alone on its page already (a fresh section
+      // page whose first block is bigger than a whole page): then the
+      // block splits right here under it, never leaving an empty page
+      // behind. (Fixed 24 Jul 2026 - the empty-page bug.)
+      var tail = cur.content.lastElementChild;
+      // a block marked keepprev (the "End of <person>" sign-off) must
+      // never be marooned on a page of its own - bring the block above it
+      // along, provided that block is small enough to travel
+      if (cn.indexOf('keepprev') >= 0 && tail &&
+          tail.offsetHeight < cur.content.clientHeight * 0.5){
+        var carryPrev = tail;
+        mkSheet(false);
+        cur.content.appendChild(carryPrev);
+        if (place(b)) return;
+      }
+      tail = cur.content.lastElementChild;
+      var pull = isHeadish(tail) ? tail : null;
+      var alone = pull && cur.content.childElementCount === 1;
+      if (!alone){
+        var prevSheet = cur;
+        mkSheet(false);
+        if (pull) cur.content.appendChild(pull);
+        if (place(b)) return;
+        // It will not fit on a FRESH page either, so it is going to be
+        // split whichever page it starts on. Splitting it here would
+        // leave the page we just walked away from half white - which is
+        // exactly what the client sees. So undo the page break, put the
+        // heading back where it was, and split the table from there: the
+        // page fills, the heading keeps its rows, and the remainder flows
+        // on as normal. (A. Fisher, 25 Jul 2026)
+        if (/^TABLE$/i.test(b.tagName)){
+          if (cur.sheet.parentNode) cur.sheet.parentNode.removeChild(cur.sheet);
+          sheets.pop();
+          cur = prevSheet;
+          if (pull) cur.content.appendChild(pull);
+          splitTable(b);
+          return;
+        }
+      }
+      // taller than a whole fresh page: split tables by rows; unwrap
+      // plain containers; anything else is placed and clipped (rare)
+      if (/^TABLE$/i.test(b.tagName)){ splitTable(b); return; }
+      if (/^(DIV|SECTION)$/i.test(b.tagName) && b.children.length > 1){
+        var kids = []; while (b.firstElementChild) kids.push(b.removeChild(b.firstElementChild));
+        for (var i = 0; i < kids.length; i++)
+          placeBlock(kids[i], kids[i + 1], kids, i);
+        return;
+      }
+      cur.content.appendChild(b);
+    }
+
+    mkSheet(true);
+    var blocks = [];
+    while (stage.firstElementChild) blocks.push(stage.removeChild(stage.firstElementChild));
+    for (var i = 0; i < blocks.length; i++)
+      placeBlock(blocks[i], blocks[i + 1], blocks, i);
+
+    // footer rides on the last page - or its own page if it can't fit
+    if (typeof PAGES_FOOT === 'string' && PAGES_FOOT){
+      var fw = document.createElement('div'); fw.innerHTML = PAGES_FOOT;
+      var fnode = fw.firstElementChild;
+      if (fnode && !place(fnode)){ mkSheet(false); cur.content.appendChild(fnode); }
+    }
+
+    // PULL UP. A sparse page is often just the tail of the section on the
+    // page before it - a band, a short table, a sign-off - that got pushed
+    // over even though there was room left behind. Hand those blocks back
+    // up while they fit. A page that begins a section of its own (a
+    // hirer's page, the log book notice) is never merged into the one
+    // before it. (A. Fisher, 25 Jul 2026)
+    function fillOf0(c){
+      var last = null;
+      for (var i = 0; i < c.children.length; i++)
+        if (c.children[i].offsetHeight > 0) last = c.children[i];
+      if (!last) return 0;
+      return (last.offsetTop + last.offsetHeight - c.offsetTop) / c.clientHeight;
+    }
+    function over0(c){ return c.scrollHeight > c.clientHeight + 1; }
+    function headish0(n){
+      if (!n) return false;
+      if (/^H[1-4]$/i.test(n.tagName)) return true;
+      return ('' + (n.className || '')).indexOf('keepnext') >= 0;
+    }
+    function startsSection(c){
+      // a page OWNS its section when it opens with a newpage marker, or
+      // when its first table leads with a pgbrk row (the demob pack's
+      // one-company-per-page rule). Those pages are never merged upward -
+      // that is the whole point of them.
+      var f = c.firstElementChild;
+      if (f && ('' + (f.className || '')).indexOf('newpage') >= 0) return true;
+      var t = c.querySelector('table');
+      if (t && t.tBodies && t.tBodies.length && t.tBodies[0].rows.length){
+        var r0 = t.tBodies[0].rows[0];
+        if (('' + (r0.className || '')).indexOf('pgbrk') >= 0) return true;
+      }
+      return false;
+    }
+    for (var ui = 1; ui < sheets.length; ui++){
+      var uc = sheets[ui].content;
+      if (fillOf0(uc) >= 0.45) continue;
+      if (startsSection(uc)) continue;
+      var up = sheets[ui - 1].content;
+      if (!up.childElementCount) continue;
+      // All or nothing. Moving half a tail up just leaves a different
+      // stray block behind and the passes below fight over it - so take
+      // the whole tail or leave it exactly where it is.
+      var take = [], k0 = uc.firstElementChild;
+      while (k0){
+        if (('' + (k0.className || '')).indexOf('newpage') >= 0) break;
+        take.push(k0); k0 = k0.nextElementSibling;
+      }
+      if (!take.length) continue;
+      for (var mi = 0; mi < take.length; mi++) up.appendChild(take[mi]);
+      if (over0(up)){
+        for (var mj = 0; mj < take.length; mj++)
+          uc.insertBefore(take[mj], null);
+        // put them back in their original order at the top of the page
+        for (var mk = take.length - 1; mk >= 0; mk--)
+          uc.insertBefore(take[mk], uc.firstChild);
+      }
+      // never leave a heading behind on the page above with its content
+      // stranded below - hand it back if that happened
+      var t2 = up.lastElementChild;
+      while (t2 && t2.offsetHeight === 0) t2 = t2.previousElementSibling;
+      if (t2 && headish0(t2) && uc.childElementCount &&
+          up.childElementCount > 1){
+        uc.insertBefore(t2, uc.firstChild);
+      }
+    }
+
+    // FINAL SWEEP - belt and braces on the keep-with-next rule.
+    // Whatever route a block took through the layout above, no page is
+    // allowed to END on a heading or a section band with its content on
+    // the next page: it reads as a broken report. Walk the finished
+    // sheets backwards and hand any trailing heading down to the top of
+    // the page that follows it. Repeated until nothing moves, so a run of
+    // headings travels together. (A. Fisher, 25 Jul 2026)
+    for (var pass = 0; pass < 4; pass++){
+      var moved = false;
+      for (var si = 0; si < sheets.length - 1; si++){
+        var here = sheets[si].content, nxt = sheets[si + 1].content;
+        var tail = here.lastElementChild;
+        while (tail && tail.offsetHeight === 0) tail = tail.previousElementSibling;
+        if (!tail || !isHeadish(tail)) continue;
+        if (here.childElementCount <= 1) continue;   // never leave it blank
+        nxt.insertBefore(tail, nxt.firstChild);
+        moved = true;
+      }
+      if (!moved) break;
+    }
+
+    // ...and the mirror: a page must never hold nothing but a one-line
+    // sign-off. Pull the block above it down to keep it company.
+    for (var sj = sheets.length - 1; sj > 0; sj--){
+      var cnt = sheets[sj].content;
+      var vis = [];
+      for (var ci = 0; ci < cnt.children.length; ci++)
+        if (cnt.children[ci].offsetHeight > 0) vis.push(cnt.children[ci]);
+      if (vis.length !== 1) continue;
+      if (('' + (vis[0].className || '')).indexOf('keepprev') < 0) continue;
+      var prev = sheets[sj - 1].content;
+      var take = prev.lastElementChild;
+      while (take && take.offsetHeight === 0) take = take.previousElementSibling;
+      if (!take || prev.childElementCount <= 1) continue;
+      if (take.offsetHeight > cnt.clientHeight * 0.6) continue;
+      cnt.insertBefore(take, cnt.firstChild);
+    }
+
+    // REBALANCE THE TAIL of a split table. A long table can fill one page
+    // exactly and leave its last few blocks - an Action Required band, a
+    // sign-off line - marooned on a page that is 85% white. It is not
+    // broken, but it reads as though the report gave up. So where a page
+    // is sparse and the page before it ends in a split table, hand rows
+    // back down until both pages carry a fair share. Whole rows only, the
+    // repeated header comes with them, and nothing ever overflows.
+    // (A. Fisher, 25 Jul 2026)
+    function fillOf(c){
+      var last = null;
+      for (var i = 0; i < c.children.length; i++)
+        if (c.children[i].offsetHeight > 0) last = c.children[i];
+      if (!last) return 0;
+      return (last.offsetTop + last.offsetHeight - c.offsetTop) / c.clientHeight;
+    }
+    function over(c){ return c.scrollHeight > c.clientHeight + 1; }
+    for (var ri = 1; ri < sheets.length; ri++){
+      var cc2 = sheets[ri].content;
+      if (fillOf(cc2) >= 0.45) continue;
+      if (startsSection(cc2)) continue;
+      var pc = sheets[ri - 1].content;
+      // find the last TABLE on the previous page, stepping back over any
+      // SMALL trailing blocks (a note, a legend) - those travel down with
+      // the rows so the tail page reads as one continuous section
+      var pTable = pc.lastElementChild, trailers = [];
+      while (pTable && (pTable.offsetHeight === 0 ||
+                        !/^TABLE$/i.test(pTable.tagName))){
+        if (pTable.offsetHeight > 0){
+          if (pTable.offsetHeight > 140 || trailers.length >= 3){ pTable = null; break; }
+          trailers.unshift(pTable);
+        }
+        pTable = pTable.previousElementSibling;
+      }
+      if (!pTable || !/^TABLE$/i.test(pTable.tagName)) continue;
+      for (var ti = trailers.length - 1; ti >= 0; ti--)
+        cc2.insertBefore(trailers[ti], cc2.firstChild);
+      if (over(cc2)){                       // put them back, nothing gained
+        for (var tj = 0; tj < trailers.length; tj++) pc.appendChild(trailers[tj]);
+        continue;
+      }
+      var pBody = (pTable.tBodies && pTable.tBodies.length) ? pTable.tBodies[0] : null;
+      if (!pBody || pBody.rows.length < 2) continue;
+      // Where the sparse page ALREADY opens with a continuation of this
+      // same table, feed the rows straight into it. Adding a second shell
+      // above it prints the column headers twice on one page, which reads
+      // as two different tables. (A. Fisher, 25 Jul 2026)
+      function headText(t){
+        return t && t.tHead ? t.tHead.textContent.replace(/\s+/g, ' ').trim() : '';
+      }
+      var shell2 = null, sBody = null, madeShell = false;
+      var f2 = cc2.firstElementChild;
+      while (f2 && f2.offsetHeight === 0) f2 = f2.nextElementSibling;
+      if (f2 && /^TABLE$/i.test(f2.tagName) && f2.tBodies && f2.tBodies.length &&
+          headText(f2) && headText(f2) === headText(pTable)){
+        shell2 = f2; sBody = f2.tBodies[0];
+      } else {
+        shell2 = pTable.cloneNode(false);
+        if (pTable.tHead) shell2.appendChild(pTable.tHead.cloneNode(true));
+        sBody = document.createElement('tbody'); shell2.appendChild(sBody);
+        cc2.insertBefore(shell2, cc2.firstChild);
+        madeShell = true;
+        if (over(cc2)){ cc2.removeChild(shell2); continue; }
+      }
+      var moved2 = 0;
+      while (pBody.rows.length > 1){
+        var row2 = pBody.rows[pBody.rows.length - 1];
+        sBody.insertBefore(row2, sBody.firstChild);
+        if (over(cc2)){ pBody.appendChild(row2); break; }
+        moved2++;
+        if (fillOf(cc2) >= 0.62 || fillOf(pc) < 0.55) break;
+      }
+      if (!moved2 && madeShell && shell2.parentNode)
+        shell2.parentNode.removeChild(shell2);
+    }
+
+    // any page left with nothing on it is removed outright
+    for (var sk = sheets.length - 1; sk >= 0; sk--){
+      var cc = sheets[sk].content, live = 0;
+      for (var cj = 0; cj < cc.children.length; cj++)
+        if (cc.children[cj].offsetHeight > 0) live++;
+      if (live === 0 && sheets[sk].sheet.parentNode){
+        sheets[sk].sheet.parentNode.removeChild(sheets[sk].sheet);
+        sheets.splice(sk, 1);
+      }
+    }
+
+    // stamp Page X of N on every header
+    for (var p = 0; p < sheets.length; p++){
+      var tags = sheets[p].panel.querySelectorAll('.pgnum');
+      for (var q = 0; q < tags.length; q++)
+        tags[q].textContent = 'Page ' + (p + 1) + ' of ' + sheets.length;
+    }
+
+    // #page=k -> show ONLY that sheet (how the email images are captured)
+    function applyHash(){
+      var m = (location.hash || '').match(/page=(\d+)/);
+      for (var s = 0; s < sheets.length; s++)
+        sheets[s].sheet.style.display =
+          (!m || s + 1 === parseInt(m[1], 10)) ? '' : 'none';
+      window.scrollTo(0, 0);
+    }
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+  }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script></body></html>

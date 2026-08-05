@@ -452,6 +452,110 @@ def grid_html(d):
             + head + body + "</table></div>")
 
 
+
+# ---------------------------------------------------------------------
+#  RIGHT NOW, ON TOP OF HOW IT WENT
+#
+#  Andrew, 5 Aug 2026: he asked for the live plant panel from the cost
+#  snapshot to sit on this report too.
+#
+#  TWO NUMBERS THAT LOOK LIKE A CONTRADICTION AND ARE NOT. This page
+#  already says the fleet ran at 18%. The live panel says 90% deployed.
+#  Both are right and they answer different questions:
+#
+#    18%  the WHOLE SHUT. Every asset-day since 12 Jul divided by every
+#         asset-day it was on charge - including the 232 assets that
+#         never went out to anybody at all.
+#    90%  RIGHT NOW. Of the 87 plant items still on charge today, 78
+#         are out with a crew.
+#
+#  The gap between them is the story, not an error: the gear that was
+#  never used has gone home. What is left on the ground is the stuff
+#  that works. Put them side by side without saying that and the page
+#  looks broken, so it says it in as many words.
+#
+#  The numbers come from build_plant_dashboard's own DATA["ov"] - the
+#  same source the cost snapshot reads, so the two reports cannot
+#  disagree about what is on the ground. Importing it rebuilds the
+#  plant dashboard as a side effect, which is why this is wrapped and
+#  optional: if it cannot be read, this page loses one panel and keeps
+#  every other figure.
+# ---------------------------------------------------------------------
+LIVE_CSS = """
+.live{background:#121922;border:1px solid #26313F;border-radius:14px;
+ padding:22px 24px;margin-top:16px;border-top:3px solid #F5A623}
+.live .pill{display:inline-block;background:#3A2110;color:#F5A623;
+ font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;
+ font-weight:800;border-radius:20px;padding:5px 11px}
+.live h3{font-size:19px;font-weight:800;margin-top:13px;color:#F0F4F9}
+.live .cap{color:#949DAA;font-size:12.5px;margin-top:4px}
+.live .big{font-size:44px;font-weight:800;letter-spacing:-1px;
+ margin-top:14px;line-height:1;color:#2BB673;
+ font-variant-numeric:tabular-nums}
+.live .big span{font-size:15px;font-weight:700;color:#949DAA;
+ letter-spacing:0;margin-left:6px}
+.live .bar{background:#171F29;border:1px solid #26313F;border-radius:6px;
+ height:12px;overflow:hidden;margin-top:12px}
+.live .bar i{display:block;height:100%;background:#2BB673}
+.live .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+ margin-top:18px}
+.live .kpi{background:#171F29;border:1px solid #26313F;border-left:3px solid
+ #5A6472;border-radius:0 10px 10px 0;padding:13px 15px}
+.live .kpi.g{border-left-color:#2BB673}
+.live .kpi.a{border-left-color:#F5A623}
+.live .kpi .v{font-size:26px;font-weight:800;line-height:1;
+ font-variant-numeric:tabular-nums}
+.live .kpi .l{font-size:12.5px;margin-top:6px;color:#E9EEF5}
+.live .kpi .s{font-size:11px;color:#66707E;margin-top:2px}
+.live .callout{background:#171F29;border-left:3px solid #F5A623;
+ border-radius:0 10px 10px 0;padding:12px 15px;margin-top:16px;
+ font-size:13.5px;color:#E9EEF5}
+.live .uln{color:#949DAA;font-size:12.5px;line-height:1.65;margin-top:11px}
+"""
+
+
+def live_panel():
+    """The live plant position - the same DATA the cost snapshot reads."""
+    try:
+        import build_plant_dashboard as bpd
+        ov = bpd.DATA['ov']
+    except Exception as exc:
+        print('  ! live plant position not read ({}) - the rest of the '
+              'page is unaffected'.format(str(exc)[:60]))
+        return '', None
+    if not ov or not ov.get('total'):
+        return '', None
+    html = (
+        "<div class='live'><span class='pill'>Idle plant &middot; client "
+        "insight</span>"
+        "<h3>Plant utilisation</h3>"
+        "<div class='cap'>Site plant on charge, as at {d}</div>"
+        "<div class='big'>{u}%<span>deployed</span></div>"
+        "<div class='bar'><i style='width:{u}%'></i></div>"
+        "<div class='kpis'>"
+        "<div class='kpi g'><div class='v'>{dep}</div>"
+        "<div class='l'>Out with crews</div>"
+        "<div class='s'>Working &amp; earning</div></div>"
+        "<div class='kpi a'><div class='v'>{park}</div>"
+        "<div class='l'>On site, not yet out</div>"
+        "<div class='s'>Charged, used or not</div></div>"
+        "<div class='kpi'><div class='v'>{tot}</div>"
+        "<div class='l'>Total plant on charge</div>"
+        "<div class='s'>On the ground at K2</div></div></div>"
+        "<div class='callout'><b>{idle}/day</b> of plant is on site but "
+        "not out with a crew ({share}%).</div>"
+        "<div class='uln'>While gear is on site it is charged, used or "
+        "not &mdash; so this is a live view of what is on the ground, not "
+        "a saving. It is shared so you can see exactly what you are "
+        "carrying, and use it to plan gear delivery and future shutdowns "
+        "around real demand.</div></div>").format(
+            d=dt.date.today().strftime('%d %b'), u=ov.get('util', 0),
+            dep=ov.get('deployed', 0), park=ov.get('parked', 0),
+            tot=ov.get('total', 0), idle=money(ov.get('id_daily', 0)),
+            share=ov.get('idle_share', 0))
+    return html, ov
+
+
 def build(date_tag=None):
     import build_flame_off_plant as FP
     d = FP.collect()
@@ -490,6 +594,32 @@ def build(date_tag=None):
                 "</div>".format(p=a['onhire_pct'], i=money(a['idle_total']),
                                 u=money(a['used_total']), n=never_n,
                                 t=total_assets))
+
+    #  ---- where it stands right now -----------------------------------
+    live, ov = live_panel()
+    if live:
+        html.append("<h2>Where it stands right now</h2>")
+        html.append("<p>Everything above is the whole shut. This is "
+                    "today.</p>")
+        html.append(live)
+        #  RECONCILE THE TWO HEADLINE NUMBERS, OR THE PAGE READS BROKEN.
+        #  18% and 90% on one page is a contradiction until somebody
+        #  says why it is not - and if nobody says it here, the first
+        #  person to notice will assume the report is wrong and stop
+        #  trusting the rest of it.
+        html.append(
+            "<div class='note'><b>Why this says {u}% and the top of the "
+            "page says {h:.0f}%.</b> They answer different questions. The "
+            "{h:.0f}% is the <b>whole shut</b> &mdash; every asset-day "
+            "since 12 July, including the {n:,} assets that never went "
+            "out to anybody. The {u}% is <b>today</b>: of the {t} plant "
+            "items still on charge, {d} are out with a crew. The gap "
+            "between the two is the story rather than an error &mdash; "
+            "the gear that was never used has gone home, and what is "
+            "left on the ground is the stuff that works.</div>".format(
+                u=ov.get('util', 0), h=a['onhire_pct'],
+                n=d.get('neverUsed', 0), t=ov.get('total', 0),
+                d=ov.get('deployed', 0)))
 
     #  ---- the curve ---------------------------------------------------
     html.append("<h2>How the fleet was used, day by day</h2>")
@@ -621,7 +751,7 @@ def build(date_tag=None):
             "<meta name='viewport' content='width=device-width,"
             "initial-scale=1'>"
             "<title>Coates | Site Plant Utilisation &mdash; K2 2026</title>"
-            "<style>" + CSS + GRID_CSS + "</style></head><body><div class='wrap'>"
+            "<style>" + CSS + GRID_CSS + LIVE_CSS + "</style></head><body><div class='wrap'>"
             + ''.join(html) + footer + "</div></body></html>")
 
     out_dir = os.path.join(HERE, 'Reports', date_tag, 'Pages')
