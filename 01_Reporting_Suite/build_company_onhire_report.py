@@ -10983,7 +10983,12 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                      "#F2B01E"),
                     ("{:,}".format(_cn["left"]), "days to the planned end",
                      COATES_DARK),
-                    (_cn["per_label"], "returns a day to finish clear",
+                    #  singular-aware: Tasman's tile read "1 returns a
+                    #  day" - CHECK_REPORTS' own plural sweep caught it
+                    #  on the first rebuild.
+                    (_cn["per_label"],
+                     "return a day to finish clear" if _cn["per"] == 1
+                     else "returns a day to finish clear",
                      "#F85149" if _cn["per"] else COATES_DARK),
                     #  holders, not period hirers - Cleanaway's draft
                     #  said 15 people were holding 8 items. (5 Aug)

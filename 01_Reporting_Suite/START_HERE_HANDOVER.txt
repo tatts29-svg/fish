@@ -136,6 +136,53 @@ WHERE THE BODIES ARE BURIED (files worth knowing cold)
   CHECK_REPORTS.py / TEST_*.py    the proof suite
 
 =====================================================================
- The section below is finished on the day of handover - the exact
- state of the last build, so the new page starts from facts.
+ STATE AT HANDOVER - 05 Aug 2026, evening, before the send-out
+=====================================================================
+
+THE LAST BUILD
+  Branch claude/new-session-kz0u8o, all work pushed. Data as at
+  05 Aug 2026 12:08 (RENTAL_STOCK pull). 19 Activity drafts + 13
+  internal drafts in Reports\2026-08-05\Emails, every pack proved.
+
+  Proofs, all green on this exact tree:
+    105 modules compile
+    CHECK_REPORTS ......... PASS (pages, sizes, email bodies clean)
+    TEST_DAILY_PACKS ...... 363 passed, 0 failed
+    TEST_MY_GEAR_NAV ...... 148 passed, 0 failed
+
+WHAT THE FINAL POLISH PASS CHANGED (5 Aug, evening)
+  A 35-agent review read every finished draft and pack; 48 verified
+  findings, all fixed the same evening:
+  * The "holding gear" tile counts HOLDERS now, not period hirers.
+  * "Returns a day to finish clear" rounds UP (round() could not
+    actually finish clear), singular-aware.
+  * The reconcile sentences run time the right way round and name
+    their comparison. QWest / Nilsen edge cases each get honest copy;
+    consumables-only visits are said, not denied.
+  * Bosch Rexroth, Nilsen, QWest Crane Hire stop shouting -
+    COMPANY_SPELLING in activity_model.py owns raw-export names.
+  * Subjects carry the answer ("- 233 on hire, 6 days to go").
+  * "Down N since your 03 Aug report" - read off the previous report
+    file itself (_prev_report in build_company_onhire_report.py).
+  * Chart img width 640 = Outlook's exact content box.
+  * All-clear card in the pack went light-theme; exposure clause
+    drops on a nil balance; Daily Brief cannot print a formula $0.00
+    as a real actual (same ENTERED rule as the weekly rollup).
+  * Plant Utilisation records file under Pages\Versions\.
+
+  Left alone ON PURPOSE: replacement values on Coates-owned gear in
+  the client packs. That is the accountability feature, not a leak -
+  the no-money rules cover the store Wi-Fi and customer-owned gear.
+  If Andrew ever wants client packs money-free, that is a decision
+  for him to say out loud, not a cleanup to slip in.
+
+THE MORNING AFTER THIS HANDOVER
+  1. Fresh exports in, 00_RUN_EVERYTHING, wait for PASS.
+  2. Every Activity draft needs a To: filled from
+     Coates_Report_Recipients.xlsx (still empty per company - the
+     build names each missing one).
+  3. Read one draft end to end before sending nineteen.
+
+=====================================================================
+ That is the whole page. Start the new one from here.
 =====================================================================

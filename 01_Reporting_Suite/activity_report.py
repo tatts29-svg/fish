@@ -801,7 +801,9 @@ def shut_curve_html(co, today=None):
     still, left, per = cn["still"], cn["left"], cn["per"]
     tiles = [(str(still), 'on hire right now'),
              (str(left), 'days to the planned end'),
-             (cn["per_label"], 'returns a day to finish clear'),
+             (cn["per_label"],
+              'return a day to finish clear' if per == 1
+              else 'returns a day to finish clear'),
              (str(cn["holders"]), 'of your people holding gear')]
     strip = "".join(
         "<div style='flex:1;min-width:118px;padding:12px 14px'>"

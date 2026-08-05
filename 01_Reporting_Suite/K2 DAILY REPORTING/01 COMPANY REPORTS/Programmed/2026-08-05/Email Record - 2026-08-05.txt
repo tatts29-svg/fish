@@ -5,7 +5,7 @@ Author: Andrew Fisher | POWERED BY SITEIQ
 Company       : Programmed
 Package       : External contractor
 Report date   : 2026-08-05
-Created       : 05 Aug 2026 13:00
+Created       : 05 Aug 2026 14:55
 Status        : Draft Ready
 
 SUBJECT
@@ -22,10 +22,10 @@ CC (5)
   John.Pickels@cemaust.com.au
 
 PASTED INTO THE EMAIL BODY
-  Programmed - On-Hire Report - 2026-08-05 (2).html
+  Programmed - On-Hire Report - 2026-08-05 (4).html
 
 ATTACHMENTS (1)
-  Programmed - On-Hire Report - 2026-08-05 (2).pdf
+  Programmed - On-Hire Report - 2026-08-05 (4).pdf
 
 PRE-SEND CHECKS
   [PASS] Company matched to the on-hire register  -  Programmed
@@ -33,9 +33,9 @@ PRE-SEND CHECKS
   [PASS] Company named in the subject line  -  Programmed | Daily On-Hire Report | 5 August 2026
   [PASS] At least one confirmed address in To  -  1 in To
   [PASS] Four fixed oversight contacts in Cc  -  5 in Cc
-  [PASS] Report in the body is today's, and still the current one  -  Programmed - On-Hire Report - 2026-08-05 (2).html
-  [PASS] Report ready for the email body  -  Programmed - On-Hire Report - 2026-08-05 (2).html
-  [PASS] Their own report is the only attachment  -  attached: Programmed - On-Hire Report - 2026-08-05 (2).pdf
+  [PASS] Report in the body is today's, and still the current one  -  Programmed - On-Hire Report - 2026-08-05 (4).html
+  [PASS] Report ready for the email body  -  Programmed - On-Hire Report - 2026-08-05 (4).html
+  [PASS] Their own report is the only attachment  -  attached: Programmed - On-Hire Report - 2026-08-05 (4).pdf
   [PASS] No other company's information in the pack  -  body and 1 attachment(s) all read - clean
   [PASS] Every address on the contact register for this company  -  6 address(es) confirmed
   [PASS] Every attachment on disk, listed once  -  1 file(s)

@@ -1,0 +1,600 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>Coates K2 - Equipment Activity & Accountability</title><style>
+  /* Layout v2 - 24 Jul 2026: bigger type, lifted greys, roomier tiles and
+     tables across EVERY report in the suite - same design, much clearer.
+     Story cards (.intro) lead each report; scorecard tiles carry the
+     figures; tables carry the detail. */
+  * { box-sizing: border-box; margin: 0; padding: 0;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #0E1116; }
+  body { font-family: Calibri, 'Segoe UI', Arial, sans-serif; color: #E6E9EE;
+         font-size: 11pt; line-height: 1.5; }
+  .page { max-width: 200mm; margin: 0 auto; padding: 6mm 5mm; background: #0E1116; }
+  .band { background: #171B22; color: #fff; padding: 16px 20px;
+          border-bottom: 3px solid #F26222; border-radius: 12px 12px 0 0; }
+  .band .kicker { color: #F26222; font-weight: bold; letter-spacing: 2px;
+                  font-size: 9pt; text-transform: uppercase; }
+  .band h1 { font-size: 20pt; margin: 2px 0 1px 0; color: #fff; }
+  .band .sub { color: #c9cfd8; font-size: 10.5pt; }
+  .band .meta { color: #A9B1BD; font-size: 9pt; margin-top: 6px; }
+  .band .meta b { color: #fff; }
+  .siteiq { float: right; text-align: right; color: #fff; font-weight: bold;
+            font-size: 9pt; letter-spacing: 1px; padding-top: 4px; }
+  .siteiq .o { color: #F26222; }
+  h2 { font-size: 13pt; color: #fff; border-bottom: 2px solid #2A313C;
+       padding-bottom: 4px; margin: 20px 0 10px 0; }
+  table.tiles { width: 100%; border-collapse: separate; border-spacing: 8px 0;
+                table-layout: fixed; margin-top: 12px; }
+  table.tiles td { background: #171B22; color: #fff; text-align: center;
+                   padding: 14px 6px; border-radius: 10px; border: 1px solid #2A313C;
+                   border-top: 3px solid #F26222; }
+  /* Status tints (the look Andrew picked, 28 Jul 2026): a tile only
+     wears colour when its number IS a judgement - red action, amber
+     watch, green healthy. Plain facts stay plain; the old cycle of
+     colours-by-position was decoration and is gone. */
+  table.tiles td.tg { background:#12271A; border-color:#3FB950; border-top:3px solid #3FB950; }
+  table.tiles td.tg .v { color:#3FB950; }
+  table.tiles td.ta { background:#2A2210; border-color:#fab219; border-top:3px solid #fab219; }
+  table.tiles td.ta .v { color:#fab219; }
+  table.tiles td.tr { background:#2A1512; border-color:#F85149; border-top:3px solid #F85149; }
+  table.tiles td.tr .v { color:#F85149; }
+  table.tiles .v { font-size: 17pt; font-weight: bold; display: block; color: #fff; }
+  .hb { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+  .hb .hl { width: 225px; color: #A9B1BD; font-size: 12px; }
+  .hb .ht { flex: 1; background: #20262e; border-radius: 6px; overflow: hidden; }
+  .hb .hf { height: 13px; border-radius: 6px;
+            background: linear-gradient(90deg, #F26222, #EFFF3D); }
+  .hb .hv { width: 120px; text-align: right; color: #fff; font-size: 12px; font-weight: 600; }
+  table.tiles .l { font-size: 8.5pt; color: #A9B1BD; text-transform: uppercase;
+                   letter-spacing: 0.5px; display: block; margin-top: 4px; }
+  table.data { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  table.data th { background: #20262F; color: #fff; text-align: left;
+                  padding: 7px 8px; font-size: 9pt; text-transform: uppercase;
+                  letter-spacing: 0.4px; }
+  table.data td { padding: 7px 8px; border-bottom: 1px solid #232A34;
+                  font-size: 10.5pt; vertical-align: top; color: #D7DBE2; }
+  table.data tr:nth-child(even) td { background: #141922; }
+  /* .num is applied by _tbl to every column after the first, whatever it
+     holds - so a long description or header in one of those columns used
+     to be unbreakable and pushed the last column clean off the sheet
+     (Exec Summary, RightSize, Consumables and the all-companies summary
+     all lost a column that way). Numbers and money have no spaces in
+     them, so they still never break; only long text does, and only when
+     the column is squeezed - which beats being invisible.
+     (A. Fisher, 25 Jul 2026) */
+  table.data .num { text-align: right; white-space: normal; }
+  table.data th { white-space: normal; }
+  table.aging { border-collapse: collapse; margin-top: 4px; }
+  table.aging td, table.aging th { border: 1px solid #2A313C; padding: 8px 16px;
+                                   text-align: center; font-size: 10.5pt; color: #D7DBE2; }
+  table.aging th { background: #20262F; font-size: 9pt;
+                   text-transform: uppercase; color: #fff; }
+  .g { background: #14301b; color: #cfe8d4; } .a { background: #33280c; color: #f3e2b0; }
+  .r { background: #3a1a17; color: #f3c4bb; }
+  /*  Neither a match nor an exception: a gap somebody DECIDED on.
+      Amber would say "go and fix this", green would say "nothing to
+      see" - both wrong for a hold. Grey says "known, and here is
+      who said so".  (4 Aug 2026)  */
+  .n { background: #232B36; color: #c3ccd8; }
+  .note { font-size: 9.5pt; color: #A9B1BD; margin-top: 8px; line-height: 1.5; }
+  .intro { background: #171B22; border-left: 4px solid #F26222;
+           padding: 14px 18px; margin-top: 14px; font-size: 11pt; color: #D7DBE2;
+           line-height: 1.65; border-radius: 0 10px 10px 0; }
+  .intro b { color: #fff; }
+  /* Story emphasis (26 Jul 2026): the bold words and numbers inside a
+     story card carry the colour - the eye lands on the numbers first,
+     which is the whole point of a story card. */
+  .limits { font-size: 8.5pt; color: #A9B1BD; border-top: 1px solid #2A313C;
+            margin-top: 16px; padding-top: 7px; line-height: 1.5; }
+  /* Replacement money wears the highlighter - Andrew's rule (26 Jul 2026):
+     when a replacement cost is on a page, you SEE it. Dark ink on neon
+     reads on white pages, dark pages and email screenshots alike. */
+  /* No white-space:nowrap here - money has no spaces so it never breaks
+     internally, and nowrap was pushing the cost column clean off the
+     sheet on busy tables (the exact bug the .num note above records).
+     Found again 26 Jul 2026 by the overflow sweep. */
+  .repl { background: #EFFF3D; color: #101317; font-weight: 800;
+          padding: 0 5px; border-radius: 4px; }
+  .footer { background: #171B22; color: #c9cfd8; padding: 14px 20px;
+            margin-top: 18px; font-size: 9pt; border-top: 3px solid #F26222;
+            border-radius: 0 0 12px 12px; }
+  .footer .values { color: #F26222; font-weight: bold; margin-top: 6px; }
+  .footer .auth { color: #fff; margin-top: 6px; }
+  @page { size: A4 portrait; margin: 11mm 10mm; }
+  @media print {
+    .page { max-width: none; padding: 4mm 3mm; }
+    table.data thead { display: table-header-group; }
+    table.data tr { page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+  }
+
+#stage{display:none}
+.psheet{width:794px;height:1123px;overflow:hidden;margin:0 auto;padding:34px;background:#fff}
+.psheet + .psheet{page-break-before:always}
+.ppanel{background:#0E1116;box-sizing:border-box;border:6px solid #F26222;border-top:9px solid #F26222;border-radius:18px;padding:20px 26px 16px;height:1055px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.pcontent{flex:1 1 auto;min-height:0;overflow:hidden}
+.prule{height:2px;background:linear-gradient(90deg,#F26222,#EFFF3D,transparent);margin:12px 0 4px;flex:none}
+.band{flex:none;border-bottom:0}
+.bandc{display:flex;justify-content:space-between;align-items:flex-start;flex:none;padding:2px 2px 0}
+.bandc .k{color:#F26222;font-weight:bold;letter-spacing:2px;font-size:9pt;text-transform:uppercase}
+.bandc h1{font-size:14pt;color:#fff;margin:3px 0 0;border:0;padding:0}
+.bandc .m{text-align:right;color:#A9B1BD;font-size:8.5pt;line-height:1.7;text-transform:uppercase}
+.bandc .m .siq{color:#F26222;font-weight:800;letter-spacing:1px;font-size:9pt}
+.bandc .m b{color:#fff}
+.pcontent > h2:first-child{margin-top:8px}
+.pcontent .footer{margin-top:14px}
+.pteam{flex:none;border-top:1px solid #2A313C;margin-top:8px;padding-top:7px}
+.pteam .tl{color:#F26222;font-size:7pt;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.pteam .tn{color:#A9B1BD;font-size:7.5pt;line-height:1.55;margin-top:2px}
+.pteam .tn b{color:#E6E9EE}
+@media print{body{background:#fff}.psheet{margin:0}}
+@page{size:A4;margin:0}
+
+html,body{background:#fff}
+body{color:#20242B}
+.page{background:#fff}
+.ppanel{background:#fff}
+.bandc h1{color:#14181F}
+.bandc .m{color:#6B7380}
+.bandc .m b{color:#14181F}
+h2{color:#14181F;background:#F6F7F9;border:1px solid #E3E6EB;
+   border-left:5px solid #F26222;border-radius:9px;padding:7px 12px;
+   margin:18px 0 10px}
+table.tiles td{background:#F9FAFB;color:#14181F;border:1px solid #E3E6EB}
+table.tiles .v{color:#14181F}
+table.tiles .l{color:#5B6472}
+table.tiles td.tg{background:#E8F6EC;border:1px solid #3FB950}
+table.tiles td.tg .v{color:#0C6B2D}
+table.tiles td.ta{background:#FFF4D6;border:1px solid #F2B01E}
+table.tiles td.ta .v{color:#7A5A00}
+table.tiles td.tr{background:#FBE3DF;border:1px solid #F85149}
+table.tiles td.tr .v{color:#A02A16}
+table.data td{color:#262C35;border-bottom:1px solid #E7EAEF;background:#fff}
+table.data tr:nth-child(even) td{background:#F6F8FA}
+table.aging td{color:#262C35;border:1px solid #DFE3E9;background:#fff}
+table.aging th{border:1px solid #14181F}
+.g{background:#DCF3E3;color:#0C6B2D}
+.a{background:#FFF0C2;color:#7A5A00}
+.r{background:#FBDDD7;color:#A02A16}
+.note,.limits{color:#5B6472}
+.limits{border-top:1px solid #E3E6EB}
+.intro{background:#FFF3EC;color:#33393F}
+.intro b{color:#E04E00}
+.hb .hl{color:#5B6472}
+.hb .ht{background:#EDF0F4}
+.hb .hv{color:#14181F}
+.pteam{border-top:1px solid #E3E6EB}
+.pteam .tn{color:#5B6472}
+.pteam .tn b{color:#20242B}
+</style></head><body><div id='stage'><div class="keepnext" style="background:#F26222;border-radius:8px;padding:8px 16px;margin:9px 0 5px"><div style="color:#fff;font-size:11pt;font-weight:800;letter-spacing:.5px;text-transform:uppercase;line-height:1.3">Industrial Rescue &amp; Emergency Training — company equipment activity &amp; accountability</div><div style='color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase'>Reporting period 13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">9</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Active hirers</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">62</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Equipment issued</div><div style='font-size:7.5pt;color:#5B6472;margin-top:3px'>this period</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">57</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Equipment returned</div><div style='font-size:7.5pt;color:#5B6472;margin-top:3px'>this period</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">18</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned same day</div></td><td style="width:16.666666666666668%;background:#FBE3DF;border-top:3px solid #F85149;border:1px solid #F85149;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F85149;line-height:1">4</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div><div style='font-size:7.5pt;color:#5B6472;margin-top:3px'>daily-return gear</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div><div style='font-size:7.5pt;color:#5B6472;margin-top:3px'>outstanding, now back</div></td></tr></table><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">4</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Currently still on hire</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">1d</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Oldest item</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1"><span style="background:#EFFF3D;color:#101317;font-weight:800;padding:0 4px;border-radius:4px">$3,077</span></div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Replacement exposure</div></td><td style="width:16.666666666666668%;background:#E8F6EC;border-top:3px solid #3FB950;border:1px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">4</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">On hire 1–7 days</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F2B01E;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F2B01E;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">On hire 8–30 days</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #5B6472;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#5B6472;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">On hire 30+ days</div></td></tr></table><div class="keepnext" style="background:#FFF3EC;border-left:4px solid #F26222;border-radius:0 10px 10px 0;padding:10px 16px;margin:8px 0 5px;font-size:10pt;color:#262C35;line-height:1.65"><b>The position:</b> Industrial Rescue &amp; Emergency Training has <b style="color:#14181F">4 items</b> on hire &mdash; replacement exposure <span style="background:#EFFF3D;color:#101317;font-weight:800;padding:0 4px;border-radius:4px">$3,077</span>. This period <b style="color:#3FB950">57 returned</b> (18 same-day) and <b style="color:#F26222">62 went out</b>. <b style="color:#3FB950">Nothing overdue</b> &mdash; the book is current.</div><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>9 of 9</b> <span style='color:#5B6472'>of your people used the tool store</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>34</b> <span style='color:#5B6472'>visits to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>62</b> <span style='color:#5B6472'>items handled over the counter</span></div><div class="keepnext" style="font-size:7.5pt;letter-spacing:2px;color:#F26222;font-weight:800;text-transform:uppercase;margin:9px 0 3px">Age of gear on hire now</div><div class="keepnext" style="border-radius:8px;overflow:hidden;line-height:0"><table style="width:100%;border-collapse:collapse"><tr><td style="width:100.00%;background:#3FB950;height:16px;font-size:0;line-height:0">&nbsp;</td></tr></table></div><div style="font-size:8.5pt;margin:4px 0 2px;line-height:1.5"><span style="color:#3FB950">&#9632;</span> <b style="color:#14181F">4</b> <span style="color:#5B6472">on 1–7 days</span></div><div class="keepnext" style="font-size:7.5pt;letter-spacing:2px;color:#F26222;font-weight:800;text-transform:uppercase;margin:9px 0 3px">Returns this period</div><div class="keepnext" style="border-radius:8px;overflow:hidden;line-height:0"><table style="width:100%;border-collapse:collapse"><tr><td style="width:31.58%;background:#3FB950;height:16px;font-size:0;line-height:0">&nbsp;</td><td style="width:68.42%;background:#2F80ED;height:16px;font-size:0;line-height:0">&nbsp;</td></tr></table></div><div style="font-size:8.5pt;margin:4px 0 2px;line-height:1.5"><span style="color:#3FB950">&#9632;</span> <b style="color:#14181F">18</b> <span style="color:#5B6472">back same day</span> &nbsp;&nbsp; <span style="color:#2F80ED">&#9632;</span> <b style="color:#14181F">39</b> <span style="color:#5B6472">back later</span></div><div class="keepnext" style="font-size:7.5pt;letter-spacing:2px;color:#F26222;font-weight:800;text-transform:uppercase;margin:9px 0 3px">Equipment mix — on hire now</div><table style="width:100%;border-collapse:collapse;background:#F6F7F9;border-radius:8px;overflow:hidden"><tr><td style="width:50.0%;text-align:center;padding:9px 4px;border-right:1px solid #E3E6EB"><div style="font-size:17pt;font-weight:800;color:#14181F;line-height:1">3</div><div style="font-size:7pt;color:#6B7380;letter-spacing:.8px;text-transform:uppercase;margin-top:4px">Radios</div></td><td style="width:50.0%;text-align:center;padding:9px 4px;border-right:1px solid #E3E6EB"><div style="font-size:17pt;font-weight:800;color:#14181F;line-height:1">1</div><div style="font-size:7pt;color:#6B7380;letter-spacing:.8px;text-transform:uppercase;margin-top:4px">Gas monitors</div></td></tr></table><div class="keepnext" style="background:#1E3A5F;border-radius:8px;padding:8px 16px;margin:9px 0 5px"><div style="color:#fff;font-size:11pt;font-weight:800;letter-spacing:.5px;text-transform:uppercase;line-height:1.3">Compliance</div></div><div style="background:#F2B01E;color:#14181F;border-radius:8px;padding:7px 14px;margin:6px 0;font-size:8.5pt;font-weight:800;letter-spacing:.4px;text-transform:uppercase">↺&nbsp;&nbsp;Due back today<span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;4 ITEMS</span><span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;GAS, RADIOS AND BATTERY GEAR</span><span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;BACK TO THE TOOL STORE</span></div><div class="keepnext" style="background:#F26222;border-radius:8px;padding:8px 16px;margin:9px 0 5px"><div style="color:#fff;font-size:11pt;font-weight:800;letter-spacing:.5px;text-transform:uppercase;line-height:1.3">Action centre</div><div style='color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase'>Exceptions only</div></div><table style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Priority</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Hirer</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Issue</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Required action</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Owner</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Status</th></tr></thead><tbody><tr><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top"><span style="display:inline-block;background:#F85149;color:#fff;border-radius:9px;padding:1px 8px;font-size:7.5pt;font-weight:800;letter-spacing:.3px;white-space:normal">HIGH</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Jayden Bonney</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">2 items due back today, not yet returned</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Return to the Coates tool store this shift</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Jayden Bonney</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top"><span style="display:inline-block;background:#F2B01E;color:#14181F;border-radius:9px;padding:1px 8px;font-size:7.5pt;font-weight:800;letter-spacing:.3px;white-space:normal">OPEN</span></td></tr><tr><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top"><span style="display:inline-block;background:#F85149;color:#fff;border-radius:9px;padding:1px 8px;font-size:7.5pt;font-weight:800;letter-spacing:.3px;white-space:normal">HIGH</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">Chris Short</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">2 items due back today, not yet returned</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">Return to the Coates tool store this shift</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">Chris Short</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top"><span style="display:inline-block;background:#F2B01E;color:#14181F;border-radius:9px;padding:1px 8px;font-size:7.5pt;font-weight:800;letter-spacing:.3px;white-space:normal">OPEN</span></td></tr></tbody></table><h2>The tool store has your back</h2><table style="width:100%;border-collapse:separate;border-spacing:6px"><tr><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Scan &amp; look - double scanned, every time</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Every item is scanned <b>and</b> sighted going out, and scanned and sighted coming back - our scan-and-look process. If it moved, it is on the record. That is your protection as much as ours.</div></td><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Stock you can trust</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">The store runs stock rotation with full stock checks every <b>3 days</b> - what the register says is on the shelf is what is on the shelf.</div></td></tr><tr><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">SDS on your phone</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Safety Data Sheets are available <b>inside the tool store</b>, and outside it - scan the QR code on the wall and the SDS downloads straight to your phone.</div></td><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Logbook gear</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Anything marked LOGBOOK needs its daily pre-start and logbook entry before it operates - books and blank pages are at the counter.</div></td></tr><tr><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Breakdowns - tell us everything</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Something stops? Report it straight away with the details: <b>where it is, what is wrong, what it was doing</b>. We will get it swapped or fixed - no drama, no waiting.</div></td><td style="width:50%;vertical-align:top;background:#F6F7F9;border:1px solid #E3E6EB;border-left:4px solid #EFFF3D;border-radius:8px;padding:9px 12px"><div style="font-size:8pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#14181F">Floggers &amp; the small stuff</div><div style="font-size:9pt;color:#33393F;line-height:1.55;margin-top:3px">Using floggers? <b>Flogger holders are available at the store.</b> How-to cards, radio channel cards and gas monitor guides live on the counter - just ask.</div></td></tr></table><div style="font-size:9.5pt;color:#33393F;margin-top:6px">We are here to help - <b>reach out if you require anything</b>. Your Coates tool store team. <span style="color:#8B9099;font-weight:700;letter-spacing:1px">MY GEAR HQ &middot; POWERED BY SITEIQ</span></div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Jayden Bonney</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">10006549</b><br>Hirer 01 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">13</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">13</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">1</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F85149;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F85149;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>6</b> <span style='color:#5B6472'>visits to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>5</b> <span style='color:#5B6472'>days they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>13</b> <span style='color:#5B6472'>items handled over the counter</span></div><div class="keepnext" style="font-size:7.5pt;letter-spacing:2px;color:#F26222;font-weight:800;text-transform:uppercase;margin:9px 0 3px">Equipment mix</div><table style="width:100%;border-collapse:collapse;background:#F6F7F9;border-radius:8px;overflow:hidden"><tr><td style="width:50.0%;text-align:center;padding:9px 4px;border-right:1px solid #E3E6EB"><div style="font-size:17pt;font-weight:800;color:#14181F;line-height:1">1</div><div style="font-size:7pt;color:#6B7380;letter-spacing:.8px;text-transform:uppercase;margin-top:4px">Radios</div></td><td style="width:50.0%;text-align:center;padding:9px 4px;border-right:1px solid #E3E6EB"><div style="font-size:17pt;font-weight:800;color:#14181F;line-height:1">1</div><div style="font-size:7pt;color:#6B7380;letter-spacing:.8px;text-transform:uppercase;margin-top:4px">Gas monitors</div></td></tr></table><div style="background:#F2B01E;color:#14181F;border-radius:8px;padding:7px 14px;margin:6px 0;font-size:8.5pt;font-weight:800;letter-spacing:.4px;text-transform:uppercase">↺&nbsp;&nbsp;Due back today<span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;2 ITEMS</span><span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;GAS, RADIOS AND BATTERY GEAR</span><span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;BACK TO THE TOOL STORE</span></div><div class="keepnext" style="background:#F26222;border-radius:8px;padding:8px 16px;margin:9px 0 5px"><div style="color:#fff;font-size:11pt;font-weight:800;letter-spacing:.5px;text-transform:uppercase;line-height:1.3">Outstanding equipment</div><div style='color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase'>Oldest first</div></div><table style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Description</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Item no.</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Storage unit</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">On hire</th><th style="background:#20262F;color:#fff;text-align:right;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Out for</th><th style="background:#20262F;color:#fff;text-align:right;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Replacement</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Status</th></tr></thead><tbody><tr><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Motorola DP4801e Two-Way Radio - Serial 871TNP5886 &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING AND CHANNEL CHECK</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">16816-590467-0001</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Radios</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top"><span style='white-space:nowrap'>04 Aug</span><span style='font-size:8pt;color:#5B6472;white-space:nowrap'> 07:12</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:right;vertical-align:top">1d</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:right;vertical-align:top"><span style="background:#EFFF3D;color:#101317;font-weight:800;padding:0 4px;border-radius:4px">$600</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top"><span style="color:#F2B01E;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;DUE BACK</span></td></tr><tr><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">Multi-Gas Detector - Honeywell BW Flex - Serial GM206394 &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR BUMP TEST AND RECHARGE</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">16816-589987-0002</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">Gas Monitors</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top"><span style='white-space:nowrap'>04 Aug</span><span style='font-size:8pt;color:#5B6472;white-space:nowrap'> 04:53</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:right;vertical-align:top">1d</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:right;vertical-align:top"><span style="background:#EFFF3D;color:#101317;font-weight:800;padding:0 4px;border-radius:4px">$1,815</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top"><span style="color:#F2B01E;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;DUE BACK</span></td></tr></tbody></table><div class="keepnext" style="background:#8A3324;border-radius:8px;padding:8px 16px;margin:9px 0 5px"><div style="color:#fff;font-size:11pt;font-weight:800;letter-spacing:.5px;text-transform:uppercase;line-height:1.3">Action required</div></div><table style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Priority</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">What</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Required action</th></tr></thead><tbody><tr><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top"><span style="display:inline-block;background:#F85149;color:#fff;border-radius:9px;padding:1px 8px;font-size:7.5pt;font-weight:800;letter-spacing:.3px;white-space:normal">HIGH</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">2 items due back today not yet returned</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Return to the tool store this shift</td></tr></tbody></table><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of JAYDEN BONNEY &nbsp;&bull;&nbsp; 2 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Chris Short</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">10005517</b><br>Hirer 02 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">5</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">5</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">4</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F85149;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F85149;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>3</b> <span style='color:#5B6472'>visits to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>1</b> <span style='color:#5B6472'>day they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>5</b> <span style='color:#5B6472'>items handled over the counter</span></div><div class="keepnext" style="font-size:7.5pt;letter-spacing:2px;color:#F26222;font-weight:800;text-transform:uppercase;margin:9px 0 3px">Equipment mix</div><table style="width:100%;border-collapse:collapse;background:#F6F7F9;border-radius:8px;overflow:hidden"><tr><td style="width:100.0%;text-align:center;padding:9px 4px;border-right:1px solid #E3E6EB"><div style="font-size:17pt;font-weight:800;color:#14181F;line-height:1">2</div><div style="font-size:7pt;color:#6B7380;letter-spacing:.8px;text-transform:uppercase;margin-top:4px">Radios</div></td></tr></table><div style="background:#F2B01E;color:#14181F;border-radius:8px;padding:7px 14px;margin:6px 0;font-size:8.5pt;font-weight:800;letter-spacing:.4px;text-transform:uppercase">↺&nbsp;&nbsp;Due back today<span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;2 ITEMS</span><span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;GAS, RADIOS AND BATTERY GEAR</span><span style="margin-left:14px;opacity:.93;white-space:nowrap">&bull;&nbsp;&nbsp;BACK TO THE TOOL STORE</span></div><div class="keepnext" style="background:#F26222;border-radius:8px;padding:8px 16px;margin:9px 0 5px"><div style="color:#fff;font-size:11pt;font-weight:800;letter-spacing:.5px;text-transform:uppercase;line-height:1.3">Outstanding equipment</div><div style='color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase'>Oldest first</div></div><table style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Description</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Item no.</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Storage unit</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">On hire</th><th style="background:#20262F;color:#fff;text-align:right;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Out for</th><th style="background:#20262F;color:#fff;text-align:right;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Replacement</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Status</th></tr></thead><tbody><tr><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Motorola DP4801e Two-Way Radio - Serial 871TNK7872 &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING AND CHANNEL CHECK</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">16816-590464-0001</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Radios</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top"><span style='white-space:nowrap'>04 Aug</span><span style='font-size:8pt;color:#5B6472;white-space:nowrap'> 10:54</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:right;vertical-align:top">1d</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:right;vertical-align:top"><span style="background:#EFFF3D;color:#101317;font-weight:800;padding:0 4px;border-radius:4px">$600</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top"><span style="color:#F2B01E;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;DUE BACK</span></td></tr><tr><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">Radio Battery - Motorola NNTN8129 IMPRES &nbsp;<span style="color:#F26222;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;RETURN DAILY FOR CHARGING</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">16816-590534-0031</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top">Radios</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top"><span style='white-space:nowrap'>04 Aug</span><span style='font-size:8pt;color:#5B6472;white-space:nowrap'> 10:54</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:right;vertical-align:top">1d</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:right;vertical-align:top"><span style="background:#EFFF3D;color:#101317;font-weight:800;padding:0 4px;border-radius:4px">$61</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:#F6F8FA;text-align:left;vertical-align:top"><span style="color:#F2B01E;font-weight:800;font-size:8pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif">&#9679;&nbsp;DUE BACK</span></td></tr></tbody></table><div class="keepnext" style="background:#8A3324;border-radius:8px;padding:8px 16px;margin:9px 0 5px"><div style="color:#fff;font-size:11pt;font-weight:800;letter-spacing:.5px;text-transform:uppercase;line-height:1.3">Action required</div></div><table style="width:100%;border-collapse:collapse;margin-top:4px"><thead><tr><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Priority</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">What</th><th style="background:#20262F;color:#fff;text-align:left;padding:6px 8px;font-size:8pt;text-transform:uppercase;letter-spacing:.4px">Required action</th></tr></thead><tbody><tr><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top"><span style="display:inline-block;background:#F85149;color:#fff;border-radius:9px;padding:1px 8px;font-size:7.5pt;font-weight:800;letter-spacing:.3px;white-space:normal">HIGH</span></td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">2 items due back today not yet returned</td><td style="padding:4px 8px;border-bottom:1px solid #E3E6EB;font-size:9.5pt;color:#262C35;background:transparent;text-align:left;vertical-align:top">Return to the tool store this shift</td></tr></tbody></table><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of CHRIS SHORT &nbsp;&bull;&nbsp; 2 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Jake Peterson</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">not recorded</b><br>Hirer 03 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">14</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">12</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">4</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>9</b> <span style='color:#5B6472'>visits to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>6</b> <span style='color:#5B6472'>days they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>14</b> <span style='color:#5B6472'>items handled over the counter</span></div><div style="font-size:8.5pt;color:#5B6472;margin-top:6px;line-height:1.7"><b style='color:#3FB950'>Nothing outstanding for Jake Peterson.</b> Gear is current, nothing overdue back, no open damage.</div><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of JAKE PETERSON &nbsp;&bull;&nbsp; 0 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Jesse Gill</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">not recorded</b><br>Hirer 04 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">7</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">7</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">5</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>4</b> <span style='color:#5B6472'>visits to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>4</b> <span style='color:#5B6472'>days they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>7</b> <span style='color:#5B6472'>items handled over the counter</span></div><div style="font-size:8.5pt;color:#5B6472;margin-top:6px;line-height:1.7"><b style='color:#3FB950'>Nothing outstanding for Jesse Gill.</b> Gear is current, nothing overdue back, no open damage.</div><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of JESSE GILL &nbsp;&bull;&nbsp; 0 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Kelsey Green</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">not recorded</b><br>Hirer 05 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">7</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">4</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>5</b> <span style='color:#5B6472'>visits to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>5</b> <span style='color:#5B6472'>days they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>7</b> <span style='color:#5B6472'>items handled over the counter</span></div><div style="font-size:8.5pt;color:#5B6472;margin-top:6px;line-height:1.7"><b style='color:#3FB950'>Nothing outstanding for Kelsey Green.</b> Gear is current, nothing overdue back, no open damage.</div><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of KELSEY GREEN &nbsp;&bull;&nbsp; 0 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Adam Walton</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">not recorded</b><br>Hirer 06 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">6</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">6</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>3</b> <span style='color:#5B6472'>visits to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>2</b> <span style='color:#5B6472'>days they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>6</b> <span style='color:#5B6472'>items handled over the counter</span></div><div style="font-size:8.5pt;color:#5B6472;margin-top:6px;line-height:1.7"><b style='color:#3FB950'>Nothing outstanding for Adam Walton.</b> Gear is current, nothing overdue back, no open damage.</div><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of ADAM WALTON &nbsp;&bull;&nbsp; 0 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Christopher Wilson</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">not recorded</b><br>Hirer 07 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">6</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">6</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>2</b> <span style='color:#5B6472'>visits to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>2</b> <span style='color:#5B6472'>days they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>6</b> <span style='color:#5B6472'>items handled over the counter</span></div><div style="font-size:8.5pt;color:#5B6472;margin-top:6px;line-height:1.7"><b style='color:#3FB950'>Nothing outstanding for Christopher Wilson.</b> Gear is current, nothing overdue back, no open damage.</div><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of CHRISTOPHER WILSON &nbsp;&bull;&nbsp; 0 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Daniel Valzan</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">not recorded</b><br>Hirer 08 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>1</b> <span style='color:#5B6472'>visit to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>1</b> <span style='color:#5B6472'>day they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>2</b> <span style='color:#5B6472'>items handled over the counter</span></div><div style="font-size:8.5pt;color:#5B6472;margin-top:6px;line-height:1.7"><b style='color:#3FB950'>Nothing outstanding for Daniel Valzan.</b> Gear is current, nothing overdue back, no open damage.</div><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of DANIEL VALZAN &nbsp;&bull;&nbsp; 0 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><div class='newpage'></div><div style="background:#F26222;border-radius:10px;padding:12px 18px;margin:2px 0 8px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:19pt;font-weight:800;line-height:1.05">Gavin Thomas</div><div style="color:#FFE2D4;font-size:8.5pt;margin-top:3px;letter-spacing:1px;text-transform:uppercase">Industrial Rescue &amp; Emergency Training</div></div><div style="text-align:right;color:#FFE2D4;font-size:8pt;letter-spacing:1px;text-transform:uppercase;line-height:1.8">Hirer ID <b style="color:#fff">not recorded</b><br>Hirer 09 of 09<br>13 Jul 2026 – 03 Aug 2026</div></div><table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:5px 0"><tr><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #F26222;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#F26222;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Issued</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Returned</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">2</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Not returned same day</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #3FB950;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#3FB950;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Recovered</div></td><td style="width:16.666666666666668%;background:#F6F7F9;border-top:3px solid #14181F;border-radius:8px;padding:11px 12px 9px;vertical-align:top"><div style="font-size:23pt;font-weight:800;color:#14181F;line-height:1">0</div><div style="font-size:7.5pt;color:#6B7380;letter-spacing:1px;text-transform:uppercase;margin-top:5px;line-height:1.35">Still on hire</div></td></tr></table><div style="background:#F6F7F9;border-radius:8px;padding:9px 14px;margin:5px 0;font-size:9.5pt;color:#262C35;line-height:1.6"><b style='color:#14181F'>1</b> <span style='color:#5B6472'>visit to the counter</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>1</b> <span style='color:#5B6472'>day they came over</span> &nbsp;<span style='color:#E3E6EB'>&bull;</span>&nbsp; <b style='color:#14181F'>2</b> <span style='color:#5B6472'>items handled over the counter</span></div><div style="font-size:8.5pt;color:#5B6472;margin-top:6px;line-height:1.7"><b style='color:#3FB950'>Nothing outstanding for Gavin Thomas.</b> Gear is current, nothing overdue back, no open damage.</div><div class="keepprev" style="margin-top:8px;padding-top:7px;border-top:2px solid #F26222;font-size:8pt;color:#5B6472;letter-spacing:1px;text-transform:uppercase">End of GAVIN THOMAS &nbsp;&bull;&nbsp; 0 items on hire &nbsp;&bull;&nbsp; 0 consumable units</div><h2>Meet the tool store team</h2><div class='note'>The crew running your K2 tool store - getting the right gear to the right crew, keeping it looked after and ready, and making sure everything that leaves the store is right. Day and night, so the shutdown keeps moving. Something not on hand or not right? Tell us and we'll sort it.</div><table style='width:44%;margin:0 auto;border-collapse:separate;border-spacing:8px 0'><tr><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #F26222;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#F26222;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>AF</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Andrew Fisher</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Shutdown Manager</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>andrew.fisher<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Oversees the whole store and the whole shutdown - anything at all, start here</div></td></tr></table><table style='width:100%;border-collapse:separate;border-spacing:8px 0;table-layout:fixed;margin-top:8px'><tr><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>TM</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Thomas Maher</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Dayshift Lead</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>thomas.maher<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Runs the day-to-day of days - your first call on day shift</div></td><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>HO</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Helen O&#x27;Grady</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Dayshift Tool Store Controller</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>helen.ogrady<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Expertise, solutions and help at the counter</div></td><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>LA</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Lucas Armstrong</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Day Shift Mechanic</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>lucas.armstrong<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Looks after every breakdown on site - report it, he&#x27;s on it</div></td><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>CM</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Cody Mitchell</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Nightshift Tool Store Controller</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>cody.mitchell<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Runs the nights - your first call after dark</div></td><td style='background:#171B22;border:1px solid #2A313C;border-left:4px solid #EFFF3D;border-top:3px solid #2A313C;border-radius:10px;padding:12px 8px;text-align:center'><div style='width:44px;height:44px;border-radius:50%;margin:0 auto;background:#2b3442;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px'>AB</div><div style='color:#fff;font-weight:700;font-size:10pt;margin-top:6px'>Adam Boyce</div><div style='color:#EFFF3D;font-size:8pt;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;font-weight:800'>Night Shift Tool Store Controller</div><div style='color:#9fd0ff;font-size:7.5pt;margin-top:4px;line-height:1.4'>adam.boyce<br>@coates.com.au</div><div style='color:#c3cad4;font-size:7.5pt;line-height:1.45;margin-top:5px'>Expertise, solutions and help at the counter</div></td></tr></table><div style='text-align:center;margin-top:10px'><span style='display:inline-block;background:#171B22;border:1px solid #2A313C;border-radius:14px;padding:5px 12px;margin:3px 4px;font-size:9pt;color:#D7DBE2'><b style='color:#3FB950'>&#10003;</b> The right gear to the right crew</span><span style='display:inline-block;background:#171B22;border:1px solid #2A313C;border-radius:14px;padding:5px 12px;margin:3px 4px;font-size:9pt;color:#D7DBE2'><b style='color:#3FB950'>&#10003;</b> Looked after, maintained &amp; ready</span><span style='display:inline-block;background:#171B22;border:1px solid #2A313C;border-radius:14px;padding:5px 12px;margin:3px 4px;font-size:9pt;color:#D7DBE2'><b style='color:#3FB950'>&#10003;</b> Checked and right - every time</span></div><div class='limits'><b>Honest limits:</b> Activity from the SiteIQ transaction export for the period shown; on-hire position from the rental register. Consumables are usage data and are never counted as equipment on hire. No consumable pricing exists in any export, so units and product types are shown without a dollar value.</div></div><div id='sheets'></div><script>var PAGES_HDR1="<div class=\"band\"><div class=\"siteiq\">POWERED BY <span class=\"o\">SITEIQ</span><br><span style=\"font-weight:normal;color:#bbb;\">Equipped for anything</span></div><div class=\"kicker\">COATES &middot; Equipment Activity &amp; Accountability</div><h1>Industrial Rescue &amp; Emergency Training</h1><div class=\"sub\">Cement Australia K2 Shutdown 2026 - Gladstone</div><div class=\"meta\">Generated: <b>05 Aug 2026 14:41</b> &nbsp;|&nbsp; Data as at: <b>05 Aug 2026 12:08</b> (RENTAL_STOCK export file time) &nbsp;|&nbsp; Author: <b>Andrew Fisher</b></div></div><div style=\"font-size:7.5pt;color:#5B6472;margin:6px 0 0;padding:4px 2px 0;border-top:1px solid #E3E6EB;line-height:1.6\"><b style=\"letter-spacing:1.5px\">KEY</b> &nbsp;&nbsp; <span style=\"color:#2F80ED;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL / RIGGING</span> <span>test &amp; tag current &middot; tag colour <b style=\"color:#2F80ED\">BLUE</b></span> &nbsp;&nbsp; <span style=\"color:#E0A500;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span> <span>daily pre-start &amp; logbook entry</span> &nbsp;&nbsp; <span style=\"color:#F26222;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;RETURN DAILY</span> <span>back to the tool store every shift</span></div><div style='text-align:right;color:#A9B1BD;font-size:8.5pt;text-transform:uppercase;margin-top:4px'><span class='pgnum'>&nbsp;</span></div>",PAGES_HDRN="<div class='bandc'><div><div class='k'>COATES &middot; Equipment Activity &amp; Accountability</div><h1>Industrial Rescue &amp; Emergency Training</h1></div><div class='m'><span class='siq'>POWERED BY SITEIQ</span><br>As at <b>05 Aug 2026 12:08</b><br><span class='pgnum'>&nbsp;</span></div></div><div style=\"font-size:7.5pt;color:#5B6472;margin:6px 0 0;padding:4px 2px 0;border-top:1px solid #E3E6EB;line-height:1.6\"><b style=\"letter-spacing:1.5px\">KEY</b> &nbsp;&nbsp; <span style=\"color:#2F80ED;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;ELECTRICAL / RIGGING</span> <span>test &amp; tag current &middot; tag colour <b style=\"color:#2F80ED\">BLUE</b></span> &nbsp;&nbsp; <span style=\"color:#E0A500;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;LOGBOOK</span> <span>daily pre-start &amp; logbook entry</span> &nbsp;&nbsp; <span style=\"color:#F26222;font-weight:800;font-size:7.5pt;letter-spacing:.4px;font-family:Segoe UI,Arial,sans-serif\">&#9679;&nbsp;RETURN DAILY</span> <span>back to the tool store every shift</span></div>",PAGES_FOOT="<div class=\"footer\">All returns go through the Coates tool store, handed to the stores team and double-scanned. Nothing is returned unless it is scanned.<div class=\"values\">Care Deeply &middot; Customer Focused &middot; Be Our Best &middot; One Team &middot; Competitive Spirit</div><div class=\"auth\">Author: Andrew Fisher &nbsp;|&nbsp; POWERED BY <span style=\"color:#F26222;font-weight:bold;\">SITEIQ</span> &nbsp;|&nbsp; Source: RENTAL_STOCK.xlsx | Extract (file time): 05 Aug 2026 12:08 | Hirer IDs: ON_HIRE.xlsx (EXTERNAL_ID)</div></div>",PAGES_TEAM="<div class='tl'>Your Coates tool store team</div><div class='tn'><b>Andrew Fisher</b> Shutdown Manager QLD &amp; NT &nbsp;|&nbsp; <span style='color:#F26222;font-weight:700'>DAY</span> <b>Thomas Maher</b> Dayshift Lead &middot; <b>Helen O&#x27;Grady</b> Dayshift Tool Store Controller &middot; <b>Lucas Armstrong</b> Day Shift Mechanic &nbsp;|&nbsp; <span style='color:#F26222;font-weight:700'>NIGHT</span> <b>Cody Mitchell</b> Nightshift Tool Store Controller &middot; <b>Adam Boyce</b> Night Shift Tool Store Controller &nbsp;|&nbsp; <span style='color:#8B9099;font-weight:800;letter-spacing:1px'>MY GEAR HQ</span></div>";</script><script>
+(function(){
+  function run(){
+    var stage = document.getElementById('stage');
+    var out = document.getElementById('sheets');
+    if (!stage || !out) return;
+    var sheets = [];
+    var cur = null;
+
+    function mkSheet(first){
+      var sheet = document.createElement('div'); sheet.className = 'psheet';
+      var panel = document.createElement('div'); panel.className = 'ppanel';
+      panel.innerHTML = (first ? PAGES_HDR1 : PAGES_HDRN) + "<div class='prule'></div>";
+      var content = document.createElement('div'); content.className = 'pcontent';
+      panel.appendChild(content);
+      // Meet the team on EVERY page, not just the last one
+      // (A. Fisher, 25 Jul 2026). The panel is a flex column and
+      // .pcontent is flex:1, so the strip takes its height off the
+      // content area automatically - nothing can be pushed off.
+      if (typeof PAGES_TEAM === 'string' && PAGES_TEAM){
+        var tm = document.createElement('div');
+        tm.className = 'pteam'; tm.innerHTML = PAGES_TEAM;
+        panel.appendChild(tm);
+      }
+      sheet.appendChild(panel);
+      out.appendChild(sheet);
+      cur = {sheet: sheet, panel: panel, content: content};
+      sheets.push(cur);
+      return cur;
+    }
+    function overflows(){
+      return cur.content.scrollHeight > cur.content.clientHeight + 1;
+    }
+    function place(node){                 // true if node fits on current page
+      cur.content.appendChild(node);
+      if (!overflows()) return true;
+      cur.content.removeChild(node);
+      return false;
+    }
+    function splitTable(t){               // whole rows only, header repeated
+      var tb = (t.tBodies && t.tBodies.length) ? t.tBodies[0] : null;
+      if (!tb || tb.rows.length < 2){     // nothing to split - force-place
+        if (!place(t)){ mkSheet(false); cur.content.appendChild(t); }
+        return;
+      }
+      var rows = [];
+      while (tb.rows.length) rows.push(tb.removeChild(tb.rows[0]));
+      function shell(){
+        var s = t.cloneNode(false);
+        if (t.tHead) s.appendChild(t.tHead.cloneNode(true));
+        var b = document.createElement('tbody'); s.appendChild(b);
+        return {table: s, tbody: b};
+      }
+      var sh = shell();
+      if (!place(sh.table)){ mkSheet(false); cur.content.appendChild(sh.table); }
+      var q = rows;                       // queue of rows still to place
+      while (q.length){
+        var row = q.shift();
+        // a row marked pgbrk starts something new (a new company in the
+        // demob pack) - it opens a fresh page, per Andrew's page rule
+        var rc = '' + (row.className || '');
+        if (rc.indexOf('pgbrk') >= 0 && sh.tbody.rows.length){
+          mkSheet(false);
+          sh = shell(); cur.content.appendChild(sh.table);
+        }
+        var freshSolo = (sh.tbody.rows.length === 0 &&
+                         cur.content.childElementCount === 1);
+        sh.tbody.appendChild(row);
+        if (overflows()){
+          if (freshSolo){
+            // a single row taller than a whole fresh page: keep it (the
+            // old force behaviour) rather than loop forever - never seen
+            // in practice, tables don't carry page-tall rows
+            continue;
+          }
+          sh.tbody.removeChild(row);
+          var carry = [row];
+          // taking that row out re-flows the column widths - earlier rows
+          // can re-wrap TALLER, so re-check this page and peel rows off
+          // the end until it truly fits (the 5-11px clip found in the
+          // 24 Jul 2026 fleet sweep - nothing is ever cut)
+          while (overflows() && sh.tbody.rows.length){
+            carry.unshift(sh.tbody.removeChild(
+              sh.tbody.rows[sh.tbody.rows.length - 1]));
+          }
+          if (!sh.tbody.rows.length && sh.table.parentNode)
+            sh.table.parentNode.removeChild(sh.table);   // header-only shell: drop
+          mkSheet(false);
+          sh = shell(); cur.content.appendChild(sh.table);
+          q = carry.concat(q);
+        }
+      }
+      if (!sh.tbody.rows.length && sh.table.parentNode)
+        sh.table.parentNode.removeChild(sh.table);
+    }
+    function isHeadish(n){
+      // a real heading, or anything the report marked keep-with-next
+      // (the coloured section bands on the activity pack)
+      if (!n) return false;
+      if (/^H[1-4]$/i.test(n.tagName)) return true;
+      return ('' + (n.className || '')).indexOf('keepnext') >= 0;
+    }
+    function probeOf(n){
+      // a light stand-in for "the start of this block", used to decide
+      // whether a section can BEGIN on the current page. A table only
+      // needs its header and a couple of rows to be worth starting.
+      if (/^TABLE$/i.test(n.tagName)){
+        var s = n.cloneNode(false);
+        if (n.tHead) s.appendChild(n.tHead.cloneNode(true));
+        var tb = (n.tBodies && n.tBodies.length) ? n.tBodies[0] : null;
+        var b = document.createElement('tbody'); s.appendChild(b);
+        if (tb) for (var i = 0; i < Math.min(3, tb.rows.length); i++)
+          b.appendChild(tb.rows[i].cloneNode(true));
+        return s;
+      }
+      return n.cloneNode(true);
+    }
+    function placeBlock(b, next, all, idx){
+      // 'newpage' always starts a fresh sheet - that is how a hirer's
+      // section, or the log book notice, gets a page of its own.
+      //
+      // A HEADING no longer forces one. It used to, and a report with ten
+      // short sections burned ten pages, most of them 90% white - the
+      // client packs were running 7% full. Now a section starts here if
+      // its heading AND the start of its content fit; only when they
+      // don't does it move to a fresh page. Nothing is ever split
+      // awkwardly, and the pages actually fill. (A. Fisher, 25 Jul 2026)
+      var cn = '' + (b.className || '');
+      if (cn.indexOf('newpage') >= 0 && cur.content.childElementCount > 0){
+        mkSheet(false);
+      } else if (isHeadish(b) && cur.content.childElementCount > 0){
+        // `next` may itself be a heading (an H2 followed by its first H3).
+        // Probing only that would pass - a 26px heading always fits - and
+        // leave the H2 stranded at the foot of the page, which is exactly
+        // what it is trying to prevent. So walk forward over any run of
+        // headings and probe the first real block, carrying the headings
+        // in between. (A. Fisher, 25 Jul 2026)
+        cur.content.appendChild(b);
+        var ok = !overflows(), probes = [];
+        if (ok){
+          var j = idx + 1;
+          while (j < all.length && isHeadish(all[j])){
+            probes.push(all[j].cloneNode(true)); j++;
+          }
+          if (j < all.length) probes.push(probeOf(all[j]));
+          for (var q = 0; q < probes.length; q++)
+            cur.content.appendChild(probes[q]);
+          ok = !overflows();
+          for (var q2 = 0; q2 < probes.length; q2++)
+            cur.content.removeChild(probes[q2]);
+        }
+        cur.content.removeChild(b);
+        if (!ok) mkSheet(false);
+      }
+      if (place(b)) return;
+      // heading stranded at the bottom? it travels with its content -
+      // UNLESS the heading is alone on its page already (a fresh section
+      // page whose first block is bigger than a whole page): then the
+      // block splits right here under it, never leaving an empty page
+      // behind. (Fixed 24 Jul 2026 - the empty-page bug.)
+      var tail = cur.content.lastElementChild;
+      // a block marked keepprev (the "End of <person>" sign-off) must
+      // never be marooned on a page of its own - bring the block above it
+      // along, provided that block is small enough to travel
+      if (cn.indexOf('keepprev') >= 0 && tail &&
+          tail.offsetHeight < cur.content.clientHeight * 0.5){
+        var carryPrev = tail;
+        mkSheet(false);
+        cur.content.appendChild(carryPrev);
+        if (place(b)) return;
+      }
+      tail = cur.content.lastElementChild;
+      var pull = isHeadish(tail) ? tail : null;
+      var alone = pull && cur.content.childElementCount === 1;
+      if (!alone){
+        var prevSheet = cur;
+        mkSheet(false);
+        if (pull) cur.content.appendChild(pull);
+        if (place(b)) return;
+        // It will not fit on a FRESH page either, so it is going to be
+        // split whichever page it starts on. Splitting it here would
+        // leave the page we just walked away from half white - which is
+        // exactly what the client sees. So undo the page break, put the
+        // heading back where it was, and split the table from there: the
+        // page fills, the heading keeps its rows, and the remainder flows
+        // on as normal. (A. Fisher, 25 Jul 2026)
+        if (/^TABLE$/i.test(b.tagName)){
+          if (cur.sheet.parentNode) cur.sheet.parentNode.removeChild(cur.sheet);
+          sheets.pop();
+          cur = prevSheet;
+          if (pull) cur.content.appendChild(pull);
+          splitTable(b);
+          return;
+        }
+      }
+      // taller than a whole fresh page: split tables by rows; unwrap
+      // plain containers; anything else is placed and clipped (rare)
+      if (/^TABLE$/i.test(b.tagName)){ splitTable(b); return; }
+      if (/^(DIV|SECTION)$/i.test(b.tagName) && b.children.length > 1){
+        var kids = []; while (b.firstElementChild) kids.push(b.removeChild(b.firstElementChild));
+        for (var i = 0; i < kids.length; i++)
+          placeBlock(kids[i], kids[i + 1], kids, i);
+        return;
+      }
+      cur.content.appendChild(b);
+    }
+
+    mkSheet(true);
+    var blocks = [];
+    while (stage.firstElementChild) blocks.push(stage.removeChild(stage.firstElementChild));
+    for (var i = 0; i < blocks.length; i++)
+      placeBlock(blocks[i], blocks[i + 1], blocks, i);
+
+    // footer rides on the last page - or its own page if it can't fit
+    if (typeof PAGES_FOOT === 'string' && PAGES_FOOT){
+      var fw = document.createElement('div'); fw.innerHTML = PAGES_FOOT;
+      var fnode = fw.firstElementChild;
+      if (fnode && !place(fnode)){ mkSheet(false); cur.content.appendChild(fnode); }
+    }
+
+    // PULL UP. A sparse page is often just the tail of the section on the
+    // page before it - a band, a short table, a sign-off - that got pushed
+    // over even though there was room left behind. Hand those blocks back
+    // up while they fit. A page that begins a section of its own (a
+    // hirer's page, the log book notice) is never merged into the one
+    // before it. (A. Fisher, 25 Jul 2026)
+    function fillOf0(c){
+      var last = null;
+      for (var i = 0; i < c.children.length; i++)
+        if (c.children[i].offsetHeight > 0) last = c.children[i];
+      if (!last) return 0;
+      return (last.offsetTop + last.offsetHeight - c.offsetTop) / c.clientHeight;
+    }
+    function over0(c){ return c.scrollHeight > c.clientHeight + 1; }
+    function headish0(n){
+      if (!n) return false;
+      if (/^H[1-4]$/i.test(n.tagName)) return true;
+      return ('' + (n.className || '')).indexOf('keepnext') >= 0;
+    }
+    function startsSection(c){
+      // a page OWNS its section when it opens with a newpage marker, or
+      // when its first table leads with a pgbrk row (the demob pack's
+      // one-company-per-page rule). Those pages are never merged upward -
+      // that is the whole point of them.
+      var f = c.firstElementChild;
+      if (f && ('' + (f.className || '')).indexOf('newpage') >= 0) return true;
+      var t = c.querySelector('table');
+      if (t && t.tBodies && t.tBodies.length && t.tBodies[0].rows.length){
+        var r0 = t.tBodies[0].rows[0];
+        if (('' + (r0.className || '')).indexOf('pgbrk') >= 0) return true;
+      }
+      return false;
+    }
+    for (var ui = 1; ui < sheets.length; ui++){
+      var uc = sheets[ui].content;
+      if (fillOf0(uc) >= 0.45) continue;
+      if (startsSection(uc)) continue;
+      var up = sheets[ui - 1].content;
+      if (!up.childElementCount) continue;
+      // All or nothing. Moving half a tail up just leaves a different
+      // stray block behind and the passes below fight over it - so take
+      // the whole tail or leave it exactly where it is.
+      var take = [], k0 = uc.firstElementChild;
+      while (k0){
+        if (('' + (k0.className || '')).indexOf('newpage') >= 0) break;
+        take.push(k0); k0 = k0.nextElementSibling;
+      }
+      if (!take.length) continue;
+      for (var mi = 0; mi < take.length; mi++) up.appendChild(take[mi]);
+      if (over0(up)){
+        for (var mj = 0; mj < take.length; mj++)
+          uc.insertBefore(take[mj], null);
+        // put them back in their original order at the top of the page
+        for (var mk = take.length - 1; mk >= 0; mk--)
+          uc.insertBefore(take[mk], uc.firstChild);
+      }
+      // never leave a heading behind on the page above with its content
+      // stranded below - hand it back if that happened
+      var t2 = up.lastElementChild;
+      while (t2 && t2.offsetHeight === 0) t2 = t2.previousElementSibling;
+      if (t2 && headish0(t2) && uc.childElementCount &&
+          up.childElementCount > 1){
+        uc.insertBefore(t2, uc.firstChild);
+      }
+    }
+
+    // FINAL SWEEP - belt and braces on the keep-with-next rule.
+    // Whatever route a block took through the layout above, no page is
+    // allowed to END on a heading or a section band with its content on
+    // the next page: it reads as a broken report. Walk the finished
+    // sheets backwards and hand any trailing heading down to the top of
+    // the page that follows it. Repeated until nothing moves, so a run of
+    // headings travels together. (A. Fisher, 25 Jul 2026)
+    for (var pass = 0; pass < 4; pass++){
+      var moved = false;
+      for (var si = 0; si < sheets.length - 1; si++){
+        var here = sheets[si].content, nxt = sheets[si + 1].content;
+        var tail = here.lastElementChild;
+        while (tail && tail.offsetHeight === 0) tail = tail.previousElementSibling;
+        if (!tail || !isHeadish(tail)) continue;
+        if (here.childElementCount <= 1) continue;   // never leave it blank
+        nxt.insertBefore(tail, nxt.firstChild);
+        moved = true;
+      }
+      if (!moved) break;
+    }
+
+    // ...and the mirror: a page must never hold nothing but a one-line
+    // sign-off. Pull the block above it down to keep it company.
+    for (var sj = sheets.length - 1; sj > 0; sj--){
+      var cnt = sheets[sj].content;
+      var vis = [];
+      for (var ci = 0; ci < cnt.children.length; ci++)
+        if (cnt.children[ci].offsetHeight > 0) vis.push(cnt.children[ci]);
+      if (vis.length !== 1) continue;
+      if (('' + (vis[0].className || '')).indexOf('keepprev') < 0) continue;
+      var prev = sheets[sj - 1].content;
+      var take = prev.lastElementChild;
+      while (take && take.offsetHeight === 0) take = take.previousElementSibling;
+      if (!take || prev.childElementCount <= 1) continue;
+      if (take.offsetHeight > cnt.clientHeight * 0.6) continue;
+      cnt.insertBefore(take, cnt.firstChild);
+    }
+
+    // REBALANCE THE TAIL of a split table. A long table can fill one page
+    // exactly and leave its last few blocks - an Action Required band, a
+    // sign-off line - marooned on a page that is 85% white. It is not
+    // broken, but it reads as though the report gave up. So where a page
+    // is sparse and the page before it ends in a split table, hand rows
+    // back down until both pages carry a fair share. Whole rows only, the
+    // repeated header comes with them, and nothing ever overflows.
+    // (A. Fisher, 25 Jul 2026)
+    function fillOf(c){
+      var last = null;
+      for (var i = 0; i < c.children.length; i++)
+        if (c.children[i].offsetHeight > 0) last = c.children[i];
+      if (!last) return 0;
+      return (last.offsetTop + last.offsetHeight - c.offsetTop) / c.clientHeight;
+    }
+    function over(c){ return c.scrollHeight > c.clientHeight + 1; }
+    for (var ri = 1; ri < sheets.length; ri++){
+      var cc2 = sheets[ri].content;
+      if (fillOf(cc2) >= 0.45) continue;
+      if (startsSection(cc2)) continue;
+      var pc = sheets[ri - 1].content;
+      // find the last TABLE on the previous page, stepping back over any
+      // SMALL trailing blocks (a note, a legend) - those travel down with
+      // the rows so the tail page reads as one continuous section
+      var pTable = pc.lastElementChild, trailers = [];
+      while (pTable && (pTable.offsetHeight === 0 ||
+                        !/^TABLE$/i.test(pTable.tagName))){
+        if (pTable.offsetHeight > 0){
+          if (pTable.offsetHeight > 140 || trailers.length >= 3){ pTable = null; break; }
+          trailers.unshift(pTable);
+        }
+        pTable = pTable.previousElementSibling;
+      }
+      if (!pTable || !/^TABLE$/i.test(pTable.tagName)) continue;
+      for (var ti = trailers.length - 1; ti >= 0; ti--)
+        cc2.insertBefore(trailers[ti], cc2.firstChild);
+      if (over(cc2)){                       // put them back, nothing gained
+        for (var tj = 0; tj < trailers.length; tj++) pc.appendChild(trailers[tj]);
+        continue;
+      }
+      var pBody = (pTable.tBodies && pTable.tBodies.length) ? pTable.tBodies[0] : null;
+      if (!pBody || pBody.rows.length < 2) continue;
+      // Where the sparse page ALREADY opens with a continuation of this
+      // same table, feed the rows straight into it. Adding a second shell
+      // above it prints the column headers twice on one page, which reads
+      // as two different tables. (A. Fisher, 25 Jul 2026)
+      function headText(t){
+        return t && t.tHead ? t.tHead.textContent.replace(/\s+/g, ' ').trim() : '';
+      }
+      var shell2 = null, sBody = null, madeShell = false;
+      var f2 = cc2.firstElementChild;
+      while (f2 && f2.offsetHeight === 0) f2 = f2.nextElementSibling;
+      if (f2 && /^TABLE$/i.test(f2.tagName) && f2.tBodies && f2.tBodies.length &&
+          headText(f2) && headText(f2) === headText(pTable)){
+        shell2 = f2; sBody = f2.tBodies[0];
+      } else {
+        shell2 = pTable.cloneNode(false);
+        if (pTable.tHead) shell2.appendChild(pTable.tHead.cloneNode(true));
+        sBody = document.createElement('tbody'); shell2.appendChild(sBody);
+        cc2.insertBefore(shell2, cc2.firstChild);
+        madeShell = true;
+        if (over(cc2)){ cc2.removeChild(shell2); continue; }
+      }
+      var moved2 = 0;
+      while (pBody.rows.length > 1){
+        var row2 = pBody.rows[pBody.rows.length - 1];
+        sBody.insertBefore(row2, sBody.firstChild);
+        if (over(cc2)){ pBody.appendChild(row2); break; }
+        moved2++;
+        if (fillOf(cc2) >= 0.62 || fillOf(pc) < 0.55) break;
+      }
+      if (!moved2 && madeShell && shell2.parentNode)
+        shell2.parentNode.removeChild(shell2);
+    }
+
+    // any page left with nothing on it is removed outright
+    for (var sk = sheets.length - 1; sk >= 0; sk--){
+      var cc = sheets[sk].content, live = 0;
+      for (var cj = 0; cj < cc.children.length; cj++)
+        if (cc.children[cj].offsetHeight > 0) live++;
+      if (live === 0 && sheets[sk].sheet.parentNode){
+        sheets[sk].sheet.parentNode.removeChild(sheets[sk].sheet);
+        sheets.splice(sk, 1);
+      }
+    }
+
+    // stamp Page X of N on every header
+    for (var p = 0; p < sheets.length; p++){
+      var tags = sheets[p].panel.querySelectorAll('.pgnum');
+      for (var q = 0; q < tags.length; q++)
+        tags[q].textContent = 'Page ' + (p + 1) + ' of ' + sheets.length;
+    }
+
+    // #page=k -> show ONLY that sheet (how the email images are captured)
+    function applyHash(){
+      var m = (location.hash || '').match(/page=(\d+)/);
+      for (var s = 0; s < sheets.length; s++)
+        sheets[s].sheet.style.display =
+          (!m || s + 1 === parseInt(m[1], 10)) ? '' : 'none';
+      window.scrollTo(0, 0);
+    }
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+  }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script></body></html>
