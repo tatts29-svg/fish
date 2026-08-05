@@ -3009,6 +3009,12 @@ def _oversight_cc():
 _oversight_cc._memo = None
 
 
+#  Companies whose draft came out with an empty To: this run. Collected
+#  so the fix is explained once and the names are listed once, instead
+#  of the same paragraph nineteen times. (5 Aug sweep.)
+NO_TO_ADDRESS = []
+
+
 def emit_report(stem, title, company_line, body_html, hero, inner_email,
                 limits, subject, asof, generated, source_line,
                 report_tag="", pdf_attach_only=False, cc_extra="",
@@ -3059,10 +3065,19 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
         #  Said out loud, per company. An empty To: is a draft that
         #  cannot be sent without typing an address, and finding that
         #  out at 6am with nineteen of them open is not the moment.
-        print("  {}: no To: address in the book - add them to "
-              "Coates_Report_Recipients.xlsx (Company = {}, Reports = "
-              "{}, Include = Yes) or address the draft by hand."
-              .format(title, company, report_tag or "ALL"))
+        #
+        #  NAMED ONCE, EXPLAINED ONCE. The first cut printed the whole
+        #  how-to-fix paragraph nineteen times, which buries the one
+        #  line that matters under its own instructions.
+        NO_TO_ADDRESS.append((company, report_tag or "ALL"))
+        if len(NO_TO_ADDRESS) == 1:
+            print("  No To: address in the address book for these - each "
+                  "draft needs")
+            print("  one typed in before it can go. Add a row to "
+                  "Coates_Report_Recipients.xlsx")
+            print("  (Company, Reports, Include = Yes) and they address "
+                  "themselves from then on:")
+        print("     {}  ({})".format(company, report_tag or "ALL"))
     chart_cid = []
     _chart_at = 2
     if cc_extra:
