@@ -143,6 +143,9 @@ MINE = [
      'The branch view.', 1),
     ('Coates_K2_Flame_Off_Plant', 'Flame Off plant',
      'Every machine since Flame Off, worst idle first. Carries rates.', 1),
+    ('Coates_K2_Plant_Utilisation', 'Plant utilisation & the idle cost',
+     'How hard the fleet worked, what idle cost, and what to change '
+     'next job.', 1),
 ]
 
 GROUPS = [('FOR CEMENT AUSTRALIA', CLIENT,
@@ -174,6 +177,7 @@ MAKES = {
     'Coates_K2_Hidden_Items': '63_HIDDEN_ITEMS',
     'Coates_K2_Shutdown_Clock': '64_SHUTDOWN_CLOCK',
     'Coates_K2_Flame_Off_Plant': '66_RUN_FLAME_OFF_PLANT',
+    'Coates_K2_Plant_Utilisation': '81_PLANT_UTILISATION',
 }
 
 CSS = """
