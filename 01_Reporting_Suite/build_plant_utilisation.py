@@ -757,6 +757,31 @@ def build(date_tag=None):
     out_dir = os.path.join(HERE, 'Reports', date_tag, 'Pages')
     if not os.path.isdir(out_dir):
         os.makedirs(out_dir)
+    #  ---- A NEW ONE EVERY REFRESH -------------------------------------
+    #  Andrew, 5 Aug 2026: "can you do it so when we fresh a new one is
+    #  creted each time please."
+    #
+    #  Two files on purpose, and they are not a duplicate:
+    #
+    #    _<date>_<HHMM>.html   a NEW file every single refresh. This is
+    #                          the record - tonight's pull did not erase
+    #                          this morning's, so the two can be put
+    #                          side by side and the movement read off
+    #                          them.
+    #    _<date>.html          the CURRENT one, rewritten each time.
+    #                          The print hub, the phone shelf and every
+    #                          link he already has point here, and a
+    #                          timestamp in the name would break all of
+    #                          them.
+    #
+    #  Overwriting was the old behaviour and it quietly threw the
+    #  morning away - which on a day the fleet moved is the only copy
+    #  that could have shown it moving.
+    stamp = dt.datetime.now().strftime('%H%M')
+    keep = os.path.join(out_dir, 'Coates_K2_Plant_Utilisation_{}_{}.html'
+                        .format(date_tag, stamp))
+    with io.open(keep, 'w', encoding='utf-8') as fh:
+        fh.write(page)
     out = os.path.join(out_dir,
                        'Coates_K2_Plant_Utilisation_{}.html'.format(date_tag))
     with io.open(out, 'w', encoding='utf-8') as fh:
@@ -780,11 +805,15 @@ def build(date_tag=None):
                             'Flame_Off_Site_Plant_Utilisation_{}.xlsx'.format(
                                 day.strftime('%d%b%Y')))
         FP.write_xlsx(d, xlsx)
+        #  and a dated copy of the workbook, same reason as the page
+        FP.write_xlsx(d, os.path.join(
+            out_dir, 'Flame_Off_Site_Plant_Utilisation_{}_{}.xlsx'.format(
+                day.strftime('%d%b%Y'), stamp)))
     except Exception as exc:
         print('  ! workbook not refreshed ({}) - the page is still '
               'current'.format(str(exc)[:60]))
         xlsx = ''
-    return out, a, d, xlsx
+    return out, a, d, xlsx, keep
 
 
 def _verdict(bucket):
@@ -859,7 +888,7 @@ def main():
     print('=' * 68)
     print(' COATES | SITE PLANT UTILISATION')
     print('=' * 68)
-    out, a, d, xlsx = build()
+    out, a, d, xlsx, keep = build()
     b = a['buckets']
     print(' Fleet on hire  : {:.1f}%   ({:,} fleet-days out, {:,} idle)'
           .format(a['onhire_pct'], a['fleet_days_used'], a['fleet_days_idle']))
@@ -873,7 +902,10 @@ def main():
     print('   stood by     : {:>10}'.format(money(b['between'])))
     print(' Working spend  : {:>10}'.format(money(a['used_total'])))
     print('')
-    print(' Page           : ' + out)
+    print(' Page (current) : ' + out)
+    print(' This refresh   : ' + os.path.basename(keep))
+    print('                  (a new file every refresh - tonight does not '
+          'erase this morning)')
     if xlsx:
         print(' Workbook       : ' + xlsx)
         print('                  (same read as the page - they cannot '
