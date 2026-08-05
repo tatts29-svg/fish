@@ -298,6 +298,160 @@ footer{color:#4A5768;font-size:11.5px;line-height:1.8;margin-top:44px;
 """
 
 
+
+# ---------------------------------------------------------------------
+#  THE GRID, AS THE SPREADSHEET DRAWS IT
+#
+#  Andrew, 5 Aug 2026: "I want something to look visually the same as
+#  this."
+#
+#  Fair. The analysis above answers WHAT HAPPENED, but he has been
+#  reading the day grid for three weeks and knows where to look on it.
+#  A report that makes him learn a new shape to find a familiar fact is
+#  a worse report, however tidy.
+#
+#  So the grid is here too, and the colours are not "close enough" -
+#  they are lifted straight out of the workbook's own conditional
+#  formatting rules (dxf 0-3 in its styles.xml), which is why the two
+#  match on a screen side by side:
+#
+#      USED             #D9EAD3 on #274E13
+#      SITE PLANT       #D9EAF7 on #134F5C
+#      OFF / NOT SEEN   #F4CCCC on #990000
+#      NO DATA          #D9E1E8 on #666666
+#      header           #162536, white, bold
+#      row              #FFF4E8
+#
+#  Two things Excel gives you free that a web page has to be told: the
+#  header stays put when you scroll, and so does the asset you are
+#  reading along. Both are sticky here - lose either across 46 columns
+#  and you are back to counting cells with a finger.
+# ---------------------------------------------------------------------
+GRID_CSS = """
+.gridwrap{background:#FFF4E8;border:1px solid #26313F;border-radius:14px;
+ margin-top:14px;overflow:auto;max-height:78vh;position:relative}
+table.xl{border-collapse:separate;border-spacing:0;font-size:11.5px;
+ color:#0B1723;font-family:Calibri,"Segoe UI",Arial,sans-serif;
+ white-space:nowrap}
+table.xl th{background:#162536;color:#fff;font-weight:700;font-size:10px;
+ padding:6px 8px;text-align:left;position:sticky;top:0;z-index:3;
+ border-right:1px solid #24384E;line-height:1.25}
+table.xl th.day{text-align:center;min-width:36px}
+table.xl th.day i{display:block;font-style:normal;font-weight:400;
+ opacity:.75;font-size:9px}
+table.xl th.flame{background:#F26222}
+table.xl td{background:#FFF4E8;padding:5px 8px;
+ border-bottom:1px solid #EADFD0;border-right:1px solid #EADFD0}
+table.xl td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.xl td.st{text-align:center;font-size:9px;font-weight:700;padding:5px 4px}
+td.s-used{background:#D9EAD3;color:#274E13}
+td.s-plant{background:#D9EAF7;color:#134F5C}
+td.s-off{background:#F4CCCC;color:#990000}
+td.s-none{background:#D9E1E8;color:#666666}
+table.xl th.k1,table.xl td.k1{position:sticky;left:0;z-index:2;
+ min-width:118px;box-shadow:1px 0 0 #D9CBB8}
+table.xl th.k1{z-index:4}
+table.xl th.k2,table.xl td.k2{position:sticky;left:118px;z-index:2;
+ min-width:210px;box-shadow:1px 0 0 #D9CBB8}
+table.xl th.k2{z-index:4}
+td.util{position:relative;min-width:64px}
+td.util i{position:absolute;left:0;top:0;bottom:0;background:#BBD9F0;z-index:0}
+td.util span{position:relative;z-index:1}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.legend b{font-size:9.5px;font-weight:700;letter-spacing:.5px;
+ border-radius:4px;padding:5px 10px}
+"""
+
+
+def _au(v):
+    """Dates the way the workbook writes them - 22/07/2026, not
+    2026-07-22. He is comparing the two side by side; a different date
+    format is the first thing that makes a page look like somebody
+    else's."""
+    if not v:
+        return ''
+    if isinstance(v, (dt.date, dt.datetime)):
+        return v.strftime('%d/%m/%Y')
+    t = str(v).strip()[:10]
+    try:
+        return dt.datetime.strptime(t, '%Y-%m-%d').strftime('%d/%m/%Y')
+    except ValueError:
+        return t
+
+
+def grid_html(d):
+    """Every line, every day, the way the workbook shows it."""
+    rows = d.get('rows') or []
+    days = d.get('days') or []
+    if not rows or not days:
+        return ""
+    flame = None
+    for i, dd in enumerate(days):
+        if dd == dt.date(2026, 7, 24):
+            flame = i
+            break
+
+    head = ("<tr><th class='k1'>Asset No / Group</th>"
+            "<th class='k2'>Asset Description</th>"
+            "<th>Day Rate</th><th>Qty</th><th>Line Type</th>"
+            "<th>First Used</th><th>Last Used</th>"
+            "<th>Days Used</th><th>Days Site Plant</th>"
+            "<th>Utilisation %</th>")
+    for i, dd in enumerate(days):
+        n = (i - flame) if flame is not None else i
+        lab = 'FLAME OFF' if n == 0 else (('+' if n > 0 else '') + str(n))
+        head += "<th class='day{f}'>{l}<i>{v}</i></th>".format(
+            f=' flame' if n == 0 else '', l=lab, v=dd.strftime('%d/%m'))
+    head += "<th>Companies Using</th></tr>"
+
+    body = ""
+    for r in rows:
+        u = r.get('util') or 0
+        util = u * 100.0 if u <= 1 else u
+        body += ("<tr><td class='k1'>{k}</td><td class='k2'>{d}</td>"
+                 "<td class='num'>{rt}</td><td class='num'>{q}</td>"
+                 "<td>{ty}</td><td>{fu}</td><td>{lu}</td>"
+                 "<td class='num'>{du}</td><td class='num'>{dp}</td>"
+                 "<td class='num util'><i style='width:{uw:.0f}%'></i>"
+                 "<span>{u:.0f}%</span></td>").format(
+                     k=esc(r.get('key', '')), d=esc(r.get('desc', '')),
+                     rt='{:,.2f}'.format(r.get('rate') or 0),
+                     q=r.get('qty') or 0, ty=esc(r.get('type', '')),
+                     fu=esc(_au(r.get('firstUsed'))),
+                     lu=esc(_au(r.get('lastUsed'))),
+                     du=r.get('daysUsed') or 0, dp=r.get('daysPlant') or 0,
+                     uw=min(100.0, max(0.0, util)), u=util)
+        for st in (r.get('states') or []):
+            t = str(st)
+            if t.startswith('USED'):
+                cls, lab = 's-used', 'USED'
+            elif t.startswith('SITE'):
+                cls, lab = 's-plant', 'PLANT'
+            elif t.startswith('OFF'):
+                cls, lab = 's-off', 'OFF'
+            else:
+                cls, lab = 's-none', ''
+            #  The full state rides along as a tooltip - the grid shows a
+            #  word you can scan across 33 columns, the hover keeps the
+            #  detail the spreadsheet had the width for.
+            body += "<td class='st {c}' title='{t}'>{l}</td>".format(
+                c=cls, t=esc(t), l=lab)
+        emp = r.get('employers') or []
+        body += "<td>{}</td></tr>".format(esc(', '.join(emp)) if emp else '')
+
+    legend = ("<div class='legend'>"
+              "<b style='background:#D9EAD3;color:#274E13'>USED &mdash; out "
+              "with a crew</b>"
+              "<b style='background:#D9EAF7;color:#134F5C'>PLANT &mdash; on "
+              "the plant account, charged</b>"
+              "<b style='background:#F4CCCC;color:#990000'>OFF &mdash; not "
+              "on site</b>"
+              "<b style='background:#D9E1E8;color:#666666'>blank &mdash; no "
+              "data that day</b></div>")
+    return (legend + "<div class='gridwrap'><table class='xl'>"
+            + head + body + "</table></div>")
+
+
 def build(date_tag=None):
     import build_flame_off_plant as FP
     d = FP.collect()
@@ -423,6 +577,14 @@ def build(date_tag=None):
                         s=esc(item['save']), t=esc(item['title']),
                         b=item['body']))
 
+    #  ---- the grid, in the workbook's own colours ---------------------
+    html.append("<h2>Every line, every day</h2>")
+    html.append("<p>The same grid the workbook shows, in the same colours "
+                "&mdash; they are read out of the workbook's own formatting "
+                "rules rather than matched by eye. The asset and the header "
+                "stay put while you scroll across the days.</p>")
+    html.append(grid_html(d))
+
     html.append("<div class='note'><b>What this does not say.</b> A machine "
                 "that stood by all week for one lift did its job, and the "
                 "export cannot tell that from a machine nobody wanted. This "
@@ -459,7 +621,7 @@ def build(date_tag=None):
             "<meta name='viewport' content='width=device-width,"
             "initial-scale=1'>"
             "<title>Coates | Site Plant Utilisation &mdash; K2 2026</title>"
-            "<style>" + CSS + "</style></head><body><div class='wrap'>"
+            "<style>" + CSS + GRID_CSS + "</style></head><body><div class='wrap'>"
             + ''.join(html) + footer + "</div></body></html>")
 
     out_dir = os.path.join(HERE, 'Reports', date_tag, 'Pages')
