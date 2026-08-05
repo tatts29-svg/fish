@@ -143,6 +143,13 @@ SHELF = [
      'Where we are in the shut, and what is next.'),
     ('Coates_K2_Flame_Off_Plant', 'Flame Off plant',
      'Every machine since Flame Off, worst idle first.'),
+    #  Andrew, 5 Aug 2026: "where can i find this is this in my gear."
+    #  It was not - it carries rates, so it lived on the laptop only.
+    #  It travels the same way every other money report does: encrypted
+    #  under his code before it reaches the folder a phone can open.
+    ('Coates_K2_Plant_Utilisation', 'Plant utilisation & idle cost',
+     'How hard the fleet worked, what the idle cost, and what to change '
+     'next job.'),
 ]
 
 #  ALREADY IN Gear_Lookup AND NEVER LINKED. 62 writes its page straight

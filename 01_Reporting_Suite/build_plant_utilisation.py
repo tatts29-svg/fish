@@ -469,7 +469,30 @@ def build(date_tag=None):
                        'Coates_K2_Plant_Utilisation_{}.html'.format(date_tag))
     with io.open(out, 'w', encoding='utf-8') as fh:
         fh.write(page)
-    return out, a, d
+
+    #  ---- AND THE WORKBOOK, OFF THE SAME READ -------------------------
+    #  Andrew, 5 Aug 2026: "can we have the excel refresh too."
+    #
+    #  It always did - button 66 writes it - but off a SECOND call to
+    #  collect(). Two reads minutes apart on a morning when a pull lands
+    #  between them is two documents that disagree, and the one thing
+    #  worse than no utilisation figure is two of them.
+    #
+    #  So the workbook is written here from the DATA ALREADY IN HAND.
+    #  One read, one set of numbers, both files - and the page and the
+    #  spreadsheet cannot drift apart no matter which button is pressed.
+    xlsx = ''
+    try:
+        day = dt.datetime.strptime(date_tag, '%Y-%m-%d').date()
+        xlsx = os.path.join(out_dir,
+                            'Flame_Off_Site_Plant_Utilisation_{}.xlsx'.format(
+                                day.strftime('%d%b%Y')))
+        FP.write_xlsx(d, xlsx)
+    except Exception as exc:
+        print('  ! workbook not refreshed ({}) - the page is still '
+              'current'.format(str(exc)[:60]))
+        xlsx = ''
+    return out, a, d, xlsx
 
 
 def _verdict(bucket):
@@ -544,7 +567,7 @@ def main():
     print('=' * 68)
     print(' COATES | SITE PLANT UTILISATION')
     print('=' * 68)
-    out, a, d = build()
+    out, a, d, xlsx = build()
     b = a['buckets']
     print(' Fleet on hire  : {:.1f}%   ({:,} fleet-days out, {:,} idle)'
           .format(a['onhire_pct'], a['fleet_days_used'], a['fleet_days_idle']))
@@ -559,6 +582,10 @@ def main():
     print(' Working spend  : {:>10}'.format(money(a['used_total'])))
     print('')
     print(' Page           : ' + out)
+    if xlsx:
+        print(' Workbook       : ' + xlsx)
+        print('                  (same read as the page - they cannot '
+              'disagree)')
     print('')
     print(' COATES INTERNAL - it carries rates. Reports\\ only, never')
     print(' Gear_Lookup, and never to a contractor.')
