@@ -53,21 +53,27 @@ MANIFEST = os.path.join(THUMBS, 'RENDER_MANIFEST.txt')
 HARD_CAP = 96 * 1024
 
 
-#  THE LESSON OF 06 AUG 2026: the protection rule nearly protected a
-#  LIE. The "33 real photos" on this machine were one identical
-#  384x384 cartoon placeholder under 33 names - caught by the render
-#  production side, not by us - and the first cut of this installer
-#  would have defended every copy of it against a genuine render.
+#  THE TWO LESSONS OF 06 AUG 2026, in the order they were learned:
 #
-#  So protection is now EARNED, not assumed: before anything is
-#  protected, every existing thumb is hashed. A file whose bytes are
-#  identical to two or more other thumbs cannot be a photograph of a
-#  distinct tool - 33 different crowsfeet are not one file - and is
-#  treated as a placeholder: replaceable, and said out loud. The
-#  known placeholder is also named by hash. A REAL photo (distinct
-#  bytes) keeps full protection, exactly as before.
+#  1. The protection rule nearly protected a LIE. The "33 real photos"
+#     on this machine were one identical 384x384 cartoon placeholder
+#     under 33 names - caught by the render production side, not by
+#     us. Known placeholders are condemned BY HASH and replaced.
+#
+#  2. The first fix over-corrected. It treated ANY byte-identical
+#     thumbs as placeholders - and the approved release deliberately
+#     reuses one family master across size codes (649 files, 95
+#     distinct images, by design). Their correction stands: duplicate
+#     bytes do not prove a fake, and unique bytes do not prove a
+#     photograph. So identity is decided by EVIDENCE ONLY: the known
+#     placeholder hash list condemns, the render manifest records
+#     what came from drops, and everything else - duplicated or not -
+#     is protected, with duplicates flagged for a human to check with
+#     VERIFY_THUMBS_ARE_REAL / VERIFY_THUMBNAIL_RELEASE rather than
+#     silently judged by an heuristic that has already been wrong.
 KNOWN_PLACEHOLDER_SHA256 = {
-    '5797e41730a8',   # the 06 Aug cartoon "LAYOUT ONLY" stand-in
+    #  the 06 Aug cartoon "LAYOUT ONLY" stand-in, full hash
+    '5797e41730a8aa1a8a55ae639f73ba7eaa0c5c7cfb684eca6e4e83116126c61a',
 }
 
 
@@ -78,7 +84,7 @@ def _hashes():
     for p in glob.glob(os.path.join(THUMBS, '*.jpg')):
         with open(p, 'rb') as fh:
             out[os.path.basename(p)] = \
-                hashlib.sha256(fh.read()).hexdigest()[:12]
+                hashlib.sha256(fh.read()).hexdigest()
     dupes = {h for h, c in Counter(out.values()).items() if c >= 3}
     return out, dupes
 
@@ -135,11 +141,12 @@ def main():
     hashes, dupe_hashes = _hashes()
 
     def _is_placeholder(fname):
-        h = hashes.get(fname, '')
-        return h in KNOWN_PLACEHOLDER_SHA256 or h in dupe_hashes
+        #  Condemned by KNOWN HASH only - never by duplication, which
+        #  the approved family renders share by design.
+        return hashes.get(fname, '') in KNOWN_PLACEHOLDER_SHA256
 
     installed, refreshed, protected, rejected = [], [], [], []
-    replaced_ph = []
+    replaced_ph, dupe_note = [], []
     for zp in zips:
         try:
             zf = zipfile.ZipFile(zp)
@@ -174,14 +181,18 @@ def main():
             exists = os.path.isfile(dest)
             if exists and stem not in manifest:
                 if _is_placeholder(base):
-                    #  Not a photograph - identical bytes to other
-                    #  thumbs, or the known stand-in. A render is
+                    #  The known stand-in, by hash. A render is
                     #  strictly better than a placeholder.
                     replaced_ph.append(base)
                 else:
-                    #  THE RULE. Distinct bytes, no render history:
-                    #  a real photograph of our gear. Kept.
+                    #  THE RULE. No render history and not a known
+                    #  placeholder: treated as a real photograph of
+                    #  our gear, and kept. If its bytes match other
+                    #  thumbs it is flagged below for a human check -
+                    #  flagged, never judged.
                     protected.append(base)
+                    if hashes.get(base, '') in dupe_hashes:
+                        dupe_note.append(base)
                     continue
             if exists:
                 if not os.path.isdir(bdir):
@@ -204,9 +215,15 @@ def main():
         '  (previous copies in Thumbnail_Backups\\{}\\)'.format(stamp)
         if refreshed else ''))
     if replaced_ph:
-        print(' Replaced PLACEHOLDERS: {:,} - identical-bytes stand-ins,'
-              ' not photographs;'.format(len(replaced_ph)))
+        print(' Replaced PLACEHOLDERS: {:,} - the known stand-in, by '
+              'hash;'.format(len(replaced_ph)))
         print('     a render is strictly better (backups kept).')
+    if dupe_note:
+        print(' FLAGGED (kept)     : {:,} protected file(s) share bytes '
+              'with other thumbs.'.format(len(dupe_note)))
+        print('     Duplication proves nothing either way - run '
+              'VERIFY_THUMBS_ARE_REAL')
+        print('     and decide by eye. Nothing was changed.')
     print(' PROTECTED          : {:,} - real photos a render tried to '
           'replace'.format(len(protected)))
     for p in protected[:30]:
