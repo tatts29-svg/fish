@@ -1,0 +1,141 @@
+=====================================================================
+ COATES K2 REPORTING SUITE - THE HANDOVER
+ Cement Australia K2 Shutdown 2026 - Gladstone
+ Andrew Fisher | POWERED BY SITEIQ
+ Written 05 Aug 2026, before the final send-out. A new page starts
+ here: read this top to bottom and you know everything the last
+ three weeks learned the hard way.
+=====================================================================
+
+WHAT THIS SUITE IS
+  One folder (01_Reporting_Suite) that turns the morning's SiteIQ
+  exports into every report the K2 shutdown needs: company activity
+  packs, the exec summary, demob, consumables, stocktake, safety,
+  returns, the phone pages on the store Wi-Fi, and an Outlook draft
+  for every one of them. One button (00_RUN_EVERYTHING.bat) runs the
+  whole morning. NOTHING SENDS ITSELF - every email is a draft a
+  person reads and presses Send on.
+
+THE MORNING, IN ORDER
+  1. Save fresh SiteIQ exports into Data_SiteIQ\ (same names, over
+     the top). Close the K2 workbook in Excel.
+  2. Double-click 00_RUN_EVERYTHING.bat.
+  3. Everything lands in Reports\<today>\ - Pages, PDF, Emails,
+     Excel_Backups. The day's company packs land in
+     K2 DAILY REPORTING\01 COMPANY REPORTS\<company>\<today>.
+  4. The reports you SEND are the ones in Reports\<today> - open the
+     drafts, read them, send. Extra attachments come from
+     Reports\<today>\PDF.
+  5. Nothing goes to a client until CHECK_REPORTS says PASS.
+
+THE STANDING RULES - NEVER BEND THESE
+  * NO money, revenue or rates on anything served over the store
+    Wi-Fi. Money lives only behind the manager code, separately
+    encrypted (.k2m blobs, XOR/mulberry32 keyed from the code).
+  * Tracked and client-owned gear carries NO dollar figure anywhere.
+    Not even $0. A rate on gear that is not ours is not ours to print.
+  * Totals must SAY how many lines they left out - counting them as
+    nothing is a lie by omission. A cut list that says nothing is a
+    lie by omission too.
+  * One company's email NEVER names another contractor.
+  * The main Worker phone menu must not reach everything; anything
+    with money is manager-login only.
+  * Nothing sends itself. Drafts only.
+  * All work is committed and pushed to branch claude/new-session-kz0u8o
+    - never any other branch.
+
+THE EXPORT QUIRKS THAT COST US DAYS
+  * Every SiteIQ export (RENTAL_STOCK, ON_HIRE, TRANSACTIONS,
+    STOCKTAKE, SALES_STOCK, DAILY_SUMMARY) has a REFERENCE_INFO sheet
+    FIRST and the data on the SECOND sheet. Read sheet 2. The pull
+    timestamp lives on REFERENCE_INFO (REQUESTED_DATE/TIME) - use it,
+    exports pulled the same morning can be hours apart, and
+    departures.py depends on that ordering.
+  * Fleet_No = Item_Number; Serial_No is that item's serial
+    (Andrew, 3 Aug). Placeholder serials ("Coates1302153", "TBA") are
+    listed in SERIALS_TO_FIX.csv, they are not data.
+  * STOCKTAKE rows with STATUS "Pending Branch Receipt" + ACTION
+    "Departure" are gear that has LEFT SITE - departures.py builds the
+    index; a departure timestamped after the register pull wins, one
+    before it (on gear the register still lists) means it came back.
+
+THE PEOPLE AND ROUTING FACTS
+  * Two routing systems, deliberately separate:
+      Coates_Report_Recipients.xlsx -> recipients.py -> Reports\<d>\Emails
+      K2_Daily_Email_Report_Allocation.xlsx -> BUILD_DAILY_EMAIL_PACKS.py
+        -> K2 DAILY REPORTING\01 COMPANY REPORTS
+  * recipients.resolve(base, company, tag) - PASS THE COMPANY for
+    company reports. Passing "" silently drops every contact filed
+    under a company name. (Cost us 19 unaddressed drafts on 5 Aug.)
+  * FINISHED in recipients.py = companies done on site (Walz
+    Construction, ISH24). Matched by ADDRESS as well as company label,
+    so a finished crew cannot ride a site-wide "ALL" row back in.
+  * NO_PACK in k2_daily_packs.py = stood down (QWest Crane Hire,
+    4 Aug). TEST_DAILY_PACKS honours it and says so out loud.
+  * The 8th welder (SUBHARVEY002 / HGA014, SiteIQ 16816-590535-0001)
+    is a SUB-HIRED unit: charged from the branch, Baseplan stream.
+    ALL its costs run into August and show ONLY on the August
+    invoice. carry_forward() in build_baseplan_costs.py owns this.
+  * Filtercare and Industec share admin@industec.com.au - each can
+    read the other's gear. Decision pending with Andrew, NOT a code
+    change to make on your own.
+
+THE BUG CLASSES THAT KEEP COMING BACK
+  * .format() over a string containing CSS braces dies on
+    {box-sizing}. Keep braces and .format() in separate rooms.
+  * Non-raw Python strings eat escapes - r"" anything with
+    backslashes.
+  * Email clients do not render SVG. Outlook hands it to Word, which
+    draws NOTHING. Charts must go PNG via email_images.svg_to_png(),
+    inlined by Content-ID (add_related, never add_attachment).
+  * SVG text needs an explicit font-family or headless renderers draw
+    no axis labels at all - it looks like a design choice. It is not.
+  * Headless Chrome gives the page ~40px LESS than --window-size and
+    pads the screenshot white. svg_to_png() renders taller and crops
+    back (reserved_height() measures the exact gap per machine).
+  * Inside a <table>, only <tr> may follow </tr>. A loose <div> gets
+    hoisted OUT by the parser and draws outside the frame. _e_* row
+    helpers exist for exactly this.
+  * _e_note() escapes its LABEL (plain text) - "&mdash;" in a label
+    ships as literal text. Use the real character u"—".
+  * Local repo sometimes rolls back to an old commit on container
+    restart. Fix: git fetch origin claude/new-session-kz0u8o &&
+    git reset --hard FETCH_HEAD. Never rebuild history.
+
+THE PROOF SUITE - RUN ALL FOUR BEFORE ANYTHING GOES OUT
+  * python CHECK_REPORTS.py  - pages complete, drafts under 10 MB,
+    email bodies clean (stray blocks, double-escaped entities,
+    "1 items", missing alt text, empty To: lines).
+  * python TEST_DAILY_PACKS.py --date <today>  - every pack against
+    the routing workbook; 363 checks.
+  * python TEST_MY_GEAR_NAV.py  - all 148 phone-page navigations.
+  * compile sweep - all 105 modules must import clean.
+
+STILL OPEN WITH ANDREW
+  * 98 photos wanted - run MISSING_PICTURES on HIS machine (this one
+    is too thin to capture them).
+  * The Filtercare / Industec shared-address decision (above).
+  * Contacts: the address book has no per-company To: rows filled in
+    yet - every Activity draft names its company in the build output
+    until he fills Coates_Report_Recipients.xlsx in.
+  * Offered, not yet asked for: the six company-report improvements
+    from the option mock-ups (return-record-vs-site-average was the
+    strongest), pairing the chart card with the overdue list.
+
+WHERE THE BODIES ARE BURIED (files worth knowing cold)
+  build_company_onhire_report.py  every report + the email emitter
+                                  (emit_report, _e_* helpers)
+  activity_model.py / activity_report.py  the activity numbers and
+                                  the words - model computes, report
+                                  draws, NOTHING is computed twice
+  email_images.py                 browser captures, svg_to_png, the
+                                  10 MB limit, reserved_height
+  recipients.py / k2_daily_packs.py  who gets what
+  departures.py / hidden_stock.py / plant_life.py  the register truth
+  BUILD_MY_GEAR.py / mygear_store.py / page_style.py  the phone pages
+  CHECK_REPORTS.py / TEST_*.py    the proof suite
+
+=====================================================================
+ The section below is finished on the day of handover - the exact
+ state of the last build, so the new page starts from facts.
+=====================================================================
