@@ -271,6 +271,79 @@ def _blank_cards():
 # ---------------------------------------------------------------------
 #  3. BUILD - hirers first, company as the sum of them
 # ---------------------------------------------------------------------
+
+#  ---------------------------------------------------------------------
+#  THE SHUTDOWN CURVE
+#
+#  One line per company: how much of our gear they have been holding,
+#  every day from Flame Off to the planned end, with today marked and
+#  the run-down they need to be on to finish clear.
+#
+#  ANCHORED, NOT ACCUMULATED. Running the movements up from zero drifts
+#  - the transaction feed and the on-hire register do not reconcile to
+#  the item, and by day thirteen DGH's accumulated total was 140 against
+#  a real 233. A curve that ends on the wrong number is worse than no
+#  curve, because the last point is the one somebody reads.
+#
+#  So the SHAPE comes from the movements, which is what they are good
+#  for, and the curve is scaled so its last point is exactly what the
+#  register says they are holding today. The daily in/out bars are raw
+#  counts and are not scaled at all.
+#
+#  Returns [] when there is nothing to draw - no movements, or nothing
+#  on hire - and the report simply leaves the chart out.
+#  ---------------------------------------------------------------------
+def _curve(moves, still_now, today):
+    try:
+        import shutdown_day as SD
+        flame = SD.FLAME_OFF
+    except Exception:
+        flame = dt.date(2026, 7, 24)
+    end = None
+    try:
+        import io as _io, os as _os
+        p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)),
+                          'shutdown_end.txt')
+        end = dt.datetime.strptime(
+            _io.open(p, encoding='utf-8').read().strip(), '%Y-%m-%d').date()
+    except Exception:
+        end = flame + dt.timedelta(days=18)
+    if not moves or end <= flame:
+        return []
+
+    out = defaultdict(int)
+    back = defaultdict(int)
+    for m in moves:
+        if m.get("start"):
+            out[m["start"]] += 1
+        if m.get("end"):
+            back[m["end"]] += 1
+
+    days = [flame + dt.timedelta(days=i)
+            for i in range((end - flame).days + 1)]
+    held, raw = 0, []
+    for d in days:
+        held += out.get(d, 0) - back.get(d, 0)
+        raw.append(max(0, held))
+
+    past = [i for i, d in enumerate(days) if d <= today]
+    if not past:
+        return []
+    last = raw[past[-1]] or 0
+    scale = (float(still_now) / last) if last else 0.0
+
+    rows = []
+    for i, d in enumerate(days):
+        rows.append({
+            "d": d,
+            "future": d > today,
+            "held": (raw[i] * scale) if (scale and d <= today) else None,
+            "out": out.get(d, 0),
+            "back": back.get(d, 0),
+        })
+    return rows
+
+
 def build(models, today=None, window=None, hirer_id_for=None,
           exclude_company=None, movements=None, damage=None):
     """models: the existing {company: model} dict from the on-hire report.
@@ -383,7 +456,14 @@ def build(models, today=None, window=None, hirer_id_for=None,
         for i, h in enumerate(hirers, 1):
             h["n"] = i
             h["of"] = len(hirers)
-        companies.append(_company(co, hirers, dmg.get(norm_co(co), []), today))
+        c_model = _company(co, hirers, dmg.get(norm_co(co), []), today)
+        #  THE SHUTDOWN CURVE - what this company took, gave back, and is
+        #  still holding, day by day. (Andrew, 5 Aug 2026, on seeing the
+        #  mockup: "love option a".)
+        c_model["curve"] = _curve(
+            [m for k in set(by_company[co]) for m in mv.get((co, k), [])],
+            c_model["cards"]["still"], today)
+        companies.append(c_model)
 
     companies.sort(key=lambda c: (-c["cards"]["still"], c["display"].upper()))
     return {"period": (w0, w1), "companies": companies,

@@ -602,6 +602,153 @@ def hirer_page(h, period, company):
 # ---------------------------------------------------------------------
 #  the whole document body for one company
 # ---------------------------------------------------------------------
+
+# ---------------------------------------------------------------------
+#  WHERE YOU ARE IN THE SHUT  (Andrew, 5 Aug 2026: "love option a")
+#
+#  Flame Off on the left, the planned end on the right, today marked,
+#  and four things on one picture:
+#
+#    the blue area   how much of our gear they are holding
+#    orange bars     what went out that day
+#    green bars      what came back that day
+#    the amber dash  the run-down to finish clear by the planned end
+#
+#  THE AMBER LINE IS ARITHMETIC, NOT A FORECAST. Items on hire divided
+#  by days left. It is on here because a contractor who sees "39 a day"
+#  on the 5th behaves differently to one who is told on the 10th, and
+#  by then it is our problem to solve, not his.
+#
+#  IT PRINTS. These reports go out as PDFs and get printed, so the SVG
+#  carries no dark background of its own and the page's print rules
+#  turn the ink black. The per-day counts live in <title> tooltips,
+#  which do not exist on paper - so nothing that matters is ONLY in a
+#  tooltip. The numbers a person acts on are in the strip underneath.
+#
+#  No money. These leave Coates.
+# ---------------------------------------------------------------------
+def shut_curve_html(co, today=None):
+    rows = co.get("curve") or []
+    if not rows:
+        return ""
+    today = today or dt.date.today()
+    held = [r for r in rows if r["held"] is not None]
+    if not held:
+        return ""
+    still = co["cards"]["still"]
+    peak = max([r["held"] for r in held] + [still, 1])
+    maxbar = max([max(r["out"], r["back"]) for r in rows] + [1])
+
+    W, H, L, R, T, B = 980, 286, 52, 20, 24, 42
+    pw, ph = W - L - R, H - T - B
+    n = len(rows)
+    step = pw / float(n - 1) if n > 1 else pw
+    top = peak * 1.16
+    X = lambda i: L + i * step
+    Y = lambda v: T + ph - (ph * v / top)
+    BS = top / (maxbar * 2.6)
+
+    g = ["<svg viewBox='0 0 {} {}' width='100%' role='img' aria-label="
+         "'Gear on hire from Flame Off to the planned end'>".format(W, H)]
+    for k in range(5):
+        v = top * k / 4.0
+        y = Y(v)
+        g.append("<line x1='{}' y1='{:.1f}' x2='{}' y2='{:.1f}' "
+                 "stroke='{}' stroke-width='1'/>".format(L, y, W - R, y, LINE))
+        g.append("<text x='{}' y='{:.1f}' fill='{}' font-size='10' "
+                 "text-anchor='end' dominant-baseline='middle'>{:.0f}</text>"
+                 .format(L - 7, y, MUTED, v))
+    bw = max(2.0, step * 0.34)
+    for i, r in enumerate(rows):
+        if r["out"]:
+            y = Y(r["out"] * BS)
+            g.append("<rect x='{:.1f}' y='{:.1f}' width='{:.1f}' "
+                     "height='{:.1f}' fill='{}' opacity='.5' rx='1'>"
+                     "<title>{}: {} went out</title></rect>".format(
+                         X(i) - bw - 1, y, bw, T + ph - y, ORANGE,
+                         r["d"].strftime('%d %b'), r["out"]))
+        if r["back"]:
+            y = Y(r["back"] * BS)
+            g.append("<rect x='{:.1f}' y='{:.1f}' width='{:.1f}' "
+                     "height='{:.1f}' fill='{}' opacity='.5' rx='1'>"
+                     "<title>{}: {} came back</title></rect>".format(
+                         X(i) + 1, y, bw, T + ph - y, GOOD,
+                         r["d"].strftime('%d %b'), r["back"]))
+    pts = " ".join("{:.1f},{:.1f}".format(X(i), Y(r["held"]))
+                   for i, r in enumerate(rows) if r["held"] is not None)
+    i_t = max(i for i, r in enumerate(rows) if r["held"] is not None)
+    g.append("<polygon points='{} {:.1f},{:.1f} {:.1f},{:.1f}' fill='{}' "
+             "opacity='.15'/>".format(pts, X(i_t), T + ph, L, T + ph, BLUE))
+    g.append("<polyline points='{}' fill='none' stroke='{}' "
+             "stroke-width='2.5'/>".format(pts, BLUE))
+    if i_t < n - 1:
+        g.append("<line x1='{:.1f}' y1='{:.1f}' x2='{:.1f}' y2='{:.1f}' "
+                 "stroke='{}' stroke-width='2' stroke-dasharray='6 5'/>"
+                 .format(X(i_t), Y(still), X(n - 1), Y(0), AMBER))
+    g.append("<circle cx='{:.1f}' cy='{:.1f}' r='5' fill='{}' "
+             "stroke='{}' stroke-width='2'/>".format(
+                 X(i_t), Y(still), BLUE, CARD))
+    g.append("<text x='{:.1f}' y='{:.1f}' fill='{}' font-size='12' "
+             "font-weight='700' text-anchor='end'>{} on hire today</text>"
+             .format(X(i_t) - 9, Y(still) - 10, INK, still))
+    for i, r in enumerate(rows):
+        lab = ''
+        if i == 0:
+            lab, col, anc = 'FLAME OFF', ORANGE, 'start'
+        elif r["d"] == today:
+            lab, col, anc = 'TODAY', BLUE, 'middle'
+        elif i == n - 1:
+            lab, col, anc = 'PLANNED END', AMBER, 'end'
+        if lab:
+            g.append("<line x1='{:.1f}' y1='{}' x2='{:.1f}' y2='{:.1f}' "
+                     "stroke='{}' stroke-width='1.5' stroke-dasharray='3 3' "
+                     "opacity='.85'/>".format(X(i), T, X(i), T + ph, col))
+            g.append("<text x='{:.1f}' y='{}' fill='{}' font-size='9.5' "
+                     "font-weight='700' text-anchor='{}'>{}</text>".format(
+                         X(i), T - 8, col, anc, lab))
+        if i % 2 == 0:
+            g.append("<text x='{:.1f}' y='{}' fill='{}' font-size='9' "
+                     "text-anchor='middle'>{}</text>".format(
+                         X(i), H - B + 16, MUTED, r["d"].strftime('%d/%m')))
+    g.append("</svg>")
+
+    left = (rows[-1]["d"] - today).days
+    per = int(round(still / float(left))) if left > 0 and still else 0
+    tiles = [(str(still), 'on hire right now'),
+             (str(max(0, left)), 'days to the planned end'),
+             (str(per) if per else '-', 'a day to finish clear'),
+             (str(co["n_hirers"]), 'of your people holding gear')]
+    strip = "".join(
+        "<div style='flex:1;min-width:118px;padding:12px 14px'>"
+        "<div style='font-size:24pt;font-weight:800;line-height:1;color:{c}'>"
+        "{v}</div><div style='color:{m};font-size:9.5pt;margin-top:5px'>{l}"
+        "</div></div>".format(
+            c=(AMBER if i == 0 else (BAD if i == 2 and per else INK)),
+            v=v, l=l, m=MUTED) for i, (v, l) in enumerate(tiles))
+
+    return (
+        "<div class='card curvecard'>"
+        "<h2>Where you are in the shut</h2>"
+        "<div class='cap'>Flame Off to the planned end, and everything "
+        "your crew has taken and given back along the way.</div>"
+        + "".join(g) +
+        "<div style='display:flex;gap:14px;flex-wrap:wrap;color:" + MUTED +
+        ";font-size:9.5pt;margin-top:10px'>"
+        "<span><b style='color:" + BLUE + "'>&#9632;</b> On hire</span>"
+        "<span><b style='color:" + ORANGE + "'>&#9632;</b> Went out</span>"
+        "<span><b style='color:" + GOOD + "'>&#9632;</b> Came back</span>"
+        "<span><b style='color:" + AMBER + "'>&#9632;</b> Clearing by the "
+        "planned end</span></div>"
+        "<div style='display:flex;flex-wrap:wrap;margin-top:14px;border:1px "
+        "solid " + LINE + ";border-radius:10px;overflow:hidden'>" + strip +
+        "</div>"
+        + (("<div class='note' style='margin-top:12px'><b>" + str(per) +
+            " a day</b> is what clearing by the planned end looks like from "
+            "here. It is arithmetic, not a target &mdash; " + str(still) +
+            " items over " + str(left) + " days.</div>") if per else "")
+        + "</div>")
+
+
 def all_clear_html(co, period):
     """THE COMPANY THAT HAS NOTHING LEFT ON HIRE.
 
@@ -676,8 +823,8 @@ def all_clear_html(co, period):
 
 
 def render(co, period):
-    body = all_clear_html(co, period) + company_page(co, period) \
-        + EC.store_story_html()
+    body = (all_clear_html(co, period) + company_page(co, period)
+            + shut_curve_html(co) + EC.store_story_html())
     for h in co["hirers"]:
         body += hirer_page(h, period, co["display"])
     return body
