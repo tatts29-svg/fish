@@ -823,8 +823,14 @@ def all_clear_html(co, period):
 
 
 def render(co, period):
+    #  THE SHUT CURVE IS BUILT BUT NOT WIRED IN HERE. Andrew, 5 Aug
+    #  2026: "how about we leave it out of there. give me a sec" - he
+    #  has another place in mind for it. shut_curve_html() and the
+    #  model's curve data are both intact and cost nothing sitting
+    #  here, so putting it wherever he lands on is one line, not a
+    #  rebuild. Add + shut_curve_html(co) back to turn it on.
     body = (all_clear_html(co, period) + company_page(co, period)
-            + shut_curve_html(co) + EC.store_story_html())
+            + EC.store_story_html())
     for h in co["hirers"]:
         body += hirer_page(h, period, co["display"])
     return body
