@@ -10543,6 +10543,24 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
     print(" Author: Andrew Fisher | POWERED BY SITEIQ")
     print("=" * 62)
 
+    #  WHO IS NOT BEING EMAILED, AND WHY. A company that silently stops
+    #  receiving reports looks exactly like a company that got
+    #  forgotten, so the run names them every time rather than leaving
+    #  it to somebody's memory.
+    try:
+        import recipients as _R
+        _fin = _R.finished_note()
+        if _fin:
+            print(" Finished on site - not addressed on any report:")
+            for _line in _fin:
+                print("   " + _line)
+            print("   Their rows stay in the book for damage claims and "
+                  "invoice queries.")
+            print("   Take the line out of FINISHED in recipients.py and "
+                  "they are back.")
+    except Exception:
+        pass
+
     global MASTER
     MASTER = master_equipment.load(KIT_DIR)
     # Same one file drives the compliance badges - bind it once here and

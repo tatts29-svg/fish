@@ -26,8 +26,80 @@
 
 import os
 import glob
+import re
 
 _CACHE = {}
+
+
+#  ---- COMPANIES THAT HAVE FINISHED ON SITE ---------------------------
+#  Andrew, 5 Aug 2026: "yes finished with walz and ish24."
+#
+#  NOT DELETED FROM THE BOOK, AND ON PURPOSE. Their rows stay exactly
+#  where they are - names, addresses, who was who - because a demob is
+#  not the end of the paperwork. A damage claim, a missing item or an
+#  invoice query weeks from now needs the contact, and hunting it back
+#  out of a deleted spreadsheet row is how those go unanswered.
+#
+#  What stops is the addressing: nothing is drafted TO them again. The
+#  build says so by name every run rather than quietly leaving them out,
+#  because a company that silently stops receiving reports looks
+#  identical to a company that was forgotten - and one of those is a
+#  problem.
+#
+#  Take a line out and they are back on the next run.
+#
+#  company (as the book spells it) -> (why, who said so and when)
+FINISHED = {
+    "Walz Construction": ("Finished on site", "Andrew Fisher, 5 Aug 2026"),
+    "ISH24": ("Finished on site", "Andrew Fisher, 5 Aug 2026"),
+}
+
+
+def _key(s):
+    return re.sub(r"\s+", " ", str(s or "")).strip().lower()
+
+
+_FINISHED_KEYS = {_key(k): v for k, v in FINISHED.items()}
+
+
+def is_finished(company):
+    """(why, who) if this company has demobbed, else None."""
+    return _FINISHED_KEYS.get(_key(company))
+
+
+_FIN_EMAIL_CACHE = {}
+
+
+def _finished_emails(base_dir):
+    """Every address the book files under a finished company.
+
+    Read once off the book itself rather than typed here, so the day a
+    demobbed contractor's address changes there is nothing to keep in
+    step. Empty set when nobody has finished."""
+    if not FINISHED:
+        return set()
+    key = os.path.abspath(base_dir or ".")
+    if key in _FIN_EMAIL_CACHE:
+        return _FIN_EMAIL_CACHE[key]
+    out = set()
+    try:
+        for r in _load_book(base_dir):
+            if is_finished(r["company"]):
+                e = r["email"].strip().lower()
+                if e:
+                    out.add(e)
+    except Exception:
+        out = set()
+    _FIN_EMAIL_CACHE[key] = out
+    return out
+
+
+def finished_note():
+    """One honest line per demobbed company, for the run to print."""
+    if not FINISHED:
+        return []
+    return ["{} - {} ({})".format(n, w, who)
+            for n, (w, who) in sorted(FINISHED.items())]
 
 
 def _load_book(base_dir):
@@ -97,10 +169,28 @@ def resolve(base_dir, company="", report=""):
     company = the company the report is about ('' for site-wide reports);
     report  = the report tag (COMPANY, EXEC, DEMOB, ...)."""
     to, cc = [], []
+    #  A company that has finished on site is not addressed again -
+    #  neither on its own report nor by riding a blanket ALL row.
+    if company and is_finished(company):
+        return "", ""
     internal = str(report).upper() in INTERNAL_TAGS
     personal = str(report).upper() in PERSONAL_TAGS
     for r in _load_book(base_dir):
         comp = (r["company"] or "").strip()
+        #  ...and their people do not get site-wide reports either.
+        #
+        #  Checking the row's own company is not enough, and this very
+        #  nearly shipped: the book files a person under their company
+        #  for COMPANY/DEMOB, and AGAIN under "ALL" for SAFETY. Skipping
+        #  the company rows alone left Walz's man on the site-wide
+        #  safety pack - a contractor who has left the job still being
+        #  sent the whole site's overdue gear. So the addresses are
+        #  matched, not just the labels.
+        if _finished_emails(base_dir) and (
+                r["email"].strip().lower() in _finished_emails(base_dir)):
+            continue
+        if is_finished(comp):
+            continue
         comp_ok = comp == "" or comp.upper() == "ALL" or (
             bool(company) and comp.upper() == str(company).upper())
         if not comp_ok:
