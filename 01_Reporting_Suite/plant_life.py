@@ -261,6 +261,49 @@ def build(base=None, master=None):
             elif when:
                 sighted[item] = (when, act, by)
 
+    #  ---- IS IT REALLY GONE? ------------------------------------------
+    #  Andrew, 5 Aug 2026, on the store search saying nothing about
+    #  departed gear. Fixing that turned up the mirror image here.
+    #
+    #  The rule above is "any LAST_SIGHTED_ACTION starting with depart".
+    #  That is too loose on its own: on 5 Aug it called six assets
+    #  departed that were still sitting on the register, because gear
+    #  that goes out and comes back keeps a departure stamp behind it.
+    #  Telling a storeman a machine went home when it is on the shelf is
+    #  the same class of wrong as saying nothing when it really has.
+    #
+    #  departures.py already settles this properly - it checks the
+    #  status AND the action, and it compares the departure time against
+    #  when the register was pulled, because the two exports are taken
+    #  hours apart. So ask it rather than keep a second, looser copy of
+    #  the rule here that can drift away from it.
+    #
+    #  Best effort: if it cannot answer, nothing is dropped and this
+    #  behaves exactly as it always did.
+    try:
+        import departures as _dep
+        #  include_hidden: a held line's LIFECYCLE is still a fact.
+        _live = _dep.load(on_register=_dep.on_register_keys(),
+                          include_hidden=True)
+        if _live:
+            _dropped = [k for k in departed if _dep._key(k) not in _live]
+            for k in _dropped:
+                del departed[k]
+            if _dropped:
+                #  Say what they ARE, not just what they are not. Every
+                #  one of these is a consumable whose status now reads
+                #  In Stock or Stock Low - it carries an old departure
+                #  stamp and is back on the shelf.
+                print('  Plant life: {} line(s) carry an old departure stamp '
+                      'but their status'.format(len(_dropped)))
+                print('              now says they are back in stock - not '
+                      'called departed.')
+                print('              ({}{})'.format(
+                    ', '.join(sorted(_dropped)[:5]),
+                    ' ...' if len(_dropped) > 5 else ''))
+    except Exception:
+        pass
+
     def iso(d):
         return d.isoformat() if d else ""
 

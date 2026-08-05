@@ -2742,8 +2742,19 @@ function goNow(){
       +'<a href="crew.html" style="color:#7FB1C8;font-weight:800">'
       +'Who&rsquo;s got what &rsaquo;</a>');
      return}
-   idState('bad','<b>That ID is not on the register.</b> Check the '
-   +'number on your site card, or ask at the window &mdash; two metres away.');
+   /*  BEFORE THE SHRUG: DID HE JUST TYPE A MACHINE THAT WENT HOME?
+       (Andrew, 5 Aug 2026.) This box takes a person's card number, but
+       an asset number is the other number a bloke has in his hand, and
+       plenty get typed here. The old answer - "That ID is not on the
+       register" - is the worst possible wording for that: "the
+       register" is exactly what a storeman calls the fleet list, so a
+       true statement about PERSON IDs reads as a false one about his
+       gear. If the stocktake says it departed, say that instead.  */
+   var dg=(typeof myGone==='function') ? myGone(id) : '';
+   if(dg){ idState('warn', dg); return}
+   idState('bad','<b>That is not a card number on the register.</b> This '
+   +'box takes the ID off your site card &mdash; not an asset number. '
+   +'Check the card, or ask at the window, two metres away.');
    return}
  var p;try{p=JSON.parse(dec(id,blob))}catch(e){
    idState('bad','<b>That record would not open.</b> Show this at the window.');
@@ -3071,7 +3082,61 @@ function gfilt(lane){
     bs[j].className='gl '+(bs[j].getAttribute('data-l')==='all'?'':bs[j].getAttribute('data-l'))
       +(bs[j].getAttribute('data-l')===GLANE?' on':'');
   var none=document.getElementById('gnone');
-  if(none) none.hidden=(shown>0);
+  if(none){
+    none.hidden=(shown>0);
+    /*  IT MIGHT NOT BE A TYPO - IT MIGHT HAVE GONE HOME.
+        (Andrew, 5 Aug 2026.) This is where a bloke looks for his OWN
+        gear by the number on the sticker, so it is the likeliest place
+        somebody types an asset that has already gone back to the
+        branch. "Nothing in your gear matches that" is true and useless;
+        the stocktake knows the day it left and who signed it off.  */
+    if(!none.hidden){
+      var gq=(document.getElementById('gitq')||{value:''}).value;
+      var gg=(typeof myGone==='function') ? myGone(gq) : '';
+      none.innerHTML = gg || ('Nothing in your gear matches that. '
+        + 'Try part of the name or the item number — or ask at the '
+        + 'window.');
+    }
+  }
+}
+/*  The same GONE index the store search uses - built by departures.py
+    off the stocktake, never inferred from an absence. Kept to one
+    match here on purpose: a man looking through his own kit wants the
+    thing he typed, not a list of everything the site sent back.  */
+function myGone(raw){
+  if(typeof GONE==='undefined' || !GONE || !GONE.items || !GONE.items.length)
+    return '';
+  var q=String(raw||'').trim();
+  if(q.length<3) return '';
+  var hit=null, K=q.toUpperCase();
+  if(GONE.keys && GONE.keys[K]!==undefined) hit=GONE.items[GONE.keys[K]];
+  if(!hit){
+    var ql=q.toLowerCase();
+    for(var i=0;i<GONE.items.length;i++){
+      var it=GONE.items[i];
+      if(((it.d||'')+' '+(it.k||'')).toLowerCase().indexOf(ql)>=0){ hit=it; break; }
+    }
+  }
+  if(!hit) return '';
+  var w=hit.w||'', m=/^(\d{2})\/(\d{2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2}))?/.exec(w);
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var when=w;
+  if(m){
+    when=String(parseInt(m[1],10))+' '+MON[parseInt(m[2],10)-1]+' '+m[3];
+    if(m[4]!==undefined){
+      var h=parseInt(m[4],10), ap=h<12?'am':'pm';
+      when+=' at '+((h%12)||12)+':'+m[5]+ap;
+    }
+  }
+  function e(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  return '<b style="color:#F5A623;display:block">That one has gone back '
+    + 'to the branch.</b>' + e(hit.d||hit.k)
+    + (hit.k?' <span style="opacity:.7">'+e(hit.k)+'</span>':'')
+    + '<br>Departed ' + e(when)
+    + (hit.y?' &middot; signed off by '+e(hit.y):'')
+    + '<br><span style="opacity:.8">It is off your list because it is off '
+    + 'site &mdash; nothing for you to bring back.</span>';
 }
 var RVN_IO=null;
 function rvNav(){

@@ -140,17 +140,25 @@ def pulled_at(path):
 _CACHE = None
 
 
-def load(path=None, on_register=None):
+def load(path=None, on_register=None, include_hidden=False):
     """Everything that has gone back to the branch.
 
     on_register: item numbers / barcodes STILL in RENTAL_STOCK. A row
     in that set is dropped ONLY if it departed before the register was
     pulled - see the note at the check itself. Pass None to skip it.
 
+    include_hidden: HIDING IS A DISPLAY DECISION, DEPARTING IS A FACT.
+    The store search must never mention a held line, so it takes the
+    default and hidden gear is filtered out. Anything working out an
+    asset's LIFECYCLE - plant_life.py - wants the truth regardless of
+    whether the line is on the board, or a hidden item that genuinely
+    went home gets quietly recorded as still being here.
+
     Returns {KEY: record} where KEY is both the SKU and the barcode, so
     a bloke can type either one off the sticker."""
     global _CACHE
-    if _CACHE is not None and path is None and on_register is None:
+    if (_CACHE is not None and path is None and on_register is None
+            and not include_hidden):
         return _CACHE
 
     out = {}
@@ -198,8 +206,9 @@ def load(path=None, on_register=None):
             unit = _txt(cell(r, 'STORAGE_UNIT'))
             #  A held line is not a departed line. It is on the shelf
             #  and kept off the board on purpose.
-            if hidden_stock and (hidden_stock.hidden(sku, unit)
-                                 or hidden_stock.hidden(bar, unit)):
+            if (not include_hidden) and hidden_stock and (
+                    hidden_stock.hidden(sku, unit)
+                    or hidden_stock.hidden(bar, unit)):
                 continue
             #  STILL ON THE REGISTER? Then it depends WHEN it left.
             #
@@ -241,7 +250,7 @@ def load(path=None, on_register=None):
         #  A broken stocktake tells the board nothing. It must never be
         #  able to take the store search down.
         return {}
-    if path is None and on_register is None:
+    if path is None and on_register is None and not include_hidden:
         _CACHE = out
     return out
 

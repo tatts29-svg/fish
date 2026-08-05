@@ -224,6 +224,20 @@ def main(pages):
         #  anywhere. These are the real walks: in, deeper, back out.
         # ------------------------------------------------------------
         def go(page):
+            #  DRAIN ANY QUEUED UNWIND FIRST.
+            #
+            #  k2DetShut() does not call history.back() itself - it
+            #  QUEUES one through k2Unwind's setTimeout, so the unwind
+            #  can still be cancelled if the user goes somewhere else.
+            #  Navigate in that same tick and the queued back() lands on
+            #  top of the goto and kills it: Chromium reports
+            #  net::ERR_ABORTED and the run dies at whatever page came
+            #  next. That is this harness racing itself - a human cannot
+            #  tap inside a 0ms timer - but a test that falls over on
+            #  its own timing is a test nobody trusts.
+            #
+            #  One tick before we move is all it takes. (5 Aug 2026.)
+            pg.wait_for_timeout(60)
             pg.goto("file://" + os.path.join(GL, page + ".html"),
                     wait_until="load", timeout=90000)
             pg.wait_for_timeout(900)
