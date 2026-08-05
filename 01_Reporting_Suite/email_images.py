@@ -601,8 +601,26 @@ def svg_to_png(svg, out_path, width=760, height=None, bg="#FFFFFF"):
     #  rest white - the first cut of this produced a chart in the top
     #  half of a blank picture. Asking for a big window and sizing the
     #  SVG to fill it gives the same sharpness with none of that.
+    #
+    #  ASK FOR A TALLER WINDOW THAN YOU NEED. --window-size sets the
+    #  WINDOW, and the page gets the window minus the browser's own
+    #  furniture - about 40px even headless. The screenshot still comes
+    #  back the full window height, padded white, so a chart asked for
+    #  at exactly its own height loses its bottom 40px and gains 40px of
+    #  blank: the whole date axis along the bottom of the shut curve
+    #  vanished, in every email and every PDF, and looked like a design
+    #  choice. Found 5 Aug 2026 by cropping the bottom off a PNG that
+    #  was already going out and finding nothing in it.
+    #
+    #  So: render tall, then cut the padding back off. No Pillow means
+    #  no crop, and the extra strip is white on a white email body -
+    #  ugly by a few pixels, never missing an axis again.
+    #  reserved_height() already measures this exact gap on this exact
+    #  machine, once a run - it was written for the page captures in
+    #  July and this function simply never asked it.
+    PAD = max(reserved_height(browser), 120) + 24
     argv = [browser, "--headless=new", "--disable-gpu",
-            "--window-size={},{}".format(int(width), int(height)),
+            "--window-size={},{}".format(int(width), int(height) + PAD),
             "--default-background-color=FFFFFFFF",
             "--screenshot=" + out_path,
             "--user-data-dir=" + _fresh_profile("svg")] + _extra() + \
@@ -615,9 +633,17 @@ def svg_to_png(svg, out_path, width=760, height=None, bg="#FFFFFF"):
             os.remove(src)
         except OSError:
             pass
-    if os.path.isfile(out_path) and os.path.getsize(out_path) > 0:
-        return out_path
-    return None
+    if not (os.path.isfile(out_path) and os.path.getsize(out_path) > 0):
+        return None
+    if _pillow():
+        try:
+            from PIL import Image
+            im = Image.open(out_path)
+            if im.size[1] > int(height):
+                im.crop((0, 0, im.size[0], int(height))).save(out_path)
+        except Exception:
+            pass
+    return out_path
 
 
 def frame_html(inner, width=794, title="", before="", after="",
@@ -721,10 +747,21 @@ def images_stack(cids, width=794):
     cleanly onto the screen. They were shown at 800 for a while, which
     stretched every pixel fractionally: that is the blur A. Fisher
     called out on 25 Jul 2026."""
+    #  ALT TEXT, BECAUSE OUTLOOK BLOCKS PICTURES ON FIRST OPEN. Until
+    #  the reader clicks "download pictures" this email is the alt text
+    #  and nothing else - and it had none, so a page-image report opened
+    #  as a stack of empty boxes with no clue what was in them. It says
+    #  which page it is and where the same thing is on paper. (5 Aug
+    #  sweep.)
+    n = len(cids)
     imgs = "".join(
-        "<img src='cid:{c}' width='{w}' style='width:100%;max-width:{w}px;"
-        "display:block;margin:0 auto;border:0;outline:none;"
-        "text-decoration:none;'>".format(c=c, w=width) for c in cids)
+        "<img src='cid:{c}' width='{w}' alt='{a}' style='width:100%;"
+        "max-width:{w}px;display:block;margin:0 auto;border:0;"
+        "outline:none;text-decoration:none;'>".format(
+            c=c, w=width,
+            a="Report page {} of {} - if the pages have not loaded, click "
+              "Download Pictures at the top of this email".format(i, n))
+        for i, c in enumerate(cids, 1))
     return ("<table role='presentation' width='100%' cellpadding='0' "
             "cellspacing='0' border='0' style='width:100%;'>"
             "<tr><td style='padding:0;font-size:0;line-height:0;'>{imgs}"

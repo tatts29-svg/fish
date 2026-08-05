@@ -293,13 +293,17 @@ def _blank_cards():
 #  Returns [] when there is nothing to draw - no movements, or nothing
 #  on hire - and the report simply leaves the chart out.
 #  ---------------------------------------------------------------------
-def _curve(moves, still_now, today):
+def shut_window():
+    """(Flame Off, planned end). Pulled out of _curve on 5 Aug 2026 so
+    the four figures under the chart can be worked out even when there
+    is no chart - Cleanaway's movements net to zero by today, so the
+    curve cannot be drawn, but "8 on hire, 13 days to go" is still true
+    and still worth saying."""
     try:
         import shutdown_day as SD
         flame = SD.FLAME_OFF
     except Exception:
         flame = dt.date(2026, 7, 24)
-    end = None
     try:
         import io as _io, os as _os
         p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)),
@@ -308,6 +312,11 @@ def _curve(moves, still_now, today):
             _io.open(p, encoding='utf-8').read().strip(), '%Y-%m-%d').date()
     except Exception:
         end = flame + dt.timedelta(days=18)
+    return flame, end
+
+
+def _curve(moves, still_now, today):
+    flame, end = shut_window()
     if not moves or end <= flame:
         return []
 

@@ -248,9 +248,36 @@ def run_builder(args, expect_zero=True):
 # =====================================================================
 #  PART 1 + 2 - every pack, against the workbook
 # =====================================================================
+def no_pack_reasons():
+    """Companies the builder is TOLD not to build a pack for, and why.
+
+    Andrew stood QWest Crane Hire down on 4 Aug 2026 and the builder
+    honours it - but this test still walked the routing workbook, which
+    lists them, and failed three checks a day for a pack that was never
+    meant to exist. A test that fails for the right reason is fine; this
+    one was failing for a decision.
+
+    The reason is read from k2_daily_packs, not copied here, so the day
+    somebody clears NO_PACK the test starts demanding the pack again on
+    its own. Anything skipped is PRINTED - a silent exemption is how a
+    company stops getting reports and nobody notices."""
+    try:
+        import k2_daily_packs as _K
+        return dict(getattr(_K, "NO_PACK", {}) or {})
+    except Exception:
+        return {}
+
+
 def verify_packs(root, wbk, date_tag):
     disp = dt.datetime.strptime(date_tag, "%Y-%m-%d").strftime("%d %b %Y")
-    companies = wbk["companies"]
+    skip = no_pack_reasons()
+    companies = [c for c in wbk["companies"] if c["company"] not in skip]
+    for _co, _why in sorted(skip.items()):
+        print("  NOTE  {} is stood down - {} ({}). No pack is expected "
+              "for them and none is checked.".format(
+                  _co, _why[0] if isinstance(_why, (tuple, list)) else _why,
+                  _why[1] if isinstance(_why, (tuple, list))
+                  and len(_why) > 1 else "reason on file"))
     fixed = set(wbk["fixed_cc"])
     seen_to = {}
     identities = {}

@@ -129,6 +129,91 @@ def scan(path):
     return hits
 
 
+# ---------------------------------------------------------------------
+#  THE EMAIL BODY ITSELF
+#
+#  Andrew, 5 Aug 2026: "a deep deep sweep through the emails... every
+#  is 110% accuarte its clean and tidy its presentable."
+#
+#  Everything below was found by reading nineteen finished drafts by
+#  hand. Every one of them was a real defect that had already gone out
+#  or was about to, and not one of them would have failed a single check
+#  in this file - the pages were complete, the numbers were filled in
+#  and the drafts were under the size limit. So they get their own pass.
+#
+#  These are cheap string checks on purpose. The point is not to be
+#  clever, it is to make sure the same four things can never quietly
+#  come back.
+# ---------------------------------------------------------------------
+#  A tag that is not a row, sitting where only a row is legal. The
+#  parser hoists it out of the table and the block draws somewhere else
+#  entirely - which is what happened to the shut curve, in eleven
+#  drafts, for a day.
+STRAY_ROW = re.compile(r"</tr>\s*<(?!tr\b|/?tbody\b|/?thead\b|/table\b)"
+                       r"([a-zA-Z]+)")
+#  "&amp;mdash;" means an HTML entity was escaped a second time and the
+#  reader sees "&mdash;" as words. Andrew caught one of these himself.
+DOUBLE_ESC = re.compile(r"&amp;(?:[a-zA-Z]+|#\d+);")
+#  "1 items", "1 hirers". The first sentence of a client email said
+#  exactly this.
+PLURAL_1 = re.compile(r"(?<![\d,.])1\s+(items|hirers|people|persons|days|"
+                      r"assets|returns|companies|pages|crews)\b")
+#  An inline picture with nothing to say when Outlook blocks it.
+NO_ALT = re.compile(r"<img\s(?![^>]*\balt=)[^>]*src=['\"]cid:", re.I)
+
+
+def scan_email_body(path):
+    """One draft's HTML body, read the way a client reads it."""
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            raw = f.read()
+    except Exception as e:
+        return [("unreadable", str(e), 0)]
+    hits = []
+    for m in STRAY_ROW.finditer(raw):
+        hits.append(("stray block", "<{}> loose in a table".format(
+            m.group(1)), 0))
+    for m in DOUBLE_ESC.finditer(raw):
+        hits.append(("entity as text", m.group(0), 0))
+    for m in NO_ALT.finditer(raw):
+        hits.append(("picture, no alt", "inline image", 0))
+    words = " ".join(TAG.sub(" ", raw).split())
+    for m in PLURAL_1.finditer(words):
+        hits.append(("reads wrong", m.group(0), 0))
+    return hits
+
+
+def scan_email_drafts(emails):
+    """Every draft's body, plus the one thing only the .eml can answer:
+    is there anybody in the To: line."""
+    out = {}
+    for p in sorted(emails):
+        body = p[:-4] + ".body.html"
+        if os.path.isfile(body):
+            h = scan_email_body(body)
+            if h:
+                out[p] = h
+    return out
+
+
+def drafts_without_to(emails):
+    """A draft with an empty To: cannot be sent without typing an
+    address in, and nineteen of them at 6am is not the moment to find
+    that out. Reported, never guessed at - the address book is his."""
+    import email as _email
+    import email.policy as _pol
+    out = []
+    for p in sorted(emails):
+        try:
+            with open(p, "rb") as fh:
+                m = _email.message_from_binary_file(fh, policy=_pol.default)
+        except Exception:
+            continue
+        if not (m.get("To") or "").strip():
+            out.append(p)
+    return out
+
+
 def folders():
     """Today's output, wherever the suite put it."""
     out, today = [], time.strftime("%Y-%m-%d")
@@ -198,13 +283,57 @@ def main():
         if mb > MAX_EMAIL_MB:
             heavy.append((p, mb))
 
-    if not bad and not heavy:
+    #  The drafts, read the way a client reads them.
+    body_bad = scan_email_drafts(emails)
+    no_to = drafts_without_to(emails)
+    if no_to:
         print("")
-        print(" PASS - every number on every page came out filled in, and")
-        print(" every email draft is under the {:.0f} MB safe-send limit."
-              .format(MAX_EMAIL_MB))
-        print(" Safe to send.")
+        print(" {} draft(s) have nobody in the To: line. They are not "
+              "broken -".format(len(no_to)))
+        print(" the address book simply has no contact filed for them, so "
+              "each one")
+        print(" needs an address typed in before it can go:")
+        for p in no_to[:12]:
+            print("   " + os.path.basename(p))
+        if len(no_to) > 12:
+            print("   ... and {} more".format(len(no_to) - 12))
+        print(" Fill in Coates_Report_Recipients.xlsx (Company, Reports, "
+              "Include = Yes)")
+        print(" and every one of them addresses itself from then on.")
+
+    if body_bad:
+        print("")
+        print(" *** {} PRESENTATION PROBLEM(S) IN {} EMAIL BODY/BODIES ***"
+              .format(sum(len(v) for v in body_bad.values()), len(body_bad)))
+        for p in sorted(body_bad):
+            print("")
+            print("   " + os.path.basename(p))
+            seen = {}
+            for kind, what, _ln in body_bad[p]:
+                seen[(kind, what)] = seen.get((kind, what), 0) + 1
+            for (kind, what), n in sorted(seen.items(), key=lambda x: -x[1]):
+                print("      {:<16} {:<28} x{}".format(kind, what[:28], n))
+        print("")
+        print(" These do not stop a send - they are what the client sees "
+              "when it")
+        print(" lands. A stray block draws outside the frame, an entity as "
+              "text")
+        print(" prints '&mdash;' in the middle of a sentence, a picture "
+              "with no")
+        print(" alt is an empty box until they click Download Pictures, "
+              "and")
+        print(" 'reads wrong' is a singular counted as a plural.")
+
+    if not bad and not heavy and not body_bad:
+        print("")
+        print(" PASS - every number on every page came out filled in, "
+              "every email")
+        print(" draft is under the {:.0f} MB safe-send limit, and every "
+              "body reads".format(MAX_EMAIL_MB))
+        print(" clean. Safe to send.")
         return 0
+    if body_bad and not bad and not heavy:
+        return 1
 
     if heavy:
         print("")

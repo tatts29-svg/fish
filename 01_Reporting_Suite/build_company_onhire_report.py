@@ -3012,7 +3012,7 @@ _oversight_cc._memo = None
 def emit_report(stem, title, company_line, body_html, hero, inner_email,
                 limits, subject, asof, generated, source_line,
                 report_tag="", pdf_attach_only=False, cc_extra="",
-                chart_svg=""):
+                chart_svg="", chart_stats="", company="", intro_html=""):
     """Shared emitter: PDF + framed email + native-draft manifest.
 
     pdf_attach_only is THE COMPANY EMAIL RULE (Andrew, 28 Jul 2026):
@@ -3046,8 +3046,25 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
     # The report itself, pasted into the email body as images in order -
     # same look as the Cost Tracking Snapshot email. If no browser is on
     # this machine, fall back to the framed summary body as before.
-    r_to, r_cc = recipients.resolve(KIT_DIR, "", report_tag)
+    #  THE COMPANY COLUMN IN THE ADDRESS BOOK WAS DEAD ON COMPANY
+    #  EMAILS. resolve() takes the company the report is about and
+    #  matches rows filed under it - and every caller here passed "".
+    #  So a contact entered against "DGH Engineering" with Reports =
+    #  ACTIVITY was on file, looked correct in the book, and was never
+    #  added to a single draft. Nineteen company emails were addressed
+    #  from the ALL rows only. Found in the 5 Aug sweep by reading the
+    #  To: line of the finished drafts instead of the code.
+    r_to, r_cc = recipients.resolve(KIT_DIR, company, report_tag)
+    if company and not r_to:
+        #  Said out loud, per company. An empty To: is a draft that
+        #  cannot be sent without typing an address, and finding that
+        #  out at 6am with nineteen of them open is not the moment.
+        print("  {}: no To: address in the book - add them to "
+              "Coates_Report_Recipients.xlsx (Company = {}, Reports = "
+              "{}, Include = Yes) or address the draft by hand."
+              .format(title, company, report_tag or "ALL"))
     chart_cid = []
+    _chart_at = 2
     if cc_extra:
         r_cc = ", ".join(x for x in (r_cc, cc_extra) if x)
     if pdf_attach_only:
@@ -3065,7 +3082,18 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
                 os.remove(leftover)
             except OSError:
                 pass
-        inner_email = ([_e_intro(
+        #  Where the chart goes: after everything the report itself had
+        #  to say about the position, before the store notes. Inserting
+        #  at a fixed index used to drop it between the headline and the
+        #  paragraph explaining the headline. (5 Aug sweep.)
+        _chart_at = 1 + len(list(inner_email))
+        #  THE OPENING LINE HAS TO FIT THE COMPANY IT OPENS. The one
+        #  below is written for a crew holding gear: "a page for each of
+        #  your people", "reckon something has already come back?". A
+        #  company that returned the lot got it word for word, which
+        #  reads like a template that has not looked at the report under
+        #  it. Callers who know better pass their own. (5 Aug sweep.)
+        inner_email = ([_e_intro(intro_html or
             "G'day team &mdash; thanks for looking after the gear. "
             "Here's your position at a glance, and <b>your full report "
             "is attached as a PDF</b> &mdash; every number, and a page "
@@ -3152,17 +3180,44 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
     if chart_cid:
         #  Straight after the position paragraph, before the sign-off -
         #  the picture explains the numbers they have just read.
-        inner.insert(min(2, len(inner)),
-                     "<div style='margin:18px 0 6px'>"
-                     "<div style='font-size:10pt;font-weight:800;"
-                     "letter-spacing:1.4px;text-transform:uppercase;"
-                     "color:#F26222;margin-bottom:8px'>Where you are in "
-                     "the shut</div>"
-                     "<img src='cid:shutcurve' width='700' "
-                     "style='width:100%;max-width:700px;height:auto;"
-                     "display:block;border:1px solid #E3E6EB;"
-                     "border-radius:8px' alt='Gear on hire from Flame Off "
-                     "to the planned end'></div>")
+        #
+        #  A ROW, NOT A LOOSE DIV. This block used to be a bare <div>
+        #  dropped between a </tr> and the next <tr>. That is not legal
+        #  inside a table and no browser keeps it there: the HTML parser
+        #  foster-parents it OUT, so the chart drew above the orange
+        #  frame instead of inside the email, and Word's renderer -
+        #  which is what Outlook on Windows uses - is entitled to drop
+        #  it entirely. Found in the 5 Aug sweep, in every draft that
+        #  had a chart. (11 of 19.)
+        block = ('<tr><td style="padding:16px 20px 0 20px;">'
+                 '<div style="{f}font-size:10px;letter-spacing:1.6px;'
+                 'text-transform:uppercase;color:{o};font-weight:bold;'
+                 'padding-bottom:6px;">Where you are in the shut</div>'
+                 '<img src="cid:shutcurve" width="652" '
+                 'style="width:100%;max-width:652px;height:auto;'
+                 'display:block;border:1px solid #e3e6eb;'
+                 'border-radius:8px;" alt="{alt}">'
+                 '<div style="{f}font-size:9px;color:#777777;'
+                 'padding-top:6px;">'
+                 '<span style="color:#2F80ED;font-weight:bold;">&#9632;</span>'
+                 ' On hire &nbsp; '
+                 '<span style="color:{o};font-weight:bold;">&#9632;</span>'
+                 ' Went out &nbsp; '
+                 '<span style="color:#3FB950;font-weight:bold;">&#9632;</span>'
+                 ' Came back &nbsp; '
+                 '<span style="color:#F2B01E;font-weight:bold;">&#9632;</span>'
+                 ' Clearing by the planned end'
+                 '</div></td></tr>').format(
+                     f=_F, o=COATES_ORANGE,
+                     alt=esc("Gear on hire from Flame Off to the planned "
+                             "end - the figures are repeated underneath"))
+        inner.insert(min(_chart_at, len(inner)), block + chart_stats)
+    elif chart_stats:
+        #  The figures earn their place on their own. Three companies
+        #  hold gear whose movement history nets to zero by today, so
+        #  there is no honest shape to draw - and they were the ones
+        #  getting the plainest email of the nineteen.
+        inner.insert(min(_chart_at, len(inner)), chart_stats)
     body = _e_frame("COATES - " + title.upper(), company_line, meta, hero,
                     ''.join(inner), limits)
     msg = email.message.EmailMessage(policy=email.policy.SMTP)
@@ -9896,6 +9951,33 @@ def _e_note(html_text, bold_lead=""):
             'color:#555555;">{l}{t}</td></tr>').format(f=_F, l=lead, t=html_text)
 
 
+def _e_stat_strip(tiles):
+    """Four figures across, Outlook-safe (a table, not flexbox - Word's
+    renderer draws no flexbox at all and would stack them into a column).
+
+    These exist so the email still says the thing when the picture does
+    not load. Outlook blocks images on first open for plenty of
+    corporate mailboxes; without this the chart is a grey box and the
+    email has just lost its point."""
+    if not tiles:
+        return ""
+    w = int(round(100.0 / len(tiles)))
+    cells = "".join(
+        '<td width="{w}%" align="center" valign="top" style="{f}'
+        'padding:10px 6px;border-left:{bl};">'
+        '<div style="font-size:22px;font-weight:bold;line-height:1;'
+        'color:{c};">{v}</div>'
+        '<div style="font-size:9px;color:#777777;padding-top:4px;">{l}</div>'
+        '</td>'.format(w=w, f=_F, c=col, v=esc(str(v)), l=esc(lab),
+                       bl=("1px solid #e6e6e6" if i else "none"))
+        for i, (v, lab, col) in enumerate(tiles))
+    return ('<tr><td style="padding:8px 20px 0 20px;"><table '
+            'role="presentation" width="100%" cellpadding="0" cellspacing="0" '
+            'style="border:1px solid #e6e6e6;border-radius:8px;'
+            'border-collapse:separate;"><tr>' + cells + '</tr></table>'
+            '</td></tr>')
+
+
 def _e_intro(html_text):
     return ('<tr><td style="padding:12px 20px 0 20px;"><table '
             'role="presentation" width="100%" cellpadding="0" cellspacing="0">'
@@ -10819,19 +10901,34 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
             body = activity_report.render(co, am["period"])
             slug = re.sub(r"[^A-Za-z0-9]+", "_", co["display"]).strip("_").upper()
             c = co["cards"]
+            _n = activity_report.n_of
+            #  THE FOUR FIGURES UNDER THE CHART. Same numbers the chart
+            #  draws, in words, so a blocked image costs a picture and
+            #  not the message. None of them are money.
+            _cn = activity_report.shut_curve_numbers(co)
+            _strip = ""
+            if _cn and c["still"]:
+                _strip = _e_stat_strip([
+                    ("{:,}".format(_cn["still"]), "on hire right now",
+                     "#F2B01E"),
+                    ("{:,}".format(_cn["left"]), "days to the planned end",
+                     COATES_DARK),
+                    (_cn["per_label"], "a day to finish clear",
+                     "#F85149" if _cn["per"] else COATES_DARK),
+                    ("{:,}".format(_cn["people"]),
+                     "of your people holding gear", COATES_DARK)])
             emit_report(
                 "Coates_K2_Activity_{}_{}".format(slug, date_tag),
                 "Equipment Activity & Accountability",
                 co["display"], body,
-                "{h} hirers &bull; {i} issued &bull; {r} returned &bull; "
-                "{s} still on hire".format(h=co["n_hirers"], i=c["issued"],
-                                           r=c["returned"], s=c["still"]),
-                [_e_note(esc(
-                    "{} hirers, {} items issued and {} returned this period. "
-                    "{} items are still on hire. Every hirer has their own "
-                    "page in the attached pack.".format(
-                        co["n_hirers"], c["issued"], c["returned"],
-                        c["still"])), "The position.")],
+                #  "1 hirers &bull; 1 issued" went out to Aestec like
+                #  that. The hero line is the biggest text in the email.
+                "{h} &bull; {i} issued &bull; {r} returned &bull; "
+                "{s} still on hire".format(
+                    h=_n(co["n_hirers"], "hirer"), i=c["issued"],
+                    r=c["returned"], s=c["still"]),
+                [_e_note(html, lead) for lead, html
+                 in activity_report.email_position(co, am["period"])],
                 "Activity from the SiteIQ transaction export for the period "
                 "shown; on-hire position from the rental register. "
                 "Consumables are usage data and are never counted as "
@@ -10842,7 +10939,9 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                     co["display"]),
                 asof, generated, source_line, report_tag="ACTIVITY",
                 pdf_attach_only=True, cc_extra=_oversight_cc(),
-                chart_svg=activity_report.shut_curve_svg(co))
+                chart_svg=activity_report.shut_curve_svg(co),
+                chart_stats=_strip, company=co["display"],
+                intro_html=activity_report.email_intro(co))
         if _no_activity:
             print("  Activity & Accountability: {} company/companies had "
                   "NOBODY at the counter".format(len(_no_activity)))
