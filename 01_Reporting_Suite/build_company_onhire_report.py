@@ -2838,6 +2838,14 @@ def generate_consumables(sales, sales_loaded, asof, generated, source_line,
     body = email_consumables_html(cm, asof, generated or dt.datetime.now(),
                                   sales_loaded)
     msg.add_alternative(body, subtype="html")
+    if chart_cid and os.path.isfile(chart_cid[0]):
+        #  related, not attached - inline with a Content-ID so it draws
+        #  in the body and does not show up on the paperclip beside the
+        #  PDF looking like a second document.
+        with open(chart_cid[0], "rb") as _cf:
+            msg.get_payload()[1].add_related(
+                _cf.read(), maintype="image", subtype="png",
+                cid="<shutcurve>", disposition="inline")
     if os.path.isfile(attach_path):
         with open(attach_path, "rb") as f:
             data = f.read()
@@ -3003,7 +3011,8 @@ _oversight_cc._memo = None
 
 def emit_report(stem, title, company_line, body_html, hero, inner_email,
                 limits, subject, asof, generated, source_line,
-                report_tag="", pdf_attach_only=False, cc_extra=""):
+                report_tag="", pdf_attach_only=False, cc_extra="",
+                chart_svg=""):
     """Shared emitter: PDF + framed email + native-draft manifest.
 
     pdf_attach_only is THE COMPANY EMAIL RULE (Andrew, 28 Jul 2026):
@@ -3038,6 +3047,7 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
     # same look as the Cost Tracking Snapshot email. If no browser is on
     # this machine, fall back to the framed summary body as before.
     r_to, r_cc = recipients.resolve(KIT_DIR, "", report_tag)
+    chart_cid = []
     if cc_extra:
         r_cc = ", ".join(x for x in (r_cc, cc_extra) if x)
     if pdf_attach_only:
@@ -3064,12 +3074,35 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
             "we'll run the same-day double-check return so your list "
             "stays right.")]
             + list(inner_email)
+            + [_e_note(
+                "Every phone on site can see the tool store. Scan the QR "
+                "on the store window and <b>My Gear</b> opens &mdash; what "
+                "we stock, which aisle it lives in, how many are on the "
+                "shelf and how many are already out, with a photo and the "
+                "tag colour it has to carry. No app, no login, no data "
+                "&mdash; it runs off the store's own Wi-Fi. Your "
+                "supervisors can see their own crew's gear on it too. "
+                "Rather have it on paper? Ask at the counter and we will "
+                "print your list, or any part of it, while you wait.",
+                "My Gear &mdash; and print-outs at the counter.")]
             + [_e_note("Thanks for doing your bit &mdash; it keeps the "
                        "whole site moving. Care Deeply &middot; Customer "
                        "Focused &middot; Be Our Best &middot; One Team "
                        "&middot; Competitive Spirit",
                        "One team.")])
         imgs = []
+        #  THE CHART GOES IN THE BODY, NOT ON THE PAPERCLIP.
+        #  (Andrew, 5 Aug 2026: "what about we do it with this in the
+        #  email itself.") The body is what people read; the attachment
+        #  is what they might open. Rendered to PNG because no email
+        #  client draws SVG - Outlook hands it to Word, which draws
+        #  nothing at all, so it would be a blank hole in the one place
+        #  it matters. No browser on the machine = no chart, and every
+        #  other part of the email is untouched.
+        if chart_svg:
+            _png = os.path.join(EMAILS_DIR, stem + "_chart.png")
+            if email_images.svg_to_png(chart_svg, _png, width=760):
+                chart_cid.append(_png)
     else:
         imgs = email_images.capture_report_images(html_path, EMAILS_DIR,
                                                   stem)
@@ -3108,8 +3141,23 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
     if EMAIL_ONLY and not pdf_ok:
         pdf_ok = html_to_pdf(html_path, pdf_path)
         attach_path = pdf_path if pdf_ok else html_path
+    inner = list(inner_email)
+    if chart_cid:
+        #  Straight after the position paragraph, before the sign-off -
+        #  the picture explains the numbers they have just read.
+        inner.insert(min(2, len(inner)),
+                     "<div style='margin:18px 0 6px'>"
+                     "<div style='font-size:10pt;font-weight:800;"
+                     "letter-spacing:1.4px;text-transform:uppercase;"
+                     "color:#F26222;margin-bottom:8px'>Where you are in "
+                     "the shut</div>"
+                     "<img src='cid:shutcurve' width='700' "
+                     "style='width:100%;max-width:700px;height:auto;"
+                     "display:block;border:1px solid #E3E6EB;"
+                     "border-radius:8px' alt='Gear on hire from Flame Off "
+                     "to the planned end'></div>")
     body = _e_frame("COATES - " + title.upper(), company_line, meta, hero,
-                    ''.join(inner_email), limits)
+                    ''.join(inner), limits)
     msg = email.message.EmailMessage(policy=email.policy.SMTP)
     msg["Subject"] = subject
     if r_to:
@@ -3120,6 +3168,15 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
     msg.set_content("This report is best viewed in HTML. The PDF is "
                     "attached.\n")
     msg.add_alternative(body, subtype="html")
+    if chart_cid and os.path.isfile(chart_cid[0]):
+        #  RELATED, not attached. An inline Content-ID draws the chart in
+        #  the body; add_attachment would hang it off the paperclip next
+        #  to the PDF looking like a second document nobody asked for.
+        with open(chart_cid[0], "rb") as _cf:
+            msg.get_payload()[1].add_related(
+                _cf.read(), maintype="image", subtype="png",
+                cid="<shutcurve>", disposition="inline",
+                filename="shut-curve.png")
     if os.path.isfile(attach_path):
         with open(attach_path, "rb") as f:
             data = f.read()
@@ -10777,7 +10834,8 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                 "Coates K2 - {} - Equipment Activity & Accountability".format(
                     co["display"]),
                 asof, generated, source_line, report_tag="ACTIVITY",
-                pdf_attach_only=True, cc_extra=_oversight_cc())
+                pdf_attach_only=True, cc_extra=_oversight_cc(),
+                chart_svg=activity_report.shut_curve_svg(co))
         if _no_activity:
             print("  Activity & Accountability: {} company/companies had "
                   "NOBODY at the counter".format(len(_no_activity)))

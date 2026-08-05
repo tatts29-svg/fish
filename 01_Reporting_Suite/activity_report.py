@@ -627,7 +627,7 @@ def hirer_page(h, period, company):
 #
 #  No money. These leave Coates.
 # ---------------------------------------------------------------------
-def shut_curve_html(co, today=None):
+def shut_curve_svg(co, today=None):
     rows = co.get("curve") or []
     if not rows:
         return ""
@@ -655,9 +655,19 @@ def shut_curve_html(co, today=None):
         y = Y(v)
         g.append("<line x1='{}' y1='{:.1f}' x2='{}' y2='{:.1f}' "
                  "stroke='{}' stroke-width='1'/>".format(L, y, W - R, y, LINE))
-        g.append("<text x='{}' y='{:.1f}' fill='{}' font-size='10' "
-                 "text-anchor='end' dominant-baseline='middle'>{:.0f}</text>"
-                 .format(L - 7, y, MUTED, v))
+    #  NO NUMBERS ON THIS AXIS, AND ON PURPOSE.
+    #
+    #  The curve's shape comes from the movement feed and its scale is
+    #  set by ONE point - what they hold today. That anchors the end of
+    #  the line exactly, which is the number people read, but it also
+    #  stretches everything behind it: DGH's peak came out near 850
+    #  when they hold 233 now, and I cannot stand behind 850 as a count
+    #  of anything. A gridline with a number on it is a claim.
+    #
+    #  So the gridlines stay as a sense of scale and the numbers come
+    #  off. What the chart asserts is the SHAPE (real), the daily bars
+    #  (raw counts, unscaled), and today's figure (straight off the
+    #  register). Everything it asserts, it can prove.
     bw = max(2.0, step * 0.34)
     for i, r in enumerate(rows):
         if r["out"]:
@@ -711,7 +721,30 @@ def shut_curve_html(co, today=None):
                      "text-anchor='middle'>{}</text>".format(
                          X(i), H - B + 16, MUTED, r["d"].strftime('%d/%m')))
     g.append("</svg>")
+    return "".join(g)
 
+
+def shut_curve_numbers(co, today=None):
+    """The four figures under the chart - the ones that survive print
+    and the ones an email needs even if the picture does not load."""
+    rows = co.get("curve") or []
+    if not rows:
+        return None
+    today = today or dt.date.today()
+    still = co["cards"]["still"]
+    left = (rows[-1]["d"] - today).days
+    per = int(round(still / float(left))) if left > 0 and still else 0
+    return {"still": still, "left": max(0, left), "per": per,
+            "people": co["n_hirers"]}
+
+
+def shut_curve_html(co, today=None):
+    svg = shut_curve_svg(co, today)
+    if not svg:
+        return ""
+    rows = co.get("curve") or []
+    today = today or dt.date.today()
+    still = co["cards"]["still"]
     left = (rows[-1]["d"] - today).days
     per = int(round(still / float(left))) if left > 0 and still else 0
     tiles = [(str(still), 'on hire right now'),
@@ -731,7 +764,7 @@ def shut_curve_html(co, today=None):
         "<h2>Where you are in the shut</h2>"
         "<div class='cap'>Flame Off to the planned end, and everything "
         "your crew has taken and given back along the way.</div>"
-        + "".join(g) +
+        + svg +
         "<div style='display:flex;gap:14px;flex-wrap:wrap;color:" + MUTED +
         ";font-size:9.5pt;margin-top:10px'>"
         "<span><b style='color:" + BLUE + "'>&#9632;</b> On hire</span>"

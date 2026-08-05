@@ -26,6 +26,8 @@
 # =====================================================================
 
 import os
+import codecs
+import re
 import shutil
 import subprocess
 
@@ -545,6 +547,77 @@ FRAME_RADIUS = 18         # px, smooth corners
 FRAME_PAD = 0             # px - the border sits straight on the report
 FRAME_MARGIN = 14         # px, clean white space outside the border
 FRAME_SHADOW = "0 6px 22px rgba(242, 98, 34, 0.12)"
+
+
+
+def svg_to_png(svg, out_path, width=760, height=None, bg="#FFFFFF"):
+    """One chart, as a PNG an email client will actually draw.
+
+    Andrew, 5 Aug 2026, on the shut curve: "what about we do it with
+    this in the email itself."
+
+    Right place for it - the body is what people read, the attachment
+    is what they might open. But EMAIL CLIENTS DO NOT RENDER SVG.
+    Outlook is the worst of them: it hands SVG to Word's renderer,
+    which draws nothing at all, so the chart would be a blank hole in
+    the one place it matters most. Gmail strips it. So the vector gets
+    turned into a picture here, once, at 2x for a retina screen.
+
+    White background on purpose - an email body is white, and a
+    transparent PNG in Outlook goes grey.
+
+    Returns the path, or None if there is no browser on this machine -
+    in which case the email simply carries no chart and every other
+    part of it is unaffected.
+    """
+    browser = find_browser()
+    if not browser:
+        return None
+    if height is None:
+        #  Keep the chart's own proportions - a hand-picked height is how
+        #  an axis ends up half off the bottom.
+        m = re.search(r"viewBox=['\"]\s*0\s+0\s+([\d.]+)\s+([\d.]+)", svg)
+        height = int(round(width * float(m.group(2)) / float(m.group(1)))) \
+            if m else 250
+    #  Scale up BEFORE the CSS is written, or the SVG is sized for a
+    #  760px box and drawn in the corner of a 2280px canvas.
+    scale = capture_scale()
+    width = int(width) * scale
+    height = int(height) * scale
+    tmp = _tmp_dir()
+    src = os.path.join(tmp, os.path.basename(out_path) + ".html")
+    with codecs.open(src, "w", encoding="utf-8") as fh:
+        #  overflow:hidden or the browser draws its own scrollbar into
+        #  the picture, and the SVG is sized explicitly so the window
+        #  cannot crop the axis labels off the bottom - both of which
+        #  the first cut of this did.
+        fh.write("<!doctype html><meta charset='utf-8'>"
+                 "<style>html,body{margin:0;padding:0;overflow:hidden;"
+                 "background:" + bg + "}"
+                 "svg{display:block;width:" + str(int(width)) + "px;"
+                 "height:" + str(int(height)) + "px}</style>" + svg)
+    #  RENDER BIG, NOT SCALED. --force-device-scale-factor with a small
+    #  window draws the SVG into a fraction of the frame and leaves the
+    #  rest white - the first cut of this produced a chart in the top
+    #  half of a blank picture. Asking for a big window and sizing the
+    #  SVG to fill it gives the same sharpness with none of that.
+    argv = [browser, "--headless=new", "--disable-gpu",
+            "--window-size={},{}".format(int(width), int(height)),
+            "--default-background-color=FFFFFFFF",
+            "--screenshot=" + out_path,
+            "--user-data-dir=" + _fresh_profile("svg")] + _extra() + \
+        ["file://" + src.replace(os.sep, "/")]
+    _run_browser(argv, 60)
+    if os.environ.get("K2_KEEP_SVG"):
+        print("    [svg kept] " + src)
+    else:
+        try:
+            os.remove(src)
+        except OSError:
+            pass
+    if os.path.isfile(out_path) and os.path.getsize(out_path) > 0:
+        return out_path
+    return None
 
 
 def frame_html(inner, width=794, title="", before="", after="",
