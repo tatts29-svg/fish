@@ -3084,7 +3084,14 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
                 "supervisors can see their own crew's gear on it too. "
                 "Rather have it on paper? Ask at the counter and we will "
                 "print your list, or any part of it, while you wait.",
-                "My Gear &mdash; and print-outs at the counter.")]
+                #  A REAL DASH, NOT THE HTML CODE. _e_note escapes its
+                #  label on purpose - the label is plain text, the body
+                #  is HTML - so "&mdash;" in a label ships as the
+                #  literal characters and a contractor reads
+                #  "My Gear &mdash; and print-outs". Caught by Andrew,
+                #  5 Aug 2026, reading his own draft. esc() leaves
+                #  non-ASCII alone, so the character itself is safe.
+                u"My Gear \u2014 and print-outs at the counter.")]
             + [_e_note("Thanks for doing your bit &mdash; it keeps the "
                        "whole site moving. Care Deeply &middot; Customer "
                        "Focused &middot; Be Our Best &middot; One Team "
