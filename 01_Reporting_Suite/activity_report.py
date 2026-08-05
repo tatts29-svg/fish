@@ -602,8 +602,82 @@ def hirer_page(h, period, company):
 # ---------------------------------------------------------------------
 #  the whole document body for one company
 # ---------------------------------------------------------------------
+def all_clear_html(co, period):
+    """THE COMPANY THAT HAS NOTHING LEFT ON HIRE.
+
+    Andrew, 5 Aug 2026: "any company that has nothing onhire should
+    still get a report. a story and a thankyou. and still attach there
+    report a story of their timw onsite."
+
+    A zero is the best number on this report and it used to read like a
+    blank. These are the crews who brought everything back - which on a
+    shutdown is the whole job done properly - and the report they got
+    said the same thing it says to a company sitting on forty overdue
+    items, only with smaller numbers.
+
+    So when the on-hire count is nil the page opens with the story of
+    their time here instead of the chase: what they took, how they gave
+    it back, and a thank you. It sits ABOVE the usual detail, which is
+    all still there - nothing is taken away, it is just no longer the
+    first thing they read."""
+    c = co["cards"]
+    if c.get("still"):
+        return ""
+    p0, p1 = period if period else (None, None)
+    span = ""
+    if p0 and p1:
+        span = ("{} to {}".format(p0.strftime("%d %b"),
+                                  p1.strftime("%d %b %Y")))
+    same = c.get("same", 0)
+    ret = c.get("returned", 0)
+    iss = c.get("issued", 0)
+    pct = int(round(100.0 * same / ret)) if ret else 0
+
+    how = ""
+    if ret and same == ret:
+        how = ("Every single item came back the same day it went out. "
+               "That is not the usual - it is the best return record a "
+               "counter sees.")
+    elif ret and pct >= 60:
+        how = ("{}% of it came back the same day it went out - well "
+               "above what the counter sees most weeks.".format(pct))
+    elif ret:
+        how = ("{} of those came back the same day they went "
+               "out.".format(same))
+
+    return (
+        "<div style=\"background:#12280C;border:1px solid #2BB673;"
+        "border-left:5px solid #2BB673;border-radius:0 12px 12px 0;"
+        "padding:20px 24px;margin:18px 0 6px\">"
+        "<div style=\"color:#7BD45C;font-size:10.5pt;letter-spacing:2px;"
+        "text-transform:uppercase;font-weight:800;margin-bottom:8px\">"
+        "All clear &mdash; nothing on hire</div>"
+        "<div style=\"color:#F0F4F9;font-size:15pt;font-weight:800;"
+        "line-height:1.3;margin-bottom:10px\">"
+        + _esc(co["display"]) + " is holding none of our gear.</div>"
+        "<div style=\"color:#C6D0DD;font-size:11pt;line-height:1.7\">"
+        + ("Over " + _esc(span) + " your crew took <b>" + str(iss)
+           + "</b> item" + ("" if iss == 1 else "s") + " off the tool "
+           "store and returned <b>" + str(ret) + "</b>. " if (iss or ret)
+           else "There is nothing outstanding against your name. ")
+        + (_esc(how) + " " if how else "")
+        + "There is nothing outstanding, nothing to chase and nothing "
+        "to come back for."
+        "<br><br><b style=\"color:#F0F4F9\">Thank you.</b> Gear that "
+        "comes back on time and in one piece is what keeps the store "
+        "running for everybody else on this shutdown, and your crew "
+        "did exactly that. It has been a pleasure having you on site."
+        "</div></div>"
+        "<div style=\"color:#8A97A8;font-size:9.5pt;line-height:1.6;"
+        "margin:10px 0 18px\">The rest of this report is the record of "
+        "your time on site &mdash; what was taken, by whom, and how it "
+        "came back. It is attached in full so you have your own copy."
+        "</div>")
+
+
 def render(co, period):
-    body = company_page(co, period) + EC.store_story_html()
+    body = all_clear_html(co, period) + company_page(co, period) \
+        + EC.store_story_html()
     for h in co["hirers"]:
         body += hirer_page(h, period, co["display"])
     return body

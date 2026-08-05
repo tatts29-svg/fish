@@ -308,6 +308,14 @@ PAGES_DIR = _OUT["pages"]               # the reports as framed HTML pages
 PDF_DIR = _OUT["pdf"]                   # print copies
 EMAILS_DIR = _OUT["emails"]             # .eml drafts, page images, manifests
 
+#  ONE DRAFT PER COMPANY PER MORNING.
+#  Set True to bring back the old flat On-Hire report's own Outlook
+#  draft. It is False because the Activity & Accountability report is
+#  what a contractor gets, and two drafts for the same company on the
+#  same morning is the double-up Andrew reported on 5 Aug 2026. The
+#  page and the PDF are still built either way - only the draft stops.
+COMPANY_ONHIRE_DRAFTS = False
+
 
 class KitError(Exception):
     """A problem we explain in plain English - never a raw traceback."""
@@ -10116,13 +10124,46 @@ def generate_for_company(m, asof, generated, have_repl, source_line, date_tag):
         f.write(render_company_html(m, asof, generated, have_repl, source_line))
 
     pdf_ok = html_to_pdf(html_path, pdf_path)
-    attach = pdf_path if pdf_ok else html_path
-    write_eml(m, asof, attach, eml_path, date_tag, generated=generated,
-              have_repl=have_repl, html_path=html_path)
 
-    safe_print("  {}: {} items | HTML{} | Outlook draft".format(
-        m["display"], m["n_items"], " + PDF" if pdf_ok else " (no PDF engine)"))
+    #  ---- NO SECOND DRAFT FOR THE SAME COMPANY -----------------------
+    #  Andrew, 5 Aug 2026: "i feel there are double ups happening."
+    #
+    #  He was right, and it is in the folder he actually works out of.
+    #  On 3 Aug, Reports\<date>\Emails held 19 Activity drafts AND 15
+    #  On-Hire drafts - fifteen companies with TWO drafts each, same
+    #  morning, same company, covering the same gear.
+    #
+    #  The Activity report is the one a contractor gets - he said so on
+    #  1 Aug ("contractors i only want to see their activity report as
+    #  an attachment"), and the print hub has described this one as
+    #  "the old flat one - the store's own copy, not what a contractor
+    #  gets any more" ever since. It just kept drafting anyway.
+    #
+    #  So the PAGE and the PDF still build - it is the store's own copy
+    #  and 37_PICK_A_REPORT still hands it to him - but it no longer
+    #  puts a second draft in front of him every morning.
+    if COMPANY_ONHIRE_DRAFTS:
+        write_eml(m, asof, attach_path(pdf_ok, pdf_path, html_path),
+                  eml_path, date_tag, generated=generated,
+                  have_repl=have_repl, html_path=html_path)
+    elif os.path.isfile(eml_path):
+        #  A draft from before this changed would otherwise sit there
+        #  looking current. Take it with us rather than leave a stale
+        #  one behind.
+        try:
+            os.remove(eml_path)
+        except OSError:
+            pass
+
+    safe_print("  {}: {} items | HTML{}{}".format(
+        m["display"], m["n_items"], " + PDF" if pdf_ok else " (no PDF engine)",
+        " | Outlook draft" if COMPANY_ONHIRE_DRAFTS
+        else " | no draft (the Activity report is the one that goes out)"))
     return pdf_ok
+
+
+def attach_path(pdf_ok, pdf_path, html_path):
+    return pdf_path if pdf_ok else html_path
 
 
 def generate_repl_gap_list(models, date_tag):
@@ -10678,8 +10719,20 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                   "Nothing goes to a client that does not add up.")
             return
         p0, p1 = am["period"]
+        _no_activity = []
         for co in am["companies"]:
             if not co["hirers"]:
+                #  NOT SILENTLY. Andrew, 5 Aug 2026: "any company that
+                #  has nothing onhire should still get a report."
+                #  A company with nothing on hire DOES get one - that
+                #  is the all-clear story in activity_report.py. This
+                #  skip is narrower and different: nobody from this
+                #  company touched the counter in the period at all, so
+                #  there is no activity to write a story from. That is
+                #  a fair reason to skip and a terrible reason to say
+                #  nothing, because from the outside it looks identical
+                #  to a company that was forgotten.
+                _no_activity.append(co["display"])
                 continue
             body = activity_report.render(co, am["period"])
             slug = re.sub(r"[^A-Za-z0-9]+", "_", co["display"]).strip("_").upper()
@@ -10707,6 +10760,15 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                     co["display"]),
                 asof, generated, source_line, report_tag="ACTIVITY",
                 pdf_attach_only=True, cc_extra=_oversight_cc())
+        if _no_activity:
+            print("  Activity & Accountability: {} company/companies had "
+                  "NOBODY at the counter".format(len(_no_activity)))
+            print("     in this period, so there is no activity to write a "
+                  "story from and no")
+            print("     report was built for them: {}".format(
+                ", ".join(sorted(_no_activity))))
+            print("     They are not forgotten - widen the period or check "
+                  "they are still on site.")
         print("  Activity & Accountability: {} company pack(s), {} hirer "
               "pages, period {} to {}".format(
                   len(am["companies"]),
