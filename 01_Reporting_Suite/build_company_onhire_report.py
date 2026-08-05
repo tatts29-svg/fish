@@ -3135,11 +3135,11 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
                 #  5 Aug 2026, reading his own draft. esc() leaves
                 #  non-ASCII alone, so the character itself is safe.
                 u"My Gear \u2014 and print-outs at the counter.")]
+            #  The five values used to be here AND in the dark footer
+            #  three lines below - every email ended on a stutter. The
+            #  footer carries them once; this line just says thanks.
             + [_e_note("Thanks for doing your bit &mdash; it keeps the "
-                       "whole site moving. Care Deeply &middot; Customer "
-                       "Focused &middot; Be Our Best &middot; One Team "
-                       "&middot; Competitive Spirit",
-                       "One team.")])
+                       "whole site moving.", "One team.")])
         imgs = []
         #  THE CHART GOES IN THE BODY, NOT ON THE PAPERCLIP.
         #  (Andrew, 5 Aug 2026: "what about we do it with this in the
@@ -3208,8 +3208,14 @@ def emit_report(stem, title, company_line, body_html, hero, inner_email,
                  '<div style="{f}font-size:10px;letter-spacing:1.6px;'
                  'text-transform:uppercase;color:{o};font-weight:bold;'
                  'padding-bottom:6px;">Where you are in the shut</div>'
-                 '<img src="cid:shutcurve" width="652" '
-                 'style="width:100%;max-width:652px;height:auto;'
+                 #  640, not a pixel more: the card is 692 wide with a
+                 #  6px border each side and 20px of td padding each
+                 #  side, and Outlook's Word engine honours the width
+                 #  ATTRIBUTE while ignoring max-width - so anything
+                 #  over 640 pushes the whole card wider on the one
+                 #  client most of these land in. (5 Aug polish sweep.)
+                 '<img src="cid:shutcurve" width="640" '
+                 'style="width:100%;max-width:640px;height:auto;'
                  'display:block;border:1px solid #e3e6eb;'
                  'border-radius:8px;" alt="{alt}">'
                  '<div style="{f}font-size:9px;color:#777777;'
@@ -6839,10 +6845,18 @@ def generate_daily_brief(models, pm, tracking_rows, stocktake, asof,
             dn=day_no, dl=days_left, dls="" if days_left == 1 else "s",
             oh=sum(m["n_items"] for m in models.values()),
             co=len(models))
+        #  Same ENTERED rule as the weekly rollup: the Daily Actual
+        #  Total formula reads 0.00 on an untouched row, and the brief
+        #  was asserting the day "closed at $0.00" while the exec pack
+        #  showed "-" for the same day. A formula zero never
+        #  masquerades as a real nil. (5 Aug polish sweep.)
         + ("Yesterday's client day (6:00am to 6:00am) closed at {ac} actual "
            "against {fc} forecast. ".format(
                ac=fmt_money(yday["ac"]), fc=fmt_money(yday["fc"]))
            if yday and yday["ac"] is not None and yday["fc"] is not None
+           and any(yday[k] is not None for k in
+                   ("plant_ac", "tool_ac", "radio_ac", "gas_ac",
+                    "labour_ac", "accom_ac"))
            else "Yesterday's actuals land as they are entered - forecast "
                 "v actual follows in the executive pack. ")
         + ("Stocktake coverage: {sv}/{st} counted items sighted inside the "
@@ -7398,7 +7412,9 @@ def generate_safety_report(models, radio_fleet, gas_fleet, stocktake, asof,
         _conv_day = dt.datetime.strptime(date_tag, "%Y-%m-%d").date()
     except Exception:
         _conv_day = dt.date.today()
-    body += "<h2>Today's safety conversation</h2>"
+    #  No h2 of its own - the panel opens with the identical words as
+    #  its kicker, and the page was printing "Today's safety
+    #  conversation" twice, stacked. The card carries its own title.
     body += safety_conversation.panel_html(_conv_day)
 
     # What is out there right now that carries an obligation.
@@ -8517,7 +8533,7 @@ def _exec_legacy_sections(x, asof, generated, source_line):
         'store: scan, look. Scan, look. The scan is not complete until we '
         'have looked - so the record above is evidence, not estimate. Right '
         'first time. Every item. Every time.</div>'
-        '<div class="note"><b>Checking and stocktakes.</b> Stock takes are '
+        '<div class="note"><b>Checking and stocktakes.</b> Stocktakes are '
         'done daily - no exceptions - with nothing in the store going more '
         'than 30 days unscanned. '
         + ('{sv} of {tot} items physically verified in the last 3 days '
@@ -8525,7 +8541,7 @@ def _exec_legacy_sections(x, asof, generated, source_line):
                sv=st["sighted3"], tot=st["total"], pct=st["pct"],
                cnt=st["counters"]) if st else
            'Stocktake coverage reports from the SiteIQ export each day. ')
-        + 'Discrepancies are addressed on the spot, and the stock take '
+        + 'Discrepancies are addressed on the spot, and the stocktake '
         'doubles as our on-hire verification - anything physically in the '
         'store still showing as on hire gets corrected the same day. It is '
         'not just a counting exercise; it is another checkpoint for catching '
@@ -9352,11 +9368,12 @@ def email_company_html(m, asof, generated, have_repl):
 
     # ---- tiles (mirrors tiles_html - NO hire costs client-facing) --------
     tiles = [
-        (str(m.get("n_items", 0)), "Outstanding On Hire"),
-        (str(len(m.get("people") or [])), "People Using Tool Store"),
-        (str(m.get("n_tx_total", 0)) if (tx_loaded or sales_loaded) else "-",
+        ("{:,}".format(m.get("n_items", 0)), "Outstanding On Hire"),
+        ("{:,}".format(len(m.get("people") or [])), "People Using Tool Store"),
+        ("{:,}".format(m.get("n_tx_total", 0))
+         if (tx_loaded or sales_loaded) else "-",
          "Transactions"),
-        (str(m.get("item_types", 0)), "Item Types Used"),
+        ("{:,}".format(m.get("item_types", 0)), "Item Types Used"),
         ("-" if oldest is None else str(oldest), "Oldest On-Hire (days)"),
     ]
     if repl_exposure is not None:
@@ -9567,10 +9584,10 @@ def email_exec_html(x, asof, generated):
 
     # ---- six tiles --------------------------------------------------------
     inner.append(_e_tiles([
-        (str(n_items), "Items On Hire"),
+        ("{:,}".format(n_items), "Items On Hire"),
         (str(n_cos), "Companies"),
-        (str(n_people), "People Using Store"),
-        (str(x.get("n_tx") or 0)
+        ("{:,}".format(n_people), "People Using Store"),
+        ("{:,}".format(x.get("n_tx") or 0)
          if (x.get("tx_loaded") or x.get("sales_loaded")) else "-",
          "Transactions"),
         ("{:.0%}".format(st.get("pct") or 0.0) if st else "-",
@@ -9683,9 +9700,9 @@ def email_exec_html(x, asof, generated):
     else:
         chk = "Stocktake coverage reports from the SiteIQ export each day. "
     inner.append(_e_note(esc(
-        "Stock takes are done daily - no exceptions - with nothing in the "
+        "Stocktakes are done daily - no exceptions - with nothing in the "
         "store going more than 30 days unscanned. " + chk +
-        "Discrepancies are addressed on the spot, and the stock take doubles "
+        "Discrepancies are addressed on the spot, and the stocktake doubles "
         "as our on-hire verification - anything physically in the store "
         "still showing as on hire gets corrected the same day. It is not "
         "just a counting exercise; it is another checkpoint for catching "
@@ -10682,8 +10699,10 @@ def generate_hitlist_report(models, radio_fleet, gas_fleet, milw_batt_fleet,
                 len(gas), len(radios_all), len(milw_batt),
                 len(milw_tools))), "Today's hit list.")],
         limits,
-        "Coates K2 - Daily Hit List - {}".format(
-            generated.strftime("%d %B %Y") if generated else date_tag),
+        "Coates K2 - Daily Hit List - {} - {} to see today".format(
+            generated.strftime("%d %b %Y") if generated else date_tag,
+            len(gas) + len(radios_all) + len(milw_batt)
+            + len(milw_tools)),
         asof, generated, source_line, report_tag="HITLIST")
     print("  Daily Hit List: gas {} | radios+batt {} | Milwaukee batt {} "
           "| tools 3d+ {}".format(
@@ -10898,6 +10917,42 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                   "Nothing goes to a client that does not add up.")
             return
         p0, p1 = am["period"]
+
+        def _prev_report(slug):
+            """(date label, still-then) off this company's LAST report.
+
+            Read back off the report itself - the same document sitting
+            in the client's inbox - so the delta line in today's email
+            is provable from two things they already hold. No earlier
+            report, no line; a hero that will not parse, no line. Never
+            a guess."""
+            base = os.path.join(OUTPUT_DIR, "..")
+            try:
+                days = sorted(d for d in os.listdir(base)
+                              if re.match(r"\d{4}-\d{2}-\d{2}$", d)
+                              and d < date_tag)
+            except OSError:
+                return None
+            for d in reversed(days):
+                p = os.path.join(base, d, "Emails",
+                                 "Coates_K2_Activity_{}_{}_OUTLOOK"
+                                 ".body.html".format(slug, d))
+                if not os.path.isfile(p):
+                    continue
+                try:
+                    with open(p, encoding="utf-8",
+                              errors="replace") as fh:
+                        m = re.search(r"([\d,]+) still on hire",
+                                      fh.read())
+                    if m:
+                        lab = dt.datetime.strptime(
+                            d, "%Y-%m-%d").strftime("%d %b")
+                        return (lab, int(m.group(1).replace(",", "")))
+                except Exception:
+                    pass
+                return None
+            return None
+
         _no_activity = []
         for co in am["companies"]:
             if not co["hirers"]:
@@ -10928,10 +10983,23 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                      "#F2B01E"),
                     ("{:,}".format(_cn["left"]), "days to the planned end",
                      COATES_DARK),
-                    (_cn["per_label"], "a day to finish clear",
+                    (_cn["per_label"], "returns a day to finish clear",
                      "#F85149" if _cn["per"] else COATES_DARK),
-                    ("{:,}".format(_cn["people"]),
+                    #  holders, not period hirers - Cleanaway's draft
+                    #  said 15 people were holding 8 items. (5 Aug)
+                    ("{:,}".format(_cn["holders"]),
                      "of your people holding gear", COATES_DARK)])
+            #  THE SUBJECT CARRIES THE ANSWER. Nineteen identical
+            #  subjects made the one line everybody reads say nothing.
+            #  Now it says the thing the email exists to say - and every
+            #  number in it is the hero line's own.
+            if c["still"]:
+                _subj_tail = "{} on hire, {} to go".format(
+                    c["still"], _n(_cn["left"], "day"))
+            elif c["issued"] or c["returned"]:
+                _subj_tail = "all clear, thank you"
+            else:
+                _subj_tail = "nil report"
             emit_report(
                 "Coates_K2_Activity_{}_{}".format(slug, date_tag),
                 "Equipment Activity & Accountability",
@@ -10943,15 +11011,16 @@ def run(selected_company=None, do_all=False, do_plant=False, do_exec=False,
                     h=_n(co["n_hirers"], "hirer"), i=c["issued"],
                     r=c["returned"], s=c["still"]),
                 [_e_note(html, lead) for lead, html
-                 in activity_report.email_position(co, am["period"])],
+                 in activity_report.email_position(
+                     co, am["period"], prev=_prev_report(slug))],
                 "Activity from the SiteIQ transaction export for the period "
                 "shown; on-hire position from the rental register. "
                 "Consumables are usage data and are never counted as "
                 "equipment on hire. No consumable pricing exists in any "
                 "export, so units and product types are shown without a "
                 "dollar value.",
-                "Coates K2 - {} - Equipment Activity & Accountability".format(
-                    co["display"]),
+                "Coates K2 - {} - Equipment Activity & Accountability - "
+                "{}".format(co["display"], _subj_tail),
                 asof, generated, source_line, report_tag="ACTIVITY",
                 pdf_attach_only=True, cc_extra=_oversight_cc(),
                 chart_svg=activity_report.shut_curve_svg(co),

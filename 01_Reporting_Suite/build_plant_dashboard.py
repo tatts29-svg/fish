@@ -705,8 +705,8 @@ try:
     if _eml_imgs:
         import recipients
         _to, _cc = recipients.resolve(HERE, '', 'PLANT')
-        _subject = 'K2 Shutdown - Plant On Site Dashboard (as at %s)' % (
-            datetime.datetime.now().strftime('%d %b'))
+        _subject = 'Coates K2 - Plant On Site Dashboard - %s' % (
+            datetime.datetime.now().strftime('%d %b %Y'))
         _msg = email_images.build_image_eml(_subject, _eml_imgs,
                                             to=_to, cc=_cc)
         _eml_path = os.path.join(_dirs['emails'],

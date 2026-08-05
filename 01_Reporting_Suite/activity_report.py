@@ -310,25 +310,40 @@ def company_page(co, period):
     else:
         tail = ("<b style=\"color:{g}\">Nothing overdue</b> &mdash; the "
                 "book is current.").format(g=GOOD)
+    #  THE EXPOSURE CLAUSE ONLY WHEN THERE IS EXPOSURE. A company
+    #  holding nothing was getting "replacement exposure TBC" in a
+    #  finished client document - a placeholder standing in for a value
+    #  that is genuinely nil. Nothing on hire, no clause. (5 Aug sweep.)
+    exp_clause = (" &mdash; replacement exposure {}".format(
+        _repl_hl(co["exposure"])) if (c["still"] and co["exposure"])
+        else (" &mdash; replacement exposure <b>TBC</b>"
+              if c["still"] else ""))
     body += story(
         "<b>The position:</b> {n} has <b style=\"color:{ik}\">{still} "
-        "item{sp}</b> on hire &mdash; replacement exposure {exp}. This "
+        "item{sp}</b> on hire{exp}. This "
         "period <b style=\"color:{g}\">{ret} returned</b> ({same} same-day) "
         "and <b style=\"color:{o}\">{iss} went out</b>. {tail}".format(
             n=_esc(co["display"]), ik=INK, still=c["still"],
             sp="" if c["still"] == 1 else "s",
-            exp=_repl_hl(co["exposure"]) if co["exposure"] else
-            "<b>TBC</b>", g=GOOD, ret=c["returned"], same=c["same"],
+            exp=exp_clause, g=GOOD, ret=c["returned"], same=c["same"],
             o=ORANGE, iss=c["issued"], tail=tail))
 
     #  How the company actually used the tool store. Every item is
     #  scanned on its own, so the item count is items - the visit count is
     #  trips to the counter. (A. Fisher, 25 Jul 2026)
+    #  SECOND PERSON, LIKE THE REST OF THE PAGE - the pack is addressed
+    #  to the client ("your crew took..."), so "their people" was the
+    #  one line talking about them over their shoulder. And the counts
+    #  go through n_of so "1 visits" can never print.
     body += facts([
         ("{} of {}".format(co.get("using_store", 0), co["n_hirers"]),
-         "of their people used the tool store"),
-        (co.get("visits", 0), "visits to the counter"),
-        (co.get("movements", 0), "items handled over the counter"),
+         "of your people used the tool store"),
+        (co.get("visits", 0),
+         "visit to the counter" if co.get("visits", 0) == 1
+         else "visits to the counter"),
+        (co.get("movements", 0),
+         "item handled over the counter" if co.get("movements", 0) == 1
+         else "items handled over the counter"),
     ])
     #  The same age and return numbers the cards carry, as two thin
     #  colour bands - the shape of the book at a glance. Both draw from
@@ -472,10 +487,14 @@ def hirer_page(h, period, company):
         (c["still"], "Still on hire", INK, ""),
     ])
     body += facts([
-        (h.get("visits", 0), "visits to the counter"),
+        (h.get("visits", 0),
+         "visit to the counter" if h.get("visits", 0) == 1
+         else "visits to the counter"),
         (h.get("days_over", 0), "day{} they came over".format(
             "" if h.get("days_over") == 1 else "s")),
-        (h.get("movements", 0), "items handled over the counter"),
+        (h.get("movements", 0),
+         "item handled over the counter" if h.get("movements", 0) == 1
+         else "items handled over the counter"),
     ])
     if c["returned"] > c["issued"]:
         body += note("Returned is higher than issued because older equipment "
@@ -749,29 +768,41 @@ def shut_curve_numbers(co, today=None):
     rows = co.get("curve") or []
     end = rows[-1]["d"] if rows else AM.shut_window()[1]
     left = (end - today).days
-    per = int(round(still / float(left))) if left > 0 and still else 0
-    #  "-" MEANT NOTHING TO DO, AND THAT WAS WRONG. Filtercare hold 3
-    #  items with 6 days left; 3/6 rounds to 0 and the tile printed a
-    #  dash, which on a run-down figure reads as "you are clear". They
-    #  are not clear - they are under one a day. Say that instead.
-    label = str(per) if per else ("<1" if still and left > 0 else "-")
+    #  CEIL, NOT ROUND. High Risk hold 55 with 6 days left; 55/6 rounds
+    #  to 9, and 9 a day for 6 days is 54 - one short of clear. A
+    #  run-down figure that cannot actually finish the run-down is the
+    #  polite kind of wrong. Rounding UP is the only rate this tile can
+    #  stand behind, and it also retires the "<1" special case -
+    #  Filtercare's 3 over 6 days is now an honest 1.
+    import math as _math
+    per = int(_math.ceil(still / float(left))) if left > 0 and still else 0
+    label = str(per) if per else "-"
+    #  "HOLDING GEAR" HAS TO COUNT PEOPLE HOLDING GEAR. This tile
+    #  carried n_hirers - everyone who used the store this PERIOD - so
+    #  Cleanaway's email said 15 people were holding 8 items, which the
+    #  same email disproves. The company model already knows who is
+    #  actually holding: the hirers whose own still-count is not nil.
+    holders = sum(1 for h in co.get("hirers", [])
+                  if h.get("cards", {}).get("still"))
     return {"still": still, "left": max(0, left), "per": per,
-            "per_label": label, "people": co["n_hirers"]}
+            "per_label": label, "people": co["n_hirers"],
+            "holders": holders}
 
 
 def shut_curve_html(co, today=None):
     svg = shut_curve_svg(co, today)
     if not svg:
         return ""
-    rows = co.get("curve") or []
     today = today or dt.date.today()
-    still = co["cards"]["still"]
-    left = (rows[-1]["d"] - today).days
-    per = int(round(still / float(left))) if left > 0 and still else 0
+    #  One source for the four figures - the same shut_curve_numbers the
+    #  email strip uses, so the page and the email can never disagree.
+    #  (They did: this block had its own round() and its own n_hirers.)
+    cn = shut_curve_numbers(co, today)
+    still, left, per = cn["still"], cn["left"], cn["per"]
     tiles = [(str(still), 'on hire right now'),
-             (str(max(0, left)), 'days to the planned end'),
-             (str(per) if per else '-', 'a day to finish clear'),
-             (str(co["n_hirers"]), 'of your people holding gear')]
+             (str(left), 'days to the planned end'),
+             (cn["per_label"], 'returns a day to finish clear'),
+             (str(cn["holders"]), 'of your people holding gear')]
     strip = "".join(
         "<div style='flex:1;min-width:118px;padding:12px 14px'>"
         "<div style='font-size:24pt;font-weight:800;line-height:1;color:{c}'>"
@@ -846,30 +877,51 @@ def all_clear_html(co, period):
         how = ("{} of those came back the same day they went "
                "out.".format(same))
 
+    #  WHEN ISSUED AND RETURNED DO NOT MATCH ON A NIL BALANCE, the page
+    #  has to join them up the same way the email does - QWest's pack
+    #  showed 2 issued, 0 returned, 0 on hire under an all-clear banner
+    #  and left the reader to do the reconciling themselves.
+    join = _reconcile(co, period, nil=True)
+
+    #  THE THANK-YOU HAS TO FIT WHAT HAPPENED. "Gear that comes back on
+    #  time... your crew did exactly that" was being said to crews with
+    #  zero recorded returns. True thanks or no thanks.
+    if ret:
+        thanks = ("Gear that comes back on time and in one piece is what "
+                  "keeps the store running for everybody else on this "
+                  "shutdown, and your crew did exactly that. It has been "
+                  "a pleasure having you on site.")
+    else:
+        thanks = ("A clean sheet at the tool store is its own kind of "
+                  "record. It has been a pleasure having you on site.")
+
+    #  LIGHT, LIKE THE REST OF THE PAGE. The first cut of this card
+    #  kept the old dark-theme slab - a near-black green block on an
+    #  otherwise white executive page, and worse on paper. Same story,
+    #  page's own palette.
     return (
-        "<div style=\"background:#12280C;border:1px solid #2BB673;"
+        "<div style=\"background:#E9F7EE;border:1px solid #2BB673;"
         "border-left:5px solid #2BB673;border-radius:0 12px 12px 0;"
         "padding:20px 24px;margin:18px 0 6px\">"
-        "<div style=\"color:#7BD45C;font-size:10.5pt;letter-spacing:2px;"
+        "<div style=\"color:#1F7A44;font-size:10.5pt;letter-spacing:2px;"
         "text-transform:uppercase;font-weight:800;margin-bottom:8px\">"
         "All clear &mdash; nothing on hire</div>"
-        "<div style=\"color:#F0F4F9;font-size:15pt;font-weight:800;"
+        "<div style=\"color:#14181F;font-size:15pt;font-weight:800;"
         "line-height:1.3;margin-bottom:10px\">"
         + _esc(co["display"]) + " is holding none of our gear.</div>"
-        "<div style=\"color:#C6D0DD;font-size:11pt;line-height:1.7\">"
+        "<div style=\"color:#2A3A2F;font-size:11pt;line-height:1.7\">"
         + ("Over " + _esc(span) + " your crew took <b>" + str(iss)
            + "</b> item" + ("" if iss == 1 else "s") + " off the tool "
            "store and returned <b>" + str(ret) + "</b>. " if (iss or ret)
-           else "There is nothing outstanding against your name. ")
+           else "")
         + (_esc(how) + " " if how else "")
-        + "There is nothing outstanding, nothing to chase and nothing "
-        "to come back for."
-        "<br><br><b style=\"color:#F0F4F9\">Thank you.</b> Gear that "
-        "comes back on time and in one piece is what keeps the store "
-        "running for everybody else on this shutdown, and your crew "
-        "did exactly that. It has been a pleasure having you on site."
-        "</div></div>"
-        "<div style=\"color:#8A97A8;font-size:9.5pt;line-height:1.6;"
+        + "Nothing is outstanding, nothing to chase and nothing to come "
+        "back for."
+        + (("<br><br><span style=\"font-size:9.5pt;color:#4A5A4F\">"
+            + join + "</span>") if join else "")
+        + "<br><br><b style=\"color:#14181F\">Thank you.</b> " + thanks
+        + "</div></div>"
+        "<div style=\"color:#5B6472;font-size:9.5pt;line-height:1.6;"
         "margin:10px 0 18px\">The rest of this report is the record of "
         "your time on site &mdash; what was taken, by whom, and how it "
         "came back. It is attached in full so you have your own copy."
@@ -932,35 +984,43 @@ def _reconcile(co, period, nil=False):
     win = ("between {} and {}".format(p0.strftime("%d %b"),
                                       p1.strftime("%d %b"))
            if p0 and p1 else "during this period")
+    #  THE TIME LOGIC, THE RIGHT WAY ROUND. The first cut of this said
+    #  "handed back after the register was pulled" - but a return made
+    #  AFTER the snapshot would still be ON the snapshot. The gap is
+    #  gear handed back after the period closed and before the register
+    #  was pulled. departures.py had this right all along; the sentence
+    #  did not. And "the higher of the two" named no comparison, so
+    #  Cleanaway read "8 is the higher" under a pair of 108s. The
+    #  comparison is against issued-minus-returned, and now it says so.
+    #  (Both caught in the 5 Aug polish sweep, adversarially verified.)
+    p1s = p1.strftime("%d %b") if p1 else "the period closed"
     if nil:
-        #  ISSUED AND RETURNED WILL NOT ALWAYS MATCH ON A NIL BALANCE,
-        #  and on the all-clear email the long version of this reads
-        #  like an excuse. Short, plain, and it still answers the
-        #  question the reader just asked.
         return ("Those two figures count what crossed our counter {}; the "
                 "nil balance is the register as it stands today. Anything "
-                "handed back since the register was pulled is already off "
-                "your list but has not landed in this period's returns "
-                "yet, which is why they do not match.".format(win)
+                "handed back after {} and before the register was pulled "
+                "is already off your list but is not in this period's "
+                "returns, which is why they do not match.".format(win, p1s)
                 if gap > 0 else
                 "Those two figures count what crossed our counter {}; the "
-                "nil balance is the register as it stands today, and it "
-                "includes gear that went out before {} and has since come "
-                "back.".format(win, p0.strftime("%d %b") if p0
-                               else "this period"))
+                "nil balance is the register as it stands today, and "
+                "everything your crew took outside those dates has since "
+                "come back too.".format(win))
     lead = ("The three numbers above are counted two different ways, on "
             "purpose. Issued and returned are what crossed our counter "
             "{}; still on hire is what the register shows right "
             "now.".format(win))
     if gap < 0:
-        return lead + (" That is why the on-hire figure is the higher of "
-                       "the two - it includes gear that went out before "
-                       "{} and has not come back yet.".format(
-                           p0.strftime("%d %b") if p0 else "this period"))
-    return lead + (" Anything handed back after the register was pulled "
-                   "is already off the on-hire list but has not landed in "
-                   "this period's returns yet, which is why the on-hire "
-                   "figure is the lower of the two.")
+        return lead + (" That is why the on-hire figure can sit above the "
+                       "difference between issued and returned &mdash; it "
+                       "also counts gear that went out outside those "
+                       "dates, before {} or since {}.".format(
+                           p0.strftime("%d %b") if p0 else "the period",
+                           p1s))
+    return lead + (" Anything handed back after {} and before the "
+                   "register was pulled is already off the on-hire list "
+                   "but is not in this period's returns, which is why the "
+                   "on-hire figure sits below the difference between "
+                   "issued and returned.".format(p1s))
 
 
 def _standout(co):
@@ -981,8 +1041,8 @@ def _standout(co):
                     n_of(ret, "item")))
     if ret >= 5 and same * 2 >= ret:
         return ("<b>{} of the {} you handed back went back the same day "
-                "they came out</b> - {}%. Same-day returns are what keep "
-                "gear on the shelf for the next crew.".format(
+                "they came out</b> &mdash; {}%. Same-day returns are what "
+                "keep gear on the shelf for the next crew.".format(
                     "{:,}".format(same), n_of(ret, "item"),
                     int(round(100.0 * same / ret))))
     if c.get("recovered"):
@@ -991,6 +1051,21 @@ def _standout(co):
                 "shorter, and it is worth saying so.".format(
                     n_of(c["recovered"], "item")))
     if c["still"] and not c["not_same"]:
+        #  IF WHAT THEY HOLD IS DAILY-RETURN GEAR, SAY SO. Cleanaway's
+        #  email said "not due back yet" about 8 radios the pack says
+        #  are due back at the store tonight. Nothing was overdue -
+        #  that part was true - but "not due back yet" and "due back
+        #  tonight, as every night" are different sentences.
+        daily = (co.get("compliance") or {}).get("ret", 0)
+        if daily:
+            return ("<b>Nothing on your list is overdue.</b> {} of the "
+                    "items you hold {} daily-return gear &mdash; back to "
+                    "the store tonight as usual &mdash; and the rest is "
+                    "authorised hire.".format(
+                        "{:,}".format(daily) if daily != c["still"]
+                        else ("All " + "{:,}".format(daily)
+                              if daily > 1 else "The one item"),
+                        "is" if daily == 1 else "are"))
         return ("<b>Nothing on your list is past its return day.</b> "
                 "Everything you are holding is either authorised "
                 "long-term hire or not due back yet.")
@@ -1032,9 +1107,14 @@ def email_intro(co):
             "same-day double-check return so your list stays right.")
 
 
-def email_position(co, period):
+def email_position(co, period, prev=None):
     """The paragraphs the covering email carries, in order, as
-    (bold lead, html) pairs. The caller owns the table markup."""
+    (bold lead, html) pairs. The caller owns the table markup.
+
+    prev = (date_label, still_then) from this company's LAST report,
+    read back off the report itself - so the delta line is provable
+    from two documents the client already holds. None = no last
+    report, no line, no guessing."""
     c = co["cards"]
     out = []
     if not c["still"]:
@@ -1048,20 +1128,36 @@ def email_position(co, period):
                                   p1.strftime("%d %b %Y"))
                 if p0 and p1 else "")
         if not (c["issued"] or c["returned"]):
-            #  NOBODY CAME IN. A thank-you for bringing gear back reads
-            #  like a form letter when there was no gear. Nilsen's draft
-            #  said "your crew did exactly that" about nothing at all.
-            out.append(("Nothing on hire, nothing this period.",
-                        "Nobody from your crew came through the tool store "
-                        "over {}, and the register has nothing against "
-                        "your name today. That is the whole position "
-                        "&mdash; there is nothing to chase and nothing "
-                        "owing.".format(_esc(span))
-                        if span else
-                        "Nobody from your crew came through the tool store "
-                        "this period, and the register has nothing against "
-                        "your name today. There is nothing to chase and "
-                        "nothing owing."))
+            #  NO EQUIPMENT MOVED. A thank-you for bringing gear back
+            #  reads like a form letter when there was no gear. Nilsen's
+            #  draft went further and said "nobody came through" - while
+            #  its own attached pack showed Glenn Edwards at the counter
+            #  on 28 Jul drawing a consumable. An email its own
+            #  attachment disproves is worse than a plain one, so the
+            #  consumables visit is now checked and said.
+            cons_units = sum(int(h.get("units") or 0) for h in
+                             (co.get("cons") or {}).get("by_hirer", []))
+            if cons_units:
+                who = ("One of your crew" if co["n_hirers"] == 1
+                       else n_of(co["n_hirers"], "person", "people")
+                       + " from your crew")
+                out.append(("Nothing on hire.",
+                            "{} came through the tool store {} for "
+                            "consumables only &mdash; no equipment went "
+                            "out under your name, and the register holds "
+                            "nothing against it today. There is nothing "
+                            "to chase and nothing owing.".format(
+                                who, "over " + _esc(span) if span
+                                else "this period")))
+            else:
+                out.append(("Nothing on hire, nothing this period.",
+                            "Nobody from your crew came through the tool "
+                            "store {}, and the register has nothing "
+                            "against your name today. That is the whole "
+                            "position &mdash; there is nothing to chase "
+                            "and nothing owing.".format(
+                                "over " + _esc(span) if span
+                                else "this period")))
             out.append(("If that is not what you expect,",
                         "tell us. An empty page can mean your crew took "
                         "nothing, or it can mean gear went out under "
@@ -1086,13 +1182,18 @@ def email_position(co, period):
         s = _standout(co)
         if s:
             out.append(("", s))
+        #  The praise has to match the record - "your crew did exactly
+        #  that" was going to a company with 0 recorded returns.
         out.append(("Thank you.",
-                    "Gear that comes back on time and in one piece is what "
-                    "keeps the store running for everybody else on this "
-                    "shutdown, and your crew did exactly that. The attached "
-                    "pack is the full record of your time on site &mdash; "
-                    "what was taken, by whom, and how it came back &mdash; "
-                    "so you have your own copy of it."))
+                    ("Gear that comes back on time and in one piece is "
+                     "what keeps the store running for everybody else on "
+                     "this shutdown, and your crew did exactly that. "
+                     if c["returned"] else
+                     "A clean sheet at the tool store is its own kind of "
+                     "record. ")
+                    + "The attached pack is the full record of your time "
+                    "on site &mdash; what was taken, by whom, and how it "
+                    "came back &mdash; so you have your own copy of it."))
         return out
 
     out.append(("The position.",
@@ -1107,6 +1208,21 @@ def email_position(co, period):
                      " Every one of them has their own page in the attached "
                      "pack, so the list can be handed straight to the person "
                      "holding the gear."))))
+    #  SINCE YOUR LAST REPORT. The one line a contractor actually wants:
+    #  is my list getting shorter? Both numbers come off reports they
+    #  already hold, so the claim is checkable from their own inbox.
+    if prev:
+        p_lab, p_still = prev
+        d = c["still"] - int(p_still)
+        if d < 0:
+            out.append(("", "<b>Down {} since your {} report.</b> The "
+                        "list is moving the right way &mdash; keep it "
+                        "coming.".format("{:,}".format(-d), _esc(p_lab))))
+        elif d > 0:
+            out.append(("", "<b>Up {} since your {} report.</b> Worth a "
+                        "minute with the attached pack to see who is "
+                        "holding what.".format("{:,}".format(d),
+                                               _esc(p_lab))))
     r = _reconcile(co, period)
     if r:
         out.append(("", "<span style='color:#777777'>" + r + "</span>"))

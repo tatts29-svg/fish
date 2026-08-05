@@ -62,6 +62,44 @@ def _txt(v):
     return "" if v is None else str(v).strip()
 
 
+#  HOW A COMPANY'S NAME IS SPELT WHEN SITEIQ ONLY SHOUTS IT.
+#  Sixteen of the nineteen companies get a proper display name from the
+#  on-hire models; the three that only ever appear in the movement feed
+#  (BOSCH REXROTH, NILSEN, QWEST CRANE HIRE on 5 Aug) fell through to
+#  the raw export string - all caps in a 22px headline, next to sixteen
+#  title-cased neighbours. These are the spellings the companies use of
+#  themselves; anything not listed is title-cased word by word, keeping
+#  short all-caps tokens (DGH, ISH24) as the initialisms they are.
+COMPANY_SPELLING = {
+    "BOSCH REXROTH": "Bosch Rexroth",
+    "NILSEN": "Nilsen",
+    "QWEST CRANE HIRE": "QWest Crane Hire",
+}
+
+
+def prettify_company(raw):
+    s = _txt(raw)
+    if not s or s != s.upper():
+        return s          # already carries its own casing - leave it
+    hit = COMPANY_SPELLING.get(" ".join(s.split()).upper())
+    if hit:
+        return hit
+    _legal = {"PTY": "Pty", "LTD": "Ltd", "PL": "P/L", "CO": "Co",
+              "INC": "Inc"}
+    out = []
+    for w in s.split():
+        #  Legal suffixes get their conventional casing; tokens of three
+        #  letters or fewer, and anything carrying a digit, are
+        #  initialisms (DGH, K2, ISH24) and keep their caps; longer
+        #  plain words are words the export shouted.
+        if w in _legal:
+            out.append(_legal[w])
+            continue
+        keep = len(w) <= 3 or any(ch.isdigit() for ch in w)
+        out.append(w if keep else w[0] + w[1:].lower())
+    return " ".join(out)
+
+
 def _date(v):
     if isinstance(v, dt.datetime):
         return v.date()
@@ -405,7 +443,10 @@ def build(models, today=None, window=None, hirer_id_for=None,
         display_of[norm_co(m["display"])] = m["display"]
 
     def disp(raw):
-        return display_of.get(norm_co(raw), _txt(raw) or "(not recorded)")
+        got = display_of.get(norm_co(raw))
+        if got:
+            return got
+        return prettify_company(_txt(raw)) or "(not recorded)"
 
     # ---- index movements by (company, PERSON KEY) ---------------------
     mv = defaultdict(list)

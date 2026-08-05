@@ -777,8 +777,15 @@ def build(date_tag=None):
     #  Overwriting was the old behaviour and it quietly threw the
     #  morning away - which on a day the fleet moved is the only copy
     #  that could have shown it moving.
+    #  The record copies live in their own Versions\ folder - they used
+    #  to sit in Pages\ beside the current one, so anyone printing or
+    #  PDF-ing the folder got the same report twice. The record is for
+    #  looking back, not for the day's pack. (5 Aug polish sweep.)
+    ver_dir = os.path.join(out_dir, 'Versions')
+    if not os.path.isdir(ver_dir):
+        os.makedirs(ver_dir)
     stamp = dt.datetime.now().strftime('%H%M')
-    keep = os.path.join(out_dir, 'Coates_K2_Plant_Utilisation_{}_{}.html'
+    keep = os.path.join(ver_dir, 'Coates_K2_Plant_Utilisation_{}_{}.html'
                         .format(date_tag, stamp))
     with io.open(keep, 'w', encoding='utf-8') as fh:
         fh.write(page)
