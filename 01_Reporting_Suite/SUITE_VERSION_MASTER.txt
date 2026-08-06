@@ -1,7 +1,7 @@
-# Coates K2 suite version - 199 files - overall 05448ca8
+# Coates K2 suite version - 200 files - overall 7b4c1a0a
 # MACHINE: the master - cut by Claude
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-06 01:49:48
+# taken 2026-08-06 02:02:56
 bdd8e1cd21 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -108,6 +108,7 @@ d7e5f12668 MAKE_MY_QR_CARDS.py
 1c5c7eaecd PEOPLE_LIST.py
 6dce95dd24 PHOTO_HUNT.py
 b98cae26ae PICK_REPORT.py
+048147e026 PREFER_RENDERS.py
 87cb5cb733 PREFILL_DAILY_TRACKING.ps1
 0da565dcb9 PULL_SITEIQ_EXPORTS.py
 1cb7d45d63 QUARANTINE_KNOWN_PLACEHOLDERS.py
