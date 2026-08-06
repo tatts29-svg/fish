@@ -1,7 +1,7 @@
-# Coates K2 suite version - 198 files - overall 746aa73c
+# Coates K2 suite version - 199 files - overall 31ac862f
 # MACHINE: the master - cut by Claude
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-06 01:03:04
+# taken 2026-08-06 01:16:00
 bdd8e1cd21 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -90,7 +90,7 @@ bb744884cc APPLY_SUITE_UPDATE.py
 e5ec7cc70f ARE_WE_IN_SYNC.py
 275a6ff39b BUILD_DAILY_EMAIL_PACKS.py
 087417e8cc BUILD_MYGEAR_ART_BRIEF.py
-4651c36295 BUILD_MY_GEAR.py
+9974e41e88 BUILD_MY_GEAR.py
 f50dbb1008 BUILD_THUMBNAIL_BRIEF.py
 924327682e CHECK_DATA_SOURCES.py
 da2adf9601 CHECK_MY_SETUP.py
@@ -114,7 +114,7 @@ b98cae26ae PICK_REPORT.py
 2430a93569 RACK_WALK_SHEET.py
 77e9335253 REFRESH_BILLING_RECONCILIATION.ps1
 294958b630 REFRESH_GEAR_UTILISATION.ps1
-1847f9a57e RUN_THIS_UPDATE.bat
+1883ee86fa RUN_THIS_UPDATE.bat
 067a7a7151 SERVE_GEAR_HTTPS.py
 8c956ac4a6 SETUP_COMPLIANCE_FLAGS.py
 b0c58cff1b START_GEAR_LOOKUP.ps1
@@ -126,6 +126,7 @@ c73dc44e7e SWITCH_ON.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
+e0ba12df44 VERIFY_INSTALLED_RENDERS.py
 67f828575c VERIFY_THUMBNAIL_RELEASE.py
 11a1eac24a VERIFY_THUMBS_ARE_REAL.py
 b37ba7ee4c VERSION_CHECK.py
@@ -159,7 +160,7 @@ e82e0bb021 build_showcase.py
 06fd0346ff build_utilisation_report.py
 d95b1e1f0b build_whats_used.py
 9902310cbf build_workbook_html.py
-33eafe231a day_rates.py
+17aa635887 day_rates.py
 0f1171314b departures.py
 46fde6859f email_images.py
 a47bad928c equipment_compliance.py
@@ -184,7 +185,7 @@ a4b6299d22 mygear_ui.py
 5dbf7b3d91 net_pick.py
 51d4d07a40 ownership.py
 0f7d3cb2e2 page_style.py
-e0dee98d7d phone_reports.py
+a06117dea4 phone_reports.py
 58632f63a7 plant_life.py
 baf96d6e18 qr_lite.py
 6817897106 racks.py

@@ -128,7 +128,7 @@ def _pick(hdr, wanted):
 
 
 def quote_path(here=None):
-    """The quote, and ONLY something meant to be the quote.
+    r"""The quote, and ONLY something meant to be the quote.
 
     Anything sitting in Data_Quote\ is there on purpose, so any .xlsx
     in it counts. In the suite folder itself it must be NAMED like a

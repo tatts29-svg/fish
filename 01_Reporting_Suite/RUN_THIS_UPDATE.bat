@@ -27,14 +27,20 @@ echo ===============================================================
 echo  COATES K2 - RUN THIS UPDATE - %date% %time%
 echo ===============================================================
 echo.
-echo [1/5] QUARANTINE KNOWN PLACEHOLDERS (by hash - photos untouched)
+echo [1/6] QUARANTINE KNOWN PLACEHOLDERS (by hash - photos untouched)
 %PYCMD% QUARANTINE_KNOWN_PLACEHOLDERS.py
 echo.
-echo [2/5] INSTALL THE THUMBNAIL DROP (guarded - real photos protected)
+echo [2/6] INSTALL THE THUMBNAIL DROP (guarded - real photos protected)
 %PYCMD% INSTALL_THUMBNAIL_DROP.py
 echo.
-echo [3/5] VERIFY THE RELEASE against its own manifest
-%PYCMD% VERIFY_THUMBNAIL_RELEASE.py --thumbs-dir Gear_Lookup\thumbs --release-manifest Coates_K2_Road2_649_Release_Manifest.csv
+echo [3/6] VERIFY THE INSTALLED RENDERS (your own photos are not judged)
+rem  The full release verifier expects a renders-only folder and read
+rem  "FAILED - 2,152 issues" over the work laptop's folder - which was
+rem  BETTER than the release: 577 real photos rightly protected, plus
+rem  hundreds of codes the release never covered. This step checks
+rem  exactly what the installer installed; everything of yours is
+rem  reported as kept, which is the rule working.
+%PYCMD% VERIFY_INSTALLED_RENDERS.py
 echo.
 echo [4/6] REBUILD MY GEAR - the pages learn the new pictures
 %PYCMD% BUILD_MY_GEAR.py

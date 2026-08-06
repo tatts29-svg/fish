@@ -351,10 +351,34 @@ def build(date_tag=None):
                 return p, hits
         return None, []
 
-    #  a clean shelf every run - yesterday's copies never linger
+    #  A CLEAN SHELF EVERY RUN - yesterday's copies never linger.
+    #
+    #  NOT rmtree. On Andrew's work laptop the suite lives inside a
+    #  OneDrive folder, and OneDrive (or the serving window) holds a
+    #  handle on Gear_Lookup\reports - rmtree hit "Access is denied"
+    #  ON THE FOLDER ITSELF and the whole shelf refresh died (6 Aug
+    #  2026). So the folder is kept and its CONTENTS are cleared one
+    #  file at a time; a file that will not delete is left to be
+    #  overwritten by the copy below, and said out loud. A locked file
+    #  must never cost the whole shelf.
     if os.path.isdir(OUT_DIR):
-        shutil.rmtree(OUT_DIR)
-    os.makedirs(OUT_DIR)
+        stuck = []
+        for _n in os.listdir(OUT_DIR):
+            _p = os.path.join(OUT_DIR, _n)
+            try:
+                if os.path.isdir(_p):
+                    shutil.rmtree(_p)
+                else:
+                    os.remove(_p)
+            except OSError:
+                stuck.append(_n)
+        if stuck:
+            print('  {} old file(s) are locked (OneDrive or the serving '
+                  'window) and will be overwritten in place: {}'.format(
+                      len(stuck), ', '.join(stuck[:5])
+                      + (' ...' if len(stuck) > 5 else '')))
+    else:
+        os.makedirs(OUT_DIR)
 
     took, held, locked = [], [], []
     for stem, name, what in SHELF:

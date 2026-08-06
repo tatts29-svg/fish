@@ -1501,8 +1501,22 @@ def build():
         print('    {:>6,}  TOTAL against a register of {:,}{}'.format(
             _sum, _reg_rows,
             '' if _sum == _reg_rows
-            else '   *** {:+,} UNACCOUNTED - tell me ***'.format(
-                _sum - _reg_rows)))
+            else '   *** {:+,} UNACCOUNTED ***'.format(_sum - _reg_rows)))
+        if _sum != _reg_rows:
+            #  A plus means the same asset is sitting in two buckets
+            #  at once (after a Failed-Baseplan hold, shelf + arriving
+            #  is the usual pair); a minus means an asset fell through
+            #  every bucket. Either way it is a data question off THIS
+            #  morning's exports, so the ladder says how to hand it
+            #  over instead of just asking to be told.
+            print('           A {} of {} usually means an asset counted '
+                  'in two buckets at once.'.format(
+                      'surplus' if _sum > _reg_rows else 'shortfall',
+                      abs(_sum - _reg_rows)))
+            print('           Run PACK_FOR_CLAUDE and upload the zip - '
+                  'the exact asset(s) can be')
+            print('           named from the same exports this build '
+                  'just read.')
     except Exception as _e:
         print('  NOTE: the asset ladder did not run ({}).'.format(_e))
     print('  Radios still out across site: {} | Gas monitors out: {} | '
