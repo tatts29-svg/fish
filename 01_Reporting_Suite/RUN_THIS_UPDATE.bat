@@ -36,10 +36,17 @@ echo.
 echo [3/5] VERIFY THE RELEASE against its own manifest
 %PYCMD% VERIFY_THUMBNAIL_RELEASE.py --thumbs-dir Gear_Lookup\thumbs --release-manifest Coates_K2_Road2_649_Release_Manifest.csv
 echo.
-echo [4/5] REBUILD MY GEAR - the pages learn the new pictures
+echo [4/6] REBUILD MY GEAR - the pages learn the new pictures
 %PYCMD% BUILD_MY_GEAR.py
 echo.
-echo [5/5] CHECK REPORTS - nothing goes out unproven
+echo [5/6] REFRESH THE PHONE SHELF - "This morning's reports" means it
+rem  The first cut of this script skipped this, so the shelf kept
+rem  showing the LAST full run's reports and the board felt like it
+rem  was missing everything built since. The shelf is only ever as
+rem  fresh as the last time this ran. (Caught by Andrew, 6 Aug 2026.)
+%PYCMD% phone_reports.py
+echo.
+echo [6/6] CHECK REPORTS - nothing goes out unproven
 %PYCMD% CHECK_REPORTS.py
 echo.
 echo ===============================================================

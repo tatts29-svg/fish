@@ -314,18 +314,42 @@ def build(date_tag=None):
         print('  No Reports folder yet - build some reports first.')
         return 1
 
-    def weight(d):
-        p = os.path.join(reports, d, 'Pages')
-        return len(os.listdir(p)) if os.path.isdir(p) else 0
-    if not date_tag:
-        #  THE DAY WITH THE MOST IN IT, latest wins a tie. A threshold
-        #  let a folder holding five designed reports beat yesterday's
-        #  full run of sixty-two, and the phone got the wrong day.
-        date_tag = max(days, key=lambda d: (weight(d), d))
-    pages = os.path.join(reports, date_tag, 'Pages')
-    if not os.path.isdir(pages):
-        print('  Nothing built for ' + date_tag + '.')
-        return 1
+    #  EACH REPORT'S NEWEST COPY, WHEREVER IT LIVES.
+    #
+    #  The old rule picked ONE day - "the day with the most pages,
+    #  latest wins a tie" - and served the whole shelf from it. Which
+    #  meant one old day with a big run could beat this morning's
+    #  fresher, thinner build, and every page built since simply did
+    #  not appear. Andrew, 6 Aug 2026, looking at his own board: "i
+    #  feel like im missing heaps of things in mygear that we
+    #  implemented." He was - the shelf was serving three days ago.
+    #
+    #  Now every report is hunted for on its own, newest day first:
+    #  today's stocktake scorecard rides with Monday's flame-off page
+    #  if Monday's is the newest one built. Nothing waits for a "best
+    #  day", and nothing built today can be beaten by history. An
+    #  explicit date_tag still pins the whole shelf to one day.
+    search_days = ([date_tag] if date_tag
+                   else sorted(days, reverse=True))
+
+    def newest_hits(stem):
+        pat = (None if stem.endswith('_') else
+               re.compile(r'^' + re.escape(stem)
+                          + r'(_\d{4}-\d{2}-\d{2})?\.html$'))
+        for d in search_days:
+            p = os.path.join(reports, d, 'Pages')
+            if not os.path.isdir(p):
+                continue
+            if stem.endswith('_'):
+                hits = sorted(f for f in os.listdir(p)
+                              if f.startswith(stem) and f.endswith('.html'))
+            else:
+                hits = [f for f in os.listdir(p)
+                        if f.startswith(stem) and f.endswith('.html')
+                        and pat.match(f)]
+            if hits:
+                return p, hits
+        return None, []
 
     #  a clean shelf every run - yesterday's copies never linger
     if os.path.isdir(OUT_DIR):
@@ -334,13 +358,7 @@ def build(date_tag=None):
 
     took, held, locked = [], [], []
     for stem, name, what in SHELF:
-        if stem.endswith('_'):
-            hits = sorted(f for f in os.listdir(pages)
-                          if f.startswith(stem) and f.endswith('.html'))
-        else:
-            hits = [f for f in os.listdir(pages)
-                    if f.startswith(stem) and f.endswith('.html')
-                    and re.match(r'^' + re.escape(stem) + r'(_\d{4}-\d{2}-\d{2})?\.html$', f)]
+        pages, hits = newest_hits(stem)
         for f in hits:
             src = os.path.join(pages, f)
             try:
@@ -443,8 +461,16 @@ def build(date_tag=None):
                           + "</b><span>Held back &mdash; " + _esc(why)
                           + "</span></div></div>")
 
-    pretty = dt.datetime.strptime(date_tag, '%Y-%m-%d').strftime('%d %B %Y')
-    stale = date_tag != dt.date.today().isoformat()
+    #  With no pinned day the shelf is each report at its newest, so
+    #  the header carries today and the footer says how it was picked.
+    if date_tag:
+        pretty = dt.datetime.strptime(date_tag,
+                                      '%Y-%m-%d').strftime('%d %B %Y')
+        stale = date_tag != dt.date.today().isoformat()
+    else:
+        pretty = (dt.date.today().strftime('%d %B %Y')
+                  + ' &middot; each report at its newest')
+        stale = False
     page = (
         "<!doctype html><html lang='en-AU'><head><meta charset='utf-8'>"
         "<meta name='viewport' content='width=device-width,initial-scale=1,"
@@ -545,7 +571,8 @@ def build(date_tag=None):
     print(' COATES | REPORTS ON YOUR PHONE')
     print('=' * 64)
     print(' Day                : {}{}'.format(
-        date_tag, '   <-- not today' if stale else ''))
+        date_tag or 'each report at its newest build',
+        '   <-- not today' if stale else ''))
     print(' In the clear       : {}'.format(len(took)))
     for f, label, _w, _s in took:
         print('     + {}'.format(label))

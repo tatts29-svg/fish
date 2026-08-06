@@ -309,8 +309,17 @@ def _battle(txn_path, stocktake_path=None):
     out, dw, nw, tie = [], 0, 0, 0
     for d in days:
         v = tally[d]
-        D = v['D']['i'] + v['D']['r']
-        N = v['N']['i'] + v['N']['r']
+        #  THE COUNTING IS PART OF THE SCORE. The door promises "who
+        #  counted more, who matched more" and Andrew's spec (3 Aug)
+        #  was gear out, gear back AND stocktake counting - but the
+        #  win was computed off issues + returns alone. On 1 Aug the
+        #  night crew counted 756 items to day's 141 and still "lost"
+        #  297-175. A scoreboard that ignores the night crew's main
+        #  work is not a scoreboard the night crew will ever believe -
+        #  which is exactly how Andrew put it: "does not look right
+        #  ever". (Fixed 6 Aug 2026.)
+        D = v['D']['i'] + v['D']['r'] + v['D']['s']
+        N = v['N']['i'] + v['N']['r'] + v['N']['s']
         #  a day is only a contest if a night crew actually worked it
         contest = bool(nights_on.get(d))
         w = ''
@@ -4532,12 +4541,14 @@ function paneBattle(){
     +'the ladder could not be built.</div>';
   var h='<div class="score">'
    +'<div class="sc day"><b>'+b.dayWins+'</b><span>Day shift</span>'
-   +'<em>'+b.dayTotal.toLocaleString()+' movements</em></div>'
+   +'<em>'+b.dayTotal.toLocaleString()+' scored actions</em></div>'
    +'<div class="vs">v</div>'
    +'<div class="sc night"><b>'+b.nightWins+'</b><span>Night shift</span>'
-   +'<em>'+b.nightTotal.toLocaleString()+' movements</em></div></div>';
-  h+='<div class="note"><b>Every issue and every return, shift by shift, '
-   +'since the shut started.</b> Nights run 18:00 to 06:00, so a movement at '
+   +'<em>'+b.nightTotal.toLocaleString()+' scored actions</em></div></div>';
+  h+='<div class="note"><b>Every issue, every return and every stocktake '
+   +'count, shift by shift, since the shut started.</b> All three score '
+   +'&mdash; the counting IS work, and nights do most of it. Nights run '
+   +'18:00 to 06:00, so a movement at '
    +'two in the morning counts for the night before &mdash; the crew that was '
    +'actually standing there.'
    +(b.nightsFrom?' Nights started '+b.nightsFrom+', so only the days both '
@@ -4553,8 +4564,10 @@ function paneBattle(){
       +(x.D?'<i class="bd2" style="width:'+(100*x.D/tot)+'%">'+(x.D>tot*0.12?x.D:'')+'</i>':'')
       +(x.N?'<i class="bn" style="width:'+(100*x.N/tot)+'%">'+(x.N>tot*0.12?x.N:'')+'</i>':'')
       +'</div>'
-      +'<div class="bnums"><span>DAY '+x.di+' out &middot; '+x.dr+' back</span>'
-      +'<span>NIGHT '+x.ni+' out &middot; '+x.nr+' back</span></div></div>';
+      +'<div class="bnums"><span>DAY '+x.di+' out &middot; '+x.dr+' back'
+      +(x.ds?' &middot; '+x.ds+' counted':'')+'</span>'
+      +'<span>NIGHT '+x.ni+' out &middot; '+x.nr+' back'
+      +(x.ns?' &middot; '+x.ns+' counted':'')+'</span></div></div>';
   });
   /* THE STOCK COUNT BATTLE (Andrew, 30 Jul 2026: "how many stock
      counts are being done between nightshift and dayshift... a power
