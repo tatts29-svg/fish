@@ -1,7 +1,7 @@
-# Coates K2 suite version - 199 files - overall 31ac862f
+# Coates K2 suite version - 199 files - overall 05448ca8
 # MACHINE: the master - cut by Claude
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-08-06 01:16:00
+# taken 2026-08-06 01:49:48
 bdd8e1cd21 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -126,7 +126,7 @@ c73dc44e7e SWITCH_ON.py
 e217cf8bb4 TIDY_THE_FOLDER.py
 d17b4402e4 UPDATE_CONTACTS.py
 3db0090b50 UPDATE_POSTERS.py
-e0ba12df44 VERIFY_INSTALLED_RENDERS.py
+ae37af7e29 VERIFY_INSTALLED_RENDERS.py
 67f828575c VERIFY_THUMBNAIL_RELEASE.py
 11a1eac24a VERIFY_THUMBS_ARE_REAL.py
 b37ba7ee4c VERSION_CHECK.py

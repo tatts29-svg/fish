@@ -31,7 +31,12 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 THUMBS = os.path.join(HERE, 'Gear_Lookup', 'thumbs')
 MANIFEST = os.path.join(THUMBS, 'RENDER_MANIFEST.txt')
-RELEASE = os.path.join(HERE, 'Coates_K2_Road2_649_Release_Manifest.csv')
+#  Every release the render house has shipped - the 649 catalogue
+#  release and the GO-522 render-from-description release, and any
+#  future one whose manifest lands beside this script. A render is
+#  verified against whichever release names its file.
+import glob as _glob
+RELEASES = sorted(_glob.glob(os.path.join(HERE, '*Release_Manifest*.csv')))
 PLACEHOLDER = ('5797e41730a8aa1a8a55ae639f73ba7eaa0c5c7cfb684e'
                'ca6e4e83116126c61a')
 
@@ -44,8 +49,8 @@ def main():
         print(' No thumbs folder yet - nothing to verify.')
         return 0
     rel = {}
-    if os.path.isfile(RELEASE):
-        with io.open(RELEASE, encoding='utf-8-sig') as fh:
+    for rp in RELEASES:
+        with io.open(rp, encoding='utf-8-sig') as fh:
             for r in csv.DictReader(fh):
                 rel[r['output_filename'].upper()] = r['output_sha256']
     installed = set()
