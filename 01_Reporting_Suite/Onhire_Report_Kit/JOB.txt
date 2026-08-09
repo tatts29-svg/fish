@@ -1,0 +1,20 @@
+# =====================================================================
+#  WHICH JOB THIS KIT IS FOR
+#  Author: Andrew Fisher | POWERED BY SITEIQ
+#
+#  You do not have to fill this in. Leave it alone and the kit reads
+#  the job straight off the exports you drop in - every SiteIQ export
+#  carries the project it came from.
+#
+#  Fill it in only when the SiteIQ project name is not what you'd put
+#  in front of a customer. Anything you leave blank is worked out.
+#
+#  To use this kit on a DIFFERENT job: delete the exports in
+#  Data_SiteIQ, drop the new job's in, blank the lines below, and
+#  press the button. Nothing else to change.
+# =====================================================================
+
+customer: Rio Tinto
+job:      Weipa May26 Shutdown
+location: Weipa QLD
+short:    Weipa
