@@ -11,5 +11,5 @@ rem  Use this instead of 00_RUN_EVERYTHING when you just want
 rem  today's hit list or one company's report. Nothing sends.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py PICK_REPORT.py %*) || (python PICK_REPORT.py %*)
+call "%~dp0_RUN.bat" PICK_REPORT.py %*
 pause

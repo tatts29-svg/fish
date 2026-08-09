@@ -16,6 +16,6 @@ rem  If the update is broken I put everything back myself.
 rem  Safe to run twice - I won't apply the same zip again.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py APPLY_SUITE_UPDATE.py %*) || (python APPLY_SUITE_UPDATE.py %*)
+call "%~dp0_RUN.bat" APPLY_SUITE_UPDATE.py %*
 echo.
 pause

@@ -16,6 +16,13 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+
+try:
+    import site_config
+    SITE = site_config.site(base=HERE)
+except Exception:                                  # pragma: no cover
+    site_config, SITE = None, None
 OK, WARN, BAD = "  OK   ", "  WARN ", "  STOP "
 problems = []
 
@@ -68,13 +75,14 @@ def check_file(path, what, required=True):
         #  Both Excel and Python refused = Windows is saying no. On a
         #  folder copied from another machine or user profile this is a
         #  lock file, a read-only flag, old NTFS permissions or folder
-        #  protection - 22_FIX_FILE_ACCESS.bat clears the lot.
+        #  protection. The fix is in the message below.
         say(BAD, "{} is PERMISSION DENIED - {}".format(what, name))
         problems.append(
-            "{} is blocked by Windows (permission denied). Run "
-            "22_FIX_FILE_ACCESS.bat - it clears stale Excel locks, the "
-            "read-only flag, the 'from another computer' block and old "
-            "user permissions.".format(what))
+            "{} is blocked by Windows (permission denied). Close Excel, "
+            "then right-click the suite folder > Properties > untick "
+            "Read-only > OK > apply to all subfolders and files. If it "
+            "came off another machine, also right-click the file > "
+            "Properties > tick Unblock.".format(what))
         return False
     except Exception as e:
         say(BAD, "{} CANNOT BE READ - {} ({})".format(what, name, e))
@@ -88,6 +96,9 @@ def main():
     print("=" * 62)
     print(" COATES | CHECK MY SETUP")
     print(" Folder: " + HERE)
+    if SITE is not None:
+        print(" Job:    " + SITE.header_line)
+        print("         (change it with 57_SWITCH_JOB.bat)")
     print("=" * 62)
 
     # ---- 0. is this folder itself marked read-only? ----------------------
@@ -176,28 +187,46 @@ def main():
                         + " - delete it by hand (View > Hidden items).")
 
     # ---- 1. the workbook ------------------------------------------------
-    wbs = [p for p in glob.glob(os.path.join(HERE, "Cement_Australia_Report*K2*.xlsm"))
+    #  Whichever job this computer is set to - the workbook, the export
+    #  list and the folders all come from Sites\<job>.json.
+    pattern = (SITE.workbook_glob if SITE and SITE.workbook_glob
+               else "Cement_Australia_Report*K2*.xlsm")
+    label = "{} workbook".format(SITE.short if SITE and SITE.short else "K2")
+    wbs = [p for p in glob.glob(os.path.join(HERE, pattern))
            if not os.path.basename(p).startswith("~$")]
     if not wbs:
-        say(BAD, "K2 WORKBOOK NOT FOUND in this folder")
-        problems.append("The K2 workbook (Cement_Australia_Report_..._K2_...xlsm) "
-                        "is not in this folder. Copy it in.")
+        say(BAD, label.upper() + " NOT FOUND")
+        problems.append("The {} ({}) is not where the job expects it. "
+                        "Copy it in.".format(label, pattern))
     else:
-        check_file(max(wbs, key=os.path.getmtime), "K2 workbook")
+        check_file(max(wbs, key=os.path.getmtime), label)
 
     # ---- 2. today's exports ---------------------------------------------
-    need = ["RENTAL_STOCK", "ON_HIRE", "TRANSACTIONS", "SALES_STOCK",
-            "STOCKTAKE", "DAILY_SUMMARY"]
+    need = list(SITE.exports) if SITE and SITE.exports else [
+        "RENTAL_STOCK", "ON_HIRE", "TRANSACTIONS", "SALES_STOCK",
+        "STOCKTAKE", "DAILY_SUMMARY"]
+    folders = SITE.data_dirs(HERE) if SITE else [
+        os.path.join(HERE, "Data_SiteIQ"), HERE]
     for stem in need:
         hits = []
-        for d in (os.path.join(HERE, "Data_SiteIQ"), HERE):
+        for d in folders:
             hits += [p for p in glob.glob(os.path.join(d, stem + "*.xlsx"))
                      if not os.path.basename(p).startswith("~$")]
-        if hits:
-            check_file(max(hits, key=os.path.getmtime), "Export " + stem)
-        else:
+        if not hits:
             say(WARN, "Export {} not found (some reports will say "
                       "'unavailable')".format(stem))
+            continue
+        newest = max(hits, key=os.path.getmtime)
+        if not check_file(newest, "Export " + stem):
+            continue
+        #  Right file, wrong job? An export carries the SiteIQ project
+        #  name. Building Weipa reports off Gladstone data is the sort
+        #  of mistake that gets all the way to a customer.
+        if site_config is not None:
+            ok, why = site_config.belongs_to_live_job(newest, HERE)
+            if not ok:
+                say(BAD, "Export {} belongs to a DIFFERENT job".format(stem))
+                problems.append(why)
 
     # ---- 3. python's libraries ------------------------------------------
     print("-" * 62)

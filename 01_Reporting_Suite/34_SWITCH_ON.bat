@@ -13,5 +13,5 @@ rem
 rem  Backs the book up before it writes anything.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py SWITCH_ON.py %*) || (python SWITCH_ON.py %*)
+call "%~dp0_RUN.bat" SWITCH_ON.py %*
 pause

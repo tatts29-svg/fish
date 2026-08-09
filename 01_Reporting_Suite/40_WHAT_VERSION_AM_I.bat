@@ -15,5 +15,5 @@ rem  Use this on the work laptop, where the chat is the only
 rem  way in and out.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py VERSION_CHECK.py) || (python VERSION_CHECK.py)
+call "%~dp0_RUN.bat" VERSION_CHECK.py
 pause

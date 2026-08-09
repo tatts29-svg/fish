@@ -13,6 +13,6 @@ rem  Register is backed up first. Safe to run twice - it will
 rem  never double-charge.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py ADD_LIFTING_CHARGES.py %*) || (python ADD_LIFTING_CHARGES.py %*)
+call "%~dp0_RUN.bat" ADD_LIFTING_CHARGES.py %*
 echo.
 pause

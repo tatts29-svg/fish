@@ -7,8 +7,6 @@ rem  your live workbook. Re-run any time to refresh.
 rem  Author: Andrew Fisher | POWERED BY SITEIQ
 rem ==========================================================
 cd /d "%~dp0"
-where python >nul 2>nul || (echo Install Python 3 from python.org ^&^& pause ^& exit /b 1)
-python -c "import openpyxl" >nul 2>nul || python -m pip install openpyxl
-python build_clean_report.py %*
+call "%~dp0_RUN.bat" build_clean_report.py %*
 echo.
 pause

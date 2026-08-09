@@ -22,13 +22,10 @@ rem  change the cell and run the reports again. Blank means the badge
 rem  does not show. The reports read the spreadsheet, every time.
 rem =====================================================================
 cd /d "%~dp0"
-set PYCMD=py
-where py >nul 2>nul || set PYCMD=python
-
 echo.
 echo  Checking the master file for gear with no compliance flags set...
 echo.
-%PYCMD% SETUP_COMPLIANCE_FLAGS.py %*
+call "%~dp0_RUN.bat" SETUP_COMPLIANCE_FLAGS.py %*
 echo.
 echo  ---------------------------------------------------------------
 echo   To preview without changing anything:  15_RUN_COMPLIANCE_FLAGS.bat --dry-run

@@ -1,0 +1,3 @@
+# The job this computer is running. Change it with
+# 57_SWITCH_JOB.bat - don't hand-edit unless you have to.
+rio_weipa

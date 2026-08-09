@@ -16,5 +16,5 @@ rem  First run asks for a folder both machines can see - a USB
 rem  stick or a personal OneDrive folder. It remembers it.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py SYNC_PCS.py %*) || (python SYNC_PCS.py %*)
+call "%~dp0_RUN.bat" SYNC_PCS.py %*
 pause

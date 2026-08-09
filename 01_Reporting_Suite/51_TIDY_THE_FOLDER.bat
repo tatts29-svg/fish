@@ -14,6 +14,6 @@ rem  For the gigabytes in old report days: 45_ARCHIVE_OLD_
 rem  REPORTS.bat is the one that zips and clears those.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py TIDY_THE_FOLDER.py %*) || (python TIDY_THE_FOLDER.py %*)
+call "%~dp0_RUN.bat" TIDY_THE_FOLDER.py %*
 echo.
 pause

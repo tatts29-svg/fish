@@ -12,5 +12,5 @@ rem
 rem  Add --all to check every report ever built, not just today.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py CHECK_REPORTS.py %*) || (python CHECK_REPORTS.py %*)
+call "%~dp0_RUN.bat" CHECK_REPORTS.py %*
 pause

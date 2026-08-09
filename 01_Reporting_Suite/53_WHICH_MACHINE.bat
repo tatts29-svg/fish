@@ -17,6 +17,6 @@ rem  Send MACHINE.txt up from both and there is nothing left
 rem  to guess about which machine is which.
 rem ==========================================================
 cd /d "%~dp0"
-python MACHINE_ID.py
+call "%~dp0_RUN.bat" MACHINE_ID.py
 echo.
 pause

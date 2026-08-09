@@ -1,0 +1,19 @@
+{
+  "job": "Weipa May26 Shutdown",
+  "customer": "Rio Tinto",
+  "customer_legal": "Rio Tinto Aluminium Pty Ltd",
+  "location": "Weipa QLD",
+  "header_line": "Rio Tinto · Weipa May26 Shutdown · Weipa",
+  "short": "Weipa",
+  "author": "Andrew Fisher",
+  "powered_by": "POWERED BY SITEIQ",
+
+  "project_schedule": "Rio Tinto Weipa May26 Shut",
+
+  "data_dirs": ["Jobs/Rio_Weipa/Data_SiteIQ", "Jobs/Rio_Weipa"],
+  "reports_dir": "Jobs/Rio_Weipa/Reports",
+  "email_packs_dir": "Jobs/Rio_Weipa/DAILY REPORTING",
+  "workbook_glob": "Jobs/Rio_Weipa/Rio_Onhire_report.xlsm",
+
+  "exports": ["RENTAL_STOCK", "TRANSACTIONS", "SALES_STOCK", "STOCKTAKE"]
+}

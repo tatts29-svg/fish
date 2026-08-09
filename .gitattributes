@@ -1,0 +1,29 @@
+# =====================================================================
+#  COATES | line endings - so the suite behaves the same on every PC
+#
+#  Windows batch and PowerShell files must be CRLF. A .bat saved with
+#  Unix line endings runs most of the time and then fails on the one
+#  thing that matters - a label, a multi-line IF, the last line of the
+#  file - which is the sort of fault that only shows up on someone
+#  else's computer. Pin it here so no editor, no zip and no clone can
+#  quietly change it.
+# =====================================================================
+* text=auto
+
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+*.txt   text eol=crlf
+
+*.py    text eol=lf
+*.md    text eol=lf
+
+# Binaries - never touched.
+*.xlsx  binary
+*.xlsm  binary
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.mp4   binary
+*.zip   binary
+*.eml   binary

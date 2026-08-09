@@ -16,5 +16,5 @@ rem  Run 31_START_GEAR_LOOKUP_HTTPS.bat FIRST and leave it
 rem  open, then run me in a second window.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py WHY_NO_CONNECT.py) || (python WHY_NO_CONNECT.py)
+call "%~dp0_RUN.bat" WHY_NO_CONNECT.py
 pause

@@ -7,5 +7,5 @@ rem  address - then reprints the PDFs ready for the wall.
 rem  Run me whenever the store's address or port changes.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py UPDATE_POSTERS.py) || (python UPDATE_POSTERS.py)
+call "%~dp0_RUN.bat" UPDATE_POSTERS.py
 pause

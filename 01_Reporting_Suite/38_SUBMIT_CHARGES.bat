@@ -18,5 +18,5 @@ rem  Nothing is emailed. Each charge leaves an Outlook draft
 rem  for you to read and send yourself.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py SUBMIT_CHARGES.py) || (python SUBMIT_CHARGES.py)
+call "%~dp0_RUN.bat" SUBMIT_CHARGES.py
 pause

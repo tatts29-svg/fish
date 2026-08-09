@@ -8,5 +8,5 @@ rem  browsers block the camera on unsecured pages.
 rem  Leave this window open while the store is running.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py SERVE_GEAR_HTTPS.py) || (python SERVE_GEAR_HTTPS.py)
+call "%~dp0_RUN.bat" SERVE_GEAR_HTTPS.py
 pause

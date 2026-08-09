@@ -11,8 +11,6 @@ rem  the 06 button as always. Also built by 00_RUN_EVERYTHING.
 rem  Author: Andrew Fisher | POWERED BY SITEIQ
 rem ==========================================================
 cd /d "%~dp0"
-where python >nul 2>nul || (echo Install Python 3 from python.org ^&^& pause ^& exit /b 1)
-python -c "import openpyxl" >nul 2>nul || python -m pip install openpyxl
-python build_company_onhire_report.py --stocktake-team --store-health %*
+call "%~dp0_RUN.bat" build_company_onhire_report.py --stocktake-team --store-health %*
 echo.
 pause

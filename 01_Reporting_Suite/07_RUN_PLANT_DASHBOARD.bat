@@ -9,18 +9,7 @@ rem  Output lands in Reports\<today's date>\  - one folder per day
 rem ==========================================================
 cd /d "%~dp0"
 
-where python >nul 2>nul
-if errorlevel 1 (
-    echo.
-    echo Python 3 was not found on this machine.
-    echo Install Python 3 from python.org, tick "Add to PATH",
-    echo then run this again.
-    echo.
-    pause
-    exit /b 1
-)
-
-python build_plant_dashboard.py %*
+call "%~dp0_RUN.bat" build_plant_dashboard.py %*
 
 echo.
 pause

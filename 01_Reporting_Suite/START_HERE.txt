@@ -179,11 +179,20 @@
 
 
 ----------------------------------------------------------------------
- Old\  folder
+ More than one job
 ----------------------------------------------------------------------
 
-   One-time setup and test tools that have done their job. Nothing in
-   there is needed to run the suite. Left in place rather than deleted
-   in case you ever want them back.
+   This suite runs more than one shutdown. 57_SWITCH_JOB.bat says
+   which one this computer is on - it lists them, marks the live one,
+   and switching takes a second.
+
+   Each job keeps its own folders. K2's exports and reports stay
+   where they always were; Rio Weipa's live under Jobs\Rio_Weipa\.
+   They cannot mix - if you put a Gladstone export in front of a
+   Weipa job the checks stop you before a report is built off it.
+
+   58_RUN_ONHIRE_WORKBOOK.bat builds the on-hire workbook for
+   whichever job is live - all twelve tabs, from that day's exports.
+   Your typed Labour and Cost tabs are carried over untouched.
 
 ======================================================================

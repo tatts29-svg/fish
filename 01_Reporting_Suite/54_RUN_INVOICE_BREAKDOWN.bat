@@ -17,18 +17,7 @@ rem      54_RUN_INVOICE_BREAKDOWN.bat 2026-07
 rem ==========================================================
 cd /d "%~dp0"
 
-where python >nul 2>nul
-if errorlevel 1 (
-    echo.
-    echo Python 3 was not found on this machine.
-    echo Install Python 3 from python.org, tick "Add to PATH",
-    echo then run this again.
-    echo.
-    pause
-    exit /b 1
-)
-
-python build_invoice_breakdown.py %*
+call "%~dp0_RUN.bat" build_invoice_breakdown.py %*
 
 echo.
 pause

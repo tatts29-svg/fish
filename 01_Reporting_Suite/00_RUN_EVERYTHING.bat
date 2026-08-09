@@ -31,20 +31,17 @@ rem  Everything lands in Reports\<today>\ (Pages, PDF, Emails,
 rem  Excel_Backups). Nothing sends without YES at step 06.
 rem =====================================================================
 cd /d "%~dp0"
-set PYCMD=py
-where py >nul 2>nul || set PYCMD=python
-
 echo ===============================================================
 echo  COATES K2 - RUN EVERYTHING - %date% %time%
 echo ===============================================================
 echo.
 echo [0/10] COMPLIANCE FLAGS (new gear only - leaves your edits alone)
-%PYCMD% SETUP_COMPLIANCE_FLAGS.py
+call "%~dp0_RUN.bat" SETUP_COMPLIANCE_FLAGS.py
 echo.
 echo [1/10] ALIGN EXCEL DATA
-%PYCMD% _align_prep.py
+call "%~dp0_RUN.bat" _align_prep.py
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0ALIGN_EXCEL_DATA.ps1"
-%PYCMD% verify_excel_alignment.py
+call "%~dp0_RUN.bat" verify_excel_alignment.py
 echo.
 echo [2/10] PREFILL DAILY TRACKING
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0PREFILL_DAILY_TRACKING.ps1"
@@ -56,16 +53,16 @@ echo [4/10] GEAR UTILISATION (radio + gas right-sizing)
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0REFRESH_GEAR_UTILISATION.ps1"
 echo.
 echo [5/10] COST TRACKING SNAPSHOT
-%PYCMD% build_cost_snapshot.py
+call "%~dp0_RUN.bat" build_cost_snapshot.py
 echo.
 echo [6/10] COMPANY KIT - every report
-%PYCMD% build_company_onhire_report.py --all --exec --demob --consumables --daily --store --requests --stocktake --stocktake-team --store-health --safety --returns --lookup --activity --hitlist --plant
+call "%~dp0_RUN.bat" build_company_onhire_report.py --all --exec --demob --consumables --daily --store --requests --stocktake --stocktake-team --store-health --safety --returns --lookup --activity --hitlist --plant
 echo.
 echo [7/10] MY GEAR
-%PYCMD% BUILD_MY_GEAR.py
+call "%~dp0_RUN.bat" BUILD_MY_GEAR.py
 echo.
 echo [8/10] CLEAN REGISTER
-%PYCMD% build_clean_report.py
+call "%~dp0_RUN.bat" build_clean_report.py
 echo.
 echo [9/10] OUTLOOK DRAFTS (rebuild all of today's)
 if exist "%~dp0NO_OUTLOOK.txt" (
@@ -76,9 +73,9 @@ if exist "%~dp0NO_OUTLOOK.txt" (
 )
 echo.
 echo [10/10] DAILY EMAIL PACKS (company folders, drafts, record)
-%PYCMD% BUILD_DAILY_EMAIL_PACKS.py
+call "%~dp0_RUN.bat" BUILD_DAILY_EMAIL_PACKS.py
 echo.
-%PYCMD% TEST_DAILY_PACKS.py
+call "%~dp0_RUN.bat" TEST_DAILY_PACKS.py
 echo.
 echo ===============================================================
 echo  DONE. Everything is filed in today^'s Reports folder:

@@ -7,5 +7,5 @@ rem  anything was built off older data than it should be.
 rem  Run me before you send the day's emails.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py ARE_WE_IN_SYNC.py) || (python ARE_WE_IN_SYNC.py)
+call "%~dp0_RUN.bat" ARE_WE_IN_SYNC.py
 pause

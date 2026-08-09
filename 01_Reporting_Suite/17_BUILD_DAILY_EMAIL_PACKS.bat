@@ -18,14 +18,11 @@ rem
 rem  NOTHING SENDS. Open the .eml, read it, press Send yourself.
 rem =====================================================================
 cd /d "%~dp0"
-set PYCMD=py
-where py >nul 2>nul || set PYCMD=python
-
-%PYCMD% BUILD_DAILY_EMAIL_PACKS.py %*
+call "%~dp0_RUN.bat" BUILD_DAILY_EMAIL_PACKS.py %*
 echo.
 echo  Now proving them...
 echo.
-%PYCMD% TEST_DAILY_PACKS.py
+call "%~dp0_RUN.bat" TEST_DAILY_PACKS.py
 echo.
 echo ---------------------------------------------------------------
 echo  The day's status board:

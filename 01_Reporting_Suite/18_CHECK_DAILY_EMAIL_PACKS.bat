@@ -12,9 +12,6 @@ rem
 rem  Run it any time you want to be certain before you send.
 rem =====================================================================
 cd /d "%~dp0"
-set PYCMD=py
-where py >nul 2>nul || set PYCMD=python
-
-%PYCMD% TEST_DAILY_PACKS.py %*
+call "%~dp0_RUN.bat" TEST_DAILY_PACKS.py %*
 echo.
 pause

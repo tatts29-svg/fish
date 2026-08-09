@@ -10,7 +10,7 @@ rem  This lists them and says which to put on the poster.
 rem  Also opens the firewall hole if you run it as admin.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py net_pick.py) || (python net_pick.py)
+call "%~dp0_RUN.bat" net_pick.py
 echo.
 echo  ----------------------------------------------------------
 echo   If phones still cannot open the page, Windows Firewall is

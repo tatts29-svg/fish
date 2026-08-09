@@ -16,18 +16,7 @@ rem  time to see the hunt tick itself off.
 rem ==========================================================
 cd /d "%~dp0"
 
-where python >nul 2>nul
-if errorlevel 1 (
-    echo.
-    echo Python 3 was not found on this machine.
-    echo Install Python 3 from python.org, tick "Add to PATH",
-    echo then run this again.
-    echo.
-    pause
-    exit /b 1
-)
-
-python PHOTO_HUNT.py %*
+call "%~dp0_RUN.bat" PHOTO_HUNT.py %*
 if exist Photo_Hunt.html start "" Photo_Hunt.html
 
 echo.

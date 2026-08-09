@@ -6,5 +6,5 @@ REM  from the ON_HIRE / TRANSACTIONS exports in this folder.
 REM  Then serve it with 05_START_GEAR_LOOKUP.bat as usual.
 REM ==========================================================
 cd /d "%~dp0"
-python BUILD_MY_GEAR.py
+call "%~dp0_RUN.bat" BUILD_MY_GEAR.py
 pause

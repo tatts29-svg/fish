@@ -1,0 +1,20 @@
+{
+  "job": "K2 Shutdown 2026",
+  "customer": "Cement Australia",
+  "customer_legal": "Cement Australia Holdings Pty Ltd",
+  "location": "Gladstone QLD",
+  "header_line": "Cement Australia · K2 Shutdown 2026 · Gladstone",
+  "short": "K2",
+  "author": "Andrew Fisher",
+  "powered_by": "POWERED BY SITEIQ",
+
+  "project_schedule": "Gladstone k2 2026 Shutdown",
+
+  "data_dirs": ["Data_SiteIQ", "."],
+  "reports_dir": "Reports",
+  "email_packs_dir": "K2 DAILY REPORTING",
+  "workbook_glob": "Cement_Australia_Report*K2*.xlsm",
+
+  "exports": ["RENTAL_STOCK", "ON_HIRE", "TRANSACTIONS", "SALES_STOCK",
+              "STOCKTAKE", "DAILY_SUMMARY"]
+}

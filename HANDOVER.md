@@ -8,7 +8,23 @@ picture so you don't have to re-explain any of it.
 ## Who and what
 
 **Andrew Fisher** — Shutdown Manager, Coates Hire.
-**Job:** Cement Australia K2 Shutdown 2026, Gladstone QLD.
+
+**Jobs:** the suite now runs more than one.
+
+| key | job | live? |
+|---|---|---|
+| `k2` | Cement Australia K2 Shutdown 2026, Gladstone QLD | |
+| `rio_weipa` | Rio Tinto Weipa May26 Shutdown, Weipa QLD | ← current |
+
+`SITE.txt` names the live one; `57_SWITCH_JOB.bat` changes it. Each job
+is one small file in `Sites\`, and everything follows it — which exports
+get read, where reports land, the customer name on every heading.
+**Do not hardcode a job into anything new.** Ask `site_config.site()`.
+
+K2's folders are exactly where they always were. Weipa lives under
+`Jobs\Rio_Weipa\`. They cannot mix: every export carries a SiteIQ
+PROJECT SCHEDULE stamp, and a report will not build off an export
+belonging to another job.
 
 Andrew runs the Coates tool store on site. The suite builds the daily
 customer and internal reports out of SiteIQ exports, and serves a page
@@ -96,6 +112,53 @@ and waits. `26_`/`27_` turn draft creation off and on.
 ---
 
 ## Recently done
+
+- **Cross-computer + Rio Weipa pass (9 Aug 2026, this branch):**
+  - **`_RUN.bat` — one launcher for every button.** The buttons used to
+    start Python five different ways and three of them broke on a fresh
+    machine: `python` isn't on PATH unless the installer's box was
+    ticked; Windows ships a fake `python.exe` that only opens the
+    Store and passed the old `where python` test; and
+    `where py && (py X) || (python X)` **runs the script a second time
+    whenever the first run exits non-zero** — which is how you
+    double-charge on 38. All 49 buttons now `call _RUN.bat`, which
+    proves a Python 3 actually runs (each candidate must print its own
+    path), falls back to the usual install folders when PATH is empty,
+    installs openpyxl once, and runs the script **once**.
+  - **Line endings pinned.** The .bat files were a mix of CRLF and LF.
+    A LF-only .bat runs most of the time and then fails on a label or a
+    multi-line IF — a fault that only shows up on someone else's
+    computer. All .bat/.ps1/.txt are CRLF and `.gitattributes` holds
+    them there. Report output trees were deliberately left alone.
+  - **`site_config.py` — the job is data now, not code.** See the table
+    above.
+  - **`58_RUN_ONHIRE_WORKBOOK.bat`** builds the twelve-tab shutdown
+    on-hire workbook for whichever job is live. Cover was blank in
+    Andrew's file — it now carries the headlines, what fed the
+    numbers, and the rating rules written out. **Coates Labour and
+    Cost Breakdown are his typing** and are carried over cell for cell,
+    formulas and all — never recalculated, never overwritten. His
+    `.xlsm` is never written to (VBA, a logo drawing and Power Query
+    tables don't survive an openpyxl round-trip), so a clean dated
+    workbook is built alongside it.
+  - **Two real defects found in the Rio workbook while rebuilding it:**
+    the Company Summary TOOLING row was a copy of the CONSUMABLES row
+    (ACS showed 13 tooling transactions when it had none), and the
+    tooling Usage Rating didn't follow any consistent rule — one line
+    was "Low Use" on 36 transactions, another "Good Use" on one.
+    Tooling is now rated on **turns** (transactions ÷ units on site),
+    consumables on **share of position sold**, and both rules are
+    printed on the Cover so the recommendations can be argued with.
+  - **`59_CHECK_EVERY_BUTTON.bat`** — presses nothing, changes nothing,
+    and says whether every button on this machine would work: shared
+    launcher, target present, valid Python, libraries installed, line
+    endings, and whether the live job's exports are here and belong to
+    it. Run it after an update or on a new machine.
+  - **Dead weight gone:** `Old\` (10 retired files), the one-off
+    `FIX_DELETE_LIFTING_CHARGES_28JUL`, and a stale duplicate
+    `Gear_Lookup\START_GEAR_LOOKUP.ps1` that nothing ran. Docs that
+    pointed at them were fixed. Everything else at the suite root was
+    checked and is live — nothing else was removed.
 
 - **Elite improvements pass (28 Jul 2026, this repo's branch):**
   - **46_APPLY_UPDATE.bat** — the improvement loop. Ask Claude → download
@@ -193,6 +256,21 @@ first attempt worked. They must be safe to run twice.
 **He is on a live site.** Prefer the boring thing that works over the
 clever thing that's better. Anything that adds a step for 100+ workers
 needs to be worth it.
+
+**Some tabs are his typing, not output.** `Coates Labour` and
+`Cost Breakdown` in the on-hire workbook are entered by hand. Anything
+that "refreshes" them destroys work nobody can rebuild. Read them,
+write them back, leave them alone.
+
+**Don't round-trip his .xlsm files through openpyxl.** They carry VBA,
+logo drawings and Power Query connections that don't survive. Build a
+new workbook alongside instead.
+
+**Reading a text file in Python translates line endings unless you say
+otherwise.** `open(p).read()` turns CRLF into LF, and writing it back
+with `newline=""` then saves a Unix .bat. Use `newline=""` on the
+*read* as well, or work in binary. This silently un-did the CRLF fix
+twice in one sitting.
 
 ---
 

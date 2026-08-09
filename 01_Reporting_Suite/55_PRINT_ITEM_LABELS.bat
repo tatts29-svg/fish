@@ -16,18 +16,7 @@ rem  TEST LABEL before any batch.
 rem ==========================================================
 cd /d "%~dp0"
 
-where python >nul 2>nul
-if errorlevel 1 (
-    echo.
-    echo Python 3 was not found on this machine.
-    echo Install Python 3 from python.org, tick "Add to PATH",
-    echo then run this again.
-    echo.
-    pause
-    exit /b 1
-)
-
-python ZEBRA_LABELS.py %*
+call "%~dp0_RUN.bat" ZEBRA_LABELS.py %*
 
 echo.
 pause

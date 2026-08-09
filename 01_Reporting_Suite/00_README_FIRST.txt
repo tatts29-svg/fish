@@ -94,8 +94,6 @@ DAILY_SUMMARY), and have Outlook open. Then:
                                    its blue tag, logbook and return line
                                    show on every report (--dry-run to
                                    preview, --force to redo from rules)
-   16_RUN_PAGE_FLOW_TEST.bat     - proves the pages still lay out clean
-                                   at 1x, 3x, 10x and 25x the fleet
    17_BUILD_DAILY_EMAIL_PACKS.bat - the day's company email packs: one
                                    folder per company, dated, the report
                                    that goes in the body, the PDFs that
@@ -109,7 +107,18 @@ DAILY_SUMMARY), and have Outlook open. Then:
                                    Outlook opens it, and feeds four
                                    routing mistakes through on purpose to
                                    be sure they'd be caught
-   TEST_SERVE_EVERYWHERE.bat     - phone-connection test for the QR page
+   57_SWITCH_JOB.bat             - which job is this computer running?
+                                   K2 or Rio Weipa. Everything follows it
+                                   - exports read, reports written, the
+                                   customer name on every heading
+   58_RUN_ONHIRE_WORKBOOK.bat    - the shutdown on-hire workbook, all
+                                   twelve tabs, off today's exports. Your
+                                   typed Labour and Cost tabs carry over
+                                   untouched
+   59_CHECK_EVERY_BUTTON.bat    - presses nothing, changes nothing,
+                                   and tells you whether every button
+                                   on this computer would work. Run it
+                                   after an update or on a new machine
 
    Two stores-team packs also build with the one button (or by flag):
    Stocktake TEAM report          - the people turning the wheel: counts

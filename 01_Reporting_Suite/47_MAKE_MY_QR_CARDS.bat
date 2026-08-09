@@ -17,6 +17,6 @@ rem  Run 04_RUN_MY_GEAR.bat first if the roster changed. Run me
 rem  again any time the store address changes.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py MAKE_MY_QR_CARDS.py %*) || (python MAKE_MY_QR_CARDS.py %*)
+call "%~dp0_RUN.bat" MAKE_MY_QR_CARDS.py %*
 echo.
 pause

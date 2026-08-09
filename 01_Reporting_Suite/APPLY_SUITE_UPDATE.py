@@ -72,10 +72,16 @@ PROTECTED = (
     #  the store Zebra's IP and label size - set at the counter,
     #  never shipped (30 Jul 2026)
     "zebra_printer.txt",
+    #  which job THIS computer is running. The site laptop and the
+    #  Surface can legitimately be on different jobs mid-changeover, so
+    #  an update must never quietly move one of them.
+    "site.txt",
 )
 PROTECTED_DIRS = ("data_siteiq", "data_baseplan",
                   #  gear pictures collected on site (30 Jul 2026)
-                  "photos")
+                  "photos",
+                  #  each job's own exports, reports and workbooks
+                  "jobs")
 
 
 def sha(path):

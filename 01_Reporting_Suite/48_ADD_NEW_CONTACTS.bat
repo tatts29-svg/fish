@@ -14,6 +14,6 @@ rem
 rem  Both workbooks are backed up first. Safe to run twice.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py ADD_NEW_CONTACTS.py %*) || (python ADD_NEW_CONTACTS.py %*)
+call "%~dp0_RUN.bat" ADD_NEW_CONTACTS.py %*
 echo.
 pause

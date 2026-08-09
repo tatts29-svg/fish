@@ -19,5 +19,5 @@ rem     Needs_An_ID.csv    just the gap - paste into ID Cards
 rem     People_List.html   the printable version
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py PEOPLE_LIST.py) || (python PEOPLE_LIST.py)
+call "%~dp0_RUN.bat" PEOPLE_LIST.py
 pause

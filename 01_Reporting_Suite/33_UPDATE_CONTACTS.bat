@@ -14,5 +14,5 @@ rem  new people switched OFF. You decide who goes live by
 rem  putting Yes in the Include column.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py UPDATE_CONTACTS.py %1) || (python UPDATE_CONTACTS.py %1)
+call "%~dp0_RUN.bat" UPDATE_CONTACTS.py %1
 pause

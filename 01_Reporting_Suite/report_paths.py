@@ -18,13 +18,28 @@ import datetime as dt
 
 REPORTS_DIRNAME = "Reports"
 
+#  Which job this computer is running decides where the exports are read
+#  from and where the reports land. K2 answers exactly as it always did
+#  (Data_SiteIQ\ then the suite root, reports into Reports\); a second
+#  job keeps its own folders so two jobs can never mix output.
+try:
+    import site_config as _sc
+except ImportError:                                  # pragma: no cover
+    _sc = None
+
+
+def _live():
+    return _sc.site() if _sc else None
+
 
 def day_folder(base, when=None):
     """Return (and create) Reports\\<date>\\ under `base` for `when` (default today)."""
     when = when or dt.date.today()
     if isinstance(when, dt.datetime):
         when = when.date()
-    path = os.path.join(base, REPORTS_DIRNAME, when.strftime("%Y-%m-%d"))
+    s = _live()
+    reports = s.reports_dirname if s else REPORTS_DIRNAME
+    path = os.path.join(base, reports, when.strftime("%Y-%m-%d"))
     os.makedirs(path, exist_ok=True)
     return path
 
@@ -34,8 +49,12 @@ SITEIQ_DIR = "Data_SiteIQ"       # the fresh SiteIQ pulls live here (kits
 
 
 def siteiq_dirs(base):
-    """Where the SiteIQ exports may live: the Data_SiteIQ folder first,
-    the suite root second - saving over the top works in either."""
+    """Where the SiteIQ exports may live for the job this computer is
+    running - best folder first. Saving over the top works in any of
+    them."""
+    s = _live()
+    if s:
+        return s.data_dirs(base)
     return [os.path.join(base, SITEIQ_DIR), base]
 
 

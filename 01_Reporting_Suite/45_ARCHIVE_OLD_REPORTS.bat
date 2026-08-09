@@ -15,7 +15,7 @@ rem  "02 EMAIL CONTROL" and "03 CONTACTS & SETTINGS" stays
 rem  put whatever date is on it.
 rem ==========================================================
 cd /d "%~dp0"
-python ARCHIVE_OLD_REPORTS.py
+call "%~dp0_RUN.bat" ARCHIVE_OLD_REPORTS.py
 if errorlevel 1 (
     echo.
     echo  Nothing was deleted.

@@ -10,6 +10,6 @@ rem  the machine. Upload that zip to the chat. Run me on BOTH
 rem  laptops - two zips, two uploads, done.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py PACK_FOR_CLAUDE.py %*) || (python PACK_FOR_CLAUDE.py %*)
+call "%~dp0_RUN.bat" PACK_FOR_CLAUDE.py %*
 echo.
 pause

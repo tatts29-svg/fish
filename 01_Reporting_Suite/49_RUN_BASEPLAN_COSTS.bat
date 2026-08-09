@@ -15,6 +15,6 @@ rem  itself into Data_Baseplan\ and keeps the previous pull.
 rem  Run it again the morning an invoice lands and compare.
 rem ==========================================================
 cd /d "%~dp0"
-where py >nul 2>nul && (py build_baseplan_costs.py %*) || (python build_baseplan_costs.py %*)
+call "%~dp0_RUN.bat" build_baseplan_costs.py %*
 echo.
 pause

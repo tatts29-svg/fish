@@ -12,9 +12,7 @@ rem  Use 00_RUN_EVERYTHING.bat when you also want the PDFs
 rem  and pages on file.
 rem ==========================================================
 cd /d "%~dp0"
-set PYCMD=py
-where py >nul 2>nul || set PYCMD=python
-%PYCMD% build_company_onhire_report.py --all --exec --demob --consumables --daily --store --requests --stocktake --stocktake-team --store-health --safety --returns --lookup --activity --hitlist --plant --email-only
+call "%~dp0_RUN.bat" build_company_onhire_report.py --all --exec --demob --consumables --daily --store --requests --stocktake --stocktake-team --store-health --safety --returns --lookup --activity --hitlist --plant --email-only
 echo.
 if exist "%~dp0NO_OUTLOOK.txt" (
     echo  Outlook drafts are OFF - the .eml files are in
