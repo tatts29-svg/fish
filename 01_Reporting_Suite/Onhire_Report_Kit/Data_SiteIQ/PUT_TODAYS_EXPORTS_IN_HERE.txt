@@ -1,0 +1,23 @@
+======================================================================
+ PUT TODAY'S SITEIQ EXPORTS IN THIS FOLDER
+======================================================================
+
+   RENTAL_STOCK      needed
+   SALES_STOCK       needed
+   TRANSACTIONS      needed
+   STOCKTAKE         optional - adds one line to the Cover
+
+ Save them straight over the top of yesterday's. Don't rename them -
+ SiteIQ's own long file names work fine:
+
+   RENTAL_STOCK_10_08_2026 06_05 AM.xlsx
+
+ If there is more than one of the same export in here, the newest one
+ is used and the others are ignored.
+
+ ONE JOB'S EXPORTS AT A TIME. Mixing two jobs is the one mistake that
+ would put wrong numbers in front of a customer, so the refresh stops
+ and names the odd file out rather than letting it through.
+
+ Then go back up a folder and double-click REFRESH_THE_REPORT.bat
+======================================================================

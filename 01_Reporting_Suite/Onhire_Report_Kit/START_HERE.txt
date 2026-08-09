@@ -1,0 +1,155 @@
+======================================================================
+ COATES | ON-HIRE REPORT
+ Author: Andrew Fisher | POWERED BY SITEIQ
+======================================================================
+
+
+ WHAT IT DOES
+
+   Turns three SiteIQ exports into the shutdown on-hire report.
+   Every time you press it you get two things:
+
+     * the workbook  - twelve tabs, every line behind the numbers
+     * the email     - the whole report in the body, ready to send,
+                       with the workbook already attached. NO COSTS.
+
+
+ WHAT YOU DO - three steps, about a minute
+
+   ------------------------------------------------------------------
+   STEP 1     Put today's exports in the Data_SiteIQ folder
+   ------------------------------------------------------------------
+
+              Pull these three out of SiteIQ and save them into
+              Data_SiteIQ, straight over the top of yesterday's:
+
+                   RENTAL_STOCK
+                   SALES_STOCK
+                   TRANSACTIONS
+
+              STOCKTAKE as well if you have it - not required.
+
+              Don't rename them. SiteIQ's own long file names are
+              fine (RENTAL_STOCK_10_08_2026 06_05 AM.xlsx). If there
+              is more than one, the newest is used.
+
+
+   ------------------------------------------------------------------
+   STEP 2     Double-click  REFRESH_THE_REPORT.bat
+   ------------------------------------------------------------------
+
+              A black window opens and counts the tabs out. Takes
+              about ten seconds. When it says DONE you can close it.
+
+              If something is wrong it tells you in plain words what
+              to fix. It does not build half a report.
+
+
+   ------------------------------------------------------------------
+   STEP 3     Open what it just made
+   ------------------------------------------------------------------
+
+              THE WORKBOOK, in this folder:
+
+                   <Job>_Onhire_Workbook_LATEST.xlsx
+
+              Always the newest, always the same name - so a
+              shortcut to it on the desktop never goes stale.
+              Start on the Cover tab.
+
+              THE EMAIL, in Reports\<today>\ :
+
+                   <Job> On-Hire Report - <date>.eml
+
+              Double-click it. It opens in Outlook as a DRAFT with
+              the whole report laid out in the body and the workbook
+              already attached. Put the addresses on, read it, press
+              Send.
+
+              NOTHING SENDS BY ITSELF. Ever.
+
+   ------------------------------------------------------------------
+
+   That's the whole job. There is no step 4.
+
+
+ WHAT'S IN THE EMAIL - and what isn't
+
+   The position          items on hire, companies holding gear, the
+                         fleet on site, issues and returns
+   Who is holding gear   every company, what they still have out and
+                         what hasn't come back
+   Working hardest       the gear earning its keep, and what to do
+   Not moving            the biggest holdings that haven't gone out
+                         at all - shelf space we're carrying
+   Consumables to watch  the lines running down
+   Out the longest       oldest items still out, worth a phone call
+
+   NO COSTS. Not the labour, not the cost breakdown, not a rate and
+   not a dollar sign anywhere in it. That is deliberate - the email
+   is the operational picture and it can go to anyone. The money
+   stays in the workbook.
+
+
+ WHAT COMES OUT - twelve tabs
+
+   Cover                    what this is, what fed it, the headlines
+   Company Summary          per company: tooling, consumables, total
+   Detailed Onhire          every item out right now, and who has it
+   Tooling Transactions     every tooling issue and return
+   Tooling Utilisation      per item type: turns, rating, what to do
+   Coates Tooling           the Coates-owned fleet on site
+   Consumable Transactions  every consumable issued
+   Consumables Available    what's left on the shelf
+   Coates Stock             the fleet with its on-hire dates
+   Consumable Utilisation   per line: usage, rating, what to do
+   Coates Labour            the shift roster       - TYPED BY HAND
+   Cost Breakdown           the day-by-day cost    - TYPED BY HAND
+
+
+ FIRST TIME ON THIS COMPUTER
+
+   Copy the whole folder across. All of it, not just the button.
+
+   The computer needs Python 3. If it hasn't got it, the button says
+   so and tells you where to get it - python.org, the big yellow
+   Download button, and TICK "Add python.exe to PATH" on the first
+   screen. Two minutes, once, and never again.
+
+   You do NOT need Excel to build the report. Only to open it.
+
+
+ THE TWO TABS THAT ARE TYPED BY HAND
+
+   Coates Labour and Cost Breakdown are not built from the exports -
+   somebody types them. The refresh NEVER touches them, and neither
+   of them appears in the email.
+
+   Keep your working .xlsm in this folder and every refresh reads
+   those two tabs out of it and writes them straight back, formulas
+   and all. Your .xlsm is never written to.
+
+   No .xlsm in the folder? Those two tabs come out empty with a note,
+   ready to type into. Nothing breaks.
+
+
+ A DIFFERENT JOB
+
+   Copy this folder, empty Data_SiteIQ, put the new job's exports in,
+   press the button. It reads the job off the exports themselves, so
+   it names itself correctly with nothing set up.
+
+   Open JOB.txt only if you want to tidy up the names it uses.
+
+   ONE JOB'S EXPORTS AT A TIME. If a Gladstone export ends up in a
+   Weipa folder it stops and names the odd one out, instead of
+   quietly building a report off two jobs mixed together.
+
+
+ WANT MORE DETAIL?
+
+   Open HOW_IT_WORKS.html - one page, prints on A4. It shows the
+   flow end to end, what each tab is for, and how the Usage Ratings
+   are worked out.
+
+======================================================================

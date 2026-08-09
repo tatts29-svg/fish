@@ -1,7 +1,0 @@
-DATA SOURCES FOR THIS WORKBOOK
-Generated 09 Aug 2026 - 22:33
-------------------------------------------------------------
-RENTAL_STOCK.xlsx                                    refreshed 09 Aug 2026 - 22:31
-SALES_STOCK.xlsx                                     refreshed 09 Aug 2026 - 22:31
-TRANSACTIONS.xlsx                                    refreshed 09 Aug 2026 - 22:31
-STOCKTAKE.xlsx                                       refreshed 09 Aug 2026 - 22:31

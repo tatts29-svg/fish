@@ -32,8 +32,16 @@
 #  safely, so it stays exactly as it is and a clean dated workbook is
 #  built alongside it.
 #
+#  It also writes the report as an EMAIL - the whole thing in the body,
+#  Coates styling, the workbook on the paperclip, and NO COSTS. Not the
+#  labour, not the cost breakdown, not a rate anywhere. That is the
+#  operational picture: what is out, who has it, what is working and
+#  what is not. The money stays in the workbook. It opens as an Outlook
+#  DRAFT and waits - nothing sends by itself.
+#
 #  Output:  <job reports>\<today>\<Job> On-Hire Workbook - <date>.xlsx
 #      and  <job folder>\<Job>_Onhire_Workbook_LATEST.xlsx
+#      and  <job reports>\<today>\<Job> On-Hire Report - <date>.eml
 # =====================================================================
 
 import datetime as dt
@@ -773,17 +781,94 @@ def build(base=HERE, when=None):
 
     note_sources(dirs["day"], sources)
 
+    # ---- the email -----------------------------------------------------
+    parts = email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
+                        tooling_tx, live_onhire, sources, when)
+    html_path, eml_path = write_email(base, s, when, asat, parts,
+                                      latest or out, dirs["day"])
+
     print("=" * 66)
     print(" COATES | ON-HIRE WORKBOOK - {}".format(s.header_line))
     print("=" * 66)
     for name, n, _why in tabs:
         print("  {:<26} {:>6} rows".format(name, n))
     print("-" * 66)
-    print("  Saved  {}".format(os.path.relpath(out, base)))
+    print("  Workbook  {}".format(os.path.relpath(out, base)))
     if latest:
-        print("  Latest {}".format(os.path.relpath(latest, base)))
+        print("  Open this {}".format(os.path.relpath(latest, base)))
+    print("  Email     {}".format(os.path.relpath(eml_path, base)))
+    print("            double-click it - it opens as a DRAFT. Nothing sends")
+    print("            until you press Send yourself.")
+    print("  Web page  {}".format(os.path.relpath(html_path, base)))
     print("=" * 66)
     return 0
+
+
+def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
+                tooling_tx, live_onhire, sources, when):
+    """The handful of tables that go in the email body. Everything here
+    is operational - what is out, what is working, what is not. No
+    rates, no costs, no dollar signs."""
+    def pct(v):
+        return "{:.0f}%".format(round(v * 100))
+
+    tiles = [
+        ("Items on hire now", "{:,}".format(len(det))),
+        ("Companies holding gear", "{:,}".format(
+            len([c for c, n in live_onhire.items() if n]))),
+        ("Coates items on site", "{:,}".format(len(coates_owned))),
+        ("Tooling issues & returns", "{:,}".format(len(tooling_tx))),
+        ("Consumables issued", "{:,}".format(len(ctx))),
+        ("Consumable lines on shelf", "{:,}".format(len(ca))),
+    ]
+
+    #  Companies, busiest first. Only the TOTAL lines, so the table
+    #  reads at a glance rather than three rows per outfit.
+    by_co = {}
+    for row in summary_rows:
+        co, kind = row[0], row[1]
+        d = by_co.setdefault(co, {})
+        d[kind] = row
+    companies = []
+    for co in sorted(by_co, key=lambda c: -(by_co[c].get("TOTAL", [0] * 7)[2])):
+        t = by_co[co].get("TOOLING", [co, "", 0, 0, 0, 0, 0])
+        c = by_co[co].get("CONSUMABLES", [co, "", 0, 0, 0, 0, 0])
+        if not (t[2] or c[2] or t[5]):
+            continue
+        companies.append([co, "{:,}".format(t[5]), "{:,}".format(t[6]),
+                          "{:,}".format(t[2]), "{:,}".format(c[2])])
+
+    #  Working hardest - the gear earning its keep.
+    hard = [r for r in tu if r[11] in ("High Demand", "Good Use")]
+    hard.sort(key=lambda r: (-(r[5] / r[1] if r[1] else 0), -r[5]))
+    hardest = [[r[0], "{:,}".format(r[1]), "{:,}".format(r[2]),
+                "{:,}".format(r[5]), r[11], r[12]] for r in hard[:12]]
+
+    #  Not moving - biggest holdings that have not gone out at all.
+    idle = [r for r in tu if r[11] == "No Use" and r[1] >= 2]
+    idle.sort(key=lambda r: -r[1])
+    idle_rows = [[r[0], "{:,}".format(r[1]), "{:,}".format(r[2]),
+                  "{:,}".format(r[5]), r[12]] for r in idle[:12]]
+
+    #  Consumables worth watching - the ones running down.
+    watch = [r for r in cu if r[9] in ("High Demand", "Good Use")]
+    watch.sort(key=lambda r: -r[4])
+    cons = [[r[0], "{:,}".format(r[1]), "{:,}".format(r[2]), pct(r[4]),
+             r[10]] for r in watch[:12]]
+
+    #  Out the longest - oldest on-hire dates still open.
+    dated = [r for r in det if r[5]]
+    dated.sort(key=lambda r: r[5])
+    longest = [[r[3], r[0], r[1], r[5].strftime("%d %b %Y"),
+                "{:,}".format((when - r[5]).days)] for r in dated[:12]]
+
+    stamp = ", ".join(sorted({
+        dt.datetime.fromtimestamp(os.path.getmtime(p)).strftime("%d %b %Y")
+        for p in sources})) or when.strftime("%d %b %Y")
+
+    return {"tiles": tiles, "companies": companies, "hardest": hardest,
+            "idle": idle_rows, "consumables": cons, "longest": longest,
+            "source_stamp": stamp}
 
 
 def carry_over(wb, s, base, title):
@@ -972,6 +1057,254 @@ def cover(wb, s, when, asat, tabs, sources, base, headline):
     for col, w in ((1, 46), (2, 24), (3, 52), (4, 12), (5, 12), (6, 12)):
         ws.column_dimensions[get_column_letter(col)].width = w
     return ws
+
+
+# =====================================================================
+#  THE EMAIL - the whole report, in the body, no costs
+# =====================================================================
+#  Built as plain HTML tables with the styling written into every cell.
+#  Outlook renders that reliably; a stylesheet at the top of the
+#  document it quietly throws away. No pictures, no attachments beyond
+#  the workbook, nothing fetched from the internet - so it looks the
+#  same on a phone at the gate as it does on the store laptop.
+#
+#  NO COSTS. Not the labour, not the cost breakdown, not a rate or a
+#  dollar sign anywhere. This is the operational picture - what is
+#  out, who has it, what is working and what is not. The money stays
+#  in the workbook.
+# =====================================================================
+E_TXT = ("font-family:Segoe UI,Calibri,Arial,sans-serif;font-size:11.5pt;"
+         "color:#1B1F24;line-height:1.55")
+E_TD = ("padding:7px 10px;border:1px solid #E3E6EB;font-family:Segoe UI,"
+        "Calibri,Arial,sans-serif;font-size:10.5pt;color:#1B1F24;"
+        "vertical-align:top")
+E_TH = ("padding:7px 10px;border:1px solid #14181F;background:#14181F;"
+        "color:#ffffff;font-family:Segoe UI,Calibri,Arial,sans-serif;"
+        "font-size:9.5pt;letter-spacing:.6px;text-transform:uppercase;"
+        "text-align:left")
+
+
+def _esc(v):
+    return (_s(v).replace("&", "&amp;").replace("<", "&lt;")
+            .replace(">", "&gt;"))
+
+
+def _etable(cols, rows, aligns=None, note=""):
+    """One table, styled cell by cell so Outlook keeps it."""
+    if not rows:
+        return ("<p style=\"{s};color:#5B6472;margin:0 0 16px\">"
+                "Nothing to report here today.</p>".format(s=E_TXT))
+    aligns = aligns or {}
+    out = ["<table cellpadding='0' cellspacing='0' border='0' "
+           "style='border-collapse:collapse;width:100%;margin:0 0 6px'>",
+           "<tr>"]
+    for i, c in enumerate(cols):
+        out.append("<th style=\"{s};text-align:{a}\">{c}</th>".format(
+            s=E_TH, a=aligns.get(i, "left"), c=_esc(c)))
+    out.append("</tr>")
+    for n, row in enumerate(rows):
+        bg = "#ffffff" if n % 2 == 0 else "#F6F7F9"
+        out.append("<tr>")
+        for i, v in enumerate(row):
+            out.append("<td style=\"{s};background:{b};text-align:{a}\">"
+                       "{v}</td>".format(s=E_TD, b=bg,
+                                         a=aligns.get(i, "left"),
+                                         v=_esc(v)))
+        out.append("</tr>")
+    out.append("</table>")
+    if note:
+        out.append("<p style=\"{s};font-size:9.5pt;color:#5B6472;"
+                   "margin:0 0 16px\">{n}</p>".format(s=E_TXT, n=_esc(note)))
+    return "".join(out)
+
+
+def _eheading(text):
+    return ("<table cellpadding='0' cellspacing='0' border='0' "
+            "style='border-collapse:collapse;width:100%;margin:22px 0 8px'>"
+            "<tr><td style=\"padding:7px 12px;background:#F6F7F9;"
+            "border:1px solid #E3E6EB;border-left:5px solid #F26222;"
+            "font-family:Segoe UI,Calibri,Arial,sans-serif;font-size:12pt;"
+            "font-weight:700;color:#14181F\">{t}</td></tr></table>"
+            .format(t=_esc(text)))
+
+
+def _etiles(pairs):
+    """The headline numbers, three across. A table, because that is the
+    only layout every mail client agrees on."""
+    out = ["<table cellpadding='0' cellspacing='0' border='0' "
+           "style='border-collapse:separate;border-spacing:8px 8px;"
+           "width:100%;margin:4px 0 6px'>"]
+    for i in range(0, len(pairs), 3):
+        out.append("<tr>")
+        for label, value in pairs[i:i + 3]:
+            out.append(
+                "<td width='33%' style=\"background:#F6F7F9;border:1px solid "
+                "#E3E6EB;border-left:4px solid #F26222;padding:11px 13px\">"
+                "<div style=\"font-family:Segoe UI,Calibri,Arial,sans-serif;"
+                "font-size:21pt;font-weight:800;color:#14181F;"
+                "line-height:1.1\">{v}</div>"
+                "<div style=\"font-family:Segoe UI,Calibri,Arial,sans-serif;"
+                "font-size:9pt;color:#5B6472;text-transform:uppercase;"
+                "letter-spacing:.6px;padding-top:4px\">{l}</div></td>"
+                .format(v=_esc(value), l=_esc(label)))
+        for _ in range(3 - len(pairs[i:i + 3])):
+            out.append("<td width='33%'></td>")
+        out.append("</tr>")
+    out.append("</table>")
+    return "".join(out)
+
+
+def email_html(s, when, asat, parts):
+    """The whole report as an email body. Costs deliberately absent."""
+    h = ["<div style=\"background:#ffffff;padding:0;margin:0\">",
+         "<table cellpadding='0' cellspacing='0' border='0' "
+         "style='border-collapse:collapse;width:100%;max-width:820px;"
+         "margin:0 auto'>",
+         "<tr><td style='padding:0 0 4px'>"]
+
+    #  The band across the top - the Coates look, no image needed.
+    h.append(
+        "<table cellpadding='0' cellspacing='0' border='0' "
+        "style='border-collapse:collapse;width:100%;background:#14181F;"
+        "border-top:6px solid #F26222;border-radius:0'>"
+        "<tr><td style='padding:15px 18px'>"
+        "<div style=\"font-family:Segoe UI,Calibri,Arial,sans-serif;"
+        "font-size:9pt;font-weight:800;letter-spacing:2px;color:#F26222;"
+        "text-transform:uppercase\">COATES &middot; SHUTDOWN TOOL STORE</div>"
+        "<div style=\"font-family:Segoe UI,Calibri,Arial,sans-serif;"
+        "font-size:17pt;font-weight:700;color:#ffffff;padding-top:3px\">"
+        "On-Hire Report</div>"
+        "<div style=\"font-family:Segoe UI,Calibri,Arial,sans-serif;"
+        "font-size:10pt;color:#C9CFD8;padding-top:3px\">{hdr}</div>"
+        "<div style=\"font-family:Segoe UI,Calibri,Arial,sans-serif;"
+        "font-size:9.5pt;color:#8B9099;padding-top:8px\">As at {asat}"
+        " &nbsp;&middot;&nbsp; POWERED BY <span style=\"color:#F26222;"
+        "font-weight:800\">SITEIQ</span> &nbsp;&middot;&nbsp; Author: "
+        "{who}</div>"
+        "</td></tr></table>".format(hdr=_esc(s.header_line),
+                                    asat=asat.strftime("%d %b %Y  %H:%M"),
+                                    who=_esc(s.author or "Andrew Fisher")))
+
+    h.append("<div style=\"{s};padding:16px 2px 0\">".format(s=E_TXT))
+    h.append("<p style=\"{s};margin:0 0 14px\">Morning,</p>".format(s=E_TXT))
+    h.append("<p style=\"{s};margin:0 0 14px\">Here is where the tool store "
+             "sits as at {d}. The full workbook is attached &mdash; twelve "
+             "tabs, every line behind these numbers.</p>".format(
+                 s=E_TXT, d=when.strftime("%d %B %Y")))
+
+    h.append(_eheading("The position"))
+    h.append(_etiles(parts["tiles"]))
+
+    h.append(_eheading("Who is holding gear"))
+    h.append(_etable(
+        ["Company", "Tooling out", "Not returned", "Tooling issues",
+         "Consumable issues"],
+        parts["companies"],
+        aligns={1: "right", 2: "right", 3: "right", 4: "right"},
+        note="Tooling out is what is on hire in their name right now."))
+
+    h.append(_eheading("Working hardest"))
+    h.append(_etable(
+        ["Item", "On site", "Out now", "Times issued", "Rating", "Do"],
+        parts["hardest"],
+        aligns={1: "right", 2: "right", 3: "right"},
+        note="Rated on turns - times issued against how many we hold. "
+             "Anything on Increase Stock is being asked for faster than "
+             "we can turn it around."))
+
+    h.append(_eheading("Not moving"))
+    h.append(_etable(
+        ["Item", "On site", "Out now", "Times issued", "Do"],
+        parts["idle"],
+        aligns={1: "right", 2: "right", 3: "right"},
+        note="Biggest holdings that have not gone out at all. Every one of "
+             "these is shelf space and hire we are carrying for nothing."))
+
+    h.append(_eheading("Consumables to watch"))
+    h.append(_etable(
+        ["Line", "On shelf", "Gone out", "Used", "Do"],
+        parts["consumables"],
+        aligns={1: "right", 2: "right", 3: "right"},
+        note="Used is what has gone out against the whole position. Over "
+             "80% and we order before it bites."))
+
+    h.append(_eheading("Out the longest"))
+    h.append(_etable(
+        ["Item", "Company", "Who has it", "On hire since", "Days"],
+        parts["longest"], aligns={4: "right"},
+        note="Worth a phone call before it turns into a demob problem."))
+
+    h.append("<p style=\"{s};margin:18px 0 0\">Anything here you want "
+             "chased, tell me and I'll get on it.</p>".format(s=E_TXT))
+    h.append("<p style=\"{s};margin:16px 0 0\">{who}<br>"
+             "<span style=\"color:#5B6472\">Coates &middot; Shutdown Tool "
+             "Store</span></p>".format(s=E_TXT,
+                                       who=_esc(s.author or "Andrew Fisher")))
+    h.append("<p style=\"{s};font-size:9pt;color:#8B9099;margin:18px 0 0;"
+             "border-top:1px solid #E3E6EB;padding-top:8px\">Built from the "
+             "SiteIQ exports of {src}. Figures are the tool store's record "
+             "as at the time above. Costs are in the workbook, not in this "
+             "email.</p>".format(s=E_TXT, src=_esc(parts["source_stamp"])))
+    h.append("</div></td></tr></table></div>")
+    return "".join(h)
+
+
+def email_text(s, when, parts):
+    """The plain-text half, for anyone reading on a locked-down phone."""
+    lines = ["COATES | ON-HIRE REPORT",
+             s.header_line,
+             "As at {}".format(when.strftime("%d %B %Y")),
+             "",
+             "Morning,",
+             "",
+             "Where the tool store sits today. Full workbook attached.",
+             ""]
+    for label, value in parts["tiles"]:
+        lines.append("  {:<32} {}".format(label, value))
+    lines += ["", "The detail is in the attached workbook - twelve tabs.",
+              "Costs are in the workbook, not in this email.", "",
+              s.author or "Andrew Fisher",
+              "Coates - Shutdown Tool Store", ""]
+    return "\n".join(lines)
+
+
+def write_email(base, s, when, asat, parts, workbook_path, out_dir):
+    """The report as an Outlook draft, with the workbook on the
+    paperclip. NOTHING SENDS - it opens as a draft and waits for you."""
+    import email.message
+    import email.policy
+
+    label = (s.short or s.customer or "Shutdown").strip()
+    stem = "{} On-Hire Report - {}".format(label, when.strftime("%d %b %Y"))
+    body = email_html(s, when, asat, parts)
+
+    html_path = os.path.join(out_dir, stem + ".html")
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write("<!DOCTYPE html><html><head><meta charset='utf-8'>"
+                "<title>{}</title></head><body style='margin:0;padding:14px;"
+                "background:#ffffff'>{}</body></html>".format(_esc(stem),
+                                                              body))
+
+    msg = email.message.EmailMessage(policy=email.policy.SMTP)
+    msg["Subject"] = "{} | On-Hire Report | {}".format(
+        s.customer or label, when.strftime("%d %B %Y"))
+    #  X-Unsent is what makes Outlook open it as a draft you press Send
+    #  on yourself, rather than something already gone.
+    msg["X-Unsent"] = "1"
+    msg.set_content(email_text(s, when, parts))
+    msg.add_alternative(body, subtype="html")
+
+    if workbook_path and os.path.isfile(workbook_path):
+        with open(workbook_path, "rb") as f:
+            msg.add_attachment(
+                f.read(), maintype="application",
+                subtype="vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                filename=os.path.basename(workbook_path))
+
+    eml_path = os.path.join(out_dir, stem + ".eml")
+    with open(eml_path, "wb") as f:
+        f.write(msg.as_bytes())
+    return html_path, eml_path
 
 
 def main(argv):
