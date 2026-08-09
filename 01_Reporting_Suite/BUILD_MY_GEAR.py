@@ -2300,6 +2300,22 @@ body:before{content:"";position:fixed;left:0;right:0;top:0;height:280px;
  padding:0 16px;background:#0B111A;border-color:#2A3547;font-weight:700}
 .door #idno::placeholder{letter-spacing:.5px;font-weight:600;color:#5B6675}
 .door .scanbtn{display:none!important}
+/* ---- KIOSK MODE: the counter terminal (6 Aug 2026) ---------------
+   Bigger type for arm's length, the ways off the page hidden, and a
+   countdown bar that only appears when a card is open and the screen
+   is about to clear itself. */
+.kiosk{font-size:18px}
+.kiosk .k2menu,.kiosk .k2back{display:none!important}
+.kiosk #idno{font-size:30px;padding:22px 18px;letter-spacing:2px;
+  text-align:center}
+.kiosk .wel b{font-size:30px}
+.kiosk .navt,.kiosk .talk{display:none!important}
+.kiosk .gcard,.kiosk .grow{font-size:17px}
+#kbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;
+  background:linear-gradient(90deg,#F26222,#F2B01E);color:#0A0E14;
+  font-weight:800;text-align:center;padding:14px 10px;font-size:17px;
+  letter-spacing:.5px;box-shadow:0 -6px 24px rgba(0,0,0,.5)}
+#kbar b{font-size:22px}
 .door .btn{margin-top:12px;height:52px;border-radius:13px;font-size:15.5px;
  letter-spacing:.5px;background:linear-gradient(90deg,#FF681F,#E94713);
  position:relative;overflow:hidden}
@@ -2449,7 +2465,7 @@ body.hascard #result{padding-bottom:78px}
 __UICSS__
 __STORECSS__
 __NAVCSS__
-</style></head><body>
+</style></head><body><div id='kbar'></div>
 __NAVBAR__
 <div class="wrap">
 <div class="brand"><div class="logo">coates<b>Equipped for anything</b></div><div class="siteiq">POWERED BY SITEIQ<br><span style="color:#8B9099;font-weight:600;letter-spacing:0">Cement Australia K2 &middot; Gladstone</span></div></div>
@@ -3322,6 +3338,80 @@ function reset(){document.body.classList.remove('hascard');
  var _rn=document.getElementById('rnav'); if(_rn)_rn.className='rnav';
  if(RVN_IO){window.removeEventListener('scroll',RVN_IO);RVN_IO=null} GLANE='all';document.getElementById('welcome').className='wel';var _d=document.querySelector('.door');if(_d)_d.style.display='';idState('');window.PENDING=null;document.getElementById('result').style.display='none';document.getElementById('result').innerHTML='';document.getElementById('landing').style.display='block';document.getElementById('idno').value='';document.getElementById('idno').focus()}
 document.getElementById('idno').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+/* ===================================================================
+   KIOSK MODE  -  the screen on the counter
+   Andrew, 6 Aug 2026: "what about kiosk. they come up and scan their
+   barcode."
+
+   Open the page with  ?kiosk  on the end and it becomes a standing
+   terminal: the ID box holds focus so a USB hand scanner just works
+   (it types the number and presses Enter), the type goes up for
+   arm's length, and the ways OFF this page are hidden - a kiosk is
+   one job, not a browser.
+
+   THE PART THAT MATTERS MOST IS THE FORGETTING. A screen in an open
+   store showing "Wayne Barker - 12 items, 4 overdue" is fine while
+   Wayne is standing there and nobody else's business the moment he
+   walks away. So it clears itself: 30 seconds of nothing, with the
+   last 6 counted down on screen so a bloke reading his list can
+   touch it and keep it up. Any touch, any key, any scan resets the
+   clock.
+   =================================================================== */
+/*  ?kiosk        30 seconds of quiet, then it clears
+    ?kiosk=45     45 seconds - a busy counter may want longer, a
+                  screen in the open may want less. Andrew sets it
+                  in the shortcut, nobody edits code for it.        */
+var KIOSK = /[?&]kiosk\b/i.test(location.search), KTMR=null, KEND=0;
+var KHOLD = (function(){
+  var m = /[?&]kiosk=(\d{1,3})/i.exec(location.search);
+  var n = m ? parseInt(m[1],10) : 30;
+  return Math.max(8, Math.min(600, n)) * 1000;   // 8s..10min
+})();
+function kioskArm(){
+  if(!KIOSK) return;
+  KEND = Date.now() + KHOLD;
+  var bar = document.getElementById('kbar');
+  if(bar) bar.style.display='none';
+}
+function kioskTick(){
+  if(!KIOSK) return;
+  var left = Math.ceil((KEND - Date.now())/1000);
+  var bar = document.getElementById('kbar');
+  /*  PERSONAL THE MOMENT A NAME IS ON SCREEN. The first cut of this
+      only guarded the opened card - but the confirm step already
+      shows "William Tink - DGH Engineering - ID 10006665 - 7 items,
+      7 at 5+ days". A bloke who scans and gets called away leaves
+      all of that sitting on a counter screen for whoever is next.
+      Caught by testing the scan end to end, 6 Aug 2026. */
+  var carded = document.body.classList.contains('hascard')
+            || !!window.PENDING;
+  if(!carded){ if(bar) bar.style.display='none'; return; }
+  if(left <= 6 && left > 0){
+    if(bar){ bar.style.display='block';
+      bar.innerHTML = 'Clearing this screen in <b>'+left+'</b>'
+        + ' &middot; touch anywhere to stay'; }
+  } else if(left <= 0){
+    if(bar) bar.style.display='none';
+    try{ reset(); }catch(e){}
+    kioskArm();
+  } else if(bar){ bar.style.display='none'; }
+}
+if(KIOSK){
+  document.body.classList.add('kiosk');
+  ['touchstart','mousedown','keydown','scroll'].forEach(function(ev){
+    document.addEventListener(ev, kioskArm, {passive:true});
+  });
+  /*  the scanner types into whatever has focus - so the ID box keeps
+      it whenever no card is open. A stray tap on the page must never
+      cost the next person their scan.  */
+  setInterval(function(){
+    if(document.body.classList.contains('hascard')||window.PENDING) return;
+    var b=document.getElementById('idno');
+    if(b && document.activeElement!==b){ try{ b.focus(); }catch(e){} }
+  }, 1200);
+  KTMR = setInterval(kioskTick, 500);
+  kioskArm();
+}
 var STORES_TAG='__STORESTAG__';
 var CO_WORDS=__COWORDS__;
 __STOREJS__
