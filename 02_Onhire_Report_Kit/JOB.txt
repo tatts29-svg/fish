@@ -1,0 +1,28 @@
+# =====================================================================
+#  WHICH JOB THIS FOLDER IS FOR
+#  Author: Andrew Fisher | POWERED BY SITEIQ
+#
+#  YOU DO NOT HAVE TO FILL THIS IN.
+#
+#  Leave it blank and the report reads the job straight off the
+#  exports you drop in - every SiteIQ export carries the project it
+#  came from. It will name itself correctly with nothing set up.
+#
+#  Fill it in only when the SiteIQ project name is not what you would
+#  put in front of a customer. Anything left blank is worked out.
+#
+#  Example, for the Weipa job:
+#
+#      customer: Rio Tinto
+#      job:      Weipa May26 Shutdown
+#      location: Weipa QLD
+#      short:    Weipa
+#
+#  Moving this folder to a different job? Blank the four lines below,
+#  empty Data_SiteIQ, drop the new exports in, press the button.
+# =====================================================================
+
+customer: Rio Tinto
+job:      Weipa May26 Shutdown
+location: Weipa QLD
+short:    Weipa

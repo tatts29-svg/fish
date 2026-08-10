@@ -1,0 +1,27 @@
+# Windows launchers and the plain-text instructions MUST keep CRLF line
+# endings. A .bat file with Unix line endings can fail on Windows in ways
+# that are very hard to diagnose - "goto" and multi-line blocks are the
+# ones that bite - and it looks like a broken laptop rather than a broken
+# file. Notepad on older builds also runs .txt files together into one
+# line without them.
+#
+# Git normalises line endings on checkout unless it is told not to, so
+# this file is what stops a kit that works turning into a kit that
+# doesn't, purely by being cloned on a different machine.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.txt text eol=crlf
+
+# These are fine either way and Python/browsers don't care.
+*.py text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+
+# Binary - never touch these.
+*.xlsx binary
+*.xlsm binary
+*.png binary
+*.jpg binary
+*.pdf binary
+*.zip binary
+*.eml binary

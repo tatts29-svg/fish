@@ -1,0 +1,193 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><meta name="viewport" content="width=device-width,initial-scale=1"><title>How the On-Hire Report Works</title></head><body><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Calibri,'Segoe UI',Arial,sans-serif;background:#fff;color:#20242B;
+     font-size:11.5pt;line-height:1.55;max-width:200mm;margin:0 auto;padding:10mm 8mm}
+.frame{border:6px solid #F26222;border-top:9px solid #F26222;border-radius:18px;padding:22px 26px}
+.band{background:#14181F;color:#fff;padding:14px 18px;border-radius:10px;margin-bottom:14px}
+.band .k{color:#F26222;font-weight:800;letter-spacing:2px;font-size:9pt;text-transform:uppercase}
+.band h1{font-size:17pt;margin-top:2px}
+.band p{color:#C9CFD8;font-size:10pt;margin-top:4px}
+h2{font-size:12pt;color:#14181F;background:#F6F7F9;border:1px solid #E3E6EB;
+   border-left:5px solid #F26222;border-radius:9px;padding:6px 12px;margin:18px 0 8px}
+.flow{margin:10px 0}
+.fbox{border:2px solid #14181F;border-radius:10px;padding:8px 14px;background:#F6F7F9}
+.fbox b{display:block}
+.fbox .sub{font-size:10pt;color:#5B6472}
+.fbox.orange{border-color:#F26222;background:#FFF3EC}
+.fbox.dark{background:#14181F;color:#fff;border-color:#14181F}
+.fbox.dark .sub{color:#C9CFD8}
+.fbox.go{border-color:#7A8A00;background:#F8FFD0}
+.arrow{text-align:center;color:#F26222;font-weight:800;font-size:13pt;line-height:1.2;padding:2px 0}
+.arrow span{color:#5B6472;font-weight:400;font-size:9.5pt;padding-left:8px}
+.step{display:flex;gap:12px;margin:12px 0;align-items:flex-start}
+.n{flex:none;width:34px;height:34px;border-radius:50%;background:#F26222;color:#fff;
+   font-weight:800;font-size:14pt;display:flex;align-items:center;justify-content:center}
+.step .t b{font-size:12pt}
+.step .t .sub{color:#5B6472;font-size:10.5pt}
+.hl{background:#EFFF3D;color:#101317;font-weight:800;padding:0 5px;border-radius:4px}
+.note{background:#FFF3EC;border-left:4px solid #F26222;border-radius:0 8px 8px 0;
+      padding:10px 14px;font-size:10.5pt;margin:12px 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10.5pt}
+td,th{border:1px solid #E3E6EB;padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#14181F;color:#fff;font-size:9.5pt;letter-spacing:1px;text-transform:uppercase}
+td.k{white-space:nowrap;font-weight:700}
+.ft{color:#5B6472;font-size:9pt;border-top:1px solid #E3E6EB;margin-top:16px;padding-top:8px}
+b.o{color:#F26222}
+code{background:#F6F7F9;border:1px solid #E3E6EB;border-radius:4px;padding:1px 5px;font-size:10pt}
+@media print{.pb{page-break-before:always}}
+@page{size:A4;margin:10mm}
+</style>
+<div class="frame">
+<div class="band"><div class="k">COATES &middot; SHUTDOWN TOOL STORE</div>
+<h1>How the on-hire report works</h1>
+<p>One page. Three exports in, twelve tabs out. Powered by SiteIQ</p></div>
+
+<p>This folder is a tool, not a system. It reads the SiteIQ exports you put in
+front of it and writes one Excel workbook and one email. It sends nothing, changes nothing on
+site, and <b>never needs the internet</b> &mdash; the Excel library it runs on travels
+inside this folder, so there is nothing to install on a laptop that has never seen it.</p>
+
+<h2>The flow</h2>
+<div class="flow">
+<div class="fbox"><b>SiteIQ</b><span class="sub">You export three files &mdash; they land in Downloads.<br>
+<b>RENTAL_STOCK</b> what we own and where it is &middot; <b>SALES_STOCK</b> consumables on the
+shelf and what's gone out &middot; <b>TRANSACTIONS</b> every issue and return</span></div>
+<div class="arrow">&#9660;<span>you drag them into <code>Data_SiteIQ\</code>, over the top of yesterday's</span></div>
+<div class="fbox orange"><b>2_MAKE_THE_REPORT.bat</b><span class="sub">Reads the newest of each,
+checks they all belong to the same job, and builds the workbook. About ten seconds.</span></div>
+<div class="arrow">&#9660;<span>your typed Labour and Cost tabs are lifted out of the old workbook and put straight back</span></div>
+<div class="fbox go"><b>&lt;Job&gt;_Onhire_Workbook_LATEST.xlsx</b><span class="sub">Twelve tabs, ready to
+open or print. A dated copy is also filed under <code>Reports\&lt;today&gt;\</code> so you keep every day.</span></div>
+<div class="arrow">&#9660;<span>and the same report laid out as an email, with the workbook attached</span></div>
+<div class="fbox dark"><b>&lt;Job&gt; On-Hire Report &mdash; &lt;date&gt;.eml</b><span class="sub">Opens in
+Outlook as a <b>draft</b>. Whole report in the body, workbook on the paperclip, no costs anywhere in it.
+Put the addresses on, read it, press Send. <b>Nothing sends by itself.</b></span></div>
+</div>
+
+<h2>What you actually do</h2>
+<div class="step"><div class="n">1</div><div class="t"><b>Exports into Data_SiteIQ</b>
+<div class="sub">RENTAL_STOCK, SALES_STOCK, TRANSACTIONS. STOCKTAKE too if you have it.
+Don't rename them &mdash; SiteIQ's own long names are fine, and the newest wins.</div></div></div>
+<div class="step"><div class="n">2</div><div class="t"><b>Double-click 2_MAKE_THE_REPORT.bat</b>
+<div class="sub">A black window counts the tabs out. When it says DONE, close it.</div></div></div>
+<div class="step"><div class="n">3</div><div class="t"><b>Open the workbook, start on Cover &mdash; and open the .eml to send it</b>
+<div class="sub">The workbook keeps the same file name every day, so a desktop shortcut never goes
+stale. The .eml is in <code>Reports\&lt;today&gt;\</code> &mdash; double-click, address it, press Send.</div></div></div>
+
+<h2>The email</h2>
+<p>The same report, laid out to be read on a phone. It carries <b>the position</b> (what is out and
+who has it), <b>who is holding gear</b>, <b>working hardest</b>, <b>not moving</b>,
+<b>consumables to watch</b> and <b>out the longest</b> &mdash; then the full workbook on the
+paperclip for anyone who wants the line-by-line.</p>
+<div class="note"><b>No costs in the email. None.</b> Not the labour, not the cost breakdown, not a
+rate and not a dollar sign. That is deliberate &mdash; the email is the operational picture and it
+can go to anyone on site. The money stays in the workbook.</div>
+<p>It is written as a <b>draft</b>, not a sent item. It arrives in Outlook with no addresses on it,
+waiting for you to put them on and read it through. <span class="hl">Nothing sends by itself.</span></p>
+
+<div class="note"><b>If anything is wrong it stops and says so in plain words</b> &mdash; a missing
+export, an export from another job, a workbook still open in Excel, no Python on the machine. It
+never builds half a report and leaves you to notice. And if you are ever unsure, press
+<b>1_CHECK_THIS_LAPTOP.bat</b> &mdash; it tells you whether this computer will run it
+<i>before</i> you try, and names the one thing to fix if it won't.</div>
+
+<h2>The twelve tabs</h2>
+<table>
+<tr><th style="width:34%">Tab</th><th>What it tells you</th></tr>
+<tr><td class="k">Cover</td><td>What this workbook is, the headline numbers, which export files fed it and when they were pulled, and how the ratings are worked out</td></tr>
+<tr><td class="k">Company Summary</td><td>Per company: transactions, quantity, item types, what they still have out, what hasn't come back &mdash; split tooling / consumables / total</td></tr>
+<tr><td class="k">Detailed Onhire</td><td>Every item out right now, the company and the person holding it, and since when</td></tr>
+<tr><td class="k">Tooling Transactions</td><td>Every tooling issue and return in the period, with transaction numbers</td></tr>
+<tr><td class="k">Tooling Utilisation</td><td>Per item type: how many we have, how many are out, turns, and a recommendation</td></tr>
+<tr><td class="k">Coates Tooling</td><td>The Coates-owned fleet on site and each item's status</td></tr>
+<tr><td class="k">Consumable Transactions</td><td>Every consumable issued &mdash; who took it, how many, when</td></tr>
+<tr><td class="k">Consumables Available</td><td>What's left on the shelf, by line</td></tr>
+<tr><td class="k">Coates Stock</td><td>The fleet again, with on-hire dates &mdash; the one to sort when you're chasing age</td></tr>
+<tr><td class="k">Consumable Utilisation</td><td>Per line: sold against position, and a recommendation</td></tr>
+<tr><td class="k">Coates Labour</td><td><b class="o">Typed by hand.</b> The shift roster and what it costs</td></tr>
+<tr><td class="k">Cost Breakdown</td><td><b class="o">Typed by hand.</b> Day by day: shutdown, labour, site services</td></tr>
+</table>
+
+<h2 class="pb">The two tabs nobody should overwrite</h2>
+<p><b>Coates Labour</b> and <b>Cost Breakdown</b> are not built from the exports. Somebody sits
+down and types them, and there is no way to rebuild that from SiteIQ.</p>
+<p>So the refresh <span class="hl">never touches them</span>. It reads them out of the previous
+workbook &mdash; values, formulas, dates, times, exactly as they were &mdash; and writes them
+back. Your original <code>.xlsm</code> is never written to at all; a clean workbook is built
+alongside it.</p>
+<div class="note"><b>Keep your working .xlsm in this folder.</b> That's where those two tabs are
+read from. If there isn't one, they come through empty with a note on them, ready to type into.</div>
+
+<h2>How the Usage Ratings are worked out</h2>
+<p>Both ratings are printed on the Cover tab of every workbook, so anyone reading the report can
+see how a recommendation was reached rather than taking it on trust.</p>
+
+<p><b>Tooling is rated on TURNS</b> &mdash; transactions divided by how many of that item are on
+site. One item that went out five times is working. Five items that went out once each are
+sitting there. Utilisation on its own cannot tell those two apart.</p>
+<table>
+<tr><th>Turns</th><th>Rating</th><th>Recommendation</th></tr>
+<tr><td class="k">none</td><td>No Use</td><td>Review / Reduce</td></tr>
+<tr><td class="k">under 1</td><td>Low Use</td><td>Keep Stock</td></tr>
+<tr><td class="k">1 to 2</td><td>Good Use</td><td>Keep Stock &mdash; or Monitor / Increase if 80% or more are out right now</td></tr>
+<tr><td class="k">2 or more</td><td>High Demand</td><td>Increase Stock</td></tr>
+</table>
+
+<p><b>Consumables are rated on share of position sold</b> &mdash; sales divided by sales plus
+what's left on the shelf.</p>
+<table>
+<tr><th>Sold</th><th>Rating</th><th>Recommendation</th></tr>
+<tr><td class="k">nothing</td><td>No Use</td><td>Review / Reduce</td></tr>
+<tr><td class="k">under 40%</td><td>Low Use</td><td>Keep Stock</td></tr>
+<tr><td class="k">40% to 80%</td><td>Good Use</td><td>Keep Stock</td></tr>
+<tr><td class="k">over 80%</td><td>High Demand</td><td>Increase Stock</td></tr>
+</table>
+
+<h2>Putting it on another computer, or another job</h2>
+<p><b>Another computer:</b> copy the whole folder across &mdash; <span class="hl">all of it, not just
+the button</span>. Then press <b>1_CHECK_THIS_LAPTOP.bat</b> once. It changes nothing; it just
+tells you whether that laptop will run the report, and if it won't, the one thing to fix.</p>
+
+<p>There is <b>nothing to install</b>. The Excel library the report needs travels inside the
+folder, in <code>_lib\</code> &mdash; so no pip, no internet, no company proxy to argue with and
+no IT ticket. The only thing the laptop supplies is <b>Python 3</b>, and if it hasn't got one,
+<b>3_GET_PYTHON_NO_ADMIN.bat</b> puts a private copy inside this folder without admin rights and
+without changing anything else on the machine. Excel is only needed to <i>open</i> the workbook,
+never to build it.</p>
+
+<div class="note"><b>If you send this kit to somebody else, send the whole zip and tell them to
+right-click it and choose "Extract All" first.</b> Double-clicking a button while it is still
+inside the zip window is the number one reason somebody reports back that it doesn't work &mdash;
+Windows unpacks that one file into a temporary folder, so nothing else it needs is there. The kit
+now spots that and says so, rather than failing silently.</div>
+
+<p><b>Another job:</b> copy the folder, empty <code>Data_SiteIQ\</code>, put the new job's exports
+in, press the button. Every SiteIQ export carries the project it came from, so the report names
+itself correctly with nothing set up. <code>JOB.txt</code> is only there if you want to tidy up
+the names it uses.</p>
+
+<div class="note"><b>One job's exports at a time.</b> If a Gladstone export ends up in a Weipa
+folder, the refresh stops and names the odd file out. It will not quietly build a report off two
+jobs mixed together.</div>
+
+<h2>What's in the folder</h2>
+<table>
+<tr><th style="width:34%">File</th><th>What it's for</th></tr>
+<tr><td class="k">0_START_HERE.txt</td><td>The three steps, in writing. Read this one first</td></tr>
+<tr><td class="k">1_CHECK_THIS_LAPTOP.bat</td><td>Press this on a laptop that has never run it, or any time somebody says it doesn't work. Changes nothing &mdash; just tells you whether it will run, and what to fix if it won't</td></tr>
+<tr><td class="k">2_MAKE_THE_REPORT.bat</td><td><b class="o">The button.</b> This is the one you press every day</td></tr>
+<tr><td class="k">3_GET_PYTHON_NO_ADMIN.bat</td><td>Only if step 1 says Python is missing. Puts a private copy in this folder &mdash; no admin rights, nothing installed on the computer</td></tr>
+<tr><td class="k">Data_SiteIQ\</td><td>Where the exports go</td></tr>
+<tr><td class="k">HOW_IT_WORKS.html</td><td>This page</td></tr>
+<tr><td class="k">JOB.txt</td><td>The job's names. Optional &mdash; leave it alone and it works them out</td></tr>
+<tr><td class="k">build_onhire_workbook.py</td><td>The builder</td></tr>
+<tr><td class="k">_RUN.bat</td><td>Finds Python on this machine and checks the folder is whole. Never press it directly</td></tr>
+<tr><td class="k">_lib\</td><td>The Excel library, travelling with the kit. This is why nothing has to be installed. Leave it alone</td></tr>
+<tr><td class="k">check_this_laptop.py</td><td>What button 1 runs</td></tr>
+<tr><td class="k">LAPTOP_CHECK.txt</td><td>Appears after button 1 &mdash; the whole health check in writing. Email this to Andrew if you are stuck</td></tr>
+<tr><td class="k">Reports\</td><td>Appears on the first run &mdash; a dated copy of every workbook, and the email drafts</td></tr>
+</table>
+
+<div class="ft">COATES &middot; Shutdown tool store &middot; POWERED BY SITEIQ &middot; Author: Andrew Fisher</div>
+</div>
+</body></html>

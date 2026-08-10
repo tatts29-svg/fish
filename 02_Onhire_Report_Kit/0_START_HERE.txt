@@ -1,0 +1,266 @@
+======================================================================
+ COATES | ON-HIRE REPORT
+ Author: Andrew Fisher | POWERED BY SITEIQ
+======================================================================
+
+
+ IF YOU READ NOTHING ELSE, READ THIS BOX
+ =======================================
+
+   +--------------------------------------------------------------+
+   |                                                              |
+   |  BEFORE ANYTHING: if this folder came to you in a ZIP, you   |
+   |  must RIGHT-CLICK the zip and choose "Extract All..." and    |
+   |  work in the folder that comes out.                          |
+   |                                                              |
+   |  Pressing buttons while they are still inside the zip is     |
+   |  THE number one reason this doesn't work. It is not your     |
+   |  laptop. It is Windows only unpacking one file at a time.    |
+   |                                                              |
+   +--------------------------------------------------------------+
+
+
+   FIRST TIME ON THIS LAPTOP?   Do STEP 1 once.
+   EVERY DAY AFTER THAT?        Start at STEP 2.
+
+
+   STEP 1   Double-click       1_CHECK_THIS_LAPTOP.bat
+   ------   ONCE, on a laptop that has never run this before.
+
+            It builds nothing and changes nothing. It just tells
+            you, in plain words, whether this laptop can run the
+            report - and if it can't, the ONE thing to fix.
+
+            If it says READY, go to step 2.
+            If it says Python is missing, double-click
+            3_GET_PYTHON_NO_ADMIN.bat and then press 1 again.
+
+
+   STEP 2   Put today's exports in the Data_SiteIQ folder
+   ------
+            Pull these three out of SiteIQ and save them into
+            Data_SiteIQ, straight over the top of yesterday's:
+
+                 RENTAL_STOCK
+                 SALES_STOCK
+                 TRANSACTIONS
+
+            STOCKTAKE as well if you have it - not required.
+
+            DON'T RENAME THEM. SiteIQ's own long file names are
+            fine (RENTAL_STOCK_10_08_2026 06_05 AM.xlsx). If there
+            is more than one, the newest is used.
+
+
+   STEP 3   Double-click       2_MAKE_THE_REPORT.bat
+   ------
+            A black window opens and counts the tabs out. Ten
+            seconds. When it stops, close it.
+
+            If something is wrong it tells you in plain words what
+            to fix. It never builds half a report.
+
+
+   STEP 4   Open the two things it just made
+   ------
+            THE EMAIL, in Reports\<today>\ :
+
+                 <Job> On-Hire Report - <date>.eml
+
+            Double-click it. It opens in Outlook as a DRAFT with
+            the whole report laid out in the body and the workbook
+            already attached. Put the addresses on, read it, press
+            Send.
+
+            NOTHING SENDS BY ITSELF. Ever.
+
+            THE WORKBOOK, in this folder:
+
+                 <Job>_Onhire_Workbook_LATEST.xlsx
+
+            Always the newest, always the same name - so a
+            shortcut to it on the desktop never goes stale.
+            Start on the Cover tab.
+
+
+   That's the whole job. There is no step 5.
+
+
+ IT DIDN'T WORK - FIND YOUR MESSAGE HERE
+ =======================================
+
+   Whatever the black window said, it is one of these. Nothing on
+   this list needs IT, an install, or a phone call to Andrew.
+
+   "YOU ARE RUNNING THIS FROM INSIDE THE ZIP"
+        Right-click the zip, Extract All, pick Desktop, and press
+        the button in the folder that appears. Ten seconds.
+
+   "SOME OF THE KIT IS MISSING FROM THIS FOLDER"
+        Same fix. Something got left behind in the zip. Extract the
+        whole thing again.
+
+   "PYTHON IS NOT ON THIS COMPUTER"
+        Double-click 3_GET_PYTHON_NO_ADMIN.bat. It puts a private
+        copy inside this folder. No admin rights, nothing installed
+        on the computer, nothing else changed.
+
+   "THE PYTHON ON THIS COMPUTER IS TOO OLD"
+        Same fix - 3_GET_PYTHON_NO_ADMIN.bat.
+
+   "These exports are not in Data_SiteIQ"
+        Go back to step 2. The file names have to start with
+        RENTAL_STOCK, SALES_STOCK and TRANSACTIONS.
+
+   "... is a <other job> export but the others are <this job>"
+        Two jobs' exports are mixed in Data_SiteIQ. Take the odd
+        one out. This check exists so wrong numbers never go in
+        front of a customer.
+
+   "Windows won't let me write the workbook"
+        The workbook is open in Excel. Close it and press the
+        button again. Nothing is lost.
+
+   "Windows protected your PC" (a blue box, before anything runs)
+        Windows being cautious about a file that came off the
+        internet. Click "More info", then "Run anyway". Or
+        right-click the ZIP first, choose Properties, tick
+        "Unblock", press OK, and extract it again.
+
+   "This program is blocked by group policy" or
+   "The command prompt has been disabled by your administrator"
+        This one IS your IT department, and nothing in the kit can get
+        round it. Ask them to allow this folder, or the simplest fix of
+        all: Andrew runs the report on his laptop and emails you the
+        finished .eml and workbook. You do NOT need any of this just to
+        read or send the report.
+
+   "cannot access the file" ON A FILE YOU CAN PLAINLY SEE
+        A OneDrive file that hasn't actually downloaded. Right-click it,
+        choose "Always keep on this device", wait for the green tick.
+
+   THE WINDOW FLASHES AND DISAPPEARS
+        You're double-clicking build_onhire_workbook.py instead of
+        the button. Use 2_MAKE_THE_REPORT.bat.
+
+   ANYTHING ELSE
+        Double-click 1_CHECK_THIS_LAPTOP.bat and email Andrew the
+        LAPTOP_CHECK.txt file it writes next to itself. That file
+        answers every question he would have asked you.
+
+
+ WHAT'S IN THE EMAIL - and what isn't
+ ====================================
+
+   Where we sit today   the position in two lines, before any table
+   The position         six headline numbers
+   Who is holding gear  every company, what they hold, how long
+   Working hardest      the gear earning its keep, and what to do
+   Not moving           the biggest holdings that haven't gone out
+                        at all - shelf space we're carrying
+   Consumables to watch the lines running down
+   Out the longest      oldest items still out, worth a phone call
+   What I need from you the actions, each with its own number
+
+   NO COSTS. Not the labour, not the cost breakdown, not a rate and
+   not a dollar sign anywhere in it. That is deliberate - the email
+   is the operational picture and it can go to anyone. The money
+   stays in the workbook.
+
+   There are no pictures in the email and nothing it downloads, so
+   it looks the same on the store laptop, in Outlook on a big
+   monitor, and on a phone at the gate.
+
+
+ WHAT COMES OUT - twelve tabs
+ ============================
+
+   Cover                    what this is, what fed it, the headlines
+   Company Summary          per company: tooling, consumables, total
+   Detailed Onhire          every item out right now, and who has it
+   Tooling Transactions     every tooling issue and return
+   Tooling Utilisation      per item type: turns, rating, what to do
+   Coates Tooling           the Coates-owned fleet on site
+   Consumable Transactions  every consumable issued
+   Consumables Available    what's left on the shelf
+   Coates Stock             the fleet with its on-hire dates
+   Consumable Utilisation   per line: usage, rating, what to do
+   Coates Labour            the shift roster       - TYPED BY HAND
+   Cost Breakdown           the day-by-day cost    - TYPED BY HAND
+
+
+ WHAT THIS KIT NEEDS FROM A LAPTOP - the short answer: almost nothing
+ ===================================================================
+
+   NO internet. Not for the first run, not ever. The Excel library
+   the report is built with travels inside this folder, in _lib. It
+   is not installed and never was.
+
+   NO admin rights. NO IT ticket. NO licence.
+
+   NO Excel to BUILD the report - only to open the workbook
+   afterwards. If a laptop has no Excel, the .html file next to the
+   email opens the whole report in any browser.
+
+   The one and only thing it needs is PYTHON 3, free, and if the
+   laptop hasn't got it, button 3 sorts that out in thirty seconds
+   without touching anything else on the machine.
+
+
+ THE TWO TABS THAT ARE TYPED BY HAND
+ ===================================
+
+   Coates Labour and Cost Breakdown are not built from the exports -
+   somebody types them. The refresh NEVER touches them, and neither
+   of them appears in the email.
+
+   Keep your working .xlsm in this folder and every refresh reads
+   those two tabs out of it and writes them straight back, formulas
+   and all. Your .xlsm is never written to.
+
+   No .xlsm in the folder? Those two tabs come out empty with a note,
+   ready to type into. Nothing breaks.
+
+
+ A DIFFERENT JOB
+ ===============
+
+   Copy this folder, empty Data_SiteIQ, put the new job's exports in,
+   press the button. It reads the job off the exports themselves, so
+   it names itself correctly with nothing set up.
+
+   Open JOB.txt only if you want to tidy up the names it uses.
+
+   ONE JOB'S EXPORTS AT A TIME. If a Gladstone export ends up in a
+   Weipa folder it stops and names the odd one out, instead of
+   quietly building a report off two jobs mixed together.
+
+
+ FOR ANDREW - SENDING THIS TO SOMEBODY ELSE
+ ==========================================
+
+   Send the whole folder as ONE zip and say exactly this in the
+   email:
+
+       "Right-click the zip, choose Extract All, put it on your
+        Desktop. Open the folder. Read 0_START_HERE.txt. Press
+        1_CHECK_THIS_LAPTOP.bat first."
+
+   If their mail system strips the zip (some block anything with a
+   .bat inside), put it on OneDrive or Teams and send the link
+   instead. Nothing in the kit needs to be sent any other way.
+
+   And remember they do NOT need any of this just to READ or SEND
+   the report. If it is easier, run it on your laptop and email
+   them the .eml and the workbook - the .eml opens as their own
+   draft, addressed by them, sent by them.
+
+
+ WANT MORE DETAIL?
+ =================
+
+   Open HOW_IT_WORKS.html - one page, prints on A4. It shows the
+   flow end to end, what each tab is for, and how the Usage Ratings
+   are worked out.
+
+======================================================================
