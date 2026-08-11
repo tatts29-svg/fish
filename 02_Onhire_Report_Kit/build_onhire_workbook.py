@@ -49,6 +49,7 @@ import glob
 import os
 import shutil
 import sys
+from copy import copy
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -173,6 +174,16 @@ TITLE_FILL = PatternFill("solid", fgColor=NEAR_BLACK)
 HDR_FILL = PatternFill("solid", fgColor=ORANGE_ALT)
 THIN = Side(style="thin", color="FFD9D9D9")
 CELL_BORDER = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
+
+#  The header row is boxed in its own colour so the heading block reads
+#  as one solid bar rather than a row of separate cells.
+HDR_SIDE = Side(style="thin", color=ORANGE_ALT)
+HDR_BORDER = Border(left=HDR_SIDE, right=HDR_SIDE, top=HDR_SIDE,
+                    bottom=HDR_SIDE)
+
+#  Every second row gets the faintest warm tint. Enough to follow a long
+#  row across twelve columns, not enough to notice you are being helped.
+BAND_FILL = PatternFill("solid", fgColor="FFFDF6F2")
 
 DATE_FMT = "dd/mm/yyyy"
 TIME_FMT = "hh:mm"
@@ -575,23 +586,51 @@ def band(ws, title, ncols):
 
 
 def sheet(wb, name, title, columns, rows, widths=None, formats=None):
-    """One data tab: title strip, header row, the rows, frozen panes and
-    a filter. `formats` maps column index (0-based) to a number format."""
+    """One data tab, boxed up properly: title strip, header row, the
+    rows, frozen panes, a filter, and print settings that put it on a
+    page the right way round.
+
+    `formats` maps column index (0-based) to a number format, and is
+    also what decides which columns get right-aligned - a number that
+    reads as a number belongs on the right, and a column of them lines
+    up on the decimal instead of wandering.
+    """
     ws = wb.create_sheet(name)
     band(ws, title, len(columns))
+
     for i, col in enumerate(columns, start=1):
         c = ws.cell(row=2, column=i, value=col)
         c.font = HDR_FONT
         c.fill = HDR_FILL
-        c.alignment = Alignment(vertical="center", wrap_text=True)
+        c.border = HDR_BORDER
+        c.alignment = Alignment(vertical="center", horizontal="center",
+                                wrap_text=True)
     ws.row_dimensions[2].height = 30
 
+    #  Which columns are numeric, so they can be right-aligned. Dates and
+    #  times read better centred than shoved to either edge.
+    fmts = formats or {}
+    right = {i for i, f in fmts.items()
+             if f in (INT_FMT, MONEY_FMT, PCT_FMT, "#,##0.00")}
+    middle = {i for i, f in fmts.items() if f in (DATE_FMT, TIME_FMT)}
+
     for r, row in enumerate(rows, start=3):
+        stripe = BAND_FILL if (r % 2) else None
         for i, v in enumerate(row, start=1):
             c = ws.cell(row=r, column=i, value=v)
             c.font = BODY_FONT
             c.border = CELL_BORDER
-            fmt = (formats or {}).get(i - 1)
+            if stripe is not None:
+                c.fill = stripe
+            if (i - 1) in right:
+                c.alignment = Alignment(horizontal="right",
+                                        vertical="center")
+            elif (i - 1) in middle:
+                c.alignment = Alignment(horizontal="center",
+                                        vertical="center")
+            else:
+                c.alignment = Alignment(vertical="center", wrap_text=False)
+            fmt = fmts.get(i - 1)
             if fmt:
                 c.number_format = fmt
 
@@ -614,7 +653,32 @@ def sheet(wb, name, title, columns, rows, widths=None, formats=None):
                     value="Nothing to show for this pull - no rows in the "
                           "export matched this tab.")
         c.font = Font(name="Calibri", size=11, italic=True, color=GREY)
+
+    tidy_print(ws, len(columns))
+    ws.sheet_properties.tabColor = ORANGE
     return ws
+
+
+def tidy_print(ws, ncols, landscape=True):
+    """Make a tab print like a report instead of like a spreadsheet
+    somebody hit Ctrl+P on. Sideways, squeezed to one page wide, with
+    the title strip and the headings repeated at the top of every page
+    and the page number down the bottom."""
+    ws.page_setup.orientation = ("landscape" if landscape else "portrait")
+    ws.page_setup.paperSize = ws.PAPERSIZE_A4
+    ws.page_setup.fitToWidth = 1
+    ws.page_setup.fitToHeight = 0
+    ws.sheet_properties.pageSetUpPr.fitToPage = True
+    ws.print_title_rows = "1:2"
+    ws.print_options.horizontalCentered = True
+    ws.page_margins.left = ws.page_margins.right = 0.3
+    ws.page_margins.top = ws.page_margins.bottom = 0.5
+    ws.oddFooter.left.text = "COATES  |  POWERED BY SITEIQ"
+    ws.oddFooter.left.size = 8
+    ws.oddFooter.left.color = "808080"
+    ws.oddFooter.right.text = "Page &P of &N"
+    ws.oddFooter.right.size = 8
+    ws.oddFooter.right.color = "808080"
 
 
 # =====================================================================
@@ -1186,6 +1250,44 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     longest = [[r[3], r[2], r[0], r[1], r[5], (when - r[5]).days]
                for r in dated[:12]]
 
+    #  ---- everything on hire, company by company, person by person ----
+    #  Alphabetical both ways, because this is the list people scroll
+    #  through looking for their own name. Same gear description twice
+    #  in one name is counted, not repeated - "4 x DropMat Kit" reads
+    #  better than four identical lines and takes a quarter of the room.
+    roll = {}
+    for r in det:
+        co = _s(r[0]) or "(no company named)"
+        who = _s(r[1]) or "(nobody named on it)"
+        p = roll.setdefault(co, {}).setdefault(
+            who, {"items": {}, "oldest": None, "n": 0})
+        desc = _s(r[3]) or "(no description)"
+        p["items"][desc] = p["items"].get(desc, 0) + 1
+        p["n"] += 1
+        if r[5] and (p["oldest"] is None or r[5] < p["oldest"]):
+            p["oldest"] = r[5]
+
+    on_hire_roll = []
+    for co in sorted(roll, key=lambda c: c.upper()):
+        people = []
+        for who in sorted(roll[co], key=lambda w: w.upper()):
+            d = roll[co][who]
+            people.append({
+                "who": who,
+                "n": d["n"],
+                "since": d["oldest"],
+                "days": (when - d["oldest"]).days if d["oldest"] else None,
+                #  Most-held first, then alphabetical.
+                "gear": sorted(d["items"].items(),
+                               key=lambda kv: (-kv[1], kv[0].upper())),
+            })
+        on_hire_roll.append({
+            "company": co,
+            "items": sum(p["n"] for p in people),
+            "lines": len({g for p in people for g, _q in p["gear"]}),
+            "people": people,
+        })
+
     stamp = ", ".join(sorted({
         dt.datetime.fromtimestamp(os.path.getmtime(p)).strftime("%d %b %Y")
         for p in sources})) or when.strftime("%d %b %Y")
@@ -1193,6 +1295,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     return {"tiles": tiles, "flags": flags, "call": call, "actions": actions,
             "companies": companies, "hardest": hardest, "idle": idle_rows,
             "consumables": cons, "longest": longest, "source_stamp": stamp,
+            "roll": on_hire_roll,
             "long_out_days": LONG_OUT_DAYS, "cons_tight": CONS_TIGHT,
             "counts": {"onhire": len(det), "companies": n_companies,
                        "oldest_days": oldest_days, "hot": len(hot),
@@ -1237,12 +1340,28 @@ def carry_over(wb, s, base, title):
                         continue
                     filled = True
                     nc = ws.cell(row=c.row, column=c.column, value=c.value)
-                    nc.font = Font(name=c.font.name or "Calibri",
-                                   size=c.font.sz or 11, bold=c.font.b)
+                    #  Carry the LOOK across as well as the value. These
+                    #  tabs are laid out by hand - boxed, filled, headed -
+                    #  and copying only the text used to strip all of that
+                    #  out on every refresh, so a tab that was tidy on
+                    #  Monday was bare by Tuesday. copy() because a style
+                    #  object belongs to one workbook and openpyxl will
+                    #  not let it be shared between two.
+                    nc.font = copy(c.font)
+                    nc.fill = copy(c.fill)
+                    nc.border = copy(c.border)
+                    nc.alignment = copy(c.alignment)
                     if c.number_format:
                         nc.number_format = c.number_format
                 if filled:
                     n += 1
+            #  Row heights and the frozen header, so a long roster still
+            #  scrolls with its headings in view.
+            for k, dim in o.row_dimensions.items():
+                if dim.height:
+                    ws.row_dimensions[k].height = dim.height
+            if o.freeze_panes:
+                ws.freeze_panes = o.freeze_panes
             for rng in list(o.merged_cells.ranges):
                 if rng.min_row <= 1:
                     #  Row 1 belongs to the title band, added below. Two
@@ -1264,6 +1383,8 @@ def carry_over(wb, s, base, title):
         else:
             #  Re-brand the title strip so it matches the other tabs.
             band(ws, title, max(5, ws.max_column))
+        tidy_print(ws, max(5, ws.max_column))
+        ws.sheet_properties.tabColor = NEAR_BLACK      # typed by hand
         carried.append((name, n))
 
     #  Totals for the cover, straight off the values copy.
@@ -1390,6 +1511,11 @@ def cover(wb, s, when, asat, tabs, sources, base, headline):
 
     for col, w in ((1, 46), (2, 24), (3, 52), (4, 12), (5, 12), (6, 12)):
         ws.column_dimensions[get_column_letter(col)].width = w
+    #  The cover is the page people print and put on the wall, so it
+    #  goes portrait while the data tabs go landscape.
+    tidy_print(ws, 6, landscape=False)
+    ws.print_title_rows = "1:1"
+    ws.sheet_properties.tabColor = NEAR_BLACK
     return ws
 
 
@@ -1435,7 +1561,7 @@ E_LINE = "#DCE1E7"
 E_MUTED = "#5B6472"
 E_ZEBRA = "#F7F8FA"
 E_TRACK = "#E4E8ED"
-E_FONT = "Segoe UI,Calibri,Arial,Helvetica,sans-serif"
+E_FONT = "Segoe UI,Calibri,Arial,sans-serif"
 E_WIDTH = 760
 
 #  Red / amber / green / slate, as (chip background, text, bar). Muted
@@ -1523,13 +1649,13 @@ def _bar(value, biggest, tone="orange"):
                 .format(t=E_TRACK))
     left = int(round(pct))
     left = max(3, min(100, left))
-    cells = ("<td width='{l}%' bgcolor=\"{f}\" style=\"width:{l}%;"
-             "background:{f};height:5px;font-size:1px;line-height:5px\">"
-             "&nbsp;</td>".format(l=left, f=fill))
+    cells = ("<td width='{l}%' bgcolor=\"{f}\" style=\"background:{f};"
+             "height:5px;font-size:1px;line-height:5px\">&nbsp;</td>"
+             .format(l=left, f=fill))
     if left < 100:
-        cells += ("<td width='{r}%' bgcolor=\"{t}\" style=\"width:{r}%;"
-                  "background:{t};height:5px;font-size:1px;line-height:5px\">"
-                  "&nbsp;</td>".format(r=100 - left, t=E_TRACK))
+        cells += ("<td width='{r}%' bgcolor=\"{t}\" style=\"background:{t};"
+                  "height:5px;font-size:1px;line-height:5px\">&nbsp;</td>"
+                  .format(r=100 - left, t=E_TRACK))
     return ("<table cellpadding='0' cellspacing='0' border='0' width='100%' "
             "style='border-collapse:collapse;width:100%'><tr>{c}</tr></table>"
             .format(c=cells))
@@ -1584,7 +1710,45 @@ def _section(number, title, subtitle):
                                t=_esc(title), s=_esc(subtitle)))
 
 
-def _table(cols, rows, widths=None, aligns=None, note=""):
+def _company_band(name, items, people, lines):
+    """The strip that starts each company's block in the on-hire roll.
+    Orange, so you can scroll and land on the company you want."""
+    return (
+        "<table cellpadding='0' cellspacing='0' border='0' width='100%' "
+        "style='border-collapse:collapse;width:100%'><tr>"
+        "<td bgcolor=\"{o}\" style=\"background:{o};padding:8px 12px;"
+        "font-family:{f};font-size:11.5pt;font-weight:700;color:#ffffff\">"
+        "{n}</td>"
+        "<td bgcolor=\"{o}\" align='right' style=\"background:{o};"
+        "padding:8px 12px;font-family:{f};font-size:9.5pt;color:#FFE4D6;"
+        "white-space:nowrap\">{i} item{s} &nbsp;&middot;&nbsp; {l} line{ls}"
+        " &nbsp;&middot;&nbsp; {p} {pw}</td>"
+        "</tr></table>".format(
+            o=E_ORANGE, f=E_FONT, n=_esc(name), i=_fmt(items),
+            s="" if items == 1 else "s", l=_fmt(lines),
+            ls="" if lines == 1 else "s", p=_fmt(people),
+            pw="person" if people == 1 else "people"))
+
+
+def _gear_list(gear):
+    """What one person has out. Counted, so four of the same kit is one
+    line that says four, not four lines that look like a glitch."""
+    if not gear:
+        return ""
+    #  One styled block, not one per line. With 112 items on hire the
+    #  per-line version added 40KB of repeated styling to the email, and
+    #  Gmail quietly clips anything over about 100KB - so the bottom of
+    #  the report would have disappeared behind a "view entire message"
+    #  link on half the recipients.
+    lines = "<br>".join(
+        "<b style=\"color:{i}\">{q} &times;</b> {d}".format(
+            i=E_INK, q=qty, d=_esc(desc)) for desc, qty in gear)
+    return ("<div style=\"font-family:{f};font-size:9.5pt;color:{m};"
+            "line-height:1.55\">{l}</div>".format(
+                f=E_FONT, m=E_MUTED, l=lines))
+
+
+def _table(cols, rows, widths=None, aligns=None, note="", valign=None):
     """One data table. Dark header, an orange rule under it, zebra rows,
     and every cell carrying its own styling because Word will not read a
     stylesheet. Cells arrive as finished HTML from the caller - that is
@@ -1627,7 +1791,7 @@ def _table(cols, rows, widths=None, aligns=None, note=""):
                 "<td bgcolor=\"{b}\" style=\"background:{b};padding:7px 10px;"
                 "border-bottom:1px solid {l};vertical-align:{v}\">{c}</td>"
                 .format(b=bg, l=E_LINE, c=cell,
-                        v="middle" if i else "top"))
+                        v=valign or ("middle" if i else "top")))
         out.append("</tr>")
     out.append("</table>")
 
@@ -1956,6 +2120,54 @@ def email_html(s, when, asat, parts):
              "demob turning into a search party.".format(limit)))
     body.append(_spacer(18))
 
+    #  ---- 7. everything on hire, company by company --------------------
+    limit = parts["long_out_days"]
+    body.append(_section("7", "Everything on hire, company by company",
+                         "Alphabetical - every item out, and who has it"))
+    for block in parts["roll"]:
+        body.append(_spacer(10))
+        body.append(_company_band(block["company"], block["items"],
+                                  len(block["people"]), block["lines"]))
+        rows = []
+        for p in block["people"]:
+            if p["days"] is None:
+                story = "{} item{} out. No on-hire date recorded.".format(
+                    _fmt(p["n"]), "" if p["n"] == 1 else "s")
+            else:
+                story = ("{} item{} out, the oldest since {} - {} day{}."
+                         .format(_fmt(p["n"]), "" if p["n"] == 1 else "s",
+                                 p["since"].strftime("%d %b %Y"), p["days"],
+                                 "" if p["days"] == 1 else "s"))
+            #  No separate Items or Days column: the story line already
+            #  says "3 items out, the oldest since 05 Aug - 5 days", and
+            #  a table that prints the same number twice reads like a
+            #  mistake. The chip stays, because that is the bit you scan
+            #  for rather than read.
+            rows.append([
+                _lead(p["who"], story) +
+                "<div style=\"font-size:1px;line-height:6px\">&nbsp;</div>" +
+                _gear_list(p["gear"]),
+                _pill("{} d".format(p["days"]) if p["days"] is not None
+                      else "no date",
+                      "red" if (p["days"] or 0) >= limit else
+                      ("amber" if (p["days"] or 0) >= limit * 0.6
+                       else "slate")),
+            ])
+        body.append(_table(["Who has it, and what they've got",
+                            "Longest out"],
+                           rows, widths={0: 82, 1: 18},
+                           aligns={1: "left"}, valign="top"))
+    body.append(_spacer(6))
+    body.append("<table cellpadding='0' cellspacing='0' border='0' "
+                "width='100%' style='border-collapse:collapse;width:100%'>"
+                "<tr><td bgcolor=\"{p}\" style=\"background:{p};"
+                "font-family:{f};font-size:9pt;color:{m};line-height:1.45\">"
+                "That is every item on hire as at the time above - {n} of "
+                "them. If a name here has finished up, tell me and I'll "
+                "chase the gear back before demob.</td></tr></table>".format(
+                    p=E_PAGE, f=E_FONT, m=E_MUTED, n=_fmt(c["onhire"])))
+    body.append(_spacer(18))
+
     body.append(_actions_card(parts))
     body.append(_spacer(16))
 
@@ -2025,6 +2237,20 @@ def email_text(s, when, parts):
     lines += ["", "THE POSITION", ""]
     for label, value, sub in parts["tiles"]:
         lines.append("  {:<28} {:>7}   {}".format(label, value, sub))
+    lines += ["", "EVERYTHING ON HIRE - COMPANY BY COMPANY", ""]
+    for block in parts["roll"]:
+        lines.append("  {}  ({} items, {} people)".format(
+            block["company"], block["items"], len(block["people"])))
+        for p in block["people"]:
+            when_txt = ("oldest {} ({} days)".format(
+                p["since"].strftime("%d %b %Y"), p["days"])
+                if p["days"] is not None else "no on-hire date")
+            lines.append("    {} - {} items, {}".format(
+                p["who"], p["n"], when_txt))
+            for desc, qty in p["gear"]:
+                lines.append("        {} x {}".format(qty, desc))
+        lines.append("")
+
     lines += ["", "WHAT I NEED FROM YOU", ""]
     for n, (head, bodytext) in enumerate(parts["actions"], 1):
         lines.append("  {}. {} - {}".format(n, head, bodytext))

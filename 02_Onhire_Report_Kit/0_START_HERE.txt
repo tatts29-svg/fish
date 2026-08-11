@@ -160,6 +160,8 @@
                         at all - shelf space we're carrying
    Consumables to watch the lines running down
    Out the longest      oldest items still out, worth a phone call
+   Everything on hire   every company in A-Z order, every person under
+                        them, and exactly what each one has got out
    What I need from you the actions, each with its own number
 
    NO COSTS. Not the labour, not the cost breakdown, not a rate and
@@ -187,6 +189,11 @@
    Consumable Utilisation   per line: usage, rating, what to do
    Coates Labour            the shift roster       - TYPED BY HAND
    Cost Breakdown           the day-by-day cost    - TYPED BY HAND
+
+   Every tab is boxed, filtered, frozen at the headings and set up to
+   print landscape on A4 with the headings repeated on every page.
+   The two hand-typed tabs come loaded with the Weipa roster and cost
+   breakdown, and they keep their own layout through every refresh.
 
 
  WHAT THIS KIT NEEDS FROM A LAPTOP - the short answer: almost nothing
