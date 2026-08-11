@@ -1017,7 +1017,17 @@ def build(base=HERE, when=None):
     wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Cover"])))
 
     # ---- save ---------------------------------------------------------
-    dirs = out_dirs(base, when, s)
+    try:
+        dirs = out_dirs(base, when, s)
+    except OSError as e:
+        raise KitProblem(
+            "Couldn't make today's folder under Reports.\n\n"
+            "         {}\n\n"
+            "         The folder is read-only, or it's a OneDrive one that "
+            "isn't\n"
+            "         signed in. Copy the whole kit to your Desktop and run "
+            "it\n"
+            "         from there.".format(e))
     label = _safe_name(s.short or s.customer or "Shutdown")
     stem = "{} On-Hire Workbook - {}".format(label, when.strftime("%d %b %Y"))
     out = os.path.join(dirs["day"], stem + ".xlsx")
@@ -1060,13 +1070,28 @@ def build(base=HERE, when=None):
               "one above is fine - it's probably open in Excel.".format(e))
         latest = None
 
-    note_sources(dirs["day"], sources)
+    #  From here on the workbook is safely on disk. Nothing below is worth
+    #  throwing that away for, so each step warns and carries on instead
+    #  of taking the whole run down with it.
+    try:
+        note_sources(dirs["day"], sources)
+    except OSError:
+        pass                    # the sources note is a nicety, not the report
 
     # ---- the email -----------------------------------------------------
     parts = email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                         tooling_tx, live_onhire, sources, when)
-    html_path, eml_path = write_email(base, s, when, asat, parts,
-                                      latest or out, dirs["day"])
+    try:
+        html_path, eml_path = write_email(base, s, when, asat, parts,
+                                          latest or out, dirs["day"])
+    except OSError as e:
+        say("  WARN | The workbook saved fine, but the email couldn't be "
+            "written ({}).".format(e))
+        say("         Attach the workbook to a normal email this once, and "
+            "run")
+        say("         1_CHECK_THIS_LAPTOP.bat to see what is locking the "
+            "folder.")
+        html_path = eml_path = None
 
     say("=" * 66)
     say(" COATES | ON-HIRE WORKBOOK - {}".format(s.header_line))
@@ -1077,10 +1102,12 @@ def build(base=HERE, when=None):
     say("  Workbook  {}".format(os.path.relpath(out, base)))
     if latest:
         say("  Open this {}".format(os.path.relpath(latest, base)))
-    say("  Email     {}".format(os.path.relpath(eml_path, base)))
-    say("            double-click it - it opens as a DRAFT. Nothing sends")
-    say("            until you press Send yourself.")
-    say("  Web page  {}".format(os.path.relpath(html_path, base)))
+    if eml_path:
+        say("  Email     {}".format(os.path.relpath(eml_path, base)))
+        say("            double-click it - it opens as a DRAFT. Nothing sends")
+        say("            until you press Send yourself.")
+    if html_path:
+        say("  Web page  {}".format(os.path.relpath(html_path, base)))
     say("=" * 66)
     return 0
 
@@ -1333,7 +1360,11 @@ def carry_over(wb, s, base, title):
         n = 0
         if old is not None and name in old.sheetnames:
             o = old[name]
-            for row in o.iter_rows():
+            #  From row 2. Row 1 is the title band, which band() writes
+            #  fresh below - copying it forward only carried the previous
+            #  job's name into the new workbook for a moment, and counted
+            #  itself as a row of typing that nobody typed.
+            for row in o.iter_rows(min_row=2):
                 filled = False
                 for c in row:
                     if c.value is None:
