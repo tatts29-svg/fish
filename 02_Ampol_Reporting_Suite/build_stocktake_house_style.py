@@ -1,0 +1,926 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+=====================================================================
+COATES STOCKTAKE - HOUSE-STYLE OUTPUTS (the K2 look)
+One run -> floor worklist + client PDF + team PDF + Outlook email
+=====================================================================
+Author: Andrew Fisher
+The Coates Way - Operational Excellence - POWERED BY SITEIQ
+
+WHAT THIS IS
+  The stocktake reporting suite rebuilt in the Coates house style (the
+  K2 report family look), replacing the old-style compliance report and
+  email. One run produces:
+
+   1. Coates_Stocktake_Count_Worklist.pdf / .xlsx   (FOR STAFF - the
+      floor copy, unchanged from V3 - practical beats pretty on the
+      floor)
+   2. Coates_Ampol_Stocktake_Compliance_K2STYLE.pdf (FOR THE CLIENT -
+      house style; compliance, dollarised coverage, activity proof,
+      the idle tail, on-hire verification. No item-level detail.)
+   3. Coates_Ampol_Stocktake_TEAM_K2STYLE.pdf       (FOR THE TEAM -
+      "the people turning the wheel": named counting league, the
+      daily three with misses named, due-by-bay, longest unsighted)
+   4. Coates_Ampol_Stocktake_OUTLOOK_SAFE.eml       (SEND TO STAFF -
+      house-style body, Outlook-safe, all three PDFs + Excel attached)
+      + .draft.json so MAKE_OUTLOOK_DRAFTS keeps working.
+
+ONE ENGINE
+  All counting, joins, pricing and tiering come from
+  build_stocktake_compliance_tool (Andrew's V3 engine) - this script
+  renders skins over it and adds transaction-level analytics read from
+  the same STOCKTAKE export. Change a rule once, in the engine, and
+  every output follows. PDFs render via the engine's write_pdf_robust
+  (WeasyPrint if working, otherwise Edge headless - no installs).
+
+DATA RULES (unchanged)
+  Dates parsed as DD/MM/YYYY. Unpriced items never estimated - excluded
+  from value totals and disclosed. Transit stock excluded. On-hire
+  coverage rated separately from shelf counting.
+=====================================================================
+"""
+
+import os
+import re
+import sys
+from collections import Counter, defaultdict
+from datetime import datetime, timedelta
+from email.message import EmailMessage
+from email.utils import formatdate
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import build_stocktake_compliance_tool as eng
+import k2shell as sh
+from k2shell import esc, money, num, K
+
+import openpyxl
+
+BASE = Path(__file__).resolve().parent
+OUT = BASE / "output"
+
+CONFIG = {
+    "client": "Ampol",
+    "title_client": "Stocktake Compliance",
+    "title_team": "Stocktake - The People Turning The Wheel",
+    "kicker_client": "COATES · STORES STOCKTAKE - COMPLIANCE REPORT",
+    "kicker_team": "COATES · STORES STOCKTAKE - TEAM REPORT",
+    "project": "Ampol Lytton Refinery · Permanent Tool Store",
+    "pdf_client": "Coates_Ampol_Stocktake_Compliance_K2STYLE.pdf",
+    "pdf_team": "Coates_Ampol_Stocktake_TEAM_K2STYLE.pdf",
+    "eml_name": "Coates_Ampol_Stocktake_OUTLOOK_SAFE.eml",
+    "email_html": "Coates_Ampol_Stocktake_EMAIL.html",
+    "team": [
+        {"name": "Andrew Fisher", "role": "Shutdown Manager",
+         "shift": "", "email": "andrew.fisher@coates.com.au",
+         "blurb": "Oversees the store and the count cadence - anything at all, start here",
+         "lead": True},
+    ],
+    "key_items": [
+        ("orange", "COUNT DAILY", "stock takes are done daily - no exceptions"),
+        ("blue", "TWO SCANS TWO LOOKS", "scanned and sighted, out and back"),
+        ("amber", "P1 7-DAY", "gas monitors, radios & batteries every 7 days"),
+    ],
+}
+
+
+def cfg_for(kind):
+    c = dict(CONFIG)
+    c["title"] = c["title_client"] if kind == "client" else c["title_team"]
+    c["kicker"] = c["kicker_client"] if kind == "client" else c["kicker_team"]
+    return c
+
+
+# =====================================================================
+# supplementary analytics off the same STOCKTAKE export
+# =====================================================================
+
+def is_battery(r):
+    b = r["barcode"].upper()
+    d = r["desc"].upper()
+    return b.startswith(("AMPMRB", "SATGASBAT")) or "BATTER" in d
+
+
+def load_actions(stock_path):
+    """barcode -> LAST_SIGHTED_ACTION (the engine drops it; we need it to
+    tell deliberate stocktake scans from movement scans)."""
+    wb = openpyxl.load_workbook(stock_path, read_only=True, data_only=True)
+    ws = wb["STOCKTAKE"]
+    it = ws.iter_rows(values_only=True)
+    hdr = [c for c in next(it)]
+    ix = {h: i for i, h in enumerate(hdr)}
+    out = {}
+    for r in it:
+        bc = str(r[ix["LATEST_BARCODE"]] or "").strip().upper()
+        if bc:
+            out[bc] = str(r[ix["LAST_SIGHTED_ACTION"]] or "").strip()
+    wb.close()
+    return out
+
+
+def analytics(rows, d, export_dt, actions):
+    a = {}
+    ins = d["instore"]
+    for r in rows:
+        r["action"] = actions.get(r["barcode"].upper(), "")
+
+    # ---- daily and weekly sighting activity ---------------------------
+    daily_all, daily_st = Counter(), Counter()
+    for r in rows:
+        if r["last"]:
+            dt = r["last"].date()
+            daily_all[dt] += 1
+            if r["action"].lower() == "stocktake":
+                daily_st[dt] += 1
+    a["daily_all"], a["daily_st"] = daily_all, daily_st
+    days14 = [export_dt.date() - timedelta(days=i) for i in range(13, -1, -1)]
+    a["days14"] = [{"label": dd.strftime("%d %b"),
+                    "issued": daily_all.get(dd, 0),
+                    "returned": daily_st.get(dd, 0)} for dd in days14]
+    weekly = defaultdict(int)
+    for dt, n in daily_all.items():
+        iso = dt.isocalendar()
+        weekly[(iso[0], iso[1])] += n
+    wk_keys = sorted(weekly)[-12:]
+    a["weekly"] = [{"label": datetime.fromisocalendar(k[0], k[1], 1).strftime("%d %b"),
+                    "n": weekly[k]} for k in wk_keys]
+    if daily_all:
+        rec_day, rec_n = max(daily_all.items(), key=lambda kv: kv[1])
+        a["record_day"] = {"date": rec_day, "n": rec_n}
+
+    # ---- hour-of-day profile of DELIBERATE stocktake scans, last 30d --
+    hh = Counter()
+    for r in rows:
+        if (r["last"] and r["action"].lower() == "stocktake"
+                and (export_dt - r["last"]).days <= 30):
+            hh[r["last"].hour] += 1
+    a["st_hours"] = hh
+
+    # ---- the counting league (named, from the same export) ------------
+    ppl = defaultdict(lambda: {"d7": 0, "d30": 0, "st30": 0, "last": None})
+    for r in rows:
+        if not r["by"] or r["days"] is None:
+            continue
+        p = ppl[r["by"]]
+        if r["days"] <= 7:
+            p["d7"] += 1
+        if r["days"] <= 30:
+            p["d30"] += 1
+            if r["action"].lower() == "stocktake":
+                p["st30"] += 1
+        if p["last"] is None or (r["last"] and r["last"] > p["last"]):
+            p["last"] = r["last"]
+    a["league"] = sorted(
+        [{"name": k, **v} for k, v in ppl.items() if v["d30"] > 0],
+        key=lambda x: -x["d30"])
+    a["done30_total"] = len(d["done30"])
+
+    # ---- the daily three: gas / radios / batteries --------------------
+    cut = export_dt - timedelta(hours=24)
+
+    def three(pred):
+        grp = [r for r in ins if pred(r)]
+        seen = [r for r in grp if r["last"] and r["last"] >= cut]
+        missed = sorted([r for r in grp if not (r["last"] and r["last"] >= cut)],
+                        key=lambda r: (r["days"] is None, -(r["days"] or 0)),
+                        reverse=False)
+        missed.sort(key=lambda r: (0 if r["days"] is None else 1,
+                                   -(r["days"] or 99999)))
+        return grp, seen, missed
+    a["gas"] = three(lambda r: r["cat"] == "gas")
+    a["radio"] = three(lambda r: r["cat"] == "radio" and not is_battery(r))
+    a["battery"] = three(lambda r: r["cat"] == "radio" and is_battery(r))
+
+    # ---- ageing tails: in-store vs on-hire -----------------------------
+    # The in-store tail is what shelf counting clears; the on-hire tail is
+    # long-hire gear whose verification comes from return rescans and
+    # shutdown checks - report them separately, never blended.
+    buckets = [("0-30 days", 0, 30), ("31-60 days", 31, 60),
+               ("61-90 days", 61, 90), ("91-180 days", 91, 180),
+               ("Over 180 days", 181, 10 ** 6)]
+
+    def bucketise(grp_rows):
+        out = []
+        for lab, lo, hi in buckets:
+            grp = [r for r in grp_rows
+                   if r["days"] is not None and lo <= r["days"] <= hi]
+            out.append((lab, len(grp), sum(r["value"] or 0 for r in grp)))
+        nev = [r for r in grp_rows if r["days"] is None]
+        out.append(("Never sighted", len(nev),
+                    sum(r["value"] or 0 for r in nev)))
+        return out
+    a["idle_ins"] = bucketise(ins)
+    a["idle_oh"] = bucketise(d["onhire"])
+    a["ins_over30"] = [r for r in ins
+                       if r["days"] is None or r["days"] > 30]
+    a["ins_oldest"] = max((r["days"] or 0 for r in ins), default=0)
+    a["oh_risk180"] = [r for r in d["onhire"]
+                       if r["days"] is None or r["days"] > 180]
+    a["oh_risk180_val"] = sum(r["value"] or 0 for r in a["oh_risk180"])
+    a["oh_longest"] = sorted(
+        d["onhire"],
+        key=lambda r: (0 if r["days"] is None else 1, -(r["days"] or 0)))[:12]
+
+    # ---- coverage by bay (home storage unit, in-store) ----------------
+    units = defaultdict(list)
+    for r in ins:
+        units[r["unit"]].append(r)
+    ut = []
+    for u, grp in units.items():
+        ok = sum(1 for r in grp if r["days"] is not None and r["days"] <= 30)
+        due_t = sum(1 for r in grp if r["days"] is None or r["days"] > r["target"])
+        val = sum(r["value"] or 0 for r in grp)
+        oldest = max((r["days"] or 99999) for r in grp)
+        ut.append({"unit": u, "n": len(grp), "ok": ok,
+                   "pct": ok / len(grp) * 100 if grp else 0,
+                   "due": due_t, "val": val, "oldest": oldest})
+    ut.sort(key=lambda x: -x["n"])
+    a["units"] = ut
+
+    # ---- longest unsighted in-store (the residue) ---------------------
+    a["longest"] = sorted(
+        ins, key=lambda r: (0 if r["days"] is None else 1, -(r["days"] or 0)))[:10]
+
+    # ---- on-hire verification by company -------------------------------
+    co = defaultdict(lambda: {"n": 0, "val": 0, "due": 0})
+    for r in d["onhire"]:
+        c = (r["onhire_to"].split(" – ")[0] or "(no company)").strip()
+        co[c]["n"] += 1
+        co[c]["val"] += r["value"] or 0
+        if eng.bucket(r["days"]) != "ok":
+            co[c]["due"] += 1
+    a["onhire_co"] = sorted([{"co": k, **v} for k, v in co.items()],
+                            key=lambda x: -x["n"])
+    # ---- on-cycle within own tier target (in-store) --------------------
+    wt = sum(1 for r in ins if r["days"] is not None and r["days"] <= r["target"])
+    a["on_cycle_pct"] = wt / len(ins) * 100 if ins else 0
+    a["within_target"] = wt
+    return a
+
+
+# =====================================================================
+# PDF rendering via the engine's robust writer
+# =====================================================================
+
+def render_k2_pdf(doc, pdf_path, authored, css):
+    doc = doc.replace("</head>", f"<style>{css}</style></head>", 1)
+    tmp = OUT / (Path(pdf_path).stem + ".__tmp__.html")
+    tmp.write_text(doc, encoding="utf-8")
+    # pre-delete: write_pdf_robust treats an EXISTING file as success, so a
+    # stale copy from a previous run must never be able to masquerade
+    try:
+        Path(pdf_path).unlink()
+    except OSError:
+        pass
+    try:
+        ok = eng.write_pdf_robust(str(tmp), str(pdf_path))
+    finally:
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+    if not ok:
+        sys.exit(f"ERROR: could not render {Path(pdf_path).name} - no PDF "
+                 "engine available. Edge is standard on Coates laptops.")
+    raw = open(pdf_path, "rb").read()
+    counts = re.findall(rb"/Count\s+(\d+)", raw)
+    actual = max(int(c) for c in counts) if counts else -1
+    if actual == -1:
+        print(f"Layout check         : page count unreadable - authored "
+              f"{authored}; open the PDF and confirm")
+    elif actual != authored:
+        print("*" * 68)
+        print(f"WARNING: LAYOUT OVERFLOW in {Path(pdf_path).name} - authored "
+              f"{authored} pages, PDF has {actual}. Do not send as is.")
+        print("*" * 68)
+    else:
+        print(f"Layout check         : PASS - {actual} pages "
+              f"({Path(pdf_path).name})")
+
+
+# =====================================================================
+# shared page fragments (PDF)
+# =====================================================================
+
+def psect(title):
+    return f'<div class="sect"><h3>{title}</h3></div>'
+
+
+def pcallout(inner, tight=True):
+    cls = "callout tight" if tight else "callout"
+    return f'<div class="{cls}">{inner}</div>'
+
+
+def pnote(inner):
+    return f'<div class="note">{inner}</div>'
+
+
+def psubh(title, thin=""):
+    t = f' <span class="thin">{thin}</span>' if thin else ""
+    return f'<div class="sub-h">{title}{t}</div>'
+
+
+def chartpanel(inner):
+    return f'<div class="chartpanel">{inner}</div>'
+
+
+def ragc(pct):
+    return ("g" if pct >= 90 else "a" if pct >= 75 else "rd")
+
+
+# =====================================================================
+# CLIENT PDF
+# =====================================================================
+
+def build_client_pages(rows, d, a, export_dt):
+    P = []
+    comp = d["comp30"]
+    val_cov = (d["val_ok30"] / d["val_total"] * 100) if d["val_total"] else 0
+    priced_pct = d["priced_lines"] / len(rows) * 100 if rows else 0
+
+    # ---- P1 scorecard --------------------------------------------------
+    ladders = sh.score_rows([
+        (lab, round(p30),
+         f"{w30} of {insn} in-store items sighted inside the 30-day SOP - "
+         f"internal target is every {tgt} days ({wt} inside it)")
+        for k, lab, tgt, why, tot, ohn, insn, wt, w30, p30 in d["tier_stats"]])
+    P.append(f"""{pcallout(
+        f'<span class="lead">The position.</span> One page, one honest answer: '
+        f'is the {esc(CONFIG["client"])} tool store counted and under control? '
+        f'<b>{num(d["countable"])} countable items</b> on the register, '
+        f'<b class="o">{comp:.1f}%</b> sighted inside the 30-day SOP cycle, '
+        f'and <b>{money(d["val_ok30"])}</b> of the <b>{money(d["val_total"])}</b> '
+        f'priced fleet verified in the last 30 days. On the shelf the position '
+        f'is stronger again: <b class="o">no in-store item has gone unsighted '
+        f'past {num(a["ins_oldest"])} days</b>. Every score prints its own '
+        f'arithmetic - it can be challenged, checked and trusted. Transit stock '
+        f'({num(d.get("transit_n", 0))} lines pending branch movement) is '
+        f'excluded.', False)}
+<table class="two" style="margin-top:16px"><tr>
+  <td style="width:31%"><div class="donut-wrap">
+    {sh.donut(round(comp), sh.health_hex(round(comp)), f"{comp:.0f}%", sh.health_word(round(comp)))}
+    <div class="donut-cap">30-day SOP compliance - whole store</div></div></td>
+  <td style="padding-left:10px">{ladders}</td>
+</tr></table>
+{pnote(f'SOP compliance = items sighted in the last 30 days &divide; countable items = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>. Tier bars are rated on in-store assets; on-hire assets are verified through the double-scan return process and shutdown checks, shown separately below.')}
+{sh.tiles([
+    ("box", num(d["countable"]), "Countable items", "transit excluded", "grey"),
+    ("shield", money(d["val_total"]), "Priced fleet value",
+     f"{priced_pct:.0f}% of lines priced", "grey"),
+    ("check", money(d["val_ok30"]), "Value verified 30d",
+     f"{val_cov:.0f}% of priced value", "green" if val_cov >= 75 else "amber"),
+    ("swap", money(d["val_onhire"]), "Value on hire now", "verified on return", "grey"),
+])}""")
+
+    # ---- P2 determination + activity -----------------------------------
+    wk = a["weekly"]
+    line = sh.line_chart(
+        [w["label"] for w in wk],
+        [{"vals": [w["n"] for w in wk], "colour": K["orange"],
+          "label": "Items sighted / week", "fill": True}], label_every=2)
+    det = "".join(
+        f'<tr><td class="al-dot d-amber">&#9679;</td><td>'
+        f'<div class="al-t">P{1 if k in ("gas", "radio") else 2 if k == "milwaukee" else 3} '
+        f'&middot; {esc(lab)} - every {tgt} days</div>'
+        f'<div class="al-s">{esc(why)}</div></td></tr>'
+        for k, lab, tgt, why, *_ in d["tier_stats"])
+    P.append(f"""{psect("The priority determination - stated, not implied")}
+<div class="alerts"><div class="ah">How this store is counted</div>
+<table class="al">{det}</table></div>
+{pnote('Client compliance is measured on the 30-day SOP. The 7 and 14-day cycles are the Coates internal standard set <b>above</b> the SOP. Issue and return scans reset an item&rsquo;s clock, so the count cadence naturally surfaces idle stock - exactly the gear that goes missing quietly.')}
+{psubh("Counting activity", "&mdash; items sighted per week, last 12 weeks")}
+{chartpanel(line)}
+{sh.tiles([
+    ("check", num(len(d["done7"])), "Sighted last 7 days", "", ""),
+    ("bars", num(len(d["done30"])), "Sighted last 30 days", "", ""),
+    ("zap", num(a.get("record_day", {}).get("n", 0)), "Record day",
+     a["record_day"]["date"].strftime("%d %b %Y") if "record_day" in a else "", "amber"),
+    ("clock", num(sum(a["st_hours"].values())), "Deliberate stocktake scans",
+     "last 30 days", "grey"),
+])}""")
+
+    # ---- P3 coverage by bay --------------------------------------------
+    ut = a["units"][:16]
+    rest = a["units"][16:]
+    urows = []
+    for u in ut:
+        c = ragc(u["pct"])
+        urows.append([esc(u["unit"]), num(u["n"]),
+                      f'<span class="{c}">{u["pct"]:.0f}%</span>',
+                      num(u["due"]), money(u["val"]) if u["val"] else
+                      '<span class="tbc">TBC</span>'])
+    P.append(f"""{psect("Coverage by storage bay - RAG rated")}
+{pcallout('Green from 90% sighted inside 30 days, amber from 75%, red below - the same RAG discipline as every Coates report. <b>Due</b> counts items outside their own tier target, so a red bay tells you exactly where the trolley goes next.')}
+{sh.dtable(["Storage bay", "Items", "Sighted 30d", "Due (tier target)", "Priced value"],
+           urows, ["", "r", "r", "r", "r"])}
+{pnote((f'Plus {len(rest)} smaller bays holding {num(sum(u["n"] for u in rest))} items between them - full detail in the staff worklist. ' if rest else '') + 'Bays are the item&rsquo;s home storage unit from the live register; on-hire items are excluded from bay coverage.')}""")
+
+    # ---- P4 the two tails: shelf cleared, on-hire watched ---------------
+    ins_bars = sh.hbars([(lab, n) for lab, n, v in a["idle_ins"]],
+                        colour=K["green"])
+    oh_rows = [[lab, num(n), money(v) if v else '<span class="tbc">$0</span>']
+               for lab, n, v in a["idle_oh"]]
+    P.append(f"""{psect("The idle tail - where the risk actually sits")}
+{pcallout(f'The risk is never the gear that moves - it is the gear that sits. On the shelf that tail is <b class="o">effectively cleared</b>: {num(len(a["ins_over30"]))} of {num(len(d["instore"]))} in-store items are outside 30 days and the oldest is <b>{num(a["ins_oldest"])} days</b>. The watch item is <b class="o">long-hire gear</b>: {num(len(a["oh_risk180"]))} on-hire items have had no verification scan in over 180 days, holding <b class="o">{money(a["oh_risk180_val"])}</b> of priced value - these are verified at return and at shutdown checks, and the long-hire list below is where that effort goes next.')}
+{psubh("In-store items by time since last sighting", "&mdash; the shelf tail")}
+{chartpanel(ins_bars)}
+{psubh("On-hire items by time since last verification", "&mdash; the long-hire tail")}
+{sh.dtable(["Bucket", "Items on hire", "Priced value"], oh_rows, ["", "r", "r"])}
+{pnote('On-hire gear is not shelf-counted - verification comes from the double-scan return process and shutdown checks, so a long bucket here is a long hire, not a lost item. It is watched because long-idle gear is where shrinkage hides. Values from the pricing master; unpriced items excluded and disclosed, <b>never estimated</b>.')}""")
+
+    # ---- P5 on-hire verification ---------------------------------------
+    oc = a["onhire_co"][:10]
+    orows = [[esc(x["co"]), num(x["n"]),
+              (f'<span class="rd">{num(x["due"])}</span>' if x["due"] else
+               '<span class="g">0</span>'),
+              money(x["val"]) if x["val"] else '<span class="tbc">TBC</span>']
+             for x in oc]
+    P.append(f"""{psect("On hire - verified on return, not hunted on shelves")}
+{pcallout(f'<b>{num(len(d["onhire"]))} items</b> are on hire holding <b>{money(d["val_onhire"])}</b> of priced value. On-hire gear is verified through the double-scan return process and shutdown checks - chasing it around site during a count would be friction for no assurance. <b class="o">{num(len(d["missed_returns"]))} possible missed returns</b> (sighted in a store bay after their on-hire date) are flagged to resolve first, so hirers are never held for gear that is already home.')}
+{sh.dtable(["Company", "Items on hire", "Not verified 30d", "Priced value"],
+           orows, ["", "r", "r", "r"])}
+{sh.tiles([
+    ("swap", num(len(d["onhire"])), "Items on hire", "", ""),
+    ("warn", num(len(d["onhire_due30"])), "Not verified in 30d",
+     "verify on next return", "amber" if d["onhire_due30"] else "green"),
+    ("check", num(len(d["missed_returns"])), "Possible missed returns",
+     "resolve first", "red" if d["missed_returns"] else "green"),
+    ("shield", money(d["val_onhire"]), "Value on hire", "", ""),
+])}""")
+
+    # ---- P6 close -------------------------------------------------------
+    cards = sh.info_cards([
+        ("Two scans, two looks",
+         "Every item is scanned <b>and</b> sighted going out, and scanned and "
+         "sighted coming back. If it moved, it is on the record - that is your "
+         "protection as much as ours."),
+        ("Counted daily, above the SOP",
+         "The SOP asks for a 30-day cycle. Coates runs gas monitors, radios "
+         "and batteries on <b>7 days</b> and Milwaukee on <b>14</b> - an "
+         "internal standard set above the contract."),
+        ("Numbers you can challenge",
+         "Every score prints its own arithmetic. Values come from the pricing "
+         "master; anything unpriced is excluded and disclosed, "
+         "<b>never estimated</b>."),
+        ("Idle stock is the target",
+         "Movement resets the clock, so the count cadence naturally hunts the "
+         "gear that sits still - the gear that goes missing quietly."),
+        ("Life Saving Rule 5",
+         "Tools and Equipment (SEQ-GL-009): nothing damaged, defective or out "
+         "of test date is ever reissued. Stock takes are done daily. "
+         "No exceptions."),
+        ("Ease of doing business",
+         "One register, one cadence, one report - and a store team that "
+         "resolves a query while you are still at the counter."),
+    ])
+    P.append(f"""{psect("The tool store has your back")}
+{cards}
+{psect("Meet the tool store team")}
+{pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true, the counts current and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
+{sh.team_cards(CONFIG["team"])}""")
+    return P
+
+
+# =====================================================================
+# TEAM PDF
+# =====================================================================
+
+def build_team_pages(rows, d, a, export_dt):
+    P = []
+    ins = d["instore"]
+    oncyc = a["on_cycle_pct"]
+    comp = d["comp30"]
+    due_all = sum(len(d["due"][k]) for k in eng.TIERS)
+
+    # ---- T1 the wheel ---------------------------------------------------
+    g_all, g_seen, g_miss = a["gas"]
+    r_all, r_seen, r_miss = a["radio"]
+    b_all, b_seen, b_miss = a["battery"]
+    P.append(f"""{pcallout(
+        f'<span class="lead">This one is yours.</span> The client sees a '
+        f'compliance report that says the store is under control - here is the '
+        f'work that MAKES it true. <b>{num(len(d["done30"]))} items</b> have '
+        f'been sighted in the last 30 days, <b class="o">{num(len(d["done7"]))} '
+        f'in the last 7</b>, and right now <b class="o">{oncyc:.0f}% of the '
+        f'{num(len(ins))} in-store items are inside their own tier cycle</b>. '
+        f'The wheel doesn&rsquo;t turn itself - it&rsquo;s turned by the people '
+        f'on this page.', False)}
+<table class="two" style="margin-top:14px"><tr>
+  <td style="width:50%" align="center"><div class="donut-wrap">
+    {sh.donut(round(oncyc), sh.health_hex(round(oncyc)), f"{oncyc:.0f}%", "ON CYCLE")}
+    <div class="donut-cap">In-store items inside their tier cycle (7/14/30d)</div></div></td>
+  <td style="width:50%" align="center"><div class="donut-wrap">
+    {sh.donut(round(comp), sh.health_hex(round(comp)), f"{comp:.0f}%", "SOP 30D")}
+    <div class="donut-cap">Whole store against the 30-day SOP</div></div></td>
+</tr></table>
+{sh.tiles([
+    ("check", num(len(d["done7"])), "Sighted last 7 days", "", ""),
+    ("clock", num(sum(1 for r in rows if r["days"] is not None and r["days"] <= 1)),
+     "In the last 24 hours", "", ""),
+    ("warn", num(due_all), "Due on tier targets",
+     "the worklist below", "red" if due_all else "green"),
+    ("zap", num(a.get("record_day", {}).get("n", 0)), "Record day",
+     a["record_day"]["date"].strftime("%d %b") if "record_day" in a else "", "amber"),
+])}
+{pnote(f'On-cycle = in-store items sighted inside their own tier target = {num(a["within_target"])} &divide; {num(len(ins))} = <b>{oncyc:.0f}%</b>. SOP = sighted within 30 days = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>.')}""")
+
+    # ---- T2 the people --------------------------------------------------
+    lg = a["league"][:10]
+    lrows = []
+    for x in lg:
+        share = x["d30"] / a["done30_total"] * 100 if a["done30_total"] else 0
+        lrows.append([esc(x["name"]), num(x["d7"]), num(x["d30"]),
+                      num(x["st30"]), f'{share:.0f}%',
+                      esc(x["last"].strftime("%d %b %H:%M") if x["last"] else "")])
+    P.append(f"""{psect("The people turning the wheel")}
+{pcallout('Every sighting in the register carries a name. This is the last 30 days of counting, by person - deliberate stocktake scans separated from movement scans, because walking a bay with a scanner is the work that finds idle gear.')}
+{sh.dtable(["Who", "Last 7d", "Last 30d", "Stocktake scans 30d", "Share of 30d", "Most recent scan"],
+           lrows, ["", "r", "r", "r", "r", "r"])}
+{pnote('Share is of all items sighted in the last 30 days. Movement scans (issues and returns) also reset an item&rsquo;s clock - both count, both are the wheel turning.')}
+{psubh("Sightings per day", "&mdash; last 14 days, deliberate stocktake scans highlighted")}
+{chartpanel(sh.grouped_bars(a["days14"], h=190,
+                            series=(("issued", K["orange"], "All sightings"),
+                                    ("returned", "#22C55E", "Stocktake scans"))))}""")
+
+    # ---- T3 the daily three ---------------------------------------------
+    def miss_table(missed, cap=7):
+        rows_ = []
+        for r in missed[:cap]:
+            last = (r["last"].strftime("%d %b %H:%M") if r["last"] else
+                    '<span class="rd">NEVER</span>')
+            days_txt = ("never" if r["days"] is None else f'{r["days"]}d ago')
+            rows_.append([
+                f'{esc(r["desc"])}<span class="s2">{esc(r["unit"])}</span>',
+                esc(r["barcode"]),
+                f'{last}<span class="s2">{days_txt}</span>',
+                esc(r["by"] or "-")])
+        t = sh.dtable(["Item", "Barcode", "Last sighted", "By"], rows_,
+                      ["", "", "", ""])
+        more = (f'{pnote(f"... and <b>{len(missed) - cap}</b> more in this group - the worklist lists the lot.")}'
+                if len(missed) > cap else "")
+        return t + more
+
+    g_all, g_seen, g_miss = a["gas"]
+    r_all, r_seen, r_miss = a["radio"]
+    b_all, b_seen, b_miss = a["battery"]
+    P.append(f"""{psect("The daily three - counted every single day")}
+{pcallout('Three groups are on a DAILY count, not the weekly wheel: <b>gas monitors, radios and radio batteries</b>. Gas monitors keep people alive, radios keep the site talking, and batteries are what walks. Below is the last 24 hours and exactly what was missed.')}
+{sh.tiles([
+    ("warn", f"{len(g_seen)}/{len(g_all)}", "Gas monitors sighted 24h",
+     f"{len(g_miss)} missed" if g_miss else "all sighted",
+     "red" if g_miss else "green"),
+    ("warn", f"{len(r_seen)}/{len(r_all)}", "Radios sighted 24h",
+     f"{len(r_miss)} missed" if r_miss else "all sighted",
+     "red" if r_miss else "green"),
+    ("warn", f"{len(b_seen)}/{len(b_all)}", "Radio batteries sighted 24h",
+     f"{len(b_miss)} missed" if b_miss else "all sighted",
+     "red" if b_miss else "green"),
+    ("check", num(len(g_seen) + len(r_seen) + len(b_seen)),
+     "Daily-three sighted 24h", "", ""),
+])}
+{psubh(f"Gas monitors in store &mdash; missed in the last 24h ({len(g_miss)})")}
+{miss_table(g_miss)}""")
+    P.append(f"""{psubh(f"Radios in store &mdash; missed in the last 24h ({len(r_miss)})")}
+{miss_table(r_miss)}
+{psubh(f"Radio batteries in store &mdash; missed in the last 24h ({len(b_miss)})")}
+{miss_table(b_miss)}""")
+
+    # ---- T4 point the trolley -------------------------------------------
+    ut = sorted(a["units"], key=lambda u: -u["due"])[:14]
+    urows = [[esc(u["unit"]), num(u["n"]), num(u["due"]),
+              f'<span class="{ragc(u["pct"])}">{u["pct"]:.0f}%</span>',
+              ("never" if u["oldest"] >= 99999 else f'{u["oldest"]}d')]
+             for u in ut if u["due"]]
+    P.append(f"""{psect("Where to point the trolley - due items by bay")}
+{pcallout('Clear a bay at a time - it is faster, it is auditable, and the register RAG turns green a whole shelf at a stretch. Bays ranked by due count; <b>oldest</b> is the longest-unsighted item in the bay.')}
+{sh.dtable(["Storage bay", "Items", "Due now", "Sighted 30d", "Oldest"],
+           urows, ["", "r", "r", "r", "r"])}
+{pnote(f'Due = outside the item&rsquo;s own tier target (7/14/30 days). Full item-by-item detail is the printed worklist and the Excel workbook - this page is the map, those are the streets.')}""")
+
+    # ---- T5 the two lists: shelf residue + long-hire verify -------------
+    lrows2 = []
+    for r in a["longest"]:
+        if r["days"] is not None and r["days"] <= 30:
+            continue
+        last = (r["last"].strftime("%d %b %Y") if r["last"] else
+                '<span class="rd">NEVER SIGHTED</span>')
+        lrows2.append([
+            f'{esc(r["desc"])}<span class="s2">{esc(r["unit"])}</span>',
+            esc(r["barcode"]),
+            f'{last}<span class="s2">{esc(r["by"] or "")}</span>',
+            ('<span class="rd">never</span>' if r["days"] is None else
+             f'<span class="a">{num(r["days"])}d</span>')])
+    ohrows = []
+    for r in a["oh_longest"]:
+        last = (r["last"].strftime("%d %b %Y") if r["last"] else
+                '<span class="rd">NEVER</span>')
+        ohrows.append([
+            f'{esc(r["desc"])}<span class="s2">{esc(r["onhire_to"] or "-")}</span>',
+            esc(r["barcode"]),
+            last,
+            ('<span class="rd">never</span>' if r["days"] is None else
+             f'<span class="rd">{num(r["days"])}d</span>'),
+            money(r["value"]) if r["value"] else '<span class="tbc">TBC</span>'])
+    P.append(f"""{psect("The shelf residue - the last few over 30 days")}
+{pcallout(f'The in-store tail is nearly gone: <b class="o">{num(len(a["ins_over30"]))} items</b> over 30 days, oldest <b>{num(a["ins_oldest"])} days</b>. Clear these and the shelf RAG goes green wall to wall.')}
+{sh.dtable(["Item", "Barcode", "Last sighted", "Age"], lrows2, ["", "", "", "r"])}
+{psect("Long-hire gear - verify on next touch")}
+{pcallout(f'<b class="o">{num(len(a["oh_risk180"]))} on-hire items</b> have had no verification scan in 180+ days, holding <b class="o">{money(a["oh_risk180_val"])}</b>. Not lost - on long hire - but every return, swap or shutdown check on these is a chance to scan one and retire the risk. The oldest dozen:')}
+{sh.dtable(["Item", "Barcode", "Last verified", "Age", "Value"],
+           ohrows, ["", "", "", "r", "r"])}
+{pnote(f'Also flagged: <b>{num(len(d["missed_returns"]))} possible missed returns</b> - sighted in a store bay after their on-hire date while still showing ON HIRE. Resolve those first so hirers aren&rsquo;t held for gear that is home; worklist section 0 lists them.')}""")
+
+    # ---- T6 close --------------------------------------------------------
+    cards = sh.info_cards([
+        ("The wheel beats the blitz",
+         "Twenty minutes of bay-walking a day beats a two-day blitz a quarter. "
+         "Movement resets clocks; the cadence hunts what sits still."),
+        ("Scan it where it lives",
+         "Count an item in its home bay. If it is somewhere else, that is a "
+         "finding - move it home or fix the register there and then."),
+        ("The daily three are safety, not stock",
+         "A gas monitor missing from the shelf is a bump-test conversation, "
+         "not a counting error. Same day, every day."),
+        ("Say what you can't find",
+         "An honest MISSING beats a quiet skip. Flag it, log it, and the "
+         "search starts today instead of at contract end."),
+    ])
+    P.append(f"""{psect("How we run the count")}
+{cards}
+{psect("Meet the tool store team")}
+{sh.team_cards(CONFIG["team"])}""")
+    return P
+
+
+def render_doc(kind, pages, gen_s, asat_s):
+    cfg = cfg_for(kind)
+    tot = len(pages)
+    body = "".join(sh.render_page(cfg, p, i + 1, tot, gen_s, asat_s)
+                   for i, p in enumerate(pages))
+    return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            f'<title>Coates {esc(cfg["client"])} {esc(cfg["title"])} - '
+            f'{esc(asat_s)}</title></head><body>{body}</body></html>'), tot
+
+
+# =====================================================================
+# the Outlook email (staff)
+# =====================================================================
+
+def build_email_html(rows, d, a, export_dt, gen_s, asat_s):
+    W = 1000
+    CW = W - 48
+    FONT = sh.FONT
+    comp = d["comp30"]
+    oncyc = a["on_cycle_pct"]
+    due_all = sum(len(d["due"][k]) for k in eng.TIERS)
+    g_all, g_seen, g_miss = a["gas"]
+    r_all, r_seen, r_miss = a["radio"]
+    b_all, b_seen, b_miss = a["battery"]
+    parts = []
+
+    parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+<tr><td bgcolor="#1A2430" style="padding:22px 24px 19px 24px;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr>
+<td>
+<div style="{FONT}font-size:11px;font-weight:bold;letter-spacing:2.5px;color:#F36F21;text-transform:uppercase;">{esc(CONFIG['kicker_team'])}</div>
+<div style="{FONT}font-size:26px;font-weight:bold;color:#FFFFFF;padding-top:8px;">Ampol Stocktake - Today's Count</div>
+<div style="{FONT}font-size:13px;color:#A7B6C4;padding-top:7px;">{esc(CONFIG['project'])}</div>
+</td>
+<td width="185" align="right" style="vertical-align:top;">
+<div style="{FONT}font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#FFFFFF;">POWERED BY <span style="color:#F36F21;">SITEIQ</span></div>
+<div style="{FONT}font-size:11.5px;color:#8395A6;padding-top:5px;">Equipped for anything</div>
+</td></tr></table>
+<div style="{FONT}font-size:11px;color:#8395A6;padding-top:10px;line-height:1.6;">Generated: <b style="color:#FFFFFF;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#FFFFFF;">{esc(asat_s)}</b> (SiteIQ stocktake export) &nbsp;|&nbsp; Author: <b style="color:#FFFFFF;">Andrew Fisher</b></div>
+</td></tr></table>""")
+
+    key_cols = {"orange": "#F36F21", "blue": "#2F7FD0",
+                "amber": "#E0930F", "green": "#16A34A"}
+    key_bits = "&nbsp;&nbsp;".join(
+        f'<span style="color:{key_cols[c]};">&#9679; <b>{esc(t)}</b></span> '
+        f'<span style="color:#7A8A9A;">{esc(x)}</span>'
+        for c, t, x in CONFIG["key_items"])
+    parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+<tr><td style="{FONT}font-size:10px;padding:12px 2px 8px 2px;line-height:1.9;">
+<span style="color:#8A9AAC;font-weight:bold;letter-spacing:1.5px;">KEY</span>&nbsp;&nbsp;{key_bits}</td></tr>
+<tr><td>{sh.rule_png(CW)}</td></tr></table>""")
+
+    parts.append(sh.ecallout(
+        f'<span style="color:#D95F14;font-weight:bold;text-transform:uppercase;">'
+        f'This one is yours.</span> The client sees a compliance report that '
+        f'says the store is under control - this is the work that makes it '
+        f'true. {sh.eo(f"{oncyc:.0f}%")} of in-store items are inside their '
+        f'tier cycle, <b>{num(len(d["done7"]))}</b> sighted in the last 7 days, '
+        f'and {sh.eo(num(due_all) + " items due")} on the worklist attached. '
+        f'The wheel doesn&rsquo;t turn itself.'))
+
+    parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:16px;"><tr>
+<td width="200" align="center" style="vertical-align:top;padding-top:6px;">
+{sh.donut_png(round(oncyc), sh.health_hex(round(oncyc)), f"{oncyc:.0f}%", "ON CYCLE")}
+<div style="{FONT}font-size:10.5px;color:#98A6B4;padding-top:8px;">In-store items inside their tier cycle</div></td>
+<td style="vertical-align:top;padding-left:16px;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+{sh.score_bar_row("SOP 30-day compliance", round(comp), f"{num(d['ok30'])} of {num(d['countable'])} countable items sighted inside 30 days")}
+{sh.score_bar_row("Gas monitors on 7d cycle", round(next(p for k, *_, p in [(t[0], t[9]) for t in d['tier_stats']] if k == 'gas')), "in-store gas monitors inside the 30-day SOP")}
+{sh.score_bar_row("Value verified 30d", round((d['val_ok30'] / d['val_total'] * 100) if d['val_total'] else 0), f"{money(d['val_ok30'])} of {money(d['val_total'])} priced fleet")}
+</table></td></tr></table>""")
+
+    parts.append(sh.etiles([
+        (f'{len(g_seen)}/{len(g_all)}', "GAS MONITORS SIGHTED 24H",
+         f'{len(g_miss)} missed' if g_miss else "all sighted",
+         "#F0603E" if g_miss else "#22C55E"),
+        (f'{len(r_seen)}/{len(r_all)}', "RADIOS SIGHTED 24H",
+         f'{len(r_miss)} missed' if r_miss else "all sighted",
+         "#F0603E" if r_miss else "#22C55E"),
+        (f'{len(b_seen)}/{len(b_all)}', "BATTERIES SIGHTED 24H",
+         f'{len(b_miss)} missed' if b_miss else "all sighted",
+         "#F0603E" if b_miss else "#22C55E"),
+        (num(due_all), "DUE ON TIER TARGETS", "worklist attached", "#EFA82B"),
+    ]))
+
+    wk = a["weekly"]
+    parts.append(sh.esubh("Counting activity - items sighted per week"))
+    parts.append(sh.epanel(sh.line_png(
+        [w["label"] for w in wk],
+        [{"vals": [w["n"] for w in wk], "colour": K["orange"],
+          "label": "Sighted / week", "fill": True}], CW - 28)))
+
+    lg = a["league"][:8]
+    lrows = [[esc(x["name"]), num(x["d7"]), num(x["d30"]), num(x["st30"]),
+              esc(x["last"].strftime("%d %b %H:%M") if x["last"] else "")]
+             for x in lg]
+    parts.append(sh.esect("The people turning the wheel - last 30 days"))
+    parts.append(sh.edtable(
+        ["Who", "Last 7d", "Last 30d", "Stocktake scans", "Most recent"],
+        lrows, ["", "r", "r", "r", "r"]))
+
+    ut = sorted(a["units"], key=lambda u: -u["due"])[:8]
+    urows = [[esc(u["unit"]), num(u["n"]), num(u["due"]),
+              f'{u["pct"]:.0f}%'] for u in ut if u["due"]]
+    parts.append(sh.esect("Where to point the trolley today"))
+    parts.append(sh.edtable(["Storage bay", "Items", "Due now", "Sighted 30d"],
+                            urows, ["", "r", "r", "r"]))
+    parts.append(sh.enote(
+        f'Full item-by-item detail: the <b style="color:#16202C;">worklist PDF '
+        f'and Excel workbook attached</b>. The client compliance PDF and the '
+        f'team report are attached too - same numbers, one engine. '
+        f'{num(len(d["missed_returns"]))} possible missed returns are section 0 '
+        f'of the worklist - resolve those first.'))
+
+    team_line = " &middot; ".join(
+        f'<b style="color:#16202C;">{esc(p["name"])}</b> '
+        f'<span style="color:#8A9AAC;">{esc(p["role"])}</span>'
+        for p in CONFIG["team"])
+    parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:26px;">
+<tr><td style="border-top:1px solid #E4E8EC;padding-top:10px;">
+<div style="{FONT}font-size:10px;font-weight:bold;letter-spacing:2px;color:#F36F21;text-transform:uppercase;">Your Coates Tool Store Team</div>
+<div style="{FONT}font-size:11px;color:#8A9AAC;padding-top:5px;line-height:1.7;">{team_line}</div>
+<div style="{FONT}font-size:10px;color:#98A6B4;padding-top:9px;line-height:1.7;">
+Coates Hire &middot; Sources: SiteIQ STOCKTAKE export ({esc(asat_s)}), RENTAL_STOCK register, pricing master. Unpriced items excluded from value totals, never estimated. The Coates Way - consistent execution, every day. <b style="color:#16202C;">POWERED BY SITEIQ</b></div>
+</td></tr></table>""")
+
+    body = "".join(
+        f'<tr><td style="padding:0 24px;">{p}</td></tr>'
+        if "bgcolor=\"#1A2430\"" not in p[:120] else f'<tr><td>{p}</td></tr>'
+        for p in parts)
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Ampol Stocktake - {esc(asat_s)}</title></head>
+<body bgcolor="#EEF1F4" style="margin:0;padding:0;background-color:#EEF1F4;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#EEF1F4">
+<tr><td align="center" style="padding:18px 10px;">
+<table role="presentation" width="{W}" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="width:{W}px;max-width:{W}px;">
+<tr><td height="6" bgcolor="#F36F21" style="font-size:0;">&nbsp;</td></tr>
+{body}
+<tr><td height="24" style="font-size:0;">&nbsp;</td></tr>
+</table></td></tr></table></body></html>"""
+
+
+# =====================================================================
+# MAIN
+# =====================================================================
+
+def main():
+    print("=" * 68)
+    print("COATES STOCKTAKE - HOUSE-STYLE SUITE (the K2 look)")
+    print("=" * 68)
+    src = eng.find_workbook(["STOCKTAKE*.xlsx"])
+    master_path = eng.find_workbook(["RENTAL_STOCK*.xlsx"])
+    fixes_path = eng.find_workbook(["New_Descriptions*.xlsx", "*Descriptions*.xlsx"])
+    pricing_path = eng.find_workbook(["*Pricing*.xlsx"])
+    if not src:
+        sys.exit("ERROR: no STOCKTAKE*.xlsx in this folder - save the SiteIQ "
+                 "export here and run again.")
+    print(f"Stocktake export     : {src}")
+    print(f"Register             : {master_path or 'NOT FOUND'}")
+    OUT.mkdir(exist_ok=True)
+
+    master = eng.load_master(master_path) if master_path else {}
+    fixes = eng.load_corrections(fixes_path) if fixes_path else ({}, {})
+    exact, stripped, conflicts = (eng.load_pricing(pricing_path)
+                                  if pricing_path else ({}, {}, []))
+    rows, transit, export_dt = eng.load(src, master, fixes, exact, stripped)
+    d = eng.derive(rows, export_dt)
+    d["transit_n"] = transit
+    a = analytics(rows, d, export_dt, load_actions(src))
+
+    asat_s = export_dt.strftime("%d %b %Y %H:%M")
+    gen_s = datetime.now().strftime("%d %b %Y %H:%M")
+    print(f"Data as at           : {asat_s}  (export request time)")
+    print(f"Countable / transit  : {len(rows):,} / {transit:,} excluded")
+    print(f"SOP 30d compliance   : {d['comp30']:.1f}%  "
+          f"({d['ok30']:,} of {d['countable']:,})")
+    print(f"On own tier cycle    : {a['on_cycle_pct']:.1f}% of in-store")
+    print(f"Fleet value (priced) : {money(d['val_total'])}  "
+          f"| verified 30d {money(d['val_ok30'])}")
+    print(f"Shelf tail           : {len(a['ins_over30']):,} in-store items "
+          f"over 30d (oldest {a['ins_oldest']}d)")
+    print(f"Long-hire 180d+      : {len(a['oh_risk180']):,} on-hire items  "
+          f"{money(a['oh_risk180_val'])}")
+    g = a["gas"]; r_ = a["radio"]; b = a["battery"]
+    print(f"Daily three (24h)    : gas {len(g[1])}/{len(g[0])}  "
+          f"radios {len(r_[1])}/{len(r_[0])}  batteries {len(b[1])}/{len(b[0])}")
+
+    # ---- 1. the floor worklist (his V3, unchanged) ---------------------
+    print("-" * 68)
+    print("[1/4] Floor worklist (V3, unchanged)...")
+    w = OUT / "Coates_Stocktake_Count_Worklist"
+    open(f"{w}.html", "w", encoding="utf-8").write(
+        eng.build_staff_worklist(rows, transit, export_dt, d))
+    eng.build_excel_worklist(rows, d, conflicts,
+                             OUT / "Coates_Stocktake_Count_Worklist.xlsx")
+    try:
+        Path(f"{w}.pdf").unlink()   # stale file must not masquerade as success
+    except OSError:
+        pass
+    eng.write_pdf_robust(f"{w}.html", f"{w}.pdf")
+
+    # ---- 2. client + team house-style PDFs -----------------------------
+    css = open(BASE / "k2style.css", encoding="utf-8").read()
+    print("[2/4] Client compliance PDF (house style)...")
+    doc_c, n_c = render_doc("client",
+                            build_client_pages(rows, d, a, export_dt),
+                            gen_s, asat_s)
+    render_k2_pdf(doc_c, OUT / CONFIG["pdf_client"], n_c, css)
+    print("[3/4] Team report PDF (house style)...")
+    doc_t, n_t = render_doc("team",
+                            build_team_pages(rows, d, a, export_dt),
+                            gen_s, asat_s)
+    render_k2_pdf(doc_t, OUT / CONFIG["pdf_team"], n_t, css)
+
+    # ---- 3. the email ---------------------------------------------------
+    print("[4/4] Outlook email (house style)...")
+    html = build_email_html(rows, d, a, export_dt, gen_s, asat_s)
+    (OUT / CONFIG["email_html"]).write_text(html, encoding="utf-8")
+    msg = EmailMessage()
+    subject = (f"Ampol Tool Store - Stocktake Report - "
+               f"{export_dt.strftime('%d/%m/%Y %H:%M')}")
+    msg["Subject"] = subject
+    msg["To"] = eng.STAFF_EMAIL_TO
+    msg["Date"] = formatdate(localtime=True)
+    msg["X-Unsent"] = "1"
+    msg.set_content("This report is best viewed in HTML. The worklist (PDF + "
+                    "Excel), the client compliance PDF and the team report "
+                    "are attached.\n")
+    msg.add_alternative(html, subtype="html")
+    attach = [(f"{w}.pdf", "pdf"),
+              (str(OUT / "Coates_Stocktake_Count_Worklist.xlsx"),
+               "vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+              (str(OUT / CONFIG["pdf_client"]), "pdf"),
+              (str(OUT / CONFIG["pdf_team"]), "pdf")]
+    for p, sub in attach:
+        if os.path.exists(p):
+            with open(p, "rb") as f:
+                msg.add_attachment(f.read(), maintype="application",
+                                   subtype=sub, filename=os.path.basename(p))
+    eml_path = OUT / CONFIG["eml_name"]
+    with open(eml_path, "wb") as f:
+        f.write(msg.as_bytes())
+    print(f"EML written          : {eml_path}  "
+          f"({os.path.getsize(eml_path):,} bytes)")
+    # manifest so MAKE_OUTLOOK_DRAFTS keeps working
+    import json
+    (OUT / "Coates_Ampol_Stocktake_OUTLOOK.draft.json").write_text(json.dumps({
+        "subject": subject,
+        "to": "Ampolstore@coates.com.au; Cody.mitchell@coates.com.au",
+        "body": CONFIG["email_html"],
+        "attachments": [os.path.basename(p) for p, _ in attach],
+    }, indent=1), encoding="utf-8")
+    print("")
+    print("NEXT STEP: double-click the .eml in output\\, check it, press Send.")
+    print("Done. The Coates Way - consistent execution, every day.")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except SystemExit as e:
+        print(e)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print(f"\nERROR: {e}")
+    finally:
+        if os.name == "nt" and not sys.stdout.isatty():
+            input("\nPress Enter to close...")
