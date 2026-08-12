@@ -1,0 +1,10 @@
+AMPOL REPORTING SUITE
+Version: 1.0  (12 Aug 2026)
+Author: Andrew Fisher | POWERED BY SITEIQ
+
+v1.0 - 12 Aug 2026
+  - First stand-up of the Ampol suite on the K2 pattern.
+  - One Data\ area for every Excel; every engine reads from it.
+  - All six report families under numbered buttons, plus the
+    two new register reports (Calibrations, Rigging).
+  - Dated Reports\ output, drafts-never-send, CHECK gates.

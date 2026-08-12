@@ -38,3 +38,7 @@ __pycache__/
 01_Reporting_Suite/Photo_Hunt.html
 01_Reporting_Suite/Gear_Lookup/thumbs/
 01_Reporting_Suite/stocktake_log.json
+
+# Ampol suite: dated report output and per-run caches stay on the machine
+02_Ampol_Reporting_Suite/Reports/
+02_Ampol_Reporting_Suite/Data/previous/

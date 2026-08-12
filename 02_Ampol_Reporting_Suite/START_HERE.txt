@@ -1,0 +1,129 @@
+============================================================
+ COATES - AMPOL TOOL STORE (Lytton Refinery)
+ THE REPORTING SUITE - START HERE
+ Author: Andrew Fisher  |  POWERED BY SITEIQ
+============================================================
+
+Everything is a numbered .bat file. Double-click it. You never
+need to open Python, and you never need to remember where a
+file lives. The numbers will not change once you know them.
+
+The two rules the whole suite is built on:
+
+  1. ONE AREA FOR ALL THE EXCELS. Every workbook every report
+     reads lives in Data\ - nothing reads from anywhere else.
+     Fresh SiteIQ pulls get saved over the top of the same
+     names in Data\ (or use button 12 to file them for you).
+     The old copy is backed up into Data\previous\ first.
+
+  2. WORKS ON ALL COMPUTERS. Copy this whole folder to any
+     laptop and everything still works - every path inside the
+     suite is relative to the folder itself. On a new machine,
+     run 10_CHECK_MY_SETUP first and it will tell you in plain
+     words if anything is missing.
+
+------------------------------------------------------------
+EVERY MORNING (about 10 minutes)
+------------------------------------------------------------
+  1. Download fresh SiteIQ exports (RENTAL_STOCK, STOCKTAKE,
+     TRANSACTIONS), then double-click 12_PULL_SITEIQ_EXPORTS.
+     It finds them in Downloads, checks they are AMPOL exports,
+     backs up yesterday's copies and files the new ones into
+     Data\. Wrong-site files are skipped loudly, never filed.
+  2. If a report workbook needs a refresh (gas / radio /
+     tooling .xlsm), open it FROM Data\, press Refresh, save.
+  3. Double-click 00_RUN_EVERYTHING. It builds every report,
+     makes the Outlook drafts and runs the final check.
+
+Everything lands in Reports\(today's date)\ - one folder per
+report family, dated, never overwritten.
+
+------------------------------------------------------------
+WHEN YOU ONLY WANT ONE THING
+------------------------------------------------------------
+  01  Gas monitor report (K2-style PDF + email draft)
+  02  Gas executive dashboard (the V18 email dashboard)
+  03  Site radio on-hire report
+  04  Tooling reports (exec, quarters, companies, utilisation)
+  05  Stocktake compliance report (client + team + worklist)
+  06  Calibration register report
+  07  Rigging and lifting register report
+
+Or 11_PICK_A_REPORT for a menu you can pick several from.
+
+------------------------------------------------------------
+SENDING
+------------------------------------------------------------
+NOTHING SENDS BY ITSELF. EVER.
+
+Every email lands as a DRAFT - either in Outlook Drafts (via
+button 08 or the drafts step in 00) or as a .eml file in the
+day's Reports folder you can double-click open. Read the
+draft, check the numbers, press Send yourself.
+
+Before sending, 09_CHECK_REPORTS sweeps every page built today
+for blanks, leftover {placeholders}, nan and None, and weighs
+every email against the 10 MB limit. Run it. It is the last
+gate.
+
+------------------------------------------------------------
+WHEN SOMETHING IS WRONG
+------------------------------------------------------------
+Reports look wrong or thin:
+  - Check the data first: are the files in Data\ today's pulls?
+    The report footer shows "Data as at" - if it says
+    yesterday, the export is yesterday's.
+  - 10_CHECK_MY_SETUP names anything missing in plain words.
+
+A button window flashes an error:
+  - Run it again and read the message - every failure says
+    what is wrong in plain words. If it names a missing file,
+    that file belongs in Data\.
+
+Outlook drafts did not appear:
+  - Outlook (classic desktop) must be open. Run 08 again -
+    already-drafted reports are skipped, nothing doubles up.
+  - No Outlook on this machine? Create a file called
+    NO_OUTLOOK.txt in this folder and 00 will skip drafting.
+    The .eml files in the day's folder still work.
+
+------------------------------------------------------------
+THE DATA FOLDER - WHAT LIVES WHERE
+------------------------------------------------------------
+Data\
+  RENTAL_STOCK.xlsx                 SiteIQ pull, saved over the top
+  STOCKTAKE.xlsx                    SiteIQ pull, saved over the top
+  TRANSACTIONS.xlsx                 SiteIQ pull, saved over the top
+  Ampol Gas Monitor Report.xlsm     gas workbook (refresh + save)
+  Gas_Monitor_Serial_Numbers.xlsx   gas serial lookup
+  Ampol_Radio_Report.xlsm           radio workbook (refresh + save)
+  radio_register.xlsx               radio serial register
+  Ampol_Onhire_Tooling_Report.xlsm  tooling workbook (refresh + save)
+  Tooling_Description_Mapping.xlsx  barcode -> clean description map
+  Ampol_ToolStore_Pricing.xlsx      pricing master (3,227 lines)
+  New_Descriptions___Andrew.xlsx    description corrections worklist
+  Ampol_Calibration_Register.xlsx   calibration register (live)
+  Rigging Register.xlsx             rigging & lifting register
+  previous\                         dated backups, made automatically
+
+The .xlsm workbooks find their own SiteIQ exports in the folder
+they live in - which is Data\, right next to the exports. That
+is on purpose: refresh works because everything is in one area.
+
+The old Tooling copy of the pricing file (superseded 29 Jul
+2026 - it was missing the three Drager X-am 5000 lines) is kept
+in _Archive\, not merged, not deleted.
+
+------------------------------------------------------------
+HOUSEKEEPING
+------------------------------------------------------------
+Reports\ grows by one dated folder per day and nothing in it is
+ever overwritten - that is the audit trail. Old days can be
+moved into _Archive\ whenever the folder feels heavy. Never
+prune Data\previous\ on a day a number is in dispute - it is
+the proof of what the data said.
+
+============================================================
+ The Coates Way - consistent execution, every day.
+ Nothing sends without you. Nothing is guessed. Ever.
+============================================================
