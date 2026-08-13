@@ -27,14 +27,18 @@ WHERE THE NUMBERS COME FROM
   PDF uses, so the email, the PDF and the console can never disagree.
 
 USAGE
-  RUN_REPORT.bat runs this after the PDF so the PDF can be attached.
+  WHY (12 Aug 2026): now part of the suite - 01_RUN_GAS_MONITOR_REPORT.bat
+  runs this after the PDF so the PDF can be attached. Inputs come from
+  Data\, outputs land in Reports\<today>\Gas_Monitors.
   Or on its own:  python generate_k2style_email.py
 =====================================================================
 """
 
 import base64
 import io
+import json
 import os
+import shutil
 import sys
 from datetime import datetime
 from email.message import EmailMessage
@@ -47,8 +51,14 @@ try:
     import gasmon_transactions as gtx
     import generate_k2style_gas_monitor_report as k2
 except ImportError as e:
-    sys.exit(f"ERROR: a kit script is missing ({e}).\n"
-             "  Keep the kit folder together and run RUN_REPORT.bat.")
+    sys.exit(f"ERROR: a suite script is missing ({e}).\n"
+             "  Keep the suite folder together and press the gas monitor"
+             " button again.")
+
+# WHY (12 Aug 2026): the suite's path oracle - the .eml, the email HTML
+# and the draft manifest all land in Reports\<today>\Gas_Monitors, and
+# the PDF is read from there too (the same button builds it first).
+import ampol_paths
 
 esc, money, num = k2.esc, k2.money, k2.num
 K = k2.K
@@ -791,7 +801,9 @@ Sources: Ampol Gas Monitor workbook ({esc(asat_s)}), SiteIQ RENTAL_STOCK and TRA
 def main():
     cfg = k2.CONFIG
     vt = v18.CONFIG
-    here = v18.kit_root()
+    # WHY (12 Aug 2026): everything this script writes - and the PDF it
+    # attaches - lives in the suite's dated report folder now.
+    out_dir = ampol_paths.day_folder("Gas_Monitors")
 
     print("=" * 68)
     print("COATES HOUSE-STYLE EMAIL - AMPOL GAS MONITOR OPERATIONS")
@@ -809,12 +821,14 @@ def main():
     print(f"Health score         : {m['health']}/100")
 
     txm = None
+    tx_found = False
     for folder in v18.search_dirs():
         cands = [os.path.join(folder, n) for n in os.listdir(folder)
                  if n.upper().startswith("TRANSACTIONS")
                  and n.lower().endswith(".xlsx") and not n.startswith("~$")
                  and not n.lower().startswith("source_")]
         if cands:
+            tx_found = True
             cands.sort(key=os.path.getmtime, reverse=True)
             ser = ""
             for f2 in v18.search_dirs():
@@ -822,27 +836,44 @@ def main():
                      if "serial" in n.lower() and n.lower().endswith(".xlsx")
                      and not n.startswith("~$")]
                 if s:
+                    # WHY (12 Aug 2026): sort by mtime like every other
+                    # search - this one used to take whatever order the
+                    # folder listing gave.
+                    s.sort(key=os.path.getmtime, reverse=True)
                     ser = s[0]
                     break
             tx, _ = gtx.load_transactions(cands[0], gtx.load_serial_assets(ser))
-            txm = gtx.compute_tx(tx)
-            print(f"Transactions         : {txm['n_all']:,} gas monitor "
-                  f"({txm['n_crew']:,} crew) - analytics included")
+            # WHY (12 Aug 2026): an export with no gas monitor rows used to
+            # crash the analytics maths. Treat it exactly like a missing
+            # TRANSACTIONS.xlsx: skip the analytics sections, say so plainly.
+            if not tx:
+                print("Transactions         : export found but holds no gas")
+                print("                       monitor rows - analytics skipped")
+            else:
+                txm = gtx.compute_tx(tx)
+                if txm["n_crew"] == 0:
+                    print("Transactions         : internal movements only - "
+                          "analytics skipped")
+                    txm = None
+                else:
+                    print(f"Transactions         : {txm['n_all']:,} gas monitor "
+                          f"({txm['n_crew']:,} crew) - analytics included")
             break
-    if txm is None:
+    if not tx_found:
         print("Transactions         : none found - analytics sections skipped")
 
     html = build_email_html(data, m, txm, gen_s, asat_s, cfg)
 
-    html_path = os.path.join(here, CONFIG["html_name"])
+    html_path = os.path.join(out_dir, CONFIG["html_name"])
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"HTML written         : {html_path}  ({len(html):,} bytes)")
 
     weekday = datetime.now().strftime("%A")
     date_str = datetime.now().strftime("%d %B %Y").lstrip("0")
+    subject = f"{vt['subject_prefix']} - {weekday} {date_str}"
     msg = EmailMessage()
-    msg["Subject"] = f"{vt['subject_prefix']} - {weekday} {date_str}"
+    msg["Subject"] = subject
     msg["To"] = ", ".join(vt["recipients"])
     msg["Date"] = formatdate(localtime=True)
     msg["X-Unsent"] = "1"
@@ -853,7 +884,7 @@ def main():
         msg.add_attachment(f.read(), maintype="application",
                            subtype="vnd.ms-excel.sheet.macroenabled.12",
                            filename=os.path.basename(wb_path))
-    pdf_path = os.path.join(here, cfg["pdf_name"])
+    pdf_path = os.path.join(out_dir, cfg["pdf_name"])
     if CONFIG["attach_pdf"] and os.path.exists(pdf_path):
         with open(pdf_path, "rb") as f:
             msg.add_attachment(f.read(), maintype="application",
@@ -864,25 +895,51 @@ def main():
         print("PDF attached         : no (build the PDF first for the "
               "attachment)")
 
-    eml_path = os.path.join(here, CONFIG["eml_name"])
+    eml_path = os.path.join(out_dir, CONFIG["eml_name"])
     with open(eml_path, "wb") as f:
         f.write(msg.as_bytes())
     print(f"EML written          : {eml_path}  "
           f"({os.path.getsize(eml_path):,} bytes)")
+
+    # WHY (12 Aug 2026): the shared MAKE_OUTLOOK_DRAFTS button reads a
+    # .draft.json manifest from the same Reports folder and turns it into a
+    # native Outlook DRAFT - subject, body, attachments, To. Nothing sends
+    # itself, same discipline as the .eml. The workbook is copied in beside
+    # it so the manifest can attach it by basename, and the dated folder
+    # then also keeps the exact data this report was built from.
+    wb_copy = os.path.join(out_dir, os.path.basename(wb_path))
+    if os.path.abspath(wb_path) != os.path.abspath(wb_copy):
+        shutil.copy2(wb_path, wb_copy)
+    attachments = []
+    if CONFIG["attach_pdf"] and os.path.exists(pdf_path):
+        attachments.append(os.path.basename(pdf_path))
+    attachments.append(os.path.basename(wb_copy))
+    manifest = {
+        "subject": subject,
+        "body": os.path.basename(html_path),
+        "attachments": attachments,
+        "to": "; ".join(vt["recipients"]),
+    }
+    man_path = os.path.join(out_dir,
+                            "Coates_Ampol_GasMonitor_Operations.draft.json")
+    with open(man_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=1)
+    print(f"Draft manifest       : {man_path}")
     print("")
     print("NEXT STEP: double-click the .eml, check it, press Send.")
     print("Done. The Coates Way - consistent execution, every day.")
 
 
 if __name__ == "__main__":
+    # WHY (12 Aug 2026): a failed run must exit nonzero so the suite's
+    # buttons can see it - the old block printed the error and exited 0,
+    # which made failures look like passes. The keep-window-open pause is
+    # gone too: the .bat buttons own the pause now.
     try:
         main()
-    except SystemExit as e:
-        print(e)
+    except SystemExit:
+        raise
     except Exception as e:
         import traceback
         traceback.print_exc()
-        print(f"\nERROR: {e}")
-    finally:
-        if os.name == "nt" and not sys.stdout.isatty():
-            input("\nPress Enter to close...")
+        sys.exit(f"ERROR: {e}")

@@ -55,8 +55,13 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
+import ampol_paths
+
 BASE = Path(__file__).resolve().parent
-OUT = BASE / "output"
+# WHY (12 Aug 2026): outputs land in the suite's dated Reports area now -
+# Reports\<today>\Stocktake - one folder per day, nothing silently
+# overwritten. Fixed filenames are fine; the date lives in the folder.
+OUT = Path(ampol_paths.day_folder("Stocktake"))
 NOW = datetime.now()
 
 COATES_PURPOSE = "Supporting Australia's growth with leading equipment solutions"
@@ -116,8 +121,13 @@ def severity_label(days):
     b = bucket(days)
     return {"ok": "TARGET DUE", "due": "SOP DUE", "critical": "CRITICAL", "never": "CRITICAL"}[b]
 
+# WHY (12 Aug 2026): the em dash lives in a constant so f-string expressions
+# can use it - a \u escape inside an f-string expression needs Python 3.12,
+# and this way the suite also runs on a laptop still carrying 3.11.
+DASH = "\u2014"
+
 def money(v):
-    return f"${v:,.0f}" if v is not None else "\u2014"
+    return f"${v:,.0f}" if v is not None else DASH
 
 # ---------------------------------------------------------------- loaders
 def load_pricing(path):
@@ -360,7 +370,7 @@ def item_table(items, show_value=True):
         last = r["last"].strftime("%d/%m/%Y") if r["last"] else "Never"
         dcls = "overdue" if (r["days"] is None or r["days"] > 60) else ("duec" if r["days"] > 30 else "")
         parts.append(f"""<tr><td>{r['barcode']}</td><td>{r['desc'][:58]}</td><td class="num">{r['qty']}</td>
-<td class="num">{money(r['price'])}</td><td>{last}</td><td class="num {dcls}">{r['days'] if r['days'] is not None else '\u2014'}</td>
+<td class="num">{money(r['price'])}</td><td>{last}</td><td class="num {dcls}">{r['days'] if r['days'] is not None else DASH}</td>
 <td>{sev_chip(r['days'])}</td><td style="width:40pt">&nbsp;</td></tr>""")
     parts.append("</table>")
     return "".join(parts)
@@ -420,8 +430,8 @@ likely missed return scans. Locate, confirm, and process through the double-chec
 <table class="items"><tr><th>Sighted In</th><th>Barcode</th><th>Description</th><th>On Hire To</th><th>On-Hire Date</th><th>Sighted</th><th class="num">Unit Price</th></tr>""")
         for r in sorted(d["missed_returns"], key=lambda r: r["last"], reverse=True):
             parts.append(f"""<tr class="hi"><td><b>{r['unit']}</b></td><td>{r['barcode']}</td><td>{r['desc'][:40]}</td>
-<td>{r['onhire_to'] or '\u2014'}</td><td>{r['ohd'].strftime('%d/%m/%Y') if r['ohd'] else '\u2014'}</td>
-<td>{r['last'].strftime('%d/%m/%Y') if r['last'] else '\u2014'}</td><td class="num">{money(r['price'])}</td></tr>""")
+<td>{r['onhire_to'] or DASH}</td><td>{r['ohd'].strftime('%d/%m/%Y') if r['ohd'] else DASH}</td>
+<td>{r['last'].strftime('%d/%m/%Y') if r['last'] else DASH}</td><td class="num">{money(r['price'])}</td></tr>""")
         parts.append("</table>")
     # Sections 1-3
     for num, key, blurb in [
@@ -474,7 +484,7 @@ and shutdown checks. Grouped by company so we know who holds what and the value 
             cats = ", ".join(f"{c} \u00d7{n}" for c, n in sorted(hirers[h].items(), key=lambda kv: -kv[1]))
             hm = ", ".join(f"{u} \u00d7{n}" for u, n in sorted(homes[h].items(), key=lambda kv: -kv[1])[:3])
             parts.append(f"""<tr><td><b>{h}</b></td><td>{cats}</td><td style="color:#1f5c99">{hm}</td>
-<td class="num">{money(hval[h]) if hval[h] else '\u2014'}</td><td class="num overdue">{oldest[h]}</td></tr>""")
+<td class="num">{money(hval[h]) if hval[h] else DASH}</td><td class="num overdue">{oldest[h]}</td></tr>""")
         parts.append("</table></div>")
     parts.append(f"""</div>
 <div class="foot">Countable assets exclude {transit:,} items in transit (Pending Branch Receipt / Departure). Prices are Avg Buy Price (New)
@@ -697,17 +707,20 @@ def write_pdf_robust(html_path, pdf_path):
         HTML(filename=str(html_path)).write_pdf(str(pdf_path)); return True
     except Exception as e:
         print(f"WeasyPrint unavailable ({type(e).__name__}) - trying Edge/Chrome headless...")
-    import subprocess, os, time
+    import subprocess, os, time, tempfile
     write_pdf_robust._n = getattr(write_pdf_robust, "_n", 0) + 1
     for exe in [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
                 r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
                 r"C:\Program Files\Google\Chrome\Application\chrome.exe",
                 "msedge", "chrome", "chromium", "chromium-browser", "google-chrome"]:
         if exe.endswith(".exe") and not os.path.exists(exe): continue
+        ran = False
         for attempt in range(3):
             # unique profile per attempt: a running browser with the same
             # profile makes headless print exit 0 without writing the PDF
-            profile = os.path.join(os.environ.get("TEMP", str(BASE)),
+            # WHY (12 Aug 2026): profile junk goes to the system temp dir,
+            # never the suite folder, when TEMP isn't set.
+            profile = os.path.join(os.environ.get("TEMP") or tempfile.gettempdir(),
                                    f"coates_edge_pdf_{os.getpid()}_{write_pdf_robust._n}_{attempt}")
             try:
                 subprocess.run([exe, "--headless", "--disable-gpu",
@@ -715,12 +728,20 @@ def write_pdf_robust(html_path, pdf_path):
                                 f"--print-to-pdf={Path(pdf_path).resolve()}",
                                 "--no-pdf-header-footer", Path(html_path).resolve().as_uri()],
                                capture_output=True, timeout=240)
+                ran = True
+            except FileNotFoundError:
+                break   # not on this machine - move on to the next candidate
             except Exception:
-                pass
+                ran = True   # launched but fell over (e.g. timeout) - retry
             if Path(pdf_path).exists():
                 print(f"PDF generated via {Path(exe).name}"); return True
             time.sleep(1.5)
-        break
+        # WHY (12 Aug 2026): only give up after a browser that actually
+        # launched - the old unconditional break meant nothing after the
+        # first bare name on PATH was ever tried, so the fallback list
+        # wasn't really a fallback list.
+        if ran:
+            break
     print("No PDF engine found - HTML written; PDF skipped."); return False
 
 def write_staff_eml(rows, transit, export_dt, d, attachments, eml_path):
@@ -811,16 +832,17 @@ The compliance report (client-shareable) is attached too. Thanks team \u2014 dai
 
 # ---------------------------------------------------------------- main
 def find_workbook(patterns, arg=None):
+    # WHY (12 Aug 2026): inputs come from the suite's one Data area now,
+    # via ampol_paths - newest file wins, Excel lock files (~$...) and
+    # archived Source_ pulls are never candidates. A path given on the
+    # command line still wins outright, same as always.
     if arg: return arg
-    for pat in patterns:
-        hits = sorted(BASE.glob(pat), key=lambda p: p.stat().st_mtime, reverse=True)
-        if hits: return str(hits[0])
-    return None
+    return ampol_paths.find_data(*patterns) or None
 
 def main():
     src = find_workbook(["STOCKTAKE*.xlsx"], sys.argv[1] if len(sys.argv) > 1 else None)
     master_path = find_workbook(["RENTAL_STOCK*.xlsx"], sys.argv[2] if len(sys.argv) > 2 else None)
-    if not src: raise FileNotFoundError("Place the STOCKTAKE export (STOCKTAKE*.xlsx) in this folder.")
+    if not src: raise FileNotFoundError("Place the STOCKTAKE export (STOCKTAKE*.xlsx) in the suite's Data folder.")
     fixes_path = find_workbook(["New_Descriptions*.xlsx", "*Descriptions*.xlsx"],
                                sys.argv[3] if len(sys.argv) > 3 else None)
     pricing_path = find_workbook(["*Pricing*.xlsx"], sys.argv[4] if len(sys.argv) > 4 else None)

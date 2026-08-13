@@ -31,8 +31,10 @@ WHERE THE NUMBERS COME FROM
   shows as TBC and is EXCLUDED from the exposure total, never guessed.
 
 USAGE
-  Double-click RUN_REPORT.bat - it builds the V18 email dashboard and
-  then this PDF. Or on its own:
+  WHY (12 Aug 2026): now part of the suite - double-click
+  01_RUN_GAS_MONITOR_REPORT.bat, which builds this PDF and then the
+  email draft. Inputs come from Data\, the PDF lands in
+  Reports\<today>\Gas_Monitors. Or on its own:
       python generate_k2style_gas_monitor_report.py
 
 DEPENDENCIES
@@ -62,6 +64,10 @@ try:
     import gasmon_transactions as gtx
 except ImportError:
     gtx = None
+
+# WHY (12 Aug 2026): the suite's path oracle - the PDF now lands in the
+# dated Reports\<today>\Gas_Monitors folder, not loose in the suite root.
+import ampol_paths
 
 # ---------------------------------------------------------------------
 # PDF engines. WeasyPrint is used when it actually works; on a standard
@@ -1017,6 +1023,10 @@ def build_pages(data, m, cfg, gen_s, asat_s, txm=None):
     rest_units = sum(c["nrsd"] for c in rest)
     issued_all = sum(c["issued"] for c in comps)
     nrsd_all = sum(c["nrsd"] for c in comps)
+    # WHY (12 Aug 2026): guard the divide - a workbook with no 30-day issues
+    # used to crash the whole build here. No issues = no rate to print, so
+    # it shows a dash rather than a made-up number.
+    nrsd_pct_s = (f"{nrsd_all / issued_all * 100:.1f}%" if issued_all else "-")
 
     def offenders_short(s, keep=3):
         bits = [b.strip() for b in str(s or "").split(",") if b.strip()]
@@ -1038,7 +1048,7 @@ def build_pages(data, m, cfg, gen_s, asat_s, txm=None):
     p_nr2 = f"""<div class="sect"><h3>The same-day pattern - last 30 days</h3></div>
 <div class="callout tight">
   Across the last 30 days, <b class="o">{num(nrsd_all)}</b> of
-  <b>{num(issued_all)}</b> issues ({nrsd_all / issued_all * 100:.1f}%) were not
+  <b>{num(issued_all)}</b> issues ({nrsd_pct_s}) were not
   returned on the day they went out. The table names each company's top
   offenders with unit counts - the same names keep appearing, and that is where
   the behaviour conversation goes. Reoffender flags are the workbook's own.
@@ -1394,29 +1404,46 @@ def main():
                      if "serial" in n.lower() and n.lower().endswith(".xlsx")
                      and not n.startswith("~$")]
             if cands:
+                # WHY (12 Aug 2026): sort by mtime like every other search -
+                # this one used to take whatever order the folder listing
+                # gave, so a stray older serial file could win.
+                cands.sort(key=os.path.getmtime, reverse=True)
                 ser_path = cands[0]
                 break
         if tx_path:
             print(f"TRANSACTIONS export  : {os.path.basename(tx_path)}")
             tx, tx_window = gtx.load_transactions(
                 tx_path, gtx.load_serial_assets(ser_path))
-            txm = gtx.compute_tx(tx)
-            print(f"  gas monitor tx     : {txm['n_all']:,} "
-                  f"({txm['n_crew']:,} crew / {txm['n_internal']:,} internal)")
-            print(f"  window             : "
-                  f"{txm['window_start'].strftime('%d %b %H:%M')} -> "
-                  f"{txm['window_end'].strftime('%d %b %H:%M')}")
-            print(f"  same-day (crew)    : {txm['same_day']:,}"
-                  f"/{txm['n_crew_closed']:,} = {txm['same_day_pct']}%")
-            print(f"  record concurrent  : {txm['record_peak']['peak']} at "
-                  f"{txm['record_peak']['at'].strftime('%H:%M %d %b')}")
-            print(f"  net draw plateau   : avg {txm['net_plateau']:.0f} / "
-                  f"worst {txm['net_plateau_worst']} "
-                  f"(last {len(txm['curve_days'])} working days)")
+            # WHY (12 Aug 2026): an export with no gas monitor rows used to
+            # crash the analytics maths (max/most_common on empty lists).
+            # Treat it exactly like a missing TRANSACTIONS.xlsx instead:
+            # skip the five pages and say so in plain words.
+            if not tx:
+                print("  no gas monitor rows in it - the five analytics")
+                print("  pages are SKIPPED, same as when the export is missing.")
+            else:
+                txm = gtx.compute_tx(tx)
+                if txm["n_crew"] == 0:
+                    print("  no crew movements in it (internal only) - the five")
+                    print("  analytics pages are SKIPPED.")
+                    txm = None
+            if txm is not None:
+                print(f"  gas monitor tx     : {txm['n_all']:,} "
+                      f"({txm['n_crew']:,} crew / {txm['n_internal']:,} internal)")
+                print(f"  window             : "
+                      f"{txm['window_start'].strftime('%d %b %H:%M')} -> "
+                      f"{txm['window_end'].strftime('%d %b %H:%M')}")
+                print(f"  same-day (crew)    : {txm['same_day']:,}"
+                      f"/{txm['n_crew_closed']:,} = {txm['same_day_pct']}%")
+                print(f"  record concurrent  : {txm['record_peak']['peak']} at "
+                      f"{txm['record_peak']['at'].strftime('%H:%M %d %b')}")
+                print(f"  net draw plateau   : avg {txm['net_plateau']:.0f} / "
+                      f"worst {txm['net_plateau_worst']} "
+                      f"(last {len(txm['curve_days'])} working days)")
         else:
             print("TRANSACTIONS export  : none found - the five analytics pages")
-            print("                       are SKIPPED. Save TRANSACTIONS.xlsx in")
-            print("                       the kit folder to bring them back.")
+            print("                       are SKIPPED. Save TRANSACTIONS.xlsx")
+            print("                       into Data\\ to bring them back.")
 
     print(f"Health score         : {m['health']}/100  "
           f"(A{m['score_availability']} R{m['score_recovery']} "
@@ -1441,8 +1468,12 @@ def main():
                  "  It carries the Coates house style - keep the kit together.")
 
     # (No debug .html is written - the PDF is the deliverable, and a second
-    # copy of the same report just clutters the kit folder.)
-    pdf_path = os.path.join(here, cfg["pdf_name"])
+    # copy of the same report just clutters the folder.)
+    # WHY (12 Aug 2026): the PDF lands in the suite's dated report folder -
+    # Reports\<today>\Gas_Monitors - not loose in the suite root. The fixed
+    # filename is fine because the date lives in the folder name.
+    pdf_path = os.path.join(ampol_paths.day_folder("Gas_Monitors"),
+                            cfg["pdf_name"])
 
     # Render, preferring WeasyPrint (it gives an exact page-box count for
     # the layout check). If it is missing OR dies at render time - the
@@ -1494,14 +1525,15 @@ def main():
 
 
 if __name__ == "__main__":
+    # WHY (12 Aug 2026): a failed run must exit nonzero so the suite's
+    # buttons can see it - the old block printed the error and exited 0,
+    # which made failures look like passes. The keep-window-open pause is
+    # gone too: the .bat buttons own the pause now.
     try:
         main()
-    except SystemExit as e:
-        print(e)
+    except SystemExit:
+        raise
     except Exception as e:
         import traceback
         traceback.print_exc()
-        print(f"\nERROR: {e}")
-    finally:
-        if os.name == "nt" and not sys.stdout.isatty():
-            input("\nPress Enter to close...")
+        sys.exit(f"ERROR: {e}")

@@ -52,6 +52,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import ampol_paths
 import build_stocktake_compliance_tool as eng
 import k2shell as sh
 from k2shell import esc, money, num, K
@@ -59,7 +60,10 @@ from k2shell import esc, money, num, K
 import openpyxl
 
 BASE = Path(__file__).resolve().parent
-OUT = BASE / "output"
+# WHY (12 Aug 2026): outputs land in the suite's dated Reports area now -
+# Reports\<today>\Stocktake - same folder the engine writes to, one day
+# folder per run day, nothing ever silently overwritten.
+OUT = Path(ampol_paths.day_folder("Stocktake"))
 
 CONFIG = {
     "client": "Ampol",
@@ -715,6 +719,10 @@ def build_email_html(rows, d, a, export_dt, gen_s, asat_s):
         f'and {sh.eo(num(due_all) + " items due")} on the worklist attached. '
         f'The wheel doesn&rsquo;t turn itself.'))
 
+    # WHY (12 Aug 2026): the gas score bar plots the tier's 30-day SOP
+    # coverage (tier_stats p30) - the old headline said "7d cycle" over a
+    # 30-day number. Label now tells the truth about the number it shows;
+    # the number itself is unchanged.
     parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:16px;"><tr>
 <td width="200" align="center" style="vertical-align:top;padding-top:6px;">
 {sh.donut_png(round(oncyc), sh.health_hex(round(oncyc)), f"{oncyc:.0f}%", "ON CYCLE")}
@@ -722,7 +730,7 @@ def build_email_html(rows, d, a, export_dt, gen_s, asat_s):
 <td style="vertical-align:top;padding-left:16px;">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
 {sh.score_bar_row("SOP 30-day compliance", round(comp), f"{num(d['ok30'])} of {num(d['countable'])} countable items sighted inside 30 days")}
-{sh.score_bar_row("Gas monitors on 7d cycle", round(next(p for k, *_, p in [(t[0], t[9]) for t in d['tier_stats']] if k == 'gas')), "in-store gas monitors inside the 30-day SOP")}
+{sh.score_bar_row("Gas monitors - 30-day SOP", round(next(p for k, *_, p in [(t[0], t[9]) for t in d['tier_stats']] if k == 'gas')), "in-store gas monitors inside the 30-day SOP")}
 {sh.score_bar_row("Value verified 30d", round((d['val_ok30'] / d['val_total'] * 100) if d['val_total'] else 0), f"{money(d['val_ok30'])} of {money(d['val_total'])} priced fleet")}
 </table></td></tr></table>""")
 
@@ -810,8 +818,8 @@ def main():
     fixes_path = eng.find_workbook(["New_Descriptions*.xlsx", "*Descriptions*.xlsx"])
     pricing_path = eng.find_workbook(["*Pricing*.xlsx"])
     if not src:
-        sys.exit("ERROR: no STOCKTAKE*.xlsx in this folder - save the SiteIQ "
-                 "export here and run again.")
+        sys.exit("ERROR: no STOCKTAKE*.xlsx in the suite's Data folder - save "
+                 "the SiteIQ export there and run again.")
     print(f"Stocktake export     : {src}")
     print(f"Register             : {master_path or 'NOT FOUND'}")
     OUT.mkdir(exist_ok=True)
@@ -857,7 +865,14 @@ def main():
     eng.write_pdf_robust(f"{w}.html", f"{w}.pdf")
 
     # ---- 2. client + team house-style PDFs -----------------------------
-    css = open(BASE / "k2style.css", encoding="utf-8").read()
+    # k2style.css lives in the suite root, next to this script - BASE.
+    # WHY (12 Aug 2026): say so plainly if it's gone, instead of a raw
+    # traceback halfway through the run.
+    css_path = BASE / "k2style.css"
+    if not css_path.exists():
+        sys.exit("ERROR: k2style.css is missing from the suite folder - the "
+                 "house-style PDFs cannot render without it.")
+    css = css_path.read_text(encoding="utf-8")
     print("[2/4] Client compliance PDF (house style)...")
     doc_c, n_c = render_doc("client",
                             build_client_pages(rows, d, a, export_dt),
@@ -901,26 +916,31 @@ def main():
           f"({os.path.getsize(eml_path):,} bytes)")
     # manifest so MAKE_OUTLOOK_DRAFTS keeps working
     import json
+    # WHY (12 Aug 2026): recipients derive from the engine's STAFF_EMAIL_TO -
+    # one source of truth. The old hard-coded duplicate here went stale the
+    # moment the engine's list changed.
+    to_line = "; ".join(re.findall(r"<([^>]+)>", eng.STAFF_EMAIL_TO))
     (OUT / "Coates_Ampol_Stocktake_OUTLOOK.draft.json").write_text(json.dumps({
         "subject": subject,
-        "to": "Ampolstore@coates.com.au; Cody.mitchell@coates.com.au",
+        "to": to_line,
         "body": CONFIG["email_html"],
         "attachments": [os.path.basename(p) for p, _ in attach],
     }, indent=1), encoding="utf-8")
     print("")
-    print("NEXT STEP: double-click the .eml in output\\, check it, press Send.")
+    print(f"NEXT STEP: double-click the .eml in {OUT}, check it, press Send.")
     print("Done. The Coates Way - consistent execution, every day.")
 
 
 if __name__ == "__main__":
+    # WHY (12 Aug 2026): failures used to be swallowed to exit code 0, so the
+    # bat button reported success and opened the folder on a broken build.
+    # Keep the friendly traceback, but always leave nonzero on failure so the
+    # button tells the truth. A sys.exit("message") from main() propagates on
+    # its own (message printed, exit code 1). The bat owns the end-of-run
+    # pause now - no input() here.
     try:
         main()
-    except SystemExit as e:
-        print(e)
     except Exception as e:
         import traceback
         traceback.print_exc()
-        print(f"\nERROR: {e}")
-    finally:
-        if os.name == "nt" and not sys.stdout.isatty():
-            input("\nPress Enter to close...")
+        sys.exit(f"\nERROR: {e}")

@@ -3,28 +3,36 @@
 Coates Ampol Site Radio On-Hire Report - The Coates Way
 Author: Andrew Fisher / POWERED BY SITEIQ
 
-- 2026 in full detail (radios + batteries, companies A-Z, serials joined
-  from the radio register, STORAGE_UNIT from the master RENTAL_STOCK file)
-- Prior years (2023-2025) summarised by year and company - the value story
+- Current year in full detail (radios + batteries, companies A-Z, serials
+  joined from the radio register, STORAGE_UNIT from the master RENTAL_STOCK file)
+- Prior years summarised by year and company - the value story
+- At-a-glance charts: fleet position, value by company, age of hire
 - Verification message: return radios not in use; if still in use, bring
   them to the Ampol Tool Store for a rescan (proof of existence)
 - PDF via WeasyPrint or Edge/Chrome headless fallback
 
-Place beside this file: Ampol_Radio_Report*.xlsm, radio_register*.xlsx,
-RENTAL_STOCK*.xlsx
+Inputs come from the suite's one Data area (see ampol_paths):
+Ampol_Radio_Report*.xlsm, radio_register*.xlsx, RENTAL_STOCK*.xlsx.
+Output lands in Reports\\<today>\\Radios\\ - dated, never overwritten.
 """
-import sys, re
+import sys
 from pathlib import Path
 from datetime import datetime, date
 from collections import defaultdict
 import openpyxl
+import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
 
 BASE = Path(__file__).resolve().parent
-OUT = BASE / "output"
 REPORT_DATE = date.today()
 CUR_YEAR = REPORT_DATE.year
+# WHY (12 Aug 2026): PRIOR_LABEL was computed and never used while the headings
+# carried hard-coded years - come January the report would have quietly lied.
+# Every heading now derives from these two.
 PRIOR_LABEL = f"2023–{CUR_YEAR - 1}"
 PRIOR_SHORT = f"2023-{str(CUR_YEAR - 1)[2:]}"
+# WHY (12 Aug 2026): named constant so the en dash never sits as a backslash
+# escape inside an f-string expression - older Pythons refuse that outright.
+EN_DASH = "–"
 
 COATES_PURPOSE = "Supporting Australia's growth with leading equipment solutions"
 COATES_OBJECTIVE = "Australia's most trusted equipment partner \u2014 delivering Best Service & Value"
@@ -33,6 +41,10 @@ COATES_VALUES = "Care Deeply &nbsp;\u2022&nbsp; Customer Focused &nbsp;\u2022&nb
 def money(v):
     try: return f"${float(v):,.0f}"
     except (TypeError, ValueError): return "\u2014"
+
+def esc(s):
+    """Company names land inside SVG text - keep the markup honest."""
+    return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 def pick_sheet(wb, *names):
     """First existing sheet name (new names first, legacy fallbacks after)."""
@@ -53,8 +65,12 @@ def sheet_rows(wb, name, hdr_row=2):
 def load_serials(register_path):
     wb = openpyxl.load_workbook(register_path, data_only=True)
     ws = wb["Radio Register"]
+    # WHY (12 Aug 2026): a register row with a blank serial cell used to print
+    # the word 'None' in the report - a blank now falls through to the same
+    # dash every other unknown serial gets.
     return {str(r[0]).strip().upper(): str(r[1]).strip()
-            for r in ws.iter_rows(min_row=2, values_only=True) if r[0]}
+            for r in ws.iter_rows(min_row=2, values_only=True)
+            if r[0] and r[1] is not None and str(r[1]).strip()}
 
 def load_storage_units(master_path):
     wb = openpyxl.load_workbook(master_path, data_only=True)
@@ -92,10 +108,38 @@ def norm(r, serials, units, pf):
             "hirer": str(r.get("HIRER_NAME", "")).strip(),
             "barcode": bc, "serial": serials.get(bc.upper(), "\u2014"),
             "year": str(r.get("Year", "")).strip(),
+            # WHY (12 Aug 2026): description kept so Out Of Service rows can be
+            # split radio/battery for the fleet-position chart - real data, no guessing
+            "desc": str(r.get("ITEM_DESCRIPTION", "")).strip(),
             "days": days, "cost": cost, "date": d, "time": t,
             "unit": lookup_unit(bc, units, pf)}
 
 def val(rs): return sum(x["cost"] for x in rs if x["cost"])
+
+def svg_hbars(rows, width=700, label_w=180, val_w=130, bar_h=14, gap=5):
+    """Inline-SVG horizontal bars - self-contained, print-safe, house colours.
+
+    WHY (12 Aug 2026): the report carried its whole story in tables; these
+    small charts put the position on one page without touching the tables.
+    rows = (label, number, display text, colour). A zero draws a grey hairline
+    so the category still shows - nothing is hidden.
+    """
+    mx = max((r[1] for r in rows), default=0) or 1
+    span = width - label_w - val_w - 10
+    h = len(rows) * (bar_h + gap) + 2
+    p = [f'<svg width="{width}" height="{h}" viewBox="0 0 {width} {h}" '
+         f'xmlns="http://www.w3.org/2000/svg" style="font-family:Calibri,Arial,sans-serif">']
+    y = 1
+    for label, num, txt, colour in rows:
+        w = max(round(span * (num / mx)), 2) if num else 2
+        fill = colour if num else "#cccccc"
+        ty = y + bar_h - 4
+        p.append(f'<text x="{label_w - 6}" y="{ty}" text-anchor="end" font-size="10" fill="#333">{esc(label)}</text>')
+        p.append(f'<rect x="{label_w}" y="{y}" width="{w}" height="{bar_h}" fill="{fill}"/>')
+        p.append(f'<text x="{label_w + w + 5}" y="{ty}" font-size="10" font-weight="bold" fill="#1a1a1a">{esc(txt)}</text>')
+        y += bar_h + gap
+    p.append("</svg>")
+    return "".join(p)
 
 def detail_section(items, serial_col=True):
     by_comp = defaultdict(list)
@@ -110,7 +154,8 @@ def detail_section(items, serial_col=True):
 <span class="cmeta">&mdash; {len(rows)} unit{'s' if len(rows) != 1 else ''} &nbsp;|&nbsp; value {money(cval)}</span></div>
 <table class="items"><tr><th>Barcode</th>{'<th>Serial</th>' if serial_col else ''}<th>Price</th><th>Hirer</th><th>On Hire</th><th>Days</th><th>STORAGE_UNIT</th></tr>""")
         for i in rows:
-            d_txt = i["date"].strftime("%d/%m/%Y") if i["date"] else ""
+            # WHY (12 Aug 2026): Australian date style across the suite - 11 Jul 2026
+            d_txt = i["date"].strftime("%d %b %Y") if i["date"] else ""
             if i["time"]: d_txt += f" {i['time']}"
             days_cls = ' class="overdue"' if i["days"] >= 30 else ""
             ser = f"<td>{i['serial']}</td>" if serial_col else ""
@@ -119,8 +164,9 @@ def detail_section(items, serial_col=True):
         parts.append("</table></div>")
     return "".join(parts)
 
-def build_html(r26, rprev, b26, bprev, oos, ravail, bavail):
-    refresh = datetime.now().strftime("%d/%m/%Y %I:%M %p")
+def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
+    # WHY (12 Aug 2026): 24-hour time and 11 Jul 2026 dates across the suite
+    refresh = datetime.now().strftime("%d %b %Y %H:%M")
     total_exposure = val(r26) + val(rprev) + val(b26) + val(bprev)
     prev_all = rprev + bprev
     prev_val = val(prev_all)
@@ -182,7 +228,11 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail):
     .foot { margin-top:10pt; color:#555; font-size:8pt; border-top:1pt solid #ccc; padding-top:6pt; }
     .cway { margin-top:6pt; color:#e07000; font-size:8pt; font-weight:bold; text-align:center; }
     .cway .obj { color:#555; font-weight:normal; display:block; margin-top:2pt; }
-    """.replace("__RDATE__", REPORT_DATE.strftime("%d/%m/%Y"))
+    .glance { width:100%; border-collapse:collapse; margin:2pt 0 6pt; }
+    .glance td { vertical-align:top; padding:0 8pt 0 0; }
+    .chartcap { font-weight:bold; font-size:10pt; margin:8pt 0 2pt; color:#1a1a1a; letter-spacing:0.3pt; }
+    .chartsub { color:#555; font-size:8.5pt; margin:0 0 4pt; }
+    """.replace("__RDATE__", REPORT_DATE.strftime("%d %b %Y"))
 
     parts = [f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css}</style></head><body>
 <div class="banner"><div class="purpose">{COATES_PURPOSE}</div>
@@ -191,7 +241,7 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail):
 &nbsp;|&nbsp; Refreshed: {refresh}</div></div>
 
 <div class="sig"><span class="big">{money(total_exposure)} of radio equipment is currently on hire.</span><br>
-<span style="font-size:9.5pt">Of this, <b style="color:#c00000">{money(prev_val)}</b> across <b>{len(prev_all)} units</b> has been on hire since <b>2023\u20132025</b> \u2014
+<span style="font-size:9.5pt">Of this, <b style="color:#c00000">{money(prev_val)}</b> across <b>{len(prev_all)} units</b> has been on hire since <b>{PRIOR_LABEL}</b> \u2014
 the oldest for <b>{oldest} days</b>. Every one of these radios and batteries is either working hard on site, sitting unused in a crib room or ute,
 or no longer accounted for. This report exists to tell those three apart \u2014 simply and without fuss.</span></div>
 
@@ -199,7 +249,7 @@ or no longer accounted for. This report exists to tell those three apart \u2014 
 <td><div class="lbl">Total On-Hire Value</div><div class="val">{money(total_exposure)}</div></td>
 <td><div class="lbl">Radios On Hire</div><div class="val">{len(r26)+len(rprev)} \u00b7 {money(val(r26)+val(rprev))}</div></td>
 <td><div class="lbl">Batteries On Hire</div><div class="val">{len(b26)+len(bprev)} \u00b7 {money(val(b26)+val(bprev))}</div></td>
-<td><div class="lbl">From 2023\u20132025</div><div class="val red">{len(prev_all)} \u00b7 {money(prev_val)}</div></td>
+<td><div class="lbl">From {PRIOR_LABEL}</div><div class="val red">{len(prev_all)} \u00b7 {money(prev_val)}</div></td>
 <td><div class="lbl">Available In Store</div><div class="val">{len(ravail)} radios \u00b7 {len(bavail)} batt.</div></td>
 <td><div class="lbl">Out Of Service</div><div class="val">{len(oos)}</div></td>
 </tr></table>
@@ -217,8 +267,66 @@ and the double-check return process \u2014 every return is inspected and scanned
 <b>The moment a unit is scanned, the record updates.</b> Serial numbers below are drawn from the radio register (100% barcode match) so units can be identified on site;
 the STORAGE_UNIT column shows where each unit lives in the store when not on hire.</div>"""]
 
+    # ── Fleet position at a glance ──
+    # WHY (12 Aug 2026): the position now gets one visual page before the
+    # detail - fleet bars, value by company, age of hire. All counts and
+    # dollars are the same ones the tables below carry; nothing replaced.
+    oos_r = [i for i in oos if "batter" not in i["desc"].lower()]
+    oos_b = [i for i in oos if "batter" in i["desc"].lower()]
+    radio_rows = [
+        (f"On hire – issued {CUR_YEAR}", len(r26), f"{len(r26)}", "#e07000"),
+        (f"On hire – issued {PRIOR_LABEL}", len(rprev), f"{len(rprev)}", "#c00000"),
+        ("Available in store", len(ravail), f"{len(ravail)}", "#1e7d32"),
+        ("Out of service", len(oos_r), f"{len(oos_r)}", "#b07700"),
+    ]
+    batt_rows = [
+        (f"On hire – issued {CUR_YEAR}", len(b26), f"{len(b26)}", "#e07000"),
+        (f"On hire – issued {PRIOR_LABEL}", len(bprev), f"{len(bprev)}", "#c00000"),
+        ("Available in store", len(bavail), f"{len(bavail)}", "#1e7d32"),
+        ("Out of service", len(oos_b), f"{len(oos_b)}", "#b07700"),
+    ]
+    comp_tot = defaultdict(float)
+    for i in r26 + rprev + b26 + bprev:
+        comp_tot[i["company"]] += i["cost"] or 0
+    top10 = sorted(comp_tot.items(), key=lambda kv: -kv[1])[:10]
+    exp_rows = [(c if len(c) <= 32 else c[:31] + "…", v, money(v),
+                 "#c00000" if v >= 100000 else "#e07000") for c, v in top10]
+    rest_n = len(comp_tot) - len(top10)
+    rest_v = sum(comp_tot.values()) - sum(v for _, v in top10)
+    if rest_n > 0:
+        exp_note = (f"Showing {len(top10)} of {len(comp_tot)} companies — the remaining "
+                    f"{rest_n} hold {money(rest_v)} between them. Red bars carry {money(100000)}+.")
+    else:
+        exp_note = f"All {len(comp_tot)} companies shown. Red bars carry {money(100000)}+."
+    all_on = r26 + rprev + b26 + bprev
+    age_defs = [("0–30 days", lambda d: d <= 30, "#1e7d32"),
+                ("31–90 days", lambda d: 31 <= d <= 90, "#e07000"),
+                ("91–365 days", lambda d: 91 <= d <= 365, "#b07700"),
+                ("365+ days", lambda d: d > 365, "#c00000")]
+    age_rows = []
+    for lbl, test, colour in age_defs:
+        grp = [i for i in all_on if test(i["days"])]
+        pct = round(100 * len(grp) / (len(all_on) or 1))
+        age_rows.append((lbl, len(grp), f"{len(grp)} units · {money(val(grp))} · {pct}%", colour))
+    parts.append(f"""<div class="section"><h2 class="sec">Fleet Position At A Glance</h2>
+<div class="secsub">Three pictures of the same truth — where the fleet sits, who holds the value, and how long it has been out.
+Every count and dollar here comes straight from the tables that follow; the detail is unchanged.</div>
+<table class="glance"><tr>
+<td style="width:50%"><div class="chartcap">SITE RADIOS — {len(r26)+len(rprev)+len(ravail)+len(oos_r)} units tracked</div>
+{svg_hbars(radio_rows, width=340, label_w=145, val_w=40)}</td>
+<td style="width:50%"><div class="chartcap">RADIO BATTERIES — {len(b26)+len(bprev)+len(bavail)+len(oos_b)} units tracked</div>
+{svg_hbars(batt_rows, width=340, label_w=145, val_w=40)}</td>
+</tr></table>
+<div class="chartcap">REPLACEMENT-VALUE EXPOSURE BY COMPANY — {money(sum(comp_tot.values()))} across {len(comp_tot)} companies</div>
+<div class="chartsub">{exp_note}</div>
+{svg_hbars(exp_rows, width=700, label_w=195, val_w=95)}
+<div class="chartcap">AGE OF HIRE — how long the {len(all_on)} on-hire units have been out</div>
+<div class="chartsub">Everything beyond 30 days is due for a return or a rescan; {PRIOR_LABEL} issues drive the 365+ band.</div>
+{svg_hbars(age_rows, width=700, label_w=115, val_w=230)}
+</div>""")
+
     # ── Prior years summary ──
-    parts.append(f"""<div class="section"><h2 class="sec">2023\u20132025 \u2013 The Value Story (Summarised)</h2>
+    parts.append(f"""<div class="section"><h2 class="sec">{PRIOR_LABEL} \u2013 The Value Story (Summarised)</h2>
 <div class="secsub">{len(prev_all)} radios and batteries issued in prior years remain on hire \u2014 {money(prev_val)} of equipment.
 Rather than listing {len(prev_all)} lines, this section summarises by year and company. Any unit still in use: bring it past the store for a rescan.
 Any unit not in use: return it.</div>
@@ -241,7 +349,7 @@ Any unit not in use: return it.</div>
         parts.append(f"<tr{hi}><td><b>{comp}</b></td>")
         for y in years:
             n = ymap.get(y, [0, 0])[0]
-            parts.append(f'<td class="num">{n if n else "\u2013"}</td>')
+            parts.append(f'<td class="num">{n if n else EN_DASH}</td>')
         old = comp_oldest[comp]
         parts.append(f"""<td class="num"><b>{tot_n}</b></td><td class="num"><b style="color:#c00000">{money(tot_v)}</b></td>
 <td class="num"><span class="overdue">{old}</span></td></tr>""")
@@ -250,13 +358,14 @@ Any unit not in use: return it.</div>
 the fastest way off this table is a return or a rescan.</div></div>""")
 
     # ── 2026 detail: radios ──
-    parts.append(f"""<div class="section"><h2 class="sec">2026 \u2013 Radios On Hire (Full Detail)</h2>
+    # WHY (12 Aug 2026): headings derive from CUR_YEAR so January doesn't lie
+    parts.append(f"""<div class="section"><h2 class="sec">{CUR_YEAR} \u2013 Radios On Hire (Full Detail)</h2>
 <div class="secsub">{len(r26)} radios issued in {CUR_YEAR} currently on hire \u2014 {money(val(r26))}. Companies A\u2013Z, oldest first. 30+ days shown in red.</div>""")
     parts.append(detail_section(r26, serial_col=True))
     parts.append("</div>")
 
     # ── 2026 detail: batteries ──
-    parts.append(f"""<div class="section"><h2 class="sec">2026 \u2013 Radio Batteries On Hire (Full Detail)</h2>
+    parts.append(f"""<div class="section"><h2 class="sec">{CUR_YEAR} \u2013 Radio Batteries On Hire (Full Detail)</h2>
 <div class="secsub">{len(b26)} batteries issued in {CUR_YEAR} currently on hire \u2014 {money(val(b26))}. Companies A\u2013Z, oldest first.</div>""")
     parts.append(detail_section(b26, serial_col=False))
     parts.append("</div>")
@@ -266,14 +375,15 @@ the fastest way off this table is a return or a rescan.</div></div>""")
 <div class="secsub">Units tagged Out of Service under the Tool Store SOP \u2014 tagged, photographed, reported and quarantined pending repair or replacement.</div>
 <table class="items"><tr><th>Barcode</th><th>Serial</th><th>Price</th><th>Status Since</th><th>Days</th></tr>""")
     for i in sorted(oos, key=lambda x: -x["days"]):
-        d_txt = i["date"].strftime("%d/%m/%Y") if i["date"] else ""
+        d_txt = i["date"].strftime("%d %b %Y") if i["date"] else ""
         parts.append(f"""<tr><td>{i['barcode']}</td><td>{i['serial']}</td><td class="price">{money(i['cost'])}</td>
 <td>{d_txt}</td><td class="overdue">{i['days']}</td></tr>""")
     parts.append("</table></div>")
 
     parts.append(f"""<div class="foot">
-This report covers Ampol site Motorola radios and batteries on hire as at {refresh}. {CUR_YEAR} issues are shown in full;
-2023\u20132025 issues are summarised by year and company, with line-item detail available from the Tool Store on request.
+This report covers Ampol site Motorola radios and batteries on hire.
+<b>Data as at {data_asat or "TBC"}</b> (the SiteIQ workbook's last refresh) \u2014 report built {refresh}. {CUR_YEAR} issues are shown in full;
+{PRIOR_LABEL} issues are summarised by year and company, with line-item detail available from the Tool Store on request.
 Return any unit not in use; bring units still in use past the Ampol Tool Store for a rescan (proof of existence) \u2014
 either action updates the record immediately. Serial numbers from the radio register; storage units from the master RENTAL_STOCK file.
 Life Saving Rule 5 – Tools and Equipment (SEQ-GL-009): nothing damaged, defective or flat is ever reissued —
@@ -309,9 +419,9 @@ RADIO_EMAIL_TO = (
 )
 
 
-def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail):
+def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
     """High-level summary email body - all data summarised, full detail in the attached PDF."""
-    refresh = datetime.now().strftime("%d/%m/%Y %I:%M %p")
+    refresh = datetime.now().strftime("%d %b %Y %H:%M")
     O = "#e07000"
     total_exposure = val(r26) + val(rprev) + val(b26) + val(bprev)
     prev_all = rprev + bprev
@@ -348,13 +458,13 @@ This is about visibility, not blame \u2014 the ask is simple and it applies to e
 
 <tr><td bgcolor="#fdf0f0" style="background-color:#fdf0f0;border:1px solid #f0c0c0;padding:10px 14px">
 <div style="font-size:15px;font-weight:bold;color:#c00000">{money(total_exposure)} of radio equipment is currently on hire.</div>
-<div style="font-size:11px;padding-top:3px">Of this, <b style="color:#c00000">{money(prev_val)}</b> across <b>{len(prev_all)} units</b> has been on hire since <b>2023\u20132025</b> \u2014 the oldest for <b>{oldest} days</b>.
+<div style="font-size:11px;padding-top:3px">Of this, <b style="color:#c00000">{money(prev_val)}</b> across <b>{len(prev_all)} units</b> has been on hire since <b>{PRIOR_LABEL}</b> \u2014 the oldest for <b>{oldest} days</b>.
 Every one of these radios and batteries is either working on site, sitting unused, or no longer accounted for \u2014 this report exists to tell those three apart.</div></td></tr>
 
 <tr><td style="padding:8px 0"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
 <tr><td width="20%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">RADIOS ON HIRE</div><div style="font-size:15px;font-weight:bold;color:{O}">{len(r26)+len(rprev)} \u00b7 {money(val(r26)+val(rprev))}</div></td>
 <td width="20%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">BATTERIES ON HIRE</div><div style="font-size:15px;font-weight:bold;color:{O}">{len(b26)+len(bprev)} \u00b7 {money(val(b26)+val(bprev))}</div></td>
-<td width="22%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">FROM 2023\u20132025</div><div style="font-size:15px;font-weight:bold;color:#c00000">{len(prev_all)} \u00b7 {money(prev_val)}</div></td>
+<td width="22%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">FROM {PRIOR_LABEL}</div><div style="font-size:15px;font-weight:bold;color:#c00000">{len(prev_all)} \u00b7 {money(prev_val)}</div></td>
 <td width="19%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">AVAILABLE IN STORE</div><div style="font-size:15px;font-weight:bold;color:#1e7d32">{len(ravail)} radios \u00b7 {len(bavail)} batt.</div></td>
 <td style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">OUT OF SERVICE</div><div style="font-size:15px;font-weight:bold;color:#b07700">{len(oos)}</div></td></tr></table></td></tr>
 
@@ -367,7 +477,7 @@ Every one of these radios and batteries is either working on site, sitting unuse
 <li style="margin:3px 0">Anything look incorrect? Contact the Ampol Tool Store and we will review and correct the record with you.</li>
 </ul></td></tr>
 
-<tr><td style="padding:14px 0 4px"><div style="font-size:15px;font-weight:bold;color:{O};text-transform:uppercase;border-bottom:2px solid {O};padding-bottom:3px">2023\u20132025 \u2013 The Value Story</div></td></tr>
+<tr><td style="padding:14px 0 4px"><div style="font-size:15px;font-weight:bold;color:{O};text-transform:uppercase;border-bottom:2px solid {O};padding-bottom:3px">{PRIOR_LABEL} \u2013 The Value Story</div></td></tr>
 <tr><td style="padding:4px 0"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><tr>"""]
     for y in years:
         cnt, v = by_year[y]
@@ -386,10 +496,10 @@ Every one of these radios and batteries is either working on site, sitting unuse
         tot_v = a["prev_v"] + a["v26"]
         bg = ' bgcolor="#fdf0f0" style="background-color:#fdf0f0"' if a["prev_v"] >= 100000 else ''
         p.append(f"""<tr{bg}><td style="padding:5px 10px;border-bottom:1px solid #eee"><b>{comp}</b></td>
-<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{a['prev_n'] or '\u2013'}</td>
-<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;color:#c00000;font-weight:bold">{money(a['prev_v']) if a['prev_v'] else '\u2013'}</td>
-<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{a['n26'] or '\u2013'}</td>
-<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{money(a['v26']) if a['v26'] else '\u2013'}</td>
+<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{a['prev_n'] or EN_DASH}</td>
+<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;color:#c00000;font-weight:bold">{money(a['prev_v']) if a['prev_v'] else EN_DASH}</td>
+<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{a['n26'] or EN_DASH}</td>
+<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{money(a['v26']) if a['v26'] else EN_DASH}</td>
 <td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;font-weight:bold;color:#b35a00">{money(tot_v)}</td>
 <td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;color:#c00000;font-weight:bold">{a['old']}</td></tr>""")
     p.append(f"""</table>
@@ -407,7 +517,8 @@ keeps the fleet available for everyone's next shutdown. Any questions, come see 
 Kind regards,<br><b>Andrew Fisher</b><br>Ampol Tool Store \u00b7 Coates</td></tr>
 <tr><td style="border-top:1px solid #ccc;padding:10px 0;font-size:10px;color:#555;text-align:center">
 <b>Author: Andrew Fisher</b> &nbsp;\u2022&nbsp; <b style="color:{O}">POWERED BY SITEIQ</b><br>
-<span style="color:{O};font-weight:bold">{COATES_VALUES}</span><br>{COATES_OBJECTIVE}</td></tr>
+<span style="color:{O};font-weight:bold">{COATES_VALUES}</span><br>{COATES_OBJECTIVE}<br>
+Data as at {data_asat or "TBC"} &nbsp;\u2022&nbsp; Report built {refresh}</td></tr>
 </table></td></tr></table></body></html>""")
     return "".join(p)
 
@@ -436,13 +547,13 @@ def frame_email(inner):
 </table></td></tr></table>"""
 
 
-def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path):
+def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path, data_asat=""):
     import json
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
     from email.mime.application import MIMEApplication
-    body = frame_email(build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail))
-    subject = f"Ampol Tool Store \u2013 Site Radio Report \u2013 {REPORT_DATE.strftime('%d/%m/%Y')}"
+    body = frame_email(build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat))
+    subject = f"Ampol Tool Store \u2013 Site Radio Report \u2013 {REPORT_DATE.strftime('%d %b %Y')}"
     msg = MIMEMultipart("mixed")
     msg["To"] = RADIO_EMAIL_TO
     msg["Subject"] = subject
@@ -457,18 +568,32 @@ def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path):
     with open(eml_path, "wb") as f:
         f.write(msg.as_bytes())
     # sidecar for MAKE_OUTLOOK_DRAFTS: NATIVE Outlook draft, To pre-filled
-    addrs = "; ".join(re.findall(r"<([^>]+)>", RADIO_EMAIL_TO))
+    # WHY (12 Aug 2026): the manifest used to carry only the regexed-out bare
+    # addresses, silently dropping any recipient ever added without angle
+    # brackets. It now carries the FULL To line, semicolon-separated the way
+    # Outlook wants it, so the draft matches the .eml recipient for recipient.
+    to_line = RADIO_EMAIL_TO.replace(">, ", ">; ")
+    n_to = to_line.count(";") + 1
     stem = str(eml_path)[:-4] if str(eml_path).lower().endswith(".eml") else str(eml_path)
     with open(stem + ".body.html", "w", encoding="utf-8") as f:
         f.write(body)
     with open(stem + ".draft.json", "w", encoding="utf-8") as f:
-        json.dump({"subject": subject, "to": addrs,
+        json.dump({"subject": subject, "to": to_line,
                    "body": Path(stem + ".body.html").name,
                    "attachments": [pdf.name] if pdf.exists() else []}, f, indent=1)
-    print(f"Wrote {eml_path} + native-draft manifest (To: {len(addrs.split(';'))} recipients, PDF attached: {pdf.exists()})")
+    print(f"Wrote {eml_path} + native-draft manifest (To: {n_to} recipients, PDF attached: {pdf.exists()})")
 
 
 def write_pdf_robust(html_path, pdf_path):
+    # WHY (12 Aug 2026): an old PDF sitting on the target name used to make a
+    # failed browser print look like a success - the only check is 'file
+    # exists'. The target is deleted up front, so the only PDF that can pass
+    # that check now is the one this run actually wrote.
+    tgt = Path(pdf_path)
+    try:
+        if tgt.exists(): tgt.unlink()
+    except OSError as e:
+        raise SystemExit(f"Cannot replace {tgt.name} - close it if it is open, then run again. ({e})")
     try:
         from weasyprint import HTML
         HTML(filename=str(html_path)).write_pdf(str(pdf_path))
@@ -492,32 +617,44 @@ def write_pdf_robust(html_path, pdf_path):
                                 f"--print-to-pdf={Path(pdf_path).resolve()}",
                                 "--no-pdf-header-footer", Path(html_path).resolve().as_uri()],
                                capture_output=True, timeout=180)
+            except FileNotFoundError:
+                break        # not installed here - straight on to the next candidate
             except Exception:
                 pass
             if Path(pdf_path).exists():
                 print(f"PDF generated via {Path(exe).name}")
                 return True
             time.sleep(1.5)
-        break
+        # WHY (12 Aug 2026): an unconditional break used to sit here, so if the
+        # first browser found kept failing the rest were never tried. Now every
+        # candidate on the list gets its turn before we give up.
     print("No PDF engine found - HTML written; PDF skipped.")
     return False
 
 def find_workbook(patterns, arg=None):
+    # WHY (12 Aug 2026): inputs now come from the suite's one Data area via
+    # ampol_paths - newest file wins, Excel ~$ lock files and archived
+    # Source_ pulls are never candidates. An explicit path argument still
+    # overrides everything, exactly as before.
     if arg: return arg
-    for pat in patterns:
-        hits = sorted(BASE.glob(pat), key=lambda p: p.stat().st_mtime, reverse=True)
-        if hits: return str(hits[0])
-    return None
+    return ampol_paths.find_data(*patterns) or None
 
 def main():
-    radio = find_workbook(["Ampol_Radio_Report*.xlsm", "*.xlsm"], sys.argv[1] if len(sys.argv) > 1 else None)
-    register = find_workbook(["radio_register*.xlsx", "*register*.xlsx"], sys.argv[2] if len(sys.argv) > 2 else None)
+    # WHY (12 Aug 2026): the old broad fallbacks (*.xlsm, *register*.xlsx) were
+    # safe when this script lived in its own folder; in the shared Data area
+    # they would grab another kit's workbook, so the patterns stay radio-shaped.
+    radio = find_workbook(["Ampol_Radio_Report*.xlsm", "*Radio_Report*.xlsm"], sys.argv[1] if len(sys.argv) > 1 else None)
+    register = find_workbook(["radio_register*.xlsx", "*radio*register*.xlsx"], sys.argv[2] if len(sys.argv) > 2 else None)
     master = find_workbook(["RENTAL_STOCK*.xlsx"], sys.argv[3] if len(sys.argv) > 3 else None)
-    if not radio: raise FileNotFoundError("Place Ampol_Radio_Report.xlsm in this folder.")
+    if not radio:
+        raise SystemExit("No Ampol_Radio_Report.xlsm in the Data folder - save the SiteIQ export there and run again.")
     print(f"Radio workbook: {radio}")
-    print(f"Radio register: {register or 'NOT FOUND - serials will show as dashes'}")
-    print(f"Master stock file: {master or 'NOT FOUND - storage units will fall back to stock-code prefixes'}")
-    OUT.mkdir(exist_ok=True)
+    print(f"Radio register: {register or 'NOT FOUND in Data - serials will show as dashes'}")
+    print(f"Master stock file: {master or 'NOT FOUND in Data - storage units will fall back to stock-code prefixes'}")
+    out = Path(ampol_paths.day_folder("Radios"))  # dated folder, created on demand
+    # WHY (12 Aug 2026): the footer carries when the data itself was pulled,
+    # not just when the report was built - the workbook's own last-saved time.
+    data_asat = datetime.fromtimestamp(Path(radio).stat().st_mtime).strftime("%d %b %Y %H:%M")
     serials = load_serials(register) if register else {}
     units, pf = load_storage_units(master) if master else ({}, {})
     wb = openpyxl.load_workbook(radio, data_only=True)
@@ -530,15 +667,16 @@ def main():
     oos = n("Out Of Service")
     ravail = sheet_rows(wb, "Radios Available")
     bavail = sheet_rows(wb, "Radio Batteries Available")
-    html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail)
-    base = OUT / "Ampol_Radio_OnHire_Report"
+    html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat)
+    base = out / "Ampol_Radio_OnHire_Report"
     with open(f"{base}.html", "w", encoding="utf-8") as f:
         f.write(html_str)
     write_pdf_robust(f"{base}.html", f"{base}.pdf")
-    write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, f"{base}.pdf", f"{base}_OUTLOOK.eml")
+    write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, f"{base}.pdf", f"{base}_OUTLOOK.eml", data_asat)
     tot = val(r26) + val(rprev) + val(b26) + val(bprev)
-    print(f"Radios 2026: {len(r26)} | prior: {len(rprev)} | Batteries 2026: {len(b26)} | prior: {len(bprev)} | "
+    print(f"Radios {CUR_YEAR}: {len(r26)} | prior: {len(rprev)} | Batteries {CUR_YEAR}: {len(b26)} | prior: {len(bprev)} | "
           f"OOS: {len(oos)} | TOTAL EXPOSURE: ${tot:,.0f}")
+    print(f"Output: {out}")
 
 if __name__ == "__main__":
     main()

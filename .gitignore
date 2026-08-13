@@ -42,3 +42,6 @@ __pycache__/
 # Ampol suite: dated report output and per-run caches stay on the machine
 02_Ampol_Reporting_Suite/Reports/
 02_Ampol_Reporting_Suite/Data/previous/
+
+# Throwaway headless-browser profiles from PDF rendering - never code, never data
+02_Ampol_Reporting_Suite/coates_edge_pdf_*/

@@ -22,8 +22,11 @@ WHAT THIS SCRIPT DOES
   5. Writes a ready-to-send .eml draft (X-Unsent) with the source
      workbook attached, plus a standalone browser HTML.
 
-USAGE - PORTABLE SITE KIT (flat folder, same as Cem2026 / K2)
-  Double-click RUN_REPORT.bat. That is the whole job.
+USAGE - AMPOL REPORTING SUITE
+  WHY (12 Aug 2026): this engine now lives in the suite. Inputs come
+  from the one shared Data\ area, outputs land in the dated
+  Reports\<today>\Gas_Monitors folder, and the button that runs it is
+  02_RUN_GAS_EXEC_DASHBOARD.bat.
   Or from a terminal:  python generate_v18_gas_monitor_report.py
 
   Kit layout - one flat folder, everything in it:
@@ -64,8 +67,10 @@ DEPENDENCIES
 import base64
 import email
 import io
+import json
 import os
 import re
+import shutil
 import sys
 from collections import Counter, OrderedDict
 from datetime import datetime
@@ -75,6 +80,11 @@ from email.utils import formatdate
 
 import openpyxl
 from PIL import Image, ImageDraw
+
+# WHY (12 Aug 2026): the suite's path oracle. Every input now comes from
+# the one shared Data\ area and every output lands in the dated
+# Reports\<today>\ folder - same rule for every report in the suite.
+import ampol_paths
 
 # =====================================================================
 # CONFIG
@@ -90,8 +100,9 @@ CONFIG = {
     "rental_stock_path": "auto",
 
     # --- Outputs ------------------------------------------------------
-    # "." = write into the kit folder, same as Cem2026 / K2. "auto" = an
-    # output\ subfolder instead.
+    # WHY (12 Aug 2026): outputs now always land in the suite's dated
+    # Reports\<today>\Gas_Monitors folder (see resolve_output_dir). This
+    # setting is kept only so older notes referencing it still make sense.
     "output_dir": ".",
     "eml_name": "Coates_GasMonitor_Executive_Operations_Dashboard_V18_OUTLOOK_SAFE.eml",
     "html_name": "Coates_GasMonitor_Executive_Operations_Dashboard_V18.html",
@@ -214,24 +225,28 @@ def kit_root():
 
 
 def input_dir():
-    """<kit root>\\input if it exists, otherwise the kit root."""
-    candidate = os.path.join(kit_root(), "input")
-    return candidate if os.path.isdir(candidate) else kit_root()
+    """The suite's one Data\\ area - every export saved over the top.
+
+    WHY (12 Aug 2026): Andrew asked for one area all the reports read
+    from, so the old input\\ subfolder habit is retired and this now
+    answers with the suite's shared Data\\ folder.
+    """
+    return ampol_paths.data_dir()
 
 
 def search_dirs():
     """Folders to hunt for inputs, in priority order, de-duplicated.
 
-    Flat kit (the K2 habit): this list collapses to the one kit folder, and
-    newest mtime wins - so saving a fresh export over the top is all it
-    takes. If an input\\ subfolder exists it is searched first, so a fresh
-    export there beats an older copy in the root.
+    WHY (12 Aug 2026): Data\\ first - the suite's one area for every
+    Excel - then the suite root as a fallback for anything not yet moved
+    across. Newest mtime still wins, so saving a fresh export over the
+    top is all it takes.
 
     archive\\ and output\\ are deliberately NOT searched - archived sources
     and last week's outputs must never be picked up as this morning's data.
     """
     dirs, seen = [], set()
-    for d in (input_dir(), kit_root(), script_dir()):
+    for d in (input_dir(), kit_root()):
         real = os.path.abspath(d)
         if real not in seen and os.path.isdir(real):
             dirs.append(real)
@@ -269,8 +284,8 @@ def find_workbook(cfg):
     sys.exit("ERROR: no gas monitor workbook found.\n"
              + "".join(f"  Looked in: {d}\n" for d in looked)
              + "  Save your .xlsm (any name containing 'gas monitor') into the\n"
-               f"  kit folder - {kit_root()}\n"
-               "  - then run RUN_REPORT.bat again.")
+               f"  Data folder - {ampol_paths.data_dir()}\n"
+               "  - then press the gas monitor button again.")
 
 
 def find_rental_stock(cfg):
@@ -290,16 +305,13 @@ def find_rental_stock(cfg):
 def resolve_output_dir(cfg):
     """Where the .eml and .html get written.
 
-    "auto" (the kit default) = <kit root>\\output. "." and "" keep the old
-    behaviour of writing next to the script, so an older flattened copy of
-    this kit still behaves the way Andrew expects.
+    WHY (12 Aug 2026): outputs now land in the suite's dated report area -
+    Reports\\<today>\\Gas_Monitors, created on demand. Fixed filenames are
+    still fine because the date lives in the folder name, so nothing is
+    ever silently overwritten day to day. The old output_dir setting in
+    CONFIG no longer steers this.
     """
-    setting = cfg.get("output_dir", "auto")
-    if setting == "auto":
-        return os.path.join(kit_root(), "output")
-    if setting in (".", "", None):
-        return script_dir()
-    return setting
+    return ampol_paths.day_folder("Gas_Monitors")
 
 
 def stamped_name(base, date_str, cfg):
@@ -528,6 +540,11 @@ def make_ring_b64(score):
 # =====================================================================
 
 def esc(s):
+    # WHY (12 Aug 2026): a blank cell (e.g. a missing serial number on the
+    # detail tabs) used to print as the word 'None'. A value the source
+    # does not carry shows as a dash - never a guess, never Python's None.
+    if s is None:
+        return "&ndash;"
     return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
 
@@ -1038,8 +1055,10 @@ def company_block(name, count, rows, extra_cost_col=False):
 
 
 def fmt_dt(d, t):
-    ds = d.strftime("%d/%m/%Y") if hasattr(d, "strftime") else str(d)
-    ts = t.strftime("%H:%M:%S") if hasattr(t, "strftime") else str(t)
+    # WHY (12 Aug 2026): same rule as esc() - a date or time the source
+    # does not carry shows as a dash, not the word 'None'.
+    ds = d.strftime("%d/%m/%Y") if hasattr(d, "strftime") else (str(d) if d else "-")
+    ts = t.strftime("%H:%M:%S") if hasattr(t, "strftime") else (str(t) if t else "-")
     return ds, ts
 
 
@@ -1209,7 +1228,12 @@ def closing(m, gen_str):
 </td></tr>"""
 
 
-def footer(cfg, gen_str):
+def footer(cfg, gen_str, asat_str=""):
+    # WHY (12 Aug 2026): the suite standard puts a data-as-at stamp in the
+    # footer of every report - the workbook file time, so the reader always
+    # knows how fresh the numbers are.
+    asat_bit = (f" &middot; Data as at {asat_str} (workbook file time)"
+                if asat_str else "")
     return f"""
 <tr>
   <td bgcolor="{C['panel']}" style="background-color:{C['panel']};padding:24px 32px;border-top:2px solid {C['orange']};">
@@ -1232,7 +1256,7 @@ def footer(cfg, gen_str):
             <span style="display:inline-block;background:{C['card2']};border:1px solid {C['line']};border-radius:4px;padding:4px 10px;font-size:8px;font-weight:900;color:{C['muted']};letter-spacing:1.5px;text-transform:uppercase;margin-left:4px;">Operational Excellence</span>
             <span style="display:inline-block;background:{C['card2']};border:1px solid {C['line']};border-radius:4px;padding:4px 10px;font-size:8px;font-weight:900;color:{C['muted']};letter-spacing:1.5px;text-transform:uppercase;margin-left:4px;">Disciplined Execution</span>
           </div>
-          <div style="font-size:9px;color:{C['muted2']};margin-top:10px;">v18 ELITE &middot; {gen_str}</div>
+          <div style="font-size:9px;color:{C['muted2']};margin-top:10px;">v18 ELITE &middot; {gen_str}{asat_bit}</div>
         </td>
       </tr>
       <tr><td colspan="2" style="padding-top:16px;border-top:1px solid {C['line']};">
@@ -1255,7 +1279,7 @@ def footer(cfg, gen_str):
 # 5. ASSEMBLE
 # =====================================================================
 
-def build_html(data, m, cfg, date_str, time_str):
+def build_html(data, m, cfg, date_str, time_str, asat_str=""):
     gen_str = f"{datetime.strptime(date_str, '%d %B %Y').strftime('%d/%m/%Y')} at {time_str}"
     parts = [
         hero(m, cfg, date_str, time_str, gen_str),
@@ -1271,7 +1295,7 @@ def build_html(data, m, cfg, date_str, time_str):
         detail_tables(data, m, cfg),
         compliance_strip(m),
         closing(m, gen_str),
-        footer(cfg, gen_str),
+        footer(cfg, gen_str, asat_str),
     ]
     return f"""<!doctype html>
 <html lang="en">
@@ -1374,7 +1398,8 @@ def main():
         for n in validate_against_rental_stock(rs_path, m):
             print(f"[RENTAL_STOCK] {n}")
 
-    html = build_html(data, m, cfg, date_str, time_str)
+    asat_str = datetime.fromtimestamp(os.path.getmtime(wb_path)).strftime("%d %b %Y %H:%M")
+    html = build_html(data, m, cfg, date_str, time_str, asat_str)
     out_dir = resolve_output_dir(cfg)
     os.makedirs(out_dir, exist_ok=True)
     html_path = os.path.join(out_dir, stamped_name(cfg["html_name"], date_str, cfg))
@@ -1387,6 +1412,28 @@ def main():
     with open(eml_path, "wb") as f:
         f.write(eml.as_bytes())
     print(f"EML written          : {eml_path}  ({os.path.getsize(eml_path):,} bytes)")
+
+    # WHY (12 Aug 2026): the shared MAKE_OUTLOOK_DRAFTS button reads a
+    # .draft.json manifest from the same Reports folder and turns it into a
+    # native Outlook DRAFT - subject, body, attachments, To. Nothing sends
+    # itself, same discipline as the .eml. The workbook is copied in beside
+    # it so the manifest can attach it by basename, and the dated folder
+    # then also keeps the exact data this report was built from.
+    wb_copy = os.path.join(out_dir, os.path.basename(wb_path))
+    if os.path.abspath(wb_path) != os.path.abspath(wb_copy):
+        shutil.copy2(wb_path, wb_copy)
+    weekday = datetime.strptime(date_str, "%d %B %Y").strftime("%A")
+    manifest = {
+        "subject": f"{cfg['subject_prefix']} - {weekday} {date_str}",
+        "body": os.path.basename(html_path),
+        "attachments": [os.path.basename(wb_copy)],
+        "to": "; ".join(cfg["recipients"]),
+    }
+    man_path = os.path.join(
+        out_dir, os.path.splitext(cfg["html_name"])[0] + ".draft.json")
+    with open(man_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=1)
+    print(f"Draft manifest       : {man_path}")
     print("")
     if os.path.abspath(out_dir) == os.path.abspath(kit_root()):
         print("NEXT STEP: the .eml is in this folder. Double-click it, check it,")
@@ -1398,14 +1445,15 @@ def main():
 
 
 if __name__ == "__main__":
+    # WHY (12 Aug 2026): a failed run must exit nonzero so the suite's
+    # buttons can see it - the old block printed the error and exited 0,
+    # which made failures look like passes. The keep-window-open pause is
+    # gone too: the .bat buttons own the pause now.
     try:
         main()
-    except SystemExit as e:
-        print(e)
+    except SystemExit:
+        raise
     except Exception as e:
         import traceback
         traceback.print_exc()
-        print(f"\nERROR: {e}")
-    finally:
-        if os.name == "nt" and not sys.stdout.isatty():
-            input("\nPress Enter to close...")
+        sys.exit(f"ERROR: {e}")

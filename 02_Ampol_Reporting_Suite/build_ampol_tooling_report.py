@@ -2,11 +2,11 @@
 #  COATES | AMPOL TOOL STORE - ON-HIRE, UTILISATION & COMPLIANCE REPORT KIT
 #  Author: Andrew Fisher  |  The Coates Way  |  POWERED BY SITEIQ
 #
-#  Reads everything from the folder this script sits in (never modifies the
-#  workbook). Reports: Executive, Quarterly on-hire, Company on-hire,
-#  Utilisation & What-to-Buy, Compliance & Trends. Every report ships as
-#  PDF + HTML + Outlook-safe email draft (MAKE_OUTLOOK_DRAFTS.bat -> native
-#  drafts with full To-field search).
+#  Reads every input from the suite's one Data area (ampol_paths; never
+#  modifies the workbook). Reports: Executive, Quarterly on-hire, Company
+#  on-hire, Utilisation & What-to-Buy, Compliance & Trends. Every report
+#  ships as PDF + HTML + X-Unsent .eml + Outlook-safe email draft
+#  (08_MAKE_OUTLOOK_DRAFTS.bat -> native drafts with full To-field search).
 # =============================================================================
 import datetime as dt
 import html as _html
@@ -19,13 +19,21 @@ from collections import defaultdict
 
 import openpyxl
 
+import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
+import k2shell      # WHY (12 Aug 2026): the shared K2 chart kit - self-contained SVG
+
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT_DIR = os.path.join(HERE, "Output_Tooling_Reports")
+# WHY (12 Aug 2026): outputs now land in the suite's dated Reports area -
+# Reports\<today>\Tooling - created on demand, one folder per day.
+OUT_DIR = ampol_paths.day_folder("Tooling")
 WORKBOOK = "Ampol_Onhire_Tooling_Report.xlsm"
 
 TODAY = dt.date.today()
-GENERATED = dt.datetime.now().strftime("%d/%m/%Y %I:%M %p").lstrip("0")
+# WHY (12 Aug 2026): Australian date style (11 Jul 2026) and 24-hour time,
+# same as the rest of the suite.
+GENERATED = dt.datetime.now().strftime("%d %b %Y %H:%M").lstrip("0")
 DATESTR = TODAY.strftime("%Y-%m-%d")
+DATA_ASAT = "TBC"   # set from the workbook's own file time in load_all()
 
 ORANGE = "#F26222"
 DARK = "#1D1D1B"
@@ -143,11 +151,10 @@ def category_of(desc):
 
 # ---------------------------------------------------------------- loading ---
 def find_file(*names):
-    for n in names:
-        p = os.path.join(HERE, n)
-        if os.path.exists(p):
-            return p
-    return None
+    # WHY (12 Aug 2026): inputs now come from the suite's one Data area via
+    # ampol_paths - newest match wins, Excel ~$ lock files and archived
+    # Source_ pulls are never candidates. Same name, same call sites.
+    return ampol_paths.find_data(*names) or None
 
 
 def sheet_rows(ws, probe):
@@ -170,11 +177,20 @@ def sheet_rows(ws, probe):
 
 
 def load_all():
+    global DATA_ASAT
     d = {}
     wb_path = find_file(WORKBOOK)
     if not wb_path:
-        sys.exit("Workbook not found beside this script: " + WORKBOOK)
+        sys.exit("Workbook not found in the Data folder: " + WORKBOOK
+                 + " - save the refreshed workbook there and run again.")
     wb = openpyxl.load_workbook(wb_path, read_only=True, data_only=True)
+    # WHY (12 Aug 2026): a missing tab used to surface as a raw KeyError
+    # traceback - now it says which tab and what to do about it.
+    for need in ("Master Onhire", "Quarterly Recovery Summary",
+                 "Tooling Utilisation", "Out For Repair", "Available"):
+        if need not in wb.sheetnames:
+            sys.exit(f"The workbook is missing its '{need}' tab - re-run the "
+                     "workbook refresh, save it into Data, and run again.")
 
     d["master"] = sheet_rows(wb["Master Onhire"], "ITEM_BARCODE")
     d["recovery"] = sheet_rows(wb["Quarterly Recovery Summary"], "COMPANY_NAME")
@@ -192,10 +208,15 @@ def load_all():
     d["available"] = sheet_rows(wb["Available"], "ITEM_BARCODE")
     wb.close()
     d["wb_mtime"] = dt.datetime.fromtimestamp(os.path.getmtime(wb_path))
+    # WHY (12 Aug 2026): every page footer now carries a data-as-at stamp -
+    # the workbook's own file time, not the moment the report was built.
+    DATA_ASAT = d["wb_mtime"].strftime("%d %b %Y %H:%M")
 
     # transactions (year to date)
+    # WHY (12 Aug 2026): the SiteIQ pull can land as TRANSACTIONS_Full.xlsx or
+    # plain TRANSACTIONS.xlsx - try both, newest wins, same sheet either way.
     d["tx"] = []
-    tx_path = find_file("TRANSACTIONS_Full.xlsx")
+    tx_path = find_file("TRANSACTIONS_Full.xlsx", "TRANSACTIONS.xlsx")
     if tx_path:
         twb = openpyxl.load_workbook(tx_path, read_only=True, data_only=True)
         ws = twb["CUSTOMER_CONTRACTOR_EQUIP"]
@@ -241,8 +262,10 @@ def load_all():
         swb.close()
 
     # pricing (avg buy price / where to buy)
+    # WHY (12 Aug 2026): the underscore name is how the file actually lands in
+    # Data, so it is tried first; the spaced name stays as the fallback.
     d["pricing"] = {}
-    pr_path = find_file("Ampol ToolStore Pricing.xlsx", "Ampol_ToolStore_Pricing.xlsx")
+    pr_path = find_file("Ampol_ToolStore_Pricing.xlsx", "Ampol ToolStore Pricing.xlsx")
     if pr_path:
         pwb = openpyxl.load_workbook(pr_path, read_only=True, data_only=True)
         ws = pwb["RENTAL_STOCK"]
@@ -275,6 +298,21 @@ def load_all():
                     "status": clean(r[idx.get("ITEM_STATUS", 8)]),
                 })
         rwb.close()
+
+    # description-mapping coverage (feeds the utilisation Honest Limits line)
+    # WHY (12 Aug 2026): 'the mapping now covers 3,415 barcodes' was hardcoded
+    # prose that went stale the moment the mapping grew. The count now comes
+    # from Tooling_Description_Mapping.xlsx sheet 'Use this' (rows minus the
+    # header); when the file is missing the report says TBC, never a guess.
+    d["mapping_n"] = None
+    mp_path = find_file("Tooling_Description_Mapping.xlsx")
+    if mp_path:
+        mwb = openpyxl.load_workbook(mp_path, read_only=True, data_only=True)
+        if "Use this" in mwb.sheetnames:
+            n = sum(1 for r in mwb["Use this"].iter_rows(values_only=True)
+                    if r and any(c is not None and clean(c) != "" for c in r))
+            d["mapping_n"] = max(0, n - 1)
+        mwb.close()
     return d
 
 
@@ -435,11 +473,13 @@ def page(title, subtitle, body, limits):
  .good{{color:{GREEN};font-weight:700;}} .warn{{color:{AMBER};font-weight:700;}} .bad{{color:{RED};font-weight:700;}}
  .footer{{margin-top:30px;border-top:3px solid {ORANGE};padding:14px 34px;font-size:10px;color:{GREY};line-height:1.7;}}
  .cochip{{background:{DARK};color:#fff;padding:4px 10px;font-size:11px;font-weight:700;display:inline-block;margin-top:14px;}}
+ .chartpanel{{background:#171F2B;border-radius:8px;padding:12px 12px 8px 12px;margin:10px 0 4px 0;max-width:660px;}}
+ .chartcap{{font-size:10px;color:{GREY};margin:2px 0 10px 2px;}}
 </style></head><body>
 <div class="band"><h1>Coates &nbsp;|&nbsp; Ampol Tool Store</h1>
 <div class="sub">{esc(subtitle)}</div>
 <div class="meta">Generated {esc(GENERATED)} &nbsp;|&nbsp; The Coates Way &nbsp;|&nbsp; POWERED BY SITEIQ &nbsp;|&nbsp; Author: Andrew Fisher</div></div>
-<div class="wrap">{body}
+<div class="wrap"><!--BODY-START-->{body}
 <h2>Our Standard</h2>
 <p class="story">{esc(LSR_LINE)} Every issue and every return runs through the double scan
 &mdash; {esc(canon)} Daily stocktakes keep eyes on the fleet: nothing in the store goes
@@ -448,8 +488,9 @@ spot. We are here to help &mdash; if gear is finished with, hand it back to the 
 and it comes off your list the same day.</p>
 <h2>Honest Limits</h2>
 <ul style="font-size:11px;color:{GREY};line-height:1.7;">{lim}</ul>
-</div>
-<div class="footer">Coates Hire Operations Pty Limited | ABN 50 009 779 338 | www.coates.com.au |
+<!--BODY-END--></div>
+<div class="footer">Data as at {esc(DATA_ASAT)} (workbook file time) |
+Coates Hire Operations Pty Limited | ABN 50 009 779 338 | www.coates.com.au |
 POWERED BY SITEIQ | Care Deeply &middot; Customer Focused &middot; Be Our Best &middot; One Team &middot; Competitive Spirit</div>
 </body></html>"""
 
@@ -468,6 +509,20 @@ def table(headers, rows):
     return f"<table><tr>{h}</tr>{b}</table>"
 
 
+def chart_block(svg, caption=""):
+    """A k2shell SVG chart on its dark panel, sized to sit inside the page
+    shell (charts are drawn 636px wide; the wrap leaves ~726px, so they fit
+    with room to spare).
+
+    WHY (12 Aug 2026): charts are new to this kit - they ride between CHART
+    markers so email_html() can strip them, because Outlook's Word engine
+    cannot draw SVG. PDF and HTML get the chart; the email keeps its proven
+    inline-table style. The tables the charts sit beside are all still there.
+    """
+    cap = f'<div class="chartcap">{esc(caption)}</div>' if caption else ""
+    return f'<!--CHART--><div class="chartpanel">{svg}</div>{cap}<!--/CHART-->'
+
+
 def item_rows(items, with_company=False, limit=None):
     out = []
     for r in items[:limit] if limit else items:
@@ -475,7 +530,7 @@ def item_rows(items, with_company=False, limit=None):
         if with_company:
             row.append(display_company(r["company"]) or "-")
         row += [r["hirer"] or "-", r["barcode"], r["desc"],
-                r["date"].strftime("%d/%m/%Y") if r["date"] else "-",
+                r["date"].strftime("%d %b %Y") if r["date"] else "-",
                 money(r["cost"]) if r["cost"] is not None else "-"]
         out.append(row)
     return out
@@ -502,7 +557,7 @@ def render_quarter(d, qk):
         body += table(["Hirer", "Barcode", "Description", "On Hire Since", "Replacement"],
                       item_rows(sorted(items, key=lambda r: (r["date"] or TODAY))))
     limits = ["Counts come from the workbook quarter tabs (SiteIQ RENTAL_STOCK refresh "
-              + d["wb_mtime"].strftime("%d/%m/%Y %I:%M %p") + "). Radios, gas monitors "
+              + d["wb_mtime"].strftime("%d %b %Y %H:%M") + "). Radios, gas monitors "
               "and Drager equipment are excluded - they are reported separately.",
               "Unpriced items show a dash and are excluded from value totals - never "
               "guessed."]
@@ -584,17 +639,40 @@ def render_util(d):
     body += table(["Equipment Group", "Qty", "On Hire", "Avail", "Live %", "YTD %",
                    "Hirers", "Hire Days", "Buy Price", "Source", "Recommendation"], rows)
     body += "<h2>Working Hardest (by hire days)</h2>"
+    # WHY (12 Aug 2026): the top-used list now gets a bar chart beside it -
+    # same numbers the table carries (total hire days YTD), nothing new invented.
+    n_with_days = sum(1 for r in um["rows"] if r["days"] > 0)
+    if um["top_used"]:
+        body += chart_block(
+            k2shell.hbars([(r["group"], int(r["days"])) for r in um["top_used"]],
+                          colour=ORANGE),
+            f"Total hire days year to date - showing {len(um['top_used'])} of "
+            f"{n_with_days} equipment groups with hire days recorded.")
     body += table(["Equipment Group", "Qty", "Live %", "YTD %", "Hire Days", "Hirers"],
                   [[r["group"], int(r["qty"]), pct(r["live"]), pct(r["ytd"]),
                     int(r["days"]), int(r["hirers"])] for r in um["top_used"]])
+    if len(um["top_used"]) < n_with_days:
+        body += (f"<p class='story'>Showing {len(um['top_used'])} of {n_with_days} "
+                 "groups with hire days recorded - the busiest first.</p>")
     body += "<h2>Potential Overstock - Right-Size Candidates</h2>"
     body += table(["Equipment Group", "Qty", "On Hire", "Avail", "YTD %"],
                   [[r["group"], int(r["qty"]), int(r["on_hire"]), int(r["avail"]),
                     pct(r["ytd"])] for r in um["overstock"][:40]])
+    if len(um["overstock"]) > 40:
+        body += (f"<p class='story'>Showing 40 of {len(um['overstock'])} right-size "
+                 "candidates - lowest YTD utilisation first.</p>")
+    # WHY (12 Aug 2026): the barcode-mapping coverage was hardcoded prose
+    # ('3,415 barcodes') - it is now counted from the mapping file itself,
+    # and says TBC when the file is not in Data. Never a guess.
+    if d.get("mapping_n") is not None:
+        map_bit = (f"the mapping now covers {d['mapping_n']:,} barcodes and grows "
+                   "as descriptions are corrected")
+    else:
+        map_bit = ("mapping coverage TBC - Tooling_Description_Mapping.xlsx was "
+                   "not in the Data folder for this run")
     limits = ["Utilisation comes from the workbook Tooling Utilisation engine: SiteIQ "
               "transactions + current stock, grouped by corrected descriptions "
-              "(items without a mapping are not yet included - the mapping now covers "
-              "3,415 barcodes and grows as descriptions are corrected).",
+              "(items without a mapping are not yet included - " + map_bit + ").",
               "Buy prices are catalogue averages from Ampol ToolStore Pricing; groups "
               "without a price show a dash."]
     return ("Utilisation & What To Buy",
@@ -628,7 +706,7 @@ def render_compliance(d):
         for r in items:
             rows.append([display_company(r["company"]) or "-", r["hirer"] or "-",
                          r["barcode"], r["desc"],
-                         r["seen"].strftime("%d/%m/%Y") if r["seen"] else "Never sighted",
+                         r["seen"].strftime("%d %b %Y") if r["seen"] else "Never sighted",
                          money(r["cost"]) if r["cost"] is not None else "-"])
         body += table(["Company", "Hirer", "Barcode", "Description", "Last Sighted",
                        "Replacement"], rows)
@@ -643,8 +721,22 @@ def render_compliance(d):
     body += "<h2>High-Value Items On Hire</h2>"
     body += table(["Company", "Hirer", "Barcode", "Description", "On Hire Since",
                    "Replacement"], item_rows(cm["high_val"], with_company=True, limit=40))
+    if len(cm["high_val"]) > 40:
+        body += (f"<p class='story'>Showing 40 of {len(cm['high_val'])} high-value "
+                 "items - highest replacement cost first.</p>")
     if cm["trend"]:
         body += "<h2>Tool Store Activity By Month (transactions)</h2>"
+        # WHY (12 Aug 2026): 'Trends' finally gets a trend line - the same
+        # monthly transaction counts the table below carries, drawn with the
+        # shared K2 chart kit. The table stays; the chart is added beside it.
+        if len(cm["trend"]) >= 2:
+            body += chart_block(
+                k2shell.line_chart([mth for mth, _ in cm["trend"]],
+                                   [{"vals": [n for _, n in cm["trend"]],
+                                     "colour": ORANGE, "label": "Transactions",
+                                     "fill": True}]),
+                f"Tool store transactions per month, {TODAY.year} year to date "
+                "(SiteIQ transaction start dates).")
         body += table(["Month", "Transactions"],
                       [[m, f"{n:,}"] for m, n in cm["trend"]])
     limits = [f"'Not sighted' uses the SiteIQ STOCKTAKE export (last sighted date per "
@@ -689,6 +781,20 @@ def render_exec(d):
     if real:
         body += "<h2>Quarterly Recovery Summary (by company)</h2>"
         hdrs = list(real[0].keys())
+        # WHY (12 Aug 2026): the recovery table now leads with a bar chart -
+        # total replacement value by company, read from the same workbook tab
+        # the table is built from (top 12, and it says so).
+        val_hdr = next((h for h in hdrs if h.lower() == "total replacement value"),
+                       next((h for h in reversed(hdrs) if "value" in h.lower()), None))
+        if val_hdr:
+            vals = sorted(((display_company(r.get("COMPANY_NAME")),
+                            num(r.get(val_hdr)) or 0) for r in real),
+                          key=lambda t: -t[1])
+            top12 = [(co, round(v / 1000.0, 1)) for co, v in vals[:12]]
+            body += chart_block(
+                k2shell.hbars(top12, colour=ORANGE),
+                f"{val_hdr.replace('_', ' ').title()} by company, in $'000 - "
+                f"showing {len(top12)} of {len(vals)} companies, largest first.")
         rows = []
         for r in sorted(real, key=lambda r: clean(r.get("COMPANY_NAME"))):
             row = []
@@ -712,6 +818,36 @@ def render_exec(d):
                               else (int(s) if s == int(s) else s))
         rows.append(totals)
         body += table([h.replace("_", " ").title() for h in hdrs], rows)
+    # WHY (12 Aug 2026): two new pictures drawn only from fields the kit
+    # already loads - what families the on-hire gear falls into (the same
+    # keyword classifier the compliance report uses) and how long it has
+    # been out (days since ON_HIRE_DATE on the Master Onhire tab).
+    master = [master_row(r) for r in d["master"]]
+    cats = {"High Torque": 0, "Rigging": 0, "Electrical": 0, "General": 0}
+    for r in master:
+        cats[category_of(r["desc"]) or "General"] += 1
+    body += "<h2>What Is Out - Category Split</h2>"
+    body += chart_block(
+        k2shell.hbars(list(cats.items()), colour=ORANGE),
+        "Items on hire by description family (High Torque / Rigging / Electrical "
+        "keyword match; General is everything else).")
+    age_rows = []
+    for lab, lo, hi in (("0-30 days", 0, 30), ("31-60 days", 31, 60),
+                        ("61-90 days", 61, 90), ("91-180 days", 91, 180),
+                        ("Over 180 days", 181, None)):
+        age_rows.append((lab, sum(
+            1 for r in master if r["date"]
+            and lo <= (TODAY - r["date"]).days
+            and (hi is None or (TODAY - r["date"]).days <= hi))))
+    undated = sum(1 for r in master if not r["date"])
+    if undated:
+        age_rows.append(("No on-hire date recorded", undated))
+    body += "<h2>On-Hire Ageing Profile</h2>"
+    body += chart_block(
+        k2shell.hbars(age_rows, colour=ORANGE),
+        "How long the current on-hire items have been out - days since their "
+        "on-hire date. The quarterly recovery cycle is what brings the long "
+        "tail home.")
     body += "<h2>Signals</h2>"
     body += tiles([(x["buy_n"], "Buy signals (demand-backed)"),
                    (x["overstock_n"], "Right-size candidates"),
@@ -737,10 +873,20 @@ def email_html(subtitle, inner_note, html_doc):
     680px card. We inline the full report HTML converted to nested-table-safe
     markup by keeping our simple structure (tables + divs render acceptably in
     Outlook's Word engine because all styling is inline-safe)."""
-    # extract body content between wrap div and footer
-    m = re.search(r"<div class=\"wrap\">(.*)</div>\n<div class=\"footer\">", html_doc,
-                  re.S)
+    # extract body content between the marker comments page() now writes
+    # WHY (12 Aug 2026): the old wrap/footer regex silently made the WHOLE
+    # document the email body the moment page() formatting shifted. The
+    # markers survive any styling change; the old regex stays as a fallback
+    # so a marker-less document still extracts the same way it always did.
+    m = re.search(r"<!--BODY-START-->(.*)<!--BODY-END-->", html_doc, re.S)
+    if not m:
+        m = re.search(r"<div class=\"wrap\">(.*)</div>\n<div class=\"footer\">",
+                      html_doc, re.S)
     inner = m.group(1) if m else html_doc
+    # WHY (12 Aug 2026): the new SVG charts do not survive Outlook's Word
+    # engine, so they are stripped here - the email keeps the tables that
+    # carry the same numbers, exactly as it always has.
+    inner = re.sub(r"<!--CHART-->.*?<!--/CHART-->", "", inner, flags=re.S)
     # convert class-styled elements to inline styles for Outlook
     inner = inner.replace('<div class="tiles">',
                           '<div style="margin:12px 0;">')
@@ -774,7 +920,8 @@ def email_html(subtitle, inner_note, html_doc):
                           '<div style="background:' + DARK + ';color:#fff;padding:4px '
                           '10px;font-size:11px;font-weight:700;display:inline-block;'
                           'margin-top:12px;">')
-    inner = inner.replace('<ul style=', '<ul style=')
+    # WHY (12 Aug 2026): a literal no-op replace('<ul style=', '<ul style=')
+    # used to sit here - dead code, removed.
     return f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0"
  style="background:#EFECE7;"><tr><td align="center" style="padding:18px 8px;">
 <table role="presentation" width="680" cellspacing="0" cellpadding="0"
@@ -791,6 +938,7 @@ def email_html(subtitle, inner_note, html_doc):
 </td></tr>
 <tr><td style="background:{LIGHT};border-top:3px solid {ORANGE};padding:12px 26px;
  font-family:Arial,sans-serif;font-size:9px;color:{GREY};line-height:1.7;">
+ Data as at {esc(DATA_ASAT)} (workbook file time) |
  Coates Hire Operations Pty Limited | ABN 50 009 779 338 | www.coates.com.au |
  POWERED BY SITEIQ<br/>Care Deeply &middot; Customer Focused &middot; Be Our Best &middot;
  One Team &middot; Competitive Spirit</td></tr>
@@ -798,29 +946,82 @@ def email_html(subtitle, inner_note, html_doc):
 
 
 def edge_pdf(html_path, pdf_path):
+    import shutil
+    import tempfile
     import time
-    base_profile = os.path.join(os.environ.get("TEMP", HERE), "coates_edge_pdf")
+    # WHY (12 Aug 2026): a stale PDF already sitting on the target name used
+    # to make a failed print look like a success - clear it first, so the only
+    # PDF that can pass the exists-check is the one this run actually wrote.
+    if os.path.exists(pdf_path):
+        try:
+            os.remove(pdf_path)
+        except OSError as e:
+            sys.exit(f"Cannot replace {os.path.basename(pdf_path)} - close it "
+                     f"if it is open, then run again. ({e})")
+    # WHY (12 Aug 2026): the fixed Edge paths only exist on Windows, so they
+    # stay behind an os.name guard; any Edge/Chrome/Chromium found on PATH is
+    # now a candidate too, so the kit prints PDFs on whatever machine runs it.
+    candidates = []
+    if os.name == "nt":
+        candidates += [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+                       r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"]
+    for name in ("msedge", "chrome", "chromium", "chromium-browser",
+                 "google-chrome"):
+        p = shutil.which(name)
+        if p:
+            candidates.append(p)
+    # WHY (12 Aug 2026): throwaway profiles used to pile up beside the script
+    # when TEMP was unset - they now go to the system temp folder everywhere.
+    base_profile = os.path.join(tempfile.gettempdir(), "coates_edge_pdf")
+    url = "file:///" + os.path.abspath(html_path).replace("\\", "/").lstrip("/")
     edge_pdf._n = getattr(edge_pdf, "_n", 0) + 1
-    for edge in (r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
-                 r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"):
-        if not os.path.exists(edge):
+    for exe in candidates:
+        if not os.path.exists(exe):
             continue
         for attempt in range(3):
             profile = f"{base_profile}_{os.getpid()}_{edge_pdf._n}_{attempt}"
             try:
-                subprocess.run([edge, "--headless", "--disable-gpu",
+                subprocess.run([exe, "--headless", "--disable-gpu",
                                 "--user-data-dir=" + profile,
                                 "--no-first-run", "--no-pdf-header-footer",
-                                "--print-to-pdf=" + pdf_path,
-                                "file:///" + html_path.replace("\\", "/")],
+                                "--print-to-pdf=" + pdf_path, url],
                                timeout=120, capture_output=True)
-            except Exception:
-                pass
+            except FileNotFoundError:
+                break        # not runnable here - on to the next candidate
+            except (subprocess.SubprocessError, OSError):
+                pass         # retry with a fresh profile
             if os.path.exists(pdf_path):
                 return True
             time.sleep(1.5)
-        return False
+        # WHY (12 Aug 2026): the old unconditional return here meant only the
+        # first browser found ever got a go - every candidate gets one now.
     return False
+
+
+def write_eml(eml_path, subject, body_html, attach_path):
+    """An X-Unsent .eml beside the manifest - double-click it and Outlook
+    opens an editable DRAFT. No To line: Andrew addresses it himself.
+
+    WHY (12 Aug 2026): the kit now ships the .eml as well as the manifest,
+    so the drafts flow works even on a machine without the PowerShell step -
+    and nothing can ever send itself either way.
+    """
+    from email.mime.application import MIMEApplication
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    msg = MIMEMultipart("mixed")
+    msg["Subject"] = subject
+    msg["X-Unsent"] = "1"
+    msg.attach(MIMEText(body_html, "html", "utf-8"))
+    if attach_path and os.path.exists(attach_path):
+        sub = "pdf" if attach_path.lower().endswith(".pdf") else "octet-stream"
+        with open(attach_path, "rb") as f:
+            part = MIMEApplication(f.read(), _subtype=sub)
+        part.add_header("Content-Disposition", "attachment",
+                        filename=os.path.basename(attach_path))
+        msg.attach(part)
+    with open(eml_path, "wb") as f:
+        f.write(msg.as_bytes())
 
 
 def write_outputs(stem, title, subtitle, html_doc, subject):
@@ -840,8 +1041,10 @@ def write_outputs(stem, title, subtitle, html_doc, subject):
     with open(base + ".draft.json", "w", encoding="utf-8") as f:
         json.dump({"subject": subject, "body": os.path.basename(base + ".body.html"),
                    "attachments": attach}, f, indent=1)
+    write_eml(base + "_OUTLOOK.eml", subject, body,
+              pdf_path if pdf_ok else html_path)
     print(f"  {title}: HTML" + (" + PDF" if pdf_ok else " (PDF skipped)")
-          + " + email draft manifest")
+          + " + .eml + email draft manifest")
     return base
 
 
@@ -886,7 +1089,7 @@ def main():
     print("COATES | AMPOL TOOL STORE REPORT KIT | The Coates Way")
     print("=" * 68)
     d = load_all()
-    print(f"Workbook refreshed  : {d['wb_mtime'].strftime('%d/%m/%Y %I:%M %p')}")
+    print(f"Workbook refreshed  : {d['wb_mtime'].strftime('%d %b %Y %H:%M')}")
     print(f"Master on hire      : {len(d['master']):,}")
     print(f"Transactions YTD    : {len(d['tx']):,}")
     print(f"Stocktake barcodes  : {len(d['stocktake']):,}")
@@ -897,15 +1100,27 @@ def main():
         if "--exec" in args:
             run_exec(d)
         if "--quarter" in args:
-            qv = args[args.index("--quarter") + 1].upper()
+            # WHY (12 Aug 2026): --quarter as the last argument used to die
+            # with a raw IndexError - now it says what it needs, and exits
+            # nonzero so the .bat button shows red, not green.
+            i = args.index("--quarter")
+            if i + 1 >= len(args):
+                sys.exit("--quarter needs a value: Q1, Q2, Q3, Q4, YEAR or ALL.")
+            qv = args[i + 1].upper()
             for q in ([k for k in QUARTERS] + ["YEAR"] if qv == "ALL" else [qv]):
+                if q not in QUARTERS and q != "YEAR":
+                    sys.exit(f"Unknown quarter '{q}' - use Q1, Q2, Q3, Q4, "
+                             "YEAR or ALL.")
                 run_quarter(d, q)
         if "--utilisation" in args or "--util" in args:
             run_util(d)
         if "--compliance" in args:
             run_compliance(d)
         if "--company" in args:
-            run_company(d, args[args.index("--company") + 1])
+            i = args.index("--company")
+            if i + 1 >= len(args):
+                sys.exit("--company needs a company name after it.")
+            run_company(d, args[i + 1])
         if "--all" in args:
             for n in company_list(d):
                 run_company(d, n)
@@ -917,7 +1132,8 @@ def main():
             run_compliance(d)
             for n in company_list(d):
                 run_company(d, n)
-        print("\nDone. Run MAKE_OUTLOOK_DRAFTS.bat to load these into Outlook Drafts.")
+        print("\nDone. Output: Reports\\" + DATESTR + "\\Tooling. Run "
+              "08_MAKE_OUTLOOK_DRAFTS.bat to load the emails into Outlook Drafts.")
         return
 
     companies = company_list(d)
@@ -960,16 +1176,18 @@ def main():
             run_company(d, companies[int(choice[1:]) - 1])
         else:
             print("  (not recognised)")
-        print("\nOutputs in Output_Tooling_Reports. MAKE_OUTLOOK_DRAFTS.bat loads the")
+        print("\nOutputs in Reports\\" + DATESTR + "\\Tooling. "
+              "08_MAKE_OUTLOOK_DRAFTS.bat loads the")
         print("emails into Outlook Drafts - full To search, attachments included.")
 
 
 if __name__ == "__main__":
+    # WHY (12 Aug 2026): the old handler swallowed every error (including
+    # SystemExit) and finished with exit code 0, so a failed run looked green
+    # to the .bat buttons. Failures now exit nonzero with a plain-English
+    # message; the button owns the pause.
     try:
         main()
-    except SystemExit as e:
-        print(e)
     except Exception as e:
-        import traceback
-        traceback.print_exc()
-        print("\nERROR:", e)
+        print("\nERROR - the tooling report run failed: " + str(e))
+        sys.exit(1)

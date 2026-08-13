@@ -114,6 +114,12 @@ def load_transactions(path, serial_assets=None):
 
 def compute_tx(tx, now=None):
     """All flow/rhythm/behaviour aggregates off the transaction list."""
+    if not tx:
+        # WHY (12 Aug 2026): an empty list used to die on max([]) deep in
+        # the maths with a cryptic ValueError. Fail loud and plain instead -
+        # callers skip the analytics pages when the export holds nothing.
+        raise ValueError("no gas monitor transactions to analyse - "
+                         "skip the analytics instead of calling compute_tx")
     now = now or max([t["st"] for t in tx] + [t["en"] for t in tx if t["en"]])
     crew = [t for t in tx if not t["internal"]]
     crew_closed = [t for t in crew if t["en"]]
@@ -171,9 +177,16 @@ def compute_tx(tx, now=None):
     m["pct_before_6"] = round(early / len(crew) * 100) if crew else 0
 
     hh = Counter((t["st"].date(), t["st"].hour) for t in crew)
-    (rd, rh), rn = hh.most_common(1)[0]
-    m["record_hour"] = {"date": rd, "hour": rh, "n": rn,
-                        "every_s": 3600 // rn if rn else 0}
+    if hh:
+        (rd, rh), rn = hh.most_common(1)[0]
+        m["record_hour"] = {"date": rd, "hour": rh, "n": rn,
+                            "every_s": 3600 // rn if rn else 0}
+    else:
+        # WHY (12 Aug 2026): an export with no crew movements used to
+        # IndexError here and kill the whole run. Hand back an empty
+        # record instead - the callers skip the analytics pages when
+        # there are no crew transactions, so nothing renders off this.
+        m["record_hour"] = {"date": None, "hour": 0, "n": 0, "every_s": 0}
 
     # ---- daily volumes and weekday profile (crew) ---------------------
     m["daily_issues"] = Counter(t["st"].date() for t in crew)
