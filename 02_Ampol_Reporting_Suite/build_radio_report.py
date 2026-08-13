@@ -483,7 +483,10 @@ Every one of these radios and batteries is either working on site, sitting unuse
         cnt, v = by_year[y]
         p.append(f"""<td width="33%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">ISSUED {y} \u2013 STILL ON HIRE</div>
 <div style="font-size:14px;font-weight:bold;color:#c00000">{cnt} units \u00b7 {money(v)}</div></td>""")
-    p.append("""</tr></table></td></tr>
+    # WHY (13 Aug 2026): this block carries the year variables, so it must be
+    # an f-string - as a plain string the {placeholders} printed literally in
+    # the email body. Caught by 09_CHECK_REPORTS.
+    p.append(f"""</tr></table></td></tr>
 <tr><td style="padding:6px 0"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:1px solid #ccc;font-size:10.5px">
 <tr bgcolor="#fafafa"><td style="padding:5px 10px;font-size:9px;color:#555;border-bottom:1px solid #ccc">COMPANY</td>
 <td align="right" style="padding:5px 10px;font-size:9px;color:#555;border-bottom:1px solid #ccc">{PRIOR_SHORT} UNITS</td>
@@ -600,7 +603,7 @@ def write_pdf_robust(html_path, pdf_path):
         return True
     except Exception as e:
         print(f"WeasyPrint unavailable ({type(e).__name__}) - trying Edge/Chrome headless...")
-    import subprocess, os, time
+    import subprocess, os, time, tempfile
     for exe in [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
                 r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
                 r"C:\Program Files\Google\Chrome\Application\chrome.exe",
@@ -609,7 +612,10 @@ def write_pdf_robust(html_path, pdf_path):
         for attempt in range(3):
             # unique profile per attempt: a live browser with the same profile
             # makes headless print exit 0 without writing the PDF
-            profile = os.path.join(os.environ.get("TEMP", str(BASE)),
+            # WHY (13 Aug 2026): fall back to the system temp dir, not the
+            # suite folder - a machine without TEMP set was leaving throwaway
+            # browser profiles next to the scripts.
+            profile = os.path.join(os.environ.get("TEMP", tempfile.gettempdir()),
                                    f"coates_edge_pdf_{os.getpid()}_{attempt}")
             try:
                 subprocess.run([exe, "--headless", "--disable-gpu",
