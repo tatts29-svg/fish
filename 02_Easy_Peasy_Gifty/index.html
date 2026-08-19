@@ -1,0 +1,715 @@
+<title>Easy Peasy Gifty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FBFAF6; --surface:#FFFFFF; --surface-2:#F4F2EA;
+  --ink:#1A1814; --ink-2:#5F5C51; --ink-3:#8C887A;
+  --line:#E6E2D5; --line-2:#D6D1C0;
+  --zest:#FFCE1F; --zest-2:#FFE27A; --zest-deep:#B98A00;
+  --ribbon:#DC3F5C; --ribbon-ink:#FFFFFF; --ribbon-soft:#FBE7EB;
+  --sage:#3E7A5E; --sage-soft:#E4F0E9;
+  --on-zest:#1A1814;
+  --shadow:0 1px 2px rgba(26,24,20,.06), 0 8px 24px -12px rgba(26,24,20,.18);
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#171511; --surface:#211E18; --surface-2:#2A2620;
+    --ink:#F4F1E8; --ink-2:#ABA595; --ink-3:#837D6E;
+    --line:#332F27; --line-2:#443F35;
+    --zest:#FFD447; --zest-2:#8A6F14; --zest-deep:#FFD447;
+    --ribbon:#FF7189; --ribbon-ink:#2A0D13; --ribbon-soft:#3A2026;
+    --sage:#74C39A; --sage-soft:#20342A;
+    --on-zest:#1A1814;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#171511; --surface:#211E18; --surface-2:#2A2620;
+  --ink:#F4F1E8; --ink-2:#ABA595; --ink-3:#837D6E;
+  --line:#332F27; --line-2:#443F35;
+  --zest:#FFD447; --zest-2:#8A6F14; --zest-deep:#FFD447;
+  --ribbon:#FF7189; --ribbon-ink:#2A0D13; --ribbon-soft:#3A2026;
+  --sage:#74C39A; --sage-soft:#20342A;
+  --on-zest:#1A1814;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif;margin:0;text-wrap:balance;letter-spacing:-.02em}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* ---- masthead ---- */
+.mast{border-bottom:1px solid var(--line);background:var(--surface)}
+.mast .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:16px;padding-bottom:0}
+.mark{display:flex;align-items:baseline;gap:9px;margin-right:auto}
+.mark b{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:23px;letter-spacing:-.035em}
+.mark .dot{width:11px;height:11px;border-radius:50%;background:var(--zest);border:2px solid var(--ink);flex:none;align-self:center}
+.mark .tag{color:var(--ink-3);font-size:13px;display:none}
+@media(min-width:620px){.mark .tag{display:inline}}
+
+.tabs{display:flex;gap:2px;width:100%;order:3}
+.tab{
+  appearance:none;background:none;border:0;border-bottom:3px solid transparent;
+  font:inherit;font-weight:600;color:var(--ink-3);padding:11px 15px;cursor:pointer;
+  font-size:15px;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ribbon)}
+.tab:focus-visible{outline:2px solid var(--ribbon);outline-offset:-3px;border-radius:4px}
+
+/* ---- the zest panel: the finder ---- */
+.zest{background:var(--zest);color:var(--on-zest);border-bottom:1px solid var(--ink)}
+.zest .wrap{padding-top:26px;padding-bottom:28px}
+.zest h1{font-size:clamp(27px,5.6vw,42px);font-weight:800;line-height:1.05;max-width:15ch}
+.zest .sub{margin:9px 0 22px;font-size:15px;max-width:44ch;opacity:.78}
+.field{margin-bottom:17px}
+.field > label, .lab{
+  display:block;font-size:11.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:8px;opacity:.66;
+}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  appearance:none;font:inherit;font-size:14px;font-weight:500;cursor:pointer;
+  background:rgba(255,255,255,.62);color:var(--on-zest);
+  border:1.5px solid rgba(26,24,20,.22);border-radius:999px;padding:6px 13px;
+  transition:background .12s,border-color .12s,transform .08s;
+}
+.chip:hover{background:rgba(255,255,255,.92);border-color:rgba(26,24,20,.45)}
+.chip[aria-pressed="true"]{background:var(--on-zest);color:var(--zest);border-color:var(--on-zest)}
+.chip:active{transform:translateY(1px)}
+.chip:focus-visible{outline:2px solid var(--on-zest);outline-offset:2px}
+
+.go{
+  appearance:none;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:17px;
+  background:var(--on-zest);color:var(--zest);border:0;border-radius:999px;
+  padding:13px 30px;cursor:pointer;letter-spacing:-.01em;
+  transition:transform .1s, filter .12s;
+}
+.go:hover{filter:brightness(1.35)}
+.go:active{transform:translateY(1px)}
+.go:focus-visible{outline:2px solid var(--on-zest);outline-offset:3px}
+.gorow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
+.gorow .hint{font-size:13.5px;opacity:.6}
+
+/* ---- generic bits ---- */
+.panel{padding:30px 0 60px}
+.sechead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.sechead h2{font-size:20px;font-weight:700}
+.sechead .count{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.linky{
+  appearance:none;background:none;border:0;font:inherit;font-size:13.5px;font-weight:600;
+  color:var(--ribbon);cursor:pointer;padding:4px 2px;text-decoration:underline;
+  text-underline-offset:3px;text-decoration-thickness:1.5px;
+}
+.linky:hover{color:var(--ink)}
+.linky:focus-visible{outline:2px solid var(--ribbon);outline-offset:2px;border-radius:4px}
+
+.grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr 1fr}}
+
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:17px;display:flex;flex-direction:column;gap:9px;box-shadow:var(--shadow);
+}
+.card h3{font-size:17px;font-weight:700;line-height:1.25}
+.card .why{font-size:14px;color:var(--ink-2);flex:1;margin:0}
+.tagrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.price{
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12.5px;font-weight:500;
+  background:var(--zest);color:var(--on-zest);border-radius:6px;padding:3px 8px;
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.why-tag{font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.07em;font-weight:600}
+.buy{
+  appearance:none;display:block;text-align:center;text-decoration:none;
+  font:inherit;font-weight:600;font-size:14.5px;cursor:pointer;
+  background:var(--ribbon);color:var(--ribbon-ink);border:0;border-radius:9px;padding:10px;
+  transition:filter .12s;
+}
+.buy:hover{filter:brightness(1.08)}
+.buy:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.card .save{
+  appearance:none;background:none;border:1px solid var(--line-2);border-radius:9px;
+  font:inherit;font-size:13.5px;font-weight:600;color:var(--ink-2);padding:8px;cursor:pointer;
+}
+.card .save:hover{border-color:var(--ink-3);color:var(--ink)}
+.card .save[data-on="1"]{background:var(--sage-soft);border-color:var(--sage);color:var(--sage)}
+.card .save:focus-visible{outline:2px solid var(--ribbon);outline-offset:2px}
+.card .btns{display:grid;grid-template-columns:1fr auto;gap:8px}
+
+@media (prefers-reduced-motion: no-preference){
+  .card.in{animation:rise .34s cubic-bezier(.2,.7,.3,1) backwards}
+}
+@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+
+/* ---- people ---- */
+.person{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:16px 17px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);
+}
+.avatar{
+  width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:var(--zest);color:var(--on-zest);font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:800;font-size:17px;
+}
+.person .body{flex:1;min-width:0}
+.person h3{font-size:16.5px;font-weight:700}
+.person .meta{font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.days{
+  font-family:"DM Mono",monospace;font-size:12.5px;font-weight:500;border-radius:6px;
+  padding:3px 8px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.days.soon{background:var(--ribbon-soft);color:var(--ribbon)}
+.days.today{background:var(--ribbon);color:var(--ribbon-ink)}
+.person .acts{display:flex;gap:10px;margin-top:9px;flex-wrap:wrap}
+.given{font-size:13px;color:var(--ink-3);margin-top:7px}
+.given b{color:var(--ink-2);font-weight:600}
+
+/* ---- forms ---- */
+.form{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:18px;display:grid;gap:13px;box-shadow:var(--shadow);
+}
+@media(min-width:640px){.form.two{grid-template-columns:1fr 1fr}.form .full{grid-column:1/-1}}
+.form label{display:block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+input[type=text],input[type=date],textarea,select{
+  width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--paper);
+  border:1.5px solid var(--line-2);border-radius:9px;padding:9px 11px;
+}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--ribbon);outline-offset:0;border-color:transparent}
+textarea{resize:vertical;min-height:64px}
+.submit{
+  appearance:none;font:inherit;font-weight:700;font-size:15px;cursor:pointer;
+  background:var(--ink);color:var(--paper);border:0;border-radius:9px;padding:11px 22px;justify-self:start;
+}
+.submit:hover{filter:brightness(1.3)}
+.submit:focus-visible{outline:2px solid var(--ribbon);outline-offset:2px}
+
+.empty{
+  border:1.5px dashed var(--line-2);border-radius:var(--r);padding:34px 22px;text-align:center;
+  color:var(--ink-2);
+}
+.empty h3{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.empty p{margin:0;font-size:14.5px;max-width:42ch;margin-inline:auto}
+
+.stack{display:grid;gap:12px}
+.hidden{display:none !important}
+
+.sharebar{
+  background:var(--sage-soft);border:1px solid var(--sage);border-radius:var(--r);
+  padding:15px 17px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+}
+.sharebar p{margin:0;font-size:14px;color:var(--ink);flex:1;min-width:200px}
+.sharebar b{font-weight:600}
+
+.foot{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--ink-3);font-size:13px}
+.foot p{margin:0 0 8px;max-width:70ch}
+.foot code{font-family:"DM Mono",monospace;font-size:12px;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+</style>
+
+<div class="mast">
+  <div class="wrap">
+    <div class="mark">
+      <span class="dot" aria-hidden="true"></span>
+      <b>Easy Peasy Gifty</b>
+      <span class="tag">never turn up empty-handed</span>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="find">Find a gift</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="people">My people</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="lists">My list</button>
+    </div>
+  </div>
+</div>
+
+<section class="zest" id="finder">
+  <div class="wrap">
+    <h1>Who are you buying for?</h1>
+    <p class="sub">Tap a few things. We'll come back with presents that actually suit them, not another candle.</p>
+
+    <div class="field">
+      <span class="lab">They are my&hellip;</span>
+      <div class="chips" id="c-rel"></div>
+    </div>
+    <div class="field">
+      <span class="lab">The occasion</span>
+      <div class="chips" id="c-occ"></div>
+    </div>
+    <div class="field">
+      <span class="lab">They're into&hellip; <em style="text-transform:none;letter-spacing:0;font-weight:400">(pick as many as you like)</em></span>
+      <div class="chips" id="c-int"></div>
+    </div>
+    <div class="field">
+      <span class="lab">Budget</span>
+      <div class="chips" id="c-bud"></div>
+    </div>
+    <div class="gorow">
+      <button class="go" id="go">Sort me out</button>
+      <span class="hint" id="forwho"></span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="panel wrap" id="p-find">
+    <div id="results"></div>
+  </section>
+
+  <section class="panel wrap hidden" id="p-people">
+    <div class="sechead">
+      <h2>My people</h2>
+      <span class="count" id="peoplecount"></span>
+    </div>
+    <div class="stack" id="peoplelist"></div>
+    <div class="sechead" style="margin-top:30px"><h2>Add someone</h2></div>
+    <form class="form two" id="personform">
+      <div><label for="pname">Their name</label><input type="text" id="pname" required placeholder="e.g. Mum"></div>
+      <div><label for="prel">They're my</label><select id="prel"></select></div>
+      <div><label for="pdob">Birthday</label><input type="date" id="pdob"></div>
+      <div><label for="pint">They're into</label><input type="text" id="pint" placeholder="gardening, coffee, reading"></div>
+      <div class="full"><label for="pnote">Last thing I gave them</label><input type="text" id="pnote" placeholder="e.g. slippers, Christmas 2025"></div>
+      <button class="submit full" type="submit">Add them</button>
+    </form>
+  </section>
+
+  <section class="panel wrap hidden" id="p-lists">
+    <div id="sharednotice"></div>
+    <div class="sechead">
+      <h2 id="listtitle">My list</h2>
+      <span class="count" id="listcount"></span>
+      <button class="linky" id="sharebtn">Share this list</button>
+    </div>
+    <div id="listbody"></div>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <p><b>How this makes money:</b> the &ldquo;Have a look&rdquo; buttons are affiliate links. If someone buys through one, we earn a small commission at no extra cost to them. Gift ideas are chosen on merit, not commission.</p>
+  <p>Set your affiliate tag in <code>AFFILIATE</code> at the top of the script. Everything is stored on this device only &mdash; no accounts, no server.</p>
+</footer>
+
+<script>
+/* ============================================================
+   AFFILIATE SETTINGS — this is the bit that earns the money.
+   Put your own tag in and every "Have a look" button pays you.
+   Amazon AU:  associates.amazon.com.au  ->  tag looks like  yourname-22
+   To use a different retailer, change `template`. Keep {query} and {tag}.
+   ============================================================ */
+const AFFILIATE = {
+  tag: "",                                                        // <-- your Amazon Associates tag
+  template: "https://www.amazon.com.au/s?k={query}&tag={tag}",
+  label: "Have a look"
+};
+
+/* ---------- vocabulary ---------- */
+const REL = [["mum","Mum"],["dad","Dad"],["partner","Partner"],["mate","Mate"],["sibling","Brother / sister"],
+             ["kid","Kid"],["teen","Teenager"],["grandparent","Nan / Pop"],["workmate","Workmate"]];
+const OCC = [["birthday","Birthday"],["christmas","Christmas"],["anniversary","Anniversary"],["thanks","Thank you"],
+             ["baby","New baby"],["housewarming","Housewarming"],["farewell","Farewell"]];
+const INT = [["cooking","Cooking"],["outdoors","Outdoors"],["sport","Sport"],["gaming","Gaming"],["reading","Reading"],
+             ["gardening","Gardening"],["music","Music"],["coffee","Coffee"],["drinks","Beer & wine"],["pets","Pets"],
+             ["tech","Tech"],["craft","Craft"],["fitness","Fitness"],["travel","Travel"],["fishing","Fishing"],
+             ["cars","Cars"],["beauty","Beauty"],["homebody","Homebody"]];
+const BUD = ["Under $25","$25 – $50","$50 – $100","$100 – $200","$200+"];
+
+/* ---------- the gift catalogue ---------- */
+const G = [
+ {n:"Posh chocolate box",w:"Never wrong, always eaten. Get the good stuff, not servo chocolate.",p:0,t:["thanks","mum","grandparent","workmate"],q:"premium chocolate gift box"},
+ {n:"Enamel camp mug",w:"Lives in the ute, survives being dropped, gets used every single day.",p:0,t:["outdoors","fishing","mate","dad"],q:"enamel camping mug"},
+ {n:"Herb growing kit",w:"A windowsill of basil and coriander for the price of a sandwich.",p:0,t:["gardening","cooking","housewarming"],q:"herb growing kit indoor"},
+ {n:"Proper hand cream",w:"The kind people won't buy themselves but use till it's empty.",p:0,t:["beauty","mum","grandparent","thanks"],q:"luxury hand cream gift"},
+ {n:"Premium deck of cards",w:"Turns a rained-out afternoon into something. Packs anywhere.",p:0,t:["homebody","teen","travel","mate"],q:"premium playing cards deck"},
+ {n:"Hot sauce sampler",w:"For the bloke who puts chilli on everything and reckons nothing's hot enough.",p:0,t:["cooking","mate","workmate","drinks"],q:"hot sauce gift set"},
+ {n:"Notebook and a good pen",w:"A pen that writes properly changes how someone feels about writing.",p:0,t:["reading","workmate","craft","farewell"],q:"leather notebook and pen gift set"},
+ {n:"Beeswax food wraps",w:"Replaces the glad wrap. Practical, and they'll think of you every lunchbox.",p:0,t:["cooking","homebody","housewarming"],q:"beeswax food wraps"},
+ {n:"Dog treat box",w:"Buying for the dog is buying for the owner. Works every time.",p:0,t:["pets","housewarming","thanks"],q:"dog treat gift box"},
+ {n:"Coffee bean sampler",w:"Three or four single origins so they can find what they actually like.",p:0,t:["coffee","workmate","thanks","mate"],q:"coffee bean sampler gift pack"},
+ {n:"Book light",w:"Solves a real, nightly, unglamorous problem for anyone who reads in bed.",p:0,t:["reading","grandparent","travel"],q:"rechargeable book light"},
+ {n:"Car phone mount",w:"Cheap, boring, and they'll use it twice a day for three years.",p:0,t:["cars","teen","workmate"],q:"magnetic car phone mount"},
+ {n:"Bath bomb set",w:"An hour off with the door shut. That's the actual present.",p:0,t:["beauty","homebody","mum","partner"],q:"bath bomb gift set"},
+ {n:"Fridge magnet bottle opener",w:"Sticks to the fridge, never gets lost, opens beers. Genuinely useful nonsense.",p:0,t:["drinks","mate","housewarming"],q:"magnetic bottle opener fridge"},
+
+ {n:"AeroPress Go",w:"Café-grade coffee anywhere — camping, hotel room, the site office.",p:1,t:["coffee","travel","outdoors","mate"],q:"aeropress go travel coffee press"},
+ {n:"Shower speaker",w:"Waterproof, sticks to the tile, makes the morning better.",p:1,t:["music","teen","homebody"],q:"waterproof bluetooth shower speaker"},
+ {n:"Insulated drink bottle",w:"Cold at knock-off after eight hours in the sun. Worth the money.",p:1,t:["fitness","outdoors","workmate","sport"],q:"insulated stainless steel drink bottle"},
+ {n:"A good board game",w:"The kind that gets pulled out at Christmas for the next ten years.",p:1,t:["kid","teen","mate","christmas","homebody"],q:"family board game"},
+ {n:"Resistance band set",w:"A whole gym in a drawer. No excuses, no membership.",p:1,t:["fitness","travel","sport"],q:"resistance band set with handles"},
+ {n:"Tackle and lure pack",w:"Every fisho loses lures. Nobody's ever had too many.",p:1,t:["fishing","dad","outdoors"],q:"fishing lure tackle kit"},
+ {n:"Indoor plant in a proper pot",w:"A monstera in a nice pot beats a bunch of flowers that die by Friday.",p:1,t:["gardening","homebody","housewarming","thanks"],q:"indoor plant ceramic pot"},
+ {n:"Wireless charging pad",w:"Drop the phone on it, done. Small upgrade to every single evening.",p:1,t:["tech","teen","workmate"],q:"wireless phone charging pad"},
+ {n:"Beer tasting paddle",w:"Four glasses in a wooden paddle. Makes a Saturday feel like an event.",p:1,t:["drinks","dad","mate","housewarming"],q:"beer tasting paddle glasses set"},
+ {n:"1000-piece puzzle",w:"Takes over the dining table for a fortnight and everyone gets involved.",p:1,t:["grandparent","homebody","christmas"],q:"1000 piece jigsaw puzzle"},
+ {n:"Head torch",w:"Hands-free light. Once someone owns one they wonder how they managed.",p:1,t:["outdoors","fishing","dad","cars"],q:"rechargeable led head torch"},
+ {n:"A chef's cookbook",w:"Pick the cuisine they already cook and give them somewhere to go with it.",p:1,t:["cooking","mum","partner","housewarming"],q:"cookbook"},
+ {n:"Waterproof picnic rug",w:"Rubber backing means it works on wet grass, which is the whole point.",p:1,t:["outdoors","partner","travel","housewarming"],q:"waterproof backed picnic rug"},
+ {n:"Leather card holder",w:"Slim, ages well, replaces a wallet held together by hope.",p:1,t:["mate","partner","dad","farewell"],q:"leather card holder wallet"},
+ {n:"Sourdough starter kit",w:"Banneton, scraper, lame and a starter. A whole new hobby in a box.",p:1,t:["cooking","homebody","craft"],q:"sourdough bread making kit"},
+ {n:"Power bank",w:"Flat phone on a big day out is misery. This fixes it forever.",p:1,t:["tech","travel","teen","outdoors"],q:"portable power bank fast charge"},
+ {n:"A candle worth burning",w:"Not a supermarket one — a proper one that scents the whole room.",p:1,t:["homebody","partner","mum","thanks"],q:"luxury scented candle"},
+ {n:"Cat tower or tunnel",w:"The cat gets the present, the owner gets their couch back.",p:1,t:["pets","housewarming"],q:"cat scratching tower"},
+ {n:"Skincare starter set",w:"Cleanser, serum, moisturiser — the three that actually matter.",p:1,t:["beauty","teen","partner","mum"],q:"skincare gift set"},
+ {n:"Baby sleep bag and wrap set",w:"New parents want sleep. Everything else is decoration.",p:1,t:["baby"],q:"baby sleeping bag swaddle set"},
+
+ {n:"Weighted blanket",w:"People are sceptical right up until the first night they sleep under one.",p:2,t:["homebody","partner","teen"],q:"weighted blanket"},
+ {n:"Noise-cancelling earbuds",w:"Turns a screaming flight or an open-plan office into somewhere liveable.",p:2,t:["music","travel","tech","workmate"],q:"noise cancelling wireless earbuds"},
+ {n:"Milk frother and barista kit",w:"The last gap between home coffee and café coffee.",p:2,t:["coffee","partner","homebody"],q:"milk frother barista starter kit"},
+ {n:"Merino base layer",w:"Warm when it's cold, doesn't stink after three days. Travellers swear by it.",p:2,t:["outdoors","travel","fishing"],q:"merino wool base layer"},
+ {n:"Japanese chef's knife",w:"One sharp knife replaces a whole block of blunt ones.",p:2,t:["cooking","mum","partner","housewarming"],q:"japanese chef knife gyuto"},
+ {n:"Smart lights bundle",w:"Plug, strip and globe. The first bit of home automation that's actually fun.",p:2,t:["tech","gaming","teen","homebody"],q:"smart led light strip and plug"},
+ {n:"Gaming headset",w:"Mic that doesn't sound like a drive-through and ears that don't ache.",p:2,t:["gaming","teen","kid"],q:"gaming headset"},
+ {n:"Massage gun",w:"Sore back, sore legs, sore everything. Gets used far more than expected.",p:2,t:["fitness","sport","dad","workmate"],q:"percussion massage gun"},
+ {n:"Wine or beer subscription",w:"A present that turns up again next month, and the month after.",p:2,t:["drinks","partner","dad","thanks"],q:"wine subscription gift box"},
+ {n:"Portable BBQ",w:"Beach, park, campsite. Cooking outdoors is half of an Australian summer.",p:2,t:["outdoors","cooking","dad","mate"],q:"portable gas bbq grill"},
+ {n:"Vinyl of an album they love",w:"An album they know by heart, in a format they'll actually sit down and listen to.",p:2,t:["music","partner","dad","teen"],q:"vinyl record album"},
+ {n:"Fitness tracker",w:"The step count alone changes behaviour. Sneaky good present.",p:2,t:["fitness","sport","mum","grandparent"],q:"fitness tracker watch"},
+ {n:"Decent sunnies",w:"Polarised, so they can actually see into the water and off the road.",p:2,t:["outdoors","fishing","cars","travel"],q:"polarised sunglasses"},
+ {n:"Stainless garden tool set",w:"Good tools last thirty years. Cheap ones bend on the first root.",p:2,t:["gardening","dad","grandparent","housewarming"],q:"stainless steel garden tool set"},
+ {n:"Sheepskin slippers",w:"The most-used present in the house between May and September.",p:2,t:["grandparent","homebody","mum","christmas"],q:"sheepskin slippers"},
+ {n:"Travel spin rod combo",w:"Breaks down into a backpack, so the rod's always with them.",p:2,t:["fishing","travel","dad"],q:"travel spinning rod and reel combo"},
+ {n:"Big Lego set",w:"Hours of quiet. For the kid, and honestly for the adult too.",p:2,t:["kid","teen","christmas"],q:"lego set"},
+ {n:"Pottery or leatherwork starter kit",w:"Everything needed to try a proper hands-on craft without committing.",p:2,t:["craft","teen","partner"],q:"pottery starter kit"},
+
+ {n:"Entry espresso machine",w:"For someone spending $6 a day at the café — pays for itself by autumn.",p:3,t:["coffee","partner","housewarming","mum"],q:"espresso machine home barista"},
+ {n:"Noise-cancelling headphones",w:"The full over-ear version. Best present a frequent flyer ever gets.",p:3,t:["music","travel","tech","workmate"],q:"noise cancelling over ear headphones"},
+ {n:"E-reader",w:"A whole library in a pocket, and the print goes as big as they need.",p:3,t:["reading","grandparent","travel","mum"],q:"kindle e-reader"},
+ {n:"Smartwatch",w:"Fitness, messages, maps on the wrist. Genuinely changes the day.",p:3,t:["tech","fitness","sport","teen"],q:"smartwatch"},
+ {n:"Cast iron dutch oven",w:"Cooks over gas, in the oven and on the coals. Outlives everyone.",p:3,t:["cooking","outdoors","housewarming","partner"],q:"cast iron dutch oven"},
+ {n:"Proper camp chair",w:"With the drink holder, the footrest and the canopy. Camp royalty.",p:3,t:["outdoors","fishing","dad","sport"],q:"deluxe camping chair with canopy"},
+ {n:"Beginner drone",w:"Aerial footage of the farm, the coast, the site. Endless entertainment.",p:3,t:["tech","teen","travel","craft"],q:"beginner camera drone"},
+ {n:"Console game and a second controller",w:"The controller is the real gift — it means someone plays with them.",p:3,t:["gaming","kid","teen"],q:"nintendo switch controller and game"},
+ {n:"A serious bottle of whisky",w:"One good bottle beats a case of average. Make it one they'd never buy.",p:3,t:["drinks","dad","mate","farewell","christmas"],q:"single malt whisky gift"},
+ {n:"Robot vacuum",w:"Hands back an hour a week, every week. Unromantic, wildly appreciated.",p:3,t:["homebody","housewarming","mum","partner"],q:"robot vacuum cleaner"},
+ {n:"Their signature fragrance",w:"Only works if you know the one they wear. If you do, it's a bullseye.",p:3,t:["beauty","partner","anniversary","mum"],q:"perfume gift set"},
+ {n:"Full car detailing kit",w:"Foam gun, clay bar, the lot. For the one who washes it every Sunday.",p:3,t:["cars","dad","teen","mate"],q:"car detailing kit complete"},
+ {n:"Sewing machine",w:"Repairs, alterations, curtains, costumes. A skill machine, not a toy.",p:3,t:["craft","mum","grandparent"],q:"beginner sewing machine"},
+ {n:"Premium pet bed",w:"The dog will be in it within four minutes. Guaranteed photo opportunity.",p:3,t:["pets","housewarming","christmas"],q:"orthopedic dog bed large"},
+
+ {n:"Kettle BBQ",w:"The centrepiece of every gathering they host from now on.",p:4,t:["cooking","outdoors","dad","housewarming"],q:"weber kettle bbq charcoal"},
+ {n:"Skydive or hot air balloon",w:"They'll forget a jumper. They will not forget this.",p:4,t:["partner","anniversary","mate","farewell"],q:"skydive experience voucher"},
+ {n:"A proper bike",w:"Commuting, weekends, fitness. One of the few presents that changes a routine.",p:4,t:["fitness","sport","teen","partner"],q:"hybrid commuter bike"},
+ {n:"Tablet",w:"Recipes, video calls with the grandkids, the paper in the morning.",p:4,t:["tech","grandparent","kid","reading"],q:"tablet ipad"},
+ {n:"Weekend away",w:"Two nights somewhere good. The present is the time together.",p:4,t:["partner","anniversary","mum","dad"],q:"weekend getaway gift voucher"},
+ {n:"Cordless power tool kit",w:"Drill, impact driver, two batteries. The start of every future project.",p:4,t:["dad","mate","housewarming","cars"],q:"cordless drill and impact driver kit"},
+ {n:"Kayak or paddleboard",w:"Gets them on the water without a boat licence or a trailer.",p:4,t:["outdoors","fishing","fitness","sport"],q:"inflatable kayak paddleboard"},
+ {n:"Season tickets or a big gig",w:"Twenty-odd days out over a year, all bought in one go.",p:4,t:["sport","music","dad","teen","mate"],q:"concert and sport event tickets"},
+ {n:"Mirrorless camera",w:"For the one always taking photos on a phone and wishing they were better.",p:4,t:["travel","craft","teen","tech"],q:"mirrorless camera beginner"},
+ {n:"Day spa package",w:"A full day of being looked after. Hard to give yourself permission for.",p:4,t:["beauty","mum","partner","anniversary","thanks"],q:"day spa gift voucher"},
+
+ {n:"Team scarf and cap",w:"Club colours. Worn to every game and half the winter in between.",p:0,t:["sport","dad","teen","kid","mate"],q:"football team supporter scarf and cap"},
+ {n:"Desk-sized mouse mat",w:"Covers the whole desk. Small thing that makes a setup look sorted.",p:0,t:["gaming","tech","teen","workmate"],q:"extended gaming mouse pad desk mat"},
+ {n:"Braided cable set",w:"The cheap ones fray in a month. These don't. Three of them, everywhere they need one.",p:0,t:["tech","travel","teen","workmate"],q:"braided usb c charging cable 3 pack"},
+ {n:"Weighted skipping rope",w:"Ten minutes of this is a workout. Fits in a glovebox.",p:0,t:["fitness","sport","teen"],q:"weighted skipping rope"},
+ {n:"Album art print",w:"The cover of a record they love, framed on the wall. Personal without being soppy.",p:0,t:["music","teen","partner","homebody"],q:"album cover art print framed"},
+
+ {n:"Controller charging dock",w:"Two controllers, always charged. Ends the mid-game scramble for batteries.",p:1,t:["gaming","teen","kid"],q:"game controller charging dock station"},
+ {n:"Adjustable book stand",w:"Holds the book open and upright \u2014 for reading while eating, or a recipe on the bench.",p:1,t:["reading","cooking","grandparent"],q:"adjustable book stand holder"},
+
+ {n:"A box set of their series",w:"The whole run in matching spines. Sorts out their next three months.",p:2,t:["reading","teen","partner","christmas"],q:"book series box set"},
+ {n:"Pet camera with treat dispenser",w:"Watch the dog from work and fire it a treat. Absurd, and universally loved.",p:2,t:["pets","homebody","tech"],q:"pet camera treat dispenser"},
+ {n:"Hair styling set",w:"A dryer or straightener that isn't the $29 one they've limped along with for years.",p:2,t:["beauty","teen","partner","mum"],q:"hair dryer styling tool set"},
+
+ {n:"Cordless hedge trimmer",w:"Same battery as the drill. Turns a full Saturday job into an hour.",p:3,t:["gardening","dad","grandparent","housewarming"],q:"cordless hedge trimmer"},
+
+ {n:"Gaming chair",w:"They sit in it four hours a night. Their back will thank you for a decade.",p:4,t:["gaming","teen","tech"],q:"ergonomic gaming chair"},
+ {n:"Steel raised garden bed",w:"Waist height, no bending, no bad backs. Doubles what they can grow.",p:4,t:["gardening","grandparent","dad","housewarming"],q:"raised garden bed steel"},
+ {n:"Espresso machine and grinder",w:"The grinder is the half everyone skips, and the half that matters most.",p:4,t:["coffee","partner","anniversary","housewarming"],q:"espresso machine and burr grinder set"},
+ {n:"Wine fridge",w:"For the one whose collection has outgrown the pantry floor.",p:4,t:["drinks","dad","partner","housewarming"],q:"wine fridge cooler"},
+ {n:"Self-cleaning litter box",w:"Buys back a daily chore forever. The least glamorous, most thanked-for present going.",p:4,t:["pets","homebody","housewarming"],q:"self cleaning litter box"},
+ {n:"Soundbar and subwoofer",w:"Every film and every game at home suddenly sounds like it should.",p:4,t:["homebody","tech","music","gaming"],q:"soundbar with subwoofer"}
+];
+
+/* ---------- state ---------- */
+const S = {rel:"", occ:"", int:new Set(), bud:1, offset:0, tab:"find"};
+const store = {
+  get(k,d){ try{ return JSON.parse(localStorage.getItem("epg_"+k)) ?? d }catch(e){ return d } },
+  set(k,v){ try{ localStorage.setItem("epg_"+k, JSON.stringify(v)) }catch(e){} }
+};
+let people = store.get("people", []);
+let list   = store.get("list", []);
+let shared = null;
+
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid = () => "g"+Math.random().toString(36).slice(2,9);
+
+function buyUrl(item){
+  return AFFILIATE.template
+    .replace("{query}", encodeURIComponent(item.q))
+    .replace("{tag}", encodeURIComponent(AFFILIATE.tag));
+}
+
+/* ---------- chips ---------- */
+function chips(hostSel, items, kind){
+  const host = $(hostSel);
+  host.innerHTML = items.map((it,i) => {
+    const [v,l] = Array.isArray(it) ? it : [i,it];
+    return `<button class="chip" role="button" aria-pressed="false" data-kind="${kind}" data-v="${v}">${esc(l)}</button>`;
+  }).join("");
+}
+chips("#c-rel", REL, "rel");
+chips("#c-occ", OCC, "occ");
+chips("#c-int", INT, "int");
+chips("#c-bud", BUD, "bud");
+
+document.addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if(!chip) return;
+  const {kind, v} = chip.dataset;
+  if(kind === "int"){
+    S.int.has(v) ? S.int.delete(v) : S.int.add(v);
+    chip.setAttribute("aria-pressed", S.int.has(v));
+  } else {
+    const on = chip.getAttribute("aria-pressed") === "true";
+    $$(`.chip[data-kind="${kind}"]`).forEach(c => c.setAttribute("aria-pressed","false"));
+    if(!on || kind === "bud"){ chip.setAttribute("aria-pressed","true"); S[kind] = kind === "bud" ? +v : v; }
+    else { S[kind] = ""; }
+  }
+  S.offset = 0;
+});
+$$('.chip[data-kind="bud"]')[1].setAttribute("aria-pressed","true");
+
+/* ---------- matching ---------- */
+function score(item){
+  let s = 0;
+  S.int.forEach(i => { if(item.t.includes(i)) s += 3; });
+  if(S.rel && item.t.includes(S.rel)) s += 2;
+  if(S.occ && item.t.includes(S.occ)) s += 2;
+  return s;
+}
+function matches(){
+  let pool = G.filter(g => g.p === S.bud);
+  if(pool.length < 8) pool = G.filter(g => Math.abs(g.p - S.bud) <= 1);
+  const ranked = pool.map((g,i) => ({g, s:score(g), i}))
+                     .sort((a,b) => b.s - a.s || a.i - b.i)
+                     .map(x => x.g);
+  const top = ranked.filter((g,i) => i < 24);
+  const start = (S.offset * 9) % Math.max(top.length, 1);
+  return [...top.slice(start), ...top.slice(0, start)].slice(0, 9);
+}
+
+function giftCard(g, i){
+  const saved = list.some(x => x.n === g.n);
+  return `<article class="card in" style="animation-delay:${i*38}ms">
+    <div class="tagrow"><span class="price">${esc(BUD[g.p])}</span></div>
+    <h3>${esc(g.n)}</h3>
+    <p class="why">${esc(g.w)}</p>
+    <div class="btns">
+      <a class="buy" href="${buyUrl(g)}" target="_blank" rel="noopener sponsored">${esc(AFFILIATE.label)}</a>
+      <button class="save" data-save="${esc(g.n)}" data-on="${saved?1:0}">${saved ? "Saved" : "Save"}</button>
+    </div>
+  </article>`;
+}
+
+function renderResults(){
+  const found = matches();
+  const who = S.rel ? (REL.find(r => r[0] === S.rel)||["",""])[1].toLowerCase() : "them";
+  $("#results").innerHTML = `
+    <div class="sechead">
+      <h2>${found.length} ideas for ${esc(who)}</h2>
+      <span class="count">${esc(BUD[S.bud])}</span>
+      <button class="linky" id="more">Show me different ones</button>
+    </div>
+    <div class="grid">${found.map(giftCard).join("")}</div>`;
+  $("#more").onclick = () => { S.offset++; renderResults(); };
+}
+
+$("#go").onclick = () => {
+  renderResults();
+  $("#results").scrollIntoView({behavior:"smooth", block:"start"});
+};
+
+/* ---------- saving to the list ---------- */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-save]");
+  if(!b) return;
+  const name = b.dataset.save;
+  const g = G.find(x => x.n === name);
+  const at = list.findIndex(x => x.n === name);
+  if(at > -1){ list.splice(at,1); b.dataset.on = "0"; b.textContent = "Save"; }
+  else { list.push({id:uid(), n:g.n, q:g.q, p:g.p}); b.dataset.on = "1"; b.textContent = "Saved"; }
+  store.set("list", list);
+  paintListCount();
+});
+function paintListCount(){
+  $("#listcount").textContent = list.length ? list.length + " saved" : "";
+}
+
+/* ---------- people ---------- */
+function daysUntil(dob){
+  if(!dob) return null;
+  const [y,m,d] = dob.split("-").map(Number);
+  const now = new Date(); now.setHours(0,0,0,0);
+  let next = new Date(now.getFullYear(), m-1, d);
+  if(next < now) next = new Date(now.getFullYear()+1, m-1, d);
+  return Math.round((next - now) / 86400000);
+}
+function relLabel(v){ return (REL.find(r => r[0] === v) || ["",""])[1]; }
+
+function renderPeople(){
+  $("#peoplecount").textContent = people.length ? people.length + " on the list" : "";
+  if(!people.length){
+    $("#peoplelist").innerHTML = `<div class="empty"><h3>Nobody on the list yet</h3>
+      <p>Add the people you buy for and Gifty counts down to every birthday, and remembers what you already gave them.</p></div>`;
+    return;
+  }
+  const sorted = [...people].sort((a,b) => {
+    const da = daysUntil(a.dob), db = daysUntil(b.dob);
+    if(da === null) return 1; if(db === null) return -1;
+    return da - db;
+  });
+  $("#peoplelist").innerHTML = sorted.map(p => {
+    const d = daysUntil(p.dob);
+    let pill = "";
+    if(d === 0) pill = `<span class="days today">Today!</span>`;
+    else if(d !== null) pill = `<span class="days ${d <= 21 ? "soon" : ""}">${d} day${d===1?"":"s"}</span>`;
+    const bits = [relLabel(p.rel), p.int].filter(Boolean).join(" &middot; ");
+    return `<div class="person">
+      <div class="avatar" aria-hidden="true">${esc(((p.name||"").trim()[0] || "?").toUpperCase())}</div>
+      <div class="body">
+        <div class="tagrow" style="justify-content:space-between">
+          <h3>${esc(p.name)}</h3>${pill}
+        </div>
+        ${bits ? `<div class="meta">${bits}</div>` : ""}
+        ${p.note ? `<div class="given">Last gift: <b>${esc(p.note)}</b> &mdash; don't repeat it</div>` : ""}
+        <div class="acts">
+          <button class="linky" data-shop="${esc(p.id)}">Find them something</button>
+          <button class="linky" data-del="${esc(p.id)}">Remove</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+$("#prel").innerHTML = `<option value="">&mdash;</option>` +
+  REL.map(([v,l]) => `<option value="${v}">${esc(l)}</option>`).join("");
+
+$("#personform").addEventListener("submit", e => {
+  e.preventDefault();
+  people.push({
+    id:uid(), name:$("#pname").value.trim(), rel:$("#prel").value,
+    dob:$("#pdob").value, int:$("#pint").value.trim(), note:$("#pnote").value.trim()
+  });
+  store.set("people", people);
+  e.target.reset();
+  renderPeople();
+});
+
+document.addEventListener("click", e => {
+  const del = e.target.closest("[data-del]");
+  if(del){
+    people = people.filter(p => p.id !== del.dataset.del);
+    store.set("people", people); renderPeople(); return;
+  }
+  const shop = e.target.closest("[data-shop]");
+  if(shop){
+    const p = people.find(x => x.id === shop.dataset.shop);
+    if(!p) return;
+    S.rel = p.rel || ""; S.int = new Set();
+    (p.int || "").toLowerCase().split(/[,\s]+/).forEach(word => {
+      const hit = INT.find(([v,l]) => v === word || l.toLowerCase() === word);
+      if(hit) S.int.add(hit[0]);
+    });
+    $$(".chip").forEach(c => {
+      const {kind,v} = c.dataset;
+      c.setAttribute("aria-pressed",
+        kind === "rel" ? String(v === S.rel) :
+        kind === "int" ? String(S.int.has(v)) :
+        kind === "bud" ? String(+v === S.bud) : "false");
+    });
+    $("#forwho").textContent = "Looking for " + p.name;
+    show("find"); renderResults();
+    $("#finder").scrollIntoView({behavior:"smooth", block:"start"});
+  }
+});
+
+/* ---------- the list, and sharing it ---------- */
+function renderList(){
+  paintListCount();
+  $("#listtitle").textContent = shared ? (shared.title || "A shared list") : "My list";
+  $("#sharednotice").innerHTML = shared
+    ? `<div class="sharebar" style="margin-bottom:20px"><p><b>${esc(shared.by || "Someone")}</b> shared this list with you. Nothing here is bought yet.</p>
+       <button class="submit" id="mineinstead">Start my own list</button></div>` : "";
+  const items = shared ? shared.items : list;
+
+  if(!items.length){
+    $("#listbody").innerHTML = `<div class="empty"><h3>Nothing saved yet</h3>
+      <p>Tap <b>Save</b> on any gift idea and it lands here. Then share the whole list with whoever's chipping in.</p></div>`;
+    return;
+  }
+  $("#listbody").innerHTML = `<div class="grid">${items.map((it,i) => `
+    <article class="card in" style="animation-delay:${i*38}ms">
+      <div class="tagrow"><span class="price">${esc(BUD[it.p] || "")}</span></div>
+      <h3>${esc(it.n)}</h3>
+      <div class="btns">
+        <a class="buy" href="${buyUrl(it)}" target="_blank" rel="noopener sponsored">${esc(AFFILIATE.label)}</a>
+        ${shared ? "" : `<button class="save" data-drop="${esc(it.id)}">Remove</button>`}
+      </div>
+    </article>`).join("")}</div>`;
+}
+document.addEventListener("click", e => {
+  const d = e.target.closest("[data-drop]");
+  if(d){ list = list.filter(x => x.id !== d.dataset.drop); store.set("list", list); renderList(); }
+  if(e.target.id === "mineinstead"){ shared = null; location.hash = ""; renderList(); }
+});
+
+function b64u(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function unb64u(s){
+  const b = atob(s.replace(/-/g,"+").replace(/_/g,"/"));
+  return new TextDecoder().decode(Uint8Array.from(b, c => c.charCodeAt(0)));
+}
+
+$("#sharebtn").onclick = async () => {
+  if(!list.length){ alert("Save a few gift ideas first, then you'll have something to share."); return; }
+  const by = prompt("Whose list is this? (shows on the shared page)", "") || "";
+  const payload = {title: by ? by + "'s list" : "A gift list", by, items: list};
+  const url = location.origin + location.pathname + "#list=" + b64u(JSON.stringify(payload));
+  try{
+    if(navigator.share){ await navigator.share({title:"My gift list", url}); return; }
+    await navigator.clipboard.writeText(url);
+    alert("Link copied. Send it to whoever's buying.");
+  }catch(err){
+    prompt("Copy this link and send it on:", url);
+  }
+};
+
+function readHash(){
+  const m = location.hash.match(/^#list=(.+)$/);
+  if(!m){ shared = null; return; }
+  try{ shared = JSON.parse(unb64u(m[1])); }catch(e){ shared = null; }
+}
+
+/* ---------- tabs ---------- */
+function show(tab){
+  S.tab = tab;
+  $$(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === tab)));
+  $("#p-find").classList.toggle("hidden", tab !== "find");
+  $("#p-people").classList.toggle("hidden", tab !== "people");
+  $("#p-lists").classList.toggle("hidden", tab !== "lists");
+  $("#finder").classList.toggle("hidden", tab !== "find");
+  if(tab === "people") renderPeople();
+  if(tab === "lists") renderList();
+}
+$$(".tab").forEach(t => t.onclick = () => show(t.dataset.tab));
+
+/* ---------- boot ---------- */
+readHash();
+window.addEventListener("hashchange", () => { readHash(); show("lists"); });
+renderResults();
+paintListCount();
+show(shared ? "lists" : "find");
+</script>
