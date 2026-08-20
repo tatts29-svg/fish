@@ -1,7 +1,7 @@
-# Coates K2 suite version - 125 files - overall f0c352ed
+# Coates K2 suite version - 128 files - overall 8c19fbd3
 # MACHINE: master (built by Claude)
 # /home/user/fish/01_Reporting_Suite
-# taken 2026-07-31 17:58:05
+# taken 2026-08-20 23:17:11
 359be51783 00_RUN_EVERYTHING.bat
 ce7c5cdaed 01_RUN_PREFILL_DAILY.bat
 f34a5c1c79 02_RUN_COST_SNAPSHOT.bat
@@ -55,6 +55,7 @@ d803266ea1 50_ADD_LIFTING_CHARGES.bat
 8b35641322 54_RUN_INVOICE_BREAKDOWN.bat
 a4a050f5e2 55_PRINT_ITEM_LABELS.bat
 622c10829f 56_PHOTO_HUNT.bat
+2fbdec1de8 57_HVAC_POWER_CATALOG.bat
 4abea8c170 ADD_GEAR.py
 0216ade5c5 ADD_LIFTING_CHARGES.py
 3ec44ba3f8 ADD_NEW_CONTACTS.py
@@ -102,12 +103,14 @@ a49f1ea35c activity_model.py
 064ec01f28 build_clean_report.py
 3f8dc50d72 build_company_onhire_report.py
 1215cf56b4 build_cost_snapshot.py
+0581800b01 build_equipment_catalog.py
 a03115ce96 build_invoice_breakdown.py
 3db5a9a8de build_plant_dashboard.py
 ce2058e40b build_posters.py
 06fd0346ff build_utilisation_report.py
 9902310cbf build_workbook_html.py
 3dd28e5c7a email_images.py
+75d534948f equipment_catalog.py
 fc7018a232 equipment_compliance.py
 ec134ce6e3 k2_consumables.py
 f64b1b9997 k2_daily_packs.py
