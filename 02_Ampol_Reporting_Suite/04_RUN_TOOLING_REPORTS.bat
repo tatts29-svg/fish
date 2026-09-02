@@ -3,6 +3,8 @@ title Coates Ampol - 04 Tooling Reports
 rem ============================================================
 rem  COATES - AMPOL TOOL STORE (Lytton Refinery)
 rem  04 - TOOL STORE ON-HIRE REPORTS (exec, quarters, companies, utilisation)
+rem  Counts from Data\RENTAL_STOCK, TRANSACTIONS and STOCKTAKE (SiteIQ pulls).
+rem  The tooling workbook is NOT read - nothing to refresh (02 Sep 2026).
 rem  Author: Andrew Fisher - POWERED BY SITEIQ
 rem
 rem  Every report reads its Excels from Data\  - one area, always.
