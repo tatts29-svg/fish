@@ -143,7 +143,18 @@ def stackband(segs, w=636, bh=38):
     """One rounded horizontal band split into proportional segments -
     the fleet-composition strip on page 1. segs: (label, value, colour)."""
     total = sum(v for _, v, _ in segs) or 1
-    h = bh + 42
+    # legend wraps onto a second row when the labels will not fit one line
+    # (seven segments did, and the last one printed as "Re" off the panel)
+    legend, lx, rows_n = [], 0.0, 1
+    for lab, v, col in segs:
+        t = f"{lab} {v}"
+        tw = 12 + 5.2 * len(t) + 16
+        if lx + tw > w and lx > 0:
+            rows_n += 1
+            lx = 0.0
+        legend.append((rows_n, lx, t, col))
+        lx += tw
+    h = bh + 26 + 16 * rows_n
     out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">',
            f'<defs><clipPath id="band"><rect x="0" y="0" width="{w}" '
            f'height="{bh}" rx="7"/></clipPath></defs>',
@@ -160,15 +171,11 @@ def stackband(segs, w=636, bh=38):
                        f'font-weight="700">{v}</text>')
         x += seg_w
     out.append('</g>')
-    # legend, one row
-    lx = 0
-    ly = bh + 26
-    for lab, v, col in segs:
-        out.append(f'<circle cx="{lx + 4}" cy="{ly - 3}" r="3.8" fill="{col}"/>')
-        t = f"{lab} {v}"
-        out.append(f'<text x="{lx + 12}" y="{ly}" fill="#C9D6E2" '
+    for row_i, lx, t, col in legend:
+        ly = bh + 26 + 16 * (row_i - 1)
+        out.append(f'<circle cx="{lx + 4:.1f}" cy="{ly - 3}" r="3.8" fill="{col}"/>')
+        out.append(f'<text x="{lx + 12:.1f}" y="{ly}" fill="#C9D6E2" '
                    f'font-family="Lato, Calibri, sans-serif" font-size="8.8">{esc(t)}</text>')
-        lx += 12 + 5.2 * len(t) + 16
     out.append("</svg>")
     return "".join(out)
 
@@ -290,22 +297,25 @@ def line_chart(x_labels, series, w=636, h=196, label_every=1, pct=False,
     return "".join(out)
 
 
-def hbars(rows, w=636, colour="#F36F21"):
-    """Horizontal bars on a dark panel - repairs by category."""
+def hbars(rows, w=636, colour="#F36F21", rowh=24, lab_w=172, right=None):
+    """Horizontal bars on a dark panel - repairs by category.
+    rows: (label, value) or (label, value, right_text). right_text, when
+    given, prints instead of the bare value (e.g. '213 of 316')."""
     if not rows:
         return '<div class="note">Nothing recorded in the source.</div>'
-    rowh = 24
     h = len(rows) * rowh + 10
-    mx = max(v for _, v in rows) or 1
-    lab_w = 172
+    mx = max(r[1] for r in rows) or 1
+    val_w = 46 if right is None else right
     out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
-    for i, (lab, v) in enumerate(rows):
+    for i, r in enumerate(rows):
+        lab, v = r[0], r[1]
+        rt = r[2] if len(r) > 2 else str(v)
         y = 5 + i * rowh
-        bw = (w - lab_w - 46) * (v / mx)
+        bw = (w - lab_w - val_w) * (v / mx)
         out.append(f'<text x="0" y="{y + 12}" fill="#C9D6E2" '
                    f'font-family="Lato, Calibri, sans-serif" font-size="9">'
-                   f'{esc(lab[:32])}</text>')
-        out.append(f'<rect x="{lab_w}" y="{y + 3.5}" width="{w - lab_w - 46}" '
+                   f'{esc(str(lab)[:34])}</text>')
+        out.append(f'<rect x="{lab_w}" y="{y + 3.5}" width="{w - lab_w - val_w}" '
                    f'height="10" rx="5" fill="#26313D"/>')
         if v > 0:
             out.append(f'<rect x="{lab_w}" y="{y + 3.5}" '
@@ -313,7 +323,167 @@ def hbars(rows, w=636, colour="#F36F21"):
                        f'fill="{colour}"/>')
         out.append(f'<text x="{w}" y="{y + 12}" text-anchor="end" fill="#FFFFFF" '
                    f'font-family="Lato, Calibri, sans-serif" font-size="9.4" '
-                   f'font-weight="700">{v}</text>')
+                   f'font-weight="700">{esc(rt)}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def combo_chart(labels, bars, line, w=636, h=210, bar_colour="#F36F21",
+                line_colour="#22C55E", bar_label="Draws", line_label="Same day %",
+                partial_last=False):
+    """Bars on the left axis with a percentage line on the right axis -
+    the monthly 'volume plus behaviour' picture. bars and line are lists
+    the same length as labels; line values are 0-100."""
+    n = len(labels)
+    if n < 1:
+        return '<div class="note">Nothing recorded in the source.</div>'
+    top, base, pad_l, pad_r = 34, h - 28, 8, 40
+    plot_w = w - pad_l - pad_r
+    slot = plot_w / n
+    bw = slot * 0.56
+    bmax = (max(bars) or 1) * 1.18
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    for g in (0.25, 0.5, 0.75, 1.0):
+        y = base - (base - top) * g
+        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" y2="{y:.1f}" '
+                   f'stroke="#26313D" stroke-width="0.7"/>')
+        out.append(f'<text x="{w - pad_r + 6}" y="{y + 3:.1f}" fill="#5F7183" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="7.4">{int(100 * g)}%</text>')
+    out.append(f'<line x1="{pad_l}" y1="{base}" x2="{w - pad_r}" y2="{base}" '
+               f'stroke="#3A4756" stroke-width="1"/>')
+    xs = []
+    for i, lab in enumerate(labels):
+        x0 = pad_l + i * slot + (slot - bw) / 2
+        v = bars[i]
+        bh = (base - top) * (v / bmax)
+        fill = bar_colour
+        extra = ""
+        if partial_last and i == n - 1:
+            extra = ' fill-opacity="0.45"'
+        out.append(f'<rect x="{x0:.1f}" y="{base - bh:.1f}" width="{bw:.1f}" '
+                   f'height="{bh:.1f}" rx="3" fill="{fill}"{extra}/>')
+        if v:
+            out.append(f'<text x="{x0 + bw / 2:.1f}" y="{base - bh - 4:.1f}" '
+                       f'text-anchor="middle" fill="#C9D6E2" '
+                       f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{num(v)}</text>')
+        out.append(f'<text x="{x0 + bw / 2:.1f}" y="{base + 13}" text-anchor="middle" '
+                   f'fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" '
+                   f'font-size="8">{esc(lab)}</text>')
+        xs.append(x0 + bw / 2)
+
+    def Y(p):
+        return base - (base - top) * (p / 100.0)
+    pts = " ".join(f"{xs[i]:.1f},{Y(line[i]):.1f}" for i in range(n))
+    out.append(f'<polyline points="{pts}" fill="none" stroke="{line_colour}" '
+               f'stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>')
+    for i in range(n):
+        out.append(f'<circle cx="{xs[i]:.1f}" cy="{Y(line[i]):.1f}" r="3.2" fill="{line_colour}"/>')
+        out.append(f'<rect x="{xs[i] - 13:.1f}" y="{Y(line[i]) - 17:.1f}" width="26" height="11" '
+                   f'rx="3" fill="#0F1620" fill-opacity="0.85"/>')
+        out.append(f'<text x="{xs[i]:.1f}" y="{Y(line[i]) - 8.5:.1f}" text-anchor="middle" '
+                   f'fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" '
+                   f'font-size="7.6" font-weight="700">{int(round(line[i]))}%</text>')
+    lx = w - pad_r - 190
+    out.append(f'<rect x="{lx}" y="5" width="9" height="9" rx="2" fill="{bar_colour}"/>'
+               f'<text x="{lx + 13}" y="13" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+               f'font-size="8">{esc(bar_label)}</text>')
+    out.append(f'<circle cx="{lx + 100}" cy="9.5" r="3.8" fill="{line_colour}"/>'
+               f'<text x="{lx + 108}" y="13" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+               f'font-size="8">{esc(line_label)}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def daily_bars(rows, w=636, h=196, label_every=3, ok_colour="#1FA75A",
+               bad_colour="#EF4444", ok_label="Back same day",
+               bad_label="Not back same day"):
+    """One stacked bar per calendar day: same-day returns under, non-returns
+    on top, total printed above. rows: {label, draws, nsd, weekend, partial}."""
+    n = len(rows)
+    if n < 1:
+        return '<div class="note">Nothing recorded in the source.</div>'
+    top, base, pad_l, pad_r = 32, h - 26, 6, 10
+    plot_w = w - pad_l - pad_r
+    slot = plot_w / n
+    bw = slot * 0.72
+    mx = (max(r["draws"] for r in rows) or 1) * 1.16
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    for g in (0.25, 0.5, 0.75, 1.0):
+        y = base - (base - top) * g
+        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" y2="{y:.1f}" '
+                   f'stroke="#26313D" stroke-width="0.7"/>')
+    out.append(f'<line x1="{pad_l}" y1="{base}" x2="{w - pad_r}" y2="{base}" '
+               f'stroke="#3A4756" stroke-width="1"/>')
+    for i, r in enumerate(rows):
+        x0 = pad_l + i * slot + (slot - bw) / 2
+        ok = r["draws"] - r["nsd"]
+        h_ok = (base - top) * ok / mx
+        h_bad = (base - top) * r["nsd"] / mx
+        op = ' fill-opacity="0.5"' if r.get("partial") else ""
+        if r.get("weekend") and not r["draws"]:
+            out.append(f'<rect x="{x0:.1f}" y="{base - 3}" width="{bw:.1f}" height="3" '
+                       f'fill="#3A4756"/>')
+        if h_ok > 0:
+            out.append(f'<rect x="{x0:.1f}" y="{base - h_ok:.1f}" width="{bw:.1f}" '
+                       f'height="{h_ok:.1f}" fill="{ok_colour}"{op}/>')
+        if h_bad > 0:
+            out.append(f'<rect x="{x0:.1f}" y="{base - h_ok - h_bad:.1f}" width="{bw:.1f}" '
+                       f'height="{h_bad:.1f}" fill="{bad_colour}"{op}/>')
+        if r["draws"]:
+            out.append(f'<text x="{x0 + bw / 2:.1f}" y="{base - h_ok - h_bad - 3.5:.1f}" '
+                       f'text-anchor="middle" fill="#C9D6E2" '
+                       f'font-family="Lato, Calibri, sans-serif" font-size="6.8">{r["draws"]}</text>')
+        if i % label_every == 0 or i == n - 1:
+            anchor = "start" if i == 0 else "end" if i == n - 1 else "middle"
+            out.append(f'<text x="{x0 + bw / 2:.1f}" y="{base + 12}" text-anchor="{anchor}" '
+                       f'fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" '
+                       f'font-size="7">{esc(r["label"])}</text>')
+    lx = w - 250
+    out.append(f'<rect x="{lx}" y="5" width="9" height="9" rx="2" fill="{ok_colour}"/>'
+               f'<text x="{lx + 13}" y="13" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+               f'font-size="8">{esc(ok_label)}</text>')
+    out.append(f'<rect x="{lx + 118}" y="5" width="9" height="9" rx="2" fill="{bad_colour}"/>'
+               f'<text x="{lx + 131}" y="13" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+               f'font-size="8">{esc(bad_label)}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def stacked_hbars(rows, segs, w=636, rowh=25, lab_w=150):
+    """One stacked horizontal bar per row. rows: (label, [v1, v2, ...]);
+    segs: (name, colour) per value position. Total prints on the right,
+    non-zero segment counts print inside their block."""
+    if not rows:
+        return '<div class="note">Nothing recorded in the source.</div>'
+    h = len(rows) * rowh + 26
+    mx = max(sum(v) for _, v in rows) or 1
+    bar_w = w - lab_w - 44
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    lx = 0
+    for name, col in segs:
+        out.append(f'<rect x="{lx}" y="3" width="9" height="9" rx="2" fill="{col}"/>'
+                   f'<text x="{lx + 13}" y="11" fill="#C9D6E2" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="8">{esc(name)}</text>')
+        lx += 13 + 5.0 * len(name) + 14
+    for i, (lab, vals) in enumerate(rows):
+        y = 22 + i * rowh
+        out.append(f'<text x="0" y="{y + 11}" fill="#C9D6E2" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="9">{esc(str(lab)[:26])}</text>')
+        out.append(f'<rect x="{lab_w}" y="{y + 2}" width="{bar_w}" height="12" rx="4" fill="#26313D"/>')
+        x = lab_w
+        for (name, col), v in zip(segs, vals):
+            if not v:
+                continue
+            sw = bar_w * v / mx
+            out.append(f'<rect x="{x:.1f}" y="{y + 2}" width="{sw:.1f}" height="12" fill="{col}"/>')
+            if sw > 14:
+                out.append(f'<text x="{x + sw / 2:.1f}" y="{y + 11}" text-anchor="middle" '
+                           f'fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" '
+                           f'font-size="7.6" font-weight="700">{v}</text>')
+            x += sw
+        out.append(f'<text x="{w}" y="{y + 11}" text-anchor="end" fill="#FFFFFF" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="9.4" '
+                   f'font-weight="700">{sum(vals)}</text>')
     out.append("</svg>")
     return "".join(out)
 
@@ -381,8 +551,9 @@ def alerts(items):
             f'<table class="al">{rows}</table></div>')
 
 
-def dtable(headers, rows, aligns=None):
-    """Zebra data table with the dark header row."""
+def dtable(headers, rows, aligns=None, cls=""):
+    """Zebra data table with the dark header row. cls="cp" for the compact
+    appendix variant (smaller type, tighter rows)."""
     aligns = aligns or [""] * len(headers)
     th = "".join(f'<th class="{a}">{esc(h)}</th>' for h, a in zip(headers, aligns))
     body = []
@@ -390,7 +561,8 @@ def dtable(headers, rows, aligns=None):
         z = ' class="z"' if i % 2 else ""
         tds = "".join(f'<td class="{a}">{c}</td>' for c, a in zip(r, aligns))
         body.append(f"<tr{z}>{tds}</tr>")
-    return f'<table class="dt"><tr>{th}</tr>{"".join(body)}</table>'
+    k = f"dt {cls}".strip()
+    return f'<table class="{k}"><tr>{th}</tr>{"".join(body)}</table>'
 
 
 def info_cards(cards):
@@ -443,9 +615,12 @@ def footer(cfg):
         sh = f'<span class="sh">{esc(p["shift"])}</span> ' if p.get("shift") else ""
         bits.append(f'{sh}<b>{esc(p["name"])}</b> {esc(p["role"])}')
     line = " · ".join(bits)
-    if len(cfg["team"]) == 1:
-        line += ('  <span style="color:#B4C0CB">'
-                 '— add the Ampol store team in CONFIG["team"]</span>')
+    # WHY (02 Sep 2026): the old one-member hint ("add the Ampol store team
+    # in CONFIG") printed on every page of a client PDF. A build note never
+    # belongs on the customer's copy - the footer shows the team it has.
+    tail = cfg.get("foot_note", "")
+    if tail:
+        line += f'  <span style="color:#B4C0CB">{esc(tail)}</span>'
     return ('<div class="foot"><div class="foot-h">Your Coates Tool Store Team</div>'
             f'<div class="foot-l">{line}</div></div>')
 
@@ -476,7 +651,7 @@ def page1_head(cfg, gen_s, asat_s):
     </td>
   </tr></table>
   <div class="meta">Generated: <b>{esc(gen_s)}</b> &nbsp;|&nbsp;
-    Data as at: <b>{esc(asat_s)}</b> (workbook file time) &nbsp;|&nbsp;
+    Data as at: <b>{esc(asat_s)}</b> {esc(cfg.get("asat_note", "(workbook file time)"))} &nbsp;|&nbsp;
     Author: <b>Andrew Fisher</b></div>
 </div>"""
 
@@ -834,3 +1009,87 @@ def alerts_panel(items):
 </td></tr></table>"""
 
 
+
+
+def combo_png(labels, bars, line, width, bar_colour=None, line_colour="#22C55E",
+              bar_label="Draws", line_label="Same day %", partial_last=False, h=440):
+    """Email twin of combo_chart: bars (left axis) + percentage line (0-100)."""
+    bar_colour = bar_colour or K["orange"]
+    W, H = width * 2, h
+    im, d = _panel(W, H)
+    n = len(labels)
+    if n < 1:
+        return img_tag(im, width, "chart")
+    top, base, pl, pr = 70, H - 56, 30, 84
+    slot = (W - pl - pr) / n
+    bw = slot * 0.56
+    bmax = (max(bars) or 1) * 1.18
+    fl, fv, fb = _font(18), _font(16), _font(18, True)
+    for g in (0.25, 0.5, 0.75, 1.0):
+        y = base - (base - top) * g
+        d.line([(pl, y), (W - pr, y)], fill="#26313D", width=1)
+        d.text((W - pr + 12, y - 10), f"{int(100 * g)}%", font=fv, fill="#5F7183")
+    d.line([(pl, base), (W - pr, base)], fill="#3A4756", width=2)
+    xs = []
+    for i, lab in enumerate(labels):
+        x0 = pl + i * slot + (slot - bw) / 2
+        bh = (base - top) * bars[i] / bmax
+        col = bar_colour
+        if partial_last and i == n - 1:
+            c = bar_colour.lstrip("#")
+            rgb = tuple(int(c[j:j + 2], 16) for j in (0, 2, 4))
+            col = tuple(int(v * 0.55 + 23 * 0.45) for v in rgb)
+        d.rectangle([x0, base - bh, x0 + bw, base], fill=col)
+        if bars[i]:
+            d.text((x0 + bw / 2 - _tw(d, num(bars[i]), fv) / 2, base - bh - 24),
+                   num(bars[i]), font=fv, fill="#C9D6E2")
+        d.text((x0 + bw / 2 - _tw(d, lab, fl) / 2, base + 12), lab, font=fl, fill="#8A9AAC")
+        xs.append(x0 + bw / 2)
+
+    def Y(p):
+        return base - (base - top) * p / 100.0
+    pts = [(xs[i], Y(line[i])) for i in range(n)]
+    if n > 1:
+        d.line(pts, fill=line_colour, width=5, joint="curve")
+    for i, (x, y) in enumerate(pts):
+        d.ellipse([x - 7, y - 7, x + 7, y + 7], fill=line_colour)
+        t = f"{int(round(line[i]))}%"
+        tw = _tw(d, t, fb)
+        d.rounded_rectangle([x - tw / 2 - 6, y - 36, x + tw / 2 + 6, y - 12], 5, fill="#0F1620")
+        d.text((x - tw / 2, y - 34), t, font=fb, fill="#FFFFFF")
+    lx = W - pr - 420
+    d.rectangle([lx, 24, lx + 18, 42], fill=bar_colour)
+    d.text((lx + 26, 20), bar_label, font=fl, fill="#C9D6E2")
+    d.ellipse([lx + 200, 25, lx + 216, 41], fill=line_colour)
+    d.text((lx + 226, 20), line_label, font=fl, fill="#C9D6E2")
+    return img_tag(im, width, "volume and same-day trend")
+
+
+def stacked_hbars_png(rows, segs, width, rowh=52, lab_w=300):
+    """Email twin of stacked_hbars. rows: (label, [values]); segs: (name, colour)."""
+    W = width * 2
+    H = len(rows) * rowh + 70
+    im, d = _panel(W, H)
+    mx = max((sum(v) for _, v in rows), default=1) or 1
+    fl, fb, fs = _font(19), _font(20, True), _font(16, True)
+    lx = 30
+    for name, col in segs:
+        d.rectangle([lx, 22, lx + 16, 38], fill=col)
+        d.text((lx + 24, 18), name, font=fl, fill="#C9D6E2")
+        lx += 24 + _tw(d, name, fl) + 34
+    bar_x0, bar_x1 = lab_w, W - 90
+    for i, (lab, vals) in enumerate(rows):
+        y = 58 + i * rowh
+        d.text((30, y + 8), str(lab)[:28], font=fl, fill="#C9D6E2")
+        d.rounded_rectangle([bar_x0, y + 8, bar_x1, y + 34], 6, fill="#26313D")
+        x = bar_x0
+        for (name, col), v in zip(segs, vals):
+            if not v:
+                continue
+            sw = (bar_x1 - bar_x0) * v / mx
+            d.rectangle([x, y + 8, x + sw, y + 34], fill=col)
+            if sw > 30:
+                d.text((x + sw / 2 - _tw(d, str(v), fs) / 2, y + 11), str(v), font=fs, fill="#FFFFFF")
+            x += sw
+        d.text((W - 30 - _tw(d, str(sum(vals)), fb), y + 8), str(sum(vals)), font=fb, fill="#FFFFFF")
+    return img_tag(im, width, "stacked bars")

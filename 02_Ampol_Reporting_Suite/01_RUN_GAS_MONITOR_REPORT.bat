@@ -5,6 +5,9 @@ rem  COATES - AMPOL TOOL STORE (Lytton Refinery)
 rem  01 - GAS MONITOR REPORT (K2-style PDF + email draft)
 rem  Author: Andrew Fisher - POWERED BY SITEIQ
 rem
+rem  02 Sep 2026: every number is counted from RENTAL_STOCK.xlsx and
+rem  TRANSACTIONS.xlsx in Data\ (gasmon_engine.py). The gas workbook
+rem  is optional - attached to the email when present, never a source.
 rem  Every report reads its Excels from Data\  - one area, always.
 rem  Output lands in Reports\(today's date) - dated, never overwritten.
 rem  Emails only ever land as Outlook DRAFTS - nothing sends itself.

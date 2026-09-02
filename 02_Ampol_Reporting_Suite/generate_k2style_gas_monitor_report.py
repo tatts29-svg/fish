@@ -3,80 +3,53 @@
 """
 =====================================================================
 COATES K2-STYLE REPORT - AMPOL GAS MONITOR OPERATIONS
-Workbook in -> Coates house-style PDF out
+SiteIQ exports in -> Coates house-style PDF out
 =====================================================================
 Author: Andrew Fisher
 The Coates Way - Operational Excellence - POWERED BY SITEIQ
 
 WHAT THIS IS
-  The Ampol gas monitor report rendered in the SAME house style as the
-  K2 report family (Executive Summary, Stores Stocktake, Store
-  Consumables, Company On-Hire): white A4 pages inside the orange
-  Coates frame, dark header panel, KEY strip, gradient rule, peach
-  callouts, dark KPI tiles with proper icons, scorecard donut with the
-  formula printed beside every score, zebra tables and the tool store
-  team footer.
+  The Ampol gas monitor report in the K2 house style: white A4 pages
+  inside the orange Coates frame, dark header panel, KEY strip, peach
+  callouts, dark KPI tiles, the scorecard donut with its arithmetic
+  printed beside every score, zebra tables and the tool store footer.
 
-WHERE THE NUMBERS COME FROM
-  This script does NOT re-implement any counting. It imports
-  generate_v18_gas_monitor_report and calls its load_data() and
-  compute_metrics(), so the PDF and the V18 dashboard can never
-  disagree - one engine, two skins. Change a business rule once, in
-  the V18 CONFIG, and both outputs follow.
+WHERE THE NUMBERS COME FROM (changed 02 Sep 2026)
+  Every figure is counted by gasmon_engine from the two SiteIQ exports
+  in Data\\ - RENTAL_STOCK.xlsx (where every monitor is now) and
+  TRANSACTIONS.xlsx (every issue and return). The Excel workbook is no
+  longer a source of numbers; it is attached to the email as before and
+  its summary cells are compared on the data page.
 
-  Every score prints its own arithmetic underneath it, the K2 way, so
-  the number can be challenged, checked and trusted.
-
-  Nothing is estimated. A replacement cost the source does not carry
-  shows as TBC and is EXCLUDED from the exposure total, never guessed.
+  Three windows, always labelled on the page:
+    year to date     the whole transactions export (01 Jan to the pull)
+    last 30 days     the 30 days up to the pull
+    yesterday        the last complete day before the pull
+  "Not returned same day" is the behaviour measure; who does it, by
+  name and by company, is the heart of the report.
 
 USAGE
-  WHY (12 Aug 2026): now part of the suite - double-click
-  01_RUN_GAS_MONITOR_REPORT.bat, which builds this PDF and then the
-  email draft. Inputs come from Data\, the PDF lands in
-  Reports\<today>\Gas_Monitors. Or on its own:
-      python generate_k2style_gas_monitor_report.py
+  01_RUN_GAS_MONITOR_REPORT.bat builds this PDF, then the email draft.
+  Or on its own:  python generate_k2style_gas_monitor_report.py
 
 DEPENDENCIES
-  pip install openpyxl pillow weasyprint
-  Offline at run time. No web fonts, no CDN, no API calls.
+  pip install openpyxl pillow        (weasyprint optional)
+  Offline at run time. No web fonts, no CDN, no API calls. The PDF is
+  printed by Microsoft Edge in headless mode when WeasyPrint is not
+  available - Edge is on every Coates laptop.
 =====================================================================
 """
 
-import html as _html
-import re
+import glob
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
-# The V18 script is the metrics engine. Importing it is deliberate -
-# it guarantees the PDF and the emailed dashboard show the same figures.
-try:
-    import generate_v18_gas_monitor_report as v18
-except ImportError:
-    sys.exit("ERROR: generate_v18_gas_monitor_report.py must sit in the same\n"
-             "  folder as this script - it is the metrics engine for the PDF.\n"
-             "  Keep the kit folder together and run RUN_REPORT.bat.")
-
-# The transactions analytics module - flow, rhythm, behaviour. Optional:
-# without TRANSACTIONS.xlsx the report still builds, minus those pages.
-try:
-    import gasmon_transactions as gtx
-except ImportError:
-    gtx = None
-
-# WHY (12 Aug 2026): the suite's path oracle - the PDF now lands in the
-# dated Reports\<today>\Gas_Monitors folder, not loose in the suite root.
 import ampol_paths
+import gasmon_engine as ge
+import k2shell as sh
+from k2shell import esc, money, num, K
 
-# ---------------------------------------------------------------------
-# PDF engines. WeasyPrint is used when it actually works; on a standard
-# Coates Windows laptop it usually does NOT (it needs GTK system
-# libraries that pip cannot install), so the kit falls back to Microsoft
-# Edge in headless mode - already on every Coates laptop, no installs.
-# The import AND a render are both guarded: on Windows WeasyPrint can
-# import fine and still die loading DLLs at render time.
-# ---------------------------------------------------------------------
 try:
     from weasyprint import HTML, CSS
     _HAVE_WEASY = True
@@ -95,11 +68,10 @@ CONFIG = {
     "project": "Ampol Lytton Refinery · Dräger X-am 5000 Fleet",
     "pdf_name": "Coates_Ampol_GasMonitor_Operations_K2STYLE.pdf",
     "css_name": "k2style.css",
+    "asat_note": "(SiteIQ register pull)",
 
-    # --- The tool store team on the footer and the team page ---------
-    # ONLY Andrew is listed. The K2 footer names the Gladstone crew;
-    # putting them on an Ampol report would be wrong, so the Ampol
-    # store team is left for Andrew to fill in. Add entries as:
+    # The tool store team on the footer and the closing page. Add the
+    # Ampol store crew here as:
     #   {"name": ..., "role": ..., "shift": "DAY"/"NIGHT"/"",
     #    "email": ..., "blurb": ...}
     "team": [
@@ -109,1000 +81,409 @@ CONFIG = {
          "lead": True},
     ],
 
-    # --- KEY strip. Andrew's own operating disciplines from V18. -----
     "key_items": [
         ("orange", "RETURN DAILY", "back to the tool store every shift"),
         ("blue", "BUMP TEST", "bump, charge and scan before issue"),
         ("amber", "OUT OF CALIBRATION", "out of calibration is out of service"),
     ],
+
+    # rows per appendix page - compact single-line rows
+    "appendix_rows": 26,
+    "league_rows": 12,
+    "company_rows": 10,
+    "where_rows": 10,
 }
 
-# ---------------------------------------------------------------------
-# Palette - matched to the K2 reports
-# ---------------------------------------------------------------------
-
-K = {
-    "orange": "#F36F21", "green": "#1FA75A", "amber": "#F5A623",
-    "red": "#EF4444", "blue": "#3D8BD4", "lime": "#C8DA2C",
-    "track": "#1E2733", "ink": "#16202C",
-}
+# palette shorthands
+GREY = "#5F7183"
+PALE_BLUE = "#7FB3D5"
+DEEP_RED = "#F0603E"
 
 
-# =====================================================================
-# small helpers
-# =====================================================================
-
-def esc(s):
-    return _html.escape("" if s is None else str(s))
+def tag(text, cls):
+    return f'<span class="tag {cls}">{esc(text)}</span>'
 
 
-def money(n):
+def pc(v, d=0):
     try:
-        return f"${int(round(float(n))):,}"
+        return f"{float(v):.{d}f}%"
     except (TypeError, ValueError):
-        return "TBC"
+        return "-"
 
 
-def num(n):
-    try:
-        return f"{int(n):,}"
-    except (TypeError, ValueError):
-        return str(n)
+def sd_class(pct):
+    return "g" if pct >= 85 else "a" if pct >= 70 else "rd"
 
 
-def rag(score):
-    """Score-bar RAG, matched to the K2 Executive Summary bars:
-    green from 85, amber from 50, red below 50."""
-    return "green" if score >= 85 else "amber" if score >= 50 else "red"
+def dfmt(d):
+    return d.strftime("%d %b %Y") if d else ""
 
 
-def rag_health(score):
-    """The overall health donut runs harder than the individual bars -
-    K2 shows 60% as a red ACTION ring, so red holds until 70."""
-    return "green" if score >= 85 else "amber" if score >= 70 else "red"
-
-
-def rag_hex(score):
-    return {"green": K["green"], "amber": K["amber"], "red": K["red"]}[rag(score)]
-
-
-def health_hex(score):
-    return {"green": K["green"], "amber": K["amber"], "red": K["red"]}[rag_health(score)]
-
-
-def health_word(score):
-    return {"green": "ON TRACK", "amber": "WATCH", "red": "ACTION"}[rag_health(score)]
-
-
-def initials(name):
-    bits = [b for b in str(name).replace("-", " ").split() if b]
-    return (bits[0][0] + bits[-1][0]).upper() if len(bits) > 1 else (bits[0][:2].upper() if bits else "??")
-
-
-def fmt_date(d):
-    """Australian date, K2 style: 30 Jul 2026. Never US-parsed."""
-    if d is None or d == "":
-        return ""
-    if isinstance(d, datetime):
-        return d.strftime("%d %b %Y")
-    s = str(d).strip()
-    for f in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d", "%d/%m/%Y %H:%M:%S",
-              "%d/%m/%Y", "%d/%m/%y"):
-        try:
-            return datetime.strptime(s, f).strftime("%d %b %Y")
-        except ValueError:
-            continue
-    return s[:24]
+def hhmm(d):
+    return d.strftime("%H:%M") if d else ""
 
 
 # =====================================================================
-# Icons - inline SVG, stroke style, drawn once here so every tile gets
-# a crisp orange icon instead of a thin text glyph.
+# THE PAGES
 # =====================================================================
 
-_ICON_PATHS = {
-    "box":    '<path d="M21 8.2 12 3 3 8.2v7.6L12 21l9-5.2z"/>'
-              '<path d="M3 8.2l9 5.2 9-5.2"/><path d="M12 13.4V21"/>',
-    "check":  '<path d="M4.5 12.5l5 5L19.5 6.5"/>',
-    "swap":   '<path d="M17 2.5l4 4-4 4"/><path d="M21 6.5H8.5a4 4 0 0 0-4 4v1"/>'
-              '<path d="M7 21.5l-4-4 4-4"/><path d="M3 17.5h12.5a4 4 0 0 0 4-4v-1"/>',
-    "warn":   '<path d="M12 3.5 2.5 20h19z"/><path d="M12 9.5v4.5"/>'
-              '<path d="M12 17.2v.05"/>',
-    "clock":  '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 3.2"/>',
-    "people": '<circle cx="9" cy="8" r="3.4"/><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0"/>'
-              '<circle cx="17.3" cy="9.2" r="2.5"/><path d="M15.8 14.8a5 5 0 0 1 5.4 4.6"/>',
-    "wrench": '<path d="M14.5 6.5a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.6-3.6a6 6 0 0 1-7.9 7.9L6.3 20.7a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/>',
-    "shield": '<path d="M12 21.5s7.5-3.3 7.5-9.3V5.5L12 2.8 4.5 5.5v6.7c0 6 7.5 9.3 7.5 9.3z"/>',
-    "bars":   '<path d="M6 20V10"/><path d="M12 20V4.5"/><path d="M18 20v-6.5"/>',
-    "zap":    '<path d="M13 2.5 3.5 14H10l-1 7.5L18.5 10H12z"/>',
-    "layers": '<path d="M12 2.8 21.5 8 12 13.2 2.5 8z"/><path d="M2.5 13.5 12 18.7l9.5-5.2"/>',
-    "diamond":'<path d="M12 2.5 21.5 12 12 21.5 2.5 12z"/>',
-}
-
-
-def icon(name, colour="#F36F21", size=17):
-    return (f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" '
-            f'stroke="{colour}" stroke-width="2" stroke-linecap="round" '
-            f'stroke-linejoin="round">{_ICON_PATHS[name]}</svg>')
-
-
-# =====================================================================
-# SVG pieces - inline, so the PDF stays self-contained
-# =====================================================================
-
-def donut(pct, colour, centre, label, size=138, thick=19):
-    """K2 scorecard donut: dark track, coloured arc, big % in the middle."""
-    pct = max(0, min(100, pct))
-    r = (size - thick) / 2.0
-    c = size / 2.0
-    circ = 2 * 3.141592653589793 * r
-    on = circ * pct / 100.0
-    return f"""<svg width="{size}" height="{size}" viewBox="0 0 {size} {size}">
-  <circle cx="{c}" cy="{c}" r="{r}" fill="#141C26" stroke="{K['track']}"
-          stroke-width="{thick}"/>
-  <circle cx="{c}" cy="{c}" r="{r}" fill="none" stroke="{colour}"
-          stroke-width="{thick}" stroke-linecap="round"
-          stroke-dasharray="{on:.2f} {circ - on:.2f}"
-          transform="rotate(-90 {c} {c})"/>
-  <text x="{c}" y="{c + 1}" text-anchor="middle" fill="#FFFFFF"
-        font-family="Lato, Calibri, sans-serif" font-size="27" font-weight="700">{centre}</text>
-  <text x="{c}" y="{c + 17}" text-anchor="middle" fill="#8A9AAC"
-        font-family="Lato, Calibri, sans-serif" font-size="7.6"
-        letter-spacing="1.6">{esc(label)}</text>
-</svg>"""
-
-
-def stackband(segs, w=636, bh=38):
-    """One rounded horizontal band split into proportional segments -
-    the fleet-composition strip on page 1. segs: (label, value, colour)."""
-    total = sum(v for _, v, _ in segs) or 1
-    h = bh + 42
-    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">',
-           f'<defs><clipPath id="band"><rect x="0" y="0" width="{w}" '
-           f'height="{bh}" rx="7"/></clipPath></defs>',
-           f'<g clip-path="url(#band)">']
-    x = 0.0
-    for lab, v, col in segs:
-        seg_w = w * v / total
-        out.append(f'<rect x="{x:.1f}" y="0" width="{seg_w + 1:.1f}" '
-                   f'height="{bh}" fill="{col}"/>')
-        if seg_w > 34:
-            out.append(f'<text x="{x + seg_w / 2:.1f}" y="{bh / 2 + 4:.1f}" '
-                       f'text-anchor="middle" fill="#FFFFFF" '
-                       f'font-family="Lato, Calibri, sans-serif" font-size="11" '
-                       f'font-weight="700">{v}</text>')
-        x += seg_w
-    out.append('</g>')
-    # legend, one row
-    lx = 0
-    ly = bh + 26
-    for lab, v, col in segs:
-        out.append(f'<circle cx="{lx + 4}" cy="{ly - 3}" r="3.8" fill="{col}"/>')
-        t = f"{lab} {v}"
-        out.append(f'<text x="{lx + 12}" y="{ly}" fill="#C9D6E2" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="8.8">{esc(t)}</text>')
-        lx += 12 + 5.2 * len(t) + 16
-    out.append("</svg>")
-    return "".join(out)
-
-
-def grouped_bars(rows, w=636, h=190, series=(("issued", "#F36F21", "Issued"),
-                                             ("returned", "#22C55E", "Returned"))):
-    """Grouped bar chart on a dark panel - K2 'issued v returned' pattern."""
-    if not rows:
-        return '<div class="note">No movement recorded in the source.</div>'
-    top = 32
-    base = h - 26
-    pad_l = 6
-    plot_w = w - pad_l - 10
-    slot = plot_w / len(rows)
-    gap = slot * 0.2
-    bw = (slot - gap) / len(series)
-    mx = max(max(r.get(k, 0) or 0 for k, _, _ in series) for r in rows) or 1
-    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
-    for g in (0.25, 0.5, 0.75, 1.0):
-        y = base - (base - top) * g
-        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - 10}" y2="{y:.1f}" '
-                   f'stroke="#26313D" stroke-width="0.7"/>')
-    out.append(f'<line x1="{pad_l}" y1="{base}" x2="{w - 10}" y2="{base}" '
-               f'stroke="#3A4756" stroke-width="1"/>')
-    for i, rw in enumerate(rows):
-        x0 = pad_l + i * slot + gap / 2
-        for j, (kk, col, _) in enumerate(series):
-            v = rw.get(kk, 0) or 0
-            bar_h = (base - top) * (v / mx)
-            x = x0 + j * bw
-            y = base - bar_h
-            out.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw - 2:.1f}" '
-                       f'height="{bar_h:.1f}" fill="{col}" rx="2"/>')
-            if v:
-                out.append(f'<text x="{x + (bw - 2) / 2:.1f}" y="{y - 4:.1f}" '
-                           f'text-anchor="middle" fill="#C9D6E2" '
-                           f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{v}</text>')
-        out.append(f'<text x="{x0 + (slot - gap) / 2:.1f}" y="{base + 13:.1f}" '
-                   f'text-anchor="middle" fill="#8A9AAC" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="7.4">'
-                   f'{esc(rw["label"])}</text>')
-    lx = w - 158
-    for j, (_, col, lab) in enumerate(series):
-        out.append(f'<circle cx="{lx + j * 78}" cy="9" r="3.8" fill="{col}"/>'
-                   f'<text x="{lx + 8 + j * 78}" y="12" fill="#C9D6E2" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="8">{esc(lab)}</text>')
-    out.append("</svg>")
-    return "".join(out)
-
-
-def line_chart(x_labels, series, w=636, h=196, label_every=1, pct=False,
-               annotate=()):
-    """Multi-series line chart on a dark panel - the K2 trend pattern.
-
-    series: [{"vals": [...], "colour": hex, "label": str, "fill": bool}]
-    annotate: indices whose value gets printed above the point.
-    """
-    n = len(x_labels)
-    if n < 2:
-        return '<div class="note">Not enough data points in the source.</div>'
-    top, base, pad_l, pad_r = 30, h - 26, 8, 34
-    plot_w = w - pad_l - pad_r
-    ymax = 100 if pct else max(max(s["vals"]) for s in series) * 1.15 or 1
-
-    def X(i):
-        return pad_l + plot_w * i / (n - 1)
-
-    def Y(v):
-        return base - (base - top) * (v / ymax)
-
-    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
-    for g in (0.25, 0.5, 0.75, 1.0):
-        y = base - (base - top) * g
-        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" '
-                   f'y2="{y:.1f}" stroke="#26313D" stroke-width="0.7"/>')
-        if pct:
-            out.append(f'<text x="{w - pad_r + 5}" y="{y + 3:.1f}" fill="#5F7183" '
-                       f'font-family="Lato, Calibri, sans-serif" font-size="7.4">'
-                       f'{int(ymax * g)}%</text>')
-    out.append(f'<line x1="{pad_l}" y1="{base}" x2="{w - pad_r}" y2="{base}" '
-               f'stroke="#3A4756" stroke-width="1"/>')
-    for i, lab in enumerate(x_labels):
-        if i % label_every == 0 or i == n - 1:
-            # first label anchors left so its leading digit can't clip at
-            # the panel edge (Chromium clips SVG text at the viewBox)
-            anchor = "start" if i == 0 else "middle"
-            out.append(f'<text x="{X(i):.1f}" y="{base + 13}" text-anchor="{anchor}" '
-                       f'fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" '
-                       f'font-size="7.2">{esc(lab)}</text>')
-    for s in series:
-        pts = " ".join(f"{X(i):.1f},{Y(v):.1f}" for i, v in enumerate(s["vals"]))
-        if s.get("fill"):
-            out.append(f'<polygon points="{pad_l},{base} {pts} '
-                       f'{X(n - 1):.1f},{base}" fill="{s["colour"]}" '
-                       f'fill-opacity="0.13"/>')
-        out.append(f'<polyline points="{pts}" fill="none" stroke="{s["colour"]}" '
-                   f'stroke-width="2.2" stroke-linejoin="round" '
-                   f'stroke-linecap="round"/>')
-        lx, lv = n - 1, s["vals"][-1]
-        out.append(f'<circle cx="{X(lx):.1f}" cy="{Y(lv):.1f}" r="3.4" '
-                   f'fill="{s["colour"]}"/>')
-        out.append(f'<text x="{X(lx) + 6:.1f}" y="{Y(lv) + 3.5:.1f}" '
-                   f'fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" '
-                   f'font-size="9" font-weight="700">'
-                   f'{int(round(lv))}{"%" if pct else ""}</text>')
-        for i in annotate:
-            if 0 <= i < n:
-                v = s["vals"][i]
-                out.append(f'<text x="{X(i):.1f}" y="{Y(v) - 6:.1f}" '
-                           f'text-anchor="middle" fill="#C9D6E2" '
-                           f'font-family="Lato, Calibri, sans-serif" font-size="7.4">'
-                           f'{int(round(v))}{"%" if pct else ""}</text>')
-    lx = w - 150 - (len(series) - 1) * 60
-    for j, s in enumerate(series):
-        out.append(f'<circle cx="{lx + j * 92}" cy="9" r="3.8" fill="{s["colour"]}"/>'
-                   f'<text x="{lx + 8 + j * 92}" y="12" fill="#C9D6E2" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="8">{esc(s["label"])}</text>')
-    out.append("</svg>")
-    return "".join(out)
-
-
-def hbars(rows, w=636, colour="#F36F21"):
-    """Horizontal bars on a dark panel - repairs by category."""
-    if not rows:
-        return '<div class="note">Nothing recorded in the source.</div>'
-    rowh = 24
-    h = len(rows) * rowh + 10
-    mx = max(v for _, v in rows) or 1
-    lab_w = 172
-    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
-    for i, (lab, v) in enumerate(rows):
-        y = 5 + i * rowh
-        bw = (w - lab_w - 46) * (v / mx)
-        out.append(f'<text x="0" y="{y + 12}" fill="#C9D6E2" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="9">'
-                   f'{esc(lab[:32])}</text>')
-        out.append(f'<rect x="{lab_w}" y="{y + 3.5}" width="{w - lab_w - 46}" '
-                   f'height="10" rx="5" fill="#26313D"/>')
-        out.append(f'<rect x="{lab_w}" y="{y + 3.5}" width="{max(bw, 10):.1f}" '
-                   f'height="10" rx="5" fill="{colour}"/>')
-        out.append(f'<text x="{w}" y="{y + 12}" text-anchor="end" fill="#FFFFFF" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="9.4" '
-                   f'font-weight="700">{v}</text>')
-    out.append("</svg>")
-    return "".join(out)
-
-
-# =====================================================================
-# HTML component builders
-# =====================================================================
-
-def tiles(items, per_row=4):
-    """Dark KPI tiles, K2 grid. items: (icon_name, value, label, note, note_class)."""
-    out = []
-    for i in range(0, len(items), per_row):
-        chunk = items[i:i + per_row]
-        cells = []
-        for ico, val, lab, note, ncls in chunk:
-            sm = " sm" if len(str(val)) > 7 else ""
-            n = (f'<div class="t-note {ncls}">{esc(note)}</div>' if note else "")
-            cells.append(f'<td><div class="t-ico">{icon(ico)}</div>'
-                         f'<div class="t-num{sm}">{esc(val)}</div>'
-                         f'<div class="t-lab">{esc(lab)}</div>{n}</td>')
-        while len(cells) < per_row:
-            cells.append('<td style="background:transparent"></td>')
-        out.append(f'<table class="tiles"><tr>{"".join(cells)}</tr></table>')
-    return "".join(out)
-
-
-def score_rows(rows):
-    """label, score, formula -> K2 score bar with its arithmetic beneath.
-    The bar is a FIXED-width pill next to the label - never full-page."""
-    out = ['<table class="scores">']
-    for lab, sc, form in rows:
-        col = {"green": "f-green", "amber": "f-amber", "red": "f-red"}[rag(sc)]
-        out.append(
-            f'<tr><td class="sc-tick">✓</td>'
-            f'<td class="sc-lab">{esc(lab)}</td>'
-            f'<td class="sc-bar"><div class="track">'
-            f'<div class="fill {col}" style="width:{max(2, min(100, sc))}%"></div>'
-            f'</div></td>'
-            f'<td class="sc-val">{sc}/100</td></tr>'
-            f'<tr><td></td><td colspan="3" class="sc-form">{esc(form)}</td></tr>')
-    out.append("</table>")
-    return "".join(out)
-
-
-def prog_rows(rows):
-    """label, value, max, colour_class, right_text -> light progress rows."""
-    out = ['<table class="prog">']
-    for lab, val, mx, cls, right in rows:
-        pct = 0 if not mx else max(1.5, min(100, val / mx * 100))
-        out.append(f'<tr><td class="pr-lab">{esc(lab)}</td>'
-                   f'<td class="pr-bar"><div class="trackl">'
-                   f'<div class="fill {cls}" style="width:{pct:.1f}%"></div></div></td>'
-                   f'<td class="pr-val">{esc(right)}</td></tr>')
-    out.append("</table>")
-    return "".join(out)
-
-
-def alerts(items):
-    """(dot_class, title, sub) -> dark ALERTS & ACTIONS panel."""
-    rows = "".join(
-        f'<tr><td class="al-dot {d}">●</td><td>'
-        f'<div class="al-t">{esc(t)}</div><div class="al-s">{esc(s)}</div></td></tr>'
-        for d, t, s in items)
-    return ('<div class="alerts"><div class="ah">Alerts &amp; Actions</div>'
-            f'<table class="al">{rows}</table></div>')
-
-
-def dtable(headers, rows, aligns=None):
-    """Zebra data table with the dark header row."""
-    aligns = aligns or [""] * len(headers)
-    th = "".join(f'<th class="{a}">{esc(h)}</th>' for h, a in zip(headers, aligns))
-    body = []
-    for i, r in enumerate(rows):
-        z = ' class="z"' if i % 2 else ""
-        tds = "".join(f'<td class="{a}">{c}</td>' for c, a in zip(r, aligns))
-        body.append(f"<tr{z}>{tds}</tr>")
-    return f'<table class="dt"><tr>{th}</tr>{"".join(body)}</table>'
-
-
-def info_cards(cards):
-    out = []
-    for i in range(0, len(cards), 2):
-        pair = cards[i:i + 2]
-        # headings and bodies are author-controlled constants below, so they
-        # carry their own markup and entities - escaping here would double
-        # up and print "&amp;" on the page.
-        cells = "".join(f'<td><div class="cd-h">{h}</div>'
-                        f'<div class="cd-b">{b}</div></td>' for h, b in pair)
-        if len(pair) == 1:
-            cells += '<td style="background:transparent;border-left:none"></td>'
-        out.append(f'<table class="cards"><tr>{cells}</tr></table>')
-    return "".join(out)
-
-
-def team_cards(team):
-    lead = [p for p in team if p.get("lead")]
-    rest = [p for p in team if not p.get("lead")]
-
-    def card(p, wide=False):
-        av = " lead" if p.get("lead") else ""
-        wid = ' style="width:42%;padding:18px 15px 16px 15px"' if wide else ""
-        name = esc(p["name"])
-        role = esc(p["role"])
-        mail = esc(p.get("email", ""))
-        blurb = esc(p.get("blurb", ""))
-        return (f'<td{wid}>'
-                f'<div class="av{av}">{esc(initials(p["name"]))}</div>'
-                f'<div class="tm-n">{name}</div>'
-                f'<div class="tm-r">{role}</div>'
-                f'<div class="tm-e">{mail}</div>'
-                f'<div class="tm-d">{blurb}</div></td>')
-
-    out = []
-    if lead:
-        pad = '<td style="background:transparent;border-top:none;width:29%"></td>'
-        out.append(f'<table class="team" style="table-layout:fixed">'
-                   f'<tr>{pad}{card(lead[0], True)}{pad}</tr></table>')
-    if rest:
-        out.append('<table class="team"><tr>'
-                   + "".join(card(p) for p in rest) + "</tr></table>")
-    return "".join(out)
-
-
-def footer(cfg):
-    bits = []
-    for p in cfg["team"]:
-        sh = f'<span class="sh">{esc(p["shift"])}</span> ' if p.get("shift") else ""
-        bits.append(f'{sh}<b>{esc(p["name"])}</b> {esc(p["role"])}')
-    line = " · ".join(bits)
-    if len(cfg["team"]) == 1:
-        line += ('  <span style="color:#B4C0CB">'
-                 '— add the Ampol store team in CONFIG["team"]</span>')
-    return ('<div class="foot"><div class="foot-h">Your Coates Tool Store Team</div>'
-            f'<div class="foot-l">{line}</div></div>')
-
-
-def key_strip(cfg):
-    parts = ['<span class="kl">KEY</span>']
-    for col, term, tail in cfg["key_items"]:
-        parts.append(f'<span class="dot {col}">●</span> '
-                     f'<b class="{col}">{esc(term)}</b> {esc(tail)}')
-    return '<div class="key">' + "  ".join(parts) + "</div>"
-
-
-# =====================================================================
-# page shell
-# =====================================================================
-
-def page1_head(cfg, gen_s, asat_s):
-    return f"""<div class="hero">
-  <table class="hero-grid"><tr>
-    <td>
-      <div class="kicker">{esc(cfg['kicker'])}</div>
-      <h1>{esc(cfg['client'])} {esc(cfg['title'])}</h1>
-      <div class="sub">{esc(cfg['project'])}</div>
-    </td>
-    <td style="width:172px">
-      <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
-      <div class="tagline">Equipped for anything</div>
-    </td>
-  </tr></table>
-  <div class="meta">Generated: <b>{esc(gen_s)}</b> &nbsp;|&nbsp;
-    Data as at: <b>{esc(asat_s)}</b> (workbook file time) &nbsp;|&nbsp;
-    Author: <b>Andrew Fisher</b></div>
-</div>"""
-
-
-def cont_head(cfg, asat_s, pno, ptot):
-    return f"""<table class="chead"><tr>
-  <td>
-    <div class="kicker">{esc(cfg['kicker'])}</div>
-    <h2>{esc(cfg['client'])} {esc(cfg['title'])}</h2>
-  </td>
-  <td style="width:205px">
-    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
-    <div class="asat">AS AT <b>{esc(asat_s.upper())}</b></div>
-    <div class="pageno">PAGE {pno} OF {ptot}</div>
-  </td>
-</tr></table>"""
-
-
-def render_page(cfg, inner, pno, ptot, gen_s, asat_s):
-    if pno == 1:
-        head = (page1_head(cfg, gen_s, asat_s) + key_strip(cfg)
-                + f'<div class="p1no">PAGE 1 OF {ptot}</div>'
-                + '<div class="grule"></div>')
-        cls = "page page1"
-    else:
-        head = cont_head(cfg, asat_s, pno, ptot) + key_strip(cfg) + '<div class="grule"></div>'
-        cls = "page"
-    return (f'<div class="{cls}"><div class="frame">{head}'
-            f'<div class="body">{inner}</div>{footer(cfg)}</div></div>')
-
-
-# =====================================================================
-# the report
-# =====================================================================
-
-def norm_rows(data):
-    """Flatten the three on-hire buckets into one oldest-first list.
-
-    1-7 and 8-29 tabs:  COMPANY HIRER BARCODE SERIAL DESC DAYS COST DATE TIME
-    30+ tab:            COMPANY HIRER BARCODE SERIAL DESC DAYS STATUS COST DATE TIME
-    The 30+ tab has ITEM_STATUS inserted at index 6 - handled explicitly
-    so the replacement cost can never be read out of the wrong column.
-    """
-    out = []
-    for key, has_status in (("oh_1_7", False), ("oh_8_29", False), ("oh_30", True)):
-        for r in data.get(key, []):
-            r = list(r) + [None] * 4
-            cost_i = 7 if has_status else 6
-            date_i = 8 if has_status else 7
-            try:
-                days = int(float(r[5]))
-            except (TypeError, ValueError):
-                days = 0
-            cost = r[cost_i]
-            try:
-                cost = float(cost)
-                if cost <= 0:
-                    cost = None
-            except (TypeError, ValueError):
-                cost = None
-            out.append({
-                "company": r[0], "hirer": r[1], "barcode": r[2], "serial": r[3],
-                "desc": r[4], "days": days, "cost": cost,
-                "date": r[date_i], "status": r[6] if has_status else "",
-                "bucket": key,
-            })
-    out.sort(key=lambda d: -d["days"])
-    return out
-
-
-def _tx_pages(pages, t, m, cfg):
-    """The five transactions-analytics pages: rhythm, pressure, demand
-    trend, same-day trend, and the people league."""
-    win = (f'{t["window_start"].strftime("%d %b")} - '
-           f'{t["window_end"].strftime("%d %b %Y")}')
-    tgt = v18.CONFIG["availability_target"]
-
-    # ---------- rhythm: when monitors move -----------------------------
-    hrs = list(range(3, 19))
-    hrows = [{"label": f"{h:02d}", "issued": t["hour_issues"].get(h, 0),
-              "returned": t["hour_returns"].get(h, 0)} for h in hrs]
-    rec = t["record_hour"]
-    p = f"""<div class="sect"><h3>The daily rhythm - when monitors move</h3></div>
-<div class="callout tight">
-  <b>{num(t['n_crew'])} crew movements</b> since {win.split(' - ')[0]}, and the
-  shape of the day never changes: <b class="o">{t['pct_before_6']}% of issues
-  happen before 06:00</b>, the median monitor goes out at
-  <b>{t['median_issue']}</b> and comes back at <b>{t['median_return']}</b>.
-  The record window hour is <b class="o">{rec['n']} issues</b> between
-  {rec['hour']:02d}:00 and {rec['hour'] + 1:02d}:00 on
-  {rec['date'].strftime('%a %d %b')} - one monitor every
-  <b>{rec['every_s']} seconds</b>.
-</div>
-<div class="sub-h">Issues and returns by hour of day
-  <span class="thin">&mdash; whole period</span></div>
-<div class="chartpanel">{grouped_bars(hrows, h=200)}</div>
-{tiles([
-    ("clock", t['median_issue'], "Median issue time", "the morning surge", "grey"),
-    ("check", t['median_return'], "Median return time", "the afternoon wave", "grey"),
-    ("zap", str(rec['n']), "Record hour - issues",
-     f"{rec['date'].strftime('%d %b')} {rec['hour']:02d}:00, one every {rec['every_s']}s", "amber"),
-    ("people", f"{t['pct_before_6']}%", "Issued before 06:00", "of all crew issues", "grey"),
-])}
-<div class="note">Counted from SiteIQ transaction timestamps ({win}), internal
-  Dr&auml;ger service and custody accounts excluded. Between the issue surge
-  and the {t['median_return'][:2]}:00 return wave the shelf carries the whole
-  site - that is the daily squeeze in one picture.</div>"""
-    pages.append(p)
-
-    # ---------- pressure: why the store runs dry -----------------------
-    curve = t["net_curve"]
-    labels = [f"{int(hh):02d}" if hh == int(hh) else "" for hh, _ in curve]
-    xl = [f"{int(hh):02d}:00" if (int(hh) % 2 == 1 and hh == int(hh)) else ""
-          for hh, _ in curve]
-    p = f"""<div class="sect"><h3>The pressure curve - why the store runs dry</h3></div>
-<div class="callout tight">
-  By mid-morning an <b class="o">average working day is
-  {int(round(t['net_plateau']))} monitors deeper</b> into the shelf than it
-  started, and the worst recent day dug to
-  <b class="o">{int(round(t['net_plateau_worst']))}</b> - against
-  <b>{num(m['available'])} on the shelf this morning</b>. That is why the store
-  runs dry every day: the gear goes out by 07:00 and does not start coming back
-  until after {t['median_return'][:2]}:00. The availability target has been
-  reset to <b>{num(tgt)}</b> on the back of this data - the old target of 50
-  scored the shelf 100/100 while crews were being turned away.
-</div>
-<div class="sub-h">Net monitors drawn from the store through the day
-  <span class="thin">&mdash; average and worst of the last {len(t['curve_days'])} working days</span></div>
-<div class="chartpanel">{line_chart(
-    xl,
-    [{"vals": [v for _, v in t["net_curve_worst"]], "colour": K["red"],
-      "label": "Worst day", "fill": False},
-     {"vals": [v for _, v in curve], "colour": K["orange"],
-      "label": "Average day", "fill": True}],
-    label_every=1)}</div>
-{tiles([
-    ("bars", num(int(round(t['net_plateau']))), "Avg net draw by mid-morning",
-     "issues less returns, same day", "amber"),
-    ("warn", num(int(round(t['net_plateau_worst']))), "Worst recent day",
-     "same measure", "red"),
-    ("box", num(m['available']), "On the shelf this morning",
-     "from the live register", "red" if m['available'] < tgt else "green"),
-    ("shield", num(tgt), "New availability target",
-     "was 50 - reset on this data", "grey"),
-])}
-<div class="note">The curve counts every same-day issue minus every same-day
-  return, half-hour by half-hour, including custody movements - it is how much
-  deeper into the shelf the day digs as it runs. Recovering the
-  <b>{num(m['outstanding'])} outstanding</b> monitors and turning the
-  <b>{num(m['repairs'])} in repair</b> around is what closes the gap between
-  {num(m['available'])} on the shelf and the {num(tgt)} target.</div>"""
-    pages.append(p)
-
-    # ---------- demand trend: the whole shutdown -----------------------
-    peaks = t["day_peaks"]
-    step = max(1, len(peaks) // 90)
-    pk = peaks[::step]
-    plabels = [p2["date"].strftime("%d %b") if i % max(1, len(pk) // 9) == 0
-               else "" for i, p2 in enumerate(pk)]
-    rp = t["record_peak"]
-    usable = m["fleet_total"] - m["repairs"]
-    p = f"""<div class="sect"><h3>Demand - monitors out at once, whole period</h3></div>
-<div class="callout tight">
-  Peak concurrent demand has climbed all campaign and is now brushing the
-  ceiling of the fleet: the record is <b class="o">{num(rp['peak'])} monitors
-  out at once</b> at {rp['at'].strftime('%H:%M on %a %d %b')} - against
-  <b>{num(m['fleet_total'])} owned</b> and only
-  <b class="o">{num(usable)} usable</b> once the {num(m['repairs'])} in repair
-  are set aside. At that moment the whole site was holding all but
-  <b>{num(usable - rp['peak'])}</b> of every usable monitor Coates has here.
-</div>
-<div class="sub-h">Peak monitors out at once, by day
-  <span class="thin">&mdash; {win}</span></div>
-<div class="chartpanel">{line_chart(
-    plabels,
-    [{"vals": [p2["peak"] for p2 in pk], "colour": K["orange"],
-      "label": "Daily peak out", "fill": True}],
-    label_every=1)}</div>
-{tiles([
-    ("zap", num(rp['peak']), "Record - out at once",
-     rp['at'].strftime('%d %b %H:%M'), "red"),
-    ("box", num(usable), "Usable fleet",
-     f"{num(m['fleet_total'])} owned less {num(m['repairs'])} in repair", "grey"),
-    ("warn", num(usable - rp['peak']), "Spare at the record peak",
-     "across the whole site", "red"),
-    ("swap", num(sum(t['weekday_issues'].values()) // max(1, len(t['daily_issues']))),
-     "Avg crew issues / day", "whole period", "grey"),
-])}
-<div class="note">Concurrency counts every open transaction in the export
-  window ({win}) including custody - a monitor in FCCU custody is still a
-  monitor off the shelf. Items issued before {t['window_start'].strftime('%d %b')}
-  sit outside this window, so the register's on-hire figure runs higher; the
-  register remains the authority for right-now counts.</div>"""
-    pages.append(p)
-
-    # ---------- same-day trend + durations -----------------------------
-    wk = t["weekly_sd"]
-    wl = [w2["label"] for w2 in wk]
-    partial = " (current week is partial - it will move)" if t["current_week_partial"] else ""
-    p = f"""<div class="sect"><h3>Same-day returns - which way is it trending</h3></div>
-<div class="callout tight">
-  <b class="o">{t['same_day_pct']}%</b> of crew draws come back the same day
-  across the whole period - and the trend is the story: the mid-campaign slump
-  in the low 70s has been pulled back to the mid 80s week on week.
-  Every point below is
-  <b>same-day returns &divide; completed draws</b> for that week{partial}.
-</div>
-<div class="sub-h">Same-day return rate by week</div>
-<div class="chartpanel">{line_chart(
-    wl,
-    [{"vals": [w2["pct"] for w2 in wk], "colour": K["green"],
-      "label": "Same-day %", "fill": True}],
-    label_every=2, pct=True,
-    annotate=tuple(range(0, len(wk) - 1)))}</div>
-<div class="sub-h">How long monitors stay out
-  <span class="thin">&mdash; every completed crew draw</span></div>
-<div class="chartpanel">{hbars(t['dur_buckets'], colour=K['amber'])}</div>
-<div class="note">{num(t['same_day'])} of {num(t['n_crew_closed'])} completed
-  crew draws returned same day. The tail is the cost: every draw in the 1-3 day
-  and longer buckets is a monitor that missed at least one bump-test cycle and
-  spent nights off the shelf while crews queued at the window in the morning.</div>"""
-    pages.append(p)
-
-    # ---------- the people league --------------------------------------
-    # Shared/workflow accounts (FCCU T&I, Ampol Operations...) move gear
-    # through the window but are not a person you can ring - keep them out
-    # of the PEOPLE league and say so. They still count in the flow stats.
-    def _is_account(name):
-        n = name.lower()
-        return ("fccu" in n or "t&i" in n or "operations" in n
-                or "future fuels" in n or "tool store" in n)
-    lg = [x for x in t["league"] if x["not_sd"] > 0
-          and not _is_account(x["name"])][:12]
-    lrows = []
-    for x in lg:
-        pcls = "g" if x["sd_pct"] >= 85 else "a" if x["sd_pct"] >= 70 else "rd"
-        lrows.append([
-            f'{esc(x["name"])}<span class="s2">{esc(x["co"])}</span>',
-            num(x["draws"]),
-            f'<span class="{pcls}">{x["sd_pct"]}%</span>',
-            num(x["ov"]),
-            (f'<span class="rd">{num(x["open"])}</span>' if x["open"]
-             else '<span class="tbc">0</span>'),
-            f'{num(x["maxd"])}d'])
-    lk = t["longest_kept"]
-    lk_note = (f' The longest completed hold on record: '
-               f'<b>{(lk["en"] - lk["st"]).days} days</b> by '
-               f'<b>{esc(lk["who"])}</b> ({esc(lk["co"])}).' if lk else '')
-    p = f"""<div class="sect"><h3>The people who don't bring them back</h3></div>
-<div class="callout tight">
-  The behaviour league, from every crew transaction in the window: ranked by
-  draws kept overnight or longer plus draws still open now. These are the same
-  names the workbook's offender columns flag - two independent sources, one
-  answer. This is who the return-daily conversation belongs to, by name.
-</div>
-{dtable(["Who", "Draws", "Same-day", "Kept overnight+", "Still out now", "Longest"],
-        lrows, ["", "r", "r", "r", "r", "r"])}
-<div class="note">Named people only - internal Dr&auml;ger service accounts
-  ({num(t['n_internal'])} transactions) and shared workflow accounts (FCCU
-  T&amp;I, site Operations) are excluded because they are not a person you can
-  ring; they are covered in the company tables. Same-day % is green from 85,
-  amber from 70, red below. "Still out now" means no return scan as at the
-  export.{lk_note}</div>"""
-    pages.append(p)
-
-
-def build_pages(data, m, cfg, gen_s, asat_s, txm=None):
-    pages = []
-    comps = data["companies"]
-    rows = norm_rows(data)
-    priced = [r for r in rows if r["cost"] is not None]
-    tbc = len(rows) - len(priced)
-    priced_total = sum(r["cost"] for r in priced)
-
-    # ---------------- page 1 - the scorecard --------------------------
-    hs = m["health"]
-    fleet_band = stackband([
-        ("On hire - general", m["onhire_general"], K["orange"]),
+def page_position(m):
+    R = m["rules"]
+    asat = m["asat"]
+    seg = [
+        ("Crew", m["crew_out"], K["orange"]),
         ("FCCU", m["fccu"], K["blue"]),
-        ("Operations", m["ops"], K["amber"]),
+        ("Ops", m["ops"], K["amber"]),
         ("Future Fuels", m["ff"], K["lime"]),
+        ("After hrs", m["afterhours"], PALE_BLUE),
         ("Available", m["available"], K["green"]),
         ("Repairs", m["repairs"], K["red"]),
-    ])
-    p1 = f"""<div class="callout">
-  <span class="lead">The position today.</span> One page, one honest answer:
-  how healthy is the {esc(cfg['client'])} gas monitor operation right now?
-  Every score below is arithmetic on real SiteIQ events - the formula sits
-  beside each number, so the score can be challenged, checked and trusted.
-  <b>{num(m['fleet_total'])} monitors</b> in the fleet,
-  <b class="o">{num(m['onhire_all'])} out</b> across all custody types,
-  <b>{num(m['available'])} on the shelf</b> and
-  <b class="o">{num(m['outstanding'])} outstanding</b> from previous days.
+    ]
+    seg = [s for s in seg if s[1] > 0]
+    hs = m["health"]
+    d30 = m["d30"]
+    return f"""<div class="callout">
+  <span class="lead">The position at {hhmm(asat)}, {dfmt(asat)}.</span>
+  <b>{num(m['fleet_total'])} Dräger X-am 5000 monitors</b> are on the Ampol
+  register: <b class="o">{num(m['available'])} on the shelf</b>,
+  <b>{num(m['crew_out'])} out to crew</b> ({num(m['out_today'])} went out today
+  and <b class="o">{num(m['outstanding'])} are overdue</b> from earlier days),
+  {num(m['custody_total'])} held in custody (FCCU turnaround, Operations, Future Fuels
+  and the after-hours account), and <b>{num(m['repairs'])} in the Dräger repair
+  queue</b>. Every figure is counted from the SiteIQ exports named on the data
+  page - nothing is estimated.
 </div>
 <table class="two" style="margin-top:16px"><tr>
   <td style="width:31%">
     <div class="donut-wrap">
-      {donut(hs, health_hex(hs), f"{hs}%", health_word(hs))}
+      {sh.donut(hs, sh.health_hex(hs), f"{hs}%", sh.health_word(hs))}
       <div class="donut-cap">Gas monitor health score</div>
     </div>
   </td>
   <td style="padding-left:10px">
-    {score_rows([
+    {sh.score_rows([
         ("Tool availability", m['score_availability'],
-         f"{m['available']} in store against a {v18.CONFIG['availability_target']}-unit "
+         f"{num(m['available'])} on the shelf against a {num(R['availability_target'])}-unit "
          f"target for a full score"),
-        ("Returns / recovery", m['score_recovery'],
-         f"{m['recovered']} of {m['prev_day_total']} previous-day non-returns "
-         f"recovered so far today"),
+        ("Same-day returns, last 30 days", m['score_sameday'],
+         f"{d30['sd_pct']}% of {num(d30['draws'])} crew draws came back the day "
+         f"they went out ({m['d30_label']})"),
         ("Repairs", m['score_repairs'],
-         f"100 less the {m['fleet_impact_pct']}% of fleet sitting in repair "
-         f"({m['repairs']} of {m['fleet_total']})"),
+         f"100 less the {m['fleet_impact_pct']}% of fleet in the repair queue "
+         f"({num(m['repairs'])} of {num(m['fleet_total'])})"),
         ("30+ day control", m['score_30'],
-         f"100 less 3 per monitor out 30 days or more ({m['out_30']} out)"),
+         f"100 less 3 per monitor overdue 30 days or more ({num(m['out_30'])} out)"),
     ])}
   </td>
 </tr></table>
 <div class="note">Health score is the plain average of the four scores above -
-  <b>({m['score_availability']} + {m['score_recovery']} + {m['score_repairs']}
+  <b>({m['score_availability']} + {m['score_sameday']} + {m['score_repairs']}
   + {m['score_30']}) &divide; 4 = {hs}</b>. Nothing is weighted and nothing is
-  hidden.</div>
+  hidden. The shelf count is a {hhmm(asat)} snapshot: the store empties every
+  morning and refills every afternoon, so read availability with the time.</div>
 <div class="sub-h">The fleet at a glance - where every monitor is</div>
-<div class="chartpanel">{fleet_band}</div>
-<div class="chart-cap">Every one of the <b>{num(m['fleet_total'])}</b> monitors,
-  counted off the detail tabs: on hire to crews, in FCCU / Operations / Future
-  Fuels custody, available on the shelf, or in the workshop.</div>
-{tiles([
-    ("box", num(m['fleet_total']), "Total fleet", "all custody types", "grey"),
-    ("check", num(m['available']), "Available in store", "ready for issue", "green" if m['available'] else "red"),
-    ("swap", num(m['onhire_general']), "On hire - general",
-     f"{m['issued_today']} today + {m['outstanding']} outstanding", "grey"),
-    ("warn", num(m['outstanding']), "Outstanding", "action required", "red" if m['outstanding'] else "green"),
+<div class="chartpanel">{sh.stackband(seg)}</div>
+<div class="chart-cap">Every one of the <b>{num(m['fleet_total'])}</b> monitors on the
+  register: out to a named person, held in custody, on the shelf, or in the workshop.
+  Custody holdings are itemised on page 8.</div>
+{sh.tiles([
+    ("box", num(m['fleet_total']), "Total fleet", "on the Ampol register", "grey"),
+    ("check", num(m['available']), "Available now", f"ready for issue at {hhmm(asat)}",
+     "green" if m['available'] >= R['availability_target'] else "amber"),
+    ("swap", num(m['crew_out']), "Out to crew",
+     f"{num(m['out_today'])} today + {num(m['outstanding'])} overdue", "grey"),
+    ("warn", num(m['outstanding']), "Overdue 1+ days",
+     f"{num(m['out_30'])} at 30+ days, {money(m['exposure'])} exposure",
+     "red" if m['outstanding'] else "green"),
 ])}"""
-    pages.append(p1)
 
-    # ---------------- page 2 - custody, return cycle, alerts ----------
+
+def page_yesterday(m):
+    R = m["rules"]
+    yd = m["yesterday"]
+    rows = []
+    for c in m["yday_by_company"]:
+        who = ", ".join(f"{esc(p)} ({k})" for p, k in c["people_open"])
+        if not c["open"]:
+            who = f'<span class="tbc">all back - {", ".join(esc(p) for p, _ in c["people"][:4])}</span>'
+        rows.append([esc(c["name"]),
+                     num(c["nsd"]),
+                     f'<span class="g">{num(c["recovered"])}</span>' if c["recovered"] else '<span class="tbc">0</span>',
+                     f'<span class="rd">{num(c["open"])}</span>' if c["open"] else '<span class="tbc">0</span>',
+                     who])
+    if not rows:
+        rows = [['<span class="g">Every monitor issued yesterday came back the same day.</span>', "", "", "", ""]]
     al = []
     if m["yday_still_out"]:
-        al.append(("d-red", f"{m['yday_still_out']} monitors still out from yesterday",
-                   "Previous-day non-returns not yet recovered. Every one is "
-                   "named on the next page - chase at prestart."))
+        al.append(("d-red", f"{num(m['yday_still_out'])} monitors from yesterday still out",
+                   "Named above by person. A monitor out overnight has missed its bump "
+                   "test - a safety conversation first, a hire conversation second."))
     if m["out_30"]:
-        al.append(("d-red", f"{m['out_30']} monitors out 30 days or more",
-                   f"Charge exposure {money(m['exposure'])} at "
-                   f"${v18.CONFIG['charge_per_unit']:,} per unit. Recovery "
-                   f"conversation, not a debt notice."))
+        al.append(("d-red", f"{num(m['out_30'])} monitors overdue 30 days or more",
+                   f"{money(m['exposure'])} exposure at {money(R['charge_per_unit'])} per unit. "
+                   f"A recovery conversation, not a debt notice - every unit is named in "
+                   f"Appendix A."))
     if m["out_8_29"]:
-        al.append(("d-amber", f"{m['out_8_29']} monitors out 8-29 days",
-                   "Follow-up window - these are the ones that become 30+ if "
-                   "nobody rings."))
+        al.append(("d-amber", f"{num(m['out_8_29'])} monitors overdue 8-29 days",
+                   "The follow-up window - these become 30+ if nobody rings."))
     if m["repairs"]:
-        al.append(("d-amber", f"{m['repairs']} monitors in repair or out of service",
-                   f"Largest category: {m['repair_top']}. "
-                   f"{m['fleet_impact_pct']}% of the fleet unavailable."))
-    if m["available"] < v18.CONFIG["availability_target"]:
-        al.append(("d-blue",
-                   f"{m['available']} on the shelf against a "
-                   f"{v18.CONFIG['availability_target']}-unit target",
-                   "Availability is what keeps work fronts moving - restock or "
-                   "pull recovery forward."))
-    for w in m["warnings"]:
-        al.append(("d-blue", "Source reconciliation variance", w))
+        stale = len(m["repair_stale"])
+        al.append(("d-amber", f"{num(m['repairs'])} monitors in the Dräger repair queue",
+                   f"Largest category {esc(m['repair_top'])}. {m['fleet_impact_pct']}% of the "
+                   f"fleet unavailable" + (f"; {stale} units have sat there 180 days or more."
+                                           if stale else ".")))
+    if m["available"] < R["availability_target"]:
+        al.append(("d-blue", f"{num(m['available'])} on the shelf against a "
+                   f"{num(R['availability_target'])}-unit target",
+                   "Availability is what keeps work fronts moving - pull recovery forward."))
     if not al:
         al.append(("d-green", "Nothing outstanding", "No exceptions in the source today."))
-
-    p2 = f"""<div class="sect"><h3>Yesterday and today - the return cycle</h3></div>
-{tiles([
-    ("swap", num(m['issued_today']), "Issued so far today", "", ""),
-    ("clock", num(m['prev_day_total']), "Previous-day non-returns", "yesterday total", "grey"),
-    ("check", num(m['recovered']), "Recovered today",
-     f"{m['recovery_rate']}% recovery rate", "green" if m['recovery_rate'] >= 50 else "red"),
-    ("warn", num(m['yday_still_out']), "Still out from yesterday", "same person", "red" if m['yday_still_out'] else "green"),
-])}
-{tiles([
-    ("diamond", num(m['fccu']), "FCCU on hire", "tracked separately", "grey"),
-    ("layers", num(m['ops']), "Operations on hire", "tracked separately", "grey"),
-    ("zap", num(m['ff']), "Future Fuels on hire", "tracked separately", "grey"),
-    ("wrench", num(m['repairs']), "In repair / out of service",
-     f"{m['fleet_impact_pct']}% of fleet", "amber"),
-])}
-<div class="note">Cycle check: <b>{m['prev_day_total']} = {m['recovered']} recovered
-  + {m['yday_still_out']} still out</b> &mdash;
-  {"balances" if m['validation_pass'] else "DOES NOT BALANCE, investigate before sending"}.
-  Gas monitors come back <b class="o">daily</b> for bump testing, charging and
-  inspection, so one out overnight is a safety-critical follow-up, not a hire
-  matter.</div>
-{alerts(al)}"""
-    pages.append(p2)
-
-    # ---------------- non-returns, NAMED - the prestart chase list ----
-    # Source: the workbook's own Gas Monitor Return Performance tab.
-    # prev_day / prev_day_names = yesterday's operations, units not
-    # returned same day, per person with unit counts in brackets.
-    # nrsd / top_offenders     = the same-day pattern across the last
-    # 30 days. Names come straight from the workbook - never derived.
-    yday = sorted([c for c in comps if c["prev_day"] > 0],
-                  key=lambda c: -c["prev_day"])
-    yday_total = sum(c["prev_day"] for c in yday)
-    yrows = []
-    for c in yday:
-        yrows.append([esc(c["name"]),
-                      f'<span class="rd">{num(c["prev_day"])}</span>',
-                      esc(c["prev_day_names"])])
-    match_note = ("matches" if yday_total == m["prev_day_total"] else
-                  "DOES NOT MATCH - investigate before sending")
-    p_nr1 = f"""<div class="sect"><h3>Yesterday's non-returns - named</h3></div>
+    # three alerts is what fits beneath the named table; the rest of the
+    # story has its own pages
+    al = al[:3]
+    return f"""<div class="sect"><h3>Yesterday - did they come back?</h3></div>
 <div class="callout tight">
-  <b class="o">{num(yday_total)} monitors</b> from yesterday's operations were
-  not returned by end of shift, and <b class="o">{num(m['recovered'])} have been
-  recovered</b> so far today. Every unit is named below with the count against
-  each person - this is the prestart chase list. Gas monitors come back
-  <b>daily</b> for bump testing, so each name here is a safety conversation
-  first and a hire conversation second.
+  On <b>{yd.strftime('%A %d %b')}</b>, <b>{num(m['yday_draws'])} monitors</b> went out to
+  crew. <b class="o">{num(m['yday_nsd'])} were not back by the end of the day</b>
+  ({m['yday_sd_pct']}% came back same day). {num(m['yday_recovered'])} of those have
+  come back since; <b class="o">{num(m['yday_still_out'])} are still out</b> as at
+  {hhmm(m['asat'])} and are named below - that is the prestart chase list.
 </div>
-{dtable(["Company", "Units", "Who has them (units each)"], yrows, ["", "r", ""])}
-<table class="totrow"><tr>
-  <td>Total previous-day non-returns - {match_note} the scorecard</td>
-  <td class="v"><span class="hl">{num(yday_total)}</span></td>
-</tr></table>
-<div class="note">Names and unit counts come straight from the workbook's
-  <b>Gas Monitor Return Performance</b> tab (previous-day operations column) -
-  nothing here is derived or guessed. The separate ageing pages list items out
-  more than one day, person by person.</div>"""
-    pages.append(p_nr1)
+{sh.tiles([
+    ("swap", num(m['yday_draws']), "Crew draws yesterday", yd.strftime('%a %d %b'), "grey"),
+    ("clock", num(m['yday_nsd']), "Not back same day",
+     f"{100 - m['yday_sd_pct']:.1f}% of draws", "amber" if m['yday_nsd'] else "green"),
+    ("check", num(m['yday_recovered']), "Recovered since",
+     f"{m['yday_recovery_pct']}% of the non-returns", "green" if m['yday_recovery_pct'] >= 50 else "amber"),
+    ("warn", num(m['yday_still_out']), "Still out now", "same person, named below",
+     "red" if m['yday_still_out'] else "green"),
+])}
+{sh.dtable(["Company", "Not back", "Recovered", "Still out", "Who still has them (units)"],
+           rows, ["", "r", "r", "r", ""], cls="cp")}
+<div class="note">Cycle check: <b>{num(m['yday_nsd'])} = {num(m['yday_recovered'])} recovered
+  + {num(m['yday_still_out'])} still out</b>. The register (RENTAL_STOCK) shows
+  <b>{num(m['yday_register_still_out'])}</b> monitors on hire to a person since yesterday -
+  {"the two exports agree" if m['yday_register_still_out'] == m['yday_still_out'] else "the difference is explained on the data page"}.
+  Gas monitors come back <b class="o">daily</b> for bump testing, charging and inspection.</div>
+{sh.alerts(al)}"""
 
-    # ---------------- the 30-day same-day pattern ----------------------
-    nr = sorted([c for c in comps if c["nrsd"] > 0], key=lambda c: -c["nrsd"])
-    # 8 rows is the ceiling here: each row carries a two-line offender cell
-    # plus the workbook's reoffender flag under the company name. More than
-    # that and the table runs over the footer.
-    SHOW = 8
-    shown, rest = nr[:SHOW], nr[SHOW:]
-    rest_units = sum(c["nrsd"] for c in rest)
-    issued_all = sum(c["issued"] for c in comps)
-    nrsd_all = sum(c["nrsd"] for c in comps)
-    # WHY (12 Aug 2026): guard the divide - a workbook with no 30-day issues
-    # used to crash the whole build here. No issues = no rate to print, so
-    # it shows a dash rather than a made-up number.
-    nrsd_pct_s = (f"{nrsd_all / issued_all * 100:.1f}%" if issued_all else "-")
 
-    def offenders_short(s, keep=3):
-        bits = [b.strip() for b in str(s or "").split(",") if b.strip()]
-        out = ", ".join(bits[:keep])
-        return out + (f" &nbsp;&middot;&nbsp; +{len(bits) - keep} more"
-                      if len(bits) > keep else "")
-
-    nrows = []
-    for c in shown:
-        act = str(c["reoffender_action"] or "").strip()
-        flag = ""
-        if act and act.lower() not in ("no reoffender action", "none", "-"):
-            flag = f'<span class="s2"><span class="or">{esc(act)}</span></span>'
-        nrows.append([f'{esc(c["name"])}{flag}',
-                      num(c["issued"]),
-                      f'<b>{num(c["nrsd"])}</b>',
-                      esc(c["nrsd_pct"]),
-                      offenders_short(c["top_offenders"])])
-    p_nr2 = f"""<div class="sect"><h3>The same-day pattern - last 30 days</h3></div>
+def page_people(m):
+    R = m["rules"]
+    d30 = m["d30"]
+    lg = [x for x in m["league"] if x["d30_nsd"] > 0][:CONFIG["league_rows"]]
+    rows = []
+    for x in lg:
+        sub = esc(x["co"]) + (tag("repeat", "red") if x["repeat"] else "")
+        rows.append([
+            f'{esc(x["name"])}<span class="s2">{sub}</span>',
+            num(x["d30_draws"]),
+            f'<b>{num(x["d30_nsd"])}</b>',
+            f'<span class="{sd_class(x["d30_sd_pct"])}">{x["d30_sd_pct"]}%</span>',
+            num(x["d7_nsd"]) if x["d7_nsd"] else '<span class="tbc">0</span>',
+            f'<span class="rd">{num(x["open_now"])}</span>' if x["open_now"] else '<span class="tbc">0</span>',
+            f'{num(x["ytd_nsd"])}<span class="s2">of {num(x["ytd_draws"])} draws · {x["ytd_sd_pct"]}% same day</span>',
+        ])
+    rest = [x for x in m["league"] if x["d30_nsd"] > 0][CONFIG["league_rows"]:]
+    rest_units = sum(x["d30_nsd"] for x in rest)
+    return f"""<div class="sect"><h3>Who is not bringing them back - last 30 days</h3></div>
 <div class="callout tight">
-  Across the last 30 days, <b class="o">{num(nrsd_all)}</b> of
-  <b>{num(issued_all)}</b> issues ({nrsd_pct_s}) were not
-  returned on the day they went out. The table names each company's top
-  offenders with unit counts - the same names keep appearing, and that is where
-  the behaviour conversation goes. Reoffender flags are the workbook's own.
+  Between <b>{esc(m['d30_label'])}</b>, <b>{num(m['people_active_30'])} people</b> drew a
+  monitor. <b class="o">{num(m['people_with_nsd_30'])}</b> kept at least one past the day
+  it went out, and <b class="o">{num(len(m['repeat_offenders']))}</b> did so in
+  {R['repeat_weeks']} or more separate weeks - that is a habit, not a bad day. Ranked by
+  non-returns in the last 30 days; the year-to-date column shows whether the pattern
+  is new or long-standing.
 </div>
-{dtable(["Company", "Issued", "Not ret. same day", "Rate", "Top offenders (units)"],
-        nrows, ["", "r", "r", "r", ""])}
-<div class="note">{f'Plus <b>{len(rest)}</b> more companies with '
-  f'<b>{num(rest_units)}</b> units between them - full list in the workbook. '
-  if rest else ''}Counts, rates and offender names come straight from the
-  workbook's Performance tab (30-day columns). Issued totals are for the whole
-  reporting period.</div>"""
-    pages.append(p_nr2)
+{sh.dtable(["Who", "Draws", "Not same day", "Same-day %", "Last 7 days", "Still out now",
+            "Year to date - not same day"],
+           rows, ["", "r", "r", "r", "r", "r", "r"], cls="cp")}
+<div class="note">{f'Plus <b>{len(rest)}</b> more people with <b>{num(rest_units)}</b> non-returns between them in the last 30 days - all counted in the company table. ' if rest else ''}Named people only:
+  Dräger service statuses, FCCU and Operations custody, Future Fuels and the after-hours
+  account are workflows, not people, and are reported on their own lines. "Not same day" =
+  not scanned back on the calendar day it went out; a draw made after
+  {R['night_shift_from'].strftime('%H:%M')} counts as same day if it is back by
+  {R['night_shift_back_by'].strftime('%H:%M')} next morning. "Still out now" is from the
+  live register at {hhmm(m['asat'])}. Same-day % is green from 85, amber from 70, red below.</div>"""
 
-    # ================= TRANSACTIONS ANALYTICS - five pages =============
-    # Everything below comes from the SiteIQ TRANSACTIONS export via
-    # gasmon_transactions.py. If the export is missing, txm is None and
-    # these pages are skipped - the report still builds.
-    if txm:
-        _tx_pages(pages, txm, m, cfg)
 
-    # ---------------- page - by company --------------------------------
-    movers = sorted([c for c in comps if c["issued"] or c["returned"]],
-                    key=lambda c: -c["issued"])[:9]
-    trows = []
-    for c in movers:
-        net = c["issued"] - c["returned"]
-        cls = "g" if net < 0 else "a" if net > 0 else ""
-        trows.append([esc(c["name"]), num(c["issued"]), num(c["returned"]),
-                      f'<span class="{cls}">{net:+d}</span>'])
-    chart_rows = [{"label": (c["name"][:11] + "…") if len(c["name"]) > 12 else c["name"],
-                   "issued": c["issued"], "returned": c["returned"]} for c in movers[:8]]
+def page_companies(m):
+    comps = [c for c in m["companies"] if c["d30_draws"] > 0]
+    top = comps[:CONFIG["company_rows"]]
+    rest = comps[CONFIG["company_rows"]:]
+    rows = []
+    for c in top:
+        names = ", ".join(f"{esc(p)} ({k})" for p, k in c["d30_top"][:2])
+        more = len(c["d30_top"]) - 2
+        if more > 0:
+            names += f' <span class="tbc">+{more} more</span>'
+        rows.append([
+            esc(c["name"]),
+            num(c["d30_draws"]),
+            f'<b>{num(c["d30_nsd"])}</b>',
+            f'<span class="{sd_class(c["d30_sd_pct"])}">{c["d30_nsd_pct"]}%</span>',
+            f'<span class="{sd_class(c["ytd_sd_pct"])}">{c["ytd_nsd_pct"]}%</span>',
+            num(c["d30_people"]),
+            f'<span class="rd">{num(c["open_now"])}</span>' if c["open_now"] else '<span class="tbc">0</span>',
+            names or '<span class="tbc">-</span>',
+        ])
+    bars = [(c["name"], c["d30_nsd"], f'{num(c["d30_nsd"])} of {num(c["d30_draws"])}')
+            for c in comps[:8]]
+    d30 = m["d30"]
+    return f"""<div class="sect"><h3>By company - the last 30 days against the year</h3></div>
+<div class="callout tight">
+  <b class="o">{num(d30['not_same_day'])}</b> of <b>{num(d30['draws'])}</b> crew draws in
+  the last 30 days ({d30['nsd_pct']}%) were not back on the day they went out, across
+  <b>{num(d30['companies'])} companies</b>. The 30-day rate against the year-to-date rate
+  shows who is improving. Names are each company's top non-returners in the window.
+</div>
+{sh.dtable(["Company", "Draws 30d", "Not same day", "Rate 30d", "Rate YTD", "People",
+            "Still out", "Top non-returners, last 30 days (units)"],
+           rows, ["", "r", "r", "r", "r", "r", "r", ""], cls="cp")}
+<div class="note">{f'Plus <b>{len(rest)}</b> more companies with <b>{num(sum(c["d30_nsd"] for c in rest))}</b> non-returns on {num(sum(c["d30_draws"] for c in rest))} draws between them. ' if rest else ''}Rate = not returned same day &divide; draws. Rate colour: green under 15%, amber under 30%, red above.</div>
+<div class="sub-h">Not returned same day - last 30 days <span class="thin">&mdash; by company, top 8</span></div>
+<div class="chartpanel">{sh.hbars(bars, colour=K['amber'], right=70, rowh=21)}</div>"""
 
-    p3 = f"""<div class="sect"><h3>Who is moving gas monitors</h3></div>
-{dtable(["Company", "Issued", "Returned", "Net"], trows, ["", "r", "r", "r"])}
-<div class="note">Issued and returned counts are for the whole reporting period on
-  the Performance tab, not a single day. A positive <b>Net</b> means more went out
-  than came back over the period.</div>
-<div class="sub-h">Issued v returned <span class="thin">&mdash; by company</span></div>
-<div class="chartpanel">{grouped_bars(chart_rows)}</div>"""
-    pages.append(p3)
 
-    # ---------------- page 4 - ageing + recovery priorities -----------
-    prios = m["priorities"]
-    prows = []
-    for c in prios:
-        u = c.get("urgency", "Watch")
-        ucls = {"Critical": "rd", "High": "a", "Watch": "g"}.get(u, "")
-        prows.append([esc(c["name"]),
-                      f'<span class="{ucls}">{u}</span>',
-                      num(c["d1_7"]), num(c["d8_29"]), num(c["d30"]),
-                      money(c["charge"]) if c["charge"] else
-                      '<span class="tbc">$0</span>'])
+def page_year(m):
+    ytd, d30 = m["ytd"], m["d30"]
+    mon = m["monthly"]
+    labels = [x["label"] for x in mon]
+    bars = [x["draws"] for x in mon]
+    line = [x["sd_pct"] for x in mon]
+    partial = mon[-1]["partial"] if mon else False
+    wk = m["weekly"]
+    wl = [w["label"] for w in wk]
+    ann = tuple(i for i in range(0, len(wk) - 1, 2))
+    ws, we = m["tx_window"]
+    return f"""<div class="sect"><h3>The year so far - volume and behaviour by month</h3></div>
+<div class="callout tight">
+  Since <b>{ws.strftime('%d %b')}</b>, crews have drawn a monitor
+  <b>{num(ytd['draws'])} times</b> - about {num(ytd['per_working_day'])} a working day - and
+  <b class="o">{ytd['sd_pct']}%</b> came back the same day. The last 30 days ran at
+  <b class="o">{d30['sd_pct']}%</b> on {num(d30['draws'])} draws. The bars are monthly draws;
+  the line is the share back the same day{' - the last bar is a part month' if partial else ''}.
+  The year-to-date total is large because the site draws hundreds of monitors a day - the
+  behaviour measure is the percentage.
+</div>
+<div class="chartpanel">{sh.combo_chart(labels, bars, line, h=198, partial_last=partial)}</div>
+{sh.tiles([
+    ("bars", num(ytd['draws']), "Crew draws, year to date", esc(m['ytd_label']), "grey"),
+    ("check", f"{ytd['sd_pct']}%", "Same day, year to date",
+     f"{num(ytd['not_same_day'])} not back same day", sd_class(ytd['sd_pct']).replace('rd', 'red').replace('a', 'amber').replace('g', 'green')),
+    ("bars", num(d30['draws']), "Crew draws, last 30 days", esc(m['d30_label']), "grey"),
+    ("check", f"{d30['sd_pct']}%", "Same day, last 30 days",
+     f"{num(d30['not_same_day'])} not back same day", sd_class(d30['sd_pct']).replace('rd', 'red').replace('a', 'amber').replace('g', 'green')),
+])}
+<div class="sub-h">Same-day return rate by week <span class="thin">&mdash; every week of the year{' (current week is partial)' if m['current_week_partial'] else ''}</span></div>
+<div class="chartpanel">{sh.line_chart(wl, [{"vals": [w["pct"] for w in wk], "colour": K["green"], "label": "Same-day %", "fill": True}], h=158, label_every=2, pct=True, annotate=ann)}</div>
+<div class="note">Each point is same-day returns &divide; crew draws for the week starting on the date shown.</div>"""
 
-    p4 = f"""<div class="sect"><h3>Ageing - how long they have been out</h3></div>
+
+def page_30days(m):
+    d30 = m["d30"]
+    rows = m["daily30"]
+    b, w = m["daily30_busiest"], m["daily30_worst_nsd"]
+    return f"""<div class="sect"><h3>The last 30 days - day by day</h3></div>
+<div class="callout tight">
+  <b>{num(d30['draws'])} crew draws</b> over {num(d30['working_days'])} working days - about
+  <b>{num(d30['per_working_day'])} a day</b>. The busiest day was
+  <b>{esc(b['label']) if b else '-'}</b> with {num(b['draws']) if b else 0} draws; the worst day for
+  non-returns was <b class="o">{esc(w['label']) if w else '-'}</b> with
+  {num(w['nsd']) if w else 0} monitors not back. Green is back the same day, red is not;
+  grey stubs are quiet weekend days; the last bar is this morning to
+  {hhmm(m['tx_window_complete_to'])}.
+</div>
+<div class="chartpanel">{sh.daily_bars(rows)}</div>
+{sh.tiles([
+    ("bars", num(d30['per_working_day']), "Draws per working day", esc(m['d30_label']), "grey"),
+    ("zap", num(b['draws']) if b else "0", "Busiest day", esc(b['label']) if b else "-", "amber"),
+    ("warn", num(w['nsd']) if w else "0", "Worst day for non-returns", esc(w['label']) if w else "-", "red"),
+    ("clock", num(d30['not_same_day']), "Not back same day", f"{d30['nsd_pct']}% of 30-day draws", "amber"),
+])}
+<div class="sub-h">How long they stayed out <span class="thin">&mdash; every completed crew draw in the last 30 days</span></div>
+<div class="chartpanel">{sh.hbars(m['dur_buckets_30'], colour=K['amber'])}</div>
+<div class="note">Counted from issue scan to return scan. Every draw in the 1-3 day bucket and
+  beyond is a monitor that missed at least one bump-test cycle and spent nights off the shelf.</div>"""
+
+
+def page_where(m):
+    R = m["rules"]
+    where = m["where"]
+    N = CONFIG["where_rows"]
+    top = sorted(where, key=lambda w2: -w2["total"])[:N]
+    bars = [(w2["name"], [w2["today"], w2["d1"], w2["d2_7"], w2["d8_29"], w2["d30"]]) for w2 in top]
+    segs = [("Out today", GREY), ("1 day", K["amber"]), ("2-7 days", K["orange"]),
+            ("8-29 days", DEEP_RED), ("30+ days", K["red"])]
+    ranked = sorted(where, key=lambda x: (-x["d30"], -x["outstanding"], -x["total"]))
+    rest = ranked[N:]
+    rows = []
+    for w2 in ranked[:N]:
+        ucls = {"Critical": "rd", "High": "a", "Watch": "g", "Clear": "tbc"}.get(w2["urgency"], "")
+        rows.append([esc(w2["name"]), num(w2["today"]),
+                     num(w2["d1"]) if w2["d1"] else '<span class="tbc">0</span>',
+                     num(w2["d2_7"]) if w2["d2_7"] else '<span class="tbc">0</span>',
+                     num(w2["d8_29"]) if w2["d8_29"] else '<span class="tbc">0</span>',
+                     f'<span class="rd">{num(w2["d30"])}</span>' if w2["d30"] else '<span class="tbc">0</span>',
+                     f'<b>{num(w2["outstanding"])}</b>' if w2["outstanding"] else '<span class="tbc">0</span>',
+                     money(w2["exposure"]) if w2["exposure"] else '<span class="tbc">$0</span>',
+                     f'<span class="{ucls}">{esc(w2["urgency"])}</span>'])
+    return f"""<div class="sect"><h3>Where the monitors are right now - by company</h3></div>
+<div class="callout tight">
+  <b>{num(m['crew_out'])} monitors</b> are out to crew across
+  <b>{num(len([w2 for w2 in where if w2['total']]))} companies</b>: {num(m['out_today'])} went out today
+  and are on their normal cycle; <b class="o">{num(m['outstanding'])} are overdue</b> -
+  {num(m['out_1'])} since yesterday, {num(m['out_2_7'])} for 2-7 days, {num(m['out_8_29'])}
+  for 8-29 days and <b class="o">{num(m['out_30'])} for 30 days or more</b>. Custody holdings
+  (FCCU {num(m['fccu'])}, Operations {num(m['ops'])}, Future Fuels {num(m['ff'])}, after-hours
+  account {num(m['afterhours'])}) sit outside the crew count and are listed on the next page.
+</div>
+<div class="chartpanel">{sh.stacked_hbars(bars, segs, rowh=23)}</div>
+{sh.dtable(["Company", "Today", "1 day", "2-7d", "8-29d", "30+d", "Overdue", "Exposure", "Urgency"],
+           rows, ["", "r", "r", "r", "r", "r", "r", "r", ""], cls="cp")}
+<div class="note">{f'Showing {N} of {len([w2 for w2 in where if w2["total"]])} companies with monitors out - the other {len(rest)} hold {num(sum(w2["total"] for w2 in rest))} units, {num(sum(w2["outstanding"] for w2 in rest))} of them overdue, all named in Appendix A. ' if rest else ''}Days
+  are counted from the on-hire scan to the report date. Exposure is
+  {money(R['charge_per_unit'])} per monitor overdue 30 days or more. Urgency: Critical = has
+  30+ day items; High = has 8-29 day items or three or more overdue; Watch = the rest.</div>"""
+
+
+def custody_table(m):
+    cust = m["custody"]
+    crow = []
+    notes = {
+        "fccu": "bulk issue to the FCCU turnaround, held on the Dräger FCCU custody line",
+        "ops": "Ampol Operations holding",
+        "ff": "long-term issue to the Future Fuels project",
+        "afterhours": "after-hours draws booked to a shared account - no person is named on them",
+    }
+    for k in ("fccu", "ops", "ff", "afterhours"):
+        c = cust[k]
+        if not c["n"]:
+            continue
+        held = (f"{c['min_days']}-{c['max_days']} days" if c["min_days"] != c["max_days"]
+                else ("today" if c["max_days"] == 0 else f"{c['max_days']} days"))
+        crow.append([esc(c["label"]), num(c["n"]), esc(held), esc(notes[k])])
+    if not crow:
+        return ""
+    return (f'<div class="sub-h">Custody holdings <span class="thin">&mdash; {num(m["custody_total"])} '
+            f'monitors, not crew, tracked separately</span></div>'
+            + sh.dtable(["Holding", "Units", "Held for", "What it is"], crow, ["", "r", "", ""], cls="cp"))
+
+
+def page_ageing(m):
+    R = m["rules"]
+    pr = m["priorities"][:10]
+    rest = m["priorities"][10:]
+    rows = []
+    for c in pr:
+        ucls = {"Critical": "rd", "High": "a", "Watch": "g"}.get(c["urgency"], "")
+        ring = ", ".join(f"{esc(p)} ({k})" for p, k in c["names"][:2])
+        rows.append([esc(c["name"]), f'<span class="{ucls}">{esc(c["urgency"])}</span>',
+                     num(c["d1"] + c["d2_7"]), num(c["d8_29"]), num(c["d30"]),
+                     money(c["exposure"]) if c["exposure"] else '<span class="tbc">$0</span>',
+                     ring])
+    focus = ", ".join(f"<b>{esc(c['name'])}</b>" for c in m["focus3"])
+    return f"""<div class="sect"><h3>Overdue - how long they have been out</h3></div>
 <table class="dt"><tr>
   <th class="c">1-7 Days (Watch)</th><th class="c">8-29 Days (Follow up)</th>
   <th class="c">30+ Days (Action needed)</th></tr>
@@ -1110,115 +491,221 @@ def build_pages(data, m, cfg, gen_s, asat_s, txm=None):
       <td class="big">{num(m['out_8_29'])}</td>
       <td class="big">{num(m['out_30'])}</td></tr>
 </table>
-{prog_rows([
-    ("Watch - out 1-7 days", m['out_1_7'], m['outstanding'] or 1, "f-amber", f"{m['out_1_7']} items"),
-    ("Follow up - out 8-29 days", m['out_8_29'], m['outstanding'] or 1, "f-orange", f"{m['out_8_29']} items"),
-    ("Action - out 30+ days", m['out_30'], m['outstanding'] or 1, "f-red", f"{m['out_30']} items"),
+{sh.prog_rows([
+    ("Watch - out 1-7 days", m['out_1_7'], m['outstanding'] or 1, "f-amber", f"{num(m['out_1_7'])} items"),
+    ("Follow up - out 8-29 days", m['out_8_29'], m['outstanding'] or 1, "f-orange", f"{num(m['out_8_29'])} items"),
+    ("Action - out 30+ days", m['out_30'], m['outstanding'] or 1, "f-red", f"{num(m['out_30'])} items"),
 ])}
-<div class="note">Charge exposure sits at <b>{money(m['exposure'])}</b> &mdash;
-  {m['out_30']} monitors at 30 days or more, at
-  <b>${v18.CONFIG['charge_per_unit']:,}</b> replacement charge per unit from the
-  workbook's Charge column. This is a recovery conversation, not a debt notice:
-  the list below names who to ring.</div>
+<div class="note">Charge exposure sits at <b>{money(m['exposure'])}</b> &mdash; {num(m['out_30'])}
+  monitors at 30 days or more, at <b>{money(R['charge_per_unit'])}</b> replacement charge per
+  unit. If nothing overdue came back at all the figure would be
+  {money(m['exposure_all_outstanding'])} across {num(m['outstanding'])} units. A recovery
+  conversation, not a debt notice: Appendix A names every unit, oldest first.</div>
 <div class="sect"><h3>Recovery priorities - worst first</h3></div>
-{dtable(["Company", "Urgency", "1-7d", "8-29d", "30+d", "Charge exposure"],
-        prows, ["", "", "r", "r", "r", "r"])}
-<div class="note">Ranked by exposure, then outstanding count. <b>Critical</b> = has
-  30+ day items, <b>High</b> = has 8-29 day items or three or more out,
-  <b>Watch</b> = the rest. The three to ring first: <b>{esc(m['focus3'][0]['name']) if m['focus3'] else ''}</b>{", <b>" + esc(m['focus3'][1]['name']) + "</b>" if len(m['focus3']) > 1 else ""}{" and <b>" + esc(m['focus3'][2]['name']) + "</b>" if len(m['focus3']) > 2 else ""}.</div>"""
-    pages.append(p4)
+{sh.dtable(["Company", "Urgency", "1-7d", "8-29d", "30+d", "Exposure", "Ring first (units)"],
+           rows, ["", "", "r", "r", "r", "r", ""], cls="cp")}
+<div class="note">{f'Showing {len(pr)} of {len(m["priorities"])} companies with gear overdue - the other {len(rest)} hold {num(sum(c["outstanding"] for c in rest))} units between them, all in Appendix A. ' if rest else ''}Ranked by
+  30+ day items, then overdue count. The three to ring first: {focus}.</div>
+{custody_table(m)}"""
 
-    # ---------------- pages 5+ - outstanding detail -------------------
-    # Rows per detail page. Each row is two lines deep (description +
-    # company, asset + serial), so 14 is what fits inside the frame with
-    # the footer. Push this up and the page overflows: the orange frame
-    # fragments and the footer drops off. main() checks the rendered page
-    # count against the authored count and shouts if that happens.
-    PER = 14
-    chunks = [rows[i:i + PER] for i in range(0, len(rows), PER)] or [[]]
+
+def page_rhythm(m):
+    d30 = m["d30"]
+    hrs = list(range(3, 19))
+    hrows = [{"label": f"{h:02d}", "issued": d30["hour_issues"].get(h, 0),
+              "returned": d30["hour_returns"].get(h, 0)} for h in hrs]
+    rec = d30["record_hour"]
+    rec_s = (f"{num(rec['n'])} draws between {rec['hour']:02d}:00 and {rec['hour'] + 1:02d}:00 "
+             f"on {rec['date'].strftime('%a %d %b')} - one every {rec['every_s']} seconds"
+             if rec["date"] else "no draws in the window")
+    curve = m["net_curve"]
+    xl = [f"{int(hh):02d}:00" if (int(hh) % 2 == 1 and hh == int(hh)) else "" for hh, _ in curve]
+    return f"""<div class="sect"><h3>The daily rhythm - when monitors move (last 30 days)</h3></div>
+<div class="callout tight">
+  <b class="o">{d30['pct_before_6']}% of draws happen before 06:00</b>; the median monitor goes
+  out at <b>{d30['median_issue']}</b> and comes back at <b>{d30['median_return']}</b>. The
+  record hour: {rec_s}. Between the morning surge and the afternoon wave the shelf carries
+  the whole site - that is the daily squeeze in one picture.
+</div>
+<div class="sub-h">Issues and returns by hour of day <span class="thin">&mdash; {esc(m['d30_label'])}</span></div>
+<div class="chartpanel">{sh.grouped_bars(hrows, h=168)}</div>
+<div class="sub-h">Net monitors drawn from the store through the day
+  <span class="thin">&mdash; average and worst of the last {len(m['curve_days'])} working days</span></div>
+<div class="chartpanel">{sh.line_chart(xl, [
+    {"vals": [v for _, v in m["net_curve_worst"]], "colour": K["red"], "label": "Worst day", "fill": False},
+    {"vals": [v for _, v in curve], "colour": K["orange"], "label": "Average day", "fill": True}],
+    h=160, label_every=1)}</div>
+{sh.tiles([
+    ("bars", num(int(round(m['net_plateau']))), "Avg net draw by mid-morning", "issues less returns, same day", "amber"),
+    ("warn", num(int(round(m['net_plateau_worst']))), "Worst recent day", "same measure", "red"),
+    ("clock", d30['median_issue'], "Median issue time", "the morning surge", "grey"),
+    ("check", d30['median_return'], "Median return time", "the afternoon wave", "grey"),
+])}
+<div class="note">The curve counts every same-day issue minus every same-day return, half-hour by
+  half-hour, custody movements included. It is why the {num(m['rules']['availability_target'])}-unit
+  availability target exists: the shelf must survive from the surge to the wave.</div>"""
+
+
+def page_demand(m):
+    ytd = m["ytd"]
+    peaks = m["day_peaks"]
+    step = max(1, len(peaks) // 90)
+    pk = peaks[::step]
+    plabels = [p2["date"].strftime("%d %b") if i % max(1, len(pk) // 9) == 0 else ""
+               for i, p2 in enumerate(pk)]
+    rp = m["record_peak"]
+    rp30 = m["record_peak_30"]
+    usable = m["usable_fleet"]
+    lk = m["longest_kept"]
+    lk_note = (f' The longest completed hold on record: <b>{(lk["en"] - lk["st"]).days} days</b> by '
+               f'<b>{esc(lk["who"])}</b> ({esc(lk["co"])}).' if lk else '')
+    return f"""<div class="sect"><h3>Demand - monitors out at once, year to date</h3></div>
+<div class="callout tight">
+  The record is <b class="o">{num(rp['peak']) if rp else 0} monitors out at once</b>
+  {('at ' + rp['at'].strftime('%H:%M on %a %d %b')) if rp else ''} - against
+  <b>{num(m['fleet_total'])} owned</b> and <b class="o">{num(usable)} usable</b> once the
+  {num(m['repairs'])} in repair are set aside. In the last 30 days the peak was
+  <b>{num(rp30['peak']) if rp30 else 0}</b>{(' on ' + rp30['at'].strftime('%a %d %b')) if rp30 else ''}.
+  Every unit in custody or in the workshop is a unit the shelf cannot lend.
+</div>
+<div class="sub-h">Peak monitors out at once, by day <span class="thin">&mdash; {esc(m['ytd_label'])}</span></div>
+<div class="chartpanel">{sh.line_chart(plabels, [{"vals": [p2["peak"] for p2 in pk], "colour": K["orange"], "label": "Daily peak out", "fill": True}], h=176, label_every=1)}</div>
+{sh.tiles([
+    ("zap", num(rp['peak']) if rp else "0", "Record - out at once", rp['at'].strftime('%d %b %H:%M') if rp else "-", "red"),
+    ("box", num(usable), "Usable fleet", f"{num(m['fleet_total'])} owned less {num(m['repairs'])} in repair", "grey"),
+    ("warn", num(usable - rp['peak']) if rp else "-", "Spare at the record peak", "across the whole site", "red" if rp and usable - rp['peak'] < 50 else "amber"),
+    ("bars", num(rp30['peak']) if rp30 else "0", "Peak, last 30 days", rp30['at'].strftime('%d %b %H:%M') if rp30 else "-", "amber"),
+])}
+<div class="sub-h">How long monitors stay out <span class="thin">&mdash; every completed crew draw, year to date</span></div>
+<div class="chartpanel">{sh.hbars(m['dur_buckets_ytd'], colour=K['amber'])}</div>
+<div class="note">Concurrency counts every open transaction in the export window, custody
+  included. Items issued before the window opened sit outside it, so the register's on-hire
+  figure runs higher; the register is the authority for right-now counts.{lk_note}</div>"""
+
+
+def page_repairs(m):
+    R = m["rules"]
+    rep = m["repair_items"]
+    rows = []
+    for r in rep[:5]:
+        dcls = "rd" if r["days"] >= R["stale_repair_days"] else "a" if r["days"] >= 30 else ""
+        rows.append([esc(r["desc"]),
+                     f'{esc(r["bc"])}<span class="s2">{esc(r["serial"] or "no serial on the list")}</span>',
+                     f'<span class="{dcls}">{num(r["days"])}d</span><span class="s2">{esc(dfmt(r["on_dt"]))}</span>',
+                     esc(r["status"])])
+    ab = m["repair_age_buckets"]
+    stale = m["repair_stale"]
+    stale_note = (f'<b class="o">{len(stale)} unit(s) have been in the queue {R["stale_repair_days"]} days '
+                  f'or more</b> - the oldest at <b>{num(stale[0]["days"])} days</b>. That is not a repair '
+                  f'queue, that is dead fleet: a repair-or-replace call. ' if stale else '')
+    return f"""<div class="sect"><h3>Out of service - the Dräger repair queue</h3></div>
+<div class="callout tight">
+  <b>{num(m['repairs'])} monitors</b> are in the repair queue - <b class="o">{m['fleet_impact_pct']}%</b>
+  of the {num(m['fleet_total'])}-unit fleet a crew cannot take. Largest category
+  <b>{esc(m['repair_top'])}</b>. {stale_note}
+</div>
+<div class="sub-h">Repairs by status</div>
+<div class="chartpanel">{sh.hbars(m['repair_cats'])}</div>
+{sh.tiles([
+    ("wrench", num(m['repairs']), "In the repair queue", f"{m['fleet_impact_pct']}% of fleet", "amber"),
+    ("clock", num(ab.get('under 30 days', 0)), "Under 30 days", "normal turnaround", "grey"),
+    ("clock", num(ab.get('30-89 days', 0) + ab.get('90-179 days', 0)), "30-179 days", "chase Dräger", "amber"),
+    ("warn", num(ab.get('180+ days', 0)), "180 days or more", "repair-or-replace", "red" if ab.get('180+ days', 0) else "green"),
+])}
+<div class="sub-h">Longest in the queue <span class="thin">&mdash; oldest first</span></div>
+{sh.dtable(["Item", "Asset / serial", "In status", "Repair status"], rows, ["", "", "r", ""], cls="cp")}
+<div class="note">Days in status are counted from the on-hire scan onto the Dräger custody line.
+  A monitor that fails bump goes onto the Failed Bump Test line the same day, so this is a
+  fair measure of turnaround.</div>"""
+
+
+def pages_appendix(m):
+    R = m["rules"]
+    items = m["outstanding_items"]
+    PER = CONFIG["appendix_rows"]
+    chunks = [items[i:i + PER] for i in range(0, len(items), PER)] or [[]]
+    out = []
     for ci, chunk in enumerate(chunks):
-        drows = []
-        for r in chunk:
-            dcls = "rd" if r["days"] >= 30 else "a" if r["days"] >= 8 else ""
-            cost = (money(r["cost"]) if r["cost"] is not None
-                    else '<span class="tbc">TBC</span>')
-            drows.append([
-                f'{esc(r["desc"])}<span class="s2">{esc(r["company"])}</span>',
-                f'{esc(r["barcode"])}<span class="s2">{esc(r["serial"])}</span>',
-                esc(r["hirer"]),
-                f'<span class="{dcls}">{r["days"]}d</span>'
-                f'<span class="s2">{esc(fmt_date(r["date"]))}</span>',
-                cost])
-        head = (f'<div class="sect"><h3>On hire and not yet returned - oldest first</h3></div>'
+        rows = []
+        for x in chunk:
+            dcls = "rd" if x["days"] >= 30 else "a" if x["days"] >= 8 else ""
+            rows.append([f'<span class="{dcls}">{num(x["days"])}d</span>',
+                         esc(dfmt(x["on_dt"])),
+                         esc(x["who"]), esc(x["co"]), esc(x["bc"]),
+                         esc(x["serial"]) if x["serial"] else '<span class="tbc">-</span>',
+                         money(x["cost"])])
+        if not rows:
+            rows = [['<span class="g">Nothing overdue - every monitor issued before today is back.</span>', "", "", "", "", "", ""]]
+        head = (f'<div class="sect"><h3>Appendix A - overdue monitors, oldest first</h3></div>'
+                f'<div class="note" style="margin-top:8px">Every monitor on hire to a named person with an '
+                f'on-hire date before {dfmt(m["today"])}: {num(len(items))} units. Gear issued today '
+                f'({num(m["out_today"])} units) is on its normal cycle and is not listed. Red at 30 days '
+                f'or more, amber at 8-29. Replacement charge {money(R["charge_per_unit"])} per unit.</div>'
                 if ci == 0 else
-                f'<div class="sub-h">On hire and not yet returned '
+                f'<div class="sub-h">Appendix A - overdue monitors, oldest first '
                 f'<span class="thin">&mdash; continued ({ci + 1} of {len(chunks)})</span></div>')
         tail = ""
         if ci == len(chunks) - 1:
             tail = f"""<table class="totrow"><tr>
-  <td>Replacement cost exposure - if nothing came back</td>
-  <td class="v"><span class="hl">{money(priced_total)}</span></td>
+  <td>Replacement charge exposure - {num(m['out_30'])} units at 30 days or more</td>
+  <td class="v"><span class="hl">{money(m['exposure'])}</span></td>
 </tr></table>
-<div class="note">{tbc} item(s) show <b>TBC</b> - no replacement cost in the
-  source, so they are <b>excluded</b> from the exposure total rather than
-  guessed. {num(len(priced))} of {num(len(rows))} items are priced. Ageing
-  colour: red at 30 days or more, amber at 8-29 days.</div>"""
-        pages.append(head + dtable(
-            ["Description", "Asset / serial", "Hirer", "On hire", "Replacement cost"],
-            drows, ["", "", "", "", "r"]) + tail)
+<div class="note">If nothing on this list came back at all the exposure would be
+  {money(m['exposure_all_outstanding'])} across {num(len(items))} units. Serial numbers come from
+  the Gas_Monitor_Serial_Numbers list; a dash means the list does not carry that barcode.</div>"""
+        out.append(head + sh.dtable(
+            ["Out", "Since", "Who", "Company", "Asset", "Serial", "Charge"],
+            rows, ["r", "", "", "", "", "", "r"], cls="cp") + tail)
+    return out
 
-    # ---------------- repairs page ------------------------------------
-    # Repairs tab columns: <status> BARCODE SERIAL DESCRIPTION DAYS_IN_STATUS DATE
-    #
-    # TRAP: the workbook headers that first column "HIRER_NAME", but it does
-    # NOT hold a person - it holds the repair status, e.g. "Dräger - Out of
-    # Calibration". The V18 script already treats it as the category. Label
-    # it "Repair status" on the report; calling it a hirer would put a fault
-    # code where a person's name should be, in front of the customer.
-    rep = []
-    for r in data.get("repairs", []):
-        r = list(r) + [None] * 6
-        try:
-            d = int(float(r[4]))
-        except (TypeError, ValueError):
-            d = 0
-        status = re.sub(r"^Dräger\s*[–-]\s*", "", str(r[0] or "")).strip()
-        rep.append({"status": status, "barcode": r[1], "serial": r[2],
-                    "desc": r[3], "days": d})
-    rep.sort(key=lambda x: -x["days"])
-    rep_rows = []
-    for r in rep[:6]:
-        dcls = "rd" if r["days"] >= 30 else "a" if r["days"] >= 8 else ""
-        rep_rows.append([
-            esc(r["desc"]),
-            f'{esc(r["barcode"])}<span class="s2">{esc(r["serial"])}</span>',
-            f'<span class="{dcls}">{r["days"]}d</span>',
-            esc(r["status"])])
-    stale = [r for r in rep if r["days"] >= 180]
 
-    p_rep = f"""<div class="sect"><h3>Out of service - what is in the workshop</h3></div>
-<div class="callout tight">
-  <b>{num(m['repairs'])} monitors</b> are out of service, which is
-  <b class="o">{m['fleet_impact_pct']}%</b> of the {num(m['fleet_total'])}-unit
-  fleet unavailable to a work front. Largest single category is
-  <b>{esc(m['repair_top'])}</b>. Every unit here is one a crew cannot take.
-</div>
-<div class="sub-h">Repairs by category</div>
-<div class="chartpanel">{hbars(m['repair_cats'])}</div>
-<div class="note">Counted straight off the Repairs tab, category taken from the
-  item description with the "Dr&auml;ger" prefix stripped so the same fault does
-  not appear twice.</div>
-<div class="sub-h">Longest in the workshop <span class="thin">&mdash; oldest first</span></div>
-{dtable(["Item", "Asset / serial", "Days in status", "Repair status"], rep_rows,
-        ["", "", "r", ""])}
-<div class="note">{f'<b class="o">{len(stale)} unit(s) have been out of service '
-  f'180 days or more</b> &mdash; the oldest at <b>{stale[0]["days"]} days</b>. '
-  f'That is not a repair queue, that is dead fleet: repair-or-replace call. '
-  if stale else ''}Status shown is the workbook&rsquo;s repair status for each
-  unit.</div>"""
-    pages.append(p_rep)
+def page_method(m):
+    ws, we = m["tx_window"]
+    R = m["rules"]
+    src = [
+        ["RENTAL_STOCK.xlsx", "Where every monitor is right now - status, who has it, on-hire date",
+         esc(m["asat"].strftime("%d %b %Y %H:%M")), "the live register at the pull"],
+        ["TRANSACTIONS.xlsx", "Every issue and return scan with a timestamp",
+         esc(m["tx_requested"].strftime("%d %b %Y %H:%M")),
+         f"issues {ws.strftime('%d %b %H:%M')} to {we.strftime('%d %b %Y %H:%M')}; returns to the pull"],
+        ["Gas_Monitor_Serial_Numbers.xlsx", "Serial number for each barcode - display only",
+         "-", "not a source of counts"],
+        ["Ampol Gas Monitor Report.xlsm", "Attached to the email for the detail tabs",
+         "-", "no longer a source of numbers"],
+    ]
+    rules = [
+        ("Gas monitor", "Description contains \"X-am\" or \"gas monitor\". Chargers and probes are not monitors."),
+        ("Crew draw", "A transaction to a named person. Dräger service statuses, FCCU and Operations custody, "
+                      "Future Fuels and the After Hours account are workflows, not people - reported on their "
+                      "own lines, never as a person. A person's employer suffix (FCCU, SATGAS/MOL) is folded "
+                      "into the company."),
+        ("Same day", f"Scanned back on the calendar day it went out. A draw at or after "
+                     f"{R['night_shift_from'].strftime('%H:%M')} counts as same day if back by "
+                     f"{R['night_shift_back_by'].strftime('%H:%M')} next morning. Draws still open are not same day."),
+        ("Overdue", "On hire to a person with an on-hire date before the report date. Gear issued today is "
+                    "\"out today\", not overdue. Days are counted from the on-hire scan."),
+        ("Windows", f"Year to date = the transactions export ({esc(m['ytd_label'])}). Last 30 days = "
+                    f"{esc(m['d30_label'])}. Yesterday = {m['yesterday'].strftime('%d %b %Y')}, the last complete day."),
+        ("Repeat", f"A person with a non-return in {R['repeat_weeks']} or more separate weeks of the last 30 days."),
+        ("Exposure", f"{money(R['charge_per_unit'])} per monitor overdue 30 days or more - the replacement "
+                     f"charge from the Ampol gas monitor workbook. Never estimated."),
+        ("Health score", "Plain average of availability, 30-day same-day rate, repairs and 30+ day control. "
+                         "Each formula is printed beside its score on page 1."),
+    ]
+    rrows = "".join(f'<tr><td class="k">{esc(k)}</td><td>{esc(v)}</td></tr>' for k, v in rules)
+    recon = "".join(f'<tr><td class="k">Check {i + 1}</td><td>{esc(n)}</td></tr>'
+                    for i, n in enumerate(m["recon_notes"]))
+    return f"""<div class="sect"><h3>Data and method - where every number comes from</h3></div>
+{sh.dtable(["Source file", "What it gives the report", "Pulled", "Covers"], src, ["", "", "", ""], cls="cp")}
+<div class="sub-h">The rules</div>
+<table class="rules">{rrows}</table>
+<div class="sub-h">Reconciliation <span class="thin">&mdash; the two exports checked against each other</span></div>
+<table class="rules">{recon}</table>
+<div class="note">Dates are Australian (day/month/year) and parsed explicitly. Metric units,
+  24-hour time. Anything the source does not carry is shown as a dash, never guessed.</div>"""
 
-    # ---------------- closing page - service + team -------------------
+
+def page_closing(m):
     cards = [
         ("Scan and look - every time",
          "Every monitor is scanned <b>and</b> sighted going out, and scanned and "
@@ -1232,41 +719,55 @@ def build_pages(data, m, cfg, gen_s, asat_s, txm=None):
          "Anything out of calibration comes off the shelf. You will never be "
          "issued a monitor we would not carry ourselves."),
         ("Numbers you can challenge",
-         "Every score on page 1 prints its own arithmetic. Nothing is weighted "
-         "behind the scenes and nothing is estimated - a cost we do not hold shows "
-         "as <b>TBC</b>, not a guess."),
+         "Every score on page 1 prints its own arithmetic and every figure is counted "
+         "from the SiteIQ exports named on the data page. Nothing is weighted behind "
+         "the scenes and nothing is estimated."),
         ("Breakdowns - tell us everything",
          "Something stops? Tell us <b>where it is, what is wrong, what it was "
          "doing</b>. We will get it swapped or fixed - no drama, no waiting."),
         ("Reconciled before it is sent",
-         "Every figure is counted off the detail tabs, then cross-checked against "
-         "the summary cells and the RENTAL_STOCK export. Any variance is printed "
-         "on this report, not quietly dropped."),
+         "The register and the transaction log are checked against each other on "
+         "every build. Any difference is printed on the data page, not quietly dropped."),
     ]
-    p_end = f"""<div class="sect"><h3>The tool store has your back</h3></div>
-{info_cards(cards)}
+    return f"""<div class="sect"><h3>The tool store has your back</h3></div>
+{sh.info_cards(cards)}
 <div class="sect"><h3>Meet the tool store team</h3></div>
-<div class="note">The crew running your {esc(cfg['client'])} store - getting the
-  right gear to the right people, keeping it tested and ready, and making sure
-  everything that leaves the store is right. Something not on hand or not right?
-  Tell us and we'll sort it.</div>
-{team_cards(cfg['team'])}"""
-    pages.append(p_end)
-
-    return pages, {"tbc": tbc, "priced": len(priced), "rows": len(rows),
-                   "priced_total": priced_total}
+<div class="note">The crew running your {esc(CONFIG['client'])} store - getting the right gear
+  to the right people, keeping it tested and ready, and making sure everything that leaves
+  the store is right. Something not on hand or not right? Tell us and we'll sort it.</div>
+{sh.team_cards(CONFIG['team'])}"""
 
 
-def build_html(data, m, cfg, gen_s, asat_s, txm=None):
-    pages, stats = build_pages(data, m, cfg, gen_s, asat_s, txm)
+def build_pages(m):
+    pages = [
+        page_position(m),
+        page_yesterday(m),
+        page_people(m),
+        page_companies(m),
+        page_year(m),
+        page_30days(m),
+        page_where(m),
+        page_ageing(m),
+        page_rhythm(m),
+        page_demand(m),
+        page_repairs(m),
+    ]
+    pages += pages_appendix(m)
+    pages.append(page_method(m))
+    pages.append(page_closing(m))
+    return pages
+
+
+def build_html(m, cfg, gen_s, asat_s):
+    pages = build_pages(m)
     tot = len(pages)
-    body = "".join(render_page(cfg, p, i + 1, tot, gen_s, asat_s)
+    body = "".join(sh.render_page(cfg, p, i + 1, tot, gen_s, asat_s)
                    for i, p in enumerate(pages))
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <title>Coates {esc(cfg['client'])} {esc(cfg['title'])} - {esc(asat_s)}</title>
 </head><body>{body}</body></html>"""
-    return doc, tot, stats
+    return doc, tot
 
 
 # =====================================================================
@@ -1275,10 +776,8 @@ def build_html(data, m, cfg, gen_s, asat_s, txm=None):
 
 def find_browser():
     """Edge (or Chrome/Chromium) for headless print-to-PDF.
-
-    GASMON_BROWSER environment variable overrides everything, for the odd
-    laptop where Edge lives somewhere non-standard.
-    """
+    GASMON_BROWSER overrides everything for the odd laptop where Edge
+    lives somewhere non-standard."""
     import shutil
     override = os.environ.get("GASMON_BROWSER", "")
     if override and os.path.exists(override):
@@ -1296,25 +795,104 @@ def find_browser():
     for c in candidates:
         if os.path.exists(c):
             return c
-    for name in ("msedge", "chrome", "chromium", "chromium-browser"):
+    for name in ("msedge", "chrome", "chromium", "chromium-browser", "google-chrome"):
         p = shutil.which(name)
         if p:
             return p
+    # Playwright's bundled Chromium (build/test machines)
+    for root in (os.environ.get("PLAYWRIGHT_BROWSERS_PATH", ""), "/opt/pw-browsers"):
+        if root:
+            hits = sorted(glob.glob(os.path.join(root, "chromium-*", "chrome-linux", "chrome")))
+            if hits:
+                return hits[-1]
     return ""
 
 
-def render_pdf_weasy(doc, css_path, base, pdf_path, authored):
-    """WeasyPrint render + the strict authored-vs-rendered page check."""
-    rendered = HTML(string=doc, base_url=base).render(
-        stylesheets=[CSS(filename=css_path)])
+# A script the browser runs before --dump-dom: for every authored page,
+# how far the deepest content reaches past the top of the footer (px),
+# and whether anything is wider than the body. Chromium does not split a
+# fixed-height page when an SVG will not fit - it quietly drops the SVG -
+# so the page COUNT can pass while a chart has vanished. This catches it.
+_MEASURE_JS = r"""<script>
+(function(){
+  var out = [];
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) {
+    var pg = pages[i];
+    var body = pg.querySelector('.body');
+    var foot = pg.querySelector('.foot');
+    if (!body || !foot) { out.push({page: i + 1, over: -1, wide: 0}); continue; }
+    var ft = foot.getBoundingClientRect();
+    var bottom = body.getBoundingClientRect().top;
+    var els = body.querySelectorAll('*');
+    for (var j = 0; j < els.length; j++) {
+      var r = els[j].getBoundingClientRect();
+      if (r.bottom > bottom) bottom = r.bottom;
+    }
+    out.push({page: i + 1, over: Math.round(bottom - ft.top),
+              wide: Math.round(body.scrollWidth - body.clientWidth)});
+  }
+  var d = document.createElement('div');
+  d.id = 'layout-report';
+  d.textContent = JSON.stringify(out);
+  document.body.appendChild(d);
+})();
+</script>"""
+
+
+def layout_check(doc, css_path, base):
+    """Measure every page in the browser. Returns (ok, report_rows) where
+    a row is (page, px_past_footer, px_wider_than_body). ok is None when
+    the measurement could not be taken."""
+    import json as _json
+    import re as _re
+    import subprocess
+    import tempfile
+    browser = find_browser()
+    if not browser:
+        return None, []
+    with open(css_path, encoding="utf-8") as f:
+        css = f.read()
+    doc2 = doc.replace("</head>", f"<style>{css}</style></head>", 1)
+    doc2 = doc2.replace("</body>", _MEASURE_JS + "</body>", 1)
+    tmp = tempfile.NamedTemporaryFile("w", suffix=".html", dir=base, delete=False,
+                                      encoding="utf-8")
+    try:
+        tmp.write(doc2)
+        tmp.close()
+        from pathlib import Path
+        cmd = [browser, "--headless", "--disable-gpu", "--no-sandbox",
+               "--dump-dom", Path(tmp.name).as_uri()]
+        res = subprocess.run(cmd, capture_output=True, timeout=180)
+        dom = (res.stdout or b"").decode("utf-8", "ignore")
+    except Exception:
+        return None, []
+    finally:
+        try:
+            os.unlink(tmp.name)
+        except OSError:
+            pass
+    mm = _re.search(r'id="layout-report">(\[.*?\])</div>', dom, _re.S)
+    if not mm:
+        return None, []
+    try:
+        rows = [(r["page"], r["over"], r["wide"]) for r in _json.loads(mm.group(1))]
+    except Exception:
+        return None, []
+    bad = [r for r in rows if r[1] > 0 or r[2] > 0]
+    return (not bad), rows
+
+
+def render_pdf_weasy(doc, css_path, base, pdf_path):
+    rendered = HTML(string=doc, base_url=base).render(stylesheets=[CSS(filename=css_path)])
     actual = len(rendered.pages)
     rendered.write_pdf(pdf_path)
     return actual
 
 
 def render_pdf_browser(doc, css_path, base, pdf_path):
-    """Edge/Chrome headless print-to-PDF. Returns page count if it can be
-    read from the PDF, else -1 (not all PDFs expose it to a plain scan)."""
+    """Edge/Chrome headless print-to-PDF. Returns the page count read from
+    the PDF, or -1 when the file does not expose it to a plain scan."""
     import re as _re
     import subprocess
     import tempfile
@@ -1328,12 +906,11 @@ def render_pdf_browser(doc, css_path, base, pdf_path):
             "  Edge is standard on Coates laptops - if it lives somewhere\n"
             "  unusual, set the GASMON_BROWSER environment variable to the\n"
             "  full path of msedge.exe and run again.")
-    # inline the stylesheet so the temp HTML is fully self-contained
     with open(css_path, encoding="utf-8") as f:
         css = f.read()
     doc2 = doc.replace("</head>", f"<style>{css}</style></head>", 1)
-    tmp = tempfile.NamedTemporaryFile(
-        "w", suffix=".html", dir=base, delete=False, encoding="utf-8")
+    tmp = tempfile.NamedTemporaryFile("w", suffix=".html", dir=base, delete=False,
+                                      encoding="utf-8")
     try:
         tmp.write(doc2)
         tmp.close()
@@ -1362,127 +939,63 @@ def render_pdf_browser(doc, css_path, base, pdf_path):
 # MAIN
 # =====================================================================
 
+def build(write_html=None):
+    """Load, compute, build. Returns (m, doc, pages). Shared with the email."""
+    ctx = ge.load()
+    m = ge.compute(ctx)
+    gen_s = datetime.now().strftime("%d %b %Y %H:%M")
+    asat_s = m["asat"].strftime("%d %b %Y %H:%M")
+    doc, pages = build_html(m, CONFIG, gen_s, asat_s)
+    if write_html:
+        with open(write_html, "w", encoding="utf-8") as f:
+            f.write(doc)
+    return m, doc, pages, gen_s, asat_s
+
+
 def main():
     cfg = CONFIG
-    vcfg = v18.CONFIG
-    here = v18.kit_root()
-
+    here = ampol_paths.suite_dir()
     print("=" * 68)
     print("COATES K2-STYLE PDF - AMPOL GAS MONITOR OPERATIONS")
     print("=" * 68)
-
-    wb_path = v18.find_workbook(vcfg)
-    rs_path = v18.find_rental_stock(vcfg)
-    print(f"Workbook             : {os.path.basename(wb_path)}")
-    mt = datetime.fromtimestamp(os.path.getmtime(wb_path))
-    asat_s = mt.strftime("%d %b %Y %H:%M")
-    gen_s = datetime.now().strftime("%d %b %Y %H:%M")
-    print(f"Data as at           : {asat_s}  (workbook file time)")
-    if rs_path:
-        print(f"RENTAL_STOCK export  : {os.path.basename(rs_path)}")
-
-    # ONE engine - same figures as the V18 emailed dashboard
-    data = v18.load_data(wb_path)
-    m = v18.compute_metrics(data, vcfg)
-
-    # --- transactions analytics (optional but recommended) -------------
-    txm = None
-    tx_path = ""
-    if gtx is not None:
-        for folder in v18.search_dirs():
-            cands = [os.path.join(folder, n) for n in os.listdir(folder)
-                     if n.upper().startswith("TRANSACTIONS")
-                     and n.lower().endswith(".xlsx") and not n.startswith("~$")
-                     and not n.lower().startswith("source_")]
-            if cands:
-                cands.sort(key=os.path.getmtime, reverse=True)
-                tx_path = cands[0]
-                break
-        ser_path = ""
-        for folder in v18.search_dirs():
-            cands = [os.path.join(folder, n) for n in os.listdir(folder)
-                     if "serial" in n.lower() and n.lower().endswith(".xlsx")
-                     and not n.startswith("~$")]
-            if cands:
-                # WHY (12 Aug 2026): sort by mtime like every other search -
-                # this one used to take whatever order the folder listing
-                # gave, so a stray older serial file could win.
-                cands.sort(key=os.path.getmtime, reverse=True)
-                ser_path = cands[0]
-                break
-        if tx_path:
-            print(f"TRANSACTIONS export  : {os.path.basename(tx_path)}")
-            tx, tx_window = gtx.load_transactions(
-                tx_path, gtx.load_serial_assets(ser_path))
-            # WHY (12 Aug 2026): an export with no gas monitor rows used to
-            # crash the analytics maths (max/most_common on empty lists).
-            # Treat it exactly like a missing TRANSACTIONS.xlsx instead:
-            # skip the five pages and say so in plain words.
-            if not tx:
-                print("  no gas monitor rows in it - the five analytics")
-                print("  pages are SKIPPED, same as when the export is missing.")
-            else:
-                txm = gtx.compute_tx(tx)
-                if txm["n_crew"] == 0:
-                    print("  no crew movements in it (internal only) - the five")
-                    print("  analytics pages are SKIPPED.")
-                    txm = None
-            if txm is not None:
-                print(f"  gas monitor tx     : {txm['n_all']:,} "
-                      f"({txm['n_crew']:,} crew / {txm['n_internal']:,} internal)")
-                print(f"  window             : "
-                      f"{txm['window_start'].strftime('%d %b %H:%M')} -> "
-                      f"{txm['window_end'].strftime('%d %b %H:%M')}")
-                print(f"  same-day (crew)    : {txm['same_day']:,}"
-                      f"/{txm['n_crew_closed']:,} = {txm['same_day_pct']}%")
-                print(f"  record concurrent  : {txm['record_peak']['peak']} at "
-                      f"{txm['record_peak']['at'].strftime('%H:%M %d %b')}")
-                print(f"  net draw plateau   : avg {txm['net_plateau']:.0f} / "
-                      f"worst {txm['net_plateau_worst']} "
-                      f"(last {len(txm['curve_days'])} working days)")
-        else:
-            print("TRANSACTIONS export  : none found - the five analytics pages")
-            print("                       are SKIPPED. Save TRANSACTIONS.xlsx")
-            print("                       into Data\\ to bring them back.")
-
-    print(f"Health score         : {m['health']}/100  "
-          f"(A{m['score_availability']} R{m['score_recovery']} "
-          f"P{m['score_repairs']} C{m['score_30']})")
-    print(f"Fleet / on hire      : {m['fleet_total']} / {m['onhire_all']}  "
-          f"(available {m['available']}, repairs {m['repairs']})")
-    print(f"Outstanding          : {m['outstanding']}  "
-          f"({m['out_1_7']} / {m['out_8_29']} / {m['out_30']})  "
-          f"exposure {v18.money(m['exposure'])}")
-    for w in m["warnings"]:
-        print(f"[RECON WARNING] {w}")
-    if rs_path:
-        for n in v18.validate_against_rental_stock(rs_path, m):
-            print(f"[RENTAL_STOCK] {n}")
-
-    doc, pages, stats = build_html(data, m, cfg, gen_s, asat_s, txm)
+    m, doc, pages, gen_s, asat_s = build()
+    print(f"RENTAL_STOCK export  : {m['sources']['rental_stock']}")
+    print(f"TRANSACTIONS export  : {m['sources']['transactions']}")
+    ge.print_summary(m)
 
     css_path = os.path.join(here, cfg["css_name"])
     if not os.path.exists(css_path):
-        sys.exit(f"ERROR: {cfg['css_name']} is missing from the kit folder.\n"
+        sys.exit(f"ERROR: {cfg['css_name']} is missing from the suite folder.\n"
                  f"  Looked for: {css_path}\n"
-                 "  It carries the Coates house style - keep the kit together.")
+                 "  It carries the Coates house style - keep the suite together.")
+    pdf_path = os.path.join(ampol_paths.day_folder("Gas_Monitors"), cfg["pdf_name"])
 
-    # (No debug .html is written - the PDF is the deliverable, and a second
-    # copy of the same report just clutters the folder.)
-    # WHY (12 Aug 2026): the PDF lands in the suite's dated report folder -
-    # Reports\<today>\Gas_Monitors - not loose in the suite root. The fixed
-    # filename is fine because the date lives in the folder name.
-    pdf_path = os.path.join(ampol_paths.day_folder("Gas_Monitors"),
-                            cfg["pdf_name"])
+    # Measure every page in the browser BEFORE printing - a chart that does
+    # not fit is dropped silently by the print engine, page count intact.
+    ok, rows = layout_check(doc, css_path, here)
+    if ok is None:
+        print("Fit check            : could not measure (no browser) - relying on the page count")
+    elif ok:
+        worst = max((r[1] for r in rows), default=-9999)
+        print(f"Fit check            : PASS - every page's content sits above its footer "
+              f"(tightest page has {-worst}px to spare)")
+    else:
+        print("")
+        print("*" * 68)
+        print("WARNING: CONTENT DOES NOT FIT - the print engine will drop or split it.")
+        for pg, over, wide in rows:
+            if over > 0 or wide > 0:
+                print(f"  page {pg:2d}: {over:+d}px past the footer"
+                      + (f", {wide}px too wide" if wide > 0 else ""))
+        print("  Fix: lower the row counts in CONFIG or shorten the section that grew.")
+        print("  Do not send this PDF as is.")
+        print("*" * 68)
+        print("")
 
-    # Render, preferring WeasyPrint (it gives an exact page-box count for
-    # the layout check). If it is missing OR dies at render time - the
-    # normal state on a Coates Windows laptop, where its GTK libraries
-    # can't be installed - fall back to Edge/Chrome headless. No installs.
     actual = None
     if _HAVE_WEASY:
         try:
-            actual = render_pdf_weasy(doc, css_path, here, pdf_path, pages)
+            actual = render_pdf_weasy(doc, css_path, here, pdf_path)
             print("PDF engine           : WeasyPrint")
         except Exception as e:
             print(f"PDF engine           : WeasyPrint failed at render time "
@@ -1494,41 +1007,29 @@ def main():
 
     # Each page is authored as one fixed A4 box; if content overflows, the
     # renderer splits it, the orange frame breaks and the footer drops off.
-    # That must never ship silently.
     if actual == -1:
         print(f"Layout check         : page count not readable from this PDF - "
-              f"authored {pages} pages; open it and confirm the last page "
-              f"is page {pages}")
+              f"authored {pages} pages; open it and confirm the last page is page {pages}")
     elif actual != pages:
         print("")
         print("*" * 68)
-        print(f"WARNING: LAYOUT OVERFLOW - authored {pages} pages but the PDF "
-              f"has {actual}.")
+        print(f"WARNING: LAYOUT OVERFLOW - authored {pages} pages but the PDF has {actual}.")
         print("  A page's content is taller than the frame, so the orange border")
         print("  and the footer will be broken on at least one page.")
-        print("  Fix: lower PER in build_pages() (rows per detail page), or")
-        print("  shorten whatever section grew. Do not send this PDF as is.")
+        print("  Fix: lower appendix_rows / league_rows in CONFIG, or shorten the")
+        print("  section that grew. Do not send this PDF as is.")
         print("*" * 68)
         print("")
     else:
         print(f"Layout check         : PASS - {actual} pages, none overflowed")
-
     print(f"Pages                : {pages}")
-    print(f"Replacement cost     : {stats['priced']} of {stats['rows']} items priced, "
-          f"{stats['tbc']} TBC (excluded from the total, never guessed)")
-    print(f"PDF written          : {pdf_path}  "
-          f"({os.path.getsize(pdf_path):,} bytes)")
+    print(f"PDF written          : {pdf_path}  ({os.path.getsize(pdf_path):,} bytes)")
     print("")
-    print("NEXT STEP: open the PDF, check the reconciliation lines above,")
-    print("           then send it.")
+    print("NEXT STEP: open the PDF, read page 1 and the data page, then send it.")
     print("Done. The Coates Way - consistent execution, every day.")
 
 
 if __name__ == "__main__":
-    # WHY (12 Aug 2026): a failed run must exit nonzero so the suite's
-    # buttons can see it - the old block printed the error and exited 0,
-    # which made failures look like passes. The keep-window-open pause is
-    # gone too: the .bat buttons own the pause now.
     try:
         main()
     except SystemExit:

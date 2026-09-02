@@ -222,3 +222,31 @@ newer copy arrives.
 Unlike K2, the Ampol suite has **no sync / version-check / apply-update
 buttons yet** (K2's 39, 40, 46). Two laptops carrying it will drift
 unless one of those is added or the repo is treated as the master.
+
+### Gas monitor report rebuilt (2 Sep 2026)
+
+Andrew was questioned on the accuracy of the gas monitor PDF. Root cause:
+the report quoted the Excel workbook's summary tab, whose Issued / Not
+Returned columns ran over a window that was neither year-to-date nor 30
+days while the pages said both; "recovered today" was hard-coded to 0;
+custody accounts were named as people. Fix, in the suite (v1.1):
+
+- `gasmon_engine.py` counts every figure from RENTAL_STOCK.xlsx and
+  TRANSACTIONS.xlsx. The workbook is optional (email attachment only).
+- `generate_k2style_gas_monitor_report.py` (PDF, 16 pages), the
+  house-style email and the V18 dashboard all read that one engine.
+- Rules live in `RULES` at the top of the engine and are printed on
+  the PDF's data page: same-day = back on the calendar day (night-shift
+  draws after 15:00 get until 08:00), overdue = on hire since before
+  today, windows = YTD / 30 days / yesterday.
+- The PDF build measures every page in the browser (`layout_check`)
+  before printing. Chromium drops an SVG that does not fit WITHOUT
+  changing the page count - the old page-count check never saw it.
+- Verified 2 Sep 2026 against an independent pandas recount: fleet
+  878 / 335 available / 543 on hire; 77 overdue (36 at 30+ days);
+  yesterday 280 draws, 36 not back, 21 recovered, 15 still out; last
+  30 days 6,464 draws at 81.2% same day; YTD 65,152 at 80.7%.
+
+The Ampol suite still has no sync / version / apply-update buttons
+(K2's 39, 40, 46). Updates go across as a flat zip dropped over the
+suite folder.

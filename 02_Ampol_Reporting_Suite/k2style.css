@@ -459,3 +459,30 @@ table.dt th.c + th.c { border-left: 1px solid #2A3644; }
               margin-top: 11px; }
 .chart-cap { color: #7A8A9A; font-size: 9.4px; line-height: 1.7; margin-top: 9px; }
 .chart-cap b { color: #16202C; }
+
+
+/* ---------- compact tables + tags (02 Sep 2026, gas monitor rebuild) --- */
+
+table.dt.cp th { padding: 8px 8px; font-size: 8.1px; letter-spacing: 1px; }
+table.dt.cp td { padding: 5.5px 8px; font-size: 9.3px; line-height: 1.3; }
+table.dt.cp td:first-child { padding-left: 12px; }
+table.dt.cp td:last-child  { padding-right: 12px; }
+table.dt.cp td .s2 { font-size: 8px; margin-top: 1px; }
+
+.tag {
+  display: inline-block; font-size: 7.2px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; padding: 1px 5px; border-radius: 3px;
+  margin-left: 6px; vertical-align: middle; line-height: 1.5;
+}
+.tag.red   { background: #FDE8E8; color: #C81E1E; }
+.tag.amber { background: #FFF1DB; color: #B45309; }
+.tag.grey  { background: #EEF1F4; color: #5A6875; }
+.tag.green { background: #E4F5EA; color: #15803D; }
+
+table.dt td.dim { color: #98A6B4; }
+table.dt th.w { white-space: nowrap; }
+
+.rules { width: 100%; border-spacing: 0; margin-top: 10px; }
+.rules td { vertical-align: top; padding: 6px 0; border-bottom: 1px solid #E8EBEF;
+            font-size: 9.6px; line-height: 1.6; color: #47566A; }
+.rules td.k { width: 118px; color: #16202C; font-weight: 700; padding-right: 12px; }

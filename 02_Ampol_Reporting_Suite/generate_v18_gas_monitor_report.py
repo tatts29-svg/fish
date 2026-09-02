@@ -86,6 +86,16 @@ from PIL import Image, ImageDraw
 # Reports\<today>\ folder - same rule for every report in the suite.
 import ampol_paths
 
+# WHY (02 Sep 2026): one engine for the gas monitor family. The dashboard
+# keeps its look, but every number now comes from gasmon_engine - counted
+# from the SiteIQ RENTAL_STOCK and TRANSACTIONS exports - so it can never
+# disagree with the PDF or the email. The workbook is optional: attached
+# to the email when present, read for numbers only if the engine is absent.
+try:
+    import gasmon_engine as _engine
+except ImportError:
+    _engine = None
+
 # =====================================================================
 # CONFIG
 # =====================================================================
@@ -288,6 +298,14 @@ def find_workbook(cfg):
                "  - then press the gas monitor button again.")
 
 
+def find_workbook_optional(cfg):
+    """The workbook if it is there, '' if not - never a hard stop."""
+    try:
+        return find_workbook(cfg)
+    except SystemExit:
+        return ""
+
+
 def find_rental_stock(cfg):
     if cfg["rental_stock_path"] not in ("auto", "", None):
         return cfg["rental_stock_path"] if os.path.exists(cfg["rental_stock_path"]) else ""
@@ -331,8 +349,23 @@ def stamped_name(base, date_str, cfg):
 # 1. DATA LOAD - everything counted from detail tabs
 # =====================================================================
 
-def load_data(path):
-    """Read all tabs and return raw row data."""
+def load_data(path=""):
+    """Every figure the dashboard needs.
+
+    WHY (02 Sep 2026): counted by gasmon_engine from the SiteIQ exports
+    when the engine is present (always, in the suite). The workbook parse
+    below is kept as the fallback for a bare kit without the engine."""
+    if _engine is not None:
+        ctx = _engine.load()
+        m0 = _engine.compute(ctx)
+        data = _engine.v18_data(m0)
+        data["_engine"] = m0
+        return data
+    return load_workbook_data(path)
+
+
+def load_workbook_data(path):
+    """Read all tabs of the Excel workbook and return raw row data."""
     wb = openpyxl.load_workbook(path, data_only=True, read_only=True)
     data = {}
 
@@ -410,22 +443,26 @@ def compute_metrics(data, cfg):
     # -- custody groups only exist as summary values -------------------
     m["ops"] = data["perf_summary"].get("Onhire To Operations", 0)
     m["ff"] = data["perf_summary"].get("Onhire To Future Fuels", 0)
+    m["ah"] = data["perf_summary"].get("Onhire To After Hours", 0)
 
     # -- per-company aggregates ----------------------------------------
     comps = data["companies"]
-    m["issued_today"] = sum(c["today"] for c in comps)
+    m["issued_today"] = data.get("issued_today", sum(c["today"] for c in comps))
     m["prev_day_total"] = sum(c["prev_day"] for c in comps)
     m["exposure"] = sum(c["charge"] for c in comps)
     m["exposure_check"] = m["out_30"] * cfg["charge_per_unit"]
 
     # -- derived fleet positions ---------------------------------------
     m["onhire_general"] = m["issued_today"] + m["outstanding"]
-    m["onhire_all"] = m["onhire_general"] + m["fccu"] + m["ops"] + m["ff"]
+    m["onhire_all"] = m["onhire_general"] + m["fccu"] + m["ops"] + m["ff"] + m["ah"]
     m["fleet_total"] = m["onhire_all"] + m["available"] + m["repairs"]
     m["fleet_general"] = m["onhire_general"] + m["available"] + m["repairs"]
 
     # -- previous-day recovery cycle ------------------------------------
-    m["recovered"] = 0            # populated when prev-day list exists
+    # WHY (02 Sep 2026): this was hard-coded to 0, which pinned the Returns
+    # score at 0/100 every morning. The engine counts yesterday's non-returns
+    # that have since been scanned back.
+    m["recovered"] = data.get("recovered", 0)
     m["yday_still_out"] = m["prev_day_total"] - m["recovered"]
     m["recovery_rate"] = (100 if m["prev_day_total"] == 0
                           else round(m["recovered"] / m["prev_day_total"] * 100))
@@ -446,6 +483,14 @@ def compute_metrics(data, cfg):
     m["score_30"] = max(0, 100 - 3 * m["out_30"])
     m["health"] = round((m["score_availability"] + m["score_recovery"]
                          + m["score_repairs"] + m["score_30"]) / 4)
+    # WHY (02 Sep 2026): one health score across the PDF, the email and this
+    # dashboard. The engine scores same-day returns over the last 30 days in
+    # place of "recovered so far today" (which is 0 by definition at 06:45).
+    eng = data.get("_engine")
+    if eng is not None:
+        m["score_recovery"] = eng["score_sameday"]
+        m["health"] = eng["health"]
+        m["sameday_30_pct"] = eng["d30"]["sd_pct"]
 
     # -- top recovery priorities -----------------------------------------
     # Rank: exposure desc, total outstanding desc, 1-7 desc.
@@ -781,7 +826,7 @@ def pillars(m):
     items = [
         ("Overall Health", m["health"], "OPERATIONS", C["orange"]),
         ("Availability", m["score_availability"], "ASSETS", C["blue"]),
-        ("Recovery", m["score_recovery"], "PEOPLE", C["amber"]),
+        ("Same-day 30d", m["score_recovery"], "PEOPLE", C["amber"]),
         ("Repairs", m["score_repairs"], "ASSETS", C["green"]),
         ("30+ Control", m["score_30"], "FINANCIALS", C["red"]),
     ]
@@ -882,7 +927,8 @@ def data_panels(m):
         bar_row("FCCU On Hire", "separate", m["fccu"], maxc, b, C["card3"]) +
         bar_row("Operations On Hire", "separate", m["ops"], maxc, b, C["card2"]) +
         bar_row("Future Fuels On Hire", "separate", m["ff"], maxc, b, C["card3"]) +
-        bar_row("General On Hire", "general fleet", m["onhire_general"], maxc, o, C["card2"]) +
+        bar_row("After Hours Account", "separate", m["ah"], maxc, b, C["card2"]) +
+        bar_row("General On Hire", "general fleet", m["onhire_general"], maxc, o, C["card3"]) +
         totals_row("Total On Hire (all custody)", m["onhire_all"], b) +
         totals_row("General Fleet (excl. FCCU / Ops / FF)", m["fleet_general"], o))
     return f"""
@@ -1081,7 +1127,7 @@ def detail_tables(data, m, cfg):
         return groups
 
     # ========== PREVIOUS DAY RECOVERY CYCLE ==========
-    out += detail_banner("Still Outstanding from Yesterday &ndash; Action Required", C["red"])
+    out += detail_banner("Still Outstanding from Previous Days &ndash; Action Required", C["red"])
     yday_comps = [c for c in data["companies"] if c["still_out"] > 0]
     if not yday_comps:
         out += detail_empty(f"No outstanding items from yesterday. Full recovery achieved.")
@@ -1094,7 +1140,7 @@ def detail_tables(data, m, cfg):
     <td style="width:6px;background:#0B0B0B;font-size:1px;">&nbsp;</td>
     <td style="background:{C['red']};padding:10px 14px;">
       <span style="font-size:14px;font-weight:900;color:#fff;">{esc(c['name'])}</span>
-      <span style="font-size:10px;color:rgba(255,255,255,.85);font-weight:700;margin-left:8px;">&mdash; {c['still_out']} monitors still out</span>
+      <span style="font-size:10px;color:rgba(255,255,255,.85);font-weight:700;margin-left:8px;">&mdash; {c['still_out']} monitors overdue</span>
     </td>
   </tr>
 </table>
@@ -1232,7 +1278,7 @@ def footer(cfg, gen_str, asat_str=""):
     # WHY (12 Aug 2026): the suite standard puts a data-as-at stamp in the
     # footer of every report - the workbook file time, so the reader always
     # knows how fresh the numbers are.
-    asat_bit = (f" &middot; Data as at {asat_str} (workbook file time)"
+    asat_bit = (f" &middot; Position as at {asat_str} (SiteIQ register pull)"
                 if asat_str else "")
     return f"""
 <tr>
@@ -1359,11 +1405,14 @@ def main():
     print(f"Output folder        : {resolve_output_dir(cfg)}")
     print("-" * 68)
 
-    wb_path = find_workbook(cfg)
+    wb_path = find_workbook_optional(cfg) if _engine is not None else find_workbook(cfg)
     rs_path = find_rental_stock(cfg)
-    print(f"Workbook             : {os.path.basename(wb_path)}")
-    print(f"  extracted          : "
-          f"{datetime.fromtimestamp(os.path.getmtime(wb_path)).strftime('%d %b %Y %H:%M')}")
+    if wb_path:
+        print(f"Workbook             : {os.path.basename(wb_path)}  (attached to the email)")
+    else:
+        print("Workbook             : none in Data\\ - not needed, the engine counts from the exports")
+    if _engine is not None:
+        print("Numbers from         : gasmon_engine (SiteIQ RENTAL_STOCK + TRANSACTIONS)")
     if rs_path:
         print(f"RENTAL_STOCK export  : {os.path.basename(rs_path)}")
         print(f"  extracted          : "
@@ -1398,7 +1447,10 @@ def main():
         for n in validate_against_rental_stock(rs_path, m):
             print(f"[RENTAL_STOCK] {n}")
 
-    asat_str = datetime.fromtimestamp(os.path.getmtime(wb_path)).strftime("%d %b %Y %H:%M")
+    if data.get("_engine") is not None:
+        asat_str = data["_engine"]["asat"].strftime("%d %b %Y %H:%M")
+    else:
+        asat_str = datetime.fromtimestamp(os.path.getmtime(wb_path)).strftime("%d %b %Y %H:%M")
     html = build_html(data, m, cfg, date_str, time_str, asat_str)
     out_dir = resolve_output_dir(cfg)
     os.makedirs(out_dir, exist_ok=True)
@@ -1419,14 +1471,17 @@ def main():
     # itself, same discipline as the .eml. The workbook is copied in beside
     # it so the manifest can attach it by basename, and the dated folder
     # then also keeps the exact data this report was built from.
-    wb_copy = os.path.join(out_dir, os.path.basename(wb_path))
-    if os.path.abspath(wb_path) != os.path.abspath(wb_copy):
-        shutil.copy2(wb_path, wb_copy)
+    attachments = []
+    if wb_path:
+        wb_copy = os.path.join(out_dir, os.path.basename(wb_path))
+        if os.path.abspath(wb_path) != os.path.abspath(wb_copy):
+            shutil.copy2(wb_path, wb_copy)
+        attachments.append(os.path.basename(wb_copy))
     weekday = datetime.strptime(date_str, "%d %B %Y").strftime("%A")
     manifest = {
         "subject": f"{cfg['subject_prefix']} - {weekday} {date_str}",
         "body": os.path.basename(html_path),
-        "attachments": [os.path.basename(wb_copy)],
+        "attachments": attachments,
         "to": "; ".join(cfg["recipients"]),
     }
     man_path = os.path.join(

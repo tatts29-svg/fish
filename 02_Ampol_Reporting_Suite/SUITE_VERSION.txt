@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.0  (12 Aug 2026)
+Version: 1.1  (02 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -8,3 +8,25 @@ v1.0 - 12 Aug 2026
   - All six report families under numbered buttons, plus the
     two new register reports (Calibrations, Rigging).
   - Dated Reports\ output, drafts-never-send, CHECK gates.
+
+v1.1 - 02 Sep 2026  (gas monitor report rebuilt - accuracy)
+  - Every gas monitor number is now counted by gasmon_engine.py from
+    the two SiteIQ exports (RENTAL_STOCK = where every monitor is,
+    TRANSACTIONS = every issue and return). The Excel workbook is no
+    longer a source of numbers - it is attached to the email if it is
+    in Data\, and refreshing it is optional.
+  - Three windows, labelled on every page: year to date, last 30
+    days, yesterday. Who does not bring them back, by name and by
+    company, with the year-to-date column beside the 30-day one.
+  - "Recovered today" is counted (it was hard-coded to zero, which
+    pinned the Returns score at 0/100 every morning). The score now
+    uses the 30-day same-day return rate.
+  - Custody and workflow accounts (Dräger statuses, FCCU, Operations,
+    Future Fuels, After Hours) are never named as people.
+  - A data-and-method page prints the sources, the rules and the
+    reconciliation between the two exports on every build.
+  - The build measures every page in the browser before printing and
+    shouts if content will not fit (the print engine drops a chart
+    that does not fit without changing the page count).
+  - Button 02 (executive dashboard) and the email read the same engine
+    - three outputs, one set of numbers.
