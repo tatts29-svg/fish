@@ -302,3 +302,30 @@ disagreed.
   out after their due date (report says check both the issue and the
   register date).
 
+### Final sweep (2 Sep 2026, v1.3) - names, order, proof
+
+Andrew's closing ask: nothing worded with the former site name (the
+site is Ampol), everything named correctly, alphabetical order, clean
+readable PDFs, "how it works on other computers", and one consolidated
+tooling on-hire report instead of one per company (there are hundreds
+of companies) while keeping the quarterly charge reports. Word of mouth
+on site was "the data is wrong", so proof had to travel with the pages.
+
+- `ampol_names.py` is the one place the former site name is spelt out.
+  `display_desc` / `display_company` / `account_label` / `sort_key` are
+  used by every family; `gasmon_engine.norm_company` delegates to it.
+  Matching, pricing and joins always use the raw SiteIQ text; barcodes
+  (CTX...) are identifiers and never change. Each data page prints how
+  many raw lines still carry the old name (3,136 descriptions, 1
+  account) so the rename is a disclosed display rule, not a data edit.
+- Ordering rule applied everywhere it is a directory: companies A-Z,
+  hirers A-Z inside a company, a person's items longest-held first.
+  Ranked tables carry "ranked by ..." in the heading.
+- `VERIFY_NUMBERS.py` (button 13, also the last step of 00) recounts
+  the key figures straight from the exports with none of the report
+  code and matches them against today's pages; it also proves the old
+  word is printed nowhere. Output saved as Reports\<date>\VERIFY_NUMBERS.txt
+  so the proof travels with the reports.
+- START_HERE.txt rewritten around "no workbook is ever refreshed" and
+  "on another computer"; HOW_IT_WORKS.html added.
+
