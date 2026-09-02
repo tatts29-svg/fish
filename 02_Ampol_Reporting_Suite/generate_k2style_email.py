@@ -59,7 +59,11 @@ CONFIG = {
     "eml_name": "Coates_Ampol_GasMonitor_Operations_OUTLOOK_SAFE.eml",
     "html_name": "Coates_Ampol_GasMonitor_Operations_EMAIL.html",
     "attach_pdf": True,       # attach the house-style PDF when it exists
-    "attach_workbook": True,  # attach the gas monitor workbook when it exists
+    # WHY (02 Sep 2026): off by default. The workbook's summary tab is what
+    # the old report quoted and what raised the accuracy questions - sending
+    # it beside a PDF that counts differently reopens them. Flip to True to
+    # attach it when it is in Data\.
+    "attach_workbook": False,
     "width": 1000,            # email body width in px
 }
 
@@ -171,6 +175,42 @@ def build_email_html(m, gen_s, asat_s, cfg):
          "#F0603E" if m["outstanding"] else "#22C55E"),
     ]))
 
+    # ---------- where the numbers come from --------------------------------
+    ws_, we_ = m["tx_window"]
+    d90 = m["d90"]
+    parts.append(esect("Where these numbers come from"))
+    parts.append(ecallout(
+        f'Two SiteIQ exports, pulled together on <b>{m["asat"].strftime("%d %b %Y")}</b>, are the only inputs. '
+        f'<b>RENTAL_STOCK</b> is the register - what is on hire, to whom, and what is on the shelf at '
+        f'{asat_t}. <b>TRANSACTIONS</b> is the movement log - every scan out and scan in since '
+        f'{ws_.strftime("%d %b %Y %H:%M")}, one row per monitor per draw with a transaction ID. The store '
+        f'scans twice out and twice in, so a row only exists when a monitor crossed the counter. Nothing '
+        f'is typed in or read from a summary cell; the Excel workbook is not used. A draw is one monitor to '
+        f'one named person once, which is why the yearly count is large - the behaviour measure is the '
+        f'percentage back the same day.', tight=True))
+
+    def wrow(label, dates, f):
+        return [f"<b>{esc(label)}</b>", esc(dates), num(f["draws"]),
+                f'{num(f["same_day"])} {dim(str(f["sd_pct"]) + "%")}',
+                f'<b>{num(f["not_same_day"])}</b> {dim(str(f["nsd_pct"]) + "%")}',
+                num(f["people"]), num(f["companies"])]
+    y_nsd_pct = f'{100 - m["yday_sd_pct"]:.1f}%'
+    parts.append(edtable(["Window", "Dates", "Crew draws", "Back same day", "Not same day", "People", "Companies"], [
+        wrow("Year to date", m["ytd_label"], ytd),
+        wrow("Last 3 months", m["d90_label"], d90),
+        wrow("Last 30 days", m["d30_label"], d30),
+        ["<b>Yesterday</b>", esc(m["yesterday"].strftime("%a %d %b %Y")), num(m["yday_draws"]),
+         f'{num(m["yday_draws"] - m["yday_nsd"])} {dim(str(m["yday_sd_pct"]) + "%")}',
+         f'<b>{num(m["yday_nsd"])}</b> {dim(y_nsd_pct)}',
+         num(m["yday_people"]), num(m["yday_companies"])],
+    ], ["", "", "r", "r", "r", "r", "r"]))
+    ss = m["serial_stats"]
+    parts.append(enote(
+        f'Crew draws exclude the custody and workflow accounts ({num(m["tx_accounts"])} of the '
+        f'{num(m["tx_all"])} gas monitor rows this year). Barcode is the identity SiteIQ scans; '
+        f'{num(ss["with"])} of the {num(ss["fleet"])} monitors on the register carry a serial on the '
+        f'serial list. Full rules and the reconciliation between the two exports are on the data page of the PDF.'))
+
     # ---------- yesterday ------------------------------------------------
     yd = m["yesterday"]
     parts.append(esect("Yesterday - did they come back?"))
@@ -228,16 +268,16 @@ def build_email_html(m, gen_s, asat_s, cfg):
             s2(esc(x["name"]) + (tagx("repeat") if x["repeat"] else ""), esc(x["co"])),
             num(x["d30_draws"]), f'<b>{num(x["d30_nsd"])}</b>',
             f'<span style="color:{col_pct(x["d30_sd_pct"])};font-weight:bold;">{x["d30_sd_pct"]}%</span>',
-            num(x["d7_nsd"]) if x["d7_nsd"] else dim("0"),
-            red(num(x["open_now"])) if x["open_now"] else dim("0"),
-            s2(num(x["ytd_nsd"]), f'of {num(x["ytd_draws"])} draws · {x["ytd_sd_pct"]}% same day')])
+            s2(num(x["d90_nsd"]), f'of {num(x["d90_draws"])} · {x["d90_sd_pct"]}% same day'),
+            s2(num(x["ytd_nsd"]), f'of {num(x["ytd_draws"])} · {x["ytd_sd_pct"]}% same day'),
+            red(num(x["open_now"])) if x["open_now"] else dim("0")])
     parts.append(esect("Who is not bringing them back - last 30 days"))
     parts.append(ecallout(
         f'Between <b>{esc(m["d30_label"])}</b>, <b>{num(m["people_active_30"])} people</b> drew a monitor. '
         f'{eo(num(m["people_with_nsd_30"]))} kept at least one past the day it went out, and '
         f'{eo(num(len(m["repeat_offenders"])))} did so in {R["repeat_weeks"]} or more separate weeks - a habit, '
         f'not a bad day. Ranked by non-returns in the last 30 days; year to date alongside.', tight=True))
-    parts.append(edtable(["Who", "Draws", "Not same day", "Same-day %", "Last 7 days", "Still out", "Year to date - not same day"],
+    parts.append(edtable(["Who", "Draws 30d", "Not same day 30d", "Same-day % 30d", "Last 3 months", "Year to date", "Still out"],
                          lrows, ["", "r", "r", "r", "r", "r", "r"]))
     parts.append(enote(
         f'Named people only - custody and workflow accounts are reported on their own lines. "Not same day" = '
@@ -252,6 +292,7 @@ def build_email_html(m, gen_s, asat_s, cfg):
         names = ", ".join(f"{esc(p)} ({k})" for p, k in c["d30_top"][:3])
         crows.append([esc(c["name"]), num(c["d30_draws"]), f'<b>{num(c["d30_nsd"])}</b>',
                       f'<span style="color:{col_pct(c["d30_sd_pct"])};font-weight:bold;">{c["d30_nsd_pct"]}%</span>',
+                      (f'<span style="color:{col_pct(c["d90_sd_pct"])};font-weight:bold;">{c["d90_nsd_pct"]}%</span>' if c["d90_draws"] else dim("-")),
                       f'<span style="color:{col_pct(c["ytd_sd_pct"])};font-weight:bold;">{c["ytd_nsd_pct"]}%</span>',
                       num(c["d30_people"]), red(num(c["open_now"])) if c["open_now"] else dim("0"),
                       names or dim("-")])
@@ -260,9 +301,9 @@ def build_email_html(m, gen_s, asat_s, cfg):
         f'{eo(num(d30["not_same_day"]))} of <b>{num(d30["draws"])}</b> crew draws in the last 30 days '
         f'({d30["nsd_pct"]}%) were not back on the day they went out, across <b>{num(d30["companies"])} '
         f'companies</b>. The 30-day rate against the year-to-date rate shows who is improving.', tight=True))
-    parts.append(edtable(["Company", "Draws 30d", "Not same day", "Rate 30d", "Rate YTD", "People", "Still out",
+    parts.append(edtable(["Company", "Draws 30d", "Not same day", "Rate 30d", "Rate 3 mo", "Rate YTD", "People", "Still out",
                           "Top non-returners, last 30 days (units)"],
-                         crows, ["", "r", "r", "r", "r", "r", "r", ""]))
+                         crows, ["", "r", "r", "r", "r", "r", "r", "r", ""]))
     parts.append(epanel(hbars_png([(c["name"], c["d30_nsd"]) for c in comps[:10]], CW - 28, K["amber"])))
 
     # ---------- the year in context -------------------------------------
@@ -433,7 +474,8 @@ def main():
         attachments.append(os.path.basename(wb_copy))
         print(f"Workbook attached    : {os.path.basename(wb_path)}")
     else:
-        print("Workbook attached    : no (none in Data\\ - the report does not need it)")
+        print("Workbook attached    : no - switched off in CONFIG (its summary tab is what")
+        print("                       the old report quoted; the PDF carries the detail now)")
 
     eml_path = os.path.join(out_dir, CONFIG["eml_name"])
     with open(eml_path, "wb") as f:

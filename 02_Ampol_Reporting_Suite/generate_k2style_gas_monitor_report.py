@@ -90,6 +90,7 @@ CONFIG = {
     # rows per appendix page - compact single-line rows
     "appendix_rows": 26,
     "league_rows": 12,
+    "league_ytd_rows": 15,
     "company_rows": 10,
     "where_rows": 10,
 }
@@ -185,7 +186,7 @@ def page_position(m):
 <div class="chartpanel">{sh.stackband(seg)}</div>
 <div class="chart-cap">Every one of the <b>{num(m['fleet_total'])}</b> monitors on the
   register: out to a named person, held in custody, on the shelf, or in the workshop.
-  Custody holdings are itemised on page 8.</div>
+  Custody holdings are itemised beside the recovery priorities.</div>
 {sh.tiles([
     ("box", num(m['fleet_total']), "Total fleet", "on the Ampol register", "grey"),
     ("check", num(m['available']), "Available now", f"ready for issue at {hhmm(asat)}",
@@ -196,6 +197,75 @@ def page_position(m):
      f"{num(m['out_30'])} at 30+ days, {money(m['exposure'])} exposure",
      "red" if m['outstanding'] else "green"),
 ])}"""
+
+
+def page_sources(m):
+    ws, we = m["tx_window"]
+    ytd, d90, d30 = m["ytd"], m["d90"], m["d30"]
+    ss = m["serial_stats"]
+    R = m["rules"]
+
+    def win(label, dates, f):
+        return [f"<b>{esc(label)}</b>", esc(dates), num(f["draws"]),
+                f'{num(f["same_day"])} <span class="s2">{f["sd_pct"]}%</span>',
+                f'<b>{num(f["not_same_day"])}</b> <span class="s2">{f["nsd_pct"]}%</span>',
+                num(f["people"]), num(f["companies"])]
+    rows = [
+        win("Year to date", m["ytd_label"], ytd),
+        win("Last 3 months", m["d90_label"], d90),
+        win("Last 30 days", m["d30_label"], d30),
+        ["<b>Yesterday</b>", esc(m["yesterday"].strftime("%a %d %b %Y")), num(m["yday_draws"]),
+         f'{num(m["yday_draws"] - m["yday_nsd"])} <span class="s2">{m["yday_sd_pct"]}%</span>',
+         f'<b>{num(m["yday_nsd"])}</b> <span class="s2">{100 - m["yday_sd_pct"]:.1f}%</span>',
+         num(m["yday_people"]), num(m["yday_companies"])],
+    ]
+    pre = ""
+    if ss["missing"]:
+        from collections import Counter as _C
+        top = _C(b.split("/")[0] for b in ss["missing"]).most_common(1)[0]
+        pre = f" - {top[1]} of them in the {esc(top[0])} range"
+    cards = [
+        ("RENTAL_STOCK - the register",
+         f"What SiteIQ holds as <b>On Hire</b> (and to whom) and <b>Available for Hire</b> at the "
+         f"moment the export is pulled - here <b>{esc(m['asat'].strftime('%d %b %Y %H:%M'))}</b>. "
+         f"It is where the position, the overdue list and the custody holdings come from."),
+        ("TRANSACTIONS - the movement log",
+         f"Every scan out and every scan in since <b>{ws.strftime('%d %b %Y %H:%M')}</b>, one row per "
+         f"monitor per draw, with a transaction ID and the time to the second. The store scans twice on "
+         f"the way out and twice on the way back, so a row only exists when a monitor physically "
+         f"crossed the counter. Every rate, trend and league comes from these rows."),
+        ("What a draw is",
+         "One monitor, out to one named person, once. A person who takes three monitors at 05:00 is "
+         "three draws. That is why the yearly count is large - the site draws hundreds a day - and why "
+         "the behaviour measure is the <b>percentage</b> back the same day, not the count."),
+        ("Not returned same day",
+         f"A draw not scanned back on the calendar day it went out. A draw at or after "
+         f"{R['night_shift_from'].strftime('%H:%M')} counts as same day if it is back by "
+         f"{R['night_shift_back_by'].strftime('%H:%M')} next morning. A draw still open counts as not "
+         f"returned. The same rule is applied to every person and every company."),
+        ("Counted, never typed",
+         "Nothing on these pages is keyed in, adjusted or read from a summary cell. The two exports are "
+         "read exactly as pulled and every figure is counted from their rows, so anyone with the same "
+         "two files can re-derive any number here. The Excel workbook is not used."),
+        ("Barcodes and serials",
+         f"SiteIQ identifies a monitor by its <b>barcode</b>; the Dräger serial rides alongside for the "
+         f"calibration paperwork. <b>{num(ss['with'])} of the {num(ss['fleet'])}</b> monitors on the "
+         f"register carry a serial on the list; {num(len(ss['missing']))} do not{pre} and show a dash "
+         f"until the list is completed."),
+    ]
+    return f"""<div class="sect"><h3>Where these numbers come from</h3></div>
+<div class="callout tight">
+  Two SiteIQ exports, pulled together on <b>{esc(m['asat'].strftime('%d %b %Y'))}</b>, are the only
+  inputs to this report. The table shows how much each window holds, so any figure on the pages that
+  follow can be traced back to the rows it was counted from.
+</div>
+{sh.dtable(["Window", "Dates", "Crew draws", "Back same day", "Not same day", "People", "Companies"],
+           rows, ["", "", "r", "r", "r", "r", "r"], cls="cp")}
+<div class="note">Crew draws exclude the custody and workflow accounts (Dräger service statuses, FCCU,
+  Operations, Future Fuels, After Hours) - {num(m['tx_accounts'])} of the {num(m['tx_all'])} gas monitor
+  rows in the log this year. Each window is inclusive of its dates; the log closes at
+  {we.strftime('%H:%M')} on the report day, so "today" is not a window.</div>
+{sh.info_cards(cards)}"""
 
 
 def page_yesterday(m):
@@ -270,7 +340,6 @@ def page_yesterday(m):
 
 def page_people(m):
     R = m["rules"]
-    d30 = m["d30"]
     lg = [x for x in m["league"] if x["d30_nsd"] > 0][:CONFIG["league_rows"]]
     rows = []
     for x in lg:
@@ -280,9 +349,9 @@ def page_people(m):
             num(x["d30_draws"]),
             f'<b>{num(x["d30_nsd"])}</b>',
             f'<span class="{sd_class(x["d30_sd_pct"])}">{x["d30_sd_pct"]}%</span>',
-            num(x["d7_nsd"]) if x["d7_nsd"] else '<span class="tbc">0</span>',
+            f'{num(x["d90_nsd"])}<span class="s2">of {num(x["d90_draws"])} · {x["d90_sd_pct"]}% same day</span>',
+            f'{num(x["ytd_nsd"])}<span class="s2">of {num(x["ytd_draws"])} · {x["ytd_sd_pct"]}% same day</span>',
             f'<span class="rd">{num(x["open_now"])}</span>' if x["open_now"] else '<span class="tbc">0</span>',
-            f'{num(x["ytd_nsd"])}<span class="s2">of {num(x["ytd_draws"])} draws · {x["ytd_sd_pct"]}% same day</span>',
         ])
     rest = [x for x in m["league"] if x["d30_nsd"] > 0][CONFIG["league_rows"]:]
     rest_units = sum(x["d30_nsd"] for x in rest)
@@ -292,19 +361,53 @@ def page_people(m):
   monitor. <b class="o">{num(m['people_with_nsd_30'])}</b> kept at least one past the day
   it went out, and <b class="o">{num(len(m['repeat_offenders']))}</b> did so in
   {R['repeat_weeks']} or more separate weeks - that is a habit, not a bad day. Ranked by
-  non-returns in the last 30 days; the year-to-date column shows whether the pattern
-  is new or long-standing.
+  non-returns in the last 30 days; the 3-month and year-to-date columns show whether the
+  pattern is new or long-standing.
 </div>
-{sh.dtable(["Who", "Draws", "Not same day", "Same-day %", "Last 7 days", "Still out now",
-            "Year to date - not same day"],
+{sh.dtable(["Who", "Draws 30d", "Not same day 30d", "Same-day % 30d", "Last 3 months", "Year to date",
+            "Still out now"],
            rows, ["", "r", "r", "r", "r", "r", "r"], cls="cp")}
 <div class="note">{f'Plus <b>{len(rest)}</b> more people with <b>{num(rest_units)}</b> non-returns between them in the last 30 days - all counted in the company table. ' if rest else ''}Named people only:
-  Dräger service statuses, FCCU and Operations custody, Future Fuels and the after-hours
-  account are workflows, not people, and are reported on their own lines. "Not same day" =
-  not scanned back on the calendar day it went out; a draw made after
-  {R['night_shift_from'].strftime('%H:%M')} counts as same day if it is back by
-  {R['night_shift_back_by'].strftime('%H:%M')} next morning. "Still out now" is from the
-  live register at {hhmm(m['asat'])}. Same-day % is green from 85, amber from 70, red below.</div>"""
+  custody and workflow accounts are reported on their own lines. "Not same day" = not scanned
+  back on the calendar day it went out (a draw after {R['night_shift_from'].strftime('%H:%M')}
+  counts as same day if back by {R['night_shift_back_by'].strftime('%H:%M')} next morning).
+  "Still out now" is from the live register at {hhmm(m['asat'])}. Same-day % is green from 85,
+  amber from 70, red below.</div>"""
+
+
+def page_people_ytd(m):
+    ws, we = m["tx_window"]
+    lg = [x for x in m["league_ytd"] if x["ytd_nsd"] > 0][:CONFIG["league_ytd_rows"]]
+    rows = []
+    for x in lg:
+        last = x["last_nsd"].strftime("%d %b") if x["last_nsd"] else "-"
+        rows.append([
+            f'{esc(x["name"])}<span class="s2">{esc(x["co"])}</span>',
+            num(x["ytd_draws"]),
+            f'<b>{num(x["ytd_nsd"])}</b>',
+            f'<span class="{sd_class(x["ytd_sd_pct"])}">{x["ytd_sd_pct"]}%</span>',
+            f'{num(x["d90_nsd"])}<span class="s2">of {num(x["d90_draws"])}</span>' if x["d90_draws"] else '<span class="tbc">-</span>',
+            f'{num(x["d30_nsd"])}<span class="s2">of {num(x["d30_draws"])}</span>' if x["d30_draws"] else '<span class="tbc">-</span>',
+            esc(last),
+            f'{num(x["maxd"])}d',
+            f'<span class="rd">{num(x["open_now"])}</span>' if x["open_now"] else '<span class="tbc">0</span>',
+        ])
+    total_nsd = m["ytd"]["not_same_day"]
+    shown = sum(x["ytd_nsd"] for x in lg)
+    return f"""<div class="sect"><h3>Who is not bringing them back - year to date</h3></div>
+<div class="callout tight">
+  Since <b>{ws.strftime('%d %b')}</b>, <b>{num(m['people_active_ytd'])} people</b> have drawn a monitor
+  and <b class="o">{num(m['people_with_nsd_ytd'])}</b> have kept at least one past its day. The
+  {num(len(lg))} names below account for <b class="o">{num(shown)}</b> of the year's
+  {num(total_nsd)} non-returns ({shown / total_nsd * 100 if total_nsd else 0:.0f}%). The 3-month and
+  30-day columns show whether it is still happening; "last" is the most recent non-return.
+</div>
+{sh.dtable(["Who", "Draws YTD", "Not same day", "Same-day %", "Last 3 months", "Last 30 days", "Last",
+            "Longest", "Still out"],
+           rows, ["", "r", "r", "r", "r", "r", "nw", "r", "r"], cls="cp")}
+<div class="note">Ranked by non-returns for the year. A high count with a high same-day percentage is a
+  heavy user having the odd late day; a low percentage is the habit to talk about. "Longest" is the
+  longest single hold, completed or still open.</div>"""
 
 
 def page_companies(m):
@@ -322,6 +425,7 @@ def page_companies(m):
             num(c["d30_draws"]),
             f'<b>{num(c["d30_nsd"])}</b>',
             f'<span class="{sd_class(c["d30_sd_pct"])}">{c["d30_nsd_pct"]}%</span>',
+            f'<span class="{sd_class(c["d90_sd_pct"])}">{c["d90_nsd_pct"]}%</span>' if c["d90_draws"] else '<span class="tbc">-</span>',
             f'<span class="{sd_class(c["ytd_sd_pct"])}">{c["ytd_nsd_pct"]}%</span>',
             num(c["d30_people"]),
             f'<span class="rd">{num(c["open_now"])}</span>' if c["open_now"] else '<span class="tbc">0</span>',
@@ -330,17 +434,18 @@ def page_companies(m):
     bars = [(c["name"], c["d30_nsd"], f'{num(c["d30_nsd"])} of {num(c["d30_draws"])}')
             for c in comps[:8]]
     d30 = m["d30"]
-    return f"""<div class="sect"><h3>By company - the last 30 days against the year</h3></div>
+    return f"""<div class="sect"><h3>By company - the last 30 days against the quarter and the year</h3></div>
 <div class="callout tight">
   <b class="o">{num(d30['not_same_day'])}</b> of <b>{num(d30['draws'])}</b> crew draws in
   the last 30 days ({d30['nsd_pct']}%) were not back on the day they went out, across
-  <b>{num(d30['companies'])} companies</b>. The 30-day rate against the year-to-date rate
-  shows who is improving. Names are each company's top non-returners in the window.
+  <b>{num(d30['companies'])} companies</b>. Rate = not returned same day &divide; draws, for the
+  last 30 days, the last 3 months and the year. Names are each company's top non-returners in
+  the last 30 days.
 </div>
-{sh.dtable(["Company", "Draws 30d", "Not same day", "Rate 30d", "Rate YTD", "People",
+{sh.dtable(["Company", "Draws 30d", "Not same day", "Rate 30d", "Rate 3 mo", "Rate YTD", "People",
             "Still out", "Top non-returners, last 30 days (units)"],
-           rows, ["", "r", "r", "r", "r", "r", "r", ""], cls="cp")}
-<div class="note">{f'Plus <b>{len(rest)}</b> more companies with <b>{num(sum(c["d30_nsd"] for c in rest))}</b> non-returns on {num(sum(c["d30_draws"] for c in rest))} draws between them. ' if rest else ''}Rate = not returned same day &divide; draws. Rate colour: green under 15%, amber under 30%, red above.</div>
+           rows, ["", "r", "r", "r", "r", "r", "r", "r", ""], cls="cp")}
+<div class="note">{f'Plus <b>{len(rest)}</b> more companies with <b>{num(sum(c["d30_nsd"] for c in rest))}</b> non-returns on {num(sum(c["d30_draws"] for c in rest))} draws between them. ' if rest else ''}Rate colour: green under 15%, amber under 30%, red above.</div>
 <div class="sub-h">Not returned same day - last 30 days <span class="thin">&mdash; by company, top 8</span></div>
 <div class="chartpanel">{sh.hbars(bars, colour=K['amber'], right=70, rowh=21)}</div>"""
 
@@ -378,6 +483,38 @@ def page_year(m):
 <div class="sub-h">Same-day return rate by week <span class="thin">&mdash; every week of the year{' (current week is partial)' if m['current_week_partial'] else ''}</span></div>
 <div class="chartpanel">{sh.line_chart(wl, [{"vals": [w["pct"] for w in wk], "colour": K["green"], "label": "Same-day %", "fill": True}], h=158, label_every=2, pct=True, annotate=ann)}</div>
 <div class="note">Each point is same-day returns &divide; crew draws for the week starting on the date shown.</div>"""
+
+
+def page_90days(m):
+    d90 = m["d90"]
+    wk = m["weekly90"]
+    rows = [{"label": w["label"], "draws": w["draws"], "nsd": w["nsd"], "weekend": False,
+             "partial": w["partial"]} for w in wk]
+    comps = [c for c in m["companies_90"] if c["d90_nsd"] > 0][:8]
+    bars = [(c["name"], c["d90_nsd"], f'{num(c["d90_nsd"])} of {num(c["d90_draws"])}') for c in comps]
+    worst = max(wk, key=lambda w: w["nsd"]) if wk else None
+    best = min([w for w in wk if w["draws"] >= 100] or wk, key=lambda w: 100 - w["pct"]) if wk else None
+    return f"""<div class="sect"><h3>The last 3 months - week by week</h3></div>
+<div class="callout tight">
+  <b>{num(d90['draws'])} crew draws</b> between <b>{esc(m['d90_label'])}</b>, and
+  <b class="o">{d90['sd_pct']}%</b> came back the same day - <b class="o">{num(d90['not_same_day'])}</b>
+  did not. <b>{num(m['people_active_90'])} people</b> drew a monitor in the quarter and
+  <b class="o">{num(m['people_with_nsd_90'])}</b> kept at least one past its day. The window is the
+  13 full weeks before this one plus this week so far, so the bars add up to the total. Each bar is a
+  week starting on the Monday shown: green is back the same day, red is not{' - the last bar is this week so far' if wk and wk[-1]['partial'] else ''}.
+  {f'The worst week for non-returns began <b>{esc(worst["label"])}</b> ({num(worst["nsd"])} of {num(worst["draws"])}); the best began <b>{esc(best["label"])}</b> ({best["pct"]}% same day).' if worst and best else ''}
+</div>
+<div class="chartpanel">{sh.daily_bars(rows, h=200, label_every=1)}</div>
+{sh.tiles([
+    ("bars", num(d90['draws']), "Crew draws, last 3 months", esc(m['d90_label']), "grey"),
+    ("check", f"{d90['sd_pct']}%", "Same day, last 3 months", f"{num(d90['not_same_day'])} not back same day",
+     sd_class(d90['sd_pct']).replace('rd', 'red').replace('a', 'amber').replace('g', 'green')),
+    ("people", num(m['people_active_90']), "People who drew", f"{num(d90['companies'])} companies", "grey"),
+    ("warn", num(m['people_with_nsd_90']), "People with a non-return",
+     f"{round(m['people_with_nsd_90'] / m['people_active_90'] * 100) if m['people_active_90'] else 0}% of those who drew", "amber"),
+])}
+<div class="sub-h">Not returned same day - last 3 months <span class="thin">&mdash; by company, top 8</span></div>
+<div class="chartpanel">{sh.hbars(bars, colour=K['amber'], right=70, rowh=21)}</div>"""
 
 
 def page_30days(m):
@@ -670,23 +807,23 @@ def page_method(m):
          f"issues {ws.strftime('%d %b %H:%M')} to {we.strftime('%d %b %Y %H:%M')}; returns to the pull"],
         ["Gas_Monitor_Serial_Numbers.xlsx", "Serial number for each barcode - display only",
          "-", "not a source of counts"],
-        ["Ampol Gas Monitor Report.xlsm", "Attached to the email for the detail tabs",
-         "-", "no longer a source of numbers"],
+        ["Ampol Gas Monitor Report.xlsm", "Not used - its summary tab is what the old report quoted",
+         "-", "not a source of numbers"],
     ]
     rules = [
         ("Gas monitor", "Description contains \"X-am\" or \"gas monitor\". Chargers and probes are not monitors."),
         ("Crew draw", "A transaction to a named person. Dräger service statuses, FCCU and Operations custody, "
                       "Future Fuels and the After Hours account are workflows, not people - reported on their "
-                      "own lines, never as a person. A person's employer suffix (FCCU, SATGAS/MOL) is folded "
-                      "into the company."),
+                      "own lines, never as a person."),
         ("Same day", f"Scanned back on the calendar day it went out. A draw at or after "
                      f"{R['night_shift_from'].strftime('%H:%M')} counts as same day if back by "
                      f"{R['night_shift_back_by'].strftime('%H:%M')} next morning. Draws still open are not same day."),
         ("Overdue", "On hire to a person with an on-hire date before the report date. Gear issued today is "
                     "\"out today\", not overdue. Days are counted from the on-hire scan."),
-        ("Windows", f"Year to date = the transactions export ({esc(m['ytd_label'])}). Last 30 days = "
-                    f"{esc(m['d30_label'])}. Yesterday = {m['yesterday'].strftime('%d %b %Y')}, the last complete day."),
-        ("Repeat", f"A person with a non-return in {R['repeat_weeks']} or more separate weeks of the last 30 days."),
+        ("Windows", f"Year to date = the transactions export ({esc(m['ytd_label'])}). Last 3 months = the 13 "
+                    f"full weeks before this one plus this week so far ({esc(m['d90_label'])}). Last 30 days = "
+                    f"{esc(m['d30_label'])}. Yesterday = {m['yesterday'].strftime('%d %b %Y')}, the last complete day. "
+                    f"Repeat = a non-return in {R['repeat_weeks']} or more separate weeks of the last 30 days."),
         ("Exposure", f"{money(R['charge_per_unit'])} per monitor overdue 30 days or more - the replacement "
                      f"charge from the Ampol gas monitor workbook. Never estimated."),
         ("Health score", "Plain average of availability, 30-day same-day rate, repairs and 30+ day control. "
@@ -701,8 +838,8 @@ def page_method(m):
 <table class="rules">{rrows}</table>
 <div class="sub-h">Reconciliation <span class="thin">&mdash; the two exports checked against each other</span></div>
 <table class="rules">{recon}</table>
-<div class="note">Dates are Australian (day/month/year) and parsed explicitly. Metric units,
-  24-hour time. Anything the source does not carry is shown as a dash, never guessed.</div>"""
+<div class="note">Australian dates, metric units, 24-hour time. Anything the source does not carry
+  is shown as a dash, never guessed.</div>"""
 
 
 def page_closing(m):
@@ -741,10 +878,13 @@ def page_closing(m):
 def build_pages(m):
     pages = [
         page_position(m),
+        page_sources(m),
         page_yesterday(m),
         page_people(m),
+        page_people_ytd(m),
         page_companies(m),
         page_year(m),
+        page_90days(m),
         page_30days(m),
         page_where(m),
         page_ageing(m),

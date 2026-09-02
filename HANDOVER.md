@@ -250,3 +250,8 @@ custody accounts were named as people. Fix, in the suite (v1.1):
 The Ampol suite still has no sync / version / apply-update buttons
 (K2's 39, 40, 46). Updates go across as a flat zip dropped over the
 suite folder.
+- Second pass the same day: three windows side by side (30 days, 3
+  months = 13 full weeks + this week, year to date), a "where these
+  numbers come from" page, and the workbook no longer attached to the
+  email. Serial list gaps (57 barcodes, mostly AMP088/023-076, plus one
+  serial on two barcodes) sent to Andrew as an Excel to complete.

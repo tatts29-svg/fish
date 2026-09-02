@@ -30,3 +30,12 @@ v1.1 - 02 Sep 2026  (gas monitor report rebuilt - accuracy)
     that does not fit without changing the page count).
   - Button 02 (executive dashboard) and the email read the same engine
     - three outputs, one set of numbers.
+  - Three windows on every people and company table: last 30 days,
+    last 3 months (the 13 full weeks before this one plus this week)
+    and year to date. A "where these numbers come from" page up front
+    sizes each window so a big count can be traced to its rows.
+  - The workbook is no longer attached to the email (its summary tab
+    is what the old report quoted). attach_workbook in
+    generate_k2style_email.py turns it back on.
+  - Serial alignment is checked on every build: 821 of 878 monitors
+    carry a serial on the list, 57 do not (gap list handed to Andrew).

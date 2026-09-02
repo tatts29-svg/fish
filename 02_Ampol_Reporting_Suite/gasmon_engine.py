@@ -622,17 +622,26 @@ def compute(ctx, rules=None):
 
     # Windows are whole calendar days: the last 30 days run from midnight
     # 30 days before the report day up to where the export closes.
+    # "Last 3 months" = the 13 full weeks before this one, plus this week so
+    # far - Monday-aligned so the week-by-week chart sums exactly to the
+    # window total (a reader adding up the bars must land on the headline).
+    this_monday = today - timedelta(days=today.weekday())
+    d90_start = datetime.combine(this_monday - timedelta(weeks=13), dtime(0, 0))
     d30_start = datetime.combine(today - timedelta(days=30), dtime(0, 0))
     d7_start = datetime.combine(today - timedelta(days=7), dtime(0, 0))
     ytd = _flow(crew, win_start, win_end, now)
+    d90 = _flow(crew, d90_start, win_end, now)
     d30 = _flow(crew, d30_start, win_end, now)
     d7 = _flow(crew, d7_start, win_end, now)
     ytd_label = f'{win_start.strftime("%d %b")} - {win_end.strftime("%d %b %Y")}'
+    d90_label = f'{d90_start.strftime("%d %b")} - {win_end.strftime("%d %b %Y")}'
     d30_label = f'{d30_start.strftime("%d %b")} - {win_end.strftime("%d %b %Y")}'
     m["ytd"] = ytd
+    m["d90"] = d90
     m["d30"] = d30
     m["d7"] = d7
     m["ytd_label"] = ytd_label
+    m["d90_label"] = d90_label
     m["d30_label"] = d30_label
     m["tx_window_complete_to"] = win_end
 
@@ -642,6 +651,8 @@ def compute(ctx, rules=None):
     yd_rec = [t for t in yd_nsd if t["en"]]
     yd_open = [t for t in yd_nsd if not t["en"]]
     m["yday_draws"] = len(yd_sel)
+    m["yday_people"] = len({t["who_key"] for t in yd_sel})
+    m["yday_companies"] = len({t["co"] for t in yd_sel})
     m["yday_nsd"] = len(yd_nsd)
     m["yday_recovered"] = len(yd_rec)
     m["yday_still_out"] = len(yd_open)
@@ -672,52 +683,70 @@ def compute(ctx, rules=None):
     m["today_draws_in_export"] = len(td_sel)
     m["today_export_closes"] = win_end
 
-    # leagues
+    # leagues - one entry per person who drew this year, with the last
+    # 30 days, the last 3 months and the year side by side
     lg_ytd = _league(ytd["sel"], now)
+    lg_90 = _league(d90["sel"], now)
     lg_30 = _league(d30["sel"], now)
     lg_7 = _league(d7["sel"], now)
     open_by_person = Counter(x["who_key"] for x in crew_items if x["days"] >= 1)
     yday_by_person = Counter(t["who_key"] for t in yd_open)
-    league = []
-    for k, p30 in lg_30.items():
-        py = lg_ytd.get(k, {"draws": 0, "nsd": 0, "sd_pct": 0, "maxd": 0})
-        p7 = lg_7.get(k, {"nsd": 0})
-        league.append({
-            "key": k, "name": p30["name"], "co": p30["co"],
+    Z = {"draws": 0, "nsd": 0, "sd_pct": 0, "maxd": 0, "weeks": 0, "last_nsd": None}
+    everyone = []
+    for k, py in lg_ytd.items():
+        p90 = lg_90.get(k, Z)
+        p30 = lg_30.get(k, Z)
+        p7 = lg_7.get(k, Z)
+        co = (p30 if p30 is not Z else p90 if p90 is not Z else py)["co"]
+        everyone.append({
+            "key": k, "name": py["name"], "co": co,
             "d30_draws": p30["draws"], "d30_nsd": p30["nsd"],
             "d30_sd_pct": p30["sd_pct"], "d30_weeks": p30["weeks"],
+            "d90_draws": p90["draws"], "d90_nsd": p90["nsd"], "d90_sd_pct": p90["sd_pct"],
             "d7_nsd": p7["nsd"], "yday_open": yday_by_person.get(k, 0),
             "open_now": open_by_person.get(k, 0),
-            "ytd_draws": py["draws"], "ytd_nsd": py["nsd"],
-            "ytd_sd_pct": py["sd_pct"], "maxd": max(py["maxd"], p30["maxd"]),
+            "ytd_draws": py["draws"], "ytd_nsd": py["nsd"], "ytd_sd_pct": py["sd_pct"],
+            "maxd": max(py["maxd"], p30["maxd"]),
             "repeat": p30["weeks"] >= R["repeat_weeks"],
-            "last_nsd": p30["last_nsd"],
+            "last_nsd": py["last_nsd"],
         })
-    league.sort(key=lambda x: (-x["d30_nsd"], -x["open_now"], -x["ytd_nsd"]))
-    m["league"] = league
-    m["league_ytd"] = sorted(lg_ytd.values(), key=lambda x: -x["nsd"])
-    m["repeat_offenders"] = [x for x in league if x["repeat"]]
-    m["people_with_nsd_30"] = sum(1 for x in league if x["d30_nsd"])
-    m["people_active_30"] = len(league)
+    m["league"] = sorted([x for x in everyone if x["d30_draws"]],
+                         key=lambda x: (-x["d30_nsd"], -x["open_now"], -x["ytd_nsd"]))
+    m["league_90"] = sorted([x for x in everyone if x["d90_draws"]],
+                            key=lambda x: (-x["d90_nsd"], -x["d30_nsd"], -x["ytd_nsd"]))
+    m["league_ytd"] = sorted(everyone, key=lambda x: (-x["ytd_nsd"], -x["d90_nsd"], -x["d30_nsd"]))
+    m["repeat_offenders"] = [x for x in m["league"] if x["repeat"]]
+    m["people_with_nsd_30"] = sum(1 for x in m["league"] if x["d30_nsd"])
+    m["people_active_30"] = len(m["league"])
+    m["people_with_nsd_90"] = sum(1 for x in everyone if x["d90_nsd"])
+    m["people_active_90"] = sum(1 for x in everyone if x["d90_draws"])
+    m["people_with_nsd_ytd"] = sum(1 for x in everyone if x["ytd_nsd"])
+    m["people_active_ytd"] = len(everyone)
 
-    # company leagues
+    # company leagues - the same three windows side by side
     co30 = _company_league(d30["sel"], now)
+    co90 = _company_league(d90["sel"], now)
     coytd = _company_league(ytd["sel"], now)
     open_by_co = Counter(x["co"] for x in crew_items if x["days"] >= 1)
+    ZC = {"draws": 0, "sd": 0, "nsd": 0, "open": 0, "people": 0,
+          "sd_pct": 0.0, "nsd_pct": 0.0, "top": []}
     comp = []
-    for k, c in co30.items():
-        cy = coytd.get(k, {"draws": 0, "nsd": 0, "nsd_pct": 0.0, "sd_pct": 0.0})
+    for k, cy in coytd.items():
+        c = co30.get(k, ZC)
+        c9 = co90.get(k, ZC)
         comp.append({
-            "name": k, "d30_draws": c["draws"], "d30_nsd": c["nsd"],
-            "d30_nsd_pct": c["nsd_pct"], "d30_sd_pct": c["sd_pct"],
-            "d30_people": c["people"], "d30_top": c["top"],
-            "ytd_draws": cy["draws"], "ytd_nsd": cy["nsd"],
-            "ytd_nsd_pct": cy["nsd_pct"], "ytd_sd_pct": cy["sd_pct"],
+            "name": k,
+            "d30_draws": c["draws"], "d30_nsd": c["nsd"], "d30_nsd_pct": c["nsd_pct"],
+            "d30_sd_pct": c["sd_pct"], "d30_people": c["people"], "d30_top": c["top"],
+            "d90_draws": c9["draws"], "d90_nsd": c9["nsd"], "d90_nsd_pct": c9["nsd_pct"],
+            "d90_sd_pct": c9["sd_pct"], "d90_people": c9["people"], "d90_top": c9["top"],
+            "ytd_draws": cy["draws"], "ytd_nsd": cy["nsd"], "ytd_nsd_pct": cy["nsd_pct"],
+            "ytd_sd_pct": cy["sd_pct"], "ytd_people": cy["people"], "ytd_top": cy["top"],
             "open_now": open_by_co.get(k, 0),
         })
-    comp.sort(key=lambda x: (-x["d30_nsd"], -x["d30_draws"]))
-    m["companies"] = comp
-    m["companies_ytd"] = sorted(coytd.values(), key=lambda x: -x["nsd"])
+    m["companies"] = sorted(comp, key=lambda x: (-x["d30_nsd"], -x["d30_draws"]))
+    m["companies_90"] = sorted(comp, key=lambda x: (-x["d90_nsd"], -x["d90_draws"]))
+    m["companies_ytd"] = sorted(comp, key=lambda x: (-x["ytd_nsd"], -x["ytd_draws"]))
 
     # ------------------------------------------------------------------
     # 3. TRENDS
@@ -750,11 +779,16 @@ def compute(ctx, rules=None):
     for k in sorted(weekly):
         n, s = weekly[k]
         mon = datetime.fromisocalendar(k[0], k[1], 1)
-        m["weekly"].append({"label": mon.strftime("%d %b"), "n": n, "sd": s,
+        m["weekly"].append({"label": mon.strftime("%d %b"), "n": n, "sd": s, "nsd": n - s,
+                            "draws": n,
                             "pct": round(s / n * 100, 1) if n else 0,
-                            "in_30": mon.date() >= d30_start.date()})
+                            "in_30": mon.date() >= d30_start.date(),
+                            "in_90": mon.date() >= d90_start.date(),
+                            "partial": k == (win_end.isocalendar()[0], win_end.isocalendar()[1]),
+                            "weekend": False})
     cur_iso = win_end.isocalendar()
     m["current_week_partial"] = (cur_iso[0], cur_iso[1]) in weekly
+    m["weekly90"] = [w for w in m["weekly"] if w["in_90"]]
 
     daily = defaultdict(lambda: [0, 0])
     for t in d30["sel"]:
@@ -880,11 +914,34 @@ def compute(ctx, rules=None):
         notes.append(f"Yesterday's still-out count agrees between the two exports: "
                      f"{m['yday_still_out']}.")
     ser = ctx["serials"]
+    fleet_bcs = [r["bc"].upper() for r in rs]
+    missing = sorted(b for b in fleet_bcs if not ser.get(b))
+    by_serial = defaultdict(list)
+    for b, s_ in ser.items():
+        if s_:
+            by_serial[s_].append(b)
+    dups = {s_: bcs for s_, bcs in by_serial.items()
+            if len(bcs) > 1 and any(b in set(fleet_bcs) for b in bcs)}
+    m["serial_stats"] = {"fleet": len(fleet_bcs), "with": len(fleet_bcs) - len(missing),
+                         "missing": missing, "dups": dups, "list_size": len(ser)}
     if ser:
-        fleet_bc = {r["bc"].upper() for r in rs}
-        notes.append(f"Serial list carries {len(ser)} barcodes; {len(fleet_bc & set(ser))} of the "
-                     f"{len(fleet_bc)} monitors in RENTAL_STOCK have a serial on it "
-                     f"(display only - the list is not a source of counts).")
+        pre = Counter(b.split("/")[0] for b in missing).most_common(1)
+        notes.append(f"Serial list: {len(fleet_bcs) - len(missing)} of the {len(fleet_bcs)} monitors on the "
+                     f"register carry a serial on it; {len(missing)} do not"
+                     + (f" ({pre[0][1]} of them in the {pre[0][0]} range)" if pre else "")
+                     + ". Barcode is the identity SiteIQ scans; the serial is display only."
+                     + (f" {len(dups)} serial(s) appear against two barcodes ("
+                        + "; ".join(f"{s_} = {', '.join(bcs)}" for s_, bcs in list(dups.items())[:3])
+                        + ") - usually a re-labelled unit whose old barcode was never retired from the list."
+                        if dups else ""))
+    tx_bcs = {t["bc"].upper() for t in tx}
+    departed = tx_bcs - set(fleet_bcs)
+    dep_rows = sum(1 for t in tx if t["bc"].upper() in departed)
+    m["departed"] = {"n": len(departed), "rows": dep_rows}
+    if departed:
+        notes.append(f"{len(departed)} barcodes moved this year but are no longer on the register "
+                     f"(returned to Dräger, re-labelled or written off): their {dep_rows:,} draws are counted "
+                     f"in the flow figures, and they are not in the position.")
     m["recon_notes"] = notes
     return m
 
@@ -992,8 +1049,10 @@ def print_summary(m):
           f"{m['yday_still_out']} still out")
     print(f"Last 30 days         : {m['d30']['draws']:,} draws, {m['d30']['sd_pct']}% same day, "
           f"{m['d30']['not_same_day']:,} not, {m['people_with_nsd_30']} people with a non-return")
+    print(f"Last 3 months        : {m['d90']['draws']:,} draws, {m['d90']['sd_pct']}% same day, "
+          f"{m['d90']['not_same_day']:,} not, {m['people_with_nsd_90']} people with a non-return")
     print(f"Year to date         : {m['ytd']['draws']:,} draws, {m['ytd']['sd_pct']}% same day, "
-          f"{m['ytd']['not_same_day']:,} not")
+          f"{m['ytd']['not_same_day']:,} not, {m['people_with_nsd_ytd']} people with a non-return")
     print(f"Health score         : {m['health']}/100  (A{m['score_availability']} "
           f"S{m['score_sameday']} R{m['score_repairs']} C{m['score_30']})")
     for n in m["recon_notes"]:
