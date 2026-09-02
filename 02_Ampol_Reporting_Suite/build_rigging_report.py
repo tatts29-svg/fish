@@ -3,41 +3,59 @@
 """
 =====================================================================
 COATES RIGGING & LIFTING REGISTER - HOUSE-STYLE REPORT (the K2 look)
-One run -> client-ready PDF + Outlook email, straight off the
-rigging register workbook.
+One run -> client-ready PDF + Outlook email, off the rigging register
+workbook joined barcode-for-barcode to the live SiteIQ export.
 =====================================================================
 Author: Andrew Fisher
 The Coates Way - Operational Excellence - POWERED BY SITEIQ
 
 WHAT THIS IS
-  The rigging register gets a report of its own - the K2 house style,
-  same shell as the stocktake family. One run produces:
+  The rigging and height-safety register gets a report of its own -
+  the K2 house style, same shell as the stocktake family. One run
+  produces:
 
-   1. Coates_Ampol_Rigging_K2STYLE.pdf   (THE report - the position,
-      where the gear is by company and hirer, the test-status truth,
-      and category detail)
+   1. Coates_Ampol_Rigging_K2STYLE.pdf   (THE report - the live
+      position, where the gear is by company and hirer, what is not
+      found in SiteIQ, the test-status truth, and the register's own
+      identity gaps)
+      + Coates_Ampol_Rigging_K2STYLE.html (the same pages, kept beside
+      the PDF so a machine with no PDF engine still has the report)
    2. Coates_Ampol_Rigging_OUTLOOK_SAFE.eml  (DRAFT - never sends)
       + Coates_Ampol_Rigging_EMAIL.html body
       + .draft.json so MAKE_OUTLOOK_DRAFTS keeps working.
 
-WHERE THE NUMBERS COME FROM
-  Rigging Register.xlsx in the suite's Data area. Two sheets are read:
-   - 'Rigging register Master' : every item with its test/inspection
-     columns (largely blank today - the fill-in is under way and this
-     report says so plainly, it does not paper over it).
-   - 'To Help Locate'          : the same fleet with live status,
-     company, hirer and on-hire date - where the gear actually is.
+WHERE THE NUMBERS COME FROM (changed 02 Sep 2026)
+  Two files in the suite's Data area:
+   - Rigging Register.xlsx : WHICH barcodes are on the register.
+     'Rigging register Master' gives category, description, serial and
+     the eight test columns; 'Extracted Register' is the certificate
+     extract disclosed on the test page. The 'To Help Locate' sheet is
+     a static join to a June SiteIQ pull and is read for one thing
+     only - the last-known status of barcodes SiteIQ no longer returns.
+   - RENTAL_STOCK.xlsx     : WHERE every barcode is right now - status,
+     company, hirer, on-hire date and storage unit - as at the export's
+     own request time (REFERENCE_INFO). Every "on hire", every "in the
+     store" and every "held N days" on these pages comes from here.
+  An audit on 02 Sep 2026 found the old build stamping the June
+  snapshot as today's position: 210 of the barcodes had changed status
+  since, and every "held" count was measured to the wrong date. The
+  join to the live export fixes that; the audit's other findings
+  (barcode duplicates, the certificate extract, repairs printed as a
+  customer, rigging gear not on the register) each get their own
+  honest line or page below.
 
 DATA RULES
-  NO invented test data, ever. A blank test cell renders as a dash
-  with a plain-words note that the details are being filled in. The
-  register is stood up - the honest story is "here is the fleet, here
-  is where it is, here is how far the test records have got" - and
-  that is exactly the story the pages tell. On-hire dates are the
-  workbook's own datetimes, used verbatim.
+  Real data only. Nothing is invented - a blank test cell prints as a
+  dash with the fill-in noted. A register barcode the live export does
+  not return is printed as "not found in SiteIQ - whereabouts unknown"
+  and is never counted as accounted for. Repairs, off-site, out-of-tag
+  and out-of-service custody lines are kept apart from customer hire.
+  Barcodes are upper-cased and de-duplicated for the join, and the
+  page says so.
 =====================================================================
 """
 
+import json
 import os
 import re
 import sys
@@ -50,9 +68,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import ampol_paths
-import build_stocktake_compliance_tool as eng   # write_pdf_robust + find_workbook
+import build_stocktake_compliance_tool as eng   # write_pdf_robust, find_workbook, parse_dt
+import gasmon_engine as ge                       # norm_company, parse_stamp
 import k2shell as sh
-from k2shell import esc, money, num, K
+from k2shell import esc, num, K
 
 import openpyxl
 
@@ -63,13 +82,15 @@ OUT = Path(ampol_paths.day_folder("Rigging"))
 
 CONFIG = {
     "client": "Ampol",
-    # WHY (02 Sep 2026): this register has no refresh stamp of its own, so
-    # the honest as-at is the register file's saved time - label it so.
-    "asat_note": "(register file saved)",
+    # WHY (02 Sep 2026): data-as-at is the SiteIQ export's own request
+    # time (REFERENCE_INFO), not the register file's saved time - the
+    # register tells us WHAT is on it, SiteIQ tells us WHERE it is now.
+    "asat_note": "(SiteIQ register pull)",
     "title": "Rigging & Lifting Register",
     "kicker": "COATES · TOOL STORE - RIGGING & LIFTING REGISTER REPORT",
     "project": "Ampol Lytton Refinery · Permanent Tool Store",
     "pdf_name": "Coates_Ampol_Rigging_K2STYLE.pdf",
+    "pdf_html": "Coates_Ampol_Rigging_K2STYLE.html",
     "eml_name": "Coates_Ampol_Rigging_OUTLOOK_SAFE.eml",
     "email_html": "Coates_Ampol_Rigging_EMAIL.html",
     "draft_json": "Coates_Ampol_Rigging_OUTLOOK.draft.json",
@@ -80,9 +101,9 @@ CONFIG = {
          "lead": True},
     ],
     "key_items": [
-        ("orange", "EVERY ITEM BARCODED", "one register line per item, barcode on every row"),
-        ("blue", "TEST FILL-IN UNDER WAY", "blanks print as dashes - never guessed"),
-        ("amber", "LONGEST HELD FIRST", "on-hire gear chased oldest first"),
+        ("orange", "LIVE POSITION", "status, holder and days held from the SiteIQ pull, not the workbook snapshot"),
+        ("blue", "NOT FOUND", "register barcodes SiteIQ does not return - whereabouts unknown, never assumed"),
+        ("amber", "LONGEST HELD FIRST", "customer hire chased oldest first; repairs and quarantine kept separate"),
     ],
 }
 
@@ -92,9 +113,33 @@ TEST_COLS = ["Last Test Date", "Next Test Due", "Test Status",
              "Test Tag Colour", "Tested By", "Tester Licence No",
              "Certificate No", "Inspection Comments"]
 
+# Custody lines that are NOT a customer holding the gear: SiteIQ's
+# "Repairs" company and its parking hirers (offsite repairs, off site,
+# out of tag date, out of service). They print on their own line.
+REPAIR_RE = re.compile(r"repair|off\s*-?\s*site|out\s*of\s*tag|out\s*of\s*service", re.I)
+REPAIR_RULE = ("SiteIQ COMPANY_NAME 'Repairs', or a hirer name containing "
+               "Repairs, Off Site, Out of Tag or Out of Service")
+
+# "Possibly rigging gear not on the register" - the keyword rule, printed
+# on the page exactly as applied. A keyword match is a lead to verify,
+# never a finding.
+KW_INCLUDE = re.compile(
+    r"SLING|SHACKLE|CHAIN\s*BLOCK|LEVER\s*(?:BLOCK|HOIST)|CUM-?A-?LONG|COME-?A-?LONG|"
+    r"TIRFOR|BEAM\s*CLAMP|GIRDER\s*CLAMP|PLATE\s*CLAMP|EYE\s*BOLT|SPREADER\s*BAR|"
+    r"SWIVEL|LIFTING\s*BAG|BUCKET\s*LIFTER|WINCH|HARNESS|LANYARD|INERTIA\s*REEL|"
+    r"ROPE\s*GRAB|ANCHOR|GOTCHA|RESCUE|DAVIT|TRIPOD", re.I)
+KW_EXCLUDE = re.compile(r"FLANGE\s*SPREADER|HOOK\s*WRENCH|DUMPY|CUTTING\s*TROLLEY", re.I)
+KW_RULE = ("ITEM_DESCRIPTION contains sling, shackle, chain block, lever block or "
+           "hoist, cumalong, tirfor, beam / girder / plate clamp, eyebolt, spreader "
+           "bar, swivel, lifting bag, bucket lifter, winch, harness, lanyard, "
+           "inertia reel, rope grab, anchor, Gotcha, rescue, davit or tripod - "
+           "excluding flange spreaders, hook wrenches, dumpy-level tripods and "
+           "cutting trolleys")
+
 
 # =====================================================================
-# load - both sheets, verbatim
+# load - the register workbook (membership, test columns, extract,
+# last-known snapshot) and the live SiteIQ export (where it is now)
 # =====================================================================
 
 def _sheet_rows(wb, name, need):
@@ -113,172 +158,432 @@ def _sheet_rows(wb, name, need):
     return rows, ix
 
 
-def load_master(path):
-    """'Rigging register Master' - the test/inspection side."""
+def _s(v):
+    return "" if v is None else str(v).strip()
+
+
+def load_register(path):
+    """Rigging Register.xlsx - three things, each labelled for what it is.
+
+    rows    : every Master row verbatim (category, serial, barcode as typed
+              and upper-cased, description, the eight test columns)
+    snap    : barcode -> what the 'To Help Locate' sheet said (a static
+              June SiteIQ join) - used ONLY for barcodes the live export
+              no longer returns, and labelled as the snapshot on the page
+    extract : the 'Extracted Register' certificate rows, or None
+    """
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
     raw, ix = _sheet_rows(wb, "Rigging register Master",
                           ["REGISTER_CATEGORY", "ITEM_BARCODE",
                            "REGISTER_DESCRIPTION"] + TEST_COLS)
-
-    def cell(r, name):
-        v = r[ix[name]]
-        return "" if v is None else v
-
     rows = []
     for r in raw:
-        next_due = cell(r, "Next Test Due")
-        last_test = cell(r, "Last Test Date")
+        bc_raw = _s(r[ix["ITEM_BARCODE"]])
+        tests = {c: _s(r[ix[c]]) for c in TEST_COLS}
         rows.append({
-            "cat": str(cell(r, "REGISTER_CATEGORY")).strip(),
-            "serial": str(cell(r, "Serial Number")).strip()
-                      if "Serial Number" in ix else "",
-            "barcode": str(cell(r, "ITEM_BARCODE")).strip(),
-            "desc": str(cell(r, "REGISTER_DESCRIPTION")).strip(),
-            "last_test": last_test if isinstance(last_test, datetime) else None,
-            "next_due": next_due if isinstance(next_due, datetime) else None,
-            "status": str(cell(r, "Test Status")).strip(),
-            "tag": str(cell(r, "Test Tag Colour")).strip(),
-            "tested_by": str(cell(r, "Tested By")).strip(),
-            "cert": str(cell(r, "Certificate No")).strip(),
-            "has_test": any(str(cell(r, c)).strip() for c in TEST_COLS),
+            "cat": _s(r[ix["REGISTER_CATEGORY"]]),
+            "serial": _s(r[ix["Serial Number"]]) if "Serial Number" in ix else "",
+            "bc_raw": bc_raw,
+            "barcode": bc_raw.upper(),
+            "desc": _s(r[ix["REGISTER_DESCRIPTION"]]),
+            "tests": tests,
+            "has_test": any(tests.values()),
         })
+
+    snap, snap_max = {}, None
+    if "To Help Locate" in wb.sheetnames:
+        raw2, ix2 = _sheet_rows(wb, "To Help Locate",
+                                ["ITEM_BARCODE", "ITEM_STATUS", "COMPANY_NAME",
+                                 "HIRER_NAME", "ON_HIRE_DATE"])
+        for r in raw2:
+            bc = _s(r[ix2["ITEM_BARCODE"]]).upper()
+            ohd = r[ix2["ON_HIRE_DATE"]]
+            ohd = ohd if isinstance(ohd, datetime) else None
+            if ohd and (snap_max is None or ohd > snap_max):
+                snap_max = ohd
+            if bc and bc not in snap:
+                snap[bc] = {"status": _s(r[ix2["ITEM_STATUS"]]),
+                            "company": _s(r[ix2["COMPANY_NAME"]]),
+                            "hirer": _s(r[ix2["HIRER_NAME"]]),
+                            "since": ohd}
+
+    extract = None
+    if "Extracted Register" in wb.sheetnames:
+        ws = wb["Extracted Register"]
+        hdr_ix, extract = None, []
+        for r in ws.iter_rows(values_only=True):
+            cells = [_s(c) for c in r]
+            if hdr_ix is None:
+                # the sheet carries a throwaway 'Column1..' line above the
+                # real header - find the header by its own column names
+                if any("next insp" in c.lower() for c in cells):
+                    hdr_ix = {c.lower(): i for i, c in enumerate(cells)}
+                continue
+            if not any(cells):
+                continue
+
+            def col(name):
+                for k, i in hdr_ix.items():
+                    if name in k:
+                        return cells[i] if i < len(cells) else ""
+                return ""
+            extract.append({"serial": col("serial"), "barcode": col("barcode").upper(),
+                            "desc": col("description"), "wll": col("wll"),
+                            "next_due": col("next insp"), "parse": col("parse")})
+        if hdr_ix is None:
+            extract = None
     wb.close()
-    return rows
+    return rows, snap, snap_max, extract
 
 
-def load_locate(path):
-    """'To Help Locate' - where every item is right now."""
+def load_live(path):
+    """RENTAL_STOCK.xlsx - every line of the live SiteIQ export plus the
+    export's own request time from REFERENCE_INFO."""
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-    raw, ix = _sheet_rows(wb, "To Help Locate",
-                          ["REGISTER_CATEGORY", "ITEM_BARCODE",
-                           "REGISTER_DESCRIPTION", "ITEM_STATUS",
-                           "COMPANY_NAME", "HIRER_NAME", "ON_HIRE_DATE"])
+    asat, asat_note = None, "(SiteIQ register pull)"
+    if "REFERENCE_INFO" in wb.sheetnames:
+        ref = list(wb["REFERENCE_INFO"].iter_rows(values_only=True))
+        if len(ref) > 1:
+            for i, h in enumerate(ref[0]):
+                if h and "REQUESTED_DATE" in str(h).upper():
+                    asat = ge.parse_stamp(ref[1][i])
+    if asat is None:
+        asat = datetime.fromtimestamp(os.path.getmtime(path))
+        asat_note = "(RENTAL_STOCK file saved - no request stamp found)"
+    if "RENTAL_STOCK" not in wb.sheetnames:
+        sys.exit("ERROR: RENTAL_STOCK.xlsx has no RENTAL_STOCK sheet - is "
+                 "this the SiteIQ rental stock export?")
+    ws = wb["RENTAL_STOCK"]
+    it = ws.iter_rows(values_only=True)
+    hdr = [str(h or "").strip().upper() for h in next(it)]
+    col = {h: i for i, h in enumerate(hdr)}
+    for need in ("ITEM_BARCODE", "ITEM_DESCRIPTION", "ITEM_STATUS",
+                 "COMPANY_NAME", "HIRER_NAME", "ON_HIRE_DATE"):
+        if need not in col:
+            sys.exit(f"ERROR: RENTAL_STOCK is missing column {need} - the "
+                     "export layout has changed; report needs updating.")
 
-    def cell(r, name):
-        v = r[ix[name]]
-        return "" if v is None else v
+    def g(r, name):
+        i = col.get(name)
+        return r[i] if i is not None and i < len(r) else None
 
     rows = []
-    for r in raw:
-        ohd = cell(r, "ON_HIRE_DATE")
+    for r in it:
+        if not r or all(c in (None, "") for c in r):
+            continue
+        bc = _s(g(r, "ITEM_BARCODE"))
+        since = eng.parse_dt(g(r, "ON_HIRE_DATE"))
         rows.append({
-            "cat": str(cell(r, "REGISTER_CATEGORY")).strip(),
-            "barcode": str(cell(r, "ITEM_BARCODE")).strip(),
-            "desc": str(cell(r, "REGISTER_DESCRIPTION")).strip(),
-            "status": str(cell(r, "ITEM_STATUS")).strip(),
-            "company": str(cell(r, "COMPANY_NAME")).strip(),
-            "hirer": str(cell(r, "HIRER_NAME")).strip(),
-            "since": ohd if isinstance(ohd, datetime) else None,
+            "bc_raw": bc, "barcode": bc.upper(),
+            "desc": _s(g(r, "ITEM_DESCRIPTION")),
+            "status": _s(g(r, "ITEM_STATUS")),
+            "company_raw": _s(g(r, "COMPANY_NAME")),
+            "hirer": _s(g(r, "HIRER_NAME")),
+            "since": since,
+            "unit": _s(g(r, "STORAGE_UNIT")),
         })
     wb.close()
-    return rows
+    return rows, asat, asat_note
+
+
+# =====================================================================
+# rules
+# =====================================================================
+
+def company_name(raw):
+    """One customer, one name: Ampol / Ampol Refineries (Qld) / Caltex are
+    the client; project accounts (FCCU, SATGAS/MOL) fold into the
+    company. The raw SiteIQ account is kept alongside for the page."""
+    u = str(raw or "").strip().upper()
+    if u.startswith("CALTEX"):
+        return "Ampol"
+    return ge.norm_company(raw)
+
+
+def is_repair(lr):
+    return (lr["company_raw"].strip().lower() == "repairs"
+            or bool(REPAIR_RE.search(lr["hirer"])))
+
+
+def norm_desc(s):
+    return re.sub(r"\s+", " ", str(s or "").replace("\xa0", " ")).strip()
 
 
 # =====================================================================
 # derive - the positions the pages print
 # =====================================================================
 
-def derive(master, locate, asat_dt):
-    d = {}
-    d["total"] = len(locate)
-    d["cats"] = Counter(r["cat"] or "(no category)" for r in locate)
-    d["onhire"] = [r for r in locate if r["status"] == "On Hire"]
-    d["avail"] = [r for r in locate if r["status"] != "On Hire"]
-    d["oh_cats"] = Counter(r["cat"] or "(no category)" for r in d["onhire"])
+def derive(reg_rows, snap, snap_max, extract, live_rows, asat_dt):
+    d = {"asat": asat_dt, "snap_max": snap_max}
 
-    def held_days(r):
-        return (asat_dt - r["since"]).days if r["since"] else None
+    # ---- register identity (row basis) ----------------------------------
+    d["rows"] = len(reg_rows)
+    d["blank"] = [r for r in reg_rows if not r["barcode"]]
+    d["lower"] = sum(1 for r in reg_rows if r["bc_raw"] and r["bc_raw"] != r["barcode"])
+    cnt = Counter(r["barcode"] for r in reg_rows if r["barcode"])
+    d["dups"] = sorted([(b, n) for b, n in cnt.items() if n > 1],
+                       key=lambda x: (-x[1], x[0]))
+    d["dup_rows"] = sum(n for _, n in d["dups"])
+    d["cats_rows"] = Counter(r["cat"] or "(no category)" for r in reg_rows)
+    serials = [r["serial"] for r in reg_rows if r["serial"]]
+    d["serial_rows"] = len(serials)
+    d["serial_distinct"] = len(set(serials))
+    d["with_test"] = [r for r in reg_rows if r["has_test"]]
+    d["col_fill"] = [(c, sum(1 for r in reg_rows if r["tests"][c])) for c in TEST_COLS]
+    d["test_status"] = Counter(r["tests"]["Test Status"] for r in reg_rows
+                               if r["tests"]["Test Status"])
 
-    for r in d["onhire"]:
-        r["held"] = held_days(r)
+    # ---- one item per distinct barcode (first Master row wins) ----------
+    items = {}
+    for r in reg_rows:
+        if r["barcode"] and r["barcode"] not in items:
+            it = dict(r)
+            it["rows"] = cnt[r["barcode"]]
+            items[r["barcode"]] = it
+    d["distinct"] = len(items)
 
-    # where the gear is - by company, then hirer, longest-held first
+    # ---- join to the live export on ITEM_BARCODE ------------------------
+    # exact first, then upper-cased/trimmed (the register carries 22
+    # lower-case barcodes; SiteIQ's are upper-case)
+    live_exact = {}
+    live_upper = {}
+    for lr in live_rows:
+        if lr["bc_raw"] and lr["bc_raw"] not in live_exact:
+            live_exact[lr["bc_raw"]] = lr
+        if lr["barcode"] and lr["barcode"] not in live_upper:
+            live_upper[lr["barcode"]] = lr
+    d["join_exact"] = 0
+    for bc, it in items.items():
+        lr = live_exact.get(it["bc_raw"])
+        if lr is not None:
+            d["join_exact"] += 1
+        else:
+            lr = live_upper.get(bc)
+        it["live"] = lr
+        it["snap"] = snap.get(bc)
+        it["held"] = None
+        it["company"] = ""
+        it["account"] = ""
+        it["hirer"] = ""
+        it["since"] = None
+        it["unit"] = ""
+        if lr is None:
+            it["bucket"] = "missing"
+            continue
+        it["account"] = lr["company_raw"]
+        it["hirer"] = lr["hirer"]
+        it["since"] = lr["since"]
+        it["unit"] = lr["unit"]
+        st = lr["status"].lower()
+        if st == "on hire":
+            it["held"] = ((asat_dt.date() - lr["since"].date()).days
+                          if lr["since"] else None)
+            if is_repair(lr):
+                it["bucket"] = "repair"
+            else:
+                it["bucket"] = "onhire"
+                it["company"] = company_name(lr["company_raw"])
+        elif st == "available for hire":
+            it["bucket"] = "store"
+        else:
+            it["bucket"] = "other"
+    d["items"] = items
+    d["found"] = [it for it in items.values() if it["bucket"] != "missing"]
+    d["onhire"] = [it for it in items.values() if it["bucket"] == "onhire"]
+    d["repair"] = [it for it in items.values() if it["bucket"] == "repair"]
+    d["store"] = [it for it in items.values() if it["bucket"] == "store"]
+    d["other"] = [it for it in items.values() if it["bucket"] == "other"]
+    d["missing"] = [it for it in items.values() if it["bucket"] == "missing"]
+    d["other_status"] = Counter(it["live"]["status"] for it in d["other"])
+    d["found_pct"] = round(len(d["found"]) / d["distinct"] * 100) if d["distinct"] else 0
+
+    # ---- where the customer hire is: company (merged) -> hirers ---------
     co = defaultdict(list)
-    for r in d["onhire"]:
-        co[r["company"] or "(no company recorded)"].append(r)
+    for it in d["onhire"]:
+        co[it["company"] or "(no company recorded)"].append(it)
     comp = []
-    for c, items in co.items():
-        items.sort(key=lambda r: (r["since"] is None, r["since"] or datetime.max))
-        comp.append({"co": c, "n": len(items),
-                     "hirers": len({r["hirer"] for r in items}),
-                     "oldest": items[0]})
-    comp.sort(key=lambda x: -x["n"])
+    for c, lst in co.items():
+        lst.sort(key=lambda it: (it["since"] is None, it["since"] or datetime.max))
+        comp.append({"co": c, "n": len(lst),
+                     "accounts": sorted({it["account"] for it in lst}),
+                     "hirers": len({it["hirer"] for it in lst}),
+                     "oldest": lst[0], "items": lst})
+    comp.sort(key=lambda x: (-x["n"], x["co"]))
     d["companies"] = comp
-    d["oh_longest"] = sorted(
-        [r for r in d["onhire"] if r["since"]],
-        key=lambda r: r["since"])
-    d["oh_nodate"] = [r for r in d["onhire"] if not r["since"]]
+    d["oh_longest"] = sorted([it for it in d["onhire"] if it["since"]],
+                             key=lambda it: it["since"])
+    d["oh_nodate"] = [it for it in d["onhire"] if not it["since"]]
+    d["oh_hirers"] = len({it["hirer"] for it in d["onhire"]})
+    d["oh_after_snap"] = (sum(1 for it in d["onhire"] if it["since"] and snap_max
+                              and it["since"] > snap_max) if snap_max else 0)
 
-    # test-record fill-in - the honest count off the master sheet
-    d["master_n"] = len(master)
-    d["with_test"] = [r for r in master if r["has_test"]]
-    d["with_dates"] = [r for r in master if r["last_test"] or r["next_due"]]
-    d["test_status"] = Counter(r["status"] for r in master if r["status"])
-    d["next_due"] = sorted([r for r in master if r["next_due"]],
-                           key=lambda r: r["next_due"])
-    d["col_fill"] = [(c, sum(1 for r in master if r[k]))
-                     for c, k in [("Last Test Date", "last_test"),
-                                  ("Next Test Due", "next_due"),
-                                  ("Test Status", "status"),
-                                  ("Test Tag Colour", "tag"),
-                                  ("Tested By", "tested_by"),
-                                  ("Certificate No", "cert")]]
-    d["serials"] = sum(1 for r in master if r["serial"])
+    # ---- repairs / quarantine custody lines -----------------------------
+    rp = defaultdict(list)
+    for it in d["repair"]:
+        rp[it["hirer"] or "(no hirer recorded)"].append(it)
+    rep = []
+    for h, lst in rp.items():
+        lst.sort(key=lambda it: (it["since"] is None, it["since"] or datetime.max))
+        rep.append({"hirer": h, "n": len(lst),
+                    "accounts": sorted({it["account"] for it in lst}),
+                    "oldest": lst[0], "items": lst})
+    rep.sort(key=lambda x: (-x["n"], x["hirer"]))
+    d["repair_lines"] = rep
+    d["out_of_tag"] = [it for it in d["repair"]
+                       if re.search(r"out\s*of\s*tag", it["hirer"], re.I)]
 
-    # category detail
+    # ---- not found in SiteIQ - last-known from the workbook snapshot ----
+    def snap_key(it):
+        s = it["snap"] or {}
+        oh = 0 if s.get("status", "").lower() == "on hire" else 1
+        return (oh, s.get("hirer", ""), it["desc"], it["barcode"])
+    d["missing"].sort(key=snap_key)
+    d["missing_snap"] = Counter(
+        (it["snap"] or {}).get("status", "") or "(no snapshot row)" for it in d["missing"])
+    d["missing_cats"] = Counter(it["cat"] or "(no category)" for it in d["missing"])
+
+    # ---- the certificate extract ----------------------------------------
+    ex = {"present": extract is not None}
+    if extract is not None:
+        ex["rows"] = len(extract)
+        exb = {}
+        for r in extract:
+            if r["barcode"] and r["barcode"] not in exb:
+                exb[r["barcode"]] = r
+        ex["distinct"] = len(exb)
+        onreg = [b for b in exb if b in items]
+        ex["on_register"] = len(onreg)
+        ex["reg_buckets"] = Counter(items[b]["bucket"] for b in onreg)
+        ex["next_due"] = Counter(r["next_due"] or "(blank)" for r in extract)
+        ex["parse"] = Counter(r["parse"] or "(blank)" for r in extract)
+        ex["with_due"] = sum(1 for r in extract if r["next_due"])
+    d["extract"] = ex
+
+    # ---- possibly rigging gear not on the register (keyword rule) ------
+    kw = [lr for lr in live_rows
+          if lr["barcode"] and lr["barcode"] not in items
+          and KW_INCLUDE.search(lr["desc"]) and not KW_EXCLUDE.search(lr["desc"])]
+    grp = defaultdict(list)
+    for lr in kw:
+        grp[norm_desc(lr["desc"])].append(lr)
+    kwg = []
+    for desc, lst in grp.items():
+        st = Counter(lr["status"].lower() for lr in lst)
+        kwg.append({"desc": desc, "n": len(lst),
+                    "onhire": st.get("on hire", 0),
+                    "store": st.get("available for hire", 0),
+                    "other": len(lst) - st.get("on hire", 0) - st.get("available for hire", 0),
+                    "eg": sorted(lr["barcode"] for lr in lst)[0]})
+    kwg.sort(key=lambda x: (-x["n"], x["desc"].upper()))
+    d["kw"] = kw
+    d["kw_groups"] = kwg
+    d["kw_onhire"] = sum(g["onhire"] for g in kwg)
+
+    # ---- category detail ------------------------------------------------
     cats = []
-    for c, n in d["cats"].most_common():
-        grp_oh = [r for r in d["onhire"] if (r["cat"] or "(no category)") == c]
-        grp_oh_dated = sorted([r for r in grp_oh if r["since"]],
-                              key=lambda r: r["since"])
-        cats.append({"cat": c, "n": n, "oh": len(grp_oh),
-                     "avail": n - len(grp_oh),
-                     "oldest": grp_oh_dated[0] if grp_oh_dated else None})
+    for c, n_rows in d["cats_rows"].most_common():
+        grp_items = [it for it in items.values() if (it["cat"] or "(no category)") == c]
+        b = Counter(it["bucket"] for it in grp_items)
+        oh_dated = sorted([it for it in grp_items if it["bucket"] == "onhire" and it["since"]],
+                          key=lambda it: it["since"])
+        cats.append({"cat": c, "rows": n_rows, "distinct": len(grp_items),
+                     "onhire": b.get("onhire", 0), "repair": b.get("repair", 0),
+                     "store": b.get("store", 0), "other": b.get("other", 0),
+                     "missing": b.get("missing", 0),
+                     "oldest": oh_dated[0] if oh_dated else None})
     d["cat_detail"] = cats
-    d["desc_top"] = Counter(r["desc"] or "(no description)"
-                            for r in locate).most_common(10)
-    d["desc_unique"] = len(set(r["desc"] for r in locate if r["desc"]))
     return d
 
 
 # =====================================================================
-# PDF rendering via the engine's robust writer
+# PDF rendering via the engine's robust writer + a real layout check
 # =====================================================================
 
+def layout_check(pdf_path, authored):
+    """PASS only when the page count matches AND nothing on any page has
+    run down into the footer. The K2 page is a fixed-height box with
+    overflow hidden, so a page count alone cannot see a table that has
+    grown past the footer - PyMuPDF (where installed) reads every page
+    and looks for body text or drawings overlapping the footer."""
+    problems = []
+    raw = open(pdf_path, "rb").read()
+    counts = re.findall(rb"/Count\s+(\d+)", raw)
+    actual = max(int(c) for c in counts) if counts else -1
+    if actual == -1:
+        problems.append(f"page count unreadable (authored {authored})")
+    elif actual != authored:
+        problems.append(f"authored {authored} pages, PDF has {actual}")
+    try:
+        import fitz
+    except ImportError:
+        fitz = None
+    if fitz is not None:
+        doc = fitz.open(str(pdf_path))
+        for pno, page in enumerate(doc, start=1):
+            h = page.rect.height
+            blocks = page.get_text("blocks")
+            # letter-spaced footer text extracts as "Y O U R  C O A T E S ..." -
+            # compare with the whitespace stripped
+            foot = [b for b in blocks
+                    if "COATESTOOLSTORETEAM" in re.sub(r"\s+", "", str(b[4])).upper()]
+            if not foot:
+                problems.append(f"page {pno}: footer not found")
+                continue
+            foot_top = min(b[1] for b in foot) - 7   # the rule above the footer text
+            for b in blocks:
+                if b[1] >= foot_top - 1:
+                    continue           # the footer's own lines
+                if b[3] > foot_top:
+                    txt = re.sub(r"\s+", " ", str(b[4]))[:40]
+                    problems.append(f"page {pno}: text runs into the footer ({txt!r})")
+                    break
+            for dr in page.get_drawings():
+                r = dr.get("rect")
+                if r is None or r.height > 0.8 * h or r.height < 3:
+                    continue           # the orange frame / hairlines
+                if r.y0 < foot_top - 2 and r.y1 > foot_top + 2:
+                    problems.append(f"page {pno}: a chart or panel runs into the footer")
+                    break
+        doc.close()
+        checked = f"{actual} pages, footer clearance checked on every page"
+    else:
+        checked = f"{actual} pages (page count only - PyMuPDF not installed)"
+    if problems:
+        print("*" * 68)
+        print(f"Layout check         : FAIL - {Path(pdf_path).name}")
+        for p in problems:
+            print(f"   - {p}")
+        print("   Do not send as is.")
+        print("*" * 68)
+        return False
+    print(f"Layout check         : PASS - {checked} ({Path(pdf_path).name})")
+    return True
+
+
 def render_k2_pdf(doc, pdf_path, authored, css):
+    """Writes the HTML beside the PDF (kept, not a temp file) and renders
+    the PDF through the engine's writer. Returns (pdf_ok, layout_ok).
+    No PDF engine is reported, not fatal - the email step still runs."""
     doc = doc.replace("</head>", f"<style>{css}</style></head>", 1)
-    tmp = OUT / (Path(pdf_path).stem + ".__tmp__.html")
-    tmp.write_text(doc, encoding="utf-8")
+    html_path = OUT / CONFIG["pdf_html"]
+    html_path.write_text(doc, encoding="utf-8")
+    print(f"HTML written         : {html_path}")
     # pre-delete: write_pdf_robust treats an EXISTING file as success, so a
     # stale copy from a previous run must never be able to masquerade
     try:
         Path(pdf_path).unlink()
     except OSError:
         pass
-    try:
-        ok = eng.write_pdf_robust(str(tmp), str(pdf_path))
-    finally:
-        try:
-            tmp.unlink()
-        except OSError:
-            pass
-    if not ok:
-        sys.exit(f"ERROR: could not render {Path(pdf_path).name} - no PDF "
-                 "engine available. Edge is standard on Coates laptops.")
-    raw = open(pdf_path, "rb").read()
-    counts = re.findall(rb"/Count\s+(\d+)", raw)
-    actual = max(int(c) for c in counts) if counts else -1
-    if actual == -1:
-        print(f"Layout check         : page count unreadable - authored "
-              f"{authored}; open the PDF and confirm")
-    elif actual != authored:
+    ok = eng.write_pdf_robust(str(html_path), str(pdf_path))
+    if not ok or not Path(pdf_path).exists():
         print("*" * 68)
-        print(f"WARNING: LAYOUT OVERFLOW in {Path(pdf_path).name} - authored "
-              f"{authored} pages, PDF has {actual}. Do not send as is.")
+        print(f"WARNING: could not render {Path(pdf_path).name} - no PDF engine "
+              "available on this machine (Edge is standard on Coates laptops).")
+        print(f"         The report pages are in {html_path.name}; the email "
+              "draft goes out without the PDF attached.")
         print("*" * 68)
-    else:
-        print(f"Layout check         : PASS - {actual} pages "
-              f"({Path(pdf_path).name})")
+        return False, False
+    return True, layout_check(pdf_path, authored)
 
 
 # =====================================================================
@@ -311,201 +616,361 @@ def dash():
     return '<span class="tbc">&ndash;</span>'
 
 
-def held_cell(r):
-    if r["held"] is None:
+def held_cell(it):
+    if it.get("held") is None:
         return dash()
-    cls = "rd" if r["held"] > 90 else "a" if r["held"] > 30 else "g"
-    return f'<span class="{cls}">{num(r["held"])}d</span>'
+    cls = "rd" if it["held"] > 90 else "a" if it["held"] > 30 else "g"
+    return f'<span class="{cls}">{num(it["held"])}d</span>'
 
 
-def since_cell(r):
-    return r["since"].strftime("%d %b %Y") if r["since"] else dash()
+def since_cell(it):
+    return it["since"].strftime("%d %b %Y") if it.get("since") else dash()
+
+
+def fmt_dt(dt):
+    return dt.strftime("%d %b %Y") if dt else "&ndash;"
+
+
+def paginate(rows, first_budget, next_budget):
+    """rows: (cells, est_height_px). Fills pages by height so a long
+    table never runs into the footer - the K2 page clips silently."""
+    pages, cur, used, budget = [], [], 0, first_budget
+    for cells, h in rows:
+        if cur and used + h > budget:
+            pages.append(cur)
+            cur, used, budget = [], 0, next_budget
+        cur.append(cells)
+        used += h
+    if cur or not pages:
+        pages.append(cur)
+    return pages
 
 
 # =====================================================================
 # the PDF pages
 # =====================================================================
 
-def build_pages(master, locate, d, asat_s):
+def build_pages(d, asat_s):
+    """Returns the list of page bodies. Page-number references inside
+    the text are tokens, resolved once the page order is final."""
     P = []
-    total = d["total"]
-    oh_n = len(d["onhire"])
-    oh_pct = oh_n / total * 100 if total else 0
+    distinct, rows_n = d["distinct"], d["rows"]
+    oh_n, rp_n, st_n, ms_n = (len(d["onhire"]), len(d["repair"]),
+                              len(d["store"]), len(d["missing"]))
+    ot_n = len(d["other"])
+    found_n = len(d["found"])
+    n_co = len(d["companies"])
     fill_n = len(d["with_test"])
+    ex = d["extract"]
+    snap_s = fmt_dt(d["snap_max"])
+    cat_bits = " and ".join(f'<b>{num(n)} {esc(c.lower())}</b>'
+                            for c, n in d["cats_rows"].most_common())
+    other_bit = (f', {num(ot_n)} in another SiteIQ status '
+                 f'({esc(", ".join(f"{k} {v}" for k, v in d["other_status"].most_common()))})'
+                 if ot_n else "")
 
     # ---- P1 the position ------------------------------------------------
     ladders = sh.score_rows([
-        ("Fleet located", 100 if total else 0,
-         f"every one of the {num(total)} register items carries a live status "
-         f"- {num(oh_n)} on hire, {num(len(d['avail']))} in the store"),
-        ("Test records filled in", round(fill_n / d["master_n"] * 100)
-         if d["master_n"] else 0,
-         f"{num(fill_n)} of {num(d['master_n'])} items have test details "
-         f"entered - the register is stood up, the fill-in is under way"),
+        ("Found in SiteIQ", d["found_pct"],
+         f"{num(found_n)} of {num(distinct)} distinct register barcodes are returned "
+         f"by the SiteIQ pull as at {asat_s}; {num(ms_n)} are not - listed from "
+         f"page __PG_MISSING__"),
+        ("Test records filled in", round(fill_n / rows_n * 100) if rows_n else 0,
+         f"{num(fill_n)} of {num(rows_n)} register rows have any of the eight test "
+         f"columns entered - see page 4"),
     ])
-    # the category split, worded from whatever the register actually holds
-    # - never a hard-coded category name that goes stale
-    cat_bits = " and ".join(f'<b>{num(n)} {esc(c.lower())}</b>'
-                            for c, n in d["cats"].most_common())
+    band = sh.stackband([
+        ("On hire to customers", oh_n, K["orange"]),
+        ("At repairs / quarantined", rp_n, K["amber"]),
+        ("In the store", st_n, K["green"]),
+    ] + ([("Other SiteIQ status", ot_n, K["blue"])] if ot_n else []) + [
+        ("Not found in SiteIQ", ms_n, K["red"]),
+    ])
     P.append(f"""{pcallout(
         f'<span class="lead">The position.</span> One page, one honest answer: '
-        f'is the {esc(CONFIG["client"])} rigging and lifting fleet on the '
-        f'register and accounted for? <b>{num(total)} items</b>, every one '
-        f'barcoded, split {cat_bits}. '
-        f'Right now <b class="o">{num(oh_n)} are on '
-        f'hire ({oh_pct:.0f}%)</b> across {num(len(d["companies"]))} companies, '
-        f'and {num(len(d["avail"]))} are in the store. The test columns are the '
-        f'work in progress: <b>{num(fill_n)} of {num(d["master_n"])}</b> items '
-        f'have test details entered so far - said plainly on page 4, blanks '
-        f'shown as dashes, nothing invented.', False)}
-<table class="two" style="margin-top:14px"><tr>
+        f'is the {esc(CONFIG["client"])} rigging and height-safety fleet on the '
+        f'register and accounted for? The register carries <b>{num(rows_n)} rows</b> '
+        f'- <b>{num(distinct)} distinct barcodes</b> ({num(len(d["blank"]))} blank, '
+        f'{num(len(d["dups"]))} barcodes repeated on {num(d["dup_rows"])} rows) - split '
+        f'{cat_bits}. Joined barcode-for-barcode to the SiteIQ register as at '
+        f'<b>{esc(asat_s)}</b>: <b>{num(found_n)} found ({d["found_pct"]}%)</b> - '
+        f'<b class="o">{num(oh_n)} on hire to customers</b> across {num(n_co)} '
+        f'companies, {num(rp_n)} at repairs or quarantined, {num(st_n)} in the '
+        f'store{other_bit} - and <b class="o">{num(ms_n)} not found in SiteIQ - '
+        f'whereabouts unknown</b>. The test columns are still empty: '
+        f'<b>{num(fill_n)} of {num(rows_n)}</b> rows carry any test detail (page 4).', False)}
+<table class="two" style="margin-top:12px"><tr>
   <td style="width:31%"><div class="donut-wrap">
-    {sh.donut(round(oh_pct), K["orange"], f"{oh_pct:.0f}%", "ON HIRE")}
-    <div class="donut-cap">Share of the fleet out on hire right now</div></div></td>
+    {sh.donut(d["found_pct"], K["orange"], f'{d["found_pct"]}%', "FOUND IN SITEIQ")}
+    <div class="donut-cap">Share of the {num(distinct)} distinct register barcodes the SiteIQ pull returns</div></div></td>
   <td style="padding-left:10px">{ladders}</td>
 </tr></table>
-{psubh("The fleet by category", "&mdash; on hire vs in the store")}
-{chartpanel(sh.grouped_bars(
-    [{"label": c["cat"], "onhire": c["oh"], "avail": c["avail"]}
-     for c in d["cat_detail"]], h=170,
-    series=(("onhire", K["orange"], "On hire"),
-            ("avail", "#22C55E", "In the store"))))}
+{psubh("Where the barcodes are", f"&mdash; every one of the {num(distinct)}, per the SiteIQ pull")}
+{chartpanel(band)}
 {sh.tiles([
-    ("box", num(total), "Items on the register", "every one barcoded", "grey"),
-    ("swap", num(oh_n), "On hire now",
-     f"across {num(len(d['companies']))} companies", "amber"),
-    ("check", num(len(d["avail"])), "In the store", "ready for issue", "green"),
-    ("wrench", f"{num(fill_n)}/{num(d['master_n'])}", "Test records entered",
-     "fill-in under way", "amber" if fill_n < d["master_n"] else "green"),
-])}""")
+    ("box", num(distinct), "Distinct barcodes", f"{num(rows_n)} register rows", "grey"),
+    ("swap", num(oh_n), "On hire to customers", f"across {num(n_co)} companies", "amber"),
+    ("check", num(st_n), "In the store", "available for hire", "green"),
+    ("wrench", num(rp_n), "At repairs / quarantined", "not customer hire", "amber"),
+    ("warn", num(ms_n), "Not found in SiteIQ", "whereabouts unknown", "red"),
+    ("shield", f"{num(fill_n)}/{num(rows_n)}", "Test records entered",
+     "fill-in not started" if not fill_n else "fill-in under way",
+     "red" if not fill_n else "amber"),
+], per_row=6)}""")
 
-    # ---- P2 where the gear is -------------------------------------------
+    # ---- P2 where the gear is - by company ------------------------------
     comp = d["companies"]
-    cap_co = 12
     crows = []
-    for c in comp[:cap_co]:
+    for c in comp:
         o = c["oldest"]
+        same = (len(c["accounts"]) == 1
+                and re.sub(r"[^a-z0-9]", "", c["accounts"][0].lower())
+                == re.sub(r"[^a-z0-9]", "", c["co"].lower()))
+        acc = ("" if same else
+               f'<span class="s2">{esc(" · ".join(c["accounts"]))}</span>')
         crows.append([
-            esc(c["co"]),
+            f'{esc(c["co"])}{acc}',
             num(c["n"]),
             num(c["hirers"]),
-            f'{esc(o["desc"])}<span class="s2">{esc(o["barcode"])} &middot; '
-            f'{esc(o["hirer"])}</span>' if o else dash(),
-            held_cell(o) if o and o.get("held") is not None else dash()])
-    more_co = (pnote(f'Showing {cap_co} of {len(comp)} companies - the rest '
-                     f'hold {num(sum(c["n"] for c in comp[cap_co:]))} items '
-                     f'between them; full detail in the register workbook.')
-               if len(comp) > cap_co else "")
+            (f'{esc(o["desc"])} &middot; {esc(o["barcode"])} &middot; {esc(o["hirer"])}'
+             if o else dash()),
+            since_cell(o) if o else dash(),
+            held_cell(o) if o else dash()])
+    rrows = []
+    for r in d["repair_lines"]:
+        o = r["oldest"]
+        rrows.append([
+            esc(r["hirer"]),
+            esc(" · ".join(r["accounts"])),
+            num(r["n"]),
+            f'{esc(o["desc"])} &middot; {esc(o["barcode"])}' if o else dash(),
+            since_cell(o) if o else dash(),
+            held_cell(o) if o else dash()])
+    if not rrows:
+        rrows = [['<span class="tbc">no register item is at repairs or quarantined</span>',
+                  dash(), "0", dash(), dash(), dash()]]
     P.append(f"""{psect("Where the rigging gear is - by company, longest held first")}
-{pcallout(f'<b class="o">{num(len(d["onhire"]))} items</b> are out on hire. Companies ranked by holding, and each company&rsquo;s <b>longest-held item</b> named with its barcode - because the oldest hire is always the first conversation. Every date is the workbook&rsquo;s own on-hire datetime.', False)}
-{sh.dtable(["Company", "Items", "Hirers", "Longest-held item", "Held"],
-           crows, ["", "r", "r", "", "r"])}
-{more_co}
-{pnote('Held = days from the item&rsquo;s on-hire date to the data-as-at stamp. Long-held is not lost - shutdown gear runs long by nature - but oldest-first is the order the counter works the returns.')}""")
+{pcallout(f'<b class="o">{num(oh_n)} items</b> are on hire to <b>{num(n_co)} customer companies</b> ({num(d["oh_hirers"])} hirer names) per the SiteIQ pull as at {esc(asat_s)}. Companies ranked by holding, each with its <b>longest-held item</b> named with barcode and hirer - because the oldest hire is always the first conversation. Project accounts are merged into their company (the SiteIQ account names sit under the company). A further <b>{num(rp_n)}</b> register items sit on repairs or quarantine custody lines - shown separately on page 3, never counted as customer hire.', False)}
+{sh.dtable(["Company (SiteIQ accounts)", "Items", "Hirers", "Longest-held item · barcode · hirer", "On hire since", "Held"],
+           crows, ["", "r", "r", "", "r", "r"], cls="cp")}
+{pnote(f'Held = days from the SiteIQ on-hire date to the pull time, {esc(asat_s)}. Hirer names are as SiteIQ records them, shared site accounts included. {num(d["oh_after_snap"])} of the {num(oh_n)} customer-hire items were issued after {snap_s}, the newest date in the workbook&rsquo;s own locate sheet - which is why that sheet is no longer used for status. Repairs and quarantine custody lines are on page 3.')}""")
 
     # ---- P3 the longest-held, item by item -------------------------------
-    # Its own page - sharing one page with the company table ran into
-    # the footer, and an overflowing page never goes to a client.
-    cap_l = 18
+    cap_l = 16
     lrows = []
-    for r in d["oh_longest"][:cap_l]:
+    for it in d["oh_longest"][:cap_l]:
         lrows.append([
-            esc(r["company"]) or dash(),
-            esc(r["hirer"]) or dash(),
-            esc(r["desc"]) or dash(),
-            esc(r["barcode"]) or dash(),
-            since_cell(r),
-            held_cell(r)])
-    P.append(f"""{psect("The longest-held, item by item - oldest first")}
-{pcallout(f'The front of the queue: the {min(cap_l, len(d["oh_longest"]))} oldest hires of the {num(len(d["oh_longest"]))} dated on-hire items, each with its barcode, holder and the workbook&rsquo;s own on-hire date. Work them top down - every return retires the oldest risk first.', False)}
+            esc(it["company"]) or dash(),
+            esc(it["hirer"]) or dash(),
+            esc(it["desc"]) or dash(),
+            esc(it["barcode"]) or dash(),
+            since_cell(it),
+            held_cell(it)])
+    P.append(f"""{psect("The longest-held customer hire, item by item - oldest first")}
+{pcallout(f'The front of the queue: the {min(cap_l, len(d["oh_longest"]))} oldest of the {num(len(d["oh_longest"]))} dated customer-hire items, each with its barcode, holder and SiteIQ on-hire date as at {esc(asat_s)}. Work them top down - every return retires the oldest risk first.', False)}
 {sh.dtable(["Company", "Hirer", "Item", "Barcode", "On hire since", "Held"],
-           lrows, ["", "", "", "", "r", "r"])}
-{pnote((f'Showing {cap_l} of {len(d["oh_longest"])} dated on-hire items - the register workbook carries the lot, same order. ' if len(d["oh_longest"]) > cap_l else '') + ('' if not d["oh_nodate"] else f'{num(len(d["oh_nodate"]))} on-hire items carry no on-hire date in the workbook - shown as dashes, not guessed. ') + 'Held = days from the on-hire date to the data-as-at stamp.')}""")
+           lrows, ["", "", "", "", "r", "r"], cls="cp")}
+{pnote((f'Showing {cap_l} of {num(len(d["oh_longest"]))} dated customer-hire items - the SiteIQ export carries the lot, same order. ' if len(d["oh_longest"]) > cap_l else '') + ('' if not d["oh_nodate"] else f'{num(len(d["oh_nodate"]))} on-hire items carry no on-hire date in SiteIQ - shown as dashes, not guessed. ') + 'Held = days from the on-hire date to the pull time.')}
+{psubh("At repairs / quarantined", f"&mdash; {num(rp_n)} items on custody lines, not customer hire")}
+{sh.dtable(["Custody line (hirer)", "SiteIQ account", "Items", "Longest-held item", "Since", "Held"],
+           rrows, ["", "", "r", "", "r", "r"], cls="cp")}
+{pnote(f'Rule: {esc(REPAIR_RULE)}. These lines are excluded from the company count on page 2 and from the longest-held list above.')}""")
 
-    # ---- P3 test status - the truth -------------------------------------
+    # ---- P4 test status - the truth -------------------------------------
     ts = d["test_status"].most_common()
     if ts:
         srows = [[esc(s), num(n)] for s, n in ts]
-        srows.append(['<span class="tbc">(blank - awaiting fill-in)</span>',
-                      num(d["master_n"] - sum(n for _, n in ts))])
+        srows.append(['<span class="tbc">(blank - not yet entered)</span>',
+                      num(rows_n - sum(n for _, n in ts))])
     else:
-        srows = [['<span class="tbc">(blank - awaiting fill-in)</span>',
-                  num(d["master_n"])]]
-    cap_nd = 14
-    if d["next_due"]:
-        ndrows = [[esc(r["desc"]) or dash(), esc(r["barcode"]) or dash(),
-                   r["next_due"].strftime("%d %b %Y"),
-                   esc(r["status"]) if r["status"] else dash()]
-                  for r in d["next_due"][:cap_nd]]
-        nd_block = (
-            psubh("Next test due", f"&mdash; soonest first, showing "
-                  f"{min(cap_nd, len(d['next_due']))} of {len(d['next_due'])}")
-            + sh.dtable(["Item", "Barcode", "Next test due", "Test status"],
-                        ndrows, ["", "", "r", ""]))
+        srows = [['<span class="tbc">(blank - not yet entered)</span>', num(rows_n)]]
+    fill_rows = [(lab, n, rows_n, "f-orange" if n else "f-amber",
+                  f"{num(n)} of {num(rows_n)}") for lab, n in d["col_fill"]]
+    if ex["present"]:
+        rb = ex["reg_buckets"]
+        due_txt = " · ".join(f"{esc(v)} on {num(n)} rows" for v, n in ex["next_due"].most_common(3))
+        parse_txt = " · ".join(f"{esc(k)} {num(n)}" for k, n in ex["parse"].most_common())
+        exrows = [
+            ["Rows in the extract / distinct barcodes",
+             f'{num(ex["rows"])} / {num(ex["distinct"])}'],
+            ["Of which on the register (Master barcodes)",
+             f'<b>{num(ex["on_register"])}</b> of {num(distinct)}'],
+            ["&nbsp;&nbsp;&rarr; on hire per SiteIQ (customers + custody lines)",
+             num(rb.get("onhire", 0) + rb.get("repair", 0))],
+            ["&nbsp;&nbsp;&rarr; in the store per SiteIQ", num(rb.get("store", 0) + rb.get("other", 0))],
+            ["&nbsp;&nbsp;&rarr; not found in SiteIQ", num(rb.get("missing", 0))],
+            ["Next Insp Due values carried", due_txt],
+            ["Parse Status (the extract&rsquo;s own column)", parse_txt],
+        ]
+        ex_block = (psubh("The certificate extract", "&mdash; &lsquo;Extracted Register&rsquo; sheet, same workbook, not yet on the Master")
+                    + sh.dtable(["What the extract holds", "Count"], exrows, ["", "r"], cls="cp"))
+        top_due = ex["next_due"].most_common(1)[0][0] if ex["next_due"] else ""
+        ex_sentence = (
+            f' A certificate extract in the same workbook (&lsquo;Extracted Register&rsquo;) carries '
+            f'<b>Next Insp Due {esc(top_due)} for {num(ex["on_register"])} of the {num(distinct)} register '
+            f'barcodes</b> ({num(rb.get("onhire", 0) + rb.get("repair", 0))} on hire per SiteIQ, '
+            f'{num(rb.get("store", 0) + rb.get("other", 0))} in the store, {num(rb.get("missing", 0))} not found '
+            f'in SiteIQ), not yet transferred to the Master. If {esc(top_due)} means April 2026, those items '
+            f'were due before this report - <b>status unconfirmed</b>.')
     else:
-        nd_block = pnote('No Next Test Due dates are recorded in the register '
-                         'yet - the moment they are entered, this page sorts '
-                         'them soonest first automatically. Until then the '
-                         'cells print as dashes, never estimates.')
-    fill_rows = [(lab, n, d["master_n"], "f-orange" if n else "f-amber",
-                  f"{num(n)} of {num(d['master_n'])}")
-                 for lab, n in d["col_fill"]]
+        ex_block = pnote("No &lsquo;Extracted Register&rsquo; sheet was found in the workbook - nothing to disclose from a certificate extract.")
+        ex_sentence = ""
+    oot = d["out_of_tag"]
+    oot_bit = (f' SiteIQ already carries a parking hirer, &lsquo;{esc(oot[0]["hirer"])}&rsquo;, holding '
+               f'{num(len(oot))} register item{"s" if len(oot) != 1 else ""} (page 2).' if oot else "")
     P.append(f"""{psect("Test status - what the register holds today, no varnish")}
-{pcallout(f'Straight up: the register is <b>stood up and complete on identity</b> - every item barcoded, categorised and located - and the <b>test details are being filled in</b>. {num(len(d["with_test"]))} of {num(d["master_n"])} items have any test detail entered and {num(len(d["with_dates"]))} carry test dates so far. That is the truth of it, and it is exactly what this page tracks refresh over refresh. {num(d["serials"])} items already carry a serial number from the standing-up work.', False)}
-{psubh("Test Status values on the register")}
-{sh.dtable(["Test Status (as recorded)", "Items"], srows, ["", "r"])}
-{nd_block}
+{pcallout(f'Straight up: <b>not one of the eight test columns on the Master has been filled in</b> - {num(fill_n)} of {num(rows_n)} rows carry a test date, status, tag colour, tester, licence, certificate or comment.{ex_sentence}{oot_bit}', False)}
+{sh.dtable(["Test Status on the Master (as recorded)", "Rows"], srows, ["", "r"], cls="cp")}
+{ex_block}
 {psubh("Fill-in progress by column", "&mdash; how far each test column has got")}
 {sh.prog_rows(fill_rows)}
-{pnote('A dash anywhere on this page means the register cell is blank - the test details for that item are still to be entered. Nothing is assumed, estimated or copied in from anywhere else.')}""")
+{pnote('A dash anywhere in this report means the register cell is blank - the test details for that item are still to be entered. Nothing is assumed, estimated or copied in from the extract; the extract is disclosed here, not treated as the record.')}""")
 
-    # ---- P4 category detail ---------------------------------------------
-    catrows = []
+    # ---- P5 register identity + category detail -------------------------
+    duprows = []
+    for b, n in d["dups"]:
+        it = d["items"][b]
+        lv = it["live"]
+        where = ({"onhire": f'On hire · {esc(it["company"])} · {esc(it["hirer"])}',
+                  "repair": f'Custody · {esc(it["hirer"])}',
+                  "store": "In the store", "other": esc(lv["status"]) if lv else "",
+                  "missing": '<span class="or">Not found in SiteIQ</span>'}[it["bucket"]])
+        duprows.append([esc(b), esc(it["desc"]) or dash(), num(n), where])
+    if not duprows:
+        duprows = [['<span class="tbc">no duplicated barcodes</span>', dash(), "0", dash()]]
+    blank_bits = "; ".join(f'{esc(r["desc"])} ({esc(r["cat"])})' for r in d["blank"]) or "none"
+    catrows2 = []
     for c in d["cat_detail"]:
         o = c["oldest"]
-        catrows.append([
-            esc(c["cat"]),
-            num(c["n"]),
-            num(c["oh"]),
-            num(c["avail"]),
-            f'{esc(o["desc"])}<span class="s2">{esc(o["barcode"])} &middot; '
-            f'{esc(o["company"])} &middot; {esc(o["hirer"])}</span>' if o else dash(),
-            held_cell(o) if o and o.get("held") is not None else dash()])
-    cap_d = 10
-    dt = d["desc_top"][:cap_d]
-    drows = [[esc(desc), num(n)] for desc, n in dt]
-    P.append(f"""{psect("Category detail - the fleet at line level")}
-{pcallout('Two categories carry the whole register. Each one&rsquo;s count, its on-hire split, and its longest-held item named with barcode and holder - the line the counter chases first in that category.')}
-{sh.dtable(["Category", "Items", "On hire", "In store", "Longest-held item", "Held"],
-           catrows, ["", "r", "r", "r", "", "r"])}
-{psubh("The biggest lines", f"&mdash; top {len(dt)} of {num(d['desc_unique'])} distinct descriptions on the register")}
-{chartpanel(sh.hbars([(desc, n) for desc, n in dt], colour=K["blue"]))}
-{pnote('Counts come straight off the register&rsquo;s locate sheet - one row per physical item, barcode on every row.')}""")
+        catrows2.append([
+            esc(c["cat"]), num(c["rows"]), num(c["distinct"]), num(c["onhire"]),
+            num(c["repair"]), num(c["store"]), num(c["missing"]),
+            (f'{esc(o["desc"])}<span class="s2">{esc(o["barcode"])} &middot; '
+             f'{esc(o["company"])} &middot; {esc(o["hirer"])}</span>' if o else dash()),
+            held_cell(o) if o else dash()])
+    P.append(f"""{psect("Register identity - what the barcodes themselves say")}
+{pcallout(f'The register is <b>{num(rows_n)} rows</b> but <b>{num(distinct)} distinct barcodes</b>: <b>{num(len(d["blank"]))}</b> row{"s" if len(d["blank"]) != 1 else ""} with no barcode ({blank_bits}), <b>{num(len(d["dups"]))}</b> barcodes repeated across <b>{num(d["dup_rows"])}</b> rows, and <b>{num(d["lower"])}</b> typed in lower case. For the SiteIQ join and on every page here, barcodes are upper-cased and de-duplicated (first Master row wins) - the fixes belong in the Master. Serial numbers: <b>{num(d["serial_rows"])}</b> rows carry one, <b>{num(d["serial_distinct"])}</b> distinct.', False)}
+{psubh("Duplicated barcodes", f"&mdash; {num(len(d['dups']))} barcodes on {num(d['dup_rows'])} rows")}
+{sh.dtable(["Barcode", "Item", "Rows", "Where SiteIQ has it"], duprows,
+           ["", "", "r", ""], cls="cp")}
+{psubh("Category detail", "&mdash; rows, distinct barcodes and the SiteIQ split")}
+{sh.dtable(["Category", "Rows", "Barcodes", "On hire", "Repairs", "In store", "Not found", "Longest-held customer item", "Held"],
+           catrows2, ["", "r", "r", "r", "r", "r", "r", "", "r"], cls="cp")}
+{pnote('Counts are per distinct barcode after upper-casing; a duplicated barcode is one item here whatever the row count says. On hire = customer hire only.')}""")
 
-    # ---- P5 close --------------------------------------------------------
+    # ---- P6.. not found in SiteIQ ---------------------------------------
+    def snap_cell(it):
+        s = it["snap"]
+        if not s:
+            return '<span class="tbc">no snapshot row</span>'
+        if s["status"].lower() == "on hire":
+            return f'<span class="or">On hire</span><span class="s2">{esc(s["hirer"]) or "&ndash;"}</span>'
+        if s["status"].lower() == "available for hire":
+            return "Available"
+        return esc(s["status"] or "&ndash;")
+
+    def snap_h(it):
+        # measured on the rendered PDF: 24px a single-line row, 36px two lines
+        s = it["snap"]
+        h = 36 if len(it["desc"]) > 24 else 24
+        if s and s["status"].lower() == "on hire":
+            h = max(h, 48 if len(s["hirer"]) > 21 else 36)
+        return h
+
+    ms = d["missing"]
+    pair_rows = []
+    for i in range(0, len(ms), 2):
+        a = ms[i]
+        b = ms[i + 1] if i + 1 < len(ms) else None
+        cells = [esc(a["barcode"]), esc(a["desc"]) or dash(), snap_cell(a)]
+        cells += [esc(b["barcode"]), esc(b["desc"]) or dash(), snap_cell(b)] if b else ["", "", ""]
+        pair_rows.append((cells, max(snap_h(a), snap_h(b) if b else 0)))
+    ms_pages = paginate(pair_rows, 520, 640) if pair_rows else [[]]
+    ms_oh = d["missing_snap"].get("On Hire", 0)
+    ms_split = " · ".join(f"{esc(k)} {num(v)}" for k, v in d["missing_cats"].most_common())
+    snap_split = " · ".join(f"{esc(k)} {num(v)}" for k, v in d["missing_snap"].most_common())
+    first_ms = len(P) + 1
+    for i, rows in enumerate(ms_pages):
+        n_pages = len(ms_pages)
+        head = psect("Not found in SiteIQ - whereabouts unknown"
+                     + (f" ({i + 1} of {n_pages})" if n_pages > 1 else ""))
+        if i == 0:
+            head += pcallout(
+                f'<b class="o">{num(ms_n)} register barcodes</b> are not returned by the SiteIQ pull as at '
+                f'{esc(asat_s)} - on the register, but nowhere in the live export under that barcode '
+                f'(exact match tried first, then upper-cased and trimmed). Split {ms_split}. They are '
+                f'<b>not accounted for</b> and are not counted as in the store. The last thing the '
+                f'workbook&rsquo;s own locate sheet (a SiteIQ snapshot dated to {snap_s}) said about them: '
+                f'{snap_split}. The {num(ms_oh)} last seen on hire carry that hirer&rsquo;s name below - '
+                f'the first person to ask.', False)
+        if not rows:
+            body = pnote("Every register barcode was returned by the SiteIQ pull - nothing to list.")
+        else:
+            body = sh.dtable(["Barcode", "Item", "Jun snapshot",
+                              "Barcode", "Item", "Jun snapshot"], rows,
+                             ["", "", "", "", "", ""], cls="cp")
+        P.append(head + body + pnote(
+            f'Sorted last-seen-on-hire first (by hirer), then by item. &lsquo;Jun snapshot&rsquo; is the '
+            f'workbook&rsquo;s To Help Locate sheet, dated to {snap_s} - not the live position. A barcode '
+            f'here may have been re-tagged, sold, scrapped or mis-typed on the register; until SiteIQ '
+            f'returns it, whereabouts unknown.'))
+
+    # ---- P?.. possibly rigging gear not on the register ------------------
+    kwrows = [([esc(g["desc"]), num(g["n"]), num(g["onhire"]), num(g["store"]),
+                num(g["other"]), esc(g["eg"])], 24) for g in d["kw_groups"]]
+    kw_pages = paginate(kwrows, 520, 640) if kwrows else [[]]
+    first_kw = len(P) + 1
+    for i, rows in enumerate(kw_pages):
+        n_pages = len(kw_pages)
+        head = psect("Possibly rigging gear not on the register - keyword match, verify"
+                     + (f" ({i + 1} of {n_pages})" if n_pages > 1 else ""))
+        if i == 0:
+            head += pcallout(
+                f'<b class="o">{num(len(d["kw"]))} live SiteIQ lines</b> ({num(len(d["kw_groups"]))} '
+                f'descriptions, {num(d["kw_onhire"])} on hire) carry a rigging or height-safety word in '
+                f'their description but their barcode is not on the register. <b>This is a keyword match, '
+                f'not a finding</b> - each line needs a look before it is added. Rule applied: '
+                f'{esc(KW_RULE)}.', False)
+        body = (sh.dtable(["Description (as SiteIQ records it)", "Items", "On hire", "In store",
+                           "Other", "Example barcode"], rows, ["", "r", "r", "r", "r", ""], cls="cp")
+                if rows else pnote("No live SiteIQ line matched the keyword rule outside the register."))
+        P.append(head + body + pnote(
+            'Grouped by description exactly as SiteIQ spells it. Counts and statuses are from the same '
+            'pull as every other page. Items that are genuinely rigging gear belong on the Master with a '
+            'barcode; items that are not can be dismissed - either way, verify before acting.'))
+
+    # ---- close --------------------------------------------------------------
     cards = sh.info_cards([
-        ("Stood up, then filled in",
-         "The register was built identity-first: every item barcoded, "
-         "categorised and locatable on day one. Test details are being "
-         "entered now - progress is printed, page 4, every run."),
-        ("No invented test data",
-         "A blank test cell prints as a dash, full stop. No status is "
-         "assumed, no date estimated - rigging gear is Life Saving Rule 5 "
-         "territory (SEQ-GL-009) and the record has to be real."),
+        ("Live position, not a snapshot",
+         f"Status, holder, on-hire date and days held come from the SiteIQ "
+         f"RENTAL_STOCK pull requested {esc(asat_s)}, joined barcode-for-barcode "
+         f"to the register. The workbook decides what is on the register; "
+         f"SiteIQ decides where it is."),
+        ("Unknown stays unknown",
+         f"{num(ms_n)} register barcodes SiteIQ does not return are printed as "
+         f"not found - whereabouts unknown - never folded into &lsquo;in the "
+         f"store&rsquo;. Blank test cells print as dashes; nothing is assumed, "
+         f"estimated or copied in."),
         ("Longest held, first chased",
-         "On-hire gear is worked oldest first, by company and hirer, off "
-         "the workbook's own on-hire dates - the conversation is always a "
-         "name and a barcode, never a guess."),
-        ("One register, one truth",
-         "Master and locate sheets travel in the same workbook - identity "
-         "and whereabouts can never drift apart unnoticed, and this report "
-         "reads both every run."),
+         "Customer hire is worked oldest first by company and hirer. Repairs, "
+         "off-site, out-of-tag and out-of-service custody lines are kept "
+         "separate, so a quarantined item never reads as a customer&rsquo;s."),
+        ("Identity has gaps too",
+         f"{num(rows_n)} rows, {num(distinct)} distinct barcodes: "
+         f"{num(len(d['blank']))} blank, {num(len(d['dups']))} barcodes repeated "
+         f"on {num(d['dup_rows'])} rows, {num(d['lower'])} lower-case. The join "
+         f"upper-cases and de-duplicates; the fixes belong in the Master. Rigging "
+         f"gear is Life Saving Rule 5 territory (SEQ-GL-009) - the record has to be real."),
     ])
     P.append(f"""{psect("How the rigging fleet is run")}
 {cards}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
 {sh.team_cards(CONFIG["team"])}""")
+
+    # resolve the page references now the order is final
+    P = [p.replace("__PG_MISSING__", str(first_ms)).replace("__PG_KW__", str(first_kw))
+         for p in P]
     return P
 
 
@@ -522,13 +987,15 @@ def render_doc(pages, gen_s, asat_s):
 # the Outlook email (draft - never sends)
 # =====================================================================
 
-def build_email_html(d, gen_s, asat_s):
+def build_email_html(d, gen_s, asat_s, pdf_ok, src_name, live_name):
     W = 1000
     FONT = sh.FONT
-    total = d["total"]
-    oh_n = len(d["onhire"])
-    oh_pct = oh_n / total * 100 if total else 0
+    distinct, rows_n = d["distinct"], d["rows"]
+    oh_n, rp_n, st_n, ms_n = (len(d["onhire"]), len(d["repair"]),
+                              len(d["store"]), len(d["missing"]))
+    n_co = len(d["companies"])
     fill_n = len(d["with_test"])
+    ex = d["extract"]
     parts = []
 
     parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
@@ -543,29 +1010,41 @@ def build_email_html(d, gen_s, asat_s):
 <div style="{FONT}font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#FFFFFF;">POWERED BY <span style="color:#F36F21;">SITEIQ</span></div>
 <div style="{FONT}font-size:11.5px;color:#8395A6;padding-top:5px;">Equipped for anything</div>
 </td></tr></table>
-<div style="{FONT}font-size:11px;color:#8395A6;padding-top:10px;line-height:1.6;">Generated: <b style="color:#FFFFFF;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#FFFFFF;">{esc(asat_s)}</b> (register file saved) &nbsp;|&nbsp; Author: <b style="color:#FFFFFF;">Andrew Fisher</b></div>
+<div style="{FONT}font-size:11px;color:#8395A6;padding-top:10px;line-height:1.6;">Generated: <b style="color:#FFFFFF;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#FFFFFF;">{esc(asat_s)}</b> {esc(CONFIG["asat_note"])} &nbsp;|&nbsp; Author: <b style="color:#FFFFFF;">Andrew Fisher</b></div>
 </td></tr></table>""")
 
     # nested f-strings reusing the outer quote break on older Pythons on
-    # the store laptops - build the fragment first, drop it in after
-    fill_s = num(fill_n) + " of " + num(d["master_n"])
+    # the store laptops - build the fragments first, drop them in after
+    fill_s = num(fill_n) + " of " + num(rows_n)
+    found_s = num(len(d["found"])) + " found (" + str(d["found_pct"]) + "%)"
+    detail_s = "Full detail in the PDF attached." if pdf_ok else \
+        "Full detail in the report HTML in today&rsquo;s Rigging folder (no PDF engine on this machine)."
     parts.append(sh.ecallout(
         f'<span style="color:#D95F14;font-weight:bold;text-transform:uppercase;">'
-        f'The position.</span> {sh.eo(num(total) + " rigging and lifting items")} '
-        f'on the register, every one barcoded. {sh.eo(num(oh_n) + " on hire")} '
-        f'({oh_pct:.0f}%) across {num(len(d["companies"]))} companies, '
-        f'<b>{num(len(d["avail"]))}</b> in the store. Test records: '
-        f'{sh.eo(fill_s)} filled in - the '
-        f'register is stood up, the test details are being entered, and '
-        f'blanks print as dashes, never guesses. Full detail in the PDF.'))
+        f'The position.</span> {sh.eo(num(rows_n) + " register rows")}, '
+        f'{num(distinct)} distinct barcodes, joined to the SiteIQ register as at '
+        f'{esc(asat_s)}: {sh.eo(found_s)}. {sh.eo(num(oh_n) + " on hire to customers")} '
+        f'across {num(n_co)} companies, <b>{num(st_n)}</b> in the store, '
+        f'<b>{num(rp_n)}</b> at repairs or quarantined, and '
+        f'{sh.eo(num(ms_n) + " not found in SiteIQ - whereabouts unknown")}. '
+        f'Test records: {sh.eo(fill_s)} rows have any test detail entered. '
+        f'{detail_s}'))
 
     parts.append(sh.etiles([
-        (num(total), "ITEMS ON THE REGISTER", "every one barcoded", "#8A9AAC"),
-        (num(oh_n), "ON HIRE NOW",
-         f'across {num(len(d["companies"]))} companies', "#EFA82B"),
-        (num(len(d["avail"])), "IN THE STORE", "ready for issue", "#22C55E"),
-        (f"{num(fill_n)}/{num(d['master_n'])}", "TEST RECORDS ENTERED",
-         "fill-in under way", "#EFA82B" if fill_n < d["master_n"] else "#22C55E"),
+        (num(distinct), "DISTINCT BARCODES", f"{num(rows_n)} register rows", "#8A9AAC"),
+        (num(oh_n), "ON HIRE TO CUSTOMERS", f'across {num(n_co)} companies', "#EFA82B"),
+        (num(st_n), "IN THE STORE", "available for hire", "#22C55E"),
+        (num(ms_n), "NOT FOUND IN SITEIQ", "whereabouts unknown", "#F0603E"),
+    ]))
+    parts.append(sh.etiles([
+        (num(rp_n), "AT REPAIRS / QUARANTINED", "custody lines, not customer hire", "#EFA82B"),
+        (f"{num(fill_n)}/{num(rows_n)}", "TEST RECORDS ENTERED",
+         "fill-in not started" if not fill_n else "fill-in under way",
+         "#F0603E" if not fill_n else "#EFA82B"),
+        (num(len(d["dups"])), "DUPLICATED BARCODES",
+         f'on {num(d["dup_rows"])} rows · {num(len(d["blank"]))} blank', "#8A9AAC"),
+        (num(len(d["kw"])), "POSSIBLE RIGGING GEAR OFF-REGISTER",
+         "keyword match - verify", "#8A9AAC"),
     ]))
 
     cap = 8
@@ -574,32 +1053,50 @@ def build_email_html(d, gen_s, asat_s):
     for c in comp[:cap]:
         o = c["oldest"]
         crows.append([esc(c["co"]), num(c["n"]), num(c["hirers"]),
-                      (f'{esc(o["desc"])} ({esc(o["barcode"])})' if o else "&ndash;"),
+                      (f'{esc(o["desc"])} ({esc(o["barcode"])}) &middot; {esc(o["hirer"])}' if o else "&ndash;"),
                       (f'{num(o["held"])}d' if o and o.get("held") is not None else "&ndash;")])
-    parts.append(sh.esect("Where the gear is - companies by holding"))
+    parts.append(sh.esect("Where the gear is - customer companies by holding"))
     parts.append(sh.edtable(["Company", "Items", "Hirers", "Longest-held item", "Held"],
                             crows, ["", "r", "r", "", "r"]))
-    if len(comp) > cap:
-        parts.append(sh.enote(f'Showing {cap} of {len(comp)} companies - the '
-                              f'PDF attached carries the full picture.'))
+    tail = (f'Showing {cap} of {len(comp)} companies. ' if len(comp) > cap else '')
+    parts.append(sh.enote(
+        tail + f'Project accounts (FCCU, SATGAS/MOL, Ampol Refineries) are merged into their '
+        f'company. {num(rp_n)} items on repairs / quarantine custody lines are excluded from '
+        f'this table.'))
 
     cap2 = 8
-    lrows = [[esc(r["company"]) or "&ndash;", esc(r["hirer"]) or "&ndash;",
-              esc(r["desc"]) or "&ndash;", esc(r["barcode"]) or "&ndash;",
-              r["since"].strftime("%d %b %Y"),
-              f'{num(r["held"])}d' if r.get("held") is not None else "&ndash;"]
-             for r in d["oh_longest"][:cap2]]
+    lrows = [[esc(it["company"]) or "&ndash;", esc(it["hirer"]) or "&ndash;",
+              esc(it["desc"]) or "&ndash;", esc(it["barcode"]) or "&ndash;",
+              it["since"].strftime("%d %b %Y"),
+              f'{num(it["held"])}d' if it.get("held") is not None else "&ndash;"]
+             for it in d["oh_longest"][:cap2]]
     parts.append(sh.esect("Longest held - oldest first"))
     parts.append(sh.edtable(["Company", "Hirer", "Item", "Barcode", "Since", "Held"],
                             lrows, ["", "", "", "", "r", "r"]))
     if len(d["oh_longest"]) > cap2:
         parts.append(sh.enote(f'Showing {cap2} of {len(d["oh_longest"])} dated '
-                              f'on-hire items - full list in the PDF.'))
+                              f'customer-hire items - full list in the report.'))
+
+    ms_oh = d["missing_snap"].get("On Hire", 0)
+    parts.append(sh.esect("What needs a decision"))
+    ex_line = ""
+    if ex["present"] and ex["next_due"]:
+        top_due = ex["next_due"].most_common(1)[0][0]
+        ex_line = (f' A certificate extract in the workbook carries Next Insp Due '
+                   f'{esc(top_due)} for {num(ex["on_register"])} register barcodes, not yet on the '
+                   f'Master - if that means April 2026 they were due before this report; '
+                   f'status unconfirmed.')
+    parts.append(sh.ecallout(
+        f'<b>{num(ms_n)} register barcodes are not returned by SiteIQ</b> - {num(ms_oh)} of them '
+        f'were last seen on hire in the workbook&rsquo;s June snapshot, the rest in the store. '
+        f'They are listed barcode by barcode in the report and are not counted as accounted '
+        f'for. <b>Test records: {num(fill_n)} of {num(rows_n)}</b> rows carry any test '
+        f'detail.{ex_line}', tight=True))
 
     parts.append(sh.enote(
-        'No invented test data anywhere in this report - a blank register '
-        'cell renders as a dash with the fill-in noted. Rigging gear is Life '
-        'Saving Rule 5 territory; the record has to be real.'))
+        'Real data only - a blank register cell renders as a dash with the fill-in noted, '
+        'and a barcode SiteIQ does not return is printed as unknown, never assumed. Rigging '
+        'gear is Life Saving Rule 5 territory; the record has to be real.'))
 
     team_line = " &middot; ".join(
         f'<b style="color:#16202C;">{esc(p["name"])}</b> '
@@ -610,7 +1107,7 @@ def build_email_html(d, gen_s, asat_s):
 <div style="{FONT}font-size:10px;font-weight:bold;letter-spacing:2px;color:#F36F21;text-transform:uppercase;">Your Coates Tool Store Team</div>
 <div style="{FONT}font-size:11px;color:#8A9AAC;padding-top:5px;line-height:1.7;">{team_line}</div>
 <div style="{FONT}font-size:10px;color:#98A6B4;padding-top:9px;line-height:1.7;">
-Coates Hire &middot; Source: Rigging Register.xlsx (file saved {esc(asat_s)}) - master and locate sheets read verbatim; blanks shown as dashes, never guessed. The Coates Way - consistent execution, every day. <b style="color:#16202C;">POWERED BY SITEIQ</b></div>
+Coates Hire &middot; Source: {esc(live_name)} (SiteIQ pull requested {esc(asat_s)}) for status, holder, on-hire date and storage unit, joined on ITEM_BARCODE to {esc(src_name)} (register membership, test columns, certificate extract). Blanks shown as dashes, never guessed. The Coates Way - consistent execution, every day. <b style="color:#16202C;">POWERED BY SITEIQ</b></div>
 </td></tr></table>""")
 
     body = "".join(
@@ -638,35 +1135,57 @@ def main():
     print("=" * 68)
     print("COATES RIGGING & LIFTING REGISTER - HOUSE-STYLE REPORT (K2 look)")
     print("=" * 68)
-    src = eng.find_workbook(["Rigging Register*.xlsx"],
+    src = eng.find_workbook(["Rigging Register*.xlsx", "Rigging*Register*.xlsx"],
                             sys.argv[1] if len(sys.argv) > 1 else None)
     if not src:
         sys.exit("ERROR: no Rigging Register*.xlsx in the suite's Data "
                  "folder - save the register there and run again.")
+    live_path = eng.find_workbook(["RENTAL_STOCK*.xlsx"],
+                                  sys.argv[2] if len(sys.argv) > 2 else None)
+    if not live_path:
+        sys.exit("ERROR: no RENTAL_STOCK.xlsx in the suite's Data folder - "
+                 "download the SiteIQ rental stock export (12_PULL_SITEIQ_EXPORTS) "
+                 "and run again. Without it the report cannot say where the gear is.")
     print(f"Rigging register     : {src}")
+    print(f"SiteIQ export        : {live_path}")
 
-    master = load_master(src)
-    locate = load_locate(src)
-    # Data as at = the workbook's saved time - this register has no
-    # self-refresh timestamp of its own, so the file time is the honest
-    # stamp and is labelled as exactly that.
-    asat_dt = datetime.fromtimestamp(os.path.getmtime(src))
+    reg_rows, snap, snap_max, extract = load_register(src)
+    live_rows, asat_dt, asat_note = load_live(live_path)
+    CONFIG["asat_note"] = asat_note
     asat_s = asat_dt.strftime("%d %b %Y %H:%M")
     gen_s = datetime.now().strftime("%d %b %Y %H:%M")
-    d = derive(master, locate, asat_dt)
+    d = derive(reg_rows, snap, snap_max, extract, live_rows, asat_dt)
 
-    print(f"Data as at           : {asat_s}  (workbook file time)")
-    print(f"Items on register    : {d['total']:,}  "
-          f"({' | '.join(f'{c} {n:,}' for c, n in d['cats'].most_common())})")
-    print(f"On hire / in store   : {len(d['onhire']):,} / {len(d['avail']):,}  "
-          f"across {len(d['companies']):,} companies")
-    print(f"Test records         : {len(d['with_test']):,} of "
-          f"{d['master_n']:,} items have test details entered")
+    print(f"Data as at           : {asat_s}  (RENTAL_STOCK request time)")
+    print(f"Register rows        : {d['rows']:,}  "
+          f"({' | '.join(f'{c} {n:,}' for c, n in d['cats_rows'].most_common())})")
+    print(f"Distinct barcodes    : {d['distinct']:,}  (blank {len(d['blank'])}, "
+          f"{len(d['dups'])} barcodes repeated on {d['dup_rows']} rows, "
+          f"{d['lower']} lower-case)")
+    print(f"Found in SiteIQ      : {len(d['found']):,} of {d['distinct']:,} "
+          f"({d['found_pct']}%) - exact match {d['join_exact']:,}, "
+          f"upper-cased {len(d['found']) - d['join_exact']:,}")
+    print(f"On hire / store      : {len(d['onhire']):,} to customers across "
+          f"{len(d['companies']):,} companies | {len(d['store']):,} in the store | "
+          f"{len(d['repair']):,} at repairs/quarantined"
+          + (f" | {len(d['other']):,} other status" if d["other"] else ""))
+    print(f"Not found in SiteIQ  : {len(d['missing']):,}  "
+          f"(June snapshot said: "
+          f"{' | '.join(f'{k} {v}' for k, v in d['missing_snap'].most_common())})")
+    print(f"Test records         : {len(d['with_test']):,} of {d['rows']:,} rows "
+          f"have any test detail entered")
+    if d["extract"]["present"]:
+        ex = d["extract"]
+        print(f"Certificate extract  : {ex['rows']:,} rows, {ex['distinct']:,} barcodes, "
+              f"{ex['on_register']:,} on the register - Next Insp Due "
+              f"{' | '.join(f'{v} x{n}' for v, n in ex['next_due'].most_common(3))}")
+    print(f"Keyword leads        : {len(d['kw']):,} live lines "
+          f"({len(d['kw_groups'])} descriptions) look like rigging gear off the register")
     if d["oh_longest"]:
         o = d["oh_longest"][0]
         print(f"Longest held         : {o['desc']} ({o['barcode']}) - "
               f"{o['company']} / {o['hirer']} since "
-              f"{o['since'].strftime('%d %b %Y')}")
+              f"{o['since'].strftime('%d %b %Y')} ({o['held']} days)")
 
     # ---- 1. the PDF -----------------------------------------------------
     css_path = BASE / "k2style.css"
@@ -676,14 +1195,14 @@ def main():
     css = css_path.read_text(encoding="utf-8")
     print("-" * 68)
     print("[1/2] Rigging register PDF (house style)...")
-    doc, n_pages = render_doc(build_pages(master, locate, d, asat_s),
-                              gen_s, asat_s)
+    doc, n_pages = render_doc(build_pages(d, asat_s), gen_s, asat_s)
     pdf_path = OUT / CONFIG["pdf_name"]
-    render_k2_pdf(doc, pdf_path, n_pages, css)
+    pdf_ok, layout_ok = render_k2_pdf(doc, pdf_path, n_pages, css)
 
     # ---- 2. the email (draft - never sends) -----------------------------
     print("[2/2] Outlook email (house style, draft only)...")
-    html = build_email_html(d, gen_s, asat_s)
+    html = build_email_html(d, gen_s, asat_s, pdf_ok,
+                            Path(src).name, Path(live_path).name)
     (OUT / CONFIG["email_html"]).write_text(html, encoding="utf-8")
     msg = EmailMessage()
     subject = (f"Ampol Tool Store - Rigging & Lifting Register Report - "
@@ -693,22 +1212,23 @@ def main():
     msg["Date"] = formatdate(localtime=True)
     msg["X-Unsent"] = "1"
     msg.set_content("This report is best viewed in HTML. The rigging and "
-                    "lifting register PDF is attached.\n")
+                    "lifting register PDF is attached.\n" if pdf_ok else
+                    "This report is best viewed in HTML. No PDF could be "
+                    "rendered on this machine - the report pages are in the "
+                    "day's Rigging folder as HTML.\n")
     msg.add_alternative(html, subtype="html")
-    attach = [str(pdf_path)]
+    attach = [str(pdf_path)] if pdf_ok and pdf_path.exists() else []
     for p in attach:
-        if os.path.exists(p):
-            with open(p, "rb") as f:
-                msg.add_attachment(f.read(), maintype="application",
-                                   subtype="pdf", filename=os.path.basename(p))
+        with open(p, "rb") as f:
+            msg.add_attachment(f.read(), maintype="application",
+                               subtype="pdf", filename=os.path.basename(p))
     eml_path = OUT / CONFIG["eml_name"]
     with open(eml_path, "wb") as f:
         f.write(msg.as_bytes())
     print(f"EML written          : {eml_path}  "
-          f"({os.path.getsize(eml_path):,} bytes)")
+          f"({os.path.getsize(eml_path):,} bytes, PDF attached: {bool(attach)})")
     # manifest so MAKE_OUTLOOK_DRAFTS keeps working - recipients derive
     # from the engine's STAFF_EMAIL_TO, one source of truth.
-    import json
     to_line = "; ".join(re.findall(r"<([^>]+)>", eng.STAFF_EMAIL_TO))
     (OUT / CONFIG["draft_json"]).write_text(json.dumps({
         "subject": subject,
@@ -719,6 +1239,13 @@ def main():
     print("")
     print(f"NEXT STEP: double-click the .eml in {OUT}, check it, press Send.")
     print("Done. The Coates Way - consistent execution, every day.")
+    if not pdf_ok:
+        sys.exit("\nWARNING: finished without a PDF - see above. The HTML and "
+                 "the email draft are written; the bat reports this run as "
+                 "incomplete on purpose.")
+    if not layout_ok:
+        sys.exit("\nWARNING: the PDF failed its layout check - see above. Do "
+                 "not send it as is.")
 
 
 if __name__ == "__main__":

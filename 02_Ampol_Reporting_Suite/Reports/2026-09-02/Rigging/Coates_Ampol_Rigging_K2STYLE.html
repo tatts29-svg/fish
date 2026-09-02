@@ -1,0 +1,661 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Coates Ampol Rigging &amp; Lifting Register - 02 Sep 2026 18:30</title><style>/* =====================================================================
+   COATES K2 REPORT DESIGN SYSTEM - print stylesheet
+   Author: Andrew Fisher  -  POWERED BY SITEIQ
+   Matched to the K2 report family (Executive Summary, Stores Stocktake,
+   Store Consumables, Company On-Hire) so every Coates report reads as
+   one house style.
+   A4 portrait. Self-contained - no web fonts, no external requests.
+   ===================================================================== */
+
+@page { size: A4 portrait; margin: 0; }
+
+html, body { margin: 0; padding: 0; }
+
+/* Chromium/Edge strips background colours in print unless told not to.
+   WeasyPrint ignores this harmlessly. Without it the Edge-rendered PDF
+   comes out white-on-white. */
+html, body, * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  /* Lato where installed; Calibri on every Coates Windows laptop
+     (Carlito is the metric-matched clone on Linux). */
+  font-family: "Lato", "Calibri", "Carlito", "Segoe UI",
+               "Liberation Sans", sans-serif;
+  color: #35404E;
+}
+
+/* ---------- page + orange frame ------------------------------------ */
+
+.page {
+  position: relative;
+  width: 210mm;
+  /* 0.1mm short of A4: Chromium's subpixel rounding can push an exact
+     297mm div onto a second sheet, doubling the page count with blank
+     pages. The sliver of white at the foot is invisible. */
+  height: 296.9mm;
+  page-break-after: always;
+  overflow: hidden;
+}
+.page:last-child { page-break-after: auto; }
+
+.frame {
+  position: absolute;
+  top: 6.5mm; left: 6.5mm; right: 6.5mm; bottom: 6.5mm;
+  border: 5px solid #F36F21;
+  border-radius: 26px;
+  padding: 9.5mm 10mm 0 10mm;
+}
+
+/* footer pinned to the bottom of every frame */
+.foot {
+  position: absolute;
+  left: 10mm; right: 10mm; bottom: 7.5mm;
+  border-top: 1px solid #E4E8EC;
+  padding-top: 8px;
+}
+.foot-h {
+  color: #F36F21;
+  font-size: 7.6px;
+  font-weight: 700;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.foot-l { font-size: 8.4px; color: #8A9AAC; line-height: 1.65; }
+.foot-l b { color: #16202C; font-weight: 700; }
+.foot-l .sh { color: #F36F21; font-weight: 700; }
+
+/* content area stops above the footer */
+.body { padding-bottom: 23mm; }
+
+/* ---------- page 1 dark header panel ------------------------------- */
+
+.hero {
+  background: #1A2430;
+  border-radius: 10px;
+  padding: 21px 24px 19px 24px;
+}
+.hero-grid { width: 100%; }
+.hero-grid td { vertical-align: top; }
+.kicker {
+  color: #F36F21;
+  font-size: 8.8px;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 8px 0 0 0;
+  color: #FFFFFF;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.12;
+}
+.hero .sub {
+  margin-top: 8px;
+  color: #A7B6C4;
+  font-size: 11.6px;
+}
+.hero .meta {
+  margin-top: 10px;
+  color: #8395A6;
+  font-size: 9.4px;
+  line-height: 1.6;
+}
+.hero .meta b { color: #FFFFFF; font-weight: 700; }
+.siteiq {
+  text-align: right;
+  color: #FFFFFF;
+  font-size: 9.8px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  white-space: nowrap;
+}
+.siteiq .q { color: #F36F21; }
+.tagline {
+  text-align: right;
+  color: #8395A6;
+  font-size: 10.4px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+/* ---------- continuation header (pages 2+) ------------------------- */
+
+.chead { width: 100%; }
+.chead td { vertical-align: top; }
+.chead h2 {
+  margin: 5px 0 0 0;
+  color: #16202C;
+  font-size: 15px;
+  font-weight: 700;
+}
+.chead .siteiq { color: #16202C; }
+.asat {
+  text-align: right;
+  color: #8A9AAC;
+  font-size: 9.2px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+.asat b { color: #16202C; font-weight: 700; }
+.pageno {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 2px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- KEY strip --------------------------------------------- */
+
+.key {
+  margin-top: 10px;
+  font-size: 8.4px;
+  line-height: 1.9;
+  color: #7A8A9A;
+}
+.key .kl {
+  color: #8A9AAC;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  margin-right: 6px;
+}
+.key .dot { font-size: 9px; }
+.key b { font-weight: 700; }
+.key .blue  { color: #2F7FD0; }
+.key .amber { color: #E0930F; }
+.key .orange{ color: #F36F21; }
+.key .green { color: #16A34A; }
+
+/* thin gradient rule */
+.grule {
+  height: 2.8px;
+  margin-top: 7px;
+  background-image: linear-gradient(to right, #F36F21 0%, #F5860F 18%,
+              #F0B310 34%, #E3D41C 52%, #C8DA2C 68%, #DDEA92 84%, #FFFFFF 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.page1 .grule { margin-top: 12px; }
+
+/* right-aligned page number on page 1 sits above the rule */
+.p1no {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 8px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- callout (peach) --------------------------------------- */
+
+.callout {
+  background: #FDF0E7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 10px 10px 0;
+  padding: 16px 22px;
+  margin-top: 16px;
+  font-size: 12.4px;
+  line-height: 2.0;
+  color: #1F2A36;
+}
+.callout.tight { font-size: 11.6px; line-height: 1.9; padding: 14px 20px; }
+.callout b { font-weight: 700; }
+.callout .o { color: #D95F14; font-weight: 700; }
+.callout .lead {
+  color: #D95F14;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- section header (grey panel) --------------------------- */
+
+.sect {
+  background: #F4F5F7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 9px 9px 0;
+  padding: 13px 18px;
+  margin-top: 18px;
+}
+.sect h3 { margin: 0; color: #16202C; font-size: 14px; font-weight: 700; }
+
+/* plain sub-heading */
+.sub-h {
+  margin: 18px 0 10px 0;
+  color: #16202C;
+  font-size: 13.8px;
+  font-weight: 700;
+}
+.sub-h .thin { color: #5A6875; font-weight: 400; }
+
+.note {
+  font-size: 9.5px;
+  color: #7A8A9A;
+  line-height: 1.75;
+  margin-top: 9px;
+}
+.note b { color: #16202C; font-weight: 700; }
+.note .o { color: #D95F14; font-weight: 700; }
+
+/* ---------- KPI tiles -------------------------------------------- */
+
+.tiles { width: 100%; table-layout: fixed; border-spacing: 7px 7px;
+         margin: 11px -7px 0 -7px; }
+.tiles td {
+  background: #171F2B;
+  border-radius: 11px;
+  padding: 16px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.t-ico { line-height: 1; margin-bottom: 8px; }
+.t-num {
+  color: #FFFFFF;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+}
+.t-num.sm { font-size: 20px; }
+.t-lab {
+  color: #8A9AAC;
+  font-size: 7.8px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+.t-note { font-size: 8.3px; font-weight: 700; margin-top: 5px; line-height: 1.4; }
+.t-note.red   { color: #F0603E; }
+.t-note.green { color: #22C55E; }
+.t-note.amber { color: #EFA82B; }
+.t-note.grey  { color: #7A8A9A; }
+
+/* ---------- donut ------------------------------------------------- */
+
+.donut-wrap { text-align: center; padding-top: 2px; }
+.donut-cap {
+  color: #98A6B4;
+  font-size: 9px;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* ---------- score bars (K2: fixed-width pill next to the label) --- */
+
+.scores { border-spacing: 0; margin-top: 2px; }
+.scores td { padding: 0; vertical-align: middle; }
+.sc-tick { color: #F5A623; font-size: 10.5px; width: 16px;
+           font-family: "DejaVu Sans", "Segoe UI Symbol", sans-serif; }
+.sc-lab  { color: #1F2A36; font-size: 11.6px; width: 132px;
+           padding-right: 12px; line-height: 1.3; }
+.sc-bar  { width: 236px; }
+.sc-val  { color: #16202C; font-size: 11.6px; font-weight: 700;
+           white-space: nowrap; padding-left: 12px; }
+.sc-form { color: #98A6B4; font-size: 8.9px; line-height: 1.5;
+           padding: 2px 0 13px 0 !important; }
+
+.track  { background: #1A2430; border-radius: 999px; height: 10px; }
+.trackl { background: #E9EDF1; border-radius: 999px; height: 9px; }
+.fill   { height: 10px; border-radius: 999px; }
+.trackl .fill { height: 9px; }
+.f-green { background: #1FA75A; }
+.f-amber { background: #F5A623; }
+.f-red   { background: #EF4444; }
+.f-orange{ background: #F36F21; }
+.f-blue  { background: #3D8BD4; }
+
+/* light progress rows */
+.prog { width: 100%; table-layout: fixed; border-spacing: 0; margin-top: 12px; }
+.prog td { padding: 0 0 10px 0; vertical-align: middle; }
+.pr-lab { color: #6C7A89; font-size: 9.8px; width: 158px; padding-right: 14px;
+          line-height: 1.3; }
+.pr-bar { }
+.pr-val { color: #16202C; font-size: 9.8px; font-weight: 700; text-align: right;
+          white-space: nowrap; width: 64px; padding-left: 14px; }
+
+/* ---------- alerts panel ----------------------------------------- */
+
+.alerts {
+  background: #171F2B;
+  border-radius: 10px;
+  padding: 16px 20px 7px 20px;
+  margin-top: 15px;
+}
+.alerts .ah {
+  color: #F36F21;
+  font-size: 9.3px;
+  font-weight: 700;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.al { width: 100%; border-spacing: 0; }
+.al td { vertical-align: top; padding-bottom: 12px; }
+.al-dot { width: 13px; font-size: 11px; line-height: 1.3; }
+.al-t { color: #FFFFFF; font-size: 10.6px; font-weight: 700; line-height: 1.4; }
+.al-s { color: #8A9AAC; font-size: 9.5px; line-height: 1.55; margin-top: 3px; }
+.d-red { color: #F0603E; } .d-amber { color: #EFA82B; }
+.d-blue { color: #3D8BD4; } .d-green { color: #22C55E; }
+
+/* ---------- tables ----------------------------------------------- */
+
+table.dt { width: 100%; border-collapse: separate; border-spacing: 0;
+           margin-top: 11px; }
+table.dt th {
+  background: #1B2532;
+  color: #FFFFFF;
+  font-size: 8.7px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 10px;
+  line-height: 1.35;
+}
+table.dt th:first-child { border-top-left-radius: 7px; padding-left: 14px; }
+table.dt th:last-child  { border-top-right-radius: 7px; padding-right: 14px; }
+table.dt th.r, table.dt td.r { text-align: right; }
+table.dt th.c, table.dt td.c { text-align: center; }
+table.dt td {
+  font-size: 10.3px;
+  color: #26313D;
+  padding: 10px 10px;
+  border-bottom: 1px solid #E8EBEF;
+  line-height: 1.4;
+}
+table.dt td:first-child { padding-left: 14px; }
+table.dt td:last-child  { padding-right: 14px; }
+table.dt tr.z td { background: #F7F8FA; }
+table.dt td .s2 { display: block; color: #98A6B4; font-size: 8.6px; margin-top: 2px; }
+table.dt td.big { font-size: 17px; font-weight: 700; color: #16202C;
+                  text-align: center; padding: 15px 10px; }
+table.dt td.big + td.big { border-left: 1px solid #E8EBEF; }
+table.dt th.c + th.c { border-left: 1px solid #2A3644; }
+.g { color: #16A34A; font-weight: 700; }
+.a { color: #D9880B; font-weight: 700; }
+.rd { color: #DC2626; font-weight: 700; }
+.or { color: #D95F14; font-weight: 700; }
+.tbc { color: #98A6B4; }
+
+.totrow { width: 100%; border-collapse: collapse; margin-top: 0; }
+.totrow td {
+  font-size: 11.8px; font-weight: 700; color: #16202C;
+  padding: 12px 14px; border-bottom: 1px solid #E8EBEF;
+}
+.totrow td.v { text-align: right; }
+.hl { background: #FFF35C; padding: 2px 7px; border-radius: 2px; }
+
+/* ---------- info cards (lime bar) -------------------------------- */
+
+.cards { width: 100%; table-layout: fixed; border-spacing: 8px 8px;
+         margin: 10px -8px 0 -8px; }
+.cards td {
+  background: #F4F5F7;
+  border-left: 4px solid #C8DA2C;
+  border-radius: 0 7px 7px 0;
+  padding: 13px 16px;
+  vertical-align: top;
+}
+.cd-h {
+  color: #16202C; font-size: 9px; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 7px;
+}
+.cd-b { color: #47566A; font-size: 10px; line-height: 1.72; }
+.cd-b b { color: #16202C; font-weight: 700; }
+
+/* ---------- focus cards (dark, on white page) --------------------- */
+
+.focus { width: 100%; table-layout: fixed; border-spacing: 7px 0;
+         margin: 12px -7px 0 -7px; }
+.focus td {
+  background: #171F2B;
+  border-radius: 10px;
+  border-top: 3px solid #F36F21;
+  padding: 14px 15px 13px 15px;
+  vertical-align: top;
+}
+.fc-co { color: #FFFFFF; font-size: 12px; font-weight: 700; line-height: 1.3; }
+.fc-n  { color: #F0823C; font-size: 9.4px; font-weight: 700; margin-top: 5px; }
+.fc-s  { color: #8A9AAC; font-size: 8.8px; line-height: 1.6; margin-top: 5px; }
+
+/* ---------- team cards ------------------------------------------- */
+
+.team { width: 100%; border-spacing: 8px 0; margin: 13px -8px 0 -8px; }
+.team td {
+  background: #171F2B;
+  border-top: 3px solid #C8DA2C;
+  border-radius: 10px;
+  padding: 15px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.av {
+  width: 42px; height: 42px; border-radius: 999px;
+  background: #55636F; color: #FFFFFF;
+  font-size: 13px; font-weight: 700;
+  text-align: center; line-height: 42px;
+  margin: 0 auto 9px auto;
+}
+.av.lead { background: #F36F21; }
+.tm-n { color: #FFFFFF; font-size: 11.6px; font-weight: 700; line-height: 1.3; }
+.tm-r { color: #C8DA2C; font-size: 8.6px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.8px; margin-top: 5px; line-height: 1.4; }
+.tm-e { color: #7FB3D5; font-size: 8.6px; margin-top: 5px; line-height: 1.4; }
+.tm-d { color: #8A9AAC; font-size: 8.3px; margin-top: 6px; line-height: 1.5; }
+
+/* ---------- misc -------------------------------------------------- */
+
+.two { width: 100%; border-spacing: 0; }
+.two td { vertical-align: top; }
+.chartpanel { background: #171F2B; border-radius: 10px; padding: 15px 17px;
+              margin-top: 11px; }
+.chart-cap { color: #7A8A9A; font-size: 9.4px; line-height: 1.7; margin-top: 9px; }
+.chart-cap b { color: #16202C; }
+
+
+/* ---------- compact tables + tags (02 Sep 2026, gas monitor rebuild) --- */
+
+table.dt.cp th { padding: 8px 8px; font-size: 8.1px; letter-spacing: 1px; }
+table.dt.cp td { padding: 5.5px 8px; font-size: 9.3px; line-height: 1.3; }
+table.dt.cp td:first-child { padding-left: 12px; }
+table.dt.cp td:last-child  { padding-right: 12px; }
+table.dt.cp td .s2 { font-size: 8px; margin-top: 1px; }
+
+.tag {
+  display: inline-block; font-size: 7.2px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; padding: 1px 5px; border-radius: 3px;
+  margin-left: 6px; vertical-align: middle; line-height: 1.5;
+}
+.tag.red   { background: #FDE8E8; color: #C81E1E; }
+.tag.amber { background: #FFF1DB; color: #B45309; }
+.tag.grey  { background: #EEF1F4; color: #5A6875; }
+.tag.green { background: #E4F5EA; color: #15803D; }
+
+table.dt td.dim { color: #98A6B4; }
+table.dt th.nw, table.dt td.nw { white-space: nowrap; }
+table.dt th.w { white-space: nowrap; }
+
+.rules { width: 100%; border-spacing: 0; margin-top: 10px; }
+.rules td { vertical-align: top; padding: 5px 0; border-bottom: 1px solid #E8EBEF;
+            font-size: 9.4px; line-height: 1.55; color: #47566A; }
+.rules td.k { width: 118px; color: #16202C; font-weight: 700; padding-right: 12px; }
+</style></head><body><div class="page page1"><div class="frame"><div class="hero">
+  <table class="hero-grid"><tr>
+    <td>
+      <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+      <h1>Ampol Rigging &amp; Lifting Register</h1>
+      <div class="sub">Ampol Lytton Refinery · Permanent Tool Store</div>
+    </td>
+    <td style="width:172px">
+      <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+      <div class="tagline">Equipped for anything</div>
+    </td>
+  </tr></table>
+  <div class="meta">Generated: <b>02 Sep 2026 15:02</b> &nbsp;|&nbsp;
+    Data as at: <b>02 Sep 2026 18:30</b> (SiteIQ register pull) &nbsp;|&nbsp;
+    Author: <b>Andrew Fisher</b></div>
+</div><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="p1no">PAGE 1 OF 12</div><div class="grule"></div><div class="body"><div class="callout"><span class="lead">The position.</span> One page, one honest answer: is the Ampol rigging and height-safety fleet on the register and accounted for? The register carries <b>905 rows</b> - <b>889 distinct barcodes</b> (1 blank, 14 barcodes repeated on 29 rows) - split <b>723 rigging &amp; lifting</b> and <b>182 height safety / rescue</b>. Joined barcode-for-barcode to the SiteIQ register as at <b>02 Sep 2026 18:30</b>: <b>746 found (84%)</b> - <b class="o">301 on hire to customers</b> across 14 companies, 13 at repairs or quarantined, 432 in the store - and <b class="o">143 not found in SiteIQ - whereabouts unknown</b>. The test columns are still empty: <b>0 of 905</b> rows carry any test detail (page 4).</div>
+<table class="two" style="margin-top:12px"><tr>
+  <td style="width:31%"><div class="donut-wrap">
+    <svg width="138" height="138" viewBox="0 0 138 138">
+  <circle cx="69.0" cy="69.0" r="59.5" fill="#141C26" stroke="#1E2733"
+          stroke-width="19"/>
+  <circle cx="69.0" cy="69.0" r="59.5" fill="none" stroke="#F36F21"
+          stroke-width="19" stroke-linecap="round"
+          stroke-dasharray="314.03 59.82"
+          transform="rotate(-90 69.0 69.0)"/>
+  <text x="69.0" y="70.0" text-anchor="middle" fill="#FFFFFF"
+        font-family="Lato, Calibri, sans-serif" font-size="27" font-weight="700">84%</text>
+  <text x="69.0" y="86.0" text-anchor="middle" fill="#8A9AAC"
+        font-family="Lato, Calibri, sans-serif" font-size="7.6"
+        letter-spacing="1.6">FOUND IN SITEIQ</text>
+</svg>
+    <div class="donut-cap">Share of the 889 distinct register barcodes the SiteIQ pull returns</div></div></td>
+  <td style="padding-left:10px"><table class="scores"><tr><td class="sc-tick">✓</td><td class="sc-lab">Found in SiteIQ</td><td class="sc-bar"><div class="track"><div class="fill f-amber" style="width:84%"></div></div></td><td class="sc-val">84/100</td></tr><tr><td></td><td colspan="3" class="sc-form">746 of 889 distinct register barcodes are returned by the SiteIQ pull as at 02 Sep 2026 18:30; 143 are not - listed from page 6</td></tr><tr><td class="sc-tick">✓</td><td class="sc-lab">Test records filled in</td><td class="sc-bar"><div class="track"><div class="fill f-red" style="width:2%"></div></div></td><td class="sc-val">0/100</td></tr><tr><td></td><td colspan="3" class="sc-form">0 of 905 register rows have any of the eight test columns entered - see page 4</td></tr></table></td>
+</tr></table>
+<div class="sub-h">Where the barcodes are <span class="thin">&mdash; every one of the 889, per the SiteIQ pull</span></div>
+<div class="chartpanel"><svg width="636" height="80" viewBox="0 0 636 80"><defs><clipPath id="band"><rect x="0" y="0" width="636" height="38" rx="7"/></clipPath></defs><g clip-path="url(#band)"><rect x="0.0" y="0" width="216.3" height="38" fill="#F36F21"/><text x="107.7" y="23.0" text-anchor="middle" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="11" font-weight="700">301</text><rect x="215.3" y="0" width="10.3" height="38" fill="#F5A623"/><rect x="224.6" y="0" width="310.1" height="38" fill="#1FA75A"/><text x="379.2" y="23.0" text-anchor="middle" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="11" font-weight="700">432</text><rect x="533.7" y="0" width="103.3" height="38" fill="#EF4444"/><text x="584.8" y="23.0" text-anchor="middle" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="11" font-weight="700">143</text></g><circle cx="4.0" cy="61" r="3.8" fill="#F36F21"/><text x="12.0" y="64" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="8.8">On hire to customers 301</text><circle cx="156.8" cy="61" r="3.8" fill="#F5A623"/><text x="164.8" y="64" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="8.8">At repairs / quarantined 13</text><circle cx="325.2" cy="61" r="3.8" fill="#1FA75A"/><text x="333.2" y="64" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="8.8">In the store 432</text><circle cx="436.4" cy="61" r="3.8" fill="#EF4444"/><text x="444.4" y="64" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="8.8">Not found in SiteIQ 143</text></svg></div>
+<table class="tiles"><tr><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.2 12 3 3 8.2v7.6L12 21l9-5.2z"/><path d="M3 8.2l9 5.2 9-5.2"/><path d="M12 13.4V21"/></svg></div><div class="t-num">889</div><div class="t-lab">Distinct barcodes</div><div class="t-note grey">905 register rows</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.5l4 4-4 4"/><path d="M21 6.5H8.5a4 4 0 0 0-4 4v1"/><path d="M7 21.5l-4-4 4-4"/><path d="M3 17.5h12.5a4 4 0 0 0 4-4v-1"/></svg></div><div class="t-num">301</div><div class="t-lab">On hire to customers</div><div class="t-note amber">across 14 companies</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg></div><div class="t-num">432</div><div class="t-lab">In the store</div><div class="t-note green">available for hire</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.6-3.6a6 6 0 0 1-7.9 7.9L6.3 20.7a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg></div><div class="t-num">13</div><div class="t-lab">At repairs / quarantined</div><div class="t-note amber">not customer hire</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 2.5 20h19z"/><path d="M12 9.5v4.5"/><path d="M12 17.2v.05"/></svg></div><div class="t-num">143</div><div class="t-lab">Not found in SiteIQ</div><div class="t-note red">whereabouts unknown</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s7.5-3.3 7.5-9.3V5.5L12 2.8 4.5 5.5v6.7c0 6 7.5 9.3 7.5 9.3z"/></svg></div><div class="t-num">0/905</div><div class="t-lab">Test records entered</div><div class="t-note red">fill-in not started</div></td></tr></table></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 2 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Where the rigging gear is - by company, longest held first</h3></div>
+<div class="callout"><b class="o">301 items</b> are on hire to <b>14 customer companies</b> (91 hirer names) per the SiteIQ pull as at 02 Sep 2026 18:30. Companies ranked by holding, each with its <b>longest-held item</b> named with barcode and hirer - because the oldest hire is always the first conversation. Project accounts are merged into their company (the SiteIQ account names sit under the company). A further <b>13</b> register items sit on repairs or quarantine custody lines - shown separately on page 3, never counted as customer hire.</div>
+<table class="dt cp"><tr><th class="">Company (SiteIQ accounts)</th><th class="r">Items</th><th class="r">Hirers</th><th class="">Longest-held item · barcode · hirer</th><th class="r">On hire since</th><th class="r">Held</th></tr><tr><td class="">Contract Resources<span class="s2">Contract Resources FCCU · Contract Resources SATGAS/MOL · Contract Resources.</span></td><td class="r">89</td><td class="r">24</td><td class="">Round Sling - 1T x 0.5M &middot; AMP017/106 &middot; John - Pattel</td><td class="r">05 Jan 2026</td><td class="r"><span class="rd">240d</span></td></tr><tr class="z"><td class="">HIS</td><td class="r">62</td><td class="r">17</td><td class="">Round Sling - 1T x 1M &middot; AMP004/132 &middot; James - Mcintyre</td><td class="r">23 Jan 2026</td><td class="r"><span class="rd">222d</span></td></tr><tr><td class="">Wood<span class="s2">WOOD · Wood FCCU · Wood SATGAS/MOL</span></td><td class="r">54</td><td class="r">20</td><td class="">Round Sling - 2T x 2M &middot; AMP007/053 &middot; Paul - Skornsek</td><td class="r">10 Feb 2026</td><td class="r"><span class="rd">204d</span></td></tr><tr class="z"><td class="">Ampol<span class="s2">AMPOL · AMPOL REFINERIES (QLD) PTY LTD</span></td><td class="r">43</td><td class="r">6</td><td class="">Round Sling - 3T x 6M &middot; AMP111/007 &middot; Wade - Mathews</td><td class="r">02 Mar 2026</td><td class="r"><span class="rd">184d</span></td></tr><tr><td class="">Saunders</td><td class="r">23</td><td class="r">8</td><td class="">Lever Block - 1.5T &middot; AMP008/010 &middot; Trent - Robson</td><td class="r">28 Jan 2026</td><td class="r"><span class="rd">217d</span></td></tr><tr class="z"><td class="">Universal Cranes</td><td class="r">9</td><td class="r">4</td><td class="">Chain Block - 1T x 3M &middot; AMP027/023 &middot; India - Flevell</td><td class="r">14 Jan 2026</td><td class="r"><span class="rd">231d</span></td></tr><tr><td class="">Enermech</td><td class="r">6</td><td class="r">4</td><td class="">Round Sling - 1T x 2M &middot; AMP006/156 &middot; Connor - Gordow</td><td class="r">12 Jun 2026</td><td class="r"><span class="a">82d</span></td></tr><tr class="z"><td class="">IPS</td><td class="r">6</td><td class="r">1</td><td class="">Chain Block - 1T x 3M &middot; AMP027/024 &middot; Dudit - Istionto</td><td class="r">20 Jul 2026</td><td class="r"><span class="a">44d</span></td></tr><tr><td class="">Acrow</td><td class="r">2</td><td class="r">2</td><td class="">Bow Shackle - 2T &middot; AMP028/002 &middot; Josh - Pratt</td><td class="r">21 May 2026</td><td class="r"><span class="rd">104d</span></td></tr><tr class="z"><td class="">Austrans</td><td class="r">2</td><td class="r">1</td><td class="">Confined Space Harness &middot; AMP023/054 &middot; Andrew - Clarey</td><td class="r">18 Feb 2026</td><td class="r"><span class="rd">196d</span></td></tr><tr><td class="">Piping Solutions</td><td class="r">2</td><td class="r">1</td><td class="">Round Sling - 2T x 1M &middot; AMP005/079 &middot; Matthew - Walduck</td><td class="r">17 Jun 2026</td><td class="r"><span class="a">77d</span></td></tr><tr class="z"><td class="">Assured Enviromental</td><td class="r">1</td><td class="r">1</td><td class="">Twin Lanyard &middot; WG0150/010 &middot; Victor - Hidalgo Balaguen</td><td class="r">13 Apr 2026</td><td class="r"><span class="rd">142d</span></td></tr><tr><td class="">Enprocon</td><td class="r">1</td><td class="r">1</td><td class="">Confined Space Harness &middot; CTX67305/816 &middot; Andrew - Allaries</td><td class="r">17 Jul 2026</td><td class="r"><span class="a">47d</span></td></tr><tr class="z"><td class="">Total Refractory Management</td><td class="r">1</td><td class="r">1</td><td class="">Confined Space Harness &middot; AMP023/077 &middot; Mark - Pietras</td><td class="r">30 Mar 2026</td><td class="r"><span class="rd">156d</span></td></tr></table>
+<div class="note">Held = days from the SiteIQ on-hire date to the pull time, 02 Sep 2026 18:30. Hirer names are as SiteIQ records them, shared site accounts included. 191 of the 301 customer-hire items were issued after 29 Jun 2026, the newest date in the workbook&rsquo;s own locate sheet - which is why that sheet is no longer used for status. Repairs and quarantine custody lines are on page 3.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 3 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>The longest-held customer hire, item by item - oldest first</h3></div>
+<div class="callout">The front of the queue: the 16 oldest of the 301 dated customer-hire items, each with its barcode, holder and SiteIQ on-hire date as at 02 Sep 2026 18:30. Work them top down - every return retires the oldest risk first.</div>
+<table class="dt cp"><tr><th class="">Company</th><th class="">Hirer</th><th class="">Item</th><th class="">Barcode</th><th class="r">On hire since</th><th class="r">Held</th></tr><tr><td class="">Contract Resources</td><td class="">John - Pattel</td><td class="">Round Sling - 1T x 0.5M</td><td class="">AMP017/106</td><td class="r">05 Jan 2026</td><td class="r"><span class="rd">240d</span></td></tr><tr class="z"><td class="">Universal Cranes</td><td class="">India - Flevell</td><td class="">Chain Block - 1T x 3M</td><td class="">AMP027/023</td><td class="r">14 Jan 2026</td><td class="r"><span class="rd">231d</span></td></tr><tr><td class="">Contract Resources</td><td class="">John - Pattel</td><td class="">Lever Block - 500kg</td><td class="">AMP324/001</td><td class="r">16 Jan 2026</td><td class="r"><span class="rd">229d</span></td></tr><tr class="z"><td class="">HIS</td><td class="">James - Mcintyre</td><td class="">Round Sling - 1T x 1M</td><td class="">AMP004/132</td><td class="r">23 Jan 2026</td><td class="r"><span class="rd">222d</span></td></tr><tr><td class="">HIS</td><td class="">Igor - Kozlov</td><td class="">Inertia Reel - 25M</td><td class="">AMP179/008</td><td class="r">28 Jan 2026</td><td class="r"><span class="rd">217d</span></td></tr><tr class="z"><td class="">Saunders</td><td class="">Trent - Robson</td><td class="">Lever Block - 1.5T</td><td class="">AMP008/010</td><td class="r">28 Jan 2026</td><td class="r"><span class="rd">217d</span></td></tr><tr><td class="">Saunders</td><td class="">Trent - Robson</td><td class="">Lever Block - 750kg</td><td class="">CTX155/001</td><td class="r">28 Jan 2026</td><td class="r"><span class="rd">217d</span></td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Robin - Briggs</td><td class="">Round Sling - 1T x 0.5M</td><td class="">AMP017/041</td><td class="r">10 Feb 2026</td><td class="r"><span class="rd">204d</span></td></tr><tr><td class="">Wood</td><td class="">Paul - Skornsek</td><td class="">Round Sling - 2T x 2M</td><td class="">AMP007/053</td><td class="r">10 Feb 2026</td><td class="r"><span class="rd">204d</span></td></tr><tr class="z"><td class="">Wood</td><td class="">Paul - Skornsek</td><td class="">Round Sling - 2T x 2M</td><td class="">AMP007/143</td><td class="r">10 Feb 2026</td><td class="r"><span class="rd">204d</span></td></tr><tr><td class="">Wood</td><td class="">Sean - Cotton</td><td class="">Round Sling - 2T x 3M</td><td class="">AMP0035/003</td><td class="r">10 Feb 2026</td><td class="r"><span class="rd">204d</span></td></tr><tr class="z"><td class="">Austrans</td><td class="">Andrew - Clarey</td><td class="">Confined Space Harness</td><td class="">AMP023/054</td><td class="r">18 Feb 2026</td><td class="r"><span class="rd">196d</span></td></tr><tr><td class="">Austrans</td><td class="">Andrew - Clarey</td><td class="">Confined Space Harness</td><td class="">AMP023/055</td><td class="r">18 Feb 2026</td><td class="r"><span class="rd">196d</span></td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Lee - Hill</td><td class="">Bow Shackle - 3.2T</td><td class="">AMP026/034</td><td class="r">19 Feb 2026</td><td class="r"><span class="rd">195d</span></td></tr><tr><td class="">Contract Resources</td><td class="">Spencer - Madden</td><td class="">Round Sling - 2T x 1M</td><td class="">AMP005/103</td><td class="r">24 Feb 2026</td><td class="r"><span class="rd">190d</span></td></tr><tr class="z"><td class="">Ampol</td><td class="">Wade - Mathews</td><td class="">Round Sling - 3T x 6M</td><td class="">AMP111/007</td><td class="r">02 Mar 2026</td><td class="r"><span class="rd">184d</span></td></tr></table>
+<div class="note">Showing 16 of 301 dated customer-hire items - the SiteIQ export carries the lot, same order. Held = days from the on-hire date to the pull time.</div>
+<div class="sub-h">At repairs / quarantined <span class="thin">&mdash; 13 items on custody lines, not customer hire</span></div>
+<table class="dt cp"><tr><th class="">Custody line (hirer)</th><th class="">SiteIQ account</th><th class="r">Items</th><th class="">Longest-held item</th><th class="r">Since</th><th class="r">Held</th></tr><tr><td class="">Atlas Chains - Offsite Repairs</td><td class="">Repairs</td><td class="r">10</td><td class="">Lever Block - 1.6T &middot; AMP176/001</td><td class="r">23 Apr 2026</td><td class="r"><span class="rd">132d</span></td></tr><tr class="z"><td class="">Loading Bay - Out Of Service</td><td class="">AMPOL</td><td class="r">2</td><td class="">Pinkie - 4.5T &middot; CTX77133/004</td><td class="r">25 Jun 2026</td><td class="r"><span class="a">69d</span></td></tr><tr><td class="">Rigging &amp; 240v - Out of Tag Date</td><td class="">Repairs</td><td class="r">1</td><td class="">Bow Shackle - 3.2T &middot; AMP026/013</td><td class="r">25 Feb 2026</td><td class="r"><span class="rd">189d</span></td></tr></table>
+<div class="note">Rule: SiteIQ COMPANY_NAME &#x27;Repairs&#x27;, or a hirer name containing Repairs, Off Site, Out of Tag or Out of Service. These lines are excluded from the company count on page 2 and from the longest-held list above.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 4 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Test status - what the register holds today, no varnish</h3></div>
+<div class="callout">Straight up: <b>not one of the eight test columns on the Master has been filled in</b> - 0 of 905 rows carry a test date, status, tag colour, tester, licence, certificate or comment. A certificate extract in the same workbook (&lsquo;Extracted Register&rsquo;) carries <b>Next Insp Due 04/26 for 375 of the 889 register barcodes</b> (112 on hire per SiteIQ, 220 in the store, 43 not found in SiteIQ), not yet transferred to the Master. If 04/26 means April 2026, those items were due before this report - <b>status unconfirmed</b>. SiteIQ already carries a parking hirer, &lsquo;Rigging &amp; 240v - Out of Tag Date&rsquo;, holding 1 register item (page 2).</div>
+<table class="dt cp"><tr><th class="">Test Status on the Master (as recorded)</th><th class="r">Rows</th></tr><tr><td class=""><span class="tbc">(blank - not yet entered)</span></td><td class="r">905</td></tr></table>
+<div class="sub-h">The certificate extract <span class="thin">&mdash; &lsquo;Extracted Register&rsquo; sheet, same workbook, not yet on the Master</span></div><table class="dt cp"><tr><th class="">What the extract holds</th><th class="r">Count</th></tr><tr><td class="">Rows in the extract / distinct barcodes</td><td class="r">663 / 511</td></tr><tr class="z"><td class="">Of which on the register (Master barcodes)</td><td class="r"><b>375</b> of 889</td></tr><tr><td class="">&nbsp;&nbsp;&rarr; on hire per SiteIQ (customers + custody lines)</td><td class="r">112</td></tr><tr class="z"><td class="">&nbsp;&nbsp;&rarr; in the store per SiteIQ</td><td class="r">220</td></tr><tr><td class="">&nbsp;&nbsp;&rarr; not found in SiteIQ</td><td class="r">43</td></tr><tr class="z"><td class="">Next Insp Due values carried</td><td class="r">04/26 on 663 rows</td></tr><tr><td class="">Parse Status (the extract&rsquo;s own column)</td><td class="r">Parsed 490 · No slash 136 · Check 33 · Parsed - inferred missing slash 4</td></tr></table>
+<div class="sub-h">Fill-in progress by column <span class="thin">&mdash; how far each test column has got</span></div>
+<table class="prog"><tr><td class="pr-lab">Last Test Date</td><td class="pr-bar"><div class="trackl"><div class="fill f-amber" style="width:1.5%"></div></div></td><td class="pr-val">0 of 905</td></tr><tr><td class="pr-lab">Next Test Due</td><td class="pr-bar"><div class="trackl"><div class="fill f-amber" style="width:1.5%"></div></div></td><td class="pr-val">0 of 905</td></tr><tr><td class="pr-lab">Test Status</td><td class="pr-bar"><div class="trackl"><div class="fill f-amber" style="width:1.5%"></div></div></td><td class="pr-val">0 of 905</td></tr><tr><td class="pr-lab">Test Tag Colour</td><td class="pr-bar"><div class="trackl"><div class="fill f-amber" style="width:1.5%"></div></div></td><td class="pr-val">0 of 905</td></tr><tr><td class="pr-lab">Tested By</td><td class="pr-bar"><div class="trackl"><div class="fill f-amber" style="width:1.5%"></div></div></td><td class="pr-val">0 of 905</td></tr><tr><td class="pr-lab">Tester Licence No</td><td class="pr-bar"><div class="trackl"><div class="fill f-amber" style="width:1.5%"></div></div></td><td class="pr-val">0 of 905</td></tr><tr><td class="pr-lab">Certificate No</td><td class="pr-bar"><div class="trackl"><div class="fill f-amber" style="width:1.5%"></div></div></td><td class="pr-val">0 of 905</td></tr><tr><td class="pr-lab">Inspection Comments</td><td class="pr-bar"><div class="trackl"><div class="fill f-amber" style="width:1.5%"></div></div></td><td class="pr-val">0 of 905</td></tr></table>
+<div class="note">A dash anywhere in this report means the register cell is blank - the test details for that item are still to be entered. Nothing is assumed, estimated or copied in from the extract; the extract is disclosed here, not treated as the record.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 5 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Register identity - what the barcodes themselves say</h3></div>
+<div class="callout">The register is <b>905 rows</b> but <b>889 distinct barcodes</b>: <b>1</b> row with no barcode (Flat Web Sling - 4T x 4m (Rigging &amp; Lifting)), <b>14</b> barcodes repeated across <b>29</b> rows, and <b>22</b> typed in lower case. For the SiteIQ join and on every page here, barcodes are upper-cased and de-duplicated (first Master row wins) - the fixes belong in the Master. Serial numbers: <b>378</b> rows carry one, <b>345</b> distinct.</div>
+<div class="sub-h">Duplicated barcodes <span class="thin">&mdash; 14 barcodes on 29 rows</span></div>
+<table class="dt cp"><tr><th class="">Barcode</th><th class="">Item</th><th class="r">Rows</th><th class="">Where SiteIQ has it</th></tr><tr><td class="">WG0474/002</td><td class="">Eyebolt - 1.6T</td><td class="r">3</td><td class="">In the store</td></tr><tr class="z"><td class="">AMP005/079</td><td class="">Round Sling - 2T x 1M</td><td class="r">2</td><td class="">On hire · Piping Solutions · Matthew - Walduck</td></tr><tr><td class="">AMP026/055</td><td class="">Bow Shackle - 3.2T</td><td class="r">2</td><td class="">On hire · Ampol · Jannie - Cloete</td></tr><tr class="z"><td class="">AMP115/002</td><td class="">Twin Lanyard - Scaffold Hook</td><td class="r">2</td><td class="">In the store</td></tr><tr><td class="">AMP115/006</td><td class="">Twin Lanyard - Scaffold Hook</td><td class="r">2</td><td class=""><span class="or">Not found in SiteIQ</span></td></tr><tr class="z"><td class="">AMP171/007</td><td class="">Round Sling - 3T x 3M</td><td class="r">2</td><td class="">In the store</td></tr><tr><td class="">AMP171/008</td><td class="">Round Sling - 3T x 3M</td><td class="r">2</td><td class="">On hire · Wood · Threyne - Anderson-Thompson</td></tr><tr class="z"><td class="">AMP179/006</td><td class="">Inertia Reel - 25M</td><td class="r">2</td><td class="">In the store</td></tr><tr><td class="">CTX007/007</td><td class="">Retrieval Inertia Reel</td><td class="r">2</td><td class="">In the store</td></tr><tr class="z"><td class="">CTX007/009</td><td class="">Retrieval Inertia Reel</td><td class="r">2</td><td class="">In the store</td></tr><tr><td class="">CTX054/003</td><td class="">Chain Block - 1T x 6M</td><td class="r">2</td><td class="">In the store</td></tr><tr class="z"><td class="">CTX67312/001</td><td class="">Recovery Spreader Bar</td><td class="r">2</td><td class="">In the store</td></tr><tr><td class="">CTX71321/003</td><td class="">Wire Rope Sling - 2.4T x 16mm</td><td class="r">2</td><td class="">On hire · Contract Resources · Logan - Ferguson-Rudolf-Shutdown</td></tr><tr class="z"><td class="">CTX71321/004</td><td class="">Wire Rope Sling - 2.4T x 16mm</td><td class="r">2</td><td class="">On hire · Contract Resources · Logan - Ferguson-Rudolf-Shutdown</td></tr></table>
+<div class="sub-h">Category detail <span class="thin">&mdash; rows, distinct barcodes and the SiteIQ split</span></div>
+<table class="dt cp"><tr><th class="">Category</th><th class="r">Rows</th><th class="r">Barcodes</th><th class="r">On hire</th><th class="r">Repairs</th><th class="r">In store</th><th class="r">Not found</th><th class="">Longest-held customer item</th><th class="r">Held</th></tr><tr><td class="">Rigging &amp; Lifting</td><td class="r">723</td><td class="r">712</td><td class="r">230</td><td class="r">10</td><td class="r">354</td><td class="r">118</td><td class="">Round Sling - 1T x 0.5M<span class="s2">AMP017/106 &middot; Contract Resources &middot; John - Pattel</span></td><td class="r"><span class="rd">240d</span></td></tr><tr class="z"><td class="">Height Safety / Rescue</td><td class="r">182</td><td class="r">177</td><td class="r">71</td><td class="r">3</td><td class="r">78</td><td class="r">25</td><td class="">Inertia Reel - 25M<span class="s2">AMP179/008 &middot; HIS &middot; Igor - Kozlov</span></td><td class="r"><span class="rd">217d</span></td></tr></table>
+<div class="note">Counts are per distinct barcode after upper-casing; a duplicated barcode is one item here whatever the row count says. On hire = customer hire only.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 6 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Not found in SiteIQ - whereabouts unknown (1 of 4)</h3></div><div class="callout"><b class="o">143 register barcodes</b> are not returned by the SiteIQ pull as at 02 Sep 2026 18:30 - on the register, but nowhere in the live export under that barcode (exact match tried first, then upper-cased and trimmed). Split Rigging &amp; Lifting 118 · Height Safety / Rescue 25. They are <b>not accounted for</b> and are not counted as in the store. The last thing the workbook&rsquo;s own locate sheet (a SiteIQ snapshot dated to 29 Jun 2026) said about them: Available for Hire 92 · On Hire 51. The 51 last seen on hire carry that hirer&rsquo;s name below - the first person to ask.</div><table class="dt cp"><tr><th class="">Barcode</th><th class="">Item</th><th class="">Jun snapshot</th><th class="">Barcode</th><th class="">Item</th><th class="">Jun snapshot</th></tr><tr><td class="">AMP004/161</td><td class="">Round Sling - 1T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Adam - Caldwell</span></td><td class="">AMP017/060</td><td class="">Round Sling - 1T x 0.5M</td><td class=""><span class="or">On hire</span><span class="s2">Adrian - Mol</span></td></tr><tr class="z"><td class="">AMP004/121</td><td class="">Round Sling - 1T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Adrian - Mol</span></td><td class="">AMP004/44</td><td class="">Round Sling - 1T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Arron - Pelling</span></td></tr><tr><td class="">SD0995/022</td><td class="">Twin Lanyard</td><td class=""><span class="or">On hire</span><span class="s2">Arthur - Denehy-Shutdown</span></td><td class="">AMP023/087</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Brendan - Keo</span></td></tr><tr class="z"><td class="">AMP115/003</td><td class="">Twin Lanyard - Scaffold Hook</td><td class=""><span class="or">On hire</span><span class="s2">Brendan - Keo</span></td><td class="">AMP023/043</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Bunthon - Nam</span></td></tr><tr><td class="">AMP017/058</td><td class="">Round Sling - 1T x 0.5M</td><td class=""><span class="or">On hire</span><span class="s2">Christopher - Omeara-Shutdown</span></td><td class="">AMP017/110</td><td class="">Round Sling - 1T x 0.5M</td><td class=""><span class="or">On hire</span><span class="s2">Christopher - Omeara-Shutdown</span></td></tr><tr class="z"><td class="">AMP004/089</td><td class="">Round Sling - 1T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Christopher - Omeara-Shutdown</span></td><td class="">AMP004/131</td><td class="">Round Sling - 1T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Christopher - Omeara-Shutdown</span></td></tr><tr><td class="">AMP007/006</td><td class="">Round Sling - 2T x 2M</td><td class=""><span class="or">On hire</span><span class="s2">Christopher - Omeara-Shutdown</span></td><td class="">AMP007/127</td><td class="">Round Sling - 2T x 2M</td><td class=""><span class="or">On hire</span><span class="s2">Christopher - Omeara-Shutdown</span></td></tr><tr class="z"><td class="">CTX70320/016</td><td class="">Round Sling - 2T x 0.5M</td><td class=""><span class="or">On hire</span><span class="s2">Daniel - Hennessey</span></td><td class="">AMP005/112</td><td class="">Round Sling - 2T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Daniel - Hennessey</span></td></tr><tr><td class="">AMP005/018</td><td class="">Round Sling - 2T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Daniel - Hill</span></td><td class="">AMP005/104</td><td class="">Round Sling - 2T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Daniel - Hill</span></td></tr><tr class="z"><td class="">AMP007/026</td><td class="">Round Sling - 2T x 2M</td><td class=""><span class="or">On hire</span><span class="s2">Daniel - Hill</span></td><td class="">AMP007/144</td><td class="">Round Sling - 2T x 2M</td><td class=""><span class="or">On hire</span><span class="s2">Daniel - Hill</span></td></tr><tr><td class="">CTX157/001</td><td class="">Gotcha Rescue Kit</td><td class=""><span class="or">On hire</span><span class="s2">Drew - Kennedy</span></td><td class="">AMP007/141</td><td class="">Round Sling - 2T x 2M</td><td class=""><span class="or">On hire</span><span class="s2">Drew - Kennedy</span></td></tr><tr class="z"><td class="">AMP004/053</td><td class="">Round Sling - 1T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Graham - Bell</span></td><td class="">AMP004/140</td><td class="">Round Sling - 1T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Graham - Bell</span></td></tr><tr><td class="">AMP004/163</td><td class="">Round Sling - 1T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Graham - Bell</span></td><td class="">AMP023/079</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Igor - Kozlov</span></td></tr></table><div class="note">Sorted last-seen-on-hire first (by hirer), then by item. &lsquo;Jun snapshot&rsquo; is the workbook&rsquo;s To Help Locate sheet, dated to 29 Jun 2026 - not the live position. A barcode here may have been re-tagged, sold, scrapped or mis-typed on the register; until SiteIQ returns it, whereabouts unknown.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 7 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Not found in SiteIQ - whereabouts unknown (2 of 4)</h3></div><table class="dt cp"><tr><th class="">Barcode</th><th class="">Item</th><th class="">Jun snapshot</th><th class="">Barcode</th><th class="">Item</th><th class="">Jun snapshot</th></tr><tr><td class="">AMP023/083</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Igor - Kozlov</span></td><td class="">AMP017/057</td><td class="">Round Sling - 1T x 0.5M</td><td class=""><span class="or">On hire</span><span class="s2">Igor - Kozlov</span></td></tr><tr class="z"><td class="">AMP171/016</td><td class="">Round Sling - 3T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">James - Mcintyre</span></td><td class="">AMP023/021</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">John - Hague-Shutdown</span></td></tr><tr><td class="">CTX67310/018</td><td class="">Twin Shock Absorbing Lanyard - 2m</td><td class=""><span class="or">On hire</span><span class="s2">John - Hague-Shutdown</span></td><td class="">CTX67311/012</td><td class="">Shock Absorbing Lanyard - 2m</td><td class=""><span class="or">On hire</span><span class="s2">Kevin - Roberts</span></td></tr><tr class="z"><td class="">AMP006/056</td><td class="">Round Sling - 1T x 2M</td><td class=""><span class="or">On hire</span><span class="s2">Lloyd - Collins</span></td><td class="">AMP023/013</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Loading Bay - Out Of Service</span></td></tr><tr><td class="">AMP023/105</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Loading Bay - Out Of Service</span></td><td class="">AMP023/107</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Loading Bay - Out Of Service</span></td></tr><tr class="z"><td class="">AMP032/015</td><td class="">Retractable Lanyard</td><td class=""><span class="or">On hire</span><span class="s2">Loading Bay - Out Of Service</span></td><td class="">AMP032/016</td><td class="">Retractable Lanyard</td><td class=""><span class="or">On hire</span><span class="s2">Loading Bay - Out Of Service</span></td></tr><tr><td class="">AMP023/012</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Mark - Johnson</span></td><td class="">AMP023/085</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Mark - Johnson</span></td></tr><tr class="z"><td class="">AMP023/089</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Mark - Pietras</span></td><td class="">AMP023/096</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Mick - Anderson</span></td></tr><tr><td class="">WG0550/001</td><td class="">Eyebolt - 2.5T</td><td class=""><span class="or">On hire</span><span class="s2">Mitch - Holt-Shutdown</span></td><td class="">AMP006/160</td><td class="">Round Sling - 1T x 2M</td><td class=""><span class="or">On hire</span><span class="s2">Nathan - Perry-Shutdown</span></td></tr><tr class="z"><td class="">AMP029/012</td><td class="">Round Sling - 1T x 3M</td><td class=""><span class="or">On hire</span><span class="s2">Nathan - Perry-Shutdown</span></td><td class="">AMP029/015</td><td class="">Round Sling - 1T x 3M</td><td class=""><span class="or">On hire</span><span class="s2">Nathan - Perry-Shutdown</span></td></tr><tr><td class="">AMP005/101</td><td class="">Round Sling - 2T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Paul - Skornsek</span></td><td class="">AMP017/061</td><td class="">Round Sling - 1T x 0.5M</td><td class=""><span class="or">On hire</span><span class="s2">Peter - Cash</span></td></tr><tr class="z"><td class="">AMP005/109</td><td class="">Round Sling - 2T x 1M</td><td class=""><span class="or">On hire</span><span class="s2">Phil - Dalley</span></td><td class="">AMP017/064</td><td class="">Round Sling - 1T x 0.5M</td><td class=""><span class="or">On hire</span><span class="s2">Todd - Van Der</span></td></tr><tr><td class="">AMP023/051</td><td class="">Confined Space Harness</td><td class=""><span class="or">On hire</span><span class="s2">Zane - Mitchell</span></td><td class="">CTX0461/003</td><td class="">Boat Sling - 6T x 6m</td><td class="">Available</td></tr><tr class="z"><td class="">AMP028/011</td><td class="">Bow Shackle - 2T</td><td class="">Available</td><td class="">AMP028/013</td><td class="">Bow Shackle - 2T</td><td class="">Available</td></tr><tr><td class="">AMP028/021</td><td class="">Bow Shackle - 2T</td><td class="">Available</td><td class="">AMP028/022</td><td class="">Bow Shackle - 2T</td><td class="">Available</td></tr><tr class="z"><td class="">AMP028/028</td><td class="">Bow Shackle - 2T</td><td class="">Available</td><td class="">AMP028/031</td><td class="">Bow Shackle - 2T</td><td class="">Available</td></tr><tr><td class="">AMP028/040</td><td class="">Bow Shackle - 2T</td><td class="">Available</td><td class="">AMP028/041</td><td class="">Bow Shackle - 2T</td><td class="">Available</td></tr></table><div class="note">Sorted last-seen-on-hire first (by hirer), then by item. &lsquo;Jun snapshot&rsquo; is the workbook&rsquo;s To Help Locate sheet, dated to 29 Jun 2026 - not the live position. A barcode here may have been re-tagged, sold, scrapped or mis-typed on the register; until SiteIQ returns it, whereabouts unknown.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 8 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Not found in SiteIQ - whereabouts unknown (3 of 4)</h3></div><table class="dt cp"><tr><th class="">Barcode</th><th class="">Item</th><th class="">Jun snapshot</th><th class="">Barcode</th><th class="">Item</th><th class="">Jun snapshot</th></tr><tr><td class="">CTX353/055</td><td class="">Bow Shackle - 2T</td><td class="">Available</td><td class="">CTX353/069</td><td class="">Bow Shackle - 2T</td><td class="">Available</td></tr><tr class="z"><td class="">CTX353/077</td><td class="">Bow Shackle - 2T</td><td class="">Available</td><td class="">CTX353/087</td><td class="">Bow Shackle - 2T</td><td class="">Available</td></tr><tr><td class="">CTX353/090</td><td class="">Bow Shackle - 2T</td><td class="">Available</td><td class="">CTX353/091</td><td class="">Bow Shackle - 2T</td><td class="">Available</td></tr><tr class="z"><td class="">CTX353/093</td><td class="">Bow Shackle - 2T</td><td class="">Available</td><td class="">CTX353/094</td><td class="">Bow Shackle - 2T</td><td class="">Available</td></tr><tr><td class="">AMP026/008</td><td class="">Bow Shackle - 3.2T</td><td class="">Available</td><td class="">AMP026/048</td><td class="">Bow Shackle - 3.2T</td><td class="">Available</td></tr><tr class="z"><td class="">AMP026/072</td><td class="">Bow Shackle - 3.2T</td><td class="">Available</td><td class="">AMP026/082</td><td class="">Bow Shackle - 3.2T</td><td class="">Available</td></tr><tr><td class="">CTX354/014</td><td class="">Bow Shackle - 3.2T</td><td class="">Available</td><td class="">AMP112/007</td><td class="">Bow Shackle - 4.7T</td><td class="">Available</td></tr><tr class="z"><td class="">AMP112/018</td><td class="">Bow Shackle - 4.7T</td><td class="">Available</td><td class="">AMP112/035</td><td class="">Bow Shackle - 4.7T</td><td class="">Available</td></tr><tr><td class="">AMP112/038</td><td class="">Bow Shackle - 4.7T</td><td class="">Available</td><td class="">CTX356/004</td><td class="">Bow Shackle - 4.7T</td><td class="">Available</td></tr><tr class="z"><td class="">AMP113/003</td><td class="">Bow Shackle - 6.2T</td><td class="">Available</td><td class="">AMP113/008</td><td class="">Bow Shackle - 6.5T</td><td class="">Available</td></tr><tr><td class="">AMP113/009</td><td class="">Bow Shackle - 6.5T</td><td class="">Available</td><td class="">AMP113/011</td><td class="">Bow Shackle - 6.5T</td><td class="">Available</td></tr><tr class="z"><td class="">AMP113/012</td><td class="">Bow Shackle - 6.5T</td><td class="">Available</td><td class="">CTX359/001</td><td class="">Bow Shackle - 6.5T</td><td class="">Available</td></tr><tr><td class="">WG0131/001</td><td class="">Chain Block - 1T x 6M</td><td class="">Available</td><td class="">AMP023/061</td><td class="">Confined Space Harness</td><td class="">Available</td></tr><tr class="z"><td class="">AMP023/063</td><td class="">Confined Space Harness</td><td class="">Available</td><td class="">AMP199/002</td><td class="">Dee Shackle - 4.7T</td><td class="">Available</td></tr><tr><td class="">AMP364/001</td><td class="">Eyebolt - M12 - 1T</td><td class="">Available</td><td class="">AMP050/007</td><td class="">Eyebolt - M16 - 1.5T</td><td class="">Available</td></tr><tr class="z"><td class="">AMP325/001</td><td class="">Eyebolt - M20 - 3.5T</td><td class="">Available</td><td class="">WG0406/006</td><td class="">Inertia Reel</td><td class="">Available</td></tr><tr><td class="">AMP008/013</td><td class="">Lever Block - 1.5T</td><td class="">Available</td><td class="">CTX141/001</td><td class="">Long Series Swivel Pinkie M20 - 2.5T</td><td class="">Available</td></tr><tr class="z"><td class="">CTX141/003</td><td class="">Long Series Swivel Pinkie M20 - 2.5T</td><td class="">Available</td><td class="">CTX138/004</td><td class="">Pinkie - 1T</td><td class="">Available</td></tr><tr><td class="">CTX138/006</td><td class="">Pinkie - 1T</td><td class="">Available</td><td class="">CTX77135/001</td><td class="">Pinkie - 4T</td><td class="">Available</td></tr><tr class="z"><td class="">CTX036/006</td><td class="">Rescue Kit - 3 Pack</td><td class="">Available</td><td class="">AMP004/171</td><td class="">Round Sling - 1T x 1M</td><td class="">Available</td></tr><tr><td class="">AMP006/013</td><td class="">Round Sling - 1T x 2M</td><td class="">Available</td><td class="">AMP006/029</td><td class="">Round Sling - 1T x 2M</td><td class="">Available</td></tr><tr class="z"><td class="">AMP006/044</td><td class="">Round Sling - 1T x 2M</td><td class="">Available</td><td class="">AMP006/054</td><td class="">Round Sling - 1T x 2M</td><td class="">Available</td></tr><tr><td class="">AMP006/104</td><td class="">Round Sling - 1T x 2M</td><td class="">Available</td><td class="">AMP006/116</td><td class="">Round Sling - 1T x 2M</td><td class="">Available</td></tr><tr class="z"><td class="">SD2053/002</td><td class="">Round Sling - 1T x 3M</td><td class="">Available</td><td class="">SD0093/005</td><td class="">Round Sling - 1T x 6M</td><td class="">Available</td></tr><tr><td class="">AMP018/023</td><td class="">Round Sling - 2T x 0.5M</td><td class="">Available</td><td class="">AMP005/056</td><td class="">Round Sling - 2T x 1M</td><td class="">Available</td></tr></table><div class="note">Sorted last-seen-on-hire first (by hirer), then by item. &lsquo;Jun snapshot&rsquo; is the workbook&rsquo;s To Help Locate sheet, dated to 29 Jun 2026 - not the live position. A barcode here may have been re-tagged, sold, scrapped or mis-typed on the register; until SiteIQ returns it, whereabouts unknown.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 9 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Not found in SiteIQ - whereabouts unknown (4 of 4)</h3></div><table class="dt cp"><tr><th class="">Barcode</th><th class="">Item</th><th class="">Jun snapshot</th><th class="">Barcode</th><th class="">Item</th><th class="">Jun snapshot</th></tr><tr><td class="">AMP005/080</td><td class="">Round Sling - 2T x 1M</td><td class="">Available</td><td class="">AMP005/089</td><td class="">Round Sling - 2T x 1M</td><td class="">Available</td></tr><tr class="z"><td class="">AMP007/121</td><td class="">Round Sling - 2T x 2M</td><td class="">Available</td><td class="">AMP007/129</td><td class="">Round Sling - 2T x 2M</td><td class="">Available</td></tr><tr><td class="">AMP007/152</td><td class="">Round Sling - 2T x 2M</td><td class="">Available</td><td class="">CTX70380/310</td><td class="">Round Sling - 2T x 2M</td><td class="">Available</td></tr><tr class="z"><td class="">AMP0035/004</td><td class="">Round Sling - 2T x 3M</td><td class="">Available</td><td class="">AMP0035/006</td><td class="">Round Sling - 2T x 3M</td><td class="">Available</td></tr><tr><td class="">AMP170/107</td><td class="">Round Sling - 2T x 3M</td><td class="">Available</td><td class="">AMP170/110</td><td class="">Round Sling - 2T x 3M</td><td class="">Available</td></tr><tr class="z"><td class="">AMP170/111</td><td class="">Round Sling - 2T x 3M</td><td class="">Available</td><td class="">CTX70480/256</td><td class="">Round Sling - 3T x 1M</td><td class="">Available</td></tr><tr><td class="">CTX70520/157</td><td class="">Round Sling - 3T x 1M</td><td class="">Available</td><td class="">AMP327/001</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td></tr><tr class="z"><td class="">SD2066/001</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td><td class="">SD2066/002</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td></tr><tr><td class="">SD2066/003</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td><td class="">SD2066/004</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td></tr><tr class="z"><td class="">SD2066/005</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td><td class="">SD2066/006</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td></tr><tr><td class="">SD2066/008</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td><td class="">SD2066/009</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td></tr><tr class="z"><td class="">SD2066/011</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td><td class="">SD2066/013</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td></tr><tr><td class="">SD2066/014</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td><td class="">SD2066/015</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td></tr><tr class="z"><td class="">SD2066/018</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td><td class="">SD2066/029</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td></tr><tr><td class="">SD2066/030</td><td class="">Secure Pulley Scaffold Bracket</td><td class="">Available</td><td class="">AMP115/006</td><td class="">Twin Lanyard - Scaffold Hook</td><td class="">Available</td></tr><tr class="z"><td class="">AMP328/003</td><td class="">Wire Rope Sling</td><td class="">Available</td><td class="">R040026</td><td class="">Wire Rope Sling - 3T x 2m</td><td class="">Available</td></tr><tr><td class="">R040028</td><td class="">Wire Rope Sling - 3T x 2m</td><td class="">Available</td><td class=""></td><td class=""></td><td class=""></td></tr></table><div class="note">Sorted last-seen-on-hire first (by hirer), then by item. &lsquo;Jun snapshot&rsquo; is the workbook&rsquo;s To Help Locate sheet, dated to 29 Jun 2026 - not the live position. A barcode here may have been re-tagged, sold, scrapped or mis-typed on the register; until SiteIQ returns it, whereabouts unknown.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 10 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Possibly rigging gear not on the register - keyword match, verify (1 of 2)</h3></div><div class="callout"><b class="o">132 live SiteIQ lines</b> (43 descriptions, 33 on hire) carry a rigging or height-safety word in their description but their barcode is not on the register. <b>This is a keyword match, not a finding</b> - each line needs a look before it is added. Rule applied: ITEM_DESCRIPTION contains sling, shackle, chain block, lever block or hoist, cumalong, tirfor, beam / girder / plate clamp, eyebolt, spreader bar, swivel, lifting bag, bucket lifter, winch, harness, lanyard, inertia reel, rope grab, anchor, Gotcha, rescue, davit or tripod - excluding flange spreaders, hook wrenches, dumpy-level tripods and cutting trolleys.</div><table class="dt cp"><tr><th class="">Description (as SiteIQ records it)</th><th class="r">Items</th><th class="r">On hire</th><th class="r">In store</th><th class="r">Other</th><th class="">Example barcode</th></tr><tr><td class="">Bow Shackle - 3.2t</td><td class="r">24</td><td class="r">1</td><td class="r">23</td><td class="r">0</td><td class="">AMP026/085</td></tr><tr class="z"><td class="">Bow Shackle - 4.7t</td><td class="r">18</td><td class="r">1</td><td class="r">17</td><td class="r">0</td><td class="">AMP112/047</td></tr><tr><td class="">Lanyard Steel Coil Clamp</td><td class="r">18</td><td class="r">18</td><td class="r">0</td><td class="r">0</td><td class="">AMP323/005</td></tr><tr class="z"><td class="">Bow Shackle - 2t</td><td class="r">8</td><td class="r">0</td><td class="r">8</td><td class="r">0</td><td class="">AMP028/057</td></tr><tr><td class="">Bow Shackle - 6.5t</td><td class="r">6</td><td class="r">0</td><td class="r">6</td><td class="r">0</td><td class="">AMP113/033</td></tr><tr class="z"><td class="">AMPOL 20L BUCKET LIFTER</td><td class="r">4</td><td class="r">0</td><td class="r">4</td><td class="r">0</td><td class="">AMP039/001</td></tr><tr><td class="">Dee Shackle - 3.2t</td><td class="r">4</td><td class="r">0</td><td class="r">4</td><td class="r">0</td><td class="">AMP143/007</td></tr><tr class="z"><td class="">2 TONNE SHACKLE</td><td class="r">3</td><td class="r">0</td><td class="r">2</td><td class="r">1</td><td class="">CTX353/065</td></tr><tr><td class="">3.2 Tonne Bow Shackle</td><td class="r">3</td><td class="r">3</td><td class="r">0</td><td class="r">0</td><td class="">AMP026/035</td></tr><tr class="z"><td class="">Confined Space Harness</td><td class="r">3</td><td class="r">3</td><td class="r">0</td><td class="r">0</td><td class="">AMP023/113</td></tr><tr><td class="">Round Sling - 1t X 0.5m</td><td class="r">3</td><td class="r">1</td><td class="r">2</td><td class="r">0</td><td class="">AMP017/120</td></tr><tr class="z"><td class="">AMPOL 4.7 TONNE BOW SHACKLE</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0</td><td class="">AMP112/005</td></tr><tr><td class="">AMPOL SLING 1 TONNE X 1 METRE</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0</td><td class="">AMP004/092</td></tr><tr class="z"><td class="">CALTEX GIRDER CLAMP 1T I BEAM CLAMP</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0</td><td class="">CTX70020/001</td></tr><tr><td class="">Dee Shackle - 2t</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0</td><td class="">AMP200/003</td></tr><tr class="z"><td class="">Long Series Swivel Pinkie M20 - 3.5T</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0</td><td class="">AMP504/001</td></tr><tr><td class="">Round Sling - 2t X 1m</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0</td><td class="">AMP005/115</td></tr><tr class="z"><td class="">1 TONNE GIRDER CLAMP</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">WG0436/001</td></tr><tr><td class="">1.6 TONNE EYE BOLT</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">WG0474/009</td></tr><tr class="z"><td class="">20l Bucket Lifter</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP039/006</td></tr><tr><td class="">4.75 TONNE SHACKLE</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">CTX356/008</td></tr></table><div class="note">Grouped by description exactly as SiteIQ spells it. Counts and statuses are from the same pull as every other page. Items that are genuinely rigging gear belong on the Master with a barcode; items that are not can be dismissed - either way, verify before acting.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 11 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>Possibly rigging gear not on the register - keyword match, verify (2 of 2)</h3></div><table class="dt cp"><tr><th class="">Description (as SiteIQ records it)</th><th class="r">Items</th><th class="r">On hire</th><th class="r">In store</th><th class="r">Other</th><th class="">Example barcode</th></tr><tr><td class="">400KG, 300MM SLING</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">CTX714/010</td></tr><tr class="z"><td class="">ampol 2 tonne shackle</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP028/007</td></tr><tr><td class="">Ampol Chain Block 1 Tonne 3 Metre</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP027/041</td></tr><tr class="z"><td class="">Ampol Confined Space Harness</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">0</td><td class="">AMP023/076</td></tr><tr><td class="">AMPOL ROUND SLING 2 TONNE X 1 METRE</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">CTX70360/008</td></tr><tr class="z"><td class="">Ampol Sling 1 Tonne x 1 Metre</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">0</td><td class="">AMP004/136</td></tr><tr><td class="">AMPOL SLING 2 TONNE X 2 METRE</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP007/074</td></tr><tr class="z"><td class="">AMPOL WIRE SLING 0.5T X 1M</td><td class="r">1</td><td class="r">0</td><td class="r">0</td><td class="r">1</td><td class="">SD2035/002</td></tr><tr><td class="">Bow Shackle - 1t</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP492/001</td></tr><tr class="z"><td class="">CALTEX 1.5 TONNE CUMALONG MINI</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">CTX072/022</td></tr><tr><td class="">CALTEX CHAIN BLOCKS 1 TONNE X 6 METRES</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">0</td><td class="">CTX054/015</td></tr><tr class="z"><td class="">CALTEX LANYARD TWIN</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">0</td><td class="">SD0995/026</td></tr><tr><td class="">CALTEX SHACKLE 17T</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">R03-30</td></tr><tr class="z"><td class="">CHAIN BLOCK 2 TONNE 3 METERS (SHORT DROP)</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">WG0409/001</td></tr><tr><td class="">Dee Shackle - 4.7t</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP199/015</td></tr><tr class="z"><td class="">Dee Shackle - 8.5t</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP493/001</td></tr><tr><td class="">GOTCHA KIT</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">0</td><td class="">WG0032/008</td></tr><tr class="z"><td class="">Lifting Bag</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP025/020</td></tr><tr><td class="">Long Series Swivel Pinkie M20 - 2.5T</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP505/001</td></tr><tr class="z"><td class="">Long Series Swivel Pinkie M24 - 4.5T</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">0</td><td class="">AMP507/001</td></tr><tr><td class="">Round Sling - 1t X 1m</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">AMP004/185</td></tr><tr class="z"><td class="">SPREADER BAR AMPOL</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0</td><td class="">WG0460/002</td></tr></table><div class="note">Grouped by description exactly as SiteIQ spells it. Counts and statuses are from the same pull as every other page. Items that are genuinely rigging gear belong on the Master with a barcode; items that are not can be dismissed - either way, verify before acting.</div></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div><div class="page"><div class="frame"><table class="chead"><tr>
+  <td>
+    <div class="kicker">COATES · TOOL STORE - RIGGING &amp; LIFTING REGISTER REPORT</div>
+    <h2>Ampol Rigging &amp; Lifting Register</h2>
+  </td>
+  <td style="width:205px">
+    <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+    <div class="asat">AS AT <b>02 SEP 2026 18:30</b></div>
+    <div class="pageno">PAGE 12 OF 12</div>
+  </td>
+</tr></table><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE POSITION</b> status, holder and days held from the SiteIQ pull, not the workbook snapshot  <span class="dot blue">●</span> <b class="blue">NOT FOUND</b> register barcodes SiteIQ does not return - whereabouts unknown, never assumed  <span class="dot amber">●</span> <b class="amber">LONGEST HELD FIRST</b> customer hire chased oldest first; repairs and quarantine kept separate</div><div class="grule"></div><div class="body"><div class="sect"><h3>How the rigging fleet is run</h3></div>
+<table class="cards"><tr><td><div class="cd-h">Live position, not a snapshot</div><div class="cd-b">Status, holder, on-hire date and days held come from the SiteIQ RENTAL_STOCK pull requested 02 Sep 2026 18:30, joined barcode-for-barcode to the register. The workbook decides what is on the register; SiteIQ decides where it is.</div></td><td><div class="cd-h">Unknown stays unknown</div><div class="cd-b">143 register barcodes SiteIQ does not return are printed as not found - whereabouts unknown - never folded into &lsquo;in the store&rsquo;. Blank test cells print as dashes; nothing is assumed, estimated or copied in.</div></td></tr></table><table class="cards"><tr><td><div class="cd-h">Longest held, first chased</div><div class="cd-b">Customer hire is worked oldest first by company and hirer. Repairs, off-site, out-of-tag and out-of-service custody lines are kept separate, so a quarantined item never reads as a customer&rsquo;s.</div></td><td><div class="cd-h">Identity has gaps too</div><div class="cd-b">905 rows, 889 distinct barcodes: 1 blank, 14 barcodes repeated on 29 rows, 22 lower-case. The join upper-cases and de-duplicates; the fixes belong in the Master. Rigging gear is Life Saving Rule 5 territory (SEQ-GL-009) - the record has to be real.</div></td></tr></table>
+<div class="sect"><h3>Meet the tool store team</h3></div>
+<div class="note">The crew running your Ampol store - keeping the register true and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.</div>
+<table class="team" style="table-layout:fixed"><tr><td style="background:transparent;border-top:none;width:29%"></td><td style="width:42%;padding:18px 15px 16px 15px"><div class="av lead">AF</div><div class="tm-n">Andrew Fisher</div><div class="tm-r">Shutdown Manager</div><div class="tm-e">andrew.fisher@coates.com.au</div><div class="tm-d">Owns the register and the fill-in push - anything at all, start here</div></td><td style="background:transparent;border-top:none;width:29%"></td></tr></table></div><div class="foot"><div class="foot-h">Your Coates Tool Store Team</div><div class="foot-l"><b>Andrew Fisher</b> Shutdown Manager</div></div></div></div></body></html>
