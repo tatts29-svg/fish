@@ -11,16 +11,31 @@ Author: Andrew Fisher / POWERED BY SITEIQ
   them to the Ampol Tool Store for a rescan (proof of existence)
 - PDF via WeasyPrint or Edge/Chrome headless fallback
 
+WHERE THE NUMBERS COME FROM (changed 02 Sep 2026)
+  Every count, date and dollar is read from the SiteIQ RENTAL_STOCK export
+  in Data\\ - the live register of what is on hire, to whom, since when,
+  and what is on the shelf - as at the export's own request time. The
+  Ampol_Radio_Report.xlsm workbook is no longer read: its Power-Query tabs
+  only refresh when the file is opened in Excel, and an audit on 02 Sep
+  2026 found them 19 days behind the register (every count and every
+  "days on hire" figure stale, returned units still listed, one unit in
+  Out-of-Service custody counted as on hire to a company).
+  Serial numbers come from radio_register.xlsx and, failing that, from
+  the serial SiteIQ carries in the item description. Replacement values
+  come from Ampol_ToolStore_Pricing.xlsx ("Avg Buy Price (New)").
+
 Inputs come from the suite's one Data area (see ampol_paths):
-Ampol_Radio_Report*.xlsm, radio_register*.xlsx, RENTAL_STOCK*.xlsx.
+RENTAL_STOCK*.xlsx (required), radio_register*.xlsx, *Pricing*.xlsx.
 Output lands in Reports\\<today>\\Radios\\ - dated, never overwritten.
 """
+import re
 import sys
 from pathlib import Path
 from datetime import datetime, date
 from collections import defaultdict
 import openpyxl
 import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
+import gasmon_engine as ge  # one company / person normaliser across the suite
 
 BASE = Path(__file__).resolve().parent
 REPORT_DATE = date.today()
@@ -28,8 +43,14 @@ CUR_YEAR = REPORT_DATE.year
 # WHY (12 Aug 2026): PRIOR_LABEL was computed and never used while the headings
 # carried hard-coded years - come January the report would have quietly lied.
 # Every heading now derives from these two.
-PRIOR_LABEL = f"2023–{CUR_YEAR - 1}"
+PRIOR_LABEL = f"2023–{CUR_YEAR - 1}"      # reset from the data in main()
 PRIOR_SHORT = f"2023-{str(CUR_YEAR - 1)[2:]}"
+# The unit prices are READ from the pricing file in main(); these are only
+# the fallback if that file is missing, and the page says which was used.
+PRICE_RADIO = None
+PRICE_BATT = None
+PRICE_SOURCE = "TBC"
+META = {}
 # WHY (12 Aug 2026): named constant so the en dash never sits as a backslash
 # escape inside an f-string expression - older Pythons refuse that outright.
 EN_DASH = "–"
@@ -46,73 +67,167 @@ def esc(s):
     """Company names land inside SVG text - keep the markup honest."""
     return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
-def pick_sheet(wb, *names):
-    """First existing sheet name (new names first, legacy fallbacks after)."""
-    for n in names:
-        if n in wb.sheetnames:
-            return n
-    raise KeyError(f"None of {names} found in workbook")
+RADIO_RE = re.compile(r"motorola radio", re.I)
+BATT_RE = re.compile(r"radio batter", re.I)
+ACCESSORY_RE = re.compile(r"charger", re.I)
+SERIAL_IN_DESC = re.compile(r"\b(\d{3}[A-Za-z]{3}\d{4})\b")
 
-def sheet_rows(wb, name, hdr_row=2):
-    ws = wb[name]
-    hdr = [str(c.value).strip() if c.value else "" for c in ws[hdr_row]]
-    out = []
-    for r in ws.iter_rows(min_row=hdr_row + 1, values_only=True):
-        if r[0]:
-            out.append(dict(zip(hdr, r)))
-    return out
+
+def radio_kind(desc):
+    """'radio' / 'battery' / None. Chargers are accessories, not fleet."""
+    d = str(desc or "")
+    if ACCESSORY_RE.search(d):
+        return None
+    if BATT_RE.search(d):
+        return "battery"
+    if RADIO_RE.search(d):
+        return "radio"
+    return None
+
+
+def hirer_kind(hirer):
+    """'oos' = the Out-of-Service custody line; 'account' = a shared site
+    account (after-hours, a shutdown account) that is not a person;
+    'person' otherwise. Accounts are shown on their own lines, never as
+    a person."""
+    h = str(hirer or "")
+    if re.search(r"out\s*of\s*service", h, re.I):
+        return "oos"
+    if re.search(r"after\s*hours|tool\s*store|shutdown\s*-\s*20\d\d|\(sfi\)|^alky", h, re.I):
+        return "account"
+    return "person"
+
 
 def load_serials(register_path):
-    wb = openpyxl.load_workbook(register_path, data_only=True)
+    """barcode -> serial from radio_register.xlsx. A blank serial cell is
+    left out so the row falls through to the description or a dash."""
+    wb = openpyxl.load_workbook(register_path, data_only=True, read_only=True)
     ws = wb["Radio Register"]
-    # WHY (12 Aug 2026): a register row with a blank serial cell used to print
-    # the word 'None' in the report - a blank now falls through to the same
-    # dash every other unknown serial gets.
-    return {str(r[0]).strip().upper(): str(r[1]).strip()
-            for r in ws.iter_rows(min_row=2, values_only=True)
-            if r[0] and r[1] is not None and str(r[1]).strip()}
+    out = {str(r[0]).strip().upper(): str(r[1]).strip()
+           for r in ws.iter_rows(min_row=2, values_only=True)
+           if r and r[0] and r[1] is not None and str(r[1]).strip()}
+    wb.close()
+    return out
 
-def load_storage_units(master_path):
-    wb = openpyxl.load_workbook(master_path, data_only=True)
-    ws = wb["RENTAL_STOCK"]
-    hdr = [str(c.value).strip() if c.value else "" for c in ws[1]]
-    i_bc, i_su = hdr.index("ITEM_BARCODE"), hdr.index("STORAGE_UNIT")
-    units, prefix_units = {}, defaultdict(lambda: defaultdict(int))
+
+def _norm_desc(d):
+    return re.sub(r"\s+", " ", str(d or "").replace("\xa0", " ")).strip().upper()
+
+
+def load_prices(pricing_path):
+    """Normalised description -> 'Avg Buy Price (New)' from the pricing
+    master, plus the generic radio and battery prices for descriptions
+    that carry a serial suffix."""
+    prices = {}
+    if not pricing_path:
+        return prices, None, None
+    wb = openpyxl.load_workbook(pricing_path, data_only=True, read_only=True)
+    ws = wb[wb.sheetnames[0]]
     for r in ws.iter_rows(min_row=2, values_only=True):
-        if r[i_bc]:
-            bc = str(r[i_bc]).strip().upper()
-            u = str(r[i_su]).strip() if r[i_su] else ""
-            units[bc] = u
-            if u and "/" in bc:
-                prefix_units[bc.split("/")[0]][u] += 1
-    pf = {p: max(c.items(), key=lambda kv: kv[1])[0] for p, c in prefix_units.items()}
-    return units, pf
+        if r and r[0] and r[1] not in (None, ""):
+            try:
+                prices.setdefault(_norm_desc(r[0]), float(r[1]))
+            except (TypeError, ValueError):
+                pass
+    wb.close()
+    radio = prices.get("AMPOL MOTOROLA RADIO")
+    batt = prices.get("AMPOL MOTOROLA RADIO BATTERY")
+    return prices, radio, batt
 
-def lookup_unit(bc, units, pf):
-    bc = str(bc).strip().upper()
-    if bc in units and units[bc]: return units[bc]
-    if "/" in bc and bc.split("/")[0] in pf: return pf[bc.split("/")[0]]
-    return "\u2014"
 
-def norm(r, serials, units, pf):
-    d = r.get("ON_HIRE_DATE")
-    d = d.date() if isinstance(d, datetime) else d
-    t = r.get("ON_HIRE_TIME")
-    t = t.strftime("%H:%M") if hasattr(t, "strftime") else (str(t) if t else "")
-    try: days = int(r.get("Days On Hire"))
-    except (TypeError, ValueError): days = (REPORT_DATE - d).days if d else 0
-    try: cost = float(r.get("Replacement Cost"))
-    except (TypeError, ValueError): cost = None
-    bc = str(r.get("ITEM_BARCODE", "")).strip()
-    return {"company": str(r.get("COMPANY_NAME", "")).strip(),
-            "hirer": str(r.get("HIRER_NAME", "")).strip(),
-            "barcode": bc, "serial": serials.get(bc.upper(), "\u2014"),
-            "year": str(r.get("Year", "")).strip(),
-            # WHY (12 Aug 2026): description kept so Out Of Service rows can be
-            # split radio/battery for the fleet-position chart - real data, no guessing
-            "desc": str(r.get("ITEM_DESCRIPTION", "")).strip(),
-            "days": days, "cost": cost, "date": d, "time": t,
-            "unit": lookup_unit(bc, units, pf)}
+def price_for(desc, kind, prices):
+    p = prices.get(_norm_desc(desc))
+    if p is None:
+        p = PRICE_RADIO if kind == "radio" else PRICE_BATT
+    return p
+
+
+def company_name(raw):
+    """One company, one name: Ampol / Ampol Refineries (Qld) / Caltex are
+    the client; employer suffixes (FCCU, SATGAS/MOL) fold into the company."""
+    u = str(raw or "").strip().upper()
+    if u.startswith("CALTEX"):
+        return "Ampol"
+    return ge.norm_company(raw)
+
+
+def load_from_register(master_path, serials, prices):
+    """Every radio and battery on the live register, classified.
+
+    Returns dict with r_cur, r_prev, b_cur, b_prev (on hire, by issue
+    year), oos (Out-of-Service custody), r_avail, b_avail, asat (export
+    request time), and coverage counts for the page notes."""
+    wb = openpyxl.load_workbook(master_path, data_only=True, read_only=True)
+    asat = None
+    if "REFERENCE_INFO" in wb.sheetnames:
+        rows = list(wb["REFERENCE_INFO"].iter_rows(values_only=True))
+        if len(rows) > 1:
+            for i, h in enumerate(rows[0]):
+                if h and "REQUESTED_DATE" in str(h).upper():
+                    asat = ge.parse_stamp(rows[1][i])
+    if asat is None:
+        asat = datetime.fromtimestamp(Path(master_path).stat().st_mtime)
+    ws = wb["RENTAL_STOCK"]
+    hdr = [str(c or "").strip().upper() for c in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
+    col = {h: i for i, h in enumerate(hdr)}
+
+    def g(r, name):
+        i = col.get(name)
+        return r[i] if i is not None and i < len(r) else None
+
+    out = {"r_cur": [], "r_prev": [], "b_cur": [], "b_prev": [], "oos": [],
+           "r_avail": [], "b_avail": [], "asat": asat,
+           "n_radio": 0, "n_batt": 0, "serial_hits": 0, "serial_total": 0,
+           "unpriced": 0, "years": set(), "accounts": 0, "turnaround": 0}
+    for r in ws.iter_rows(min_row=2, values_only=True):
+        if not r or r[0] is None:
+            continue
+        desc = g(r, "ITEM_DESCRIPTION")
+        kind = radio_kind(desc)
+        if not kind:
+            continue
+        out["n_radio" if kind == "radio" else "n_batt"] += 1
+        bc = str(g(r, "ITEM_BARCODE") or "").strip()
+        if bc.upper().startswith("SATGAS"):
+            out["turnaround"] += 1
+        status = str(g(r, "ITEM_STATUS") or "").strip()
+        on = ge.parse_dt(g(r, "ON_HIRE_DATE"), g(r, "ON_HIRE_TIME"))
+        serial = serials.get(bc.upper(), "")
+        if not serial:
+            mm = SERIAL_IN_DESC.search(str(desc or ""))
+            serial = mm.group(1).upper() if mm else ""
+        cost = price_for(desc, kind, prices)
+        if cost is None:
+            out["unpriced"] += 1
+        hk = hirer_kind(g(r, "HIRER_NAME"))
+        raw_h = str(g(r, "HIRER_NAME") or "").strip()
+        hirer = raw_h if hk != "person" else ge.norm_person(raw_h)[1]
+        if hk == "account":
+            hirer = f"{raw_h} (site account)"
+            out["accounts"] += 1
+        item = {"company": company_name(g(r, "COMPANY_NAME")), "hirer": hirer,
+                "barcode": bc, "serial": serial or "\u2014", "kind": kind,
+                "year": str(on.year) if on else "", "desc": str(desc or "").strip(),
+                "days": (asat.date() - on.date()).days if on else 0,
+                "cost": cost, "date": on.date() if on else None,
+                "time": on.strftime("%H:%M") if on else "",
+                "unit": str(g(r, "STORAGE_UNIT") or "").strip() or "\u2014"}
+        if status.lower() != "on hire":
+            out["r_avail" if kind == "radio" else "b_avail"].append(item)
+            continue
+        out["serial_total"] += 1 if kind == "radio" else 0
+        out["serial_hits"] += 1 if (kind == "radio" and serial) else 0
+        if hk == "oos":
+            out["oos"].append(item)
+            continue
+        if on:
+            out["years"].add(on.year)
+        cur = bool(on) and on.year == CUR_YEAR
+        key = ("r_" if kind == "radio" else "b_") + ("cur" if cur else "prev")
+        out[key].append(item)
+    wb.close()
+    return out
+
 
 def val(rs): return sum(x["cost"] for x in rs if x["cost"])
 
@@ -257,15 +372,16 @@ or no longer accounted for. This report exists to tell those three apart \u2014 
 <div class="charge"><div class="ntitle">WHAT WE ARE ASKING \u2013 PLEASE READ FIRST</div><ul>
 <li><b>If a radio or battery is not in use \u2014 please return it to the Ampol Tool Store (Coates managed).</b> It is scanned in on the spot and comes straight off this report. Radios returned go back into the available pool for the next shutdown.</li>
 <li><b>If it is still in use \u2014 bring it past the Ampol Tool Store for a rescan.</b> This is proof of existence: a thirty-second scan verifies the unit is on site, in whose hands, and resets the record. Nothing is taken off you.</li>
-<li>Site radios are <b>{money(2695)} each</b> to replace and batteries {money(246)} \u2014 units that can be neither returned nor verified are ultimately chargeable at replacement value under the hire arrangement, applied consistently to all companies. Verification protects everyone from charges for equipment that is actually on site.</li>
+<li>Site radios are <b>{money(PRICE_RADIO)} each</b> to replace and batteries {money(PRICE_BATT)} ({PRICE_SOURCE}) \u2014 units that can be neither returned nor verified are ultimately chargeable at replacement value under the hire arrangement, applied consistently to all companies. Verification protects everyone from charges for equipment that is actually on site.</li>
 <li>If anything listed looks incorrect, contact the Ampol Tool Store and we will review and correct the record with you \u2014 no charge is finalised without that review.</li>
 </ul></div>
 
 <div class="notice"><div class="ntitle">STORE CONTROLS &amp; ASSURANCE</div>
 These records are protected by daily stock takes (completed without exception, 30-day full-coverage cycle, including on-hire verification of the radio charging bays)
 and the double-check return process \u2014 every return is inspected and scanned on receipt, then stock-taken to its storage unit before going back on charge.
-<b>The moment a unit is scanned, the record updates.</b> Serial numbers below are drawn from the radio register (100% barcode match) so units can be identified on site;
-the STORAGE_UNIT column shows where each unit lives in the store when not on hire.</div>"""]
+<b>The moment a unit is scanned, the record updates.</b> Every count on this report is read from the SiteIQ register as at <b>{data_asat}</b> -
+nothing comes from a summary tab. Serial numbers: {META.get("serial_note", "from the radio register")}.
+The STORAGE_UNIT column is SiteIQ's storage unit for the item as at the same export.</div>"""]
 
     # ── Fleet position at a glance ──
     # WHY (12 Aug 2026): the position now gets one visual page before the
@@ -312,9 +428,9 @@ the STORAGE_UNIT column shows where each unit lives in the store when not on hir
 <div class="secsub">Three pictures of the same truth — where the fleet sits, who holds the value, and how long it has been out.
 Every count and dollar here comes straight from the tables that follow; the detail is unchanged.</div>
 <table class="glance"><tr>
-<td style="width:50%"><div class="chartcap">SITE RADIOS — {len(r26)+len(rprev)+len(ravail)+len(oos_r)} units tracked</div>
+<td style="width:50%"><div class="chartcap">SITE RADIOS — {META.get("n_radio", len(r26)+len(rprev)+len(ravail)+len(oos_r))} on the register</div>
 {svg_hbars(radio_rows, width=340, label_w=145, val_w=40)}</td>
-<td style="width:50%"><div class="chartcap">RADIO BATTERIES — {len(b26)+len(bprev)+len(bavail)+len(oos_b)} units tracked</div>
+<td style="width:50%"><div class="chartcap">RADIO BATTERIES — {META.get("n_batt", len(b26)+len(bprev)+len(bavail)+len(oos_b))} on the register</div>
 {svg_hbars(batt_rows, width=340, label_w=145, val_w=40)}</td>
 </tr></table>
 <div class="chartcap">REPLACEMENT-VALUE EXPOSURE BY COMPANY — {money(sum(comp_tot.values()))} across {len(comp_tot)} companies</div>
@@ -382,10 +498,10 @@ the fastest way off this table is a return or a rescan.</div></div>""")
 
     parts.append(f"""<div class="foot">
 This report covers Ampol site Motorola radios and batteries on hire.
-<b>Data as at {data_asat or "TBC"}</b> (the SiteIQ workbook's last refresh) \u2014 report built {refresh}. {CUR_YEAR} issues are shown in full;
+<b>Data as at {data_asat or "TBC"}</b> (the SiteIQ RENTAL_STOCK export's request time) \u2014 report built {refresh}. {META.get("coverage", "")} {CUR_YEAR} issues are shown in full;
 {PRIOR_LABEL} issues are summarised by year and company, with line-item detail available from the Tool Store on request.
 Return any unit not in use; bring units still in use past the Ampol Tool Store for a rescan (proof of existence) \u2014
-either action updates the record immediately. Serial numbers from the radio register; storage units from the master RENTAL_STOCK file.
+either action updates the record immediately. {META.get("serial_note", "Serial numbers from the radio register")}; storage units and every count from the RENTAL_STOCK export. Replacement values: {PRICE_SOURCE}.{META.get("unpriced_note", "")}
 Life Saving Rule 5 – Tools and Equipment (SEQ-GL-009): nothing damaged, defective or flat is ever reissued —
 radios are charge-checked on return. Two scans. Two looks. One standard.
 <div class="cway">{COATES_VALUES}<span class="obj">{COATES_OBJECTIVE}</span>
@@ -419,7 +535,7 @@ RADIO_EMAIL_TO = (
 )
 
 
-def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
+def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", pdf_ok=True):
     """High-level summary email body - all data summarised, full detail in the attached PDF."""
     refresh = datetime.now().strftime("%d %b %Y %H:%M")
     O = "#e07000"
@@ -452,8 +568,7 @@ def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="
 <div style="font-size:11px;color:#555">Ampol Tool Store \u2013 Coates managed &nbsp;|&nbsp; Motorola site radios &amp; batteries &nbsp;|&nbsp; Refreshed: {refresh}</div></td></tr>
 
 <tr><td style="padding:10px 0 4px;font-size:12px;line-height:1.6">Good morning all,<br><br>
-Please find below the summary of the Ampol site radio position, with the full report attached as a PDF
-({CUR_YEAR} in complete line-item detail with serial numbers; prior years summarised by company).
+Please find below the summary of the Ampol site radio position{", with the full report attached as a PDF (" + str(CUR_YEAR) + " in complete line-item detail with serial numbers; prior years summarised by company)" if pdf_ok else " - the full line-item report follows separately"}.
 This is about visibility, not blame \u2014 the ask is simple and it applies to every company equally.</td></tr>
 
 <tr><td bgcolor="#fdf0f0" style="background-color:#fdf0f0;border:1px solid #f0c0c0;padding:10px 14px">
@@ -473,7 +588,7 @@ Every one of these radios and batteries is either working on site, sitting unuse
 <ul style="margin:4px 0 0;padding-left:16px">
 <li style="margin:3px 0"><b>Not in use?</b> Return it to the <b>Ampol Tool Store (Coates managed)</b> \u2014 it is scanned in on the spot, comes straight off this report, and goes back into the available pool for the next shutdown.</li>
 <li style="margin:3px 0"><b>Still in use?</b> Bring it past the Ampol Tool Store for a <b>rescan \u2014 proof of existence</b>. A thirty-second scan verifies the unit is on site and in whose hands, and resets the record. Nothing is taken off anyone.</li>
-<li style="margin:3px 0">Site radios are <b>{money(2695)}</b> each to replace and batteries {money(246)}. Units that can be neither returned nor verified are ultimately chargeable at replacement value under the hire arrangement \u2014 applied consistently to all companies, and <b>no charge is finalised without review</b>. Verification protects everyone from charges for equipment that is actually on site.</li>
+<li style="margin:3px 0">Site radios are <b>{money(PRICE_RADIO)}</b> each to replace and batteries {money(PRICE_BATT)} ({PRICE_SOURCE}). Units that can be neither returned nor verified are ultimately chargeable at replacement value under the hire arrangement \u2014 applied consistently to all companies, and <b>no charge is finalised without review</b>. Verification protects everyone from charges for equipment that is actually on site.</li>
 <li style="margin:3px 0">Anything look incorrect? Contact the Ampol Tool Store and we will review and correct the record with you.</li>
 </ul></td></tr>
 
@@ -506,13 +621,13 @@ Every one of these radios and batteries is either working on site, sitting unuse
 <td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;font-weight:bold;color:#b35a00">{money(tot_v)}</td>
 <td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;color:#c00000;font-weight:bold">{a['old']}</td></tr>""")
     p.append(f"""</table>
-<div style="font-size:10px;color:#555;padding-top:4px">Rows shaded red carry {money(100000)}+ of prior-year equipment. Full line-item detail \u2014 every barcode, serial number, hirer, on-hire date and storage unit for {CUR_YEAR}, plus prior-year detail on request \u2014 is in the attached PDF.</div></td></tr>
+<div style="font-size:10px;color:#555;padding-top:4px">Rows shaded red carry {money(100000)}+ of prior-year equipment. Full line-item detail \u2014 every barcode, serial number, hirer, on-hire date and storage unit for {CUR_YEAR}, plus prior-year detail on request \u2014 is in the {"attached PDF" if pdf_ok else "full report"}.</div></td></tr>
 
 <tr><td bgcolor="#eef5fc" style="background-color:#eef5fc;border:1px solid #b8d4f0;padding:10px 14px;font-size:11px">
 <div style="font-weight:bold;color:#1f5c99;letter-spacing:0.5px;font-size:12px">STORE CONTROLS &amp; ASSURANCE</div>
 <div style="padding-top:4px">These records are protected by daily stock takes at the Ampol Tool Store (completed without exception, 30-day full-coverage cycle including the radio charging bays)
 and the double-check return process \u2014 every return is inspected and scanned on receipt, then stock-taken to its storage unit before going back on charge.
-<b>The moment a unit is scanned, the record updates.</b> Serial numbers in the attached PDF are drawn from the radio register with a 100% barcode match.</div></td></tr>
+<b>The moment a unit is scanned, the record updates.</b> Every count here is read from the SiteIQ register as at {data_asat} - nothing comes from a summary tab. {META.get("serial_note", "Serial numbers from the radio register")}.</div></td></tr>
 
 <tr><td style="padding:14px 0 6px;font-size:12px;line-height:1.6">
 Thanks all \u2014 radios are the backbone of safe communication on site, and getting the idle ones back (or a quick rescan of the ones in use)
@@ -521,7 +636,7 @@ Kind regards,<br><b>Andrew Fisher</b><br>Ampol Tool Store \u00b7 Coates</td></tr
 <tr><td style="border-top:1px solid #ccc;padding:10px 0;font-size:10px;color:#555;text-align:center">
 <b>Author: Andrew Fisher</b> &nbsp;\u2022&nbsp; <b style="color:{O}">POWERED BY SITEIQ</b><br>
 <span style="color:{O};font-weight:bold">{COATES_VALUES}</span><br>{COATES_OBJECTIVE}<br>
-Data as at {data_asat or "TBC"} &nbsp;\u2022&nbsp; Report built {refresh}</td></tr>
+Data as at {data_asat or "TBC"} (SiteIQ RENTAL_STOCK export) &nbsp;\u2022&nbsp; Report built {refresh}</td></tr>
 </table></td></tr></table></body></html>""")
     return "".join(p)
 
@@ -555,7 +670,8 @@ def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path, d
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
     from email.mime.application import MIMEApplication
-    body = frame_email(build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat))
+    body = frame_email(build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat,
+                                           pdf_ok=Path(pdf_path).exists()))
     subject = f"Ampol Tool Store \u2013 Site Radio Report \u2013 {REPORT_DATE.strftime('%d %b %Y')}"
     msg = MIMEMultipart("mixed")
     msg["To"] = RADIO_EMAIL_TO
@@ -646,42 +762,54 @@ def find_workbook(patterns, arg=None):
     return ampol_paths.find_data(*patterns) or None
 
 def main():
-    # WHY (12 Aug 2026): the old broad fallbacks (*.xlsm, *register*.xlsx) were
-    # safe when this script lived in its own folder; in the shared Data area
-    # they would grab another kit's workbook, so the patterns stay radio-shaped.
-    radio = find_workbook(["Ampol_Radio_Report*.xlsm", "*Radio_Report*.xlsm"], sys.argv[1] if len(sys.argv) > 1 else None)
+    global PRIOR_LABEL, PRIOR_SHORT, PRICE_RADIO, PRICE_BATT, PRICE_SOURCE, META
+    master = find_workbook(["RENTAL_STOCK*.xlsx"], sys.argv[1] if len(sys.argv) > 1 else None)
     register = find_workbook(["radio_register*.xlsx", "*radio*register*.xlsx"], sys.argv[2] if len(sys.argv) > 2 else None)
-    master = find_workbook(["RENTAL_STOCK*.xlsx"], sys.argv[3] if len(sys.argv) > 3 else None)
-    if not radio:
-        raise SystemExit("No Ampol_Radio_Report.xlsm in the Data folder - save the SiteIQ export there and run again.")
-    print(f"Radio workbook: {radio}")
-    print(f"Radio register: {register or 'NOT FOUND in Data - serials will show as dashes'}")
-    print(f"Master stock file: {master or 'NOT FOUND in Data - storage units will fall back to stock-code prefixes'}")
+    pricing = find_workbook(["Ampol_ToolStore_Pricing*.xlsx", "*Pricing*.xlsx"], sys.argv[3] if len(sys.argv) > 3 else None)
+    if not master:
+        raise SystemExit("No RENTAL_STOCK.xlsx in the Data folder - download the SiteIQ export, "
+                         "run 12_PULL_SITEIQ_EXPORTS, and press the radio button again.")
+    print(f"Register (source)  : {master}")
+    print(f"Radio serial list  : {register or 'NOT FOUND in Data - serials fall back to the description, else dashes'}")
+    print(f"Pricing master     : {pricing or 'NOT FOUND in Data - replacement values show as dashes'}")
+    print("Radio workbook     : not read (02 Sep 2026) - the register is the source")
     out = Path(ampol_paths.day_folder("Radios"))  # dated folder, created on demand
-    # WHY (12 Aug 2026): the footer carries when the data itself was pulled,
-    # not just when the report was built - the workbook's own last-saved time.
-    data_asat = datetime.fromtimestamp(Path(radio).stat().st_mtime).strftime("%d %b %Y %H:%M")
+
     serials = load_serials(register) if register else {}
-    units, pf = load_storage_units(master) if master else ({}, {})
-    wb = openpyxl.load_workbook(radio, data_only=True)
-    n = lambda *names: [norm(r, serials, units, pf)
-                        for r in sheet_rows(wb, pick_sheet(wb, *names))]
-    r26 = n("Radios Onhire Current Year", "Radios Onhire 2026")
-    rprev = n("Radios Onhire Prior Years", "Radios Onhire Previous 2026")
-    b26 = n("Batteries Onhire Current Year", "Batteries Onhire 2026 ")
-    bprev = n("Batteries Onhire Prior Years", "Batteries Onhire Previous 2026")
-    oos = n("Out Of Service")
-    ravail = sheet_rows(wb, "Radios Available")
-    bavail = sheet_rows(wb, "Radio Batteries Available")
+    prices, PRICE_RADIO, PRICE_BATT = load_prices(pricing)
+    PRICE_SOURCE = (f"new replacement price per {Path(pricing).name}" if pricing and PRICE_RADIO
+                    else "replacement price not in the pricing master - shown as TBC")
+    d = load_from_register(master, serials, prices)
+    r26, rprev, b26, bprev = d["r_cur"], d["r_prev"], d["b_cur"], d["b_prev"]
+    oos, ravail, bavail = d["oos"], d["r_avail"], d["b_avail"]
+    data_asat = d["asat"].strftime("%d %b %Y %H:%M")
+    prior_years = sorted(y for y in d["years"] if y < CUR_YEAR)
+    if prior_years:
+        PRIOR_LABEL = f"{prior_years[0]}{EN_DASH}{CUR_YEAR - 1}" if prior_years[0] != CUR_YEAR - 1 else str(CUR_YEAR - 1)
+        PRIOR_SHORT = f"{prior_years[0]}-{str(CUR_YEAR - 1)[2:]}" if prior_years[0] != CUR_YEAR - 1 else str(CUR_YEAR - 1)
+    hits, tot = d["serial_hits"], d["serial_total"]
+    META = {
+        "n_radio": d["n_radio"], "n_batt": d["n_batt"],
+        "serial_note": (f"serial numbers from the radio register or the serial SiteIQ carries in the "
+                        f"item description - {hits} of the {tot} radios on hire have one, "
+                        f"{tot - hits} show a dash"),
+        "coverage": (f"Fleet on the register: {d['n_radio']} radios and {d['n_batt']} batteries"
+                     + (f", including {d['turnaround']} SATGAS turnaround units" if d["turnaround"] else "")
+                     + (f"; {d['accounts']} units are held on shared site accounts, shown as such." if d["accounts"] else ".")),
+        "unpriced_note": (f" {d['unpriced']} unit(s) have no price in the master and are excluded from every "
+                          f"value total, never estimated." if d["unpriced"] else ""),
+    }
     html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat)
     base = out / "Ampol_Radio_OnHire_Report"
     with open(f"{base}.html", "w", encoding="utf-8") as f:
         f.write(html_str)
     write_pdf_robust(f"{base}.html", f"{base}.pdf")
     write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, f"{base}.pdf", f"{base}_OUTLOOK.eml", data_asat)
-    tot = val(r26) + val(rprev) + val(b26) + val(bprev)
+    tot_v = val(r26) + val(rprev) + val(b26) + val(bprev)
+    print(f"Data as at         : {data_asat}  (RENTAL_STOCK request time)")
     print(f"Radios {CUR_YEAR}: {len(r26)} | prior: {len(rprev)} | Batteries {CUR_YEAR}: {len(b26)} | prior: {len(bprev)} | "
-          f"OOS: {len(oos)} | TOTAL EXPOSURE: ${tot:,.0f}")
+          f"OOS: {len(oos)} | available {len(ravail)} radios / {len(bavail)} batteries | TOTAL EXPOSURE: ${tot_v:,.0f}")
+    print(f"Serials            : {hits} of {tot} radios on hire | unpriced units: {d['unpriced']}")
     print(f"Output: {out}")
 
 if __name__ == "__main__":
