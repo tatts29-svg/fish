@@ -36,7 +36,7 @@ REPORTS = [
      [["generate_v18_gas_monitor_report.py"]]),
     ("Site radio on-hire report",
      [["build_radio_report.py"]]),
-    ("Tooling reports - exec, quarters, companies, utilisation",
+    ("Tooling reports - exec, on-hire register (A-Z), quarterly charges, utilisation, compliance",
      [["build_ampol_tooling_report.py", "--everything"]]),
     ("Stocktake compliance report - client + team + worklist",
      [["build_stocktake_house_style.py"]]),
@@ -48,6 +48,8 @@ REPORTS = [
      [[DRAFTS]]),
     ("Check reports - the last gate before sending",
      [["CHECK_REPORTS.py"]]),
+    ("Verify numbers - the truth table (a second count from the exports)",
+     [["VERIFY_NUMBERS.py"]]),
 ]
 
 

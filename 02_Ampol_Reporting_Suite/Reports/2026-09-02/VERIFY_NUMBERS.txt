@@ -1,0 +1,45 @@
+Counted from Data\ exports at 02 Sep 2026 21:22 - none of the report code involved.
+
+FIGURE                                             THIS COUNT   ON TODAY'S PAGE
+----------------------------------------------------------------------
+register: rows                                          8,175   
+register: on hire                                       3,438   
+register: available for hire                            4,722   
+gas: fleet on register                                    878   MATCHES
+gas: available in store                                   335   MATCHES
+gas: on hire                                              543   
+radio: radios on register                                 637   
+radio: batteries on register                              781   
+radio: radios available                                     3   MATCHES
+transactions: rows this year                           90,602   MATCHES
+transactions: same-day %                                   69   
+tooling: on hire (2026 tooling)                         1,500   MATCHES
+tooling: Q1 / Q2 / Q3                          140 / 544 / 816   
+tooling: pre-2026 rows excluded                           853   
+tooling: available (tooling)                            4,053   MATCHES
+tooling: rows on the Repairs account                       70   MATCHES
+stocktake: countable items                              8,165   page not built today
+stocktake: in store / on hire                   4,727 / 3,438   
+stocktake: departed lines excluded                      4,915   page not built today
+rigging: register rows / distinct barcodes          905 / 889   MATCHES
+rigging: found in SiteIQ / not found                746 / 143   
+rigging: on hire (all accounts)                           314   
+calibration: assets on register                           347   MATCHES
+calibration: in cal / due 30 / overdue / no date 135 / 6 / 48 / 158   
+
+Former site name (display rule, disclosed on every data page):
+  raw SiteIQ lines still carrying it - register descriptions: 3,136
+  raw SiteIQ lines still carrying it - register company accounts: 4
+  PRINTED on today's pages (must be zero):
+    Tooling/Quarterly_OnHire_YEAR_2026-09-02.html: 1
+    Tooling/Quarterly_OnHire_YEAR_2026-09-02.body.html: 1
+    Tooling/Executive_Summary_2026-09-02.body.html: 1
+    Tooling/Quarterly_OnHire_Q3_2026-09-02.body.html: 1
+    Tooling/Quarterly_OnHire_Q2_2026-09-02.body.html: 1
+    Tooling/Quarterly_OnHire_Q3_2026-09-02.html: 1
+    Tooling/Quarterly_OnHire_Q2_2026-09-02.html: 1
+    Tooling/Quarterly_OnHire_Q1_2026-09-02.body.html: 1
+    Tooling/Quarterly_OnHire_Q1_2026-09-02.html: 1
+    Tooling/Executive_Summary_2026-09-02.html: 1
+
+FAIL - 1 figure(s) on today's pages do not match this count. Do not send.

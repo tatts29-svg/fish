@@ -57,6 +57,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 import ampol_paths
+import ampol_names
 
 BASE = Path(__file__).resolve().parent
 # WHY (12 Aug 2026): outputs land in the suite's dated Reports area now -
@@ -293,14 +294,23 @@ def load(path, master, fixes, exact, stripped):
         onhire_sys = mstatus == "On Hire"
         home = mhome if mhome and mhome.upper() not in ONHIRE_UNITS else (su if su.upper() not in ONHIRE_UNITS else mhome or su)
         cat = categorise(bc, desc if fixed else raw_desc)
+        # WHY (02 Sep 2026): the site is Ampol. SiteIQ still carries the
+        # former name on thousands of descriptions; every page shows the
+        # current name and the data note says how many lines still carry
+        # the old one. Matching and pricing above used the raw text.
+        desc = ampol_names.display_desc(desc)
+        mcomp_show = ampol_names.display_company(mcomp) if mcomp else ""
         rows.append({"unit": su, "barcode": bc, "desc": desc, "raw_desc": raw_desc,
+                     "former_name": ampol_names.carries_former_name(raw_desc),
+                     "company": mcomp_show, "account": ampol_names.account_label(mcomp) if mcomp else "",
+                     "hirer": mhirer,
                      "fixed": bool(fixed), "price_family": by_family,
                      "qty": qty, "price": price,
                      "value": (price * qty) if price is not None else None,
                      "last": d, "by": str(r[ix["LAST_SIGHTED_BY"]] or "").strip(),
                      "days": days, "cat": cat, "target": TIERS[cat][1],
                      "onhire": onhire_sys,
-                     "onhire_to": (f"{mcomp} \u2013 {mhirer}" if mcomp or mhirer else "").strip(" \u2013"),
+                     "onhire_to": (f"{mcomp_show} \u2013 {mhirer}" if mcomp or mhirer else "").strip(" \u2013"),
                      "home": home or "(no storage unit)",
                      "status": mstatus or "Not in master", "ohd": m_ohd})
     return rows, transit, export_dt
@@ -337,6 +347,7 @@ def derive(rows, export_dt):
     d["crit_instore"] = sum(1 for r in d["instore"] if bucket(r["days"]) in ("critical", "never"))
     d["crit_onhire"] = sum(1 for r in d["onhire"] if bucket(r["days"]) in ("critical", "never"))
     d["not_on_register"] = [r for r in rows if r["status"] == "Not in master"]
+    d["former_name_lines"] = sum(1 for r in rows if r.get("former_name"))
     d["awaiting_arrival"] = [r for r in rows if r["status"].upper() == "AWAITING ARRIVAL"]
     # activity - what's been done
     d["done7"] = [r for r in rows if r["days"] is not None and r["days"] <= 7]
@@ -445,8 +456,10 @@ def grouped_by_unit(items, bar_class=""):
     parts = []
     by_unit = defaultdict(list)
     for r in items: by_unit[r["home"]].append(r)
-    for unit in sorted(by_unit, key=lambda u: -len(by_unit[u])):
-        its = sorted(by_unit[unit], key=lambda r: -(r["days"] if r["days"] is not None else 99999))
+    # WHY (02 Sep 2026): bays A-Z - the order you walk the store and find a
+    # bay by eye - items inside a bay oldest first, A-Z breaking ties.
+    for unit in sorted(by_unit, key=ampol_names.sort_key):
+        its = sorted(by_unit[unit], key=lambda r: (-(r["days"] if r["days"] is not None else 99999), ampol_names.sort_key(r["desc"])))
         val = sum(r["value"] for r in its if r["value"])
         big = ' big' if len(its) > 30 else ''
         parts.append(f"""<div class="cblock{big}"><div class="cbar {bar_class}"><span class="cname">{unit}</span>
@@ -527,12 +540,12 @@ likely missed return scans. Locate, confirm, and process through the double-chec
     onhire_due = d["onhire_due30"]
     parts.append(f"""<div class="section"><h2 class="sec">5. On-Hire Verification \u2013 {len(onhire_due)} Items Outside 30 Days (Do Not Shelf Count)</h2>
 <div class="secsub">ON HIRE in the system \u2014 with contractors, not on shelves. Verified through the double-check return process
-and shutdown checks. Grouped by company so we know who holds what and the value of it; each line shows the home bay it returns to.</div>""")
+and shutdown checks. Grouped by company (A\u2013Z, one customer one name; hirers A\u2013Z inside a company) so we know who holds what and the value of it; each line shows the home bay it returns to.</div>""")
     by_co = defaultdict(list)
     for r in onhire_due:
         comp = (r["onhire_to"].split(" \u2013 ")[0] if r["onhire_to"] else "(unknown company)")
         by_co[comp].append(r)
-    for comp in sorted(by_co, key=lambda c: -len(by_co[c])):
+    for comp in sorted(by_co, key=ampol_names.sort_key):
         its = by_co[comp]
         cval = sum(r["value"] for r in its if r["value"])
         hirers = defaultdict(lambda: defaultdict(int)); oldest = defaultdict(int)
@@ -546,7 +559,7 @@ and shutdown checks. Grouped by company so we know who holds what and the value 
         parts.append(f"""<div class="cblock{' big' if len(hirers) > 25 else ''}"><div class="cbar blue"><span class="cname">{comp}</span>
 <span class="cmeta">&mdash; {len(its)} item{'s' if len(its) != 1 else ''} on hire 30+ days since last sighting &nbsp;\u2022&nbsp; {money(cval) if cval else 'unpriced'}</span></div>
 <table class="items"><tr><th>Hirer</th><th>Items (by category)</th><th>Returns To (Home Bay)</th><th class="num">Value</th><th class="num">Oldest (Days)</th></tr>""")
-        for h in sorted(hirers, key=lambda x: -sum(hirers[x].values())):
+        for h in sorted(hirers, key=ampol_names.sort_key):
             cats = ", ".join(f"{c} \u00d7{n}" for c, n in sorted(hirers[h].items(), key=lambda kv: -kv[1]))
             hm = ", ".join(f"{u} \u00d7{n}" for u, n in sorted(homes[h].items(), key=lambda kv: -kv[1])[:3])
             parts.append(f"""<tr><td><b>{h}</b></td><td>{cats}</td><td style="color:#1f5c99">{hm}</td>
@@ -556,7 +569,7 @@ and shutdown checks. Grouped by company so we know who holds what and the value 
 <div class="foot">Countable assets exclude {transit:,} lines that have departed the store (Pending Branch Receipt, or a Departure scan with the item
 no longer on the live register). Prices are Avg Buy Price (New) matched on item description (corrected descriptions applied by barcode;
 {d['priced_family']:,} serial-numbered gas monitors priced by their family line); unpriced items show \u2014 and are listed on the Pricing Gaps tab of the
-Excel worklist \u2014 no price is estimated. Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
+Excel worklist \u2014 no price is estimated. SiteIQ still carries the site's former name on {d['former_name_lines']:,} of these descriptions; they are shown under the current name (Ampol). Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
 is a missed return \u2014 flag and process same day.{sig_footer()}</div></body></html>""")
     return "".join(parts)
 
@@ -739,7 +752,7 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
     ws = wb.create_sheet("5 On-Hire Verify")
     ws.append(["Company", "Hirer", "Barcode", "Description", "Category", "Home Bay",
                "On-Hire Date", "Days Since Sighted", "Unit Price", "Verified (Y)"])
-    for it in sorted(d["onhire_due30"], key=lambda x: (x["onhire_to"], -(x["days"] or 0))):
+    for it in sorted(d["onhire_due30"], key=lambda x: (ampol_names.sort_key(x["onhire_to"]), -(x["days"] or 0))):
         comp = it["onhire_to"].split(" \u2013 ")[0] if it["onhire_to"] else "(unknown)"
         hirer = it["onhire_to"].split(" \u2013 ", 1)[1] if " \u2013 " in it["onhire_to"] else ""
         ws.append([comp, hirer, it["barcode"], it["desc"],

@@ -60,6 +60,7 @@ from statistics import median
 import openpyxl
 
 import ampol_paths
+import ampol_names
 
 # ---------------------------------------------------------------------
 # Business rules - the only knobs. Everything else is arithmetic.
@@ -197,25 +198,10 @@ def norm_person(name):
 
 
 def norm_company(co):
-    s = str(co or "").strip()
-    s = re.sub(r"\s+(fccu|satgas/mol|satgas|mol)\s*$", "", s, flags=re.I)
-    s = re.sub(r"\s+", " ", s).strip(" .")
-    u = s.upper()
-    if u.startswith("AMPOL"):
-        return "Ampol"
-    if u.startswith("CONTRACT RESOURCES"):
-        return "Contract Resources"
-    if u in _ACRONYMS:
-        return u
-    out = []
-    for w in s.split(" "):
-        if w.upper() in _ACRONYMS:
-            out.append(w.upper())
-        elif w.isupper() or w.islower():
-            out.append(w[:1].upper() + w[1:].lower())
-        else:
-            out.append(w)
-    return " ".join(out) or "Unknown"
+    """One customer, one name - the shared rule in ampol_names (the former
+    site-name account and the refinery legal name both read Ampol; project
+    accounts roll up to their parent; acronym companies stay upper-case)."""
+    return ampol_names.display_company(co)
 
 
 def same_day(st, en):

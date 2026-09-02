@@ -410,10 +410,10 @@ The STORAGE_UNIT column is SiteIQ's storage unit for the item as at the same exp
     rest_n = len(comp_tot) - len(top10)
     rest_v = sum(comp_tot.values()) - sum(v for _, v in top10)
     if rest_n > 0:
-        exp_note = (f"Showing {len(top10)} of {len(comp_tot)} companies — the remaining "
+        exp_note = (f"Ranked by value - showing {len(top10)} of {len(comp_tot)} companies; the remaining "
                     f"{rest_n} hold {money(rest_v)} between them. Red bars carry {money(100000)}+.")
     else:
-        exp_note = f"All {len(comp_tot)} companies shown. Red bars carry {money(100000)}+."
+        exp_note = f"Ranked by value - all {len(comp_tot)} companies shown. Red bars carry {money(100000)}+."
     all_on = r26 + rprev + b26 + bprev
     age_defs = [("0–30 days", lambda d: d <= 30, "#1e7d32"),
                 ("31–90 days", lambda d: 31 <= d <= 90, "#e07000"),
@@ -453,7 +453,7 @@ Any unit not in use: return it.</div>
 <div style="font-size:14pt;font-weight:bold;color:#c00000">{cnt} units \u00b7 {money(v)}</div></td>""")
     parts.append("</tr></table>")
 
-    parts.append("""<table class="matrix"><tr><th>Company</th>""")
+    parts.append("""<table class="matrix"><tr><th>Company (ranked by value)</th>""")
     for y in years:
         parts.append(f'<th class="num">{y}</th>')
     parts.append('<th class="num">Total Units</th><th class="num">Value</th><th class="num">Oldest (days)</th></tr>')

@@ -1,12 +1,10 @@
 @echo off
-title Coates Ampol - 04 Tooling Reports
+title Coates Ampol - 13 Verify Numbers
 rem ============================================================
 rem  COATES - AMPOL TOOL STORE (Lytton Refinery)
-rem  04 - TOOL STORE REPORTS (exec, ONE on-hire register A-Z, quarterly
-rem       charges, utilisation, compliance). Per-company reports are off by
-rem       default (02 Sep 2026) - one-off: build_ampol_tooling_report.py --company NAME
-rem  Counts from Data\RENTAL_STOCK, TRANSACTIONS and STOCKTAKE (SiteIQ pulls).
-rem  The tooling workbook is NOT read - nothing to refresh (02 Sep 2026).
+rem  13 - VERIFY NUMBERS (the truth table - a second, independent
+rem       count of today's key figures straight from the exports,
+rem       checked against the pages built today)
 rem  Author: Andrew Fisher - POWERED BY SITEIQ
 rem
 rem  Every report reads its Excels from Data\  - one area, always.
@@ -17,8 +15,8 @@ cd /d "%~dp0"
 set "PYCMD=python"
 where py >nul 2>nul && set "PYCMD=py -3"
 
-%PYCMD% build_ampol_tooling_report.py --everything
+%PYCMD% VERIFY_NUMBERS.py %*
 echo.
-echo  Done. Today's output: Reports\(today's date)\Tooling
+echo  The table is also saved as Reports\(today's date)\VERIFY_NUMBERS.txt
 echo.
 pause

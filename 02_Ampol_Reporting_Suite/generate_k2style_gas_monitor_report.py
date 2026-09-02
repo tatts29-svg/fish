@@ -565,7 +565,7 @@ def page_where(m):
                      f'<b>{num(w2["outstanding"])}</b>' if w2["outstanding"] else '<span class="tbc">0</span>',
                      money(w2["exposure"]) if w2["exposure"] else '<span class="tbc">$0</span>',
                      f'<span class="{ucls}">{esc(w2["urgency"])}</span>'])
-    return f"""<div class="sect"><h3>Where the monitors are right now - by company</h3></div>
+    return f"""<div class="sect"><h3>Where the monitors are right now - by company, ranked by units 30+ days out</h3></div>
 <div class="callout tight">
   <b>{num(m['crew_out'])} monitors</b> are out to crew across
   <b>{num(len([w2 for w2 in where if w2['total']]))} companies</b>: {num(m['out_today'])} went out today

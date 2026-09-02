@@ -2,122 +2,170 @@
  COATES - AMPOL TOOL STORE (Lytton Refinery)
  THE REPORTING SUITE - START HERE
  Author: Andrew Fisher  |  POWERED BY SITEIQ
+ Suite version: see SUITE_VERSION.txt
 ============================================================
 
 Everything is a numbered .bat file. Double-click it. You never
-need to open Python, and you never need to remember where a
-file lives. The numbers will not change once you know them.
+open Python and you never need to remember where a file lives.
+The numbers will not change once you know them.
 
-The two rules the whole suite is built on:
+------------------------------------------------------------
+HOW THIS WORKS - IN ONE BREATH
+------------------------------------------------------------
+Three SiteIQ exports go into Data\. Every report counts from
+those three files plus a few small lookup lists. Nothing is
+typed in, nothing is refreshed, nothing is estimated. The
+reports land in a dated folder, the emails land as DRAFTS,
+and two checks run last: one for blanks, one that counts the
+key figures again from scratch and compares them with the
+pages (the truth table). If the two counts disagree, the run
+fails red and names the figure. Open HOW_IT_WORKS.html for the
+same thing as a picture.
 
-  1. ONE AREA FOR ALL THE EXCELS. Every workbook every report
-     reads lives in Data\ - nothing reads from anywhere else.
-     Fresh SiteIQ pulls get saved over the top of the same
-     names in Data\ (or use button 12 to file them for you).
-     The old copy is backed up into Data\previous\ first.
+The rules the whole suite is built on:
 
-  2. WORKS ON ALL COMPUTERS. Copy this whole folder to any
-     laptop and everything still works - every path inside the
-     suite is relative to the folder itself. On a new machine,
-     run 10_CHECK_MY_SETUP first and it will tell you in plain
-     words if anything is missing.
+  1. ONE AREA FOR ALL THE DATA. Everything a report reads lives
+     in Data\ - nothing reads from anywhere else. Fresh SiteIQ
+     pulls are saved over the top of the same names (button 12
+     does the filing). Yesterday's copy goes to Data\previous\.
+
+  2. NO WORKBOOK IS EVER REFRESHED. The .xlsm workbooks are not
+     read (02 Sep 2026). The two registers (calibration, rigging)
+     are read only for what you type into them - due dates, test
+     dates, which items are on the register - and each report
+     joins them to the live RENTAL_STOCK itself.
+
+  3. REAL DATA ONLY. A value that is not in the source prints as
+     a dash and is disclosed; never a guess, never $0-filled.
+     The site is Ampol: SiteIQ still carries the former site name
+     on thousands of descriptions and one customer account; every
+     page shows the current name and its data page says how many
+     raw lines still carry the old one.
+
+  4. ONE ORDER. Companies A to Z, one customer one name (project
+     accounts such as FCCU roll up to their parent), hirers A to Z
+     inside a company, a person's items longest-held first. A
+     table that is ranked says "ranked by ..." in its heading.
+
+  5. NOTHING SENDS BY ITSELF. Every email is a draft until you
+     press Send.
+
+  6. WORKS ON ANY COMPUTER. Copy this whole folder to any laptop
+     and it runs - every path is relative to the folder itself.
 
 ------------------------------------------------------------
 EVERY MORNING (about 10 minutes)
 ------------------------------------------------------------
-  1. Download fresh SiteIQ exports (RENTAL_STOCK, STOCKTAKE,
-     TRANSACTIONS), then double-click 12_PULL_SITEIQ_EXPORTS.
-     It finds them in Downloads, checks they are AMPOL exports,
-     backs up yesterday's copies and files the new ones into
-     Data\. Wrong-site files are skipped loudly, never filed.
-  2. Nothing to refresh. Every report counts from the three
-     exports in Data\ (RENTAL_STOCK, TRANSACTIONS, STOCKTAKE) and
-     the small lookup files. The .xlsm workbooks are not read
-     (02 Sep 2026). The calibration and rigging registers are read
-     only for what you type into them - due dates, test dates,
-     which items are on the register - and joined to the live
-     RENTAL_STOCK by the report itself.
-  3. Double-click 00_RUN_EVERYTHING. It builds every report,
-     makes the Outlook drafts and runs the final check.
+  1. In SiteIQ, export RENTAL_STOCK, TRANSACTIONS and STOCKTAKE
+     (they land in Downloads). Double-click 12_PULL_SITEIQ_EXPORTS.
+     It finds them, checks they are AMPOL exports, backs up
+     yesterday's copies and files the new ones into Data\.
+     Wrong-site files are skipped loudly, never filed.
+  2. Double-click 00_RUN_EVERYTHING. It builds every report,
+     makes the Outlook drafts, runs the blank check and the
+     truth table. Read the last screen: PASS or a named figure.
+  3. Open the drafts, read them, press Send yourself.
 
 Everything lands in Reports\(today's date)\ - one folder per
-report family, dated, never overwritten.
+report family, dated, never overwritten. The truth table is
+saved there too, as VERIFY_NUMBERS.txt.
 
 ------------------------------------------------------------
-WHEN YOU ONLY WANT ONE THING
+THE BUTTONS
 ------------------------------------------------------------
+  00  Run everything (the whole morning in one button)
   01  Gas monitor report (K2-style PDF + email draft)
   02  Gas executive dashboard (the V18 email dashboard)
   03  Site radio on-hire report
-  04  Tooling reports (exec, quarters, companies, utilisation)
+  04  Tooling reports: executive summary, ONE on-hire register
+      (every company A-Z, every hirer A-Z, longest-held first),
+      quarterly charge reports (Q1-Q4 + year), utilisation and
+      what-to-buy, compliance and trends. Per-company reports
+      are off by default - there are hundreds of companies.
   05  Stocktake compliance report (client + team + worklist)
   06  Calibration register report
   07  Rigging and lifting register report
-
-Or 11_PICK_A_REPORT for a menu you can pick several from.
+  08  Make Outlook drafts from everything built today
+  09  Check reports (blanks, placeholders, nan, email weight)
+  10  Check my setup (run this first on a new computer)
+  11  Pick a report (menu when you only want one thing)
+  12  Pull SiteIQ exports from Downloads into Data\
+  13  Verify numbers (the truth table)
 
 ------------------------------------------------------------
-SENDING
+ON ANOTHER COMPUTER
 ------------------------------------------------------------
-NOTHING SENDS BY ITSELF. EVER.
+  1. Copy the whole 02_Ampol_Reporting_Suite folder across
+     (USB, OneDrive, shared drive - anything). Keep the name.
+  2. Double-click 10_CHECK_MY_SETUP. It says in plain words if
+     Python, Edge/Chrome or a Data\ file is missing.
+  3. Put today's three exports in Data\ (button 12 or by hand).
+  4. Double-click 00_RUN_EVERYTHING.
+  Python 3 and Microsoft Edge (for the PDFs) are the only things
+  the computer needs; both are standard on a Coates laptop. No
+  Outlook on the machine? Create an empty file NO_OUTLOOK.txt in
+  this folder and 00 skips the drafting step; the .eml files in
+  the day's folder still open in any mail program.
 
-Every email lands as a DRAFT - either in Outlook Drafts (via
-button 08 or the drafts step in 00) or as a .eml file in the
-day's Reports folder you can double-click open. Read the
-draft, check the numbers, press Send yourself.
+  Two laptops carrying the suite: copy the folder from the one
+  you updated last. SUITE_VERSION.txt tells you which is newer.
+  Data\ and Reports\ are each machine's own - compare them, never
+  merge them.
 
-Before sending, 09_CHECK_REPORTS sweeps every page built today
-for blanks, leftover {placeholders}, nan and None, and weighs
-every email against the 10 MB limit. Run it. It is the last
-gate.
+------------------------------------------------------------
+UPDATES FROM CLAUDE
+------------------------------------------------------------
+An update arrives as ONE flat zip (scripts and notes only, never
+data, never a register). Drop it into this folder, let it
+overwrite, run 00. SUITE_VERSION.txt shows the new version. Your
+Data\, Reports\ and registers are never touched by an update.
 
 ------------------------------------------------------------
 WHEN SOMETHING IS WRONG
 ------------------------------------------------------------
-Reports look wrong or thin:
+A number is questioned:
+  - Open Reports\(today)\VERIFY_NUMBERS.txt. Every key figure is
+    counted there a second time, straight from the exports, and
+    marked MATCHES against the page. Hand that over.
+  - Every report has a data-and-method page: sources with pull
+    stamps, the rules, and the reconciliation. The rules are
+    printed, so they can be argued with - and changed once, in
+    the script, for every report.
+
+Reports look thin or stale:
   - Check the data first: are the files in Data\ today's pulls?
-    The report footer shows "Data as at" - if it says
-    yesterday, the export is yesterday's.
-  - 10_CHECK_MY_SETUP names anything missing in plain words.
+    Every page prints "Data as at" from the export's own request
+    stamp - if it says yesterday, the export is yesterday's.
 
 A button window flashes an error:
-  - Run it again and read the message - every failure says
-    what is wrong in plain words. If it names a missing file,
-    that file belongs in Data\.
+  - Run it again and read the message - every failure says what
+    is wrong in plain words. If it names a missing file, that
+    file belongs in Data\.
 
 Outlook drafts did not appear:
   - Outlook (classic desktop) must be open. Run 08 again -
     already-drafted reports are skipped, nothing doubles up.
-  - No Outlook on this machine? Create a file called
-    NO_OUTLOOK.txt in this folder and 00 will skip drafting.
-    The .eml files in the day's folder still work.
 
 ------------------------------------------------------------
 THE DATA FOLDER - WHAT LIVES WHERE
 ------------------------------------------------------------
 Data\
-  RENTAL_STOCK.xlsx                 SiteIQ pull, saved over the top
-  STOCKTAKE.xlsx                    SiteIQ pull, saved over the top
-  TRANSACTIONS.xlsx                 SiteIQ pull, saved over the top
-  Ampol Gas Monitor Report.xlsm     gas workbook (optional - attached to the email)
-  Gas_Monitor_Serial_Numbers.xlsx   gas serial lookup
-  Ampol_Radio_Report.xlsm           radio workbook (not read - kept for reference)
-  radio_register.xlsx               radio serial register
-  Ampol_Onhire_Tooling_Report.xlsm  tooling workbook (refresh + save)
-  Tooling_Description_Mapping.xlsx  barcode -> clean description map
-  Ampol_ToolStore_Pricing.xlsx      pricing master (3,227 lines)
+  RENTAL_STOCK.xlsx                 SiteIQ pull - where every item is
+  TRANSACTIONS.xlsx                 SiteIQ pull - every issue and return this year
+  STOCKTAKE.xlsx                    SiteIQ pull - last sighting of every item
+  Gas_Monitor_Serial_Numbers.xlsx   gas serial lookup (barcode -> serial)
+  radio_register.xlsx               radio serial lookup
+  Ampol_ToolStore_Pricing.xlsx      pricing master (Avg Buy Price New)
+  Tooling_Description_Mapping.xlsx  barcode -> clean description
   New_Descriptions___Andrew.xlsx    description corrections worklist
-  Ampol_Calibration_Register.xlsx   calibration register (live)
-  Rigging Register.xlsx             rigging & lifting register
+  Ampol_Calibration_Register.xlsx   calibration register - you type the
+                                    due dates and certificates in
+  Rigging Register.xlsx             rigging register - you type the test
+                                    details in
+  Ampol Gas Monitor Report.xlsm     not read - kept for reference
+  Ampol_Radio_Report.xlsm           not read - kept for reference
+  Ampol_Onhire_Tooling_Report.xlsm  not read - kept for reference
   previous\                         dated backups, made automatically
-
-The .xlsm workbooks find their own SiteIQ exports in the folder
-they live in - which is Data\, right next to the exports. That
-is on purpose: refresh works because everything is in one area.
-
-The old Tooling copy of the pricing file (superseded 29 Jul
-2026 - it was missing the three Drager X-am 5000 lines) is kept
-in _Archive\, not merged, not deleted.
 
 ------------------------------------------------------------
 HOUSEKEEPING

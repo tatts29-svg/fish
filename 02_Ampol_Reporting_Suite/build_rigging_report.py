@@ -70,6 +70,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ampol_paths
 import build_stocktake_compliance_tool as eng   # write_pdf_robust, find_workbook, parse_dt
 import gasmon_engine as ge                       # norm_company, parse_stamp
+import ampol_names                               # how names are SHOWN
 import k2shell as sh
 from k2shell import esc, num, K
 
@@ -185,7 +186,8 @@ def load_register(path):
             "serial": _s(r[ix["Serial Number"]]) if "Serial Number" in ix else "",
             "bc_raw": bc_raw,
             "barcode": bc_raw.upper(),
-            "desc": _s(r[ix["REGISTER_DESCRIPTION"]]),
+            "desc": ampol_names.display_desc(_s(r[ix["REGISTER_DESCRIPTION"]])),
+            "former_name": ampol_names.carries_former_name(_s(r[ix["REGISTER_DESCRIPTION"]])),
             "tests": tests,
             "has_test": any(tests.values()),
         })
@@ -275,7 +277,8 @@ def load_live(path):
         since = eng.parse_dt(g(r, "ON_HIRE_DATE"))
         rows.append({
             "bc_raw": bc, "barcode": bc.upper(),
-            "desc": _s(g(r, "ITEM_DESCRIPTION")),
+            "desc": ampol_names.display_desc(_s(g(r, "ITEM_DESCRIPTION"))),
+            "former_name": ampol_names.carries_former_name(_s(g(r, "ITEM_DESCRIPTION"))),
             "status": _s(g(r, "ITEM_STATUS")),
             "company_raw": _s(g(r, "COMPANY_NAME")),
             "hirer": _s(g(r, "HIRER_NAME")),
@@ -318,6 +321,8 @@ def derive(reg_rows, snap, snap_max, extract, live_rows, asat_dt):
 
     # ---- register identity (row basis) ----------------------------------
     d["rows"] = len(reg_rows)
+    d["former_reg"] = sum(1 for r in reg_rows if r.get("former_name"))
+    d["former_live"] = sum(1 for r in live_rows if r.get("former_name"))
     d["blank"] = [r for r in reg_rows if not r["barcode"]]
     d["lower"] = sum(1 for r in reg_rows if r["bc_raw"] and r["bc_raw"] != r["barcode"])
     cnt = Counter(r["barcode"] for r in reg_rows if r["barcode"])
@@ -408,7 +413,9 @@ def derive(reg_rows, snap, snap_max, extract, live_rows, asat_dt):
                      "accounts": sorted({it["account"] for it in lst}),
                      "hirers": len({it["hirer"] for it in lst}),
                      "oldest": lst[0], "items": lst})
-    comp.sort(key=lambda x: (-x["n"], x["co"]))
+    # WHY (02 Sep 2026): companies A-Z - the counter finds a name by eye; the
+    # ranked view of the same data is the longest-held page.
+    comp.sort(key=lambda x: ampol_names.sort_key(x["co"]))
     d["companies"] = comp
     d["oh_longest"] = sorted([it for it in d["onhire"] if it["since"]],
                              key=lambda it: it["since"])
@@ -427,7 +434,7 @@ def derive(reg_rows, snap, snap_max, extract, live_rows, asat_dt):
         rep.append({"hirer": h, "n": len(lst),
                     "accounts": sorted({it["account"] for it in lst}),
                     "oldest": lst[0], "items": lst})
-    rep.sort(key=lambda x: (-x["n"], x["hirer"]))
+    rep.sort(key=lambda x: ampol_names.sort_key(x["hirer"]))
     d["repair_lines"] = rep
     d["out_of_tag"] = [it for it in d["repair"]
                        if re.search(r"out\s*of\s*tag", it["hirer"], re.I)]
@@ -749,8 +756,8 @@ def build_pages(d, asat_s):
     if not rrows:
         rrows = [['<span class="tbc">no register item is at repairs or quarantined</span>',
                   dash(), "0", dash(), dash(), dash()]]
-    P.append(f"""{psect("Where the rigging gear is - by company, longest held first")}
-{pcallout(f'<b class="o">{num(oh_n)} items</b> are on hire to <b>{num(n_co)} customer companies</b> ({num(d["oh_hirers"])} hirer names) per the SiteIQ pull as at {esc(asat_s)}. Companies ranked by holding, each with its <b>longest-held item</b> named with barcode and hirer - because the oldest hire is always the first conversation. Project accounts are merged into their company (the SiteIQ account names sit under the company). A further <b>{num(rp_n)}</b> register items sit on repairs or quarantine custody lines - shown separately on page 3, never counted as customer hire.', False)}
+    P.append(f"""{psect("Where the rigging gear is - by company, A to Z")}
+{pcallout(f'<b class="o">{num(oh_n)} items</b> are on hire to <b>{num(n_co)} customer companies</b> ({num(d["oh_hirers"])} hirer names) per the SiteIQ pull as at {esc(asat_s)}. Companies A to Z, each with its <b>longest-held item</b> named with barcode and hirer - because the oldest hire is always the first conversation. Project accounts are merged into their company (the SiteIQ account names sit under the company). A further <b>{num(rp_n)}</b> register items sit on repairs or quarantine custody lines - shown separately on page 3, never counted as customer hire.', False)}
 {sh.dtable(["Company (SiteIQ accounts)", "Items", "Hirers", "Longest-held item · barcode · hirer", "On hire since", "Held"],
            crows, ["", "r", "r", "", "r", "r"], cls="cp")}
 {pnote(f'Held = days from the SiteIQ on-hire date to the pull time, {esc(asat_s)}. Hirer names are as SiteIQ records them, shared site accounts included. {num(d["oh_after_snap"])} of the {num(oh_n)} customer-hire items were issued after {snap_s}, the newest date in the workbook&rsquo;s own locate sheet - which is why that sheet is no longer used for status. Repairs and quarantine custody lines are on page 3.')}""")
@@ -922,7 +929,7 @@ def build_pages(d, asat_s):
     first_kw = len(P) + 1
     for i, rows in enumerate(kw_pages):
         n_pages = len(kw_pages)
-        head = psect("Possibly rigging gear not on the register - keyword match, verify"
+        head = psect("Possibly rigging gear not on the register - keyword match, verify - ranked by count"
                      + (f" ({i + 1} of {n_pages})" if n_pages > 1 else ""))
         if i == 0:
             head += pcallout(
@@ -962,8 +969,10 @@ def build_pages(d, asat_s):
          f"upper-cases and de-duplicates; the fixes belong in the Master. Rigging "
          f"gear is Life Saving Rule 5 territory (SEQ-GL-009) - the record has to be real."),
     ])
+    former_n, former_live = d["former_reg"], d["former_live"]
     P.append(f"""{psect("How the rigging fleet is run")}
 {cards}
+{pnote(f'Names as shown: the site is Ampol. SiteIQ and the register still carry the site&rsquo;s former name on {num(former_n)} register descriptions and {num(former_live)} live-register lines; every one is shown here under the current name. Barcodes are identifiers and never change. Companies are one customer one name (the refinery legal name and the former site account both read Ampol; project accounts roll up to their parent).')}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
 {sh.team_cards(CONFIG["team"])}""")

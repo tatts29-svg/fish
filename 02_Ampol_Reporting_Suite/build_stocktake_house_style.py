@@ -449,7 +449,7 @@ def build_client_pages(rows, d, a, export_dt):
                       '<span class="tbc">unpriced</span>'])
     P.append(f"""{psect("Coverage by storage bay - RAG rated")}
 {pcallout('Green from 90% sighted inside 30 days, amber from 75%, red below - the same RAG discipline as every Coates report. <b>Due</b> counts items outside their own tier target, so a red bay tells you exactly where the trolley goes next.')}
-{sh.dtable(["Storage bay", "Items", "Sighted 30d", "Due (tier target)", "Priced value"],
+{sh.dtable(["Storage bay (ranked by items)", "Items", "Sighted 30d", "Due (tier target)", "Priced value"],
            urows, ["", "r", "r", "r", "r"])}
 {pnote((f'Plus {len(rest)} smaller bays holding {num(sum(u["n"] for u in rest))} items between them - full detail in the staff worklist. ' if rest else '') + 'Bays are the item&rsquo;s home storage unit from the live register; on-hire items are excluded from bay coverage.')}""")
 
@@ -477,9 +477,9 @@ def build_client_pages(rows, d, a, export_dt):
              for x in oc]
     P.append(f"""{psect("On hire - verified on return, not hunted on shelves")}
 {pcallout(f'<b>{num(len(d["onhire"]))} items</b> show ON HIRE on the register, holding <b>{money(d["val_onhire"])}</b> of priced value - {num(len(d["onhire"]) - a["custody_n"])} out with contractors and {num(a["custody_n"])} on the repairs and Dr&auml;ger service accounts. On-hire gear is verified through the double-scan return process and shutdown checks - chasing it around site during a count would be friction for no assurance. <b class="o">{num(len(d["missed_returns"]))} possible missed returns</b> (sighted in a store bay after their on-hire date) are flagged to resolve first, so hirers are never held for gear that is already home.')}
-{sh.dtable(["Company (register spellings merged)", "Items on hire", "Not scanned 30d", "Priced value"],
+{sh.dtable(["Company (ranked by items on hire)", "Items on hire", "Not scanned 30d", "Priced value"],
            orows, ["", "r", "r", "r"])}
-{pnote(f'Companies are merged across the register&rsquo;s spellings (AMPOL, AMPOL REFINERIES (QLD) PTY LTD and CALTEX are one customer; project accounts such as FCCU and SATGAS/MOL roll into their parent). "Not scanned 30d" is an item whose latest scan of any kind is older than 30 days - a long hire, not a lost item. Top {len(oc)} of {len(a["onhire_co"])} accounts shown.')}
+{pnote(f'Ranked by items on hire - the one ranked table on this page. Companies are merged across the register&rsquo;s spellings (the refinery legal name and the site&rsquo;s former account both read Ampol; project accounts such as FCCU and SATGAS/MOL roll into their parent). "Not scanned 30d" is an item whose latest scan of any kind is older than 30 days - a long hire, not a lost item. Top {len(oc)} of {len(a["onhire_co"])} accounts shown.')}
 {sh.tiles([
     ("swap", num(len(d["onhire"])), "Items on hire", "", ""),
     ("warn", num(len(d["onhire_due30"])), "Not verified in 30d",
@@ -503,7 +503,9 @@ def build_client_pages(rows, d, a, export_dt):
          "Every score prints its own arithmetic. Values are Avg Buy Price (New) "
          "from the pricing master; serial-numbered gas monitors take their "
          "family line; anything unpriced is excluded and disclosed, "
-         "<b>never estimated</b>."),
+         "<b>never estimated</b>. SiteIQ still carries the site&rsquo;s former "
+         f"name on {num(d['former_name_lines'])} descriptions - shown here under "
+         "the current name."),
         ("Idle stock is the target",
          "Movement resets the clock, so the count cadence naturally hunts the "
          "gear that sits still - the gear that goes missing quietly."),
@@ -577,7 +579,7 @@ def build_team_pages(rows, d, a, export_dt):
                       esc(x["last"].strftime("%d %b %H:%M") if x["last"] else "")])
     P.append(f"""{psect("The people turning the wheel")}
 {pcallout('Every sighting in the register carries a name. This is who made the <b>latest</b> sighting of each item in the last 30 days - stocktake scans separated from movement scans, because walking a bay with a scanner is the work that finds idle gear.')}
-{sh.dtable(["Who", "Items, last 7d", "Items, last 30d", "Of which stocktake scans", "Share of 30d", "Most recent scan"],
+{sh.dtable(["Who (ranked by items, last 30d)", "Items, last 7d", "Items, last 30d", "Of which stocktake scans", "Share of 30d", "Most recent scan"],
            lrows, ["", "r", "r", "r", "r", "r"])}
 {pnote('The export keeps one sighting per item - the latest - so these are items whose most recent scan carries this name, not every scan the person made. Share is of all items sighted in the last 30 days. Movement scans (issues and returns) also reset an item&rsquo;s clock - both count, both are the wheel turning.')}
 {psubh("Items by day of latest sighting", "&mdash; last 14 days, stocktake scans highlighted")}
@@ -637,7 +639,7 @@ def build_team_pages(rows, d, a, export_dt):
              for u in ut if u["due"]]
     P.append(f"""{psect("Where to point the trolley - due items by bay")}
 {pcallout('Clear a bay at a time - it is faster, it is auditable, and the register RAG turns green a whole shelf at a stretch. Bays ranked by due count; <b>oldest</b> is the longest-unsighted item in the bay.')}
-{sh.dtable(["Storage bay", "Items", "Due now", "Sighted 30d", "Oldest"],
+{sh.dtable(["Storage bay (ranked by due items)", "Items", "Due now", "Sighted 30d", "Oldest"],
            urows, ["", "r", "r", "r", "r"])}
 {pnote(f'Due = outside the item&rsquo;s own tier target (7/14/30 days). Full item-by-item detail is the printed worklist and the Excel workbook - this page is the map, those are the streets.')}""")
 
@@ -831,7 +833,7 @@ def build_email_html(rows, d, a, export_dt, gen_s, asat_s):
 <div style="{FONT}font-size:10px;font-weight:bold;letter-spacing:2px;color:#F36F21;text-transform:uppercase;">Your Coates Tool Store Team</div>
 <div style="{FONT}font-size:11px;color:#8A9AAC;padding-top:5px;line-height:1.7;">{team_line}</div>
 <div style="{FONT}font-size:10px;color:#98A6B4;padding-top:9px;line-height:1.7;">
-Coates Hire &middot; Sources: SiteIQ STOCKTAKE export ({esc(asat_s)}), RENTAL_STOCK register, pricing master. Unpriced items excluded from value totals, never estimated; serial-numbered gas monitors priced by their family line. Activity figures are items by their latest sighting (the export keeps one sighting per item). The Coates Way - consistent execution, every day. <b style="color:#16202C;">POWERED BY SITEIQ</b></div>
+Coates Hire &middot; Sources: SiteIQ STOCKTAKE export ({esc(asat_s)}), RENTAL_STOCK register, pricing master. Unpriced items excluded from value totals, never estimated; serial-numbered gas monitors priced by their family line. Activity figures are items by their latest sighting (the export keeps one sighting per item). Descriptions still carrying the site&rsquo;s former name in SiteIQ ({num(d["former_name_lines"])}) are shown under the current name. The Coates Way - consistent execution, every day. <b style="color:#16202C;">POWERED BY SITEIQ</b></div>
 </td></tr></table>""")
 
     body = "".join(

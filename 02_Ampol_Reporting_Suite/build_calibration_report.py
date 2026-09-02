@@ -72,7 +72,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import ampol_paths
-import build_stocktake_compliance_tool as eng   # write_pdf_robust + find_workbook + parse_dt
+import build_stocktake_compliance_tool as eng
+import ampol_names   # write_pdf_robust + find_workbook + parse_dt
 import k2shell as sh
 from k2shell import esc, money, num, K
 
@@ -247,7 +248,7 @@ def load_entry(path):
         if not any(c not in (None, "") for c in r):
             continue
         asset = str(cell(r, "New Asset No")).strip()
-        desc = str(cell(r, "Description")).strip()
+        desc = ampol_names.display_desc(str(cell(r, "Description")).strip())
         if not asset and not desc:
             continue      # template padding - a formula, no asset
         rows.append({
@@ -288,7 +289,7 @@ def load_register_view(path):
         if isinstance(lr, datetime) and (refresh is None or lr > refresh):
             refresh = lr
         asset = str(cell(r, "New Asset No")).strip()
-        desc = str(cell(r, "Description")).strip()
+        desc = ampol_names.display_desc(str(cell(r, "Description")).strip())
         if not asset and not desc:
             blanks += 1   # register template padding - a status formula, no asset
             continue
@@ -363,7 +364,8 @@ def load_rental_stock(path):
             "company": col(r, "COMPANY_NAME"),
             "out": out,
             "unit": col(r, "STORAGE_UNIT"),
-            "desc": col(r, "ITEM_DESCRIPTION"),
+            "desc": ampol_names.display_desc(col(r, "ITEM_DESCRIPTION")),
+            "former_name": ampol_names.carries_former_name(col(r, "ITEM_DESCRIPTION")),
         }
     wb.close()
     return live, pulled, n_rows
@@ -394,6 +396,7 @@ def workbook_saved(path):
 def derive(rows, view, live, asat_d, maint_d, refresh, audit_n):
     d = {}
     d["total"] = len(rows)
+    d["former_live"] = sum(1 for v in live.values() if v.get("former_name"))
     regset = {r["asset"].upper() for r in rows if r["asset"]}
     d["dup_assets"] = len([r for r in rows if r["asset"]]) - len(regset)
 
@@ -435,10 +438,12 @@ def derive(rows, view, live, asat_d, maint_d, refresh, audit_n):
     # the chase list - person first, worst first; the repairs queue split
     # out because that is a different conversation
     def grouped(items, key, days_key):
+        # WHY (02 Sep 2026): hirers A-Z - a name is found by eye - and the
+        # worst item first inside a name (the row sort in chase_rows).
         g = defaultdict(list)
         for r in items:
             g[key(r) or "(no hirer recorded)"].append(r)
-        return sorted(g.items(), key=lambda kv: min(x[days_key] or 0 for x in kv[1]))
+        return sorted(g.items(), key=lambda kv: ampol_names.sort_key(kv[0]))
     d["now_chase_hirer"] = grouped([r for r in d["now_od_onhire"] if not r["repairs_now"]],
                                    lambda r: r["live_hirer"], "now_days")
     d["now_chase_repairs"] = grouped([r for r in d["now_od_onhire"] if r["repairs_now"]],
@@ -874,9 +879,9 @@ def build_pages(rows, d, S):
         body5 = pnote("Nothing overdue is on hire in SiteIQ at the pull time.")
     mark("chase")
     P.append(f"""{psect(f"Overdue and on hire at {asat_day} - the chase list, by name")}
-{pcallout(f'<b class="rd">{num(n_od_oh)} overdue {plural(n_od_oh, "asset")} {isare(n_od_oh)} out on hire at {esc(asat_s)}</b> - register due dates joined to the SiteIQ RENTAL_STOCK pull (the register&rsquo;s own on-hire flag is page @@P:regchase@@). {num(n_h)} {isare(n_h)} with a hirer - a swap or recall on next touch - and {num(n_r)} {"sits" if n_r == 1 else "sit"} on the repairs account. Person first, worst first. {after_words}', False)}
+{pcallout(f'<b class="rd">{num(n_od_oh)} overdue {plural(n_od_oh, "asset")} {isare(n_od_oh)} out on hire at {esc(asat_s)}</b> - register due dates joined to the SiteIQ RENTAL_STOCK pull (the register&rsquo;s own on-hire flag is page @@P:regchase@@). {num(n_h)} {isare(n_h)} with a hirer - a swap or recall on next touch - and {num(n_r)} {"sits" if n_r == 1 else "sit"} on the repairs account. Names A to Z, worst item first inside a name. {after_words}', False)}
 {body5}
-{pnote(f'Hirers ranked by their most-overdue item; overdue by = days past the due date at {esc(asat_s)}, computed. Out since = SiteIQ ON_HIRE_DATE for the current hire; the red tag marks a hire that started after the calibration due date. Every one of these is a counter conversation on next touch - swap organised, certificate sorted, no drama.' + after_detail)}""")
+{pnote(f'Hirers A to Z, worst item first inside a name; overdue by = days past the due date at {esc(asat_s)}, computed. Out since = SiteIQ ON_HIRE_DATE for the current hire; the red tag marks a hire that started after the calibration due date. Every one of these is a counter conversation on next touch - swap organised, certificate sorted, no drama.' + after_detail)}""")
 
     # ---- P6 the register's own chase list - comparison ------------------
     if d["have_view"]:
@@ -1040,8 +1045,10 @@ def build_pages(rows, d, S):
          "blended into a compliance score. Blanks print as dashes, "
          "<b>never guesses</b>."),
     ])
+    former_live = d["former_live"]
     P.append(f"""{psect("How the calibrated fleet is run")}
 {cards}
+{pnote(f'Names as shown: the site is Ampol. SiteIQ still carries the site&rsquo;s former name on {num(former_live)} live-register lines and the register on some descriptions; every one is shown here under the current name. Asset numbers and barcodes are identifiers and never change.')}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true, the certificates current and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
 {sh.team_cards(CONFIG["team"])}""")
