@@ -41,10 +41,11 @@ PRIORITY DETERMINATION (stated on every output)
  - Movement is the mechanism: issue/return scans reset the clock, so
    the worklist naturally surfaces IDLE stock - exactly the gear that
    goes missing quietly.
- - Severity vs SOP is unchanged: OK <=30 days, DUE 31-60, CRITICAL 60+
+ - Severity vs SOP is unchanged: OK <=30 days, DUE 31-60, CRITICAL over 60
    or never sighted. Client compliance is measured on the 30-day SOP;
    the tighter P1/P2 cycles are our internal standard above the SOP.
- - Items in transit (Pending Branch Receipt / Departure) excluded.
+ - Departed stock (Pending Branch Receipt, or a Departure scan with the
+   item no longer on the live register) is excluded.
  - On-hire items verified via return rescans and shutdown checks.
 """
 import sys, re
@@ -98,13 +99,23 @@ def norm(s):
 def strip_site_prefix(s):
     return re.sub(r"^(?:(?:CALTEX|AMPOL)\s+)+", "", s)
 
+# WHY (02 Sep 2026): the gas tier used to sweep in 177 single chargers, 4
+# telescopic probes and the charger joiners because their descriptions carry
+# "DRAGER" / "X-AM". The client then saw 1,059 "gas monitors" here against 878
+# on the gas monitor report, and the daily-three tile scored the chargers as
+# monitors missed. Same exclusion rule as gasmon_engine.NOT_GAS_RE: an
+# accessory is general tooling on the 30-day SOP cycle.
+GAS_ACCESSORY_RE = re.compile(r"CHARGER|PROBE|PUMP|CALIBRATION GAS|DOCK|CRADLE|JOINER")
+
 def categorise(barcode, desc):
     b = str(barcode or "").upper()
     d = norm(desc)
     if b.startswith(("AMPMRB", "AMP037", "SATGASBAT", "AMPMR/", "SATGASRAD")) or "RADIO" in d:
         return "radio"
     if (b.startswith(("AMPMAINGAS001", "AMPT&I001", "CTX011"))
-            or "DRAGER" in d or "DR\u00c4GER" in d or "X-AM" in d or "GAS MONITOR" in d):
+            or "DRAGER" in d or "DR\u00c4GER" in d or "DRAEGER" in d or "X-AM" in d or "GAS MONITOR" in d):
+        if GAS_ACCESSORY_RE.search(d):
+            return "general"
         return "gas"
     if "MILWAUKEE" in d or re.search(r"\bM1[28]\b", d):
         return "milwaukee"
@@ -148,7 +159,11 @@ def load_pricing(path):
     for d, prices in seen.items():
         if len(prices) > 1:
             conflicts.append((d, sorted(prices.keys())))
-        exact[d] = prices.most_common(1)[0][0]
+        # WHY (02 Sep 2026): most_common() breaks a 1-vs-1 tie by file order,
+        # which is luck, not a rule. Ties now take the LOWER value - the
+        # conservative figure - and the Pricing Gaps tab says so.
+        top = max(prices.values())
+        exact[d] = min(v for v, n in prices.items() if n == top)
     stripped = {}
     for d, p in exact.items():
         sd = strip_site_prefix(d)
@@ -156,12 +171,43 @@ def load_pricing(path):
             stripped[sd] = p
     return exact, stripped, conflicts
 
+# WHY (02 Sep 2026): 493 gas monitors are registered with the serial in the
+# description ("Drager X-am 5000 - T&I -ARSN-0123", "... - Maintenance-ARUB-0045")
+# so they never matched the pricing master and about $986,000 of monitor fleet
+# fell out of every value figure. When a description ends in a serial token,
+# the family ("DRAGER X-AM 5000") is priced from the master's own line for
+# that family (Drager X-am 5000 Gas Monitor). Nothing is estimated: the price
+# is the master's, applied to the same product. Every output discloses it.
+SERIAL_SUFFIX_RE = re.compile(r"\s*-?\s*[A-Z]{4}-\d{3,5}\s*$")
+FAMILY_QUALIFIER_RE = re.compile(r"\s*-\s*(T&I|MAINTENANCE|MAINT)\s*$")
+
+def family_keys(desc):
+    """Candidate pricing keys for a serial-suffixed description; [] otherwise."""
+    s = norm(desc)
+    if not s or not SERIAL_SUFFIX_RE.search(s):
+        return []
+    base = FAMILY_QUALIFIER_RE.sub("", SERIAL_SUFFIX_RE.sub("", s)).strip(" -")
+    if not base:
+        return []
+    return [base + " GAS MONITOR", base]
+
 def price_for(raw_desc, fixed_desc, exact, stripped):
     for key in (norm(raw_desc), norm(fixed_desc),
                 strip_site_prefix(norm(raw_desc)), strip_site_prefix(norm(fixed_desc))):
         if key and key in exact: return exact[key]
         if key and key in stripped: return stripped[key]
+    for key in family_keys(raw_desc) + family_keys(fixed_desc):
+        if key in exact: return exact[key]
+        if key in stripped: return stripped[key]
     return None
+
+def priced_by_family(raw_desc, fixed_desc, exact, stripped):
+    """True when the price came from the family rule, not an exact match."""
+    for key in (norm(raw_desc), norm(fixed_desc),
+                strip_site_prefix(norm(raw_desc)), strip_site_prefix(norm(fixed_desc))):
+        if key and (key in exact or key in stripped):
+            return False
+    return any(k in exact or k in stripped for k in family_keys(raw_desc) + family_keys(fixed_desc))
 
 def load_corrections(path):
     """Returns (bc_map, desc_map):
@@ -226,23 +272,29 @@ def load(path, master, fixes, exact, stripped):
         if not r[ix["TOOL_STORE"]]: continue
         status = str(r[ix["SIGHTED_STATUS"]] or "").upper()
         action = str(r[ix["LAST_SIGHTED_ACTION"]] or "").upper()
-        if status == "PENDING BRANCH RECEIPT" or action == "DEPARTURE":
+        bc = str(r[ix["LATEST_BARCODE"]] or "").strip()
+        # WHY (02 Sep 2026): "last action = Departure" alone dropped 17 items
+        # the live register still shows on the shelf (RIGGING BAY, departed
+        # 10 Mar). Departed stock is only out of scope when the register has
+        # let it go too; with no register on hand the old rule still applies.
+        on_register = bool(master) and bc.upper() in master
+        if status == "PENDING BRANCH RECEIPT" or (action == "DEPARTURE" and not on_register):
             transit += 1; continue
         d = parse_dt(r[ix["LAST_SIGHTED_DATE_TIME"]])
         days = (export_dt - d).days if d else None
         su = str(r[ix["STORAGE_UNIT"]] or "(no storage unit)").strip()
-        bc = str(r[ix["LATEST_BARCODE"]] or "").strip()
         raw_desc = str(r[ix["DESCRIPTION"]] or "").strip()
         fixed = bc_map.get(norm(bc)) or desc_map.get(norm(raw_desc))
         desc = fixed or raw_desc
         qty = r[ix["SIGHTED_QUANTITY"]] or 1
         price = price_for(raw_desc, fixed, exact, stripped)
+        by_family = price is not None and priced_by_family(raw_desc, fixed, exact, stripped)
         mstatus, mcomp, mhirer, mhome, m_ohd = master.get(bc.upper(), ("", "", "", "", None))
         onhire_sys = mstatus == "On Hire"
         home = mhome if mhome and mhome.upper() not in ONHIRE_UNITS else (su if su.upper() not in ONHIRE_UNITS else mhome or su)
         cat = categorise(bc, desc if fixed else raw_desc)
         rows.append({"unit": su, "barcode": bc, "desc": desc, "raw_desc": raw_desc,
-                     "fixed": bool(fixed),
+                     "fixed": bool(fixed), "price_family": by_family,
                      "qty": qty, "price": price,
                      "value": (price * qty) if price is not None else None,
                      "last": d, "by": str(r[ix["LAST_SIGHTED_BY"]] or "").strip(),
@@ -272,6 +324,20 @@ def derive(rows, export_dt):
     d["val_ok30"] = sum(r["value"] for r in rows if r["value"] and bucket(r["days"]) == "ok")
     d["val_onhire"] = sum(r["value"] for r in d["onhire"] if r["value"])
     d["priced_lines"] = sum(1 for r in rows if r["price"] is not None)
+    d["priced_family"] = sum(1 for r in rows if r.get("price_family"))
+    d["unpriced_lines"] = d["countable"] - d["priced_lines"]
+    # WHY (02 Sep 2026): the SOP headline blends two very different things -
+    # shelf items the team can count and on-hire items whose only "sighting"
+    # is the hire-out scan. Both halves are kept so every page can print
+    # the split instead of one blended number.
+    d["ok30_instore"] = sum(1 for r in d["instore"] if bucket(r["days"]) == "ok")
+    d["ok30_onhire"] = sum(1 for r in d["onhire"] if bucket(r["days"]) == "ok")
+    d["late_onhire"] = sum(1 for r in d["onhire"] if bucket(r["days"]) != "ok")
+    d["late_instore"] = sum(1 for r in d["instore"] if bucket(r["days"]) != "ok")
+    d["crit_instore"] = sum(1 for r in d["instore"] if bucket(r["days"]) in ("critical", "never"))
+    d["crit_onhire"] = sum(1 for r in d["onhire"] if bucket(r["days"]) in ("critical", "never"))
+    d["not_on_register"] = [r for r in rows if r["status"] == "Not in master"]
+    d["awaiting_arrival"] = [r for r in rows if r["status"].upper() == "AWAITING ARRIVAL"]
     # activity - what's been done
     d["done7"] = [r for r in rows if r["days"] is not None and r["days"] <= 7]
     d["done30"] = [r for r in rows if r["days"] is not None and r["days"] <= 30]
@@ -359,7 +425,7 @@ An item is <b>DONE</b> when it is physically scanned \u2014 the scan resets its 
 worklist naturally surfaces <b>idle stock</b> (gear that hasn't moved), which is exactly what goes missing quietly.
 Severity against the 30-day SOP: <span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span> = outside its
 tier target but still inside the SOP window &nbsp; <span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span>
-= 31\u201360 days &nbsp; <span class="chip" style="color:#c00000;background:#fbe9e9">CRITICAL</span> = 60+ days or never sighted.
+= 31\u201360 days &nbsp; <span class="chip" style="color:#c00000;background:#fbe9e9">CRITICAL</span> = over 60 days or never sighted.
 Client compliance is measured on the 30-day SOP; the 7/14-day cycles are the Coates internal standard, set above the SOP.</div>"""
 
 # ---------------------------------------------------------------- staff worklist
@@ -384,7 +450,7 @@ def grouped_by_unit(items, bar_class=""):
         val = sum(r["value"] for r in its if r["value"])
         big = ' big' if len(its) > 30 else ''
         parts.append(f"""<div class="cblock{big}"><div class="cbar {bar_class}"><span class="cname">{unit}</span>
-<span class="cmeta">&mdash; {len(its)} item{'s' if len(its) != 1 else ''} due &nbsp;\u2022&nbsp; {money(val)} at risk</span></div>""")
+<span class="cmeta">&mdash; {len(its)} item{'s' if len(its) != 1 else ''} due &nbsp;\u2022&nbsp; {(money(val) + ' at risk') if val else 'unpriced'}</span></div>""")
         parts.append(item_table(its))
         parts.append("</div>")
     return "".join(parts)
@@ -394,7 +460,7 @@ def build_staff_worklist(rows, transit, export_dt, d):
     due_gas, due_radio = d["due"]["gas"], d["due"]["radio"]
     due_milw, due_gen = d["due"]["milwaukee"], d["due"]["general"]
     all_due = due_gas + due_radio + due_milw + due_gen
-    crit = sum(1 for r in rows if bucket(r["days"]) in ("critical", "never"))
+    crit = d["crit_instore"]
     val_due = sum(r["value"] for r in all_due if r["value"])
     css = CSS.replace("__FOOT__", f"Coates \u2014 Stocktake Count Worklist \u2013 {NOW.strftime('%d/%m/%Y')} \u2014 POWERED BY SITEIQ")
     counters = " &nbsp;\u2022&nbsp; ".join(f"{n} \u00d7{c:,}" for n, c in d["counters7"]) or "\u2014"
@@ -409,7 +475,7 @@ def build_staff_worklist(rows, transit, export_dt, d):
 <td><div class="lbl">Scanned Last 7 Days</div><div class="val g">{len(d['done7']):,}</div></td>
 <td><div class="lbl">In-Store Due (All Tiers)</div><div class="val a">{len(all_due):,}</div></td>
 <td><div class="lbl">Value Awaiting Count</div><div class="val a">{money(val_due)}</div></td>
-<td><div class="lbl">60+ Days / Critical</div><div class="val r">{crit:,}</div></td>
+<td><div class="lbl">In-Store Over 60 Days / Critical (+{d['crit_onhire']:,} on hire)</div><div class="val r">{crit:,}</div></td>
 <td><div class="lbl">Possible Missed Returns</div><div class="val r">{len(d['missed_returns']):,}</div></td>
 </tr></table>
 {determination_panel()}
@@ -478,7 +544,7 @@ and shutdown checks. Grouped by company so we know who holds what and the value 
             homes[h][r["home"]] += 1
             if r["value"]: hval[h] += r["value"]
         parts.append(f"""<div class="cblock{' big' if len(hirers) > 25 else ''}"><div class="cbar blue"><span class="cname">{comp}</span>
-<span class="cmeta">&mdash; {len(its)} item{'s' if len(its) != 1 else ''} on hire 30+ days since last sighting &nbsp;\u2022&nbsp; {money(cval)}</span></div>
+<span class="cmeta">&mdash; {len(its)} item{'s' if len(its) != 1 else ''} on hire 30+ days since last sighting &nbsp;\u2022&nbsp; {money(cval) if cval else 'unpriced'}</span></div>
 <table class="items"><tr><th>Hirer</th><th>Items (by category)</th><th>Returns To (Home Bay)</th><th class="num">Value</th><th class="num">Oldest (Days)</th></tr>""")
         for h in sorted(hirers, key=lambda x: -sum(hirers[x].values())):
             cats = ", ".join(f"{c} \u00d7{n}" for c, n in sorted(hirers[h].items(), key=lambda kv: -kv[1]))
@@ -487,8 +553,9 @@ and shutdown checks. Grouped by company so we know who holds what and the value 
 <td class="num">{money(hval[h]) if hval[h] else DASH}</td><td class="num overdue">{oldest[h]}</td></tr>""")
         parts.append("</table></div>")
     parts.append(f"""</div>
-<div class="foot">Countable assets exclude {transit:,} items in transit (Pending Branch Receipt / Departure). Prices are Avg Buy Price (New)
-matched on item description (corrected descriptions applied by barcode); unpriced items show \u2014 and are listed on the Pricing Gaps tab of the
+<div class="foot">Countable assets exclude {transit:,} lines that have departed the store (Pending Branch Receipt, or a Departure scan with the item
+no longer on the live register). Prices are Avg Buy Price (New) matched on item description (corrected descriptions applied by barcode;
+{d['priced_family']:,} serial-numbered gas monitors priced by their family line); unpriced items show \u2014 and are listed on the Pricing Gaps tab of the
 Excel worklist \u2014 no price is estimated. Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
 is a missed return \u2014 flag and process same day.{sig_footer()}</div></body></html>""")
     return "".join(parts)
@@ -525,7 +592,7 @@ def build_client_report(rows, transit, export_dt, d):
 <div class="sub">Coates managed &nbsp;|&nbsp; Compliance against the Daily Stocktake SOP (30-day full-coverage cycle, priority tiers above SOP)
 &nbsp;|&nbsp; Data as at: {export_dt.strftime('%d/%m/%Y %I:%M %p')} &nbsp;|&nbsp; Generated: {refresh}</div></div>
 <table class="totals"><tr>
-<td><div class="lbl">Assets Under Management</div><div class="val">{countable + transit:,}</div></td>
+<td><div class="lbl">Countable Assets (Live Register)</div><div class="val">{countable:,}</div></td>
 <td><div class="lbl">Fleet Value (Priced, New)</div><div class="val">{money(d['val_total'])}</div></td>
 <td><div class="lbl">SOP Compliance</div><div class="val" style="color:{c}">{comp:.1f}%</div></td>
 <td><div class="lbl">Value Verified \u226430 Days</div><div class="val g">{money(d['val_ok30'])} \u00b7 {val_cov:.0f}%</div></td>
@@ -548,12 +615,12 @@ and are verified through the double-check return process and shutdown checks, no
 <th class="num">On Hire</th><th class="num">In Store</th><th class="num">Within Target</th><th class="num">Within 30d</th>
 <th class="num">In-Store Coverage</th><th>Status</th></tr>{tier_rows}</table>
 <div class="charge" style="margin-top:8pt"><div class="ntitle">CURRENT POSITION \u2013 WHAT HAS BEEN DONE</div><ul>
-<li>Overall SOP compliance is <b style="color:{c}">{comp:.1f}%</b> ({d['ok30']:,} of {countable:,} countable assets sighted within 30 days); in-store assets sit at <b>{instore_comp:.1f}%</b>.</li>
+<li>Overall SOP compliance is <b style="color:{c}">{comp:.1f}%</b> ({d['ok30']:,} of {countable:,} countable assets sighted within 30 days = {d['ok30_instore']:,} in store + {d['ok30_onhire']:,} on hire); in-store assets sit at <b>{instore_comp:.1f}%</b>. Of the {d['late_instore'] + d['late_onhire']:,} outside 30 days, {d['late_onhire']:,} are on hire.</li>
 <li><b>{len(d['done7']):,} assets were physically scanned in the last 7 days</b> and {len(d['done30']):,} in the last 30 \u2014 the daily cadence is being worked, not just scheduled.</li>
 <li>In dollar terms, <b>{money(d['val_ok30'])} of {money(d['val_total'])} in fleet value ({val_cov:.0f}%) has been physically verified within 30 days</b> (Avg Buy Price New; {priced_pct:.0f}% of asset lines priced \u2014 valuation coverage improving as the pricing master is completed).</li>
 <li>Assets outside the window are loaded on the team's daily count worklist: {b['due']:,} at 31\u201360 days and {b['critical'] + b['never']:,} at 60+ days, worked oldest-first with priority tiers cleared first.</li>
 <li>{money(d['val_onhire'])} of fleet value is on hire with contractors \u2014 tracked by company and hirer, verified through return rescans and shutdown checks.</li>
-<li>{transit:,} items in transit (Pending Branch Receipt / Departure) are excluded from counting KPIs until received.</li>
+<li>{transit:,} lines that have departed the store (Pending Branch Receipt, or Departure and no longer on the live register) are excluded from counting KPIs.</li>
 </ul></div>
 <h2 class="sec" style="margin-top:6pt">Coverage by Storage Unit (In-Store)</h2>
 <div class="secsub">Every in-store storage unit with 10+ assets, RAG-rated against the 30-day standard, lowest coverage first \u2014 these are the areas the team is walking now.</div>
@@ -618,7 +685,7 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
         "",
         "SEVERITY (vs the 30-day SOP)",
         "  TARGET DUE = outside its tier target but inside the SOP window",
-        "  SOP DUE = 31\u201360 days   \u2022   CRITICAL = 60+ days or never sighted",
+        "  SOP DUE = 31\u201360 days   \u2022   CRITICAL = over 60 days or never sighted",
         "",
         "HOW TO USE",
         "  Work oldest first. Sort/filter any column. Mark Y in Counted when scanned.",
@@ -630,6 +697,8 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
         "PRICING",
         "  Unit Price = Avg Buy Price (New), matched on item description.",
         "  Blank price = not yet in the pricing master \u2013 see the Pricing Gaps tab.",
+        "  Gas monitors registered with a serial in the description are priced by",
+        "  their family line (Drager X-am 5000 Gas Monitor) \u2013 never estimated.",
     ]
     for i, t in enumerate(lines, 3):
         ws.cell(row=i, column=1, value=t).font = Font(
@@ -689,7 +758,7 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
     for desc, (n, q) in sorted(gaps.items(), key=lambda kv: -kv[1][0]):
         ws.append([desc, n, q, ""])
     if conflicts:
-        ws.append([]); ws.append(["CONFLICTING PRICES IN PRICING MASTER (most common value used)"])
+        ws.append([]); ws.append(["CONFLICTING PRICES IN PRICING MASTER (most common value used; a tie takes the lower value)"])
         ws.cell(row=ws.max_row, column=1).font = Font(name="Calibri", bold=True, color="C00000")
         for dsc, prices in sorted(conflicts):
             ws.append([dsc, "", "", " / ".join(f"${p:,.2f}" for p in prices)])
@@ -860,7 +929,8 @@ def main():
     print(f"Corrected descriptions applied to {applied:,} of {len(rows):,} countable items "
           f"(barcode match first, then unambiguous old-description match)")
     print(f"Priced {d['priced_lines']:,} of {len(rows):,} lines "
-          f"({d['priced_lines']/len(rows)*100:.1f}%) | fleet value {money(d['val_total'])} "
+          f"({d['priced_lines']/len(rows)*100:.1f}%; {d['priced_family']:,} by family line) "
+          f"| fleet value {money(d['val_total'])} "
           f"| pricing conflicts flagged: {len(conflicts)}")
     w = OUT / "Coates_Stocktake_Count_Worklist"
     c = OUT / "Coates_Stocktake_Compliance_Report"

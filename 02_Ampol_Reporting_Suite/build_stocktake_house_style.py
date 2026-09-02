@@ -54,6 +54,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import ampol_paths
 import build_stocktake_compliance_tool as eng
+import gasmon_engine as ge
 import k2shell as sh
 from k2shell import esc, money, num, K
 
@@ -157,6 +158,13 @@ def analytics(rows, d, export_dt, actions):
     if daily_all:
         rec_day, rec_n = max(daily_all.items(), key=lambda kv: kv[1])
         a["record_day"] = {"date": rec_day, "n": rec_n}
+    # WHY (02 Sep 2026): the STOCKTAKE export carries one row per item - its
+    # MOST RECENT sighting only. An item scanned on 20 Aug and again today
+    # counts once, today. So every "activity" figure here is items by the
+    # date of their latest sighting, not scans performed, and the pages say
+    # so. The one figure that is exact is today: items sighted today.
+    a["sighted_today"] = daily_all.get(export_dt.date(), 0)
+    a["seen24"] = sum(1 for r in rows if r["last"] and r["last"] >= export_dt - timedelta(hours=24))
 
     # ---- hour-of-day profile of DELIBERATE stocktake scans, last 30d --
     hh = Counter()
@@ -223,7 +231,11 @@ def analytics(rows, d, export_dt, actions):
     a["idle_oh"] = bucketise(d["onhire"])
     a["ins_over30"] = [r for r in ins
                        if r["days"] is None or r["days"] > 30]
-    a["ins_oldest"] = max((r["days"] or 0 for r in ins), default=0)
+    # WHY (02 Sep 2026): `days or 0` read a same-day sighting (0) and a
+    # never-sighted item (None) as the same thing. Never-sighted is counted
+    # on its own so the "oldest" claim can never quietly ignore one.
+    a["ins_never"] = sum(1 for r in ins if r["days"] is None)
+    a["ins_oldest"] = max((r["days"] for r in ins if r["days"] is not None), default=0)
     a["oh_risk180"] = [r for r in d["onhire"]
                        if r["days"] is None or r["days"] > 180]
     a["oh_risk180_val"] = sum(r["value"] or 0 for r in a["oh_risk180"])
@@ -240,7 +252,7 @@ def analytics(rows, d, export_dt, actions):
         ok = sum(1 for r in grp if r["days"] is not None and r["days"] <= 30)
         due_t = sum(1 for r in grp if r["days"] is None or r["days"] > r["target"])
         val = sum(r["value"] or 0 for r in grp)
-        oldest = max((r["days"] or 99999) for r in grp)
+        oldest = max((r["days"] if r["days"] is not None else 99999) for r in grp)
         ut.append({"unit": u, "n": len(grp), "ok": ok,
                    "pct": ok / len(grp) * 100 if grp else 0,
                    "due": due_t, "val": val, "oldest": oldest})
@@ -252,15 +264,25 @@ def analytics(rows, d, export_dt, actions):
         ins, key=lambda r: (0 if r["days"] is None else 1, -(r["days"] or 0)))[:10]
 
     # ---- on-hire verification by company -------------------------------
-    co = defaultdict(lambda: {"n": 0, "val": 0, "due": 0})
+    # WHY (02 Sep 2026): the register spells one customer several ways
+    # (AMPOL / AMPOL REFINERIES (QLD) PTY LTD / CALTEX; Contract Resources.
+    # / ... FCCU / ... SATGAS/MOL). One row per customer, and the two
+    # custody accounts (Dräger service, Repairs) are flagged - gear there is
+    # in repair or calibration, not out with a contractor.
+    co = defaultdict(lambda: {"n": 0, "val": 0, "due": 0, "custody": False})
     for r in d["onhire"]:
-        c = (r["onhire_to"].split(" – ")[0] or "(no company)").strip()
+        raw = (r["onhire_to"].split(" – ")[0] or "").strip()
+        c = ge.norm_company(raw) if raw else "(no company)"
+        if raw.upper().startswith(("DRÄGER", "DRAGER", "REPAIRS")):
+            c = f"{c} (repairs / custody)"
+            co[c]["custody"] = True
         co[c]["n"] += 1
         co[c]["val"] += r["value"] or 0
         if eng.bucket(r["days"]) != "ok":
             co[c]["due"] += 1
     a["onhire_co"] = sorted([{"co": k, **v} for k, v in co.items()],
                             key=lambda x: -x["n"])
+    a["custody_n"] = sum(v["n"] for v in co.values() if v["custody"])
     # ---- on-cycle within own tier target (in-store) --------------------
     wt = sum(1 for r in ins if r["days"] is not None and r["days"] <= r["target"])
     a["on_cycle_pct"] = wt / len(ins) * 100 if ins else 0
@@ -361,21 +383,26 @@ def build_client_pages(rows, d, a, export_dt):
         f'<b class="o">{comp:.1f}%</b> sighted inside the 30-day SOP cycle, '
         f'and <b>{money(d["val_ok30"])}</b> of the <b>{money(d["val_total"])}</b> '
         f'priced fleet verified in the last 30 days. On the shelf the position '
-        f'is stronger again: <b class="o">no in-store item has gone unsighted '
-        f'past {num(a["ins_oldest"])} days</b>. Every score prints its own '
-        f'arithmetic - it can be challenged, checked and trusted. Transit stock '
-        f'({num(d.get("transit_n", 0))} lines pending branch movement) is '
-        f'excluded.', False)}
+        f'is stronger again: <b class="o">{d["ok30_instore"] / len(d["instore"]) * 100 if d["instore"] else 0:.1f}% of '
+        f'in-store items sighted inside 30 days</b>'
+        + (f', with the longest-unsighted shelf item at {num(a["ins_oldest"])} days'
+           if not a["ins_never"] else
+           f', with <b class="rd">{num(a["ins_never"])} never sighted</b>')
+        + f'. Every score prints its own arithmetic - it can be challenged, '
+        f'checked and trusted. <b>{num(d.get("transit_n", 0))} lines</b> that have '
+        f'departed the store (Pending Branch Receipt, or a Departure scan with the '
+        f'item no longer on the live register) are excluded.', False)}
 <table class="two" style="margin-top:16px"><tr>
   <td style="width:31%"><div class="donut-wrap">
     {sh.donut(round(comp), sh.health_hex(round(comp)), f"{comp:.0f}%", sh.health_word(round(comp)))}
     <div class="donut-cap">30-day SOP compliance - whole store</div></div></td>
   <td style="padding-left:10px">{ladders}</td>
 </tr></table>
-{pnote(f'SOP compliance = items sighted in the last 30 days &divide; countable items = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>. Tier bars are rated on in-store assets; on-hire assets are verified through the double-scan return process and shutdown checks, shown separately below.')}
+{pnote(f'SOP compliance = items sighted in the last 30 days &divide; countable items = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>. That {num(d["ok30"])} is <b>{num(d["ok30_instore"])} in store + {num(d["ok30_onhire"])} on hire</b> (an on-hire item&rsquo;s sighting is its hire-out or return scan). Of the {num(d["late_instore"] + d["late_onhire"])} items outside 30 days, <b>{num(d["late_onhire"])} are on hire</b> and {num(d["late_instore"])} are on the shelf. Tier bars are rated on in-store assets; on-hire assets are verified through the double-scan return process and shutdown checks, shown separately below.')}
 {sh.tiles([
-    ("box", num(d["countable"]), "Countable items", "transit excluded", "grey"),
-    ("shield", money(d["val_total"]), "Priced fleet value",
+    ("box", num(d["countable"]), "Countable items",
+     f"{num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire", "grey"),
+    ("shield", money(d["val_total"]), "Priced fleet value (new)",
      f"{priced_pct:.0f}% of lines priced", "grey"),
     ("check", money(d["val_ok30"]), "Value verified 30d",
      f"{val_cov:.0f}% of priced value", "green" if val_cov >= 75 else "amber"),
@@ -387,7 +414,7 @@ def build_client_pages(rows, d, a, export_dt):
     line = sh.line_chart(
         [w["label"] for w in wk],
         [{"vals": [w["n"] for w in wk], "colour": K["orange"],
-          "label": "Items sighted / week", "fill": True}], label_every=2)
+          "label": "Items by week of latest sighting", "fill": True}], label_every=2)
     det = "".join(
         f'<tr><td class="al-dot d-amber">&#9679;</td><td>'
         f'<div class="al-t">P{1 if k in ("gas", "radio") else 2 if k == "milwaukee" else 3} '
@@ -398,15 +425,16 @@ def build_client_pages(rows, d, a, export_dt):
 <div class="alerts"><div class="ah">How this store is counted</div>
 <table class="al">{det}</table></div>
 {pnote('Client compliance is measured on the 30-day SOP. The 7 and 14-day cycles are the Coates internal standard set <b>above</b> the SOP. Issue and return scans reset an item&rsquo;s clock, so the count cadence naturally surfaces idle stock - exactly the gear that goes missing quietly.')}
-{psubh("Counting activity", "&mdash; items sighted per week, last 12 weeks")}
+{psubh("Register freshness", "&mdash; items by the week of their most recent sighting, last 12 weeks")}
 {chartpanel(line)}
+{pnote('The stocktake export holds one line per item - its latest sighting only - so this chart is <b>how fresh the register is</b>, not a count of scans performed. An item scanned twice in the window appears once, on its latest date. The weeks nearest today are naturally the tallest.')}
 {sh.tiles([
-    ("check", num(len(d["done7"])), "Sighted last 7 days", "", ""),
-    ("bars", num(len(d["done30"])), "Sighted last 30 days", "", ""),
-    ("zap", num(a.get("record_day", {}).get("n", 0)), "Record day",
-     a["record_day"]["date"].strftime("%d %b %Y") if "record_day" in a else "", "amber"),
-    ("clock", num(sum(a["st_hours"].values())), "Deliberate stocktake scans",
-     "last 30 days", "grey"),
+    ("check", num(len(d["done7"])), "Sighted last 7 days", "items", ""),
+    ("bars", num(len(d["done30"])), "Sighted last 30 days", "items", ""),
+    ("zap", num(a["sighted_today"]), "Sighted today",
+     export_dt.strftime("%d %b %Y"), "amber"),
+    ("clock", num(sum(a["st_hours"].values())), "Latest scan was a stocktake scan",
+     "items, last 30 days", "grey"),
 ])}""")
 
     # ---- P3 coverage by bay --------------------------------------------
@@ -418,7 +446,7 @@ def build_client_pages(rows, d, a, export_dt):
         urows.append([esc(u["unit"]), num(u["n"]),
                       f'<span class="{c}">{u["pct"]:.0f}%</span>',
                       num(u["due"]), money(u["val"]) if u["val"] else
-                      '<span class="tbc">TBC</span>'])
+                      '<span class="tbc">unpriced</span>'])
     P.append(f"""{psect("Coverage by storage bay - RAG rated")}
 {pcallout('Green from 90% sighted inside 30 days, amber from 75%, red below - the same RAG discipline as every Coates report. <b>Due</b> counts items outside their own tier target, so a red bay tells you exactly where the trolley goes next.')}
 {sh.dtable(["Storage bay", "Items", "Sighted 30d", "Due (tier target)", "Priced value"],
@@ -428,10 +456,12 @@ def build_client_pages(rows, d, a, export_dt):
     # ---- P4 the two tails: shelf cleared, on-hire watched ---------------
     ins_bars = sh.hbars([(lab, n) for lab, n, v in a["idle_ins"]],
                         colour=K["green"])
-    oh_rows = [[lab, num(n), money(v) if v else '<span class="tbc">$0</span>']
-               for lab, n, v in a["idle_oh"]]
+    oh_rows = [[lab, num(n), money(v) if v else '<span class="tbc">unpriced</span>']
+               for lab, n, v in a["idle_oh"] if n]
     P.append(f"""{psect("The idle tail - where the risk actually sits")}
-{pcallout(f'The risk is never the gear that moves - it is the gear that sits. On the shelf that tail is <b class="o">effectively cleared</b>: {num(len(a["ins_over30"]))} of {num(len(d["instore"]))} in-store items are outside 30 days and the oldest is <b>{num(a["ins_oldest"])} days</b>. The watch item is <b class="o">long-hire gear</b>: {num(len(a["oh_risk180"]))} on-hire items have had no verification scan in over 180 days, holding <b class="o">{money(a["oh_risk180_val"])}</b> of priced value - these are verified at return and at shutdown checks, and the long-hire list below is where that effort goes next.')}
+{pcallout(f'The risk is never the gear that moves - it is the gear that sits. On the shelf that tail is <b class="o">small</b>: {num(len(a["ins_over30"]))} of {num(len(d["instore"]))} in-store items are outside 30 days'
+          + (f' and the oldest is <b>{num(a["ins_oldest"])} days</b>' if not a["ins_never"] else f', <b class="rd">{num(a["ins_never"])} never sighted</b>')
+          + f'. The watch item is <b class="o">long-hire gear</b>: {num(len(a["oh_risk180"]))} on-hire items have had no scan of any kind in over 180 days, holding <b class="o">{money(a["oh_risk180_val"])}</b> of priced value - these are verified at return and at shutdown checks, and the long-hire list below is where that effort goes next.')}
 {psubh("In-store items by time since last sighting", "&mdash; the shelf tail")}
 {chartpanel(ins_bars)}
 {psubh("On-hire items by time since last verification", "&mdash; the long-hire tail")}
@@ -443,12 +473,13 @@ def build_client_pages(rows, d, a, export_dt):
     orows = [[esc(x["co"]), num(x["n"]),
               (f'<span class="rd">{num(x["due"])}</span>' if x["due"] else
                '<span class="g">0</span>'),
-              money(x["val"]) if x["val"] else '<span class="tbc">TBC</span>']
+              money(x["val"]) if x["val"] else '<span class="tbc">unpriced</span>']
              for x in oc]
     P.append(f"""{psect("On hire - verified on return, not hunted on shelves")}
-{pcallout(f'<b>{num(len(d["onhire"]))} items</b> are on hire holding <b>{money(d["val_onhire"])}</b> of priced value. On-hire gear is verified through the double-scan return process and shutdown checks - chasing it around site during a count would be friction for no assurance. <b class="o">{num(len(d["missed_returns"]))} possible missed returns</b> (sighted in a store bay after their on-hire date) are flagged to resolve first, so hirers are never held for gear that is already home.')}
-{sh.dtable(["Company", "Items on hire", "Not verified 30d", "Priced value"],
+{pcallout(f'<b>{num(len(d["onhire"]))} items</b> show ON HIRE on the register, holding <b>{money(d["val_onhire"])}</b> of priced value - {num(len(d["onhire"]) - a["custody_n"])} out with contractors and {num(a["custody_n"])} on the repairs and Dr&auml;ger service accounts. On-hire gear is verified through the double-scan return process and shutdown checks - chasing it around site during a count would be friction for no assurance. <b class="o">{num(len(d["missed_returns"]))} possible missed returns</b> (sighted in a store bay after their on-hire date) are flagged to resolve first, so hirers are never held for gear that is already home.')}
+{sh.dtable(["Company (register spellings merged)", "Items on hire", "Not scanned 30d", "Priced value"],
            orows, ["", "r", "r", "r"])}
+{pnote(f'Companies are merged across the register&rsquo;s spellings (AMPOL, AMPOL REFINERIES (QLD) PTY LTD and CALTEX are one customer; project accounts such as FCCU and SATGAS/MOL roll into their parent). "Not scanned 30d" is an item whose latest scan of any kind is older than 30 days - a long hire, not a lost item. Top {len(oc)} of {len(a["onhire_co"])} accounts shown.')}
 {sh.tiles([
     ("swap", num(len(d["onhire"])), "Items on hire", "", ""),
     ("warn", num(len(d["onhire_due30"])), "Not verified in 30d",
@@ -469,8 +500,9 @@ def build_client_pages(rows, d, a, export_dt):
          "and batteries on <b>7 days</b> and Milwaukee on <b>14</b> - an "
          "internal standard set above the contract."),
         ("Numbers you can challenge",
-         "Every score prints its own arithmetic. Values come from the pricing "
-         "master; anything unpriced is excluded and disclosed, "
+         "Every score prints its own arithmetic. Values are Avg Buy Price (New) "
+         "from the pricing master; serial-numbered gas monitors take their "
+         "family line; anything unpriced is excluded and disclosed, "
          "<b>never estimated</b>."),
         ("Idle stock is the target",
          "Movement resets the clock, so the count cadence naturally hunts the "
@@ -525,12 +557,13 @@ def build_team_pages(rows, d, a, export_dt):
 </tr></table>
 {sh.tiles([
     ("check", num(len(d["done7"])), "Sighted last 7 days", "", ""),
-    ("clock", num(sum(1 for r in rows if r["days"] is not None and r["days"] <= 1)),
-     "In the last 24 hours", "", ""),
+    ("clock", num(a["seen24"]),
+     "In the last 24 hours", "items sighted", ""),
     ("warn", num(due_all), "Due on tier targets",
      "the worklist below", "red" if due_all else "green"),
-    ("zap", num(a.get("record_day", {}).get("n", 0)), "Record day",
-     a["record_day"]["date"].strftime("%d %b") if "record_day" in a else "", "amber"),
+    ("bars", num(len(a["ins_over30"])), "In-store over 30 days",
+     (f"oldest {a['ins_oldest']}d" if not a["ins_never"] else f"{a['ins_never']} never sighted"),
+     "amber" if a["ins_over30"] else "green"),
 ])}
 {pnote(f'On-cycle = in-store items sighted inside their own tier target = {num(a["within_target"])} &divide; {num(len(ins))} = <b>{oncyc:.0f}%</b>. SOP = sighted within 30 days = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>.')}""")
 
@@ -543,11 +576,11 @@ def build_team_pages(rows, d, a, export_dt):
                       num(x["st30"]), f'{share:.0f}%',
                       esc(x["last"].strftime("%d %b %H:%M") if x["last"] else "")])
     P.append(f"""{psect("The people turning the wheel")}
-{pcallout('Every sighting in the register carries a name. This is the last 30 days of counting, by person - deliberate stocktake scans separated from movement scans, because walking a bay with a scanner is the work that finds idle gear.')}
-{sh.dtable(["Who", "Last 7d", "Last 30d", "Stocktake scans 30d", "Share of 30d", "Most recent scan"],
+{pcallout('Every sighting in the register carries a name. This is who made the <b>latest</b> sighting of each item in the last 30 days - stocktake scans separated from movement scans, because walking a bay with a scanner is the work that finds idle gear.')}
+{sh.dtable(["Who", "Items, last 7d", "Items, last 30d", "Of which stocktake scans", "Share of 30d", "Most recent scan"],
            lrows, ["", "r", "r", "r", "r", "r"])}
-{pnote('Share is of all items sighted in the last 30 days. Movement scans (issues and returns) also reset an item&rsquo;s clock - both count, both are the wheel turning.')}
-{psubh("Sightings per day", "&mdash; last 14 days, deliberate stocktake scans highlighted")}
+{pnote('The export keeps one sighting per item - the latest - so these are items whose most recent scan carries this name, not every scan the person made. Share is of all items sighted in the last 30 days. Movement scans (issues and returns) also reset an item&rsquo;s clock - both count, both are the wheel turning.')}
+{psubh("Items by day of latest sighting", "&mdash; last 14 days, stocktake scans highlighted")}
 {chartpanel(sh.grouped_bars(a["days14"], h=190,
                             series=(("issued", K["orange"], "All sightings"),
                                     ("returned", "#22C55E", "Stocktake scans"))))}""")
@@ -566,7 +599,8 @@ def build_team_pages(rows, d, a, export_dt):
                 esc(r["by"] or "-")])
         t = sh.dtable(["Item", "Barcode", "Last sighted", "By"], rows_,
                       ["", "", "", ""])
-        more = (f'{pnote(f"... and <b>{len(missed) - cap}</b> more in this group - the worklist lists the lot.")}'
+        past = sum(1 for r in missed if r["days"] is None or r["days"] > 7)
+        more = (f'{pnote(f"... and <b>{len(missed) - cap}</b> more not sighted in the last 24 hours. {past} of the {len(missed)} are past the 7-day tier target and sit on the worklist; the rest were sighted inside the last 7 days.")}'
                 if len(missed) > cap else "")
         return t + more
 
@@ -574,15 +608,15 @@ def build_team_pages(rows, d, a, export_dt):
     r_all, r_seen, r_miss = a["radio"]
     b_all, b_seen, b_miss = a["battery"]
     P.append(f"""{psect("The daily three - counted every single day")}
-{pcallout('Three groups are on a DAILY count, not the weekly wheel: <b>gas monitors, radios and radio batteries</b>. Gas monitors keep people alive, radios keep the site talking, and batteries are what walks. Below is the last 24 hours and exactly what was missed.')}
+{pcallout('Three groups are on a DAILY count, not the weekly wheel: <b>gas monitors, radios and radio batteries</b>. Gas monitors keep people alive, radios keep the site talking, and batteries are what walks. Below is the last 24 hours for the units <b>in store</b> (on-hire units are out with their hirers) and exactly what was missed. Chargers and probes are not monitors and are not counted here.')}
 {sh.tiles([
-    ("warn", f"{len(g_seen)}/{len(g_all)}", "Gas monitors sighted 24h",
+    ("warn", f"{len(g_seen)}/{len(g_all)}", "In-store gas monitors sighted 24h",
      f"{len(g_miss)} missed" if g_miss else "all sighted",
      "red" if g_miss else "green"),
-    ("warn", f"{len(r_seen)}/{len(r_all)}", "Radios sighted 24h",
+    ("warn", f"{len(r_seen)}/{len(r_all)}", "In-store radios sighted 24h",
      f"{len(r_miss)} missed" if r_miss else "all sighted",
      "red" if r_miss else "green"),
-    ("warn", f"{len(b_seen)}/{len(b_all)}", "Radio batteries sighted 24h",
+    ("warn", f"{len(b_seen)}/{len(b_all)}", "In-store radio batteries sighted 24h",
      f"{len(b_miss)} missed" if b_miss else "all sighted",
      "red" if b_miss else "green"),
     ("check", num(len(g_seen) + len(r_seen) + len(b_seen)),
@@ -632,9 +666,17 @@ def build_team_pages(rows, d, a, export_dt):
              f'<span class="rd">{num(r["days"])}d</span>'),
             money(r["value"]) if r["value"] else '<span class="tbc">TBC</span>'])
     P.append(f"""{psect("The shelf residue - the last few over 30 days")}
-{pcallout(f'The in-store tail is nearly gone: <b class="o">{num(len(a["ins_over30"]))} items</b> over 30 days, oldest <b>{num(a["ins_oldest"])} days</b>. Clear these and the shelf RAG goes green wall to wall.')}
-{sh.dtable(["Item", "Barcode", "Last sighted", "Age"], lrows2, ["", "", "", "r"])}
-{psect("Long-hire gear - verify on next touch")}
+{pcallout(f'The in-store tail is short: <b class="o">{num(len(a["ins_over30"]))} items</b> over 30 days'
+          + (f', oldest <b>{num(a["ins_oldest"])} days</b>' if not a["ins_never"] else f', <b class="rd">{num(a["ins_never"])} never sighted</b>')
+          + f'. Clear these and the shelf RAG goes green wall to wall.'
+          + (f' Also on the list: <b>{num(len(d["not_on_register"]))}</b> stocktake lines whose barcode is not on the live register'
+             + (' (' + ', '.join(esc(r["barcode"] or r["desc"]) for r in d["not_on_register"][:4]) + ')' if d["not_on_register"] else '')
+             + ' - check the barcode and the register, not the shelf.' if d["not_on_register"] else ''))}
+{sh.dtable(["Item", "Barcode", "Last sighted", "Age"], lrows2, ["", "", "", "r"])}""")
+    # WHY (02 Sep 2026): long-hire on its own page - with 17 departed-scan
+    # rigging items back on the shelf list, both tables no longer fit one
+    # page and Chromium prints the overflow under the footer without a word.
+    P.append(f"""{psect("Long-hire gear - verify on next touch")}
 {pcallout(f'<b class="o">{num(len(a["oh_risk180"]))} on-hire items</b> have had no verification scan in 180+ days, holding <b class="o">{money(a["oh_risk180_val"])}</b>. Not lost - on long hire - but every return, swap or shutdown check on these is a chance to scan one and retire the risk. The oldest dozen:')}
 {sh.dtable(["Item", "Barcode", "Last verified", "Age", "Value"],
            ohrows, ["", "", "", "r", "r"])}
@@ -739,32 +781,32 @@ def build_email_html(rows, d, a, export_dt, gen_s, asat_s):
 </table></td></tr></table>""")
 
     parts.append(sh.etiles([
-        (f'{len(g_seen)}/{len(g_all)}', "GAS MONITORS SIGHTED 24H",
+        (f'{len(g_seen)}/{len(g_all)}', "IN-STORE GAS MONITORS SIGHTED 24H",
          f'{len(g_miss)} missed' if g_miss else "all sighted",
          "#F0603E" if g_miss else "#22C55E"),
-        (f'{len(r_seen)}/{len(r_all)}', "RADIOS SIGHTED 24H",
+        (f'{len(r_seen)}/{len(r_all)}', "IN-STORE RADIOS SIGHTED 24H",
          f'{len(r_miss)} missed' if r_miss else "all sighted",
          "#F0603E" if r_miss else "#22C55E"),
-        (f'{len(b_seen)}/{len(b_all)}', "BATTERIES SIGHTED 24H",
+        (f'{len(b_seen)}/{len(b_all)}', "IN-STORE BATTERIES SIGHTED 24H",
          f'{len(b_miss)} missed' if b_miss else "all sighted",
          "#F0603E" if b_miss else "#22C55E"),
         (num(due_all), "DUE ON TIER TARGETS", "worklist attached", "#EFA82B"),
     ]))
 
     wk = a["weekly"]
-    parts.append(sh.esubh("Counting activity - items sighted per week"))
+    parts.append(sh.esubh("Register freshness - items by week of their latest sighting"))
     parts.append(sh.epanel(sh.line_png(
         [w["label"] for w in wk],
         [{"vals": [w["n"] for w in wk], "colour": K["orange"],
-          "label": "Sighted / week", "fill": True}], CW - 28)))
+          "label": "Items by week of latest sighting", "fill": True}], CW - 28)))
 
     lg = a["league"][:8]
     lrows = [[esc(x["name"]), num(x["d7"]), num(x["d30"]), num(x["st30"]),
               esc(x["last"].strftime("%d %b %H:%M") if x["last"] else "")]
              for x in lg]
-    parts.append(sh.esect("The people turning the wheel - last 30 days"))
+    parts.append(sh.esect("The people turning the wheel - latest sighting per item, last 30 days"))
     parts.append(sh.edtable(
-        ["Who", "Last 7d", "Last 30d", "Stocktake scans", "Most recent"],
+        ["Who", "Items 7d", "Items 30d", "Of which stocktake scans", "Most recent"],
         lrows, ["", "r", "r", "r", "r"]))
 
     ut = sorted(a["units"], key=lambda u: -u["due"])[:8]
@@ -789,7 +831,7 @@ def build_email_html(rows, d, a, export_dt, gen_s, asat_s):
 <div style="{FONT}font-size:10px;font-weight:bold;letter-spacing:2px;color:#F36F21;text-transform:uppercase;">Your Coates Tool Store Team</div>
 <div style="{FONT}font-size:11px;color:#8A9AAC;padding-top:5px;line-height:1.7;">{team_line}</div>
 <div style="{FONT}font-size:10px;color:#98A6B4;padding-top:9px;line-height:1.7;">
-Coates Hire &middot; Sources: SiteIQ STOCKTAKE export ({esc(asat_s)}), RENTAL_STOCK register, pricing master. Unpriced items excluded from value totals, never estimated. The Coates Way - consistent execution, every day. <b style="color:#16202C;">POWERED BY SITEIQ</b></div>
+Coates Hire &middot; Sources: SiteIQ STOCKTAKE export ({esc(asat_s)}), RENTAL_STOCK register, pricing master. Unpriced items excluded from value totals, never estimated; serial-numbered gas monitors priced by their family line. Activity figures are items by their latest sighting (the export keeps one sighting per item). The Coates Way - consistent execution, every day. <b style="color:#16202C;">POWERED BY SITEIQ</b></div>
 </td></tr></table>""")
 
     body = "".join(
@@ -840,9 +882,14 @@ def main():
     asat_s = export_dt.strftime("%d %b %Y %H:%M")
     gen_s = datetime.now().strftime("%d %b %Y %H:%M")
     print(f"Data as at           : {asat_s}  (export request time)")
-    print(f"Countable / transit  : {len(rows):,} / {transit:,} excluded")
+    print(f"Countable / departed : {len(rows):,} / {transit:,} excluded "
+          f"(in store {len(d['instore']):,}, on hire {len(d['onhire']):,})")
     print(f"SOP 30d compliance   : {d['comp30']:.1f}%  "
-          f"({d['ok30']:,} of {d['countable']:,})")
+          f"({d['ok30']:,} of {d['countable']:,} = {d['ok30_instore']:,} in store + {d['ok30_onhire']:,} on hire)")
+    print(f"Priced by family     : {d['priced_family']:,} serial-numbered gas monitors "
+          f"| unpriced {d['unpriced_lines']:,}")
+    print(f"Not on live register : {len(d['not_on_register']):,} stocktake lines "
+          f"| awaiting arrival {len(d['awaiting_arrival']):,}")
     print(f"On own tier cycle    : {a['on_cycle_pct']:.1f}% of in-store")
     print(f"Fleet value (priced) : {money(d['val_total'])}  "
           f"| verified 30d {money(d['val_ok30'])}")
