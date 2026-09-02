@@ -468,43 +468,86 @@ def grouped_by_unit(items, bar_class=""):
         parts.append("</div>")
     return "".join(parts)
 
+WORKLIST_CSS = """
+/* floor worklist item tables, toned to the house palette */
+.wl table.items, .wl table.matrix { width:100%; border-collapse:collapse; font-size:8.6px; border:1px solid #E4E8EC; }
+.wl table.items th, .wl table.matrix th { text-align:left; font-size:7.6px; text-transform:uppercase; letter-spacing:.6px; color:#FFFFFF; background:#1A2430; padding:5px 8px; }
+.wl table.items td, .wl table.matrix td { padding:4px 8px; border-bottom:1px solid #EEF1F4; vertical-align:top; color:#35404E; }
+.wl table.items tr:nth-child(even) td, .wl table.matrix tr:nth-child(even) td { background:#F7F8FA; }
+.wl td.num, .wl th.num { text-align:right; }
+.wl .overdue { color:#DC2626; font-weight:700; }
+.wl .duec { color:#B45309; font-weight:700; }
+.wl .okc { color:#16A34A; font-weight:700; }
+.wl .chip { display:inline-block; padding:1px 7px; border-radius:8px; font-weight:700; font-size:7.4px; }
+.wl .hi td { background:#FDF0E7; }
+.wl .cblock { margin:8px 0 12px; break-inside:avoid; page-break-inside:avoid; }
+.wl .cblock.big { break-inside:auto; page-break-inside:auto; }
+.wl .cbar { background:#F36F21; border-left:8px solid #1A2430; padding:5px 12px; border-radius:0 8px 8px 0; break-after:avoid; }
+.wl .cbar.red { background:#DC2626; } .wl .cbar.blue { background:#2F7FD0; } .wl .cbar.dark { background:#1A2430; }
+.wl .cname { color:#FFFFFF; font-weight:700; font-size:10.5px; }
+.wl .cmeta { color:#FFFFFF; font-size:8.4px; font-weight:700; }
+.wl table.matrix { margin-bottom:6px; }
+.wl table.matrix th { background:#1A2430; }
+.wl thead { display:table-header-group; }
+.wl .notice { background:#F6F7F9; border-left:4px solid #F36F21; border-radius:0 10px 10px 0; padding:10px 14px 8px; font-size:9.6px; line-height:1.6; color:#35404E; margin:10px 0 12px; break-inside:avoid; }
+.wl .notice .ntitle { color:#16202C; font-weight:700; font-size:10.5px; letter-spacing:.4px; margin-bottom:6px; }
+.wl .notice table.matrix { margin:4px 0 8px; }
+.wl .notice b { color:#16202C; }
+.wl .sect + .note { break-after:avoid; page-break-after:avoid; }
+"""
+
+
+def _house_worklist(cfg_title, kicker, key_items, body, export_dt, refresh_s):
+    import k2flow as kf
+    cfg = {"client": "Ampol", "title": cfg_title, "kicker": kicker,
+           "project": "Ampol Lytton Refinery \u00b7 Permanent Tool Store",
+           "asat_note": "(SiteIQ stocktake export request time)",
+           "key_items": key_items,
+           "team": [{"name": "Andrew Fisher", "role": "Shutdown Manager", "shift": "",
+                     "email": "andrew.fisher@coates.com.au", "blurb": "", "lead": True}]}
+    return kf.flow_doc(cfg, refresh_s, export_dt.strftime("%d %b %Y %H:%M"),
+                       f'<div class="wl">{body}</div>', extra_css=WORKLIST_CSS)
+
+
 def build_staff_worklist(rows, transit, export_dt, d):
-    refresh = NOW.strftime("%d/%m/%Y %I:%M %p")
+    # WHY (02 Sep 2026): the floor worklist now wears the same house frame
+    # as every other PDF in the suite (k2flow): frame, hero, key strip,
+    # running header and footer, page numbers. The list itself - bays A-Z,
+    # oldest first, tick boxes - is unchanged.
+    import k2shell as sh
+    from k2shell import esc, num
+    refresh = NOW.strftime("%d %b %Y %H:%M")
     due_gas, due_radio = d["due"]["gas"], d["due"]["radio"]
     due_milw, due_gen = d["due"]["milwaukee"], d["due"]["general"]
     all_due = due_gas + due_radio + due_milw + due_gen
     crit = d["crit_instore"]
     val_due = sum(r["value"] for r in all_due if r["value"])
-    css = CSS.replace("__FOOT__", f"Coates \u2014 Stocktake Count Worklist \u2013 {NOW.strftime('%d/%m/%Y')} \u2014 POWERED BY SITEIQ")
-    counters = " &nbsp;\u2022&nbsp; ".join(f"{n} \u00d7{c:,}" for n, c in d["counters7"]) or "\u2014"
-    parts = [f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css}</style></head><body>
-<div class="banner"><div class="purpose">{COATES_PURPOSE}</div>
-<h1>STOCKTAKE COUNT WORKLIST \u2013 AMPOL TOOL STORE</h1>
-<div class="sub">Coates managed &nbsp;|&nbsp; Priority-tiered count cycles (P1 7-day \u00b7 P2 14-day \u00b7 P3 30-day SOP)
-&nbsp;|&nbsp; Data as at: {export_dt.strftime('%d/%m/%Y %I:%M %p')} &nbsp;|&nbsp; Generated: {refresh}</div></div>
-<table class="totals"><tr>
-<td><div class="lbl">Countable Assets</div><div class="val">{d['countable']:,}</div></td>
-<td><div class="lbl">SOP Compliance (30d)</div><div class="val g">{d['comp30']:.1f}%</div></td>
-<td><div class="lbl">Scanned Last 7 Days</div><div class="val g">{len(d['done7']):,}</div></td>
-<td><div class="lbl">In-Store Due (All Tiers)</div><div class="val a">{len(all_due):,}</div></td>
-<td><div class="lbl">Value Awaiting Count</div><div class="val a">{money(val_due)}</div></td>
-<td><div class="lbl">In-Store Over 60 Days / Critical (+{d['crit_onhire']:,} on hire)</div><div class="val r">{crit:,}</div></td>
-<td><div class="lbl">Possible Missed Returns</div><div class="val r">{len(d['missed_returns']):,}</div></td>
-</tr></table>
-{determination_panel()}
-<div class="charge"><div class="ntitle">TEAM \u2013 HOW TO WORK THIS LIST (PER THE DAILY STOCKTAKE SOP)</div><ul>
-<li>Stock takes are completed <b>daily, without exception</b>, both shifts as one team. Work each section <b>oldest first</b>; every scan resets that item's clock.</li>
-<li><b>Sections 1\u20132 (gas monitors, radios & batteries)</b> are Priority 1 \u2014 clear these first, every day. Monitors are bumped and charged before issue.</li>
-<li><b>Section 3 (Milwaukee)</b> is Priority 2 \u2014 high-value power tools on a 14-day cycle.</li>
-<li><b>Section 4 (store walk)</b> is grouped by storage unit \u2014 clear a bay at a time; each line shows the home bay to look in.</li>
-<li><b>Discrepancies are actioned on the spot:</b> missing \u2014 escalate same day; misplaced \u2014 relocate and correct in the system; count mismatch \u2014 recount and report, never adjust away. Damaged \u2014 Out of Service tag, photo, report.</li>
-<li>Rows marked <b style="color:#c00000">ON HIRE</b> are legitimately out \u2014 <b>do not hunt shelves for them</b>. If you physically sight an on-hire item in the store, flag it same day and process it through the double-check return process.</li>
-<li><b>Scanned last 7 days: {len(d['done7']):,} items</b> ({counters}). Good work \u2014 keep the cadence.</li>
-</ul></div>"""]
+    counters = " \u00b7 ".join(f"{n} \u00d7{c:,}" for n, c in d["counters7"]) or "-"
+    parts = [f"""<div class="callout"><span class="lead">Today\u2019s count.</span> <b>{num(len(all_due))} items</b> are due on their tier targets across the store, worth <b class="o">{money(val_due) if val_due else 'unpriced'}</b>; <b>{num(len(d['done7']))}</b> items were scanned in the last 7 days and SOP compliance sits at <b class="o">{d['comp30']:.1f}%</b>. Work each section oldest first - every scan resets that item\u2019s clock. Rows marked <b class="o">ON HIRE</b> are legitimately out: do not hunt shelves for them.</div>
+{sh.tiles([
+    ("box", num(d['countable']), "Countable assets", f"{num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire", "grey"),
+    ("check", f"{d['comp30']:.1f}%", "SOP compliance (30d)", "", "green" if d['comp30'] >= 90 else "amber"),
+    ("clock", num(len(d['done7'])), "Scanned last 7 days", "", "green"),
+    ("warn", num(len(all_due)), "In-store due (all tiers)", "the list below", "amber" if all_due else "green"),
+])}
+{sh.tiles([
+    ("shield", money(val_due) if val_due else "unpriced", "Value awaiting count", "", "amber"),
+    ("warn", num(crit), "In-store over 60 days", f"+{num(d['crit_onhire'])} on hire", "red" if crit else "green"),
+    ("swap", num(len(d['missed_returns'])), "Possible missed returns", "resolve first", "red" if d['missed_returns'] else "green"),
+    ("bars", num(transit), "Departed lines excluded", "no longer on the register", "grey"),
+])}
+<div class="alerts"><div class="ah">Team - how to work this list (per the daily stocktake SOP)</div><table class="al">
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Stock takes are completed daily, without exception</div><div class="al-s">Both shifts as one team. Work each section oldest first; every scan resets that item\u2019s clock.</div></td></tr>
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Sections 1-2 first (gas monitors, radios and batteries), every day</div><div class="al-s">Priority 1, 7-day cycle. Monitors are bumped and charged before issue. Then section 3 (Milwaukee, 14-day), then the store walk bay by bay (30-day SOP).</div></td></tr>
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Discrepancies are actioned on the spot</div><div class="al-s">Missing - escalate same day. Misplaced - relocate and correct in the system. Count mismatch - recount and report, never adjust away. Damaged - Out of Service tag, photo, report.</div></td></tr>
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">ON HIRE rows are legitimately out - do not hunt shelves for them</div><div class="al-s">If you physically sight an on-hire item in the store, flag it same day and process it through the double-check return process.</div></td></tr>
+</table></div>
+<div class="note">Scanned last 7 days: <b>{num(len(d['done7']))} items</b> ({counters}). Good work - keep the cadence.</div>
+{determination_panel()}"""]
     # Section 0
     if d["missed_returns"]:
-        parts.append(f"""<h2 class="sec" style="color:#c00000;border-color:#c00000">0. POSSIBLE MISSED RETURNS \u2013 RESOLVE FIRST ({len(d['missed_returns'])})</h2>
-<div class="secsub">Physically sighted in a store bay on a later day than their recorded on-hire date, yet still showing ON HIRE \u2014
+        parts.append(f"""<div class="sect"><h3>0. Possible missed returns - resolve first ({len(d['missed_returns'])})</h3></div>
+<div class="note">Physically sighted in a store bay on a later day than their recorded on-hire date, yet still showing ON HIRE -
 likely missed return scans. Locate, confirm, and process through the double-check return process today so hirers are not held for gear that is home.</div>
 <table class="items"><tr><th>Sighted In</th><th>Barcode</th><th>Description</th><th>On Hire To</th><th>On-Hire Date</th><th>Sighted</th><th class="num">Unit Price</th></tr>""")
         for r in sorted(d["missed_returns"], key=lambda r: r["last"], reverse=True):
@@ -520,27 +563,24 @@ likely missed return scans. Locate, confirm, and process through the double-chec
         items = d["due"][key]
         label = TIERS[key][0]
         val = sum(r["value"] for r in items if r["value"])
-        sec = "section" if num != "1" else ""
-        parts.append(f"""<div class="{sec}"><h2 class="sec">{num}. {label} Due \u2013 {len(items)} Items \u00b7 {money(val)}</h2>
-<div class="secsub">{blurb}</div>""")
+        parts.append(f"""<div class="sect"><h3>{num}. {label} due - {len(items)} items \u00b7 {money(val) if val else 'unpriced'}</h3></div>
+<div class="note">{blurb}</div>""")
         if items:
             parts.append(grouped_by_unit(items, bar_class="red" if key != "milwaukee" else "dark"))
         else:
-            parts.append('<div class="secsub" style="color:#1e7d32;font-weight:bold">All clear \u2014 every item in this tier is inside its target cycle. Nice work.</div>')
-        parts.append("</div>")
+            parts.append('<div class="note"><b class="g">All clear</b> - every item in this tier is inside its target cycle. Nice work.</div>')
     # Section 4
     items = d["due"]["general"]
     val = sum(r["value"] for r in items if r["value"])
-    parts.append(f"""<div class="section"><h2 class="sec">4. Store Walk \u2013 All Other Tooling Due \u2013 {len(items)} Items \u00b7 {money(val)}</h2>
-<div class="secsub">Priority 3 \u2014 30-day SOP cycle. Grouped by storage unit so one person clears a bay at a time. Tick as counted; scanning resets the clock.</div>""")
+    parts.append(f"""<div class="sect"><h3>4. Store walk - all other tooling due - {len(items)} items \u00b7 {money(val) if val else 'unpriced'}</h3></div>
+<div class="note">Priority 3 - 30-day SOP cycle. Grouped by storage unit, bays A-Z, so one person clears a bay at a time. Tick as counted; scanning resets the clock.</div>""")
     parts.append(grouped_by_unit(items) if items else
-                 '<div class="secsub" style="color:#1e7d32;font-weight:bold">All clear \u2014 full 30-day coverage.</div>')
-    parts.append("</div>")
+                 '<div class="note"><b class="g">All clear</b> - full 30-day coverage.</div>')
     # Section 5: on-hire verification
     onhire_due = d["onhire_due30"]
-    parts.append(f"""<div class="section"><h2 class="sec">5. On-Hire Verification \u2013 {len(onhire_due)} Items Outside 30 Days (Do Not Shelf Count)</h2>
-<div class="secsub">ON HIRE in the system \u2014 with contractors, not on shelves. Verified through the double-check return process
-and shutdown checks. Grouped by company (A\u2013Z, one customer one name; hirers A\u2013Z inside a company) so we know who holds what and the value of it; each line shows the home bay it returns to.</div>""")
+    parts.append(f"""<div class="pb"></div><div class="sect"><h3>5. On-hire verification - {len(onhire_due)} items outside 30 days (do not shelf count)</h3></div>
+<div class="note">ON HIRE in the system - with contractors, not on shelves. Verified through the double-check return process
+and shutdown checks. Grouped by company (A-Z, one customer one name; hirers A-Z inside a company) so we know who holds what and the value of it; each line shows the home bay it returns to.</div>""")
     by_co = defaultdict(list)
     for r in onhire_due:
         comp = (r["onhire_to"].split(" \u2013 ")[0] if r["onhire_to"] else "(unknown company)")
@@ -565,13 +605,20 @@ and shutdown checks. Grouped by company (A\u2013Z, one customer one name; hirers
             parts.append(f"""<tr><td><b>{h}</b></td><td>{cats}</td><td style="color:#1f5c99">{hm}</td>
 <td class="num">{money(hval[h]) if hval[h] else DASH}</td><td class="num overdue">{oldest[h]}</td></tr>""")
         parts.append("</table></div>")
-    parts.append(f"""</div>
-<div class="foot">Countable assets exclude {transit:,} lines that have departed the store (Pending Branch Receipt, or a Departure scan with the item
+    parts.append(f"""<div class="pb"></div><div class="sect"><h3>Data and method</h3></div>
+<div class="note">Countable assets exclude {transit:,} lines that have departed the store (Pending Branch Receipt, or a Departure scan with the item
 no longer on the live register). Prices are Avg Buy Price (New) matched on item description (corrected descriptions applied by barcode;
-{d['priced_family']:,} serial-numbered gas monitors priced by their family line); unpriced items show \u2014 and are listed on the Pricing Gaps tab of the
-Excel worklist \u2014 no price is estimated. SiteIQ still carries the site's former name on {d['former_name_lines']:,} of these descriptions; they are shown under the current name (Ampol). Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
-is a missed return \u2014 flag and process same day.{sig_footer()}</div></body></html>""")
-    return "".join(parts)
+{d['priced_family']:,} serial-numbered gas monitors priced by their family line); unpriced items show a dash and are listed on the Pricing Gaps tab of the
+Excel worklist - no price is estimated. SiteIQ still carries the site\u2019s former name on {d['former_name_lines']:,} of these descriptions; they are shown under the current name (Ampol). Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
+is a missed return - flag and process same day.</div>
+<div class="note">{LSR_LINE}</div>""")
+    body = "".join(parts)
+    return _house_worklist("Stocktake Count Worklist",
+                           "COATES \u00b7 STORES STOCKTAKE \u00b7 FLOOR WORKLIST",
+                           [("orange", "OLDEST FIRST", "every scan resets the clock"),
+                            ("blue", "P1 DAILY", "gas monitors, radios and batteries first"),
+                            ("amber", "ON HIRE", "legitimately out - do not hunt shelves")],
+                           body, export_dt, refresh)
 
 # ---------------------------------------------------------------- client report
 def build_client_report(rows, transit, export_dt, d):

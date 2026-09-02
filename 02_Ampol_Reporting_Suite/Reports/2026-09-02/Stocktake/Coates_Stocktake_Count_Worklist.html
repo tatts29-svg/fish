@@ -1,59 +1,558 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-@page { size: A4; margin: 12mm 11mm 16mm 11mm;
-        @bottom-right { content: "Page " counter(page) " of " counter(pages); font-size:8pt; color:#666; }
-        @bottom-left  { content: "Coates — Stocktake Count Worklist – 02/09/2026 — POWERED BY SITEIQ"; font-size:8pt; color:#666; } }
-body { font-family:Calibri, Arial, sans-serif; color:#1a1a1a; font-size:9.5pt; margin:0; }
-h1 { font-size:17pt; margin:0 0 2pt; }
-.purpose { color:#e07000; font-size:9pt; font-weight:bold; margin:0 0 2pt; }
-.sub { color:#555; font-size:9pt; margin-bottom:8pt; }
-.banner { border-left:5pt solid #e07000; padding-left:8pt; margin-bottom:8pt; }
-.totals { width:100%; border-collapse:collapse; margin-bottom:8pt; }
-.totals td { border:1pt solid #ccc; padding:6pt 8pt; }
-.totals .lbl { font-size:7pt; text-transform:uppercase; letter-spacing:0.5pt; color:#666; }
-.totals .val { font-size:12.5pt; font-weight:bold; color:#e07000; }
-.totals .val.g { color:#1e7d32; } .totals .val.r { color:#c00000; } .totals .val.a { color:#b07700; }
-.charge { border:1pt solid #f0d5b8; background:#fdf4ea; padding:7pt 10pt; margin-bottom:8pt; font-size:9pt; }
-.charge .ntitle { font-weight:bold; color:#b35a00; font-size:9.5pt; margin-bottom:3pt; letter-spacing:0.5pt; }
-.charge ul { margin:0; padding-left:14pt; } .charge li { margin:2pt 0; }
-.section { page-break-before: always; }
-h2.sec { color:#e07000; font-size:13pt; text-transform:uppercase; letter-spacing:0.5pt;
-         border-bottom:2pt solid #e07000; padding-bottom:3pt; margin:0 0 4pt; }
-.secsub { color:#555; font-size:9pt; margin-bottom:8pt; }
-.cblock { page-break-inside: avoid; margin-bottom:9pt; }
-.cblock.big { page-break-inside: auto; }
-.cbar { background:#e07000; border-left:8pt solid #1a1a1a; padding:5pt 12pt; }
-.cbar.red { background:#c00000; } .cbar.blue { background:#1f5c99; } .cbar.dark { background:#333; }
-.cname { color:#fff; font-weight:bold; font-size:10.5pt; }
-.cmeta { color:#fff; font-size:8pt; font-weight:bold; }
-table.items, table.matrix { width:100%; border-collapse:collapse; font-size:8.5pt; border:1pt solid #ccc; }
-th { text-align:left; font-size:7.5pt; text-transform:uppercase; color:#555;
-     padding:3pt 8pt; border-bottom:1pt solid #ccc; background:#fafafa; }
-td { padding:3pt 8pt; border-bottom:0.5pt solid #e3e3e3; vertical-align:top; }
-td.num, th.num { text-align:right; }
-.overdue { color:#c00000; font-weight:bold; }
-.duec { color:#b07700; font-weight:bold; }
-.okc { color:#1e7d32; font-weight:bold; }
-.chip { display:inline-block; padding:1pt 7pt; border-radius:8pt; font-weight:bold; font-size:7.5pt; }
-.hi { background:#fdf0f0; }
-.notice { border:1pt solid #b8d4f0; background:#eef5fc; padding:7pt 10pt; margin-bottom:8pt; font-size:9pt; }
-.notice .ntitle { font-weight:bold; color:#1f5c99; font-size:9.5pt; margin-bottom:3pt; letter-spacing:0.5pt; }
-.foot { margin-top:8pt; color:#555; font-size:8pt; border-top:1pt solid #ccc; padding-top:5pt; }
-.cway { margin-top:5pt; color:#e07000; font-size:8pt; font-weight:bold; text-align:center; }
-.cway .obj { color:#555; font-weight:normal; display:block; margin-top:2pt; }
-</style></head><body>
-<div class="banner"><div class="purpose">Supporting Australia's growth with leading equipment solutions</div>
-<h1>STOCKTAKE COUNT WORKLIST – AMPOL TOOL STORE</h1>
-<div class="sub">Coates managed &nbsp;|&nbsp; Priority-tiered count cycles (P1 7-day · P2 14-day · P3 30-day SOP)
-&nbsp;|&nbsp; Data as at: 02/09/2026 06:29 PM &nbsp;|&nbsp; Generated: 02/09/2026 09:18 PM</div></div>
-<table class="totals"><tr>
-<td><div class="lbl">Countable Assets</div><div class="val">8,165</div></td>
-<td><div class="lbl">SOP Compliance (30d)</div><div class="val g">65.3%</div></td>
-<td><div class="lbl">Scanned Last 7 Days</div><div class="val g">1,734</div></td>
-<td><div class="lbl">In-Store Due (All Tiers)</div><div class="val a">207</div></td>
-<td><div class="lbl">Value Awaiting Count</div><div class="val a">$77,829</div></td>
-<td><div class="lbl">In-Store Over 60 Days / Critical (+2,005 on hire)</div><div class="val r">24</div></td>
-<td><div class="lbl">Possible Missed Returns</div><div class="val r">2</div></td>
-</tr></table>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Coates Ampol Stocktake Count Worklist - 02 Sep 2026 18:29</title><style>/* =====================================================================
+   COATES K2 REPORT DESIGN SYSTEM - print stylesheet
+   Author: Andrew Fisher  -  POWERED BY SITEIQ
+   Matched to the K2 report family (Executive Summary, Stores Stocktake,
+   Store Consumables, Company On-Hire) so every Coates report reads as
+   one house style.
+   A4 portrait. Self-contained - no web fonts, no external requests.
+   ===================================================================== */
+
+
+
+html, body { margin: 0; padding: 0; }
+
+/* Chromium/Edge strips background colours in print unless told not to.
+   WeasyPrint ignores this harmlessly. Without it the Edge-rendered PDF
+   comes out white-on-white. */
+html, body, * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  /* Lato where installed; Calibri on every Coates Windows laptop
+     (Carlito is the metric-matched clone on Linux). */
+  font-family: "Lato", "Calibri", "Carlito", "Segoe UI",
+               "Liberation Sans", sans-serif;
+  color: #35404E;
+}
+
+/* ---------- page + orange frame ------------------------------------ */
+
+/* footer pinned to the bottom of every frame */
+/* content area stops above the footer */
+/* ---------- page 1 dark header panel ------------------------------- */
+
+.hero {
+  background: #1A2430;
+  border-radius: 10px;
+  padding: 21px 24px 19px 24px;
+}
+.hero-grid { width: 100%; }
+.hero-grid td { vertical-align: top; }
+.kicker {
+  color: #F36F21;
+  font-size: 8.8px;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 8px 0 0 0;
+  color: #FFFFFF;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.12;
+}
+.hero .sub {
+  margin-top: 8px;
+  color: #A7B6C4;
+  font-size: 11.6px;
+}
+.hero .meta {
+  margin-top: 10px;
+  color: #8395A6;
+  font-size: 9.4px;
+  line-height: 1.6;
+}
+.hero .meta b { color: #FFFFFF; font-weight: 700; }
+.siteiq {
+  text-align: right;
+  color: #FFFFFF;
+  font-size: 9.8px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  white-space: nowrap;
+}
+.siteiq .q { color: #F36F21; }
+.tagline {
+  text-align: right;
+  color: #8395A6;
+  font-size: 10.4px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+/* ---------- continuation header (pages 2+) ------------------------- */
+
+.chead { width: 100%; }
+.chead td { vertical-align: top; }
+.chead h2 {
+  margin: 5px 0 0 0;
+  color: #16202C;
+  font-size: 15px;
+  font-weight: 700;
+}
+.chead .siteiq { color: #16202C; }
+.asat {
+  text-align: right;
+  color: #8A9AAC;
+  font-size: 9.2px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+.asat b { color: #16202C; font-weight: 700; }
+.pageno {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 2px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- KEY strip --------------------------------------------- */
+
+.key {
+  margin-top: 10px;
+  font-size: 8.4px;
+  line-height: 1.9;
+  color: #7A8A9A;
+}
+.key .kl {
+  color: #8A9AAC;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  margin-right: 6px;
+}
+.key .dot { font-size: 9px; }
+.key b { font-weight: 700; }
+.key .blue  { color: #2F7FD0; }
+.key .amber { color: #E0930F; }
+.key .orange{ color: #F36F21; }
+.key .green { color: #16A34A; }
+
+/* thin gradient rule */
+.grule {
+  height: 2.8px;
+  margin-top: 7px;
+  background-image: linear-gradient(to right, #F36F21 0%, #F5860F 18%,
+              #F0B310 34%, #E3D41C 52%, #C8DA2C 68%, #DDEA92 84%, #FFFFFF 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.page1 .grule { margin-top: 12px; }
+
+/* right-aligned page number on page 1 sits above the rule */
+.p1no {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 8px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- callout (peach) --------------------------------------- */
+
+.callout {
+  background: #FDF0E7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 10px 10px 0;
+  padding: 16px 22px;
+  margin-top: 16px;
+  font-size: 12.4px;
+  line-height: 2.0;
+  color: #1F2A36;
+}
+.callout.tight { font-size: 11.6px; line-height: 1.9; padding: 14px 20px; }
+.callout b { font-weight: 700; }
+.callout .o { color: #D95F14; font-weight: 700; }
+.callout .lead {
+  color: #D95F14;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- section header (grey panel) --------------------------- */
+
+.sect {
+  background: #F4F5F7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 9px 9px 0;
+  padding: 13px 18px;
+  margin-top: 18px;
+}
+.sect h3 { margin: 0; color: #16202C; font-size: 14px; font-weight: 700; }
+
+/* plain sub-heading */
+.sub-h {
+  margin: 18px 0 10px 0;
+  color: #16202C;
+  font-size: 13.8px;
+  font-weight: 700;
+}
+.sub-h .thin { color: #5A6875; font-weight: 400; }
+
+.note {
+  font-size: 9.5px;
+  color: #7A8A9A;
+  line-height: 1.75;
+  margin-top: 9px;
+}
+.note b { color: #16202C; font-weight: 700; }
+.note .o { color: #D95F14; font-weight: 700; }
+
+/* ---------- KPI tiles -------------------------------------------- */
+
+.tiles { width: 100%; table-layout: fixed; border-spacing: 7px 7px;
+         margin: 11px -7px 0 -7px; }
+.tiles td {
+  background: #171F2B;
+  border-radius: 11px;
+  padding: 16px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.t-ico { line-height: 1; margin-bottom: 8px; }
+.t-num {
+  color: #FFFFFF;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+}
+.t-num.sm { font-size: 20px; }
+.t-lab {
+  color: #8A9AAC;
+  font-size: 7.8px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+.t-note { font-size: 8.3px; font-weight: 700; margin-top: 5px; line-height: 1.4; }
+.t-note.red   { color: #F0603E; }
+.t-note.green { color: #22C55E; }
+.t-note.amber { color: #EFA82B; }
+.t-note.grey  { color: #7A8A9A; }
+
+/* ---------- donut ------------------------------------------------- */
+
+.donut-wrap { text-align: center; padding-top: 2px; }
+.donut-cap {
+  color: #98A6B4;
+  font-size: 9px;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* ---------- score bars (K2: fixed-width pill next to the label) --- */
+
+.scores { border-spacing: 0; margin-top: 2px; }
+.scores td { padding: 0; vertical-align: middle; }
+.sc-tick { color: #F5A623; font-size: 10.5px; width: 16px;
+           font-family: "DejaVu Sans", "Segoe UI Symbol", sans-serif; }
+.sc-lab  { color: #1F2A36; font-size: 11.6px; width: 132px;
+           padding-right: 12px; line-height: 1.3; }
+.sc-bar  { width: 236px; }
+.sc-val  { color: #16202C; font-size: 11.6px; font-weight: 700;
+           white-space: nowrap; padding-left: 12px; }
+.sc-form { color: #98A6B4; font-size: 8.9px; line-height: 1.5;
+           padding: 2px 0 13px 0 !important; }
+
+.track  { background: #1A2430; border-radius: 999px; height: 10px; }
+.trackl { background: #E9EDF1; border-radius: 999px; height: 9px; }
+.fill   { height: 10px; border-radius: 999px; }
+.trackl .fill { height: 9px; }
+.f-green { background: #1FA75A; }
+.f-amber { background: #F5A623; }
+.f-red   { background: #EF4444; }
+.f-orange{ background: #F36F21; }
+.f-blue  { background: #3D8BD4; }
+
+/* light progress rows */
+.prog { width: 100%; table-layout: fixed; border-spacing: 0; margin-top: 12px; }
+.prog td { padding: 0 0 10px 0; vertical-align: middle; }
+.pr-lab { color: #6C7A89; font-size: 9.8px; width: 158px; padding-right: 14px;
+          line-height: 1.3; }
+.pr-bar { }
+.pr-val { color: #16202C; font-size: 9.8px; font-weight: 700; text-align: right;
+          white-space: nowrap; width: 64px; padding-left: 14px; }
+
+/* ---------- alerts panel ----------------------------------------- */
+
+.alerts {
+  background: #171F2B;
+  border-radius: 10px;
+  padding: 16px 20px 7px 20px;
+  margin-top: 15px;
+}
+.alerts .ah {
+  color: #F36F21;
+  font-size: 9.3px;
+  font-weight: 700;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.al { width: 100%; border-spacing: 0; }
+.al td { vertical-align: top; padding-bottom: 12px; }
+.al-dot { width: 13px; font-size: 11px; line-height: 1.3; }
+.al-t { color: #FFFFFF; font-size: 10.6px; font-weight: 700; line-height: 1.4; }
+.al-s { color: #8A9AAC; font-size: 9.5px; line-height: 1.55; margin-top: 3px; }
+.d-red { color: #F0603E; } .d-amber { color: #EFA82B; }
+.d-blue { color: #3D8BD4; } .d-green { color: #22C55E; }
+
+/* ---------- tables ----------------------------------------------- */
+
+table.dt { width: 100%; border-collapse: separate; border-spacing: 0;
+           margin-top: 11px; }
+table.dt th {
+  background: #1B2532;
+  color: #FFFFFF;
+  font-size: 8.7px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 10px;
+  line-height: 1.35;
+}
+table.dt th:first-child { border-top-left-radius: 7px; padding-left: 14px; }
+table.dt th:last-child  { border-top-right-radius: 7px; padding-right: 14px; }
+table.dt th.r, table.dt td.r { text-align: right; }
+table.dt th.c, table.dt td.c { text-align: center; }
+table.dt td {
+  font-size: 10.3px;
+  color: #26313D;
+  padding: 10px 10px;
+  border-bottom: 1px solid #E8EBEF;
+  line-height: 1.4;
+}
+table.dt td:first-child { padding-left: 14px; }
+table.dt td:last-child  { padding-right: 14px; }
+table.dt tr.z td { background: #F7F8FA; }
+table.dt td .s2 { display: block; color: #98A6B4; font-size: 8.6px; margin-top: 2px; }
+table.dt td.big { font-size: 17px; font-weight: 700; color: #16202C;
+                  text-align: center; padding: 15px 10px; }
+table.dt td.big + td.big { border-left: 1px solid #E8EBEF; }
+table.dt th.c + th.c { border-left: 1px solid #2A3644; }
+.g { color: #16A34A; font-weight: 700; }
+.a { color: #D9880B; font-weight: 700; }
+.rd { color: #DC2626; font-weight: 700; }
+.or { color: #D95F14; font-weight: 700; }
+.tbc { color: #98A6B4; }
+
+.totrow { width: 100%; border-collapse: collapse; margin-top: 0; }
+.totrow td {
+  font-size: 11.8px; font-weight: 700; color: #16202C;
+  padding: 12px 14px; border-bottom: 1px solid #E8EBEF;
+}
+.totrow td.v { text-align: right; }
+.hl { background: #FFF35C; padding: 2px 7px; border-radius: 2px; }
+
+/* ---------- info cards (lime bar) -------------------------------- */
+
+.cards { width: 100%; table-layout: fixed; border-spacing: 8px 8px;
+         margin: 10px -8px 0 -8px; }
+.cards td {
+  background: #F4F5F7;
+  border-left: 4px solid #C8DA2C;
+  border-radius: 0 7px 7px 0;
+  padding: 13px 16px;
+  vertical-align: top;
+}
+.cd-h {
+  color: #16202C; font-size: 9px; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 7px;
+}
+.cd-b { color: #47566A; font-size: 10px; line-height: 1.72; }
+.cd-b b { color: #16202C; font-weight: 700; }
+
+/* ---------- focus cards (dark, on white page) --------------------- */
+
+.focus { width: 100%; table-layout: fixed; border-spacing: 7px 0;
+         margin: 12px -7px 0 -7px; }
+.focus td {
+  background: #171F2B;
+  border-radius: 10px;
+  border-top: 3px solid #F36F21;
+  padding: 14px 15px 13px 15px;
+  vertical-align: top;
+}
+.fc-co { color: #FFFFFF; font-size: 12px; font-weight: 700; line-height: 1.3; }
+.fc-n  { color: #F0823C; font-size: 9.4px; font-weight: 700; margin-top: 5px; }
+.fc-s  { color: #8A9AAC; font-size: 8.8px; line-height: 1.6; margin-top: 5px; }
+
+/* ---------- team cards ------------------------------------------- */
+
+.team { width: 100%; border-spacing: 8px 0; margin: 13px -8px 0 -8px; }
+.team td {
+  background: #171F2B;
+  border-top: 3px solid #C8DA2C;
+  border-radius: 10px;
+  padding: 15px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.av {
+  width: 42px; height: 42px; border-radius: 999px;
+  background: #55636F; color: #FFFFFF;
+  font-size: 13px; font-weight: 700;
+  text-align: center; line-height: 42px;
+  margin: 0 auto 9px auto;
+}
+.av.lead { background: #F36F21; }
+.tm-n { color: #FFFFFF; font-size: 11.6px; font-weight: 700; line-height: 1.3; }
+.tm-r { color: #C8DA2C; font-size: 8.6px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.8px; margin-top: 5px; line-height: 1.4; }
+.tm-e { color: #7FB3D5; font-size: 8.6px; margin-top: 5px; line-height: 1.4; }
+.tm-d { color: #8A9AAC; font-size: 8.3px; margin-top: 6px; line-height: 1.5; }
+
+/* ---------- misc -------------------------------------------------- */
+
+.two { width: 100%; border-spacing: 0; }
+.two td { vertical-align: top; }
+.chartpanel { background: #171F2B; border-radius: 10px; padding: 15px 17px;
+              margin-top: 11px; }
+.chart-cap { color: #7A8A9A; font-size: 9.4px; line-height: 1.7; margin-top: 9px; }
+.chart-cap b { color: #16202C; }
+
+
+/* ---------- compact tables + tags (02 Sep 2026, gas monitor rebuild) --- */
+
+table.dt.cp th { padding: 8px 8px; font-size: 8.1px; letter-spacing: 1px; }
+table.dt.cp td { padding: 5.5px 8px; font-size: 9.3px; line-height: 1.3; }
+table.dt.cp td:first-child { padding-left: 12px; }
+table.dt.cp td:last-child  { padding-right: 12px; }
+table.dt.cp td .s2 { font-size: 8px; margin-top: 1px; }
+
+.tag {
+  display: inline-block; font-size: 7.2px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; padding: 1px 5px; border-radius: 3px;
+  margin-left: 6px; vertical-align: middle; line-height: 1.5;
+}
+.tag.red   { background: #FDE8E8; color: #C81E1E; }
+.tag.amber { background: #FFF1DB; color: #B45309; }
+.tag.grey  { background: #EEF1F4; color: #5A6875; }
+.tag.green { background: #E4F5EA; color: #15803D; }
+
+table.dt td.dim { color: #98A6B4; }
+table.dt th.nw, table.dt td.nw { white-space: nowrap; }
+table.dt th.w { white-space: nowrap; }
+
+.rules { width: 100%; border-spacing: 0; margin-top: 10px; }
+.rules td { vertical-align: top; padding: 5px 0; border-bottom: 1px solid #E8EBEF;
+            font-size: 9.4px; line-height: 1.55; color: #47566A; }
+.rules td.k { width: 118px; color: #16202C; font-weight: 700; padding-right: 12px; }
+
+/* ---------- flowing-report frame (k2flow) ----------------------------
+   Print-safe pattern: the page margins sit on the frame line (6.5mm);
+   the frame is a fixed element that exactly spans the page area (a
+   fixed element that hangs outside the page area gets tiled by
+   Chromium); the running header and footer bands are the <thead> and
+   <tfoot> of one wrapping table, which Chromium repeats on every page;
+   the page counter is the one thing that needs a margin box. */
+@page {
+  size: A4 portrait;
+  margin: 6.5mm 6.5mm 6.5mm 6.5mm;
+  @bottom-center { content: "Page " counter(page) " of " counter(pages);
+                   font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
+                   font-size: 6.4pt; color: #98A6B4; vertical-align: top; margin-top: 1.2mm; }
+}
+.k2frame { position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+           border: 5px solid #F36F21; border-radius: 26px; pointer-events: none; }
+/* the header and footer bands are FIXED (pinned to the top and bottom of
+   every page, last page included); the wrapping table's thead and tfoot
+   are empty spacers of the same height that reserve the room on each page */
+table.k2wrap { width: 100%; border-collapse: collapse; border-spacing: 0; }
+table.k2wrap > thead { display: table-header-group; }
+table.k2wrap > tfoot { display: table-footer-group; }
+table.k2wrap > thead td, table.k2wrap > tfoot td, table.k2wrap > tbody > tr > td { padding: 0; }
+.k2spacer-t { height: 19.5mm; }
+.k2spacer-b { height: 15.5mm; }
+.k2run { position: fixed; top: 0; left: 0; right: 0; height: 19.5mm; padding: 8.5mm 10mm 0 10mm;
+         box-sizing: border-box; }
+.k2run .bar { border-bottom: 1px solid #E4E8EC; padding-bottom: 5px; position: relative; }
+.k2run .kicker { color: #F36F21; font-size: 8.2px; font-weight: 700; letter-spacing: 2.4px;
+                 text-transform: uppercase; }
+.k2run .t { margin-top: 3px; color: #16202C; font-size: 12.5px; font-weight: 700; }
+.k2run .r { position: absolute; right: 0; top: 0; text-align: right; }
+.k2run .r .siteiq { color: #16202C; text-align: right; }
+.k2run .r .asat { color: #8A9AAC; font-size: 8.8px; margin-top: 4px; white-space: nowrap; }
+.k2run .r .asat b { color: #16202C; }
+.k2foot { position: fixed; bottom: 0; left: 0; right: 0; height: 15.5mm; padding: 0 10mm 8.5mm 10mm;
+          box-sizing: border-box; }
+.k2foot .bar { border-top: 1px solid #E4E8EC; padding-top: 7px; position: relative; }
+.k2foot .fh { color: #F36F21; font-size: 7.4px; font-weight: 700; letter-spacing: 1.9px;
+              text-transform: uppercase; }
+.k2foot .fl { font-size: 8.2px; color: #8A9AAC; line-height: 1.5; margin-top: 3px; }
+.k2foot .fl b { color: #16202C; font-weight: 700; }
+.k2foot .fr { position: absolute; right: 0; top: 8px; text-align: right; font-size: 8.4px;
+              color: #16202C; font-weight: 700; letter-spacing: 1.4px; }
+.k2foot .fr .q { color: #F36F21; }
+.k2body { padding: 6px 10mm 4px 10mm; }
+.k2body .sect { break-after: avoid; page-break-after: avoid; }
+.k2body .sub-h { break-after: avoid; page-break-after: avoid; }
+.k2body table.dt thead { display: table-header-group; }
+.k2body table.dt tr { break-inside: avoid; page-break-inside: avoid; }
+.k2body .tiles, .k2body .callout, .k2body .note, .k2body .chartpanel, .k2body .alerts,
+.k2body .donut-wrap { break-inside: avoid; page-break-inside: avoid; }
+.k2body .pb { break-before: page; page-break-before: always; }
+.k2body .keep { break-inside: avoid; page-break-inside: avoid; }
+.k2body .hero { break-after: avoid; }
+
+/* floor worklist item tables, toned to the house palette */
+.wl table.items, .wl table.matrix { width:100%; border-collapse:collapse; font-size:8.6px; border:1px solid #E4E8EC; }
+.wl table.items th, .wl table.matrix th { text-align:left; font-size:7.6px; text-transform:uppercase; letter-spacing:.6px; color:#FFFFFF; background:#1A2430; padding:5px 8px; }
+.wl table.items td, .wl table.matrix td { padding:4px 8px; border-bottom:1px solid #EEF1F4; vertical-align:top; color:#35404E; }
+.wl table.items tr:nth-child(even) td, .wl table.matrix tr:nth-child(even) td { background:#F7F8FA; }
+.wl td.num, .wl th.num { text-align:right; }
+.wl .overdue { color:#DC2626; font-weight:700; }
+.wl .duec { color:#B45309; font-weight:700; }
+.wl .okc { color:#16A34A; font-weight:700; }
+.wl .chip { display:inline-block; padding:1px 7px; border-radius:8px; font-weight:700; font-size:7.4px; }
+.wl .hi td { background:#FDF0E7; }
+.wl .cblock { margin:8px 0 12px; break-inside:avoid; page-break-inside:avoid; }
+.wl .cblock.big { break-inside:auto; page-break-inside:auto; }
+.wl .cbar { background:#F36F21; border-left:8px solid #1A2430; padding:5px 12px; border-radius:0 8px 8px 0; break-after:avoid; }
+.wl .cbar.red { background:#DC2626; } .wl .cbar.blue { background:#2F7FD0; } .wl .cbar.dark { background:#1A2430; }
+.wl .cname { color:#FFFFFF; font-weight:700; font-size:10.5px; }
+.wl .cmeta { color:#FFFFFF; font-size:8.4px; font-weight:700; }
+.wl table.matrix { margin-bottom:6px; }
+.wl table.matrix th { background:#1A2430; }
+.wl thead { display:table-header-group; }
+.wl .notice { background:#F6F7F9; border-left:4px solid #F36F21; border-radius:0 10px 10px 0; padding:10px 14px 8px; font-size:9.6px; line-height:1.6; color:#35404E; margin:10px 0 12px; break-inside:avoid; }
+.wl .notice .ntitle { color:#16202C; font-weight:700; font-size:10.5px; letter-spacing:.4px; margin-bottom:6px; }
+.wl .notice table.matrix { margin:4px 0 8px; }
+.wl .notice b { color:#16202C; }
+</style></head><body><div class="k2frame"></div><div class="k2run"><div class="bar"><div class="kicker">COATES · STORES STOCKTAKE · FLOOR WORKLIST</div><div class="t">Ampol Stocktake Count Worklist</div><div class="r"><div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div><div class="asat">AS AT <b>02 SEP 2026 18:29</b></div></div></div></div><div class="k2foot"><div class="bar"><div class="fh">Your Coates Tool Store Team</div><div class="fl"><b>Andrew Fisher</b> Shutdown Manager &nbsp;·&nbsp; Author: <b>Andrew Fisher</b></div><div class="fr">POWERED BY <span class="q">SITEIQ</span></div></div></div><table class="k2wrap"><thead><tr><td><div class="k2spacer-t"></div></td></tr></thead><tfoot><tr><td><div class="k2spacer-b"></div></td></tr></tfoot><tbody><tr><td><div class="k2body"><div class="hero">
+  <table class="hero-grid"><tr>
+    <td>
+      <div class="kicker">COATES · STORES STOCKTAKE · FLOOR WORKLIST</div>
+      <h1>Ampol Stocktake Count Worklist</h1>
+      <div class="sub">Ampol Lytton Refinery · Permanent Tool Store</div>
+    </td>
+    <td style="width:172px">
+      <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+      <div class="tagline">Equipped for anything</div>
+    </td>
+  </tr></table>
+  <div class="meta">Generated: <b>02 Sep 2026 23:04</b> &nbsp;|&nbsp;
+    Data as at: <b>02 Sep 2026 18:29</b> (SiteIQ stocktake export request time) &nbsp;|&nbsp;
+    Author: <b>Andrew Fisher</b></div>
+</div><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">OLDEST FIRST</b> every scan resets the clock  <span class="dot blue">●</span> <b class="blue">P1 DAILY</b> gas monitors, radios and batteries first  <span class="dot amber">●</span> <b class="amber">ON HIRE</b> legitimately out - do not hunt shelves</div><div class="grule"></div><div class="wl"><div class="callout"><span class="lead">Today’s count.</span> <b>207 items</b> are due on their tier targets across the store, worth <b class="o">$77,829</b>; <b>1,734</b> items were scanned in the last 7 days and SOP compliance sits at <b class="o">65.3%</b>. Work each section oldest first - every scan resets that item’s clock. Rows marked <b class="o">ON HIRE</b> are legitimately out: do not hunt shelves for them.</div>
+<table class="tiles"><tr><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.2 12 3 3 8.2v7.6L12 21l9-5.2z"/><path d="M3 8.2l9 5.2 9-5.2"/><path d="M12 13.4V21"/></svg></div><div class="t-num">8,165</div><div class="t-lab">Countable assets</div><div class="t-note grey">4,727 in store, 3,438 on hire</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg></div><div class="t-num">65.3%</div><div class="t-lab">SOP compliance (30d)</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 3.2"/></svg></div><div class="t-num">1,734</div><div class="t-lab">Scanned last 7 days</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 2.5 20h19z"/><path d="M12 9.5v4.5"/><path d="M12 17.2v.05"/></svg></div><div class="t-num">207</div><div class="t-lab">In-store due (all tiers)</div><div class="t-note amber">the list below</div></td></tr></table>
+<table class="tiles"><tr><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s7.5-3.3 7.5-9.3V5.5L12 2.8 4.5 5.5v6.7c0 6 7.5 9.3 7.5 9.3z"/></svg></div><div class="t-num">$77,829</div><div class="t-lab">Value awaiting count</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 2.5 20h19z"/><path d="M12 9.5v4.5"/><path d="M12 17.2v.05"/></svg></div><div class="t-num">24</div><div class="t-lab">In-store over 60 days</div><div class="t-note red">+2,005 on hire</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.5l4 4-4 4"/><path d="M21 6.5H8.5a4 4 0 0 0-4 4v1"/><path d="M7 21.5l-4-4 4-4"/><path d="M3 17.5h12.5a4 4 0 0 0 4-4v-1"/></svg></div><div class="t-num">2</div><div class="t-lab">Possible missed returns</div><div class="t-note red">resolve first</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10"/><path d="M12 20V4.5"/><path d="M18 20v-6.5"/></svg></div><div class="t-num">4,915</div><div class="t-lab">Departed lines excluded</div><div class="t-note grey">no longer on the register</div></td></tr></table>
+<div class="alerts"><div class="ah">Team - how to work this list (per the daily stocktake SOP)</div><table class="al">
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Stock takes are completed daily, without exception</div><div class="al-s">Both shifts as one team. Work each section oldest first; every scan resets that item’s clock.</div></td></tr>
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Sections 1-2 first (gas monitors, radios and batteries), every day</div><div class="al-s">Priority 1, 7-day cycle. Monitors are bumped and charged before issue. Then section 3 (Milwaukee, 14-day), then the store walk bay by bay (30-day SOP).</div></td></tr>
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Discrepancies are actioned on the spot</div><div class="al-s">Missing - escalate same day. Misplaced - relocate and correct in the system. Count mismatch - recount and report, never adjust away. Damaged - Out of Service tag, photo, report.</div></td></tr>
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">ON HIRE rows are legitimately out - do not hunt shelves for them</div><div class="al-s">If you physically sight an on-hire item in the store, flag it same day and process it through the double-check return process.</div></td></tr>
+</table></div>
+<div class="note">Scanned last 7 days: <b>1,734 items</b> (Thomas Maher ×1,167 · Matt Bedford ×567). Good work - keep the cadence.</div>
 <div class="notice"><div class="ntitle">HOW PRIORITY IS DETERMINED (AND WHAT COUNTS AS DONE)</div>
 <table class="matrix" style="margin-bottom:5pt"><tr><th>Priority Tier</th><th>Target Cycle</th><th>Why</th></tr><tr><td><b>Gas Monitors</b></td><td>Every 7 days</td><td>Safety-critical; bumped & charged before issue</td></tr><tr><td><b>Radios & Radio Batteries</b></td><td>Every 7 days</td><td>Safety-critical comms; high churn</td></tr><tr><td><b>Milwaukee Power Tools</b></td><td>Every 14 days</td><td>High value, high shrinkage risk</td></tr><tr><td><b>All Other Tooling</b></td><td>Every 30 days</td><td>30-day full-coverage SOP cycle</td></tr></table>
 An item is <b>DONE</b> when it is physically scanned — the scan resets its clock. Issue and return scans count, so this
@@ -61,24 +560,15 @@ worklist naturally surfaces <b>idle stock</b> (gear that hasn't moved), which is
 Severity against the 30-day SOP: <span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span> = outside its
 tier target but still inside the SOP window &nbsp; <span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span>
 = 31–60 days &nbsp; <span class="chip" style="color:#c00000;background:#fbe9e9">CRITICAL</span> = over 60 days or never sighted.
-Client compliance is measured on the 30-day SOP; the 7/14-day cycles are the Coates internal standard, set above the SOP.</div>
-<div class="charge"><div class="ntitle">TEAM – HOW TO WORK THIS LIST (PER THE DAILY STOCKTAKE SOP)</div><ul>
-<li>Stock takes are completed <b>daily, without exception</b>, both shifts as one team. Work each section <b>oldest first</b>; every scan resets that item's clock.</li>
-<li><b>Sections 1–2 (gas monitors, radios & batteries)</b> are Priority 1 — clear these first, every day. Monitors are bumped and charged before issue.</li>
-<li><b>Section 3 (Milwaukee)</b> is Priority 2 — high-value power tools on a 14-day cycle.</li>
-<li><b>Section 4 (store walk)</b> is grouped by storage unit — clear a bay at a time; each line shows the home bay to look in.</li>
-<li><b>Discrepancies are actioned on the spot:</b> missing — escalate same day; misplaced — relocate and correct in the system; count mismatch — recount and report, never adjust away. Damaged — Out of Service tag, photo, report.</li>
-<li>Rows marked <b style="color:#c00000">ON HIRE</b> are legitimately out — <b>do not hunt shelves for them</b>. If you physically sight an on-hire item in the store, flag it same day and process it through the double-check return process.</li>
-<li><b>Scanned last 7 days: 1,734 items</b> (Thomas Maher ×1,167 &nbsp;•&nbsp; Matt Bedford ×567). Good work — keep the cadence.</li>
-</ul></div><h2 class="sec" style="color:#c00000;border-color:#c00000">0. POSSIBLE MISSED RETURNS – RESOLVE FIRST (2)</h2>
-<div class="secsub">Physically sighted in a store bay on a later day than their recorded on-hire date, yet still showing ON HIRE —
+Client compliance is measured on the 30-day SOP; the 7/14-day cycles are the Coates internal standard, set above the SOP.</div><div class="sect"><h3>0. Possible missed returns - resolve first (2)</h3></div>
+<div class="note">Physically sighted in a store bay on a later day than their recorded on-hire date, yet still showing ON HIRE -
 likely missed return scans. Locate, confirm, and process through the double-check return process today so hirers are not held for gear that is home.</div>
 <table class="items"><tr><th>Sighted In</th><th>Barcode</th><th>Description</th><th>On Hire To</th><th>On-Hire Date</th><th>Sighted</th><th class="num">Unit Price</th></tr><tr class="hi"><td><b>WELDING BAY</b></td><td>WG0047/007</td><td>Caddie Welder Kemppi</td>
 <td>Repairs – All-Around - Repairs</td><td>10/08/2026</td>
 <td>02/09/2026</td><td class="num">$1,950</td></tr><tr class="hi"><td><b>HYDRO / HYDRAULIC AISLE</b></td><td>CTX008/005</td><td>Flange Spreader & Prying Tool</td>
 <td>Piping Solutions – Matthew - Walduck</td><td>29/07/2026</td>
-<td>04/08/2026</td><td class="num">$550</td></tr></table><div class=""><h2 class="sec">1. Gas Monitors Due – 8 Items · $16,000</h2>
-<div class="secsub">Priority 1 — 7-day target. Safety-critical: every monitor bumped and charged before issue. Grouped by home bay.</div><div class="cblock"><div class="cbar red"><span class="cname">CHARGING STATION</span>
+<td>04/08/2026</td><td class="num">$550</td></tr></table><div class="sect"><h3>1. Gas Monitors due - 8 items · $16,000</h3></div>
+<div class="note">Priority 1 — 7-day target. Safety-critical: every monitor bumped and charged before issue. Grouped by home bay.</div><div class="cblock"><div class="cbar red"><span class="cname">CHARGING STATION</span>
 <span class="cmeta">&mdash; 8 items due &nbsp;•&nbsp; $16,000 at risk</span></div><table class="items"><tr><th>Barcode</th><th>Description</th><th class="num">Qty</th>
 <th class="num">Unit Price</th><th>Last Sighted</th><th class="num">Days</th><th>Severity</th><th>Counted ☑</th></tr><tr><td>AMPT&I001/126</td><td>Drager X-am 5000 - T&I -ARSN-0637</td><td class="num">1</td>
 <td class="num">$2,000</td><td>16/07/2026</td><td class="num duec">48</td>
@@ -96,8 +586,8 @@ likely missed return scans. Locate, confirm, and process through the double-chec
 <td class="num">$2,000</td><td>30/07/2026</td><td class="num duec">34</td>
 <td><span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span></td><td style="width:40pt">&nbsp;</td></tr><tr><td>CTX011/038</td><td>Dräger X-am 5000 Gas Monitor</td><td class="num">1</td>
 <td class="num">$2,000</td><td>13/08/2026</td><td class="num ">20</td>
-<td><span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span></td><td style="width:40pt">&nbsp;</td></tr></table></div></div><div class="section"><h2 class="sec">2. Radios & Radio Batteries Due – 32 Items · $10,321</h2>
-<div class="secsub">Priority 1 — 7-day target. Radios and radio batteries; charging station cycle should keep these current — anything here is idle.</div><div class="cblock"><div class="cbar red"><span class="cname">CHARGING STATION</span>
+<td><span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span></td><td style="width:40pt">&nbsp;</td></tr></table></div><div class="sect"><h3>2. Radios & Radio Batteries due - 32 items · $10,321</h3></div>
+<div class="note">Priority 1 — 7-day target. Radios and radio batteries; charging station cycle should keep these current — anything here is idle.</div><div class="cblock"><div class="cbar red"><span class="cname">CHARGING STATION</span>
 <span class="cmeta">&mdash; 28 items due &nbsp;•&nbsp; $6,888 at risk</span></div><table class="items"><tr><th>Barcode</th><th>Description</th><th class="num">Qty</th>
 <th class="num">Unit Price</th><th>Last Sighted</th><th class="num">Days</th><th>Severity</th><th>Counted ☑</th></tr><tr><td>AMPMRB/695</td><td>Motorola Radio Battery</td><td class="num">1</td>
 <td class="num">$246</td><td>10/07/2026</td><td class="num duec">54</td>
@@ -167,8 +657,8 @@ likely missed return scans. Locate, confirm, and process through the double-chec
 <td class="num">$246</td><td>25/08/2026</td><td class="num ">8</td>
 <td><span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span></td><td style="width:40pt">&nbsp;</td></tr><tr><td>SATGASBAT/024</td><td>Motorola Radio Battery</td><td class="num">1</td>
 <td class="num">$246</td><td>25/08/2026</td><td class="num ">8</td>
-<td><span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span></td><td style="width:40pt">&nbsp;</td></tr></table></div></div><div class="section"><h2 class="sec">3. Milwaukee Power Tools Due – 9 Items · $2,738</h2>
-<div class="secsub">Priority 2 — 14-day target. High-value cordless tools; count includes batteries and chargers.</div><div class="cblock"><div class="cbar dark"><span class="cname">H-B01</span>
+<td><span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span></td><td style="width:40pt">&nbsp;</td></tr></table></div><div class="sect"><h3>3. Milwaukee Power Tools due - 9 items · $2,738</h3></div>
+<div class="note">Priority 2 — 14-day target. High-value cordless tools; count includes batteries and chargers.</div><div class="cblock"><div class="cbar dark"><span class="cname">H-B01</span>
 <span class="cmeta">&mdash; 2 items due &nbsp;•&nbsp; $1,500 at risk</span></div><table class="items"><tr><th>Barcode</th><th>Description</th><th class="num">Qty</th>
 <th class="num">Unit Price</th><th>Last Sighted</th><th class="num">Days</th><th>Severity</th><th>Counted ☑</th></tr><tr><td>CTX1021/002</td><td>Milwaukee M18 Cordless Impact Wrench - 3/4" Drive</td><td class="num">1</td>
 <td class="num">$750</td><td>14/08/2026</td><td class="num ">19</td>
@@ -194,8 +684,8 @@ likely missed return scans. Locate, confirm, and process through the double-chec
 <td class="num">—</td><td>14/08/2026</td><td class="num ">19</td>
 <td><span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span></td><td style="width:40pt">&nbsp;</td></tr><tr><td>SD0052/014</td><td>Milwaukee M12 RedLithium Battery - 6.0Ah</td><td class="num">1</td>
 <td class="num">$165</td><td>18/08/2026</td><td class="num ">15</td>
-<td><span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span></td><td style="width:40pt">&nbsp;</td></tr></table></div></div><div class="section"><h2 class="sec">4. Store Walk – All Other Tooling Due – 158 Items · $48,770</h2>
-<div class="secsub">Priority 3 — 30-day SOP cycle. Grouped by storage unit so one person clears a bay at a time. Tick as counted; scanning resets the clock.</div><div class="cblock"><div class="cbar "><span class="cname">A-B01</span>
+<td><span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span></td><td style="width:40pt">&nbsp;</td></tr></table></div><div class="sect"><h3>4. Store walk - all other tooling due - 158 items · $48,770</h3></div>
+<div class="note">Priority 3 - 30-day SOP cycle. Grouped by storage unit, bays A-Z, so one person clears a bay at a time. Tick as counted; scanning resets the clock.</div><div class="cblock"><div class="cbar "><span class="cname">A-B01</span>
 <span class="cmeta">&mdash; 7 items due &nbsp;•&nbsp; $3,354 at risk</span></div><table class="items"><tr><th>Barcode</th><th>Description</th><th class="num">Qty</th>
 <th class="num">Unit Price</th><th>Last Sighted</th><th class="num">Days</th><th>Severity</th><th>Counted ☑</th></tr><tr><td>CTX140/002</td><td>Long Series Swivel Pinkie M16 - 1.5T</td><td class="num">1</td>
 <td class="num">$297</td><td>17/07/2026</td><td class="num duec">47</td>
@@ -555,9 +1045,9 @@ likely missed return scans. Locate, confirm, and process through the double-chec
 <td class="num">$80</td><td>14/07/2026</td><td class="num duec">50</td>
 <td><span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span></td><td style="width:40pt">&nbsp;</td></tr><tr><td>AMP060/001</td><td>TIG Torch</td><td class="num">1</td>
 <td class="num">$280</td><td>14/07/2026</td><td class="num duec">50</td>
-<td><span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span></td><td style="width:40pt">&nbsp;</td></tr></table></div></div><div class="section"><h2 class="sec">5. On-Hire Verification – 2663 Items Outside 30 Days (Do Not Shelf Count)</h2>
-<div class="secsub">ON HIRE in the system — with contractors, not on shelves. Verified through the double-check return process
-and shutdown checks. Grouped by company (A–Z, one customer one name; hirers A–Z inside a company) so we know who holds what and the value of it; each line shows the home bay it returns to.</div><div class="cblock"><div class="cbar blue"><span class="cname">Acrow</span>
+<td><span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span></td><td style="width:40pt">&nbsp;</td></tr></table></div><div class="pb"></div><div class="sect"><h3>5. On-hire verification - 2663 items outside 30 days (do not shelf count)</h3></div>
+<div class="note">ON HIRE in the system - with contractors, not on shelves. Verified through the double-check return process
+and shutdown checks. Grouped by company (A-Z, one customer one name; hirers A-Z inside a company) so we know who holds what and the value of it; each line shows the home bay it returns to.</div><div class="cblock"><div class="cbar blue"><span class="cname">Acrow</span>
 <span class="cmeta">&mdash; 16 items on hire 30+ days since last sighting &nbsp;•&nbsp; $21,465</span></div>
 <table class="items"><tr><th>Hirer</th><th>Items (by category)</th><th>Returns To (Home Bay)</th><th class="num">Value</th><th class="num">Oldest (Days)</th></tr><tr><td><b>Adrian - Thouvenot</b></td><td>Tooling & Equipment ×2, Radios & Radio Batteries ×1</td><td style="color:#1f5c99">AMPOL NEW TOOL STORE ×2, CHARGING STATION ×1</td>
 <td class="num">$3,385</td><td class="num overdue">63</td></tr><tr><td><b>Joseph - Olexienko</b></td><td>Radios & Radio Batteries ×6</td><td style="color:#1f5c99">CHARGING STATION ×3, ON HIRE ×3</td>
@@ -1327,10 +1817,10 @@ and shutdown checks. Grouped by company (A–Z, one customer one name; hirers A�
 <td class="num">$5,390</td><td class="num overdue">671</td></tr></table></div><div class="cblock"><div class="cbar blue"><span class="cname">Zancott Knight</span>
 <span class="cmeta">&mdash; 1 item on hire 30+ days since last sighting &nbsp;•&nbsp; $246</span></div>
 <table class="items"><tr><th>Hirer</th><th>Items (by category)</th><th>Returns To (Home Bay)</th><th class="num">Value</th><th class="num">Oldest (Days)</th></tr><tr><td><b>Amit - Ghimire</b></td><td>Radios & Radio Batteries ×1</td><td style="color:#1f5c99">ON HIRE ×1</td>
-<td class="num">$246</td><td class="num overdue">306</td></tr></table></div></div>
-<div class="foot">Countable assets exclude 4,915 lines that have departed the store (Pending Branch Receipt, or a Departure scan with the item
+<td class="num">$246</td><td class="num overdue">306</td></tr></table></div><div class="pb"></div><div class="sect"><h3>Data and method</h3></div>
+<div class="note">Countable assets exclude 4,915 lines that have departed the store (Pending Branch Receipt, or a Departure scan with the item
 no longer on the live register). Prices are Avg Buy Price (New) matched on item description (corrected descriptions applied by barcode;
-493 serial-numbered gas monitors priced by their family line); unpriced items show — and are listed on the Pricing Gaps tab of the
-Excel worklist — no price is estimated. SiteIQ still carries the site's former name on 3,127 of these descriptions; they are shown under the current name (Ampol). Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
-is a missed return — flag and process same day.<div class="cway"><span style="font-size:8pt;color:#555">Life Saving Rule 5 – Tools and Equipment (SEQ-GL-009): nothing damaged, defective or out of test date is ever reissued. Two scans. Two looks. One standard. Stock takes are done daily. No exceptions.</span><br>Care Deeply &nbsp;•&nbsp; Customer Focused &nbsp;•&nbsp; Be Our Best &nbsp;•&nbsp; One Team &nbsp;•&nbsp; Competitive Spirit<span class="obj">Australia's most trusted equipment partner — delivering Best Service & Value</span>
-<span class="obj"><b style="color:#1a1a1a">Author: Andrew Fisher</b> &nbsp;•&nbsp; <b style="color:#e07000">POWERED BY SITEIQ</b></span></div></div></body></html>
+493 serial-numbered gas monitors priced by their family line); unpriced items show a dash and are listed on the Pricing Gaps tab of the
+Excel worklist - no price is estimated. SiteIQ still carries the site’s former name on 3,127 of these descriptions; they are shown under the current name (Ampol). Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
+is a missed return - flag and process same day.</div>
+<div class="note">Life Saving Rule 5 – Tools and Equipment (SEQ-GL-009): nothing damaged, defective or out of test date is ever reissued. Two scans. Two looks. One standard. Stock takes are done daily. No exceptions.</div></div></div></td></tr></tbody></table></body></html>
