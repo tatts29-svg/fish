@@ -38,3 +38,8 @@ __pycache__/
 01_Reporting_Suite/Photo_Hunt.html
 01_Reporting_Suite/Gear_Lookup/thumbs/
 01_Reporting_Suite/stocktake_log.json
+
+# Ampol suite (Lytton Refinery) - same rules as K2. Data\previous holds
+# yesterday's SiteIQ pulls, backed up by button 12 on whichever machine
+# ran it. Per-machine state, not code.
+02_Ampol_Reporting_Suite/Data/previous/

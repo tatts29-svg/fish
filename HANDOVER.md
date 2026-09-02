@@ -202,3 +202,23 @@ Plain Australian. Recommendation first, then the reasoning. He wants a
 straight answer, not a survey of options. If something's wrong, say so
 in a sentence and fix it — no long apologies. He's running a shutdown
 and reads most of this on a phone.
+
+---
+
+## Ampol suite — also in this repo (added 2 Sep 2026)
+
+**Job:** Ampol Tool Store, Lytton Refinery. Suite lives at
+`02_Ampol_Reporting_Suite/`, v1.0 (12 Aug 2026), stood up on the K2
+pattern: 13 numbered buttons, one `Data\` area for every workbook,
+dated `Reports\` output, drafts-never-send, CHECK gates.
+
+It got here the same way everything else did: Andrew zipped the folder
+on his laptop, uploaded it in chat, and it was committed from the zip.
+**No path on his machines is reachable from a session** — not the Coates
+OneDrive on the work laptop, not the personal OneDrive on the Surface.
+The repo is the copy a session can see; a fresh zip in chat is how a
+newer copy arrives.
+
+Unlike K2, the Ampol suite has **no sync / version-check / apply-update
+buttons yet** (K2's 39, 40, 46). Two laptops carrying it will drift
+unless one of those is added or the repo is treated as the master.
