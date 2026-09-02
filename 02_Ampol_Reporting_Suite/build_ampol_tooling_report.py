@@ -3,10 +3,13 @@
 #  Author: Andrew Fisher  |  The Coates Way  |  POWERED BY SITEIQ
 #
 #  Reads every input from the suite's one Data area (ampol_paths; never
-#  modifies the workbook). Reports: Executive, Quarterly on-hire, Company
-#  on-hire, Utilisation & What-to-Buy, Compliance & Trends. Every report
-#  ships as PDF + HTML + X-Unsent .eml + Outlook-safe email draft
-#  (08_MAKE_OUTLOOK_DRAFTS.bat -> native drafts with full To-field search).
+#  modifies the workbook). Reports: Executive Summary, Tooling On-Hire
+#  Report (every company A to Z in one document), Quarterly on-hire charge
+#  reports, Utilisation & What-to-Buy, Compliance & Trends. A one-off
+#  Company on-hire report is still available (--company NAME) but is no
+#  longer part of --everything. Every report ships as PDF + HTML + X-Unsent
+#  .eml + Outlook-safe email draft (08_MAKE_OUTLOOK_DRAFTS.bat -> native
+#  drafts with full To-field search).
 #
 #  WHY (02 Sep 2026): every printed figure is now computed here, from the
 #  raw SiteIQ exports (RENTAL_STOCK, TRANSACTIONS, STOCKTAKE), the pricing
@@ -17,6 +20,16 @@
 #  rules (its M code) are ported below so the numbers still mean the same
 #  thing; the workbook itself is only read, when present, for a console
 #  cross-check that tells Andrew whether it is stale.
+#
+#  WHY (02 Sep 2026, later): Andrew asked for ONE clean tooling on-hire
+#  report instead of a report per company ("there are hundreds of
+#  companies"), the quarterly charge reports kept, the site's former name
+#  gone from every page, and everything in alphabetical order. Names now
+#  come from the shared ampol_names module (one customer, one name; project
+#  accounts roll up to their parent and are shown as a sub-label), every
+#  table is A to Z unless its heading says "ranked by ...", and the
+#  Tooling On-Hire Report carries the full register: company A to Z,
+#  hirer A to Z, items longest-held first.
 # =============================================================================
 import datetime as dt
 import html as _html
@@ -25,10 +38,11 @@ import os
 import re
 import subprocess
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 import openpyxl
 
+import ampol_names as N  # WHY (02 Sep 2026): one place for how names are shown
 import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
 import k2shell      # WHY (12 Aug 2026): the shared K2 chart kit - self-contained SVG
 
@@ -39,9 +53,11 @@ OUT_DIR = ampol_paths.day_folder("Tooling")
 WORKBOOK = "Ampol_Onhire_Tooling_Report.xlsm"
 
 TODAY = dt.date.today()
-# WHY (12 Aug 2026): Australian date style (11 Jul 2026) and 24-hour time,
-# same as the rest of the suite.
-GENERATED = dt.datetime.now().strftime("%d %b %Y %H:%M").lstrip("0")
+# WHY (12 Aug 2026): Australian date style (02 Sep 2026) and 24-hour time,
+# same as the rest of the suite. WHY (02 Sep 2026): the leading zero stays
+# - the house style is "02 Sep 2026", and every other date on the page
+# (fmt_date, stamp) already prints it that way.
+GENERATED = dt.datetime.now().strftime("%d %b %Y %H:%M")
 DATESTR = TODAY.strftime("%Y-%m-%d")
 # WHY (02 Sep 2026): the data-as-at stamp is the SiteIQ pull time written
 # inside the RENTAL_STOCK export (REFERENCE_INFO), never a file's mtime.
@@ -175,10 +191,11 @@ def m_proper(text):
 
 
 def clean_text(v):
-    """The workbook's CleanText: Proper(upper(trim) with CALTEX -> AMPOL)."""
+    """The workbook's CleanText: Proper(upper(trim)) with the site's former
+    name read as the current one (ampol_names.display_desc)."""
     if v is None:
         return ""
-    return m_proper(clean(v).upper().replace("CALTEX", "AMPOL"))
+    return m_proper(N.display_desc(clean(v).upper()))
 
 
 def proper_clean(v):
@@ -193,9 +210,9 @@ def proper_clean(v):
 
 
 def desc_key(v):
-    """Pricing match key (workbook CleanDescription): Caltex -> Ampol,
-    collapse spaces, upper-case."""
-    s = clean(v).replace("Caltex", "Ampol").replace("CALTEX", "AMPOL")
+    """Pricing match key (workbook CleanDescription): former site name read
+    as the current one, collapse spaces, upper-case."""
+    s = N.display_desc(clean(v))
     return " ".join(t for t in s.split(" ") if t).upper()
 
 
