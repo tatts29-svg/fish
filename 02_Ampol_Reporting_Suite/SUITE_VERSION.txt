@@ -75,4 +75,15 @@ v1.2 - 02 Sep 2026  (every family on the raw exports - no workbook refresh)
     301 on hire to 14 customers, 13 at repairs; the workbook's
     certificate extract (Next Insp Due 04/26 on 375 items) disclosed
     as unconfirmed.
+  - Calibration (06): the register is read only for the due dates
+    typed into Register Entry; status buckets, chase list, on-hire and
+    "on hire, not in the register" are computed from RENTAL_STOCK at
+    its pull time. At 02 Sep: 135 in cal / 6 due inside 30 days / 48
+    overdue / 158 no date (the register's own 14 Aug view - 137/26/26
+    - is printed beside it, labelled). Chase list 8 across 6 hirers.
+    A banner says how old the due-date entries are (19 days) and that
+    the fix is entering certificates, not pressing Refresh. "No Date"
+    now reads "status unknown until the certificate is entered", with
+    43 of them on hire; 25 register assets not in SiteIQ are printed
+    as "whereabouts unknown".
 

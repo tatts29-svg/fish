@@ -294,4 +294,11 @@ for a column named `CorrectedDescriptionsTable.Corrected Description`
 (the file's header is `Corrected Description`) so corrections never
 apply; the per-query Filtered Rows steps differ, which is why the tabs
 disagreed.
+- Calibration: the report presented the register's 14 Aug refresh as
+  today's position (26 overdue when 48 were, by 2 Sep). Now computed
+  from Register Entry due dates joined live to RENTAL_STOCK; the
+  register's own view prints beside it, labelled; the staleness banner
+  is about the age of the due-date entries. 5 chase items were hired
+  out after their due date (report says check both the issue and the
+  register date).
 

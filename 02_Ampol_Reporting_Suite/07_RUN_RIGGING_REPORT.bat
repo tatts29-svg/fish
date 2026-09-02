@@ -3,6 +3,8 @@ title Coates Ampol - 07 Rigging Report
 rem ============================================================
 rem  COATES - AMPOL TOOL STORE (Lytton Refinery)
 rem  07 - RIGGING AND LIFTING REGISTER REPORT
+rem  Status, hirer and held-days from Data\RENTAL_STOCK (SiteIQ pull).
+rem  The register is read only for what you type into it - no refresh (02 Sep 2026).
 rem  Author: Andrew Fisher - POWERED BY SITEIQ
 rem
 rem  Every report reads its Excels from Data\  - one area, always.

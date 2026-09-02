@@ -3,6 +3,8 @@ title Coates Ampol - 06 Calibration Report
 rem ============================================================
 rem  COATES - AMPOL TOOL STORE (Lytton Refinery)
 rem  06 - CALIBRATION REGISTER REPORT
+rem  Status, chase list and on-hire from Data\RENTAL_STOCK (SiteIQ pull).
+rem  The register is read only for the due dates you type - no refresh (02 Sep 2026).
 rem  Author: Andrew Fisher - POWERED BY SITEIQ
 rem
 rem  Every report reads its Excels from Data\  - one area, always.
