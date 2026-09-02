@@ -58,3 +58,21 @@ v1.2 - 02 Sep 2026  (every family on the raw exports - no workbook refresh)
     activity charts say "items by latest sighting"; company rows merge
     the register's spellings and flag repairs / Dräger custody;
     "$0" and "TBC" now read "unpriced".
+  - Tooling (04): every number counted from the three exports plus the
+    pricing master and description mapping - the workbook is not read.
+    One on-hire total on every page (1,500 = Q1 140 / Q2 544 / Q3 816;
+    the old pages carried four different totals). Available 4,053 and
+    repairs 70 from the live register (stale tabs said 4,337 / 91).
+    Utilisation computed at the report date, with the priced /
+    unpriced split on the spend tile. One company rule on both sides;
+    repairs and Dräger custody never a company or a person; 853
+    pre-2026 rows disclosed; September marked partial; Q4 skipped
+    until it starts.
+  - Rigging (07): the register workbook is read only for what is typed
+    into it; every status, hirer and held-days figure is joined live
+    from RENTAL_STOCK. 905 rows = 889 distinct barcodes (1 blank, 14
+    repeated); 746 found in SiteIQ, 143 not found on their own pages;
+    301 on hire to 14 customers, 13 at repairs; the workbook's
+    certificate extract (Next Insp Due 04/26 on 375 items) disclosed
+    as unconfirmed.
+

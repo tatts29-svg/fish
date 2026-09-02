@@ -278,4 +278,20 @@ quoted as today's numbers when they were stale. Fixed so far:
   monitors were unpriced. All fixed in the engine
   (`build_stocktake_compliance_tool.py`) and the house-style skin.
   Verified: 8,165 countable, $5,582,641 priced fleet, gas 324/335.
+- Tooling: the .xlsm tabs were a month stale (utilisation refreshed
+  6 Aug) and four tabs gave four on-hire totals. The Power Query logic
+  was ported to Python; the workbook is now optional and only cross-
+  checked on the console. Verified: 1,500 on hire (140/544/816),
+  $525,700.50, 4,053 available, 70 at repairs, 90,602 transactions.
+- Rigging: the workbook's "To Help Locate" tab was a static June join,
+  stamped with the file's save time. Now joined live to RENTAL_STOCK;
+  143 register barcodes SiteIQ no longer returns are printed as
+  "whereabouts unknown", never "accounted for".
+
+Workbook query defects worth telling Andrew if he keeps the tooling
+workbook for his own use: the Master/Q/Available/Repairs queries look
+for a column named `CorrectedDescriptionsTable.Corrected Description`
+(the file's header is `Corrected Description`) so corrections never
+apply; the per-query Filtered Rows steps differ, which is why the tabs
+disagreed.
 
