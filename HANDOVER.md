@@ -328,4 +328,13 @@ on site was "the data is wrong", so proof had to travel with the pages.
   so the proof travels with the reports.
 - START_HERE.txt rewritten around "no workbook is ever refreshed" and
   "on another computer"; HOW_IT_WORKS.html added.
+- Tooling: the 24 per-company reports are off by default (there are
+  hundreds of companies). One "Tooling On-Hire Report" (57 pages A4)
+  carries every company A-Z with hirers A-Z and items longest-held
+  first, visuals up front, custody/holding/legacy sections and a data
+  page. Quarterly charge reports kept. Companies read 20, not 24,
+  because project accounts (FCCU, SATGAS/MOL) roll up to their parent
+  per `ampol_names` - a one-line change there splits them back out.
+  No tooling email carries addresses (the exec never did); Andrew
+  addresses them in Outlook, or gives a list to bake in.
 

@@ -105,4 +105,13 @@ v1.3 - 02 Sep 2026  (final sweep - names, order, proof)
     button 00. It also proves the former site name is printed nowhere.
   - START_HERE.txt rewritten; HOW_IT_WORKS.html added (the machine on
     one page, including "on another computer").
+  - Tooling (04): ONE on-hire register report replaces the 24 per-company
+    reports - every company A to Z (project accounts shown under their
+    parent), every hirer A to Z, items longest-held first; visuals up
+    front (by company, ageing, category, month started, top-15 hirers
+    ranked and labelled), custody and holding accounts on their own
+    pages, the 853 pre-2026 rows summarised, a data-and-method page.
+    Quarterly charge reports, exec, utilisation and compliance kept;
+    all A to Z; PDFs now A4 like every other family. A per-company
+    report is still available as a one-off (--company NAME).
 
