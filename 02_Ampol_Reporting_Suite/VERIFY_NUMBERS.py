@@ -280,6 +280,19 @@ def main():
         n = len(re.findall(ampol_names.FORMER_SITE_NAME, re.sub(r"<[^>]+>", " ", raw), re.I))
         if n:
             hits.append((os.path.relpath(f, REPORTS), n))
+    # the PDFs themselves, when a PDF reader is on the machine (some pages
+    # are printed from a temporary file and have no HTML beside them)
+    pdfs = glob.glob(str(REPORTS / "*" / "*.pdf"))
+    try:
+        import pymupdf
+        for f in pdfs:
+            text = " ".join(pg.get_text() for pg in pymupdf.open(f))
+            n = len(re.findall(ampol_names.FORMER_SITE_NAME, text, re.I))
+            if n:
+                hits.append((os.path.relpath(f, REPORTS), n))
+        pages += pdfs
+    except ImportError:
+        pass
     if hits:
         fails += 1
         lines.append("  PRINTED on today's pages (must be zero):")

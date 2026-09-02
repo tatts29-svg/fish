@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.3  (02 Sep 2026)
+Version: 1.4  (02 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -114,4 +114,18 @@ v1.3 - 02 Sep 2026  (final sweep - names, order, proof)
     Quarterly charge reports, exec, utilisation and compliance kept;
     all A to Z; PDFs now A4 like every other family. A per-company
     report is still available as a one-off (--company NAME).
+
+v1.4 - 02 Sep 2026  (presentation sweep - one house look)
+  - Every PDF in the suite now wears the same Coates frame: the orange
+    border on every page, the dark page-1 band, the KEY strip, a running
+    header, house tiles, tables and charts, the footer with the team and
+    author, and page numbers. Long self-paginating reports (the tooling
+    family, the radio report, the stocktake floor worklist) get it from
+    k2flow.py; the fixed-page reports already had it.
+  - Every page of every family was checked by eye at print size:
+    nothing clipped, no orphaned headings, no near-empty pages left by
+    forced breaks, ranked tables labelled, the former site name printed
+    nowhere (the truth table now reads the PDF text as well).
+  - No number changed. The truth table (13) and the blank check (09)
+    pass on the rebuilt set.
 

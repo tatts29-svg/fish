@@ -338,3 +338,16 @@ on site was "the data is wrong", so proof had to travel with the pages.
   No tooling email carries addresses (the exec never did); Andrew
   addresses them in Outlook, or gives a list to bake in.
 
+### Presentation sweep (2 Sep 2026, v1.4)
+
+`k2flow.py` is the house frame for reports that must flow and paginate
+themselves (long registers). Print facts that cost an evening, do not
+re-learn them: Chromium positions `position:fixed` elements inside the
+page margins and tiles anything that hangs outside the page area; it
+repeats `<thead>`/`<tfoot>` on every page; it honours `@page` margin
+boxes with `counter(page)` from v131. So: page margins on the frame line
+(6.5mm), the frame a fixed element spanning exactly the page area,
+header and footer bands fixed inside it with empty thead/tfoot spacers
+reserving their height, the page counter in `@bottom-center`. Andrew's
+Edge is current Chromium, so site output matches.
+

@@ -267,7 +267,9 @@ def load_rental_stock(path):
     for r in ws.iter_rows(min_row=2, values_only=True):
         if not r or r[0] is None:
             continue
-        desc = g(r, "ITEM_DESCRIPTION")
+        # the site is Ampol: shown under the current name (ampol_names);
+        # the monitor test below is on words the rename never touches
+        desc = ampol_names.display_desc(g(r, "ITEM_DESCRIPTION"))
         if not is_gas_monitor(desc):
             continue
         co, who = g(r, "COMPANY_NAME"), g(r, "HIRER_NAME")
@@ -319,7 +321,7 @@ def load_transactions(path):
     for r in ws.iter_rows(min_row=2, values_only=True):
         if not r or r[0] is None:
             continue
-        desc = str(g(r, "PRODUCT_VARIANT") or "") + " " + str(g(r, "SKU/ITEM DESCRIPTION") or "")
+        desc = ampol_names.display_desc(str(g(r, "PRODUCT_VARIANT") or "") + " " + str(g(r, "SKU/ITEM DESCRIPTION") or ""))
         if not is_gas_monitor(desc):
             continue
         st = parse_dt(g(r, "TRAN_START_DATE"), g(r, "TRAN_START_TIME"))
