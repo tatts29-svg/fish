@@ -63,6 +63,9 @@ OUT = Path(ampol_paths.day_folder("Rigging"))
 
 CONFIG = {
     "client": "Ampol",
+    # WHY (02 Sep 2026): this register has no refresh stamp of its own, so
+    # the honest as-at is the register file's saved time - label it so.
+    "asat_note": "(register file saved)",
     "title": "Rigging & Lifting Register",
     "kicker": "COATES · TOOL STORE - RIGGING & LIFTING REGISTER REPORT",
     "project": "Ampol Lytton Refinery · Permanent Tool Store",
@@ -540,7 +543,7 @@ def build_email_html(d, gen_s, asat_s):
 <div style="{FONT}font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#FFFFFF;">POWERED BY <span style="color:#F36F21;">SITEIQ</span></div>
 <div style="{FONT}font-size:11.5px;color:#8395A6;padding-top:5px;">Equipped for anything</div>
 </td></tr></table>
-<div style="{FONT}font-size:11px;color:#8395A6;padding-top:10px;line-height:1.6;">Generated: <b style="color:#FFFFFF;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#FFFFFF;">{esc(asat_s)}</b> (workbook file time) &nbsp;|&nbsp; Author: <b style="color:#FFFFFF;">Andrew Fisher</b></div>
+<div style="{FONT}font-size:11px;color:#8395A6;padding-top:10px;line-height:1.6;">Generated: <b style="color:#FFFFFF;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#FFFFFF;">{esc(asat_s)}</b> (register file saved) &nbsp;|&nbsp; Author: <b style="color:#FFFFFF;">Andrew Fisher</b></div>
 </td></tr></table>""")
 
     # nested f-strings reusing the outer quote break on older Pythons on

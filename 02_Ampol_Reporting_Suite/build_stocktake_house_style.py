@@ -67,6 +67,10 @@ OUT = Path(ampol_paths.day_folder("Stocktake"))
 
 CONFIG = {
     "client": "Ampol",
+    # WHY (02 Sep 2026): the page shell used to stamp every report
+    # "(workbook file time)"; this report's as-at is the export's own
+    # request time, so say so.
+    "asat_note": "(SiteIQ stocktake export request time)",
     "title_client": "Stocktake Compliance",
     "title_team": "Stocktake - The People Turning The Wheel",
     "kicker_client": "COATES · STORES STOCKTAKE - COMPLIANCE REPORT",
