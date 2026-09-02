@@ -30,10 +30,13 @@ EVERY MORNING (about 10 minutes)
      It finds them in Downloads, checks they are AMPOL exports,
      backs up yesterday's copies and files the new ones into
      Data\. Wrong-site files are skipped loudly, never filed.
-  2. If a report workbook needs a refresh (radio / tooling .xlsm),
-     open it FROM Data\, press Refresh, save. The GAS report no
-     longer needs its workbook refreshed - it counts everything
-     from RENTAL_STOCK and TRANSACTIONS (02 Sep 2026).
+  2. Nothing to refresh. Every report counts from the three
+     exports in Data\ (RENTAL_STOCK, TRANSACTIONS, STOCKTAKE) and
+     the small lookup files. The .xlsm workbooks are not read
+     (02 Sep 2026). The calibration and rigging registers are read
+     only for what you type into them - due dates, test dates,
+     which items are on the register - and joined to the live
+     RENTAL_STOCK by the report itself.
   3. Double-click 00_RUN_EVERYTHING. It builds every report,
      makes the Outlook drafts and runs the final check.
 
@@ -98,7 +101,7 @@ Data\
   TRANSACTIONS.xlsx                 SiteIQ pull, saved over the top
   Ampol Gas Monitor Report.xlsm     gas workbook (optional - attached to the email)
   Gas_Monitor_Serial_Numbers.xlsx   gas serial lookup
-  Ampol_Radio_Report.xlsm           radio workbook (refresh + save)
+  Ampol_Radio_Report.xlsm           radio workbook (not read - kept for reference)
   radio_register.xlsx               radio serial register
   Ampol_Onhire_Tooling_Report.xlsm  tooling workbook (refresh + save)
   Tooling_Description_Mapping.xlsx  barcode -> clean description map

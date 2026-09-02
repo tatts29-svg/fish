@@ -3,6 +3,8 @@ title Coates Ampol - 03 Radio Report
 rem ============================================================
 rem  COATES - AMPOL TOOL STORE (Lytton Refinery)
 rem  03 - SITE RADIO ON-HIRE REPORT
+rem  Counts from Data\RENTAL_STOCK.xlsx (the SiteIQ register pull).
+rem  The radio workbook is NOT read - nothing to refresh (02 Sep 2026).
 rem  Author: Andrew Fisher - POWERED BY SITEIQ
 rem
 rem  Every report reads its Excels from Data\  - one area, always.

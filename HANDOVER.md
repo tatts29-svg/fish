@@ -255,3 +255,27 @@ suite folder.
   numbers come from" page, and the workbook no longer attached to the
   email. Serial list gaps (57 barcodes, mostly AMP088/023-076, plus one
   serial on two barcodes) sent to Andrew as an Excel to complete.
+
+### Every family onto the raw exports (2 Sep 2026, v1.2)
+
+Andrew asked whether the big .xlsm workbooks are needed at all. Answer:
+no. The rule for the whole suite is now: RENTAL_STOCK, TRANSACTIONS and
+STOCKTAKE plus the small lookup files (serial lists, pricing master,
+description corrections) are the only sources. The calibration and
+rigging registers stay because they hold what SiteIQ does not (due
+dates, test dates, register membership), but only as the list Andrew
+types into; each report joins them to the live RENTAL_STOCK itself.
+
+Audits of the other four families (independent recounts against the
+raw exports) found the same pattern as the gas report: workbook tabs
+quoted as today's numbers when they were stale. Fixed so far:
+
+- Radio: workbook tabs were 14 Aug; now counted from RENTAL_STOCK.
+- Stocktake: gas tier swept in 177 chargers + 4 probes (516 "monitors"
+  vs 335 real); "last 24 hours" was 48; bay "oldest" printed "never"
+  for a same-day sighting; 17 rigging-bay items dropped as "transit"
+  while the register showed them on the shelf; 493 serial-numbered
+  monitors were unpriced. All fixed in the engine
+  (`build_stocktake_compliance_tool.py`) and the house-style skin.
+  Verified: 8,165 countable, $5,582,641 priced fleet, gas 324/335.
+

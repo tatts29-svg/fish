@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.1  (02 Sep 2026)
+Version: 1.2  (02 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -39,3 +39,22 @@ v1.1 - 02 Sep 2026  (gas monitor report rebuilt - accuracy)
     generate_k2style_email.py turns it back on.
   - Serial alignment is checked on every build: 821 of 878 monitors
     carry a serial on the list, 57 do not (gap list handed to Andrew).
+
+v1.2 - 02 Sep 2026  (every family on the raw exports - no workbook refresh)
+  - Rule for the whole suite: the three SiteIQ exports (RENTAL_STOCK,
+    TRANSACTIONS, STOCKTAKE) plus the small lookup files are the only
+    sources. No report needs a workbook opened and refreshed.
+  - Radio report (03): every count from RENTAL_STOCK - on hire this
+    year, prior years, out of service, available, exposure. Prices from
+    the pricing master (unpriced shown as a dash). Serial coverage is
+    the honest ratio (627 of 634). Ampol_Radio_Report.xlsm is not read.
+  - Stocktake (05): chargers, probes and joiners are no longer counted
+    as gas monitors (daily-three tile now 324 of 335 in-store monitors,
+    not 324 of 516). "Last 24 hours" is a real 24-hour window. Departed
+    stock is excluded only when the live register has let it go too
+    (17 rigging-bay items came back onto the shelf list). Serial-
+    numbered monitors priced from the master's own family line and
+    disclosed. SOP compliance prints its in-store / on-hire split;
+    activity charts say "items by latest sighting"; company rows merge
+    the register's spellings and flag repairs / Dräger custody;
+    "$0" and "TBC" now read "unpriced".
