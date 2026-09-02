@@ -240,41 +240,40 @@ def acronym_case(text, capitalise=True):
 
 
 def display_company(name):
-    n = clean(name)
-    if not n:
-        return ""
-    # WHY (02 Sep 2026): "Contract Resources.." - trailing punctuation gone.
-    n = n.rstrip(" .,;:-")
-    if n.upper() in ACRONYMS:
-        return n.upper()
-    return acronym_case(n, capitalise=True)
+    """The customer's one name, from the shared ampol_names rule.
+    WHY (02 Sep 2026): the kit used to keep its own casing rules and its
+    own idea of which accounts merge; the suite now has one rule for every
+    report, so a company can never print under two names."""
+    return N.display_company(name) if clean(name) else ""
 
 
 def canonical_company(name):
-    """ONE company rule for the register AND the transactions export.
-    WHY (02 Sep 2026): the on-hire side merged AMPOL REFINERIES (QLD) PTY LTD
-    and CALTEX into Ampol but the transactions side did not, so Ampol showed
-    2,977 transactions while another 1,778 sat under the long name. FCCU and
-    SATGAS/MOL suffixes are kept as separate project accounts on both sides
-    (routing depends on the split) - the pages say they are the same customer."""
-    u = clean(name).upper().replace("CALTEX", "AMPOL")
-    if not u:
-        return ""
-    if "AMPOL REFINERIES" in u:
-        return "Ampol"
-    if u.rstrip(" .") == "CR":
-        return "Contract Resources"
-    return display_company(u)
+    """ONE company rule for the register AND the transactions export -
+    delegated to ampol_names.display_company so the two can never disagree.
+    WHY (02 Sep 2026): the former site-name account and the refinery legal
+    name both read Ampol; CR reads Contract Resources; FCCU and SATGAS/MOL
+    project accounts roll up to their parent company (the SiteIQ account is
+    kept beside every row as account_label, so nothing is lost)."""
+    return display_company(name)
 
 
-def base_company(name):
-    """'Contract Resources FCCU' -> 'Contract Resources' (project accounts)."""
-    return re.sub(r"\s+(FCCU|SATGAS/MOL|SATGAS|MOL)$", "", clean(name), flags=re.I)
+def account_of(name):
+    """The SiteIQ account a row is booked to, shown under its company, e.g.
+    'Wood (FCCU project account)' or 'Ampol (refinery account)'."""
+    return N.account_label(name) if clean(name) else ""
 
 
 def display_hirer(name):
-    """Hirer as the register spells it (Proper case), acronyms restored."""
-    return acronym_case(m_proper(name), capitalise=False)
+    """Hirer name as SiteIQ records it. The only touch is whitespace, plus
+    title case for an entry typed wholly in capitals or wholly in lower
+    case - the register mixes 'David - McGurk' with 'ROBERT - MCGREGOR'
+    and 'leonard - atterwell', and a mixed-case entry is kept exactly
+    (proper-casing it would turn McGurk into Mcgurk)."""
+    s = re.sub(r"\s+", " ", clean(name))
+    letters = "".join(ch for ch in s if ch.isalpha())
+    if letters and (letters.isupper() or letters.islower()):
+        return acronym_case(m_proper(s), capitalise=False)
+    return s
 
 
 def is_custody_hirer(name):
