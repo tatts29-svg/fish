@@ -30,6 +30,15 @@
 #  table is A to Z unless its heading says "ranked by ...", and the
 #  Tooling On-Hire Report carries the full register: company A to Z,
 #  hirer A to Z, items longest-held first.
+#
+#  WHY (02 Sep 2026, presentation pass): the eight reports now wear the
+#  Coates house frame every other family in the suite wears (k2flow +
+#  k2shell: orange frame, dark hero, KEY strip, running header, pinned
+#  footer band, page N of M, dark KPI tiles, house tables and charts).
+#  Every report is authored ONCE as a list of content blocks; the frame
+#  dresses them for the PDF / HTML and the proven Outlook-safe markup
+#  dresses the same blocks for the email body - same words, same figures,
+#  same order in both. No count, rule or ordering changed.
 # =============================================================================
 import datetime as dt
 import html as _html
@@ -44,7 +53,9 @@ import openpyxl
 
 import ampol_names as N  # WHY (02 Sep 2026): one place for how names are shown
 import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
+import k2flow       # WHY (02 Sep 2026): the Coates house frame for flowing reports
 import k2shell      # WHY (12 Aug 2026): the shared K2 chart kit - self-contained SVG
+import k2shell as sh
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 # WHY (12 Aug 2026): outputs now land in the suite's dated Reports area -
@@ -62,6 +73,9 @@ DATESTR = TODAY.strftime("%Y-%m-%d")
 # WHY (02 Sep 2026): the data-as-at stamp is the SiteIQ pull time written
 # inside the RENTAL_STOCK export (REFERENCE_INFO), never a file's mtime.
 DATA_ASAT = "TBC"
+# the same stamp without the 'SiteIQ pull' words - the house hero prints
+# "Data as at: <stamp> (SiteIQ register pull)" and the running header "AS AT <stamp>"
+ASAT_SHORT = "TBC"
 
 ORANGE = "#F26222"
 DARK = "#1D1D1B"
@@ -401,7 +415,7 @@ def reference_info(wb):
 
 
 def load_all():
-    global DATA_ASAT
+    global DATA_ASAT, ASAT_SHORT
     d = {"asat": {}}
 
     # ---- RENTAL_STOCK: the live register, the source of every on-hire figure
@@ -438,6 +452,7 @@ def load_all():
     rwb.close()
     pulled = d["asat"]["stock"]["pulled"]
     DATA_ASAT = ("SiteIQ pull " + stamp(pulled)) if pulled else "TBC (no REFERENCE_INFO)"
+    ASAT_SHORT = stamp(pulled) if pulled else "TBC"
 
     # ---- corrected descriptions (Tooling_Description_Mapping.xlsx, sheet 'Use this')
     # WHY (02 Sep 2026): the workbook's Master query looked for a column named
@@ -1398,27 +1413,31 @@ def value_words(vb):
     return s + f' | {vb["unpriced"]} unpriced'
 
 
-def co_header_tr(co):
-    """The company row of the register: name, items, hirers, priced value,
-    unpriced count, and the SiteIQ accounts rolled into it."""
+def co_stats(co):
+    """The company row's figures: items, hirers, priced value, unpriced count.
+    WHY (02 Sep 2026): one place for these words - the PDF register and the
+    email register both print exactly this."""
     vb = co["vb"]
     if co.get("custody"):
-        stats = f'{plural(vb["n"])} | {value_words(vb)}'
-    else:
-        stats = f'{plural(vb["n"])} | {plural(co["n_people"], "hirer")}'
-        if co["accounts_g"]:
-            stats += f' + {plural(len(co["accounts_g"]), "project / workflow account")}'
-        stats += " | " + value_words(vb)
-    acc = ""
+        return f'{plural(vb["n"])} | {value_words(vb)}'
+    stats = f'{plural(vb["n"])} | {plural(co["n_people"], "hirer")}'
+    if co["accounts_g"]:
+        stats += f' + {plural(len(co["accounts_g"]), "project / workflow account")}'
+    return stats + " | " + value_words(vb)
+
+
+def co_accounts(co):
+    """'SiteIQ accounts: a (n) · b (n)' under the company name, or '' when
+    the company is booked to one account under its own name."""
     accts = co["siteiq_accounts"]
     if co.get("custody") or len(accts) > 1 or (accts and accts[0][0] != co["name"]):
-        acc = ('<div class="ac">' + ("SiteIQ company" if co.get("custody") else "SiteIQ accounts")
-               + ": " + " &middot; ".join(f"{esc(a)} ({n})" for a, n in accts) + "</div>")
-    return (f'<tr class="cohead"><td colspan="{len(REG_HDR)}"><span class="nm">{esc(co["name"])}'
-            f'</span><span class="st">{stats}</span>{acc}</td></tr>')
+        return (("SiteIQ company" if co.get("custody") else "SiteIQ accounts")
+                + ": " + " &middot; ".join(f"{esc(a)} ({n})" for a, n in accts))
+    return ""
 
 
-def hirer_tr(g, multi_account, co_name=""):
+def hirer_bits(g, multi_account, co_name=""):
+    """The hirer row's figures and its account tag (plain text, no markup)."""
     vb = g["vb"]
     bits = plural(vb["n"])
     if vb["priced"]:
@@ -1427,9 +1446,24 @@ def hirer_tr(g, multi_account, co_name=""):
         bits += f' | {vb["unpriced"]} unpriced'
     tag = ""
     if g["is_account"]:
-        tag = ' <span class="acc">project / workflow account, not a person</span>'
+        tag = "project / workflow account, not a person"
     elif multi_account and g["account"] != co_name:
-        tag = f' <span class="acc">&middot; SiteIQ account: {esc(g["account"])}</span>'
+        tag = f'&middot; SiteIQ account: {esc(g["account"])}'
+    return bits, tag
+
+
+def co_header_tr(co):
+    """The company row of the register (email skin): name, items, hirers,
+    priced value, unpriced count, and the SiteIQ accounts rolled into it."""
+    acc = co_accounts(co)
+    acc = f'<div class="ac">{acc}</div>' if acc else ""
+    return (f'<tr class="cohead"><td colspan="{len(REG_HDR)}"><span class="nm">{esc(co["name"])}'
+            f'</span><span class="st">{co_stats(co)}</span>{acc}</td></tr>')
+
+
+def hirer_tr(g, multi_account, co_name=""):
+    bits, tag = hirer_bits(g, multi_account, co_name)
+    tag = f' <span class="acc">{tag}</span>' if tag else ""
     return (f'<tr class="hirer"><td colspan="{len(REG_HDR)}">{esc(g["hirer"])}{tag} '
             f'&mdash; {bits}</td></tr>')
 
@@ -1502,6 +1536,365 @@ def hbar_chart(rows, lab_w=210, col_w=(70, 100), w=636, rowh=22, colour=ORANGE):
     return "".join(out)
 
 
+# ------------------------------------------------ one content, two skins ---
+# WHY (02 Sep 2026): every report is authored once as a list of content
+# blocks. The Coates house frame (k2flow + k2shell) dresses them for the
+# PDF and the HTML; the kit's proven Outlook-safe markup dresses the same
+# blocks for the email body. Same words, same figures, same order in
+# both - only the clothes differ.
+TEAM = [{"name": "Andrew Fisher", "role": "Shutdown Manager", "shift": "",
+         "email": "andrew.fisher@coates.com.au",
+         "blurb": "Runs the Ampol tool store the Coates Way - every issue and every "
+                  "return double-scanned, every figure counted from SiteIQ.",
+         "lead": True}]
+PROJECT = "Ampol Lytton Refinery · Permanent Tool Store"
+ASAT_NOTE = "(SiteIQ register pull)"
+K_ORANGE = k2shell.K["orange"]
+
+# KEY strip terms per report (colour, TERM, tail) - plain words, no figures,
+# so the strip never repeats a number the body already carries.
+KEY_EXEC = [("orange", "ON HIRE", "tooling issued this year and still out at the pull"),
+            ("blue", "REPLACEMENT", "catalogue new-buy average; a dash is unpriced, never estimated"),
+            ("amber", "SIGNALS", "buy, right-size and test-date sightings, each with its evidence")]
+KEY_REGISTER = [("orange", "ON HIRE", "issued this year and still out at the pull"),
+                ("blue", "A TO Z", "companies, then hirers, items longest-held first"),
+                ("amber", "DAYS", "calendar days out since the on-hire date")]
+KEY_QUARTER = [("orange", "ON HIRE", "issued in this window and still out"),
+               ("blue", "BILLABLE", "not home by quarter close is charged at replacement"),
+               ("green", "EASY FIX", "hand it in and it is off the list the same day")]
+KEY_UTIL = [("orange", "LIVE", "share of a group on hire at the pull"),
+            ("blue", "YTD", "hire days against days available this year"),
+            ("amber", "BUY SIGNAL", "demand-backed, with the evidence beside it")]
+KEY_COMPLIANCE = [("amber", "SIGHT", "not through our hands in three months"),
+                  ("green", "CAUGHT", "parked out of tag by our checks"),
+                  ("orange", "HIGH VALUE", "the costliest gear in the field")]
+
+# closing-page cards - plain words, no figures (the figures live in the body)
+CARD_HONEST = ("Every figure on these pages is counted by this kit from the SiteIQ exports "
+               "named under Data and method - never from a workbook tab or a typed-in "
+               "summary. Unpriced items show a dash and never enter a total. Where a rule "
+               "or a limit matters, it is written out there in plain words.")
+CARD_NAMES = ("The site is Ampol on every page: where SiteIQ still carries the former name "
+              "it is shown under the current one, and the Tooling On-Hire Report's data "
+              "page says how many lines do. One customer, one name: project accounts roll "
+              "up to their company and the SiteIQ account is shown against the hirer. "
+              "Hirer names are as SiteIQ records them.")
+HOW_EXEC = ("The tiles are the position; the tables beneath carry the same figures by "
+            "quarter and by company, A to Z. A ranked table says so in its heading. The "
+            "detail sits in the companion reports named on the last page.")
+HOW_REGISTER = ("Every table is A to Z unless its heading says ranked by. Days are calendar "
+                "days from the on-hire date to the pull. A dash in a value column means no "
+                "catalogue price - never an estimate. Anything finished with: hand it to "
+                "the counter and it is off the list the same day.")
+HOW_UTIL = ("Live is the share of a group on hire at the pull; YTD is hire days against "
+            "days available this year. Buy signals are ranked by live utilisation then "
+            "hire days; right-size candidates by YTD utilisation, lowest first. A dash "
+            "means no catalogue price.")
+HOW_COMPLIANCE = ("Each family lists the gear we have not had hands on for three months, "
+                  "oldest sighting first. Caught and parked means our own checks found it "
+                  "before it could go out. High-value items are ranked by replacement cost.")
+
+# extra CSS on top of the house frame: the tooling family's own pieces
+# (a body paragraph, the rules list, the dark definition panel, a compact
+# register table with dark company rows and shaded hirer rows)
+EXTRA_CSS = """
+.k2body p.para { font-size: 10.6px; line-height: 1.7; color: #35404E; margin: 10px 0 0 0; }
+.k2body p.para b { color: #16202C; font-weight: 700; }
+.k2body ul.rul { margin: 8px 0 0 16px; padding: 0; font-size: 9.5px; color: #47566A;
+                 line-height: 1.7; }
+.k2body ul.rul li { margin: 0 0 4px 0; }
+.k2body ul.rul { break-inside: avoid; page-break-inside: avoid; }
+.k2body .alerts .al-b { color: #C9D6E2; font-size: 9.6px; line-height: 1.55; }
+.k2body .alerts .al td { padding-bottom: 8px; }
+.k2body .chart-cap { break-before: avoid; page-break-before: avoid; }
+.k2body .sect + .note, .k2body .sect + p.para { break-after: avoid; page-break-after: avoid; }
+table.dt.xs th { padding: 6px 5px; font-size: 7.4px; letter-spacing: 0.6px; }
+table.dt.xs td { padding: 4px 5px; font-size: 8.3px; line-height: 1.25; }
+table.dt.xs th:first-child, table.dt.xs td:first-child { padding-left: 9px; }
+table.dt.xs th:last-child, table.dt.xs td:last-child { padding-right: 9px; }
+table.dt.reg th { padding: 7px 8px; font-size: 7.8px; letter-spacing: 1px; }
+table.dt.reg td { padding: 3.5px 8px; font-size: 8.9px; line-height: 1.25; }
+table.dt.reg td:first-child { padding-left: 11px; }
+table.dt.reg td:last-child { padding-right: 11px; }
+table.dt.reg tr.co td { background: #1B2532; color: #FFFFFF; padding: 7px 11px 6px 11px;
+                        border-top: 10px solid #FFFFFF; border-bottom: 0; line-height: 1.35; }
+table.dt.reg tr.co .nm { font-size: 11.4px; font-weight: 700; }
+table.dt.reg tr.co .st { font-size: 8.4px; color: #C9D6E2; margin-left: 10px; }
+table.dt.reg tr.co .ac { font-size: 8.1px; color: #F5B58A; margin-top: 2px; }
+table.dt.reg tr.hr td { background: #E6EAEF; color: #16202C; font-weight: 700;
+                        font-size: 8.9px; padding: 5px 11px; }
+table.dt.reg tr.hr .acc { font-weight: 400; color: #B45309; }
+table.dt.reg tr.co, table.dt.reg tr.hr { break-after: avoid; page-break-after: avoid; }
+table.dt.reg tbody.keep { break-inside: avoid; page-break-inside: avoid; }
+table.dt.reg tr.z td { background: #F7F8FA; }
+"""
+
+
+def k2cfg(title, kicker, key_items):
+    return {"client": "Ampol", "title": title, "kicker": kicker, "project": PROJECT,
+            "asat_note": ASAT_NOTE, "key_items": key_items, "team": TEAM}
+
+
+def tile(value, label, icon="box", note="", ncls="grey", email_label=None):
+    """One KPI tile. The page shows label + a small note under the figure;
+    the email keeps its one-line label (email_label, or label when not given)."""
+    return (value, label, icon, note, ncls, label if email_label is None else email_label)
+
+
+class Blocks:
+    """The content of one report, in order, skin-free."""
+
+    def __init__(self):
+        self.items = []
+
+    def story(self, html):
+        self.items.append(("story", html))
+
+    def note(self, html):
+        self.items.append(("note", html))
+
+    def tiles(self, items, cls=""):
+        self.items.append(("tiles", items, cls))
+
+    def h2(self, text, pb=False):
+        self.items.append(("h2", text, pb))
+
+    def table(self, headers, rows, cls="", aligns=None):
+        self.items.append(("table", headers, rows, cls, aligns))
+
+    def chart(self, svg, caption=""):
+        self.items.append(("chart", svg, caption))
+
+    def register(self, blocks):
+        self.items.append(("register", blocks))
+
+    def defbox(self, title, items):
+        self.items.append(("defbox", title, items))
+
+    def ul(self, items):
+        self.items.append(("ul", items))
+
+    def email_end(self):
+        self.items.append(("email_end",))
+
+
+def email_body(bl):
+    """The blocks in the kit's proven Outlook-safe markup - what the email
+    body carried before the house frame arrived, byte for byte."""
+    out = []
+    for b in bl.items:
+        k = b[0]
+        if k == "story":
+            out.append(f"<p class='story'>{b[1]}</p>")
+        elif k == "note":
+            out.append(f"<p class='note'>{b[1]}</p>")
+        elif k == "tiles":
+            out.append(tiles([(t[0], t[5]) for t in b[1]], b[2]))
+        elif k == "h2":
+            out.append(f'<h2 class="pb">{b[1]}</h2>' if b[2] else f"<h2>{b[1]}</h2>")
+        elif k == "table":
+            out.append(table(b[1], b[2], b[3]))
+        elif k == "chart":
+            out.append(chart_block(b[1], b[2]))
+        elif k == "register":
+            out.append(register_table(b[1]))
+        elif k == "defbox":
+            out.append(f'<div class="defbox"><b>{b[1]}</b><ul>'
+                       + "".join(f"<li>{x}</li>" for x in b[2]) + "</ul></div>")
+        elif k == "ul":
+            out.append("<ul style='font-size:11px;line-height:1.7;'>"
+                       + "".join("<li>" + esc(r) + "</li>" for r in b[1]) + "</ul>")
+        elif k == "email_end":
+            out.append("<!--EMAIL-END-->")
+    return "".join(out)
+
+
+# ---- the house skin (k2flow frame + k2shell primitives)
+RIGHT_COLS = {"items", "value", "days", "hire days", "qty", "on hire", "avail", "live %",
+              "ytd %", "hirers", "buy price", "replacement", "transactions",
+              "priced / unpriced", "priced value", "legacy items", "items still on hire",
+              "total items", "total value"}
+
+
+def k2_aligns(headers):
+    """Figures sit on the right, words on the left - by column heading."""
+    out = []
+    for h in headers:
+        u = str(h).strip().lower()
+        out.append("r" if (u in RIGHT_COLS or u.endswith(" items") or u.endswith(" value"))
+                   else "")
+    return out
+
+
+def k2_cell(c):
+    s = str(c)
+    return s if s.startswith("<span") else esc(c)
+
+
+def k2_table(headers, rows, cls="", aligns=None):
+    aligns = aligns or k2_aligns(headers)
+    if len(headers) >= 10:
+        k = "xs"
+    elif cls == "tight" or len(headers) >= 7 or len(rows) > 14:
+        k = "cp"
+    else:
+        k = ""
+    body = []
+    for r in rows:
+        cells = [k2_cell(c) for c in r]
+        if cells and cells[0].strip().upper() == "TOTAL":
+            cells = [f"<b>{c}</b>" for c in cells]
+        body.append(cells)
+    if len(body) > 14:
+        return k2flow.dtable_flow(headers, body, aligns, k)
+    # a short table moves to the next page whole rather than splitting
+    # away from its header row
+    return f'<div class="keep">{sh.dtable(headers, body, aligns, k)}</div>'
+
+
+def k2_tiles(items):
+    n = len(items)
+    per = 4 if n <= 4 else 3
+    return sh.tiles([(ico, val, lab, note, ncls) for val, lab, ico, note, ncls, _e in items],
+                    per_row=per)
+
+
+def k2_chart(svg, caption=""):
+    cap = f'<div class="chart-cap">{esc(caption)}</div>' if caption else ""
+    return f'<div class="keep"><div class="chartpanel">{svg}</div>{cap}</div>'
+
+
+def k2_defbox(title, items):
+    rows = "".join(f'<tr><td class="al-dot d-amber">●</td><td><div class="al-b">{x}</div></td></tr>'
+                   for x in items)
+    return f'<div class="alerts"><div class="ah">{title}</div><table class="al">{rows}</table></div>'
+
+
+def k2_ul(items):
+    return '<ul class="rul">' + "".join("<li>" + esc(r) + "</li>" for r in items) + "</ul>"
+
+
+REG_ALIGN = ["", "", "", "r", "r"]
+
+
+def k2_reg_item_tr(r, i):
+    z = ' class="z"' if i % 2 else ""
+    return (f"<tr{z}><td>{esc(N.display_desc(r['desc']))}</td>"
+            f'<td class="nw">{esc(r["barcode"])}</td>'
+            f'<td class="nw">{fmt_date(r["date"])}</td>'
+            f'<td class="r">{r["days"] if r["days"] is not None else "-"}</td>'
+            f'<td class="r nw">{money(r["cost"]) if r["cost"] is not None else "-"}</td></tr>')
+
+
+def k2_register_table(blocks, keep_rows=3):
+    """The register in house clothes: one dt table, column headings repeated
+    on every printed page, a dark company row, a shaded hirer row, then the
+    items longest-held first. Same keep rule as the email register - a
+    company or hirer heading is never left alone at the foot of a page."""
+    th = "".join(f'<th class="{a}">{esc(h)}</th>' for h, a in zip(REG_HDR, REG_ALIGN))
+    out = [f'<table class="dt reg"><thead><tr>{th}</tr></thead>']
+    for co in blocks:
+        multi = len(co["siteiq_accounts"]) > 1
+        first = True
+        for g in co["groups"]:
+            head = ""
+            if first:
+                acc = co_accounts(co)
+                acc = f'<div class="ac">{acc}</div>' if acc else ""
+                head = (f'<tr class="co"><td colspan="{len(REG_HDR)}">'
+                        f'<span class="nm">{esc(co["name"])}</span>'
+                        f'<span class="st">{co_stats(co)}</span>{acc}</td></tr>')
+            if not (co.get("custody") and len(co["groups"]) == 1):
+                bits, tag = hirer_bits(g, multi, co["name"])
+                tag = f' <span class="acc">{tag}</span>' if tag else ""
+                head += (f'<tr class="hr"><td colspan="{len(REG_HDR)}">{esc(g["hirer"])}{tag} '
+                         f'&mdash; {bits}</td></tr>')
+            first = False
+            rows = [k2_reg_item_tr(r, i) for i, r in enumerate(g["items"])]
+            out.append('<tbody class="keep">' + head + "".join(rows[:keep_rows]) + "</tbody>")
+            if len(rows) > keep_rows:
+                out.append("<tbody>" + "".join(rows[keep_rows:]) + "</tbody>")
+    out.append("</table>")
+    return "".join(out)
+
+
+def k2_tail(limits, how, data_heading=True):
+    """Every report ends the same way: Data and method (the honest limits,
+    with the pull stamps and rules), then a closing page of cards - Our
+    standard / Honest limits / Names as shown / How to read this - and the
+    tool store team."""
+    out = []
+    if data_heading:
+        out.append('<div class="sect"><h3>Data and method</h3></div>')
+    out.append('<div class="sub-h">Honest limits</div>')
+    out.append(k2_ul(limits))
+    canon = "  |  ".join(CANON)
+    standard = (esc(LSR_LINE) + " Every issue and every return runs through the double scan "
+                "&mdash; " + esc(canon) + " Daily stocktakes keep eyes on the fleet: nothing in "
+                "the store goes over 30 days without being scanned, and anything damaged is "
+                "tagged Out of Service on the spot. We are here to help &mdash; if gear is "
+                "finished with, hand it back to the tool store and it comes off your list the "
+                "same day.")
+    cards = sh.info_cards([("Our standard", standard), ("Honest limits", CARD_HONEST),
+                           ("Names as shown", CARD_NAMES), ("How to read this", how)])
+    out.append('<div class="pb"><div class="sect"><h3>Our standard, honest limits and how to '
+               'read this report</h3></div>' + cards
+               + '<div class="sub-h">Your Coates tool store team</div>' + sh.team_cards(TEAM)
+               + '<div class="note" style="margin-top:16px;text-align:center">Coates Hire '
+               'Operations Pty Limited &middot; ABN 50 009 779 338 &middot; www.coates.com.au '
+               '&middot; Care Deeply &middot; Customer Focused &middot; Be Our Best &middot; '
+               'One Team &middot; Competitive Spirit</div></div>')
+    return "".join(out)
+
+
+def k2_body(bl, limits, how, data_heading=True):
+    """The blocks in the house skin. The first story is 'The position' -
+    the answer in one breath - in the peach callout; later stories are body
+    paragraphs; headings are section panels; tables, tiles and charts are
+    the shared k2shell pieces."""
+    out, first = [], True
+    for b in bl.items:
+        k = b[0]
+        if k == "story":
+            if first:
+                cls = "callout tight" if len(b[1]) > 700 else "callout"
+                out.append(f'<div class="{cls}"><span class="lead">The position.</span> '
+                           f'{b[1]}</div>')
+                first = False
+            else:
+                out.append(f'<p class="para">{b[1]}</p>')
+        elif k == "note":
+            out.append(f'<div class="note">{b[1]}</div>')
+        elif k == "tiles":
+            out.append(k2_tiles(b[1]))
+        elif k == "h2":
+            out.append(f'<div class="sect{" pb" if b[2] else ""}"><h3>{b[1]}</h3></div>')
+        elif k == "table":
+            out.append(k2_table(b[1], b[2], b[3], b[4]))
+        elif k == "chart":
+            out.append(k2_chart(b[1], b[2]))
+        elif k == "register":
+            out.append(k2_register_table(b[1]))
+        elif k == "defbox":
+            out.append(k2_defbox(b[1], b[2]))
+        elif k == "ul":
+            out.append(k2_ul(b[1]))
+        # email_end marks where the email stops - nothing on the page
+    out.append(k2_tail(limits, how, data_heading))
+    return "".join(out)
+
+
+def report_outputs(title, subtitle, subject, bl, limits, page_title, page_sub, cfg, how,
+                   standard_break=False, data_heading=True):
+    """(title, subtitle, page document, email document, subject) - the page
+    document wears the house frame; the email document is the kit's legacy
+    page, kept only so email_html() can lift the Outlook-safe body from it."""
+    email_doc = page(page_title, page_sub, email_body(bl), limits, standard_break)
+    page_doc = k2flow.flow_doc(cfg, GENERATED, ASAT_SHORT,
+                               k2_body(bl, limits, how, data_heading), extra_css=EXTRA_CSS)
+    return (title, subtitle, page_doc, email_doc, subject)
+
+
 def render_quarter(d, qk):
     m = quarter_model(d, qk)
     story = (f"This is the {esc(m['label'])} on-hire position for the Ampol tool store: "
@@ -1513,10 +1906,12 @@ def render_quarter(d, qk):
              f"to fix: bring it back to the counter, it is double-scanned off your name "
              f"in seconds, and it disappears from this report the same day. We are not "
              f"chasing blame &mdash; we are helping everyone finish the quarter clean.")
-    body = f"<p class='story'>{story}</p>"
-    body += tiles([(n_fmt(len(m["rows"])), "Items on hire"), (m["n_companies"], "Companies"),
-                   (money(m["total_val"]), "Replacement value"),
-                   (f"{m['priced']} / {m['unpriced']}", "Items priced / unpriced")])
+    bl = Blocks()
+    bl.story(story)
+    bl.tiles([tile(n_fmt(len(m["rows"])), "Items on hire", "box"),
+              tile(m["n_companies"], "Companies", "layers"),
+              tile(money(m["total_val"]), "Replacement value", "shield"),
+              tile(f"{m['priced']} / {m['unpriced']}", "Items priced / unpriced", "bars")])
     extras = []
     if m["n_accounts"]:
         extras.append(f"{plural(m['n_accounts'])} sit under shutdown / custody accounts "
@@ -1527,26 +1922,25 @@ def render_quarter(d, qk):
     if m["partial"]:
         extras.append(m["partial"].rstrip("."))
     if extras:
-        body += "<p class='note'>Inside the count: " + "; ".join(extras) + ".</p>"
+        bl.note("Inside the count: " + "; ".join(extras) + ".")
     if not m["rows"]:
-        body += ("<p class='story'>Nothing is on hire from this window"
-                 + (" - the quarter has not started." if not quarter_started(qk) else ".")
-                 + "</p>")
+        bl.story("Nothing is on hire from this window"
+                 + (" - the quarter has not started." if not quarter_started(qk) else "."))
     if m["companies"]:
-        body += "<h2>On Hire By Company (A to Z)</h2>"
-        body += ("<p class='note'>Companies A to Z; under each company the hirers A to Z "
-                 "(people first, then the company's project / workflow accounts); under "
-                 "each hirer the longest-held item first. Hirer names are as SiteIQ "
-                 "records them. Where a customer has more than one SiteIQ account, the "
-                 "account is shown against the hirer. Days = calendar days from the "
-                 f"on-hire date to {fmt_date(TODAY)}.</p>")
-        body += register_table(m["companies"])
+        bl.h2("On Hire By Company (A to Z)")
+        bl.note("Companies A to Z; under each company the hirers A to Z "
+                "(people first, then the company's project / workflow accounts); under "
+                "each hirer the longest-held item first. Hirer names are as SiteIQ "
+                "records them. Where a customer has more than one SiteIQ account, the "
+                "account is shown against the hirer. Days = calendar days from the "
+                f"on-hire date to {fmt_date(TODAY)}.")
+        bl.register(m["companies"])
     if m["custody"]:
-        body += "<h2>Internal Custody - Repairs Account (not a customer)</h2>"
-        body += ("<p class='note'>Items booked to the Repairs custody account are inside "
-                 "the on-hire count above but are Coates' own workflow - tagged, tracked "
-                 "and never reissued until right. They are not chased with any company.</p>")
-        body += register_table(custody_blocks(m["custody"]))
+        bl.h2("Internal Custody - Repairs Account (not a customer)")
+        bl.note("Items booked to the Repairs custody account are inside "
+                "the on-hire count above but are Coates' own workflow - tagged, tracked "
+                "and never reissued until right. They are not chased with any company.")
+        bl.register(custody_blocks(m["custody"]))
     limits = ["Counts come straight from the SiteIQ RENTAL_STOCK register: items On Hire "
               f"whose on-hire date falls in {m['label']}. Radios, gas monitors, Dräger "
               "equipment, lanyards and steel coil clamps are excluded - they are reported "
@@ -1563,13 +1957,16 @@ def render_quarter(d, qk):
               "description. The site's former name is shown as Ampol wherever SiteIQ "
               "still carries it.",
               ] + source_limits(d)
-    return ("Quarterly On-Hire Report - " + m["label"],
-            f"Quarterly On-Hire &amp; Recovery | {esc(m['label'])} | "
-            f"{plural(len(m['rows']))} | {money(m['total_val'])}",
-            page("Ampol Tooling - " + m["label"], "Quarterly On-Hire Report - "
-                 + m["label"], body, limits),
-            f"Ampol Tool Store - Quarterly On-Hire Report - {m['label']} - "
-            f"{plural(len(m['rows']))}")
+    cfg = k2cfg("Quarterly On-Hire Report - " + m["label"],
+                "COATES · TOOL STORE · QUARTERLY ON-HIRE REPORT", KEY_QUARTER)
+    return report_outputs(
+        "Quarterly On-Hire Report - " + m["label"],
+        f"Quarterly On-Hire &amp; Recovery | {esc(m['label'])} | "
+        f"{plural(len(m['rows']))} | {money(m['total_val'])}",
+        f"Ampol Tool Store - Quarterly On-Hire Report - {m['label']} - "
+        f"{plural(len(m['rows']))}",
+        bl, limits, "Ampol Tooling - " + m["label"],
+        "Quarterly On-Hire Report - " + m["label"], cfg, HOW_REGISTER)
 
 
 def render_company(d, name):
@@ -1584,14 +1981,16 @@ def render_company(d, name):
              f"to your team. Anything not needed: hand it in, and it is off your list the "
              f"same day. If it IS needed, perfect &mdash; this list is simply your record "
              f"of where it all is.")
-    body = f"<p class='story'>{story}</p>"
-    body += tiles([(n_fmt(len(m["items"])), "Items on hire"),
-                   (money(m["total_val"]), "Replacement value"),
-                   (n_fmt(m["tx_ytd"]), "Transactions YTD"), (sd, "Same-day returns"),
-                   (n_fmt(len(m["people"])), "Hirer names using store")])
+    bl = Blocks()
+    bl.story(story)
+    bl.tiles([tile(n_fmt(len(m["items"])), "Items on hire", "box"),
+              tile(money(m["total_val"]), "Replacement value", "shield"),
+              tile(n_fmt(m["tx_ytd"]), "Transactions YTD", "swap"),
+              tile(sd, "Same-day returns", "clock"),
+              tile(n_fmt(len(m["people"])), "Hirer names using store", "people")])
     qbits = " &nbsp;|&nbsp; ".join(f"{QUARTERS[qk][1]}: <b>{len(m['per_q'][qk])}</b>"
                                    for qk in QUARTERS)
-    body += f"<p class='story'>On hire by quarter issued: {qbits}</p>"
+    bl.story(f"On hire by quarter issued: {qbits}")
     notes = []
     if m["unpriced"]:
         notes.append(f"{m['unpriced']} of the {len(m['items'])} items have no catalogue "
@@ -1607,21 +2006,21 @@ def render_company(d, name):
                      + ", ".join(f"{a} ({n})" for a, n in m["siteiq_accounts"])
                      + " - the account is shown against each hirer below")
     if notes:
-        body += "<p class='note'>" + ". ".join(notes) + ".</p>"
+        bl.note(". ".join(notes) + ".")
     if m["blocks"]:
-        body += "<h2>On Hire Now (hirers A to Z, longest-held first)</h2>"
-        body += register_table(m["blocks"])
+        bl.h2("On Hire Now (hirers A to Z, longest-held first)")
+        bl.register(m["blocks"])
     if m["high_val"]:
-        body += "<h2>High-Value Items In Your Care (ranked by replacement value)</h2>"
-        body += ("<p class='story'>These carry the highest replacement cost - worth a "
-                 "quick check they are secure and still needed.</p>")
-        body += table(ITEM_HDR, item_rows(m["high_val"]))
+        bl.h2("High-Value Items In Your Care (ranked by replacement value)")
+        bl.story("These carry the highest replacement cost - worth a "
+                 "quick check they are secure and still needed.")
+        bl.table(ITEM_HDR, item_rows(m["high_val"]))
     if m["compliance"]:
-        body += "<h2>Electrical / Rigging / High-Torque In Your Care (hirers A to Z)</h2>"
-        body += ("<p class='story'>Test and tag gear: if it has been out a while, swing "
+        bl.h2("Electrical / Rigging / High-Torque In Your Care (hirers A to Z)")
+        bl.story("Test and tag gear: if it has been out a while, swing "
                  "it past the counter for a quick check - we will make sure the tags are "
-                 "current and hand it straight back if you still need it.</p>")
-        body += table(ITEM_HDR, item_rows(m["compliance"]))
+                 "current and hand it straight back if you still need it.")
+        bl.table(ITEM_HDR, item_rows(m["compliance"]))
     limits = ["On-hire lines are the SiteIQ RENTAL_STOCK register (items On Hire with a "
               f"{TODAY.year} on-hire date; radios, gas monitors and Dräger equipment "
               "reported separately). Transactions are the SiteIQ CUSTOMER_CONTRACTOR_EQUIP "
@@ -1631,12 +2030,15 @@ def render_company(d, name):
               "transactions, leaving out shutdown / custody / workflow accounts. Names are "
               "as recorded in SiteIQ and are not verified as individuals.",
               ] + source_limits(d)
-    return ("Company On-Hire Report - " + m["name"],
-            f"Company On-Hire Report | {esc(m['name'])} | {plural(len(m['items']))}",
-            page("Ampol Tooling - " + m["name"], "Company On-Hire Report - "
-                 + m["name"], body, limits),
-            f"Ampol Tool Store - {m['name']} - On-Hire Report - "
-            f"{plural(len(m['items']))}")
+    cfg = k2cfg("Company On-Hire Report - " + m["name"],
+                "COATES · TOOL STORE · COMPANY ON-HIRE REPORT", KEY_REGISTER)
+    return report_outputs(
+        "Company On-Hire Report - " + m["name"],
+        f"Company On-Hire Report | {esc(m['name'])} | {plural(len(m['items']))}",
+        f"Ampol Tool Store - {m['name']} - On-Hire Report - "
+        f"{plural(len(m['items']))}",
+        bl, limits, "Ampol Tooling - " + m["name"],
+        "Company On-Hire Report - " + m["name"], cfg, HOW_REGISTER)
 
 
 def render_onhire(d):
@@ -1670,37 +2072,41 @@ def render_onhire(d):
              f"can find their gear and hand back what is finished with. The quarterly "
              f"charge reports carry the billing position at quarter close; this is the "
              f"field position today.")
-    body = f"<p class='story'>{story}</p>"
-    body += tiles([(n_fmt(n), f"Items on hire (tooling, {year})"),
-                   (money(x["total_val"]),
-                    f"Replacement value - {n_fmt(x['priced'])} priced / "
-                    f"{n_fmt(x['unpriced'])} unpriced"),
-                   (n_fmt(x["n_companies"]), "Companies"),
-                   (n_fmt(x["people_names"]), "Hirers (people)"),
-                   (fmt_date(oldest["date"]) if oldest else "-",
-                    f"Oldest hire ({oldest['days']} days)" if oldest else "Oldest hire"),
-                   (n_fmt(len(x["over90"])), "Items over 90 days")], cls="three")
+    bl = Blocks()
+    bl.story(story)
+    bl.tiles([tile(n_fmt(n), f"Items on hire (tooling, {year})", "box"),
+              tile(money(x["total_val"]), "Replacement value", "shield",
+                   f"{n_fmt(x['priced'])} priced / {n_fmt(x['unpriced'])} unpriced", "grey",
+                   f"Replacement value - {n_fmt(x['priced'])} priced / "
+                   f"{n_fmt(x['unpriced'])} unpriced"),
+              tile(n_fmt(x["n_companies"]), "Companies", "layers"),
+              tile(n_fmt(x["people_names"]), "Hirers (people)", "people"),
+              tile(fmt_date(oldest["date"]) if oldest else "-", "Oldest hire", "clock",
+                   f"{oldest['days']} days" if oldest else "", "amber",
+                   f"Oldest hire ({oldest['days']} days)" if oldest else "Oldest hire"),
+              tile(n_fmt(len(x["over90"])), "Items over 90 days", "warn", "", "amber")],
+             cls="three")
     fams = ", ".join(f"{n_fmt(v)} {FAM_WORDS.get(k, k.lower())}"
                      for k, v in sorted(x["legacy"]["families"].items(),
                                         key=lambda kv: N.sort_key(kv[0])) if k != "Tooling")
-    body += ('<div class="defbox"><b>What "on hire" means in this report</b><ul>'
-             f"<li>An item is on hire when the SiteIQ RENTAL_STOCK register showed it "
-             f"On Hire to a company at the pull ({esc(pulled)}) with an on-hire date in "
-             f"{year}. Days = calendar days from that date to {fmt_date(TODAY)}.</li>"
-             "<li>Tooling only: radios, gas monitors, Dräger equipment, lanyards and "
-             "steel coil clamps are excluded because they have their own reports "
-             "(Radio, Gas Monitor, Rigging).</li>"
-             f"<li>Custody accounts are not customers. The Repairs custody account "
-             f"({plural(len(x['custody']))}) is inside the count and the tool store's own "
-             f"holding accounts ({plural(len(x['holding']))}) are outside it; both are "
-             "listed in their own section at the back, marked not customer hire.</li>"
-             f"<li>{n_fmt(x['legacy']['n'])} register rows on hire since before 01 Jan "
-             f"{year} are excluded from the count and listed at the back by company - "
-             f"they are {fams}, carried by their own reports.</li>"
-             "<li>Every table is A to Z (companies, hirers, accounts) with items "
-             "longest-held first. The one ranked table - the top 15 hirers - says so "
-             "in its heading.</li></ul></div>")
-    body += "<h2>Where The Count Sits</h2>"
+    bl.defbox('What "on hire" means in this report', [
+        f"An item is on hire when the SiteIQ RENTAL_STOCK register showed it "
+        f"On Hire to a company at the pull ({esc(pulled)}) with an on-hire date in "
+        f"{year}. Days = calendar days from that date to {fmt_date(TODAY)}.",
+        "Tooling only: radios, gas monitors, Dräger equipment, lanyards and "
+        "steel coil clamps are excluded because they have their own reports "
+        "(Radio, Gas Monitor, Rigging).",
+        f"Custody accounts are not customers. The Repairs custody account "
+        f"({plural(len(x['custody']))}) is inside the count and the tool store's own "
+        f"holding accounts ({plural(len(x['holding']))}) are outside it; both are "
+        "listed in their own section at the back, marked not customer hire.",
+        f"{n_fmt(x['legacy']['n'])} register rows on hire since before 01 Jan "
+        f"{year} are excluded from the count and listed at the back by company - "
+        f"they are {fams}, carried by their own reports.",
+        "Every table is A to Z (companies, hirers, accounts) with items "
+        "longest-held first. The one ranked table - the top 15 hirers - says so "
+        "in its heading."])
+    bl.h2("Where The Count Sits")
     pairs_note = ""
     if x["people_pairs"] != x["people_names"]:
         extra = x["people_pairs"] - x["people_names"]
@@ -1714,11 +2120,11 @@ def render_onhire(d):
     sit.append(["Repairs custody account (internal)", n_fmt(len(x["custody"])),
                 "Coates workflow, not customer hire"])
     sit.append(["Total on hire", n_fmt(n), money(x["total_val"]) + " priced"])
-    body += table(["Where", "Items", "Note"], sit)
+    bl.table(["Where", "Items", "Note"], sit)
 
     # ---- pictures: companies A to Z
-    body += '<h2 class="pb">Items On Hire By Company (A to Z)</h2>'
-    body += chart_block(
+    bl.h2("Items On Hire By Company (A to Z)", pb=True)
+    bl.chart(
         hbar_chart([(co["name"], co["vb"]["n"],
                      [plural(co["vb"]["n"]),
                       money(co["vb"]["value"]) if co["vb"]["priced"] else "-"])
@@ -1734,87 +2140,87 @@ def render_onhire(d):
                         money(co["vb"]["value"]) if co["vb"]["priced"] else "-",
                         f'{co["vb"]["priced"]} / {co["vb"]["unpriced"]}',
                         fmt_date(co["oldest"])])
-    body += table(["Company", "SiteIQ accounts (items)", "Items", "Hirers", "Priced value",
-                   "Priced / Unpriced", "Oldest hire"], co_rows, cls="tight")
-    body += ("<p class='note'>Hirers counts people only; a company's project / workflow "
-             "account is listed under the company in the register, not counted as a "
-             "hirer.</p>")
-    body += "<!--EMAIL-END-->"
+    bl.table(["Company", "SiteIQ accounts (items)", "Items", "Hirers", "Priced value",
+              "Priced / Unpriced", "Oldest hire"], co_rows, cls="tight")
+    bl.note("Hirers counts people only; a company's project / workflow "
+            "account is listed under the company in the register, not counted as a "
+            "hirer.")
+    bl.email_end()
 
     # ---- pictures: ageing and category
-    body += '<h2 class="pb">On-Hire Ageing Profile</h2>'
-    body += chart_block(
+    bl.h2("On-Hire Ageing Profile", pb=True)
+    bl.chart(
         hbar_chart([(lab, vb["n"], [plural(vb["n"]), money(vb["value"]) if vb["priced"] else "-"])
                     for lab, vb in x["ageing"]], lab_w=150),
         f"Days since the on-hire date, to {fmt_date(TODAY)}, with the priced replacement "
         "value in each band. The long tail is what the quarterly recovery cycle brings home.")
-    body += table(["Band", "Items", "Priced value", "Priced / Unpriced"],
-                  [[lab, vb["n"], money(vb["value"]) if vb["priced"] else "-",
-                    f'{vb["priced"]} / {vb["unpriced"]}'] for lab, vb in x["ageing"]]
-                  + [["Total", n, money(x["total_val"]), f"{x['priced']} / {x['unpriced']}"]])
-    body += "<h2>Category Split</h2>"
-    body += chart_block(
+    bl.table(["Band", "Items", "Priced value", "Priced / Unpriced"],
+             [[lab, vb["n"], money(vb["value"]) if vb["priced"] else "-",
+               f'{vb["priced"]} / {vb["unpriced"]}'] for lab, vb in x["ageing"]]
+             + [["Total", n, money(x["total_val"]), f"{x['priced']} / {x['unpriced']}"]])
+    bl.h2("Category Split")
+    bl.chart(
         hbar_chart([(c, vb["n"], [plural(vb["n"]), money(vb["value"]) if vb["priced"] else "-"])
                     for c, vb in x["cats"]], lab_w=150),
         "Items on hire by description family - a keyword match on the register "
         "description for Rigging, Electrical and High Torque; General is everything else. "
         "Fixed order, not ranked.")
-    body += table(["Category", "Items", "Priced value", "Priced / Unpriced"],
-                  [[c, vb["n"], money(vb["value"]) if vb["priced"] else "-",
-                    f'{vb["priced"]} / {vb["unpriced"]}'] for c, vb in x["cats"]])
+    bl.table(["Category", "Items", "Priced value", "Priced / Unpriced"],
+             [[c, vb["n"], money(vb["value"]) if vb["priced"] else "-",
+               f'{vb["priced"]} / {vb["unpriced"]}'] for c, vb in x["cats"]])
 
     # ---- pictures: top 15 hirers (the only ranked table) and by month
-    body += ('<h2 class="pb">Top 15 Hirers By Items (ranked by items - the only ranked '
-             'table in this report)</h2>')
-    body += chart_block(
+    bl.h2("Top 15 Hirers By Items (ranked by items - the only ranked "
+          "table in this report)", pb=True)
+    bl.chart(
         hbar_chart([(f"{h} ({co})", vb["n"],
                      [plural(vb["n"]), money(vb["value"]) if vb["priced"] else "-"])
                     for h, co, vb in x["top_hirers"]], lab_w=250),
         f"The 15 people holding the most items, of {n_fmt(x['people_pairs'])} company-hirer "
         "pairs on the register; project / workflow accounts and the Repairs custody "
         "account are left out. Ranked by items, then A to Z on a tie.")
-    body += table(["Hirer", "Company", "Items", "Priced value", "Priced / Unpriced"],
-                  [[h, co, vb["n"], money(vb["value"]) if vb["priced"] else "-",
-                    f'{vb["priced"]} / {vb["unpriced"]}'] for h, co, vb in x["top_hirers"]])
-    body += "<h2>Items On Hire By Month Started</h2>"
-    body += chart_block(
+    bl.table(["Hirer", "Company", "Items", "Priced value", "Priced / Unpriced"],
+             [[h, co, vb["n"], money(vb["value"]) if vb["priced"] else "-",
+               f'{vb["priced"]} / {vb["unpriced"]}'] for h, co, vb in x["top_hirers"]])
+    bl.h2("Items On Hire By Month Started")
+    bl.chart(
         k2shell.grouped_bars([{"label": lab, "n": vb["n"]} for lab, vb in x["months"]],
-                             series=(("n", ORANGE, "Items still on hire"),)),
+                             series=(("n", K_ORANGE, "Items still on hire"),)),
         f"Items still on hire by the month their hire started, Jan to {TODAY.strftime('%b')} "
         f"{year}. " + (x["partial"] or ""))
-    body += table(["Month started", "Items still on hire", "Priced value", "Priced / Unpriced"],
-                  [[lab, vb["n"], money(vb["value"]) if vb["priced"] else "-",
-                    f'{vb["priced"]} / {vb["unpriced"]}'] for lab, vb in x["months"]]
-                  + [["Total", n, money(x["total_val"]), f"{x['priced']} / {x['unpriced']}"]])
+    bl.table(["Month started", "Items still on hire", "Priced value", "Priced / Unpriced"],
+             [[lab, vb["n"], money(vb["value"]) if vb["priced"] else "-",
+               f'{vb["priced"]} / {vb["unpriced"]}'] for lab, vb in x["months"]]
+             + [["Total", n, money(x["total_val"]), f"{x['priced']} / {x['unpriced']}"]])
 
     # ---- the register
-    body += '<h2 class="pb">The Register - Every Company A To Z</h2>'
-    body += ("<p class='note'>Companies A to Z (the SiteIQ account is shown under the "
-             "company name where a customer has more than one); under each company the "
-             "hirers A to Z, people first and then the company's project / workflow "
-             "accounts; under each hirer the longest-held item first, then A to Z by "
-             "description. Hirer names are as SiteIQ records them. Descriptions are the "
-             "corrected names where the mapping has one. Replacement is the catalogue "
-             "new-buy average; a dash means no catalogue price, never $0. Days = calendar "
-             f"days from the on-hire date to {fmt_date(TODAY)}.</p>")
-    body += register_table(x["companies"])
+    bl.h2("The Register - Every Company A To Z", pb=True)
+    bl.note("Companies A to Z (the SiteIQ account is shown under the "
+            "company name where a customer has more than one); under each company the "
+            "hirers A to Z, people first and then the company's project / workflow "
+            "accounts; under each hirer the longest-held item first, then A to Z by "
+            "description. Hirer names are as SiteIQ records them. Descriptions are the "
+            "corrected names where the mapping has one. Replacement is the catalogue "
+            "new-buy average; a dash means no catalogue price, never $0. Days = calendar "
+            f"days from the on-hire date to {fmt_date(TODAY)}.")
+    bl.register(x["companies"])
 
     # ---- custody / holding accounts
-    body += '<h2 class="pb">Custody And Holding Accounts - Not Customer Hire</h2>'
-    body += (f"<p class='story'>Two kinds of internal account hold {year} tooling. The "
+    bl.h2("Custody And Holding Accounts - Not Customer Hire", pb=True)
+    bl.story(f"Two kinds of internal account hold {year} tooling. The "
              f"<b>Repairs custody account</b> ({plural(len(x['custody']))}) is inside the "
              f"{n_fmt(n)} above: gear sent off site for repair, tagged and tracked, never "
              f"reissued until right. The tool store's own <b>holding accounts</b> "
              f"({plural(len(x['holding']))}) are outside the count exactly as the "
              "workbook always treated them: the counter, the yard, the loading bay, "
              "all-around repairs and the out-of-tag park. Neither is chased with any "
-             "company; both are listed here so nothing on the register is unseen.</p>")
+             "company; both are listed here so nothing on the register is unseen.")
     if x["custody_blocks"]:
-        body += f"<h2>Repairs Custody Account - Inside The {n_fmt(n)} (A to Z)</h2>"
-        body += register_table(x["custody_blocks"])
+        bl.h2(f"Repairs Custody Account - Inside The {n_fmt(n)} (A to Z)")
+        bl.register(x["custody_blocks"])
     if x["holding_blocks"]:
-        body += (f"<h2>Tool Store Holding Accounts - Outside The {n_fmt(n)} (A to Z)</h2>")
-        body += register_table(x["holding_blocks"])
+        bl.h2(f"Tool Store Holding Accounts - Outside The {n_fmt(n)} (A to Z)")
+        bl.register(x["holding_blocks"])
     fam_rows = []
     for (co, fam), cnt in x["custody_family"].items():
         fam_rows.append([co, FAM_WORDS.get(fam, fam.lower()).capitalize(), cnt,
@@ -1826,31 +2232,31 @@ def render_onhire(d):
                          else ("Radio report" if fam == "RADIO" else "Rigging report")])
     if fam_rows:
         fam_rows.sort(key=lambda r: (N.sort_key(r[0]), N.sort_key(r[1])))
-        body += f"<h2>Radio / Gas Families In Custody Accounts ({year}, not tooling)</h2>"
-        body += ("<p class='note'>Counted here so the custody picture is complete; these "
-                 "items are not tooling and are carried by their own reports.</p>")
-        body += table(["Account", "Family", "Items", "Reported by"], fam_rows)
+        bl.h2(f"Radio / Gas Families In Custody Accounts ({year}, not tooling)")
+        bl.note("Counted here so the custody picture is complete; these "
+                "items are not tooling and are carried by their own reports.")
+        bl.table(["Account", "Family", "Items", "Reported by"], fam_rows)
     rep_rows = d["repairs_n"]
-    body += (f"<p class='note'>The Repairs account holds {n_fmt(rep_rows)} register rows "
-             f"in all: {n_fmt(len(x['custody']))} inside the count (off-site repair custody) "
-             f"and {n_fmt(sum(1 for r in x['holding'] if r['company'] == 'Repairs'))} in the "
-             "holding accounts above"
-             + (f"; {n_fmt(rep_rows - len(x['custody']) - sum(1 for r in x['holding'] if r['company'] == 'Repairs'))} "
-                f"are radio / gas family rows or pre-{year} rows"
-                if rep_rows - len(x['custody']) - sum(1 for r in x['holding'] if r['company'] == 'Repairs') else "")
-             + ".</p>")
+    bl.note(f"The Repairs account holds {n_fmt(rep_rows)} register rows "
+            f"in all: {n_fmt(len(x['custody']))} inside the count (off-site repair custody) "
+            f"and {n_fmt(sum(1 for r in x['holding'] if r['company'] == 'Repairs'))} in the "
+            "holding accounts above"
+            + (f"; {n_fmt(rep_rows - len(x['custody']) - sum(1 for r in x['holding'] if r['company'] == 'Repairs'))} "
+               f"are radio / gas family rows or pre-{year} rows"
+               if rep_rows - len(x['custody']) - sum(1 for r in x['holding'] if r['company'] == 'Repairs') else "")
+            + ".")
 
     # ---- legacy
     leg = x["legacy"]
-    body += f'<h2 class="pb">Legacy On Hire - Before 01 Jan {year} (A to Z)</h2>'
-    body += (f"<p class='story'>{n_fmt(leg['n'])} register rows are still on hire from "
+    bl.h2(f"Legacy On Hire - Before 01 Jan {year} (A to Z)", pb=True)
+    bl.story(f"{n_fmt(leg['n'])} register rows are still on hire from "
              f"issues before 01 Jan {year} (oldest {fmt_date(leg['oldest'])}). They are "
              f"not in the {n_fmt(n)} because they are {fams}"
              + (f" - and {n_fmt(leg['tooling_n'])} tooling" if leg["tooling_n"] else
                 "; no tooling item on hire pre-dates this year")
              + ". The Radio and Gas Monitor reports chase them; they are listed here by "
              f"company so the recovery story is complete - {leg['n_companies']} companies, "
-             "A to Z.</p>")
+             "A to Z.")
     fams_present = [f for f in ("RADIO", "DRAGER", "GAS MONITOR", "GAS DETECTOR", "MULTI GAS",
                                 "MULTIGAS", "LANYARD", "STEEL COIL CLAMP", "Tooling")
                     if f in leg["families"]]
@@ -1861,12 +2267,12 @@ def render_onhire(d):
     leg_rows.append(["TOTAL", n_fmt(leg["n"])]
                     + [n_fmt(leg["families"].get(f, 0)) for f in fams_present]
                     + [fmt_date(leg["oldest"])])
-    body += table(hdr, leg_rows)
+    bl.table(hdr, leg_rows, aligns=["", "r"] + ["r"] * len(fams_present) + [""])
 
     # ---- data and method
     a = d["asat"]
-    body += '<h2 class="pb">Data And Method</h2>'
-    body += table(["Source", "As at / size", "Used for"], [
+    bl.h2("Data And Method", pb=True)
+    bl.table(["Source", "As at / size", "Used for"], [
         ["SiteIQ RENTAL_STOCK.xlsx", "SiteIQ pull " + stamp(a["stock"]["pulled"])
          + f"; {n_fmt(len(d['stock']))} register rows",
          "every on-hire line: company, hirer, barcode, description, on-hire date, status"],
@@ -1883,7 +2289,7 @@ def render_onhire(d):
          "SiteIQ pull " + stamp(a["tx"]["pulled"]) + " / " + stamp(a["stocktake"]["pulled"]),
          "not used for any figure on this report (they feed the Utilisation and "
          "Compliance reports)"]])
-    body += "<h2>Rules Applied</h2>"
+    bl.h2("Rules Applied")
     rules = [
         f"On hire = a RENTAL_STOCK row with a company, a {year} on-hire date and a "
         "tooling description; radios, gas monitors, Dräger equipment, lanyards and steel "
@@ -1914,16 +2320,18 @@ def render_onhire(d):
         "the one ranked table and says so. Every figure is counted by this kit from the "
         "exports named above - the Excel workbook is not read for any printed number.",
     ]
-    body += "<ul style='font-size:11px;line-height:1.7;'>" + "".join(
-        "<li>" + esc(r) + "</li>" for r in rules) + "</ul>"
+    bl.ul(rules)
     limits = source_limits(d)
-    return ("Tooling On-Hire Report",
-            f"Tooling On-Hire Report | {plural(n)} on hire | {x['n_companies']} companies | "
-            f"{money(x['total_val'])}",
-            page("Ampol Tooling - On-Hire Report", "Tooling On-Hire Report", body, limits,
-                 standard_break=True),
-            f"Ampol Tool Store - Tooling On-Hire Report - {plural(n)} on hire across "
-            f"{x['n_companies']} companies")
+    cfg = k2cfg("Tooling On-Hire Report", "COATES · TOOL STORE · TOOLING ON-HIRE REPORT",
+                KEY_REGISTER)
+    return report_outputs(
+        "Tooling On-Hire Report",
+        f"Tooling On-Hire Report | {plural(n)} on hire | {x['n_companies']} companies | "
+        f"{money(x['total_val'])}",
+        f"Ampol Tool Store - Tooling On-Hire Report - {plural(n)} on hire across "
+        f"{x['n_companies']} companies",
+        bl, limits, "Ampol Tooling - On-Hire Report", "Tooling On-Hire Report", cfg,
+        HOW_REGISTER, standard_break=True, data_heading=False)
 
 
 def render_util(d):
@@ -1938,49 +2346,51 @@ def render_util(d):
              "based - every line shows the demand that justifies it. Figures are computed "
              f"from the {stamp(d['asat']['stock']['pulled'])} SiteIQ exports: "
              f"{um['days_elapsed']} days elapsed this year to {fmt_date(um['today'])}.")
-    body = f"<p class='story'>{story}</p>"
-    body += tiles([(n_fmt(len(um["rows"])), "Equipment groups"),
-                   (n_fmt(len(um["buy"])), "Buy signals"),
-                   (money(buy_spend) if buy_priced else "-",
-                    f"Est. buy spend, 1 each ({len(buy_priced)} of {len(um['buy'])} priced)"),
-                   (n_fmt(unpriced_n), "Buy signals unpriced"),
-                   (n_fmt(len(um["overstock"])), "Right-size candidates")])
-    body += "<h2>What To Buy - Demand-Backed (ranked by live utilisation, then hire days)</h2>"
-    body += (f"<p class='note'>The spend estimate covers only the {len(buy_priced)} "
-             f"priced groups; {unpriced_n} buy signals have no catalogue price yet and "
-             "show a dash - they are not $0.</p>")
+    bl = Blocks()
+    bl.story(story)
+    bl.tiles([tile(n_fmt(len(um["rows"])), "Equipment groups", "bars"),
+              tile(n_fmt(len(um["buy"])), "Buy signals", "zap"),
+              tile(money(buy_spend) if buy_priced else "-", "Est. buy spend, 1 each", "shield",
+                   f"{len(buy_priced)} of {len(um['buy'])} priced", "grey",
+                   f"Est. buy spend, 1 each ({len(buy_priced)} of {len(um['buy'])} priced)"),
+              tile(n_fmt(unpriced_n), "Buy signals unpriced", "warn", "", "amber"),
+              tile(n_fmt(len(um["overstock"])), "Right-size candidates", "box")])
+    bl.h2("What To Buy - Demand-Backed (ranked by live utilisation, then hire days)")
+    bl.note(f"The spend estimate covers only the {len(buy_priced)} "
+            f"priced groups; {unpriced_n} buy signals have no catalogue price yet and "
+            "show a dash - they are not $0.")
     rows = []
     for r in um["buy"]:
         rows.append([r["group"], int(r["qty"]), int(r["on_hire"]), int(r["avail"]),
                      pct(r["live"]), pct(r["ytd"]), int(r["hirers"]), int(r["days"]),
                      money(r["buy"]) if r["buy"] is not None else "-",
                      r["source"] or "-", r["rec"]])
-    body += table(["Equipment Group", "Qty", "On Hire", "Avail", "Live %", "YTD %",
-                   "Hirers", "Hire Days", "Buy Price", "Source", "Recommendation"], rows,
-                  cls="tight")
-    body += "<h2>Working Hardest (ranked by hire days)</h2>"
+    bl.table(["Equipment Group", "Qty", "On Hire", "Avail", "Live %", "YTD %",
+              "Hirers", "Hire Days", "Buy Price", "Source", "Recommendation"], rows,
+             cls="tight")
+    bl.h2("Working Hardest (ranked by hire days)")
     # WHY (12 Aug 2026): the top-used list now gets a bar chart beside it -
     # same numbers the table carries (total hire days YTD), nothing new invented.
     n_with_days = um["groups_with_days"]
     if um["top_used"]:
-        body += chart_block(
+        bl.chart(
             k2shell.hbars([(r["group"], int(r["days"])) for r in um["top_used"]],
-                          colour=ORANGE),
+                          colour=K_ORANGE),
             f"Total hire days year to date - showing {len(um['top_used'])} of "
             f"{n_with_days} equipment groups with hire days recorded.")
-    body += table(["Equipment Group", "Qty", "Live %", "YTD %", "Hire Days", "Hirers"],
-                  [[r["group"], int(r["qty"]), pct(r["live"]), pct(r["ytd"]),
-                    int(r["days"]), int(r["hirers"])] for r in um["top_used"]])
+    bl.table(["Equipment Group", "Qty", "Live %", "YTD %", "Hire Days", "Hirers"],
+             [[r["group"], int(r["qty"]), pct(r["live"]), pct(r["ytd"]),
+               int(r["days"]), int(r["hirers"])] for r in um["top_used"]])
     if len(um["top_used"]) < n_with_days:
-        body += (f"<p class='story'>Showing {len(um['top_used'])} of {n_with_days} "
-                 "groups with hire days recorded - the busiest first.</p>")
-    body += "<h2>Potential Overstock - Right-Size Candidates (ranked by YTD utilisation, lowest first)</h2>"
-    body += table(["Equipment Group", "Qty", "On Hire", "Avail", "YTD %"],
-                  [[r["group"], int(r["qty"]), int(r["on_hire"]), int(r["avail"]),
-                    pct(r["ytd"])] for r in um["overstock"][:40]])
+        bl.story(f"Showing {len(um['top_used'])} of {n_with_days} "
+                 "groups with hire days recorded - the busiest first.")
+    bl.h2("Potential Overstock - Right-Size Candidates (ranked by YTD utilisation, lowest first)")
+    bl.table(["Equipment Group", "Qty", "On Hire", "Avail", "YTD %"],
+             [[r["group"], int(r["qty"]), int(r["on_hire"]), int(r["avail"]),
+               pct(r["ytd"])] for r in um["overstock"][:40]])
     if len(um["overstock"]) > 40:
-        body += (f"<p class='story'>Showing 40 of {len(um['overstock'])} right-size "
-                 "candidates - lowest YTD utilisation first.</p>")
+        bl.story(f"Showing 40 of {len(um['overstock'])} right-size "
+                 "candidates - lowest YTD utilisation first.")
     # WHY (02 Sep 2026): coverage is stated both ways - how much of the
     # mapping is usable, and how much of the year's movement it explains.
     if d.get("mapping_n") is not None:
@@ -2006,12 +2416,15 @@ def render_util(d):
               "price where a description is listed more than once); groups without a "
               "price show a dash.",
               ] + source_limits(d)[:1]
-    return ("Utilisation & What To Buy",
-            f"Utilisation &amp; What-To-Buy | {len(um['buy'])} buy signals",
-            page("Ampol Tooling - Utilisation", "Utilisation & What-To-Buy Report",
-                 body, limits),
-            f"Ampol Tool Store - Utilisation & What-To-Buy - "
-            f"{len(um['buy'])} buy signals")
+    cfg = k2cfg("Utilisation & What-To-Buy Report",
+                "COATES · TOOL STORE · UTILISATION & WHAT TO BUY", KEY_UTIL)
+    return report_outputs(
+        "Utilisation & What To Buy",
+        f"Utilisation &amp; What-To-Buy | {len(um['buy'])} buy signals",
+        f"Ampol Tool Store - Utilisation & What-To-Buy - "
+        f"{len(um['buy'])} buy signals",
+        bl, limits, "Ampol Tooling - Utilisation", "Utilisation & What-To-Buy Report",
+        cfg, HOW_UTIL)
 
 
 def render_compliance(d):
@@ -2022,60 +2435,62 @@ def render_compliance(d):
              "problem, just a reason for a five-minute visit to the counter. We check "
              "the tags, and if it is current it goes straight back with you. That is "
              "us doing the compliance work so your crews do not have to think about it.")
-    body = f"<p class='story'>{story}</p>"
-    body += tiles([(n_fmt(len(cm["chase"])), "Not seen 3+ months"),
-                   (n_fmt(len(cm["out_of_tag"])), "Caught & parked (out of tag)"),
-                   (n_fmt(len(cm["high_val"])), "High-value items out"),
-                   (money(sum(r['cost'] or 0 for r in cm['high_val'])),
-                    "High-value exposure")])
+    bl = Blocks()
+    bl.story(story)
+    bl.tiles([tile(n_fmt(len(cm["chase"])), "Not seen 3+ months", "warn", "", "amber"),
+              tile(n_fmt(len(cm["out_of_tag"])), "Caught & parked (out of tag)", "check",
+                   "", "green"),
+              tile(n_fmt(len(cm["high_val"])), "High-value items out", "box"),
+              tile(money(sum(r['cost'] or 0 for r in cm['high_val'])),
+                   "High-value exposure", "shield")])
     for cat in ("Electrical", "Rigging", "High Torque"):
         items = cm["by_cat"].get(cat, [])
         if not items:
             continue
-        body += (f"<h2>{esc(cat)} - Not Sighted In {NOT_SIGHTED_DAYS}+ Days "
-                 "(ranked by last sighted, oldest first)</h2>")
+        bl.h2(f"{esc(cat)} - Not Sighted In {NOT_SIGHTED_DAYS}+ Days "
+              "(ranked by last sighted, oldest first)")
         rows = []
         for r in items:
             rows.append([r["company"] or "-", r["hirer"] or "-", r["barcode"],
                          N.display_desc(r["desc"]),
                          fmt_date(r["seen"]) if r["seen"] else "Never sighted",
                          money(r["cost"]) if r["cost"] is not None else "-"])
-        body += table(["Company", "Hirer", "Barcode", "Description", "Last Sighted",
-                       "Replacement"], rows)
+        bl.table(["Company", "Hirer", "Barcode", "Description", "Last Sighted",
+                  "Replacement"], rows)
     if cm["out_of_tag"]:
-        body += "<h2>Already Caught - Parked Out Of Tag (our checks working; A to Z)</h2>"
-        body += ("<p class='story'>These items were caught by our checks and parked "
+        bl.h2("Already Caught - Parked Out Of Tag (our checks working; A to Z)")
+        bl.story("These items were caught by our checks and parked "
                  "under 'Rigging &amp; 240V - Out Of Tag Date' so they cannot be "
-                 "issued. Nothing goes on the shelf unless it is ready for hire.</p>")
-        body += table(["Barcode", "Description", "Status"],
-                      [[r["barcode"], N.display_desc(r["desc"]), r["status"] or "-"]
-                       for r in cm["out_of_tag"]])
-    body += "<h2>High-Value Items On Hire (ranked by replacement value)</h2>"
-    body += table(["Company", "Hirer", "Barcode", "Description", "On Hire Since",
-                   "Replacement"], item_rows(cm["high_val"], with_company=True, limit=40))
+                 "issued. Nothing goes on the shelf unless it is ready for hire.")
+        bl.table(["Barcode", "Description", "Status"],
+                 [[r["barcode"], N.display_desc(r["desc"]), r["status"] or "-"]
+                  for r in cm["out_of_tag"]])
+    bl.h2("High-Value Items On Hire (ranked by replacement value)")
+    bl.table(["Company", "Hirer", "Barcode", "Description", "On Hire Since",
+              "Replacement"], item_rows(cm["high_val"], with_company=True, limit=40))
     if len(cm["high_val"]) > 40:
-        body += (f"<p class='story'>Showing 40 of {len(cm['high_val'])} high-value "
-                 "items - highest replacement cost first.</p>")
+        bl.story(f"Showing 40 of {len(cm['high_val'])} high-value "
+                 "items - highest replacement cost first.")
     if cm["trend"]:
-        body += "<h2>Tool Store Activity By Month (transactions)</h2>"
+        bl.h2("Tool Store Activity By Month (transactions)")
         # WHY (12 Aug 2026): 'Trends' finally gets a trend line - the same
         # monthly transaction counts the table below carries, drawn with the
         # shared K2 chart kit. The table stays; the chart is added beside it.
         period = d["asat"]["tx"]["period"] or "year to date"
         if len(cm["trend"]) >= 2:
-            body += chart_block(
+            bl.chart(
                 k2shell.line_chart([mth for mth, _ in cm["trend"]],
                                    [{"vals": [n for _, n in cm["trend"]],
-                                     "colour": ORANGE, "label": "Transactions",
+                                     "colour": K_ORANGE, "label": "Transactions",
                                      "fill": True}]),
                 f"Tool store transactions per month by SiteIQ start date, export period "
                 f"{period}. Every account and family is counted (custody and radio / gas "
                 f"movements included); the current month is partial.")
-        body += table(["Month", "Transactions"],
-                      [[m, f"{n:,}"] for m, n in cm["trend"]])
-        body += ("<p class='note'>The current month covers only the days inside the "
-                 "export period and is labelled partial - it is not a full month's "
-                 "activity.</p>")
+        bl.table(["Month", "Transactions"],
+                 [[m, f"{n:,}"] for m, n in cm["trend"]])
+        bl.note("The current month covers only the days inside the "
+                "export period and is labelled partial - it is not a full month's "
+                "activity.")
     limits = [f"'Not sighted' uses the SiteIQ STOCKTAKE export (last sighted date per "
               f"barcode). An item on hire cannot be sighted in store - which is exactly "
               f"the point: {NOT_SIGHTED_DAYS}+ days out means we have not had hands on "
@@ -2088,17 +2503,21 @@ def render_compliance(d):
               "issues and returns plus custody movements (Repairs, Dräger) and the radio "
               "/ gas families the on-hire pages leave out.",
               ] + source_limits(d)
-    return ("Compliance & Trends",
-            f"Compliance &amp; Trends | {len(cm['chase'])} to sight | "
-            f"{len(cm['out_of_tag'])} caught",
-            page("Ampol Tooling - Compliance", "Compliance & Trends Report", body,
-                 limits),
-            f"Ampol Tool Store - Compliance & Trends - {len(cm['chase'])} items to "
-            f"sight")
+    cfg = k2cfg("Compliance & Trends Report", "COATES · TOOL STORE · COMPLIANCE & TRENDS",
+                KEY_COMPLIANCE)
+    return report_outputs(
+        "Compliance & Trends",
+        f"Compliance &amp; Trends | {len(cm['chase'])} to sight | "
+        f"{len(cm['out_of_tag'])} caught",
+        f"Ampol Tool Store - Compliance & Trends - {len(cm['chase'])} items to "
+        f"sight",
+        bl, limits, "Ampol Tooling - Compliance", "Compliance & Trends Report", cfg,
+        HOW_COMPLIANCE)
 
 
 def recovery_table(x):
-    """Recovery-by-company table from the master list; ties to the on-hire tile."""
+    """Recovery-by-company table from the master list; ties to the on-hire
+    tile. Returns (headers, rows) for whichever skin draws it."""
     hdrs = ["Company"]
     for qk in QUARTERS:
         hdrs += [QTR_WORD[qk] + " Items", QTR_WORD[qk] + " Value"]
@@ -2130,7 +2549,7 @@ def recovery_table(x):
     u = sum(r["total"]["unpriced"] for r in lines)
     tot += [n, money(v) if p else "-", f"{p} / {u}"]
     rows.append(tot)
-    return table(hdrs, rows, cls="tight")
+    return hdrs, rows
 
 
 def render_exec(d):
@@ -2158,31 +2577,31 @@ def render_exec(d):
              f"recovery cycle keeps the fleet honest: gear not returned by quarter "
              f"close is billable at replacement cost, and this report gives every "
              f"company the list to beat before that happens.")
-    body = f"<p class='story'>{story}</p>"
-    body += tiles([(n_fmt(x["on_hire"]), f"On hire (tooling, {TODAY.year})"),
-                   (money(x["total_val"]), "Value out (replacement)"),
-                   (n_fmt(x["available"]), "Available for hire (tooling)"),
-                   (n_fmt(x["repairs"]), "In Repairs custody (register)"),
-                   (n_fmt(x["tx_ytd"]), "Transactions YTD (all accounts)"),
-                   (sd, "Same-day returns")])
-    body += ("<p class='note'>"
-             f"On hire excludes {n_fmt(leg['n'])} register rows on hire since before "
-             f"01 Jan {TODAY.year} (oldest {fmt_date(leg['oldest'])}) - "
-             + (f"all of them {leg_fams}, chased by the Radio and Gas Monitor reports; "
-                "no tooling item on hire pre-dates this year"
-                if leg["tooling_n"] == 0 else
-                f"{leg_fams}; {n_fmt(leg['tooling_n'])} tooling")
-             + f". Inside the {n_fmt(x['on_hire'])}: {n_fmt(x['custody_n'])} in the Repairs "
-             f"custody account (internal) and {n_fmt(x['n_accounts'])} booked to shutdown / "
-             f"custody accounts of a company rather than to a person. "
-             f"Transactions YTD counts every movement in the export: "
-             f"{n_fmt(x['tx_custody'])} are custody movements ("
-             + ", ".join(f"{co} {n_fmt(n)}" for co, n in sorted(x["tx_by_custody_co"].items()))
-             + f" and company custody accounts) and {n_fmt(x['tx_family'])} are radio / gas "
-             f"/ lanyard family movements the on-hire pages leave out; "
-             f"{n_fmt(x['tx_client_tooling'])} are customer tooling movements. "
-             f"Same-day returns are measured on all {n_fmt(x['tx_ytd'])}.</p>")
-    body += "<h2>On Hire By Quarter Issued</h2>"
+    bl = Blocks()
+    bl.story(story)
+    bl.tiles([tile(n_fmt(x["on_hire"]), f"On hire (tooling, {TODAY.year})", "box"),
+              tile(money(x["total_val"]), "Value out (replacement)", "shield"),
+              tile(n_fmt(x["available"]), "Available for hire (tooling)", "check"),
+              tile(n_fmt(x["repairs"]), "In Repairs custody (register)", "wrench"),
+              tile(n_fmt(x["tx_ytd"]), "Transactions YTD (all accounts)", "swap"),
+              tile(sd, "Same-day returns", "clock")])
+    bl.note(f"On hire excludes {n_fmt(leg['n'])} register rows on hire since before "
+            f"01 Jan {TODAY.year} (oldest {fmt_date(leg['oldest'])}) - "
+            + (f"all of them {leg_fams}, chased by the Radio and Gas Monitor reports; "
+               "no tooling item on hire pre-dates this year"
+               if leg["tooling_n"] == 0 else
+               f"{leg_fams}; {n_fmt(leg['tooling_n'])} tooling")
+            + f". Inside the {n_fmt(x['on_hire'])}: {n_fmt(x['custody_n'])} in the Repairs "
+            f"custody account (internal) and {n_fmt(x['n_accounts'])} booked to shutdown / "
+            f"custody accounts of a company rather than to a person. "
+            f"Transactions YTD counts every movement in the export: "
+            f"{n_fmt(x['tx_custody'])} are custody movements ("
+            + ", ".join(f"{co} {n_fmt(n)}" for co, n in sorted(x["tx_by_custody_co"].items()))
+            + f" and company custody accounts) and {n_fmt(x['tx_family'])} are radio / gas "
+            f"/ lanyard family movements the on-hire pages leave out; "
+            f"{n_fmt(x['tx_client_tooling'])} are customer tooling movements. "
+            f"Same-day returns are measured on all {n_fmt(x['tx_ytd'])}.")
+    bl.h2("On Hire By Quarter Issued")
     qrows = []
     for qk in QUARTERS:
         n = x["qcounts"][qk]
@@ -2191,39 +2610,41 @@ def render_exec(d):
                       n_fmt(n) + ("" if quarter_started(qk) else " (quarter not started)")
                       + (f" ({TODAY.strftime('%B')} partial)" if part else "")])
     qrows.append(["Total", n_fmt(x["on_hire"])])
-    body += table(["Quarter", "Items Still On Hire"], qrows)
+    bl.table(["Quarter", "Items Still On Hire"], qrows)
     if x["recovery"]:
-        body += "<h2>Quarterly Recovery Summary (by company, A to Z)</h2>"
-        body += (f"<p class='note'>{len(x['recovery'])} companies A to Z"
-                 + (" plus the Repairs custody account on its own line" if x["custody_line"] else "")
-                 + f"; the TOTAL ties to the {n_fmt(x['on_hire'])} on hire and "
-                 f"{money(x['total_val'])} above. Values are replacement (catalogue new-buy "
-                 "average); a dash means nothing priced in that cell. Project accounts "
-                 "(FCCU, SATGAS/MOL) roll into their company; the Tooling On-Hire Report "
-                 "shows the account against each hirer.</p>")
+        bl.h2("Quarterly Recovery Summary (by company, A to Z)")
+        bl.note(f"{len(x['recovery'])} companies A to Z"
+                + (" plus the Repairs custody account on its own line" if x["custody_line"] else "")
+                + f"; the TOTAL ties to the {n_fmt(x['on_hire'])} on hire and "
+                f"{money(x['total_val'])} above. Values are replacement (catalogue new-buy "
+                "average); a dash means nothing priced in that cell. Project accounts "
+                "(FCCU, SATGAS/MOL) roll into their company; the Tooling On-Hire Report "
+                "shows the account against each hirer.")
         # WHY (12 Aug 2026): the recovery table leads with a bar chart -
         # total replacement value by company (top 12, and it says so).
         vals = sorted(((r["company"], r["total"]["value"]) for r in x["recovery"]),
                       key=lambda t: -t[1])
         top12 = [(co, round(v / 1000.0, 1)) for co, v in vals[:12]]
-        body += chart_block(
-            k2shell.hbars(top12, colour=ORANGE),
+        bl.chart(
+            k2shell.hbars(top12, colour=K_ORANGE),
             f"Total replacement value by company, in $'000 - ranked by replacement "
             f"value, top {len(top12)} of {len(vals)} companies; the table below is A to Z.")
-        body += recovery_table(x)
+        hdrs, rows = recovery_table(x)
+        bl.table(hdrs, rows, cls="tight")
     if leg["n"]:
-        body += (f"<h2>Legacy On Hire - Before 01 Jan {TODAY.year} (ranked by legacy "
-                 f"items - top {len(leg['top'])} of {leg['n_companies']} companies)</h2>")
-        body += (f"<p class='note'>{n_fmt(leg['n'])} register rows are still on hire from "
-                 f"{TODAY.year - 3}-{TODAY.year - 1} issues (oldest {fmt_date(leg['oldest'])}). "
-                 "They are not in the tooling recovery cycle above because they are "
-                 + (leg_fams or "other families") + " - the Radio and Gas Monitor reports "
-                 "carry them. Shown here so the recovery story is complete; the full "
-                 "A-to-Z list by company is in the Tooling On-Hire Report.</p>")
+        bl.h2(f"Legacy On Hire - Before 01 Jan {TODAY.year} (ranked by legacy "
+              f"items - top {len(leg['top'])} of {leg['n_companies']} companies)")
+        bl.note(f"{n_fmt(leg['n'])} register rows are still on hire from "
+                f"{TODAY.year - 3}-{TODAY.year - 1} issues (oldest {fmt_date(leg['oldest'])}). "
+                "They are not in the tooling recovery cycle above because they are "
+                + (leg_fams or "other families") + " - the Radio and Gas Monitor reports "
+                "carry them. Shown here so the recovery story is complete; the full "
+                "A-to-Z list by company is in the Tooling On-Hire Report.")
         fams = [f for f in ("RADIO", "DRAGER", "GAS MONITOR") if f in leg["families"]]
-        body += table(["Company", "Legacy Items"] + [fam_words[f].capitalize() for f in fams],
-                      [[co, n_fmt(c["_n"])] + [n_fmt(c.get(f, 0)) for f in fams]
-                       for co, c in leg["top"]])
+        bl.table(["Company", "Legacy Items"] + [fam_words[f].capitalize() for f in fams],
+                 [[co, n_fmt(c["_n"])] + [n_fmt(c.get(f, 0)) for f in fams]
+                  for co, c in leg["top"]],
+                 aligns=["", "r"] + ["r"] * len(fams))
     # WHY (12 Aug 2026): two pictures drawn only from fields the kit already
     # loads - what families the on-hire gear falls into (the same keyword
     # classifier the compliance report uses) and how long it has been out.
@@ -2231,9 +2652,9 @@ def render_exec(d):
     cats = {"High Torque": 0, "Rigging": 0, "Electrical": 0, "General": 0}
     for r in master:
         cats[r["cat"] or "General"] += 1
-    body += "<h2>What Is Out - Category Split</h2>"
-    body += chart_block(
-        k2shell.hbars(list(cats.items()), colour=ORANGE),
+    bl.h2("What Is Out - Category Split")
+    bl.chart(
+        k2shell.hbars(list(cats.items()), colour=K_ORANGE),
         "Items on hire by description family (High Torque / Rigging / Electrical "
         "keyword match on the register description; General is everything else).")
     age_rows = []
@@ -2247,23 +2668,23 @@ def render_exec(d):
     undated = sum(1 for r in master if not r["date"])
     if undated:
         age_rows.append(("No on-hire date recorded", undated))
-    body += "<h2>On-Hire Ageing Profile</h2>"
-    body += chart_block(
-        k2shell.hbars(age_rows, colour=ORANGE),
+    bl.h2("On-Hire Ageing Profile")
+    bl.chart(
+        k2shell.hbars(age_rows, colour=K_ORANGE),
         "How long the current on-hire items have been out - days since their "
         "on-hire date. The quarterly recovery cycle is what brings the long "
         "tail home.")
-    body += "<h2>Signals</h2>"
-    body += tiles([(n_fmt(x["buy_n"]), "Buy signals (demand-backed)"),
-                   (n_fmt(x["overstock_n"]), "Right-size candidates"),
-                   (n_fmt(x["chase_n"]), "Test-date sightings due"),
-                   (n_fmt(x["out_of_tag_n"]), "Caught & parked out-of-tag"),
-                   (money(x["high_val_sum"]), "High-value exposure")])
-    body += ("<p class='story'>Detail sits in the companion reports: the Tooling "
+    bl.h2("Signals")
+    bl.tiles([tile(n_fmt(x["buy_n"]), "Buy signals (demand-backed)", "zap"),
+              tile(n_fmt(x["overstock_n"]), "Right-size candidates", "bars"),
+              tile(n_fmt(x["chase_n"]), "Test-date sightings due", "warn", "", "amber"),
+              tile(n_fmt(x["out_of_tag_n"]), "Caught & parked out-of-tag", "check", "", "green"),
+              tile(money(x["high_val_sum"]), "High-value exposure", "shield")])
+    bl.story("Detail sits in the companion reports: the Tooling "
              "On-Hire Report (every company, hirer and item, A to Z), the Quarterly "
              "On-Hire charge reports, Utilisation &amp; What-To-Buy, and Compliance "
              "&amp; Trends &mdash; each one client-ready, each one emailable from this "
-             "kit.</p>")
+             "kit.")
     limits = ["Every figure is counted from the SiteIQ exports beside this report - never "
               "from a workbook tab or a hardcoded summary cell. On hire = register rows "
               f"On Hire with a {TODAY.year} on-hire date, less radios, gas monitors, "
@@ -2277,11 +2698,13 @@ def render_exec(d):
               "(the Tooling On-Hire Report shows the account against each hirer). Repairs "
               "is an internal custody account, never a company.",
               ] + source_limits(d)
-    return ("Executive Summary",
-            f"Executive Summary | {n_fmt(x['on_hire'])} on hire | {money(x['total_val'])}",
-            page("Ampol Tooling - Executive Summary", "Executive Summary", body,
-                 limits),
-            f"Ampol Tool Store - Executive Summary - {plural(x['on_hire'])} on hire")
+    cfg = k2cfg("Executive Summary", "COATES · TOOL STORE · EXECUTIVE SUMMARY", KEY_EXEC)
+    return report_outputs(
+        "Executive Summary",
+        f"Executive Summary | {n_fmt(x['on_hire'])} on hire | {money(x['total_val'])}",
+        f"Ampol Tool Store - Executive Summary - {plural(x['on_hire'])} on hire",
+        bl, limits, "Ampol Tooling - Executive Summary", "Executive Summary", cfg,
+        HOW_EXEC)
 
 
 # ------------------------------------------------------------------ email ---
@@ -2482,7 +2905,12 @@ def write_eml(eml_path, subject, body_html, attach_path):
         f.write(msg.as_bytes())
 
 
-def write_outputs(stem, title, subtitle, html_doc, subject, note=None):
+def write_outputs(stem, title, subtitle, html_doc, email_doc, subject, note=None):
+    """html_doc is the page in the house frame (written as .html, printed to
+    PDF); email_doc is the same content in the kit's legacy page, used only
+    to lift the Outlook-safe email body. WHY (02 Sep 2026): the email
+    builder strips a page by its BODY markers, which the house frame does
+    not carry - so it is handed the legacy page instead of the printed one."""
     os.makedirs(OUT_DIR, exist_ok=True)
     base = os.path.join(OUT_DIR, f"{stem}_{DATESTR}")
     html_path = base + ".html"
@@ -2492,7 +2920,7 @@ def write_outputs(stem, title, subtitle, html_doc, subject, note=None):
     pdf_ok = edge_pdf(html_path, pdf_path)
     note = note or ("The full report PDF is attached. This email is the same report, "
                     "formatted for reading in place.")
-    body = email_html(subtitle, note, html_doc)
+    body = email_html(subtitle, note, email_doc)
     with open(base + ".body.html", "w", encoding="utf-8") as f:
         f.write(body)
     attach = [os.path.basename(pdf_path) if pdf_ok else os.path.basename(html_path)]
@@ -2520,14 +2948,14 @@ def run_quarter(d, qk):
         print(f"  Quarterly On-Hire Report - {QUARTERS[qk][1]}: quarter not started "
               f"(begins {fmt_date(start)}) - skipped")
         return
-    title, subtitle, doc, subject = render_quarter(d, qk)
-    write_outputs("Quarterly_OnHire_" + qk, title, subtitle, doc, subject)
+    title, subtitle, doc, mail, subject = render_quarter(d, qk)
+    write_outputs("Quarterly_OnHire_" + qk, title, subtitle, doc, mail, subject)
 
 
 def run_company(d, name):
-    title, subtitle, doc, subject = render_company(d, name)
+    title, subtitle, doc, mail, subject = render_company(d, name)
     stem = "Company_" + re.sub(r"[^\w]+", "_", name).strip("_")[:40]
-    write_outputs(stem, title, subtitle, doc, subject)
+    write_outputs(stem, title, subtitle, doc, mail, subject)
 
 
 def run_onhire(d):
@@ -2535,26 +2963,26 @@ def run_onhire(d):
     # Its email carries page 1 and the A-to-Z company table; the full
     # register is the attached PDF. Same recipients as the Executive
     # Summary: the draft is addressed in Outlook, exactly as that one is.
-    title, subtitle, doc, subject = render_onhire(d)
-    write_outputs("Tooling_OnHire_Report", title, subtitle, doc, subject,
+    title, subtitle, doc, mail, subject = render_onhire(d)
+    write_outputs("Tooling_OnHire_Report", title, subtitle, doc, mail, subject,
                   note="The full Tooling On-Hire Report PDF is attached - every company "
                        "A to Z, every hirer, every item. This email carries the position "
                        "and the company table; the register is in the PDF.")
 
 
 def run_util(d):
-    title, subtitle, doc, subject = render_util(d)
-    write_outputs("Utilisation_WhatToBuy", title, subtitle, doc, subject)
+    title, subtitle, doc, mail, subject = render_util(d)
+    write_outputs("Utilisation_WhatToBuy", title, subtitle, doc, mail, subject)
 
 
 def run_compliance(d):
-    title, subtitle, doc, subject = render_compliance(d)
-    write_outputs("Compliance_Trends", title, subtitle, doc, subject)
+    title, subtitle, doc, mail, subject = render_compliance(d)
+    write_outputs("Compliance_Trends", title, subtitle, doc, mail, subject)
 
 
 def run_exec(d):
-    title, subtitle, doc, subject = render_exec(d)
-    write_outputs("Executive_Summary", title, subtitle, doc, subject)
+    title, subtitle, doc, mail, subject = render_exec(d)
+    write_outputs("Executive_Summary", title, subtitle, doc, mail, subject)
 
 
 def run_everything(d):
