@@ -900,8 +900,10 @@ def insights_pages(I, prev_all, asat_s):
     bd = max(range(7), key=lambda r: sum(R["draws"][r]))
     tiles = [("clock", f"{h:02d}:00", f"Busiest hour {k}", f"{num(c)} draws", "amber" if k == 1 else "grey")
              for k, (h, c) in enumerate(busiest, 1)]
-    tiles.append(("bars", f"{round(100 * R['day'] / tot)}% / {round(100 * R['night'] / tot)}%", "Day / night draws",
-                  f"{num(R['day'])} in 06:00-17:59, {num(R['night'])} outside", "grey"))
+    W = R.get("windows", {})
+    tiles.append(("bars", f"{round(100 * W.get('preopen', 0) / tot)}% / {round(100 * W.get('trading', 0) / tot)}%",
+                  "Pre-open / trading draws",
+                  f"{num(W.get('preopen', 0))} in 04:00-06:59, {num(W.get('trading', 0))} in 07:00-17:29", "grey"))
     P.append(
         '<div class="pb"></div><div class="sect"><h3>The counter\'s rhythm</h3></div>'
         f'<div class="callout tight"><span class="lead">When radios move.</span> Every draw and every return since '
@@ -915,11 +917,12 @@ def insights_pages(I, prev_all, asat_s):
         f'<div class="chartpanel">{sh.heatgrid(R["returns"], HEAT_DAYS, cols24, colour=(31, 167, 90))}</div>'
         f'<div class="note">Counted from every movement in the TRANSACTIONS export for this report\'s barcodes ({esc(log_span)}); a cell '
         f'is the number of issue scans (or return scans) whose time fell in that weekday and hour. A dark cell is a real zero. '
-        f'Day is 06:00 to 17:59; night is everything else.</div>')
+        f'The store runs two shifts, 04:00 to 12:30 and 09:00 to 17:30, and opens at 07:00; before opening the first shift '
+        f'bumps monitors, scans the return box and makes up packs.</div>')
     P.append(so_what(
         f'Staff the counter for the {busiest[0][0]:02d}:00 and {busiest[1][0]:02d}:00 starts - {round(100 * top3 / tot)}% of the '
-        f'year\'s draws land in three hours - and expect {round(100 * R["night"] / tot)}% of draws outside 06:00-17:59, the '
-        f'after-hours window where the same-day rate is decided.'))
+        f'year\'s draws land in three hours - and expect {round(100 * W.get("after", 0) / tot)}% of draws after hours (17:30 to '
+        f'03:59), the window where the same-day rate is decided.'))
     # ---- 4. who holds what -----------------------------------------------
     H = I["holders"]
     hrows = []

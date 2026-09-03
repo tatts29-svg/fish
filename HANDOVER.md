@@ -473,3 +473,16 @@ the quarter's last day) and is always worded "unless returned". Items on
 hire with no movement in the log are split into "since the log began" (a
 real gap) and "issued before the log begins" (history). `VERIFY_NUMBERS`
 recounts the four store-wide headline figures from the raw rows.
+
+### Operating facts (3 Sep 2026, v1.10)
+
+Andrew's shift, opening and sighting facts are in
+`02_Ampol_Reporting_Suite/Docs/OPERATING_NOTES.md` and wired as rules:
+`txn_insights.SHIFTS` (rhythm windows), `gasmon_engine.RULES
+["return_box_scan_until"]` (a return scanned from the box by 05:30 next
+morning is same day - `via_return_box()`, counted as `box` in every
+window summary), and `build_stocktake_compliance_tool.TIERS` (gas,
+radio, milwaukee = 2 days). The double-scan SOPs sit in `Docs/SOP`; the
+scan itself leaves no trace in the exports, so the suite measures its
+outcomes and names who scanned from the STOCKTAKE export's
+LAST_SIGHTED_BY column.

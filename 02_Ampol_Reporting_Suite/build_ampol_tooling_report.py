@@ -2993,13 +2993,16 @@ def exec_insights(bl, d):
     busy = ", ".join(f"<b>{h:02d}:00</b> ({n_fmt(c)} draws)" for h, c in cr["busiest"])
     dawn = sum(cr["draws"][dd][hh] for dd in range(7) for hh in (4, 5))
     tot = cr["total"] or 1
-    bl.note(f"The three busiest hours for draws: {busy}. Day (06:00 to 17:59): "
-            f"<b>{n_fmt(cr['day'])}</b> draws ({cr['day'] / tot * 100:.0f}%); night (18:00 to 05:59): "
-            f"<b>{n_fmt(cr['night'])}</b> ({cr['night'] / tot * 100:.0f}%). The two hours 04:00 to "
-            f"05:59 alone carry {n_fmt(dawn)} draws ({dawn / tot * 100:.0f}%).")
-    so_what(bl, f"the counter's peak is the pre-dawn shift start - {dawn / tot * 100:.0f}% of all "
-                "draws land between 04:00 and 05:59 - so that is the window to have the double scan "
-                "fully staffed; the quiet afternoon hours are where a bay-by-bay stocktake sweep fits.")
+    W = cr.get("windows", {})
+    bl.note(f"The three busiest hours for draws: {busy}. The store runs two shifts, 04:00 to 12:30 and "
+            f"09:00 to 17:30, and opens for business at 07:00. Before opening (04:00 to 06:59), when the "
+            f"first shift bumps the gas monitors, scans the return box and makes up the pre-made packs: "
+            f"<b>{n_fmt(W.get('preopen', 0))}</b> draws ({W.get('preopen', 0) / tot * 100:.0f}%); trading hours "
+            f"(07:00 to 17:29): <b>{n_fmt(W.get('trading', 0))}</b> ({W.get('trading', 0) / tot * 100:.0f}%); after "
+            f"hours (17:30 to 03:59): <b>{n_fmt(W.get('after', 0))}</b> ({W.get('after', 0) / tot * 100:.0f}%).")
+    so_what(bl, f"the counter's peak is the pre-open window - {W.get('preopen', 0) / tot * 100:.0f}% of all "
+                "draws land between 04:00 and 06:59, the bump, the return box and the packs - so that is where "
+                "the double scan needs two people; the quiet afternoon hours are where a bay-by-bay sighting sweep fits.")
 
     # ---- 1d. what the log and the register disagree on
     dq = ti.data_quality(ctx, None)

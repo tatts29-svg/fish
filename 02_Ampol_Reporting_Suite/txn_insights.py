@@ -441,9 +441,32 @@ def holders(ctx, scope_barcodes=None, top=20):
 # 6. counter rhythm and data quality
 # ---------------------------------------------------------------------------
 
+# WHY (03 Sep 2026, Andrew): the store runs two shifts, 04:00 to 12:30 and
+# 09:00 to 17:30, and opens for business at 07:00. Before opening the first
+# shift bumps the gas monitors, scans the return box (04:00 to 05:30) and
+# makes up the pre-made packs. The rhythm pages read the hours in those
+# windows, not a generic day/night split.
+SHIFTS = {
+    "preopen": ((4, 0), (6, 59), "before opening (04:00 to 06:59) - bump, return box, pre-made packs"),
+    "trading": ((7, 0), (17, 29), "trading hours (07:00 to 17:29)"),
+    "after": ((17, 30), (3, 59), "after hours (17:30 to 03:59)"),
+    "shift1": ((4, 0), (12, 29), "shift 1 (04:00 to 12:30)"),
+    "shift2": ((9, 0), (17, 29), "shift 2 (09:00 to 17:30)"),
+    "opens": "07:00",
+}
+
+
+def in_window(t, key):
+    (h0, m0), (h1, m1), _ = SHIFTS[key]
+    x = t.hour * 60 + t.minute
+    a, b = h0 * 60 + m0, h1 * 60 + m1
+    return (a <= x <= b) if a <= b else (x >= a or x <= b)
+
+
 def counter_rhythm(ctx, scope_barcodes=None):
     """7 x 24 matrices (Mon..Sun x hour) of draws and returns, the busiest
-    hours, and the split of draws by day (06:00-17:59) and night."""
+    hours, the split of draws by the store's own windows (SHIFTS: preopen,
+    trading, after, shift1, shift2) and the older day/night split."""
     scope = _bcs(ctx, scope_barcodes)
     draws = [[0] * 24 for _ in range(7)]
     rets = [[0] * 24 for _ in range(7)]
@@ -459,8 +482,16 @@ def counter_rhythm(ctx, scope_barcodes=None):
         if t["en"]:
             rets[t["en"].weekday()][t["en"].hour] += 1
     busiest = sorted(hours.items(), key=lambda kv: (-kv[1], kv[0]))[:3]
+    win = {k: 0 for k in ("preopen", "trading", "after", "shift1", "shift2")}
+    rwin = {k: 0 for k in win}
+    for t in _tx(ctx, scope):
+        for k in win:
+            if in_window(t["st"], k):
+                win[k] += 1
+            if t["en"] and in_window(t["en"], k):
+                rwin[k] += 1
     return {"draws": draws, "returns": rets, "busiest": busiest, "day": day, "night": night,
-            "total": day + night}
+            "total": day + night, "windows": win, "return_windows": rwin, "shifts": SHIFTS}
 
 
 def data_quality(ctx, scope_barcodes=None, short_minutes=6, mass=15):

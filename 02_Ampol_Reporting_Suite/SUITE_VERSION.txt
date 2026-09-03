@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.9  (03 Sep 2026)
+Version: 1.10  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -281,3 +281,22 @@ v1.9 - 03 Sep 2026  (what the transaction log already knows)
     closed inside six minutes, the busiest counter hour.
   - Daily position: a third figure per family where one is recorded
     (tooling: items crossing 90 days by quarter close).
+
+v1.10 - 03 Sep 2026  (the store's own operating facts)
+  - Docs\OPERATING_NOTES.md records the facts the reports now print as
+    rules: two shifts (04:00 to 12:30, 09:00 to 17:30), the store opens
+    at 07:00, the first shift bumps monitors, scans the return box
+    (04:00 to 05:30) and makes up the pre-made packs before opening.
+  - Sighting standard: gas monitors, radios, radio batteries, Milwaukee
+    tools and Milwaukee batteries every 2 days (was 7 / 7 / 14). The
+    stocktake tiers, key strip and cards say so; the tier figures move
+    to the stricter line.
+  - Gas monitors: a return scanned from the return box by 05:30 next
+    morning counts as returned the day it went out - the store's timing,
+    not the crew's. Disclosed on the data page with the count that came
+    back that way in the last 30 days.
+  - The rhythm pages (executive summary, radios) read the hours in the
+    store's own windows - before opening, trading, after hours - not a
+    generic day and night split.
+  - The issuing and returning double-scan SOPs and A3 posters
+    (CIS-PST-002, CIS-PST-003) are filed in Docs\SOP.

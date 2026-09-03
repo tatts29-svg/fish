@@ -33,10 +33,10 @@ DATA JOINS
 
 PRIORITY DETERMINATION (stated on every output)
  - P1 GAS MONITORS + RADIOS/BATTERIES: safety-critical, high-value,
-   high-churn. Target: sighted every 7 days (bump/charge cycle covers
-   monitors; idle units surface here fast).
- - P2 MILWAUKEE: high-value, high-shrinkage-risk power tools.
-   Target: sighted every 14 days.
+   high-churn. Target: sighted every 2 days (Andrew's standard, 03 Sep
+   2026; the bump/charge cycle covers monitors, idle units surface fast).
+ - P2 MILWAUKEE: high-value, high-shrinkage-risk tools and batteries.
+   Target: sighted every 2 days.
  - P3 ALL OTHER TOOLING: 30-day full-coverage SOP cycle.
  - Movement is the mechanism: issue/return scans reset the clock, so
    the worklist naturally surfaces IDLE stock - exactly the gear that
@@ -77,9 +77,12 @@ STAFF_EMAIL_TO = '"Ampol Store" <Ampolstore@coates.com.au>, "Mitchell, Cody" <Co
 
 # Priority tiers: key -> (label, target cycle days, rationale)
 TIERS = {
-    "gas":       ("Gas Monitors",             7,  "Safety-critical; bumped & charged before issue"),
-    "radio":     ("Radios & Radio Batteries", 7,  "Safety-critical comms; high churn"),
-    "milwaukee": ("Milwaukee Power Tools",    14, "High value, high shrinkage risk"),
+    # WHY (03 Sep 2026, Andrew): gas monitors, radios, radio batteries,
+    # Milwaukee tools and Milwaukee batteries are sighted every two days -
+    # the store's standard, set above the 30-day SOP. Was 7 / 7 / 14.
+    "gas":       ("Gas Monitors",             2,  "Safety-critical; bumped & charged before issue; sighted every 2 days"),
+    "radio":     ("Radios & Radio Batteries", 2,  "Safety-critical comms; high churn; sighted every 2 days"),
+    "milwaukee": ("Milwaukee Tools & Batteries", 2, "High value, high shrinkage risk; sighted every 2 days"),
     "general":   ("All Other Tooling",        30, "30-day full-coverage SOP cycle"),
 }
 

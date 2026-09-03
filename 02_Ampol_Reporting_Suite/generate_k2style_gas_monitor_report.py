@@ -871,7 +871,11 @@ def page_sources(m):
          "three draws. That is why the yearly count is large - the site draws hundreds a day - and why "
          "the behaviour measure is the <b>percentage</b> back the same day, not the count."),
         ("Not returned same day",
-         f"A draw not scanned back on the calendar day it went out. A draw at or after "
+         f"A draw not scanned back on the calendar day it went out. Two allowances, both the store's "
+         f"own timing, not the crew's: a monitor dropped in the return box is scanned by the first shift "
+         f"between 04:00 and {R['return_box_scan_until'].strftime('%H:%M')} next morning, before the store "
+         f"opens at 07:00, so a return scanned in that window counts as same day "
+         f"({num(m['d30'].get('box', 0))} of the last 30 days' draws came back that way); a draw at or after "
          f"{R['night_shift_from'].strftime('%H:%M')} counts as same day if it is back by "
          f"{R['night_shift_back_by'].strftime('%H:%M')} next morning. A draw still open counts as not "
          f"returned. The same rule is applied to every person and every company."),
@@ -1001,8 +1005,9 @@ def page_people(m):
            rows, ["", "r", "r", "r", "r", "r", "r"], cls="cp")}
 <div class="note">{f'Plus <b>{len(rest)}</b> more people with <b>{num(rest_units)}</b> non-returns between them in the last 30 days - all counted in the company table. ' if rest else ''}Named people only:
   custody and workflow accounts are reported on their own lines. "Not same day" = not scanned
-  back on the calendar day it went out (a draw after {R['night_shift_from'].strftime('%H:%M')}
-  counts as same day if back by {R['night_shift_back_by'].strftime('%H:%M')} next morning).
+  back on the calendar day it went out (a return scanned from the return box by
+  {R['return_box_scan_until'].strftime('%H:%M')} next morning counts as same day; a draw after
+  {R['night_shift_from'].strftime('%H:%M')} counts as same day if back by {R['night_shift_back_by'].strftime('%H:%M')} next morning).
   "Still out now" is from the live register at {hhmm(m['asat'])}. Same-day % is green from 85,
   amber from 70, red below.</div>"""
 

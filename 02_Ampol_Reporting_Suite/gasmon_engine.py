@@ -72,6 +72,13 @@ RULES = {
     "availability_target": 250,    # units on the shelf for a 100 availability score
     "night_shift_from": dtime(15, 0),   # a draw at/after this is a night-shift draw
     "night_shift_back_by": dtime(8, 0),  # ...and counts as same day if back by this
+    # WHY (03 Sep 2026, Andrew): monitors dropped in the return box after
+    # the counter closes are scanned by the first shift between 04:00 and
+    # 05:30 next morning, before the store opens at 07:00. A return scanned
+    # in that window was back on the day it went out - the scan is the
+    # store's, not the crew's - so it counts as same day. Disclosed on the
+    # data page and counted separately ("via the return box").
+    "return_box_scan_until": dtime(5, 30),
     "repeat_weeks": 3,             # weeks with a non-return in the last 30 days = repeat
     "stale_repair_days": 180,      # a repair older than this is dead fleet
 }
@@ -210,11 +217,22 @@ def same_day(st, en):
         return False
     if en.date() == st.date():
         return True
+    if via_return_box(st, en):
+        return True
     if st.time() >= RULES["night_shift_from"]:
         back_by = datetime.combine(st.date() + timedelta(days=1),
                                    RULES["night_shift_back_by"])
         return en <= back_by
     return False
+
+
+def via_return_box(st, en):
+    """A return scanned the next morning inside the return-box window
+    (04:00 to return_box_scan_until) for a draw made the day before: the
+    crew put it in the box on the day; the store scanned it at shift start."""
+    if en is None or en.date() != st.date() + timedelta(days=1):
+        return False
+    return dtime(4, 0) <= en.time() <= RULES["return_box_scan_until"]
 
 
 def hm(minutes):
@@ -337,6 +355,7 @@ def load_transactions(path):
             "st": st, "en": en,
             "kind": account_kind(who, co),
             "sd": same_day(st, en),
+            "box": via_return_box(st, en),
         })
     wb.close()
     return out, window, requested
@@ -379,6 +398,7 @@ def _flow(crew, start, end, now):
     sel = [t for t in crew if start <= t["st"] <= end]
     closed = [t for t in sel if t["en"]]
     sd = sum(1 for t in sel if t["sd"])
+    box = sum(1 for t in sel if t.get("box"))
     nsd = len(sel) - sd
     open_now = sum(1 for t in sel if not t["en"])
     imins = sorted(t["st"].hour * 60 + t["st"].minute for t in sel)
@@ -395,6 +415,7 @@ def _flow(crew, start, end, now):
         "start": start, "end": end,
         "draws": len(sel), "same_day": sd, "not_same_day": nsd,
         "sd_pct": round(sd / len(sel) * 100, 1) if sel else 0.0,
+        "box": box,
         "nsd_pct": round(nsd / len(sel) * 100, 1) if sel else 0.0,
         "open_now": open_now,
         "people": len({t["who_key"] for t in sel}),
