@@ -1290,19 +1290,23 @@ def position_card_png(cfg, asat_s, tiles, band, scores, path, foot=""):
     if band:
         status, headline, owner, action = band
         col = {"green": "#1FA75A", "amber": "#F5A623", "red": "#EF4444"}[status]
-        d.rounded_rectangle([64, y, W - 64, y + 224], radius=26, fill="#F6F7F9")
-        d.rounded_rectangle([64, y, 260, y + 224], radius=26, fill=col)
-        d.rectangle([200, y, 260, y + 224], fill=col)
-        d.text((162, y + 112), status.upper(), font=_font(34, True),
+        fh, fb = _font(28, True), _font(24)
+        h_lines = _wrap(d, headline, fh, W - 64 - 300)[:4]
+        a_lines = _wrap(d, f"Next: {action}", fb, W - 64 - 300)[:3]
+        bh = 30 + len(h_lines) * 38 + 8 + 34 + len(a_lines) * 32 + 22   # the band sizes itself
+        d.rounded_rectangle([64, y, W - 64, y + bh], radius=26, fill="#F6F7F9")
+        d.rounded_rectangle([64, y, 260, y + bh], radius=26, fill=col)
+        d.rectangle([200, y, 260, y + bh], fill=col)
+        d.text((162, y + bh / 2), status.upper(), font=_font(34, True),
                fill="#16202C" if status == "amber" else "#FFFFFF", anchor="mm")
         yy = y + 30
-        for line in _wrap(d, headline, _font(28, True), W - 64 - 300):
-            d.text((300, yy), line, font=_font(28, True), fill="#16202C"); yy += 38
+        for line in h_lines:
+            d.text((300, yy), line, font=fh, fill="#16202C"); yy += 38
         yy += 8
-        d.text((300, yy), f"Owner: {owner}", font=_font(24), fill="#35404E"); yy += 34
-        for line in _wrap(d, f"Next: {action}", _font(24), W - 64 - 300)[:2]:
-            d.text((300, yy), line, font=_font(24), fill="#35404E"); yy += 32
-        y += 224 + 26
+        d.text((300, yy), f"Owner: {owner}", font=fb, fill="#35404E"); yy += 34
+        for line in a_lines:
+            d.text((300, yy), line, font=fb, fill="#35404E"); yy += 32
+        y += bh + 26
     # score rows share whatever height is left above the footer
     room = (H - 170) - y
     step = min(88, max(56, room // max(len(scores[:4]), 1))) if scores else 0
