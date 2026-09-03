@@ -248,8 +248,9 @@ def main():
     # ---- 2. python's libraries --------------------------------------------
     print("-" * 62)
     say(OK, "Python {}.{}.{}".format(*sys.version_info[:3]))
-    for mod, why in [("openpyxl", "reading the Excel workbooks"),
-                     ("PIL", "sharper report images (optional)")]:
+    for mod, why in [("openpyxl", "reading the Excel exports and lookup files"),
+                     ("PIL", "sharper report images (optional)"),
+                     ("pymupdf", "PDF bookmarks and Author properties (optional - pip install pymupdf)")]:
         try:
             __import__(mod)
             say(OK, "Library {} - {}".format(mod, why))
@@ -267,11 +268,11 @@ def main():
         try:
             import winreg
             winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, "Excel.Application")
-            say(OK, "Microsoft Excel is installed (for the workbook "
-                    "refreshes)")
+            say(OK, "Microsoft Excel is installed (handy for the lookup "
+                    "files; no report needs a refresh)")
         except Exception:
-            say(WARN, "Microsoft Excel NOT found - the .xlsm refreshes "
-                      "need it; the reports themselves still build")
+            say(WARN, "Microsoft Excel NOT found - fine, every report "
+                      "counts from the SiteIQ exports without it")
     b = find_browser()
     if b:
         say(OK, "Browser for the print PDFs - " + os.path.basename(b))
