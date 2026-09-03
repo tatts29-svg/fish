@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.10  (03 Sep 2026)
+Version: 1.11  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -281,6 +281,37 @@ v1.9 - 03 Sep 2026  (what the transaction log already knows)
     closed inside six minutes, the busiest counter hour.
   - Daily position: a third figure per family where one is recorded
     (tooling: items crossing 90 days by quarter close).
+
+v1.11 - 03 Sep 2026  (the after-hours account, found by Andrew)
+  - SiteIQ books draws outside opening hours to one account named
+    "AFTER HOURS HIRE - GAS MONITORS & RADIO BATT.". Printed raw in a
+    who column it read as if radio batteries had crept into the gas
+    fleet. That is the account's name, not the gear's - every row was
+    a Drager X-am 5000. One rule (ampol_names.hirer_label) now prints
+    it as "After Hours Hire account" on every page: the gas movement
+    page, the radio register and insights pages, the tooling holder,
+    rhythm, compliance and movement lists, the calibration and rigging
+    chase lists, the stocktake count worklist.
+  - One marker for every other shared booking account (a shutdown, SFI
+    or tool store account): the SiteIQ name plus "(account)", on every
+    page of every family - the radio report's "(site account)" and the
+    tooling report's "(account)" were two spellings of one thing.
+  - Calibration chase list: the company under a hirer follows the
+    suite's display rule (Ampol, with the account named), not the raw
+    SiteIQ legal name.
+  - Stocktake count worklist, team page and email: every "7-day",
+    "14-day" and "7/14/30" phrase now reads from the tier table (2-day
+    for gas, radios and Milwaukee) - the old wording had outlived the
+    03 Sep rule on the floor worklist while its own tier table said
+    2 days. The truth sweep now fails on the old phrases.
+  - Tooling On-Hire Report: the position story is two lines, so the
+    page keeps the headroom its own check asks for (29 px, was 4 px
+    and a WARNING on every run).
+  - Gas "Since the last pull" page: the column is "Booked to" (the
+    person or SiteIQ account a monitor is on hire to), and a note
+    under the lists says what the after-hours account is and names
+    the model of every asset listed - read from the descriptions.
+    The data page traces the label back to the SiteIQ account name.
 
 v1.10 - 03 Sep 2026  (the store's own operating facts)
   - Docs\OPERATING_NOTES.md records the facts the reports now print as

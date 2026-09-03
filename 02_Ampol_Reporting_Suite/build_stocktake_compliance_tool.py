@@ -8,9 +8,9 @@ and the corrected-descriptions workbook), one run produces:
 
  1. STAFF COUNT WORKLIST (PDF+HTML) - sectioned the way the store works:
       0. Possible missed returns (resolve first)
-      1. Gas monitors            (Priority 1 - 7-day target cycle)
-      2. Radios & radio batteries(Priority 1 - 7-day target cycle)
-      3. Milwaukee tools & batteries (Priority 2 - 2-day target cycle)
+      1. Gas monitors            (Priority 1 - target cycle from TIERS, 2 days)
+      2. Radios & radio batteries(Priority 1 - target cycle from TIERS, 2 days)
+      3. Milwaukee tools & batteries (Priority 2 - target cycle from TIERS, 2 days)
       4. Store walk - all other tooling (Priority 3 - 30-day SOP cycle),
          grouped by storage unit so the team clears a bay at a time
       5. On-hire verification by company (verify on return, don't hunt)
@@ -76,6 +76,14 @@ ONHIRE_UNITS = {"ON HIRE", "SHUTDOWN", "TURNAROUND"}
 STAFF_EMAIL_TO = '"Ampol Store" <Ampolstore@coates.com.au>, "Mitchell, Cody" <Cody.mitchell@coates.com.au>'
 
 # Priority tiers: key -> (label, target cycle days, rationale)
+def fast_cycles():
+    """The sighting cycles above the SOP as printed, e.g. '2' or '2/7' -
+    read from TIERS so no page can say one thing while the table says
+    another (03 Sep 2026: the 7 / 14-day wording had outlived the rule)."""
+    days = sorted({t for k, (_l, t, _w) in TIERS.items() if k != "general"})
+    return "/".join(str(t) for t in days)
+
+
 TIERS = {
     # WHY (03 Sep 2026, Andrew): gas monitors, radios, radio batteries,
     # Milwaukee tools and Milwaukee batteries are sighted every two days -
@@ -314,7 +322,8 @@ def load(path, master, fixes, exact, stripped):
                      "last": d, "by": str(r[ix["LAST_SIGHTED_BY"]] or "").strip(),
                      "days": days, "cat": cat, "target": TIERS[cat][1],
                      "onhire": onhire_sys,
-                     "onhire_to": (f"{mcomp_show} \u2013 {mhirer}" if mcomp or mhirer else "").strip(" \u2013"),
+                     "onhire_to": (f"{mcomp_show} \u2013 {ampol_names.hirer_label(mhirer)}"
+                                   if mcomp or mhirer else "").strip(" \u2013"),
                      "home": home or "(no storage unit)",
                      "status": mstatus or "Not in master", "ohd": m_ohd})
     return rows, transit, export_dt
@@ -441,7 +450,7 @@ worklist naturally surfaces <b>idle stock</b> (gear that hasn't moved), which is
 Severity against the 30-day SOP: <span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span> = outside its
 tier target but still inside the SOP window &nbsp; <span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span>
 = 31\u201360 days &nbsp; <span class="chip" style="color:#c00000;background:#fbe9e9">CRITICAL</span> = over 60 days or never sighted.
-Client compliance is measured on the 30-day SOP; the 7/14-day cycles are the Coates internal standard, set above the SOP.</div>"""
+Client compliance is measured on the 30-day SOP; the {fast_cycles()}-day cycles are the Coates internal standard, set above the SOP.</div>"""
 
 # ---------------------------------------------------------------- staff worklist
 def item_table(items, show_value=True):
@@ -542,7 +551,7 @@ def build_staff_worklist(rows, transit, export_dt, d):
 ])}
 <div class="alerts"><div class="ah">Team - how to work this list (per the daily stocktake SOP)</div><table class="al">
 <tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Stock takes are completed daily, without exception</div><div class="al-s">Both shifts as one team. Work each section oldest first; every scan resets that item\u2019s clock.</div></td></tr>
-<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Sections 1-2 first (gas monitors, radios and batteries), every day</div><div class="al-s">Priority 1, 7-day cycle. Monitors are bumped and charged before issue. Then section 3 (Milwaukee, 14-day), then the store walk bay by bay (30-day SOP).</div></td></tr>
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Sections 1-2 first (gas monitors, radios and batteries), every day</div><div class="al-s">Priority 1, {TIERS['gas'][1]}-day cycle. Monitors are bumped and charged before issue. Then section 3 (Milwaukee, {TIERS['milwaukee'][1]}-day), then the store walk bay by bay ({TIERS['general'][1]}-day SOP).</div></td></tr>
 <tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Discrepancies are actioned on the spot</div><div class="al-s">Missing - escalate same day. Misplaced - relocate and correct in the system. Count mismatch - recount and report, never adjust away. Damaged - Out of Service tag, photo, report.</div></td></tr>
 <tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">ON HIRE rows are legitimately out - do not hunt shelves for them</div><div class="al-s">If you physically sight an on-hire item in the store, flag it same day and process it through the double-check return process.</div></td></tr>
 </table></div>
@@ -564,9 +573,9 @@ likely missed return scans. Locate, confirm, and process through the double-chec
     # suite, so the tier is named here in that case; the engine's own
     # tier labels are untouched everywhere else they print.
     for num, key, label, blurb in [
-        ("1", "gas", "Gas monitors", "Priority 1 - 7-day target. Safety-critical: every monitor bumped and charged before issue. Grouped by home bay."),
-        ("2", "radio", "Radios & radio batteries", "Priority 1 - 7-day target. Radios and radio batteries; charging station cycle should keep these current - anything here is idle."),
-        ("3", "milwaukee", "Milwaukee power tools", "Priority 2 - 14-day target. High-value cordless tools; count includes batteries and chargers.")]:
+        ("1", "gas", "Gas monitors", f"Priority 1 - {TIERS['gas'][1]}-day target. Safety-critical: every monitor bumped and charged before issue. Grouped by home bay."),
+        ("2", "radio", "Radios & radio batteries", f"Priority 1 - {TIERS['radio'][1]}-day target. Radios and radio batteries; charging station cycle should keep these current - anything here is idle."),
+        ("3", "milwaukee", "Milwaukee power tools", f"Priority 2 - {TIERS['milwaukee'][1]}-day target. High-value cordless tools; count includes batteries and chargers.")]:
         items = d["due"][key]
         val = sum(r["value"] for r in items if r["value"])
         parts.append(f"""<div class="sect"><h3>{num}. {label} due - {len(items)} items \u00b7 {money(val) if val else 'unpriced'}</h3></div>
@@ -740,10 +749,10 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
     lines = [
         "",
         "HOW PRIORITY IS DETERMINED",
-        "  P1  Gas Monitors \u2013 7-day target. Safety-critical; bumped & charged before issue.",
-        "  P1  Radios & Radio Batteries \u2013 7-day target. Safety-critical comms; high churn.",
-        "  P2  Milwaukee Power Tools \u2013 14-day target. High value, high shrinkage risk.",
-        "  P3  All Other Tooling \u2013 30-day full-coverage SOP cycle.",
+        f"  P1  Gas Monitors \u2013 {TIERS['gas'][1]}-day target. Safety-critical; bumped & charged before issue.",
+        f"  P1  Radios & Radio Batteries \u2013 {TIERS['radio'][1]}-day target. Safety-critical comms; high churn.",
+        f"  P2  Milwaukee Power Tools \u2013 {TIERS['milwaukee'][1]}-day target. High value, high shrinkage risk.",
+        f"  P3  All Other Tooling \u2013 {TIERS['general'][1]}-day full-coverage SOP cycle.",
         "",
         "WHAT COUNTS AS DONE",
         "  An item is done when it is physically scanned \u2013 issue and return scans included.",
@@ -901,8 +910,8 @@ def write_staff_eml(rows, transit, export_dt, d, attachments, eml_path):
 <div style="font-size:11px;color:#555">Ampol Tool Store \u2013 Coates managed &nbsp;|&nbsp; Data as at {export_dt.strftime('%d/%m/%Y')}</div></td></tr>
 <tr><td style="padding:10px 0;font-size:12px;line-height:1.6">Morning team,<br><br>
 Attached is today's count worklist - PDF for the floor, Excel if you're on a tablet (sort, filter, mark counted).<br><br>
-<b>Priority order, every day: Sections 1\u20132 first (gas monitors, radios & batteries - 7-day cycle), then Section 3
-(Milwaukee - 14-day cycle), then the store walk bay by bay (30-day SOP).</b> Every scan resets that item's clock -
+<b>Priority order, every day: Sections 1\u20132 first (gas monitors, radios & batteries - {TIERS['gas'][1]}-day cycle), then Section 3
+(Milwaukee - {TIERS['milwaukee'][1]}-day cycle), then the store walk bay by bay ({TIERS['general'][1]}-day SOP).</b> Every scan resets that item's clock -
 issues and returns count, so what's left on this list is the idle gear. Discrepancies on the spot: missing - escalate today;
 misplaced - relocate and fix in the system; mismatch - recount and report; damaged - OOS tag, photo, report.</td></tr>
 <tr><td><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">

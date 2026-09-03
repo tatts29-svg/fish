@@ -268,7 +268,7 @@ def load_from_register(master_path, serials, prices):
         raw_h = str(g(r, "HIRER_NAME") or "").strip()
         hirer = raw_h if hk != "person" else ge.norm_person(raw_h)[1]
         if hk == "account":
-            hirer = f"{raw_h} (site account)"
+            hirer = account_name(raw_h)
             out["accounts"] += 1
         item = {"company": company_name(g(r, "COMPANY_NAME")), "hirer": hirer,
                 "barcode": bc, "serial": serial or "-", "kind": kind,
@@ -394,13 +394,22 @@ def position_facts(r26, rprev, b26, bprev, data_asat=""):
     }
 
 
+def account_name(raw):
+    """A shared site account as printed: the after-hours booking account
+    under the suite-wide label (its SiteIQ name describes the account, not
+    the gear), any other account as SiteIQ spells it, marked as an account."""
+    raw = str(raw or "").strip()
+    lab = ampol_names.hirer_label(raw)
+    return lab if lab != raw else f"{raw}{ampol_names.ACCOUNT_SUFFIX}"
+
+
 def show_hirer(raw):
     """A hirer the way the register pages show one: a person in title case,
     a shared site account marked as such, the custody line as SiteIQ names it."""
     hk = hirer_kind(raw)
     raw = str(raw or "").strip()
     if hk == "account":
-        return f"{raw} (site account)"
+        return account_name(raw)
     if hk == "oos":
         return raw
     return ge.norm_person(raw)[1]
@@ -652,7 +661,7 @@ def insight_hirer(raw):
     before the year), so a site account is never printed as a person."""
     raw = str(raw or "").strip()
     if hirer_kind(raw) == "person" and re.search(r"shutdown\s*20\d\d|^t&i\b", raw, re.I):
-        return f"{raw} (site account)"
+        return f"{raw}{ampol_names.ACCOUNT_SUFFIX}"
     return show_hirer(raw)
 
 
@@ -960,7 +969,7 @@ def insights_pages(I, prev_all, asat_s):
              for t in short[:INSIGHT_SAMPLE_ROWS]]
     mrows = [[esc(insight_hirer(k[0])), esc(k[1] or "-"), f"{k[2]:%d %b %Y}", f"{k[3]:02d}:00-{k[3] + 1:02d}:00", num(v)]
              for k, v in D["mass"][:INSIGHT_SAMPLE_ROWS]]
-    mass_acc = sum(1 for k, _ in D["mass"] if "(site account)" in insight_hirer(k[0]))
+    mass_acc = sum(1 for k, _ in D["mass"] if hirer_kind(k[0]) == "account" or "(account)" in insight_hirer(k[0]))
     before = D["onhire_before_log"]
     before_oos = [r for r in before if hirer_kind(r["hirer"]) == "oos"]
     before_n, page2_n = len(before), len(prev_all)

@@ -380,6 +380,12 @@ def display_hirer(name):
     and 'leonard - atterwell', and a mixed-case entry is kept exactly
     (proper-casing it would turn McGurk into Mcgurk)."""
     s = re.sub(r"\s+", " ", clean(name))
+    # WHY (03 Sep 2026): the after-hours booking account is named in
+    # SiteIQ "AFTER HOURS HIRE - GAS MONITORS & RADIO BATT." - the name of
+    # the account, not of the gear on the row. One suite-wide label
+    # (ampol_names.hirer_label) so it never reads as a person or as gear.
+    if N.is_after_hours_account(s):
+        return N.hirer_label(s)
     letters = "".join(ch for ch in s if ch.isalpha())
     if letters and (letters.isupper() or letters.islower()):
         return acronym_case(m_proper(s), capitalise=False)
@@ -1509,21 +1515,21 @@ def since_last_pull(bl, d, full=True):
         if c["returned"]:
             bl.h2("Came back, company A to Z")
             bl.table(["Company", "Hirer", "Description", "Barcode", "Days it was out"],
-                     [[r["company"], display_hirer(r["hirer"]), diff_desc(d, r), r["barcode"],
+                     [[r["company"], hirer_show(r["hirer"]), diff_desc(d, r), r["barcode"],
                        r["days_out"] if r["days_out"] is not None else "-"]
                       for r in capped(c["returned"], "items that came back")],
                      cls="tight", aligns=["", "", "", "", "r"])
         if c["issued"]:
             bl.h2("Went out, company A to Z")
             bl.table(["Company", "Hirer", "Description", "Barcode", "On hire since"],
-                     [[r["company"], display_hirer(r["hirer"]), diff_desc(d, r), r["barcode"],
+                     [[r["company"], hirer_show(r["hirer"]), diff_desc(d, r), r["barcode"],
                        fmt_date(r["on_dt"].date() if r["on_dt"] else None)]
                       for r in capped(c["issued"], "items that went out")], cls="tight")
         if c["moved"]:
             bl.h2("Changed hands, company A to Z")
             bl.table(["Company", "Hirer now", "Was with", "Description", "Barcode", "Days out"],
-                     [[r["company"], display_hirer(r["hirer"]),
-                       f"{display_hirer(r['from_hirer'])}, {r['from_company']}",
+                     [[r["company"], hirer_show(r["hirer"]),
+                       f"{hirer_show(r['from_hirer'])}, {r['from_company']}",
                        diff_desc(d, r), r["barcode"],
                        r["days_out"] if r["days_out"] is not None else "-"]
                       for r in capped(c["moved"], "items that changed hands")],
@@ -1531,7 +1537,7 @@ def since_last_pull(bl, d, full=True):
         if c["crossed"][90]:
             bl.h2("Crossed 90 days since the last pull (ranked by days out, oldest first)")
             bl.table(["Company", "Hirer", "Description", "Barcode", "On hire since", "Days out"],
-                     [[r["company"], display_hirer(r["hirer"]), diff_desc(d, r), r["barcode"],
+                     [[r["company"], hirer_show(r["hirer"]), diff_desc(d, r), r["barcode"],
                        fmt_date(r["on_dt"].date() if r["on_dt"] else None),
                        r["days_out"] if r["days_out"] is not None else "-"]
                       for r in capped(c["crossed"][90], "items that crossed 90 days")],
@@ -1547,7 +1553,7 @@ def since_last_pull(bl, d, full=True):
         moves = ([dict(r, kind="Issued") for r in l["issued"]]
                  + [dict(r, kind="Returned") for r in l["returned"]])
         moves.sort(key=lambda r: (N.sort_key(r["company"]), r["at"], r["barcode"]))
-        rows = [[r["company"] or "-", display_hirer(r["hirer"]) or "-", diff_desc(d, r),
+        rows = [[r["company"] or "-", hirer_show(r["hirer"]), diff_desc(d, r),
                  r["barcode"], r["kind"], r["at"].strftime("%d %b %H:%M")]
                 for r in moves[:LAST24_CAP]]
         if rows:
@@ -1817,7 +1823,7 @@ def item_rows(items, with_company=False, limit=None):
         row = []
         if with_company:
             row.append(r["company"] or "-")
-        row += [r["hirer"] or "-", r["barcode"], N.display_desc(r["desc"]),
+        row += [hirer_show(r["hirer"]), r["barcode"], N.display_desc(r["desc"]),
                 fmt_date(r["date"]), money(r["cost"]) if r["cost"] is not None else "-"]
         out.append(row)
     return out
@@ -2725,6 +2731,8 @@ def hirer_show(name):
     """A person as SiteIQ records them; a custody, holding or project
     account named as an account, never as a person."""
     h = display_hirer(name) or "-"
+    if N.is_after_hours_account(name):
+        return h          # the label already says it is an account
     if is_holding_account(name) or is_custody_hirer(name):
         return f"{h} (account)"
     return h
@@ -3562,10 +3570,12 @@ def render_onhire(d):
     # number, where the detail is. Every other figure the old opening
     # carried lives in the tiles or in "Where the count sits" on the page
     # after; the rest of its words open that page, figure-free.
-    story = (f"This is the register of every tooling item on hire from the Ampol tool store "
-             f"at the SiteIQ pull of {esc(pulled)}: <b>{n_fmt(n)}</b> items issued since "
-             f"01 Jan {year}. The pictures follow; the complete register, company A to Z, "
-             "sits behind the appendix divider.")
+    # WHY (03 Sep 2026): two lines, not three - the position page must keep
+    # PAGE1_SPARE_MIN px free for the movement notes, and the report's own
+    # headroom check warned at 4 px with the three-line story.
+    story = (f"This is the register of every tooling item on hire at the SiteIQ pull of "
+             f"{esc(pulled)}: <b>{n_fmt(n)}</b> items issued since 01 Jan {year}. The full "
+             "register, company A to Z, is behind the appendix divider.")
     bl = Blocks()
     # WHY (03 Sep 2026): the on-hire tile carries the by-month-started series
     # as its sparkline (the same counts the month table below prints)
@@ -4075,7 +4085,7 @@ def render_compliance(d):
               "(ranked by last sighted, oldest first)")
         rows = []
         for r in items:
-            rows.append([r["company"] or "-", r["hirer"] or "-", r["barcode"],
+            rows.append([r["company"] or "-", hirer_show(r["hirer"]), r["barcode"],
                          N.display_desc(r["desc"]),
                          fmt_date(r["seen"]) if r["seen"] else "Never sighted",
                          money(r["cost"]) if r["cost"] is not None else "-"])

@@ -487,6 +487,37 @@ scan itself leaves no trace in the exports, so the suite measures its
 outcomes and names who scanned from the STOCKTAKE export's
 LAST_SIGHTED_BY column.
 
+### The after-hours account label, found by Andrew (3 Sep 2026, v1.11)
+
+The gas "Since the last pull" lists printed the SiteIQ hirer name raw,
+and the after-hours booking account is named "AFTER HOURS HIRE - GAS
+MONITORS & RADIO BATT." - so gas monitors read as radio batteries. Every
+row was a Dräger X-am 5000 (checked barcode by barcode in both
+registers). `ampol_names.hirer_label` / `is_after_hours_account` /
+`is_site_account` are the one rule: the account prints as "After Hours
+Hire account" in the gas report (`who_s`), the radio report
+(`account_name`, used by the register rows, `show_hirer` and
+`insight_hirer`), the tooling report (`display_hirer` / `hirer_show`,
+with the movement lists now on `hirer_show` so project and custody
+accounts carry "(account)" there too) and the stocktake worklist's
+on-hire-to string; the calibration and rigging chase lists (`hl()` in
+rigging, `hirer_label` / `account_label` in calibration) and the tooling
+`item_rows`. Any other shared booking account prints as its SiteIQ name
+plus " (account)" (`ampol_names.ACCOUNT_SUFFIX`), which replaced the
+radio report's "(site account)". The Tooling On-Hire position story was
+cut to two lines so the page keeps `PAGE1_SPARE_MIN` headroom. The
+stocktake floor worklist, team page and email still carried "7-day",
+"14-day" and "7/14/30" from before the 2-day sighting rule while their
+own tier table said 2 days; every such phrase now reads from
+`build_stocktake_compliance_tool.TIERS` (`fast_cycles()`), and the
+scratch truth sweep (`truth_sweep.py`: raw account name, bare account
+in a name column, former site name, long dash, nan/None/placeholder,
+old cycle wording) fails on the old phrases. The gas
+page's column is "Booked to", with a data-drawn note naming the model of
+every asset listed (`model_s`) and what the account is; the gas data
+page prints the SiteIQ account name the label stands for, read from the
+register rows on hire to it.
+
 ### Scoping fault in pull_diff.changes, found by Andrew (3 Sep 2026)
 
 `pull_diff.changes(scope_barcodes=...)` applied the barcode set to the

@@ -90,6 +90,12 @@ import ampol_paths
 import build_stocktake_compliance_tool as eng   # write_pdf_robust, find_workbook, parse_dt
 import gasmon_engine as ge                       # norm_company, parse_stamp
 import ampol_names                               # how names are SHOWN
+
+
+def hl(name):
+    """A hirer as printed: a shared booking account under the suite-wide
+    label (ampol_names.hirer_label), a person as SiteIQ spells them."""
+    return esc(ampol_names.hirer_label(name))
 import k2shell as sh
 import pdf_finish
 import report_history as rh                      # the movement scoreboard - recorded days only
@@ -957,7 +963,7 @@ def movements_page(d, asat_s):
         co = esc(r["company"]) or dash()
         if custody:
             co += '<span class="s2">custody line - not customer hire</span>'
-        hrows.append([num(i), esc(r["hirer"]) or dash(), co, num(r["items"]), num(r["oldest"])])
+        hrows.append([num(i), hl(r["hirer"]) or dash(), co, num(r["items"]), num(r["oldest"])])
     if not hrows:
         hrows = [['<span class="tbc">no register item is on hire</span>', dash(), dash(), "0", dash()]]
     top_items = sum(r["items"] for r in top)
@@ -1209,7 +1215,7 @@ def build_pages(d, asat_s):
             f'{esc(c["co"])}{acc}',
             num(c["n"]),
             num(c["hirers"]),
-            (f'{esc(o["desc"])} &middot; {esc(o["barcode"])} &middot; {esc(o["hirer"])}'
+            (f'{esc(o["desc"])} &middot; {esc(o["barcode"])} &middot; {hl(o["hirer"])}'
              if o else dash()),
             since_cell(o) if o else dash(),
             held_cell(o) if o else dash()])
@@ -1217,7 +1223,7 @@ def build_pages(d, asat_s):
     for r in d["repair_lines"]:
         o = r["oldest"]
         rrows.append([
-            esc(r["hirer"]),
+            hl(r["hirer"]),
             esc(" · ".join(r["accounts"])),
             num(r["n"]),
             f'{esc(o["desc"])} &middot; {esc(o["barcode"])}' if o else dash(),
@@ -1239,7 +1245,7 @@ def build_pages(d, asat_s):
     for it in d["oh_longest"][:cap_l]:
         lrows.append([
             esc(it["company"]) or dash(),
-            esc(it["hirer"]) or dash(),
+            hl(it["hirer"]) or dash(),
             esc(it["desc"]) or dash(),
             esc(it["barcode"]) or dash(),
             since_cell(it),
@@ -1295,7 +1301,7 @@ def build_pages(d, asat_s):
         ex_block = pnote("No &lsquo;Extracted Register&rsquo; sheet was found in the workbook - nothing to disclose from a certificate extract.")
         ex_sentence = ""
     oot = d["out_of_tag"]
-    oot_bit = (f' SiteIQ already carries a parking hirer, &lsquo;{esc(oot[0]["hirer"])}&rsquo;, holding '
+    oot_bit = (f' SiteIQ already carries a parking hirer, &lsquo;{hl(oot[0]["hirer"])}&rsquo;, holding '
                f'{num(len(oot))} register item{"s" if len(oot) != 1 else ""} (page __PG_COMPANY__).' if oot else "")
     P.append(f"""{psect("Test status - what the register holds today, no varnish")}
 {pcallout(f'Straight up: <b>not one of the eight test columns on the Master has been filled in</b> - {num(fill_n)} of {num(rows_n)} rows carry a test date, status, tag colour, tester, licence, certificate or comment.{ex_sentence}{oot_bit}', False)}
@@ -1310,8 +1316,8 @@ def build_pages(d, asat_s):
     for b, n in d["dups"]:
         it = d["items"][b]
         lv = it["live"]
-        where = ({"onhire": f'On hire · {esc(it["company"])} · {esc(it["hirer"])}',
-                  "repair": f'Custody · {esc(it["hirer"])}',
+        where = ({"onhire": f'On hire · {esc(it["company"])} · {hl(it["hirer"])}',
+                  "repair": f'Custody · {hl(it["hirer"])}',
                   "store": "In the store", "other": esc(lv["status"]) if lv else "",
                   "missing": '<span class="or">Not found in SiteIQ</span>'}[it["bucket"]])
         duprows.append([esc(b), esc(it["desc"]) or dash(), num(n), where])
@@ -1325,7 +1331,7 @@ def build_pages(d, asat_s):
             esc(c["cat"]), num(c["rows"]), num(c["distinct"]), num(c["onhire"]),
             num(c["repair"]), num(c["store"]), num(c["missing"]),
             (f'{esc(o["desc"])}<span class="s2">{esc(o["barcode"])} &middot; '
-             f'{esc(o["company"])} &middot; {esc(o["hirer"])}</span>' if o else dash()),
+             f'{esc(o["company"])} &middot; {hl(o["hirer"])}</span>' if o else dash()),
             held_cell(o) if o else dash()])
     P.append(f"""{psect("Register identity - what the barcodes themselves say")}
 {pcallout(f'The register is <b>{num(rows_n)} rows</b> but <b>{num(distinct)} distinct barcodes</b>: <b>{num(len(d["blank"]))}</b> row{"s" if len(d["blank"]) != 1 else ""} with no barcode ({blank_bits}), <b>{num(len(d["dups"]))}</b> barcodes repeated across <b>{num(d["dup_rows"])}</b> rows, and <b>{num(d["lower"])}</b> typed in lower case. For the SiteIQ join and on every page here, barcodes are upper-cased and de-duplicated (first Master row wins) - the fixes belong in the Master. Serial numbers: <b>{num(d["serial_rows"])}</b> rows carry one, <b>{num(d["serial_distinct"])}</b> distinct.', False)}
@@ -1343,7 +1349,7 @@ def build_pages(d, asat_s):
         if not s:
             return '<span class="tbc">no snapshot row</span>'
         if s["status"].lower() == "on hire":
-            return f'<span class="or">On hire</span><span class="s2">{esc(s["hirer"]) or "&ndash;"}</span>'
+            return f'<span class="or">On hire</span><span class="s2">{hl(s["hirer"]) or "&ndash;"}</span>'
         if s["status"].lower() == "available for hire":
             return "Available"
         return esc(s["status"] or "&ndash;")
@@ -1657,7 +1663,7 @@ def build_email_html(d, gen_s, asat_s, pdf_ok, src_name, live_name, card_cid="")
     for c in comp[:cap]:
         o = c["oldest"]
         crows.append([esc(c["co"]), num(c["n"]), num(c["hirers"]),
-                      (f'{esc(o["desc"])} ({esc(o["barcode"])}) &middot; {esc(o["hirer"])}' if o else "&ndash;"),
+                      (f'{esc(o["desc"])} ({esc(o["barcode"])}) &middot; {hl(o["hirer"])}' if o else "&ndash;"),
                       (f'{num(o["held"])}d' if o and o.get("held") is not None else "&ndash;")])
     parts.append(sh.esect("Where the gear is - customer companies by holding"))
     parts.append(sh.edtable(["Company", "Items", "Hirers", "Longest-held item", "Held"],
@@ -1669,7 +1675,7 @@ def build_email_html(d, gen_s, asat_s, pdf_ok, src_name, live_name, card_cid="")
         f'this table.'))
 
     cap2 = 8
-    lrows = [[esc(it["company"]) or "&ndash;", esc(it["hirer"]) or "&ndash;",
+    lrows = [[esc(it["company"]) or "&ndash;", hl(it["hirer"]) or "&ndash;",
               esc(it["desc"]) or "&ndash;", esc(it["barcode"]) or "&ndash;",
               it["since"].strftime("%d %b %Y"),
               f'{num(it["held"])}d' if it.get("held") is not None else "&ndash;"]

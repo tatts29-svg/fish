@@ -97,6 +97,49 @@ def account_label(name):
     return parent
 
 
+# ---------------------------------------------------------------------------
+# Shared booking accounts (03 Sep 2026)
+# ---------------------------------------------------------------------------
+# WHY: SiteIQ books gear drawn outside store hours to one account whose
+# name reads "AFTER HOURS HIRE - GAS MONITORS & RADIO BATT.". That is the
+# name of the ACCOUNT, not of the gear on the row - a gas monitor booked to
+# it is still a gas monitor. Printed raw in a "who" column it reads as if
+# radio batteries had crept into the gas fleet, so it prints under one
+# label on every page. Matching still uses the raw name; the data page of
+# a report says which SiteIQ name the label stands for.
+AFTER_HOURS_LABEL = "After Hours Hire account"
+_AFTER_HOURS_RE = re.compile(r"after\s*-?\s*hours", re.I)
+_SITE_ACCOUNT_RE = re.compile(r"after\s*-?\s*hours|tool\s*store|shutdown\s*-\s*20\d\d|\(sfi\)|^alky", re.I)
+
+
+def is_after_hours_account(name):
+    """True for the SiteIQ after-hours booking account, however spelt."""
+    return bool(_AFTER_HOURS_RE.search(str(name or "")))
+
+
+def is_site_account(name):
+    """A shared SiteIQ booking account (after-hours, a shutdown or tool
+    store account) - never a person."""
+    return bool(_SITE_ACCOUNT_RE.search(str(name or "")))
+
+
+ACCOUNT_SUFFIX = " (account)"
+
+
+def hirer_label(name):
+    """A hirer as printed: the after-hours booking account under its
+    label, any other shared booking account (a shutdown, SFI or tool
+    store account) as SiteIQ spells it plus " (account)", and a person
+    exactly as SiteIQ spells them. One suffix on every page, so a shared
+    account is never read as a person."""
+    s = str(name or "").strip()
+    if is_after_hours_account(s):
+        return AFTER_HOURS_LABEL
+    if is_site_account(s) and not s.lower().endswith("(account)"):
+        return s + ACCOUNT_SUFFIX
+    return s
+
+
 def sort_key(text):
     """Case-insensitive A-Z key that ignores leading punctuation."""
     return re.sub(r"^[^A-Za-z0-9]+", "", str(text or "")).upper()
@@ -109,6 +152,8 @@ if __name__ == "__main__":
     for c in ["CALTEX", "AMPOL REFINERIES (QLD) PTY LTD", "Contract Resources FCCU",
               "Wood SATGAS/MOL", "HIS", "Contract Resources.", "Total Refractory Management"]:
         print(f"{c!r:36} -> {display_company(c)!r:22} {account_label(c)!r}")
+    for h in ["AFTER HOURS HIRE - GAS MONITORS & RADIO BATT.", "FCCU - 2026 (SFI)", "Simon - Phillips"]:
+        print(f"{h!r:48} -> {hirer_label(h)!r}  site account: {is_site_account(h)}")
 
 # ---------------------------------------------------------------------------
 # One file-name rule for every report (03 Sep 2026)

@@ -196,9 +196,20 @@ def plain(fragment):
 
 
 def who_s(name):
-    """A hirer name as printed. Names are people, but a workflow account
-    can carry the site name - the former one never prints."""
-    return esc(ampol_names.display_desc(name))
+    """A hirer name as printed. Names are people; the after-hours booking
+    account prints under its label (ampol_names.hirer_label - its SiteIQ
+    name describes the account, not the gear); a workflow account can
+    carry the site name - the former one never prints."""
+    return esc(ampol_names.display_desc(ampol_names.hirer_label(name)))
+
+
+def model_s(desc):
+    """The monitor model as printed in a list: the Dräger X-am 5000 under
+    one name whichever way SiteIQ spelt it, anything else as shown."""
+    d = str(desc or "")
+    if re.search(r"x-?am\s*5000", d, re.I) and not ge.NOT_GAS_RE.search(d):
+        return "Dräger X-am 5000"
+    return ampol_names.display_desc(d)
 
 
 def report_stem():
@@ -737,8 +748,27 @@ def page_since(m, d):
             rows = [['<span class="tbc">none</span>', "", "", ""]]
         sub = _cap_note(min(len(src), cap), len(src), "monitors")
         return (f'<div class="sub-h">{title} <span class="thin">- A to Z; {sub}</span></div>'
-                + sh.dtable(["Who", "Company", "Asset", "Was out" if back else "Out for"], rows,
+                + sh.dtable(["Booked to", "Company", "Asset", "Was out" if back else "Out for"], rows,
                             ["", "", "", "r"], cls="cp"))
+
+    # WHY (03 Sep 2026): "Booked to" is the person or SiteIQ account a
+    # monitor is on hire to. The after-hours booking account's SiteIQ name
+    # describes the account, not the gear, so the page says what it is, and
+    # names the model of every asset listed - read from the descriptions,
+    # never assumed.
+    listed = ret + iss + mov + c30
+    models = sorted({model_s(r["desc"]) for r in listed})
+    if models == ["Dräger X-am 5000"]:
+        model_note = " Every asset in these lists is a Dräger X-am 5000 gas monitor from the fleet register."
+    elif models:
+        model_note = " Models listed: " + ", ".join(esc(x) for x in models) + "."
+    else:
+        model_note = ""
+    ah_note = (f" <b>{esc(ampol_names.AFTER_HOURS_LABEL)}</b> is the SiteIQ account the store books draws to "
+               f"outside opening hours - an account, not a person."
+               if any(ge.account_kind(r["hirer"], r["company"]) == "afterhours" for r in listed) else "")
+    who_note = (f'<div class="note">Booked to = the person or SiteIQ account the monitor is on hire to.'
+                f'{ah_note}{model_note}</div>')
 
     crows = []
     for r in c30[:C["since_crossed_rows"]]:
@@ -758,8 +788,9 @@ def page_since(m, d):
   <td style="width:50%;padding-right:6px">{side("Came back", ret, True)}</td>
   <td style="padding-left:6px">{side("Went out", iss, False)}</td>
 </tr></table>
+{who_note}
 <div class="sub-h">Crossed 30 days between the pulls <span class="thin">- oldest first; {_cap_note(min(len(c30), C["since_crossed_rows"]), len(c30), "monitors")}</span></div>
-{sh.dtable(["Out", "Since", "Who", "Company", "Asset"], crows, ["r", "", "", "", ""], cls="cp")}
+{sh.dtable(["Out", "Since", "Booked to", "Company", "Asset"], crows, ["r", "", "", "", ""], cls="cp")}
 <div class="note">Companies with a monitor out now that had none at the last pull: <b>{new_s}</b>.
   Companies cleared since the last pull: <b>{clr_s}</b>.{mv_s}</div>
 {h24}"""
@@ -856,6 +887,14 @@ def page_sources(m):
         from collections import Counter as _C
         top = _C(b.split("/")[0] for b in ss["missing"]).most_common(1)[0]
         pre = f" - {top[1]} of them in the {esc(top[0])} range"
+    # WHY (03 Sep 2026): the after-hours booking account prints under one
+    # label on every page; this is where the reader traces the label back
+    # to the name SiteIQ gives the account (read from the register rows).
+    ah_raw = sorted({n for n, _ in m["custody"]["afterhours"]["hirers"] if n})
+    ah_names = (f' The after-hours account is "{esc(ah_raw[0])}" in SiteIQ'
+                + (f' (and {num(len(ah_raw) - 1)} more spellings)' if len(ah_raw) > 1 else "")
+                + f'; it prints as <b>{esc(ampol_names.AFTER_HOURS_LABEL)}</b>.'
+                if ah_raw else "")
     cards = [
         ("RENTAL_STOCK - the register",
          f"What SiteIQ holds as <b>On Hire</b> (and to whom) and <b>Available for Hire</b> at the "
@@ -895,10 +934,10 @@ def page_sources(m):
 </div>
 {sh.dtable(["Window", "Dates", "Crew draws", "Back same day", "Not same day", "People", "Companies"],
            rows, ["", "", "r", "r", "r", "r", "r"], cls="cp")}
-<div class="note">Crew draws exclude the custody and workflow accounts (Dräger service statuses, FCCU,
-  Operations, Future Fuels, After Hours) - {num(m['tx_accounts'])} of the {num(m['tx_all'])} gas monitor
-  rows in the log this year. Each window is inclusive of its dates; the log closes at
-  {we.strftime('%H:%M')} on the report day, so "today" is not a window.</div>
+<div class="note">Crew draws exclude the custody and workflow accounts (Dräger service, FCCU, Operations,
+  Future Fuels, After Hours) - {num(m['tx_accounts'])} of the {num(m['tx_all'])} gas monitor rows in the log
+  this year.{ah_names} Windows include both end dates; the log closes at {we.strftime('%H:%M')} on the
+  report day, so "today" is not a window.</div>
 {sh.info_cards(cards)}"""
 
 

@@ -995,7 +995,7 @@ def build_team_pages(rows, d, a, export_dt):
 <table class="two" style="margin-top:14px"><tr>
   <td style="width:50%" align="center"><div class="donut-wrap">
     {sh.donut(round(oncyc), sh.health_hex(round(oncyc)), f"{oncyc:.0f}%", "ON CYCLE")}
-    <div class="donut-cap">In-store items inside their tier cycle (7/14/30d)</div></div></td>
+    <div class="donut-cap">In-store items inside their tier cycle ({eng.fast_cycles()}/{eng.TIERS['general'][1]}d)</div></div></td>
   <td style="width:50%" align="center"><div class="donut-wrap">
     {sh.donut(round(comp), sh.health_hex(round(comp)), f"{comp:.0f}%", "SOP 30D")}
     <div class="donut-cap">Whole store against the 30-day SOP</div></div></td>
@@ -1084,7 +1084,7 @@ def build_team_pages(rows, d, a, export_dt):
 {pcallout('Clear a bay at a time - it is faster, it is auditable, and the register RAG turns green a whole shelf at a stretch. Bays ranked by due count; <b>oldest</b> is the longest-unsighted item in the bay.')}
 {sh.dtable(["Storage bay (ranked by due items)", "Items", "Due now", "Sighted 30d", "Oldest"],
            urows, ["", "r", "r", "r", "r"])}
-{pnote(f'Due = outside the item&rsquo;s own tier target (7/14/30 days). Full item-by-item detail is the printed worklist and the Excel workbook - this page is the map, those are the streets.')}""")
+{pnote(f'Due = outside the item&rsquo;s own tier target ({eng.fast_cycles()}/{eng.TIERS["general"][1]} days). Full item-by-item detail is the printed worklist and the Excel workbook - this page is the map, those are the streets.')}""")
 
     # ---- T5 the two lists: shelf residue + long-hire verify -------------
     lrows2 = []
