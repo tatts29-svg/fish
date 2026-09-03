@@ -526,7 +526,8 @@ def page_since(m, d):
   <b class="o">{num(len(iss))} went out</b>, {num(len(mov))} changed hands and
   <b class="o">{num(len(c30))} crossed 30 days</b> still out ({num(len(c60))} crossed 60, {num(len(c90))}
   crossed 90). Monitors on hire: <b>{num(d['out_prev'])}</b> at the last pull, <b>{num(d['out_cur'])}</b> at
-  this one. Every row is a barcode read from the two exports - nothing is estimated.
+  this one. Every row is a barcode read from the two exports - crew, custody and repair lines alike;
+  nothing is estimated.
 </div>"""
     tiles = sh.tiles([
         ("check", num(len(ret)), "Came back", "on hire then, not now", "green" if ret else "grey"),
