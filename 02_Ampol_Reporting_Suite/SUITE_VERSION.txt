@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.11  (03 Sep 2026)
+Version: 1.12  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -281,6 +281,30 @@ v1.9 - 03 Sep 2026  (what the transaction log already knows)
     closed inside six minutes, the busiest counter hour.
   - Daily position: a third figure per family where one is recorded
     (tooling: items crossing 90 days by quarter close).
+
+v1.12 - 03 Sep 2026  (names as shown - tidy, one style everywhere)
+  - Every gas monitor prints as "Dräger X-am 5000 Gas Monitor", every
+    radio as "Motorola Radio", every radio battery as "Motorola Radio
+    Battery", with the serial number in brackets when it is known
+    (from the description or the two serial lists in Data\, by
+    barcode - ampol_serials.py). Nothing is guessed.
+  - Every other description reads in sentence case (a capital first
+    letter, lower case after) with sizes, brands, standards and
+    acronyms protected (M18, 1/2", Milwaukee, UNC, McGurk). The site
+    prefix is dropped from descriptions. People read "First Last";
+    companies keep the one-customer-one-name rule. Docs\NAMES_AS_SHOWN.md
+    is the rule in plain words and says how to protect another brand.
+  - Matching, pricing and mapping keys stay on the raw SiteIQ text
+    (ampol_names.former_to_current), so no figure moved with the
+    display change; both gates and the truth sweep pass.
+  - Docs\EXCEL_FILES_WE_READ.md / .txt list every workbook the suite
+    reads, sheet by sheet and column by column, with what must not
+    change; Docs\PRICING_FILE_DO_NOT_CHANGE.txt is the one-page note
+    for whoever reviews the pricing file.
+  - gasmon_transactions.py (nothing imported it) parked in
+    _Archive\old_scripts. The full clean suite zip carries live
+    scripts only, plus an Excel_files_we_read\ folder with a copy of
+    every workbook the reports read.
 
 v1.11 - 03 Sep 2026  (the after-hours account, found by Andrew)
   - SiteIQ books draws outside opening hours to one account named

@@ -266,13 +266,14 @@ def load_from_register(master_path, serials, prices):
             out["unpriced"] += 1
         hk = hirer_kind(g(r, "HIRER_NAME"))
         raw_h = str(g(r, "HIRER_NAME") or "").strip()
-        hirer = raw_h if hk != "person" else ge.norm_person(raw_h)[1]
+        hirer = raw_h if hk != "person" else ampol_names.display_person(raw_h)
         if hk == "account":
             hirer = account_name(raw_h)
             out["accounts"] += 1
         item = {"company": company_name(g(r, "COMPANY_NAME")), "hirer": hirer,
                 "barcode": bc, "serial": serial or "-", "kind": kind,
-                "year": str(on.year) if on else "", "desc": str(desc or "").strip(),
+                "year": str(on.year) if on else "",
+                "desc": ampol_names.display_desc(desc, barcode=bc, serial=serial or None),
                 "days": (asat.date() - on.date()).days if on else 0,
                 "cost": cost, "date": on.date() if on else None,
                 "time": on.strftime("%H:%M") if on else "",
@@ -412,7 +413,7 @@ def show_hirer(raw):
         return account_name(raw)
     if hk == "oos":
         return raw
-    return ge.norm_person(raw)[1]
+    return ampol_names.display_person(raw)
 
 
 def _capped(rows, cap, order="A to Z"):

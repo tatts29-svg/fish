@@ -40,13 +40,204 @@ def _match_case(word, sample):
     return word[:1].upper() + word[1:].lower()
 
 
-def display_desc(text):
-    """Item description as shown: former site name -> current one,
-    case kept (CALTEX -> AMPOL, Caltex -> Ampol). Nothing else touched."""
+# ---------------------------------------------------------------------------
+# Names as shown (03 Sep 2026, Andrew): tidy, one style everywhere
+# ---------------------------------------------------------------------------
+# Descriptions read in sentence case - a capital first letter, lower case
+# after - with brands, units, sizes and acronyms protected, so "M18",
+# "1/2\"", "UNC", "Milwaukee" and "McGurk" keep their shape. Every gas
+# monitor is one name, every radio is one name, and a serial number rides
+# in brackets when one is known (from the description itself or the serial
+# lists - ampol_serials). People read "First Last"; companies keep the
+# one-customer-one-name rule below. Display only, always: matching,
+# pricing and joins use the raw SiteIQ text.
+GAS_MONITOR_NAME = "Dräger X-am 5000 Gas Monitor"
+RADIO_NAME = "Motorola Radio"
+RADIO_BATTERY_NAME = "Motorola Radio Battery"
+_GAS_RE = re.compile(r"x-?am|gas monitor|gas detector|multi ?gas", re.I)
+_NOT_GAS_RE = re.compile(r"charger|probe|pump|calibration gas|dock|cradle|bump|holster|case\b", re.I)
+_RADIO_RE = re.compile(r"\bradio\b", re.I)
+_RADIO_BATTERY_RE = re.compile(r"batt", re.I)
+_NOT_RADIO_RE = re.compile(r"charg|antenna|holster|clip|earpiece|headset|\bmic\b|speaker|harness|case\b|bag\b", re.I)
+_GAS_SERIAL_RE = re.compile(r"\b(AR[A-Z]{2}-\d{4})\b", re.I)
+_RADIO_SERIAL_RE = re.compile(r"\b(\d{3}[A-Za-z]{3}\d{4})\b")
+
+# words that keep their capitals inside a description (brands, standards,
+# threads, electrical, safety) - add to this list, never to the data
+PROTECTED_WORDS = {
+    # brands
+    "Milwaukee", "Motorola", "Dräger", "Hytorc", "Fluke", "Kemppi", "Makita", "Bosch", "DeWalt", "Hilti",
+    "Stanley", "Sidchrome", "Kincrome", "Enerpac", "Atlas", "Copco", "Samsung", "Honda", "Stihl",
+    "Husqvarna", "Kärcher", "Karcher", "Ridgid", "Lincoln", "Cigweld", "Unimig", "Coates", "Ampol",
+    "Icom", "Kenwood", "Garmin", "Apple", "Dell", "Lenovo", "Paslode", "Ramset", "Sika", "Loctite",
+    "Rothenberger", "Reed", "Sumner", "Norbar", "Plarad", "Snap-on", "Bahco", "Knipex", "Wera", "Wiha",
+    "Irwin", "Fein", "Metabo", "Festool", "Ryobi", "Ozito", "Gerni", "Spitwater", "Yamaha", "Kubota",
+    "Perkins", "Deutz", "Genie", "Haulotte", "Manitou", "Merlo", "Hitachi", "Komatsu", "Caterpillar",
+    "Bobcat", "Dingo", "Kanga", "Wacker", "Neuson", "Weber", "Belle", "Mikasa", "Dynapac", "Bomag",
+    "Dremel", "Panasonic", "Sony", "Uniden", "Honeywell", "Pelican", "Peli", "Teng", "Gearwrench",
+    "Proto", "Facom", "Ingersoll", "Rand", "Wilton", "Record", "Tyrolit", "Norton", "Flexovit",
+    "Hi-Force", "Torcup", "Rapid", "Critictal", "Rubbish", "Dyson", "Nilfisk", "Makinex", "Trelawny",
+    "Hyundai", "Zippo", "Klein", "Greenlee", "Megger", "Kewtech", "Testo", "Extech", "Leica", "Bosch",
+    "Powerfix", "Powerlite", "Vevor", "Turbo", "Toolex", "Trojan", "Lufkin", "Stabila", "Starrett",
+    "Mitutoyo", "Moore", "Wright", "Facom", "Sealey", "Draper", "Silverline", "Toledo", "Warren",
+    "Brown", "Sharpe", "Jet", "Hafco", "Baileigh", "Metaltech", "Weldclass", "Bossweld", "Lincoln",
+    "Miller", "Fronius", "Hypertherm", "Thermal", "Dynamics", "Victor", "Harris", "Tesuco", "Bromic",
+    "Cavagna", "Comet", "Gardner", "Denver", "Yato", "Elora", "Gedore", "Hazet", "Stahlwille",
+    # acronyms, standards, threads, electrical, safety
+    "UNC", "UNF", "BSW", "BSP", "BSPT", "BSPP", "NPT", "NPTF", "JIC", "SAE", "ISO", "DIN", "ANSI", "AS",
+    "AF", "USB", "LED", "RCD", "PVC", "HDPE", "LPG", "GPO", "ELCB", "AC", "DC", "VAC", "VDC", "HSS",
+    "TCT", "SDS", "CFM", "PSI", "RPM", "HP", "KW", "OXY", "ARC", "MIG", "TIG", "MMA", "UHF", "VHF",
+    "GPS", "ID", "OD", "HD", "XL", "XXL", "XS", "T&I", "SFI", "FCCU", "OOS", "WLL", "SWL", "PPE", "LOTO",
+    "GFCI", "IP", "IP65", "IP67", "ATEX", "IECEx", "EX", "LEL", "H2S", "CO", "O2", "SO2", "NH3", "VOC",
+    "PID", "CCTV", "LAN", "WIFI", "Wi-Fi", "HDMI", "VGA", "LCD", "AA", "AAA", "NiMH", "Li-ion", "Li-Ion",
+    "SS", "GI", "MS", "CS", "HT", "LH", "RH", "QC", "QR", "PTO", "ROE", "OE", "RE", "PAC", "AMP", "PSU",
+    "UPS", "GSM", "RF", "IR", "UV", "LPM", "GPM", "CV", "HV", "LV", "ELV", "MCB", "MCCB", "RCBO", "DOL",
+    "VSD", "VFD", "PLC", "HMI", "SCADA", "RTU", "PTFE", "EPDM", "HNBR", "NBR", "FKM", "PU", "PE", "PP",
+    "ABS", "GRP", "FRP", "MDF", "CHS", "RHS", "SHS", "UB", "UC", "PFC", "EA", "UA", "SWG", "AWG", "BWG",
+    "M", "L", "S",
+}
+_PROTECT_UP = {w.upper(): w for w in PROTECTED_WORDS}
+# spellings SiteIQ uses for a brand, shown one way
+_BRAND_FIX = {"DRAGER": "Dräger", "DRAEGER": "Dräger", "DRÄGER": "Dräger", "X-AM": "X-am",
+              "DEWALT": "DeWalt", "MCGURK": "McGurk", "KARCHER": "Kärcher", "SNAP-ON": "Snap-on",
+              "HI-FORCE": "Hi-Force", "LI-ION": "Li-ion", "NIMH": "NiMH", "IPAD": "iPad", "IPHONE": "iPhone"}
+# a unit stuck to a number keeps its proper form
+_UNIT_FIX = {"MM": "mm", "CM": "cm", "KG": "kg", "NM": "Nm", "KW": "kW", "HZ": "Hz", "KPA": "kPa",
+             "MPA": "MPa", "ML": "mL", "KVA": "kVA", "MAH": "mAh", "AH": "Ah", "LTR": "L", "LT": "L"}
+_NUM_UNIT_RE = re.compile(r"^(\d[\d.,/]*)([A-Za-z]+)$")
+
+
+def _tidy_token(tok, first):
+    """One word of a description in sentence case, protected where it
+    must be. Brackets and trailing punctuation ride along untouched."""
+    lead = ""
+    while tok and tok[0] in "([\"'":
+        lead += tok[0]
+        tok = tok[1:]
+    trail = ""
+    while tok and tok[-1] in ")]\"',;:":
+        trail = tok[-1] + trail
+        tok = tok[:-1]
+    if not tok:
+        return lead + trail
+    core = tok
+    up = core.upper()
+    m = _NUM_UNIT_RE.match(core)
+    if up in _BRAND_FIX:
+        core = _BRAND_FIX[up]
+    elif m and m.group(2).upper() in _UNIT_FIX:
+        core = m.group(1) + _UNIT_FIX[m.group(2).upper()]
+    elif "-" in core and any(ch.isdigit() for ch in core) and any(ch.isalpha() for ch in core) \
+            and not all(any(ch.isdigit() for ch in p) for p in core.split("-")):
+        # DRIVE-19MM: a word and a size joined by a hyphen - tidy each side
+        core = "-".join(_tidy_token(p, False) for p in core.split("-"))
+    elif any(ch.isdigit() for ch in core):
+        core = core                                   # sizes and codes as written
+    elif up in _PROTECT_UP:
+        core = _PROTECT_UP[up]
+    elif "&" in core or "/" in core:
+        core = "/".join(_tidy_token(p, first) for p in core.split("/")) if "/" in core else core
+    elif core[1:] != core[1:].lower() and core[1:] != core[1:].upper():
+        core = core                                   # inner capitals: McGurk, iPad, DeWalt
+    elif first:
+        core = core[:1].upper() + core[1:].lower()
+    else:
+        core = core.lower()
+    return lead + core + trail
+
+
+def sentence_case(text):
+    """'TORQUE WRENCH 1/2" DRIVE 200NM' -> 'Torque wrench 1/2" drive 200Nm';
+    'Milwaukee M18 Cordless Impact Wrench' -> 'Milwaukee M18 cordless impact wrench'."""
+    s = re.sub(r"\s+", " ", str(text or "").replace("\xa0", " ")).strip()
+    if not s:
+        return s
+    # a word glued to a quote mark or a bracket is two words: 5"ANGLE, FT012(SHORT)
+    s = re.sub(r'(["\'])(?=[A-Za-z]{2})', r"\1 ", s)
+    s = re.sub(r"([A-Za-z0-9])\((?=[A-Za-z])", r"\1 (", s)
+    out, first = [], True
+    for tok in s.split(" "):
+        t = _tidy_token(tok, first)
+        out.append(t)
+        if first and any(ch.isalpha() for ch in tok):
+            first = False
+    s = " ".join(out)
+    s = re.sub(r"\s+-\s*|\s*-\s+", " - ", s)         # one dash style; hyphens inside a word stay
+    s = re.sub(r"\s+", " ", s).strip(" -")
+    return s
+
+
+def product_name(text):
+    """The one name for a gas monitor or a radio, or None for anything
+    else (chargers, probes and accessories keep their own description)."""
+    s = str(text or "")
+    if _GAS_RE.search(s) and not _NOT_GAS_RE.search(s):
+        return GAS_MONITOR_NAME
+    if _RADIO_RE.search(s) and not _NOT_RADIO_RE.search(s):
+        return RADIO_BATTERY_NAME if _RADIO_BATTERY_RE.search(s) else RADIO_NAME
+    return None
+
+
+def serial_in_desc(text):
+    """A serial SiteIQ typed into the description, if any."""
+    s = str(text or "")
+    m = _GAS_SERIAL_RE.search(s) or _RADIO_SERIAL_RE.search(s)
+    return m.group(1).upper() if m else ""
+
+
+def display_desc(text, barcode=None, serial=None):
+    """Item description as shown. A gas monitor or radio prints under its
+    one name with the serial in brackets when one is known (the serial
+    passed in, the one in the description, or the serial lists by
+    barcode); everything else reads in sentence case with the former site
+    name read as the current one. Nothing else is touched."""
     s = str(text or "")
     if not s:
         return s
-    return _OLD_RE.sub(lambda m: _match_case(CURRENT_SITE_NAME, m.group(0)), s)
+    s = _OLD_RE.sub(lambda m: _match_case(CURRENT_SITE_NAME, m.group(0)), s)
+    name = product_name(s)
+    if name:
+        sn = str(serial or "").strip() or serial_in_desc(s)
+        if not sn and barcode and name != RADIO_BATTERY_NAME:
+            try:
+                import ampol_serials
+                sn = ampol_serials.serial_for(barcode)
+            except Exception:
+                sn = ""
+        return f"{name} ({sn})" if sn else name
+    s = re.sub(r"^\s*ampol\s+", "", s, flags=re.I)   # the site's own prefix is not part of the name
+    return sentence_case(s)
+
+
+def display_person(name):
+    """A person as shown: SiteIQ's 'First - Last' reads 'First Last', each
+    word capitalised, inner capitals kept (McGurk, O'Connor); anything
+    SiteIQ appends after the name (a year, T&I, -Shutdown) stays, tidied.
+    A shared booking account goes through hirer_label instead."""
+    s = re.sub(r"\s+", " ", str(name or "")).strip()
+    if not s:
+        return s
+    if is_site_account(s):
+        return hirer_label(s)
+    s = re.sub(r"^(\S+)\s+-\s+", r"\1 ", s, count=1)   # the first dash is SiteIQ's separator
+    words = []
+    for w in s.split(" "):
+        if w.isupper() or w.islower():
+            w = "-".join(p[:1].upper() + p[1:].lower() for p in w.split("-"))
+            w = "'".join(p[:1].upper() + p[1:] for p in w.split("'")) if "'" in w else w
+            w = re.sub(r"^Mc([a-z])", lambda m: "Mc" + m.group(1).upper(), w)   # MCGREGOR -> McGregor
+            if w.upper() in ("T&I", "SFI", "FCCU"):
+                w = w.upper()
+        words.append(w)
+    return " ".join(words)
+
+
+def former_to_current(text):
+    """The former site name read as the current one, nothing else touched -
+    the MATCHING form. Pricing and mapping keys use this, never the tidy
+    display form, so a key never moves when the display rule changes."""
+    s = str(text or "")
+    return _OLD_RE.sub(lambda m: _match_case(CURRENT_SITE_NAME, m.group(0)), s) if s else s
 
 
 def carries_former_name(text):
@@ -154,6 +345,15 @@ if __name__ == "__main__":
         print(f"{c!r:36} -> {display_company(c)!r:22} {account_label(c)!r}")
     for h in ["AFTER HOURS HIRE - GAS MONITORS & RADIO BATT.", "FCCU - 2026 (SFI)", "Simon - Phillips"]:
         print(f"{h!r:48} -> {hirer_label(h)!r}  site account: {is_site_account(h)}")
+    for t in ["AMPOL DRAGER X-AM 5000 GAS MONITOR", "Drager X-am 5000 - T&I -ARSN-0637",
+              "Ampol Motorola Radio--Maintenance- 122TYX0140", "AMPOL MOTOROLA RADIO BATTERY",
+              "AMPOL DRAGER X-AM 5000 SINGLE CHARGER", 'TORQUE WRENCH 1/2" DRIVE 200NM',
+              'Milwaukee M18 Cordless Impact Wrench - 1/2" Drive', "Hytorc Hydraulic Actuator (Stealth 4)",
+              "CALTEX SPANNER FLOGGER FLAT 2-3/8 UNC", "Bow Shackle - 2T"]:
+        print(f"{t!r:52} -> {display_desc(t)!r}")
+    for n in ["Simon - Phillips", "ROBERT - MCGREGOR", "leonard - atterwell", "David - McGurk",
+              "Hayden - O'Connor", "Aaron - Broderick-Shutdown", "ANTHONY - DUTTON T&I", "ARDY - DENEHY 2021"]:
+        print(f"{n!r:32} -> {display_person(n)!r}")
 
 # ---------------------------------------------------------------------------
 # One file-name rule for every report (03 Sep 2026)

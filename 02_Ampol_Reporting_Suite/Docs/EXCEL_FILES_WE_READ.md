@@ -1,0 +1,245 @@
+# Ampol tool store reporting suite - Excel files the reports read
+
+Ampol tool store reporting suite - Excel files the reports read. Author: Andrew Fisher | POWERED BY SITEIQ. As at 03 Sep 2026.
+
+## Who this is for
+
+Anyone who opens, edits or hands over one of the Excel files in the suite's Data folder - including another AI tool asked to tidy one up. Every sheet name, header and rule below was read from the Python code or from the workbook itself on 03 Sep 2026. Nothing is assumed. Where something could not be confirmed it says "check".
+
+The suite only reads these files. It never writes to them.
+
+The only figures in this document are row counts, taken on 03 Sep 2026. "Data rows" means the rows under the header.
+
+## How a report finds a file
+
+- Every file lives in Data (ampol_paths.data_dir). Nothing is read from anywhere else.
+- A report asks for a file by pattern (ampol_paths.find_data). The newest file matching the first pattern that hits is used. Excel lock files (names starting with ~$) and archived pulls (names starting with Source_) are never candidates. So most files may carry a suffix - RENTAL_STOCK (1).xlsx still matches RENTAL_STOCK*.xlsx.
+- Exception - the tooling reports (button 04, build_ampol_tooling_report.load_all) ask for exact names with no wildcard: RENTAL_STOCK.xlsx, Tooling_Description_Mapping.xlsx, Ampol_ToolStore_Pricing.xlsx (or Ampol ToolStore Pricing.xlsx), TRANSACTIONS_Full.xlsx or TRANSACTIONS.xlsx, and STOCKTAKE.xlsx or STOCKTAKE (1).xlsx. A renamed file stops button 04 ("RENTAL_STOCK.xlsx not found in the Data folder") while the other buttons still run.
+- Button 10 (CHECK_MY_SETUP) lists every expected file, says whether it was found, and says what degrades without it.
+- Every reader opens the file with openpyxl in read-only mode and takes cached values (data_only=True). A formula cell is therefore read as the value Excel last calculated and saved. A formula typed in by a tool that does not calculate, or a file saved without recalculating, reads as blank.
+- Two small lists are read by every report, not just their own: Gas_Monitor_Serial_Numbers.xlsx and radio_register.xlsx feed the serial printed in brackets after a gas monitor's or radio's name on every page (ampol_serials.load, read once per run, display only).
+- Every reader treats row 1 of a data sheet as the header row. There is no searching for the header lower down (the one exception is the rigging workbook's Extracted Register sheet, noted below).
+- The three old .xlsm workbooks (Ampol Gas Monitor Report, Ampol_Radio_Report, Ampol_Onhire_Tooling_Report) are not read by any report and are parked in Data\_Archive_workbooks by button 14 (archive_old_workbooks.main). If Ampol_Onhire_Tooling_Report.xlsm is still in Data, the tooling report opens it only to print a console cross-check (build_ampol_tooling_report.workbook_crosscheck); no page takes a number from it.
+
+## Part A - the SiteIQ exports (never hand-edited)
+
+Three files. They are exported from SiteIQ, land in Downloads, and button 12 (PULL_SITEIQ_EXPORTS.main) files them into Data:
+
+- It opens each Excel file in Downloads and identifies the export by its data sheet name - RENTAL_STOCK, STOCKTAKE or CUSTOMER_CONTRACTOR_EQUIP - never by the file name (PULL_SITEIQ_EXPORTS.inspect).
+- It checks the export is this site's: a PROJECT or PROJECT SCHEDULE cell on REFERENCE_INFO must contain "ampol" or "lytton", or the first rows of the data must (PULL_SITEIQ_EXPORTS.site_in_rows). Another site's file is skipped and named on screen.
+- Newest wins, by the export's own REQUESTED_DATE/TIME, not the file date.
+- The copy already in Data is backed up first to Data\previous as YYYYMMDD_HHMM_RENTAL_STOCK.xlsx (and likewise for the other two); the stamp is when that older file was saved. Nothing is deleted.
+- These files are never edited by hand. If one is opened in Excel, close it without saving before running a report. Never sort, filter, retype or "clean" an export - the previous copies in Data\previous are the proof of what SiteIQ said on the day.
+
+Every export carries a REFERENCE_INFO sheet: row 1 holds headers, row 2 holds the values. The readers look for the header that contains REQUESTED_DATE and read the cell under it as "dd/mm/yyyy hh:mm AM/PM". That is the "Data as at" stamp printed on every page (pull_diff.reference_pull_time, gasmon_engine.load_rental_stock, build_ampol_tooling_report.reference_info, build_calibration_report.load_rental_stock, build_rigging_report.load_live, build_radio_report.load_from_register). If the stamp is missing, the file's saved time is used and the page says so.
+
+### RENTAL_STOCK.xlsx - where every item is right now
+
+- File name and pattern: RENTAL_STOCK.xlsx; found by RENTAL_STOCK*.xlsx (button 04 needs the exact name).
+- Maintained by: SiteIQ export, filed by button 12. Never hand-edited.
+- Sheets: REFERENCE_INFO (headers PROJECT SCHEDULE, REQUESTED_BY, REQUESTED_DATE/TIME (LOCAL TIME)) and RENTAL_STOCK (the data, 8,184 data rows). No other sheets.
+- Header row: row 1 of RENTAL_STOCK. Column headers in the export: SKU_NUMBER, COMPANY_NAME, HIRER_NAME, TOOLSTORE, STORAGE_UNIT, ITEM_NUMBER, ITEM_DESCRIPTION, ITEM_BARCODE, ITEM_STATUS, OWNER, ON_HIRE_DATE, ON_HIRE_TIME, PRODUCT_FAMILY, PRODUCT, PRODUCT_VARIANT (the last one carries a trailing space in the export; nothing reads it).
+- Key column: ITEM_BARCODE. A row with a blank barcode is ignored by the readers that key on it (pull_diff.load_register, build_calibration_report.load_rental_stock, build_stocktake_compliance_tool.load_master).
+- Columns the code reads, by reader:
+  - pull_diff.load_register (the "since the last pull" pages on every family report, and txn_insights.load_all): ITEM_BARCODE, ITEM_NUMBER, ITEM_DESCRIPTION, ITEM_STATUS, COMPANY_NAME, HIRER_NAME, ON_HIRE_DATE, ON_HIRE_TIME, PRODUCT_FAMILY, PRODUCT, STORAGE_UNIT.
+  - gasmon_engine.load_rental_stock (buttons 01 and 02 - the gas monitor position): ITEM_DESCRIPTION, COMPANY_NAME, HIRER_NAME, ITEM_STATUS, ON_HIRE_DATE, ON_HIRE_TIME, ITEM_BARCODE, STORAGE_UNIT.
+  - build_radio_report.load_from_register (button 03): ITEM_DESCRIPTION, ITEM_BARCODE, ITEM_STATUS, ON_HIRE_DATE, ON_HIRE_TIME, HIRER_NAME, COMPANY_NAME, STORAGE_UNIT.
+  - build_ampol_tooling_report.load_all (button 04): ITEM_BARCODE, ITEM_DESCRIPTION, ITEM_STATUS, COMPANY_NAME, HIRER_NAME, ON_HIRE_DATE, ON_HIRE_TIME, STORAGE_UNIT.
+  - build_stocktake_compliance_tool.load_master (button 05 - system status, hirer and home bay for each stocktake line): ITEM_BARCODE, ITEM_STATUS, COMPANY_NAME, HIRER_NAME, STORAGE_UNIT, ON_HIRE_DATE.
+  - build_calibration_report.load_rental_stock (button 06): ITEM_BARCODE, ITEM_DESCRIPTION, ITEM_STATUS, HIRER_NAME, COMPANY_NAME, ON_HIRE_DATE, ON_HIRE_TIME, STORAGE_UNIT - all eight required; the report stops and names any that is missing.
+  - build_rigging_report.load_live (button 07): ITEM_BARCODE, ITEM_DESCRIPTION, ITEM_STATUS, COMPANY_NAME, HIRER_NAME, ON_HIRE_DATE required (the report stops and names a missing one), plus STORAGE_UNIT.
+  - VERIFY_NUMBERS.count_everything (button 13): ITEM_STATUS, ITEM_DESCRIPTION, COMPANY_NAME, ITEM_BARCODE, ON_HIRE_DATE, HIRER_NAME.
+  - generate_v18_gas_monitor_report.validate_against_rental_stock (button 02, optional cross-check): ITEM_DESCRIPTION, ITEM_STATUS.
+- Values the code relies on: ITEM_STATUS reads "On Hire" or "Available for Hire" (exact words); ON_HIRE_DATE is text "dd/mm/yyyy" and ON_HIRE_TIME is text "hh:mm AM/PM", parsed as Australian dates (gasmon_engine.parse_dt, pull_diff.parse_dt) - never a US date.
+- What it feeds: every "on hire", "available", "who has it", "since when", "which bay" figure on every report, and the pull-against-pull movement pages (the newest earlier copy in Data\previous is compared with the current one by pull_diff.find_previous_pull).
+- Blank cells: blank ITEM_BARCODE - row ignored. Blank COMPANY_NAME or HIRER_NAME - item is not on hire to anyone. Blank ON_HIRE_DATE - no date, so no "days held" is counted.
+- Must not change (and what breaks): the sheet must be called RENTAL_STOCK - gasmon_engine, build_stocktake_compliance_tool, build_radio_report and build_ampol_tooling_report open it by that name and stop with an error without it (pull_diff and build_calibration_report fall back to the last sheet in the file, build_rigging_report stops with a plain message). The header row must be row 1 with the spellings above. Do not save the file over itself after sorting or editing - the reports would still run, but Data\previous would no longer be an honest record.
+
+### TRANSACTIONS.xlsx - every issue and return with a time
+
+- File name and pattern: TRANSACTIONS.xlsx; found by TRANSACTIONS*.xlsx (button 04 looks for TRANSACTIONS_Full.xlsx first, then TRANSACTIONS.xlsx, exact names).
+- Maintained by: SiteIQ export, filed by button 12, which recognises it by its CUSTOMER_CONTRACTOR_EQUIP sheet. Never hand-edited.
+- Sheets in the export: REFERENCE_INFO, TRANSACTION_CHARGES, FIXED_CHARGES, CUSTOMER_CONTRACTOR_EQUIP, TRANSACTION_WITHOUT_CHARGES. Only two are read: REFERENCE_INFO and CUSTOMER_CONTRACTOR_EQUIP (91,021 data rows).
+- REFERENCE_INFO headers: REPORT_PERIOD, PROJECT SCHEDULE, INVOICED_CUSTOMER, CONTRACTOR, HIRER, TOOL_STORE, REQUESTED_BY, REQUESTED_DATE/TIME (LOCAL TIME). Read: REPORT_PERIOD (text "dd/mm/yyyy hh:mm:ss - dd/mm/yyyy hh:mm:ss", split on the spaced hyphen into the window's start and end) and REQUESTED_DATE/TIME (gasmon_engine.load_transactions, txn_insights.load_transactions, build_ampol_tooling_report.reference_info).
+- Header row: row 1 of CUSTOMER_CONTRACTOR_EQUIP. Column headers in the export: EMPLOYER_NAME, HIRER_NAME, PRODUCT_VARIANT, SKU/ITEM_NUMBER, SKU/ITEM DESCRIPTION, LATEST_BARCODE, PRODUCT_CATEGORY, QUANTITY, SHIFTS, TRAN_START_DATE, TRAN_START_TIME, TRAN_END_DATE, TRAN_END_TIME, TRANSACTION_ID, PRODUCT_FAMILY, PRODUCT, COMMENTS, PURCHASE_ORDER_STANDARD, SUPERVISOR_STANDARD, FIXED_ASSET_STANDARD.
+- Key column: LATEST_BARCODE (joined to ITEM_BARCODE on the register). TRANSACTION_ID is carried along by txn_insights.
+- Columns the code reads, by reader:
+  - gasmon_engine.load_transactions (buttons 01 and 02): PRODUCT_VARIANT and SKU/ITEM DESCRIPTION (joined, to decide whether the row is a gas monitor), TRAN_START_DATE, TRAN_START_TIME, TRAN_END_DATE, TRAN_END_TIME, EMPLOYER_NAME, HIRER_NAME, LATEST_BARCODE.
+  - txn_insights.load_transactions (the insight pages on every family report): TRAN_START_DATE, TRAN_START_TIME, TRAN_END_DATE, TRAN_END_TIME, SKU/ITEM DESCRIPTION (PRODUCT_VARIANT if that is blank), EMPLOYER_NAME, LATEST_BARCODE, SKU/ITEM_NUMBER, HIRER_NAME, QUANTITY, TRANSACTION_ID.
+  - pull_diff.last_24h (the 24 hours before the pull, on every family report): LATEST_BARCODE, SKU/ITEM DESCRIPTION, EMPLOYER_NAME, HIRER_NAME, TRAN_START_DATE, TRAN_START_TIME, TRAN_END_DATE, TRAN_END_TIME.
+  - build_ampol_tooling_report.load_all (button 04): EMPLOYER_NAME, HIRER_NAME, SKU/ITEM DESCRIPTION, LATEST_BARCODE (BARCODE or ITEM_BARCODE accepted instead), PRODUCT_CATEGORY, TRAN_START_DATE, TRAN_END_DATE.
+  - VERIFY_NUMBERS.count_everything (button 13): TRAN_START_DATE, TRAN_START_TIME, TRAN_END_DATE, TRAN_END_TIME, LATEST_BARCODE.
+- Values the code relies on: dates "dd/mm/yyyy", times "hh:mm:ss" (24-hour), both text, parsed as Australian.
+- What it feeds: every issue and return count, same-day return rates, the people and company league tables, the 24-hour movement block, the counter rhythm, dead stock, return windows and quarter-close pages.
+- Blank cells: blank TRAN_START_DATE - row skipped. Blank TRAN_END_DATE - the item is still out (an open hire). Blank LATEST_BARCODE - row skipped by pull_diff.last_24h and cannot be joined to the register.
+- Must not change: the sheet must be called CUSTOMER_CONTRACTOR_EQUIP - gasmon_engine, txn_insights and the tooling report stop without it; pull_diff.last_24h prints the 24-hour block as "not available". Header row 1, spellings as above (SKU/ITEM DESCRIPTION has a space, SKU/ITEM_NUMBER has an underscore - both exactly as SiteIQ writes them).
+
+### STOCKTAKE.xlsx - the last sighting of every item
+
+- File name and pattern: STOCKTAKE.xlsx; found by STOCKTAKE*.xlsx (button 04 looks for STOCKTAKE.xlsx then STOCKTAKE (1).xlsx, exact names).
+- Maintained by: SiteIQ export, filed by button 12. Never hand-edited.
+- Sheets: REFERENCE_INFO and STOCKTAKE (13,087 data rows). Both read.
+- REFERENCE_INFO headers: PROJECT, PROJECT SCHEDULE, FROM_DATE/TIME, TO_DATE/TIME, REQUESTED_BY, REQUESTED_DATE/TIME (LOCAL TIME). Note: build_stocktake_compliance_tool.load reads row 2 by position - the sixth cell (REQUESTED_DATE/TIME) or, failing that, the fourth (TO_DATE/TIME) - so the column order on this sheet matters for button 05. The tooling report finds REQUESTED_DATE by header name.
+- Header row: row 1 of STOCKTAKE. The stocktake engine uses the header text exactly as it is in the cell (no trimming), so the spellings must be exact. Column headers in the export: TOOL_STORE, STORAGE_UNIT, SKU_NUMBER, ITEM_OR_CONSUMABLE, LATEST_BARCODE, DESCRIPTION, SIGHTED_QUANTITY, SIGHTED_STATUS, OWNER, LAST_SIGHTED_DATE_TIME, LAST_SIGHTED_BY, LAST_SIGHTED_ACTION, PRODUCT_FAMILY, PRODUCT, PRODUCT_CATEGORY, PRODUCT_VARIANT, PRICING_GROUP.
+- Key column: LATEST_BARCODE (joined to ITEM_BARCODE on the register).
+- Columns the code reads, by reader:
+  - build_stocktake_compliance_tool.load (button 05, the engine behind the worklist, compliance and team reports): TOOL_STORE (a row with it blank is skipped), SIGHTED_STATUS, LAST_SIGHTED_ACTION, LATEST_BARCODE, LAST_SIGHTED_DATE_TIME, STORAGE_UNIT, DESCRIPTION, SIGHTED_QUANTITY, LAST_SIGHTED_BY.
+  - build_stocktake_house_style.load_actions (button 05): LATEST_BARCODE, LAST_SIGHTED_ACTION.
+  - build_ampol_tooling_report.load_all (button 04): LATEST_BARCODE, LAST_SIGHTED_DATE_TIME, LAST_SIGHTED_BY, STORAGE_UNIT (its data page states STOCKTAKE is not used for any figure on the tooling report).
+  - VERIFY_NUMBERS.count_everything (button 13): TOOL_STORE, LATEST_BARCODE, SIGHTED_STATUS, LAST_SIGHTED_ACTION.
+- Values the code relies on: SIGHTED_STATUS "Pending Branch Receipt" and LAST_SIGHTED_ACTION "Departure" mark departed stock (excluded); LAST_SIGHTED_ACTION "Stocktake" marks a deliberate count scan; LAST_SIGHTED_DATE_TIME is text "dd/mm/yyyy hh:mm AM/PM".
+- What it feeds: days since last sighting, the priority tiers, the count worklist by bay, who counted what, the compliance percentages.
+- Blank cells: blank LAST_SIGHTED_DATE_TIME - "never sighted", which is CRITICAL. Blank SIGHTED_QUANTITY - counted as 1. Blank STORAGE_UNIT - shown as "(no storage unit)". Blank TOOL_STORE - row skipped.
+- Must not change: sheet name STOCKTAKE (button 05 and the tooling report stop without it), header row 1, exact header spellings, column order on REFERENCE_INFO.
+
+## Part B - the workbooks Andrew maintains
+
+These are typed in by hand and are the ones most at risk from a well-meant tidy-up. Each section says what may be edited freely and what must stay.
+
+### Ampol_ToolStore_Pricing.xlsx - the pricing master
+
+A separate one-page note for whoever reviews this file is in Docs\PRICING_FILE_DO_NOT_CHANGE.txt.
+
+- File name and pattern: Ampol_ToolStore_Pricing.xlsx. Found by Ampol_ToolStore_Pricing*.xlsx (radio report, txn_insights, button 10), by *Pricing*.xlsx (stocktake) and by the exact names Ampol_ToolStore_Pricing.xlsx or Ampol ToolStore Pricing.xlsx (tooling report).
+- Maintained by: Andrew.
+- Sheet: one sheet, RENTAL_STOCK. It is an Excel table (Table1). 3,227 data rows under the header (about 3,230 rows in Excel).
+- Header row: row 1. Exact header text: ITEM_DESCRIPTION | Avg Buy Price (New) | 3 Years Old 65% of cost | 5 Years Old 50% of Cost | 10+ Years Old 30% of Cost | Source to Buy. (The lower-case "cost" in the third header and the capital "Cost" in the fourth and fifth are how the file is; only the first, second and sixth headers are read.)
+- Key column: ITEM_DESCRIPTION, matched to the SiteIQ description after cleaning - spaces collapsed to one, upper-cased; the stocktake engine also turns the umlaut letters into plain letters (build_stocktake_compliance_tool.norm); the tooling report reads the former site name as Ampol first (build_ampol_tooling_report.desc_key); the radio report turns non-breaking spaces into spaces (build_radio_report._norm_desc). The match is on the whole text, so "1/2 DRIVE SOCKET" and "1/2" DRIVE SOCKET" are different items.
+- Columns the code reads, by reader:
+  - build_ampol_tooling_report.load_all (button 04): opens the sheet by the name RENTAL_STOCK; reads ITEM_DESCRIPTION, Avg Buy Price (New) and Source to Buy by header text (if a header is not found it falls back to columns A, B and F). Rows with a blank description are skipped. Where a description appears more than once the first row down the sheet wins. Feeds the replacement value on the on-hire register and the buy price and "where to buy" on the utilisation and what-to-buy pages (price_for_description, price_for_group).
+  - build_stocktake_compliance_tool.load_pricing (button 05, and every family report's value pages through txn_insights.load_all): opens the first sheet in the file, whatever it is called; needs the headers ITEM_DESCRIPTION and Avg Buy Price (New) exactly, or the report stops. A price counts only if the cell holds a number greater than zero. Where a description appears more than once the most common price wins; a tie takes the lower price; every conflict is listed on the Pricing Gaps tab of the count worklist. If nothing matches, it retries with the CALTEX or AMPOL prefix stripped, and for a description ending in a gas monitor serial it uses the master's own line for that gas monitor family (price_for).
+  - build_radio_report.load_prices (button 03): opens the first sheet; reads column A as the description and column B as the price by position from row 2 - the headers are not checked; a value that is not a number is skipped; first row wins. It also picks up the rows AMPOL MOTOROLA RADIO and AMPOL MOTOROLA RADIO BATTERY as the fallback price for a radio or battery whose SiteIQ description carries a serial number. Both rows are present.
+- Not read: 3 Years Old 65% of cost, 5 Years Old 50% of Cost, 10+ Years Old 30% of Cost. They hold formulas (=IF(B2="","",B2*0.65) and so on) and may be edited or left alone.
+- May be edited freely: any price in Avg Buy Price (New) (as a plain number); the Source to Buy text; adding a new row anywhere; adding a column to the right of Source to Buy; the three aged-price columns; column widths, colours, filters and the Excel table.
+- Blank cells: a blank Avg Buy Price (New) means unpriced - the item prints a dash and is left out of every value total, and is disclosed as unpriced. Text in that cell ("TBC", a dollar sign in front of the number, "ea" after it) is treated the same as blank. A zero is treated as unpriced by the stocktake engine; the tooling report carries a zero through as a price - check - so leave an unknown price blank, never 0. A blank Source to Buy prints as blank.
+- Must not change (and what breaks): the file name (button 04 stops; others fall back to any *Pricing*.xlsx and might pick up the wrong file); the sheet name RENTAL_STOCK (button 04 stops); the sheet being the first sheet (the stocktake and radio readers take the first sheet - a new sheet in front of it would be read as the price list); the header row being row 1 (a title row above it becomes the header - every price lost); the header spellings of ITEM_DESCRIPTION and Avg Buy Price (New) (the stocktake engine stops; the tooling report silently falls back to column positions); the position of columns A and B (the radio report reads by position); prices as plain numbers; no merged cells; no formulas that leave text where a number is expected. Re-sorting the sheet is safe unless a description is listed twice with different prices - then the tooling and radio reports, which take the first row, may print a different value. The fix is to remove the duplicate.
+
+### Tooling_Description_Mapping.xlsx - barcode to clean description
+
+- File name and pattern: Tooling_Description_Mapping.xlsx (exact name in the tooling report; Tooling_Description_Mapping*.xlsx in button 10).
+- Maintained by: Andrew.
+- Sheet: Use this. The code also accepts In use or CorrectedDescriptionsTable, in that order. 3,415 data rows.
+- Header row: row 1. Exact header text: ITEM_DESCRIPTION, ITEM_BARCODE, Corrected Description (the code also accepts CorrectedDescriptionsTable.Corrected Description for the third).
+- Key column: ITEM_BARCODE, upper-cased. Where the same barcode appears twice the first row wins.
+- Reader: build_ampol_tooling_report.load_all (button 04). Reads ITEM_BARCODE and Corrected Description; ITEM_DESCRIPTION is used for one extra rule - when every row carrying the same raw description agrees on one corrected name, that name is also shown for other barcodes with that raw description (display only).
+- What it feeds: the corrected description printed on the tooling on-hire register, and the grouping of the utilisation and what-to-buy pages - an item with no corrected description is not in the utilisation figures, and the page says how much of the mapping is usable.
+- Blank cells: blank Corrected Description - no correction for that row. Blank ITEM_BARCODE - the row only contributes to the by-description rule.
+- May be edited freely: adding rows; the ITEM_DESCRIPTION text; columns to the right.
+- Must not change (and what breaks): the sheet name (if none of the three accepted names is found the report runs with no corrections at all and prints "mapping coverage TBC"); the header spellings (if ITEM_BARCODE or Corrected Description is not found, same result - silently); header row 1; no merged cells.
+
+### New_Descriptions___Andrew.xlsx - stocktake description corrections
+
+- File name and pattern: New_Descriptions___Andrew.xlsx (three underscores). Found by New_Descriptions*.xlsx, then *Descriptions*.xlsx (build_stocktake_compliance_tool.main, build_stocktake_house_style.main).
+- Maintained by: Andrew.
+- Sheet: the first sheet in the file, whatever its name (currently Sheet1, an Excel table called CorrectedDescriptionsTable). 2,744 data rows.
+- Header row: row 1. Exact header text: ITEM_DESCRIPTION, ITEM_BARCODE, Corrected Description, Correction Notes, Changed?.
+- Key column: ITEM_BARCODE. Where the same barcode appears twice the last row down the sheet wins (build_stocktake_compliance_tool.load_corrections).
+- Reader: build_stocktake_compliance_tool.load_corrections (button 05, both the engine and the house-style outputs). Reads ITEM_DESCRIPTION, ITEM_BARCODE and Corrected Description (all three must be present or the report stops) and Changed? (optional). A row is skipped when Corrected Description is blank or Changed? is "No"; a blank Changed? is accepted. Two maps are built: barcode to corrected description (exact, wins), and old description to corrected description, used only where every row with that old description agrees.
+- Not read: Correction Notes.
+- What it feeds: the description shown on the stocktake worklist, compliance and team reports; the priority tier (gas, radio, Milwaukee, general) is decided on the corrected description where there is one; the price lookup also tries the corrected description.
+- Blank cells: blank Corrected Description - no correction. Blank Changed? - treated as yes.
+- May be edited freely: Correction Notes; adding rows; columns to the right; setting Changed? to No to switch a row off.
+- Must not change (and what breaks): the first sheet must be this list (a new sheet placed first would be read instead and the report would stop on a missing header); header row 1; the three header spellings (the report stops); no merged cells.
+
+### Gas_Monitor_Serial_Numbers.xlsx - barcode to serial, gas monitors
+
+- File name and pattern: Gas_Monitor_Serial_Numbers.xlsx. Found by Gas_Monitor_Serial*.xlsx, then *serial*.xlsx (gasmon_engine.load_serials).
+- Maintained by: Andrew.
+- Sheets (all three are read): GAS MONITORS (headers ASSET NUMBER GAS MONITOR, SERIAL NUMBER, DESCRIPTION; 1,199 data rows), GAS MONITORS (2) (the same three plus Status, Last Sighted Date, Last Sighted Date2, Last Sighted Month,Year, Replacement Value; 1,201 data rows), Sheet2 (ASSET NUMBER, SERIAL NUMBER, DESCRIPTION; 39 data rows).
+- Header row: row 1 on every sheet - the reader skips row 1 and starts at row 2. The header text itself is not checked.
+- Key column: column A (the barcode, upper-cased). Column B is the serial. Both by position, on every sheet.
+- Readers: gasmon_engine.load_serials - goes through every sheet in order and takes column A and column B from row 2 down; a barcode seen on an earlier sheet keeps that sheet's serial. Used by button 01 (generate_k2style_gas_monitor_report through gasmon_engine.load), button 02 (generate_v18_gas_monitor_report, same engine) and the gas email. Display only - never a source of counts, as the gas report's method page states. Since 03 Sep 2026 ampol_serials.load reads the same file the same way (every sheet, column A and column B from row 2, first sheet wins) so that every report can print a gas monitor as its one name with the serial in brackets (ampol_names.display_desc through ampol_serials.serial_for). A barcode with no serial on the list prints without brackets. Again display only - matching and counting never use a serial. The naming rule is in Docs\NAMES_AS_SHOWN.md.
+- What it feeds: the Serial column beside each barcode on the gas monitor pages.
+- Blank cells: a row with a blank column A or a blank column B is skipped, and the barcode prints a dash for its serial ("a dash means the list does not carry that barcode").
+- Not read: DESCRIPTION, and every extra column on GAS MONITORS (2) (Last Sighted Month,Year holds formulas; not read).
+- May be edited freely: DESCRIPTION and the extra columns; adding rows; adding columns to the right of B.
+- Must not change (and what breaks): column A must be the barcode and column B the serial on every sheet (swap them and every serial is wrong); row 1 must be the header on every sheet (a title row above it shifts nothing, but a data row in row 1 is lost); do not add a sheet whose columns A and B hold anything else (a notes sheet would be read as barcode and serial pairs); no merged cells.
+
+### radio_register.xlsx - barcode to serial, radios
+
+- File name and pattern: radio_register.xlsx. Found by radio_register*.xlsx, then *radio*register*.xlsx (build_radio_report.main).
+- Maintained by: Andrew.
+- Sheet: Radio Register - opened by that exact name (an Excel table called RadioRegisterTable). 706 data rows.
+- Header row: row 1. Exact header text: Barcode, Serial Number, Description, Status. The reader skips row 1 and does not check the header text.
+- Key column: column A (Barcode, upper-cased). Column B (Serial Number) is the value. Both by position.
+- Readers: build_radio_report.load_serials (button 03). Since 03 Sep 2026 ampol_serials.load also reads this file - the sheet Radio Register, column A and column B from row 2 - so that every report can print a radio as its one name with the serial in brackets (ampol_names.display_desc through ampol_serials.serial_for); if the sheet is not found ampol_serials silently reads nothing, but button 03 still stops. Where a barcode is on both serial lists the gas list wins.
+- What it feeds: the Serial column on the radio on-hire report, and the serial in brackets after a radio's name on every report. If a barcode is not in the list, or its serial is blank, the report looks for a serial inside the SiteIQ description (the 122TYX0140 style) and otherwise prints a dash.
+- Not read: Description, Status.
+- Blank cells: a blank Serial Number is left out, so that radio falls through to the description or a dash.
+- May be edited freely: Description, Status; adding rows; columns to the right of B.
+- Must not change (and what breaks): the sheet name Radio Register (button 03 stops with an error); column A barcode and column B serial (swap them and every serial is wrong); header row 1; no merged cells.
+
+### Ampol_Calibration_Register.xlsx - the calibration register
+
+- File name and pattern: Ampol_Calibration_Register.xlsx. Found by Ampol_Calibration_Register*.xlsx (build_calibration_report.main) and *Calibration*Register*.xlsx (VERIFY_NUMBERS).
+- Maintained by: Andrew types the assets, certificates and due dates into Register Entry. The other sheets are the workbook's own (Power Query and formulas, refreshed only when the workbook is opened and refreshed in Excel).
+- Sheets: Compliance Dashboard (formulas; not read), Live Register (read for a labelled comparison only), Register Entry (the list the report is built from), On Hire Audit (row count only), Settings (not read by the suite; the sheet itself says the workbook's own refresh will not work without it).
+- Register Entry: header row 1. Exact header text: New Asset No, Description, Serial No, Certificate No., Calibration Date, Calibration Due, Notes. It is an Excel table (RegisterEntry) with 456 rows, of which 347 carry an asset number; the rest are table padding and are skipped.
+- Key column: New Asset No, matched upper-cased to ITEM_BARCODE on RENTAL_STOCK.
+- Reader: build_calibration_report.load_entry (button 06). Requires New Asset No, Description, Serial No, Certificate No. (with the full stop), Calibration Date and Calibration Due - the report stops and names any that is missing. Notes is optional. A row with neither an asset number nor a description is skipped. If there is no Register Entry sheet it reads the same columns from Live Register instead.
+- Also read: build_calibration_report.load_register_view reads Live Register (New Asset No, Description, Days Remaining, Calibration Status, On Hire, Hirer Name, Storage Unit, Calibration Due, Last Refresh) only to print the register's own view at its Last Refresh as a comparison; Rental Stock Description is not read. build_calibration_report.load_audit_count counts the non-blank rows on On Hire Audit (3,478 data rows) for the same comparison. build_calibration_report.workbook_saved reads the file's own "last saved" property for the "due dates last maintained" line. VERIFY_NUMBERS.count_everything reads New Asset No and Calibration Due from Register Entry.
+- What it feeds: which assets are on the calibration register, their certificate and due date, and the status computed from Calibration Due at the pull time (overdue, due 0-30, 31-60, 61-90, current, no date). Where each asset is, who has it and since when come from RENTAL_STOCK, not from this workbook.
+- Dates: Calibration Date and Calibration Due may be Excel dates or text "dd/mm/yyyy"; anything else is treated as no date (build_stocktake_compliance_tool.parse_dt).
+- Blank cells: blank Calibration Due - "No Date". Blank Serial No or Certificate No. - a dash. Blank Notes - nothing printed.
+- May be edited freely: Notes; adding rows to Register Entry; the Live Register, Compliance Dashboard, On Hire Audit and Settings sheets (they are the workbook's own).
+- Must not change (and what breaks): the sheet name Register Entry (the report silently switches to Live Register, a different list); the six required headers (the report stops); header row 1; no merged cells; dates typed as dates or dd/mm/yyyy (a month name or "TBC" becomes no date).
+
+### Rigging Register.xlsx - the rigging and lifting register
+
+- File name and pattern: Rigging Register.xlsx (with a space). Found by Rigging Register*.xlsx, then Rigging*Register*.xlsx (build_rigging_report.main); VERIFY_NUMBERS tries Rigging*Register*.xlsx then *Rigging*.xlsx.
+- Maintained by: Andrew types the test details into Rigging register Master.
+- Sheets: Extracted Register (read - the certificate extract, disclosed only), This gets Filled In (not read), Extracted Register (2) (not read), To Help Locate (read - a static join to a June SiteIQ pull, used for one thing only), Rigging register Master (the register), RENTAL_STOCK (not read - the live position always comes from Data\RENTAL_STOCK.xlsx). The workbook has no REFERENCE_INFO sheet and needs none; the pull time comes from Data\RENTAL_STOCK.xlsx.
+- Rigging register Master: header row 1. Exact header text: REGISTER_CATEGORY, Serial Number, ITEM_BARCODE, REGISTER_DESCRIPTION, Last Test Date, Next Test Due, Test Status, Test Tag Colour, Tested By, Tester Licence No, Certificate No, Inspection Comments. 905 data rows.
+- Key column: ITEM_BARCODE, upper-cased for the join (the register has some lower-case barcodes; SiteIQ's are upper-case). Where a barcode appears more than once the first row wins and the duplicates are disclosed on the page.
+- Reader: build_rigging_report.load_register through build_rigging_report._sheet_rows (button 07). Requires REGISTER_CATEGORY, ITEM_BARCODE, REGISTER_DESCRIPTION and all eight test columns - the report stops and names any that is missing. Serial Number is optional. Every test cell is read as text and printed as typed; a blank prints as a dash with "still to be entered" noted. As at 03 Sep 2026 the eight test columns are blank on every row.
+- To Help Locate: header row 1: REGISTER_CATEGORY, Serial Number, ITEM_BARCODE, REGISTER_DESCRIPTION, ITEM_STATUS, COMPANY_NAME, HIRER_NAME, ON_HIRE_DATE, ON_HIRE_TIME (905 data rows). If the sheet exists it must carry ITEM_BARCODE, ITEM_STATUS, COMPANY_NAME, HIRER_NAME and ON_HIRE_DATE or the report stops. Used only for the last-known status of a register barcode that the live SiteIQ export no longer returns, and labelled as the snapshot on the page. ON_HIRE_DATE must be a real Excel date to count towards the snapshot's date.
+- Extracted Register: the only sheet in the suite where the header is not row 1. Row 1 holds Column1 to Column6; the reader finds the header by looking for a cell containing "Next Insp" (row 2: Serial Number, Asset No / Barcode, Description, WLL / Exp, Next Insp Due, Parse Status) and then matches columns by the words serial, barcode, description, wll, next insp and parse (663 data rows). It is disclosed on the test page as counts and is never treated as the record.
+- VERIFY_NUMBERS.count_everything reads ITEM_BARCODE from Rigging register Master.
+- What it feeds: which barcodes are on the register, their category and description, and the eight test columns. Where each item is, who has it and how long it has been held come from RENTAL_STOCK.
+- Blank cells: a blank test cell prints as a dash. A blank ITEM_BARCODE row is counted and disclosed as a blank-barcode row. A blank Serial Number prints as a dash.
+- May be edited freely: every test column, Serial Number, Inspection Comments; adding rows; This gets Filled In and Extracted Register (2); the workbook's own RENTAL_STOCK sheet.
+- Must not change (and what breaks): the sheet name Rigging register Master (the report stops); the twelve headers on it (the report stops naming the missing ones); header row 1 on Master and To Help Locate; the five required columns on To Help Locate; no merged cells.
+
+## One non-Excel input
+
+Data\store_layout.template.json - the stocktake bay-map template. build_stocktake_house_style.store_layout rewrites it on every run from the bays in the data; rename a copy to store_layout.json and give each bay its [row, column] to draw the map to the floor plan. Bays not listed are added A to Z at the end.
+
+## Rules for anyone editing these files
+
+1. Never edit a SiteIQ export (RENTAL_STOCK, TRANSACTIONS, STOCKTAKE). If you opened one, close it without saving. Button 12 replaces them; Data\previous keeps the old ones.
+2. Keep the file name. The tooling report (button 04) needs the exact names; the rest match by pattern, and a stray extra file matching the pattern can be picked up as the newest.
+3. Keep the sheet name, and keep the list on the first sheet. The pricing list, the New_Descriptions list and the radio register are opened by name or as the first sheet; a new sheet in front of them is read instead.
+4. Row 1 is the header. No title rows, no notes above the header, no blank row 1.
+5. Keep the header spellings exactly, including capital letters, spaces and punctuation (Certificate No. with its full stop; SKU/ITEM DESCRIPTION with a space). Extra spaces at the end of a header are tolerated by most readers, but do not rely on it.
+6. Do not move columns A and B on the pricing list, the gas serial list or the radio register - those readers use the position, not the header.
+7. Numbers as plain numbers. A price cell holds the number only - no dollar sign in front, no "ea" after it, no "TBC". A blank means unknown; a zero is not a price.
+8. Dates as Excel dates or as dd/mm/yyyy text. Never a US date. Never a month name in a date column.
+9. No merged cells anywhere. None of the files has any today.
+10. Formulas only if Excel calculated and saved them, and only if the result is a number where a number is expected. A formula that leaves "" (empty text) in a price cell reads as text, so the item is unpriced.
+11. Add rows freely, at the bottom or anywhere. Add new columns to the right of the last one. Never insert a column on the left of, or between, the columns the code reads.
+12. Remove duplicates rather than sorting around them: on the pricing list a description listed twice with two prices gives the tooling and radio reports the first one down the sheet.
+13. Close the file before running a report. A file open in Excel leaves a ~$ lock file (ignored) and can block reading (button 10 says so).
+14. Never save one of these as .xls, .csv or a Google Sheet export renamed to .xlsx. The readers open .xlsx only.
+15. If you are not sure, run button 10 (check my setup) and then the report, and read the console: every reader says in plain words what it could not find.
+
+## Summary - file, sheet, key column, read by
+
+| File | Sheet(s) read | Key column | Read by |
+| --- | --- | --- | --- |
+| RENTAL_STOCK.xlsx | REFERENCE_INFO; RENTAL_STOCK | ITEM_BARCODE | pull_diff.load_register; gasmon_engine.load_rental_stock; build_radio_report.load_from_register; build_ampol_tooling_report.load_all; build_stocktake_compliance_tool.load_master; build_calibration_report.load_rental_stock; build_rigging_report.load_live; VERIFY_NUMBERS.count_everything; generate_v18_gas_monitor_report.validate_against_rental_stock |
+| TRANSACTIONS.xlsx | REFERENCE_INFO; CUSTOMER_CONTRACTOR_EQUIP | LATEST_BARCODE | gasmon_engine.load_transactions; txn_insights.load_transactions; pull_diff.last_24h; build_ampol_tooling_report.load_all; VERIFY_NUMBERS.count_everything |
+| STOCKTAKE.xlsx | REFERENCE_INFO; STOCKTAKE | LATEST_BARCODE | build_stocktake_compliance_tool.load; build_stocktake_house_style.load_actions; build_ampol_tooling_report.load_all; VERIFY_NUMBERS.count_everything |
+| Ampol_ToolStore_Pricing.xlsx | RENTAL_STOCK (the only sheet) | ITEM_DESCRIPTION | build_ampol_tooling_report.load_all; build_stocktake_compliance_tool.load_pricing (also through txn_insights.load_all); build_radio_report.load_prices |
+| Tooling_Description_Mapping.xlsx | Use this (or In use, or CorrectedDescriptionsTable) | ITEM_BARCODE | build_ampol_tooling_report.load_all |
+| New_Descriptions___Andrew.xlsx | first sheet (Sheet1) | ITEM_BARCODE | build_stocktake_compliance_tool.load_corrections |
+| Gas_Monitor_Serial_Numbers.xlsx | every sheet: GAS MONITORS; GAS MONITORS (2); Sheet2 | column A (barcode) | gasmon_engine.load_serials; ampol_serials.load (names as shown, every report) |
+| radio_register.xlsx | Radio Register | column A (Barcode) | build_radio_report.load_serials; ampol_serials.load (names as shown, every report) |
+| Ampol_Calibration_Register.xlsx | Register Entry; Live Register (comparison); On Hire Audit (count) | New Asset No | build_calibration_report.load_entry; build_calibration_report.load_register_view; build_calibration_report.load_audit_count; VERIFY_NUMBERS.count_everything |
+| Rigging Register.xlsx | Rigging register Master; To Help Locate (snapshot); Extracted Register (disclosure) | ITEM_BARCODE | build_rigging_report.load_register; VERIFY_NUMBERS.count_everything |
+| store_layout.template.json | (not Excel) | bay name | build_stocktake_house_style.store_layout |
+
+## Things to check
+
+- A zero in Avg Buy Price (New): the stocktake engine ignores it (unpriced); the tooling report's price lookup carries a zero through and may print it as a value. Leave unknown prices blank. Check on the next tooling run if a zero is ever typed.
+- gasmon_transactions.py (an older module that read Gas_Monitor_Serial_Numbers.xlsx and TRANSACTIONS.xlsx by column position) was moved to _Archive\old_scripts on 03 Sep 2026. No button runs it and no script imports it. It is not a reader.
+- The stocktake engine reads the STOCKTAKE export's REFERENCE_INFO by column position (sixth cell, then fourth). If SiteIQ ever reorders that sheet the "data as at" stamp on button 05 would be wrong or fall back to the run time; the other readers find the stamp by header name.

@@ -1,0 +1,135 @@
+Ampol tool store reporting suite - Excel files the reports read.
+Author: Andrew Fisher | POWERED BY SITEIQ. As at 03 Sep 2026.
+
+PRICING FILE - WHAT MUST NOT CHANGE
+====================================
+
+For whoever is handed Ampol_ToolStore_Pricing.xlsx to review.
+Every rule here was read from the report code on 03 Sep 2026.
+
+The file
+--------
+  Name:      Ampol_ToolStore_Pricing.xlsx  (lives in the suite's Data
+             folder)
+  Sheet:     RENTAL_STOCK  - the one and only sheet
+  Header:    row 1
+  Size:      3,227 data rows under the header (about 3,230 rows)
+  Layout:    an Excel table (Table1); no merged cells; no title rows
+
+The six columns, exactly as the headers read
+--------------------------------------------
+  A  ITEM_DESCRIPTION            read  - the key
+  B  Avg Buy Price (New)         read  - the price used everywhere
+  C  3 Years Old 65% of cost     not read (a formula on B)
+  D  5 Years Old 50% of Cost     not read (a formula on B)
+  E  10+ Years Old 30% of Cost   not read (a formula on B)
+  F  Source to Buy               read  - printed on the tooling pages
+
+Yes, "cost" is lower case in C and capital in D and E. Leave them as
+they are; nothing reads them, so nothing minds.
+
+Who reads it and what it feeds
+------------------------------
+  Tooling reports (button 04)   build_ampol_tooling_report.load_all
+    Opens the sheet by its name RENTAL_STOCK. Reads A, B and F by
+    header text. Replacement value on the on-hire register; buy price
+    and where to buy on the utilisation and what-to-buy pages.
+  Stocktake reports (button 05) build_stocktake_compliance_tool
+    .load_pricing - also used by txn_insights for the value figures
+    on every family report. Opens the FIRST sheet. Needs the headers
+    ITEM_DESCRIPTION and Avg Buy Price (New) exactly, or it stops.
+  Radio report (button 03)      build_radio_report.load_prices
+    Opens the FIRST sheet. Reads column A and column B by POSITION
+    from row 2; does not look at the headers at all. Also needs the
+    rows AMPOL MOTOROLA RADIO and AMPOL MOTOROLA RADIO BATTERY as the
+    fallback price for a radio or battery whose SiteIQ description
+    carries a serial number.
+
+How a price is matched
+----------------------
+  By the description text, whole, after cleaning: spaces collapsed to
+  one, upper-cased (the stocktake engine also flattens umlauts; the
+  tooling report reads the former site name as Ampol first). So
+  1/2 DRIVE SOCKET and 1/2" DRIVE SOCKET are two different items, and
+  a description that is not in this file is simply unpriced.
+
+  Duplicates - a description listed more than once:
+    tooling report and radio report  - the FIRST row down the sheet
+    stocktake engine and txn_insights - the most common price; a tie
+                                        takes the lower; every conflict
+                                        is listed on the Pricing Gaps
+                                        tab of the count worklist.
+
+You may freely
+--------------
+  - change any price in B (as a plain number)
+  - change or fill in the text in F
+  - add rows, anywhere
+  - add new columns to the RIGHT of F
+  - edit or ignore C, D and E
+  - change colours, widths, filters, freeze panes, the table style
+
+You must not - and what breaks if you do
+----------------------------------------
+  1. Rename the file.
+       Button 04 stops: "not found in the Data folder". The other
+       buttons search for *Pricing*.xlsx and may pick up a wrong file.
+  2. Rename the sheet, or add a sheet in front of it.
+       Renamed: button 04 stops. A new first sheet: buttons 03 and 05
+       read that sheet as the price list - every item unpriced.
+       Keep RENTAL_STOCK as the one and only sheet.
+  3. Put anything above the header. Row 1 must be the header.
+       A title row becomes the header: the stocktake engine stops on a
+       missing header; the tooling and radio readers see a header
+       where the first item should be and every price is lost.
+  4. Change a header spelling (ITEM_DESCRIPTION, Avg Buy Price (New),
+     Source to Buy) - capitals, spaces and brackets included.
+       Stocktake engine stops. Tooling report silently falls back to
+       column position. Extra spaces at the end are tolerated; do not
+       rely on it.
+  5. Move, insert or delete a column at A or B.
+       The radio report reads A and B by position: every radio and
+       battery unpriced, shown as TBC or a dash.
+  6. Change the key column. A is the description the SiteIQ export
+     uses, matched whole. Retyping a description so it "reads better"
+     breaks its match - the item becomes unpriced.
+  7. Type a price as text - a dollar sign in front, "ea" after it,
+     "TBC", "n/a", or a cell formatted as Text.
+       Treated as blank: the item prints a dash and is left out of
+       every value total. The cell must hold a number; the currency
+       format Excel shows is fine.
+  8. Type a zero for an unknown price.
+       The stocktake engine treats 0 as unpriced; the tooling report
+       may carry it through as a price - check. Leave the cell blank.
+  9. Merge cells. None are merged today. A merged header or a merged
+     block in A or B leaves blank cells where the readers expect a
+     description and a price.
+ 10. Add extra header rows, group headings or subtotal rows inside the
+     list. A subtotal row is read as an item called "Total" with a
+     price; a blank-description row is skipped, but a heading row with
+     text in A and nothing in B is an unpriced item.
+ 11. Rename or move the list to a different sheet. See 2.
+ 12. Use a formula in B that leaves text. The readers take the value
+     Excel last saved. A formula that returns "" (empty text) reads as
+     text - unpriced. A formula never calculated and saved by Excel
+     reads as blank. A formula that returns a number is fine, but a
+     plain number is safer.
+ 13. Sort the list while duplicates remain. Sorting is harmless unless
+     a description is listed twice with two prices - then the tooling
+     and radio reports may print the other value. Remove the
+     duplicate instead; the Pricing Gaps tab lists them.
+ 14. Delete the AMPOL MOTOROLA RADIO or AMPOL MOTOROLA RADIO BATTERY
+     rows. The radio report loses its fallback price for
+     serial-numbered radios and batteries: printed as TBC.
+ 15. Save as .xls or .csv, or from a tool that does not keep the .xlsx
+     format. The readers open .xlsx only.
+
+Before handing it back
+----------------------
+  - One sheet, named RENTAL_STOCK.  Row 1 = the six headers above.
+  - Column B: numbers only, blanks for unknown, no zeros, no text.
+  - No merged cells, no rows above the header, no subtotal rows.
+  - Close the file, then run 10_CHECK_MY_SETUP and the report you
+    changed prices for; read the console line that names this file.
+
+The Coates Way - consistent execution, every day.

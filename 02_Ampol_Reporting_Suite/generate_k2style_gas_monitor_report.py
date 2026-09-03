@@ -200,7 +200,7 @@ def who_s(name):
     account prints under its label (ampol_names.hirer_label - its SiteIQ
     name describes the account, not the gear); a workflow account can
     carry the site name - the former one never prints."""
-    return esc(ampol_names.display_desc(ampol_names.hirer_label(name)))
+    return esc(ampol_names.display_person(name))
 
 
 def model_s(desc):
@@ -393,7 +393,7 @@ def three_things_gas(m):
         elif kind == "repair":
             holder = "the Dräger service line"
         else:
-            holder = f"{ampol_names.display_desc(x['who'])}, {x['co']}"
+            holder = f"{ampol_names.display_person(x['who'])}, {x['co']}"
         items.append((f"Recover {x['bc']} from {holder}",
                       f"{num(x['days'])} days out, since {dfmt(x['on_dt'])}", who_by))
     # 3. the repair queue, or yesterday's not-back count when it is empty
@@ -591,7 +591,7 @@ def hours_s(days):
 def holder_s(name):
     """A holder as printed - the display rule, and one dash style (a
     SiteIQ account name can carry a short dash of its own)."""
-    return esc(ampol_names.display_desc(name).replace("–", "-").replace("—", "-"))
+    return esc(ampol_names.display_person(name).replace("–", "-").replace("—", "-"))
 
 
 def log_insights(ctx_log, scope):

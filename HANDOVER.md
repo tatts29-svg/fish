@@ -487,6 +487,24 @@ scan itself leaves no trace in the exports, so the suite measures its
 outcomes and names who scanned from the STOCKTAKE export's
 LAST_SIGHTED_BY column.
 
+### Names as shown (3 Sep 2026, v1.12)
+
+Andrew asked for tidy, consistent naming: one name per gas monitor and
+radio with the serial in brackets, sentence case for descriptions,
+people and companies. `ampol_names.display_desc(text, barcode=None,
+serial=None)` is now the display rule (product names via
+`product_name`, `sentence_case` with `PROTECTED_WORDS`, `_BRAND_FIX`,
+`_UNIT_FIX`; serials from the description or `ampol_serials.serial_for`,
+which reads both serial workbooks once per run). `display_person`
+turns SiteIQ's "First - Last" into "First Last" (inner capitals kept,
+Mc rule, suffixes kept). The MATCHING form is `former_to_current` -
+`desc_key`/`clean_text` in the tooling builder and the `product_key`/
+`price`/`report_family` calls in `txn_insights` use it (register and
+transaction rows carry `desc_raw` beside `desc`), so no pricing or
+mapping key moved. The scratch truth sweep fails a SiteIQ-form person
+or an all-capitals description in a table cell. `gasmon_transactions.py`
+was orphaned and is parked in `_Archive/old_scripts`.
+
 ### The after-hours account label, found by Andrew (3 Sep 2026, v1.11)
 
 The gas "Since the last pull" lists printed the SiteIQ hirer name raw,

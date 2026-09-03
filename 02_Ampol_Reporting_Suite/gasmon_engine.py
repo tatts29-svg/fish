@@ -192,16 +192,9 @@ def norm_person(name):
     s = re.sub(r"\s+-\s+", " ", s)          # 'First - Last' -> 'First Last'
     s = re.sub(r"\s+", " ", s).strip()
     key = s.lower()
-    # display: title-case each word but keep inner capitals like McGurk / O'Flynn
-    words = []
-    for w in s.split(" "):
-        if not w:
-            continue
-        if w.isupper() or w.islower():
-            w = "-".join(p[:1].upper() + p[1:].lower() for p in w.split("-"))
-            w = "'".join(p[:1].upper() + p[1:] for p in w.split("'")) if "'" in w else w
-        words.append(w)
-    return key, " ".join(words)
+    # display: the suite-wide rule (ampol_names.display_person) on the
+    # merged 'First Last' form - inner capitals like McGurk / O'Flynn kept
+    return key, ampol_names.display_person(s)
 
 
 def norm_company(co):
@@ -287,8 +280,9 @@ def load_rental_stock(path):
             continue
         # the site is Ampol: shown under the current name (ampol_names);
         # the monitor test below is on words the rename never touches
-        desc = ampol_names.display_desc(g(r, "ITEM_DESCRIPTION"))
-        if not is_gas_monitor(desc):
+        raw_desc = str(g(r, "ITEM_DESCRIPTION") or "")
+        desc = ampol_names.display_desc(raw_desc, barcode=g(r, "ITEM_BARCODE"))
+        if not is_gas_monitor(raw_desc):
             continue
         co, who = g(r, "COMPANY_NAME"), g(r, "HIRER_NAME")
         status = str(g(r, "ITEM_STATUS") or "").strip()

@@ -95,7 +95,12 @@ import ampol_names                               # how names are SHOWN
 def hl(name):
     """A hirer as printed: a shared booking account under the suite-wide
     label (ampol_names.hirer_label), a person as SiteIQ spells them."""
-    return esc(ampol_names.hirer_label(name))
+    return esc(ampol_names.display_person(name))
+
+
+def co_s(name):
+    """A company as printed - the one-customer-one-name rule."""
+    return esc(ampol_names.display_company(name)) if str(name or "").strip() else ""
 import k2shell as sh
 import pdf_finish
 import report_history as rh                      # the movement scoreboard - recorded days only
@@ -233,7 +238,7 @@ def load_register(path):
             "serial": _s(r[ix["Serial Number"]]) if "Serial Number" in ix else "",
             "bc_raw": bc_raw,
             "barcode": bc_raw.upper(),
-            "desc": ampol_names.display_desc(_s(r[ix["REGISTER_DESCRIPTION"]])),
+            "desc": ampol_names.display_desc(_s(r[ix["REGISTER_DESCRIPTION"]]), barcode=bc_raw),
             "former_name": ampol_names.carries_former_name(_s(r[ix["REGISTER_DESCRIPTION"]])),
             "tests": tests,
             "has_test": any(tests.values()),
@@ -960,7 +965,7 @@ def movements_page(d, asat_s):
     hrows = []
     for i, r in enumerate(top, 1):
         custody = bool(REPAIR_RE.search(r["hirer"] or "")) or (r["company"] or "").strip().lower() == "repairs"
-        co = esc(r["company"]) or dash()
+        co = co_s(r["company"]) or dash()
         if custody:
             co += '<span class="s2">custody line - not customer hire</span>'
         hrows.append([num(i), hl(r["hirer"]) or dash(), co, num(r["items"]), num(r["oldest"])])
@@ -1244,7 +1249,7 @@ def build_pages(d, asat_s):
     lrows = []
     for it in d["oh_longest"][:cap_l]:
         lrows.append([
-            esc(it["company"]) or dash(),
+            co_s(it["company"]) or dash(),
             hl(it["hirer"]) or dash(),
             esc(it["desc"]) or dash(),
             esc(it["barcode"]) or dash(),
@@ -1316,7 +1321,7 @@ def build_pages(d, asat_s):
     for b, n in d["dups"]:
         it = d["items"][b]
         lv = it["live"]
-        where = ({"onhire": f'On hire · {esc(it["company"])} · {hl(it["hirer"])}',
+        where = ({"onhire": f'On hire · {co_s(it["company"])} · {hl(it["hirer"])}',
                   "repair": f'Custody · {hl(it["hirer"])}',
                   "store": "In the store", "other": esc(lv["status"]) if lv else "",
                   "missing": '<span class="or">Not found in SiteIQ</span>'}[it["bucket"]])
@@ -1331,7 +1336,7 @@ def build_pages(d, asat_s):
             esc(c["cat"]), num(c["rows"]), num(c["distinct"]), num(c["onhire"]),
             num(c["repair"]), num(c["store"]), num(c["missing"]),
             (f'{esc(o["desc"])}<span class="s2">{esc(o["barcode"])} &middot; '
-             f'{esc(o["company"])} &middot; {hl(o["hirer"])}</span>' if o else dash()),
+             f'{co_s(o["company"])} &middot; {hl(o["hirer"])}</span>' if o else dash()),
             held_cell(o) if o else dash()])
     P.append(f"""{psect("Register identity - what the barcodes themselves say")}
 {pcallout(f'The register is <b>{num(rows_n)} rows</b> but <b>{num(distinct)} distinct barcodes</b>: <b>{num(len(d["blank"]))}</b> row{"s" if len(d["blank"]) != 1 else ""} with no barcode ({blank_bits}), <b>{num(len(d["dups"]))}</b> barcodes repeated across <b>{num(d["dup_rows"])}</b> rows, and <b>{num(d["lower"])}</b> typed in lower case. For the SiteIQ join and on every page here, barcodes are upper-cased and de-duplicated (first Master row wins) - the fixes belong in the Master. Serial numbers: <b>{num(d["serial_rows"])}</b> rows carry one, <b>{num(d["serial_distinct"])}</b> distinct.', False)}
@@ -1675,7 +1680,7 @@ def build_email_html(d, gen_s, asat_s, pdf_ok, src_name, live_name, card_cid="")
         f'this table.'))
 
     cap2 = 8
-    lrows = [[esc(it["company"]) or "&ndash;", hl(it["hirer"]) or "&ndash;",
+    lrows = [[co_s(it["company"]) or "&ndash;", hl(it["hirer"]) or "&ndash;",
               esc(it["desc"]) or "&ndash;", esc(it["barcode"]) or "&ndash;",
               it["since"].strftime("%d %b %Y"),
               f'{num(it["held"])}d' if it.get("held") is not None else "&ndash;"]

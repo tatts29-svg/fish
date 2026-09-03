@@ -109,7 +109,8 @@ def load_register(path):
             out[bc] = {
                 "barcode": bc,
                 "item": str(g(r, "ITEM_NUMBER") or "").strip(),
-                "desc": ampol_names.display_desc(str(g(r, "ITEM_DESCRIPTION") or "").strip()),
+                "desc": ampol_names.display_desc(str(g(r, "ITEM_DESCRIPTION") or "").strip(), barcode=bc),
+                "desc_raw": ampol_names.former_to_current(str(g(r, "ITEM_DESCRIPTION") or "").strip()),
                 "status": str(g(r, "ITEM_STATUS") or "").strip(),
                 "company_raw": str(g(r, "COMPANY_NAME") or "").strip(),
                 "company": ampol_names.display_company(str(g(r, "COMPANY_NAME") or "").strip()),
@@ -252,7 +253,8 @@ def last_24h(tx_path, cur_time, scope_barcodes=None, hours=24):
             if not bc or (scope_barcodes is not None and bc not in scope_barcodes):
                 continue
             row = {"barcode": bc,
-                   "desc": ampol_names.display_desc(str(g(r, "SKU/ITEM DESCRIPTION") or "").strip()),
+                   "desc": ampol_names.display_desc(str(g(r, "SKU/ITEM DESCRIPTION") or "").strip(), barcode=bc),
+                   "desc_raw": ampol_names.former_to_current(str(g(r, "SKU/ITEM DESCRIPTION") or "").strip()),
                    "company": ampol_names.display_company(str(g(r, "EMPLOYER_NAME") or "").strip()),
                    "hirer": str(g(r, "HIRER_NAME") or "").strip()}
             s = parse_dt(g(r, "TRAN_START_DATE"), g(r, "TRAN_START_TIME"))

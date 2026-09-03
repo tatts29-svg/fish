@@ -310,7 +310,7 @@ def load(path, master, fixes, exact, stripped):
         # former name on thousands of descriptions; every page shows the
         # current name and the data note says how many lines still carry
         # the old one. Matching and pricing above used the raw text.
-        desc = ampol_names.display_desc(desc)
+        desc = ampol_names.display_desc(desc, barcode=bc)
         mcomp_show = ampol_names.display_company(mcomp) if mcomp else ""
         rows.append({"unit": su, "barcode": bc, "desc": desc, "raw_desc": raw_desc,
                      "former_name": ampol_names.carries_former_name(raw_desc),
@@ -322,7 +322,7 @@ def load(path, master, fixes, exact, stripped):
                      "last": d, "by": str(r[ix["LAST_SIGHTED_BY"]] or "").strip(),
                      "days": days, "cat": cat, "target": TIERS[cat][1],
                      "onhire": onhire_sys,
-                     "onhire_to": (f"{mcomp_show} \u2013 {ampol_names.hirer_label(mhirer)}"
+                     "onhire_to": (f"{mcomp_show} \u2013 {ampol_names.display_person(mhirer)}"
                                    if mcomp or mhirer else "").strip(" \u2013"),
                      "home": home or "(no storage unit)",
                      "status": mstatus or "Not in master", "ohd": m_ohd})

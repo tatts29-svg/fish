@@ -305,7 +305,7 @@ def clean_text(v):
     name read as the current one (ampol_names.display_desc)."""
     if v is None:
         return ""
-    return m_proper(N.display_desc(clean(v).upper()))
+    return m_proper(N.former_to_current(clean(v).upper()))
 
 
 def proper_clean(v):
@@ -322,7 +322,7 @@ def proper_clean(v):
 def desc_key(v):
     """Pricing match key (workbook CleanDescription): former site name read
     as the current one, collapse spaces, upper-case."""
-    s = N.display_desc(clean(v))
+    s = N.former_to_current(clean(v))
     return " ".join(t for t in s.split(" ") if t).upper()
 
 
@@ -386,10 +386,13 @@ def display_hirer(name):
     # (ampol_names.hirer_label) so it never reads as a person or as gear.
     if N.is_after_hours_account(s):
         return N.hirer_label(s)
-    letters = "".join(ch for ch in s if ch.isalpha())
-    if letters and (letters.isupper() or letters.islower()):
-        return acronym_case(m_proper(s), capitalise=False)
-    return s
+    if is_holding_account(s) or is_custody_hirer(s):
+        # an account keeps SiteIQ's name, tidied only when typed in capitals
+        letters = "".join(ch for ch in s if ch.isalpha())
+        if letters and (letters.isupper() or letters.islower()):
+            return acronym_case(m_proper(s), capitalise=False)
+        return s
+    return N.display_person(s)          # SiteIQ's First - Last reads First Last
 
 
 def is_custody_hirer(name):
@@ -1451,7 +1454,7 @@ def diff_desc(d, r):
     description; the site's former name never prints."""
     corr = (d["corr"].get(r["barcode"].upper())
             or d["corr_by_desc"].get(desc_key(clean_text(r["desc"]))))
-    return N.display_desc(corr or clean_text(r["desc"]))
+    return N.display_desc(corr or clean_text(r["desc"]), barcode=r.get("barcode"))
 
 
 def since_last_pull(bl, d, full=True):
@@ -2710,7 +2713,7 @@ def product_labels(d):
         corr = (d["corr"].get(s["barcode"].upper())
                 or d["corr_by_desc"].get(desc_key(clean_text(s["desc_raw"]))))
         if corr:
-            seen[ti.product_key(N.display_desc(s["desc_raw"]))].add(ti.product_key(corr))
+            seen[ti.product_key(N.former_to_current(s["desc_raw"]))].add(ti.product_key(corr))
     one = {k: next(iter(v)) for k, v in seen.items() if len(v) == 1}
     # one-to-one only: the mapping writes sizes at the end of a name, which
     # the product key strips, so three battery sizes would otherwise print
@@ -2744,7 +2747,7 @@ def desc_show(d, barcode, desc):
     description, else the cleaned SiteIQ text."""
     corr = (d["corr"].get(clean(barcode).upper())
             or d["corr_by_desc"].get(desc_key(clean_text(desc))))
-    return N.display_desc(corr or clean_text(desc))
+    return N.display_desc(corr or clean_text(desc), barcode=barcode)
 
 
 def dfmt(x):

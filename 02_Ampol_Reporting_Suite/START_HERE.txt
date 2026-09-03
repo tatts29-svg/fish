@@ -150,6 +150,16 @@ ON ANOTHER COMPUTER
   merge them.
 
 ------------------------------------------------------------
+NAMES AS SHOWN
+------------------------------------------------------------
+Every page shows names one way: gas monitors as "Dräger X-am 5000
+Gas Monitor (serial)", radios as "Motorola Radio (serial)", other
+descriptions in sentence case, people as "First Last", one name per
+customer. The rule is Docs\NAMES_AS_SHOWN.md and lives in
+ampol_names.py; to protect a brand or acronym, add the word there.
+Counting never uses the shown name - the raw SiteIQ text is matched.
+
+------------------------------------------------------------
 UPDATES FROM CLAUDE
 ------------------------------------------------------------
 An update arrives as ONE flat zip (scripts and notes only, never

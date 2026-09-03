@@ -119,12 +119,14 @@ def load_transactions(path):
             if st is None:
                 continue
             en = parse_dt(g(r, "TRAN_END_DATE"), g(r, "TRAN_END_TIME"))
-            desc = ampol_names.display_desc(str(g(r, "SKU/ITEM DESCRIPTION") or g(r, "PRODUCT_VARIANT") or "").strip())
+            raw_desc = str(g(r, "SKU/ITEM DESCRIPTION") or g(r, "PRODUCT_VARIANT") or "").strip()
+            bc = str(g(r, "LATEST_BARCODE") or "").strip()
+            desc = ampol_names.display_desc(raw_desc, barcode=bc)
             co_raw = str(g(r, "EMPLOYER_NAME") or "").strip()
             out.append({
-                "bc": str(g(r, "LATEST_BARCODE") or "").strip(),
+                "bc": bc,
                 "item": str(g(r, "SKU/ITEM_NUMBER") or "").strip(),
-                "desc": desc, "co_raw": co_raw,
+                "desc": desc, "desc_raw": ampol_names.former_to_current(raw_desc), "co_raw": co_raw,
                 "co": ampol_names.display_company(co_raw) if co_raw else "",
                 "who": str(g(r, "HIRER_NAME") or "").strip(),
                 "st": st, "en": en,
@@ -280,7 +282,7 @@ def quarter_close(ctx, scope_barcodes=None, qend=None, threshold=90):
             rows.append({"barcode": r["barcode"], "desc": r["desc"], "company": r["company"], "hirer": r["hirer"],
                          "on_dt": r["on_dt"], "days": days,
                          "crosses": r["on_dt"].date() + dt.timedelta(days=threshold),
-                         "price": price(r["desc"])})
+                         "price": price(r.get("desc_raw", r["desc"]))})
     rows.sort(key=lambda x: (x["crosses"], ampol_names.sort_key(x["company"]), x["barcode"]))
     by_co = collections.Counter(x["company"] for x in rows)
     val = sum(x["price"] for x in rows if x["price"])
@@ -306,8 +308,8 @@ def dead_stock(ctx, scope_barcodes=None):
             continue
         if r["barcode"].upper() in moved:
             continue
-        rows.append({"barcode": r["barcode"], "desc": r["desc"], "unit": r["unit"], "product": product_key(r["desc"]),
-                     "price": price(r["desc"])})
+        rows.append({"barcode": r["barcode"], "desc": r["desc"], "unit": r["unit"], "product": product_key(r.get("desc_raw", r["desc"])),
+                     "price": price(r.get("desc_raw", r["desc"]))})
     rows.sort(key=lambda x: (ampol_names.sort_key(x["product"]), x["barcode"]))
     by_product = collections.defaultdict(lambda: {"n": 0, "value": 0.0, "unpriced": 0})
     for x in rows:
@@ -333,13 +335,13 @@ def headroom(ctx, scope_barcodes=None, upto=None):
     fleet = collections.Counter()
     out_now = collections.Counter()
     for r in _reg(ctx, scope):
-        p = product_key(r["desc"])
+        p = product_key(r.get("desc_raw", r["desc"]))
         fleet[p] += 1
         if r["status"].lower() == "on hire":
             out_now[p] += 1
     events = collections.defaultdict(list)
     for t in _tx(ctx, scope):
-        p = product_key(t["desc"])
+        p = product_key(t.get("desc_raw", t["desc"]))
         events[p].append((t["st"], 1))
         events[p].append((t["en"] if t["en"] and t["en"] <= upto else upto, -1))
     dead = collections.Counter(x["product"] for x in dead_stock(ctx, scope_barcodes)["rows"])
@@ -373,7 +375,7 @@ def return_windows(ctx, scope_barcodes=None, min_n=10):
     for t in _tx(ctx, scope):
         if t["hours"] is None or t["hours"] < 0:
             continue
-        byp[product_key(t["desc"])].append((t["hours"] / 24.0, t["sd"]))
+        byp[product_key(t.get("desc_raw", t["desc"]))].append((t["hours"] / 24.0, t["sd"]))
     rows, pooled = [], []
     for p, xs in byp.items():
         if len(xs) < min_n:
@@ -413,14 +415,14 @@ def holders(ctx, scope_barcodes=None, top=20):
         d = h.setdefault(k, {"hirer": r["hirer"], "company": r["company"], "items": 0, "value": 0.0, "unpriced": 0,
                              "oldest": 0, "families": set(), "custody": bool(ampol_names.account_label(r["hirer"]) != r["hirer"]) if hasattr(ampol_names, "account_label") else False})
         d["items"] += 1
-        p = price(r["desc"])
+        p = price(r.get("desc_raw", r["desc"]))
         if p:
             d["value"] += p
         else:
             d["unpriced"] += 1
         if r["on_dt"]:
             d["oldest"] = max(d["oldest"], (now - r["on_dt"].date()).days)
-        d["families"].add(report_family(r["desc"]))
+        d["families"].add(report_family(r.get("desc_raw", r["desc"])))
     rows = sorted(h.values(), key=lambda d: (-d["items"], ampol_names.sort_key(d["company"]), ampol_names.sort_key(d["hirer"])))
     tot_i = sum(d["items"] for d in rows) or 1
     tot_v = sum(d["value"] for d in rows) or 1

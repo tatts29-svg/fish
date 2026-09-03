@@ -288,7 +288,7 @@ def load_entry(path):
         if not any(c not in (None, "") for c in r):
             continue
         asset = str(cell(r, "New Asset No")).strip()
-        desc = ampol_names.display_desc(str(cell(r, "Description")).strip())
+        desc = ampol_names.display_desc(str(cell(r, "Description")).strip(), barcode=asset)
         if not asset and not desc:
             continue      # template padding - a formula, no asset
         rows.append({
@@ -329,7 +329,7 @@ def load_register_view(path):
         if isinstance(lr, datetime) and (refresh is None or lr > refresh):
             refresh = lr
         asset = str(cell(r, "New Asset No")).strip()
-        desc = ampol_names.display_desc(str(cell(r, "Description")).strip())
+        desc = ampol_names.display_desc(str(cell(r, "Description")).strip(), barcode=asset)
         if not asset and not desc:
             blanks += 1   # register template padding - a status formula, no asset
             continue
@@ -826,7 +826,7 @@ def where_cell(r):
 def who_cell(r):
     if r["live"] is None or r["where"] != "On Hire":
         return dash()
-    return esc(r["live_hirer"]) if r["live_hirer"] else dash()
+    return esc(ampol_names.display_person(r["live_hirer"])) if r["live_hirer"] else dash()
 
 
 def out_cell(r):
@@ -1240,7 +1240,7 @@ def build_pages(rows, d, S):
         out = []
         for hirer, items in groups:
             for j, r in enumerate(sorted(items, key=lambda x: x["now_days"] or 0)):
-                who = (f'<b>{esc(ampol_names.hirer_label(hirer))}</b><span class="s2">'
+                who = (f'<b>{esc(ampol_names.display_person(hirer))}</b><span class="s2">'
                        f'{esc(ampol_names.account_label(r["company"])) + " &middot; " if r["company"] else ""}'
                        f'{len(items)} overdue {plural(len(items), "item")}</span>' if j == 0 else "")
                 out.append([who, esc(r["asset"]) or dash(), esc(r["desc"]) or dash(),
@@ -1255,7 +1255,7 @@ def build_pages(rows, d, S):
         for r in sorted(d["issued_after"], key=lambda x: x["out"]):
             gap = (r["out"].date() - r["due"].date()).days
             bits.append(f'<b>{esc(r["asset"])}</b> (due {esc(fmt_d(r["due"]))}) went out to '
-                        f'{esc(ampol_names.hirer_label(r["live_hirer"]))} on {esc(r["out"].strftime("%d %b %Y %H:%M"))}, '
+                        f'{esc(ampol_names.display_person(r["live_hirer"]))} on {esc(r["out"].strftime("%d %b %Y %H:%M"))}, '
                         f'{num(gap)} {plural(gap, "day")} after its due date')
         after_words = ("SiteIQ&rsquo;s hire start date is later than the calibration due date on "
                        f"<b>{num(n_after)} of the {num(n_od_oh)}</b> (red tag): either the item went out the counter "
@@ -1287,11 +1287,11 @@ def build_pages(rows, d, S):
             out = []
             for hirer, items in groups:
                 for j, r in enumerate(sorted(items, key=lambda x: x["reg"]["days"] or 0)):
-                    who = (f'<b>{esc(ampol_names.hirer_label(hirer))}</b><span class="s2">{len(items)} '
+                    who = (f'<b>{esc(ampol_names.display_person(hirer))}</b><span class="s2">{len(items)} '
                            f'overdue {plural(len(items), "item")}</span>' if j == 0 else "")
                     now = where_cell(r)
                     if r["where"] == "On Hire" and r["live_hirer"] and r["live_hirer"] != r["reg"]["hirer"]:
-                        now += f'<span class="s2">now {esc(ampol_names.hirer_label(r["live_hirer"]))}</span>'
+                        now += f'<span class="s2">now {esc(ampol_names.display_person(r["live_hirer"]))}</span>'
                     out.append([who, esc(r["asset"]) or dash(), esc(r["desc"]) or dash(),
                                 fmt_due(r), fmt_days(r["reg"]["days"], overdue=True), now])
             return out
@@ -1407,7 +1407,7 @@ def build_pages(rows, d, S):
 {pnote(f'Keyword rule: the SiteIQ description contains any of <b>{esc(CAL_RULE_WORDS)}</b>, and none of Dr&auml;ger / X-am / gas monitor, sling, chain block. Excluded and counted separately: {num(d["kw_gas"])} gas-monitor rows (their own programme and report) and {num(d["kw_lift"])} sling and chain-block rows ({num(d["kw_chain"])} chain blocks - lifting gear, the Rigging &amp; Lifting Register report). A match is a prompt to check, not a finding.')}""")
 
     # ---- P10+ the keyword slice, every row ------------------------------
-    kwrows = [[esc(desc), esc(ampol_names.hirer_label(hirer))
+    kwrows = [[esc(desc), esc(ampol_names.display_person(hirer))
                + (f" ({esc(ampol_names.display_company(co))})" if co else ""),
                num(len(bcs)), esc(", ".join(sorted(bcs)))]
               for (kind, desc, hirer, co), bcs in d["kw_groups"]]
@@ -1662,7 +1662,7 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
             out = r["out"].strftime("%d %b %Y") if r["out"] else "&ndash;"
             if r["issued_after_due"]:
                 out += ' <span style="color:#C81E1E;font-weight:bold;font-size:10px;">AFTER DUE</span>'
-            chase_rows.append([esc(ampol_names.hirer_label(hirer)) + (' <span style="color:#8A9AAC;font-size:10px;">repairs</span>' if r["repairs_now"] else ""),
+            chase_rows.append([esc(ampol_names.display_person(hirer)) + (' <span style="color:#8A9AAC;font-size:10px;">repairs</span>' if r["repairs_now"] else ""),
                                esc(r["asset"]) or "&ndash;",
                                esc(r["desc"]) or "&ndash;",
                                r["due"].strftime("%d %b %Y") if r["due"] else "&ndash;",
@@ -1688,7 +1688,7 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
               r["due"].strftime("%d %b %Y") if r["due"] else "&ndash;",
               f'{num(r["now_days"])}d' if r["now_days"] is not None else "&ndash;",
               ("On hire" if r["where"] == "On Hire" else "In store" if r["where"] == "Available for Hire" else esc(r["where"])),
-              esc(ampol_names.hirer_label(r["live_hirer"])) if r["where"] == "On Hire" and r["live_hirer"] else "&ndash;"]
+              esc(ampol_names.display_person(r["live_hirer"])) if r["where"] == "On Hire" and r["live_hirer"] else "&ndash;"]
              for r in d30[:cap2]]
     parts.append(sh.esect(f"Due inside 30 days at {esc(asat_day)} - soonest first"))
     parts.append(sh.edtable(["Asset", "Description", "Due", "Days left", "Where", "Who has it"],
