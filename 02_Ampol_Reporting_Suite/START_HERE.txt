@@ -106,8 +106,10 @@ WHAT THE FILES ARE CALLED
   _OUTLOOK.eml (the draft) and .draft.json (what button 08 reads).
   The day in the name is the day the button was pressed - the same as
   the Reports\ folder it sits in; the pull time is printed on every page.
-  Every PDF opens with a bookmark pane (its sections) and carries
-  Author: Andrew Fisher in its properties. The pages use the Lato face
+  Every PDF opens with a bookmark pane (its sections), a "What's
+  inside" list with page numbers on the cover, and carries
+  Author: Andrew Fisher in its properties. Page numbers sit in the
+  footer of every page, fixed or flowing. The pages use the Lato face
   from assets\fonts, so they look the same on every computer.
 
 ON ANOTHER COMPUTER

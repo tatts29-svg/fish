@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.6  (03 Sep 2026)
+Version: 1.7  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -206,3 +206,28 @@ v1.6 - 03 Sep 2026  (the 10/10 pass - names, navigation, movement, one page)
   - CHECK_MY_SETUP no longer expects the old workbooks. Two test-only
     hooks (AMPOL_REPORTS_DIR, AMPOL_HISTORY_FILE) let a layout test run
     on a fixture without touching Reports\ or History\; no button sets them.
+
+v1.7 - 03 Sep 2026  (the layout pass - one grammar, one footer, one voice)
+  - One position-page grammar on every family: the RAG band first, then
+    the tiles, then "three things to do today" drawn from the data, then
+    a story of three lines at most. The detail that used to crowd page
+    1 sits on the page after.
+  - Covers on the quarterly charge reports (Q1 to Q4 and the year), with
+    the billable-at-quarter-close number as the big figure.
+  - One footer everywhere: the team on the left, Author: Andrew Fisher
+    and POWERED BY SITEIQ in the centre, "Page N of M" on the right - on
+    fixed pages and flowing reports alike. The key strip prints on page
+    1 only, larger, and continuation pages get the room.
+  - Sentence-case section headings in every family, and one dash style
+    (a hyphen with a space each side). VERIFY_NUMBERS now fails a page
+    that prints a long dash.
+  - Continuation headers: a company that runs over a page opens the next
+    page with its name again (the register tables carry the company row
+    in the repeating header).
+  - "What's inside" on every cover: the sections with their real page
+    numbers, read back off the printed PDF.
+  - Ageing charts show the companies with ten or more units; the long
+    tail prints as one A to Z line beneath, so the picture stays legible.
+    Each band's total sits in the legend, so colour is never the only cue.
+  - Daily Position: day-on-day arrows and a sparkline per family from
+    the second recorded day, and its own phone card inline in the draft.

@@ -426,3 +426,22 @@ the numbers: names, navigation, fonts, and what moved.
 - Button 14 parks the three `.xlsm` workbooks; `CHECK_MY_SETUP` no
   longer expects them. A code update never moves data by itself - that
   is why it is a button.
+
+### The layout pass (3 Sep 2026, v1.7)
+
+Consistency between families, not new numbers. Shared: `k2shell.footer`
+now takes the page number and prints team / Author + POWERED BY SITEIQ /
+"Page N of M" (the same three things the flowing shell's margin boxes
+print), `render_page` drops the key strip on continuation pages,
+`cover_inner` takes `contents=[(title, page)]` and
+`pdf_finish.contents_from_pdf` reads those page numbers off the printed
+PDF (so every cover is rendered twice: once to learn the pages, once
+with the list - the cover is fixed-height, so pagination is identical and
+each builder asserts it). `k2flow.group_table` puts a group's title row
+in the `<thead>` so Chromium repeats it with the column row on every page
+the group spans. `split_long_tail` keeps ageing charts to companies with
+ten or more units. `three_things` is on every family's page 1 now, each
+family drawing its three from its own data. VERIFY carries a long-dash
+sweep; the house style is a spaced hyphen. The daily position derives
+arrows and sparklines from the `key_value` each family records (parsed
+back to a number; `KEY_GOOD` in the script says which direction is good).
