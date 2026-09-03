@@ -129,8 +129,16 @@ def _tidy_token(tok, first):
         core = m.group(1) + _UNIT_FIX[m.group(2).upper()]
     elif "-" in core and not all(any(ch.isdigit() for ch in p) for p in core.split("-")):
         # DRIVE-19MM, Multi-Tool, EASY-OUT: hyphenated words - tidy each side
-        # (a hyphen is not an inner capital; McGurk and DeWalt are)
-        core = "-".join(_tidy_token(p, first and i == 0) for i, p in enumerate(core.split("-")))
+        # (a hyphen is not an inner capital; McGurk and DeWalt are); a short
+        # all-capitals part beside a number (ARSN-0637) is a code and stays
+        parts = core.split("-")
+        has_num = any(any(ch.isdigit() for ch in p) for p in parts)
+        core = "-".join(p if (has_num and p.isupper() and p.isalpha() and len(p) <= 4)
+                        else _tidy_token(p, first and i == 0) for i, p in enumerate(parts))
+    elif re.fullmatch(r"[A-Z]{4,}\d[\d.,/]*", core):
+        core = core[:1] + core[1:].lower()            # LIFEGUARD16 -> Lifeguard16: a word glued to a number
+    elif m and len(m.group(2)) >= 3 and m.group(2).isupper():
+        core = m.group(1) + m.group(2).lower()        # 32AMP -> 32amp: a unit word glued to a number
     elif any(ch.isdigit() for ch in core):
         core = core                                   # sizes and codes as written
     elif up in _PROTECT_UP:
