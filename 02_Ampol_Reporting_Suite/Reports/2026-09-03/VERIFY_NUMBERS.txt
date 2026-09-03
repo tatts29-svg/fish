@@ -1,12 +1,12 @@
-Counted from Data\ exports at 03 Sep 2026 00:27 - none of the report code involved.
+Counted from Data\ exports at 03 Sep 2026 00:34 - none of the report code involved.
 
 FIGURE                                             THIS COUNT   ON TODAY'S PAGE
 ----------------------------------------------------------------------
 register: rows                                          8,175   
 register: on hire                                       3,438   
 register: available for hire                            4,722   
-gas: fleet on register                                    878   page not built today
-gas: available in store                                   335   page not built today
+gas: fleet on register                                    878   MATCHES
+gas: available in store                                   335   MATCHES
 gas: on hire                                              543   
 radio: radios on register                                 637   
 radio: batteries on register                              781   
@@ -30,6 +30,6 @@ calibration: in cal / due 30 / overdue / no date 135 / 6 / 48 / 158
 Former site name (display rule, disclosed on every data page):
   raw SiteIQ lines still carrying it - register descriptions: 3,136
   raw SiteIQ lines still carrying it - register company accounts: 4
-  printed on today's pages: 0 (checked 51 files)
+  printed on today's pages: 0 (checked 55 files)
 
 PASS - every checked figure on today's pages matches an independent count.
