@@ -92,7 +92,7 @@ FLOW_CSS = """
 /* a cover for flowing reports: one dark block the height of the page area */
 .k2body .fcover { position: relative; height: 240mm; background: #1A2430; border-radius: 14px;
                   overflow: hidden; break-after: page; page-break-after: always; }
-.k2body .fcover .cover-in { padding: 30mm 8mm 0 8mm; }
+.k2body .fcover .cover-in { padding: 22mm 8mm 0 8mm; }   /* room for a ten-row "What's inside" */
 .k2body .fcover .cover-cog { right: 8mm; bottom: 14mm; }
 .k2body .fcover .cover-siteiq { left: 8mm; bottom: 16mm; }
 .k2body .fcover .cover-stripe { left: 0; top: 0; bottom: 0; width: 9px; border-radius: 14px 0 0 14px; }
@@ -149,13 +149,15 @@ def cover_block(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh="", c
     return f'<div class="fcover">{sh.cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag, fresh, contents)}</div>'
 
 
-def group_table(title, meta, headers, rows, aligns=None, cls=""):
+def group_table(title, meta, headers, rows, aligns=None, cls="", rows_html=None):
     """A table for one group (a company, a hirer) whose TITLE ROW sits in
     the thead beside the column headings - so when the group runs over a
     page, the next page opens with the group's name again, not a bare
     column row. WHY (03 Sep 2026): a 40-page register read by the counter
     should never need a flip back to find whose items these are.
-    meta is small text after the title (count, value) - may hold HTML."""
+    meta is small text after the title (count, value) - may hold HTML.
+    rows_html: ready-made tbody markup (a register with its own keep
+    rules) used in place of rows."""
     aligns = aligns or [""] * len(headers)
     th = "".join(f'<th class="{a}">{esc(h)}</th>' for h, a in zip(headers, aligns))
     body = []
@@ -165,9 +167,10 @@ def group_table(title, meta, headers, rows, aligns=None, cls=""):
         body.append(f"<tr{z}>{tds}</tr>")
     k = f"dt grp {cls}".strip()
     m = f' <span class="gm">{meta}</span>' if meta else ""
+    tb = rows_html if rows_html is not None else f'<tbody>{"".join(body)}</tbody>'
     return (f'<table class="{k}"><thead><tr class="gt"><th colspan="{len(headers)}">'
             f'<span class="gn">{esc(title)}</span>{m}</th></tr><tr>{th}</tr></thead>'
-            f'<tbody>{"".join(body)}</tbody></table>')
+            f'{tb}</table>')
 
 
 def divider_block(title, sub, note=""):
