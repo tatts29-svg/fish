@@ -64,12 +64,15 @@ def _move(src, dst_dir, note=""):
     if os.path.abspath(src) == os.path.abspath(dst):
         return None
     if os.path.exists(dst):
-        # never overwrite: the older of the two is parked with a stamp
+        # never overwrite: the older of the two is parked with a stamp - a
+        # SiteIQ pull under SiteIQ\previous, anything else in the archive
         older, newer = sorted([src, dst], key=os.path.getmtime)
         stamp = datetime.fromtimestamp(os.path.getmtime(older)).strftime("%Y%m%d_%H%M")
-        park = os.path.join(ampol_paths.previous_dir(), f"{stamp}_{os.path.basename(older)}")
+        park_dir = ampol_paths.previous_dir() if os.path.abspath(dst_dir) == os.path.abspath(SITEIQ) else ARCH
+        os.makedirs(park_dir, exist_ok=True)
+        park = os.path.join(park_dir, f"{stamp}_{os.path.basename(older)}")
         shutil.move(older, park)
-        print(f"  parked   {os.path.basename(older)} (older copy) -> SiteIQ\\previous\\{os.path.basename(park)}")
+        print(f"  parked   {os.path.basename(older)} (older copy) -> {os.path.relpath(park, ROOT)}")
         if newer == dst:
             return None
     shutil.move(src, dst)

@@ -8,3 +8,5 @@ rigging registers). Refreshing these workbooks changes nothing on any page.
 
 They are kept, not deleted, in case an old tab is ever wanted for reference.
 Author: Andrew Fisher | POWERED BY SITEIQ
+
+03 Sep 2026 19:01 - button 16 parked Tooling_Description_Mapping.xlsx, New_Descriptions___Andrew.xlsx, Ampol_ToolStore_Pricing.xlsx, Gas_Monitor_Serial_Numbers.xlsx, radio_register.xlsx: their rows live in Data\Editable\Ampol_Master.xlsx now. Nothing deleted.
