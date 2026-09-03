@@ -54,7 +54,21 @@ WHAT CHANGED (03 Sep 2026) - the layout pass
   row when the company runs over a page. The ageing panel charts the
   companies holding ten or more units and lists the smaller ones in one
   line under it. One dash style throughout: " - ", never the long dash.
+
+WHAT CHANGED (03 Sep 2026) - the insights pass
+  Five sections on new pages after "Since the last pull", read from the
+  SiteIQ TRANSACTIONS export through txn_insights for this report's own
+  barcodes: the year in movements (issues, returns and same-day rate by
+  week, the monthly company league), return windows by product, the
+  counter's rhythm (draws and returns by weekday and hour), who holds
+  what (the 80/20 of the units on hire) and what the log and the register
+  disagree on (short hires, mass draws, units issued before the log, the
+  prior-year reconciliation). Each carries a one-line "So what". Page 2
+  gains one sentence under the band - the daily-return standard against
+  the data - and keeps its grammar otherwise. Sources and rules are named
+  on the data-and-method page.
 """
+import math
 import re
 import sys
 from pathlib import Path
@@ -67,6 +81,7 @@ import gasmon_engine as ge  # one company / person normaliser across the suite
 import pdf_finish  # WHY (03 Sep 2026): properties and bookmarks on every PDF
 import pull_diff  # WHY (03 Sep 2026): what moved since the last pull
 import report_history as rh
+import txn_insights as ti  # WHY (03 Sep 2026): the transaction log's year, for this report's barcodes
 # WHY (03 Sep 2026): the page-1 RAG band - default lines, printed on the page
 RAG_AMBER_PRIOR_PCT = 10     # share of on-hire units issued in prior years
 RAG_RED_PRIOR_PCT = 30
@@ -593,13 +608,449 @@ def three_things_for(F, r26, b26, oos):
     return items[:3]
 
 
+# ---------------------------------------------------------------------------
+# The insights pages (03 Sep 2026) - what the transaction log knows about
+# this report's radios and batteries
+# ---------------------------------------------------------------------------
+# WHY (03 Sep 2026): the register says where every unit is today; the
+# TRANSACTIONS export says how the year went - every issue and return since
+# 1 Jan. txn_insights reads it once and answers for THIS report's barcodes
+# (every radio and battery on the register as the report defines it: on
+# hire, on the shelf and in custody). The rules the pages print are set
+# here so the page and the code always agree.
+INSIGHT_SAMPLE_ROWS = 10    # sample rows shown for short hires
+LEAGUE_TOP = 10             # companies in the monthly league (ranked by issues)
+HOLDERS_TOP = 15            # holders in the who-holds-what table (ranked by items)
+HEAT_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+# WHY (03 Sep 2026): the So-what caption and the compact league table are
+# this report's own; k2style.css is shared and stays as it is, so the two
+# rules ride in with the document as extra CSS.
+INSIGHT_CSS = """
+.k2body .sowhat { margin: 10px 0 2px 0; padding: 7px 12px; border-left: 4px solid #F36F21; background: #FFF7F1;
+                  border-radius: 0 8px 8px 0; font-size: 10.2px; line-height: 1.55; color: #35404E;
+                  break-inside: avoid; page-break-inside: avoid; }
+.k2body .sowhat b { color: #D95F14; font-weight: 700; }
+.k2body .note.std { margin-top: 6px; margin-bottom: 0; font-size: 9.6px; color: #47566A; line-height: 1.5; }
+.k2body .note.std b { color: #16202C; }
+.k2body table.dt.league th { padding: 7px 4px; font-size: 7.3px; letter-spacing: 0.4px; }
+.k2body table.dt.league td { padding: 5px 4px; font-size: 8.5px; line-height: 1.3; white-space: nowrap; }
+.k2body table.dt.league td:first-child, .k2body table.dt.league th:first-child { padding-left: 9px; white-space: normal; }
+.k2body table.dt.league td:last-child, .k2body table.dt.league th:last-child { padding-right: 9px; }
+.k2body .nw { white-space: nowrap; }
+"""
+
+
+def so_what(text):
+    """The one-line takeaway under every insights section - the reader's
+    'so what', in plain words, from the figures on the page above it."""
+    return f'<div class="sowhat"><b>So what.</b> {text}</div>'
+
+
+def insight_hirer(raw):
+    """A hirer on the insights pages: the register pages' rule, plus the
+    shutdown account the way the TRANSACTIONS export spells it (no dash
+    before the year), so a site account is never printed as a person."""
+    raw = str(raw or "").strip()
+    if hirer_kind(raw) == "person" and re.search(r"shutdown\s*20\d\d|^t&i\b", raw, re.I):
+        return f"{raw} (site account)"
+    return show_hirer(raw)
+
+
+def _pts_arrow(before, after):
+    """The change in a same-day rate between two months, in percentage
+    points, with the page-1 tile arrow: green up (more came back the same
+    day), red down. A month with no closed hire prints a dash."""
+    if before is None or after is None:
+        return '<span class="tbc">-</span>'
+    d = round(after - before, 1)
+    if d == 0:
+        return '<span class="tbc">no change</span>'
+    return f'<span class="{"g" if d > 0 else "rd"}">{"▲" if d > 0 else "▼"} {abs(d):g} pts</span>'
+
+
+def insights_compute(items_on, oos, ravail, bavail):
+    """Everything the insights pages need, computed ONCE per build from the
+    transaction engine over this report's barcodes. None when the
+    TRANSACTIONS export is not in Data - the pages then say so.
+
+    items_on: the units on hire the position page counts (this year's and
+    prior years', custody line apart). Holder values are re-summed at this
+    report's own prices from those rows, so the who-holds-what page adds
+    up to the on-hire value tile on page 2 - one price list, one total."""
+    try:
+        ctx = ti.load_all()
+    except Exception as e:
+        print(f"Insights           : not built - the TRANSACTIONS export could not be read ({type(e).__name__}: {e})")
+        return None
+    everything = items_on + oos + ravail + bavail
+    scope = {i["barcode"] for i in everything if i["barcode"]}
+    scope_r = {i["barcode"] for i in everything if i["barcode"] and i["kind"] == "radio"}
+    scope_b = {i["barcode"] for i in everything if i["barcode"] and i["kind"] == "battery"}
+    scope_hold = scope - {i["barcode"] for i in oos if i["barcode"]}
+    I = {"window": ctx["tx_window"], "reg_time": ctx["reg_time"], "scope_n": len(scope),
+         "tx_file": Path(ctx["tx_path"]).name}
+    I["weekly"] = ti.weekly_series(ctx, scope)
+    I["league"] = ti.monthly_league(ctx, scope)
+    I["rw"] = ti.return_windows(ctx, scope)
+    # WHY (03 Sep 2026): the engine's product key leaves the serial prefix
+    # SiteIQ writes into a radio's description ("...T&I- 122TYT0381"), so
+    # it splits the radios into a dozen pseudo-products. The two products
+    # this report tracks are read with the engine's own function over the
+    # radio barcodes and the battery barcodes - nothing re-implemented.
+    I["rw_radio"] = ti.return_windows(ctx, scope_r)
+    I["rw_batt"] = ti.return_windows(ctx, scope_b)
+    I["rhythm"] = ti.counter_rhythm(ctx, scope)
+    hold = ti.holders(ctx, scope_hold, top=HOLDERS_TOP)
+    # families held store-wide (gas / radio / tooling) for the same people
+    store = ti.holders(ctx, None, top=1)
+    fam = {(d["hirer"], d["company"]): d["families"] for d in store["rows"]}
+    cost = {i["barcode"].upper(): (i["cost"] or 0) for i in items_on}
+    by_key = defaultdict(float)
+    for r in ctx["reg"].values():
+        b = r["barcode"].upper()
+        if b in cost and r["status"].lower() == "on hire":
+            by_key[(r["hirer"], r["company"])] += cost[b]
+    for d in hold["rows"]:
+        k = (d["hirer"], d["company"])
+        d["rvalue"] = by_key.get(k, 0.0)
+        d["also"] = sorted(f for f in fam.get(k, set()) if f != "radio")
+    vals = sorted((d["rvalue"] for d in hold["rows"]), reverse=True)
+    tot_v = sum(vals)
+    cum, n80v = 0.0, len(vals)
+    for i, v in enumerate(vals, 1):
+        cum += v
+        if cum >= 0.8 * tot_v:
+            n80v = i
+            break
+    hold["rvalue_total"] = tot_v
+    hold["n80_rvalue"] = n80v
+    hold["cross_n"] = sum(1 for d in hold["rows"] if d["also"])
+    I["holders"] = hold
+    I["dq"] = ti.data_quality(ctx, scope)
+    I["tx_n"] = I["dq"]["tx_n"]
+    return I
+
+
+def standard_line(I):
+    """The one sentence on page 2 under the band: the daily-return
+    standard against the data. X is the 90th-percentile hold of every
+    completed hire in the log, rounded up to whole days - nine in ten
+    completed hires were back inside it, by construction."""
+    from k2shell import num
+    if not I or not I["rw"]["all"]:
+        return ""
+    a = I["rw"]["all"]
+    w0, w1 = I["window"]
+    x = max(1, math.ceil(a["p90"]))
+    return (f'<div class="note std">Nine in ten completed radio and battery hires this year were back inside '
+            f'<b>{x} day{"s" if x != 1 else ""}</b> - {num(a["n"])} completed hires in the transaction log '
+            f'({w0:%d %b} to {w1:%d %b %Y}), a 90th-percentile hold of {a["p90"]:.1f} days, '
+            f'{a["sd_pct"]:g}% back the same day.</div>')
+
+
+def insights_pages(I, prev_all, asat_s):
+    """The five insights sections, in order, each with its chart or table
+    and a So-what caption - on new pages after the since-the-last-pull
+    section. prev_all: the prior-year units the position page counts, for
+    the reconciliation on the log-versus-register page."""
+    import k2flow as kf
+    import k2shell as sh
+    from k2shell import esc, num
+    if not I:
+        return ""
+    w0, w1 = I["window"]
+    log_span = f"{w0:%d %b} to {w1:%d %b %Y %H:%M}"
+    P = []
+    # ---- 1. the year in movements ----------------------------------------
+    W = I["weekly"]
+    # WHY (03 Sep 2026): the log opens on 1 Jan, so its first ISO week holds
+    # two days - as partial as the week of the pull. Both are marked *.
+    for w in W:
+        w["part"] = w["partial"] or w["start"] < w0.date()
+    labels = [w["week"] + ("*" if w["part"] else "") for w in W]
+    issues = [w["issues"] for w in W]
+    returns = [w["returns"] for w in W]
+    sd = [w["sd_pct"] for w in W]
+    full = [w for w in W if not w["part"]] or W
+    partial = [w for w in W if w["part"]]
+    peak = max(full, key=lambda w: w["issues"])
+    quiet = min(full, key=lambda w: w["issues"])
+    yr_iss, yr_ret = sum(issues), sum(returns)
+    med_wk = int(round(sorted(w["issues"] for w in full)[len(full) // 2]))
+    rw_all = I["rw"]["all"] or {"sd_pct": 0, "n": 0}
+    P.append(
+        '<div class="pb"></div><div class="sect"><h3>The year in movements</h3></div>'
+        f'<div class="callout tight"><span class="lead">The year so far.</span> <b class="o">{num(yr_iss)} issues</b> and '
+        f'<b class="o">{num(yr_ret)} returns</b> of radios and batteries crossed the counter between {esc(log_span)} - '
+        f'every scan in the SiteIQ TRANSACTIONS export for the {num(I["scope_n"])} barcodes on this report, laid out by '
+        f'ISO week. The busiest full week was the week of <b>{esc(peak["week"])}</b> ({num(peak["issues"])} issues); the '
+        f'quietest full week was the week of <b>{esc(quiet["week"])}</b> ({num(quiet["issues"])}). '
+        + (('Weeks marked * are partial: ' + "; ".join(
+                (f'the week of {esc(w["week"])} holds the log\'s first {(w["start"] + timedelta(days=7) - w0.date()).days} days'
+                 if w["start"] < w0.date() else f'the week of {esc(w["week"])} runs to {w1:%d %b %H:%M}')
+                for w in partial) + '.') if partial else '')
+        + '</div>'
+        '<div class="sub-h">Issues and returns by week <span class="thin">- every movement, by the week it was scanned</span></div>'
+        f'<div class="chartpanel">{sh.line_chart(labels, [("Issues", issues), ("Returns", returns)], y_label="movements a week")}</div>'
+        '<div class="sub-h">Same-day returns by week <span class="thin">- of that week\'s issues that have come back, the share back the same day</span></div>'
+        f'<div class="chartpanel">{sh.line_chart(labels, [("Same-day %", sd)], y_label="% of closed hires", pct=True)}</div>')
+    # the numbers behind both charts - net out is issues less returns
+    hdr = ["Week", "Issues", "Returns", "Net", "Same day"]
+    al = ["nw", "r", "r", "r", "r"]
+
+    def wrow(w):
+        n = w["issues"] - w["returns"]
+        return [esc(w["week"]) + ("*" if w["part"] else ""), num(w["issues"]), num(w["returns"]),
+                (f"{n:+d}" if n else "0"), (f'{w["sd_pct"]:.0f}%' if w["sd_pct"] is not None else '<span class="tbc">-</span>')]
+    third = (len(W) + 2) // 3
+    cols = [W[i:i + third] for i in range(0, len(W), third)]
+    # the three side-by-side tables move to the next page as one block
+    P.append('<div class="keep"><div class="sub-h">The weeks in numbers <span class="thin">- net is issues less returns; a minus is a week '
+             'more came back than went out</span></div><table class="two"><tr>'
+             + "".join(f'<td style="width:{100 // len(cols)}%;padding-{"right" if k < len(cols) - 1 else "left"}:{4 if k < len(cols) - 1 else 0}px;'
+                       f'padding-left:{4 if k else 0}px">{kf.dtable_flow(hdr, [wrow(w) for w in c], al, "cp")}</td>'
+                       for k, c in enumerate(cols))
+             + '</tr></table></div>')
+    # the monthly company league
+    L = I["league"]
+    ranked = sorted(L.items(), key=lambda kv: (-sum(r["issues"] for r in kv[1]), ampol_names.sort_key(kv[0])))[:LEAGUE_TOP]
+    months = sorted({r["key"] for rows in L.values() for r in rows})
+    pull_m = I["reg_time"].strftime("%Y-%m") if I["reg_time"] else months[-1]
+    full_m = [m for m in months if m < pull_m] or months
+    m1, m2 = (full_m[-2], full_m[-1]) if len(full_m) >= 2 else (full_m[-1], full_m[-1])
+    mname = lambda m: datetime.strptime(m, "%Y-%m").strftime("%b")   # noqa: E731
+    lhdr = ["Company (ranked by issues)"] + [mname(m) + ("*" if m == pull_m else "") for m in months] + [f"{mname(m1)} to {mname(m2)}"]
+    lal = [""] + ["r"] * len(months) + ["r"]
+    lrows, moves = [], []
+    for co, rows in ranked:
+        bym = {r["key"]: r for r in rows}
+        cells = [f"<b>{esc(co)}</b>"]
+        for m in months:
+            r = bym.get(m)
+            if not r:
+                cells.append('<span class="tbc">-</span>')
+            else:
+                cells.append(f'{num(r["issues"])} · ' + (f'{r["sd_pct"]:.0f}%' if r["sd_pct"] is not None else '<span class="tbc">-</span>'))
+        a = bym.get(m1, {}).get("sd_pct")
+        b = bym.get(m2, {}).get("sd_pct")
+        cells.append(_pts_arrow(a, b))
+        if a is not None and b is not None:
+            moves.append((round(b - a, 1), co, a, b))
+        lrows.append(cells)
+    up = max(moves, key=lambda x: x[0]) if moves else None
+    down = min(moves, key=lambda x: x[0]) if moves else None
+    league_tot = sum(sum(r["issues"] for r in rows) for _, rows in ranked)
+    P.append(
+        f'<div class="sub-h">The monthly company league <span class="thin">- ranked by issues this year, the top '
+        f'{num(len(ranked))} of {num(len(L))} companies; each cell is issues · same-day %</span></div>'
+        + kf.dtable_flow(lhdr, lrows, lal, "cp league")
+        + f'<div class="note">Same-day % is the share of that month\'s closed hires back the day they went out. The last column '
+          f'is the change between the last two full months, {mname(m1)} and {mname(m2)}, in percentage points - green is up '
+          f'(more back the same day), red is down, as on the page-1 tiles. '
+        + (f'{mname(pull_m)}* holds the log\'s {mname(pull_m)} movements only, up to {w1:%d %b %H:%M}. ' if pull_m in months else '')
+        + f'The {num(len(ranked))} companies here account for {num(league_tot)} of the {num(yr_iss)} issues; the other '
+          f'{num(len(L) - len(ranked))} companies are in the register pages, A to Z.</div>')
+    P.append(so_what(
+        f'Radios and batteries cross the counter about {num(med_wk)} times a week (the median full week), and '
+        f'{rw_all["sd_pct"]:g}% of this year\'s {num(rw_all["n"])} completed hires came back the same day - the rest are '
+        f'the hires the 30-day rule watches. '
+        + (f'Between {mname(m1)} and {mname(m2)} the biggest rise in same-day returns was {esc(up[1])} '
+           f'({up[2]:g}% to {up[3]:g}%) and the biggest fall {esc(down[1])} ({down[2]:g}% to {down[3]:g}%).'
+           if up and down and up[0] > 0 and down[0] < 0 else '')))
+    # ---- 2. return windows by product ------------------------------------
+    rw = I["rw"]
+    rr, rb = I["rw_radio"]["all"], I["rw_batt"]["all"]
+
+    def rwrow(label, a, bold=False):
+        if not a:
+            return [label, '<span class="tbc">-</span>', '<span class="tbc">-</span>', '<span class="tbc">-</span>', '<span class="tbc">-</span>']
+        f = (lambda s: f"<b>{s}</b>") if bold else (lambda s: s)
+        return [f(label), f(num(a["n"])), f(f'{a["median"]:.1f}'), f(f'{a["p90"]:.1f}'), f(f'{a["sd_pct"]:g}%')]
+    pooled = rw["pooled_n"]
+    pooled_r, pooled_b = I["rw_radio"]["pooled_n"], I["rw_batt"]["pooled_n"]
+    allw = rw["all"]
+    x_days = max(1, math.ceil(allw["p90"])) if allw else None
+    P.append(
+        '<div class="keep"><div class="sect"><h3>Return windows by product</h3></div>'
+        f'<div class="callout tight"><span class="lead">How long a hire really lasts.</span> Every completed hire in the log - '
+        f'out and back - measured from the issue scan to the return scan, for the two products this report tracks. The median '
+        f'is the middle hire; the 90th percentile is the hold nine in ten hires were back inside. Days are decimal: 0.5 days is '
+        f'about 12 hours.</div>'
+        + kf.dtable_flow(["Product", "Completed hires", "Median (days)", "90th percentile (days)", "Same day"],
+                         [rwrow("Radios", rr), rwrow("Batteries", rb), rwrow("All radios and batteries", allw, bold=True)],
+                         ["", "r", "r", "r", "r"], "cp")
+        + f'<div class="note">Completed hires only - a unit still out has no return scan and no window yet. The engine pools '
+          f'any product with fewer than {num(rw["min_n"])} completed hires: on this fleet that pool is {num(pooled)} hire{"s" if pooled != 1 else ""} '
+          f'({num(pooled_r)} radio{"s" if pooled_r != 1 else ""}, {num(pooled_b)} batter{"ies" if pooled_b != 1 else "y"}), already counted in the rows above. '
+          f'Products are this report\'s own radio and battery rule, each barcode classed by its register description.</div>')
+    if allw:
+        P.append(so_what(
+            f'Half of all hires are back within {allw["median"] * 24:.0f} hours and nine in ten within {num(x_days)} days; a unit '
+            f'out 30 days has been held {30 / allw["p90"]:.0f} times longer than the 90th-percentile hold - the red on the register '
+            f'pages marks a real outlier, not a busy crew.'))
+    P.append('</div>')
+    # ---- 3. the counter's rhythm -----------------------------------------
+    R = I["rhythm"]
+    cols24 = [f"{h:02d}" if h % 2 == 0 else "" for h in range(24)]
+    busiest = R["busiest"]
+    top3 = sum(c for _, c in busiest)
+    tot = R["total"] or 1
+    wk = sum(sum(R["draws"][r]) for r in range(5))
+    we = sum(sum(R["draws"][r]) for r in range(5, 7))
+    bd = max(range(7), key=lambda r: sum(R["draws"][r]))
+    tiles = [("clock", f"{h:02d}:00", f"Busiest hour {k}", f"{num(c)} draws", "amber" if k == 1 else "grey")
+             for k, (h, c) in enumerate(busiest, 1)]
+    tiles.append(("bars", f"{round(100 * R['day'] / tot)}% / {round(100 * R['night'] / tot)}%", "Day / night draws",
+                  f"{num(R['day'])} in 06:00-17:59, {num(R['night'])} outside", "grey"))
+    P.append(
+        '<div class="pb"></div><div class="sect"><h3>The counter\'s rhythm</h3></div>'
+        f'<div class="callout tight"><span class="lead">When radios move.</span> Every draw and every return since '
+        f'{w0:%d %b} laid on a week: <b class="o">{num(top3)} of the {num(tot)} draws ({round(100 * top3 / tot)}%)</b> fall in the '
+        f'busiest three hours, {esc(HEAT_DAYS[bd])} is the busiest weekday ({num(sum(R["draws"][bd]))} draws), and weekdays carry '
+        f'<b>{num(wk)}</b> draws against <b>{num(we)}</b> at the weekend.</div>'
+        + sh.tiles(tiles)
+        + '<div class="sub-h">Draws <span class="thin">- weekday by hour; darker is quieter, orange is busier; the count is printed in every cell</span></div>'
+        f'<div class="chartpanel">{sh.heatgrid(R["draws"], HEAT_DAYS, cols24)}</div>'
+        '<div class="sub-h">Returns <span class="thin">- the same week, scanned back in</span></div>'
+        f'<div class="chartpanel">{sh.heatgrid(R["returns"], HEAT_DAYS, cols24, colour=(31, 167, 90))}</div>'
+        f'<div class="note">Counted from every movement in the TRANSACTIONS export for this report\'s barcodes ({esc(log_span)}); a cell '
+        f'is the number of issue scans (or return scans) whose time fell in that weekday and hour. A dark cell is a real zero. '
+        f'Day is 06:00 to 17:59; night is everything else.</div>')
+    P.append(so_what(
+        f'Staff the counter for the {busiest[0][0]:02d}:00 and {busiest[1][0]:02d}:00 starts - {round(100 * top3 / tot)}% of the '
+        f'year\'s draws land in three hours - and expect {round(100 * R["night"] / tot)}% of draws outside 06:00-17:59, the '
+        f'after-hours window where the same-day rate is decided.'))
+    # ---- 4. who holds what -----------------------------------------------
+    H = I["holders"]
+    hrows = []
+    for k, d in enumerate(H["top"], 1):
+        also = ", ".join({"gas": "gas monitors", "tooling": "tooling"}.get(f, f) for f in d["also"]) or "-"
+        hrows.append([str(k), esc(insight_hirer(d["hirer"])), esc(d["company"]), num(d["items"]),
+                      (money(d["rvalue"]) if d["rvalue"] else '<span class="tbc">-</span>'),
+                      _days_cell(d["oldest"]), esc(also)])
+    top_items = sum(d["items"] for d in H["top"])
+    top_val = sum(d["rvalue"] for d in H["top"])
+    cross_all = sum(1 for d in H["rows"] if d["also"])
+    P.append(
+        '<div class="keep"><div class="sect"><h3>Who holds what</h3></div>'
+        f'<div class="callout tight"><span class="lead">The 80/20.</span> <b class="o">{num(H["holders"])} people and accounts</b> hold the '
+        f'{num(H["items"])} radios and batteries on hire; <b>{num(H["n80_items"])}</b> of them hold 80% of the units and '
+        f'<b>{num(H["n80_rvalue"])}</b> hold 80% of the {money(H["rvalue_total"])} on-hire value. Ranked by items held, the top '
+        f'{num(len(H["top"]))} are below - the custody line is kept apart, as everywhere in this report.</div>'
+        + kf.dtable_flow(["Rank", "Hirer", "Company", "Items", "Value", "Oldest (days)", "Also holds"], hrows,
+                         ["r", "", "", "r", "r", "r", ""], "cp")
+        + f'<div class="note">Ranked by items on hire at the pull ({esc(asat_s)}); value at the prices on the data page, so the '
+          f'{num(H["holders"])} holders add up to the on-hire value tile on page 2. "Also holds" reads the whole register: '
+          f'{num(cross_all)} of the {num(H["holders"])} radio holders also hold gas monitors or tooling from the store, '
+          f'{num(H["cross_n"])} of them in this top {num(len(H["top"]))}. Oldest is the longest-held unit in that holder\'s hands; '
+          f'30 days or more shows in red.</div>')
+    P.append(so_what(
+        f'The top {num(len(H["top"]))} holders have {num(top_items)} units and {money(top_val)} between them - '
+        f'{round(100 * top_items / (H["items"] or 1))}% of everything out - and {num(H["cross_n"])} of them also hold gas monitors or '
+        f'tooling, so one conversation with each recovers more than radios.'))
+    P.append('</div>')
+    # ---- 5. what the log and the register disagree on --------------------
+    D = I["dq"]
+    short = sorted(D["short"], key=lambda t: (ampol_names.sort_key(t["co"]), t["st"]))
+    srows = [[esc(t["co"] or "-"), esc(insight_hirer(t["who"])), esc(t["bc"]), esc(t["desc"]),
+              f'{t["st"]:%d %b %H:%M}', f'{t["en"]:%H:%M}', f'{t["hours"] * 60:.1f}']
+             for t in short[:INSIGHT_SAMPLE_ROWS]]
+    mrows = [[esc(insight_hirer(k[0])), esc(k[1] or "-"), f"{k[2]:%d %b %Y}", f"{k[3]:02d}:00-{k[3] + 1:02d}:00", num(v)]
+             for k, v in D["mass"][:INSIGHT_SAMPLE_ROWS]]
+    mass_acc = sum(1 for k, _ in D["mass"] if "(site account)" in insight_hirer(k[0]))
+    before = D["onhire_before_log"]
+    before_oos = [r for r in before if hirer_kind(r["hirer"]) == "oos"]
+    before_n, page2_n = len(before), len(prev_all)
+    by_year = sorted(defaultdict(int, {y: sum(1 for r in before if r["on_dt"].year == y) for y in {r["on_dt"].year for r in before}}).items())
+    nolog = D["onhire_no_log"]
+    oav = D["open_but_available"]
+    log_start = D["log_start"]
+    if before_n - len(before_oos) == page2_n:
+        recon = (f'That is the <b>{num(page2_n)}</b> units on hire since {esc(PRIOR_LABEL)} on page 2'
+                 + (f' plus {num(len(before_oos))} unit{"s" if len(before_oos) != 1 else ""} in the out-of-service custody line, '
+                    f'which page 2 keeps apart' if before_oos else '')
+                 + ' - the two counts reconcile exactly.')
+    else:
+        recon = (f'Page 2 counts <b>{num(page2_n)}</b> units on hire since {esc(PRIOR_LABEL)}'
+                 + (f' and keeps {num(len(before_oos))} custody unit{"s" if len(before_oos) != 1 else ""} apart' if before_oos else '')
+                 + f'; the difference of {num(abs(before_n - len(before_oos) - page2_n))} is a unit whose on-hire date and issue year '
+                   f'disagree on which side of {log_start:%d %b %Y} it falls - listed in the register pages.')
+    P.append(
+        '<div class="pb"></div><div class="sect"><h3>What the log and the register disagree on</h3></div>'
+        f'<div class="callout tight"><span class="lead">Two sources, one fleet.</span> The register is the position; the log is the '
+        f'history. Read together they show the counter\'s habits and any gap between them. Nothing here is corrected - it is shown, '
+        f'with the rule that found it: a hire closed inside <b>{num(D["short_minutes"])} minutes</b> is a short hire; '
+        f'<b>{num(D["mass_threshold"])} or more</b> items drawn by one person or account inside one hour is a mass draw.</div>'
+        f'<div class="sub-h">Hires closed inside {num(D["short_minutes"])} minutes <span class="thin">- {num(D["short_n"])} this year'
+        + (f'; showing {num(len(srows))} (company A to Z, then time)' if D["short_n"] > len(srows) else '; company A to Z, then time') + '</span></div>'
+        + (kf.dtable_flow(["Company", "Hirer", "Barcode", "Description", "Out", "Back", "Minutes"], srows,
+                          ["", "", "", "", "nw", "nw", "r"], "cp")
+           if srows else '<div class="note">No hire on this fleet closed inside six minutes this year.</div>')
+        + f'<div class="note">Out and back inside {num(D["short_minutes"])} minutes is a scan corrected on the spot or a unit swapped at the counter - '
+          f'{num(D["short_n"])} of the {num(I["tx_n"])} movements this year ({100 * D["short_n"] / (I["tx_n"] or 1):.1f}%).</div>'
+        f'<div class="sub-h">Mass draws <span class="thin">- {num(D["mass_n"])} this year, ranked by items drawn</span></div>'
+        + (kf.dtable_flow(["Hirer or account", "Company", "Date", "Hour", "Items"], mrows, ["", "", "nw", "nw", "r"], "cp")
+           if mrows else '<div class="note">No person or account drew fifteen or more radios or batteries inside one hour this year.</div>')
+        + f'<div class="note">{num(D["mass_threshold"])} or more items by one hirer inside an hour: {num(mass_acc)} by site accounts and '
+          f'{num(D["mass_n"] - mass_acc)} by named people - kits of batteries going out on a shutdown or after-hours account, and crew '
+          f'leads drawing for a whole crew. Habits to know about, not scan errors.</div>'
+        f'<div class="sub-h">On hire with no movement since the log began <span class="thin">- issued on or after {log_start:%d %b %Y}</span></div>'
+        + (kf.dtable_flow(["Company", "Hirer", "Barcode", "Description", "On hire since"],
+                          [[esc(r["company"]), esc(insight_hirer(r["hirer"])), esc(r["barcode"]), esc(r["desc"]),
+                            (f'{r["on_dt"]:%d %b %Y %H:%M}' if r["on_dt"] else "-")]
+                           for r in sorted(nolog, key=lambda r: (ampol_names.sort_key(r["company"]), r["barcode"]))[:INSIGHT_SAMPLE_ROWS]],
+                          ["", "", "", "", "nw"], "cp")
+           + f'<div class="note">{num(len(nolog))} unit{"s" if len(nolog) != 1 else ""} on hire in the register with no issue scan in the log '
+             f'since {log_start:%d %b %Y}' + (f' - showing {num(INSIGHT_SAMPLE_ROWS)}, company A to Z' if len(nolog) > INSIGHT_SAMPLE_ROWS else '') + '.</div>'
+           if nolog else f'<div class="note"><b>No gap.</b> Every unit the register shows on hire since {log_start:%d %b %Y} has its issue scan in the log.</div>')
+        + f'<div class="sub-h">Issued before the log begins <span class="thin">- on hire since before {log_start:%d %b %Y}</span></div>'
+        f'<div class="note"><b>{num(before_n)} units</b> on hire in the register were issued before the log starts, so their issue scan is '
+        f'history the export does not carry: ' + esc(", ".join(f"{n} from {y}" for y, n in by_year)) + f'. {recon}</div>'
+        '<div class="sub-h">Available in the register with an open movement in the log</div>'
+        + (kf.dtable_flow(["Barcode", "Description", "Storage unit", "Open movement", "Company", "Hirer"],
+                          [[esc(r["barcode"]), esc(r["desc"]), esc(r["unit"] or "-"), f'{t["st"]:%d %b %Y %H:%M}', esc(t["co"] or "-"),
+                            esc(insight_hirer(t["who"]))] for r, t in sorted(oav, key=lambda x: x[0]["barcode"])[:INSIGHT_SAMPLE_ROWS]],
+                          ["", "", "", "nw", "", ""], "cp")
+           + f'<div class="note">{num(len(oav))} unit{"s" if len(oav) != 1 else ""} on the shelf whose newest movement in the log has no return scan'
+             + (f' - showing {num(INSIGHT_SAMPLE_ROWS)}, barcode A to Z' if len(oav) > INSIGHT_SAMPLE_ROWS else '') + '.</div>'
+           if oav else '<div class="note"><b>No gap.</b> No unit the register shows available has an open movement in the log - every '
+                       'return scan reached the register.</div>'))
+    agree = not nolog and not oav
+    P.append(so_what(
+        (f'The log and the register agree: no unit is on hire without its issue scan since {log_start:%d %b} and no shelf unit has an '
+         f'open movement. ' if agree else
+         f'{num(len(nolog))} on-hire unit{"s" if len(nolog) != 1 else ""} with no issue scan and {num(len(oav))} shelf unit{"s" if len(oav) != 1 else ""} '
+         f'with an open movement are the rows to check at the counter first. ')
+        + f'The {num(D["short_n"])} short hires and {num(D["mass_n"])} mass draws are counter habits, not errors to chase, and the '
+        f'{num(before_n)} prior-year units are exactly the page-2 figure' + (' plus the custody line.' if before_oos else '.')))
+    return "".join(P)
+
+
+def insights_method(I):
+    """The data-and-method sentence for the insights pages - the source
+    and the rules, in the words the pages use."""
+    from k2shell import esc, num
+    if not I:
+        return (' The year-in-movements, return-window, rhythm, who-holds-what and log-versus-register pages need the '
+                'SiteIQ TRANSACTIONS export in Data - not found this run, so they are not printed.')
+    w0, w1 = I["window"]
+    return (f' The year in movements, return windows, the counter\'s rhythm, who holds what and the log-versus-register page '
+            f'read the SiteIQ TRANSACTIONS export ({esc(I["tx_file"])}, sheet CUSTOMER_CONTRACTOR_EQUIP, report period '
+            f'{w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M}) - {num(I["tx_n"])} movements of this report\'s {num(I["scope_n"])} '
+            f'barcodes. Rules: a hire closed inside 6 minutes is a short hire; 15 or more items drawn by one hirer inside one '
+            f'hour is a mass draw; a product is the description with its size and serial tail removed - a radio\'s description '
+            f'keeps the serial prefix SiteIQ writes into it, so the return-window table groups by this report\'s own radio and '
+            f'battery rule and its total line is the engine\'s own. Same-day means the return scan fell on the issue scan\'s date.')
+
+
 def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=None, changes=None,
-               contents=None):
+               contents=None, insights=None):
     """The client PDF on the Coates house frame (k2flow): the position, the
     ask, what moved, the pictures, the trend, then the register - companies
     A-Z, oldest first - behind an appendix divider. contents: the (title,
     page) rows for the cover's "What's inside" block - None on the first
-    pass, the rows read off the printed PDF on the second."""
+    pass, the rows read off the printed PDF on the second. insights: the
+    transaction-log facts from insights_compute (None = no export)."""
     import k2flow as kf
     import k2shell as sh
     from k2shell import esc, num
@@ -713,10 +1164,14 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=
               f'stock-taken to its storage unit before going back on charge. <b>The moment a unit is scanned, the record updates.</b> '
               f'Every count on this report is read from the SiteIQ register as at <b>{esc(asat_s)}</b> - nothing comes from a summary tab. '
               f'Serial numbers: {esc(META.get("serial_note", "from the radio register"))}.</div>')
-    P.append(band + tiles1 + tiles2 + three + story)
+    # WHY (03 Sep 2026): one sentence under the band - the daily-return
+    # standard against the log; the rest of page 2 keeps its grammar
+    P.append(band + standard_line(insights) + tiles1 + tiles2 + three + story)
     P.append('<div class="pb"></div>' + pos + ask + assure)
     # ---- what moved since the last pull (03 Sep 2026) ---------------------
     P.append(changes_section(changes))
+    # ---- the insights pages (03 Sep 2026): the log's year, on new pages --
+    P.append(insights_pages(insights, prev_all, asat_s))
     # ---- the pictures -----------------------------------------------------
     radio_rows = [(f"On hire - issued {CUR_YEAR}", len(r26)), (f"On hire - issued {PRIOR_LABEL}", len(rprev)),
                   ("Available in store", len(ravail)), ("Out of service", len(oos_r))]
@@ -850,6 +1305,7 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=
         f'Movement from Data\\previous and TRANSACTIONS; days out count from the pull time.'
         + (f' Trend page: appears once {_WORDS.get(TREND_MIN_DAYS, str(TREND_MIN_DAYS))} days are on record ({num(days_on_record)} today).'
            if not trend_html else f' Trend page: {num(days_on_record)} report days on record.')
+        + insights_method(insights)
         + '</div>'
         '<div class="sect"><h3>How the radio fleet is run</h3></div>' + cards + sh.coates_way_panel(traits=(4, 7), disciplines=(5, 6), line="one scan at the counter closes the record; nothing is chased that the register already answers")
         + '<div class="sect"><h3>Meet the tool store team</h3></div>' + sh.team_cards(cfg["team"]))
@@ -863,7 +1319,7 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=
     build_html.last = {"cfg": cfg, "status": status, "prior_pct": prior_pct, "due": due,
                        "exposure": total_exposure, "prev_val": prev_val, "oldest": oldest,
                        "n_on": len(all_on), "n_prior": len(prev_all)}
-    return kf.flow_doc(cfg, refresh, asat_s, "".join(P), cover=cover)
+    return kf.flow_doc(cfg, refresh, asat_s, "".join(P), extra_css=INSIGHT_CSS, cover=cover)
 
 
 
@@ -1244,7 +1700,21 @@ def main():
              f"crossed 30 days {len(changes['crossed'][30])}" if changes["have_previous"]
              else "no earlier pull in Data\\previous yet (starts with the next pull)")
           + f" | 24 h before the pull: issued {len(L24['issued'])}, returned {len(L24['returned'])}")
-    html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat, facts=F, changes=changes)
+    # WHY (03 Sep 2026): the log's year for this report's barcodes, read once
+    # and handed to both passes so the two prints are identical
+    INS = insights_compute(r26 + rprev + b26 + bprev, oos, ravail, bavail)
+    if INS:
+        _a = INS["rw"]["all"] or {}
+        _h = INS["holders"]
+        _q = INS["dq"]
+        print(f"Insights           : {INS['tx_n']:,} movements for {INS['scope_n']:,} barcodes ({INS['window'][0]:%d %b} to "
+              f"{INS['window'][1]:%d %b %H:%M}); {len(INS['weekly'])} weeks; completed hires {_a.get('n', 0):,}, median "
+              f"{_a.get('median', 0):.2f} d, p90 {_a.get('p90', 0):.1f} d, same day {_a.get('sd_pct', 0)}%; busiest hour "
+              f"{INS['rhythm']['busiest'][0][0]:02d}:00; holders {_h['holders']} (80% of units with {_h['n80_items']}, value "
+              f"{money(_h['rvalue_total'])}, cross-family {sum(1 for d in _h['rows'] if d['also'])}); short hires {_q['short_n']}, "
+              f"mass draws {_q['mass_n']}, on hire no log {len(_q['onhire_no_log'])}, before log {len(_q['onhire_before_log'])}, "
+              f"available with open movement {len(_q['open_but_available'])}")
+    html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat, facts=F, changes=changes, insights=INS)
     L = build_html.last
     card_path = out / f"{stem}_PositionCard.png"
     import k2shell as _sh
@@ -1275,7 +1745,7 @@ def main():
         if contents:
             n_first = _page_count(f"{base}.pdf")
             html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat, facts=F,
-                                  changes=changes, contents=contents)
+                                  changes=changes, contents=contents, insights=INS)
             with open(f"{base}.html", "w", encoding="utf-8") as f:
                 f.write(html_str)
             pdf_ok = write_pdf_robust(f"{base}.html", f"{base}.pdf")

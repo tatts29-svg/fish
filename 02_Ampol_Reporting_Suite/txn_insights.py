@@ -43,6 +43,10 @@ from gasmon_engine import is_gas_monitor, parse_dt, parse_stamp
 # ---------------------------------------------------------------------------
 
 _SERIAL = re.compile(r"\s*-?\s*[A-Z]{4}-\d{3,5}\s*$")
+# a trailing serial token: letters and digits mixed, six or more characters
+# (Motorola radios carry 122TYX0381-style serials in the description)
+_SERIAL2 = re.compile(r"[\s-]+(?=[A-Z0-9]{6,}$)(?=[A-Z0-9]*\d)(?=[A-Z0-9]*[A-Z])[A-Z0-9]{6,}$")
+_QUALIFIER = re.compile(r"\s*-+\s*(T&I|MAINTENANCE|MAINT|TURNAROUND|SHUTDOWN)\s*-*\s*$")
 _NUM = r"(?:\d+(?:[.,]\d+)?(?:\s*\d+/\d+)?|\d+/\d+)"
 _SIZE = re.compile(r"(\s*[-x×/]?\s*\(?" + _NUM + r"\s*(MM|CM|M|IN|INCH|\"|''|FT|KG|G|AH|V|W|A|L|PCS?|PIECE|T|TONNE|PSI|BAR|DEG|°)?\)?)+\s*$", re.I)
 _SITE = re.compile(r"^(?:(?:CALTEX|AMPOL)\s+)+")
@@ -59,7 +63,10 @@ def product_key(desc):
     s = re.sub(r"\s+", " ", str(desc or "").strip().upper())
     s = _SITE.sub("", s)
     s = _SERIAL.sub("", s)
-    s = re.sub(r"\s*-\s*(T&I|MAINTENANCE|MAINT)\s*$", "", s)
+    s = _SERIAL2.sub("", s)
+    for _ in range(2):
+        s = _QUALIFIER.sub("", s)
+    s = _SERIAL2.sub("", s)
     for _ in range(3):
         s2 = _SIZE.sub("", s)
         s2 = _TAIL.sub("", s2)
@@ -145,7 +152,20 @@ def load_all(data_dir=None):
         p = ampol_paths.find_data("Ampol_ToolStore_Pricing*.xlsx")
         if p:
             exact, stripped, _ = eng.load_pricing(p)
-        price = lambda d: eng.price_for(d, d, exact, stripped)   # noqa: E731
+        # WHY (03 Sep 2026): a serial-suffixed description (radios carry
+        # 122TYX0381-style serials) never matches the master line by name.
+        # The master's own price for the same PRODUCT (description with the
+        # size and serial tail removed) is applied - the family rule the
+        # stocktake engine already uses, widened to every product. Ties
+        # take the lower price; nothing is estimated.
+        by_key = {}
+        for d0, p0 in exact.items():
+            k0 = product_key(d0)
+            by_key[k0] = min(by_key.get(k0, p0), p0)
+
+        def price(d):
+            p1 = eng.price_for(d, d, exact, stripped)
+            return p1 if p1 else by_key.get(product_key(d))
     except Exception:
         price = lambda d: None   # noqa: E731
     return {"reg": reg, "reg_time": reg_time, "tx": tx, "tx_window": window,

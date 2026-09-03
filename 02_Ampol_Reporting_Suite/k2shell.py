@@ -1394,23 +1394,27 @@ def line_chart(labels, series, w=636, h=200, colours=None, y_label="", pct=False
         return '<div class="note">Not enough days on record yet for a trend line.</div>'
     hi = 100 if pct else max(allv)
     hi = hi or 1
+    lo = min(0, min(allv))          # a series that dips below zero keeps its axis honest
+    span = (hi - lo) or 1
     step = max(1, (n - 1) // 8 or 1)
     # WHY (03 Sep 2026): the left gutter sizes itself from the widest tick
     # label, so a seven-digit dollar axis never loses its first digit
-    widest = max(len(f"{num(round(hi * (1 - k / 4)))}{'%' if pct else ''}") for k in range(5))
+    widest = max(len(f"{num(round(hi - span * k / 4))}{'%' if pct else ''}") for k in range(5))
     pad_l = max(pad_l, int(widest * 4.6) + 10)
     out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
     # grid
     for k in range(5):
         y = top + (base - top) * k / 4
-        gv = hi * (1 - k / 4)
+        gv = hi - span * k / 4
         out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" y2="{y:.1f}" stroke="#2A3644" stroke-width="1"/>')
         out.append(f'<text x="{pad_l - 5}" y="{y + 3:.1f}" text-anchor="end" fill="#8A9AAC" '
                    f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{num(round(gv))}{"%" if pct else ""}</text>')
     def x_of(i):
         return pad_l + (w - pad_l - pad_r) * i / (n - 1)
     def y_of(v):
-        return top + (base - top) * (1 - v / hi)
+        return top + (base - top) * (1 - (v - lo) / span)
+    if lo < 0:
+        out.append(f'<line x1="{pad_l}" y1="{y_of(0):.1f}" x2="{w - pad_r}" y2="{y_of(0):.1f}" stroke="#8A9AAC" stroke-width="1.2"/>')
     for i, lab in enumerate(labels):
         if i % step == 0 or i == n - 1:
             out.append(f'<text x="{x_of(i):.1f}" y="{base + 14}" text-anchor="middle" fill="#8A9AAC" '
