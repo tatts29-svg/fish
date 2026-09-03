@@ -496,20 +496,25 @@ def team_cards(team):
     return "".join(out)
 
 
-def footer(cfg):
+def footer(cfg, pno=None, ptot=None):
+    """One footer for every page, fixed or flowing (03 Sep 2026): the team
+    on the left, Author and POWERED BY SITEIQ in the centre, the page
+    number on the right - the same three things in the same places as
+    the flowing reports' margin boxes."""
     bits = []
     for p in cfg["team"]:
         sh = f'<span class="sh">{esc(p["shift"])}</span> ' if p.get("shift") else ""
-        bits.append(f'{sh}<b>{esc(p["name"])}</b> {esc(p["role"])}')
-    line = " · ".join(bits)
-    # WHY (02 Sep 2026): the old one-member hint ("add the Ampol store team
-    # in CONFIG") printed on every page of a client PDF. A build note never
-    # belongs on the customer's copy - the footer shows the team it has.
+        bits.append(f'{sh}<b>{esc(p["name"])}</b>, {esc(p["role"])}')
+    line = " &middot; ".join(bits)
     tail = cfg.get("foot_note", "")
     if tail:
         line += f'  <span style="color:#B4C0CB">{esc(tail)}</span>'
-    return ('<div class="foot"><div class="foot-h">Your Coates Tool Store Team</div>'
-            f'<div class="foot-l">{line}</div></div>')
+    page = f"Page {pno} of {ptot}" if pno and ptot else ""
+    return ('<div class="foot"><table class="foot-t"><tr>'
+            f'<td class="fl"><div class="foot-h">Your Coates Tool Store Team</div>'
+            f'<div class="foot-l">{line}</div></td>'
+            f'<td class="fc">Author: <b>Andrew Fisher</b> &nbsp;|&nbsp; POWERED BY SITEIQ</td>'
+            f'<td class="fr">{page}</td></tr></table></div>')
 
 
 def key_strip(cfg):
@@ -552,22 +557,23 @@ def cont_head(cfg, asat_s, pno, ptot):
   <td style="width:205px">
     <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
     <div class="asat">AS AT <b>{esc(asat_s.upper())}</b></div>
-    <div class="pageno">PAGE {pno} OF {ptot}</div>
   </td>
 </tr></table>"""
 
 
 def render_page(cfg, inner, pno, ptot, gen_s, asat_s):
+    """WHY (03 Sep 2026): the page number lives in the footer on every
+    page (one convention with the flowing reports), and the key strip
+    prints on page 1 only - a continuation page gets the room instead."""
     if pno == 1:
         head = (page1_head(cfg, gen_s, asat_s) + key_strip(cfg)
-                + f'<div class="p1no">PAGE 1 OF {ptot}</div>'
                 + '<div class="grule"></div>')
         cls = "page page1"
     else:
-        head = cont_head(cfg, asat_s, pno, ptot) + key_strip(cfg) + '<div class="grule"></div>'
+        head = cont_head(cfg, asat_s, pno, ptot) + '<div class="grule"></div>'
         cls = "page"
     return (f'<div class="{cls}"><div class="frame">{head}'
-            f'<div class="body">{inner}</div>{footer(cfg)}</div></div>')
+            f'<div class="body">{inner}</div>{footer(cfg, pno, ptot)}</div></div>')
 
 
 
@@ -1135,10 +1141,21 @@ def freshness_line(asat_dt, gen_dt=None):
             f"&nbsp;&middot;&nbsp; <b>{age}</b> old at build")
 
 
-def cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh=""):
+def cover_contents(contents, max_rows=10):
+    """'What's inside' on the cover: (title, page) rows. Real page numbers
+    only - pdf_finish.contents_from_pdf reads them off the printed PDF."""
+    rows = [(t, p) for t, p in (contents or []) if t][:max_rows]
+    if not rows:
+        return ""
+    trs = "".join(f'<tr><td class="ct">{esc(str(t))}</td><td class="cp">{esc(str(p))}</td></tr>' for t, p in rows)
+    return f'<div class="cover-toc"><div class="h">What&rsquo;s inside</div><table>{trs}</table></div>'
+
+
+def cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh="", contents=None):
     """rag: 'red' / 'amber' / 'green' paints a stripe down the cover's left
     edge so the status shows before the report opens. fresh: the
-    freshness line (freshness_line()) printed under the as-at stamp."""
+    freshness line (freshness_line()) printed under the as-at stamp.
+    contents: (title, page) rows for the 'What's inside' block."""
     b = cog_b64()
     cog = f'<img class="cover-cog" src="data:image/png;base64,{b}" alt="">' if b else ""
     sm = " sm" if len(str(big)) > 6 else ""
@@ -1152,16 +1169,17 @@ def cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh=""):
             f'<div class="lines">{"<br>".join(lines)}</div>'
             f'<div class="meta">Data as at <b>{esc(asat_s)}</b> {esc(cfg.get("asat_note", ""))}<br>'
             f'Generated <b>{esc(gen_s)}</b> &nbsp;|&nbsp; Author: <b>Andrew Fisher</b></div>{fresh_html}</div>'
+            f'{cover_contents(contents)}'
             f'<div class="cover-siteiq">POWERED BY <span class="q">SITEIQ</span>'
             f'<span class="tag">Equipped for anything</span></div>{cog}')
 
 
-def cover_page(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh=""):
+def cover_page(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh="", contents=None):
     """A full dark cover for client packs (fixed-page families): the one
     number of the day, its label, a few true lines, the as-at stamp,
     the RAG stripe and the freshness line."""
     return (f'<div class="page cover"><div class="frame">'
-            f'{cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag, fresh)}</div></div>')
+            f'{cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag, fresh, contents)}</div></div>')
 
 
 def position_card_png(cfg, asat_s, tiles, band, scores, path, foot=""):
@@ -1290,12 +1308,16 @@ def stacked_hbars(rows, w=636, rowh=22, lab_w=150, val_w=52, colours=None, legen
     bar_w = w - lab_w - val_w
     out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
     if legend:
+        # WHY (03 Sep 2026): each band's total sits in the legend, so the
+        # picture reads without relying on the colours alone
+        band_tot = [sum(r[1][i] for r in rows if i < len(r[1])) for i in range(len(colours))]
         x = lab_w
-        for c, lab in zip(colours, labels):
+        for c, lab, bt in zip(colours, labels, band_tot):
+            lab = f"{lab} \u00b7 {num(bt)}"
             out.append(f'<rect x="{x}" y="3" width="9" height="9" rx="2" fill="{c}"/>')
             out.append(f'<text x="{x + 13}" y="11" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
                        f'font-size="8">{esc(lab)}</text>')
-            x += 13 + 6.2 * len(lab) + 14
+            x += 13 + 4.6 * len(lab) + 14
     for i, (lab, segs) in enumerate(rows):
         y = top + i * rowh
         tot = sum(segs)
@@ -1503,3 +1525,15 @@ def fit_check(doc, css, label, out_dir):
     print(f"Fit check            : PASS - tightest page has {-worst}px to spare, measured in {face} ({label})")
     return True, -worst, rows
 
+
+
+
+def split_long_tail(rows, min_total=10):
+    """(chart_rows, tail_rows): rows whose total is at least min_total go
+    on the chart; the rest are the long tail for a small table. When no
+    row reaches the line, everything is charted (a chart with nothing on
+    it is worse than a busy one). rows: (label, [segments])."""
+    big = [r for r in rows if sum(r[1]) >= min_total]
+    if not big:
+        return list(rows), []
+    return big, [r for r in rows if sum(r[1]) < min_total]

@@ -97,6 +97,13 @@ FLOW_CSS = """
 .k2body .fcover .cover-siteiq { left: 8mm; bottom: 16mm; }
 .k2body .fcover .cover-stripe { left: 0; top: 0; bottom: 0; width: 9px; border-radius: 14px 0 0 14px; }
 .k2body .fcover .cover-status { right: 8mm; top: 12mm; }
+.k2body .fcover .cover-toc { left: 8mm; bottom: 40mm; }
+/* group tables: the title row repeats with the column row on every page */
+.k2body .dt.grp thead tr.gt th { background: #1A2430; color: #FFFFFF; text-align: left; font-size: 10.4px;
+                                 font-weight: 700; padding: 6px 9px; letter-spacing: 0; text-transform: none;
+                                 border-radius: 8px 8px 0 0; }
+.k2body .dt.grp thead tr.gt th .gm { color: #A7B6C4; font-weight: 400; font-size: 9.2px; margin-left: 8px; }
+.k2body .dt.grp { margin-top: 10px; }
 /* the appendix divider: a full page, dark, one line of intent */
 .k2body .fdivider { position: relative; height: 240mm; background: #1A2430; border-radius: 14px;
                     overflow: hidden; break-before: page; page-break-before: always;
@@ -135,10 +142,32 @@ def flow_css(cfg, asat_s):
     return _house_css() + css
 
 
-def cover_block(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh=""):
+def cover_block(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh="", contents=None):
     """The cover as the first block of a flowing report (then a page break).
-    rag paints the status stripe; fresh is the freshness line."""
-    return f'<div class="fcover">{sh.cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag, fresh)}</div>'
+    rag paints the status stripe; fresh is the freshness line; contents
+    is the (title, page) list for the "What's inside" block."""
+    return f'<div class="fcover">{sh.cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag, fresh, contents)}</div>'
+
+
+def group_table(title, meta, headers, rows, aligns=None, cls=""):
+    """A table for one group (a company, a hirer) whose TITLE ROW sits in
+    the thead beside the column headings - so when the group runs over a
+    page, the next page opens with the group's name again, not a bare
+    column row. WHY (03 Sep 2026): a 40-page register read by the counter
+    should never need a flip back to find whose items these are.
+    meta is small text after the title (count, value) - may hold HTML."""
+    aligns = aligns or [""] * len(headers)
+    th = "".join(f'<th class="{a}">{esc(h)}</th>' for h, a in zip(headers, aligns))
+    body = []
+    for i, r in enumerate(rows):
+        z = ' class="z"' if i % 2 else ""
+        tds = "".join(f'<td class="{a}">{c}</td>' for c, a in zip(r, aligns))
+        body.append(f"<tr{z}>{tds}</tr>")
+    k = f"dt grp {cls}".strip()
+    m = f' <span class="gm">{meta}</span>' if meta else ""
+    return (f'<table class="{k}"><thead><tr class="gt"><th colspan="{len(headers)}">'
+            f'<span class="gn">{esc(title)}</span>{m}</th></tr><tr>{th}</tr></thead>'
+            f'<tbody>{"".join(body)}</tbody></table>')
 
 
 def divider_block(title, sub, note=""):

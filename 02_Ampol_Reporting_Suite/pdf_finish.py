@@ -161,6 +161,40 @@ def finish(pdf_path, title, subject, html_doc="", keywords="", has_cover=False,
         return f"NOTE: PDF properties/bookmarks not written ({type(e).__name__}: {e})"
 
 
+def contents_from_pdf(pdf_path, html_doc, has_cover=True, max_rows=10, skip=()):
+    """(title, page) rows for the cover's "What's inside" block, read off
+    the PRINTED pages so every number is real. Level-1 headings only, in
+    document order; "The position" is the first row. skip: titles to leave
+    out (a report's own closing page, say). Empty list when nothing can be
+    read (no PyMuPDF / pypdf) - the cover then prints no block."""
+    heads = [(lv, t) for lv, t in headings_from_html(html_doc) if lv == 1 and t not in skip]
+    pages_text = None
+    try:
+        import pymupdf
+        doc = pymupdf.open(str(pdf_path))
+        pages_text = [_WS.sub(" ", p.get_text()) for p in doc]
+        doc.close()
+    except ImportError:
+        try:
+            from pypdf import PdfReader
+            pages_text = [_WS.sub(" ", (p.extract_text() or "")) for p in PdfReader(str(pdf_path)).pages]
+        except ImportError:
+            return []
+    except Exception:
+        return []
+    rows = [("The position", 2 if has_cover else 1)]
+    cur = 1 if has_cover else 0
+    for _, t in heads:
+        i = _find_page(pages_text, t, cur)
+        if i is None:
+            continue
+        cur = i
+        if rows and rows[-1][1] == i + 1:
+            continue          # one row per page: the first heading on it names it
+        rows.append((t, i + 1))
+    return rows[:max_rows]
+
+
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 3:

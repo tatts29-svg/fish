@@ -300,6 +300,23 @@ def main():
             lines.append(f"    {f}: {n}")
     else:
         lines.append(f"  printed on today's pages: 0 (checked {len(pages)} files)")
+    # WHY (03 Sep 2026): one dash style on every page - the long dash is a
+    # typing habit that reads differently from family to family. The
+    # sweep counts it in the printed text (tags stripped); must be zero.
+    dash_hits = []
+    for f in glob.glob(str(REPORTS / "*" / "*.html")):
+        raw = open(f, encoding="utf-8", errors="ignore").read()
+        n = len(re.findall("\u2014|&mdash;|&#8212;", re.sub(r"<style.*?</style>", " ", raw, flags=re.S)))
+        if n:
+            dash_hits.append((os.path.relpath(f, REPORTS), n))
+    lines.append("")
+    lines.append("One dash style (the long dash must not print):")
+    if dash_hits:
+        fails += 1
+        for f, n in dash_hits:
+            lines.append(f"    {f}: {n} long dash(es)")
+    else:
+        lines.append("  long dashes on today's pages: 0")
     lines.append("")
     if fails:
         lines.append(f"FAIL - {fails} figure(s) on today's pages do not match this count. Do not send.")

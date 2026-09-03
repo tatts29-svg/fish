@@ -80,6 +80,14 @@ body {
 .foot-l { font-size: 8.4px; color: #8A9AAC; line-height: 1.65; }
 .foot-l b { color: #16202C; font-weight: 700; }
 .foot-l .sh { color: #F36F21; font-weight: 700; }
+/* 03 Sep 2026: one footer everywhere - team left, author centre, page right */
+.foot-t { width: 100%; border-collapse: collapse; }
+.foot-t td { vertical-align: bottom; padding: 0; }
+.foot-t .fl { width: 46%; }
+.foot-t .fc { text-align: center; font-size: 8.2px; color: #16202C; font-weight: 700; letter-spacing: 0.4px;
+              padding-bottom: 2px; }
+.foot-t .fc b { color: #16202C; }
+.foot-t .fr { width: 20%; text-align: right; font-size: 8.4px; color: #98A6B4; padding-bottom: 2px; }
 
 /* content area stops above the footer */
 .body { padding-bottom: 23mm; }
@@ -167,10 +175,10 @@ body {
 /* ---------- KEY strip --------------------------------------------- */
 
 .key {
-  margin-top: 10px;
-  font-size: 8.4px;
-  line-height: 1.9;
-  color: #7A8A9A;
+  margin-top: 9px;
+  font-size: 9.2px;      /* 03 Sep 2026: page 1 only, so it can be read */
+  line-height: 1.8;
+  color: #6B7B8B;
 }
 .key .kl {
   color: #8A9AAC;
@@ -586,3 +594,13 @@ table.dt th.w { white-space: nowrap; }
 .three .who { flex: 0 0 150px; font-size: 9.4px; color: #5B6B7B; line-height: 1.4; text-align: right; }
 .three .who::before { content: "OWNER / BY"; display: block; font-size: 7px; letter-spacing: 1.4px;
                       color: #8A9AAC; font-weight: 700; }
+
+
+/* ---------- 03 Sep 2026: "What's inside" on the cover ------------------ */
+.cover-toc { position: absolute; left: 10mm; bottom: 44mm; width: 96mm; color: #C9D6E2; }
+.cover-toc .h { color: #F36F21; font-size: 8.6px; font-weight: 700; letter-spacing: 2.4px;
+                text-transform: uppercase; margin-bottom: 5px; }
+.cover-toc table { border-collapse: collapse; width: 100%; }
+.cover-toc td { padding: 2.2px 0; font-size: 9.6px; border-bottom: 1px solid #2A3644; }
+.cover-toc td.ct { color: #E3EAF1; }
+.cover-toc td.cp { text-align: right; color: #8A9AAC; width: 22px; font-weight: 700; }
