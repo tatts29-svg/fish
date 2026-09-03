@@ -2071,6 +2071,11 @@ table.dt.reg tr.z td { background: #F7F8FA; }
 .k2body table.dt.grp.reg thead tr.gt th .sc .scv b { color: #FFFFFF; }
 .k2body table.dt.grp.reg thead tr.gt th .sc svg { vertical-align: middle; }
 .k2body .ragband { margin-top: 10px; }
+/* WHY (03 Sep 2026): the flowing cover's "What's inside" block sits 40 mm
+   from the foot of the cover; with ten rows it reached the freshness line
+   under the as-at stamp. The cover text starts 8 mm higher here so the two
+   never meet - a shared-frame change is asked for in the layout notes. */
+.k2body .fcover .cover-in { padding-top: 22mm; }
 /* the Executive Summary position page (03 Sep 2026): compact tiles so the
    band and the three things share the page with them */
 .k2body .cpt .tiles { border-spacing: 7px 5px; }
@@ -2086,6 +2091,17 @@ table.dt.reg tr.z td { background: #F7F8FA; }
 .k2body .three { margin-top: 6px; padding: 5px 12px 3px 12px; }
 .k2body .three .t3 { padding: 3px 0; }
 """
+
+
+def over90_words(over_rows):
+    """The cover's over-90 line (03 Sep 2026): the count, then the priced
+    value in brackets - no brackets at all when nothing is over 90 days,
+    and 'nothing priced' when none of the items carries a price."""
+    vb = value_bits(over_rows)
+    if not over_rows:
+        return f"<b>{n_fmt(0)}</b> items out more than 90 days"
+    tail = f"{money(vb['value'])} priced" if vb["priced"] else "nothing priced"
+    return f"<b>{n_fmt(len(over_rows))}</b> items out more than 90 days ({tail})"
 
 
 def k2cfg(title, kicker, key_items):
@@ -2163,6 +2179,12 @@ class Blocks:
     def divider(self, title, sub, note=""):
         # WHY (03 Sep 2026): the full-page APPENDIX divider before a register
         self.items.append(("divider", title, sub, note))
+
+    def page_break(self):
+        # WHY (03 Sep 2026, layout pass): closes the position page - the
+        # next block starts on the page after (page skin only; the email
+        # has no pages)
+        self.items.append(("page_break",))
 
     def email_end(self):
         self.items.append(("email_end",))
@@ -2473,11 +2495,12 @@ def k2_body(bl, limits, how, data_heading=True):
     the answer in one breath - in the peach callout; later stories are body
     paragraphs; headings are section panels; tables, tiles and charts are
     the shared k2shell pieces.
-    WHY (03 Sep 2026, layout pass): the first story closes the position
-    page. Whatever block follows it starts on the page after - a heading
-    becomes a page-break section, anything else is wrapped in one - so the
-    position page holds band, tiles, three things and the story, nothing
-    more."""
+    WHY (03 Sep 2026, layout pass): a page_break block (the Executive
+    Summary, the Tooling On-Hire Report and the quarterlies emit one after
+    their story) makes whatever block follows it start on the page after -
+    a heading becomes a page-break section, anything else is wrapped in
+    one - so the position page holds band, tiles, three things and the
+    story, nothing more."""
     out, first, pb_next = [], True, False
     for b in bl.items:
         k = b[0]
@@ -2488,7 +2511,6 @@ def k2_body(bl, limits, how, data_heading=True):
                 out.append(f'<div class="{cls}"><span class="lead">The position.</span> '
                            f'{b[1]}</div>')
                 first = False
-                pb_next = True
                 continue
             piece = f'<p class="para">{b[1]}</p>'
         elif k == "note":
@@ -2518,6 +2540,9 @@ def k2_body(bl, limits, how, data_heading=True):
             piece = sh.three_things(b[1])
         elif k == "divider":
             piece = k2flow.divider_block(b[1], b[2], b[3])
+        elif k == "page_break":
+            pb_next = True
+            continue
         else:
             continue          # email_end marks where the email stops - nothing on the page
         if pb_next and piece:
@@ -2578,6 +2603,7 @@ def render_quarter(d, qk):
     # WHY (03 Sep 2026): this window's own three things, from its own rows
     bl.three(three_things_for(d, m["rows"], m["label"]))
     bl.story(story)
+    bl.page_break()
     bl.story("Gear on hire in this window that has not come home is billable at replacement "
              "cost at quarter close, and gear no longer needed is removed from hire at the "
              "same point - so this list is the one to walk before the quarter ticks over. "
@@ -2652,7 +2678,6 @@ def render_quarter(d, qk):
     # lines, the stripe from this window's own band, the freshness line and
     # (second pass) what is inside with real page numbers
     q_over = [r for r in m["rows"] if r["days"] is not None and r["days"] > 90]
-    o_vb = value_bits(q_over)
     big_label = (f"items on hire from {m['label']}" if qk != "YEAR"
                  else f"items on hire, issued in {ASAT_DAY.year}")
 
@@ -2661,8 +2686,7 @@ def render_quarter(d, qk):
             f"<b>{money(m['total_val'])}</b> of replacement value in the field "
             f"({n_fmt(m['priced'])} priced / {n_fmt(m['unpriced'])} unpriced)",
             f"<b>{n_fmt(m['n_companies'])}</b> companies, A to Z",
-            f"<b>{n_fmt(len(q_over))}</b> items out more than 90 days "
-            f"({money(o_vb['value']) if o_vb['priced'] else '-'} priced)"], GENERATED, ASAT_SHORT,
+            over90_words(q_over)], GENERATED, ASAT_SHORT,
             rag=band["status"] if band else None,
             fresh=sh.freshness_line(ASAT_DT, GENERATED_DT), contents=contents)
     return report_outputs(
@@ -2801,6 +2825,7 @@ def render_onhire(d):
     # WHY (03 Sep 2026): the same three things the Executive Summary prints
     bl.three(three_things_for(d))
     bl.story(story)
+    bl.page_break()
     bl.story("Every company A to Z, every hirer under it A to Z, every item with its start "
              "date and days out - so anyone can find their gear and hand back what is "
              "finished with. The quarterly charge reports carry the billing position at "
@@ -3080,15 +3105,12 @@ def render_onhire(d):
     # WHY (03 Sep 2026): the cover - the one number, three true lines, the
     # status stripe from the band on page 1, the freshness line and (second
     # pass) what is inside with real page numbers
-    o_vb = x["over90_vb"]
-
     def cover(contents):
         return k2flow.cover_block(cfg, n_fmt(n), "tooling items on hire", [
             f"<b>{money(x['total_val'])}</b> of replacement value in the field "
             f"({n_fmt(x['priced'])} priced / {n_fmt(x['unpriced'])} unpriced)",
             f"<b>{n_fmt(x['n_companies'])}</b> companies, A to Z",
-            f"<b>{n_fmt(len(x['over90']))}</b> items out more than 90 days "
-            f"({money(o_vb['value']) if o_vb['priced'] else '-'} priced)"], GENERATED, ASAT_SHORT,
+            over90_words(x["over90"])], GENERATED, ASAT_SHORT,
             rag=band["status"], fresh=sh.freshness_line(ASAT_DT, GENERATED_DT),
             contents=contents)
     um = util_model(d)
@@ -3398,6 +3420,7 @@ def render_exec(d):
     # list; then the story, and on the page after what moved since the last pull
     bl.three(three_things_for(d))
     bl.story(story)
+    bl.page_break()
     bl.story("The Ampol tool store is running the Coates Way: every issue and every return "
              "is double-scanned, and the quarterly recovery cycle keeps the fleet honest - gear "
              "not returned by quarter close is billable at replacement cost, and this report "
@@ -3489,7 +3512,7 @@ def render_exec(d):
     undated = sum(1 for r in master if not r["date"])
     if undated:
         age_rows.append(("No on-hire date recorded", undated))
-    bl.h2("On-Hire Ageing Profile")
+    bl.h2("On-hire ageing profile")
     bl.chart(
         k2shell.hbars(age_rows, colour=K_ORANGE),
         "How long the current on-hire items have been out - days since their "
@@ -3544,8 +3567,7 @@ def render_exec(d):
             f"<b>{money(x['total_val'])}</b> of replacement value in the field "
             f"({n_fmt(x['priced'])} priced / {n_fmt(x['unpriced'])} unpriced)",
             f"<b>{n_fmt(len(x['companies']))}</b> companies, A to Z",
-            f"<b>{n_fmt(over90_n)}</b> items out more than 90 days "
-            f"({money(over90_vb['value']) if over90_vb['priced'] else '-'} priced)"],
+            over90_words([r for r in master if r["days"] is not None and r["days"] > 90])],
             GENERATED, ASAT_SHORT, rag=band["status"],
             fresh=sh.freshness_line(ASAT_DT, GENERATED_DT), contents=contents)
     card = {"cfg": cfg, "tiles": card_tiles(p1),

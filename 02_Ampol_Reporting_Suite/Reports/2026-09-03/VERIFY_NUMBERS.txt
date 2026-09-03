@@ -1,4 +1,4 @@
-Counted from Data\ exports at 03 Sep 2026 02:35 - none of the report code involved.
+Counted from Data\ exports at 03 Sep 2026 02:38 - none of the report code involved.
 
 FIGURE                                             THIS COUNT   ON TODAY'S PAGE
 ----------------------------------------------------------------------
@@ -36,26 +36,8 @@ One dash style (the long dash must not print):
     Stocktake/Coates_Ampol_Stocktake_Count_Worklist_03Sep2026.html: 109 long dash(es)
     Stocktake/Coates_Ampol_Stocktake_Team_03Sep2026.html: 4 long dash(es)
     Stocktake/Coates_Ampol_Stocktake_Compliance_03Sep2026.html: 3 long dash(es)
-    Gas_Monitors/Coates_Ampol_Gas_Monitors_03Sep2026_EMAIL.html: 1 long dash(es)
-    Gas_Monitors/Coates_Ampol_Gas_Monitor_Dashboard_03Sep2026.html: 46 long dash(es)
-    Gas_Monitors/Coates_Ampol_Gas_Monitors_03Sep2026.html: 19 long dash(es)
     Rigging/Coates_Ampol_Rigging_Register_03Sep2026.html: 6 long dash(es)
     Calibrations/Coates_Ampol_Calibration_Register_03Sep2026_OUTLOOK.body.html: 2 long dash(es)
     Calibrations/Coates_Ampol_Calibration_Register_03Sep2026.html: 12 long dash(es)
-    Tooling/Coates_Ampol_Quarterly_On_Hire_Q3_03Sep2026.body.html: 156 long dash(es)
-    Tooling/Coates_Ampol_Quarterly_On_Hire_Year_03Sep2026.body.html: 266 long dash(es)
-    Tooling/Coates_Ampol_Executive_Summary_03Sep2026.html: 4 long dash(es)
-    Tooling/Coates_Ampol_Utilisation_What_To_Buy_03Sep2026.html: 2 long dash(es)
-    Tooling/Coates_Ampol_Compliance_Trends_03Sep2026.body.html: 2 long dash(es)
-    Tooling/Coates_Ampol_Quarterly_On_Hire_Year_03Sep2026.html: 266 long dash(es)
-    Tooling/Coates_Ampol_Utilisation_What_To_Buy_03Sep2026.body.html: 2 long dash(es)
-    Tooling/Coates_Ampol_Quarterly_On_Hire_Q2_03Sep2026.body.html: 159 long dash(es)
-    Tooling/Coates_Ampol_Compliance_Trends_03Sep2026.html: 2 long dash(es)
-    Tooling/Coates_Ampol_Quarterly_On_Hire_Q3_03Sep2026.html: 156 long dash(es)
-    Tooling/Coates_Ampol_Quarterly_On_Hire_Q1_03Sep2026.html: 62 long dash(es)
-    Tooling/Coates_Ampol_Tooling_On_Hire_03Sep2026.html: 264 long dash(es)
-    Tooling/Coates_Ampol_Quarterly_On_Hire_Q2_03Sep2026.html: 159 long dash(es)
-    Tooling/Coates_Ampol_Executive_Summary_03Sep2026.body.html: 4 long dash(es)
-    Tooling/Coates_Ampol_Quarterly_On_Hire_Q1_03Sep2026.body.html: 62 long dash(es)
 
 FAIL - 1 figure(s) on today's pages do not match this count. Do not send.

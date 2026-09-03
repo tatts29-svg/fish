@@ -516,6 +516,62 @@ def ragc(pct):
 
 
 # =====================================================================
+# the position page (03 Sep 2026): three things to do today, the story
+# =====================================================================
+
+def story_words(fragment):
+    """Word count of a callout with the markup off. The position page's
+    story is held to three lines - about 45 words - and the console
+    prints the count so a longer one is caught before it is sent."""
+    return len(plain(fragment).split())
+
+
+def three_things_stocktake(d, a, band):
+    """The three actions on the position page, each read from the data and
+    dated by the band's own rule (seven days from the export time). The
+    block never invents an action - less to do prints less."""
+    who = f"Andrew Fisher · by {band['due']}"
+    items = []
+    # 1. the bay with the most shelf items unsighted over 30 days
+    bays = defaultdict(list)
+    for r in a["ins_over30"]:
+        bays[r["unit"] or "(no bay recorded)"].append(r)
+    if bays:
+        bay, its = sorted(bays.items(),
+                          key=lambda kv: (-len(kv[1]), ampol_names.sort_key(kv[0])))[0]
+        never = sum(1 for r in its if r["days"] is None)
+        oldest = max((r["days"] for r in its if r["days"] is not None), default=0)
+        where = bay if re.search(r"BAY|STATION|STORE|YARD", bay, re.I) else f"bay {bay}"
+        bits = ([f"oldest {num(oldest)} days"] if oldest else []) + \
+               ([f"{num(never)} never sighted"] if never else [])
+        items.append((f"Walk {where} - {num(len(its))} shelf items unsighted over 30 days",
+                      "; ".join(bits), who))
+    # 2. possible missed returns - gear that is home but still reads on hire
+    n_mr = len(d["missed_returns"])
+    if n_mr:
+        items.append((f"Resolve {num(n_mr)} possible missed {'return' if n_mr == 1 else 'returns'}",
+                      "on hire in SiteIQ, yet sighted in a store bay after the hire date", who))
+    else:
+        n_v = len(d["onhire_due30"])
+        items.append((f"Verify {num(n_v)} on-hire items on their next return",
+                      "no scan of any kind in 30 days - a long hire, checked at the counter", who))
+    # 3. the daily three: gas monitors not seen in 24 hours, else the tier
+    #    furthest behind its own target cycle
+    g_all, g_seen, g_miss = a["gas"]
+    if g_miss:
+        items.append((f"Sight the {num(len(g_miss))} gas monitors not seen in 24 hours",
+                      f"{num(len(g_seen))} of {num(len(g_all))} in-store monitors sighted - "
+                      f"the daily three, not the weekly wheel", who))
+    else:
+        k, lab, tgt, why, tot, ohn, insn, wt, w30, p30 = min(
+            d["tier_stats"], key=lambda t: (t[7] / t[6]) if t[6] else 1)
+        lab = lab.lower().replace("milwaukee", "Milwaukee")
+        items.append((f"Bring {lab} back on cycle - {num(insn - wt)} of {num(insn)} "
+                      f"outside the {tgt}-day target", why, who))
+    return items
+
+
+# =====================================================================
 # CLIENT PDF
 # =====================================================================
 
@@ -525,37 +581,21 @@ def build_client_pages(rows, d, a, export_dt):
     val_cov = (d["val_ok30"] / d["val_total"] * 100) if d["val_total"] else 0
     priced_pct = d["priced_lines"] / len(rows) * 100 if rows else 0
 
-    # ---- P1 scorecard --------------------------------------------------
-    ladders = sh.score_rows([
-        (lab, round(p30),
-         f"{w30} of {insn} in-store items sighted inside the 30-day SOP - "
-         f"internal target is every {tgt} days ({wt} inside it)")
-        for k, lab, tgt, why, tot, ohn, insn, wt, w30, p30 in d["tier_stats"]])
+    # ---- P1 the position - the band, the tiles, three things, the story --
+    # WHY (03 Sep 2026): one grammar for every position page in the suite -
+    # the RAG band first, the tiles with their movement, the three things
+    # to do today, then the story in three lines. The arithmetic behind it
+    # (the donut, the tier ladders, the long paragraph) sits on the
+    # scorecard page after this one, where it has the room to be read.
+    band = rag_band_stocktake(d, a, export_dt)
     ins_pct = (d["ok30_instore"] / len(d["instore"]) * 100) if d["instore"] else 0
-    P.append(f"""{pcallout(
-        f'<span class="lead">The position.</span> One page, one honest answer: '
-        f'is the {esc(CONFIG["client"])} tool store counted and under control? '
-        f'<b>{num(d["countable"])} countable items</b> on the register, '
-        f'<b class="o">{comp:.1f}%</b> sighted inside the 30-day SOP cycle, '
-        f'and <b>{money(d["val_ok30"])}</b> of the <b>{money(d["val_total"])}</b> '
-        f'priced fleet verified in the last 30 days. On the shelf the position '
-        f'is stronger again: <b class="o">{d["ok30_instore"] / len(d["instore"]) * 100 if d["instore"] else 0:.1f}% of '
-        f'in-store items sighted inside 30 days</b>'
-        + (f', with the longest-unsighted shelf item at {num(a["ins_oldest"])} days'
-           if not a["ins_never"] else
-           f', with <b class="rd">{num(a["ins_never"])} never sighted</b>')
-        + f'. Every score prints its own arithmetic - it can be challenged, '
-        f'checked and trusted. <b>{num(d.get("transit_n", 0))} lines</b> that have '
-        f'departed the store (Pending Branch Receipt, or a Departure scan with the '
-        f'item no longer on the live register) are excluded.', False)}
-{rag_band_stocktake(d, a, export_dt)["html"]}
-<table class="two" style="margin-top:10px"><tr>
-  <td style="width:31%"><div class="donut-wrap">
-    {sh.donut(round(comp), sh.health_hex(round(comp)), f"{comp:.0f}%", sh.health_word(round(comp)))}
-    <div class="donut-cap">30-day SOP compliance - whole store</div></div></td>
-  <td style="padding-left:10px">{ladders}</td>
-</tr></table>
-{pnote(f'SOP compliance = items sighted in the last 30 days &divide; countable items = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>. That {num(d["ok30"])} is <b>{num(d["ok30_instore"])} in store + {num(d["ok30_onhire"])} on hire</b> (an on-hire item&rsquo;s sighting is its hire-out or return scan). Of the {num(d["late_instore"] + d["late_onhire"])} items outside 30 days, <b>{num(d["late_onhire"])} are on hire</b> and {num(d["late_instore"])} are on the shelf. Tier bars are rated on in-store assets; on-hire assets are verified through the double-scan return process and shutdown checks, shown separately below.')}
+    story = (f'<span class="lead">The story.</span> <b>{num(d["countable"])}</b> countable items; '
+             f'<b class="o">{ins_pct:.1f}%</b> of the shelf sighted inside the 30-day SOP and '
+             f'<b>{money(d["val_ok30"])}</b> of {money(d["val_total"])} priced fleet verified in 30 days. '
+             f'The risk sits in long-hire gear, not the shelf: {num(len(a["oh_risk180"]))} on-hire items '
+             f'unseen for 180+ days, holding {money(a["oh_risk180_val"])}.')
+    print(f"Story callout        : {story_words(story)} words (client position page, three lines at most)")
+    P.append(f"""{band["html"]}
 {sh.tiles_plus([
     ("box", num(d["countable"]), "Countable items",
      *mv("countable", d["countable"], "up", f"{num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire", "grey")),
@@ -565,7 +605,40 @@ def build_client_pages(rows, d, a, export_dt):
      *mv("val_ok30", round(d["val_ok30"]), "up", f"{val_cov:.0f}% of priced value", "green" if val_cov >= 75 else "amber")),
     ("swap", money(d["val_onhire"]), "Value on hire now",
      *mv("val_onhire", round(d["val_onhire"]), "down", "verified on return", "grey")),
-])}""")
+])}
+{sh.three_things(three_things_stocktake(d, a, band))}
+{pcallout(story)}""")
+
+    # ---- P1b the scorecard - the arithmetic behind the position ---------
+    ladders = sh.score_rows([
+        (lab, round(p30),
+         f"{w30} of {insn} in-store items sighted inside the 30-day SOP - "
+         f"internal target is every {tgt} days ({wt} inside it)")
+        for k, lab, tgt, why, tot, ohn, insn, wt, w30, p30 in d["tier_stats"]])
+    P.append(f"""{psect("The scorecard - the arithmetic behind the position")}
+{pcallout(
+        f'<span class="lead">The position, in full.</span> One honest answer: '
+        f'is the {esc(CONFIG["client"])} tool store counted and under control? '
+        f'<b>{num(d["countable"])} countable items</b> on the register, '
+        f'<b class="o">{comp:.1f}%</b> sighted inside the 30-day SOP cycle, '
+        f'and <b>{money(d["val_ok30"])}</b> of the <b>{money(d["val_total"])}</b> '
+        f'priced fleet verified in the last 30 days. On the shelf the position '
+        f'is stronger again: <b class="o">{ins_pct:.1f}% of '
+        f'in-store items sighted inside 30 days</b>'
+        + (f', with the longest-unsighted shelf item at {num(a["ins_oldest"])} days'
+           if not a["ins_never"] else
+           f', with <b class="rd">{num(a["ins_never"])} never sighted</b>')
+        + f'. Every score prints its own arithmetic - it can be challenged, '
+        f'checked and trusted. <b>{num(d.get("transit_n", 0))} lines</b> that have '
+        f'departed the store (Pending Branch Receipt, or a Departure scan with the '
+        f'item no longer on the live register) are excluded.', False)}
+<table class="two" style="margin-top:10px"><tr>
+  <td style="width:31%"><div class="donut-wrap">
+    {sh.donut(round(comp), sh.health_hex(round(comp)), f"{comp:.0f}%", sh.health_word(round(comp)))}
+    <div class="donut-cap">30-day SOP compliance - whole store</div></div></td>
+  <td style="padding-left:10px">{ladders}</td>
+</tr></table>
+{pnote(f'SOP compliance = items sighted in the last 30 days &divide; countable items = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>. That {num(d["ok30"])} is <b>{num(d["ok30_instore"])} in store + {num(d["ok30_onhire"])} on hire</b> (an on-hire item&rsquo;s sighting is its hire-out or return scan). Of the {num(d["late_instore"] + d["late_onhire"])} items outside 30 days, <b>{num(d["late_onhire"])} are on hire</b> and {num(d["late_instore"])} are on the shelf. Tier bars are rated on in-store assets; on-hire assets are verified through the double-scan return process and shutdown checks, shown separately on the on-hire page.')}""")
 
     # ---- P2 determination + activity -----------------------------------
     wk = a["weekly"]
@@ -1041,15 +1114,74 @@ EXTRA_CSS = """
 """
 
 
+# the client pack's closing sections - never listed on the cover
+CLOSING_HEADINGS = ("The tool store has your back", "Meet the tool store team")
+# a continuation page of a split table - the section is listed once
+_CONT_RE = re.compile(r"\((?:continued|(?:[2-9]|[1-9]\d) of \d+)\)$")
+
+
+def pdf_pages(pdf_path):
+    """Page count of a printed PDF, read from its own page tree."""
+    raw = open(pdf_path, "rb").read()
+    counts = re.findall(rb"/Count\s+(\d+)", raw)
+    return max(int(c) for c in counts) if counts else -1
+
+
+def cover_contents_from_print(doc, pdf_path, html_path, css, closing):
+    """First print of the pack, so the cover's "What's inside" block can
+    carry page numbers read off the printed pages. WHY (03 Sep 2026): a
+    typed-in contents list is a promise pagination can break; these come
+    from the PDF itself (pdf_finish.contents_from_pdf). The cover is one
+    fixed page, so the second print - the one with the block - paginates
+    identically, and main() proves it by comparing the two page counts.
+    Continuation pages of a split table and the closing sections stay off
+    the block; a long title keeps its first clause so the block holds its
+    rows in one column. Returns (rows, page count) - ([], None) when no
+    PDF engine printed."""
+    heads = [t for lv, t in pdf_finish.headings_from_html(doc) if lv == 1]
+    skip = tuple(closing) + tuple(t for t in heads if _CONT_RE.search(t))
+    full = doc.replace("</head>", f"<style>{css}</style></head>", 1)
+    Path(html_path).write_text(full, encoding="utf-8")
+    try:
+        Path(pdf_path).unlink()
+    except OSError:
+        pass
+    if not eng.write_pdf_robust(str(html_path), str(pdf_path)) or not Path(pdf_path).exists():
+        return [], None
+    rows = []
+    for t, p in pdf_finish.contents_from_pdf(pdf_path, full, has_cover=True, skip=skip):
+        t = re.sub(r"\s*\(1 of \d+\)$", "", t)
+        if len(t) > 64 and " - " in t:
+            t = t.split(" - ")[0]
+        rows.append((t, p))
+    return rows, pdf_pages(pdf_path)
+
+
+def hero_page(cfg, inner, pno, ptot, gen_s, asat_s):
+    """The position page behind a cover: page 2 of the pack, but the first
+    page of the report proper, so it wears the hero head and the key strip.
+    WHY (03 Sep 2026): k2shell.render_page gives the hero to page 1 only,
+    and the old build patched the printed page number afterwards - the
+    footer carries the number now, so this composes the shell's own parts
+    (page1_head, key_strip, footer) with the real page number and patches
+    nothing. A render_page(..., hero=True) switch in the shell would
+    retire this."""
+    head = sh.page1_head(cfg, gen_s, asat_s) + sh.key_strip(cfg) + '<div class="grule"></div>'
+    return (f'<div class="page page1"><div class="frame">{head}'
+            f'<div class="body">{inner}</div>{sh.footer(cfg, pno, ptot)}</div></div>')
+
+
 def render_doc(kind, pages, gen_s, asat_s, cover=""):
+    """The cover (when there is one) is page 1; the position page behind
+    it is page 2 and wears the hero head; every page number is the real
+    one, printed in the footer by the shell."""
     cfg = cfg_for(kind)
     off = 1 if cover else 0
     tot = len(pages) + off
     rendered = []
     for i, p in enumerate(pages):
-        if i == 0:
-            rendered.append(sh.render_page(cfg, p, 1, tot, gen_s, asat_s)
-                            .replace(f"PAGE 1 OF {tot}", f"PAGE {1 + off} OF {tot}"))
+        if i == 0 and off:
+            rendered.append(hero_page(cfg, p, 1 + off, tot, gen_s, asat_s))
         else:
             rendered.append(sh.render_page(cfg, p, i + 1 + off, tot, gen_s, asat_s))
     body = cover + "".join(rendered)
@@ -1298,20 +1430,36 @@ def main():
     band = rag_band_stocktake(d, a, export_dt)
     status = band["status"]
     key_value, key_label = f"{ins_pct:.0f}%", "of the shelf sighted inside 30 days"
-    cover = ""
-    if CONFIG.get("cover_page"):
+    cover_lines = [
+        f"<b>{num(d['countable'])}</b> countable items - {num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire",
+        f"<b>{money(d['val_ok30'])}</b> of {money(d['val_total'])} priced fleet verified in the last 30 days",
+        f"<b>{len(g_seen)} of {len(g_all)}</b> in-store gas monitors sighted in the last 24 hours"]
+
+    def cover_for(contents):
         # the cover wears the SAME status as the band on the position page,
-        # and says how old the data was when the pack was built
-        cover = sh.cover_page(cfg_for("client"), key_value, key_label, [
-            f"<b>{num(d['countable'])}</b> countable items - {num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire",
-            f"<b>{money(d['val_ok30'])}</b> of {money(d['val_total'])} priced fleet verified in the last 30 days",
-            f"<b>{len(g_seen)} of {len(g_all)}</b> in-store gas monitors sighted in the last 24 hours"],
-            gen_s, asat_s, rag=status, fresh=sh.freshness_line(export_dt, gen_dt))
-    doc_c, n_c = render_doc("client",
-                            build_client_pages(rows, d, a, export_dt),
-                            gen_s, asat_s, cover=cover)
-    pdf_c = OUT / f"{stem_c}.pdf"
-    checks = [render_k2_pdf(doc_c, pdf_c, OUT / f"{stem_c}.html", n_c, css)]
+        # says how old the data was when the pack was built, and lists
+        # what's inside with page numbers read off the printed pack
+        return sh.cover_page(cfg_for("client"), key_value, key_label, cover_lines, gen_s, asat_s,
+                             rag=status, fresh=sh.freshness_line(export_dt, gen_dt), contents=contents)
+    client_pages = build_client_pages(rows, d, a, export_dt)
+    pdf_c, html_c = OUT / f"{stem_c}.pdf", OUT / f"{stem_c}.html"
+    cover, contents, n_first = "", [], None
+    if CONFIG.get("cover_page"):
+        # WHY (03 Sep 2026): two prints - the first to read the section page
+        # numbers off the printed pack, the second with them on the cover
+        doc_first, _ = render_doc("client", client_pages, gen_s, asat_s, cover=cover_for(None))
+        contents, n_first = cover_contents_from_print(doc_first, pdf_c, html_c, css, CLOSING_HEADINGS)
+        cover = cover_for(contents)
+    doc_c, n_c = render_doc("client", client_pages, gen_s, asat_s, cover=cover)
+    checks = [render_k2_pdf(doc_c, pdf_c, html_c, n_c, css)]
+    if n_first is not None:
+        n_second = pdf_pages(pdf_c)
+        print(f"Cover contents       : {len(contents)} rows - page numbers read off the first print "
+              f"({n_first} pages); the second print has {n_second} pages - "
+              f"{'the same pagination' if n_first == n_second else 'NOT THE SAME'}")
+        if n_first != n_second:
+            sys.exit("ERROR: the pack paginated differently once the cover carried its contents - "
+                     "the page numbers on the cover cannot be trusted. Do not send.")
     print("PDF finish           : " + pdf_finish.finish(
         pdf_c, f"{cfg_for('client')['client']} {cfg_for('client')['title']} - as at {asat_s}",
         "Stocktake compliance for the Ampol Lytton Refinery tool store - the position, coverage by "

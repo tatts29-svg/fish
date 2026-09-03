@@ -133,10 +133,11 @@ def severity_label(days):
     b = bucket(days)
     return {"ok": "TARGET DUE", "due": "SOP DUE", "critical": "CRITICAL", "never": "CRITICAL"}[b]
 
-# WHY (12 Aug 2026): the em dash lives in a constant so f-string expressions
-# can use it - a \u escape inside an f-string expression needs Python 3.12,
-# and this way the suite also runs on a laptop still carrying 3.11.
-DASH = "\u2014"
+# WHY (12 Aug 2026): the blank-cell dash lives in a constant so f-string
+# expressions can use it. WHY (03 Sep 2026): it is the plain hyphen now -
+# one dash style on every page in the suite; the verify gate fails any
+# page that prints the long dash.
+DASH = "-"
 
 def money(v):
     return f"${v:,.0f}" if v is not None else DASH
@@ -556,12 +557,14 @@ likely missed return scans. Locate, confirm, and process through the double-chec
 <td>{r['last'].strftime('%d/%m/%Y') if r['last'] else DASH}</td><td class="num">{money(r['price'])}</td></tr>""")
         parts.append("</table>")
     # Sections 1-3
-    for num, key, blurb in [
-        ("1", "gas", "Priority 1 - 7-day target. Safety-critical: every monitor bumped and charged before issue. Grouped by home bay."),
-        ("2", "radio", "Priority 1 - 7-day target. Radios and radio batteries; charging station cycle should keep these current - anything here is idle."),
-        ("3", "milwaukee", "Priority 2 - 14-day target. High-value cordless tools; count includes batteries and chargers.")]:
+    # WHY (03 Sep 2026): section headings read in sentence case across the
+    # suite, so the tier is named here in that case; the engine's own
+    # tier labels are untouched everywhere else they print.
+    for num, key, label, blurb in [
+        ("1", "gas", "Gas monitors", "Priority 1 - 7-day target. Safety-critical: every monitor bumped and charged before issue. Grouped by home bay."),
+        ("2", "radio", "Radios & radio batteries", "Priority 1 - 7-day target. Radios and radio batteries; charging station cycle should keep these current - anything here is idle."),
+        ("3", "milwaukee", "Milwaukee power tools", "Priority 2 - 14-day target. High-value cordless tools; count includes batteries and chargers.")]:
         items = d["due"][key]
-        label = TIERS[key][0]
         val = sum(r["value"] for r in items if r["value"])
         parts.append(f"""<div class="sect"><h3>{num}. {label} due - {len(items)} items \u00b7 {money(val) if val else 'unpriced'}</h3></div>
 <div class="note">{blurb}</div>""")
@@ -896,7 +899,7 @@ def write_staff_eml(rows, transit, export_dt, d, attachments, eml_path):
 <tr><td style="padding:10px 0;font-size:12px;line-height:1.6">Morning team,<br><br>
 Attached is today's count worklist - PDF for the floor, Excel if you're on a tablet (sort, filter, mark counted).<br><br>
 <b>Priority order, every day: Sections 1\u20132 first (gas monitors, radios & batteries - 7-day cycle), then Section 3
-(Milwaukee - 14-day cycle), then the store walk bay by bay (30-day SOP).</b> Every scan resets that item's clock \u2014
+(Milwaukee - 14-day cycle), then the store walk bay by bay (30-day SOP).</b> Every scan resets that item's clock -
 issues and returns count, so what's left on this list is the idle gear. Discrepancies on the spot: missing - escalate today;
 misplaced - relocate and fix in the system; mismatch - recount and report; damaged - OOS tag, photo, report.</td></tr>
 <tr><td><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">

@@ -942,6 +942,54 @@ def cal_rag(n_od, n_od_oh):
 
 
 # =====================================================================
+# the position page (03 Sep 2026): three things to do today, the story
+# =====================================================================
+
+def story_words(fragment):
+    """Word count of a callout with the markup off. The position page's
+    story is held to three lines - about 45 words - and the console
+    prints the count so a longer one is caught before it is sent."""
+    return len(plain(fragment).split())
+
+
+def three_things_calibration(d, S):
+    """The three actions on the position page, each read from the data and
+    dated by the band's own rule (action_days after the pull). Candidates
+    in priority order; the block prints the first three that exist and
+    never invents one."""
+    who = f"Andrew Fisher · by {S['action_due_s']}"
+    cands = []
+    # 1. overdue and out on hire - the chase list, largest holder named
+    n_od_oh = len(d["now_od_onhire"])
+    if n_od_oh:
+        groups = d["now_chase_hirer"] or d["now_chase_repairs"]
+        top_h, top_items = max(groups, key=lambda kv: len(kv[1]))
+        cands.append((f"Swap or recall {num(n_od_oh)} overdue {plural(n_od_oh, 'asset')} out on hire",
+                      f"a lapsed certificate in a customer's hands - {top_h} holds the most "
+                      f"({num(len(top_items))})", who))
+    # 2. due inside 30 days - the nearest date named
+    n30 = len(d["now_due30"])
+    if n30:
+        first = d["now_due30"][0]
+        cands.append((f"Book the {num(n30)} {plural(n30, 'asset')} due inside 30 days",
+                      f"nearest due date {first['due']:%d %b %Y} - {first['asset']} {first['desc']}".strip(),
+                      who))
+    # 3. the band's dated action: the calibration run for the overdue shelf
+    #    items; the No Date fill-in when the shelf is clear
+    n_av = len(d["now_od_avail"])
+    if n_av:
+        bays = ", ".join(f"{u} {num(n)}" for u, n in d["now_od_avail_units"].most_common(2))
+        cands.append((f"Book the calibration run for the {num(n_av)} overdue shelf {plural(n_av, 'item')}",
+                      f"on the shelf in SiteIQ, not a chase - {bays}", who))
+    n_nd = len(d["nodate"])
+    if n_nd:
+        cands.append((f"Enter certificates for the {num(n_nd)} assets with no date",
+                      f"status unknown until entered - {num(len(d['nd_onhire_live']))} of them out on hire",
+                      who))
+    return cands[:3]
+
+
+# =====================================================================
 # the PDF pages
 # =====================================================================
 
@@ -1066,8 +1114,29 @@ def build_pages(rows, d, S):
                       [(v, lab, re.sub(r"\s*-\s*page @@P:\w+@@", "", note), NOTE_HEX.get(ncls, "#8A9AAC"))
                        for _, v, lab, note, ncls in (where_items[0], where_items[3])]
     mark("position")
-    P.append(f"""<div class="pos">{banner}{pcallout(
-        f'<span class="lead">The position.</span> As at <b>{esc(asat_s)}</b> - the SiteIQ pull - the register holds '
+    # WHY (03 Sep 2026): one grammar for every position page in the suite -
+    # the staleness banner where the family needs it, the RAG band, the
+    # tiles with their movement, the three things to do today, then the
+    # story in three lines. The arithmetic (the donut, the scores, the long
+    # paragraph, the source note) sits on the scorecard page after this one.
+    story = (f'<span class="lead">The story.</span> <b>{num(total)}</b> assets on the register at the pull: '
+             f'<b class="g">{num(len(d["now_incal"]))}</b> in calibration, '
+             f'<b class="a">{num(len(d["now_due30"]))}</b> due inside 30 days, '
+             f'<b class="rd">{num(n_od)}</b> overdue ({num(n_od_oh)} out on hire) and '
+             f'<b>{num(n_nd)}</b> with no certificate date. {num(n_l)} fell due since the due dates '
+             f'were last maintained on {esc(maint_short)}.')
+    print(f"Story callout        : {story_words(story)} words (position page, three lines at most)")
+    P.append(f"""<div class="pos">{banner}{band}
+{prowlab(f"At {esc(asat_s)} - computed from Calibration Due and the SiteIQ pull")}
+{sh.tiles_plus(tiles1)}
+{sh.three_things(three_things_calibration(d, S))}
+{pcallout(story)}</div>""")
+
+    # ---- P1b the scorecard - the arithmetic behind the position ---------
+    mark("scorecard")
+    P.append(f"""{psect("The scorecard - the arithmetic behind the position")}
+{pcallout(
+        f'<span class="lead">The position, in full.</span> As at <b>{esc(asat_s)}</b> - the SiteIQ pull - the register holds '
         f'<b>{num(total)} assets on the calibration register</b>: '
         f'<b class="g">{num(len(d["now_incal"]))} in calibration</b>, '
         f'<b class="a">{num(len(d["now_due30"]))} due inside 30 days</b>, '
@@ -1087,10 +1156,7 @@ def build_pages(rows, d, S):
          f"the other {num(len(d['nodate']))} have no certificate entered yet"),
     ])}</td>
 </tr></table>
-{prowlab(f"At {esc(asat_s)} - computed from Calibration Due and the SiteIQ pull")}
-{sh.tiles_plus(tiles1)}
-{band}
-{pnote(S["source_note"])}</div>""")
+{pnote(S["source_note"])}""")
 
     # ---- P2 status mix, and the register's own view for comparison ------
     segs_now = [(lab, d["now"].get(lab, 0), col)
@@ -1309,8 +1375,8 @@ def build_pages(rows, d, S):
     n_ndl = len(d["nd_onhire_live"])
     nd_fam_words = ", ".join(f'{esc(f.lower())} {num(n)}' for f, n in d["nd_onhire_family"].most_common(4))
     mark("nodate")
-    P.append(f"""{psect("No Date - calibration status unknown until the certificate is entered")}
-{pcallout(f'<b>{num(len(nd))} assets</b> sit on the register with no calibration due date entered. Say it straight: their <b>calibration status is unknown</b> - the register cannot say whether they are in date, and neither can this report, until the certificate details are entered. They are not counted as failed and not counted as in date. <b class="a">{num(n_ndl)} of them {isare(n_ndl)} out on hire at {esc(asat_s)}</b>' + (f' ({nd_fam_words})' if nd_fam_words else "") + f'. {num(len(d["nd_missing"]))} {isare(len(d["nd_missing"]))} not in SiteIQ at all. {num(d["nd_serial"])} {"carries" if d["nd_serial"] == 1 else "carry"} a serial number. Each certificate entered moves an asset from this page onto the dated fleet on page @@P:position@@ - that is the fill-in work under way, and the on-hire ones come first.', False)}
+    P.append(f"""{psect("No date - calibration status unknown until the certificate is entered")}
+{pcallout(f'<b>{num(len(nd))} assets</b> sit on the register with no calibration due date entered. Say it straight: their <b>calibration status is unknown</b> - the register cannot say whether they are in date, and neither can this report, until the certificate details are entered. They are not counted as failed and not counted as in date. <b class="a">{num(n_ndl)} of them {isare(n_ndl)} out on hire at {esc(asat_s)}</b>' + (f' ({nd_fam_words})' if nd_fam_words else "") + f'. {num(len(d["nd_missing"]))} {isare(len(d["nd_missing"]))} not in SiteIQ at all. {num(d["nd_serial"])} {"carries" if d["nd_serial"] == 1 else "carry"} a serial number. Each certificate entered moves an asset from this page onto the dated fleet on page @@P:scorecard@@ - that is the fill-in work under way, and the on-hire ones come first.', False)}
 {psubh("Where they sit", f"- No Date assets by SiteIQ bay at {asat_day}, top {len(units_top)} of {len(d['nd_units'])}")}
 {chartpanel(sh.hbars([(u, n) for u, n in units_top], colour=K["blue"]))}
 {psubh("What they are", f"- by item family, top {len(fam_top)} of {len(d['nd_family'])}")}
@@ -1413,12 +1479,70 @@ EXTRA_CSS = """
 """
 
 
+# the pack's closing sections - never listed on the cover
+CLOSING_HEADINGS = ("How the calibrated fleet is run", "Meet the tool store team")
+# a continuation page of a split table - the section is listed once
+_CONT_RE = re.compile(r"\((?:continued|(?:[2-9]|[1-9]\d) of \d+)\)$")
+
+
+def pdf_pages(pdf_path):
+    """Page count of a printed PDF, read from its own page tree."""
+    raw = open(pdf_path, "rb").read()
+    counts = re.findall(rb"/Count\s+(\d+)", raw)
+    return max(int(c) for c in counts) if counts else -1
+
+
+def cover_contents_from_print(doc, pdf_path, html_path, css, closing):
+    """First print of the pack, so the cover's "What's inside" block can
+    carry page numbers read off the printed pages. WHY (03 Sep 2026): a
+    typed-in contents list is a promise pagination can break; these come
+    from the PDF itself (pdf_finish.contents_from_pdf). The cover is one
+    fixed page, so the second print - the one with the block - paginates
+    identically, and main() proves it by comparing the two page counts.
+    Continuation pages of a split table and the closing sections stay off
+    the block; a long title keeps its first clause so the block holds its
+    rows in one column. Returns (rows, page count) - ([], None) when no
+    PDF engine printed."""
+    heads = [t for lv, t in pdf_finish.headings_from_html(doc) if lv == 1]
+    skip = tuple(closing) + tuple(t for t in heads if _CONT_RE.search(t))
+    full = doc.replace("</head>", f"<style>{css}</style></head>", 1)
+    Path(html_path).write_text(full, encoding="utf-8")
+    try:
+        Path(pdf_path).unlink()
+    except OSError:
+        pass
+    if not eng.write_pdf_robust(str(html_path), str(pdf_path)) or not Path(pdf_path).exists():
+        return [], None
+    rows = []
+    for t, p in pdf_finish.contents_from_pdf(pdf_path, full, has_cover=True, skip=skip):
+        t = re.sub(r"\s*\(1 of \d+\)$", "", t)
+        if len(t) > 64 and " - " in t:
+            t = t.split(" - ")[0]
+        rows.append((t, p))
+    return rows, pdf_pages(pdf_path)
+
+
+def hero_page(cfg, inner, pno, ptot, gen_s, asat_s):
+    """The position page behind the cover: page 2 of the pack, but the
+    first page of the report proper, so it wears the hero head and the key
+    strip. WHY (03 Sep 2026): k2shell.render_page gives the hero to page 1
+    only; the footer carries the number now, so this composes the shell's
+    own parts (page1_head, key_strip, footer) with the real page number
+    and patches nothing. A render_page(..., hero=True) switch in the shell
+    would retire this."""
+    head = sh.page1_head(cfg, gen_s, asat_s) + sh.key_strip(cfg) + '<div class="grule"></div>'
+    return (f'<div class="page page1"><div class="frame">{head}'
+            f'<div class="body">{inner}</div>{sh.footer(cfg, pno, ptot)}</div></div>')
+
+
 def render_doc(pages, cover, gen_s, asat_s):
-    """The cover is page 1 of the pack; the position page is page 2 and
-    every page number and cross-reference counts from there."""
+    """The cover is page 1 of the pack; the position page is page 2, wears
+    the hero head, and every page number and cross-reference counts from
+    there."""
     tot = len(pages) + COVER_PAGES
-    body = cover + "".join(sh.render_page(CONFIG, p, i + 1 + COVER_PAGES, tot, gen_s, asat_s)
-                           for i, p in enumerate(pages))
+    body = cover + "".join(
+        (hero_page if i == 0 else sh.render_page)(CONFIG, p, i + 1 + COVER_PAGES, tot, gen_s, asat_s)
+        for i, p in enumerate(pages))
     doc = (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
            f'<title>Coates {esc(CONFIG["client"])} {esc(CONFIG["title"])} - '
            f'{esc(asat_s)}</title><style>{EXTRA_CSS}</style></head><body>{body}</body></html>')
@@ -1743,14 +1867,34 @@ def main():
     # wearing the SAME status as the band on the position page, and saying
     # how old the data was when the pack was built
     key_value, key_label = num(len(d["now_overdue"])), "assets overdue at the pull"
-    cover = sh.cover_page(CONFIG, key_value, key_label, [
+    cover_lines = [
         f'<b>{num(len(d["now_incal"]))}</b> in calibration - current, next due 31+ days',
         f'<b>{num(len(d["now_due30"]))}</b> due inside 30 days - book them in now',
         f'<b>{num(n_nd)}</b> with no certificate date - status unknown until it is entered',
-    ], gen_s, asat_s, rag=S["band"][0], fresh=sh.freshness_line(pulled, gen_dt))
-    doc, n_pages = render_doc(pages, cover, gen_s, asat_s)
+    ]
+
+    def cover_for(contents):
+        return sh.cover_page(CONFIG, key_value, key_label, cover_lines, gen_s, asat_s,
+                             rag=S["band"][0], fresh=sh.freshness_line(pulled, gen_dt), contents=contents)
     pdf_path = OUT / CONFIG["pdf_name"]
+    # WHY (03 Sep 2026): two prints - the first to read the section page
+    # numbers off the printed pack, the second with them on the cover
+    doc_first, _ = render_doc(pages, cover_for(None), gen_s, asat_s)
+    contents, n_first = cover_contents_from_print(doc_first, pdf_path, OUT / CONFIG["page_html"], css,
+                                                  CLOSING_HEADINGS)
+    doc, n_pages = render_doc(pages, cover_for(contents), gen_s, asat_s)
     pdf_ok, layout_ok = render_k2_pdf(doc, pdf_path, n_pages, css)
+    if pdf_ok and n_first is not None:
+        n_second = pdf_pages(pdf_path)
+        print(f"Cover contents       : {len(contents)} rows - page numbers read off the first print "
+              f"({n_first} pages); the second print has {n_second} pages - "
+              f"{'the same pagination' if n_first == n_second else 'NOT THE SAME'}")
+        if n_first != n_second:
+            print("*" * 68)
+            print("WARNING: the pack paginated differently once the cover carried its contents -")
+            print("         the page numbers on the cover cannot be trusted. Do not send as is.")
+            print("*" * 68)
+            layout_ok = False
     print(f"Page HTML kept       : {OUT / CONFIG['page_html']}")
     if pdf_ok:
         print("PDF finish           : " + pdf_finish.finish(

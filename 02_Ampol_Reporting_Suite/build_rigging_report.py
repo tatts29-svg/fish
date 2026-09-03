@@ -938,6 +938,56 @@ def paginate(rows, first_budget, next_budget):
 
 
 # =====================================================================
+# the position page (03 Sep 2026): three things to do today, the story
+# =====================================================================
+
+def story_words(fragment):
+    """Word count of a callout with the markup off. The position page's
+    story is held to three lines - about 45 words - and the console
+    prints the count so a longer one is caught before it is sent."""
+    return len(plain(fragment).split())
+
+
+def three_things_rigging(d, rag):
+    """The three actions on the position page, each read from the data and
+    dated by the band's own rule (action_days after the pull). Candidates
+    in priority order; the block prints the first three that exist and
+    never invents one."""
+    who = f"Andrew Fisher · by {rag['due']}"
+    cands = []
+    # 1. the hunt list - who was last holding the most of it
+    ms = d["missing"]
+    if ms:
+        holders = Counter((it["snap"] or {}).get("hirer", "") for it in ms
+                          if (it["snap"] or {}).get("status", "").lower() == "on hire")
+        holders.pop("", None)
+        snap = f" of {d['snap_max']:%d %b %Y}" if d["snap_max"] else ""
+        if holders:
+            h, k = holders.most_common(1)[0]
+            why = (f"{num(k)} last seen on hire with {h}, per the workbook snapshot{snap} - "
+                   f"the first person to ask")
+        else:
+            c, k = d["missing_cats"].most_common(1)[0]
+            why = f"{num(k)} of them {c.lower()} - whereabouts unknown until SiteIQ returns them"
+        cands.append((f"Hunt the {num(len(ms))} register items SiteIQ cannot see", why, who))
+    # 2. the oldest customer hire
+    if d["oh_longest"]:
+        o = d["oh_longest"][0]
+        cands.append((f"Chase {o['company'] or o['hirer']} for {o['barcode']}, out {num(o['held'])} days",
+                      f"{o['desc']} - {o['hirer']}, on hire since {o['since']:%d %b %Y}", who))
+    # 3. the custody lines; the test-record gap when there are none
+    if d["repair"]:
+        lines = ", ".join(f"{r['hirer']} {num(r['n'])}" for r in d["repair_lines"][:2])
+        cands.append((f"Clear {num(len(d['repair']))} items at repairs or quarantine",
+                      f"custody lines, not customer hire - {lines}", who))
+    fill_n, rows_n = len(d["with_test"]), d["rows"]
+    if fill_n < rows_n:
+        cands.append((f"Start the test records - {num(fill_n)} of {num(rows_n)} rows entered",
+                      "the eight test columns on the Master are blank; a dash is not a certificate", who))
+    return cands[:3]
+
+
+# =====================================================================
 # the PDF pages
 # =====================================================================
 
@@ -960,7 +1010,25 @@ def build_pages(d, asat_s):
                  f'({esc(", ".join(f"{k} {v}" for k, v in d["other_status"].most_common()))})'
                  if ot_n else "")
 
-    # ---- P1 the position ------------------------------------------------
+    # ---- P1 the position - the band, the tiles, three things, the story --
+    # WHY (03 Sep 2026): one grammar for every position page in the suite -
+    # the RAG band first, the tiles with their movement, the three things
+    # to do today, then the story in three lines. The arithmetic behind it
+    # (the donut, the ladders, the long paragraph, the where-the-barcodes-
+    # are band) sits on the scorecard page after this one.
+    rag = rig_rag(d)
+    story = (f'<span class="lead">The story.</span> <b>{num(rows_n)}</b> register rows, <b>{num(distinct)}</b> '
+             f'distinct barcodes, joined to SiteIQ at the pull: <b>{num(found_n)} found ({d["found_pct"]}%)</b> - '
+             f'{num(oh_n)} on hire to customers across {num(n_co)} companies, {num(st_n)} in the store, '
+             f'{num(rp_n)} at repairs - and <b class="o">{num(ms_n)} not found, whereabouts unknown</b>. '
+             f'Test records: {num(fill_n)} of {num(rows_n)} rows.')
+    print(f"Story callout        : {story_words(story)} words (position page, three lines at most)")
+    P.append(f"""<div class="pos">{sh.rag_band(rag["status"], rag["headline"], rag["rule"], rag["owner"], rag["action"])}
+{sh.tiles_plus(rig_tiles(d), per_row=6)}
+{sh.three_things(three_things_rigging(d, rag))}
+{pcallout(story)}</div>""")
+
+    # ---- P1b the scorecard - the arithmetic behind the position ---------
     ladders = sh.score_rows([
         ("Found in SiteIQ", d["found_pct"],
          f"{num(found_n)} of {num(distinct)} distinct register barcodes are returned "
@@ -970,16 +1038,16 @@ def build_pages(d, asat_s):
          f"{num(fill_n)} of {num(rows_n)} register rows have any of the eight test "
          f"columns entered - see page __PG_TEST__"),
     ])
-    band = sh.stackband([
+    where_band = sh.stackband([
         ("On hire to customers", oh_n, K["orange"]),
         ("At repairs / quarantined", rp_n, K["amber"]),
         ("In the store", st_n, K["green"]),
     ] + ([("Other SiteIQ status", ot_n, K["blue"])] if ot_n else []) + [
         ("Not found in SiteIQ", ms_n, K["red"]),
     ])
-    rag = rig_rag(d)
-    P.append(f"""<div class="pos">{pcallout(
-        f'<span class="lead">The position.</span> One page, one honest answer: '
+    P.append(f"""{psect("The scorecard - the arithmetic behind the position")}
+{pcallout(
+        f'<span class="lead">The position, in full.</span> One honest answer: '
         f'is the {esc(CONFIG["client"])} rigging and height-safety fleet on the '
         f'register and accounted for? The register carries <b>{num(rows_n)} rows</b> '
         f'- <b>{num(distinct)} distinct barcodes</b> ({num(len(d["blank"]))} blank, '
@@ -998,9 +1066,7 @@ def build_pages(d, asat_s):
   <td style="padding-left:10px">{ladders}</td>
 </tr></table>
 {psubh("Where the barcodes are", f"- every one of the {num(distinct)}, per the SiteIQ pull")}
-{chartpanel(band)}
-{sh.tiles_plus(rig_tiles(d), per_row=6)}
-{sh.rag_band(rag["status"], rag["headline"], rag["rule"], rag["owner"], rag["action"])}</div>""")
+{chartpanel(where_band)}""")
 
     # ---- P2 where the gear is - by company ------------------------------
     pg_company = len(P) + 1 + COVER_PAGES
@@ -1292,12 +1358,70 @@ EXTRA_CSS = """
 """
 
 
+# the pack's closing sections - never listed on the cover
+CLOSING_HEADINGS = ("How the rigging fleet is run", "Meet the tool store team")
+# a continuation page of a split table - the section is listed once
+_CONT_RE = re.compile(r"\((?:continued|(?:[2-9]|[1-9]\d) of \d+)\)$")
+
+
+def pdf_pages(pdf_path):
+    """Page count of a printed PDF, read from its own page tree."""
+    raw = open(pdf_path, "rb").read()
+    counts = re.findall(rb"/Count\s+(\d+)", raw)
+    return max(int(c) for c in counts) if counts else -1
+
+
+def cover_contents_from_print(doc, pdf_path, html_path, css, closing):
+    """First print of the pack, so the cover's "What's inside" block can
+    carry page numbers read off the printed pages. WHY (03 Sep 2026): a
+    typed-in contents list is a promise pagination can break; these come
+    from the PDF itself (pdf_finish.contents_from_pdf). The cover is one
+    fixed page, so the second print - the one with the block - paginates
+    identically, and main() proves it by comparing the two page counts.
+    Continuation pages of a split table and the closing sections stay off
+    the block; a long title keeps its first clause so the block holds its
+    rows in one column. Returns (rows, page count) - ([], None) when no
+    PDF engine printed."""
+    heads = [t for lv, t in pdf_finish.headings_from_html(doc) if lv == 1]
+    skip = tuple(closing) + tuple(t for t in heads if _CONT_RE.search(t))
+    full = doc.replace("</head>", f"<style>{css}</style></head>", 1)
+    Path(html_path).write_text(full, encoding="utf-8")
+    try:
+        Path(pdf_path).unlink()
+    except OSError:
+        pass
+    if not eng.write_pdf_robust(str(html_path), str(pdf_path)) or not Path(pdf_path).exists():
+        return [], None
+    rows = []
+    for t, p in pdf_finish.contents_from_pdf(pdf_path, full, has_cover=True, skip=skip):
+        t = re.sub(r"\s*\(1 of \d+\)$", "", t)
+        if len(t) > 64 and " - " in t:
+            t = t.split(" - ")[0]
+        rows.append((t, p))
+    return rows, pdf_pages(pdf_path)
+
+
+def hero_page(cfg, inner, pno, ptot, gen_s, asat_s):
+    """The position page behind the cover: page 2 of the pack, but the
+    first page of the report proper, so it wears the hero head and the key
+    strip. WHY (03 Sep 2026): k2shell.render_page gives the hero to page 1
+    only; the footer carries the number now, so this composes the shell's
+    own parts (page1_head, key_strip, footer) with the real page number
+    and patches nothing. A render_page(..., hero=True) switch in the shell
+    would retire this."""
+    head = sh.page1_head(cfg, gen_s, asat_s) + sh.key_strip(cfg) + '<div class="grule"></div>'
+    return (f'<div class="page page1"><div class="frame">{head}'
+            f'<div class="body">{inner}</div>{sh.footer(cfg, pno, ptot)}</div></div>')
+
+
 def render_doc(pages, cover, gen_s, asat_s):
-    """The cover is page 1 of the pack; the position page is page 2 and
-    every page number and cross-reference counts from there."""
+    """The cover is page 1 of the pack; the position page is page 2, wears
+    the hero head, and every page number and cross-reference counts from
+    there."""
     tot = len(pages) + COVER_PAGES
-    body = cover + "".join(sh.render_page(CONFIG, p, i + 1 + COVER_PAGES, tot, gen_s, asat_s)
-                           for i, p in enumerate(pages))
+    body = cover + "".join(
+        (hero_page if i == 0 else sh.render_page)(CONFIG, p, i + 1 + COVER_PAGES, tot, gen_s, asat_s)
+        for i, p in enumerate(pages))
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<title>Coates {esc(CONFIG["client"])} {esc(CONFIG["title"])} - '
             f'{esc(asat_s)}</title><style>{EXTRA_CSS}</style></head><body>{body}</body></html>'), tot
@@ -1537,14 +1661,35 @@ def main():
     # how old the data was when the pack was built
     rag = rig_rag(d)
     key_value, key_label = num(len(d["missing"])), "register items SiteIQ cannot see"
-    cover = sh.cover_page(CONFIG, key_value, key_label, [
+    cover_lines = [
         f'<b>{num(len(d["onhire"]))}</b> on hire to customers across <b>{num(len(d["companies"]))}</b> companies',
         f'<b>{num(len(d["store"]))}</b> in the store, available for hire',
         f'<b>{num(len(d["repair"]))}</b> at repairs or quarantined',
-    ], gen_s, asat_s, rag=rag["status"], fresh=sh.freshness_line(asat_dt, gen_dt))
-    doc, n_pages = render_doc(build_pages(d, asat_s), cover, gen_s, asat_s)
+    ]
+
+    def cover_for(contents):
+        return sh.cover_page(CONFIG, key_value, key_label, cover_lines, gen_s, asat_s,
+                             rag=rag["status"], fresh=sh.freshness_line(asat_dt, gen_dt), contents=contents)
+    pages = build_pages(d, asat_s)
     pdf_path = OUT / CONFIG["pdf_name"]
+    # WHY (03 Sep 2026): two prints - the first to read the section page
+    # numbers off the printed pack, the second with them on the cover
+    doc_first, _ = render_doc(pages, cover_for(None), gen_s, asat_s)
+    contents, n_first = cover_contents_from_print(doc_first, pdf_path, OUT / CONFIG["pdf_html"], css,
+                                                  CLOSING_HEADINGS)
+    doc, n_pages = render_doc(pages, cover_for(contents), gen_s, asat_s)
     pdf_ok, layout_ok = render_k2_pdf(doc, pdf_path, n_pages, css)
+    if pdf_ok and n_first is not None:
+        n_second = pdf_pages(pdf_path)
+        print(f"Cover contents       : {len(contents)} rows - page numbers read off the first print "
+              f"({n_first} pages); the second print has {n_second} pages - "
+              f"{'the same pagination' if n_first == n_second else 'NOT THE SAME'}")
+        if n_first != n_second:
+            print("*" * 68)
+            print("WARNING: the pack paginated differently once the cover carried its contents -")
+            print("         the page numbers on the cover cannot be trusted. Do not send as is.")
+            print("*" * 68)
+            layout_ok = False
     if pdf_ok:
         print("PDF finish           : " + pdf_finish.finish(
             pdf_path, f"{CONFIG['client']} {CONFIG['title']} - as at {asat_s}",
