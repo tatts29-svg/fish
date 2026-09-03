@@ -458,3 +458,18 @@ The only company target turned into a tool-store comparison is Redline
 (fleet unavailable, under 15%) against the gas monitor repair queue,
 which is the same measure. Company-level KPIs (NPS, ROCE, EBIT, win rate,
 engagement) are deliberately not printed as tool-store figures.
+
+### The insights pass (3 Sep 2026, v1.9)
+
+`txn_insights.py` is the one engine over the transaction log: `load_all()`
+once per build (about 14 s for 90,602 rows), then every function takes a
+`scope_barcodes` set so each family's figures tie to its own page 1
+(`None` = store-wide). `product_key()` strips the site prefix, serial
+tails and trailing sizes and folds the three gas-monitor description
+conventions into one product; `report_family()` classes a description as
+gas / radio / tooling for the cross-family holder view. The quarter-close
+figure is arithmetic on the on-hire date (out < 90 days today, >= 90 by
+the quarter's last day) and is always worded "unless returned". Items on
+hire with no movement in the log are split into "since the log began" (a
+real gap) and "issued before the log begins" (history). `VERIFY_NUMBERS`
+recounts the four store-wide headline figures from the raw rows.

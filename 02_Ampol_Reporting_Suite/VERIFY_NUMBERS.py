@@ -160,6 +160,18 @@ def count_everything():
     # utilisation report, and they must agree.
     import datetime as _dt
     from datetime import date as _date
+    pull_stamp = None
+    try:
+        _wb = openpyxl.load_workbook(find("RENTAL_STOCK*.xlsx"), read_only=True, data_only=True)
+        if "REFERENCE_INFO" in _wb.sheetnames:
+            _rows = list(_wb["REFERENCE_INFO"].iter_rows(min_row=1, max_row=2, values_only=True))
+            _hdr = [str(h or "").upper() for h in _rows[0]]
+            for _i, _h in enumerate(_hdr):
+                if "REQUESTED_DATE" in _h and _i < len(_rows[1]) and _rows[1][_i]:
+                    pull_stamp = _dt.datetime.strptime(str(_rows[1][_i]).strip(), "%d/%m/%Y %I:%M %p")
+        _wb.close()
+    except Exception:
+        pull_stamp = None
     pull_day = pull_stamp.date() if pull_stamp else _date.today()
     qn = (pull_day.month - 1) // 3
     qend = _date(pull_day.year, qn * 3 + 3, [31, 30, 30, 31][qn])

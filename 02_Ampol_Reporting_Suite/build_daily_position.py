@@ -140,6 +140,7 @@ EXTRA_CSS = """
 .fam .big .k { font-size: 9.2px; color: #5B6B7B; }
 .fam .big .v2 { font-size: 12.5px; font-weight: 700; color: #16202C; margin-left: auto; }
 .fam .big .k2 { font-size: 8.6px; color: #5B6B7B; }
+.fam .v3 { margin-top: 2px; font-size: 8.8px; color: #5B6B7B; } .fam .v3 b { color: #16202C; font-size: 10px; }
 .fam .mv { display: flex; align-items: center; gap: 8px; margin-top: 1px; font-size: 8.6px; font-weight: 700; }
 .fam .mv .green { color: #16A34A; } .fam .mv .red { color: #DC2626; } .fam .mv .grey { color: #8A9AAC; }
 .fam .mv .spark { display: inline-block; }
@@ -175,13 +176,17 @@ def family_card(fam, name, button, ico, entry, run_day, series=()):
         act = (f'<div class="act"><b>{esc(x.get("owner", ""))}</b> &middot; {esc(x.get("action", ""))}'
                + (f' &middot; by <b>{esc(due)}</b>' if due and due not in x.get("action", "") else "") + "</div>")
     asat = entry.get("asat", "")
+    # a third figure when the family records one (tooling: the items that
+    # cross 90 days by quarter close unless returned)
+    v3 = (f'<div class="v3"><b>{esc(str(x.get("third_value")))}</b> {esc(x.get("third_label", ""))}</div>'
+          if x.get("third_value") not in (None, "") else "")
     mv, mcls = key_movement(fam, series)
     spark = sh.sparkline([n for _, n in series], w=96, h=20) if len(series) >= 2 else ""
     move = (f'<div class="mv"><span class="{mcls}">{esc(mv)}</span>{spark}</div>' if mv else "")
     return (f'<div class="fc {cls}"><div class="fh">{sh.icon(ico)}<div class="nm">{esc(name)}</div>'
             f'<div class="pill">{word}</div></div>'
             f'<div class="big"><div class="v">{esc(str(x.get("key_value", "-")))}</div>'
-            f'<div class="k">{esc(x.get("key_label", ""))}</div>{v2}</div>{move}'
+            f'<div class="k">{esc(x.get("key_label", ""))}</div>{v2}</div>{v3}{move}'
             f'<div class="fhl">{esc(x.get("headline", ""))}</div>{act}'
             f'<div class="act" style="border-top:0;padding-top:2px">Pull {esc(asat)} &middot; {esc(x.get("title", ""))}'
             + (f' &middot; <b>built {esc(str(entry.get("written", ""))[:11])} - not today</b>' if entry.get("_stale") else "")

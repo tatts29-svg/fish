@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.8  (03 Sep 2026)
+Version: 1.9  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -253,3 +253,31 @@ v1.8 - 03 Sep 2026  (The Coates Way, branch edition July 2026)
     line the fleet sits. No other company target is turned into a
     tool-store number - NPS, ROCE, EBIT, win rate and engagement are
     not tool-store measures and are not printed as such.
+
+v1.9 - 03 Sep 2026  (what the transaction log already knows)
+  - txn_insights.py reads the TRANSACTIONS export once (every issue and
+    return since 1 Jan) and the register, and answers for any family:
+    the year in movements week by week, the company league by month,
+    what crosses 90 days by quarter close unless it comes back (arithmetic
+    on the on-hire date, never a forecast), dead stock that has not moved
+    all year with its value, fleet against the peak out at once, return
+    windows by product (median and ninth-decile hold), who holds what and
+    the 80/20 of exposure, the counter's rhythm by weekday and hour, what
+    the log and the register disagree on, and the fast movers by bay.
+  - Executive summary: the store's year in movements, who holds what,
+    the counter's rhythm, and what the log and the register disagree on.
+  - Tooling on-hire and quarterlies: the quarter-close look forward by
+    company; return windows by product with the data behind the 90-day
+    line printed under the rule; the year in movements.
+  - Utilisation: dead stock, headroom with a printed buy / cut rule
+    (marks, not decisions), fast movers.
+  - Radios: the year in movements and the company league, return windows,
+    the counter's rhythm, who holds what, the log checked.
+  - Gas monitors: return windows in hours and the log checked on the data
+    page. Stocktake: fast movers by bay. Rigging: the year in movements.
+  - VERIFY_NUMBERS recounts the four store-wide headline figures from the
+    raw rows with none of the engine involved: items crossing 90 days by
+    quarter close, available items never moved this year, movements
+    closed inside six minutes, the busiest counter hour.
+  - Daily position: a third figure per family where one is recorded
+    (tooling: items crossing 90 days by quarter close).
