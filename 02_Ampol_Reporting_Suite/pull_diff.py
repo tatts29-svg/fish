@@ -278,6 +278,14 @@ def changes(scope=None, scope_barcodes=None, data_dir=None):
         raise FileNotFoundError("RENTAL_STOCK.xlsx is not in Data\\")
     cur_time = reference_pull_time(cur_path) or datetime.fromtimestamp(os.path.getmtime(cur_path))
     cur = load_register(cur_path)
+    # WHY (03 Sep 2026): a family that hands in its barcode set gets the
+    # diff on THAT set - before this, only the 24-hour block was scoped
+    # and the pull-against-pull tables showed the whole store's movement
+    # on every family's page (Andrew caught a gas monitor on the radio
+    # page). The predicate is built from the set and applied to the diff.
+    if scope is None and scope_barcodes is not None:
+        _bcs = {str(b).strip().upper() for b in scope_barcodes}
+        scope = lambda r: str(r.get("barcode", "")).strip().upper() in _bcs   # noqa: E731
     prev_path, prev_time = find_previous_pull(cur_path, cur_time)
     if prev_path:
         d = diff(cur, load_register(prev_path), cur_time, prev_time, scope)

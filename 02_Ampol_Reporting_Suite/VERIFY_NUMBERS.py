@@ -115,6 +115,51 @@ def count_everything():
     facts["gas: available in store"] = sum(1 for r in gas if s(r["ITEM_STATUS"]) == "Available for Hire")
     facts["gas: on hire"] = sum(1 for r in gas if s(r["ITEM_STATUS"]) == "On Hire")
 
+    # ---- gas monitors, pull against pull (03 Sep 2026) -------------------
+    # The newest earlier RENTAL_STOCK export in Data\previous whose request
+    # time is before the current one, read here with the same gas words:
+    # came back = on hire then, not on hire now; went out = on hire now,
+    # not on hire then (or not on the register then). The gas report's
+    # "since the last pull" page prints both.
+    prev_reg, prev_time = None, None
+    try:
+        cur_req = None
+        _wb = openpyxl.load_workbook(find("RENTAL_STOCK*.xlsx"), read_only=True, data_only=True)
+        for r in _wb["REFERENCE_INFO"].iter_rows(min_row=2, max_row=2, values_only=True):
+            for cell in r:
+                try:
+                    cur_req = datetime.strptime(s(cell), "%d/%m/%Y %I:%M %p")
+                    break
+                except ValueError:
+                    pass
+        _wb.close()
+        cands = []
+        for f in glob.glob(os.path.join(ampol_paths.previous_dir(), "*RENTAL_STOCK*.xlsx")):
+            _w = openpyxl.load_workbook(f, read_only=True, data_only=True)
+            t0 = None
+            if "REFERENCE_INFO" in _w.sheetnames:
+                for r in _w["REFERENCE_INFO"].iter_rows(min_row=2, max_row=2, values_only=True):
+                    for cell in r:
+                        try:
+                            t0 = datetime.strptime(s(cell), "%d/%m/%Y %I:%M %p")
+                            break
+                        except ValueError:
+                            pass
+            _w.close()
+            if t0 and cur_req and t0 < cur_req:
+                cands.append((t0, f))
+        if cands:
+            prev_time, pf = max(cands)
+            prev_reg = rows_of(pf, "RENTAL_STOCK")
+    except Exception:
+        prev_reg = None
+    if prev_reg is not None:
+        pg = {s(r["ITEM_BARCODE"]).upper(): s(r["ITEM_STATUS"]) for r in prev_reg
+              if s(r["ITEM_BARCODE"]) and gas_re.search(s(r["ITEM_DESCRIPTION"])) and not not_gas.search(s(r["ITEM_DESCRIPTION"]))}
+        cg = {s(r["ITEM_BARCODE"]).upper(): s(r["ITEM_STATUS"]) for r in gas if s(r["ITEM_BARCODE"])}
+        facts["gas: came back since the last pull"] = sum(1 for b, st0 in pg.items() if st0 == "On Hire" and b in cg and cg[b] != "On Hire")
+        facts["gas: went out since the last pull"] = sum(1 for b, st1 in cg.items() if st1 == "On Hire" and pg.get(b) != "On Hire")
+
     # ---- radios --------------------------------------------------------
     radio = [r for r in reg if re.search(r"motorola radio", s(r["ITEM_DESCRIPTION"]), re.I)
              and not re.search(r"charger|batter", s(r["ITEM_DESCRIPTION"]), re.I)]
@@ -279,6 +324,8 @@ def count_everything():
 CHECKS = [
     # (fact key, page folder glob, how the page prints it)
     ("gas: fleet on register", "Gas_Monitors/*.html", None),
+    ("gas: came back since the last pull", "Gas_Monitors/*.html", None),
+    ("gas: went out since the last pull", "Gas_Monitors/*.html", None),
     ("gas: available in store", "Gas_Monitors/*.html", None),
     ("radio: radios available", "Radios/*.html", None),
     ("tooling: on hire (2026 tooling)", "Tooling/*Executive_Summary*.html", None),

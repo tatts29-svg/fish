@@ -486,3 +486,14 @@ radio, milwaukee = 2 days). The double-scan SOPs sit in `Docs/SOP`; the
 scan itself leaves no trace in the exports, so the suite measures its
 outcomes and names who scanned from the STOCKTAKE export's
 LAST_SIGHTED_BY column.
+
+### Scoping fault in pull_diff.changes, found by Andrew (3 Sep 2026)
+
+`pull_diff.changes(scope_barcodes=...)` applied the barcode set to the
+24-hour block only; the pull-against-pull diff ran store-wide, so the gas
+and radio "since the last pull" pages printed the whole store's movement
+(a gas monitor on the radio page gave it away). Fixed: the predicate is
+built from the set and handed to `diff()`. The tooling builder had
+post-filtered its rows and was right. `VERIFY_NUMBERS` now recounts the
+gas fleet's came-back and went-out figures from the two register files
+with its own gas words, so this class of fault fails the gate.

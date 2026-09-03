@@ -1,4 +1,4 @@
-Counted from Data\ exports at 03 Sep 2026 05:41 - none of the report code involved.
+Counted from Data\ exports at 03 Sep 2026 06:08 - none of the report code involved.
 
 FIGURE                                             THIS COUNT   ON TODAY'S PAGE
 ----------------------------------------------------------------------
@@ -8,6 +8,8 @@ register: available for hire                            4,607
 gas: fleet on register                                    878   MATCHES
 gas: available in store                                   221   MATCHES
 gas: on hire                                              657   
+gas: came back since the last pull                         93   MATCHES
+gas: went out since the last pull                         207   MATCHES
 radio: radios on register                                 638   
 radio: batteries on register                              781   
 radio: radios available                                     5   MATCHES
