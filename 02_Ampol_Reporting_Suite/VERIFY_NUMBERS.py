@@ -154,6 +154,49 @@ def count_everything():
                                               and not exc.search(s(r["ITEM_DESCRIPTION"])))
     facts["tooling: rows on the Repairs account"] = sum(1 for r in reg if s(r["COMPANY_NAME"]) == "Repairs")
 
+    # ---- what the transaction log says, store-wide (03 Sep 2026) --------
+    # Counted here from the raw rows with none of txn_insights involved:
+    # the pages print these four figures on the executive summary and the
+    # utilisation report, and they must agree.
+    import datetime as _dt
+    from datetime import date as _date
+    pull_day = pull_stamp.date() if pull_stamp else _date.today()
+    qn = (pull_day.month - 1) // 3
+    qend = _date(pull_day.year, qn * 3 + 3, [31, 30, 30, 31][qn])
+    crossing = 0
+    for r in reg:
+        if s(r["ITEM_STATUS"]) != "On Hire" or not s(r["ITEM_BARCODE"]):
+            continue
+        try:
+            d0 = _dt.datetime.strptime(s(r["ON_HIRE_DATE"]), "%d/%m/%Y").date()
+        except ValueError:
+            continue
+        if 0 <= (pull_day - d0).days < 90 <= (qend - d0).days:
+            crossing += 1
+    facts["store: on hire crossing 90 days by quarter close"] = crossing
+    moved = {s(r["LATEST_BARCODE"]).upper() for r in tx if s(r["LATEST_BARCODE"])}
+    facts["store: available items never moved this year"] = sum(
+        1 for r in reg if s(r["ITEM_STATUS"]) == "Available for Hire" and s(r["ITEM_BARCODE"])
+        and s(r["ITEM_BARCODE"]).upper() not in moved)
+    short = 0
+    hours = Counter()
+    for r in tx:
+        try:
+            st0 = _dt.datetime.strptime(f"{s(r['TRAN_START_DATE'])} {s(r['TRAN_START_TIME'])}", "%d/%m/%Y %H:%M:%S")
+        except ValueError:
+            continue
+        hours[st0.hour] += 1
+        if s(r["TRAN_END_DATE"]):
+            try:
+                en0 = _dt.datetime.strptime(f"{s(r['TRAN_END_DATE'])} {s(r['TRAN_END_TIME'])}", "%d/%m/%Y %H:%M:%S")
+            except ValueError:
+                continue
+            if 0 <= (en0 - st0).total_seconds() < 6 * 60:
+                short += 1
+    facts["transactions: closed inside 6 minutes"] = short
+    busiest = max(hours.items(), key=lambda kv: (kv[1], -kv[0]))[0] if hours else None
+    facts["transactions: busiest counter hour"] = f"{busiest:02d}:00" if busiest is not None else "-"
+
     # ---- stocktake -----------------------------------------------------
     regset = {s(r["ITEM_BARCODE"]).upper() for r in reg if s(r["ITEM_BARCODE"])}
     onhire_set = {s(r["ITEM_BARCODE"]).upper() for r in reg if s(r["ITEM_STATUS"]) == "On Hire"}
@@ -230,6 +273,10 @@ CHECKS = [
     ("tooling: available (tooling)", "Tooling/*Executive_Summary*.html", None),
     ("tooling: rows on the Repairs account", "Tooling/*Executive_Summary*.html", None),
     ("transactions: rows this year", "Tooling/*Executive_Summary*.html", None),
+    ("store: on hire crossing 90 days by quarter close", "Tooling/*Executive_Summary*.html", None),
+    ("store: available items never moved this year", "Tooling/*Utilisation*.html", None),
+    ("transactions: closed inside 6 minutes", "Tooling/*Executive_Summary*.html", None),
+    ("transactions: busiest counter hour", "Tooling/*Executive_Summary*.html", "text"),
     ("stocktake: countable items", "Stocktake/*.html", None),
     ("stocktake: departed lines excluded", "Stocktake/*.html", None),
     ("calibration: assets on register", "Calibrations/*.html", None),
@@ -259,6 +306,10 @@ def main():
             text = page_text(check[1])
             if not text:
                 verdict = "page not built today"
+            elif check[2] == "text":
+                ok = str(val) in text
+                verdict = "MATCHES" if ok else "NOT FOUND ON PAGE"
+                fails += 0 if ok else 1
             elif check[2] == "pair":
                 a, b = [x.strip() for x in str(val).split("/")]
                 ok = fmt(int(a)) in text and fmt(int(b)) in text
