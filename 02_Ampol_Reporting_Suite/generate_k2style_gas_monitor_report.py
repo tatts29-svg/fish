@@ -1587,11 +1587,8 @@ def build_html(m, cfg, gen_s, asat_s, d=None, gen_dt=None, contents=None):
         if i == 0:
             # WHY (03 Sep 2026): the position page keeps the hero head and the
             # key strip (render_page's page 1), but its footer counts the
-            # cover, so "Page 1 of N" becomes "Page 2 of N" here. The shared
-            # shell has no separate display number yet - a local fix.
-            rendered.append(sh.render_page(cfg, p, 1, tot, gen_s, asat_s)
-                            .replace(f'<td class="fr">Page 1 of {tot}</td>',
-                                     f'<td class="fr">Page {1 + off} of {tot}</td>', 1))
+            # cover - page_no prints "Page 2 of N".
+            rendered.append(sh.render_page(cfg, p, 1, tot, gen_s, asat_s, page_no=1 + off))
         else:
             rendered.append(sh.render_page(cfg, p, i + 1 + off, tot, gen_s, asat_s))
     body = cover + "".join(rendered)

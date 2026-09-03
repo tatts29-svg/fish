@@ -561,10 +561,14 @@ def cont_head(cfg, asat_s, pno, ptot):
 </tr></table>"""
 
 
-def render_page(cfg, inner, pno, ptot, gen_s, asat_s):
+def render_page(cfg, inner, pno, ptot, gen_s, asat_s, page_no=None):
     """WHY (03 Sep 2026): the page number lives in the footer on every
     page (one convention with the flowing reports), and the key strip
-    prints on page 1 only - a continuation page gets the room instead."""
+    prints on page 1 only - a continuation page gets the room instead.
+    page_no: the number PRINTED in the footer when it differs from pno -
+    a pack with a cover renders its position page as pno 1 (the hero
+    head) but prints "Page 2 of N"."""
+    page_no = page_no or pno
     if pno == 1:
         head = (page1_head(cfg, gen_s, asat_s) + key_strip(cfg)
                 + '<div class="grule"></div>')
@@ -573,7 +577,7 @@ def render_page(cfg, inner, pno, ptot, gen_s, asat_s):
         head = cont_head(cfg, asat_s, pno, ptot) + '<div class="grule"></div>'
         cls = "page"
     return (f'<div class="{cls}"><div class="frame">{head}'
-            f'<div class="body">{inner}</div>{footer(cfg, pno, ptot)}</div></div>')
+            f'<div class="body">{inner}</div>{footer(cfg, page_no, ptot)}</div></div>')
 
 
 
