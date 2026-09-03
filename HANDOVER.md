@@ -487,6 +487,24 @@ scan itself leaves no trace in the exports, so the suite measures its
 outcomes and names who scanned from the STOCKTAKE export's
 LAST_SIGHTED_BY column.
 
+### Asset numbers and the master's to-do list (3 Sep 2026, v1.14)
+
+`build_asset_numbers.py` (button 17, in `00_RUN_EVERYTHING` after the
+daily position and in the picker) writes one workbook per day under
+`Reports/<day>/Asset_Numbers/`. It reads the register (every status)
+plus every barcode in this year's TRANSACTIONS that is no longer on the
+register (591 today, counted as used). MAIN/NNN barcodes are split on
+the slash; per main number it reports the most common raw description,
+counts, highest suffix, next number (in the suffix's width), next ten
+and gaps; per family (letters of the main number) the highest and next
+main number, with odd-width prefixes listed not counted. The "New to
+address" tab lists register items the master does not know, judged with
+the stocktake engine's own `load_corrections` / `load_pricing` /
+`price_for` (gas monitors and radios count as described via
+`ampol_names.product_name`); "New since last pull" uses
+`pull_diff.find_previous_pull`. 2,918 items today (2,396 description
+only, 225 price only, 297 both, 6 new since the 02 Sep pull).
+
 ### Two folders under Data and one master workbook (3 Sep 2026, v1.13)
 
 Andrew asked for the SiteIQ pulls in one folder, the editable files in

@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.13  (03 Sep 2026)
+Version: 1.14  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -281,6 +281,25 @@ v1.9 - 03 Sep 2026  (what the transaction log already knows)
     closed inside six minutes, the busiest counter hour.
   - Daily position: a third figure per family where one is recorded
     (tooling: items crossing 90 days by quarter close).
+
+v1.14 - 03 Sep 2026  (asset numbers and what the master does not know yet)
+  - New button 17_ASSET_NUMBERS (also in 00 and the picker) writes
+    Reports\<day>\Asset_Numbers\Coates_Ampol_Asset_Numbers_<day>.xlsx
+    from the register and this year's transaction log:
+      New to address - every item on the register that Ampol_Master.xlsx
+        does not know yet (no corrected description for its barcode, or
+        no price for its description), judged by the same rules the
+        reports use; new gear since the last pull first, then items
+        without a price, then tidy-ups. Add the row to the master and
+        the item drops off the tab next run.
+      Asset numbers - one row per main number (AMP200): the description
+        as SiteIQ writes it, items, highest /NNN used, the next number,
+        the next ten, and unused numbers below the highest.
+      Next by family - AMP, WG, CTX, SD ...: the highest main number in
+        use and the next new one.
+      All barcodes / Other formats - every barcode as written.
+    Generated every run; never edit it. Barcodes seen in the log but no
+    longer on the register still count as used.
 
 v1.13 - 03 Sep 2026  (two folders under Data, one master workbook)
   - Data\SiteIQ holds the three SiteIQ pulls (RENTAL_STOCK,

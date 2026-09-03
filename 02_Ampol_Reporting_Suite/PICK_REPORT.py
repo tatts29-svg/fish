@@ -56,6 +56,8 @@ REPORTS = [
      [["archive_old_workbooks.py"]]),
     ("Tidy the Data folder - SiteIQ pulls in one folder, editable files in another, one master workbook",
      [["tidy_data_folder.py"]]),
+    ("Asset numbers - which number to give new gear, and what every number is used for",
+     [["build_asset_numbers.py"]]),
 ]
 
 
