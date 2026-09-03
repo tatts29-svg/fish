@@ -871,14 +871,12 @@ def page_sources(m):
          "three draws. That is why the yearly count is large - the site draws hundreds a day - and why "
          "the behaviour measure is the <b>percentage</b> back the same day, not the count."),
         ("Not returned same day",
-         f"A draw not scanned back on the calendar day it went out. Two allowances, both the store's "
-         f"own timing, not the crew's: a monitor dropped in the return box is scanned by the first shift "
-         f"between 04:00 and {R['return_box_scan_until'].strftime('%H:%M')} next morning, before the store "
-         f"opens at 07:00, so a return scanned in that window counts as same day "
-         f"({num(m['d30'].get('box', 0))} of the last 30 days' draws came back that way); a draw at or after "
-         f"{R['night_shift_from'].strftime('%H:%M')} counts as same day if it is back by "
-         f"{R['night_shift_back_by'].strftime('%H:%M')} next morning. A draw still open counts as not "
-         f"returned. The same rule is applied to every person and every company."),
+         f"A draw not scanned back on the calendar day it went out. A return scanned from the return box "
+         f"by {R['return_box_scan_until'].strftime('%H:%M')} next morning counts as same day - the store scans "
+         f"the box at shift start, before it opens at 07:00 ({num(m['d30'].get('box', 0))} of the last 30 days' "
+         f"draws came back that way); a draw at or after {R['night_shift_from'].strftime('%H:%M')} counts as "
+         f"same day if back by {R['night_shift_back_by'].strftime('%H:%M')} next morning. A draw still open "
+         f"counts as not returned. One rule for every person and company."),
         ("Counted, never typed",
          "Nothing on these pages is keyed in, adjusted or read from a summary cell. The two exports are "
          "read exactly as pulled and every figure is counted from their rows, so anyone with the same "
