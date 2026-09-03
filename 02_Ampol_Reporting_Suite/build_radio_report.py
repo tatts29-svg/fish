@@ -25,8 +25,22 @@ WHERE THE NUMBERS COME FROM (changed 02 Sep 2026)
   come from Ampol_ToolStore_Pricing.xlsx ("Avg Buy Price (New)").
 
 Inputs come from the suite's one Data area (see ampol_paths):
-RENTAL_STOCK*.xlsx (required), radio_register*.xlsx, *Pricing*.xlsx.
-Output lands in Reports\\<today>\\Radios\\ - dated, never overwritten.
+RENTAL_STOCK*.xlsx (required), radio_register*.xlsx, *Pricing*.xlsx,
+TRANSACTIONS*.xlsx (the 24 hours before the pull), Data\\previous\\ (the
+earlier pull the movement page compares against).
+Output lands in Reports\\<today>\\Radios\\ - dated, never overwritten - under
+the one suite file name (ampol_names.report_stem): the PDF, the page HTML
+beside it, the Outlook draft (.eml + manifest) and the phone position card.
+
+WHAT CHANGED (03 Sep 2026) - the 10/10 pass
+  Cover carries the RAG stripe and the freshness line. A "Since the last
+  pull" section follows the position: pull against pull from Data\\previous
+  (honest note until a second pull exists) and the always-real 24 hours
+  before the pull from TRANSACTIONS. The company charts gain the on-hire
+  ageing bands by company. A 30-day trend page appears once seven days are
+  on the scoreboard. An appendix divider sits before the full register.
+  The PDF is stamped (Author, Subject, bookmarks) and the phone card rides
+  inside the email body as well as attached.
 """
 import re
 import sys
@@ -34,15 +48,27 @@ from pathlib import Path
 from datetime import datetime, date, timedelta
 from collections import defaultdict
 import openpyxl
+import ampol_names  # WHY (03 Sep 2026): one file-name rule, one A-Z rule, one display rule
 import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
 import gasmon_engine as ge  # one company / person normaliser across the suite
+import pdf_finish  # WHY (03 Sep 2026): properties and bookmarks on every PDF
+import pull_diff  # WHY (03 Sep 2026): what moved since the last pull
 import report_history as rh
 # WHY (03 Sep 2026): the page-1 RAG band - default lines, printed on the page
 RAG_AMBER_PRIOR_PCT = 10     # share of on-hire units issued in prior years
 RAG_RED_PRIOR_PCT = 30
 COVER_PAGE = True
-CARD_NAME = "Ampol_Radio_OnHire_PositionCard.png"
+# WHY (03 Sep 2026): the trend page needs a real line, not two dots - it
+# waits for seven recorded days and the data page says so until then.
+TREND_MIN_DAYS = 7
+TREND_DAYS = 30
+# WHY (03 Sep 2026): the movement tables list every barcode that changed
+# state; a big demob day is capped so the story pages stay a story, and
+# the cap is printed ("showing 60 of N") rather than hidden.
+DIFF_ROWS_CAP = 60
+LAST24_ROWS_CAP = 25
 _ASAT_DT = [None]
+BUILD_DT = datetime.now()   # one build stamp for the cover, the pages and the freshness line
 
 BASE = Path(__file__).resolve().parent
 REPORT_DATE = date.today()
@@ -275,7 +301,8 @@ def detail_rows(items, serial_col=True):
     hdr = (["Barcode", "Serial", "Price", "Hirer", "On hire since", "Days", "Storage unit"] if serial_col
            else ["Barcode", "Price", "Hirer", "On hire since", "Days", "Storage unit"])
     al = (["", "", "r", "", "", "r", ""] if serial_col else ["", "r", "", "", "r", ""])
-    for comp in sorted(by_comp, key=str.upper):
+    # WHY (03 Sep 2026): one A-Z rule for every directory in the suite
+    for comp in sorted(by_comp, key=ampol_names.sort_key):
         rows = sorted(by_comp[comp], key=lambda i: (-i["days"], i["barcode"]))
         cval = val(rows)
         trs = []

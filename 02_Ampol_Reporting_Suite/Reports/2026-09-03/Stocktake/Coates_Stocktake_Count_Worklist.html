@@ -1,4 +1,17 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Coates Ampol Stocktake Count Worklist - 02 Sep 2026 18:29</title><style>/* =====================================================================
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Coates Ampol Stocktake Count Worklist - 02 Sep 2026 18:29</title><style>/* ---------- the house face, embedded (03 Sep 2026) ---------------------
+   Lato (SIL OFL 1.1) ships in assets\fonts so every PDF looks the same on
+   every machine. The URLs are relative to the report page's own folder
+   (Reports\<day>\<family>\), which is where every builder writes it. */
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 400;
+             src: url("../../../assets/fonts/Lato-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: italic; font-weight: 400;
+             src: url("../../../assets/fonts/Lato-Italic.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 700;
+             src: url("../../../assets/fonts/Lato-Bold.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 900;
+             src: url("../../../assets/fonts/Lato-Black.ttf") format("truetype"); }
+
+/* =====================================================================
    COATES K2 REPORT DESIGN SYSTEM - print stylesheet
    Author: Andrew Fisher  -  POWERED BY SITEIQ
    Matched to the K2 report family (Executive Summary, Stores Stocktake,
@@ -512,6 +525,28 @@ table.dt th.w { white-space: nowrap; }
 .cway .v { color: #A7B6C4; font-size: 9.4px; margin-top: 6px; line-height: 1.55; }
 .cway .v b { color: #FFFFFF; }
 
+/* ---------- 03 Sep 2026: cover stripe, freshness, three things -------- */
+.cover-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; border-radius: 12px 0 0 12px; }
+.cover-status { position: absolute; right: 12mm; top: 14mm; font-size: 11px; font-weight: 900;
+                letter-spacing: 3px; }
+.cover-in .fresh { margin-top: 10px; color: #8A9AAC; font-size: 10.2px; }
+.cover-in .fresh b { color: #C9D6E2; font-weight: 700; }
+.three { margin: 8px 0 6px 0; border: 1px solid #E3E8EE; border-radius: 10px; background: #FFFFFF;
+         padding: 6px 12px 4px 12px; break-inside: avoid; page-break-inside: avoid; }
+.three .t3h { font-size: 8.2px; letter-spacing: 1.6px; color: #F36F21; font-weight: 700;
+              text-transform: uppercase; margin-bottom: 3px; }
+.three .t3 { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0;
+             border-top: 1px solid #EEF1F5; }
+.three .t3:first-of-type { border-top: 0; }
+.three .n { flex: 0 0 22px; height: 22px; border-radius: 11px; background: #1A2430; color: #FFFFFF;
+            font-weight: 700; font-size: 11px; text-align: center; line-height: 22px; }
+.three .w { flex: 1 1 auto; font-size: 10.6px; line-height: 1.45; color: #16202C; }
+.three .w b { display: block; font-size: 11.2px; }
+.three .w .why { color: #5B6B7B; }
+.three .who { flex: 0 0 150px; font-size: 9.4px; color: #5B6B7B; line-height: 1.4; text-align: right; }
+.three .who::before { content: "OWNER / BY"; display: block; font-size: 7px; letter-spacing: 1.4px;
+                      color: #8A9AAC; font-weight: 700; }
+
 /* ---------- flowing-report frame (k2flow) ----------------------------
    The one layout the print engine gets right every time: the header and
    footer bands live in the page MARGINS (Chromium 131+ renders @page
@@ -560,6 +595,19 @@ table.dt th.w { white-space: nowrap; }
 .k2body .fcover .cover-in { padding: 30mm 8mm 0 8mm; }
 .k2body .fcover .cover-cog { right: 8mm; bottom: 14mm; }
 .k2body .fcover .cover-siteiq { left: 8mm; bottom: 16mm; }
+.k2body .fcover .cover-stripe { left: 0; top: 0; bottom: 0; width: 9px; border-radius: 14px 0 0 14px; }
+.k2body .fcover .cover-status { right: 8mm; top: 12mm; }
+/* the appendix divider: a full page, dark, one line of intent */
+.k2body .fdivider { position: relative; height: 240mm; background: #1A2430; border-radius: 14px;
+                    overflow: hidden; break-before: page; page-break-before: always;
+                    break-after: page; page-break-after: always; }
+.k2body .fdivider .dv-in { padding: 70mm 14mm 0 14mm; color: #FFFFFF; }
+.k2body .fdivider .kicker { font-size: 10.4px; letter-spacing: 3px; color: #F36F21; font-weight: 700; }
+.k2body .fdivider h1 { margin: 14px 0 0 0; font-size: 34px; font-weight: 700; line-height: 1.1; color: #FFFFFF; }
+.k2body .fdivider .rule { height: 3px; width: 120px; margin: 22px 0 22px 0;
+                          background: linear-gradient(90deg, #F36F21, #C7D300); }
+.k2body .fdivider .sub { color: #C9D6E2; font-size: 13.5px; line-height: 1.7; max-width: 150mm; }
+.k2body .fdivider .note { margin-top: 18px; color: #8A9AAC; font-size: 10.5px; max-width: 150mm; }
 
 /* floor worklist item tables, toned to the house palette */
 .wl table.items, .wl table.matrix { width:100%; border-collapse:collapse; font-size:8.6px; border:1px solid #E4E8EC; }
@@ -598,7 +646,7 @@ table.dt th.w { white-space: nowrap; }
       <div class="tagline">Equipped for anything</div>
     </td>
   </tr></table>
-  <div class="meta">Generated: <b>03 Sep 2026 00:33</b> &nbsp;|&nbsp;
+  <div class="meta">Generated: <b>03 Sep 2026 01:03</b> &nbsp;|&nbsp;
     Data as at: <b>02 Sep 2026 18:29</b> (SiteIQ stocktake export request time) &nbsp;|&nbsp;
     Author: <b>Andrew Fisher</b></div>
 </div><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">OLDEST FIRST</b> every scan resets the clock  <span class="dot blue">●</span> <b class="blue">P1 DAILY</b> gas monitors, radios and batteries first  <span class="dot amber">●</span> <b class="amber">ON HIRE</b> legitimately out - do not hunt shelves</div><div class="grule"></div><div class="wl"><div class="callout"><span class="lead">Today’s count.</span> <b>207 items</b> are due on their tier targets across the store, worth <b class="o">$77,829</b>; <b>1,734</b> items were scanned in the last 7 days and SOP compliance sits at <b class="o">65.3%</b>. Work each section oldest first - every scan resets that item’s clock. Rows marked <b class="o">ON HIRE</b> are legitimately out: do not hunt shelves for them.</div>
