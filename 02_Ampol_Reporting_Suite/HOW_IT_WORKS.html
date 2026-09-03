@@ -49,6 +49,7 @@ b.o{color:#F26222}
 </div>
 <div class="arrow">&darr; <span>two gates, always last</span></div>
 <div class="fbox go"><b>4 &nbsp;Check reports (09) and Verify numbers (13)</b><span class="sub">09 sweeps every page for blanks, leftover placeholders, nan and None, and weighs every email. 13 counts the key figures a second time straight from the exports - none of the report code involved - and marks each one MATCHES against the page. The table is saved with the day's reports as VERIFY_NUMBERS.txt. A mismatch fails red and names the figure.</span></div>
+<div class="fbox go"><b>5 &nbsp;Daily position (15) - one page for the whole store</b><span class="sub">Runs last. Reads back the RAG status, number, headline and next action each family recorded when it built, and prints the six on one A4 page: red first, then amber, then green. Nothing is counted here, so the page can never disagree with the reports it summarises. A family that has not built today says so in plain words.</span></div>
 <div class="arrow">&darr;</div>
 <div class="fbox dark"><b>5 &nbsp;You read, then you press Send</b><span class="sub">Reports\(today's date)\ holds everything, dated, never overwritten. The drafts sit in Outlook until you send them.</span></div>
 
@@ -63,6 +64,9 @@ b.o{color:#F26222}
 <tr><td>07</td><td>Rigging and lifting register report</td><td>RENTAL_STOCK</td><td>Rigging register (membership, test details you type in)</td></tr>
 </table>
 
+<h2>What the files are called, and what every PDF carries</h2>
+<p>One rule for every report: <b>Coates_Ampol_&lt;Report&gt;_&lt;day&gt;.pdf</b> - for example Coates_Ampol_Tooling_On_Hire_03Sep2026.pdf - with the page HTML, the phone card (_PositionCard.png), the draft (_OUTLOOK.eml) and the manifest (.draft.json) beside it under the same name. Every PDF carries its properties (Title, Author: Andrew Fisher, Subject, Keywords) and a bookmark pane built from its own section headings, and embeds the Lato face from assets\fonts so it looks the same on every computer. Client-facing reports open with a cover: the one number of the day, a stripe in the report's RAG colour, and a freshness line (pulled, built, how old at build).</p>
+<p><b>Since the last pull.</b> The tooling on-hire, gas monitor and radio reports say what moved: the 24 hours before the pull from TRANSACTIONS on every report, and - once Data\previous holds an earlier RENTAL_STOCK export (button 12 parks it automatically) - pull against pull: came back, went out, changed hands, crossed 30 / 60 / 90 days, companies cleared or new. A trend page over the last 30 days appears by itself once seven days are on record.</p>
 <h2>The rules that hold everywhere</h2>
 <table>
 <tr><th>Rule</th><th>What it means on the page</th></tr>

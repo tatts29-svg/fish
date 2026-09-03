@@ -93,8 +93,23 @@ THE BUTTONS
   11  Pick a report (menu when you only want one thing)
   12  Pull SiteIQ exports from Downloads into Data\
   13  Verify numbers (the truth table)
+  14  Archive old workbooks (parks the three .xlsm files no report
+      reads any more - run once, nothing is deleted)
+  15  Daily position (the six families on one A4 page - runs last
+      in button 00, or on its own after the six have built)
 
 ------------------------------------------------------------
+WHAT THE FILES ARE CALLED
+  Every report follows one rule: Coates_Ampol_<Report>_<day>.pdf, for
+  example Coates_Ampol_Tooling_On_Hire_03Sep2026.pdf. Beside each PDF:
+  the same name .html (the pages), _PositionCard.png (the phone card),
+  _OUTLOOK.eml (the draft) and .draft.json (what button 08 reads).
+  The day in the name is the day the button was pressed - the same as
+  the Reports\ folder it sits in; the pull time is printed on every page.
+  Every PDF opens with a bookmark pane (its sections) and carries
+  Author: Andrew Fisher in its properties. The pages use the Lato face
+  from assets\fonts, so they look the same on every computer.
+
 ON ANOTHER COMPUTER
 ------------------------------------------------------------
   1. Copy the whole 02_Ampol_Reporting_Suite folder across
@@ -104,7 +119,10 @@ ON ANOTHER COMPUTER
   3. Put today's three exports in Data\ (button 12 or by hand).
   4. Double-click 00_RUN_EVERYTHING.
   Python 3 and Microsoft Edge (for the PDFs) are the only things
-  the computer needs; both are standard on a Coates laptop. No
+  the computer needs; both are standard on a Coates laptop.
+  One optional extra: PyMuPDF (in a command window: pip install
+  pymupdf) writes the bookmark pane and Author into each PDF;
+  without it the PDFs still build and one console line says so. No
   Outlook on the machine? Create an empty file NO_OUTLOOK.txt in
   this folder and 00 skips the drafting step; the .eml files in
   the day's folder still open in any mail program.

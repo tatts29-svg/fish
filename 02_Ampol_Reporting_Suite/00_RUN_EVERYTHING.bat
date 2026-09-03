@@ -37,6 +37,7 @@ echo  [7/8] Calibration register report...
 echo.
 echo  [8/8] Rigging register report...
 %PYCMD% build_rigging_report.py
+%PYCMD% build_daily_position.py
 echo.
 if exist NO_OUTLOOK.txt (
   echo  NO_OUTLOOK.txt found - skipping Outlook drafts on this machine.

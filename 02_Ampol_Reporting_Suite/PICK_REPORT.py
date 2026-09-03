@@ -44,12 +44,16 @@ REPORTS = [
      [["build_calibration_report.py"]]),
     ("Rigging and lifting register report",
      [["build_rigging_report.py"]]),
+    ("Daily position - the six families on one A4 page (run after the six)",
+     [["build_daily_position.py"]]),
     ("Outlook drafts - from everything built today",
      [[DRAFTS]]),
     ("Check reports - the last gate before sending",
      [["CHECK_REPORTS.py"]]),
     ("Verify numbers - the truth table (a second count from the exports)",
      [["VERIFY_NUMBERS.py"]]),
+    ("Archive old workbooks - park the three .xlsm files no report reads",
+     [["archive_old_workbooks.py"]]),
 ]
 
 

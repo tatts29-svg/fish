@@ -384,3 +384,45 @@ included), a fixed frame spanning exactly the page area, plain block
 flow inside, and `box-decoration-break: clone` on the body so every page
 fragment keeps the same inset.
 
+### The 10/10 pass (3 Sep 2026, v1.6)
+
+Andrew asked how to take an 8 to a 10. The answer was the wrapping, not
+the numbers: names, navigation, fonts, and what moved.
+
+- **One file-name rule** in `ampol_names.report_stem(key)`:
+  `Coates_Ampol_<Report>_<DDMonYYYY>`. Every family derives PDF, page
+  HTML, card, eml and manifest from the stem. The K2STYLE / V18 names
+  are gone from code, docs and console text.
+- **`pdf_finish.py`** stamps Title / Author: Andrew Fisher / Subject /
+  Keywords and builds the bookmark outline from the report's own
+  `<div class="sect"><h3>` headings, located on the printed pages in
+  order (PyMuPDF first, pypdf fallback, else one console NOTE). A
+  heading the print engine split is skipped, never guessed.
+- **Lato ships in `assets/fonts`** (Google's latin subset, SIL OFL,
+  ~70 KB a face) and `k2style.css` embeds it through `@font-face` with a
+  URL relative to the report page's own folder (`../../../assets/fonts/`)
+  - every builder writes its HTML at `Reports/<day>/<Family>/`, which is
+  why that path holds. The phone card looks in the same folder first.
+  Text widths changed on every fixed page, so every fit check was re-run.
+- **`pull_diff.py`**: pull against pull from `Data/previous` (button 12
+  parks the old export as `YYYYMMDD_HHMM_RENTAL_STOCK.xlsx`) plus the
+  24 hours before the pull from TRANSACTIONS. No earlier pull = the
+  honest note and no rows. Crossings were proven against an independent
+  count; the previous-pull branch against an in-memory fixture, never a
+  file in `Data/`.
+- **`build_daily_position.py`** (button 15) reads `report_history`
+  `extra` records (rag, headline, rule, owner, action, due, key_value,
+  key_label, second_value, second_label, title, folder, pdf, card) that
+  every family now writes beside its figures. It counts nothing.
+- Shared pieces added to `k2shell.py`: `stacked_hbars`, `age_band_index`
+  / `AGE_BANDS`, `line_chart`, `three_things`, `freshness_line`,
+  `rag_colour`; `cover_inner` / `cover_page` / `k2flow.cover_block` take
+  `rag` and `fresh`; `k2flow.divider_block` is the appendix page.
+- Two test-only environment hooks: `AMPOL_REPORTS_DIR` (ampol_paths) and
+  `AMPOL_HISTORY_FILE` (report_history). A layout test on a seven-day
+  fixture runs with both set to scratch paths (`_TestReports` inside the
+  suite, so the relative font path still resolves) and never touches
+  `Reports/` or `History/`. No button sets them.
+- Button 14 parks the three `.xlsm` workbooks; `CHECK_MY_SETUP` no
+  longer expects them. A code update never moves data by itself - that
+  is why it is a button.

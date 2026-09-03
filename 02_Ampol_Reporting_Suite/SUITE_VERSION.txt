@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.5  (03 Sep 2026)
+Version: 1.6  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -164,3 +164,45 @@ v1.5 - 03 Sep 2026  (the wow pass - movement, focus, pictures)
   - Movement notes print money as dollars and cents, and a figure with
     no good direction (a value) moves in grey rather than green or red.
 
+v1.6 - 03 Sep 2026  (the 10/10 pass - names, navigation, movement, one page)
+  - One file-name rule: Coates_Ampol_<Report>_03Sep2026.pdf for every
+    report, card, page and draft (the old K2STYLE and V18 names are gone).
+    The client reads the attachment name first; every family now looks
+    like the same shop.
+  - Every PDF carries its properties (Title, Author: Andrew Fisher,
+    Subject, Keywords) and a bookmark pane built from its own section
+    headings - a 57-page register opens with a clickable outline.
+    pdf_finish.py does it; PyMuPDF (pip install pymupdf) is the engine,
+    pypdf the fallback, and without either the PDF is left as printed
+    with one console line saying so.
+  - The house face travels with the suite: Lato (SIL Open Font
+    License) sits in assets\fonts and every page embeds it, so a PDF
+    built on any laptop looks the same. The phone card is drawn in it too.
+  - Button 14 parks the three old .xlsm workbooks in
+    Data\_Archive_workbooks (no report reads them; nothing deleted).
+  - "Since the last pull": the tooling on-hire, gas monitor and radio
+    reports now say what MOVED - pull against pull (came back, went out,
+    changed hands, crossed 30/60/90 days, companies cleared or new) once
+    Data\previous holds an earlier export, plus the 24 hours before the
+    pull from TRANSACTIONS on every report from day one. pull_diff.py.
+  - Button 15 - the Daily Position: the six families on one A4 page,
+    each with the RAG status, number, headline and next action its own
+    report printed this morning, read back from the scoreboard. Runs
+    last in 00_RUN_EVERYTHING. A family that has not built today says so.
+  - The executive summary opens with three things to do today, drawn
+    from the data (largest over-90 holder, oldest item out, unpriced
+    items), each with an owner and a date.
+  - A full-page appendix divider before every complete register, so the
+    story stays short and the evidence complete.
+  - On-hire ageing by company as stacked bars (0-30, 31-60, 61-90, 90+)
+    in the tooling on-hire, quarterly and radio reports.
+  - A trend page (line charts over the last 30 days) appears by itself
+    once seven days are on record - gas, radio, tooling, stocktake,
+    calibration and rigging. Until then the data page says how many
+    days are on record.
+  - Covers carry a stripe in the report's RAG colour and a freshness line
+    (pulled, built, how old at build). The position card sits inline in
+    the email body as well as attached.
+  - CHECK_MY_SETUP no longer expects the old workbooks. Two test-only
+    hooks (AMPOL_REPORTS_DIR, AMPOL_HISTORY_FILE) let a layout test run
+    on a fixture without touching Reports\ or History\; no button sets them.
