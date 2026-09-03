@@ -41,6 +41,19 @@ WHAT CHANGED (03 Sep 2026) - the 10/10 pass
   on the scoreboard. An appendix divider sits before the full register.
   The PDF is stamped (Author, Subject, bookmarks) and the phone card rides
   inside the email body as well as attached.
+
+WHAT CHANGED (03 Sep 2026) - the layout pass
+  Page 2 reads as a position page: hero and key strip, the RAG band, the
+  tiles, "Three things to do today" (each drawn from the register) and a
+  three-line story. The full position paragraph, the ask and the
+  assurance note follow on the next page. The cover carries a "What's
+  inside" block whose page numbers are read off the printed PDF (render,
+  read, rebuild, render again - the cover is fixed-height so the page
+  count is identical, and the console says so). Every company block in
+  the register is a group table whose title row repeats with the column
+  row when the company runs over a page. The ageing panel charts the
+  companies holding ten or more units and lists the smaller ones in one
+  line under it. One dash style throughout: " - ", never the long dash.
 """
 import re
 import sys
@@ -87,15 +100,18 @@ PRICE_SOURCE = "TBC"
 META = {}
 # WHY (12 Aug 2026): named constant so the en dash never sits as a backslash
 # escape inside an f-string expression - older Pythons refuse that outright.
+# WHY (03 Sep 2026): it now marks a year RANGE only (2023-2025); every other
+# dash the builder prints is " - " - one style on every page, and the verify
+# gate fails on a long dash.
 EN_DASH = "–"
 
 COATES_PURPOSE = "Supporting Australia's growth with leading equipment solutions"
-COATES_OBJECTIVE = "Australia's most trusted equipment partner \u2014 delivering Best Service & Value"
+COATES_OBJECTIVE = "Australia's most trusted equipment partner - delivering Best Service & Value"
 COATES_VALUES = "Care Deeply &nbsp;\u2022&nbsp; Customer Focused &nbsp;\u2022&nbsp; Be Our Best &nbsp;\u2022&nbsp; One Team &nbsp;\u2022&nbsp; Competitive Spirit"
 
 def money(v):
     try: return f"${float(v):,.0f}"
-    except (TypeError, ValueError): return "\u2014"
+    except (TypeError, ValueError): return "-"
 
 def esc(s):
     """Company names land inside SVG text - keep the markup honest."""
@@ -240,12 +256,12 @@ def load_from_register(master_path, serials, prices):
             hirer = f"{raw_h} (site account)"
             out["accounts"] += 1
         item = {"company": company_name(g(r, "COMPANY_NAME")), "hirer": hirer,
-                "barcode": bc, "serial": serial or "\u2014", "kind": kind,
+                "barcode": bc, "serial": serial or "-", "kind": kind,
                 "year": str(on.year) if on else "", "desc": str(desc or "").strip(),
                 "days": (asat.date() - on.date()).days if on else 0,
                 "cost": cost, "date": on.date() if on else None,
                 "time": on.strftime("%H:%M") if on else "",
-                "unit": str(g(r, "STORAGE_UNIT") or "").strip() or "\u2014"}
+                "unit": str(g(r, "STORAGE_UNIT") or "").strip() or "-"}
         if status.lower() != "on hire":
             out["r_avail" if kind == "radio" else "b_avail"].append(item)
             continue
@@ -291,8 +307,9 @@ def svg_hbars(rows, width=700, label_w=180, val_w=130, bar_h=14, gap=5):
     return "".join(p)
 
 def detail_rows(items, serial_col=True):
-    """Company blocks A-Z, items longest-held first, on house tables whose
-    header row repeats on every printed page."""
+    """Company blocks A-Z, items longest-held first, on house group tables:
+    the company's name sits in the table head beside the column row, so a
+    company that runs over a page opens the next page with its name."""
     import k2flow as kf
     from k2shell import esc, num
     by_comp = defaultdict(list)
@@ -316,13 +333,13 @@ def detail_rows(items, serial_col=True):
                  *([esc(i["serial"] or "-")] if serial_col else []),
                  money(i["cost"]), esc(i["hirer"]), d_txt, days, esc(i["unit"])]
             trs.append(r)
-        head = (f'<div class="sub-h">{esc(comp)} <span class="thin">&mdash; '
-                f'{len(rows)} unit{"s" if len(rows) != 1 else ""} &middot; '
-                f'{money(cval) if cval else "unpriced"}</span></div>')
-        # one table per company; the heading will not be left alone at the
-        # foot of a page (sub-h carries break-after: avoid) and a long table
-        # repeats its header row on every page it spans
-        block = head + kf.dtable_flow(hdr, trs, al, "cp")
+        # WHY (03 Sep 2026): the company name used to be a sub-heading above a
+        # plain table, so a company spanning two pages opened the second with
+        # a bare column row. The group table carries the name in its head,
+        # and the print engine repeats the head on every page it spans.
+        meta = (f'{len(rows)} unit{"s" if len(rows) != 1 else ""} &middot; '
+                f'{money(cval) if cval else "unpriced"}')
+        block = kf.group_table(comp, meta, hdr, trs, al, "cp")
         parts.append(f'<div class="keep">{block}</div>' if len(trs) <= 12 else block)
     return "".join(parts)
 
@@ -432,22 +449,22 @@ def changes_section(d):
             return [esc(r["company"]), esc(show_hirer(r["hirer"])), esc(r["barcode"]), esc(r["desc"]),
                     _days_cell(r.get("days_out"))]
         rows, cap = _capped(ret, DIFF_ROWS_CAP)
-        P.append(f'<div class="sub-h">Came back <span class="thin">&mdash; {num(len(ret))} units, companies A to Z</span></div>')
+        P.append(f'<div class="sub-h">Came back <span class="thin">- {num(len(ret))} units, companies A to Z</span></div>')
         P.append(kf.dtable_flow(hdr + ["Now"], [row(r) + [esc(r.get("now", ""))] for r in rows], al + [""], "cp") + cap
                  if rows else '<div class="note">Nothing came back between the two pulls.</div>')
         rows, cap = _capped(iss, DIFF_ROWS_CAP)
-        P.append(f'<div class="sub-h">Went out <span class="thin">&mdash; {num(len(iss))} units, companies A to Z</span></div>')
+        P.append(f'<div class="sub-h">Went out <span class="thin">- {num(len(iss))} units, companies A to Z</span></div>')
         P.append(kf.dtable_flow(hdr, [row(r) for r in rows], al, "cp") + cap
                  if rows else '<div class="note">Nothing went out between the two pulls.</div>')
         if mov:
             rows, cap = _capped(mov, DIFF_ROWS_CAP)
-            P.append(f'<div class="sub-h">Changed hands <span class="thin">&mdash; {num(len(mov))} units, companies A to Z</span></div>')
+            P.append(f'<div class="sub-h">Changed hands <span class="thin">- {num(len(mov))} units, companies A to Z</span></div>')
             P.append(kf.dtable_flow(hdr + ["Was with"], [row(r) + [esc(show_hirer(r.get("from_hirer", "")))
                                                                    + (f' ({esc(r["from_company"])})'
                                                                       if r.get("from_company") and r["from_company"] != r["company"] else "")]
                                                          for r in rows], al + [""], "cp") + cap)
         rows, cap = _capped(c30, DIFF_ROWS_CAP, "oldest first")
-        P.append(f'<div class="sub-h">Crossed 30 days while still out <span class="thin">&mdash; {num(len(c30))} units, oldest first</span></div>')
+        P.append(f'<div class="sub-h">Crossed 30 days while still out <span class="thin">- {num(len(c30))} units, oldest first</span></div>')
         P.append(kf.dtable_flow(hdr, [row(r) for r in rows], al, "cp") + cap
                  if rows else '<div class="note">No unit crossed 30 days out between the two pulls.</div>')
         new, gone = d["companies_new"], d["companies_cleared"]
@@ -457,7 +474,7 @@ def changes_section(d):
     # ---- the 24 hours before the pull - always real, from TRANSACTIONS ----
     L = d["last24"]
     start, end = L["window"]
-    P.append(f'<div class="sub-h">The 24 hours before the pull <span class="thin">&mdash; '
+    P.append(f'<div class="sub-h">The 24 hours before the pull <span class="thin">- '
              f'{start:%d %b %Y %H:%M} to {end:%d %b %Y %H:%M}</span></div>')
     if not L.get("available", True):
         P.append('<div class="note">The TRANSACTIONS export is not in Data - the 24-hour block needs it. '
@@ -480,16 +497,6 @@ def changes_section(d):
     else:
         P.append('<div class="note">No radio or battery crossed the counter in the 24 hours before the pull.</div>')
     return "".join(P)
-
-
-def _ageing_rowh(n):
-    """Row height for the ageing panel so the whole panel stays on ONE page
-    and every bar shares one scale. WHY (03 Sep 2026): forty companies at
-    the default 22px overran the page area by a few millimetres, so the
-    print engine pushed the panel to a fresh page and split it anyway.
-    The SVG is kept under 760px: 22px rows to about 33 companies, then
-    tighter, never below 14px (the bar itself is 11px)."""
-    return max(14, min(22, (760 - 24) // max(n, 1)))
 
 
 def ageing_rows(all_on):
@@ -530,9 +537,9 @@ def trend_section(asat_s):
             f'<b>{num(len(dates))}</b> days on record in the {TREND_DAYS} days to <b>{esc(asat_s)}</b>, read back from the '
             f'suite scoreboard (History\\report_history.json): the figure each day\'s report printed, nothing '
             f're-counted or smoothed. A day with no report leaves a gap, never a guess.</div>'
-            f'<div class="sub-h">Units on hire <span class="thin">&mdash; radios, batteries and prior-year units, by day</span></div>'
+            f'<div class="sub-h">Units on hire <span class="thin">- radios, batteries and prior-year units, by day</span></div>'
             f'<div class="chartpanel">{sh.line_chart(labels, a, y_label="units")}</div>'
-            f'<div class="sub-h">Replacement value on hire <span class="thin">&mdash; the on-hire value tile, by day</span></div>'
+            f'<div class="sub-h">Replacement value on hire <span class="thin">- the on-hire value tile, by day</span></div>'
             f'<div class="chartpanel">{sh.line_chart(labels, b, y_label="$ replacement, thousands")}</div>'
             f'<div class="note">Down is good on every line: a return or a rescan moves it. The value line is the '
             f'replacement value of everything on hire at each pull, at the prices on the data page, drawn in '
@@ -540,10 +547,59 @@ def trend_section(asat_s):
     return html, n_days
 
 
-def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=None, changes=None):
+def three_things_for(F, r26, b26, oos):
+    """The position page's three things to do today, each read from the
+    same register rows as the tiles: (1) the company holding the most
+    prior-year units, (2) the oldest unit out, (3) the company holding the
+    most of this year's units over 90 days - or the out-of-service line
+    when that count is the bigger number. A shared site account is named
+    as the account, never as a person. Fewer than three true items prints
+    fewer; the block never pads.
+
+    WHY (03 Sep 2026): a position page that says only how bad it is leaves
+    the reader to work out where to start. These three name the start."""
+    from k2shell import num
+    who = f"Andrew Fisher · by {F['due']}"
+    items = []
+    by_co = defaultdict(list)
+    for i in F["prev_all"]:
+        by_co[i["company"]].append(i)
+    if by_co:
+        co, rows = sorted(by_co.items(), key=lambda kv: (-len(kv[1]), ampol_names.sort_key(kv[0])))[0]
+        v = val(rows)
+        unpriced = sum(1 for i in rows if not i["cost"])
+        why = f"{money(v)} at replacement" if v else "nothing priced"
+        if unpriced:
+            why += f" ({unpriced} unpriced)"
+        why += f"; oldest {num(max(i['days'] for i in rows))} days"
+        items.append((f"Chase {co} for {num(len(rows))} units out since {PRIOR_LABEL}", why, who))
+    if F["all_on"]:
+        o = sorted(F["all_on"], key=lambda i: (-i["days"], i["barcode"]))[0]
+        since = o["date"].strftime("%d %b %Y") if o["date"] else "a date SiteIQ does not carry"
+        items.append((f"Recover {o['barcode']} from {o['hirer']}, {o['company']}",
+                      f"{num(o['days'])} days, since {since}", who))
+    over = defaultdict(list)
+    for i in r26 + b26:
+        if i["days"] > 90:
+            over[i["company"]].append(i)
+    top = sorted(over.items(), key=lambda kv: (-len(kv[1]), ampol_names.sort_key(kv[0])))[:1]
+    if oos and (not top or len(oos) > len(top[0][1])):
+        items.append((f"Clear the {num(len(oos))} units out of service",
+                      f"{money(val(oos))} tagged in custody; longest {num(max(i['days'] for i in oos))} days", who))
+    elif top:
+        co, rows = top[0]
+        items.append((f"Chase {co} for {num(len(rows))} {CUR_YEAR} units over 90 days",
+                      f"{money(val(rows))} at replacement; oldest {num(max(i['days'] for i in rows))} days", who))
+    return items[:3]
+
+
+def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=None, changes=None,
+               contents=None):
     """The client PDF on the Coates house frame (k2flow): the position, the
     ask, what moved, the pictures, the trend, then the register - companies
-    A-Z, oldest first - behind an appendix divider."""
+    A-Z, oldest first - behind an appendix divider. contents: the (title,
+    page) rows for the cover's "What's inside" block - None on the first
+    pass, the rows read off the printed PDF on the second."""
     import k2flow as kf
     import k2shell as sh
     from k2shell import esc, num
@@ -611,7 +667,17 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=
         "<b>Andrew Fisher</b>, Shutdown Manager - Coates tool store",
         f'Every prior-year holder sent their list from this report by <b>{due}</b>; returned or rescanned units drop off the next run.',
         tight=True)
-    # ---- page 1: the position, the numbers, the ask ----------------------
+    # ---- page 2 (after the cover): the position page --------------------
+    # WHY (03 Sep 2026): one grammar for every position page in the suite -
+    # hero and key strip, the RAG band, the tiles, three things to do today,
+    # then a three-line story. The full paragraph, the ask and the assurance
+    # note follow on the next page, so page 2 is read in one look.
+    story = (f'<div class="callout"><span class="lead">The story.</span> <b class="o">{money(total_exposure)}</b> of site '
+             f'radio equipment is on hire: <b>{num(len(r26) + len(rprev))} radios</b> and <b>{num(len(b26) + len(bprev))} '
+             f'batteries</b>. <b class="o">{money(prev_val)}</b> across <b>{num(len(prev_all))} units</b> has been out since '
+             f'{esc(PRIOR_LABEL)}, the oldest for <b>{num(oldest)} days</b>. <b>Not in use? Return it. Still in use? Bring it '
+             f'past the counter for a rescan.</b></div>')
+    three = sh.three_things(three_things_for(F, r26, b26, oos))
     pos = (f'<div class="callout"><span class="lead">The position.</span> <b class="o">{money(total_exposure)}</b> '
            f'of site radio equipment is on hire per the SiteIQ pull as at {esc(asat_s)}: '
            f'<b>{num(len(r26) + len(rprev))} radios</b> and <b>{num(len(b26) + len(bprev))} batteries</b>. '
@@ -647,7 +713,8 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=
               f'stock-taken to its storage unit before going back on charge. <b>The moment a unit is scanned, the record updates.</b> '
               f'Every count on this report is read from the SiteIQ register as at <b>{esc(asat_s)}</b> - nothing comes from a summary tab. '
               f'Serial numbers: {esc(META.get("serial_note", "from the radio register"))}.</div>')
-    P.append(pos + tiles1 + band + tiles2 + ask + assure)
+    P.append(band + tiles1 + tiles2 + three + story)
+    P.append('<div class="pb"></div>' + pos + ask + assure)
     # ---- what moved since the last pull (03 Sep 2026) ---------------------
     P.append(changes_section(changes))
     # ---- the pictures -----------------------------------------------------
@@ -658,29 +725,49 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=
     exp_rows = [(c, v, money(v)) for c, v in top10]
     exp_note = (f"Ranked by value - the top {len(top10)} of {len(comp_tot)} companies; the remaining {rest_n} hold "
                 f"{money(rest_v)} between them." if rest_n > 0 else f"Ranked by value - all {len(comp_tot)} companies shown.")
+    # WHY (03 Sep 2026): forty rows of one-unit companies made the ageing
+    # chart a wall. Companies holding ten or more units are charted; the
+    # rest are one line under it, A to Z with their counts, and the note
+    # adds the two back together so the picture still reconciles.
+    age_all = ageing_rows(all_on)
+    age_chart, age_tail = sh.split_long_tail(age_all, 10)
+    chart_units = sum(sum(s) for _, s in age_chart)
+    tail_units = sum(sum(s) for _, s in age_tail)
+    if age_tail:
+        age_scope = f"the {num(len(age_chart))} companies holding ten or more, A to Z"
+        tail_line = ('<div class="note"><b>Companies with fewer than ten units:</b> '
+                     + esc(", ".join(f"{c} ({sum(s)})" for c, s in age_tail))
+                     + f' - {num(tail_units)} units across {num(len(age_tail))} companies.</div>')
+        recon = (f"The chart holds {num(chart_units)} units and the legend totals count those; the line under it "
+                 f"holds the other {num(tail_units)}, {num(len(all_on))} in all. ")
+    else:
+        age_scope = f"all {num(len(age_chart))} companies, A to Z"
+        tail_line = ""
+        recon = ""
     P.append(
         '<div class="sect"><h3>Fleet position at a glance</h3></div>'
         '<div class="callout tight">Three pictures of the same truth - where the fleet sits, who holds the value, and how long it '
         'has been out. Every count and dollar here comes straight from the register tables that follow; nothing is replaced or rounded.</div>'
         '<table class="two"><tr>'
-        f'<td style="width:50%;padding-right:6px"><div class="sub-h">Site radios <span class="thin">&mdash; {num(n_radio)} on the register</span></div>'
+        f'<td style="width:50%;padding-right:6px"><div class="sub-h">Site radios <span class="thin">- {num(n_radio)} on the register</span></div>'
         f'<div class="chartpanel">{sh.hbars(radio_rows, w=300, lab_w=150, rowh=26)}</div></td>'
-        f'<td style="width:50%;padding-left:6px"><div class="sub-h">Radio batteries <span class="thin">&mdash; {num(n_batt)} on the register</span></div>'
+        f'<td style="width:50%;padding-left:6px"><div class="sub-h">Radio batteries <span class="thin">- {num(n_batt)} on the register</span></div>'
         f'<div class="chartpanel">{sh.hbars(batt_rows, w=300, lab_w=150, rowh=26)}</div></td>'
         '</tr></table>'
-        f'<div class="sub-h">Replacement-value exposure by company <span class="thin">&mdash; {money(sum(comp_tot.values()))} across '
+        f'<div class="sub-h">Replacement-value exposure by company <span class="thin">- {money(sum(comp_tot.values()))} across '
         f'{len(comp_tot)} companies (ranked by value)</span></div>'
         f'<div class="chartpanel">{sh.hbars(exp_rows, w=636, lab_w=190, rowh=24, right=90)}</div>'
         f'<div class="note">{esc(exp_note)}</div>'
         # WHY (03 Sep 2026): the value chart says who holds the money; this one
         # says how long each company has held it, in the suite's four bands
-        f'<div class="sub-h">On-hire ageing by company <span class="thin">&mdash; {num(len(all_on))} radios and batteries '
-        f'on hire, companies A to Z</span></div>'
-        f'<div class="chartpanel">{sh.stacked_hbars(ageing_rows(all_on), rowh=_ageing_rowh(len(ageing_rows(all_on))))}</div>'
-        f'<div class="note">Days out at the pull ({esc(asat_s)}), in the four bands of the legend. Each row adds up to that '
+        f'<div class="sub-h">On-hire ageing by company <span class="thin">- {num(len(all_on))} radios and batteries '
+        f'on hire, {age_scope}</span></div>'
+        # the chart and the line that completes its count stay on one page
+        f'<div class="keep"><div class="chartpanel">{sh.stacked_hbars(age_chart)}</div>{tail_line}</div>'
+        f'<div class="note">Days out at the pull ({esc(asat_s)}), in the four bands of the legend. {recon}Each row adds up to that '
         f'company\'s units on hire - its {CUR_YEAR} units in the register pages plus its {esc(PRIOR_LABEL)} units in the value '
         f'story. Out-of-service custody units are not counted here, as everywhere in this report.</div>'
-        f'<div class="sub-h">Age of hire <span class="thin">&mdash; how long the {num(len(all_on))} on-hire units have been out</span></div>'
+        f'<div class="sub-h">Age of hire <span class="thin">- how long the {num(len(all_on))} on-hire units have been out</span></div>'
         f'<div class="chartpanel">{sh.hbars(age_rows, w=636, lab_w=120, rowh=24, right=200)}</div>'
         f'<div class="note">Everything beyond 30 days is due for a return or a rescan; {esc(PRIOR_LABEL)} issues drive the over-365 band.</div>')
     # ---- prior years: the value story ------------------------------------
@@ -771,7 +858,7 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=
         f"<b>{money(prev_val)}</b> of it issued in prior years, the oldest {num(oldest)} days ago",
         f"<b>{len(ravail)}</b> radios and <b>{len(bavail)}</b> batteries ready on the shelf"],
         refresh, asat_s, rag=status,
-        fresh=sh.freshness_line(_ASAT_DT[0], BUILD_DT)) if COVER_PAGE else None
+        fresh=sh.freshness_line(_ASAT_DT[0], BUILD_DT), contents=contents) if COVER_PAGE else None
     # what the phone card and the history need, kept for main()
     build_html.last = {"cfg": cfg, "status": status, "prior_pct": prior_pct, "due": due,
                        "exposure": total_exposure, "prev_val": prev_val, "oldest": oldest,
@@ -835,17 +922,17 @@ def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="
 <tr><td style="border-left:6px solid {O};padding:6px 12px">
 <div style="font-size:12px;font-weight:bold;color:{O}">{COATES_PURPOSE}</div>
 <div style="font-size:22px;font-weight:bold">AMPOL SITE RADIO ON-HIRE REPORT</div>
-<div style="font-size:11px;color:#555">Ampol Tool Store \u2013 Coates managed &nbsp;|&nbsp; Motorola site radios &amp; batteries &nbsp;|&nbsp; Refreshed: {refresh}</div></td></tr>
+<div style="font-size:11px;color:#555">Ampol Tool Store - Coates managed &nbsp;|&nbsp; Motorola site radios &amp; batteries &nbsp;|&nbsp; Refreshed: {refresh}</div></td></tr>
 
 <tr><td style="padding:10px 0 4px;font-size:12px;line-height:1.6">Good morning all,<br><br>
 Please find below the summary of the Ampol site radio position{", with the full report attached as a PDF (" + str(CUR_YEAR) + " in complete line-item detail with serial numbers; prior years summarised by company)" if pdf_ok else " - the full line-item report follows separately"}.
-This is about visibility, not blame \u2014 the ask is simple and it applies to every company equally.</td></tr>
+This is about visibility, not blame - the ask is simple and it applies to every company equally.</td></tr>
 {inline_card_html(card_path, data_asat)}
 
 <tr><td bgcolor="#fdf0f0" style="background-color:#fdf0f0;border:1px solid #f0c0c0;padding:10px 14px">
 <div style="font-size:15px;font-weight:bold;color:#c00000">{money(total_exposure)} of radio equipment is currently on hire.</div>
-<div style="font-size:11px;padding-top:3px">Of this, <b style="color:#c00000">{money(prev_val)}</b> across <b>{len(prev_all)} units</b> has been on hire since <b>{PRIOR_LABEL}</b> \u2014 the oldest for <b>{oldest} days</b>.
-Every one of these radios and batteries is either working on site, sitting unused, or no longer accounted for \u2014 this report exists to tell those three apart.</div></td></tr>
+<div style="font-size:11px;padding-top:3px">Of this, <b style="color:#c00000">{money(prev_val)}</b> across <b>{len(prev_all)} units</b> has been on hire since <b>{PRIOR_LABEL}</b> - the oldest for <b>{oldest} days</b>.
+Every one of these radios and batteries is either working on site, sitting unused, or no longer accounted for - this report exists to tell those three apart.</div></td></tr>
 
 <tr><td style="padding:8px 0"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
 <tr><td width="20%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">RADIOS ON HIRE</div><div style="font-size:15px;font-weight:bold;color:{O}">{len(r26)+len(rprev)} \u00b7 {money(val(r26)+val(rprev))}</div></td>
@@ -855,19 +942,19 @@ Every one of these radios and batteries is either working on site, sitting unuse
 <td style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">OUT OF SERVICE</div><div style="font-size:15px;font-weight:bold;color:#b07700">{len(oos)}</div></td></tr></table></td></tr>
 
 <tr><td bgcolor="#fdf4ea" style="background-color:#fdf4ea;border:1px solid #f0d5b8;padding:10px 14px;font-size:11px">
-<div style="font-weight:bold;color:#b35a00;letter-spacing:0.5px;font-size:12px">WHAT WE ARE ASKING \u2013 RETURN IT OR RESCAN IT</div>
+<div style="font-weight:bold;color:#b35a00;letter-spacing:0.5px;font-size:12px">WHAT WE ARE ASKING - RETURN IT OR RESCAN IT</div>
 <ul style="margin:4px 0 0;padding-left:16px">
-<li style="margin:3px 0"><b>Not in use?</b> Return it to the <b>Ampol Tool Store (Coates managed)</b> \u2014 it is scanned in on the spot, comes straight off this report, and goes back into the available pool for the next shutdown.</li>
-<li style="margin:3px 0"><b>Still in use?</b> Bring it past the Ampol Tool Store for a <b>rescan \u2014 proof of existence</b>. A thirty-second scan verifies the unit is on site and in whose hands, and resets the record. Nothing is taken off anyone.</li>
-<li style="margin:3px 0">Site radios are <b>{money(PRICE_RADIO)}</b> each to replace and batteries {money(PRICE_BATT)} ({PRICE_SOURCE}). Units that can be neither returned nor verified are ultimately chargeable at replacement value under the hire arrangement \u2014 applied consistently to all companies, and <b>no charge is finalised without review</b>. Verification protects everyone from charges for equipment that is actually on site.</li>
+<li style="margin:3px 0"><b>Not in use?</b> Return it to the <b>Ampol Tool Store (Coates managed)</b> - it is scanned in on the spot, comes straight off this report, and goes back into the available pool for the next shutdown.</li>
+<li style="margin:3px 0"><b>Still in use?</b> Bring it past the Ampol Tool Store for a <b>rescan - proof of existence</b>. A thirty-second scan verifies the unit is on site and in whose hands, and resets the record. Nothing is taken off anyone.</li>
+<li style="margin:3px 0">Site radios are <b>{money(PRICE_RADIO)}</b> each to replace and batteries {money(PRICE_BATT)} ({PRICE_SOURCE}). Units that can be neither returned nor verified are ultimately chargeable at replacement value under the hire arrangement - applied consistently to all companies, and <b>no charge is finalised without review</b>. Verification protects everyone from charges for equipment that is actually on site.</li>
 <li style="margin:3px 0">Anything look incorrect? Contact the Ampol Tool Store and we will review and correct the record with you.</li>
 </ul></td></tr>
 
-<tr><td style="padding:14px 0 4px"><div style="font-size:15px;font-weight:bold;color:{O};text-transform:uppercase;border-bottom:2px solid {O};padding-bottom:3px">{PRIOR_LABEL} \u2013 The Value Story</div></td></tr>
+<tr><td style="padding:14px 0 4px"><div style="font-size:15px;font-weight:bold;color:{O};text-transform:uppercase;border-bottom:2px solid {O};padding-bottom:3px">{PRIOR_LABEL} - the value story</div></td></tr>
 <tr><td style="padding:4px 0"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse"><tr>"""]
     for y in years:
         cnt, v = by_year[y]
-        p.append(f"""<td width="33%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">ISSUED {y} \u2013 STILL ON HIRE</div>
+        p.append(f"""<td width="33%" style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666;letter-spacing:1px">ISSUED {y} - STILL ON HIRE</div>
 <div style="font-size:14px;font-weight:bold;color:#c00000">{cnt} units \u00b7 {money(v)}</div></td>""")
     # WHY (13 Aug 2026): this block carries the year variables, so it must be
     # an f-string - as a plain string the {placeholders} printed literally in
@@ -885,23 +972,23 @@ Every one of these radios and batteries is either working on site, sitting unuse
         tot_v = a["prev_v"] + a["v26"]
         bg = ' bgcolor="#fdf0f0" style="background-color:#fdf0f0"' if a["prev_v"] >= 100000 else ''
         p.append(f"""<tr{bg}><td style="padding:5px 10px;border-bottom:1px solid #eee"><b>{comp}</b></td>
-<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{a['prev_n'] or EN_DASH}</td>
-<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;color:#c00000;font-weight:bold">{money(a['prev_v']) if a['prev_v'] else EN_DASH}</td>
-<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{a['n26'] or EN_DASH}</td>
-<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{money(a['v26']) if a['v26'] else EN_DASH}</td>
+<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{a['prev_n'] or '-'}</td>
+<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;color:#c00000;font-weight:bold">{money(a['prev_v']) if a['prev_v'] else '-'}</td>
+<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{a['n26'] or '-'}</td>
+<td align="right" style="padding:5px 10px;border-bottom:1px solid #eee">{money(a['v26']) if a['v26'] else '-'}</td>
 <td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;font-weight:bold;color:#b35a00">{money(tot_v)}</td>
 <td align="right" style="padding:5px 10px;border-bottom:1px solid #eee;color:#c00000;font-weight:bold">{a['old']}</td></tr>""")
     p.append(f"""</table>
-<div style="font-size:10px;color:#555;padding-top:4px">Rows shaded red carry {money(100000)}+ of prior-year equipment. Full line-item detail \u2014 every barcode, serial number, hirer, on-hire date and storage unit for {CUR_YEAR}, plus prior-year detail on request \u2014 is in the {"attached PDF" if pdf_ok else "full report"}.</div></td></tr>
+<div style="font-size:10px;color:#555;padding-top:4px">Rows shaded red carry {money(100000)}+ of prior-year equipment. Full line-item detail - every barcode, serial number, hirer, on-hire date and storage unit for {CUR_YEAR}, plus prior-year detail on request - is in the {"attached PDF" if pdf_ok else "full report"}.</div></td></tr>
 
 <tr><td bgcolor="#eef5fc" style="background-color:#eef5fc;border:1px solid #b8d4f0;padding:10px 14px;font-size:11px">
 <div style="font-weight:bold;color:#1f5c99;letter-spacing:0.5px;font-size:12px">STORE CONTROLS &amp; ASSURANCE</div>
 <div style="padding-top:4px">These records are protected by daily stock takes at the Ampol Tool Store (completed without exception, 30-day full-coverage cycle including the radio charging bays)
-and the double-check return process \u2014 every return is inspected and scanned on receipt, then stock-taken to its storage unit before going back on charge.
+and the double-check return process - every return is inspected and scanned on receipt, then stock-taken to its storage unit before going back on charge.
 <b>The moment a unit is scanned, the record updates.</b> Every count here is read from the SiteIQ register as at {data_asat} - nothing comes from a summary tab. {META.get("serial_note", "Serial numbers from the radio register")}.</div></td></tr>
 
 <tr><td style="padding:14px 0 6px;font-size:12px;line-height:1.6">
-Thanks all \u2014 radios are the backbone of safe communication on site, and getting the idle ones back (or a quick rescan of the ones in use)
+Thanks all - radios are the backbone of safe communication on site, and getting the idle ones back (or a quick rescan of the ones in use)
 keeps the fleet available for everyone's next shutdown. Any questions, come see us at the Ampol Tool Store or reply here.<br><br>
 Kind regards,<br><b>Andrew Fisher</b><br>Ampol Tool Store \u00b7 Coates</td></tr>
 <tr><td style="border-top:1px solid #ccc;padding:10px 0;font-size:10px;color:#555;text-align:center">
@@ -925,7 +1012,7 @@ def frame_email(inner):
  style="width:860px;max-width:860px;background:#ffffff;border:2px solid #1D1D1B;border-collapse:collapse">
 <tr><td style="background:#1D1D1B;padding:18px 24px;font-family:Arial,sans-serif">
  <div style="font-size:21px;font-weight:900;color:#ffffff">Coates &nbsp;|&nbsp; Ampol Site Radios</div>
- <div style="font-size:12px;font-weight:700;color:#F26222;margin-top:4px">Return it or rescan it &mdash; On-Hire &amp; Recovery Report</div>
+ <div style="font-size:12px;font-weight:700;color:#F26222;margin-top:4px">Return it or rescan it - on-hire and recovery report</div>
  <div style="font-size:10px;color:#bbbbbb;margin-top:6px">The Coates Way &nbsp;|&nbsp; POWERED BY SITEIQ &nbsp;|&nbsp; Author: Andrew Fisher</div>
 </td></tr>
 <tr><td style="padding:14px 20px">{inner}</td></tr>
@@ -962,7 +1049,7 @@ def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path, d
     card = Path(card_path) if card_path else None
     body = frame_email(build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat,
                                            pdf_ok=pdf.exists(), card_path=card))
-    subject = f"Ampol Tool Store \u2013 Site Radio Report \u2013 {REPORT_DATE.strftime('%d %b %Y')}"
+    subject = f"Ampol Tool Store - Site Radio Report - {REPORT_DATE.strftime('%d %b %Y')}"
     msg = MIMEMultipart("mixed")
     msg["To"] = RADIO_EMAIL_TO
     msg["Subject"] = subject
@@ -1063,6 +1150,24 @@ def write_pdf_robust(html_path, pdf_path):
     print("No PDF engine found - HTML written; PDF skipped.")
     return False
 
+def _page_count(pdf_path):
+    """Pages in a printed PDF (PyMuPDF, else pypdf, else None - the caller
+    then says the two-pass check could not run rather than guessing)."""
+    try:
+        import pymupdf
+        with pymupdf.open(str(pdf_path)) as d:
+            return len(d)
+    except ImportError:
+        pass
+    except Exception:
+        return None
+    try:
+        from pypdf import PdfReader
+        return len(PdfReader(str(pdf_path)).pages)
+    except Exception:
+        return None
+
+
 def find_workbook(patterns, arg=None):
     # WHY (12 Aug 2026): inputs now come from the suite's one Data area via
     # ampol_paths - newest file wins, Excel ~$ lock files and archived
@@ -1157,7 +1262,33 @@ def main():
     base = out / stem
     with open(f"{base}.html", "w", encoding="utf-8") as f:
         f.write(html_str)
-    if write_pdf_robust(f"{base}.html", f"{base}.pdf"):
+    pdf_ok = write_pdf_robust(f"{base}.html", f"{base}.pdf")
+    if pdf_ok and COVER_PAGE:
+        # WHY (03 Sep 2026): the cover's "What's inside" block carries REAL
+        # page numbers - read off the printed pages of the first pass, then
+        # the page is rebuilt with them and printed again. The cover is a
+        # fixed-height block, so the second pass paginates exactly like the
+        # first; the console proves it with both page counts, and a
+        # mismatch stops the build rather than print a wrong number.
+        contents = pdf_finish.contents_from_pdf(f"{base}.pdf", html_str, has_cover=True,
+                                                skip=("Meet the tool store team",))
+        if contents:
+            n_first = _page_count(f"{base}.pdf")
+            html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat, facts=F,
+                                  changes=changes, contents=contents)
+            with open(f"{base}.html", "w", encoding="utf-8") as f:
+                f.write(html_str)
+            pdf_ok = write_pdf_robust(f"{base}.html", f"{base}.pdf")
+            n_second = _page_count(f"{base}.pdf") if pdf_ok else None
+            print(f"Cover contents     : {len(contents)} rows read off the printed pages - "
+                  f"pass 1 {n_first} pages, pass 2 {n_second} pages"
+                  + (" - identical" if n_first == n_second and n_first else ""))
+            if pdf_ok and n_first and n_second and n_first != n_second:
+                raise SystemExit("The second pass printed a different page count from the first - the cover's "
+                                 "page numbers would be wrong. Not written.")
+        else:
+            print("Cover contents     : not printed - no PDF reader on this machine to read the page numbers")
+    if pdf_ok:
         # WHY (03 Sep 2026): properties and bookmarks - Author, Subject and a
         # navigation pane built from the report's own section headings
         print(pdf_finish.finish(
