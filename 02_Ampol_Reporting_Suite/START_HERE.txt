@@ -112,6 +112,14 @@ WHAT THE FILES ARE CALLED
   footer of every page, fixed or flowing. The pages use the Lato face
   from assets\fonts, so they look the same on every computer.
 
+WHAT THE TRANSACTION LOG TELLS YOU (v1.9)
+  The reports now read every movement since 1 Jan from TRANSACTIONS:
+  the year in movements, who holds what, the counter's busiest hours,
+  what crosses 90 days by quarter close unless it comes back, dead
+  stock that has not moved all year, and what the log and the register
+  disagree on. Nothing is forecast - every figure is a count over rows
+  in the export, and button 13 recounts the headline ones.
+
 THE COATES WAY IN THE REPORTS
   Docs\ holds the official deck (July 2026 branch edition) and its
   wording in COATES_WAY_July2026.md. The closing page of every report
