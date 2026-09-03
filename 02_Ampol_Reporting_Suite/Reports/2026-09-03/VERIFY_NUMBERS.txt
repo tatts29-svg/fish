@@ -1,4 +1,4 @@
-Counted from Data\ exports at 03 Sep 2026 04:15 - none of the report code involved.
+Counted from Data\ exports at 03 Sep 2026 04:31 - none of the report code involved.
 
 FIGURE                                             THIS COUNT   ON TODAY'S PAGE
 ----------------------------------------------------------------------
@@ -18,10 +18,10 @@ tooling: Q1 / Q2 / Q3                          140 / 544 / 816
 tooling: pre-2026 rows excluded                           853   
 tooling: available (tooling)                            4,053   MATCHES
 tooling: rows on the Repairs account                       70   MATCHES
-store: on hire crossing 90 days by quarter close            334   NOT FOUND ON PAGE
-store: available items never moved this year            3,000   NOT FOUND ON PAGE
-transactions: closed inside 6 minutes                     466   NOT FOUND ON PAGE
-transactions: busiest counter hour                      05:00   NOT FOUND ON PAGE
+store: on hire crossing 90 days by quarter close            334   MATCHES
+store: available items never moved this year            3,000   MATCHES
+transactions: closed inside 6 minutes                     466   MATCHES
+transactions: busiest counter hour                      05:00   MATCHES
 stocktake: countable items                              8,165   MATCHES
 stocktake: in store / on hire                   4,727 / 3,438   
 stocktake: departed lines excluded                      4,915   MATCHES
@@ -39,4 +39,4 @@ Former site name (display rule, disclosed on every data page):
 One dash style (the long dash must not print):
   long dashes on today's pages: 0
 
-FAIL - 4 figure(s) on today's pages do not match this count. Do not send.
+PASS - every checked figure on today's pages matches an independent count.

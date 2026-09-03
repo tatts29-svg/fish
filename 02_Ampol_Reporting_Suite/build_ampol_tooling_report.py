@@ -2112,6 +2112,10 @@ table.dt.reg tr.z td { background: #F7F8FA; }
    the table under it, so a data-quality block never leaves its heading and
    its one-line explanation alone at the foot of a page */
 .k2body .sub-h + .note { break-after: avoid; page-break-after: avoid; }
+/* the Tooling On-Hire Report's band: the rule cell takes nearly half the
+   band so its extra sentence wraps to the same height as before */
+.k2body .rag-wide .ragband .rg td { width: 27%; }
+.k2body .rag-wide .ragband .rg td:first-child { width: 46%; }
 """
 
 
@@ -2188,11 +2192,14 @@ class Blocks:
         # fleet: the on-hire total the company mini-scorecards are a share of
         self.items.append(("register", blocks, fleet))
 
-    def rag(self, band, tight=False):
+    def rag(self, band, tight=False, wide=False):
         # the page-1 RAG band (a rag_over90 dict) - page skin only;
         # tight is the shorter form (03 Sep 2026: the Executive Summary,
-        # so the three things fit under it on the position page)
-        self.items.append(("rag", band, tight))
+        # so the three things fit under it on the position page); wide
+        # gives the rule cell nearly half the band (03 Sep 2026, insights
+        # pass: the Tooling On-Hire Report's rule carries one more
+        # sentence, and the position page keeps its spare room)
+        self.items.append(("rag", band, tight, wide))
 
     def defbox(self, title, items):
         self.items.append(("defbox", title, items))
@@ -2564,6 +2571,8 @@ def k2_body(bl, limits, how, data_heading=True):
             piece = sh.rag_band(r["status"], r["head_html"], esc(r["rule"]),
                                 esc(r["owner"]), r["action_html"],
                                 tight=bool(b[2]) if len(b) > 2 else False)
+            if len(b) > 3 and b[3]:
+                piece = f'<div class="rag-wide">{piece}</div>'
         elif k == "defbox":
             piece = k2_defbox(b[1], b[2])
         elif k == "ul":
@@ -2587,7 +2596,7 @@ def k2_body(bl, limits, how, data_heading=True):
 
 def report_outputs(title, subtitle, subject, bl, limits, page_title, page_sub, cfg, how,
                    standard_break=False, data_heading=True, cover=None, pdf_subject="",
-                   card=None):
+                   card=None, skip_contents=()):
     """One report, ready to write: the page document wears the house frame;
     the email document is the kit's legacy page, kept only so email_html()
     can lift the Outlook-safe body from it. cover (03 Sep 2026): a function
@@ -2595,7 +2604,8 @@ def report_outputs(title, subtitle, subject, bl, limits, page_title, page_sub, c
     k2flow.cover_block - the page is built once without it, printed, and
     built again with the page numbers read off that print (build). pdf_subject:
     the one plain sentence stamped into the PDF's properties; card: the phone
-    position card's values."""
+    position card's values; skip_contents: heading prefixes this report's cover
+    leaves out of its ten rows (on top of the shared list)."""
     email_doc = page(page_title, page_sub, email_body(bl), limits, standard_break)
     body_html = k2_body(bl, limits, how, data_heading)
 
@@ -2604,7 +2614,7 @@ def report_outputs(title, subtitle, subject, bl, limits, page_title, page_sub, c
                                cover=cover(contents) if cover else None)
     return {"title": title, "subtitle": subtitle, "doc": build(), "build": build,
             "mail": email_doc, "subject": subject, "pdf_subject": pdf_subject or subject,
-            "has_cover": cover is not None, "card": card,
+            "has_cover": cover is not None, "card": card, "skip_contents": tuple(skip_contents),
             # a report with a page_break block keeps its position page to
             # band, tiles, three things and the story - that page must hold
             # room for tomorrow's movement notes; a report without one
@@ -2681,8 +2691,8 @@ def window_close(qk):
 
 def product_labels(d):
     """product key -> the corrected name's product key, where every
-    corrected register row under that key agrees on one (display only -
-    the grouping stays the engine's). WHY (03 Sep 2026): the engine keys
+    corrected register row under that key agrees on one and no other key
+    shares it (display only - the grouping stays the engine's). WHY (03 Sep 2026): the engine keys
     products off the SiteIQ description, so a typo the mapping corrects
     ('Critictal Risk Signage') would otherwise print as SiteIQ has it."""
     if "product_labels" in d:
@@ -2695,7 +2705,12 @@ def product_labels(d):
                 or d["corr_by_desc"].get(desc_key(clean_text(s["desc_raw"]))))
         if corr:
             seen[ti.product_key(N.display_desc(s["desc_raw"]))].add(ti.product_key(corr))
-    d["product_labels"] = {k: next(iter(v)) for k, v in seen.items() if len(v) == 1}
+    one = {k: next(iter(v)) for k, v in seen.items() if len(v) == 1}
+    # one-to-one only: the mapping writes sizes at the end of a name, which
+    # the product key strips, so three battery sizes would otherwise print
+    # under one corrected name - a shared label keeps the SiteIQ key instead
+    used = Counter(one.values())
+    d["product_labels"] = {k: v for k, v in one.items() if used[v] == 1}
     return d["product_labels"]
 
 
@@ -2742,8 +2757,10 @@ def line_chart_signed(labels, series, y_label="", w=636, h=210, colours=None,
     """Lines over time on the dark panel with a y axis that runs from the
     lowest value (or zero) to the highest, and a zero line - so a week
     where returns beat issues (net below zero) is drawn where it belongs.
-    Same look as sh.line_chart, which starts its axis at zero; this file
-    must not change the shared chart, so the signed one lives here.
+    Same look as sh.line_chart (which gained the below-zero axis on 03 Sep
+    2026); this one adds hollow points for a partial week and nudges the
+    end-of-line value labels apart when two lines finish at the same height,
+    which the shared chart does not yet do - this file must not change it.
     partial: indexes drawn as hollow points (a week that is not complete)."""
     n = len(labels)
     if n < 2 or not series:
@@ -3030,7 +3047,7 @@ def exec_insights(bl, d):
                  [[r["company"], hirer_show(r["hirer"]), r["barcode"], desc_show(d, r["barcode"], r["desc"]),
                    stamp(r["on_dt"])] for r in nolog[:QUALITY_CAP]], cls="tight")
     else:
-        bl.note("None - every item the register shows On Hire has a movement in the log.")
+        bl.note("Not one - every item the register shows On Hire has a movement in the log.")
     before = sorted(dq["onhire_before_log"], key=lambda r: (r["on_dt"] or ASAT_DT, r["barcode"]))
     fam = Counter(ti.report_family(r["desc"]) for r in before)
     fam_bits = ", ".join(f"{n_fmt(n)} {f}" for f, n in sorted(fam.items(), key=lambda kv: (-kv[1], kv[0])))
@@ -3051,7 +3068,7 @@ def exec_insights(bl, d):
                    hirer_show(t["who"]), t["co"] or "-", t["st"].strftime("%d %b %Y %H:%M")]
                   for r, t in oa[:QUALITY_CAP]], cls="tight")
     else:
-        bl.note("None - every item the register shows Available for Hire has its newest movement "
+        bl.note("Not one - every item the register shows Available for Hire has its newest movement "
                 "closed in the log. The register and the log agree on every available item.")
     so_what(bl, "the six-minute closes and the mass draws are habits, not errors - a word at the "
                 "counter about scanning a kit as a kit keeps the same-day figure honest; the register "
@@ -3567,7 +3584,7 @@ def render_onhire(d):
           tile(n_fmt(len(x["over90"])), "Items over 90 days", "warn", "", "amber",
                key="over90", raw=len(x["over90"]), good="down")]
     band = rag_over90(len(x["over90"]), n, f"tooling items on hire ({year})")
-    bl.rag(band)
+    bl.rag(band, wide=True)
     bl.tiles(p1, cls="three")
     # WHY (03 Sep 2026): the same three things the Executive Summary prints
     bl.three(three_things_for(d))
@@ -3906,6 +3923,7 @@ def render_onhire(d):
         f"{x['n_companies']} companies",
         bl, limits, "Ampol Tooling - On-Hire Report", "Tooling On-Hire Report", cfg,
         HOW_REGISTER, standard_break=True, data_heading=False, cover=cover, card=card,
+        skip_contents=ONHIRE_CONTENTS_SKIP,
         pdf_subject=(f"Every tooling item on hire from the Ampol tool store at the SiteIQ "
                      f"pull of {ASAT_SHORT}: the position, what moved since the last pull, "
                      "the ageing by company and the complete register, company A to Z."))
@@ -4643,12 +4661,19 @@ CONTENTS_SKIP_PREFIXES = (CLOSING_HEADING, "Meet the team", "Your Coates tool st
                           "Items on hire by month started", "Rules applied",
                           "Repairs custody account", "Tool store holding accounts",
                           "Radio and gas families")
+# WHY (03 Sep 2026, insights pass): three new sections joined the Tooling
+# On-Hire Report, so the ten rows its cover holds give way from the ageing
+# panel inside the company section, the top-15 picture and the legacy list
+# (the Executive Summary carries the legacy table) - the register, the
+# custody section and the data page stay listed. This report only: the
+# Executive Summary and the quarterlies keep every row they had.
+ONHIRE_CONTENTS_SKIP = ("On-hire ageing by company", "Top 15 hirers", "Legacy on hire")
 PAGE1_SPARE_MIN = 15      # px the position page must have left (movement notes land under the tiles)
 
 
-def contents_skip(doc):
+def contents_skip(doc, extra=()):
     return tuple(t for _lv, t in pdf_finish.headings_from_html(doc)
-                 if any(t.startswith(p) for p in CONTENTS_SKIP_PREFIXES))
+                 if any(t.startswith(p) for p in CONTENTS_SKIP_PREFIXES + tuple(extra)))
 
 
 def pdf_pages(pdf_path):
@@ -4745,7 +4770,7 @@ def write_outputs(key, out, note=None):
         # is asserted equal and the console says so.
         n1 = pdf_pages(pdf_path)
         contents = pdf_finish.contents_from_pdf(pdf_path, doc, has_cover=True,
-                                                skip=contents_skip(doc))
+                                                skip=contents_skip(doc, out.get("skip_contents", ())))
         if contents:
             doc = out["build"](contents)
             _write_text(html_path, doc)
