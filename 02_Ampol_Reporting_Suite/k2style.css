@@ -1,0 +1,611 @@
+/* ---------- the house face, embedded (03 Sep 2026) ---------------------
+   Lato (SIL OFL 1.1) ships in assets\fonts so every PDF looks the same on
+   every machine. The URLs are relative to the report page's own folder
+   (Reports\<day>\<family>\), which is where every builder writes it. */
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 400;
+             src: url("../../../assets/fonts/Lato-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: italic; font-weight: 400;
+             src: url("../../../assets/fonts/Lato-Italic.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 700;
+             src: url("../../../assets/fonts/Lato-Bold.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 900;
+             src: url("../../../assets/fonts/Lato-Black.ttf") format("truetype"); }
+
+/* =====================================================================
+   COATES K2 REPORT DESIGN SYSTEM - print stylesheet
+   Author: Andrew Fisher  -  POWERED BY SITEIQ
+   Matched to the K2 report family (Executive Summary, Stores Stocktake,
+   Store Consumables, Company On-Hire) so every Coates report reads as
+   one house style.
+   A4 portrait. Self-contained - no web fonts, no external requests.
+   ===================================================================== */
+
+@page { size: A4 portrait; margin: 0; }
+
+html, body { margin: 0; padding: 0; }
+
+/* Chromium/Edge strips background colours in print unless told not to.
+   WeasyPrint ignores this harmlessly. Without it the Edge-rendered PDF
+   comes out white-on-white. */
+html, body, * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  /* Lato where installed; Calibri on every Coates Windows laptop
+     (Carlito is the metric-matched clone on Linux). */
+  font-family: "Lato", "Calibri", "Carlito", "Segoe UI",
+               "Liberation Sans", sans-serif;
+  color: #35404E;
+}
+
+/* ---------- page + orange frame ------------------------------------ */
+
+.page {
+  position: relative;
+  width: 210mm;
+  /* 0.1mm short of A4: Chromium's subpixel rounding can push an exact
+     297mm div onto a second sheet, doubling the page count with blank
+     pages. The sliver of white at the foot is invisible. */
+  height: 296.9mm;
+  page-break-after: always;
+  overflow: hidden;
+}
+.page:last-child { page-break-after: auto; }
+
+.frame {
+  position: absolute;
+  top: 6.5mm; left: 6.5mm; right: 6.5mm; bottom: 6.5mm;
+  border: 5px solid #F36F21;
+  border-radius: 26px;
+  padding: 9.5mm 10mm 0 10mm;
+}
+
+/* footer pinned to the bottom of every frame */
+.foot {
+  position: absolute;
+  left: 10mm; right: 10mm; bottom: 7.5mm;
+  border-top: 1px solid #E4E8EC;
+  padding-top: 8px;
+}
+.foot-h {
+  color: #F36F21;
+  font-size: 7.6px;
+  font-weight: 700;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.foot-l { font-size: 8.4px; color: #8A9AAC; line-height: 1.65; }
+.foot-l b { color: #16202C; font-weight: 700; }
+.foot-l .sh { color: #F36F21; font-weight: 700; }
+/* 03 Sep 2026: one footer everywhere - team left, author centre, page right */
+.foot-t { width: 100%; border-collapse: collapse; }
+.foot-t td { vertical-align: bottom; padding: 0; }
+.foot-t .fl { width: 46%; }
+.foot-t .fc { text-align: center; font-size: 8.2px; color: #16202C; font-weight: 700; letter-spacing: 0.4px;
+              padding-bottom: 2px; }
+.foot-t .fc b { color: #16202C; }
+.foot-t .fr { width: 20%; text-align: right; font-size: 8.4px; color: #98A6B4; padding-bottom: 2px; }
+
+/* content area stops above the footer */
+.body { padding-bottom: 23mm; }
+
+/* ---------- page 1 dark header panel ------------------------------- */
+
+.hero {
+  background: #1A2430;
+  border-radius: 10px;
+  padding: 21px 24px 19px 24px;
+}
+.hero-grid { width: 100%; }
+.hero-grid td { vertical-align: top; }
+.kicker {
+  color: #F36F21;
+  font-size: 8.8px;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 8px 0 0 0;
+  color: #FFFFFF;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.12;
+}
+.hero .sub {
+  margin-top: 8px;
+  color: #A7B6C4;
+  font-size: 11.6px;
+}
+.hero .meta {
+  margin-top: 10px;
+  color: #8395A6;
+  font-size: 9.4px;
+  line-height: 1.6;
+}
+.hero .meta b { color: #FFFFFF; font-weight: 700; }
+.siteiq {
+  text-align: right;
+  color: #FFFFFF;
+  font-size: 9.8px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  white-space: nowrap;
+}
+.siteiq .q { color: #F36F21; }
+.tagline {
+  text-align: right;
+  color: #8395A6;
+  font-size: 10.4px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+/* ---------- continuation header (pages 2+) ------------------------- */
+
+.chead { width: 100%; }
+.chead td { vertical-align: top; }
+.chead h2 {
+  margin: 5px 0 0 0;
+  color: #16202C;
+  font-size: 15px;
+  font-weight: 700;
+}
+.chead .siteiq { color: #16202C; }
+.asat {
+  text-align: right;
+  color: #8A9AAC;
+  font-size: 9.2px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+.asat b { color: #16202C; font-weight: 700; }
+.pageno {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 2px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- KEY strip --------------------------------------------- */
+
+.key {
+  margin-top: 9px;
+  font-size: 9.2px;      /* 03 Sep 2026: page 1 only, so it can be read */
+  line-height: 1.8;
+  color: #6B7B8B;
+}
+.key .kl {
+  color: #8A9AAC;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  margin-right: 6px;
+}
+.key .dot { font-size: 9px; }
+.key b { font-weight: 700; }
+.key .blue  { color: #2F7FD0; }
+.key .amber { color: #E0930F; }
+.key .orange{ color: #F36F21; }
+.key .green { color: #16A34A; }
+
+/* thin gradient rule */
+.grule {
+  height: 2.8px;
+  margin-top: 7px;
+  background-image: linear-gradient(to right, #F36F21 0%, #F5860F 18%,
+              #F0B310 34%, #E3D41C 52%, #C8DA2C 68%, #DDEA92 84%, #FFFFFF 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.page1 .grule { margin-top: 12px; }
+
+/* right-aligned page number on page 1 sits above the rule */
+.p1no {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 8px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- callout (peach) --------------------------------------- */
+
+.callout {
+  background: #FDF0E7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 10px 10px 0;
+  padding: 16px 22px;
+  margin-top: 16px;
+  font-size: 12.4px;
+  line-height: 2.0;
+  color: #1F2A36;
+}
+.callout.tight { font-size: 11.6px; line-height: 1.9; padding: 14px 20px; }
+.callout b { font-weight: 700; }
+.callout .o { color: #D95F14; font-weight: 700; }
+.callout .lead {
+  color: #D95F14;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- section header (grey panel) --------------------------- */
+
+.sect {
+  background: #F4F5F7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 9px 9px 0;
+  padding: 13px 18px;
+  margin-top: 18px;
+}
+.sect h3 { margin: 0; color: #16202C; font-size: 14px; font-weight: 700; }
+
+/* plain sub-heading */
+.sub-h {
+  margin: 18px 0 10px 0;
+  color: #16202C;
+  font-size: 13.8px;
+  font-weight: 700;
+}
+.sub-h .thin { color: #5A6875; font-weight: 400; }
+
+.note {
+  font-size: 9.5px;
+  color: #7A8A9A;
+  line-height: 1.75;
+  margin-top: 9px;
+}
+.note b { color: #16202C; font-weight: 700; }
+.note .o { color: #D95F14; font-weight: 700; }
+
+/* ---------- KPI tiles -------------------------------------------- */
+
+.tiles { width: 100%; table-layout: fixed; border-spacing: 7px 7px;
+         margin: 11px -7px 0 -7px; }
+.tiles td {
+  background: #171F2B;
+  border-radius: 11px;
+  padding: 16px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.t-ico { line-height: 1; margin-bottom: 8px; }
+.t-num {
+  color: #FFFFFF;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+}
+.t-num.sm { font-size: 20px; }
+.t-lab {
+  color: #8A9AAC;
+  font-size: 7.8px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+.t-note { font-size: 8.3px; font-weight: 700; margin-top: 5px; line-height: 1.4; }
+.t-note.red   { color: #F0603E; }
+.t-note.green { color: #22C55E; }
+.t-note.amber { color: #EFA82B; }
+.t-note.grey  { color: #7A8A9A; }
+
+/* ---------- donut ------------------------------------------------- */
+
+.donut-wrap { text-align: center; padding-top: 2px; }
+.donut-cap {
+  color: #98A6B4;
+  font-size: 9px;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* ---------- score bars (K2: fixed-width pill next to the label) --- */
+
+.scores { border-spacing: 0; margin-top: 2px; }
+.scores td { padding: 0; vertical-align: middle; }
+.sc-tick { color: #F5A623; font-size: 10.5px; width: 16px;
+           font-family: "DejaVu Sans", "Segoe UI Symbol", sans-serif; }
+.sc-lab  { color: #1F2A36; font-size: 11.6px; width: 132px;
+           padding-right: 12px; line-height: 1.3; }
+.sc-bar  { width: 236px; }
+.sc-val  { color: #16202C; font-size: 11.6px; font-weight: 700;
+           white-space: nowrap; padding-left: 12px; }
+.sc-form { color: #98A6B4; font-size: 8.9px; line-height: 1.5;
+           padding: 2px 0 13px 0 !important; }
+
+.track  { background: #1A2430; border-radius: 999px; height: 10px; }
+.trackl { background: #E9EDF1; border-radius: 999px; height: 9px; }
+.fill   { height: 10px; border-radius: 999px; }
+.trackl .fill { height: 9px; }
+.f-green { background: #1FA75A; }
+.f-amber { background: #F5A623; }
+.f-red   { background: #EF4444; }
+.f-orange{ background: #F36F21; }
+.f-blue  { background: #3D8BD4; }
+
+/* light progress rows */
+.prog { width: 100%; table-layout: fixed; border-spacing: 0; margin-top: 12px; }
+.prog td { padding: 0 0 10px 0; vertical-align: middle; }
+.pr-lab { color: #6C7A89; font-size: 9.8px; width: 158px; padding-right: 14px;
+          line-height: 1.3; }
+.pr-bar { }
+.pr-val { color: #16202C; font-size: 9.8px; font-weight: 700; text-align: right;
+          white-space: nowrap; width: 64px; padding-left: 14px; }
+
+/* ---------- alerts panel ----------------------------------------- */
+
+.alerts {
+  background: #171F2B;
+  border-radius: 10px;
+  padding: 16px 20px 7px 20px;
+  margin-top: 15px;
+}
+.alerts .ah {
+  color: #F36F21;
+  font-size: 9.3px;
+  font-weight: 700;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.al { width: 100%; border-spacing: 0; }
+.al td { vertical-align: top; padding-bottom: 12px; }
+.al-dot { width: 13px; font-size: 11px; line-height: 1.3; }
+.al-t { color: #FFFFFF; font-size: 10.6px; font-weight: 700; line-height: 1.4; }
+.al-s { color: #8A9AAC; font-size: 9.5px; line-height: 1.55; margin-top: 3px; }
+.d-red { color: #F0603E; } .d-amber { color: #EFA82B; }
+.d-blue { color: #3D8BD4; } .d-green { color: #22C55E; }
+
+/* ---------- tables ----------------------------------------------- */
+
+table.dt { width: 100%; border-collapse: separate; border-spacing: 0;
+           margin-top: 11px; }
+table.dt th {
+  background: #1B2532;
+  color: #FFFFFF;
+  font-size: 8.7px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 10px;
+  line-height: 1.35;
+}
+table.dt th:first-child { border-top-left-radius: 7px; padding-left: 14px; }
+table.dt th:last-child  { border-top-right-radius: 7px; padding-right: 14px; }
+table.dt th.r, table.dt td.r { text-align: right; }
+table.dt th.c, table.dt td.c { text-align: center; }
+table.dt td {
+  font-size: 10.3px;
+  color: #26313D;
+  padding: 10px 10px;
+  border-bottom: 1px solid #E8EBEF;
+  line-height: 1.4;
+}
+table.dt td:first-child { padding-left: 14px; }
+table.dt td:last-child  { padding-right: 14px; }
+table.dt tr.z td { background: #F7F8FA; }
+table.dt td .s2 { display: block; color: #98A6B4; font-size: 8.6px; margin-top: 2px; }
+table.dt td.big { font-size: 17px; font-weight: 700; color: #16202C;
+                  text-align: center; padding: 15px 10px; }
+table.dt td.big + td.big { border-left: 1px solid #E8EBEF; }
+table.dt th.c + th.c { border-left: 1px solid #2A3644; }
+.g { color: #16A34A; font-weight: 700; }
+.a { color: #D9880B; font-weight: 700; }
+.rd { color: #DC2626; font-weight: 700; }
+.or { color: #D95F14; font-weight: 700; }
+.tbc { color: #98A6B4; }
+
+.totrow { width: 100%; border-collapse: collapse; margin-top: 0; }
+.totrow td {
+  font-size: 11.8px; font-weight: 700; color: #16202C;
+  padding: 12px 14px; border-bottom: 1px solid #E8EBEF;
+}
+.totrow td.v { text-align: right; }
+.hl { background: #FFF35C; padding: 2px 7px; border-radius: 2px; }
+
+/* ---------- info cards (lime bar) -------------------------------- */
+
+.cards { width: 100%; table-layout: fixed; border-spacing: 8px 8px;
+         margin: 10px -8px 0 -8px; }
+.cards td {
+  background: #F4F5F7;
+  border-left: 4px solid #C8DA2C;
+  border-radius: 0 7px 7px 0;
+  padding: 13px 16px;
+  vertical-align: top;
+}
+.cd-h {
+  color: #16202C; font-size: 9px; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 7px;
+}
+.cd-b { color: #47566A; font-size: 10px; line-height: 1.72; }
+.cd-b b { color: #16202C; font-weight: 700; }
+
+/* ---------- focus cards (dark, on white page) --------------------- */
+
+.focus { width: 100%; table-layout: fixed; border-spacing: 7px 0;
+         margin: 12px -7px 0 -7px; }
+.focus td {
+  background: #171F2B;
+  border-radius: 10px;
+  border-top: 3px solid #F36F21;
+  padding: 14px 15px 13px 15px;
+  vertical-align: top;
+}
+.fc-co { color: #FFFFFF; font-size: 12px; font-weight: 700; line-height: 1.3; }
+.fc-n  { color: #F0823C; font-size: 9.4px; font-weight: 700; margin-top: 5px; }
+.fc-s  { color: #8A9AAC; font-size: 8.8px; line-height: 1.6; margin-top: 5px; }
+
+/* ---------- team cards ------------------------------------------- */
+
+.team { width: 100%; border-spacing: 8px 0; margin: 13px -8px 0 -8px; }
+.team td {
+  background: #171F2B;
+  border-top: 3px solid #C8DA2C;
+  border-radius: 10px;
+  padding: 15px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.av {
+  width: 42px; height: 42px; border-radius: 999px;
+  background: #55636F; color: #FFFFFF;
+  font-size: 13px; font-weight: 700;
+  text-align: center; line-height: 42px;
+  margin: 0 auto 9px auto;
+}
+.av.lead { background: #F36F21; }
+.tm-n { color: #FFFFFF; font-size: 11.6px; font-weight: 700; line-height: 1.3; }
+.tm-r { color: #C8DA2C; font-size: 8.6px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.8px; margin-top: 5px; line-height: 1.4; }
+.tm-e { color: #7FB3D5; font-size: 8.6px; margin-top: 5px; line-height: 1.4; }
+.tm-d { color: #8A9AAC; font-size: 8.3px; margin-top: 6px; line-height: 1.5; }
+
+/* ---------- misc -------------------------------------------------- */
+
+.two { width: 100%; border-spacing: 0; }
+.two td { vertical-align: top; }
+.chartpanel { background: #171F2B; border-radius: 10px; padding: 15px 17px;
+              margin-top: 11px; }
+.chart-cap { color: #7A8A9A; font-size: 9.4px; line-height: 1.7; margin-top: 9px; }
+.chart-cap b { color: #16202C; }
+
+
+/* ---------- compact tables + tags (02 Sep 2026, gas monitor rebuild) --- */
+
+table.dt.cp th { padding: 8px 8px; font-size: 8.1px; letter-spacing: 1px; }
+table.dt.cp td { padding: 5.5px 8px; font-size: 9.3px; line-height: 1.3; }
+table.dt.cp td:first-child { padding-left: 12px; }
+table.dt.cp td:last-child  { padding-right: 12px; }
+table.dt.cp td .s2 { font-size: 8px; margin-top: 1px; }
+
+.tag {
+  display: inline-block; font-size: 7.2px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; padding: 1px 5px; border-radius: 3px;
+  margin-left: 6px; vertical-align: middle; line-height: 1.5;
+}
+.tag.red   { background: #FDE8E8; color: #C81E1E; }
+.tag.amber { background: #FFF1DB; color: #B45309; }
+.tag.grey  { background: #EEF1F4; color: #5A6875; }
+.tag.green { background: #E4F5EA; color: #15803D; }
+
+table.dt td.dim { color: #98A6B4; }
+table.dt th.nw, table.dt td.nw { white-space: nowrap; }
+table.dt th.w { white-space: nowrap; }
+
+.rules { width: 100%; border-spacing: 0; margin-top: 10px; }
+.rules td { vertical-align: top; padding: 5px 0; border-bottom: 1px solid #E8EBEF;
+            font-size: 9.4px; line-height: 1.55; color: #47566A; }
+.rules td.k { width: 118px; color: #16202C; font-weight: 700; padding-right: 12px; }
+
+/* ---------- v1.5 wow pass: movement, RAG band, cover, heat grid ---- */
+
+.spark { display: block; margin: 6px auto 0 auto; }
+.t-spark { margin-top: 6px; line-height: 0; }
+
+.ragband { display: table; width: 100%; border-collapse: separate; border-spacing: 0;
+           margin-top: 12px; border-radius: 12px; overflow: hidden;
+           background: #F6F7F9; box-shadow: inset 0 0 0 1px #E4E8EC; }
+.ragband.tight { margin-top: 5px; }
+.ragband.tight .pill { font-size: 13px; padding: 9px 6px; width: 84px; }
+.ragband.tight .rb { padding: 7px 14px 6px 14px; }
+.ragband.tight .rh { font-size: 11.2px; line-height: 1.4; }
+.ragband.tight .rg { margin-top: 4px; }
+.ragband.tight .rv { font-size: 8.6px; line-height: 1.45; }
+.ragband .pill { display: table-cell; width: 92px; vertical-align: middle; text-align: center;
+                 color: #FFFFFF; font-weight: 700; font-size: 15px; letter-spacing: 2.4px;
+                 text-transform: uppercase; padding: 14px 6px; }
+.ragband.g .pill  { background: #1FA75A; }
+.ragband.a .pill  { background: #F5A623; color: #16202C; }
+.ragband.rd .pill { background: #EF4444; }
+.ragband .rb { display: table-cell; vertical-align: middle; padding: 10px 16px 9px 16px; }
+.ragband .rh { color: #16202C; font-size: 12.2px; font-weight: 700; line-height: 1.45; }
+.ragband .rh .o { color: #D95F14; }
+.ragband .rg { width: 100%; border-spacing: 0; margin-top: 6px; }
+.ragband .rg td { padding: 0 14px 0 0; vertical-align: top; width: 33%; }
+.ragband .rk { color: #8A9AAC; font-size: 7.4px; font-weight: 700; letter-spacing: 1.6px;
+               text-transform: uppercase; }
+.ragband .rv { color: #35404E; font-size: 9.2px; line-height: 1.5; margin-top: 2px; }
+.ragband .rv b { color: #16202C; }
+
+.page.cover .frame { background: #1A2430; }
+.cover-in { padding: 34mm 6mm 0 6mm; color: #FFFFFF; }
+.cover-in .kicker { font-size: 10.4px; letter-spacing: 3px; }
+.cover-in h1 { margin: 14px 0 0 0; font-size: 40px; font-weight: 700; line-height: 1.08;
+               letter-spacing: -0.6px; color: #FFFFFF; }
+.cover-in .sub { margin-top: 12px; color: #A7B6C4; font-size: 14px; }
+.cover-in .rule { height: 3px; width: 120px; margin: 26px 0 30px 0;
+                  background-image: linear-gradient(to right, #F36F21, #F0B310, #C8DA2C); }
+.cover-in .big { font-size: 118px; font-weight: 700; line-height: 0.95; letter-spacing: -3px;
+                 color: #F36F21; }
+.cover-in .big.sm { font-size: 78px; letter-spacing: -2px; }
+.cover-in .biglab { margin-top: 10px; color: #FFFFFF; font-size: 15px; font-weight: 700;
+                    letter-spacing: 2.6px; text-transform: uppercase; }
+.cover-in .lines { margin-top: 26px; color: #C9D6E2; font-size: 12.5px; line-height: 1.85; }
+.cover-in .lines b { color: #FFFFFF; }
+.cover-in .meta { margin-top: 30px; color: #8395A6; font-size: 10px; line-height: 1.7; }
+.cover-in .meta b { color: #FFFFFF; }
+.cover-cog { position: absolute; right: 12mm; bottom: 22mm; width: 150px; opacity: 0.92; }
+.cover-siteiq { position: absolute; left: 10mm; bottom: 24mm; color: #FFFFFF; font-size: 11px;
+                font-weight: 700; letter-spacing: 2px; }
+.cover-siteiq .q { color: #F36F21; }
+.cover-siteiq .tag { display: block; color: #8395A6; font-weight: 400; letter-spacing: 0;
+                     font-size: 10px; margin-top: 4px; }
+
+.cway { display: table; width: 100%; margin-top: 10px; background: #1A2430; border-radius: 12px; }
+.cway .img { display: table-cell; width: 112px; vertical-align: middle; padding: 7px 0 7px 12px; }
+.cway .img img { width: 98px; display: block; }
+.cway .txt { display: table-cell; vertical-align: middle; padding: 7px 16px 7px 12px; }
+.cway .h { color: #F36F21; font-size: 8.8px; font-weight: 700; letter-spacing: 2.4px;
+           text-transform: uppercase; }
+.cway .p { color: #FFFFFF; font-size: 12px; font-weight: 700; margin-top: 3px; line-height: 1.3; }
+.cway .v { color: #A7B6C4; font-size: 8.8px; margin-top: 4px; line-height: 1.42; }
+.cway .v b { color: #FFFFFF; }
+.cway .v .d { color: #8A9AAC; }
+.cway .k { color: #F36F21; font-size: 7.6px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; margin-right: 3px; }
+.cway .fit { color: #C9D6E2; font-size: 8.8px; margin-top: 3px; line-height: 1.42; }
+.cway .fit b { color: #FFFFFF; }
+.cway .src { color: #6F8093; font-size: 7.8px; margin-top: 3px; line-height: 1.4; }
+
+/* ---------- 03 Sep 2026: cover stripe, freshness, three things -------- */
+.cover-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; border-radius: 12px 0 0 12px; }
+.cover-status { position: absolute; right: 12mm; top: 14mm; font-size: 11px; font-weight: 900;
+                letter-spacing: 3px; }
+.cover-in .fresh { margin-top: 10px; color: #8A9AAC; font-size: 10.2px; }
+.cover-in .fresh b { color: #C9D6E2; font-weight: 700; }
+.three { margin: 8px 0 6px 0; border: 1px solid #E3E8EE; border-radius: 10px; background: #FFFFFF;
+         padding: 6px 12px 4px 12px; break-inside: avoid; page-break-inside: avoid; }
+.three .t3h { font-size: 8.2px; letter-spacing: 1.6px; color: #F36F21; font-weight: 700;
+              text-transform: uppercase; margin-bottom: 3px; }
+.three .t3 { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0;
+             border-top: 1px solid #EEF1F5; }
+.three .t3:first-of-type { border-top: 0; }
+.three .n { flex: 0 0 22px; height: 22px; border-radius: 11px; background: #1A2430; color: #FFFFFF;
+            font-weight: 700; font-size: 11px; text-align: center; line-height: 22px; }
+.three .w { flex: 1 1 auto; font-size: 10.6px; line-height: 1.45; color: #16202C; }
+.three .w b { display: block; font-size: 11.2px; }
+.three .w .why { color: #5B6B7B; }
+.three .who { flex: 0 0 150px; font-size: 9.4px; color: #5B6B7B; line-height: 1.4; text-align: right; }
+.three .who::before { content: "OWNER / BY"; display: block; font-size: 7px; letter-spacing: 1.4px;
+                      color: #8A9AAC; font-weight: 700; }
+
+
+/* ---------- 03 Sep 2026: "What's inside" on the cover ------------------ */
+.cover-toc { position: absolute; left: 10mm; bottom: 44mm; width: 96mm; color: #C9D6E2; }
+.cover-toc .h { color: #F36F21; font-size: 8.6px; font-weight: 700; letter-spacing: 2.4px;
+                text-transform: uppercase; margin-bottom: 5px; }
+.cover-toc table { border-collapse: collapse; width: 100%; }
+.cover-toc td { padding: 2.2px 0; font-size: 9.6px; border-bottom: 1px solid #2A3644; }
+.cover-toc td.ct { color: #E3EAF1; }
+.cover-toc td.cp { text-align: right; color: #8A9AAC; width: 22px; font-weight: 700; }

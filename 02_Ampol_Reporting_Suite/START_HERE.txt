@@ -1,0 +1,272 @@
+============================================================
+ COATES - AMPOL TOOL STORE (Lytton Refinery)
+ THE REPORTING SUITE - START HERE
+ Author: Andrew Fisher  |  POWERED BY SITEIQ
+ Suite version: see SUITE_VERSION.txt
+============================================================
+
+Everything is a numbered .bat file. Double-click it. You never
+open Python and you never need to remember where a file lives.
+The numbers will not change once you know them.
+
+------------------------------------------------------------
+HOW THIS WORKS - IN ONE BREATH
+------------------------------------------------------------
+Three SiteIQ exports go into Data\. Every report counts from
+those three files plus a few small lookup lists. Nothing is
+typed in, nothing is refreshed, nothing is estimated. The
+reports land in a dated folder, the emails land as DRAFTS,
+and two checks run last: one for blanks, one that counts the
+key figures again from scratch and compares them with the
+pages (the truth table). If the two counts disagree, the run
+fails red and names the figure. Open HOW_IT_WORKS.html for the
+same thing as a picture.
+
+The rules the whole suite is built on:
+
+  1. ONE AREA FOR ALL THE DATA. Everything a report reads lives
+     in Data\ - nothing reads from anywhere else. Fresh SiteIQ
+     pulls are saved over the top of the same names (button 12
+     does the filing). Yesterday's copy goes to Data\previous\.
+
+  2. NO WORKBOOK IS EVER REFRESHED. The .xlsm workbooks are not
+     read (02 Sep 2026). The two registers (calibration, rigging)
+     are read only for what you type into them - due dates, test
+     dates, which items are on the register - and each report
+     joins them to the live RENTAL_STOCK itself.
+
+  3. REAL DATA ONLY. A value that is not in the source prints as
+     a dash and is disclosed; never a guess, never $0-filled.
+     The site is Ampol: SiteIQ still carries the former site name
+     on thousands of descriptions and one customer account; every
+     page shows the current name and its data page says how many
+     raw lines still carry the old one.
+
+  4. ONE ORDER. Companies A to Z, one customer one name (project
+     accounts such as FCCU roll up to their parent), hirers A to Z
+     inside a company, a person's items longest-held first. A
+     table that is ranked says "ranked by ..." in its heading.
+
+  5. NOTHING SENDS BY ITSELF. Every email is a draft until you
+     press Send.
+
+  6. WORKS ON ANY COMPUTER. Copy this whole folder to any laptop
+     and it runs - every path is relative to the folder itself.
+
+------------------------------------------------------------
+EVERY MORNING (about 10 minutes)
+------------------------------------------------------------
+  1. In SiteIQ, export RENTAL_STOCK, TRANSACTIONS and STOCKTAKE
+     (they land in Downloads). Double-click 12_PULL_SITEIQ_EXPORTS.
+     It finds them, checks they are AMPOL exports, backs up
+     yesterday's copies and files the new ones into Data\.
+     Wrong-site files are skipped loudly, never filed.
+  2. Double-click 00_RUN_EVERYTHING. It builds every report,
+     makes the Outlook drafts, runs the blank check and the
+     truth table. Read the last screen: PASS or a named figure.
+  3. Open the drafts, read them, press Send yourself.
+
+Everything lands in Reports\(today's date)\ - one folder per
+report family, dated, never overwritten. The truth table is
+saved there too, as VERIFY_NUMBERS.txt, and each client PDF has a
+phone-sized position card (PNG) beside it - the same page-1
+figures, for Teams or WhatsApp.
+
+------------------------------------------------------------
+THE BUTTONS
+------------------------------------------------------------
+  00  Run everything (the whole morning in one button)
+  01  Gas monitor report (K2-style PDF + email draft)
+  02  Gas executive dashboard (the V18 email dashboard)
+  03  Site radio on-hire report
+  04  Tooling reports: executive summary, ONE on-hire register
+      (every company A-Z, every hirer A-Z, longest-held first),
+      quarterly charge reports (Q1-Q4 + year), utilisation and
+      what-to-buy, compliance and trends. Per-company reports
+      are off by default - there are hundreds of companies.
+  05  Stocktake compliance report (client + team + worklist)
+  06  Calibration register report
+  07  Rigging and lifting register report
+  08  Make Outlook drafts from everything built today
+  09  Check reports (blanks, placeholders, nan, email weight)
+  10  Check my setup (run this first on a new computer)
+  11  Pick a report (menu when you only want one thing)
+  12  Pull SiteIQ exports from Downloads into Data\
+  13  Verify numbers (the truth table)
+  14  Archive old workbooks (parks the three .xlsm files no report
+      reads any more - run once, nothing is deleted)
+  15  Daily position (the six families on one A4 page - runs last
+      in button 00, or on its own after the six have built)
+
+------------------------------------------------------------
+WHAT THE FILES ARE CALLED
+  Every report follows one rule: Coates_Ampol_<Report>_<day>.pdf, for
+  example Coates_Ampol_Tooling_On_Hire_03Sep2026.pdf. Beside each PDF:
+  the same name .html (the pages), _PositionCard.png (the phone card),
+  _OUTLOOK.eml (the draft) and .draft.json (what button 08 reads).
+  The day in the name is the day the button was pressed - the same as
+  the Reports\ folder it sits in; the pull time is printed on every page.
+  Every PDF opens with a bookmark pane (its sections), a "What's
+  inside" list with page numbers on the cover, and carries
+  Author: Andrew Fisher in its properties. Page numbers sit in the
+  footer of every page, fixed or flowing. The pages use the Lato face
+  from assets\fonts, so they look the same on every computer.
+
+WHAT THE TRANSACTION LOG TELLS YOU (v1.9)
+  The reports now read every movement since 1 Jan from TRANSACTIONS:
+  the year in movements, who holds what, the counter's busiest hours,
+  what crosses 90 days by quarter close unless it comes back, dead
+  stock that has not moved all year, and what the log and the register
+  disagree on. Nothing is forecast - every figure is a count over rows
+  in the export, and button 13 recounts the headline ones.
+
+THE COATES WAY IN THE REPORTS
+  Docs\ holds the official deck (July 2026 branch edition) and its
+  wording in COATES_WAY_July2026.md. The closing page of every report
+  prints that wording and names the traits and disciplines the report
+  serves. If the company issues a new edition, replace the deck in
+  Docs\, update the .md, and the panel wording in k2shell.py follows.
+
+ON ANOTHER COMPUTER
+------------------------------------------------------------
+  1. Copy the whole 02_Ampol_Reporting_Suite folder across
+     (USB, OneDrive, shared drive - anything). Keep the name.
+  2. Double-click 10_CHECK_MY_SETUP. It says in plain words if
+     Python, Edge/Chrome or a Data\ file is missing.
+  3. Put today's three exports in Data\ (button 12 or by hand).
+  4. Double-click 00_RUN_EVERYTHING.
+  Python 3 and Microsoft Edge (for the PDFs) are the only things
+  the computer needs; both are standard on a Coates laptop.
+  One optional extra: PyMuPDF (in a command window: pip install
+  pymupdf) writes the bookmark pane and Author into each PDF;
+  without it the PDFs still build and one console line says so. No
+  Outlook on the machine? Create an empty file NO_OUTLOOK.txt in
+  this folder and 00 skips the drafting step; the .eml files in
+  the day's folder still open in any mail program.
+
+  Two laptops carrying the suite: copy the folder from the one
+  you updated last. SUITE_VERSION.txt tells you which is newer.
+  Data\ and Reports\ are each machine's own - compare them, never
+  merge them.
+
+------------------------------------------------------------
+THE DATA FOLDER (from v1.13)
+------------------------------------------------------------
+  Data\SiteIQ\     the three SiteIQ pulls - RENTAL_STOCK, TRANSACTIONS,
+                   STOCKTAKE - filed there by button 12. Never edited.
+                   previous\ keeps dated copies of earlier pulls.
+  Data\Editable\   what you maintain:
+                   Ampol_Master.xlsx  - Descriptions, Pricing, Gas
+                                        serials, Radio serials (one
+                                        workbook; the tab names and
+                                        headers must not change)
+                   Ampol_Calibration_Register.xlsx
+                   Rigging Register.xlsx
+                   store_layout.json (the bay map, when you type one in)
+  Press 16_TIDY_DATA_FOLDER once to move an older folder into this
+  shape and build the master from the four old files (they are parked
+  in Data\_Archive_workbooks, never deleted). Docs\EXCEL_FILES_WE_READ
+  says, tab by tab, what each file feeds and what must not change.
+
+------------------------------------------------------------
+ASSET NUMBERS (button 17)
+------------------------------------------------------------
+Reports\<day>\Asset_Numbers\Coates_Ampol_Asset_Numbers_<day>.xlsx
+- New to address: every item on the register that needs a row in
+  Ampol_Master.xlsx - no price for its description (the reports'
+  own unpriced items), or the old site name still in the text with
+  no corrected row. New gear since the last pull sits at the top.
+  Add the row (Pricing tab: the description exactly as shown, plus
+  the price) and it drops off next run.
+- Asset numbers: each main number (AMP200), what it is used for,
+  the highest /NNN used, the next number and the next ten.
+- Next by family: the next new main number (AMP521, WG0567 ...).
+Generated from RENTAL_STOCK and the transaction log every run -
+never edit this file; edit the master.
+
+------------------------------------------------------------
+NAMES AS SHOWN
+------------------------------------------------------------
+Every page shows names one way: gas monitors as "Dräger X-am 5000
+Gas Monitor (serial)", radios as "Motorola Radio (serial)", other
+descriptions in sentence case, people as "First Last", one name per
+customer. The rule is Docs\NAMES_AS_SHOWN.md and lives in
+ampol_names.py; to protect a brand or acronym, add the word there.
+Counting never uses the shown name - the raw SiteIQ text is matched.
+
+------------------------------------------------------------
+UPDATES FROM CLAUDE
+------------------------------------------------------------
+An update arrives as ONE flat zip (scripts and notes only, never
+data, never a register). Drop it into this folder, let it
+overwrite, run 00. SUITE_VERSION.txt shows the new version. Your
+Data\, Reports\ and registers are never touched by an update.
+
+------------------------------------------------------------
+WHEN SOMETHING IS WRONG
+------------------------------------------------------------
+A number is questioned:
+  - Open Reports\(today)\VERIFY_NUMBERS.txt. Every key figure is
+    counted there a second time, straight from the exports, and
+    marked MATCHES against the page. Hand that over.
+  - Every report has a data-and-method page: sources with pull
+    stamps, the rules, and the reconciliation. The rules are
+    printed, so they can be argued with - and changed once, in
+    the script, for every report.
+
+Reports look thin or stale:
+  - Check the data first: are the files in Data\ today's pulls?
+    Every page prints "Data as at" from the export's own request
+    stamp - if it says yesterday, the export is yesterday's.
+
+A button window flashes an error:
+  - Run it again and read the message - every failure says what
+    is wrong in plain words. If it names a missing file, that
+    file belongs in Data\.
+
+Outlook drafts did not appear:
+  - Outlook (classic desktop) must be open. Run 08 again -
+    already-drafted reports are skipped, nothing doubles up.
+
+------------------------------------------------------------
+THE DATA FOLDER - WHAT LIVES WHERE
+------------------------------------------------------------
+Data\
+  RENTAL_STOCK.xlsx                 SiteIQ pull - where every item is
+  TRANSACTIONS.xlsx                 SiteIQ pull - every issue and return this year
+  STOCKTAKE.xlsx                    SiteIQ pull - last sighting of every item
+  Gas_Monitor_Serial_Numbers.xlsx   gas serial lookup (barcode -> serial)
+  radio_register.xlsx               radio serial lookup
+  Ampol_ToolStore_Pricing.xlsx      pricing master (Avg Buy Price New)
+  Tooling_Description_Mapping.xlsx  barcode -> clean description
+  New_Descriptions___Andrew.xlsx    description corrections worklist
+  Ampol_Calibration_Register.xlsx   calibration register - you type the
+                                    due dates and certificates in
+  Rigging Register.xlsx             rigging register - you type the test
+                                    details in
+  Ampol Gas Monitor Report.xlsm     not read - kept for reference
+  Ampol_Radio_Report.xlsm           not read - kept for reference
+  Ampol_Onhire_Tooling_Report.xlsm  not read - kept for reference
+  store_layout.template.json        the bay grid the stocktake map uses -
+                                    rename to store_layout.json and give
+                                    each bay its row and column
+  previous\                         dated backups, made automatically
+
+History\report_history.json        the movement scoreboard: every run's
+                                    key figures, so tomorrow's tiles can
+                                    show the change. Per machine; never in
+                                    an update zip; never overwritten.
+
+------------------------------------------------------------
+HOUSEKEEPING
+------------------------------------------------------------
+Reports\ grows by one dated folder per day and nothing in it is
+ever overwritten - that is the audit trail. Old days can be
+moved into _Archive\ whenever the folder feels heavy. Never
+prune Data\previous\ on a day a number is in dispute - it is
+the proof of what the data said.
+
+============================================================
+ The Coates Way - consistent execution, every day.
+ Nothing sends without you. Nothing is guessed. Ever.
+============================================================

@@ -1,0 +1,403 @@
+AMPOL REPORTING SUITE
+Version: 1.14  (03 Sep 2026)
+Author: Andrew Fisher | POWERED BY SITEIQ
+
+v1.0 - 12 Aug 2026
+  - First stand-up of the Ampol suite on the K2 pattern.
+  - One Data\ area for every Excel; every engine reads from it.
+  - All six report families under numbered buttons, plus the
+    two new register reports (Calibrations, Rigging).
+  - Dated Reports\ output, drafts-never-send, CHECK gates.
+
+v1.1 - 02 Sep 2026  (gas monitor report rebuilt - accuracy)
+  - Every gas monitor number is now counted by gasmon_engine.py from
+    the two SiteIQ exports (RENTAL_STOCK = where every monitor is,
+    TRANSACTIONS = every issue and return). The Excel workbook is no
+    longer a source of numbers - it is attached to the email if it is
+    in Data\, and refreshing it is optional.
+  - Three windows, labelled on every page: year to date, last 30
+    days, yesterday. Who does not bring them back, by name and by
+    company, with the year-to-date column beside the 30-day one.
+  - "Recovered today" is counted (it was hard-coded to zero, which
+    pinned the Returns score at 0/100 every morning). The score now
+    uses the 30-day same-day return rate.
+  - Custody and workflow accounts (Dräger statuses, FCCU, Operations,
+    Future Fuels, After Hours) are never named as people.
+  - A data-and-method page prints the sources, the rules and the
+    reconciliation between the two exports on every build.
+  - The build measures every page in the browser before printing and
+    shouts if content will not fit (the print engine drops a chart
+    that does not fit without changing the page count).
+  - Button 02 (executive dashboard) and the email read the same engine
+    - three outputs, one set of numbers.
+  - Three windows on every people and company table: last 30 days,
+    last 3 months (the 13 full weeks before this one plus this week)
+    and year to date. A "where these numbers come from" page up front
+    sizes each window so a big count can be traced to its rows.
+  - The workbook is no longer attached to the email (its summary tab
+    is what the old report quoted). attach_workbook in
+    generate_k2style_email.py turns it back on.
+  - Serial alignment is checked on every build: 821 of 878 monitors
+    carry a serial on the list, 57 do not (gap list handed to Andrew).
+
+v1.2 - 02 Sep 2026  (every family on the raw exports - no workbook refresh)
+  - Rule for the whole suite: the three SiteIQ exports (RENTAL_STOCK,
+    TRANSACTIONS, STOCKTAKE) plus the small lookup files are the only
+    sources. No report needs a workbook opened and refreshed.
+  - Radio report (03): every count from RENTAL_STOCK - on hire this
+    year, prior years, out of service, available, exposure. Prices from
+    the pricing master (unpriced shown as a dash). Serial coverage is
+    the honest ratio (627 of 634). Ampol_Radio_Report.xlsm is not read.
+  - Stocktake (05): chargers, probes and joiners are no longer counted
+    as gas monitors (daily-three tile now 324 of 335 in-store monitors,
+    not 324 of 516). "Last 24 hours" is a real 24-hour window. Departed
+    stock is excluded only when the live register has let it go too
+    (17 rigging-bay items came back onto the shelf list). Serial-
+    numbered monitors priced from the master's own family line and
+    disclosed. SOP compliance prints its in-store / on-hire split;
+    activity charts say "items by latest sighting"; company rows merge
+    the register's spellings and flag repairs / Dräger custody;
+    "$0" and "TBC" now read "unpriced".
+  - Tooling (04): every number counted from the three exports plus the
+    pricing master and description mapping - the workbook is not read.
+    One on-hire total on every page (1,500 = Q1 140 / Q2 544 / Q3 816;
+    the old pages carried four different totals). Available 4,053 and
+    repairs 70 from the live register (stale tabs said 4,337 / 91).
+    Utilisation computed at the report date, with the priced /
+    unpriced split on the spend tile. One company rule on both sides;
+    repairs and Dräger custody never a company or a person; 853
+    pre-2026 rows disclosed; September marked partial; Q4 skipped
+    until it starts.
+  - Rigging (07): the register workbook is read only for what is typed
+    into it; every status, hirer and held-days figure is joined live
+    from RENTAL_STOCK. 905 rows = 889 distinct barcodes (1 blank, 14
+    repeated); 746 found in SiteIQ, 143 not found on their own pages;
+    301 on hire to 14 customers, 13 at repairs; the workbook's
+    certificate extract (Next Insp Due 04/26 on 375 items) disclosed
+    as unconfirmed.
+  - Calibration (06): the register is read only for the due dates
+    typed into Register Entry; status buckets, chase list, on-hire and
+    "on hire, not in the register" are computed from RENTAL_STOCK at
+    its pull time. At 02 Sep: 135 in cal / 6 due inside 30 days / 48
+    overdue / 158 no date (the register's own 14 Aug view - 137/26/26
+    - is printed beside it, labelled). Chase list 8 across 6 hirers.
+    A banner says how old the due-date entries are (19 days) and that
+    the fix is entering certificates, not pressing Refresh. "No Date"
+    now reads "status unknown until the certificate is entered", with
+    43 of them on hire; 25 register assets not in SiteIQ are printed
+    as "whereabouts unknown".
+
+v1.3 - 02 Sep 2026  (final sweep - names, order, proof)
+  - The site is Ampol. A shared naming rule (ampol_names.py) shows the
+    current name on every page; SiteIQ still carries the former name
+    on 3,136 item descriptions and one customer account, and each
+    report's data page says so. Barcodes never change.
+  - One customer, one name on every report: the refinery legal name and
+    the former site account both read Ampol; FCCU and SATGAS/MOL
+    project accounts roll up to their parent. Custody accounts
+    (repairs, Dräger service) are never a company or a person.
+  - One order everywhere: companies A to Z, hirers A to Z inside a
+    company, a person's items longest-held first. Every ranked table
+    says "ranked by ..." in its heading. Stocktake worklist bays A to Z.
+  - Button 13 VERIFY_NUMBERS: a second, independent count of the key
+    figures straight from the exports, checked against today's pages
+    and saved as Reports\<date>\VERIFY_NUMBERS.txt. Runs at the end of
+    button 00. It also proves the former site name is printed nowhere.
+  - START_HERE.txt rewritten; HOW_IT_WORKS.html added (the machine on
+    one page, including "on another computer").
+  - Tooling (04): ONE on-hire register report replaces the 24 per-company
+    reports - every company A to Z (project accounts shown under their
+    parent), every hirer A to Z, items longest-held first; visuals up
+    front (by company, ageing, category, month started, top-15 hirers
+    ranked and labelled), custody and holding accounts on their own
+    pages, the 853 pre-2026 rows summarised, a data-and-method page.
+    Quarterly charge reports, exec, utilisation and compliance kept;
+    all A to Z; PDFs now A4 like every other family. A per-company
+    report is still available as a one-off (--company NAME).
+
+v1.4 - 02 Sep 2026  (presentation sweep - one house look)
+  - Every PDF in the suite now wears the same Coates frame: the orange
+    border on every page, the dark page-1 band, the KEY strip, a running
+    header, house tiles, tables and charts, the footer with the team and
+    author, and page numbers. Long self-paginating reports (the tooling
+    family, the radio report, the stocktake floor worklist) get it from
+    k2flow.py; the fixed-page reports already had it.
+  - Every page of every family was checked by eye at print size:
+    nothing clipped, no orphaned headings, no near-empty pages left by
+    forced breaks, ranked tables labelled, the former site name printed
+    nowhere (the truth table now reads the PDF text as well).
+  - No number changed. The truth table (13) and the blank check (09)
+    pass on the rebuilt set.
+
+v1.5 - 03 Sep 2026  (the wow pass - movement, focus, pictures)
+  - Movement. Every report writes its key figures to
+    History\report_history.json on each run (per machine, never in a
+    zip). From the next run on, the page-1 tiles carry "up 16 since
+    01 Sep" arrows and a 30-day sparkline; no history means no arrow.
+  - A RAG band with an owner on every page 1: the rule that produced
+    the colour is printed, the owner is named, the next action has a
+    date. Default lines sit in each script's CONFIG - change them there
+    and the rule text follows.
+  - Covers for client packs: a full dark first page with the one number
+    of the day (gas: monitors overdue; stocktake: share of the shelf
+    sighted inside 30 days; radio: units out since prior years; tooling:
+    items on hire; calibration: overdue; rigging: not found in SiteIQ).
+  - Gas monitor report: a shift-rhythm page - draws and returns by
+    weekday and hour, year to date, as heat grids with the count in
+    every cell.
+  - Stocktake: the store map - every bay coloured by its 30-day coverage.
+    Bays sit A to Z until Data\store_layout.json (template written
+    beside the data on every run) is filled in with the floor plan.
+  - Tooling on-hire register: a share-of-fleet bar and an ageing strip
+    on every company header row.
+  - The official Coates Way cog on every closing page (assets\).
+  - A phone-sized position card (PNG) beside every client PDF and
+    attached to its draft: the same page-1 figures, nothing else.
+  - The flowing reports' frame moved to the one print layout Chromium
+    gets right every time (header and footer in the page margins). The
+    running header steps its type down for a long title so it never
+    wraps to two lines.
+  - Tooling reports: every days-out figure, ageing band and "days
+    elapsed" count is anchored on the SiteIQ pull date (02 Sep 2026
+    18:30), not on the day the button is pressed. Run the button a day
+    after the pull and the figures still match the pull.
+  - Movement notes print money as dollars and cents, and a figure with
+    no good direction (a value) moves in grey rather than green or red.
+
+v1.6 - 03 Sep 2026  (the 10/10 pass - names, navigation, movement, one page)
+  - One file-name rule: Coates_Ampol_<Report>_03Sep2026.pdf for every
+    report, card, page and draft (the old K2STYLE and V18 names are gone).
+    The client reads the attachment name first; every family now looks
+    like the same shop.
+  - Every PDF carries its properties (Title, Author: Andrew Fisher,
+    Subject, Keywords) and a bookmark pane built from its own section
+    headings - a 57-page register opens with a clickable outline.
+    pdf_finish.py does it; PyMuPDF (pip install pymupdf) is the engine,
+    pypdf the fallback, and without either the PDF is left as printed
+    with one console line saying so.
+  - The house face travels with the suite: Lato (SIL Open Font
+    License) sits in assets\fonts and every page embeds it, so a PDF
+    built on any laptop looks the same. The phone card is drawn in it too.
+  - Button 14 parks the three old .xlsm workbooks in
+    Data\_Archive_workbooks (no report reads them; nothing deleted).
+  - "Since the last pull": the tooling on-hire, gas monitor and radio
+    reports now say what MOVED - pull against pull (came back, went out,
+    changed hands, crossed 30/60/90 days, companies cleared or new) once
+    Data\previous holds an earlier export, plus the 24 hours before the
+    pull from TRANSACTIONS on every report from day one. pull_diff.py.
+  - Button 15 - the Daily Position: the six families on one A4 page,
+    each with the RAG status, number, headline and next action its own
+    report printed this morning, read back from the scoreboard. Runs
+    last in 00_RUN_EVERYTHING. A family that has not built today says so.
+  - The executive summary opens with three things to do today, drawn
+    from the data (largest over-90 holder, oldest item out, unpriced
+    items), each with an owner and a date.
+  - A full-page appendix divider before every complete register, so the
+    story stays short and the evidence complete.
+  - On-hire ageing by company as stacked bars (0-30, 31-60, 61-90, 90+)
+    in the tooling on-hire, quarterly and radio reports.
+  - A trend page (line charts over the last 30 days) appears by itself
+    once seven days are on record - gas, radio, tooling, stocktake,
+    calibration and rigging. Until then the data page says how many
+    days are on record.
+  - Covers carry a stripe in the report's RAG colour and a freshness line
+    (pulled, built, how old at build). The position card sits inline in
+    the email body as well as attached.
+  - CHECK_MY_SETUP no longer expects the old workbooks. Two test-only
+    hooks (AMPOL_REPORTS_DIR, AMPOL_HISTORY_FILE) let a layout test run
+    on a fixture without touching Reports\ or History\; no button sets them.
+
+v1.7 - 03 Sep 2026  (the layout pass - one grammar, one footer, one voice)
+  - One position-page grammar on every family: the RAG band first, then
+    the tiles, then "three things to do today" drawn from the data, then
+    a story of three lines at most. The detail that used to crowd page
+    1 sits on the page after.
+  - Covers on the quarterly charge reports (Q1 to Q4 and the year), with
+    the billable-at-quarter-close number as the big figure.
+  - One footer everywhere: the team on the left, Author: Andrew Fisher
+    and POWERED BY SITEIQ in the centre, "Page N of M" on the right - on
+    fixed pages and flowing reports alike. The key strip prints on page
+    1 only, larger, and continuation pages get the room.
+  - Sentence-case section headings in every family, and one dash style
+    (a hyphen with a space each side). VERIFY_NUMBERS now fails a page
+    that prints a long dash.
+  - Continuation headers: a company that runs over a page opens the next
+    page with its name again (the register tables carry the company row
+    in the repeating header).
+  - "What's inside" on every cover: the sections with their real page
+    numbers, read back off the printed PDF.
+  - Ageing charts show the companies with ten or more units; the long
+    tail prints as one A to Z line beneath, so the picture stays legible.
+    Each band's total sits in the legend, so colour is never the only cue.
+  - Daily Position: day-on-day arrows and a sparkline per family from
+    the second recorded day, and its own phone card inline in the draft.
+
+v1.8 - 03 Sep 2026  (The Coates Way, branch edition July 2026)
+  - The official deck (The Coates Way - our operating model, our
+    standard, our way, July 2026) sits in Docs\ with its wording lifted
+    page by page into Docs\COATES_WAY_July2026.md. Every closing page
+    now prints that wording: purpose, objective, the five values with
+    their descriptors, the scorecard scale (green on track, amber at
+    risk, red action needed) and the red rule - a documented root cause,
+    corrective actions, an owner and a deadline.
+  - Each report names the traits and operating disciplines it serves,
+    in the deck's words: gas monitors (Operational Excellence,
+    Performance-led Results; Safety First, Cadence), radios (Operational
+    Excellence, Ease of Doing Business; Reduce Friction, Cadence),
+    tooling (Performance-led Results, Operational Excellence; Customer
+    Centric, Cadence), stocktake (Resilient Processes, Operational
+    Excellence; Cadence, Reduce Friction), calibration and rigging
+    (Operational Excellence, Resilient Processes; Safety First).
+  - The gas monitor repair queue is the tool store's Redline (fleet
+    unavailable); its tile now says which side of the Coates Way 15%
+    line the fleet sits. No other company target is turned into a
+    tool-store number - NPS, ROCE, EBIT, win rate and engagement are
+    not tool-store measures and are not printed as such.
+
+v1.9 - 03 Sep 2026  (what the transaction log already knows)
+  - txn_insights.py reads the TRANSACTIONS export once (every issue and
+    return since 1 Jan) and the register, and answers for any family:
+    the year in movements week by week, the company league by month,
+    what crosses 90 days by quarter close unless it comes back (arithmetic
+    on the on-hire date, never a forecast), dead stock that has not moved
+    all year with its value, fleet against the peak out at once, return
+    windows by product (median and ninth-decile hold), who holds what and
+    the 80/20 of exposure, the counter's rhythm by weekday and hour, what
+    the log and the register disagree on, and the fast movers by bay.
+  - Executive summary: the store's year in movements, who holds what,
+    the counter's rhythm, and what the log and the register disagree on.
+  - Tooling on-hire and quarterlies: the quarter-close look forward by
+    company; return windows by product with the data behind the 90-day
+    line printed under the rule; the year in movements.
+  - Utilisation: dead stock, headroom with a printed buy / cut rule
+    (marks, not decisions), fast movers.
+  - Radios: the year in movements and the company league, return windows,
+    the counter's rhythm, who holds what, the log checked.
+  - Gas monitors: return windows in hours and the log checked on the data
+    page. Stocktake: fast movers by bay. Rigging: the year in movements.
+  - VERIFY_NUMBERS recounts the four store-wide headline figures from the
+    raw rows with none of the engine involved: items crossing 90 days by
+    quarter close, available items never moved this year, movements
+    closed inside six minutes, the busiest counter hour.
+  - Daily position: a third figure per family where one is recorded
+    (tooling: items crossing 90 days by quarter close).
+
+v1.14 - 03 Sep 2026  (asset numbers and what the master does not know yet)
+  - New button 17_ASSET_NUMBERS (also in 00 and the picker) writes
+    Reports\<day>\Asset_Numbers\Coates_Ampol_Asset_Numbers_<day>.xlsx
+    from the register and this year's transaction log:
+      New to address - every item on the register that needs a row in
+        Ampol_Master.xlsx: no price for its description (the same items
+        the stocktake and tooling pages count as unpriced), or the
+        former site name still in its description with no corrected
+        row. A plain SiteIQ description needs no row. New gear since
+        the last pull sits first. Add the row and the item drops off.
+      Asset numbers - one row per main number (AMP200): the description
+        as SiteIQ writes it, items, highest /NNN used, the next number,
+        the next ten, and unused numbers below the highest.
+      Next by family - AMP, WG, CTX, SD ...: the highest main number in
+        use and the next new one.
+      All barcodes / Other formats - every barcode as written.
+    Generated every run; never edit it. Barcodes seen in the log but no
+    longer on the register still count as used.
+
+v1.13 - 03 Sep 2026  (two folders under Data, one master workbook)
+  - Data\SiteIQ holds the three SiteIQ pulls (RENTAL_STOCK,
+    TRANSACTIONS, STOCKTAKE) and their dated earlier copies in
+    Data\SiteIQ\previous; button 12 files them there. Never edited.
+  - Data\Editable holds what Andrew maintains: Ampol_Master.xlsx
+    (tabs Descriptions, Pricing, Gas serials, Radio serials, Read me -
+    the four small files in one), the calibration and rigging
+    registers, and the store layout.
+  - New button 16_TIDY_DATA_FOLDER makes the move on a laptop and
+    builds the master from the five old files (every row kept, values
+    only, the mapping's 3,415 barcodes with Andrew's notes joined on;
+    the two description files agreed on every real barcode - the one
+    slip, barcode "2" listed six times in New_Descriptions, is kept
+    with a note in the Descriptions tab). The old files are parked in
+    Data\_Archive_workbooks, never deleted. Safe to run twice.
+  - Every reader finds its file in SiteIQ, Editable or the Data root
+    (ampol_paths.find_data) and reads the master's tab when the master
+    exists, else the old file (ampol_master.locate) - so a laptop that
+    has not pressed 16 yet still builds. 10_CHECK_MY_SETUP reports
+    the layout and which files the master has replaced.
+  - Proof: the whole suite was built on the old layout and again on
+    the new one; VERIFY_NUMBERS matched on both and every checked
+    figure was identical between the two.
+
+v1.12 - 03 Sep 2026  (names as shown - tidy, one style everywhere)
+  - Every gas monitor prints as "Dräger X-am 5000 Gas Monitor", every
+    radio as "Motorola Radio", every radio battery as "Motorola Radio
+    Battery", with the serial number in brackets when it is known
+    (from the description or the two serial lists in Data\, by
+    barcode - ampol_serials.py). Nothing is guessed.
+  - Every other description reads in sentence case (a capital first
+    letter, lower case after) with sizes, brands, standards and
+    acronyms protected (M18, 1/2", Milwaukee, UNC, McGurk). The site
+    prefix is dropped from descriptions. People read "First Last";
+    shared and custody accounts drop SiteIQ's separator dash the same
+    way and carry "(account)" (FCCU 2026 (SFI) (account), Future Fuels
+    (account)); companies keep the one-customer-one-name rule.
+    Docs\NAMES_AS_SHOWN.md
+    is the rule in plain words and says how to protect another brand.
+  - Matching, pricing and mapping keys stay on the raw SiteIQ text
+    (ampol_names.former_to_current), so no figure moved with the
+    display change; both gates and the truth sweep pass.
+  - Docs\EXCEL_FILES_WE_READ.md / .txt list every workbook the suite
+    reads, sheet by sheet and column by column, with what must not
+    change; Docs\PRICING_FILE_DO_NOT_CHANGE.txt is the one-page note
+    for whoever reviews the pricing file.
+  - gasmon_transactions.py (nothing imported it) parked in
+    _Archive\old_scripts. The full clean suite zip carries live
+    scripts only, plus an Excel_files_we_read\ folder with a copy of
+    every workbook the reports read.
+
+v1.11 - 03 Sep 2026  (the after-hours account, found by Andrew)
+  - SiteIQ books draws outside opening hours to one account named
+    "AFTER HOURS HIRE - GAS MONITORS & RADIO BATT.". Printed raw in a
+    who column it read as if radio batteries had crept into the gas
+    fleet. That is the account's name, not the gear's - every row was
+    a Drager X-am 5000. One rule (ampol_names.hirer_label) now prints
+    it as "After Hours Hire account" on every page: the gas movement
+    page, the radio register and insights pages, the tooling holder,
+    rhythm, compliance and movement lists, the calibration and rigging
+    chase lists, the stocktake count worklist.
+  - One marker for every other shared booking account (a shutdown, SFI
+    or tool store account): the SiteIQ name plus "(account)", on every
+    page of every family - the radio report's "(site account)" and the
+    tooling report's "(account)" were two spellings of one thing.
+  - Calibration chase list: the company under a hirer follows the
+    suite's display rule (Ampol, with the account named), not the raw
+    SiteIQ legal name.
+  - Stocktake count worklist, team page and email: every "7-day",
+    "14-day" and "7/14/30" phrase now reads from the tier table (2-day
+    for gas, radios and Milwaukee) - the old wording had outlived the
+    03 Sep rule on the floor worklist while its own tier table said
+    2 days. The truth sweep now fails on the old phrases.
+  - Tooling On-Hire Report: the position story is two lines, so the
+    page keeps the headroom its own check asks for (29 px, was 4 px
+    and a WARNING on every run).
+  - Gas "Since the last pull" page: the column is "Booked to" (the
+    person or SiteIQ account a monitor is on hire to), and a note
+    under the lists says what the after-hours account is and names
+    the model of every asset listed - read from the descriptions.
+    The data page traces the label back to the SiteIQ account name.
+
+v1.10 - 03 Sep 2026  (the store's own operating facts)
+  - Docs\OPERATING_NOTES.md records the facts the reports now print as
+    rules: two shifts (04:00 to 12:30, 09:00 to 17:30), the store opens
+    at 07:00, the first shift bumps monitors, scans the return box
+    (04:00 to 05:30) and makes up the pre-made packs before opening.
+  - Sighting standard: gas monitors, radios, radio batteries, Milwaukee
+    tools and Milwaukee batteries every 2 days (was 7 / 7 / 14). The
+    stocktake tiers, key strip and cards say so; the tier figures move
+    to the stricter line.
+  - Gas monitors: a return scanned from the return box by 05:30 next
+    morning counts as returned the day it went out - the store's timing,
+    not the crew's. Disclosed on the data page with the count that came
+    back that way in the last 30 days.
+  - The rhythm pages (executive summary, radios) read the hours in the
+    store's own windows - before opening, trading, after hours - not a
+    generic day and night split.
+  - The issuing and returning double-scan SOPs and A3 posters
+    (CIS-PST-002, CIS-PST-003) are filed in Docs\SOP.

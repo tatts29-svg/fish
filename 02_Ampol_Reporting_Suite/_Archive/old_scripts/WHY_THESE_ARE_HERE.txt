@@ -1,0 +1,7 @@
+Old scripts parked here on 03 Sep 2026 - nothing in the suite imports or
+runs them. Kept for the record; not in any update zip.
+
+gasmon_transactions.py - the first transactions analytics module for the
+  gas monitor report (12 Aug 2026). Its questions (rhythm, same-day trend,
+  who keeps gear overnight) are answered by gasmon_engine.py and
+  txn_insights.py now. Nothing imports it.

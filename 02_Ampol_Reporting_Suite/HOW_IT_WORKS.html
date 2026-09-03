@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>How the Ampol Suite Works</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Calibri,'Segoe UI',Arial,sans-serif;background:#fff;color:#20242B;font-size:11.5pt;line-height:1.55;max-width:200mm;margin:0 auto;padding:10mm 8mm}
+.frame{border:6px solid #F26222;border-top:9px solid #F26222;border-radius:18px;padding:22px 26px}
+.band{background:#14181F;color:#fff;padding:14px 18px;border-radius:10px;margin-bottom:14px}
+.band .k{color:#F26222;font-weight:800;letter-spacing:2px;font-size:9pt;text-transform:uppercase}
+.band h1{font-size:17pt;margin-top:2px}
+.band p{color:#C9CFD8;font-size:10pt;margin-top:4px}
+h2{font-size:12pt;color:#14181F;background:#F6F7F9;border:1px solid #E3E6EB;border-left:5px solid #F26222;border-radius:9px;padding:6px 12px;margin:18px 0 8px}
+.fbox{border:2px solid #14181F;border-radius:10px;padding:8px 14px;background:#F6F7F9;margin:6px 0}
+.fbox b{display:block}
+.fbox .sub{font-size:10pt;color:#5B6472}
+.fbox.orange{border-color:#F26222;background:#FFF3EC}
+.fbox.dark{background:#14181F;color:#fff;border-color:#14181F}
+.fbox.dark .sub{color:#C9CFD8}
+.fbox.go{border-color:#7A8A00;background:#F8FFD0}
+.arrow{text-align:center;color:#F26222;font-weight:800;font-size:13pt;line-height:1.2;padding:2px 0}
+.arrow span{color:#5B6472;font-weight:400;font-size:9.5pt;padding-left:8px}
+.split{display:flex;gap:12px;flex-wrap:wrap}
+.split>div{flex:1;min-width:230px}
+.note{background:#FFF3EC;border-left:4px solid #F26222;border-radius:0 8px 8px 0;padding:10px 14px;font-size:10.5pt;margin:12px 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10.5pt}
+td,th{border:1px solid #E3E6EB;padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#14181F;color:#fff;font-size:9.5pt;letter-spacing:1px;text-transform:uppercase}
+.ft{color:#5B6472;font-size:9pt;border-top:1px solid #E3E6EB;margin-top:16px;padding-top:8px}
+b.o{color:#F26222}
+@media print{.pb{page-break-before:always}}
+@page{size:A4;margin:10mm}
+</style></head>
+<body><div class="frame">
+<div class="band"><div class="k">Coates &middot; Ampol Tool Store &middot; Lytton Refinery</div>
+<h1>How the whole thing works</h1>
+<p>One page, the full machine end to end. Author: Andrew Fisher &middot; POWERED BY SITEIQ</p></div>
+
+<h2>The flow every morning</h2>
+<div class="fbox dark"><b>1 &nbsp;SiteIQ &rarr; three exports</b><span class="sub">RENTAL_STOCK (where every item is right now), TRANSACTIONS (every issue and return this year), STOCKTAKE (last sighting of every item). Each export carries its own request stamp - that stamp is the "Data as at" on every page.</span></div>
+<div class="arrow">&darr; <span>button 12 files them into Data\ and backs up yesterday's</span></div>
+<div class="fbox orange"><b>2 &nbsp;Data\ - one area, the only place anything is read from</b><span class="sub">The three exports plus small lookup lists: serial numbers, the pricing master, description corrections, and the two registers you type into (calibration due dates, rigging test details). No workbook is refreshed. Ever.</span></div>
+<div class="arrow">&darr; <span>button 00 - or one button per report</span></div>
+<div class="fbox"><b>3 &nbsp;The engines count</b><span class="sub">Every figure is counted from the raw rows by the script for that report. The rules (what counts as overdue, what counts as a gas monitor, which accounts are custody not customers) are written once, printed on each report's data page, and shared where two reports need the same rule.</span></div>
+<div class="arrow">&darr;</div>
+<div class="split">
+<div class="fbox"><b>PDF pages</b><span class="sub">The Coates house style. The build measures every page in the browser before printing so nothing is silently dropped.</span></div>
+<div class="fbox"><b>Email drafts</b><span class="sub">Outlook-safe body, PDF attached, saved as a DRAFT. Nothing sends itself.</span></div>
+<div class="fbox"><b>Excel worklists</b><span class="sub">Where the floor needs to sort and tick - the stocktake worklist, the pricing gaps.</span></div>
+</div>
+<div class="arrow">&darr; <span>two gates, always last</span></div>
+<div class="fbox go"><b>4 &nbsp;Check reports (09) and Verify numbers (13)</b><span class="sub">09 sweeps every page for blanks, leftover placeholders, nan and None, and weighs every email. 13 counts the key figures a second time straight from the exports - none of the report code involved - and marks each one MATCHES against the page. The table is saved with the day's reports as VERIFY_NUMBERS.txt. A mismatch fails red and names the figure.</span></div>
+<div class="fbox go"><b>5 &nbsp;Daily position (15) - one page for the whole store</b><span class="sub">Runs last. Reads back the RAG status, number, headline and next action each family recorded when it built, and prints the six on one A4 page: red first, then amber, then green. Nothing is counted here, so the page can never disagree with the reports it summarises. A family that has not built today says so in plain words.</span></div>
+<div class="arrow">&darr;</div>
+<div class="fbox dark"><b>5 &nbsp;You read, then you press Send</b><span class="sub">Reports\(today's date)\ holds everything, dated, never overwritten. The drafts sit in Outlook until you send them.</span></div>
+
+<h2>The reports and what feeds them</h2>
+<table>
+<tr><th>Button</th><th>Report</th><th>Counts from</th><th>Also reads</th></tr>
+<tr><td>01 / 02</td><td>Gas monitor operations PDF, email, V18 dashboard</td><td>RENTAL_STOCK, TRANSACTIONS</td><td>Gas serial list</td></tr>
+<tr><td>03</td><td>Site radio on-hire report</td><td>RENTAL_STOCK</td><td>Radio serial list, pricing master</td></tr>
+<tr><td>04</td><td>Tooling: executive summary, one on-hire register (A-Z), quarterly charges, utilisation, compliance</td><td>RENTAL_STOCK, TRANSACTIONS, STOCKTAKE</td><td>Pricing master, description mapping</td></tr>
+<tr><td>05</td><td>Stocktake compliance (client), team report, floor worklist</td><td>STOCKTAKE, RENTAL_STOCK</td><td>Pricing master, description corrections</td></tr>
+<tr><td>06</td><td>Calibration register report</td><td>RENTAL_STOCK</td><td>Calibration register (due dates you type in)</td></tr>
+<tr><td>07</td><td>Rigging and lifting register report</td><td>RENTAL_STOCK</td><td>Rigging register (membership, test details you type in)</td></tr>
+</table>
+
+<h2>What the files are called, and what every PDF carries</h2>
+<p>One rule for every report: <b>Coates_Ampol_&lt;Report&gt;_&lt;day&gt;.pdf</b> - for example Coates_Ampol_Tooling_On_Hire_03Sep2026.pdf - with the page HTML, the phone card (_PositionCard.png), the draft (_OUTLOOK.eml) and the manifest (.draft.json) beside it under the same name. Every PDF carries its properties (Title, Author: Andrew Fisher, Subject, Keywords) and a bookmark pane built from its own section headings, and embeds the Lato face from assets\fonts so it looks the same on every computer. Client-facing reports open with a cover: the one number of the day, a stripe in the report's RAG colour, and a freshness line (pulled, built, how old at build). Every page 1 reads the same way: the RAG band, the tiles, three things to do today, then a three-line story; the page number sits in the footer of every page and the cover lists what's inside with real page numbers.</p>
+<p><b>Since the last pull.</b> The tooling on-hire, gas monitor and radio reports say what moved: the 24 hours before the pull from TRANSACTIONS on every report, and - once Data\SiteIQ\previous holds an earlier RENTAL_STOCK export (button 12 parks it automatically) - pull against pull: came back, went out, changed hands, crossed 30 / 60 / 90 days, companies cleared or new. A trend page over the last 30 days appears by itself once seven days are on record.</p>
+<p><b>What the transaction log already knows.</b> Every issue and return since 1 Jan sits in TRANSACTIONS, and txn_insights.py reads it once a build: the year in movements week by week, the company league by month, what crosses 90 days by quarter close unless it comes back (arithmetic on the on-hire date, never a forecast), dead stock that has not moved all year with its value, fleet against the peak out at once, return windows by product, who holds what and the 80/20 of exposure, the counter's rhythm by weekday and hour, what the log and the register disagree on, and the fast movers by bay. Each family shows the slice that belongs to its own page 1; the executive summary shows the store. VERIFY_NUMBERS recounts the four store-wide headline figures from the raw rows.</p>
+<h2>The rules that hold everywhere</h2>
+<table>
+<tr><th>Rule</th><th>What it means on the page</th></tr>
+<tr><td>Real data only</td><td>A value not in the source prints as a dash and is disclosed. Nothing is estimated, averaged in or $0-filled.</td></tr>
+<tr><td>The site is Ampol</td><td>SiteIQ still carries the former site name on thousands of item descriptions and one customer account. Every page shows the current name; the data page prints how many raw lines still carry the old one. Barcodes are identifiers and never change.</td></tr>
+<tr><td>One customer, one name</td><td>The refinery legal name and the former site account both read Ampol; project accounts (FCCU, SATGAS/MOL) roll up to their parent and are shown as sub-labels.</td></tr>
+<tr><td>Custody is not hire</td><td>Repairs, Dr&auml;ger service, out-of-service and yard accounts are never listed as a company or a person; they get their own labelled line.</td></tr>
+<tr><td>One order</td><td>Companies A to Z, hirers A to Z inside a company, a person's items longest-held first. A ranked table says "ranked by ..." in its heading.</td></tr>
+<tr><td>Windows are labelled</td><td>Year to date, last 3 months (13 full weeks plus this week), last 30 days, yesterday - the size of each window is printed so a big count can be traced to its rows.</td></tr>
+<tr><td>Nothing sends itself</td><td>Every email is a draft until you press Send.</td></tr>
+<tr><td>Nothing is overwritten</td><td>Dated Reports\ folders are append-only; yesterday's exports are kept in Data\SiteIQ\previous\.</td></tr>
+</table>
+
+<div class="note"><b class="o">On another computer.</b> Copy the whole suite folder across, run 10_CHECK_MY_SETUP, file today's exports into Data\SiteIQ with button 12 (the editable workbooks live in Data\Editable), run 00. Python 3 and Microsoft Edge are all the machine needs. Updates arrive as one flat zip of scripts and notes - never data - dropped over the folder.</div>
+
+<div class="ft">The Coates Way - consistent execution, every day. Nothing sends without you. Nothing is guessed. Ever. &nbsp;&middot;&nbsp; Author: Andrew Fisher &nbsp;&middot;&nbsp; POWERED BY SITEIQ</div>
+</div></body></html>
