@@ -23,6 +23,15 @@ WHAT THIS IS
    2. Coates_Ampol_Calibration_OUTLOOK_SAFE.eml  (DRAFT - never sends)
       + Coates_Ampol_Calibration_EMAIL.html body
       + .draft.json so MAKE_OUTLOOK_DRAFTS keeps working.
+   3. Coates_Ampol_Calibration_K2STYLE_PositionCard.png - the phone card:
+      the position-page tiles, the RAG line and four scores, attached to
+      the email beside the PDF.
+  The PDF opens on a dark cover (the one number of the day), the position
+  page carries the movement since the previous recorded pull and a RAG
+  band with an owner and a dated next action, and the closing page shows
+  the Coates Way. Each run writes its figures to History\report_history
+  .json keyed on the pull day; the next run reads them back for the
+  movement notes. No earlier day on record means no arrow - never a guess.
 
 WHERE THE NUMBERS COME FROM
   Two workbooks in the suite's Data area:
@@ -58,6 +67,7 @@ DATA RULES
 =====================================================================
 """
 
+import html as _html
 import json
 import os
 import re
@@ -75,6 +85,7 @@ import ampol_paths
 import build_stocktake_compliance_tool as eng
 import ampol_names   # write_pdf_robust + find_workbook + parse_dt
 import k2shell as sh
+import report_history as rh   # the movement scoreboard - recorded days only
 from k2shell import esc, money, num, K
 
 import openpyxl
@@ -105,6 +116,16 @@ CONFIG = {
     # filled in by main() once both source stamps are known - the shared
     # page shell prints it after the as-at time on page 1
     "asat_note": "",
+    # ---- the RAG line on the position page (default line - set here) ----
+    # Red when this many overdue assets, or more, are out on hire (a lapsed
+    # certificate in a customer's hands); Amber when the overdue gear is
+    # off hire only (shelf, repairs, not in SiteIQ); Green when nothing is
+    # overdue. The band prints the rule beside the result.
+    "rag_owner": "Andrew Fisher, Shutdown Manager",
+    "rag_red_onhire": 1,
+    # the next action falls due this many days after the SiteIQ pull date -
+    # anchored on the pull, never on the day the report happens to be run
+    "action_days": 7,
     "team": [
         {"name": "Andrew Fisher", "role": "Shutdown Manager",
          "shift": "", "email": "andrew.fisher@coates.com.au",
@@ -531,8 +552,8 @@ def derive(rows, view, live, asat_d, maint_d, refresh, audit_n):
 
 def render_k2_pdf(doc, pdf_path, authored, css):
     """Writes the page HTML beside the PDF (kept - it IS the report when
-    no PDF engine is on the machine), renders the PDF, and returns True
-    only when the PDF exists. Never exits: the email step still runs."""
+    no PDF engine is on the machine), renders the PDF, and returns
+    (pdf_ok, layout_ok). Never exits: the email step still runs."""
     doc = doc.replace("</head>", f"<style>{css}</style></head>", 1)
     page_html = OUT / CONFIG["page_html"]
     page_html.write_text(doc, encoding="utf-8")
@@ -550,21 +571,71 @@ def render_k2_pdf(doc, pdf_path, authored, css):
         print(f"         The report pages are in {page_html.name} beside it; "
               "the email is built without the PDF attached.")
         print("*" * 68)
-        return False
+        return False, False
+    return True, layout_check(pdf_path, authored)
+
+
+def layout_check(pdf_path, authored):
+    """PASS only when the page count matches AND nothing on any page has
+    run down into the footer. The K2 page is a fixed-height box with
+    overflow hidden, so a page count alone cannot see a band or a table
+    that has grown past the footer - PyMuPDF (where installed) reads
+    every page and looks for body text or drawings overlapping it. The
+    cover is page 1 and carries no footer by design, so it is skipped."""
+    problems = []
     raw = open(pdf_path, "rb").read()
     counts = re.findall(rb"/Count\s+(\d+)", raw)
     actual = max(int(c) for c in counts) if counts else -1
     if actual == -1:
-        print(f"Layout check         : page count unreadable - authored "
-              f"{authored}; open the PDF and confirm")
+        problems.append(f"page count unreadable (authored {authored})")
     elif actual != authored:
-        print("*" * 68)
-        print(f"Layout check         : FAIL - LAYOUT OVERFLOW in {Path(pdf_path).name} "
-              f"- authored {authored} pages, PDF has {actual}. Do not send as is.")
-        print("*" * 68)
+        problems.append(f"authored {authored} pages, PDF has {actual}")
+    try:
+        import pymupdf
+    except ImportError:
+        pymupdf = None
+    if pymupdf is not None:
+        doc = pymupdf.open(str(pdf_path))
+        for pno, page in enumerate(doc, start=1):
+            if pno <= COVER_PAGES:
+                continue           # the dark cover has no footer by design
+            h = page.rect.height
+            blocks = page.get_text("blocks")
+            # letter-spaced footer text extracts as "Y O U R  C O A T E S ..." -
+            # compare with the whitespace stripped
+            foot = [b for b in blocks
+                    if "COATESTOOLSTORETEAM" in re.sub(r"\s+", "", str(b[4])).upper()]
+            if not foot:
+                problems.append(f"page {pno}: footer not found")
+                continue
+            foot_top = min(b[1] for b in foot) - 7   # the rule above the footer text
+            for b in blocks:
+                if b[1] >= foot_top - 1:
+                    continue           # the footer's own lines
+                if b[3] > foot_top:
+                    txt = re.sub(r"\s+", " ", str(b[4]))[:40]
+                    problems.append(f"page {pno}: text runs into the footer ({txt!r})")
+                    break
+            for dr in page.get_drawings():
+                r = dr.get("rect")
+                if r is None or r.height > 0.8 * h or r.height < 3:
+                    continue           # the orange frame / hairlines
+                if r.y0 < foot_top - 2 and r.y1 > foot_top + 2:
+                    problems.append(f"page {pno}: a chart or panel runs into the footer")
+                    break
+        doc.close()
+        checked = f"{actual} pages, footer clearance checked on every page after the cover"
     else:
-        print(f"Layout check         : PASS - {actual} pages "
-              f"({Path(pdf_path).name})")
+        checked = f"{actual} pages (page count only - PyMuPDF not installed)"
+    if problems:
+        print("*" * 68)
+        print(f"Layout check         : FAIL - {Path(pdf_path).name}")
+        for pr in problems:
+            print(f"   - {pr}")
+        print("   Do not send as is.")
+        print("*" * 68)
+        return False
+    print(f"Layout check         : PASS - {checked} ({Path(pdf_path).name})")
     return True
 
 
@@ -658,6 +729,53 @@ def isare(n):
     return "is" if n == 1 else "are"
 
 
+# the dark cover is page 1 of the pack, so the position page is page 2 and
+# every cross-reference counts from there
+COVER_PAGES = 1
+# tile note colours as the phone card draws them (the page uses CSS classes)
+NOTE_HEX = {"green": "#1FA75A", "amber": "#F5A623", "red": "#EF4444", "grey": "#8A9AAC"}
+
+
+def plain(fragment):
+    """The words of a page fragment with the markup taken off - for the
+    phone card, which draws text, not HTML."""
+    return _html.unescape(re.sub(r"<[^>]+>", "", fragment)).replace("\xa0", " ")
+
+
+def moved(key, asat_dt, value, good, note, ncls):
+    """(note, class) for a tile: the movement since the previous recorded
+    pull when there is one (report_history), else the tile's own note."""
+    mv, mcls = rh.movement("calibration", key, asat_dt, value, good=good)
+    return (mv, mcls) if mv else (note, ncls)
+
+
+def spark_of(key, asat_dt, value):
+    """30-day sparkline values - every earlier recorded day, then today.
+    None until an earlier day exists: no history means no line."""
+    past = [v for dd, v in rh.series("calibration", key, asat_dt, 30) if dd < asat_dt.date()]
+    return past + [value] if past else None
+
+
+def cal_rag(n_od, n_od_oh):
+    """The position-page RAG - the rule in CONFIG applied to the counts at
+    the pull. Returns (status, headline, card_headline): the headline is
+    HTML for the band; the card headline says the same in fewer words,
+    because the phone card draws a fixed box (two headline lines)."""
+    if n_od_oh >= CONFIG["rag_red_onhire"]:
+        return "red", (f'<b class="o">{num(n_od_oh)}</b> of the <b>{num(n_od)}</b> overdue assets '
+                       f'{isare(n_od_oh)} out on hire at the pull - a lapsed certificate in a '
+                       f'customer&rsquo;s hands until each one is swapped or recalled.'), (
+                       f'{num(n_od_oh)} of the {num(n_od)} overdue assets {isare(n_od_oh)} out on '
+                       f'hire - lapsed certificates in customers\' hands.')
+    if n_od:
+        return "amber", (f'<b>{num(n_od)}</b> overdue {plural(n_od, "asset")}, none on hire - '
+                         f'the shelf and the not-in-SiteIQ list: a calibration run, not a chase.'), (
+                         f'{num(n_od)} overdue {plural(n_od, "asset")}, none on hire - a calibration '
+                         f'run, not a chase.')
+    return "green", ('Nothing on the register is overdue at the pull - every dated asset is '
+                     'inside its certificate.'), 'Nothing on the register is overdue at the pull.'
+
+
 # =====================================================================
 # the PDF pages
 # =====================================================================
@@ -694,7 +812,8 @@ def build_pages(rows, d, S):
     P, marks = [], {}
 
     def mark(key):
-        marks[key] = len(P) + 1
+        # +1 for the page about to be appended, +COVER_PAGES for the cover
+        marks[key] = len(P) + 1 + COVER_PAGES
     total = d["total"]
     dated = len(d["dated"])
     asat_s, asat_day, maint_short = S["asat_s"], S["asat_day"], S["maint_short"]
@@ -725,15 +844,60 @@ def build_pages(rows, d, S):
     # where the overdue and No Date gear is - printed on page 2 beside the
     # status mix, where it has the room (page 1 clipped its own note when
     # this row sat there too)
-    where_tiles = prowlab("Where the overdue and No Date gear is - SiteIQ RENTAL_STOCK") + sh.tiles([
-        ("people", num(n_od_oh), "Overdue, on hire", "the chase list - page @@P:chase@@", "red" if n_od_oh else "green"),
-        ("wrench", num(n_av), "Overdue, on the shelf", "the calibration run - page @@P:shelf@@", "amber" if n_av else "green"),
-        ("diamond", num(n_mi), "Overdue, not in SiteIQ", "whereabouts unknown - page @@P:missing@@", "red" if n_mi else "green"),
-        ("layers", num(len(d["nodate"])), "No date",
-         f"{num(len(d['nd_onhire_live']))} of them out on hire - page @@P:nodate@@", "amber" if d["nd_onhire_live"] else "grey"),
-    ])
+    asat_dt = S["asat_dt"]
+    n_nd = len(d["nodate"])
+    # every tile: the count, then the movement since the previous recorded
+    # pull where one exists (report_history), else the tile's own note
+    where_spec = [
+        ("people", "chase", n_od_oh, "Overdue, on hire", "the chase list - page @@P:chase@@",
+         "red" if n_od_oh else "green", "down"),
+        ("wrench", "overdue_shelf", n_av, "Overdue, on the shelf", "the calibration run - page @@P:shelf@@",
+         "amber" if n_av else "green", "down"),
+        ("diamond", "not_in_siteiq", n_mi, "Overdue, not in SiteIQ", "whereabouts unknown - page @@P:missing@@",
+         "red" if n_mi else "green", "down"),
+        ("layers", "nodate", n_nd, "No date",
+         f"{num(len(d['nd_onhire_live']))} of them out on hire - page @@P:nodate@@",
+         "amber" if d["nd_onhire_live"] else "grey", "down"),
+    ]
+    where_items = []
+    for ico, key, val, lab, note, ncls, good in where_spec:
+        note, ncls = moved(key, asat_dt, val, good, note, ncls)
+        where_items.append((ico, num(val), lab, note, ncls))
+    where_tiles = (prowlab("Where the overdue and No Date gear is - SiteIQ RENTAL_STOCK")
+                   + sh.tiles_plus(where_items))
+    # the position-page tiles carry a 30-day sparkline once there is an
+    # earlier day on record
+    tiles1 = []
+    for ico, key, val, lab, note, ncls, good in [
+            ("box", "assets", total, "Assets on the register", "the human-maintained list", "grey", "up"),
+            ("check", "incal", len(d["now_incal"]), "In calibration", "current, next due 31+ days", "green", "up"),
+            ("clock", "due30", len(d["now_due30"]), "Due inside 30 days", "book them in now - page @@P:due30@@",
+             "amber" if d["now_due30"] else "green", "down"),
+            ("warn", "overdue", n_od, "Overdue", f"{num(n_l)} fell due since {maint_short}",
+             "red" if n_od else "green", "down")]:
+        note, ncls = moved(key, asat_dt, val, good, note, ncls)
+        tiles1.append((ico, num(val), lab, note, ncls, spark_of(key, asat_dt, val)))
+    # the RAG line: the rule lives in CONFIG and is printed beside the result;
+    # the next action is dated from the pull, not from today's clock
+    status, headline, card_headline = cal_rag(n_od, n_od_oh)
+    rule = (f'Red when {num(CONFIG["rag_red_onhire"])} or more overdue assets are out on hire; '
+            f'Amber when overdue assets are off hire only (shelf, repairs or not in SiteIQ); '
+            f'Green when nothing is overdue. <b>Default line - set in CONFIG.</b>')
+    action = (f'Chase list to each hirer on next touch; calibration run for the {num(n_av)} shelf '
+              f'{plural(n_av, "item")} booked - by <b>{esc(S["action_due_s"])}</b>. Certificates '
+              f'issued since {esc(maint_short)} entered in Register Entry.')
+    band = sh.rag_band(status, headline, rule, esc(CONFIG["rag_owner"]), action)
+    # the same facts in fewer words for the phone card, which draws a fixed
+    # box: two headline lines, two action lines
+    card_action = (f'Chase list to each hirer on next touch; the {num(n_av)} shelf '
+                   f'{plural(n_av, "item")} to the calibrator - by {S["action_due_s"]}.')
+    S["band"] = (status, card_headline, CONFIG["rag_owner"], card_action)
+    S["card_tiles"] = [(v, lab, re.sub(r"\s*-\s*page @@P:\w+@@", "", note), NOTE_HEX.get(ncls, "#8A9AAC"))
+                       for _, v, lab, note, ncls, _ in tiles1] + \
+                      [(v, lab, re.sub(r"\s*-\s*page @@P:\w+@@", "", note), NOTE_HEX.get(ncls, "#8A9AAC"))
+                       for _, v, lab, note, ncls in (where_items[0], where_items[3])]
     mark("position")
-    P.append(f"""{banner}{pcallout(
+    P.append(f"""<div class="pos">{banner}{pcallout(
         f'<span class="lead">The position.</span> As at <b>{esc(asat_s)}</b> - the SiteIQ pull - the register holds '
         f'<b>{num(total)} assets on the calibration register</b>: '
         f'<b class="g">{num(len(d["now_incal"]))} in calibration</b>, '
@@ -755,15 +919,9 @@ def build_pages(rows, d, S):
     ])}</td>
 </tr></table>
 {prowlab(f"At {esc(asat_s)} - computed from Calibration Due and the SiteIQ pull")}
-{sh.tiles([
-    ("box", num(total), "Assets on the register", "the human-maintained list", "grey"),
-    ("check", num(len(d["now_incal"])), "In calibration", "current, next due 31+ days", "green"),
-    ("clock", num(len(d["now_due30"])), "Due inside 30 days", "book them in now - page @@P:due30@@",
-     "amber" if d["now_due30"] else "green"),
-    ("warn", num(n_od), "Overdue", f"{num(n_l)} fell due since {maint_short}",
-     "red" if d["now_overdue"] else "green"),
-])}
-{pnote(S["source_note"])}""")
+{sh.tiles_plus(tiles1)}
+{band}
+{pnote(S["source_note"])}</div>""")
 
     # ---- P2 status mix, and the register's own view for comparison ------
     segs_now = [(lab, d["now"].get(lab, 0), col)
@@ -1049,6 +1207,7 @@ def build_pages(rows, d, S):
     P.append(f"""{psect("How the calibrated fleet is run")}
 {cards}
 {pnote(f'Names as shown: the site is Ampol. SiteIQ still carries the site&rsquo;s former name on {num(former_live)} live-register lines and the register on some descriptions; every one is shown here under the current name. Asset numbers and barcodes are identifiers and never change.')}
+{sh.coates_way_panel()}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true, the certificates current and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
 {sh.team_cards(CONFIG["team"])}""")
@@ -1058,7 +1217,9 @@ def build_pages(rows, d, S):
 
 
 # extra styling this report needs on top of the shared sheet - the
-# staleness banner and the small row labels above the two tile rows
+# staleness banner, the small row labels above the two tile rows, and the
+# tighter tiles on the position page (class "pos" - it sits behind the
+# cover, so it is no longer the shell's page1)
 EXTRA_CSS = """
 .stale { background:#FDE8E8; border-left:4px solid #DC2626; border-radius:0 10px 10px 0;
          padding:9px 18px; margin-top:12px; font-size:10.4px; line-height:1.65; color:#7F1D1D; }
@@ -1067,16 +1228,18 @@ EXTRA_CSS = """
             letter-spacing:1.4px; font-size:8.6px; margin-bottom:3px; }
 .rowlab { margin:9px 0 -5px 0; font-size:8.4px; font-weight:700; letter-spacing:1.5px;
           text-transform:uppercase; color:#5A6875; }
-.page1 .tiles td { padding:10px 9px 9px 9px; }
-.page1 .tiles { margin-top:7px; }
-.page1 .note { margin-top:7px; }
+.pos .tiles td { padding:10px 9px 9px 9px; }
+.pos .tiles { margin-top:7px; }
+.pos .note { margin-top:7px; }
 """
 
 
-def render_doc(pages, gen_s, asat_s):
-    tot = len(pages)
-    body = "".join(sh.render_page(CONFIG, p, i + 1, tot, gen_s, asat_s)
-                   for i, p in enumerate(pages))
+def render_doc(pages, cover, gen_s, asat_s):
+    """The cover is page 1 of the pack; the position page is page 2 and
+    every page number and cross-reference counts from there."""
+    tot = len(pages) + COVER_PAGES
+    body = cover + "".join(sh.render_page(CONFIG, p, i + 1 + COVER_PAGES, tot, gen_s, asat_s)
+                           for i, p in enumerate(pages))
     doc = (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
            f'<title>Coates {esc(CONFIG["client"])} {esc(CONFIG["title"])} - '
            f'{esc(asat_s)}</title><style>{EXTRA_CSS}</style></head><body>{body}</body></html>')
@@ -1312,10 +1475,13 @@ def main():
                    f"list; due dates last maintained <b>{esc(maint_s)}</b> ({esc(maint_how)}). Status at the pull "
                    f"time is computed from Calibration Due; location, hirer and hire start are SiteIQ&rsquo;s. "
                    f"Nothing here needs the workbook refreshed.")
-    S = {"asat_s": asat_s, "asat_day": asat_day, "asat_d": asat_d, "maint_s": maint_s,
-         "maint_short": maint_short, "refresh_s": refresh_s, "refresh_short": refresh_short,
-         "stale_days": stale_days, "blanks": blanks, "source_note": source_note,
-         "view_words": view_words}
+    # the next action is dated from the pull day - the wall clock never sets it
+    action_due_s = (asat_d + timedelta(days=CONFIG["action_days"])).strftime("%d %b %Y")
+    S = {"asat_s": asat_s, "asat_day": asat_day, "asat_d": asat_d, "asat_dt": pulled,
+         "maint_s": maint_s, "maint_short": maint_short, "refresh_s": refresh_s,
+         "refresh_short": refresh_short, "stale_days": stale_days, "blanks": blanks,
+         "source_note": source_note, "view_words": view_words,
+         "action_due_s": action_due_s}
     # the shared page shell prints this after the as-at time on page 1
     CONFIG["asat_note"] = (f"(SiteIQ RENTAL_STOCK request time · due dates last maintained "
                            f"{maint_short}, {stale_days} days earlier)")
@@ -1375,10 +1541,38 @@ def main():
     print("-" * 68)
     print("[1/2] Calibration register PDF (house style)...")
     pages, marks = build_pages(rows, d, S)
-    doc, n_pages = render_doc(pages, gen_s, asat_s)
+    total, dated, n_nd = d["total"], len(d["dated"]), len(d["nodate"])
+    n_od_oh = len(d["now_od_onhire"])
+    # the cover: the one number of the day and three true lines under it
+    cover = sh.cover_page(CONFIG, num(len(d["now_overdue"])), "assets overdue at the pull", [
+        f'<b>{num(len(d["now_incal"]))}</b> in calibration - current, next due 31+ days',
+        f'<b>{num(len(d["now_due30"]))}</b> due inside 30 days - book them in now',
+        f'<b>{num(n_nd)}</b> with no certificate date - status unknown until it is entered',
+    ], gen_s, asat_s)
+    doc, n_pages = render_doc(pages, cover, gen_s, asat_s)
     pdf_path = OUT / CONFIG["pdf_name"]
-    pdf_ok = render_k2_pdf(doc, pdf_path, n_pages, css)
+    pdf_ok, layout_ok = render_k2_pdf(doc, pdf_path, n_pages, css)
     print(f"Page HTML kept       : {OUT / CONFIG['page_html']}")
+
+    # ---- the phone card: the position-page values, the band, four scores --
+    # "chase list cleared" reads the previous recorded pull's chase count
+    # against today's; with no earlier day on record it is 0, said so.
+    card_path = OUT / f"{Path(CONFIG['pdf_name']).stem}_PositionCard.png"
+    now_pct = len(d["now_dated_ok"]) / dated * 100 if dated else 0
+    prev_chase = rh.previous("calibration", "chase", pulled)
+    if prev_chase and prev_chase[1]:
+        cleared = round(max(0, prev_chase[1] - n_od_oh) / prev_chase[1] * 100)
+        cleared_lab = f"Chase list cleared since {prev_chase[0]:%d %b}"
+    else:
+        cleared, cleared_lab = 0, "Chase list cleared (no earlier day yet)"
+    scores = [("Dated fleet in date", round(now_pct)),
+              ("Register certified", round(dated / total * 100) if total else 0),
+              (cleared_lab, cleared),
+              ("No Date entered", round((total - n_nd) / total * 100) if total else 0)]
+    sh.position_card_png(CONFIG, asat_s, S["card_tiles"], S["band"], scores, str(card_path),
+                         foot=f"Counted from the SiteIQ pull of {asat_s} and the register's "
+                              f"due dates - nothing estimated.")
+    print(f"Position card        : {card_path}")
 
     # ---- 2. the email (draft - never sends) -----------------------------
     print("[2/2] Outlook email (house style, draft only)...")
@@ -1401,16 +1595,22 @@ def main():
     # kill the email, and the manifest must never promise a file that is
     # not there
     attach = [str(pdf_path)] if pdf_ok and os.path.exists(pdf_path) else []
+    if card_path.exists():
+        attach.append(str(card_path))      # the phone card rides beside the PDF
     for p in attach:
         with open(p, "rb") as f:
-            msg.add_attachment(f.read(), maintype="application",
-                               subtype="pdf", filename=os.path.basename(p))
+            if p.lower().endswith(".png"):
+                msg.add_attachment(f.read(), maintype="image", subtype="png",
+                                   filename=os.path.basename(p))
+            else:
+                msg.add_attachment(f.read(), maintype="application",
+                                   subtype="pdf", filename=os.path.basename(p))
     eml_path = OUT / CONFIG["eml_name"]
     with open(eml_path, "wb") as f:
         f.write(msg.as_bytes())
     print(f"EML written          : {eml_path}  "
-          f"({os.path.getsize(eml_path):,} bytes"
-          + (", PDF attached)" if attach else ", NO PDF attached)"))
+          f"({os.path.getsize(eml_path):,} bytes; attached: "
+          + (", ".join(os.path.basename(p) for p in attach) if attach else "NO PDF") + ")")
     # manifest so MAKE_OUTLOOK_DRAFTS keeps working - recipients derive
     # from the engine's STAFF_EMAIL_TO, one source of truth.
     to_line = "; ".join(re.findall(r"<([^>]+)>", eng.STAFF_EMAIL_TO))
@@ -1420,6 +1620,20 @@ def main():
         "body": CONFIG["email_html"],
         "attachments": [os.path.basename(p) for p in attach],
     }, indent=1), encoding="utf-8")
+
+    # ---- the scoreboard: today's figures, keyed on the pull day ----------
+    # A re-run on the same pull replaces the day's entry; the next pull
+    # reads it back and prints the movement. Real recorded days only.
+    hist = rh.record("calibration", pulled, {
+        "assets": total, "incal": len(d["now_incal"]), "due30": len(d["now_due30"]),
+        "overdue": len(d["now_overdue"]), "nodate": n_nd, "chase": n_od_oh,
+        "chase_hirers": len(d["now_chase_hirer"]) + len(d["now_chase_repairs"]),
+        "overdue_shelf": len(d["now_od_avail"]), "not_in_siteiq": len(d["not_in_siteiq"]),
+        "onhire_not_in_register": len(d["nir"])})
+    prev = rh.previous("calibration", "overdue", pulled)
+    print(f"History              : {asat_d:%d %b %Y} figures written to History/{hist.name}"
+          + (f" - movement shown against {prev[0]:%d %b %Y}" if prev
+             else " - first day on record; movement notes start with the next pull"))
     print("")
     if stale_days > STALE_DAYS:
         print(f"BEFORE SENDING: due dates are {stale_days} days old - check for certificates "
@@ -1429,6 +1643,9 @@ def main():
     if not pdf_ok:
         sys.exit("\nERROR: PDF not rendered - the email and page HTML were written, "
                  "but there is no PDF to send. Edge is standard on Coates laptops.")
+    if not layout_ok:
+        sys.exit("\nWARNING: the PDF failed its layout check - see above. Do "
+                 "not send it as is.")
 
 
 if __name__ == "__main__":

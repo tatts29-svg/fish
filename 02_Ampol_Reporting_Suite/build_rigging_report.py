@@ -23,6 +23,15 @@ WHAT THIS IS
    2. Coates_Ampol_Rigging_OUTLOOK_SAFE.eml  (DRAFT - never sends)
       + Coates_Ampol_Rigging_EMAIL.html body
       + .draft.json so MAKE_OUTLOOK_DRAFTS keeps working.
+   3. Coates_Ampol_Rigging_K2STYLE_PositionCard.png - the phone card: the
+      position-page tiles, the RAG line and four scores, attached to the
+      email beside the PDF.
+  The PDF opens on a dark cover (the one number of the day), the position
+  page carries the movement since the previous recorded pull and a RAG
+  band with an owner and a dated next action, and the closing page shows
+  the Coates Way. Each run writes its figures to History\report_history
+  .json keyed on the pull day; the next run reads them back for the
+  movement notes. No earlier day on record means no arrow - never a guess.
 
 WHERE THE NUMBERS COME FROM (changed 02 Sep 2026)
   Two files in the suite's Data area:
@@ -55,12 +64,13 @@ DATA RULES
 =====================================================================
 """
 
+import html as _html
 import json
 import os
 import re
 import sys
 from collections import Counter, defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 from email.message import EmailMessage
 from email.utils import formatdate
 from pathlib import Path
@@ -72,6 +82,7 @@ import build_stocktake_compliance_tool as eng   # write_pdf_robust, find_workboo
 import gasmon_engine as ge                       # norm_company, parse_stamp
 import ampol_names                               # how names are SHOWN
 import k2shell as sh
+import report_history as rh                      # the movement scoreboard - recorded days only
 from k2shell import esc, num, K
 
 import openpyxl
@@ -95,6 +106,15 @@ CONFIG = {
     "eml_name": "Coates_Ampol_Rigging_OUTLOOK_SAFE.eml",
     "email_html": "Coates_Ampol_Rigging_EMAIL.html",
     "draft_json": "Coates_Ampol_Rigging_OUTLOOK.draft.json",
+    # ---- the RAG line on the position page (default line - set here) ----
+    # Share of the distinct register barcodes the SiteIQ pull does not
+    # return: Green only at 0%, Amber below rag_red_pct, Red from it. The
+    # band prints the rule beside the result.
+    "rag_owner": "Andrew Fisher, Shutdown Manager",
+    "rag_red_pct": 10,
+    # the next action falls due this many days after the SiteIQ pull date -
+    # anchored on the pull, never on the day the report happens to be run
+    "action_days": 7,
     "team": [
         {"name": "Andrew Fisher", "role": "Shutdown Manager",
          "shift": "", "email": "andrew.fisher@coates.com.au",
@@ -511,7 +531,8 @@ def layout_check(pdf_path, authored):
     run down into the footer. The K2 page is a fixed-height box with
     overflow hidden, so a page count alone cannot see a table that has
     grown past the footer - PyMuPDF (where installed) reads every page
-    and looks for body text or drawings overlapping the footer."""
+    and looks for body text or drawings overlapping the footer. The cover
+    is page 1 and carries no footer by design, so it is skipped."""
     problems = []
     raw = open(pdf_path, "rb").read()
     counts = re.findall(rb"/Count\s+(\d+)", raw)
@@ -521,12 +542,14 @@ def layout_check(pdf_path, authored):
     elif actual != authored:
         problems.append(f"authored {authored} pages, PDF has {actual}")
     try:
-        import fitz
+        import pymupdf
     except ImportError:
-        fitz = None
-    if fitz is not None:
-        doc = fitz.open(str(pdf_path))
+        pymupdf = None
+    if pymupdf is not None:
+        doc = pymupdf.open(str(pdf_path))
         for pno, page in enumerate(doc, start=1):
+            if pno <= COVER_PAGES:
+                continue           # the dark cover has no footer by design
             h = page.rect.height
             blocks = page.get_text("blocks")
             # letter-spaced footer text extracts as "Y O U R  C O A T E S ..." -
@@ -552,7 +575,7 @@ def layout_check(pdf_path, authored):
                     problems.append(f"page {pno}: a chart or panel runs into the footer")
                     break
         doc.close()
-        checked = f"{actual} pages, footer clearance checked on every page"
+        checked = f"{actual} pages, footer clearance checked on every page after the cover"
     else:
         checked = f"{actual} pages (page count only - PyMuPDF not installed)"
     if problems:
@@ -638,6 +661,102 @@ def fmt_dt(dt):
     return dt.strftime("%d %b %Y") if dt else "&ndash;"
 
 
+# the dark cover is page 1 of the pack, so the position page is page 2 and
+# every cross-reference counts from there
+COVER_PAGES = 1
+# tile note colours as the phone card draws them (the page uses CSS classes)
+NOTE_HEX = {"green": "#1FA75A", "amber": "#F5A623", "red": "#EF4444", "grey": "#8A9AAC"}
+
+
+def plain(fragment):
+    """The words of a page fragment with the markup taken off - for the
+    phone card, which draws text, not HTML."""
+    return _html.unescape(re.sub(r"<[^>]+>", "", fragment)).replace("\xa0", " ")
+
+
+def moved(key, asat_dt, value, good, note, ncls):
+    """(note, class) for a tile: the movement since the previous recorded
+    pull when there is one (report_history), else the tile's own note."""
+    mv, mcls = rh.movement("rigging", key, asat_dt, value, good=good)
+    return (mv, mcls) if mv else (note, ncls)
+
+
+def spark_of(key, asat_dt, value):
+    """30-day sparkline values - every earlier recorded day, then today.
+    None until an earlier day exists: no history means no line."""
+    past = [v for dd, v in rh.series("rigging", key, asat_dt, 30) if dd < asat_dt.date()]
+    return past + [value] if past else None
+
+
+def rig_tiles(d):
+    """The position-page tiles: the count, the movement since the previous
+    recorded pull where one exists (else the tile's own note), and a
+    sparkline once there is an earlier day. Same tuples feed the card."""
+    asat_dt = d["asat"]
+    oh_n, rp_n, st_n, ms_n = (len(d["onhire"]), len(d["repair"]),
+                              len(d["store"]), len(d["missing"]))
+    fill_n, rows_n, n_co = len(d["with_test"]), d["rows"], len(d["companies"])
+    spec = [
+        ("box", "distinct", d["distinct"], num(d["distinct"]), "Distinct barcodes",
+         f"{num(rows_n)} register rows", "grey", "up"),
+        ("swap", "on_hire", oh_n, num(oh_n), "On hire to customers",
+         f"across {num(n_co)} companies", "amber", "up"),
+        ("check", "in_store", st_n, num(st_n), "In the store", "available for hire", "green", "up"),
+        ("wrench", "repairs", rp_n, num(rp_n), "At repairs / quarantined", "not customer hire",
+         "amber", "down"),
+        ("warn", "not_found", ms_n, num(ms_n), "Not found in SiteIQ", "whereabouts unknown",
+         "red", "down"),
+        ("shield", "tests_filled", fill_n, f"{num(fill_n)}/{num(rows_n)}", "Test records entered",
+         "fill-in not started" if not fill_n else "fill-in under way",
+         "red" if not fill_n else "amber", "up"),
+    ]
+    out = []
+    for ico, key, val, shown, lab, note, ncls, good in spec:
+        note, ncls = moved(key, asat_dt, val, good, note, ncls)
+        out.append((ico, shown, lab, note, ncls, spark_of(key, asat_dt, val)))
+    return out
+
+
+def rig_rag(d):
+    """The position-page RAG - the rule in CONFIG applied to the not-found
+    share at the pull. Returns a dict: the rag_band arguments (status,
+    headline, rule, owner, action) as HTML, plus card_headline and
+    card_action - the same facts in fewer words, because the phone card
+    draws a fixed box (two headline lines, two action lines)."""
+    ms_n, distinct = len(d["missing"]), d["distinct"]
+    share = ms_n / distinct * 100 if distinct else 0
+    red_at = CONFIG["rag_red_pct"]
+    if ms_n == 0:
+        status = "green"
+        headline = ('Every distinct register barcode is returned by the SiteIQ pull - the '
+                    'fleet is accounted for.')
+        card_headline = 'Every register barcode is returned by the SiteIQ pull - accounted for.'
+    elif share >= red_at:
+        status = "red"
+        headline = (f'<b class="o">{num(ms_n)}</b> of the <b>{num(distinct)}</b> distinct register '
+                    f'barcodes - <b class="o">{share:.0f}%</b> - are not found in SiteIQ: '
+                    f'whereabouts unknown, not accounted for.')
+        card_headline = (f'{num(ms_n)} of the {num(distinct)} register barcodes ({share:.0f}%) are '
+                         f'not found in SiteIQ - whereabouts unknown.')
+    else:
+        status = "amber"
+        headline = (f'<b>{num(ms_n)}</b> of the <b>{num(distinct)}</b> distinct register barcodes - '
+                    f'{share:.0f}% - are not found in SiteIQ: under the {num(red_at)}% red line, '
+                    f'still whereabouts unknown.')
+        card_headline = (f'{num(ms_n)} of the {num(distinct)} register barcodes ({share:.0f}%) are '
+                         f'not found in SiteIQ - under the {num(red_at)}% red line.')
+    rule = (f'Share of the distinct register barcodes the SiteIQ pull does not return: Green at 0%, '
+            f'Amber under {num(red_at)}%, Red from {num(red_at)}%. <b>Default line - set in CONFIG.</b>')
+    ms_oh = d["missing_snap"].get("On Hire", 0)
+    # dated from the pull day - the wall clock never sets it
+    due_s = (d["asat"].date() + timedelta(days=CONFIG["action_days"])).strftime("%d %b %Y")
+    action = (f'Hunt list of the {num(ms_n)} walked; the {num(ms_oh)} last seen on hire raised '
+              f'with their hirers - by <b>{esc(due_s)}</b>.')
+    return {"status": status, "headline": headline, "rule": rule,
+            "owner": esc(CONFIG["rag_owner"]), "action": action,
+            "card_headline": card_headline, "card_action": plain(action)}
+
+
 def paginate(rows, first_budget, next_budget):
     """rows: (cells, est_height_px). Fills pages by height so a long
     table never runs into the footer - the K2 page clips silently."""
@@ -684,7 +803,7 @@ def build_pages(d, asat_s):
          f"page __PG_MISSING__"),
         ("Test records filled in", round(fill_n / rows_n * 100) if rows_n else 0,
          f"{num(fill_n)} of {num(rows_n)} register rows have any of the eight test "
-         f"columns entered - see page 4"),
+         f"columns entered - see page __PG_TEST__"),
     ])
     band = sh.stackband([
         ("On hire to customers", oh_n, K["orange"]),
@@ -693,7 +812,8 @@ def build_pages(d, asat_s):
     ] + ([("Other SiteIQ status", ot_n, K["blue"])] if ot_n else []) + [
         ("Not found in SiteIQ", ms_n, K["red"]),
     ])
-    P.append(f"""{pcallout(
+    rag = rig_rag(d)
+    P.append(f"""<div class="pos">{pcallout(
         f'<span class="lead">The position.</span> One page, one honest answer: '
         f'is the {esc(CONFIG["client"])} rigging and height-safety fleet on the '
         f'register and accounted for? The register carries <b>{num(rows_n)} rows</b> '
@@ -705,27 +825,20 @@ def build_pages(d, asat_s):
         f'companies, {num(rp_n)} at repairs or quarantined, {num(st_n)} in the '
         f'store{other_bit} - and <b class="o">{num(ms_n)} not found in SiteIQ - '
         f'whereabouts unknown</b>. The test columns are still empty: '
-        f'<b>{num(fill_n)} of {num(rows_n)}</b> rows carry any test detail (page 4).', False)}
+        f'<b>{num(fill_n)} of {num(rows_n)}</b> rows carry any test detail (page __PG_TEST__).', False)}
 <table class="two" style="margin-top:12px"><tr>
   <td style="width:31%"><div class="donut-wrap">
-    {sh.donut(d["found_pct"], K["orange"], f'{d["found_pct"]}%', "FOUND IN SITEIQ")}
+    {sh.donut(d["found_pct"], K["orange"], f'{d["found_pct"]}%', "FOUND IN SITEIQ", size=118)}
     <div class="donut-cap">Share of the {num(distinct)} distinct register barcodes the SiteIQ pull returns</div></div></td>
   <td style="padding-left:10px">{ladders}</td>
 </tr></table>
 {psubh("Where the barcodes are", f"&mdash; every one of the {num(distinct)}, per the SiteIQ pull")}
 {chartpanel(band)}
-{sh.tiles([
-    ("box", num(distinct), "Distinct barcodes", f"{num(rows_n)} register rows", "grey"),
-    ("swap", num(oh_n), "On hire to customers", f"across {num(n_co)} companies", "amber"),
-    ("check", num(st_n), "In the store", "available for hire", "green"),
-    ("wrench", num(rp_n), "At repairs / quarantined", "not customer hire", "amber"),
-    ("warn", num(ms_n), "Not found in SiteIQ", "whereabouts unknown", "red"),
-    ("shield", f"{num(fill_n)}/{num(rows_n)}", "Test records entered",
-     "fill-in not started" if not fill_n else "fill-in under way",
-     "red" if not fill_n else "amber"),
-], per_row=6)}""")
+{sh.tiles_plus(rig_tiles(d), per_row=6)}
+{sh.rag_band(rag["status"], rag["headline"], rag["rule"], rag["owner"], rag["action"])}</div>""")
 
     # ---- P2 where the gear is - by company ------------------------------
+    pg_company = len(P) + 1 + COVER_PAGES
     comp = d["companies"]
     crows = []
     for c in comp:
@@ -757,12 +870,13 @@ def build_pages(d, asat_s):
         rrows = [['<span class="tbc">no register item is at repairs or quarantined</span>',
                   dash(), "0", dash(), dash(), dash()]]
     P.append(f"""{psect("Where the rigging gear is - by company, A to Z")}
-{pcallout(f'<b class="o">{num(oh_n)} items</b> are on hire to <b>{num(n_co)} customer companies</b> ({num(d["oh_hirers"])} hirer names) per the SiteIQ pull as at {esc(asat_s)}. Companies A to Z, each with its <b>longest-held item</b> named with barcode and hirer - because the oldest hire is always the first conversation. Project accounts are merged into their company (the SiteIQ account names sit under the company). A further <b>{num(rp_n)}</b> register items sit on repairs or quarantine custody lines - shown separately on page 3, never counted as customer hire.', False)}
+{pcallout(f'<b class="o">{num(oh_n)} items</b> are on hire to <b>{num(n_co)} customer companies</b> ({num(d["oh_hirers"])} hirer names) per the SiteIQ pull as at {esc(asat_s)}. Companies A to Z, each with its <b>longest-held item</b> named with barcode and hirer - because the oldest hire is always the first conversation. Project accounts are merged into their company (the SiteIQ account names sit under the company). A further <b>{num(rp_n)}</b> register items sit on repairs or quarantine custody lines - shown separately on page __PG_LONGEST__, never counted as customer hire.', False)}
 {sh.dtable(["Company (SiteIQ accounts)", "Items", "Hirers", "Longest-held item · barcode · hirer", "On hire since", "Held"],
            crows, ["", "r", "r", "", "r", "r"], cls="cp")}
-{pnote(f'Held = days from the SiteIQ on-hire date to the pull time, {esc(asat_s)}. Hirer names are as SiteIQ records them, shared site accounts included. {num(d["oh_after_snap"])} of the {num(oh_n)} customer-hire items were issued after {snap_s}, the newest date in the workbook&rsquo;s own locate sheet - which is why that sheet is no longer used for status. Repairs and quarantine custody lines are on page 3.')}""")
+{pnote(f'Held = days from the SiteIQ on-hire date to the pull time, {esc(asat_s)}. Hirer names are as SiteIQ records them, shared site accounts included. {num(d["oh_after_snap"])} of the {num(oh_n)} customer-hire items were issued after {snap_s}, the newest date in the workbook&rsquo;s own locate sheet - which is why that sheet is no longer used for status. Repairs and quarantine custody lines are on page __PG_LONGEST__.')}""")
 
     # ---- P3 the longest-held, item by item -------------------------------
+    pg_longest = len(P) + 1 + COVER_PAGES
     cap_l = 16
     lrows = []
     for it in d["oh_longest"][:cap_l]:
@@ -781,9 +895,10 @@ def build_pages(d, asat_s):
 {psubh("At repairs / quarantined", f"&mdash; {num(rp_n)} items on custody lines, not customer hire")}
 {sh.dtable(["Custody line (hirer)", "SiteIQ account", "Items", "Longest-held item", "Since", "Held"],
            rrows, ["", "", "r", "", "r", "r"], cls="cp")}
-{pnote(f'Rule: {esc(REPAIR_RULE)}. These lines are excluded from the company count on page 2 and from the longest-held list above.')}""")
+{pnote(f'Rule: {esc(REPAIR_RULE)}. These lines are excluded from the company count on page __PG_COMPANY__ and from the longest-held list above.')}""")
 
     # ---- P4 test status - the truth -------------------------------------
+    pg_test = len(P) + 1 + COVER_PAGES
     ts = d["test_status"].most_common()
     if ts:
         srows = [[esc(s), num(n)] for s, n in ts]
@@ -824,7 +939,7 @@ def build_pages(d, asat_s):
         ex_sentence = ""
     oot = d["out_of_tag"]
     oot_bit = (f' SiteIQ already carries a parking hirer, &lsquo;{esc(oot[0]["hirer"])}&rsquo;, holding '
-               f'{num(len(oot))} register item{"s" if len(oot) != 1 else ""} (page 2).' if oot else "")
+               f'{num(len(oot))} register item{"s" if len(oot) != 1 else ""} (page __PG_COMPANY__).' if oot else "")
     P.append(f"""{psect("Test status - what the register holds today, no varnish")}
 {pcallout(f'Straight up: <b>not one of the eight test columns on the Master has been filled in</b> - {num(fill_n)} of {num(rows_n)} rows carry a test date, status, tag colour, tester, licence, certificate or comment.{ex_sentence}{oot_bit}', False)}
 {sh.dtable(["Test Status on the Master (as recorded)", "Rows"], srows, ["", "r"], cls="cp")}
@@ -896,7 +1011,7 @@ def build_pages(d, asat_s):
     ms_oh = d["missing_snap"].get("On Hire", 0)
     ms_split = " · ".join(f"{esc(k)} {num(v)}" for k, v in d["missing_cats"].most_common())
     snap_split = " · ".join(f"{esc(k)} {num(v)}" for k, v in d["missing_snap"].most_common())
-    first_ms = len(P) + 1
+    first_ms = len(P) + 1 + COVER_PAGES
     for i, rows in enumerate(ms_pages):
         n_pages = len(ms_pages)
         head = psect("Not found in SiteIQ - whereabouts unknown"
@@ -926,7 +1041,7 @@ def build_pages(d, asat_s):
     kwrows = [([esc(g["desc"]), num(g["n"]), num(g["onhire"]), num(g["store"]),
                 num(g["other"]), esc(g["eg"])], 24) for g in d["kw_groups"]]
     kw_pages = paginate(kwrows, 520, 640) if kwrows else [[]]
-    first_kw = len(P) + 1
+    first_kw = len(P) + 1 + COVER_PAGES
     for i, rows in enumerate(kw_pages):
         n_pages = len(kw_pages)
         head = psect("Possibly rigging gear not on the register - keyword match, verify - ranked by count"
@@ -973,23 +1088,45 @@ def build_pages(d, asat_s):
     P.append(f"""{psect("How the rigging fleet is run")}
 {cards}
 {pnote(f'Names as shown: the site is Ampol. SiteIQ and the register still carry the site&rsquo;s former name on {num(former_n)} register descriptions and {num(former_live)} live-register lines; every one is shown here under the current name. Barcodes are identifiers and never change. Companies are one customer one name (the refinery legal name and the former site account both read Ampol; project accounts roll up to their parent).')}
+{sh.coates_way_panel()}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
 {sh.team_cards(CONFIG["team"])}""")
 
-    # resolve the page references now the order is final
-    P = [p.replace("__PG_MISSING__", str(first_ms)).replace("__PG_KW__", str(first_kw))
-         for p in P]
+    # resolve the page references now the order is final - every number
+    # counts the cover as page 1
+    refs = {"__PG_MISSING__": first_ms, "__PG_KW__": first_kw, "__PG_COMPANY__": pg_company,
+            "__PG_LONGEST__": pg_longest, "__PG_TEST__": pg_test}
+    for tok, pg in refs.items():
+        P = [p.replace(tok, str(pg)) for p in P]
     return P
 
 
-def render_doc(pages, gen_s, asat_s):
-    tot = len(pages)
-    body = "".join(sh.render_page(CONFIG, p, i + 1, tot, gen_s, asat_s)
-                   for i, p in enumerate(pages))
+# extra styling on top of the shared sheet. Six tiles across, so the
+# sparkline scales down to its cell instead of the shell's four-up width;
+# and the position page (class "pos") runs tighter than the shell's
+# defaults - it carries the RAG band under the tiles and must clear the
+# footer with the sparkline row still to come.
+EXTRA_CSS = """
+.tiles .spark { width: 84px; }
+.pos .callout { padding: 13px 20px; font-size: 12px; line-height: 1.85; }
+.pos .two { margin-top: 6px !important; }
+.pos .sub-h { margin: 12px 0 8px 0; }
+.pos .tiles { margin-top: 7px; }
+.pos .tiles td { padding: 10px 9px 9px 9px; }
+.pos .ragband { margin-top: 10px; }
+"""
+
+
+def render_doc(pages, cover, gen_s, asat_s):
+    """The cover is page 1 of the pack; the position page is page 2 and
+    every page number and cross-reference counts from there."""
+    tot = len(pages) + COVER_PAGES
+    body = cover + "".join(sh.render_page(CONFIG, p, i + 1 + COVER_PAGES, tot, gen_s, asat_s)
+                           for i, p in enumerate(pages))
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<title>Coates {esc(CONFIG["client"])} {esc(CONFIG["title"])} - '
-            f'{esc(asat_s)}</title></head><body>{body}</body></html>'), tot
+            f'{esc(asat_s)}</title><style>{EXTRA_CSS}</style></head><body>{body}</body></html>'), tot
 
 
 # =====================================================================
@@ -1204,9 +1341,32 @@ def main():
     css = css_path.read_text(encoding="utf-8")
     print("-" * 68)
     print("[1/2] Rigging register PDF (house style)...")
-    doc, n_pages = render_doc(build_pages(d, asat_s), gen_s, asat_s)
+    # the cover: the one number of the day and three true lines under it
+    cover = sh.cover_page(CONFIG, num(len(d["missing"])), "register items SiteIQ cannot see", [
+        f'<b>{num(len(d["onhire"]))}</b> on hire to customers across <b>{num(len(d["companies"]))}</b> companies',
+        f'<b>{num(len(d["store"]))}</b> in the store, available for hire',
+        f'<b>{num(len(d["repair"]))}</b> at repairs or quarantined',
+    ], gen_s, asat_s)
+    doc, n_pages = render_doc(build_pages(d, asat_s), cover, gen_s, asat_s)
     pdf_path = OUT / CONFIG["pdf_name"]
     pdf_ok, layout_ok = render_k2_pdf(doc, pdf_path, n_pages, css)
+
+    # ---- the phone card: the position-page tiles, the band, four scores --
+    card_path = OUT / f"{Path(CONFIG['pdf_name']).stem}_PositionCard.png"
+    rag = rig_rag(d)
+    found_n, rows_n = len(d["found"]), d["rows"]
+    scores = [("Found in SiteIQ", d["found_pct"]),
+              ("Test records filled in", round(len(d["with_test"]) / rows_n * 100) if rows_n else 0),
+              ("Customer hire share of found", round(len(d["onhire"]) / found_n * 100) if found_n else 0),
+              ("Repairs share of found", round(len(d["repair"]) / found_n * 100) if found_n else 0)]
+    card_tiles = [(shown, lab, plain(note), NOTE_HEX.get(ncls, "#8A9AAC"))
+                  for _, shown, lab, note, ncls, _ in rig_tiles(d)]
+    sh.position_card_png(CONFIG, asat_s, card_tiles,
+                         (rag["status"], rag["card_headline"], CONFIG["rag_owner"], rag["card_action"]),
+                         scores, str(card_path),
+                         foot=f"Counted from the SiteIQ pull of {asat_s} joined to the register - "
+                              f"nothing estimated.")
+    print(f"Position card        : {card_path}")
 
     # ---- 2. the email (draft - never sends) -----------------------------
     print("[2/2] Outlook email (house style, draft only)...")
@@ -1227,15 +1387,22 @@ def main():
                     "day's Rigging folder as HTML.\n")
     msg.add_alternative(html, subtype="html")
     attach = [str(pdf_path)] if pdf_ok and pdf_path.exists() else []
+    if card_path.exists():
+        attach.append(str(card_path))      # the phone card rides beside the PDF
     for p in attach:
         with open(p, "rb") as f:
-            msg.add_attachment(f.read(), maintype="application",
-                               subtype="pdf", filename=os.path.basename(p))
+            if p.lower().endswith(".png"):
+                msg.add_attachment(f.read(), maintype="image", subtype="png",
+                                   filename=os.path.basename(p))
+            else:
+                msg.add_attachment(f.read(), maintype="application",
+                                   subtype="pdf", filename=os.path.basename(p))
     eml_path = OUT / CONFIG["eml_name"]
     with open(eml_path, "wb") as f:
         f.write(msg.as_bytes())
     print(f"EML written          : {eml_path}  "
-          f"({os.path.getsize(eml_path):,} bytes, PDF attached: {bool(attach)})")
+          f"({os.path.getsize(eml_path):,} bytes; attached: "
+          + (", ".join(os.path.basename(p) for p in attach) if attach else "NO PDF") + ")")
     # manifest so MAKE_OUTLOOK_DRAFTS keeps working - recipients derive
     # from the engine's STAFF_EMAIL_TO, one source of truth.
     to_line = "; ".join(re.findall(r"<([^>]+)>", eng.STAFF_EMAIL_TO))
@@ -1245,6 +1412,21 @@ def main():
         "body": CONFIG["email_html"],
         "attachments": [os.path.basename(p) for p in attach],
     }, indent=1), encoding="utf-8")
+
+    # ---- the scoreboard: today's figures, keyed on the pull day ----------
+    # A re-run on the same pull replaces the day's entry; the next pull
+    # reads it back and prints the movement. Real recorded days only.
+    oldest = d["oh_longest"][0]["held"] if d["oh_longest"] else None
+    hist = rh.record("rigging", asat_dt, {
+        "rows": d["rows"], "distinct": d["distinct"], "found": len(d["found"]),
+        "not_found": len(d["missing"]), "on_hire": len(d["onhire"]),
+        "in_store": len(d["store"]), "repairs": len(d["repair"]),
+        "companies": len(d["companies"]), "tests_filled": len(d["with_test"]),
+        "oldest_days": oldest})
+    prev = rh.previous("rigging", "not_found", asat_dt)
+    print(f"History              : {asat_dt:%d %b %Y} figures written to History/{hist.name}"
+          + (f" - movement shown against {prev[0]:%d %b %Y}" if prev
+             else " - first day on record; movement notes start with the next pull"))
     print("")
     print(f"NEXT STEP: double-click the .eml in {OUT}, check it, press Send.")
     print("Done. The Coates Way - consistent execution, every day.")
