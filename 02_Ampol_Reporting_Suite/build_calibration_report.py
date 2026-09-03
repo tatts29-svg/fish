@@ -1054,9 +1054,10 @@ def build_pages(rows, d, S):
                  f'last maintained on {esc(maint_short)} (page @@P:lapsed@@)')
     else:
         cause = 'Nothing is overdue - the chase list on page @@P:chase@@ is empty'
-    # where the overdue and No Date gear is - printed on page 2 beside the
-    # status mix, where it has the room (page 1 clipped its own note when
-    # this row sat there too)
+    # where the overdue and No Date gear is - printed on the scorecard page
+    # under the scores. WHY (03 Sep 2026): it sat on the status-mix page
+    # only because the old position page had no room for it; the scorecard
+    # page has the room, and the status-mix page was the tightest in the pack.
     asat_dt = S["asat_dt"]
     n_nd = len(d["nodate"])
     # every tile: the count, then the movement since the previous recorded
@@ -1156,6 +1157,7 @@ def build_pages(rows, d, S):
          f"the other {num(len(d['nodate']))} have no certificate entered yet"),
     ])}</td>
 </tr></table>
+{where_tiles}
 {pnote(S["source_note"])}""")
 
     # ---- P2 status mix, and the register's own view for comparison ------
@@ -1192,7 +1194,6 @@ def build_pages(rows, d, S):
     mark("mix")
     P.append(f"""{psect(f"Status mix at {asat_day} - and the register&rsquo;s own view, for comparison")}
 {pcallout(f'Every figure on this report is computed from the register&rsquo;s due dates and the SiteIQ pull of {esc(asat_s)} - nothing needs the workbook refreshed. {view_words}', False)}
-{where_tiles}
 {psubh(f"Status mix at {asat_day}", "- computed from Calibration Due, every asset on the register")}
 {chartpanel(sh.stackband(segs_now))}
 {body2}""")

@@ -2572,7 +2572,12 @@ def report_outputs(title, subtitle, subject, bl, limits, page_title, page_sub, c
                                cover=cover(contents) if cover else None)
     return {"title": title, "subtitle": subtitle, "doc": build(), "build": build,
             "mail": email_doc, "subject": subject, "pdf_subject": pdf_subject or subject,
-            "has_cover": cover is not None, "card": card}
+            "has_cover": cover is not None, "card": card,
+            # a report with a page_break block keeps its position page to
+            # band, tiles, three things and the story - that page must hold
+            # room for tomorrow's movement notes; a report without one
+            # simply flows full
+            "position_page": any(b[0] == "page_break" for b in bl.items)}
 
 
 def render_quarter(d, qk):
@@ -2865,13 +2870,17 @@ def render_onhire(d):
                 "Coates workflow, not customer hire"])
     sit.append(["Total on hire", n_fmt(n), money(x["total_val"]) + " priced"])
     bl.table(["Where", "Items", "Note"], sit)
-    bl.note(f"The oldest hire started {fmt_date(oldest['date'])} ({oldest['days']} days ago); "
-            f"{n_fmt(len(x['over90']))} items have been out more than 90 days "
-            f"({money(x['over90_vb']['value']) if x['over90_vb']['priced'] else '-'} priced). "
-            f"{n_fmt(x['account_items'])} items are booked to customer project / workflow "
-            f"accounts ({esc(acct_names)})." if oldest and x["account_items"] else
-            f"{n_fmt(len(x['over90']))} items have been out more than 90 days "
-            f"({money(x['over90_vb']['value']) if x['over90_vb']['priced'] else '-'} priced).")
+    # the figures the old opening carried that no tile holds: the oldest
+    # hire, the over-90 value and the project / workflow account items
+    o_vb = x["over90_vb"]
+    note = ((f"The oldest hire started {fmt_date(oldest['date'])} ({oldest['days']} days ago); "
+             if oldest else "")
+            + f"{n_fmt(len(x['over90']))} items have been out more than 90 days "
+            f"({money(o_vb['value']) if o_vb['priced'] else '-'} priced).")
+    if x["account_items"]:
+        note += (f" {n_fmt(x['account_items'])} items are booked to customer project / workflow "
+                 f"accounts ({esc(acct_names)}).")
+    bl.note(note)
 
     # ---- since the last pull (03 Sep 2026): pull against pull, then the
     # 24 hours of traffic before the pull
@@ -3952,7 +3961,7 @@ def write_outputs(key, out, note=None):
         n_pages = pdf_pages(pdf_path)
         spare = page1_spare(pdf_path, out["has_cover"])
         line = f"  Pages: {n_pages}"
-        if spare is not None:
+        if spare is not None and out.get("position_page"):
             line += f"; position page has {spare} px to spare"
             if spare < PAGE1_SPARE_MIN:
                 line += f" - WARNING: under the {PAGE1_SPARE_MIN} px the movement notes need"

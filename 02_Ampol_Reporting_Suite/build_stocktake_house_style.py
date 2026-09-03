@@ -638,7 +638,15 @@ def build_client_pages(rows, d, a, export_dt):
     <div class="donut-cap">30-day SOP compliance - whole store</div></div></td>
   <td style="padding-left:10px">{ladders}</td>
 </tr></table>
-{pnote(f'SOP compliance = items sighted in the last 30 days &divide; countable items = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>. That {num(d["ok30"])} is <b>{num(d["ok30_instore"])} in store + {num(d["ok30_onhire"])} on hire</b> (an on-hire item&rsquo;s sighting is its hire-out or return scan). Of the {num(d["late_instore"] + d["late_onhire"])} items outside 30 days, <b>{num(d["late_onhire"])} are on hire</b> and {num(d["late_instore"])} are on the shelf. Tier bars are rated on in-store assets; on-hire assets are verified through the double-scan return process and shutdown checks, shown separately on the on-hire page.')}""")
+{pnote(f'SOP compliance = items sighted in the last 30 days &divide; countable items = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>. That {num(d["ok30"])} is <b>{num(d["ok30_instore"])} in store + {num(d["ok30_onhire"])} on hire</b> (an on-hire item&rsquo;s sighting is its hire-out or return scan). Of the {num(d["late_instore"] + d["late_onhire"])} items outside 30 days, <b>{num(d["late_onhire"])} are on hire</b> and {num(d["late_instore"])} are on the shelf. Tier bars are rated on in-store assets; on-hire assets are verified through the double-scan return process and shutdown checks, shown separately on the on-hire page.')}
+{sh.tiles([
+    ("check", num(len(d["done7"])), "Sighted last 7 days", "items", ""),
+    ("bars", num(len(d["done30"])), "Sighted last 30 days", "items", ""),
+    ("zap", num(a["sighted_today"]), "Sighted today",
+     export_dt.strftime("%d %b %Y"), "amber"),
+    ("clock", num(sum(a["st_hours"].values())), "Latest scan was a stocktake scan",
+     "items, last 30 days", "grey"),
+])}""")
 
     # ---- P2 determination + activity -----------------------------------
     wk = a["weekly"]
@@ -659,15 +667,7 @@ def build_client_pages(rows, d, a, export_dt):
 {pnote('Client compliance is measured on the 30-day SOP. The 7 and 14-day cycles are the Coates internal standard set <b>above</b> the SOP. Issue and return scans reset an item&rsquo;s clock, so the count cadence naturally surfaces idle stock - exactly the gear that goes missing quietly.')}
 {psubh("Register freshness", "- items by the week of their most recent sighting, last 12 weeks")}
 {chartpanel(line)}
-{pnote('The stocktake export holds one line per item - its latest sighting only - so this chart is <b>how fresh the register is</b>, not a count of scans performed. An item scanned twice in the window appears once, on its latest date. The weeks nearest today are naturally the tallest.')}
-{sh.tiles([
-    ("check", num(len(d["done7"])), "Sighted last 7 days", "items", ""),
-    ("bars", num(len(d["done30"])), "Sighted last 30 days", "items", ""),
-    ("zap", num(a["sighted_today"]), "Sighted today",
-     export_dt.strftime("%d %b %Y"), "amber"),
-    ("clock", num(sum(a["st_hours"].values())), "Latest scan was a stocktake scan",
-     "items, last 30 days", "grey"),
-])}""")
+{pnote('The stocktake export holds one line per item - its latest sighting only - so this chart is <b>how fresh the register is</b>, not a count of scans performed. An item scanned twice in the window appears once, on its latest date. The weeks nearest today are naturally the tallest.')}""")
 
     # ---- P3 coverage by bay --------------------------------------------
     ut = a["units"][:16]
