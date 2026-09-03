@@ -194,93 +194,97 @@
    6,
    5
   ],
-  "HYDRO / HYDRAULIC AISLE": [
+  "HAND TOOL AISLE": [
    6,
    6
   ],
-  "I-B01": [
+  "HYDRO / HYDRAULIC AISLE": [
    7,
    0
+  ],
+  "I-B01": [
+   7,
+   1
   ],
   "I-B02": [
    7,
-   1
+   2
   ],
   "I-B03": [
    7,
-   2
+   3
   ],
   "I-B04": [
    7,
-   3
+   4
   ],
   "I-B05": [
    7,
-   4
+   5
   ],
   "I-B06": [
    7,
-   5
+   6
   ],
   "L-B01": [
-   7,
-   6
+   8,
+   0
   ],
   "L-B03": [
    8,
-   0
+   1
   ],
   "L-B04": [
    8,
-   1
+   2
   ],
   "L-B05": [
    8,
-   2
+   3
   ],
   "L-B06": [
    8,
-   3
+   4
   ],
   "L-B07": [
    8,
-   4
+   5
   ],
   "L-B08": [
    8,
-   5
-  ],
-  "L-B09": [
-   8,
    6
   ],
-  "L-B10": [
+  "L-B09": [
    9,
    0
   ],
-  "L-B11": [
+  "L-B10": [
    9,
    1
   ],
-  "OLD T and I TOOL STORE STORAGE": [
+  "L-B11": [
    9,
    2
   ],
-  "ON HIRE": [
+  "OLD T and I TOOL STORE STORAGE": [
    9,
    3
   ],
-  "RIGGING BAY": [
+  "ON HIRE": [
    9,
    4
   ],
-  "Turnaround": [
+  "RIGGING BAY": [
    9,
    5
   ],
-  "WELDING BAY": [
+  "Turnaround": [
    9,
    6
+  ],
+  "WELDING BAY": [
+   10,
+   0
   ]
  }
 }
