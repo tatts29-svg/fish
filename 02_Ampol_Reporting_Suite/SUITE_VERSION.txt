@@ -292,7 +292,10 @@ v1.12 - 03 Sep 2026  (names as shown - tidy, one style everywhere)
     letter, lower case after) with sizes, brands, standards and
     acronyms protected (M18, 1/2", Milwaukee, UNC, McGurk). The site
     prefix is dropped from descriptions. People read "First Last";
-    companies keep the one-customer-one-name rule. Docs\NAMES_AS_SHOWN.md
+    shared and custody accounts drop SiteIQ's separator dash the same
+    way and carry "(account)" (FCCU 2026 (SFI) (account), Future Fuels
+    (account)); companies keep the one-customer-one-name rule.
+    Docs\NAMES_AS_SHOWN.md
     is the rule in plain words and says how to protect another brand.
   - Matching, pricing and mapping keys stay on the raw SiteIQ text
     (ampol_names.former_to_current), so no figure moved with the

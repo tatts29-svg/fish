@@ -58,8 +58,11 @@ by `ampol_serials.py`.
 - The after-hours booking account (SiteIQ: "AFTER HOURS HIRE - GAS
   MONITORS & RADIO BATT.") prints as **After Hours Hire account** - the
   name of the account, not of the gear on the row.
-- Any other shared account (a shutdown, SFI or tool store account) prints
-  as SiteIQ spells it plus " (account)", so it is never read as a person.
+- Any other shared or custody account (a shutdown, SFI, tool store,
+  repairs or workflow account) prints with SiteIQ's separator dash
+  dropped, the way a person does, plus " (account)", so it is never read
+  as a person: FCCU - 2026 (SFI) reads FCCU 2026 (SFI) (account);
+  Future - Fuels reads Future Fuels (account).
 
 ## Where to check
 - `python ampol_names.py` prints worked examples of every rule.

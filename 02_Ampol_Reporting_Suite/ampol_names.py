@@ -127,10 +127,10 @@ def _tidy_token(tok, first):
         core = _BRAND_FIX[up]
     elif m and m.group(2).upper() in _UNIT_FIX:
         core = m.group(1) + _UNIT_FIX[m.group(2).upper()]
-    elif "-" in core and any(ch.isdigit() for ch in core) and any(ch.isalpha() for ch in core) \
-            and not all(any(ch.isdigit() for ch in p) for p in core.split("-")):
-        # DRIVE-19MM: a word and a size joined by a hyphen - tidy each side
-        core = "-".join(_tidy_token(p, False) for p in core.split("-"))
+    elif "-" in core and not all(any(ch.isdigit() for ch in p) for p in core.split("-")):
+        # DRIVE-19MM, Multi-Tool, EASY-OUT: hyphenated words - tidy each side
+        # (a hyphen is not an inner capital; McGurk and DeWalt are)
+        core = "-".join(_tidy_token(p, first and i == 0) for i, p in enumerate(core.split("-")))
     elif any(ch.isdigit() for ch in core):
         core = core                                   # sizes and codes as written
     elif up in _PROTECT_UP:
@@ -323,11 +323,13 @@ def hirer_label(name):
     store account) as SiteIQ spells it plus " (account)", and a person
     exactly as SiteIQ spells them. One suffix on every page, so a shared
     account is never read as a person."""
-    s = str(name or "").strip()
+    s = re.sub(r"\s+", " ", str(name or "")).strip()
     if is_after_hours_account(s):
         return AFTER_HOURS_LABEL
     if is_site_account(s) and not s.lower().endswith("(account)"):
-        return s + ACCOUNT_SUFFIX
+        # SiteIQ writes an account like a person, 'FCCU - 2026 (SFI)'; the
+        # first dash is its separator and drops, as it does for a person
+        return re.sub(r"^(\S+)\s+-\s+", r"\1 ", s, count=1) + ACCOUNT_SUFFIX
     return s
 
 

@@ -387,11 +387,13 @@ def display_hirer(name):
     if N.is_after_hours_account(s):
         return N.hirer_label(s)
     if is_holding_account(s) or is_custody_hirer(s):
-        # an account keeps SiteIQ's name, tidied only when typed in capitals
+        # an account keeps SiteIQ's words; the first dash is SiteIQ's
+        # separator and drops ('Future - Fuels' reads 'Future Fuels'),
+        # capitals are tidied only when the whole name was typed in them
         letters = "".join(ch for ch in s if ch.isalpha())
         if letters and (letters.isupper() or letters.islower()):
-            return acronym_case(m_proper(s), capitalise=False)
-        return s
+            s = acronym_case(m_proper(s), capitalise=False)
+        return re.sub(r"^(\S+)\s+-\s+", r"\1 ", s, count=1)
     return N.display_person(s)          # SiteIQ's First - Last reads First Last
 
 
