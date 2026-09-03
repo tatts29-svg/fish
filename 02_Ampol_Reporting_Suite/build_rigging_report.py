@@ -92,6 +92,7 @@ import ampol_names                               # how names are SHOWN
 import k2shell as sh
 import pdf_finish
 import report_history as rh                      # the movement scoreboard - recorded days only
+import txn_insights as ti                        # the transaction log, read once
 from k2shell import esc, num, K
 
 import openpyxl
@@ -853,6 +854,122 @@ def trend_page(d):
 {pnote('The scoreboard holds exactly what each day&rsquo;s report printed - the same figures as the position page of that day&rsquo;s PDF. Numbers, not lines, are the record.')}"""
 
 
+# =====================================================================
+# THE YEAR IN MOVEMENTS - the transaction log for the register gear
+# =====================================================================
+# WHY (03 Sep 2026): txn_insights reads the whole TRANSACTIONS export once
+# and, for the register barcodes SiteIQ returns, gives the year's issues
+# and returns week by week, who holds the gear, and the log's own quality
+# counts. Every figure is a count over rows in the export - nothing is
+# modelled or forecast.
+
+def weekly_chart(labels, series, w=636, h=200, partial_last=False):
+    """Issues, returns and net out by week on the dark panel - the shell's
+    line chart with a signed axis. WHY (03 Sep 2026): k2shell.line_chart
+    draws from zero up, and net out (issues less returns) goes below zero
+    in a week more comes back than goes out; the shell has no signed axis
+    yet, so this local drawing keeps the shell's look and adds the zero
+    line. series: [(name, colour, values)]. With partial_last the final
+    point is the current, partial week - drawn hollow and starred."""
+    n = len(labels)
+    if n < 2 or not series:
+        return '<div class="note">Not enough weeks in the log for a line.</div>'
+    top, base, pad_r = 26, h - 26, 44
+    allv = [v for _, _, vs in series for v in vs if v is not None]
+    hi = max(allv + [1])
+    lo = min(allv + [0])
+    span = (hi - lo) or 1
+    widest = max(len(num(round(lo + span * k / 4))) for k in range(5))
+    pad_l = max(36, int(widest * 4.6) + 12)
+    F = 'font-family="Lato, Calibri, sans-serif"'
+
+    def x_of(i):
+        return pad_l + (w - pad_l - pad_r) * i / (n - 1)
+
+    def y_of(v):
+        return base - (base - top) * (v - lo) / span
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    for k in range(5):
+        gv = lo + span * k / 4
+        y = y_of(gv)
+        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" y2="{y:.1f}" stroke="#2A3644" stroke-width="1"/>')
+        out.append(f'<text x="{pad_l - 5}" y="{y + 3:.1f}" text-anchor="end" fill="#8A9AAC" {F} '
+                   f'font-size="7.6">{num(round(gv))}</text>')
+    if lo < 0 < hi:
+        y0 = y_of(0)
+        out.append(f'<line x1="{pad_l}" y1="{y0:.1f}" x2="{w - pad_r}" y2="{y0:.1f}" stroke="#5A6875" stroke-width="1.4"/>')
+        out.append(f'<text x="{w - pad_r + 4}" y="{y0 + 3:.1f}" fill="#8A9AAC" {F} font-size="7.4">0</text>')
+    step = max(1, (n - 1) // 8 or 1)
+    for i, lab in enumerate(labels):
+        if i % step == 0 or i == n - 1:
+            star = "*" if partial_last and i == n - 1 else ""
+            out.append(f'<text x="{x_of(i):.1f}" y="{base + 14}" text-anchor="middle" fill="#8A9AAC" {F} '
+                       f'font-size="7.6">{esc(str(lab))}{star}</text>')
+    lx = pad_l
+    for name, c, vals in series:
+        pts = [(x_of(i), y_of(v)) for i, v in enumerate(vals) if v is not None]
+        if len(pts) > 1:
+            out.append('<polyline points="' + " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+                       + f'" fill="none" stroke="{c}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>')
+        for j, (x, y) in enumerate(pts):
+            hollow = partial_last and j == len(pts) - 1
+            out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.4" fill="{"#171F2B" if hollow else c}" '
+                       f'stroke="{c}" stroke-width="1.4"/>')
+        if pts:
+            last = [v for v in vals if v is not None][-1]
+            out.append(f'<text x="{pts[-1][0] + 6:.1f}" y="{pts[-1][1] + 3.5:.1f}" fill="{c}" {F} '
+                       f'font-size="8.6" font-weight="700">{num(last)}</text>')
+        out.append(f'<rect x="{lx}" y="4" width="9" height="9" rx="2" fill="{c}"/>')
+        out.append(f'<text x="{lx + 13}" y="12" fill="#C9D6E2" {F} font-size="8.2">{esc(name)}</text>')
+        lx += 13 + 5.6 * len(name) + 16
+    out.append(f'<text x="{w - pad_r}" y="12" text-anchor="end" fill="#8A9AAC" {F} font-size="7.6">movements</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def movements_page(d, asat_s):
+    """The year in movements (03 Sep 2026): every issue and return of a
+    register barcode in the log, week by week, with net out; and who
+    holds the register gear at the pull, ranked, with the 80/20 line.
+    One fixed A4 page; the holders list is the top ten and says so."""
+    L = d["log"]
+    wk, ho = L["weekly"], L["holders"]
+    w0, w1 = L["window"] if L["window"][0] else (None, None)
+    labels = [w["week"] for w in wk]
+    partial = bool(wk) and wk[-1]["partial"]
+    issues = sum(w["issues"] for w in wk)
+    returns = sum(w["returns"] for w in wk)
+    busiest = max(wk, key=lambda w: w["issues"]) if wk else None
+    top = ho["top"][:10]
+    hrows = []
+    for i, r in enumerate(top, 1):
+        custody = bool(REPAIR_RE.search(r["hirer"] or "")) or (r["company"] or "").strip().lower() == "repairs"
+        co = esc(r["company"]) or dash()
+        if custody:
+            co += '<span class="s2">custody line - not customer hire</span>'
+        hrows.append([num(i), esc(r["hirer"]) or dash(), co, num(r["items"]), num(r["oldest"])])
+    if not hrows:
+        hrows = [['<span class="tbc">no register item is on hire</span>', dash(), dash(), "0", dash()]]
+    top_items = sum(r["items"] for r in top)
+    share = round(top_items / ho["items"] * 100) if ho["items"] and top else 0
+    chart = weekly_chart(labels, [("Issues", K["orange"], [w["issues"] for w in wk]),
+                                  ("Returns", K["green"], [w["returns"] for w in wk]),
+                                  ("Net out", K["amber"], [w["net"] for w in wk])], partial_last=partial)
+    first = wk[0]["start"].strftime("%d %b %Y") if wk else "-"
+    busy_s = (f' The busiest week for issues began <b>{esc(busiest["week"])}</b> with {num(busiest["issues"])}.'
+              if busiest and busiest["issues"] else "")
+    part_s = (f' The current week ({esc(wk[-1]["week"])}) is partial - to the pull.' if partial else "")
+    period = f"report period {w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M}" if w0 else "the whole export"
+    return f"""{psect("The year in movements - register gear through the counter, week by week")}
+{pcallout(f'<span class="lead">The log, week by week.</span> The <b>{num(L["scope_n"])} register barcodes SiteIQ returns</b> moved <b class="o">{num(issues)} times out</b> and <b>{num(returns)} back</b> across {num(len(wk))} weeks, from the week beginning {esc(first)} to the pull at {esc(asat_s)}.{busy_s} Net out is the week&rsquo;s issues less its returns - weeks above zero are gear building up on site, weeks below are gear coming home.{part_s}')}
+{psubh("Issues, returns and net out by week", "- every movement of a register barcode in the log; * marks the partial week")}
+{chartpanel(chart)}
+{psubh("Who holds the register gear", f"- ranked by items on hire at the pull; {num(ho['n80_items'])} of the {num(ho['holders'])} holders carry 80% of the {num(ho['items'])} items")}
+{sh.dtable(["Rank", "Hirer", "Company", "Items", "Oldest (days)"], hrows, ["r", "", "", "r", "r"], cls="cp")}
+{pnote(f'<b>So what:</b> the net-out line is the site&rsquo;s rigging load in one picture - the weeks it stays above zero are the weeks to walk the holders list, and the ten names above hold {num(share)}% of everything out.')}
+{pnote(f'Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {period}) for the register barcodes SiteIQ returns; holders from RENTAL_STOCK at the pull, oldest = days from the on-hire date. Rules: short hire = closed inside 6 minutes; mass draw = one person drawing 15 or more items inside one hour; product key = the description with its size and serial tail removed. Custody lines: {esc(REPAIR_RULE)}.')}"""
+
+
 def rig_tiles(d):
     """The position-page tiles: the count, the movement since the previous
     recorded pull where one exists (else the tile's own note), and a
@@ -1297,6 +1414,11 @@ def build_pages(d, asat_s):
     if tp:
         P.append(tp)
 
+    # ---- the year in movements - the transaction log (03 Sep 2026) --------
+    pg_moves = len(P) + 1 + COVER_PAGES
+    if d.get("log"):
+        P.append(movements_page(d, asat_s))
+
     # ---- close --------------------------------------------------------------
     cards = sh.info_cards([
         ("Live position, not a snapshot",
@@ -1325,9 +1447,22 @@ def build_pages(d, asat_s):
     trend_line = (f'Trend page: appears once seven days are on record ({num(n_days)} today).'
                   if n_days < 7 else
                   f'Trend page: {num(n_days)} days on record - the 30-day lines are on the page before this one.')
+    # WHY (03 Sep 2026): the transaction log is a source now - named here
+    # with its report period, and its own check for the register gear in
+    # one line; the rules it applies are on the movements page.
+    log_note = ""
+    L = d.get("log")
+    if L:
+        lw0, lw1 = L["window"] if L["window"][0] else (None, None)
+        period = f", report period {lw0:%d %b %Y %H:%M} to {lw1:%d %b %Y %H:%M}" if lw0 else ""
+        dq = L["dq"]
+        log_note = (f' The transaction log (TRANSACTIONS, sheet CUSTOMER_CONTRACTOR_EQUIP{period}) feeds page __PG_MOVES__, '
+                    f'the year in movements; its own check for the register gear: {num(dq["short_n"])} hires closed inside '
+                    f'6 minutes, {num(len(dq["onhire_no_log"]))} on hire with no movement since the log began, '
+                    f'{num(len(dq["onhire_before_log"]))} issued before it opened.')
     P.append(f"""{psect("How the rigging fleet is run")}
 {cards}
-{pnote(f'Names as shown: the site is Ampol. SiteIQ and the register still carry the site&rsquo;s former name on {num(former_n)} register descriptions and {num(former_live)} live-register lines; every one is shown here under the current name. Barcodes are identifiers and never change. Companies are one customer one name (the refinery legal name and the former site account both read Ampol; project accounts roll up to their parent). Each run writes its figures to {HIST_NAME} keyed on the pull day; the next run reads them back for the movement notes. {trend_line}')}
+{pnote(f'Names as shown: the site is Ampol. SiteIQ and the register still carry the site&rsquo;s former name on {num(former_n)} register descriptions and {num(former_live)} live-register lines; every one is shown here under the current name. Barcodes are identifiers and never change. Companies are one customer one name (the refinery legal name and the former site account both read Ampol; project accounts roll up to their parent). Each run writes its figures to {HIST_NAME} keyed on the pull day; the next run reads them back for the movement notes. {trend_line}{log_note}')}
 {sh.coates_way_panel(traits=(4, 5), disciplines=(1, 5), line="every lifting item is accounted for or hunted; a barcode SiteIQ cannot see is a friction point flagged, not accepted")}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
@@ -1336,7 +1471,7 @@ def build_pages(d, asat_s):
     # resolve the page references now the order is final - every number
     # counts the cover as page 1
     refs = {"__PG_MISSING__": first_ms, "__PG_KW__": first_kw, "__PG_COMPANY__": pg_company,
-            "__PG_LONGEST__": pg_longest, "__PG_TEST__": pg_test}
+            "__PG_LONGEST__": pg_longest, "__PG_TEST__": pg_test, "__PG_MOVES__": pg_moves}
     for tok, pg in refs.items():
         P = [p.replace(tok, str(pg)) for p in P]
     return P
@@ -1616,6 +1751,13 @@ def main():
     gen_dt = datetime.now()
     gen_s = gen_dt.strftime("%d %b %Y %H:%M")
     d = derive(reg_rows, snap, snap_max, extract, live_rows, asat_dt)
+    # WHY (03 Sep 2026): the transaction log (txn_insights) for the register
+    # barcodes SiteIQ returns - issues and returns week by week, who holds
+    # the gear, and the log's own quality counts. Read once per build.
+    log = ti.load_all()
+    scope = {it["barcode"] for it in d["found"]}
+    d["log"] = {"weekly": ti.weekly_series(log, scope), "holders": ti.holders(log, scope, top=10),
+                "dq": ti.data_quality(log, scope), "window": log["tx_window"], "scope_n": len(scope)}
 
     print(f"Data as at           : {asat_s}  (RENTAL_STOCK request time)")
     print(f"Register rows        : {d['rows']:,}  "
@@ -1647,6 +1789,13 @@ def main():
         print(f"Longest held         : {o['desc']} ({o['barcode']}) - "
               f"{o['company']} / {o['hirer']} since "
               f"{o['since'].strftime('%d %b %Y')} ({o['held']} days)")
+    L = d["log"]
+    wk, ho, dq = L["weekly"], L["holders"], L["dq"]
+    print(f"The year in movements: {len(wk)} weeks, {sum(w['issues'] for w in wk):,} issues / "
+          f"{sum(w['returns'] for w in wk):,} returns of {L['scope_n']} register barcodes; "
+          f"{ho['n80_items']} of {ho['holders']} holders carry 80% of {ho['items']} on hire; "
+          f"log check: {dq['short_n']} closed inside 6 min, {len(dq['onhire_no_log'])} on hire with no log, "
+          f"{len(dq['onhire_before_log'])} issued before the log")
 
     # ---- 1. the PDF -----------------------------------------------------
     css_path = BASE / "k2style.css"

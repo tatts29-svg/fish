@@ -91,6 +91,7 @@ import gasmon_engine as ge
 import pdf_finish
 import pull_diff
 import report_history as rh
+import txn_insights as ti
 import k2shell as sh
 from k2shell import esc, money, num, K
 
@@ -456,6 +457,7 @@ def page_position(m):
          mv("same_day_30", sd, "up", "")[1] or ("green" if sd >= C['rag_sameday_target'] else "amber")),
     ], per_row=3)
     return f"""{rag_band_gas(m)}
+{log_line(m)}
 {tiles}
 {three_things_gas(m)}
 {position_story(m, short=True)}"""
@@ -556,6 +558,55 @@ def rag_parts(m):
 def rag_band_gas(m):
     p = rag_parts(m)
     return sh.rag_band(p["status"], p["head"], p["rule"], p["owner"], p["action"], tight=True)
+
+
+# =====================================================================
+# THE LOG, CHECKED - what the transaction rows say about the same fleet
+# =====================================================================
+# WHY (03 Sep 2026): txn_insights reads the whole TRANSACTIONS export once
+# and answers, for the fleet barcodes this report already counts, the
+# questions the band's rule sits on: how long a completed hire really
+# runs, which rows are a scan habit rather than a hire, where the register
+# and the log disagree, and who holds the fleet. Every figure is a count
+# over rows in the export - nothing is modelled or forecast.
+
+def hours_s(days):
+    """Days from the engine as hours for the page: one decimal under a
+    day, whole hours from there ('10.4', '46')."""
+    h = days * 24
+    return f"{h:.1f}" if h < 24 else f"{h:.0f}"
+
+
+def holder_s(name):
+    """A holder as printed - the display rule, and one dash style (a
+    SiteIQ account name can carry a short dash of its own)."""
+    return esc(ampol_names.display_desc(name).replace("–", "-").replace("—", "-"))
+
+
+def log_insights(ctx_log, scope):
+    """The engine's answers for the fleet barcodes, in one dict for the
+    pages: return windows over every completed hire, data quality, the
+    holders and their 80/20, and the log's report period."""
+    rw = ti.return_windows(ctx_log, scope)
+    dq = ti.data_quality(ctx_log, scope)
+    ho = ti.holders(ctx_log, scope)
+    n80 = ho["n80_items"]
+    cust80 = sum(1 for r in ho["rows"][:n80] if ge.account_kind(r["hirer"], r["company"]) != "crew")
+    return {"rw_all": rw["all"], "dq": dq, "ho": ho, "cust80": cust80,
+            "window": ctx_log["tx_window"]}
+
+
+def log_line(m):
+    """One true sentence under the band on page 2: the return window the
+    log shows for completed monitor hires this year (the 90th percentile,
+    in hours). The band sets the rule; this is the behaviour under it."""
+    L = m.get("log") or {}
+    a = L.get("rw_all")
+    if not a:
+        return ""
+    return (f'<div class="note" style="margin-top:7px">Nine in ten completed monitor hires this year were back '
+            f'inside <b>{hours_s(a["p90"])} hours</b> - counted from {num(a["n"])} completed hires in the '
+            f'transaction log, half of them back inside {hours_s(a["median"])} hours and {a["sd_pct"]}% the same day.</div>')
 
 
 # =====================================================================
@@ -1415,10 +1466,13 @@ def pages_appendix(m):
 def page_method(m):
     ws, we = m["tx_window"]
     R = m["rules"]
+    lw = (m.get("log") or {}).get("window") or (None, None)
+    lw0 = (lw[0] or ws).strftime("%d %b %Y %H:%M")
+    lw1 = (lw[1] or we).strftime("%d %b %Y %H:%M")
     src = [
         ["RENTAL_STOCK.xlsx", "Where every monitor is right now - status, who has it, on-hire date",
          esc(m["asat"].strftime("%d %b %Y %H:%M")), "the live register at the pull"],
-        ["TRANSACTIONS.xlsx", "Every issue and return scan with a timestamp",
+        ["TRANSACTIONS.xlsx", "Every issue and return scan with a timestamp - sheet CUSTOMER_CONTRACTOR_EQUIP",
          esc(m["tx_requested"].strftime("%d %b %Y %H:%M")),
          f"issues {ws.strftime('%d %b %H:%M')} to {we.strftime('%d %b %Y %H:%M')}; returns to the pull"],
         ["Gas_Monitor_Serial_Numbers.xlsx", "Serial number for each barcode - display only",
@@ -1444,6 +1498,12 @@ def page_method(m):
                      f"charge from the Ampol gas monitor workbook. Never estimated."),
         ("Health score", "Plain average of availability, 30-day same-day rate, repairs and 30+ day control. "
                          "Each formula is printed beside its score on the position page."),
+        # WHY (03 Sep 2026): the log's own check (the page after this one)
+        # reads the same export through txn_insights - its rules are named
+        # here with the others so that page needs no second key.
+        ("The log, checked", f"TRANSACTIONS, sheet CUSTOMER_CONTRACTOR_EQUIP, report period {lw0} to {lw1}. "
+                             "Short hire = a hire closed inside 6 minutes. Mass draw = one person drawing 15 or more "
+                             "items inside one hour. Product key = the description with its size and serial tail removed."),
     ]
     rrows = "".join(f'<tr><td class="k">{esc(k)}</td><td>{esc(v)}</td></tr>' for k, v in rules)
     recon = "".join(f'<tr><td class="k">Check {i + 1}</td><td>{esc(n)}</td></tr>'
@@ -1460,6 +1520,86 @@ def page_method(m):
 <table class="rules">{recon}</table>
 <div class="note">{trend_line}Australian dates, metric units, 24-hour time. Anything the source does not carry
   is shown as a dash, never guessed.</div>"""
+
+
+LOG_HEADING = "The log, checked - return windows, scan habits and who holds the fleet"
+
+
+def page_log(m):
+    """The log, checked (03 Sep 2026): what the TRANSACTIONS rows say about
+    the same fleet barcodes - the return window every completed hire shows,
+    the rows that look like a scan habit rather than a hire, the register-
+    versus-log gaps with sample rows, and the 80/20 of who holds the fleet.
+    A fixed A4 page: every list is capped and says how many it shows."""
+    L = m["log"]
+    a = L["rw_all"] or {"n": 0, "median": 0.0, "p90": 0.0, "sd_pct": 0.0}
+    dq, ho = L["dq"], L["ho"]
+    w0, w1 = L["window"] if L["window"][0] else m["tx_window"]
+    CAP = 6
+    nd = '<span class="tbc">-</span>'
+    short = sorted(dq["short"], key=lambda t: t["st"], reverse=True)
+    srows = [[esc(t["st"].strftime("%d %b %H:%M")), who_s(t["who"]), esc(t["co"]) or nd, esc(t["bc"]),
+              f'{t["hours"] * 60:.0f} min'] for t in short[:CAP]]
+    if not srows:
+        srows = [['<span class="tbc">none - no hire closed inside 6 minutes</span>', "", "", "", ""]]
+    mrows = [[esc(day.strftime("%d %b")), f"{hr:02d}:00-{hr + 1:02d}:00", who_s(who), esc(co) or nd, num(n)]
+             for (who, co, day, hr), n in dq["mass"][:CAP]]
+    if not mrows:
+        mrows = [['<span class="tbc">none - nobody drew 15 or more in an hour</span>', "", "", "", ""]]
+
+    def reg_rows(rs, empty):
+        rs = sorted(rs, key=lambda r: (r["on_dt"] is None, r["on_dt"] or m["asat"]))
+        out = [[esc(r["barcode"]), who_s(r["hirer"]), esc(r["company"]) or nd, esc(dfmt(r["on_dt"])) or nd]
+               for r in rs[:CAP]]
+        return out or [[f'<span class="tbc">{empty}</span>', "", "", ""]]
+    n_no, n_pre = len(dq["onhire_no_log"]), len(dq["onhire_before_log"])
+    nrows = reg_rows(dq["onhire_no_log"], "none - every monitor on hire has a movement in the log")
+    prows = reg_rows(dq["onhire_before_log"], "none - every monitor on hire was issued inside the log")
+    n80, cust = ho["n80_items"], L["cust80"]
+    sd_ok = a["sd_pct"] >= CONFIG["rag_sameday_target"]
+
+    def shown(k, n, what):
+        return f"{num(min(k, n))} of {num(n)} {what}" if n > k else f"{num(n)} {what}"
+    return f"""<div class="sect"><h3>{esc(LOG_HEADING)}</h3></div>
+<div class="callout tight">
+  <span class="lead">Every completed hire, counted.</span> <b>{num(a['n'])} completed monitor hires</b> in the log
+  between {w0:%d %b} and {w1:%d %b %Y} - crew, custody and workflow lines alike: half were back inside
+  <b>{hours_s(a['median'])} hours</b>, <b class="o">nine in ten inside {hours_s(a['p90'])} hours</b>, and
+  <b>{a['sd_pct']}%</b> on the day they went out. The rows to read around: <b class="o">{num(dq['short_n'])} hires
+  closed inside 6 minutes</b> (scanned out and straight back), <b>{num(dq['mass_n'])} mass draws</b> (one person,
+  15 or more monitors in an hour - kits drawn for a crew or a custody line), <b>{num(n_no)}</b> monitors on hire
+  with no movement since the log began, and <b>{num(n_pre)}</b> issued before it opened - history, not a gap.
+</div>
+{sh.tiles([
+    ("swap", num(a['n']), "Completed hires", f"{w0:%d %b} to {w1:%d %b %Y}, every fleet monitor", "grey"),
+    ("clock", f"{hours_s(a['median'])} h", "Half back inside", "median, issue scan to return scan", "grey"),
+    ("clock", f"{hours_s(a['p90'])} h", "Nine in ten back inside", "90th percentile of completed hires", "amber"),
+    ("check", f"{a['sd_pct']}%", "Back the same day", "of completed hires", "green" if sd_ok else "amber"),
+])}
+{sh.tiles([
+    ("zap", num(dq['short_n']), "Closed inside 6 minutes", "out and straight back - a scan habit", "amber" if dq['short_n'] else "green"),
+    ("layers", num(dq['mass_n']), "Mass draws", "15 or more to one person in an hour", "grey"),
+    ("warn", num(n_no), "On hire, no movement logged", f"since the log began {w0:%d %b}", "red" if n_no else "green"),
+    ("box", num(n_pre), "Issued before the log", f"on hire since before {w0:%d %b %Y}", "grey"),
+])}
+<table class="two"><tr>
+  <td style="width:50%;padding-right:6px"><div class="sub-h">Closed inside 6 minutes <span class="thin">- {shown(CAP, len(short), "hires")}, newest first</span></div>
+{sh.dtable(["When", "Who", "Company", "Asset", "Out for"], srows, ["nw", "", "", "", "r"], cls="cp")}</td>
+  <td style="padding-left:6px"><div class="sub-h">Mass draws <span class="thin">- {shown(CAP, dq['mass_n'], "draws")}, largest first</span></div>
+{sh.dtable(["Day", "Hour", "Who", "Company", "Monitors"], mrows, ["nw", "nw", "", "", "r"], cls="cp")}</td>
+</tr></table>
+<table class="two"><tr>
+  <td style="width:50%;padding-right:6px"><div class="sub-h">On hire, no movement logged <span class="thin">- {shown(CAP, n_no, "monitors")}, oldest first</span></div>
+{sh.dtable(["Asset", "Who", "Company", "On hire since"], nrows, ["", "", "", "nw"], cls="cp")}</td>
+  <td style="padding-left:6px"><div class="sub-h">Issued before the log <span class="thin">- {shown(CAP, n_pre, "monitors")}, oldest first</span></div>
+{sh.dtable(["Asset", "Who", "Company", "On hire since"], prows, ["", "", "", "nw"], cls="cp")}</td>
+</tr></table>
+<div class="note"><b>So what:</b> hold crews to the {hours_s(a['p90'])}-hour line the fleet already runs on; the six-minute
+  hires and the mass draws are scan habits to read around, not hires to chase.</div>
+<div class="note">Who holds the fleet, ranked by units: <b>{num(n80)} of the {num(ho['holders'])} holders</b> on the register
+  carry 80% of the {num(ho['items'])} monitors on hire, {num(cust)} of them custody and workflow accounts rather than people.
+  Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, report period {w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M})
+  and the register at the pull; the rules are on the data page.</div>"""
 
 
 def page_closing(m):
@@ -1521,6 +1661,8 @@ def build_pages(m, d):
     ]
     pages += pages_appendix(m)
     pages.append(page_method(m))
+    # WHY (03 Sep 2026): the log's own check sits with the data page, before the close
+    pages.append(page_log(m))
     pages.append(page_closing(m))
     return pages
 
@@ -1543,6 +1685,9 @@ CONTENTS_SKIP = (
     "The shift rhythm - draws and returns by weekday and hour, year to date",
     "Demand - monitors out at once, year to date",
     "Out of service - the Dräger repair queue",
+    # WHY (03 Sep 2026): the log's check rides with the data page (the row
+    # above it on the cover); the bookmark pane still carries it.
+    LOG_HEADING,
     "The tool store has your back",
     "Meet the tool store team",
 )
@@ -1818,6 +1963,10 @@ def build(write_html=None, record=True):
     scope = {r["bc"] for r in ctx["rs"]}
     d = pull_diff.changes(scope_barcodes=scope)
     m["since"] = d
+    # WHY (03 Sep 2026): the same fleet barcodes through the transaction-log
+    # engine (txn_insights) - the return window, the scan habits, the
+    # register-versus-log gaps and the 80/20 of holders. Loaded once per build.
+    m["log"] = log_insights(ti.load_all(), scope)
     stem = report_stem()
     if record:
         # recorded before the pages are built so today's point is on the
@@ -1856,6 +2005,13 @@ def main():
               "with the next pull")
     print(f"Last 24 h before pull: {len(l['issued'])} draws, {len(l['returned'])} returns of fleet monitors"
           + ("" if l["available"] else " (TRANSACTIONS not found - not counted)"))
+    L = m["log"]
+    a = L["rw_all"] or {"n": 0, "median": 0.0, "p90": 0.0, "sd_pct": 0.0}
+    print(f"The log, checked     : {a['n']:,} completed hires - half back inside {hours_s(a['median'])} h, "
+          f"nine in ten inside {hours_s(a['p90'])} h, {a['sd_pct']}% same day; {L['dq']['short_n']} closed inside "
+          f"6 min, {L['dq']['mass_n']} mass draws, {len(L['dq']['onhire_no_log'])} on hire with no log, "
+          f"{len(L['dq']['onhire_before_log'])} issued before the log; {L['ho']['n80_items']} of "
+          f"{L['ho']['holders']} holders carry 80% of {L['ho']['items']:,} on hire")
     print(f"History              : {rh.HIST.name} - gas figures recorded for {m['asat']:%d %b %Y}; "
           f"{m['hist_days']} day(s) on record - trend page "
           + ("on" if m["trend_ok"] else f"appears at {TREND_MIN_DAYS}"))

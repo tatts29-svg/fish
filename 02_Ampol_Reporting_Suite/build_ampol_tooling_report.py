@@ -87,6 +87,22 @@
 #  Ageing panels chart the companies with ten or more items and list the
 #  rest in one line. Headings are sentence case and the long dash is gone
 #  from every string this file writes. Same numbers, same rules, same order.
+#
+#  WHY (03 Sep 2026, the insights pass): the TRANSACTIONS export holds every
+#  issue and return since 01 Jan - 90,000-odd real movements - and the family
+#  read a slice of it. The shared txn_insights engine now reads it once per
+#  build and every report asks it about its own population: the Executive
+#  Summary gains four store-wide pages (the year in movements, who holds
+#  what, the counter's rhythm, what the log and the register disagree on),
+#  the Tooling On-Hire Report gains the quarter-close look forward (arithmetic
+#  on the on-hire date, never a forecast), the return windows by product and
+#  the year in movements, every quarterly gains its own quarter-close look
+#  forward, and the Utilisation report gains dead stock, headroom and the fast
+#  movers. Every new section carries a one-line So what; every new page names
+#  its source on the data-and-method page. Page 1 keeps its grammar - the one
+#  addition is a sentence under the band's rule on the Tooling On-Hire Report
+#  stating the data behind the 90-day line. Same numbers on every page that
+#  already existed.
 # =============================================================================
 import datetime as dt
 import html as _html
@@ -95,6 +111,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from collections import Counter, defaultdict
 
 import openpyxl
@@ -107,6 +124,7 @@ import k2shell as sh
 import pdf_finish   # WHY (03 Sep 2026): PDF properties and bookmarks after every print
 import pull_diff    # WHY (03 Sep 2026): what moved since the last register pull
 import report_history as rh  # WHY (03 Sep 2026): the movement scoreboard
+import txn_insights as ti    # WHY (03 Sep 2026): what the transaction log already knows
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 # WHY (12 Aug 2026): outputs now land in the suite's dated Reports area -
@@ -2090,6 +2108,10 @@ table.dt.reg tr.z td { background: #F7F8FA; }
 .k2body .callout.tight { line-height: 1.75; }
 .k2body .three { margin-top: 6px; padding: 5px 12px 3px 12px; }
 .k2body .three .t3 { padding: 3px 0; }
+/* the insights pass (03 Sep 2026): a sub-heading's lead-in note stays with
+   the table under it, so a data-quality block never leaves its heading and
+   its one-line explanation alone at the foot of a page */
+.k2body .sub-h + .note { break-after: avoid; page-break-after: avoid; }
 """
 
 
@@ -2149,6 +2171,12 @@ class Blocks:
 
     def h2(self, text, pb=False):
         self.items.append(("h2", text, pb))
+
+    def subh(self, text):
+        # WHY (03 Sep 2026, insights pass): a plain sub-heading inside a
+        # section (the four data-quality blocks) - not a section, so it
+        # never lands on the cover or in the bookmarks
+        self.items.append(("subh", text))
 
     def table(self, headers, rows, cls="", aligns=None):
         self.items.append(("table", headers, rows, cls, aligns))
@@ -2212,6 +2240,8 @@ def email_body(bl):
             out.append(tiles([(t[0], t[5]) for t in b[1]], b[2] if b[2] == "three" else ""))
         elif k == "h2":
             out.append(f'<h2 class="pb">{b[1]}</h2>' if b[2] else f"<h2>{b[1]}</h2>")
+        elif k == "subh":
+            out.append(f'<div class="subhead">{esc(b[1])}</div>')
         elif k == "table":
             out.append(table(b[1], b[2], b[3]))
         elif k == "chart":
@@ -2521,6 +2551,8 @@ def k2_body(bl, limits, how, data_heading=True):
         elif k == "h2":
             piece = f'<div class="sect{" pb" if (b[2] or pb_next) else ""}"><h3>{b[1]}</h3></div>'
             pb_next = False
+        elif k == "subh":
+            piece = f'<div class="sub-h">{esc(b[1])}</div>'
         elif k == "table":
             piece = k2_table(b[1], b[2], b[3], b[4])
         elif k == "chart":
@@ -2580,6 +2612,705 @@ def report_outputs(title, subtitle, subject, bl, limits, page_title, page_sub, c
             "position_page": any(b[0] == "page_break" for b in bl.items)}
 
 
+# ------------------------------------------------ the insights pass ---
+# WHY (03 Sep 2026, the insights pass): the TRANSACTIONS export holds every
+# issue and return since 01 Jan and the family was reading a slice of it.
+# txn_insights reads it once per build and answers, for this report's own
+# population (the master rows' barcodes, a quarterly window's barcodes, or
+# the whole store), the questions a client asks next: what crosses 90 days
+# by the quarter close unless it comes back (arithmetic on the on-hire
+# date, never a forecast), how long a product is normally out, what never
+# moved, where the fleet has headroom, who holds what across the store, the
+# counter's rhythm by hour, and what the log and the register do not agree
+# on. Every figure is a count or a sum over rows in the exports; every new
+# section carries a one-line "So what" under its chart or table; every new
+# page's source is named on the data-and-method page. Page 1 keeps its
+# grammar - the new material sits on pages after the position.
+QC_CAP_ONHIRE = 60      # quarter-close rows printed on the Tooling On-Hire Report
+QC_CAP_QUARTER = 40     # ... and on a quarterly
+QUALITY_CAP = 12        # sample rows per data-quality block
+WEEKDAYS = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+
+
+def insights(d):
+    """The txn_insights context - register, log and pricing - loaded once
+    per build (about 12 s) and kept on d for every report that follows."""
+    if "ctx" not in d:
+        t0 = time.time()
+        ctx = ti.load_all()
+        d["ctx"] = ctx
+        w0, w1 = ctx["tx_window"]
+        print(f"Transaction log     : {len(ctx['tx']):,} movements ({stamp(w0)} to {stamp(w1)}) "
+              f"against {len(ctx['reg']):,} register barcodes - read once, {time.time() - t0:.0f} s")
+    return d["ctx"]
+
+
+def log_period(ctx):
+    w0, w1 = ctx["tx_window"]
+    return f"{stamp(w0)} to {stamp(w1)}" if (w0 and w1) else "year to date"
+
+
+def master_barcodes(d):
+    """This family's on-hire population - the master rows' barcodes."""
+    return {r["barcode"] for r in d["master"] if r["barcode"]}
+
+
+def tooling_barcodes(d):
+    """Every register barcode whose description is tooling - the same
+    family words build_master applies (radios, gas monitors, Dräger
+    equipment, lanyards and steel coil clamps out) - every status, every
+    account. The utilisation pages' population."""
+    return {s["barcode"] for s in d["stock"]
+            if s["barcode"] and not family_hit(clean_text(s["desc_raw"]))}
+
+
+def next_close(day):
+    """The last day of the quarter that holds `day`."""
+    q = (day.month - 1) // 3
+    return dt.date(day.year, q * 3 + 3, [31, 30, 30, 31][q])
+
+
+def window_close(qk):
+    """A quarterly window's own quarter end; the Year's is the pull
+    quarter's end (the next close)."""
+    if qk == "YEAR":
+        return next_close(ASAT_DAY)
+    m = QUARTERS[qk][2][-1]
+    return dt.date(ASAT_DAY.year, m, [31, 30, 30, 31][(m - 1) // 3])
+
+
+def product_labels(d):
+    """product key -> the corrected name's product key, where every
+    corrected register row under that key agrees on one (display only -
+    the grouping stays the engine's). WHY (03 Sep 2026): the engine keys
+    products off the SiteIQ description, so a typo the mapping corrects
+    ('Critictal Risk Signage') would otherwise print as SiteIQ has it."""
+    if "product_labels" in d:
+        return d["product_labels"]
+    seen = defaultdict(set)
+    for s in d["stock"]:
+        if not s["barcode"]:
+            continue
+        corr = (d["corr"].get(s["barcode"].upper())
+                or d["corr_by_desc"].get(desc_key(clean_text(s["desc_raw"]))))
+        if corr:
+            seen[ti.product_key(N.display_desc(s["desc_raw"]))].add(ti.product_key(corr))
+    d["product_labels"] = {k: next(iter(v)) for k, v in seen.items() if len(v) == 1}
+    return d["product_labels"]
+
+
+def product_show(d, key):
+    """A product key the way the register pages print descriptions:
+    the corrected name where the mapping has one for every item under
+    it, proper case, the former site name as Ampol."""
+    return m_proper(N.display_desc(product_labels(d).get(key, key)))
+
+
+def hirer_show(name):
+    """A person as SiteIQ records them; a custody, holding or project
+    account named as an account, never as a person."""
+    h = display_hirer(name) or "-"
+    if is_holding_account(name) or is_custody_hirer(name):
+        return f"{h} (account)"
+    return h
+
+
+def desc_show(d, barcode, desc):
+    """A description the way the register prints it: the corrected name
+    where the mapping has one for the barcode or for every row of that
+    description, else the cleaned SiteIQ text."""
+    corr = (d["corr"].get(clean(barcode).upper())
+            or d["corr_by_desc"].get(desc_key(clean_text(desc))))
+    return N.display_desc(corr or clean_text(desc))
+
+
+def dfmt(x):
+    """Days: one decimal under ten, whole days from ten."""
+    if x is None:
+        return "-"
+    return f"{x:.1f}" if x < 10 else f"{x:,.0f}"
+
+
+def so_what(bl, text):
+    """The one-line caption every new section carries under its chart or
+    table: what it shows and what we do about it."""
+    bl.note(f"<b>So what:</b> {text}")
+
+
+def line_chart_signed(labels, series, y_label="", w=636, h=210, colours=None,
+                      partial=()):
+    """Lines over time on the dark panel with a y axis that runs from the
+    lowest value (or zero) to the highest, and a zero line - so a week
+    where returns beat issues (net below zero) is drawn where it belongs.
+    Same look as sh.line_chart, which starts its axis at zero; this file
+    must not change the shared chart, so the signed one lives here.
+    partial: indexes drawn as hollow points (a week that is not complete)."""
+    n = len(labels)
+    if n < 2 or not series:
+        return '<div class="note">Not enough weeks on record yet for a trend line.</div>'
+    colours = colours or [sh.K["orange"], "#22C55E", "#5DADE2", "#EFA82B"]
+    top, base, pad_r = 26, h - 26, 44
+    allv = [v for _, vs in series for v in vs if v is not None]
+    if not allv:
+        return '<div class="note">Not enough weeks on record yet for a trend line.</div>'
+    hi, lo = max(max(allv), 0), min(min(allv), 0)
+    if hi == lo:
+        hi = lo + 1
+    ticks = [hi - (hi - lo) * k / 4 for k in range(5)]
+    widest = max(len(f"{round(t):,}") for t in ticks)
+    pad_l = max(34, int(widest * 4.6) + 10)
+    step = max(1, (n - 1) // 8 or 1)
+
+    def x_of(i):
+        return pad_l + (w - pad_l - pad_r) * i / (n - 1)
+
+    def y_of(v):
+        return top + (base - top) * (hi - v) / (hi - lo)
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    for t in ticks:
+        y = y_of(t)
+        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" y2="{y:.1f}" '
+                   f'stroke="#2A3644" stroke-width="1"/>')
+        out.append(f'<text x="{pad_l - 5}" y="{y + 3:.1f}" text-anchor="end" fill="#8A9AAC" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{round(t):,}</text>')
+    if lo < 0:
+        y0 = y_of(0)
+        out.append(f'<line x1="{pad_l}" y1="{y0:.1f}" x2="{w - pad_r}" y2="{y0:.1f}" '
+                   f'stroke="#8A9AAC" stroke-width="1.2"/>')
+    for i, lab in enumerate(labels):
+        if i % step == 0 or i == n - 1:
+            out.append(f'<text x="{x_of(i):.1f}" y="{base + 14}" text-anchor="middle" fill="#8A9AAC" '
+                       f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{esc(str(lab))}</text>')
+    lx = pad_l
+    ends = []
+    for (name, vals), c in zip(series, colours):
+        pts = [(i, x_of(i), y_of(v)) for i, v in enumerate(vals) if v is not None]
+        if len(pts) > 1:
+            out.append('<polyline points="' + " ".join(f"{x:.1f},{y:.1f}" for _i, x, y in pts)
+                       + f'" fill="none" stroke="{c}" stroke-width="2.2" stroke-linejoin="round" '
+                       'stroke-linecap="round"/>')
+        for i, x, y in pts:
+            if i in partial:
+                out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3" fill="#171F2B" stroke="{c}" '
+                           'stroke-width="1.6"/>')
+            else:
+                out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.4" fill="{c}"/>')
+        if pts:
+            last = [v for v in vals if v is not None][-1]
+            ends.append([pts[-1][2] + 3.5, pts[-1][1] + 6, c, f"{last:,}"])
+        out.append(f'<rect x="{lx}" y="4" width="9" height="9" rx="2" fill="{c}"/>')
+        out.append(f'<text x="{lx + 13}" y="12" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+                   f'font-size="8.2">{esc(name)}</text>')
+        lx += 13 + 5.6 * len(name) + 16
+    # the last values, nudged apart where two lines end at the same height
+    prev = None
+    for e in sorted(ends, key=lambda e: e[0]):
+        y = e[0] if prev is None or e[0] - prev >= 9 else prev + 9
+        prev = y
+        out.append(f'<text x="{e[1]:.1f}" y="{y:.1f}" fill="{e[2]}" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="8.6" font-weight="700">{e[3]}</text>')
+    if y_label:
+        out.append(f'<text x="{w - pad_r}" y="12" text-anchor="end" fill="#8A9AAC" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{esc(y_label)}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def weekly_block(bl, ctx, ws, what):
+    """The two weekly charts and their table: issues, returns and net out
+    by ISO week, then the same-day share. The partial weeks - the first
+    when the log begins inside it, and the current one - are starred on
+    the axis, drawn hollow, and named in the caption."""
+    w0, w1 = ctx["tx_window"]
+    partial = {i for i, w in enumerate(ws) if w["partial"]}
+    if w0 and ws and ws[0]["start"] < w0.date():
+        partial.add(0)
+    labels = [w["week"] + ("*" if i in partial else "") for i, w in enumerate(ws)]
+    bits = []
+    if 0 in partial:
+        bits.append(f"{ws[0]['week']} (the log begins {fmt_date(w0.date())})")
+    cur = [w for i, w in enumerate(ws) if i in partial and i != 0]
+    if cur:
+        bits.append(f"{cur[-1]['week']} (runs to the pull, {stamp(w1)})")
+    star = (" * partial weeks: " + "; ".join(bits) + ".") if bits else ""
+    peak = max(ws, key=lambda w: (w["issues"], w["start"]))
+    bl.chart(line_chart_signed(labels, [("Issues", [w["issues"] for w in ws]),
+                                        ("Returns", [w["returns"] for w in ws]),
+                                        ("Net out", [w["net"] for w in ws])],
+                               y_label="movements per week", partial=partial),
+             f"{what} by ISO week (week starting): issues by the start time, returns by the end "
+             f"time, net out = issues less returns in the week (below the zero line when returns "
+             f"beat issues). Busiest week {peak['week']}: {n_fmt(peak['issues'])} issues.{star}")
+    sd_ok = [w for w in ws if w["sd_pct"] is not None]
+    hi = max(sd_ok, key=lambda w: (w["sd_pct"], w["start"])) if sd_ok else None
+    lo = min(sd_ok, key=lambda w: (w["sd_pct"], w["start"])) if sd_ok else None
+    bl.chart(sh.line_chart(labels, [("Same-day %", [w["sd_pct"] for w in ws])],
+                           y_label="% of the week's returned issues", pct=True),
+             "Same-day share by week: of the week's issues that have come back, the share "
+             "that came back the day they went out."
+             + (f" Highest {hi['week']} ({hi['sd_pct']:g}%), lowest {lo['week']} "
+                f"({lo['sd_pct']:g}%)." if hi and lo else "") + star)
+    bl.table(["Week starting", "Issues", "Returns", "Net out", "Same-day %"],
+             [[w["week"] + (" (partial)" if i in partial else ""), n_fmt(w["issues"]),
+               n_fmt(w["returns"]), f"{w['net']:+,}" if w["net"] else "0",
+               f"{w['sd_pct']:g}%" if w["sd_pct"] is not None else "-"]
+              for i, w in enumerate(ws)]
+             + [["Total", n_fmt(sum(w["issues"] for w in ws)), n_fmt(sum(w["returns"] for w in ws)),
+                 f"{sum(w['net'] for w in ws):+,}", "-"]],
+             cls="tight", aligns=["", "r", "r", "r", "r"])
+
+
+def crossing_tables(bl, d, qc, cap):
+    """The quarter-close company table (A to Z) and the item rows (company
+    A to Z, then the day they cross), capped at `cap` with the count said."""
+    by_bc = {r["barcode"].upper(): r for r in d["master"]}
+
+    def co_name(r):
+        m = by_bc.get(r["barcode"].upper())
+        co = (m["company"] if m else r["company"]) or "-"
+        return f"{co} (custody account, internal)" if co.upper() in INTERNAL_CUSTODY else co
+    per = defaultdict(lambda: {"n": 0, "value": 0.0, "unpriced": 0, "first": None})
+    for r in qc["rows"]:
+        p = per[co_name(r)]
+        p["n"] += 1
+        if r["price"]:
+            p["value"] += r["price"]
+        else:
+            p["unpriced"] += 1
+        if p["first"] is None or r["crosses"] < p["first"]:
+            p["first"] = r["crosses"]
+    co_rows = [[co, n_fmt(p["n"]), fmt_date(p["first"]),
+                money(p["value"]) if p["value"] else "-", n_fmt(p["unpriced"])]
+               for co, p in sorted(per.items(), key=lambda kv: N.sort_key(kv[0]))]
+    co_rows.append(["Total", n_fmt(qc["n"]), fmt_date(qc["rows"][0]["crosses"]) if qc["rows"] else "-",
+                    money(qc["value"]) if qc["value"] else "-", n_fmt(qc["unpriced"])])
+    bl.table(["Company", "Items crossing", "Earliest crossing", "Priced value", "Unpriced"],
+             co_rows, aligns=["", "r", "", "r", "r"])
+    rows = sorted(qc["rows"], key=lambda r: (N.sort_key(co_name(r)), r["crosses"], r["barcode"]))
+    shown = rows[:cap]
+    if len(rows) > cap:
+        bl.note(f"Showing {cap} of {n_fmt(len(rows))} items - company A to Z, then the day they "
+                "cross; the counts above are the full figures.")
+    if shown:
+        bl.table(["Company", "Hirer", "Barcode", "Description", "Out since", "Days now", "Crosses on"],
+                 [[co_name(r),
+                   hirer_show(by_bc[r["barcode"].upper()]["hirer"] if r["barcode"].upper() in by_bc
+                              else r["hirer"]),
+                   r["barcode"], desc_show(d, r["barcode"], r["desc"]),
+                   fmt_date(r["on_dt"].date()), r["days"], fmt_date(r["crosses"])]
+                  for r in shown], cls="tight", aligns=["", "", "", "", "", "r", ""])
+    return per
+
+
+def exec_insights(bl, d):
+    """The Executive Summary's four store-wide pages (after the position,
+    before the data page): the store's year in movements, who holds what,
+    the counter's rhythm, and what the log and the register disagree on.
+    Every figure here is the whole store - every account, every family -
+    and says so. Returns what the data page quotes."""
+    ctx = insights(d)
+    w0, w1 = ctx["tx_window"]
+    period = log_period(ctx)
+
+    # ---- 1a. the store's year in movements
+    ws = ti.weekly_series(ctx, None)
+    tot_i, tot_r = sum(w["issues"] for w in ws), sum(w["returns"] for w in ws)
+    peak = max(ws, key=lambda w: (w["issues"], w["start"]))
+    pos_weeks = sum(1 for w in ws if w["net"] > 0)
+    bl.h2("The store's year in movements", pb=True)
+    bl.story(f"Every issue and every return in the SiteIQ TRANSACTIONS export (CUSTOMER_CONTRACTOR_"
+             f"EQUIP, {esc(period)}) - every account and every family, not only the tooling on "
+             f"page 1 - by the ISO week it happened: <b>{n_fmt(tot_i)}</b> issues and "
+             f"<b>{n_fmt(tot_r)}</b> returns over {len(ws)} weeks. A return is counted in the week "
+             "it came back, so a week's net out is what went out and stayed out that week.")
+    weekly_block(bl, ctx, ws, "The whole store's movements")
+    so_what(bl, f"{peak['week']} was the busiest week ({n_fmt(peak['issues'])} issues) and net out "
+                f"ran positive in {pos_weeks} of {len(ws)} weeks - the year's issues are "
+                f"{n_fmt(tot_i - tot_r)} ahead of its returns, which is the gear the quarter-close "
+                "list brings home. Roster the counter to the peak weeks, not the average week.")
+
+    # ---- 1b. who holds what
+    ho = ti.holders(ctx, None)
+    bl.h2("Who holds what - ranked by items held, top 20 of the store's holders", pb=True)
+    bl.story(f"Every item On Hire on the SiteIQ RENTAL_STOCK register at the pull, every family, "
+             f"grouped by hirer and company: <b>{n_fmt(ho['holders'])}</b> holders carry "
+             f"<b>{n_fmt(ho['items'])}</b> items ({money(ho['value'])} priced). This table is "
+             "ranked by items held; custody, holding and project accounts are named as accounts - "
+             "they are workflows, not people. Oldest is the days out of the holder's longest-held "
+             f"item at {fmt_date(ASAT_DAY)}; families are gas, radio and tooling.")
+    bl.table(["#", "Hirer", "Company", "Items", "Priced value", "Unpriced", "Oldest (days)", "Families held"],
+             [[i, hirer_show(h["hirer"]), h["company"], n_fmt(h["items"]),
+               money(h["value"]) if h["value"] else "-", n_fmt(h["unpriced"]), n_fmt(h["oldest"]),
+               ", ".join(sorted(h["families"]))]
+              for i, h in enumerate(ho["top"], 1)],
+             cls="tight", aligns=["r", "", "", "r", "r", "r", "r", ""])
+    bl.note(f"<b>{n_fmt(ho['n80_items'])}</b> of the {n_fmt(ho['holders'])} holders carry 80% of the "
+            f"items on hire; <b>{n_fmt(ho['n80_value'])}</b> carry 80% of the priced value.")
+    cross = ho["cross_family"]
+    three = sum(1 for h in cross if len(h["families"]) >= 3)
+    bl.subh(f"{n_fmt(len(cross))} holders hold two or three families at once "
+            f"({n_fmt(three)} hold all three) - the top five by items")
+    bl.table(["Hirer", "Company", "Items", "Families held"],
+             [[hirer_show(h["hirer"]), h["company"], n_fmt(h["items"]), ", ".join(sorted(h["families"]))]
+              for h in cross[:5]], aligns=["", "", "r", ""])
+    so_what(bl, f"one conversation per holder recovers more than one per item: the "
+                f"{n_fmt(ho['n80_items'])} holders carrying 80% of the items are the list to walk "
+                f"first, and the {n_fmt(len(cross))} cross-family holders get one combined list, "
+                "not a radio list, a gas list and a tooling list.")
+
+    # ---- 1c. the counter's rhythm
+    cr = ti.counter_rhythm(ctx, None)
+    ret_total = sum(v for row in cr["returns"] for v in row)
+    bl.h2("The counter's rhythm", pb=True)
+    bl.story(f"Every movement in the TRANSACTIONS export by the weekday and hour it was scanned: "
+             f"<b>{n_fmt(cr['total'])}</b> draws by their start time and <b>{n_fmt(ret_total)}</b> "
+             "returns by their end time. The count is printed in every cell; the shade follows "
+             "the count against the grid's busiest cell, and an empty cell is a zero.")
+    hours = [f"{h:02d}" for h in range(24)]
+    bl.chart(sh.heatgrid(cr["draws"], list(WEEKDAYS), hours),
+             "Draws by weekday and hour of the start scan, Monday to Sunday, 00 to 23 hours "
+             "(24-hour clock, the hour the movement started in).")
+    bl.chart(sh.heatgrid(cr["returns"], list(WEEKDAYS), hours, colour=(34, 197, 94)),
+             "Returns by weekday and hour of the end scan - the same grid, the hour the movement "
+             "closed in.")
+    busy = ", ".join(f"<b>{h:02d}:00</b> ({n_fmt(c)} draws)" for h, c in cr["busiest"])
+    dawn = sum(cr["draws"][dd][hh] for dd in range(7) for hh in (4, 5))
+    tot = cr["total"] or 1
+    bl.note(f"The three busiest hours for draws: {busy}. Day (06:00 to 17:59): "
+            f"<b>{n_fmt(cr['day'])}</b> draws ({cr['day'] / tot * 100:.0f}%); night (18:00 to 05:59): "
+            f"<b>{n_fmt(cr['night'])}</b> ({cr['night'] / tot * 100:.0f}%). The two hours 04:00 to "
+            f"05:59 alone carry {n_fmt(dawn)} draws ({dawn / tot * 100:.0f}%).")
+    so_what(bl, f"the counter's peak is the pre-dawn shift start - {dawn / tot * 100:.0f}% of all "
+                "draws land between 04:00 and 05:59 - so that is the window to have the double scan "
+                "fully staffed; the quiet afternoon hours are where a bay-by-bay stocktake sweep fits.")
+
+    # ---- 1d. what the log and the register disagree on
+    dq = ti.data_quality(ctx, None)
+    bl.h2("What the log and the register disagree on", pb=True)
+    bl.story("Four things the SiteIQ TRANSACTIONS log and the RENTAL_STOCK register do not agree "
+             "on, or that look like a scan habit rather than a hire - the whole store, every account "
+             "and family. Nothing here is corrected; it is shown so the reader knows what the "
+             f"figures on every other page are built on. The log begins {stamp(w0)} and ends "
+             f"{stamp(w1)}; the register was pulled {stamp(ASAT_DT)}.")
+    # short hires
+    bl.subh(f"{n_fmt(dq['short_n'])} movements closed inside {dq['short_minutes']} minutes")
+    bl.note(f"Out and back inside {dq['short_minutes']} minutes - a scan to test a tag, a wrong item "
+            "handed straight back, or a barcode scanned twice at the counter. They sit inside the "
+            "transactions count and the same-day figure on page 1. The 12 most recent of the "
+            f"{n_fmt(dq['short_n'])}:")
+    short = sorted(dq["short"], key=lambda t: t["st"], reverse=True)[:QUALITY_CAP]
+    bl.table(["Hirer", "Company", "Description", "Barcode", "Out", "Back", "Minutes"],
+             [[hirer_show(t["who"]), t["co"] or "-", desc_show(d, t["bc"], t["desc"]), t["bc"],
+               t["st"].strftime("%d %b %H:%M"), t["en"].strftime("%d %b %H:%M"),
+               f"{t['hours'] * 60:.1f}"] for t in short],
+             cls="tight", aligns=["", "", "", "", "", "", "r"])
+    # mass draws
+    bl.subh(f"{n_fmt(dq['mass_n'])} mass draws - one person, {dq['mass_threshold']} or more items in one hour")
+    bl.note("A mass draw is a kit or a crew lead drawing for a whole crew in one visit - every "
+            "item scanned to one name in one hour. It is a scan habit to know about, not an error: "
+            "the gear is on hire to the person who drew it, not to the people carrying it. The 12 "
+            f"largest of the {n_fmt(dq['mass_n'])}, ranked by items:")
+    bl.table(["Hirer", "Company", "Day", "Hour", "Items"],
+             [[hirer_show(k[0]), k[1] or "-", fmt_date(k[2]), f"{k[3]:02d}:00 to {k[3]:02d}:59", n_fmt(v)]
+              for k, v in dq["mass"][:QUALITY_CAP]],
+             aligns=["", "", "", "", "r"])
+    # on hire, no movement in the log
+    nolog = sorted(dq["onhire_no_log"], key=lambda r: (r["on_dt"] or ASAT_DT, r["barcode"]))
+    after = sum(1 for r in nolog if r["on_dt"] and w1 and r["on_dt"] > w1)
+    bl.subh(f"{n_fmt(len(nolog))} items on hire with no movement in the log since it began")
+    if nolog:
+        tail = (f" All {n_fmt(after)} were issued on {fmt_date(w1.date())} after {w1:%H:%M}, when the "
+                "TRANSACTIONS export's period ends - they are newer than the log, not missing from it."
+                if after == len(nolog) else
+                (f" {n_fmt(after)} of them were issued after the export's period ends ({stamp(w1)}) "
+                 "and are newer than the log, not missing from it." if after else ""))
+        bl.note(f"The register shows these On Hire, and the log holds no movement for their barcode "
+                f"at all.{tail}")
+        bl.table(["Company", "Hirer", "Barcode", "Description", "On hire since"],
+                 [[r["company"], hirer_show(r["hirer"]), r["barcode"], desc_show(d, r["barcode"], r["desc"]),
+                   stamp(r["on_dt"])] for r in nolog[:QUALITY_CAP]], cls="tight")
+    else:
+        bl.note("None - every item the register shows On Hire has a movement in the log.")
+    before = sorted(dq["onhire_before_log"], key=lambda r: (r["on_dt"] or ASAT_DT, r["barcode"]))
+    fam = Counter(ti.report_family(r["desc"]) for r in before)
+    fam_bits = ", ".join(f"{n_fmt(n)} {f}" for f, n in sorted(fam.items(), key=lambda kv: (-kv[1], kv[0])))
+    bl.subh(f"{n_fmt(len(before))} items on hire issued before the log begins - history, not a gap")
+    bl.note(f"Separately, {n_fmt(len(before))} items on hire were issued before {fmt_date(w0.date())}, "
+            f"where the TRANSACTIONS export starts ({fam_bits}) - the register carries their on-hire "
+            "date, the log cannot. They are the legacy rows the Radio and Gas Monitor reports chase. "
+            f"The 12 oldest, ranked by on-hire date:")
+    bl.table(["Company", "Hirer", "Barcode", "Description", "On hire since"],
+             [[r["company"], hirer_show(r["hirer"]), r["barcode"], desc_show(d, r["barcode"], r["desc"]),
+               stamp(r["on_dt"])] for r in before[:QUALITY_CAP]], cls="tight")
+    # available, but the latest movement is open
+    oa = dq["open_but_available"]
+    bl.subh(f"{n_fmt(len(oa))} register-available items whose latest movement is still open")
+    if oa:
+        bl.table(["Barcode", "Description", "Bay", "Hirer on the open movement", "Company", "Out since"],
+                 [[r["barcode"], desc_show(d, r["barcode"], r["desc"]), r["unit"] or "-",
+                   hirer_show(t["who"]), t["co"] or "-", t["st"].strftime("%d %b %Y %H:%M")]
+                  for r, t in oa[:QUALITY_CAP]], cls="tight")
+    else:
+        bl.note("None - every item the register shows Available for Hire has its newest movement "
+                "closed in the log. The register and the log agree on every available item.")
+    so_what(bl, "the six-minute closes and the mass draws are habits, not errors - a word at the "
+                "counter about scanning a kit as a kit keeps the same-day figure honest; the register "
+                "and the log agree on every available item, so the on-hire pages can be trusted to "
+                "the item.")
+    return {"period": period, "tx_n": len(ctx["tx"]), "reg_n": len(ctx["reg"]),
+            "qc_all": ti.quarter_close(ctx, None),
+            "qc_tool": ti.quarter_close(ctx, master_barcodes(d))}
+
+
+def onhire_insights(bl, d, n):
+    """The Tooling On-Hire Report's three log-based sections, after 'Since
+    the last pull': the quarter close look forward, the return windows by
+    product, and the year in movements - each for this report's population
+    (the master rows' barcodes), so every figure ties to page 1. Returns
+    the one sentence page 1's band adds under its rule (or '')."""
+    ctx = insights(d)
+    pop = master_barcodes(d)
+    w0, w1 = ctx["tx_window"]
+
+    # ---- 2a. quarter close - the look forward
+    qc = ti.quarter_close(ctx, pop)
+    qa = ti.quarter_close(ctx, None)
+    qend = qc["qend"]
+    bl.h2("Quarter close - the look forward", pb=True)
+    bl.story(f"Of the <b>{n_fmt(n)}</b> tooling items on hire, <b>{n_fmt(qc['n'])}</b> will have been "
+             f"out 90 days or more by <b>{fmt_date(qend)}</b> unless they come back - "
+             f"{money(qc['value'])} at replacement ({n_fmt(qc['n'] - qc['unpriced'])} priced / "
+             f"{n_fmt(qc['unpriced'])} unpriced). This is arithmetic on each item's on-hire date and "
+             f"nothing more: an item under 90 days out at the pull ({fmt_date(ASAT_DAY)}) whose "
+             f"on-hire date is on or before {fmt_date(qend - dt.timedelta(days=90))} crosses the "
+             f"line before the close. A further <b>{n_fmt(qc['already_over'])}</b> are already over "
+             "90 days today - the band on page 1 - and are not counted again here. Across the whole "
+             f"register, every family and every account, {n_fmt(qa['n'])} items will have been out "
+             f"90 days or more by {fmt_date(qa['qend'])} unless they come back.")
+    bl.tiles([tile(n_fmt(qc["n"]), f"Cross 90 days by {qend:%d %b}", "warn", "", "amber"),
+              tile(money(qc["value"]), "Replacement value", "shield",
+                   f"{n_fmt(qc['n'] - qc['unpriced'])} priced / {n_fmt(qc['unpriced'])} unpriced"),
+              tile(n_fmt(qc["already_over"]), "Already over 90 days", "clock", "", "amber"),
+              tile(n_fmt(len(qc["by_company"])), "Companies", "layers")])
+    per = crossing_tables(bl, d, qc, QC_CAP_ONHIRE)
+    if per:
+        top_co, top_p = max(per.items(), key=lambda kv: (kv[1]["n"], N.sort_key(kv[0])))
+        so_what(bl, f"these {n_fmt(qc['n'])} items are the quarter-close charge in waiting - "
+                    f"{top_co} carries the most ({n_fmt(top_p['n'])}, from {fmt_date(top_p['first'])}); "
+                    f"a supervisor's walk of this list before {fmt_date(qend)} brings them home "
+                    "before they become a charge at replacement cost.")
+    else:
+        so_what(bl, f"nothing on hire crosses 90 days by {fmt_date(qend)} - the over-90 list on page 1 "
+                    "is the whole recovery task for this close.")
+
+    # ---- 2b. return windows by product
+    rw = ti.return_windows(ctx, pop)
+    a = rw["all"]
+    rule_extra = ""
+    bl.h2(f"Return windows by product - ranked by completed hires, top 25 of {n_fmt(len(rw['rows']))} products",
+          pb=True)
+    if a:
+        bl.story(f"How long the items on hire today are normally out: the TRANSACTIONS log holds "
+                 f"<b>{n_fmt(a['n'])}</b> completed hires this year (out and back, any hirer) for the "
+                 f"{n_fmt(n)} barcodes on page 1. Median hold <b>{dfmt(a['median'])} days</b>; nine "
+                 f"in ten were back inside <b>{dfmt(a['p90'])} days</b>; {a['sd_pct']:g}% came back the "
+                 "same day. By product - the SiteIQ description with its size and serial tail removed - "
+                 f"for the products with ten or more completed hires; {n_fmt(rw['pooled_n'])} hires "
+                 f"sit in products with fewer than {rw['min_n']} each and are pooled into the total, "
+                 "not listed.")
+        bl.table(["Product", "Hires", "Median days", "90th-percentile days", "Same-day %"],
+                 [[product_show(d, r["product"]), n_fmt(r["n"]), dfmt(r["median"]), dfmt(r["p90"]),
+                   f"{r['sd_pct']:g}%"] for r in rw["rows"][:25]]
+                 + [["Total", n_fmt(a["n"]), dfmt(a["median"]), dfmt(a["p90"]), f"{a['sd_pct']:g}%"]],
+                 cls="tight", aligns=["", "r", "r", "r", "r"])
+        bl.note(f"Total = every completed hire of this population this year ({n_fmt(a['n'])}), the "
+                f"pooled {n_fmt(rw['pooled_n'])} included.")
+        if a["p90"] > 0 and 90 / a["p90"] >= 1:
+            times = round(90 / a["p90"], 1)
+            rule_extra = (f"Nine in ten completed tooling hires this year were back inside "
+                          f"{dfmt(a['p90'])} days; the 90-day line is {times:.1f} times that.")
+            so_what(bl, f"nine in ten of these items come back inside {dfmt(a['p90'])} days, so the "
+                        f"90-day line is {times:.1f} times the normal window - an item past it is not "
+                        "late by a little, it is parked. Chase the over-90 list as parked gear, "
+                        "not overdue gear.")
+        else:
+            so_what(bl, "the normal window is longer than the 90-day line for this population - "
+                        "read the over-90 list against the product's own window above.")
+    else:
+        bl.note("The log holds no completed hire this year for the items on hire today.")
+
+    # ---- 2c. the year in movements
+    ws = ti.weekly_series(ctx, pop)
+    bl.h2("The year in movements - the items on hire today", pb=True)
+    if ws:
+        tot_i, tot_r = sum(w["issues"] for w in ws), sum(w["returns"] for w in ws)
+        peak = max(ws, key=lambda w: (w["issues"], w["start"]))
+        bl.story(f"The history of the {n_fmt(n)} tooling items on hire today, from the TRANSACTIONS "
+                 f"export ({esc(log_period(ctx))}): every time one of them went out this year and "
+                 f"every time one came back, by ISO week - <b>{n_fmt(tot_i)}</b> issues and "
+                 f"<b>{n_fmt(tot_r)}</b> returns. It is these items' year, not the whole store's "
+                 "traffic (that picture is on the Executive Summary); the movement scoreboard's "
+                 "trend page, when it appears, reads this report's own printed figures instead.")
+        weekly_block(bl, ctx, ws, "The items on hire today")
+        so_what(bl, f"the week of {peak['week']} put the most of today's on-hire gear into the field "
+                    f"({n_fmt(peak['issues'])} issues) - the weeks with the highest net out are where "
+                    "the over-90 tail was born, and the same-day line is the habit to hold: the higher "
+                    "it sits, the shorter the tail.")
+    else:
+        bl.note("The log holds no movement this year for the items on hire today.")
+    return rule_extra
+
+
+def quarter_close_section(bl, d, m):
+    """A quarterly's 'Quarter close - the look forward': the window's
+    barcodes against the window's own close (a close that has already
+    passed rolls forward to the next one and the page says so). When
+    every item in the window is already past 90 days it says exactly that
+    and prints nothing else."""
+    ctx = insights(d)
+    rows = m["rows"]
+    pop = {r["barcode"] for r in rows if r["barcode"]}
+    own = window_close(m["key"])
+    rolled = own < ASAT_DAY
+    qend = next_close(ASAT_DAY) if rolled else own
+    qc = ti.quarter_close(ctx, pop, qend=qend)
+    n_all = len(rows)
+    bl.h2("Quarter close - the look forward")
+    if not n_all:
+        bl.story("Nothing is on hire from this window, so nothing can cross 90 days by the close.")
+        return
+    if qc["already_over"] >= n_all:
+        bl.story(f"Every one of the <b>{n_fmt(n_all)}</b> items on hire from {esc(m['label'])} is "
+                 f"already past 90 days at the pull ({fmt_date(ASAT_DAY)}). There is nothing left to "
+                 "cross a quarter close; the over-90 position is this window's register itself.")
+        return
+    bl.story(f"<b>{n_fmt(qc['n'])}</b> of the {n_fmt(n_all)} items on hire from {esc(m['label'])} "
+             f"will have been out 90 days or more by <b>{fmt_date(qend)}</b> unless they come back - "
+             f"{money(qc['value'])} at replacement ({n_fmt(qc['n'] - qc['unpriced'])} priced / "
+             f"{n_fmt(qc['unpriced'])} unpriced); <b>{n_fmt(qc['already_over'])}</b> are already over "
+             "90 days today. "
+             + (f"This window's own close ({fmt_date(own)}) has passed, so the look forward is to the "
+                f"next close, {fmt_date(qend)}. " if rolled else "")
+             + f"Arithmetic on each item's on-hire date and nothing more: an item under 90 days out "
+             f"at the pull whose on-hire date is on or before {fmt_date(qend - dt.timedelta(days=90))} "
+             "crosses the line before the close.")
+    per = crossing_tables(bl, d, qc, QC_CAP_QUARTER)
+    if per:
+        top_co, top_p = max(per.items(), key=lambda kv: (kv[1]["n"], N.sort_key(kv[0])))
+        so_what(bl, f"{n_fmt(qc['n'])} items from this window become a charge at replacement cost on "
+                    f"{fmt_date(qend)} unless they are back - {top_co} carries the most "
+                    f"({n_fmt(top_p['n'])}); this is the list to walk with each supervisor before "
+                    "the quarter ticks over.")
+    else:
+        so_what(bl, f"nothing from this window crosses 90 days by {fmt_date(qend)}; the over-90 items "
+                    "already counted are the whole recovery task for this close.")
+
+
+def util_insights(bl, d):
+    """The Utilisation report's three log-based pages: dead stock (never
+    moved this year - store-wide and tooling), headroom (fleet against the
+    peak out at once, with the buy and cut rule printed), and the fast
+    movers. Population: every register barcode with a tooling description.
+    Returns what the data page quotes."""
+    ctx = insights(d)
+    pop = tooling_barcodes(d)
+    w0, w1 = ctx["tx_window"]
+
+    # ---- 4a. dead stock
+    ds_all = ti.dead_stock(ctx, None)
+    ds = ti.dead_stock(ctx, pop)
+    bl.h2("Dead stock - never moved this year", pb=True)
+    bl.story(f"An item is dead stock here when the SiteIQ RENTAL_STOCK register shows it Available "
+             f"for Hire and the TRANSACTIONS log holds no movement for its barcode at all since the "
+             f"log began ({stamp(w0)}). Across the whole register, every family, "
+             f"<b>{n_fmt(ds_all['n'])}</b> of the {n_fmt(ds_all['available'])} available items with a "
+             f"barcode never moved - {money(ds_all['value'])} at replacement "
+             f"({n_fmt(ds_all['unpriced'])} unpriced). For tooling - this report's scope, radios, gas "
+             f"monitors, Dräger equipment, lanyards and steel coil clamps out - <b>{n_fmt(ds['n'])}</b> "
+             f"of the {n_fmt(ds['available'])} available barcoded items never moved.")
+    bl.tiles([tile(n_fmt(ds["n"]), "Never moved (tooling)", "box", "", "amber"),
+              tile(n_fmt(ds["available"]), "Available base (tooling, barcoded)", "check"),
+              tile(money(ds["value"]), "Replacement value, never moved", "shield",
+                   f"{n_fmt(ds['n'] - ds['unpriced'])} priced"),
+              tile(n_fmt(ds["unpriced"]), "Unpriced, never moved", "warn", "", "amber")])
+    top = ds["by_product"][:20]
+    top_n = sum(p["n"] for _k, p in top)
+    bl.h2("Never moved by product - ranked by items, top 20")
+    bl.table(["Product", "Items never moved", "Priced value", "Unpriced"],
+             [[product_show(d, k), n_fmt(p["n"]), money(p["value"]) if p["value"] else "-",
+               n_fmt(p["unpriced"])] for k, p in top]
+             + [["Total", n_fmt(ds["n"]), money(ds["value"]) if ds["value"] else "-", n_fmt(ds["unpriced"])]],
+             cls="tight", aligns=["", "r", "r", "r"])
+    bl.note(f"The top 20 products hold {n_fmt(top_n)} of the {n_fmt(ds['n'])}; the Total row is every "
+            f"product ({n_fmt(len(ds['by_product']))} in all).")
+    bays = Counter((x["unit"] or "(no bay)") for x in ds["rows"]).most_common()
+    bl.h2("Never moved by bay - ranked by items, top 12")
+    bl.chart(sh.hbars([(b, c) for b, c in bays[:12]], colour=K_ORANGE),
+             f"Tooling items never moved this year by the storage unit the register shows them in - "
+             f"top {min(12, len(bays))} of {len(bays)} bays, ranked by items.")
+    if len(bays) > 12:
+        bl.note("The other bays: " + ", ".join(f"{esc(b)} ({c})" for b, c in bays[12:]) + ".")
+    b1 = bays[0] if bays else ("-", 0)
+    so_what(bl, f"{n_fmt(ds['n'])} tooling items have not left the shelf all year - "
+                f"{money(ds['value'])} of replacement value sitting still, {n_fmt(top_n)} of them in "
+                f"the top 20 products. These are candidates to cut, not a decision: walk {b1[0]} "
+                f"({n_fmt(b1[1])} items) with this list first, and cut nothing a shutdown needs.")
+
+    # ---- 4b. headroom
+    hr = ti.headroom(ctx, pop)
+
+    def mark(r):
+        if r["fleet"] and r["peak"] >= 0.9 * r["fleet"]:
+            return "BUY candidate"
+        if r["fleet"] and r["headroom"] >= 0.5 * r["fleet"] and r["never_moved"] > 0:
+            return "CUT candidate"
+        return ""
+    buy_n = sum(1 for r in hr if mark(r) == "BUY candidate")
+    cut_n = sum(1 for r in hr if mark(r) == "CUT candidate")
+    bl.h2("Headroom - fleet against the peak out at once", pb=True)
+    bl.story(f"Per product: the fleet on the register today, the most out at once this year (counted "
+             "from the log's start and end times, every account), out now, never moved, and the "
+             "headroom - fleet less peak, the part of the fleet the store has never needed at one "
+             "time. <b>The rule, printed so the marks can be checked:</b> BUY candidate when the peak "
+             "out at once is 90% or more of the fleet; CUT candidate when the headroom is 50% or more "
+             "of the fleet and at least one item never moved. The marks are the rule applied, not a "
+             f"decision. Of the {n_fmt(len(hr))} tooling products, {n_fmt(buy_n)} meet the buy rule and "
+             f"{n_fmt(cut_n)} the cut rule; the top 30 by fleet are listed, ranked by fleet.")
+    bl.table(["Product", "Fleet", "Peak out at once", "Peak on", "Out now", "Never moved", "Headroom", "Mark"],
+             [[product_show(d, r["product"]), n_fmt(r["fleet"]), n_fmt(r["peak"]),
+               r["peak_at"].strftime("%d %b %H:%M") if r["peak_at"] else "-", n_fmt(r["out_now"]),
+               n_fmt(r["never_moved"]), n_fmt(r["headroom"]), mark(r)] for r in hr[:30]],
+             cls="tight", aligns=["", "r", "r", "", "r", "r", "r", ""])
+    buys = [r for r in hr[:30] if mark(r) == "BUY candidate"]
+    cuts = [r for r in hr[:30] if mark(r) == "CUT candidate"]
+    so_what(bl, f"in the top 30 by fleet, {n_fmt(len(buys))} products ran at or near their whole fleet at "
+                f"once ({', '.join(product_show(d, r['product']) for r in buys[:3]) or 'none'}) - the "
+                f"demand-backed buy list above is where they belong - and {n_fmt(len(cuts))} carry "
+                "headroom the store never used; a right-size call on those starts with the never-moved "
+                "count beside them, not with the fleet number.")
+
+    # ---- 4c. fast movers
+    fm = ti.fast_movers(ctx, pop, 20)
+    bl.h2("Fast movers - ranked by movements, top 20", pb=True)
+    bl.story(f"The tooling items with the most movements in the log this year - every issue counts "
+             f"one - with the bay the register shows them in now, their status at the pull and their "
+             f"last movement. <b>{n_fmt(fm['items_moved'])}</b> tooling barcodes moved at all this year "
+             f"against the {n_fmt(ds['n'])} available ones that never did.")
+    bl.table(["#", "Barcode", "Description", "Bay", "Status", "Moves", "Last movement"],
+             [[i, r["barcode"], desc_show(d, r["barcode"], r["desc"]), r["unit"] or "-", r["status"] or "-",
+               n_fmt(r["moves"]), r["last"].strftime("%d %b %Y %H:%M")]
+              for i, r in enumerate(fm["rows"], 1)],
+             cls="tight", aligns=["r", "", "", "", "", "r", ""])
+    bl.chart(sh.hbars([(u, c) for u, c in fm["by_unit"]], colour=K_ORANGE),
+             f"Movements this year by the bay the item sits in now - top {len(fm['by_unit'])} bays, "
+             "ranked by movements, every tooling barcode that moved.")
+    bays2 = [u for u, _c in fm["by_unit"][:2]]
+    so_what(bl, f"the busiest tooling lives in {' and '.join(bays2) if bays2 else 'a few bays'} - keep "
+                "those bays nearest the counter and check their tags first; the fast movers are the "
+                "items whose test dates come round quickest.")
+    return {"period": log_period(ctx), "tx_n": len(ctx["tx"]), "pop_n": len(pop), "store_dead": ds_all["n"]}
+
+
 def render_quarter(d, qk):
     m = quarter_model(d, qk)
     n = len(m["rows"])
@@ -2629,6 +3360,9 @@ def render_quarter(d, qk):
     if not m["rows"]:
         bl.story("Nothing is on hire from this window"
                  + (" - the quarter has not started." if not quarter_started(qk) else "."))
+    # WHY (03 Sep 2026, insights pass): the window's own quarter-close look
+    # forward - arithmetic on the on-hire date, before the ageing panel
+    quarter_close_section(bl, d, m)
     if m["companies"]:
         # WHY (03 Sep 2026): the ageing-by-company panel, then the APPENDIX
         # divider - everything after it is the complete register
@@ -2676,6 +3410,14 @@ def render_quarter(d, qk):
               "holding the most of its items over 90 days, the oldest item out, and the "
               "unpriced items (or the second-largest over-90 holder when everything is "
               "priced). Fewer than three true items prints fewer.",
+              "Quarter close - the look forward is arithmetic on the SiteIQ RENTAL_STOCK "
+              "on-hire dates of this window's own items: an item under 90 days out at the "
+              "pull whose on-hire date is 90 days or more before the close crosses the line "
+              "unless it comes back - a count, never a forecast. The window's own close is "
+              "used; a close that has already passed rolls forward to the next one and the "
+              "section says so. Where every item in the window is already past 90 days the "
+              "section says exactly that. Replacement value as everywhere on this page; the "
+              "TRANSACTIONS export is read for no figure in this report.",
               ] + source_limits(d)
     cfg = k2cfg("Quarterly On-Hire Report - " + m["label"],
                 "COATES · TOOL STORE · QUARTERLY ON-HIRE REPORT", KEY_QUARTER)
@@ -2886,6 +3628,14 @@ def render_onhire(d):
     # 24 hours of traffic before the pull
     since_last_pull(bl, d, full=True)
 
+    # ---- the insights pass (03 Sep 2026): the quarter-close look forward,
+    # the return windows by product and the year in movements, all for this
+    # report's own population; the one sentence page 1 gains sits under the
+    # band's rule and states the data behind the 90-day line
+    rule_extra = onhire_insights(bl, d, n)
+    if rule_extra:
+        band["rule"] += " " + rule_extra
+
     # ---- pictures: companies A to Z
     bl.h2("Items on hire by company, A to Z", pb=True)
     bl.chart(
@@ -3064,10 +3814,13 @@ def render_onhire(d):
          f"{n_fmt(d['pricing_rows'])} rows; {n_fmt(len(d['pricing']))} distinct descriptions",
          "replacement value = Avg Buy Price (New); first price wins where a description "
          "is listed more than once"],
-        ["SiteIQ TRANSACTIONS.xlsx / STOCKTAKE.xlsx",
-         "SiteIQ pull " + stamp(a["tx"]["pulled"]) + " / " + stamp(a["stocktake"]["pulled"]),
-         "not used for any figure on this report (they feed the Utilisation and "
-         "Compliance reports)"]])
+        ["SiteIQ TRANSACTIONS.xlsx (CUSTOMER_CONTRACTOR_EQUIP)",
+         "SiteIQ pull " + stamp(a["tx"]["pulled"]) + f"; report period {log_period(insights(d))}; "
+         f"{n_fmt(len(insights(d)['tx']))} movements",
+         "the 24 hours before the pull, the return windows by product and the year in "
+         "movements - each for this report's population (the on-hire barcodes above)"],
+        ["SiteIQ STOCKTAKE.xlsx", "SiteIQ pull " + stamp(a["stocktake"]["pulled"]),
+         "not used for any figure on this report (it feeds the Compliance report)"]])
     bl.h2("Rules applied")
     rules = [
         f"On hire = a RENTAL_STOCK row with a company, a {year} on-hire date and a "
@@ -3106,6 +3859,20 @@ def render_onhire(d):
         f"population ({SCOPE_WORDS}). No earlier pull means no pull-against-pull rows and a "
         "plain note saying so.",
         trend_line(trend_shown),
+        "Quarter close - the look forward: arithmetic on the RENTAL_STOCK on-hire dates of "
+        "the items on hire above - an item under 90 days out at the pull whose on-hire date "
+        "is 90 days or more before the quarter close crosses the line unless it comes back; "
+        "a count, never a forecast. Items already over 90 days are stated beside it, not "
+        "counted again. The store-wide figure in that section counts every family and "
+        "account on the register the same way.",
+        "Return windows and the year in movements: the TRANSACTIONS export's rows for this "
+        "report's barcodes - a completed hire is a row with a start and an end time; the "
+        "median and the 90th percentile are read off the sorted hold times in days; same-day "
+        "means the end date equals the start date. A product is the SiteIQ description with "
+        "its size and serial tail removed (the corrected name is shown where the mapping has "
+        "one for every item under it); products with fewer than ten completed hires are pooled. "
+        "Weeks are ISO weeks by start time (issues) and end time (returns); the partial weeks "
+        "are marked. Every figure is a count or a sum over rows in the export.",
     ]
     bl.ul(rules)
     limits = source_limits(d)
@@ -3206,6 +3973,8 @@ def render_util(d):
     if len(um["overstock"]) > 40:
         bl.story(f"Showing 40 of {len(um['overstock'])} right-size "
                  "candidates - lowest YTD utilisation first.")
+    # ---- the insights pass (03 Sep 2026): dead stock, headroom, fast movers
+    ui = util_insights(bl, d)
     # WHY (02 Sep 2026): coverage is stated both ways - how much of the
     # mapping is usable, and how much of the year's movement it explains.
     if d.get("mapping_n") is not None:
@@ -3230,6 +3999,18 @@ def render_util(d):
               "Buy prices are catalogue averages from Ampol_ToolStore_Pricing.xlsx (first "
               "price where a description is listed more than once); groups without a "
               "price show a dash.",
+              "The dead stock, headroom and fast-mover pages are counted from the SiteIQ "
+              "TRANSACTIONS export (CUSTOMER_CONTRACTOR_EQUIP, report period "
+              f"{ui['period']}; {n_fmt(ui['tx_n'])} movements) against the RENTAL_STOCK "
+              f"register. Their population is every register barcode with a tooling description "
+              f"({n_fmt(ui['pop_n'])} barcodes, every status and account) - radios, gas monitors, "
+              "Dräger equipment, lanyards and steel coil clamps out, as everywhere in this family; "
+              "the store-wide never-moved figure counts every family. Rules: dead stock is an "
+              "Available for Hire barcode with no movement in the log at all; a product is the "
+              "SiteIQ description with its size and serial tail removed (the corrected name is "
+              "shown where the mapping has one for every item under it); the peak out at once is "
+              "counted from the log's start and end times; headroom is fleet less peak; BUY and "
+              "CUT are the printed rule applied, not a decision; movements count every issue.",
               ] + source_limits(d)[:1]
     cfg = k2cfg("Utilisation & What-To-Buy Report",
                 "COATES · TOOL STORE · UTILISATION & WHAT TO BUY", KEY_UTIL)
@@ -3546,6 +4327,10 @@ def render_exec(d):
     # ---- the trend page (03 Sep 2026): only once seven days are on record
     trend_shown = trend_page(bl, d, {"on_hire": x["on_hire"], "over90": over90_n,
                                      "value": round(x["total_val"], 2)})
+    # ---- the insights pass (03 Sep 2026): four store-wide pages from the
+    # transaction log and the register, after the position, before the data page
+    ins = exec_insights(bl, d)
+    qa, qt = ins["qc_all"], ins["qc_tool"]
     limits = ["Every figure is counted from the SiteIQ exports beside this report - never "
               "from a workbook tab or a hardcoded summary cell. On hire = register rows "
               f"On Hire with a {ASAT_DAY.year} on-hire date, less radios, gas monitors, "
@@ -3566,6 +4351,23 @@ def render_exec(d):
               "TRANSACTIONS export - both for this report's population "
               f"({SCOPE_WORDS}).",
               trend_line(trend_shown),
+              f"{n_fmt(qa['n'])} items on hire across the whole register will have been out 90 "
+              f"days or more by {fmt_date(qa['qend'])} unless they come back - arithmetic on each "
+              "item's on-hire date (an item under 90 days out at the pull whose on-hire date is "
+              f"90 days or more before the close), never a forecast; {n_fmt(qa['already_over'])} "
+              f"are already over 90 days. The tooling share - {n_fmt(qt['n'])} of the "
+              f"{n_fmt(x['on_hire'])} on hire on page 1 - is on the Tooling On-Hire Report's "
+              "quarter-close page.",
+              "The store-wide pages (the store's year in movements, who holds what, the "
+              "counter's rhythm, what the log and the register disagree on) are counted from "
+              "the SiteIQ TRANSACTIONS export (CUSTOMER_CONTRACTOR_EQUIP, report period "
+              f"{ins['period']}; {n_fmt(ins['tx_n'])} movements) and the RENTAL_STOCK register "
+              f"({n_fmt(ins['reg_n'])} barcodes), every account and every family - the whole "
+              "store, not the tooling population on page 1. Rules: a short hire is a movement "
+              "closed inside 6 minutes; a mass draw is one person with 15 or more items in one "
+              "hour; a 90-day crossing is as above; a product is the SiteIQ description with its "
+              "size and serial tail removed; weeks are ISO weeks by start time (issues) and end "
+              "time (returns). Nothing is corrected, weighted or forecast.",
               ] + source_limits(d)
     cfg = k2cfg("Executive Summary", "COATES · TOOL STORE · EXECUTIVE SUMMARY", KEY_EXEC)
     # WHY (03 Sep 2026): the cover and the phone position card - the same
@@ -4029,8 +4831,9 @@ def run_onhire(d):
     write_outputs("onhire", render_onhire(d),
                   note="The full Tooling On-Hire Report PDF is attached - every company "
                        "A to Z, every hirer, every item. This email carries the position, "
-                       "what moved since the last pull and the company tables; the register "
-                       "is in the PDF.")
+                       "what moved since the last pull, the quarter-close look forward, the "
+                       "return windows and the company tables; the register and the charts "
+                       "are in the PDF.")
 
 
 def run_util(d):
@@ -4084,6 +4887,11 @@ def history_figures(d):
              "second_label": "items out more than 90 days",
              "title": "Ampol Tooling On-Hire Report", "folder": "Tooling",
              "pdf": stem + ".pdf", "card": stem + "_PositionCard.png"}
+    # WHY (03 Sep 2026, insights pass): the third figure for the daily position
+    # - the tooling items that cross 90 days by the quarter close unless returned
+    qt = ti.quarter_close(insights(d), master_barcodes(d))
+    extra["third_value"] = n_fmt(qt["n"])
+    extra["third_label"] = f"cross 90 days by {qt['qend']:%d %b} unless returned"
     return f, extra
 
 

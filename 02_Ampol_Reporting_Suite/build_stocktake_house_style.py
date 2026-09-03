@@ -70,6 +70,7 @@ import gasmon_engine as ge
 import k2shell as sh
 import pdf_finish
 import report_history as rh
+import txn_insights as ti
 import json
 from k2shell import esc, money, num, K
 
@@ -575,7 +576,7 @@ def three_things_stocktake(d, a, band):
 # CLIENT PDF
 # =====================================================================
 
-def build_client_pages(rows, d, a, export_dt):
+def build_client_pages(rows, d, a, export_dt, fm=None, tx_window=None):
     P = []
     comp = d["comp30"]
     val_cov = (d["val_ok30"] / d["val_total"] * 100) if d["val_total"] else 0
@@ -729,6 +730,10 @@ def build_client_pages(rows, d, a, export_dt):
     if tp:
         P.append(tp)
 
+    # ---- P6b fast movers - what the counter handles most (03 Sep 2026) --
+    if fm is not None:
+        P.append(fast_movers_page(fm, a, tx_window))
+
     # ---- P7 close -------------------------------------------------------
     cards = sh.info_cards([
         ("Two scans, two looks",
@@ -761,13 +766,56 @@ def build_client_pages(rows, d, a, export_dt):
     trend_line = (f'Trend page: appears once seven days are on record ({num(n_days)} today).'
                   if n_days < 7 else
                   f'Trend page: {num(n_days)} days on record - the 30-day lines are on the page before this one.')
+    # WHY (03 Sep 2026): the transaction log is a source now (the fast-movers
+    # page) - named here with the others, with its own report period.
+    tx_src = (f"; TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {tx_window[0]:%d %b} to {tx_window[1]:%d %b %Y}) for the fast-movers page"
+              if tx_window and tx_window[0] else "")
     P.append(f"""<div class="close">{psect("The tool store has your back")}
 {cards}
-{pnote(f'Sources: SiteIQ STOCKTAKE export ({esc(export_dt.strftime("%d %b %Y %H:%M"))}), RENTAL_STOCK register, pricing master. Each run writes its figures to {HIST_NAME} keyed on the export day. {trend_line}')}
+{pnote(f'Sources: SiteIQ STOCKTAKE export ({esc(export_dt.strftime("%d %b %Y %H:%M"))}), RENTAL_STOCK register, pricing master{tx_src}. Each run writes its figures to {HIST_NAME} keyed on the export day. {trend_line}')}
 {sh.coates_way_panel(traits=(5, 4), disciplines=(6, 5), line="one documented count standard, walked every day; a shelf item unsighted past its cycle is a workaround flagged, not normalised")}
 {psect("Meet the tool store team")}
 {sh.team_cards(CONFIG["team"])}</div>""")
     return P
+
+
+def fast_movers_page(fm, a, tx_window):
+    """Fast movers (03 Sep 2026): the 20 barcodes the transaction log shows
+    the counter handling most this year, ranked by movements, with the bay
+    each sits in now and the bays those movements come from. The whole
+    store is the scope because the count covers everything. Every figure
+    is a count of rows in the export; nothing is modelled. The bay-map
+    line joins on the storage-unit name both pages already use - left out
+    when no bay on the bars is an in-store bay on the map."""
+    rows = fm["rows"]
+    w0, w1 = tx_window if tx_window and tx_window[0] else (None, None)
+    since = f"since {w0:%d %b}" if w0 else "this year"
+    nd = '<span class="tbc">-</span>'
+    trows = [[num(i), esc(r["barcode"]), esc(r["desc"]), esc(r["unit"]) or nd,
+              esc(r["status"]) or '<span class="tbc">not on the register now</span>', num(r["moves"]),
+              esc(r["last"].strftime("%d %b %H:%M"))] for i, r in enumerate(rows, 1)]
+    if not trows:
+        trows = [['<span class="tbc">no movements in the log</span>', "", "", "", "", "", ""]]
+    top_moves = sum(r["moves"] for r in rows)
+    bays = Counter(r["unit"] or "(no bay)" for r in rows)
+    top_bay, top_bay_n = bays.most_common(1)[0] if bays else ("(no bay)", 0)
+    by_unit = fm["by_unit"][:12]
+    bars = [(u, n, num(n)) for u, n in by_unit]
+    cov = {u["unit"]: u for u in a["units"]}
+    joined = [(u, cov[u]) for u, _ in by_unit if u in cov][:3]
+    map_line = ""
+    if joined:
+        map_line = (" Against the bay map: " + "; ".join(
+            f"<b>{esc(u)}</b> {num(c['n'])} in-store items, {c['pct']:.0f}% sighted inside 30 days" for u, c in joined) + ".")
+    period = f"report period {w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M}" if w0 else "the whole export"
+    return f"""<div class="fm">{psect("Fast movers - what the counter handles most")}
+{pcallout(f'<span class="lead">Ranked by movements.</span> The <b>{num(len(rows))} barcodes</b> below are the ones the transaction log shows the counter handling most {since}: <b>{num(top_moves)}</b> issue-and-return movements between them, out of <b>{num(fm["items_moved"])}</b> distinct barcodes that moved at all. {num(top_bay_n)} of the {num(len(rows))} sit in <b>{esc(top_bay)}</b> today. Bay and status are the live register at the pull; last movement is the newest scan in the log.')}
+{sh.dtable(["Rank", "Barcode", "Description", "Bay", "Status", "Moves", "Last movement"], trows,
+           ["r", "", "", "", "", "r", "nw"], cls="cp")}
+{psubh("Movements by bay", "- top 12 bays, ranked by movements in the log; bay = the item&rsquo;s home storage unit on the register today")}
+{chartpanel(sh.hbars(bars, rowh=17))}
+{pnote(f'<b>So what:</b> the bays the fast movers live in are where a daily sighting pays most - one walk past {esc(top_bay)} resets the clock on the gear the counter handles every day.{map_line}')}
+{pnote(f'Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {period}), every row, joined to RENTAL_STOCK by barcode. The log engine&rsquo;s rules, as applied across the suite: short hire = closed inside 6 minutes; mass draw = one person drawing 15 or more items inside one hour; product key = the description with its size and serial tail removed.')}</div>"""
 
 
 def trend_page(export_dt, d, a, ins_pct):
@@ -1111,6 +1159,10 @@ EXTRA_CSS = """
 .close .cway .img img { width: 96px; }
 .close .team td { padding: 12px 9px 11px 9px; }
 .close .note { margin-top: 7px; }
+/* 03 Sep 2026: the fast-movers page - twenty ranked rows and the bay bars on one fixed page */
+.fm table.dt.cp td { padding: 3.5px 8px; }
+.fm .sub-h { margin: 12px 0 8px 0; }
+.fm .callout.tight { padding: 12px 20px; }
 """
 
 
@@ -1370,6 +1422,16 @@ def main():
     d = eng.derive(rows, export_dt)
     d["transit_n"] = transit
     a = analytics(rows, d, export_dt, load_actions(src))
+    # WHY (03 Sep 2026): the transaction log (txn_insights) says what the
+    # counter handles most - the whole store, because the count covers
+    # everything. Read once; the fast-movers page is built from it.
+    log = ti.load_all()
+    fm = ti.fast_movers(log, None, 20)
+    tx_window = log["tx_window"]
+    print(f"Fast movers          : {fm['rows'][0]['barcode'] if fm['rows'] else '-'} leads with "
+          f"{fm['rows'][0]['moves'] if fm['rows'] else 0} moves; {fm['items_moved']:,} barcodes moved; "
+          f"top bay {fm['by_unit'][0][0] if fm['by_unit'] else '-'} ({fm['by_unit'][0][1] if fm['by_unit'] else 0:,}); "
+          f"bays on the map: {sum(1 for u, _ in fm['by_unit'][:12] if u in {x['unit'] for x in a['units']})} of {len(fm['by_unit'][:12])}")
 
     asat_s = export_dt.strftime("%d %b %Y %H:%M")
     gen_dt = datetime.now()
@@ -1441,7 +1503,7 @@ def main():
         # what's inside with page numbers read off the printed pack
         return sh.cover_page(cfg_for("client"), key_value, key_label, cover_lines, gen_s, asat_s,
                              rag=status, fresh=sh.freshness_line(export_dt, gen_dt), contents=contents)
-    client_pages = build_client_pages(rows, d, a, export_dt)
+    client_pages = build_client_pages(rows, d, a, export_dt, fm=fm, tx_window=tx_window)
     pdf_c, html_c = OUT / f"{stem_c}.pdf", OUT / f"{stem_c}.html"
     cover, contents, n_first = "", [], None
     if CONFIG.get("cover_page"):
