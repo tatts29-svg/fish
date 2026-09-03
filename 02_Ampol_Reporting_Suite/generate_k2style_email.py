@@ -354,7 +354,7 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
         (f'{d30["sd_pct"]}%', "Same day, last 30 days", f'{num(d30["not_same_day"])} not back same day', col_pct(d30["sd_pct"])),
     ]))
     wk = m["weekly"]
-    parts.append(esubh("Same-day return rate by week", "&mdash; every week of the year"))
+    parts.append(esubh("Same-day return rate by week", "- every week of the year"))
     parts.append(epanel(line_png([w["label"] if i % 2 == 0 else "" for i, w in enumerate(wk)],
                                  [{"vals": [w["pct"] for w in wk], "colour": K["green"],
                                    "label": "Same-day %", "fill": True}], CW - 28, pct=True)))

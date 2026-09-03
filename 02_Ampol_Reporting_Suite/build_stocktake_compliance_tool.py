@@ -67,7 +67,7 @@ OUT = Path(ampol_paths.day_folder("Stocktake"))
 NOW = datetime.now()
 
 COATES_PURPOSE = "Supporting Australia's growth with leading equipment solutions"
-COATES_OBJECTIVE = "Australia's most trusted equipment partner \u2014 delivering Best Service & Value"
+COATES_OBJECTIVE = "Australia's most trusted equipment partner - delivering Best Service & Value"
 COATES_VALUES = "Care Deeply &nbsp;\u2022&nbsp; Customer Focused &nbsp;\u2022&nbsp; Be Our Best &nbsp;\u2022&nbsp; One Team &nbsp;\u2022&nbsp; Competitive Spirit"
 
 PRIORITY_PREFIXES = ["AMPMR/", "AMPMRB", "AMP037", "SATGASRAD", "SATGASBAT",
@@ -432,7 +432,7 @@ def determination_panel():
         for k, (label, t, why) in TIERS.items())
     return f"""<div class="notice"><div class="ntitle">HOW PRIORITY IS DETERMINED (AND WHAT COUNTS AS DONE)</div>
 <table class="matrix" style="margin-bottom:5pt"><tr><th>Priority Tier</th><th>Target Cycle</th><th>Why</th></tr>{rows}</table>
-An item is <b>DONE</b> when it is physically scanned \u2014 the scan resets its clock. Issue and return scans count, so this
+An item is <b>DONE</b> when it is physically scanned - the scan resets its clock. Issue and return scans count, so this
 worklist naturally surfaces <b>idle stock</b> (gear that hasn't moved), which is exactly what goes missing quietly.
 Severity against the 30-day SOP: <span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span> = outside its
 tier target but still inside the SOP window &nbsp; <span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span>
@@ -463,7 +463,7 @@ def grouped_by_unit(items, bar_class=""):
         val = sum(r["value"] for r in its if r["value"])
         big = ' big' if len(its) > 30 else ''
         parts.append(f"""<div class="cblock{big}"><div class="cbar {bar_class}"><span class="cname">{unit}</span>
-<span class="cmeta">&mdash; {len(its)} item{'s' if len(its) != 1 else ''} due &nbsp;\u2022&nbsp; {(money(val) + ' at risk') if val else 'unpriced'}</span></div>""")
+<span class="cmeta">- {len(its)} item{'s' if len(its) != 1 else ''} due &nbsp;\u2022&nbsp; {(money(val) + ' at risk') if val else 'unpriced'}</span></div>""")
         parts.append(item_table(its))
         parts.append("</div>")
     return "".join(parts)
@@ -557,9 +557,9 @@ likely missed return scans. Locate, confirm, and process through the double-chec
         parts.append("</table>")
     # Sections 1-3
     for num, key, blurb in [
-        ("1", "gas", "Priority 1 \u2014 7-day target. Safety-critical: every monitor bumped and charged before issue. Grouped by home bay."),
-        ("2", "radio", "Priority 1 \u2014 7-day target. Radios and radio batteries; charging station cycle should keep these current \u2014 anything here is idle."),
-        ("3", "milwaukee", "Priority 2 \u2014 14-day target. High-value cordless tools; count includes batteries and chargers.")]:
+        ("1", "gas", "Priority 1 - 7-day target. Safety-critical: every monitor bumped and charged before issue. Grouped by home bay."),
+        ("2", "radio", "Priority 1 - 7-day target. Radios and radio batteries; charging station cycle should keep these current - anything here is idle."),
+        ("3", "milwaukee", "Priority 2 - 14-day target. High-value cordless tools; count includes batteries and chargers.")]:
         items = d["due"][key]
         label = TIERS[key][0]
         val = sum(r["value"] for r in items if r["value"])
@@ -597,7 +597,7 @@ and shutdown checks. Grouped by company (A-Z, one customer one name; hirers A-Z 
             homes[h][r["home"]] += 1
             if r["value"]: hval[h] += r["value"]
         parts.append(f"""<div class="cblock{' big' if len(hirers) > 25 else ''}"><div class="cbar blue"><span class="cname">{comp}</span>
-<span class="cmeta">&mdash; {len(its)} item{'s' if len(its) != 1 else ''} on hire 30+ days since last sighting &nbsp;\u2022&nbsp; {money(cval) if cval else 'unpriced'}</span></div>
+<span class="cmeta">- {len(its)} item{'s' if len(its) != 1 else ''} on hire 30+ days since last sighting &nbsp;\u2022&nbsp; {money(cval) if cval else 'unpriced'}</span></div>
 <table class="items"><tr><th>Hirer</th><th>Items (by category)</th><th>Returns To (Home Bay)</th><th class="num">Value</th><th class="num">Oldest (Days)</th></tr>""")
         for h in sorted(hirers, key=ampol_names.sort_key):
             cats = ", ".join(f"{c} \u00d7{n}" for c, n in sorted(hirers[h].items(), key=lambda kv: -kv[1]))
@@ -636,7 +636,7 @@ def build_client_report(rows, transit, export_dt, d):
         su[r["unit"]][0] += 1
         if bucket(r["days"]) == "ok": su[r["unit"]][1] += 1
     su_rows = sorted(((u, t, k, k / t * 100) for u, (t, k) in su.items() if t >= 10), key=lambda x: x[3])
-    css = CSS.replace("__FOOT__", f"Coates \u2014 Stocktake Compliance Report \u2013 {NOW.strftime('%d/%m/%Y')} \u2014 POWERED BY SITEIQ")
+    css = CSS.replace("__FOOT__", f"Coates - Stocktake Compliance Report \u2013 {NOW.strftime('%d/%m/%Y')} - POWERED BY SITEIQ")
     rag = lambda p: ('#1e7d32', '#e7f3e9', 'GREEN') if p >= 90 else (('#b07700', '#fdf3dd', 'AMBER') if p >= 75 else ('#c00000', '#fbe9e9', 'RED'))
     c, bg, lbl = rag(comp)
     tier_rows = ""
@@ -661,11 +661,11 @@ def build_client_report(rows, transit, export_dt, d):
 </tr></table>
 <div class="notice"><div class="ntitle">THE STOCKTAKE STANDARD \u2013 HOW THE STORE IS CONTROLLED</div>
 Stock takes at the Ampol Tool Store (Coates managed) are completed <b>daily, without exception</b>, by both shifts working as a team,
-under a documented Standard Operating Procedure. The store operates a <b>30-day full-coverage cycle</b> \u2014 no asset goes more than 30 days
-without being physically scanned and verified \u2014 and Coates runs <b>tighter internal cycles above the SOP</b> for priority equipment
+under a documented Standard Operating Procedure. The store operates a <b>30-day full-coverage cycle</b> - no asset goes more than 30 days
+without being physically scanned and verified - and Coates runs <b>tighter internal cycles above the SOP</b> for priority equipment
 (see determination below). Daily stock takes include <b>on-hire verification</b>, and all returns pass the <b>double-check return process</b>:
 inspected and scanned on receipt, then stock-taken to their storage unit before returning to the shelf. Gas monitors are bumped and charged
-before issue. Discrepancies are actioned on the spot \u2014 missing items escalated same day, misplaced items relocated and corrected,
+before issue. Discrepancies are actioned on the spot - missing items escalated same day, misplaced items relocated and corrected,
 count mismatches recounted and reported rather than adjusted away, damaged items tagged Out of Service with photo and report.</div>
 <h2 class="sec">Priority Determination & Coverage by Tier</h2>
 <div class="secsub">How count priority is set, and coverage achieved in each tier. Coverage and RAG are rated on <b>in-store</b> assets
@@ -676,14 +676,14 @@ and are verified through the double-check return process and shutdown checks, no
 <th class="num">In-Store Coverage</th><th>Status</th></tr>{tier_rows}</table>
 <div class="charge" style="margin-top:8pt"><div class="ntitle">CURRENT POSITION \u2013 WHAT HAS BEEN DONE</div><ul>
 <li>Overall SOP compliance is <b style="color:{c}">{comp:.1f}%</b> ({d['ok30']:,} of {countable:,} countable assets sighted within 30 days = {d['ok30_instore']:,} in store + {d['ok30_onhire']:,} on hire); in-store assets sit at <b>{instore_comp:.1f}%</b>. Of the {d['late_instore'] + d['late_onhire']:,} outside 30 days, {d['late_onhire']:,} are on hire.</li>
-<li><b>{len(d['done7']):,} assets were physically scanned in the last 7 days</b> and {len(d['done30']):,} in the last 30 \u2014 the daily cadence is being worked, not just scheduled.</li>
-<li>In dollar terms, <b>{money(d['val_ok30'])} of {money(d['val_total'])} in fleet value ({val_cov:.0f}%) has been physically verified within 30 days</b> (Avg Buy Price New; {priced_pct:.0f}% of asset lines priced \u2014 valuation coverage improving as the pricing master is completed).</li>
+<li><b>{len(d['done7']):,} assets were physically scanned in the last 7 days</b> and {len(d['done30']):,} in the last 30 - the daily cadence is being worked, not just scheduled.</li>
+<li>In dollar terms, <b>{money(d['val_ok30'])} of {money(d['val_total'])} in fleet value ({val_cov:.0f}%) has been physically verified within 30 days</b> (Avg Buy Price New; {priced_pct:.0f}% of asset lines priced - valuation coverage improving as the pricing master is completed).</li>
 <li>Assets outside the window are loaded on the team's daily count worklist: {b['due']:,} at 31\u201360 days and {b['critical'] + b['never']:,} at 60+ days, worked oldest-first with priority tiers cleared first.</li>
-<li>{money(d['val_onhire'])} of fleet value is on hire with contractors \u2014 tracked by company and hirer, verified through return rescans and shutdown checks.</li>
+<li>{money(d['val_onhire'])} of fleet value is on hire with contractors - tracked by company and hirer, verified through return rescans and shutdown checks.</li>
 <li>{transit:,} lines that have departed the store (Pending Branch Receipt, or Departure and no longer on the live register) are excluded from counting KPIs.</li>
 </ul></div>
 <h2 class="sec" style="margin-top:6pt">Coverage by Storage Unit (In-Store)</h2>
-<div class="secsub">Every in-store storage unit with 10+ assets, RAG-rated against the 30-day standard, lowest coverage first \u2014 these are the areas the team is walking now.</div>
+<div class="secsub">Every in-store storage unit with 10+ assets, RAG-rated against the 30-day standard, lowest coverage first - these are the areas the team is walking now.</div>
 <table class="matrix"><tr><th>Storage Unit</th><th class="num">Assets</th><th class="num">Sighted \u226430d</th><th class="num">Coverage</th><th>Status</th></tr>"""]
     for u, t, k, p in su_rows:
         c2, bg2, lbl2 = rag(p)
@@ -692,7 +692,7 @@ and are verified through the double-check return process and shutdown checks, no
 <td class="num" style="color:{c2};font-weight:bold">{p:.0f}%</td>
 <td><span class="chip" style="color:{c2};background:{bg2}">{lbl2}</span></td></tr>""")
     parts.append(f"""</table>
-<div class="secsub" style="margin-top:5pt">RAG standard: Green 90%+ coverage, Amber 75\u201389%, Red below 75% (shaded \u2014 prioritised on the daily
+<div class="secsub" style="margin-top:5pt">RAG standard: Green 90%+ coverage, Amber 75\u201389%, Red below 75% (shaded - prioritised on the daily
 worklist with owner and same-day escalation of any missing item).</div>
 <div class="foot">Compliance measured as assets physically sighted (scanned) within the 30-day SOP window, from the SiteIQ stocktake export of
 {export_dt.strftime('%d/%m/%Y')}. Values are Avg Buy Price (New) \u00d7 sighted quantity, matched on item description; unpriced assets are excluded
@@ -894,11 +894,11 @@ def write_staff_eml(rows, transit, export_dt, d, attachments, eml_path):
 <div style="font-size:20px;font-weight:bold">STOCKTAKE COUNT WORKLIST \u2013 {NOW.strftime('%d/%m/%Y')}</div>
 <div style="font-size:11px;color:#555">Ampol Tool Store \u2013 Coates managed &nbsp;|&nbsp; Data as at {export_dt.strftime('%d/%m/%Y')}</div></td></tr>
 <tr><td style="padding:10px 0;font-size:12px;line-height:1.6">Morning team,<br><br>
-Attached is today's count worklist \u2014 PDF for the floor, Excel if you're on a tablet (sort, filter, mark counted).<br><br>
-<b>Priority order, every day: Sections 1\u20132 first (gas monitors, radios & batteries \u2014 7-day cycle), then Section 3
-(Milwaukee \u2014 14-day cycle), then the store walk bay by bay (30-day SOP).</b> Every scan resets that item's clock \u2014
-issues and returns count, so what's left on this list is the idle gear. Discrepancies on the spot: missing \u2014 escalate today;
-misplaced \u2014 relocate and fix in the system; mismatch \u2014 recount and report; damaged \u2014 OOS tag, photo, report.</td></tr>
+Attached is today's count worklist - PDF for the floor, Excel if you're on a tablet (sort, filter, mark counted).<br><br>
+<b>Priority order, every day: Sections 1\u20132 first (gas monitors, radios & batteries - 7-day cycle), then Section 3
+(Milwaukee - 14-day cycle), then the store walk bay by bay (30-day SOP).</b> Every scan resets that item's clock \u2014
+issues and returns count, so what's left on this list is the idle gear. Discrepancies on the spot: missing - escalate today;
+misplaced - relocate and fix in the system; mismatch - recount and report; damaged - OOS tag, photo, report.</td></tr>
 <tr><td><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
 <tr><td style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666">SOP COMPLIANCE</div><div style="font-size:15px;font-weight:bold;color:#1e7d32">{d['comp30']:.1f}%</div></td>
 <td style="border:1px solid #ccc;padding:7px 10px"><div style="font-size:8px;color:#666">SCANNED LAST 7 DAYS</div><div style="font-size:15px;font-weight:bold;color:#1e7d32">{len(d['done7']):,}</div></td>
@@ -910,8 +910,8 @@ misplaced \u2014 relocate and fix in the system; mismatch \u2014 recount and rep
 <tr><td><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:1px solid #ccc;font-size:11px">
 <tr bgcolor="#fafafa"><td style="padding:4px 10px;font-size:9px;color:#555;border-bottom:1px solid #ccc">STORAGE UNIT / BAY</td>
 <td align="right" style="padding:4px 10px;font-size:9px;color:#555;border-bottom:1px solid #ccc">ITEMS DUE</td></tr>{top}</table></td></tr>
-<tr><td style="padding:12px 0;font-size:12px;line-height:1.6">{len(d['done7']):,} items scanned in the last 7 days \u2014 good work, keep the cadence.
-The compliance report (client-shareable) is attached too. Thanks team \u2014 daily, without exception. It's what makes this store trusted.<br><br>Andrew</td></tr>
+<tr><td style="padding:12px 0;font-size:12px;line-height:1.6">{len(d['done7']):,} items scanned in the last 7 days - good work, keep the cadence.
+The compliance report (client-shareable) is attached too. Thanks team - daily, without exception. It's what makes this store trusted.<br><br>Andrew</td></tr>
 <tr><td style="border-top:1px solid #ccc;padding:8px 0;font-size:10px;color:#555;text-align:center">
 <b>Author: Andrew Fisher</b> &nbsp;\u2022&nbsp; <b style="color:{O}">POWERED BY SITEIQ</b><br>
 <span style="color:{O};font-weight:bold">{COATES_VALUES}</span></td></tr>

@@ -847,7 +847,7 @@ def trend_page(d):
              for i, dd in enumerate(days)][-10:]
     return f"""{psect("The trend - last 30 days")}
 {pcallout(f'<b>{num(len(days))} days on record</b> between {esc(first)} and {esc(last)}, read back from {HIST_NAME} - every point is a figure a report printed on that day, nothing interpolated. A day with no run leaves a gap. The lines answer the one question a single pull cannot: is the not-found list being walked down, and is the customer hire coming home?', False)}
-{psubh("Not found in SiteIQ, and on hire to customers", "&mdash; distinct register barcodes at each pull")}
+{psubh("Not found in SiteIQ, and on hire to customers", "- distinct register barcodes at each pull")}
 {chartpanel(sh.line_chart(labels, [("Not found in SiteIQ", ser["not_found"]), ("On hire to customers", ser["on_hire"])], y_label="barcodes", h=220))}
 {sh.dtable(["Pull day (last " + str(len(trows)) + " on record)", "Not found in SiteIQ", "On hire to customers"], trows, ["", "r", "r"], cls="cp")}
 {pnote('The scoreboard holds exactly what each day&rsquo;s report printed - the same figures as the position page of that day&rsquo;s PDF. Numbers, not lines, are the record.')}"""
@@ -997,7 +997,7 @@ def build_pages(d, asat_s):
     <div class="donut-cap">Share of the {num(distinct)} distinct register barcodes the SiteIQ pull returns</div></div></td>
   <td style="padding-left:10px">{ladders}</td>
 </tr></table>
-{psubh("Where the barcodes are", f"&mdash; every one of the {num(distinct)}, per the SiteIQ pull")}
+{psubh("Where the barcodes are", f"- every one of the {num(distinct)}, per the SiteIQ pull")}
 {chartpanel(band)}
 {sh.tiles_plus(rig_tiles(d), per_row=6)}
 {sh.rag_band(rag["status"], rag["headline"], rag["rule"], rag["owner"], rag["action"])}</div>""")
@@ -1057,7 +1057,7 @@ def build_pages(d, asat_s):
 {sh.dtable(["Company", "Hirer", "Item", "Barcode", "On hire since", "Held"],
            lrows, ["", "", "", "", "r", "r"], cls="cp")}
 {pnote((f'Showing {cap_l} of {num(len(d["oh_longest"]))} dated customer-hire items - the SiteIQ export carries the lot, same order. ' if len(d["oh_longest"]) > cap_l else '') + ('' if not d["oh_nodate"] else f'{num(len(d["oh_nodate"]))} on-hire items carry no on-hire date in SiteIQ - shown as dashes, not guessed. ') + 'Held = days from the on-hire date to the pull time.')}
-{psubh("At repairs / quarantined", f"&mdash; {num(rp_n)} items on custody lines, not customer hire")}
+{psubh("At repairs / quarantined", f"- {num(rp_n)} items on custody lines, not customer hire")}
 {sh.dtable(["Custody line (hirer)", "SiteIQ account", "Items", "Longest-held item", "Since", "Held"],
            rrows, ["", "", "r", "", "r", "r"], cls="cp")}
 {pnote(f'Rule: {esc(REPAIR_RULE)}. These lines are excluded from the company count on page __PG_COMPANY__ and from the longest-held list above.')}""")
@@ -1089,7 +1089,7 @@ def build_pages(d, asat_s):
             ["Next Insp Due values carried", due_txt],
             ["Parse Status (the extract&rsquo;s own column)", parse_txt],
         ]
-        ex_block = (psubh("The certificate extract", "&mdash; &lsquo;Extracted Register&rsquo; sheet, same workbook, not yet on the Master")
+        ex_block = (psubh("The certificate extract", "- &lsquo;Extracted Register&rsquo; sheet, same workbook, not yet on the Master")
                     + sh.dtable(["What the extract holds", "Count"], exrows, ["", "r"], cls="cp"))
         top_due = ex["next_due"].most_common(1)[0][0] if ex["next_due"] else ""
         ex_sentence = (
@@ -1109,7 +1109,7 @@ def build_pages(d, asat_s):
 {pcallout(f'Straight up: <b>not one of the eight test columns on the Master has been filled in</b> - {num(fill_n)} of {num(rows_n)} rows carry a test date, status, tag colour, tester, licence, certificate or comment.{ex_sentence}{oot_bit}', False)}
 {sh.dtable(["Test Status on the Master (as recorded)", "Rows"], srows, ["", "r"], cls="cp")}
 {ex_block}
-{psubh("Fill-in progress by column", "&mdash; how far each test column has got")}
+{psubh("Fill-in progress by column", "- how far each test column has got")}
 {sh.prog_rows(fill_rows)}
 {pnote('A dash anywhere in this report means the register cell is blank - the test details for that item are still to be entered. Nothing is assumed, estimated or copied in from the extract; the extract is disclosed here, not treated as the record.')}""")
 
@@ -1137,10 +1137,10 @@ def build_pages(d, asat_s):
             held_cell(o) if o else dash()])
     P.append(f"""{psect("Register identity - what the barcodes themselves say")}
 {pcallout(f'The register is <b>{num(rows_n)} rows</b> but <b>{num(distinct)} distinct barcodes</b>: <b>{num(len(d["blank"]))}</b> row{"s" if len(d["blank"]) != 1 else ""} with no barcode ({blank_bits}), <b>{num(len(d["dups"]))}</b> barcodes repeated across <b>{num(d["dup_rows"])}</b> rows, and <b>{num(d["lower"])}</b> typed in lower case. For the SiteIQ join and on every page here, barcodes are upper-cased and de-duplicated (first Master row wins) - the fixes belong in the Master. Serial numbers: <b>{num(d["serial_rows"])}</b> rows carry one, <b>{num(d["serial_distinct"])}</b> distinct.', False)}
-{psubh("Duplicated barcodes", f"&mdash; {num(len(d['dups']))} barcodes on {num(d['dup_rows'])} rows")}
+{psubh("Duplicated barcodes", f"- {num(len(d['dups']))} barcodes on {num(d['dup_rows'])} rows")}
 {sh.dtable(["Barcode", "Item", "Rows", "Where SiteIQ has it"], duprows,
            ["", "", "r", ""], cls="cp")}
-{psubh("Category detail", "&mdash; rows, distinct barcodes and the SiteIQ split")}
+{psubh("Category detail", "- rows, distinct barcodes and the SiteIQ split")}
 {sh.dtable(["Category", "Rows", "Barcodes", "On hire", "Repairs", "In store", "Not found", "Longest-held customer item", "Held"],
            catrows2, ["", "r", "r", "r", "r", "r", "r", "", "r"], cls="cp")}
 {pnote('Counts are per distinct barcode after upper-casing; a duplicated barcode is one item here whatever the row count says. On hire = customer hire only.')}""")

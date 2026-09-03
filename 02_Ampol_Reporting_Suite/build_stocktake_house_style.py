@@ -584,7 +584,7 @@ def build_client_pages(rows, d, a, export_dt):
 <div class="alerts"><div class="ah">How this store is counted</div>
 <table class="al">{det}</table></div>
 {pnote('Client compliance is measured on the 30-day SOP. The 7 and 14-day cycles are the Coates internal standard set <b>above</b> the SOP. Issue and return scans reset an item&rsquo;s clock, so the count cadence naturally surfaces idle stock - exactly the gear that goes missing quietly.')}
-{psubh("Register freshness", "&mdash; items by the week of their most recent sighting, last 12 weeks")}
+{psubh("Register freshness", "- items by the week of their most recent sighting, last 12 weeks")}
 {chartpanel(line)}
 {pnote('The stocktake export holds one line per item - its latest sighting only - so this chart is <b>how fresh the register is</b>, not a count of scans performed. An item scanned twice in the window appears once, on its latest date. The weeks nearest today are naturally the tallest.')}
 {sh.tiles([
@@ -624,9 +624,9 @@ def build_client_pages(rows, d, a, export_dt):
 {pcallout(f'The risk is never the gear that moves - it is the gear that sits. On the shelf that tail is <b class="o">small</b>: {num(len(a["ins_over30"]))} of {num(len(d["instore"]))} in-store items are outside 30 days'
           + (f' and the oldest is <b>{num(a["ins_oldest"])} days</b>' if not a["ins_never"] else f', <b class="rd">{num(a["ins_never"])} never sighted</b>')
           + f'. The watch item is <b class="o">long-hire gear</b>: {num(len(a["oh_risk180"]))} on-hire items have had no scan of any kind in over 180 days, holding <b class="o">{money(a["oh_risk180_val"])}</b> of priced value - these are verified at return and at shutdown checks, and the long-hire list below is where that effort goes next.')}
-{psubh("In-store items by time since last sighting", "&mdash; the shelf tail")}
+{psubh("In-store items by time since last sighting", "- the shelf tail")}
 {chartpanel(ins_bars)}
-{psubh("On-hire items by time since last verification", "&mdash; the long-hire tail")}
+{psubh("On-hire items by time since last verification", "- the long-hire tail")}
 {sh.dtable(["Bucket", "Items on hire", "Priced value"], oh_rows, ["", "r", "r"])}
 {pnote('On-hire gear is not shelf-counted - verification comes from the double-scan return process and shutdown checks, so a long bucket here is a long hire, not a lost item. It is watched because long-idle gear is where shrinkage hides. Values from the pricing master; unpriced items excluded and disclosed, <b>never estimated</b>.')}""")
 
@@ -720,9 +720,9 @@ def trend_page(export_dt, d, a, ins_pct):
              for i, dd in enumerate(days)][-6:]
     return f"""{psect("The trend - last 30 days")}
 {pcallout(f'<b>{num(len(days))} days on record</b> between {esc(first)} and {esc(last)}, read back from {HIST_NAME} - every point is a figure a report printed on that day, nothing interpolated; a day with no run leaves a gap. The one question a single day cannot answer: is the count getting better or worse?')}
-{psubh("SOP compliance", "&mdash; items sighted inside 30 days, whole store and the shelf")}
+{psubh("SOP compliance", "- items sighted inside 30 days, whole store and the shelf")}
 {chartpanel(sh.line_chart(labels, [("Whole store SOP 30d", ser["comp30"]), ("In-store SOP 30d", ser["instore_comp"])], y_label="% inside 30 days", pct=True, h=148))}
-{psubh("Counting activity", "&mdash; items sighted in the last 7 days, and possible missed returns")}
+{psubh("Counting activity", "- items sighted in the last 7 days, and possible missed returns")}
 {chartpanel(sh.line_chart(labels, [("Sighted last 7 days", ser["done7"]), ("Possible missed returns", ser["missed_returns"])], y_label="items", h=148))}
 {sh.dtable(["Day (last " + str(len(trows)) + " on record)", "Whole store SOP 30d", "In-store SOP 30d", "Sighted last 7 days", "Possible missed returns"], trows, ["", "r", "r", "r", "r"], cls="cp")}
 {pnote('The scoreboard holds exactly what each day&rsquo;s report printed - the same figures as the position page of that day&rsquo;s PDF. Numbers, not lines, are the record.')}"""
@@ -902,7 +902,7 @@ def build_team_pages(rows, d, a, export_dt):
 {sh.dtable(["Who (ranked by items, last 30d)", "Items, last 7d", "Items, last 30d", "Of which stocktake scans", "Share of 30d", "Most recent scan"],
            lrows, ["", "r", "r", "r", "r", "r"])}
 {pnote('The export keeps one sighting per item - the latest - so these are items whose most recent scan carries this name, not every scan the person made. Share is of all items sighted in the last 30 days. Movement scans (issues and returns) also reset an item&rsquo;s clock - both count, both are the wheel turning.')}
-{psubh("Items by day of latest sighting", "&mdash; last 14 days, stocktake scans highlighted")}
+{psubh("Items by day of latest sighting", "- last 14 days, stocktake scans highlighted")}
 {chartpanel(sh.grouped_bars(a["days14"], h=190,
                             series=(("issued", K["orange"], "All sightings"),
                                     ("returned", "#22C55E", "Stocktake scans"))))}""")
@@ -944,11 +944,11 @@ def build_team_pages(rows, d, a, export_dt):
     ("check", num(len(g_seen) + len(r_seen) + len(b_seen)),
      "Daily-three sighted 24h", "", ""),
 ])}
-{psubh(f"Gas monitors in store &mdash; missed in the last 24h ({len(g_miss)})")}
+{psubh(f"Gas monitors in store - missed in the last 24h ({len(g_miss)})")}
 {miss_table(g_miss)}""")
-    P.append(f"""{psubh(f"Radios in store &mdash; missed in the last 24h ({len(r_miss)})")}
+    P.append(f"""{psubh(f"Radios in store - missed in the last 24h ({len(r_miss)})")}
 {miss_table(r_miss)}
-{psubh(f"Radio batteries in store &mdash; missed in the last 24h ({len(b_miss)})")}
+{psubh(f"Radio batteries in store - missed in the last 24h ({len(b_miss)})")}
 {miss_table(b_miss)}""")
 
     # ---- T4 point the trolley -------------------------------------------
