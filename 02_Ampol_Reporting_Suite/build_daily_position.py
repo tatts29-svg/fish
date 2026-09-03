@@ -115,8 +115,11 @@ def family_card(fam, name, button, ico, entry, run_day):
           if x.get("second_value") not in (None, "") else "")
     act = ""
     if x.get("action") or x.get("owner"):
+        # a family that already wrote the due date into its action line
+        # does not get it twice
+        due = x.get("due", "")
         act = (f'<div class="act"><b>{esc(x.get("owner", ""))}</b> &middot; {esc(x.get("action", ""))}'
-               + (f' &middot; by <b>{esc(x["due"])}</b>' if x.get("due") else "") + "</div>")
+               + (f' &middot; by <b>{esc(due)}</b>' if due and due not in x.get("action", "") else "") + "</div>")
     asat = entry.get("asat", "")
     return (f'<div class="fc {cls}"><div class="fh">{sh.icon(ico)}<div class="nm">{esc(name)}</div>'
             f'<div class="pill">{word}</div></div>'
