@@ -33,7 +33,6 @@ import k2shell as sh
 import pdf_finish
 import report_history as rh
 import build_stocktake_compliance_tool as eng    # write_pdf_robust, STAFF_EMAIL_TO
-from generate_k2style_gas_monitor_report import layout_check
 
 esc = sh.esc
 BASE = Path(__file__).resolve().parent
@@ -103,7 +102,7 @@ def family_card(fam, name, button, ico, entry, run_day):
     """One card: the family's own status, number and action, read back
     from what its report recorded. No entry today = an honest grey card."""
     if not entry or "extra" not in entry:
-        why = ("not built today" if not entry else "built before the position record was added")
+        why = ("not built yet" if not entry else "built before the position record was added")
         return (f'<div class="fc none"><div class="fh">{sh.icon(ico, "#8A9AAC")}<div class="nm">{esc(name)}</div>'
                 f'<div class="pill">NO POSITION</div></div>'
                 f'<div class="fhl">No position recorded for {esc(run_day)} - {why}. '
@@ -124,7 +123,9 @@ def family_card(fam, name, button, ico, entry, run_day):
             f'<div class="big"><div class="v">{esc(str(x.get("key_value", "-")))}</div>'
             f'<div class="k">{esc(x.get("key_label", ""))}</div>{v2}</div>'
             f'<div class="fhl">{esc(x.get("headline", ""))}</div>{act}'
-            f'<div class="act" style="border-top:0;padding-top:2px">Pull {esc(asat)} &middot; {esc(x.get("title", ""))}</div></div>')
+            f'<div class="act" style="border-top:0;padding-top:2px">Pull {esc(asat)} &middot; {esc(x.get("title", ""))}'
+            + (f' &middot; <b>built {esc(str(entry.get("written", ""))[:11])} - not today</b>' if entry.get("_stale") else "")
+            + '</div></div>')
 
 
 def build(run_day):
@@ -132,9 +133,15 @@ def build(run_day):
     asats = []
     rows = []
     for key, name, button, ico in FAMILIES:
+        # WHY (03 Sep 2026): a family keys its record on the PULL day (the
+        # 03 Sep morning report runs on the 02 Sep 18:30 pull), so the
+        # newest record on or before the run day is today's position. The
+        # card prints the pull time; a record not written today is marked.
         day, entry = rh.latest(key, run_day)
-        if day != run_day:
-            entry = None
+        if entry is not None:
+            written = str(entry.get("written", ""))
+            entry = dict(entry)
+            entry["_stale"] = not written.startswith(datetime.strptime(run_day, "%Y-%m-%d").strftime("%d %b %Y"))
         st = ((entry or {}).get("extra") or {}).get("rag", "").lower() if entry else ""
         counts[st if st in counts else "none"] += 1
         if entry and entry.get("asat"):
@@ -231,19 +238,8 @@ def main():
     ok = eng.write_pdf_robust(str(html_path), str(pdf_path))
     fit_ok = False
     if ok and pdf_path.exists():
-        try:
-            fit_ok, fit_rows = layout_check(doc, str(BASE / "k2style.css"), str(BASE))
-            # rows are (page, px past the footer, px wider than the body):
-            # a negative "past" is the room left above the footer
-            past = max((r[1] for r in fit_rows), default=0) if fit_rows else 0
-            if fit_ok is None:
-                fit_ok = True
-                print("Fit check            : not measured (no browser) - page count only")
-            else:
-                print(f"Fit check            : {'PASS' if fit_ok else 'FAIL'} - "
-                      + (f"{-past:.0f}px above the footer" if past <= 0 else f"{past:.0f}px PAST the footer"))
-        except Exception as e:
-            print(f"Fit check            : not run ({type(e).__name__}: {e})")
+        fit_ok, _, _ = sh.fit_check(doc, css, f"{stem}.pdf", OUT)
+        if fit_ok is None:
             fit_ok = True
         print("PDF                  : " + pdf_finish.finish(
             str(pdf_path), f"Ampol Daily Position - as at {asat_s}",

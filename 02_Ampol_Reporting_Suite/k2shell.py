@@ -14,6 +14,7 @@ import base64
 import html as _html
 import io
 import os
+import re
 from datetime import datetime
 
 from PIL import Image, ImageDraw, ImageFont
@@ -1399,4 +1400,106 @@ def three_things(items, title="Three things to do today"):
 def rag_colour(status):
     return {"red": "#F0603E", "amber": "#EFA82B", "green": "#22C55E"}.get(
         (status or "").lower(), "#8A9AAC")
+
+# ---------------------------------------------------------------------------
+# 03 Sep 2026 - the shared, font-aware fit check for fixed A4 pages
+# ---------------------------------------------------------------------------
+FIT_MEASURE_JS = r"""<script>
+document.fonts.ready.then(function(){
+  var out = [];
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) {
+    var pg = pages[i];
+    var body = pg.querySelector('.body');
+    var foot = pg.querySelector('.foot');
+    if (!body || !foot) { out.push({page: i + 1, over: null, wide: 0}); continue; }   // the cover: no footer by design
+    var ft = foot.getBoundingClientRect();
+    var bottom = body.getBoundingClientRect().top;
+    var els = body.querySelectorAll('*');
+    for (var j = 0; j < els.length; j++) {
+      var r = els[j].getBoundingClientRect();
+      if (r.bottom > bottom) bottom = r.bottom;
+    }
+    out.push({page: i + 1, over: Math.round(bottom - ft.top),
+              wide: Math.round(body.scrollWidth - body.clientWidth)});
+  }
+  var d = document.createElement('div');
+  d.id = 'layout-report';
+  d.setAttribute('data-lato', document.fonts.check('12px Lato') ? '1' : '0');
+  d.textContent = JSON.stringify(out);
+  document.body.appendChild(d);
+});
+</script>"""
+
+
+def find_browser():
+    """Edge / Chrome / Chromium for headless printing and measuring."""
+    import shutil
+    for name in ("msedge", "chrome", "chromium", "chromium-browser", "google-chrome"):
+        if shutil.which(name):
+            return shutil.which(name)
+    for p in (r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+              r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+              r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+              r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"):
+        if os.path.exists(p):
+            return p
+    return None
+
+
+def fit_check(doc, css, label, out_dir):
+    """Measure every fixed page in the browser WITH the house face loaded.
+    WHY (03 Sep 2026): k2style.css embeds Lato, and a measurement taken
+    before the font files load sees the fallback face - up to 9 px off on
+    a page with 0 px to spare. This waits on document.fonts.ready under a
+    virtual-time budget, with the page written in out_dir (the report's
+    own folder, so the relative font URLs resolve), so the pixels it
+    reports are the pixels the PDF prints. Returns (ok, worst_spare_px,
+    rows) with rows (page, px past the footer, px too wide); ok is None
+    when nothing could measure - never a reason not to build."""
+    import json as _json
+    import subprocess
+    import tempfile
+    from pathlib import Path
+    browser = find_browser()
+    if not browser:
+        print(f"Fit check            : skipped - no browser to measure with ({label})")
+        return None, None, []
+    doc2 = (doc.replace("</head>", f"<style>{css}</style></head>", 1)
+               .replace("</body>", FIT_MEASURE_JS + "</body>", 1))
+    tmp = Path(out_dir) / f"__measure_{os.getpid()}__.html"
+    profile = os.path.join(tempfile.gettempdir(), f"coates_fit_{os.getpid()}")
+    try:
+        tmp.write_text(doc2, encoding="utf-8")
+        res = subprocess.run([browser, "--headless", "--disable-gpu", "--no-sandbox",
+                              "--no-first-run", "--user-data-dir=" + profile,
+                              "--virtual-time-budget=10000", "--dump-dom", tmp.as_uri()],
+                             capture_output=True, timeout=240)
+        dom = (res.stdout or b"").decode("utf-8", "ignore")
+    except Exception as e:
+        print(f"Fit check            : skipped ({type(e).__name__}) ({label})")
+        return None, None, []
+    finally:
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+    m = re.search(r'id="layout-report" data-lato="(\d)">(\[.*?\])</div>', dom, re.S)
+    if not m:
+        print(f"Fit check            : skipped - the page could not be measured ({label})")
+        return None, None, []
+    rows = [(r["page"], r["over"], r["wide"]) for r in _json.loads(m.group(2))]
+    face = "Lato" if m.group(1) == "1" else "FALLBACK FACE - Lato did not load"
+    rows = [r for r in rows if r[1] is not None]      # the cover carries no footer
+    bad = [r for r in rows if r[1] > 0 or r[2] > 0]
+    worst = max((r[1] for r in rows), default=-9999)
+    if bad:
+        print("*" * 68)
+        print(f"WARNING: CONTENT DOES NOT FIT in {label} - do not send as is ({face}).")
+        for pg, over, wide in bad:
+            print(f"  page {pg:2d}: {over:+d}px past the footer" + (f", {wide}px too wide" if wide > 0 else ""))
+        print("*" * 68)
+        return False, -worst, rows
+    print(f"Fit check            : PASS - tightest page has {-worst}px to spare, measured in {face} ({label})")
+    return True, -worst, rows
 
