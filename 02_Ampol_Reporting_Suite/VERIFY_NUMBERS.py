@@ -134,7 +134,7 @@ def count_everything():
                     pass
         _wb.close()
         cands = []
-        for f in glob.glob(os.path.join(ampol_paths.previous_dir(), "*RENTAL_STOCK*.xlsx")):
+        for f in [p for d in ampol_paths.previous_dirs() for p in glob.glob(os.path.join(d, "*RENTAL_STOCK*.xlsx"))]:
             _w = openpyxl.load_workbook(f, read_only=True, data_only=True)
             t0 = None
             if "REFERENCE_INFO" in _w.sheetnames:

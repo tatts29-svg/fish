@@ -77,6 +77,7 @@ from collections import defaultdict
 import openpyxl
 import ampol_names  # WHY (03 Sep 2026): one file-name rule, one A-Z rule, one display rule
 import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
+import ampol_master
 import gasmon_engine as ge  # one company / person normaliser across the suite
 import pdf_finish  # WHY (03 Sep 2026): properties and bookmarks on every PDF
 import pull_diff  # WHY (03 Sep 2026): what moved since the last pull
@@ -163,11 +164,12 @@ def hirer_kind(hirer):
     return "person"
 
 
-def load_serials(register_path):
-    """barcode -> serial from radio_register.xlsx. A blank serial cell is
-    left out so the row falls through to the description or a dash."""
+def load_serials(register_path, sheet=None):
+    """barcode -> serial from the master's Radio serials tab (or the legacy
+    radio_register.xlsx). A blank serial cell is left out so the row falls
+    through to the description or a dash."""
     wb = openpyxl.load_workbook(register_path, data_only=True, read_only=True)
-    ws = wb["Radio Register"]
+    ws = wb[sheet] if sheet and sheet in wb.sheetnames else wb["Radio Register"]
     out = {str(r[0]).strip().upper(): str(r[1]).strip()
            for r in ws.iter_rows(min_row=2, values_only=True)
            if r and r[0] and r[1] is not None and str(r[1]).strip()}
@@ -179,19 +181,24 @@ def _norm_desc(d):
     return re.sub(r"\s+", " ", str(d or "").replace("\xa0", " ")).strip().upper()
 
 
-def load_prices(pricing_path):
-    """Normalised description -> 'Avg Buy Price (New)' from the pricing
-    master, plus the generic radio and battery prices for descriptions
-    that carry a serial suffix."""
+def load_prices(pricing_path, sheet=None):
+    """Normalised description -> 'Avg Buy Price (New)' from the master's
+    Pricing tab (or the legacy pricing workbook), plus the generic radio
+    and battery prices for descriptions that carry a serial suffix. The
+    two columns are found by header; columns A and B when no header."""
     prices = {}
     if not pricing_path:
         return prices, None, None
     wb = openpyxl.load_workbook(pricing_path, data_only=True, read_only=True)
-    ws = wb[wb.sheetnames[0]]
-    for r in ws.iter_rows(min_row=2, values_only=True):
-        if r and r[0] and r[1] not in (None, ""):
+    ws = wb[sheet] if sheet and sheet in wb.sheetnames else wb[wb.sheetnames[0]]
+    it = ws.iter_rows(values_only=True)
+    hdr = [str(c).strip() if c is not None else "" for c in next(it, [])]
+    di = hdr.index("ITEM_DESCRIPTION") if "ITEM_DESCRIPTION" in hdr else 0
+    pi = hdr.index("Avg Buy Price (New)") if "Avg Buy Price (New)" in hdr else 1
+    for r in it:
+        if r and len(r) > max(di, pi) and r[di] and r[pi] not in (None, ""):
             try:
-                prices.setdefault(_norm_desc(r[0]), float(r[1]))
+                prices.setdefault(_norm_desc(r[di]), float(r[pi]))
             except (TypeError, ValueError):
                 pass
     wb.close()
@@ -1648,19 +1655,23 @@ def find_workbook(patterns, arg=None):
 def main():
     global PRIOR_LABEL, PRIOR_SHORT, PRICE_RADIO, PRICE_BATT, PRICE_SOURCE, META
     master = find_workbook(["RENTAL_STOCK*.xlsx"], sys.argv[1] if len(sys.argv) > 1 else None)
-    register = find_workbook(["radio_register*.xlsx", "*radio*register*.xlsx"], sys.argv[2] if len(sys.argv) > 2 else None)
-    pricing = find_workbook(["Ampol_ToolStore_Pricing*.xlsx", "*Pricing*.xlsx"], sys.argv[3] if len(sys.argv) > 3 else None)
+    # WHY (03 Sep 2026): the master workbook's tabs when it exists, else the
+    # legacy files - a path typed on the command line still wins
+    register, register_sheet = ((sys.argv[2], None) if len(sys.argv) > 2 else
+                                ampol_master.locate("radio_serials", "radio_register*.xlsx", "*radio*register*.xlsx"))
+    pricing, pricing_sheet = ((sys.argv[3], None) if len(sys.argv) > 3 else
+                              ampol_master.locate("pricing", "Ampol_ToolStore_Pricing*.xlsx", "*Pricing*.xlsx"))
     if not master:
         raise SystemExit("No RENTAL_STOCK.xlsx in the Data folder - download the SiteIQ export, "
                          "run 12_PULL_SITEIQ_EXPORTS, and press the radio button again.")
     print(f"Register (source)  : {master}")
-    print(f"Radio serial list  : {register or 'NOT FOUND in Data - serials fall back to the description, else dashes'}")
-    print(f"Pricing master     : {pricing or 'NOT FOUND in Data - replacement values show as dashes'}")
+    print(f"Radio serial list  : {ampol_master.describe('radio_serials', register, register_sheet) if register else 'NOT FOUND in Data - serials fall back to the description, else dashes'}")
+    print(f"Pricing master     : {ampol_master.describe('pricing', pricing, pricing_sheet) if pricing else 'NOT FOUND in Data - replacement values show as dashes'}")
     print("Radio workbook     : not read (02 Sep 2026) - the register is the source")
     out = Path(ampol_paths.day_folder("Radios"))  # dated folder, created on demand
 
-    serials = load_serials(register) if register else {}
-    prices, PRICE_RADIO, PRICE_BATT = load_prices(pricing)
+    serials = load_serials(register, register_sheet) if register else {}
+    prices, PRICE_RADIO, PRICE_BATT = load_prices(pricing, pricing_sheet)
     PRICE_SOURCE = (f"new replacement price per {Path(pricing).name}" if pricing and PRICE_RADIO
                     else "replacement price not in the pricing master - shown as TBC")
     d = load_from_register(master, serials, prices)

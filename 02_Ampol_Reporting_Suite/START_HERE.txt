@@ -150,6 +150,25 @@ ON ANOTHER COMPUTER
   merge them.
 
 ------------------------------------------------------------
+THE DATA FOLDER (from v1.13)
+------------------------------------------------------------
+  Data\SiteIQ\     the three SiteIQ pulls - RENTAL_STOCK, TRANSACTIONS,
+                   STOCKTAKE - filed there by button 12. Never edited.
+                   previous\ keeps dated copies of earlier pulls.
+  Data\Editable\   what you maintain:
+                   Ampol_Master.xlsx  - Descriptions, Pricing, Gas
+                                        serials, Radio serials (one
+                                        workbook; the tab names and
+                                        headers must not change)
+                   Ampol_Calibration_Register.xlsx
+                   Rigging Register.xlsx
+                   store_layout.json (the bay map, when you type one in)
+  Press 16_TIDY_DATA_FOLDER once to move an older folder into this
+  shape and build the master from the four old files (they are parked
+  in Data\_Archive_workbooks, never deleted). Docs\EXCEL_FILES_WE_READ
+  says, tab by tab, what each file feeds and what must not change.
+
+------------------------------------------------------------
 NAMES AS SHOWN
 ------------------------------------------------------------
 Every page shows names one way: gas monitors as "Dräger X-am 5000

@@ -54,6 +54,8 @@ REPORTS = [
      [["VERIFY_NUMBERS.py"]]),
     ("Archive old workbooks - park the three .xlsm files no report reads",
      [["archive_old_workbooks.py"]]),
+    ("Tidy the Data folder - SiteIQ pulls in one folder, editable files in another, one master workbook",
+     [["tidy_data_folder.py"]]),
 ]
 
 

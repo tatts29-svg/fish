@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.12  (03 Sep 2026)
+Version: 1.13  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -281,6 +281,28 @@ v1.9 - 03 Sep 2026  (what the transaction log already knows)
     closed inside six minutes, the busiest counter hour.
   - Daily position: a third figure per family where one is recorded
     (tooling: items crossing 90 days by quarter close).
+
+v1.13 - 03 Sep 2026  (two folders under Data, one master workbook)
+  - Data\SiteIQ holds the three SiteIQ pulls (RENTAL_STOCK,
+    TRANSACTIONS, STOCKTAKE) and their dated earlier copies in
+    Data\SiteIQ\previous; button 12 files them there. Never edited.
+  - Data\Editable holds what Andrew maintains: Ampol_Master.xlsx
+    (tabs Descriptions, Pricing, Gas serials, Radio serials, Read me -
+    the four small files in one), the calibration and rigging
+    registers, and the store layout.
+  - New button 16_TIDY_DATA_FOLDER makes the move on a laptop and
+    builds the master from the four old files (every row kept, values
+    only, the mapping's 3,415 barcodes with Andrew's notes joined on;
+    the two files agreed on every barcode). The old files are parked in
+    Data\_Archive_workbooks, never deleted. Safe to run twice.
+  - Every reader finds its file in SiteIQ, Editable or the Data root
+    (ampol_paths.find_data) and reads the master's tab when the master
+    exists, else the old file (ampol_master.locate) - so a laptop that
+    has not pressed 16 yet still builds. 10_CHECK_MY_SETUP reports
+    the layout and which files the master has replaced.
+  - Proof: the whole suite was built on the old layout and again on
+    the new one; VERIFY_NUMBERS matched on both and every checked
+    figure was identical between the two.
 
 v1.12 - 03 Sep 2026  (names as shown - tidy, one style everywhere)
   - Every gas monitor prints as "Dräger X-am 5000 Gas Monitor", every

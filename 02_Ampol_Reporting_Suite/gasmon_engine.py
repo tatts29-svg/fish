@@ -242,12 +242,13 @@ def find_export(prefix):
 
 def load_serials():
     """barcode -> serial, from Gas_Monitor_Serial_Numbers.xlsx. Display only."""
-    path = ampol_paths.find_data("Gas_Monitor_Serial*.xlsx", "*serial*.xlsx")
+    import ampol_master
+    path, sheet = ampol_master.locate("gas_serials", "Gas_Monitor_Serial*.xlsx", "*serial*.xlsx")
     out = {}
     if not path:
         return out, ""
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-    for s in wb.sheetnames:
+    for s in ([sheet] if sheet else wb.sheetnames):
         for r in wb[s].iter_rows(min_row=2, values_only=True):
             if r and r[0] and len(r) > 1 and r[1]:
                 out.setdefault(str(r[0]).strip().upper(), str(r[1]).strip())

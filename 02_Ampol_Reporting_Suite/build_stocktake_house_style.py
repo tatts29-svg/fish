@@ -895,7 +895,10 @@ def store_layout(units):
     """(layout dict, source) - Data\store_layout.json when present, else an
     A-to-Z grid; a template is written beside the data so the floor plan
     can be typed in once."""
-    data_dir = Path(ampol_paths.data_dir()) if hasattr(ampol_paths, "data_dir") else BASE / "Data"
+    # WHY (03 Sep 2026): the layout is Andrew's to type in, so it lives in
+    # Data\Editable; a copy still sitting in the Data root is honoured
+    data_dir = Path(ampol_paths.editable_dir()) if hasattr(ampol_paths, "editable_dir") else BASE / "Data"
+    legacy_dir = Path(ampol_paths.data_dir()) if hasattr(ampol_paths, "data_dir") else BASE / "Data"
     cols = CONFIG["map_columns"]
     names = sorted((u["unit"] for u in units), key=lambda x: x.upper())
     auto = {"columns": cols, "bays": {n: [i // cols, i % cols] for i, n in enumerate(names)}}
@@ -908,6 +911,8 @@ def store_layout(units):
     except OSError:
         pass
     real = data_dir / "store_layout.json"
+    if not real.exists() and (legacy_dir / "store_layout.json").exists():
+        real = legacy_dir / "store_layout.json"
     if real.exists():
         try:
             lay = json.loads(real.read_text(encoding="utf-8"))

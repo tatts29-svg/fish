@@ -26,6 +26,14 @@ from datetime import date
 
 SUITE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(SUITE, "Data")
+# WHY (03 Sep 2026, Andrew): two folders under Data - the three SiteIQ
+# pulls in Data\SiteIQ (never edited; button 12 files them there, dated
+# copies in Data\SiteIQ\previous) and everything Andrew maintains in
+# Data\Editable (Ampol_Master.xlsx, the calibration and rigging
+# registers, the store layout). Every finder searches both, then the
+# Data root, so a laptop that has not run button 16 yet still builds.
+SITEIQ = os.path.join(DATA, "SiteIQ")
+EDITABLE = os.path.join(DATA, "Editable")
 # WHY (03 Sep 2026): AMPOL_REPORTS_DIR is a TEST hook only - a builder run
 # with it set writes into that folder instead of Reports\, so a layout
 # test on a history fixture can never land in the real dated folders.
@@ -44,11 +52,35 @@ def data_dir():
     return DATA
 
 
+def siteiq_dir():
+    """Data\SiteIQ - the three SiteIQ pulls, never hand-edited."""
+    os.makedirs(SITEIQ, exist_ok=True)
+    return SITEIQ
+
+
+def editable_dir():
+    """Data\Editable - the workbooks Andrew maintains."""
+    os.makedirs(EDITABLE, exist_ok=True)
+    return EDITABLE
+
+
+def data_dirs():
+    """The folders a finder searches, in order: SiteIQ, Editable, Data root."""
+    return [d for d in (SITEIQ, EDITABLE, DATA) if os.path.isdir(d)] or [data_dir()]
+
+
 def previous_dir():
-    """Where a fresh export's predecessor is parked, date-stamped."""
-    p = os.path.join(DATA, "previous")
+    """Where a fresh export's predecessor is parked, date-stamped:
+    Data\SiteIQ\previous."""
+    p = os.path.join(siteiq_dir(), "previous")
     os.makedirs(p, exist_ok=True)
     return p
+
+
+def previous_dirs():
+    """Every folder an earlier pull may sit in - the SiteIQ one and the
+    pre-v1.13 Data\previous, for a laptop not yet tidied."""
+    return [d for d in (os.path.join(SITEIQ, "previous"), os.path.join(DATA, "previous")) if os.path.isdir(d)]
 
 
 def day_folder(kit=None):
@@ -75,12 +107,13 @@ def find_data(*patterns):
     """
     for pat in patterns:
         hits = []
-        for f in _glob.glob(os.path.join(data_dir(), pat)):
-            n = os.path.basename(f)
-            if n.startswith("~$") or n.lower().startswith("source_"):
-                continue
-            if os.path.isfile(f):
-                hits.append(f)
+        for d in data_dirs():
+            for f in _glob.glob(os.path.join(d, pat)):
+                n = os.path.basename(f)
+                if n.startswith("~$") or n.lower().startswith("source_"):
+                    continue
+                if os.path.isfile(f):
+                    hits.append(f)
         if hits:
             hits.sort(key=os.path.getmtime, reverse=True)
             return hits[0]
@@ -90,11 +123,12 @@ def find_data(*patterns):
 def find_data_all(pattern):
     """Every match in Data\\ for one pattern, newest first, locks skipped."""
     hits = []
-    for f in _glob.glob(os.path.join(data_dir(), pattern)):
-        n = os.path.basename(f)
-        if n.startswith("~$") or n.lower().startswith("source_"):
-            continue
-        if os.path.isfile(f):
-            hits.append(f)
+    for d in data_dirs():
+        for f in _glob.glob(os.path.join(d, pattern)):
+            n = os.path.basename(f)
+            if n.startswith("~$") or n.lower().startswith("source_"):
+                continue
+            if os.path.isfile(f):
+                hits.append(f)
     hits.sort(key=os.path.getmtime, reverse=True)
     return hits

@@ -57,6 +57,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 import ampol_paths
+import ampol_master
 import ampol_names
 
 BASE = Path(__file__).resolve().parent
@@ -154,11 +155,11 @@ def money(v):
     return f"${v:,.0f}" if v is not None else DASH
 
 # ---------------------------------------------------------------- loaders
-def load_pricing(path):
+def load_pricing(path, sheet=None):
     """norm(desc) -> Avg Buy Price (New). Duplicates -> most common value.
     Returns (exact_map, stripped_map, conflicts)."""
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-    ws = wb.worksheets[0]
+    ws = wb[sheet] if sheet and sheet in wb.sheetnames else wb.worksheets[0]
     it = ws.iter_rows(values_only=True)
     hdr = [str(c).strip() if c else "" for c in next(it)]
     ix = {h: i for i, h in enumerate(hdr)}
@@ -222,7 +223,7 @@ def priced_by_family(raw_desc, fixed_desc, exact, stripped):
             return False
     return any(k in exact or k in stripped for k in family_keys(raw_desc) + family_keys(fixed_desc))
 
-def load_corrections(path):
+def load_corrections(path, sheet=None):
     """Returns (bc_map, desc_map):
     - bc_map: ITEM_BARCODE -> Corrected Description (exact, wins)
     - desc_map: norm(old ITEM_DESCRIPTION) -> Corrected Description, only
@@ -231,7 +232,7 @@ def load_corrections(path):
       barcode-only so the wrong correction is never applied.
     Rows flagged Changed? = No are skipped; blank Changed? is accepted."""
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-    ws = wb.worksheets[0]
+    ws = wb[sheet] if sheet and sheet in wb.sheetnames else wb.worksheets[0]
     it = ws.iter_rows(values_only=True)
     hdr = [str(c).strip() if c else "" for c in next(it)]
     ix = {h: i for i, h in enumerate(hdr)}
@@ -987,17 +988,20 @@ def main():
     src = find_workbook(["STOCKTAKE*.xlsx"], sys.argv[1] if len(sys.argv) > 1 else None)
     master_path = find_workbook(["RENTAL_STOCK*.xlsx"], sys.argv[2] if len(sys.argv) > 2 else None)
     if not src: raise FileNotFoundError("Place the STOCKTAKE export (STOCKTAKE*.xlsx) in the suite's Data folder.")
-    fixes_path = find_workbook(["New_Descriptions*.xlsx", "*Descriptions*.xlsx"],
-                               sys.argv[3] if len(sys.argv) > 3 else None)
-    pricing_path = find_workbook(["*Pricing*.xlsx"], sys.argv[4] if len(sys.argv) > 4 else None)
+    # WHY (03 Sep 2026): the master workbook's tabs when it exists, else the
+    # legacy files - a path typed on the command line still wins
+    fixes_path, fixes_sheet = ((sys.argv[3], None) if len(sys.argv) > 3 else
+                               ampol_master.locate("descriptions", "New_Descriptions*.xlsx", "*Descriptions*.xlsx"))
+    pricing_path, pricing_sheet = ((sys.argv[4], None) if len(sys.argv) > 4 else
+                                   ampol_master.locate("pricing", "*Pricing*.xlsx"))
     print(f"Stocktake export:       {src}")
     print(f"Master stock file:      {master_path or 'NOT FOUND - status/hirer/home unit will be blank'}")
-    print(f"Corrected descriptions: {fixes_path or 'NOT FOUND - original descriptions used'}")
-    print(f"Pricing workbook:       {pricing_path or 'NOT FOUND - values omitted'}")
+    print(f"Corrected descriptions: {ampol_master.describe('descriptions', fixes_path, fixes_sheet) if fixes_path else 'NOT FOUND - original descriptions used'}")
+    print(f"Pricing workbook:       {ampol_master.describe('pricing', pricing_path, pricing_sheet) if pricing_path else 'NOT FOUND - values omitted'}")
     OUT.mkdir(exist_ok=True)
     master = load_master(master_path) if master_path else {}
-    fixes = load_corrections(fixes_path) if fixes_path else ({}, {})
-    exact, stripped, conflicts = load_pricing(pricing_path) if pricing_path else ({}, {}, [])
+    fixes = load_corrections(fixes_path, fixes_sheet) if fixes_path else ({}, {})
+    exact, stripped, conflicts = load_pricing(pricing_path, pricing_sheet) if pricing_path else ({}, {}, [])
     rows, transit, export_dt = load(src, master, fixes, exact, stripped)
     d = derive(rows, export_dt)
     applied = sum(1 for r in rows if r["fixed"])

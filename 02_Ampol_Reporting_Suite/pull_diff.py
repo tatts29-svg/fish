@@ -128,9 +128,8 @@ def load_register(path):
 def find_previous_pull(current_path, current_time):
     """The newest earlier RENTAL_STOCK export in Data\\previous with a
     pull time before the current one. (path, pull_time) or (None, None)."""
-    prev_dir = ampol_paths.previous_dir()
     cands = []
-    for f in glob.glob(os.path.join(prev_dir, "*RENTAL_STOCK*.xlsx")):
+    for f in [p for d in ampol_paths.previous_dirs() for p in glob.glob(os.path.join(d, "*RENTAL_STOCK*.xlsx"))]:
         if os.path.basename(f).startswith("~$"):
             continue
         try:

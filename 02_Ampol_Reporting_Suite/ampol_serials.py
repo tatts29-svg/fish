@@ -15,6 +15,7 @@ prints without brackets; nothing is guessed.
 """
 import openpyxl
 import ampol_paths
+import ampol_master
 
 _CACHE = None
 
@@ -43,9 +44,10 @@ def load():
     """{BARCODE: serial} from both serial workbooks; the gas list first."""
     global _CACHE
     if _CACHE is None:
-        m = _read(ampol_paths.find_data("Gas_Monitor_Serial*.xlsx", "*serial*.xlsx"))
-        for k, v in _read(ampol_paths.find_data("radio_register*.xlsx", "*radio*register*.xlsx"),
-                          ["Radio Register"]).items():
+        gp, gs = ampol_master.locate("gas_serials", "Gas_Monitor_Serial*.xlsx", "*serial*.xlsx")
+        m = _read(gp, [gs] if gs else None)
+        rp, rs = ampol_master.locate("radio_serials", "radio_register*.xlsx", "*radio*register*.xlsx")
+        for k, v in _read(rp, [rs] if rs else ["Radio Register"]).items():
             m.setdefault(k, v)
         _CACHE = m
     return _CACHE

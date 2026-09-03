@@ -487,6 +487,30 @@ scan itself leaves no trace in the exports, so the suite measures its
 outcomes and names who scanned from the STOCKTAKE export's
 LAST_SIGHTED_BY column.
 
+### Two folders under Data and one master workbook (3 Sep 2026, v1.13)
+
+Andrew asked for the SiteIQ pulls in one folder, the editable files in
+another, and the small editable files combined into one workbook.
+`ampol_paths` gained `SITEIQ`/`EDITABLE`, `siteiq_dir()`, `editable_dir()`,
+`data_dirs()` and `previous_dirs()`; `find_data`/`find_data_all` search
+SiteIQ, Editable, then the Data root, so every existing reader works on
+either layout. `PULL_SITEIQ_EXPORTS` files into `Data/SiteIQ` (previous
+copies in `Data/SiteIQ/previous`). `ampol_master.py` names the master
+(`Ampol_Master.xlsx`, tabs Descriptions / Pricing / Gas serials / Radio
+serials with the legacy headers unchanged), `locate(kind, *legacy)`
+returns `(path, sheet)` - the master's tab or the legacy file - and
+`build()` writes the master from the legacy files (values only; the
+mapping's rows with New_Descriptions' notes joined by barcode, the two
+files agreed on all 2,739 shared barcodes; pricing verbatim; gas serials
+as the union of the three sheets, first wins; radio register verbatim).
+Readers wired: gas `load_serials`, `ampol_serials`, radio `load_serials`/
+`load_prices` (header-aware now) and `main()`, tooling mapping and
+pricing loaders, stocktake `load_corrections`/`load_pricing`/`main()`,
+the store layout (Editable, Data root honoured). `tidy_data_folder.py`
+(button 16, in PICK_REPORT) does the move and the build, idempotent,
+moves only. `CHECK_MY_SETUP` reports the layout and marks the legacy
+files as not needed once the master exists.
+
 ### Names as shown (3 Sep 2026, v1.12)
 
 Andrew asked for tidy, consistent naming: one name per gas monitor and

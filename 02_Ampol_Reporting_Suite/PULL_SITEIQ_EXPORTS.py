@@ -31,8 +31,8 @@ import sys
 import ampol_paths  # WHY (12 Aug 2026): one Data area in, always
 
 HERE = ampol_paths.suite_dir()
-DEST = ampol_paths.data_dir()
-BACKUP = ampol_paths.previous_dir()
+DEST = ampol_paths.siteiq_dir()          # WHY (03 Sep 2026): the three pulls live in Data\SiteIQ
+BACKUP = ampol_paths.previous_dir()     # Data\SiteIQ\previous
 DOWNLOADS = os.path.join(os.path.expanduser("~"), "Downloads")
 
 #  WHOSE EXPORT IS THIS? A file is accepted if any REFERENCE_INFO
@@ -164,8 +164,8 @@ def explain():
     for k in sorted(WANTED):
         print("        {:<28} -> Data\\{}".format(k, WANTED[k]))
     print("   4. Newest of each type wins, by the export's own requested")
-    print("      date. The old copy in Data\\ is backed up to")
-    print("      Data\\previous\\ first. Nothing is ever deleted.")
+    print("      date. The old copy in Data\\SiteIQ\\ is backed up to")
+    print("      Data\\SiteIQ\\previous\\ first. Nothing is ever deleted.")
 
 
 def main():
@@ -251,7 +251,7 @@ def main():
     if skipped:
         print(" Left alone : {} file(s) that are not this site's "
               "exports".format(len(skipped)))
-    print(" Previous copies kept in Data\\previous\\")
+    print(" Previous copies kept in Data\\SiteIQ\\previous\\")
     print("")
     print(" Next: run 00_RUN_EVERYTHING.bat")
     return 0

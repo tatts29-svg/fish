@@ -116,6 +116,7 @@ from collections import Counter, defaultdict
 
 import openpyxl
 
+import ampol_master
 import ampol_names as N  # WHY (02 Sep 2026): one place for how names are shown
 import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
 import k2flow       # WHY (02 Sep 2026): the Coates house frame for flowing reports
@@ -578,11 +579,15 @@ def load_all():
     # the same description - display only; utilisation stays barcode-keyed.
     d["corr_by_desc"] = {}  # register description key -> corrected description
     by_desc = defaultdict(set)
-    mp_path = find_file("Tooling_Description_Mapping.xlsx")
+    # WHY (03 Sep 2026): the master workbook's Descriptions tab when it
+    # exists, else the legacy mapping file - same headers either way
+    mp_path, mp_sheet = ampol_master.locate("descriptions", "Tooling_Description_Mapping.xlsx",
+                                            "Tooling_Description_Mapping*.xlsx")
+    d["mapping_source"] = ampol_master.describe("descriptions", mp_path, mp_sheet)
     if mp_path:
         mwb = openpyxl.load_workbook(mp_path, read_only=True, data_only=True)
-        sheet = next((s for s in ("Use this", "In use", "CorrectedDescriptionsTable")
-                      if s in mwb.sheetnames), None)
+        sheet = mp_sheet or next((s for s in ("Use this", "In use", "CorrectedDescriptionsTable")
+                                  if s in mwb.sheetnames), None)
         if sheet:
             mrows = list(mwb[sheet].iter_rows(values_only=True))
             mh = [clean(c) for c in mrows[0]] if mrows else []
@@ -620,10 +625,12 @@ def load_all():
     d["price_noampol"] = {}  # workbook match key without the AMPOL token
     d["pricing_noampol"] = {}  # group-name lookup without the AMPOL token (priced rows)
     d["pricing_rows"] = 0
-    pr_path = find_file("Ampol_ToolStore_Pricing.xlsx", "Ampol ToolStore Pricing.xlsx")
+    pr_path, pr_sheet = ampol_master.locate("pricing", "Ampol_ToolStore_Pricing.xlsx", "Ampol ToolStore Pricing.xlsx",
+                                            "Ampol_ToolStore_Pricing*.xlsx")
+    d["pricing_source"] = ampol_master.describe("pricing", pr_path, pr_sheet)
     if pr_path:
         pwb = openpyxl.load_workbook(pr_path, read_only=True, data_only=True)
-        ws = pwb["RENTAL_STOCK"]
+        ws = pwb[pr_sheet] if pr_sheet and pr_sheet in pwb.sheetnames else pwb["RENTAL_STOCK"]
         rows = ws.iter_rows(values_only=True)
         ph = [clean(c) for c in next(rows)]
         pi = {h: i for i, h in enumerate(ph)}

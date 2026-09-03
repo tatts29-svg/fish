@@ -96,26 +96,33 @@ def check_file(path, what, required=True):
 # WHY (03 Sep 2026): the three .xlsm workbooks are no longer expected -
 # no report reads them (button 14 parks them in Data\_Archive_workbooks).
 EXPECTED = [
-    (("RENTAL_STOCK*.xlsx",), "SiteIQ RENTAL_STOCK export",
-     "tooling, radio and stocktake reports run on stale gear positions"),
-    (("STOCKTAKE*.xlsx",), "SiteIQ STOCKTAKE export",
-     "the stocktake compliance report and tooling compliance pages"),
-    (("TRANSACTIONS*.xlsx",), "SiteIQ TRANSACTIONS export",
-     "tooling charge pages and the gas monitor analytics pages"),
-        (("Gas_Monitor_Serial_Numbers*.xlsx",), "Gas serial lookup",
-     "gas reports lose the serial-number matching"),
-        (("radio_register*.xlsx",), "Radio serial register",
-     "the radio report loses its serial joins"),
-        (("Tooling_Description_Mapping*.xlsx",), "Tooling description map",
-     "tooling reports fall back to raw SiteIQ descriptions"),
-    (("Ampol_ToolStore_Pricing*.xlsx",), "Pricing master",
-     "tooling and stocktake reports lose their value figures"),
-    (("New_Descriptions*.xlsx",), "Description corrections",
-     "the stocktake report loses Andrew's description fixes"),
-    (("Ampol_Calibration_Register*.xlsx",), "Calibration register",
-     "the calibration report (06) cannot build at all"),
-    (("Rigging Register*.xlsx", "Rigging*Register*.xlsx"), "Rigging register",
-     "the rigging report (07) cannot build at all"),
+    # (patterns, plain-words name, what degrades without it, legacy?)
+    # WHY (03 Sep 2026, Andrew): two folders under Data - the three SiteIQ
+    # pulls in Data\SiteIQ, everything Andrew edits in Data\Editable, and
+    # ONE master workbook in place of the four small files. A legacy file
+    # is only wanted while the master does not exist (button 16 builds it).
+    (("RENTAL_STOCK*.xlsx",), "SiteIQ RENTAL_STOCK export (Data\SiteIQ)",
+     "tooling, radio and stocktake reports run on stale gear positions", False),
+    (("STOCKTAKE*.xlsx",), "SiteIQ STOCKTAKE export (Data\SiteIQ)",
+     "the stocktake compliance report and tooling compliance pages", False),
+    (("TRANSACTIONS*.xlsx",), "SiteIQ TRANSACTIONS export (Data\SiteIQ)",
+     "tooling charge pages and the gas monitor analytics pages", False),
+    (("Ampol_Master*.xlsx",), "Master workbook - descriptions, pricing, serials (Data\Editable)",
+     "the four legacy files are read instead - run 16_TIDY_DATA_FOLDER to build it", False),
+    (("Gas_Monitor_Serial_Numbers*.xlsx",), "Gas serial lookup (legacy)",
+     "gas reports lose the serial-number matching", True),
+    (("radio_register*.xlsx",), "Radio serial register (legacy)",
+     "the radio report loses its serial joins", True),
+    (("Tooling_Description_Mapping*.xlsx",), "Tooling description map (legacy)",
+     "tooling reports fall back to raw SiteIQ descriptions", True),
+    (("Ampol_ToolStore_Pricing*.xlsx",), "Pricing master (legacy)",
+     "tooling and stocktake reports lose their value figures", True),
+    (("New_Descriptions*.xlsx",), "Description corrections (legacy)",
+     "the stocktake report loses Andrew's description fixes", True),
+    (("Ampol_Calibration_Register*.xlsx",), "Calibration register (Data\Editable)",
+     "the calibration report (06) cannot build at all", False),
+    (("Rigging Register*.xlsx", "Rigging*Register*.xlsx"), "Rigging register (Data\Editable)",
+     "the rigging report (07) cannot build at all", False),
 ]
 
 
@@ -130,12 +137,13 @@ def find_ci(*patterns):
     import fnmatch
     for pat in patterns:
         hits = []
-        for n in os.listdir(DATA):
-            if n.startswith("~$") or n.lower().startswith("source_"):
-                continue
-            p = os.path.join(DATA, n)
-            if os.path.isfile(p) and fnmatch.fnmatch(n.lower(), pat.lower()):
-                hits.append(p)
+        for folder in ampol_paths.data_dirs():
+            for n in os.listdir(folder):
+                if n.startswith("~$") or n.lower().startswith("source_"):
+                    continue
+                p = os.path.join(folder, n)
+                if os.path.isfile(p) and fnmatch.fnmatch(n.lower(), pat.lower()):
+                    hits.append(p)
         if hits:
             hits.sort(key=os.path.getmtime, reverse=True)
             return hits[0]
@@ -238,12 +246,21 @@ def main():
     #  Missing is a WARN, not a STOP - each report says plainly what it
     #  could not find and the rest of the suite still runs.
     print("-" * 62)
-    for patterns, what, degrades in EXPECTED:
+    master_here = bool(ampol_paths.find_data("Ampol_Master*.xlsx") or find_ci("Ampol_Master*.xlsx"))
+    for patterns, what, degrades, legacy in EXPECTED:
         hit = ampol_paths.find_data(*patterns) or find_ci(*patterns)
-        if hit:
+        if hit and legacy and master_here:
+            say(WARN, "{} still in Data - the master workbook carries it now; "
+                      "run 16_TIDY_DATA_FOLDER to park it".format(what))
+        elif hit:
             check_file(hit, what)
+        elif legacy and master_here:
+            say(OK, "{} not needed - the master workbook carries it".format(what))
         else:
-            say(WARN, "{} not in Data\\ - {}".format(what, degrades))
+            say(WARN, "{} not in Data - {}".format(what, degrades))
+    layout = ("two-folder layout (Data\\SiteIQ + Data\\Editable)" if os.path.isdir(ampol_paths.SITEIQ)
+              else "single Data folder - run 16_TIDY_DATA_FOLDER when ready")
+    say(OK, "Data layout: " + layout)
 
     # ---- 2. python's libraries --------------------------------------------
     print("-" * 62)
