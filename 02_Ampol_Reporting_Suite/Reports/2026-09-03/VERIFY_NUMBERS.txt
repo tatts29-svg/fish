@@ -1,4 +1,4 @@
-Counted from Data\ exports at 03 Sep 2026 02:42 - none of the report code involved.
+Counted from Data\ exports at 03 Sep 2026 02:47 - none of the report code involved.
 
 FIGURE                                             THIS COUNT   ON TODAY'S PAGE
 ----------------------------------------------------------------------
@@ -33,11 +33,6 @@ Former site name (display rule, disclosed on every data page):
   printed on today's pages: 0 (checked 62 files)
 
 One dash style (the long dash must not print):
-    Stocktake/Coates_Ampol_Stocktake_Count_Worklist_03Sep2026.html: 109 long dash(es)
-    Stocktake/Coates_Ampol_Stocktake_Team_03Sep2026.html: 4 long dash(es)
-    Stocktake/Coates_Ampol_Stocktake_Compliance_03Sep2026.html: 3 long dash(es)
-    Rigging/Coates_Ampol_Rigging_Register_03Sep2026.html: 6 long dash(es)
-    Calibrations/Coates_Ampol_Calibration_Register_03Sep2026_OUTLOOK.body.html: 2 long dash(es)
-    Calibrations/Coates_Ampol_Calibration_Register_03Sep2026.html: 12 long dash(es)
+  long dashes on today's pages: 0
 
-FAIL - 1 figure(s) on today's pages do not match this count. Do not send.
+PASS - every checked figure on today's pages matches an independent count.
