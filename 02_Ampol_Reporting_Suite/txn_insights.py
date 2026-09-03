@@ -35,6 +35,7 @@ import openpyxl
 
 import ampol_names
 import ampol_paths
+import ampol_master
 import pull_diff
 from gasmon_engine import is_gas_monitor, parse_dt, parse_stamp
 
@@ -151,9 +152,9 @@ def load_all(data_dir=None):
     exact, stripped = {}, {}
     try:
         import build_stocktake_compliance_tool as eng
-        p = ampol_paths.find_data("Ampol_ToolStore_Pricing*.xlsx")
+        p, p_sheet = ampol_master.locate("pricing", "Ampol_ToolStore_Pricing*.xlsx", "*Pricing*.xlsx")
         if p:
-            exact, stripped, _ = eng.load_pricing(p)
+            exact, stripped, _ = eng.load_pricing(p, p_sheet)
         # WHY (03 Sep 2026): a serial-suffixed description (radios carry
         # 122TYX0381-style serials) never matches the master line by name.
         # The master's own price for the same PRODUCT (description with the

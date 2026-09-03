@@ -87,6 +87,7 @@ from datetime import datetime, timedelta
 
 import ampol_names
 import ampol_paths
+import ampol_master
 import gasmon_engine as ge
 import pdf_finish
 import pull_diff
@@ -214,6 +215,13 @@ def model_s(desc):
 
 def report_stem():
     return ampol_names.report_stem(CONFIG["stem_key"])
+
+
+def serial_source():
+    """The serial list as read this run: the master workbook's Gas serials
+    tab, or the legacy Gas_Monitor_Serial_Numbers.xlsx, or 'no serial list'."""
+    p, sheet = ampol_master.locate("gas_serials", "Gas_Monitor_Serial*.xlsx", "*serial*.xlsx")
+    return ampol_master.describe("gas_serials", p, sheet).replace("/", "\\") if p else "no serial list in Data"
 
 
 TREND_MIN_DAYS = 7   # days on the scoreboard before the trend page appears
@@ -1498,7 +1506,7 @@ def pages_appendix(m):
 </tr></table>
 <div class="note">If nothing on this list came back at all the exposure would be
   {money(m['exposure_all_outstanding'])} across {num(len(items))} units. Serial numbers come from
-  the Gas_Monitor_Serial_Numbers list; a dash means the list does not carry that barcode.</div>"""
+  the serial list ({esc(serial_source())}); a dash means the list does not carry that barcode.</div>"""
         out.append(head + sh.dtable(
             ["Out", "Since", "Who", "Company", "Asset", "Serial", "Charge"],
             rows, ["r", "", "", "", "", "", "r"], cls="cp") + tail)
@@ -1517,7 +1525,7 @@ def page_method(m):
         ["TRANSACTIONS.xlsx", "Every issue and return scan with a timestamp - sheet CUSTOMER_CONTRACTOR_EQUIP",
          esc(m["tx_requested"].strftime("%d %b %Y %H:%M")),
          f"issues {ws.strftime('%d %b %H:%M')} to {we.strftime('%d %b %Y %H:%M')}; returns to the pull"],
-        ["Gas_Monitor_Serial_Numbers.xlsx", "Serial number for each barcode - display only",
+        [esc(serial_source()), "Serial number for each barcode - display only",
          "-", "not a source of counts"],
         ["Ampol Gas Monitor Report.xlsm", "Not used - its summary tab is what the old report quoted",
          "-", "not a source of numbers"],

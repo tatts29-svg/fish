@@ -65,6 +65,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import ampol_names
 import ampol_paths
+import ampol_master
 import build_stocktake_compliance_tool as eng
 import gasmon_engine as ge
 import k2shell as sh
@@ -1413,18 +1414,22 @@ def main():
     print("=" * 68)
     src = eng.find_workbook(["STOCKTAKE*.xlsx"])
     master_path = eng.find_workbook(["RENTAL_STOCK*.xlsx"])
-    fixes_path = eng.find_workbook(["New_Descriptions*.xlsx", "*Descriptions*.xlsx"])
-    pricing_path = eng.find_workbook(["*Pricing*.xlsx"])
+    # WHY (03 Sep 2026): the master workbook's tabs when it exists, else the
+    # legacy files (ampol_master.locate) - the same rule as the engine
+    fixes_path, fixes_sheet = ampol_master.locate("descriptions", "New_Descriptions*.xlsx", "*Descriptions*.xlsx")
+    pricing_path, pricing_sheet = ampol_master.locate("pricing", "*Pricing*.xlsx")
     if not src:
         sys.exit("ERROR: no STOCKTAKE*.xlsx in the suite's Data folder - save "
                  "the SiteIQ export there and run again.")
     print(f"Stocktake export     : {src}")
     print(f"Register             : {master_path or 'NOT FOUND'}")
+    print(f"Corrected descriptions: {ampol_master.describe('descriptions', fixes_path, fixes_sheet) if fixes_path else 'NOT FOUND - original descriptions used'}")
+    print(f"Pricing              : {ampol_master.describe('pricing', pricing_path, pricing_sheet) if pricing_path else 'NOT FOUND - values omitted'}")
     OUT.mkdir(exist_ok=True)
 
     master = eng.load_master(master_path) if master_path else {}
-    fixes = eng.load_corrections(fixes_path) if fixes_path else ({}, {})
-    exact, stripped, conflicts = (eng.load_pricing(pricing_path)
+    fixes = eng.load_corrections(fixes_path, fixes_sheet) if fixes_path else ({}, {})
+    exact, stripped, conflicts = (eng.load_pricing(pricing_path, pricing_sheet)
                                   if pricing_path else ({}, {}, []))
     rows, transit, export_dt = eng.load(src, master, fixes, exact, stripped)
     d = eng.derive(rows, export_dt)

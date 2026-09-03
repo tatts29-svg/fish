@@ -291,9 +291,11 @@ v1.13 - 03 Sep 2026  (two folders under Data, one master workbook)
     the four small files in one), the calibration and rigging
     registers, and the store layout.
   - New button 16_TIDY_DATA_FOLDER makes the move on a laptop and
-    builds the master from the four old files (every row kept, values
+    builds the master from the five old files (every row kept, values
     only, the mapping's 3,415 barcodes with Andrew's notes joined on;
-    the two files agreed on every barcode). The old files are parked in
+    the two description files agreed on every real barcode - the one
+    slip, barcode "2" listed six times in New_Descriptions, is kept
+    with a note in the Descriptions tab). The old files are parked in
     Data\_Archive_workbooks, never deleted. Safe to run twice.
   - Every reader finds its file in SiteIQ, Editable or the Data root
     (ampol_paths.find_data) and reads the master's tab when the master

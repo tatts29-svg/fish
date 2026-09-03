@@ -215,7 +215,7 @@ def main():
     #  Excel isn't running, the markers are stale and safe to remove -
     #  so remove them. WHY (12 Aug 2026): the locks live where the
     #  workbooks live, and in this suite that is Data\.
-    locks = glob.glob(os.path.join(DATA, "~$*.xls*"))
+    locks = [f for d in ampol_paths.data_dirs() for f in glob.glob(os.path.join(d, "~$*.xls*"))]
     if locks and os.name == "nt":
         import subprocess
         try:
