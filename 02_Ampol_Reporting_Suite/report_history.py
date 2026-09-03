@@ -23,12 +23,17 @@ HOW A REPORT USES IT
   rh.series("gas", "overdue", asat_dt, days=30)   -> [(date, value), ...]
 """
 import json
+import os
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
-HIST_DIR = BASE / "History"
-HIST = HIST_DIR / "report_history.json"
+# WHY (03 Sep 2026): AMPOL_HISTORY_FILE is a TEST hook only - it points a
+# builder at a fixture scoreboard so the trend page can be proven before
+# seven real days exist. Nothing in the suite sets it; the buttons never do.
+HIST = Path(os.environ["AMPOL_HISTORY_FILE"]) if os.environ.get("AMPOL_HISTORY_FILE") \
+    else BASE / "History" / "report_history.json"
+HIST_DIR = HIST.parent
 
 
 def _day(d):
@@ -116,6 +121,17 @@ def movement(family, key, asat, value, good="down", money=False):
         return f"{txt} since {when}", "grey"
     improved = (diff < 0) if good == "down" else (diff > 0)
     return f"{txt} since {when}", ("green" if improved else "red")
+
+
+def latest(family, on_or_before=None):
+    """(day 'YYYY-MM-DD', entry) for the newest recorded day of a family,
+    or (None, None). on_or_before narrows to a day string when given, so
+    the daily position reads the run day's figures and nothing newer."""
+    days = load().get(family, {})
+    keys = sorted(k for k in days if not on_or_before or k <= on_or_before)
+    if not keys:
+        return None, None
+    return keys[-1], days[keys[-1]]
 
 
 if __name__ == "__main__":

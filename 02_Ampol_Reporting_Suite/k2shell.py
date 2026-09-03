@@ -688,7 +688,10 @@ def render_page(cfg, inner, pno, ptot, gen_s, asat_s):
 # PIL chart kit + Outlook-safe primitives (email)
 # =====================================================================
 
-_FONT_DIRS = [r"C:\Windows\Fonts", "/usr/share/fonts/truetype/dejavu",
+# WHY (03 Sep 2026): the suite's own Lato files come first, so the phone
+# card is drawn in the house face on every machine, like the PDFs.
+_FONT_DIRS = [os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "fonts"),
+              r"C:\Windows\Fonts", "/usr/share/fonts/truetype/dejavu",
               "/usr/share/fonts/truetype/lato", ""]
 _FONTS = {"reg": ["Lato-Regular.ttf", "calibri.ttf", "arial.ttf",
                   "segoeui.ttf", "DejaVuSans.ttf"],
@@ -1232,26 +1235,46 @@ def coates_way_panel():
             f'the SiteIQ exports named on its data page. Nothing is estimated, weighted or typed in.</div></div></div>')
 
 
-def cover_inner(cfg, big, big_label, lines, gen_s, asat_s):
+def freshness_line(asat_dt, gen_dt=None):
+    """'Pulled 02 Sep 2026 18:30 - built 03 Sep 2026 00:34 - 6 h old at build'
+    - the honest age of the data in one line. Needs real datetimes; an
+    unknown pull time prints nothing rather than a guess."""
+    if asat_dt is None:
+        return ""
+    gen_dt = gen_dt or datetime.now()
+    age_h = max(0, (gen_dt - asat_dt).total_seconds() / 3600)
+    age = f"{age_h:.0f} h" if age_h < 48 else f"{age_h / 24:.0f} days"
+    return (f"Pulled <b>{asat_dt:%d %b %Y %H:%M}</b> &nbsp;&middot;&nbsp; built <b>{gen_dt:%d %b %Y %H:%M}</b> "
+            f"&nbsp;&middot;&nbsp; <b>{age}</b> old at build")
+
+
+def cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh=""):
+    """rag: 'red' / 'amber' / 'green' paints a stripe down the cover's left
+    edge so the status shows before the report opens. fresh: the
+    freshness line (freshness_line()) printed under the as-at stamp."""
     b = cog_b64()
     cog = f'<img class="cover-cog" src="data:image/png;base64,{b}" alt="">' if b else ""
     sm = " sm" if len(str(big)) > 6 else ""
-    return (f'<div class="cover-in"><div class="kicker">{esc(cfg["kicker"])}</div>'
+    stripe = (f'<div class="cover-stripe" style="background:{rag_colour(rag)}"></div>'
+              f'<div class="cover-status" style="color:{rag_colour(rag)}">{esc(rag.upper())}</div>') if rag else ""
+    fresh_html = f'<div class="fresh">{fresh}</div>' if fresh else ""
+    return (stripe + f'<div class="cover-in"><div class="kicker">{esc(cfg["kicker"])}</div>'
             f'<h1>{esc(cfg["client"])} {esc(cfg["title"])}</h1>'
             f'<div class="sub">{esc(cfg["project"])}</div><div class="rule"></div>'
             f'<div class="big{sm}">{esc(big)}</div><div class="biglab">{esc(big_label)}</div>'
             f'<div class="lines">{"<br>".join(lines)}</div>'
             f'<div class="meta">Data as at <b>{esc(asat_s)}</b> {esc(cfg.get("asat_note", ""))}<br>'
-            f'Generated <b>{esc(gen_s)}</b> &nbsp;|&nbsp; Author: <b>Andrew Fisher</b></div></div>'
+            f'Generated <b>{esc(gen_s)}</b> &nbsp;|&nbsp; Author: <b>Andrew Fisher</b></div>{fresh_html}</div>'
             f'<div class="cover-siteiq">POWERED BY <span class="q">SITEIQ</span>'
             f'<span class="tag">Equipped for anything</span></div>{cog}')
 
 
-def cover_page(cfg, big, big_label, lines, gen_s, asat_s):
+def cover_page(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh=""):
     """A full dark cover for client packs (fixed-page families): the one
-    number of the day, its label, a few true lines, the as-at stamp."""
+    number of the day, its label, a few true lines, the as-at stamp,
+    the RAG stripe and the freshness line."""
     return (f'<div class="page cover"><div class="frame">'
-            f'{cover_inner(cfg, big, big_label, lines, gen_s, asat_s)}</div></div>')
+            f'{cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag, fresh)}</div></div>')
 
 
 def position_card_png(cfg, asat_s, tiles, band, scores, path, foot=""):
@@ -1340,3 +1363,145 @@ def _wrap(d, text, font, width):
     if cur:
         lines.append(cur)
     return lines
+
+# ---------------------------------------------------------------------------
+# 03 Sep 2026 - the 10/10 pass: stacked ageing bars, a proper line chart,
+# the three-things list, the cover stripe and freshness line
+# ---------------------------------------------------------------------------
+AGE_BANDS = ((0, 30, "0-30 days", "#22C55E"), (31, 60, "31-60", "#EFA82B"),
+             (61, 90, "61-90", "#F36F21"), (91, None, "90+ days", "#F0603E"))
+
+
+def age_band_index(days):
+    """0..3 for the four ageing bands; None days = the first band."""
+    if days is None:
+        return 0
+    for i, (lo, hi, _, _) in enumerate(AGE_BANDS):
+        if hi is None or days <= hi:
+            return i
+    return len(AGE_BANDS) - 1
+
+
+def stacked_hbars(rows, w=636, rowh=22, lab_w=150, val_w=52, colours=None, legend=True,
+                  labels=None):
+    """Stacked horizontal bars on the dark panel: one row per company, four
+    segments (the ageing bands by default). rows: (label, [n0, n1, n2, n3]).
+    Every segment prints its count when it is wide enough to hold it; the
+    row total sits on the right. Bars share one scale (the largest total).
+    Nothing is drawn for an empty list."""
+    if not rows:
+        return '<div class="note">Nothing recorded in the source.</div>'
+    colours = colours or [b[3] for b in AGE_BANDS]
+    labels = labels or [b[2] for b in AGE_BANDS]
+    top = 18 if legend else 4
+    h = top + len(rows) * rowh + 6
+    mx = max(sum(r[1]) for r in rows) or 1
+    bar_w = w - lab_w - val_w
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    if legend:
+        x = lab_w
+        for c, lab in zip(colours, labels):
+            out.append(f'<rect x="{x}" y="3" width="9" height="9" rx="2" fill="{c}"/>')
+            out.append(f'<text x="{x + 13}" y="11" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+                       f'font-size="8">{esc(lab)}</text>')
+            x += 13 + 6.2 * len(lab) + 14
+    for i, (lab, segs) in enumerate(rows):
+        y = top + i * rowh
+        tot = sum(segs)
+        out.append(f'<text x="0" y="{y + 12}" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+                   f'font-size="9">{esc(str(lab)[:30])}</text>')
+        out.append(f'<rect x="{lab_w}" y="{y + 3}" width="{bar_w}" height="11" rx="5.5" fill="#26313D"/>')
+        x = lab_w
+        for c, v in zip(colours, segs):
+            if v <= 0:
+                continue
+            sw = bar_w * v / mx
+            out.append(f'<rect x="{x:.1f}" y="{y + 3}" width="{max(sw, 2):.1f}" height="11" fill="{c}"/>')
+            if sw >= 16:
+                out.append(f'<text x="{x + sw / 2:.1f}" y="{y + 11.6}" text-anchor="middle" fill="#0F1620" '
+                           f'font-family="Lato, Calibri, sans-serif" font-size="7.6" font-weight="700">{v}</text>')
+            x += sw
+        # rounded ends on the filled part: clip with a rounded rect on top
+        out.append(f'<rect x="{lab_w}" y="{y + 3}" width="{bar_w}" height="11" rx="5.5" fill="none" '
+                   f'stroke="#1A2430" stroke-width="2"/>')
+        out.append(f'<text x="{w}" y="{y + 12}" text-anchor="end" fill="#FFFFFF" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">{num(tot)}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def line_chart(labels, series, w=636, h=200, colours=None, y_label="", pct=False,
+               show_values=True):
+    """Lines over time on the dark panel. labels: x captions (dates);
+    series: [(name, [values...]), ...] - None values leave a gap. Each
+    series keeps its own colour; the legend sits at the top; the last
+    value of each series is printed at its end. One shared y axis from 0."""
+    n = len(labels)
+    if n < 2 or not series:
+        return '<div class="note">Not enough days on record yet for a trend line.</div>'
+    colours = colours or ["#F36F21", "#22C55E", "#EFA82B", "#5DADE2", "#C9D6E2"]
+    top, base, pad_l, pad_r = 26, h - 26, 34, 44
+    allv = [v for _, vs in series for v in vs if v is not None]
+    if not allv:
+        return '<div class="note">Not enough days on record yet for a trend line.</div>'
+    hi = 100 if pct else max(allv)
+    hi = hi or 1
+    step = max(1, (n - 1) // 8 or 1)
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    # grid
+    for k in range(5):
+        y = top + (base - top) * k / 4
+        gv = hi * (1 - k / 4)
+        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" y2="{y:.1f}" stroke="#2A3644" stroke-width="1"/>')
+        out.append(f'<text x="{pad_l - 5}" y="{y + 3:.1f}" text-anchor="end" fill="#8A9AAC" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{num(round(gv))}{"%" if pct else ""}</text>')
+    def x_of(i):
+        return pad_l + (w - pad_l - pad_r) * i / (n - 1)
+    def y_of(v):
+        return top + (base - top) * (1 - v / hi)
+    for i, lab in enumerate(labels):
+        if i % step == 0 or i == n - 1:
+            out.append(f'<text x="{x_of(i):.1f}" y="{base + 14}" text-anchor="middle" fill="#8A9AAC" '
+                       f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{esc(str(lab))}</text>')
+    lx = pad_l
+    for (name, vals), c in zip(series, colours):
+        pts = [(x_of(i), y_of(v)) for i, v in enumerate(vals) if v is not None]
+        if len(pts) > 1:
+            out.append('<polyline points="' + " ".join(f"{x:.1f},{y:.1f}" for x, y in pts) +
+                       f'" fill="none" stroke="{c}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>')
+        for x, y in pts:
+            out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.4" fill="{c}"/>')
+        if pts and show_values:
+            last = [v for v in vals if v is not None][-1]
+            out.append(f'<text x="{pts[-1][0] + 6:.1f}" y="{pts[-1][1] + 3.5:.1f}" fill="{c}" '
+                       f'font-family="Lato, Calibri, sans-serif" font-size="8.6" font-weight="700">'
+                       f'{num(last) if not isinstance(last, float) else f"{last:g}"}{"%" if pct else ""}</text>')
+        out.append(f'<rect x="{lx}" y="4" width="9" height="9" rx="2" fill="{c}"/>')
+        out.append(f'<text x="{lx + 13}" y="12" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+                   f'font-size="8.2">{esc(name)}</text>')
+        lx += 13 + 5.6 * len(name) + 16
+    if y_label:
+        out.append(f'<text x="{w - pad_r}" y="12" text-anchor="end" fill="#8A9AAC" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{esc(y_label)}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def three_things(items, title="Three things to do today"):
+    """The action-first block for page 1: up to three numbered actions,
+    each (what, why, who_by). Drawn from the data by the caller; the
+    block never invents an action - fewer than three prints fewer."""
+    items = [i for i in items if i and i[0]][:3]
+    if not items:
+        return ""
+    rows = "".join(
+        f'<div class="t3"><div class="n">{k}</div><div class="w"><b>{esc(what)}</b>'
+        f'<span class="why">{esc(why)}</span></div><div class="who">{esc(who)}</div></div>'
+        for k, (what, why, who) in enumerate(items, 1))
+    return f'<div class="three"><div class="t3h">{esc(title)}</div>{rows}</div>'
+
+
+def rag_colour(status):
+    return {"red": "#F0603E", "amber": "#EFA82B", "green": "#22C55E"}.get(
+        (status or "").lower(), "#8A9AAC")
+

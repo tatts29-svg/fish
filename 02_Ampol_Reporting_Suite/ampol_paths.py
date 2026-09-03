@@ -26,7 +26,11 @@ from datetime import date
 
 SUITE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(SUITE, "Data")
-REPORTS = os.path.join(SUITE, "Reports")
+# WHY (03 Sep 2026): AMPOL_REPORTS_DIR is a TEST hook only - a builder run
+# with it set writes into that folder instead of Reports\, so a layout
+# test on a history fixture can never land in the real dated folders.
+# Nothing in the suite sets it; the buttons never do.
+REPORTS = os.environ.get("AMPOL_REPORTS_DIR") or os.path.join(SUITE, "Reports")
 
 
 def suite_dir():

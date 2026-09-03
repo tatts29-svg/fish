@@ -93,6 +93,8 @@ def check_file(path, what, required=True):
 
 #  Every Excel the suite reads, all living in Data\ - the one area.
 #  (patterns tried in order, plain-words name, what degrades without it)
+# WHY (03 Sep 2026): the three .xlsm workbooks are no longer expected -
+# no report reads them (button 14 parks them in Data\_Archive_workbooks).
 EXPECTED = [
     (("RENTAL_STOCK*.xlsx",), "SiteIQ RENTAL_STOCK export",
      "tooling, radio and stocktake reports run on stale gear positions"),
@@ -100,17 +102,11 @@ EXPECTED = [
      "the stocktake compliance report and tooling compliance pages"),
     (("TRANSACTIONS*.xlsx",), "SiteIQ TRANSACTIONS export",
      "tooling charge pages and the gas monitor analytics pages"),
-    (("*gas monitor*.xlsm",), "Gas monitor workbook",
-     "both gas monitor reports (01 and 02) cannot build at all"),
-    (("Gas_Monitor_Serial_Numbers*.xlsx",), "Gas serial lookup",
+        (("Gas_Monitor_Serial_Numbers*.xlsx",), "Gas serial lookup",
      "gas reports lose the serial-number matching"),
-    (("Ampol_Radio_Report*.xlsm",), "Radio workbook",
-     "the radio report (03) cannot build at all"),
-    (("radio_register*.xlsx",), "Radio serial register",
+        (("radio_register*.xlsx",), "Radio serial register",
      "the radio report loses its serial joins"),
-    (("Ampol_Onhire_Tooling_Report*.xlsm",), "Tooling workbook",
-     "the tooling reports (04) cannot build at all"),
-    (("Tooling_Description_Mapping*.xlsx",), "Tooling description map",
+        (("Tooling_Description_Mapping*.xlsx",), "Tooling description map",
      "tooling reports fall back to raw SiteIQ descriptions"),
     (("Ampol_ToolStore_Pricing*.xlsx",), "Pricing master",
      "tooling and stocktake reports lose their value figures"),

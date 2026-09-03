@@ -1,3 +1,16 @@
+/* ---------- the house face, embedded (03 Sep 2026) ---------------------
+   Lato (SIL OFL 1.1) ships in assets\fonts so every PDF looks the same on
+   every machine. The URLs are relative to the report page's own folder
+   (Reports\<day>\<family>\), which is where every builder writes it. */
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 400;
+             src: url("../../../assets/fonts/Lato-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: italic; font-weight: 400;
+             src: url("../../../assets/fonts/Lato-Italic.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 700;
+             src: url("../../../assets/fonts/Lato-Bold.ttf") format("truetype"); }
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 900;
+             src: url("../../../assets/fonts/Lato-Black.ttf") format("truetype"); }
+
 /* =====================================================================
    COATES K2 REPORT DESIGN SYSTEM - print stylesheet
    Author: Andrew Fisher  -  POWERED BY SITEIQ
@@ -551,3 +564,25 @@ table.dt th.w { white-space: nowrap; }
 .cway .p { color: #FFFFFF; font-size: 12.6px; font-weight: 700; margin-top: 4px; line-height: 1.35; }
 .cway .v { color: #A7B6C4; font-size: 9.4px; margin-top: 6px; line-height: 1.55; }
 .cway .v b { color: #FFFFFF; }
+
+/* ---------- 03 Sep 2026: cover stripe, freshness, three things -------- */
+.cover-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; border-radius: 12px 0 0 12px; }
+.cover-status { position: absolute; right: 12mm; top: 14mm; font-size: 11px; font-weight: 900;
+                letter-spacing: 3px; }
+.cover-in .fresh { margin-top: 10px; color: #8A9AAC; font-size: 10.2px; }
+.cover-in .fresh b { color: #C9D6E2; font-weight: 700; }
+.three { margin: 8px 0 6px 0; border: 1px solid #E3E8EE; border-radius: 10px; background: #FFFFFF;
+         padding: 6px 12px 4px 12px; break-inside: avoid; page-break-inside: avoid; }
+.three .t3h { font-size: 8.2px; letter-spacing: 1.6px; color: #F36F21; font-weight: 700;
+              text-transform: uppercase; margin-bottom: 3px; }
+.three .t3 { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0;
+             border-top: 1px solid #EEF1F5; }
+.three .t3:first-of-type { border-top: 0; }
+.three .n { flex: 0 0 22px; height: 22px; border-radius: 11px; background: #1A2430; color: #FFFFFF;
+            font-weight: 700; font-size: 11px; text-align: center; line-height: 22px; }
+.three .w { flex: 1 1 auto; font-size: 10.6px; line-height: 1.45; color: #16202C; }
+.three .w b { display: block; font-size: 11.2px; }
+.three .w .why { color: #5B6B7B; }
+.three .who { flex: 0 0 150px; font-size: 9.4px; color: #5B6B7B; line-height: 1.4; text-align: right; }
+.three .who::before { content: "OWNER / BY"; display: block; font-size: 7px; letter-spacing: 1.4px;
+                      color: #8A9AAC; font-weight: 700; }

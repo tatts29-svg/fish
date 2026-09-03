@@ -109,3 +109,46 @@ if __name__ == "__main__":
     for c in ["CALTEX", "AMPOL REFINERIES (QLD) PTY LTD", "Contract Resources FCCU",
               "Wood SATGAS/MOL", "HIS", "Contract Resources.", "Total Refractory Management"]:
         print(f"{c!r:36} -> {display_company(c)!r:22} {account_label(c)!r}")
+
+# ---------------------------------------------------------------------------
+# One file-name rule for every report (03 Sep 2026)
+# ---------------------------------------------------------------------------
+# Coates_Ampol_<Report>_<DDMonYYYY> - the client reads the attachment name
+# before a single figure, so every family uses the same shape, with the
+# day the pack went out on the end. The as-at time of the pull is printed
+# on every page; the day tag is the day the button was pressed, which is
+# also the Reports\ folder the file sits in.
+from datetime import date as _date
+
+REPORT_STEMS = {
+    "gas": "Gas_Monitors",
+    "gas_dashboard": "Gas_Monitor_Dashboard",
+    "radio": "Radios",
+    "exec": "Executive_Summary",
+    "onhire": "Tooling_On_Hire",
+    "q1": "Quarterly_On_Hire_Q1",
+    "q2": "Quarterly_On_Hire_Q2",
+    "q3": "Quarterly_On_Hire_Q3",
+    "q4": "Quarterly_On_Hire_Q4",
+    "year": "Quarterly_On_Hire_Year",
+    "util": "Utilisation_What_To_Buy",
+    "compliance": "Compliance_Trends",
+    "stocktake": "Stocktake_Compliance",
+    "stocktake_team": "Stocktake_Team",
+    "worklist": "Stocktake_Count_Worklist",
+    "calibration": "Calibration_Register",
+    "rigging": "Rigging_Register",
+    "daily": "Daily_Position",
+}
+
+
+def day_tag(day=None):
+    """03Sep2026 - the Australian date with no separators, for file names."""
+    return (day or _date.today()).strftime("%d%b%Y")
+
+
+def report_stem(key, day=None):
+    """Coates_Ampol_Tooling_On_Hire_03Sep2026 - add .pdf / .html /
+    _OUTLOOK.eml / _PositionCard.png to it. Unknown key = loud failure,
+    never a made-up name."""
+    return f"Coates_Ampol_{REPORT_STEMS[key.lower()]}_{day_tag(day)}"

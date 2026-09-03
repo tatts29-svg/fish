@@ -95,6 +95,19 @@ FLOW_CSS = """
 .k2body .fcover .cover-in { padding: 30mm 8mm 0 8mm; }
 .k2body .fcover .cover-cog { right: 8mm; bottom: 14mm; }
 .k2body .fcover .cover-siteiq { left: 8mm; bottom: 16mm; }
+.k2body .fcover .cover-stripe { left: 0; top: 0; bottom: 0; width: 9px; border-radius: 14px 0 0 14px; }
+.k2body .fcover .cover-status { right: 8mm; top: 12mm; }
+/* the appendix divider: a full page, dark, one line of intent */
+.k2body .fdivider { position: relative; height: 240mm; background: #1A2430; border-radius: 14px;
+                    overflow: hidden; break-before: page; page-break-before: always;
+                    break-after: page; page-break-after: always; }
+.k2body .fdivider .dv-in { padding: 70mm 14mm 0 14mm; color: #FFFFFF; }
+.k2body .fdivider .kicker { font-size: 10.4px; letter-spacing: 3px; color: #F36F21; font-weight: 700; }
+.k2body .fdivider h1 { margin: 14px 0 0 0; font-size: 34px; font-weight: 700; line-height: 1.1; color: #FFFFFF; }
+.k2body .fdivider .rule { height: 3px; width: 120px; margin: 22px 0 22px 0;
+                          background: linear-gradient(90deg, #F36F21, #C7D300); }
+.k2body .fdivider .sub { color: #C9D6E2; font-size: 13.5px; line-height: 1.7; max-width: 150mm; }
+.k2body .fdivider .note { margin-top: 18px; color: #8A9AAC; font-size: 10.5px; max-width: 150mm; }
 """
 
 
@@ -122,9 +135,19 @@ def flow_css(cfg, asat_s):
     return _house_css() + css
 
 
-def cover_block(cfg, big, big_label, lines, gen_s, asat_s):
-    """The cover as the first block of a flowing report (then a page break)."""
-    return f'<div class="fcover">{sh.cover_inner(cfg, big, big_label, lines, gen_s, asat_s)}</div>'
+def cover_block(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh=""):
+    """The cover as the first block of a flowing report (then a page break).
+    rag paints the status stripe; fresh is the freshness line."""
+    return f'<div class="fcover">{sh.cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag, fresh)}</div>'
+
+
+def divider_block(title, sub, note=""):
+    """A full-page divider: 'everything from here is the complete register'.
+    Keeps the story short and the evidence complete - the reader knows
+    the appendix starts here without turning to find out."""
+    n = f'<div class="note">{note}</div>' if note else ""
+    return (f'<div class="fdivider"><div class="dv-in"><div class="kicker">APPENDIX</div>'
+            f'<h1>{sh.esc(title)}</h1><div class="rule"></div><div class="sub">{sub}</div>{n}</div></div>')
 
 
 def flow_doc(cfg, gen_s, asat_s, body, extra_css="", cover=None):
