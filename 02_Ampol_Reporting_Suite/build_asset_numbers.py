@@ -23,11 +23,13 @@ morning, so a number is never guessed and never reused:
                     number, /NNN, description and status
     Other formats   barcodes that do not follow MAIN/NNN (the Coates
                     fleet numbers) - listed so nothing is missed
-    New to address  every item on the register that Ampol_Master.xlsx
-                    does not know yet - no corrected description for
-                    its barcode, or no price for its description - by
-                    the same rules the reports use. Add the row to the
-                    master and the item drops off this tab.
+    New to address  every item on the register that needs a row in
+                    Ampol_Master.xlsx: no price for its description
+                    (judged exactly as the reports judge it), or the
+                    former site name still in its description with no
+                    corrected description for the barcode. A plain
+                    SiteIQ description needs no row - the naming rule
+                    prints it tidy. Add the row and the item drops off.
     Read me         how to use it
 
 Sources: RENTAL_STOCK (the register, every status) plus every barcode
@@ -108,11 +110,16 @@ def new_to_address(rows, reg_path):
             continue
         raw = r["desc"]
         fixed = bc_map.get(eng.norm(r["barcode"])) or desc_map.get(eng.norm(raw))
-        has_desc = bool(fixed) or ampol_names.product_name(raw) is not None
+        # WHY (03 Sep 2026, Andrew): a plain SiteIQ description needs no
+        # corrected row - the naming rule prints it tidy - so only a
+        # description that still carries the former site name, with no
+        # corrected row and no product name, is a gap
+        needs_desc = (ampol_names.carries_former_name(raw) and not fixed
+                      and ampol_names.product_name(raw) is None)
         priced = eng.price_for(raw, fixed or raw, exact, stripped) is not None
-        if has_desc and priced:
+        if not needs_desc and priced:
             continue
-        needs = "Description + Price" if not has_desc and not priced else ("Description" if not has_desc else "Price")
+        needs = "Description + Price" if needs_desc and not priced else ("Description" if needs_desc else "Price")
         out.append({"barcode": r["barcode"], "prefix": r.get("prefix") or "", "desc": raw, "status": r["status"],
                     "who": r["company"] if r["status"].lower() == "on hire" else "",
                     "new": "Yes" if (prev_bcs and r["barcode"].upper() not in prev_bcs) else "",
@@ -225,9 +232,12 @@ def write(path, prefix_rows, fam_rows, rows, other, asat, reg_path, tx_path, log
         + (" and the TRANSACTIONS log for this year." if tx_path else "."),
         "This file is GENERATED every run - do not edit it. Descriptions and prices live in Ampol_Master.xlsx.",
         "",
-        f"New to address - {len(todo):,} items on the register that Ampol_Master.xlsx does not know yet: no corrected",
-        "                 description for the barcode, or no price for the description (judged exactly as the",
-        "                 reports judge it). Add the row to the master and the item drops off this tab next run."
+        f"New to address - {len(todo):,} items on the register that need a row in Ampol_Master.xlsx: no price for the",
+        "                 description (judged exactly as the reports judge it - the stocktake and tooling unpriced",
+        "                 counts are these same items), or the former site name still in the description with no",
+        "                 corrected row. Add the row to the master and the item drops off this tab next run.",
+        "                 To price an item: Pricing tab, ITEM_DESCRIPTION exactly as the 'Description (as in",
+        "                 RENTAL_STOCK)' column shows it, Avg Buy Price (New) as a plain number."
         + ("" if have_prev else " No earlier pull was found, so 'New since last pull' is blank this run."),
         "Asset numbers  - one row per main number (the part before the /). 'Next number' is the highest /NNN",
         "                 used plus one, in the width that number uses (/001, /002 ...). 'Unused below highest'",
@@ -292,7 +302,7 @@ def main():
     print(f"Transactions       : {os.path.relpath(tx_path, ampol_paths.suite_dir()) if tx_path else 'not found - log-only barcodes not counted'}")
     print(f"Barcodes           : {sum(1 for r in rows if r['source'] == 'register'):,} on the register, {log_only:,} in the log only")
     print(f"Main numbers       : {len(prefix_rows):,} (MAIN/NNN); other formats {len(other):,}")
-    print(f"New to address     : {len(todo):,} items the master does not know yet "
+    print(f"New to address     : {len(todo):,} items need a row in the master "
           f"({sum(1 for t in todo if t['needs'] == 'Description'):,} need a description, "
           f"{sum(1 for t in todo if t['needs'] == 'Price'):,} a price, "
           f"{sum(1 for t in todo if t['needs'] == 'Description + Price'):,} both; "

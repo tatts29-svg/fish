@@ -498,12 +498,14 @@ the slash; per main number it reports the most common raw description,
 counts, highest suffix, next number (in the suffix's width), next ten
 and gaps; per family (letters of the main number) the highest and next
 main number, with odd-width prefixes listed not counted. The "New to
-address" tab lists register items the master does not know, judged with
-the stocktake engine's own `load_corrections` / `load_pricing` /
-`price_for` (gas monitors and radios count as described via
-`ampol_names.product_name`); "New since last pull" uses
-`pull_diff.find_previous_pull`. 2,918 items today (2,396 description
-only, 225 price only, 297 both, 6 new since the 02 Sep pull).
+address" tab lists register items that need a master row: unpriced as
+the stocktake engine's own `load_pricing` / `price_for` see them, or
+carrying the former site name with no corrected row (a plain SiteIQ
+description needs none - Andrew's challenge; the first cut wrongly
+listed 2,396 such items). "New since last pull" uses
+`pull_diff.find_previous_pull`. 522 items today, all price gaps,
+matching the stocktake's 523 unpriced lines and the exec summary's 167
+unpriced on-hire items; 6 new since the 02 Sep pull.
 
 ### Two folders under Data and one master workbook (3 Sep 2026, v1.13)
 

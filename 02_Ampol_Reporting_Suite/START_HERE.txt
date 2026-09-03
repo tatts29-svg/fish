@@ -172,10 +172,12 @@ THE DATA FOLDER (from v1.13)
 ASSET NUMBERS (button 17)
 ------------------------------------------------------------
 Reports\<day>\Asset_Numbers\Coates_Ampol_Asset_Numbers_<day>.xlsx
-- New to address: every item on the register the master does not
-  know yet (no corrected description for the barcode, or no price
-  for the description). New gear since the last pull sits at the
-  top. Add the row to Ampol_Master.xlsx and it drops off next run.
+- New to address: every item on the register that needs a row in
+  Ampol_Master.xlsx - no price for its description (the reports'
+  own unpriced items), or the old site name still in the text with
+  no corrected row. New gear since the last pull sits at the top.
+  Add the row (Pricing tab: the description exactly as shown, plus
+  the price) and it drops off next run.
 - Asset numbers: each main number (AMP200), what it is used for,
   the highest /NNN used, the next number and the next ten.
 - Next by family: the next new main number (AMP521, WG0567 ...).

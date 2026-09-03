@@ -286,12 +286,12 @@ v1.14 - 03 Sep 2026  (asset numbers and what the master does not know yet)
   - New button 17_ASSET_NUMBERS (also in 00 and the picker) writes
     Reports\<day>\Asset_Numbers\Coates_Ampol_Asset_Numbers_<day>.xlsx
     from the register and this year's transaction log:
-      New to address - every item on the register that Ampol_Master.xlsx
-        does not know yet (no corrected description for its barcode, or
-        no price for its description), judged by the same rules the
-        reports use; new gear since the last pull first, then items
-        without a price, then tidy-ups. Add the row to the master and
-        the item drops off the tab next run.
+      New to address - every item on the register that needs a row in
+        Ampol_Master.xlsx: no price for its description (the same items
+        the stocktake and tooling pages count as unpriced), or the
+        former site name still in its description with no corrected
+        row. A plain SiteIQ description needs no row. New gear since
+        the last pull sits first. Add the row and the item drops off.
       Asset numbers - one row per main number (AMP200): the description
         as SiteIQ writes it, items, highest /NNN used, the next number,
         the next ten, and unused numbers below the highest.
