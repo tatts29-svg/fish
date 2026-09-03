@@ -161,7 +161,7 @@ def finish(pdf_path, title, subject, html_doc="", keywords="", has_cover=False,
         return f"NOTE: PDF properties/bookmarks not written ({type(e).__name__}: {e})"
 
 
-def contents_from_pdf(pdf_path, html_doc, has_cover=True, max_rows=10, skip=()):
+def contents_from_pdf(pdf_path, html_doc, has_cover=True, max_rows=12, skip=()):
     """(title, page) rows for the cover's "What's inside" block, read off
     the PRINTED pages so every number is real. Level-1 headings only, in
     document order; "The position" is the first row. skip: titles to leave

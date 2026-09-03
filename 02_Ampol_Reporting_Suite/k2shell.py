@@ -1175,7 +1175,7 @@ def freshness_line(asat_dt, gen_dt=None):
             f"&nbsp;&middot;&nbsp; <b>{age}</b> old at build")
 
 
-def cover_contents(contents, max_rows=10):
+def cover_contents(contents, max_rows=12):
     """'What's inside' on the cover: (title, page) rows. Real page numbers
     only - pdf_finish.contents_from_pdf reads them off the printed PDF."""
     rows = [(t, p) for t, p in (contents or []) if t][:max_rows]
@@ -1419,8 +1419,22 @@ def line_chart(labels, series, w=636, h=200, colours=None, y_label="", pct=False
         if i % step == 0 or i == n - 1:
             out.append(f'<text x="{x_of(i):.1f}" y="{base + 14}" text-anchor="middle" fill="#8A9AAC" '
                        f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{esc(str(lab))}</text>')
-    lx = pad_l
+    # WHY (03 Sep 2026): two lines that end at the same height used to print
+    # their end labels on top of each other - they are spread 9 px apart
+    ends = []
     for (name, vals), c in zip(series, colours):
+        pts = [v for v in vals if v is not None]
+        ends.append(y_of(pts[-1]) if pts else None)
+    order = sorted((y, i) for i, y in enumerate(ends) if y is not None)
+    label_y = {}
+    last = None
+    for y, i in order:
+        if last is not None and y - last < 9:
+            y = last + 9
+        label_y[i] = y
+        last = y
+    lx = pad_l
+    for si, ((name, vals), c) in enumerate(zip(series, colours)):
         pts = [(x_of(i), y_of(v)) for i, v in enumerate(vals) if v is not None]
         if len(pts) > 1:
             out.append('<polyline points="' + " ".join(f"{x:.1f},{y:.1f}" for x, y in pts) +
@@ -1429,7 +1443,7 @@ def line_chart(labels, series, w=636, h=200, colours=None, y_label="", pct=False
             out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.4" fill="{c}"/>')
         if pts and show_values:
             last = [v for v in vals if v is not None][-1]
-            out.append(f'<text x="{pts[-1][0] + 6:.1f}" y="{pts[-1][1] + 3.5:.1f}" fill="{c}" '
+            out.append(f'<text x="{pts[-1][0] + 6:.1f}" y="{label_y.get(si, pts[-1][1]) + 3.5:.1f}" fill="{c}" '
                        f'font-family="Lato, Calibri, sans-serif" font-size="8.6" font-weight="700">'
                        f'{num(last) if not isinstance(last, float) else f"{last:g}"}{"%" if pct else ""}</text>')
         out.append(f'<rect x="{lx}" y="4" width="9" height="9" rx="2" fill="{c}"/>')
