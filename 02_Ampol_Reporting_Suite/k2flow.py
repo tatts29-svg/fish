@@ -102,6 +102,12 @@ table.k2wrap > thead td, table.k2wrap > tfoot td, table.k2wrap > tbody > tr > td
 .k2body .pb { break-before: page; page-break-before: always; }
 .k2body .keep { break-inside: avoid; page-break-inside: avoid; }
 .k2body .hero { break-after: avoid; }
+/* a cover for flowing reports: one dark block the height of the page area */
+.k2body .fcover { position: relative; height: 236mm; background: #1A2430; border-radius: 14px;
+                  overflow: hidden; break-after: page; page-break-after: always; }
+.k2body .fcover .cover-in { padding: 30mm 8mm 0 8mm; }
+.k2body .fcover .cover-cog { right: 8mm; bottom: 14mm; }
+.k2body .fcover .cover-siteiq { left: 8mm; bottom: 16mm; }
 """
 
 
@@ -124,11 +130,18 @@ def foot_band(cfg):
             f'<div class="fr">POWERED BY <span class="q">SITEIQ</span></div></div></div>')
 
 
-def flow_doc(cfg, gen_s, asat_s, body, extra_css=""):
+def cover_block(cfg, big, big_label, lines, gen_s, asat_s):
+    """The cover as the first block of a flowing report (then a page break)."""
+    return f'<div class="fcover">{sh.cover_inner(cfg, big, big_label, lines, gen_s, asat_s)}</div>'
+
+
+def flow_doc(cfg, gen_s, asat_s, body, extra_css="", cover=None):
     """Whole HTML document: house CSS + frame + running header + hero +
     KEY strip + the flowing body. cfg needs client, title, kicker,
     project, key_items, team (as for k2shell) and optionally asat_note."""
     head = sh.page1_head(cfg, gen_s, asat_s) + sh.key_strip(cfg) + '<div class="grule"></div>'
+    if cover:
+        head = cover + head
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<title>Coates {esc(cfg["client"])} {esc(cfg["title"])} - {esc(asat_s)}</title>'
             f'<style>{flow_css(cfg)}{extra_css}</style></head><body>'

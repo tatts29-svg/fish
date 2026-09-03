@@ -47,3 +47,6 @@ __pycache__/
 # The gas monitor builder copies the workbook beside the day's email so the
 # draft can attach it. It is a duplicate of Data\ - not a second record.
 02_Ampol_Reporting_Suite/Reports/**/*.xlsm
+
+# per-machine movement scoreboard (never in an update zip)
+02_Ampol_Reporting_Suite/History/

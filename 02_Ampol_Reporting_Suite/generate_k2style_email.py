@@ -59,6 +59,7 @@ CONFIG = {
     "eml_name": "Coates_Ampol_GasMonitor_Operations_OUTLOOK_SAFE.eml",
     "html_name": "Coates_Ampol_GasMonitor_Operations_EMAIL.html",
     "attach_pdf": True,       # attach the house-style PDF when it exists
+    "attach_card": True,      # the phone-sized position card (PNG) when it exists
     # WHY (02 Sep 2026): off by default. The workbook's summary tab is what
     # the old report quoted and what raised the accuracy questions - sending
     # it beside a PDF that counts differently reopens them. Flip to True to
@@ -459,6 +460,14 @@ def main():
         print(f"PDF attached         : {os.path.basename(pdf_path)}")
     else:
         print("PDF attached         : no (build the PDF first for the attachment)")
+    # WHY (03 Sep 2026): the position card - page 1 as a phone-sized image
+    card_path = os.path.join(os.path.dirname(pdf_path), "Coates_Ampol_GasMonitor_PositionCard.png")
+    if CONFIG.get("attach_card") and os.path.exists(card_path):
+        with open(card_path, "rb") as f:
+            msg.add_attachment(f.read(), maintype="image", subtype="png",
+                               filename=os.path.basename(card_path))
+        attachments.append(os.path.basename(card_path))
+        print(f"Card attached        : {os.path.basename(card_path)}")
 
     # WHY (02 Sep 2026): the workbook is optional now - it is attached when it
     # is in Data\ (the detail tabs are handy) but the report no longer needs it.

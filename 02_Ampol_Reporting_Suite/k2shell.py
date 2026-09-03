@@ -1093,3 +1093,246 @@ def stacked_hbars_png(rows, segs, width, rowh=52, lab_w=300):
             x += sw
         d.text((W - 30 - _tw(d, str(sum(vals)), fb), y + 8), str(sum(vals)), font=fb, fill="#FFFFFF")
     return img_tag(im, width, "stacked bars")
+
+# =====================================================================
+# v1.5 wow pass - movement, sparklines, heat grids, RAG band, cover,
+# the Coates Way panel, the phone position card
+# =====================================================================
+
+def sparkline(values, w=118, h=26, colour="#F36F21", track="#2A3644"):
+    """Tiny SVG line for a tile or score: None values are skipped; a single
+    point draws a dot. Never draws anything for an empty series."""
+    pts = [(i, v) for i, v in enumerate(values) if v is not None]
+    if not pts:
+        return ""
+    n = max(len(values) - 1, 1)
+    vals = [v for _, v in pts]
+    lo, hi = min(vals), max(vals)
+    span = (hi - lo) or 1
+    def xy(i, v):
+        return (2 + (w - 4) * i / n, 3 + (h - 6) * (1 - (v - lo) / span))
+    coords = [xy(i, v) for i, v in pts]
+    path = " ".join(f"{x:.1f},{y:.1f}" for x, y in coords)
+    lx, ly = coords[-1]
+    line = (f'<polyline points="{path}" fill="none" stroke="{colour}" stroke-width="1.8" '
+            f'stroke-linejoin="round" stroke-linecap="round"/>' if len(coords) > 1 else "")
+    return (f'<svg class="spark" width="{w}" height="{h}" viewBox="0 0 {w} {h}">'
+            f'<line x1="2" y1="{h - 3}" x2="{w - 2}" y2="{h - 3}" stroke="{track}" stroke-width="1"/>'
+            f'{line}<circle cx="{lx:.1f}" cy="{ly:.1f}" r="2.6" fill="{colour}"/></svg>')
+
+
+def tiles_plus(items, per_row=4):
+    """Dark KPI tiles with an optional sparkline under the note.
+    items: (icon, value, label, note, note_class[, spark_values])."""
+    out = []
+    for i in range(0, len(items), per_row):
+        chunk = items[i:i + per_row]
+        cells = []
+        for it in chunk:
+            ico, val, lab, note, ncls = it[:5]
+            spark = it[5] if len(it) > 5 else None
+            sm = " sm" if len(str(val)) > 7 else ""
+            n = (f'<div class="t-note {ncls}">{esc(note)}</div>' if note else "")
+            sp = f'<div class="t-spark">{sparkline(spark)}</div>' if spark else ""
+            cells.append(f'<td><div class="t-ico">{icon(ico)}</div>'
+                         f'<div class="t-num{sm}">{esc(val)}</div>'
+                         f'<div class="t-lab">{esc(lab)}</div>{n}{sp}</td>')
+        while len(cells) < per_row:
+            cells.append('<td style="background:transparent"></td>')
+        out.append(f'<table class="tiles"><tr>{"".join(cells)}</tr></table>')
+    return "".join(out)
+
+
+def heatgrid(matrix, row_labels, col_labels, w=636, cell_h=17, colour=(243, 111, 33),
+             label_w=54, show_values=True, empty="#1C2532"):
+    """Rows x columns heat grid on the dark panel. matrix[r][c] are counts;
+    cell colour scales with the count against the grid maximum; the count
+    is printed in the cell. Zero cells stay dark - nothing is smoothed."""
+    rows, cols = len(matrix), len(col_labels)
+    mx = max((v for r in matrix for v in r), default=0) or 1
+    cw = (w - label_w) / cols
+    top = 16
+    h = top + rows * cell_h + 4
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    for c, lab in enumerate(col_labels):
+        if lab:
+            out.append(f'<text x="{label_w + c * cw + cw / 2:.1f}" y="10" text-anchor="middle" '
+                       f'fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.4">{esc(lab)}</text>')
+    for r in range(rows):
+        y = top + r * cell_h
+        out.append(f'<text x="0" y="{y + cell_h * 0.68:.1f}" fill="#C9D6E2" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="8.6">{esc(row_labels[r])}</text>')
+        for c in range(cols):
+            v = matrix[r][c] if c < len(matrix[r]) else 0
+            x = label_w + c * cw
+            if v:
+                a = 0.18 + 0.82 * (v / mx) ** 0.6
+                fill = f"rgba({colour[0]},{colour[1]},{colour[2]},{a:.2f})"
+            else:
+                fill = empty
+            out.append(f'<rect x="{x + 0.6:.1f}" y="{y + 0.6}" width="{cw - 1.2:.1f}" '
+                       f'height="{cell_h - 1.2}" rx="2.5" fill="{fill}"/>')
+            if show_values and v:
+                tcol = "#16202C" if v / mx > 0.55 else "#FFFFFF"
+                out.append(f'<text x="{x + cw / 2:.1f}" y="{y + cell_h * 0.68:.1f}" text-anchor="middle" '
+                           f'fill="{tcol}" font-family="Lato, Calibri, sans-serif" font-size="6.8" '
+                           f'font-weight="700">{v}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def rag_of(value, amber_at, red_at, higher_is_worse=True):
+    """Green / Amber / Red from two thresholds. Thresholds are printed on
+    the page by the caller - a rating without its rule is decoration."""
+    if higher_is_worse:
+        return "red" if value >= red_at else "amber" if value >= amber_at else "green"
+    return "red" if value <= red_at else "amber" if value <= amber_at else "green"
+
+
+def rag_band(status, headline, rule, owner, action, tight=False):
+    """The page-1 RAG band: status pill, the headline in words, then the
+    rule that produced it, who owns it and the next action with its due."""
+    cls = {"green": "g", "amber": "a", "red": "rd"}[status]
+    word = {"green": "Green", "amber": "Amber", "red": "Red"}[status]
+    return (f'<div class="ragband {cls}{" tight" if tight else ""}"><div class="pill">{word}</div><div class="rb">'
+            f'<div class="rh">{headline}</div>'
+            f'<table class="rg"><tr>'
+            f'<td><div class="rk">The rule</div><div class="rv">{rule}</div></td>'
+            f'<td><div class="rk">Owner</div><div class="rv">{owner}</div></td>'
+            f'<td><div class="rk">Next action and by when</div><div class="rv">{action}</div></td>'
+            f'</tr></table></div></div>')
+
+
+_COG_B64 = None
+
+
+def cog_b64(width=360):
+    """The official Coates Way cog, downscaled once and inlined - never
+    redrawn. Empty string if the asset is not beside the scripts."""
+    global _COG_B64
+    if _COG_B64 is None:
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "coates-way-cog.png")
+        try:
+            im = Image.open(p).convert("RGBA")
+            im.thumbnail((width, width))
+            _COG_B64 = _png_b64(im)
+        except OSError:
+            _COG_B64 = ""
+    return _COG_B64
+
+
+def coates_way_panel():
+    """Closing-page panel: the Coates Way cog with the objective and values."""
+    b = cog_b64()
+    img = f'<div class="img"><img src="data:image/png;base64,{b}" alt="The Coates Way"></div>' if b else ""
+    return (f'<div class="cway">{img}<div class="txt"><div class="h">The Coates Way</div>'
+            f'<div class="p">Australia&rsquo;s most trusted equipment partner - delivering Best Service &amp; Value.</div>'
+            f'<div class="v"><b>Care Deeply</b> &middot; <b>Customer Focused</b> &middot; <b>Be Our Best</b> &middot; '
+            f'<b>One Team</b> &middot; <b>Competitive Spirit</b><br>Every figure in this report is counted from '
+            f'the SiteIQ exports named on its data page. Nothing is estimated, weighted or typed in.</div></div></div>')
+
+
+def cover_inner(cfg, big, big_label, lines, gen_s, asat_s):
+    b = cog_b64()
+    cog = f'<img class="cover-cog" src="data:image/png;base64,{b}" alt="">' if b else ""
+    sm = " sm" if len(str(big)) > 6 else ""
+    return (f'<div class="cover-in"><div class="kicker">{esc(cfg["kicker"])}</div>'
+            f'<h1>{esc(cfg["client"])} {esc(cfg["title"])}</h1>'
+            f'<div class="sub">{esc(cfg["project"])}</div><div class="rule"></div>'
+            f'<div class="big{sm}">{esc(big)}</div><div class="biglab">{esc(big_label)}</div>'
+            f'<div class="lines">{"<br>".join(lines)}</div>'
+            f'<div class="meta">Data as at <b>{esc(asat_s)}</b> {esc(cfg.get("asat_note", ""))}<br>'
+            f'Generated <b>{esc(gen_s)}</b> &nbsp;|&nbsp; Author: <b>Andrew Fisher</b></div></div>'
+            f'<div class="cover-siteiq">POWERED BY <span class="q">SITEIQ</span>'
+            f'<span class="tag">Equipped for anything</span></div>{cog}')
+
+
+def cover_page(cfg, big, big_label, lines, gen_s, asat_s):
+    """A full dark cover for client packs (fixed-page families): the one
+    number of the day, its label, a few true lines, the as-at stamp."""
+    return (f'<div class="page cover"><div class="frame">'
+            f'{cover_inner(cfg, big, big_label, lines, gen_s, asat_s)}</div></div>')
+
+
+def position_card_png(cfg, asat_s, tiles, band, scores, path, foot=""):
+    """A 1080 x 1920 PNG of the position for a phone: dark card, orange
+    bar, kicker and title, up to six big tiles, the RAG band, score bars,
+    the footer. Everything drawn from the values handed in - the same ones
+    printed on page 1. tiles: (value, label, note, note_colour)."""
+    W, H = 1080, 1920
+    im = Image.new("RGB", (W, H), "#1A2430")
+    d = ImageDraw.Draw(im)
+    d.rectangle([0, 0, W, 14], fill="#F36F21")
+    fk, fs = _font(26, True), _font(30)
+    d.text((64, 70), cfg["kicker"].upper(), font=fk, fill="#F36F21")
+    title = f'{cfg["client"]} {cfg["title"]}'
+    tsize = 64
+    while tsize > 30 and _tw(d, title, _font(tsize, True)) > W - 128:
+        tsize -= 2
+    d.text((64, 118), title, font=_font(tsize, True), fill="#FFFFFF")
+    d.text((64, 206), cfg["project"], font=fs, fill="#A7B6C4")
+    d.text((64, 252), f"Data as at {asat_s}", font=_font(28, True), fill="#FFFFFF")
+    y = 330
+    cols = 2
+    tw, th, gap = 464, 214, 22
+    fv, fl, fn = _font(72, True), _font(24), _font(26, True)
+    for i, (val, lab, note, ncol) in enumerate(tiles[:6]):
+        r, c = divmod(i, cols)
+        x0 = 64 + c * (tw + gap)
+        y0 = y + r * (th + gap)
+        d.rounded_rectangle([x0, y0, x0 + tw, y0 + th], radius=26, fill="#171F2B")
+        f = fv if len(str(val)) <= 9 else _font(52, True)
+        d.text((x0 + tw / 2, y0 + 82), str(val), font=f, fill="#FFFFFF", anchor="mm")
+        d.text((x0 + tw / 2, y0 + 140), lab.upper(), font=fl, fill="#8A9AAC", anchor="mm")
+        if note:
+            d.text((x0 + tw / 2, y0 + 180), note, font=fn, fill=ncol or "#7A8A9A", anchor="mm")
+    y += ((min(len(tiles), 6) + cols - 1) // cols) * (th + gap) + 20
+    if band:
+        status, headline, owner, action = band
+        col = {"green": "#1FA75A", "amber": "#F5A623", "red": "#EF4444"}[status]
+        d.rounded_rectangle([64, y, W - 64, y + 224], radius=26, fill="#F6F7F9")
+        d.rounded_rectangle([64, y, 260, y + 224], radius=26, fill=col)
+        d.rectangle([200, y, 260, y + 224], fill=col)
+        d.text((162, y + 112), status.upper(), font=_font(34, True),
+               fill="#16202C" if status == "amber" else "#FFFFFF", anchor="mm")
+        yy = y + 30
+        for line in _wrap(d, headline, _font(28, True), W - 64 - 300):
+            d.text((300, yy), line, font=_font(28, True), fill="#16202C"); yy += 38
+        yy += 8
+        d.text((300, yy), f"Owner: {owner}", font=_font(24), fill="#35404E"); yy += 34
+        for line in _wrap(d, f"Next: {action}", _font(24), W - 64 - 300)[:2]:
+            d.text((300, yy), line, font=_font(24), fill="#35404E"); yy += 32
+        y += 224 + 26
+    # score rows share whatever height is left above the footer
+    room = (H - 170) - y
+    step = min(88, max(56, room // max(len(scores[:4]), 1))) if scores else 0
+    for lab, sc in scores[:4]:
+        colr = {"green": "#1FA75A", "amber": "#F5A623", "red": "#EF4444"}[rag(sc)]
+        d.text((64, y), lab, font=_font(26, True), fill="#FFFFFF")
+        d.rounded_rectangle([64, y + 40, W - 64, y + 60], radius=10, fill="#2A3644")
+        d.rounded_rectangle([64, y + 40, 64 + int((W - 128) * max(2, min(100, sc)) / 100), y + 60],
+                            radius=10, fill=colr)
+        d.text((W - 64, y), f"{sc}/100", font=_font(26, True), fill="#FFFFFF", anchor="ra")
+        y += step
+    d.rectangle([64, H - 150, W - 64, H - 149], fill="#2A3644")
+    d.text((64, H - 128), "YOUR COATES TOOL STORE TEAM", font=_font(20, True), fill="#F36F21")
+    team = " · ".join(f'{p["name"]} {p["role"]}'.strip() for p in cfg.get("team", []))
+    d.text((64, H - 96), f"{team}  ·  Author: Andrew Fisher", font=_font(22), fill="#A7B6C4")
+    d.text((W - 64, H - 128), "POWERED BY SITEIQ", font=_font(22, True), fill="#FFFFFF", anchor="ra")
+    if foot:
+        d.text((64, H - 62), foot[:110], font=_font(19), fill="#8395A6")
+    im.save(path, "PNG", optimize=True)
+    return path
+
+
+def _wrap(d, text, font, width):
+    words, lines, cur = str(text).split(), [], ""
+    for w_ in words:
+        t = (cur + " " + w_).strip()
+        if _tw(d, t, font) <= width or not cur:
+            cur = t
+        else:
+            lines.append(cur); cur = w_
+    if cur:
+        lines.append(cur)
+    return lines

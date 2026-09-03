@@ -487,3 +487,67 @@ table.dt th.w { white-space: nowrap; }
 .rules td { vertical-align: top; padding: 5px 0; border-bottom: 1px solid #E8EBEF;
             font-size: 9.4px; line-height: 1.55; color: #47566A; }
 .rules td.k { width: 118px; color: #16202C; font-weight: 700; padding-right: 12px; }
+
+/* ---------- v1.5 wow pass: movement, RAG band, cover, heat grid ---- */
+
+.spark { display: block; margin: 6px auto 0 auto; }
+.t-spark { margin-top: 6px; line-height: 0; }
+
+.ragband { display: table; width: 100%; border-collapse: separate; border-spacing: 0;
+           margin-top: 12px; border-radius: 12px; overflow: hidden;
+           background: #F6F7F9; box-shadow: inset 0 0 0 1px #E4E8EC; }
+.ragband.tight { margin-top: 5px; }
+.ragband.tight .pill { font-size: 13px; padding: 9px 6px; width: 84px; }
+.ragband.tight .rb { padding: 7px 14px 6px 14px; }
+.ragband.tight .rh { font-size: 11.2px; line-height: 1.4; }
+.ragband.tight .rg { margin-top: 4px; }
+.ragband.tight .rv { font-size: 8.6px; line-height: 1.45; }
+.ragband .pill { display: table-cell; width: 92px; vertical-align: middle; text-align: center;
+                 color: #FFFFFF; font-weight: 700; font-size: 15px; letter-spacing: 2.4px;
+                 text-transform: uppercase; padding: 14px 6px; }
+.ragband.g .pill  { background: #1FA75A; }
+.ragband.a .pill  { background: #F5A623; color: #16202C; }
+.ragband.rd .pill { background: #EF4444; }
+.ragband .rb { display: table-cell; vertical-align: middle; padding: 10px 16px 9px 16px; }
+.ragband .rh { color: #16202C; font-size: 12.2px; font-weight: 700; line-height: 1.45; }
+.ragband .rh .o { color: #D95F14; }
+.ragband .rg { width: 100%; border-spacing: 0; margin-top: 6px; }
+.ragband .rg td { padding: 0 14px 0 0; vertical-align: top; width: 33%; }
+.ragband .rk { color: #8A9AAC; font-size: 7.4px; font-weight: 700; letter-spacing: 1.6px;
+               text-transform: uppercase; }
+.ragband .rv { color: #35404E; font-size: 9.2px; line-height: 1.5; margin-top: 2px; }
+.ragband .rv b { color: #16202C; }
+
+.page.cover .frame { background: #1A2430; }
+.cover-in { padding: 34mm 6mm 0 6mm; color: #FFFFFF; }
+.cover-in .kicker { font-size: 10.4px; letter-spacing: 3px; }
+.cover-in h1 { margin: 14px 0 0 0; font-size: 40px; font-weight: 700; line-height: 1.08;
+               letter-spacing: -0.6px; color: #FFFFFF; }
+.cover-in .sub { margin-top: 12px; color: #A7B6C4; font-size: 14px; }
+.cover-in .rule { height: 3px; width: 120px; margin: 26px 0 30px 0;
+                  background-image: linear-gradient(to right, #F36F21, #F0B310, #C8DA2C); }
+.cover-in .big { font-size: 118px; font-weight: 700; line-height: 0.95; letter-spacing: -3px;
+                 color: #F36F21; }
+.cover-in .big.sm { font-size: 78px; letter-spacing: -2px; }
+.cover-in .biglab { margin-top: 10px; color: #FFFFFF; font-size: 15px; font-weight: 700;
+                    letter-spacing: 2.6px; text-transform: uppercase; }
+.cover-in .lines { margin-top: 26px; color: #C9D6E2; font-size: 12.5px; line-height: 1.85; }
+.cover-in .lines b { color: #FFFFFF; }
+.cover-in .meta { margin-top: 30px; color: #8395A6; font-size: 10px; line-height: 1.7; }
+.cover-in .meta b { color: #FFFFFF; }
+.cover-cog { position: absolute; right: 12mm; bottom: 22mm; width: 150px; opacity: 0.92; }
+.cover-siteiq { position: absolute; left: 10mm; bottom: 24mm; color: #FFFFFF; font-size: 11px;
+                font-weight: 700; letter-spacing: 2px; }
+.cover-siteiq .q { color: #F36F21; }
+.cover-siteiq .tag { display: block; color: #8395A6; font-weight: 400; letter-spacing: 0;
+                     font-size: 10px; margin-top: 4px; }
+
+.cway { display: table; width: 100%; margin-top: 10px; background: #1A2430; border-radius: 12px; }
+.cway .img { display: table-cell; width: 130px; vertical-align: middle; padding: 9px 0 9px 14px; }
+.cway .img img { width: 114px; display: block; }
+.cway .txt { display: table-cell; vertical-align: middle; padding: 9px 18px 9px 14px; }
+.cway .h { color: #F36F21; font-size: 8.8px; font-weight: 700; letter-spacing: 2.4px;
+           text-transform: uppercase; }
+.cway .p { color: #FFFFFF; font-size: 12.6px; font-weight: 700; margin-top: 4px; line-height: 1.35; }
+.cway .v { color: #A7B6C4; font-size: 9.4px; margin-top: 6px; line-height: 1.55; }
+.cway .v b { color: #FFFFFF; }

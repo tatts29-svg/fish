@@ -47,6 +47,7 @@ from datetime import datetime, timedelta
 
 import ampol_paths
 import gasmon_engine as ge
+import report_history as rh
 import k2shell as sh
 from k2shell import esc, money, num, K
 
@@ -86,6 +87,14 @@ CONFIG = {
         ("blue", "BUMP TEST", "bump, charge and scan before issue"),
         ("amber", "OUT OF CALIBRATION", "out of calibration is out of service"),
     ],
+
+    # WHY (03 Sep 2026): the page-1 RAG band. Default lines - change them
+    # here and the rule text on the page follows. Units out 30 days or more.
+    "rag_amber_30": 10,
+    "rag_red_30": 40,
+    "rag_sameday_target": 85,
+    "cover_page": True,
+    "card_name": "Coates_Ampol_GasMonitor_PositionCard.png",
 
     # rows per appendix page - compact single-line rows
     "appendix_rows": 26,
@@ -143,60 +152,86 @@ def page_position(m):
     seg = [s for s in seg if s[1] > 0]
     hs = m["health"]
     d30 = m["d30"]
-    return f"""<div class="callout">
+    return f"""<div class="callout tight">
   <span class="lead">The position at {hhmm(asat)}, {dfmt(asat)}.</span>
   <b>{num(m['fleet_total'])} Dräger X-am 5000 monitors</b> are on the Ampol
   register: <b class="o">{num(m['available'])} on the shelf</b>,
-  <b>{num(m['crew_out'])} out to crew</b> ({num(m['out_today'])} went out today
-  and <b class="o">{num(m['outstanding'])} are overdue</b> from earlier days),
-  {num(m['custody_total'])} held in custody (FCCU turnaround, Operations, Future Fuels
-  and the after-hours account), and <b>{num(m['repairs'])} in the Dräger repair
-  queue</b>. Every figure is counted from the SiteIQ exports named on the data
-  page - nothing is estimated.
+  <b>{num(m['crew_out'])} out to crew</b> ({num(m['out_today'])} today,
+  <b class="o">{num(m['outstanding'])} overdue</b> from earlier days),
+  {num(m['custody_total'])} in custody (FCCU, Operations, Future Fuels, after-hours)
+  and <b>{num(m['repairs'])} in the Dräger repair queue</b>. Counted from the SiteIQ
+  exports on the data page - nothing is estimated.
 </div>
-<table class="two" style="margin-top:16px"><tr>
-  <td style="width:31%">
+<table class="two" style="margin-top:6px"><tr>
+  <td style="width:29%">
     <div class="donut-wrap">
-      {sh.donut(hs, sh.health_hex(hs), f"{hs}%", sh.health_word(hs))}
-      <div class="donut-cap">Gas monitor health score</div>
+      {sh.donut(hs, sh.health_hex(hs), f"{hs}%", sh.health_word(hs), size=118, thick=16)}
+      <div class="donut-cap">Health score = plain average of the four scores:
+        ({m['score_availability']} + {m['score_sameday']} + {m['score_repairs']}
+        + {m['score_30']}) &divide; 4 = <b>{hs}</b></div>
     </div>
   </td>
   <td style="padding-left:10px">
     {sh.score_rows([
         ("Tool availability", m['score_availability'],
-         f"{num(m['available'])} on the shelf against a {num(R['availability_target'])}-unit "
-         f"target for a full score"),
+         f"{num(m['available'])} on the shelf against a {num(R['availability_target'])}-unit target"),
         ("Same-day returns, last 30 days", m['score_sameday'],
-         f"{d30['sd_pct']}% of {num(d30['draws'])} crew draws came back the day "
-         f"they went out ({m['d30_label']})"),
+         f"{d30['sd_pct']}% of {num(d30['draws'])} crew draws back the same day ({m['d30_label']})"),
         ("Repairs", m['score_repairs'],
-         f"100 less the {m['fleet_impact_pct']}% of fleet in the repair queue "
-         f"({num(m['repairs'])} of {num(m['fleet_total'])})"),
+         f"100 less the {m['fleet_impact_pct']}% of fleet in the repair queue ({num(m['repairs'])} of {num(m['fleet_total'])})"),
         ("30+ day control", m['score_30'],
-         f"100 less 3 per monitor overdue 30 days or more ({num(m['out_30'])} out)"),
+         f"100 less 3 per monitor out 30 days or more ({num(m['out_30'])} out)"),
     ])}
   </td>
 </tr></table>
-<div class="note">Health score is the plain average of the four scores above -
-  <b>({m['score_availability']} + {m['score_sameday']} + {m['score_repairs']}
-  + {m['score_30']}) &divide; 4 = {hs}</b>. Nothing is weighted and nothing is
-  hidden. The shelf count is a {hhmm(asat)} snapshot: the store empties every
-  morning and refills every afternoon, so read availability with the time.</div>
-<div class="sub-h">The fleet at a glance - where every monitor is</div>
+<div class="sub-h">The fleet at a glance - where every monitor is
+  <span class="thin">&mdash; a {hhmm(asat)} snapshot</span></div>
 <div class="chartpanel">{sh.stackband(seg)}</div>
-<div class="chart-cap">Every one of the <b>{num(m['fleet_total'])}</b> monitors on the
-  register: out to a named person, held in custody, on the shelf, or in the workshop.
-  Custody holdings are itemised beside the recovery priorities.</div>
-{sh.tiles([
-    ("box", num(m['fleet_total']), "Total fleet", "on the Ampol register", "grey"),
-    ("check", num(m['available']), "Available now", f"ready for issue at {hhmm(asat)}",
-     "green" if m['available'] >= R['availability_target'] else "amber"),
+{sh.tiles_plus([
+    ("box", num(m['fleet_total']), "Total fleet", mv("fleet", m['fleet_total'], "up", "on the Ampol register")[0],
+     mv("fleet", m['fleet_total'], "up", "on the Ampol register")[1]),
+    ("check", num(m['available']), "Available now",
+     mv("available", m['available'], "up", f"ready for issue at {hhmm(asat)}")[0],
+     mv("available", m['available'], "up", "")[1] or ("green" if m['available'] >= R['availability_target'] else "amber")),
     ("swap", num(m['crew_out']), "Out to crew",
-     f"{num(m['out_today'])} today + {num(m['outstanding'])} overdue", "grey"),
+     mv("crew_out", m['crew_out'], "down", f"{num(m['out_today'])} today + {num(m['outstanding'])} overdue")[0],
+     mv("crew_out", m['crew_out'], "down", "")[1] or "grey"),
     ("warn", num(m['outstanding']), "Overdue 1+ days",
-     f"{num(m['out_30'])} at 30+ days, {money(m['exposure'])} exposure",
-     "red" if m['outstanding'] else "green"),
-])}"""
+     mv("overdue", m['outstanding'], "down", f"{num(m['out_30'])} at 30+ days, {money(m['exposure'])} exposure")[0],
+     mv("overdue", m['outstanding'], "down", "")[1] or ("red" if m['outstanding'] else "green")),
+])}
+{rag_band_gas(m)}"""
+
+
+def mv(key, value, good, fallback):
+    """Movement note for a page-1 tile: the recorded change since the last
+    run when there is one, otherwise the plain note. (text, css_class)."""
+    txt, cls = rh.movement("gas", key, _ASAT_DT[0], value, good)
+    return (txt, cls) if txt else (fallback, "")
+
+
+_ASAT_DT = [None]   # set in build() so the tile helpers can read history
+
+
+def rag_band_gas(m):
+    C, R = CONFIG, m["rules"]
+    n30 = m["out_30"]
+    sd = m["d30"]["sd_pct"]
+    status = sh.rag_of(n30, C["rag_amber_30"], C["rag_red_30"])
+    if status == "green" and sd < C["rag_sameday_target"] - 10:
+        status = "amber"
+    due = (m["asat"] + timedelta(days=2)).strftime("%d %b %Y")
+    head = (f'<b class="o">{num(n30)} monitors</b> have been out 30 days or more '
+            f'({money(m["exposure"])} of replacement exposure) and <b>{sd}%</b> of the last '
+            f'30 days&rsquo; draws came back the same day - {num(m["outstanding"])} units are '
+            f'overdue in all.')
+    rule = (f'Units out 30 days or more: Green under {C["rag_amber_30"]}, Amber from '
+            f'{C["rag_amber_30"]}, Red from {C["rag_red_30"]}; Amber if same-day returns fall '
+            f'more than 10 points under the {C["rag_sameday_target"]}% target. Default lines - set in CONFIG.')
+    owner = "<b>Andrew Fisher</b>, Shutdown Manager - Coates tool store"
+    action = (f'Appendix A (every overdue unit, oldest first) to each company&rsquo;s supervisor '
+              f'by <b>{due}</b>; units recovered are reported on the next run.')
+    return sh.rag_band(status, head, rule, owner, action, tight=True)
 
 
 def page_sources(m):
@@ -683,6 +718,41 @@ def page_rhythm(m):
   availability target exists: the shelf must survive from the surge to the wave.</div>"""
 
 
+def page_shift_rhythm(m):
+    y = m["ytd"]
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    cols = [f"{h:02d}" if h % 2 == 0 else "" for h in range(24)]
+    hd, hr = y["heat_draws"], y["heat_returns"]
+    # the busiest cells, named
+    def peak(mat):
+        best = max(((v, r, c) for r, row in enumerate(mat) for c, v in enumerate(row)), default=(0, 0, 0))
+        return best
+    pv, pr_, pc_ = peak(hd)
+    rv, rr, rc = peak(hr)
+    wk_draws = sum(hd[r][c] for r in range(5) for c in range(24))
+    we_draws = sum(hd[r][c] for r in range(5, 7) for c in range(24))
+    night = sum(hd[r][c] for r in range(7) for c in list(range(0, 5)) + list(range(19, 24)))
+    tot = sum(sum(r) for r in hd) or 1
+    return f"""<div class="sect"><h3>The shift rhythm - draws and returns by weekday and hour, year to date</h3></div>
+<div class="callout tight">
+  Every crew draw since <b>{dfmt(y['start'])}</b> laid on a week: <b class="o">{num(pv)} draws</b> in
+  the busiest cell ({days[pr_]} {pc_:02d}:00-{pc_ + 1:02d}:00), returns peaking on
+  {days[rr]} {rc:02d}:00-{rc + 1:02d}:00 with <b>{num(rv)}</b>. Weekdays carry
+  <b>{num(wk_draws)}</b> draws against <b>{num(we_draws)}</b> on weekends, and
+  <b class="o">{round(night / tot * 100)}%</b> of all draws happen between 19:00 and 05:00 -
+  the after-hours window where the same-day rule does its work.
+</div>
+<div class="sub-h">Draws <span class="thin">&mdash; darker is quieter, orange is busier; the count is printed in every cell</span></div>
+<div class="chartpanel">{sh.heatgrid(hd, days, cols)}</div>
+<div class="sub-h">Returns <span class="thin">&mdash; the same week, scanned back in</span></div>
+<div class="chartpanel">{sh.heatgrid(hr, days, cols, colour=(31, 167, 90))}</div>
+<div class="note">Counted from every crew transaction in the TRANSACTIONS export ({esc(m['ytd_label'])}),
+  custody accounts excluded; a cell is the number of draws (or returns) whose scan fell in that
+  weekday and hour. A dark cell is a real zero. Read the two grids together: the gap between the
+  draw peak and the return peak is the shift, and the after-hours cells are where monitors go out
+  after 15:00 and come back before 08:00.</div>"""
+
+
 def page_demand(m):
     ytd = m["ytd"]
     peaks = m["day_peaks"]
@@ -827,7 +897,7 @@ def page_method(m):
         ("Exposure", f"{money(R['charge_per_unit'])} per monitor overdue 30 days or more - the replacement "
                      f"charge from the Ampol gas monitor workbook. Never estimated."),
         ("Health score", "Plain average of availability, 30-day same-day rate, repairs and 30+ day control. "
-                         "Each formula is printed beside its score on page 1."),
+                         "Each formula is printed beside its score on the position page."),
     ]
     rrows = "".join(f'<tr><td class="k">{esc(k)}</td><td>{esc(v)}</td></tr>' for k, v in rules)
     recon = "".join(f'<tr><td class="k">Check {i + 1}</td><td>{esc(n)}</td></tr>'
@@ -856,7 +926,7 @@ def page_closing(m):
          "Anything out of calibration comes off the shelf. You will never be "
          "issued a monitor we would not carry ourselves."),
         ("Numbers you can challenge",
-         "Every score on page 1 prints its own arithmetic and every figure is counted "
+         "Every score on the position page prints its own arithmetic and every figure is counted "
          "from the SiteIQ exports named on the data page. Nothing is weighted behind "
          "the scenes and nothing is estimated."),
         ("Breakdowns - tell us everything",
@@ -868,6 +938,7 @@ def page_closing(m):
     ]
     return f"""<div class="sect"><h3>The tool store has your back</h3></div>
 {sh.info_cards(cards)}
+{sh.coates_way_panel()}
 <div class="sect"><h3>Meet the tool store team</h3></div>
 <div class="note">The crew running your {esc(CONFIG['client'])} store - getting the right gear
   to the right people, keeping it tested and ready, and making sure everything that leaves
@@ -889,6 +960,7 @@ def build_pages(m):
         page_where(m),
         page_ageing(m),
         page_rhythm(m),
+        page_shift_rhythm(m),
         page_demand(m),
         page_repairs(m),
     ]
@@ -898,11 +970,27 @@ def build_pages(m):
     return pages
 
 
+def cover_for(m, cfg, gen_s, asat_s):
+    lines = [f"<b>{num(m['out_30'])}</b> out 30 days or more - {money(m['exposure'])} of replacement exposure",
+             f"<b>{num(m['available'])}</b> ready on the shelf against a {num(m['rules']['availability_target'])}-unit target",
+             f"<b>{m['d30']['sd_pct']}%</b> came back the same day over the last 30 days"]
+    return sh.cover_page(cfg, num(m["outstanding"]), "monitors overdue at the pull", lines, gen_s, asat_s)
+
+
 def build_html(m, cfg, gen_s, asat_s):
     pages = build_pages(m)
-    tot = len(pages)
-    body = "".join(sh.render_page(cfg, p, i + 1, tot, gen_s, asat_s)
-                   for i, p in enumerate(pages))
+    cover = cover_for(m, cfg, gen_s, asat_s) if cfg.get("cover_page") else ""
+    off = 1 if cover else 0
+    tot = len(pages) + off
+    rendered = []
+    for i, p in enumerate(pages):
+        if i == 0:
+            # the position page keeps the hero; its page number counts the cover
+            rendered.append(sh.render_page(cfg, p, 1, tot, gen_s, asat_s)
+                            .replace(f"PAGE 1 OF {tot}", f"PAGE {1 + off} OF {tot}"))
+        else:
+            rendered.append(sh.render_page(cfg, p, i + 1 + off, tot, gen_s, asat_s))
+    body = cover + "".join(rendered)
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <title>Coates {esc(cfg['client'])} {esc(cfg['title'])} - {esc(asat_s)}</title>
@@ -1083,6 +1171,7 @@ def build(write_html=None):
     """Load, compute, build. Returns (m, doc, pages). Shared with the email."""
     ctx = ge.load()
     m = ge.compute(ctx)
+    _ASAT_DT[0] = m["asat"]
     gen_s = datetime.now().strftime("%d %b %Y %H:%M")
     asat_s = m["asat"].strftime("%d %b %Y %H:%M")
     doc, pages = build_html(m, CONFIG, gen_s, asat_s)
@@ -1109,6 +1198,33 @@ def main():
                  f"  Looked for: {css_path}\n"
                  "  It carries the Coates house style - keep the suite together.")
     pdf_path = os.path.join(ampol_paths.day_folder("Gas_Monitors"), cfg["pdf_name"])
+    # the movement scoreboard: today's figures, so tomorrow can show the change
+    rh.record("gas", m["asat"], {
+        "fleet": m["fleet_total"], "available": m["available"], "crew_out": m["crew_out"],
+        "overdue": m["outstanding"], "overdue_30": m["out_30"], "exposure": m["exposure"],
+        "repairs": m["repairs"], "health": m["health"], "same_day_30": m["d30"]["sd_pct"],
+        "yday_draws": m["yday_draws"], "yday_not_same_day": m["yday_nsd"],
+        "custody": m["custody_total"]})
+    print(f"History              : {rh.HIST.name} - gas figures recorded for {m['asat'].strftime('%d %b %Y')}")
+    # the phone-sized position card - the same page-1 figures as an image
+    card_path = os.path.join(ampol_paths.day_folder("Gas_Monitors"), cfg["card_name"])
+    band = rag_band_gas(m)
+    status = "red" if 'ragband rd' in band else "amber" if 'ragband a' in band else "green"
+    hs = m["health"]
+    sh.position_card_png(cfg, asat_s, [
+        (num(m["fleet_total"]), "Total fleet", "on the Ampol register", "#7A8A9A"),
+        (num(m["available"]), "Available now", f"ready for issue at {hhmm(m['asat'])}", "#22C55E"),
+        (num(m["crew_out"]), "Out to crew", f"{num(m['out_today'])} today + {num(m['outstanding'])} overdue", "#7A8A9A"),
+        (num(m["outstanding"]), "Overdue 1+ days", f"{num(m['out_30'])} at 30+ days", "#F0603E"),
+        (money(m["exposure"]), "Replacement exposure", "units 30 days or more", "#F0603E"),
+        (f"{m['d30']['sd_pct']}%", "Same-day, last 30 days", f"target {cfg['rag_sameday_target']}%", "#EFA82B"),
+    ], (status, f"{num(m['out_30'])} monitors out 30 days or more; {num(m['outstanding'])} overdue in all; "
+                f"{m['d30']['sd_pct']}% same-day over 30 days.", "Andrew Fisher, Shutdown Manager",
+        f"Appendix A to each supervisor by {(m['asat'] + timedelta(days=2)).strftime('%d %b %Y')}"),
+        [("Tool availability", m["score_availability"]), ("Same-day returns, 30 days", m["score_sameday"]),
+         ("Repairs", m["score_repairs"]), ("30+ day control", m["score_30"])],
+        card_path, f"Counted from the SiteIQ exports of {asat_s} - nothing estimated. Health {hs}/100.")
+    print(f"Position card        : {card_path}")
 
     # Measure every page in the browser BEFORE printing - a chart that does
     # not fit is dropped silently by the print engine, page count intact.
@@ -1165,7 +1281,7 @@ def main():
     print(f"Pages                : {pages}")
     print(f"PDF written          : {pdf_path}  ({os.path.getsize(pdf_path):,} bytes)")
     print("")
-    print("NEXT STEP: open the PDF, read page 1 and the data page, then send it.")
+    print("NEXT STEP: open the PDF, read the position page and the data page, then send it.")
     print("Done. The Coates Way - consistent execution, every day.")
 
 

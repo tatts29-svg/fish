@@ -31,11 +31,18 @@ Output lands in Reports\\<today>\\Radios\\ - dated, never overwritten.
 import re
 import sys
 from pathlib import Path
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from collections import defaultdict
 import openpyxl
 import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder out
 import gasmon_engine as ge  # one company / person normaliser across the suite
+import report_history as rh
+# WHY (03 Sep 2026): the page-1 RAG band - default lines, printed on the page
+RAG_AMBER_PRIOR_PCT = 10     # share of on-hire units issued in prior years
+RAG_RED_PRIOR_PCT = 30
+COVER_PAGE = True
+CARD_NAME = "Ampol_Radio_OnHire_PositionCard.png"
+_ASAT_DT = [None]
 
 BASE = Path(__file__).resolve().parent
 REPORT_DATE = date.today()
@@ -348,6 +355,20 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
                   "lead": True}],
     }
     P = []
+    def mv(key, value, good, fallback, fallback_cls):
+        txt, cls = rh.movement("radio", key, _ASAT_DT[0], value, good)
+        return (txt, cls) if txt else (fallback, fallback_cls)
+    prior_pct = round(len(prev_all) / len(all_on) * 100) if all_on else 0
+    status = sh.rag_of(prior_pct, RAG_AMBER_PRIOR_PCT, RAG_RED_PRIOR_PCT)
+    due = (datetime.strptime(asat_s, "%d %b %Y %H:%M") + timedelta(days=7)).strftime("%d %b %Y") if data_asat else "the next report"
+    band = sh.rag_band(status,
+        f'<b class="o">{num(len(prev_all))} of the {num(len(all_on))} units on hire ({prior_pct}%)</b> were issued in '
+        f'{esc(PRIOR_LABEL)} and are still out - {money(prev_val)} of equipment, the oldest for {num(oldest)} days.',
+        f'Share of on-hire units issued in prior years: Green under {RAG_AMBER_PRIOR_PCT}%, Amber from '
+        f'{RAG_AMBER_PRIOR_PCT}%, Red from {RAG_RED_PRIOR_PCT}%. Default lines - set at the top of the script.',
+        "<b>Andrew Fisher</b>, Shutdown Manager - Coates tool store",
+        f'Every prior-year holder sent their list from this report by <b>{due}</b>; returned or rescanned units drop off the next run.',
+        tight=True)
     # ---- page 1: the position, the numbers, the ask ----------------------
     pos = (f'<div class="callout"><span class="lead">The position.</span> <b class="o">{money(total_exposure)}</b> '
            f'of site radio equipment is on hire per the SiteIQ pull as at {esc(asat_s)}: '
@@ -357,11 +378,11 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
            f'sitting unused in a crib room or ute, or no longer accounted for; this report tells those three apart. '
            f'<b>Not in use? Return it. Still in use? Bring it past the counter for a rescan.</b> Either way the record '
            f'updates the moment it is scanned.</div>')
-    tiles1 = sh.tiles([
-        ("shield", money(total_exposure), "On-hire value", f"{num(len(all_on))} units on hire", "grey"),
-        ("swap", num(len(r26) + len(rprev)), "Radios on hire", money(val(r26) + val(rprev)), ""),
-        ("swap", num(len(b26) + len(bprev)), "Batteries on hire", money(val(b26) + val(bprev)), ""),
-        ("warn", num(len(prev_all)), f"On hire since {PRIOR_LABEL}", money(prev_val), "red" if prev_all else "green"),
+    tiles1 = sh.tiles_plus([
+        ("shield", money(total_exposure), "On-hire value", *mv("exposure", round(total_exposure), "down", f"{num(len(all_on))} units on hire", "grey")),
+        ("swap", num(len(r26) + len(rprev)), "Radios on hire", *mv("radios_on_hire", len(r26) + len(rprev), "down", money(val(r26) + val(rprev)), "")),
+        ("swap", num(len(b26) + len(bprev)), "Batteries on hire", *mv("batteries_on_hire", len(b26) + len(bprev), "down", money(val(b26) + val(bprev)), "")),
+        ("warn", num(len(prev_all)), f"On hire since {PRIOR_LABEL}", *mv("prior_units", len(prev_all), "down", money(prev_val), "red" if prev_all else "green")),
     ])
     tiles2 = sh.tiles([
         ("check", f"{len(ravail)} / {len(bavail)}", "Available in store", "radios / batteries", "green" if ravail else "amber"),
@@ -384,7 +405,7 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
               f'stock-taken to its storage unit before going back on charge. <b>The moment a unit is scanned, the record updates.</b> '
               f'Every count on this report is read from the SiteIQ register as at <b>{esc(asat_s)}</b> - nothing comes from a summary tab. '
               f'Serial numbers: {esc(META.get("serial_note", "from the radio register"))}.</div>')
-    P.append(pos + tiles1 + tiles2 + ask + assure)
+    P.append(pos + tiles1 + band + tiles2 + ask + assure)
     # ---- the pictures -----------------------------------------------------
     radio_rows = [(f"On hire - issued {CUR_YEAR}", len(r26)), (f"On hire - issued {PRIOR_LABEL}", len(rprev)),
                   ("Available in store", len(ravail)), ("Out of service", len(oos_r))]
@@ -475,9 +496,18 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
         f'battery on the register, with its status, company, hirer, on-hire date and storage unit. Report built {esc(refresh)}. '
         f'{CUR_YEAR} issues are shown in full; {esc(PRIOR_LABEL)} issues are summarised by year and company. Companies are one '
         f'customer one name (project accounts roll up to their parent). Replacement values: {esc(PRICE_SOURCE)}.</div>'
-        '<div class="sect"><h3>How the radio fleet is run</h3></div>' + cards
+        '<div class="sect"><h3>How the radio fleet is run</h3></div>' + cards + sh.coates_way_panel()
         + '<div class="sect"><h3>Meet the tool store team</h3></div>' + sh.team_cards(cfg["team"]))
-    return kf.flow_doc(cfg, refresh, asat_s, "".join(P))
+    cover = kf.cover_block(cfg, num(len(prev_all)), f"units on hire since {PRIOR_LABEL}", [
+        f"<b>{money(total_exposure)}</b> of radio equipment on hire - {num(len(all_on))} units",
+        f"<b>{money(prev_val)}</b> of it issued in prior years, the oldest {num(oldest)} days ago",
+        f"<b>{len(ravail)}</b> radios and <b>{len(bavail)}</b> batteries ready on the shelf"],
+        refresh, asat_s) if COVER_PAGE else None
+    # what the phone card and the history need, kept for main()
+    build_html.last = {"cfg": cfg, "status": status, "prior_pct": prior_pct, "due": due,
+                       "exposure": total_exposure, "prev_val": prev_val, "oldest": oldest,
+                       "n_on": len(all_on), "n_prior": len(prev_all)}
+    return kf.flow_doc(cfg, refresh, asat_s, "".join(P), cover=cover)
 
 
 
@@ -654,6 +684,13 @@ def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path, d
         part.add_header("Content-Disposition", "attachment",
                         filename=f"Ampol_Radio_OnHire_Report_{REPORT_DATE.strftime('%d-%m-%Y')}.pdf")
         msg.attach(part)
+    # WHY (03 Sep 2026): the phone-sized position card rides with the draft
+    card = pdf.parent / CARD_NAME
+    if card.exists():
+        from email.mime.image import MIMEImage
+        img = MIMEImage(card.read_bytes(), _subtype="png")
+        img.add_header("Content-Disposition", "attachment", filename=card.name)
+        msg.attach(img)
     with open(eml_path, "wb") as f:
         f.write(msg.as_bytes())
     # sidecar for MAKE_OUTLOOK_DRAFTS: NATIVE Outlook draft, To pre-filled
@@ -669,7 +706,7 @@ def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path, d
     with open(stem + ".draft.json", "w", encoding="utf-8") as f:
         json.dump({"subject": subject, "to": to_line,
                    "body": Path(stem + ".body.html").name,
-                   "attachments": [pdf.name] if pdf.exists() else []}, f, indent=1)
+                   "attachments": ([pdf.name] if pdf.exists() else []) + ([CARD_NAME] if (pdf.parent / CARD_NAME).exists() else [])}, f, indent=1)
     print(f"Wrote {eml_path} + native-draft manifest (To: {n_to} recipients, PDF attached: {pdf.exists()})")
 
 
@@ -769,7 +806,28 @@ def main():
         "unpriced_note": (f" {d['unpriced']} unit(s) have no price in the master and are excluded from every "
                           f"value total, never estimated." if d["unpriced"] else ""),
     }
+    _ASAT_DT[0] = d["asat"]
     html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat)
+    L = build_html.last
+    rh.record("radio", d["asat"], {
+        "exposure": round(L["exposure"]), "radios_on_hire": len(r26) + len(rprev),
+        "batteries_on_hire": len(b26) + len(bprev), "prior_units": L["n_prior"], "prior_value": round(L["prev_val"]),
+        "prior_pct": L["prior_pct"], "available_radios": len(ravail), "available_batteries": len(bavail),
+        "oos": len(oos), "oldest_days": L["oldest"]})
+    print(f"History            : {rh.HIST.name} - radio figures recorded for {d['asat'].strftime('%d %b %Y')}")
+    card_path = out / CARD_NAME
+    import k2shell as _sh
+    _sh.position_card_png(L["cfg"], data_asat, [
+        (money(L["exposure"]), "On-hire value", f"{_sh.num(L['n_on'])} units on hire", "#7A8A9A"),
+        (_sh.num(L["n_prior"]), f"On hire since {PRIOR_LABEL}", money(L["prev_val"]), "#F0603E"),
+        (_sh.num(len(r26) + len(rprev)), "Radios on hire", money(val(r26) + val(rprev)), "#7A8A9A"),
+        (_sh.num(len(b26) + len(bprev)), "Batteries on hire", money(val(b26) + val(bprev)), "#7A8A9A"),
+        (f"{len(ravail)} / {len(bavail)}", "Available in store", "radios / batteries", "#22C55E"),
+        (_sh.num(len(oos)), "Out of service", money(val(oos)) if val(oos) else "", "#7A8A9A"),
+    ], (L["status"], f"{_sh.num(L['n_prior'])} of {_sh.num(L['n_on'])} units on hire ({L['prior_pct']}%) were issued in {PRIOR_LABEL} and are still out.",
+        "Andrew Fisher, Shutdown Manager", f"Prior-year holders sent their list by {L['due']}"),
+        [], str(card_path), f"Counted from the SiteIQ register pull of {data_asat} - nothing estimated.")
+    print(f"Position card      : {card_path}")
     base = out / "Ampol_Radio_OnHire_Report"
     with open(f"{base}.html", "w", encoding="utf-8") as f:
         f.write(html_str)

@@ -406,6 +406,11 @@ def _flow(crew, start, end, now):
         "pct_before_6": round(sum(1 for t in sel if t["st"].hour < 6) / len(sel) * 100) if sel else 0,
         "hour_issues": Counter(t["st"].hour for t in sel),
         "hour_returns": Counter(t["en"].hour for t in closed),
+        # the shift rhythm: weekday (Mon=0) x hour grids for draws and returns
+        "heat_draws": [[sum(1 for t in sel if t["st"].weekday() == wd and t["st"].hour == h)
+                        for h in range(24)] for wd in range(7)],
+        "heat_returns": [[sum(1 for t in closed if t["en"].weekday() == wd and t["en"].hour == h)
+                          for h in range(24)] for wd in range(7)],
         "record_hour": record,
         "sel": sel,
     }

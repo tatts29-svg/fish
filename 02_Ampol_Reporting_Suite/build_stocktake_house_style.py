@@ -56,6 +56,8 @@ import ampol_paths
 import build_stocktake_compliance_tool as eng
 import gasmon_engine as ge
 import k2shell as sh
+import report_history as rh
+import json
 from k2shell import esc, money, num, K
 
 import openpyxl
@@ -80,6 +82,16 @@ CONFIG = {
     "pdf_client": "Coates_Ampol_Stocktake_Compliance_K2STYLE.pdf",
     "pdf_team": "Coates_Ampol_Stocktake_TEAM_K2STYLE.pdf",
     "eml_name": "Coates_Ampol_Stocktake_OUTLOOK_SAFE.eml",
+    "card_name": "Coates_Ampol_Stocktake_PositionCard.png",
+    # WHY (03 Sep 2026): the page-1 RAG band on in-store SOP coverage.
+    # Default lines - change here, the rule text on the page follows.
+    "rag_green_from": 90,
+    "rag_amber_from": 75,
+    "cover_page": True,
+    # the store map: Data\store_layout.json places each bay on a grid
+    # (row, column). Without it the bays are laid out A to Z and the page
+    # says so; a template is written beside the data on every run.
+    "map_columns": 7,
     "email_html": "Coates_Ampol_Stocktake_EMAIL.html",
     "team": [
         {"name": "Andrew Fisher", "role": "Shutdown Manager",
@@ -295,6 +307,23 @@ def analytics(rows, d, export_dt, actions):
 # =====================================================================
 
 def render_k2_pdf(doc, pdf_path, authored, css):
+    # WHY (03 Sep 2026): measure every page in the browser first - the print
+    # engine drops a block that does not fit without changing the page count.
+    try:
+        from generate_k2style_gas_monitor_report import layout_check
+        ok, rows = layout_check(doc, str(BASE / "k2style.css"), str(BASE))
+        if ok is False:
+            print("*" * 68)
+            print(f"WARNING: CONTENT DOES NOT FIT in {Path(pdf_path).name} - do not send as is.")
+            for pg, over, wide in rows:
+                if over > 0 or wide > 0:
+                    print(f"  page {pg:2d}: {over:+d}px past the footer" + (f", {wide}px too wide" if wide > 0 else ""))
+            print("*" * 68)
+        elif ok:
+            worst = max((r[1] for r in rows), default=-9999)
+            print(f"Fit check            : PASS - tightest page has {-worst}px to spare ({Path(pdf_path).name})")
+    except Exception as e:  # the fit check is a guard, never a reason not to build
+        print(f"Fit check            : skipped ({type(e).__name__})")
     doc = doc.replace("</head>", f"<style>{css}</style></head>", 1)
     tmp = OUT / (Path(pdf_path).stem + ".__tmp__.html")
     tmp.write_text(doc, encoding="utf-8")
@@ -376,6 +405,7 @@ def build_client_pages(rows, d, a, export_dt):
          f"{w30} of {insn} in-store items sighted inside the 30-day SOP - "
          f"internal target is every {tgt} days ({wt} inside it)")
         for k, lab, tgt, why, tot, ohn, insn, wt, w30, p30 in d["tier_stats"]])
+    ins_pct = (d["ok30_instore"] / len(d["instore"]) * 100) if d["instore"] else 0
     P.append(f"""{pcallout(
         f'<span class="lead">The position.</span> One page, one honest answer: '
         f'is the {esc(CONFIG["client"])} tool store counted and under control? '
@@ -392,21 +422,23 @@ def build_client_pages(rows, d, a, export_dt):
         f'checked and trusted. <b>{num(d.get("transit_n", 0))} lines</b> that have '
         f'departed the store (Pending Branch Receipt, or a Departure scan with the '
         f'item no longer on the live register) are excluded.', False)}
-<table class="two" style="margin-top:16px"><tr>
+{rag_band_stocktake(d, a, export_dt)}
+<table class="two" style="margin-top:10px"><tr>
   <td style="width:31%"><div class="donut-wrap">
     {sh.donut(round(comp), sh.health_hex(round(comp)), f"{comp:.0f}%", sh.health_word(round(comp)))}
     <div class="donut-cap">30-day SOP compliance - whole store</div></div></td>
   <td style="padding-left:10px">{ladders}</td>
 </tr></table>
 {pnote(f'SOP compliance = items sighted in the last 30 days &divide; countable items = {num(d["ok30"])} &divide; {num(d["countable"])} = <b>{comp:.1f}%</b>. That {num(d["ok30"])} is <b>{num(d["ok30_instore"])} in store + {num(d["ok30_onhire"])} on hire</b> (an on-hire item&rsquo;s sighting is its hire-out or return scan). Of the {num(d["late_instore"] + d["late_onhire"])} items outside 30 days, <b>{num(d["late_onhire"])} are on hire</b> and {num(d["late_instore"])} are on the shelf. Tier bars are rated on in-store assets; on-hire assets are verified through the double-scan return process and shutdown checks, shown separately below.')}
-{sh.tiles([
+{sh.tiles_plus([
     ("box", num(d["countable"]), "Countable items",
-     f"{num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire", "grey"),
+     *mv("countable", d["countable"], "up", f"{num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire", "grey")),
     ("shield", money(d["val_total"]), "Priced fleet value (new)",
-     f"{priced_pct:.0f}% of lines priced", "grey"),
+     *mv("val_total", round(d["val_total"]), "up", f"{priced_pct:.0f}% of lines priced", "grey")),
     ("check", money(d["val_ok30"]), "Value verified 30d",
-     f"{val_cov:.0f}% of priced value", "green" if val_cov >= 75 else "amber"),
-    ("swap", money(d["val_onhire"]), "Value on hire now", "verified on return", "grey"),
+     *mv("val_ok30", round(d["val_ok30"]), "up", f"{val_cov:.0f}% of priced value", "green" if val_cov >= 75 else "amber")),
+    ("swap", money(d["val_onhire"]), "Value on hire now",
+     *mv("val_onhire", round(d["val_onhire"]), "down", "verified on return", "grey")),
 ])}""")
 
     # ---- P2 determination + activity -----------------------------------
@@ -452,6 +484,9 @@ def build_client_pages(rows, d, a, export_dt):
 {sh.dtable(["Storage bay (ranked by items)", "Items", "Sighted 30d", "Due (tier target)", "Priced value"],
            urows, ["", "r", "r", "r", "r"])}
 {pnote((f'Plus {len(rest)} smaller bays holding {num(sum(u["n"] for u in rest))} items between them - full detail in the staff worklist. ' if rest else '') + 'Bays are the item&rsquo;s home storage unit from the live register; on-hire items are excluded from bay coverage.')}""")
+
+    # ---- P3b the store map - every bay coloured by its 30-day coverage --
+    P.append(bay_map_page(a, d))
 
     # ---- P4 the two tails: shelf cleared, on-hire watched ---------------
     ins_bars = sh.hbars([(lab, n) for lab, n, v in a["idle_ins"]],
@@ -519,10 +554,119 @@ def build_client_pages(rows, d, a, export_dt):
     ])
     P.append(f"""{psect("The tool store has your back")}
 {cards}
+{sh.coates_way_panel()}
 {psect("Meet the tool store team")}
-{pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true, the counts current and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
 {sh.team_cards(CONFIG["team"])}""")
     return P
+
+
+_ASAT = [None]
+
+
+def mv(key, value, good, fallback, fallback_cls):
+    """(note, class) for a tile: recorded movement when an earlier day
+    exists, otherwise the plain note. Never an invented arrow."""
+    txt, cls = rh.movement("stocktake", key, _ASAT[0], value, good)
+    return (txt, cls) if txt else (fallback, fallback_cls)
+
+
+def rag_band_stocktake(d, a, export_dt):
+    C = CONFIG
+    ins = len(d["instore"]) or 1
+    pct = d["ok30_instore"] / ins * 100
+    status = sh.rag_of(pct, C["rag_amber_from"], C["rag_green_from"], higher_is_worse=False)
+    # rag_of with higher_is_worse=False reads: red at or under red_at (amber_from),
+    # amber at or under amber_at (green_from) - so map the thresholds explicitly
+    status = "green" if pct >= C["rag_green_from"] else "amber" if pct >= C["rag_amber_from"] else "red"
+    due = (export_dt + timedelta(days=7)).strftime("%d %b %Y")
+    late = len(a["ins_over30"])
+    head = (f'<b class="o">{pct:.1f}%</b> of the {num(ins)} in-store items were sighted inside the 30-day SOP; '
+            f'<b>{num(late)}</b> shelf items are outside it (oldest {num(a["ins_oldest"])} days) and '
+            f'<b>{num(len(d["missed_returns"]))}</b> possible missed returns are flagged.')
+    rule = (f'In-store items sighted inside 30 days: Green from {C["rag_green_from"]}%, Amber from '
+            f'{C["rag_amber_from"]}%, Red below. On-hire items are rated separately (verified on return). '
+            f'Default lines - set in CONFIG.')
+    owner = "<b>Andrew Fisher</b>, Shutdown Manager - Coates tool store"
+    action = (f'The {num(late)} shelf items on the daily worklist, oldest first, cleared by <b>{due}</b>; '
+              f'missed returns resolved same day.')
+    return sh.rag_band(status, head, rule, owner, action)
+
+
+def store_layout(units):
+    """(layout dict, source) - Data\store_layout.json when present, else an
+    A-to-Z grid; a template is written beside the data so the floor plan
+    can be typed in once."""
+    data_dir = Path(ampol_paths.data_dir()) if hasattr(ampol_paths, "data_dir") else BASE / "Data"
+    cols = CONFIG["map_columns"]
+    names = sorted((u["unit"] for u in units), key=lambda x: x.upper())
+    auto = {"columns": cols, "bays": {n: [i // cols, i % cols] for i, n in enumerate(names)}}
+    tpl = data_dir / "store_layout.template.json"
+    try:
+        tpl.write_text(json.dumps({"_how": "Rename to store_layout.json. Give each bay a [row, column] on "
+                                            "the grid to match the floor; columns sets the grid width. "
+                                            "Bays not listed are added A to Z at the end.",
+                                   **auto}, indent=1), encoding="utf-8")
+    except OSError:
+        pass
+    real = data_dir / "store_layout.json"
+    if real.exists():
+        try:
+            lay = json.loads(real.read_text(encoding="utf-8"))
+            bays = {k: v for k, v in lay.get("bays", {}).items() if isinstance(v, list) and len(v) == 2}
+            cols = int(lay.get("columns", cols)) or cols
+            used = {tuple(v) for v in bays.values()}
+            nxt = (max((r for r, _ in used), default=-1) + 1, 0)
+            for n in names:
+                if n not in bays:
+                    while nxt in used:
+                        nxt = (nxt[0] + (nxt[1] + 1) // cols, (nxt[1] + 1) % cols)
+                    bays[n] = list(nxt); used.add(nxt)
+            return {"columns": cols, "bays": bays}, "Data\\store_layout.json"
+        except (OSError, ValueError):
+            pass
+    return auto, "auto"
+
+
+def bay_map_svg(units, layout, w=636):
+    cols = layout["columns"]
+    by_name = {u["unit"]: u for u in units}
+    cells = [(n, rc) for n, rc in layout["bays"].items() if n in by_name]
+    if not cells:
+        return '<div class="note">No in-store bays to map.</div>'
+    rows = max(r for _, (r, _) in cells) + 1
+    cw = (w - 8) / cols
+    ch = 46
+    h = rows * (ch + 6) + 6
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    for n, (r, c) in cells:
+        u = by_name[n]
+        pct = u["pct"]
+        fill = "#1FA75A" if pct >= CONFIG["rag_green_from"] else "#F5A623" if pct >= CONFIG["rag_amber_from"] else "#EF4444"
+        x, y = 4 + c * cw, 4 + r * (ch + 6)
+        out.append(f'<rect x="{x + 2:.1f}" y="{y}" width="{cw - 4:.1f}" height="{ch}" rx="7" fill="{fill}" opacity="0.92"/>')
+        label = n if len(n) <= 16 else n[:15] + "…"
+        tcol = "#16202C" if fill == "#F5A623" else "#FFFFFF"
+        out.append(f'<text x="{x + cw / 2:.1f}" y="{y + 18}" text-anchor="middle" fill="{tcol}" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="8.4" font-weight="700">{esc(label)}</text>')
+        out.append(f'<text x="{x + cw / 2:.1f}" y="{y + 33}" text-anchor="middle" fill="{tcol}" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{num(u["n"])} items · {pct:.0f}%</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def bay_map_page(a, d):
+    units = a["units"]
+    layout, src = store_layout(units)
+    g = sum(1 for u in units if u["pct"] >= CONFIG["rag_green_from"])
+    am = sum(1 for u in units if CONFIG["rag_amber_from"] <= u["pct"] < CONFIG["rag_green_from"])
+    rd = len(units) - g - am
+    how = ("laid out from <b>Data\\store_layout.json</b> - the floor plan as typed in" if src != "auto" else
+           "laid out <b>A to Z</b> because no floor plan has been typed in yet - rename "
+           "<b>Data\\store_layout.template.json</b> to store_layout.json and give each bay its row and column")
+    return f"""{psect("The store map - every bay coloured by its 30-day coverage")}
+{pcallout(f'One look at the floor: <b class="g">{num(g)} bays green</b>, <b class="a">{num(am)} amber</b>, <b class="rd">{num(rd)} red</b> out of {num(len(units))} in-store bays. Green from {CONFIG["rag_green_from"]}% of the bay&rsquo;s items sighted inside 30 days, amber from {CONFIG["rag_amber_from"]}%, red below - the same lines as the RAG band on page 2. Each tile prints its item count and its coverage, so the colour can be checked.')}
+<div class="chartpanel">{bay_map_svg(units, layout)}</div>
+{pnote(f'Bays are {how}. Every bay with at least one in-store item is shown; the item count is the live register&rsquo;s home storage unit for in-store items, on-hire items excluded. Numbers, not colours, are the record.')}"""
 
 
 # =====================================================================
@@ -706,11 +850,18 @@ def build_team_pages(rows, d, a, export_dt):
     return P
 
 
-def render_doc(kind, pages, gen_s, asat_s):
+def render_doc(kind, pages, gen_s, asat_s, cover=""):
     cfg = cfg_for(kind)
-    tot = len(pages)
-    body = "".join(sh.render_page(cfg, p, i + 1, tot, gen_s, asat_s)
-                   for i, p in enumerate(pages))
+    off = 1 if cover else 0
+    tot = len(pages) + off
+    rendered = []
+    for i, p in enumerate(pages):
+        if i == 0:
+            rendered.append(sh.render_page(cfg, p, 1, tot, gen_s, asat_s)
+                            .replace(f"PAGE 1 OF {tot}", f"PAGE {1 + off} OF {tot}"))
+        else:
+            rendered.append(sh.render_page(cfg, p, i + 1 + off, tot, gen_s, asat_s))
+    body = cover + "".join(rendered)
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<title>Coates {esc(cfg["client"])} {esc(cfg["title"])} - '
             f'{esc(asat_s)}</title></head><body>{body}</body></html>'), tot
@@ -927,15 +1078,52 @@ def main():
                  "house-style PDFs cannot render without it.")
     css = css_path.read_text(encoding="utf-8")
     print("[2/4] Client compliance PDF (house style)...")
+    _ASAT[0] = export_dt
+    ins_pct = (d["ok30_instore"] / len(d["instore"]) * 100) if d["instore"] else 0
+    g_all, g_seen, g_miss = a["gas"]
+    cover = ""
+    if CONFIG.get("cover_page"):
+        cover = sh.cover_page(cfg_for("client"), f"{ins_pct:.0f}%", "of the shelf sighted inside 30 days", [
+            f"<b>{num(d['countable'])}</b> countable items - {num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire",
+            f"<b>{money(d['val_ok30'])}</b> of {money(d['val_total'])} priced fleet verified in the last 30 days",
+            f"<b>{len(g_seen)} of {len(g_all)}</b> in-store gas monitors sighted in the last 24 hours"],
+            gen_s, asat_s)
     doc_c, n_c = render_doc("client",
                             build_client_pages(rows, d, a, export_dt),
-                            gen_s, asat_s)
+                            gen_s, asat_s, cover=cover)
     render_k2_pdf(doc_c, OUT / CONFIG["pdf_client"], n_c, css)
     print("[3/4] Team report PDF (house style)...")
     doc_t, n_t = render_doc("team",
                             build_team_pages(rows, d, a, export_dt),
                             gen_s, asat_s)
     render_k2_pdf(doc_t, OUT / CONFIG["pdf_team"], n_t, css)
+
+    # ---- the movement scoreboard and the phone card ---------------------
+    rh.record("stocktake", export_dt, {
+        "countable": d["countable"], "instore": len(d["instore"]), "onhire": len(d["onhire"]),
+        "comp30": round(d["comp30"], 1), "instore_comp": round(ins_pct, 1),
+        "done7": len(d["done7"]), "done30": len(d["done30"]),
+        "val_total": round(d["val_total"]), "val_ok30": round(d["val_ok30"]), "val_onhire": round(d["val_onhire"]),
+        "due_all": sum(len(d["due"][k]) for k in eng.TIERS), "missed_returns": len(d["missed_returns"]),
+        "ins_over30": len(a["ins_over30"]), "gas_seen24": len(g_seen), "gas_instore": len(g_all),
+        "oh_risk180": len(a["oh_risk180"])})
+    print(f"History              : {rh.HIST.name} - stocktake figures recorded for {export_dt.strftime('%d %b %Y')}")
+    band = rag_band_stocktake(d, a, export_dt)
+    status = "red" if "ragband rd" in band else "amber" if "ragband a" in band else "green"
+    card_path = OUT / CONFIG["card_name"]
+    sh.position_card_png(cfg_for("client"), asat_s, [
+        (num(d["countable"]), "Countable items", f"{num(len(d['instore']))} in store", "#7A8A9A"),
+        (f"{ins_pct:.1f}%", "In-store SOP 30d", f"{num(len(a['ins_over30']))} shelf items outside", "#22C55E" if status == "green" else "#EFA82B"),
+        (f"{d['comp30']:.1f}%", "Whole store SOP 30d", "on-hire counted in", "#7A8A9A"),
+        (num(len(d["done7"])), "Sighted last 7 days", "items", "#22C55E"),
+        (f"{len(g_seen)}/{len(g_all)}", "Gas monitors 24h", f"{len(g_miss)} missed" if g_miss else "all sighted", "#F0603E" if g_miss else "#22C55E"),
+        (money(d["val_ok30"]), "Value verified 30d", f"of {money(d['val_total'])}", "#7A8A9A"),
+    ], (status, f"{ins_pct:.1f}% of in-store items sighted inside 30 days; {num(len(a['ins_over30']))} shelf items outside; "
+                f"{num(len(d['missed_returns']))} possible missed returns.", "Andrew Fisher, Shutdown Manager",
+        f"Shelf items on the worklist cleared by {(export_dt + timedelta(days=7)).strftime('%d %b %Y')}"),
+        [(lab, round(p30)) for k, lab, tgt, why, tot, ohn, insn, wt, w30, p30 in d["tier_stats"]][:4],
+        str(card_path), f"Counted from the SiteIQ exports of {asat_s} - nothing estimated.")
+    print(f"Position card        : {card_path}")
 
     # ---- 3. the email ---------------------------------------------------
     print("[4/4] Outlook email (house style)...")
@@ -956,11 +1144,12 @@ def main():
               (str(OUT / "Coates_Stocktake_Count_Worklist.xlsx"),
                "vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
               (str(OUT / CONFIG["pdf_client"]), "pdf"),
-              (str(OUT / CONFIG["pdf_team"]), "pdf")]
+              (str(OUT / CONFIG["pdf_team"]), "pdf"),
+              (str(card_path), "png")]
     for p, sub in attach:
         if os.path.exists(p):
             with open(p, "rb") as f:
-                msg.add_attachment(f.read(), maintype="application",
+                msg.add_attachment(f.read(), maintype="image" if sub == "png" else "application",
                                    subtype=sub, filename=os.path.basename(p))
     eml_path = OUT / CONFIG["eml_name"]
     with open(eml_path, "wb") as f:
