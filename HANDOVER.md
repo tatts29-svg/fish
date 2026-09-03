@@ -351,3 +351,23 @@ header and footer bands fixed inside it with empty thead/tfoot spacers
 reserving their height, the page counter in `@bottom-center`. Andrew's
 Edge is current Chromium, so site output matches.
 
+### The wow pass (3 Sep 2026, v1.5)
+
+Andrew asked for visual wow. Built as shared pieces in `k2shell.py`
+(tiles_plus/sparkline, heatgrid, rag_of/rag_band, cover_page/cover_inner,
+coates_way_panel, position_card_png) plus `report_history.py` (the
+movement scoreboard) and `assets/` (the official cog and flywheel), then
+applied per family. Rules that hold: no history means no arrow (the
+first day's report shows plain notes); every RAG band prints its rule,
+owner and dated action, with the thresholds in each script's CONFIG as
+"default lines" for Andrew to confirm; the phone card is drawn from the
+same values as page 1.
+
+Print engine facts learned the hard way in the flow shell (`k2flow.py`):
+a repeating `<tfoot>` overprints tall unbreakable blocks and multi-row
+bodies; fixed elements outside the page area tile; the layout that
+always works is `@page` margin boxes for the bands (page counter
+included), a fixed frame spanning exactly the page area, plain block
+flow inside, and `box-decoration-break: clone` on the body so every page
+fragment keeps the same inset.
+

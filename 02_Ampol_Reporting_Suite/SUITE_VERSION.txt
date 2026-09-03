@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.4  (02 Sep 2026)
+Version: 1.5  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -128,4 +128,31 @@ v1.4 - 02 Sep 2026  (presentation sweep - one house look)
     nowhere (the truth table now reads the PDF text as well).
   - No number changed. The truth table (13) and the blank check (09)
     pass on the rebuilt set.
+
+v1.5 - 03 Sep 2026  (the wow pass - movement, focus, pictures)
+  - Movement. Every report writes its key figures to
+    History\report_history.json on each run (per machine, never in a
+    zip). From the next run on, the page-1 tiles carry "up 16 since
+    01 Sep" arrows and a 30-day sparkline; no history means no arrow.
+  - A RAG band with an owner on every page 1: the rule that produced
+    the colour is printed, the owner is named, the next action has a
+    date. Default lines sit in each script's CONFIG - change them there
+    and the rule text follows.
+  - Covers for client packs: a full dark first page with the one number
+    of the day (gas: monitors overdue; stocktake: share of the shelf
+    sighted inside 30 days; radio: units out since prior years; tooling:
+    items on hire; calibration: overdue; rigging: not found in SiteIQ).
+  - Gas monitor report: a shift-rhythm page - draws and returns by
+    weekday and hour, year to date, as heat grids with the count in
+    every cell.
+  - Stocktake: the store map - every bay coloured by its 30-day coverage.
+    Bays sit A to Z until Data\store_layout.json (template written
+    beside the data on every run) is filled in with the floor plan.
+  - Tooling on-hire register: a share-of-fleet bar and an ageing strip
+    on every company header row.
+  - The official Coates Way cog on every closing page (assets\).
+  - A phone-sized position card (PNG) beside every client PDF and
+    attached to its draft: the same page-1 figures, nothing else.
+  - The flowing reports' frame moved to the one print layout Chromium
+    gets right every time (header and footer in the page margins).
 

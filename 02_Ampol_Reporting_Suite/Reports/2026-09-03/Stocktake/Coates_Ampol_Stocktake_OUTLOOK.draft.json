@@ -1,0 +1,12 @@
+{
+ "subject": "Ampol Tool Store - Stocktake Report - 02/09/2026 18:29",
+ "to": "Ampolstore@coates.com.au; Cody.mitchell@coates.com.au",
+ "body": "Coates_Ampol_Stocktake_EMAIL.html",
+ "attachments": [
+  "Coates_Stocktake_Count_Worklist.pdf",
+  "Coates_Stocktake_Count_Worklist.xlsx",
+  "Coates_Ampol_Stocktake_Compliance_K2STYLE.pdf",
+  "Coates_Ampol_Stocktake_TEAM_K2STYLE.pdf",
+  "Coates_Ampol_Stocktake_PositionCard.png"
+ ]
+}

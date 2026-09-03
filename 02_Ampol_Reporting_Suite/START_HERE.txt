@@ -68,7 +68,9 @@ EVERY MORNING (about 10 minutes)
 
 Everything lands in Reports\(today's date)\ - one folder per
 report family, dated, never overwritten. The truth table is
-saved there too, as VERIFY_NUMBERS.txt.
+saved there too, as VERIFY_NUMBERS.txt, and each client PDF has a
+phone-sized position card (PNG) beside it - the same page-1
+figures, for Teams or WhatsApp.
 
 ------------------------------------------------------------
 THE BUTTONS
@@ -165,7 +167,15 @@ Data\
   Ampol Gas Monitor Report.xlsm     not read - kept for reference
   Ampol_Radio_Report.xlsm           not read - kept for reference
   Ampol_Onhire_Tooling_Report.xlsm  not read - kept for reference
+  store_layout.template.json        the bay grid the stocktake map uses -
+                                    rename to store_layout.json and give
+                                    each bay its row and column
   previous\                         dated backups, made automatically
+
+History\report_history.json        the movement scoreboard: every run's
+                                    key figures, so tomorrow's tiles can
+                                    show the change. Per machine; never in
+                                    an update zip; never overwritten.
 
 ------------------------------------------------------------
 HOUSEKEEPING
