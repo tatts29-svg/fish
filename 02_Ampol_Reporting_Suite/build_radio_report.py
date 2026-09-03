@@ -356,7 +356,8 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
     }
     P = []
     def mv(key, value, good, fallback, fallback_cls):
-        txt, cls = rh.movement("radio", key, _ASAT_DT[0], value, good)
+        txt, cls = rh.movement("radio", key, _ASAT_DT[0], value, good,
+                               money=(key == "exposure"))
         return (txt, cls) if txt else (fallback, fallback_cls)
     prior_pct = round(len(prev_all) / len(all_on) * 100) if all_on else 0
     status = sh.rag_of(prior_pct, RAG_AMBER_PRIOR_PCT, RAG_RED_PRIOR_PCT)

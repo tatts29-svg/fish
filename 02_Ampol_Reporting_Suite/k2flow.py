@@ -60,10 +60,10 @@ FLOW_CSS = """
   margin: 21mm 6.5mm 17.5mm 6.5mm;
   @top-left     { content: "__KICKER__"; vertical-align: bottom; margin-left: 4mm; margin-bottom: 2.2mm;
                   font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
-                  font-size: 6.8pt; font-weight: 700; letter-spacing: 1.9pt; color: #F36F21; }
+                  font-size: __KFS__; font-weight: 700; letter-spacing: __KLS__; color: #F36F21; }
   @top-right    { content: "__TITLE__   \\2022   AS AT __ASAT__"; vertical-align: bottom; margin-right: 4mm; margin-bottom: 2.2mm;
                   font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
-                  font-size: 7.6pt; font-weight: 700; color: #16202C; }
+                  font-size: __TFS__; font-weight: 700; color: #16202C; }
   @bottom-left  { content: "YOUR COATES TOOL STORE TEAM  \\2022  __TEAM__"; vertical-align: top; margin-left: 4mm; margin-top: 2.2mm;
                   font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
                   font-size: 6.6pt; font-weight: 700; letter-spacing: 0.6pt; color: #8A9AAC; }
@@ -105,10 +105,20 @@ def _cs(text):
 
 def flow_css(cfg, asat_s):
     team = " / ".join(f"{p['name']}, {p['role']}".strip(", ") for p in cfg.get("team", []))
+    title = f"{cfg['client']} {cfg['title']}"
+    # WHY (03 Sep 2026): the two header boxes share one line across the
+    # page. A long kicker plus a long title (the quarterly reports) wrapped
+    # both to two lines, so the header steps its type down with length
+    # instead - the words stay, the line stays one line.
+    total = len(cfg["kicker"]) + len(title) + len(asat_s) + 10
+    scale = min(1.0, 100.0 / total) if total else 1.0
     css = (FLOW_CSS.replace("__KICKER__", _cs(cfg["kicker"]))
-           .replace("__TITLE__", _cs(f"{cfg['client']} {cfg['title']}"))
+           .replace("__TITLE__", _cs(title))
            .replace("__ASAT__", _cs(asat_s.upper()))
-           .replace("__TEAM__", _cs(team)))
+           .replace("__TEAM__", _cs(team))
+           .replace("__KFS__", f"{6.8 * scale:.2f}pt")
+           .replace("__KLS__", f"{1.9 * scale:.2f}pt")
+           .replace("__TFS__", f"{7.6 * scale:.2f}pt"))
     return _house_css() + css
 
 

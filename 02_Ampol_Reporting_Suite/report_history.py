@@ -87,10 +87,12 @@ def series(family, key, asat, days=30):
     return out
 
 
-def movement(family, key, asat, value, good="down"):
+def movement(family, key, asat, value, good="down", money=False):
     """(text, css_class) for a tile note, or ("", "") when there is no
     earlier day - a report never invents movement. good="down" means a
-    fall is the good direction (overdue, not found); "up" the reverse."""
+    fall is the good direction (overdue, not found); "up" the reverse;
+    None is a figure with no good direction (it moves in grey).
+    money=True prints the change as dollars and cents."""
     prev = previous(family, key, asat)
     if prev is None or value is None:
         return "", ""
@@ -103,9 +105,16 @@ def movement(family, key, asat, value, good="down"):
     if diff == 0:
         return f"no change since {when}", "grey"
     arrow = "▲" if diff > 0 else "▼"
-    improved = (diff < 0) if good == "down" else (diff > 0)
     mag = abs(diff)
-    txt = f"{arrow} {mag:,.1f}".rstrip("0").rstrip(".") if isinstance(mag, float) else f"{arrow} {mag:,}"
+    if money:
+        txt = f"{arrow} ${mag:,.2f}"
+    elif isinstance(mag, float):
+        txt = f"{arrow} {mag:,.1f}".rstrip("0").rstrip(".")
+    else:
+        txt = f"{arrow} {mag:,}"
+    if good is None:
+        return f"{txt} since {when}", "grey"
+    improved = (diff < 0) if good == "down" else (diff > 0)
     return f"{txt} since {when}", ("green" if improved else "red")
 
 

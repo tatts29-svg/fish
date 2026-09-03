@@ -566,7 +566,8 @@ _ASAT = [None]
 def mv(key, value, good, fallback, fallback_cls):
     """(note, class) for a tile: recorded movement when an earlier day
     exists, otherwise the plain note. Never an invented arrow."""
-    txt, cls = rh.movement("stocktake", key, _ASAT[0], value, good)
+    txt, cls = rh.movement("stocktake", key, _ASAT[0], value, good,
+                           money=key.startswith("val_"))
     return (txt, cls) if txt else (fallback, fallback_cls)
 
 

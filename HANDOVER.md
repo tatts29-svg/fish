@@ -363,6 +363,19 @@ owner and dated action, with the thresholds in each script's CONFIG as
 "default lines" for Andrew to confirm; the phone card is drawn from the
 same values as page 1.
 
+Tooling family, same pass: `TODAY = date.today()` drove 45 day-arithmetic
+sites (days out, ageing bands, days elapsed, quarter windows). Yesterday's
+build was right only because it ran on the pull day; a day later it would
+have printed 246 days elapsed and shifted every ageing band. Now
+`ASAT_DAY`/`ASAT_DT` come from RENTAL_STOCK's REFERENCE_INFO and `TODAY`
+feeds only the output date string. The same rule holds in every family:
+day arithmetic anchors on the pull, never on the wall clock.
+
+`report_history.movement()` takes `money=True` (prints "$1,234.50") and
+`good=None` (grey, no good direction). `k2flow.flow_css()` scales the
+running header's type to the title length so the two header boxes never
+wrap (the quarterly titles did).
+
 Print engine facts learned the hard way in the flow shell (`k2flow.py`):
 a repeating `<tfoot>` overprints tall unbreakable blocks and multi-row
 bodies; fixed elements outside the page area tile; the layout that

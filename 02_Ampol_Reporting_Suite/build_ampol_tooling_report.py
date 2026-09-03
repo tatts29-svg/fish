@@ -1705,9 +1705,10 @@ def tile(value, label, icon="box", note="", ncls="grey", email_label=None,
     good direction - it moves in grey). spark is an optional series drawn
     under the note (only where a report has a genuine series to show)."""
     if key is not None and raw is not None:
-        mv, mcls = rh.movement("tooling", key, ASAT_DAY, raw, good or "down")
+        mv, mcls = rh.movement("tooling", key, ASAT_DAY, raw, good,
+                               money=key.startswith("value") or key.endswith("exposure"))
         if mv:
-            note, ncls = mv, ("grey" if good is None else mcls)
+            note, ncls = mv, mcls
     return (value, label, icon, note, ncls,
             label if email_label is None else email_label, spark)
 
