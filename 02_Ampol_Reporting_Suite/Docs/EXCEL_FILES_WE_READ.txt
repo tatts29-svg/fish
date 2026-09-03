@@ -83,10 +83,6 @@ How a report finds a file
     ampol_master.describe reads, for example,
     "Data\Editable\Ampol_Master.xlsx [Pricing]" (build_radio_report.main
     and build_stocktake_compliance_tool.main print it).
-  - Two readers do not go through ampol_master.locate yet -
-    build_stocktake_house_style.main (the script button 05 runs) and
-    txn_insights.load_all still look for the legacy names. See "Things
-    to check".
   - The earlier pulls. ampol_paths.previous_dirs lists both
     Data\SiteIQ\previous and the pre-v1.13 Data\previous, so the
     pull-against-pull pages (pull_diff.find_previous_pull) and the
@@ -459,10 +455,9 @@ list, read by both.
         last row down the sheet wins. Two maps are built: barcode to
         corrected description (exact, wins), and old description to
         corrected description, used only where every row with that old
-        description agrees. Correction Notes is not read. Note: the
-        script button 05 actually runs,
-        build_stocktake_house_style.main, still looks for
-        New_Descriptions*.xlsx - see "Things to check".
+        description agrees. Correction Notes is not read.
+        build_stocktake_house_style.main (the script button 05 runs)
+        finds the tab the same way, through ampol_master.locate.
   - What it feeds: the corrected description on the tooling on-hire
     register and the grouping of the utilisation and what-to-buy pages
     (an item with no corrected description is not in the utilisation
@@ -545,8 +540,8 @@ one-page reviewer's note is Docs\PRICING_FILE_DO_NOT_CHANGE.txt.
         serial number. Both rows are present.
       - txn_insights.load_all (the value figures on the insight pages of
         every family report) and build_stocktake_house_style.main (the
-        script button 05 runs) still look for the legacy file by name -
-        see "Things to check".
+        script button 05 runs) read the tab the same way, through
+        ampol_master.locate.
   - Not read: 3 Years Old 65% of cost, 5 Years Old 50% of Cost, 10+
     Years Old 30% of Cost. They may be edited, re-entered as formulas,
     or left alone.
@@ -684,10 +679,10 @@ the master did away with.
     name and header spellings; header row 1; no merged cells.
   - New_Descriptions___Andrew.xlsx - legacy, replaced by the
     Descriptions tab. Found by New_Descriptions*.xlsx, then
-    *Descriptions*.xlsx (build_stocktake_compliance_tool.main through
-    ampol_master.locate; build_stocktake_house_style.main directly). The
-    first sheet in the file, whatever its name (Sheet1, an Excel table
-    called CorrectedDescriptionsTable); headers ITEM_DESCRIPTION,
+    *Descriptions*.xlsx (build_stocktake_compliance_tool.main and
+    build_stocktake_house_style.main, both through ampol_master.locate).
+    The first sheet in the file, whatever its name (Sheet1, an Excel
+    table called CorrectedDescriptionsTable); headers ITEM_DESCRIPTION,
     ITEM_BARCODE, Corrected Description, Correction Notes, Changed?;
     2,744 data rows; key ITEM_BARCODE, last row wins. Reader:
     build_stocktake_compliance_tool.load_corrections. Keep the list on
@@ -702,12 +697,9 @@ the master did away with.
     through ampol_master.locate. One sheet, RENTAL_STOCK, an Excel table
     (Table1), the same six headers as the Pricing tab, 3,227 data rows.
     The tooling report opens the sheet by the name RENTAL_STOCK; the
-    stocktake and radio readers take the first sheet. Still asked for by
-    name on every laptop by txn_insights.load_all
-    (Ampol_ToolStore_Pricing*.xlsx) and build_stocktake_house_style.main
-    (*Pricing*.xlsx) - see "Things to check". Keep the file name, keep
-    RENTAL_STOCK as the first and only sheet, and every Pricing tab
-    rule.
+    stocktake and radio readers take the first sheet. Keep the file
+    name, keep RENTAL_STOCK as the first and only sheet, and every
+    Pricing tab rule.
   - Gas_Monitor_Serial_Numbers.xlsx - legacy, replaced by the Gas
     serials tab. Found by Gas_Monitor_Serial*.xlsx, then *serial*.xlsx
     (gasmon_engine.load_serials and ampol_serials.load through
@@ -1066,16 +1058,6 @@ Things to check
     (unpriced); the tooling report's price lookup carries a zero through
     and may print it as a value. Leave unknown prices blank. Check on
     the next tooling run if a zero is ever typed.
-  - Two readers still ask for the legacy pricing file by name and not
-    through ampol_master.locate: txn_insights.load_all
-    (Ampol_ToolStore_Pricing*.xlsx - the value figures on the insight
-    pages of every family report) and build_stocktake_house_style.main
-    (*Pricing*.xlsx and New_Descriptions*.xlsx / *Descriptions*.xlsx -
-    the script button 05 runs). On a laptop where button 16 has parked
-    those files they find nothing, so those pages build with no values
-    and, for button 05, with the original SiteIQ descriptions. A price
-    or description typed into the master does not reach them until the
-    code is changed. Check - this is a code change, not an Excel one.
   - The gas report's data-and-method page names
     Gas_Monitor_Serial_Numbers.xlsx as the serial source
     (generate_k2style_gas_monitor_report, the sources table) even when

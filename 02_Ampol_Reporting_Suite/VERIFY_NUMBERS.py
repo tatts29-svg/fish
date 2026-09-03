@@ -419,6 +419,19 @@ def main():
         n = len(re.findall("\u2014|&mdash;|&#8212;", re.sub(r"<style.*?</style>", " ", raw, flags=re.S)))
         if n:
             dash_hits.append((os.path.relpath(f, REPORTS), n))
+    # WHY (03 Sep 2026): values must not silently vanish - the stocktake
+    # worklist lost every price the day a reader looked for a workbook by
+    # its old name. A page that prices its rows must carry dollar figures.
+    lines.append("")
+    lines.append("Values present (a priced page must carry dollar figures):")
+    for rel, need in (("Stocktake/*Count_Worklist*.html", 50), ("Tooling/*Executive_Summary*.html", 20),
+                      ("Radios/*.html", 20)):
+        n = sum(len(re.findall(r"\$[\d,]+", open(f, encoding="utf-8").read()))
+                for f in glob.glob(str(REPORTS / rel)))
+        ok = n >= need
+        if not ok:
+            fails += 1
+        lines.append(f"  {rel:40} {n:>6} dollar figures  {'MATCHES' if ok else 'FAIL - values missing'}")
     lines.append("")
     lines.append("One dash style (the long dash must not print):")
     if dash_hits:

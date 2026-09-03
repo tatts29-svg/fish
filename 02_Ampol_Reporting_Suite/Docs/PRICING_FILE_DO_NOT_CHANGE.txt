@@ -63,13 +63,9 @@ Who reads it and what it feeds
     Also needs the rows AMPOL MOTOROLA RADIO and AMPOL MOTOROLA RADIO
     BATTERY as the fallback price for a radio or battery whose SiteIQ
     description carries a serial number.
-  Check - two readers still ask for the legacy FILE by name, not for
-    the tab: txn_insights.load_all (the value figures on the insight
-    pages of every family report) and build_stocktake_house_style.main
-    (the script button 05 actually runs). On a laptop where button 16
-    has parked the legacy file they find no prices at all. That needs
-    a code change; until it is made a price typed into the tab does
-    not reach those pages.
+  Every reader, the insight-page values and button 05 included, finds
+    the tab through ampol_master.locate - the legacy file is read only
+    when the master workbook does not exist.
 
 How a price is matched
 ----------------------
