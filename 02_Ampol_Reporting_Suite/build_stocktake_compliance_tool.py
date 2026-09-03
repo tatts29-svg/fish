@@ -10,7 +10,7 @@ and the corrected-descriptions workbook), one run produces:
       0. Possible missed returns (resolve first)
       1. Gas monitors            (Priority 1 - 7-day target cycle)
       2. Radios & radio batteries(Priority 1 - 7-day target cycle)
-      3. Milwaukee power tools   (Priority 2 - 14-day target cycle)
+      3. Milwaukee tools & batteries (Priority 2 - 2-day target cycle)
       4. Store walk - all other tooling (Priority 3 - 30-day SOP cycle),
          grouped by storage unit so the team clears a bay at a time
       5. On-hire verification by company (verify on return, don't hunt)

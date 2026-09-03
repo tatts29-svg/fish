@@ -119,7 +119,7 @@ CONFIG = {
     "key_items": [
         ("orange", "COUNT DAILY", "stock takes are done daily - no exceptions"),
         ("blue", "TWO SCANS TWO LOOKS", "scanned and sighted, out and back"),
-        ("amber", "P1 7-DAY", "gas monitors, radios & batteries every 7 days"),
+        ("amber", "2-DAY STANDARD", "gas monitors, radios, radio batteries, Milwaukee tools and batteries every 2 days"),
     ],
 }
 
@@ -665,7 +665,7 @@ def build_client_pages(rows, d, a, export_dt, fm=None, tx_window=None):
     P.append(f"""{psect("The priority determination - stated, not implied")}
 <div class="alerts"><div class="ah">How this store is counted</div>
 <table class="al">{det}</table></div>
-{pnote('Client compliance is measured on the 30-day SOP. The 7 and 14-day cycles are the Coates internal standard set <b>above</b> the SOP. Issue and return scans reset an item&rsquo;s clock, so the count cadence naturally surfaces idle stock - exactly the gear that goes missing quietly.')}
+{pnote('Client compliance is measured on the 30-day SOP. The 2-day cycle for gas monitors, radios, radio batteries, Milwaukee tools and batteries is the Coates internal standard set <b>above</b> the SOP. Issue and return scans reset an item&rsquo;s clock, so the count cadence naturally surfaces idle stock - exactly the gear that goes missing quietly.')}
 {psubh("Register freshness", "- items by the week of their most recent sighting, last 12 weeks")}
 {chartpanel(line)}
 {pnote('The stocktake export holds one line per item - its latest sighting only - so this chart is <b>how fresh the register is</b>, not a count of scans performed. An item scanned twice in the window appears once, on its latest date. The weeks nearest today are naturally the tallest.')}""")
@@ -741,9 +741,9 @@ def build_client_pages(rows, d, a, export_dt, fm=None, tx_window=None):
          "sighted coming back. If it moved, it is on the record - that is your "
          "protection as much as ours."),
         ("Counted daily, above the SOP",
-         "The SOP asks for a 30-day cycle. Coates runs gas monitors, radios "
-         "and batteries on <b>7 days</b> and Milwaukee on <b>14</b> - an "
-         "internal standard set above the contract."),
+         "The SOP asks for a 30-day cycle. Coates sights gas monitors, radios, "
+         "radio batteries, Milwaukee tools and Milwaukee batteries every "
+         "<b>2 days</b> - an internal standard set above the contract."),
         ("Numbers you can challenge",
          "Every score prints its own arithmetic. Values are Avg Buy Price (New) "
          "from the pricing master; serial-numbered gas monitors take their "
@@ -1045,7 +1045,7 @@ def build_team_pages(rows, d, a, export_dt):
         t = sh.dtable(["Item", "Barcode", "Last sighted", "By"], rows_,
                       ["", "", "", ""])
         past = sum(1 for r in missed if r["days"] is None or r["days"] > 7)
-        more = (f'{pnote(f"... and <b>{len(missed) - cap}</b> more not sighted in the last 24 hours. {past} of the {len(missed)} are past the 7-day tier target and sit on the worklist; the rest were sighted inside the last 7 days.")}'
+        more = (f'{pnote(f"... and <b>{len(missed) - cap}</b> more not sighted in the last 24 hours. {past} of the {len(missed)} are past the 2-day tier target and sit on the worklist; the rest were sighted inside their cycle.")}'
                 if len(missed) > cap else "")
         return t + more
 
