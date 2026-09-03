@@ -1,4 +1,4 @@
-Counted from Data\ exports at 03 Sep 2026 19:10 - none of the report code involved.
+Counted from Data\ exports at 03 Sep 2026 19:27 - none of the report code involved.
 
 FIGURE                                             THIS COUNT   ON TODAY'S PAGE
 ----------------------------------------------------------------------
@@ -37,6 +37,11 @@ Former site name (display rule, disclosed on every data page):
   raw SiteIQ lines still carrying it - register descriptions: 3,137
   raw SiteIQ lines still carrying it - register company accounts: 4
   printed on today's pages: 0 (checked 62 files)
+
+Values present (a priced page must carry dollar figures):
+  Stocktake/*Count_Worklist*.html            1356 dollar figures  MATCHES
+  Tooling/*Executive_Summary*.html            191 dollar figures  MATCHES
+  Radios/*.html                               786 dollar figures  MATCHES
 
 One dash style (the long dash must not print):
   long dashes on today's pages: 0

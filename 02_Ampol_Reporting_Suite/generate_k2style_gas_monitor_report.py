@@ -221,7 +221,10 @@ def serial_source():
     """The serial list as read this run: the master workbook's Gas serials
     tab, or the legacy Gas_Monitor_Serial_Numbers.xlsx, or 'no serial list'."""
     p, sheet = ampol_master.locate("gas_serials", "Gas_Monitor_Serial*.xlsx", "*serial*.xlsx")
-    return ampol_master.describe("gas_serials", p, sheet).replace("/", "\\") if p else "no serial list in Data"
+    if not p:
+        return "no serial list in Data"
+    import os
+    return f"{os.path.basename(p)}, {sheet} tab" if sheet else os.path.basename(p)
 
 
 TREND_MIN_DAYS = 7   # days on the scoreboard before the trend page appears
@@ -1505,8 +1508,8 @@ def pages_appendix(m):
   <td class="v"><span class="hl">{money(m['exposure'])}</span></td>
 </tr></table>
 <div class="note">If nothing on this list came back at all the exposure would be
-  {money(m['exposure_all_outstanding'])} across {num(len(items))} units. Serial numbers come from
-  the serial list ({esc(serial_source())}); a dash means the list does not carry that barcode.</div>"""
+  {money(m['exposure_all_outstanding'])} across {num(len(items))} units. Serials from
+  {esc(serial_source())}; a dash = not on the list.</div>"""
         out.append(head + sh.dtable(
             ["Out", "Since", "Who", "Company", "Asset", "Serial", "Charge"],
             rows, ["r", "", "", "", "", "", "r"], cls="cp") + tail)
@@ -1525,7 +1528,7 @@ def page_method(m):
         ["TRANSACTIONS.xlsx", "Every issue and return scan with a timestamp - sheet CUSTOMER_CONTRACTOR_EQUIP",
          esc(m["tx_requested"].strftime("%d %b %Y %H:%M")),
          f"issues {ws.strftime('%d %b %H:%M')} to {we.strftime('%d %b %Y %H:%M')}; returns to the pull"],
-        [esc(serial_source()), "Serial number for each barcode - display only",
+        [esc(serial_source().split(",")[0]), "Serial number for each barcode - display only",
          "-", "not a source of counts"],
         ["Ampol Gas Monitor Report.xlsm", "Not used - its summary tab is what the old report quoted",
          "-", "not a source of numbers"],
@@ -1563,7 +1566,7 @@ def page_method(m):
     trend_line = ("" if m.get("trend_ok") else
                   f"Trend page: appears once seven days are on record ({num(m.get('hist_days', 0))} today). ")
     return f"""<div class="sect"><h3>Data and method - where every number comes from</h3></div>
-{sh.dtable(["Source file", "What it gives the report", "Pulled", "Covers"], src, ["", "", "", ""], cls="cp")}
+{sh.dtable(["Source file", "What it gives the report", "Pulled", "Covers"], src, ["nw", "", "nw", ""], cls="cp")}
 <div class="sub-h">The rules</div>
 <table class="rules">{rrows}</table>
 <div class="sub-h">Reconciliation <span class="thin">- the two exports checked against each other</span></div>
