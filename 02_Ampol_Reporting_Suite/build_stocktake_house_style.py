@@ -810,8 +810,9 @@ def fast_movers_page(fm, a, tx_window):
         map_line = (" On the bay map: " + "; ".join(
             f"<b>{esc(u)}</b> {num(c['n'])} in-store items, {c['pct']:.0f}% sighted inside 30 days" for u, c in joined) + ".")
     period = f"report period {w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M}" if w0 else "the whole export"
+    where = (f"all {num(len(rows))}" if top_bay_n == len(rows) else f"{num(top_bay_n)} of the {num(len(rows))}")
     return f"""<div class="fm">{psect("Fast movers - what the counter handles most")}
-{pcallout(f'<span class="lead">Ranked by movements.</span> The <b>{num(len(rows))} barcodes</b> below are the ones the transaction log shows the counter handling most {since} - <b>{num(top_moves)}</b> movements between them, of <b>{num(fm["items_moved"])}</b> barcodes that moved at all; {num(top_bay_n)} of the {num(len(rows))} sit in <b>{esc(top_bay)}</b> today.')}
+{pcallout(f'<span class="lead">Ranked by movements.</span> The <b>{num(len(rows))} barcodes</b> below are the ones the log shows the counter handling most {since} - <b>{num(top_moves)}</b> movements between them, of <b>{num(fm["items_moved"])}</b> barcodes that moved at all; {where} sit in <b>{esc(top_bay)}</b> today.')}
 {sh.dtable(["Rank", "Barcode", "Description", "Bay", "Status", "Moves", "Last movement"], trows,
            ["r", "nw", "", "nw", "nw", "r", "nw"], cls="cp")}
 {psubh("Movements by bay", "- top 12 bays, ranked by movements in the log")}
