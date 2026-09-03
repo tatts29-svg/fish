@@ -491,7 +491,8 @@ def main():
         # so Outlook shows it without fetching anything
         html_part = msg.get_payload()[-1]
         html_part.add_related(card_bytes, maintype="image", subtype="png",
-                              cid=f"<{card_cid}>", filename=os.path.basename(card_path))
+                              cid=f"<{card_cid}>", filename=os.path.basename(card_path),
+                              disposition="inline")
         print(f"Card inline          : cid:{card_cid} under the header ({len(card_bytes):,} bytes)")
 
     attachments = []
