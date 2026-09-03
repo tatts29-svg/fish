@@ -50,4 +50,4 @@ __pycache__/
 
 # per-machine movement scoreboard (never in an update zip)
 02_Ampol_Reporting_Suite/History/
-02_Ampol_Reporting_Suite/_TestReports/
+02_Ampol_Reporting_Suite/_TestReports*/
