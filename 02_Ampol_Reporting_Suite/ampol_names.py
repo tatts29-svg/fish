@@ -139,6 +139,7 @@ REPORT_STEMS = {
     "calibration": "Calibration_Register",
     "rigging": "Rigging_Register",
     "daily": "Daily_Position",
+    "company": "Company_On_Hire",
 }
 
 

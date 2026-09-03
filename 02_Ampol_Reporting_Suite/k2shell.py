@@ -226,77 +226,6 @@ def grouped_bars(rows, w=636, h=190, series=(("issued", "#F36F21", "Issued"),
     return "".join(out)
 
 
-def line_chart(x_labels, series, w=636, h=196, label_every=1, pct=False,
-               annotate=()):
-    """Multi-series line chart on a dark panel - the K2 trend pattern.
-
-    series: [{"vals": [...], "colour": hex, "label": str, "fill": bool}]
-    annotate: indices whose value gets printed above the point.
-    """
-    n = len(x_labels)
-    if n < 2:
-        return '<div class="note">Not enough data points in the source.</div>'
-    top, base, pad_l, pad_r = 30, h - 26, 8, 34
-    plot_w = w - pad_l - pad_r
-    ymax = 100 if pct else max(max(s["vals"]) for s in series) * 1.15 or 1
-
-    def X(i):
-        return pad_l + plot_w * i / (n - 1)
-
-    def Y(v):
-        return base - (base - top) * (v / ymax)
-
-    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
-    for g in (0.25, 0.5, 0.75, 1.0):
-        y = base - (base - top) * g
-        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" '
-                   f'y2="{y:.1f}" stroke="#26313D" stroke-width="0.7"/>')
-        if pct:
-            out.append(f'<text x="{w - pad_r + 5}" y="{y + 3:.1f}" fill="#5F7183" '
-                       f'font-family="Lato, Calibri, sans-serif" font-size="7.4">'
-                       f'{int(ymax * g)}%</text>')
-    out.append(f'<line x1="{pad_l}" y1="{base}" x2="{w - pad_r}" y2="{base}" '
-               f'stroke="#3A4756" stroke-width="1"/>')
-    for i, lab in enumerate(x_labels):
-        if i % label_every == 0 or i == n - 1:
-            # first label anchors left so its leading digit can't clip at
-            # the panel edge (Chromium clips SVG text at the viewBox)
-            anchor = "start" if i == 0 else "middle"
-            out.append(f'<text x="{X(i):.1f}" y="{base + 13}" text-anchor="{anchor}" '
-                       f'fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" '
-                       f'font-size="7.2">{esc(lab)}</text>')
-    for s in series:
-        pts = " ".join(f"{X(i):.1f},{Y(v):.1f}" for i, v in enumerate(s["vals"]))
-        if s.get("fill"):
-            out.append(f'<polygon points="{pad_l},{base} {pts} '
-                       f'{X(n - 1):.1f},{base}" fill="{s["colour"]}" '
-                       f'fill-opacity="0.13"/>')
-        out.append(f'<polyline points="{pts}" fill="none" stroke="{s["colour"]}" '
-                   f'stroke-width="2.2" stroke-linejoin="round" '
-                   f'stroke-linecap="round"/>')
-        lx, lv = n - 1, s["vals"][-1]
-        out.append(f'<circle cx="{X(lx):.1f}" cy="{Y(lv):.1f}" r="3.4" '
-                   f'fill="{s["colour"]}"/>')
-        out.append(f'<text x="{X(lx) + 6:.1f}" y="{Y(lv) + 3.5:.1f}" '
-                   f'fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" '
-                   f'font-size="9" font-weight="700">'
-                   f'{int(round(lv))}{"%" if pct else ""}</text>')
-        for i in annotate:
-            if 0 <= i < n:
-                v = s["vals"][i]
-                out.append(f'<text x="{X(i):.1f}" y="{Y(v) - 6:.1f}" '
-                           f'text-anchor="middle" fill="#C9D6E2" '
-                           f'font-family="Lato, Calibri, sans-serif" font-size="7.4">'
-                           f'{int(round(v))}{"%" if pct else ""}</text>')
-    lx = w - 150 - (len(series) - 1) * 60
-    for j, s in enumerate(series):
-        out.append(f'<circle cx="{lx + j * 92}" cy="9" r="3.8" fill="{s["colour"]}"/>'
-                   f'<text x="{lx + 8 + j * 92}" y="12" fill="#C9D6E2" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="8">{esc(s["label"])}</text>')
-    out.append("</svg>")
-    return "".join(out)
-
-
 def hbars(rows, w=636, colour="#F36F21", rowh=24, lab_w=172, right=None):
     """Horizontal bars on a dark panel - repairs by category.
     rows: (label, value) or (label, value, right_text). right_text, when
@@ -448,49 +377,6 @@ def daily_bars(rows, w=636, h=196, label_every=3, ok_colour="#1FA75A",
     out.append("</svg>")
     return "".join(out)
 
-
-def stacked_hbars(rows, segs, w=636, rowh=25, lab_w=150):
-    """One stacked horizontal bar per row. rows: (label, [v1, v2, ...]);
-    segs: (name, colour) per value position. Total prints on the right,
-    non-zero segment counts print inside their block."""
-    if not rows:
-        return '<div class="note">Nothing recorded in the source.</div>'
-    h = len(rows) * rowh + 26
-    mx = max(sum(v) for _, v in rows) or 1
-    bar_w = w - lab_w - 44
-    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
-    lx = 0
-    for name, col in segs:
-        out.append(f'<rect x="{lx}" y="3" width="9" height="9" rx="2" fill="{col}"/>'
-                   f'<text x="{lx + 13}" y="11" fill="#C9D6E2" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="8">{esc(name)}</text>')
-        lx += 13 + 5.0 * len(name) + 14
-    for i, (lab, vals) in enumerate(rows):
-        y = 22 + i * rowh
-        out.append(f'<text x="0" y="{y + 11}" fill="#C9D6E2" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="9">{esc(str(lab)[:26])}</text>')
-        out.append(f'<rect x="{lab_w}" y="{y + 2}" width="{bar_w}" height="12" rx="4" fill="#26313D"/>')
-        x = lab_w
-        for (name, col), v in zip(segs, vals):
-            if not v:
-                continue
-            sw = bar_w * v / mx
-            out.append(f'<rect x="{x:.1f}" y="{y + 2}" width="{sw:.1f}" height="12" fill="{col}"/>')
-            if sw > 14:
-                out.append(f'<text x="{x + sw / 2:.1f}" y="{y + 11}" text-anchor="middle" '
-                           f'fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" '
-                           f'font-size="7.6" font-weight="700">{v}</text>')
-            x += sw
-        out.append(f'<text x="{w}" y="{y + 11}" text-anchor="end" fill="#FFFFFF" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="9.4" '
-                   f'font-weight="700">{sum(vals)}</text>')
-    out.append("</svg>")
-    return "".join(out)
-
-
-# =====================================================================
-# HTML component builders (PDF)
-# =====================================================================
 
 def tiles(items, per_row=4):
     """Dark KPI tiles, K2 grid. items: (icon_name, value, label, note, note_class)."""
@@ -1383,7 +1269,7 @@ def age_band_index(days):
 
 
 def stacked_hbars(rows, w=636, rowh=22, lab_w=150, val_w=52, colours=None, legend=True,
-                  labels=None):
+                  labels=None, max_h=760):
     """Stacked horizontal bars on the dark panel: one row per company, four
     segments (the ageing bands by default). rows: (label, [n0, n1, n2, n3]).
     Every segment prints its count when it is wide enough to hold it; the
@@ -1394,6 +1280,10 @@ def stacked_hbars(rows, w=636, rowh=22, lab_w=150, val_w=52, colours=None, legen
     colours = colours or [b[3] for b in AGE_BANDS]
     labels = labels or [b[2] for b in AGE_BANDS]
     top = 18 if legend else 4
+    # WHY (03 Sep 2026): a long list (40 companies) shrinks its rows to
+    # stay inside max_h, so the panel never runs off the page area
+    if max_h and top + len(rows) * rowh + 6 > max_h:
+        rowh = max(13, (max_h - top - 6) / len(rows))
     h = top + len(rows) * rowh + 6
     mx = max(sum(r[1]) for r in rows) or 1
     bar_w = w - lab_w - val_w
@@ -1408,9 +1298,10 @@ def stacked_hbars(rows, w=636, rowh=22, lab_w=150, val_w=52, colours=None, legen
     for i, (lab, segs) in enumerate(rows):
         y = top + i * rowh
         tot = sum(segs)
-        out.append(f'<text x="0" y="{y + 12}" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
-                   f'font-size="9">{esc(str(lab)[:30])}</text>')
-        out.append(f'<rect x="{lab_w}" y="{y + 3}" width="{bar_w}" height="11" rx="5.5" fill="#26313D"/>')
+        fs = 9 if rowh >= 18 else 7.6
+        out.append(f'<text x="0" y="{y + 12:.1f}" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" '
+                   f'font-size="{fs}">{esc(str(lab)[:30])}</text>')
+        out.append(f'<rect x="{lab_w}" y="{y + 3:.1f}" width="{bar_w}" height="11" rx="5.5" fill="#26313D"/>')
         x = lab_w
         for c, v in zip(colours, segs):
             if v <= 0:
@@ -1447,6 +1338,10 @@ def line_chart(labels, series, w=636, h=200, colours=None, y_label="", pct=False
     hi = 100 if pct else max(allv)
     hi = hi or 1
     step = max(1, (n - 1) // 8 or 1)
+    # WHY (03 Sep 2026): the left gutter sizes itself from the widest tick
+    # label, so a seven-digit dollar axis never loses its first digit
+    widest = max(len(f"{num(round(hi * (1 - k / 4)))}{'%' if pct else ''}") for k in range(5))
+    pad_l = max(pad_l, int(widest * 4.6) + 10)
     out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
     # grid
     for k in range(5):

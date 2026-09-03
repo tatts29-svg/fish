@@ -164,8 +164,11 @@ def diff(cur, prev, cur_time, prev_time, scope=None, thresholds=(30, 60, 90)):
     """Pull against pull. cur/prev: {barcode: row}. scope(row) keeps a
     row in the family (checked on whichever pull has the row)."""
     def keep(bc):
-        r = cur.get(bc) or prev.get(bc)
-        return r is not None and (scope is None or scope(r))
+        # WHY (03 Sep 2026): the family rule is checked on BOTH pulls' rows -
+        # an item that came back into a holding account still counts as
+        # the family's if it was the family's when it went out
+        rows = [r for r in (cur.get(bc), prev.get(bc)) if r is not None]
+        return bool(rows) and (scope is None or any(scope(r) for r in rows))
     codes = sorted(set(cur) | set(prev), key=lambda b: b.upper())
     returned, issued, moved = [], [], []
     crossed = {t: [] for t in thresholds}

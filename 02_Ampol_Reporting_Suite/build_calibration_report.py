@@ -13,19 +13,27 @@ WHAT THIS IS
   The calibration register's report of its own - the K2 house style,
   same shell as the stocktake family. One run produces:
 
-   1. Coates_Ampol_Calibration_K2STYLE.pdf   (THE report - the position
-      at the SiteIQ pull time, what fell due since the list was last
-      maintained, the chase list, the honest No Date story, and the
+  (file names come from ampol_names.report_stem - one rule for the
+  whole suite, the day the button was pressed on the end, e.g. 03Sep2026)
+
+   1. Coates_Ampol_Calibration_Register_<day>.pdf   (THE report - the
+      position at the SiteIQ pull time, what fell due since the list was
+      last maintained, the chase list, the honest No Date story, and the
       "on hire, not in the register" set)
-      + Coates_Ampol_Calibration_K2STYLE.html (the same pages - kept
-        beside the PDF so the report still exists when no PDF engine
-        is on the machine)
-   2. Coates_Ampol_Calibration_OUTLOOK_SAFE.eml  (DRAFT - never sends)
-      + Coates_Ampol_Calibration_EMAIL.html body
-      + .draft.json so MAKE_OUTLOOK_DRAFTS keeps working.
-   3. Coates_Ampol_Calibration_K2STYLE_PositionCard.png - the phone card:
-      the position-page tiles, the RAG line and four scores, attached to
-      the email beside the PDF.
+      + Coates_Ampol_Calibration_Register_<day>.html (the same pages -
+        kept beside the PDF so the report still exists when no PDF
+        engine is on the machine; VERIFY_NUMBERS reads it)
+   2. Coates_Ampol_Calibration_Register_<day>_OUTLOOK.eml (DRAFT -
+      never sends; the position card shows inline under the header and
+      rides as a file beside the PDF)
+      + _OUTLOOK.body.html and _OUTLOOK.draft.json so
+        MAKE_OUTLOOK_DRAFTS keeps working (the card is an attachment
+        there).
+   3. Coates_Ampol_Calibration_Register_<day>_PositionCard.png - the
+      phone card: the position-page tiles, the RAG line and four scores.
+  The PDF is finished with its document properties (Author: Andrew
+  Fisher) and a bookmark per section (pdf_finish). Once seven days are
+  on the History scoreboard it gains a trend page before the close.
   The PDF opens on a dark cover (the one number of the day), the position
   page carries the movement since the previous recorded pull and a RAG
   band with an owner and a dated next action, and the closing page shows
@@ -85,6 +93,7 @@ import ampol_paths
 import build_stocktake_compliance_tool as eng
 import ampol_names   # write_pdf_robust + find_workbook + parse_dt
 import k2shell as sh
+import pdf_finish
 import report_history as rh   # the movement scoreboard - recorded days only
 from k2shell import esc, money, num, K
 
@@ -108,11 +117,11 @@ CONFIG = {
     "title": "Calibration Register",
     "kicker": "COATES · TOOL STORE - CALIBRATION REGISTER REPORT",
     "project": "Ampol Lytton Refinery · Permanent Tool Store",
-    "pdf_name": "Coates_Ampol_Calibration_K2STYLE.pdf",
-    "page_html": "Coates_Ampol_Calibration_K2STYLE.html",
-    "eml_name": "Coates_Ampol_Calibration_OUTLOOK_SAFE.eml",
-    "email_html": "Coates_Ampol_Calibration_EMAIL.html",
-    "draft_json": "Coates_Ampol_Calibration_OUTLOOK.draft.json",
+    # WHY (03 Sep 2026): the one output name comes from ampol_names.report_stem
+    # - the client reads the attachment name before a single figure, so the
+    # whole suite shares one shape with the day on the end. Everything else
+    # (.pdf, .html, _OUTLOOK.eml, _PositionCard.png, the manifest) hangs off it.
+    "stem": ampol_names.report_stem("calibration"),
     # filled in by main() once both source stamps are known - the shared
     # page shell prints it after the as-at time on page 1
     "asat_note": "",
@@ -138,6 +147,16 @@ CONFIG = {
         ("blue", "NO DATE", "calibration status unknown until the certificate is entered"),
     ],
 }
+
+STEM = CONFIG["stem"]
+CONFIG.update({
+    "pdf_name": f"{STEM}.pdf", "page_html": f"{STEM}.html",
+    "eml_name": f"{STEM}_OUTLOOK.eml", "email_html": f"{STEM}_OUTLOOK.body.html",
+    "draft_json": f"{STEM}_OUTLOOK.draft.json", "card_name": f"{STEM}_PositionCard.png",
+})
+# the scoreboard's path as the pages print it (a backslash cannot sit inside
+# an f-string expression on the store laptops' Python)
+HIST_NAME = "History\\report_history.json"
 
 # The "looks like calibration-type gear" keyword rule for the on-hire,
 # not-in-register set. A keyword match, not a judgement - the page says
@@ -550,10 +569,109 @@ def derive(rows, view, live, asat_d, maint_d, refresh, audit_n):
 # PDF rendering via the engine's robust writer
 # =====================================================================
 
+_MEASURE_JS = r"""<script>
+document.fonts.ready.then(function(){
+  var out = [];
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) {
+    var pg = pages[i];
+    var body = pg.querySelector('.body');
+    var foot = pg.querySelector('.foot');
+    if (!body || !foot) { out.push({page: i + 1, over: null, wide: 0}); continue; }   // the cover: no footer by design
+    var ft = foot.getBoundingClientRect();
+    var bottom = body.getBoundingClientRect().top;
+    var els = body.querySelectorAll('*');
+    for (var j = 0; j < els.length; j++) {
+      var r = els[j].getBoundingClientRect();
+      if (r.bottom > bottom) bottom = r.bottom;
+    }
+    out.push({page: i + 1, over: Math.round(bottom - ft.top),
+              wide: Math.round(body.scrollWidth - body.clientWidth)});
+  }
+  var d = document.createElement('div');
+  d.id = 'layout-report';
+  d.setAttribute('data-lato', document.fonts.check('12px Lato') ? '1' : '0');
+  d.textContent = JSON.stringify(out);
+  document.body.appendChild(d);
+});
+</script>"""
+
+
+def _browser():
+    try:
+        from generate_k2style_gas_monitor_report import find_browser
+        return find_browser()
+    except Exception:
+        import shutil
+        for name in ("msedge", "chrome", "chromium", "chromium-browser", "google-chrome"):
+            if shutil.which(name):
+                return shutil.which(name)
+        return None
+
+
+def fit_check(doc, css, label):
+    """Measure every page in the browser with the house face loaded.
+    WHY (03 Sep 2026): k2style.css now embeds Lato, and the shared fit
+    check measured before the font files had loaded - it saw the fallback
+    face, up to 9 px off on a full page, on pages that had 0 px to spare.
+    This one waits on document.fonts.ready under a virtual-time budget,
+    with the page written beside the PDF so the relative font URLs
+    resolve, so the pixels it reports are the pixels the PDF prints.
+    Returns (ok, worst_spare_px, rows); ok is None when nothing could
+    measure - never a reason not to build."""
+    import subprocess
+    import tempfile
+    browser = _browser()
+    if not browser:
+        print(f"Fit check            : skipped - no browser to measure with ({label})")
+        return None, None, []
+    doc2 = (doc.replace("</head>", f"<style>{css}</style></head>", 1)
+               .replace("</body>", _MEASURE_JS + "</body>", 1))
+    tmp = OUT / f"__measure_{os.getpid()}__.html"
+    profile = os.path.join(tempfile.gettempdir(), f"coates_fit_{os.getpid()}")
+    try:
+        tmp.write_text(doc2, encoding="utf-8")
+        res = subprocess.run([browser, "--headless", "--disable-gpu", "--no-sandbox",
+                              "--no-first-run", "--user-data-dir=" + profile,
+                              "--virtual-time-budget=10000", "--dump-dom", tmp.as_uri()],
+                             capture_output=True, timeout=240)
+        dom = (res.stdout or b"").decode("utf-8", "ignore")
+    except Exception as e:
+        print(f"Fit check            : skipped ({type(e).__name__}) ({label})")
+        return None, None, []
+    finally:
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+    m = re.search(r'id="layout-report" data-lato="(\d)">(\[.*?\])</div>', dom, re.S)
+    if not m:
+        print(f"Fit check            : skipped - the page could not be measured ({label})")
+        return None, None, []
+    rows = [(r["page"], r["over"], r["wide"]) for r in json.loads(m.group(2))]
+    face = "Lato" if m.group(1) == "1" else "FALLBACK FACE - Lato did not load"
+    rows = [r for r in rows if r[1] is not None]      # the cover carries no footer
+    bad = [r for r in rows if r[1] > 0 or r[2] > 0]
+    worst = max((r[1] for r in rows), default=-9999)
+    if bad:
+        print("*" * 68)
+        print(f"WARNING: CONTENT DOES NOT FIT in {label} - do not send as is ({face}).")
+        for pg, over, wide in bad:
+            print(f"  page {pg:2d}: {over:+d}px past the footer" + (f", {wide}px too wide" if wide > 0 else ""))
+        print("*" * 68)
+        return False, -worst, rows
+    print(f"Fit check            : PASS - tightest page has {-worst}px to spare, measured in {face} ({label})")
+    return True, -worst, rows
+
+
 def render_k2_pdf(doc, pdf_path, authored, css):
-    """Writes the page HTML beside the PDF (kept - it IS the report when
-    no PDF engine is on the machine), renders the PDF, and returns
-    (pdf_ok, layout_ok). Never exits: the email step still runs."""
+    """Measures every page with the house face loaded (fit_check), writes
+    the page HTML beside the PDF (kept - it IS the report when no PDF
+    engine is on the machine, and VERIFY_NUMBERS reads it), renders the
+    PDF, and returns (pdf_ok, layout_ok) - layout_ok covers the fit
+    check, the page count and the footer clearance. Never exits: the
+    email step still runs."""
+    fit_ok, _, _ = fit_check(doc, css, Path(pdf_path).name)
     doc = doc.replace("</head>", f"<style>{css}</style></head>", 1)
     page_html = OUT / CONFIG["page_html"]
     page_html.write_text(doc, encoding="utf-8")
@@ -572,7 +690,7 @@ def render_k2_pdf(doc, pdf_path, authored, css):
               "the email is built without the PDF attached.")
         print("*" * 68)
         return False, False
-    return True, layout_check(pdf_path, authored)
+    return True, layout_check(pdf_path, authored) and fit_ok is not False
 
 
 def layout_check(pdf_path, authored):
@@ -756,6 +874,53 @@ def spark_of(key, asat_dt, value):
     return past + [value] if past else None
 
 
+def history_days(family, asat):
+    """Days the scoreboard holds for a family, today's counted in - the
+    entry is written after the pages, keyed on the pull day."""
+    return len(set(rh.load().get(family, {})) | {asat.date().isoformat()})
+
+
+def trend_rows(family, asat, today):
+    """(labels, {key: [values]}, days) over the 30-day window ending at the
+    pull day: every recorded earlier day plus today's own figures. A day
+    with no run for a key leaves None - the chart draws a gap."""
+    window = {}
+    for key in today:
+        for dd, v in rh.series(family, key, asat, days=30):
+            if dd < asat.date():
+                window.setdefault(dd, {})[key] = v
+    window.setdefault(asat.date(), {}).update(today)
+    days = sorted(window)
+    labels = [dd.strftime("%d %b") for dd in days]
+    return labels, {k: [window[dd].get(k) for dd in days] for k in today}, days
+
+
+def trend_page(asat_dt, d):
+    """The fixed trend page: overdue, due inside 30 days and in calibration
+    over the last 30 days, from the History scoreboard. Empty until seven
+    days are on record - the closing page says so - and every point is a
+    figure a report printed on that day."""
+    if history_days("calibration", asat_dt) < 7:
+        return ""
+    today = {"overdue": len(d["now_overdue"]), "due30": len(d["now_due30"]),
+             "incal": len(d["now_incal"])}
+    labels, ser, days = trend_rows("calibration", asat_dt, today)
+    if len(days) < 2:
+        return ""
+    first, last = days[0].strftime("%d %b"), days[-1].strftime("%d %b %Y")
+
+    def cell(v):
+        return num(v) if v is not None else '<span class="tbc">no run</span>'
+    trows = [[dd.strftime("%d %b %Y"), cell(ser["overdue"][i]), cell(ser["due30"][i]), cell(ser["incal"][i])]
+             for i, dd in enumerate(days)][-10:]
+    return f"""{psect("The trend - last 30 days")}
+{pcallout(f'<b>{num(len(days))} days on record</b> between {esc(first)} and {esc(last)}, read back from {HIST_NAME} - every point is a figure a report printed on that day, nothing interpolated. A day with no run leaves a gap. The lines answer the one question a single pull cannot: is the overdue tail shrinking, and is the due-30 list being booked in before it lapses?', False)}
+{psubh("Overdue, due inside 30 days and in calibration", "&mdash; assets at each pull, computed from Calibration Due")}
+{chartpanel(sh.line_chart(labels, [("Overdue", ser["overdue"]), ("Due inside 30 days", ser["due30"]), ("In calibration", ser["incal"])], y_label="assets", h=220))}
+{sh.dtable(["Pull day (last " + str(len(trows)) + " on record)", "Overdue", "Due inside 30 days", "In calibration"], trows, ["", "r", "r", "r"], "cp")}
+{pnote('The scoreboard holds exactly what each day&rsquo;s report printed - the same figures as the position page of that day&rsquo;s PDF. Numbers, not lines, are the record.')}"""
+
+
 def cal_rag(n_od, n_od_oh):
     """The position-page RAG - the rule in CONFIG applied to the counts at
     the pull. Returns (status, headline, card_headline): the headline is
@@ -892,6 +1057,10 @@ def build_pages(rows, d, S):
     card_action = (f'Chase list to each hirer on next touch; the {num(n_av)} shelf '
                    f'{plural(n_av, "item")} to the calibrator - by {S["action_due_s"]}.')
     S["band"] = (status, card_headline, CONFIG["rag_owner"], card_action)
+    # the same facts in words for the History scoreboard (extra) - one
+    # status, never a second opinion
+    S["rag_words"] = {"status": status, "headline": plain(headline), "rule": plain(rule),
+                      "action": plain(action)}
     S["card_tiles"] = [(v, lab, re.sub(r"\s*-\s*page @@P:\w+@@", "", note), NOTE_HEX.get(ncls, "#8A9AAC"))
                        for _, v, lab, note, ncls, _ in tiles1] + \
                       [(v, lab, re.sub(r"\s*-\s*page @@P:\w+@@", "", note), NOTE_HEX.get(ncls, "#8A9AAC"))
@@ -1181,6 +1350,12 @@ def build_pages(rows, d, S):
         ["", "", "r", ""], kwrows, ROWS_KW,
         pnote(f'Source: SiteIQ RENTAL_STOCK at {esc(asat_s)} - description, hirer and company as SiteIQ has them. Nothing here is a compliance finding until the item is checked.')))
 
+    # ---- the trend - only once seven days are on record ------------------
+    tp = trend_page(asat_dt, d)
+    if tp:
+        mark("trend")
+        P.append(tp)
+
     # ---- close --------------------------------------------------------
     cards = sh.info_cards([
         ("In date or it stays in",
@@ -1204,9 +1379,13 @@ def build_pages(rows, d, S):
          "<b>never guesses</b>."),
     ])
     former_live = d["former_live"]
+    n_days = history_days("calibration", asat_dt)
+    trend_line = (f'Trend page: appears once seven days are on record ({num(n_days)} today).'
+                  if n_days < 7 else
+                  f'Trend page: {num(n_days)} days on record - the 30-day lines are on page @@P:trend@@.')
     P.append(f"""{psect("How the calibrated fleet is run")}
 {cards}
-{pnote(f'Names as shown: the site is Ampol. SiteIQ still carries the site&rsquo;s former name on {num(former_live)} live-register lines and the register on some descriptions; every one is shown here under the current name. Asset numbers and barcodes are identifiers and never change.')}
+{pnote(f'Names as shown: the site is Ampol. SiteIQ still carries the site&rsquo;s former name on {num(former_live)} live-register lines and the register on some descriptions; every one is shown here under the current name. Asset numbers and barcodes are identifiers and never change. Each run writes its figures to {HIST_NAME} keyed on the pull day; the next run reads them back for the movement notes. {trend_line}')}
 {sh.coates_way_panel()}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true, the certificates current and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
@@ -1250,7 +1429,21 @@ def render_doc(pages, cover, gen_s, asat_s):
 # the Outlook email (draft - never sends)
 # =====================================================================
 
-def build_email_html(d, gen_s, S, marks):
+def card_block(cid):
+    """The position card inline, under the header: a cid image the .eml
+    carries in its own related part. Outlook honours the width attribute;
+    the style caps it for everything else."""
+    FONT = sh.FONT
+    return (f'<table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr>'
+            f'<td align="center" style="padding:16px 0 2px 0;">'
+            f'<img src="cid:{cid}" width="420" alt="The position on one card" '
+            f'style="display:block;width:420px;max-width:420px;height:auto;border:0;">'
+            f'<div style="{FONT}font-size:10px;color:#7A8A9A;padding-top:6px;">The position on one card - '
+            f'the same figures as the position page of the PDF; the PNG is attached for your phone.</div>'
+            f'</td></tr></table>')
+
+
+def build_email_html(d, gen_s, S, marks, card_cid=""):
     W = 1000
     FONT = sh.FONT
     total = d["total"]
@@ -1277,6 +1470,8 @@ def build_email_html(d, gen_s, S, marks):
 </td></tr></table>
 <div style="{FONT}font-size:11px;color:#8395A6;padding-top:10px;line-height:1.6;">Generated: <b style="color:#FFFFFF;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#FFFFFF;">{esc(asat_s)}</b> (SiteIQ RENTAL_STOCK request time) &nbsp;|&nbsp; Due dates last maintained: <b style="color:#FFFFFF;">{esc(S['maint_s'])}</b> &nbsp;|&nbsp; Author: <b style="color:#FFFFFF;">Andrew Fisher</b></div>
 </td></tr></table>""")
+    if card_cid:
+        parts.append(card_block(card_cid))
 
     if S["stale_days"] > STALE_DAYS:
         parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr>
@@ -1458,7 +1653,8 @@ def main():
     maint_short = maint.strftime("%d %b %Y")
     refresh_s = refresh.strftime("%d %b %Y %H:%M") if refresh else "(none)"
     refresh_short = refresh.strftime("%d %b %Y") if refresh else "(none)"
-    gen_s = datetime.now().strftime("%d %b %Y %H:%M")
+    gen_dt = datetime.now()
+    gen_s = gen_dt.strftime("%d %b %Y %H:%M")
     stale_days = (asat_d - maint.date()).days
     d = derive(rows, view, live, asat_d, maint.date(), refresh, audit_n)
 
@@ -1543,21 +1739,30 @@ def main():
     pages, marks = build_pages(rows, d, S)
     total, dated, n_nd = d["total"], len(d["dated"]), len(d["nodate"])
     n_od_oh = len(d["now_od_onhire"])
-    # the cover: the one number of the day and three true lines under it
-    cover = sh.cover_page(CONFIG, num(len(d["now_overdue"])), "assets overdue at the pull", [
+    # the cover: the one number of the day and three true lines under it -
+    # wearing the SAME status as the band on the position page, and saying
+    # how old the data was when the pack was built
+    key_value, key_label = num(len(d["now_overdue"])), "assets overdue at the pull"
+    cover = sh.cover_page(CONFIG, key_value, key_label, [
         f'<b>{num(len(d["now_incal"]))}</b> in calibration - current, next due 31+ days',
         f'<b>{num(len(d["now_due30"]))}</b> due inside 30 days - book them in now',
         f'<b>{num(n_nd)}</b> with no certificate date - status unknown until it is entered',
-    ], gen_s, asat_s)
+    ], gen_s, asat_s, rag=S["band"][0], fresh=sh.freshness_line(pulled, gen_dt))
     doc, n_pages = render_doc(pages, cover, gen_s, asat_s)
     pdf_path = OUT / CONFIG["pdf_name"]
     pdf_ok, layout_ok = render_k2_pdf(doc, pdf_path, n_pages, css)
     print(f"Page HTML kept       : {OUT / CONFIG['page_html']}")
+    if pdf_ok:
+        print("PDF finish           : " + pdf_finish.finish(
+            pdf_path, f"{CONFIG['client']} {CONFIG['title']} - as at {asat_s}",
+            "Calibration status of the Ampol tool store register at the SiteIQ pull - overdue, "
+            "due inside 30 days, the chase list by name and the No Date position.",
+            doc, keywords="calibration, register", has_cover=True, family="Calibration"))
 
     # ---- the phone card: the position-page values, the band, four scores --
     # "chase list cleared" reads the previous recorded pull's chase count
     # against today's; with no earlier day on record it is 0, said so.
-    card_path = OUT / f"{Path(CONFIG['pdf_name']).stem}_PositionCard.png"
+    card_path = OUT / CONFIG["card_name"]
     now_pct = len(d["now_dated_ok"]) / dated * 100 if dated else 0
     prev_chase = rh.previous("calibration", "chase", pulled)
     if prev_chase and prev_chase[1]:
@@ -1576,8 +1781,14 @@ def main():
 
     # ---- 2. the email (draft - never sends) -----------------------------
     print("[2/2] Outlook email (house style, draft only)...")
-    html = build_email_html(d, gen_s, S, marks)
-    (OUT / CONFIG["email_html"]).write_text(html, encoding="utf-8")
+    # WHY (03 Sep 2026): the .eml shows the position card inline under the
+    # header (a cid part) and still carries it as a file; the native-draft
+    # manifest lists it as an attachment only, so its body is written
+    # without the inline image.
+    body_html = build_email_html(d, gen_s, S, marks)
+    (OUT / CONFIG["email_html"]).write_text(body_html, encoding="utf-8")
+    html = build_email_html(d, gen_s, S, marks,
+                            card_cid="positioncard" if card_path.exists() else "")
     msg = EmailMessage()
     subject = (f"Ampol Tool Store - Calibration Register Report - "
                f"as at {pulled.strftime('%d/%m/%Y %H:%M')}")
@@ -1591,6 +1802,11 @@ def main():
                     "PDF could not be rendered on this machine - the page HTML is "
                     "in the report folder.\n")
     msg.add_alternative(html, subtype="html")
+    if card_path.exists():
+        with open(card_path, "rb") as f:
+            msg.get_payload()[1].add_related(f.read(), maintype="image", subtype="png",
+                                             cid="<positioncard>", filename=card_path.name,
+                                             disposition="inline")
     # the PDF is attached only when it exists - a missing engine must not
     # kill the email, and the manifest must never promise a file that is
     # not there
@@ -1624,14 +1840,25 @@ def main():
     # ---- the scoreboard: today's figures, keyed on the pull day ----------
     # A re-run on the same pull replaces the day's entry; the next pull
     # reads it back and prints the movement. Real recorded days only.
+    # WHY (03 Sep 2026): the entry carries the position in words as well as
+    # figures (extra) - the status, the headline, the rule, the owner, the
+    # dated action and the cover number - so the daily position page can
+    # quote the report without opening it.
+    rw = S["rag_words"]
     hist = rh.record("calibration", pulled, {
         "assets": total, "incal": len(d["now_incal"]), "due30": len(d["now_due30"]),
         "overdue": len(d["now_overdue"]), "nodate": n_nd, "chase": n_od_oh,
         "chase_hirers": len(d["now_chase_hirer"]) + len(d["now_chase_repairs"]),
         "overdue_shelf": len(d["now_od_avail"]), "not_in_siteiq": len(d["not_in_siteiq"]),
-        "onhire_not_in_register": len(d["nir"])})
+        "onhire_not_in_register": len(d["nir"])},
+        extra={"rag": rw["status"], "headline": rw["headline"], "rule": rw["rule"],
+               "owner": CONFIG["rag_owner"], "action": rw["action"], "due": S["action_due_s"],
+               "key_value": key_value, "key_label": key_label,
+               "second_value": num(n_od_oh), "second_label": "overdue and out on hire - the chase list",
+               "title": f"{CONFIG['client']} {CONFIG['title']}", "folder": "Calibrations",
+               "pdf": CONFIG["pdf_name"], "card": CONFIG["card_name"]})
     prev = rh.previous("calibration", "overdue", pulled)
-    print(f"History              : {asat_d:%d %b %Y} figures written to History/{hist.name}"
+    print(f"History              : {asat_d:%d %b %Y} figures written to {hist.parent.name}/{hist.name}"
           + (f" - movement shown against {prev[0]:%d %b %Y}" if prev
              else " - first day on record; movement notes start with the next pull"))
     print("")

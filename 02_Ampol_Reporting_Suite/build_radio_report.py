@@ -62,6 +62,7 @@ COVER_PAGE = True
 # waits for seven recorded days and the data page says so until then.
 TREND_MIN_DAYS = 7
 TREND_DAYS = 30
+_WORDS = {5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}   # the data-page sentence reads in words
 # WHY (03 Sep 2026): the movement tables list every barcode that changed
 # state; a big demob day is capped so the story pages stay a story, and
 # the cap is printed ("showing 60 of N") rather than hidden.
@@ -326,18 +327,233 @@ def detail_rows(items, serial_col=True):
     return "".join(parts)
 
 
-def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
-    """The client PDF on the Coates house frame (k2flow): the position, the
-    ask, the pictures, then the register - companies A-Z, oldest first."""
-    import k2flow as kf
+def position_facts(r26, rprev, b26, bprev, data_asat=""):
+    """The page-1 facts, computed once and shared by the cover, the RAG
+    band, the phone card and the history record.
+
+    WHY (03 Sep 2026): the scoreboard used to be written after the pages
+    were built, so the trend page could never see today's point. The
+    facts now come first, the record is written, then the pages are
+    built from the same dict - one source, every figure identical."""
     import k2shell as sh
-    from k2shell import esc, num
-    refresh = datetime.now().strftime("%d %b %Y %H:%M")
+    from k2shell import num
     total_exposure = val(r26) + val(rprev) + val(b26) + val(bprev)
     prev_all = rprev + bprev
     prev_val = val(prev_all)
     oldest = max(i["days"] for i in prev_all) if prev_all else 0
     all_on = r26 + rprev + b26 + bprev
+    prior_pct = round(len(prev_all) / len(all_on) * 100) if all_on else 0
+    status = sh.rag_of(prior_pct, RAG_AMBER_PRIOR_PCT, RAG_RED_PRIOR_PCT)
+    # WHY (03 Sep 2026): the due date counts seven days from the PULL, never
+    # from the day the button was pressed
+    due = ((datetime.strptime(data_asat, "%d %b %Y %H:%M") + timedelta(days=7)).strftime("%d %b %Y")
+           if data_asat else "the next report")
+    return {
+        "exposure": total_exposure, "prev_all": prev_all, "prev_val": prev_val, "oldest": oldest,
+        "all_on": all_on, "prior_pct": prior_pct, "status": status, "due": due,
+        "headline": (f"{num(len(prev_all))} of the {num(len(all_on))} units on hire ({prior_pct}%) were issued in "
+                     f"{PRIOR_LABEL} and are still out - {money(prev_val)} of equipment, the oldest for {num(oldest)} days."),
+        "rule": (f"Share of on-hire units issued in prior years: Green under {RAG_AMBER_PRIOR_PCT}%, Amber from "
+                 f"{RAG_AMBER_PRIOR_PCT}%, Red from {RAG_RED_PRIOR_PCT}%. Default lines - set at the top of the script."),
+        "action": (f"Every prior-year holder sent their list from this report by {due}; returned or rescanned "
+                   f"units drop off the next run."),
+        "key_value": num(len(prev_all)), "key_label": f"units on hire since {PRIOR_LABEL}",
+        "second_value": num(len(all_on)), "second_label": "units on hire",
+    }
+
+
+def show_hirer(raw):
+    """A hirer the way the register pages show one: a person in title case,
+    a shared site account marked as such, the custody line as SiteIQ names it."""
+    hk = hirer_kind(raw)
+    raw = str(raw or "").strip()
+    if hk == "account":
+        return f"{raw} (site account)"
+    if hk == "oos":
+        return raw
+    return ge.norm_person(raw)[1]
+
+
+def _capped(rows, cap, order="A to Z"):
+    """The first `cap` rows and the honest line that says so."""
+    from k2shell import num
+    if len(rows) <= cap:
+        return rows, ""
+    return rows[:cap], f'<div class="note">Showing {cap} of {num(len(rows))} rows ({order}).</div>'
+
+
+def _days_cell(days):
+    if days is None:
+        return "-"
+    return f'<span class="rd">{days}</span>' if days >= 30 else str(days)
+
+
+def changes_section(d):
+    """'Since the last pull' - what moved. Two honest sources (pull_diff):
+    the earlier RENTAL_STOCK pull parked in Data\\previous, compared item by
+    item, and the TRANSACTIONS export for the 24 hours before the pull.
+
+    WHY (03 Sep 2026): a snapshot says where everything is; the client also
+    wants to know what came back and what went out. Until a second pull is
+    parked there is no pull-against-pull row and the page says so in plain
+    words - the 24-hour block is countable from the first report."""
+    import k2flow as kf
+    import k2shell as sh
+    from k2shell import esc, num
+    if d is None:
+        return ""
+    # flows on from the position's tail - a forced break left a page two-thirds empty
+    P = ['<div class="sect"><h3>Since the last pull</h3></div>']
+    ct = d["cur_time"]
+    if not d["have_previous"]:
+        P.append('<div class="note">No earlier register pull is saved in Data\\previous yet - movement pull '
+                 'against pull starts with the next pull (button 28 parks the old export automatically).</div>')
+    else:
+        pt = d["prev_time"]
+        ret, iss, mov, c30 = d["returned"], d["issued"], d["moved"], d["crossed"][30]
+        span_h = max(0, (ct - pt).total_seconds() / 3600)
+        span = f"{span_h:.0f} hours" if span_h < 48 else f"{span_h / 24:.0f} days"
+        P.append(f'<div class="callout tight"><span class="lead">Pull against pull.</span> The register pulled '
+                 f'<b>{pt:%d %b %Y %H:%M}</b> compared item by item with the pull of <b>{ct:%d %b %Y %H:%M}</b> '
+                 f'({span} apart). Radios and batteries on hire in SiteIQ then: <b>{num(d["out_prev"])}</b>; now: '
+                 f'<b>{num(d["out_cur"])}</b> - this count includes the Out-of-Service custody line, which the '
+                 f'position page keeps apart. Every row below is a barcode that changed state between the two '
+                 f'pulls - nothing is estimated.</div>')
+        P.append(sh.tiles([
+            ("check", num(len(ret)), "Came back", "on hire then, not now", "green" if ret else "grey"),
+            ("swap", num(len(iss)), "Went out", "on hire now, not then", "amber" if iss else "grey"),
+            ("box", num(len(mov)), "Changed hands", "same unit, new hirer", "grey"),
+            ("clock", num(len(c30)), "Crossed 30 days", "still out, now due", "red" if c30 else "green"),
+        ]))
+        hdr = ["Company", "Hirer", "Barcode", "Description", "Days out"]
+        al = ["", "", "", "", "r nw"]
+
+        def row(r):
+            return [esc(r["company"]), esc(show_hirer(r["hirer"])), esc(r["barcode"]), esc(r["desc"]),
+                    _days_cell(r.get("days_out"))]
+        rows, cap = _capped(ret, DIFF_ROWS_CAP)
+        P.append(f'<div class="sub-h">Came back <span class="thin">&mdash; {num(len(ret))} units, companies A to Z</span></div>')
+        P.append(kf.dtable_flow(hdr + ["Now"], [row(r) + [esc(r.get("now", ""))] for r in rows], al + [""], "cp") + cap
+                 if rows else '<div class="note">Nothing came back between the two pulls.</div>')
+        rows, cap = _capped(iss, DIFF_ROWS_CAP)
+        P.append(f'<div class="sub-h">Went out <span class="thin">&mdash; {num(len(iss))} units, companies A to Z</span></div>')
+        P.append(kf.dtable_flow(hdr, [row(r) for r in rows], al, "cp") + cap
+                 if rows else '<div class="note">Nothing went out between the two pulls.</div>')
+        if mov:
+            rows, cap = _capped(mov, DIFF_ROWS_CAP)
+            P.append(f'<div class="sub-h">Changed hands <span class="thin">&mdash; {num(len(mov))} units, companies A to Z</span></div>')
+            P.append(kf.dtable_flow(hdr + ["Was with"], [row(r) + [esc(show_hirer(r.get("from_hirer", "")))
+                                                                   + (f' ({esc(r["from_company"])})'
+                                                                      if r.get("from_company") and r["from_company"] != r["company"] else "")]
+                                                         for r in rows], al + [""], "cp") + cap)
+        rows, cap = _capped(c30, DIFF_ROWS_CAP, "oldest first")
+        P.append(f'<div class="sub-h">Crossed 30 days while still out <span class="thin">&mdash; {num(len(c30))} units, oldest first</span></div>')
+        P.append(kf.dtable_flow(hdr, [row(r) for r in rows], al, "cp") + cap
+                 if rows else '<div class="note">No unit crossed 30 days out between the two pulls.</div>')
+        new, gone = d["companies_new"], d["companies_cleared"]
+        P.append('<div class="note"><b>Companies new since the last pull:</b> '
+                 + (esc(", ".join(new)) if new else "none") + '. <b>Companies cleared:</b> '
+                 + (esc(", ".join(gone)) if gone else "none") + '.</div>')
+    # ---- the 24 hours before the pull - always real, from TRANSACTIONS ----
+    L = d["last24"]
+    start, end = L["window"]
+    P.append(f'<div class="sub-h">The 24 hours before the pull <span class="thin">&mdash; '
+             f'{start:%d %b %Y %H:%M} to {end:%d %b %Y %H:%M}</span></div>')
+    if not L.get("available", True):
+        P.append('<div class="note">The TRANSACTIONS export is not in Data - the 24-hour block needs it. '
+                 'Run 12_PULL_SITEIQ_EXPORTS and press the button again.</div>')
+        return "".join(P)
+    iss, ret = L["issued"], L["returned"]
+    P.append(f'<div class="note"><b>Issued {num(len(iss))}</b> and <b>returned {num(len(ret))}</b> radios and batteries '
+             f'across the counter in the 24 hours before the pull - every scan with its time, from the TRANSACTIONS '
+             f'export (CUSTOMER_CONTRACTOR_EQUIP). Company A to Z, then time.</div>')
+    moves = [(r, "Issued", "amber") for r in iss] + [(r, "Returned", "green") for r in ret]
+    moves.sort(key=lambda x: (ampol_names.sort_key(x[0]["company"]), x[0]["at"]))
+    trs = [[esc(r["company"]), esc(show_hirer(r["hirer"])), esc(r["barcode"]), esc(r["desc"]),
+            f'<span class="tag {c}">{mv}</span>', f"{r['at']:%d %b %H:%M}"]
+           for r, mv, c in moves[:LAST24_ROWS_CAP]]
+    if trs:
+        P.append(kf.dtable_flow(["Company", "Hirer", "Barcode", "Description", "Movement", "Time"], trs,
+                                ["", "", "", "", "", "nw"], "cp"))
+        if len(moves) > LAST24_ROWS_CAP:
+            P.append(f'<div class="note">Showing {LAST24_ROWS_CAP} of {num(len(moves))} movements (company A to Z, then time).</div>')
+    else:
+        P.append('<div class="note">No radio or battery crossed the counter in the 24 hours before the pull.</div>')
+    return "".join(P)
+
+
+def _ageing_rowh(n):
+    """Row height for the ageing panel so the whole panel stays on ONE page
+    and every bar shares one scale. WHY (03 Sep 2026): forty companies at
+    the default 22px overran the page area by a few millimetres, so the
+    print engine pushed the panel to a fresh page and split it anyway.
+    The SVG is kept under 760px: 22px rows to about 33 companies, then
+    tighter, never below 14px (the bar itself is 11px)."""
+    return max(14, min(22, (760 - 24) // max(n, 1)))
+
+
+def ageing_rows(all_on):
+    """(company, [0-30, 31-60, 61-90, 90+]) for every company with units on
+    hire, A to Z - days out at the pull, custody units already excluded."""
+    import k2shell as sh
+    by = defaultdict(lambda: [0, 0, 0, 0])
+    for i in all_on:
+        by[i["company"]][sh.age_band_index(i["days"])] += 1
+    return [(c, by[c]) for c in sorted(by, key=ampol_names.sort_key)]
+
+
+def trend_section(asat_s):
+    """The 30-day trend page, once TREND_MIN_DAYS report days are on the
+    scoreboard - (html, days_on_record). Fewer days = no page; the data
+    page prints the count instead."""
+    import k2shell as sh
+    from k2shell import esc, num
+    fam = rh.load().get("radio", {})
+    n_days = len(fam)
+    if n_days < TREND_MIN_DAYS:
+        return "", n_days
+    units = [("radios_on_hire", "Radios on hire"), ("batteries_on_hire", "Batteries on hire"),
+             ("prior_units", f"On hire since {PRIOR_LABEL}")]
+    ser = {k: dict(rh.series("radio", k, _ASAT_DT[0], days=TREND_DAYS)) for k, _ in units + [("exposure", "")]}
+    dates = sorted(set().union(*[set(s) for s in ser.values()]))
+    labels = [dd.strftime("%d %b") for dd in dates]
+    a = [(lab, [ser[k].get(dd) for dd in dates]) for k, lab in units]
+    # WHY (03 Sep 2026): the value axis is drawn in thousands - a seven-digit
+    # dollar figure overran the chart's axis gutter and lost its first digit
+    b = [("On-hire value, $ thousand", [(round(ser["exposure"][dd] / 1000) if ser["exposure"].get(dd) is not None else None)
+                                        for dd in dates])]
+    last_k = [v for v in b[0][1] if v is not None]
+    last_full = [ser["exposure"][dd] for dd in dates if ser["exposure"].get(dd) is not None]
+    scale_eg = f" ({num(last_k[-1])} = {money(last_full[-1])})" if last_k else ""
+    html = (f'<div class="pb"></div><div class="sect"><h3>The trend - last {TREND_DAYS} days</h3></div>'
+            f'<div class="callout tight"><span class="lead">The direction.</span> One point per report day - '
+            f'<b>{num(len(dates))}</b> days on record in the {TREND_DAYS} days to <b>{esc(asat_s)}</b>, read back from the '
+            f'suite scoreboard (History\\report_history.json): the figure each day\'s report printed, nothing '
+            f're-counted or smoothed. A day with no report leaves a gap, never a guess.</div>'
+            f'<div class="sub-h">Units on hire <span class="thin">&mdash; radios, batteries and prior-year units, by day</span></div>'
+            f'<div class="chartpanel">{sh.line_chart(labels, a, y_label="units")}</div>'
+            f'<div class="sub-h">Replacement value on hire <span class="thin">&mdash; the on-hire value tile, by day</span></div>'
+            f'<div class="chartpanel">{sh.line_chart(labels, b, y_label="$ replacement, thousands")}</div>'
+            f'<div class="note">Down is good on every line: a return or a rescan moves it. The value line is the '
+            f'replacement value of everything on hire at each pull, at the prices on the data page, drawn in '
+            f'thousands of dollars{esc(scale_eg)}.</div>')
+    return html, n_days
+
+
+def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=None, changes=None):
+    """The client PDF on the Coates house frame (k2flow): the position, the
+    ask, what moved, the pictures, the trend, then the register - companies
+    A-Z, oldest first - behind an appendix divider."""
+    import k2flow as kf
+    import k2shell as sh
+    from k2shell import esc, num
+    refresh = BUILD_DT.strftime("%d %b %Y %H:%M")
+    F = facts or position_facts(r26, rprev, b26, bprev, data_asat)
+    total_exposure = F["exposure"]
+    prev_all = F["prev_all"]
+    prev_val = F["prev_val"]
+    oldest = F["oldest"]
+    all_on = F["all_on"]
     by_year = defaultdict(lambda: [0, 0.0])
     for i in prev_all:
         by_year[i["year"]][0] += 1
@@ -386,9 +602,7 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
         txt, cls = rh.movement("radio", key, _ASAT_DT[0], value, good,
                                money=(key == "exposure"))
         return (txt, cls) if txt else (fallback, fallback_cls)
-    prior_pct = round(len(prev_all) / len(all_on) * 100) if all_on else 0
-    status = sh.rag_of(prior_pct, RAG_AMBER_PRIOR_PCT, RAG_RED_PRIOR_PCT)
-    due = (datetime.strptime(asat_s, "%d %b %Y %H:%M") + timedelta(days=7)).strftime("%d %b %Y") if data_asat else "the next report"
+    prior_pct, status, due = F["prior_pct"], F["status"], F["due"]
     band = sh.rag_band(status,
         f'<b class="o">{num(len(prev_all))} of the {num(len(all_on))} units on hire ({prior_pct}%)</b> were issued in '
         f'{esc(PRIOR_LABEL)} and are still out - {money(prev_val)} of equipment, the oldest for {num(oldest)} days.',
@@ -434,6 +648,8 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
               f'Every count on this report is read from the SiteIQ register as at <b>{esc(asat_s)}</b> - nothing comes from a summary tab. '
               f'Serial numbers: {esc(META.get("serial_note", "from the radio register"))}.</div>')
     P.append(pos + tiles1 + band + tiles2 + ask + assure)
+    # ---- what moved since the last pull (03 Sep 2026) ---------------------
+    P.append(changes_section(changes))
     # ---- the pictures -----------------------------------------------------
     radio_rows = [(f"On hire - issued {CUR_YEAR}", len(r26)), (f"On hire - issued {PRIOR_LABEL}", len(rprev)),
                   ("Available in store", len(ravail)), ("Out of service", len(oos_r))]
@@ -456,6 +672,14 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
         f'{len(comp_tot)} companies (ranked by value)</span></div>'
         f'<div class="chartpanel">{sh.hbars(exp_rows, w=636, lab_w=190, rowh=24, right=90)}</div>'
         f'<div class="note">{esc(exp_note)}</div>'
+        # WHY (03 Sep 2026): the value chart says who holds the money; this one
+        # says how long each company has held it, in the suite's four bands
+        f'<div class="sub-h">On-hire ageing by company <span class="thin">&mdash; {num(len(all_on))} radios and batteries '
+        f'on hire, companies A to Z</span></div>'
+        f'<div class="chartpanel">{sh.stacked_hbars(ageing_rows(all_on), rowh=_ageing_rowh(len(ageing_rows(all_on))))}</div>'
+        f'<div class="note">Days out at the pull ({esc(asat_s)}), in the four bands of the legend. Each row adds up to that '
+        f'company\'s units on hire - its {CUR_YEAR} units in the register pages plus its {esc(PRIOR_LABEL)} units in the value '
+        f'story. Out-of-service custody units are not counted here, as everywhere in this report.</div>'
         f'<div class="sub-h">Age of hire <span class="thin">&mdash; how long the {num(len(all_on))} on-hire units have been out</span></div>'
         f'<div class="chartpanel">{sh.hbars(age_rows, w=636, lab_w=120, rowh=24, right=200)}</div>'
         f'<div class="note">Everything beyond 30 days is due for a return or a rescan; {esc(PRIOR_LABEL)} issues drive the over-365 band.</div>')
@@ -481,9 +705,21 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
         + kf.dtable_flow(["Company (ranked by value)"] + [str(y) for y in years] + ["Units", "Value", "Oldest (days)"],
                          yrows, [""] + ["r"] * len(years) + ["r", "r", "r"], "cp")
         + f'<div class="note">Values in red carry {money(100000)} or more of equipment. The fastest way off this table is a return or a rescan.</div>')
-    # ---- the register: this year, full detail ----------------------------
+    # ---- the trend page: only once seven days are on the scoreboard ------
+    trend_html, days_on_record = trend_section(asat_s)
+    P.append(trend_html)
+    # ---- the appendix divider, then the register: this year, full detail --
+    reg_units = r26 + b26
+    reg_companies = {i["company"] for i in reg_units}
+    P.append(kf.divider_block(
+        "The complete register, A to Z",
+        f"Everything from here is the complete list: every radio and every battery issued in {CUR_YEAR} and still "
+        f"on hire, company by company from A to Z and longest-held first, then the units out of service. "
+        f"The story - the position, what moved, the pictures and the {esc(PRIOR_LABEL)} value summary - is on the "
+        f"pages before this one. Prior-year line detail is available from the Tool Store on request.",
+        f"{num(len(reg_units))} units across {num(len(reg_companies))} companies"))
     P.append(
-        f'<div class="pb"></div><div class="sect"><h3>{CUR_YEAR} - radios on hire, full detail</h3></div>'
+        f'<div class="sect"><h3>{CUR_YEAR} - radios on hire, full detail</h3></div>'
         f'<div class="note"><b>{num(len(r26))} radios</b> issued in {CUR_YEAR} are on hire - {money(val(r26))}. Companies A to Z, '
         f'one customer one name; inside a company, longest-held first. 30 days or more shows in red.</div>'
         + detail_rows(r26, serial_col=True))
@@ -523,14 +759,19 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat=""):
         f'<div class="note">Source: the SiteIQ RENTAL_STOCK export requested {esc(asat_s)} - every Motorola site radio and radio '
         f'battery on the register, with its status, company, hirer, on-hire date and storage unit. Report built {esc(refresh)}. '
         f'{CUR_YEAR} issues are shown in full; {esc(PRIOR_LABEL)} issues are summarised by year and company. Companies are one '
-        f'customer one name (project accounts roll up to their parent). Replacement values: {esc(PRICE_SOURCE)}.</div>'
+        f'customer one name (project accounts roll up to their parent). Replacement values: {esc(PRICE_SOURCE)}. '
+        f'Movement from Data\\previous and TRANSACTIONS; days out count from the pull time.'
+        + (f' Trend page: appears once {_WORDS.get(TREND_MIN_DAYS, str(TREND_MIN_DAYS))} days are on record ({num(days_on_record)} today).'
+           if not trend_html else f' Trend page: {num(days_on_record)} report days on record.')
+        + '</div>'
         '<div class="sect"><h3>How the radio fleet is run</h3></div>' + cards + sh.coates_way_panel()
         + '<div class="sect"><h3>Meet the tool store team</h3></div>' + sh.team_cards(cfg["team"]))
     cover = kf.cover_block(cfg, num(len(prev_all)), f"units on hire since {PRIOR_LABEL}", [
         f"<b>{money(total_exposure)}</b> of radio equipment on hire - {num(len(all_on))} units",
         f"<b>{money(prev_val)}</b> of it issued in prior years, the oldest {num(oldest)} days ago",
         f"<b>{len(ravail)}</b> radios and <b>{len(bavail)}</b> batteries ready on the shelf"],
-        refresh, asat_s) if COVER_PAGE else None
+        refresh, asat_s, rag=status,
+        fresh=sh.freshness_line(_ASAT_DT[0], BUILD_DT)) if COVER_PAGE else None
     # what the phone card and the history need, kept for main()
     build_html.last = {"cfg": cfg, "status": status, "prior_pct": prior_pct, "due": due,
                        "exposure": total_exposure, "prev_val": prev_val, "oldest": oldest,
@@ -563,9 +804,10 @@ RADIO_EMAIL_TO = (
 )
 
 
-def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", pdf_ok=True):
-    """High-level summary email body - all data summarised, full detail in the attached PDF."""
-    refresh = datetime.now().strftime("%d %b %Y %H:%M")
+def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", pdf_ok=True, card_path=None):
+    """High-level summary email body - all data summarised, full detail in
+    the attached PDF, the phone position card inline under the greeting."""
+    refresh = BUILD_DT.strftime("%d %b %Y %H:%M")
     O = "#e07000"
     total_exposure = val(r26) + val(rprev) + val(b26) + val(bprev)
     prev_all = rprev + bprev
@@ -598,6 +840,7 @@ def build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="
 <tr><td style="padding:10px 0 4px;font-size:12px;line-height:1.6">Good morning all,<br><br>
 Please find below the summary of the Ampol site radio position{", with the full report attached as a PDF (" + str(CUR_YEAR) + " in complete line-item detail with serial numbers; prior years summarised by company)" if pdf_ok else " - the full line-item report follows separately"}.
 This is about visibility, not blame \u2014 the ask is simple and it applies to every company equally.</td></tr>
+{inline_card_html(card_path, data_asat)}
 
 <tr><td bgcolor="#fdf0f0" style="background-color:#fdf0f0;border:1px solid #f0c0c0;padding:10px 14px">
 <div style="font-size:15px;font-weight:bold;color:#c00000">{money(total_exposure)} of radio equipment is currently on hire.</div>
@@ -693,29 +936,56 @@ def frame_email(inner):
 </table></td></tr></table>"""
 
 
-def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path, data_asat=""):
+CID_CARD = "positioncard"   # the inline image id the email body points at
+
+
+def inline_card_html(card_path, data_asat=""):
+    """The <img> for the phone card inside the email body - only when the
+    card file exists, so the draft never carries a broken picture."""
+    if not card_path or not Path(card_path).exists():
+        return ""
+    return (f'<tr><td style="padding:2px 0 10px">'
+            f'<img src="cid:{CID_CARD}" width="420" alt="Position card - the radio position as at {data_asat}" '
+            f'style="display:block;width:420px;max-width:420px;height:auto;border-radius:10px"></td></tr>')
+
+
+def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path, data_asat="", card_path=None):
+    """The Outlook draft: the summary body with the phone card inline, the
+    PDF and the card attached, and the manifest 08_MAKE_OUTLOOK_DRAFTS reads.
+    Nothing sends itself - X-Unsent keeps it a draft."""
     import json
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
     from email.mime.application import MIMEApplication
+    from email.mime.image import MIMEImage
+    pdf = Path(pdf_path)
+    card = Path(card_path) if card_path else None
     body = frame_email(build_email_summary(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat,
-                                           pdf_ok=Path(pdf_path).exists()))
+                                           pdf_ok=pdf.exists(), card_path=card))
     subject = f"Ampol Tool Store \u2013 Site Radio Report \u2013 {REPORT_DATE.strftime('%d %b %Y')}"
     msg = MIMEMultipart("mixed")
     msg["To"] = RADIO_EMAIL_TO
     msg["Subject"] = subject
     msg["X-Unsent"] = "1"
-    msg.attach(MIMEText(body, "html", "utf-8"))
-    pdf = Path(pdf_path)
+    # WHY (03 Sep 2026): the phone card shows under the greeting the moment
+    # the draft opens - a related part carries it by Content-ID - and it
+    # stays attached as well so it can be forwarded on its own.
+    if card and card.exists():
+        rel = MIMEMultipart("related")
+        rel.attach(MIMEText(body, "html", "utf-8"))
+        inline = MIMEImage(card.read_bytes(), _subtype="png")
+        inline.add_header("Content-ID", f"<{CID_CARD}>")
+        inline.add_header("Content-Disposition", "inline", filename=card.name)
+        rel.attach(inline)
+        msg.attach(rel)
+    else:
+        msg.attach(MIMEText(body, "html", "utf-8"))
     if pdf.exists():
         part = MIMEApplication(pdf.read_bytes(), _subtype="pdf")
-        part.add_header("Content-Disposition", "attachment",
-                        filename=f"Ampol_Radio_OnHire_Report_{REPORT_DATE.strftime('%d-%m-%Y')}.pdf")
+        # the attachment carries the suite file name - the same name as on disk
+        part.add_header("Content-Disposition", "attachment", filename=pdf.name)
         msg.attach(part)
-    # WHY (03 Sep 2026): the phone-sized position card rides with the draft
-    card = pdf.parent / CARD_NAME
-    if card.exists():
-        from email.mime.image import MIMEImage
+    if card and card.exists():
         img = MIMEImage(card.read_bytes(), _subtype="png")
         img.add_header("Content-Disposition", "attachment", filename=card.name)
         msg.attach(img)
@@ -731,11 +1001,16 @@ def write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, pdf_path, eml_path, d
     stem = str(eml_path)[:-4] if str(eml_path).lower().endswith(".eml") else str(eml_path)
     with open(stem + ".body.html", "w", encoding="utf-8") as f:
         f.write(body)
+    # the manifest lists the card as an attachment only - the native draft
+    # builder attaches files, it does not inline them
     with open(stem + ".draft.json", "w", encoding="utf-8") as f:
         json.dump({"subject": subject, "to": to_line,
                    "body": Path(stem + ".body.html").name,
-                   "attachments": ([pdf.name] if pdf.exists() else []) + ([CARD_NAME] if (pdf.parent / CARD_NAME).exists() else [])}, f, indent=1)
-    print(f"Wrote {eml_path} + native-draft manifest (To: {n_to} recipients, PDF attached: {pdf.exists()})")
+                   "attachments": ([pdf.name] if pdf.exists() else [])
+                   + ([card.name] if card and card.exists() else [])}, f, indent=1)
+    mb = Path(eml_path).stat().st_size / 1048576
+    print(f"Wrote {eml_path} + native-draft manifest (To: {n_to} recipients, PDF attached: {pdf.exists()}, "
+          f"card inline + attached: {bool(card and card.exists())}, {mb:.1f} MB)")
 
 
 def write_pdf_robust(html_path, pdf_path):
@@ -835,15 +1110,38 @@ def main():
                           f"value total, never estimated." if d["unpriced"] else ""),
     }
     _ASAT_DT[0] = d["asat"]
-    html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat)
-    L = build_html.last
+    # WHY (03 Sep 2026): one file name for the whole family - the PDF, the
+    # page HTML beside it, the draft, the manifest and the phone card
+    stem = ampol_names.report_stem("radio")
+    F = position_facts(r26, rprev, b26, bprev, data_asat)
+    # the scoreboard is written BEFORE the pages so the trend page sees today
     rh.record("radio", d["asat"], {
-        "exposure": round(L["exposure"]), "radios_on_hire": len(r26) + len(rprev),
-        "batteries_on_hire": len(b26) + len(bprev), "prior_units": L["n_prior"], "prior_value": round(L["prev_val"]),
-        "prior_pct": L["prior_pct"], "available_radios": len(ravail), "available_batteries": len(bavail),
-        "oos": len(oos), "oldest_days": L["oldest"]})
+        "exposure": round(F["exposure"]), "radios_on_hire": len(r26) + len(rprev),
+        "batteries_on_hire": len(b26) + len(bprev), "prior_units": len(F["prev_all"]),
+        "prior_value": round(F["prev_val"]), "prior_pct": F["prior_pct"],
+        "available_radios": len(ravail), "available_batteries": len(bavail),
+        "oos": len(oos), "oldest_days": F["oldest"]},
+        extra={"rag": F["status"], "headline": F["headline"], "rule": F["rule"],
+               "owner": "Andrew Fisher, Shutdown Manager", "action": F["action"], "due": F["due"],
+               "key_value": F["key_value"], "key_label": F["key_label"],
+               "second_value": F["second_value"], "second_label": F["second_label"],
+               "title": "Ampol Site Radio On-Hire Report", "folder": "Radios",
+               "pdf": f"{stem}.pdf", "card": f"{stem}_PositionCard.png"})
     print(f"History            : {rh.HIST.name} - radio figures recorded for {d['asat'].strftime('%d %b %Y')}")
-    card_path = out / CARD_NAME
+    # what moved: every radio and battery on the register as this report
+    # defines it - on hire, on the shelf and in custody
+    scope = {i["barcode"] for i in r26 + rprev + b26 + bprev + ravail + bavail + oos if i["barcode"]}
+    changes = pull_diff.changes(scope_barcodes=scope)
+    L24 = changes["last24"]
+    print(f"Since the last pull: "
+          + (f"previous pull {changes['prev_time']:%d %b %Y %H:%M} - came back {len(changes['returned'])}, "
+             f"went out {len(changes['issued'])}, changed hands {len(changes['moved'])}, "
+             f"crossed 30 days {len(changes['crossed'][30])}" if changes["have_previous"]
+             else "no earlier pull in Data\\previous yet (starts with the next pull)")
+          + f" | 24 h before the pull: issued {len(L24['issued'])}, returned {len(L24['returned'])}")
+    html_str = build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat, facts=F, changes=changes)
+    L = build_html.last
+    card_path = out / f"{stem}_PositionCard.png"
     import k2shell as _sh
     _sh.position_card_png(L["cfg"], data_asat, [
         (money(L["exposure"]), "On-hire value", f"{_sh.num(L['n_on'])} units on hire", "#7A8A9A"),
@@ -856,11 +1154,19 @@ def main():
         "Andrew Fisher, Shutdown Manager", f"Prior-year holders sent their list by {L['due']}"),
         [], str(card_path), f"Counted from the SiteIQ register pull of {data_asat} - nothing estimated.")
     print(f"Position card      : {card_path}")
-    base = out / "Ampol_Radio_OnHire_Report"
+    base = out / stem
     with open(f"{base}.html", "w", encoding="utf-8") as f:
         f.write(html_str)
-    write_pdf_robust(f"{base}.html", f"{base}.pdf")
-    write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, f"{base}.pdf", f"{base}_OUTLOOK.eml", data_asat)
+    if write_pdf_robust(f"{base}.html", f"{base}.pdf"):
+        # WHY (03 Sep 2026): properties and bookmarks - Author, Subject and a
+        # navigation pane built from the report's own section headings
+        print(pdf_finish.finish(
+            f"{base}.pdf", f"Ampol Site Radio On-Hire Report - as at {data_asat}",
+            f"Site radios and batteries on hire from the Ampol Tool Store at Lytton Refinery, counted from the "
+            f"SiteIQ register pull of {data_asat}.",
+            html_str, keywords="radios, batteries, on hire", has_cover=COVER_PAGE, family="Radios"))
+    write_eml(r26, rprev, b26, bprev, oos, ravail, bavail, f"{base}.pdf", f"{base}_OUTLOOK.eml", data_asat,
+              card_path=card_path)
     tot_v = val(r26) + val(rprev) + val(b26) + val(bprev)
     print(f"Data as at         : {data_asat}  (RENTAL_STOCK request time)")
     print(f"Radios {CUR_YEAR}: {len(r26)} | prior: {len(rprev)} | Batteries {CUR_YEAR}: {len(b26)} | prior: {len(bprev)} | "

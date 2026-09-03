@@ -1,4 +1,4 @@
-Counted from Data\ exports at 03 Sep 2026 00:34 - none of the report code involved.
+Counted from Data\ exports at 03 Sep 2026 01:21 - none of the report code involved.
 
 FIGURE                                             THIS COUNT   ON TODAY'S PAGE
 ----------------------------------------------------------------------
@@ -30,6 +30,6 @@ calibration: in cal / due 30 / overdue / no date 135 / 6 / 48 / 158
 Former site name (display rule, disclosed on every data page):
   raw SiteIQ lines still carrying it - register descriptions: 3,136
   raw SiteIQ lines still carrying it - register company accounts: 4
-  printed on today's pages: 0 (checked 55 files)
+  printed on today's pages: 0 (checked 67 files)
 
 PASS - every checked figure on today's pages matches an independent count.

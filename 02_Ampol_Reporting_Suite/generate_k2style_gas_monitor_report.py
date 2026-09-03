@@ -32,6 +32,30 @@ USAGE
   01_RUN_GAS_MONITOR_REPORT.bat builds this PDF, then the email draft.
   Or on its own:  python generate_k2style_gas_monitor_report.py
 
+OUTPUTS (03 Sep 2026 - one file-name rule, ampol_names.report_stem)
+  Reports\<day>\Gas_Monitors\
+    Coates_Ampol_Gas_Monitors_<DDMonYYYY>.pdf               the client PDF
+    Coates_Ampol_Gas_Monitors_<DDMonYYYY>.html              the same pages
+    Coates_Ampol_Gas_Monitors_<DDMonYYYY>_PositionCard.png  the phone card
+  generate_k2style_email.py then writes _OUTLOOK.eml and _EMAIL.html on
+  the same stem and attaches the PDF and the card.
+
+WHAT THE 10/10 PASS ADDED (03 Sep 2026)
+  - Cover carries the RAG stripe (the same status as the position band)
+    and the freshness line (pulled / built / age).
+  - "Since the last pull" page: pull against pull from Data\previous
+    (pull_diff) when an earlier export is parked there, the honest note
+    when it is not, and the 24 hours of traffic before the pull from
+    TRANSACTIONS either way.
+  - "The trend - last 30 days" page once seven days are on the
+    scoreboard (History\report_history.json); until then the data page
+    says when it will appear.
+  - PDF properties (Author: Andrew Fisher, subject, keywords) and the
+    bookmark pane from the section headings (pdf_finish).
+  - The pages are printed from the HTML written beside the PDF, so the
+    embedded Lato face in k2style.css resolves and every machine prints
+    the same widths.
+
 DEPENDENCIES
   pip install openpyxl pillow        (weasyprint optional)
   Offline at run time. No web fonts, no CDN, no API calls. The PDF is
@@ -41,12 +65,17 @@ DEPENDENCIES
 """
 
 import glob
+import html as _html
 import os
+import re
 import sys
 from datetime import datetime, timedelta
 
+import ampol_names
 import ampol_paths
 import gasmon_engine as ge
+import pdf_finish
+import pull_diff
 import report_history as rh
 import k2shell as sh
 from k2shell import esc, money, num, K
@@ -67,7 +96,10 @@ CONFIG = {
     "title": "Gas Monitor Operations",
     "kicker": "COATES · GAS MONITOR OPERATIONS REPORT",
     "project": "Ampol Lytton Refinery · Dräger X-am 5000 Fleet",
-    "pdf_name": "Coates_Ampol_GasMonitor_Operations_K2STYLE.pdf",
+    # WHY (03 Sep 2026): one file-name rule for the whole suite
+    # (ampol_names.report_stem): Coates_Ampol_Gas_Monitors_<DDMonYYYY>
+    # + .pdf / .html / _PositionCard.png here, _OUTLOOK.eml in the email.
+    "stem_key": "gas",
     "css_name": "k2style.css",
     "asat_note": "(SiteIQ register pull)",
 
@@ -94,7 +126,14 @@ CONFIG = {
     "rag_red_30": 40,
     "rag_sameday_target": 85,
     "cover_page": True,
-    "card_name": "Coates_Ampol_GasMonitor_PositionCard.png",
+
+    # WHY (03 Sep 2026): the since-the-last-pull page is a fixed A4 page,
+    # so every list on it is capped and says "showing N of M". Lower these
+    # if the fit check ever flags that page.
+    "since_company_rows": 13,     # 24-hour traffic by company (no earlier pull)
+    "since_move_rows": 5,         # individual movements listed (no earlier pull)
+    "since_diff_rows": 5,         # came back / went out lists (earlier pull found)
+    "since_crossed_rows": 3,      # crossed 30 days, oldest first
 
     # rows per appendix page - compact single-line rows
     "appendix_rows": 26,
@@ -131,6 +170,141 @@ def dfmt(d):
 
 def hhmm(d):
     return d.strftime("%H:%M") if d else ""
+
+
+def plain(fragment):
+    """The words of a page fragment with the markup taken off - for the
+    history scoreboard and the phone card, which hold text, not HTML."""
+    return _html.unescape(re.sub(r"<[^>]+>", "", str(fragment or ""))).replace("\xa0", " ")
+
+
+def who_s(name):
+    """A hirer name as printed. Names are people, but a workflow account
+    can carry the site name - the former one never prints."""
+    return esc(ampol_names.display_desc(name))
+
+
+def report_stem():
+    return ampol_names.report_stem(CONFIG["stem_key"])
+
+
+TREND_MIN_DAYS = 7   # days on the scoreboard before the trend page appears
+
+
+# =====================================================================
+# CHART HELPERS KEPT LOCALLY
+# =====================================================================
+# WHY (03 Sep 2026): k2shell now defines line_chart and stacked_hbars
+# twice. The newer definitions (a trend line with named series, and the
+# four-band ageing bars) shadow the older drawings these pages were built
+# on, so the calls stopped working on the shared shell. The two older
+# drawings live here, unchanged, until the shell gives them distinct
+# names; the trend page uses the new sh.line_chart on purpose.
+
+def line_chart_multi(x_labels, series, w=636, h=196, label_every=1, pct=False,
+                     annotate=()):
+    """Multi-series line chart on a dark panel - the K2 trend pattern.
+    series: [{"vals": [...], "colour": hex, "label": str, "fill": bool}]
+    annotate: indices whose value gets printed above the point."""
+    n = len(x_labels)
+    if n < 2:
+        return '<div class="note">Not enough data points in the source.</div>'
+    top, base, pad_l, pad_r = 30, h - 26, 8, 34
+    plot_w = w - pad_l - pad_r
+    ymax = 100 if pct else max(max(s["vals"]) for s in series) * 1.15 or 1
+
+    def X(i):
+        return pad_l + plot_w * i / (n - 1)
+
+    def Y(v):
+        return base - (base - top) * (v / ymax)
+
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    for g in (0.25, 0.5, 0.75, 1.0):
+        y = base - (base - top) * g
+        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" '
+                   f'y2="{y:.1f}" stroke="#26313D" stroke-width="0.7"/>')
+        if pct:
+            out.append(f'<text x="{w - pad_r + 5}" y="{y + 3:.1f}" fill="#5F7183" '
+                       f'font-family="Lato, Calibri, sans-serif" font-size="7.4">'
+                       f'{int(ymax * g)}%</text>')
+    out.append(f'<line x1="{pad_l}" y1="{base}" x2="{w - pad_r}" y2="{base}" '
+               f'stroke="#3A4756" stroke-width="1"/>')
+    for i, lab in enumerate(x_labels):
+        if i % label_every == 0 or i == n - 1:
+            anchor = "start" if i == 0 else "middle"
+            out.append(f'<text x="{X(i):.1f}" y="{base + 13}" text-anchor="{anchor}" '
+                       f'fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" '
+                       f'font-size="7.2">{esc(lab)}</text>')
+    for s in series:
+        pts = " ".join(f"{X(i):.1f},{Y(v):.1f}" for i, v in enumerate(s["vals"]))
+        if s.get("fill"):
+            out.append(f'<polygon points="{pad_l},{base} {pts} '
+                       f'{X(n - 1):.1f},{base}" fill="{s["colour"]}" '
+                       f'fill-opacity="0.13"/>')
+        out.append(f'<polyline points="{pts}" fill="none" stroke="{s["colour"]}" '
+                   f'stroke-width="2.2" stroke-linejoin="round" '
+                   f'stroke-linecap="round"/>')
+        lx, lv = n - 1, s["vals"][-1]
+        out.append(f'<circle cx="{X(lx):.1f}" cy="{Y(lv):.1f}" r="3.4" '
+                   f'fill="{s["colour"]}"/>')
+        out.append(f'<text x="{X(lx) + 6:.1f}" y="{Y(lv) + 3.5:.1f}" '
+                   f'fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" '
+                   f'font-size="9" font-weight="700">'
+                   f'{int(round(lv))}{"%" if pct else ""}</text>')
+        for i in annotate:
+            if 0 <= i < n:
+                v = s["vals"][i]
+                out.append(f'<text x="{X(i):.1f}" y="{Y(v) - 6:.1f}" '
+                           f'text-anchor="middle" fill="#C9D6E2" '
+                           f'font-family="Lato, Calibri, sans-serif" font-size="7.4">'
+                           f'{int(round(v))}{"%" if pct else ""}</text>')
+    lx = w - 150 - (len(series) - 1) * 60
+    for j, s in enumerate(series):
+        out.append(f'<circle cx="{lx + j * 92}" cy="9" r="3.8" fill="{s["colour"]}"/>'
+                   f'<text x="{lx + 8 + j * 92}" y="12" fill="#C9D6E2" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="8">{esc(s["label"])}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def stacked_hbars_segs(rows, segs, w=636, rowh=25, lab_w=150):
+    """One stacked horizontal bar per row. rows: (label, [v1, v2, ...]);
+    segs: (name, colour) per value position. Total prints on the right,
+    non-zero segment counts print inside their block."""
+    if not rows:
+        return '<div class="note">Nothing recorded in the source.</div>'
+    h = len(rows) * rowh + 26
+    mx = max(sum(v) for _, v in rows) or 1
+    bar_w = w - lab_w - 44
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    lx = 0
+    for name, col in segs:
+        out.append(f'<rect x="{lx}" y="3" width="9" height="9" rx="2" fill="{col}"/>'
+                   f'<text x="{lx + 13}" y="11" fill="#C9D6E2" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="8">{esc(name)}</text>')
+        lx += 13 + 5.0 * len(name) + 14
+    for i, (lab, vals) in enumerate(rows):
+        y = 22 + i * rowh
+        out.append(f'<text x="0" y="{y + 11}" fill="#C9D6E2" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="9">{esc(str(lab)[:26])}</text>')
+        out.append(f'<rect x="{lab_w}" y="{y + 2}" width="{bar_w}" height="12" rx="4" fill="#26313D"/>')
+        x = lab_w
+        for (name, col), v in zip(segs, vals):
+            if not v:
+                continue
+            sw = bar_w * v / mx
+            out.append(f'<rect x="{x:.1f}" y="{y + 2}" width="{sw:.1f}" height="12" fill="{col}"/>')
+            if sw > 14:
+                out.append(f'<text x="{x + sw / 2:.1f}" y="{y + 11}" text-anchor="middle" '
+                           f'fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" '
+                           f'font-size="7.6" font-weight="700">{v}</text>')
+            x += sw
+        out.append(f'<text x="{w}" y="{y + 11}" text-anchor="end" fill="#FFFFFF" '
+                   f'font-family="Lato, Calibri, sans-serif" font-size="9.4" '
+                   f'font-weight="700">{sum(vals)}</text>')
+    out.append("</svg>")
+    return "".join(out)
 
 
 # =====================================================================
@@ -213,13 +387,18 @@ def mv(key, value, good, fallback):
 _ASAT_DT = [None]   # set in build() so the tile helpers can read history
 
 
-def rag_band_gas(m):
+def rag_parts(m):
+    """The page-1 RAG band in parts - status, headline, rule, owner, action
+    and the due date - so the cover stripe, the phone card and the history
+    scoreboard all carry the same words as the band."""
     C, R = CONFIG, m["rules"]
     n30 = m["out_30"]
     sd = m["d30"]["sd_pct"]
     status = sh.rag_of(n30, C["rag_amber_30"], C["rag_red_30"])
     if status == "green" and sd < C["rag_sameday_target"] - 10:
         status = "amber"
+    # WHY (03 Sep 2026): the due date counts from the pull, never from the
+    # clock on the machine that built the report.
     due = (m["asat"] + timedelta(days=2)).strftime("%d %b %Y")
     head = (f'<b class="o">{num(n30)} monitors</b> have been out 30 days or more '
             f'({money(m["exposure"])} of replacement exposure) and <b>{sd}%</b> of the last '
@@ -231,7 +410,233 @@ def rag_band_gas(m):
     owner = "<b>Andrew Fisher</b>, Shutdown Manager - Coates tool store"
     action = (f'Appendix A (every overdue unit, oldest first) to each company&rsquo;s supervisor '
               f'by <b>{due}</b>; units recovered are reported on the next run.')
-    return sh.rag_band(status, head, rule, owner, action, tight=True)
+    return {"status": status, "head": head, "rule": rule, "owner": owner, "action": action, "due": due}
+
+
+def rag_band_gas(m):
+    p = rag_parts(m)
+    return sh.rag_band(p["status"], p["head"], p["rule"], p["owner"], p["action"], tight=True)
+
+
+# =====================================================================
+# SINCE THE LAST PULL - what moved
+# =====================================================================
+
+def moves_24h(l):
+    """Every issue and return of a fleet monitor in the 24 hours before
+    the pull as one list of movements, company A to Z then time."""
+    ev = ([dict(e, kind="Out") for e in l["issued"]]
+          + [dict(e, kind="Back") for e in l["returned"]])
+    ev.sort(key=lambda e: (ampol_names.sort_key(e["company"]), e["at"], e["barcode"]))
+    return ev
+
+
+def _net(n):
+    return f'<span class="rd">+{num(n)}</span>' if n > 0 else (f'<span class="g">{num(n)}</span>' if n < 0 else '<span class="tbc">0</span>')
+
+
+def _cap_note(shown, total, what):
+    return (f"showing {num(shown)} of {num(total)} {what}" if total > shown
+            else f"{num(total)} {what}")
+
+
+def page_since(m, d):
+    """Since the last pull. Pull against pull from Data\\previous when an
+    earlier RENTAL_STOCK export is parked there; the honest note when it
+    is not. The 24 hours before the pull, from TRANSACTIONS, either way.
+    Every row is a barcode read from the exports - nothing estimated."""
+    C = CONFIG
+    cur = d["cur_time"]
+    l = d["last24"]
+    ws, we = l["window"]
+    ev = moves_24h(l)
+    n_out, n_back = len(l["issued"]), len(l["returned"])
+    n_bc = len({e["barcode"] for e in ev})
+    byco = {}
+    for e in ev:
+        c = byco.setdefault(e["company"], {"out": 0, "back": 0, "people": set()})
+        c["out" if e["kind"] == "Out" else "back"] += 1
+        c["people"].add(e["hirer"])
+    cos = sorted(byco, key=ampol_names.sort_key)
+    win_s = f"{ws:%d %b %Y %H:%M} to {we:%d %b %Y %H:%M}"
+    top_co = max(cos, key=lambda c: byco[c]["out"] + byco[c]["back"]) if cos else ""
+
+    def company_rows(cap):
+        rows = []
+        for co in cos[:cap]:
+            c = byco[co]
+            rows.append([esc(co), num(c["out"]), num(c["back"]), _net(c["out"] - c["back"]),
+                         num(len(c["people"]))])
+        if not rows:
+            rows = [['<span class="tbc">No fleet monitor moved in the window.</span>', "", "", "", ""]]
+        return rows
+
+    head = '<div class="sect"><h3>Since the last pull - what moved</h3></div>'
+
+    if not l["available"]:
+        h24 = ('<div class="sub-h">The 24 hours before the pull</div>'
+               '<div class="note">The TRANSACTIONS export is not in Data\\ - the last 24 hours '
+               'cannot be counted this run. Nothing is estimated in its place.</div>')
+    elif not d["have_previous"]:
+        mrows = []
+        for e in ev[:C["since_move_rows"]]:
+            kind = ('<span class="or">Out</span>' if e["kind"] == "Out" else '<span class="g">Back</span>')
+            mrows.append([esc(e["at"].strftime("%d %b %H:%M")), kind, esc(e["company"]),
+                          who_s(e["hirer"]), esc(e["barcode"])])
+        if not mrows:
+            mrows = [['<span class="tbc">No fleet monitor moved in the window.</span>', "", "", "", ""]]
+        h24 = f"""<div class="sub-h">The 24 hours before the pull <span class="thin">&mdash; {win_s}; by company, A to Z; {_cap_note(min(len(cos), C["since_company_rows"]), len(cos), "companies")}</span></div>
+{sh.dtable(["Company", "Draws", "Returns", "Net out", "People"], company_rows(C["since_company_rows"]),
+           ["", "r", "r", "r", "r"], cls="cp")}
+<div class="sub-h">The movements <span class="thin">&mdash; company A to Z, then time; {_cap_note(len(mrows) if ev else 0, len(ev), "movements")}</span></div>
+{sh.dtable(["When", "Movement", "Company", "Who", "Asset"], mrows, ["nw", "", "", "", ""], cls="cp")}
+<div class="note">Counted from every TRANSACTIONS row whose barcode is on the gas monitor register - crew
+  draws and the custody and workflow lines alike: traffic across the counter, not the crew-only same-day
+  measure. Net out = draws less returns.</div>"""
+    else:
+        # WHY (03 Sep 2026): with an earlier pull the page is carried by the
+        # pull-against-pull lists, so the 24-hour block is its counts in a
+        # line - the same figures, the company table waits for the day the
+        # page has room.
+        busiest = (f" Busiest: <b>{esc(top_co)}</b> with {num(byco[top_co]['out'] + byco[top_co]['back'])} movements."
+                   if top_co else "")
+        h24 = f"""<div class="sub-h">The 24 hours before the pull <span class="thin">&mdash; {win_s}, every fleet monitor</span></div>
+<div class="note"><b>{num(n_out)} draws</b> and <b>{num(n_back)} returns</b> of fleet monitors in the window -
+  {num(n_bc)} distinct monitors across {num(len(cos))} companies, counted from every TRANSACTIONS row whose
+  barcode is on the gas monitor register (custody and workflow lines included).{busiest}</div>"""
+
+    if not d["have_previous"]:
+        traffic = (f' In the 24 hours before the pull, <b class="o">{num(n_out)} fleet monitors were drawn</b> and '
+                   f'<b class="o">{num(n_back)} came back</b> - {num(n_bc)} distinct monitors across '
+                   f'{num(len(cos))} companies, counted from the transaction log.' if l["available"] else "")
+        callout = f"""<div class="callout tight">
+  <span class="lead">Pull against pull.</span> No earlier register pull is saved in Data\\previous yet -
+  movement pull against pull starts with the next pull (button 28 parks the old export automatically).
+  From then on this page names every monitor that came back, went out, changed hands or crossed
+  30 days between the two pulls, barcode by barcode.{traffic} Nothing on this page is estimated.
+</div>"""
+        return head + callout + h24
+
+    prev = d["prev_time"]
+    ret, iss, mov = d["returned"], d["issued"], d["moved"]
+    c30, c60, c90 = d["crossed"][30], d["crossed"][60], d["crossed"][90]
+    callout = f"""<div class="callout tight">
+  <span class="lead">Pull against pull.</span> Between the register pull of <b>{prev:%d %b %Y %H:%M}</b>
+  and this one at <b>{cur:%d %b %Y %H:%M}</b>: <b class="o">{num(len(ret))} monitors came back</b>,
+  <b class="o">{num(len(iss))} went out</b>, {num(len(mov))} changed hands and
+  <b class="o">{num(len(c30))} crossed 30 days</b> still out ({num(len(c60))} crossed 60, {num(len(c90))}
+  crossed 90). Monitors on hire: <b>{num(d['out_prev'])}</b> at the last pull, <b>{num(d['out_cur'])}</b> at
+  this one. Every row is a barcode read from the two exports - nothing is estimated.
+</div>"""
+    tiles = sh.tiles([
+        ("check", num(len(ret)), "Came back", "on hire then, not now", "green" if ret else "grey"),
+        ("swap", num(len(iss)), "Went out", "not on hire then, on hire now", "grey"),
+        ("people", num(len(mov)), "Changed hands", "same monitor, new hirer", "amber" if mov else "grey"),
+        ("warn", num(len(c30)), "Crossed 30 days", "still out, now 30 days or more", "red" if c30 else "green"),
+    ])
+    cap = C["since_diff_rows"]
+
+    def side(title, src, back):
+        rows = []
+        for r in src[:cap]:
+            dd = f'{num(r["days_out"])}d' if r["days_out"] is not None else '<span class="tbc">-</span>'
+            rows.append([who_s(r["hirer"]), esc(r["company"]), esc(r["barcode"]), dd])
+        if not rows:
+            rows = [['<span class="tbc">none</span>', "", "", ""]]
+        sub = _cap_note(min(len(src), cap), len(src), "monitors")
+        return (f'<div class="sub-h">{title} <span class="thin">&mdash; A to Z; {sub}</span></div>'
+                + sh.dtable(["Who", "Company", "Asset", "Was out" if back else "Out for"], rows,
+                            ["", "", "", "r"], cls="cp"))
+
+    crows = []
+    for r in c30[:C["since_crossed_rows"]]:
+        crows.append([f'<span class="rd">{num(r["days_out"])}d</span>', esc(dfmt(r["on_dt"])),
+                      who_s(r["hirer"]), esc(r["company"]), esc(r["barcode"])])
+    if not crows:
+        crows = [['<span class="tbc">No monitor crossed 30 days between the pulls.</span>', "", "", "", ""]]
+    new_s = ", ".join(esc(x) for x in d["companies_new"]) or "none"
+    clr_s = ", ".join(esc(x) for x in d["companies_cleared"]) or "none"
+    mv_s = ""
+    if mov:
+        bits = [f'{esc(r["barcode"])} ({who_s(r.get("from_hirer", ""))} to {who_s(r["hirer"])})' for r in mov[:3]]
+        mv_s = (" Changed hands: " + "; ".join(bits)
+                + (f" and {num(len(mov) - 3)} more." if len(mov) > 3 else "."))
+    return f"""{head}{callout}{tiles}
+<table class="two"><tr>
+  <td style="width:50%;padding-right:6px">{side("Came back", ret, True)}</td>
+  <td style="padding-left:6px">{side("Went out", iss, False)}</td>
+</tr></table>
+<div class="sub-h">Crossed 30 days between the pulls <span class="thin">&mdash; oldest first; {_cap_note(min(len(c30), C["since_crossed_rows"]), len(c30), "monitors")}</span></div>
+{sh.dtable(["Out", "Since", "Who", "Company", "Asset"], crows, ["r", "", "", "", ""], cls="cp")}
+<div class="note">Companies with a monitor out now that had none at the last pull: <b>{new_s}</b>.
+  Companies cleared since the last pull: <b>{clr_s}</b>.{mv_s}</div>
+{h24}"""
+
+
+# =====================================================================
+# THE TREND - last 30 days, from the scoreboard
+# =====================================================================
+
+def page_trend(m):
+    """Only built once TREND_MIN_DAYS days are on the scoreboard. Every
+    point is the figure a report printed on that day - a day with no
+    build is a gap, never filled in."""
+    asat = m["asat"]
+    keys = [("overdue", "Overdue 1+ days", K["orange"]), ("overdue_30", "Out 30+ days", K["red"]),
+            ("available", "Available", K["green"])]
+    ser = {k: rh.series("gas", k, asat, days=30) for k in ("overdue", "overdue_30", "available", "same_day_30")}
+    dates = sorted({dd for s in ser.values() for dd, _ in s})
+    labels = [dd.strftime("%d %b") for dd in dates]
+
+    def vals(k):
+        mp = dict(ser[k])
+        return [mp.get(dd) for dd in dates]
+
+    def span(k):
+        s = ser[k]
+        return (s[0][0], s[0][1], s[-1][1]) if s else (None, None, None)
+
+    o0d, o0, o1 = span("overdue")
+    _, t0, t1 = span("overdue_30")
+    _, a0, a1 = span("available")
+    _, s0, s1 = span("same_day_30")
+
+    def word(v0, v1, good_down=True):
+        if v0 is None or v1 is None:
+            return "-"
+        if v1 == v0:
+            return "no change"
+        up = v1 > v0
+        good = (not up) if good_down else up
+        return f'<span class="{"g" if good else "rd"}">{"up" if up else "down"} {num(abs(v1 - v0)) if not isinstance(v1, float) else f"{abs(v1 - v0):.1f}"}</span>'
+
+    panel_a = sh.line_chart(labels, [(name, vals(k)) for k, name, _ in keys], h=180,
+                            colours=[c for _, _, c in keys], y_label="monitors")
+    panel_b = sh.line_chart(labels, [("Same-day returns, rolling 30 days", vals("same_day_30"))], h=134,
+                            colours=[K["green"]], pct=True, y_label="per cent")
+    first_s = o0d.strftime("%d %b %Y") if o0d else (dates[0].strftime("%d %b %Y") if dates else "-")
+    return f"""<div class="sect"><h3>The trend - last 30 days</h3></div>
+<div class="callout tight">
+  <span class="lead">{num(len(dates))} days on record</span> between <b>{first_s}</b> and
+  <b>{dfmt(asat)}</b>, from the scoreboard every build writes. Since {first_s}: overdue
+  <b>{num(o0) if o0 is not None else "-"}</b> to <b>{num(o1) if o1 is not None else "-"}</b> ({word(o0, o1)}); out 30 days or more
+  <b>{num(t0) if t0 is not None else "-"}</b> to <b>{num(t1) if t1 is not None else "-"}</b> ({word(t0, t1)}); available
+  <b>{num(a0) if a0 is not None else "-"}</b> to <b>{num(a1) if a1 is not None else "-"}</b> ({word(a0, a1, good_down=False)}); same-day returns
+  over the rolling 30 days <b>{s0 if s0 is not None else "-"}%</b> to <b>{s1 if s1 is not None else "-"}%</b> ({word(s0, s1, good_down=False)}).
+</div>
+<div class="sub-h">Monitors overdue, out 30 days or more, and on the shelf <span class="thin">&mdash; at each day's pull</span></div>
+<div class="chartpanel">{panel_a}</div>
+<div class="sub-h">Same-day returns <span class="thin">&mdash; the rolling 30-day rate printed on each day's position page</span></div>
+<div class="chartpanel">{panel_b}</div>
+{sh.tiles([
+    ("warn", num(o1) if o1 is not None else "-", "Overdue today", f"{num(o0)} on {first_s}" if o0 is not None else "", "grey"),
+    ("clock", num(t1) if t1 is not None else "-", "Out 30+ days today", f"{num(t0)} on {first_s}" if t0 is not None else "", "grey"),
+    ("check", num(a1) if a1 is not None else "-", "Available today", f"{num(a0)} on {first_s}" if a0 is not None else "", "grey"),
+    ("bars", f"{s1}%" if s1 is not None else "-", "Same-day, rolling 30 days", f"{s0}% on {first_s}" if s0 is not None else "", "grey"),
+])}
+<div class="note">Each point is the figure printed on that day's report, written to History\\report_history.json
+  when the report was built. A day with no build is a gap in the line, never filled in. Figures are
+  as at each day's register pull, so the shelf count is that day's {hhmm(asat)} snapshot.</div>"""
 
 
 def page_sources(m):
@@ -516,7 +921,7 @@ def page_year(m):
      f"{num(d30['not_same_day'])} not back same day", sd_class(d30['sd_pct']).replace('rd', 'red').replace('a', 'amber').replace('g', 'green')),
 ])}
 <div class="sub-h">Same-day return rate by week <span class="thin">&mdash; every week of the year{' (current week is partial)' if m['current_week_partial'] else ''}</span></div>
-<div class="chartpanel">{sh.line_chart(wl, [{"vals": [w["pct"] for w in wk], "colour": K["green"], "label": "Same-day %", "fill": True}], h=158, label_every=2, pct=True, annotate=ann)}</div>
+<div class="chartpanel">{line_chart_multi(wl, [{"vals": [w["pct"] for w in wk], "colour": K["green"], "label": "Same-day %", "fill": True}], h=158, label_every=2, pct=True, annotate=ann)}</div>
 <div class="note">Each point is same-day returns &divide; crew draws for the week starting on the date shown.</div>"""
 
 
@@ -610,7 +1015,7 @@ def page_where(m):
   (FCCU {num(m['fccu'])}, Operations {num(m['ops'])}, Future Fuels {num(m['ff'])}, after-hours
   account {num(m['afterhours'])}) sit outside the crew count and are listed on the next page.
 </div>
-<div class="chartpanel">{sh.stacked_hbars(bars, segs, rowh=23)}</div>
+<div class="chartpanel">{stacked_hbars_segs(bars, segs, rowh=23)}</div>
 {sh.dtable(["Company", "Today", "1 day", "2-7d", "8-29d", "30+d", "Overdue", "Exposure", "Urgency"],
            rows, ["", "r", "r", "r", "r", "r", "r", "r", ""], cls="cp")}
 <div class="note">{f'Showing {N} of {len([w2 for w2 in where if w2["total"]])} companies with monitors out - the other {len(rest)} hold {num(sum(w2["total"] for w2 in rest))} units, {num(sum(w2["outstanding"] for w2 in rest))} of them overdue, all named in Appendix A. ' if rest else ''}Days
@@ -703,7 +1108,7 @@ def page_rhythm(m):
 <div class="chartpanel">{sh.grouped_bars(hrows, h=168)}</div>
 <div class="sub-h">Net monitors drawn from the store through the day
   <span class="thin">&mdash; average and worst of the last {len(m['curve_days'])} working days</span></div>
-<div class="chartpanel">{sh.line_chart(xl, [
+<div class="chartpanel">{line_chart_multi(xl, [
     {"vals": [v for _, v in m["net_curve_worst"]], "colour": K["red"], "label": "Worst day", "fill": False},
     {"vals": [v for _, v in curve], "colour": K["orange"], "label": "Average day", "fill": True}],
     h=160, label_every=1)}</div>
@@ -776,7 +1181,7 @@ def page_demand(m):
   Every unit in custody or in the workshop is a unit the shelf cannot lend.
 </div>
 <div class="sub-h">Peak monitors out at once, by day <span class="thin">&mdash; {esc(m['ytd_label'])}</span></div>
-<div class="chartpanel">{sh.line_chart(plabels, [{"vals": [p2["peak"] for p2 in pk], "colour": K["orange"], "label": "Daily peak out", "fill": True}], h=176, label_every=1)}</div>
+<div class="chartpanel">{line_chart_multi(plabels, [{"vals": [p2["peak"] for p2 in pk], "colour": K["orange"], "label": "Daily peak out", "fill": True}], h=176, label_every=1)}</div>
 {sh.tiles([
     ("zap", num(rp['peak']) if rp else "0", "Record - out at once", rp['at'].strftime('%d %b %H:%M') if rp else "-", "red"),
     ("box", num(usable), "Usable fleet", f"{num(m['fleet_total'])} owned less {num(m['repairs'])} in repair", "grey"),
@@ -902,13 +1307,17 @@ def page_method(m):
     rrows = "".join(f'<tr><td class="k">{esc(k)}</td><td>{esc(v)}</td></tr>' for k, v in rules)
     recon = "".join(f'<tr><td class="k">Check {i + 1}</td><td>{esc(n)}</td></tr>'
                     for i, n in enumerate(m["recon_notes"]))
+    # WHY (03 Sep 2026): the trend page needs seven days on the scoreboard;
+    # until then the reader is told when it will appear, not left guessing.
+    trend_line = ("" if m.get("trend_ok") else
+                  f"Trend page: appears once seven days are on record ({num(m.get('hist_days', 0))} today). ")
     return f"""<div class="sect"><h3>Data and method - where every number comes from</h3></div>
 {sh.dtable(["Source file", "What it gives the report", "Pulled", "Covers"], src, ["", "", "", ""], cls="cp")}
 <div class="sub-h">The rules</div>
 <table class="rules">{rrows}</table>
 <div class="sub-h">Reconciliation <span class="thin">&mdash; the two exports checked against each other</span></div>
 <table class="rules">{recon}</table>
-<div class="note">Australian dates, metric units, 24-hour time. Anything the source does not carry
+<div class="note">{trend_line}Australian dates, metric units, 24-hour time. Anything the source does not carry
   is shown as a dash, never guessed.</div>"""
 
 
@@ -946,9 +1355,14 @@ def page_closing(m):
 {sh.team_cards(CONFIG['team'])}"""
 
 
-def build_pages(m):
-    pages = [
-        page_position(m),
+def build_pages(m, d):
+    # WHY (03 Sep 2026): the story order - the position now, what moved
+    # since the last pull, the 30-day trend once it exists, then where the
+    # numbers come from and the day-by-day detail.
+    pages = [page_position(m), page_since(m, d)]
+    if m.get("trend_ok"):
+        pages.append(page_trend(m))
+    pages += [
         page_sources(m),
         page_yesterday(m),
         page_people(m),
@@ -970,16 +1384,33 @@ def build_pages(m):
     return pages
 
 
-def cover_for(m, cfg, gen_s, asat_s):
+COVER_LABEL = "monitors overdue at the pull"
+
+
+def cover_for(m, cfg, gen_s, asat_s, gen_dt=None):
     lines = [f"<b>{num(m['out_30'])}</b> out 30 days or more - {money(m['exposure'])} of replacement exposure",
              f"<b>{num(m['available'])}</b> ready on the shelf against a {num(m['rules']['availability_target'])}-unit target",
              f"<b>{m['d30']['sd_pct']}%</b> came back the same day over the last 30 days"]
-    return sh.cover_page(cfg, num(m["outstanding"]), "monitors overdue at the pull", lines, gen_s, asat_s)
+    # WHY (03 Sep 2026): the cover stripe is the same status as the band
+    # on the position page, and the freshness line says how old the pull
+    # was when the report was built.
+    return sh.cover_page(cfg, num(m["outstanding"]), COVER_LABEL, lines, gen_s, asat_s,
+                         rag=rag_parts(m)["status"], fresh=sh.freshness_line(m["asat"], gen_dt))
 
 
-def build_html(m, cfg, gen_s, asat_s):
-    pages = build_pages(m)
-    cover = cover_for(m, cfg, gen_s, asat_s) if cfg.get("cover_page") else ""
+def wrap_doc(body, cfg, asat_s):
+    """The page HTML around the rendered pages. k2style.css is inlined by
+    the caller so the file beside the PDF is self-contained."""
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Coates {esc(cfg['client'])} {esc(cfg['title'])} - {esc(asat_s)}</title>
+</head><body>{body}</body></html>"""
+
+
+def build_html(m, cfg, gen_s, asat_s, d=None, gen_dt=None):
+    d = d or m.get("since") or pull_diff.no_previous(m["asat"])
+    pages = build_pages(m, d)
+    cover = cover_for(m, cfg, gen_s, asat_s, gen_dt) if cfg.get("cover_page") else ""
     off = 1 if cover else 0
     tot = len(pages) + off
     rendered = []
@@ -991,11 +1422,7 @@ def build_html(m, cfg, gen_s, asat_s):
         else:
             rendered.append(sh.render_page(cfg, p, i + 1 + off, tot, gen_s, asat_s))
     body = cover + "".join(rendered)
-    doc = f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<title>Coates {esc(cfg['client'])} {esc(cfg['title'])} - {esc(asat_s)}</title>
-</head><body>{body}</body></html>"""
-    return doc, tot
+    return wrap_doc(body, cfg, asat_s), tot
 
 
 # =====================================================================
@@ -1043,35 +1470,47 @@ def find_browser():
 # so the page COUNT can pass while a chart has vanished. This catches it.
 _MEASURE_JS = r"""<script>
 (function(){
-  var out = [];
-  var pages = document.querySelectorAll('.page');
-  for (var i = 0; i < pages.length; i++) {
-    var pg = pages[i];
-    var body = pg.querySelector('.body');
-    var foot = pg.querySelector('.foot');
-    if (!body || !foot) { out.push({page: i + 1, over: -1, wide: 0}); continue; }
-    var ft = foot.getBoundingClientRect();
-    var bottom = body.getBoundingClientRect().top;
-    var els = body.querySelectorAll('*');
-    for (var j = 0; j < els.length; j++) {
-      var r = els[j].getBoundingClientRect();
-      if (r.bottom > bottom) bottom = r.bottom;
+  function run() {
+    var out = [];
+    var pages = document.querySelectorAll('.page');
+    for (var i = 0; i < pages.length; i++) {
+      var pg = pages[i];
+      var body = pg.querySelector('.body');
+      var foot = pg.querySelector('.foot');
+      if (!body || !foot) { out.push({page: i + 1, over: -9999, wide: 0}); continue; }
+      var ft = foot.getBoundingClientRect();
+      var bottom = body.getBoundingClientRect().top;
+      var els = body.querySelectorAll('*');
+      for (var j = 0; j < els.length; j++) {
+        var r = els[j].getBoundingClientRect();
+        if (r.bottom > bottom) bottom = r.bottom;
+      }
+      out.push({page: i + 1, over: Math.round(bottom - ft.top),
+                wide: Math.round(body.scrollWidth - body.clientWidth)});
     }
-    out.push({page: i + 1, over: Math.round(bottom - ft.top),
-              wide: Math.round(body.scrollWidth - body.clientWidth)});
+    var d = document.getElementById('layout-report');
+    if (!d) { d = document.createElement('div'); d.id = 'layout-report'; document.body.appendChild(d); }
+    d.textContent = JSON.stringify({pages: out,
+      fonts: (document.fonts ? document.fonts.status : 'n/a')});
   }
-  var d = document.createElement('div');
-  d.id = 'layout-report';
-  d.textContent = JSON.stringify(out);
-  document.body.appendChild(d);
+  /* measure once now, then again once the embedded Lato has loaded - the
+     widths that print are the Lato widths (03 Sep 2026) */
+  run();
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(run); }
 })();
 </script>"""
 
 
-def layout_check(doc, css_path, base):
-    """Measure every page in the browser. Returns (ok, report_rows) where
-    a row is (page, px_past_footer, px_wider_than_body). ok is None when
-    the measurement could not be taken."""
+_FONTS_SEEN = [""]   # the browser's font status on the last measure
+
+
+def layout_check(doc_full, base):
+    """Measure every page in the browser. doc_full is the page HTML with
+    k2style.css already inlined; base is the folder the HTML is printed
+    from (Reports\\<day>\\Gas_Monitors), so the embedded Lato face
+    resolves exactly as it does for the PDF. Returns (ok, report_rows)
+    where a row is (page, px_past_footer, px_wider_than_body). ok is None
+    when the measurement could not be taken."""
     import json as _json
     import re as _re
     import subprocess
@@ -1079,18 +1518,18 @@ def layout_check(doc, css_path, base):
     browser = find_browser()
     if not browser:
         return None, []
-    with open(css_path, encoding="utf-8") as f:
-        css = f.read()
-    doc2 = doc.replace("</head>", f"<style>{css}</style></head>", 1)
-    doc2 = doc2.replace("</body>", _MEASURE_JS + "</body>", 1)
+    doc2 = doc_full.replace("</body>", _MEASURE_JS + "</body>", 1)
     tmp = tempfile.NamedTemporaryFile("w", suffix=".html", dir=base, delete=False,
                                       encoding="utf-8")
     try:
         tmp.write(doc2)
         tmp.close()
         from pathlib import Path
+        # WHY (03 Sep 2026): the virtual-time budget lets the embedded
+        # fonts finish loading before the DOM is dumped, so the widths
+        # measured are the widths that print.
         cmd = [browser, "--headless", "--disable-gpu", "--no-sandbox",
-               "--dump-dom", Path(tmp.name).as_uri()]
+               "--virtual-time-budget=6000", "--dump-dom", Path(tmp.name).as_uri()]
         res = subprocess.run(cmd, capture_output=True, timeout=180)
         dom = (res.stdout or b"").decode("utf-8", "ignore")
     except Exception:
@@ -1100,30 +1539,33 @@ def layout_check(doc, css_path, base):
             os.unlink(tmp.name)
         except OSError:
             pass
-    mm = _re.search(r'id="layout-report">(\[.*?\])</div>', dom, _re.S)
+    mm = _re.search(r'id="layout-report">(\{.*?\})</div>', dom, _re.S)
     if not mm:
         return None, []
     try:
-        rows = [(r["page"], r["over"], r["wide"]) for r in _json.loads(mm.group(1))]
+        rep = _json.loads(mm.group(1))
+        _FONTS_SEEN[0] = str(rep.get("fonts", ""))
+        rows = [(r["page"], r["over"], r["wide"]) for r in rep["pages"]]
     except Exception:
         return None, []
     bad = [r for r in rows if r[1] > 0 or r[2] > 0]
     return (not bad), rows
 
 
-def render_pdf_weasy(doc, css_path, base, pdf_path):
-    rendered = HTML(string=doc, base_url=base).render(stylesheets=[CSS(filename=css_path)])
+def render_pdf_weasy(html_path, pdf_path):
+    rendered = HTML(filename=html_path).render()
     actual = len(rendered.pages)
     rendered.write_pdf(pdf_path)
     return actual
 
 
-def render_pdf_browser(doc, css_path, base, pdf_path):
-    """Edge/Chrome headless print-to-PDF. Returns the page count read from
-    the PDF, or -1 when the file does not expose it to a plain scan."""
+def render_pdf_browser(html_path, pdf_path):
+    """Edge/Chrome headless print-to-PDF, printed from the page HTML that
+    sits beside the PDF (so the embedded font URLs in the stylesheet
+    resolve). Returns the page count read from the PDF, or -1 when the
+    file does not expose it to a plain scan."""
     import re as _re
     import subprocess
-    import tempfile
     browser = find_browser()
     if not browser:
         sys.exit(
@@ -1134,30 +1576,17 @@ def render_pdf_browser(doc, css_path, base, pdf_path):
             "  Edge is standard on Coates laptops - if it lives somewhere\n"
             "  unusual, set the GASMON_BROWSER environment variable to the\n"
             "  full path of msedge.exe and run again.")
-    with open(css_path, encoding="utf-8") as f:
-        css = f.read()
-    doc2 = doc.replace("</head>", f"<style>{css}</style></head>", 1)
-    tmp = tempfile.NamedTemporaryFile("w", suffix=".html", dir=base, delete=False,
-                                      encoding="utf-8")
-    try:
-        tmp.write(doc2)
-        tmp.close()
-        from pathlib import Path
-        url = Path(tmp.name).as_uri()
-        cmd = [browser, "--headless", "--disable-gpu", "--no-sandbox",
-               "--no-pdf-header-footer", "--print-to-pdf-no-header",
-               f"--print-to-pdf={pdf_path}", url]
-        res = subprocess.run(cmd, capture_output=True, timeout=240)
-        if not os.path.exists(pdf_path) or os.path.getsize(pdf_path) < 10000:
-            err = (res.stderr or b"").decode("utf-8", "ignore")[-400:]
-            sys.exit("ERROR: Edge/Chrome could not print the PDF.\n"
-                     f"  Engine: {browser}\n  Said: {err}\n"
-                     "  Nothing has been sent.")
-    finally:
-        try:
-            os.unlink(tmp.name)
-        except OSError:
-            pass
+    from pathlib import Path
+    url = Path(html_path).as_uri()
+    cmd = [browser, "--headless", "--disable-gpu", "--no-sandbox",
+           "--no-pdf-header-footer", "--print-to-pdf-no-header",
+           f"--print-to-pdf={pdf_path}", url]
+    res = subprocess.run(cmd, capture_output=True, timeout=240)
+    if not os.path.exists(pdf_path) or os.path.getsize(pdf_path) < 10000:
+        err = (res.stderr or b"").decode("utf-8", "ignore")[-400:]
+        sys.exit("ERROR: Edge/Chrome could not print the PDF.\n"
+                 f"  Engine: {browser}\n  Said: {err}\n"
+                 "  Nothing has been sent.")
     raw = open(pdf_path, "rb").read()
     counts = _re.findall(rb"/Count\s+(\d+)", raw)
     return max(int(c) for c in counts) if counts else -1
@@ -1167,49 +1596,105 @@ def render_pdf_browser(doc, css_path, base, pdf_path):
 # MAIN
 # =====================================================================
 
-def build(write_html=None):
-    """Load, compute, build. Returns (m, doc, pages). Shared with the email."""
+def record_history(m, stem):
+    """The movement scoreboard: today's figures and the words of the RAG
+    band, keyed on the pull day, so tomorrow can print the change and the
+    daily position can quote today's line. Same day = replace."""
+    p = rag_parts(m)
+    rh.record("gas", m["asat"], {
+        "fleet": m["fleet_total"], "available": m["available"], "crew_out": m["crew_out"],
+        "overdue": m["outstanding"], "overdue_30": m["out_30"], "exposure": m["exposure"],
+        "repairs": m["repairs"], "health": m["health"], "same_day_30": m["d30"]["sd_pct"],
+        "yday_draws": m["yday_draws"], "yday_not_same_day": m["yday_nsd"],
+        "custody": m["custody_total"]},
+        extra={"rag": p["status"], "headline": plain(p["head"]), "rule": plain(p["rule"]),
+               "owner": "Andrew Fisher, Shutdown Manager", "action": plain(p["action"]),
+               "due": p["due"], "key_value": num(m["outstanding"]), "key_label": COVER_LABEL,
+               "second_value": num(m["available"]), "second_label": "available now",
+               "title": "Ampol Gas Monitor Operations Report", "folder": "Gas_Monitors",
+               "pdf": stem + ".pdf", "card": stem + "_PositionCard.png"})
+
+
+def build(write_html=None, record=True):
+    """Load, compute, diff against the last pull, record the scoreboard,
+    build the pages. Returns (m, doc, pages, gen_s, asat_s, gen_dt)."""
     ctx = ge.load()
     m = ge.compute(ctx)
     _ASAT_DT[0] = m["asat"]
-    gen_s = datetime.now().strftime("%d %b %Y %H:%M")
+    gen_dt = datetime.now()
+    gen_s = gen_dt.strftime("%d %b %Y %H:%M")
     asat_s = m["asat"].strftime("%d %b %Y %H:%M")
-    doc, pages = build_html(m, CONFIG, gen_s, asat_s)
+    # WHY (03 Sep 2026): the fleet for the since-the-last-pull page is
+    # exactly the register rows the engine counts into fleet_total - the
+    # same monitors, no second rule.
+    scope = {r["bc"] for r in ctx["rs"]}
+    d = pull_diff.changes(scope_barcodes=scope)
+    m["since"] = d
+    stem = report_stem()
+    if record:
+        # recorded before the pages are built so today's point is on the
+        # trend line; the movement notes only read earlier days
+        record_history(m, stem)
+    days = sorted(rh.load().get("gas", {}))
+    m["hist_days"] = len(days)
+    m["trend_ok"] = len(days) >= TREND_MIN_DAYS
+    doc, pages = build_html(m, CONFIG, gen_s, asat_s, d, gen_dt)
     if write_html:
         with open(write_html, "w", encoding="utf-8") as f:
             f.write(doc)
-    return m, doc, pages, gen_s, asat_s
+    return m, doc, pages, gen_s, asat_s, gen_dt
 
 
 def main():
     cfg = CONFIG
     here = ampol_paths.suite_dir()
+    out_dir = ampol_paths.day_folder("Gas_Monitors")
+    stem = report_stem()
     print("=" * 68)
     print("COATES K2-STYLE PDF - AMPOL GAS MONITOR OPERATIONS")
     print("=" * 68)
-    m, doc, pages, gen_s, asat_s = build()
+    m, doc, pages, gen_s, asat_s, gen_dt = build()
     print(f"RENTAL_STOCK export  : {m['sources']['rental_stock']}")
     print(f"TRANSACTIONS export  : {m['sources']['transactions']}")
     ge.print_summary(m)
+    d = m["since"]
+    l = d["last24"]
+    if d["have_previous"]:
+        print(f"Since the last pull  : {d['prev_time']:%d %b %Y %H:%M} -> {d['cur_time']:%d %b %Y %H:%M}: "
+              f"{len(d['returned'])} came back, {len(d['issued'])} went out, {len(d['moved'])} changed hands, "
+              f"{len(d['crossed'][30])} crossed 30 days")
+    else:
+        print("Since the last pull  : no earlier pull in Data\\previous - pull against pull starts "
+              "with the next pull")
+    print(f"Last 24 h before pull: {len(l['issued'])} draws, {len(l['returned'])} returns of fleet monitors"
+          + ("" if l["available"] else " (TRANSACTIONS not found - not counted)"))
+    print(f"History              : {rh.HIST.name} - gas figures recorded for {m['asat']:%d %b %Y}; "
+          f"{m['hist_days']} day(s) on record - trend page "
+          + ("on" if m["trend_ok"] else f"appears at {TREND_MIN_DAYS}"))
 
     css_path = os.path.join(here, cfg["css_name"])
     if not os.path.exists(css_path):
         sys.exit(f"ERROR: {cfg['css_name']} is missing from the suite folder.\n"
                  f"  Looked for: {css_path}\n"
                  "  It carries the Coates house style - keep the suite together.")
-    pdf_path = os.path.join(ampol_paths.day_folder("Gas_Monitors"), cfg["pdf_name"])
-    # the movement scoreboard: today's figures, so tomorrow can show the change
-    rh.record("gas", m["asat"], {
-        "fleet": m["fleet_total"], "available": m["available"], "crew_out": m["crew_out"],
-        "overdue": m["outstanding"], "overdue_30": m["out_30"], "exposure": m["exposure"],
-        "repairs": m["repairs"], "health": m["health"], "same_day_30": m["d30"]["sd_pct"],
-        "yday_draws": m["yday_draws"], "yday_not_same_day": m["yday_nsd"],
-        "custody": m["custody_total"]})
-    print(f"History              : {rh.HIST.name} - gas figures recorded for {m['asat'].strftime('%d %b %Y')}")
+    with open(css_path, encoding="utf-8") as f:
+        css = f.read()
+    pdf_path = os.path.join(out_dir, stem + ".pdf")
+    html_path = os.path.join(out_dir, stem + ".html")
+    card_path = os.path.join(out_dir, stem + "_PositionCard.png")
+
+    # WHY (03 Sep 2026): the page HTML is written beside the PDF with the
+    # stylesheet inlined and the PDF is printed FROM it - the embedded Lato
+    # face in k2style.css is addressed relative to this folder, so printing
+    # from a temporary file elsewhere fell back to a substitute face.
+    doc_full = doc.replace("</head>", f"<style>{css}</style></head>", 1)
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(doc_full)
+    print(f"Page HTML kept       : {html_path}")
+
     # the phone-sized position card - the same page-1 figures as an image
-    card_path = os.path.join(ampol_paths.day_folder("Gas_Monitors"), cfg["card_name"])
-    band = rag_band_gas(m)
-    status = "red" if 'ragband rd' in band else "amber" if 'ragband a' in band else "green"
+    p = rag_parts(m)
+    status = p["status"]
     hs = m["health"]
     sh.position_card_png(cfg, asat_s, [
         (num(m["fleet_total"]), "Total fleet", "on the Ampol register", "#7A8A9A"),
@@ -1220,7 +1705,7 @@ def main():
         (f"{m['d30']['sd_pct']}%", "Same-day, last 30 days", f"target {cfg['rag_sameday_target']}%", "#EFA82B"),
     ], (status, f"{num(m['out_30'])} monitors out 30 days or more; {num(m['outstanding'])} overdue in all; "
                 f"{m['d30']['sd_pct']}% same-day over 30 days.", "Andrew Fisher, Shutdown Manager",
-        f"Appendix A to each supervisor by {(m['asat'] + timedelta(days=2)).strftime('%d %b %Y')}"),
+        f"Appendix A to each supervisor by {p['due']}"),
         [("Tool availability", m["score_availability"]), ("Same-day returns, 30 days", m["score_sameday"]),
          ("Repairs", m["score_repairs"]), ("30+ day control", m["score_30"])],
         card_path, f"Counted from the SiteIQ exports of {asat_s} - nothing estimated. Health {hs}/100.")
@@ -1228,14 +1713,20 @@ def main():
 
     # Measure every page in the browser BEFORE printing - a chart that does
     # not fit is dropped silently by the print engine, page count intact.
-    ok, rows = layout_check(doc, css_path, here)
+    ok, rows = layout_check(doc_full, out_dir)
+    fit_ok = True
     if ok is None:
         print("Fit check            : could not measure (no browser) - relying on the page count")
     elif ok:
-        worst = max((r[1] for r in rows), default=-9999)
+        # -9999 marks a page with no body (the cover) - not a measurement
+        worst = max((r[1] for r in rows if r[1] > -9999), default=-9999)
+        tight = sorted((r for r in rows if r[1] > -9999), key=lambda r: -r[1])[:3]
         print(f"Fit check            : PASS - every page's content sits above its footer "
-              f"(tightest page has {-worst}px to spare)")
+              f"(tightest page has {-worst}px to spare; fonts {_FONTS_SEEN[0] or 'not reported'})")
+        print("                       tightest pages: "
+              + ", ".join(f"p{pg} {-ov}px" for pg, ov, _ in tight))
     else:
+        fit_ok = False
         print("")
         print("*" * 68)
         print("WARNING: CONTENT DOES NOT FIT - the print engine will drop or split it.")
@@ -1251,14 +1742,14 @@ def main():
     actual = None
     if _HAVE_WEASY:
         try:
-            actual = render_pdf_weasy(doc, css_path, here, pdf_path)
+            actual = render_pdf_weasy(html_path, pdf_path)
             print("PDF engine           : WeasyPrint")
         except Exception as e:
             print(f"PDF engine           : WeasyPrint failed at render time "
                   f"({type(e).__name__}) - falling back to Edge/Chrome")
             actual = None
     if actual is None:
-        actual = render_pdf_browser(doc, css_path, here, pdf_path)
+        actual = render_pdf_browser(html_path, pdf_path)
         print("PDF engine           : Edge/Chrome headless (no installs needed)")
 
     # Each page is authored as one fixed A4 box; if content overflows, the
@@ -1267,6 +1758,7 @@ def main():
         print(f"Layout check         : page count not readable from this PDF - "
               f"authored {pages} pages; open it and confirm the last page is page {pages}")
     elif actual != pages:
+        fit_ok = False
         print("")
         print("*" * 68)
         print(f"WARNING: LAYOUT OVERFLOW - authored {pages} pages but the PDF has {actual}.")
@@ -1278,11 +1770,22 @@ def main():
         print("")
     else:
         print(f"Layout check         : PASS - {actual} pages, none overflowed")
+
+    # WHY (03 Sep 2026): document properties and the bookmark pane, stamped
+    # on the finished file - the email script attaches this file as is.
+    title = f"{cfg['client']} {cfg['title']} Report - as at {asat_s}"
+    subject = (f"Where every Ampol gas monitor was at {asat_s}, who holds the overdue units, "
+               f"and what moved since the last pull.")
+    print("PDF finish           : " + pdf_finish.finish(
+        pdf_path, title, subject, doc_full, keywords="gas monitors, Dräger X-am 5000",
+        has_cover=bool(cfg.get("cover_page")), family="Gas monitors"))
     print(f"Pages                : {pages}")
     print(f"PDF written          : {pdf_path}  ({os.path.getsize(pdf_path):,} bytes)")
     print("")
     print("NEXT STEP: open the PDF, read the position page and the data page, then send it.")
     print("Done. The Coates Way - consistent execution, every day.")
+    if not fit_ok:
+        sys.exit("\nWARNING: a page failed its fit check - see above. Do not send it as is.")
 
 
 if __name__ == "__main__":

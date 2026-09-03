@@ -59,6 +59,22 @@
 #  and an ageing strip with the counts printed beside it), the Coates Way
 #  panel on every closing page, and a phone-sized position card PNG beside
 #  the PDF, attached to the draft. Same numbers, same rules, same order.
+#
+#  WHY (03 Sep 2026, the 10/10 pass): one file-name rule for every output
+#  (ampol_names.report_stem - Coates_Ampol_<Report>_03Sep2026 and its .pdf,
+#  .html, .body.html, _OUTLOOK.eml, _PositionCard.png and draft manifest);
+#  PDF properties and bookmarks stamped after every print (pdf_finish:
+#  Author, Subject, the navigation pane); the cover carries the page-1
+#  status stripe and the freshness line; three things to do today sit
+#  under the Executive Summary's band; a "Since the last pull" section
+#  reads the register pull against the previous one and the 24 hours of
+#  traffic before it (pull_diff - an honest note until a previous pull is
+#  parked, never an invented row); an ageing-by-company panel under the
+#  company bars; an APPENDIX divider before every complete register; a
+#  trend page once seven days are on the scoreboard; the family's position
+#  written to the scoreboard for the daily position page; and the position
+#  card inlined in the two client emails. Same numbers, same rules, same
+#  order - the new pages are added, nothing already printed moved.
 # =============================================================================
 import datetime as dt
 import html as _html
@@ -76,6 +92,8 @@ import ampol_paths  # WHY (12 Aug 2026): one Data area in, dated Reports folder 
 import k2flow       # WHY (02 Sep 2026): the Coates house frame for flowing reports
 import k2shell      # WHY (12 Aug 2026): the shared K2 chart kit - self-contained SVG
 import k2shell as sh
+import pdf_finish   # WHY (03 Sep 2026): PDF properties and bookmarks after every print
+import pull_diff    # WHY (03 Sep 2026): what moved since the last register pull
 import report_history as rh  # WHY (03 Sep 2026): the movement scoreboard
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -89,8 +107,14 @@ TODAY = dt.date.today()
 # same as the rest of the suite. WHY (02 Sep 2026): the leading zero stays
 # - the house style is "02 Sep 2026", and every other date on the page
 # (fmt_date, stamp) already prints it that way.
-GENERATED = dt.datetime.now().strftime("%d %b %Y %H:%M")
-DATESTR = TODAY.strftime("%Y-%m-%d")
+GENERATED_DT = dt.datetime.now()
+GENERATED = GENERATED_DT.strftime("%d %b %Y %H:%M")
+# WHY (03 Sep 2026): every output file is named by ampol_names.report_stem
+# (Coates_Ampol_<Report>_03Sep2026); the day tag is the day the button was
+# pressed, which is also the Reports\ folder the file sits in. The console
+# names that folder relative to the suite and nothing else carries a date
+# of its own.
+OUT_REL = os.path.relpath(OUT_DIR, HERE)
 # WHY (03 Sep 2026): TODAY names the output folder and nothing else. Every
 # day-based figure (days out, days elapsed, ageing bands, quarter guards,
 # partial-month words, the sort tie-break) counts to ASAT_DAY - the date of
@@ -1304,6 +1328,331 @@ def onhire_model(d):
             "legacy": legacy_model(d), "partial": partial_note(d, (ASAT_DAY.month,))}
 
 
+# ------------------------------------------------- 10/10 pass helpers ---
+# WHY (03 Sep 2026): the pieces the 10/10 pass added, each counted from the
+# same master list (or the same SiteIQ exports) as page 1, so nothing here
+# can disagree with a figure already printed.
+NO_PREVIOUS_NOTE = ("No earlier register pull is saved in Data\\previous yet - movement pull "
+                    "against pull starts with the next pull (button 28 parks the old "
+                    "export automatically).")
+CHANGE_CAP = 50      # rows printed per pull-against-pull table (the rest is counted)
+LAST24_CAP = 25      # rows printed for the 24 hours before the pull
+TREND_MIN_DAYS = 7   # the trend page needs this many recorded days
+SCOPE_WORDS = ("tooling items on the SiteIQ register - radios, gas monitors, Dräger "
+               "equipment, lanyards and steel coil clamps are excluded, and so are the "
+               "tool store's holding accounts and the Company Repairs account")
+
+
+def tooling_scope(row):
+    """pull_diff scope: a register row is in this family when its description
+    is tooling - no radio / gas / Dräger / lanyard / steel coil clamp family
+    word - the same words build_master applies."""
+    return not family_hit(clean_text(row["desc"]))
+
+
+def _acct_norm(text):
+    """'Loading Bay - Out Of Service' and 'Loading Bay Out Of Service' are
+    the same account: the register writes the dash, the transactions
+    export does not. Upper case, dashes to spaces, one space between words."""
+    return re.sub(r"\s+", " ", re.sub(r"\s*-\s*", " ", clean(text).upper())).strip()
+
+
+_HOLDING_EXACT = {_acct_norm(x) for x in MASTER_HIRER_EXCLUSIONS}
+_HOLDING_SUB = tuple(_acct_norm(x) for x in MASTER_HIRER_SUBSTRING_EXCLUSIONS)
+
+
+def is_holding_account(hirer):
+    hu = _acct_norm(hirer)
+    return hu in _HOLDING_EXACT or any(x in hu for x in _HOLDING_SUB)
+
+
+def in_population(row, dated=True):
+    """The rest of build_master's rule, applied to a pull_diff row from
+    whichever pull it came from: not a holding account, not the COMPANY
+    REPAIRS account and (when dated) an on-hire date in the report year."""
+    if is_holding_account(row.get("hirer", "")):
+        return False
+    if clean(row.get("company_raw", row.get("company", ""))).upper() == "COMPANY REPAIRS":
+        return False
+    if dated:
+        od = row.get("on_dt")
+        if od is None or od.year != ASAT_DAY.year:
+            return False
+    return True
+
+
+def get_changes(d):
+    """pull_diff.changes for the tooling population, read once per run and
+    kept on d. Every list is then trimmed to build_master's rule (holding
+    accounts, COMPANY REPAIRS and pre-year issues out) so the movement ties
+    to the population on page 1. None when the exports could not be read -
+    the section then says so instead of printing nothing."""
+    if "changes" in d:
+        return d["changes"]
+    try:
+        c = pull_diff.changes(scope=tooling_scope)
+    except Exception as e:  # a missing export must not stop the build
+        print(f"  NOTE: since-the-last-pull could not be read ({e}) - the section says so")
+        c = None
+    d["changes"] = trim_changes(c) if c is not None else None
+    return d["changes"]
+
+
+def trim_changes(c):
+    """Trim every pull_diff list to build_master's rule (see in_population)."""
+    for k in ("returned", "issued", "moved"):
+        c[k] = [r for r in c[k] if in_population(r)]
+    for t in list(c["crossed"]):
+        c["crossed"][t] = [r for r in c["crossed"][t] if in_population(r)]
+    for k in ("issued", "returned"):
+        c["last24"][k] = [r for r in c["last24"][k] if in_population(r, dated=False)]
+    return c
+
+
+def diff_desc(d, r):
+    """A movement row's description the way the register prints it: the
+    corrected name where the mapping has one, else the cleaned register
+    description; the site's former name never prints."""
+    corr = (d["corr"].get(r["barcode"].upper())
+            or d["corr_by_desc"].get(desc_key(clean_text(r["desc"]))))
+    return N.display_desc(corr or clean_text(r["desc"]))
+
+
+def since_last_pull(bl, d, full=True):
+    """The 'Since the last pull' section. full=True is the Tooling On-Hire
+    Report's page (the two pull times, four counts, the tables, the 24
+    hours before the pull); full=False is the Executive Summary's one
+    paragraph (counts and the last-24-hours line)."""
+    c = get_changes(d)
+    if c is None:
+        bl.note("<b>Since the last pull:</b> the register and transactions exports could "
+                "not be compared on this run - see the console.")
+        return
+    l = c["last24"]
+    ws, we = l["window"]
+    n_i, n_r = len(l["issued"]), len(l["returned"])
+    if l["available"]:
+        last24_line = (f"In the 24 hours before the pull ({stamp(ws)} to {stamp(we)}): "
+                       f"<b>{n_fmt(n_i)}</b> tooling items issued, <b>{n_fmt(n_r)}</b> returned.")
+    else:
+        last24_line = ("The TRANSACTIONS export was not in Data, so the 24 hours before the "
+                       "pull could not be counted.")
+    n_back, n_out = len(c["returned"]), len(c["issued"])
+    n_moved, n_90 = len(c["moved"]), len(c["crossed"][90])
+    if not full:
+        if c["have_previous"]:
+            bl.note(f"<b>Since the last pull</b> ({stamp(c['prev_time'])} to "
+                    f"{stamp(c['cur_time'])}): <b>{n_fmt(n_back)}</b> came back, "
+                    f"<b>{n_fmt(n_out)}</b> went out, <b>{n_fmt(n_moved)}</b> changed hands, "
+                    f"<b>{n_fmt(n_90)}</b> crossed 90 days while out. {last24_line}")
+        else:
+            bl.note(f"<b>Since the last pull:</b> {esc(NO_PREVIOUS_NOTE)} {last24_line}")
+        return
+
+    year = ASAT_DAY.year
+    bl.h2("Since The Last Pull", pb=True)
+    if c["have_previous"]:
+        bl.story(f"Pull against pull: the SiteIQ register pulled <b>{stamp(c['prev_time'])}</b> "
+                 f"against the register pulled <b>{stamp(c['cur_time'])}</b>, item by item, "
+                 f"for the population of this report ({SCOPE_WORDS}; on-hire dates in "
+                 f"{year}). Every row below is an item with a barcode - nothing is estimated.")
+        bl.tiles([tile(n_fmt(n_back), "Came back", "check", "", "green"),
+                  tile(n_fmt(n_out), "Went out", "swap"),
+                  tile(n_fmt(n_moved), "Changed hands", "people"),
+                  tile(n_fmt(n_90), "Crossed 90 days", "warn", "", "amber")])
+        bits = []
+        if c["companies_new"]:
+            bits.append("new on the register: " + ", ".join(esc(x) for x in c["companies_new"]))
+        if c["companies_cleared"]:
+            bits.append("cleared (nothing left on hire): "
+                        + ", ".join(esc(x) for x in c["companies_cleared"]))
+        bl.note("Companies " + ("; ".join(bits) if bits else "- none new, none cleared")
+                + f". Crossed 30 / 60 / 90 days while still out: "
+                f"{n_fmt(len(c['crossed'][30]))} / {n_fmt(len(c['crossed'][60]))} / "
+                f"{n_fmt(n_90)}.")
+
+        def capped(rows, what):
+            if len(rows) > CHANGE_CAP:
+                bl.note(f"Showing {CHANGE_CAP} of {n_fmt(len(rows))} {what}; the count above "
+                        "is the full figure.")
+            return rows[:CHANGE_CAP]
+        if c["returned"]:
+            bl.h2("Came Back (company A to Z)")
+            bl.table(["Company", "Hirer", "Description", "Barcode", "Days it was out"],
+                     [[r["company"], display_hirer(r["hirer"]), diff_desc(d, r), r["barcode"],
+                       r["days_out"] if r["days_out"] is not None else "-"]
+                      for r in capped(c["returned"], "items that came back")],
+                     cls="tight", aligns=["", "", "", "", "r"])
+        if c["issued"]:
+            bl.h2("Went Out (company A to Z)")
+            bl.table(["Company", "Hirer", "Description", "Barcode", "On hire since"],
+                     [[r["company"], display_hirer(r["hirer"]), diff_desc(d, r), r["barcode"],
+                       fmt_date(r["on_dt"].date() if r["on_dt"] else None)]
+                      for r in capped(c["issued"], "items that went out")], cls="tight")
+        if c["moved"]:
+            bl.h2("Changed Hands (company A to Z)")
+            bl.table(["Company", "Hirer now", "Was with", "Description", "Barcode", "Days out"],
+                     [[r["company"], display_hirer(r["hirer"]),
+                       f"{display_hirer(r['from_hirer'])}, {r['from_company']}",
+                       diff_desc(d, r), r["barcode"],
+                       r["days_out"] if r["days_out"] is not None else "-"]
+                      for r in capped(c["moved"], "items that changed hands")],
+                     cls="tight", aligns=["", "", "", "", "", "r"])
+        if c["crossed"][90]:
+            bl.h2("Crossed 90 Days Since The Last Pull (ranked by days out, oldest first)")
+            bl.table(["Company", "Hirer", "Description", "Barcode", "On hire since", "Days out"],
+                     [[r["company"], display_hirer(r["hirer"]), diff_desc(d, r), r["barcode"],
+                       fmt_date(r["on_dt"].date() if r["on_dt"] else None),
+                       r["days_out"] if r["days_out"] is not None else "-"]
+                      for r in capped(c["crossed"][90], "items that crossed 90 days")],
+                     cls="tight", aligns=["", "", "", "", "", "r"])
+    else:
+        bl.note(esc(NO_PREVIOUS_NOTE))
+    bl.h2("The 24 Hours Before The Pull")
+    if l["available"]:
+        bl.story(f"Between <b>{stamp(ws)}</b> and <b>{stamp(we)}</b> the SiteIQ TRANSACTIONS "
+                 f"export records <b>{n_fmt(n_i)}</b> tooling items issued and "
+                 f"<b>{n_fmt(n_r)}</b> returned ({SCOPE_WORDS}). This part needs no "
+                 "earlier pull - it is counted from the day's transactions.")
+        moves = ([dict(r, kind="Issued") for r in l["issued"]]
+                 + [dict(r, kind="Returned") for r in l["returned"]])
+        moves.sort(key=lambda r: (N.sort_key(r["company"]), r["at"], r["barcode"]))
+        rows = [[r["company"] or "-", display_hirer(r["hirer"]) or "-", diff_desc(d, r),
+                 r["barcode"], r["kind"], r["at"].strftime("%d %b %H:%M")]
+                for r in moves[:LAST24_CAP]]
+        if rows:
+            bl.table(["Company", "Hirer", "Description", "Barcode", "Movement", "Time"], rows,
+                     cls="tight")
+        if len(moves) > LAST24_CAP:
+            bl.note(f"Showing {LAST24_CAP} of {n_fmt(len(moves))} movements - company A to Z, "
+                    "then time; the counts above are the full figures.")
+    else:
+        bl.note(last24_line)
+
+
+def three_things_for(d):
+    """The Executive Summary's three things to do today, each drawn from
+    the master list: the largest over-90 holder, the oldest item out, and
+    the unpriced items (or, when everything is priced, the second-largest
+    over-90 holder). Fewer than three true items prints fewer."""
+    master = d["master"]
+    client = [r for r in master if not r["custody"]]
+    due = fmt_date(ASAT_DAY + dt.timedelta(days=CONFIG["rag_due_days"]))
+    who = f"Andrew Fisher \u00b7 by {due}"
+    items = []
+    by_co = defaultdict(list)
+    for r in client:
+        if r["days"] is not None and r["days"] > 90:
+            by_co[r["company"]].append(r)
+    ranked = sorted(by_co.items(), key=lambda kv: (-len(kv[1]), N.sort_key(kv[0])))
+
+    def chase(rank, word):
+        co, rows = ranked[rank]
+        vb = value_bits(rows)
+        val = (f"{money(vb['value'])} at replacement" if vb["priced"] else "nothing priced")
+        if vb["unpriced"]:
+            val += f" ({vb['unpriced']} unpriced)"
+        return (f"Chase {co} for {plural(len(rows))} over 90 days",
+                f"the {word} over-90 holder; {val}", who)
+    if ranked:
+        items.append(chase(0, "largest"))
+    oldest = min(client, key=lambda r: (r["date"] or ASAT_DAY, r["barcode"])) if client else None
+    if oldest and oldest["date"]:
+        items.append((f"Recover {oldest['barcode']} ({N.display_desc(oldest['desc'])}) from "
+                      f"{oldest['hirer']}, {oldest['company']}",
+                      f"the oldest item out: {oldest['days']} days, since "
+                      f"{fmt_date(oldest['date'])}", who))
+    unpriced = [r for r in master if r["cost"] is None]
+    if unpriced:
+        by_desc = Counter(N.display_desc(r["desc"]) for r in unpriced)
+        desc, m = sorted(by_desc.items(), key=lambda kv: (-kv[1], N.sort_key(kv[0])))[0]
+        items.append((f"Price the {n_fmt(len(unpriced))} unpriced items",
+                      f"{desc} carries {m} of them; the value on page 1 is understated "
+                      "until then", who))
+    elif len(ranked) > 1:
+        items.append(chase(1, "second-largest"))
+    return items[:3]
+
+
+def ageing_panel(bl, companies, heading):
+    """'On-hire ageing by company': one stacked bar per company (A to Z,
+    custody and holding accounts excluded - the same population as the
+    company bars) in the four shared ageing bands, with the counts in a
+    table beneath so every segment reconciles to the company's total."""
+    rows = []
+    for co in companies:
+        segs = [0, 0, 0, 0]
+        for r in co["items"]:
+            segs[sh.age_band_index(r["days"])] += 1
+        rows.append((co["name"], segs))
+    if not rows:
+        return
+    bl.h2(heading)
+    bl.chart(sh.stacked_hbars(rows),
+             f"Each company's items on hire by days out at the pull ({fmt_date(ASAT_DAY)}): "
+             f"0-30, 31-60, 61-90 and over 90 days. All {len(rows)} companies A to Z, not "
+             "ranked; a row's total is the company's items in the chart above. The Repairs "
+             "custody account is not a company and is not drawn.")
+    tot = [sum(s[i] for _c, s in rows) for i in range(4)]
+    bl.table(["Company", "0-30 days", "31-60 days", "61-90 days", "Over 90 days", "Items"],
+             [[co] + segs + [sum(segs)] for co, segs in rows]
+             + [["Total"] + tot + [sum(tot)]],
+             cls="tight", aligns=["", "r", "r", "r", "r", "r"])
+
+
+def trend_days_on_record():
+    return len(rh.load().get("tooling", {}))
+
+
+def trend_page(bl, d, live):
+    """'The trend - last 30 days': only when the family has TREND_MIN_DAYS
+    recorded days on the scoreboard. live holds today's figures (on_hire,
+    over90, value) so the last point is today even on the first build of
+    the day, before the build records it. Returns True when drawn."""
+    if trend_days_on_record() < TREND_MIN_DAYS:
+        return False
+    keys = ("on_hire", "over90", "value")
+    series = {k: dict(rh.series("tooling", k, ASAT_DT or ASAT_DAY, days=30)) for k in keys}
+    for k in keys:
+        if live.get(k) is not None:
+            series[k][ASAT_DAY] = live[k]
+    days = sorted(set().union(*[set(s) for s in series.values()]))
+    if len(days) < 2:
+        return False
+    labels = [dd.strftime("%d %b") for dd in days]
+    vals = {k: [series[k].get(dd) for dd in days] for k in keys}
+    thousands = [round(v / 1000.0, 1) if v is not None else None for v in vals["value"]]
+    bl.h2("The trend - last 30 days", pb=True)
+    bl.story(f"Every point is the figure this report printed on that day, read back from "
+             f"the movement scoreboard (History\\report_history.json) - {len(days)} days on "
+             f"record in the 30 days to {fmt_date(ASAT_DAY)}. A day with no build shows a "
+             "gap; nothing is interpolated.")
+    bl.chart(sh.line_chart(labels, [("Items on hire", vals["on_hire"]),
+                                    ("Out more than 90 days", vals["over90"])],
+                           y_label="items"),
+             f"Tooling items on hire (issued this year) and the part of them out more than "
+             "90 days, by pull day.")
+    bl.chart(sh.line_chart(labels, [("Replacement value, priced items", thousands)],
+                           y_label="$'000"),
+             "Replacement value of the priced items on hire, in $'000, by pull day - "
+             "unpriced items are never in it.")
+    bl.table(["Day", "Items on hire", "Out more than 90 days", "Replacement value"],
+             [[dd.strftime("%d %b %Y"),
+               n_fmt(vals["on_hire"][i]) if vals["on_hire"][i] is not None else "-",
+               n_fmt(vals["over90"][i]) if vals["over90"][i] is not None else "-",
+               money(vals["value"][i]) if vals["value"][i] is not None else "-"]
+              for i, dd in enumerate(days)], cls="tight", aligns=["", "r", "r", "r"])
+    return True
+
+
+def trend_line(shown):
+    n = trend_days_on_record()
+    if shown:
+        return (f"Trend page: {n} days on record in History\\report_history.json; "
+                "the last 30 are drawn.")
+    return f"Trend page: appears once seven days are on record ({n} today)."
+
+
 # -------------------------------------------------------------- rendering ---
 def page(title, subtitle, body, limits, standard_break=False):
     """WHY (02 Sep 2026): standard_break puts Our Standard / Honest Limits on
@@ -1682,6 +2031,20 @@ table.dt.reg tr.co .sc .scv { margin: 0 14px 0 5px; }
 table.dt.reg tr.co .sc .scv b { color: #FFFFFF; }
 table.dt.reg tr.co .sc svg { vertical-align: middle; }
 .k2body .ragband { margin-top: 10px; }
+/* the Executive Summary position page (03 Sep 2026): compact tiles so the
+   band and the three things share the page with them */
+.k2body .cpt .tiles { border-spacing: 7px 5px; }
+.k2body .cpt .tiles td { padding: 9px 8px 8px 8px; }
+.k2body .cpt .t-ico { margin-bottom: 5px; }
+.k2body .cpt .t-num { font-size: 23px; }
+.k2body .cpt .t-num.sm { font-size: 18px; }
+.k2body .cpt .t-lab { margin-top: 5px; }
+.k2body .cpt .t-note { margin-top: 3px; }
+.k2body .cpt .t-spark { margin-top: 2px; }
+.k2body .cpt + .ragband { margin-top: 6px; }
+.k2body .callout.tight { line-height: 1.75; }
+.k2body .three { margin-top: 6px; padding: 5px 12px 3px 12px; }
+.k2body .three .t3 { padding: 3px 0; }
 """
 
 
@@ -1741,9 +2104,11 @@ class Blocks:
         # fleet: the on-hire total the company mini-scorecards are a share of
         self.items.append(("register", blocks, fleet))
 
-    def rag(self, band):
-        # the page-1 RAG band (a rag_over90 dict) - page skin only
-        self.items.append(("rag", band))
+    def rag(self, band, tight=False):
+        # the page-1 RAG band (a rag_over90 dict) - page skin only;
+        # tight is the shorter form (03 Sep 2026: the Executive Summary,
+        # so the three things fit under it on the position page)
+        self.items.append(("rag", band, tight))
 
     def defbox(self, title, items):
         self.items.append(("defbox", title, items))
@@ -1751,8 +2116,24 @@ class Blocks:
     def ul(self, items):
         self.items.append(("ul", items))
 
+    def three(self, items):
+        # WHY (03 Sep 2026): the three-things block, under the band
+        self.items.append(("three", items))
+
+    def divider(self, title, sub, note=""):
+        # WHY (03 Sep 2026): the full-page APPENDIX divider before a register
+        self.items.append(("divider", title, sub, note))
+
     def email_end(self):
         self.items.append(("email_end",))
+
+
+def email_three(items):
+    """The three things in the email's plain table markup."""
+    rows = "".join(f"<tr><td>{i}</td><td><b>{esc(w)}</b><br>{esc(y)}</td><td>{esc(o)}</td></tr>"
+                   for i, (w, y, o) in enumerate(items, 1))
+    return ('<div class="subhead">Three things to do today</div>'
+            f'<table><tr><th>#</th><th>What and why</th><th>Owner / by</th></tr>{rows}</table>')
 
 
 def email_body(bl):
@@ -1766,7 +2147,7 @@ def email_body(bl):
         elif k == "note":
             out.append(f"<p class='note'>{b[1]}</p>")
         elif k == "tiles":
-            out.append(tiles([(t[0], t[5]) for t in b[1]], b[2]))
+            out.append(tiles([(t[0], t[5]) for t in b[1]], b[2] if b[2] == "three" else ""))
         elif k == "h2":
             out.append(f'<h2 class="pb">{b[1]}</h2>' if b[2] else f"<h2>{b[1]}</h2>")
         elif k == "table":
@@ -1783,6 +2164,11 @@ def email_body(bl):
         elif k == "ul":
             out.append("<ul style='font-size:11px;line-height:1.7;'>"
                        + "".join("<li>" + esc(r) + "</li>" for r in b[1]) + "</ul>")
+        elif k == "three":
+            out.append(email_three(b[1]))
+        elif k == "divider":
+            out.append(f"<h2>Appendix - {esc(b[1])}</h2><p class='note'>{b[2]}"
+                       + (f" {esc(b[3])}." if b[3] else "") + "</p>")
         elif k == "email_end":
             out.append("<!--EMAIL-END-->")
     return "".join(out)
@@ -2047,7 +2433,8 @@ def k2_body(bl, limits, how, data_heading=True):
         elif k == "note":
             out.append(f'<div class="note">{b[1]}</div>')
         elif k == "tiles":
-            out.append(k2_tiles(b[1]))
+            t = k2_tiles(b[1])
+            out.append(f'<div class="cpt">{t}</div>' if b[2] == "compact" else t)
         elif k == "h2":
             out.append(f'<div class="sect{" pb" if b[2] else ""}"><h3>{b[1]}</h3></div>')
         elif k == "table":
@@ -2059,27 +2446,37 @@ def k2_body(bl, limits, how, data_heading=True):
         elif k == "rag":
             r = b[1]
             out.append(sh.rag_band(r["status"], r["head_html"], esc(r["rule"]),
-                                   esc(r["owner"]), r["action_html"]))
+                                   esc(r["owner"]), r["action_html"],
+                                   tight=bool(b[2]) if len(b) > 2 else False))
         elif k == "defbox":
             out.append(k2_defbox(b[1], b[2]))
         elif k == "ul":
             out.append(k2_ul(b[1]))
+        elif k == "three":
+            out.append(sh.three_things(b[1]))
+        elif k == "divider":
+            out.append(k2flow.divider_block(b[1], b[2], b[3]))
         # email_end marks where the email stops - nothing on the page
     out.append(k2_tail(limits, how, data_heading))
     return "".join(out)
 
 
 def report_outputs(title, subtitle, subject, bl, limits, page_title, page_sub, cfg, how,
-                   standard_break=False, data_heading=True, cover=None):
-    """(title, subtitle, page document, email document, subject) - the page
-    document wears the house frame; the email document is the kit's legacy
-    page, kept only so email_html() can lift the Outlook-safe body from it.
-    cover (03 Sep 2026): a k2flow.cover_block for the client-facing reports."""
+                   standard_break=False, data_heading=True, cover=None, pdf_subject="",
+                   card=None):
+    """One report, ready to write: the page document wears the house frame;
+    the email document is the kit's legacy page, kept only so email_html()
+    can lift the Outlook-safe body from it. cover (03 Sep 2026): a
+    k2flow.cover_block for the client-facing reports. pdf_subject: the one
+    plain sentence stamped into the PDF's properties; card: the phone
+    position card's values."""
     email_doc = page(page_title, page_sub, email_body(bl), limits, standard_break)
     page_doc = k2flow.flow_doc(cfg, GENERATED, ASAT_SHORT,
                                k2_body(bl, limits, how, data_heading), extra_css=EXTRA_CSS,
                                cover=cover)
-    return (title, subtitle, page_doc, email_doc, subject)
+    return {"title": title, "subtitle": subtitle, "doc": page_doc, "mail": email_doc,
+            "subject": subject, "pdf_subject": pdf_subject or subject,
+            "has_cover": cover is not None, "card": card}
 
 
 def render_quarter(d, qk):
@@ -2121,6 +2518,19 @@ def render_quarter(d, qk):
         bl.story("Nothing is on hire from this window"
                  + (" - the quarter has not started." if not quarter_started(qk) else "."))
     if m["companies"]:
+        # WHY (03 Sep 2026): the ageing-by-company panel, then the APPENDIX
+        # divider - everything after it is the complete register
+        ageing_panel(bl, m["companies"], "On-Hire Ageing By Company (A to Z)")
+        n_client = sum(co["vb"]["n"] for co in m["companies"])
+        bl.divider("The complete register, A to Z",
+                   f"Everything from here is the full register for {esc(m['label'])}: every "
+                   "company A to Z, every hirer under it, every item with its start date and "
+                   "days out. The story - the position, the band and the ageing - is on the "
+                   "pages before this one.",
+                   f"{plural(n_client)} across {m['n_companies']} "
+                   f"{'company' if m['n_companies'] == 1 else 'companies'}"
+                   + (f", then the Repairs custody account ({plural(len(m['custody']))})"
+                      if m["custody"] else ""))
         bl.h2("On Hire By Company (A to Z)")
         bl.note("Companies A to Z; under each company the hirers A to Z "
                 "(people first, then the company's project / workflow accounts); under "
@@ -2160,7 +2570,10 @@ def render_quarter(d, qk):
         f"Ampol Tool Store - Quarterly On-Hire Report - {m['label']} - "
         f"{plural(len(m['rows']))}",
         bl, limits, "Ampol Tooling - " + m["label"],
-        "Quarterly On-Hire Report - " + m["label"], cfg, HOW_REGISTER)
+        "Quarterly On-Hire Report - " + m["label"], cfg, HOW_REGISTER,
+        pdf_subject=(f"Tooling issued from the Ampol tool store in {m['label']} and still on "
+                     f"hire at the SiteIQ pull of {ASAT_SHORT}, by company A to Z, with the "
+                     "charge position at quarter close."))
 
 
 def render_company(d, name):
@@ -2232,7 +2645,9 @@ def render_company(d, name):
         f"Ampol Tool Store - {m['name']} - On-Hire Report - "
         f"{plural(len(m['items']))}",
         bl, limits, "Ampol Tooling - " + m["name"],
-        "Company On-Hire Report - " + m["name"], cfg, HOW_REGISTER)
+        "Company On-Hire Report - " + m["name"], cfg, HOW_REGISTER,
+        pdf_subject=(f"Tooling on hire to {m['name']} from the Ampol tool store at the SiteIQ "
+                     f"pull of {ASAT_SHORT}, by hirer A to Z."))
 
 
 def render_onhire(d):
@@ -2326,6 +2741,10 @@ def render_onhire(d):
     sit.append(["Total on hire", n_fmt(n), money(x["total_val"]) + " priced"])
     bl.table(["Where", "Items", "Note"], sit)
 
+    # ---- since the last pull (03 Sep 2026): pull against pull, then the
+    # 24 hours of traffic before the pull
+    since_last_pull(bl, d, full=True)
+
     # ---- pictures: companies A to Z
     bl.h2("Items On Hire By Company (A to Z)", pb=True)
     bl.chart(
@@ -2349,6 +2768,8 @@ def render_onhire(d):
     bl.note("Hirers counts people only; a company's project / workflow "
             "account is listed under the company in the register, not counted as a "
             "hirer.")
+    # WHY (03 Sep 2026): the same companies, split into the four ageing bands
+    ageing_panel(bl, x["companies"], "On-Hire Ageing By Company (A to Z)")
     bl.email_end()
 
     # ---- pictures: ageing and category
@@ -2397,8 +2818,21 @@ def render_onhire(d):
                f'{vb["priced"]} / {vb["unpriced"]}'] for lab, vb in x["months"]]
              + [["Total", n, money(x["total_val"]), f"{x['priced']} / {x['unpriced']}"]])
 
-    # ---- the register
-    bl.h2("The Register - Every Company A To Z", pb=True)
+    # ---- the trend page (03 Sep 2026): only once seven days are on record
+    trend_shown = trend_page(bl, d, {"on_hire": n, "over90": len(x["over90"]),
+                                     "value": round(x["total_val"], 2)})
+
+    # ---- the register, behind its APPENDIX divider (03 Sep 2026)
+    n_client = len(x["client"])
+    bl.divider("The complete register, A to Z",
+               "Everything from here is the full register: every company A to Z, every hirer "
+               "under it, every item with its start date, days out and replacement value, then "
+               "the custody and holding accounts and the legacy rows. The story - the position, "
+               "the movement, the pictures - is on the pages before this one.",
+               f"{plural(n_client)} across {x['n_companies']} companies"
+               + (f", then the Repairs custody account ({plural(len(x['custody']))})"
+                  if x["custody"] else ""))
+    bl.h2("The Register - Every Company A To Z")
     bl.note("Companies A to Z (the SiteIQ account is shown under the "
             "company name where a customer has more than one); under each company the "
             "hirers A to Z, people first and then the company's project / workflow "
@@ -2520,22 +2954,32 @@ def render_onhire(d):
         "are 0-30, 31-60, 61-90, 91-180 and over 180 days. Category is a keyword match on "
         "the register description (Rigging / Electrical / High Torque; General otherwise).",
         "Order: every table is A to Z (companies, hirers, accounts, legacy companies) with "
-        "items longest-held first and then A to Z by description; the top-15 hirer chart is "
-        "the one ranked table and says so. Every figure is counted by this kit from the "
-        "exports named above - the Excel workbook is not read for any printed number.",
+        "items longest-held first and then A to Z by description; the ranked tables - the "
+        "top-15 hirers and the items that crossed 90 days - say so in their headings. Every "
+        "figure is counted by this kit from the exports named above - the Excel workbook is "
+        "not read for any printed number.",
+        "Since the last pull: the SiteIQ register is compared item by item with the newest "
+        "earlier RENTAL_STOCK export parked in Data\\previous (came back, went out, changed "
+        "hands, crossed 30 / 60 / 90 days while out); the 24 hours before the pull are "
+        "counted from the TRANSACTIONS export's start and end times. Both use this report's "
+        f"population ({SCOPE_WORDS}). No earlier pull means no pull-against-pull rows and a "
+        "plain note saying so.",
+        trend_line(trend_shown),
     ]
     bl.ul(rules)
     limits = source_limits(d)
     cfg = k2cfg("Tooling On-Hire Report", "COATES · TOOL STORE · TOOLING ON-HIRE REPORT",
                 KEY_REGISTER)
-    # WHY (03 Sep 2026): the cover - the one number, three true lines
+    # WHY (03 Sep 2026): the cover - the one number, three true lines, the
+    # status stripe from the band on page 1 and the freshness line
     o_vb = x["over90_vb"]
     cover = k2flow.cover_block(cfg, n_fmt(n), "tooling items on hire", [
         f"<b>{money(x['total_val'])}</b> of replacement value in the field "
         f"({n_fmt(x['priced'])} priced / {n_fmt(x['unpriced'])} unpriced)",
         f"<b>{n_fmt(x['n_companies'])}</b> companies, A to Z",
         f"<b>{n_fmt(len(x['over90']))}</b> items out more than 90 days "
-        f"({money(o_vb['value']) if o_vb['priced'] else '-'} priced)"], GENERATED, ASAT_SHORT)
+        f"({money(o_vb['value']) if o_vb['priced'] else '-'} priced)"], GENERATED, ASAT_SHORT,
+        rag=band["status"], fresh=sh.freshness_line(ASAT_DT, GENERATED_DT))
     um = util_model(d)
     tx_all = d["tx"]
     same_day = sum(1 for t in tx_all if t["end"] and t["start"] and t["end"] == t["start"])
@@ -2552,7 +2996,10 @@ def render_onhire(d):
         f"Ampol Tool Store - Tooling On-Hire Report - {plural(n)} on hire across "
         f"{x['n_companies']} companies",
         bl, limits, "Ampol Tooling - On-Hire Report", "Tooling On-Hire Report", cfg,
-        HOW_REGISTER, standard_break=True, data_heading=False, cover=cover) + (card,)
+        HOW_REGISTER, standard_break=True, data_heading=False, cover=cover, card=card,
+        pdf_subject=(f"Every tooling item on hire from the Ampol tool store at the SiteIQ "
+                     f"pull of {ASAT_SHORT}: the position, what moved since the last pull, "
+                     "the ageing by company and the complete register, company A to Z."))
 
 
 def render_util(d):
@@ -2650,7 +3097,10 @@ def render_util(d):
         f"Ampol Tool Store - Utilisation & What-To-Buy - "
         f"{len(um['buy'])} buy signals",
         bl, limits, "Ampol Tooling - Utilisation", "Utilisation & What-To-Buy Report",
-        cfg, HOW_UTIL)
+        cfg, HOW_UTIL,
+        pdf_subject=(f"Utilisation of the Ampol tool store's equipment groups at the SiteIQ "
+                     f"pull of {ASAT_SHORT}, with the demand-backed buy list and the "
+                     "right-size candidates."))
 
 
 def render_compliance(d):
@@ -2708,11 +3158,12 @@ def render_compliance(d):
         # shared K2 chart kit. The table stays; the chart is added beside it.
         period = d["asat"]["tx"]["period"] or "year to date"
         if len(cm["trend"]) >= 2:
+            # WHY (03 Sep 2026): the shared line chart now takes (name, values)
+            # series - same monthly counts as the table below
             bl.chart(
-                k2shell.line_chart([mth for mth, _ in cm["trend"]],
-                                   [{"vals": [n for _, n in cm["trend"]],
-                                     "colour": K_ORANGE, "label": "Transactions",
-                                     "fill": True}]),
+                sh.line_chart([mth for mth, _ in cm["trend"]],
+                              [("Transactions", [n for _, n in cm["trend"]])],
+                              y_label="transactions per month"),
                 f"Tool store transactions per month by SiteIQ start date, export period "
                 f"{period}. Every account and family is counted (custody and radio / gas "
                 f"movements included); the current month is partial.")
@@ -2742,7 +3193,11 @@ def render_compliance(d):
         f"Ampol Tool Store - Compliance & Trends - {len(cm['chase'])} items to "
         f"sight",
         bl, limits, "Ampol Tooling - Compliance", "Compliance & Trends Report", cfg,
-        HOW_COMPLIANCE)
+        HOW_COMPLIANCE,
+        pdf_subject=(f"Electrical, rigging and high-torque tooling on hire from the Ampol tool "
+                     f"store not sighted in {NOT_SIGHTED_DAYS} days at the SiteIQ pull of "
+                     f"{ASAT_SHORT}, the gear caught out of tag, the high-value items and "
+                     "the monthly activity."))
 
 
 def recovery_table(x):
@@ -2830,9 +3285,13 @@ def render_exec(d):
           tile(sd, "Same-day returns", "clock",
                key="same_day_pct", good="up",
                raw=round(x["same_day_pct"] * 100.0, 1) if x["same_day_pct"] is not None else None)]
-    bl.tiles(p1)
+    bl.tiles(p1, cls="compact")
     band = rag_over90(over90_n, x["on_hire"], f"tooling items on hire ({ASAT_DAY.year})")
-    bl.rag(band)
+    bl.rag(band, tight=True)
+    # WHY (03 Sep 2026): three things to do today, straight under the band,
+    # each drawn from the master list; then what moved since the last pull
+    bl.three(three_things_for(d))
+    since_last_pull(bl, d, full=False)
     bl.note(f"On hire excludes {n_fmt(leg['n'])} register rows on hire since before "
             f"01 Jan {ASAT_DAY.year} (oldest {fmt_date(leg['oldest'])}) - "
             + (f"all of them {leg_fams}, chased by the Radio and Gas Monitor reports; "
@@ -2922,7 +3381,7 @@ def render_exec(d):
         "How long the current on-hire items have been out - days since their "
         "on-hire date. The quarterly recovery cycle is what brings the long "
         "tail home.")
-    bl.h2("Signals")
+    bl.h2("Signals - Buy, Right-Size And Compliance")
     bl.tiles([tile(n_fmt(x["buy_n"]), "Buy signals (demand-backed)", "zap",
                    key="buy_signals", raw=x["buy_n"], good="down"),
               tile(n_fmt(x["overstock_n"]), "Right-size candidates", "bars",
@@ -2938,6 +3397,9 @@ def render_exec(d):
              "On-Hire charge reports, Utilisation &amp; What-To-Buy, and Compliance "
              "&amp; Trends &mdash; each one client-ready, each one emailable from this "
              "kit.")
+    # ---- the trend page (03 Sep 2026): only once seven days are on record
+    trend_shown = trend_page(bl, d, {"on_hire": x["on_hire"], "over90": over90_n,
+                                     "value": round(x["total_val"], 2)})
     limits = ["Every figure is counted from the SiteIQ exports beside this report - never "
               "from a workbook tab or a hardcoded summary cell. On hire = register rows "
               f"On Hire with a {ASAT_DAY.year} on-hire date, less radios, gas monitors, "
@@ -2950,17 +3412,27 @@ def render_exec(d):
               "Resources; FCCU and SATGAS/MOL project accounts roll up to their company "
               "(the Tooling On-Hire Report shows the account against each hirer). Repairs "
               "is an internal custody account, never a company.",
+              "Three things to do today are drawn from the same on-hire list: the company "
+              "holding the most items over 90 days, the oldest item out, and the unpriced "
+              "items (or the second-largest over-90 holder when everything is priced). Since "
+              "the last pull compares the register with the newest earlier export parked in "
+              "Data\\previous, and the 24 hours before the pull are counted from the "
+              "TRANSACTIONS export - both for this report's population "
+              f"({SCOPE_WORDS}).",
+              trend_line(trend_shown),
               ] + source_limits(d)
     cfg = k2cfg("Executive Summary", "COATES · TOOL STORE · EXECUTIVE SUMMARY", KEY_EXEC)
     # WHY (03 Sep 2026): the cover and the phone position card - the same
-    # page-1 values, nothing counted twice
+    # page-1 values, nothing counted twice; the cover's stripe is the band's
+    # own status and the freshness line is the honest age of the data
     cover = k2flow.cover_block(cfg, n_fmt(x["on_hire"]), "tooling items on hire", [
         f"<b>{money(x['total_val'])}</b> of replacement value in the field "
         f"({n_fmt(x['priced'])} priced / {n_fmt(x['unpriced'])} unpriced)",
         f"<b>{n_fmt(len(x['companies']))}</b> companies, A to Z",
         f"<b>{n_fmt(over90_n)}</b> items out more than 90 days "
         f"({money(over90_vb['value']) if over90_vb['priced'] else '-'} priced)"],
-        GENERATED, ASAT_SHORT)
+        GENERATED, ASAT_SHORT, rag=band["status"],
+        fresh=sh.freshness_line(ASAT_DT, GENERATED_DT))
     card = {"cfg": cfg, "tiles": card_tiles(p1),
             "band": (band["status"], band["card_head"], band["owner"], band["card_action"]),
             "scores": card_scores(x["on_hire"], x["priced"], x["same_day_pct"], over90_n,
@@ -2971,15 +3443,23 @@ def render_exec(d):
         f"Executive Summary | {n_fmt(x['on_hire'])} on hire | {money(x['total_val'])}",
         f"Ampol Tool Store - Executive Summary - {plural(x['on_hire'])} on hire",
         bl, limits, "Ampol Tooling - Executive Summary", "Executive Summary", cfg,
-        HOW_EXEC, cover=cover) + (card,)
+        HOW_EXEC, cover=cover, card=card,
+        pdf_subject=(f"The Ampol tool store position at the SiteIQ pull of {ASAT_SHORT}: "
+                     "tooling on hire, its replacement value, the three things to do today, "
+                     "what moved since the last pull, the quarterly recovery by company and "
+                     "the buy, right-size and compliance signals."))
 
 
 # ------------------------------------------------------------------ email ---
-def email_html(subtitle, inner_note, html_doc):
+def email_html(subtitle, inner_note, html_doc, card_html=""):
     """Outlook-safe like-for-like body: reuse the report body inside a bordered
     680px card. We inline the full report HTML converted to nested-table-safe
     markup by keeping our simple structure (tables + divs render acceptably in
-    Outlook's Word engine because all styling is inline-safe)."""
+    Outlook's Word engine because all styling is inline-safe).
+    card_html (03 Sep 2026): the inline position card (a cid image) printed
+    under the opening line - the .eml only; the draft manifest's body stays
+    without it because an Outlook draft made by PowerShell cannot resolve a
+    cid part."""
     # extract body content between the marker comments page() now writes
     # WHY (12 Aug 2026): the old wrap/footer regex silently made the WHOLE
     # document the email body the moment page() formatting shifted. The
@@ -3082,6 +3562,7 @@ def email_html(subtitle, inner_note, html_doc):
 </td></tr>
 <tr><td style="padding:18px 26px;font-family:Arial,sans-serif;">
   <p style="font-size:11px;color:{GREY};margin:0 0 10px 0;">{inner_note}</p>
+  {card_html}
   {inner}
 </td></tr>
 <tr><td style="background:{LIGHT};border-top:3px solid {ORANGE};padding:12px 26px;
@@ -3146,7 +3627,13 @@ def edge_pdf(html_path, pdf_path):
     return False
 
 
-def write_eml(eml_path, subject, body_html, attach_paths):
+CARD_CID = "positioncard"
+CARD_IMG = (f'<img src="cid:{CARD_CID}" alt="The position card" width="420" '
+            'style="display:block;max-width:420px;width:100%;height:auto;'
+            'margin:4px 0 14px 0;border-radius:8px;">')
+
+
+def write_eml(eml_path, subject, body_html, attach_paths, inline_png=None):
     """An X-Unsent .eml beside the manifest - double-click it and Outlook
     opens an editable DRAFT. No To line: Andrew addresses it himself.
 
@@ -3154,7 +3641,9 @@ def write_eml(eml_path, subject, body_html, attach_paths):
     so the drafts flow works even on a machine without the PowerShell step -
     and nothing can ever send itself either way.
     WHY (03 Sep 2026): takes a list - the PDF and, for the client-facing
-    reports, the position card PNG beside it.
+    reports, the position card PNG beside it. inline_png embeds that card
+    in the body as a cid part (the body carries <img src="cid:...">), and
+    the same PNG still rides as a normal attachment so it can be saved.
     """
     from email.mime.application import MIMEApplication
     from email.mime.image import MIMEImage
@@ -3165,7 +3654,18 @@ def write_eml(eml_path, subject, body_html, attach_paths):
     msg = MIMEMultipart("mixed")
     msg["Subject"] = subject
     msg["X-Unsent"] = "1"
-    msg.attach(MIMEText(body_html, "html", "utf-8"))
+    if inline_png and os.path.exists(inline_png):
+        related = MIMEMultipart("related")
+        related.attach(MIMEText(body_html, "html", "utf-8"))
+        with open(inline_png, "rb") as f:
+            img = MIMEImage(f.read(), _subtype="png")
+        img.add_header("Content-ID", f"<{CARD_CID}>")
+        img.add_header("Content-Disposition", "inline",
+                       filename=os.path.basename(inline_png))
+        related.attach(img)
+        msg.attach(related)
+    else:
+        msg.attach(MIMEText(body_html, "html", "utf-8"))
     for attach_path in attach_paths or []:
         if not (attach_path and os.path.exists(attach_path)):
             continue
@@ -3183,29 +3683,46 @@ def write_eml(eml_path, subject, body_html, attach_paths):
         f.write(msg.as_bytes())
 
 
-def write_outputs(stem, title, subtitle, html_doc, email_doc, subject, note=None, card=None):
-    """html_doc is the page in the house frame (written as .html, printed to
-    PDF); email_doc is the same content in the kit's legacy page, used only
-    to lift the Outlook-safe email body. WHY (02 Sep 2026): the email
-    builder strips a page by its BODY markers, which the house frame does
-    not carry - so it is handed the legacy page instead of the printed one.
-    card (03 Sep 2026): the phone position card - drawn from the page-1
-    values, saved beside the PDF as <stem>_PositionCard.png, attached to
-    the .eml and listed in the draft manifest."""
+def write_outputs(key, out, note=None):
+    """Write one report under the suite's one file-name rule. key is an
+    ampol_names.REPORT_STEMS key (exec, onhire, q1..q4, year, util,
+    compliance) - or, for the one-off company report, a ready-made stem in
+    the same shape. out is what report_outputs returned.
+
+    Every file derives from the stem: <stem>.html (the page in the house
+    frame, printed to <stem>.pdf), <stem>.body.html (the Outlook-safe email
+    body the draft manifest <stem>.draft.json points at), <stem>_OUTLOOK.eml
+    and, for the client-facing reports, <stem>_PositionCard.png.
+    WHY (02 Sep 2026): the email builder strips a page by its BODY markers,
+    which the house frame does not carry - so it is handed the legacy page
+    instead of the printed one.
+    WHY (03 Sep 2026): after every print pdf_finish stamps the PDF's
+    properties (Author: Andrew Fisher, Subject) and builds its bookmarks,
+    BEFORE the .eml is written, so the attached PDF carries them. The
+    position card is drawn from the page-1 values, saved beside the PDF,
+    inlined in the .eml body (cid) and attached as well; the manifest body
+    stays without the cid part."""
     os.makedirs(OUT_DIR, exist_ok=True)
-    base = os.path.join(OUT_DIR, f"{stem}_{DATESTR}")
+    stem = N.report_stem(key) if key.lower() in N.REPORT_STEMS else key
+    base = os.path.join(OUT_DIR, stem)
+    title, subtitle, subject = out["title"], out["subtitle"], out["subject"]
     html_path = base + ".html"
     with open(html_path, "w", encoding="utf-8") as f:
-        f.write(html_doc)
+        f.write(out["doc"])
     pdf_path = base + ".pdf"
     pdf_ok = edge_pdf(html_path, pdf_path)
+    if pdf_ok:
+        print("  " + pdf_finish.finish(pdf_path, f"Ampol {title} - as at {ASAT_SHORT}",
+                                       out["pdf_subject"], out["doc"], has_cover=out["has_cover"],
+                                       family="Tooling"))
     note = note or ("The full report PDF is attached. This email is the same report, "
                     "formatted for reading in place.")
-    body = email_html(subtitle, note, email_doc)
+    body = email_html(subtitle, note, out["mail"])
     with open(base + ".body.html", "w", encoding="utf-8") as f:
         f.write(body)
     attach_paths = [pdf_path if pdf_ok else html_path]
-    card_ok = False
+    card_ok, png_path = False, None
+    card = out.get("card")
     if card:
         png_path = base + "_PositionCard.png"
         sh.position_card_png(card["cfg"], ASAT_SHORT, card["tiles"], card["band"],
@@ -3217,9 +3734,11 @@ def write_outputs(stem, title, subtitle, html_doc, email_doc, subject, note=None
     with open(base + ".draft.json", "w", encoding="utf-8") as f:
         json.dump({"subject": subject, "body": os.path.basename(base + ".body.html"),
                    "attachments": attach}, f, indent=1)
-    write_eml(base + "_OUTLOOK.eml", subject, body, attach_paths)
-    print(f"  {title}: HTML" + (" + PDF" if pdf_ok else " (PDF skipped)")
-          + (" + position card PNG" if card_ok else "")
+    eml_body = email_html(subtitle, note, out["mail"], card_html=CARD_IMG) if card_ok else body
+    write_eml(base + "_OUTLOOK.eml", subject, eml_body, attach_paths,
+              inline_png=png_path if card_ok else None)
+    print(f"  {title}: {stem} - HTML" + (" + PDF" if pdf_ok else " (PDF skipped)")
+          + (" + position card PNG (inlined in the .eml)" if card_ok else "")
           + " + .eml + email draft manifest")
     return base
 
@@ -3238,14 +3757,14 @@ def run_quarter(d, qk):
         print(f"  Quarterly On-Hire Report - {QUARTERS[qk][1]}: quarter not started "
               f"(begins {fmt_date(start)}) - skipped")
         return
-    title, subtitle, doc, mail, subject = render_quarter(d, qk)
-    write_outputs("Quarterly_OnHire_" + qk, title, subtitle, doc, mail, subject)
+    write_outputs("year" if qk == "YEAR" else qk.lower(), render_quarter(d, qk))
 
 
 def run_company(d, name):
-    title, subtitle, doc, mail, subject = render_company(d, name)
-    stem = "Company_" + re.sub(r"[^\w]+", "_", name).strip("_")[:40]
-    write_outputs(stem, title, subtitle, doc, mail, subject)
+    # WHY (03 Sep 2026): the one-off company report has no key in the shared
+    # REPORT_STEMS table, so its stem is built here in the same shape
+    safe = re.sub(r"[^\w]+", "_", name).strip("_")[:40]
+    write_outputs(f"Coates_Ampol_Company_On_Hire_{safe}_{N.day_tag()}", render_company(d, name))
 
 
 def run_onhire(d):
@@ -3253,32 +3772,31 @@ def run_onhire(d):
     # Its email carries page 1 and the A-to-Z company table; the full
     # register is the attached PDF. Same recipients as the Executive
     # Summary: the draft is addressed in Outlook, exactly as that one is.
-    title, subtitle, doc, mail, subject, card = render_onhire(d)
-    write_outputs("Tooling_OnHire_Report", title, subtitle, doc, mail, subject,
+    write_outputs("onhire", render_onhire(d),
                   note="The full Tooling On-Hire Report PDF is attached - every company "
-                       "A to Z, every hirer, every item. This email carries the position "
-                       "and the company table; the register is in the PDF.",
-                  card=card)
+                       "A to Z, every hirer, every item. This email carries the position, "
+                       "what moved since the last pull and the company tables; the register "
+                       "is in the PDF.")
 
 
 def run_util(d):
-    title, subtitle, doc, mail, subject = render_util(d)
-    write_outputs("Utilisation_WhatToBuy", title, subtitle, doc, mail, subject)
+    write_outputs("util", render_util(d))
 
 
 def run_compliance(d):
-    title, subtitle, doc, mail, subject = render_compliance(d)
-    write_outputs("Compliance_Trends", title, subtitle, doc, mail, subject)
+    write_outputs("compliance", render_compliance(d))
 
 
 def run_exec(d):
-    title, subtitle, doc, mail, subject, card = render_exec(d)
-    write_outputs("Executive_Summary", title, subtitle, doc, mail, subject, card=card)
+    write_outputs("exec", render_exec(d))
 
 
 def history_figures(d):
     """The day's key figures for the movement scoreboard - the same values
-    the pages print, keyed by the names the tiles use."""
+    the pages print, keyed by the names the tiles use - and (03 Sep 2026)
+    the family's position for the daily position page: the Tooling On-Hire
+    Report's band, its cover figures and the files it wrote. Returns
+    (figures, extra)."""
     x = exec_model(d)
     oh = onhire_model(d)
     um = d["util"]
@@ -3302,16 +3820,29 @@ def history_figures(d):
         f["on_hire_" + qk] = len(m["rows"])
         f["companies_" + qk] = m["n_companies"]
         f["value_" + qk] = round(m["total_val"], 2)
-    return f
+    band = rag_over90(len(oh["over90"]), x["on_hire"], f"tooling items on hire ({ASAT_DAY.year})")
+    stem = N.report_stem("onhire")
+    extra = {"rag": band["status"], "headline": band["head_txt"], "rule": band["rule"],
+             "owner": band["owner"], "action": band["action_txt"],
+             "due": fmt_date(ASAT_DAY + dt.timedelta(days=CONFIG["rag_due_days"])),
+             "key_value": n_fmt(x["on_hire"]), "key_label": "tooling items on hire",
+             "second_value": n_fmt(len(oh["over90"])),
+             "second_label": "items out more than 90 days",
+             "title": "Ampol Tooling On-Hire Report", "folder": "Tooling",
+             "pdf": stem + ".pdf", "card": stem + "_PositionCard.png"}
+    return f, extra
 
 
 def record_history(d):
     """WHY (03 Sep 2026): written once at the end of a build, keyed by the
-    pull day - tomorrow's tiles read it back as the movement. A re-run on
+    pull day - tomorrow's tiles read it back as the movement, and the daily
+    position page reads the extra (band, cover figures, files). A re-run on
     the same pull day replaces the entry; it never doubles up."""
-    path = rh.record("tooling", ASAT_DT or ASAT_DAY, history_figures(d))
+    figures, extra = history_figures(d)
+    path = rh.record("tooling", ASAT_DT or ASAT_DAY, figures, extra=extra)
     print(f"  Movement scoreboard: {os.path.relpath(path, HERE)} holds tooling "
-          f"{ASAT_DAY.isoformat()}")
+          f"{ASAT_DAY.isoformat()} (band {extra['rag']}, {extra['key_value']} "
+          f"{extra['key_label']})")
 
 
 def run_everything(d):
@@ -3371,6 +3902,19 @@ def console_summary(d):
           f"{len(um['overstock'])} right-size, {um['groups_with_days']} with hire days, "
           f"{um['tx_used']:,} of {um['tx_total']:,} transactions mapped, "
           f"{um['days_elapsed']} days elapsed")
+    c = get_changes(d)
+    if c is None:
+        print("Since the last pull : could not be read - see the note above")
+    else:
+        l = c["last24"]
+        prev = (f"previous pull {stamp(c['prev_time'])}: {len(c['returned'])} came back, "
+                f"{len(c['issued'])} went out, {len(c['moved'])} changed hands, "
+                f"{len(c['crossed'][90])} crossed 90 days" if c["have_previous"]
+                else "no earlier pull in Data\\previous (pull against pull starts next pull)")
+        print(f"Since the last pull : {prev}; 24 h before the pull: "
+              f"{len(l['issued'])} issued, {len(l['returned'])} returned (tooling)"
+              if l["available"] else
+              f"Since the last pull : {prev}; TRANSACTIONS not in Data - 24 h not counted")
     wb = d.get("wb")
     if wb:
         tie = ("ties to the live register" if wb["master_ties"]
@@ -3432,8 +3976,8 @@ def main():
         if "--everything" in args:
             run_everything(d)
         record_history(d)
-        print("\nDone. Output: Reports\\" + DATESTR + "\\Tooling. Run "
-              "08_MAKE_OUTLOOK_DRAFTS.bat to load the emails into Outlook Drafts.")
+        print(f"\nDone. Output: {OUT_REL}. Run 08_MAKE_OUTLOOK_DRAFTS.bat to load the "
+              "emails into Outlook Drafts.")
         return
 
     companies = company_list(d)
@@ -3473,8 +4017,7 @@ def main():
             choice = ""
         if choice:
             record_history(d)
-        print("\nOutputs in Reports\\" + DATESTR + "\\Tooling. "
-              "08_MAKE_OUTLOOK_DRAFTS.bat loads the")
+        print(f"\nOutputs in {OUT_REL}. 08_MAKE_OUTLOOK_DRAFTS.bat loads the")
         print("emails into Outlook Drafts - full To search, attachments included.")
 
 

@@ -71,7 +71,7 @@ def _find_page(pages_text, text, start):
     first 28 characters when the full heading did not survive a wrap)."""
     probes = [text, text[:40].strip(), text[:28].strip()]
     for pr in probes:
-        if len(pr) < 8:
+        if len(pr) < 6:
             continue
         pr_n = _WS.sub(" ", pr)
         for i in range(start, len(pages_text)):

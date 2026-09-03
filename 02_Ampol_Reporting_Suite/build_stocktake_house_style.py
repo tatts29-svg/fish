@@ -13,18 +13,29 @@ WHAT THIS IS
   K2 report family look), replacing the old-style compliance report and
   email. One run produces:
 
-   1. Coates_Stocktake_Count_Worklist.pdf / .xlsx   (FOR STAFF - the
-      floor copy, unchanged from V3 - practical beats pretty on the
-      floor)
-   2. Coates_Ampol_Stocktake_Compliance_K2STYLE.pdf (FOR THE CLIENT -
-      house style; compliance, dollarised coverage, activity proof,
-      the idle tail, on-hire verification. No item-level detail.)
-   3. Coates_Ampol_Stocktake_TEAM_K2STYLE.pdf       (FOR THE TEAM -
-      "the people turning the wheel": named counting league, the
-      daily three with misses named, due-by-bay, longest unsighted)
-   4. Coates_Ampol_Stocktake_OUTLOOK_SAFE.eml       (SEND TO STAFF -
-      house-style body, Outlook-safe, all three PDFs + Excel attached)
-      + .draft.json so MAKE_OUTLOOK_DRAFTS keeps working.
+  (file names come from ampol_names.report_stem - one rule for the
+  whole suite, the day the button was pressed on the end, e.g. 03Sep2026)
+
+   1. Coates_Ampol_Stocktake_Count_Worklist_<day>.pdf / .xlsx / .html
+      (FOR STAFF - the floor copy, unchanged from V3 - practical beats
+      pretty on the floor)
+   2. Coates_Ampol_Stocktake_Compliance_<day>.pdf (FOR THE CLIENT -
+      house style; a dark cover with the one number of the day, the
+      position, compliance, dollarised coverage, activity proof, the
+      idle tail, on-hire verification. No item-level detail.)
+      + .html beside it (the same pages - VERIFY_NUMBERS reads them)
+      + _PositionCard.png (the phone card)
+   3. Coates_Ampol_Stocktake_Team_<day>.pdf (FOR THE TEAM - "the people
+      turning the wheel": named counting league, the daily three with
+      misses named, due-by-bay, longest unsighted) + .html beside it
+   4. Coates_Ampol_Stocktake_Compliance_<day>_OUTLOOK.eml (SEND TO
+      STAFF - house-style body, Outlook-safe, the position card inline
+      under the header, all three PDFs + Excel + the card attached)
+      + _OUTLOOK.body.html and _OUTLOOK.draft.json so
+      MAKE_OUTLOOK_DRAFTS keeps working.
+  Every PDF is finished with its document properties (Author: Andrew
+  Fisher) and a bookmark per section (pdf_finish). Once seven days are
+  on the History scoreboard the client PDF gains a trend page.
 
 ONE ENGINE
   All counting, joins, pricing and tiering come from
@@ -52,10 +63,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import ampol_names
 import ampol_paths
 import build_stocktake_compliance_tool as eng
 import gasmon_engine as ge
 import k2shell as sh
+import pdf_finish
 import report_history as rh
 import json
 from k2shell import esc, money, num, K
@@ -79,10 +92,14 @@ CONFIG = {
     "kicker_client": "COATES · STORES STOCKTAKE - COMPLIANCE REPORT",
     "kicker_team": "COATES · STORES STOCKTAKE - TEAM REPORT",
     "project": "Ampol Lytton Refinery · Permanent Tool Store",
-    "pdf_client": "Coates_Ampol_Stocktake_Compliance_K2STYLE.pdf",
-    "pdf_team": "Coates_Ampol_Stocktake_TEAM_K2STYLE.pdf",
-    "eml_name": "Coates_Ampol_Stocktake_OUTLOOK_SAFE.eml",
-    "card_name": "Coates_Ampol_Stocktake_PositionCard.png",
+    # WHY (03 Sep 2026): every output name comes from ampol_names.report_stem
+    # - the client reads the attachment name before a single figure, so the
+    # whole suite shares one shape with the day on the end. The stems are
+    # the only names; everything else (.pdf, .html, _OUTLOOK.eml,
+    # _PositionCard.png, the manifest) hangs off them.
+    "stem_client": ampol_names.report_stem("stocktake"),
+    "stem_team": ampol_names.report_stem("stocktake_team"),
+    "stem_worklist": ampol_names.report_stem("worklist"),
     # WHY (03 Sep 2026): the page-1 RAG band on in-store SOP coverage.
     # Default lines - change here, the rule text on the page follows.
     "rag_green_from": 90,
@@ -92,7 +109,6 @@ CONFIG = {
     # (row, column). Without it the bays are laid out A to Z and the page
     # says so; a template is written beside the data on every run.
     "map_columns": 7,
-    "email_html": "Coates_Ampol_Stocktake_EMAIL.html",
     "team": [
         {"name": "Andrew Fisher", "role": "Shutdown Manager",
          "shift": "", "email": "andrew.fisher@coates.com.au",
@@ -306,40 +322,116 @@ def analytics(rows, d, export_dt, actions):
 # PDF rendering via the engine's robust writer
 # =====================================================================
 
-def render_k2_pdf(doc, pdf_path, authored, css):
-    # WHY (03 Sep 2026): measure every page in the browser first - the print
-    # engine drops a block that does not fit without changing the page count.
+_MEASURE_JS = r"""<script>
+document.fonts.ready.then(function(){
+  var out = [];
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) {
+    var pg = pages[i];
+    var body = pg.querySelector('.body');
+    var foot = pg.querySelector('.foot');
+    if (!body || !foot) { out.push({page: i + 1, over: null, wide: 0}); continue; }   // the cover: no footer by design
+    var ft = foot.getBoundingClientRect();
+    var bottom = body.getBoundingClientRect().top;
+    var els = body.querySelectorAll('*');
+    for (var j = 0; j < els.length; j++) {
+      var r = els[j].getBoundingClientRect();
+      if (r.bottom > bottom) bottom = r.bottom;
+    }
+    out.push({page: i + 1, over: Math.round(bottom - ft.top),
+              wide: Math.round(body.scrollWidth - body.clientWidth)});
+  }
+  var d = document.createElement('div');
+  d.id = 'layout-report';
+  d.setAttribute('data-lato', document.fonts.check('12px Lato') ? '1' : '0');
+  d.textContent = JSON.stringify(out);
+  document.body.appendChild(d);
+});
+</script>"""
+
+
+def _browser():
     try:
-        from generate_k2style_gas_monitor_report import layout_check
-        ok, rows = layout_check(doc, str(BASE / "k2style.css"), str(BASE))
-        if ok is False:
-            print("*" * 68)
-            print(f"WARNING: CONTENT DOES NOT FIT in {Path(pdf_path).name} - do not send as is.")
-            for pg, over, wide in rows:
-                if over > 0 or wide > 0:
-                    print(f"  page {pg:2d}: {over:+d}px past the footer" + (f", {wide}px too wide" if wide > 0 else ""))
-            print("*" * 68)
-        elif ok:
-            worst = max((r[1] for r in rows), default=-9999)
-            print(f"Fit check            : PASS - tightest page has {-worst}px to spare ({Path(pdf_path).name})")
-    except Exception as e:  # the fit check is a guard, never a reason not to build
-        print(f"Fit check            : skipped ({type(e).__name__})")
+        from generate_k2style_gas_monitor_report import find_browser
+        return find_browser()
+    except Exception:
+        import shutil
+        for name in ("msedge", "chrome", "chromium", "chromium-browser", "google-chrome"):
+            if shutil.which(name):
+                return shutil.which(name)
+        return None
+
+
+def fit_check(doc, css, label):
+    """Measure every page in the browser with the house face loaded.
+    WHY (03 Sep 2026): k2style.css now embeds Lato, and the shared fit
+    check measured before the font files had loaded - it saw the fallback
+    face, up to 9 px off on a full page, on pages that had 0 px to spare.
+    This one waits on document.fonts.ready under a virtual-time budget,
+    with the page written beside the PDF so the relative font URLs
+    resolve, so the pixels it reports are the pixels the PDF prints.
+    Returns (ok, worst_spare_px, rows); ok is None when nothing could
+    measure - never a reason not to build."""
+    import subprocess
+    import tempfile
+    browser = _browser()
+    if not browser:
+        print(f"Fit check            : skipped - no browser to measure with ({label})")
+        return None, None, []
+    doc2 = (doc.replace("</head>", f"<style>{css}</style></head>", 1)
+               .replace("</body>", _MEASURE_JS + "</body>", 1))
+    tmp = OUT / f"__measure_{os.getpid()}__.html"
+    profile = os.path.join(tempfile.gettempdir(), f"coates_fit_{os.getpid()}")
+    try:
+        tmp.write_text(doc2, encoding="utf-8")
+        res = subprocess.run([browser, "--headless", "--disable-gpu", "--no-sandbox",
+                              "--no-first-run", "--user-data-dir=" + profile,
+                              "--virtual-time-budget=10000", "--dump-dom", tmp.as_uri()],
+                             capture_output=True, timeout=240)
+        dom = (res.stdout or b"").decode("utf-8", "ignore")
+    except Exception as e:
+        print(f"Fit check            : skipped ({type(e).__name__}) ({label})")
+        return None, None, []
+    finally:
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+    m = re.search(r'id="layout-report" data-lato="(\d)">(\[.*?\])</div>', dom, re.S)
+    if not m:
+        print(f"Fit check            : skipped - the page could not be measured ({label})")
+        return None, None, []
+    rows = [(r["page"], r["over"], r["wide"]) for r in json.loads(m.group(2))]
+    face = "Lato" if m.group(1) == "1" else "FALLBACK FACE - Lato did not load"
+    rows = [r for r in rows if r[1] is not None]      # the cover carries no footer
+    bad = [r for r in rows if r[1] > 0 or r[2] > 0]
+    worst = max((r[1] for r in rows), default=-9999)
+    if bad:
+        print("*" * 68)
+        print(f"WARNING: CONTENT DOES NOT FIT in {label} - do not send as is ({face}).")
+        for pg, over, wide in bad:
+            print(f"  page {pg:2d}: {over:+d}px past the footer" + (f", {wide}px too wide" if wide > 0 else ""))
+        print("*" * 68)
+        return False, -worst, rows
+    print(f"Fit check            : PASS - tightest page has {-worst}px to spare, measured in {face} ({label})")
+    return True, -worst, rows
+
+
+def render_k2_pdf(doc, pdf_path, html_path, authored, css):
+    """Measures the pages (fit_check), writes the page HTML beside the PDF
+    - kept, because it IS the report when no PDF engine is on the machine
+    and VERIFY_NUMBERS reads it - renders the PDF and checks the page
+    count. Returns (fit_ok, layout_ok); never exits, the caller decides."""
+    fit_ok, _, _ = fit_check(doc, css, Path(pdf_path).name)
     doc = doc.replace("</head>", f"<style>{css}</style></head>", 1)
-    tmp = OUT / (Path(pdf_path).stem + ".__tmp__.html")
-    tmp.write_text(doc, encoding="utf-8")
+    Path(html_path).write_text(doc, encoding="utf-8")
     # pre-delete: write_pdf_robust treats an EXISTING file as success, so a
     # stale copy from a previous run must never be able to masquerade
     try:
         Path(pdf_path).unlink()
     except OSError:
         pass
-    try:
-        ok = eng.write_pdf_robust(str(tmp), str(pdf_path))
-    finally:
-        try:
-            tmp.unlink()
-        except OSError:
-            pass
+    ok = eng.write_pdf_robust(str(html_path), str(pdf_path))
     if not ok:
         sys.exit(f"ERROR: could not render {Path(pdf_path).name} - no PDF "
                  "engine available. Edge is standard on Coates laptops.")
@@ -349,14 +441,48 @@ def render_k2_pdf(doc, pdf_path, authored, css):
     if actual == -1:
         print(f"Layout check         : page count unreadable - authored "
               f"{authored}; open the PDF and confirm")
-    elif actual != authored:
+        return fit_ok, None
+    if actual != authored:
         print("*" * 68)
         print(f"WARNING: LAYOUT OVERFLOW in {Path(pdf_path).name} - authored "
               f"{authored} pages, PDF has {actual}. Do not send as is.")
         print("*" * 68)
-    else:
-        print(f"Layout check         : PASS - {actual} pages "
-              f"({Path(pdf_path).name})")
+        return fit_ok, False
+    print(f"Layout check         : PASS - {actual} pages "
+          f"({Path(pdf_path).name})")
+    return fit_ok, True
+
+
+def plain(fragment):
+    """The words of a page fragment with the markup taken off - for the
+    scoreboard and the phone card, which hold text, not HTML."""
+    import html as _html
+    return _html.unescape(re.sub(r"<[^>]+>", "", fragment)).replace("\xa0", " ")
+
+
+# =====================================================================
+# the History scoreboard: days on record and the 30-day trend rows
+# =====================================================================
+
+def history_days(family, asat):
+    """Days the scoreboard holds for a family, today's counted in - the
+    entry is written after the pages, keyed on the export day."""
+    return len(set(rh.load().get(family, {})) | {asat.date().isoformat()})
+
+
+def trend_rows(family, asat, today):
+    """(labels, {key: [values]}, days) over the 30-day window ending at the
+    export day: every recorded earlier day plus today's own figures. A
+    day with no run for a key leaves None - the chart draws a gap."""
+    window = {}
+    for key in today:
+        for dd, v in rh.series(family, key, asat, days=30):
+            if dd < asat.date():
+                window.setdefault(dd, {})[key] = v
+    window.setdefault(asat.date(), {}).update(today)
+    days = sorted(window)
+    labels = [dd.strftime("%d %b") for dd in days]
+    return labels, {k: [window[dd].get(k) for dd in days] for k in today}, days
 
 
 # =====================================================================
@@ -422,7 +548,7 @@ def build_client_pages(rows, d, a, export_dt):
         f'checked and trusted. <b>{num(d.get("transit_n", 0))} lines</b> that have '
         f'departed the store (Pending Branch Receipt, or a Departure scan with the '
         f'item no longer on the live register) are excluded.', False)}
-{rag_band_stocktake(d, a, export_dt)}
+{rag_band_stocktake(d, a, export_dt)["html"]}
 <table class="two" style="margin-top:10px"><tr>
   <td style="width:31%"><div class="donut-wrap">
     {sh.donut(round(comp), sh.health_hex(round(comp)), f"{comp:.0f}%", sh.health_word(round(comp)))}
@@ -443,10 +569,11 @@ def build_client_pages(rows, d, a, export_dt):
 
     # ---- P2 determination + activity -----------------------------------
     wk = a["weekly"]
-    line = sh.line_chart(
-        [w["label"] for w in wk],
-        [{"vals": [w["n"] for w in wk], "colour": K["orange"],
-          "label": "Items by week of latest sighting", "fill": True}], label_every=2)
+    # WHY (03 Sep 2026): k2shell.line_chart is the 10/10-pass chart now -
+    # (name, values) series, one shared axis - so this call follows it.
+    line = sh.line_chart([w["label"] for w in wk],
+                         [("Items by week of latest sighting", [w["n"] for w in wk])],
+                         y_label="items", h=196)
     det = "".join(
         f'<tr><td class="al-dot d-amber">&#9679;</td><td>'
         f'<div class="al-t">P{1 if k in ("gas", "radio") else 2 if k == "milwaukee" else 3} '
@@ -524,7 +651,12 @@ def build_client_pages(rows, d, a, export_dt):
     ("shield", money(d["val_onhire"]), "Value on hire", "", ""),
 ])}""")
 
-    # ---- P6 close -------------------------------------------------------
+    # ---- P6 the trend - only once seven days are on record ---------------
+    tp = trend_page(export_dt, d, a, ins_pct)
+    if tp:
+        P.append(tp)
+
+    # ---- P7 close -------------------------------------------------------
     cards = sh.info_cards([
         ("Two scans, two looks",
          "Every item is scanned <b>and</b> sighted going out, and scanned and "
@@ -552,15 +684,54 @@ def build_client_pages(rows, d, a, export_dt):
          "One register, one cadence, one report - and a store team that "
          "resolves a query while you are still at the counter."),
     ])
-    P.append(f"""{psect("The tool store has your back")}
+    n_days = history_days("stocktake", export_dt)
+    trend_line = (f'Trend page: appears once seven days are on record ({num(n_days)} today).'
+                  if n_days < 7 else
+                  f'Trend page: {num(n_days)} days on record - the 30-day lines are on the page before this one.')
+    P.append(f"""<div class="close">{psect("The tool store has your back")}
 {cards}
+{pnote(f'Sources: SiteIQ STOCKTAKE export ({esc(export_dt.strftime("%d %b %Y %H:%M"))}), RENTAL_STOCK register, pricing master. Each run writes its figures to {HIST_NAME} keyed on the export day. {trend_line}')}
 {sh.coates_way_panel()}
 {psect("Meet the tool store team")}
-{sh.team_cards(CONFIG["team"])}""")
+{sh.team_cards(CONFIG["team"])}</div>""")
     return P
 
 
+def trend_page(export_dt, d, a, ins_pct):
+    """The fixed trend page: SOP compliance (whole store and the shelf)
+    and the counting activity over the last 30 days, from the History
+    scoreboard. Empty until seven days are on record - the data page says
+    so - and every point is a figure a report printed on that day."""
+    if history_days("stocktake", export_dt) < 7:
+        return ""
+    today = {"comp30": round(d["comp30"], 1), "instore_comp": round(ins_pct, 1),
+             "done7": len(d["done7"]), "missed_returns": len(d["missed_returns"])}
+    labels, ser, days = trend_rows("stocktake", export_dt, today)
+    if len(days) < 2:
+        return ""
+    first, last = days[0].strftime("%d %b"), days[-1].strftime("%d %b %Y")
+
+    def cell(v, pct=False):
+        if v is None:
+            return '<span class="tbc">no run</span>'
+        return f"{v:.1f}%" if pct else num(v)
+    trows = [[dd.strftime("%d %b %Y"), cell(ser["comp30"][i], True), cell(ser["instore_comp"][i], True),
+              cell(ser["done7"][i]), cell(ser["missed_returns"][i])]
+             for i, dd in enumerate(days)][-6:]
+    return f"""{psect("The trend - last 30 days")}
+{pcallout(f'<b>{num(len(days))} days on record</b> between {esc(first)} and {esc(last)}, read back from {HIST_NAME} - every point is a figure a report printed on that day, nothing interpolated; a day with no run leaves a gap. The one question a single day cannot answer: is the count getting better or worse?')}
+{psubh("SOP compliance", "&mdash; items sighted inside 30 days, whole store and the shelf")}
+{chartpanel(sh.line_chart(labels, [("Whole store SOP 30d", ser["comp30"]), ("In-store SOP 30d", ser["instore_comp"])], y_label="% inside 30 days", pct=True, h=148))}
+{psubh("Counting activity", "&mdash; items sighted in the last 7 days, and possible missed returns")}
+{chartpanel(sh.line_chart(labels, [("Sighted last 7 days", ser["done7"]), ("Possible missed returns", ser["missed_returns"])], y_label="items", h=148))}
+{sh.dtable(["Day (last " + str(len(trows)) + " on record)", "Whole store SOP 30d", "In-store SOP 30d", "Sighted last 7 days", "Possible missed returns"], trows, ["", "r", "r", "r", "r"], cls="cp")}
+{pnote('The scoreboard holds exactly what each day&rsquo;s report printed - the same figures as the position page of that day&rsquo;s PDF. Numbers, not lines, are the record.')}"""
+
+
 _ASAT = [None]
+# the scoreboard's path as the pages print it (a backslash cannot sit inside an
+# f-string expression on the store laptops' Python)
+HIST_NAME = "History\\report_history.json"
 
 
 def mv(key, value, good, fallback, fallback_cls):
@@ -590,7 +761,11 @@ def rag_band_stocktake(d, a, export_dt):
     owner = "<b>Andrew Fisher</b>, Shutdown Manager - Coates tool store"
     action = (f'The {num(late)} shelf items on the daily worklist, oldest first, cleared by <b>{due}</b>; '
               f'missed returns resolved same day.')
-    return sh.rag_band(status, head, rule, owner, action)
+    # the same facts travel to the cover stripe, the phone card and the
+    # History scoreboard - one status, never a second opinion
+    return {"status": status, "html": sh.rag_band(status, head, rule, owner, action),
+            "headline": plain(head), "rule": plain(rule), "owner": "Andrew Fisher, Shutdown Manager",
+            "action": plain(action), "due": due, "pct": pct, "late": late}
 
 
 def store_layout(units):
@@ -851,6 +1026,21 @@ def build_team_pages(rows, d, a, export_dt):
     return P
 
 
+# extra styling on top of the shared sheet, this report's own. WHY (03 Sep
+# 2026): the client closing page (class "close") carries six cards, the
+# sources note, the Coates Way panel and the team card - in the house face
+# it ran 59 px into the footer, so that page alone runs a touch tighter.
+EXTRA_CSS = """
+.close .sect { padding: 10px 18px; margin-top: 14px; }
+.close .cards td { padding: 10px 15px; }
+.close .cd-b { line-height: 1.6; }
+.close .cway .img { width: 112px; }
+.close .cway .img img { width: 96px; }
+.close .team td { padding: 12px 9px 11px 9px; }
+.close .note { margin-top: 7px; }
+"""
+
+
 def render_doc(kind, pages, gen_s, asat_s, cover=""):
     cfg = cfg_for(kind)
     off = 1 if cover else 0
@@ -865,14 +1055,28 @@ def render_doc(kind, pages, gen_s, asat_s, cover=""):
     body = cover + "".join(rendered)
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<title>Coates {esc(cfg["client"])} {esc(cfg["title"])} - '
-            f'{esc(asat_s)}</title></head><body>{body}</body></html>'), tot
+            f'{esc(asat_s)}</title><style>{EXTRA_CSS}</style></head><body>{body}</body></html>'), tot
 
 
 # =====================================================================
 # the Outlook email (staff)
 # =====================================================================
 
-def build_email_html(rows, d, a, export_dt, gen_s, asat_s):
+def card_block(cid):
+    """The position card inline, under the header: a cid image the .eml
+    carries in its own related part. Outlook honours the width attribute;
+    the style caps it for everything else."""
+    FONT = sh.FONT
+    return (f'<table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr>'
+            f'<td align="center" style="padding:16px 0 2px 0;">'
+            f'<img src="cid:{cid}" width="420" alt="The position on one card" '
+            f'style="display:block;width:420px;max-width:420px;height:auto;border:0;">'
+            f'<div style="{FONT}font-size:10px;color:#7A8A9A;padding-top:6px;">The position on one card - '
+            f'the same figures as the position page of the PDF; the PNG is attached for your phone.</div>'
+            f'</td></tr></table>')
+
+
+def build_email_html(rows, d, a, export_dt, gen_s, asat_s, card_cid=""):
     W = 1000
     CW = W - 48
     FONT = sh.FONT
@@ -898,6 +1102,8 @@ def build_email_html(rows, d, a, export_dt, gen_s, asat_s):
 </td></tr></table>
 <div style="{FONT}font-size:11px;color:#8395A6;padding-top:10px;line-height:1.6;">Generated: <b style="color:#FFFFFF;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#FFFFFF;">{esc(asat_s)}</b> (SiteIQ stocktake export) &nbsp;|&nbsp; Author: <b style="color:#FFFFFF;">Andrew Fisher</b></div>
 </td></tr></table>""")
+    if card_cid:
+        parts.append(card_block(card_cid))
 
     key_cols = {"orange": "#F36F21", "blue": "#2F7FD0",
                 "amber": "#E0930F", "green": "#16A34A"}
@@ -1034,7 +1240,8 @@ def main():
     a = analytics(rows, d, export_dt, load_actions(src))
 
     asat_s = export_dt.strftime("%d %b %Y %H:%M")
-    gen_s = datetime.now().strftime("%d %b %Y %H:%M")
+    gen_dt = datetime.now()
+    gen_s = gen_dt.strftime("%d %b %Y %H:%M")
     print(f"Data as at           : {asat_s}  (export request time)")
     print(f"Countable / departed : {len(rows):,} / {transit:,} excluded "
           f"(in store {len(d['instore']):,}, on hire {len(d['onhire']):,})")
@@ -1058,16 +1265,21 @@ def main():
     # ---- 1. the floor worklist (his V3, unchanged) ---------------------
     print("-" * 68)
     print("[1/4] Floor worklist (V3, unchanged)...")
-    w = OUT / "Coates_Stocktake_Count_Worklist"
-    open(f"{w}.html", "w", encoding="utf-8").write(
-        eng.build_staff_worklist(rows, transit, export_dt, d))
-    eng.build_excel_worklist(rows, d, conflicts,
-                             OUT / "Coates_Stocktake_Count_Worklist.xlsx")
+    w = OUT / CONFIG["stem_worklist"]
+    wl_doc = eng.build_staff_worklist(rows, transit, export_dt, d)
+    open(f"{w}.html", "w", encoding="utf-8").write(wl_doc)
+    eng.build_excel_worklist(rows, d, conflicts, Path(f"{w}.xlsx"))
     try:
         Path(f"{w}.pdf").unlink()   # stale file must not masquerade as success
     except OSError:
         pass
     eng.write_pdf_robust(f"{w}.html", f"{w}.pdf")
+    if Path(f"{w}.pdf").exists():
+        print("PDF finish           : " + pdf_finish.finish(
+            f"{w}.pdf", f"Ampol Stocktake Count Worklist - as at {asat_s}",
+            "The floor count worklist for the Ampol tool store - due items by bay, oldest first, "
+            "from the SiteIQ stocktake export.", wl_doc, keywords="stocktake, worklist",
+            has_cover=False, family="Stocktake"))
 
     # ---- 2. client + team house-style PDFs -----------------------------
     # k2style.css lives in the suite root, next to this script - BASE.
@@ -1082,24 +1294,46 @@ def main():
     _ASAT[0] = export_dt
     ins_pct = (d["ok30_instore"] / len(d["instore"]) * 100) if d["instore"] else 0
     g_all, g_seen, g_miss = a["gas"]
+    stem_c, stem_t = CONFIG["stem_client"], CONFIG["stem_team"]
+    band = rag_band_stocktake(d, a, export_dt)
+    status = band["status"]
+    key_value, key_label = f"{ins_pct:.0f}%", "of the shelf sighted inside 30 days"
     cover = ""
     if CONFIG.get("cover_page"):
-        cover = sh.cover_page(cfg_for("client"), f"{ins_pct:.0f}%", "of the shelf sighted inside 30 days", [
+        # the cover wears the SAME status as the band on the position page,
+        # and says how old the data was when the pack was built
+        cover = sh.cover_page(cfg_for("client"), key_value, key_label, [
             f"<b>{num(d['countable'])}</b> countable items - {num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire",
             f"<b>{money(d['val_ok30'])}</b> of {money(d['val_total'])} priced fleet verified in the last 30 days",
             f"<b>{len(g_seen)} of {len(g_all)}</b> in-store gas monitors sighted in the last 24 hours"],
-            gen_s, asat_s)
+            gen_s, asat_s, rag=status, fresh=sh.freshness_line(export_dt, gen_dt))
     doc_c, n_c = render_doc("client",
                             build_client_pages(rows, d, a, export_dt),
                             gen_s, asat_s, cover=cover)
-    render_k2_pdf(doc_c, OUT / CONFIG["pdf_client"], n_c, css)
+    pdf_c = OUT / f"{stem_c}.pdf"
+    checks = [render_k2_pdf(doc_c, pdf_c, OUT / f"{stem_c}.html", n_c, css)]
+    print("PDF finish           : " + pdf_finish.finish(
+        pdf_c, f"{cfg_for('client')['client']} {cfg_for('client')['title']} - as at {asat_s}",
+        "Stocktake compliance for the Ampol Lytton Refinery tool store - the position, coverage by "
+        "bay, the idle tail and on-hire verification, counted from the SiteIQ stocktake export.",
+        doc_c, keywords="stocktake, compliance", has_cover=bool(cover), family="Stocktake"))
     print("[3/4] Team report PDF (house style)...")
     doc_t, n_t = render_doc("team",
                             build_team_pages(rows, d, a, export_dt),
                             gen_s, asat_s)
-    render_k2_pdf(doc_t, OUT / CONFIG["pdf_team"], n_t, css)
+    pdf_t = OUT / f"{stem_t}.pdf"
+    checks.append(render_k2_pdf(doc_t, pdf_t, OUT / f"{stem_t}.html", n_t, css))
+    print("PDF finish           : " + pdf_finish.finish(
+        pdf_t, f"{cfg_for('team')['client']} {cfg_for('team')['title']} - as at {asat_s}",
+        "The store team's counting report - who sighted what, the daily three, where the trolley "
+        "goes next and the long-hire gear to verify, from the SiteIQ stocktake export.",
+        doc_t, keywords="stocktake, team", has_cover=False, family="Stocktake"))
 
     # ---- the movement scoreboard and the phone card ---------------------
+    # WHY (03 Sep 2026): the entry carries the position in words as well as
+    # figures (extra) - the status, the headline, the rule, the owner, the
+    # dated action and the cover number - so the daily position page can
+    # quote the report without opening it.
     rh.record("stocktake", export_dt, {
         "countable": d["countable"], "instore": len(d["instore"]), "onhire": len(d["onhire"]),
         "comp30": round(d["comp30"], 1), "instore_comp": round(ins_pct, 1),
@@ -1107,11 +1341,15 @@ def main():
         "val_total": round(d["val_total"]), "val_ok30": round(d["val_ok30"]), "val_onhire": round(d["val_onhire"]),
         "due_all": sum(len(d["due"][k]) for k in eng.TIERS), "missed_returns": len(d["missed_returns"]),
         "ins_over30": len(a["ins_over30"]), "gas_seen24": len(g_seen), "gas_instore": len(g_all),
-        "oh_risk180": len(a["oh_risk180"])})
+        "oh_risk180": len(a["oh_risk180"])},
+        extra={"rag": status, "headline": band["headline"], "rule": band["rule"],
+               "owner": band["owner"], "action": band["action"], "due": band["due"],
+               "key_value": key_value, "key_label": key_label,
+               "second_value": num(d["countable"]), "second_label": "countable items on the register",
+               "title": f"{CONFIG['client']} {CONFIG['title_client']}", "folder": "Stocktake",
+               "pdf": f"{stem_c}.pdf", "card": f"{stem_c}_PositionCard.png"})
     print(f"History              : {rh.HIST.name} - stocktake figures recorded for {export_dt.strftime('%d %b %Y')}")
-    band = rag_band_stocktake(d, a, export_dt)
-    status = "red" if "ragband rd" in band else "amber" if "ragband a" in band else "green"
-    card_path = OUT / CONFIG["card_name"]
+    card_path = OUT / f"{stem_c}_PositionCard.png"
     sh.position_card_png(cfg_for("client"), asat_s, [
         (num(d["countable"]), "Countable items", f"{num(len(d['instore']))} in store", "#7A8A9A"),
         (f"{ins_pct:.1f}%", "In-store SOP 30d", f"{num(len(a['ins_over30']))} shelf items outside", "#22C55E" if status == "green" else "#EFA82B"),
@@ -1128,8 +1366,15 @@ def main():
 
     # ---- 3. the email ---------------------------------------------------
     print("[4/4] Outlook email (house style)...")
-    html = build_email_html(rows, d, a, export_dt, gen_s, asat_s)
-    (OUT / CONFIG["email_html"]).write_text(html, encoding="utf-8")
+    # WHY (03 Sep 2026): the .eml shows the position card inline under the
+    # header (a cid part) and still carries it as a file; the native-draft
+    # manifest lists it as an attachment only, so its body is written
+    # without the inline image.
+    body_html = build_email_html(rows, d, a, export_dt, gen_s, asat_s)
+    body_name = f"{stem_c}_OUTLOOK.body.html"
+    (OUT / body_name).write_text(body_html, encoding="utf-8")
+    html = build_email_html(rows, d, a, export_dt, gen_s, asat_s,
+                            card_cid="positioncard" if card_path.exists() else "")
     msg = EmailMessage()
     subject = (f"Ampol Tool Store - Stocktake Report - "
                f"{export_dt.strftime('%d/%m/%Y %H:%M')}")
@@ -1138,40 +1383,47 @@ def main():
     msg["Date"] = formatdate(localtime=True)
     msg["X-Unsent"] = "1"
     msg.set_content("This report is best viewed in HTML. The worklist (PDF + "
-                    "Excel), the client compliance PDF and the team report "
-                    "are attached.\n")
+                    "Excel), the client compliance PDF, the team report and "
+                    "the position card are attached.\n")
     msg.add_alternative(html, subtype="html")
+    if card_path.exists():
+        with open(card_path, "rb") as f:
+            msg.get_payload()[1].add_related(f.read(), maintype="image", subtype="png",
+                                             cid="<positioncard>", filename=card_path.name,
+                                             disposition="inline")
     attach = [(f"{w}.pdf", "pdf"),
-              (str(OUT / "Coates_Stocktake_Count_Worklist.xlsx"),
-               "vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
-              (str(OUT / CONFIG["pdf_client"]), "pdf"),
-              (str(OUT / CONFIG["pdf_team"]), "pdf"),
+              (f"{w}.xlsx", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+              (str(pdf_c), "pdf"),
+              (str(pdf_t), "pdf"),
               (str(card_path), "png")]
+    attach = [(p, sub) for p, sub in attach if os.path.exists(p)]
     for p, sub in attach:
-        if os.path.exists(p):
-            with open(p, "rb") as f:
-                msg.add_attachment(f.read(), maintype="image" if sub == "png" else "application",
-                                   subtype=sub, filename=os.path.basename(p))
-    eml_path = OUT / CONFIG["eml_name"]
+        with open(p, "rb") as f:
+            msg.add_attachment(f.read(), maintype="image" if sub == "png" else "application",
+                               subtype=sub, filename=os.path.basename(p))
+    eml_path = OUT / f"{stem_c}_OUTLOOK.eml"
     with open(eml_path, "wb") as f:
         f.write(msg.as_bytes())
     print(f"EML written          : {eml_path}  "
-          f"({os.path.getsize(eml_path):,} bytes)")
+          f"({os.path.getsize(eml_path):,} bytes; attached: "
+          + ", ".join(os.path.basename(p) for p, _ in attach) + ")")
     # manifest so MAKE_OUTLOOK_DRAFTS keeps working
-    import json
     # WHY (12 Aug 2026): recipients derive from the engine's STAFF_EMAIL_TO -
     # one source of truth. The old hard-coded duplicate here went stale the
     # moment the engine's list changed.
     to_line = "; ".join(re.findall(r"<([^>]+)>", eng.STAFF_EMAIL_TO))
-    (OUT / "Coates_Ampol_Stocktake_OUTLOOK.draft.json").write_text(json.dumps({
+    (OUT / f"{stem_c}_OUTLOOK.draft.json").write_text(json.dumps({
         "subject": subject,
         "to": to_line,
-        "body": CONFIG["email_html"],
+        "body": body_name,
         "attachments": [os.path.basename(p) for p, _ in attach],
     }, indent=1), encoding="utf-8")
     print("")
     print(f"NEXT STEP: double-click the .eml in {OUT}, check it, press Send.")
     print("Done. The Coates Way - consistent execution, every day.")
+    if any(fit is False or lay is False for fit, lay in checks):
+        sys.exit("\nWARNING: a PDF failed its fit or layout check - see above. Do "
+                 "not send it as is.")
 
 
 if __name__ == "__main__":

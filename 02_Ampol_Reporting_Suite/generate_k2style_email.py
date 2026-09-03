@@ -27,6 +27,15 @@ WHERE THE NUMBERS COME FROM (changed 02 Sep 2026)
 USAGE
   01_RUN_GAS_MONITOR_REPORT.bat runs this after the PDF so the PDF can
   be attached. Or on its own:  python generate_k2style_email.py
+
+OUTPUTS (03 Sep 2026 - one file-name rule, ampol_names.report_stem)
+  Reports\<day>\Gas_Monitors\
+    Coates_Ampol_Gas_Monitors_<DDMonYYYY>_OUTLOOK.eml   the draft
+    Coates_Ampol_Gas_Monitors_<DDMonYYYY>_EMAIL.html    the body on its own
+    Coates_Ampol_Gas_Monitors_<DDMonYYYY>.draft.json    the manifest button 08 reads
+  Attached: the PDF and the position card on the same stem. The card is
+  also inline under the header (a cid image), so the position shows on
+  a phone before the PDF is opened.
 =====================================================================
 """
 
@@ -48,6 +57,7 @@ except ImportError as e:
              "  Keep the suite folder together and press the gas monitor"
              " button again.")
 
+import ampol_names
 import ampol_paths
 
 from k2shell import (esc, money, num, K, FONT, esect, ecallout, eo, enote, esubh,
@@ -56,10 +66,13 @@ from k2shell import (esc, money, num, K, FONT, esect, ecallout, eo, enote, esubh
                      combo_png, stacked_hbars_png)
 
 CONFIG = {
-    "eml_name": "Coates_Ampol_GasMonitor_Operations_OUTLOOK_SAFE.eml",
-    "html_name": "Coates_Ampol_GasMonitor_Operations_EMAIL.html",
+    # WHY (03 Sep 2026): file names come from ampol_names.report_stem("gas")
+    # - the same stem as the PDF, so the attachment and the draft sit
+    # together in the day's folder under one name.
     "attach_pdf": True,       # attach the house-style PDF when it exists
     "attach_card": True,      # the phone-sized position card (PNG) when it exists
+    "inline_card": True,      # ... and show it in the body under the header (cid image)
+    "inline_card_width": 420, # px, the card is 1080 x 1920 - a phone-sized panel
     # WHY (02 Sep 2026): off by default. The workbook's summary tab is what
     # the old report quoted and what raised the accuracy questions - sending
     # it beside a PDF that counts differently reopens them. Flip to True to
@@ -95,7 +108,9 @@ def tagx(text):
 # the email body
 # =====================================================================
 
-def build_email_html(m, gen_s, asat_s, cfg):
+def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
+    """The Outlook-safe body. card_cid: the Content-ID of the inline
+    position card, or "" for no inline image."""
     W = CONFIG["width"]
     CW = W - 48
     R = m["rules"]
@@ -129,6 +144,19 @@ def build_email_html(m, gen_s, asat_s, cfg):
 <tr><td style="{FONT}font-size:10px;padding:12px 2px 8px 2px;line-height:1.9;">
 <span style="color:#8A9AAC;font-weight:bold;letter-spacing:1.5px;">KEY</span>&nbsp;&nbsp;{key_bits}</td></tr>
 <tr><td>{rule_png(CW)}</td></tr></table>""")
+
+    # ---------- the position card, inline ----------------------------------
+    # WHY (03 Sep 2026): the phone-sized card sits under the header so the
+    # position reads on a phone before the PDF is opened. It is a cid part
+    # of the .eml (no web fetch) and is attached as a file as well.
+    if card_cid:
+        cw = CONFIG["inline_card_width"]
+        parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:14px;">
+<tr><td align="center" style="padding:0;">
+<img src="cid:{card_cid}" width="{cw}" alt="The position at {esc(asat_s)} on one card"
+     style="display:block;width:{cw}px;max-width:{cw}px;height:auto;border:0;border-radius:10px;">
+<div style="{FONT}font-size:10px;color:#98A6B4;padding-top:7px;line-height:1.6;">The position at {esc(asat_s)} on one card - the same figures as page 1 of the attached PDF.</div>
+</td></tr></table>""")
 
     # ---------- position + scorecard -----------------------------------
     parts.append(ecallout(
@@ -433,8 +461,17 @@ def main():
     asat_s = m["asat"].strftime("%d %b %Y %H:%M")
     ge.print_summary(m)
 
-    html = build_email_html(m, gen_s, asat_s, cfg)
-    html_path = os.path.join(out_dir, CONFIG["html_name"])
+    stem = ampol_names.report_stem(cfg["stem_key"])
+    pdf_path = os.path.join(out_dir, stem + ".pdf")
+    card_path = os.path.join(out_dir, stem + "_PositionCard.png")
+    card_bytes = b""
+    if os.path.exists(card_path) and (CONFIG.get("attach_card") or CONFIG.get("inline_card")):
+        with open(card_path, "rb") as f:
+            card_bytes = f.read()
+    card_cid = "positioncard" if (CONFIG.get("inline_card") and card_bytes) else ""
+
+    html = build_email_html(m, gen_s, asat_s, cfg, card_cid=card_cid)
+    html_path = os.path.join(out_dir, stem + "_EMAIL.html")
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"HTML written         : {html_path}  ({len(html):,} bytes)")
@@ -449,9 +486,15 @@ def main():
     msg["X-Unsent"] = "1"
     msg.set_content("This report is best viewed in HTML. The PDF report is attached.\n")
     msg.add_alternative(html, subtype="html")
+    if card_cid:
+        # the inline card rides inside the HTML part as multipart/related,
+        # so Outlook shows it without fetching anything
+        html_part = msg.get_payload()[-1]
+        html_part.add_related(card_bytes, maintype="image", subtype="png",
+                              cid=f"<{card_cid}>", filename=os.path.basename(card_path))
+        print(f"Card inline          : cid:{card_cid} under the header ({len(card_bytes):,} bytes)")
 
     attachments = []
-    pdf_path = os.path.join(out_dir, cfg["pdf_name"])
     if CONFIG["attach_pdf"] and os.path.exists(pdf_path):
         with open(pdf_path, "rb") as f:
             msg.add_attachment(f.read(), maintype="application", subtype="pdf",
@@ -460,14 +503,15 @@ def main():
         print(f"PDF attached         : {os.path.basename(pdf_path)}")
     else:
         print("PDF attached         : no (build the PDF first for the attachment)")
-    # WHY (03 Sep 2026): the position card - page 1 as a phone-sized image
-    card_path = os.path.join(os.path.dirname(pdf_path), "Coates_Ampol_GasMonitor_PositionCard.png")
-    if CONFIG.get("attach_card") and os.path.exists(card_path):
-        with open(card_path, "rb") as f:
-            msg.add_attachment(f.read(), maintype="image", subtype="png",
-                               filename=os.path.basename(card_path))
+    # WHY (03 Sep 2026): the position card - page 1 as a phone-sized image,
+    # attached as a file as well as shown inline
+    if CONFIG.get("attach_card") and card_bytes:
+        msg.add_attachment(card_bytes, maintype="image", subtype="png",
+                           filename=os.path.basename(card_path))
         attachments.append(os.path.basename(card_path))
         print(f"Card attached        : {os.path.basename(card_path)}")
+    elif CONFIG.get("attach_card"):
+        print("Card attached        : no (build the PDF first - the card is drawn with it)")
 
     # WHY (02 Sep 2026): the workbook is optional now - it is attached when it
     # is in Data\ (the detail tabs are handy) but the report no longer needs it.
@@ -486,7 +530,7 @@ def main():
         print("Workbook attached    : no - switched off in CONFIG (its summary tab is what")
         print("                       the old report quoted; the PDF carries the detail now)")
 
-    eml_path = os.path.join(out_dir, CONFIG["eml_name"])
+    eml_path = os.path.join(out_dir, stem + "_OUTLOOK.eml")
     with open(eml_path, "wb") as f:
         f.write(msg.as_bytes())
     print(f"EML written          : {eml_path}  ({os.path.getsize(eml_path):,} bytes)")
@@ -497,7 +541,7 @@ def main():
         "attachments": attachments,
         "to": "; ".join(vt["recipients"]),
     }
-    man_path = os.path.join(out_dir, "Coates_Ampol_GasMonitor_Operations.draft.json")
+    man_path = os.path.join(out_dir, stem + ".draft.json")
     with open(man_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=1)
     print(f"Draft manifest       : {man_path}")

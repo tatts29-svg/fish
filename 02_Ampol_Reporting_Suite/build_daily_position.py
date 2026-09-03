@@ -260,9 +260,11 @@ def main():
     (OUT / f"{stem}.body.html").write_text(body, encoding="utf-8")
     to_line = "; ".join(a.strip("<> ") for a in
                         [p.split("<")[-1] for p in eng.STAFF_EMAIL_TO.split(",")])
+    # the same manifest shape every family writes (MAKE_OUTLOOK_DRAFTS reads
+    # it): body and attachments are file names beside the manifest
     with open(OUT / f"{stem}.draft.json", "w", encoding="utf-8") as f:
-        json.dump({"subject": subject, "to": to_line, "body_html": str(OUT / f"{stem}.body.html"),
-                   "attachments": [str(pdf_path)] if pdf_path.exists() else []}, f, indent=1)
+        json.dump({"subject": subject, "to": to_line, "body": f"{stem}.body.html",
+                   "attachments": [f"{stem}.pdf"] if pdf_path.exists() else []}, f, indent=1)
     print(f"Position             : {counts['red']} red, {counts['amber']} amber, {counts['green']} green, "
           f"{counts['none']} not recorded today")
     print(f"Written              : {OUT}")

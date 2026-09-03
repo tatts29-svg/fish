@@ -39,8 +39,14 @@ USAGE - AMPOL REPORTING SUITE
         TRANSACTIONS.xlsx                     <- short kit name, save over the top
         Gas_Monitor_Serial_Numbers.xlsx       <- reference
         Source_*                              <- archived copies, skipped
-        Coates_GasMonitor_..._OUTLOOK_SAFE.eml    <- built here, same name each run
-        Coates_GasMonitor_...V18.html             <- built here, same name each run
+
+  Outputs (03 Sep 2026 - one file-name rule, ampol_names.report_stem):
+      Reports\<day>\Gas_Monitors\
+        Coates_Ampol_Gas_Monitor_Dashboard_<DDMonYYYY>.html          the dashboard
+        Coates_Ampol_Gas_Monitor_Dashboard_<DDMonYYYY>_OUTLOOK.eml   the draft
+        Coates_Ampol_Gas_Monitor_Dashboard_<DDMonYYYY>.draft.json    the manifest
+      The draft carries the workbook (when it is in Data\) and the gas
+      report's position card (when button 01 has drawn it today).
 
   Same habit as the K2 gear kit: short export names, saved over the top,
   newest-mtime-wins globs, one file per pattern in the folder. No stale
@@ -84,6 +90,7 @@ from PIL import Image, ImageDraw
 # WHY (12 Aug 2026): the suite's path oracle. Every input now comes from
 # the one shared Data\ area and every output lands in the dated
 # Reports\<today>\ folder - same rule for every report in the suite.
+import ampol_names
 import ampol_paths
 
 # WHY (02 Sep 2026): one engine for the gas monitor family. The dashboard
@@ -114,8 +121,10 @@ CONFIG = {
     # Reports\<today>\Gas_Monitors folder (see resolve_output_dir). This
     # setting is kept only so older notes referencing it still make sense.
     "output_dir": ".",
-    "eml_name": "Coates_GasMonitor_Executive_Operations_Dashboard_V18_OUTLOOK_SAFE.eml",
-    "html_name": "Coates_GasMonitor_Executive_Operations_Dashboard_V18.html",
+    # WHY (03 Sep 2026): one file-name rule for the suite - the stem is
+    # Coates_Ampol_Gas_Monitor_Dashboard_<DDMonYYYY> (ampol_names).
+    "eml_name": ampol_names.report_stem("gas_dashboard") + "_OUTLOOK.eml",
+    "html_name": ampol_names.report_stem("gas_dashboard") + ".html",
     # False = fixed filenames, saved over the top each run - the K2 way, so
     # the file you send is always the same one. True = stamp the run date
     # into the filename instead, if you'd rather keep every run.
@@ -1364,7 +1373,13 @@ def build_html(data, m, cfg, date_str, time_str, asat_str=""):
 </html>"""
 
 
-def build_eml(html, cfg, date_str, wb_path):
+def gas_card_path():
+    """The gas report's phone-sized position card for today, drawn by
+    button 01 beside its PDF - attached here when it exists."""
+    return os.path.join(resolve_output_dir(CONFIG), ampol_names.report_stem("gas") + "_PositionCard.png")
+
+
+def build_eml(html, cfg, date_str, wb_path, card_path=""):
     weekday = datetime.strptime(date_str, "%d %B %Y").strftime("%A")
     msg = EmailMessage()
     msg["Subject"] = f"{cfg['subject_prefix']} - {weekday} {date_str}"
@@ -1379,6 +1394,12 @@ def build_eml(html, cfg, date_str, wb_path):
                 f.read(), maintype="application",
                 subtype="vnd.ms-excel.sheet.macroenabled.12",
                 filename=os.path.basename(wb_path))
+    # WHY (03 Sep 2026): the position card travels with the dashboard too,
+    # so a reader on a phone has the day's position without opening a file.
+    if card_path and os.path.exists(card_path):
+        with open(card_path, "rb") as f:
+            msg.add_attachment(f.read(), maintype="image", subtype="png",
+                               filename=os.path.basename(card_path))
     return msg
 
 
@@ -1459,11 +1480,16 @@ def main():
         f.write(html)
     print(f"HTML written         : {html_path}  ({len(html):,} bytes)")
 
-    eml = build_eml(html, cfg, date_str, wb_path)
+    card_path = gas_card_path()
+    eml = build_eml(html, cfg, date_str, wb_path, card_path)
     eml_path = os.path.join(out_dir, stamped_name(cfg["eml_name"], date_str, cfg))
     with open(eml_path, "wb") as f:
         f.write(eml.as_bytes())
     print(f"EML written          : {eml_path}  ({os.path.getsize(eml_path):,} bytes)")
+    if os.path.exists(card_path):
+        print(f"Card attached        : {os.path.basename(card_path)}")
+    else:
+        print("Card attached        : no - run button 01 first and the gas report's card is attached too")
 
     # WHY (12 Aug 2026): the shared MAKE_OUTLOOK_DRAFTS button reads a
     # .draft.json manifest from the same Reports folder and turns it into a
@@ -1477,6 +1503,8 @@ def main():
         if os.path.abspath(wb_path) != os.path.abspath(wb_copy):
             shutil.copy2(wb_path, wb_copy)
         attachments.append(os.path.basename(wb_copy))
+    if os.path.exists(card_path):
+        attachments.append(os.path.basename(card_path))
     weekday = datetime.strptime(date_str, "%d %B %Y").strftime("%A")
     manifest = {
         "subject": f"{cfg['subject_prefix']} - {weekday} {date_str}",

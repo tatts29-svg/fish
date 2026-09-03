@@ -992,16 +992,20 @@ def main():
           f"({d['priced_lines']/len(rows)*100:.1f}%; {d['priced_family']:,} by family line) "
           f"| fleet value {money(d['val_total'])} "
           f"| pricing conflicts flagged: {len(conflicts)}")
-    w = OUT / "Coates_Stocktake_Count_Worklist"
+    # WHY (03 Sep 2026): the worklist's names come from ampol_names.report_stem
+    # - one file-name rule for the whole suite, the day on the end. The
+    # house-style builder (button 05) writes the same worklist under the
+    # same stem; this standalone run is the V3 engine on its own.
+    w = OUT / ampol_names.report_stem("worklist")
     c = OUT / "Coates_Stocktake_Compliance_Report"
-    x = OUT / "Coates_Stocktake_Count_Worklist.xlsx"
+    x = OUT / f"{ampol_names.report_stem('worklist')}.xlsx"
     open(f"{w}.html", "w", encoding="utf-8").write(build_staff_worklist(rows, transit, export_dt, d))
     open(f"{c}.html", "w", encoding="utf-8").write(build_client_report(rows, transit, export_dt, d))
     build_excel_worklist(rows, d, conflicts, x)
     write_pdf_robust(f"{w}.html", f"{w}.pdf")
     write_pdf_robust(f"{c}.html", f"{c}.pdf")
     write_staff_eml(rows, transit, export_dt, d,
-                    [f"{w}.pdf", f"{c}.pdf", x], OUT / "Coates_Stocktake_Worklist_OUTLOOK.eml")
+                    [f"{w}.pdf", f"{c}.pdf", x], OUT / f"{ampol_names.report_stem('worklist')}_OUTLOOK.eml")
     due_all = sum(len(d["due"][k]) for k in TIERS)
     print(f"{len(rows):,} countable | SOP compliance {d['comp30']:.1f}% | "
           f"due (tiered) {due_all:,} [gas {len(d['due']['gas'])}, radio {len(d['due']['radio'])}, "

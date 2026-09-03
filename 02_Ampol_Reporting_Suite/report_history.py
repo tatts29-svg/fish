@@ -51,8 +51,41 @@ def load():
         return {}
 
 
+def _lock(path, wait=15.0):
+    """A plain lock file beside the scoreboard. WHY (03 Sep 2026): two
+    builders running at once must not lose each other's day - the second
+    waits (up to `wait` seconds) instead of overwriting."""
+    import time
+    lock = path.with_suffix(".lock")
+    t0 = time.time()
+    while True:
+        try:
+            fd = os.open(str(lock), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.close(fd)
+            return lock
+        except FileExistsError:
+            if time.time() - t0 > wait:
+                try:
+                    os.unlink(lock)   # a stale lock from a crashed run
+                except OSError:
+                    pass
+            time.sleep(0.2)
+
+
 def record(family, asat, figures, extra=None):
     """Write today's figures for a family. Same day = replace, never append."""
+    HIST_DIR.mkdir(exist_ok=True)
+    lock = _lock(HIST)
+    try:
+        return _record_locked(family, asat, figures, extra)
+    finally:
+        try:
+            os.unlink(lock)
+        except OSError:
+            pass
+
+
+def _record_locked(family, asat, figures, extra=None):
     data = load()
     fam = data.setdefault(family, {})
     entry = {"asat": asat.strftime("%d %b %Y %H:%M") if isinstance(asat, datetime) else str(asat),
