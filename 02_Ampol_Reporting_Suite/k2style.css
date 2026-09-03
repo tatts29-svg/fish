@@ -570,8 +570,13 @@ table.dt th.w { white-space: nowrap; }
 .cway .h { color: #F36F21; font-size: 8.8px; font-weight: 700; letter-spacing: 2.4px;
            text-transform: uppercase; }
 .cway .p { color: #FFFFFF; font-size: 12.6px; font-weight: 700; margin-top: 4px; line-height: 1.35; }
-.cway .v { color: #A7B6C4; font-size: 9.4px; margin-top: 6px; line-height: 1.55; }
+.cway .v { color: #A7B6C4; font-size: 9px; margin-top: 5px; line-height: 1.5; }
 .cway .v b { color: #FFFFFF; }
+.cway .v .d { color: #8A9AAC; }
+.cway .k { color: #F36F21; font-size: 7.6px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; margin-right: 3px; }
+.cway .fit { color: #C9D6E2; font-size: 9px; margin-top: 5px; line-height: 1.5; }
+.cway .fit b { color: #FFFFFF; }
+.cway .src { color: #6F8093; font-size: 8px; margin-top: 5px; line-height: 1.45; }
 
 /* ---------- 03 Sep 2026: cover stripe, freshness, three things -------- */
 .cover-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; border-radius: 12px 0 0 12px; }

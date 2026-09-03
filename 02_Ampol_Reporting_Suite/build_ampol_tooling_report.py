@@ -2481,7 +2481,7 @@ def k2_tail(limits, how, data_heading=True):
     # WHY (03 Sep 2026): the Coates Way panel sits above the team on every
     # closing page - the cog, the objective, the values, the counting promise
     out.append('<div class="pb"><div class="sect"><h3>Our standard, honest limits and how to '
-               'read this report</h3></div>' + cards + sh.coates_way_panel()
+               'read this report</h3></div>' + cards + sh.coates_way_panel(traits=(3, 4), disciplines=(2, 6), line="every over-90-day item has a named holder; the quarterly recovery cycle is the cadence that keeps the fleet honest")
                + '<div class="sub-h">Your Coates tool store team</div>' + sh.team_cards(TEAM)
                + '<div class="note" style="margin-top:16px;text-align:center">Coates Hire '
                'Operations Pty Limited &middot; ABN 50 009 779 338 &middot; www.coates.com.au '

@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.7  (03 Sep 2026)
+Version: 1.8  (03 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -231,3 +231,25 @@ v1.7 - 03 Sep 2026  (the layout pass - one grammar, one footer, one voice)
     Each band's total sits in the legend, so colour is never the only cue.
   - Daily Position: day-on-day arrows and a sparkline per family from
     the second recorded day, and its own phone card inline in the draft.
+
+v1.8 - 03 Sep 2026  (The Coates Way, branch edition July 2026)
+  - The official deck (The Coates Way - our operating model, our
+    standard, our way, July 2026) sits in Docs\ with its wording lifted
+    page by page into Docs\COATES_WAY_July2026.md. Every closing page
+    now prints that wording: purpose, objective, the five values with
+    their descriptors, the scorecard scale (green on track, amber at
+    risk, red action needed) and the red rule - a documented root cause,
+    corrective actions, an owner and a deadline.
+  - Each report names the traits and operating disciplines it serves,
+    in the deck's words: gas monitors (Operational Excellence,
+    Performance-led Results; Safety First, Cadence), radios (Operational
+    Excellence, Ease of Doing Business; Reduce Friction, Cadence),
+    tooling (Performance-led Results, Operational Excellence; Customer
+    Centric, Cadence), stocktake (Resilient Processes, Operational
+    Excellence; Cadence, Reduce Friction), calibration and rigging
+    (Operational Excellence, Resilient Processes; Safety First).
+  - The gas monitor repair queue is the tool store's Redline (fleet
+    unavailable); its tile now says which side of the Coates Way 15%
+    line the fleet sits. No other company target is turned into a
+    tool-store number - NPS, ROCE, EBIT, win rate and engagement are
+    not tool-store measures and are not printed as such.

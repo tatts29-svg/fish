@@ -851,7 +851,7 @@ def build_html(r26, rprev, b26, bprev, oos, ravail, bavail, data_asat="", facts=
         + (f' Trend page: appears once {_WORDS.get(TREND_MIN_DAYS, str(TREND_MIN_DAYS))} days are on record ({num(days_on_record)} today).'
            if not trend_html else f' Trend page: {num(days_on_record)} report days on record.')
         + '</div>'
-        '<div class="sect"><h3>How the radio fleet is run</h3></div>' + cards + sh.coates_way_panel()
+        '<div class="sect"><h3>How the radio fleet is run</h3></div>' + cards + sh.coates_way_panel(traits=(4, 7), disciplines=(5, 6), line="one scan at the counter closes the record; nothing is chased that the register already answers")
         + '<div class="sect"><h3>Meet the tool store team</h3></div>' + sh.team_cards(cfg["team"]))
     cover = kf.cover_block(cfg, num(len(prev_all)), f"units on hire since {PRIOR_LABEL}", [
         f"<b>{money(total_exposure)}</b> of radio equipment on hire - {num(len(all_on))} units",

@@ -764,7 +764,7 @@ def build_client_pages(rows, d, a, export_dt):
     P.append(f"""<div class="close">{psect("The tool store has your back")}
 {cards}
 {pnote(f'Sources: SiteIQ STOCKTAKE export ({esc(export_dt.strftime("%d %b %Y %H:%M"))}), RENTAL_STOCK register, pricing master. Each run writes its figures to {HIST_NAME} keyed on the export day. {trend_line}')}
-{sh.coates_way_panel()}
+{sh.coates_way_panel(traits=(5, 4), disciplines=(6, 5), line="one documented count standard, walked every day; a shelf item unsighted past its cycle is a workaround flagged, not normalised")}
 {psect("Meet the tool store team")}
 {sh.team_cards(CONFIG["team"])}</div>""")
     return P

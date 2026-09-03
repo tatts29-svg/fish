@@ -461,6 +461,10 @@ def page_position(m):
 {position_story(m, short=True)}"""
 
 
+# WHY (03 Sep 2026): the repair queue is the tool store's Redline (fleet
+# unavailable). The Coates Way centre target is under 15%, so the detail
+# tile says which side of that line the fleet sits. Wording and target
+# from The Coates Way, branch edition, July 2026 (Docs/).
 def page_position_detail(m):
     """Page 3, the position in detail: the full story paragraph, the
     health donut with the four scores and their arithmetic, the fleet
@@ -500,7 +504,9 @@ def page_position_detail(m):
     ("swap", num(m['out_today']), "Out today", "on the normal daily cycle", "grey"),
     ("layers", num(m['custody_total']), "In custody",
      f"FCCU {num(m['fccu'])} · Ops {num(m['ops'])} · Future Fuels {num(m['ff'])} · after hours {num(m['afterhours'])}", "grey"),
-    ("wrench", num(m['repairs']), "In the repair queue", f"{m['fleet_impact_pct']}% of the fleet", "amber" if m['repairs'] else "green"),
+    ("wrench", num(m['repairs']), "In the repair queue",
+     f"{m['fleet_impact_pct']}% of the fleet - Redline target under 15%",
+     "green" if m['fleet_impact_pct'] < 15 else "red"),
     ("box", num(m['usable_fleet']), "Usable fleet", f"{num(m['fleet_total'])} owned less {num(m['repairs'])} in repair", "grey"),
 ])}
 <div class="note">Health is green from 85, amber from 70, red below. Every score prints its own
@@ -1482,7 +1488,7 @@ def page_closing(m):
     ]
     return f"""<div class="sect"><h3>The tool store has your back</h3></div>
 {sh.info_cards(cards)}
-{sh.coates_way_panel()}
+{sh.coates_way_panel(traits=(4, 3), disciplines=(1, 6), line="same-day returns are Trait 4&rsquo;s &lsquo;returns processed same day&rsquo;; every overdue unit carries an owner and a date")}
 <div class="sect"><h3>Meet the tool store team</h3></div>
 <div class="note">The crew running your {esc(CONFIG['client'])} store - getting the right gear
   to the right people, keeping it tested and ready, and making sure everything that leaves

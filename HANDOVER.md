@@ -445,3 +445,16 @@ family drawing its three from its own data. VERIFY carries a long-dash
 sweep; the house style is a spaced hyphen. The daily position derives
 arrows and sparklines from the `key_value` each family records (parsed
 back to a number; `KEY_GOOD` in the script says which direction is good).
+
+### The Coates Way alignment (3 Sep 2026, v1.8)
+
+Andrew supplied the branch edition of The Coates Way (July 2026). The
+deck and its wording, lifted page by page, live in
+`02_Ampol_Reporting_Suite/Docs/`. `k2shell.coates_way_panel(traits,
+disciplines, line)` prints the official purpose, objective, values with
+descriptors, the RAG scale and the red rule, then names the traits and
+disciplines the family serves; each builder passes its own true mapping.
+The only company target turned into a tool-store comparison is Redline
+(fleet unavailable, under 15%) against the gas monitor repair queue,
+which is the same measure. Company-level KPIs (NPS, ROCE, EBIT, win rate,
+engagement) are deliberately not printed as tool-store figures.

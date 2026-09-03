@@ -1328,7 +1328,7 @@ def build_pages(d, asat_s):
     P.append(f"""{psect("How the rigging fleet is run")}
 {cards}
 {pnote(f'Names as shown: the site is Ampol. SiteIQ and the register still carry the site&rsquo;s former name on {num(former_n)} register descriptions and {num(former_live)} live-register lines; every one is shown here under the current name. Barcodes are identifiers and never change. Companies are one customer one name (the refinery legal name and the former site account both read Ampol; project accounts roll up to their parent). Each run writes its figures to {HIST_NAME} keyed on the pull day; the next run reads them back for the movement notes. {trend_line}')}
-{sh.coates_way_panel()}
+{sh.coates_way_panel(traits=(4, 5), disciplines=(1, 5), line="every lifting item is accounted for or hunted; a barcode SiteIQ cannot see is a friction point flagged, not accepted")}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
 {sh.team_cards(CONFIG["team"])}""")

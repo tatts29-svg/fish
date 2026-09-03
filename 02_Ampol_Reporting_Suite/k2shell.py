@@ -1121,15 +1121,45 @@ def cog_b64(width=360):
     return _COG_B64
 
 
-def coates_way_panel():
-    """Closing-page panel: the Coates Way cog with the objective and values."""
+# The Coates Way - official wording, branch edition, July 2026
+# (Docs/COATES_WAY_July2026.md, lifted from the deck page by page).
+COATES_PURPOSE = "Supporting Australia\u2019s growth with leading equipment solutions"
+COATES_OBJECTIVE = "Australia\u2019s most trusted equipment partner - delivering Best Service &amp; Value"
+COATES_VALUES = [("Care Deeply", "safety &amp; wellbeing first, always"),
+                 ("Customer Focused", "listen, anticipate, exceed expectations"),
+                 ("Be Our Best", "accountability, learning, determination"),
+                 ("One Team", "collaborative, trusted, inclusive"),
+                 ("Competitive Spirit", "set stretch goals, be THE best")]
+COATES_RAG = "Green - on track &middot; Amber - at risk &middot; Red - action needed: a documented root cause, corrective actions, an owner and a deadline"
+COATES_TRAITS = {1: "Customer Solutions", 2: "Targeted Growth", 3: "Performance-led Results",
+                 4: "Operational Excellence", 5: "Resilient Processes", 6: "Customer-led Innovation",
+                 7: "Ease of Doing Business"}
+COATES_DISCIPLINES = {1: "Safety First", 2: "Customer Centric", 3: "Pace", 4: "Open to Feedback",
+                      5: "Reduce Friction", 6: "Cadence"}
+
+
+def coates_way_panel(traits=(), disciplines=(), line=""):
+    """Closing-page panel in the deck's own words (July 2026): purpose,
+    objective, the five values with their descriptors, the RAG scale and
+    the red rule. traits / disciplines: the numbers of the Seven Traits
+    and Six Operating Disciplines this report serves (named exactly as
+    the deck names them); line: one sentence in the family's words on how
+    the report serves them. Nothing here is a figure."""
     b = cog_b64()
     img = f'<div class="img"><img src="data:image/png;base64,{b}" alt="The Coates Way"></div>' if b else ""
-    return (f'<div class="cway">{img}<div class="txt"><div class="h">The Coates Way</div>'
-            f'<div class="p">Australia&rsquo;s most trusted equipment partner - delivering Best Service &amp; Value.</div>'
-            f'<div class="v"><b>Care Deeply</b> &middot; <b>Customer Focused</b> &middot; <b>Be Our Best</b> &middot; '
-            f'<b>One Team</b> &middot; <b>Competitive Spirit</b><br>Every figure in this report is counted from '
-            f'the SiteIQ exports named on its data page. Nothing is estimated, weighted or typed in.</div></div></div>')
+    vals = " &middot; ".join(f"<b>{n}</b> <span class=\"d\">({d})</span>" for n, d in COATES_VALUES)
+    fit = ""
+    names = [COATES_TRAITS[t] for t in traits if t in COATES_TRAITS] + \
+            [COATES_DISCIPLINES[d] for d in disciplines if d in COATES_DISCIPLINES]
+    if names:
+        fit = ('<div class="fit"><span class="k">Where this report sits</span> ' + ", ".join(f"<b>{n}</b>" for n in names)
+               + (f" &middot; {line}" if line else "") + "</div>")
+    return (f'<div class="cway">{img}<div class="txt"><div class="h">The Coates Way &middot; our operating model, our standard, our way</div>'
+            f'<div class="p">{COATES_OBJECTIVE}.</div>'
+            f'<div class="v"><span class="k">Purpose</span> {COATES_PURPOSE}.<br>{vals}<br>'
+            f'<span class="k">Scorecard</span> {COATES_RAG}.</div>{fit}'
+            f'<div class="src">Every figure in this report is counted from the SiteIQ exports named on its data page - nothing is estimated, '
+            f'weighted or typed in. Wording: The Coates Way, branch edition, July 2026.</div></div></div>')
 
 
 def freshness_line(asat_dt, gen_dt=None):

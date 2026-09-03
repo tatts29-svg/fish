@@ -1453,7 +1453,7 @@ def build_pages(rows, d, S):
     P.append(f"""{psect("How the calibrated fleet is run")}
 {cards}
 {pnote(f'Names as shown: the site is Ampol. SiteIQ still carries the site&rsquo;s former name on {num(former_live)} live-register lines and the register on some descriptions; every one is shown here under the current name. Asset numbers and barcodes are identifiers and never change. Each run writes its figures to {HIST_NAME} keyed on the pull day; the next run reads them back for the movement notes. {trend_line}')}
-{sh.coates_way_panel()}
+{sh.coates_way_panel(traits=(4, 5), disciplines=(1, 6), line="a lapsed certificate is a stop-the-task risk; the register is the one standard record and every overdue asset has an owner and a date")}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true, the certificates current and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
 {sh.team_cards(CONFIG["team"])}""")
