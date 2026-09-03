@@ -74,6 +74,7 @@ DATA RULES
 
 import html as _html
 import json
+import math
 import os
 import re
 import sys
@@ -878,8 +879,20 @@ def weekly_chart(labels, series, w=636, h=200, partial_last=False):
     allv = [v for _, _, vs in series for v in vs if v is not None]
     hi = max(allv + [1])
     lo = min(allv + [0])
+    # a round grid: the step is 1, 2, 2.5 or 5 times a power of ten, the
+    # floor and ceiling sit on it, so the axis reads -40, 0, 40, 80, 120
+    raw = (hi - lo) / 4 or 1
+    mag = 10 ** math.floor(math.log10(raw))
+    step = min(x * mag for x in (1, 2, 2.5, 5, 10) if x * mag >= raw)
+    lo = math.floor(lo / step) * step
+    hi = math.ceil(hi / step) * step
+    ticks = []
+    t = lo
+    while t <= hi + step / 2:
+        ticks.append(t)
+        t += step
     span = (hi - lo) or 1
-    widest = max(len(num(round(lo + span * k / 4))) for k in range(5))
+    widest = max(len(num(round(t))) for t in ticks)
     pad_l = max(36, int(widest * 4.6) + 12)
     F = 'font-family="Lato, Calibri, sans-serif"'
 
@@ -889,16 +902,13 @@ def weekly_chart(labels, series, w=636, h=200, partial_last=False):
     def y_of(v):
         return base - (base - top) * (v - lo) / span
     out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
-    for k in range(5):
-        gv = lo + span * k / 4
+    for gv in ticks:
         y = y_of(gv)
-        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" y2="{y:.1f}" stroke="#2A3644" stroke-width="1"/>')
+        zero = lo < 0 and abs(gv) < step / 2
+        out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{w - pad_r}" y2="{y:.1f}" '
+                   f'stroke="{"#5A6875" if zero else "#2A3644"}" stroke-width="{1.4 if zero else 1}"/>')
         out.append(f'<text x="{pad_l - 5}" y="{y + 3:.1f}" text-anchor="end" fill="#8A9AAC" {F} '
                    f'font-size="7.6">{num(round(gv))}</text>')
-    if lo < 0 < hi:
-        y0 = y_of(0)
-        out.append(f'<line x1="{pad_l}" y1="{y0:.1f}" x2="{w - pad_r}" y2="{y0:.1f}" stroke="#5A6875" stroke-width="1.4"/>')
-        out.append(f'<text x="{w - pad_r + 4}" y="{y0 + 3:.1f}" fill="#8A9AAC" {F} font-size="7.4">0</text>')
     step = max(1, (n - 1) // 8 or 1)
     for i, lab in enumerate(labels):
         if i % step == 0 or i == n - 1:
@@ -954,21 +964,20 @@ def movements_page(d, asat_s):
     share = round(top_items / ho["items"] * 100) if ho["items"] and top else 0
     chart = weekly_chart(labels, [("Issues", K["orange"], [w["issues"] for w in wk]),
                                   ("Returns", K["green"], [w["returns"] for w in wk]),
-                                  ("Net out", K["amber"], [w["net"] for w in wk])], partial_last=partial)
+                                  ("Net out", K["amber"], [w["net"] for w in wk])], h=190, partial_last=partial)
     first = wk[0]["start"].strftime("%d %b %Y") if wk else "-"
-    busy_s = (f' The busiest week for issues began <b>{esc(busiest["week"])}</b> with {num(busiest["issues"])}.'
+    busy_s = (f'; the busiest week for issues began <b>{esc(busiest["week"])}</b> with {num(busiest["issues"])}'
               if busiest and busiest["issues"] else "")
     part_s = (f' The current week ({esc(wk[-1]["week"])}) is partial - to the pull.' if partial else "")
     period = f"report period {w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M}" if w0 else "the whole export"
     return f"""{psect("The year in movements - register gear through the counter, week by week")}
-{pcallout(f'<span class="lead">The log, week by week.</span> The <b>{num(L["scope_n"])} register barcodes SiteIQ returns</b> moved <b class="o">{num(issues)} times out</b> and <b>{num(returns)} back</b> across {num(len(wk))} weeks, from the week beginning {esc(first)} to the pull at {esc(asat_s)}.{busy_s} Net out is the week&rsquo;s issues less its returns - weeks above zero are gear building up on site, weeks below are gear coming home.{part_s}')}
-{psubh("Issues, returns and net out by week", "- every movement of a register barcode in the log; * marks the partial week")}
+{pcallout(f'<span class="lead">The log, week by week.</span> The <b>{num(L["scope_n"])} register barcodes SiteIQ returns</b> moved <b class="o">{num(issues)} times out</b> and <b>{num(returns)} back</b> across {num(len(wk))} weeks, from the week beginning {esc(first)} to the pull at {esc(asat_s)}{busy_s}. Net out is the week&rsquo;s issues less its returns - above zero, gear building up on site; below, gear coming home.{part_s}')}
+{psubh("Issues, returns and net out by week", "- every movement of a register barcode; * marks the partial week")}
 {chartpanel(chart)}
-{psubh("Who holds the register gear", f"- ranked by items on hire at the pull; {num(ho['n80_items'])} of the {num(ho['holders'])} holders carry 80% of the {num(ho['items'])} items")}
+{psubh("Who holds the register gear", "- top 10, ranked by items on hire at the pull")}
 {sh.dtable(["Rank", "Hirer", "Company", "Items", "Oldest (days)"], hrows, ["r", "", "", "r", "r"], cls="cp")}
-{pnote(f'<b>So what:</b> the net-out line is the site&rsquo;s rigging load in one picture - the weeks it stays above zero are the weeks to walk the holders list, and the ten names above hold {num(share)}% of everything out.')}
-{pnote(f'Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {period}) for the register barcodes SiteIQ returns; holders from RENTAL_STOCK at the pull, oldest = days from the on-hire date. Rules: short hire = closed inside 6 minutes; mass draw = one person drawing 15 or more items inside one hour; product key = the description with its size and serial tail removed. Custody lines: {esc(REPAIR_RULE)}.')}"""
-
+{pnote(f'<b>So what:</b> <b>{num(ho["n80_items"])} of the {num(ho["holders"])} holders</b> carry 80% of the {num(ho["items"])} register items out, and the ten names above hold {num(share)}% - the net-out line says which weeks to walk that list.')}
+{pnote(f'Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {period}) for the register barcodes SiteIQ returns; holders from RENTAL_STOCK at the pull, oldest = days from the on-hire date. Rules: short hire = closed inside 6 minutes; mass draw = one person drawing 15 or more items inside one hour; product key = the description with its size and serial tail removed.')}"""
 
 def rig_tiles(d):
     """The position-page tiles: the count, the movement since the previous

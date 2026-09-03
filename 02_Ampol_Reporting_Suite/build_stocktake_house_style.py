@@ -768,11 +768,11 @@ def build_client_pages(rows, d, a, export_dt, fm=None, tx_window=None):
                   f'Trend page: {num(n_days)} days on record - the 30-day lines are on the page before this one.')
     # WHY (03 Sep 2026): the transaction log is a source now (the fast-movers
     # page) - named here with the others, with its own report period.
-    tx_src = (f"; TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {tx_window[0]:%d %b} to {tx_window[1]:%d %b %Y}) for the fast-movers page"
+    tx_src = (f", TRANSACTIONS (CUSTOMER_CONTRACTOR_EQUIP, {tx_window[0]:%d %b} to {tx_window[1]:%d %b %Y}; fast movers)"
               if tx_window and tx_window[0] else "")
     P.append(f"""<div class="close">{psect("The tool store has your back")}
 {cards}
-{pnote(f'Sources: SiteIQ STOCKTAKE export ({esc(export_dt.strftime("%d %b %Y %H:%M"))}), RENTAL_STOCK register, pricing master{tx_src}. Each run writes its figures to {HIST_NAME} keyed on the export day. {trend_line}')}
+{pnote(f'Sources: SiteIQ STOCKTAKE export ({esc(export_dt.strftime("%d %b %Y %H:%M"))}), RENTAL_STOCK register, pricing master{tx_src}. Figures go to {HIST_NAME} each run. {trend_line}')}
 {sh.coates_way_panel(traits=(5, 4), disciplines=(6, 5), line="one documented count standard, walked every day; a shelf item unsighted past its cycle is a workaround flagged, not normalised")}
 {psect("Meet the tool store team")}
 {sh.team_cards(CONFIG["team"])}</div>""")
@@ -786,14 +786,16 @@ def fast_movers_page(fm, a, tx_window):
     store is the scope because the count covers everything. Every figure
     is a count of rows in the export; nothing is modelled. The bay-map
     line joins on the storage-unit name both pages already use - left out
-    when no bay on the bars is an in-store bay on the map."""
+    when no bay on the bars is an in-store bay on the map. One fixed A4
+    page: twenty one-line rows, the SiteIQ status in its short word."""
     rows = fm["rows"]
     w0, w1 = tx_window if tx_window and tx_window[0] else (None, None)
     since = f"since {w0:%d %b}" if w0 else "this year"
     nd = '<span class="tbc">-</span>'
+    status_word = {"available for hire": "Available", "on hire": "On hire"}
     trows = [[num(i), esc(r["barcode"]), esc(r["desc"]), esc(r["unit"]) or nd,
-              esc(r["status"]) or '<span class="tbc">not on the register now</span>', num(r["moves"]),
-              esc(r["last"].strftime("%d %b %H:%M"))] for i, r in enumerate(rows, 1)]
+              esc(status_word.get(r["status"].lower(), r["status"])) or '<span class="tbc">not on the register</span>',
+              num(r["moves"]), esc(r["last"].strftime("%d %b %H:%M"))] for i, r in enumerate(rows, 1)]
     if not trows:
         trows = [['<span class="tbc">no movements in the log</span>', "", "", "", "", "", ""]]
     top_moves = sum(r["moves"] for r in rows)
@@ -805,18 +807,17 @@ def fast_movers_page(fm, a, tx_window):
     joined = [(u, cov[u]) for u, _ in by_unit if u in cov][:3]
     map_line = ""
     if joined:
-        map_line = (" Against the bay map: " + "; ".join(
+        map_line = (" On the bay map: " + "; ".join(
             f"<b>{esc(u)}</b> {num(c['n'])} in-store items, {c['pct']:.0f}% sighted inside 30 days" for u, c in joined) + ".")
     period = f"report period {w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M}" if w0 else "the whole export"
     return f"""<div class="fm">{psect("Fast movers - what the counter handles most")}
-{pcallout(f'<span class="lead">Ranked by movements.</span> The <b>{num(len(rows))} barcodes</b> below are the ones the transaction log shows the counter handling most {since}: <b>{num(top_moves)}</b> issue-and-return movements between them, out of <b>{num(fm["items_moved"])}</b> distinct barcodes that moved at all. {num(top_bay_n)} of the {num(len(rows))} sit in <b>{esc(top_bay)}</b> today. Bay and status are the live register at the pull; last movement is the newest scan in the log.')}
+{pcallout(f'<span class="lead">Ranked by movements.</span> The <b>{num(len(rows))} barcodes</b> below are the ones the transaction log shows the counter handling most {since} - <b>{num(top_moves)}</b> movements between them, of <b>{num(fm["items_moved"])}</b> barcodes that moved at all; {num(top_bay_n)} of the {num(len(rows))} sit in <b>{esc(top_bay)}</b> today.')}
 {sh.dtable(["Rank", "Barcode", "Description", "Bay", "Status", "Moves", "Last movement"], trows,
-           ["r", "", "", "", "", "r", "nw"], cls="cp")}
-{psubh("Movements by bay", "- top 12 bays, ranked by movements in the log; bay = the item&rsquo;s home storage unit on the register today")}
-{chartpanel(sh.hbars(bars, rowh=17))}
-{pnote(f'<b>So what:</b> the bays the fast movers live in are where a daily sighting pays most - one walk past {esc(top_bay)} resets the clock on the gear the counter handles every day.{map_line}')}
-{pnote(f'Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {period}), every row, joined to RENTAL_STOCK by barcode. The log engine&rsquo;s rules, as applied across the suite: short hire = closed inside 6 minutes; mass draw = one person drawing 15 or more items inside one hour; product key = the description with its size and serial tail removed.')}</div>"""
-
+           ["r", "nw", "", "nw", "nw", "r", "nw"], cls="cp")}
+{psubh("Movements by bay", "- top 12 bays, ranked by movements in the log")}
+<div class="chartpanel" style="padding:10px 17px;margin-top:8px">{sh.hbars(bars, rowh=13)}</div>
+{pnote(f'<b>So what:</b> the fast movers&rsquo; bays are where a daily sighting pays most - one walk past {esc(top_bay)} resets the clock on the gear the counter handles every day.{map_line}')}
+{pnote(f'Bay and status: the live register at the pull (bay = home storage unit); last movement: the newest scan in the log. Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {period}) joined to RENTAL_STOCK by barcode. The log engine&rsquo;s rules: short hire = closed inside 6 minutes; mass draw = 15 or more items to one person inside an hour; product key = the description less its size and serial tail.')}</div>"""
 
 def trend_page(export_dt, d, a, ins_pct):
     """The fixed trend page: SOP compliance (whole store and the shelf)
@@ -1160,9 +1161,10 @@ EXTRA_CSS = """
 .close .team td { padding: 12px 9px 11px 9px; }
 .close .note { margin-top: 7px; }
 /* 03 Sep 2026: the fast-movers page - twenty ranked rows and the bay bars on one fixed page */
-.fm table.dt.cp td { padding: 3.5px 8px; }
-.fm .sub-h { margin: 12px 0 8px 0; }
+.fm table.dt.cp td { padding: 3px 7px; font-size: 8.8px; line-height: 1.25; }
+.fm .sub-h { margin: 12px 0 7px 0; }
 .fm .callout.tight { padding: 12px 20px; }
+.fm .note { margin-top: 7px; }
 """
 
 

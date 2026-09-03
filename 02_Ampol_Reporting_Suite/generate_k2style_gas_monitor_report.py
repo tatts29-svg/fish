@@ -1530,77 +1530,76 @@ def page_log(m):
     the same fleet barcodes - the return window every completed hire shows,
     the rows that look like a scan habit rather than a hire, the register-
     versus-log gaps with sample rows, and the 80/20 of who holds the fleet.
-    A fixed A4 page: every list is capped and says how many it shows."""
+    A fixed A4 page: every list is capped at six rows and says how many it
+    shows; the four sample tables sit two up, four columns each, so every
+    row is one line."""
     L = m["log"]
     a = L["rw_all"] or {"n": 0, "median": 0.0, "p90": 0.0, "sd_pct": 0.0}
     dq, ho = L["dq"], L["ho"]
     w0, w1 = L["window"] if L["window"][0] else m["tx_window"]
     CAP = 6
     nd = '<span class="tbc">-</span>'
+
+    def person(who, co):
+        # a person carries the company under the name; an account stands alone
+        s2 = f'<span class="s2">{esc(co)}</span>' if co and ge.account_kind(who, co) == "crew" else ""
+        return who_s(who) + s2
     short = sorted(dq["short"], key=lambda t: t["st"], reverse=True)
-    srows = [[esc(t["st"].strftime("%d %b %H:%M")), who_s(t["who"]), esc(t["co"]) or nd, esc(t["bc"]),
-              f'{t["hours"] * 60:.0f} min'] for t in short[:CAP]]
+    srows = [[esc(t["st"].strftime("%d %b")), person(t["who"], t["co"]), esc(t["bc"]), f'{t["hours"] * 60:.0f} min']
+             for t in short[:CAP]]
     if not srows:
-        srows = [['<span class="tbc">none - no hire closed inside 6 minutes</span>', "", "", "", ""]]
-    mrows = [[esc(day.strftime("%d %b")), f"{hr:02d}:00-{hr + 1:02d}:00", who_s(who), esc(co) or nd, num(n)]
+        srows = [['<span class="tbc">none - no hire closed inside 6 minutes</span>', "", "", ""]]
+    mrows = [[esc(day.strftime("%d %b")), f"{hr:02d}:00", person(who, co), num(n)]
              for (who, co, day, hr), n in dq["mass"][:CAP]]
     if not mrows:
-        mrows = [['<span class="tbc">none - nobody drew 15 or more in an hour</span>', "", "", "", ""]]
+        mrows = [['<span class="tbc">none - nobody drew 15 or more in an hour</span>', "", "", ""]]
 
     def reg_rows(rs, empty):
         rs = sorted(rs, key=lambda r: (r["on_dt"] is None, r["on_dt"] or m["asat"]))
-        out = [[esc(r["barcode"]), who_s(r["hirer"]), esc(r["company"]) or nd, esc(dfmt(r["on_dt"])) or nd]
-               for r in rs[:CAP]]
-        return out or [[f'<span class="tbc">{empty}</span>', "", "", ""]]
+        out = [[esc(r["barcode"]), person(r["hirer"], r["company"]), esc(dfmt(r["on_dt"])) or nd] for r in rs[:CAP]]
+        return out or [[f'<span class="tbc">{empty}</span>', "", ""]]
     n_no, n_pre = len(dq["onhire_no_log"]), len(dq["onhire_before_log"])
     nrows = reg_rows(dq["onhire_no_log"], "none - every monitor on hire has a movement in the log")
     prows = reg_rows(dq["onhire_before_log"], "none - every monitor on hire was issued inside the log")
     n80, cust = ho["n80_items"], L["cust80"]
     sd_ok = a["sd_pct"] >= CONFIG["rag_sameday_target"]
 
-    def shown(k, n, what):
-        return f"{num(min(k, n))} of {num(n)} {what}" if n > k else f"{num(n)} {what}"
-    return f"""<div class="sect"><h3>{esc(LOG_HEADING)}</h3></div>
+    def shown(n, what):
+        tail = f" {what}" if what else ", "
+        return (f"{num(min(CAP, n))} of {num(n)}" if n > CAP else num(n)) + tail
+    SH = 'class="sub-h" style="margin:10px 0 6px 0"'
+    return f"""<div class="lg"><div class="sect"><h3>{esc(LOG_HEADING)}</h3></div>
 <div class="callout tight">
-  <span class="lead">Every completed hire, counted.</span> <b>{num(a['n'])} completed monitor hires</b> in the log
-  between {w0:%d %b} and {w1:%d %b %Y} - crew, custody and workflow lines alike: half were back inside
-  <b>{hours_s(a['median'])} hours</b>, <b class="o">nine in ten inside {hours_s(a['p90'])} hours</b>, and
-  <b>{a['sd_pct']}%</b> on the day they went out. The rows to read around: <b class="o">{num(dq['short_n'])} hires
-  closed inside 6 minutes</b> (scanned out and straight back), <b>{num(dq['mass_n'])} mass draws</b> (one person,
-  15 or more monitors in an hour - kits drawn for a crew or a custody line), <b>{num(n_no)}</b> monitors on hire
-  with no movement since the log began, and <b>{num(n_pre)}</b> issued before it opened - history, not a gap.
+  <span class="lead">Every completed hire, counted.</span> <b>{num(a['n'])} completed monitor hires</b> in the log,
+  {w0:%d %b} to {w1:%d %b %Y}: half back inside <b>{hours_s(a['median'])} hours</b>, <b class="o">nine in ten inside
+  {hours_s(a['p90'])} hours</b>, <b>{a['sd_pct']}%</b> the same day. The rows to read around:
+  <b class="o">{num(dq['short_n'])} hires closed inside 6 minutes</b>, <b>{num(dq['mass_n'])} mass draws</b> (15 or more
+  monitors to one person in an hour - kits for a crew or a custody line), <b>{num(n_no)}</b> on hire with no movement
+  since the log began, and <b>{num(n_pre)}</b> issued before it opened - history, not a gap.
 </div>
 {sh.tiles([
-    ("swap", num(a['n']), "Completed hires", f"{w0:%d %b} to {w1:%d %b %Y}, every fleet monitor", "grey"),
-    ("clock", f"{hours_s(a['median'])} h", "Half back inside", "median, issue scan to return scan", "grey"),
-    ("clock", f"{hours_s(a['p90'])} h", "Nine in ten back inside", "90th percentile of completed hires", "amber"),
+    ("swap", num(a['n']), "Completed hires", f"every fleet monitor, {w0:%d %b} to {w1:%d %b}", "grey"),
+    ("clock", f"{hours_s(a['median'])} h", "Half back inside", "median hold, scan to scan", "grey"),
+    ("clock", f"{hours_s(a['p90'])} h", "Nine in ten back inside", "90th percentile", "amber"),
     ("check", f"{a['sd_pct']}%", "Back the same day", "of completed hires", "green" if sd_ok else "amber"),
 ])}
-{sh.tiles([
-    ("zap", num(dq['short_n']), "Closed inside 6 minutes", "out and straight back - a scan habit", "amber" if dq['short_n'] else "green"),
-    ("layers", num(dq['mass_n']), "Mass draws", "15 or more to one person in an hour", "grey"),
-    ("warn", num(n_no), "On hire, no movement logged", f"since the log began {w0:%d %b}", "red" if n_no else "green"),
-    ("box", num(n_pre), "Issued before the log", f"on hire since before {w0:%d %b %Y}", "grey"),
-])}
 <table class="two"><tr>
-  <td style="width:50%;padding-right:6px"><div class="sub-h">Closed inside 6 minutes <span class="thin">- {shown(CAP, len(short), "hires")}, newest first</span></div>
-{sh.dtable(["When", "Who", "Company", "Asset", "Out for"], srows, ["nw", "", "", "", "r"], cls="cp")}</td>
-  <td style="padding-left:6px"><div class="sub-h">Mass draws <span class="thin">- {shown(CAP, dq['mass_n'], "draws")}, largest first</span></div>
-{sh.dtable(["Day", "Hour", "Who", "Company", "Monitors"], mrows, ["nw", "nw", "", "", "r"], cls="cp")}</td>
+  <td style="width:50%;padding-right:6px"><div {SH}>Six-minute hires <span class="thin">- {shown(len(short), "hires")}, newest first</span></div>
+{sh.dtable(["Day", "Who", "Asset", "Out for"], srows, ["nw", "", "nw", "nw"], cls="cp")}</td>
+  <td style="padding-left:6px"><div {SH}>Mass draws <span class="thin">- {shown(dq['mass_n'], "draws")}, largest first</span></div>
+{sh.dtable(["Day", "Hour", "Who", "Monitors"], mrows, ["nw", "nw", "", "r"], cls="cp")}</td>
 </tr></table>
 <table class="two"><tr>
-  <td style="width:50%;padding-right:6px"><div class="sub-h">On hire, no movement logged <span class="thin">- {shown(CAP, n_no, "monitors")}, oldest first</span></div>
-{sh.dtable(["Asset", "Who", "Company", "On hire since"], nrows, ["", "", "", "nw"], cls="cp")}</td>
-  <td style="padding-left:6px"><div class="sub-h">Issued before the log <span class="thin">- {shown(CAP, n_pre, "monitors")}, oldest first</span></div>
-{sh.dtable(["Asset", "Who", "Company", "On hire since"], prows, ["", "", "", "nw"], cls="cp")}</td>
+  <td style="width:50%;padding-right:6px"><div {SH}>No movement logged <span class="thin">- {shown(n_no, "on hire")}</span></div>
+{sh.dtable(["Asset", "Who", "On hire since"], nrows, ["nw", "", "nw"], cls="cp")}</td>
+  <td style="padding-left:6px"><div {SH}>Issued before the log <span class="thin">- {shown(n_pre, "")}oldest first</span></div>
+{sh.dtable(["Asset", "Who", "On hire since"], prows, ["nw", "", "nw"], cls="cp")}</td>
 </tr></table>
 <div class="note"><b>So what:</b> hold crews to the {hours_s(a['p90'])}-hour line the fleet already runs on; the six-minute
   hires and the mass draws are scan habits to read around, not hires to chase.</div>
 <div class="note">Who holds the fleet, ranked by units: <b>{num(n80)} of the {num(ho['holders'])} holders</b> on the register
-  carry 80% of the {num(ho['items'])} monitors on hire, {num(cust)} of them custody and workflow accounts rather than people.
-  Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, report period {w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M})
-  and the register at the pull; the rules are on the data page.</div>"""
-
+  carry 80% of the {num(ho['items'])} monitors on hire, {num(cust)} of them custody and workflow accounts, not people.
+  Counted from TRANSACTIONS (sheet CUSTOMER_CONTRACTOR_EQUIP, {w0:%d %b %Y %H:%M} to {w1:%d %b %Y %H:%M}); rules on the data page.</div></div>"""
 
 def page_closing(m):
     cards = [
@@ -1716,12 +1715,23 @@ def cover_for(m, cfg, gen_s, asat_s, gen_dt=None, contents=None):
                          contents=contents)
 
 
+# WHY (03 Sep 2026): the log page carries four six-row sample tables two
+# up on one fixed page - its rows run a touch tighter than the shell's
+# compact table so every list keeps its six rows above the footer.
+LOG_CSS = """
+.lg table.dt.cp td { padding: 4px 8px; }
+.lg table.dt.cp td .s2 { margin-top: 0; }
+.lg .tiles { margin-top: 9px; }
+"""
+
+
 def wrap_doc(body, cfg, asat_s):
     """The page HTML around the rendered pages. k2style.css is inlined by
     the caller so the file beside the PDF is self-contained."""
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <title>Coates {esc(cfg['client'])} {esc(cfg['title'])} - {esc(asat_s)}</title>
+<style>{LOG_CSS}</style>
 </head><body>{body}</body></html>"""
 
 
