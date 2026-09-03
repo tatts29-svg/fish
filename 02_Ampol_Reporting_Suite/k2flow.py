@@ -48,62 +48,49 @@ def _house_css():
 
 FLOW_CSS = """
 /* ---------- flowing-report frame (k2flow) ----------------------------
-   Print-safe pattern: the page margins sit on the frame line (6.5mm);
-   the frame is a fixed element that exactly spans the page area (a
-   fixed element that hangs outside the page area gets tiled by
-   Chromium); the running header and footer bands are the <thead> and
-   <tfoot> of one wrapping table, which Chromium repeats on every page;
-   the page counter is the one thing that needs a margin box. */
+   The one layout the print engine gets right every time: the header and
+   footer bands live in the page MARGINS (Chromium 131+ renders @page
+   margin boxes, page counter included), the frame is a fixed element
+   that spans exactly the page area (a fixed element that hangs outside
+   the page area is tiled, and a repeating table footer overprints tall
+   blocks), and the content is plain block flow inside the frame, so a
+   block that must stay whole simply moves to the next page. */
 @page {
   size: A4 portrait;
-  margin: 6.5mm 6.5mm 6.5mm 6.5mm;
-  @bottom-center { content: "Page " counter(page) " of " counter(pages);
-                   font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
-                   font-size: 6.4pt; color: #98A6B4; vertical-align: top; margin-top: 1.2mm; }
+  margin: 21mm 6.5mm 17.5mm 6.5mm;
+  @top-left     { content: "__KICKER__"; vertical-align: bottom; margin-left: 4mm; margin-bottom: 2.2mm;
+                  font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
+                  font-size: 6.8pt; font-weight: 700; letter-spacing: 1.9pt; color: #F36F21; }
+  @top-right    { content: "__TITLE__   \\2022   AS AT __ASAT__"; vertical-align: bottom; margin-right: 4mm; margin-bottom: 2.2mm;
+                  font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
+                  font-size: 7.6pt; font-weight: 700; color: #16202C; }
+  @bottom-left  { content: "YOUR COATES TOOL STORE TEAM  \\2022  __TEAM__"; vertical-align: top; margin-left: 4mm; margin-top: 2.2mm;
+                  font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
+                  font-size: 6.6pt; font-weight: 700; letter-spacing: 0.6pt; color: #8A9AAC; }
+  @bottom-center{ content: "Author: Andrew Fisher   |   POWERED BY SITEIQ"; vertical-align: top; margin-top: 2.2mm;
+                  font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
+                  font-size: 6.8pt; font-weight: 700; color: #16202C; letter-spacing: 0.5pt; }
+  @bottom-right { content: "Page " counter(page) " of " counter(pages); vertical-align: top; margin-right: 4mm; margin-top: 2.2mm;
+                  font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
+                  font-size: 6.8pt; color: #98A6B4; }
 }
 .k2frame { position: fixed; top: 0; left: 0; right: 0; bottom: 0;
            border: 5px solid #F36F21; border-radius: 26px; pointer-events: none; }
-/* the header and footer bands are FIXED (pinned to the top and bottom of
-   every page, last page included); the wrapping table's thead and tfoot
-   are empty spacers of the same height that reserve the room on each page */
-table.k2wrap { width: 100%; border-collapse: collapse; border-spacing: 0; }
-table.k2wrap > thead { display: table-header-group; }
-table.k2wrap > tfoot { display: table-footer-group; }
-table.k2wrap > thead td, table.k2wrap > tfoot td, table.k2wrap > tbody > tr > td { padding: 0; }
-.k2spacer-t { height: 19.5mm; }
-.k2spacer-b { height: 15.5mm; }
-.k2run { position: fixed; top: 0; left: 0; right: 0; height: 19.5mm; padding: 8.5mm 10mm 0 10mm;
-         box-sizing: border-box; }
-.k2run .bar { border-bottom: 1px solid #E4E8EC; padding-bottom: 5px; position: relative; }
-.k2run .kicker { color: #F36F21; font-size: 8.2px; font-weight: 700; letter-spacing: 2.4px;
-                 text-transform: uppercase; }
-.k2run .t { margin-top: 3px; color: #16202C; font-size: 12.5px; font-weight: 700; }
-.k2run .r { position: absolute; right: 0; top: 0; text-align: right; }
-.k2run .r .siteiq { color: #16202C; text-align: right; }
-.k2run .r .asat { color: #8A9AAC; font-size: 8.8px; margin-top: 4px; white-space: nowrap; }
-.k2run .r .asat b { color: #16202C; }
-.k2foot { position: fixed; bottom: 0; left: 0; right: 0; height: 15.5mm; padding: 0 10mm 8.5mm 10mm;
-          box-sizing: border-box; }
-.k2foot .bar { border-top: 1px solid #E4E8EC; padding-top: 7px; position: relative; }
-.k2foot .fh { color: #F36F21; font-size: 7.4px; font-weight: 700; letter-spacing: 1.9px;
-              text-transform: uppercase; }
-.k2foot .fl { font-size: 8.2px; color: #8A9AAC; line-height: 1.5; margin-top: 3px; }
-.k2foot .fl b { color: #16202C; font-weight: 700; }
-.k2foot .fr { position: absolute; right: 0; top: 8px; text-align: right; font-size: 8.4px;
-              color: #16202C; font-weight: 700; letter-spacing: 1.4px; }
-.k2foot .fr .q { color: #F36F21; }
-.k2body { padding: 6px 10mm 4px 10mm; }
+/* cloned padding: every page fragment gets the same inset from the frame */
+.k2body { padding: 7mm 10mm 6mm 10mm; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .k2body .sect { break-after: avoid; page-break-after: avoid; }
 .k2body .sub-h { break-after: avoid; page-break-after: avoid; }
+.k2body .sect + .note, .k2body .sect + .callout, .k2body .sub-h + .chartpanel { break-before: avoid; page-break-before: avoid; }
 .k2body table.dt thead { display: table-header-group; }
 .k2body table.dt tr { break-inside: avoid; page-break-inside: avoid; }
 .k2body .tiles, .k2body .callout, .k2body .note, .k2body .chartpanel, .k2body .alerts,
-.k2body .donut-wrap { break-inside: avoid; page-break-inside: avoid; }
+.k2body .donut-wrap, .k2body .ragband, .k2body .cway, .k2body .cards, .k2body .team,
+.k2body .hero { break-inside: avoid; page-break-inside: avoid; }
 .k2body .pb { break-before: page; page-break-before: always; }
 .k2body .keep { break-inside: avoid; page-break-inside: avoid; }
 .k2body .hero { break-after: avoid; }
 /* a cover for flowing reports: one dark block the height of the page area */
-.k2body .fcover { position: relative; height: 236mm; background: #1A2430; border-radius: 14px;
+.k2body .fcover { position: relative; height: 240mm; background: #1A2430; border-radius: 14px;
                   overflow: hidden; break-after: page; page-break-after: always; }
 .k2body .fcover .cover-in { padding: 30mm 8mm 0 8mm; }
 .k2body .fcover .cover-cog { right: 8mm; bottom: 14mm; }
@@ -111,23 +98,18 @@ table.k2wrap > thead td, table.k2wrap > tfoot td, table.k2wrap > tbody > tr > td
 """
 
 
-def flow_css(cfg):
-    return _house_css() + FLOW_CSS
+def _cs(text):
+    """A CSS content string: no quotes, backslashes or newlines leak in."""
+    return str(text or "").replace("\\", " ").replace('"', "'").replace("\n", " ")
 
 
-def run_head(cfg, asat_s):
-    return (f'<div class="k2run"><div class="bar"><div class="kicker">{esc(cfg["kicker"])}</div>'
-            f'<div class="t">{esc(cfg["client"])} {esc(cfg["title"])}</div>'
-            f'<div class="r"><div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>'
-            f'<div class="asat">AS AT <b>{esc(asat_s.upper())}</b></div></div></div></div>')
-
-
-def foot_band(cfg):
-    bits = " · ".join(f"<b>{esc(p['name'])}</b> {esc(p['role'])}".strip()
-                      for p in cfg.get("team", []))
-    return (f'<div class="k2foot"><div class="bar"><div class="fh">Your Coates Tool Store Team</div>'
-            f'<div class="fl">{bits} &nbsp;·&nbsp; Author: <b>Andrew Fisher</b></div>'
-            f'<div class="fr">POWERED BY <span class="q">SITEIQ</span></div></div></div>')
+def flow_css(cfg, asat_s):
+    team = " / ".join(f"{p['name']}, {p['role']}".strip(", ") for p in cfg.get("team", []))
+    css = (FLOW_CSS.replace("__KICKER__", _cs(cfg["kicker"]))
+           .replace("__TITLE__", _cs(f"{cfg['client']} {cfg['title']}"))
+           .replace("__ASAT__", _cs(asat_s.upper()))
+           .replace("__TEAM__", _cs(team)))
+    return _house_css() + css
 
 
 def cover_block(cfg, big, big_label, lines, gen_s, asat_s):
@@ -136,20 +118,18 @@ def cover_block(cfg, big, big_label, lines, gen_s, asat_s):
 
 
 def flow_doc(cfg, gen_s, asat_s, body, extra_css="", cover=None):
-    """Whole HTML document: house CSS + frame + running header + hero +
-    KEY strip + the flowing body. cfg needs client, title, kicker,
-    project, key_items, team (as for k2shell) and optionally asat_note."""
+    """Whole HTML document: house CSS + frame + hero + KEY strip + the
+    flowing body; the running header and footer are page margin boxes.
+    cfg needs client, title, kicker, project, key_items, team (as for
+    k2shell) and optionally asat_note."""
     head = sh.page1_head(cfg, gen_s, asat_s) + sh.key_strip(cfg) + '<div class="grule"></div>'
     if cover:
         head = cover + head
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<title>Coates {esc(cfg["client"])} {esc(cfg["title"])} - {esc(asat_s)}</title>'
-            f'<style>{flow_css(cfg)}{extra_css}</style></head><body>'
+            f'<style>{flow_css(cfg, asat_s)}{extra_css}</style></head><body>'
             f'<div class="k2frame"></div>'
-            f'{run_head(cfg, asat_s)}{foot_band(cfg)}'
-            f'<table class="k2wrap"><thead><tr><td><div class="k2spacer-t"></div></td></tr></thead>'
-            f'<tfoot><tr><td><div class="k2spacer-b"></div></td></tr></tfoot>'
-            f'<tbody><tr><td><div class="k2body">{head}{body}</div></td></tr></tbody></table>'
+            f'<div class="k2body">{head}{body}</div>'
             f'</body></html>')
 
 
