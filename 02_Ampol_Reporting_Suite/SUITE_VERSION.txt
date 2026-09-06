@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 1.14  (03 Sep 2026)
+Version: 1.15  (06 Sep 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -281,6 +281,35 @@ v1.9 - 03 Sep 2026  (what the transaction log already knows)
     closed inside six minutes, the busiest counter hour.
   - Daily position: a third figure per family where one is recorded
     (tooling: items crossing 90 days by quarter close).
+
+v1.15 - 06 Sep 2026  (gas monitors on hire by company - the second attachment)
+  - New button 18_GAS_ON_HIRE_BY_COMPANY (build_gas_onhire_register.py)
+    writes Reports\<day>\Gas_Monitors\Coates_Ampol_Gas_Monitors_On_Hire_
+    <day>.pdf: every fleet gas monitor on hire to a person at the pull,
+    companies A to Z, people A to Z inside each company, each person's
+    monitors oldest first. Rows out 2 days or more are amber, 7 days or
+    more red; anything under 2 days is left plain (the gas monitor
+    report counts a monitor overdue from 1 day - this register
+    highlights from 2, as Andrew asked). The two lines sit at the top
+    of the script (HIGHLIGHT_DAYS, RED_DAYS); the RAG lines (10% amber,
+    25% red of people-held monitors out 2+ days) are defaults in CONFIG
+    for Andrew to confirm.
+  - Cover, position page (RAG band, tiles, three companies to chase),
+    a companies-at-a-glance table, the register, a one-table summary
+    of the custody and workflow accounts (never mixed into the chase
+    list), and the data page. Same engine, same rows and same day
+    count as the gas monitor report, so the two can never disagree.
+  - Button 01 and button 00 build it straight after the gas report;
+    the gas email (button 01 / 08) attaches it as a second PDF and
+    says so in the body. The picker (11) lists it.
+  - Button 13 recounts the register's three headline figures straight
+    from RENTAL_STOCK (on hire to people, out 2+ days, out 7+ days) and
+    marks each MATCHES against the page.
+  - Names: a two-word first name before SiteIQ's dash now reads as a
+    person (Shin John - O'Land reads Shin John O'Land; Sam Ath - Keo
+    reads Sam Ath Keo). Workflow lines that happen to carry a dash
+    (Atlas Chains - Offsite Repairs) keep it. Three names changed
+    across 1,737 hirer strings; nothing else moved.
 
 v1.14 - 03 Sep 2026  (asset numbers and what the master does not know yet)
   - New button 17_ASSET_NUMBERS (also in 00 and the picker) writes

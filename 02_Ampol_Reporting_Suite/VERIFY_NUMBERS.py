@@ -115,6 +115,43 @@ def count_everything():
     facts["gas: available in store"] = sum(1 for r in gas if s(r["ITEM_STATUS"]) == "Available for Hire")
     facts["gas: on hire"] = sum(1 for r in gas if s(r["ITEM_STATUS"]) == "On Hire")
 
+    # ---- gas monitors on hire by company (06 Sep 2026) --------------------
+    # The register (button 18): fleet monitors On Hire whose HIRER is a
+    # person - the custody / workflow words written out again here, as
+    # gasmon_engine.account_kind decides them - and how many have been out
+    # 2 and 7 calendar days or more at the pull date.
+    _cust = re.compile(r"after.?hours|dr[aä]ger|fccu|future\s*-?\s*fuels|^\s*(fccu\s*)?t&i\s*$", re.I)
+    _ops = re.compile(r"\boperations?\b", re.I)
+    _ops_site = re.compile(r"ampol|site|refinery|^operations?$", re.I)
+    _pull_day = None
+    try:
+        _wb = openpyxl.load_workbook(find("RENTAL_STOCK*.xlsx"), read_only=True, data_only=True)
+        if "REFERENCE_INFO" in _wb.sheetnames:
+            for _r in _wb["REFERENCE_INFO"].iter_rows(min_row=2, max_row=2, values_only=True):
+                for _cell in _r:
+                    try:
+                        _pull_day = datetime.strptime(s(_cell), "%d/%m/%Y %I:%M %p").date()
+                        break
+                    except ValueError:
+                        pass
+        _wb.close()
+    except Exception:
+        _pull_day = None
+    _people = []
+    for r in gas:
+        if s(r["ITEM_STATUS"]) != "On Hire":
+            continue
+        w = s(r["HIRER_NAME"]).lower()
+        if _cust.search(w) or (_ops.search(w) and _ops_site.search(w)):
+            continue
+        d = ddmmyyyy(r.get("ON_HIRE_DATE"))
+        _people.append((d.date() if d else None))
+    facts["gas register: on hire to people"] = len(_people)
+    if _pull_day:
+        _days = [(_pull_day - d).days if d else 0 for d in _people]
+        facts["gas register: out 2+ days"] = sum(1 for x in _days if x >= 2)
+        facts["gas register: out 7+ days"] = sum(1 for x in _days if x >= 7)
+
     # ---- gas monitors, pull against pull (03 Sep 2026) -------------------
     # The newest earlier RENTAL_STOCK export in Data\previous whose request
     # time is before the current one, read here with the same gas words:
@@ -327,6 +364,9 @@ CHECKS = [
     ("gas: came back since the last pull", "Gas_Monitors/*.html", None),
     ("gas: went out since the last pull", "Gas_Monitors/*.html", None),
     ("gas: available in store", "Gas_Monitors/*.html", None),
+    ("gas register: on hire to people", "Gas_Monitors/*On_Hire*.html", None),
+    ("gas register: out 2+ days", "Gas_Monitors/*On_Hire*.html", None),
+    ("gas register: out 7+ days", "Gas_Monitors/*On_Hire*.html", None),
     ("radio: radios available", "Radios/*.html", None),
     ("tooling: on hire (2026 tooling)", "Tooling/*Executive_Summary*.html", None),
     ("tooling: available (tooling)", "Tooling/*Executive_Summary*.html", None),

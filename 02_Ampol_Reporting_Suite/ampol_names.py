@@ -217,6 +217,10 @@ def display_desc(text, barcode=None, serial=None):
     return sentence_case(s)
 
 
+_PERSON_SEP_RE = re.compile(r"^\S+(?:\s+\S+)?\s+-\s+\S+(?:\s+\S+)?$")
+_WORKFLOW_WORD_RE = re.compile(r"\b(repairs?|service|offsite|tag|date|bay|loading|hire|account|custody|turnaround|stock|store|shutdown|out|of)\b", re.I)
+
+
 def display_person(name):
     """A person as shown: SiteIQ's 'First - Last' reads 'First Last', each
     word capitalised, inner capitals kept (McGurk, O'Connor); anything
@@ -227,7 +231,16 @@ def display_person(name):
         return s
     if is_site_account(s):
         return hirer_label(s)
-    s = re.sub(r"^(\S+)\s+-\s+", r"\1 ", s, count=1)   # the first dash is SiteIQ's separator
+    # the first dash is SiteIQ's separator between first name(s) and surname:
+    # one or two words each side ("Sam Ath - Keo", "Shin John - O'Land"). A
+    # longer side, a digit, an ampersand or a workflow word ("Atlas Chains -
+    # Offsite Repairs", "Loading Bay - Out Of Service") is not a person and
+    # keeps its dash.
+    if re.match(r"^\S+\s+-\s+", s):
+        s = re.sub(r"^(\S+)\s+-\s+", r"\1 ", s, count=1)
+    elif (_PERSON_SEP_RE.match(s) and not re.search(r"[0-9&]", s)
+            and not _WORKFLOW_WORD_RE.search(s)):
+        s = re.sub(r"\s+-\s+", " ", s, count=1)
     words = []
     for w in s.split(" "):
         if w.isupper() or w.islower():
@@ -378,6 +391,7 @@ from datetime import date as _date
 REPORT_STEMS = {
     "gas": "Gas_Monitors",
     "gas_dashboard": "Gas_Monitor_Dashboard",
+    "gas_onhire": "Gas_Monitors_On_Hire",
     "radio": "Radios",
     "exec": "Executive_Summary",
     "onhire": "Tooling_On_Hire",

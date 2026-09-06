@@ -16,6 +16,7 @@ where py >nul 2>nul && set "PYCMD=py -3"
 echo.
 echo  [1/8] Gas monitor report (K2-style PDF)...
 %PYCMD% generate_k2style_gas_monitor_report.py
+%PYCMD% build_gas_onhire_register.py
 echo.
 echo  [2/8] Gas monitor email draft...
 %PYCMD% generate_k2style_email.py

@@ -1,6 +1,6 @@
 # Names as shown - the one style on every page
 
-Author: Andrew Fisher | POWERED BY SITEIQ. As at 03 Sep 2026.
+Author: Andrew Fisher | POWERED BY SITEIQ. As at 06 Sep 2026.
 
 Every report reads its names from the raw SiteIQ exports and shows them
 one way. Matching, pricing, joins and counts always use the raw text -
@@ -45,6 +45,11 @@ by `ampol_serials.py`.
   Hayden - O'Connor reads Hayden O'Connor.
 - Anything SiteIQ appends after the name stays, tidied: Aaron
   Broderick-Shutdown, Anthony Dutton T&I, Ardy Denehy 2021.
+- A two-word first name (or surname) either side of the dash still
+  reads as a person: Shin John - O'Land reads Shin John O'Land, Sam Ath -
+  Keo reads Sam Ath Keo. A longer side, a digit, an ampersand or a
+  workflow word (repairs, service, tag, bay ...) keeps its dash - Atlas
+  Chains - Offsite Repairs is a workflow line, not a person.
 
 ## Companies
 - One customer, one name: AMPOL, AMPOL REFINERIES (QLD) PTY LTD and the

@@ -17,6 +17,7 @@ set "PYCMD=python"
 where py >nul 2>nul && set "PYCMD=py -3"
 
 %PYCMD% generate_k2style_gas_monitor_report.py %*
+%PYCMD% build_gas_onhire_register.py
 %PYCMD% generate_k2style_email.py
 echo.
 echo  Done. Today's output: Reports\(today's date)\Gas_Monitors

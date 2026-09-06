@@ -58,6 +58,8 @@ REPORTS = [
      [["tidy_data_folder.py"]]),
     ("Asset numbers - which number to give new gear, and what every number is used for",
      [["build_asset_numbers.py"]]),
+    ("Gas monitors on hire by company - the gas report's companion, out 2 days or more highlighted",
+     [["build_gas_onhire_register.py"]]),
 ]
 
 

@@ -400,7 +400,8 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
     parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
 <tr><td style="{FONT}font-size:13px;font-weight:bold;color:#16202C;padding:12px 10px;border-bottom:1px solid #E8EBEF;">Replacement charge exposure - {num(m['out_30'])} units at 30 days or more</td>
 <td align="right" style="padding:12px 10px;border-bottom:1px solid #E8EBEF;"><span style="{FONT}background-color:#FFF35C;font-size:13px;font-weight:bold;color:#16202C;padding:3px 8px;">{money(m['exposure'])}</span></td></tr></table>
-{enote(f'{money(R["charge_per_unit"])} per unit, the replacement charge from the Ampol gas monitor workbook. The full overdue list ({num(m["outstanding"])} units, oldest first) is Appendix A of the attached PDF.')}""")
+{enote(f'{money(R["charge_per_unit"])} per unit, the replacement charge from the Ampol gas monitor workbook. The full overdue list ({num(m["outstanding"])} units, oldest first) is Appendix A of the attached PDF.')}
+{enote('Also attached: Gas Monitors On Hire by Company - every company and person holding a fleet monitor, A to Z, with anything out 2 days or more highlighted.') if os.path.exists(os.path.join(ampol_paths.day_folder("Gas_Monitors"), ampol_names.report_stem("gas_onhire") + ".pdf")) else ''}""")
 
     # ---------- repairs -------------------------------------------------
     stale = m["repair_stale"]
@@ -504,6 +505,18 @@ def main():
         print(f"PDF attached         : {os.path.basename(pdf_path)}")
     else:
         print("PDF attached         : no (build the PDF first for the attachment)")
+    # WHY (06 Sep 2026, Andrew): the companion register - every company and
+    # person holding a monitor, out 2 days or more highlighted - rides on
+    # the same email when it has been built (button 18, part of 01 and 00)
+    pdf2 = os.path.join(out_dir, ampol_names.report_stem("gas_onhire") + ".pdf")
+    if CONFIG["attach_pdf"] and os.path.exists(pdf2):
+        with open(pdf2, "rb") as f:
+            msg.add_attachment(f.read(), maintype="application", subtype="pdf",
+                               filename=os.path.basename(pdf2))
+        attachments.append(os.path.basename(pdf2))
+        print(f"Register attached    : {os.path.basename(pdf2)}")
+    else:
+        print("Register attached    : no (build_gas_onhire_register.py has not run today)")
     # WHY (03 Sep 2026): the position card - page 1 as a phone-sized image,
     # attached as a file as well as shown inline
     if CONFIG.get("attach_card") and card_bytes:

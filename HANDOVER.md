@@ -487,6 +487,45 @@ scan itself leaves no trace in the exports, so the suite measures its
 outcomes and names who scanned from the STOCKTAKE export's
 LAST_SIGHTED_BY column.
 
+### Gas monitors on hire by company - the second attachment (6 Sep 2026, v1.15)
+
+Andrew asked for a second PDF on the gas email: every company on hire
+with gas monitors, named correctly, only rows out 2 days or more
+highlighted, A to Z by company then by name, professional and easy to
+read. `build_gas_onhire_register.py` (button `18_GAS_ON_HIRE_BY_COMPANY`,
+also run by `01_RUN_GAS_MONITOR_REPORT` and `00_RUN_EVERYTHING` straight
+after the gas report, and in `PICK_REPORT`) reads `gasmon_engine.load()`
+/ `compute()` - the same rows, kinds and day count as the gas report -
+and writes `Reports/<day>/Gas_Monitors/Coates_Ampol_Gas_Monitors_On_Hire_
+<day>.pdf` on the flow shell (`k2flow`): cover with contents, position
+page (RAG band on the share of people-held monitors out 2+ days, 10% /
+25% defaults in CONFIG; tiles; three companies to chase; the register
+callout), a companies-at-a-glance table, an appendix divider, one
+`kf.group_table` per company (title row repeats on a page break), a
+one-table summary of the custody and workflow accounts, and the data
+page. `HIGHLIGHT_DAYS = 2` (amber tint, "2+ days" chip) and `RED_DAYS =
+7` (red tint) sit at the top of the script. Under 2 days prints quiet
+text "under 2 days", never "in time" - the gas report counts a monitor
+overdue from 1 day and the register says so on its position page and
+data page, so the two documents never contradict each other. The
+person's name prints on every row (quiet on a repeat) after the first
+cut's ditto marks orphaned at page breaks; within a person the sort is
+by the on-hire time itself. `generate_k2style_email.py` attaches the
+register when it exists (a note in the body says so; `out_dir` is
+resolved through `ampol_paths.day_folder` inside `build_email_html`).
+`ampol_names.REPORT_STEMS["gas_onhire"] = "Gas_Monitors_On_Hire"`.
+`VERIFY_NUMBERS` recounts on-hire-to-people / out 2+ / out 7+ from
+RENTAL_STOCK with the custody words written out again (276 / 65 / 46
+today, all MATCHES).
+
+`display_person` gained the two-word-first-name case: one or two words
+either side of SiteIQ's dash reads as a person unless the string has a
+digit, an ampersand or a workflow word (`_WORKFLOW_WORD_RE`). Checked
+against every hirer string in RENTAL_STOCK and TRANSACTIONS (1,737):
+exactly three change (Shin John O'Land, Sam Ath Keo, Adrain Joshua
+Purdue); `John - Smith T&I` and `Dylan - Hughes-Shutdown` keep their old
+reading because the single-word rule runs first.
+
 ### Asset numbers and the master's to-do list (3 Sep 2026, v1.14)
 
 `build_asset_numbers.py` (button 17, in `00_RUN_EVERYTHING` after the

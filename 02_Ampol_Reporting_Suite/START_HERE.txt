@@ -97,6 +97,13 @@ THE BUTTONS
       reads any more - run once, nothing is deleted)
   15  Daily position (the six families on one A4 page - runs last
       in button 00, or on its own after the six have built)
+  16  Tidy the Data folder (one-off: SiteIQ pulls into Data\SiteIQ,
+      the editable files into Data\Editable, the master workbook built)
+  17  Asset numbers (the register's numbering and the master's to-do
+      list, as an Excel workbook)
+  18  Gas monitors on hire by company (every company and person holding
+      a fleet monitor, A to Z; out 2 days or more highlighted - also
+      built by 01 and 00, and attached to the gas email)
 
 ------------------------------------------------------------
 WHAT THE FILES ARE CALLED
@@ -167,6 +174,31 @@ THE DATA FOLDER (from v1.13)
   shape and build the master from the four old files (they are parked
   in Data\_Archive_workbooks, never deleted). Docs\EXCEL_FILES_WE_READ
   says, tab by tab, what each file feeds and what must not change.
+
+------------------------------------------------------------
+GAS MONITORS ON HIRE BY COMPANY (button 18)
+------------------------------------------------------------
+Reports\<day>\Gas_Monitors\Coates_Ampol_Gas_Monitors_On_Hire_<day>.pdf
+- Every fleet gas monitor on hire to a PERSON at the SiteIQ pull:
+  companies A to Z, people A to Z inside each company, each
+  person's monitors oldest first. Person, asset, serial, out since,
+  days out, status.
+- Amber rows are out 2 days or more, red rows 7 days or more.
+  Anything under 2 days is left plain. (The gas monitor report
+  counts a monitor overdue from 1 day; this register highlights
+  from 2, as asked on 06 Sep 2026.) To move the lines, edit
+  HIGHLIGHT_DAYS and RED_DAYS at the top of
+  build_gas_onhire_register.py.
+- Page 2 is the position: the share of people-held monitors out
+  2+ days against the 10% amber / 25% red lines (defaults in
+  CONFIG - confirm them), the three companies to chase, then a
+  companies-at-a-glance table. The custody and workflow accounts
+  (FCCU, Operations, Future Fuels, After Hours, Dräger service) are
+  summarised on their own page, never mixed into the chase list.
+- Button 01 builds it after the gas report and the gas email
+  attaches it as a second PDF; button 00 does the same. It counts
+  from the same engine as the gas monitor report, so the two never
+  disagree.
 
 ------------------------------------------------------------
 ASSET NUMBERS (button 17)
