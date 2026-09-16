@@ -22,7 +22,9 @@ not reviewed and nothing here claims to have.
 
 ### In the page, at runtime (overlay, repairs R1–R4 in `overlay/overlay.js`)
 
-These are bridges: the same fixes belong in the next build of the page.
+These are bridges: the same fixes belong in the next build of the page. They now exist as edits to the page's
+own source in `page-fixes/` (R3 is already in the hosted-37 build of 17 Sep 2026). The four repairs below stay
+in the overlay so the page that is live today has them; once the fixed build is uploaded they do nothing.
 
 | # | Where (app script, line in the pulled tail) | Fault | Repair |
 |---|---|---|---|
@@ -32,6 +34,8 @@ These are bridges: the same fixes belong in the next build of the page.
 | R4 | `recordBytes()` 5552, called from `syncFooter()` | Reads the entire record out of `localStorage` (up to ~5 MB) on every poll, every 4 s while the tab is visible, plus every write and every footer redraw. On a phone that is a copy of several megabytes fifteen times a minute for a number that changes once a day. | The measurement is cached for 20 s. **Build fix:** cache it in `persist()`/`save()` where the record is written. |
 
 ## Found, not repairable from outside the build
+
+All but B2 are fixed in `page-fixes/` (see its README for what each edit does and why B2 is left as it is).
 
 | # | Where | Fault | Suggested fix |
 |---|---|---|---|

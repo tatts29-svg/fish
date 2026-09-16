@@ -17,8 +17,10 @@ gc500/
                        string and each piece's sha256) — what actually goes into the Railway variables
   dist/server.plain.js, dist/SERVER_B64.plain.txt, dist/chunks.plain/   v5.24 untouched — the rollback
   test/run.js          local proof: server checks + Chromium checks + screenshots
+  test/real.js         the same proof on a real built page: node test/real.js <hosted-NN.html> [label]
   test/shell.html      the live page's CSS and HTML shell (no data, no app script), for the test
   test/stub.js         a stand-in for the app script, for the test
+  page-fixes/          the page-side fixes as edits to the package's builder (apply.js + a patch + notes)
   REVIEW.md            what was reviewed, what was fixed, what is left for the build
 ```
 

@@ -1,0 +1,95 @@
+--- v525/print/build_asset_app.py	2026-09-16 19:45:58.000000000 +0000
++++ build_asset_app.fixed.py	2026-09-16 20:48:59.006599978 +0000
+@@ -5178,7 +5178,7 @@
+ /* Nothing is written over a record this browser could not read. The person is told, and decides. */
+ function persist(){
+   if (DAMAGED) return false;
+-  try { localStorage.setItem(STORE, JSON.stringify(S)); return true; } catch (e) { return false; }
++  try { const s = JSON.stringify(S); localStorage.setItem(STORE, s); RB_CACHE = {at: Date.now(), bytes: s.length * 2}; return true; } catch (e) { return false; }
+ }
+ /* Let go of the damaged copy on purpose — the original bytes stay under their own key either way. */
+ function damagedRelease(){ DAMAGED = null; return persist(); }
+@@ -16474,7 +16474,7 @@
+ /* when the registry settles, anything on screen that was waiting on it redraws itself */
+ function photoRedraw(){
+   try {
+-    if (state.tab && state.tab !== 'docs') render();
++    if (state.tab && state.tab !== 'docs') { syncRedraw(); return; } /* waits while somebody is typing, and reopens the drawer itself */
+     /* state.sel, not state.asset. `state.asset` has never been set anywhere on this page, so this line was
+        always false and an open drawer NEVER redrew when the registry settled: open an asset cold and its
+        photographs said "Checking availability…" until something unrelated forced a render. The key that holds
+@@ -16818,7 +16818,7 @@
+     /* a map may be filed against a reference too (attach a map, 17 Sep 2026) — the Location box is offered, not required */
+     if (r) r.hidden = !(k === 'photo' || k === 'invoice' || k === 'map'); if (i) i.hidden = k !== 'invoice'; }; dk.onchange = on; on(); }
+   /* a card filed against a reference opens that reference */
+-  pane.querySelectorAll('.doccard [data-open]').forEach(b => b.onclick = () => openAsset(b.dataset.open));
++  pane.querySelectorAll('.doccard [data-open]:not(img.thumb)').forEach(b => b.onclick = () => openAsset(b.dataset.open)); /* a drawing's cover keeps its own file link, bound above */
+   /* "+ Add here" on a section: that section's kind goes into the Kind box and the form comes into view */
+   pane.querySelectorAll('[data-docadd]').forEach(b => b.onclick = () => {
+     const k = $('#docKind'), card = $('#docAddCard'); if (!k || !card) return;
+@@ -17137,7 +17137,7 @@
+ const timeOfStamp = at => { const d = new Date(at);
+   if (isNaN(d)) return '--:--';
+   try {
+-    const s = new Intl.DateTimeFormat('en-GB', {timeZone: EVENT_TZ, hour: '2-digit', minute: '2-digit', hour12: false}).format(d);
++    const s = new Intl.DateTimeFormat('en-GB', {timeZone: EVENT_TZ, hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}).format(d);
+     if (/^\d{2}:\d{2}$/.test(s)) return s;
+   } catch (e) {}
+   return two(d.getHours()) + ':' + two(d.getMinutes());
+@@ -17363,7 +17363,8 @@
+   }
+   const done = () => { document.body.classList.remove('dropping'); };
+   window.addEventListener('afterprint', done, {once: true});
+-  setTimeout(() => { try { markCards(); window.print(); } catch (e) { done(); } }, 60);
++  { const fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve(); const settle = ms => new Promise(r => setTimeout(r, ms));
++    Promise.race([fonts.catch(() => {}), settle(1500)]).then(() => settle(60)).then(() => { try { markCards(); window.print(); } catch (e) { done(); } }); }
+   setTimeout(() => { if (document.body.classList.contains('dropping')) done(); }, 15000);
+ }
+ /* ------------------------------------------------------------------ Board 5: one look, every printout
+@@ -18391,7 +18392,7 @@
+ function finderPick(i){
+   const it = (FINDER.list || [])[i]; if (!it) return;
+   finderClose();
+-  state.q = ''; const qb = $('#q'); if (qb) { qb.value = ''; qb.blur(); } $('#qx').hidden = true; document.body.classList.remove('search-open');
++  state.q = ''; const qb = $('#q'); if (qb) { qb.value = ''; qb.blur(); } $('#qx').hidden = true; closeSearch({keepQuery: true, noFocus: true}); /* through closeSearch, so the magnifier and SEARCH_FROM follow */
+   if (it.kind === 'asset') { render(); openAsset(it.key); return; }
+   if (it.kind === 'unit') { state.unit = it.label || null; render(); openAsset(it.key); return; }
+   if (it.kind === 'place') { mapLocate(it.sheetKey, it.label); return; }
+@@ -19355,7 +19356,7 @@
+   if (WX.state === 'loading' && !WX.d) return {cls: '', t: 'Fetching the weather…'};
+   const w = wxLine();
+   if (w) { const d = w.d;
+-    return {cls: '', t: `Weather from weatherapi.com for ${d.place || 'Surfers Paradise'}${d.reading_at ? `, their reading of ${esc(d.reading_at)}` : ''}${
++    return {cls: '', t: `Weather from weatherapi.com for ${d.place || 'Surfers Paradise'}${d.reading_at ? `, their reading of ${d.reading_at}` : ''}${
+       wxWhen() ? ` · fetched ${wxWhen()}` : ''}${d.humidity != null ? ` · humidity ${d.humidity}%` : ''}${
+       d.precip_mm ? ` · rain ${d.precip_mm} mm` : ''}${d.feels_c != null ? ` · feels like ${Math.round(d.feels_c)}°C` : ''}.`}; }
+   const why = WX.why || 'the weather has not been fetched';
+@@ -19539,7 +19540,7 @@
+     </div>
+     <figcaption class="bcap">
+       <span><b>${esc(DATA.event.name)}</b> — the board reads this record as at ${esc(fmtDate(asOf))}.</span>
+-      <span class="${note.cls}">${note.t}</span>
++      <span class="${note.cls}">${esc(note.t)}</span>
+       ${note.offer ? `<button type="button" id="wxKeyBtn">Use my weatherapi.com key on this browser</button>` : ''}
+       ${wxKey() ? `<button type="button" id="wxKeyClear">Forget my key</button>` : ''}
+       ${mode !== 'still' ? `<button type="button" class="bopen" id="bOpen" aria-expanded="${!folded}" aria-controls="bWin"
+@@ -20132,7 +20133,7 @@
+   const person = p => `<li><b>${esc(p.name)}</b><span>${esc(p.title || p.role || '')}${p.location ? ' · ' + esc(p.location) : ''}</span></li>`;
+   if (key === 'countdown') {
+     const race = (DATA.race_days || [])[0];
+-    return kick(esc(DATA.event.name)) + `<h2>Gold Coast.<br>Race week.</h2>
++    return kick(DATA.event.name) + `<h2>Gold Coast.<br>Race week.</h2>
+       <div class="shclock" id="showClock" aria-live="off"></div>
+       <p class="shf" id="showClockNote"></p>
+       ${race ? fine('Opening day ' + fmtDate(race) + ' · ' + (DATA.event.race_dates_as_supplied || '')) : ''}`;
+@@ -20912,7 +20913,9 @@
+ /* the footer says what the store last confirmed and what is still waiting to go — never "live" on a guess */
+ /* how big the record in this browser is — browsers keep about 5 MB of local storage per site, and a record that
+    fills it stops saving without a word, so the footer says when it is getting there */
+-function recordBytes(){ try { const s = localStorage.getItem(STORE); return s ? s.length * 2 : 0; } catch (e) { return 0; } }
++var RB_CACHE = null; /* set by persist() when the record is written; read back at most every 20 s, not on every poll */
++function recordBytes(){ const now = Date.now(); if (RB_CACHE && now - RB_CACHE.at < 20000) return RB_CACHE.bytes;
++  try { const s = localStorage.getItem(STORE); RB_CACHE = {at: now, bytes: s ? s.length * 2 : 0}; } catch (e) { RB_CACHE = {at: now, bytes: 0}; } return RB_CACHE.bytes; }
+ function syncFooter(){
+   const f = $('#footR'); if (!f) return;
+   const waiting = syncWaiting();
