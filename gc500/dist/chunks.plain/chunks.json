@@ -1,0 +1,66 @@
+{
+  "SERVER_B64": "${{SERVER_B64_01}}${{SERVER_B64_02}}${{SERVER_B64_03}}${{SERVER_B64_04}}${{SERVER_B64_05}}${{SERVER_B64_06}}${{SERVER_B64_07}}${{SERVER_B64_08}}${{SERVER_B64_09}}${{SERVER_B64_10}}${{SERVER_B64_11}}${{SERVER_B64_12}}",
+  "pieces": [
+    {
+      "name": "SERVER_B64_01",
+      "chars": 2386,
+      "sha256_16": "8680439f16d83361"
+    },
+    {
+      "name": "SERVER_B64_02",
+      "chars": 2386,
+      "sha256_16": "91aa8a386165f607"
+    },
+    {
+      "name": "SERVER_B64_03",
+      "chars": 2386,
+      "sha256_16": "eb20068a840d9c3d"
+    },
+    {
+      "name": "SERVER_B64_04",
+      "chars": 2386,
+      "sha256_16": "38cab431016a2cc0"
+    },
+    {
+      "name": "SERVER_B64_05",
+      "chars": 2386,
+      "sha256_16": "05af34f17317197f"
+    },
+    {
+      "name": "SERVER_B64_06",
+      "chars": 2386,
+      "sha256_16": "87adbd075b7d7cd6"
+    },
+    {
+      "name": "SERVER_B64_07",
+      "chars": 2386,
+      "sha256_16": "8ae8c0f668de0c15"
+    },
+    {
+      "name": "SERVER_B64_08",
+      "chars": 2386,
+      "sha256_16": "ed1888264be682d5"
+    },
+    {
+      "name": "SERVER_B64_09",
+      "chars": 2386,
+      "sha256_16": "07c9356b5b635777"
+    },
+    {
+      "name": "SERVER_B64_10",
+      "chars": 2386,
+      "sha256_16": "655a8348833c4bbb"
+    },
+    {
+      "name": "SERVER_B64_11",
+      "chars": 2386,
+      "sha256_16": "4779d789a8ad5070"
+    },
+    {
+      "name": "SERVER_B64_12",
+      "chars": 2382,
+      "sha256_16": "bb63e52c18effcf6"
+    }
+  ],
+  "b64_sha256": "20d056d305908f508f7e1819c51aba5ba7966a6d6a1536ede2e00ad9d91003fe"
+}

@@ -5,11 +5,15 @@
    decodes. Nothing here is hand-edited minified code: every change is a named patch below, applied against
    an exact anchor in the source, and the build refuses to run if an anchor is not found once.
 
-     node gc500/build.js            → gc500/dist/server.js, gc500/dist/SERVER_B64.txt, gc500/dist/build.json
+     node gc500/build.js            → gc500/dist/server.js, gc500/dist/SERVER_B64.txt, gc500/dist/build.json,
+                                      gc500/dist/chunks/SERVER_B64_01..12.txt + chunks.json
 
-   To deploy: set SERVER_B64 on the Railway service to the contents of dist/SERVER_B64.txt (the service
-   redeploys itself). To roll back: build with --plain and set that value instead, or restore the value
-   Railway held before (it is in the deployment history).
+   To deploy: Railway caps one variable at 32,768 characters and the value is longer than that, so it is
+   carried in twelve pieces. Set SERVER_B64_01 … SERVER_B64_12 on the service to the twelve files in
+   dist/chunks/ (each under the cap), and SERVER_B64 to the reference string in chunks.json, which Railway
+   joins at deploy time. The start command prints each piece's length and sha256 as it boots; compare
+   them with chunks.json — a piece that does not match is the one to set again. To roll back: build with
+   --plain and set those pieces instead, or pick the earlier deployment in Railway's history.
    ===================================================================================================== */
 'use strict';
 const fs = require('fs'), path = require('path'), zlib = require('zlib'), crypto = require('crypto');
@@ -155,3 +159,20 @@ const info = {
 fs.writeFileSync(path.join(OUT, plain ? 'build.plain.json' : 'build.json'), JSON.stringify(info, null, 2) + '\n');
 console.log(JSON.stringify(info, null, 2));
 if (b64.length > 120000) throw new Error('SERVER_B64 is ' + b64.length + ' characters — Linux caps one environment string at 131072; slim the overlay');
+
+/* ---- the twelve pieces the Railway variables carry (one variable is capped at 32,768 characters) */
+const PIECES = 12, CAP = 32000;
+const size = Math.ceil(b64.length / PIECES);
+if (size > CAP) throw new Error('each of the ' + PIECES + ' pieces would be ' + size + ' characters — over the Railway cap; slim the overlay');
+const CHUNKS = path.join(OUT, plain ? 'chunks.plain' : 'chunks');
+fs.mkdirSync(CHUNKS, { recursive: true });
+const pieces = [];
+for (let i = 0; i < PIECES; i++) {
+  const name = 'SERVER_B64_' + String(i + 1).padStart(2, '0');
+  const piece = b64.slice(i * size, (i + 1) * size);
+  fs.writeFileSync(path.join(CHUNKS, name + '.txt'), piece);
+  pieces.push({ name: name, chars: piece.length, sha256_16: crypto.createHash('sha256').update(piece).digest('hex').slice(0, 16) });
+}
+const join = pieces.map(function (p) { return '${{' + p.name + '}}'; }).join('');
+fs.writeFileSync(path.join(CHUNKS, 'chunks.json'), JSON.stringify({ SERVER_B64: join, pieces: pieces, b64_sha256: crypto.createHash('sha256').update(b64).digest('hex') }, null, 2) + '\n');
+console.log('pieces:', pieces.map(function (p) { return p.name + ' ' + p.chars + ' ' + p.sha256_16; }).join('\n        '));

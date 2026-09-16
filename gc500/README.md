@@ -12,8 +12,10 @@ gc500/
   overlay/overlay.css  the visual layer laid over the page at serve time
   overlay/overlay.js   its script: motion that follows the person + four runtime repairs
   dist/server.js       the built server (what runs)
-  dist/SERVER_B64.txt  the value to put in the Railway variable
-  dist/server.plain.js, dist/SERVER_B64.plain.txt   v5.24 untouched — the rollback
+  dist/SERVER_B64.txt  the whole deploy value (gzip + base64 of server.js)
+  dist/chunks/         the same value in twelve pieces, SERVER_B64_01..12.txt, + chunks.json (the join
+                       string and each piece's sha256) — what actually goes into the Railway variables
+  dist/server.plain.js, dist/SERVER_B64.plain.txt, dist/chunks.plain/   v5.24 untouched — the rollback
   test/run.js          local proof: server checks + Chromium checks + screenshots
   test/shell.html      the live page's CSS and HTML shell (no data, no app script), for the test
   test/stub.js         a stand-in for the app script, for the test
@@ -31,12 +33,26 @@ NODE_PATH=/opt/node22/lib/node_modules node test/run.js   # needs playwright + c
 
 ## Deploy
 
-Set `SERVER_B64` on the `gc500` service (project *gc500-delivery-control*, environment *production*) to
-the contents of `dist/SERVER_B64.txt`. Railway redeploys on the change; the `/health` check gates it, so
-a server that will not start never replaces the one that is running. `/health` answers with
-`build:"v5.25"` and the overlay hash, and the deploy log's first line names the build.
+Railway caps one variable at 32,768 characters and the v5.25 value is about 43,000, so the `gc500`
+service (project *gc500-delivery-control*, environment *production*) carries it in twelve pieces:
 
-Roll back: set `SERVER_B64` to `dist/SERVER_B64.plain.txt` (v5.24 as it was), or pick the previous
+1. Set `SERVER_B64_01` … `SERVER_B64_12` to the twelve files in `dist/chunks/` (each under 4,000
+   characters). Skip the redeploy while setting them.
+2. Set `SERVER_B64` to the `SERVER_B64` string in `dist/chunks/chunks.json` — twelve `${{…}}` references
+   that Railway joins at deploy time. This one triggers the redeploy.
+
+The start command prints each piece's length and sha256 to the deploy log as it boots. Compare them
+with `chunks.json`: a piece whose hash differs was mistyped, and setting that one piece again is the
+whole fix. A wrong piece makes `gunzip` fail with `crc error` and the container exits before `node`
+starts. `/health` answers with `build:"v5.25"` and the overlay hash, and the deploy log names the build
+and the overlay it laid over the page.
+
+Two things learnt on 16 Sep 2026: Railway did **not** keep the old container serving while the new one
+failed its health check — the site showed *Application failed to respond* for about twenty minutes — so
+deploy outside the delivery day and have the rollback ready; and the variables `SERVER_B64_A`, `SERVER_B64_B`
+and `SB1` on the service are leftovers from that day and can be deleted.
+
+Roll back: set the twelve pieces from `dist/chunks.plain/` (v5.24 as it was), or pick the earlier
 deployment in Railway's history. To keep v5.25 but drop the visual layer: set `OVERLAY=off`.
 
 ## How the overlay works
