@@ -1,0 +1,187 @@
+/* =====================================================================================================
+   GC500 overlay — the visual layer the service lays over the uploaded page at serve time (server v5.25).
+
+   Andrew Fisher, 16 Sep 2026: "visuals that glow and move … the super car Gold Coast Coates feel like we are
+   there … things that are interactive throughout … crisp, sharp, 4K quality."
+
+   Everything in this file is decoration or interaction feedback. It reads no data, writes no record, and
+   changes no figure. Three rules carried over from the page's own audits, because they are right:
+
+     · MOTION FOLLOWS THE PERSON. Things move when somebody arrives on a tab, presses, hovers or changes a
+       reading — not on a background repaint, and never in a way that reads as "the page is checking". The
+       one ambient element is a light passing along the orange hairline every nine seconds, which stands
+       for nothing.
+     · IT OBEYS THE SWITCH. The page's own Tools → Motion: Off (html[data-motion="off"]) and the operating
+       system's reduced-motion preference stop every animation here. The glow and the geometry stay; only
+       the movement goes.
+     · IT DOES NOT PRINT. The page already turns every animation off on paper; the few things here that
+       could reach the printer are hidden below as well.
+
+   Remove the whole layer by setting OVERLAY=off on the Railway service. The uploaded page is never changed on
+   disk — the overlay is added to a served copy, so a fresh upload from the build gets it automatically.
+   ===================================================================================================== */
+
+/* ---------------------------------------------------------------- crisp type on every screen density */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+.racenum,.kpi .v,.rplate,.dnum .dd,.tpnum{-webkit-font-smoothing:antialiased}
+/* a transformed card is composited on its own layer, so the tilt below never blurs the type inside it */
+.gc-tilt{will-change:transform;backface-visibility:hidden}
+
+/* ---------------------------------------------------------------- the header: carbon weave and the speed line
+   A 2px weave under the header at four per cent — on a phone it reads as a slightly richer black, on a desk
+   monitor at 2x or 4K it reads as material. Drawn with gradients, so it is sharp at any density and costs no
+   image. The hairline keeps its orange and gains a soft light under it and, when motion is allowed, a bright
+   streak that crosses it once every nine seconds — a car passing the wall. */
+header.top{background-image:
+  repeating-linear-gradient(45deg, rgba(255,255,255,.028) 0 2px, transparent 2px 6px),
+  repeating-linear-gradient(-45deg, rgba(0,0,0,.16) 0 2px, transparent 2px 6px),
+  linear-gradient(180deg, var(--hdr) 0%, var(--hdr-2) 100%)}
+header.top::before{box-shadow:0 1px 14px 1px var(--glow-wide), 0 0 3px var(--glow);
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,244,230,.98) 50%, rgba(255,255,255,0) 100%) -45% 0/34% 100% no-repeat,
+    linear-gradient(90deg, var(--orange) 0%, #f0a052 55%, var(--orange) 100%)}
+@keyframes gcStreak{0%{background-position:-45% 0, 0 0} 13%{background-position:145% 0, 0 0} 100%{background-position:145% 0, 0 0}}
+html:not([data-motion="off"]) header.top::before{animation:gcStreak 9s linear infinite}
+/* the wordmark carries its own light, and the chequer runs when the lockup is under the pointer */
+.wordmark .gc{text-shadow:0 0 18px rgba(255,106,19,.42), 0 0 2px rgba(255,255,255,.35)}
+@keyframes gcChq{from{background-position:0 0, 4px 4px} to{background-position:8px 0, 12px 4px}}
+html:not([data-motion="off"]) .lockup:hover .chq{animation:gcChq .55s linear infinite}
+/* the seconds digit on the timing pod catches the light as it changes — a lap timer's refresh, 220ms, on a
+   fact that genuinely changes every second. The digits are redrawn each tick, so the animation plays on the
+   new node and nowhere else. */
+@keyframes gcTick{from{opacity:.55;text-shadow:0 0 0 rgba(255,106,19,0)} to{opacity:1;text-shadow:0 0 9px rgba(255,106,19,.55)}}
+html:not([data-motion="off"]) .tpnum .sec{animation:gcTick .22s ease-out both}
+.tpnum .sec{text-shadow:0 0 9px rgba(255,106,19,.55)}
+.tpsec i.on{box-shadow:0 0 6px rgba(255,106,19,.75), 0 0 1px #fff}
+
+/* ---------------------------------------------------------------- arriving on a tab
+   The page already eases a tab in (.pane.on.arrive). This staggers what is ON the tab — cards, tiles, plates
+   and the day strip — by forty milliseconds each for the first eight, so the screen assembles rather than
+   appears. The class is set by the overlay script for 900ms after a person changes tab or presses something
+   that redraws the pane, and never by a background sync, so a repaint nobody asked for moves nothing. */
+@keyframes gcRise{from{opacity:0;transform:translateY(9px)} to{opacity:1;transform:none}}
+@keyframes gcGrow{from{transform:scaleX(0)} to{transform:scaleX(1)}}
+@keyframes gcPour{from{opacity:.35;filter:saturate(.4)} to{opacity:1;filter:none}}
+html:not([data-motion="off"]) .pane.gc-arrive .card,
+html:not([data-motion="off"]) .pane.gc-arrive .kpi,
+html:not([data-motion="off"]) .pane.gc-arrive .hubcard,
+html:not([data-motion="off"]) .pane.gc-arrive .dp,
+html:not([data-motion="off"]) .pane.gc-arrive .attn,
+html:not([data-motion="off"]) .pane.gc-arrive .dsn .fig,
+html:not([data-motion="off"]) .pane.gc-arrive .dsn .grp,
+html:not([data-motion="off"]) .pane.gc-arrive .dsn .mcard,
+html:not([data-motion="off"]) .pane.gc-arrive .doccard,
+html:not([data-motion="off"]) .pane.gc-arrive .eqc,
+html:not([data-motion="off"]) .pane.gc-arrive .sig,
+html:not([data-motion="off"]) .pane.gc-arrive .costcat,
+html:not([data-motion="off"]) .pane.gc-arrive .tsq,
+html:not([data-motion="off"]) .pane.gc-arrive .day{animation:gcRise .38s cubic-bezier(.2,.7,.2,1) both}
+.pane.gc-arrive :is(.card,.kpi,.hubcard,.dp,.attn,.fig,.grp,.mcard,.doccard,.eqc,.sig,.costcat,.tsq,.day):nth-child(2){animation-delay:40ms}
+.pane.gc-arrive :is(.card,.kpi,.hubcard,.dp,.attn,.fig,.grp,.mcard,.doccard,.eqc,.sig,.costcat,.tsq,.day):nth-child(3){animation-delay:80ms}
+.pane.gc-arrive :is(.card,.kpi,.hubcard,.dp,.attn,.fig,.grp,.mcard,.doccard,.eqc,.sig,.costcat,.tsq,.day):nth-child(4){animation-delay:120ms}
+.pane.gc-arrive :is(.card,.kpi,.hubcard,.dp,.attn,.fig,.grp,.mcard,.doccard,.eqc,.sig,.costcat,.tsq,.day):nth-child(5){animation-delay:160ms}
+.pane.gc-arrive :is(.card,.kpi,.hubcard,.dp,.attn,.fig,.grp,.mcard,.doccard,.eqc,.sig,.costcat,.tsq,.day):nth-child(6){animation-delay:200ms}
+.pane.gc-arrive :is(.card,.kpi,.hubcard,.dp,.attn,.fig,.grp,.mcard,.doccard,.eqc,.sig,.costcat,.tsq,.day):nth-child(7){animation-delay:240ms}
+.pane.gc-arrive :is(.card,.kpi,.hubcard,.dp,.attn,.fig,.grp,.mcard,.doccard,.eqc,.sig,.costcat,.tsq,.day):nth-child(n+8){animation-delay:280ms}
+/* every gauge, bar and meter fills from the left as the tab arrives — the reading is placed at its final
+   width in the markup, so a device that refuses the animation shows it correctly at once */
+html:not([data-motion="off"]) .pane.gc-arrive .dsn .gp i,
+html:not([data-motion="off"]) .pane.gc-arrive .prog .track i,
+html:not([data-motion="off"]) .pane.gc-arrive .dsn .bars .bar i,
+html:not([data-motion="off"]) .pane.gc-arrive .prail .pfill,
+html:not([data-motion="off"]) .pane.gc-arrive .shmeter i{transform-origin:left center;animation:gcGrow .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:.12s}
+html:not([data-motion="off"]) .pane.gc-arrive .day .lights i{animation:gcPour .7s ease-out both;animation-delay:.25s}
+/* the gauge pill and the progress track carry a light on their leading edge, so a fill reads as lit, not painted */
+.dsn .gp i{box-shadow:0 0 8px 1px rgba(255,106,19,.45);background:linear-gradient(90deg,#f0a052,var(--c-or,#ff6a13))}
+.dsn .gp.full i{box-shadow:0 0 8px 1px rgba(23,154,71,.45);background:linear-gradient(90deg,#4fd07e,var(--tl-green))}
+.dsn .bars .bar i{box-shadow:0 0 6px rgba(255,106,19,.4)}
+
+/* ---------------------------------------------------------------- the press: a ripple of light
+   Hover already glows and focus already rings. A press now leaves a ring of light spreading from under the
+   finger for half a second — so a tap on a phone at half four in the morning is answered by the thing that
+   was tapped. The ripple is an element the script drops in and removes; nothing about the button changes. */
+.gc-rip{position:absolute;left:var(--gc-x,50%);top:var(--gc-y,50%);width:12px;height:12px;margin:-6px 0 0 -6px;
+  border-radius:50%;pointer-events:none;z-index:4;
+  background:radial-gradient(circle, rgba(255,255,255,.55) 0, rgba(255,138,58,.42) 35%, rgba(255,106,19,0) 70%);
+  animation:gcRip .55s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes gcRip{from{transform:scale(1);opacity:.95} to{transform:scale(22);opacity:0}}
+.gc-riphost{position:relative;overflow:hidden}
+/* the shaped cards clip with clip-path already, so they keep their overflow and only take the position */
+.gc-riphost.cut, .gc-riphost.kpi, .gc-riphost.day{overflow:visible}
+/* the press on a card shows on the face as a brief brightening of its edge, in the page's own glow */
+@keyframes gcPress{0%{box-shadow:0 0 0 0 var(--glow), 0 0 0 0 var(--glow-wide)} 45%{box-shadow:0 0 0 4px var(--glow), 0 0 22px 8px var(--glow-wide)} 100%{box-shadow:0 0 0 0 rgba(0,0,0,0), 0 0 0 0 rgba(0,0,0,0)}}
+html:not([data-motion="off"]) .gc-pressed{animation:gcPress .5s ease-out}
+
+/* ---------------------------------------------------------------- the tilt: a card answers the pointer
+   A card under a fine pointer leans towards it by up to four degrees and a soft specular light follows the
+   cursor across its face — the way a lacquered panel catches the sun. Only where there IS a pointer to
+   follow (a phone has none and gets the press glow instead), only while the pointer is over it, and it
+   settles back in 220ms when the pointer leaves. Translate stays at the page's own -1px lift. */
+@media (hover:hover) and (pointer:fine){
+  .gc-tilt{transform:perspective(900px) rotateX(var(--gc-rx,0deg)) rotateY(var(--gc-ry,0deg)) translateY(-1px) !important;
+    transition:transform .12s ease-out, box-shadow .18s ease, border-color .18s ease !important}
+  .gc-tilt.gc-settle{transition:transform .22s cubic-bezier(.2,.7,.2,1) !important}
+  .gc-shine{position:absolute;inset:0;pointer-events:none;z-index:3;border-radius:inherit;
+    background:radial-gradient(240px circle at var(--gc-gx,50%) var(--gc-gy,50%), rgba(255,255,255,.22) 0, rgba(255,214,170,.08) 38%, rgba(255,255,255,0) 66%);
+    mix-blend-mode:screen;opacity:0;transition:opacity .18s ease}
+  .gc-tilt > .gc-shine{opacity:1}
+  /* the shine on a card that is already orange reads as a white-hot sheen; on a dark card as a warm one */
+  .cut.on > .gc-shine{background:radial-gradient(220px circle at var(--gc-gx,50%) var(--gc-gy,50%), rgba(255,255,255,.34) 0, rgba(255,255,255,.08) 40%, rgba(255,255,255,0) 66%)}
+  .cut.dark > .gc-shine, .sig > .gc-shine, .cgauge > .gc-shine{background:radial-gradient(240px circle at var(--gc-gx,50%) var(--gc-gy,50%), rgba(255,170,90,.26) 0, rgba(255,120,30,.08) 40%, rgba(255,255,255,0) 66%)}
+}
+
+/* ---------------------------------------------------------------- the selected day wears its livery with a gloss
+   Set by the script for the card a person has just chosen: one pass of light across the orange, 700ms, once.
+   Never on a repaint — a background sync redraws the strip and the gloss must not run again for it. */
+.day.gc-just .dface{position:relative;overflow:hidden}
+.day.gc-just .dface::after{content:'';position:absolute;top:-40%;bottom:-40%;left:-70%;width:45%;pointer-events:none;
+  background:linear-gradient(105deg, rgba(255,255,255,0) 0, rgba(255,255,255,.55) 50%, rgba(255,255,255,0) 100%);
+  transform:skewX(-18deg);animation:gcGloss .75s ease-out 1 both}
+@keyframes gcGloss{0%{left:-70%;opacity:0} 15%{opacity:1} 100%{left:135%;opacity:0}}
+
+/* ---------------------------------------------------------------- the figures roll in
+   The script rolls each headline figure from 0 to its value over half a second the first time this device
+   sees it and again when it changes — the page's own rule for the dial and the lamps, applied to the numbers.
+   While a figure is rolling it is marked, and the mark keeps its width fixed so nothing beside it jogs. */
+.gc-rolling{font-variant-numeric:tabular-nums;text-shadow:0 0 12px rgba(255,106,19,.25)}
+@media (prefers-reduced-motion:reduce){.gc-rolling{text-shadow:none}}
+
+/* ---------------------------------------------------------------- surfaces that answer the pointer
+   The page glows every boxed thing on hover. These are the few that did not, and the map stage — the one
+   surface a person spends the longest looking at — which now lights its edge when the pointer is over it. */
+@media (hover:hover){
+  .mapstage{transition:box-shadow .2s ease, border-color .2s ease}
+  .mapstage:hover{border-color:var(--orange);box-shadow:0 0 0 2px var(--glow), 0 0 26px 6px var(--glow-wide)}
+  .bhero:hover .bplay{box-shadow:0 0 0 3px var(--glow), 0 6px 20px rgba(0,0,0,.35)}
+  .tsq:hover, .hl:hover{box-shadow:0 0 0 2px var(--glow), 0 0 14px 3px var(--glow-wide)}
+  .sig:hover{border-color:var(--orange);box-shadow:0 0 0 2px var(--glow), 0 0 16px 3px var(--glow-wide)}
+  .cgauge.gi:hover{box-shadow:inset 0 0 0 1px #42494a, 0 0 0 2px var(--glow), 0 0 24px 5px var(--glow-wide)}
+  .tpcard:hover{--edge:var(--orange)}
+  .recstrip:hover{border-color:var(--orange)}
+}
+/* a lit lamp on the instrument keeps a faint bloom at rest — steady, never breathing — so the state reads
+   from across a room the way a real tell-tale does */
+.dstat.green .hz .lens.g .lamp, .dstat.amber .hz .lens.a .lamp, .dstat.red .hz .lens.r .lamp{filter:drop-shadow(0 0 2.5px currentColor)}
+.dstat.green .hz .lens.g{color:rgba(31,200,98,.55)} .dstat.amber .hz .lens.a{color:rgba(247,166,0,.55)} .dstat.red .hz .lens.r{color:rgba(236,36,22,.5)}
+
+/* ---------------------------------------------------------------- the tabs: the active one glows a little wider */
+nav.tabs button[aria-selected="true"]::after, .tabmore.on::after{box-shadow:0 0 14px 3px var(--glow), 0 0 2px #fff}
+html:not([data-motion="off"]) nav.tabs button::after{transition:left .18s ease, right .18s ease}
+
+/* ---------------------------------------------------------------- the switch, and the printer */
+@media (prefers-reduced-motion:reduce){
+  header.top::before, .lockup:hover .chq, .tpnum .sec, .pane.gc-arrive *, .day.gc-just .dface::after, .gc-pressed{animation:none !important}
+  .gc-rip{display:none}
+  .gc-tilt{transform:none !important;transition:none !important}
+  .gc-shine{display:none}
+}
+html[data-motion="off"] .gc-rip, html[data-motion="off"] .gc-shine{display:none}
+html[data-motion="off"] .gc-tilt{transform:none !important}
+html[data-motion="off"] .day.gc-just .dface::after{animation:none}
+@media print{
+  header.top::before, .gc-rip, .gc-shine{display:none !important}
+  header.top{background-image:none !important}
+  .wordmark .gc, .tpnum .sec, .gc-rolling{text-shadow:none !important}
+  .gc-tilt{transform:none !important}
+  .dsn .gp i, .dsn .bars .bar i{box-shadow:none !important}
+}

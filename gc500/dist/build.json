@@ -1,0 +1,9 @@
+{
+  "built": "2026-09-16T18:42:58.121Z",
+  "plain": false,
+  "server_bytes": 101089,
+  "gzip_bytes": 32301,
+  "b64_chars": 43068,
+  "server_sha256": "cc6c210e1909a17a09a1b2a552ec87f0aabc9a47d6797b86675819b349ee8974",
+  "overlay_hash": "b5cb41474d30"
+}
