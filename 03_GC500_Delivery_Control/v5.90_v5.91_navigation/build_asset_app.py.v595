@@ -5508,6 +5508,7 @@ html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-r
 .photocat .pstat{padding:0}.photocat .pstat span{display:block;font-weight:700;font-size:14px;color:#fff;margin-top:2px}.photocat .pstat em{display:block;font-style:normal;font-size:12px;color:#c9d1d0;margin-top:2px}
 .photocat .pstrip{display:flex;gap:6px;height:56px}.photocat .pstrip img,.photocat .pstrip i{flex:1;min-width:0;height:56px;object-fit:cover;border-radius:6px;background:#0d1114;border:1px solid #2a3338}
 .photocat:hover,.photocat:focus-visible{border-color:var(--orange);outline:0}.photocat .hubgo{color:#ffb27a}
+.regsum{margin-top:14px}.regviewsw{display:flex;gap:4px}.regviewsw .btn[aria-pressed="true"]{background:var(--orange);color:#1b1207;border-color:var(--orange)}
 #pane-register.inplant{margin-top:18px}#pane-register.inplant .panehead{border-top:1px solid var(--rule,#e4e0dc);padding-top:14px}
 .docgrid.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
 .hubcard > .face{border-radius:14px}
@@ -11338,10 +11339,11 @@ function renderPlant(){
   state.list = shown.flatMap(([, list]) => list.filter(a => (!q || matches(a, q)) && lightMatches(a)).map(a => a.key));
   $('#pane-plant').innerHTML = paneHeadingHtml('plant') + `
    <div class="card">
-     <h3>Plant — what was asked for, and what we supplied</h3>
-     <p class="sub">One page per plant type. The asked-for column is the schedule and never changes. The
-       supplied column is what people record on site. Open any reference on the Map or Register tab to fill
-       it in.</p>
+     <div class="hubtitle"><h3>Plant — what was asked for, and what we supplied</h3>
+       <div class="regviewsw" role="group" aria-label="View"><button type="button" class="btn sm" data-plantview="list" aria-pressed="${state.plantView !== 'cards'}">List</button><button type="button" class="btn sm" data-plantview="cards" aria-pressed="${state.plantView === 'cards'}">Cards</button></div></div>
+     <p class="sub">One page per plant type, every reference with its register facts: name and type, scheduled dates,
+       due, off-hire, asset numbers, Rental ID and branch, what was asked for and what turned up, and its drawing
+       link. Open any reference here or on the Map to fill it in.</p>
      <div class="filters">
        ${(() => { /* the chips count things, never schedule rows — Andrew Fisher, 12 Sep 2026: plant shows total
             numbers (more than 7 VMS, more than 1 trackmat). Seven rows move twenty-two
@@ -11359,7 +11361,12 @@ function renderPlant(){
        of them differ. Anything captured since is marked
        <span class="chip cand">${LW()}</span>.</p>
    </div>
-   ${shown.map(([g, list]) => plantTable(g, list.filter(a => (!q || matches(a, q)) && lightMatches(a)))).join('')}`;
+   ${shown.map(([g, list]) => plantTable(g, list.filter(a => (!q || matches(a, q)) && lightMatches(a)))).join('')}
+   <div class="regsum">${contractsCard(state.list)}${branchCard(state.list)}</div>`;
+  /* v5.95 - the register's own views, on this page */
+  $('#pane-plant').querySelectorAll('[data-plantview]').forEach(b => b.onclick = () => { state.plantView = b.dataset.plantview; renderPlant(); });
+  $('#pane-plant').querySelectorAll('[data-eq]').forEach(b => b.onclick = () => openAsset(b.dataset.eq));
+  $('#pane-plant').querySelectorAll('[data-k]').forEach(r => r.onclick = ev => { ev.stopPropagation(); openAsset(r.dataset.k); });
   $('#pane-plant').querySelectorAll('[data-pg]').forEach(b => b.onclick = () => {
     state.plantGroup = b.dataset.pg || null; render();
   });
@@ -11379,9 +11386,9 @@ function plantTable(group, list){
       <div class="track"><i style="width:${pct}%"></i></div>
       <span>${esc(done)} of ${esc(items.length)} asked-for item line${items.length === 1 ? '' : 's'} recorded${pct ? ' · ' + pct + '%' : ''}</span>
     </div>
-    <div class="tblwrap"><table>
-      <thead><tr><th>GC500 ID</th><th>Light</th><th>Due</th><th>Asset no.</th><th>Description asked for</th>
-        <th>Description supplied</th><th>State</th>${isBuilding ? '<th>What comes with it</th>' : ''}</tr></thead>
+    ${state.plantView === 'cards' ? `<div class="eqgrid">${list.map(a => equipmentCard(a, {on: state.sel === a.key})).join('')}</div>` : `<div class="tblwrap"><table>
+      <thead><tr><th>GC500 ID</th><th>Light</th><th>Scheduled</th><th>Due</th><th>Off-hire</th><th>Asset no.</th><th>Contract</th><th>Description asked for</th>
+        <th>Description supplied</th><th>State</th><th>Drawing</th>${isBuilding ? '<th>What comes with it</th>' : ''}</tr></thead>
       <tbody>${list.map(a => {
         const rows = itemRows(a), com = CROW.get(a.key) || {}, d = deliveryOf(a.key);
         const rent = rentalOf(a.key);
@@ -11408,18 +11415,28 @@ function plantTable(group, list){
             ${isPlantLine(a) ? (a._given
               ? `<br><span class="chip ref" title="the schedule's row ${esc(a.task_id)}, given this reference by ${esc(a._given.by || 'unnamed')}${a._given.at ? ' on ' + esc(fmtStamp(a._given.at)) : ''}">row ${esc(a.task_id)} · reference given</span>`
               : `<br><span class="chip cand" title="a schedule row with no drawing reference, carried under the schedule's own task id — open it to give it a reference">plant line</span>`)
-              + `<br><span class="w" style="font-size:11px;color:var(--mute)">${esc(a.name || '')}</span>` : ''}
+              + `<br><span class="w" style="font-size:11px;color:var(--mute)">${esc(a.name || '')}</span>`
+              : `<br><span class="w" style="font-size:11px;color:var(--mute)">${esc(a.name || '')}${(a.item_types || []).length ? ' · ' + esc(a.item_types.join(', ')) : ''}</span>`}${
+            a._added ? ' <span class="chip act">added</span>' : ''}${a.origin === 'drawing' ? ` <span class="chip cand" title="${esc(a.schedule_state || 'drawn on the sheet; no schedule row names it')}">drawing only</span>` : ''}
             ${mapSheetFor(a) ? `<br><button class="linkish" data-map="${esc(a.key)}">on the map</button>` : ''}
             ${a.reference_state ? '<br><span class="chip crit">unresolved ref</span>' : ''}${bdBadge(a.key)}</td>
           <td>${lightCell(a)}${rent && rent.from ? `<div class="w" style="font-size:11px;color:var(--mute);margin-top:2px">on hire from ${esc(fmtDay(rent.from).dm)}${rent.from_time ? ' ' + esc(rent.from_time) : ''}${rent.off ? ' · off hire ' + esc(fmtDay(rent.off).dm) : ''}</div>` : ''}${
             rent && !rent.machines.length && rent.acc_from ? `<div class="w" style="font-size:11px;color:var(--mute);margin-top:2px" title="an attachment on hire — not the machine, so it does not put this line on site">accessory on hire from ${esc(fmtDay(rent.acc_from).dm)} — the machine is not on the extract</div>` : ''}</td>
+          <td style="white-space:nowrap">${(() => { const e = effectiveDates(a);
+            return (e.in ? esc(e.in) : '—') + (e.in_moved ? ` <span class="chip act" title="the plan said ${esc(e.in_plan || 'nothing')}">moved</span>` : '')
+              + (e.out && e.out !== e.in ? ' → ' + esc(e.out) + (e.out_moved ? ` <span class="chip act" title="the plan said ${esc(e.out_plan || 'nothing')}">moved</span>` : '') : ''); })()}</td>
           <td class="t" style="white-space:nowrap">${a.first_date ? esc(fmtDay(a.first_date).dm) : '<span class="todo">—</span>'}${
             d.eta ? ' <b>' + esc(d.eta) + '</b>' : ''}</td>
+          <td>${offhireChip(a)}</td>
           <td class="mono">${nums.length ? nums.map(n => assetNo(n, {bare: true, desc: miscDesc})).join('<br>')
              : '<span class="todo" title="the schedule does not carry an asset number for this reference">—</span>'}</td>
+          <td>${(() => { const c = contractOf(a.key), acc = a.accessories || [];
+            return (c.id ? contractShort(c.c, c.id) : '<span class="todo" title="no Rental ID recorded">—</span>') + ' ' + branchChip(a.key)
+              + (acc.length ? `<div class="w" style="font-size:11px;color:var(--mute)">${acc.reduce((s, x) => s + (x.qty || 1), 0)} inside it</div>` : ''); })()}</td>
           <td>${asked}</td><td>${sup}</td><td>${st}</td>
+          <td>${(a.drawing_links || []).length ? `<span class="chip ${a.linked_to_2026_sheet === false ? 'crit' : 'cand'}">${esc(a.drawing_links[0].label)} ${a.linked_to_2026_sheet === false ? '2025 sheet only' : 'candidate'}</span>` : '<span class="chip">no link</span>'}</td>
           ${isBuilding ? '<td>' + contentsCell(a) + '</td>' : ''}</tr>`;
-      }).join('')}</tbody></table></div>
+      }).join('')}</tbody></table></div>`}
     ${isBuilding ? `<p class="norate">${esc(DATA.accessory_authority)}</p>` : ''}
   </div>`;
 }
@@ -31227,7 +31244,7 @@ function renderPass(){
   else if (state.tab === 'map') renderMap();
   else if (state.tab === 'docs') renderDocs();
   else if (state.tab === 'register') renderRegister();
-  else if (state.tab === 'plant') { renderPlant(); setTimeout(() => { if (state.tab === 'plant' && !$('#pane-plant #pane-register')) plantCarriesRegister(); }, 40); }   /* v5.93 - plant lines paint first, the register a moment later */
+  else if (state.tab === 'plant') renderPlant();   /* v5.95 - the register's facts are on the plant rows themselves */
   else if (state.tab === 'variances') renderVariances();
   else if (state.tab === 'fencing') renderFencing();
   else if (state.tab === 'prestarts') renderPrestarts();

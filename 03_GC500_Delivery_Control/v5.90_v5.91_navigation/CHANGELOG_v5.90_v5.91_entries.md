@@ -59,3 +59,9 @@ first tap on a tab was lost in it; Today 4.8 s. After v5.93: 3.2 s and 1.9 s; lo
   the start of every render pass).
 - Measured, headless: Where we are 1,918 → 480 ms; Today 923 → 275 ms; Plant 1,220 → 466 ms. Phone profile
   throttled four times: a tap on Where we are 9.1 s → 1.9 s; Today 4.8 s → 1.5 s.
+
+## v5.95 — the Register, merged into Plant
+Every Plant row now carries what the Register row carried and Plant did not: name and item types, the added and
+drawing-only marks, scheduled dates with the moved marks, the off-hire chip, the Rental ID with its branch and
+what is inside it, and the drawing link. The Register's card view (photographs) is a List / Cards toggle on
+Plant; its contracts and branch summaries close the page. The stacked Register pane from v5.91 is gone.
