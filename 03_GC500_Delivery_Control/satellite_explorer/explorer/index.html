@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>GC500 Satellite Plan Explorer</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--or:#ff6a13;--or2:#ff9a4d;--ink:#f3efe9;--mute:#a9a39c;--bg:#0f0d0c;--panel:#1a1614;--rule:#2e2723;--card:#231d1a;--ok:#39e07a;--warn:#ffb000;--bad:#ff5a4e}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.4 Inter,"Segoe UI",system-ui,sans-serif;overflow:hidden}
+.app{display:grid;grid-template-columns:300px 1fr;grid-template-rows:54px 1fr;height:100dvh}
+header{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:0 14px;background:linear-gradient(180deg,#1c1613,#120f0d);border-bottom:2px solid var(--or)}
+header b{font:700 18px/1 "Barlow Condensed","Arial Narrow",sans-serif;font-style:italic;letter-spacing:.02em}header b i{color:var(--or);font-style:italic}
+header .sub{color:var(--mute);font-size:12px}
+.modes{display:flex;gap:4px;margin-left:auto;background:#0b0908;padding:3px;border-radius:9px;border:1px solid var(--rule)}
+.modes button{background:none;border:0;color:var(--mute);padding:7px 12px;border-radius:7px;font:600 12.5px Inter,sans-serif;cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--or);color:#1b1207}
+aside{background:var(--panel);border-right:1px solid var(--rule);overflow:auto;padding:12px;display:flex;flex-direction:column;gap:12px}
+aside h3{margin:0 0 6px;font:700 10px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.search{position:relative}.search input{width:100%;padding:9px 30px 9px 11px;border-radius:9px;border:1px solid var(--rule);background:#0b0908;color:var(--ink);font:14px Inter,sans-serif}
+.search input:focus{outline:2px solid var(--or);outline-offset:0}
+.results{display:none;max-height:240px;overflow:auto;border:1px solid var(--rule);border-radius:9px;margin-top:6px;background:#0b0908}.results.show{display:block}
+.results button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--rule);color:var(--ink);padding:7px 10px;cursor:pointer}.results button small{display:block;color:var(--mute);font-size:11px}
+.results button:hover{background:#241d19}.rh{padding:6px 10px;color:var(--mute);font-size:11px}
+.jump{display:flex;align-items:center;gap:9px;width:100%;background:var(--card);border:1px solid var(--rule);color:var(--ink);padding:8px 10px;border-radius:9px;cursor:pointer;text-align:left;margin-bottom:5px}
+.jump:hover,.jump.active{border-color:var(--or)}.jump small{display:block;color:var(--mute);font-size:11px}
+.ctl{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;font-size:12.5px;margin:6px 0}.ctl input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--or)}
+.ctl output{color:var(--or2);font-variant-numeric:tabular-nums}
+.chk{display:flex;gap:8px;align-items:center;font-size:12.5px;margin:4px 0}.chk input{accent-color:var(--or)}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:10px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{display:inline-flex;align-items:center;gap:6px;background:#0b0908;border:1px solid var(--rule);color:var(--ink);border-radius:999px;padding:5px 10px;font:600 12px Inter,sans-serif;cursor:pointer}.chip i{width:9px;height:9px;border-radius:50%;background:var(--c,#ff6a13);box-shadow:0 0 6px var(--c,#ff6a13)}.chip[aria-pressed="true"]{border-color:var(--c,#ff6a13);background:#1f1713}.chip small{color:var(--mute);font-weight:500}
+.findlist{display:none;margin-top:8px;max-height:260px;overflow:auto;border:1px solid var(--rule);border-radius:9px;background:#0b0908}.findlist.show{display:block}.findlist button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--rule);color:var(--ink);padding:6px 10px;cursor:pointer;font:13px Inter,sans-serif}.findlist button:hover,.findlist button.sel{background:#241d19}.findlist button small{display:block;color:var(--mute);font-size:11px}.findlist .rh{padding:6px 10px;color:var(--mute);font-size:11px}.findlist button.dim{color:var(--mute)}
+.card p{margin:4px 0;font-size:12px;color:var(--mute)}.card p b{color:var(--ink)}
+.status{display:flex;gap:8px;align-items:center;font-size:12px}.dot{width:9px;height:9px;border-radius:50%;background:var(--warn)}.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}
+main{position:relative;overflow:hidden;background:#0b0908}
+#stage{position:absolute;inset:0;touch-action:none;cursor:grab;outline:0}#stage.dragging{cursor:grabbing}#stage.box{cursor:crosshair}
+canvas{display:block;width:100%;height:100%}#marks{position:absolute;inset:0;pointer-events:none}
+.hud{position:absolute;left:12px;top:12px;display:flex;flex-direction:column;gap:6px;pointer-events:none}
+.pill{pointer-events:auto;background:rgba(15,13,12,.82);border:1px solid var(--rule);border-radius:9px;padding:6px 10px;font-size:12px;backdrop-filter:none}
+.pill b{color:var(--or2)}
+.console{position:absolute;right:12px;top:12px;display:flex;gap:6px;align-items:center}
+.console button,.rail button{background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--ink);border-radius:8px;min-width:34px;height:34px;padding:0 9px;cursor:pointer;font:600 13px Inter,sans-serif}
+.console button:hover,.rail button:hover{border-color:var(--or)}.console button[aria-pressed="true"]{background:var(--or);color:#1b1207}
+.console input{width:86px;height:34px;background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--ink);border-radius:8px;text-align:right;padding:0 8px;font:600 13px Inter,sans-serif}
+.rail{position:absolute;right:12px;top:56px;display:flex;flex-direction:column;gap:6px}
+.attrib{position:absolute;right:8px;bottom:8px;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:7px;padding:4px 8px;font-size:11px;color:var(--mute)}.attrib a{color:var(--ink);text-decoration:none}
+.qual{position:absolute;left:12px;bottom:8px;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:7px;padding:5px 9px;font-size:11.5px;display:flex;gap:8px;align-items:center}
+.qual i{width:8px;height:8px;border-radius:50%;background:var(--mute)}.qual.busy i{background:var(--warn)}.qual.sharp i{background:var(--ok)}.qual.over i{background:var(--or)}
+.mini{position:absolute;left:12px;bottom:44px;width:220px;background:rgba(15,13,12,.9);border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.mini img{display:block;width:100%;opacity:.9}.mini svg{position:absolute;inset:0;width:100%;height:100%}.mini polygon{fill:rgba(255,106,19,.18);stroke:var(--or);stroke-width:2;vector-effect:non-scaling-stroke}
+.rose{position:absolute;right:12px;top:100px;display:flex;flex-direction:column;align-items:center;gap:4px}.rose button{background:none;border:0;padding:0;cursor:pointer}.rose #northBtn svg{width:64px;height:64px;transition:transform .12s linear;display:block}.rose span{font-size:11px;color:var(--mute)}.rose #rotL,.rose #rotR{background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--ink);border-radius:8px;width:34px;height:30px;font-size:16px}
+@media(max-width:900px){.rose{top:auto;bottom:44px;right:12px}.rose #northBtn svg{width:52px;height:52px}}
+.sel{position:absolute;border:2px dashed var(--or);background:rgba(255,106,19,.12);display:none;pointer-events:none}
+.toast{position:absolute;left:50%;bottom:52px;transform:translateX(-50%);background:#241d19;border:1px solid var(--or);color:var(--ink);padding:8px 14px;border-radius:9px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:70%}.toast.show{opacity:1}
+.loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:5}.loader.done{display:none}
+.loader div{width:min(420px,80vw)}.loader h2{margin:0 0 6px;font:700 22px "Barlow Condensed",sans-serif;font-style:italic}.bar{height:6px;background:#2a2320;border-radius:3px;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;width:0;background:var(--or);transition:width .2s}
+.legend{display:none;position:absolute;left:12px;top:12px;bottom:44px;width:min(380px,calc(100% - 24px));background:rgba(15,13,12,.96);border:1px solid var(--rule);border-radius:10px;padding:12px;overflow:auto;font-size:12.5px}.legend.show{display:block}
+.legend h4{margin:8px 0 4px;color:var(--or2)}.legend table{border-collapse:collapse;width:100%}.legend td{padding:3px 4px;border-bottom:1px solid var(--rule);vertical-align:top}
+@media(max-width:900px){.app{grid-template-columns:1fr;grid-template-rows:54px 1fr}aside{position:absolute;left:0;top:54px;bottom:0;width:min(320px,88vw);z-index:4;transform:translateX(-100%);transition:transform .2s}body.nav aside{transform:none}header .sub{display:none}.modes button{padding:7px 8px;font-size:12px}.mini{display:none}.console input{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <button class="jump" id="navBtn" style="width:auto;margin:0;padding:6px 9px" aria-label="Menu">☰</button>
+  <b>Coates Industrial Solutions <i>| GC500 2026</i></b><span class="sub">Satellite Plan Explorer · D001 rev 03 · Master Layout Plan</span>
+  <div class="modes" role="group" aria-label="View mode">
+    <button data-mode="original" aria-pressed="true">Original plan</button>
+    <button data-mode="hybrid" aria-pressed="false">Satellite + plan</button>
+    <button data-mode="satellite" aria-pressed="false">Satellite only</button>
+  </div>
+</header>
+<aside id="side">
+  <div><h3>Search the drawing's labels</h3><div class="search"><input id="q" placeholder="WC69, P12, S08, an asset number, a street…" disabled autocomplete="off"></div><div class="results" id="results"></div></div>
+  <div class="card" id="findCard"><h3>Find on the drawing</h3><div class="chips" id="chips"></div><div class="findlist" id="findList"></div></div>
+  <div><h3>Areas</h3><div id="jumps"></div></div>
+  <div class="card" id="layers"><h3>Layers</h3>
+    <div class="ctl"><span>Drawing overlay opacity</span><output id="opOut">100%</output><input type="range" id="op" min="10" max="100" value="100"></div>
+    <div class="ctl"><span>Satellite brightness</span><output id="brOut">100%</output><input type="range" id="br" min="30" max="130" value="100"></div>
+    <label class="chk"><input type="checkbox" id="insetOn" checked> Inset (lower right) on its own registration</label>
+    <label class="chk"><input type="checkbox" id="legendOn" checked> Legend, key plan and title block</label>
+  </div>
+  <div class="card"><h3>Alignment</h3><div class="status"><i class="dot" id="alDot"></i><span id="alText">Alignment pending</span></div><p id="alSub"></p></div>
+  <div class="card"><h3>Sources</h3><p><b>Drawing</b> D001 · project 26003 · revision 03 · iEDM · sheet 2384 × 1684 pt · 1:2000</p><p><b>Imagery</b> Mapbox Satellite, a basemap, not a live feed. Capture date: not stated by the provider.</p><p><b>Not shown in satellite modes</b> the sheet's own faded aerial (64 image patches) and the white sheet. Every vector, label, symbol and raster lettering stays.</p><button class="jump" id="legendBtn">Source legend and retained content →</button></div>
+  <div class="card" id="perf"><h3>Performance</h3><p id="perfText">—</p></div>
+</aside>
+<main>
+  <div id="stage" tabindex="0" aria-label="Plan view">
+    <canvas id="display"></canvas>
+    <canvas id="marks" aria-hidden="true"></canvas>
+    <div class="sel" id="sel"></div>
+  </div>
+  <div class="hud"><div class="pill" id="viewName">Full master plan</div><div class="pill" id="overzoom" style="display:none"><b>Imagery enlarged beyond source detail</b> · the drawing is re-rendered from its vectors; the photograph is not</div></div>
+  <div class="console"><input id="zoomInput" value="100" aria-label="Zoom percent"><button id="zoomOut" aria-label="Zoom out">−</button><button id="zoomIn" aria-label="Zoom in">+</button><button id="fitBtn">Fit</button><button id="boxBtn" aria-pressed="false" title="Box zoom (Z)">▭</button><button id="fullBtn" title="Full screen">⛶</button><button id="exportBtn" title="Save PNG of this view">PNG</button></div>
+  <div class="mini" id="mini"><img id="miniImg" alt=""><svg viewBox="0 0 2384 1684" id="miniSvg"><polygon id="miniRect" points="0,0 2384,0 2384,1684 0,1684"/></svg></div>
+  <div class="rose" title="North · press N for north up, R to turn, Alt-drag to turn freely"><button id="northBtn" aria-label="North up"><svg id="compass" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="rgba(15,13,12,.85)" stroke="#2e2723"/><path d="M50 8 L58 50 L50 42 L42 50 Z" fill="#ff6a13"/><path d="M50 92 L58 50 L50 58 L42 50 Z" fill="#8a837c"/><text x="50" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">N</text><text x="50" y="86" text-anchor="middle" font-size="10" fill="#a9a39c">S</text><text x="82" y="54" text-anchor="middle" font-size="10" fill="#a9a39c">E</text><text x="18" y="54" text-anchor="middle" font-size="10" fill="#a9a39c">W</text></svg></button><span id="rotOut">0°</span><button id="rotL" aria-label="Turn anticlockwise">⟲</button><button id="rotR" aria-label="Turn clockwise">⟳</button></div>
+  <div class="qual" id="qual"><i></i><span id="qualText">Loading</span></div>
+  <div class="attrib" id="attrib">Drawing © iEDM · D001 rev 03</div>
+  <div class="legend" id="legend"></div>
+  <div class="toast" id="toast"></div>
+  <div class="loader" id="loader"><div><h2>Satellite Plan Explorer</h2><div id="loadText">Fetching the original drawing…</div><div class="bar"><i id="bar"></i></div><p style="color:var(--mute);font-size:12px">The original plan loads first and stays available offline. Satellite tiles are fetched only for the view you are looking at, only in the satellite modes.</p></div></div>
+</main>
+</div>
+<script src="explorer.js"></script>
+</body>
+</html>

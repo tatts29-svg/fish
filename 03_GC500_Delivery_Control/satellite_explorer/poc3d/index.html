@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>GC500 3D Proof</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.131.0/Build/Cesium/Widgets/widgets.css">
+<style>
+:root{--or:#ff6a13;--or2:#ff9a4d;--ink:#f3efe9;--mute:#a9a39c;--bg:#0f0d0c;--rule:#2e2723}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.4 Inter,"Segoe UI",system-ui,sans-serif;overflow:hidden}
+#cesium{position:absolute;inset:0}
+header{position:absolute;left:0;right:0;top:0;height:50px;display:flex;align-items:center;gap:12px;padding:0 14px;background:linear-gradient(180deg,rgba(28,22,19,.95),rgba(18,15,13,.9));border-bottom:2px solid var(--or);z-index:3}
+header b{font:700 18px/1 "Barlow Condensed","Arial Narrow",sans-serif;font-style:italic}header b i{color:var(--or);font-style:italic}
+.views{margin-left:auto;display:flex;gap:4px;background:#0b0908;padding:3px;border-radius:9px;border:1px solid var(--rule)}
+.views button{background:none;border:0;color:var(--mute);padding:7px 11px;border-radius:7px;font:600 12.5px Inter,sans-serif;cursor:pointer}.views button:hover{color:var(--ink)}
+.pill{position:absolute;left:12px;top:62px;z-index:3;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:9px;padding:7px 10px;font-size:12px;max-width:min(520px,calc(100% - 24px))}.pill b{color:var(--or2)}
+.perf{position:absolute;left:12px;bottom:34px;z-index:3;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:9px;padding:6px 10px;font-size:11.5px;color:var(--mute)}
+.q{position:absolute;right:12px;top:62px;z-index:3;display:flex;gap:6px}.q button{background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--ink);border-radius:8px;height:32px;padding:0 10px;cursor:pointer;font:600 12px Inter,sans-serif}.q button[aria-pressed="true"]{background:var(--or);color:#1b1207}
+.cesium-viewer-bottom{z-index:3!important}.cesium-widget-credits{color:#fff!important;font-size:11px!important;background:rgba(15,13,12,.6)!important;padding:2px 6px!important;border-radius:6px}
+.loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:5;flex-direction:column;gap:8px}.loader.done{display:none}
+</style>
+</head>
+<body>
+<div id="cesium"></div>
+<header><b>Coates Industrial Solutions <i>| GC500 2026</i></b><span style="color:var(--mute);font-size:12px">3D proof · Google Photorealistic 3D Tiles in CesiumJS · separate from the dashboard</span>
+  <div class="views"><button data-v="overhead">Overhead</button><button data-v="angled">Angled</button><button data-v="close">Close-up</button><button data-v="island">Macintosh Island</button><button data-v="narrowneck">Narrowneck</button><button data-v="pits">Pit straight</button><button data-v="street">Street level</button><button data-v="ground">Ground</button></div></header>
+<div class="pill" id="status"><b>Loading</b></div>
+<div class="q"><button id="fsBtn" title="Full screen" style="margin-right:10px">⛶ Full screen</button><span style="align-self:center;font-size:11.5px;color:var(--mute)">Quality</span><button data-q="auto" aria-pressed="true">Auto</button><button data-q="crisp" aria-pressed="false">Crisp (4K)</button><button data-q="light" aria-pressed="false">Light</button></div>
+<div class="perf" id="perf">—</div>
+<div class="loader" id="loader"><b style="font:700 22px 'Barlow Condensed',sans-serif;font-style:italic">3D proof</b><div id="loadText">Asking the service for the Google key…</div></div>
+<script src="https://cdn.jsdelivr.net/npm/cesium@1.131.0/Build/Cesium/Cesium.js"></script>
+<script>
+'use strict';
+/* GC500 3D proof-of-concept. Google Photorealistic 3D Tiles (Map Tiles API) streamed by CesiumJS for the current view
+   only; the Google key comes from the dashboard service at runtime (never written into this file); Google attribution
+   stays on screen through Cesium's credit display; Cesium's own buttons are off (their bindings need string eval, which the
+   service's policy refuses) and a plain full-screen button stands in; rendering is on demand (nothing is drawn while the camera is still)
+   and stops when the tab is hidden. Resolution is the screen's, capped by the device; the photograph's own detail is
+   whatever Google captured, and the status line says when the camera is closer than that. */
+const $ = id => document.getElementById(id);
+const PHONE = /Android|iPhone|iPad/.test(navigator.userAgent) || matchMedia('(max-width:900px)').matches;
+const perf = {frames: 0, frameMs: 0, tilesLoaded: 0, bytes: 0, t0: performance.now(), firstFull: null};
+window.__perf = perf;
+const VIEWS = {
+  overhead:  {lon: 153.4255, lat: -27.9885, height: 1400, heading: 0, pitch: -89},
+  angled:    {lon: 153.4300, lat: -27.9960, height: 520, heading: -35, pitch: -32},
+  close:     {lon: 153.42525, lat: -27.98905, height: 140, heading: 20, pitch: -38},
+  island:    {lon: 153.4232, lat: -27.9870, height: 420, heading: -20, pitch: -45},
+  narrowneck:{lon: 153.4190, lat: -27.9808, height: 600, heading: 40, pitch: -35},
+  pits:      {lon: 153.4245, lat: -27.9890, height: 180, heading: 60, pitch: -25},
+  street:    {lon: 153.42500, lat: -27.98880, height: 45, heading: 35, pitch: -18},
+  ground:    {lon: 153.42480, lat: -27.98890, height: 12, heading: 60, pitch: -6}};
+let viewer, tileset, quality = 'auto';
+function setStatus(html) { $('status').innerHTML = html; }
+async function key() {
+  const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); const r = await fetch('/api/map-key' + (m ? '?t=' + encodeURIComponent(m[1]) : ''), {cache: 'no-store'}); const j = await r.json(); if (!(j && j.google && /^AIza/.test(j.google.key))) throw new Error('The service did not hand out a Google browser key (GOOGLE_MAPS_KEY).'); return j.google.key;
+}
+function applyQuality() {
+  const dprNative = window.devicePixelRatio || 1;
+  if (quality === 'crisp') { viewer.resolutionScale = Math.min(dprNative, 2) / 1; viewer.scene.globe.maximumScreenSpaceError = 1; tileset.maximumScreenSpaceError = 6; }
+  else if (quality === 'light') { viewer.resolutionScale = Math.min(dprNative, 1); tileset.maximumScreenSpaceError = 24; }
+  else { viewer.resolutionScale = PHONE ? 1 : Math.min(dprNative, 1.5); tileset.maximumScreenSpaceError = PHONE ? 20 : 12; }
+  viewer.useBrowserRecommendedResolution = false; viewer.scene.requestRender();
+  document.querySelectorAll('.q button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.q === quality)));
+}
+function fly(name, ms = 1500) {
+  const v = VIEWS[name]; if (!v) return;
+  viewer.camera.flyTo({destination: Cesium.Cartesian3.fromDegrees(v.lon, v.lat, v.height), orientation: {heading: Cesium.Math.toRadians(v.heading), pitch: Cesium.Math.toRadians(v.pitch), roll: 0}, duration: ms / 1000});
+  setStatus(`<b>${name}</b> · camera ${v.height} m above the ground · Google 3D Tiles stream only what this view needs`);
+}
+async function boot() {
+  try {
+    const k = await key(); $('loadText').textContent = 'Starting the 3D scene…';
+    viewer = new Cesium.Viewer('cesium', {baseLayer: false, baseLayerPicker: false, geocoder: false, homeButton: false, sceneModePicker: false, navigationHelpButton: false, animation: false, timeline: false, fullscreenButton: false, infoBox: false, selectionIndicator: false,
+      requestRenderMode: true, maximumRenderTimeChange: Infinity, contextOptions: {webgl: {powerPreference: 'high-performance', antialias: !PHONE}}});
+    viewer.scene.globe.show = false; viewer.scene.skyAtmosphere.show = true; viewer.scene.msaaSamples = PHONE ? 1 : 4;
+    tileset = await Cesium.Cesium3DTileset.fromUrl('https://tile.googleapis.com/v1/3dtiles/root.json?key=' + encodeURIComponent(k), {showCreditsOnScreen: true, skipLevelOfDetail: true, cacheBytes: PHONE ? 256 * 1048576 : 768 * 1048576, maximumCacheOverflowBytes: 128 * 1048576});
+    viewer.scene.primitives.add(tileset); applyQuality();
+    tileset.tileLoad.addEventListener(t => { perf.tilesLoaded++; const c = t.content; if (c && c.byteLength) perf.bytes += c.byteLength; });
+    tileset.allTilesLoaded.addEventListener(() => { if (!perf.firstFull) perf.firstFull = Math.round(performance.now() - perf.t0); perfText(); window.__allLoaded = true; });
+    tileset.loadProgress.addEventListener((p, r) => { window.__allLoaded = (p === 0 && r === 0); perfText(); });
+    viewer.scene.postRender.addEventListener(() => { perf.frames++; });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) { viewer.scene.requestRenderMode = true; } else viewer.scene.requestRender(); });
+    $('loader').classList.add('done'); fly('overhead', 0); window.__ready = true;
+    document.querySelectorAll('.views button').forEach(b => b.onclick = () => { window.__allLoaded = false; fly(b.dataset.v); });
+    document.querySelectorAll('.q button').forEach(b => b.onclick = () => { quality = b.dataset.q; applyQuality(); });
+    setInterval(perfText, 1000);
+    $('fsBtn').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(() => {}); };
+  } catch (e) { console.error(e); $('loadText').textContent = String(e.message || e); window.__bootError = String(e); }
+}
+function perfText() {
+  if (!viewer) return; const cam = viewer.camera.positionCartographic; const h = Math.round(cam.height);
+  const fps = viewer.scene.frameState ? '' : '';
+  $('perf').textContent = `tiles loaded ${perf.tilesLoaded} · ${(perf.bytes / 1048576).toFixed(1)} MB · first full view ${perf.firstFull ? perf.firstFull + ' ms' : '…'} · camera ${h} m · render scale ${viewer.resolutionScale.toFixed(2)} · screen-space error ${tileset ? tileset.maximumScreenSpaceError : '—'} · ${quality}` + (h < 60 ? ' · closer than the photograph\'s own detail; enlarging, not revealing' : '');
+}
+boot();
+window.GC500_3D = {fly, get state() { return {ready: !!viewer, quality, perf, loaded: window.__allLoaded}; }, setQuality: q => { quality = q; applyQuality(); }};
+</script>
+</body>
+</html>
