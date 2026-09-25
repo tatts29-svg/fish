@@ -26,3 +26,15 @@ replacements, also applied to `print/build_asset_app.py`). Uploaded with `upload
 - Both open the D001 way round; the explorer's overview map is the sheet as drawn with north marked; N turns
   north-up, As drawn (D) turns back. Both carry a navigation row (Dashboard, Plan on satellite, 3D proof, The
   Coates Way) when opened on their own, hidden inside the dashboard's frame.
+
+## v5.92 — the presentation pass
+- Plant has a glyph in the tab bar like every other primary view (it sat unaligned without one).
+- The delivery gauge sweeps up on every arrival at Today, not once per session (GI_SEEN cleared on a change of tab).
+- The big figures on the race cards and data cards count up when a page arrives: any bold whole number set 22 px
+  or larger in the arriving pane, 640 ms, once per arrival, the rendered text put back exactly; off under
+  reduced motion.
+- Cards lift a touch under a pointer; text is antialiased and legibility-optimised; big figures use tabular
+  lining numerals so they do not jiggle while counting.
+- Limit: the illustrative banners are 1800 × 600 (a few 2600 × 1837) and are shown about 1900 CSS px wide, so a
+  4K or Retina screen upscales them roughly two times. Everything drawn by the page (cards, gauge, lights, type)
+  is vector and crisp at any size; the photographs need originals of about 3800 px wide to match.
