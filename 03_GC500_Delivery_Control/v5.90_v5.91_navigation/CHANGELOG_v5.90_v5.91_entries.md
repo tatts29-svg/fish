@@ -83,3 +83,10 @@ dark foam, a short slide as it opens (none under reduced motion).
   the docket's F-number sits beside its number; Variance and Attach signed paper show only on an editing link
   (`patch_v597b.py`).
 - Build order from now: build → patch → `scrub_attributions.py print/out/GC500_Delivery_Control_hosted.html`.
+
+## v5.98 — relocation is paid by the hour, not the metre
+The tracker's $100 on the relocation line is the crew's hourly rate. The page had read it as $100 a metre: a
+−$91.35 a metre margin on the Fencing rates table, and every relocation docket's metres priced at $100 each on the
+"what we pay" side (137.5 m → $13,750 that was never a cost). Now: the line reads $100.00 an hour, by the hour not
+the metre; no per-metre cost is put on relocation metres (their hours are on the green book); the margin is a dash;
+a typed per-metre cost still overrides. Fencing "Coates pays" moved from $75,177 to $61,427 as a result.

@@ -11478,6 +11478,9 @@ function contentsCell(a){
    the export to the build and compares. */
 const FENCE = DATA.fence || {columns:[], rate_gaps:[], week_sheets:[]};
 const FCOL = FENCE.columns || [];
+/* v5.98 - settled 25 Sep 2026: Advanced bill relocation by the hour; the card charges it by the metre. The tracker's
+   $100 on that line is an hourly rate and is never a per-metre cost. */
+FCOL.forEach(c => { if (c.key === 'relocation' && c.cost_unit == null && c.unit !== 'hr') c.cost_unit = 'hr'; });
 const FCOM = (COMMITTED.fencing || {dockets:[], by_week:[], totals:{}});
 const fmtQty = (n, unit) => (n == null ? '—' : (Number.isInteger(n) ? String(n) : n.toFixed(1)) + (unit === 'm' ? ' m' : ''));
 /* the number on its own, so a unit can be written once at the end of a pair rather than twice in the middle */
@@ -11523,6 +11526,7 @@ function fenceCostFor(key){
   const c = FCOL.find(x => x.key === key) || {};
   const typed = safeNum((S.fenceCosts || {})[key], MAX_RATE);
   if (typed != null) return {value: typed, source: 'typed', by: stampBy('fenceCosts', key), at: (S.stamps || {})['fenceCosts/' + key] || null, card: c};
+  if (c.cost_unit && c.cost_unit !== c.unit && c.cost_rate != null) return {value: null, source: 'hourly', hourly: c.cost_rate, by: null, at: null, card: c};   /* v5.98 - a rate in another unit is not a per-unit cost */
   if (c.cost_rate != null) return {value: c.cost_rate, source: 'tracker', by: null, at: null, card: c};
   return {value: null, source: null, by: null, at: null, card: c};
 }
@@ -12802,13 +12806,14 @@ function renderFencing(){
           ${r.value != null ? `<b>${esc(money(r.value))}</b><span class="w">${esc(per)}${r.source === 'typed' ? ' · typed' : ''}</span>` : '<span class="norate">not charged</span>'}
           ${tCharge != null && String(tCharge).trim() !== '' ? editByLine({by: r.by, at: r.at}) : ''}
           ${c.issued_card_differs ? `<div class="w" style="font-size:11px;color:var(--mute)">the issued card PDF prints ${esc(money(c.issued_card_rate))}</div>` : ''}</td>
-        <td class="num frs">${c.cost_rate != null ? `<span class="w">tracker ${esc(money(c.cost_rate))}</span>` : '<span class="norate">no tracker rate</span>'}
+        <td class="num frs">${pr.source === 'hourly' ? `<span class="w">tracker ${esc(money(pr.hourly))} an hour</span>` : c.cost_rate != null ? `<span class="w">tracker ${esc(money(c.cost_rate))}</span>` : '<span class="norate">no tracker rate</span>'}
           <input class="rate" type="number" min="0" step="0.01" data-fck="${esc(c.key)}" value="${esc(tCost ?? '')}" placeholder="type over" title="what ${esc((DATA.fence_contractor || {}).name || 'the crew')} bill Coates for ${esc(c.name_as_written)} — per ${esc(c.unit || 'unit')}, on every docket">
-          ${pr.value != null ? `<b>${esc(money(pr.value))}</b><span class="w">${esc(per)}${pr.source === 'typed' ? ' · typed' : ''}</span>` : '<span class="norate">not costed</span>'}
+          ${pr.value != null ? `<b>${esc(money(pr.value))}</b><span class="w">${esc(per)}${pr.source === 'typed' ? ' · typed' : ''}</span>` : pr.source === 'hourly' ? `<b>${esc(money(pr.hourly))}</b><span class="w"> an hour · by the hour, not the metre</span>` : '<span class="norate">not costed</span>'}
           ${tCost != null && String(tCost).trim() !== '' ? editByLine({by: pr.by, at: pr.at}) : ''}</td>
         <td class="num">${m == null ? '<span class="norate">—</span>' : `<b class="${m < 0 ? 'fmneg' : ''}">${esc(money(m))}</b><span class="w">${esc(per)}</span>`}</td>
         <td class="fwhy" style="font-size:12px;color:var(--mute)">${(() => { const t = (c.settled_by ? 'settled ' + esc(fmtDate(c.settled_on) || c.settled_on || '') + ': ' + esc(c.settled_said || '') + (c.settled_note ? ' — ' + esc(c.settled_note) : '') + (c.card_why ? ' · ' : '') : '') + esc(c.card_why || '') + (c.unit_basis ? ' · ' + esc(c.unit_basis) : '') + (c.cost_basis ? ' · ' + esc(c.cost_basis) : '');
-          return t.length > 160 ? `<div class="clamp">${t}</div><button type="button" class="linkish clampbtn" data-clamp>more</button>` : t; })()}</td></tr>`; }).join('')}</tbody></table></div>
+          const tt = pr.source === 'hourly' ? t + ' · the crew bill this by the hour and the card charges it by the metre, so no per-metre cost is put on it; the hours are on the green book. Type a per-metre cost over it if one is agreed.' : t;
+          return tt.length > 160 ? `<div class="clamp">${tt}</div><button type="button" class="linkish clampbtn" data-clamp>more</button>` : tt; })()}</td></tr>`; }).join('')}</tbody></table></div>
     ${(() => { const neg = FCOL.filter(c => { const r = fenceRateFor(c.key), pr = fenceCostFor(c.key); return r.value != null && pr.value != null && r.value < pr.value; });
       return neg.length ? `<p class="norate"><b>${neg.length === 1 ? 'One line costs more than it charges' : neg.length + ' lines cost more than they charge'}:</b> ${
         neg.map(c => esc(c.name_as_written) + ' — paid ' + esc(money(fenceCostFor(c.key).value)) + ' against ' + esc(money(fenceRateFor(c.key).value)) + ' charged').join('; ')}.
