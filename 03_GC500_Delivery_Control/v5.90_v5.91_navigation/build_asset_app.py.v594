@@ -6688,11 +6688,12 @@ function webLink(u){
 }
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => (
   {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const money = v => (v == null || v === '' || !Number.isFinite(Number(v))) ? null :
-  Number(v).toLocaleString('en-AU', {style:'currency', currency:'AUD', maximumFractionDigits:2});
+/* v5.94 - the formatters are made once; toLocaleString with options built one per call, thousands of times a draw */
+const MONEY_FMT = new Intl.NumberFormat('en-AU', {style:'currency', currency:'AUD', maximumFractionDigits:2});
+const MONEY0_FMT = new Intl.NumberFormat('en-AU', {style:'currency', currency:'AUD', maximumFractionDigits:0});
+const money = v => (v == null || v === '' || !Number.isFinite(Number(v))) ? null : MONEY_FMT.format(Number(v));
 /* a running total to the dollar — the cents on a figure that is already rounded are noise */
-const money0 = v => (v == null || v === '' || !Number.isFinite(Number(v))) ? null :
-  Math.round(Number(v)).toLocaleString('en-AU', {style:'currency', currency:'AUD', maximumFractionDigits:0});
+const money0 = v => (v == null || v === '' || !Number.isFinite(Number(v))) ? null : MONEY0_FMT.format(Math.round(Number(v)));
 /* A set of figures printed in a column with a total under it: round each one to the dollar so the parts add up
    to exactly the rounded whole, instead of each being rounded on its own and the column finishing a dollar out.
    Andrew Fisher, 12 Sep 2026: the numbers must add up. Largest remainder: every figure is its own
@@ -13564,6 +13565,9 @@ function contractItemWords(x){
   return `${x.item ? x.item + ' ' : ''}${x.description || ''}${x.qty && x.qty !== 1 ? ' × ' + x.qty : ''} — ${typeof x.charge === 'number' ? money(x.charge) + (x.how === 'charge line' ? '' : x.how === 'per day' ? ' by the rate (' + x.days + ' day' + (x.days === 1 ? '' : 's') + ')' : ' by the rate') : typeof x.rate_1 === 'number' ? money(x.rate_1) + ' rate 1' + (x.rate_type ? ' (' + x.rate_type + ')' : '') + ' — no charge worked out' : 'no figure on the line'}${x.supplier ? ' · ' + x.supplier : ''}, contract ${x.contract} line ${x.line}`;
 }
 function branchRollup(asOf, X){
+  if (X !== undefined) return branchRollup_(asOf, X);   /* a roll-up over a chosen set is not remembered */
+  const mk = 'rollup:' + (asOf || ''); if (RENDER_MEMO.has(mk)) return RENDER_MEMO.get(mk); const v = branchRollup_(asOf); RENDER_MEMO.set(mk, v); return v; }
+function branchRollup_(asOf, X){
   X = X || dsnState(asOf);
   const rows = X.rows;
   const byCode = new Map();
@@ -14832,6 +14836,8 @@ function raceRoleHours(){
   return m;
 }
 function moneySummary(asOf){
+  const mk = 'money:' + (asOf || ''); if (RENDER_MEMO.has(mk)) return RENDER_MEMO.get(mk); const v = moneySummary_(asOf); RENDER_MEMO.set(mk, v); return v; }
+function moneySummary_(asOf){
   const day = asOf || todayIso();
   const R = branchRollup(day);
   const C = R.all.contract;
@@ -31207,7 +31213,10 @@ function foldStories(root){
   });
 }
 function render(){ return holdAssets(renderPass); }
+/* v5.94 - what a draw works out once it keeps for that draw: emptied at the start of every pass */
+const RENDER_MEMO = new Map();
 function renderPass(){
+  RENDER_MEMO.clear();
   LAMP_GEN++;
   const pn = $('#printnote');
   if (pn) pn.textContent = DATA.brand.footer + ' · ' + DATA.event.name + ' · asset map printed '

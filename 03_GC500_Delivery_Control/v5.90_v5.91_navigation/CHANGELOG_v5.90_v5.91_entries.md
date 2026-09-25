@@ -52,3 +52,10 @@ first tap on a tab was lost in it; Today 4.8 s. After v5.93: 3.2 s and 1.9 s; lo
   pointer now. Every tab hit-tested on laptop and phone profiles: all reach their button.
 - The banner's race-day pod carries the full countdown: whole days, then hours:minutes:seconds to midnight on race
   day on the Gold Coast, ticking with the clock.
+
+## v5.94 — smooth, no lag, second pass
+- The money formatters are made once (toLocaleString with options built an Intl.NumberFormat per call).
+- The branch roll-up and the money summary are remembered for the length of one draw (RENDER_MEMO, emptied at
+  the start of every render pass).
+- Measured, headless: Where we are 1,918 → 480 ms; Today 923 → 275 ms; Plant 1,220 → 466 ms. Phone profile
+  throttled four times: a tap on Where we are 9.1 s → 1.9 s; Today 4.8 s → 1.5 s.
