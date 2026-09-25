@@ -4739,6 +4739,7 @@ tr.editing td{background:var(--orange-soft)}
 @media (max-width:640px){.costcats{grid-template-columns:1fr 1fr;gap:8px} .costcat{padding:8px 10px;min-height:0} .costcat .cc-amt{font-size:18px} .costcat .cc-full{display:none}}
 .tblwrap{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--paper)}
 @media(max-width:640px){main{overflow-x:hidden}.tblwrap{max-width:100%}}   /* v5.99 - a phone never scrolls the page sideways */
+@media(max-width:640px){.clotbl td,.clotbl .clowin{white-space:normal}.clotbl .clowin{display:inline}.fratetbl input.rate,.fratetbl td.frs input.rate{width:100%;max-width:120px}}
 table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
 th{position:sticky;top:0;background:var(--tint2);text-align:left;font-size:10.5px;text-transform:uppercase;
   border-right:1px solid var(--rule2);
