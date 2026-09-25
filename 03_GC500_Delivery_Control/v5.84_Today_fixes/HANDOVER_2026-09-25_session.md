@@ -9,8 +9,9 @@ Andrew Fisher · Coates Industrial Solutions · GC500 2026
    service at 21:00 AEST 25 Sep 2026: media inventory, 9 files sent and 123 already saved of 132, manifest
    registered, page uploaded (etag c16465f4de55bfd4, 6,007,509 bytes). The view link was then read back in a
    headless browser at 1440×900 and 390×844: every v5.84 change present, no console errors, no /api/reports
-   request. **Server v5.77 is unchanged.** The v5.84 kit (three zips) is also in the chat. The CW3 plan document
-   was not uploaded by this session; whether it went up from the v5.83 kit is Andrew's to confirm.
+   request. **Server v5.77 is unchanged.** The v5.84 kit (three zips) is also in the chat. The CW3 fencing installation plan
+   (`03_CW3_2026_Fencing_Installation_Plan.pdf`, kind map) was not in the library and went up the same way at 21:08
+   AEST; the library lists 237 files.
 2. The handover package (`GC500_v5.83_handover.tar.gz.part00`–`part23`, 24 parts) was being uploaded to this session
    when it closed: parts 00–19 arrived and every one matched `GC500_v5.83_handover.SHA256SUMS`; **parts 20–23 had
    not arrived.** The tree is therefore NOT in this repository yet. When the last four parts are in a session, follow
