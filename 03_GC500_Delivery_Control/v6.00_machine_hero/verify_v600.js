@@ -1,0 +1,17 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required']});
+  const base = process.argv[2]; const errs = [];
+  const page = await (await browser.newContext({viewport: {width: 1366, height: 768}})).newPage();
+  page.on('pageerror', e => errs.push('pageerror ' + e.message)); page.on('requestfailed', r => errs.push('reqfail ' + r.url().slice(-60)));
+  await page.goto(base, {waitUntil: 'load', timeout: 120000}); await page.waitForTimeout(3500);
+  const tab = await page.evaluate(() => (TABS.find(t => /coates/i.test(t[1])) || [])[0]); await page.evaluate(t => go(t), tab); await page.waitForTimeout(6000);
+  const v = await page.evaluate(() => { const v = document.querySelector('#cwHero video.cwloop'); if (!v) return null; return {src: v.currentSrc.slice(-70), poster: v.poster.slice(-50), ready: v.readyState, t: v.currentTime, paused: v.paused, w: v.videoWidth, h: v.videoHeight, box: v.getBoundingClientRect().width}; });
+  await page.waitForTimeout(2000);
+  const v2 = await page.evaluate(() => { const v = document.querySelector('#cwHero video.cwloop'); return v ? {t: v.currentTime, paused: v.paused} : null; });
+  const pic = await page.$('#cwHero'); if (pic) await pic.screenshot({path: 'shot_v600_hero.png'});
+  console.log(JSON.stringify({tab, v, v2, errs: errs.slice(0, 5)}));
+  const ph = await (await browser.newContext({viewport: {width: 390, height: 844}, deviceScaleFactor: 2, isMobile: true, hasTouch: true})).newPage();
+  await ph.goto(base, {waitUntil: 'load', timeout: 120000}); await ph.waitForTimeout(3500);
+  const cd = await ph.evaluate(() => { const c = document.querySelector('#hzcd'); const t = document.querySelector('#hzcdT'); return {cw: c.clientWidth, csw: c.scrollWidth, clock: t.textContent, tw: Math.round(t.getBoundingClientRect().width), tright: Math.round(t.getBoundingClientRect().right), cright: Math.round(c.getBoundingClientRect().right)}; });
+  await ph.screenshot({path: 'shot_v600_phone_banner.png', clip: {x: 0, y: 0, width: 390, height: 280}});
+  console.log(JSON.stringify({cd})); await browser.close(); })();
