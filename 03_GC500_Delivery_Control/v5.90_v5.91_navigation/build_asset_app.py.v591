@@ -5491,7 +5491,7 @@ nav.tabs button[aria-selected="true"]::after,.tabmore.on::after{background:linea
 .hub{align-items:stretch}
 .hubcard{--face:#fff;border-radius:14px;box-shadow:0 12px 28px -20px rgba(0,0,0,.45)}
 /* v5.91 - the photograph drawers on Documents: race cards with a strip of pictures */
-.photocats{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:4px 0 6px}
+.photocats{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:4px 0 6px}.photocats .photocat{grid-column:auto}
 .photocat{display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer;background:linear-gradient(160deg,#1f2a30,#11171b);border:1px solid #2a3338;padding:14px 16px;min-height:170px;font:inherit}
 .photocat .pstat{padding:0}.photocat .pstat span{display:block;font-weight:700;font-size:14px;color:#fff;margin-top:2px}.photocat .pstat em{display:block;font-style:normal;font-size:12px;color:#c9d1d0;margin-top:2px}
 .photocat .pstrip{display:flex;gap:6px;height:56px}.photocat .pstrip img,.photocat .pstrip i{flex:1;min-width:0;height:56px;object-fit:cover;border-radius:6px;background:#0d1114;border:1px solid #2a3338}
