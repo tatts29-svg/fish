@@ -65,6 +65,9 @@ where the sheet prints the code, never a surveyed position, and nothing is infer
 halo only. Tapping a ring picks it; Esc clears.
 
 ## Rotation and the compass
+Every view starts north-up, the same way round as the dashboard's live map and 3D satellite and the 3D proof: boot,
+Fit, the area jumps and the category views all keep north at the top, and the overview map is turned north-up too
+(N marked). As drawn (D) turns to the sheet's own orientation for anyone reading it beside the printed plan.
 The view rotates (pinch with two fingers, Alt or Shift drag, the two turn buttons, R). The rose marks N/E/S/W from
 the registration itself (north on the sheet is to the left; the sheet's top edge bears 89.87°). N snaps north-up.
 

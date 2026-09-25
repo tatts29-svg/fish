@@ -218,11 +218,17 @@ function touchInteraction() { clearTimeout(restTimer); if (!interacting) { inter
 /* hosted under /w/<token>/explorer/ the page passes the link's own token to the service; anywhere else the stand-in answers */
 function hostedToken() { const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); return m ? '?t=' + encodeURIComponent(m[1]) : ''; }
 function requestPaint() { if (!paintID && !document.hidden) paintID = requestAnimationFrame(draw); }
+/* the overview map is kept north-up like every other map here; the sheet is turned inside its box once */
+function miniNorthUp() { const rot = GEO ? northRot() : 0, box = $('mini'), inner = $('miniInner'); const r = rot * Math.PI / 180, c = Math.abs(Math.cos(r)), si = Math.abs(Math.sin(r)); const W = 200, H = W * SHEET_H / SHEET_W, bw = Math.ceil(W * c + H * si), bh = Math.ceil(W * si + H * c); box.style.width = bw + 'px'; box.style.height = bh + 'px'; inner.style.width = W + 'px'; inner.style.height = H + 'px'; inner.style.left = ((bw - W) / 2) + 'px'; inner.style.top = ((bh - H) / 2) + 'px'; inner.style.transform = 'rotate(' + rot + 'deg)'; }
 function updateMini(v) { const c = v.corners; $('miniRect').setAttribute('points', [c[0], c[1], c[3], c[2]].map(p => clamp(p.x, 0, SHEET_W) + ',' + clamp(p.y, 0, SHEET_H)).join(' ')); updateCompass(); }
 /* the compass: north on the sheet comes from the registration (tile 'up' pulled back through the affine) */
 function northOnSheet() { if (!GEO) return null; const M = GEO.main.sheet_to_z18px, a = M[0][0], b = M[0][1], c = M[1][0], d = M[1][1], det = a * d - b * c; const nx = (-b * -1) / det, ny = (a * -1) / det; const l = Math.hypot(nx, ny); return {x: nx / l, y: ny / l}; }
 function updateCompass() { const n = northOnSheet(), el = $('compass'); if (!n || !el) return; const ang = Math.atan2(n.y, n.x) * 180 / Math.PI + camera.rot + 90; el.style.transform = 'rotate(' + ang + 'deg)'; $('rotOut').textContent = Math.round(((camera.rot % 360) + 360) % 360) + '°'; }
-function northUp(animate = true) { const n = northOnSheet(); if (!n) return; rotateTo(-90 - Math.atan2(n.y, n.x) * 180 / Math.PI, animate); }
+function northRot() { const n = northOnSheet(); return n ? -90 - Math.atan2(n.y, n.x) * 180 / Math.PI : 0; }
+function northUp(animate = true) { if (!GEO) return; rotateTo(northRot(), animate); }
+function asDrawn(animate = true) { rotateTo(0, animate); }
+/* the zoom that fits a sheet-space rectangle at a rotation: the rotated extents, not the sheet's own */
+function fitZoomFor(w, h, rot, margin) { const r = rot * Math.PI / 180, c = Math.abs(Math.cos(r)), si = Math.abs(Math.sin(r)), ew = w * c + h * si, eh = w * si + h * c; return Math.min((sw - margin) / Math.max(1, ew), (sh - margin) / Math.max(1, eh)) / fitScale; }
 let rotAnim = 0;
 function rotateTo(deg, animate = true) { cancelAnimationFrame(rotAnim); const from = camera.rot, d = ((deg - from + 540) % 360) - 180; if (!animate || matchMedia('(prefers-reduced-motion:reduce)').matches) { camera.rot = from + d; changeView(false); return; }
   const t0 = performance.now(); (function step() { const k = Math.min(1, (performance.now() - t0) / 320), e = 1 - Math.pow(1 - k, 3); camera.rot = from + d * e; changeView(false); if (k < 1) rotAnim = requestAnimationFrame(step); })(); }
@@ -234,8 +240,8 @@ function changeView(resetLabel = true) {
   dropVTQueue(); requestPaint();
 }
 function zoomBy(factor, x = sw / 2, y = sh / 2) { touchInteraction(); const a = screenToSource(x, y); camera.z = clamp(camera.z * factor, MIN_Z, MAX_Z); keepUnder(a, x, y); changeView(); }
-function fit() { highlight = null; camera = {cx: 1192, cy: 842, z: 1, rot: 0}; setLabel('Full master plan'); document.querySelectorAll('.jump.active').forEach(e => e.classList.remove('active')); changeView(false); }
-function gotoRect(rect, label) { document.querySelectorAll('.jump.active').forEach(e => e.classList.remove('active')); const [x0, y0, x1, y1] = rect, s = Math.min((sw - 65) / Math.max(1, x1 - x0), (sh - 65) / Math.max(1, y1 - y0)); camera = {cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, z: clamp(s / fitScale, MIN_Z, MAX_Z), rot: camera.rot || 0}; setLabel(label); changeView(false); }
+function fit() { highlight = null; const rot = GEO ? northRot() : 0; camera = {cx: 1192, cy: 842, z: clamp(fitZoomFor(SHEET_W, SHEET_H, rot, 30), MIN_Z, MAX_Z), rot}; setLabel('Full master plan · north up'); document.querySelectorAll('.jump.active').forEach(e => e.classList.remove('active')); changeView(false); }
+function gotoRect(rect, label) { document.querySelectorAll('.jump.active').forEach(e => e.classList.remove('active')); const [x0, y0, x1, y1] = rect, rot = camera.rot || 0; camera = {cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, z: clamp(fitZoomFor(x1 - x0, y1 - y0, rot, 65), MIN_Z, MAX_Z), rot}; setLabel(label); changeView(false); }
 /* the drawing's geometry lives in a worker (scene-worker.js); the page asks it for the SVG of a view and never builds
    250,000 path strings on the thread that is answering the pointer */
 let worker = null, svgSeq = 0; const svgWaiting = new Map();
@@ -360,14 +366,16 @@ function chooseResult(i) { const b = $('results').querySelector('[data-code]'); 
 $('q').addEventListener('input', search); $('q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); chooseResult(0); } if (e.key === 'Escape') { $('q').value = ''; search(); stage.focus(); } });
 $('results').onclick = e => { const c = e.target.closest('[data-code]'); if (c) { selectCode(c.dataset.code); document.body.classList.remove('nav'); return; } const b = e.target.closest('[data-result]'); if (b) chooseResult(+b.dataset.result); };
 $('jumps').onclick = e => { const b = e.target.closest('[data-region]'); if (!b) return; const r = regions[+b.dataset.region]; highlight = null; gotoRect(r.rect, r.name); b.classList.add('active'); document.body.classList.remove('nav'); };
-$('northBtn').onclick = () => northUp(); $('rotL').onclick = () => rotateTo(camera.rot - 15); $('rotR').onclick = () => rotateTo(camera.rot + 15);
+$('northBtn').onclick = () => northUp(); $('sheetBtn').onclick = () => asDrawn(); $('rotL').onclick = () => rotateTo(camera.rot - 15); $('rotR').onclick = () => rotateTo(camera.rot + 15);
 $('zoomIn').onclick = () => zoomBy(1.5); $('zoomOut').onclick = () => zoomBy(1 / 1.5); $('fitBtn').onclick = fit;
 $('boxBtn').onclick = () => setBox(!boxMode); function setBox(on) { boxMode = on; stage.classList.toggle('box', on); $('boxBtn').setAttribute('aria-pressed', String(on)); if (on) toast('Drag a box around the area to inspect. Esc cancels.'); }
 $('fullBtn').onclick = async () => { try { if (document.fullscreenElement) await document.exitFullscreen(); else await document.documentElement.requestFullscreen(); } catch (_) {} };
 document.addEventListener('fullscreenchange', () => setTimeout(resize, 50));
 function applyZoomInput() { const n = Number($('zoomInput').value.replace(/[,\s%]/g, '')); if (Number.isFinite(n) && n > 0) { camera.z = clamp(n / 100, MIN_Z, MAX_Z); changeView(); } else toast('Enter a zoom between 50 and 64,000 per cent.'); $('zoomInput').value = Math.round(camera.z * 100).toLocaleString('en-AU') + '%'; }
 $('zoomInput').onfocus = () => $('zoomInput').select(); $('zoomInput').onchange = applyZoomInput; $('zoomInput').onkeydown = e => { if (e.key === 'Enter') { applyZoomInput(); $('zoomInput').blur(); } e.stopPropagation(); };
-let miniDown = false; function moveMini(e) { const r = $('mini').getBoundingClientRect(); camera.cx = clamp((e.clientX - r.left) / r.width, 0, 1) * SHEET_W; camera.cy = clamp((e.clientY - r.top) / r.height, 0, 1) * SHEET_H; highlight = null; changeView(); }
+let miniDown = false; function moveMini(e) { const r = $('mini').getBoundingClientRect(), inner = $('miniInner'), W = inner.offsetWidth || 1, H = inner.offsetHeight || 1, rot = (GEO ? northRot() : 0) * Math.PI / 180;
+  const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), ux = dx * Math.cos(rot) + dy * Math.sin(rot), uy = -dx * Math.sin(rot) + dy * Math.cos(rot);   /* undo the box's turn */
+  camera.cx = clamp(ux / W + .5, 0, 1) * SHEET_W; camera.cy = clamp(uy / H + .5, 0, 1) * SHEET_H; highlight = null; changeView(); }
 $('mini').onpointerdown = e => { e.preventDefault(); miniDown = true; $('mini').setPointerCapture(e.pointerId); moveMini(e); }; $('mini').onpointermove = e => { if (miniDown) moveMini(e); }; $('mini').onpointerup = $('mini').onpointercancel = () => { miniDown = false; };
 /* export: the same chain at 3840 px on the long edge; tiles awaited; attribution stamped; incomplete loads are said */
 $('exportBtn').onclick = async () => {
@@ -418,11 +426,11 @@ function endPointer(e) { if (!pointers.has(e.pointerId)) return; const p = stage
   pointers.delete(e.pointerId); pinch = null; gestureStart = null; if (pointers.size === 1) { const one = [...pointers.values()][0]; gestureStart = {p: one, cx: camera.cx, cy: camera.cy, t: performance.now(), moved: true, type: e.pointerType}; } if (!pointers.size) { stage.classList.remove('dragging'); changeView(false); } }
 stage.addEventListener('pointerup', endPointer); stage.addEventListener('pointercancel', e => { lastTap = null; endPointer(e); });
 window.addEventListener('keydown', e => { if (e.target.matches('input,textarea,select') || e.ctrlKey || e.metaKey || e.altKey) return; const key = e.key.toLowerCase();
-  if (!['+', '=', '-', '_', 'home', '0', 'z', '/', 'escape', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown', '1', '2', '3', 'r', 'n'].includes(key)) return; e.preventDefault();
+  if (!['+', '=', '-', '_', 'home', '0', 'z', '/', 'escape', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown', '1', '2', '3', 'r', 'n', 'd'].includes(key)) return; e.preventDefault();
   if (key === '+' || key === '=') zoomBy(1.5); else if (key === '-' || key === '_') zoomBy(1 / 1.5); else if (key === 'home' || key === '0') fit(); else if (key === 'z') setBox(!boxMode); else if (key === '/') { document.body.classList.add('nav'); $('q').focus(); }
   else if (key === '1') setMode('original'); else if (key === '2') setMode('hybrid'); else if (key === '3') setMode('satellite');
   else if (key === 'escape') { setBox(false); highlight = null; marks = []; selected = null; stopPulse(); document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', 'false')); $('findList').classList.remove('show'); $('sel').style.display = 'none'; boxStart = null; $('legend').classList.remove('show'); document.body.classList.remove('nav'); requestPaint(); }
-  else if (key === 'r') rotateTo(camera.rot + (e.shiftKey ? -15 : 15)); else if (key === 'n') northUp();
+  else if (key === 'r') rotateTo(camera.rot + (e.shiftKey ? -15 : 15)); else if (key === 'n') northUp(); else if (key === 'd') asDrawn();
   else { const amount = (e.shiftKey ? 240 : 90) / (fitScale * camera.z), r = camera.rot * Math.PI / 180, dx = key === 'arrowleft' ? -1 : key === 'arrowright' ? 1 : 0, dy = key === 'arrowup' ? -1 : key === 'arrowdown' ? 1 : 0;
     camera.cx += amount * (dx * Math.cos(r) + dy * Math.sin(r)); camera.cy += amount * (-dx * Math.sin(r) + dy * Math.cos(r)); changeView(); } });
 document.addEventListener('visibilitychange', () => { if (document.hidden) { cancelTiles(); dropVTQueue(); } else requestPaint(); });
@@ -444,7 +452,7 @@ async function boot() {
     REG = await fetch('assets/register.json').then(r => r.ok ? r.json() : null).catch(() => null); buildItems();
     $('bar').style.width = '80%'; $('loadText').textContent = 'Building the detail index…';
     if (GEO && GEO.pdf_sha256 !== P.meta.sha256) { GEO = null; toast('The georeferencing file is for a different revision of the drawing; satellite alignment is off until it is redone.', 9000); }
-    alignmentPanel(); ready = true; $('q').disabled = false; $('bar').style.width = '100%'; changeView(false); await frame(); $('loader').classList.add('done'); window.__ready = true; perfText();
+    alignmentPanel(); ready = true; $('q').disabled = false; $('bar').style.width = '100%'; fit(); miniNorthUp(); await frame(); $('loader').classList.add('done'); window.__ready = true; perfText();
     if (location.hash === '#hybrid') setMode('hybrid'); if (location.hash === '#satellite') setMode('satellite');
   } catch (e) { console.error(e); $('loadText').textContent = e.message || 'The drawing could not be loaded.'; window.__bootError = String(e); }
 }
