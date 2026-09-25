@@ -38,3 +38,17 @@ replacements, also applied to `print/build_asset_app.py`). Uploaded with `upload
 - Limit: the illustrative banners are 1800 × 600 (a few 2600 × 1837) and are shown about 1900 CSS px wide, so a
   4K or Retina screen upscales them roughly two times. Everything drawn by the page (cards, gauge, lights, type)
   is vector and crisp at any size; the photographs need originals of about 3800 px wide to match.
+
+## v5.93 — smooth, no lag
+Measured on a phone profile throttled four times (Playwright, CPU ×4): Where we are took 9.1 s to draw and the
+first tap on a tab was lost in it; Today 4.8 s. After v5.93: 3.2 s and 1.9 s; long tasks after load 38.8 s → 16 s.
+- `isoIn()` built a new Intl.DateTimeFormat on every call, thousands of times a render: one formatter, made once;
+  `todayIso()` cached for a second.
+- `fitKpis()` read then wrote once instead of shrinking and measuring in a loop (a layout per step per figure).
+- Plant paints its plant lines first and draws the register 40 ms later.
+- A tapped tab lights up on the same frame; its page is drawn on the next, so the press is answered at once.
+- THE LOST FIRST TAP, FOUND: the header car's reflection (v5.87, `.hzcarref`, absolute, 84 px below the brand
+  row) sat over Today and Where we are in the tab bar and took the tap meant for them. No header decoration takes a
+  pointer now. Every tab hit-tested on laptop and phone profiles: all reach their button.
+- The banner's race-day pod carries the full countdown: whole days, then hours:minutes:seconds to midnight on race
+  day on the Gold Coast, ticking with the clock.

@@ -5368,7 +5368,10 @@ header.top::before{background:linear-gradient(90deg,#ff9a4d,#ff6a13 45%,#ff6a13 
 .hzcar::after{top:50px;width:200px;left:-60px;opacity:.6}
 .hzcarimg,.hzcarref{display:block;background:var(--hzcar) 0 0/100% auto no-repeat;aspect-ratio:1000/367}
 .hzcarimg{position:absolute;left:0;top:-4px;width:228px;z-index:2;filter:drop-shadow(0 6px 6px rgba(0,0,0,.7))}
-.hzcarref{position:absolute;left:0;top:68px;width:228px;transform:scaleY(-1);opacity:.2;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 70%);mask-image:linear-gradient(180deg,transparent 0%,#000 70%)}
+.hzcarref{position:absolute;left:0;top:68px;width:228px;transform:scaleY(-1);opacity:.2;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 70%);mask-image:linear-gradient(180deg,transparent 0%,#000 70%);pointer-events:none}
+/* v5.93 - THE LOST FIRST TAP, FOUND: the car's reflection (v5.87) hung 84 px below the brand row, over Today and
+   Where we are in the tab bar, and took the tap meant for them. No decoration in the header takes a pointer now. */
+.brandrow .hzcarref,.brandrow .hzcar img,.hzscene,.hzscene *{pointer-events:none}
 .lockup .mark{display:none}
 #bOrg{font:800 10.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.24em;text-transform:uppercase;color:#e2d6cb;text-shadow:0 1px 2px #000,0 0 12px rgba(0,0,0,.8)}
 .wordmark{gap:10px;margin-top:5px;align-items:center}
@@ -5399,6 +5402,10 @@ header.top::before{background:linear-gradient(90deg,#ff9a4d,#ff6a13 45%,#ff6a13 
 .hzpod .lab,.recstrip .rsw b{font:700 9.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:#a9b4b3;text-shadow:0 1px 0 #000}
 .hzpod .num{display:block;margin-top:3px;font:700 30px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;color:#f4f7f6;white-space:nowrap;letter-spacing:-.005em;text-shadow:0 0 1px #fff,0 0 12px rgba(255,255,255,.18),0 2px 3px rgba(0,0,0,.8)}
 .hzpod .num small{font:600 11px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.16em;margin-left:7px;color:#b8c2c1;vertical-align:.32em;text-shadow:none}
+.hzpod .num small.cdt{font:700 16px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;letter-spacing:.04em;color:#ff9a4d;vertical-align:.22em;margin-left:9px;font-variant-numeric:tabular-nums;text-shadow:0 0 8px rgba(255,106,19,.35)}
+.hzpod .num small.cdt:empty{display:none}
+/* v5.93 - a tapped tab answers at once: lit while its page is drawn */
+nav.tabs button.busy,#tabMoreMenu button.busy{color:#fff;background:rgba(255,106,19,.16)}
 .hzpod .sub,.recstrip .rsw em{display:block;margin-top:4px;font:600 9.5px/1.2 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.1em;text-transform:uppercase;color:#a9b4b3;white-space:nowrap;font-style:normal;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .hzpod.hzcd{max-width:236px;min-width:0}
 .rail{position:relative;height:18px;margin-top:5px;width:100%;min-width:150px}
@@ -6528,7 +6535,7 @@ body.printing-sheet .app, body.printing-sheet header.top, body.printing-sheet #f
         and DATA.weeks, worked out once a day (hzCountdown), never a record. -->
    <div class="hzpod hzcd" id="hzcd" role="group" aria-label="Countdown to race day">
      <span class="lab" id="hzcdLab">Race day</span>
-     <span class="num"><b id="hzcdN">—</b><small id="hzcdU">DAYS</small></span>
+     <span class="num"><b id="hzcdN">—</b><small id="hzcdU">DAYS</small><small class="cdt" id="hzcdT" aria-label="hours, minutes and seconds to race day"></small></span>
      <div class="rail" id="hzrail" aria-hidden="true"><span class="track"></span><span class="done"></span><span class="wks"></span><span class="flag"></span><i class="car"></i><span class="lb s"></span><span class="lb e"></span></div>
      <span class="sub" id="hzcdSub"></span>
    </div>
@@ -9456,10 +9463,11 @@ function renderTabs(){
     const b = e.target.closest('[role="tab"][data-tab]'); if (b) { closeTabMore();
       /* the tab you are already on, pressed again, takes you to its top — the one press every phone tab bar answers */
       if (b.dataset.tab === state.tab) { TAB_SCROLL[state.tab] = 0; navScrollTo(0); return; }
-      go(b.dataset.tab); } };
+      /* v5.93 - the tapped tab lights up on this frame; its page is drawn on the next, so the press is answered at once */
+      b.classList.add('busy'); requestAnimationFrame(() => setTimeout(() => { go(b.dataset.tab); }, 0)); } };
   const tm = $('#tabMoreMenu');
   if (tm) {
-    tm.onclick = e => { const g = e.target.closest('[data-goto]'); if (g) { closeTabMore(); go(g.dataset.goto); } };
+    tm.onclick = e => { const g = e.target.closest('[data-goto]'); if (g) { closeTabMore(); g.classList.add('busy'); requestAnimationFrame(() => setTimeout(() => go(g.dataset.goto), 0)); } };
     tm.onkeydown = e => {
       if (e.key === 'Escape') { closeTabMore(); const b = $('#tabMore'); if (b) b.focus(); e.preventDefault(); return; }
       if (!['ArrowDown','ArrowUp','ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
@@ -22934,16 +22942,22 @@ const EVENT_TZ = 'Australia/Brisbane';
 /* the short name for an instrument face, where "Boost Mobile Gold Coast 500" will not fit. It is the project's
    own name for itself, the one on every printed footer — never an abbreviation invented here. */
 const EVENT_SHORT = 'GC500';
+/* v5.93 - ONE formatter, made once. This used to build a new Intl.DateTimeFormat on every call — and a render of
+   Where we are calls it thousands of times — which was most of the time a phone spent drawing a page. */
+let ISO_FMT = null;
 function isoIn(when){
   const t = when instanceof Date ? when : new Date(when);
   if (isNaN(t)) return '';
   try {
-    const s = new Intl.DateTimeFormat('en-CA', {timeZone: EVENT_TZ, year: 'numeric', month: '2-digit', day: '2-digit'}).format(t);
+    if (!ISO_FMT) ISO_FMT = new Intl.DateTimeFormat('en-CA', {timeZone: EVENT_TZ, year: 'numeric', month: '2-digit', day: '2-digit'});
+    const s = ISO_FMT.format(t);
     if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
   } catch (e) {}
   return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
 }
-const todayIso = () => isoIn(new Date());
+/* today's date on the Gold Coast, asked for constantly during a render: worked out once a second */
+const TODAY_ISO = {at: 0, v: ''};
+const todayIso = () => { const now = Date.now(); if (!TODAY_ISO.v || now - TODAY_ISO.at > 1000) { TODAY_ISO.v = isoIn(new Date(now)); TODAY_ISO.at = now; } return TODAY_ISO.v; };
 /* the day to show first: today if it is a programme day, otherwise the next one coming, otherwise the last */
 function pickDay(days){
   if (state.day && days.some(d => d.iso === state.day)) return state.day;
@@ -26756,7 +26770,19 @@ function hzCountdown(){
   }
   el.title = span ? `The programme, ${fmtDate(start)} to ${fmtDate(end)}` + (race ? ` · race day ${fmtDate(race)}` : '') : '';
 }
+/* v5.93 - the banner's race-day pod carries the full countdown: whole days, then hours:minutes:seconds to midnight
+   on race day on the Gold Coast, ticking with the clock */
+function hzCountdownTick(at){
+  const el = $('#hzcdT'); if (!el) return;
+  const race = (DATA.race_days || [])[0]; if (!race) { el.textContent = ''; return; }
+  const left = new Date(race + 'T00:00:00+10:00') - (at instanceof Date ? at.getTime() : (at || Date.now()));
+  if (!(left > 0)) { el.textContent = ''; return; }
+  const d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24, m = Math.floor(left / 60000) % 60, sec = Math.floor(left / 1000) % 60;
+  const n = $('#hzcdN'), u = $('#hzcdU'); if (n && n.textContent !== String(d)) { n.textContent = String(d); if (u) u.textContent = d === 1 ? 'DAY' : 'DAYS'; }
+  el.textContent = [h, m, sec].map(x => String(x).padStart(2, '0')).join(':');
+}
 function tpodPaint(at){
+  hzCountdownTick(at);
   const r = tpodRead(at), num = $('#tpodNum');
   if (!num) return r;
   const pod = $('#tpod'), cd = r.mode === 'countdown';
@@ -31192,7 +31218,7 @@ function renderPass(){
   else if (state.tab === 'map') renderMap();
   else if (state.tab === 'docs') renderDocs();
   else if (state.tab === 'register') renderRegister();
-  else if (state.tab === 'plant') { renderPlant(); plantCarriesRegister(); }
+  else if (state.tab === 'plant') { renderPlant(); setTimeout(() => { if (state.tab === 'plant' && !$('#pane-plant #pane-register')) plantCarriesRegister(); }, 40); }   /* v5.93 - plant lines paint first, the register a moment later */
   else if (state.tab === 'variances') renderVariances();
   else if (state.tab === 'fencing') renderFencing();
   else if (state.tab === 'prestarts') renderPrestarts();
@@ -31216,12 +31242,11 @@ function renderPass(){
    reads as a different number. A tile's value now never wraps inside itself; when it is wider than the tile it
    is stepped down in size until it fits, and the tile's own words are the only thing that wrap. */
 function fitKpis(){
-  document.querySelectorAll('.kpi .v').forEach(v => {
-    v.style.fontSize = '';
-    if (v.scrollWidth <= v.clientWidth + 1) return;
-    let px = parseFloat(getComputedStyle(v).fontSize) || 38;
-    for (let i = 0; i < 12 && v.scrollWidth > v.clientWidth + 1 && px > 16; i++) { px -= 2; v.style.fontSize = px + 'px'; }
-  });
+  /* v5.93 - read everything, then write once: the loop of shrink-and-measure forced a layout per step per figure */
+  const els = [...document.querySelectorAll('.pane.on .kpi .v')]; if (!els.length) return;
+  els.forEach(v => { v.style.fontSize = ''; });
+  const m = els.map(v => ({v, sw: v.scrollWidth, cw: v.clientWidth, px: parseFloat(getComputedStyle(v).fontSize) || 38}));
+  m.forEach(({v, sw, cw, px}) => { if (sw > cw + 1) v.style.fontSize = Math.max(16, Math.floor(px * cw / sw) - 1) + 'px'; });
 }
 window.addEventListener('resize', () => { try { fitKpis(); } catch (e) {} });
 /* ------------------------------------------------------------------ ONE capability value
