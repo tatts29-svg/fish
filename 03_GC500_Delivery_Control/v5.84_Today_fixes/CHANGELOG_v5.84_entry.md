@@ -37,6 +37,14 @@ page, not guessed at, and each is fixed in `print/build_asset_app.py` with a not
   4.5:1 on their tints; a figure never wraps away from its unit ("1302.5 / m"); the weather's reading time is in
   the page's own date form.
 
+**Checked, and not checked.** The page was checked in headless Chromium at 1440×900 and 390×844, light and dark,
+served locally with the live record and the v5.83 media: no script errors, no request to /api/reports from the view
+link, the dial's figure clear of its labels at both widths, no tile outside its card, no horizontal scroll, WCAG AA
+contrast clean on Today apart from the white-on-green Complete tick that was already there. **The gate, the seal and
+`tests/` are PENDING** — this session had 20 of the 24 handover parts and no `tests/` folder, so nothing in
+`build_all.py` was run; the next session with the whole tree runs `python3 tests/test_v583.py` and the gate before
+this is called a release.
+
 Not changed, and said here so nobody looks for it: the counts that disagree on the same screen (2 due and all
 recorded; 8 recorded today; behind by 10 units; 58 dockets against 54 lines) are each right by their own
 definition and the definitions are not on the page — that is a wording decision for Andrew, not a defect; the

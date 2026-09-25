@@ -10,6 +10,7 @@ the view link's Today view and the fix that came out of it.
 | `patch_v584.py` | Applies the 26 fixes to a v5.83 `print/build_asset_app.py` or to a built v5.83 page: `python patch_v584.py <file>`; it stops and changes nothing if any replacement does not match exactly once |
 | `build_asset_app_v5.83_to_v5.84.diff` | The same change as a unified diff against the v5.83 builder |
 | `CHANGELOG_v5.84_entry.md` | The entry for the package's `docs/CHANGELOG.md` |
+| `HANDOVER_2026-09-25_session.md` | Where this session left things, and what the next one does first |
 
 The deployable page (`GC500_Delivery_Control_hosted.html`, 5.9 MB) and the patched builder were sent to Andrew as
 `GC500_v5.84_page_fix_kit.zip`; they are not committed here. Upload is one file on the service's admin page; no
