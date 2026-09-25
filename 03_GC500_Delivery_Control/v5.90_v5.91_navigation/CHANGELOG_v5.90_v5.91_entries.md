@@ -90,3 +90,11 @@ The tracker's $100 on the relocation line is the crew's hourly rate. The page ha
 "what we pay" side (137.5 m → $13,750 that was never a cost). Now: the line reads $100.00 an hour, by the hour not
 the metre; no per-metre cost is put on relocation metres (their hours are on the green book); the margin is a dash;
 a typed per-metre cost still overrides. Fencing "Coates pays" moved from $75,177 to $61,427 as a result.
+
+## v5.99 — the tidy after the sweep
+`sweep.js` (Playwright) opened every page on the view and edit links, laptop and phone, with a click-fuzz of every
+safe control: no script errors, no failed requests, no broken images. What it found, fixed here: copy that named
+pages now set aside (Register → Plant; Edit and Add → Tools → Edit; the Variances button became plain words); the
+Plant table grown to eleven columns (back to seven: dates together, contract under the asset number, the drawing
+chip on the ID; 1,370 px on a 1,440 laptop); the Today hub card says Open Plant; Edit stays reachable under Tools
+on an editing link only (put back, add an asset), never on a view link; the closure table sized for a phone.

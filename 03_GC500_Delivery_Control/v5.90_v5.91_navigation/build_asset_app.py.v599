@@ -4263,6 +4263,7 @@ body.viewonly main input:disabled, body.viewonly main select:disabled, body.view
 body.viewonly #drawer input:disabled, body.viewonly #drawer select:disabled, body.viewonly #drawer textarea:disabled{
   opacity:.55;cursor:not-allowed;background:var(--tint2)}
 .clotbl td{vertical-align:middle}
+@media(max-width:640px){.clotbl{width:100%;table-layout:fixed}.clotbl th,.clotbl td{white-space:normal;word-break:break-word}}
 .clotbl tr.on{background:var(--tint2)}
 b.clowin{font-size:15px;letter-spacing:.2px}
 .clolist{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
@@ -7639,7 +7640,7 @@ function giveLineReference(taskId, ref){
   taskId = String(taskId || '').trim().toUpperCase(); ref = String(ref || '').trim().toUpperCase();
   const who = whoAmI(); if (!who) return false;
   const line = PLANT_LINES.find(l => l.key === taskId);
-  if (!line) { flash(taskId + ' is not one of the schedule rows carried under its task id — only those can be given a reference. Anything else is added on the Add tab.'); return false; }
+  if (!line) { flash(taskId + ' is not one of the schedule rows carried under its task id — only those can be given a reference. Anything else is added under Tools → Edit, Add an asset.'); return false; }
   if (givenRefOf(taskId)) { flash(taskId + ' already carries the reference ' + givenRefOf(taskId).ref + ' — take that off first if it is wrong.'); return false; }
   if (!GIVEN_REF_RE.test(ref)) { flash('A reference is letters and digits, starting with a letter, up to 12 characters — P70, GN30, WC90. Nothing recorded.'); return false; }
   if (allAssets().some(a => a.key === ref) || PLANT_LINES.some(l => l.key === ref) || taskIdOfRef(ref)) { flash(ref + ' is already a reference on this job — pick one nobody else has. Nothing recorded.'); return false; }
@@ -9449,7 +9450,8 @@ function renderTabs(){
   const inMore = k => !tabPrimary().includes(k);
   const tabBtn = ([k, l]) => `<button role="tab" id="tab-${k}" data-tab="${k}" aria-controls="pane-${k}"${TAB_SHORT[k] ? ` aria-label="${esc(l)}"` : ''}
        aria-selected="${state.tab===k}" tabindex="${state.tab===k?0:-1}">${tabGlyph(k)}<span class="tw">${TAB_WORDS[k] || esc(TAB_SHORT[k] || l)}</span>${dot(k)}</button>`;
-  const hidden = TABS.filter(([k]) => inMore(k) && !TABS_OFF.has(k));
+  const editOk = k => k === 'edit' && typeof canEdit === 'function' && canEdit();   /* v5.99 */
+  const hidden = TABS.filter(([k]) => inMore(k) && (!TABS_OFF.has(k) || editOk(k)));
   const here = hidden.find(([k]) => k === state.tab);
   const attnInMore = hidden.filter(([k]) => dot(k)).length;
   /* v5.96 - no More: the bar is the primary views, plus the one you are on when it is not one of them; every view
@@ -9464,7 +9466,7 @@ function renderTabs(){
   /* the same list again in the primary bar's More menu, so a phone that has the bar open but the nav row
      scrolled away can still reach every view */
   const mv = $('#mmViews');
-  if (mv) mv.innerHTML = TABS.filter(([k]) => !TABS_OFF.has(k)).map(([k, l]) => `<button class="btn" role="menuitem" data-goto="${k}"${
+  if (mv) mv.innerHTML = TABS.filter(([k]) => !TABS_OFF.has(k) || editOk(k)).map(([k, l]) => `<button class="btn" role="menuitem" data-goto="${k}"${
     state.tab === k ? ' aria-current="page"' : ''}>${l}${dot(k)}</button>`).join('');
   const eb = $('#exportBtn');
   if (eb) { eb.innerHTML = 'Export' + (att.export ? `<i class="dot" title="${att.export} change${att.export > 1 ? 's' : ''} since the last export"></i>` : '');
@@ -9529,7 +9531,7 @@ function countUpFigures(tab){
 }
 function go(tab){ if (!TABS.some(([k]) => k === tab)) tab = 'today';
   if (tab === 'register') tab = 'plant';   /* v5.91 - the register is on the Plant page */
-  if (TABS_OFF.has(tab)) { const l = (TABS.find(([k]) => k === tab) || [])[1] || tab; flash('The ' + l + ' page has been set aside (Andrew Fisher, 25 Sep 2026).'); tab = 'today'; }
+  if (TABS_OFF.has(tab) && !(tab === 'edit' && typeof canEdit === 'function' && canEdit())) { const l = (TABS.find(([k]) => k === tab) || [])[1] || tab;   /* v5.99 - Edit stays open to an editing link, under Tools */ flash('The ' + l + ' page has been set aside (Andrew Fisher, 25 Sep 2026).'); tab = 'today'; }
   /* v5.57 — a pane about to be redrawn for the search is drawn now, not after the tab has moved: a redraw
      landing on the pane you just left is work nobody sees, and one landing a moment after you arrive is a flicker */
   if (typeof searchTimer !== 'undefined' && searchTimer) { clearTimeout(searchTimer); searchTimer = null; }
@@ -10034,7 +10036,7 @@ function renderToday(){
     <div class="card hubcard tabsoff${un ? ' alert' : ''}" data-go="variances">
       <div class="hubtitle"><h3>Variances</h3>${un ? `<span class="chip crit">${un} with nobody's name</span>` : vars.length ? '<span class="chip ok">all attributed</span>' : ''}</div>
       <div class="hubbig"><b>${vars.length}</b> on the register <span class="w">·</span> ${vars.filter(v => v._where === 'local').length} ${SYNC.on ? 'in the shared record' : 'in this browser only'}</div>
-      <div class="hubgo">Open the registers →</div>
+      <div class="hubgo">Open Plant →</div>
     </div>
     <div class="card hubcard tabsoff${bdStop.length ? ' alert' : ''}" data-go="breakdowns">
       <div class="hubtitle"><h3>Breakdowns</h3>${bdStop.length ? `<span class="chip crit">${bdStop.length} stopping work</span>` : bdOpen.length ? `<span class="chip act">${bdOpen.length} open</span>` : '<span class="chip ok">none open</span>'}</div>
@@ -11079,7 +11081,7 @@ function emptyCallout(sh, labels){
     ${can ? `<p class="norate" style="margin:0 6px 8px">If something is standing here, say what: the reference it belongs to, its asset number, its name on site. The marker lights up from this record.</p>
       ${unitForm(null, {sheet: sh.sheet_id, callout: label})}
       <div class="mkpick-or"><span>or</span></div>
-      <button type="button" class="mkpick-i" data-addhere><b>Add an asset the schedule does not carry</b><span class="w">opens the Add tab with this place filled in</span></button>`
+      <button type="button" class="mkpick-i" data-addhere><b>Add an asset the schedule does not carry</b><span class="w">opens Edit, under Tools, with this place filled in</span></button>`
         : `<p class="norate" style="margin:0 6px 8px">This link can view the record but not add to it.</p>`}`;
   mounted(document.body.appendChild(d));
   const close = () => { d.remove(); document.removeEventListener('keydown', onKey); };
@@ -11088,7 +11090,7 @@ function emptyCallout(sh, labels){
   d.querySelector('.close').onclick = close;
   wireUnitForm(d, ref => { close(); state.unit = null; renderMap(); });
   const add = d.querySelector('[data-addhere]');
-  if (add) add.onclick = () => { close(); state.addPrefill = {loc: where, sheet: sh.sheet_id, callout: label}; go('add'); };
+  if (add) add.onclick = () => { close(); state.addPrefill = {loc: where, sheet: sh.sheet_id, callout: label}; go('edit'); };   /* v5.99 - the Add page is set aside; Edit carries Add an asset */
   const first = d.querySelector('input'); if (first) first.focus();
 }
 /* the choice when a tap could mean more than one asset */
@@ -11405,8 +11407,8 @@ function plantTable(group, list){
       <span>${esc(done)} of ${esc(items.length)} asked-for item line${items.length === 1 ? '' : 's'} recorded${pct ? ' · ' + pct + '%' : ''}</span>
     </div>
     ${state.plantView === 'cards' ? `<div class="eqgrid">${list.map(a => equipmentCard(a, {on: state.sel === a.key})).join('')}</div>` : `<div class="tblwrap"><table>
-      <thead><tr><th>GC500 ID</th><th>Light</th><th>Scheduled</th><th>Due</th><th>Off-hire</th><th>Asset no.</th><th>Contract</th><th>Description asked for</th>
-        <th>Description supplied</th><th>State</th><th>Drawing</th>${isBuilding ? '<th>What comes with it</th>' : ''}</tr></thead>
+      <thead><tr><th>GC500 ID</th><th>Light</th><th>Dates</th><th>Asset no. · contract</th><th>Description asked for</th>
+        <th>Description supplied</th><th>State</th>${isBuilding ? '<th>What comes with it</th>' : ''}</tr></thead>
       <tbody>${list.map(a => {
         const rows = itemRows(a), com = CROW.get(a.key) || {}, d = deliveryOf(a.key);
         const rent = rentalOf(a.key);
@@ -11435,24 +11437,21 @@ function plantTable(group, list){
               : `<br><span class="chip cand" title="a schedule row with no drawing reference, carried under the schedule's own task id — open it to give it a reference">plant line</span>`)
               + `<br><span class="w" style="font-size:11px;color:var(--mute)">${esc(a.name || '')}</span>`
               : `<br><span class="w" style="font-size:11px;color:var(--mute)">${esc(a.name || '')}${(a.item_types || []).length ? ' · ' + esc(a.item_types.join(', ')) : ''}</span>`}${
-            a._added ? ' <span class="chip act">added</span>' : ''}${a.origin === 'drawing' ? ` <span class="chip cand" title="${esc(a.schedule_state || 'drawn on the sheet; no schedule row names it')}">drawing only</span>` : ''}
+            a._added ? ' <span class="chip act">added</span>' : ''}${a.origin === 'drawing' ? ` <span class="chip cand" title="${esc(a.schedule_state || 'drawn on the sheet; no schedule row names it')}">drawing only</span>` : ''}${
+            (a.drawing_links || []).length ? `<br><span class="chip ${a.linked_to_2026_sheet === false ? 'crit' : 'cand'}" title="drawing link">${esc(a.drawing_links[0].label)}${a.linked_to_2026_sheet === false ? ' · 2025 sheet only' : ''}</span>` : ''}
             ${mapSheetFor(a) ? `<br><button class="linkish" data-map="${esc(a.key)}">on the map</button>` : ''}
             ${a.reference_state ? '<br><span class="chip crit">unresolved ref</span>' : ''}${bdBadge(a.key)}</td>
           <td>${lightCell(a)}${rent && rent.from ? `<div class="w" style="font-size:11px;color:var(--mute);margin-top:2px">on hire from ${esc(fmtDay(rent.from).dm)}${rent.from_time ? ' ' + esc(rent.from_time) : ''}${rent.off ? ' · off hire ' + esc(fmtDay(rent.off).dm) : ''}</div>` : ''}${
             rent && !rent.machines.length && rent.acc_from ? `<div class="w" style="font-size:11px;color:var(--mute);margin-top:2px" title="an attachment on hire — not the machine, so it does not put this line on site">accessory on hire from ${esc(fmtDay(rent.acc_from).dm)} — the machine is not on the extract</div>` : ''}</td>
-          <td style="white-space:nowrap">${(() => { const e = effectiveDates(a);
-            return (e.in ? esc(e.in) : '—') + (e.in_moved ? ` <span class="chip act" title="the plan said ${esc(e.in_plan || 'nothing')}">moved</span>` : '')
-              + (e.out && e.out !== e.in ? ' → ' + esc(e.out) + (e.out_moved ? ` <span class="chip act" title="the plan said ${esc(e.out_plan || 'nothing')}">moved</span>` : '') : ''); })()}</td>
-          <td class="t" style="white-space:nowrap">${a.first_date ? esc(fmtDay(a.first_date).dm) : '<span class="todo">—</span>'}${
-            d.eta ? ' <b>' + esc(d.eta) + '</b>' : ''}</td>
-          <td>${offhireChip(a)}</td>
+          <td class="t" style="white-space:nowrap"><div>due ${a.first_date ? esc(fmtDay(a.first_date).dm) : '<span class="todo">—</span>'}${
+            d.eta ? ' <b>' + esc(d.eta) + '</b>' : ''}</div><div class="w" style="font-size:11px;color:var(--mute)">${(() => { const e = effectiveDates(a);
+            return 'scheduled ' + (e.in ? esc(e.in) : '—') + (e.in_moved ? ` <span class="chip act" title="the plan said ${esc(e.in_plan || 'nothing')}">moved</span>` : '')
+              + (e.out && e.out !== e.in ? ' → ' + esc(e.out) + (e.out_moved ? ` <span class="chip act" title="the plan said ${esc(e.out_plan || 'nothing')}">moved</span>` : '') : ''); })()}</div><div style="margin-top:3px">${offhireChip(a)}</div></td>
           <td class="mono">${nums.length ? nums.map(n => assetNo(n, {bare: true, desc: miscDesc})).join('<br>')
-             : '<span class="todo" title="the schedule does not carry an asset number for this reference">—</span>'}</td>
-          <td>${(() => { const c = contractOf(a.key), acc = a.accessories || [];
+             : '<span class="todo" title="the schedule does not carry an asset number for this reference">—</span>'}<div style="margin-top:3px">${(() => { const c = contractOf(a.key), acc = a.accessories || [];
             return (c.id ? contractShort(c.c, c.id) : '<span class="todo" title="no Rental ID recorded">—</span>') + ' ' + branchChip(a.key)
-              + (acc.length ? `<div class="w" style="font-size:11px;color:var(--mute)">${acc.reduce((s, x) => s + (x.qty || 1), 0)} inside it</div>` : ''); })()}</td>
+              + (acc.length ? `<div class="w" style="font-size:11px;color:var(--mute)">${acc.reduce((s, x) => s + (x.qty || 1), 0)} inside it</div>` : ''); })()}</div></td>
           <td>${asked}</td><td>${sup}</td><td>${st}</td>
-          <td>${(a.drawing_links || []).length ? `<span class="chip ${a.linked_to_2026_sheet === false ? 'crit' : 'cand'}">${esc(a.drawing_links[0].label)} ${a.linked_to_2026_sheet === false ? '2025 sheet only' : 'candidate'}</span>` : '<span class="chip">no link</span>'}</td>
           ${isBuilding ? '<td>' + contentsCell(a) + '</td>' : ''}</tr>`;
       }).join('')}</tbody></table></div>`}
     ${isBuilding ? `<p class="norate">${esc(DATA.accessory_authority)}</p>` : ''}
@@ -12990,9 +12989,9 @@ function renderFencing(){
   pane.querySelectorAll('[data-fdel]').forEach(b => b.onclick = () => {
     const id = b.dataset.fdel;
     const who = whoAmI(); if (!who) return;
-    if (!confirm('Set aside docket ' + id + '? It is kept, with your name and the time, and can be put back from the Edit tab.')) return;
+    if (!confirm('Set aside docket ' + id + '? It is kept, with your name and the time, and can be put back from Tools → Edit.')) return;
     if (!setAside('fenceDockets', id, who)) return;
-    bump(); flash(id + ' set aside by ' + who + ' — Put back is on the Edit tab.');
+    bump(); flash(id + ' set aside by ' + who + ' — Put back is under Tools → Edit.');
   });
   pane.querySelectorAll('[data-fvar]').forEach(b => b.onclick = () => {
     const d = all.find(x => x.id === b.dataset.fvar); if (!d) return;
@@ -13752,7 +13751,7 @@ function contractDialog(editId, onDone){
       (i % 2 === 1 || i === CONTRACT_FIELDS.length - 1 ? '</div>' : ''), '')}
     <div class="f"><label for="c_note">Note</label><input id="c_note" value="${esc(seed.note || '')}" placeholder="anything the next person needs — billing contact, what the contract covers"></div>
     <div class="notice info"><b>What this is for</b>Every asset belongs to a Rental ID. Put the contract on an asset in its drawer, or on every asset the
-      register lists at once from the Register tab. The details are typed, so check them against the rental screen — this page cannot read the rental system.</div>
+      register lists at once from the Plant page. The details are typed, so check them against the rental screen — this page cannot read the rental system.</div>
    </div></div>
    <div class="df"><button class="btn primary" id="cSave">${editing ? 'Save' : 'Add contract'}</button>
      <button class="btn" id="cCancel">Cancel</button>${editing && (S.contracts || {})[editing.rental_id] ? '<button class="btn" id="cDel">Remove contract</button>' : ''}</div>`;
@@ -13830,7 +13829,7 @@ function wireBranch(a){
     const code = normBranch((box && box.value) || branchOf(a.key).code || '');
     const keys = (state.list || []).filter(isRef);
     if (!code) { flash('Type a branch code first — then it can go on the listed assets.'); return; }
-    if (!keys.length) { flash('Nothing is listed to put a branch on — open the Register or the Plant pages first.'); return; }
+    if (!keys.length) { flash('Nothing is listed to put a branch on — open the Plant page first.'); return; }
     if (setBranch(keys, code)) bump();
   };
 }
@@ -14026,9 +14025,9 @@ function breakdownDialog(seed, editId){
   d.addEventListener('keydown', e => { if (e.key === 'Escape') shut(); });
   const del = $('#bDel', d);
   if (del) del.onclick = () => { const who = whoAmI(); if (!who) return;
-    if (!confirm('Set aside ' + editing.id + '? It is kept, with your name and the time, and can be put back from the Edit tab.')) return;
+    if (!confirm('Set aside ' + editing.id + '? It is kept, with your name and the time, and can be put back from Tools → Edit.')) return;
     if (!setAside('breakdowns', editing.id, who)) return;
-    save(); shut(); flash(editing.id + ' set aside by ' + who + ' — Put back is on the Edit tab.'); };
+    save(); shut(); flash(editing.id + ' set aside by ' + who + ' — Put back is under Tools → Edit.'); };
   $('#bSave', d).onclick = () => {
     const who = whoAmI(); if (!who) return;
     const val = id => { const el = $('#' + id, d); return el ? (el.value || '').trim() : ''; };
@@ -15629,9 +15628,9 @@ function varDialog(seed, editId){
   const del = $('#vDel', d);
   if (del) del.onclick = () => {
     const who = whoAmI(); if (!who) return;
-    if (!confirm('Set aside ' + editing.id + '? It is kept, with your name and the time, and can be put back from the Edit tab.')) return;
+    if (!confirm('Set aside ' + editing.id + '? It is kept, with your name and the time, and can be put back from Tools → Edit.')) return;
     if (!setAside('variances', editing.id, who)) return;
-    save(); shut(); flash(editing.id + ' set aside by ' + who + ' — Put back is on the Edit tab.');
+    save(); shut(); flash(editing.id + ' set aside by ' + who + ' — Put back is under Tools → Edit.');
   };
   d.addEventListener('keydown', e => { if (e.key === 'Escape') shut(); });
   const first = d.querySelector('input,select,textarea'); if (first) first.focus();
@@ -22551,7 +22550,7 @@ function renderPricing(){
             ? `<span class="chip ok" title="${esc(v.authority_note || '')}">${esc(v.id)} — authorised</span>`
             : `<span class="chip crit" title="${esc(v.authority_note || '')}">${esc(v.id)} — ${esc(g)}</span>`; })()}</td></tr>`; }).join('')}</tbody></table></div>
     <p class="norate" style="margin-top:8px">A difference is only money once somebody with authority says it is.
-      Raise it on the <button class="linkish" data-go="variances">Variances tab</button> and get a name and a
+      Raise it as a variance and get a name and a
       date against it — without those it is a note, not a variation.</p>
   </div>` : '';
   const accRows = accList.map(({t, n, f}, ai) => {
@@ -22592,7 +22591,7 @@ function renderPricing(){
      <div class="q">${assets.filter(a => !isPlantLine(a) && !a._added).length} references and ${assets.filter(isPlantLine).length} plant lines${
        added ? ' · ' + added + ' added in this browser' : ''}${cancelled.length ? `. <span class="nomark">${noGlyph(11)}</span> <b>${cancelled.length} cancelled reference${
        cancelled.length === 1 ? '' : 's'}</b> (${esc(cancelled.map(a => a.key).join(', '))}) ${cancelled.length === 1 ? 'is' : 'are'} not priced here — ${
-       cancelled.length === 1 ? 'it is' : 'they are'} still on the Register, on the drawings and in the history, and each one still needs taking off hire if it ever went on.` : ''}</div></div>
+       cancelled.length === 1 ? 'it is' : 'they are'} still on Plant, on the drawings and in the history, and each one still needs taking off hire if it ever went on.` : ''}</div></div>
    <div class="kpi"><div class="v">${Object.keys(items).length + Object.keys(accCounts).length}</div>
      <div class="l">Rate lines</div>
      <div class="q">${Object.keys(items).length} item types over ${fmtNum(liveUnits)} units the card can price, plus
@@ -27537,7 +27536,7 @@ function dsnBranches(asOf, X){
       ${g.kinds.subhire && g.kinds.subhire.lines && g.costs.some(c => c.from === 'record') ? `<p class="src">Subhire here is the ${g.costs.filter(c => c.from === 'record').length} fencing docket${g.costs.filter(c => c.from === 'record').length === 1 ? '' : 's'} charged at the 2026 card — what this branch charges the V8s for fencing, from the record.</p>` : ''}
       ${contractPlateNote(g.contract)}
       ${g.info && g.info.usually ? `<p class="note"><b>Usually:</b> ${esc(g.info.usually)}.</p>` : ''}
-      ${g.usual ? `<p class="note offer">${g.usual} line${g.usual === 1 ? '' : 's'} with no branch ${g.usual === 1 ? 'is' : 'are'} usually this branch's — open the Register to put the code on them.</p>` : ''}
+      ${g.usual ? `<p class="note offer">${g.usual} line${g.usual === 1 ? '' : 's'} with no branch ${g.usual === 1 ? 'is' : 'are'} usually this branch's — open Plant to put the code on them.</p>` : ''}
       ${!g.code ? `<p class="note">A line with no branch has no branch to carry its revenue or its costs. Put one on from the asset's drawer or the Register tab.</p>` : ''}`)}
     </div>`; };
   const A = R.all;
@@ -28266,7 +28265,7 @@ function onhireOfferCard(iso, arrivals){
     <p class="norate">A miscellaneous line carries no plant number. Where a person has named one as a subhired
       machine it is on site and counts as one — the 5 t forklift with 1.8 m tynes on contract 9961976 is subhired,
       as Andrew Fisher recorded on 12 Sep 2026 — and it is still not priced, because the card has no line for it.
-      Off-hire dates and contract numbers stay on the Register tab.</p>
+      Off-hire dates and contract numbers are on the Plant page.</p>
   </div>`;
 }
 
@@ -28542,7 +28541,7 @@ function deliverySignals(list, opts){
       ${one('red', t.red, 'Recorded not on site', 'somebody looked and recorded that it is not there — this is a record, not a gap')}
       ${one('none', t.none, 'No delivery record', 'nobody has said anything either way — an empty record is not a record of absence')}
     </div>
-    ${moreInfo('signals', `<p class="signote">Press one to list it on the Register. The lamps are decoration; the figures are the record.</p>`)}
+    ${moreInfo('signals', `<p class="signote">Press one to list it on Plant. The lamps are decoration; the figures are the record.</p>`)}
   </section>`;
 }
 /* ==================================================================================================
