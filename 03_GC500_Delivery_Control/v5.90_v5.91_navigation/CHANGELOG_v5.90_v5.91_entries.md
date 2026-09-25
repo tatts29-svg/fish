@@ -71,3 +71,15 @@ The nav row's More button and menu are gone. Every view is in Tools under "Every
 not in the bar takes the bar's last place while you are on it; the attention dot rides on Tools. Tools opens like
 the #26's V8 toolbox: a steel drawer with an orange lip and a stamped COATES · V8 TOOLBOX strip, the tools set in
 dark foam, a short slide as it opens (none under reduced motion).
+
+## v5.97 — no "Andrew Fisher said", and the Fencing page tidied
+- Every "(Andrew Fisher, 25 Sep 2026)", "Andrew Fisher's rule, 11 Sep 2026", "Ask Andrew Fisher…" in the page's
+  own words is gone: `scrub_attributions.py` runs on the built page (dated parentheticals and prefixes removed, the
+  name in prose becomes "the project manager"; the record's who-fields and the author credit are untouched).
+  By-lines that printed a name beside a date (settled, moved, closure plan, hours rule, quotes, scope, cancelled
+  rows) print the date alone (`patch_v597a.py`, `patch_v597c.py`). What still names him on screen is the record:
+  the team roster on Today and About, the docket register's Recorded-by column, the workforce rows.
+- Fencing: long docket notes and the rates table's "where it comes from" prose fold to two lines with a "more";
+  the docket's F-number sits beside its number; Variance and Attach signed paper show only on an editing link
+  (`patch_v597b.py`).
+- Build order from now: build → patch → `scrub_attributions.py print/out/GC500_Delivery_Control_hosted.html`.

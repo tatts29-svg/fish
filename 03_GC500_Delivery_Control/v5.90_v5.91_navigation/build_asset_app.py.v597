@@ -5508,6 +5508,7 @@ html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-r
 .photocat .pstat{padding:0}.photocat .pstat span{display:block;font-weight:700;font-size:14px;color:#fff;margin-top:2px}.photocat .pstat em{display:block;font-style:normal;font-size:12px;color:#c9d1d0;margin-top:2px}
 .photocat .pstrip{display:flex;gap:6px;height:56px}.photocat .pstrip img,.photocat .pstrip i{flex:1;min-width:0;height:56px;object-fit:cover;border-radius:6px;background:#0d1114;border:1px solid #2a3338}
 .photocat:hover,.photocat:focus-visible{border-color:var(--orange);outline:0}.photocat .hubgo{color:#ffb27a}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.clamp.open{display:block;-webkit-line-clamp:unset}.clampbtn{font-size:11px;padding:0;margin-top:2px}.fwhy{max-width:440px}
 .regsum{margin-top:14px}.regviewsw{display:flex;gap:4px}.regviewsw .btn[aria-pressed="true"]{background:var(--orange);color:#1b1207;border-color:var(--orange)}
 #pane-register.inplant{margin-top:18px}#pane-register.inplant .panehead{border-top:1px solid var(--rule,#e4e0dc);padding-top:14px}
 .docgrid.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
@@ -8708,7 +8709,7 @@ function movedOffDay(iso){
 }
 function movedOffLine(m){
   const c = m.corr || {};
-  return `<span class="chip act" title="${esc((c.stated_by || '') + ', ' + fmtDate(c.stated_on || ''))}">moved to ${esc(fmtDay(m.to).dow + ' ' + fmtDay(m.to).dm)}</span> <b>${esc(m.key)}</b> ${esc(m.what)} — ${esc(c.stated_by || '')}, ${esc(fmtDate(c.stated_on || ''))}`;
+  return `<span class="chip act" title="${esc('stated ' + fmtDate(c.stated_on || ''))}">moved to ${esc(fmtDay(m.to).dow + ' ' + fmtDay(m.to).dm)}</span> <b>${esc(m.key)}</b> ${esc(m.what)} — ${esc(fmtDate(c.stated_on || ''))}`;
 }
 /* Move an asset to another day. A reschedule carries a name, like a light. An empty date puts it back on the plan. */
 function setDate(key, iso, which){
@@ -11805,7 +11806,7 @@ function docketAttachBtn(d){
   if (!(SYNC.backend && SYNC.backend.upload)) return '';
   const id = 'dkp_' + String(d.id).replace(/[^A-Za-z0-9_-]+/g, '_');
   return `<input type="file" id="${id}" class="dphin" accept="image/*,application/pdf" data-dkp="${esc(d.id)}">
-    <label class="btn ghost dphpick" for="${id}">${docketPapersOf(d.id).length || docketPapersByName(d).length ? 'Attach another' : 'Attach signed paper'}</label>`;
+    <label class="btn ghost dphpick editonly" for="${id}">${docketPapersOf(d.id).length || docketPapersByName(d).length ? 'Attach another' : 'Attach signed paper'}</label>`;
 }
 /* Same order as a drop photograph: the bytes reach the service FIRST, and the record only points at the file
    once the service has said it has it. A pointer written before the upload lands is a pointer to nothing. */
@@ -12087,8 +12088,8 @@ function closureCard(){
   const orders = [...byOrder.keys()].sort((a, b) => a - b);
   return `<div class="card clocard">
     <div class="hubtitle"><h3>Race weekend — what closes, in what order</h3>
-      <span class="w" style="font-size:12px;color:var(--mute)">${esc(CLO.supplied_by || '')}${CLO.received ? ' · ' + esc(CLO.received) : ''}</span></div>
-    <p class="sub">${esc(CLO.for_whom || '')}. Times and order are ${esc(CLO.supplied_by || 'Andrew Fisher')}'s own hand on the plan; everything here is copied as written.</p>
+      <span class="w" style="font-size:12px;color:var(--mute)">${CLO.received ? esc(CLO.received) : ''}</span></div>
+    <p class="sub">${esc(CLO.for_whom || '')}. Times and order are written by hand on the plan; everything here is copied as written.</p>
 
     <div class="tblwrap"><table class="clotbl"><thead><tr><th>Day</th><th>Closed</th></tr></thead><tbody>${closureDayRows()}</tbody></table></div>
     <p class="norate">${esc(CLO.windows_note || '')}</p>
@@ -12100,7 +12101,7 @@ function closureCard(){
     <p class="norate">${esc(CLO.marks_note || '')}</p>
 
     ${CLO.plate ? `<div class="sect">The plan as it was marked</div>
-      <figure class="cloplate"><img src="${esc(CLO.plate)}" alt="iEDM master layout ${esc(bd.drawing_no || '')} with the race-weekend closure times and closure order written on it by ${esc(CLO.supplied_by || 'Andrew Fisher')}" loading="lazy" data-dphopen="${esc(CLO.plate)}">
+      <figure class="cloplate"><img src="${esc(CLO.plate)}" alt="iEDM master layout ${esc(bd.drawing_no || '')} with the race-weekend closure times and closure order written on it by hand" loading="lazy" data-dphopen="${esc(CLO.plate)}">
       <figcaption>${esc(bd.title || 'Master layout')} · ${esc(bd.drawing_no || '')}${bd.project_no ? ' · project ' + esc(bd.project_no) : ''}${bd.revision ? ' · rev ' + esc(bd.revision) : ''}${bd.issued_by ? ' · ' + esc(bd.issued_by) : ''}. Tap to open it full size.</figcaption></figure>` : ''}
 
     <div class="notice warn"><b>The sheet under the handwriting is ${esc(bd.drawn_for || 'an earlier year')}.</b>${esc(bd.caveat || '')}</div>
@@ -12481,6 +12482,8 @@ const MACHINE = {open: false, ret: null, inert: [], onKey: null, status: null, k
    where north is */
 function sheetBearing(){ const o = DATA.georef && DATA.georef.orientation; return o && Number.isFinite(o.sheet_top_bearing_deg) ? o.sheet_top_bearing_deg : 89.84; }
 /* v5.90 - one press opens a page of the hosted set in the full-screen frame; the frame's own header switches between them */
+/* v5.97 - folded prose opens and closes on its own "more" */
+document.addEventListener('click', e => { const b = e.target.closest('[data-clamp]'); if (!b) return; const c = b.previousElementSibling; if (!c || !c.classList.contains('clamp') && !c.classList.contains('open')) return; c.classList.toggle('open'); b.textContent = c.classList.contains('open') ? 'less' : 'more'; });
 document.addEventListener('click', e => { const b = e.target.closest('[data-mopen],[data-mpage]'); if (!b || b.disabled) return; const k = b.dataset.mopen || b.dataset.mpage; if (!MACHINE_PAGES[k]) return; e.preventDefault(); machineOpen(k); });
 function machineHosted(){ return !!(SYNC.backend && SYNC.backend.machineUrl); }
 function machineCardHtml(){
@@ -12785,7 +12788,7 @@ function renderFencing(){
     <div class="tblwrap"><table class="fratetbl"><thead><tr><th>Column</th><th class="num">Charged</th><th class="num">Paid</th><th class="num">Margin</th><th>Where it comes from</th></tr></thead><tbody>${
       FCOL.map(c => { const r = fenceRateFor(c.key), pr = fenceCostFor(c.key);
         const tCharge = (S.fenceRates || {})[c.key], tCost = (S.fenceCosts || {})[c.key];
-        const stateChip = c.settled_by ? `<span class="chip ok" title="${esc(c.settled_said || '')}">settled · ${esc(c.settled_by)}, ${esc(fmtDate(c.settled_on) || c.settled_on || '')}</span>`
+        const stateChip = c.settled_by ? `<span class="chip ok" title="${esc(c.settled_said || '')}">settled · ${esc(fmtDate(c.settled_on) || c.settled_on || '')}</span>`
           : c.card_state === 'matched' ? '<span class="chip ok">matched</span>' : c.card_state === 'ambiguous' ? '<span class="chip act">ambiguous</span>' : '<span class="chip crit">no line</span>';
         const per = c.unit === 'm' ? ' a metre' : c.unit === 'each' ? ' each' : c.unit === 'hr' ? ' an hour' : '';
         /* the margin is per unit, and it is only a figure when both sides are known. A negative one is not
@@ -12804,7 +12807,8 @@ function renderFencing(){
           ${pr.value != null ? `<b>${esc(money(pr.value))}</b><span class="w">${esc(per)}${pr.source === 'typed' ? ' · typed' : ''}</span>` : '<span class="norate">not costed</span>'}
           ${tCost != null && String(tCost).trim() !== '' ? editByLine({by: pr.by, at: pr.at}) : ''}</td>
         <td class="num">${m == null ? '<span class="norate">—</span>' : `<b class="${m < 0 ? 'fmneg' : ''}">${esc(money(m))}</b><span class="w">${esc(per)}</span>`}</td>
-        <td style="font-size:12px;color:var(--mute)">${c.settled_by ? esc(c.settled_by) + ', ' + esc(fmtDate(c.settled_on) || c.settled_on || '') + ': ' + esc(c.settled_said || '') + (c.settled_note ? ' — ' + esc(c.settled_note) : '') + (c.card_why ? ' · ' : '') : ''}${esc(c.card_why || '')}${c.unit_basis ? ' · ' + esc(c.unit_basis) : ''}${c.cost_basis ? ' · ' + esc(c.cost_basis) : ''}</td></tr>`; }).join('')}</tbody></table></div>
+        <td class="fwhy" style="font-size:12px;color:var(--mute)">${(() => { const t = (c.settled_by ? 'settled ' + esc(fmtDate(c.settled_on) || c.settled_on || '') + ': ' + esc(c.settled_said || '') + (c.settled_note ? ' — ' + esc(c.settled_note) : '') + (c.card_why ? ' · ' : '') : '') + esc(c.card_why || '') + (c.unit_basis ? ' · ' + esc(c.unit_basis) : '') + (c.cost_basis ? ' · ' + esc(c.cost_basis) : '');
+          return t.length > 160 ? `<div class="clamp">${t}</div><button type="button" class="linkish clampbtn" data-clamp>more</button>` : t; })()}</td></tr>`; }).join('')}</tbody></table></div>
     ${(() => { const neg = FCOL.filter(c => { const r = fenceRateFor(c.key), pr = fenceCostFor(c.key); return r.value != null && pr.value != null && r.value < pr.value; });
       return neg.length ? `<p class="norate"><b>${neg.length === 1 ? 'One line costs more than it charges' : neg.length + ' lines cost more than they charge'}:</b> ${
         neg.map(c => esc(c.name_as_written) + ' — paid ' + esc(money(fenceCostFor(c.key).value)) + ' against ' + esc(money(fenceRateFor(c.key).value)) + ' charged').join('; ')}.
@@ -12912,17 +12916,17 @@ function renderFencing(){
         misfiled.length ? ` <span class="nomark">${noGlyph(11)}</span> Some were uploaded under <b>${misfiled.map(esc).join('</b>, <b>')}</b> rather than <b>Fencing docket</b> — they are matched here by the number in the file name and counted, so nothing is lost; re-file them on the admin page when you get a minute and the Documents tab will tidy itself.` : ''}</p>`; })()}
     <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Date</th><th>Week</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num">Cost</th><th>Recorded by</th><th></th></tr></thead>
     <tbody>${shown.length ? shown.map(d => `<tr class="${d.usable ? '' : ''}">
-      <td>${docketNoLink(d)}<br><span class="mono">${esc(d.id)}</span><br>${whereChipF(d._where)}${d.usable ? '' : ' <span class="chip crit" title="' + esc(d.problems.join('; ')) + '">not usable</span>'}</td>
+      <td>${docketNoLink(d)} <span class="mono" style="font-size:11px;color:var(--mute)">${esc(d.id)}</span><br>${whereChipF(d._where)}${d.usable ? '' : ' <span class="chip crit" title="' + esc(d.problems.join('; ')) + '">not usable</span>'}</td>
       <td style="white-space:nowrap">${d.date ? esc(d.date) : '<span class="todo" title="no date on this row">—</span>'}</td>
       <td style="white-space:nowrap">${esc(d.week || '—')}${d.programme_sheet ? '<br><span class="w" style="font-size:11px;color:var(--mute)">' + esc(d.programme_sheet) + '</span>' : ''}</td>
       <td>${esc(d.crew || '—')}</td>
       <td>${esc(d.map_ref || '')}${d.location ? (d.map_ref ? '<br>' : '') + esc(d.location) : ''}${mapBtn(d) ? '<br>' + mapBtn(d) : ''}${!d.map_ref && !d.location ? '<span class="todo">—</span>' : ''}</td>
       <td>${docketLines(d)}${docketOwedBlock(d)}${
-        d.note ? '<br><span class="w" style="font-size:11.5px;color:var(--mute)">' + esc(d.note) + '</span>' : ''}${docketPaperBlock(d)}</td>
+        d.note ? '<div class="w' + (d.note.length > 140 ? ' clamp' : '') + '" style="font-size:11.5px;color:var(--mute)">' + esc(d.note) + '</div>' + (d.note.length > 140 ? '<button type="button" class="linkish clampbtn" data-clamp>more</button>' : '') : ''}${docketPaperBlock(d)}</td>
       <td class="num"><b>${esc(money(d.cost_total) || '')}</b>${d.cost_state === 'partly priced' ? '<br><span class="chip crit">partly priced</span>' : ''}</td>
       <td>${esc(d.recorded_by || '—')}${d.recorded_on ? '<br><span class="w" style="font-size:11px;color:var(--mute)">' + esc(d.recorded_on) + '</span>' : ''}</td>
       <td>${d._where === 'local' ? `<button class="btn ghost" data-fdel="${esc(d.id)}">Set aside</button>` : ''}
-        <button class="btn ghost" data-fvar="${esc(d.id)}">Variance</button>${docketAttachBtn(d)}</td></tr>`).join('')
+        <button class="btn ghost editonly" data-fvar="${esc(d.id)}">Variance</button>${docketAttachBtn(d)}</td></tr>`).join('')
       : `<tr><td colspan="9" class="empty">${all.length ? 'Nothing matches that search.' : 'No dockets yet.'}</td></tr>`}</tbody></table></div>
   </div>
   ${greenBookCard()}
@@ -14978,7 +14982,7 @@ function moneySummary_(asOf){
   const caveats = [];
   const caveats_short = [];
   if (SF && SF.provisional) { caveats.push(`event labour is in at the scope as it stands${SF.edits ? ` with ${SF.edits} change${SF.edits === 1 ? '' : 's'}` : ''} — its access-plan times are still marked to be updated off the 2026 access plan`); caveats_short.push('event labour times still to be updated'); }
-  if (rqApproved) { caveats.push(`the rehire toilets are in at the quotes' figures (${money0(rq)}) — approved by ${rqAuth.stated_by} on ${fmtDay(rqAuth.stated_on).dm}, with the final total still able to change`); caveats_short.push('rehire toilet total not final'); }
+  if (rqApproved) { caveats.push(`the rehire toilets are in at the quotes' figures (${money0(rq)}) — approved on ${fmtDay(rqAuth.stated_on).dm}, with the final total still able to change`); caveats_short.push('rehire toilet total not final'); }
   if (C.unknown) miss(`${C.unknown} contract line${C.unknown === 1 ? '' : 's'} with no rate yet on the charge side`, `${C.unknown} contract lines unrated`);
   if (C.differs.length) miss(`${C.differs.length} contract line${C.differs.length === 1 ? '' : 's'} where Baseplan's prebill reads differently — ${money0(C.differs_charge)} by the rule, ${money0(C.differs_prebill)} prebilled`, `${C.differs.length} to settle`);
   if (schedT.counted && schedT.plus) { caveats.push(`the schedule's transport figures are in as written — ${schedT.plus} of them with a plus after the figure, which is the figure and more`); caveats_short.push(`${schedT.plus} transport figures are minimums`); }
@@ -15343,7 +15347,7 @@ function workforceCard(){
     ${fold('misc', `Misc and other expenses — ${misc.list.length}`, misc.table + misc.form)}
     ${fold('weeks', `By week — ${T.weeks.length}`, `<div class="tblwrap"><table class="ledgertbl"><thead><tr><th>Week</th><th>From</th><th class="num">Coates CNA h</th><th class="num">External h</th><th class="num">Salary h</th><th class="num">All h</th><th class="num">of which race weekend</th><th class="num">Nights</th><th class="num">Accommodation</th><th class="num">Meals</th><th class="num">Other</th><th class="num">Total $</th></tr></thead>
       <tbody>${T.weeks.map(w => `<tr class="${w.from > todayIso() ? 'planned' : ''}"><td><b>${esc(w.week)}</b>${w.from > todayIso() ? ' <span class="chip" title="still to come — planned, not incurred">planned</span>' : ''}</td><td>${esc(fmtDay(w.from).dm)}</td><td class="num">${h(w.cna)}</td><td class="num">${h(w.external)}</td><td class="num">${h(w.salary)}</td><td class="num"><b>${h(w.hours)}</b></td><td class="num">${w.race ? h(w.race) : '—'}</td><td class="num">${w.nights}</td><td class="num">${esc(money(w.accommodation) || '—')}</td><td class="num">${esc(money(w.meals) || '—')}</td><td class="num">${esc(money(w.other) || '—')}</td><td class="num"><b>${esc(money(w.total) || '—')}</b></td></tr>`).join('')}</tbody></table></div>`)}
-    ${moreInfo('costs|tracker', `<p class="hint">The hours rule is ${esc(WF.hours_rule.stated_by || 'Andrew Fisher')}'s, ${esc(fmtDate(WF.hours_rule.stated_on || '2026-09-24'))}: a standard day of ${esc(String((WF.hours_rule.weekday || {}).ordinary_hours))} h, the next ${esc(String((WF.hours_rule.weekday || {}).then_at_1_5))} h at ×1.5 and the rest at ×2; Saturday ×1.5 for the first ${esc(String((WF.hours_rule.saturday || {}).at_1_5))} h and ×2 after; Sunday ×2 for every hour — applied shift by shift; ${h(L.weighted)} weighted hours outside the race weekend (ordinary + 1.5 × the ×1.5 hours + 2 × the ×2 hours). No dollar is put on an hour — hours only (24 Sep 2026). ${SCOPE ? `The people over the event are charged by the Coates Event Labour Scope on the Pricing tab (25 Sep 2026), not person by person; the tracker's race-day hours are shown here as worked, in hours only, and counted with the wages.` : `The race weekend is what we charge, not our cost (25 Sep 2026) — at the card's hourly event rates by each person's role; Saturday and Sunday are charged at the card's hourly rate, as written, with no loading added.`}</p>
+    ${moreInfo('costs|tracker', `<p class="hint">The hours rule, stated ${esc(fmtDate(WF.hours_rule.stated_on || '2026-09-24'))}: a standard day of ${esc(String((WF.hours_rule.weekday || {}).ordinary_hours))} h, the next ${esc(String((WF.hours_rule.weekday || {}).then_at_1_5))} h at ×1.5 and the rest at ×2; Saturday ×1.5 for the first ${esc(String((WF.hours_rule.saturday || {}).at_1_5))} h and ×2 after; Sunday ×2 for every hour — applied shift by shift; ${h(L.weighted)} weighted hours outside the race weekend (ordinary + 1.5 × the ×1.5 hours + 2 × the ×2 hours). No dollar is put on an hour — hours only (24 Sep 2026). ${SCOPE ? `The people over the event are charged by the Coates Event Labour Scope on the Pricing tab (25 Sep 2026), not person by person; the tracker's race-day hours are shown here as worked, in hours only, and counted with the wages.` : `The race weekend is what we charge, not our cost (25 Sep 2026) — at the card's hourly event rates by each person's role; Saturday and Sunday are charged at the card's hourly rate, as written, with no loading added.`}</p>
       <p class="hint">The tracker is a starting point, to be taken with a grain of salt, and it has to be editable (Andrew Fisher, 25 Sep 2026): every shift, night, meal, expense and person here can be changed, added to or taken off by a named person, and the change travels with the record; the tracker's own line stays underneath as what was supplied (<span class="mono">${esc(WF.workbook)}</span>, ${esc(fmtDate(WF.supplied_on))}).</p>
       <ul style="margin:0;padding-left:18px;font-size:12.5px;line-height:1.55">${(WF.summary_notes || []).map(n => `<li>${esc(n)}</li>`).join('')}${((WF.setup || {}).notes || []).map(n => `<li>${esc(n)}</li>`).join('')}</ul>`)}
   </div>`;
@@ -19353,10 +19357,10 @@ function runWords(){
 function arrivalAfter(){ const a = (DATA.transport || {}).arrival; return a && a.after ? a.after : null; }
 function loadTimesLine(){
   const t = DATA.transport || {}, dep = (DATA.depot || {}).name || 'Coates Kingston', m = runMins(), a = t.arrival;
-  const who = t.time_meaning ? ` (${esc(t.time_meaning.stated_by)}, ${esc(t.time_meaning.stated_on)})` : '';
+  const who = t.time_meaning ? ` (stated ${esc(t.time_meaning.stated_on)})` : '';
   return `Times are <b>load times at ${esc(dep)}</b> — the truck is loaded and leaves — not arrivals on site${who}.` +
     (a ? ` On the ground they are <b>on the Gold Coast after ${esc(a.after)}</b>, whatever the load time —
-      ${esc(a.stated_by)}, ${esc(a.stated_on)} — ${esc(a.as_stated)}.` : '') +
+      stated ${esc(a.stated_on)} — ${esc(a.as_stated)}.` : '') +
     (m != null ? ` The ${m}-minute figure beside a load is
       <span class="chip cand" title="${esc((t.kingston_run || {}).basis || '')}">the earliest it could arithmetically be</span>
       — ${esc(runWords())}` : '');
@@ -21519,7 +21523,7 @@ function satelliteBlock(a){
        return r.routed
          ? `The figure above is a provider route, not this page's arithmetic: ${esc(r.detail)}`
          : `The figure above is this page's own arithmetic, not a route anybody drove: ${esc(r.detail)}`;
-     })()} ${esc(DATA.depot.name)} as most loads' origin: ${esc(DATA.depot.stated_by)}, ${esc(DATA.depot.stated_on)}` : ''}.</span></p>` : ''; })()}
+     })()} ${esc(DATA.depot.name)} as most loads' origin, stated ${esc(DATA.depot.stated_on)}` : ''}.</span></p>` : ''; })()}
    ${o ? `<p class="satcap sub"><b>Which way is which.</b> ${esc(o.derivation)}</p>` : ''}
    ${gettingThere(pt)}
    <p class="satcap sub">${esc(DATA.aerial_note || '')}${DATA.georef ? ' The bar on the picture is the scale.' : ' Do not scale distances off it.'}</p>
@@ -22252,7 +22256,7 @@ function eventScopeCard(){
       <td class="num"><b>${h2(L.hours)} h</b><br>${esc(money(L.amount))}</td></tr>`).join('');
   return `<div class="card" id="eventScope"><div class="hubtitle"><h3>Event labour — what we charge the V8s for people over the event</h3>
       <span class="chip ${F.edits ? 'act' : 'ok'}">${F.edits ? F.edits + ' change' + (F.edits === 1 ? '' : 's') : 'as the scope has it'}</span></div>
-    <p class="sub">${esc(SCOPE.document)}, sent by ${esc(F.supplied_by)} on ${esc(fmtDate(F.supplied_on))} as what currently gets charged — worked out here the way the workbook does it, and editable because it may change: change a day's access-plan time and every line hanging off it moves; change the people on a line, the hours a person works, a rate, or the accommodation and travel. Every change carries a name and a time. Each line is at one rate an hour on every day — Saturday and Sunday included, no weekend loading — as the workbook has it${(() => { const rs = ((DATA.charge_basis || {}).labour_hourly || {}).rates_stated; return rs && rs.as && /^flat/i.test(rs.as) ? `, and flat is what ${esc(rs.by)} said the race weekend is charged at (${esc(fmtDate(rs.on))})` : ''; })()}.${F.provisional ? ' <b>The access-plan times are still marked, day by day, to be updated off the 2026 access plan.</b>' : ''}</p>
+    <p class="sub">${esc(SCOPE.document)}, received ${esc(fmtDate(F.supplied_on))} as what currently gets charged — worked out here the way the workbook does it, and editable because it may change: change a day's access-plan time and every line hanging off it moves; change the people on a line, the hours a person works, a rate, or the accommodation and travel. Every change carries a name and a time. Each line is at one rate an hour on every day — Saturday and Sunday included, no weekend loading — as the workbook has it${(() => { const rs = ((DATA.charge_basis || {}).labour_hourly || {}).rates_stated; return rs && rs.as && /^flat/i.test(rs.as) ? `, and flat is what was said the race weekend is charged at (${esc(fmtDate(rs.on))})` : ''; })()}.${F.provisional ? ' <b>The access-plan times are still marked, day by day, to be updated off the 2026 access plan.</b>' : ''}</p>
     <h4 class="subhd">The access plan <span>— the times every line is worked out from</span></h4>
     <div class="tblwrap"><table class="progtbl scopetbl"><thead><tr><th>Time</th>${head}</tr></thead><tbody>${times}</tbody></table></div>
     <h4 class="subhd">The staff <span>— people × hours a person, each day, at the rate an hour</span></h4>
@@ -22330,7 +22334,7 @@ function rehireCard(){
         <tr><td></td><td style="text-align:right"><b>Total</b></td><td></td><td class="num"><b>${esc(money(Q.total_amount))}</b></td><td></td></tr></tbody></table></div></div>`;
   }).join('');
   return `<div class="card"><div class="hubtitle"><h3>Rehire toilets — the supplier's quotes</h3><span class="chip crit">cost to Coates · not a customer charge</span></div>
-   <p class="sub">Four quotes from <b>${esc(R.supplier.name)}</b> (ABN ${esc(R.supplier.abn)}) to Coates Hire, printed ${esc(fmtDate(R.quotes_dated))}, sent by ${esc(R.supplied_by)} on ${esc(fmtDate(R.supplied_on))}
+   <p class="sub">Four quotes from <b>${esc(R.supplier.name)}</b> (ABN ${esc(R.supplier.abn)}) to Coates Hire, printed ${esc(fmtDate(R.quotes_dated))}, received ${esc(fmtDate(R.supplied_on))}
    as the pricing for the rehire toilets. They are what Coates <b>pays</b>; the customer side stays the 2026 card. Every figure is as printed on page 1 of each quote, and each quote's own arithmetic adds up.
    They are not ${esc(R.is_not)} ${A && A.state === 'approved' ? `<b>Approved</b> on ${esc(A.stated_by)}'s word, ${esc(fmtDate(A.stated_on))}, so they are counted as rehire cost on the <button class="linkish" data-go="costs">Costs tab</button>'s ledger — at these figures, ex GST, provisional because the final total may change. In no charge on this page.` : 'In no total on this page.'} The PDFs are in <span class="mono">sources/pricing/rehire_toilets/</span>.</p>
    ${q}
@@ -22783,7 +22787,7 @@ function rowOffWords(id){
   if (local) return local;
   const c = committedCancel(id);
   if (!c) return 'taken off';
-  return (c.why || 'Cancelled.') + ' ' + (c.said_by || 'somebody') + ', ' + fmtDate(c.on).slice(0, 11).trim();
+  return (c.why || 'Cancelled.') + ' ' + fmtDate(c.on).slice(0, 11).trim();
 }
 function unreferencedRows(){
   const taken = new Set((S.added || []).map(a => a.source_row).filter(Boolean));
@@ -23085,7 +23089,7 @@ function unrefBlock(d, full){
     <thead><tr><th>Row</th><th>What</th><th class="num">Qty</th><th>Where</th><th>Schedule says</th><th>Action</th></tr></thead>
     <tbody>${rows.map(r => `<tr class="unref">
       <td data-label="Row"><span class="mono">${esc(r.task_id)}</span><br><span class="w" style="font-size:11px;color:var(--mute)">${esc(r.sheet || '')}${r.source_range ? ' · ' + esc(r.source_range) : ''}</span>${
-        r.date_correction ? `<br><span class="chip act" title="${esc((r.date_correction.stated_by || '') + ', ' + fmtDate(r.date_correction.stated_on || ''))}">moved from ${esc(fmtDay(r.date_as_written).dow + ' ' + fmtDay(r.date_as_written).dm)}</span>` : ''}</td>
+        r.date_correction ? `<br><span class="chip act" title="${esc('stated ' + fmtDate(r.date_correction.stated_on || ''))}">moved from ${esc(fmtDay(r.date_as_written).dow + ' ' + fmtDay(r.date_as_written).dm)}</span>` : ''}</td>
       <td data-label="What">${esc(r.item || r.product || '—')}<br><span class="w" style="font-size:11.5px;color:var(--mute)">${esc(r.discipline || r.product || '')}</span></td>
       <td class="num" data-label="Qty">${esc(r.quantity_display || '—')}${r.quantity_flag ? ` <span class="chip cand" title="${esc(r.quantity_flag)}">?</span>` : ''}</td>
       <td data-label="Where">${r.location ? esc(r.location) : '<span class="todo">— none on the row</span>'}</td>
@@ -24143,7 +24147,7 @@ function renderTimeline(){
     const chip = (k, n, one, many) => `<span class="dchip ${k}"><b>${n}</b> ${n === 1 ? one : many}</span>`;
     const mvOff = movedOffDay(d.iso);
     const chips = [d.holiday ? `<span class="dchip hol" title="${esc(d.holiday.name)} — a Queensland public holiday${d.holiday.note ? ' (' + esc(d.holiday.note) + ')' : ''}, from the Queensland Government's list">${esc(d.holiday.name)}</span>` : '',
-                   mvOff.length ? `<span class="dchip mv" title="${esc(mvOff.map(m => m.key + ' → ' + fmtDay(m.to).dow + ' ' + fmtDay(m.to).dm + ' (' + (m.corr.stated_by || '') + ', ' + fmtDate(m.corr.stated_on || '') + ')').join('; '))}"><b>${mvOff.length}</b> moved off</span>` : '',
+                   mvOff.length ? `<span class="dchip mv" title="${esc(mvOff.map(m => m.key + ' → ' + fmtDay(m.to).dow + ' ' + fmtDay(m.to).dm + ' (stated ' + fmtDate(m.corr.stated_on || '') + ')').join('; '))}"><b>${mvOff.length}</b> moved off</span>` : '',
                    d.loads.length ? chip('load', d.loads.length, 'load', 'loads') : '',
                    d.unref.length ? chip('gap', d.unref.length, 'ref missing', 'refs missing') : '',
                    lateRed ? chip('late', lateRed, 'not on site', 'not on site') : '',
@@ -27177,7 +27181,7 @@ function assetNo(n, o){
   o = o || {};
   const s = String(n == null ? '' : n).trim();
   if (!s) return '';
-  if (s.toUpperCase() === 'MISCITEM' && o.subhire) return `<span class="ano misc" title="${esc(o.subhire.stated_by || 'a person on site')} said so on ${esc(fmtDate(o.subhire.stated_on || '') || o.subhire.stated_on || '')} — a subhire has no Coates asset number">subhired · no asset number${o.subhire.reads_as ? ' · ' + esc(o.subhire.reads_as) : ''}</span>`;
+  if (s.toUpperCase() === 'MISCITEM' && o.subhire) return `<span class="ano misc" title="stated on site ${esc(fmtDate(o.subhire.stated_on || '') || o.subhire.stated_on || '')} — a subhire has no Coates asset number">subhired · no asset number${o.subhire.reads_as ? ' · ' + esc(o.subhire.reads_as) : ''}</span>`;
   if (s.toUpperCase() === 'MISCITEM') return `<span class="ano misc" title="the rental system's own miscellaneous line — not an asset number">misc item${o.desc ? ' · ' + esc(o.desc) : ''}</span>`;
   /* a contract's bulk or stock code — CHAIRPADDED, TRAKMAT2.4X1.1, SINK/HANDBASIN — is not a plant number either (the 23 Sep contracts) */
   if (!/^\d{5,8}$/.test(s)) return `<span class="ano misc" title="the contract's own code for a bulk or stock line — not an asset number">item code · ${esc(s)}</span>`;
