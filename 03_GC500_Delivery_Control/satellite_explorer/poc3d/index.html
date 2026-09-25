@@ -13,19 +13,19 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1
 #cesium{position:absolute;inset:0}
 header{position:absolute;left:0;right:0;top:0;height:50px;display:flex;align-items:center;gap:12px;padding:0 14px;background:linear-gradient(180deg,rgba(28,22,19,.95),rgba(18,15,13,.9));border-bottom:2px solid var(--or);z-index:3}
 header b{font:700 18px/1 "Barlow Condensed","Arial Narrow",sans-serif;font-style:italic}header b i{color:var(--or);font-style:italic}
-.views{margin-left:auto;display:flex;gap:4px;background:#0b0908;padding:3px;border-radius:9px;border:1px solid var(--rule)}
+.views{display:flex;gap:4px;background:#0b0908;padding:3px;border-radius:9px;border:1px solid var(--rule)}
 .views button{background:none;border:0;color:var(--mute);padding:7px 11px;border-radius:7px;font:600 12.5px Inter,sans-serif;cursor:pointer}.views button:hover{color:var(--ink)}
 .pill{position:absolute;left:12px;top:62px;z-index:3;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:9px;padding:7px 10px;font-size:12px;max-width:min(520px,calc(100% - 24px))}.pill b{color:var(--or2)}
 .perf{position:absolute;left:12px;bottom:34px;z-index:3;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:9px;padding:6px 10px;font-size:11.5px;color:var(--mute)}
 .q{position:absolute;right:12px;top:62px;z-index:3;display:flex;gap:6px}.q button{background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--ink);border-radius:8px;height:32px;padding:0 10px;cursor:pointer;font:600 12px Inter,sans-serif}.q button[aria-pressed="true"]{background:var(--or);color:#1b1207}
 .cesium-viewer-bottom{z-index:3!important}.cesium-widget-credits{color:#fff!important;font-size:11px!important;background:rgba(15,13,12,.6)!important;padding:2px 6px!important;border-radius:6px}
 .loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:5;flex-direction:column;gap:8px}.loader.done{display:none}
-</style>
+.xnav{margin-left:auto;display:flex;gap:4px;align-items:center}.xnav a{color:var(--mute);text-decoration:none;font:600 12px Inter,sans-serif;padding:6px 9px;border-radius:7px;border:1px solid transparent}.xnav a:hover{color:var(--ink);border-color:var(--rule)}.xnav a[aria-current=page]{color:var(--ink);background:#0b0908;border-color:var(--rule)}.xnav[hidden]{display:none}@media(max-width:900px){.xnav a{padding:5px 6px;font-size:11px}}</style>
 </head>
 <body>
 <div id="cesium"></div>
 <header><b>Coates Industrial Solutions <i>| GC500 2026</i></b><span style="color:var(--mute);font-size:12px">3D proof · Google Photorealistic 3D Tiles in CesiumJS · separate from the dashboard</span>
-  <div class="views"><button data-v="overhead">Overhead</button><button data-v="angled">Angled</button><button data-v="close">Close-up</button><button data-v="island">Macintosh Island</button><button data-v="narrowneck">Narrowneck</button><button data-v="pits">Pit straight</button><button data-v="street">Street level</button><button data-v="ground">Ground</button></div></header>
+  <nav class="xnav" id="xnav" aria-label="Pages"></nav><div class="views"><button data-v="overhead">Overhead</button><button data-v="angled">Angled</button><button data-v="close">Close-up</button><button data-v="island">Macintosh Island</button><button data-v="narrowneck">Narrowneck</button><button data-v="pits">Pit straight</button><button data-v="street">Street level</button><button data-v="ground">Ground</button></div></header>
 <div class="pill" id="status"><b>Loading</b></div>
 <div class="q"><button id="fsBtn" title="Full screen" style="margin-right:10px">⛶ Full screen</button><span style="align-self:center;font-size:11.5px;color:var(--mute)">Quality</span><button data-q="auto" aria-pressed="true">Auto</button><button data-q="crisp" aria-pressed="false">Crisp (4K)</button><button data-q="light" aria-pressed="false">Light</button></div>
 <div class="perf" id="perf">—</div>
@@ -44,7 +44,7 @@ const PHONE = /Android|iPhone|iPad/.test(navigator.userAgent) || matchMedia('(ma
 const perf = {frames: 0, frameMs: 0, tilesLoaded: 0, bytes: 0, t0: performance.now(), firstFull: null};
 window.__perf = perf;
 const VIEWS = {
-  overhead:  {lon: 153.4255, lat: -27.9885, height: 1400, heading: 0, pitch: -89},
+  overhead:  {lon: 153.4255, lat: -27.9885, height: 1400, heading: 89.87, pitch: -89},   /* the D001 way round: the sheet's top bears 89.87°, beach along the top, like every map here */
   angled:    {lon: 153.4300, lat: -27.9960, height: 520, heading: -35, pitch: -32},
   close:     {lon: 153.42525, lat: -27.98905, height: 140, heading: 20, pitch: -38},
   island:    {lon: 153.4232, lat: -27.9870, height: 420, heading: -20, pitch: -45},
@@ -97,6 +97,18 @@ function perfText() {
 }
 boot();
 window.GC500_3D = {fly, get state() { return {ready: !!viewer, quality, perf, loaded: window.__allLoaded}; }, setQuality: q => { quality = q; applyQuality(); }};
+</script>
+<script>
+(function(){ /* page-to-page navigation from the link's own token; hidden inside the dashboard's frame */
+  const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname), nav = document.getElementById('xnav'); if (!nav) return;
+  const framed = (function(){ try { return window.self !== window.top; } catch (e) { return true; } })();
+  if (framed) { document.body.classList.add('framed'); nav.hidden = true; return; }
+  if (!m) { nav.hidden = true; return; }
+  const t = m[1], q = new URLSearchParams(location.search), back = q.get('back') === 'e' ? 'e' : q.get('back') === 'v' ? 'v' : (/\/e\//.test(document.referrer) ? 'e' : 'v');
+  const here = location.pathname.replace(/^\/w\/[^/]+\//, ''), tail = '?back=' + back;
+  const links = [['/' + back + '/' + encodeURIComponent(t), 'Dashboard', ''], ['/w/' + t + '/explorer/index.html' + tail, 'Plan on satellite', 'explorer/index.html'], ['/w/' + t + '/poc3d/index.html' + tail, '3D proof', 'poc3d/index.html'], ['/w/' + t + '/', 'The Coates Way', '__cw']];
+  nav.innerHTML = links.map(([h, n, k]) => `<a href="${h}"${k === here ? ' aria-current="page"' : ''}>${n}</a>`).join('');
+})();
 </script>
 </body>
 </html>

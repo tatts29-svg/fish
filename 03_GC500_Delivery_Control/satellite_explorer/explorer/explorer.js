@@ -219,7 +219,7 @@ function touchInteraction() { clearTimeout(restTimer); if (!interacting) { inter
 function hostedToken() { const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); return m ? '?t=' + encodeURIComponent(m[1]) : ''; }
 function requestPaint() { if (!paintID && !document.hidden) paintID = requestAnimationFrame(draw); }
 /* the overview map is kept north-up like every other map here; the sheet is turned inside its box once */
-function miniNorthUp() { const rot = GEO ? northRot() : 0, box = $('mini'), inner = $('miniInner'); const r = rot * Math.PI / 180, c = Math.abs(Math.cos(r)), si = Math.abs(Math.sin(r)); const W = 200, H = W * SHEET_H / SHEET_W, bw = Math.ceil(W * c + H * si), bh = Math.ceil(W * si + H * c); box.style.width = bw + 'px'; box.style.height = bh + 'px'; inner.style.width = W + 'px'; inner.style.height = H + 'px'; inner.style.left = ((bw - W) / 2) + 'px'; inner.style.top = ((bh - H) / 2) + 'px'; inner.style.transform = 'rotate(' + rot + 'deg)'; }
+function miniNorthUp() { const rot = 0, box = $('mini'), inner = $('miniInner'); const r = rot * Math.PI / 180, c = Math.abs(Math.cos(r)), si = Math.abs(Math.sin(r)); const W = 200, H = W * SHEET_H / SHEET_W, bw = Math.ceil(W * c + H * si), bh = Math.ceil(W * si + H * c); box.style.width = bw + 'px'; box.style.height = bh + 'px'; inner.style.width = W + 'px'; inner.style.height = H + 'px'; inner.style.left = ((bw - W) / 2) + 'px'; inner.style.top = ((bh - H) / 2) + 'px'; inner.style.transform = 'rotate(' + rot + 'deg)'; }
 function updateMini(v) { const c = v.corners; $('miniRect').setAttribute('points', [c[0], c[1], c[3], c[2]].map(p => clamp(p.x, 0, SHEET_W) + ',' + clamp(p.y, 0, SHEET_H)).join(' ')); updateCompass(); }
 /* the compass: north on the sheet comes from the registration (tile 'up' pulled back through the affine) */
 function northOnSheet() { if (!GEO) return null; const M = GEO.main.sheet_to_z18px, a = M[0][0], b = M[0][1], c = M[1][0], d = M[1][1], det = a * d - b * c; const nx = (-b * -1) / det, ny = (a * -1) / det; const l = Math.hypot(nx, ny); return {x: nx / l, y: ny / l}; }
@@ -240,7 +240,9 @@ function changeView(resetLabel = true) {
   dropVTQueue(); requestPaint();
 }
 function zoomBy(factor, x = sw / 2, y = sh / 2) { touchInteraction(); const a = screenToSource(x, y); camera.z = clamp(camera.z * factor, MIN_Z, MAX_Z); keepUnder(a, x, y); changeView(); }
-function fit() { highlight = null; const rot = GEO ? northRot() : 0; camera = {cx: 1192, cy: 842, z: clamp(fitZoomFor(SHEET_W, SHEET_H, rot, 30), MIN_Z, MAX_Z), rot}; setLabel('Full master plan · north up'); document.querySelectorAll('.jump.active').forEach(e => e.classList.remove('active')); changeView(false); }
+/* every map here starts the way D001 is drawn (beach along the top), the way the crew reads the printed plan and, from
+   v5.90, the way the dashboard's satellite and 3D views open; the rose says where north is and N turns north-up */
+function fit() { highlight = null; const rot = 0; camera = {cx: 1192, cy: 842, z: clamp(fitZoomFor(SHEET_W, SHEET_H, rot, 30), MIN_Z, MAX_Z), rot}; setLabel('Full master plan · as drawn'); document.querySelectorAll('.jump.active').forEach(e => e.classList.remove('active')); changeView(false); }
 function gotoRect(rect, label) { document.querySelectorAll('.jump.active').forEach(e => e.classList.remove('active')); const [x0, y0, x1, y1] = rect, rot = camera.rot || 0; camera = {cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, z: clamp(fitZoomFor(x1 - x0, y1 - y0, rot, 65), MIN_Z, MAX_Z), rot}; setLabel(label); changeView(false); }
 /* the drawing's geometry lives in a worker (scene-worker.js); the page asks it for the SVG of a view and never builds
    250,000 path strings on the thread that is answering the pointer */
@@ -373,7 +375,7 @@ $('fullBtn').onclick = async () => { try { if (document.fullscreenElement) await
 document.addEventListener('fullscreenchange', () => setTimeout(resize, 50));
 function applyZoomInput() { const n = Number($('zoomInput').value.replace(/[,\s%]/g, '')); if (Number.isFinite(n) && n > 0) { camera.z = clamp(n / 100, MIN_Z, MAX_Z); changeView(); } else toast('Enter a zoom between 50 and 64,000 per cent.'); $('zoomInput').value = Math.round(camera.z * 100).toLocaleString('en-AU') + '%'; }
 $('zoomInput').onfocus = () => $('zoomInput').select(); $('zoomInput').onchange = applyZoomInput; $('zoomInput').onkeydown = e => { if (e.key === 'Enter') { applyZoomInput(); $('zoomInput').blur(); } e.stopPropagation(); };
-let miniDown = false; function moveMini(e) { const r = $('mini').getBoundingClientRect(), inner = $('miniInner'), W = inner.offsetWidth || 1, H = inner.offsetHeight || 1, rot = (GEO ? northRot() : 0) * Math.PI / 180;
+let miniDown = false; function moveMini(e) { const r = $('mini').getBoundingClientRect(), inner = $('miniInner'), W = inner.offsetWidth || 1, H = inner.offsetHeight || 1, rot = 0;
   const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), ux = dx * Math.cos(rot) + dy * Math.sin(rot), uy = -dx * Math.sin(rot) + dy * Math.cos(rot);   /* undo the box's turn */
   camera.cx = clamp(ux / W + .5, 0, 1) * SHEET_W; camera.cy = clamp(uy / H + .5, 0, 1) * SHEET_H; highlight = null; changeView(); }
 $('mini').onpointerdown = e => { e.preventDefault(); miniDown = true; $('mini').setPointerCapture(e.pointerId); moveMini(e); }; $('mini').onpointermove = e => { if (miniDown) moveMini(e); }; $('mini').onpointerup = $('mini').onpointercancel = () => { miniDown = false; };
