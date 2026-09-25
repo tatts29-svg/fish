@@ -1,7 +1,8 @@
 ## v5.84 — 25 Sep 2026 · The Today view read as a stranger would — nine defects from a view-link audit, and what a view link no longer shows
 
-Candidate source. Andrew alone deploys; nothing here claims a production deployment. **No server change** — server
-v5.77 stays up. What goes up: the page only (`print/out/GC500_Delivery_Control_hosted.html`).
+**Up on the site since 21:00 AEST 25 Sep 2026** — uploaded through the admin page's own sequence by the Claude Code
+session at Andrew Fisher's instruction (media, then the page), and read back on the view link. **No server change** —
+server v5.77 stays up. Gate, seal and `tests/` remain PENDING for v5.84 (below).
 
 An audit of the live view link on 25 Sep 2026, read the way a reader from outside the job would read it, at
 1440 px and on a 390 px phone, in light and dark, with an accessibility pass. Every item below was seen on the

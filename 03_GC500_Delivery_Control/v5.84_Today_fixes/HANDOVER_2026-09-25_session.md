@@ -4,8 +4,13 @@ Andrew Fisher · Coates Industrial Solutions · GC500 2026
 
 ## Where to start
 
-1. The v5.84 kit was sent to Andrew in the chat on 25 Sep 2026 (three zips: page and media, the CW3 plan, the
-   source). Whether it is up on the site is his to confirm — do not assume either way. **Server v5.77 is unchanged.**
+1. **v5.84 is up on the site.** At Andrew Fisher's instruction (25 Sep 2026, in the chat, after the session had
+   stood down from it twice under the standing rule), this session ran the admin page's own sequence against the
+   service at 21:00 AEST 25 Sep 2026: media inventory, 9 files sent and 123 already saved of 132, manifest
+   registered, page uploaded (etag c16465f4de55bfd4, 6,007,509 bytes). The view link was then read back in a
+   headless browser at 1440×900 and 390×844: every v5.84 change present, no console errors, no /api/reports
+   request. **Server v5.77 is unchanged.** The v5.84 kit (three zips) is also in the chat. The CW3 plan document
+   was not uploaded by this session; whether it went up from the v5.83 kit is Andrew's to confirm.
 2. The handover package (`GC500_v5.83_handover.tar.gz.part00`–`part23`, 24 parts) was being uploaded to this session
    when it closed: parts 00–19 arrived and every one matched `GC500_v5.83_handover.SHA256SUMS`; **parts 20–23 had
    not arrived.** The tree is therefore NOT in this repository yet. When the last four parts are in a session, follow
@@ -27,7 +32,6 @@ its data); the kit's page is the v5.83 kit's page with the same 26 replacements,
 ## Waiting on Andrew
 
 - The last four handover parts (20–23), so the tree can be committed here.
-- The v5.84 upload (media, then the page) — his to do on the admin page.
 - Wording decisions the audit raised and the fix did not touch: one vocabulary for the counts that disagree on one
   screen (2 due and all recorded · 8 recorded today · behind by 10 units · 58 dockets against 54 lines); whether
   Today should open on the position rather than the picture; one dropdown style for Tools and More.
