@@ -65,3 +65,9 @@ Every Plant row now carries what the Register row carried and Plant did not: nam
 drawing-only marks, scheduled dates with the moved marks, the off-hire chip, the Rental ID with its branch and
 what is inside it, and the drawing link. The Register's card view (photographs) is a List / Cards toggle on
 Plant; its contracts and branch summaries close the page. The stacked Register pane from v5.91 is gone.
+
+## v5.96 — one menu, and it is the toolbox
+The nav row's More button and menu are gone. Every view is in Tools under "Every view"; a view you are on that is
+not in the bar takes the bar's last place while you are on it; the attention dot rides on Tools. Tools opens like
+the #26's V8 toolbox: a steel drawer with an orange lip and a stamped COATES · V8 TOOLBOX strip, the tools set in
+dark foam, a short slide as it opens (none under reduced motion).
