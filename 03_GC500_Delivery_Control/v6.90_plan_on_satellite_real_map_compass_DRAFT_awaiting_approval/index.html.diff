@@ -1,0 +1,37 @@
+--- index.live.html	2026-09-26 22:36:20.773960310 +0000
++++ explorer/index.html	2026-09-26 22:45:46.215893399 +0000
+@@ -70,7 +70,24 @@
+ @media(max-width:900px){header{gap:8px;padding:0 8px}header b{font-size:16px;flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}header .brand{display:none}
+   header>.xnav{display:none}.xnav.side{display:flex;flex-wrap:wrap;margin:0}.xnav.side[hidden]{display:none}.modes{margin-left:auto;flex:0 0 auto}.modes button{padding:7px 7px}.modes button .l{display:none}.modes button .s{display:inline}
+   .hud{top:54px;left:8px;right:8px;align-items:flex-start}.console{right:8px;top:8px;gap:5px}.console button{min-width:32px;padding:0 7px}
+-  .attrib{right:6px;bottom:6px;left:auto;max-width:calc(100% - 12px);font-size:10px;padding:3px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.qual{left:8px;bottom:36px;max-width:calc(100% - 96px)}.rose{bottom:36px;right:8px}.satban{top:96px}}</style>
++  .attrib{right:6px;bottom:6px;left:auto;max-width:calc(100% - 12px);font-size:10px;padding:3px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.qual{left:8px;bottom:36px;max-width:calc(100% - 96px)}.rose{bottom:36px;right:8px}.satban{top:96px}}.rose{position:absolute;right:14px;top:100px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:6}
++.dial{position:relative;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 50% 42%,rgba(40,34,30,.97),rgba(15,13,12,.95) 72%);box-shadow:0 4px 16px rgba(0,0,0,.45),inset 0 0 0 1px #3a322c,inset 0 0 0 16px rgba(255,255,255,.035);cursor:grab;touch-action:none;will-change:transform}
++.dial.turning{cursor:grabbing}
++.dial::before{content:'';position:absolute;inset:19px;border-radius:50%;border:1px solid rgba(255,255,255,.14)}
++.dial .needle{position:absolute;left:50%;top:50%;width:0;height:0;margin:-27px 0 0 -6px;border:6px solid transparent;border-top:0;border-bottom:27px solid #ff6a13;pointer-events:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.5))}
++.dial .needle::after{content:'';position:absolute;left:-6px;top:27px;border:6px solid transparent;border-bottom:0;border-top:27px solid #8a837c}
++.dial button{position:absolute;left:50%;top:50%;width:32px;height:32px;margin:-16px 0 0 -16px;padding:0;border:0;border-radius:50%;background:none;color:#e9e4de;cursor:pointer}
++.dial button[data-face="0"]{transform:rotate(0deg) translateY(-32px)}.dial button[data-face="90"]{transform:rotate(90deg) translateY(-32px)}.dial button[data-face="180"]{transform:rotate(180deg) translateY(-32px)}.dial button[data-face="270"]{transform:rotate(270deg) translateY(-32px)}
++.dial button b{display:block;font:800 15px/32px Inter,system-ui,sans-serif;border-radius:50%}
++.dial button.fN{color:#ff8a3d}
++.dial button:hover b,.dial button:focus-visible b{background:#ff6a13;color:#fff}
++.dial button:focus-visible{outline:2px solid #fff;outline-offset:1px}
++.rose #rotOut{font:700 11px Inter,system-ui,sans-serif;color:#fff;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:999px;padding:4px 10px;white-space:nowrap}
++.rose #sheetBtn{font:600 11px Inter,sans-serif;color:var(--ink);background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:999px;padding:4px 10px;cursor:pointer}.rose #sheetBtn:hover{border-color:var(--or)}
++@media(max-width:900px){.rose{top:auto;bottom:40px;right:10px}.dial{width:80px;height:80px}.dial button{width:28px;height:28px;margin:-14px 0 0 -14px}.dial button b{font-size:13px;line-height:28px}
++ .dial button[data-face="0"]{transform:rotate(0deg) translateY(-26px)}.dial button[data-face="90"]{transform:rotate(90deg) translateY(-26px)}.dial button[data-face="180"]{transform:rotate(180deg) translateY(-26px)}.dial button[data-face="270"]{transform:rotate(270deg) translateY(-26px)}
++ .dial::before{inset:16px}.dial .needle{margin-top:-22px;border-bottom-width:22px}.dial .needle::after{top:22px;border-top-width:22px}}
++</style>
+ </head>
+ <body>
+ <div class="app">
+@@ -107,7 +124,7 @@
+   <div class="hud"><div class="pill" id="viewName">Full master plan</div><div class="pill" id="overzoom" style="display:none"><b>Imagery enlarged beyond source detail</b> · the drawing is re-rendered from its vectors; the photograph is not</div></div>
+   <div class="console"><input id="zoomInput" value="100" aria-label="Zoom percent"><button id="zoomOut" aria-label="Zoom out">−</button><button id="zoomIn" aria-label="Zoom in">+</button><button id="fitBtn">Fit</button><button id="boxBtn" aria-pressed="false" title="Box zoom (Z)">▭</button><button id="fullBtn" title="Full screen">⛶</button><button id="exportBtn" title="Save PNG of this view">PNG</button></div>
+   <div class="mini" id="mini" title="Overview, as drawn · north is to the left"><div id="miniInner"><img id="miniImg" alt=""><svg viewBox="0 0 2384 1684" id="miniSvg"><polygon id="miniRect" points="0,0 2384,0 2384,1684 0,1684"/></svg></div><span class="miniN" id="miniN" title="North is to the left">← N</span></div>
+-  <div class="rose" title="North · maps start as drawn (D); N turns north-up, R turns, Alt-drag turns freely"><button id="northBtn" aria-label="North up"><svg id="compass" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="rgba(15,13,12,.85)" stroke="#2e2723"/><path d="M50 8 L58 50 L50 42 L42 50 Z" fill="#ff6a13"/><path d="M50 92 L58 50 L50 58 L42 50 Z" fill="#8a837c"/><text x="50" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">N</text><text x="50" y="86" text-anchor="middle" font-size="10" fill="#a9a39c">S</text><text x="82" y="54" text-anchor="middle" font-size="10" fill="#a9a39c">E</text><text x="18" y="54" text-anchor="middle" font-size="10" fill="#a9a39c">W</text></svg></button><span id="rotOut">0°</span><button id="sheetBtn" aria-label="As drawn" title="Turn to the sheet's own orientation (D)">As drawn</button><button id="rotL" aria-label="Turn anticlockwise">⟲</button><button id="rotR" aria-label="Turn clockwise">⟳</button></div>
++  <div class="rose" id="rose" role="group" aria-label="Compass"><div class="dial" id="dial" title="Press N, E, S or W to face that way · drag the ring to turn"><i class="needle" aria-hidden="true"></i><button data-face="0" class="fN" aria-label="Face north"><b>N</b></button><button data-face="90" aria-label="Face east"><b>E</b></button><button data-face="180" aria-label="Face south"><b>S</b></button><button data-face="270" aria-label="Face west"><b>W</b></button></div><span id="rotOut">Facing east</span><button id="sheetBtn" aria-label="As drawn" title="Turn to the sheet's own orientation (D)">As drawn</button></div>
+   <div class="satban" id="satBanner" role="alert" hidden><b id="satMsg">Satellite imagery isn't loading</b> — <button id="satRetry">Retry</button> · <button id="satPlan">Show the plan only</button><small id="satWhy"></small></div>
+   <div class="qual" id="qual"><i></i><span id="qualText">Loading</span></div>
+   <div class="attrib" id="attrib">Drawing © iEDM · D001 rev 03</div>

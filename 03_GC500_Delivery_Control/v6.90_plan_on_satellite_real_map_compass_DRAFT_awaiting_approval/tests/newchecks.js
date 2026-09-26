@@ -1,0 +1,21 @@
+const {open, settle} = require('/tmp/claude-0/stage/tools/harness');
+let pass = 0, fail = 0; const check = (n, ok, d = '') => { ok ? pass++ : fail++; console.log((ok ? 'PASS ' : 'FAIL ') + n + (d ? '  — ' + d : '')); };
+(async () => { process.env.GL = '1';
+  const s = await open({dirs: ['/tmp/claude-0/stage2/explorer', '/tmp/claude-0/stage/work/before_site'], W: 1440, H: 900, hash: '#hybrid', search: '?find=P68', log: () => {}}); const p = s.page;
+  await p.waitForFunction(() => window.__ready || window.__bootError, null, {timeout: 120000}); await settle(p); await p.waitForTimeout(800);
+  const cam = await p.evaluate(() => ({c: camera, sel: selected && selected.code, place: selected && selected.it, pl: selected && selected.places}));
+  const g = await p.evaluate(() => { const bb = selected.places[0]; const q = toGeo((bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2); return {printed: [(bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2].map(Math.round), ground: [q.x, q.y].map(Math.round), cam: [camera.cx, camera.cy].map(Math.round)}; });
+  check('?find=P68 (printed in the inset) flies to its true place on the ground', Math.hypot(g.ground[0] - g.cam[0], g.ground[1] - g.cam[1]) < 5 && g.ground[0] > 2334, JSON.stringify(g));
+  for (const [f, w] of [[0, 'north'], [90, 'east'], [180, 'south'], [270, 'west']]) { await p.evaluate(f => document.querySelector(`#dial [data-face="${f}"]`).click(), f); await p.waitForTimeout(1600);
+    check('press ' + w.toUpperCase()[0] + ' on the compass: the top of the view faces ' + w, await p.textContent('#rotOut') === 'Facing ' + w, await p.textContent('#rotOut')); }
+  const r0 = await p.evaluate(() => camera.rot); const d = await (await p.$('#dial')).boundingBox();
+  await p.mouse.move(d.x + d.width / 2 + 40, d.y + d.height / 2); await p.mouse.down(); for (let i = 1; i <= 10; i++) { const a = i * 9 * Math.PI / 180; await p.mouse.move(d.x + d.width / 2 + 40 * Math.cos(a), d.y + d.height / 2 + 40 * Math.sin(a)); } await p.mouse.up(); await p.waitForTimeout(300);
+  const r1 = await p.evaluate(() => camera.rot); check('dragging the ring a quarter-turn turns the view about 90°', Math.abs(((r1 - r0 + 540) % 360) - 180 - 90) < 6, (r1 - r0).toFixed(1) + '°');
+  await p.evaluate(() => document.getElementById('sheetBtn').click()); await p.waitForTimeout(700); check('As drawn turns back to the sheet (facing east)', await p.textContent('#rotOut') === 'Facing east');
+  // the photograph fills the view when turned: sample the canvas corners after facing north at the Macintosh Island view
+  await p.evaluate(() => { const b = [...document.querySelectorAll('.jump')].find(x => /Macintosh/.test(x.textContent)); b.click(); }); await p.evaluate(() => document.querySelector('#dial [data-face="0"]').click()); await p.waitForTimeout(900); await settle(p, 90000); await p.waitForTimeout(500);
+  const corners = await p.evaluate(() => { const c = document.getElementById('display'), g = c.getContext('2d'), W = c.width, H = c.height, d = g.getImageData(0, 0, W, H).data; let n = 0, bg = 0; for (let y = 2; y < H; y += 17) for (let x = 2; x < W; x += 17) { const i = (y * W + x) * 4; n++; if (Math.abs(d[i] - 11) <= 2 && Math.abs(d[i + 1] - 9) <= 2 && Math.abs(d[i + 2] - 8) <= 2) bg++; } return {n, bg}; });
+  check('turned to face north, the whole view is photograph (no dark backdrop showing)', corners.bg < corners.n * 0.005, JSON.stringify(corners) + ' (a few dark-water pixels match the backdrop colour by chance)');
+  await p.evaluate(() => document.querySelector('button[data-mode=original]').click()); await p.waitForTimeout(600); check('Original plan still turns as the printed sheet (no ground mapping)', await p.evaluate(() => !geoOn() && toGeo(2000, 1000).x === 2000));
+  check('no page errors', !s.errors.length, s.errors.join('; '));
+  console.log(pass + ' passed, ' + fail + ' failed'); await s.browser.close(); })();
