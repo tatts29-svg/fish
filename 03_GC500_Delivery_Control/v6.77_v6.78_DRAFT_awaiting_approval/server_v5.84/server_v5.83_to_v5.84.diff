@@ -1,0 +1,787 @@
+--- /home/user/fish/03_GC500_Delivery_Control/v6.30_race_day_cards/server_v5.83/server.js	2026-09-25 23:59:32.263541847 +0000
++++ server.js	2026-09-26 11:01:37.087943607 +0000
+@@ -15,6 +15,9 @@
+  * Names inside records are typed by people, not signed in — the log says who claimed to do what, not who did.
+  *
+  * Environment: PORT (Railway sets it), DATA_DIR (default /data), VIEW_TOKEN, EDIT_TOKEN (required, 16+ chars).
++ * v5.84 — also SERVER_FILE (the SHA-256 of the machine blob the start command boots from) and SERVER_FILE_KEEP
++ * (more such hashes, comma-separated, e.g. the rollback build): those blobs are never pruned by a machine import,
++ * so the server file can sit on the volume without being listed in the public machine set.
+  * Author: Andrew Fisher · Coates Industrial Solutions · GC500
+  */
+ 'use strict';
+@@ -35,7 +38,7 @@
+ const MAX_THUMB = 200 * 1024;         // a browser-made, static WebP preview
+ const KEEP_SNAPSHOTS = 96;             // hourly, four days
+ const TOKEN_RE = /^[A-Za-z0-9_-]{16,128}$/;
+-const BUILD = 'server v5.83 — THE FORECAST (GET /api/weather/forecast: weatherapi.com forecast.json trimmed to one row a day, held an hour, behind the link token; Andrew Fisher, 26 Sep 2026; nothing else changed) + THE MACHINE SET MAY CARRY THE SATELLITE PLAN EXPLORER AND THE 3D PROOF (its html pages may reach Mapbox tiles, Google 3D tiles and CesiumJS on jsDelivr, and send their origin as referrer; Andrew Fisher, 25 Sep 2026; nothing else changed) + THE GOOGLE KEY FROM THE SERVICE (GOOGLE_MAPS_KEY, a browser key, handed to the page beside the Mapbox token at /api/map-key; Andrew Fisher, 25 Sep 2026; nothing else changed) + everything v5.40 did (the record, the document library, drop photographs, units, stamps, contracts, costs, purchase orders, driver drop cards, texting, the weather, filing, the record moved between references, labour ticked per piece) + THE DROP CARD ANSWERS BACK (v5.56: a card reports on its own link at /d/<token>/report — delivered, in position, installed, levelled, stairs, a note, photographs and the spot somebody stood on — stored as that person\'s word and never as a Coates record, readable at /api/reports behind the edit link only) + A WRITE THAT FAILED IS NEVER ANSWERED 200 (v5.58: cards and reports write-then-rename, 507 on failure; a failed record write refuses every further write with the reason and /health says so; a card\'s day is a Queensland day; a blank position is not a pin at 0,0; the 401st card no longer deletes a live driver link) + THE EXPORT CARRIES BOTH FENCING SIDES (v5.60: fenceRates, what the customer is charged, and fenceCosts, what the fencing crew bill — two fields, never one column) + THE COATES WAY MACHINE (v5.77: the V8 Connected page, its modules, the original cog artwork and its sound, imported on the admin page from the build\'s print/out/machine folder and served at /w/<token>/ to the view link and the edit link, inside the page\'s own Coates Way tab; content-addressed blobs, a set that goes live whole in one write, nothing of the record touched)';   // printed at start so the deploy log says which code runs
++const BUILD = 'server v5.84 — HARDENED (the page and the machine files sent brotli-compressed, worked out once per version; a record write is on the disk before it is answered, and SIGTERM flushes; a record that will not read is recovered from its newest snapshot, never started empty; a snapshot at every start, with the file index; __proto__/constructor/prototype refused as ids; upload disk errors answered 507 instead of a crash; security headers on the page; a wrong-token limiter; the server blob kept off the public machine set; 26 Sep 2026; nothing the view link can read changed) + v5.83 THE FORECAST (GET /api/weather/forecast: weatherapi.com forecast.json trimmed to one row a day, held an hour, behind the link token; Andrew Fisher, 26 Sep 2026; nothing else changed) + THE MACHINE SET MAY CARRY THE SATELLITE PLAN EXPLORER AND THE 3D PROOF (its html pages may reach Mapbox tiles, Google 3D tiles and CesiumJS on jsDelivr, and send their origin as referrer; Andrew Fisher, 25 Sep 2026; nothing else changed) + THE GOOGLE KEY FROM THE SERVICE (GOOGLE_MAPS_KEY, a browser key, handed to the page beside the Mapbox token at /api/map-key; Andrew Fisher, 25 Sep 2026; nothing else changed) + everything v5.40 did (the record, the document library, drop photographs, units, stamps, contracts, costs, purchase orders, driver drop cards, texting, the weather, filing, the record moved between references, labour ticked per piece) + THE DROP CARD ANSWERS BACK (v5.56: a card reports on its own link at /d/<token>/report — delivered, in position, installed, levelled, stairs, a note, photographs and the spot somebody stood on — stored as that person\'s word and never as a Coates record, readable at /api/reports behind the edit link only) + A WRITE THAT FAILED IS NEVER ANSWERED 200 (v5.58: cards and reports write-then-rename, 507 on failure; a failed record write refuses every further write with the reason and /health says so; a card\'s day is a Queensland day; a blank position is not a pin at 0,0; the 401st card no longer deletes a live driver link) + THE EXPORT CARRIES BOTH FENCING SIDES (v5.60: fenceRates, what the customer is charged, and fenceCosts, what the fencing crew bill — two fields, never one column) + THE COATES WAY MACHINE (v5.77: the V8 Connected page, its modules, the original cog artwork and its sound, imported on the admin page from the build\'s print/out/machine folder and served at /w/<token>/ to the view link and the edit link, inside the page\'s own Coates Way tab; content-addressed blobs, a set that goes live whole in one write, nothing of the record touched)';   // printed at start so the deploy log says which code runs
+ /* the weather reading, held for ten minutes so a room full of phones is one call upstream */
+ const WEATHER_TTL = 10 * 60 * 1000;
+ let weatherCache = { at: 0, body: null };
+@@ -68,6 +71,60 @@
+   mail: path.join(DATA_DIR, 'mail.json'),
+ };
+ 
++/* v5.84 — A STORE THAT WILL NOT READ IS NOT AN EMPTY STORE. Every store below was read with
++   try { JSON.parse } catch { first run }, so a records.json cut short by a full disk or a bad restore started the
++   service with an EMPTY record, and the first write after that saved the empty record over the damaged one (the
++   26 Sep 2026 audit). Now:
++     · a file that is missing is a first run only when there is no snapshot of it to recover;
++     · a file that is there but will not parse (or is not the right shape) is set aside under .corrupt-<time>,
++       never overwritten, and the newest snapshot that DOES parse is loaded in its place — loudly in the deploy
++       log and on /health (record_recovered), so nobody mistakes an hour-old record for the live one;
++     · a store with no snapshot to fall back on (drop cards, card reports, scoped reports) refuses to start and
++       says which file: an empty cards file saved over a damaged one would cut every driver's link. Moving the
++       named file aside is the owner's decision, not this service's. The damaged file is left where it is, so
++       every restart refuses the same way instead of the second one starting empty. */
++const STARTUP_RECOVERY = [];
++const SNAP_DIR = path.join(DATA_DIR, 'snapshots');
++function plainObject(v) { return !!v && typeof v === 'object' && !Array.isArray(v); }
++function newestSnapshot(prefix, valid) {
++  let names = [];
++  try { names = fs.readdirSync(SNAP_DIR).filter(n => n.startsWith(prefix + '-') && n.endsWith('.json')); } catch (e) { return null; }
++  const dated = names.map(n => { try { return { n, t: fs.statSync(path.join(SNAP_DIR, n)).mtimeMs }; } catch (e) { return null; } })
++    .filter(Boolean).sort((a, b) => b.t - a.t || b.n.localeCompare(a.n));
++  for (const d of dated) {
++    try { const v = JSON.parse(fs.readFileSync(path.join(SNAP_DIR, d.n), 'utf8')); if (valid(v)) return { name: d.n, value: v }; } catch (e) { /* try the next older one */ }
++  }
++  return null;
++}
++function loadStore(file, label, snapPrefix, valid) {
++  let raw = null, why = null;
++  try { raw = fs.readFileSync(file, 'utf8'); } catch (e) { if (e.code !== 'ENOENT') why = 'could not be read (' + e.message + ')'; }
++  if (raw !== null) {
++    try { const v = JSON.parse(raw); if (valid(v)) return v; why = 'is not the expected shape'; }
++    catch (e) { why = 'does not parse (' + e.message + ')'; }
++  }
++  const snap = snapPrefix ? newestSnapshot(snapPrefix, valid) : null;
++  if (!why && !snap) return null;                                  // a genuine first run: nothing there, nothing to recover
++  if (!why) why = 'is missing although snapshots of it exist';
++  if (!snap) {
++    console.error('!!!!! GC500 REFUSING TO START: ' + file + ' ' + why + ', and there is no valid snapshot of the ' + label
++      + ' to recover from. Nothing has been changed. Inspect the file; to start WITHOUT it, move it aside (the service then starts with none).');
++    process.exit(1);
++  }
++  let setAside = null;
++  if (raw !== null) {
++    setAside = file + '.corrupt-' + new Date().toISOString().replace(/[:.]/g, '-');
++    try { fs.renameSync(file, setAside); } catch (e) { console.error('could not set the damaged ' + label + ' aside:', e.message); setAside = null; }
++  }
++  try { writeWhole(file, snap.value); } catch (e) { console.error('could not write the recovered ' + label + ' back:', e.message); }
++  const note = { store: label, file: path.basename(file), reason: why, loaded_from: snap.name, damaged_copy: setAside ? path.basename(setAside) : null, at: new Date().toISOString() };
++  STARTUP_RECOVERY.push(note);
++  console.error('!!!!! GC500 ' + label.toUpperCase() + ' RECOVERED FROM SNAPSHOT ' + snap.name + ': ' + file + ' ' + why
++    + '. Changes made after that snapshot are NOT in the live ' + label + '.' + (setAside ? ' The damaged file is kept as ' + setAside + '.' : ''));
++  try { fs.appendFileSync(FILES.log, JSON.stringify(Object.assign({ what: 'STORE RECOVERED FROM SNAPSHOT' }, note)) + '\n'); } catch (e) { /* the console line above is the record */ }
++  return snap.value;
++}
++
+ // ---------------------------------------------------------------- driver drop cards
+ /* A drop card is one load's page, made in the app by somebody holding the edit link and posted here whole. It is
+    served from its own token — never the view link, which shows the record, the team, the costs and every asset.
+@@ -81,8 +138,8 @@
+ const MAX_CARD = 2 * 1024 * 1024;      // one card, HTML with its pictures inline
+ const KEEP_CARDS = 400;                // oldest expired cards drop off beyond this
+ const CARD_TOKEN_RE = /^[A-Za-z0-9_-]{20,64}$/;
+-let cards = {};
+-try { cards = JSON.parse(fs.readFileSync(FILES.cards, 'utf8')) || {}; } catch (e) { /* first run */ }
++/* v5.84 — read through loadStore: a damaged cards file refuses to start rather than starting with no cards */
++let cards = loadStore(FILES.cards, 'drop cards', null, plainObject) || {};
+ /* v5.58 — A SAVE THAT DID NOT REACH THE DISK IS NOT A SAVE. The 19 Sep 2026 audit: these caught a write error,
+    logged it, and let the handler answer 200 — so a full or failed volume handed a driver "Sent. Coates has your
+    report" for a report that existed in memory alone and was gone at the next restart. Each write now goes to a
+@@ -150,13 +207,13 @@
+ const KEEP_REPORTS = 4000;
+ const REPORT_FIELDS = new Set(['delivered', 'in_position', 'installed', 'levelled', 'stairs']);
+ const REPORT_ANSWERS = new Set(['yes', 'not yet', 'not applicable']);
+-let reports = {};
+-try { reports = JSON.parse(fs.readFileSync(FILES.reports, 'utf8')) || {}; } catch (e) { /* first run */ }
++/* v5.84 — read through loadStore, as the cards are */
++let reports = loadStore(FILES.reports, 'card reports', null, plainObject) || {};
+ /* v5.63 — scoped replies live apart from the legacy ones on purpose. The legacy /d/<token>/report path is
+    unchanged and keeps working for every card already issued, whose HTML is frozen and cannot be rewritten
+    by rebuilding the page. A new card gets the scoped route. Two stores, one migration, no card left behind. */
+-let scoped = {};
+-try { scoped = JSON.parse(fs.readFileSync(FILES.scoped, 'utf8')) || {}; } catch (e) { /* first run */ }
++/* v5.84 — read through loadStore, as the cards are */
++let scoped = loadStore(FILES.scoped, 'scoped reports', null, plainObject) || {};
+ function persistScoped() { try { writeWhole(FILES.scoped, scoped); return null; } catch (e) { console.error('scoped', e.message); return e; } }
+ function persistReports() { try { writeWhole(FILES.reports, reports); return null; } catch (e) { console.error('reports', e.message); return e; } }
+ function reportsFor(token) { return (reports[token] || []).slice(); }
+@@ -481,8 +538,9 @@
+ 
+ // ---------------------------------------------------------------- the record
+ let state = { version: 0, updated: null, docs: {} };
+-try { state = Object.assign(state, JSON.parse(fs.readFileSync(FILES.records, 'utf8'))); } catch (e) { /* first run */ }
+-let writeTimer = null;
++/* v5.84 — read through loadStore: a record that will not parse is recovered from its newest valid snapshot and
++   never started empty (see loadStore) */
++state = Object.assign(state, loadStore(FILES.records, 'record', 'records', v => plainObject(v) && plainObject(v.docs)) || {});
+ /* v5.58 — THE DISK IS EITHER TAKING WRITES OR IT IS NOT, AND THE PAGE IS TOLD WHICH. The record's save is
+    debounced 150 ms after the answer goes back, which is what keeps a room full of phones from writing the file
+    a hundred times a second — but it meant a failed write was a line in the log and nothing else, and the page
+@@ -491,50 +549,107 @@
+    refused with 507 and the reason, until a write lands again. A page that gets a 507 keeps the change in its
+    queue and says the truth on its footer, which is what the queue is for. Nothing is acknowledged into a hole. */
+ let diskFault = null;      // the last write error, or null while the disk is taking writes
++/* v5.84 — SAVED MEANS ON THE DISK. The 150 ms debounce answered 200 first and saved afterwards, and every new
++   write restarted the timer, so a steady stream of edits could hold the save off indefinitely and a restart in
++   that gap lost changes that had been answered "saved" (the 26 Sep 2026 audit). Now persist() returns a promise
++   that settles when a save that INCLUDES the change is on the disk (written, fsynced, renamed into place), and
++   the route answers only then — 200 on success, 507 on failure. Writes are still grouped: while one save is in
++   flight, every change that arrives joins the next one, so a room full of editors is a handful of file writes,
++   not one per keystroke, and there is no timer that can be pushed back. */
++let saveInFlight = false, saveNext = null;
+ function persist() {
+-  clearTimeout(writeTimer);
+-  writeTimer = setTimeout(() => {
+-    const tmp = FILES.records + '.tmp';
+-    fs.writeFile(tmp, JSON.stringify(state), err => {
+-      if (err) { diskFault = err; console.error('persist', err); logWrite({ at: new Date().toISOString(), what: 'RECORD NOT SAVED', error: err.message }); return; }
+-      fs.rename(tmp, FILES.records, e2 => {
+-        if (e2) { diskFault = e2; console.error('persist rename', e2); logWrite({ at: new Date().toISOString(), what: 'RECORD NOT SAVED', error: e2.message }); return; }
+-        if (diskFault) logWrite({ at: new Date().toISOString(), what: 'record saving again', after: diskFault.message });
+-        diskFault = null;
+-      });
+-    });
+-  }, 150);
++  if (!saveNext) {
++    let done; const p = new Promise(r => { done = r; });
++    saveNext = { p, done };
++  }
++  const settled = saveNext.p;          // taken before runSave(), which hands saveNext over to the save it starts
++  if (!saveInFlight) runSave();
++  return settled;
++}
++function runSave() {
++  const batch = saveNext; saveNext = null; saveInFlight = true;
++  const body = JSON.stringify(state);          // taken now: every change made before this moment is in it
++  saveRecordFile(body).then(() => {
++    if (diskFault) logWrite({ at: new Date().toISOString(), what: 'record saving again', after: diskFault.message });
++    diskFault = null; return null;
++  }, err => {
++    diskFault = err; console.error('persist', err); logWrite({ at: new Date().toISOString(), what: 'RECORD NOT SAVED', error: err.message });
++    return err;
++  }).then(err => {
++    saveInFlight = false; batch.done(err);
++    if (saveNext) runSave();
++  });
+ }
+-function snapshot() {
+-  const stamp = new Date().toISOString().slice(0, 13).replace(/[-T:]/g, '');
+-  const f = path.join(DATA_DIR, 'snapshots', 'records-' + stamp + '.json');
+-  if (fs.existsSync(f)) return;
+-  try {
+-    fs.writeFileSync(f, JSON.stringify(state));
+-    const all = fs.readdirSync(path.join(DATA_DIR, 'snapshots')).filter(n => n.startsWith('records-')).sort();
+-    all.slice(0, Math.max(0, all.length - KEEP_SNAPSHOTS)).forEach(n => fs.unlinkSync(path.join(DATA_DIR, 'snapshots', n)));
+-  } catch (e) { console.error('snapshot', e); }
++async function saveRecordFile(body) {
++  const tmp = FILES.records + '.tmp';
++  const fh = await fs.promises.open(tmp, 'w');
++  try { await fh.writeFile(body); await fh.sync(); } finally { await fh.close(); }
++  await fs.promises.rename(tmp, FILES.records);
++}
++/* v5.84 — resolves once nothing is waiting to be saved (used by the shutdown flush) */
++async function flushRecord() {
++  while (saveInFlight || saveNext) await (saveNext ? saveNext.p : new Promise(r => setTimeout(r, 10)));
++}
++/* v5.84 — THE SNAPSHOT CARRIES THE FILE INDEX TOO, AND ONE IS TAKEN AT EVERY START. files.json lists every
++   document, photograph and invoice on the volume; losing it orphans the bytes, so it is snapshotted beside the
++   record (files-<stamp>.json) and recovered the same way. A start-up snapshot (…-boot.json) catches the record
++   as it stood when this build took over, before it writes anything; boot snapshots rotate separately (12 kept),
++   so a crash loop can never push the hourly ones out. Each snapshot is written to a temporary name and renamed,
++   so a half-written one is never taken for a whole one. */
++const KEEP_BOOT_SNAPSHOTS = 12;
++function snapshot(boot) {
++  const now = new Date().toISOString();
++  const stamp = boot ? now.slice(0, 16).replace(/[-T:]/g, '') + '-boot' : now.slice(0, 13).replace(/[-T:]/g, '');
++  for (const [prefix, obj, live] of [['records', state, FILES.records], ['files', files, FILES.files]]) {
++    const f = path.join(SNAP_DIR, prefix + '-' + stamp + '.json');
++    /* only a store that exists on the disk is snapshotted — a snapshot of a never-written store would make its
++       absence at the next start look like a loss and set off a false recovery */
++    if (fs.existsSync(f) || !fs.existsSync(live)) continue;
++    try {
++      const tmp = path.join(SNAP_DIR, '.tmp-' + prefix + '-' + process.pid);
++      fs.writeFileSync(tmp, JSON.stringify(obj)); fs.renameSync(tmp, f);
++      const kind = boot ? new RegExp('^' + prefix + '-\\d{12}-boot\\.json$') : new RegExp('^' + prefix + '-\\d{10}\\.json$');
++      const all = fs.readdirSync(SNAP_DIR).filter(n => kind.test(n)).sort();
++      all.slice(0, Math.max(0, all.length - (boot ? KEEP_BOOT_SNAPSHOTS : KEEP_SNAPSHOTS))).forEach(n => fs.unlinkSync(path.join(SNAP_DIR, n)));
++    } catch (e) { console.error('snapshot', prefix, e.message); }
++  }
+ }
+ setInterval(snapshot, 60 * 60 * 1000).unref();
+-function logWrite(line) { fs.appendFile(FILES.log, JSON.stringify(line) + '\n', () => {}); }
++/* v5.84 — appends in flight are counted so the shutdown flush can wait for the last log line */
++let logPending = 0;
++function logWrite(line) { logPending++; fs.appendFile(FILES.log, JSON.stringify(line) + '\n', () => { logPending--; }); }
+ 
+ const SEG = /^[A-Za-z0-9_\-.~:@+]{1,200}$/;
++/* v5.84 — PROTOTYPE KEYS ARE NOT IDS. SEG lets "__proto__", "constructor" and "prototype" through, and
++   state.docs["__proto__"] is Object.prototype: a PUT to /api/doc/__proto__/x wrote onto the prototype of every
++   object in the service, and DELETE /api/doc/constructor/keys deleted Object.keys (the 26 Sep 2026 audit). They
++   are refused (400) as a collection, a document or a file id, and a collection is only ever an OWN property of
++   state.docs, so "toString" and friends can never reach an inherited function either. */
++const PROTO_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
++function protoKey(k) { return PROTO_KEYS.has(String(k).toLowerCase()); }
+ function setDoc(coll, id, body, who) {
+-  if (!SEG.test(coll) || !SEG.test(id) || id === '.' || id === '..') return false;
+-  state.docs[coll] = state.docs[coll] || {};
++  if (!SEG.test(coll) || !SEG.test(id) || id === '.' || id === '..' || protoKey(coll) || protoKey(id)) return false;
++  state.docs[coll] = Object.prototype.hasOwnProperty.call(state.docs, coll) ? state.docs[coll] : {};
+   state.docs[coll][id] = body;
+   state.version += 1; state.updated = new Date().toISOString();
+   logWrite({ at: state.updated, v: state.version, op: 'set', coll, id, by: (body && (body.by || body.done_by || body.recorded_by || body.date_by)) || null, who });
+-  persist();
+-  return true;
++  return persist();   /* v5.84 — the promise of the save, which the route waits for before it answers */
+ }
+ function deleteDoc(coll, id, who) {
+-  if (!SEG.test(coll) || !SEG.test(id)) return false;
+-  if (state.docs[coll]) delete state.docs[coll][id];
++  if (!SEG.test(coll) || !SEG.test(id) || protoKey(coll) || protoKey(id)) return false;
++  if (Object.prototype.hasOwnProperty.call(state.docs, coll)) delete state.docs[coll][id];
+   state.version += 1; state.updated = new Date().toISOString();
+   logWrite({ at: state.updated, v: state.version, op: 'delete', coll, id, who });
+-  persist();
+-  return true;
++  return persist();   /* v5.84 — as setDoc */
++}
++/* v5.84 — a record write is answered once the save that carries it has settled: 200 when it is on the disk, 507
++   (the page keeps the change queued, as it does for the diskFault refusal) when it is not */
++async function answerSaved(res, saving) {
++  if (!saving) return send(res, 400, { error: 'bad path' });
++  const version = state.version;
++  const err = await saving;
++  if (err) return send(res, 507, { error: 'the service could not write that change to its disk (' + err.message + ') — it is kept on this device and will go when it can', version });
++  return send(res, 200, { version });
+ }
+ 
+ // ---------------------------------------------------------------- helpers
+@@ -565,16 +680,64 @@
+ 
+ // ---------------------------------------------------------------- the app file
+ function appMeta() { try { return JSON.parse(fs.readFileSync(FILES.meta, 'utf8')); } catch (e) { return null; } }
++/* v5.84 — BROTLI FOR THE PAGE, WORKED OUT ONCE PER VERSION. The page is ~6.6 MB of HTML; gzip made it 1.83 MB,
++   brotli at quality 11 makes it 1.44 MB — a fifth less to pull over a phone at the circuit. Quality 11 costs
++   ~16 s of CPU, so it is done ONCE per uploaded version, off the event loop (zlib's thread pool), into
++   app.html.br beside app.html.gz, with the version's ETag written to app.html.br.etag. Until it is ready (the
++   seconds after an upload, or the first start of this build on a page uploaded before it) the page goes out as
++   gzip exactly as before. Nothing is compressed per request. */
++const APP_BR = path.join(DATA_DIR, 'app.html.br'), APP_BR_TAG = path.join(DATA_DIR, 'app.html.br.etag');
++let appBrEtag = null;      // the ETag of the version app.html.br holds, once it is whole on the disk
++try { appBrEtag = fs.readFileSync(APP_BR_TAG, 'utf8').trim() || null; } catch (e) { /* not made yet */ }
++function brotliOf(buf, quality) {
++  return new Promise((resolve, reject) => zlib.brotliCompress(buf, { params: {
++    [zlib.constants.BROTLI_PARAM_QUALITY]: quality, [zlib.constants.BROTLI_PARAM_SIZE_HINT]: buf.length } }, (e, out) => e ? reject(e) : resolve(out)));
++}
++let appBrWorking = null;
++function makeAppBrotli() {
++  const meta = appMeta();
++  if (!meta || !meta.etag || appBrEtag === meta.etag || appBrWorking === meta.etag || !fs.existsSync(FILES.app)) return;
++  const etag = meta.etag; appBrWorking = etag;
++  fs.promises.readFile(FILES.app).then(buf => brotliOf(buf, 11)).then(out => {
++    if ((appMeta() || {}).etag !== etag) return;           // a newer page landed meanwhile; its own run makes its own
++    atomicBytes(APP_BR, out); atomicBytes(APP_BR_TAG, Buffer.from(etag)); appBrEtag = etag;
++    console.log('page brotli ready: ' + out.length + ' bytes for ' + etag);
++  }).catch(e => console.error('page brotli', e.message)).then(() => { if (appBrWorking === etag) appBrWorking = null; });
++}
++/* v5.84 — which of the encodings on offer the client takes: br before gzip, and a q=0 is a refusal */
++function acceptsEncoding(req, enc) {
++  return String(req.headers['accept-encoding'] || '').split(',').some(part => {
++    const [name, ...params] = part.trim().toLowerCase().split(';');
++    if (name !== enc) return false;
++    const q = params.map(s => s.trim()).find(s => s.startsWith('q='));
++    return !q || parseFloat(q.slice(2)) > 0;
++  });
++}
++/* v5.84 — each encoding is its own representation, so each carries its own ETag ("…-br", "…-gz"); a 304 is
++   answered only for the tag of the representation this request would get. Vary: Accept-Encoding on all of them. */
++function variantTag(etag, enc) { return !etag || !enc ? etag : etag.replace(/"$/, '-' + (enc === 'gzip' ? 'gz' : enc) + '"'); }
+ function serveApp(req, res) {
+   if (!fs.existsSync(FILES.app)) return send(res, 503, page('Not ready', '<p>The app has not been uploaded yet. The owner uploads it on the admin page.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
+   const meta = appMeta() || {};
+-  const h = { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache', ETag: meta.etag || '' , 'X-Frame-Options': 'SAMEORIGIN' };
+-  if (meta.etag && req.headers['if-none-match'] === meta.etag) { res.writeHead(304, h); return res.end(); }
+-  if (/\bgzip\b/.test(req.headers['accept-encoding'] || '') && fs.existsSync(FILES.appgz)) {
+-    h['Content-Encoding'] = 'gzip'; h['Vary'] = 'Accept-Encoding';
+-    res.writeHead(200, h); return fs.createReadStream(FILES.appgz).pipe(res);
+-  }
+-  res.writeHead(200, h); fs.createReadStream(FILES.app).pipe(res);
++  /* v5.84 — security headers on the page itself. HSTS (180 days) keeps a phone that has been here once on https;
++     nosniff as everywhere else. The referrer policy is strict-origin, NOT no-referrer, on purpose: the page loads
++     Mapbox GL and its tiles and the Google Maps script straight from the browser, and both keys are restricted to
++     this site's address, which those services read from the Referer header — no-referrer would switch the live
++     map and the 3D view off. strict-origin sends the origin only (https://…railway.app/), never the path, so the
++     link's token never leaves this site in a Referer, same-origin or not, and nothing over plain http. No
++     Content-Security-Policy yet: see NOTES.md. */
++  const h = { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache', 'X-Frame-Options': 'SAMEORIGIN', Vary: 'Accept-Encoding',
++    'Strict-Transport-Security': 'max-age=15552000', 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin' };
++  let enc = null, file = FILES.app;
++  if (meta.etag && appBrEtag === meta.etag && acceptsEncoding(req, 'br') && fs.existsSync(APP_BR)) { enc = 'br'; file = APP_BR; }
++  else if (acceptsEncoding(req, 'gzip') && fs.existsSync(FILES.appgz)) { enc = 'gzip'; file = FILES.appgz; }
++  if (meta.etag) h.ETag = variantTag(meta.etag, enc);
++  if (enc) h['Content-Encoding'] = enc;
++  if (meta.etag && req.headers['if-none-match'] === h.ETag) { res.writeHead(304, h); return res.end(); }
++  try { h['Content-Length'] = fs.statSync(file).size; } catch (e) { /* streamed without a length */ }
++  res.writeHead(200, h);
++  if (req.method === 'HEAD') return res.end();
++  const stream = fs.createReadStream(file); stream.on('error', () => res.destroy()); stream.pipe(res);
+ }
+ async function uploadApp(req, res) {
+   let buf;
+@@ -593,11 +756,23 @@
+   const branches = unesc((text.match(/<meta name="gc500-branches" content="([^"]*)"/) || [])[1] || '').split(';').map(s => s.trim()).filter(Boolean)
+     .map(s => { const i = s.indexOf('='); return i > 0 ? { code: s.slice(0, i).trim().toUpperCase(), name: s.slice(i + 1).trim() || null } : { code: s.toUpperCase(), name: null }; })
+     .filter(b => BRANCH_RE.test(b.code));
+-  fs.writeFileSync(FILES.app + '.tmp', buf); fs.renameSync(FILES.app + '.tmp', FILES.app);
+-  fs.writeFileSync(FILES.appgz + '.tmp', zlib.gzipSync(buf, { level: 6 })); fs.renameSync(FILES.appgz + '.tmp', FILES.appgz);
+   const meta = { etag, bytes: buf.length, uploaded: new Date().toISOString(), build_version: ver, built, refs, branches };
+-  fs.writeFileSync(FILES.meta, JSON.stringify(meta));
++  /* v5.84 — a full disk here threw out of an un-awaited promise and took the whole service down (the 26 Sep 2026
++     audit). All three files are written to temporary names FIRST (that is where a full disk fails) and only then
++     renamed into place, meta last; a failure is caught and answered 507 and the page that was live stays live. */
++  try {
++    fs.writeFileSync(FILES.app + '.tmp', buf);
++    fs.writeFileSync(FILES.appgz + '.tmp', zlib.gzipSync(buf, { level: 6 }));
++    fs.writeFileSync(FILES.meta + '.tmp', JSON.stringify(meta));
++    fs.renameSync(FILES.app + '.tmp', FILES.app); fs.renameSync(FILES.appgz + '.tmp', FILES.appgz); fs.renameSync(FILES.meta + '.tmp', FILES.meta);
++  } catch (e) {
++    console.error('upload-app', e.message);
++    for (const t of [FILES.app, FILES.appgz, FILES.meta]) { try { fs.unlinkSync(t + '.tmp'); } catch (e2) { /* not there */ } }
++    logWrite({ at: new Date().toISOString(), what: 'PAGE NOT SAVED', error: e.message });
++    return send(res, 507, { error: 'the service could not write the page to its disk (' + (e.code || e.message) + ') — nothing was changed; the page that was live is still live' });
++  }
+   logWrite({ at: meta.uploaded, op: 'upload-app', bytes: buf.length, build_version: ver });
++  makeAppBrotli();   /* v5.84 — the brotli copy of this version, made once, in the background */
+   return send(res, 200, meta);
+ }
+ 
+@@ -605,12 +780,16 @@
+ // One folder of files and one index. The id is the file name with anything outside [A-Za-z0-9._-] replaced by _,
+ // the same rule the build uses, so a plate the build lists matches the plate the owner uploads by name alone.
+ // Uploading a file under an existing id replaces it — that is how a new build of a plate goes out.
+-let files = {};
+-try { files = JSON.parse(fs.readFileSync(FILES.files, 'utf8')) || {}; } catch (e) { /* none yet */ }
++/* v5.84 — read through loadStore: a damaged index is recovered from its newest snapshot (files-<stamp>.json) */
++let files = loadStore(FILES.files, 'file index', 'files', plainObject) || {};
++/* v5.84 — returns the error instead of throwing it, like persistCards: this ran inside a pipeline callback,
++   where a throw (disk full) was uncaught and crashed the service. Callers put the index back and answer 507. */
+ function persistFiles() {
+   const tmp = FILES.files + '.tmp';
+-  fs.writeFileSync(tmp, JSON.stringify(files)); fs.renameSync(tmp, FILES.files);
++  try { fs.writeFileSync(tmp, JSON.stringify(files)); fs.renameSync(tmp, FILES.files); return null; }
++  catch (e) { console.error('files index', e.message); try { fs.unlinkSync(tmp); } catch (e2) { /* not there */ } return e; }
+ }
++function diskFull(e) { return !!e && ['ENOSPC', 'EDQUOT', 'EIO', 'EROFS'].includes(e.code); }
+ const FILE_ID = /^[A-Za-z0-9._-]{1,200}$/;
+ const FILE_KINDS = new Set(['swms', 'transport', 'map', 'pack', 'drop-photo', 'photo', 'docket', 'invoice', 'other']);
+ /* WHAT A FILE IS FILED AGAINST. Andrew Fisher, 16 Sep 2026: "In the admin can we not have Upload here for pics
+@@ -677,6 +856,7 @@
+   const name = hdr(req, 'x-file-name').slice(0, 200);
+   const id = fileId(name), ext = extOf(name);
+   if (!name || !FILE_ID.test(id) || id === '.' || id === '..') return send(res, 400, { error: 'a file name is needed (x-file-name)' });
++  if (protoKey(id)) return send(res, 400, { error: 'that file name cannot be used' });   /* v5.84 — prototype keys refused */
+   /* A REFUSAL SHOULD SAY WHERE THE FILE ACTUALLY GOES. Andrew Fisher, 15 Sep 2026, on the deploy that would not
+      come up: "i tried uploading the json file in there. As i thought that file goes in there." The record JSON is
+      the one file on this page with a Download and no Upload beside it, so assuming this form was its way back in
+@@ -698,14 +878,26 @@
+   pipeline(req, counter, fs.createWriteStream(tmp), err => {
+     if (err) {
+       try { fs.unlinkSync(tmp); } catch (e) { /* nothing written */ }
+-      if (!res.headersSent) send(res, err.message === 'too large' ? 413 : 400, { error: err.message === 'too large' ? 'too large (over ' + (MAX_FILE / 1e6) + ' MB)' : 'upload interrupted' });
++      /* v5.84 — a full disk while streaming is the disk, not the upload: 507, so the page says so */
++      if (!res.headersSent) send(res, err.message === 'too large' ? 413 : diskFull(err) ? 507 : 400, { error: err.message === 'too large' ? 'too large (over ' + (MAX_FILE / 1e6) + ' MB)' : diskFull(err) ? 'the service disk is full — the file was not saved' : 'upload interrupted' });
+       return;
+     }
+     if (!n) { try { fs.unlinkSync(tmp); } catch (e) {} return send(res, 400, { error: 'the file is empty' }); }
+-    fs.renameSync(tmp, dest);
+-    const replaced = !!files[id];
++    /* v5.84 — this callback runs outside the request's try/catch, so a throw here (rename or index write on a
++       full disk) crashed the service. Both are caught now: the index goes back to what it was, 507 is answered. */
++    const prev = files[id];
++    try { fs.renameSync(tmp, dest); } catch (e) {
++      console.error('upload rename', e.message); try { fs.unlinkSync(tmp); } catch (e2) { /* gone */ }
++      return send(res, 507, { error: 'the service could not save the file (' + (e.code || e.message) + ') — nothing was changed' });
++    }
++    const replaced = !!prev;
+     files[id] = { id, name, kind, ref: fl.ref, branch: fl.branch, invoice_no: fl.invoice_no, title, note, bytes: n, sha256: hash.digest('hex'), type: TYPES[ext], uploaded: new Date().toISOString(), by: who };
+-    persistFiles();
++    const ferr = persistFiles();
++    if (ferr) {
++      if (prev) files[id] = prev; else { delete files[id]; try { fs.unlinkSync(dest); } catch (e) { /* gone */ } }
++      logWrite({ at: new Date().toISOString(), what: 'file NOT SAVED', id, error: ferr.message });
++      return send(res, 507, { error: 'the service could not save the file list (' + (ferr.code || ferr.message) + ') — the file is not listed; try again when storage is working' });
++    }
+     logWrite({ at: files[id].uploaded, op: replaced ? 'replace-file' : 'upload-file', id, kind, ref: fl.ref, branch: fl.branch, invoice_no: fl.invoice_no, bytes: n, who });
+     send(res, 200, files[id]);
+   });
+@@ -714,7 +906,8 @@
+    can never be mistaken for a new upload of a different document. The kind, and what it is filed against — the
+    reference of a photo, the branch and number of an invoice — are what change, and the card keeps what it was. */
+ function refileFile(req, res, id, who) {
+-  if (!files[id]) return send(res, 404, { error: 'no such file' });
++  if (protoKey(id)) return send(res, 400, { error: 'not a file id' });   /* v5.84 — prototype keys refused */
++  if (!Object.prototype.hasOwnProperty.call(files, id)) return send(res, 404, { error: 'no such file' });
+   const kind = hdr(req, 'x-file-kind');
+   if (!FILE_KINDS.has(kind)) return send(res, 400, { error: 'not a kind this service files under: ' + [...FILE_KINDS].join(', ') });
+   const fl = filing(req, kind);
+@@ -724,20 +917,26 @@
+   if (was.kind === kind && was.ref === fl.ref && was.branch === fl.branch && was.invoice_no === fl.invoice_no) return send(res, 200, f);
+   files[id] = Object.assign({}, f, { kind, ref: fl.ref, branch: fl.branch, invoice_no: fl.invoice_no,
+     refiled: { at: new Date().toISOString(), from: was.kind, was, by: who || null } });
+-  persistFiles();
++  /* v5.84 — a failed index write puts the card back and says so, instead of a 500 with the change half-kept */
++  const ferr = persistFiles();
++  if (ferr) { files[id] = f; return send(res, 507, { error: 'the service could not save the re-filing (' + (ferr.code || ferr.message) + ') — nothing was changed' }); }
+   logWrite({ at: files[id].refiled.at, op: 're-file', id, kind, ref: fl.ref, branch: fl.branch, invoice_no: fl.invoice_no, from: was.kind, was, who });
+   return send(res, 200, files[id]);
+ }
+ function deleteFile(res, id, who) {
+-  if (!files[id]) return send(res, 404, { error: 'no such file' });
++  if (protoKey(id)) return send(res, 400, { error: 'not a file id' });   /* v5.84 — prototype keys refused */
++  if (!Object.prototype.hasOwnProperty.call(files, id)) return send(res, 404, { error: 'no such file' });
++  /* v5.84 — the index is written BEFORE the bytes go, so a failed write (507) leaves the file listed and whole */
++  const gone = files[id]; delete files[id];
++  const ferr = persistFiles();
++  if (ferr) { files[id] = gone; return send(res, 507, { error: 'the service could not save the removal (' + (ferr.code || ferr.message) + ') — the file is still there' }); }
+   try { fs.unlinkSync(path.join(FILES.filesDir, id)); } catch (e) { /* already gone */ }
+   try { fs.unlinkSync(thumbnailPath(id)); } catch (e) { /* no derivative */ }
+-  delete files[id]; persistFiles();
+   logWrite({ at: new Date().toISOString(), op: 'delete-file', id, who });
+   return send(res, 200, { ok: true });
+ }
+ function serveFile(req, res, id) {
+-  const f = files[id];
++  const f = protoKey(id) || !Object.prototype.hasOwnProperty.call(files, id) ? null : files[id];   /* v5.84 — own entries only */
+   const fp = path.join(FILES.filesDir, id);
+   if (!f || !fs.existsSync(fp)) return send(res, 404, page('Not found', '<p>That file is not on the service. It may not have been uploaded yet.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
+   const size = fs.statSync(fp).size, ext = extOf(f.name);
+@@ -810,7 +1009,8 @@
+   });
+ }
+ async function uploadThumbnail(req, res, id) {
+-  if (!FILE_ID.test(id) || !files[id]) return send(res, 404, { error: 'no such file' });
++  if (protoKey(id)) return send(res, 400, { error: 'not a file id' });   /* v5.84 — prototype keys refused */
++  if (!FILE_ID.test(id) || !Object.prototype.hasOwnProperty.call(files, id)) return send(res, 404, { error: 'no such file' });
+   const originalHash = String(req.headers['x-file-sha256'] || '');
+   if (!/^[a-f0-9]{64}$/.test(originalHash)) return send(res, 400, { error: 'x-file-sha256 must name the original used for this preview' });
+   if (files[id].sha256 !== originalHash) return send(res, 409, { error: 'the original changed; make its preview again' });
+@@ -836,7 +1036,7 @@
+   return send(res, 200, { id, thumb: true });
+ }
+ function serveThumbnail(req, res, id) {
+-  if (!FILE_ID.test(id) || !files[id] || files[id].thumb !== true || !fs.existsSync(thumbnailPath(id))) return send(res, 404, { error: 'preview not made yet' });
++  if (!FILE_ID.test(id) || protoKey(id) || !Object.prototype.hasOwnProperty.call(files, id) ||   /* v5.84 — own entries only */ files[id].thumb !== true || !fs.existsSync(thumbnailPath(id))) return send(res, 404, { error: 'preview not made yet' });
+   const bytes = fs.readFileSync(thumbnailPath(id));
+   const etag = '"' + crypto.createHash('sha256').update(bytes).digest('hex') + '"';
+   const h = { 'Content-Type': 'image/webp', 'Content-Length': bytes.length, 'Cache-Control': 'private, max-age=3600', ETag: etag,
+@@ -1001,6 +1201,46 @@
+   return Object.prototype.hasOwnProperty.call(MACHINE_TYPES,extOf(p));
+ }
+ function machineBlobPath(sha){ return path.join(MACHINE_BLOBS,sha); }
++/* v5.84 — THE SERVER FILE LIVES ON THE VOLUME WITHOUT BEING PUBLIC. The start command boots from
++   machine/blobs/$SERVER_FILE. Until now the only way to keep that blob was to list it in the machine set (as
++   server/gc500-server.js), which made the server's source downloadable by anybody holding the VIEW link, because
++   registering a set removes every blob the set does not name. The blobs named by SERVER_FILE and SERVER_FILE_KEEP
++   (comma-separated SHA-256s — the rollback build goes there) are now never removed by a register, so the server
++   blob can be uploaded with PUT /api/admin/machine/blob/<sha> and left out of the manifest. An unlisted blob is
++   never served: /w/ serves only paths the registered set names. */
++function protectedBlobs(){
++  return new Set([process.env.SERVER_FILE||'',...String(process.env.SERVER_FILE_KEEP||'').split(',')].map(s=>s.trim()).filter(s=>/^[a-f0-9]{64}$/.test(s)));
++}
++/* v5.84 — THE MACHINE'S TEXT AND MODELS GO OUT COMPRESSED, WORKED OUT ONCE PER BLOB. The set is ~160 MB, most of
++   it JavaScript, JSON, a GLB and its .bin buffers, all of which shrink by half or more. Each compressible blob is
++   compressed once — brotli and gzip — into machine/cz/<sha256>.br|.gz (content-addressed, so it can never be
++   stale), in the background and one at a time, when a set is registered, at start for the live set, or the
++   first time a file is asked for; until a copy exists the file goes out uncompressed exactly as before. Already
++   compressed kinds (jpg, png, webp, mp3, m4a, ogg, woff2, woff, ktx2) are never touched. A copy that would not
++   save a tenth is not kept (an empty <sha>.<enc>.x marker says so, so it is not tried again). Ranges are always
++   answered from the plain bytes. */
++const MACHINE_CZ=path.join(MACHINE_DIR,'cz');
++const MACHINE_COMPRESSIBLE=new Set(['html','js','mjs','css','json','gltf','svg','glb','hdr','bin','wasm','csv','md','txt']);
++fs.mkdirSync(MACHINE_CZ,{recursive:true});
++function czPath(sha,enc){ return path.join(MACHINE_CZ,sha+'.'+(enc==='gzip'?'gz':'br')); }
++let czChain=Promise.resolve(); const czQueued=new Set();
++function queueMachineCompression(sha,bytes){
++  if(czQueued.has(sha))return; czQueued.add(sha);
++  czChain=czChain.then(async()=>{
++    for(const enc of ['br','gzip']){
++      const out=czPath(sha,enc);
++      if(fs.existsSync(out)||fs.existsSync(out+'.x'))continue;
++      let buf;try{buf=await fs.promises.readFile(machineBlobPath(sha));}catch(e){return;}
++      const z=enc==='br'?await brotliOf(buf,buf.length<=2*1024*1024?11:9)
++        :await new Promise((ok,no)=>zlib.gzip(buf,{level:9},(e,o)=>e?no(e):ok(o)));
++      if(z.length<=buf.length*0.9)atomicBytes(out,z);else atomicBytes(out+'.x',Buffer.alloc(0));
++    }
++  }).catch(e=>console.error('machine compression',sha.slice(0,12),e.message)).then(()=>{czQueued.delete(sha);});
++}
++function queueMachineSet(set){
++  if(!set)return;
++  for(const [p,f] of Object.entries(set.files))if(MACHINE_COMPRESSIBLE.has(extOf(p))&&f.bytes>=1024)queueMachineCompression(f.sha256,f.bytes);
++}
+ function machineBlobs(){ try{return fs.readdirSync(MACHINE_BLOBS).filter(n=>/^[a-f0-9]{64}$/.test(n));}catch(e){return [];} }
+ function machineStatus(){
+   const s=machineIndex.set;
+@@ -1064,9 +1304,13 @@
+   const next={schema:MACHINE_SCHEMA,set:{...set,registered:already?machineIndex.set.registered:new Date().toISOString()}};
+   try{atomicBytes(MACHINE_INDEX,Buffer.from(JSON.stringify(next)));}catch(e){console.error('machine index save',e.message);return send(res,507,{error:'machine manifest was not registered; retry'});}
+   machineIndex=next;
+-  const keep=new Set(Object.values(set.files).map(f=>f.sha256));let removed=0;
++  /* v5.84 — the server blob(s) named by SERVER_FILE / SERVER_FILE_KEEP are kept even though the set does not name them */
++  const keep=new Set([...Object.values(set.files).map(f=>f.sha256),...protectedBlobs()]);let removed=0;
+   for(const sha of machineBlobs())if(!keep.has(sha)){try{fs.unlinkSync(machineBlobPath(sha));removed++;}catch(e){console.error('machine prune',e.message);}}
+-  return send(res,200,{sha256:set.sha256,version:set.version,files:Object.keys(set.files).length,already,removed});
++  /* v5.84 — compressed copies of blobs that went go with them; the new set's copies are made in the background */
++  try{for(const n of fs.readdirSync(MACHINE_CZ)){const sha=n.slice(0,64);if(!keep.has(sha)){try{fs.unlinkSync(path.join(MACHINE_CZ,n));}catch(e){/* gone */}}}}catch(e){/* no cache yet */}
++  queueMachineSet(set);
++  return send(res,200,{sha256:set.sha256,version:set.version,files:Object.keys(set.files).length,already,removed,kept_unlisted:[...protectedBlobs()].filter(s=>fs.existsSync(machineBlobPath(s))).length});
+ }
+ function machineNotReadyPage(){
+   return page('The Coates Way machine','<p>The Coates Way machine has not been uploaded to this service yet. The owner imports it on the admin page, from the build\'s <code>print/out/machine</code> folder. The rest of the page is unaffected.</p>');
+@@ -1096,6 +1340,24 @@
+      ('wasm-unsafe-eval' allows WebAssembly only; string eval stays refused); the html page sends its origin
+      as referrer because both keys are restricted to this site's addresses. Nothing else in the policy moved. */
+   if(html){headers['X-Frame-Options']='SAMEORIGIN';headers['Content-Security-Policy']="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://api.mapbox.com https://*.googleapis.com https://cdn.jsdelivr.net; media-src 'self' blob:; connect-src 'self' blob: data: https://api.mapbox.com https://events.mapbox.com https://tile.googleapis.com https://*.googleapis.com https://cdn.jsdelivr.net; worker-src 'self' blob:; frame-ancestors 'self'; base-uri 'none'; form-action 'none'";}
++  /* v5.84 — a compressible file is answered from its compressed copy when the client takes br or gzip and the
++     copy exists (never for a Range request); each encoding has its own ETag, and Vary says the answer depends
++     on Accept-Encoding. No copy yet: the plain bytes, as before, and one is queued. */
++  if(MACHINE_COMPRESSIBLE.has(extOf(rel)) && size>=1024){
++    headers.Vary='Accept-Encoding';
++    if(!req.headers.range){
++      for(const enc of ['br','gzip']){
++        if(!acceptsEncoding(req,enc))continue;
++        const cz=czPath(f.sha256,enc);let czSize=0;
++        try{czSize=fs.statSync(cz).size;}catch(e){if(!fs.existsSync(cz+'.x'))queueMachineCompression(f.sha256,f.bytes);continue;}
++        const ch=Object.assign({},headers,{ETag:variantTag(etag,enc),'Content-Encoding':enc,'Content-Length':czSize});
++        delete ch['Accept-Ranges'];
++        if(req.headers['if-none-match']===ch.ETag){delete ch['Content-Length'];res.writeHead(304,ch);return res.end();}
++        res.writeHead(200,ch);if(req.method==='HEAD')return res.end();
++        const zs=fs.createReadStream(cz);zs.on('error',()=>res.destroy());return zs.pipe(res);
++      }
++    }
++  }
+   if(req.headers['if-none-match']===etag){res.writeHead(304,headers);return res.end();}
+   let start=0,end=size-1,status=200;
+   if(req.headers.range && (!req.headers['if-range'] || req.headers['if-range']===etag)){
+@@ -1820,37 +2082,90 @@
+   });
+ }
+ 
+-const server = http.createServer(async (req, res) => {
++/* v5.84 — WRONG KEYS, COUNTED PER ADDRESS. A link is a key, so guessing links is the attack; nothing slowed it
++   down. Every request that PRESENTS a token which turns out wrong (a view/edit/admin/file/machine/media link, the
++   API header, a drop card) is counted against the caller's address; 30 in 5 minutes and that address gets 429 on
++   every keyed path until the oldest miss is 5 minutes old — including for a right key, or the limit would slow
++   nothing. Normal use cannot trip it: a right key is never counted, a missing file under a right key is not a
++   wrong key, a request with no token at all is not a guess, and the page stops polling the moment its key is
++   refused. /health and / are never limited. The address is Railway's X-Real-IP (its edge sets it; the socket
++   address is the edge's own), falling back to the socket for a local run. Held in memory, bounded. */
++const BAD_TOKEN_LIMIT = 30, BAD_TOKEN_WINDOW = 5 * 60 * 1000, BAD_TOKEN_MAX_IPS = 20000;
++const badTokens = new Map();   // ip -> [times of wrong keys, oldest first]
++function clientIp(req) { return String(req.headers['x-real-ip'] || req.socket.remoteAddress || '?').trim().slice(0, 64); }
++function recentMisses(ip, now) {
++  const a = badTokens.get(ip); if (!a) return 0;
++  while (a.length && now - a[0] > BAD_TOKEN_WINDOW) a.shift();
++  if (!a.length) { badTokens.delete(ip); return 0; }
++  return a.length;
++}
++function tokenMiss(req) {
++  const ip = clientIp(req), now = Date.now();
++  recentMisses(ip, now);
++  if (!badTokens.has(ip) && badTokens.size >= BAD_TOKEN_MAX_IPS) badTokens.delete(badTokens.keys().next().value);
++  const a = badTokens.get(ip) || []; a.push(now); if (a.length > BAD_TOKEN_LIMIT * 2) a.shift(); badTokens.set(ip, a);
++}
++function tokenBlocked(req) {
++  const ip = clientIp(req), now = Date.now(), n = recentMisses(ip, now);
++  return n >= BAD_TOKEN_LIMIT ? Math.max(1, Math.ceil((badTokens.get(ip)[0] + BAD_TOKEN_WINDOW - now) / 1000)) : 0;
++}
++setInterval(() => { const now = Date.now(); for (const ip of [...badTokens.keys()]) recentMisses(ip, now); }, 60 * 1000).unref();
++/* a wrong key answered as before (the same 401/404 and words), and counted */
++function wrongKey(req, res, code, body, headers, presented) { if (presented !== false) tokenMiss(req); return send(res, code, body, headers); }
++const NOT_OURS = () => page('Not found', '<p>That link is not one of ours.</p>');
++
++/* v5.84 — the handler is a named async function and the server catches what it rejects with. The routes
++   `return uploadApp(...)`, `return registerMachine(...)` and the rest without await, so a throw inside them was
++   never seen by the try/catch below: an unhandled rejection, which ends a Node 22 process. Now it is logged and
++   answered (507 for a full disk, 500 otherwise) and the service stays up. */
++const server = http.createServer((req, res) => {
++  route(req, res).catch(e => {
++    console.error('request failed', req.method, (req.url || '').split('?')[0].replace(/^\/(v|e|w|f|m|admin|d)\/[^/]+/, '/$1/…'), e && e.message);   /* never a key in the log */
++    if (!res.headersSent) send(res, diskFull(e) ? 507 : 500, { error: diskFull(e) ? 'the service disk is full — nothing was saved' : 'server error' });
++    else res.destroy();
++  });
++});
++async function route(req, res) {
+   const url = new URL(req.url, 'http://x');
+   const p = url.pathname;
+   try {
+     if (p === '/health') return send(res, diskFault ? 503 : 200, { ok: !diskFault, disk: diskFault ? diskFault.message : 'writing', version: state.version, app: fs.existsSync(FILES.app), files: Object.keys(files).length,
+-      cards: Object.keys(cards).length, cards_live: Object.values(cards).filter(c => !cardExpired(c)).length, machine: !!machineIndex.set });
++      cards: Object.keys(cards).length, cards_live: Object.values(cards).filter(c => !cardExpired(c)).length, machine: !!machineIndex.set,
++      /* v5.84 — says so when a store was recovered from a snapshot at start (null when nothing was) */
++      record_recovered: STARTUP_RECOVERY.length ? STARTUP_RECOVERY : null, build: 'v5.84' });
+     if (p === '/' ) return send(res, 200, page('GC500', '<p>This page opens from its link. If you have one, use it; if not, ask Andrew Fisher.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
++    /* v5.84 — an address over the wrong-key limit is refused before any key is compared */
++    const wait = tokenBlocked(req);
++    if (wait) return send(res, 429, /^\/(v|e|admin|d)\//.test(p) ? page('Too many wrong links', '<p>Too many wrong links have been tried from this address. Wait a few minutes and open your link again.</p>')
++      : { error: 'too many wrong keys from this address — wait a few minutes' }, Object.assign({ 'Retry-After': String(wait) }, /^\/(v|e|admin|d)\//.test(p) ? { 'Content-Type': 'text/html; charset=utf-8' } : {}));
+     let m;
+     if ((m = p.match(/^\/(v|e)\/([A-Za-z0-9_-]+)\/?$/))) {
+       const ok = (m[1] === 'e' && same(m[2], EDIT_TOKEN)) || (m[1] === 'v' && same(m[2], VIEW_TOKEN));
+-      if (!ok) return send(res, 404, page('Not found', '<p>That link is not one of ours.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
++      if (!ok) return wrongKey(req, res, 404, NOT_OURS(), { 'Content-Type': 'text/html; charset=utf-8' });
+       return serveApp(req, res);
+     }
+-    if ((m = p.match(/^\/m\/([^/]*)\/([^/]+)$/))) return serveMedia(req, res, m[1], decodeURIComponent(m[2]));
++    if ((m = p.match(/^\/m\/([^/]*)\/([^/]+)$/))) {
++      if (!(same(m[1], EDIT_TOKEN) || same(m[1], VIEW_TOKEN))) return wrongKey(req, res, 401, { error: 'a view or edit token is needed' }, null, !!m[1]);   /* v5.84 — counted when a key was given */
++      return serveMedia(req, res, m[1], decodeURIComponent(m[2]));
++    }
+     /* v5.77 — the Coates Way machine, under the same key as the page. /w/<token> without the slash is sent to
+        /w/<token>/ so the page's relative imports resolve beside it. */
+     if ((m = p.match(/^\/w\/([A-Za-z0-9_-]+)$/))) {
+-      if (!(same(m[1], EDIT_TOKEN) || same(m[1], VIEW_TOKEN))) return send(res, 404, page('Not found', '<p>That link is not one of ours.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
++      if (!(same(m[1], EDIT_TOKEN) || same(m[1], VIEW_TOKEN))) return wrongKey(req, res, 404, NOT_OURS(), { 'Content-Type': 'text/html; charset=utf-8' });
+       return send(res, 302, '', { Location: '/w/' + m[1] + '/' + (url.search || '') });
+     }
+     if ((m = p.match(/^\/w\/([A-Za-z0-9_-]+)\/(.*)$/))) {
++      if (!(same(m[1], EDIT_TOKEN) || same(m[1], VIEW_TOKEN))) return wrongKey(req, res, 404, NOT_OURS(), { 'Content-Type': 'text/html; charset=utf-8' });   /* v5.84 — counted */
+       let rel; try { rel = decodeURIComponent(m[2]); } catch (e) { return send(res, 404, { error: 'no such machine file' }); }
+       return serveMachine(req, res, m[1], rel);
+     }
+     if ((m = p.match(/^\/f\/([^/]*)\/([^/]+)\/thumb$/))) {
+-      if (!(same(m[1], EDIT_TOKEN) || same(m[1], VIEW_TOKEN))) return send(res, 401, { error: 'a view or edit token is needed' });
++      if (!(same(m[1], EDIT_TOKEN) || same(m[1], VIEW_TOKEN))) return wrongKey(req, res, 401, { error: 'a view or edit token is needed' }, null, !!m[1]);
+       if (!['GET', 'HEAD'].includes(req.method)) return send(res, 405, { error: 'GET or HEAD required' }, { Allow: 'GET, HEAD' });
+       return serveThumbnail(req, res, decodeURIComponent(m[2]));
+     }
+     if ((m = p.match(/^\/f\/([A-Za-z0-9_-]+)\/([^/]+)$/))) {
+-      if (!(same(m[1], EDIT_TOKEN) || same(m[1], VIEW_TOKEN))) return send(res, 404, page('Not found', '<p>That link is not one of ours.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
++      if (!(same(m[1], EDIT_TOKEN) || same(m[1], VIEW_TOKEN))) return wrongKey(req, res, 404, NOT_OURS(), { 'Content-Type': 'text/html; charset=utf-8' });
+       return serveFile(req, res, decodeURIComponent(m[2]));
+     }
+     /* v5.56 — the person on the ground answering their own card. Its own token, its own card, and nothing
+@@ -1873,7 +2188,7 @@
+        ID, which is the browser's job and is checked here rather than assumed. */
+     if ((m = p.match(/^\/d\/([A-Za-z0-9_-]+)\/report\/scoped$/)) && req.method === 'POST') {
+       const token = m[1], c = cards[token];
+-      if (!c || !CARD_TOKEN_RE.test(token)) return send(res, 404, { error: 'that link is not one of ours, or it has been withdrawn' });
++      if (!c || !CARD_TOKEN_RE.test(token)) return wrongKey(req, res, 404, { error: 'that link is not one of ours, or it has been withdrawn' });   /* v5.84 — counted */
+       if (cardExpired(c)) return send(res, 410, { error: 'this card stopped working the day after the run — ring the number on it' });
+       let body;
+       /* bounded small on purpose: six file IDs, five short answers, a note and a pin. Photographs go to the
+@@ -1939,7 +2254,7 @@
+     }
+     if ((m = p.match(/^\/d\/([A-Za-z0-9_-]+)\/report$/)) && req.method === 'POST') {
+       const c = cards[m[1]];
+-      if (!c || !CARD_TOKEN_RE.test(m[1])) return send(res, 404, { error: 'that link is not one of ours, or it has been withdrawn' });
++      if (!c || !CARD_TOKEN_RE.test(m[1])) return wrongKey(req, res, 404, { error: 'that link is not one of ours, or it has been withdrawn' });   /* v5.84 — counted */
+       if (cardExpired(c)) return send(res, 410, { error: 'this card stopped working the day after the run — ring the number on it' });
+       let body;
+       try { body = JSON.parse((await readBody(req, MAX_REPORT)).toString('utf8')); } catch (e) {
+@@ -1985,7 +2300,7 @@
+         ? `<p>Ring <b>${esc(c.contact.name || 'the Coates events project manager')}</b> on <a href="tel:${esc(String(c.contact.phone).replace(/[^0-9+]/g, ''))}">${esc(c.contact.phone)}</a>.</p>`
+         : '<p>Ring the Coates events project manager whose name is on your paperwork.</p>';
+       if (!c || !CARD_TOKEN_RE.test(m[1])) {
+-        return send(res, 404, page('Not found', '<p>That link is not one of ours, or it has been withdrawn.</p>'
++        return wrongKey(req, res, 404, page('Not found', '<p>That link is not one of ours, or it has been withdrawn.</p>'
+           + '<p>Ring the Coates events project manager whose name is on your paperwork.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
+       }
+       if (cardExpired(c)) {
+@@ -2014,12 +2329,13 @@
+       });
+     }
+     if ((m = p.match(/^\/admin\/([A-Za-z0-9_-]+)\/?$/))) {
+-      if (!same(m[1], EDIT_TOKEN)) return send(res, 404, page('Not found', '<p>That link is not one of ours.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
++      if (!same(m[1], EDIT_TOKEN)) return wrongKey(req, res, 404, NOT_OURS(), { 'Content-Type': 'text/html; charset=utf-8' });   /* v5.84 — counted */
+       return send(res, 200, adminPage(m[1]), { 'Content-Type': 'text/html; charset=utf-8' });
+     }
+     if (p.startsWith('/api/')) {
+       const lv = level(req, url);
+-      if (!lv) return send(res, 401, { error: 'a view or edit token is needed' });
++      /* v5.84 — a wrong key is counted; no key at all is not a guess */
++      if (!lv) return wrongKey(req, res, 401, { error: 'a view or edit token is needed' }, null, !!(req.headers['x-gc500-token'] || url.searchParams.get('t')));
+       if (p === '/api/version' && req.method === 'GET') return send(res, 200, { version: state.version, updated: state.updated, level: lv });
+       /* The weather at the circuit, for the board on Where we are. Andrew Fisher, 12 Sep 2026: "be good to have
+          the updated weather and wind conditions i have an account with weatherapi.com."
+@@ -2131,15 +2447,19 @@
+       if ((m = p.match(/^\/api\/doc\/([^/]+)\/([^/]+)$/))) {
+         if (lv !== 'edit') return send(res, 403, { error: 'this link can view but not change the record' });
+         /* v5.58 — while the disk is refusing writes, so does this: the page keeps the change queued and says so */
++        /* v5.84 — "until a write lands again" could never happen: this refusal stopped every write, and only a write
++           saves, so one full-disk moment held the service at 507 until a restart. It now tries the save once more
++           (the record as it stands) and refuses only if that fails too. */
++        if (diskFault) await persist();
+         if (diskFault) return send(res, 507, { error: 'the service cannot write to its disk right now (' + diskFault.message + ') — your change is kept on this device and will go when it can', version: state.version });
+         const coll = decodeURIComponent(m[1]), id = decodeURIComponent(m[2]);
+         if (req.method === 'PUT') {
+           let body;
+           try { body = JSON.parse((await readBody(req, MAX_DOC)).toString('utf8')); } catch (e) { return send(res, 400, { error: 'a JSON object is expected' }); }
+           if (!body || typeof body !== 'object' || Array.isArray(body)) return send(res, 400, { error: 'a JSON object is expected' });
+-          return setDoc(coll, id, body, req.headers['x-gc500-who'] || null) ? send(res, 200, { version: state.version }) : send(res, 400, { error: 'bad path' });
++          return answerSaved(res, setDoc(coll, id, body, req.headers['x-gc500-who'] || null));
+         }
+-        if (req.method === 'DELETE') return deleteDoc(coll, id, req.headers['x-gc500-who'] || null) ? send(res, 200, { version: state.version }) : send(res, 400, { error: 'bad path' });
++        if (req.method === 'DELETE') return answerSaved(res, deleteDoc(coll, id, req.headers['x-gc500-who'] || null));
+       }
+       /* drop cards: made by somebody holding the edit link, listed so they can be withdrawn, never readable
+          through this API by a view link — a card is handed to a driver, not published to everyone with the link */
+@@ -2340,9 +2660,10 @@
+     return send(res, 404, page('Not found', '<p>Nothing here.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
+   } catch (e) {
+     console.error(e);
+-    return send(res, 500, { error: 'server error' });
++    /* v5.84 — a full disk is 507, as everywhere else */
++    return send(res, diskFull(e) ? 507 : 500, { error: diskFull(e) ? 'the service disk is full — nothing was saved' : 'server error' });
+   }
+-});
++}
+ 
+ /* The record, folded back into the export shape the page and the build share. Kept in step with the page's
+    SYNC_COLLS: map collections carry the key in _k, value collections carry {_k, v}, lists carry their id in _k. */
+@@ -2413,6 +2734,31 @@
+   };
+ }
+ 
++/* v5.84 — SIGTERM AND SIGINT FLUSH BEFORE EXIT. The service is PID 1 in its container (the start command ends in
++   exec node), and PID 1 ignores a signal it has no handler for, so a redeploy's SIGTERM did nothing and the
++   SIGKILL that followed cut off whatever was being written. Now: stop taking connections, wait for the record
++   save in flight and any queued one, and the last lines of the write log, then exit — at most 8 s, because
++   Railway's SIGKILL follows (RAILWAY_DEPLOYMENT_DRAINING_SECONDS, 0 by default: see DEPLOY.md). Cards, reports
++   and the file index are already written before they are answered. */
++let shuttingDown = false;
++async function shutdown(sig) {
++  if (shuttingDown) return; shuttingDown = true;
++  console.log('GC500 ' + sig + ': flushing before exit');
++  const hard = setTimeout(() => { console.error('GC500 shutdown: flush did not finish in 8 s, exiting'); process.exit(1); }, 8000);
++  hard.unref();
++  const closed = new Promise(r => server.close(r)); if (server.closeIdleConnections) server.closeIdleConnections();
++  try { await flushRecord(); } catch (e) { console.error('shutdown flush', e.message); }
++  /* the answers to requests already being handled go out before the exit (up to 3 s), then the last log lines */
++  await Promise.race([closed, new Promise(r => setTimeout(r, 3000))]);
++  while (logPending > 0) await new Promise(r => setTimeout(r, 10));
++  console.log('GC500 ' + sig + ': record v' + state.version + (diskFault ? ' NOT saved (' + diskFault.message + ')' : ' saved') + ', exiting');
++  process.exit(diskFault ? 1 : 0);
++}
++process.on('SIGTERM', () => shutdown('SIGTERM'));
++process.on('SIGINT', () => shutdown('SIGINT'));
++/* v5.84 — a snapshot of the record and the file index as this build found them, before it writes anything */
++snapshot(true);
++
+ server.listen(PORT, () => console.log('GC500 hosted record on :' + PORT + ' · ' + BUILD + ' · data in ' + DATA_DIR
+   + ' · records v' + state.version + ' · files ' + Object.keys(files).length
+   + ' · drop cards ' + Object.keys(cards).length + ' (' + Object.values(cards).filter(c => !cardExpired(c)).length + ' live)'
+@@ -2421,4 +2767,10 @@
+   + ' · weather ' + (process.env.WEATHERAPI_KEY ? ('on, ' + (process.env.WEATHER_Q || 'Surfers Paradise, Queensland, Australia')) : 'off — set WEATHERAPI_KEY to turn it on')
+   + ' · live map ' + (/^pk\./.test(String(process.env.MAPBOX_TOKEN || '')) ? 'on (Mapbox public token)' : process.env.MAPBOX_TOKEN ? 'OFF — MAPBOX_TOKEN is not a public (pk.) token' : 'off — set MAPBOX_TOKEN to turn it on')
+   /* v5.78 — never the key, only whether one is there */
+-  + ' · 3D satellite ' + (/^AIza[0-9A-Za-z_-]{30,}$/.test(String(process.env.GOOGLE_MAPS_KEY || '')) ? 'on (Google browser key from GOOGLE_MAPS_KEY)' : process.env.GOOGLE_MAPS_KEY ? 'OFF — GOOGLE_MAPS_KEY is not a browser key (AIza…)' : 'off — set GOOGLE_MAPS_KEY, or paste the key on About')));
++  + ' · 3D satellite ' + (/^AIza[0-9A-Za-z_-]{30,}$/.test(String(process.env.GOOGLE_MAPS_KEY || '')) ? 'on (Google browser key from GOOGLE_MAPS_KEY)' : process.env.GOOGLE_MAPS_KEY ? 'OFF — GOOGLE_MAPS_KEY is not a browser key (AIza…)' : 'off — set GOOGLE_MAPS_KEY, or paste the key on About')
++  /* v5.84 — said at start: a recovered store, and whether the boot blob is protected from a machine import */
++  + (STARTUP_RECOVERY.length ? ' · !!! RECOVERED FROM SNAPSHOT: ' + STARTUP_RECOVERY.map(r => r.store + ' from ' + r.loaded_from).join(', ') : '')
++  + ' · server blob ' + (protectedBlobs().size ? protectedBlobs().size + ' kept off the public set' : 'not named (SERVER_FILE unset)')));
++/* v5.84 — the compressed copies this build serves, made in the background after start: the page's brotli if the
++   live version has none yet, and the live machine set's */
++setTimeout(() => { makeAppBrotli(); queueMachineSet(machineIndex.set); }, 2000).unref();
