@@ -1,0 +1,548 @@
+--- GC500_Delivery_Control_hosted_v674.html	2026-09-26 08:24:51.672215043 +0000
++++ GC500_Delivery_Control_hosted_v676.html	2026-09-26 08:44:17.616181395 +0000
+@@ -3959,7 +3959,7 @@
+   #pane-progress .card{page-break-inside:auto;break-inside:auto}
+   #pane-progress .norate, #pane-progress .progkeys{font-size:7.5px;line-height:1.3;margin:1mm 0 0}
+   /* the programme strip stays on the screen; the printed page is the three tables for the morning meeting, on one
+-     sheet, and its heading already says the day and the days to race day */
++     sheet, and its heading already says the day and the days to the event */
+   body.printing-progress #pane-progress .pgm{display:none!important}
+   body.printing-progress #pane-progress .card.has-race{display:none!important}
+   /* The programme page is one sheet for the morning meeting. The day's deliveries print as their own
+@@ -5131,6 +5131,107 @@
+ 
+ /* v6.74b - REL-01: until the shared record has answered, the figures are the copy saved in this browser - dimmed */
+ body.recloading main .pane.on .kpi .v, body.recloading main .pane.on .cblock, body.recloading main .pane.on .mtot{opacity:.45;transition:opacity .25s}
++
++/* v6.75 - EXECUTIVE LAYOUT: one-row header, the job at a glance, Today as the action page */
++.hzslim{display:none}
++body.exec .hzcluster{display:none!important}
++body.exec .hbar{height:auto;min-height:0;padding-top:8px;padding-bottom:8px}
++@media (min-width:1101px){ body.exec .hbar{flex-wrap:nowrap} body.exec .hbar .search{flex:1 1 260px;min-width:200px;max-width:560px} }
++body.exec .rbhero{max-height:340px;overflow:hidden}
++@media (min-width:1101px) and (max-width:1399px){ body.exec .hzslim{gap:10px} body.exec .hzs-rec em{display:none} body.exec .hbar .search{min-width:160px} }
++body.exec .hzslim{display:flex;order:4;align-items:center;gap:14px;flex:0 1 auto;margin-left:auto;color:#f3ece6;font-size:12.5px;white-space:nowrap;min-width:0}
++.hzslim b{font-weight:800;color:#fff}
++.hzs-ph{letter-spacing:.08em;text-transform:uppercase;font-size:11px;color:#e6dcd3}
++.hzs-rec{display:inline-flex;align-items:center;gap:6px}
++.hzs-rec i{width:8px;height:8px;border-radius:50%;background:#8a8a8a;flex:0 0 auto}
++.hzs-rec.view i,.hzs-rec.shared i{background:#3ecf6e}
++.hzs-rec.checking i,.hzs-rec.pending i{background:#f0b43c}
++.hzs-rec.offline i,.hzs-rec.local i{background:#e0483e}
++.hzs-rec em{font-style:normal;color:#d2c7bd;font-size:11.5px}
++.hzs-lay{background:transparent;border:1px solid rgba(255,255,255,.28);color:#f3ece6;border-radius:6px;font:inherit;font-size:11px;padding:3px 8px;cursor:pointer}
++.hzs-lay:hover,.hzs-lay:focus-visible{border-color:var(--orange);color:#fff}
++@media (max-width:1100px){ body.exec .hzslim{flex:1 1 100%;order:5;margin-left:0;flex-wrap:wrap;gap:4px 14px;white-space:normal} }
++@media (max-width:640px){ body.exec .hzslim{font-size:11.5px} .hzs-lay{display:none} }
++body.exec #pane-today .dsnband, body.exec #pane-today .inst, body.exec #pane-today .roadscard,
++body.exec #pane-today .hubcard[data-go="costs"], body.exec #pane-today .hubcard[data-go="map"], body.exec #pane-today #hubDocs{display:none!important}
++.xlinks.xexec{display:none} body.exec .xlinks.xexec{display:flex}
++.xsum{border-top:3px solid var(--orange)}
++.xhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 14px}
++.xhead h3{margin:0}
++.xasof{font-size:12.5px;color:var(--mute)}
++.xtoday .xasof{font-size:13.5px;color:var(--ink2);flex:1 1 420px}
++.xline{font-size:15px;line-height:1.45;color:var(--ink);margin:8px 0 12px;max-width:80ch}
++.xtiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
++.xtile{position:relative;border:1px solid var(--rule);border-left:4px solid var(--rule);border-radius:10px;padding:10px 12px 12px;background:var(--tint2);min-width:0}
++.xtile.good{border-left-color:var(--green)} .xtile.bad{border-left-color:var(--red)} .xtile.unk{border-left-color:#9aa1a8;border-left-style:dashed}
++.xk{margin:0 0 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);font-weight:700}
++.xv{display:block;font-size:26px;line-height:1.1;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
++.xtile:last-child .xv{font-size:21px;line-height:1.25}
++.xv small{font-size:14px;font-weight:600;color:var(--ink2)}
++.xu{display:block;font-size:12.5px;color:var(--ink2);margin-top:2px}
++.xs{display:block;font-size:11.5px;color:var(--mute);margin-top:4px;line-height:1.35}
++.xw{display:inline-block;margin-top:7px;padding:2px 7px;border-radius:999px;background:var(--rule2);font-style:normal;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--slate)}
++.xtile.bad .xw{color:var(--red)} .xtile.good .xw{color:var(--green)}
++.xcols{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:18px;margin-top:14px}
++.xcols h4{margin:0 0 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate)}
++.xdec{margin:0;padding-left:20px}
++.xdec li{margin:0 0 9px;line-height:1.35}
++.xdw{font-weight:700;text-align:left;color:var(--ink)}
++.xwhy{display:block;font-size:12.5px;color:var(--ink2)}
++.xown{display:block;font-size:11.5px;color:var(--mute);margin-top:2px}
++.xn7{width:100%;min-width:0;border-collapse:collapse;font-size:13px}
++.xn7 td{padding:4px 6px;border-bottom:1px solid var(--rule2)}
++.xn7 td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
++.xms{margin:8px 0 0;font-size:12.5px;color:var(--ink2)}
++.xnone{margin:0;color:var(--mute);font-size:13px}
++.xlinks{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:12px;padding-top:10px;border-top:1px solid var(--rule2);font-size:12.5px;color:var(--mute)}
++@media (max-width:900px){ .xtiles{grid-template-columns:repeat(2,minmax(0,1fr))} .xcols{grid-template-columns:1fr} }
++@media (max-width:420px){ .xtiles{grid-template-columns:1fr} .xv{font-size:22px} }
++body.viewonly .fqform{display:none}
++.cworktbl{table-layout:fixed;min-width:0} .cworktbl td{overflow-wrap:anywhere}
++@media print{ .hzslim,.xlinks{display:none!important} }
++
++/* v6.76 - the executive briefing */
++.brief{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;background:#f7f4f1;color:var(--ink)}
++.brief[hidden]{display:none}
++.brtop{display:flex;align-items:center;gap:16px;padding:12px 22px;background:linear-gradient(180deg,var(--hdr),var(--hdr-2));color:#f3ece6;border-bottom:3px solid var(--orange)}
++.brbrand{font-weight:800;letter-spacing:.04em} .brbrand i{font-style:normal;color:var(--orange)}
++.brstamp{font-size:12.5px;color:#d9cfc6;margin-left:auto}
++.brx,.brb{font:inherit;font-size:14px;border-radius:8px;padding:8px 16px;cursor:pointer;border:1px solid var(--rule);background:#fff;color:var(--ink)}
++.brx{background:transparent;color:#f3ece6;border-color:rgba(255,255,255,.35)}
++.brb.pri{background:var(--orange-ink);border-color:var(--orange-ink);color:#fff;font-weight:700}
++.brb:disabled{opacity:.4;cursor:default}
++.brx:focus-visible,.brb:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
++.brstage{flex:1 1 auto;overflow:auto;display:flex;justify-content:center;padding:4vh 4vw}
++.brbody{width:min(1180px,100%);outline:none}
++.brbody.in{animation:brin .18s ease-out}
++@keyframes brin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
++@media (prefers-reduced-motion:reduce){.brbody.in{animation:none}}
++body.motion-off .brbody.in{animation:none}
++.brk{margin:0 0 6px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-ink);font-weight:800}
++.brh{margin:0 0 10px;font-size:clamp(28px,4.2vw,52px);line-height:1.05;font-weight:800;letter-spacing:-.01em}
++.brl{font-size:clamp(15px,1.5vw,19px);color:var(--ink2);margin:0 0 18px;max-width:70ch} .brl.sm{font-size:14px;color:var(--mute)}
++.brfigs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:10px 0 18px}
++.brfig{background:#fff;border:1px solid var(--rule);border-top:4px solid var(--orange);border-radius:12px;padding:16px 18px}
++.brfig b{display:block;font-size:clamp(30px,4vw,54px);line-height:1.05;font-weight:800;font-variant-numeric:tabular-nums}
++.brfig b small{font-size:.5em;font-weight:700;color:var(--ink2)}
++.brfig span{display:block;font-size:15px;color:var(--ink);margin-top:4px}
++.brfig em{display:block;font-style:normal;font-size:13px;color:var(--mute);margin-top:4px}
++.brnote{font-size:16px;padding:12px 16px;border-radius:10px;background:#fff;border:1px solid var(--rule);border-left:4px solid #9aa1a8}
++.brnote.bad{border-left-color:var(--red)}
++.brcols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;margin-top:8px}
++.brcols h4{margin:0 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
++.brcols .xn7{font-size:16px} .brcols .xn7 td{padding:8px 8px}
++.brlist{margin:0;padding-left:20px;font-size:16px} .brlist li{margin:0 0 10px} .brlist span{display:block;font-size:13.5px;color:var(--mute)}
++.brshots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
++.brshots figure{margin:0;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
++.brshots img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--rule2)}
++.brshots figcaption{padding:10px 12px;font-size:14px} .brshots figcaption span{font-size:12.5px;color:var(--mute)}
++.brnav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 22px;border-top:1px solid var(--rule);background:#fff}
++.brpos{font-size:14px;color:var(--ink2);font-weight:600}
++@media (max-width:760px){ .brfigs,.brcols,.brshots{grid-template-columns:1fr} .brstamp{display:none} .brstage{padding:18px 16px} }
++.livediag{margin-top:6px;font-size:12px} .livediag summary{cursor:pointer;color:var(--mute)}
++.showgo.briefgo{background:#fff;color:var(--ink);border:1px solid var(--rule)}
+ </style></head>
+ <body>
+ <!-- The delivery status instrument's materials, defined once and referenced by every instrument on the page:
+@@ -5203,6 +5304,13 @@
+      <button type="button" class="searchclose phoneonly" id="searchClose" aria-label="Close search">Close</button>
+      <div class="finder" id="finder" role="listbox" aria-label="Matches" hidden></div>
+    </div>
++   <!-- v6.75 - the compact header (Executive layout): phase and day, the event date in calendar days, the record -->
++   <div class="hzslim" id="hzslim" role="group" aria-label="Where the job is">
++     <span class="hzs-ph" id="hzsPh"></span>
++     <span class="hzs-ev" id="hzsEv"></span>
++     <span class="hzs-rec" id="hzsRec"><i></i><b></b><em></em></span>
++     <button type="button" class="hzs-lay" id="hzsLayout" title="Switch between the compact header and the full working header">Full header</button>
++   </div>
+    <!-- v6.20 - THE CIRCUIT IN THE BANNER (Andrew Fisher's mock-ups, 26 Sep 2026): the registered aerial with the key-plan
+         ring, and the day's due-in deliveries pinned on it, each pin a menu to exactly where it needs to go -->
+    <div class="hzmap" id="hzmap" role="group" aria-label="The circuit, with the day's deliveries">
+@@ -5228,8 +5336,10 @@
+        <div class="mmsec" id="mmViewsHead">Every view</div>
+        <div class="mmviews" id="mmViews" role="none"></div>
+        <div class="mmsec">This page</div>
++<button class="btn" role="menuitem" data-brief title="five scenes for an executive audience — one frozen snapshot, advanced by hand, no sound">Executive briefing</button>
+        <button class="btn" role="menuitem" id="showcaseBtn" title="the job on a screen, for a room — the circuit in 3D, day or night, with the #26; it changes nothing">Start showcase</button>
+-       <button class="btn" role="menuitem" id="motionBtn" aria-pressed="false">Motion: Subtle</button>
++<button class="btn" role="menuitem" id="motionBtn" aria-pressed="false">Motion: Subtle</button>
++       <button class="btn" role="menuitem" id="layoutBtn" aria-pressed="true" title="Executive: a one-row header and the job at a glance first. Operations: the full working header and every summary card.">Layout: Executive</button>
+        <div class="mmsec">The record</div>
+        <button class="btn" role="menuitem" id="folderBtn" hidden>Shared folder</button>
+        <button class="btn" role="menuitem" id="exportBtn">Export</button>
+@@ -5261,10 +5371,10 @@
+      </div>
+    </div>
+    <p class="vh" id="tpodSay" role="status" aria-live="polite"></p>
+-   <!-- v5.87 - the countdown pod: days to race day on the programme rail, the #26 at today. Read from DATA.race_days
++   <!-- v5.87 - the countdown pod: days to the event on the programme rail, the #26 at today. Read from DATA.race_days
+         and DATA.weeks, worked out once a day (hzCountdown), never a record. -->
+-   <div class="hzpod hzcd" id="hzcd" role="group" aria-label="Countdown to race day">
+-     <span class="lab" id="hzcdLab">Race day</span>
++   <div class="hzpod hzcd" id="hzcd" role="group" aria-label="Countdown to the event">
++     <span class="lab" id="hzcdLab">Event opens</span>
+      <span class="num"><b id="hzcdN">—</b><small id="hzcdU">DAYS</small><small class="cdt" id="hzcdT" aria-label="hours, minutes and seconds to race day"></small></span>
+      <div class="rail" id="hzrail" aria-hidden="true"><span class="track"></span><span class="done"></span><span class="wks"></span><span class="flag"></span><i class="car"></i><span class="lb s"></span><span class="lb e"></span></div>
+      <span class="sub" id="hzcdSub"></span>
+@@ -8563,7 +8673,7 @@
+  : `<b>${toEnd >= 0 ? toEnd : 0}</b><span>days</span><em>Until the end of demob</em><i>Ends ${esc(fd(b.end))}</i>`}</div>
+  </div>`;
+  const words = withStats ? '' : `<p class="pnote" style="margin-top:12px">Day <b>${dayNo < 1 ? 0 : dayNo > total ? total : dayNo}</b> of ${total}${
+- toRace != null && toRace > 0 ? ` · <b>${toRace}</b> days to race day` : toRace != null && toRace >= -(dn(race[1]) - dn(race[0])) ? ' · <b>race weekend</b>' : ''
++ toRace != null && toRace > 0 ? ` · <b>${toRace}</b> days to the event` : toRace != null && toRace >= -(dn(race[1]) - dn(race[0])) ? ' · <b>race weekend</b>' : ''
+  } · <b>${toEnd >= 0 ? toEnd : 0}</b> days to the end of demob</p>`;
+  return `<div class="pgm" data-race="${esc(key)}" style="--p:${p.toFixed(2)}%${r == null ? '' : `;--r:${r.toFixed(2)}%`}">
+  ${stats}
+@@ -8596,9 +8706,9 @@
+  const inDays = nxt ? Math.round((new Date(nxt.iso + 'T00:00:00') - new Date(today + 'T00:00:00')) / 86400000) : null;
+  const fd = iso => { const x = fmtDay(iso); return x.dow + ' ' + x.dm; };
+  const race = DATA.race_days;
+- const when = m => race && m.label === 'Race day' && DATA.event.race_dates_as_supplied
++ const when = m => race && m.label === 'Event opens' && DATA.event.race_dates_as_supplied
+  ? esc(DATA.event.race_dates_as_supplied) : esc(fd(m.iso)) + ' ' + m.iso.slice(0, 4);
+- const name = m => race && m.label === 'Race day' && race[1] && race[1] !== race[0] ? 'Race weekend' : m.label;
++ const name = m => race && m.label === 'Event opens' && race[1] && race[1] !== race[0] ? 'Race weekend' : m.label;
+  return `<div class="card hubcard racecard island">
+  <div class="phead"><h3>Where we are on the programme</h3>${
+  ph ? `<span class="pphase" title="${esc(ph.why)}"><i></i>${esc(ph.word)}</span>` : ''}</div>
+@@ -8903,6 +9013,199 @@
+  ? ' Availability could not be checked; this does not mean the files are missing.'
+  : C.unhosted ? ` <b>${fmtNum(C.available)}</b> of the ${fmtNum(C.items.length)} open from here; the rest are ${C.hosted ? 'not uploaded yet' : 'not beside this file'}.` : ''}</p>`; }
+ function docsHubRedraw(){ const el = document.getElementById('hubDocs'); if (el) el.innerHTML = docsHubInner() + '<div class="hubgo">Open the documents →</div>'; }
++/* v6.75 - EXECUTIVE / OPERATIONS (the executive audit, section 6). One page, one set of figures, two layouts.
++ Executive folds the header to one row and puts the job at a glance first; Operations is the full working header.
++ The choice is this device's, kept in its own storage; ?layout=ops or ?layout=exec sets it from a link. */
++var LAYOUT = (() => { let v = null;
++ try { const q = new URLSearchParams(location.search).get('layout'); if (q === 'ops' || q === 'exec') { v = q; localStorage.setItem('gc500.layout', q); } else v = localStorage.getItem('gc500.layout'); } catch (e) {}
++ return {mode: v === 'ops' ? 'ops' : 'exec'}; })();
++function layoutApply(){
++ document.body.classList.toggle('exec', LAYOUT.mode === 'exec'); document.body.classList.toggle('ops', LAYOUT.mode === 'ops');
++ const b = document.getElementById('layoutBtn'); if (b) { b.textContent = 'Layout: ' + (LAYOUT.mode === 'exec' ? 'Executive' : 'Operations'); b.setAttribute('aria-pressed', String(LAYOUT.mode === 'exec')); }
++ const h = document.getElementById('hzsLayout'); if (h) h.textContent = LAYOUT.mode === 'exec' ? 'Full header' : 'Compact';
++}
++function layoutSet(m){ LAYOUT.mode = m === 'ops' ? 'ops' : 'exec'; try { localStorage.setItem('gc500.layout', LAYOUT.mode); } catch (e) {} layoutApply(); try { render(); } catch (e) {} }
++try { layoutApply(); } catch (e) {}
++document.addEventListener('click', e => {
++ const t = e.target.closest && e.target.closest('#layoutBtn, #hzsLayout, [data-xgo]'); if (!t) return;
++ if (t.id === 'layoutBtn' || t.id === 'hzsLayout') { e.preventDefault(); layoutSet(LAYOUT.mode === 'exec' ? 'ops' : 'exec'); return; }
++ e.preventDefault(); go(t.dataset.xgo);
++});
++/* THE JOB AT A GLANCE. Every figure here is one the rest of the page already shows - the gauge, the plates, the
++ money summary - read through the same functions, so the summary cannot disagree with the detail under it. */
++function execFacts(asOf){
++ const C = completionAsOf(asOf), P = C.P;
++ const gaps = fenceGapsOf(fenceTypes(P));
++ const bdOpen = allBreakdowns().filter(b => b.open), bdStop = bdOpen.filter(b => b.severity === 'stops work');
++ let M = null; try { M = moneySummary(asOf); } catch (e) {}
++ return {C, P, A: P.all, gaps, bdOpen, bdStop, M};
++}
++function execSentence(F){
++ const C = F.C, A = F.A, bits = [];
++ if (!C.plan) bits.push('Nothing is due on site by today');
++ else bits.push(`${C.shortfall ? `${fmtNum(C.shortfall)} unit${C.shortfall === 1 ? '' : 's'} due by today ${C.shortfall === 1 ? 'is' : 'are'} not recorded on site` : 'Every unit due by today is recorded on site'} (${fmtNum(C.onDue)} of ${fmtNum(C.plan)} units; ${fmtNum(A.onsite)} of ${fmtNum(A.due)} references)`);
++ bits.push(F.gaps.length ? `fencing is behind the programme on ${F.gaps.length} type${F.gaps.length === 1 ? '' : 's'}` : 'fencing is on the programme type by type');
++ if (F.bdOpen.length) bits.push(`${F.bdOpen.length} breakdown${F.bdOpen.length === 1 ? ' is' : 's are'} open`);
++ if (F.M && F.M.missing.length) bits.push('the commercial forecast is incomplete');
++ return bits.join('; ') + '.';
++}
++/* at most three, in order of consequence: work stopped, work late, then the decisions the numbers wait on. The owner
++ and the date are the record's when it has them and "to confirm" when it does not - never a guess. */
++function execDecisions(F){
++ const out = [], A = F.A, M = F.M;
++ if (F.bdStop.length) out.push({what: `${F.bdStop.length} breakdown${F.bdStop.length === 1 ? '' : 's'} stopping work`, why: 'work has stopped where it stands', go: 'plant'});
++ if (A.overdue) out.push({what: `${fmtNum(A.overdue)} reference${A.overdue === 1 ? '' : 's'} overdue against the programme`, why: 'due by today with nothing recorded on site', go: 'progress'});
++ if (F.gaps.length) out.push({what: 'Fencing behind the 2026 programme — ' + F.gaps.map(fenceGapWords).join(' · '), why: 'due by today and not on a docket yet; early work on other types does not make it up', go: 'fencing'});
++ if (M && M.charge.contracts_differs) out.push({what: `Settle ${M.charge.contracts_differs} contract line${M.charge.contracts_differs === 1 ? '' : 's'} where Baseplan's prebill differs from the rule`, why: `${money0(M.charge.differs_charge)} by the rule against ${money0(M.charge.differs_prebill)} prebilled — counted by the rule until each is settled`, go: 'costs'});
++ if (M && M.breakeven_hours) out.push({what: 'Supply the wage rates for the labour tracker', why: `${fmtNum(M.breakeven_hours)} h carry no rate, so the commercial forecast cannot be completed`, go: 'costs'});
++ if (!fenceQuote()) out.push({what: 'Enter Advanced Temporary Fencing’s quoted quantities', why: 'over or under the quote cannot be assessed without them', go: 'fencing'});
++ return out.slice(0, 3);
++}
++function execDecisionsHtml(F){
++ const D = execDecisions(F);
++ if (!D.length) return '<p class="xnone">No decision is waiting on this record today.</p>';
++ return `<ol class="xdec">${D.map(d => `<li><button type="button" class="linkish xdw" data-xgo="${esc(d.go)}">${esc(d.what)}</button>
++ <span class="xwhy">${esc(d.why)}</span><span class="xown">Owner <b class="todo">to confirm</b> · Due <b class="todo">to confirm</b></span></li>`).join('')}</ol>`;
++}
++function execNext7(asOf){
++ const days = programmeDays(), t0 = new Date(asOf + 'T00:00:00'); const end = new Date(t0); end.setDate(end.getDate() + 7);
++ const endIso = end.getFullYear() + '-' + String(end.getMonth() + 1).padStart(2, '0') + '-' + String(end.getDate()).padStart(2, '0');
++ const rows = days.filter(d => d.iso > asOf && d.iso <= endIso);
++ const race = (DATA.race_days || [])[0] || null;
++ const ms = race && race > asOf ? `<p class="xms">Next milestone: <b>event opens ${esc(fmtDay(race).dow)} ${esc(fmtDay(race).dm)}</b> · ${daysBetween(asOf, race)} days</p>` : '';
++ return (rows.length ? `<table class="xn7"><tbody>${rows.map(d => `<tr><td><button type="button" class="linkish" data-xgo="timeline">${esc(fmtDay(d.iso).dow)} ${esc(fmtDay(d.iso).dm)}</button></td>
++ <td class="num"><b>${d.deliveries.length}</b> in</td><td class="num"><b>${d.removals.length}</b> out</td><td class="num">${d.loads.length ? `${d.loads.length} load${d.loads.length === 1 ? '' : 's'}` : ''}</td></tr>`).join('')}</tbody></table>`
++ : '<p class="xnone">Nothing on the schedule in the next seven days.</p>') + ms;
++}
++function execTiles(F, asOf){
++ const C = F.C, A = F.A, M = F.M;
++ const exc = F.gaps.length + (A.overdue ? 1 : 0) + F.bdOpen.length;
++ const T = [
++ {k: 'Due-delivery adherence', v: C.plan ? `${fmtNum(C.onDue)} <small>of ${fmtNum(C.plan)}</small>` : '—', u: `units due by ${fmtDay(asOf).dm} recorded on site`, s: `${fmtNum(A.onsite)} of ${fmtNum(A.due)} references`, tone: !C.plan ? 'unk' : C.shortfall ? 'bad' : 'good', w: !C.plan ? 'nothing due' : C.shortfall ? 'behind' : 'met'},
++ {k: 'Quantity recorded on site', v: fmtNum(C.on), u: 'units recorded on site so far', s: C.refsNoQty ? `whole job: ${fmtNum(C.quantified)} quantified units + ${fmtNum(C.refsNoQty)} references awaiting quantity — no percentage until they are confirmed` : `of ${fmtNum(C.all)} units on the whole job`, tone: 'unk', w: C.refsNoQty ? 'provisional' : 'recorded'},
++ {k: 'Due-work exceptions', v: fmtNum(exc), u: 'behind or open today', s: [F.gaps.length ? `${F.gaps.length} fencing type${F.gaps.length === 1 ? '' : 's'} behind` : 'fencing on the programme', `${fmtNum(A.overdue || 0)} overdue reference${A.overdue === 1 ? '' : 's'}`, `${F.bdOpen.length} open breakdown${F.bdOpen.length === 1 ? '' : 's'}`].join(' · '), tone: exc ? 'bad' : 'good', w: exc ? 'action' : 'none'},
++ {k: 'Commercial completeness', v: M && M.missing.length ? 'Forecast incomplete' : M ? 'Complete' : '—', u: M ? (M.missing.length ? `${M.missing.length} cost or charge item${M.missing.length === 1 ? '' : 's'} not in the figures` : 'every stream has its cost and its charge') : 'not read', s: M && M.charge.contracts_differs ? `${M.charge.contracts_differs} contract lines to settle · not a margin` : 'not a margin', tone: M && M.missing.length ? 'unk' : 'good', w: ''}];
++ return `<div class="xtiles">${T.map(t => `<div class="xtile ${t.tone}"><p class="xk">${esc(t.k)}</p><b class="xv">${t.v}</b><span class="xu">${esc(t.u)}</span>${t.s ? `<span class="xs">${esc(t.s)}</span>` : ''}${t.w ? `<em class="xw">${esc(t.w)}</em>` : ''}</div>`).join('')}</div>`;
++}
++function execSummaryHtml(asOf){
++ let F; try { F = execFacts(asOf); } catch (e) { return ''; }
++ const pd = programmeDay(asOf);
++ return `<section class="card xsum" aria-labelledby="xsumH">
++ <div class="xhead"><h3 id="xsumH">The job at a glance</h3><span class="xasof">As at ${esc(fmtDate(asOf))}${pd && pd.short ? ' · ' + esc(pd.short) : ''}</span></div>
++ <p class="xline">${esc(execSentence(F))}</p>
++ ${execTiles(F, asOf)}
++ <div class="xcols"><div><h4>Decisions needed</h4>${execDecisionsHtml(F)}</div><div><h4>The next seven days</h4>${execNext7(asOf)}</div></div>
++ <div class="xlinks"><span>The detail:</span><button type="button" class="btn sm" data-xgo="plant">Plant</button><button type="button" class="btn sm" data-xgo="fencing">Fencing</button><button type="button" class="btn sm" data-xgo="costs">Costs</button><button type="button" class="btn sm" data-xgo="docs">Documents</button></div>
++ </section>`;
++}
++/* Today, as the action page: the same sentence, the same decisions, the same seven days */
++function execTodayHtml(today){
++ let F; try { F = execFacts(today); } catch (e) { return ''; }
++ return `<section class="card xsum xtoday" aria-labelledby="xtodH">
++ <div class="xhead"><h3 id="xtodH">Actions</h3><span class="xasof">${esc(execSentence(F))}</span></div>
++ <div class="xcols"><div><h4>Decisions needed</h4>${execDecisionsHtml(F)}</div><div><h4>The next seven days</h4>${execNext7(today)}</div></div>
++ <div class="xlinks xexec"><span>Summaries:</span><button type="button" class="btn sm" data-xgo="progress">Where we are</button><button type="button" class="btn sm" data-xgo="map">Map</button><button type="button" class="btn sm" data-xgo="docs">Documents</button><button type="button" class="btn sm" data-xgo="costs">Costs</button></div>
++ </section>`;
++}
++/* v6.76 - THE EXECUTIVE BRIEFING. Five scenes, one frozen snapshot, advanced by hand. */
++const BRIEF = {open: false, i: 0, snap: null, ret: null, onKey: null, inert: []};
++const BRIEF_TITLES = ['The job at a glance', 'Progress on the ground', 'The next seven days', 'Commercial control', 'The team and the ask'];
++function briefSnapshot(){
++ const at = new Date(), asOf = todayIso();
++ const F = execFacts(asOf), C = F.C, A = F.A, M = F.M;
++ const stamp = `${fmtDate(asOf)} · ${timeOfStamp(at.toISOString())} Gold Coast time`;
++ const pd = programmeDay(asOf);
++ const Fm = fenceMetres(F.P);
++ const exc = F.gaps.length + (A.overdue ? 1 : 0) + F.bdOpen.length;
++ const big = (v, l, s) => `<div class="brfig"><b>${v}</b><span>${esc(l)}</span>${s ? `<em>${esc(s)}</em>` : ''}</div>`;
++ const scenes = [];
++ /* 1 - the job at a glance */
++ scenes.push(`<p class="brk">${esc(DATA.brand.org)} · ${esc(DATA.event.name)}</p>
++ <h2 class="brh">Where the job stands</h2>
++ <p class="brl">${esc(pd ? pd.short : '')}${(DATA.race_days || [])[0] ? ` · event opens ${esc(fmtDate(DATA.race_days[0]))}` : ''}</p>
++ <div class="brfigs">
++ ${big(C.plan ? `${fmtNum(C.onDue)}<small>/${fmtNum(C.plan)}</small>` : '—', 'units due by today recorded on site', `${fmtNum(A.onsite)} of ${fmtNum(A.due)} references`)}
++ ${big(fmtNum(C.on), 'units recorded on site so far', C.refsNoQty ? `of ${fmtNum(C.quantified)} quantified + ${fmtNum(C.refsNoQty)} references awaiting quantity` : `of ${fmtNum(C.all)} on the job`)}
++ ${big(`${fmtNum(Fm.done)}<small> m</small>`, 'fence work on dockets', `of ${fmtNum(Fm.total)} m on the 2026 programme`)}
++ </div>
++ <p class="brnote${exc ? ' bad' : ''}"><b>${fmtNum(exc)}</b> exception${exc === 1 ? '' : 's'} today — ${esc([F.gaps.length ? `${F.gaps.length} fencing type${F.gaps.length === 1 ? '' : 's'} behind the programme` : 'fencing on the programme', `${fmtNum(A.overdue || 0)} overdue reference${A.overdue === 1 ? '' : 's'}`, `${F.bdOpen.length} open breakdown${F.bdOpen.length === 1 ? '' : 's'}`].join(' · '))}</p>`);
++ /* 2 - progress on the ground: the record's own photographs, newest first, one per reference */
++ const seen = new Set(), shots = Object.entries(S.dropPhotos || {}).flatMap(([k, r]) => (r.photos || []).filter(p => p && p.id).map(p => ({k, p})))
++ .sort((x, y) => String(y.p.at || '').localeCompare(String(x.p.at || ''))).filter(x => { if (seen.has(x.k)) return false; const u = dropPhotoUrl(x.p); if (!u) return false; x.u = u; seen.add(x.k); return true; }).slice(0, 3);
++ scenes.push(`<p class="brk">Evidence behind the numbers</p><h2 class="brh">Progress on the ground</h2>
++ ${shots.length ? `<div class="brshots">${shots.map(x => { const a = assetOf(x.k) || {}; return `<figure><img src="${esc(x.u)}" alt="${esc(x.k + ' on site')}" loading="eager" decoding="async"><figcaption><b>${esc(x.k)}</b> ${esc((a.item_types || []).join(', ') || a.product || '')}<br><span>recorded ${esc(fmtStamp(x.p.at || ''))}${x.p.by ? ' by ' + esc(x.p.by) : ''}</span></figcaption></figure>`; }).join('')}</div>
++ <p class="brl sm">The latest drop photographs on the record, one per reference. The time is when the photograph was recorded here.</p>`
++ : `<p class="brl">No drop photograph is available to this page yet. The record holds ${fmtNum(Object.values(S.dropPhotos || {}).reduce((s, r) => s + ((r.photos || []).length), 0))} photograph${Object.keys(S.dropPhotos || {}).length === 1 ? '' : 's'} — open Documents › Photos on the hosted page.</p>`}`);
++ /* 3 - the next seven days */
++ scenes.push(`<p class="brk">How the team is controlling delivery</p><h2 class="brh">The next seven days</h2>
++ <div class="brcols"><div>${execNext7(asOf)}</div>
++ <div><h4>Fencing behind the programme</h4>${F.gaps.length ? `<ul class="brlist">${F.gaps.map(g => `<li><b>${esc(fenceGapName(g))}</b> ${esc(fmtNum(g.short))}${g.unit === 'm' ? ' m' : ''} short <span>${esc(fmtNum(g.done))} of ${esc(fmtNum(g.planned))}${g.unit === 'm' ? ' m' : ''} due by today</span></li>`).join('')}</ul>` : '<p class="brl sm">Every fencing type is on the programme by today.</p>'}</div></div>`);
++ /* 4 - commercial control */
++ scenes.push(`<p class="brk">What is known, and what needs settling</p><h2 class="brh">Commercial control</h2>
++ ${M ? `<div class="brfigs">
++ ${big(esc(money0(M.charge.total) || '—'), 'client charges (ex GST)', 'the contracts by the rate, fencing dockets, event labour scope')}
++ ${big(esc(money0(M.cost.known) || '—'), 'supplier costs known so far', 'recorded costs — not every cost is in yet')}
++ ${big(esc(M.difference0 < 0 ? '−' + money0(-M.difference0) : money0(M.difference0)), 'difference so far', 'not a margin: forecast incomplete')}
++ </div>
++ <p class="brnote"><b>Forecast incomplete.</b> ${esc(M.missing_short.join(' · '))}.</p>
++ ${M.charge.contracts_differs ? `<p class="brl sm">${M.charge.contracts_differs} contract lines where Baseplan's prebill differs from the rule: ${esc(money0(M.charge.differs_charge))} by the rule, ${esc(money0(M.charge.differs_prebill))} prebilled — counted by the rule until each is settled, not netted.</p>` : ''}` : '<p class="brl">The commercial summary could not be read.</p>'}`);
++ /* 5 - the team and the ask */
++ const people = (DATA.team || {}).people || [], crew = crewCount();
++ const lead = people.filter(p => p.group !== 'fencing' && p.group !== 'other').slice(0, 4);
++ const D = execDecisions(F);
++ scenes.push(`<p class="brk">Coates on the Gold Coast</p><h2 class="brh">The team, and the ask</h2>
++ <div class="brcols"><div><h4>Running it</h4><ul class="brlist">${lead.map(p => `<li><b>${esc(p.name)}</b> <span>${esc(p.title || p.role || '')}</span></li>`).join('')}</ul>
++ <p class="brl sm">${fmtNum(crew.coates)} Coates people and ${fmtNum(crew.fencing)} from Advanced Temporary Fencing on the record.</p></div>
++ <div><h4>Decisions needed</h4>${D.length ? `<ol class="brlist">${D.map(d => `<li><b>${esc(d.what)}</b> <span>${esc(d.why)}</span><span>Owner to confirm · due to confirm</span></li>`).join('')}</ol>` : '<p class="brl sm">No decision is waiting on this record.</p>'}</div></div>`);
++ return {at, asOf, stamp, scenes};
++}
++function briefEl(){
++ let el = document.getElementById('brief'); if (el) return el;
++ el = document.createElement('div'); el.id = 'brief'; el.className = 'brief'; el.hidden = true;
++ el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'briefT');
++ el.innerHTML = `<div class="brtop"><span class="brbrand">GC500 <i>2026</i> · Executive briefing</span><span class="brstamp" id="briefStamp"></span><button type="button" class="brx" id="briefClose">Close</button></div>
++ <div class="brstage"><h1 class="vh" id="briefT">Executive briefing</h1><div class="brbody" id="briefBody" tabindex="-1"></div></div>
++ <div class="brnav"><button type="button" class="brb" id="briefPrev">← Back</button><span class="brpos" id="briefPos" aria-live="polite"></span><button type="button" class="brb pri" id="briefNext">Next →</button></div>`;
++ document.body.appendChild(el);
++ el.querySelector('#briefClose').onclick = briefClose;
++ el.querySelector('#briefPrev').onclick = () => briefMove(-1);
++ el.querySelector('#briefNext').onclick = () => briefMove(1);
++ return el;
++}
++function briefRender(){
++ const el = briefEl(), s = BRIEF.snap, n = s.scenes.length;
++ const body = el.querySelector('#briefBody');
++ body.classList.remove('in'); body.innerHTML = s.scenes[BRIEF.i]; void body.offsetWidth; body.classList.add('in');
++ el.querySelector('#briefStamp').textContent = 'Snapshot ' + s.stamp + ' — figures frozen for this briefing';
++ el.querySelector('#briefPos').textContent = `${BRIEF.i + 1} / ${n} · ${BRIEF_TITLES[BRIEF.i] || ''}`;
++ el.querySelector('#briefPrev').disabled = BRIEF.i === 0;
++ const nx = el.querySelector('#briefNext'); nx.textContent = BRIEF.i === n - 1 ? 'Finish' : 'Next →';
++ try { body.focus({preventScroll: true}); } catch (e) {}
++}
++function briefMove(d){ const n = BRIEF.snap.scenes.length, to = BRIEF.i + d; if (to >= n) { briefClose(); return; } if (to < 0) return; BRIEF.i = to; briefRender(); }
++function briefOpen(){
++ if (BRIEF.open) return;
++ try { BRIEF.snap = briefSnapshot(); } catch (e) { flash('The briefing could not be put together: ' + ((e && e.message) || e)); return; }
++ BRIEF.open = true; BRIEF.i = 0; BRIEF.ret = (document.activeElement && document.activeElement !== document.body) ? document.activeElement : (window.event && window.event.target && window.event.target.closest ? window.event.target.closest('[data-brief]') : null);
++ const el = briefEl(); el.hidden = false; document.body.classList.add('briefing');
++ BRIEF.inert = [...document.body.children].filter(x => x !== el && x.id !== 'flash' && x.tagName !== 'SCRIPT' && !x.hasAttribute('inert'));
++ BRIEF.inert.forEach(x => { try { x.setAttribute('inert', ''); } catch (e) {} });
++ BRIEF.onKey = ev => { if (!BRIEF.open) return;
++ if (ev.key === 'Escape') { ev.preventDefault(); briefClose(); return; }
++ if (ev.key === 'ArrowRight' || ev.key === 'PageDown' || (ev.key === ' ' && !/^(BUTTON|A)$/.test((ev.target || {}).tagName || ''))) { ev.preventDefault(); briefMove(1); return; }
++ if (ev.key === 'ArrowLeft' || ev.key === 'PageUp') { ev.preventDefault(); briefMove(-1); } };
++ document.addEventListener('keydown', BRIEF.onKey);
++ briefRender();
++}
++function briefClose(){
++ if (!BRIEF.open) return;
++ BRIEF.open = false; const el = briefEl(); el.hidden = true; document.body.classList.remove('briefing');
++ BRIEF.inert.forEach(x => { try { x.removeAttribute('inert'); } catch (e) {} }); BRIEF.inert = [];
++ if (BRIEF.onKey) { document.removeEventListener('keydown', BRIEF.onKey); BRIEF.onKey = null; }
++ let r = BRIEF.ret; BRIEF.ret = null; if (!r || r === document.body || !document.contains(r)) r = document.querySelector('.pane.on [data-brief]');
++ if (r && r.focus) try { r.focus({preventScroll: true}); } catch (e) {}
++}
++document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-brief]'); if (b) { e.preventDefault(); briefOpen(); } });
+ function renderToday(){ return holdAssets(renderToday_held); } /* v6.69 - one asset list for the whole draw */
+ function renderToday_held(){
+  const today = todayIso();
+@@ -8928,7 +9231,8 @@
+  return `<li class="hubrow"><span class="tm">${d.eta ? esc(d.eta) : '—:—'}</span><button class="linkish plateb" data-k="${esc(r.a.key)}" aria-label="Open ${esc(r.a.key)}">${refPlate(r.a.key, 15)}</button>${dstat(r.a, {size: 'sm', bare: true})}
+  <span class="w" style="color:var(--mute)">${esc((r.a.item_types || []).join(', ') || r.a.product || '')}${r.a.name ? ' · ' + esc(r.a.name) : ''}<span class="anos">${assetNosLine(r.a)}</span></span></li>`; };
+  $('#pane-today').innerHTML = paneHeadingHtml('today') + `
+- <div class="dsnband">${dsnBoard(today, dsnState(today), 'video')}</div> <!-- v6.10 - the day strip is the banner's day pod now -->
++<div class="dsnband">${dsnBoard(today, dsnState(today), 'video')}</div>
++ ${execTodayHtml(today)} <!-- v6.10 - the day strip is the banner's day pod now -->
+  <!-- F11, Superior Audit 15 Sep 2026: the brief ran to 880px and left roughly 400px of empty white beside it
+  on every laptop, while the carrier loads and the circuit notes — the context a person reads the brief
+  AGAINST — sat 3,000px further down the page. They share a row now, and the column stacks under the brief
+@@ -11882,8 +12186,8 @@
+  <p class="sub">Type the metres and gates the quote covers, line by line, from ${esc((DATA.fence_contractor || {}).name || 'the contractor')}'s quote. Done is added up
+  across every usable docket on the job; the moment a line goes past its quoted quantity it is flagged here and a variation can be raised
+  on it with the figures already filled in. ${quote ? `Quote ${quote.ref ? '<b>' + esc(quote.ref) + '</b> ' : ''}entered by ${esc(quote.by || 'unnamed')}${quote.on ? ' on ' + esc(quote.on) : ''} ${whereChip(quote._where)}`
+- : '<span class="chip crit">no quote entered</span> — until it is, nothing here can say whether the job is over or under.'}</p>
+- <div class="form" style="max-width:none">
++ : '<span class="chip crit">no quote entered</span> — until it is,nothing here can say whether the job is over or under.'}</p>
++ <div class="form fqform" style="max-width:none">
+  <div class="row2">
+  <div class="f"><label for="fqRef">Quote reference</label><input id="fqRef" value="${esc((quote || {}).ref || '')}" placeholder="quote number or date, as on the document"></div>
+  <div class="f"><label>Entered by</label><div>${esc(S.operator || '(put your name in “Recording as”)')}</div></div>
+@@ -15046,7 +15350,7 @@
+  ${eyebrow(e(DATA.brand.org), OR2)}
+  <div style="font:800 27px/1.15 ${SANS};color:#ffffff;letter-spacing:-.02em;padding-top:9px">${eff.in ? 'Delivery — ' + e(fmtDate(eff.in)) : 'Delivery'}</div>
+  <div style="font:400 13px/1.4 ${SANS};color:#b9b2ab;padding-top:5px">${e(DATA.event.name)}${
+- toRace != null && toRace > 0 ? ' &middot; ' + toRace + ' days to race day' : ''}</div>
++ toRace != null && toRace > 0 ? ' &middot; ' + toRace + ' days to the event' : ''}</div>
+  </td>
+  <td valign="top" align="right" style="padding:0;width:130px">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right"><tr>
+@@ -18170,6 +18474,9 @@
+  return pts;
+ }
+ function liveMapNote(box, html, cls){
++ /* v6.76 - a viewer is told what it means for them, not how to configure a key; the raw reason stays one press away */
++ if (cls === 'warn' && typeof capability === 'function' && capability() !== 'edit')
++ html = '<b>This view is unavailable on this device right now.</b> The drawings and the 2D plan are unaffected — use them, or try again later. <details class="livediag"><summary>Technical detail</summary>' + html + '</details>';
+  let n = box.querySelector('.livenote');
+  if (!n) { n = document.createElement('div'); n.className = 'livenote'; box.appendChild(n); }
+  n.className = 'livenote' + (cls ? ' ' + cls : ''); n.innerHTML = html;
+@@ -26010,7 +26317,10 @@
+  const p = span ? Math.max(0, Math.min(100, days(start, iso) / span * 100)) : 0;
+  const fp = span && race ? Math.max(0, Math.min(100, days(start, race) / span * 100)) : null;
+  const set = (id, v) => { const x = $(id); if (x) x.textContent = v; };
+- set('#hzcdLab', lab); set('#hzcdN', String(n)); set('#hzcdU', unit); set('#hzcdSub', sub);
++set('#hzcdLab', lab); set('#hzcdN', String(n)); set('#hzcdU', unit); set('#hzcdSub', sub);
++ { const pd = programmeDay(iso), s1 = $('#hzsPh'), s2 = $('#hzsEv');
++ if (s1) s1.textContent = pd ? pd.short : '';
++ if (s2) s2.innerHTML = race ? (iso < race ? `Event opens ${esc(fmtDay(race).dow)} ${esc(fmtDay(race).dm)} · <b>${days(iso, race)}</b> day${days(iso, race) === 1 ? '' : 's'}` : iso <= raceEnd ? '<b>The event is running</b>' : end && iso <= end ? `Demob · <b>${days(iso, end)}</b> days to the end` : 'Programme ended') : ''; }
+  const rail = $('#hzrail');
+  if (rail) {
+  rail.style.setProperty('--p', p.toFixed(1) + '%');
+@@ -26343,7 +26653,7 @@
+  if (first) ms.push({iso: first, label: 'Programme starts'});
+  if (loads[0]) ms.push({iso: loads[0], label: 'First truck'});
+  if (demob) ms.push({iso: demob, label: 'Demob starts'});
+- if (race) ms.push({iso: race, label: 'Race day'});
++ if (race) ms.push({iso: race, label: 'Event opens'});
+  if (last) ms.push({iso: last, label: 'End of demob'});
+  const seen = new Set();
+  return ms.filter(m => m.iso && !seen.has(m.iso) && seen.add(m.iso)).sort((a, b) => a.iso.localeCompare(b.iso));
+@@ -26359,11 +26669,12 @@
+  return `<div class="head">
+  <h2><i></i>Where we are</h2>
+  <p class="asat">As at <b>${esc(fmtDate(asOf))}</b>${wk && wk.sheet ? ' · ' + esc(wk.sheet) : ''}${wk && wk.phase ? ' · ' + esc(wk.phase) : ''}${
+- toRace != null ? (toRace > 0 ? ` · <b>${toRace} days</b> to race day` : toRace === 0 ? ' · <b>race day</b>' : '') : ''} · <b>${toEnd >= 0 ? toEnd : 0} days</b> to the end of demob</p>
++ toRace != null ? (toRace > 0 ? ` · <b>${toRace} days</b> to the event` : toRace === 0 ? ' · <b>event opens</b>' : '') : ''} · <b>${toEnd >= 0 ? toEnd : 0} days</b> to the end of demob</p>
+  <div class="hacts">
+  <label class="hb"><span class="vh">View date</span><input type="date" id="asOf" value="${esc(asOf)}" data-ro title="a viewing filter — it changes what this page replays, never the record"></label>
+ <a class="hb" id="emailProgress" href="mailto:" data-mailasof="${esc(asOf)}">Email this</a>
+  <button class="hb" id="printProgress">Print</button>
++<button class="showgo briefgo" type="button" data-brief data-ro title="five scenes for an executive audience — one frozen snapshot, advanced by hand, no sound">Executive briefing <i>5 scenes</i></button>
+  <button class="showgo" id="showStart" data-ro title="the job on a screen, for a room — it changes nothing">Start showcase <i>${SHOW_ORDER.length} scenes</i></button>
+  </div>
+  <div class="strip" role="list" aria-label="the programme">${ms.map(m => `<span class="m${m.iso < asOf ? ' done' : m.iso === asOf ? ' now' : ''}" role="listitem"><i></i><b>${esc(m.label)}</b> ${esc(fmtDay(m.iso).dm)}</span>`).join('')}</div>
+@@ -26499,13 +26810,13 @@
+  const subhires = rows.reduce((s, r) => s + (r.subs || []).length, 0);
+  const dueUnits = rows.filter(r => r.due && !r.reloc).reduce((s, r) => s + r.asked, 0);
+  const noQty = rows.filter(r => r.noQty && !r.reloc).length;
+- return `${fig('On site', `${esc(fmtNum(onUnits))}<small> of ${esc(fmtNum(asked))} on the job</small>`,
++return `${fig('On site', `${esc(fmtNum(onUnits))}<small> recorded · of ${esc(fmtNum(asked - noQty))} quantified${noQty ? ` + ${esc(fmtNum(noQty))} awaiting quantity` : ''}</small>`,
+  onUnits ? `${numbers} asset number${numbers === 1 ? '' : 's'} on hire in the rental system${subhires ? `, ${subhires} subhired machine${subhires === 1 ? '' : 's'} with no asset number` : ''}${onPerson.length ? `, plus ${onPerson.length} line${onPerson.length === 1 ? '' : 's'} set by a person on site` : ' — nobody has set a light yet'}. On hire is on site; a light a person sets overrides it.`
+  : 'Nothing on hire by this day and no light set — the record being empty, not a day with no deliveries.',
+- gauge(onUnits, asked, `${esc(fmtNum(dueUnits))} due by this day`, P.all.overdue ? `<b style="color:var(--red)">${P.all.overdue} line${P.all.overdue === 1 ? '' : 's'} overdue</b>` : null))}
+- ${fig('Plant on the job', `${esc(fmtNum(asked))}<small> things · ${new Set(all.map(a => a.discipline)).size} trades</small>`,
++gauge(onUnits, asked, `${esc(fmtNum(dueUnits))} due by this day`, P.all.overdue ? `<b style="color:var(--red)">${P.all.overdue} line${P.all.overdue === 1 ? '' : 's'} overdue</b>` : noQty ? '<span title="each reference awaiting a quantity counts as one until it is confirmed">no % until quantities are confirmed</span>' : null))}
++${fig('Plant on the job', `${esc(fmtNum(asked - noQty))}<small> quantified units${noQty ? ` + ${esc(fmtNum(noQty))} references awaiting quantity` : ''} · ${new Set(all.map(a => a.discipline)).size} trades</small>`,
+  `Counted as the schedule and the drawings write them, across ${all.length} references — ${refs.length} drawn on the sheets and ${lines.length} plant lines the schedule carries without a drawing reference: VMS boards, forklifts, the track mat, the tynes. ${noQty ? `${noQty} references carry no quantity and count as one each. ` : ''}Every group's plate shows where its total comes from.`)}`; })()}
+- ${fig('Temporary fence', `${esc(fmtNum(F.done))}<small> of ${esc(fmtNum(F.total))} m</small>`,
++${fig('Fence work on dockets', `${esc(fmtNum(F.done))}<small> of ${esc(fmtNum(F.total))} m</small>`,
+  `${esc(fmtNum(F.clean))} m clean and ${esc(fmtNum(F.scrim))} m braced for scrim on the 2026 programme. Done is what the dockets say by this day. Gates and crowd-control barrier are on the fencing plate, each in its own unit.`,
+  gauge(F.done, F.total, F.planned ? `${esc(fmtNum(F.planned))} m planned by this day` : 'nothing planned by this day', null))}
+  ${(() => {
+@@ -27108,7 +27419,7 @@
+  two lines rather than filling the third with something he did not ask for. */
+  pages.push({k: 'day', lines: [
+  {cls: 'ln mid white', t: `${day.dow} ${day.dm}`.toUpperCase()},
+- {cls: 'ln big', t: race == null ? 'GC500 2026' : race > 0 ? `${race} DAYS TO RACE DAY` : race === 0 ? 'RACE DAY' : `${-race} DAYS AFTER RACE`}]
++ {cls: 'ln big', t: race == null ? 'GC500 2026' : race > 0 ? `${race} DAYS TO GC500` : race === 0 ? 'GC500 OPENS TODAY' : `${-race} DAYS AFTER RACE`}]
+ .concat(wk ? [{cls: 'ln sm', t: String(wk).toUpperCase()}] : [])});
+  const w = asOf === todayIso() ? wxLine() : null;
+  if (w) pages.push({k: 'wx', lines: [
+@@ -27520,7 +27831,9 @@
+ /* the whole screen */
+ function dsnScreen(asOf){
+  const X = dsnState(asOf);
+- return ((DATA.pageBanners || {}).progress ? '' : (raceBanner('where') || dsnBoard(asOf, X, 'still'))) + dsnHead(asOf) + dsnHeadline(asOf, X) + dsnGroups(asOf, X) + dsnBranches(asOf, X) + dsnMoney(asOf, X) + dsnOut(asOf);
++ return ((DATA.pageBanners || {}).progress ? '' : (raceBanner('where') || dsnBoard(asOf, X, 'still')))+ dsnHead(asOf) + execSummaryHtml(asOf) + dsnHeadline(asOf, X)
++ + `<details class="sfold more xplates" data-sfold="progress|plates"${(LAYOUT && LAYOUT.mode === 'ops') || SFOLD_OPEN.has('progress|plates') ? ' open' : ''}><summary>Group by group, branch by branch</summary><div class="sfoldbody">` + dsnGroups(asOf, X) + dsnBranches(asOf, X) + `</div></details>`
++ + dsnMoney(asOf, X) + dsnOut(asOf);
+ }
+ /* where the figures on Where we are come from — at the head of the detail behind the plates (v5.81) */
+ function dsnSource(){
+@@ -27946,7 +28259,7 @@
+  'crew', 'equipment', 'complete',
+  'fencing', 'fence', 'fenceprog',
+  'effort', 'site'];
+-const SHOW_TITLE = {countdown: 'Countdown to race day', lead: 'Who is running it',
++const SHOW_TITLE = {countdown: 'Countdown to the event', lead: 'Who is running it',
+  crew: 'Meet the install team', equipment: 'What the install team has put in',
+  complete: 'Where the install is up to',
+  fencing: 'Meet the fencing crew', fence: 'Metres in the ground',
+@@ -28221,7 +28534,7 @@
+  const ticks = Array.from({length: pos.total}, (_, k) => { const iso = addDays(pos.start, k);
+  return `<span class="${iso < asOf ? 'past' : iso === asOf ? 'now' : ''}" style="--d:${Math.min(k, 40) * 22}ms"></span>`; }).join('');
+  return kick('Where the programme is') + `<h2>Day ${fmtNum(pos.n)}<br>of ${fmtNum(pos.total)}.</h2>
+- <div class="shbig">${fmtNum(pos.toRace != null && pos.toRace > 0 ? pos.toRace : 0)}<small>days to race day</small></div>
++ <div class="shbig">${fmtNum(pos.toRace != null && pos.toRace > 0 ? pos.toRace : 0)}<small>days to the event</small></div>
+  ${fine((ph ? ph.word + ' · ' : '') + (wk && wk.sheet ? wk.sheet + ' · ' : '') + 'as at ' + fmtDate(asOf) + (where ? ' · ' + where : ''))}
+  <div class="shtrack" aria-hidden="true">${ticks}</div>
+  ${fine('Calendar days, ' + dm(pos.start) + ' – ' + dm(pos.end) + ', the same count as the Timeline. '
+@@ -28332,7 +28645,7 @@
+  const pcU = C.all ? Math.min(100, C.on / C.all * 100) : 0;
+  const pcF = F.total ? Math.min(100, F.done / F.total * 100) : 0;
+  const pcR = t.total ? Math.min(100, t.done / t.total * 100) : 0;
+- /* days to race day, off the same race_days the countdown scene opens on — nothing new invented for it */
++ /* days to the event, off the same race_days the countdown scene opens on — nothing new invented for it */
+  const race0 = (DATA.race_days || [])[0];
+  const days = race0 ? Math.max(0, Math.round((new Date(race0 + 'T00:00:00') - new Date((asOf || todayIso()) + 'T00:00:00')) / 86400000)) : null;
+  return kick('Where we are up to') + `<h2>The build,<br>so far.</h2>
+@@ -28604,7 +28917,7 @@
+  const hire = X.hire0, transport = X.transport0, fd = fenceDerived();
+  const C = completionAsOf(asOf, X);
+  const lines = [`${DATA.brand.org} · ${DATA.event.name} — where we are as at ${fmtDate(asOf)}`,
+- P.race ? `${daysBetween(asOf, P.race)} days to race day (${fmtDate(P.race)})` : null,
++ P.race ? `${daysBetween(asOf, P.race)} days to the event (${fmtDate(P.race)})` : null,
+  P.wk ? `${P.wk.sheet} · ${P.wk.phase}` : 'outside every programme week', '',
+  `HOW FAR THROUGH: ${Math.round(C.pct)}% of the job is on site — ${C.word.toUpperCase()}`,
+  `${fmtNum(C.on)} of ${fmtNum(C.all)} units · the plan asks for ${fmtNum(C.plan)} (${Math.round(C.planPct)}%) by today · ${C.why}`, '',
+@@ -28705,7 +29018,7 @@
+  <div class="hubhead detail" style="margin-top:12px">
+  <div><h2>The detail, trade by trade</h2>
+  <div class="sub">the programme tables behind the plates · as at <b>${esc(fmtDate(asOf))}</b> · ${esc(P.wk ? P.wk.sheet + ' · ' + P.wk.phase : phase)}${
+- toRace != null ? ` · ${toRace > 0 ? `<b>${toRace}</b> days to race day` : toRace === 0 ? '<b>race day</b>' : `<b>${-toRace}</b> days after race day`} (${esc(fmtDate(P.race))})` : ''}${
++ toRace != null ? ` · ${toRace > 0 ? `<b>${toRace}</b> days to the event` : toRace === 0 ? '<b>event opens</b>' : `<b>${-toRace}</b> days after the event opened`} (${esc(fmtDate(P.race))})` : ''}${
+  toDemobEnd != null && toDemobEnd >= 0 ? ` · <b>${toDemobEnd}</b> days to the end of demob (${esc(fmtDate(P.demobEnd))})` : ''}</div></div>
+  </div>
+  ${raceBounds() ? `<div class="card" style="margin-bottom:14px">${raceStrip(asOf, 'progress')}</div>` : ''}
+@@ -29219,7 +29532,8 @@
+  /* v5.87 - three pit-lane lamps and one word. Steady lamps: a heartbeat is still never faked here. */
+ const big = {view: 'LIVE', shared: 'LIVE', pending: 'PENDING', checking: 'LOADING', offline: 'OFFLINE', local: 'LOCAL'}[r.k] || r.word.toUpperCase();
+  document.body.classList.toggle('recloading', r.k === 'checking');
+- el.innerHTML = `<span class="rslamps" aria-hidden="true"><i></i><i></i><i></i></span><span class="rsw"><b>${esc(big)}</b><em>${esc(r.sub)}</em></span>`;
++el.innerHTML = `<span class="rslamps" aria-hidden="true"><i></i><i></i><i></i></span><span class="rsw"><b>${esc(big)}</b><em>${esc(r.sub)}</em></span>`;
++ { const s = $('#hzsRec'); if (s) { s.className = 'hzs-rec ' + r.k; s.title = r.title; s.innerHTML = `<i aria-hidden="true"></i><b>${esc(big)}</b><em>${esc(r.sub)}</em>`; } }
+ }
+ function hhmm(d){ return timeOfStamp(d); }
+ function syncStop(why){
