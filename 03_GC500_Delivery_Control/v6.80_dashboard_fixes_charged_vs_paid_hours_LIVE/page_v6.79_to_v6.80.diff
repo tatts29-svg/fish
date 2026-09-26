@@ -1,0 +1,453 @@
+5121a5122,5144
+> /* v6.74 - the audit: a measure this record cannot take reads as unknown, never green */
+> .cwkpi.unk{--acc:var(--mute)}
+> .cwkpi.unk .cwkv{color:var(--mute);font-size:15px}
+> .cwkpi .cwjob{display:block;margin-top:6px;font-size:12px;color:var(--ink)}
+> .cwunk{margin-top:12px;border:1px dashed var(--line);border-radius:10px;padding:10px 12px}
+> .cwunk ul{margin:6px 0 0;padding-left:18px}
+> .cwunk li{margin:3px 0;font-size:13px}
+> .cprov{display:block;font-style:normal;font-size:11.5px;color:var(--mute);margin-top:2px}
+> .frc{font-size:11px;color:var(--mute);font-weight:400}
+> 
+> /* v6.77 - accessibility (re-audit A3) and phone tab labels (P6) */
+> @media (max-width:420px){ nav.tabs [data-tab] .tl, nav.tabs [data-tab]{font-size:10.5px;letter-spacing:0} }
+> .cworktbl{table-layout:fixed;min-width:0} .cworktbl td{overflow-wrap:anywhere}
+> 
+> /* v6.77 - contrast (A3): the same colours a shade deeper, so small text clears 4.5:1 */
+> .dsn .grp .k .code{background:var(--orange-ink)}
+> .showgo i{opacity:1}
+> .doccover .gc-media-status{color:#4a4038!important;opacity:1!important}
+> .card.island.racecard .pphase{color:var(--orange-ink)}
+> .doccard.offsvc .doccover{opacity:1} .doccard.offsvc .doccover img,.doccard.offsvc .doccover canvas{opacity:.55}
+> .platego:focus-visible{position:absolute;left:8px;top:8px;width:auto;height:auto;clip:auto;margin:0;padding:4px 10px;z-index:3;background:#fff;color:var(--ink);border:2px solid var(--orange);border-radius:6px;font-size:12px}
+> .grp:focus-within,.mcard:focus-within{outline:2px solid var(--orange);outline-offset:2px}
+> 
+5279c5302
+<   <nav class="tabs" id="tabs" role="tablist"></nav>
+---
+> <nav class="tabs" id="tabs" aria-label="Views"></nav>
+8272c8295,8296
+<  $('#tabs').innerHTML = tabPrimary().map(k => TABS.find(([x]) => x === k)).filter(Boolean).map(tabBtn).join('') + (here ? tabBtn(here) : '');
+---
+> /* v6.77 (A1) - the tabs in a tablist of their own; display:contents keeps the strip laid out exactly as before */
+>  $('#tabs').innerHTML = '<div class="tabset" role="tablist" aria-label="Views" style="display:contents">' + tabPrimary().map(k => TABS.find(([x]) => x === k)).filter(Boolean).map(tabBtn).join('') + (here ? tabBtn(here) : '') + '</div>';
+8687c8711
+<  <span class="tdrow">${fig(f.due, 'Due in', f.subDue, 'timeline', 'cal')}${fig(f.onsite, 'Recorded on site', f.subOn, 'plant', 'seen')}${fig(f.notYet, 'Not recorded on site', f.subNot, 'plant', 'gap', f.notYet ? 'gap' : '')}${f.refs ? fig(f.refs, f.refs === 1 ? 'Row needs a reference' : 'Rows need references', 'on the schedule', 'timeline', 'gap', 'gap') : ''}</span>`;
+---
+>  <span class="tdrow">${fig(f.due, 'Due in', f.subDue, 'timeline', 'cal')}${fig(f.onsite, 'Recorded on site', f.subOn, 'plant', 'seen')}${f.dayNow ? fig(f.notYet, 'Not recorded on site', f.subNot, 'plant', 'gap', f.notYet ? 'gap' : '') : fig(f.notYet, 'Still to come', f.notYet ? 'the day has not started' : 'nothing outstanding', 'timeline', 'cal', '')}${f.refs ? fig(f.refs, f.refs === 1 ? 'Row needs a reference' : 'Rows need references', 'on the schedule', 'timeline', 'gap', 'gap') : ''}</span>`;
+8799c8823,8824
+<  ${tile(notYet, 'not recorded on site', notYet ? splitWords : 'nothing outstanding', 'register', notYet ? 'gap' : '')}
+---
+> ${dayNow ? tile(notYet, 'not recorded on site', notYet ? splitWords : 'nothing outstanding', 'register', notYet ? 'gap' : '')
+>  : tile(notYet, 'still to come', notYet ? 'the day has not started yet' : 'nothing outstanding', 'timeline', '')}
+8802c8827,8828
+<  <div class="tsnote">${R.review || refs
+---
+> <div class="tsnote">${!dayNow ? (refs ? `<b>${fmtNum(refs)}</b> row${refs === 1 ? '' : 's'} on that day ${refs === 1 ? 'needs a reference' : 'need references'} — nothing else to chase until the day starts.` : 'Nothing to chase yet — this day has not started.')
+>  : R.review || refs
+8909c8935,8940
+< /* the hours of a shift: from start and finish, less the break, whenever both are there; else the hours typed */
+---
+> /* v6.80 - the hours WORKED, start to finish with nothing taken off: what the V8s are charged; else the hours typed */
+> function runWorked(c){
+>  if (c.start && c.finish) { const h = shiftHours(c.start, c.finish, 0); if (h != null) return h; }
+>  const n = Number(c.hours); return c.hours != null && String(c.hours).trim() !== '' && Number.isFinite(n) ? n : null;
+> }
+> /* the hours PAID: start to finish less the unpaid break (pay only); hours typed without times are taken as they are */
+8923a8955
+> function runPaidOf(s){ if (s.start && s.finish) { const h = shiftHours(s.start, s.finish, runBreak(s)); if (h != null) return h; } return s.hours || 0; }
+8939c8971
+<  const h = shift ? runHours(shift) : null, sp = h != null ? splitHoursFor(h, iso, P.type) : null;
+---
+> const h = shift ? runHours(shift) : null, worked = shift ? runWorked(shift) : null, sp = h != null ? splitHoursFor(h, iso, P.type) : null;
+8945c8977
+<  return {name: n, P, type, rate, shift, hours: h, split: sp, brk: shift ? runBreak(shift) : null, pay, meal, night, misc, total: money.length ? r2(money.reduce((s, v) => s + Number(v), 0)) : null};
+---
+> return {name: n, P, type, rate, shift, hours: h, worked, split: sp, brk: shift ? runBreak(shift) : null, pay, meal, night, misc, total: money.length ? r2(money.reduce((s, v) => s + Number(v), 0)) : null};
+8955c8987
+<  hours: 0, to_date: 0, ordinary: 0, at_1_5: 0, at_2: 0, pay: 0, pay_hours_unrated: 0, meals: 0, nights: 0, accommodation: 0, rm: 0, cons: 0, stat: 0}); } return per.get(n); };
+---
+> worked: 0, hours: 0, to_date: 0, ordinary: 0, at_1_5: 0, at_2: 0, pay: 0, pay_hours_unrated: 0, meals: 0, nights: 0, accommodation: 0, rm: 0, cons: 0, stat: 0}); } return per.get(n); };
+8957c8989
+<  const sp = splitHoursFor(h, c.date, (pmap.get(c.person) || {}).type); x.hours += h; if (c.date <= td) x.to_date += h;
+---
+> const sp = splitHoursFor(h, c.date, (pmap.get(c.person) || {}).type), w = runWorked(c) || 0; x.hours += h; x.worked += w; if (c.date <= td) x.to_date += w;
+8964,8965c8996,8997
+<  .sort((a, b) => b.hours - a.hours || a.name.localeCompare(b.name));
+<  const all = rows.reduce((s, x) => { ['hours', 'to_date', 'ordinary', 'at_1_5', 'at_2', 'pay', 'pay_hours_unrated', 'meals', 'nights', 'accommodation', 'rm', 'cons', 'stat', 'total'].forEach(k => s[k] = r2((s[k] || 0) + x[k])); return s; }, {});
+---
+> .sort((a, b) => b.worked - a.worked || a.name.localeCompare(b.name));
+>  const all = rows.reduce((s, x) => {['worked', 'hours', 'to_date', 'ordinary', 'at_1_5', 'at_2', 'pay', 'pay_hours_unrated', 'meals', 'nights', 'accommodation', 'rm', 'cons', 'stat', 'total'].forEach(k => s[k] = r2((s[k] || 0) + x[k])); return s; }, {});
+9016,9017c9048,9049
+<  <p class="sub">Type or change anyone's start and finish — the hours, the normal / ×1.5 / ×2 split, the pay (where a rate is entered) and the day's total work themselves out. Every change carries your name and time and is the same line the Costs tab reads. Amounts ex GST.${ed ? '' : ' <b>View only</b> — open the editing link to change a line.'}</p>
+<  <div class="tblwrap"><table class="rstbl"><thead><tr><th>Person</th><th>Type</th><th>Start</th><th>Finish</th><th class="num" title="unpaid break in minutes — empty takes the standard">Break</th><th class="num">Hours</th><th class="num">Normal</th><th class="num">×1.5</th><th class="num">×2</th><th class="num">Rate $/h</th><th class="num">Pay</th><th class="num">Meals</th><th class="num">Accom.</th><th class="num">R&amp;M</th><th class="num">Consum.</th><th class="num">Station.</th><th class="num">Day total</th><th>Note</th></tr></thead><tbody>
+---
+> <p class="sub"><b>Worked</b> is every hour from start to finish — what the V8s are charged. <b>Paid</b> is what we pay our people: less the unpaid weekday break, split normal / ×1.5 / ×2 by their type. Type or change anyone's start and finish — the hours, the split, the pay (where a rate is entered) and the day's total work themselves out. Every change carries your name and time and is the same line the Costs tab reads. Amounts ex GST.${ed ? '' : ' <b>View only</b> — open the editing link to change a line.'}</p>
+>  <div class="tblwrap"><table class="rstbl"><thead><tr><th>Person</th><th>Type</th><th>Start</th><th>Finish</th><th class="num" title="unpaid break in minutes, taken off pay only — empty takes the standard">Unpaid break</th><th class="num" title="start to finish, nothing taken off — charged to the V8s">Worked (charged)</th><th class="num" title="worked less the unpaid break">Paid hrs</th><th class="num">Normal</th><th class="num">×1.5</th><th class="num">×2</th><th class="num">Rate $/h</th><th class="num">Pay</th><th class="num">Meals</th><th class="num">Accom.</th><th class="num">R&amp;M</th><th class="num">Consum.</th><th class="num">Station.</th><th class="num">Day total</th><th>Note</th></tr></thead><tbody>
+9024c9056
+<  <td class="num"><b>${hh(r.hours)}</b></td><td class="num">${hh(r.split && r.split.ordinary)}</td><td class="num">${hh(r.split && r.split.at_1_5)}</td><td class="num">${hh(r.split && r.split.at_2)}</td>
+---
+> <td class="num"><b>${hh(r.worked)}</b></td><td class="num">${hh(r.hours)}</td><td class="num">${hh(r.split && r.split.ordinary)}</td><td class="num">${hh(r.split && r.split.at_1_5)}</td><td class="num">${hh(r.split && r.split.at_2)}</td>
+9033c9065
+<  <td class="num"><b>${hh(tot('hours'))}</b></td><td class="num">${hh(sumSplit('ordinary'))}</td><td class="num">${hh(sumSplit('at_1_5'))}</td><td class="num">${hh(sumSplit('at_2'))}</td><td></td>
+---
+> <td class="num"><b>${hh(tot('worked'))}</b></td><td class="num">${hh(tot('hours'))}</td><td class="num">${hh(sumSplit('ordinary'))}</td><td class="num">${hh(sumSplit('at_1_5'))}</td><td class="num">${hh(sumSplit('at_2'))}</td><td></td>
+9042c9074
+<  <p class="norate">Coates CNA and labour hire: the normal hours above, then the overtime hours at ×1.5, then ×2. Saturday: the Saturday hours at ×1.5, then ×2. Sunday: every hour ×2. Weekend breaks are paid. Salary: hours only, no penalty rates. A break typed on a line always wins over the standard.</p>
+---
+>  <p class="norate">Coates CNA and labour hire: the normal hours above, then the overtime hours at ×1.5, then ×2. Saturday: the Saturday hours at ×1.5, then ×2. Sunday: every hour ×2. Weekend breaks are paid. Salary: hours only, no penalty rates.A break typed on a line always wins over the standard. The break comes off pay only — the V8s are charged every hour worked, start to finish.</p>
+9046,9047c9078,9079
+<  <div class="tblwrap"><table class="rstbl"><thead><tr><th>Person</th><th>Type</th><th class="num">Hours</th><th class="num">to date</th><th class="num">Normal</th><th class="num">×1.5</th><th class="num">×2</th><th class="num">Pay</th><th class="num">Meals</th><th class="num">Nights</th><th class="num">Accom.</th><th class="num">R&amp;M</th><th class="num">Consum.</th><th class="num">Station.</th><th class="num">Total</th></tr></thead><tbody>
+<  ${T.rows.map(x => `<tr><td><b>${esc(x.name)}</b></td><td>${esc(RUN_TYPE_WORD[x.type])}</td><td class="num">${hh(x.hours)}</td><td class="num">${hh(x.to_date)}</td><td class="num">${hh(x.ordinary)}</td><td class="num">${hh(x.at_1_5)}</td><td class="num">${hh(x.at_2)}</td>
+---
+>  <div class="tblwrap"><table class="rstbl"><thead><tr><th>Person</th><th>Type</th><th class="num" title="start to finish — charged to the V8s">Worked (charged)</th><th class="num">worked to date</th><th class="num" title="less the unpaid weekday break">Paid hrs</th><th class="num">Normal</th><th class="num">×1.5</th><th class="num">×2</th><th class="num">Pay</th><th class="num">Meals</th><th class="num">Nights</th><th class="num">Accom.</th><th class="num">R&amp;M</th><th class="num">Consum.</th><th class="num">Station.</th><th class="num">Total</th></tr></thead><tbody>
+>  ${T.rows.map(x => `<tr><td><b>${esc(x.name)}</b></td><td>${esc(RUN_TYPE_WORD[x.type])}</td><td class="num"><b>${hh(x.worked)}</b></td><td class="num">${hh(x.to_date)}</td><td class="num">${hh(x.hours)}</td><td class="num">${hh(x.ordinary)}</td><td class="num">${hh(x.at_1_5)}</td><td class="num">${hh(x.at_2)}</td>
+9050c9082
+<  <tr class="total"><td><b>Everyone</b></td><td></td><td class="num"><b>${hh(T.all.hours)}</b></td><td class="num">${hh(T.all.to_date)}</td><td class="num">${hh(T.all.ordinary)}</td><td class="num">${hh(T.all.at_1_5)}</td><td class="num">${hh(T.all.at_2)}</td>
+---
+>  <tr class="total"><td><b>Everyone</b></td><td></td><td class="num"><b>${hh(T.all.worked)}</b></td><td class="num">${hh(T.all.to_date)}</td><td class="num">${hh(T.all.hours)}</td><td class="num">${hh(T.all.ordinary)}</td><td class="num">${hh(T.all.at_1_5)}</td><td class="num">${hh(T.all.at_2)}</td>
+9172c9204
+<  <div class="sub">${wk ? esc(weekWords(wk)) : 'outside every week on the 2026 schedule'} · ${esc(DATA.event.name)} · ${esc(DATA.event.race_dates_as_supplied)}</div></div>
+---
+> <div class="sub">${wk ? esc(weekWords(wk)) : esc((programmeDay(today) || {}).words || 'outside the 2026 programme')} · ${esc(DATA.event.name)} · ${esc(DATA.event.race_dates_as_supplied)}</div></div>
+9193c9225
+<  <div class="hubtitle"><h3>How far through the job we are</h3><span class="chip ${v.cls}">${esc(v.word)}</span></div>
+---
+> <div class="hubtitle"><h3>Deliveries due by today met</h3><span class="chip ${v.cls}">${esc(v.word)}</span></div>
+9211c9243
+<  <div class="hubtitle"><h3>Delivered today</h3><span class="chip ${v.arrivals.length ? 'ok' : ''}">${v.arrivals.length} recorded on site</span></div>
+---
+> <div class="hubtitle"><h3>Delivery updates today</h3><span class="chip ${v.arrivals.length ? 'ok' : ''}">${v.arrivals.length} recorded on site</span></div>
+9953c9985
+<  if (sr && sr.state === 'ready' && sr.url) out.push({kind: 'drop', url: sr.url, open: SYNC.backend.fileUrl(shot.id), says: dropPhotoSays(a.key, shot)});
+---
+> if (sr && sr.state === 'ready' && sr.url) out.push({kind: 'drop', url: sr.thumb || sr.url, open: SYNC.backend.fileUrl(shot.id), says: dropPhotoSays(a.key, shot)});
+11252c11284
+<  return d.lines.length ? d.lines.map(l => `<b>${esc(fmtQty(l.qty, l.unit))}</b> ${esc(l.name)}${
+---
+> return d.lines.length ? d.lines.map(l => `<b>${esc(fmtQty(l.qty, l.unit))}</b> ${esc(l.name)}${l.cost != null && l.rate != null ? ` <span class="frc">× ${esc(rateMoney(l.rate))} = ${esc(money(l.cost))}</span>` : ''}${
+11357c11389
+<  <figcaption>${esc(bd.title || 'Master layout')} · ${esc(bd.drawing_no || '')}${bd.project_no ? ' · project ' + esc(bd.project_no) : ''}${bd.revision ? ' · rev ' + esc(bd.revision) : ''}${bd.issued_by ? ' · ' + esc(bd.issued_by) : ''}. Tap to open it full size.</figcaption></figure>` : ''}
+---
+> <figcaption>${bd.project_no ? `<span class="chip act" title="the base drawing under the handwriting is an earlier project's; the 2026 closure authority is to be confirmed with the project owner">Reference only — 2026 closure authority to confirm</span> ` : ''}${esc(bd.title || 'Master layout')} · ${esc(bd.drawing_no || '')}${bd.project_no ? ' · project ' + esc(bd.project_no) : ''}${bd.revision ? ' · rev ' + esc(bd.revision) : ''}${bd.issued_by ? ' · ' + esc(bd.issued_by) : ''}. Tap to open it full size.</figcaption></figure>` : ''}
+11563a11596,11598
+>  /* v6.74 (DATA-03) - Coates's fleet redline and fleet utilisation are measured across the fleet, over time. This
+>  record holds neither, so it says so; the job's own nearest measures sit beside them under their own names and
+>  never stand in for them. */
+11566c11601
+<  const bdOpen = allBreakdowns().filter(b => b.open);
+---
+>  const bdAll = allBreakdowns(), bdOpen = bdAll.filter(b => b.open);
+11568c11603,11613
+<  const pct = (n, d) => d > 0 ? Math.round(n / d * 1000) / 10 : null;
+---
+>  return [
+>  {n: '15', unit: '%', what: 'Redline — fleet unavailable', why: 'Daily management discipline.', here: null,
+>  says: 'Not measured by this system — the redline is fleet time unavailable, and this record holds only the breakdowns people type in on this job. None typed in is not the same as none.',
+>  job: {what: 'Breakdowns recorded on this job', v: `${fmtNum(bdOpen.length)} open`, of: `of ${fmtNum(bdAll.length)} recorded`}},
+>  {n: '65', unit: '%', what: 'Fleet time utilisation', why: 'Fleet matched to demand.', here: null,
+>  says: 'Not measured by this system — utilisation is on-hire time over available time across the fleet, and this record has no availability data.',
+>  job: {what: 'Job delivery adherence', v: due ? `${fmtNum(onSite)} of ${fmtNum(due)}` : 'nothing due yet', of: 'references due by today on site'}},
+>  ];
+> }
+> /* v6.74 (DATA-01) - what this record cannot assess, said as unknown rather than left to read as green */
+> function cwUnknowns(){
+11570,11575c11615,11618
+<  if (onSite) out.push({n: '15', unit: '%', what: 'Redline — fleet unavailable', why: 'Daily management discipline.',
+<  here: pct(bdOpen.length, onSite), good: v => v !== null && v < 15,
+<  says: `${fmtNum(bdOpen.length)} open breakdown${bdOpen.length === 1 ? '' : 's'} against ${fmtNum(onSite)} reference${onSite === 1 ? '' : 's'} on site. A job-level reading, not the fleet redline.`});
+<  if (due) out.push({n: '65', unit: '%', what: 'Fleet time utilisation', why: 'Fleet matched to demand.',
+<  here: pct(onSite, due), good: v => v !== null && v >= 65,
+<  says: `${fmtNum(onSite)} of ${fmtNum(due)} reference${due === 1 ? '' : 's'} due by today are on site. Delivery against plan on one job, not fleet utilisation.`});
+---
+>  if (!fenceQuote()) out.push(['Fencing against its quote', 'Not assessed — quote required. No quoted quantities are entered, so no line can be called over or under.']);
+>  out.push(['Fleet unavailable', 'Not measured by this system — breakdowns are typed in by people on this job.']);
+>  const M = typeof moneySummary === 'function' ? moneySummary(todayIso()) : null;
+>  if (M && M.missing.length) out.push(['Commercial result', `Forecast incomplete — ${M.missing.length} cost or charge item${M.missing.length === 1 ? '' : 's'} not in the figures yet (${M.missing_short.join(' · ')}).`]);
+11593a11637,11640
+> /* v6.74 (DATA-09) - a fencing type behind the programme is red on its own, whatever the other types did early */
+>  fenceGapsOf(fenceTypes(P)).forEach(g => out.push({
+>  what: `Fencing behind the 2026 programme — ${esc(fenceGapName(g))}: ${esc(fmtNum(g.done))} of ${esc(fmtNum(g.planned))}${g.unit === 'm' ? ' m' : ''} due by today`,
+>  cause: null, action: null, owner: null, when: null, pillar: 'Operations', go: () => { state.tab = 'fencing'; render(); }}));
+11615c11662
+<  rows: [['On this job', `${fmtNum(crew.total)} named — ${fmtNum(crew.coates)} Coates, ${fmtNum(crew.fencing)} Advanced Temporary Fencing`],
+---
+> rows: [['Contacts on the record', `${fmtNum(crew.total)} — ${fmtNum(crew.coates)} Coates, ${fmtNum(crew.fencing)} Advanced Temporary Fencing${crew.other ? `, ${fmtNum(crew.other)} other` : ''}`],
+11617c11664
+<  ['Crews on the record', `${fmtNum(prestartsFor('coates').length)} Coates · ${fmtNum(prestartsFor('fencing').length)} Advanced Temporary Fencing`]],
+---
+> ['Pre-start documents by crew', `${fmtNum(prestartsFor('coates').length)} Coates · ${fmtNum(prestartsFor('fencing').length)} Advanced Temporary Fencing`]],
+11631c11678
+<  ['Dockets signed', `${fmtNum(dockets.length)} · ${fmtNum(usable.length)} priced`],
+---
+> ['Fencing dockets', (() => { const part = usable.filter(d => d.cost_state === 'partly priced').length; return `${fmtNum(dockets.length)} recorded · ${fmtNum(usable.length - part)} fully priced${part ? ` · ${fmtNum(part)} partly priced` : ''}${dockets.length > usable.length ? ` · ${fmtNum(dockets.length - usable.length)} not usable` : ''}`; })()],
+11639c11686,11687
+<  return {total: people.length, fencing: fencing, coates: people.length - fencing - people.filter(p => p.group === 'other').length};
+---
+> const other = people.filter(p => p.group === 'other').length;
+>  return {total: people.length, fencing: fencing, other: other, coates: people.length - fencing - other};
+11654c11702
+<  <p class="sub">The targets of Coates's eight that this job's own record can read.</p>
+---
+> <p class="sub">Two of Coates's eight targets sit closest to this job. Neither is measured by this record, and it says so; the job's own nearest measure is under each, under its own name.</p>
+11656,11657c11704,11705
+<  const ok = k.good && k.good(k.here);
+<  return `<div class="cwkpi${ok ? ' good' : ' watch'}">
+---
+> const ok = k.here != null && k.good && k.good(k.here);
+>  return `<div class="cwkpi${k.here == null ? ' unk' : ok ? ' good' : ' watch'}">
+11660,11661c11708,11709
+<  <div class="cwkh"><b class="cwkv">${esc(String(k.here))}${esc(k.unit)}</b>
+<  <span class="cwks">${esc(k.says)}</span></div></div>`; }).join('')}</div>`
+---
+> <div class="cwkh"><b class="cwkv">${k.here == null ? 'Not measured by this system' : esc(String(k.here)) + esc(k.unit)}</b>
+>  <span class="cwks">${esc(k.says)}</span>${k.job ? `<span class="cwjob">${esc(k.job.what)}: <b>${esc(k.job.v)}</b> ${esc(k.job.of)}</span>` : ''}</div></div>`; }).join('')}</div>`
+11688c11736,11737
+<  : '<div class="notice"><b>Nothing is red on this job today</b>No open breakdown, no overdue reference, no variance without authority and no fencing line over its quote. That is the scorecard saying green, not the page saying nothing.</div>'}
+---
+> : '<div class="notice"><b>Nothing red on what this record measures</b>No open breakdown recorded, no overdue reference, no variance without authority and no fencing type behind the programme. What it cannot assess is listed below — not assessed is not green.</div>'}
+>  ${(() => { const U = cwUnknowns(); return U.length ? `<div class="cwunk"><b>Not assessed</b><ul>${U.map(([a, b]) => `<li><b>${esc(a)}</b> — ${esc(b)}</li>`).join('')}</ul></div>` : ''; })()}
+11752c11801
+<  : `<img src="${hero.src}" width="${hero.width}" height="${hero.height}" alt="The Coates Way cog as the steering wheel of the Coates #26, from the driver's seat — every word on it readable, the hall beyond the windscreen">`} /* v6.00 - the hero is the cog's own loop; the still is its poster */
+---
+>  : `<img src="${hero.src}" width="${hero.width}" height="${hero.height}" alt="The Coates Way cog as the steering wheel of the Coates #26, from the driver's seat — every word on it readable,the hall beyond the windscreen">`}
+11761c11810
+< <button class="btn primary" id="cwOpenMachine" type="button"${DATA.edition === 'hosted' ? '' : ' hidden'}>Open the machine</button> /* v6.01 - the plan-on-satellite and 3D-proof buttons live on the Map tab only */
+---
+> <button class="btn primary" id="cwOpenMachine" type="button"${DATA.edition === 'hosted' ? '' : ' hidden'}>Open the machine</button>
+12067c12116
+<  <td class="num frs">${c.rate != null ? `<span class="w">${c.settled_by ? 'settled' : 'card'} ${esc(money(c.rate))}</span>` : '<span class="norate">no card line</span>'}
+---
+>  <td class="num frs">${c.rate != null ? `<span class="w">${c.settled_by ? 'settled' : 'card'} ${esc(rateMoney(c.rate))}</span>` : '<span class="norate">no card line</span>'}
+12069c12118
+<  ${r.value != null ? `<b>${esc(money(r.value))}</b><span class="w">${esc(per)}${r.source === 'typed' ? ' · typed' : ''}</span>` : '<span class="norate">not charged</span>'}
+---
+> ${r.value != null ? `<b>${esc(rateMoney(r.value))}</b><span class="w">${esc(per)}${r.source === 'typed' ? ' · typed' : ''}</span>` : '<span class="norate">not charged</span>'}
+12074c12123
+<  ${pr.value != null ? `<b>${esc(money(pr.value))}</b><span class="w">${esc(per)}${pr.source === 'typed' ? ' · typed' : ''}</span>` : pr.source === 'hourly' ? `<b>${esc(money(pr.hourly))}</b><span class="w"> an hour · by the hour, not the metre</span>` : '<span class="norate">not costed</span>'}
+---
+> ${pr.value != null ? `<b>${esc(rateMoney(pr.value))}</b><span class="w">${esc(per)}${pr.source === 'typed' ? ' · typed' : ''}</span>` : pr.source === 'hourly' ? `<b>${esc(money(pr.hourly))}</b><span class="w"> an hour · by the hour, not the metre</span>` : '<span class="norate">not costed</span>'}
+12095c12144
+<  <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num">Cost</th></tr></thead><tbody>${
+---
+>  <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num" title="what Coates charges the V8s at the 2026 card, ex GST — what Coates pays is on the rates table and the purchase orders">Client charge <small>ex GST</small></th></tr></thead><tbody>${
+12130c12179
+<  ${areas.length ? `<div class="tblwrap"><table><thead><tr><th>Area</th><th>Complete</th><th>Drawing</th><th class="num">Dockets</th><th>Days</th><th>Done</th><th class="num">Cost</th></tr></thead><tbody>${
+---
+>  ${areas.length ? `<div class="tblwrap"><table><thead><tr><th>Area</th><th>Complete</th><th>Drawing</th><th class="num">Dockets</th><th>Days</th><th>Done</th><th class="num" title="what Coates charges the V8s at the 2026 card, ex GST — what Coates pays is on the rates table and the purchase orders">Client charge <small>ex GST</small></th></tr></thead><tbody>${
+12146c12195
+<  <div class="tblwrap"><table><thead><tr><th>Line</th><th class="num">Planned</th><th class="num">Done</th><th class="num">Still to do</th><th class="num">Cost</th></tr></thead><tbody>${
+---
+>  <div class="tblwrap"><table><thead><tr><th>Line</th><th class="num">Planned</th><th class="num">Done</th><th class="num">Still to do</th><th class="num" title="what Coates charges the V8s at the 2026 card, ex GST — what Coates pays is on the rates table and the purchase orders">Client charge <small>ex GST</small></th></tr></thead><tbody>${
+12185c12234
+<  <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Date</th><th>Week</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num">Cost</th><th>Recorded by</th><th></th></tr></thead>
+---
+>  <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Date</th><th>Week</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num" title="what Coates charges the V8s at the 2026 card, ex GST — what Coates pays is on the rates table and the purchase orders">Client charge <small>ex GST</small></th><th>Recorded by</th><th></th></tr></thead>
+13767c13816
+< const h = (c.start && c.finish && shiftHours(c.start, c.finish, 0) != null) ? runHours(c) : has(c.hours) ? num(c.hours) : shiftHours(c.start, c.finish, c.break_min); /* v6.78 - the running sheet's reading */
+---
+> const h = (c.start && c.finish && shiftHours(c.start, c.finish, 0) != null)? runWorked(c) : has(c.hours) ? num(c.hours) : shiftHours(c.start, c.finish, c.break_min); /* v6.80 - every hour worked: the V8s are charged all hours */
+14086a14136
+> const r2h = n => Math.round(n * 100) / 100;
+14106c14156
+< const b = splitHoursFor(h, s.date, personOf(s.person).type); /* v6.78 - by the person's type */
+---
+> const b = splitHoursFor(runPaidOf(s), s.date, personOf(s.person).type); /* v6.80 - the pay split is of the paid hours (less the unpaid weekday break) */
+14435c14485
+<  <div class="verdict ${M.difference0 < 0 ? 'neg' : ''}"><b>${esc(money0(c.total))} charged against ${esc(money0(k.known))} of known cost — ${M.difference0 < 0 ? esc(money0(-M.difference0)) + ' behind' : esc(money0(M.difference0)) + ' ahead'} so far.</b> Not a margin yet — ${pl(M.missing.length, 'thing')} not in it.${M.breakeven != null ? ` The biggest is the crew's wages: ${esc(fmtNum(M.breakeven_hours))} h on the tracker with no wage rate, and the difference so far covers them only up to ${esc(money(M.breakeven))} an hour on average.` : ''}</div>
+---
+>  <div class="verdict ${M.difference0 < 0 ? 'neg' : ''}"><b>${esc(money0(c.total))} charged against ${esc(money0(k.known))} of known cost — difference so far ${sd(M.difference0)}.</b> <span class="chip act">Forecast incomplete</span> Not a margin and not a profit — ${pl(M.missing.length, 'item')} not in it yet${M.breakeven_hours ? `, the biggest the crew's wages (${esc(fmtNum(M.breakeven_hours))} h with no wage rate)` : ''}.${M.charge.contracts_differs ? ` <b>Provisional:</b> ${pl(M.charge.contracts_differs, 'contract line')} with the charge basis unresolved — ${esc(money0(M.charge.differs_charge))} by the rule, ${esc(money0(M.charge.differs_prebill))} prebilled. Counted by the rule until the branch settles each line; the two are not netted.` : ''}</div>
+14466c14516
+<  ${hrs ? `<p class="hint"><b>Labour outside the race weekend:</b> ${esc(fmtNum(hrs.hours))} h — ${esc(fmtNum(hrs.to_date))} h worked to ${esc(fmtDay(M.as_at).dm)}, ${esc(fmtNum(hrs.planned))} h planned · ${esc(fmtNum(hrs.ordinary))} h ordinary, ${esc(fmtNum(hrs.at_1_5))} h at ×1.5, ${esc(fmtNum(hrs.at_2))} h at ×2 · ${esc(Object.entries(hrs.by_employer).map(([e, v]) => `${e} ${fmtNum(v.hours)} h`).join(' · '))}. No wage rate was supplied, so no dollar is put on an hour.${M.breakeven != null ? ` For scale only: the difference so far divided by these hours is ${esc(money(M.breakeven))} an hour — arithmetic on the two figures, not a rate anybody gave.` : ''}</p>` : ''}
+---
+>  ${hrs ? `<p class="hint"><b>Labour outside the race weekend:</b> ${esc(fmtNum(hrs.hours))} h — ${esc(fmtNum(hrs.to_date))} h worked to ${esc(fmtDay(M.as_at).dm)}, ${esc(fmtNum(hrs.planned))} h planned · ${esc(fmtNum(hrs.ordinary))} h ordinary, ${esc(fmtNum(hrs.at_1_5))} h at ×1.5, ${esc(fmtNum(hrs.at_2))} h at ×2 · ${esc(Object.entries(hrs.by_employer).map(([e, v]) => `${e} ${fmtNum(v.hours)} h`).join(' · '))}. No wage rate was supplied, so no dollar is put on an hour.</p>` : ''}
+14596,14598c14646,14648
+<  <div class="kpi"><div class="v">${h(L.hours)}<small> h</small></div><div class="l">Labour — build and demob</div><div class="q">${h(L.to_date)} h worked, ${h(L.planned)} h planned · hours only</div></div>
+<  <div class="kpi"><div class="v">${h(L.ordinary)}<small> h</small></div><div class="l">Ordinary hours</div><div class="q">${h(L.at_1_5)} h at ×1.5 · ${h(L.at_2)} h at ×2 — his rule, shift by shift</div></div>
+<  ${SCOPE ? `<div class="kpi"><div class="v">${h(RW.hours)}<small> h</small></div><div class="l">Race weekend — worked</div><div class="q">wages, hours only · the people over the event are charged by the event labour scope on the Pricing tab — ${esc(money0((scopeFigures() || {}).total))}</div></div>` : ''}
+---
+>  <div class="kpi"><div class="v">${h(L.hours)}<small> h</small></div><div class="l">Labour — build and demob</div><div class="q">${h(L.to_date)} h worked, ${h(L.planned)} h planned · every hour, start to finish, no break taken off</div></div>
+>  <div class="kpi"><div class="v">${h(L.ordinary)}<small> h</small></div><div class="l">Paid — ordinary hours</div><div class="q">${h(L.at_1_5)} h at ×1.5 · ${h(L.at_2)} h at ×2 · ${h(r2h(L.ordinary + L.at_1_5 + L.at_2))} h paid after the unpaid weekday break — what we pay our people, shift by shift</div></div>
+>  ${SCOPE ? `<div class="kpi"><div class="v">${h(RW.hours)}<small> h</small></div><div class="l">Race weekend — ${esc(raceHoursWord())}</div><div class="q">wages, hours only · the people over the event are charged by the event labour scope on the Pricing tab — ${esc(money0((scopeFigures() || {}).total))}</div></div>` : ''}
+14619c14669
+<  ${moreInfo('costs|tracker', `<p class="hint">The hours rule, stated ${esc(fmtDate(WF.hours_rule.stated_on || '2026-09-24'))}: a standard day of ${esc(String((WF.hours_rule.weekday || {}).ordinary_hours))} h, the next ${esc(String((WF.hours_rule.weekday || {}).then_at_1_5))} h at ×1.5 and the rest at ×2; Saturday ×1.5 for the first ${esc(String((WF.hours_rule.saturday || {}).at_1_5))} h and ×2 after; Sunday ×2 for every hour — applied shift by shift; ${h(L.weighted)} weighted hours outside the race weekend (ordinary + 1.5 × the ×1.5 hours + 2 × the ×2 hours). No dollar is put on an hour — hours only (24 Sep 2026). ${SCOPE ? `The people over the event are charged by the Coates Event Labour Scope on the Pricing tab (25 Sep 2026), not person by person; the tracker's race-day hours are shown here as worked, in hours only, and counted with the wages.` : `The race weekend is what we charge, not our cost (25 Sep 2026) — at the card's hourly event rates by each person's role; Saturday and Sunday are charged at the card's hourly rate, as written, with no loading added.`}</p>
+---
+>  ${moreInfo('costs|tracker', `<p class="hint">The hours rule, stated ${esc(fmtDate(WF.hours_rule.stated_on || '2026-09-24'))}: a standard day of ${esc(String((WF.hours_rule.weekday || {}).ordinary_hours))} h, the next ${esc(String((WF.hours_rule.weekday || {}).then_at_1_5))} h at ×1.5 and the rest at ×2; Saturday ×1.5 for the first ${esc(String((WF.hours_rule.saturday || {}).at_1_5))} h and ×2 after; Sunday ×2 for every hour — applied shift by shift; ${h(L.weighted)} weighted hours outside the race weekend (ordinary + 1.5 × the ×1.5 hours + 2 × the ×2 hours). No dollar is put on an hour — hours only (24 Sep 2026). ${SCOPE ? `The people over the event are charged by the Coates Event Labour Scope on the Pricing tab (25 Sep 2026), not person by person;the tracker's race-day hours are shown here in hours only, as ${esc(raceHoursWord())} (a day still to come is planned), and counted with the wages.` : `The race weekend is what we charge, not our cost (25 Sep 2026) — at the card's hourly event rates by each person's role; Saturday and Sunday are charged at the card's hourly rate, as written, with no loading added.`}</p>
+15786c15836
+<  if (shot && sr.state === 'ready') return `<span class="eqpic"><img src="${esc(sr.url)}" alt="${esc(dropPhotoSays(a.key, shot))}" loading="lazy" data-dphimg>
+---
+> if (shot && sr.state === 'ready') return `<span class="eqpic"><img src="${esc(sr.thumb || sr.url)}" alt="${esc(dropPhotoSays(a.key, shot))}" loading="lazy" data-dphimg>
+20640c20690
+<  ${url ? `<img src="${esc(url)}" alt="${esc(dropPhotoSays(key, ph))}" loading="lazy" data-dphopen="${esc(url)}" data-dphimg>`
+---
+> ${url ? `<img src="${esc(r.thumb || url)}" alt="${esc(dropPhotoSays(key, ph))}" loading="lazy" data-dphopen="${esc(url)}" data-dphimg>`
+20862c20912
+<  return '<span class="chip crit">nothing removes it</span>';
+---
+> return '<span class="chip crit" title="no schedule row, demob row or rental off-hire date takes it off site yet">return date not recorded</span>';
+22370c22420
+<  aria-label="Planned time to site for ${esc(a.key)}">` : (d.eta ? esc(d.eta) : '<span class="todo">—</span>')}
+---
+> aria-label="Planned time to site for ${esc(a.key)}">` : outTimeHtml(events)}
+22448c22498
+<   const shots = (typeof dropPhotosOf === 'function' ? dropPhotosOf(key) : []).map(ph => ({ph, url: dropPhotoUrl(ph)})).filter(x => x.url);
+---
+> const shots = (typeof dropPhotosOf === 'function' ? dropPhotosOf(key) : []).map(ph => { const r = photoFor(ph); return {ph, url: r.state === 'ready' ? r.url : null, thumb: r.thumb || null}; }).filter(x => x.url);
+22453c22503
+<   const shot = (x, label) => `<a class="dcpic" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" title="${esc(dropPhotoSays(key, x.ph))}"><img src="${esc(x.url)}" alt="${esc(label)}" loading="lazy" decoding="async"><em>${esc(label)}</em></a>`;
+---
+>   const shot = (x, label) => `<a class="dcpic" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" title="${esc(dropPhotoSays(key, x.ph))}"><img src="${esc(x.thumb || x.url)}" alt="${esc(label)}" loading="lazy" decoding="async"><em>${esc(label)}</em></a>`;
+22506c22556
+<  <div class="dctd">${isIn ? `<input type="time" step="300" data-eta="${esc(key)}" value="${esc(d.eta || '')}" aria-label="Planned time to site for ${esc(key)}">` : `<b>${d.eta ? esc(d.eta) : '—'}</b>`}
+---
+>  <div class="dctd">${isIn ? `<input type="time" step="300" data-eta="${esc(key)}" value="${esc(d.eta || '')}" aria-label="Planned time to site for ${esc(key)}">`: outTimeHtml(events)}
+22848c22898
+<  const sheetNote = (d.sheet ? `${d.sheet} · ${d.phase}` : 'outside every week sheet on the programme')
+---
+>  const sheetNote = (d.sheet ? `${d.sheet} · ${d.phase}` : 'no programme sheet covers this day')
+23366c23416
+<  <div class="rs-shot">${r.state === 'ready' ? `<img src="${esc(r.url)}" alt="${esc(dropPhotoSays(a.key, ph))}" data-dphimg>
+---
+> <div class="rs-shot">${r.state === 'ready' ? `<img src="${esc(r.thumb || r.url)}" alt="${esc(dropPhotoSays(a.key, ph))}" data-dphimg>
+23415c23465
+<  <div class="rs-sub">${esc(d.sheet ? d.sheet + ' · ' + d.phase : 'outside every week sheet on the programme')}
+---
+>  <div class="rs-sub">${esc(d.sheet ? d.sheet + ' · ' + d.phase : 'no programme sheet covers this day')}
+23624c23674
+< const week = d.sheet ? d.sheet.replace('Demob Week', 'Demob').toUpperCase() : 'NO PROGRAMME WEEK';
+---
+> const week = d.sheet ? d.sheet.replace('Demob Week', 'Demob').toUpperCase() : (((programmeDay(d.iso) || {}).short || 'no programme sheet') + '').toUpperCase();
+24003c24053,24055
+<  return {state: 'ready', url: f.url || SYNC.backend.fileUrl(f.id), file: f};
+---
+> return {state: 'ready', url: f.url || SYNC.backend.fileUrl(f.id), file: f,
+>  /* v6.77 - the server keeps a small webp copy of every photograph; cards draw that, the original opens on a press */
+>  thumb: f.thumb === true && SYNC.backend.thumbUrl ? SYNC.backend.thumbUrl(f.id, f.sha256) : null};
+24956c25008
+<  <span>${esc(v.day && v.day.sheet ? v.day.sheet + ' · ' + (v.day.phase || '') : 'outside every week sheet on the programme')}</span></div>
+---
+>  <span>${esc(v.day && v.day.sheet ? v.day.sheet + ' · ' + (v.day.phase || '') : 'no programme sheet covers this day')}</span></div>
+26290c26342
+<  if (race && iso < race) { lab = 'Race day · ' + fmtDay(race).dow + ' ' + fmtDay(race).dm; n = days(iso, race); unit = n === 1 ? 'DAY' : 'DAYS'; sub = wk ? weekWords(wk).split(' · ').slice(0, 2).join(' · ') : 'before the programme'; }
+---
+>  if (race && iso < race) { lab = 'Race day · ' + fmtDay(race).dow + ' ' + fmtDay(race).dm; n = days(iso, race); unit = n === 1 ? 'DAY' : 'DAYS';sub = wk ? weekWords(wk).split(' · ').slice(0, 2).join(' · ') : ((programmeDay(iso) || {}).short || 'before the programme'); }
+26904c26956
+<  return `<div class="grp ${stateCls}" style="--acc:${esc(g.acc || '#ff6a13')}" data-disc="${esc(g.disc)}" role="button" tabindex="0" title="open the register filtered to ${esc(g.name)}">
+---
+>  return `<div class="grp ${stateCls}" style="--acc:${esc(g.acc || '#ff6a13')}" data-disc="${esc(g.disc)}" title="open the register filtered to ${esc(g.name)}"><button type="button" class="vh platego" data-plate>Open the register filtered to ${esc(g.name)}</button>
+26945,26946c26997,26998
+<  const F = fenceMetres(P), ft = fenceTypes(P), fd = fenceDerived();
+<  const fence = `<div class="grp fence ${F.total && F.done >= F.total ? 'full' : F.done ? 'part' : 'none'}" style="--acc:${FENCE_ACC}" data-go="fencing" role="button" tabindex="0" title="open the Fencing tab">
+---
+> const F = fenceMetres(P), ft = fenceTypes(P), fd = fenceDerived(), gaps = fenceGapsOf(ft);
+>  const fence = `<div class="grp fence ${F.total && F.done >= F.total ? 'full' : F.done ? 'part' : 'none'}" style="--acc:${FENCE_ACC}" data-go="fencing" title="open the Fencing tab"><button type="button" class="vh platego" data-plate>Open the Fencing tab</button>
+26948c27000
+<  <div class="n">${esc(fmtNum(F.done))}<small> of ${esc(fmtNum(F.total))} m temporary fence installed</small></div>
+---
+> <div class="n">${esc(fmtNum(F.done))}<small> of ${esc(fmtNum(F.total))} m of fence work on dockets</small></div>
+26953c27005,27006
+<  <span>Areas ticked done</span><b>${P.areas ? `${P.areasDone} of ${P.areas}` : '<small>none named on a docket yet</small>'}</b>
+---
+> ${gaps.length ? `<span class="bad">Behind the programme by type</span><b class="bad">${esc(gaps.map(fenceGapWords).join(' · '))}</b>` : ''}
+>  <span title="the areas the crew have named on a docket, ticked finished — not every area on the programme">Docket areas ticked done</span><b>${P.areas ? `${P.areasDone} of ${P.areas}` : '<small>none named on a docket yet</small>'}</b>
+26958c27011
+<  ${moreInfo('grp|fencing', `<p class="note">Done is the dockets by this day; planned is the 2026 programme's rows dated on or before it, across the ${P.weeksStarted} week${P.weeksStarted === 1 ? '' : 's'} that have started; programme is every 2026 week. Metres and gates are never added together.${P.notRolled && P.notRolled.length ? ` ${P.notRolled.length} week sheet${P.notRolled.length === 1 ? '' : 's'} not rolled forward.` : ''}</p>`)}
+---
+>  ${moreInfo('grp|fencing', `<p class="note">Done is the dockets by this day; planned is the 2026 programme's rows dated on or before it, across the ${P.weeksStarted} week${P.weeksStarted === 1 ? '' : 's'} that have started;programme is every 2026 week. Metres and gates are never added together. The metres are work on the dockets, not fence standing: a run put in as clean fence and later converted to scrim is on both dockets (36505 then 36539, 97.5 m at Cypress Carpark), and removals are not taken off. Early work on one type never makes up for a type behind.${P.notRolled && P.notRolled.length ? ` ${P.notRolled.length} week sheet${P.notRolled.length === 1 ? '' : 's'} not rolled forward.` : ''}</p>`)}
+27009c27062
+<  return `<div class="grp branch ${g.lines.length ? (g.onLines ? 'part' : 'none') : 'none'}" style="--acc:var(--c-or)" data-branch="${esc(g.code || '')}" role="button" tabindex="0" title="open the register filtered to ${g.code ? 'branch ' + esc(g.code) : 'the lines with no branch'}">
+---
+>  return `<div class="grp branch ${g.lines.length ? (g.onLines ? 'part' : 'none') : 'none'}" style="--acc:var(--c-or)" data-branch="${esc(g.code || '')}" title="open the register filtered to ${g.code ? 'branch ' + esc(g.code) : 'the lines with no branch'}"><button type="button" class="vh platego" data-plate>Open the register filtered to ${g.code ? 'branch ' + esc(g.code) : 'the lines with no branch'}</button>
+27040c27093
+<  const allPlate = `<div class="grp branch all" style="--acc:var(--c-or)" data-go="costs" role="button" tabindex="0" title="open Costs &amp; charges">
+---
+>  const allPlate = `<div class="grp branch all" style="--acc:var(--c-or)" data-go="costs" title="open Costs &amp; charges"><button type="button" class="vh platego" data-plate>Open Costs &amp; charges</button>
+27077c27130
+<  <div class="mcard ledgerc" data-go="costs" role="button" tabindex="0" title="open Costs &amp; charges — every line of both sides"><h4>Are we making money?</h4>
+---
+>  <div class="mcard ledgerc" data-go="costs" title="open Costs &amp; charges — every line of both sides"><button type="button" class="vh platego" data-plate>Open Costs &amp; charges — every line of both sides</button><h4>Are we making money?</h4>
+27082c27135
+<  <p class="mline">Not a margin yet — ${M.missing_short.length} thing${M.missing_short.length === 1 ? '' : 's'} not in it${M.breakeven != null ? `; the crew's wages are the biggest, ${esc(fmtNum(M.breakeven_hours))} h with no rate — the difference covers them up to ${esc(money(M.breakeven))} an hour` : ''}.</p>
+---
+> <p class="mline"><b>Forecast incomplete</b> — not a margin: ${M.missing_short.length} thing${M.missing_short.length === 1 ? '' : 's'} not in it yet (${esc(M.missing_short.join(' · '))}).</p>
+27945a27999,28035
+> /* v6.74 - THE EXECUTIVE AUDIT (26 Sep 2026). Helpers its fixes share.
+>  A rate as it is stored: to the cent when it is whole cents, to four places when the card carries more, so a line's
+>  charge can be worked out again from what is on the screen ($16.1607 x 100 m = $1,616.07). */
+> const RATE_FMT = new Intl.NumberFormat('en-AU', {style:'currency', currency:'AUD', minimumFractionDigits:2, maximumFractionDigits:4});
+> const rateMoney = v => (v == null || v === '' || !Number.isFinite(Number(v))) ? null : RATE_FMT.format(Number(v));
+> /* Where a day sits in the programme whether or not a week sheet covers it: the phase around it and its day number,
+>  first sheet to last. A gap day inside the build is still the build (UI-01). */
+> function programmeDay(iso){
+>  const W = DATA.weeks || []; if (!W.length || !iso) return null;
+>  const start = W[0].start, end = W[W.length - 1].end;
+>  const days = (a, b) => Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000);
+>  const total = days(start, end) + 1;
+>  if (iso < start) return {before: true, total, phase: null, wk: null, short: 'before the programme', words: 'before the programme starts on ' + fmtDay(start).dm};
+>  if (iso > end) return {after: true, total, phase: null, wk: null, short: 'after the programme', words: 'after the programme ended on ' + fmtDay(end).dm};
+>  const wk = weekOf(iso);
+>  const prev = [...W].reverse().find(w => w.end < iso) || null, next = W.find(w => w.start > iso) || null;
+>  const phase = wk ? wk.phase : prev && next && prev.phase !== next.phase ? next.phase : (prev || next || {}).phase || '';
+>  const n = days(start, iso) + 1, ph = phase ? phase + ' phase' : 'Programme';
+>  return {n, total, phase, wk, gap: !wk, short: `${ph} · day ${n} of ${total}`,
+>  words: `${ph} · day ${n} of ${total}${wk ? '' : ' · no programme sheet covers this day'}`};
+> }
+> /* Fencing types behind the programme by today, each in its own unit - early work on one type never clears a late
+>  one on another (DATA-09) */
+> function fenceGapsOf(ft){ return (ft || []).filter(t => t.planned != null && t.done < t.planned).map(t => ({name: t.name, unit: t.unit, done: t.done, planned: t.planned, short: Math.round((t.planned - t.done) * 100) / 100})); }
+> const fenceGapName = g => { const n = g.name.replace(/^Fence — /, ''); return n.charAt(0).toUpperCase() + n.slice(1); };
+> const fenceGapWords = g => `${fenceGapName(g)} ${fmtNum(g.short)}${g.unit === 'm' ? ' m' : ''}`;
+> /* The time a removal is written for, from the schedule row's own words ("5.00pm") - never the delivery's planned time
+>  to site. Where the row gives no time, there is none to show (DATA-10). */
+> function outTimeOf(events){
+>  for (const e of events || []) { const m = String(e.note || '').match(/\b(\d{1,2})(?:[.:](\d{2}))?\s*(am|pm)\b/i);
+>  if (m) { let h = +m[1] % 12; if (/pm/i.test(m[3])) h += 12; return String(h).padStart(2, '0') + ':' + (m[2] || '00'); } }
+>  return null;
+> }
+> const outTimeHtml = events => { const t = outTimeOf(events); return t ? `<b title="the time the schedule row writes for this removal">${esc(t)}</b>` : '<span class="todo" title="the schedule row gives no time for this removal">time to confirm</span>'; };
+> /* Race-weekend hours are worked only once the day has been (DATA-07) */
+> function raceHoursWord(){ const td = todayIso(), D = (typeof EVENT_DAYS !== 'undefined' && EVENT_DAYS) || DATA.race_days || [];
+>  if (!D.length) return 'planned'; if (D.every(d => d > td)) return 'planned'; if (D.every(d => d <= td)) return 'worked'; return 'worked and planned'; }
+27985a28076,28078
+> /* v6.74 (DATA-02) - a reference the schedule gives no quantity for counts as one thing to deliver, but it is
+>  not a measured quantity: the whole job is said as the units that ARE quantified plus the references awaiting one */
+>  const refsNoQty = rows.reduce((s, r) => s + (r.asked && r.a && !r.a.relocation ? chargeLines(r.a).filter(l => l.quantity == null).length : 0), 0);
+27987c28080
+<  shortfall, P: X.P, X};
+---
+>  shortfall, refsNoQty, quantified: all - refsNoQty, P: X.P, X};
+28494,28497c28587,28590
+<  <div class="shrow"><span>Clean, installed</span><b>${fmtNum(fdone('clean'))} m <span class="shof">of ${fmtNum(ftot('clean'))} m</span></b></div>
+<  <div class="shrow"><span>Braced for scrim, installed</span><b>${fmtNum(fdone('scrim'))} m <span class="shof">of ${fmtNum(ftot('scrim'))} m</span></b></div>
+<  ${fine('Installed is what the crew’s dockets say by this day; the second figure on each line is what the 2026 programme asks for. Gates and crowd-control barrier are counted in their own units and are never added to metres.'
+<  + (fencingCrew().length ? ' Put in by ' + fencingCompany() + ' — meet the crew on the next scene.' : ''))}`;
+---
+> <div class="shrow"><span>Clean, on dockets</span><b>${fmtNum(fdone('clean'))} m <span class="shof">of ${fmtNum(ftot('clean'))} m</span></b></div>
+> <div class="shrow"><span>Braced for scrim, on dockets</span><b>${fmtNum(fdone('scrim'))} m <span class="shof">of ${fmtNum(ftot('scrim'))} m</span></b></div>
+> ${fine('The metres are what the crew’s dockets say by this day — work done, not fence standing; the second figure on each line is what the 2026 programme asks for. Gates and crowd-control barrier are counted in their own units and are never added to metres.'
+> + (fencingCrew().length ? ' Put in by ' + fencingCompany() + '.' : ''))}`;
+28833,28834c28926,28927
+<  <div><b>${fmtNum(C.all)}</b><span>units on the whole job</span></div>
+<  <div class="cwpc"><span><i class="on"></i>${pc1(C.pct)}% recorded</span><span><i class="pl"></i>${pc1(C.planPct)}% planned by today</span></div>
+---
+> <div><b>${fmtNum(C.quantified != null ? C.quantified : C.all)}</b><span>${C.refsNoQty ? 'quantified units' : 'units'} on the whole job${C.refsNoQty ? `<em class="cprov">+ ${fmtNum(C.refsNoQty)} reference${C.refsNoQty === 1 ? '' : 's'} awaiting quantity confirmation</em>` : ''}</span></div>
+>  <div class="cwpc"><span${C.refsNoQty ? ' title="provisional — each reference awaiting a quantity counts as one until it is confirmed"' : ''}><i class="on"></i>${pc1(C.pct)}% recorded${C.refsNoQty ? ' · provisional' : ''}</span><span><i class="pl"></i>${pc1(C.planPct)}% planned by today</span></div>
+28866c28959
+<  lines.push('', `FENCING: ${fmtNum(F.done)} of ${fmtNum(F.total)} m temporary fence installed${F.planned ? ` (${fmtNum(F.planned)} m planned by this day)` : ''}${P.areas ? ` · areas ticked complete ${P.areasDone} of ${P.areas}` : ''}`);
+---
+>  lines.push('', `FENCING: ${fmtNum(F.done)} of ${fmtNum(F.total)}m of fence work on dockets${F.planned ? ` (${fmtNum(F.planned)} m planned by this day)` : ''}${(() => { const g = fenceGapsOf(fenceTypes(P)); return g.length ? ' · behind by type: ' + g.map(fenceGapWords).join(', ') : ''; })()}${P.areas ? ` · docket areas ticked complete ${P.areasDone} of ${P.areas}` : ''}`);
+28912c29005
+<  const phase = P.wk ? P.wk.phase : (P.race && asOf > P.race ? 'after the event' : asOf < ((DATA.weeks || [])[0] || {}).start ? 'before the programme' : 'between programme weeks');
+---
+>  const phase = P.wk ? P.wk.phase : (P.race && asOf > P.race ? 'after the event' :asOf < ((DATA.weeks || [])[0] || {}).start ? 'before the programme' : (((programmeDay(asOf) || {}).phase || 'between programme weeks') + (programmeDay(asOf) ? ' phase, no programme sheet today' : '')));
+29023c29116
+<  const inner = (e, g) => { const t = e.target.closest('details, summary, button, a, input, select, textarea'); return !!t && t !== g && g.contains(t); };
+---
+> const inner = (e, g) => { const t = e.target.closest('details, summary, button:not([data-plate]), a, input, select, textarea'); return !!t && t !== g && g.contains(t); };
+30901c30994,30997
+< function render(){ return holdAssets(renderPass); }
+---
+> function render(){ const r = holdAssets(renderPass); tblFocusSoon(); return r; }
+> /* v6.77 (A4) - a table box that scrolls sideways takes keyboard focus, so arrow keys can scroll it */
+> let TBLF = 0;
+> function tblFocusSoon(){ cancelAnimationFrame(TBLF); TBLF = requestAnimationFrame(() => { try { document.querySelectorAll('.pane.on .tblwrap:not([tabindex])').forEach(w => { if (w.scrollWidth > w.clientWidth + 2) { w.tabIndex = 0; w.setAttribute('role', 'region'); w.setAttribute('aria-label', 'Table — scrolls sideways'); } }); } catch (e) {} }); }
