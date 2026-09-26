@@ -1,0 +1,12 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
+  const page = await (await browser.newContext({viewport: {width: 1280, height: 800}})).newPage(); const logs = [];
+  page.on('pageerror', e => logs.push(String(e).slice(0, 300)));
+  await page.goto(process.argv[2], {waitUntil: 'load', timeout: 180000});
+  await page.waitForFunction(() => window.__cw && window.__cw.ready, null, {timeout: 400000, polling: 2000});
+  await page.evaluate(() => { __cw.advance(9, 1 / 30); const s = __cw.crew.men.safety, T = __cw.camera.position.constructor;
+    __cw.controls.target.set(s.pos.x, 1.1, s.pos.z); __cw.camera.position.set(s.pos.x + 1.2, 1.7, s.pos.z + (s.pos.z > 0 ? 2.4 : -2.4)); __cw.controls.update(); });
+  await page.waitForTimeout(3500); await page.screenshot({path: 'machine_qa/v585_safety.png', timeout: 180000});
+  await page.evaluate(() => { const s = __cw.crew.men.safety; __cw.controls.target.set(s.pos.x, 1.1, s.pos.z); __cw.camera.position.set(s.pos.x - 1.4, 1.6, s.pos.z + (s.pos.z > 0 ? -2.2 : 2.2)); __cw.controls.update(); });
+  await page.waitForTimeout(3500); await page.screenshot({path: 'machine_qa/v585_safety_back.png', timeout: 180000});
+  console.log(logs); await browser.close(); })();

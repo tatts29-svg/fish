@@ -1,0 +1,8 @@
+## v6.64 — 26 Sep 2026 — people in the crowd, fireworks that spell it, the VMS side-on
+
+- Andrew: "I want crowd as in people, in the scenes, spectators … VMS make sure its sign is on the side … nights you could even add fireworks, and when they splatter in the view it spells Coates GC500 2026 — highlight that scene when it happens, camera moves to view it by far."
+- **Spectators are figures**, not dots: legs, shirt, head, a Coates-orange or white cap on some, arms up on the ones cheering; turned to face the circuit and shaded front to back. The cheering ones bounce and pump their fists (flat shader mode 12, per-figure phase, off under reduced motion). The stands, fence and marshal posts use them — 5,032 figures, ~281k triangles; past 6,500 the old capsule stays.
+- **Raised terraces**, three rows, behind the fence at the eight sharpest corners and down both sides of the grid straight (275 bays, ~1,450 people), so the crowd is seen over the 1.8 m concrete from the track — on the ground behind it they were hidden.
+- **Fireworks after dark** every 50 s of scene time: five shells climb, burst, and the stars fly into **COATES GC500 2026** in the sky (~660 m across, above the towers), hold and glitter, then droop and fade, with peony bursts around them. The camera cuts to a far shot framing the words, drifts across them, and cuts back. Drawn in their own batch that carries its own opacity (additive glow over empty sky was invisible). Not by day, not under reduced motion.
+- **VMS board side-on**, lit on both faces, each reading COATES / GC500 / 2026 the right way round; orange trim under the board; towing chase camera sits wider to see the face.
+- `test_v664.js`: counts above, the fireworks shot takes the camera through the whole show, no script errors.

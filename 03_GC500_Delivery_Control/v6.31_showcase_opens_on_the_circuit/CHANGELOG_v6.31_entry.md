@@ -1,0 +1,6 @@
+## v6.31 — 26 Sep 2026 — the Showcase opens on the circuit, with the car
+
+- Andrew: "where is the showcase gone with my day and night … where is my race car gone from showcase." Nothing had gone: the Showcase, its day and night circuit and the #26 are all on the page, behind Start showcase on Where we are, with the Backdrop chooser in its control bar. A browser that had never chosen a backdrop opened on Black, which has no circuit and no car, and the chooser is under the scene where nobody looks for a car.
+- A device that has never chosen a backdrop now opens the Showcase on the circuit in 3D at night, car on the track, whenever the scene can run. Day is one pick away in the Backdrop chooser as before. A choice made on a device is still kept on that device; Black stays for anyone who chose it and for a page without the scene.
+- Start showcase is in the Tools menu too, under This page, so it is one press away on every tab.
+- `test_v631.js`: on a laptop and a phone with nothing stored, Tools › Start showcase opens the Showcase on the 3D night circuit, the scene mounts and the car is in it, no script errors. `probe_show5.js` + `shots/`: the night and day scenes with the car, and Where we are with the button.
