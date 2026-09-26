@@ -13,6 +13,9 @@ manifest and add this `explorer/` folder over the live files (explorer.js, index
 |---|---|---|
 | Turning the view | The drawing sheet spins as a tilted rectangle, with black around it. The legend and title strip swing into view. | The satellite photo is the map and fills the frame at any angle; the frame never moves. The plan sits on top of it. |
 | The Surfers inset | Stays in its box at the lower right of the sheet, over the wrong ground | Drawn at its true place north of Surfers Paradise, continuing the main plan. Search, rings and `?find=` go there too. |
+| Photograph | Mapbox satellite; soft and blurred up close | Google's 2026 Vexcel aerial, to zoom 21 (see `screens/imagery_mapbox_vs_google.png`). Google's logo and credit are shown, and Mapbox takes over if Google fails. |
+| Feel | Zoom jumps in steps and a drag stops dead | Zoom glides about the pointer, and a flick coasts to a stop, like Google Maps |
+| Tile joins | Dark hairlines where satellite tiles met, when turned | One seamless photograph |
 | Compass | A small rose, plus ⟲ ⟳ buttons | A dial showing N, E, S and W where they really are, with a "Facing …" label. Press a letter to face that way (a 0.4 s glide). Drag the ring to turn freely. |
 | Lag | Every frame drew the satellite with the most expensive smoothing | Fast smoothing while moving, full quality 160 ms after you stop. The test browser's drawing work for a wheel burst fell from about 7.0 s to 0.23 s. |
 | Blur while moving | The canvas dropped to 1 pixel per point during gestures | Keeps full sharpness while moving |
@@ -21,9 +24,9 @@ manifest and add this `explorer/` folder over the live files (explorer.js, index
 Original plan (the printed sheet) is unchanged.
 
 ## Checks (test browser, live files served in place, GET only)
-- 46 of 46 existing acceptance checks pass: load, modes, deep links, `?find=`, no black areas, phone layout, imagery
+- 46 of 46 existing acceptance checks pass (imagery-failure tests now fail Google and Mapbox together): load, modes, deep links, `?find=`, no black areas, phone layout, imagery
   failures and retry, loading failures.
-- 10 of 10 new checks pass:
+- 13 of 13 new checks pass, including Google imagery with its credit, the zoom glide landing exactly, and a flick coasting:
   - P68 (printed in the inset) lands at its true place.
   - N, E, S and W each face correctly.
   - A quarter-turn drag of the ring turns 90°.

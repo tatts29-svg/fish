@@ -1,6 +1,6 @@
 // Acceptance checks for the staged explorer.   node tests.js [before]
 // Loads the live address with the staged files served locally (GET only; writes are aborted by the harness).
-const {open, settle} = require('/tmp/claude-0/stage/tools/harness'); const fs = require('fs');
+const {open, settle} = require('/tmp/claude-0/stage2/tools/harness2'); const fs = require('fs');
 const V = process.argv[2] === 'before' ? 'before' : 'after', WORK = '/tmp/claude-0/stage/work/';
 const DIRS = V === 'before' ? [WORK + 'before_site'] : ['/tmp/claude-0/stage2/explorer', WORK + 'before_site'];
 let pass = 0, fail = 0; const quiet = () => {};
@@ -9,7 +9,7 @@ const booted = p => p.waitForFunction(() => window.__ready || window.__bootError
 const banner = p => p.evaluate(() => { const b = document.getElementById('satBanner'); return b && !b.hidden ? b.innerText.replace(/\s+/g, ' ').trim() : null; });
 const qual = p => p.evaluate(() => ({text: document.getElementById('qualText').textContent, cls: document.getElementById('qual').className}));
 const waitBanner = p => { const t0 = Date.now(); return p.waitForFunction(() => { const b = document.getElementById('satBanner'); return b && !b.hidden; }, null, {timeout: 20000, polling: 200}).then(() => ((Date.now() - t0) / 1000).toFixed(1) + ' s after ready').catch(() => 'not within 20 s'); };
-const MAPBOX = /api\.mapbox\.com/;
+const MAPBOX = /api\.mapbox\.com|tile\.googleapis\.com\/v1\/2dtiles/;   /* both imagery sources fail together */
 async function t(name, opts, fn) { const s = await open({dirs: DIRS, log: quiet, ...opts}); try { await fn(s.page, s); } catch (e) { check(name + ' (ran)', false, e.message.split('\n')[0]); } finally { await s.browser.close(); } }
 (async () => {
   console.log('== load, start mode, alignment (1440 x 900)');

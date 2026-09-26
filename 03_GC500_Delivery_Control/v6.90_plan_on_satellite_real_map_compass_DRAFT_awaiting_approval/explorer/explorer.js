@@ -48,6 +48,28 @@ function resize() {
   applyDpr(); changeView(false);
 }
 /* ---------------------------------------------------------------- the satellite layer */
+/* v6.90 - GOOGLE'S AERIAL PHOTOGRAPH (Andrew Fisher, 27 Sep 2026: "4K ultra clear ... sharp, clear"). Google's Map Tiles
+   API satellite (Vexcel 2026 aerial at the circuit, to zoom 21) is used through the dashboard's own Google key, the one the
+   3D proof uses; Mapbox stays as the fallback if Google's session cannot be had or stops answering. Same XYZ scheme and
+   512 px tiles, so nothing else in the chain changes. Google's logo and its imagery credit are shown whenever its tiles are. */
+let gKey = null, gSession = null, SOURCE = 'mapbox', gCopy = 'Imagery © Google', gState = 'unknown';
+function tileMaxZ() { return SOURCE === 'google' ? 21 : 19; }
+async function ensureGoogle() {
+  if (gSession || gState === 'no') return gSession; if (!gKey) { gState = 'no'; return null; }
+  try { const r = await fetch('https://tile.googleapis.com/v1/createSession?key=' + encodeURIComponent(gKey), {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({mapType: 'satellite', language: 'en-AU', region: 'AU', scale: 'scaleFactor2x', highDpi: true})});
+    if (!r.ok) throw new Error('session ' + r.status); const j = await r.json(); if (!j.session || j.tileWidth !== 512) throw new Error('session shape');
+    gSession = j.session; gState = 'ok'; useSource('google');
+    fetch(`https://tile.googleapis.com/tile/v1/viewport?session=${gSession}&key=${encodeURIComponent(gKey)}&zoom=20&north=-27.972&south=-28.004&east=153.436&west=153.405`).then(r => r.ok ? r.json() : null).then(v => { if (v && v.copyright) { gCopy = v.copyright; setAttrib(); } }).catch(() => {});
+  } catch (e) { gState = 'no'; useSource('mapbox'); }
+  return gSession;
+}
+function useSource(src) { if (src === SOURCE) return; SOURCE = src; for (const t of tiles.values()) if (t.bm) t.bm.close(); tiles.clear(); tileTries.clear(); cancelTiles(); setAttrib(); requestPaint(); }
+function setAttrib() {
+  const a = $('attrib'); if (!a) return;
+  if (mode === 'original') { a.innerHTML = 'Drawing © iEDM · D001 rev 03'; return; }
+  a.innerHTML = SOURCE === 'google' ? `<img src="assets/google_logo_white.png" alt="Google" class="glogo"> ${esc(gCopy)} · Drawing © iEDM D001 rev 03`
+    : '<a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noopener">© Mapbox</a> <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a> © Maxar · Drawing © iEDM D001 rev 03';
+}
 const TILE = 512, tiles = new Map(), TILE_CAP = PHONE ? 60 : 140, inflight = new Map(); let queue = [], running = 0, tileGen = 0;
 /* a tile that fails (404, 503, no network) is tried again after 2, 4, 8, 16, 30 s, then every 30 s while it is in view;
    the count survives eviction. satState says what the last frame saw: '' fine, 'partial' some failed, 'down' none arrived */
@@ -83,7 +105,7 @@ function regionsForTiles(v) {
 function tileZoomFor(v, M) {
   const k = Math.hypot(M[0][0], M[0][1]);                                        /* z18 px per sheet pt */
   const devPerPt = v.scale * dpr, want = 18 + Math.log2(devPerPt / k);           /* one device px per tile px */
-  return {z: clamp(Math.round(want), 12, 19), over: want > 19.35};
+  return {z: clamp(Math.round(want), 12, tileMaxZ()), over: want > tileMaxZ() + .35};
 }
 function tileKey(z, x, y) { return z + '/' + x + '/' + y; }
 function requestTile(z, x, y, prio) {
@@ -95,11 +117,11 @@ function pump() {
   while (running < 8 && queue.length) {
     const t = queue.shift(); if (t.gen !== tileGen) continue; running++;
     const ac = new AbortController(); inflight.set(t.key, ac);
-    const url = `https://api.mapbox.com/v4/mapbox.satellite/${t.z}/${t.x}/${t.y}@2x.jpg90?access_token=${encodeURIComponent(mapKey)}`;
+    const g = SOURCE === 'google' && gSession, url = g ? `https://tile.googleapis.com/v1/2dtiles/${t.z}/${t.x}/${t.y}?session=${gSession}&key=${encodeURIComponent(gKey)}` : `https://api.mapbox.com/v4/mapbox.satellite/${t.z}/${t.x}/${t.y}@2x.jpg90?access_token=${encodeURIComponent(mapKey)}`;
     fetch(url, {signal: ac.signal, cache: tileTries.has(t.key) ? 'reload' : 'force-cache'}).then(r => { if (!r.ok) throw new Error('tile ' + r.status); perf.tileBytes += +(r.headers.get('content-length') || 0); return r.blob(); })
       .then(b => createImageBitmap(b)).then(bm => { tiles.set(t.key, {bm, at: performance.now()}); tileTries.delete(t.key); perf.tilesFetched++; evict(); requestPaint(); })
       .catch(e => { if (e.name !== 'AbortError') { tileTries.set(t.key, (tileTries.get(t.key) || 0) + 1); const at = tileRetryAt(t.key); tiles.set(t.key, {bm: null, at: performance.now(), err: String(e), retryAt: at}); satWhy = String(e);
-        requestPaint(); if (/401|403/.test(String(e))) keyProblem(); } })
+        requestPaint(); if (g && /40[0-4]/.test(String(e))) { gSession = null; gState = 'no'; useSource('mapbox'); return; } if (/401|403/.test(String(e))) keyProblem(); } })
       .finally(() => { inflight.delete(t.key); running--; pump(); });
   }
 }
@@ -108,7 +130,7 @@ function cancelTiles() { tileGen++; queue = []; for (const ac of inflight.values
 function keyProblem() { if (keyState === 'bad') return; keyState = 'bad'; toast('Mapbox refused the tiles for this address. The token is restricted to the dashboard address list; the drawing stays available.', 9000); }
 function drawTiles(v) {
   if (mode === 'original') return;
-  if (!mapKey) { if (keyState === 'none' || keyState === 'bad') setSatState('down'); return; }
+  if (!mapKey && SOURCE !== 'google') { if (keyState === 'none' || keyState === 'bad') setSatState('down'); return; }
   const S2D = sheetToDevice(dpr * v.scale, canvas.width, canvas.height);
   let anyOver = false, missing = 0, failed = 0, shown = 0, nextRetry = Infinity; const now = performance.now();
   for (const R of regionsForTiles(v)) {
@@ -125,14 +147,19 @@ function drawTiles(v) {
     ctx.transform(Minv[0][0], Minv[1][0], Minv[0][1], Minv[1][1], Minv[0][2], Minv[1][2]);
     ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = interacting ? 'low' : 'high';
     const cxT = (tx0 + tx1) / 2, cyT = (ty0 + ty1) / 2;
+    /* v6.90 - ONE SEAMLESS PHOTOGRAPH. The tiles are laid edge to edge, pixel for pixel, on one picture, and that picture is
+       turned and scaled once. Drawn one by one at an angle, every tile's edge was smoothed against nothing and left a dark
+       hairline where tiles met; now the smoothing runs across the joins as if there were none (and it is one draw, not 30). */
+    const nx = tx1 - tx0 + 1, ny = ty1 - ty0 + 1, mz = mosaicFor(R.key, z, tx0, ty0, nx, ny);
     for (let ty = ty0; ty <= ty1; ty++) for (let tx = tx0; tx <= tx1; tx++) {
       const t = tiles.get(tileKey(z, tx, ty));
-      if (t && t.bm) { t.at = performance.now(); shown++; ctx.drawImage(t.bm, tx * TILE, ty * TILE, TILE + .5, TILE + .5); }
+      if (t && t.bm) { t.at = performance.now(); shown++; mz.put(tx - tx0, ty - ty0, t, null); }
       else { missing++;
         if (t && t.err) { failed++; if (now >= t.retryAt) { tiles.delete(tileKey(z, tx, ty)); requestTile(z, tx, ty, Math.hypot(tx - cxT, ty - cyT)); } else nextRetry = Math.min(nextRetry, t.retryAt); }
-        else if (!t) { if (tileTries.has(tileKey(z, tx, ty))) failed++; requestTile(z, tx, ty, Math.hypot(tx - cxT, ty - cyT)); }   /* a retry in flight still counts as failing */
-        const p = parentTile(z, tx, ty); if (p) { shown++; ctx.drawImage(p.bm, p.sx, p.sy, p.sw, p.sw, tx * TILE, ty * TILE, TILE + .5, TILE + .5); } }
+        else if (!t) { if (tileTries.has(tileKey(z, tx, ty))) failed++; if (!zAnim) requestTile(z, tx, ty, Math.hypot(tx - cxT, ty - cyT)); }   /* mid-glide the levels flash past: ask only for where it lands */
+        const p = parentTile(z, tx, ty); if (p) { shown++; mz.put(tx - tx0, ty - ty0, null, p); } else mz.put(tx - tx0, ty - ty0, null, null); }
     }
+    ctx.drawImage(mz.canvas, 0, 0, nx * TILE, ny * TILE, tx0 * TILE, ty0 * TILE, nx * TILE, ny * TILE);
     if (bright !== 1) { ctx.setTransform(...S2D); ctx.fillStyle = bright < 1 ? `rgba(0,0,0,${1 - bright})` : `rgba(255,255,255,${(bright - 1) * .8})`; ctx.fillRect(x0, y0, x1 - x0, y1 - y0); }
     ctx.restore();
   }
@@ -153,6 +180,28 @@ function retrySatellite() {
   for (const [k, t] of tiles) if (!t.bm) tiles.delete(k); tileTries.clear(); satWhy = '';
   if (keyState === 'none' || keyState === 'bad') { mapKey = null; keyState = 'unknown'; ensureKey().then(() => requestPaint()); }
   satState = 'retry'; setSatState(''); changeView(false);
+}
+/* the picture the tiles are laid on: kept between frames; a cell is redrawn only when what belongs in it changes */
+const mosaics = new Map();
+function mosaicFor(key, z, x0, y0, nx, ny) {
+  let m = mosaics.get(key); const W = nx * TILE, H = ny * TILE;
+  if (!m) { m = {canvas: document.createElement('canvas'), cells: new Map()}; m.g = m.canvas.getContext('2d', {alpha: false}); mosaics.set(key, m); }
+  if (m.z !== z || m.x0 !== x0 || m.y0 !== y0 || m.canvas.width < W || m.canvas.height < H) {
+    const old = m.cells, sameZ = m.z === z, dx = (m.x0 - x0) * TILE, dy = (m.y0 - y0) * TILE;
+    if (m.canvas.width < W || m.canvas.height < H) { m.canvas.width = Math.max(W, m.canvas.width); m.canvas.height = Math.max(H, m.canvas.height); m.g = m.canvas.getContext('2d', {alpha: false}); m.cells = new Map(); }
+    else if (sameZ && (dx || dy)) { m.g.globalCompositeOperation = 'copy'; m.g.drawImage(m.canvas, dx, dy); m.g.globalCompositeOperation = 'source-over'; const moved = new Map(); for (const [k, v] of old) { const [cx, cy] = k.split(',').map(Number), nx2 = cx + m.x0 - x0, ny2 = cy + m.y0 - y0; if (nx2 >= 0 && ny2 >= 0) moved.set(nx2 + ',' + ny2, v); } m.cells = moved; }
+    else m.cells = new Map();
+    m.z = z; m.x0 = x0; m.y0 = y0;
+  }
+  m.put = (cx, cy, t, p) => { const k = cx + ',' + cy, want = t ? t.bm : p ? 'p' + p.sx + '_' + p.sy + '_' + p.sw : 'none';
+    if (m.cells.get(k) === want && !(p && !t)) return;
+    if (p && !t && m.cells.get(k) === want) return;
+    m.g.imageSmoothingEnabled = true; m.g.imageSmoothingQuality = 'high';
+    if (t) m.g.drawImage(t.bm, cx * TILE, cy * TILE, TILE, TILE);
+    else if (p) m.g.drawImage(p.bm, p.sx, p.sy, p.sw, p.sw, cx * TILE, cy * TILE, TILE, TILE);
+    else { m.g.fillStyle = '#0b0908'; m.g.fillRect(cx * TILE, cy * TILE, TILE, TILE); }
+    m.cells.set(k, want); };
+  return m;
 }
 function parentTile(z, x, y) { for (let d = 1; d <= 4 && z - d >= 12; d++) { const t = tiles.get(tileKey(z - d, x >> d, y >> d)); if (t && t.bm) { const s = TILE >> d; return {bm: t.bm, sx: (x & ((1 << d) - 1)) * s, sy: (y & ((1 << d) - 1)) * s, sw: s}; } } return null; }
 /* ---------------------------------------------------------------- the drawing */
@@ -178,12 +227,12 @@ function drawVectorTiles(v) {
   for (const [k, t] of vtiles) { if (t.empty || t.mode !== m || t.L === L) continue; if (Math.abs(t.L - L) > 2.5 || (interacting && t.L > L + 0.6)) continue; if (t.x + t.w < v.x || t.x > v.x + v.w || t.y + t.h < v.y || t.y > v.y + v.h) continue; others.push(t); }
   others.sort((p, q) => p.L - q.L);
   const exact = [];
-  for (let ty = T.y0; ty <= T.y1; ty++) for (let tx = T.x0; tx <= T.x1; tx++) { total++; const t = vtiles.get(vtKey(m, L, tx, ty)); if (t) { t.at = performance.now(); if (!t.empty) exact.push(t); } else { missing++; requestVT(m, L, tx, ty, Math.hypot(tx - (T.x0 + T.x1) / 2, ty - (T.y0 + T.y1) / 2)); } }
+  for (let ty = T.y0; ty <= T.y1; ty++) for (let tx = T.x0; tx <= T.x1; tx++) { total++; const t = vtiles.get(vtKey(m, L, tx, ty)); if (t) { t.at = performance.now(); if (!t.empty) exact.push(t); } else { missing++; if (!zAnim) requestVT(m, L, tx, ty, Math.hypot(tx - (T.x0 + T.x1) / 2, ty - (T.y0 + T.y1) / 2)); } }
   /* a stand-in only where the exact tile is missing, so nothing double-paints at partial alpha */
   if (missing) { ctx.save(); ctx.beginPath(); for (let ty = T.y0; ty <= T.y1; ty++) for (let tx = T.x0; tx <= T.x1; tx++) if (!vtiles.has(vtKey(m, L, tx, ty))) ctx.rect(tx * T.span, ty * T.span, T.span, T.span); ctx.clip();
     for (const t of others) ctx.drawImage(t.canvas, t.x, t.y, t.w, t.h); ctx.restore(); }
   for (const t of exact) ctx.drawImage(t.canvas, t.x, t.y, t.w, t.h);
-  if (missing) pumpVT();
+  if (missing && !zAnim) pumpVT();
   return {missing, total};
 }
 function requestVT(m, L, tx, ty, prio) { const key = vtKey(m, L, tx, ty); if (vtiles.has(key) || vtInflight.has(key)) return; if (!vtQueue.some(q => q.key === key)) vtQueue.push({key, m, L, tx, ty, prio, gen: vtGen}); }
@@ -313,7 +362,35 @@ function changeView(resetLabel = true) {
   if (resetLabel) { setLabel('Custom close-up'); document.querySelectorAll('.jump.active').forEach(e => e.classList.remove('active')); }
   dropVTQueue(); requestPaint();
 }
-function zoomBy(factor, x = sw / 2, y = sh / 2) { touchInteraction(); const a = screenToSource(x, y); camera.z = clamp(camera.z * factor, MIN_Z, MAX_Z); keepUnder(a, x, y); changeView(); }
+/* v6.90 - THE GOOGLE MAPS FEEL. A wheel notch, a button, a double-click or a double tap sets where the zoom is going and
+   the view glides there about the point under the cursor or finger (a quarter of a second, eased); a drag let go with
+   speed coasts on and slows to a stop. Reduced motion gets the old instant steps. */
+let zAnim = 0, zGoal = null, zAnchor = null, zLast = 0, flingRAF = 0;
+const calm = () => matchMedia('(prefers-reduced-motion:reduce)').matches;
+function zoomBy(factor, x = sw / 2, y = sh / 2) {
+  stopFling();
+  if (calm()) { touchInteraction(); const a = screenToSource(x, y); camera.z = clamp(camera.z * factor, MIN_Z, MAX_Z); keepUnder(a, x, y); changeView(); return; }
+  zGoal = clamp((zGoal || camera.z) * factor, MIN_Z, MAX_Z); zAnchor = {a: screenToSource(x, y), x, y};
+  if (!zAnim) { zLast = 0; zAnim = requestAnimationFrame(zoomStep); }
+}
+function zoomStep(t) {
+  const dt = zLast ? Math.min(.05, (t - zLast) / 1000) : 1 / 60; zLast = t;
+  let z = Math.exp(Math.log(camera.z) + (Math.log(zGoal) - Math.log(camera.z)) * (1 - Math.exp(-dt * 13)));
+  if (Math.abs(Math.log(zGoal / z)) < .003) z = zGoal;
+  camera.z = z; keepUnder(zAnchor.a, zAnchor.x, zAnchor.y); touchInteraction(); changeView();
+  if (z !== zGoal) zAnim = requestAnimationFrame(zoomStep); else { zAnim = 0; zGoal = null; }
+}
+function stopZoomAnim() { cancelAnimationFrame(zAnim); zAnim = 0; zGoal = null; }
+function stopFling() { cancelAnimationFrame(flingRAF); flingRAF = 0; }
+function fling(vx, vy) {
+  stopFling(); if (calm()) return; let last = performance.now();
+  const step = t => { const dt = Math.min(40, t - last); last = t; const k = Math.pow(.9955, dt); vx *= k; vy *= k;
+    if (Math.hypot(vx, vy) < .03) { flingRAF = 0; changeView(false); return; }
+    const s = fitScale * camera.z, r = camera.rot * Math.PI / 180, dx = vx * dt, dy = vy * dt;
+    camera.cx -= (dx * Math.cos(r) + dy * Math.sin(r)) / s; camera.cy -= (-dx * Math.sin(r) + dy * Math.cos(r)) / s; touchInteraction(); changeView(); flingRAF = requestAnimationFrame(step); };
+  flingRAF = requestAnimationFrame(step);
+}
+let panTrail = [];
 /* every map here starts the way D001 is drawn (beach along the top), the way the crew reads the printed plan and, from
    v5.90, the way the dashboard's satellite and 3D views open; the rose says where north is and N turns north-up */
 function fit() { highlight = null; const rot = 0;
@@ -341,12 +418,14 @@ function setMode(m) {
   if (m === mode) return; mode = m; document.querySelectorAll('.modes button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
   dropVTQueue(); setSatState('');
   if (m !== 'original') { ensureKey().then(() => requestPaint()); } else cancelTiles();
-  $('attrib').innerHTML = m === 'original' ? 'Drawing © iEDM · D001 rev 03' : '<a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noopener">© Mapbox</a> <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a> © Maxar · Drawing © iEDM D001 rev 03';
+  setAttrib();
   changeView(false);
 }
 async function ensureKey() {
   if (mapKey) return mapKey;
-  try { const r = await fetch('/api/map-key' + hostedToken(), {cache: 'no-store'}); const j = await r.json(); if (j && /^pk\./.test(String(j.token || ''))) { mapKey = j.token; keyState = 'ok'; return mapKey; } }
+  try { const r = await fetch('/api/map-key' + hostedToken(), {cache: 'no-store'}); const j = await r.json(); if (j && j.google && /^AIza/.test(String(j.google.key || ''))) gKey = j.google.key;
+    if (gKey) await ensureGoogle();
+    if (j && /^pk\./.test(String(j.token || ''))) { mapKey = j.token; keyState = 'ok'; return mapKey; } if (gSession) { keyState = 'ok'; return 'google'; } }
   catch (e) {}
   keyState = 'none'; toast('No Mapbox token from the service: the satellite modes need the dashboard\'s key. The original plan is unaffected.', 9000); return null;
 }
@@ -491,19 +570,19 @@ $('exportBtn').onclick = async () => {
         for (const [tx, ty] of need) { const t = tiles.get(tileKey(z, tx, ty)); if (t && t.bm) g.drawImage(t.bm, tx * TILE, ty * TILE, TILE + .5, TILE + .5); else incomplete++; } g.restore(); } }
     if (mode !== 'satellite') { const bw = Math.round(v.w * s), bh = Math.round(v.h * s); const {svg} = await svgFromWorker(v, bw, bh); const {img, url} = await loadSvg(svg).promise; g.save(); g.setTransform(...EX); g.globalAlpha = mode === 'hybrid' ? opacity : 1; g.drawImage(img, v.x, v.y, v.w, v.h); g.restore(); URL.revokeObjectURL(url); }
     g.setTransform(1, 0, 0, 1, 0, 0); g.font = '600 26px Inter, sans-serif'; g.fillStyle = 'rgba(0,0,0,.6)'; g.fillRect(0, height - 44, width, 44); g.fillStyle = '#fff';
-    g.fillText((mode === 'original' ? '' : '© Mapbox © OpenStreetMap © Maxar · ') + 'Drawing © iEDM D001 rev 03 · raster export ' + width + ' × ' + height + ' px · ' + (mode === 'original' ? 'original plan' : mode === 'hybrid' ? 'satellite + plan (image registration, not survey)' : 'satellite only') + (incomplete ? ' · INCOMPLETE: ' + incomplete + ' tiles did not load' : ''), 16, height - 14);
+    g.fillText((mode === 'original' ? '' : (SOURCE === 'google' ? 'Google · ' + gCopy : '© Mapbox © OpenStreetMap © Maxar') + ' · ') + 'Drawing © iEDM D001 rev 03 · raster export ' + width + ' × ' + height + ' px · ' + (mode === 'original' ? 'original plan' : mode === 'hybrid' ? 'satellite + plan (image registration, not survey)' : 'satellite only') + (incomplete ? ' · INCOMPLETE: ' + incomplete + ' tiles did not load' : ''), 16, height - 14);
     const blob = await new Promise(r => c.toBlob(r, 'image/png')); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'GC500_D001_Rev03_' + mode + '_' + Math.round(camera.z * 100) + 'pct_' + width + 'x' + height + '.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 60000);
     toast(incomplete ? 'PNG saved but marked INCOMPLETE: some tiles did not load.' : 'PNG saved · ' + width + ' × ' + height + ' px.');
   } catch (e) { console.error(e); toast('Export could not finish.'); } finally { exporting = false; $('exportBtn').disabled = false; changeView(false); }
 };
 /* gestures: wheel, drag, pinch, double tap, box zoom, keyboard */
 function onControls(e) { return !!e.target.closest('button,input,.mini,.console,.legend'); }
-stage.addEventListener('wheel', e => { if (onControls(e)) return; e.preventDefault(); const p = stagePoint(e), delta = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? sh : 1); zoomBy(Math.exp(-clamp(delta, -500, 500) * .0018), p.x, p.y); }, {passive: false});
+stage.addEventListener('wheel', e => { if (onControls(e)) return; e.preventDefault(); const p = stagePoint(e), delta = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? sh : 1); zoomBy(Math.exp(-clamp(delta, -500, 500) * (e.ctrlKey ? .006 : .0022)), p.x, p.y); }, {passive: false});
 let tapPick = null;   /* set by endPointer when a pointer went down and up without moving: the click that follows may pick a ring */
 stage.addEventListener('click', e => { const t = tapPick; tapPick = null; if (!t || onControls(e) || boxMode || performance.now() - t.t > 400) return; const m = markAt(t.x, t.y); if (m) selectCode(m.it.code); });
 stage.addEventListener('dblclick', e => { if (onControls(e) || boxMode) return; e.preventDefault(); const p = stagePoint(e); highlight = null; zoomBy(e.shiftKey ? .5 : 2, p.x, p.y); });
 function startPinch() { const a = [...pointers.values()]; if (a.length < 2) { pinch = null; return; } const mid = {x: (a[0].x + a[1].x) / 2, y: (a[0].y + a[1].y) / 2}; pinch = {distance: Math.max(10, Math.hypot(a[1].x - a[0].x, a[1].y - a[0].y)), z: camera.z, rot: camera.rot, angle: Math.atan2(a[1].y - a[0].y, a[1].x - a[0].x) * 180 / Math.PI, anchor: screenToSource(mid.x, mid.y), mid}; }
-stage.addEventListener('pointerdown', e => { if (onControls(e) || e.button > 0) return; e.preventDefault(); stage.focus({preventScroll: true}); const p = stagePoint(e); pointers.set(e.pointerId, p); stage.setPointerCapture(e.pointerId); highlight = null;
+stage.addEventListener('pointerdown', e => { if (onControls(e) || e.button > 0) return; e.preventDefault(); stage.focus({preventScroll: true}); stopFling(); stopZoomAnim(); panTrail = []; const p = stagePoint(e); pointers.set(e.pointerId, p); stage.setPointerCapture(e.pointerId); highlight = null;
   if (boxMode && pointers.size === 1) { boxStart = p; const s = $('sel'); s.style.display = 'block'; s.style.left = p.x + 'px'; s.style.top = p.y + 'px'; s.style.width = s.style.height = '0px'; return; }
   if (pointers.size === 2) { if (boxStart) { boxStart = null; $('sel').style.display = 'none'; setBox(false); } startPinch(); gestureStart = null; } else if (pointers.size === 1) { gestureStart = {p, cx: camera.cx, cy: camera.cy, rot: camera.rot, rotate: e.altKey || e.shiftKey, t: performance.now(), type: e.pointerType, moved: false}; stage.classList.add('dragging'); } });
 stage.addEventListener('pointermove', e => { if (!pointers.has(e.pointerId)) return; e.preventDefault(); const p = stagePoint(e); pointers.set(e.pointerId, p);
@@ -513,13 +592,16 @@ stage.addEventListener('pointermove', e => { if (!pointers.has(e.pointerId)) ret
     keepUnder(pinch.anchor, mid.x, mid.y); changeView(); }
   else if (gestureStart) { touchInteraction(); const dx = p.x - gestureStart.p.x, dy = p.y - gestureStart.p.y; gestureStart.moved = gestureStart.moved || Math.hypot(dx, dy) > 5;
     if (gestureStart.rotate) { const a0 = Math.atan2(gestureStart.p.y - sh / 2, gestureStart.p.x - sw / 2), a1 = Math.atan2(p.y - sh / 2, p.x - sw / 2); camera.rot = gestureStart.rot + (a1 - a0) * 180 / Math.PI; changeView(false); return; }
+    panTrail.push({t: performance.now(), x: p.x, y: p.y}); if (panTrail.length > 12) panTrail.shift();
     const s = fitScale * camera.z, r = camera.rot * Math.PI / 180; camera.cx = gestureStart.cx - (dx * Math.cos(r) + dy * Math.sin(r)) / s; camera.cy = gestureStart.cy - (-dx * Math.sin(r) + dy * Math.cos(r)) / s; changeView(); } });
 /* keep a sheet point under a screen point after a zoom or a turn */
 function keepUnder(sheetPt, sx, sy) { const M = sheetToDevice(fitScale * camera.z, sw, sh); const d = applyM(M, sheetPt.x, sheetPt.y); const r = camera.rot * Math.PI / 180, s = fitScale * camera.z, ex = sx - d.x, ey = sy - d.y; camera.cx -= (ex * Math.cos(r) + ey * Math.sin(r)) / s; camera.cy -= (-ex * Math.sin(r) + ey * Math.cos(r)) / s; }
-function endPointer(e) { if (!pointers.has(e.pointerId)) return; const p = stagePoint(e); tapPick = (gestureStart && !gestureStart.moved && !boxStart && pointers.size === 1) ? {x: p.x, y: p.y, t: performance.now()} : null;
+function endPointer(e) { if (!pointers.has(e.pointerId)) return; const p = stagePoint(e);
+  let flick = null; if (e.type === 'pointerup' && pointers.size === 1 && gestureStart && gestureStart.moved && !gestureStart.rotate && !boxStart && panTrail.length > 1) {
+    const now = performance.now(), recent = panTrail.filter(q => now - q.t < 160); if (recent.length > 1) { const a = recent[0], b = recent[recent.length - 1], dt = Math.max(8, b.t - a.t); flick = {vx: (b.x - a.x) / dt, vy: (b.y - a.y) / dt}; if (Math.hypot(flick.vx, flick.vy) < .25) flick = null; } } tapPick = (gestureStart && !gestureStart.moved && !boxStart && pointers.size === 1) ? {x: p.x, y: p.y, t: performance.now()} : null;
   if (boxStart) { const a = screenToSource(boxStart.x, boxStart.y), b = screenToSource(p.x, p.y); if (Math.abs(p.x - boxStart.x) > 8 && Math.abs(p.y - boxStart.y) > 8) gotoRect([Math.min(a.x, b.x), Math.min(a.y, b.y), Math.max(a.x, b.x), Math.max(a.y, b.y)], 'Selected detail'); boxStart = null; $('sel').style.display = 'none'; setBox(false); }
   else if (gestureStart && gestureStart.type === 'touch' && !gestureStart.moved && performance.now() - gestureStart.t < 280) { if (lastTap && performance.now() - lastTap.t < 330 && Math.hypot(lastTap.x - p.x, lastTap.y - p.y) < 28) { zoomBy(2, p.x, p.y); lastTap = null; } else lastTap = {x: p.x, y: p.y, t: performance.now()}; }
-  pointers.delete(e.pointerId); pinch = null; gestureStart = null; if (pointers.size === 1) { const one = [...pointers.values()][0]; gestureStart = {p: one, cx: camera.cx, cy: camera.cy, t: performance.now(), moved: true, type: e.pointerType}; } if (!pointers.size) { stage.classList.remove('dragging'); changeView(false); } }
+  pointers.delete(e.pointerId); pinch = null; gestureStart = null; if (flick) fling(flick.vx, flick.vy); if (pointers.size === 1) { const one = [...pointers.values()][0]; gestureStart = {p: one, cx: camera.cx, cy: camera.cy, t: performance.now(), moved: true, type: e.pointerType}; } if (!pointers.size) { stage.classList.remove('dragging'); changeView(false); } }
 stage.addEventListener('pointerup', endPointer); stage.addEventListener('pointercancel', e => { lastTap = null; endPointer(e); });
 window.addEventListener('keydown', e => { if (e.target.matches('input,textarea,select') || e.ctrlKey || e.metaKey || e.altKey) return; const key = e.key.toLowerCase();
   if (!['+', '=', '-', '_', 'home', '0', 'z', '/', 'escape', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown', '1', '2', '3', 'r', 'n', 'd'].includes(key)) return; e.preventDefault();

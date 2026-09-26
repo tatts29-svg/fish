@@ -1,6 +1,6 @@
 --- index.live.html	2026-09-26 22:36:20.773960310 +0000
-+++ explorer/index.html	2026-09-26 22:45:46.215893399 +0000
-@@ -70,7 +70,24 @@
++++ explorer/index.html	2026-09-26 23:34:10.249320580 +0000
+@@ -70,7 +70,25 @@
  @media(max-width:900px){header{gap:8px;padding:0 8px}header b{font-size:16px;flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}header .brand{display:none}
    header>.xnav{display:none}.xnav.side{display:flex;flex-wrap:wrap;margin:0}.xnav.side[hidden]{display:none}.modes{margin-left:auto;flex:0 0 auto}.modes button{padding:7px 7px}.modes button .l{display:none}.modes button .s{display:inline}
    .hud{top:54px;left:8px;right:8px;align-items:flex-start}.console{right:8px;top:8px;gap:5px}.console button{min-width:32px;padding:0 7px}
@@ -22,11 +22,12 @@
 +@media(max-width:900px){.rose{top:auto;bottom:40px;right:10px}.dial{width:80px;height:80px}.dial button{width:28px;height:28px;margin:-14px 0 0 -14px}.dial button b{font-size:13px;line-height:28px}
 + .dial button[data-face="0"]{transform:rotate(0deg) translateY(-26px)}.dial button[data-face="90"]{transform:rotate(90deg) translateY(-26px)}.dial button[data-face="180"]{transform:rotate(180deg) translateY(-26px)}.dial button[data-face="270"]{transform:rotate(270deg) translateY(-26px)}
 + .dial::before{inset:16px}.dial .needle{margin-top:-22px;border-bottom-width:22px}.dial .needle::after{top:22px;border-top-width:22px}}
++.attrib .glogo{height:14px;width:auto;vertical-align:-3px;margin-right:2px}
 +</style>
  </head>
  <body>
  <div class="app">
-@@ -107,7 +124,7 @@
+@@ -107,7 +125,7 @@
    <div class="hud"><div class="pill" id="viewName">Full master plan</div><div class="pill" id="overzoom" style="display:none"><b>Imagery enlarged beyond source detail</b> · the drawing is re-rendered from its vectors; the photograph is not</div></div>
    <div class="console"><input id="zoomInput" value="100" aria-label="Zoom percent"><button id="zoomOut" aria-label="Zoom out">−</button><button id="zoomIn" aria-label="Zoom in">+</button><button id="fitBtn">Fit</button><button id="boxBtn" aria-pressed="false" title="Box zoom (Z)">▭</button><button id="fullBtn" title="Full screen">⛶</button><button id="exportBtn" title="Save PNG of this view">PNG</button></div>
    <div class="mini" id="mini" title="Overview, as drawn · north is to the left"><div id="miniInner"><img id="miniImg" alt=""><svg viewBox="0 0 2384 1684" id="miniSvg"><polygon id="miniRect" points="0,0 2384,0 2384,1684 0,1684"/></svg></div><span class="miniN" id="miniN" title="North is to the left">← N</span></div>

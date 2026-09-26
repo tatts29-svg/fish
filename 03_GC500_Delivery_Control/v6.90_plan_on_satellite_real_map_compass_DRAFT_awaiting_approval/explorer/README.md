@@ -93,6 +93,26 @@ The compass sits in the top-right corner (bottom-right on a phone):
 - "Facing …" says which way the top of the view looks. As drawn (or D) turns it back to the sheet's own orientation.
 - Two fingers still twist it, Alt- or Shift-drag still turns it, and N or R still work.
 
+### Google's aerial photograph
+- Satellite + plan and Satellite only now use Google's satellite (Map Tiles API 2D tiles, satellite). At the circuit
+  this is Vexcel's 2026 aerial, to zoom 21 ("Imagery ©2026 Airbus, Vexcel Imaging US, Inc.").
+- It comes through the dashboard's own Google key, the one the 3D proof uses. No new key and no server change: the
+  service's policy already admits tile.googleapis.com.
+- Google's logo and imagery credit are shown whenever its tiles are.
+- If Google's session cannot be had, or the tiles are refused, Mapbox takes over automatically.
+- Cost: each tile is one billable event. There are 100,000 free a month, then US$0.60 per 1,000.
+- Google marks its highest-zoom tiles with a faint "© 2026 Google".
+
+### The Google Maps feel
+- Wheel, buttons, double-click and double-tap zoom glide about the point under the cursor or finger.
+- While a zoom glides, tiles are fetched only for where it lands.
+- A flick coasts and slows to a stop.
+- Reduced-motion settings get the old instant steps.
+
+### One seamless photograph
+The tiles are laid edge to edge on one picture, which is turned and scaled in a single draw. Drawn one by one at an
+angle, each tile's smoothed edge left a dark hairline where tiles met.
+
 ### Smoothness
 - While the view moves, the photograph is drawn with fast smoothing. The high-quality pass lands 160 ms after the hand
   stops. In the test browser's frame work this cut the drawing cost of a wheel burst from about 7.0 s to 0.23 s.

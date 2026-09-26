@@ -1,5 +1,5 @@
 // Plan on satellite: look at it. Fit, face north, face south, zoom on Surfers, the inset's true place; desk and phone
-const {open, settle} = require('/tmp/claude-0/stage/tools/harness');
+const {open, settle} = require('/tmp/claude-0/stage2/tools/harness2');
 const V = process.argv[2] || 'after', PHONE = process.argv[3] === 'phone';
 const DIRS = V === 'before' ? ['/tmp/claude-0/stage/work/before_site'] : ['/tmp/claude-0/stage2/explorer', '/tmp/claude-0/stage/work/before_site'];
 (async () => { process.env.GL = '1';

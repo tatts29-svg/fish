@@ -1,6 +1,6 @@
 // Plan on satellite: how it feels. Frame gaps during a wheel zoom burst, a drag and a turn; time until the view is sharp again.
 // node perf.js before|after [phone]
-const {open, settle} = require('/tmp/claude-0/stage/tools/harness');
+const {open, settle} = require('/tmp/claude-0/stage2/tools/harness2');
 const V = process.argv[2] || 'after', PHONE = process.argv[3] === 'phone';
 const DIRS = V === 'before' ? ['/tmp/claude-0/stage/work/before_site'] : ['/tmp/claude-0/stage2/explorer', '/tmp/claude-0/stage/work/before_site'];
 (async () => {
