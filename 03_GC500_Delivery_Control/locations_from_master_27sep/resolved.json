@@ -1,0 +1,4903 @@
+[
+{
+"k": "AA",
+"name": "Active Air Crib Room",
+"item": "Building 6m",
+"first": "2026-09-17",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1003.1,
+579.0
+],
+"n_positions": 1,
+"latlng": [
+-27.986807,
+153.428251
+],
+"near": [
+"S02 (~45 m)"
+],
+"inset": false,
+"beside": [
+"P12",
+"P13",
+"P14",
+"P15",
+"P16",
+"P36"
+],
+"precision": "unit",
+"labelled_near": [
+"HRP",
+"TEAMS",
+"HTH"
+]
+},
+{
+"k": "CP1",
+"name": "P68 \u00b7 Signevent Crib Room",
+"item": "Building 6m",
+"first": "2026-09-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout CP1 on D022",
+"sheet_pt": [
+2160.9,
+1285.7
+],
+"n_positions": 1,
+"latlng": [
+-27.99749,
+153.428257
+],
+"near": [],
+"inset": true,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "GN01",
+"name": "Generator",
+"item": "60kva",
+"first": "2026-09-28",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 001 on D024",
+"sheet_pt": [
+871.8,
+763.4
+],
+"n_positions": 1,
+"latlng": [
+-27.985974,
+153.426924
+],
+"near": [
+"S13 (~30 m)",
+"Pit Lane (~40 m)"
+],
+"inset": false,
+"beside": [
+"BS01"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "GN03",
+"name": "Generator",
+"item": "30kva",
+"first": "2026-10-01",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 003 on D024",
+"sheet_pt": [
+1192.7,
+625.6
+],
+"n_positions": 1,
+"latlng": [
+-27.988016,
+153.42792
+],
+"near": [
+"S04 (~35 m)"
+],
+"inset": false,
+"beside": [
+"BS03"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "GN04",
+"name": "Generator",
+"item": "30kva",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 004 on D024, read by eye (the tracer missed it)",
+"sheet_pt": [
+1581.0,
+577.4
+],
+"n_positions": 1,
+"latlng": [
+-27.990489,
+153.428273
+],
+"near": [
+"S15 (~25 m)"
+],
+"inset": false,
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "GN06",
+"name": "Generator",
+"item": "50kva",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 006 on D024",
+"sheet_pt": [
+2129.0,
+243.1
+],
+"n_positions": 1,
+"latlng": [
+-27.993975,
+153.430684
+],
+"near": [],
+"inset": false,
+"beside": [
+"P60",
+"P62",
+"WC49"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "GN10",
+"name": "Generator",
+"item": "20kva",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 010 on D024",
+"sheet_pt": [
+1656.9,
+329.4
+],
+"n_positions": 1,
+"latlng": [
+-27.990969,
+153.430056
+],
+"near": [],
+"inset": false,
+"beside": [
+"BS04"
+],
+"precision": "unit",
+"labelled_near": [
+"FOOD"
+]
+},
+{
+"k": "GN13",
+"name": "Generator",
+"item": "45kva",
+"first": "2026-10-12",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 013 on D024",
+"sheet_pt": [
+1270.5,
+310.8
+],
+"n_positions": 1,
+"latlng": [
+-27.988507,
+153.430183
+],
+"near": [],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"EQUIPMENT"
+]
+},
+{
+"k": "GN18",
+"name": "Generator",
+"item": "50kva",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 018 on D024",
+"sheet_pt": [
+493.9,
+1144.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983572,
+153.42418
+],
+"near": [
+"Gate 2 (~30 m)",
+"Commodore (~45 m)"
+],
+"inset": false,
+"beside": [
+"P08",
+"P51",
+"WC38"
+],
+"precision": "unit",
+"labelled_near": [
+"GEM"
+]
+},
+{
+"k": "GN19",
+"name": "Generator",
+"item": "60kva",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 019 on D024",
+"sheet_pt": [
+278.2,
+1084.0
+],
+"n_positions": 1,
+"latlng": [
+-27.982197,
+153.424611
+],
+"near": [
+"Hill Pde (~55 m)",
+"S25 (~10 m)",
+"The Hill (~25 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "GN20",
+"name": "S01",
+"item": "350kva",
+"first": "2026-09-30",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 020 on D024",
+"sheet_pt": [
+783.7,
+739.9
+],
+"n_positions": 1,
+"latlng": [
+-27.985412,
+153.427092
+],
+"near": [
+"S13 (~45 m)",
+"Pit Lane (~60 m)"
+],
+"inset": false,
+"beside": [
+"BS12"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "GN21",
+"name": "Generator",
+"item": "60kva",
+"first": "2026-09-30",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 021 on D024",
+"sheet_pt": [
+376.6,
+1159.3
+],
+"n_positions": 2,
+"latlng": [
+-27.982825,
+153.424072
+],
+"near": [
+"S25 (~85 m)",
+"Gate 2 (~70 m)",
+"Commodore (~45 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "GN23",
+"name": "Generator",
+"item": "150kva",
+"first": "2026-09-30",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 023 on D024",
+"sheet_pt": [
+926.0,
+654.1
+],
+"n_positions": 1,
+"latlng": [
+-27.986317,
+153.427711
+],
+"near": [
+"S02 (~40 m)",
+"Pit Lane (~60 m)"
+],
+"inset": false,
+"beside": [
+"OP02"
+],
+"precision": "unit",
+"labelled_near": [
+"COOL",
+"PODIUM"
+]
+},
+{
+"k": "GN24",
+"name": "Generator",
+"item": "80kva",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 024 on D024",
+"sheet_pt": [
+438.1,
+784.3
+],
+"n_positions": 1,
+"latlng": [
+-27.983211,
+153.426767
+],
+"near": [
+"Macintosh Island (~105 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"EVL"
+]
+},
+{
+"k": "GN25",
+"name": "Generator",
+"item": "20kva",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)"
+},
+{
+"k": "GN?",
+"name": "Concert",
+"item": "200kva & cables",
+"first": "2026-10-12",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "HRP",
+"name": "Hire Republic Crib Room",
+"item": "Building 6m",
+"first": "2026-09-17",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+994.6,
+582.0
+],
+"n_positions": 1,
+"latlng": [
+-27.986753,
+153.42823
+],
+"near": [
+"S02 (~40 m)"
+],
+"inset": false,
+"beside": [
+"P11",
+"P12",
+"P13",
+"P14",
+"P15",
+"P36"
+],
+"precision": "unit",
+"labelled_near": [
+"HRP",
+"TEAMS",
+"HTH"
+]
+},
+{
+"k": "LT01",
+"name": "Light tower 01 \u2014 keyed on D024 to the BSF storage yard, Molendinar",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 01 on D024"
+},
+{
+"k": "LT02",
+"name": "Light tower 02 \u2014 keyed on D024 to the BSF storage yard, Molendinar",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 02 on D024"
+},
+{
+"k": "LT03",
+"name": "Light tower 03 \u2014 keyed on D024 to the BSF storage yard, Molendinar",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 03 on D024"
+},
+{
+"k": "LT04",
+"name": "Light tower 04 \u2014 keyed on D024 to the BSF storage yard, Molendinar",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 04 on D024"
+},
+{
+"k": "LT05",
+"name": "Light Towers",
+"item": "Light Tower",
+"first": "2026-10-20",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 05 on D024"
+},
+{
+"k": "LT06",
+"name": "Light Towers",
+"item": "Light Tower",
+"first": "2026-10-20",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 06 on D024"
+},
+{
+"k": "LTC01",
+"name": "Circuit light tower 01 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 01 on D024",
+"sheet_pt": [
+885.8,
+760.4
+],
+"n_positions": 1,
+"latlng": [
+-27.986063,
+153.426946
+],
+"near": [
+"Commodore Dr (~50 m)",
+"S14 (~25 m)",
+"Pit Lane (~40 m)"
+],
+"inset": false,
+"beside": [
+"BS01"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "LTC02",
+"name": "Circuit light tower 02 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 02 on D024",
+"sheet_pt": [
+995.4,
+701.5
+],
+"n_positions": 1,
+"latlng": [
+-27.98676,
+153.427371
+],
+"near": [
+"S02 (~45 m)",
+"Pit Lane (~95 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "LTC03",
+"name": "Circuit light tower 03 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 03 on D024",
+"sheet_pt": [
+1214.9,
+625.1
+],
+"n_positions": 1,
+"latlng": [
+-27.988157,
+153.427924
+],
+"near": [
+"S04 (~45 m)",
+"Gate 3 (~65 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "LTC04",
+"name": "Circuit light tower 04 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 04 on D024",
+"sheet_pt": [
+1657.5,
+322.4
+],
+"n_positions": 1,
+"latlng": [
+-27.990972,
+153.430106
+],
+"near": [],
+"inset": false,
+"beside": [
+"BS04"
+],
+"precision": "unit",
+"labelled_near": [
+"FOOD"
+]
+},
+{
+"k": "LTC05",
+"name": "Circuit light tower 05 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 05 on D024",
+"sheet_pt": [
+771.5,
+320.0
+],
+"n_positions": 1,
+"latlng": [
+-27.985328,
+153.430109
+],
+"near": [
+"S21 (~40 m)"
+],
+"inset": false,
+"beside": [
+"BS05"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "LTC06",
+"name": "Circuit light tower 06 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 06 on D024",
+"sheet_pt": [
+691.3,
+378.4
+],
+"n_positions": 1,
+"latlng": [
+-27.984817,
+153.429688
+],
+"near": [
+"S22 (~30 m)"
+],
+"inset": false,
+"beside": [
+"BS06"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "LTC07",
+"name": "Circuit light tower 07 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 07 on D024",
+"sheet_pt": [
+249.8,
+1182.7
+],
+"n_positions": 1,
+"latlng": [
+-27.982017,
+153.423901
+],
+"near": [
+"Gold Coast Hwy (~35 m)",
+"S23 (~50 m)",
+"Gate 1 (~60 m)",
+"The Hill (~45 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"HINO"
+]
+},
+{
+"k": "LTC08",
+"name": "Circuit light tower 08 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 08 on D024",
+"sheet_pt": [
+296.2,
+1118.4
+],
+"n_positions": 1,
+"latlng": [
+-27.982312,
+153.424364
+],
+"near": [
+"Gold Coast Hwy (~50 m)",
+"S25 (~30 m)",
+"The Hill (~20 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "LTC09",
+"name": "Circuit light tower 09 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 09 on D024",
+"sheet_pt": [
+602.4,
+872.2
+],
+"n_positions": 1,
+"latlng": [
+-27.984259,
+153.426138
+],
+"near": [
+"S11 (~95 m)",
+"Macintosh Island (~95 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"MERCH"
+]
+},
+{
+"k": "LTC10",
+"name": "Circuit light tower 10 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 10 on D024",
+"sheet_pt": [
+757.8,
+554.5
+],
+"n_positions": 1,
+"latlng": [
+-27.985244,
+153.428424
+],
+"near": [],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "LTC11",
+"name": "Circuit light tower 11 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 11 on D024",
+"sheet_pt": [
+725.7,
+766.1
+],
+"n_positions": 1,
+"latlng": [
+-27.985043,
+153.426903
+],
+"near": [
+"S12 (~55 m)",
+"Pit Lane (~105 m)"
+],
+"inset": false,
+"beside": [
+"BS11",
+"P18",
+"P19",
+"P20"
+],
+"precision": "unit",
+"labelled_near": [
+"TLS",
+"COW",
+"FREIGHT"
+]
+},
+{
+"k": "LTC12",
+"name": "Circuit light tower 12 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 12 on D024",
+"sheet_pt": [
+783.9,
+745.4
+],
+"n_positions": 1,
+"latlng": [
+-27.985413,
+153.427052
+],
+"near": [
+"S12 (~40 m)",
+"Pit Lane (~60 m)"
+],
+"inset": false,
+"beside": [
+"BS12"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "LTC14",
+"name": "Circuit light tower 14 \u2014 light spread drawn on D024",
+"item": "Light Tower",
+"first": null,
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 14 on D024",
+"sheet_pt": [
+480.2,
+854.6
+],
+"n_positions": 1,
+"latlng": [
+-27.98348,
+153.426263
+],
+"near": [
+"S10 (~100 m)",
+"Macintosh Island (~105 m)"
+],
+"inset": false,
+"beside": [
+"BS14",
+"OP05"
+],
+"precision": "unit",
+"labelled_near": [
+"iEDM",
+"SCA"
+]
+},
+{
+"k": "P01",
+"name": "iEDM Engineering Office",
+"item": "Building 12m",
+"first": "2026-09-14",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+475.1,
+810.4
+],
+"n_positions": 1,
+"latlng": [
+-27.983447,
+153.42658
+],
+"near": [
+"Macintosh Island (~85 m)"
+],
+"inset": false,
+"beside": [
+"OP01",
+"P03",
+"P04",
+"P05"
+],
+"precision": "unit",
+"labelled_near": [
+"OPS"
+]
+},
+{
+"k": "P03",
+"name": "SCA Event Management Office",
+"item": "Building 12m",
+"first": "2026-09-14",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+489.9,
+819.9
+],
+"n_positions": 1,
+"latlng": [
+-27.983541,
+153.426512
+],
+"near": [
+"Macintosh Island (~80 m)"
+],
+"inset": false,
+"beside": [
+"P01",
+"P04"
+],
+"precision": "unit",
+"labelled_near": [
+"SCA",
+"OPS"
+]
+},
+{
+"k": "P04",
+"name": "SCA Sales & Marketing Office",
+"item": "Building 12m",
+"first": "2026-09-14",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+482.4,
+830.2
+],
+"n_positions": 1,
+"latlng": [
+-27.983494,
+153.426438
+],
+"near": [
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"P01",
+"P03",
+"WC05"
+],
+"precision": "unit",
+"labelled_near": [
+"OPS",
+"SCA",
+"iEDM"
+]
+},
+{
+"k": "P05",
+"name": "Event Control Center (ECC)",
+"item": "Building 6m",
+"first": "2026-09-14",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+464.3,
+802.7
+],
+"n_positions": 1,
+"latlng": [
+-27.983378,
+153.426635
+],
+"near": [
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"OP01",
+"P01"
+],
+"precision": "unit",
+"labelled_near": [
+"OPS"
+]
+},
+{
+"k": "P06",
+"name": "Wilclean Crib Room",
+"item": "Building 6m",
+"first": "2026-09-28",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+598.9,
+649.4
+],
+"n_positions": 1,
+"latlng": [
+-27.984233,
+153.427739
+],
+"near": [
+"Macintosh Island (~70 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"WIL"
+]
+},
+{
+"k": "P08",
+"name": "Security",
+"item": "Building 6m",
+"first": "2026-10-06",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+495.6,
+1148.8
+],
+"n_positions": 1,
+"latlng": [
+-27.983582,
+153.424149
+],
+"near": [
+"Gate 2 (~30 m)",
+"Commodore (~45 m)"
+],
+"inset": false,
+"beside": [
+"P51",
+"WC38"
+],
+"precision": "unit",
+"labelled_near": [
+"GEM"
+]
+},
+{
+"k": "P09",
+"name": "Iedm Safety Office",
+"item": "Building 6m",
+"first": "2026-09-16",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+691.6,
+794.5
+],
+"n_positions": 1,
+"latlng": [
+-27.984826,
+153.426698
+],
+"near": [
+"S11 (~50 m)",
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"OP03",
+"OP103",
+"OP66",
+"P33"
+],
+"precision": "unit",
+"labelled_near": [
+"ADMIN",
+"MERCH",
+"RACE"
+]
+},
+{
+"k": "P10",
+"name": "Team Office - 888 Racing",
+"item": "Building 4.8m",
+"first": "2026-09-17",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+971.1,
+595.7
+],
+"n_positions": 1,
+"latlng": [
+-27.986604,
+153.428131
+],
+"near": [
+"S02 (~30 m)",
+"Pit Lane (~110 m)"
+],
+"inset": false,
+"beside": [
+"P11",
+"P12",
+"P36",
+"WC17"
+],
+"precision": "unit",
+"labelled_near": [
+"TIC",
+"CATERING",
+"HRP"
+]
+},
+{
+"k": "P11",
+"name": "Team Office - DJR",
+"item": "Building 4.8m",
+"first": "2026-09-17",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+980.1,
+592.8
+],
+"n_positions": 1,
+"latlng": [
+-27.986661,
+153.428152
+],
+"near": [
+"S02 (~35 m)"
+],
+"inset": false,
+"beside": [
+"P10",
+"P12",
+"P13",
+"P36",
+"WC17"
+],
+"precision": "unit",
+"labelled_near": [
+"HRP",
+"TIC",
+"TEAMS"
+]
+},
+{
+"k": "P12",
+"name": "Team 18",
+"item": "Building 4.8m",
+"first": "2026-09-17",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+989.2,
+589.5
+],
+"n_positions": 1,
+"latlng": [
+-27.986719,
+153.428176
+],
+"near": [
+"S02 (~35 m)"
+],
+"inset": false,
+"beside": [
+"P10",
+"P11",
+"P13",
+"P14",
+"P36"
+],
+"precision": "unit",
+"labelled_near": [
+"HRP",
+"TEAMS",
+"TIC"
+]
+},
+{
+"k": "P13",
+"name": "Team Office - WAU",
+"item": "Building 4.8m",
+"first": "2026-09-21",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+998.5,
+586.4
+],
+"n_positions": 1,
+"latlng": [
+-27.986778,
+153.428198
+],
+"near": [
+"S02 (~40 m)"
+],
+"inset": false,
+"beside": [
+"P11",
+"P12",
+"P14",
+"P15",
+"P36",
+"P37"
+],
+"precision": "unit",
+"labelled_near": [
+"HRP",
+"TEAMS",
+"HTH"
+]
+},
+{
+"k": "P14",
+"name": "Team Office - Grove Racing",
+"item": "Building 4.8m",
+"first": "2026-09-21",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1006.5,
+583.7
+],
+"n_positions": 1,
+"latlng": [
+-27.986829,
+153.428218
+],
+"near": [
+"S02 (~45 m)"
+],
+"inset": false,
+"beside": [
+"P12",
+"P13",
+"P15",
+"P16",
+"P36",
+"P37"
+],
+"precision": "unit",
+"labelled_near": [
+"TEAMS",
+"HRP",
+"AUDIO"
+]
+},
+{
+"k": "P15",
+"name": "Team Office - Erebus Motorsport",
+"item": "Building 4.8m",
+"first": "2026-09-21",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1015.4,
+580.9
+],
+"n_positions": 1,
+"latlng": [
+-27.986885,
+153.428239
+],
+"near": [
+"S02 (~50 m)"
+],
+"inset": false,
+"beside": [
+"P13",
+"P14",
+"P16",
+"P37",
+"WC73"
+],
+"precision": "unit",
+"labelled_near": [
+"AUDIO",
+"TEAMS",
+"DUNLOP"
+]
+},
+{
+"k": "P16",
+"name": "Team Office - WFL",
+"item": "Building 4.8m",
+"first": "2026-09-21",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1024.2,
+578.0
+],
+"n_positions": 1,
+"latlng": [
+-27.986942,
+153.428259
+],
+"near": [
+"S02 (~55 m)"
+],
+"inset": false,
+"beside": [
+"P14",
+"P15",
+"P37",
+"WC73"
+],
+"precision": "unit",
+"labelled_near": [
+"AUDIO",
+"DUNLOP",
+"HD6 GRIP"
+]
+},
+{
+"k": "P17",
+"name": "Team Office BJR",
+"item": "Building 9.6m",
+"first": "2026-09-16",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+701.4,
+755.4
+],
+"n_positions": 1,
+"latlng": [
+-27.984888,
+153.426979
+],
+"near": [
+"S11 (~70 m)",
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"BS11",
+"OP103",
+"P18",
+"P19",
+"P20",
+"P21"
+],
+"precision": "unit",
+"labelled_near": [
+"TLS",
+"COW",
+"MERCH"
+]
+},
+{
+"k": "P18",
+"name": "Team Office - MSR",
+"item": "Building 4.8m",
+"first": "2026-09-16",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+712.8,
+774.0
+],
+"n_positions": 1,
+"latlng": [
+-27.98496,
+153.426846
+],
+"near": [
+"S11 (~55 m)",
+"Macintosh Island (~100 m)"
+],
+"inset": false,
+"beside": [
+"OP103",
+"OP66",
+"P17",
+"P19",
+"P20",
+"P21"
+],
+"precision": "unit",
+"labelled_near": [
+"COW",
+"TLS",
+"MERCH"
+]
+},
+{
+"k": "P19",
+"name": "Team Office Premiair Racing",
+"item": "Building 4.8m",
+"first": "2026-09-16",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+706.5,
+767.3
+],
+"n_positions": 1,
+"latlng": [
+-27.984921,
+153.426893
+],
+"near": [
+"S11 (~60 m)",
+"Macintosh Island (~95 m)"
+],
+"inset": false,
+"beside": [
+"BS11",
+"OP103",
+"P17",
+"P18",
+"P20",
+"P21"
+],
+"precision": "unit",
+"labelled_near": [
+"TLS",
+"COW",
+"MERCH"
+]
+},
+{
+"k": "P20",
+"name": "Team Office Blanchard Racing",
+"item": "Building 4.8m",
+"first": "2026-09-16",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+712.5,
+760.2
+],
+"n_positions": 1,
+"latlng": [
+-27.984958,
+153.426944
+],
+"near": [
+"S11 (~65 m)",
+"Macintosh Island (~95 m)"
+],
+"inset": false,
+"beside": [
+"BS11",
+"P17",
+"P18",
+"P19",
+"P21"
+],
+"precision": "unit",
+"labelled_near": [
+"TLS",
+"COW"
+]
+},
+{
+"k": "P21",
+"name": "Team Objective Racing",
+"item": "Building 4.8m",
+"first": "2026-09-16",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+703.5,
+770.8
+],
+"n_positions": 1,
+"latlng": [
+-27.984901,
+153.426869
+],
+"near": [
+"S11 (~60 m)",
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"OP103",
+"OP66",
+"P17",
+"P18",
+"P19",
+"P20"
+],
+"precision": "unit",
+"labelled_near": [
+"COW",
+"TLS",
+"MERCH"
+]
+},
+{
+"k": "P25",
+"name": "Support Category Stewards",
+"item": "Building 4.8m",
+"first": "2026-10-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1738.2,
+277.8
+],
+"n_positions": 1,
+"latlng": [
+-27.991486,
+153.430428
+],
+"near": [],
+"inset": false,
+"beside": [
+"OP78",
+"P65",
+"P66",
+"WC54"
+],
+"precision": "unit",
+"labelled_near": [
+"TENDERS"
+]
+},
+{
+"k": "P26",
+"name": "Fridge Delivery",
+"item": "Fridge Lge",
+"first": "2026-10-16",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 026 on D022",
+"sheet_pt": [
+677.4,
+821.0
+],
+"n_positions": 1,
+"latlng": [
+-27.984736,
+153.426507
+],
+"near": [
+"S11 (~45 m)",
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"WC06"
+],
+"precision": "unit",
+"labelled_near": [
+"ADMIN",
+"RACE"
+]
+},
+{
+"k": "P28",
+"name": "Fridge Delivery",
+"item": "Fridge Lge",
+"first": "2026-10-16",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 028 on D022",
+"sheet_pt": [
+681.6,
+820.5
+],
+"n_positions": 1,
+"latlng": [
+-27.984763,
+153.426511
+],
+"near": [
+"S11 (~40 m)",
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"OP03",
+"WC06"
+],
+"precision": "unit",
+"labelled_near": [
+"ADMIN",
+"RACE"
+]
+},
+{
+"k": "P33",
+"name": "Race Medical",
+"item": "Building 9.6m",
+"first": "2026-09-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+699.5,
+802.0
+],
+"n_positions": 1,
+"latlng": [
+-27.984876,
+153.426644
+],
+"near": [
+"S11 (~40 m)",
+"Macintosh Island (~95 m)"
+],
+"inset": false,
+"beside": [
+"OP03",
+"OP66",
+"P09",
+"WC11"
+],
+"precision": "unit",
+"labelled_near": [
+"ADMIN",
+"RACE",
+"MERCH"
+]
+},
+{
+"k": "P34",
+"name": "Chair Delivery",
+"item": "Pad Chair",
+"first": "2026-10-16",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+686.1,
+815.2
+],
+"n_positions": 1,
+"latlng": [
+-27.984791,
+153.426549
+],
+"near": [
+"S11 (~40 m)",
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"OP03",
+"P09",
+"P33",
+"WC06",
+"WC11"
+],
+"precision": "unit",
+"labelled_near": [
+"ADMIN",
+"RACE"
+]
+},
+{
+"k": "P36",
+"name": "Harry the Hirer",
+"item": "Building 6m",
+"first": "2026-09-17",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+985.7,
+584.8
+],
+"n_positions": 1,
+"latlng": [
+-27.986696,
+153.42821
+],
+"near": [
+"S02 (~40 m)"
+],
+"inset": false,
+"beside": [
+"P10",
+"P11",
+"P12",
+"P13",
+"P14"
+],
+"precision": "unit",
+"labelled_near": [
+"HRP",
+"TEAMS",
+"HTH"
+]
+},
+{
+"k": "P37",
+"name": "Oz Wide Audio Crib Room",
+"item": "Building 6m",
+"first": "2026-09-17",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1011.8,
+575.9
+],
+"n_positions": 1,
+"latlng": [
+-27.986862,
+153.428274
+],
+"near": [
+"S02 (~50 m)"
+],
+"inset": false,
+"beside": [
+"P13",
+"P14",
+"P15",
+"P16"
+],
+"precision": "unit",
+"labelled_near": [
+"AUDIO",
+"HD6 GRIP",
+"HRP"
+]
+},
+{
+"k": "P38",
+"name": "Green Room 1",
+"item": "Building 6m",
+"first": "2026-09-28",
+"pinned": false,
+"before": "none",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+654.9,
+668.8
+],
+"n_positions": 1,
+"latlng": [
+-27.98459,
+153.427601
+],
+"near": [
+"Macintosh Island (~75 m)"
+],
+"inset": false,
+"beside": [
+"P39",
+"P42"
+],
+"precision": "unit",
+"labelled_near": [
+"STAGE"
+]
+},
+{
+"k": "P39",
+"name": "Green Room 2",
+"item": "Building 6m",
+"first": "2026-09-28",
+"pinned": false,
+"before": "none",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+662.7,
+675.9
+],
+"n_positions": 1,
+"latlng": [
+-27.98464,
+153.42755
+],
+"near": [
+"Macintosh Island (~75 m)"
+],
+"inset": false,
+"beside": [
+"P38",
+"P42"
+],
+"precision": "unit",
+"labelled_near": [
+"STAGE"
+]
+},
+{
+"k": "P41",
+"name": "QFES Crib Room",
+"item": "Building 6m",
+"first": "2026-09-23",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+497.8,
+939.7
+],
+"n_positions": 1,
+"latlng": [
+-27.983593,
+153.425652
+],
+"near": [
+"S10 (~40 m)"
+],
+"inset": false,
+"beside": [
+"WC02"
+],
+"precision": "unit",
+"labelled_near": [
+"RAS",
+"MERCH",
+"RAS / CHL"
+]
+},
+{
+"k": "P42",
+"name": "Production",
+"item": "Building 6m",
+"first": "2026-09-28",
+"pinned": false,
+"before": "none",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+647.2,
+661.3
+],
+"n_positions": 1,
+"latlng": [
+-27.984541,
+153.427654
+],
+"near": [
+"Macintosh Island (~75 m)"
+],
+"inset": false,
+"beside": [
+"P38",
+"P39"
+],
+"precision": "unit",
+"labelled_near": [
+"STAGE"
+]
+},
+{
+"k": "P44",
+"name": "Queensland Ambulance Service",
+"item": "Building 6m",
+"first": "2026-09-23",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+536.5,
+825.4
+],
+"n_positions": 1,
+"latlng": [
+-27.983838,
+153.426473
+],
+"near": [
+"Macintosh Island (~65 m)"
+],
+"inset": false,
+"beside": [
+"OP77",
+"P58",
+"WC04"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "P45",
+"name": "St John First Aid",
+"item": "Building 6m",
+"first": "2026-10-12",
+"pinned": false,
+"before": "none",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1330.8,
+326.6
+],
+"n_positions": 1,
+"latlng": [
+-27.988891,
+153.430071
+],
+"near": [],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "P46",
+"name": "QPS Command Post",
+"item": "Building 12m",
+"first": "2026-10-06",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+482.6,
+1174.6
+],
+"n_positions": 1,
+"latlng": [
+-27.983501,
+153.423964
+],
+"near": [
+"Gate 2 (~45 m)",
+"Commodore (~30 m)"
+],
+"inset": false,
+"beside": [
+"OP14",
+"WC39"
+],
+"precision": "unit",
+"labelled_near": [
+"GEM",
+"OPT",
+"COW"
+]
+},
+{
+"k": "P47",
+"name": "QPS Amenities Crib Room",
+"item": "Building 6m",
+"first": "2026-10-06",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "leader line from callout 047 on D022",
+"sheet_pt": [
+477.1,
+1167.0
+],
+"n_positions": 1,
+"latlng": [
+-27.983465,
+153.424018
+],
+"near": [
+"Gate 2 (~35 m)",
+"Commodore (~25 m)"
+],
+"inset": false,
+"beside": [
+"OP14",
+"P46"
+],
+"precision": "unit",
+"labelled_near": [
+"GEM"
+]
+},
+{
+"k": "P51",
+"name": "Security Sign On",
+"item": "Building 12m",
+"first": "2026-10-06",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+493.6,
+1134.8
+],
+"n_positions": 1,
+"latlng": [
+-27.983569,
+153.424249
+],
+"near": [
+"Gate 2 (~25 m)",
+"Commodore (~45 m)"
+],
+"inset": false,
+"beside": [
+"P08",
+"WC38"
+],
+"precision": "unit",
+"labelled_near": [
+"GEM"
+]
+},
+{
+"k": "P52",
+"name": "Gate 1 Volunteer Check-In",
+"item": "Building 12m",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+139.0,
+1164.2
+],
+"n_positions": 1,
+"latlng": [
+-27.981311,
+153.424032
+],
+"near": [
+"Breaker St (~30 m)",
+"S23 (~35 m)",
+"Gate 1 (~60 m)",
+"Helen (~30 m)"
+],
+"inset": false,
+"beside": [
+"OP10",
+"OP16",
+"P53",
+"P54",
+"P56",
+"WC67"
+],
+"precision": "unit",
+"labelled_near": [
+"SCA",
+"iEDM"
+]
+},
+{
+"k": "P53",
+"name": "Accred Centre",
+"item": "Building 6m",
+"first": "2026-09-29",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+133.0,
+1174.2
+],
+"n_positions": 1,
+"latlng": [
+-27.981273,
+153.423961
+],
+"near": [
+"Breaker St (~20 m)",
+"S23 (~45 m)",
+"Gate 1 (~55 m)",
+"Helen (~25 m)"
+],
+"inset": false,
+"beside": [
+"OP10",
+"P52",
+"P54",
+"P56"
+],
+"precision": "unit",
+"labelled_near": [
+"iEDM"
+]
+},
+{
+"k": "P54",
+"name": "Accred Centre BOH",
+"item": "Building 6m",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+140.1,
+1177.6
+],
+"n_positions": 1,
+"latlng": [
+-27.981318,
+153.423936
+],
+"near": [
+"Breaker St (~25 m)",
+"S23 (~40 m)",
+"Gate 1 (~50 m)",
+"Helen (~20 m)"
+],
+"inset": false,
+"beside": [
+"OP10",
+"OP16",
+"P52",
+"P53",
+"P55",
+"P56"
+],
+"precision": "unit",
+"labelled_near": [
+"iEDM"
+]
+},
+{
+"k": "P55",
+"name": "Gate 1 Ticket Box",
+"item": "Ticket Box 6m",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+144.6,
+1196.1
+],
+"n_positions": 1,
+"latlng": [
+-27.981347,
+153.423803
+],
+"near": [
+"Breaker St (~25 m)",
+"S23 (~45 m)",
+"Gate 1 (~40 m)",
+"Helen (~5 m)"
+],
+"inset": false,
+"beside": [
+"P54",
+"P56"
+],
+"precision": "unit",
+"labelled_near": [
+"iEDM"
+]
+},
+{
+"k": "P56",
+"name": "Gate 1 Ticket BOH",
+"item": "Building 3.6m",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+138.1,
+1184.1
+],
+"n_positions": 1,
+"latlng": [
+-27.981305,
+153.423889
+],
+"near": [
+"Breaker St (~20 m)",
+"S23 (~45 m)",
+"Gate 1 (~50 m)",
+"Helen (~15 m)"
+],
+"inset": false,
+"beside": [
+"P52",
+"P53",
+"P54",
+"P55"
+],
+"precision": "unit",
+"labelled_near": [
+"iEDM"
+]
+},
+{
+"k": "P57",
+"name": "Radio Distribution Office",
+"item": "Building 9.6m",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+140.3,
+1141.7
+],
+"n_positions": 1,
+"latlng": [
+-27.981319,
+153.424194
+],
+"near": [
+"Breaker St (~45 m)",
+"S23 (~35 m)",
+"Gate 1 (~75 m)",
+"Helen (~45 m)"
+],
+"inset": false,
+"beside": [
+"OP10",
+"WC67"
+],
+"precision": "unit",
+"labelled_near": [
+"WC-BSF",
+"BSF",
+"SCA"
+]
+},
+{
+"k": "P58",
+"name": "1300 Medics",
+"item": "Building 6m",
+"first": "2026-09-23",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+544.2,
+821.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983887,
+153.426502
+],
+"near": [
+"Macintosh Island (~60 m)"
+],
+"inset": false,
+"beside": [
+"OP77",
+"P44",
+"WC04"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "P60",
+"name": "Gate 5 Ticket Box",
+"item": "Ticket Box 4.8m",
+"first": "2026-10-15",
+"pinned": false,
+"before": "none",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+2141.4,
+253.2
+],
+"n_positions": 1,
+"latlng": [
+-27.994054,
+153.430612
+],
+"near": [],
+"inset": false,
+"beside": [
+"WC49"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "P62",
+"name": "Gate 5 QFES Office",
+"item": "Building 6m",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+2118.8,
+254.4
+],
+"n_positions": 1,
+"latlng": [
+-27.99391,
+153.430602
+],
+"near": [
+"Gate 6 (~75 m)"
+],
+"inset": false,
+"beside": [
+"OP54",
+"P63",
+"WC49"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "P63",
+"name": "Gate 5 Volunteer Sign On",
+"item": "Building 6m",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+2108.5,
+254.9
+],
+"n_positions": 1,
+"latlng": [
+-27.993845,
+153.430599
+],
+"near": [
+"Gate 6 (~65 m)"
+],
+"inset": false,
+"beside": [
+"OP54",
+"P62"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "P65",
+"name": "Support Categories Race Secretary",
+"item": "Building 6m",
+"first": "2026-10-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1720.9,
+279.1
+],
+"n_positions": 1,
+"latlng": [
+-27.991376,
+153.430418
+],
+"near": [],
+"inset": false,
+"beside": [
+"OP78",
+"P25",
+"P66",
+"P67"
+],
+"precision": "unit",
+"labelled_near": [
+"TENDERS"
+]
+},
+{
+"k": "P66",
+"name": "Support Category Scrutineers",
+"item": "Building 6m",
+"first": "2026-10-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1732.8,
+278.1
+],
+"n_positions": 1,
+"latlng": [
+-27.991452,
+153.430425
+],
+"near": [],
+"inset": false,
+"beside": [
+"OP78",
+"P25",
+"P65",
+"P67",
+"WC54"
+],
+"precision": "unit",
+"labelled_near": [
+"TENDERS"
+]
+},
+{
+"k": "P67",
+"name": "Gate 6 Security Office",
+"item": "Building 6m",
+"first": "2026-10-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1716.3,
+279.6
+],
+"n_positions": 1,
+"latlng": [
+-27.991346,
+153.430415
+],
+"near": [],
+"inset": false,
+"beside": [
+"OP78",
+"P65",
+"P66"
+],
+"precision": "unit",
+"labelled_near": [
+"TENDERS"
+]
+},
+{
+"k": "P69",
+"name": "Supply Building",
+"item": "Building 6m",
+"first": "2026-10-12",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1216.8,
+327.1
+],
+"n_positions": 1,
+"latlng": [
+-27.988165,
+153.430065
+],
+"near": [],
+"inset": false,
+"beside": [
+"OP40",
+"WC57",
+"WC59"
+],
+"precision": "unit",
+"labelled_near": [
+"MED",
+"SUPPLY"
+]
+},
+{
+"k": "PG01",
+"name": "Toilet (Pit Garage)",
+"item": "FWF",
+"first": "2026-10-20",
+"pinned": false,
+"before": "none",
+"how": "Pit Lane label on the master \u2014 garage numbers are not printed",
+"sheet_pt": [
+850,
+699
+],
+"latlng": [
+-27.985834,
+153.427387
+],
+"near": [
+"S01 (~5 m)",
+"Pit Lane (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "PG03",
+"name": "Toilet (Pit Garage)",
+"item": "FWF",
+"first": "2026-10-20",
+"pinned": false,
+"before": "none",
+"how": "Pit Lane label on the master \u2014 garage numbers are not printed",
+"sheet_pt": [
+850,
+699
+],
+"latlng": [
+-27.985834,
+153.427387
+],
+"near": [
+"S01 (~5 m)",
+"Pit Lane (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "PG05",
+"name": "Toilet (Pit Garage)",
+"item": "FWF",
+"first": "2026-10-20",
+"pinned": false,
+"before": "none",
+"how": "Pit Lane label on the master \u2014 garage numbers are not printed",
+"sheet_pt": [
+850,
+699
+],
+"latlng": [
+-27.985834,
+153.427387
+],
+"near": [
+"S01 (~5 m)",
+"Pit Lane (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "PG29",
+"name": "Toilet (Pit Garage)",
+"item": "FWF",
+"first": "2026-10-20",
+"pinned": false,
+"before": "none",
+"how": "Pit Lane label on the master \u2014 garage numbers are not printed",
+"sheet_pt": [
+850,
+699
+],
+"latlng": [
+-27.985834,
+153.427387
+],
+"near": [
+"S01 (~5 m)",
+"Pit Lane (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB01",
+"name": "Gold Coast Highway (Near PB3 DR - On GCHWY at the Tedder Avenue intersection)",
+"item": "TL2",
+"first": "2026-09-14",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "WB02",
+"name": "S08 - Pedestrian Pathway along Main Beach Parade",
+"item": "TL2",
+"first": "2026-09-21",
+"pinned": false,
+"before": "none",
+"how": "sector S08 label on the master",
+"sheet_pt": [
+734,
+381
+],
+"latlng": [
+-27.98509,
+153.42967
+],
+"near": [
+"S08 (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB03",
+"name": "Gold Coast Highway (Turn 2) - Concrete small blocks",
+"item": "TL2",
+"first": "2026-09-18",
+"pinned": false,
+"before": "none",
+"how": "Turn 2 marker on the master",
+"sheet_pt": [
+1527,
+537
+],
+"latlng": [
+-27.990144,
+153.428562
+],
+"near": [
+"Ferny Ave (~35 m)",
+"S15 (~55 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB04",
+"name": "Helen Park - HVM",
+"item": "TL2",
+"first": "2026-10-16",
+"pinned": false,
+"before": "none",
+"how": "Helen Park label on the master",
+"sheet_pt": [
+127,
+1202
+],
+"latlng": [
+-27.981235,
+153.423761
+],
+"near": [
+"Breaker St (~15 m)",
+"S23 (~60 m)",
+"Gate 1 (~45 m)",
+"Helen (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB05",
+"name": "Gold Coast Highway (Main Beach Light Rail)",
+"item": "TL2",
+"first": "2026-10-16",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "WB06",
+"name": "Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers)",
+"item": "TL2",
+"first": "2026-10-16",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "WB07",
+"name": "Admiralty Drive Intersection (Through lane removed between centre islands)",
+"item": "TL2",
+"first": "2026-10-18",
+"pinned": false,
+"before": "none",
+"how": "Admiralty Dr label on the master",
+"sheet_pt": [
+1036,
+789
+],
+"latlng": [
+-27.98702,
+153.426743
+],
+"near": [
+"Admiralty Dr (~20 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB13",
+"name": "Fence bracing behind S15",
+"item": "TL2",
+"first": "2026-10-19",
+"pinned": false,
+"before": "none",
+"how": "sector S15 label on the master",
+"sheet_pt": [
+1592,
+541
+],
+"latlng": [
+-27.990559,
+153.428534
+],
+"near": [
+"S15 (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB14",
+"name": "MP4.0 Turn 4 Drivers Right",
+"item": "TL2",
+"first": "2026-10-21",
+"pinned": false,
+"before": "none",
+"how": "Turn 4 marker on the master",
+"sheet_pt": [
+1780,
+414
+],
+"latlng": [
+-27.991754,
+153.42945
+],
+"near": [],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB15",
+"name": "Turn 11 Runoff (Main Beach Parade North) - HVM",
+"item": "TL2",
+"first": "2026-10-21",
+"pinned": false,
+"before": "none",
+"how": "Turn 11 marker on the master",
+"sheet_pt": [
+206,
+463
+],
+"latlng": [
+-27.981727,
+153.429072
+],
+"near": [],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB16",
+"name": "Commodore Park (Commodore Drive)",
+"item": "TL2",
+"first": "2026-10-21",
+"pinned": false,
+"before": "none",
+"how": "Commodore Park label on the master",
+"sheet_pt": [
+416,
+1175
+],
+"latlng": [
+-27.983076,
+153.423959
+],
+"near": [
+"Gate 2 (~55 m)",
+"Commodore (~15 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB17",
+"name": "Racing kerbs (T6/7/8/9)",
+"item": "TL2",
+"first": "2026-10-22",
+"pinned": false,
+"before": "none",
+"how": "Turns 6\u20139 markers on the master (T6\u2013T9 span ~250 m)",
+"sheet_pt": [
+830,
+345
+],
+"latlng": [
+-27.985701,
+153.42993
+],
+"near": [
+"S20 (~40 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB18",
+"name": "Racing kerbs (T2)",
+"item": "TL2",
+"first": "2026-10-22",
+"pinned": false,
+"before": "none",
+"how": "Turn 2 marker on the master",
+"sheet_pt": [
+1527,
+537
+],
+"latlng": [
+-27.990144,
+153.428562
+],
+"near": [
+"Ferny Ave (~35 m)",
+"S15 (~55 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB19",
+"name": "S08 - Pedestrian Pathway along Main Beach Parade",
+"item": "TL2",
+"first": "2026-11-02",
+"pinned": false,
+"before": "none",
+"how": "sector S08 label on the master",
+"sheet_pt": [
+734,
+381
+],
+"latlng": [
+-27.98509,
+153.42967
+],
+"near": [
+"S08 (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WB20",
+"name": "Gold Coast Highway (Turn 2)",
+"item": "TL2",
+"first": "2026-10-26",
+"pinned": false,
+"before": "none",
+"how": "Turn 2 marker on the master",
+"sheet_pt": [
+1527,
+537
+],
+"latlng": [
+-27.990144,
+153.428562
+],
+"near": [
+"Ferny Ave (~35 m)",
+"S15 (~55 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "WC01",
+"name": "Toilets",
+"item": "Accessible Toilet/FWF",
+"first": "2026-09-28",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+471.1,
+995.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983425,
+153.42525
+],
+"near": [
+"S10 (~10 m)"
+],
+"inset": false,
+"beside": [
+"OP08",
+"OP21"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC02",
+"name": "Toilet",
+"item": "FWF",
+"first": "2026-09-21",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+499.0,
+929.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983601,
+153.425725
+],
+"near": [
+"S10 (~45 m)"
+],
+"inset": false,
+"beside": [
+"P41"
+],
+"precision": "unit",
+"labelled_near": [
+"MERCH",
+"RAS"
+]
+},
+{
+"k": "WC04",
+"name": "Toilet - QAS",
+"item": "FWF",
+"first": "2026-09-21",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+541.7,
+815.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983871,
+153.426545
+],
+"near": [
+"Macintosh Island (~55 m)"
+],
+"inset": false,
+"beside": [
+"OP77",
+"P44",
+"P58"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC05",
+"name": "Event Operations Compound Toilet - Combo Block (Tanked)",
+"item": "Waste tank/Toilet Block 6m",
+"first": "2026-09-14",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+500.3,
+841.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983608,
+153.426357
+],
+"near": [
+"Macintosh Island (~90 m)"
+],
+"inset": false,
+"beside": [
+"BS14",
+"P04"
+],
+"precision": "unit",
+"labelled_near": [
+"SCA"
+]
+},
+{
+"k": "WC06",
+"name": "Toilets - Race Admin",
+"item": "FWF",
+"first": "2026-09-21",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+669.9,
+816.2
+],
+"n_positions": 1,
+"latlng": [
+-27.984688,
+153.426541
+],
+"near": [
+"S11 (~50 m)",
+"Macintosh Island (~85 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"ADMIN",
+"RACE",
+"MERCH"
+]
+},
+{
+"k": "WC07",
+"name": "Toilets - Merch Area",
+"item": "FWF",
+"first": "2026-09-22",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+565.2,
+800.2
+],
+"n_positions": 2,
+"latlng": [
+-27.984021,
+153.426655
+],
+"near": [
+"Macintosh Island (~40 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC09",
+"name": "Toilets",
+"item": "FWF/Pee Panel/Toilet Block 6m",
+"first": "2026-10-08",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+678.5,
+618.1
+],
+"n_positions": 2,
+"latlng": [
+-27.98474,
+153.427965
+],
+"near": [],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"TOILETS",
+"NEW"
+]
+},
+{
+"k": "WC10",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "WC100",
+"name": null,
+"item": "FWF Trailer",
+"first": "2026-09-14",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "WC11",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-09-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+703.3,
+813.9
+],
+"n_positions": 1,
+"latlng": [
+-27.984901,
+153.426559
+],
+"near": [
+"S11 (~30 m)",
+"Macintosh Island (~100 m)"
+],
+"inset": false,
+"beside": [
+"OP03",
+"P33"
+],
+"precision": "unit",
+"labelled_near": [
+"ADMIN"
+]
+},
+{
+"k": "WC12",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-09-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+790.9,
+704.5
+],
+"n_positions": 1,
+"latlng": [
+-27.985457,
+153.427346
+],
+"near": [
+"S01 (~45 m)",
+"Pit Lane (~50 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"BRT",
+"PREM"
+]
+},
+{
+"k": "WC13",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1652.0,
+405.1
+],
+"n_positions": 1,
+"latlng": [
+-27.990939,
+153.429512
+],
+"near": [
+"Higman St (~25 m)"
+],
+"inset": false,
+"beside": [
+"WC24"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC15",
+"name": "Toilets (Sewer Connect)",
+"item": "Toilet Block 6m",
+"first": "2026-09-25",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+880.2,
+601.1
+],
+"n_positions": 1,
+"latlng": [
+-27.986024,
+153.428091
+],
+"near": [
+"S01 (~70 m)",
+"Pit Lane (~75 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC16",
+"name": "S01 Corporate Toilets - 1x Female, x Male (Sewer)",
+"item": "Toilet Block 6m",
+"first": "2026-09-14",
+"pinned": true,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+872.1,
+658.1
+],
+"n_positions": 1,
+"latlng": [
+-27.985974,
+153.427681
+],
+"near": [
+"S01 (~30 m)",
+"Pit Lane (~35 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"MSR",
+"BJR",
+"TYRES"
+]
+},
+{
+"k": "WC17",
+"name": "S01 Corporate Toilets",
+"item": "Toilet Block 6m",
+"first": "2026-09-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+959.6,
+594.8
+],
+"n_positions": 2,
+"latlng": [
+-27.98653,
+153.428137
+],
+"near": [
+"S02 (~35 m)",
+"Pit Lane (~105 m)"
+],
+"inset": false,
+"beside": [
+"P10",
+"P11"
+],
+"precision": "unit",
+"labelled_near": [
+"CATERING",
+"WAU"
+]
+},
+{
+"k": "WC19",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1221.8,
+578.2
+],
+"n_positions": 1,
+"latlng": [
+-27.988201,
+153.428261
+],
+"near": [
+"S04 (~45 m)",
+"Gate 3 (~75 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC20",
+"name": "Toilets (Tank Mounted)",
+"item": "Toilet Block 6m/Waste tank",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1106.8,
+589.4
+],
+"n_positions": 1,
+"latlng": [
+-27.987468,
+153.428179
+],
+"near": [
+"S04 (~40 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC21",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-09-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1372.8,
+532.5
+],
+"n_positions": 1,
+"latlng": [
+-27.989162,
+153.428592
+],
+"near": [
+"S05 (~10 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"BAR"
+]
+},
+{
+"k": "WC23",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1424.8,
+450.2
+],
+"n_positions": 1,
+"latlng": [
+-27.989492,
+153.429184
+],
+"near": [
+"Main Beach Pde (~55 m)",
+"S05 (~75 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC24",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1659.8,
+385.8
+],
+"n_positions": 1,
+"latlng": [
+-27.990988,
+153.429651
+],
+"near": [
+"Higman St (~35 m)"
+],
+"inset": false,
+"beside": [
+"WC13"
+],
+"precision": "unit",
+"labelled_near": [
+"EEP4/6"
+]
+},
+{
+"k": "WC25",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1506.9,
+498.1
+],
+"n_positions": 1,
+"latlng": [
+-27.990016,
+153.428841
+],
+"near": [
+"Ferny Ave (~10 m)",
+"S15 (~75 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"FERNY AVE"
+]
+},
+{
+"k": "WC26",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1322.5,
+397.2
+],
+"n_positions": 1,
+"latlng": [
+-27.98884,
+153.429563
+],
+"near": [],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC27",
+"name": "Toilet (Tank Mounted)",
+"item": "Toilet Block 6m/Waste tank",
+"first": "2026-09-25",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+757.5,
+410.4
+],
+"n_positions": 1,
+"latlng": [
+-27.98524,
+153.429459
+],
+"near": [
+"S08 (~20 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC28",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+464.9,
+449.2
+],
+"n_positions": 1,
+"latlng": [
+-27.983376,
+153.429175
+],
+"near": [
+"Main Beach Pde (~15 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"MAIN BEACH PDE"
+]
+},
+{
+"k": "WC29",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+490.0,
+534.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983537,
+153.428563
+],
+"near": [
+"Cable St (~35 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC30",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+309.3,
+634.1
+],
+"n_positions": 1,
+"latlng": [
+-27.982388,
+153.427844
+],
+"near": [
+"Pacific St (~15 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"PACIFIC ST"
+]
+},
+{
+"k": "WC31",
+"name": "Toilets",
+"item": "Accessible Toilet/16Pan Block",
+"first": "2026-10-08",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+321.1,
+984.9
+],
+"n_positions": 2,
+"latlng": [
+-27.982469,
+153.425324
+],
+"near": [
+"Hill Pde (~50 m)",
+"S25 (~70 m)",
+"The Hill (~100 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC32",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-08",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+371.8,
+1082.8
+],
+"n_positions": 1,
+"latlng": [
+-27.982793,
+153.424621
+],
+"near": [
+"S25 (~55 m)",
+"Gate 2 (~70 m)",
+"The Hill (~75 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC33",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-08",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+891.3,
+404.5
+],
+"n_positions": 1,
+"latlng": [
+-27.986092,
+153.429504
+],
+"near": [
+"S07 (~50 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC34",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-08",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+302.6,
+909.8
+],
+"n_positions": 1,
+"latlng": [
+-27.982349,
+153.425863
+],
+"near": [
+"Hill Pde (~45 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC35",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+224.7,
+647.5
+],
+"n_positions": 1,
+"latlng": [
+-27.981848,
+153.427746
+],
+"near": [
+"Breaker St (~50 m)",
+"Gate 8a (~40 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"BFR"
+]
+},
+{
+"k": "WC38",
+"name": "Toilet",
+"item": "FWF",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+503.2,
+1136.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983631,
+153.424238
+],
+"near": [
+"Gate 2 (~30 m)",
+"Commodore (~55 m)"
+],
+"inset": false,
+"beside": [
+"P08",
+"P51"
+],
+"precision": "unit",
+"labelled_near": [
+"GEM"
+]
+},
+{
+"k": "WC39",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+491.9,
+1185.5
+],
+"n_positions": 1,
+"latlng": [
+-27.983559,
+153.423886
+],
+"near": [
+"Gate 2 (~55 m)",
+"Park (~35 m)"
+],
+"inset": false,
+"beside": [
+"OP14",
+"P46"
+],
+"precision": "unit",
+"labelled_near": [
+"COW",
+"OPT"
+]
+},
+{
+"k": "WC40",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+505.3,
+1105.8
+],
+"n_positions": 2,
+"latlng": [
+-27.983644,
+153.424458
+],
+"near": [
+"S10 (~80 m)",
+"Gate 2 (~30 m)",
+"Commodore (~65 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC41",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-09-28",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+690.6,
+882.0
+],
+"n_positions": 1,
+"latlng": [
+-27.984821,
+153.42607
+],
+"near": [
+"S11 (~40 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC42",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-09-28",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+450.7,
+1054.8
+],
+"n_positions": 1,
+"latlng": [
+-27.983295,
+153.424824
+],
+"near": [
+"S10 (~50 m)",
+"Gate 2 (~45 m)",
+"Commodore (~85 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC43",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-09-28",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+933.0,
+719.8
+],
+"n_positions": 1,
+"latlng": [
+-27.986363,
+153.427238
+],
+"near": [
+"S14 (~20 m)",
+"Pit Lane (~50 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC44",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-01",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1346.3,
+583.4
+],
+"n_positions": 1,
+"latlng": [
+-27.988994,
+153.428226
+],
+"near": [
+"S05 (~30 m)",
+"Gate 3 (~50 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC45",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1614.8,
+558.5
+],
+"n_positions": 1,
+"latlng": [
+-27.990704,
+153.428409
+],
+"near": [
+"S15 (~10 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC46",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1854.1,
+421.2
+],
+"n_positions": 1,
+"latlng": [
+-27.992227,
+153.429399
+],
+"near": [],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC47",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1533.9,
+565.2
+],
+"n_positions": 1,
+"latlng": [
+-27.990189,
+153.428359
+],
+"near": [
+"Ferny Ave (~55 m)",
+"S15 (~50 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC48",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+2092.8,
+270.8
+],
+"n_positions": 1,
+"latlng": [
+-27.993745,
+153.430484
+],
+"near": [
+"Gate 6 (~55 m)"
+],
+"inset": false,
+"beside": [
+"OP54"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC49",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+2128.2,
+241.8
+],
+"n_positions": 1,
+"latlng": [
+-27.99397,
+153.430693
+],
+"near": [],
+"inset": false,
+"beside": [
+"P60",
+"P62"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC50",
+"name": "Toilet",
+"item": "FWF",
+"first": "2026-09-28",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1467.4,
+359.5
+],
+"n_positions": 1,
+"latlng": [
+-27.989762,
+153.429836
+],
+"near": [
+"Main Beach Pde (~35 m)",
+"S18 (~20 m)"
+],
+"inset": false,
+"beside": [
+"OP12"
+],
+"precision": "unit",
+"labelled_near": [
+"FOOD"
+]
+},
+{
+"k": "WC51",
+"name": "Toilets",
+"item": "Accessible Toilet/FWF",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1976.6,
+263.9
+],
+"n_positions": 1,
+"latlng": [
+-27.993005,
+153.430532
+],
+"near": [
+"Gate 6 (~30 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"SCALES"
+]
+},
+{
+"k": "WC53",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1926.1,
+297.0
+],
+"n_positions": 1,
+"latlng": [
+-27.992683,
+153.430294
+],
+"near": [
+"Gate 6 (~65 m)"
+],
+"inset": false,
+"beside": [
+"OP20"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC54",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1752.6,
+276.5
+],
+"n_positions": 1,
+"latlng": [
+-27.991578,
+153.430438
+],
+"near": [],
+"inset": false,
+"beside": [
+"P25",
+"P66"
+],
+"precision": "unit",
+"labelled_near": [
+"TOWER"
+]
+},
+{
+"k": "WC55",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1700.2,
+358.4
+],
+"n_positions": 1,
+"latlng": [
+-27.991245,
+153.429848
+],
+"near": [],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC56",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-15",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1476.7,
+328.9
+],
+"n_positions": 1,
+"latlng": [
+-27.98982,
+153.430057
+],
+"near": [
+"Main Beach Pde (~50 m)",
+"S18 (~20 m)"
+],
+"inset": false,
+"beside": [
+"OP12"
+],
+"precision": "unit",
+"labelled_near": [
+"FOOD"
+]
+},
+{
+"k": "WC57",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-12",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1218.7,
+309.6
+],
+"n_positions": 1,
+"latlng": [
+-27.988177,
+153.430191
+],
+"near": [],
+"inset": false,
+"beside": [
+"P69",
+"WC59"
+],
+"precision": "unit",
+"labelled_near": [
+"MED"
+]
+},
+{
+"k": "WC59",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-12",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1217.8,
+320.5
+],
+"n_positions": 1,
+"latlng": [
+-27.988171,
+153.430113
+],
+"near": [],
+"inset": false,
+"beside": [
+"OP40",
+"P69",
+"WC57"
+],
+"precision": "unit",
+"labelled_near": [
+"MED",
+"SUPPLY"
+]
+},
+{
+"k": "WC60",
+"name": "Toilets (Tank Mounted)",
+"item": "Toilet Block 6m",
+"first": "2026-10-01",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+763.9,
+327.8
+],
+"n_positions": 1,
+"latlng": [
+-27.985279,
+153.430053
+],
+"near": [
+"S21 (~30 m)"
+],
+"inset": false,
+"beside": [
+"BS05"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC61",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-07",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+583.4,
+361.9
+],
+"n_positions": 1,
+"latlng": [
+-27.984129,
+153.429805
+],
+"near": [
+"S22 (~50 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC62",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+193.1,
+439.8
+],
+"n_positions": 1,
+"latlng": [
+-27.981644,
+153.429238
+],
+"near": [],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC65",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+166.6,
+841.4
+],
+"n_positions": 1,
+"latlng": [
+-27.981482,
+153.426352
+],
+"near": [
+"Gate 9 (~65 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC66",
+"name": null,
+"item": "FWF",
+"first": "2026-10-01",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "WC67",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-01",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+151.2,
+1147.4
+],
+"n_positions": 1,
+"latlng": [
+-27.981388,
+153.424153
+],
+"near": [
+"Breaker St (~45 m)",
+"S23 (~25 m)",
+"Gate 1 (~65 m)",
+"Helen (~40 m)"
+],
+"inset": false,
+"beside": [
+"OP16",
+"P52",
+"P57",
+"WC69"
+],
+"precision": "unit",
+"labelled_near": [
+"SCA",
+"WC-BSF",
+"BSF"
+]
+},
+{
+"k": "WC68",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+161.5,
+1106.9
+],
+"n_positions": 1,
+"latlng": [
+-27.981453,
+153.424445
+],
+"near": [
+"S23 (~35 m)",
+"Helen (~70 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"BSF"
+]
+},
+{
+"k": "WC69",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-13",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+69.1,
+1080.2
+],
+"n_positions": 2,
+"latlng": [
+-27.980864,
+153.424635
+],
+"near": [
+"S23 (~95 m)",
+"Helen (~105 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC70",
+"name": "Toilet",
+"item": "FWF",
+"first": "2026-10-13",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+197.4,
+1168.7
+],
+"n_positions": 1,
+"latlng": [
+-27.981683,
+153.424001
+],
+"near": [
+"S23 (~15 m)",
+"Gate 1 (~50 m)",
+"Helen (~45 m)"
+],
+"inset": false,
+"beside": [
+"OP83"
+],
+"precision": "unit",
+"labelled_near": [
+"BAR 19"
+]
+},
+{
+"k": "WC71",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-01",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+132.3,
+1238.0
+],
+"n_positions": 1,
+"latlng": [
+-27.981269,
+153.423502
+],
+"near": [
+"Breaker St (~35 m)",
+"S23 (~75 m)",
+"Gate 1 (~35 m)",
+"Park (~15 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC72",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+271.2,
+1169.2
+],
+"n_positions": 1,
+"latlng": [
+-27.982154,
+153.423999
+],
+"near": [
+"Gold Coast Hwy (~25 m)",
+"S23 (~60 m)",
+"Gate 1 (~75 m)",
+"The Hill (~35 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": [
+"HINO"
+]
+},
+{
+"k": "WC73",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1027.7,
+597.3
+],
+"n_positions": 1,
+"latlng": [
+-27.986964,
+153.428121
+],
+"near": [
+"S02 (~45 m)"
+],
+"inset": false,
+"beside": [
+"P15",
+"P16"
+],
+"precision": "unit",
+"labelled_near": [
+"GRO",
+"DUNLOP",
+"DUN"
+]
+},
+{
+"k": "WC81",
+"name": "Toilet (Cypress)",
+"item": "FWF",
+"first": "2026-09-14",
+"pinned": false,
+"before": "drawing link (label)",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+2161.3,
+1250.3
+],
+"n_positions": 1,
+"latlng": [
+-27.997491,
+153.42851
+],
+"near": [
+"Surfers Paradise Blvd (~50 m)"
+],
+"inset": true,
+"beside": [
+"P68"
+],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "WC85",
+"name": "Toilets",
+"item": "FWF",
+"first": "2026-10-20",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "WC86",
+"name": "Toilet",
+"item": "Accessible Toilet",
+"first": "2026-10-07",
+"pinned": false,
+"before": "none",
+"how": "tag on the unit, master D001",
+"sheet_pt": [
+1136.9,
+584.3
+],
+"n_positions": 1,
+"latlng": [
+-27.98766,
+153.428216
+],
+"near": [
+"S04 (~20 m)"
+],
+"inset": false,
+"beside": [],
+"precision": "unit",
+"labelled_near": []
+},
+{
+"k": "T0001",
+"name": "VMS \u00d7 8",
+"item": "VMS",
+"first": "2026-09-07",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0002",
+"name": "Light Tower \u00d7 5 \u00b7 Delivery to Molendinar",
+"item": "Light Tower",
+"first": "2026-09-11",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0003",
+"name": "Forklift 5T \u00b7 Phillip Park",
+"item": "Forklift 5T",
+"first": "2026-09-11",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0004",
+"name": "Forklift 2.5T \u00b7 Phillip Park",
+"item": "Forklift 2.5T",
+"first": "2026-09-11",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0005",
+"name": "Forklift 2.5T RT \u00d7 2 \u00b7 Macintosh",
+"item": "Forklift 2.5T RT",
+"first": "2026-09-14",
+"pinned": false,
+"before": "none",
+"how": "Macintosh Island label on the master",
+"sheet_pt": [
+533,
+738
+],
+"latlng": [
+-27.983815,
+153.427101
+],
+"near": [
+"Macintosh Island (~30 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "T0021",
+"name": "Building 4.8m \u00b7 Office 4.8x3",
+"item": "Building 4.8m",
+"first": "2026-09-15",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0022",
+"name": "Building 4.8m \u00b7 Lunchroom 4.8x3",
+"item": "Building 4.8m",
+"first": "2026-09-15",
+"pinned": true,
+"before": "none"
+},
+{
+"k": "T0023",
+"name": "Event Container \u00b7 event container from eags",
+"item": "Event Container",
+"first": "2026-09-15",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0024",
+"name": "FWF",
+"item": "FWF",
+"first": "2026-09-15",
+"pinned": false,
+"before": "none",
+"how": "supply / equipment compound on the master \u2014 \"Coates compound\" read as this compound, confirm",
+"sheet_pt": [
+1250,
+334
+],
+"latlng": [
+-27.988376,
+153.430016
+],
+"near": [],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "T0025",
+"name": "Trakmat \u00d7 20 \u00b7 Trackmat Delivery - S18",
+"item": "Trakmat",
+"first": "2026-09-15",
+"pinned": false,
+"before": "none",
+"how": "sector S18 label on the master",
+"sheet_pt": [
+1487,
+342
+],
+"latlng": [
+-27.989887,
+153.429963
+],
+"near": [
+"Main Beach Pde (~55 m)",
+"S18 (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "T0243",
+"name": "Toilet Block 6m \u00b7 WC-TV (sewer connect)",
+"item": "Toilet Block 6m",
+"first": "2026-09-23",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0085",
+"name": "3.5T Forklift Std \u00b7 Supply",
+"item": "3.5T Forklift Std",
+"first": "2026-10-06",
+"pinned": false,
+"before": "none",
+"how": "SUPPLY compound label on the master (S.L.S equipment compound)",
+"sheet_pt": [
+1218,
+334
+],
+"latlng": [
+-27.988173,
+153.430016
+],
+"near": [],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "T0089",
+"name": "FWF \u00b7 Event Elec",
+"item": "FWF",
+"first": "2026-10-06",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0258",
+"name": "3.0m Cont \u00b7 Helen Park",
+"item": "3.0m Cont",
+"first": "2026-10-07",
+"pinned": false,
+"before": "none",
+"how": "Helen Park label on the master",
+"sheet_pt": [
+127,
+1202
+],
+"latlng": [
+-27.981235,
+153.423761
+],
+"near": [
+"Breaker St (~15 m)",
+"S23 (~60 m)",
+"Gate 1 (~45 m)",
+"Helen (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "T0103",
+"name": "VMS \u00d7 2",
+"item": "VMS",
+"first": "2026-10-08",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0109",
+"name": "2.5T Forklift STD \u00b7 Events",
+"item": "2.5T Forklift STD",
+"first": "2026-10-12",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0265",
+"name": "Fridge \u00d7 4 \u00b7 OP42 Fridge",
+"item": "Fridge",
+"first": "2026-10-13",
+"pinned": false,
+"before": "none",
+"how": "OP42 label on the master",
+"sheet_pt": [
+2129,
+1436
+],
+"latlng": [
+-27.99729,
+153.427182
+],
+"near": [
+"Gold Coast Hwy (~25 m)"
+],
+"inset": true,
+"precision": "area only"
+},
+{
+"k": "T0266",
+"name": "6.0m Refrigerator Cont \u00b7 Helen Park",
+"item": "6.0m Refrigerator Cont",
+"first": "2026-10-13",
+"pinned": false,
+"before": "none",
+"how": "Helen Park label on the master",
+"sheet_pt": [
+127,
+1202
+],
+"latlng": [
+-27.981235,
+153.423761
+],
+"near": [
+"Breaker St (~15 m)",
+"S23 (~60 m)",
+"Gate 1 (~45 m)",
+"Helen (~10 m)"
+],
+"inset": false,
+"precision": "area only"
+},
+{
+"k": "T0128",
+"name": "VMS \u00d7 2",
+"item": "VMS",
+"first": "2026-10-16",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0158",
+"name": "VMS \u00d7 8",
+"item": "VMS",
+"first": "2026-10-19",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0159",
+"name": "VMS \u00d7 5 \u00b7 Relocate",
+"item": "VMS",
+"first": "2026-10-19",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0162",
+"name": "FWF \u00b7 Blanchard Race",
+"item": "FWF",
+"first": "2026-10-19",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0268",
+"name": "100KVA TRAILER \u00b7 SPARE",
+"item": "100KVA TRAILER",
+"first": "2026-10-20",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0169",
+"name": "VMS",
+"item": "VMS",
+"first": "2026-10-21",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0170",
+"name": "VMS",
+"item": "VMS",
+"first": "2026-10-21",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "T0176",
+"name": "FWF \u00d7 2 \u00b7 Redbull",
+"item": "FWF",
+"first": "2026-10-22",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "FL01",
+"name": null,
+"item": "Forklift 5T",
+"first": "2026-09-11",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "FL02",
+"name": null,
+"item": "Forklift 2.5T",
+"first": "2026-09-11",
+"pinned": false,
+"before": "none"
+},
+{
+"k": "NVLT",
+"name": null,
+"item": "Light Tower",
+"first": "2026-09-11",
+"pinned": false,
+"before": "none"
+}
+]
