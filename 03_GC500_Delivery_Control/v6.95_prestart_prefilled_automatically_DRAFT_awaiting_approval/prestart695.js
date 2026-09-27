@@ -80,14 +80,13 @@ function psBody(d, printable){
  <div class="pssec psstop"><b>If you're unsure, ask the question. Everyone has the right to stop the job.</b></div>
  <div class="pssec"><h4><i>04</i> Site</h4><p>${site.hours ? `<b>Hours:</b> ${esc(site.hours.replace(/\.+$/, ''))}.<br>` : ''}${site.contacts.length ? `<b>Contacts:</b> ${site.contacts.map(esc).join(' · ')}` : ''}</p>
  <p class="psadd"><b>Added on the morning:</b> ${printable ? '<span class="psline"></span><span class="psline"></span>' : 'the supervisor adds anything new on the day - weather, changes, visitors.'}</p></div>
- ${printable ? `<div class="pssec"><h4><i>05</i> Sign-on</h4><table class="pssign"><tr><th>Name</th><th>Signature</th><th>Name</th><th>Signature</th></tr>${'<tr><td></td><td></td><td></td><td></td></tr>'.repeat(7)}</table></div>` : ''}`;
+ ${printable ? `<div class="pssec"><h4><i>05</i> Sign-on</h4><table class="pssign"><tr><th>Name</th><th>Signature</th><th>Name</th><th>Signature</th></tr>${'<tr><td></td><td></td><td></td><td></td></tr>'.repeat(6)}</table></div>` : ''}`;
 }
-function prestartBlock(d){
- const P = psPrefilled(d);
- if (P.state === 'none' || P.state === 'past') return '';
- if (P.state === 'later') return `<div class="psnote">Pre-start for this day is prefilled automatically on <b>${esc(fmtDate(P.batch))}</b>, from what is coming in.</div>`;
- return `<details class="pscard" open><summary><span class="psk">PRE-START</span> <b>${esc(fmtDate(d.iso))}</b> <span class="pswhen">prefilled automatically ${esc(fmtDate(P.batch))} from what is coming in</span>
- <button type="button" class="btn" data-print-prestart="${esc(d.iso)}">Print pre-start</button></summary>${psBody(d, false)}</details>`;
+/* Andrew, 27 Sep 2026: "pre-start is a print-off, it's not shown". So the Timeline shows no pre-start - only a Print
+ pre-start button beside the day's other print buttons, on the days that are prefilled. The sheet itself exists only on paper. */
+function prestartButton(d){
+ const P = psPrefilled(d); if (P.state !== 'ready') return '';
+ return `<button class="btn" data-print-prestart="${esc(d.iso)}" title="The day's pre-start, prefilled automatically ${esc(fmtDate(P.batch))} from what is coming in: one A4 sheet with the hazards, the Coates Life Saving Rules and a sign-on">Print pre-start</button>`;
 }
 function prestartPrint(iso){
  const d = programmeDays().find(x => x.iso === iso); if (!d) return;

@@ -12,7 +12,9 @@ def patch(path, jsf, need):
     R = lambda old, new, what: rep(t, old, new, what, path, need)
     js = open(jsf, encoding='utf-8').read().rstrip() + '\n'
     t = R("function dayBlock(d, full){", js + "function dayBlock(d, full){", 'code')
-    t = R(" ${full ? dayPanels(d) + dayAttention(d) : ''}", " ${full ? dayPanels(d) + dayAttention(d) + prestartBlock(d) : ''}", 'in the day')
+    a_ = '<button class="btn" data-print-day="${esc(d.iso)}"'
+    if t.count(a_) != 1: sys.exit('print-day button anchor: %d' % t.count(a_))
+    t = t.replace(a_, '${prestartButton(d)}' + a_, 1)
     t = R(" pane.querySelectorAll('[data-print-day]').forEach(n => n.onclick = () => dayPrint(n.dataset.printDay));",
           " pane.querySelectorAll('[data-print-day]').forEach(n => n.onclick = () => dayPrint(n.dataset.printDay));\n pane.querySelectorAll('[data-print-prestart]').forEach(n => n.onclick = ev => { ev.preventDefault(); ev.stopPropagation(); prestartPrint(n.dataset.printPrestart); });   /* v6.95 */", 'print')
     css = """
@@ -31,11 +33,11 @@ def patch(path, jsf, need):
 .psstop{background:#10151a;color:#fff;border-radius:8px;padding:10px 12px;font-size:14px}
 .psnote{margin:10px 0;font-size:12.5px;color:var(--mute);border-left:3px solid var(--rule);padding:4px 10px}
 .psadd{color:var(--mute)}
-.psprint .pslist li{padding-left:22px;font-size:11px;line-height:1.35}.psprint .psbox{position:absolute;left:0;top:1px;width:11px;height:11px;border:1.2px solid #111;border-radius:2px}
-.psprint .pssec p{font-size:11px}.psprint .pssec h4{font-size:12px;margin:7px 0 4px}.psprint .psstop{font-size:12px;padding:6px 10px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.psprint .pslist.lsr li{padding:5px 8px 5px 26px}.psprint .pslist.lsr .psbox{left:8px;top:6px}
-.psprint .psline{display:block;border-bottom:1px solid #999;height:16px}
-.pssign{width:100%;border-collapse:collapse;font-size:10.5px}.pssign th,.pssign td{border:1px solid #888;padding:4px 6px;height:18px;text-align:left}
+.psprint .pslist{gap:3px}.psprint .pslist li{padding-left:18px;font-size:9.6px;line-height:1.28}.psprint .psbox{position:absolute;left:0;top:1px;width:10px;height:10px;border:1.2px solid #111;border-radius:2px}
+.psprint .pslist.lsr{grid-template-columns:1fr 1fr;gap:3px 6px}.psprint .pslist.lsr li{padding:4px 6px 4px 22px;font-size:9px;line-height:1.25}.psprint .pslist.lsr .psbox{left:6px;top:5px}
+.psprint .pssec{margin:4px 0}.psprint .pssec p{font-size:9.8px;margin:2px 0}.psprint .pssec h4{font-size:11px;margin:5px 0 3px}.psprint .psstop{font-size:11px;padding:5px 9px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.psprint .psline{display:block;border-bottom:1px solid #999;height:13px}.psprint .rs-head h1{font-size:18px}.psprint .rs-head .sub{font-size:10px}
+.pssign{width:100%;border-collapse:collapse;font-size:9.5px}.pssign th,.pssign td{border:1px solid #888;padding:2px 6px;height:15px;text-align:left}
 @media(max-width:640px){.pslist li b{white-space:normal}}
 </style>"""
     k = t.find('</style>'); t = t[:k] + css + t[k + len('</style>'):]
