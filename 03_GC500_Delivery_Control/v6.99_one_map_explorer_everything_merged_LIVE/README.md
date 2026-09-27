@@ -60,3 +60,18 @@ And, of the two pages' controls: keep **Auto / Ultra (4K) / Light** and **Plan /
   by itself and says so. A press of Auto, Ultra (4K) or Light is the person's choice and is never overridden.
 - **Phones start on Auto.**
 - **The camera may come in to 3 m** from the model (was 8 m).
+
+## LIVE — 27 Sep 2026, 18:47 AEST (Andrew: "Please update")
+
+- **Page:** live v6.96 + `patch_v698.py` + `patch_v699.py` + `patch_v701.py` (the SWMS label fix, in the same upload).
+  Checked byte for byte on the live service afterwards.
+- **Machine set:** `explorer/explorer-merge.js` (new), `explorer/index.html` and `poc3d/index.html` over the v6.96 set.
+  The new set is 01a460cbbe71 (217 files, 161.3 MB), version `v6.99-one-map-explorer-3d-card`. All three files were checked
+  byte for byte on the service. `explorer.js` is unchanged; the speed work will go on top.
+- **Checked on this exact build before upload:**
+  - The tab reads "Map explorer" with nothing beside it.
+  - GN04 is found; its card has the photo, "No delivery record · S15" and Open, and Open opens the drawer.
+  - `#sheet/__satellite3d` lands in 3D mode.
+  - The Coates Way overlay shows Coates Way only.
+  - The pre-start prints one page for 28 Sep, 30 Sep, 2 Oct and 7 Oct.
+  - No page errors.

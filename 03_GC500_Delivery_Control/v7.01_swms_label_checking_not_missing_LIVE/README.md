@@ -12,3 +12,5 @@ Author: Andrew Fisher · 27 Sep 2026
 - Not on the service: Advanced Temporary Fencing's own SWMS. It was not in the zip.
 - The bug: the Pre-starts page said the Coates SWMS was "not uploaded yet" for the first seconds after opening, until the file list arrived, then "Open the SWMS". It now says "checking the shared record…" until the service answers.
 - Checked in the test browser: no errors. The Coates SWMS shows "Open the SWMS". In this run the service's file list arrived before the first read, so the "checking…" wording was not caught on screen; the change only alters that brief waiting state. Advanced's SWMS still reads "not uploaded yet", correctly.
+
+## LIVE — 27 Sep 2026, 18:47 AEST, in the same upload as v6.99
