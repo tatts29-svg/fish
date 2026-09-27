@@ -65,3 +65,22 @@ The Map counts only references it can place, and so does this page now.
 2. **Machine set** (Plan on satellite lives there):
    `machine_set.py --keep <live manifest> --add-file explorer/explorer.js=explorer/explorer.js --add-file explorer/assets/plan_items.json=explorer/assets/plan_items.json`.
 3. Re-take `plan_items.json` with `plansnap.js` on publish day so the own-window snapshot is current.
+
+## LIVE — 27 Sep 2026, 17:26 AEST (Andrew: "Merge barriers lets go 6.96")
+
+- **Barriers merged.** In Plan on satellite, "Water-filled barriers 12 locations" (our schedule) and "Water barriers 20"
+  (the runs drawn on K221–K231) are one chip, "Water-filled barriers 12 locations · 20 runs". Tapping it rings all 32
+  places and lists the 3 register references with no place yet. The master plan's own rows are unchanged; they are not
+  a button any more.
+- **Machine set:** `explorer/explorer.js` and `explorer/assets/plan_items.json` (a fresh snapshot, 163 items) added to
+  the live v6.92 set. The new set is 942f5b742477 (216 files), version `v6.96-explorer-counts-merged-barriers`.
+- **Page:** live v6.97 (with the pre-start) plus `patch_v696.py`. Checked byte for byte on the live service afterwards, and so
+  was `explorer.js`.
+- **Checked before the upload:**
+  - Tapping Map lands on `#sheet/__satellite3d` with exactly the four buttons, on desktop and phone.
+  - Plan on satellite's chips equal the master's, with barriers merged.
+  - GN04 found and ringed.
+  - The pre-start still prints one page for 28 Sep, 30 Sep, 2 Oct and 7 Oct.
+  - No page errors.
+- **Next (v6.98, draft):** Andrew has since asked for Maps to open the Satellite Plan Explorer itself. That change is
+  built and awaiting his yes.

@@ -38,7 +38,12 @@ R("""  if (REG) for (const a of REG.assets) { const it = add(a.key); it.reg = a;
     HOST.trades.forEach(tr => { const c = {id: 't' + cats.length, name: tr.name, c: TRADE_C[tr.name] || '#ff6a13', count: tr.count, host: 'trade'}; cats.push(c);
       HOST.items.filter(i => i.trade === tr.name).forEach(i => list.push({code: norm(i.key), places: [ptBox(i.pt)], reg: {name: i.name, asset_numbers: i.assets, sec: i.sec}, cat: c, names: []}));
       HOST.unplaced.filter(i => i.trade === tr.name).forEach(i => list.push({code: norm(i.key), places: [], reg: {name: i.name, drawing: i.drawing}, cat: c, names: []})); });
-    HOST.layers.forEach(l => { const c = {id: 'l' + cats.length, name: l.name, c: LAYER_C[l.id] || '#ff6a13', count: String(l.n), host: 'layer', why: l.why}; cats.push(c);
+    HOST.layers.forEach(l => {
+      /* v6.96 - Andrew, 27 Sep 2026: "Merge barriers". The barrier runs drawn on the K-sheets join the water-filled barriers
+         on our schedule under one chip, so barriers are found in one place: 12 locations and the 20 runs they make up. */
+      const wfb = l.id === 'wb' ? cats.find(x => x.host === 'trade' && /water.filled barrier/i.test(x.name)) : null;
+      const c = wfb || {id: 'l' + cats.length, name: l.name, c: LAYER_C[l.id] || '#ff6a13', count: String(l.n), host: 'layer', why: l.why};
+      if (wfb) { wfb.count = wfb.count + ' · ' + l.n + ' runs'; wfb.merged = l.why; } else cats.push(c);
       const seen = {}; l.marks.forEach(m => { const f = norm(m.face || l.name), k = seen[f] = (seen[f] || 0) + 1, dup = l.marks.filter(x => norm(x.face || l.name) === f).length > 1;
         list.push({code: dup ? f + ' ' + k : f, places: [ptBox(m.pt)], reg: {name: m.name && norm(m.name) !== f ? m.name : '', note: m.note}, cat: c, names: []}); }); });
     CATS_NOW = cats.concat(CATS.filter(c => LANDMARKS.has(c.id)));
@@ -52,7 +57,7 @@ R("""  const cat = CATS.find(c => c.id === id), items""", """  const cat = CATS_
 R("""  L.innerHTML = `<div class="rh">${cat.name}: ${placed.length} labelled on D001${unplaced.length ? ' · ' + unplaced.length + ' in the register but not labelled on D001' : ''}. A ring is where the sheet prints the code, not a surveyed position.</div>` +
     placed.map(it => `<button data-code="${esc(it.code)}"><b>${esc(it.code)}</b>${it.reg ? ' · ' + esc(it.reg.name || it.reg.product) : ''}<small>${it.places.length} place${it.places.length === 1 ? '' : 's'} on D001${it.reg && it.reg.item_types ? ' · ' + esc(String(it.reg.item_types).replace(/[\\[\\]']/g, '')) : ''}</small></button>`).join('') +
     unplaced.map(it => `<button data-code="${esc(it.code)}" class="dim"><b>${esc(it.code)}</b> · ${esc(it.reg.name || it.reg.product)}<small>not labelled on D001${""",
-"""  const head = cat.host === 'trade' ? `${esc(cat.name)}: ${esc(cat.count)} on the master plan, the same count as the Map${unplaced.length ? ' · ' + unplaced.length + ' more in the register with no place on it yet' : ''}. A ring is where the master plan puts it, not a surveyed position.`
+"""  const head = cat.host === 'trade' ? `${esc(cat.name)}: ${esc(cat.count)} on the master plan, the same count as the Map${cat.merged ? ' — the barrier locations on our schedule and the runs drawn on the barrier sheets (' + esc(cat.merged) + '), in one list' : ''}${unplaced.length ? ' · ' + unplaced.length + ' more in the register with no place on it yet' : ''}. A ring is where the master plan puts it, not a surveyed position.`
     : cat.host === 'layer' ? `${esc(cat.name)}: ${esc(cat.count)} on the master plan, the same count as the Map — ${esc(cat.why || '')}.`
     : `${cat.name}: ${placed.length} labelled on D001${unplaced.length ? ' · ' + unplaced.length + ' in the register but not labelled on D001' : ''}. A ring is where the sheet prints the code, not a surveyed position.`;
   L.innerHTML = `<div class="rh">${head}</div>` +
