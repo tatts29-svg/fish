@@ -109,10 +109,22 @@ const TRADES = {
   lights: {name: 'Light towers', c: '#ffffff'}, barriers: {name: 'Barriers (ours)', c: '#4cc9f0'}, wbruns: {name: 'Barrier runs', c: '#e8641b'},
   screens: {name: 'Big screens', c: '#8fa8ff'}, gates: {name: 'Gates', c: '#7bd88f'}, entry: {name: 'Entry points', c: '#35c2e0'},
   othergens: {name: 'Others\' gensets', c: '#d97bd1'}, iface: {name: 'Interface areas', c: '#ff6b6b'}, drawn: {name: 'Drawn, not ours', c: '#c9a27a'}, other: {name: 'Other', c: '#bdbdbd'}};
-let viewer, tileset, quality = 'auto', PINS = [], pinEntities = [], shown = new Set(['buildings', 'toilets', 'gensets', 'lights', 'barriers', 'screens']), orbit = 0;
+let viewer, tileset, quality = 'auto', qualityChosen = false, PINS = [], pinEntities = [], shown = new Set(['buildings', 'toilets', 'gensets', 'lights', 'barriers', 'screens']), orbit = 0;
 const EMBED3D = new URLSearchParams(location.search).get('embed') === '1';
 if (EMBED3D) document.body.classList.add('embed3d');
 let GROUPS = null, RING = null;
+/* keep it smooth: while the camera moves, if Ultra runs slower than about 30 frames a second for two seconds, step to Auto */
+const GUARD = {last: 0, slow: 0, fast: 0, moving: 0};
+function guardFrame() {
+  const t = performance.now(), dt = GUARD.last ? t - GUARD.last : 0; GUARD.last = t;
+  if (!viewer || qualityChosen || quality !== 'crisp' || !dt || dt > 500) return;
+  if (t - GUARD.moving > 400) return;                         /* only judged while the view is moving */
+  if (dt > 34) GUARD.slow += dt; else GUARD.fast += dt;
+  if (GUARD.slow + GUARD.fast > 2000) {
+    if (GUARD.slow > GUARD.fast) { quality = 'auto'; applyQuality(); setStatus('<b>Auto</b> · stepped down from Ultra (4K) to keep the movement smooth on this screen'); }
+    GUARD.slow = GUARD.fast = 0;
+  }
+}
 function setStatus(html) { $('status').innerHTML = html; }
 async function key() {
   const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); const r = await fetch('/api/map-key' + (m ? '?t=' + encodeURIComponent(m[1]) : ''), {cache: 'no-store'}); const j = await r.json(); if (!(j && j.google && /^AIza/.test(j.google.key))) throw new Error('The service did not give this page a Google key.'); return j.google.key;
@@ -246,21 +258,21 @@ async function boot() {
     const sc = viewer.scene;
     sc.globe.show = false; sc.skyAtmosphere.show = true; sc.fog.enabled = true; sc.fog.density = 1.2e-4; sc.postProcessStages.fxaa.enabled = true;
     sc.highDynamicRange = false; sc.backgroundColor = Cesium.Color.fromCssColorString('#0f0d0c');
-    const cc = sc.screenSpaceCameraController; cc.inertiaSpin = .93; cc.inertiaTranslate = .93; cc.inertiaZoom = .85; cc.minimumZoomDistance = 8; cc.maximumZoomDistance = 12000;
+    const cc = sc.screenSpaceCameraController; cc.inertiaSpin = .93; cc.inertiaTranslate = .93; cc.inertiaZoom = .85; cc.minimumZoomDistance = 3; cc.maximumZoomDistance = 12000;
     tileset = await Cesium.Cesium3DTileset.fromUrl('https://tile.googleapis.com/v1/3dtiles/root.json?key=' + encodeURIComponent(k), {showCreditsOnScreen: true, skipLevelOfDetail: true,
       cacheBytes: PHONE ? 384 * 1048576 : 1024 * 1048576, maximumCacheOverflowBytes: PHONE ? 256 * 1048576 : 512 * 1048576,
       preloadFlightDestinations: true, cullRequestsWhileMoving: true, cullRequestsWhileMovingMultiplier: 60, foveatedScreenSpaceError: true, foveatedConeSize: .25,
       dynamicScreenSpaceError: true, dynamicScreenSpaceErrorDensity: 2e-4, dynamicScreenSpaceErrorFactor: 24, progressiveResolutionHeightFraction: .5});
     sc.primitives.add(tileset); applyQuality();
     tileset.tileLoad.addEventListener(t => { perf.tilesLoaded++; const c = t.content; if (c && c.byteLength) perf.bytes += c.byteLength; });
-    tileset.allTilesLoaded.addEventListener(() => { if (!perf.firstFull) perf.firstFull = Math.round(performance.now() - perf.t0); perfText(); window.__allLoaded = true; });
+    tileset.allTilesLoaded.addEventListener(() => { if (!PHONE && !qualityChosen && !GUARD.upgraded) { GUARD.upgraded = true; quality = 'crisp'; applyQuality(); } if (!perf.firstFull) perf.firstFull = Math.round(performance.now() - perf.t0); perfText(); window.__allLoaded = true; });
     tileset.loadProgress.addEventListener((p, r) => { window.__allLoaded = (p === 0 && r === 0); perfText(); });
-    sc.postRender.addEventListener(() => { perf.frames++; updateCompass(); });
-    viewer.camera.changed.addEventListener(updateCompass); viewer.camera.percentageChanged = .01;
+    sc.postRender.addEventListener(() => { perf.frames++; updateCompass(); guardFrame(); });
+    viewer.camera.changed.addEventListener(() => { GUARD.moving = performance.now(); updateCompass(); }); viewer.camera.percentageChanged = .01;
     document.addEventListener('visibilitychange', () => { if (document.hidden) stopOrbit(); else sc.requestRender(); });
     $('loader').classList.add('done'); fly('overhead', 0); window.__ready = true;
     document.querySelectorAll('.views button').forEach(b => b.onclick = () => { window.__allLoaded = false; fly(b.dataset.v); });
-    document.querySelectorAll('.q button[data-q]').forEach(b => b.onclick = () => { quality = b.dataset.q; applyQuality(); });
+    document.querySelectorAll('.q button[data-q]').forEach(b => b.onclick = () => { quality = b.dataset.q; qualityChosen = true; applyQuality(); });
     document.querySelectorAll('#dial [data-face]').forEach(b => b.onclick = () => faceTo(+b.dataset.face));
     $('orbitBtn').onclick = () => orbit ? stopOrbit() : startOrbit();
     ['pointerdown', 'wheel', 'touchstart'].forEach(ev => viewer.canvas.addEventListener(ev, () => { stopOrbit(); stopFace(); }, {passive: true}));

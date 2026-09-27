@@ -12,10 +12,13 @@ const MOB = !!process.env.MOB, TAG = process.env.TAG || 'm699';
   const t0 = Date.now(); await p.evaluate(() => document.querySelector('.modes [data-mode="3d"]').click());
   await p.waitForFunction(() => { try { const f = document.getElementById('model3d'); return f && f.contentWindow.__ready && f.contentWindow.GC500_3D.state.pins > 0; } catch (e) { return false; } }, null, {timeout: 240000});
   res.to3dReadyMs = Date.now() - t0;
-  res.in3d = await p.evaluate(() => ({body: document.body.classList.contains('in3d'), pins: document.getElementById('model3d').contentWindow.GC500_3D.state.pins,
+  res.in3d = await p.evaluate(() => ({quality: document.getElementById('model3d').contentWindow.GC500_3D.state.quality, pressed: [...document.getElementById('model3d').contentDocument.querySelectorAll('.q button[aria-pressed="true"]')].map(b => b.textContent.trim()), body: document.body.classList.contains('in3d'), pins: document.getElementById('model3d').contentWindow.GC500_3D.state.pins,
     ui: [...document.getElementById('model3d').contentDocument.querySelectorAll('.q button, .views button')].filter(b => b.offsetParent).map(b => b.textContent.trim()),
     hiddenDup: ['.find', '.chips'].map(sel => { const e = document.getElementById('model3d').contentDocument.querySelector(sel); return e ? getComputedStyle(e).display : 'none'; })}));
   await p.waitForTimeout(8000);
+  res.after = await p.evaluate(() => { const w = document.getElementById('model3d').contentWindow; return {quality: w.GC500_3D.state.quality, loaded: w.__allLoaded}; });
+  await p.waitForFunction(() => document.getElementById('model3d').contentWindow.GC500_3D.state.quality === 'crisp', null, {timeout: 240000}).catch(() => {});
+  res.later = await p.evaluate(() => document.getElementById('model3d').contentWindow.GC500_3D.state.quality);
   try { await p.screenshot({path: OUT + TAG + '_3d_gn04.jpg', type: 'jpeg', quality: 80, timeout: 150000}); } catch (e) { res.shot1 = 'timeout'; }
   // chips drive the 3D
   await p.evaluate(() => { const b = [...document.querySelectorAll('#chips .chip')].find(x => /Lighting towers/.test(x.textContent)); b.click(); });

@@ -67,4 +67,32 @@ R("window.GC500_3D = {fly, faceTo, startOrbit, stopOrbit,",
   showGroups: ids => { GROUPS = ids ? new Set(ids) : null; for (const en of pinEntities) en.show = visible(en._gc); if (viewer) viewer.scene.requestRender(); },
   find: code => { const c = String(code || '').toUpperCase().replace(/\\s+/g, ''); const p = PINS.find(x => x.k.toUpperCase().replace(/\\s+/g, '') === c); if (p && viewer) { flyToPin(p, !EMBED3D); return true; } return false; },
   ring: code => { const c = String(code || '').toUpperCase().replace(/\\s+/g, ''); ringAt(PINS.find(x => x.k.toUpperCase().replace(/\\s+/g, '') === c) || null); if (viewer) viewer.scene.requestRender(); },""", 'api')
+
+# v6.99b - Andrew, 27 Sep 2026: "crisp 4k ultra. High detail. Perfection in every pixel and zooming is wow with how close we
+# can get ... No lag". Ultra (4K) is where a computer or tablet starts; the page watches its own frame times while the view
+# moves and steps down to Auto by itself if Ultra would lag (a phone starts on Auto); a press of any quality button is the
+# person's choice and is never overridden. The camera may come in to 3 m of the model (was 8 m).
+R("let viewer, tileset, quality = 'auto'", "let viewer, tileset, quality = 'auto', qualityChosen = false", 'ultra default')
+# the first view comes in at Auto (quick), then a computer or tablet sharpens to Ultra (4K) once that view has loaded
+R("tileset.allTilesLoaded.addEventListener(() => {", "tileset.allTilesLoaded.addEventListener(() => { if (!PHONE && !qualityChosen && !GUARD.upgraded) { GUARD.upgraded = true; quality = 'crisp'; applyQuality(); }", 'sharpen after first view')
+R("cc.minimumZoomDistance = 8", "cc.minimumZoomDistance = 3", 'closer')
+R("sc.postRender.addEventListener(() => { perf.frames++; updateCompass(); });",
+  """sc.postRender.addEventListener(() => { perf.frames++; updateCompass(); guardFrame(); });""", 'guard hook')
+R("document.querySelectorAll('.q button[data-q]').forEach(b => b.onclick = () => { quality = b.dataset.q; applyQuality(); });",
+  "document.querySelectorAll('.q button[data-q]').forEach(b => b.onclick = () => { quality = b.dataset.q; qualityChosen = true; applyQuality(); });", 'chosen')
+R("function setStatus(html) {", """/* keep it smooth: while the camera moves, if Ultra runs slower than about 30 frames a second for two seconds, step to Auto */
+const GUARD = {last: 0, slow: 0, fast: 0, moving: 0};
+function guardFrame() {
+  const t = performance.now(), dt = GUARD.last ? t - GUARD.last : 0; GUARD.last = t;
+  if (!viewer || qualityChosen || quality !== 'crisp' || !dt || dt > 500) return;
+  if (t - GUARD.moving > 400) return;                         /* only judged while the view is moving */
+  if (dt > 34) GUARD.slow += dt; else GUARD.fast += dt;
+  if (GUARD.slow + GUARD.fast > 2000) {
+    if (GUARD.slow > GUARD.fast) { quality = 'auto'; applyQuality(); setStatus('<b>Auto</b> · stepped down from Ultra (4K) to keep the movement smooth on this screen'); }
+    GUARD.slow = GUARD.fast = 0;
+  }
+}
+function setStatus(html) {""", 'guard')
+R("viewer.camera.changed.addEventListener(updateCompass);", "viewer.camera.changed.addEventListener(() => { GUARD.moving = performance.now(); updateCompass(); });", 'moving')
+
 open(p, 'w', encoding='utf-8').write(t); print('ok', p)

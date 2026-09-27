@@ -50,3 +50,13 @@ And, of the two pages' controls: keep **Auto / Ultra (4K) / Light** and **Plan /
 1. **Machine set:** add `explorer/explorer-merge.js`, and replace `explorer/index.html` (the `patch_explorer_index699.py` output) and `poc3d/index.html` (the `patch_poc3d699.py` output).
 2. **Page:** live v6.96 plus `patch_v698.py` plus `patch_v699.py`.
 3. **Explorer speed work:** when it lands, its `explorer.js` goes in on top. `explorer-merge.js` only hooks explorer.js's globals, so it doesn't need to change.
+
+## 3D: crisp, and still quick (27 Sep 2026, after Andrew's "crisp 4k ultra ... how close we can get ... No lag")
+
+- **Opens on Auto, then sharpens.** 3D opens on Auto so the first picture is quick, then a computer or tablet sharpens itself
+  to **Ultra (4K)** as soon as that view has loaded. Test browser: first view at 34 s either way; starting straight in
+  Ultra took 92 s, which is why it doesn't.
+- **A guard keeps it smooth.** While the view moves, if Ultra runs slower than about 30 frames a second for 2 s, it steps down to Auto
+  by itself and says so. A press of Auto, Ultra (4K) or Light is the person's choice and is never overridden.
+- **Phones start on Auto.**
+- **The camera may come in to 3 m** from the model (was 8 m).
