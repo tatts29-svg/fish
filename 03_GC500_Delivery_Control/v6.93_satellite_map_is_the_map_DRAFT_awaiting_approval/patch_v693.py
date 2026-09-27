@@ -4,7 +4,7 @@ thing you need to add is the satellite pins"; "I don't see any lighting towers o
 very clunky, very sluggish").
 
   The map    The Map tab opens on the satellite map (on the hosted link; the master plan is one press away, and a search
-             that lands on the master still goes there). Its button comes first and reads "Satellite map".
+             that lands on the master still goes there). The buttons keep their names and order: Satellite · pins, Satellite · 3D, Plan on satellite, 3D proof.
   The pins   Every reference is placed from the master-plan position (MASTER_LOC, triple-checked in v6.89) and falls back
              to the older drawing arrow only where the master has none. Each pin wears its trade's colour - generators,
              light towers, toilets, buildings, barriers - with a key and a chip per trade to show or hide it; the
@@ -126,24 +126,13 @@ function unmountSatBoard(){ if (document.querySelector('.mapcard.satfull')) satF
  ${satChipsHtml(drawn)}
  <div class="satwrap"><button type="button" class="satfullbtn" id="satfull" aria-pressed="false" title="Full screen" aria-label="Full screen"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
  <div class="satboard" id="satboard"><div class="livenote">Asking the service for the map key…</div></div></div>""", 'board chips')
-    t = R(""" ${mapSheetsShown(typeof sh === 'undefined' ? null : sh).map(s => `<button class="btn sheetbtn" data-sheet="${s.key}">${esc(s.title)}</button>`).join('')}
- <button class="btn sheetbtn satbtn primary" data-sheet="${SAT_BOARD}">Satellite · pins</button>""",
-          """ <button class="btn sheetbtn satbtn primary" data-sheet="${SAT_BOARD}">Satellite map</button>
- ${mapSheetsShown(typeof sh === 'undefined' ? null : sh).map(s => `<button class="btn sheetbtn" data-sheet="${s.key}">${esc(s.title)}</button>`).join('')}""", 'sat first')
-    t = R("""<option value="${SAT_BOARD}" selected>Satellite · pins</option>""", """<option value="${SAT_BOARD}" selected>Satellite map</option>""", 'sel name')
     t = R(""" setHash('sheet/' + SAT_BOARD, {replace: location.hash === '#map'});
  mountSatBoard(pins, drawn);""", """ setHash('sheet/' + SAT_BOARD, {replace: location.hash === '#map'});
  satWireChips();
  mountSatBoard(pins, drawn);""", 'wire chips')
-    # on the master's own toolbar the satellite map comes first too
-    t = R(""" ${mapSheetsShown(typeof sh === 'undefined' ? null : sh).map(s => `<button class="btn sheetbtn ${s.key===sh.key?'primary':''}" data-sheet="${s.key}">${esc(s.title)}</button>`).join('')}
- ${liveMapPossible() ? `<button class="btn sheetbtn satbtn" data-sheet="${SAT_BOARD}" title="Mapbox's satellite photograph with every recorded pin on it — no drawing, updates as the crews pin things">Satellite · pins</button>` : ''}""",
-          """ ${liveMapPossible() ? `<button class="btn sheetbtn satbtn" data-sheet="${SAT_BOARD}" title="The satellite photograph with every reference in its trade's colour">Satellite map</button>` : ''}
- ${mapSheetsShown(typeof sh === 'undefined' ? null : sh).map(s => `<button class="btn sheetbtn ${s.key===sh.key?'primary':''}" data-sheet="${s.key}">${esc(s.title)}</button>`).join('')}""", 'master toolbar')
-    t = R("""<option value="${SAT_BOARD}">Satellite · pins</option>""", """<option value="${SAT_BOARD}">Satellite map</option>""", 'sel name 2') if t.count("""<option value="${SAT_BOARD}">Satellite · pins</option>""") == 1 else t
     # 6. the Map tab opens on the satellite map (a search that found something on the master still goes there)
     t = R(""" if (state.sheet === SAT_BOARD && liveMapPossible()) { renderSatBoard(); return; }""",
-          """ if (!state.mapMasterSeen && !state.found && liveMapPossible() && !/^#sheet\\//.test(location.hash)) { state.mapMasterSeen = true; state.sheet = SAT_BOARD; }   /* v6.93 - the Map tab opens on the satellite map unless a link asked for a sheet */
+          """ if (!state.mapMasterSeen && !state.found && !/^#sheet\\//.test(location.hash) && (sat3dPossible() || liveMapPossible())) { state.mapMasterSeen = true; state.sheet = sat3dPossible() ? SAT_3D : SAT_BOARD; }   /* v6.93 - the Map tab opens on Satellite · 3D (#sheet/__satellite3d), or the satellite pins where 3D can't run, unless a link asked for a sheet */
  if (state.sheet === SAT_BOARD && liveMapPossible()) { renderSatBoard(); return; }""", 'default sat')
     # 7. open framed on the circuit: the middle 94 % of the plan positions, so an off-site yard does not zoom the whole board out
     t = R(""" const all = pins.map(p => [p.lon, p.lat]).concat(drawn.map(d => [d.lon, d.lat]));""",

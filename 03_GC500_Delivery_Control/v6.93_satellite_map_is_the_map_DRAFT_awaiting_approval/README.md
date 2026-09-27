@@ -8,8 +8,12 @@ use this for maps (#sheet/__satellite) ... it shows more ... only thing you need
 the draft page served in place of the live one inside the test browser (`lh2.js`, `sat693.js`).
 
 ## What changes
-- **The Map tab opens on the satellite map.** "Satellite map" is the first button. The master plan is one press away, and a
-  search that finds something on the master still opens there.
+- **Updated 27 Sep 2026 after Andrew's "Maps is meant to open #sheet/__satellite3d":**
+  - The Map tab now opens on **Satellite · 3D**. If 3D can't run on the device, it opens this satellite map.
+  - The buttons keep their names and order: Satellite · pins, Satellite · 3D, Plan on satellite, 3D proof.
+  - The "Satellite map" rename and move-to-first are withdrawn.
+  - The Master plan button goes in v6.96 ("dont double up any").
+  - A search that finds something on the master still opens there.
 - **Every reference is a pin in its trade's colour**, from the triple-checked master-plan positions:
   - generators yellow;
   - light towers white with an orange ring;
