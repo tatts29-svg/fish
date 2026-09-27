@@ -67,3 +67,9 @@ Live checks (GET only):
 - Labour charged $12,809.50.
 - Hours 2,003.5 worked, 1,909 paid.
 - No errors.
+
+## Decided 27 Sep 2026
+- **LTC01–LTC14 are lighting towers.** Andrew Fisher, 27 Sep 2026: "They're lighting towers." They stay as they are: counted as
+  light towers, on the maps and in the 3D map. Nothing was removed.
+- Still open (not Andrew's call): register item R27, whether the circuit series (LTC) and the keyed series (LT01–06, Molendinar and
+  Seaway) are the same towers. The question is for iEDM.
