@@ -14,7 +14,7 @@ def patch(path, wowf, need):
     wow = open(wowf, encoding='utf-8').read().rstrip() + '\n'
     t = R("""/* v6.93 - which trades and layers are showing; kept for the session, applied as filters (no rebuild) */""", wow + """/* v6.93 - which trades and layers are showing; kept for the session, applied as filters (no rebuild) */""", 'wow code')
     t = R("""function unmountSatBoard(){ if (document.querySelector('.mapcard.satfull')) satFull(false);""",
-          """function unmountSatBoard(){ if (document.querySelector('.mapcard.satfull')) satFull(false); wowStop(); WOW.ride = false; WOW.map = null; WOW.carReady = false;""", 'unmount')
+          """function unmountSatBoard(){ if (document.querySelector('.mapcard.satfull')) satFull(false); wowStop(); WOW.map = null;""", 'unmount')
     t = R("""style: 'mapbox://styles/mapbox/satellite-streets-v12', attributionControl: true, cooperativeGestures: false, fadeDuration: 0, renderWorldCopies: false, maxPitch: 70, antialias: true, projection: 'mercator',""",
           """style: WOW.fallback ? 'mapbox://styles/mapbox/satellite-streets-v12' : 'mapbox://styles/mapbox/standard-satellite',
  ...(WOW.fallback ? {} : {config: {basemap: {lightPreset: wowPreset(), showPointOfInterestLabels: false, showTransitLabels: false}}}),
@@ -45,16 +45,14 @@ def patch(path, wowf, need):
 .wowsel{display:inline-flex;align-items:center;gap:6px}.wowsel span{opacity:.7;font-weight:500}.wowsel select{background:transparent;color:#fff;border:0;font:600 12.5px inherit;outline:none}
 .wowsel option{color:#111}
 .wowfind{width:170px;outline:none}.wowfind::placeholder{color:rgba(255,255,255,.6)}.wowfind.miss{box-shadow:0 0 0 2px #ff4d4d}
-.wowhud{position:absolute;left:12px;bottom:34px;z-index:3;background:rgba(12,16,20,.86);color:#fff;border-radius:10px;padding:8px 14px;font:800 26px/1 "Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-style:italic;font-variant-numeric:tabular-nums;box-shadow:0 2px 10px rgba(0,0,0,.4);border-left:4px solid #ff6a13}
-.wowhud b{color:#ff6a13;margin-right:8px}.wowhud small{font-size:13px;margin:0 10px 0 3px;opacity:.75}.wowhud .t{font-size:18px;opacity:.9}
 .wowcard .mapboxgl-popup-content{padding:0;border-radius:10px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.35)}
 .wowc{font:13px/1.35 inherit;color:#111;width:240px}.wowc img{display:block;width:100%;height:120px;object-fit:cover;background:#eee}
 .wowct{padding:8px 10px 2px}.wowct b{font-size:14px}.wowct span{color:#555}
 .wowcm{padding:2px 10px 4px;display:flex;align-items:center;gap:5px;font-size:12px;color:#333}.wowcm i{width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.35) inset;display:inline-block}
 .wowcs{padding:0 10px 8px;font-size:11px;color:#888}
 .satchips.bystatus .satchip i{background:#9aa3ad!important}
-@media(max-width:640px){.wowbar{left:52px;right:52px}.wowfind{width:120px}.wowsel span{display:none}.wowhud{left:10px;bottom:30px;font-size:22px}}
-@media print{.wowbar,.wowhud{display:none!important}}
+@media(max-width:640px){.wowbar{left:52px;right:52px}.wowfind{width:120px}.wowsel span{display:none}}
+@media print{.wowbar{display:none!important}}
 </style>"""
     k = t.find('</style>'); t = t[:k] + css + t[k + len('</style>'):]
     open(path, 'w', encoding='utf-8').write(('﻿' if bom else '') + t); print('ok', os.path.basename(path), n0, '->', len(t))

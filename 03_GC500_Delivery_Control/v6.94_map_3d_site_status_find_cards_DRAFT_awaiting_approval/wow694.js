@@ -4,17 +4,17 @@
  night; AEST, no daylight saving), or chosen;
  - the site in 3D: every reference stands on the photograph as its own shape in its trade's colour - buildings as
  boxes, toilets as cubicles, generators as sets, light towers as 9 m masts with a lamp head - turned to the road;
- - the circuit: the racing line in Coates orange, and the #26 (the show scene's own car, livery baked in) lapping it at
- modelled speeds, a light trail behind it. Ride along puts the camera on the car's shoulder for the lap;
+ - the circuit: the track outline in Coates orange, so it is plain which side of the barrier each thing sits
+ (Andrew, 27 Sep 2026: the lapping car "looks silly" - it is gone; the map is for the job);
  - colour by trade or by where each thing is (on site, in transit, not on site, no record);
  - find a reference: the camera sweeps there and the pin pulses;
  - a card on hover (desktop) with the master-plan picture; a tap still opens the drawer in one press;
  - zoomed out, the site glows as a heat haze; a fly-in on first open (not when motion is reduced).
  Positions are the master plan laid on the photograph by image registration (about 8 m), not a survey; the lap and the
- speeds are modelled, not telemetry. The car and the lap come from the machine set (/w/<token>/map/), fetched only when
- the map opens. Every frame's work stops when the map is closed or the tab is hidden. */
-const WOW = {map: null, gl: null, raf: 0, lap: null, carReady: false, carOn: true, ride: false, s: 0, v: 22, last: 0, t: 0, lapT0: 0,
- colour: 'trade', light: 'auto', pulse: null, head: null, drawn: [], hoverPop: null};
+ outline is the Showcase's lap line pulled onto the road centre lines. It comes from the machine set (/w/<token>/map/lap.json),
+ fetched only when the map opens. Every frame's work stops when the map is closed or the tab is hidden. */
+const WOW = {map: null, gl: null, raf: 0, lap: null, last: 0,
+ colour: 'trade', light: 'auto', pulse: null, drawn: [], hoverPop: null};
 const WOW_STATUS = {'on site': '#39e07a', 'in transit': '#ffb000', 'not on site': '#ff4d4d', 'unknown': '#9aa3ad'};
 function wowReduced(){ try { return typeof motionOff === 'function' ? !!motionOff() : matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
 function wowHourAEST(){ const d = new Date(Date.now() + 10 * 3600e3); return d.getUTCHours() + d.getUTCMinutes() / 60; }
@@ -52,12 +52,8 @@ async function wowLoadLap(){
  for (let i = 0; i < n; i++) { lat[i] = P[i][0]; lon[i] = P[i][1]; v[i] = P[i][3] || 30; }
  for (let i = 0; i < n; i++) { const j2 = (i + 1) % n, e = (lon[j2] - lon[i]) * 111320 * Math.cos(lat[i] * Math.PI / 180), nn = (lat[j2] - lat[i]) * 110574; cum[i + 1] = cum[i] + Math.hypot(e, nn); }
  for (let i = 0; i < n; i++) { const a = (i - 2 + n) % n, b = (i + 2) % n, e = (lon[b] - lon[a]) * 111320 * Math.cos(lat[i] * Math.PI / 180), nn = (lat[b] - lat[a]) * 110574; hd[i] = Math.atan2(e, nn); }
- WOW.lap = {n, lat, lon, v, cum, hd, L: cum[n], grid: j.grid || 0}; WOW.s = cum[j.grid || 0]; return WOW.lap; } catch (e) { return null; }
+ WOW.lap = {n, lat, lon, v, cum, hd, L: cum[n], grid: j.grid || 0}; return WOW.lap; } catch (e) { return null; }
 }
-function wowAt(s){ const L = WOW.lap; s = ((s % L.L) + L.L) % L.L; let lo = 0, hi = L.n; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (L.cum[m] <= s) lo = m; else hi = m; }
- const f = (s - L.cum[lo]) / Math.max(1e-6, L.cum[lo + 1] - L.cum[lo]), j = (lo + 1) % L.n;
- return {lat: L.lat[lo] + (L.lat[j] - L.lat[lo]) * f, lon: L.lon[lo] + (L.lon[j] - L.lon[lo]) * f, v: L.v[lo] + (L.v[j] - L.v[lo]) * f, i: lo}; }
-function wowHeading(s){ const a = wowAt(s - 3), b = wowAt(s + 3); return Math.atan2((b.lon - a.lon) * 111320 * Math.cos(a.lat * Math.PI / 180), (b.lat - a.lat) * 110574); }
 function wowLoad(map, gl, drawn){
  WOW.map = map; WOW.gl = gl; WOW.drawn = drawn; const std = !WOW.fallback;
  const emis = (id, prop) => { if (std) try { map.setPaintProperty(id, prop, 1); } catch (e) {} };
@@ -81,22 +77,9 @@ function wowLoad(map, gl, drawn){
  map.addSource('sb-lap', {type: 'geojson', data: line});
  map.addLayer({id: 'sb-lap-glow', type: 'line', source: 'sb-lap', layout: {'line-join': 'round', 'line-cap': 'round'}, paint: {'line-color': '#ff6a13', 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 4, 17, 16], 'line-blur': ['interpolate', ['linear'], ['zoom'], 12, 3, 17, 12], 'line-opacity': .45, ...(std ? {'line-emissive-strength': 1} : {})}}, 'sb-heat');
  map.addLayer({id: 'sb-lap', type: 'line', source: 'sb-lap', layout: {'line-join': 'round', 'line-cap': 'round'}, paint: {'line-color': '#ffb070', 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 1.2, 17, 2.6], 'line-opacity': .9, ...(std ? {'line-emissive-strength': 1} : {})}}, 'sb-heat');
- map.addSource('sb-trail', {type: 'geojson', lineMetrics: true, data: {type: 'Feature', geometry: {type: 'LineString', coordinates: [[lap.lon[0], lap.lat[0]], [lap.lon[1], lap.lat[1]]]}}});
- map.addLayer({id: 'sb-trail', type: 'line', source: 'sb-trail', layout: {'line-cap': 'round', 'line-join': 'round'}, paint: {'line-width': ['interpolate', ['linear'], ['zoom'], 13, 3, 18, 7],
- 'line-gradient': ['interpolate', ['linear'], ['line-progress'], 0, 'rgba(255,106,19,0)', .6, 'rgba(255,140,40,.7)', 1, 'rgba(255,244,214,1)'], ...(std ? {'line-emissive-strength': 1} : {})}});
  map.addSource('sb-pulse', {type: 'geojson', data: {type: 'FeatureCollection', features: []}});
  map.addLayer({id: 'sb-pulse', type: 'circle', source: 'sb-pulse', paint: {'circle-radius': 10, 'circle-color': 'rgba(0,0,0,0)', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 3, 'circle-stroke-opacity': 1, ...(std ? {'circle-emissive-strength': 1} : {})}});
- /* the #26 */
- const base = wowBase();
- if (base && map.addModel) {
- map.addModel('car26', base + 'car26.glb');
- map.addSource('sb-car', {type: 'geojson', data: {type: 'Feature', geometry: {type: 'Point', coordinates: [lap.lon[lap.grid], lap.lat[lap.grid]]}, properties: {}}});
- map.addLayer({id: 'sb-car', type: 'model', source: 'sb-car', layout: {'model-id': 'car26'}, paint: {'model-type': 'common-3d', 'model-cast-shadows': true, 'model-receive-shadows': true,
- 'model-scale': [1, 1, 1],
- 'model-rotation': ['literal', [0, 0, 0]], ...(std ? {'model-emissive-strength': .25} : {})}});
- WOW.carReady = true;
- }
- wowUI(); wowStart();
+ wowUI();
  } catch (e) { console.warn('map extras:', e && e.message); }
  });
  /* the card on hover, with the master's own picture of the place */
@@ -105,8 +88,6 @@ function wowLoad(map, gl, drawn){
  map.on('mousemove', 'sb-drawn', ev => { const f = ev.features && ev.features[0]; if (!f) return; const k = f.properties.key; if (WOW.hoverKey === k) return; WOW.hoverKey = k; WOW.hoverPop.setLngLat(f.geometry.coordinates).setHTML(wowCard(k)).addTo(map); });
  map.on('mouseleave', 'sb-drawn', () => { WOW.hoverKey = null; WOW.hoverPop.remove(); });
  }
- /* any hand on the map takes the camera back */
- ['dragstart', 'wheel', 'touchstart', 'pitchstart', 'rotatestart'].forEach(ev => map.on(ev, e => { if (e && e.originalEvent && WOW.ride) wowRide(false); }));
  wowFlyIn(map);
 }
 function wowCard(k){
@@ -126,16 +107,10 @@ function wowFlyIn(map){
 function wowUI(){
  const wrap = document.querySelector('.satwrap'); if (!wrap || wrap.querySelector('.wowbar')) return;
  const bar = document.createElement('div'); bar.className = 'wowbar';
- bar.innerHTML = `<button type="button" data-wow="car" aria-pressed="${WOW.carOn}" title="The #26 lapping the circuit">▶ #26 on track</button>
- <button type="button" data-wow="ride" aria-pressed="false" title="Ride along with the #26 (any touch of the map takes the camera back)">🎥 Ride along</button>
- <label class="wowsel"><span>Light</span><select data-wow="light" aria-label="Light">${[['auto', 'Now (AEST)'], ['dawn', 'Dawn'], ['day', 'Day'], ['dusk', 'Dusk'], ['night', 'Night']].map(([v, n]) => `<option value="${v}"${WOW.light === v ? ' selected' : ''}>${n}</option>`).join('')}</select></label>
+ bar.innerHTML = `<label class="wowsel"><span>Light</span><select data-wow="light" aria-label="Light">${[['auto', 'Now (AEST)'], ['dawn', 'Dawn'], ['day', 'Day'], ['dusk', 'Dusk'], ['night', 'Night']].map(([v, n]) => `<option value="${v}"${WOW.light === v ? ' selected' : ''}>${n}</option>`).join('')}</select></label>
  <label class="wowsel"><span>Colour</span><select data-wow="colour" aria-label="Colour by"><option value="trade">Trade</option><option value="status"${WOW.colour === 'status' ? ' selected' : ''}>Where it is</option></select></label>
  <input type="search" class="wowfind" data-wow="find" placeholder="Find: WC23, GN04…" aria-label="Find a reference on the map" autocomplete="off" spellcheck="false">`;
  wrap.appendChild(bar);
- const hud = document.createElement('div'); hud.className = 'wowhud'; hud.hidden = true; hud.innerHTML = '<b>#26</b> <span class="k">0</span><small>km/h</small> <span class="t">0:00.0</span>'; wrap.appendChild(hud); WOW.hud = hud;
- bar.addEventListener('click', ev => { const b = ev.target.closest('button[data-wow]'); if (!b) return;
- if (b.dataset.wow === 'car') { WOW.carOn = !WOW.carOn; b.setAttribute('aria-pressed', String(WOW.carOn)); if (!WOW.carOn && WOW.ride) wowRide(false); wowStart(); }
- if (b.dataset.wow === 'ride') wowRide(!WOW.ride); });
  bar.querySelector('[data-wow="light"]').onchange = e => { WOW.light = e.target.value; try { WOW.map.setConfigProperty('basemap', 'lightPreset', wowPreset()); } catch (er) {} };
  bar.querySelector('[data-wow="colour"]').onchange = e => { WOW.colour = e.target.value; const p = WOW.colour === 'status' ? 'sc' : 'c';
  try { WOW.map.setPaintProperty('sb-drawn', 'circle-color', ['get', p]); WOW.map.setPaintProperty('sb-3d', 'fill-extrusion-color', ['get', p]); } catch (er) {}
@@ -144,45 +119,16 @@ function wowUI(){
  f.addEventListener('keydown', e => { if (e.key !== 'Enter') return; const q = f.value.trim().toUpperCase(); if (!q) return;
  const d = WOW.drawn.find(x => x.key.toUpperCase() === q) || WOW.drawn.find(x => x.key.toUpperCase().startsWith(q)) || WOW.drawn.find(x => (x.name || '').toUpperCase().includes(q));
  if (!d) { f.classList.add('miss'); setTimeout(() => f.classList.remove('miss'), 900); return; }
- if (WOW.ride) wowRide(false);
  WOW.map.flyTo({center: [d.lon, d.lat], zoom: 18.4, pitch: 60, bearing: WOW.map.getBearing(), curve: 1.5, speed: 1.1, essential: !wowReduced()});
  WOW.pulse = {lat: d.lat, lon: d.lon, t0: performance.now()}; wowStart(); });
 }
-function wowRide(on){
- WOW.ride = !!on && WOW.carReady && WOW.carOn; const b = document.querySelector('.wowbar [data-wow="ride"]'); if (b) b.setAttribute('aria-pressed', String(WOW.ride));
- if (WOW.hud) WOW.hud.hidden = !WOW.ride; WOW.camPos = null; wowStart();
- if (WOW.ride && typeof satFull === 'function' && !document.querySelector('.mapcard.satfull')) satFull(true);   /* the ride is full screen */
- if (!WOW.ride && WOW.map) { const c = WOW.map.getCenter(); WOW.map.easeTo({center: c, zoom: Math.min(WOW.map.getZoom(), 17.2), pitch: 55, duration: 900}); }
-}
-/* true size close in; enlarged as the camera pulls back so the car can still be seen from across the site */
-function wowCarScale(z){ return z >= 18.8 ? 1 : Math.min(48, Math.pow(2, (18.8 - z) * .82)); }
-function wowStart(){ if (!WOW.raf && WOW.map && (WOW.carOn || WOW.pulse)) { WOW.last = 0; WOW.raf = requestAnimationFrame(wowFrame); } }
+function wowStart(){ if (!WOW.raf && WOW.map && WOW.pulse) { WOW.last = 0; WOW.raf = requestAnimationFrame(wowFrame); } }
 function wowStop(){ if (WOW.raf) cancelAnimationFrame(WOW.raf); WOW.raf = 0; }
 function wowFrame(now){
  WOW.raf = 0; const map = WOW.map; if (!map || !LIVEMAP.board || LIVEMAP.board !== map || document.hidden) return;
  const dt = Math.min(.05, WOW.last ? (now - WOW.last) / 1000 : 1 / 60); WOW.last = now;
- if (WOW.carOn && WOW.carReady && WOW.lap) {
- const L = WOW.lap, vT = wowAt(WOW.s).v; WOW.v += (vT - WOW.v) * Math.min(1, dt * 2.5); const prev = WOW.s; WOW.s += WOW.v * dt; WOW.t += dt;
- if (WOW.s >= L.L) { WOW.s -= L.L; WOW.lapT0 = WOW.t; }
- const p = wowAt(WOW.s), hd = wowHeading(WOW.s); WOW.head = WOW.head == null ? hd : WOW.head + Math.atan2(Math.sin(hd - WOW.head), Math.cos(hd - WOW.head)) * Math.min(1, dt * 10);
- try { map.getSource('sb-car').setData({type: 'Feature', geometry: {type: 'Point', coordinates: [p.lon, p.lat]}, properties: {}});
- map.setPaintProperty('sb-car', 'model-rotation', [0, 0, WOW.head * 180 / Math.PI - 90]);
- const sc = WOW.ride ? 1 : wowCarScale(map.getZoom()); if (sc !== WOW.lastScale) { WOW.lastScale = sc; map.setPaintProperty('sb-car', 'model-scale', [sc, sc, sc]); }
- const tr = []; for (let k = 26; k >= 0; k--) { const q = wowAt(WOW.s - k * 4.5); tr.push([q.lon, q.lat]); }
- map.getSource('sb-trail').setData({type: 'Feature', geometry: {type: 'LineString', coordinates: tr}}); } catch (e) {}
- if (WOW.ride) wowChase(p, dt);
- if (WOW.hud && !WOW.hud.hidden) { const lt = WOW.t - WOW.lapT0, m = Math.floor(lt / 60), sec = lt - m * 60;
- WOW.hud.querySelector('.k').textContent = Math.round(WOW.v * 3.6); WOW.hud.querySelector('.t').textContent = m + ':' + (sec < 10 ? '0' : '') + sec.toFixed(1); }
- }
  if (WOW.pulse) { const k = (now - WOW.pulse.t0) / 1000; if (k > 4.5) { WOW.pulse = null; try { map.getSource('sb-pulse').setData({type: 'FeatureCollection', features: []}); } catch (e) {} }
  else { const ph = (k % 1.1) / 1.1; try { map.getSource('sb-pulse').setData({type: 'Feature', geometry: {type: 'Point', coordinates: [WOW.pulse.lon, WOW.pulse.lat]}, properties: {}});
  map.setPaintProperty('sb-pulse', 'circle-radius', 8 + ph * 38); map.setPaintProperty('sb-pulse', 'circle-stroke-opacity', 1 - ph); } catch (e) {} } }
- if (WOW.carOn || WOW.pulse) WOW.raf = requestAnimationFrame(wowFrame);
-}
-/* the camera on the car's shoulder: centred a few metres ahead of the #26, tilted 70 degrees, facing the way it is going;
- the heading is eased so the camera swings through the corners rather than snapping */
-function wowChase(p, dt){
- const map = WOW.map, hd = WOW.head, ahead = wowLL(p.lat, p.lon, Math.sin(hd) * 5.5, Math.cos(hd) * 5.5);
- const k = Math.min(1, dt * 5); WOW.camPos = WOW.camPos ? [WOW.camPos[0] + (ahead[0] - WOW.camPos[0]) * k, WOW.camPos[1] + (ahead[1] - WOW.camPos[1]) * k] : ahead;
- try { map.jumpTo({center: WOW.camPos, zoom: 20.15, pitch: 71, bearing: hd * 180 / Math.PI}); } catch (e) {}
+ if (WOW.pulse) WOW.raf = requestAnimationFrame(wowFrame);
 }
