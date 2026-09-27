@@ -49,3 +49,7 @@ and the signed sheet is the record.
 - Mon 28, Tue 29 and Wed 30 Sep show as prefilled Sun 27 Sep; Thu 1 Oct says Wed 30 Sep.
 - Mon 28 Sep: in 9 (4 portable buildings, 4 toilets, 1 generator) in S10, S13, S11 and S14.
 - Mon 28 Sep has the button; Thu 1 Oct has none yet. The printout fits one A4 page and goes straight to print. No page errors.
+
+## SUPERSEDED — 27 Sep 2026
+Never went live. Andrew: "use ones we are currently using ... Not go into where u have it going". Replaced by v6.97: the
+crew's own Coates Installs pre-start, prefilled, on the Pre-starts page.

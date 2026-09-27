@@ -18,3 +18,10 @@ added over the current live manifest.
 - Coates FM on RADIO: radio EQ, V8 ducked 10 dB, press again to stop.
 - Test `_qa/test_v6_92.js`: 24 of 24 pass, no page errors. Car view +55 draw calls, +2.7 % triangles.
 - Not yet checked: a real GPU, phones, Safari/Firefox, and the sound levels by ear.
+
+## LIVE — 27 Sep 2026, 16:31 AEST
+On Andrew's "Machine yes". The machine set was re-registered with the six changed files, `pit-machinery.js` and
+`assets/audio/coates-fm.mp3` added over the live v6.90 set (7bdc9747350c, 213 files).
+- **New set:** 1f3bddd5acf4, 215 files, 161.2 MB. Version `v6.92-machine-garage-cockpit-coatesfm`.
+- **Checked from the live service:** the machine loads `pit-garage.js`, `pit-machinery.js` and `car-cockpit.js` with no page errors.
+- **Not yet checked:** a real GPU, phones, and the sound levels by ear.
