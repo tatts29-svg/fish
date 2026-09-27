@@ -4,7 +4,7 @@ Author: Andrew Fisher
 Asked 27 Sep 2026: "Rotating of map can we fix and not rotate the map itself … look at different angles, ensure we
 have north east south west. It's still very clunky and laggy … smooth fast no blurry" — "Sorry, under Plan on satellite".
 
-**Nothing here is live.** Deploying means re-registering the machine set with `machine_set.py`: keep the current
+**Live since 27 Sep 2026, 12:43 AEST** (see RELEASE.md).
 manifest and add this `explorer/` folder over the live files (explorer.js, index.html, README.md).
 
 ## What changes

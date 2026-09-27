@@ -3,7 +3,7 @@
 Author: Andrew Fisher
 Asked 27 Sep 2026: "look at 3D proof … high tech attention … more detail, more quality … functions smoother and clearer".
 
-**Nothing here is live.** To deploy, re-register the machine set with `machine_set.py`: keep the current manifest and add
+**Live since 27 Sep 2026, 12:43 AEST** (see RELEASE.md).
 `poc3d/index.html` and `poc3d/units3d.json` over the live `poc3d/` files.
 
 ## What changes
