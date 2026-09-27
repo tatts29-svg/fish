@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad
+P=GC500_Delivery_Control_hosted_v690.html && cp GC500_Delivery_Control_hosted_v684.html $P && python3 patch_v685.py $P locfind/master_loc_689.json >/dev/null && python3 patch_v686.py $P locfind/new_media_690.json kit584/GC500_v5.84_reimport/media/manifest.json >/dev/null && python3 patch_v681.py $P >/dev/null && python3 patch_v687.py $P >/dev/null && python3 patch_v688.py $P locfind/master_extra.json >/dev/null && python3 patch_v689.py $P >/dev/null && python3 patch_v690.py $P locfind/tiles_index.json wiremap_v690.js && ./rebuild.sh $P

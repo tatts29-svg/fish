@@ -225,13 +225,21 @@ function wireMap(){
  stage.addEventListener('dblclick', e => { if (e.target.closest('.mk, .zoomctl, .rotctl, .mcompass, button, a')) return; e.preventDefault(); dblAt(e.clientX, e.clientY); });
  let tap = null, lastTap = null, drag = null, dragBox = null, lastTiles = 0;
  const pts = new Map();
+ /* v6.90 - a drag let go with speed coasts on and slows to a stop, as Google Maps does */
+ let trail = [], flingRAF = 0;
+ const stopFling = () => { cancelAnimationFrame(flingRAF); flingRAF = 0; };
+ const fling = (vx, vy) => { stopFling(); if (motionOff()) return; let last = performance.now();
+ const step = t => { const dt = Math.min(40, t - last); last = t; const k = Math.pow(.9955, dt); vx *= k; vy *= k;
+ if (Math.hypot(vx, vy) < .03 || !stage.isConnected) { flingRAF = 0; settle(); return; }
+ const m = unturnD(vx * dt, vy * dt); state.ox += m.x; state.oy += m.y; clamp(); apply(); busy(); flingRAF = requestAnimationFrame(step); };
+ flingRAF = requestAnimationFrame(step); };
  const skip = e => e.target.closest('.mk') || e.target.closest('.zoomctl') || e.target.closest('.rotctl') || e.target.closest('.mcompass');
  stage.addEventListener('pointerdown', e => {
  if (skip(e)) return;
  if (pts.size >= 2) { pts.clear(); drag = null; }
  pts.set(e.pointerId, e); try { stage.setPointerCapture(e.pointerId); } catch (err) {}
  dragBox = box();
- if (pts.size === 1) { drag = {x: e.clientX, y: e.clientY, ox: state.ox, oy: state.oy}; stopZoom(); stopTurn();
+ if (pts.size === 1) { drag = {x: e.clientX, y: e.clientY, ox: state.ox, oy: state.oy}; stopZoom(); stopTurn(); stopFling(); trail = [];
  tap = e.pointerType === 'touch' ? {x: e.clientX, y: e.clientY, t: performance.now()} : null; } else tap = null;
  });
  stage.addEventListener('pointermove', e => {
@@ -254,13 +262,14 @@ function wireMap(){
  drag = {d, ang};
  } else if (drag && drag.x != null) {
  const m = unturnD(e.clientX - drag.x, e.clientY - drag.y);
- state.ox = drag.ox + m.x; state.oy = drag.oy + m.y;
+ state.ox = drag.ox + m.x; state.oy = drag.oy + m.y; trail.push({t: performance.now(), x: e.clientX, y: e.clientY}); if (trail.length > 12) trail.shift();
  if (tap && Math.hypot(e.clientX - tap.x, e.clientY - tap.y) > 10) tap = null;
  clamp(); applySoon(); busy();
  const now = performance.now(); if (now - lastTiles > 220) { lastTiles = now; requestAnimationFrame(tilesNow); }
  }
  });
- const up = e => { pts.delete(e.pointerId); if (pts.size < 2) drag = null; try { stage.releasePointerCapture(e.pointerId); } catch (err) {}
+ const up = e => { const was1 = pts.size === 1 && drag && drag.x != null; pts.delete(e.pointerId); if (pts.size < 2) drag = null;
+ if (e.type === 'pointerup' && was1 && !pts.size) { const now = performance.now(), rc = trail.filter(q => now - q.t < 160); if (rc.length > 1) { const a = rc[0], b = rc[rc.length - 1], dt = Math.max(8, b.t - a.t), vx = (b.x - a.x) / dt, vy = (b.y - a.y) / dt; if (Math.hypot(vx, vy) > .25) fling(vx, vy); } } try { stage.releasePointerCapture(e.pointerId); } catch (err) {}
  if (e.type === 'pointerup' && tap && !pts.size && performance.now() - tap.t < 260) {
  const now = performance.now();
  if (lastTap && now - lastTap.t < 320 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 34) { lastTap = null; dblAt(e.clientX, e.clientY); }
