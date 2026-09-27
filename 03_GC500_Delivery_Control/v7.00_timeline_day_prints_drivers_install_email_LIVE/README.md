@@ -164,3 +164,15 @@ Every QR in the printed PDFs was found by its vector square, rendered at 400 dpi
 
 - **JSEA wording on collections:** the JSEA text is word for word as asked ("before unloading … No JSEA, no unload") on every driver page, collections included. Nothing links the JSEA to the site team.
 - **Attribution scrub:** the patch refuses a source that would put a space before a class selector (`" .dp…"`) inside a script. The only "Andrew Fisher" left in the code is the author-credit fallback the scrub keeps.
+
+## LIVE: 27 Sep 2026, 19:27 AEST (Andrew: "Go live, and yes to prints")
+- Page = live v6.99 + v7.01, plus `patch_v700.py`. The upload was verified byte for byte against the view link (7,522,493 bytes).
+  The machine set is unchanged (01a460cbbe71).
+- Checked on this exact build:
+  - The Map explorer checks pass: tab, card, drawer, old 3D link, Coates Way overlay.
+  - The pre-start is still one page for 28 Sep, 30 Sep, 2 Oct and 7 Oct.
+  - There are no page errors.
+  - The build is identical to the tested v6.99 + v7.00 build, apart from the v7.01 label lines.
+- JSEA wording is kept as Andrew gave it ("before unloading") on every driver page.
+- Installer pages carry the Portable Buildings & Toilets SWMS, the Loading and Unloading SWMS, the Take 5 box and the
+  Life Saving Rules. Andrew confirmed this on 27 Sep.
