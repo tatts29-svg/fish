@@ -32,4 +32,4 @@ They're counted by quantity (metres of barrier, sheets of mat), never by a numbe
   - every location's "n of q" is identical.
 - **Tab sweep:** 21 tabs, 0 errors on desktop and phone.
 
-**LIVE: 29 Sep 2026, 09:43 AEST.** It matches the build byte for byte on the view link.
+**LIVE: 29 Sep 2026, 09:39 AEST.** It matches the build byte for byte on the view link.
