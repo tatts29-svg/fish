@@ -1,0 +1,15 @@
+const {open} = require('/tmp/claude-0/stage18/lh18au');
+(async () => { const s = await open({pageFile: process.env.PAGE, hash: '#today', W: 1440, H: 900, gl: false}); const p = s.page;
+ await p.route('**/*', r => r.request().method() === 'GET' ? r.fallback() : r.abort());
+ await p.waitForFunction(() => typeof numberOwners === 'function', null, {timeout: 150000}); await p.waitForTimeout(5000);
+ const R = await p.evaluate(() => { const hit = v => JSON.stringify(v).match(/1282487|1327222/);
+  const com = k => { const c = CROW.get(k) || {}; return {asset_numbers_supplied: c.asset_numbers_supplied, recorded_by: c.recorded_by, recorded_at: c.recorded_at || c.at, items: c.items, notes: c.note || c.notes, keys: Object.keys(c)}; };
+  const sched = k => { const a = DATA.assets.find(x => x.key === k); return a ? {asset_numbers: a.asset_numbers, asset_no_state: a.asset_no_state, src_note: a.asset_no_source || null, name: a.name} : null; };
+  const deleted = Object.entries(Object.assign({}, (COMMITTED || {}).deleted || {}, S.deleted || {})).filter(([k]) => /1282487|1327222/.test(k));
+  const by = Object.entries(S.by || {}).filter(([k]) => /1282487|1327222|P36|P63|P53/.test(k));
+  const stamps = Object.entries(S.stamps || {}).filter(([k]) => /1282487|1327222/.test(k));
+  const sup = Object.entries(S.supplied || {}).filter(([k, v]) => hit(v) || /P36|P63|P53/.test(k));
+  const rows = ONHIRE_ROWS.filter(r => /1282487|1327222/.test(String(r.asset_no)) || /P36|P63|P53/.test(String(r.description))).map(r => [r.rental_contract, r.line, r.asset_no, r.description, r.status_as_written, r.booked_delivery_date || null, r.on_hire_date || r.date_out || null]);
+  const fixes = Object.entries(S.fixes || {}).filter(([k]) => /P36|P63|P53/.test(k)).map(([k, v]) => [k, v.by, v.at]);
+  return {P36: {com: com('P36'), sched: sched('P36'), src: assetOf('P36')._numberSources}, P63: {com: com('P63'), sched: sched('P63'), src: assetOf('P63')._numberSources, nums: assetNumbersOf(assetOf('P63'))}, P53: {sched: sched('P53')}, deleted, by, stamps, sup, rows, fixes}; });
+ console.log(JSON.stringify(R, null, 1)); await s.browser.close(); })();
