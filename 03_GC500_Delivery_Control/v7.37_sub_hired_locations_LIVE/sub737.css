@@ -1,0 +1,16 @@
+
+/* v7.37 - sub-hired locations */
+.chip.subhirechip{background:#5b2a86;border-color:#5b2a86;color:#fff;font-weight:700;letter-spacing:.02em}
+.notice.subhirebox{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;border-left:4px solid #5b2a86;background:rgba(91,42,134,.08)}
+.notice.subhirebox .w{display:block;margin-top:3px}
+.notice.subhireask .chdrow{margin-top:6px}
+.notice.subhireask label{font-weight:600}
+details.submany{margin-top:6px}
+details.submany summary{cursor:pointer;font-weight:600}
+details.submany textarea{width:100%;box-sizing:border-box;margin-top:6px;font-family:ui-monospace,Consolas,monospace}
+.subreg h4{margin:12px 0 4px}
+.subreg .tblwrap{overflow-x:auto}
+table.subregtab{width:100%;min-width:0!important;border-collapse:collapse}
+table.subregtab td,table.subregtab th{padding:5px 6px;border-bottom:1px solid rgba(0,0,0,.08);vertical-align:top;text-align:left}
+table.subregtab td.num,table.subregtab th.num{text-align:right}
+table.subregtab td.mono{word-break:break-word}
