@@ -1,4 +1,4 @@
-# v7.40: signed fencing papers recorded on the page (DRAFT, being tested; not live yet)
+# v7.40: signed fencing papers recorded on the page (LIVE)
 
 Author: Andrew Fisher
 
@@ -32,3 +32,10 @@ Andrew, 29 Sep 2026, with photographs of seven signed Advanced papers:
 - A duplicate paper number is refused and named.
 - The forms are disabled on the view link; nothing scrolls sideways; 0 page errors.
 - Tab sweep: 21 tabs, 0 errors on desktop and phone.
+
+## A fault found while entering them, and what was done
+- The first pass recorded the papers as "Andrew Fisher (via Claude)". The id generator takes the recorder's initials, and the bracket gave every docket the same id, so the server kept only one docket (36563) and one note (24462). Those two were set aside (they're under Tools → Edit, Put back, if ever needed) and all seven were re-entered as "Andrew Fisher via Claude", giving ids F-AFV-0001 to F-AFV-0005 and N-AFV-0001 to N-AFV-0002.
+- The id generator will be made safe against punctuation in a name in the next release.
+- Final state, read from a fresh load: 63 dockets, 12 service notes, PO 4658850 with its receipt ID, description and value.
+
+**LIVE: 29 Sep 2026, 16:16 AEST.** It matches the build byte for byte on the view link. The papers were on the record by 16:58 AEST.
