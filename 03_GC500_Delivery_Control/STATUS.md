@@ -21,7 +21,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| — | nothing claimed | | |
+| v7.44 | Add sub-hired gear from the item drawer; check the 350 install charge. Author: Andrew Fisher. | Codex | 30 Sep 2026 19:47 |
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 
