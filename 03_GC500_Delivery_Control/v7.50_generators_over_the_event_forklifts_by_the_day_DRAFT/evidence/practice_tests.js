@@ -27,11 +27,11 @@ const figures = p => p.evaluate(() => { const M = moneySummary(), t = M.streams.
  await p.evaluate(() => { const i = document.querySelector('[data-lr748="c|9961976|10"]'); i.value = ''; i.dispatchEvent(new Event('change', {bubbles: true})); }); await p.waitForTimeout(800);
  R.uiCleared = await p.evaluate(() => ({stored: (S.lineRates || {})['c|9961976|10'] || null, charge: contractCharge(ONHIRE_ROWS.find(x => x.rental_contract === '9961976' && x.line === 10)).amount}));
  await p.evaluate(() => document.getElementById('card748').scrollIntoView()); await p.waitForTimeout(400);
- await p.screenshot({path: path.join(out, 'shot748_costs_desktop.png')});
+ await p.screenshot({path: path.join(out, 'shot750_costs_desktop.png')});
  R.errors = s.errors; R.blockedWrites = s.counts.blocked; await s.browser.close();
  s = await open({pageFile: build, mobile: true, W: 390, H: 844, dpr: 2}); await ready(s.page);
  await s.page.evaluate(() => go('costs')); await s.page.waitForTimeout(1500); await s.page.evaluate(() => document.getElementById('card748').scrollIntoView()); await s.page.waitForTimeout(400);
- await s.page.screenshot({path: path.join(out, 'shot748_costs_phone.png')}); R.phoneErrors = s.errors;
+ await s.page.screenshot({path: path.join(out, 'shot750_costs_phone.png')}); R.phoneErrors = s.errors;
  R.phoneOverflow = await s.page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth); await s.browser.close();
  fs.writeFileSync(path.join(out, 'practice_results.json'), JSON.stringify(R, null, 1));
  console.log(JSON.stringify({before: R.before, after: R.after, filled: R.filled.map(f => [f.line, f.what, f.rate, f.charge]), servicing: R.servicing && R.servicing.total, typed: R.typed, decidedStands: R.decidedStands, mead: R.mead, ui: {shown: R.ui.shown, boxes: R.ui.boxes}, uiTyped: R.uiTyped, uiCleared: R.uiCleared, errors: R.errors, phoneErrors: R.phoneErrors, phoneOverflow: R.phoneOverflow}, null, 1));

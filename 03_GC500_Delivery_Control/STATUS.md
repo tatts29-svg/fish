@@ -7,7 +7,8 @@ question. Newest first in each section. Times AEST.
 
 | version | what | live | by |
 |---|---|---|---|
-| **v7.47** | (Codex; seen on the live page by Claude 1 Oct 2026, not yet recorded in the repo) Andrew's confirmed answers of 1 Oct 2026 applied: VMS 22 boards; fence removal and V gates included in the per-metre price; KINP six waste tanks included in toilet-block hire; contract 9968929 lines for Coates' own use. Live page 8,398,298 bytes. | 1 Oct 2026 | Codex |
+| **v7.49** | (uploaded by Codex 1 Oct 2026 from Claude's draft folders before two corrections landed; live page 8,418,622 bytes) v7.48 Text it + v7.49 card fills the gaps. **OVERSTATES REVENUE by about $66,000** (generators charged for days on site; MEAD forklift charged 8 times over) — **v7.50 corrects it: upload it first.** | 1 Oct 2026 | Codex |
+| v7.47 | (Codex; seen on the live page by Claude 1 Oct 2026, not yet recorded in the repo) Andrew's confirmed answers of 1 Oct 2026 applied: VMS 22 boards; fence removal and V gates included in the per-metre price; KINP six waste tanks included in toilet-block hire; contract 9968929 lines for Coates' own use. Live page 8,398,298 bytes. | 1 Oct 2026 | Codex |
 | v7.45 | Monthly financial control on Costs: explicit actual-hours/cost review, labour outlook, billing months and Finance journal proposals. 70 model checks; 38/38 desktop and phone; both sweeps passed. Verified live byte for byte; no record edits or ledger posting. Author: Andrew Fisher. | 30 Sep 2026 22:17 | Codex |
 | v7.44 | Add sub-hired gear in the drawer/register; show existing supplier asset numbers throughout. Tested build verified live byte for byte; no record or charge changes. Author: Andrew Fisher. | 30 Sep 2026 21:53 | Codex |
 | v7.43 | the drawer shows what is relevant (no accessories on generators, sub-hired says so first, id generator letters only) | 29 Sep 2026 18:18 | Claude |
@@ -24,8 +25,9 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| v7.49 | The card fills the gaps (Andrew, 30 Sep: "use the rate card to fill in the gaps, we can edit the hire rate later"): Q6844 toilet servicing charged at the card's pump-out rates ($85,101.75; Toilets stream −$49,483 → +$35,619); generators, towers and forklifts with no rate charged from the card by Andrew's 1 Oct generator rule (asked-for size; no card line → next size down) and Brenden Meek's days rule (forklifts from when they go in; generators and towers the three race days only) — 31 lines, $46,953; lines with no rate 33 → 2; every rate editable on Costs (synced `lineRates`); Codex's v7.47 decisions (tanks included, 9968929 own use) always stand. Revenue $434,258 → $566,312. **Built and tested, NOT live** (no edit key in Claude's container) — `v7.49_card_fills_the_gaps_DRAFT/README.md`, build together with v7.48. Author: Andrew Fisher. | Claude | 1 Oct 2026 |
-| v7.48 | Text it says what it is and where it goes (first claimed as v7.47; renumbered because Codex's v7.47 went live first): reference, what it is, GPS (master plan wins), Maps link, pit lane way in, inside three plain texts (the old text was ~700 characters; the service refuses over 480). **Built and tested, NOT live** (no edit key in Claude's container) — `v7.48_text_it_says_what_and_where_DRAFT/README.md`. Author: Andrew Fisher. | Claude | 30 Sep 2026 |
+| **v7.50** | **READY TO UPLOAD — URGENT.** Generators and towers over the three race days only (Brenden Meek's rule); MEAD 9968726 line 1 forklift by its day rate ($1,483.20, not $11,865.60) (Andrew, 1 Oct). Live revenue $622,222 → $555,930. Built and tested, both sweeps pass; no edit key in Claude's container. `v7.50_generators_over_the_event_forklifts_by_the_day_DRAFT/README.md`. Author: Andrew Fisher. | Claude | 1 Oct 2026 |
+| v7.49 | LIVE (see above) — the folder's final source is the corrected one; the live page has the earlier one. Superseded by v7.50. The card fills the gaps (Andrew, 30 Sep: "use the rate card to fill in the gaps, we can edit the hire rate later"): Q6844 toilet servicing charged at the card's pump-out rates ($85,101.75; Toilets stream −$49,483 → +$35,619); generators, towers and forklifts with no rate charged from the card by Andrew's 1 Oct generator rule (asked-for size; no card line → next size down) and Brenden Meek's days rule (forklifts from when they go in; generators and towers the three race days only) — 31 lines, $46,953; lines with no rate 33 → 2; every rate editable on Costs (synced `lineRates`); Codex's v7.47 decisions (tanks included, 9968929 own use) always stand. Revenue $434,258 → $566,312. **Built and tested, NOT live** (no edit key in Claude's container) — `v7.49_card_fills_the_gaps_DRAFT/README.md`, build together with v7.48. Author: Andrew Fisher. | Claude | 1 Oct 2026 |
+| v7.48 | LIVE (uploaded by Codex with v7.49, 1 Oct 2026). Text it says what it is and where it goes (first claimed as v7.47; renumbered because Codex's v7.47 went live first): reference, what it is, GPS (master plan wins), Maps link, pit lane way in, inside three plain texts (the old text was ~700 characters; the service refuses over 480). **Built and tested, NOT live** (no edit key in Claude's container) — `v7.48_text_it_says_what_and_where_DRAFT/README.md`. Author: Andrew Fisher. | Claude | 30 Sep 2026 |
 | v7.46 | Apply GN20's approved 315 kVA install basis from Andrew's uploaded Rate Card 2026 (1).xlsx. Preserve hire/demob and other references; verify, test and release. Author: Andrew Fisher. | Codex | 30 Sep 2026 22:21 |
 
 Andrew directed that updates be finished, tested and released. v7.45 went live on
@@ -41,6 +43,8 @@ that branch holds both agents' work. Codex: before claiming, also read the board
 land there).
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
+**A `_DRAFT` folder is uploaded only when its claim line here says READY TO UPLOAD.** A draft that is still moving is
+not ready, whatever its tests say (1 Oct 2026: v7.49 went live mid-correction).
 
 ## Waiting on Andrew
 

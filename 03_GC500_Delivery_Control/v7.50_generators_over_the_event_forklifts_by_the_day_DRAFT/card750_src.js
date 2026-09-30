@@ -1,22 +1,10 @@
-/* v7.49 - THE CARD FILLS THE GAPS. Andrew Fisher, 30 Sep 2026, with the Street Rate Card 2026: "Can you not use the
- rate card to fill in the gaps. We can edit the hire rate later on if needed."
-
- 1. The servicing on Event Portables' quote Q6844 is on no contract line, and was "not charged". It is now charged
- at the card's pump-out rates (FWF $72.87, tank $624.60, sewer-connect clean $260.25) on Event Portables' own
- quantities, and says it is on no contract line yet.
- 2. Generators, light towers and forklifts with no rate on the contract take the card's daily on-site rate
- (Andrew, 1 Oct 2026: "If a generator price is not there you go for the lower, so 70 kVA becomes the 60 kVA. If
- the client asks for a 60 kVA and we supplied larger, they get the price of a 60 kVA."). The size is what was
- asked for (the reference's own type), else what the line says; a size the card has no line for takes the next
- size down. Forklifts charge by the day from when they go in, as every forklift line does. A generator or a tower
- is charged once, for the three event days only (Brenden Meek, Branch Manager: "Forklifts, VMS and water barriers
- are charged for from when they go in. Everything else is only charged for over the event.") - never for its
- days on site, which is how long it is there, not what the customer pays for.
- 3. Every rate can be typed over on the Costs tab; an empty box puts the card's back.
- The seven toilet lines and the building/container lines that had no rate are settled already, by the project
- manager's answers of 1 Oct 2026 (waste tanks included in toilet-block hire; contract 9968929 for Coates' own use)
- - those decisions stand and are never overridden here. The contract's own rule runs first, always: a rate on
- the line, or a decision, wins. Anything typed here wins over the card; an empty box puts the card back. */
+/* v7.50 - THE CARD FILLS THE GAPS, CORRECTED. The v7.49 that went live on 1 Oct 2026 charged a generator or a light
+ tower with no contract rate for its days on site (GN01: 28 days, $5,404) and charged MEAD's 2.5 t forklift, whose
+ Rate 1 is the whole 8-day hire written as one figure, by the day again ($11,865.60). Both against the branch's rule.
+ The project manager, 1 Oct 2026: "Forklift go by its day rate. Have our own correct logic on correct pricing. You're
+ correct about MEAD." Brenden Meek (Branch Manager): "Forklifts, VMS and water barriers are charged for from when
+ they go in. Everything else is only charged for over the event." This is the same code as v7.49 with those two
+ corrections; every name and rule below is unchanged so a rate typed on the live page keeps working. */
 const CARD748 = {
  card: 'Street Rate Card 2026',
 };

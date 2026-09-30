@@ -20,8 +20,8 @@
   }
  },
  "after": {
-  "revenue": 622221.63,
-  "contracts": 343307.43,
+  "revenue": 555929.94,
+  "contracts": 277015.74,
   "unknown": 2,
   "servicing": 85101.75,
   "toilets": {
@@ -44,153 +44,153 @@
    "line": "9961976·1",
    "what": "Lighting Tower LED Metro",
    "from": "card",
-   "rate": 2894.85,
-   "charge": 2894.85,
-   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x 45 days on site · $2,894.85, once — the rate is the whole-event bill"
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·2",
    "what": "Lighting Tower LED Metro",
    "from": "card",
-   "rate": 2894.85,
-   "charge": 2894.85,
-   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x 45 days on site · $2,894.85, once — the rate is the whole-event bill"
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·3",
    "what": "Lighting Tower LED 76500lm Hybrid",
    "from": "card",
-   "rate": 2894.85,
-   "charge": 2894.85,
-   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x 45 days on site · $2,894.85, once — the rate is the whole-event bill"
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·4",
    "what": "Lighting Tower LED Metro",
    "from": "card",
-   "rate": 2894.85,
-   "charge": 2894.85,
-   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x 45 days on site · $2,894.85, once — the rate is the whole-event bill"
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·5",
    "what": "Lighting Tower LED 76500lm Hybrid",
    "from": "card",
-   "rate": 2894.85,
-   "charge": 2894.85,
-   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x 45 days on site · $2,894.85, once — the rate is the whole-event bill"
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·6",
    "what": "Generator 365kVA Diesel",
    "from": "card",
-   "rate": 12266.28,
-   "charge": 12266.28,
-   "basis": "no rate on the contract - the card's Generator 315 KVA $471.78 a day x 26 days on site (asked for 350 kVA, 365 kVA supplied: charged as 350 kVA; no 350 kVA line on the card: the next size down) · $12,"
+   "rate": 1415.34,
+   "charge": 1415.34,
+   "basis": "no rate on the contract - the card's Generator 315 KVA $471.78 a day x the 3 event days (asked for 350 kVA, 365 kVA supplied: charged as 350 kVA; no 350 kVA line on the card: the next size down) · $1,"
   },
   {
    "line": "9961976·7",
    "what": "Generator - 60kVA (Diesel)",
    "from": "card",
-   "rate": 5404,
-   "charge": 5404,
-   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x 28 days on site · $5,404.00, once — the rate is the whole-event bill"
+   "rate": 579,
+   "charge": 579,
+   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x the 3 event days · $579.00, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·9",
    "what": "Generator - Sync - Hardwire Only 150kVA Diesel",
    "from": "card",
-   "rate": 6969.56,
-   "charge": 6969.56,
-   "basis": "no rate on the contract - the card's Generator 150 KVA $268.06 a day x 26 days on site · $6,969.56, once — the rate is the whole-event bill"
+   "rate": 804.18,
+   "charge": 804.18,
+   "basis": "no rate on the contract - the card's Generator 150 KVA $268.06 a day x the 3 event days · $804.18, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·10",
    "what": "Generator - 30kVA (Diesel)",
    "from": "card",
-   "rate": 3538.25,
-   "charge": 3538.25,
-   "basis": "no rate on the contract - the card's Generator 30 KVA $141.53 a day x 25 days on site · $3,538.25, once — the rate is the whole-event bill"
+   "rate": 424.59,
+   "charge": 424.59,
+   "basis": "no rate on the contract - the card's Generator 30 KVA $141.53 a day x the 3 event days · $424.59, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·11",
    "what": "Generator - 60kVA (Diesel)",
    "from": "card",
-   "rate": 3463.32,
-   "charge": 3463.32,
-   "basis": "no rate on the contract - the card's Generator 50 KVA $182.28 a day x 19 days on site (asked for 50 kVA, 60 kVA supplied: charged as 50 kVA) · $3,463.32, once — the rate is the whole-event bill"
+   "rate": 546.84,
+   "charge": 546.84,
+   "basis": "no rate on the contract - the card's Generator 50 KVA $182.28 a day x the 3 event days (asked for 50 kVA, 60 kVA supplied: charged as 50 kVA) · $546.84, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·12",
    "what": "Generator - 60kVA (Diesel)",
    "from": "card",
-   "rate": 2461.76,
-   "charge": 2461.76,
-   "basis": "no rate on the contract - the card's Generator 45 KVA $175.84 a day x 14 days on site (asked for 45 kVA, 60 kVA supplied: charged as 45 kVA) · $2,461.76, once — the rate is the whole-event bill"
+   "rate": 527.52,
+   "charge": 527.52,
+   "basis": "no rate on the contract - the card's Generator 45 KVA $175.84 a day x the 3 event days (asked for 45 kVA, 60 kVA supplied: charged as 45 kVA) · $527.52, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·13",
    "what": "Generator - 60kVA DEL AS 50KVA",
    "from": "card",
-   "rate": 2005.08,
-   "charge": 2005.08,
-   "basis": "no rate on the contract - the card's Generator 50 KVA $182.28 a day x 11 days on site (asked for 50 kVA, 60 kVA supplied: charged as 50 kVA) · $2,005.08, once — the rate is the whole-event bill"
+   "rate": 546.84,
+   "charge": 546.84,
+   "basis": "no rate on the contract - the card's Generator 50 KVA $182.28 a day x the 3 event days (asked for 50 kVA, 60 kVA supplied: charged as 50 kVA) · $546.84, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·14",
    "what": "Generator - 30kVA (Diesel)",
    "from": "card",
-   "rate": 990.71,
-   "charge": 990.71,
-   "basis": "no rate on the contract - the card's Generator 30 KVA $141.53 a day x 7 days on site · $990.71, once — the rate is the whole-event bill"
+   "rate": 424.59,
+   "charge": 424.59,
+   "basis": "no rate on the contract - the card's Generator 30 KVA $141.53 a day x the 3 event days · $424.59, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·15",
    "what": "Generator - 20kVA (Diesel)",
    "from": "card",
-   "rate": 855.61,
-   "charge": 855.61,
-   "basis": "no rate on the contract - the card's Generator 20 KVA $122.23 a day x 7 days on site · $855.61, once — the rate is the whole-event bill"
+   "rate": 366.69,
+   "charge": 366.69,
+   "basis": "no rate on the contract - the card's Generator 20 KVA $122.23 a day x the 3 event days · $366.69, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·16",
    "what": "Generator - 60kVA (Diesel)",
    "from": "card",
-   "rate": 1351,
-   "charge": 1351,
-   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x 7 days on site · $1,351.00, once — the rate is the whole-event bill"
+   "rate": 579,
+   "charge": 579,
+   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x the 3 event days · $579.00, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·17",
    "what": "Generator - Diesel - 80kVA",
    "from": "card",
-   "rate": 1531.11,
-   "charge": 1531.11,
-   "basis": "no rate on the contract - the card's Generator 80 KVA $218.73 a day x 7 days on site · $1,531.11, once — the rate is the whole-event bill"
+   "rate": 656.19,
+   "charge": 656.19,
+   "basis": "no rate on the contract - the card's Generator 80 KVA $218.73 a day x the 3 event days · $656.19, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·18",
    "what": "Generator - 20kVA (Diesel)",
    "from": "card",
-   "rate": 855.61,
-   "charge": 855.61,
-   "basis": "no rate on the contract - the card's Generator 20 KVA $122.23 a day x 7 days on site · $855.61, once — the rate is the whole-event bill"
+   "rate": 366.69,
+   "charge": 366.69,
+   "basis": "no rate on the contract - the card's Generator 20 KVA $122.23 a day x the 3 event days · $366.69, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·19",
    "what": "Lighting Tower POD Metro",
    "from": "card",
-   "rate": 385.98,
-   "charge": 385.98,
-   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x 6 days on site · $385.98, once — the rate is the whole-event bill"
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·20",
    "what": "Lighting Tower POD Metro",
    "from": "card",
-   "rate": 385.98,
-   "charge": 385.98,
-   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x 6 days on site · $385.98, once — the rate is the whole-event bill"
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·21",
@@ -244,9 +244,9 @@
    "line": "9961976·32",
    "what": "Generator - 300kVA (Diesel)",
    "from": "card",
-   "rate": 2927.19,
-   "charge": 2927.19,
-   "basis": "no rate on the contract - the card's Generator 250 KVA $418.17 a day x 7 days on site (no 300 kVA line on the card: the next size down) · $2,927.19, once — the rate is the whole-event bill"
+   "rate": 1254.51,
+   "charge": 1254.51,
+   "basis": "no rate on the contract - the card's Generator 250 KVA $418.17 a day x the 3 event days (no 300 kVA line on the card: the next size down) · $1,254.51, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·34",
@@ -268,25 +268,25 @@
    "line": "9961976·36",
    "what": "Generator - 100kVA (Diesel) - Trailer Mounted",
    "from": "card",
-   "rate": 1351.02,
-   "charge": 1351.02,
-   "basis": "no rate on the contract - the card's Generator 100 KVA $225.17 a day x 6 days on site · $1,351.02, once — the rate is the whole-event bill"
+   "rate": 675.51,
+   "charge": 675.51,
+   "basis": "no rate on the contract - the card's Generator 100 KVA $225.17 a day x the 3 event days · $675.51, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·38",
    "what": "Generator - 60kVA (Diesel)",
    "from": "card",
-   "rate": 5018,
-   "charge": 5018,
-   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x 26 days on site · $5,018.00, once — the rate is the whole-event bill"
+   "rate": 579,
+   "charge": 579,
+   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x the 3 event days · $579.00, once — the rate is the whole-event bill"
   },
   {
    "line": "9961976·39",
    "what": "Generator - 60kVA (Diesel)",
    "from": "card",
-   "rate": 1351,
-   "charge": 1351,
-   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x 7 days on site · $1,351.00, once — the rate is the whole-event bill"
+   "rate": 579,
+   "charge": 579,
+   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x the 3 event days · $579.00, once — the rate is the whole-event bill"
   }
  ],
  "servicing": {
@@ -372,9 +372,9 @@
    "line": 1,
    "what": "Forklift Rough Terrain 2.5t 4WD Diesel",
    "rate_1": 1483.2,
-   "charge": 11865.6,
+   "charge": 1483.2,
    "days": 8,
-   "basis": "$1,483.20 a day × 8 days — 19 Oct to 27 Oct (expected term) — from when it went in"
+   "basis": "Rate 1 $1,483.20 is the card's 2.5t Forklift (rough) $185.40 a day x 8 days written as one figure - a forklift goes by its day rate · $185.40 a day × 8 days — 1"
   },
   {
    "line": 7,
@@ -386,13 +386,13 @@
   }
  ],
  "typed": {
-  "card": 5404,
+  "card": 579,
   "typed": 800,
-  "back": 5404,
+  "back": 579,
   "servicingTyped": 75063.15,
-  "rev1": 617617.63,
-  "rev2": 607579.03,
-  "revBack": 622221.63
+  "rev1": 556150.94,
+  "rev2": 546112.34,
+  "revBack": 555929.94
  },
  "decidedStands": {
   "amount": 0,
@@ -401,18 +401,18 @@
  "ui": {
   "shown": true,
   "boxes": 36,
-  "text": "From the Street Rate Card 2026 · what the card fills · change any rate here\nToilet servicing — on no contract line yet\nSERVICING\tQTY\tRATE FROM\tRATE\tCHARGE\nChemical Toilet Fresh Water Flush - Service (theirs $38.50)\t780\tcard: FWF Pump out & Clean & Restock\t$72.87 \t$56,838.60\nHolding tank pump out and disposal (theirs $295.00)\t24\tcard: Tank Pump Out & Clean & Restock\t$624.60 \t$14,990.40\nToilet Block Cleaning (theirs $185.00)\t51\tcard: Sewer Connect Units Clean & Restock\t$260.25 \t$13,272.75\nServicing charged\t$85,101.75\nContract lines with no rate — charged from the card\nCONTRACT · LINE\tWHAT\tRATE FROM\tRATE\tCHARGE\n9961976 · 1\tLighting Tower LED Metro\tcard: Lighting Towers $64.33 a day × 45 days (11 Sep to 26 Oct)\t$2,894.85 whole event \t$2,894.85\n9961976 · 2\tLighting Tower LED Metro\tcard: Lighting Towers $64.33 a day × 45 days (11 Sep to 26 Oct)\t$2,894.85 whole event \t$2,894.85\n9961976 · 3\tLigh"
+  "text": "From the Street Rate Card 2026 · what the card fills · change any rate here\nToilet servicing — on no contract line yet\nSERVICING\tQTY\tRATE FROM\tRATE\tCHARGE\nChemical Toilet Fresh Water Flush - Service (theirs $38.50)\t780\tcard: FWF Pump out & Clean & Restock\t$72.87 \t$56,838.60\nHolding tank pump out and disposal (theirs $295.00)\t24\tcard: Tank Pump Out & Clean & Restock\t$624.60 \t$14,990.40\nToilet Block Cleaning (theirs $185.00)\t51\tcard: Sewer Connect Units Clean & Restock\t$260.25 \t$13,272.75\nServicing charged\t$85,101.75\nContract lines with no rate — charged from the card\nCONTRACT · LINE\tWHAT\tRATE FROM\tRATE\tCHARGE\n9961976 · 1\tLighting Tower LED Metro\tcard: Lighting Towers $64.33 a day × the 3 event days (23 Oct to 25 Oct)\t$192.99 whole event \t$192.99\n9961976 · 2\tLighting Tower LED Metro\tcard: Lighting Towers $64.33 a day × the 3 event days (23 Oct to 25 Oct)\t$192.99 whole event \t$192.99\n996197"
  },
  "uiTyped": {
   "marginShows": true,
-  "revenue": 618778.38,
+  "revenue": 555600.35,
   "stored": "95",
   "charge": 95,
   "cell": "95"
  },
  "uiCleared": {
   "stored": null,
-  "charge": 3538.25
+  "charge": 424.59
  },
  "errors": [],
  "blockedWrites": 3,

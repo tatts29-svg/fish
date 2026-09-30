@@ -68,7 +68,9 @@ source: every release starts from the live page, applies a patch, and goes back 
 **Never leave work only on your own machine.** Whenever you stop — waiting on Andrew's approval, a question, or the
 end of a session — push the patch, its source and its tests in `vX.YY_<what>_DRAFT/` with a short README saying
 where it is up to. The other agent may be the one who finishes it, and can only do that from what is in the repo.
-Rename the folder to `_LIVE` when it goes live.
+Rename the folder to `_LIVE` when it goes live. **Never upload another agent's `_DRAFT` unless its claim line on
+`STATUS.md` says READY TO UPLOAD** — a draft may still be moving (1 Oct 2026: a draft went live mid-correction and
+overstated revenue by $66,000).
 
 **The other agent does not hear your chat with Andrew.** Anything he decides that matters beyond the one job — a
 rule, a price, a yes or no — goes into `STATUS.md` (or into the rules below if it is lasting), in his words.
@@ -105,6 +107,9 @@ marks as a draft, or anything risky to the record, waits for his yes.
   Never go back to one list per reference; that is what lost photographs.
 - **Sub-hired locations say so first** (v7.43) and carry no Coates contract, branch or Rental ID.
 - **What a reference is decides what its drawer offers** (v7.43): no accessories on generators, towers, barriers.
+- **A forklift goes by its day rate** (Andrew, 1 Oct 2026): where a contract line's Rate 1 is a card forklift day rate
+  x the line's days written as one figure (MEAD 9968726 line 1: $1,483.20 = $185.40 x 8 days), the line is charged by
+  the day rate, not that figure by the day again.
 - **How the branch charges** (Brenden Meek, Branch Manager - Relief, by email; Andrew said "remember", 1 Oct 2026):
   "Labour is charged per piece of equipment. Only hourly labour charged is over the event. Forklifts, VMS and
   water barriers are charged for from when they go in. Everything else is only charged for over the event."
