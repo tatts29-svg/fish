@@ -7,7 +7,8 @@ question. Newest first in each section. Times AEST.
 
 | version | what | live | by |
 |---|---|---|---|
-| **v7.43** | the drawer shows what is relevant (no accessories on generators, sub-hired says so first, id generator letters only) | 29 Sep 2026 18:18 | Claude |
+| **v7.44** | Add sub-hired gear in the drawer/register; show existing supplier asset numbers throughout. Tested build verified live byte for byte; no record or charge changes. Author: Andrew Fisher. | 30 Sep 2026 21:53 | Codex |
+| v7.43 | the drawer shows what is relevant (no accessories on generators, sub-hired says so first, id generator letters only) | 29 Sep 2026 18:18 | Claude |
 | v7.42 | the pit lane is the way in | 29 Sep 2026 17:42 | Claude |
 | v7.41 | photos stick (one document per photograph, outbox on the phone) | 29 Sep 2026 17:17 | Claude |
 | v7.40 | signed fencing papers recorded on the page | 29 Sep 2026 16:16 | Claude |
@@ -21,13 +22,14 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| v7.44 | Sub-hire entry and supplier asset-number display fixes tested: 95/95 display checks and 20/20 entry checks on desktop and phone; both 21-tab sweeps pass. Awaiting upload approval. GN20 uses the approved 315 kVA install basis once its source amount is recovered. Author: Andrew Fisher. | Codex | 30 Sep 2026 |
+
+No active release claim. v7.44 was authorised by Andrew ("Make live") and uploaded on 30 Sep 2026 at 21:53 AEST.
+Release evidence: `v7.44_subhired_gear_and_install_charge_LIVE/`. Showcase and dashboard previews were not included.
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 
 ## Waiting on Andrew
 
-- Approval to upload the tested v7.44 page; the earlier no-upload instruction remains in force. No upload or live-record change has been made.
 - GN20 (350 kVA requested, asset 1276701): Andrew confirmed on 30 Sep 2026 to use the 315 kVA install price. The original 2026 street-card workbook is absent from this checkout and its 315 kVA row is not embedded in the live page. Recover that row before implementing the amount; do not ask Andrew to choose a different rate or change hire/demob pricing. No install tick or live charge has been changed.
 - Fencing hire agreements 36559 and 36560: are the CCB lines "event" or "demarcation"? ($3,620.50 across 650 m.)
 - Purchase order 4658850 (receipt ID 4922343, $195): which period? Then press Confirm on the Fencing tab.
