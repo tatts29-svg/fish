@@ -23,6 +23,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
+| v7.48 | Fill the gaps from the 2026 street card (Andrew, 30 Sep: "use the rate card to fill in the gaps, we can edit the hire rate later"): contract lines with no rate get the card's hire rate where the card prices them the way the branch does (holding tanks $750.56, FWF $90.07, 4.8 x 3 building shell $1,125.84); Q6844 toilet servicing charged at the card's pump-out rates; every line editable on Costs. Builds on v7.47. Author: Andrew Fisher. | Claude | 30 Sep 2026 |
 | v7.47 | Text it says what it is and where it goes: reference, what it is, GPS (master plan wins), Maps link, pit lane way in, inside three plain texts (the old text was ~700 characters; the service refuses over 480). **Built and tested, NOT live**: Claude's container has no edit key. Rebuild on live and upload per `v7.47_text_it_says_what_and_where_DRAFT/README.md` — Claude or Codex, whoever has the key first. Author: Andrew Fisher. | Claude | 30 Sep 2026 |
 | v7.46 | Apply GN20's approved 315 kVA install basis from Andrew's uploaded Rate Card 2026 (1).xlsx. Preserve hire/demob and other references; verify, test and release. Author: Andrew Fisher. | Codex | 30 Sep 2026 22:21 |
 
