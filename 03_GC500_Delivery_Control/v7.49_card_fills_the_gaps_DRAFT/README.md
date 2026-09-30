@@ -46,8 +46,8 @@ rename both folders `_LIVE`, update `STATUS.md`.
 
 Checks: a rate typed on a decided tank line is ignored (stays "Included in toilet-block hire", $0); a typed generator
 rate counts and moves the revenue total on the page at once; clearing it returns the line to "no rate"; the typer's
-name is kept; 0 page errors desktop and phone; no sideways scroll on the phone. Sweeps: `sweep_desktop.txt`,
-`sweep_phone.txt`. Screenshots: `shot748_costs_desktop.png`, `shot748_costs_phone.png`.
+name is kept; 0 page errors desktop and phone; no sideways scroll on the phone. Sweeps on the final build (v7.48 + v7.49): desktop and phone, 21 tabs, 0 errors, 0 console errors
+(`sweep_desktop.txt`, `sweep_phone.txt`). Screenshots: `shot748_costs_desktop.png`, `shot748_costs_phone.png`.
 
 ## Also noticed (not changed)
 
