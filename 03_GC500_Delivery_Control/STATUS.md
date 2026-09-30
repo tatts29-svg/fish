@@ -21,7 +21,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| v7.44 | Sub-hire entry built and tested; awaiting approval to upload. Andrew approved the 315 kVA install rate for GN20; original card row needed to verify the amount. Author: Andrew Fisher. | Codex | 30 Sep 2026 20:08 |
+| v7.44 | Fixing supplier asset-number displays alongside tested sub-hire entry; no upload authorised. Andrew approved the 315 kVA install rate for GN20; original card row needed to verify the amount. Author: Andrew Fisher. | Codex | 30 Sep 2026 |
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 
