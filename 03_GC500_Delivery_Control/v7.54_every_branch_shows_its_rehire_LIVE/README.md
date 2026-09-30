@@ -1,3 +1,9 @@
+**LIVE 1 Oct 2026 05:22 AEST as part of the combined v7.54 release.**
+
+Author: Andrew Fisher
+
+Built with the Questions and finance review patches in `v7.54_questions_tidy_LIVE/`. The combined release clarifies card/entered estimates, makes Rehire detail explicitly included in branch Revenue, preserves uncertain supplier allocation and uses the current labour outlook explanation. See that release README for current validation and byte proof. The original handover below is retained as history.
+
 # v7.54 — Every branch shows its rehire (READY TO UPLOAD — built and tested, not live)
 
 Author: Andrew Fisher · 1 Oct 2026
@@ -37,8 +43,8 @@ hire by the rate. The cost is shown beside the revenue and never added to it (An
 cost; never "sub-hire partners"). The record does not say which unit is whose — the 31 Coates plant numbers and the 4
 marked locations are stated as facts, not turned into a split.
 
-Build: `toolchain/build.sh v7.54 v7.52_the_pl_as_management_read_it_DRAFT/patch_v752.py
-v7.54_every_branch_shows_its_rehire_DRAFT/patch_v754.py` — v7.54 needs v7.52 applied first (it edits pl752Rows and the
+Build: `toolchain/build.sh v7.54 v7.52_the_pl_as_management_read_it_LIVE/patch_v752.py
+v7.54_every_branch_shows_its_rehire_LIVE/patch_v754.py` — v7.54 needs v7.52 applied first (it edits pl752Rows and the
 branch table). Build 8,460,174 bytes; `check_page.py` PASS.
 
 ## Checks (evidence/)
