@@ -3,6 +3,20 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Setup checks
+
+Author: Andrew Fisher
+
+- **30 Sep 2026 — Codex setup check: public checks PASSED; authentication BLOCKED.** Checked branch
+  `claude/ampol-reporting-suite-access-h2hy90` at `554e0e7`. The no-patch `v7.43-check` build matched the live
+  public page byte for byte (8,315,433 bytes; SHA-256 `793892b3e22b8ea84f97b5c435ccbb143a2e9cebb0c75f6259203ce0a86762ce`),
+  and all five inline scripts passed the build checks. Desktop and phone sweeps each checked 21 routes with
+  0 page errors, 0 captured console errors and 0 navigation exceptions. Fifteen panes displayed directly;
+  the other six routes redirect by design (including the edit route on the public view).
+  `upload_page.py --dry-run` stopped because `GC500_EDIT_TOKEN` was unset: key acceptance was **not tested**.
+  No page upload or live-record change was made. Run the dry-run again in a task with the environment variable
+  available before marking setup fully passed. The existing sweep captures console errors only after page load.
+
 ## Live now
 
 | version | what | live | by |
