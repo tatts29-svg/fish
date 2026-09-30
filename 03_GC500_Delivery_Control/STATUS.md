@@ -21,14 +21,14 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| v7.44 | Sub-hire entry built and tested; awaiting approval to upload. GN20 install amount still needed. Author: Andrew Fisher. | Codex | 30 Sep 2026 19:47 |
+| v7.44 | Sub-hire entry built and tested; awaiting approval to upload. Andrew approved the 315 kVA install rate for GN20; original card row needed to verify the amount. Author: Andrew Fisher. | Codex | 30 Sep 2026 20:08 |
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 
 ## Waiting on Andrew
 
 - Approval to upload the tested v7.44 page; the earlier no-upload instruction remains in force. No upload or live-record change has been made.
-- GN20 (350 kVA requested, asset 1276701): agreed install charge excluding GST. The rate card has no 350 kVA line, so the draft explains the missing amount without adding a charge.
+- GN20 (350 kVA requested, asset 1276701): Andrew confirmed on 30 Sep 2026 to use the 315 kVA install price. The original 2026 street-card workbook is absent from this checkout and its 315 kVA row is not embedded in the live page. Recover that row before implementing the amount; do not ask Andrew to choose a different rate or change hire/demob pricing. No install tick or live charge has been changed.
 - Fencing hire agreements 36559 and 36560: are the CCB lines "event" or "demarcation"? ($3,620.50 across 650 m.)
 - Purchase order 4658850 (receipt ID 4922343, $195): which period? Then press Confirm on the Fencing tab.
 - Photos left on the service that no place holds: he can Put back WC17 · 1327223 place 2 and P44 · 198481 aerial

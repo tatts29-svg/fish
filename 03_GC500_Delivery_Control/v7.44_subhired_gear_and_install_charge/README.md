@@ -18,7 +18,9 @@ Marking the whole location as sub-hired is a separate confirmation. Removing its
 
 GN20 requests 350 kVA and carries allocated 365 kVA asset 1276701, contract 9961976 line 6. The existing card has no agreed 350 kVA install amount, so the install tick is unavailable. The drawer now prominently says “Install charge needs a rate”.
 
-The agreed install charge excluding GST is still required from Andrew. No rate was borrowed from another generator size, no installation tick was changed, and no charge was added.
+Andrew confirmed on 30 Sep 2026: “go same as the 315kva price”. This approves using the 315 kVA card install component for GN20 only; hire and demob pricing remain unchanged.
+
+The amount is not implemented yet. The active embedded card is `street_2026`, selected 25 Sep 2026, but its matched-item subset does not contain the 315 kVA row. The original `sources/pricing/Rate_Card_2026_1.xlsx` (SHA-256 `4960526a7af8114241b86600b3090c4176c4e395f48e11c335036a81ab7fc1e6`) and full parsed `print/rate_card_2026.json` are absent from the checkout. Recover the original row and verify its install component before assigning an amount. Existing generator rows split combined `Labour 2024` equally between install and demob; do not use the entire combined figure as an install charge. No installation tick was changed and no charge was added.
 
 ## Checks
 
