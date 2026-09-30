@@ -7,6 +7,7 @@ question. Newest first in each section. Times AEST.
 
 Author: Andrew Fisher
 
+- **30 Sep 2026 — Codex setup check FAILED.** The token and dry-run authentication passed, and the no-patch `v7.43-check` build matched live; desktop and phone each opened 21 tabs but recorded 1 page error and 34/68 console errors because the cloud network policy blocked external map/Cesium hosts. No upload or live-record change was made.
 - **30 Sep 2026 — Codex setup check: public checks PASSED; authentication BLOCKED.** Checked branch
   `claude/ampol-reporting-suite-access-h2hy90` at `554e0e7`. The no-patch `v7.43-check` build matched the live
   public page byte for byte (8,315,433 bytes; SHA-256 `793892b3e22b8ea84f97b5c435ccbb143a2e9cebb0c75f6259203ce0a86762ce`),
