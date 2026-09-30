@@ -1,0 +1,135 @@
+{
+ "desktop": {
+  "revenue": 555929.94,
+  "costs": 235081.76,
+  "diff": 320848,
+  "contracts": 277015.74,
+  "branchTotal": 277015.74,
+  "branches": [
+   {
+    "code": "KINP",
+    "lines": 225,
+    "contract": 134656.43,
+    "card": 0,
+    "cardLines": 0,
+    "none": 0,
+    "decided": 10,
+    "transport": 2835.17,
+    "rehire": 1428,
+    "total": 138919.6
+   },
+   {
+    "code": "STPS",
+    "lines": 39,
+    "contract": 81148.62,
+    "card": 0,
+    "cardLines": 0,
+    "none": 0,
+    "decided": 0,
+    "transport": 103.3,
+    "rehire": 0,
+    "total": 81251.92
+   },
+   {
+    "code": "NVAC",
+    "lines": 34,
+    "contract": 339,
+    "card": 46952.72,
+    "cardLines": 31,
+    "none": 2,
+    "decided": 0,
+    "transport": 0,
+    "rehire": 0,
+    "total": 47291.72
+   },
+   {
+    "code": "MEAD",
+    "lines": 9,
+    "contract": 4060,
+    "card": 1483.2,
+    "cardLines": 1,
+    "none": 0,
+    "decided": 0,
+    "transport": 4000,
+    "rehire": 9.3,
+    "total": 9552.5
+   }
+  ],
+  "statementShows": {
+   "revenue": true,
+   "costs": true,
+   "diff": true
+  },
+  "foldClosed": true,
+  "moneyCardStillThere": true,
+  "catRows": 10
+ },
+ "errors": [],
+ "phone": {
+  "revenue": 555929.94,
+  "costs": 235081.76,
+  "diff": 320848,
+  "contracts": 277015.74,
+  "branchTotal": 277015.74,
+  "branches": [
+   {
+    "code": "KINP",
+    "lines": 225,
+    "contract": 134656.43,
+    "card": 0,
+    "cardLines": 0,
+    "none": 0,
+    "decided": 10,
+    "transport": 2835.17,
+    "rehire": 1428,
+    "total": 138919.6
+   },
+   {
+    "code": "STPS",
+    "lines": 39,
+    "contract": 81148.62,
+    "card": 0,
+    "cardLines": 0,
+    "none": 0,
+    "decided": 0,
+    "transport": 103.3,
+    "rehire": 0,
+    "total": 81251.92
+   },
+   {
+    "code": "NVAC",
+    "lines": 34,
+    "contract": 339,
+    "card": 46952.72,
+    "cardLines": 31,
+    "none": 2,
+    "decided": 0,
+    "transport": 0,
+    "rehire": 0,
+    "total": 47291.72
+   },
+   {
+    "code": "MEAD",
+    "lines": 9,
+    "contract": 4060,
+    "card": 1483.2,
+    "cardLines": 1,
+    "none": 0,
+    "decided": 0,
+    "transport": 4000,
+    "rehire": 9.3,
+    "total": 9552.5
+   }
+  ],
+  "statementShows": {
+   "revenue": true,
+   "costs": true,
+   "diff": true
+  },
+  "foldClosed": true,
+  "moneyCardStillThere": true,
+  "catRows": 10
+ },
+ "phoneOverflow": 0,
+ "phoneErrors": []
+}
