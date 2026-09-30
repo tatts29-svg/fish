@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v7.44",
+  "base_page_sha256": "793892b3e22b8ea84f97b5c435ccbb143a2e9cebb0c75f6259203ce0a86762ce",
+  "build_page_sha256": "c04fdb09d7cd17783dcb5f54fb6f7b7f1dbf37f3c552eebd511381bcff370100",
+  "references_compared": 202,
+  "before_snapshot_sha256": "4313b7a6a1ed6549125e951492785fafeb80e4393cbffa62a7bbba8d49df1d0c",
+  "after_snapshot_sha256": "4313b7a6a1ed6549125e951492785fafeb80e4393cbffa62a7bbba8d49df1d0c",
+  "snapshots_identical": true,
+  "compared": ["base hire", "accessories", "labour", "known subtotal", "transport", "total", "per-item labour", "labour units", "labour plan"],
+  "labour_charged": 16916.25,
+  "gn20_install_rate": null,
+  "page_errors": 0,
+  "live_record_writes": 0
+}
