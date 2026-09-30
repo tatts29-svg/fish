@@ -1,4 +1,6 @@
-# v7.58 — the Plan on satellite explorer zooms quicker (DRAFT · a machine release, not a page upload)
+# v7.58 — the Plan on satellite explorer zooms quicker (LIVE)
+
+**LIVE 1 Oct 2026 08:11 AEST.** Only `explorer/explorer.js` changed; all other 218 files were preserved. The 219-file manifest is `c3f9a346eccb8e63127ff600caa5a5d4815a9d31b1ace8870b3f4a39b8c4a3bc`; the served explorer matches the 122,510-byte release exactly. Desktop and phone comparisons passed; the shared record stayed at version 3082.
 
 Author: Andrew Fisher · 1 Oct 2026
 

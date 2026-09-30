@@ -1,4 +1,6 @@
-# v7.57 — Text it to me, with a picture of the map (DRAFT · page READY TO UPLOAD; the sending needs server v5.85)
+# v7.57 — Text it to me, with a picture of the map (LIVE)
+
+**LIVE in the combined v7.59 page, 1 Oct 2026 08:11 AEST.** The public view serves the build byte for byte: **8,489,105 bytes**, SHA256 `ed1e2f4b9e97b94558d09522bdd9b7c64aaf1e18740a39dd88494227b388a403`. 55 focused checks and both 21-tab/7-link sweeps passed, with zero page or console errors. Earlier build sizes below describe the draft checks. No shared records changed. The map-picture footer now uses the Brisbane date (`todayIso()`); four actual-canvas checks cover Brisbane and UTC midnight. **The page is live, but MMS sending still needs Railway activation of server v5.85.** The validated server blob is uploaded and the rollback blob retained; current health remains v5.84. No real SMS/MMS was sent during verification.
 
 Author: Andrew Fisher · 1 Oct 2026
 

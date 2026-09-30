@@ -1,5 +1,7 @@
 # server v5.85 — a text with a picture of the map (MMS)
 
+**Staged 1 Oct 2026 08:11 AEST; not activated yet.** The 228,182-byte server blob is present and validated. Railway owner must set `SERVER_FILE` to the source hash below and retain the full rollback hash `264363128b6c4bc1fd86b2fd6712400dd4c367b45a6ca195b7fb2ee1c8f21a14` in `SERVER_FILE_KEEP`, preserving existing entries, then redeploy once. Current `/health` still reports v5.84. Use `/health` to verify v5.85: the source startup banner was not updated. No further machine registration until the staged blob is protected.
+
 Author: Andrew Fisher · 1 Oct 2026
 
 Andrew, 1 Oct 2026: "I want a picture of the map of where it goes … enter in mobile number and it will text it to
@@ -11,7 +13,7 @@ picture messages. Nothing else in the file changes (`server_v5.84_to_v5.85.diff`
 | | |
 |---|---|
 | Source | `server.js`, 228,182 bytes, sha256 `76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684` |
-| Made by | `python3 patch_server_v585.py server.js` on the v5.84 file (sha256 `264363128c6bc1fd…`) |
+| Made by | `python3 patch_server_v585.py server.js` on the v5.84 file (sha256 `264363128b6c4bc1fd…`) |
 | Tests | `node test_mms.js` — 37 / 37 pass, local only (a throw-away DATA_DIR, test tokens, a pretend ClickSend) |
 
 ## What it adds
@@ -48,7 +50,7 @@ The same three steps as `v6.77_v6.78_DRAFT_awaiting_approval/server_v5.84/DEPLOY
 1. `PUT /api/admin/machine/blob/76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684` with the file
    as the body (edit key). The server checks the bytes against the hash before writing.
 2. Railway → service `gc500` → Variables: `SERVER_FILE = 76afbd99…57684`, and add the old hash
-   (`264363128c…`) to `SERVER_FILE_KEEP` so the rollback stays on the volume. Optionally `PUBLIC_BASE =
+   (`264363128b…`) to `SERVER_FILE_KEEP` so the rollback stays on the volume. Optionally `PUBLIC_BASE =
    https://gc500-production.up.railway.app` (not needed: the edge headers give it). Deploy once — a service with a
    volume has a gap of seconds while the container turns over; pick a quiet moment.
 3. `GET /health` → `"build":"v5.85"`. Then the page's Text box shows the tick "Send the picture too".

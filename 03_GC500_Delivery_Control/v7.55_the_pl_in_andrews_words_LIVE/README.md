@@ -1,4 +1,6 @@
-# v7.55 — the P&L in Andrew's words (DRAFT · READY TO UPLOAD)
+# v7.55 — the P&L in Andrew's words (LIVE)
+
+**LIVE in the combined v7.59 page, 1 Oct 2026 08:11 AEST.** The public view serves the build byte for byte: **8,489,105 bytes**, SHA256 `ed1e2f4b9e97b94558d09522bdd9b7c64aaf1e18740a39dd88494227b388a403`. 55 focused checks and both 21-tab/7-link sweeps passed, with zero page or console errors. Earlier build sizes below describe the draft checks. No shared records changed.
 
 Author: Andrew Fisher · 1 Oct 2026
 
