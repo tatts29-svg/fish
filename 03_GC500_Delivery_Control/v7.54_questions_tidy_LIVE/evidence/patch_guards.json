@@ -1,0 +1,89 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "patch": "v7.52_the_pl_as_management_read_it_DRAFT/patch_v752.py",
+      "case": "repeat",
+      "pass": true,
+      "reason": "v7.52 already applied"
+    },
+    {
+      "patch": "v7.52_the_pl_as_management_read_it_DRAFT/patch_v752.py",
+      "case": "wrong base",
+      "pass": true,
+      "reason": "needs the live v7.49 (card748Html) and marginCard"
+    },
+    {
+      "patch": "v7.54_every_branch_shows_its_rehire_DRAFT/patch_v754.py",
+      "case": "repeat",
+      "pass": true,
+      "reason": "v7.54 already applied"
+    },
+    {
+      "patch": "v7.54_every_branch_shows_its_rehire_DRAFT/patch_v754.py",
+      "case": "wrong base",
+      "pass": true,
+      "reason": "needs v7.52 (pl752Rows, pl752Card) applied first"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754_assets.py",
+      "case": "repeat",
+      "pass": true,
+      "reason": "v7.54 asset-number count already applied"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754_assets.py",
+      "case": "wrong base",
+      "pass": true,
+      "reason": "needs v7.53 Questions fixes"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754_workflow.py",
+      "case": "repeat",
+      "pass": true,
+      "reason": "v7.54 Questions workflow already applied"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754_workflow.py",
+      "case": "wrong base",
+      "pass": true,
+      "reason": "v7.54 Questions workflow requires v7.53 Questions"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754_evidence.py",
+      "case": "repeat",
+      "pass": true,
+      "reason": "v7.54 Questions evidence already applied"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754_evidence.py",
+      "case": "wrong base",
+      "pass": true,
+      "reason": "v7.54 Questions evidence requires v7.53 Questions"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754.py",
+      "case": "repeat",
+      "pass": true,
+      "reason": "v7.54 Questions already applied"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754.py",
+      "case": "wrong base",
+      "pass": true,
+      "reason": "Apply the v7.54 assets and evidence patches first"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754_finance.py",
+      "case": "repeat",
+      "pass": true,
+      "reason": "v7.54 finance review already applied"
+    },
+    {
+      "patch": "v7.54_questions_tidy_DRAFT/patch_v754_finance.py",
+      "case": "wrong base",
+      "pass": true,
+      "reason": "needs approved P&L/branch Rehire and v7.53 labour explanations"
+    }
+  ]
+}

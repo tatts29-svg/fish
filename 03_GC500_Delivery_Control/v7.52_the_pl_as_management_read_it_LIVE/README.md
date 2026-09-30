@@ -1,3 +1,9 @@
+**LIVE 1 Oct 2026 05:22 AEST as part of the combined v7.54 release.**
+
+Author: Andrew Fisher
+
+Built with the Questions and finance review patches in `v7.54_questions_tidy_LIVE/`. The combined release clarifies card/entered estimates, makes Rehire detail explicitly included in branch Revenue, preserves uncertain supplier allocation and uses the current labour outlook explanation. See that release README for current validation and byte proof. The original handover below is retained as history.
+
 # v7.52 — The P&L, as management read it (DRAFT: built and tested on the live v7.51, READY TO UPLOAD)
 
 Author: Andrew Fisher · 1 Oct 2026
@@ -57,5 +63,5 @@ to the cent; the fold is closed and the old card still present; 0 page errors de
 scroll on the phone. Screenshots: `shot752_pl_desktop.png`, `shot752_by_branch.png`, `shot752_pl_phone.png`. Sweeps: `sweep_desktop.txt`,
 `sweep_phone.txt`.
 
-Build: `toolchain/build.sh v7.52 v7.52_the_pl_as_management_read_it_DRAFT/patch_v752.py` — v7.50 and v7.51 went live
+Build: `toolchain/build.sh v7.52 v7.52_the_pl_as_management_read_it_LIVE/patch_v752.py` — v7.50 and v7.51 went live
 (Codex, 1 Oct 2026, live page 8,424,347 bytes); the patch needs card748Html and marginCard and refuses to run twice.
