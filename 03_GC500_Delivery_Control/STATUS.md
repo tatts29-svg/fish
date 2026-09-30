@@ -48,8 +48,10 @@ Claim a line here and push it BEFORE you start. Clear it when the release is liv
   later" — v7.49 charges the Q6844 servicing at the card's pump-out rates. Still open: (a) the water truck, pre-fill,
   water deliveries and drinking-water tank ($12,200 their cost) have no card line — what do we charge? (b) answered 1 Oct
   (generator rule, now in AGENTS.md) — v7.49 charges the plant from the card; the fork extension and tyne rotator
-  have no card line. (c) MEAD 9968726 forklift lines: is Rate 1 a daily
-  rate or the whole hire? The page multiplies it by the days ($1,483.20 → $11,865.60 on one line).
+  have no card line. (c) MEAD 9968726 line 1 (2.5 t RT forklift): Rate 1 $1,483.20 is exactly
+  the card's $185.40 x 8 days (19-27 Oct), so it looks like the whole hire; the page multiplies it by 8 days and
+  shows $11,865.60 — revenue likely overstated by about $10,382. Not changed until Andrew says. (STPS VMS $53.61 and
+  barriers $1.18 are true daily rates; MEAD's 5 t at $405 a day looks genuine.)
 
 - GN20 source recovered: Andrew uploaded Rate Card 2026 (1).xlsx on 30 Sep. Street Rate Card 2026 A79/B79 identifies Generator 315 KVA and $333.12 combined labour. v7.46 is verifying the existing equal install/demob split and applying only the approved install component; no hire/demob change.
 - Fencing hire agreements 36559 and 36560: are the CCB lines "event" or "demarcation"? ($3,620.50 across 650 m.)
