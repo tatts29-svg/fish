@@ -1,4 +1,4 @@
-# v7.44 — add sub-hired gear from the item drawer (ready, not live)
+# v7.44 — add sub-hired gear and show its asset numbers (ready, not live)
 
 Author: Andrew Fisher
 
@@ -14,6 +14,16 @@ Entries use the existing supplier-labelled units record. Duplicate numbers are r
 
 Marking the whole location as sub-hired is a separate confirmation. Removing its Coates numbers is an explicit, unticked choice. Mixed records remain visible and supplier banners attribute only that supplier's own units. The view link explains that adding gear requires an edit link.
 
+## Supplier asset numbers
+
+Andrew, 30 Sep 2026: “subhired gear has asset numbers … they all still say no asset number please fix”.
+
+The live record already holds 23 supplier asset numbers at WC31, WC41, WC42, WC43 and WC81. Several displays checked only Coates allocations; the generic unit formatter also labelled short supplier numbers as item codes. Nothing needs re-entering.
+
+The draft reads supplier-number records separately and shows the supplier and its asset numbers on the drawer, equipment and driver cards, load brief, register, Change deliveries, search results, shared driver message, email rendering and printed drop sheet. Leading zeros and short numbers are preserved. Missing supplier numbers remain explicitly unrecorded; quantity-only gear remains not numbered. Removed units stay removed. The driver card and registers also stop showing Coates Rental IDs or branches on a location marked wholly sub-hired; the underlying records are retained.
+
+This is a display-only projection. Supplier numbers are not added to Coates allocations, inventory quantities, labour units or price calculations. No live record is rewritten or migrated.
+
 ## GN20 — the 350
 
 GN20 requests 350 kVA and carries allocated 365 kVA asset 1276701, contract 9961976 line 6. The existing card has no agreed 350 kVA install amount, so the install tick is unavailable. The drawer now prominently says “Install charge needs a rate”.
@@ -26,13 +36,14 @@ The amount is not implemented yet. The active embedded card is `street_2026`, se
 
 - Build: all five inline scripts parse; no new API keys or edit key in the page; author line present.
 - Sub-hire practice: 20/20 desktop and 20/20 phone. Writes captured in isolated browsers, with zero writes to the live record and no Coates asset-number writes. Includes permissions, mixed gear, duplicates, short numbers, leading zeros, unnumbered units, supplier persistence, explicit marking and drawing placement.
+- Supplier-number display: 95/95 desktop and 95/95 phone, including the five affected live locations, mixed ownership, unmarked suppliers, short numbers, leading zeros, unknown/partial numbers, escaped supplier names, removed units and wholly sub-hired rental-label exclusions. Rendering leaves the record and financial figures untouched. The initial 72-check suite reproduced 60 failures against the live v7.43 page before the fix.
 - Desktop and phone sweeps: 21 tabs and seven deep links each, zero page errors, console errors or navigation exceptions.
 - Phone screenshots inspected after drawer animations settled; drawer fits the 390 px viewport. The practice screenshot contains deliberately added test units, not live additions.
 - Financial comparison: all 202 references' hire, accessories, labour, transport, totals, labour units and labour plan are identical before and after. Labour charged remains $16,916.25. See `evidence/money_comparison.json`.
 - Upload dry-run: live base unchanged, HTTP 200 edit-level access. No upload performed.
 - Applying the patch twice is refused before changing the build.
 
-Build: 8,326,501 bytes; SHA-256 `c04fdb09d7cd17783dcb5f54fb6f7b7f1dbf37f3c552eebd511381bcff370100`.
+Build: 8,329,776 bytes; SHA-256 `66dc8be2b0536471feafb65b1716ceb2f52a201d0076ba4c1ff02d0c26f50435`.
 
 ## Build and review
 
@@ -43,6 +54,8 @@ toolchain/build.sh v7.44 v7.44_subhired_gear_and_install_charge/patch_v744.py
 CHROMIUM_PATH=/usr/bin/chromium PAGE="$PWD/build/GC500_v7.44/GC500_Delivery_Control_hosted.html" node v7.44_subhired_gear_and_install_charge/evidence/subhire_tests.js
 CHROMIUM_PATH=/usr/bin/chromium MOB=1 PAGE="$PWD/build/GC500_v7.44/GC500_Delivery_Control_hosted.html" node v7.44_subhired_gear_and_install_charge/evidence/subhire_tests.js
 CHROMIUM_PATH=/usr/bin/chromium PAGE="$PWD/build/GC500_v7.44/GC500_Delivery_Control_hosted.html" node v7.44_subhired_gear_and_install_charge/evidence/install_notice_test.js
+CHROMIUM_PATH=/usr/bin/chromium PAGE="$PWD/build/GC500_v7.44/GC500_Delivery_Control_hosted.html" node v7.44_subhired_gear_and_install_charge/evidence/supplier_numbers_test.js
+CHROMIUM_PATH=/usr/bin/chromium MOB=1 PAGE="$PWD/build/GC500_v7.44/GC500_Delivery_Control_hosted.html" node v7.44_subhired_gear_and_install_charge/evidence/supplier_numbers_test.js
 ```
 
 Use the shared harness for both full sweeps. After upload is authorised, recheck the live base, upload with the shared toolchain, verify the served bytes, then record the live time and clear the claim in `STATUS.md`.

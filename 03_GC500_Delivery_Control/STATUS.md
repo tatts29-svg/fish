@@ -21,7 +21,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| v7.44 | Fixing supplier asset-number displays alongside tested sub-hire entry; no upload authorised. Andrew approved the 315 kVA install rate for GN20; original card row needed to verify the amount. Author: Andrew Fisher. | Codex | 30 Sep 2026 |
+| v7.44 | Sub-hire entry and supplier asset-number display fixes tested: 95/95 display checks and 20/20 entry checks on desktop and phone; both 21-tab sweeps pass. Awaiting upload approval. GN20 uses the approved 315 kVA install basis once its source amount is recovered. Author: Andrew Fisher. | Codex | 30 Sep 2026 |
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 

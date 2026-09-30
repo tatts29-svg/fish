@@ -21,6 +21,7 @@ if 'function drawerTidy(' not in text:
     sys.exit('needs v7.43')
 
 subprocess.run([sys.executable, os.path.join(HERE, 'patch_subhire744.py'), page], check=True)
+subprocess.run([sys.executable, os.path.join(HERE, 'patch_subhire_numbers744.py'), page], check=True)
 with open(page, encoding='utf-8') as source:
     text = source.read()
 
