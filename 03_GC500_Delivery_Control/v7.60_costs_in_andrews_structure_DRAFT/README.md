@@ -48,8 +48,31 @@ are exactly as on the live v7.54. The same money is shown where Andrew says it b
 ## Build and evidence
 
 `build/GC500_v7.60/GC500_Delivery_Control_hosted.html` — v7.55 → v7.56 → v7.57 → v7.59 → v7.60 on the live v7.54;
-8,498,185 bytes, check_page PASS, key grep clean. Practice test desktop: ticks by kind = old line (true), reconciles
-(true), 0 errors. Phone and sweeps: see `evidence/`.
+8,498,185 bytes, check_page PASS, key grep clean. Practice test, desktop and phone: ticks by kind = the old line
+(true), branches + scope = total (true), 0 errors, 0 console. Sweeps: desktop 21 tabs, 0 errors, 0 console; phone
+(MOB=1) 21 tabs, 0 errors, 0 console.
+
+## The labour, as the page has it on 1 Oct 2026 (Andrew: "labour hours, and the projected forecast of labour to charge")
+
+What we charge for labour, per piece from the card (the Pricing tab's plan, split by kind under the new rules):
+
+| | charged (ticked) | expected on site, not ticked yet | to come | later (demob) | forecast in all |
+|---|---|---|---|---|---|
+| Labour Install (install, steps, levelling, demob) | $17,083 | $5,278 | $20,279 | $27,222 | **$69,862** |
+| Cleaning (not labour) | — | — | — | $8,484 (67 units) | $8,484 |
+| Fire extinguishers (a hire charge) | — | $1,666 | $937 | — | $2,603 |
+| per piece, all kinds | $17,083 | $6,943 | $21,216 | $35,706 | **$80,948** |
+
+By branch (all kinds): KINP $64,427 · NVAC $9,088 · STPS $7,433. Plus the event labour scope, hourly, over the
+event: **$55,817** for 368.9 h — the job's, on no branch. Labour to charge, all in: about **$136,800** (per-piece
+$80,948 + the scope $55,817), of which cleaning $8,484 and fire extinguishers $2,603 are not labour under Andrew's
+rule, leaving **Labour Install $69,862 + the scope $55,817 = $125,679**.
+
+What labour costs us (the tracker, hours only until wage rates are given): build and demob 2,042.5 h (767.5 h to date,
+1,275 h planned; 1,577.1 ordinary, 280 at ×1.5, 89.4 at ×2, weighted 2,175.9 h) + 159 h planned over the race
+weekend = 2,201.5 h. By employer: Coates 1,573.5 h (Aaron Zelvis, Alfie Harris, Andrew Fisher), Job Connect 436 h
+(Daniel Gough, Kyle Gover), employer unstated 33 h (Jayden Paul, Wayne Crimmin). Wage cost: 49 of 208 shifts
+priced (the Job Connect rates), $31,824 partial outlook, 1,626 h unpriced — no wage rate for the Coates people yet.
 
 Not for upload until Andrew says yes to the structure and Codex has answered on the pull request (asked 1 Oct: anything
 in flight on Costs, whether its finance model names a Labour Install code, anything contradicting the three rules).
