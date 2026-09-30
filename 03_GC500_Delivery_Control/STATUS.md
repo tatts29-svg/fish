@@ -93,3 +93,16 @@ not ready, whatever its tests say (1 Oct 2026: v7.49 went live mid-correction).
 - A one-page guide for Brendan and Rebecca.
 - Showcase graphics upgrade (day and night look) and the Coates Way machine's clear view (no wall through the car).
 - Print for drivers / print for installers from the Timeline.
+
+## Setup checks
+
+Author: Andrew Fisher
+
+- **30 Sep 2026 — Codex setup check PASSED.** `GC500_EDIT_TOKEN` was set and non-empty; jsDelivr answered HTTP
+  200 and Google Tiles answered HTTP 404 at its bare host. The no-patch `v7.43-check` build matched the live page
+  byte for byte (8,315,433 bytes; SHA-256 `793892b3e22b8ea84f97b5c435ccbb143a2e9cebb0c75f6259203ce0a86762ce`),
+  and all five inline scripts passed the build checks. Desktop and phone sweeps each checked 21 tabs and seven
+  deep links: 15 panes displayed directly, six redirected by design, and there were 0 page errors, 0 console
+  errors and 0 navigation exceptions. `upload_page.py --dry-run` confirmed HTTP 200 edit-level access and stopped
+  before upload. No page upload or live-record change was made.
+
