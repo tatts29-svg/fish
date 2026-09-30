@@ -122,6 +122,34 @@ marks as a draft, or anything risky to the record, waits for his yes.
 - Track mat and water-filled barriers have no asset numbers (v7.38). Fencing purchase orders use the Receipt ID No.
   (v7.39). Fencing hire agreements and service notes are typed on the Fencing tab (v7.40).
 
+## Andrew's business words, and how the P&L reads (Andrew, 1 Oct 2026: "remember my business terminology")
+
+Use these words, not synonyms, on the page, in READMEs and in messages.
+
+| say | not | means |
+|---|---|---|
+| **Revenue** / **charged to the V8s** | sales, income, billing | what Coates charges the customer (Supercars, "the V8s"). **All hire is revenue.** |
+| **Direct costs** / **what Coates pays** | expenses, spend, COGS | what Coates pays out for the job |
+| **Rehire** (Rehire Revenue, Rehire cost) | sub-hire partners, our partners, cross-hire | gear hired in from another company (Event Portables for toilets and servicing, Advanced for fencing) — charged to the V8s at **our** rates as if it were ours, with the supplier paid for it |
+| **Transport Revenue** / **Transport (cartage)** | freight, logistics, delivery fees | the delivery and pickup lines charged on the contracts / what Coates pays the carriers (SFL, Irwins, Torrens, Teams; **Internal** = a Coates truck, no carrier bill) |
+| **Installation — external contractors** | subcontract labour | what Coates pays Advanced's crew (the green book) |
+| **Difference so far — not a margin yet** | profit, margin, EBIT | revenue less the direct costs known so far; it is a margin only when the costs are complete |
+| **Contract lines**, **Rate 1**, **Rental ID**, **branch** (KINP, NVAC, MEAD, STPS) | invoices, SKUs, cost centres | the rental system's hire contracts, one line per item, one rate per line, on a branch |
+| **The card** / **street rate card 2026** | price list, tariff | the rates we charge from when a contract line has none; a card figure is an estimate until the branch puts a rate on the line |
+| **Hire**, **install**, **demob**, **pre-start**, **docket**, **hire agreement**, **receipt ID No.**, **running sheet**, **green book**, **blue book** | — | the job's own words for its paper and its phases |
+| **ex GST**, **damage waiver** (never on labour, steps, fire extinguishers, cleaning, install/demob, pump outs) | — | every figure is ex GST; damage waiver is a separate charge on hire only |
+| **Over the event** (23, 24, 25 Oct, both ends billed) / **from when they go in** | on-site days | the two charged windows: forklifts, VMS and water barriers from when they go in; everything else over the event only |
+| **Pre-bill** | — | never used for anything |
+
+**How the P&L reads (top to bottom):** Revenue (by stream, then by branch) → Direct costs, recorded against the
+eight categories management expect — *Internal labour hours and overtime; External contractor costs; Rehire costs;
+Equipment costs (including generators and associated assets); Temporary fencing and crowd control; Any
+installation-related costs; Buy invoicing branch costs; Any other event-related expenses* — → Difference so far, with
+what is **not in it yet** named in one line (wages in hours only, accommodation nights unpriced, transport only partly
+in, rehire cost for hired-in plant, water). Revenue and cost are **never added together**; a charge is never shown under
+a cost category. Every figure traces back to a contract line, a card rate, a docket or a quote. Estimates from the card
+say so. Labour is charged per piece of equipment; the only hourly labour charged is over the event.
+
 ## Setting up a machine to do this
 
 Needs `python3`, `node` 20 or later, `curl`, and a Chromium for the tests:
