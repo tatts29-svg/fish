@@ -1,0 +1,239 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Read-only focused tests for combined v7.59 page; messaging service simulated; no messages sent or shared records changed",
+  "passed": 55,
+  "total": 55,
+  "checks": [
+    {
+      "check": "P&L desktop branch total equals contracts",
+      "passed": true
+    },
+    {
+      "check": "P&L desktop every branch has Rehire detail",
+      "passed": true
+    },
+    {
+      "check": "P&L desktop KINP lines match toilets",
+      "passed": true
+    },
+    {
+      "check": "P&L desktop KINP units match toilets",
+      "passed": true
+    },
+    {
+      "check": "P&L desktop KINP Revenue matches toilets",
+      "passed": true
+    },
+    {
+      "check": "P&L desktop expected business terms",
+      "passed": true
+    },
+    {
+      "check": "P&L phone branch total equals contracts",
+      "passed": true
+    },
+    {
+      "check": "P&L phone every branch has Rehire detail",
+      "passed": true
+    },
+    {
+      "check": "P&L phone KINP lines match toilets",
+      "passed": true
+    },
+    {
+      "check": "P&L phone KINP units match toilets",
+      "passed": true
+    },
+    {
+      "check": "P&L phone KINP Revenue matches toilets",
+      "passed": true
+    },
+    {
+      "check": "P&L phone expected business terms",
+      "passed": true
+    },
+    {
+      "check": "P&L desktop and phone figures equal",
+      "passed": true
+    },
+    {
+      "check": "P&L desktop errors zero",
+      "passed": true
+    },
+    {
+      "check": "P&L phone errors zero",
+      "passed": true
+    },
+    {
+      "check": "P&L phone page overflow zero",
+      "passed": true
+    },
+    {
+      "check": "Zoom wheel factor",
+      "passed": true
+    },
+    {
+      "check": "Zoom tiles arrive during motion",
+      "passed": true
+    },
+    {
+      "check": "Zoom all tiles loaded",
+      "passed": true
+    },
+    {
+      "check": "Zoom anchor below 1px",
+      "passed": true
+    },
+    {
+      "check": "Zoom out reduces scale",
+      "passed": true
+    },
+    {
+      "check": "Zoom button doubles scale",
+      "passed": true
+    },
+    {
+      "check": "Zoom out button restores scale",
+      "passed": true
+    },
+    {
+      "check": "Zoom reset restores fit",
+      "passed": true
+    },
+    {
+      "check": "Zoom no page or console errors",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop no caught test step errors",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop text button beside every navigation action",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop click opens box without toggling load",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop plan image drawn under 250kB",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop picture selected by default",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop mock dry-run uses MMS",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop mock MMS submit with picture",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop spaced mobile number normalised",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop box closes after mock send",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop unticked picture uses SMS",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop drawer Text it draws image",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop exactly three captured mock requests",
+      "passed": true
+    },
+    {
+      "check": "Messaging desktop no page or console errors",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone no caught test step errors",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone text button beside every navigation action",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone click opens box without toggling load",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone plan image drawn under 250kB",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone picture selected by default",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone mock dry-run uses MMS",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone mock MMS submit with picture",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone spaced mobile number normalised",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone box closes after mock send",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone unticked picture uses SMS",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone drawer Text it draws image",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone exactly three captured mock requests",
+      "passed": true
+    },
+    {
+      "check": "Messaging phone no page or console errors",
+      "passed": true
+    },
+    {
+      "check": "Map footer date at 2026-09-30T13:59:58Z",
+      "passed": true
+    },
+    {
+      "check": "Map footer date at 2026-09-30T14:00:02Z",
+      "passed": true
+    },
+    {
+      "check": "Map footer date at 2026-09-30T23:59:58Z",
+      "passed": true
+    },
+    {
+      "check": "Map footer date at 2026-10-01T00:00:02Z",
+      "passed": true
+    }
+  ],
+  "visual_review": [
+    "Phone P&L: contained horizontal table, zero page overflow",
+    "Phone load line: clear QR with Navigate/Text it stacked beside it",
+    "Phone message drawer: clear wrapped form and generated aerial/master-plan picture"
+  ],
+  "observation": "Map footer UTC-calendar-date bug corrected by parent to fmtDate(todayIso()); four actual-canvas date cases pass across Brisbane and UTC midnight. Phone screenshot and generated map show Thu 01 Oct 2026.",
+  "validation_scope": "Original 25 P&L/zoom checks retained (one-line map date change does not affect these); 26 messaging checks repeated against corrected build; four new actual-canvas date checks.",
+  "corrected_build": {
+    "bytes": 8489105,
+    "sha256": "ed1e2f4b9e97b94558d09522bdd9b7c64aaf1e18740a39dd88494227b388a403"
+  }
+}

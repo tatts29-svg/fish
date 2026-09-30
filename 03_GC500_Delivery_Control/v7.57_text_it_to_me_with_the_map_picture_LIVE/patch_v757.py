@@ -107,7 +107,7 @@ async function mms757Picture(a){
  const fit2 = (s, f, max) => { c.font = f; let cut = false; while (c.measureText(s + (cut ? '…' : '')).width > max && s.length > 8) { s = s.slice(0, -2); cut = true; } return cut ? s.replace(/[\s·—\-,]+$/, '') + '…' : s; };
  c.fillText(fit2(text747What(a), 'bold 34px system-ui, -apple-system, Segoe UI, Roboto, sans-serif', W - 240), 24, H + 44);
  c.fillStyle = '#c9d1d9'; c.fillText(fit2(nt.ll.text + ' · ' + word + (near ? ' · ' + near : ''), '21px system-ui, -apple-system, Segoe UI, Roboto, sans-serif', W - 240), 24, H + 80);
- c.textAlign = 'right'; c.fillStyle = '#ff6a13'; c.font = 'bold 22px system-ui, sans-serif'; c.fillText('Coates GC500', W - 24, H + 44); c.fillStyle = '#9aa3ad'; c.font = '17px system-ui, sans-serif'; c.fillText(fmtDate(new Date().toISOString()), W - 24, H + 78); c.restore();
+ c.textAlign = 'right'; c.fillStyle = '#ff6a13'; c.font = 'bold 22px system-ui, sans-serif'; c.fillText('Coates GC500', W - 24, H + 44); c.fillStyle = '#9aa3ad'; c.font = '17px system-ui, sans-serif'; c.fillText(fmtDate(todayIso()), W - 24, H + 78); c.restore();
  /* a JPEG under the wall */
  let q = 0.86, url = cv.toDataURL('image/jpeg', q); const bytesOf = u => Math.floor((u.length - u.indexOf(',') - 1) * 3 / 4);
  while (bytesOf(url) > MMS757.maxBytes && q > 0.45) { q = Math.round((q - 0.08) * 100) / 100; url = cv.toDataURL('image/jpeg', q); }
