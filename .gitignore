@@ -51,3 +51,6 @@ __pycache__/
 # per-machine movement scoreboard (never in an update zip)
 02_Ampol_Reporting_Suite/History/
 02_Ampol_Reporting_Suite/_TestReports*/
+# built pages and the base copy of the live page: rebuilt on demand, never committed
+03_GC500_Delivery_Control/build/
+03_GC500_Delivery_Control/toolchain/node_modules/
