@@ -47,10 +47,12 @@ are exactly as on the live v7.54. The same money is shown where Andrew says it b
 
 ## Build and evidence
 
-`build/GC500_v7.60/GC500_Delivery_Control_hosted.html` — v7.55 → v7.56 → v7.57 → v7.59 → v7.60 on the live v7.54;
-8,498,185 bytes, check_page PASS, key grep clean. Practice test, desktop and phone: ticks by kind = the old line
-(true), branches + scope = total (true), 0 errors, 0 console. Sweeps: desktop 21 tabs, 0 errors, 0 console; phone
-(MOB=1) 21 tabs, 0 errors, 0 console.
+Rebuilt 1 Oct 2026 08:40 AEST on the **live v7.59** (8,489,105 bytes) with only `patch_v760.py`:
+`build/GC500_v7.60/GC500_Delivery_Control_hosted.html`, **8,498,174 bytes**, check_page PASS, key grep clean. Practice
+test, desktop and phone: ticks by kind = the old line (true), branches + scope = total (true), toilets' branch KINP,
+$500,113.38 + $55,816.56 = $555,929.94, 0 errors, 0 console. Sweeps on that build: desktop 21 tabs, 0 errors, 0 console;
+phone (MOB=1) 21 tabs, 0 errors, 0 console. (The first build, 8,498,185 bytes, was on the v7.55–v7.59 chain before those
+went live; same figures.) Also applies cleanly with v7.61 after it (`build/GC500_v7.61b`, 8,527,820 bytes, PASS).
 
 ## The labour, as the page has it on 1 Oct 2026 (Andrew: "labour hours, and the projected forecast of labour to charge")
 
