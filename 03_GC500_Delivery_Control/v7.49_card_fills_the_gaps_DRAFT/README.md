@@ -29,25 +29,37 @@ rename both folders `_LIVE`, update `STATUS.md`.
 3. **Decisions stand.** The project manager's 1 Oct 2026 answers (Codex's v7.47) — the six waste tanks included in
    toilet-block hire, contract 9968929 for Coates' own use — are never overridden. The contract's own rule runs
    first: a rate on the line, or a decision, always wins.
-4. **Per-day plant is not guessed.** 33 lines (16 generators, 8 forklifts, 7 light towers, 2 attachments) still have
-   no rate. The card prices them per day on site; the page's rule charges generators and towers once for the whole
-   event, and the one rated generator line ($339 for an 80 kVA) does not match the card's $218.73 a day for any
-   whole number of days. So they are listed with the card's daily rate as a guide and a box to type the charge.
+4. **Generators, light towers and forklifts with no rate are charged from the card** (Andrew, 1 Oct 2026: "If a
+   generator price is not there you go for the lower, so 70 kVA becomes the 60 kVA. If the client asks for a 60 kVA and
+   we supplied larger, they get the price of a 60 kVA."). The size is what was asked for (the reference's own type),
+   else what the line says; a size the card has no line for takes the next size down (GN20 asked 350 → 315 kVA; the
+   300 kVA line → 250 kVA; GN18/GN06 asked 50 with 60 sent → 50; GN13 asked 45 → 45). Forklifts charge the card's
+   daily rate by the day from when they go in (the page's forklift rule); the 3.0 t and 3.5 t take the 2.5 t standard
+   (no card line). Generators and towers are charged once: the card's daily on-site rate × days on site on the
+   contract (booked delivery to expected off-hire). 31 lines filled, $102,862; the fork extension and tyne rotator
+   have no card line and stay open with a box.
 
-## Figures (practice tests, live record read only)
+## Figures (practice tests on the live record, read only — `evidence/streams_before_after.json`)
 
-| | before | after |
-|---|---|---|
-| Revenue (charged to the V8s) | $434,257.87 | $519,359.62 |
-| Toilets and servicing: charge | $69,092 | $154,194 |
-| Toilets and servicing: cost (Event Portables, approved) | $118,575 | $118,575 |
-| Toilets and servicing: difference | −$49,483 | **+$35,619** |
-| Contract lines with no rate | 33 | 33 (boxes to type them) |
+| stream | charge before | charge after | cost | difference after |
+|---|---|---|---|---|
+| Fencing | $120,913 | $120,913 | $77,122 | +$43,791 |
+| Toilets and servicing | $69,092 | **$154,194** | $118,575 | **+$35,619** (was −$49,483) |
+| Buildings, containers and furniture | $66,992 | $66,992 | not recorded | — |
+| VMS, water barriers and track mat | $81,149 | $81,149 | not recorded | — |
+| Forklifts and access | $15,935 | **$51,211** | not recorded | — |
+| Generators and lighting towers | $339 | **$67,925** | not recorded | — |
+| Delivery and transport | $6,939 | $6,939 | $21,721 | −$14,782 |
+| People — event staff and crew | $72,899 | $72,899 | $17,664 | +$55,235 |
+| **Revenue** | **$434,258** | **$622,222** | known costs $235,082 | |
 
-Checks: a rate typed on a decided tank line is ignored (stays "Included in toilet-block hire", $0); a typed generator
-rate counts and moves the revenue total on the page at once; clearing it returns the line to "no rate"; the typer's
-name is kept; 0 page errors desktop and phone; no sideways scroll on the phone. Sweeps on the final build (v7.48 + v7.49): desktop and phone, 21 tabs, 0 errors, 0 console errors
-(`sweep_desktop.txt`, `sweep_phone.txt`). Screenshots: `shot748_costs_desktop.png`, `shot748_costs_phone.png`.
+Contract lines with no rate: 33 → 2. Still not in the costs: wages (hours only), 31 accommodation nights, transport
+only partly, sub-hire rehire cost for the hired-in plant.
+
+Checks: a rate typed on a decided tank line is ignored (stays "Included in toilet-block hire", $0); a typed rate on a
+card-filled generator wins, and clearing it puts the card figure back; the typer's name is kept; the revenue total on
+the page moves at once; 0 page errors desktop and phone; no sideways scroll on the phone. Screenshots:
+`shot748_costs_desktop.png`, `shot748_costs_phone.png`.
 
 ## Also noticed (not changed)
 

@@ -1,0 +1,144 @@
+{
+ "before": {
+  "revenue": 434257.87,
+  "cost_known": 235081.76,
+  "diff": 199176,
+  "missing": [
+   "wages in hours only",
+   "event staff not on the tracker",
+   "31 nights unpriced",
+   "transport only partly in",
+   "subhire rehire cost not on the record",
+   "33 contract lines unrated"
+  ],
+  "streams": [
+   [
+    "Fencing",
+    120913,
+    77122,
+    43791,
+    0
+   ],
+   [
+    "Toilets and servicing",
+    69092,
+    118575,
+    -49483,
+    0
+   ],
+   [
+    "Buildings, containers and furniture",
+    66992,
+    null,
+    null,
+    0
+   ],
+   [
+    "VMS, water barriers and track mat",
+    81149,
+    null,
+    null,
+    0
+   ],
+   [
+    "Forklifts and access",
+    15935,
+    null,
+    null,
+    10
+   ],
+   [
+    "Generators and lighting towers",
+    339,
+    null,
+    null,
+    23
+   ],
+   [
+    "Delivery and transport",
+    6939,
+    21721,
+    -14782,
+    0
+   ],
+   [
+    "People — event staff and crew costs",
+    72899,
+    17664,
+    55235,
+    0
+   ]
+  ]
+ },
+ "after": {
+  "revenue": 622221.63,
+  "cost_known": 235081.76,
+  "diff": 387140,
+  "missing": [
+   "wages in hours only",
+   "event staff not on the tracker",
+   "31 nights unpriced",
+   "transport only partly in",
+   "subhire rehire cost not on the record",
+   "2 contract lines unrated"
+  ],
+  "streams": [
+   [
+    "Fencing",
+    120913,
+    77122,
+    43791,
+    0
+   ],
+   [
+    "Toilets and servicing",
+    154194,
+    118575,
+    35619,
+    0
+   ],
+   [
+    "Buildings, containers and furniture",
+    66992,
+    null,
+    null,
+    0
+   ],
+   [
+    "VMS, water barriers and track mat",
+    81149,
+    null,
+    null,
+    0
+   ],
+   [
+    "Forklifts and access",
+    51211,
+    null,
+    null,
+    2
+   ],
+   [
+    "Generators and lighting towers",
+    67925,
+    null,
+    null,
+    0
+   ],
+   [
+    "Delivery and transport",
+    6939,
+    21721,
+    -14782,
+    0
+   ],
+   [
+    "People — event staff and crew costs",
+    72899,
+    17664,
+    55235,
+    0
+   ]
+  ]
+ }
+}

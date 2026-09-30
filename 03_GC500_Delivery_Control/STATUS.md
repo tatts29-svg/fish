@@ -24,7 +24,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| v7.49 | The card fills the gaps (Andrew, 30 Sep: "use the rate card to fill in the gaps, we can edit the hire rate later"): Q6844 toilet servicing charged at the card's pump-out rates ($85,101.75; Toilets stream −$49,483 → +$35,619); every servicing rate and every contract line still without a rate gets a box on Costs (synced `lineRates`); Codex's v7.47 decisions (tanks included, 9968929 own use) always stand; per-day plant not guessed. **Built and tested, NOT live** (no edit key in Claude's container) — `v7.49_card_fills_the_gaps_DRAFT/README.md`, build together with v7.48. Author: Andrew Fisher. | Claude | 1 Oct 2026 |
+| v7.49 | The card fills the gaps (Andrew, 30 Sep: "use the rate card to fill in the gaps, we can edit the hire rate later"): Q6844 toilet servicing charged at the card's pump-out rates ($85,101.75; Toilets stream −$49,483 → +$35,619); generators, towers and forklifts with no rate charged from the card by Andrew's 1 Oct generator rule (asked-for size; no card line → next size down; 31 lines, $102,862; lines with no rate 33 → 2); every rate editable on Costs (synced `lineRates`); Codex's v7.47 decisions (tanks included, 9968929 own use) always stand. Revenue $434,258 → $622,222. **Built and tested, NOT live** (no edit key in Claude's container) — `v7.49_card_fills_the_gaps_DRAFT/README.md`, build together with v7.48. Author: Andrew Fisher. | Claude | 1 Oct 2026 |
 | v7.48 | Text it says what it is and where it goes (first claimed as v7.47; renumbered because Codex's v7.47 went live first): reference, what it is, GPS (master plan wins), Maps link, pit lane way in, inside three plain texts (the old text was ~700 characters; the service refuses over 480). **Built and tested, NOT live** (no edit key in Claude's container) — `v7.48_text_it_says_what_and_where_DRAFT/README.md`. Author: Andrew Fisher. | Claude | 30 Sep 2026 |
 | v7.46 | Apply GN20's approved 315 kVA install basis from Andrew's uploaded Rate Card 2026 (1).xlsx. Preserve hire/demob and other references; verify, test and release. Author: Andrew Fisher. | Codex | 30 Sep 2026 22:21 |
 
@@ -46,9 +46,9 @@ Claim a line here and push it BEFORE you start. Clear it when the release is liv
 
 - Toilets and servicing: Andrew said on 30 Sep "use the rate card to fill in the gaps, we can edit the hire rate
   later" — v7.49 charges the Q6844 servicing at the card's pump-out rates. Still open: (a) the water truck, pre-fill,
-  water deliveries and drinking-water tank ($12,200 their cost) have no card line — what do we charge? (b) the 33
-  per-day plant lines with no rate (16 generators, 8 forklifts, 7 towers, 2 attachments): charge the card's daily
-  rate for the days on site, or the branch's whole-event figure? (c) MEAD 9968726 forklift lines: is Rate 1 a daily
+  water deliveries and drinking-water tank ($12,200 their cost) have no card line — what do we charge? (b) answered 1 Oct
+  (generator rule, now in AGENTS.md) — v7.49 charges the plant from the card; the fork extension and tyne rotator
+  have no card line. (c) MEAD 9968726 forklift lines: is Rate 1 a daily
   rate or the whole hire? The page multiplies it by the days ($1,483.20 → $11,865.60 on one line).
 
 - GN20 source recovered: Andrew uploaded Rate Card 2026 (1).xlsx on 30 Sep. Street Rate Card 2026 A79/B79 identifies Generator 315 KVA and $333.12 combined labour. v7.46 is verifying the existing equal install/demob split and applying only the approved install component; no hire/demob change.

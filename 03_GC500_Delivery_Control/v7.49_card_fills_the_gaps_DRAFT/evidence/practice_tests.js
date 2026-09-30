@@ -9,7 +9,7 @@ const figures = p => p.evaluate(() => { const M = moneySummary(), t = M.streams.
  const [base, build, out] = [process.argv[2], process.argv[3], process.argv[4] || __dirname]; const R = {};
  let s = await open({pageFile: base}); await ready(s.page); R.before = await figures(s.page); await s.browser.close();
  s = await open({pageFile: build}); const p = s.page; await ready(p); R.after = await figures(p);
- R.filled = await p.evaluate(() => ONHIRE_ROWS.map(r => ({r, f: lr748For(r)})).filter(x => x.f).map(x => ({line: x.r.rental_contract + '·' + x.r.line, what: x.r.what, from: x.f.from, card: x.f.card && x.f.card.line, rate: x.f.rate, charge: contractCharge(x.r).amount, basis: contractCharge(x.r).basis.slice(0, 110)})));
+ R.filled = await p.evaluate(() => ONHIRE_ROWS.map(r => ({r, f: lr748For(r)})).filter(x => x.f).map(x => ({line: x.r.rental_contract + '·' + x.r.line, what: x.r.what, from: x.f.from, card: x.f.card && x.f.card.line, rate: x.f.rate, charge: contractCharge(x.r).amount, basis: contractCharge(x.r).basis.slice(0, 200)})));
  R.servicing = await p.evaluate(() => servicing748());
  // a typed rate wins, an empty one puts the card back (in memory only; save() is aborted by the harness)
  R.typed = await p.evaluate(() => { const r = ONHIRE_ROWS.find(x => x.rental_contract === '9961976' && x.line === 7); S.lineRates = S.lineRates || {};
