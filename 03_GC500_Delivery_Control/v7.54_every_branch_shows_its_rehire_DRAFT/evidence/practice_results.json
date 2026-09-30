@@ -1,0 +1,221 @@
+{
+ "desktop": {
+  "contracts": 277015.74,
+  "branchTotal": 277015.74,
+  "revenue": 555929.94,
+  "costs": 235081.76,
+  "branches": [
+   {
+    "code": "KINP",
+    "lines": 225,
+    "total": 138919.6,
+    "subLines": 1,
+    "rehire": 1428,
+    "suppliers": [
+     "ROY002"
+    ],
+    "rehireLines": 132,
+    "rehireUnits": 251,
+    "rehireCharge": 69092.26,
+    "rehireCoatesNos": 31,
+    "rehireUnrated": 0
+   },
+   {
+    "code": "STPS",
+    "lines": 39,
+    "total": 81251.92,
+    "subLines": 0,
+    "rehire": 0,
+    "suppliers": [],
+    "rehireLines": 0,
+    "rehireUnits": 0,
+    "rehireCharge": 0,
+    "rehireCoatesNos": 0,
+    "rehireUnrated": 0
+   },
+   {
+    "code": "NVAC",
+    "lines": 34,
+    "total": 47291.72,
+    "subLines": 0,
+    "rehire": 0,
+    "suppliers": [],
+    "rehireLines": 0,
+    "rehireUnits": 0,
+    "rehireCharge": 0,
+    "rehireCoatesNos": 0,
+    "rehireUnrated": 0
+   },
+   {
+    "code": "MEAD",
+    "lines": 9,
+    "total": 9552.5,
+    "subLines": 1,
+    "rehire": 9.3,
+    "suppliers": [
+     "QUE011"
+    ],
+    "rehireLines": 0,
+    "rehireUnits": 0,
+    "rehireCharge": 0,
+    "rehireCoatesNos": 0,
+    "rehireUnrated": 0
+   }
+  ],
+  "RH": {
+   "co": "Event Portables",
+   "servicing": 85101.75,
+   "cost": 118575,
+   "approved": true,
+   "marked": 4
+  },
+  "check": {
+   "toiletLines": 132,
+   "toiletUnits": 251,
+   "toiletCharge": 69092.26,
+   "servicing": 85101.75,
+   "rehireCost": 118575,
+   "streamToilets": 154194.01
+  },
+  "rows": [
+   {
+    "branch": "KINP",
+    "sub": "Rehire · Event Portables · 132 toilet lines · 251 units · $69,092 at our rates + servicing $85,102 at the card, on no contract line · rehire cost $118,575 approved — shown, not added 31 lines carry a Coates plant number · 4 locations marked Event Portables gear on the page 1 SUB line the rental system books · $1,428 · ROY002 · cost not on record",
+    "total": "$138,920"
+   },
+   {
+    "branch": "STPS",
+    "sub": "NONE",
+    "total": "$81,252"
+   },
+   {
+    "branch": "NVAC",
+    "sub": "NONE",
+    "total": "$47,292"
+   },
+   {
+    "branch": "MEAD",
+    "sub": "1 SUB line the rental system books · $9 · QUE011 · cost not on record",
+    "total": "$9,553"
+   },
+   {
+    "branch": "The contracts",
+    "sub": "Rehire 132 lines · $69,092 2 SUB lines · $1,437",
+    "total": "$277,016"
+   }
+  ],
+  "everyRowHasCell": true,
+  "head": "BRANCH LINES HIRE · BY THE RATE HIRE · FROM THE CARD TRANSPORT SUB-HIRED · REHIRE NO RATE TOTAL "
+ },
+ "errors": [],
+ "phone": {
+  "contracts": 277015.74,
+  "branchTotal": 277015.74,
+  "revenue": 555929.94,
+  "costs": 235081.76,
+  "branches": [
+   {
+    "code": "KINP",
+    "lines": 225,
+    "total": 138919.6,
+    "subLines": 1,
+    "rehire": 1428,
+    "suppliers": [
+     "ROY002"
+    ],
+    "rehireLines": 132,
+    "rehireUnits": 251,
+    "rehireCharge": 69092.26,
+    "rehireCoatesNos": 31,
+    "rehireUnrated": 0
+   },
+   {
+    "code": "STPS",
+    "lines": 39,
+    "total": 81251.92,
+    "subLines": 0,
+    "rehire": 0,
+    "suppliers": [],
+    "rehireLines": 0,
+    "rehireUnits": 0,
+    "rehireCharge": 0,
+    "rehireCoatesNos": 0,
+    "rehireUnrated": 0
+   },
+   {
+    "code": "NVAC",
+    "lines": 34,
+    "total": 47291.72,
+    "subLines": 0,
+    "rehire": 0,
+    "suppliers": [],
+    "rehireLines": 0,
+    "rehireUnits": 0,
+    "rehireCharge": 0,
+    "rehireCoatesNos": 0,
+    "rehireUnrated": 0
+   },
+   {
+    "code": "MEAD",
+    "lines": 9,
+    "total": 9552.5,
+    "subLines": 1,
+    "rehire": 9.3,
+    "suppliers": [
+     "QUE011"
+    ],
+    "rehireLines": 0,
+    "rehireUnits": 0,
+    "rehireCharge": 0,
+    "rehireCoatesNos": 0,
+    "rehireUnrated": 0
+   }
+  ],
+  "RH": {
+   "co": "Event Portables",
+   "servicing": 85101.75,
+   "cost": 118575,
+   "approved": true,
+   "marked": 4
+  },
+  "check": {
+   "toiletLines": 132,
+   "toiletUnits": 251,
+   "toiletCharge": 69092.26,
+   "servicing": 85101.75,
+   "rehireCost": 118575,
+   "streamToilets": 154194.01
+  },
+  "rows": [
+   {
+    "branch": "KINP",
+    "sub": "Rehire · Event Portables · 132 toilet lines · 251 units · $69,092 at our rates + servicing $85,102 at the card, on no contract line · rehire cost $118,575 approved — shown, not added 31 lines carry a Coates plant number · 4 locations marked Event Portables gear on the page 1 SUB line the rental system books · $1,428 · ROY002 · cost not on record",
+    "total": "$138,920"
+   },
+   {
+    "branch": "STPS",
+    "sub": "NONE",
+    "total": "$81,252"
+   },
+   {
+    "branch": "NVAC",
+    "sub": "NONE",
+    "total": "$47,292"
+   },
+   {
+    "branch": "MEAD",
+    "sub": "1 SUB line the rental system books · $9 · QUE011 · cost not on record",
+    "total": "$9,553"
+   },
+   {
+    "branch": "The contracts",
+    "sub": "Rehire 132 lines · $69,092 2 SUB lines · $1,437",
+    "total": "$277,016"
+   }
+  ],
+  "everyRowHasCell": true,
+  "head": "BRANCH LINES HIRE · BY THE RATE HIRE · FROM THE CARD TRANSPORT SUB-HIRED · REHIRE NO RATE TOTAL "
+ },
+ "phoneOverflow": 0,
+ "phoneErrors": []
+}
