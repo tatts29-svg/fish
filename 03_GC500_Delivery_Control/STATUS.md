@@ -22,8 +22,9 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
+| v7.45 | Monthly financial control: confirmed actual hours/costs, labour forecast, billing months and Finance journal schedule. Test and release approved; no live record edits or automatic ledger posting. Author: Andrew Fisher. | Codex | 30 Sep 2026 22:01 |
 
-No active release claim. v7.44 was authorised by Andrew ("Make live") and uploaded on 30 Sep 2026 at 21:53 AEST.
+v7.44 was authorised by Andrew ("Make live") and uploaded on 30 Sep 2026 at 21:53 AEST.
 Release evidence: `v7.44_subhired_gear_and_install_charge_LIVE/`. Showcase and dashboard previews were not included.
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
