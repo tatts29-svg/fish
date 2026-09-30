@@ -76,10 +76,10 @@
   "moneyCardStillThere": true,
   "catRows": 10,
   "subCells": [
-   "KINP: 1 line · $1,428 from ROY002 · rehire cost not on the record",
-   "STPS: NONE SUB-HIRED",
-   "NVAC: NONE SUB-HIRED",
-   "MEAD: 1 line · $9 from QUE011 · rehire cost not on the record",
+   "KINP: 1 line · $1,428 ROY002 · cost not on record",
+   "STPS: NONE",
+   "NVAC: NONE",
+   "MEAD: 1 line · $9 QUE011 · cost not on record",
    "undefined: 2 lines · $1,437"
   ],
   "subLoc": "Sub-hired on the record, by supplier. Event Portables — WC41, WC42, WC43, WC81 (4 locations). These are locations, not contract lines: their hire is charged to the V8s on the branch's contracts at our"
@@ -162,10 +162,10 @@
   "moneyCardStillThere": true,
   "catRows": 10,
   "subCells": [
-   "KINP: 1 line · $1,428 from ROY002 · rehire cost not on the record",
-   "STPS: NONE SUB-HIRED",
-   "NVAC: NONE SUB-HIRED",
-   "MEAD: 1 line · $9 from QUE011 · rehire cost not on the record",
+   "KINP: 1 line · $1,428 ROY002 · cost not on record",
+   "STPS: NONE",
+   "NVAC: NONE",
+   "MEAD: 1 line · $9 QUE011 · cost not on record",
    "undefined: 2 lines · $1,437"
   ],
   "subLoc": "Sub-hired on the record, by supplier. Event Portables — WC41, WC42, WC43, WC81 (4 locations). These are locations, not contract lines: their hire is charged to the V8s on the branch's contracts at our"

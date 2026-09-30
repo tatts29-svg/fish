@@ -17,7 +17,7 @@ words (AGENTS.md, "Andrew's business words"):
   the 2026 card; event labour (the scope); labour ticked on references; lines with no rate and no card line. Each
   line carries a tag saying where it stands: **ON THE CONTRACTS**, **FROM THE CARD** (an estimate until the branch puts
   a rate on the line), **DOCKETS**, **THE SCOPE**, or **NOT PRICED**. Then **Total revenue** — the forecast.
-- **By branch — KINP, STPS, NVAC, MEAD:** lines; hire by the rate; hire from the card; Transport Revenue;
+- **By branch — KINP, STPS, NVAC, MEAD** (full width, under both columns): lines; hire by the rate; hire from the card; Transport Revenue;
   **Sub-hired** (Andrew, 1 Oct: "make sure all branches show sub-hired") — every branch says it: the SUB lines the
   rental system books as sub-hired, their Rehire Revenue and supplier code (KINP: 1 line, $1,428, ROY002; MEAD: 1
   line, $9, QUE011), or **NONE SUB-HIRED** (STPS, NVAC), with "rehire cost not on the record" where it is not; lines
@@ -54,7 +54,7 @@ Costs → From the Street Rate Card 2026 changes the statement at once.
 
 Checks: statement header shows the working's revenue, costs and difference; branch table adds to the contracts line
 to the cent; the fold is closed and the old card still present; 0 page errors desktop (1440) and phone; no sideways
-scroll on the phone. Screenshots: `shot752_pl_desktop.png`, `shot752_pl_phone.png`. Sweeps: `sweep_desktop.txt`,
+scroll on the phone. Screenshots: `shot752_pl_desktop.png`, `shot752_by_branch.png`, `shot752_pl_phone.png`. Sweeps: `sweep_desktop.txt`,
 `sweep_phone.txt`.
 
 Build: `toolchain/build.sh v7.52 v7.52_the_pl_as_management_read_it_DRAFT/patch_v752.py` — v7.50 and v7.51 went live
