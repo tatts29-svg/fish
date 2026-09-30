@@ -7,16 +7,13 @@ question. Newest first in each section. Times AEST.
 
 Author: Andrew Fisher
 
-- **30 Sep 2026 — Codex setup check FAILED.** The token and dry-run authentication passed, and the no-patch `v7.43-check` build matched live; desktop and phone each opened 21 tabs but recorded 1 page error and 34/68 console errors because the cloud network policy blocked external map/Cesium hosts. No upload or live-record change was made.
-- **30 Sep 2026 — Codex setup check: public checks PASSED; authentication BLOCKED.** Checked branch
-  `claude/ampol-reporting-suite-access-h2hy90` at `554e0e7`. The no-patch `v7.43-check` build matched the live
-  public page byte for byte (8,315,433 bytes; SHA-256 `793892b3e22b8ea84f97b5c435ccbb143a2e9cebb0c75f6259203ce0a86762ce`),
-  and all five inline scripts passed the build checks. Desktop and phone sweeps each checked 21 routes with
-  0 page errors, 0 captured console errors and 0 navigation exceptions. Fifteen panes displayed directly;
-  the other six routes redirect by design (including the edit route on the public view).
-  `upload_page.py --dry-run` stopped because `GC500_EDIT_TOKEN` was unset: key acceptance was **not tested**.
-  No page upload or live-record change was made. Run the dry-run again in a task with the environment variable
-  available before marking setup fully passed. The existing sweep captures console errors only after page load.
+- **30 Sep 2026 — Codex setup check PASSED.** `GC500_EDIT_TOKEN` was set and non-empty; jsDelivr answered HTTP
+  200 and Google Tiles answered HTTP 404 at its bare host. The no-patch `v7.43-check` build matched the live page
+  byte for byte (8,315,433 bytes; SHA-256 `793892b3e22b8ea84f97b5c435ccbb143a2e9cebb0c75f6259203ce0a86762ce`),
+  and all five inline scripts passed the build checks. Desktop and phone sweeps each checked 21 tabs and seven
+  deep links: 15 panes displayed directly, six redirected by design, and there were 0 page errors, 0 console
+  errors and 0 navigation exceptions. `upload_page.py --dry-run` confirmed HTTP 200 edit-level access and stopped
+  before upload. No page upload or live-record change was made.
 
 ## Live now
 
