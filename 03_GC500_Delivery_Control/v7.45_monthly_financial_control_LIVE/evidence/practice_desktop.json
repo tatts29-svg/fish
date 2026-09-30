@@ -1,0 +1,208 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": false,
+  "sha256": "8d810104069b7bee5cc68fcf4fc2afb716656d91394f0855627fa75261593857",
+  "checks": [
+    {
+      "name": "public view displays controls but cannot save or change a record",
+      "pass": true
+    },
+    {
+      "name": "unknown labour rates remain unpriced and whole-job estimate is labelled partial",
+      "pass": true,
+      "detail": {
+        "unpricedShifts": 159
+      }
+    },
+    {
+      "name": "model money validator and display formatter remain separate global helpers",
+      "pass": true
+    },
+    {
+      "name": "release starts with no invented confirmations or journals",
+      "pass": true,
+      "detail": {
+        "reviewEvents": 0,
+        "sourceShifts": 208
+      }
+    },
+    {
+      "name": "view-only month selector can review October without edit access or record changes",
+      "pass": true
+    },
+    {
+      "name": "Review shifts expands the selected person’s current source shifts",
+      "pass": true
+    },
+    {
+      "name": "Review / confirm opens explicit worked-hours and optional verified-cost evidence form",
+      "pass": true
+    },
+    {
+      "name": "verified cost without supporting evidence is refused",
+      "pass": true
+    },
+    {
+      "name": "confirmed actual hours, actual cost and allocation requirement are recorded separately",
+      "pass": true
+    },
+    {
+      "name": "confirmation retains original source snapshot and named evidence",
+      "pass": true
+    },
+    {
+      "name": "rate assumption is saved with basis and flags earlier actual confirmation for review",
+      "pass": true
+    },
+    {
+      "name": "changed source is visibly labelled instead of silently counting stale actuals",
+      "pass": true
+    },
+    {
+      "name": "stale source fingerprint cannot be confirmed",
+      "pass": true
+    },
+    {
+      "name": "a fresh evidence review restores confirmed status without losing prior revision",
+      "pass": true
+    },
+    {
+      "name": "future planned shifts cannot be confirmed as actual work",
+      "pass": true
+    },
+    {
+      "name": "moving billing beyond work month requires a reason",
+      "pass": true
+    },
+    {
+      "name": "September work can bill at October month-end with reason and no automatic journal",
+      "pass": true
+    },
+    {
+      "name": "Add journal proposal opens work, posting, reversal and approval controls",
+      "pass": true
+    },
+    {
+      "name": "draft allocation keeps original work month and separately chosen posting/reversal months",
+      "pass": true
+    },
+    {
+      "name": "approval without a named reviewer and separate accounts is refused",
+      "pass": true
+    },
+    {
+      "name": "approval records reviewer, accounts and immutable earlier draft",
+      "pass": true
+    },
+    {
+      "name": "posted status without an external ledger reference is refused",
+      "pass": true
+    },
+    {
+      "name": "posted externally records supplied ledger evidence, not a ledger API operation",
+      "pass": true
+    },
+    {
+      "name": "posted journal cannot be overwritten and duplicate allocation is blocked",
+      "pass": true,
+      "detail": {
+        "locked": true,
+        "overlap": true,
+        "unchanged": true
+      }
+    },
+    {
+      "name": "optimistic revision guard refuses a stale editor without data loss",
+      "pass": true
+    },
+    {
+      "name": "Finance CSV exports current evidence, billing month and external posting reference",
+      "pass": true
+    },
+    {
+      "name": "review backup and full/bare Tools export all retain every Finance revision",
+      "pass": true
+    },
+    {
+      "name": "import merge round-trip keeps Finance events without duplication or loss",
+      "pass": true,
+      "detail": {
+        "events": 7,
+        "validationErrors": []
+      }
+    },
+    {
+      "name": "malformed imported Finance payload is rejected",
+      "pass": true
+    },
+    {
+      "name": "all 202 reference financial figures and complete labour plan remain unchanged",
+      "pass": true,
+      "detail": {
+        "references": 202
+      }
+    },
+    {
+      "name": "source records are unchanged except Finance events and their save/audit metadata",
+      "pass": true
+    },
+    {
+      "name": "every Finance revision has a document stamp and recorder",
+      "pass": true
+    },
+    {
+      "name": "all captured shared-record writes are Finance events and their own audit metadata only",
+      "pass": true,
+      "detail": {
+        "finance": 7,
+        "audit": 14,
+        "other": [],
+        "deletes": 0
+      }
+    },
+    {
+      "name": "Finance module stays within desktop/phone viewport; tables scroll inside it",
+      "pass": true,
+      "detail": {
+        "root": true,
+        "fit": true,
+        "width": 1440,
+        "left": 16,
+        "right": 1424
+      }
+    },
+    {
+      "name": "loss of edit permission locks controls and rejects stale save calls",
+      "pass": true
+    },
+    {
+      "name": "zero uncaught page errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero browser console errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero live-record write attempts reached the network",
+      "pass": true,
+      "detail": {
+        "blockedWrites": 0
+      }
+    }
+  ],
+  "captured": {
+    "finance": 7,
+    "audit": 14,
+    "other": [],
+    "deletes": 0
+  },
+  "references": 202,
+  "pageErrors": [],
+  "consoleErrors": [],
+  "blockedWrites": 0,
+  "passed": 38,
+  "total": 38
+}

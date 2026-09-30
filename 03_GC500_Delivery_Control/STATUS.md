@@ -7,7 +7,8 @@ question. Newest first in each section. Times AEST.
 
 | version | what | live | by |
 |---|---|---|---|
-| **v7.44** | Add sub-hired gear in the drawer/register; show existing supplier asset numbers throughout. Tested build verified live byte for byte; no record or charge changes. Author: Andrew Fisher. | 30 Sep 2026 21:53 | Codex |
+| **v7.45** | Monthly financial control on Costs: explicit actual-hours/cost review, labour outlook, billing months and Finance journal proposals. 70 model checks; 38/38 desktop and phone; both sweeps passed. Verified live byte for byte; no record edits or ledger posting. Author: Andrew Fisher. | 30 Sep 2026 22:17 | Codex |
+| v7.44 | Add sub-hired gear in the drawer/register; show existing supplier asset numbers throughout. Tested build verified live byte for byte; no record or charge changes. Author: Andrew Fisher. | 30 Sep 2026 21:53 | Codex |
 | v7.43 | the drawer shows what is relevant (no accessories on generators, sub-hired says so first, id generator letters only) | 29 Sep 2026 18:18 | Claude |
 | v7.42 | the pit lane is the way in | 29 Sep 2026 17:42 | Claude |
 | v7.41 | photos stick (one document per photograph, outbox on the phone) | 29 Sep 2026 17:17 | Claude |
@@ -23,8 +24,14 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 | version | what | who | since |
 |---|---|---|---|
 
-No active release claim. v7.44 was authorised by Andrew ("Make live") and uploaded on 30 Sep 2026 at 21:53 AEST.
-Release evidence: `v7.44_subhired_gear_and_install_charge_LIVE/`. Showcase and dashboard previews were not included.
+No active release claim. Andrew directed that updates be finished, tested and released. v7.45 went live on
+30 Sep 2026 at 22:17 AEST. Evidence: `v7.45_monthly_financial_control_LIVE/`.
+No actual-hours confirmations, rates, costs or journal entries were entered on the live record. Finance proposals
+do not post to a ledger. Use client Tools → Export or the dedicated review backup for the new finance events;
+the older service `/api/export` does not include that new collection. Showcase and dashboard previews were not included.
+
+Repository note: direct shared-base status-board writes were blocked by repository safeguards. The release and
+this board are recorded on `codex/gc500-v7.45-monthly-finance`; integrate through review, not a direct base push.
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 
