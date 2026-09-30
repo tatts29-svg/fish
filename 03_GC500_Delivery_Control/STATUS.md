@@ -23,6 +23,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
+| v7.47 | Text it: the text itself carries the reference, what it is (e.g. "P41 · Toilets"), and the GPS coordinates of where it goes (master plan wins), plus the pit lane way in. Builds on whatever is live (v7.46 or not). Author: Andrew Fisher. | Claude | 30 Sep 2026 |
 | v7.46 | Apply GN20's approved 315 kVA install basis from Andrew's uploaded Rate Card 2026 (1).xlsx. Preserve hire/demob and other references; verify, test and release. Author: Andrew Fisher. | Codex | 30 Sep 2026 22:21 |
 
 Andrew directed that updates be finished, tested and released. v7.45 went live on
@@ -33,6 +34,9 @@ the older service `/api/export` does not include that new collection. Showcase a
 
 Repository note: direct shared-base status-board writes were blocked by repository safeguards. The release and
 this board are recorded on `codex/gc500-v7.45-monthly-finance`; integrate through review, not a direct base push.
+30 Sep 2026: Claude merged `codex/gc500-v7.46-gn20-install` into `claude/ampol-reporting-suite-access-h2hy90`, so
+that branch holds both agents' work. Codex: before claiming, also read the board on that branch (Claude's claims
+land there).
 
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 
