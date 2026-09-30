@@ -23,8 +23,9 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
+| v7.46 | Apply GN20's approved 315 kVA install basis from Andrew's uploaded Rate Card 2026 (1).xlsx. Preserve hire/demob and other references; verify, test and release. Author: Andrew Fisher. | Codex | 30 Sep 2026 22:21 |
 
-No active release claim. Andrew directed that updates be finished, tested and released. v7.45 went live on
+Andrew directed that updates be finished, tested and released. v7.45 went live on
 30 Sep 2026 at 22:17 AEST. Evidence: `v7.45_monthly_financial_control_LIVE/`.
 No actual-hours confirmations, rates, costs or journal entries were entered on the live record. Finance proposals
 do not post to a ledger. Use client Tools → Export or the dedicated review backup for the new finance events;
@@ -37,7 +38,7 @@ Claim a line here and push it BEFORE you start. Clear it when the release is liv
 
 ## Waiting on Andrew
 
-- GN20 (350 kVA requested, asset 1276701): Andrew confirmed on 30 Sep 2026 to use the 315 kVA install price. The original 2026 street-card workbook is absent from this checkout and its 315 kVA row is not embedded in the live page. Recover that row before implementing the amount; do not ask Andrew to choose a different rate or change hire/demob pricing. No install tick or live charge has been changed.
+- GN20 source recovered: Andrew uploaded Rate Card 2026 (1).xlsx on 30 Sep. Street Rate Card 2026 A79/B79 identifies Generator 315 KVA and $333.12 combined labour. v7.46 is verifying the existing equal install/demob split and applying only the approved install component; no hire/demob change.
 - Fencing hire agreements 36559 and 36560: are the CCB lines "event" or "demarcation"? ($3,620.50 across 650 m.)
 - Purchase order 4658850 (receipt ID 4922343, $195): which period? Then press Confirm on the Fencing tab.
 - Photos left on the service that no place holds: he can Put back WC17 · 1327223 place 2 and P44 · 198481 aerial
