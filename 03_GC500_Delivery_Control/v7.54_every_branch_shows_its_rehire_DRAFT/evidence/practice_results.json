@@ -18,7 +18,10 @@
     "rehireUnits": 251,
     "rehireCharge": 69092.26,
     "rehireCoatesNos": 31,
-    "rehireUnrated": 0
+    "rehireUnrated": 0,
+    "plantLines": 0,
+    "plantCharge": 0,
+    "plantWhat": []
    },
    {
     "code": "STPS",
@@ -31,7 +34,10 @@
     "rehireUnits": 0,
     "rehireCharge": 0,
     "rehireCoatesNos": 0,
-    "rehireUnrated": 0
+    "rehireUnrated": 0,
+    "plantLines": 0,
+    "plantCharge": 0,
+    "plantWhat": []
    },
    {
     "code": "NVAC",
@@ -44,7 +50,12 @@
     "rehireUnits": 0,
     "rehireCharge": 0,
     "rehireCoatesNos": 0,
-    "rehireUnrated": 0
+    "rehireUnrated": 0,
+    "plantLines": 1,
+    "plantCharge": 12062.7,
+    "plantWhat": [
+     "subhired 5 t forklift, with 1.8 m tynes"
+    ]
    },
    {
     "code": "MEAD",
@@ -59,7 +70,17 @@
     "rehireUnits": 0,
     "rehireCharge": 0,
     "rehireCoatesNos": 0,
-    "rehireUnrated": 0
+    "rehireUnrated": 0,
+    "plantLines": 0,
+    "plantCharge": 0,
+    "plantWhat": []
+   }
+  ],
+  "plantCheck": [
+   {
+    "branch": "NVAC",
+    "what": "5T FORKLIFT 1.8TYNNES",
+    "amount": 12062.7
    }
   ],
   "RH": {
@@ -90,7 +111,7 @@
    },
    {
     "branch": "NVAC",
-    "sub": "NONE",
+    "sub": "Rehire · plant · 1 line · $12,063 at our rates subhired 5 t forklift, with 1.8 m tynes · marked hired in by the project manager · supplier and cost not on record",
     "total": "$47,292"
    },
    {
@@ -100,7 +121,7 @@
    },
    {
     "branch": "The contracts",
-    "sub": "Rehire 132 lines · $69,092 2 SUB lines · $1,437",
+    "sub": "Rehire 132 toilet lines · $69,092 Rehire 1 plant line · $12,063 2 SUB lines · $1,437",
     "total": "$277,016"
    }
   ],
@@ -127,7 +148,10 @@
     "rehireUnits": 251,
     "rehireCharge": 69092.26,
     "rehireCoatesNos": 31,
-    "rehireUnrated": 0
+    "rehireUnrated": 0,
+    "plantLines": 0,
+    "plantCharge": 0,
+    "plantWhat": []
    },
    {
     "code": "STPS",
@@ -140,7 +164,10 @@
     "rehireUnits": 0,
     "rehireCharge": 0,
     "rehireCoatesNos": 0,
-    "rehireUnrated": 0
+    "rehireUnrated": 0,
+    "plantLines": 0,
+    "plantCharge": 0,
+    "plantWhat": []
    },
    {
     "code": "NVAC",
@@ -153,7 +180,12 @@
     "rehireUnits": 0,
     "rehireCharge": 0,
     "rehireCoatesNos": 0,
-    "rehireUnrated": 0
+    "rehireUnrated": 0,
+    "plantLines": 1,
+    "plantCharge": 12062.7,
+    "plantWhat": [
+     "subhired 5 t forklift, with 1.8 m tynes"
+    ]
    },
    {
     "code": "MEAD",
@@ -168,7 +200,17 @@
     "rehireUnits": 0,
     "rehireCharge": 0,
     "rehireCoatesNos": 0,
-    "rehireUnrated": 0
+    "rehireUnrated": 0,
+    "plantLines": 0,
+    "plantCharge": 0,
+    "plantWhat": []
+   }
+  ],
+  "plantCheck": [
+   {
+    "branch": "NVAC",
+    "what": "5T FORKLIFT 1.8TYNNES",
+    "amount": 12062.7
    }
   ],
   "RH": {
@@ -199,7 +241,7 @@
    },
    {
     "branch": "NVAC",
-    "sub": "NONE",
+    "sub": "Rehire · plant · 1 line · $12,063 at our rates subhired 5 t forklift, with 1.8 m tynes · marked hired in by the project manager · supplier and cost not on record",
     "total": "$47,292"
    },
    {
@@ -209,7 +251,7 @@
    },
    {
     "branch": "The contracts",
-    "sub": "Rehire 132 lines · $69,092 2 SUB lines · $1,437",
+    "sub": "Rehire 132 toilet lines · $69,092 Rehire 1 plant line · $12,063 2 SUB lines · $1,437",
     "total": "$277,016"
    }
   ],

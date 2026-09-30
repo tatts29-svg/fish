@@ -27,9 +27,11 @@ if 'function pl752Rows(' not in t or 'function pl752Card(' not in t: sys.exit('n
 
 # 1. the row builder counts the rehire on each branch's contracts (the page's toilets-stream rule: family toilet)
 t = rep(t, "transport: 0, rehire: 0, subLines: 0, suppliers: []};\n const ch = contractCharge(r); b.lines++;",
- "transport: 0, rehire: 0, subLines: 0, suppliers: [], rehireLines: 0, rehireUnits: 0, rehireCharge: 0, rehireCoatesNos: 0, rehireUnrated: 0};\n const ch = contractCharge(r); b.lines++;\n"
- " /* v7.54 - the rehire on the branch's own contracts: the toilet lines are the Event Portables rehire (the toilets stream's rule), charged at our rates */\n"
- " if (r.family === 'toilet' && !r.subhired) { b.rehireLines++; b.rehireUnits += Number(r.quantity) || 0; if (r.asset_no_is_plant_number) b.rehireCoatesNos++; if (typeof ch.amount === 'number') b.rehireCharge = cents(b.rehireCharge + ch.amount); else b.rehireUnrated++; }",
+ "transport: 0, rehire: 0, subLines: 0, suppliers: [], rehireLines: 0, rehireUnits: 0, rehireCharge: 0, rehireCoatesNos: 0, rehireUnrated: 0, plantLines: 0, plantCharge: 0, plantUnrated: 0, plantWhat: []};\n const ch = contractCharge(r); b.lines++;\n"
+ " /* v7.54 - the rehire on the branch's own contracts: the toilet lines are the Event Portables rehire (the toilets stream's rule), charged at our rates;\n"
+ " and the plant the project manager marked as hired in (subhired_machine: the 5 t forklift with tynes, 12 Sep) - Andrew, 1 Oct: 'some forklifts are subhired' */\n"
+ " if (r.family === 'toilet' && !r.subhired) { b.rehireLines++; b.rehireUnits += Number(r.quantity) || 0; if (r.asset_no_is_plant_number) b.rehireCoatesNos++; if (typeof ch.amount === 'number') b.rehireCharge = cents(b.rehireCharge + ch.amount); else b.rehireUnrated++; }\n"
+ " else if (r.subhired_machine && !r.subhired) { b.plantLines++; if (typeof ch.amount === 'number') b.plantCharge = cents(b.plantCharge + ch.amount); else b.plantUnrated++; const w = (r.subhire && r.subhire.reads_as) || (r.what || r.description || 'plant'); if (!b.plantWhat.includes(w)) b.plantWhat.push(w); }",
  'rows', p, True)
 
 # 2. the column head says what the cell holds
@@ -45,8 +47,8 @@ t = rep(t, OLD_CELL, NEW_CELL, 'cell', p, True)
 
 # 4. the total row's cell
 OLD_TOT = "<td class=\"pl-sub\"><b>${esc(fmtNum(B.reduce((s, b) => s + b.subLines, 0)))} lines</b> · ${esc(money0(B.reduce((s, b) => s + b.rehire, 0)))}</td>"
-NEW_TOT = ("<td class=\"pl-sub\">${(() => { const rl = B.reduce((s, b) => s + b.rehireLines, 0), rc = B.reduce((s, b) => s + b.rehireCharge, 0), sl = B.reduce((s, b) => s + b.subLines, 0), sr = B.reduce((s, b) => s + b.rehire, 0);"
- " return `${rl ? `<b>Rehire ${esc(fmtNum(rl))} line${rl === 1 ? '' : 's'}</b> · ${esc(money0(rc))}<br>` : ''}<span class=\"w\">${esc(fmtNum(sl))} SUB line${sl === 1 ? '' : 's'} · ${esc(money0(sr))}</span>`; })()}</td>")
+NEW_TOT = ("<td class=\"pl-sub\">${(() => { const rl = B.reduce((s, b) => s + b.rehireLines, 0), rc = B.reduce((s, b) => s + b.rehireCharge, 0), pl2 = B.reduce((s, b) => s + b.plantLines, 0), pc = B.reduce((s, b) => s + b.plantCharge, 0), sl = B.reduce((s, b) => s + b.subLines, 0), sr = B.reduce((s, b) => s + b.rehire, 0);"
+ " return `${rl ? `<b>Rehire ${esc(fmtNum(rl))} toilet line${rl === 1 ? '' : 's'}</b> · ${esc(money0(rc))}<br>` : ''}${pl2 ? `<b>Rehire ${esc(fmtNum(pl2))} plant line${pl2 === 1 ? '' : 's'}</b> · ${esc(money0(pc))}<br>` : ''}<span class=\"w\">${esc(fmtNum(sl))} SUB line${sl === 1 ? '' : 's'} · ${esc(money0(sr))}</span>`; })()}</td>")
 t = rep(t, OLD_TOT, NEW_TOT, 'total', p, True)
 
 # 5. the helpers, beside pl752Rows; RH is worked out once per card (the servicing at the card and the approved rehire cost are whole-job figures)
@@ -56,6 +58,7 @@ HELPERS = r"""
 function pl754Title(b){
  const parts = [];
  if (b.rehireLines) parts.push(fmtNum(b.rehireLines) + ' toilet line' + (b.rehireLines === 1 ? '' : 's') + ' (' + fmtNum(b.rehireUnits) + ' units) on this branch’s contracts are the Event Portables rehire: charged to the V8s at our rates, Event Portables paid for them. ' + fmtNum(b.rehireCoatesNos) + ' of the lines carry a Coates plant number; the record does not say which unit is whose.');
+ if (b.plantLines) parts.push(fmtNum(b.plantLines) + ' plant line' + (b.plantLines === 1 ? '' : 's') + ' the project manager marked as hired in (' + b.plantWhat.join('; ') + '): charged to the V8s at our rates; the supplier and the rehire cost are not on the record.');
  if (b.subLines) parts.push(fmtNum(b.subLines) + ' SUB line' + (b.subLines === 1 ? '' : 's') + ' from ' + (b.suppliers.join(', ') || 'a supplier not named') + ' · Rehire Revenue ' + money0(b.rehire) + ' · the rehire cost is not on the record');
  return parts.length ? parts.join(' ') : 'no line on this branch’s contracts is booked as sub-hired, and none is rehire';
 }
@@ -67,6 +70,7 @@ function pl754Cell(b, RH){
  out.push(`<span class="w">${RH && RH.servicing ? `+ servicing ${esc(money0(RH.servicing))} at the card, on no contract line · ` : ''}${RH && RH.cost != null ? `rehire cost ${esc(money0(RH.cost))}${RH.approved ? ' approved' : ' quoted, unsigned'} — shown, not added` : 'rehire cost not on the record'}</span>`);
  out.push(`<span class="w">${esc(fmtNum(b.rehireCoatesNos))} line${b.rehireCoatesNos === 1 ? '' : 's'} carry a Coates plant number · ${esc(fmtNum(marked))} location${marked === 1 ? '' : 's'} marked ${esc(RH && RH.co || 'Event Portables')} gear on the page</span>`);
  }
+ if (b.plantLines) out.push(`<b>Rehire · plant</b> · ${esc(fmtNum(b.plantLines))} line${b.plantLines === 1 ? '' : 's'} · <b>${esc(money0(b.plantCharge))}</b> at our rates${b.plantUnrated ? ` <span class="pl-todo">+ ${esc(fmtNum(b.plantUnrated))} unrated</span>` : ''}<br><span class="w">${esc(b.plantWhat.join('; '))} · marked hired in by the project manager · supplier and cost not on record</span>`);
  if (b.subLines) out.push(`<span class="w"><b>${esc(fmtNum(b.subLines))} SUB line${b.subLines === 1 ? '' : 's'}</b> the rental system books · ${esc(money0(b.rehire))} · ${esc(b.suppliers.join(', ') || 'supplier not named')} · cost not on record</span>`);
  return out.length ? out.join('<br>') : '<span class="pl-none">none</span>';
 }
