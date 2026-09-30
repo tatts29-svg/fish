@@ -32,6 +32,11 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 | v7.41 | photos stick (one document per photograph, outbox on the phone) | 29 Sep 2026 17:17 | Claude |
 | v7.40 | signed fencing papers recorded on the page | 29 Sep 2026 16:16 | Claude |
 
+Service change 1 Oct 2026 (Andrew: "Send it from my number 0429352788", verified as an Own Number in ClickSend):
+`SMS_FROM` on the Railway service set to `+61429352788` by Claude — every text (and, with server v5.85, every
+picture message) now arrives from Andrew's number, and a driver's reply lands on his phone. No other variable
+touched; the page and the record are unchanged.
+
 Record change 29 Sep 2026 18:24: the master plan's positions put on in place of 60 pins (Andrew approved) —
 see `record_29Sep2026_master_plan_positions/`.
 
