@@ -1,0 +1,65 @@
+{
+  "author": "Andrew Fisher",
+  "checkedAt": "2026-09-30T12:18:16.155Z",
+  "bytes": 8383024,
+  "sha256": "8d810104069b7bee5cc68fcf4fc2afb716656d91394f0855627fa75261593857",
+  "servedTestedBuild": true,
+  "runs": [
+    {
+      "mobile": false,
+      "checks": {
+        "publicPage": true,
+        "monthNavigation": true,
+        "viewOnly": true,
+        "sourceAvailable": true,
+        "noRecordChanges": true,
+        "noOverflow": true,
+        "noPageErrors": true,
+        "noConsoleErrors": true,
+        "noWriteAttempts": true
+      },
+      "data": {
+        "marker": "monthly-financial-control-v7.45",
+        "financeEvents": 0,
+        "sourceShifts": 208,
+        "confirmedHours": 0,
+        "unpricedShifts": 159,
+        "guarded": true,
+        "readOnly": true,
+        "restoredMonth": "2026-09",
+        "noOverflow": true
+      },
+      "pageErrors": [],
+      "consoleErrors": [],
+      "recordWriteAttempts": 0
+    },
+    {
+      "mobile": true,
+      "checks": {
+        "publicPage": true,
+        "monthNavigation": true,
+        "viewOnly": true,
+        "sourceAvailable": true,
+        "noRecordChanges": true,
+        "noOverflow": true,
+        "noPageErrors": true,
+        "noConsoleErrors": true,
+        "noWriteAttempts": true
+      },
+      "data": {
+        "marker": "monthly-financial-control-v7.45",
+        "financeEvents": 0,
+        "sourceShifts": 208,
+        "confirmedHours": 0,
+        "unpricedShifts": 159,
+        "guarded": true,
+        "readOnly": true,
+        "restoredMonth": "2026-09",
+        "noOverflow": true
+      },
+      "pageErrors": [],
+      "consoleErrors": [],
+      "recordWriteAttempts": 0
+    }
+  ]
+}
