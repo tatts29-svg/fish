@@ -65,6 +65,14 @@ source: every release starts from the live page, applies a patch, and goes back 
 7. **Record it**: `vX.YY_<what>_LIVE/` with the patch, source, tests, evidence and a README (Andrew's words, what
    changed, checks, the LIVE time); update `STATUS.md`; commit; push.
 
+**Never leave work only on your own machine.** Whenever you stop — waiting on Andrew's approval, a question, or the
+end of a session — push the patch, its source and its tests in `vX.YY_<what>_DRAFT/` with a short README saying
+where it is up to. The other agent may be the one who finishes it, and can only do that from what is in the repo.
+Rename the folder to `_LIVE` when it goes live.
+
+**The other agent does not hear your chat with Andrew.** Anything he decides that matters beyond the one job — a
+rule, a price, a yes or no — goes into `STATUS.md` (or into the rules below if it is lasting), in his words.
+
 Andrew asks for changes and expects them live once tested — that has been the way since 25 Sep. Anything he
 marks as a draft, or anything risky to the record, waits for his yes.
 
