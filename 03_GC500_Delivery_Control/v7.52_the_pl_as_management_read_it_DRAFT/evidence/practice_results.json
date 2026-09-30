@@ -16,6 +16,10 @@
     "decided": 10,
     "transport": 2835.17,
     "rehire": 1428,
+    "subLines": 1,
+    "suppliers": [
+     "ROY002"
+    ],
     "total": 138919.6
    },
    {
@@ -28,6 +32,8 @@
     "decided": 0,
     "transport": 103.3,
     "rehire": 0,
+    "subLines": 0,
+    "suppliers": [],
     "total": 81251.92
    },
    {
@@ -40,6 +46,8 @@
     "decided": 0,
     "transport": 0,
     "rehire": 0,
+    "subLines": 0,
+    "suppliers": [],
     "total": 47291.72
    },
    {
@@ -52,6 +60,10 @@
     "decided": 0,
     "transport": 4000,
     "rehire": 9.3,
+    "subLines": 1,
+    "suppliers": [
+     "QUE011"
+    ],
     "total": 9552.5
    }
   ],
@@ -62,7 +74,15 @@
   },
   "foldClosed": true,
   "moneyCardStillThere": true,
-  "catRows": 10
+  "catRows": 10,
+  "subCells": [
+   "KINP: 1 line · $1,428 from ROY002 · rehire cost not on the record",
+   "STPS: NONE SUB-HIRED",
+   "NVAC: NONE SUB-HIRED",
+   "MEAD: 1 line · $9 from QUE011 · rehire cost not on the record",
+   "undefined: 2 lines · $1,437"
+  ],
+  "subLoc": "Sub-hired on the record, by supplier. Event Portables — WC41, WC42, WC43, WC81 (4 locations). These are locations, not contract lines: their hire is charged to the V8s on the branch's contracts at our"
  },
  "errors": [],
  "phone": {
@@ -82,6 +102,10 @@
     "decided": 10,
     "transport": 2835.17,
     "rehire": 1428,
+    "subLines": 1,
+    "suppliers": [
+     "ROY002"
+    ],
     "total": 138919.6
    },
    {
@@ -94,6 +118,8 @@
     "decided": 0,
     "transport": 103.3,
     "rehire": 0,
+    "subLines": 0,
+    "suppliers": [],
     "total": 81251.92
    },
    {
@@ -106,6 +132,8 @@
     "decided": 0,
     "transport": 0,
     "rehire": 0,
+    "subLines": 0,
+    "suppliers": [],
     "total": 47291.72
    },
    {
@@ -118,6 +146,10 @@
     "decided": 0,
     "transport": 4000,
     "rehire": 9.3,
+    "subLines": 1,
+    "suppliers": [
+     "QUE011"
+    ],
     "total": 9552.5
    }
   ],
@@ -128,7 +160,15 @@
   },
   "foldClosed": true,
   "moneyCardStillThere": true,
-  "catRows": 10
+  "catRows": 10,
+  "subCells": [
+   "KINP: 1 line · $1,428 from ROY002 · rehire cost not on the record",
+   "STPS: NONE SUB-HIRED",
+   "NVAC: NONE SUB-HIRED",
+   "MEAD: 1 line · $9 from QUE011 · rehire cost not on the record",
+   "undefined: 2 lines · $1,437"
+  ],
+  "subLoc": "Sub-hired on the record, by supplier. Event Portables — WC41, WC42, WC43, WC81 (4 locations). These are locations, not contract lines: their hire is charged to the V8s on the branch's contracts at our"
  },
  "phoneOverflow": 0,
  "phoneErrors": []

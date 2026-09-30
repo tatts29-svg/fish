@@ -12,8 +12,9 @@
 function pl752Rows(){
  const cents = n => Math.round(n * 100) / 100;
  const by = {};
- ONHIRE_ROWS.forEach(r => { const b = by[r.branch_code || 'no branch'] = by[r.branch_code || 'no branch'] || {code: r.branch_code || 'no branch', lines: 0, contract: 0, card: 0, cardLines: 0, none: 0, decided: 0, transport: 0, rehire: 0};
+ ONHIRE_ROWS.forEach(r => { const b = by[r.branch_code || 'no branch'] = by[r.branch_code || 'no branch'] || {code: r.branch_code || 'no branch', lines: 0, contract: 0, card: 0, cardLines: 0, none: 0, decided: 0, transport: 0, rehire: 0, subLines: 0, suppliers: []};
  const ch = contractCharge(r); b.lines++;
+ if (r.subhired) { b.subLines++; if (r.supplier_sub_rental && !b.suppliers.includes(r.supplier_sub_rental)) b.suppliers.push(r.supplier_sub_rental); }
  if (typeof ch.amount !== 'number') { b.none++; return; }
  if (r.subhired) { b.rehire = cents(b.rehire + ch.amount); return; }
  if (r.charge_line) { b.transport = cents(b.transport + ch.amount); return; }
@@ -22,6 +23,13 @@ function pl752Rows(){
  else b.contract = cents(b.contract + ch.amount); });
  const all = Object.values(by).map(b => Object.assign(b, {total: cents(b.contract + b.card + b.transport + b.rehire)}));
  return all.sort((a, b) => b.total - a.total);
+}
+/* the sub-hired locations recorded on the page (v7.43/v7.44), by supplier - on no branch contract of their own */
+function pl752SubLocations(){
+ if (typeof subhireOf !== 'function') return [];
+ const by = {};
+ allAssets().forEach(a => { const s = subhireOf(a.key); if (!s) return; const co = (s && s.co) || 'supplier not named'; (by[co] = by[co] || []).push(a.key); });
+ return Object.entries(by).map(([co, keys]) => ({co, keys: keys.sort()}));
 }
 function pl752Card(){
  const M = moneySummary(), c = M.charge, k = M.cost;
@@ -56,10 +64,11 @@ function pl752Card(){
  ${noRate ? line('Contract lines with no rate and no card line', `${pl(noRate, 'line')} · unknown, not nought`, '<span class="pl-todo">—</span>', NONE, 'faint') : ''}
  ${line('Total revenue', '', m0(c.total), '', 'total')}
  <h4 class="pl-h4b">By branch <small>the contracts, by the rate · what each branch bills</small></h4>
- <div class="tblwrap"><table class="pl-tbl"><thead><tr><th>Branch</th><th class="num">Lines</th><th class="num">Hire, by the rate</th><th class="num">Hire, from the card</th><th class="num">Transport Revenue</th><th class="num">Rehire Revenue</th><th class="num">No rate</th><th class="num">Total</th></tr></thead><tbody>
- ${B.map(b => `<tr><td><b>${esc(b.code)}</b>${b.decided ? `<br><span class="w">${pl(b.decided, 'line')} settled: no separate charge</span>` : ''}</td><td class="num">${esc(fmtNum(b.lines))}</td><td class="num">${b.contract ? esc(money0(b.contract)) : '—'}</td><td class="num">${b.card ? esc(money0(b.card)) : '—'}</td><td class="num">${b.transport ? esc(money0(b.transport)) : '—'}</td><td class="num">${b.rehire ? esc(money0(b.rehire)) : '—'}</td><td class="num">${b.none ? `<span class="pl-todo">${esc(fmtNum(b.none))}</span>` : '—'}</td><td class="num"><b>${esc(money0(b.total))}</b></td></tr>`).join('')}
- <tr class="tot"><td>The contracts</td><td class="num">${esc(fmtNum(B.reduce((s, b) => s + b.lines, 0)))}</td><td class="num">${esc(money0(B.reduce((s, b) => s + b.contract, 0)))}</td><td class="num">${esc(money0(cardTotal))}</td><td class="num">${esc(money0(B.reduce((s, b) => s + b.transport, 0)))}</td><td class="num">${esc(money0(B.reduce((s, b) => s + b.rehire, 0)))}</td><td class="num">${noRate ? esc(fmtNum(noRate)) : '—'}</td><td class="num"><b>${esc(money0(B.reduce((s, b) => s + b.total, 0)))}</b></td></tr>
+ <div class="tblwrap"><table class="pl-tbl"><thead><tr><th>Branch</th><th class="num">Lines</th><th class="num">Hire, by the rate</th><th class="num">Hire, from the card</th><th class="num">Transport Revenue</th><th>Sub-hired <span class="w">(Rehire Revenue)</span></th><th class="num">No rate</th><th class="num">Total</th></tr></thead><tbody>
+ ${B.map(b => `<tr><td><b>${esc(b.code)}</b>${b.decided ? `<br><span class="w">${pl(b.decided, 'line')} settled: no separate charge</span>` : ''}</td><td class="num">${esc(fmtNum(b.lines))}</td><td class="num">${b.contract ? esc(money0(b.contract)) : '—'}</td><td class="num">${b.card ? esc(money0(b.card)) : '—'}</td><td class="num">${b.transport ? esc(money0(b.transport)) : '—'}</td><td class="pl-sub">${b.subLines ? `<b>${esc(fmtNum(b.subLines))} line${b.subLines === 1 ? '' : 's'}</b> · ${esc(money0(b.rehire))}${b.suppliers.length ? `<br><span class="w">from ${esc(b.suppliers.join(', '))} · rehire cost not on the record</span>` : ''}` : '<span class="pl-none">none sub-hired</span>'}</td><td class="num">${b.none ? `<span class="pl-todo">${esc(fmtNum(b.none))}</span>` : '—'}</td><td class="num"><b>${esc(money0(b.total))}</b></td></tr>`).join('')}
+ <tr class="tot"><td>The contracts</td><td class="num">${esc(fmtNum(B.reduce((s, b) => s + b.lines, 0)))}</td><td class="num">${esc(money0(B.reduce((s, b) => s + b.contract, 0)))}</td><td class="num">${esc(money0(cardTotal))}</td><td class="num">${esc(money0(B.reduce((s, b) => s + b.transport, 0)))}</td><td class="pl-sub"><b>${esc(fmtNum(B.reduce((s, b) => s + b.subLines, 0)))} lines</b> · ${esc(money0(B.reduce((s, b) => s + b.rehire, 0)))}</td><td class="num">${noRate ? esc(fmtNum(noRate)) : '—'}</td><td class="num"><b>${esc(money0(B.reduce((s, b) => s + b.total, 0)))}</b></td></tr>
  </tbody></table></div>
+ ${(() => { const L = pl752SubLocations(); return `<div class="pl-subloc"><b>Sub-hired on the record, by supplier.</b> ${L.length ? L.map(x => `<span class="pl-subco"><b>${esc(x.co)}</b> — ${esc(x.keys.join(', '))} (${x.keys.length} location${x.keys.length === 1 ? '' : 's'})</span>`).join(' · ') : 'no sub-hired location recorded on the page'}. These are locations, not contract lines: their hire is charged to the V8s on the branch's contracts at our rates, and the supplier's rehire cost sits under Rehire costs on the right (Event Portables: ${esc(money0(k.rehire || 0))}, approved). A branch's SUB lines above are the items the rental system itself books as sub-hired.</div>`; })()}
  <p class="pl-note">The branch total is the contracts line above, to the dollar: hire by the rate, hire from the card, plus the Transport Revenue and Rehire Revenue charge lines on the same contracts. Fencing, toilet servicing and event labour are charged off dockets, a quote and the scope, not contract lines, so they sit outside the branch table.</p>
  </div>
  <div class="pl-col">

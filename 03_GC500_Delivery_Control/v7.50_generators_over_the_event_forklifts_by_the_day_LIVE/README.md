@@ -1,4 +1,4 @@
-# v7.50 — Generators and towers over the event only; a forklift by its day rate (DRAFT: built and tested, NOT live)
+# v7.50 — Generators and towers over the event only; a forklift by its day rate (LIVE — uploaded by Codex, 1 Oct 2026)
 
 Author: Andrew Fisher · 1 Oct 2026
 

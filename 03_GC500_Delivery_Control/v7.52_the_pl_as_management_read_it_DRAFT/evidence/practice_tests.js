@@ -5,7 +5,7 @@ const figures = p => p.evaluate(() => { const M = moneySummary(); const B = pl75
   const txt = document.getElementById('pl752').innerText;
   return {revenue: M.charge.total, costs: M.cost.known, diff: M.difference0, contracts: M.charge.contracts, branchTotal: Math.round(B.reduce((s, b) => s + b.total, 0) * 100) / 100, branches: B,
     statementShows: {revenue: txt.includes(money0(M.charge.total)), costs: txt.includes(money0(M.cost.known)), diff: txt.includes(money0(Math.abs(M.difference0)))},
-    foldClosed: !document.querySelector('.plfold752').open, moneyCardStillThere: !!document.getElementById('moneyCard'), catRows: document.querySelectorAll('#pl752 .pl-col + .pl-col .pl-ln').length}; });
+    foldClosed: !document.querySelector('.plfold752').open, moneyCardStillThere: !!document.getElementById('moneyCard'), catRows: document.querySelectorAll('#pl752 .pl-col + .pl-col .pl-ln').length, subCells: [...document.querySelectorAll('#pl752 .pl-tbl tbody tr')].map(tr => (tr.querySelector('td:first-child b') || {}).textContent + ': ' + ((tr.querySelector('.pl-sub') || {}).innerText || '').replace(/\s+/g, ' ').trim()), subLoc: ((document.querySelector('#pl752 .pl-subloc') || {}).innerText || '').slice(0, 200)}; });
 (async () => {
  const [build, out] = [process.argv[2], process.argv[3] || __dirname]; const R = {};
  let s = await open({pageFile: build, W: 1440, H: 1000}); let p = s.page; await ready(p);
@@ -21,5 +21,5 @@ const figures = p => p.evaluate(() => { const M = moneySummary(); const B = pl75
  await p.evaluate(() => document.getElementById('pl752').scrollIntoView()); await p.waitForTimeout(400);
  await p.screenshot({path: path.join(out, 'shot752_pl_phone.png')}); R.phoneErrors = s.errors; await s.browser.close();
  fs.writeFileSync(path.join(out, 'practice_results.json'), JSON.stringify(R, null, 1));
- const d = R.desktop; console.log(JSON.stringify({revenue: d.revenue, costs: d.costs, diff: d.diff, contracts: d.contracts, branchTotal: d.branchTotal, branchEqualsContracts: Math.abs(d.branchTotal - d.contracts) < 0.01, branches: d.branches, statementShows: d.statementShows, foldClosed: d.foldClosed, moneyCardStillThere: d.moneyCardStillThere, catRows: d.catRows, errors: R.errors, phoneErrors: R.phoneErrors, phoneOverflow: R.phoneOverflow}, null, 1));
+ const d = R.desktop; console.log(JSON.stringify({revenue: d.revenue, costs: d.costs, diff: d.diff, contracts: d.contracts, branchTotal: d.branchTotal, branchEqualsContracts: Math.abs(d.branchTotal - d.contracts) < 0.01, branches: d.branches, statementShows: d.statementShows, foldClosed: d.foldClosed, moneyCardStillThere: d.moneyCardStillThere, catRows: d.catRows, subCells: d.subCells, subLoc: d.subLoc, errors: R.errors, phoneErrors: R.phoneErrors, phoneOverflow: R.phoneOverflow}, null, 1));
 })();

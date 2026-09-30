@@ -1,4 +1,4 @@
-# v7.51 — Navigate and a QR code on every load line (DRAFT: built and tested, READY TO UPLOAD after v7.50)
+# v7.51 — Navigate and a QR code on every load line (LIVE — uploaded by Codex, 1 Oct 2026)
 
 Author: Andrew Fisher · 1 Oct 2026
 

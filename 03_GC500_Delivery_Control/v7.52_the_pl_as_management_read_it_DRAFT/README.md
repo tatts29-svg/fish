@@ -1,4 +1,4 @@
-# v7.52 — The P&L, as management read it (DRAFT: built and tested, READY TO UPLOAD after v7.50 and v7.51)
+# v7.52 — The P&L, as management read it (DRAFT: built and tested on the live v7.51, READY TO UPLOAD)
 
 Author: Andrew Fisher · 1 Oct 2026
 
@@ -17,8 +17,13 @@ words (AGENTS.md, "Andrew's business words"):
   the 2026 card; event labour (the scope); labour ticked on references; lines with no rate and no card line. Each
   line carries a tag saying where it stands: **ON THE CONTRACTS**, **FROM THE CARD** (an estimate until the branch puts
   a rate on the line), **DOCKETS**, **THE SCOPE**, or **NOT PRICED**. Then **Total revenue** — the forecast.
-- **By branch — KINP, STPS, NVAC, MEAD:** lines; hire by the rate; hire from the card; Transport Revenue; Rehire
-  Revenue; lines with no rate; total. The branch totals add to the contracts line **to the cent** ($277,015.74).
+- **By branch — KINP, STPS, NVAC, MEAD:** lines; hire by the rate; hire from the card; Transport Revenue;
+  **Sub-hired** (Andrew, 1 Oct: "make sure all branches show sub-hired") — every branch says it: the SUB lines the
+  rental system books as sub-hired, their Rehire Revenue and supplier code (KINP: 1 line, $1,428, ROY002; MEAD: 1
+  line, $9, QUE011), or **NONE SUB-HIRED** (STPS, NVAC), with "rehire cost not on the record" where it is not; lines
+  with no rate; total. Under the table, **Sub-hired on the record, by supplier**: the sub-hired locations recorded on
+  the page (Event Portables — WC41, WC42, WC43, WC81), which are locations not contract lines, with where their hire
+  and their rehire cost sit. The branch totals add to the contracts line **to the cent** ($277,015.74).
   Lines settled as no separate charge (the six tanks, contract 9968929) are named under their branch.
 - **Direct costs — what Coates pays**, against the eight categories management expect, as written, with each
   category's own note; hours-only categories say HOURS ONLY; empty ones say NOT PRICED. Then Total direct costs known,
@@ -52,5 +57,5 @@ to the cent; the fold is closed and the old card still present; 0 page errors de
 scroll on the phone. Screenshots: `shot752_pl_desktop.png`, `shot752_pl_phone.png`. Sweeps: `sweep_desktop.txt`,
 `sweep_phone.txt`.
 
-Build: `toolchain/build.sh v7.52 <v7.50 patch> <v7.51 patch> v7.52_the_pl_as_management_read_it_DRAFT/patch_v752.py`
-(needs the live v7.49; applies after v7.50 and v7.51, or without them if they are already live).
+Build: `toolchain/build.sh v7.52 v7.52_the_pl_as_management_read_it_DRAFT/patch_v752.py` — v7.50 and v7.51 went live
+(Codex, 1 Oct 2026, live page 8,424,347 bytes); the patch needs card748Html and marginCard and refuses to run twice.

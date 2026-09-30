@@ -34,6 +34,8 @@
 .pl752 .pl-tbl .num{text-align:right;white-space:nowrap}
 .pl752 .pl-tbl tr.tot td{border-top:2px solid var(--pl-ink);border-bottom:0;font-weight:700}
 .pl752 .pl-tbl .w{font-size:11px;color:var(--pl-mute)}
+.pl752 .pl-sub{white-space:normal;min-width:150px}.pl752 .pl-sub .w{font-size:10.5px}.pl752 .pl-none{display:inline-block;font:700 9.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.1em;text-transform:uppercase;padding:4px 7px;border-radius:999px;background:#f0f2f4;color:#6b7681}
+.pl752 .pl-subloc{margin:10px 0 0;padding:9px 12px;border-left:3px solid var(--pl-or);background:#fff7f2;font-size:12px;line-height:1.5;color:#3d4852}.pl752 .pl-subco{white-space:nowrap}
 .pl752 .pl-note{margin:10px 0 0;font-size:11.5px;line-height:1.45;color:var(--pl-mute)}
 .pl752 .pl-missing{margin:0;padding:0 0 0 18px;font-size:12.5px;line-height:1.5}
 .pl752 .pl-missing li.prov{color:#b4500f}
