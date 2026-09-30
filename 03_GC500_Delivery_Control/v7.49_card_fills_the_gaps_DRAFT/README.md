@@ -33,11 +33,12 @@ rename both folders `_LIVE`, update `STATUS.md`.
    generator price is not there you go for the lower, so 70 kVA becomes the 60 kVA. If the client asks for a 60 kVA and
    we supplied larger, they get the price of a 60 kVA."). The size is what was asked for (the reference's own type),
    else what the line says; a size the card has no line for takes the next size down (GN20 asked 350 → 315 kVA; the
-   300 kVA line → 250 kVA; GN18/GN06 asked 50 with 60 sent → 50; GN13 asked 45 → 45). Forklifts charge the card's
-   daily rate by the day from when they go in (the page's forklift rule); the 3.0 t and 3.5 t take the 2.5 t standard
-   (no card line). Generators and towers are charged once: the card's daily on-site rate × days on site on the
-   contract (booked delivery to expected off-hire). 31 lines filled, $102,862; the fork extension and tyne rotator
-   have no card line and stay open with a box.
+   300 kVA line → 250 kVA; GN18/GN06 asked 50 with 60 sent → 50; GN13 asked 45 → 45). The days follow the branch's
+   rule (Brenden Meek, Branch Manager: "Forklifts, VMS and water barriers are charged for from when they go in.
+   Everything else is only charged for over the event."): forklifts charge the card's daily rate by the day from when
+   they go in (the 3.0 t and 3.5 t take the 2.5 t standard, no card line); a generator or tower is charged once, the
+   card's daily rate × the three race days (23–25 Oct), never its days on site. 31 lines filled, $46,953; the fork
+   extension and tyne rotator have no card line and stay open with a box.
 
 ## Figures (practice tests on the live record, read only — `evidence/streams_before_after.json`)
 
@@ -48,13 +49,14 @@ rename both folders `_LIVE`, update `STATUS.md`.
 | Buildings, containers and furniture | $66,992 | $66,992 | not recorded | — |
 | VMS, water barriers and track mat | $81,149 | $81,149 | not recorded | — |
 | Forklifts and access | $15,935 | **$51,211** | not recorded | — |
-| Generators and lighting towers | $339 | **$67,925** | not recorded | — |
+| Generators and lighting towers | $339 | **$12,015** | not recorded | — |
 | Delivery and transport | $6,939 | $6,939 | $21,721 | −$14,782 |
 | People — event staff and crew | $72,899 | $72,899 | $17,664 | +$55,235 |
-| **Revenue** | **$434,258** | **$622,222** | known costs $235,082 | |
+| **Revenue** | **$434,258** | **$566,312** | known costs $235,082 | |
 
 Contract lines with no rate: 33 → 2. Still not in the costs: wages (hours only), 31 accommodation nights, transport
-only partly, sub-hire rehire cost for the hired-in plant.
+only partly, sub-hire rehire cost for the hired-in plant. Brenden Meek: "no updated pricing yet, waiting on Corey
+Machado" — every card figure here can be typed over when it comes.
 
 Checks: a rate typed on a decided tank line is ignored (stays "Included in toilet-block hire", $0); a typed rate on a
 card-filled generator wins, and clearing it puts the card figure back; the typer's name is kept; the revenue total on

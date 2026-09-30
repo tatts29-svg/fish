@@ -71,9 +71,9 @@
   ]
  },
  "after": {
-  "revenue": 622221.63,
+  "revenue": 566312.34,
   "cost_known": 235081.76,
-  "diff": 387140,
+  "diff": 331230,
   "missing": [
    "wages in hours only",
    "event staff not on the tracker",
@@ -120,7 +120,7 @@
    ],
    [
     "Generators and lighting towers",
-    67925,
+    12015,
     null,
     null,
     0

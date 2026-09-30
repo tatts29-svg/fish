@@ -8,8 +8,10 @@
  (Andrew, 1 Oct 2026: "If a generator price is not there you go for the lower, so 70 kVA becomes the 60 kVA. If
  the client asks for a 60 kVA and we supplied larger, they get the price of a 60 kVA."). The size is what was
  asked for (the reference's own type), else what the line says; a size the card has no line for takes the next
- size down. Forklifts charge by the day from when they go in, as every forklift line does; a generator or tower
- is charged once, for its days on site on the contract (booked delivery to expected off-hire).
+ size down. Forklifts charge by the day from when they go in, as every forklift line does. A generator or a tower
+ is charged once, for the three event days only (Brenden Meek, Branch Manager: "Forklifts, VMS and water barriers
+ are charged for from when they go in. Everything else is only charged for over the event.") - never for its
+ days on site, which is how long it is there, not what the customer pays for.
  3. Every rate can be typed over on the Costs tab; an empty box puts the card's back.
  The seven toilet lines and the building/container lines that had no rate are settled already, by the project
  manager's answers of 1 Oct 2026 (waste tanks included in toilet-block hire; contract 9968929 for Coates' own use)
@@ -56,12 +58,11 @@ function plant748(r){
  }
  return null;
 }
-/* days on site on the contract: booked delivery (or start) to off-hire (or expected off-hire), never under the minimum */
+/* the days an event-only line is charged for: the race days, both ends billed (the page's own event window) */
 function days748(r){
- const from = r.start_date || r.booked_delivery_date || r.contract_start, to = r.term_date || r.expected_term_date || r.booked_pickup_date;
- if (!from || !to) return null;
- const d = Math.max(daysBetween(from, to), typeof r.minimum_days === 'number' ? r.minimum_days : 0);
- return d > 0 ? {days: d, from, to} : null;
+ const ev = eventWindow(); if (!ev) return null;
+ const d = Math.max(ev.days, typeof r.minimum_days === 'number' ? r.minimum_days : 0);
+ return d > 0 ? {days: d, from: ev.from, to: ev.to} : null;
 }
 function lr748Decided(r){ return typeof contractTreatment747 === 'function' && !!contractTreatment747(r); }
 /* the rate a line with no contract rate is charged at: typed here, else the card, else nothing */
@@ -81,7 +82,7 @@ function contractCharge(r){
  const out = contractCharge_747(Object.assign({}, r, {rate_1: f.rate}));
  out.filled = f.from;
  out.basis = (f.from === 'typed' ? 'no rate on the contract - ' + money(f.rate) + ' typed on the Costs tab' + (f.by ? ' by ' + f.by : '')
- : 'no rate on the contract - the card\'s ' + f.plant.line + ' ' + money(f.plant.daily) + ' a day' + (f.days ? ' x ' + f.days.days + ' days on site' : '') + (f.plant.why ? ' (' + f.plant.why + ')' : '')) + ' · ' + out.basis;
+ : 'no rate on the contract - the card\'s ' + f.plant.line + ' ' + money(f.plant.daily) + ' a day' + (f.days ? ' x the ' + f.days.days + ' event days' : '') + (f.plant.why ? ' (' + f.plant.why + ')' : '')) + ' · ' + out.basis;
  return out;
 }
 /* the servicing: Event Portables' quantities, the card's pump-out rates (or a rate typed here) */
@@ -102,7 +103,7 @@ function card748Html(){
  const filled = open.filter(x => x.f), still = open.filter(x => !x.f);
  const sv = servicing748();
  const from = f => f.from === 'typed' ? 'typed' + (f.by ? ' by ' + esc(f.by) : '') + (f.plant ? `<br><span class="w">card: ${esc(f.plant.line)} ${esc(money(f.plant.daily))} a day</span>` : '')
- : `card: ${esc(f.plant.line)} ${esc(money(f.plant.daily))} a day${f.days ? ` × ${esc(f.days.days)} days <span class="w">(${esc(fmtDay(f.days.from).dm)} to ${esc(fmtDay(f.days.to).dm)})</span>` : ' <span class="w">× days from when it goes in</span>'}${f.plant.why ? `<br><span class="w">${esc(f.plant.why)}</span>` : ''}`;
+ : `card: ${esc(f.plant.line)} ${esc(money(f.plant.daily))} a day${f.days ? ` × the ${esc(f.days.days)} event days <span class="w">(${esc(fmtDay(f.days.from).dm)} to ${esc(fmtDay(f.days.to).dm)})</span>` : ' <span class="w">× days from when it goes in</span>'}${f.plant.why ? `<br><span class="w">${esc(f.plant.why)}</span>` : ''}`;
  const tr = x => { const r = x.r, f = x.f;
  return `<tr><td class="mono">${esc(r.rental_contract)} · ${esc(r.line)}</td><td>${esc(r.what || r.description || '')}${r.quantity > 1 ? ' × ' + esc(r.quantity) : ''}</td>
  <td>${f ? from(f) : '<span class="chip cand">no rate yet</span> <span class="w">no line on the card</span>'}</td>
@@ -120,7 +121,7 @@ function card748Html(){
  </tbody></table></div>
  ${sv.not_on_the_card.length ? `<p class="hint">Not charged — no line on the card: ${esc(sv.not_on_the_card.map(l => l.description + ' (theirs ' + money0(l.their_amount) + ')').join(', '))}. Needs a price agreed.</p>` : ''}` : ''}
  ${filled.length ? `<h4>Contract lines with no rate — charged from the card</h4>
- <p class="hint">The card's daily on-site rate for what was asked for; a size the card has no line for takes the next size down (the project manager, 1 Oct 2026). Forklifts charge by the day from when they go in; a generator or tower once, for its days on site on the contract. A rate typed here is the line's figure (per day for a forklift, the whole event otherwise).</p>
+ <p class="hint">The card's daily on-site rate for what was asked for; a size the card has no line for takes the next size down (the project manager, 1 Oct 2026). Forklifts charge by the day from when they go in; a generator or tower once, for the three event days only — the branch's rule (Brenden Meek): everything but forklifts, VMS and water barriers is charged over the event. A rate typed here is the line's figure (per day for a forklift, the whole event otherwise).</p>
  <div class="tblwrap"><table class="tbl t748">${head}<tbody>${filled.map(tr).join('')}
  <tr class="tot"><td colspan="4">${filled.length} line${filled.length === 1 ? '' : 's'}</td><td class="num"><b>${esc(money(filled.reduce((s, x) => s + (x.ch.amount || 0), 0)))}</b></td></tr></tbody></table></div>` : ''}
  ${still.length ? `<details class="fold748"><summary>Still no rate: ${still.length} contract line${still.length === 1 ? '' : 's'} — no line on the card; type a rate to charge one</summary>

@@ -105,6 +105,12 @@ marks as a draft, or anything risky to the record, waits for his yes.
   Never go back to one list per reference; that is what lost photographs.
 - **Sub-hired locations say so first** (v7.43) and carry no Coates contract, branch or Rental ID.
 - **What a reference is decides what its drawer offers** (v7.43): no accessories on generators, towers, barriers.
+- **How the branch charges** (Brenden Meek, Branch Manager - Relief, by email; Andrew said "remember", 1 Oct 2026):
+  "Labour is charged per piece of equipment. Only hourly labour charged is over the event. Forklifts, VMS and
+  water barriers are charged for from when they go in. Everything else is only charged for over the event."
+  The event is 23, 24 and 25 October, both ends billed (three days). Pricing for the rehire toilets came attached to
+  that email; "no updated pricing yet, waiting on Corey Machado". A card daily rate for a generator or a light
+  tower is therefore charged for the three event days, never for its days on site.
 - **Generator pricing** (Andrew, 1 Oct 2026): "If a generator price is not there you go for the lower, so 70 kVA becomes
   the 60 kVA. If the client asks for a 60 kVA and we supplied larger, they get the price of a 60 kVA." The rate
   follows what was asked for; a size the card has no line for takes the next size down.

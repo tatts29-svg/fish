@@ -24,7 +24,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| v7.49 | The card fills the gaps (Andrew, 30 Sep: "use the rate card to fill in the gaps, we can edit the hire rate later"): Q6844 toilet servicing charged at the card's pump-out rates ($85,101.75; Toilets stream −$49,483 → +$35,619); generators, towers and forklifts with no rate charged from the card by Andrew's 1 Oct generator rule (asked-for size; no card line → next size down; 31 lines, $102,862; lines with no rate 33 → 2); every rate editable on Costs (synced `lineRates`); Codex's v7.47 decisions (tanks included, 9968929 own use) always stand. Revenue $434,258 → $622,222. **Built and tested, NOT live** (no edit key in Claude's container) — `v7.49_card_fills_the_gaps_DRAFT/README.md`, build together with v7.48. Author: Andrew Fisher. | Claude | 1 Oct 2026 |
+| v7.49 | The card fills the gaps (Andrew, 30 Sep: "use the rate card to fill in the gaps, we can edit the hire rate later"): Q6844 toilet servicing charged at the card's pump-out rates ($85,101.75; Toilets stream −$49,483 → +$35,619); generators, towers and forklifts with no rate charged from the card by Andrew's 1 Oct generator rule (asked-for size; no card line → next size down) and Brenden Meek's days rule (forklifts from when they go in; generators and towers the three race days only) — 31 lines, $46,953; lines with no rate 33 → 2; every rate editable on Costs (synced `lineRates`); Codex's v7.47 decisions (tanks included, 9968929 own use) always stand. Revenue $434,258 → $566,312. **Built and tested, NOT live** (no edit key in Claude's container) — `v7.49_card_fills_the_gaps_DRAFT/README.md`, build together with v7.48. Author: Andrew Fisher. | Claude | 1 Oct 2026 |
 | v7.48 | Text it says what it is and where it goes (first claimed as v7.47; renumbered because Codex's v7.47 went live first): reference, what it is, GPS (master plan wins), Maps link, pit lane way in, inside three plain texts (the old text was ~700 characters; the service refuses over 480). **Built and tested, NOT live** (no edit key in Claude's container) — `v7.48_text_it_says_what_and_where_DRAFT/README.md`. Author: Andrew Fisher. | Claude | 30 Sep 2026 |
 | v7.46 | Apply GN20's approved 315 kVA install basis from Andrew's uploaded Rate Card 2026 (1).xlsx. Preserve hire/demob and other references; verify, test and release. Author: Andrew Fisher. | Codex | 30 Sep 2026 22:21 |
 
@@ -43,6 +43,11 @@ land there).
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 
 ## Waiting on Andrew
+
+- Brenden Meek's email (1 Oct 2026, rules now in AGENTS.md): "Attached is pricing for the rehire toilets" — the
+  attachment has not reached the repo; if it differs from quote Q6844 the servicing figures need it. "No updated
+  pricing yet, waiting on Corey Machado" — when it comes, type the new rates on Costs → From the Street Rate Card
+  2026, or send the card for a release.
 
 - Toilets and servicing: Andrew said on 30 Sep "use the rate card to fill in the gaps, we can edit the hire rate
   later" — v7.49 charges the Q6844 servicing at the card's pump-out rates. Still open: (a) the water truck, pre-fill,
