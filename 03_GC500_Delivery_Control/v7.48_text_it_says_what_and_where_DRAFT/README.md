@@ -1,4 +1,4 @@
-# v7.47 — Text it says what it is and where it goes (DRAFT: built and tested, not live)
+# v7.48 — Text it says what it is and where it goes (DRAFT: built and tested, not live)
 
 Author: Andrew Fisher · 30 Sep 2026
 
@@ -8,8 +8,8 @@ what it is — toilets — and the GPS coordinates of where it goes."
 ## Where it is up to
 
 Built on the live page (v7.45, 8,386,166 bytes) and tested. **Not uploaded**: Claude's container had no
-`GC500_EDIT_TOKEN`. Whoever has the key: rebuild on the live page (`toolchain/build.sh v7.47
-v7.47_text_it_says_what_and_where_DRAFT/patch_v747.py`), rerun `evidence/practice_tests.js` and both sweeps, upload
+`GC500_EDIT_TOKEN`. Whoever has the key: rebuild on the live page (`toolchain/build.sh v7.48
+v7.48_text_it_says_what_and_where_DRAFT/patch_v747.py`), rerun `evidence/practice_tests.js` and both sweeps, upload
 with `toolchain/upload_page.py`, rename this folder `_LIVE`, update `STATUS.md`. The patch only touches the Text box
 (`dropSmsText`, `smsDropBox`), so it sits on top of v7.46 (GN20 price) without conflict.
 

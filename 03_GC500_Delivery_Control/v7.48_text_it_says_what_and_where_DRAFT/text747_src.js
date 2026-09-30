@@ -1,4 +1,4 @@
-/* v7.47 - TEXT IT SAYS WHAT IT IS AND WHERE IT GOES. Andrew Fisher, 30 Sep 2026: "I want to have the text function
+/* v7.48 - TEXT IT SAYS WHAT IT IS AND WHERE IT GOES. Andrew Fisher, 30 Sep 2026: "I want to have the text function
  work so when I text and send, it will send them, for example, the P41, what it is - toilets - and the GPS
  coordinates of where it goes."
 

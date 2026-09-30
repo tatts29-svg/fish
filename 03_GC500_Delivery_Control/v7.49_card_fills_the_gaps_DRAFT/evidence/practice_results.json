@@ -1,0 +1,154 @@
+{
+ "before": {
+  "revenue": 434257.87,
+  "contracts": 240445.42,
+  "unknown": 33,
+  "servicing": 0,
+  "toilets": {
+   "charge": 69092,
+   "cost": 118575,
+   "diff": -49483,
+   "unrated": 0,
+   "notes": [
+    "Rehire cost: Event Portables $118,575, approved — the final total may change",
+    "servicing is on no contract line: the same servicing at our card's pump-out rates would be $85,102 — not charged yet"
+   ]
+  },
+  "buildings": {
+   "charge": 66992,
+   "unrated": 0
+  }
+ },
+ "after": {
+  "revenue": 519359.62,
+  "contracts": 240445.42,
+  "unknown": 33,
+  "servicing": 85101.75,
+  "toilets": {
+   "charge": 154194,
+   "cost": 118575,
+   "diff": 35619,
+   "unrated": 0,
+   "notes": [
+    "Rehire cost: Event Portables $118,575, approved — the final total may change",
+    "servicing $85,102 at our card's pump-out rates is in the revenue — it is on no contract line yet"
+   ]
+  },
+  "buildings": {
+   "charge": 66992,
+   "unrated": 0
+  }
+ },
+ "filled": [],
+ "servicing": {
+  "lines": [
+   {
+    "quote": "Q6844",
+    "description": "Chemical Toilet Fresh Water Flush - Service",
+    "qty": 780,
+    "their_rate": 38.5,
+    "their_amount": 30030,
+    "card_line": "FWF Pump out & Clean & Restock",
+    "card_rate": 72.87,
+    "at_card": 56838.6,
+    "key": "service|FWF Pump out & Clean & Restock",
+    "rate": 72.87,
+    "from": "card",
+    "amount": 56838.6
+   },
+   {
+    "quote": "Q6844",
+    "description": "Holding tank pump out and disposal",
+    "qty": 24,
+    "their_rate": 295,
+    "their_amount": 7080,
+    "card_line": "Tank Pump Out & Clean & Restock",
+    "card_rate": 624.6,
+    "at_card": 14990.4,
+    "key": "service|Tank Pump Out & Clean & Restock",
+    "rate": 624.6,
+    "from": "card",
+    "amount": 14990.4
+   },
+   {
+    "quote": "Q6844",
+    "description": "Toilet Block Cleaning",
+    "qty": 51,
+    "their_rate": 185,
+    "their_amount": 9435,
+    "card_line": "Sewer Connect Units Clean & Restock",
+    "card_rate": 260.25,
+    "at_card": 13272.75,
+    "key": "service|Sewer Connect Units Clean & Restock",
+    "rate": 260.25,
+    "from": "card",
+    "amount": 13272.75
+   }
+  ],
+  "total": 85101.75,
+  "their_total": 46545,
+  "not_on_the_card": [
+   {
+    "quote": "Q6844",
+    "description": "Water Truck",
+    "qty": 1,
+    "their_rate": 6800,
+    "their_amount": 6800
+   },
+   {
+    "quote": "Q6844",
+    "description": "Water Truck - Pre fill",
+    "qty": 1,
+    "their_rate": 2800,
+    "their_amount": 2800
+   },
+   {
+    "quote": "Q6846",
+    "description": "Water delivery",
+    "qty": 6,
+    "their_rate": 375,
+    "their_amount": 2250
+   },
+   {
+    "quote": "Q6846",
+    "description": "3000 Ltr Free Drinking Water Tank",
+    "qty": 1,
+    "their_rate": 350,
+    "their_amount": 350
+   }
+  ]
+ },
+ "typed": {
+  "card": null,
+  "typed": 800,
+  "back": null,
+  "servicingTyped": 75063.15,
+  "rev1": 520159.62,
+  "rev2": 510121.02,
+  "revBack": 519359.62
+ },
+ "decidedStands": {
+  "amount": 0,
+  "how": "Included in toilet-block hire"
+ },
+ "ui": {
+  "shown": true,
+  "boxes": 36,
+  "text": "From the Street Rate Card 2026 · the servicing, and the lines with no rate · change any rate here\nToilet servicing — on no contract line yet\nSERVICING\tQTY\tRATE FROM\tRATE\tCHARGE\nChemical Toilet Fresh Water Flush - Service (theirs $38.50)\t780\tcard: FWF Pump out & Clean & Restock\t$72.87 \t$56,838.60\nHolding tank pump out and disposal (theirs $295.00)\t24\tcard: Tank Pump Out & Clean & Restock\t$624.60 \t$14,990.40\nToilet Block Cleaning (theirs $185.00)\t51\tcard: Sewer Connect Units Clean & Restock\t$260.25 \t$13,272.75\nServicing charged\t$85,101.75\nStill no rate: 33 contract lines — type a rate to charge one; the card's daily rate is shown as a guide\nMORE INFO"
+ },
+ "uiTyped": {
+  "marginShows": true,
+  "revenue": 519454.62,
+  "stored": "95",
+  "charge": 95,
+  "cell": "95"
+ },
+ "uiCleared": {
+  "stored": null,
+  "charge": null
+ },
+ "errors": [],
+ "blockedWrites": 5,
+ "phoneErrors": [],
+ "phoneOverflow": 0
+}
