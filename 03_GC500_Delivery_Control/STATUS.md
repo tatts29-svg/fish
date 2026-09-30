@@ -23,7 +23,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 | version | what | who | since |
 |---|---|---|---|
-| v7.47 | Text it: the text itself carries the reference, what it is (e.g. "P41 · Toilets"), and the GPS coordinates of where it goes (master plan wins), plus the pit lane way in. Builds on whatever is live (v7.46 or not). Author: Andrew Fisher. | Claude | 30 Sep 2026 |
+| v7.47 | Text it says what it is and where it goes: reference, what it is, GPS (master plan wins), Maps link, pit lane way in, inside three plain texts (the old text was ~700 characters; the service refuses over 480). **Built and tested, NOT live**: Claude's container has no edit key. Rebuild on live and upload per `v7.47_text_it_says_what_and_where_DRAFT/README.md` — Claude or Codex, whoever has the key first. Author: Andrew Fisher. | Claude | 30 Sep 2026 |
 | v7.46 | Apply GN20's approved 315 kVA install basis from Andrew's uploaded Rate Card 2026 (1).xlsx. Preserve hire/demob and other references; verify, test and release. Author: Andrew Fisher. | Codex | 30 Sep 2026 22:21 |
 
 Andrew directed that updates be finished, tested and released. v7.45 went live on
@@ -41,6 +41,15 @@ land there).
 Claim a line here and push it BEFORE you start. Clear it when the release is live.
 
 ## Waiting on Andrew
+
+- Toilets and servicing (Costs): Event Portables rehire shows $69,092 charged against $118,575 cost (−$49,483).
+  Andrew asked on 30 Sep "what do we need". Three gaps, all commercial, none the page can close on its own:
+  (1) the servicing on Event Portables quote Q6844 (780 FWF services, 24 tank pump-outs, 51 block cleans, $46,545
+  their cost) is on no contract line — $85,102 at our street card's pump-out rates, not charged;
+  (2) the water truck, pre-fill, water delivery and drinking-water tank (Q6844/Q6846, $12,200 their cost) have no
+  line on our card and are not charged; (3) 7 lines on KINP contracts with no rate: 9968955 lines 3, 49, 50, 54,
+  94, 95 (sewage holding tanks WC05, WC20 x2, WC27, WC60 x2) and 9968929 line 7 (FWF toilet). Needs the customer's
+  agreement that servicing and water are billable, and the branch to put the lines and rates on the contracts.
 
 - GN20 source recovered: Andrew uploaded Rate Card 2026 (1).xlsx on 30 Sep. Street Rate Card 2026 A79/B79 identifies Generator 315 KVA and $333.12 combined labour. v7.46 is verifying the existing equal install/demob split and applying only the approved install component; no hire/demob change.
 - Fencing hire agreements 36559 and 36560: are the CCB lines "event" or "demarcation"? ($3,620.50 across 650 m.)
