@@ -16,9 +16,9 @@ const extract = (file, name) => {
   return source.slice(from,end);
 };
 const sources = {
-  costs: extract('v7.64_costs_correct_and_to_job_end_DRAFT/patch_v764.py', 'HELPERS'),
-  rehire: extract('v7.66_rehire_by_branch_DRAFT/patch_v766.py', 'JS'),
-  prices: extract('v7.67_priced_by_us_DRAFT/patch_v767.py', 'JS')
+  costs: extract('v7.64_costs_correct_and_to_job_end_LIVE/patch_v764.py', 'HELPERS'),
+  rehire: extract('v7.66_rehire_by_branch_LIVE/patch_v766.py', 'JS'),
+  prices: extract('v7.67_priced_by_us_LIVE/patch_v767.py', 'JS')
 };
 const checks = [];
 const test = (name, run) => {
