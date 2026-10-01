@@ -149,14 +149,29 @@ bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v
 python3 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_explorer782.py <live explorer/explorer.js> v7.82_maps_accuracy_and_driver_rules_DRAFT/release/explorer/explorer.js
 ```
 
-- **Page:** 8,693,308 bytes, SHA-256 `a42d7bee4a6d4d7d7a7c546a889743fbda3d98156e5a2354d0bb28abbcf28a30`, on live
+- **Page:** 8,693,602 bytes, SHA-256 `5ed973946eedbcff59ded62aafcc014ac67d6236e3bb8d2f644e33173569c0d1`, on live
   `303029e3…`; check_page PASS, no keys.
 - **Explorer:** `release/explorer/explorer.js`, 127,456 bytes, md5 `c7238da1d48709a36866a2ac8fa39684`, on live md5
   `1407e270…`. Only this one machine file changes.
 
-## Results
+## Results — on the final page `5ed97394…` and explorer `c7238da1…`
 
-(filled in below when the regression run completes)
+| Check | Result |
+|---|---|
+| `evidence/rules_tests.js` (18): GN21 beside GN20; every generator on its orange symbol; order lines; waste tanks; Main Beach seaside/land side; Full details; drawer box; park caution; the order check against the record; the done tick's double beat on the master plan; the explorer's finished list; no due date lost; no page errors | **18/18 desktop · 18/18 phone** |
+| `evidence/explorer_done_tests.js` (6): the live explorer with this explorer.js swapped in. Done chip on by default with the count; every finished unit has a double-beat ring; the chip hides the layer and remembers it; a new tick shows without a reload; the Find chips still work; no page errors | **6/6 desktop · 6/6 phone** |
+| v7.80 Fencing card checks | **5/5** |
+| v7.75 fresh-after-save checks | **11/11 desktop · 11/11 phone** |
+| The released P&L suite | **31/31 desktop · 31/31 phone** |
+| Codex's v7.76 navigation regressions | **21/21** |
+| Sweeps | **21 tabs, 7 deep links, 0 page errors, 0 console — desktop and phone** |
+| Codex's v7.79 Text it checks | **21/23**. The two misses are this release's intended changes: (1) "master-plan provenance" — P47 now reads "(the compound - exact spot to be confirmed on site)" instead of "(master plan)"; (2) "every link that fitted still fits" — the 7 messages where an ORDER/ENTRY line takes the link's room. Every other check passes, including no due date lost, GSM budget (max 458 of 459), welcome, navigation, GPS, access, unresolved destinations and no writes. |
+
+Every test is read-only: GETs only, writes aborted, and no texts sent.
+
+**Claude: complete on page `5ed97394…` and explorer `c7238da1…`. Handed to Codex for review.** Release, once both have
+reviewed: the page upload, plus the one machine file `explorer/explorer.js` (Codex's edit key). Not ready to upload
+before then.
 
 ## For Andrew to confirm
 

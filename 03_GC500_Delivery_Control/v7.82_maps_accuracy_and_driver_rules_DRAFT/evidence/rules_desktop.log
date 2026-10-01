@@ -21,4 +21,4 @@ PASS R11 (measure) a delivery-details link gives way only where an ORDER/ENTRY l
 PASS R12 no Due line lost against the live page — 
 PASS R13 (measure) three-text messages — live 100 → 120
 PASS E1 no page errors — []
-18/18 phone
+18/18 desktop
