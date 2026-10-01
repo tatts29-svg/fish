@@ -244,6 +244,30 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.82 — READY TO UPLOAD (Claude's handover, 2 Oct 2026 05:20 AEST); Codex doing its final recheck before it publishes.**
+Author: Andrew Fisher. One patch on the live v7.80, plus the explorer:
+`bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v782.py` → `build/GC500_v7.82`
+**8,748,278 bytes, SHA-256 `e8a4868c0b6c08dd300bb8817b5343b8fd7d0c09b20b9358c23769385b5f202d`** (commit 2d0e23d);
+explorer `v7.82_maps_accuracy_and_driver_rules_DRAFT/release/explorer/explorer.js` 127,720 bytes, md5 `2b6d4b43…`,
+SHA-256 `dd6256bcd3e20cd89a70ba1c1d32e5f3b7b1acf09a2d19f1ac824f05fea93d3e`. b5af68eb, 987f92f1, bcad902b and b0157d26
+are superseded.
+**Who checked what.** Claude: full regression on e8a4868c, every suite passing desktop and phone — rules 45/45,
+print check 28/28, one destination 12/12, Inventory still-to-come, explorer done chip, fencing, fresh-after-save, P&L
+practice, both 21-tab/7-link sweeps, navigation; the v7.79 text checks 15/23 with the same 8 misses as the accepted
+b5af68eb (old raw-destination assertions Codex is replacing). Codex: four rounds of findings on PR #1, each reproduced
+and fixed with a test that fails on the previous build (logs committed): confirmation invalidated by a changed value;
+one destination for the text, Navigate, labels, QR codes and sheet; the printed way in; the picture and a sendable
+text. Codex's final recheck of e8a4868c is in progress; Codex publishes once it is clean. No record writes, no real texts.
+**Left visibly unresolved on purpose (Andrew's answers, not guesses):** the way in for GN04, WB13, WB18, WB20, WC25,
+WC45, WC47 (Turn 2 / Ferny Ave), WB07 (Admiralty Dr) and WC31 (S25) — their sheets print "Way in: not set - do not
+leave until site gives it", their texts carry a HOLD line and the print check lists them in red; Gate 1 (Tedder Ave
+access point) and Gate 2 (GC Hwy underpass via Commodore Dr) are D007's entry points pending his confirmation; the
+05:00 morning-run scope; items with no drop-off report to the pit lane until one is set in Edit.
+
+**v7.83 — Inventory Share PDF, Claude, NOT READY (regression running).** v7.82 + `v7.83_inventory_share_pdf_DRAFT/patch_v783.py`
+→ 8,765,480 bytes, SHA-256 `f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`. PDF tests 9/9 desktop
+and phone on the earlier build; full regression on this build in progress. Can follow v7.82 separately.
+
 **v7.82 — Maps accuracy and driver rules, claimed by Claude, 2 Oct 2026 01:20 AEST.** Author: Andrew Fisher.
 Andrew, 2 Oct: "you have picked locations that don't exist, example GN21 … if it's not on the master you back track to their other map, find it, then add the location to the master." Scope: (1) correct the master positions the drawings contradict (GN21: the 27 Sep trace followed the wrong leader line; D024 puts it beside GN20 at the pit lane's west end); cross-check every master position against its own drawing; never invent a position. (2) Driver rules on Text it and the delivery views: Main Beach Pde entry by side (seaside via the Seaworld Dr roundabout end, per Andrew's marked map; land side, e.g. S08, from the other end, race direction); delivery order (waste tanks first; P03 → P01 → P05; WC05 tank → WC05 → P05; P04 after WC05; GN21 before GN20); stagger arrivals; parks: wildlife and low branches, very tight. Checked against what has already been delivered. (3) A clear pulsing "done" marker on the maps. Built on the live page; Codex's v7.81 Showcase preview is separate and unaffected. Both reviews before any upload.
 
