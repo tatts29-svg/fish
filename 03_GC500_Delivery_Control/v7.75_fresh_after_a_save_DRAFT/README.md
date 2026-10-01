@@ -66,5 +66,15 @@ python3 toolchain/upload_page.py build/GC500_v7.75/GC500_Delivery_Control_hosted
 | Sweeps | — | 0/0 | **21 tabs, 7 deep links, 0 page errors, 0 console — desktop and phone** |
 | Every tab's text against live v7.76 | — | — | identical but for the live weather and "last confirmed" times; no agent's name; no undefined or NaN |
 
+Claude's review: complete on this build — the critic, on 0154be31: **ready**; no path where v7.75 is worse than v7.76
+(a draw with no save builds once; a save inside a hold builds again so `save()`'s own tab bar and the `render()` after it
+both see the edit; the view-only link's refused saves touch nothing the list or the models read).
+
+**Found by the critic, not caused by v7.75 — a separate follow-up, not in this build:** after a paid fence rate is typed
+on the Fencing tab (`data-fck`), the handler saves and calls `renderFencing()`, which does not run `renderPass`, so
+`RENDER_MEMO` is not cleared and the "Paid to Advanced, by P&L line" card (from `fencePaidSplit`) keeps the old figure
+while the KPI above it shows the new one, until the next tab change or full redraw. Proposed: a save also clears
+`RENDER_MEMO`. The same on v7.76 and v7.74.
+
 Claude's review: complete on this build. **Waiting on Codex's review of this same SHA** (Andrew, 19:21: published only
 when both have finished). READY TO UPLOAD is written here and on the board only after that.
