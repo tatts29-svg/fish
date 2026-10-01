@@ -19,10 +19,10 @@ if 'function sms777Results(' not in source or 'heldFresh775' not in source:
 
 source = rep(source,
     "const L = ['Coates GC500: ' + text747What(a)].concat(text747Where(a));",
-    "/* text779 - welcome and navigation */\n const L = ['Welcome to Coates GC500', 'Reference: ' + text747What(a)].concat(text747Where(a));")
+    "/* text779 - welcome and navigation */\n const L = ['Welcome to Coates GC500', text747What(a)].concat(text747Where(a));")
 source = rep(source,
     "return ['GPS: ' + ll.lat.toFixed(6) + ', ' + ll.lon.toFixed(6) + ' (' + src + ')', 'Maps: ' + navUrl(ll)];",
-    "const destination = nt.pinned ? 'delivery location' : nt.placed ? 'mapped location' : 'planned area';\n return ['GPS: ' + ll.lat.toFixed(6) + ', ' + ll.lon.toFixed(6) + ' (' + src + ')', 'Navigate to ' + destination + ':\\n' + navUrl(ll)];")
+    "return ['GPS: ' + ll.lat.toFixed(6) + ', ' + ll.lon.toFixed(6) + ' (' + src + ')', 'Navigate: ' + navUrl(ll)];")
 source = rep(source,
     "'LOCATION CHANGED - the spot needs checking. Ring before you leave.'\n : 'GPS: none recorded yet - ring for the exact spot before you leave.'",
     "'Location changed. Please confirm the new location before departure.'\n : 'Location not yet confirmed. Please contact the site team before departure.'")
