@@ -81,7 +81,7 @@ function inv87Line(e, due){
  const F = inv87Facts(e), k = esc(F.a.key);
  const tags = F.tags.map(([c, w]) => `<span class="tg-t ln87-tag ${c}">${esc(w)}</span>`).join('');
  const sat = F.lat != null ? `<img alt="" loading="lazy" decoding="async" data-sat87="${F.lat},${F.lon}" width="150" height="100">` : '';
- return `<li class="ln87"><div class="ln87-ref"><button type="button" class="tg-ref" data-open="${k}" title="Open ${k}">${refPlate(F.a.key, 18)}</button>${due ? `<span class="ln87-due">${e.due ? 'Due ' + esc(fmtDate(e.due)) : 'No date yet'}</span>` : ''}<span class="ln87-nm">${esc(F.name)}</span></div>
+ return `<li class="ln87" data-k87="${k}"><div class="ln87-ref"><button type="button" class="tg-ref" data-open="${k}" title="Open ${k}">${refPlate(F.a.key, 18)}</button>${due ? `<span class="ln87-due">${e.due ? 'Due ' + esc(fmtDate(e.due)) : 'No date yet'}</span>` : ''}<span class="ln87-nm">${esc(F.name)}</span></div>
   <div class="ln87-do tg-w"><span class="ln87-lab">Still to do</span><span class="ln87-its">${inv87Items(F)}</span><span class="ln87-tags">${tags}</span></div>
   <div class="ln87-map">${F.map ? `<button type="button" class="ln87-pics" data-map="${k}" title="Show ${k} on the map">` : '<span class="ln87-pics">'}${inv87Loc(F)}<span class="ln87-sat${sat ? '' : ' none'}">${sat}<span class="ln87-ns">no satellite picture</span></span>${F.map ? '</button>' : '</span>'}
    <div class="ln87-w"><span class="ln87-lab">Map location</span><b class="tg-loc${F.report ? ' ln87-rp' : ''}">${esc(F.loc)}</b>${F.sub ? `<span class="ln87-sub">${esc(F.sub)}</span>` : ''}<span class="ln87-acts">${F.map ? `<button type="button" class="btn sm tg-map" data-map="${k}" title="Show ${k} on the map">Map ›</button>` : `<button type="button" class="btn sm ghost tg-map" data-open="${k}" title="No spot on the map yet - open ${k} to place it">Set in Edit ›</button>`}${F.nav ? `<a class="btn sm ln87-go" href="${esc(F.nav)}" target="_blank" rel="noopener" title="Open navigation to ${k} on this device">Directions ›</a>` : ''}</span></div></div>
@@ -150,6 +150,10 @@ t = rep(t, ".tg782 .tg-w .tg-r{color:#d97706}\n",
 .ln87-cap{font-size:10.5px;font-weight:700;color:var(--mute,#5d6468)}.ln87-nq{display:grid;place-items:center;width:96px;height:96px;border:1px dashed var(--line,rgba(0,0,0,.2));border-radius:6px;font-size:11px;color:var(--mute,#5d6468);padding:6px;box-sizing:border-box}
 .ln87-due{font-size:12px;font-weight:700}.ln87-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:3px}.ln87-acts .tg-map{margin:0}a.ln87-go{text-decoration:none}
 .invdrill.tg782{margin:10px 0}.invdrill.tg782 .tg-box{background:var(--card,#fff)}
+.inv87refs{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:3px;margin:5px 0 0 auto;min-width:150px;max-width:230px;white-space:normal}
+.inv87ref{all:unset;cursor:pointer;font:800 italic 12px/1 'Barlow Condensed',Inter,sans-serif;letter-spacing:.02em;padding:2px 5px 2px;border-radius:3px;background:rgba(255,106,19,.14);border:1px solid rgba(255,106,19,.55);color:var(--ink,#15181a);white-space:nowrap}
+.inv87ref i{font-style:normal;font-weight:700;margin-left:2px;color:var(--mute,#5d6468)}.inv87ref:hover{background:rgba(255,106,19,.28)}.inv87ref:focus-visible{outline:2px solid var(--orange,#ff6a13)}
+.tg782 li.ln87-hit{background:rgba(255,106,19,.12);border-radius:8px}
 .ln87-cr{font-size:11px;color:var(--mute,#5d6468);padding:6px 2px 0}
 @media (max-width:900px){.tg782 li.ln87{grid-template-columns:minmax(0,1fr) 100px;grid-template-areas:"ref qr" "do qr" "map map";gap:8px 10px;align-items:start}
  .ln87-ref{grid-area:ref;flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 8px}.ln87-do{grid-area:do}.ln87-map{grid-area:map}.ln87-qr{grid-area:qr}
@@ -190,6 +194,25 @@ t = rep(t, " + '.i83 .qr svg{width:27mm;height:27mm;display:block}",
  + '.i83 .card.ln87p .qr svg{width:17.5mm;height:17.5mm}.i83 .card.ln87p .qr .nq{width:17.5mm;height:17.5mm;font-size:6pt}.i83 .card.ln87p .qr{gap:.5mm;font-size:6pt}'
  + '.i83 .qr svg{width:27mm;height:27mm;display:block}""", 'pdf styles', p, True)
 
+# 5. the references in the table (the project manager, 2 Oct 2026, on the Inventory table: "we mention still not here - well,
+#    give me a reference for each one, keeping this same look"): under each Still-to-come number, the reference of every
+#    location it is still waiting on (with how many, when more than one), by the day due. Pressing one opens that type's
+#    Still-to-come lines at that location - where it goes, Directions, the QR.
+t = rep(t, "<td class=\"num\">${invCell(r, 'togo', Math.max(0, r.asked - r.on))}</td>",
+        "<td class=\"num\">${invCell(r, 'togo', Math.max(0, r.asked - r.on))}${inv87Refs(r)}</td>", 'table references', p, True)
+t = rep(t, "/* v7.82 - every location still to come, grouped by due day; the reference opens the item, Map shows where it goes */\nfunction togo782Html(I){",
+        r"""/* v7.87 - the references behind a Still-to-come number, in the table itself */
+function inv87Refs(r){
+ const xs = Object.values(r.refs || {}).filter(x => x.asked - x.on > 0); if (!xs.length) return '';
+ const due = k => { const a = assetOf(k); return (a && effectiveDates(a).in) || ''; };
+ xs.sort((p, q) => String(due(p.key) || '9').localeCompare(String(due(q.key) || '9')) || p.key.localeCompare(q.key, undefined, {numeric: true}));
+ return `<span class="inv87refs">${xs.map(x => { const n = x.asked - x.on, d = due(x.key);
+  return `<button type="button" class="inv87ref" data-invref87="${esc(r.type + '|' + x.key)}" title="${esc(x.key)}: ${n} ${esc(r.item)} still to come${d ? ' - due ' + esc(fmtDate(d)) : ''}. Press for where it goes.">${esc(x.key)}${n > 1 ? '<i>×' + n + '</i>' : ''}</button>`; }).join('')}</span>`;
+}
+/* v7.82 - every location still to come, grouped by due day; the reference opens the item, Map shows where it goes */
+function togo782Html(I){""", 'table references helper', p, True)
+t = rep(t, "pane.querySelectorAll('[data-invdrill]').forEach(b => b.onclick = () => {",
+        "pane.querySelectorAll('[data-invref87]').forEach(b => b.onclick = () => { const v = b.dataset.invref87, k = v.lastIndexOf('|'), ref = v.slice(k + 1); /* v7.87 */\n INV.drill = {t: v.slice(0, k), col: 'togo'}; render();\n setTimeout(() => { const li = [...document.querySelectorAll('#invDrill li.ln87')].find(x => x.dataset.k87 === ref); if (!li) return; li.classList.add('ln87-hit'); try { li.scrollIntoView({block: 'center', behavior: 'smooth'}); } catch (e) { li.scrollIntoView(); } }, 60); });\n pane.querySelectorAll('[data-invdrill]').forEach(b => b.onclick = () => {", 'table references press', p, True)
 t = t.replace('/* v7.86 - a Fence blocks line on the Fencing tab', '/* v7.87 - Inventory: one line per location (still to do, locator, satellite, QR) on the card and the Share PDF. */\n/* v7.86 - a Fence blocks line on the Fencing tab', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
 print('v7.87 applied: Inventory one line per location - still to do, locator, satellite, QR - on the card and the Share PDF')

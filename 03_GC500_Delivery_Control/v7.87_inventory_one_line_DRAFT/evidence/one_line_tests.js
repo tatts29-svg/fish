@@ -34,6 +34,20 @@ const fs = require('fs'), path = require('path');
   if (SH) { fs.mkdirSync(SH, {recursive: true});
     const bb = await p.evaluate(() => { const e = document.querySelector('#tg782'); e.scrollIntoView({block: 'start'}); const r = e.getBoundingClientRect(); return {x: Math.max(0, r.x), y: Math.max(0, r.y), width: Math.min(r.width, innerWidth), height: Math.min(r.height, innerHeight - Math.max(0, r.y))}; });
     await new Promise(r => setTimeout(r, 2500)); await p.screenshot({path: path.join(SH, 'screen_' + tag + '.png'), clip: bb}); }
+  // the references under each Still-to-come number in the table, keeping its look
+  const TR = await p.evaluate(() => { const I = inventory(), bad = [], rows = I.list.filter(r => r.asked - r.on > 0);
+    rows.forEach(r => { const b = [...document.querySelectorAll('[data-invdrill]')].find(x => x.dataset.invdrill === r.type + '|togo'); const td = b && b.closest('td'); const chips = td ? [...td.querySelectorAll('.inv87ref')] : [];
+      const want = Object.values(r.refs).filter(x => x.asked - x.on > 0), sum = chips.reduce((n, c) => n + (+((c.querySelector('i') || {}).textContent || '×1').slice(1)), 0);
+      if (chips.length !== want.length || sum !== Math.max(0, r.asked - r.on) || !want.every(x => chips.some(c => c.textContent.startsWith(x.key)))) bad.push(r.item + ':' + chips.length + '/' + want.length + ' sum ' + sum + '/' + (r.asked - r.on)); });
+    const none = [...document.querySelectorAll('.invtab tbody tr')].filter(tr => !tr.querySelector('[data-invdrill$="|togo"]') && tr.querySelector('.inv87ref')).length;
+    return {rows: rows.length, bad, none}; });
+  ok('T1 under every Still-to-come number, the reference of each location it waits on, adding up to the number (' + TR.rows + ' types)', TR.rows > 0 && !TR.bad.length && !TR.none, JSON.stringify(TR));
+  if (SH) { const bb = await p.evaluate(() => { const e = document.querySelector('#invCard .invwrap'); e.scrollIntoView({block: 'start'}); const r = e.getBoundingClientRect(); return {x: Math.max(0, r.x), y: Math.max(0, r.y), width: Math.min(r.width, innerWidth), height: Math.min(r.height, innerHeight - Math.max(0, r.y))}; });
+    await new Promise(r => setTimeout(r, 800)); await p.screenshot({path: path.join(SH, 'table_refs_' + tag + '.png'), clip: bb}); }
+  const pr = await p.evaluate(() => { const c = [...document.querySelectorAll('.inv87ref')].pop(); const v = c.dataset.invref87; c.click(); return v.slice(v.lastIndexOf('|') + 1); }); await new Promise(r => setTimeout(r, 1500));
+  const hit = await p.evaluate(ref => { const li = document.querySelector('#invDrill li.ln87-hit'); return li ? {k: li.dataset.k87, go: !!li.querySelector('a.ln87-go'), r: Math.round(li.getBoundingClientRect().top), h: innerHeight} : null; }, pr);
+  ok('T2 pressing a reference opens where it goes, on its own line (' + pr + ')', hit && hit.k === pr && hit.go && hit.r >= -5 && hit.r < hit.h, JSON.stringify(hit));
+  await p.evaluate(() => { INV.drill = null; render(); }); await new Promise(r => setTimeout(r, 800));
   // the Still-to-come number in the table (a toilet type): one line per location not turned up yet, where it goes, directions
   const dk = await p.evaluate(() => { const I = inventory(), r = I.list.filter(x => /toilet/i.test(x.disc) && x.asked - x.on > 0).sort((a, b) => (b.asked - b.on) - (a.asked - a.on))[0]; if (!r) return null;
     const b = [...document.querySelectorAll('[data-invdrill]')].find(x => x.dataset.invdrill === r.type + '|togo'); if (!b) return null; b.click(); return {item: r.item, n: Object.values(r.refs).filter(x => x.asked - x.on > 0).length}; });

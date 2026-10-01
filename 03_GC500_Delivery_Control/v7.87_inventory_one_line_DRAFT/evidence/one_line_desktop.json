@@ -52,9 +52,19 @@
    "detail": "true"
   },
   {
-   "name": "L11 the card draws in good time (183 ms)",
+   "name": "L11 the card draws in good time (158 ms)",
    "pass": true,
-   "detail": "182.89999999999418"
+   "detail": "158.29999999998836"
+  },
+  {
+   "name": "T1 under every Still-to-come number, the reference of each location it waits on, adding up to the number (29 types)",
+   "pass": true,
+   "detail": "{\"rows\":29,\"bad\":[],\"none\":0}"
+  },
+  {
+   "name": "T2 pressing a reference opens where it goes, on its own line (WB19)",
+   "pass": true,
+   "detail": "{\"k\":\"WB19\",\"go\":true,\"r\":537,\"h\":1000}"
   },
   {
    "name": "D1 pressing Still to come for FWF lists every location not turned up yet, one line each (43 of 43)",
@@ -89,7 +99,7 @@
   {
    "name": "E2 nothing written",
    "pass": true,
-   "detail": "{\"page\":1,\"live\":179,\"blocked\":0}"
+   "detail": "{\"page\":1,\"live\":222,\"blocked\":0}"
   }
  ],
  "heights": [
