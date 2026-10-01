@@ -1,3 +1,5 @@
+**LIVE — 1 Oct 2026 13:57 AEST, released within v7.63.** Author: Andrew Fisher. Approved four-patch build verified byte for byte. See v7.63 release evidence. Earlier draft/review notes below are historical.
+
 # Month-end Finance review — v7.62
 
 Author: Andrew Fisher

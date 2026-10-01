@@ -1,3 +1,9 @@
+**COMPLETED — 1 Oct 2026 14:03 AEST. Author: Andrew Fisher.**
+
+Applied through the page as Andrew Fisher via Codex and verified by a fresh service read. WC33, WC56 and WC59 have the requested supplier assets and are complete/on site. WC60 has the four numbers, pairings note, complete/on site, levelling and stairs. Existing notes were retained. Record version 3288 → 3401; 113 scoped document PUTs, zero deletions. The page creates restoration/audit markers when adding assets; the 40 entries in its `deleted` collection are new `back/` markers, not removals. An unrelated automatic startup queue was excluded.
+
+The reviewed executor rehearsed without writes, then used a fresh backup, conflict check and exact document allowlist for the live update. Private before/after snapshots and action logs are retained locally under `/workspace/private-record-review-01Oct2026/write-2026-10-01T04-03-32-417Z`; they are not included in this public repository. `completion.json` contains the non-sensitive verification record. Earlier preparation notes below are historical; do not replay the original script.
+
 # Record changes, 1 Oct 2026: WC33, WC56 and WC59 sub-hired toilets on site and installed · WC60 two toilet blocks installed, levelled, stairs on
 
 Author: Andrew Fisher · 1 Oct 2026

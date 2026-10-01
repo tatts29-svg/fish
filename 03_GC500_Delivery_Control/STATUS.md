@@ -3,6 +3,14 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Release completed — v7.63 LIVE, 1 Oct 2026 13:57 AEST
+
+Author: Andrew Fisher
+
+The approved v7.60 → v7.61 → v7.62 → v7.63 build is uploaded and served byte for byte: **8,572,884 bytes**, SHA256 `e723a1fbe2ba001812d91e98d15d0c8761639bb4578d552e2e471e433b5a7fa3`. Matched the frozen handover candidate; 33/33 desktop and phone checks and both 21-tab/7-link sweeps recorded as passing, build checks rerun. Page upload began with record version 3283; a later read showed 3287 during independent live activity. Record changes are audited separately. No ledger posting. Four source folders renamed `_LIVE`.
+
+v7.64–v7.67 remain under review pending their frozen handover. The queued WC33/WC56/WC59/WC60 record update completed at 14:03 AEST through the page and was verified by fresh read; see its completion record. Record version 3288 → 3401, zero deletions.
+
 ## Brief from Andrew — 1 Oct 2026 12:20 AEST: "All costs must be correct and accurate. Forecast as much as we can. Clean data, tidy, presentable — all in on GC500."
 
 Author: Andrew Fisher
@@ -15,7 +23,7 @@ Author: Andrew Fisher
 
 Andrew: "We want to accrue the revenue. We are just supplying info today so the business sees how well we manage costs." So the WIP question on the Accruals for Finance section is answered for GC500: September's unbilled revenue is accrued (fencing $120,913, barriers and VMS $26,316, forklifts $11,656, install labour $17,083, container delivery $1,000 = $176,968), and the costs stay in the month they were incurred (fencing to accrue $30,735 after the two Advanced invoices; Job Connect $6,285; loads and tracker expenses on checking the invoices). Nothing is posted from the page; the proposals are recorded under Finance journal proposals by Andrew on the edit link once Finance confirm. The Event Portables September share ($21,950) stays Finance's call. No page change needed for this; the section already shows "Accrue" on those rows.
 
-## Release — the Costs tab, 1 Oct 2026 (READY TO UPLOAD — Codex, with the edit key)
+## Completed handover — the Costs tab (LIVE within v7.63 at 13:57 AEST)
 
 Author: Andrew Fisher
 
@@ -23,7 +31,7 @@ Andrew, 1 Oct: "hard focus on costs… toilets under KINP… cleaning is not lab
 
 **One build, four patches, on the live v7.59 (8,489,105 bytes):**
 ```
-bash toolchain/build.sh v7.63 v7.60_costs_in_andrews_structure_DRAFT/patch_v760.py v7.61_accruals_for_finance_DRAFT/patch_v761.py v7.62_finance_review_basis_DRAFT/patch_v762.py v7.63_accruals_in_andrews_words_DRAFT/patch_v763.py
+bash toolchain/build.sh v7.63 v7.60_costs_in_andrews_structure_LIVE/patch_v760.py v7.61_accruals_for_finance_LIVE/patch_v761.py v7.62_finance_review_basis_LIVE/patch_v762.py v7.63_accruals_in_andrews_words_LIVE/patch_v763.py
 python3 toolchain/upload_page.py build/GC500_v7.63/GC500_Delivery_Control_hosted.html
 ```
 Expected **8,572,884 bytes**, SHA-256 `e723a1fbe2ba001812d91e98d15d0c8761639bb4578d552e2e471e433b5a7fa3` (Claude's build on 1 Oct 11:55 AEST; if the live page is no longer v7.59, rebuild on what is there and the bytes will differ). Checks on that build: `v7.63_…/evidence/practice_tests.js` desktop 33/33 and phone 33/33; `v7.60_…/evidence/practice_tests.js` reconciles; both sweeps 21 tabs, 0 errors, 0 console. No record write; nothing sent. After upload: record the live bytes here, rename the four folders `_LIVE`. Nothing else goes up with it — not the Three.js circuit, not the Today · Current Position design (still withdrawn), not the record (Andrew's 1 Oct Baseplan export is kept in `v7.61_…/sources/`, not folded in).
@@ -85,7 +93,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
-**v7.62 — Codex integration corrections validated and ready for review, 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Claude has claimed v7.63 for the final presentation pass (PR #7); v7.62 is frozen and handed over with no overlapping edits. Combined release is not yet marked READY TO UPLOAD. No upload or record changes. Author: Andrew Fisher.
+**v7.62 — LIVE within v7.63 at 13:57 AEST. Earlier validation: 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Claude has claimed v7.63 for the final presentation pass (PR #7); v7.62 is frozen and handed over with no overlapping edits. Combined release is not yet marked READY TO UPLOAD. No upload or record changes. Author: Andrew Fisher.
 
 | version | what | who | since |
 |---|---|---|---|
