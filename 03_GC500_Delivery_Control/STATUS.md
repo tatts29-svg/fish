@@ -3,6 +3,15 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Claimed — v7.81 detailed Showcase preview, 2 Oct 2026 00:36 AEST
+
+Author: Andrew Fisher. Codex owns the working track-detail preview. Andrew approved the attached track concept:
+“looks good”, following his request for an Atari-to-PS3/PS4-scale graphics improvement. Build one detailed section
+using the supplied gantry/fence/road photographs as visual references; retain the existing MP4 car, weather,
+speedos and car identity. Private originals remain private. This is a working preview, not a graphics publication.
+Both agents review the same final candidate before any future release. Do not overlap Claude's v7.80 Fencing work.
+Branch `codex/gc500-v7.81-showcase-preview`. Status: in progress; not ready to upload.
+
 ## Release completed — v7.79 welcome and navigation text LIVE, 1 Oct 2026 22:17 AEST
 
 Author: Andrew Fisher. Codex owns this change. Andrew asks for a more professional message with a picture,
