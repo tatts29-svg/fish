@@ -11,8 +11,8 @@ The workbook is `IS_PL_Jul_26.xlsx` (SHA-256 `40f61e5b…`), the Industrial Solu
 FY2027. Twenty-four sheets: a one-page summary (`Group`, and one each for `East`, `North`, `South`, `West`), the
 442-line detailed P&L (`IS Total` and one per business unit), the branch utilisation sheets (`TU_FU_Redline`), return on
 capital (`ROC Calculation`), the EBIT run (`EBIT`) and the budget (`Budget FU&ROC`). Every figure quoted below is read
-from the workbook; every GC500 figure is read from the page build `GC500_v7.67f` (the v7.64–v7.67 build, ready to
-upload) on the live record at 15:00 AEST. Nothing is estimated here that the workbook or the page does not hold.
+from the workbook; every GC500 figure is read from the page build `GC500_v7.67f` (the v7.64–v7.67 build, live since
+15:04 AEST, verified byte for byte) on the live record at 15:00 AEST. Nothing is estimated here that the workbook or the page does not hold.
 
 Section 1 is the P&L for anyone. Section 2 is the ratios the business is measured on. Section 3 is where every GC500
 figure lands on that P&L and what the job's ratios look like. Section 4 is what to change on the page so it speaks the
