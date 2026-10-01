@@ -1,0 +1,128 @@
+[
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "build and demob 1,260.1 ordinary, 202 at ×1.5, 69.4 at ×2, and 96 over the race weekend",
+  "why": "Confirmed. In costCategories the band() reducer sums bi.hours from p.hours + p.race (the tracker's start-to-finish hours, before the unpaid break: 1,606.5 + 96 = 1,702.5) while ordinary / at_1_5 / at_2 are the paid bands after the break (1,260.1 + 202 + 69.4 = 1,531.5 = 1,606.5 less 150 weekday shif",
+  "old": "— build and demob ${fmtNum(r1(bi.ordinary))} ordinary, ${fmtNum(r1(bi.at_1_5))} at ×1.5, ${fmtNum(r1(bi.at_2))} at ×2${bi.race ? `, and ${fmtNum(r1(bi.race))} over the race weekend` : ''}; wages are reviewed separately",
+  "new": "— rostered, before the unpaid weekday break${bi.race ? `, ${fmtNum(r1(bi.race))} of them over the race weekend` : ''}; build and demob paid after the break: ${fmtNum(r1(bi.ordinary))} ordinary, ${fmtNum(r1(bi.at_1_5))} at ×1.5, ${fmtNum(r1(bi.at_2))} at ×2; wages are reviewed separately",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "32 lines the branch has not put Rate 1 on yet",
+  "why": "Confirmed. cardLines counts every line whose contractCharge is filled 'card' or 'typed'. contractCharge() marks the MEAD forklift (9968726 line 1, Rate 1 $1,483.20 = $185.40 × 8 days) filled 'card' under forkliftWholeHire748 ('a forklift goes by its day rate', Andrew 1 Oct), so it is one of the 32 a",
+  "old": "`${pl(cardLines, 'line')} the branch has not put Rate 1 on yet",
+  "new": "`${pl(cardLines, 'line')} priced from the card (no Rate 1 on the line yet, or a forklift whose Rate 1 is the card’s day rate × its days written as one figure, charged by the day rate)",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "63 dockets · hire and installation in one card rate",
+  "why": "Confirmed. c.fencing_dockets is fenceDerived().dockets = every usable docket (63). The charge lines table and the September accrual read the dockets' charge lines, of which there are 59, and the 59 add to the same $120,913.08. The four without a charge line are 36519, 36523 and 36531 (bracing on run",
+  "old": "`${pl(c.fencing_dockets || 0, 'docket')} · hire and installation in one card rate`",
+  "new": "`${pl(c.fencing_dockets || 0, 'docket')}${(() => { try { const n = allDockets().filter(d => d.usable && d.cost_total).length; return n && n < (c.fencing_dockets || 0) ? `, ${fmtNum(n)} of them carrying a card charge — the rest carry no card charge of their own yet` : ''; } catch (e) { return ''; } })()} · hire and installation in one card rate`",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "2 subhired contract lines — their rehire cost is not on the record",
+  "why": "Confirmed. X.C.subhire.lines in costCategories is contractFigures' count of SUB-coded lines (ROY002, QUE011); the forklift marked hired in (subhired_machine) is not in that count, so the P&L says 2 while the Rehire by branch card says '3 suppliers’ costs not on the record' and the Not priced table s",
+  "old": " — their rehire cost is not on the record`",
+  "new": " — their rehire cost is not on the record, and nor is the supplier cost of the plant the project manager marked hired in (every missing cost is counted on the Rehire by branch card)`",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "52 loads with no transport figure yet",
+  "why": "Confirmed; the 52 is right and the basis under-describes it. In cj764Model the gap is loadsNoFig + loadsNoFigNoCard (27 + 25 = 52) but the basis prints cardRefs (26 references) for the first part: one reference carries two loads without a figure, and the card's transport cost is counted once per ref",
+  "old": "the card’s transport cost for ${fmtNum(cardRefs)} reference${cardRefs === 1 ? '' : 's'} still without a figure (${money0(cardCost)})",
+  "new": "the card’s transport cost, once a reference, for ${fmtNum(loadsNoFig)} load${loadsNoFig === 1 ? '' : 's'} on ${fmtNum(cardRefs)} reference${cardRefs === 1 ? '' : 's'} still without a figure (${money0(cardCost)})",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "the P&L’s fencing category $77,122 is the two together",
+  "why": "Confirmed. In the BY BRANCH rows (pl760 table) STPS's cost cell is fenceCost = cat('fencing').amount, the whole management category ($75,021.50 gear + $850 docket labour + $1,250 green book = $77,121.50), under a column headed 'Rehire cost · direct cost', with the sub-text \"Advanced's dockets at the",
+  "old": "costWords = \"Advanced's dockets at their own sheet\";",
+  "new": "costWords = \"Advanced's dockets at their own sheet — their gear (Rehire) and their crew (Installation — external contractors) together\";",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "64.5 h past hours awaiting confirmation or review",
+  "why": "Confirmed. fin745Summary keeps pendingHours (worked, before breaks: the 1 Oct shifts 11 + 10.5 + 10.5 + 10.5 + 11 + 11 = 64.5) separately from pendingPaidHours (61.5), and forecastHours (1,009) from forecastPaidHours (966.5); the Month-end control tiles print the before-break figures and the Labour ",
+  "old": " + ' past hours awaiting confirmation or review')",
+  "new": " + ' past hours, before breaks, awaiting confirmation or review')",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "Delivery for HA Line Item(s) 22,* 23 Sep 2026: delivery date missing",
+  "why": "Confirmed. acc761Model dates a delivery charge line from the contract line's start_date or booked_delivery_date only; these four KINP/STPS lines have neither, so $938 of Transport Revenue sits in 'no day to put it in' while the line's own name carries '23 Sep 2026' / '15 Sep 2026' and nothing says w",
+  "old": "(pickup ? 'pickup/return date missing' : 'delivery date missing')",
+  "new": "(pickup ? 'pickup/return date missing' : 'delivery date missing on the contract line — the date in the line’s name is not read as the delivery date')",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "Rehire Revenue at the card’s day rate × the days to the term date (Fri 11 Sep 2026 → Mon 26 Oct 2026) — the job figure",
+  "why": "Confirmed. span(forks) takes the earliest start and the latest term across both lines, so one window is printed for line 31 (45 days × $268.06 = $12,062.70) and line 34 (one day at $185.40 — its own dates, the card fold shows it at $185.40). Line 34 is not under-charged; the sentence just gives it t",
+  "old": "Rehire Revenue at the card’s day rate × the days to the term date (${span(forks) || 'dates on the lines'}) — the job figure",
+  "new": "Rehire Revenue at the card’s day rate × each line’s own days to its term date (${forks.map(r => `line ${r.line}: ${span([r]) || 'dates on the line'}`).join(' · ')}) — the job figure",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "197 of 197 lines carry a branch · 9 purchase orders",
+  "why": "Confirmed. In branchRollup, lines: rows.length and linked: rows.filter(r => branchOf(r.a.key).code).length count schedule references (assets), and each row's LINES cell is g.lines.length, the references on that branch — so MEAD shows 0 beside '1 contract' and $9,552 while the paragraph underneath sa",
+  "old": "${ALL.linked} of ${ALL.lines} lines carry a branch",
+  "new": "${ALL.linked} of ${ALL.lines} references on the schedule carry a branch",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "What each branch charges the V8s is its contract lines by the rate and its charge lines on the record by kind",
+  "why": "Confirmed. This working table adds the contracts by the rate and the charge lines on the record by kind; its LABOUR column is charge lines of kind labour (none typed), so REVENUE IN ALL ($496,981) leaves out the $19,170 of Labour Install ticks that the Forecast P&L's BY BRANCH table counts ($516,151",
+  "old": " its contract lines by the rate and its charge lines on the record by kind — by the branch on the line or on the asset it names;",
+  "new": " its contract lines by the rate and its charge lines on the record by kind — by the branch on the line or on the asset it names — before the labour ticked per piece, which sits on the Forecast P&L’s By branch table;",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "nit",
+  "quote": "×1.47: $551,552 charged against $375,787 Rehire cost and their crew to pay",
+  "why": "Confirmed. rh769Cover(rev, cost, withCrew) receives the combined figure (Rehire cost $373,687 + crew $2,100) and labels it with `what = 'Rehire cost and their crew'`, so the $375,787 reads as 'Rehire cost' a line below the tile's $373,687; same on STPS ($257,212 beside $255,112). The crew amount is ",
+  "old": "what = withCrew ? 'Rehire cost and their crew' : 'Rehire cost';",
+  "new": "what = withCrew ? 'Rehire cost and their crew, the two together,' : 'Rehire cost';",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "nit",
+  "quote": "known today = the P&L’s direct costs known, to the cent",
+  "why": "Confirmed. The reconciliation is true in the model (plParts equals plKnown in cents) but the page shows dollars rounded cell by cell, so the JOB FORECAST column adds to $444,412 against $444,411 and transport's parts to $44,375 against $44,376; a manager cannot see the cents, so 'to the cent' reads ",
+  "old": "known today = the P&amp;L’s direct costs known, to the cent",
+  "new": "known today = the P&amp;L’s direct costs known · each figure rounded to the dollar on its own, so a column can be $1 out from its parts",
+  "count_in_v772_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "nit",
+  "quote": "$21,950 of cost where the month split is Finance’s call",
+  "why": "Confirmed. acc763Summary sets decisions = decide rows (1: the toilets' September share) + X.wip.length (1: the fencing paid ahead), and decide = the decide rows' total ($21,950), so the tile says '2 items' with a figure that covers one. X in the render is the same acc761 model (X.label, X.revenueTot",
+  "old": "${money0(S.decide)} of cost where the month split is Finance’s call",
+  "new": "${money0(S.decide)} of cost where the month split is Finance’s call${(X.wip || []).length ? ' · and the fencing paid ahead of the branch billing — the WIP question below' : ''}",
+  "count_in_v772_build": 1
+ }
+]

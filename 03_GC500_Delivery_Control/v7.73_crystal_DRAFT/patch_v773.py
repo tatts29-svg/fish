@@ -53,7 +53,8 @@ CSS = r"""
 .ctk{font-size:10.5px;opacity:1}.lbck{font-size:11px;opacity:1}.dcpk{font-size:11px;opacity:1}.lbtf{font-size:11px;opacity:1}
 .ctile.lead span,.ctwo > .ctile > span,.showgo i,.dp .dpl i,.labtick.labnil .w,.labtick.labunk .w,.dcpos p,.lbflag p,.dphgone code{opacity:1}
 .pane.on.arrive > *{animation-duration:.3s}.pane.on.arrive > :nth-child(n+2){animation-delay:.06s}
-.card.island,.card.racecard,.hubcard.island,.hubcard.racecard,.wip,.ldlist,.dplate{--mute:#b4bcc4;--slate:#b4bcc4;--ink2:#c6cdd4;--orange-ink:#ff9a4d}
+.card.island,.card.racecard,.hubcard.island,.hubcard.racecard,.wip{--mute:#b4bcc4;--slate:#b4bcc4;--ink2:#c6cdd4;--orange-ink:#ff9a4d}
+.racecard .pgm,.racecard .prail,.island .pgm{--mute:#4b535b;--slate:#4a5560;--ink2:#2f3841;--orange-ink:#9a3f0a}
 .day em,.day .l,.day span.l{font-size:10px}.dwk{font-size:10.5px}th small{font-size:10.5px}
 }
 @media screen and (max-width:640px){
