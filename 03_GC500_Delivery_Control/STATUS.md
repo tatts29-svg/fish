@@ -331,6 +331,15 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.88 — full-lap Showcase visual correction, claimed by Codex, 2 Oct 2026. IN PROGRESS; not ready or live.**
+Author: Andrew Fisher. Andrew: "the job was to keep what we have and we are upgrading the look ... its the whole
+track not 10 mtrs of it. U also have mp4 videos of whole track to help you". Preserve the existing circuit geometry,
+car, driving simulation, cameras, MP4/weather and speedos. Replace the separate short detail run with improvements
+over the full existing lap. Review both original GC500_Codex_Part_01.mp4 and Part_02.mp4 privately; record observed
+detail without invented locations. Claude has been asked to independently check lap coverage and visual continuity.
+The incomplete v7.85 scene is being hidden through the final v7.86 handover while this is corrected. v7.87 Inventory
+belongs to Claude and is separate. No financial record changes are included in this graphics task.
+
 **Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude).** Author: Andrew Fisher.
 HA 36564-36568 and SN 24463-24465 transcribed from Andrew's photographs:
 `record_02Oct2026_fencing_papers_36564_36568/papers.json`. Andrew's answers, 2 Oct: "shade cloth same as fencing" (scrim =
