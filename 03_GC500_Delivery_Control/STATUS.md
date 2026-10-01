@@ -3,6 +3,14 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Claimed — v7.79 welcome and navigation text, 1 Oct 2026 21:59 AEST
+
+Author: Andrew Fisher. Codex owns this change. Andrew asks for a more professional message with a picture,
+navigation and a welcome to Coates GC500. Retain the working map picture and verified MMS delivery; update the
+message to welcome the recipient, identify the reference/equipment, label navigation clearly and keep the confirmed
+site access instructions. v7.78 plain-text-default proposal stays on hold. Both agents review the frozen candidate
+before publication. Status: in progress, not ready to upload. Branch `codex/gc500-v7.79-professional-text`.
+
 ## Andrew's release instruction — both agents finish first, 1 Oct 2026
 
 Author: Andrew Fisher
