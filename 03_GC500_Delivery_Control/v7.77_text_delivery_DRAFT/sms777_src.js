@@ -8,14 +8,20 @@ function sms777Number(value){
 }
 function sms777Submission(body, requested){
  const list = Array.isArray(body.messages) ? body.messages : [];
+ const refused = new Set(['FAILED','INVALID_RECIPIENT','INVALID_SENDER_ID','INSUFFICIENT_CREDIT',
+  'ACCOUNT_NOT_ACTIVATED','EMPTY_MESSAGE','INVALID_MEDIA_FILE','INVALID_SCHEDULE','INVALID_CREDENTIALS',
+  'MISSING_CREDENTIALS','MISSING_REQUIRED_FIELDS','COUNTRY_NOT_ENABLED','REGISTRATION_NEEDED',
+  'SUBJECT_REQUIRED','TOO_MANY_RECIPIENTS','THROTTLED','FORBIDDEN','UNAUTHORIZED','BAD_REQUEST']);
  return [...new Set(requested.map(sms777Number))].map(to => {
   const entry = list.find(m => sms777Number(m.to) === to);
   const status = String(entry && entry.status || 'UNKNOWN').toUpperCase();
   const accepted = status === 'SUCCESS';
+  const rejected = !accepted && !!entry && (entry.submission_status === 'rejected' ||
+   (entry.submission_status !== 'unknown' && refused.has(status)));
   return {to, message_id: entry && entry.message_id || null,
    submission_status: status,
-   delivery_status: accepted ? 'pending' : status === 'UNKNOWN' ? 'unknown' : 'failed',
-   accepted, rejected: !accepted && status !== 'UNKNOWN'};
+   delivery_status: accepted ? 'pending' : rejected ? 'failed' : 'unknown',
+   accepted, rejected};
  });
 }
 function sms777Results(host, rows){
@@ -24,8 +30,8 @@ function sms777Results(host, rows){
   const words = state === 'delivered' ? 'Delivered — confirmed by the phone network'
    : row.rejected ? 'Not accepted by the messaging service'
    : state === 'failed' ? 'Not delivered — the phone network reported a failure'
-   : state === 'unsupported' ? 'Accepted — delivery tracking is unavailable for this message'
-   : state === 'pending' ? 'Accepted — waiting for delivery confirmation'
+   : state === 'unsupported' ? (row.accepted ? 'Accepted — delivery tracking is unavailable for this message' : 'Delivery tracking is unavailable — check before sending again')
+   : state === 'pending' ? (row.accepted ? 'Accepted — waiting for delivery confirmation' : 'Waiting for delivery confirmation — acceptance is unknown')
    : 'Delivery unknown — check before sending again';
   const detail = row.error_code || row.status_code || (row.rejected ? row.submission_status : '');
   return '<div data-sm-recipient="' + esc(row.to) + '" style="padding:10px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere"><b>'
@@ -91,6 +97,8 @@ async function smsDropBox(a){ /* v7.77 — truthful submission and delivery stat
  const results = d.querySelector('#smResults'), refresh = d.querySelector('#smRefresh'), again = d.querySelector('#smAgain');
  const buttons = () => {
   go.disabled = !!(d._sms777Busy || d._sms777Locked || d.querySelector('#smTx').value.length > TEXT747_SERVICE_MAX);
+  go.style.opacity = go.disabled ? '0.45' : '';
+  go.style.cursor = go.disabled ? 'not-allowed' : '';
   dv.disabled = !!d._sms777Busy;
   refresh.hidden = !rows.some(row => row.message_id);
   refresh.disabled = !!d._sms777Busy;
@@ -134,8 +142,8 @@ async function smsDropBox(a){ /* v7.77 — truthful submission and delivery stat
     headers: {'Content-Type': 'application/json', 'x-gc500-token': tokenOf(), 'x-gc500-who': (S.operator || '').trim() || 'unnamed'}, body: JSON.stringify(body)});
    const j = await r.json();
    if (dry) {
-    msg.textContent = r.ok && j.dry_run ? 'The message passed the format check. Nothing has been sent. This does not test delivery to the phone.'
-     : 'The check did not pass. Nothing was sent. ' + (j.error || 'Check the number and message.');
+    msg.textContent = r.ok && j.dry_run ? 'The message passed the format check. Nothing was sent by this check. This does not test delivery to the phone.'
+     : 'The check did not pass. Nothing was sent by this check. ' + (j.error || 'Check the number and message.');
     return;
    }
    rows = sms777Submission(j, to);

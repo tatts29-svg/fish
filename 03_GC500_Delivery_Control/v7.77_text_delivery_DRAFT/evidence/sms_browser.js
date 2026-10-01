@@ -63,11 +63,17 @@ function delivery(n, state, extra = {}) {
     const sendRequests = () => requests.filter(r => r.method === 'POST' && !r.body.dry_run);
     async function openBox(f = {}, numbers = [NUMBERS[0]]) {
       fixture = f; requests = [];
-      await p.evaluate(async () => {
+      await p.evaluate(async ({picture, pictureFails}) => {
         document.querySelectorAll('[role="dialog"]').forEach(el => {if (el.querySelector('#smTx')) el.remove();});
         SYNC.readonly = false; SYNC.level = 'edit';
+        navTargetFor = () => picture ? {ll: {lat: -27, lon: 153, text: 'Synthetic location'}} : null;
+        mms757Picture = async () => {
+          if (pictureFails) throw new Error('Synthetic picture failure');
+          const canvas = document.createElement('canvas'); canvas.width = canvas.height = 8;
+          return {dataUrl: canvas.toDataURL('image/jpeg'), w: 8, h: 8, bytes: 631, words: 'Synthetic blank picture'};
+        };
         await smsDropBox({key: 'TEST-SMS', what: 'Synthetic equipment'});
-      });
+      }, {picture: !!f.picture, pictureFails: !!f.pictureFails});
       await p.locator('#smTx').waitFor();
       if (f.configured !== false) await p.locator('#smTo').fill(numbers.join(', '));
     }
@@ -122,6 +128,14 @@ function delivery(n, state, extra = {}) {
       assert.match(await recipient(0), /rejected|refused|failed|unsuccessful|unknown/i);
       assert.doesNotMatch(await recipient(0), /(?:^|\n)Accepted|delivery confirmed/i);
     });
+    await test('Unknown provider status does not unlock a potentially duplicate send', async () => {
+      await openBox({post: reply([{to: NUMBERS[0], status: 'SUCCESS_PENDING', message_id: 'synthetic-message-0'}])});
+      await send(); assert.match(await recipient(0), /unknown|cannot confirm|could not confirm/i);
+      assert.doesNotMatch(await recipient(0), /(?:^|\n)Accepted|delivery confirmed/i);
+      assert.ok(await p.locator('#smGo').isDisabled());
+      await p.locator('#smTx').fill(TEXT + ' Edited after an unknown provider status.');
+      await p.locator('#smGo').evaluate(el => el.click()); await settle(); assert.equal(sendRequests().length, 1);
+    });
     await test('Timeout is unknown and duplicate send remains blocked after editing', async () => {
       await openBox({abort: true}); await send();
       assert.match((await p.locator('#smMsg').innerText()) + ' ' + await results(), /unknown|cannot confirm|could not confirm/i);
@@ -154,6 +168,12 @@ function delivery(n, state, extra = {}) {
       assert.match(await p.locator('#smMsg').innerText(), /passed the format check/i);
       assert.equal(sendRequests().length, 0); assert.ok(!(await p.locator('#smGo').isDisabled()));
       await send(); assert.equal(sendRequests().length, 1);
+    });
+    await test('Dry-run after acceptance does not erase the earlier delivery state', async () => {
+      await openBox(); await send(); await p.locator('#smDry').click(); await settle();
+      assert.match(await p.locator('#smMsg').innerText(), /nothing was sent by this check/i);
+      assert.match(await recipient(0), /accepted|pending|awaiting/i);
+      assert.ok(await p.locator('#smGo').isDisabled()); assert.equal(sendRequests().length, 1);
     });
     await test('Rapid double click makes one submission while response is pending', async () => {
       let release; const gate = new Promise(resolve => {release = resolve;});
@@ -197,6 +217,25 @@ function delivery(n, state, extra = {}) {
       await openBox({configured: false}); assert.equal(await p.locator('#smGo').count(), 0);
       assert.ok(await p.locator('#smCopy').isVisible());
       assert.match(await p.locator('#smOpen').getAttribute('href'), /^sms:/);
+      assert.equal(sendRequests().length, 0);
+    });
+    await test('Picture-message acceptance does not imply delivery; unsupported tracking stays explicit', async () => {
+      await openBox({picture: true, status: {messages: [delivery(0, 'unsupported', {kind: 'mms'})]}});
+      await p.locator('#smPic').check(); await send();
+      assert.equal(sendRequests()[0].pathname, '/api/mms');
+      assert.match(sendRequests()[0].body.picture, /^data:image\/jpeg;base64,/);
+      assert.match(await recipient(0), /accepted|pending|awaiting/i); await refresh();
+      assert.match(await recipient(0), /unavailable|unsupported/i); assert.equal(sendRequests().length, 1);
+    });
+    await test('Unticking the picture sends text only through the SMS endpoint', async () => {
+      await openBox({picture: true}); await p.locator('#smPic').uncheck(); await send();
+      assert.equal(sendRequests()[0].pathname, '/api/sms'); assert.equal(sendRequests()[0].body.picture, undefined);
+      assert.match(await recipient(0), /accepted|pending|awaiting/i);
+    });
+    await test('Picture generation failure leaves a visible explanation and disables the picture option', async () => {
+      await openBox({picture: true, pictureFails: true});
+      assert.ok(await p.locator('#smPic').isDisabled()); assert.ok(!(await p.locator('#smPic').isChecked()));
+      assert.match(await p.locator('#smPicWrap').innerText(), /picture could not|synthetic picture failure/i);
       assert.equal(sendRequests().length, 0);
     });
     await test('Result and controls stay within the viewport', async () => {
