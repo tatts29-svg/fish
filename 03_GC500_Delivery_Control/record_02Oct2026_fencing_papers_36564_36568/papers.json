@@ -85,7 +85,7 @@
    "docket_no": "36568",
    "book": "red",
    "date": "2026-10-01",
-   "location": "GC Hwy median strip - north plus south",
+   "location": "GC Hwy median strip (south)",
    "contact": "Brendan",
    "quantities": {
     "clean": 462.5,
@@ -100,11 +100,10 @@
     "brace": 151,
     "wheels": 6
    },
-   "note": "Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - recorded as demarcation, to confirm. Scrim 462.5 m, same as the fence (Andrew, 2 Oct).",
+   "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - recorded as demarcation, to confirm. Scrim 462.5 m, same as the fence (Andrew, 2 Oct).",
    "to_confirm": [
     "CC barrier: event or demarcation?",
-    "36560 (28 Sep) already has the median strip north: 507.5 m mesh, 447.5 m CC barrier. Is 36568 new fence (the south run, plus more north), or does it re-docket some of 36560? Andrew to say before both are paid.",
-    "If the shade cloth also went on 36560's north run (507.5 m, recorded \"no shade cloth yet\"), that is more scrim than 462.5 m - answered together with the 36560 overlap."
+    "36560 (north) is recorded 'no shade cloth yet'. If shade cloth has since gone on the north run too, that is a further 507.5 m of scrim - not added until Andrew says."
    ],
    "read_with_care": [
     "Base 474 and brace 151 - the last digit of each is a hurried hand; check against the paper."
@@ -167,6 +166,7 @@
   ]
  },
  "andrew_answers": [
-  "Andrew, 2 Oct 2026: \"shade cloth same as fencing\" - the shade cloth (scrim) is the same metres as the fence on the docket, charged on the card Scrim line ($25.53/m charged, $24.40/m paid)."
+  "Andrew, 2 Oct 2026: \"shade cloth same as fencing\" - the shade cloth (scrim) is the same metres as the fence on the docket, charged on the card Scrim line ($25.53/m charged, $24.40/m paid).",
+  "Andrew, 2 Oct 2026: \"new 60 was north 68 is south\" - 36568 is new fence: 36560 is the median strip north, 36568 the south. No overlap."
  ]
 }
