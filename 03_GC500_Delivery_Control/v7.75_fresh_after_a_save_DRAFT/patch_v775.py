@@ -32,7 +32,7 @@ const HELD_MEMO = new Map();
 /* v7.75 - a save inside a hold makes the held list and memo stale; the next read rebuilds them once, so the rest of
    that draw shows the record as it now is. A draw with no save in it builds once, as before. */
 let HELD_STALE775 = false;
-function heldFresh775(){ if (ASSETS_HELD && HELD_STALE775) { HELD_STALE775 = false; ASSETS_HELD = buildAllAssets(); HELD_MEMO.clear(); } }
+function heldFresh775(){ if (ASSETS_HELD && HELD_STALE775) { HELD_STALE775 = false; HELD_MEMO.clear(); ASSETS_HELD = buildAllAssets(); } } /* the memo is emptied first, so the rebuilt list's own lookups (rentalOf) are fresh too */
 function heldMemo(k, f){ if (!ASSETS_HELD) return f(); heldFresh775(); if (HELD_MEMO.has(k)) return HELD_MEMO.get(k); const v = f(); HELD_MEMO.set(k, v); return v; }""",
  'held memo goes stale on a save', p, True)
 t = rep(t, "function allAssets(){ return ASSETS_HELD || buildAllAssets(); }",
@@ -45,8 +45,10 @@ t = rep(t, """if (ASSETS_HELD) return fn();
  try { return fn(); } finally { ASSETS_HELD = null; HELD_MEMO.clear(); HELD_STALE775 = false; }""",
  'nested hold reads fresh after a save', p, True)
 t = rep(t, "function save(){",
- """/* v7.75 - every edit reaches save(); a save during a held draw marks the hold stale (heldFresh775) */
-function save(){ const r775 = save775Inner.apply(this, arguments); if (ASSETS_HELD) HELD_STALE775 = true; return r775; }
+ """/* v7.75 - every edit reaches save(); a save during a held draw marks the hold stale (heldFresh775). Marked BEFORE the
+   save as well as after: the edit is already on the record when save() is called, and save itself redraws the tab
+   bar (renderTabs), which must read the record as it now is (Codex's review of v7.75, 1 Oct 2026). */
+function save(){ if (ASSETS_HELD) HELD_STALE775 = true; const r775 = save775Inner.apply(this, arguments); if (ASSETS_HELD) HELD_STALE775 = true; return r775; }
 function save775Inner(){""", 'save marks the hold stale', p, True)
 
 # 2. the two ratios that read the quotes' split wait for it

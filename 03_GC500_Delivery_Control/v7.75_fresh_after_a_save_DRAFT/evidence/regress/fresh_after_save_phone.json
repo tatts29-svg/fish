@@ -1,8 +1,8 @@
 {
  "page": "build/GC500_v7.75/GC500_Delivery_Control_hosted.html",
  "mobile": true,
- "passed": 10,
- "of": 10,
+ "passed": 11,
+ "of": 11,
  "errors": [],
  "tests": [
   {
@@ -54,6 +54,11 @@
    "name": "A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save",
    "pass": true,
    "detail": "{\"paneElements\":15095,\"fired\":true,\"held\":true,\"inList\":true}"
+  },
+  {
+   "name": "A6 on an editing link the tab bar that save() redraws reads the edit",
+   "pass": true,
+   "detail": "{\"tabsSawEdit\":true,\"tabsHeld\":true,\"saved\":true,\"savedBack\":true}"
   }
  ]
 }

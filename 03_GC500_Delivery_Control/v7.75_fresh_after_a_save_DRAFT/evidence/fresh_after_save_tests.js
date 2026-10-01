@@ -87,6 +87,27 @@ const fs = require('fs');
   await p.evaluate(() => go('costs'));
   const e5 = await p.evaluate(() => window.__e);
   R.tests.push({name: 'A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save', pass: !!(e5.fired && e5.held && e5.inList && big > 3000), detail: JSON.stringify({paneElements: big, ...e5})});
+  /* A6. the editor's save (Codex's review): on an editing link save() itself redraws the tab bar before it returns;
+     that redraw must read the record with the edit. The view link refuses to save, so the editing path is opened for
+     this check only — SYNC.readonly off, the shared-record push, folder write and browser storage stubbed so nothing
+     leaves this page or touches its storage — and put back afterwards. */
+  const a6 = await p.evaluate(() => {
+    const keep = {ro: SYNC.readonly, push: typeof syncPush === 'function' ? syncPush : null, folder: typeof folderWrite === 'function' ? folderWrite : null, persist: typeof persist === 'function' ? persist : null, tabs: renderTabs};
+    const out = {};
+    try {
+      SYNC.readonly = false; syncPush = () => {}; folderWrite = () => {}; persist = () => true;
+      go('about');
+      const pane = document.getElementById('pane-about'); const box = document.createElement('input'); pane.appendChild(box); box.focus();
+      box.addEventListener('blur', () => {
+        renderTabs = function () { out.tabsSawEdit = allAssets().some(a => a.key === 'V775-T'); out.tabsHeld = !!ASSETS_HELD; return keep.tabs.apply(this, arguments); };
+        S.added = S.added || []; S.added.push({key: 'V775-T', name: 'probe', added_by: 'probe'}); out.saved = save();
+        renderTabs = keep.tabs; S.added.pop(); out.savedBack = save();
+      }, {once: true});
+      go('costs'); box.remove();
+    } finally { SYNC.readonly = keep.ro; if (keep.push) syncPush = keep.push; if (keep.folder) folderWrite = keep.folder; if (keep.persist) persist = keep.persist; renderTabs = keep.tabs; }
+    return out;
+  });
+  R.tests.push({name: 'A6 on an editing link the tab bar that save() redraws reads the edit', pass: !!(a6.saved && a6.tabsHeld && a6.tabsSawEdit), detail: JSON.stringify(a6)});
   const passed = R.tests.filter(t => t.pass).length;
   R.tests.forEach(t => console.log(`${t.pass ? 'PASS' : 'FAIL'} ${t.name} — ${t.detail.slice(0, 160)}`));
   console.log(`${passed}/${R.tests.length} ${MOB ? 'phone' : 'desktop'} · page errors ${s.errors.length}${R.v775 ? '' : ' · (page without v7.75)'}`);
