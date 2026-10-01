@@ -1,0 +1,10 @@
+PASS A1 the commit ran inside the held draw (the v7.76 path) — {"inList":true,"listRebuilt":true,"modelRebuilt":true,"rehireRebuilt":true,"held":true}
+PASS A2 the rest of the draw sees the saved record (asset list) — {"inList":true,"listRebuilt":true,"modelRebuilt":true,"rehireRebuilt":true,"held":true}
+PASS A3 the forecast and Rehire models are worked out again after the save — {"inList":true,"listRebuilt":true,"modelRebuilt":true,"rehireRebuilt":true,"held":true}
+PASS A4 after the draw the probe is gone from the list (the page is left as found) — 201
+PASS B1 a tab change builds the asset list once at most (no save, no rebuild) — {"today":1,"progress":1,"map":1,"docs":1,"plant":1,"fencing":1,"prestarts":1,"coatesway":1,"costs":1,"change":1,"pricing":1,"timeline":1,"runsheet":1,"questions
+PASS C1 today the quotes split and the ratios read as before — qClean true · transport 1.3004722966349904 · consumables 0.8969072164948454
+PASS C2 quotes not approved: Transport and Consumables Recovery wait, and say why — null null · not readable yet: the Event Portables quotes are not approved, so the pump-out and water costs are not counted
+PASS C3 quotes not splitting to the cent: Transport and Consumables Recovery wait, and say why — null · not readable yet: the Event Portables quotes did not split to the cent by line, so they are carried whole on Rehire and the pump-out and water costs are 
+PASS C4 put back: the ratios read as before — 1.3004722966349904
+9/9 desktop · page errors 0
