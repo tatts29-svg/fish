@@ -1,4 +1,6 @@
 // Andrew Fisher, 1 Oct 2026: "WC44 toilets are sub-hired and in and installed. Asset no 0146 0037."
+//   "WC71 here and installed. Sub-hired. Assets 0280 0116 0279 0293 0531 0644 0552 0490."
+//   "WC67 here and complete and installed. Assets no 0793 0769."
 // Through the page's own functions on the edit link, in the name "Andrew Fisher via Claude":
 //   subhireMark('WC44', 'Event Portables') · subhire744Many('WC44', 'Event Portables', '0146 0037') · setDone('WC44', true)
 // Nothing else is touched. The edit key comes from GC500_EDIT_TOKEN and is never printed.
@@ -8,7 +10,9 @@ const HOST = 'https://gc500-production.up.railway.app', TOK = process.env.GC500_
 const OUT = __dirname, DRY = process.env.DRY === '1';
 const PLAN = {
  sub: [ /* sub-hired locations: Event Portables gear, the fleet numbers, complete */
-  {key: 'WC44', co: 'Event Portables', nos: '0146 0037'}],
+  {key: 'WC44', co: 'Event Portables', nos: '0146 0037'},
+  {key: 'WC71', co: 'Event Portables', nos: '0280 0116 0279 0293 0531 0644 0552 0490'},
+  {key: 'WC67', co: 'Event Portables', nos: '0793 0769'}],
  wc60: null
 };
 

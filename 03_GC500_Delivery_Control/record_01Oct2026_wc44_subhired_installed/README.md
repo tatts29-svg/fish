@@ -1,18 +1,22 @@
-# Record change, 1 Oct 2026: WC44 — sub-hired toilets in and installed
+# Record change, 1 Oct 2026: WC44, WC71 and WC67 — sub-hired toilets in and installed
 
 Author: Andrew Fisher · 1 Oct 2026
 
-Andrew, 1 Oct 2026: "WC44 toilets are sub-hired and in and installed. Asset no 0146 0037."
+Andrew, 1 Oct 2026:
+- "WC44 toilets are sub-hired and in and installed. Asset no 0146 0037."
+- "WC71 here and installed. Sub-hired. Assets 0280 0116 0279 0293 0531 0644 0552 0490."
+- "WC67 here and complete and installed. Assets no 0793 0769."
 
 A second write, after `../record_01Oct2026_wc33_subhired_installed/` (WC33, WC56, WC59, WC60 — written by Codex at
 14:03). Same script, same three page functions, in the name "Andrew Fisher via Claude":
 
-1. `subhireMark('WC44', 'Event Portables')` — the location is Event Portables gear.
-2. `subhire744Many('WC44', 'Event Portables', '0146 0037')` — the two fleet numbers as Event Portables units.
-3. `setDone('WC44', true)` — the complete tick; the page sets the light green, on site, with it.
+For each of WC44 (2 units), WC71 (8 units) and WC67 (2 units):
+1. `subhireMark(key, 'Event Portables')` — the location is Event Portables gear.
+2. `subhire744Many(key, 'Event Portables', numbers)` — the fleet numbers as Event Portables units.
+3. `setDone(key, true)` — the complete tick; the page sets the light green, on site, with it.
 
 Nothing else is touched. `rehearsal_result.json` is the rehearsal on the view link with every write blocked (what the
-record holds for WC44 before, and what the three calls would record).
+record holds for each before, and what the three calls would record).
 
 ```
 cd 03_GC500_Delivery_Control/record_01Oct2026_wc44_subhired_installed

@@ -9,6 +9,25 @@
     "planned": [
      "2026-10-01 x2"
     ]
+   },
+   {
+    "key": "WC71",
+    "subhire": null,
+    "units": 0,
+    "done": false,
+    "planned": [
+     "2026-10-01 x8"
+    ]
+   },
+   {
+    "key": "WC67",
+    "subhire": null,
+    "units": 0,
+    "done": false,
+    "planned": [
+     "2026-10-01 x2",
+     "2026-10-12 x2"
+    ]
    }
   ]
  },
@@ -20,7 +39,7 @@
     {
      "co": "Event Portables",
      "by": "Andrew Fisher via Claude (rehearsal)",
-     "at": "2026-10-01T04:12:37.139Z",
+     "at": "2026-10-01T04:18:35.368Z",
      "coates_off": null
     }
    ],
@@ -44,6 +63,74 @@
      "state": "on site",
      "note": null
     }
+   ],
+   [
+    "WC71 subhireMark",
+    true,
+    {
+     "co": "Event Portables",
+     "by": "Andrew Fisher via Claude (rehearsal)",
+     "at": "2026-10-01T04:18:36.178Z",
+     "coates_off": null
+    }
+   ],
+   [
+    "WC71 subhire744Many",
+    {
+     "added": [
+      "0280",
+      "0116",
+      "0279",
+      "0293",
+      "0531",
+      "0644",
+      "0552",
+      "0490"
+     ],
+     "refused": []
+    }
+   ],
+   [
+    "WC71 setDone",
+    true,
+    {
+     "done": true,
+     "levelled": false,
+     "steps": false,
+     "state": "on site",
+     "note": null
+    }
+   ],
+   [
+    "WC67 subhireMark",
+    true,
+    {
+     "co": "Event Portables",
+     "by": "Andrew Fisher via Claude (rehearsal)",
+     "at": "2026-10-01T04:18:38.117Z",
+     "coates_off": null
+    }
+   ],
+   [
+    "WC67 subhire744Many",
+    {
+     "added": [
+      "0793",
+      "0769"
+     ],
+     "refused": []
+    }
+   ],
+   [
+    "WC67 setDone",
+    true,
+    {
+     "done": true,
+     "levelled": false,
+     "steps": false,
+     "state": "on site",
+     "note": null
+    }
    ]
   ],
   "sub": [
@@ -52,12 +139,58 @@
     "subhire": {
      "co": "Event Portables",
      "by": "Andrew Fisher via Claude (rehearsal)",
-     "at": "2026-10-01T04:12:37.139Z",
+     "at": "2026-10-01T04:18:35.368Z",
      "coates_off": null
     },
     "units": [
      "0146",
      "0037"
+    ],
+    "delivery": {
+     "done": true,
+     "levelled": false,
+     "steps": false,
+     "state": "on site",
+     "note": null
+    }
+   },
+   {
+    "key": "WC71",
+    "subhire": {
+     "co": "Event Portables",
+     "by": "Andrew Fisher via Claude (rehearsal)",
+     "at": "2026-10-01T04:18:36.178Z",
+     "coates_off": null
+    },
+    "units": [
+     "0280",
+     "0116",
+     "0279",
+     "0293",
+     "0531",
+     "0644",
+     "0552",
+     "0490"
+    ],
+    "delivery": {
+     "done": true,
+     "levelled": false,
+     "steps": false,
+     "state": "on site",
+     "note": null
+    }
+   },
+   {
+    "key": "WC67",
+    "subhire": {
+     "co": "Event Portables",
+     "by": "Andrew Fisher via Claude (rehearsal)",
+     "at": "2026-10-01T04:18:38.117Z",
+     "coates_off": null
+    },
+    "units": [
+     "0793",
+     "0769"
     ],
     "delivery": {
      "done": true,
