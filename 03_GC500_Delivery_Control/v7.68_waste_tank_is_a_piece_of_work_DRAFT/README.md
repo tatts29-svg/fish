@@ -66,6 +66,21 @@ python3 toolchain/upload_page.py build/GC500_v7.68/GC500_Delivery_Control_hosted
 On the live v7.67 (8,626,587 bytes): **8,629,390 bytes**, check_page PASS, key grep clean. Results of the test chain
 (v7.68 desktop and phone; v7.63–v7.67 suites; Codex's six synthetic checks; sweeps) are recorded below when they finish.
 
-## Results
+## Results — the chain on `build/GC500_v7.68` (8,629,390 bytes), 1 Oct 2026 16:00–16:35 AEST
 
-_(filled in when the chain finishes)_
+| Check | Desktop | Phone |
+|---|---|---|
+| v7.68 practice tests (`evidence/practice_results*.json`) | **16/16** | **16/16** |
+| v7.67 priced by us (`evidence/regress/v767*`) | 12/12 | 12/12 |
+| v7.66 rehire by branch (`regress/v766*`) | 18/18 | 18/18 |
+| v7.64 costs to job end (`regress/v764*`) | 22/22 | 22/22 |
+| v7.65 the Costs tab in one flow (`regress/v765`) | 22/22 | — |
+| v7.63 accruals in Andrew's words (`regress/v763`) | 33/33 | — |
+| Codex's six synthetic checks (`review_v764_v767/evidence/synthetic_regressions.js`, now reading the `_LIVE` folders) | 6/6 | — |
+| Sweep, 21 tabs (`regress/sweep_desktop.json`, `regress/sweep_phone.json`) | 0 errors, 0 console | 0 errors, 0 console |
+
+The P&L on the build equals the live page read on the same record at the same moment (revenue $558,017.15, labour
+$19,170.02 over 177 ticks, direct costs known $235,371.76 at 16:05 — Andrew had ticked the WC60 toilet blocks and
+more since 15:00); the Pricing tab's card comparison is $1,501.12 higher, the two tanks' card hire, as WC20's and
+WC27's lines already are. An adversarial code review of the patch (three lenses, each finding verified) is recorded
+below when it reports.
