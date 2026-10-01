@@ -21,7 +21,7 @@ const {open} = require('../../toolchain/harness/open_page.js'); const fs = requi
  units: {tank: labourUnits(a, 'Waste tank'), block: labourUnits(a, 'Toilet Block 6m')}, lineNumbers: lineNumbersOf(a),
  toilets: T.lines.filter(l => l.item === 'Toilet Block 6m').map(l => ({qty: l.qty, labour: l.labour.total, ticks: l.labour.ticked.length})),
  tankMoneyNow: T.lines.filter(l => l.item === 'Waste tank').map(l => ({qty: l.qty, labour: l.labour.total, ticks: l.labour.ticked.length, cardHire: l.total})),
- others, gained, extra, money: {total: M0.charge.total, labour: M0.charge.labour, ticks: M0.charge.labour_ticks, costKnown: M0.cost.known, cardHire: M0.charge.card_hire, contracts: M0.charge.contracts}, readOnly: before === JSON.stringify(moneySummary())}; });
+ others, gained, extra, money: {total: M0.charge.total, servicing: M0.charge.servicing || 0, labour: M0.charge.labour, ticks: M0.charge.labour_ticks, costKnown: M0.cost.known, cardHire: M0.charge.card_hire, contracts: M0.charge.contracts}, readOnly: before === JSON.stringify(moneySummary())}; });
  const D = R.data, near = (a, b) => a != null && b != null && Math.abs(a - b) < 0.02;
  R.checks.wc60HasItsTankLineFromTheContract = !!D.tank && D.tank.qty === 2 && D.tank.contract === '9968955' && Array.isArray(D.tank.lines) && D.tank.lines.join(',') === '94,95' && /from the contract/.test(D.tank.state) && D.itemTypes.includes('Waste tank') && D.itemTypes[0] === 'Toilet Block 6m';
  R.checks.installAndLevellingPricedPerTank = !!D.lab && D.lab.priced.some(x => x[0] === 'install' && near(x[1], 145.74)) && D.lab.priced.some(x => x[0] === 'levelling' && near(x[1], 104.1)) && !D.lab.priced.some(x => x[0] === 'steps') && (D.lab.withheld || []).includes('Steps');

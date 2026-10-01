@@ -59,6 +59,18 @@ bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_DRAFT/patch_v7
 python3 toolchain/upload_page.py build/GC500_v7.69/GC500_Delivery_Control_hosted.html
 ```
 
-## Results
+## Results — the chain on `build/GC500_v7.69` (8,633,034 bytes; v7.68 + v7.69 on the live v7.67), 1 Oct 2026 16:55–17:40 AEST
 
-_(filled in when the chain finishes)_
+| Check | Desktop | Phone |
+|---|---|---|
+| v7.69 practice tests (`evidence/practice_results*.json`) | **17/17** | **17/17** |
+| v7.68 waste tank is a piece of work (`regress/v768*`) | **16/16** | **16/16** |
+| v7.67 priced by us (`regress/v767*`) | **12/12** | **12/12** |
+| v7.66 rehire by branch (`regress/v766*`) | **18/18** | **18/18** |
+| v7.64 costs to job end (`regress/v764`) | **22/22** | — |
+| v7.65 the Costs tab in one flow (`regress/v765`) | **22/22** | — |
+| v7.63 accruals in Andrew's words (`regress/v763`) | **33/33** | — |
+| Codex's six synthetic checks | 6/6 | — |
+| Sweep, 21 tabs (`regress/sweep_*.json`) | 21 tabs, 0 errors, 0 console | 21 tabs, 0 errors, 0 console |
+
+Against the live page read on the same record at the same moment: revenue +$12,200.00 (the servicing line), Rehire Revenue to job end +$12,200.00, labour, direct costs known and Rehire cost unchanged. The adversarial code review (three lenses, each finding verified) is recorded below when it reports.

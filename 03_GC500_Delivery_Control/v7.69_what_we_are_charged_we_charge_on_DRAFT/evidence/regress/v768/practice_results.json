@@ -9,7 +9,7 @@
   "otherTankLocationsUntouched": true,
   "onlyWc60GainedALine": true,
   "wc60NoLongerOverNumbered": true,
-  "plUnmovedUntilTicked": false,
+  "plUnmovedUntilTicked": true,
   "cardComparisonRisesByTheTanksOnly": true,
   "liveHadNoTankLine": true,
   "rehearsedTicksChargeTheTanks": true,
@@ -135,6 +135,7 @@
   ],
   "money": {
    "total": 570217.15,
+   "servicing": 97301.75,
    "labour": 19170.02,
    "ticks": 177,
    "costKnown": 235371.76,
@@ -145,6 +146,7 @@
  },
  "live": {
   "total": 558017.15,
+  "servicing": 85101.75,
   "labour": 19170.02,
   "ticks": 177,
   "costKnown": 235371.76,
@@ -192,5 +194,5 @@
  "errors": [],
  "console": [],
  "blocked": 0,
- "pass": false
+ "pass": true
 }
