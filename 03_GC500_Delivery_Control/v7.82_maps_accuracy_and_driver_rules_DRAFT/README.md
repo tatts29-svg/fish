@@ -41,6 +41,13 @@ GN20 (350 kVA, the larger symbol) and GN21 (60 kVA, the smaller) sit side by sid
 west end. That is the tight spot GN21 goes into first. The old close/wide proof pictures were centred on the wrong
 spots and are taken off the moved generators.
 
+**P47 (QPS Amenities Crib Room, due 6 Oct): the compound is right, the spot is not confirmed.** Andrew asked. The
+current master (rev 03) does not draw P47 anywhere. Its compound by Gate 2 / Commodore Park shows P46 (QPS Command
+Post), P08, OP14 and a GEM building. D022 (rev 02) callout 047 points into that compound
+(`evidence/P47_D022_rev02_callout_047.jpg`). The 27 Sep reading put P47 on the compound's west fence line, beside P46,
+on no building (`evidence/P47_master_rev03_sharp.jpg`). The text now reads "GPS: … (the compound - exact spot to be
+confirmed on site)". Navigate still goes to the compound, and nobody is told it is the exact spot.
+
 **Light towers LTC01–LTC14 are not on the master as symbols.** They were made from blue fans on D024 (the legend has no
 symbol for them). Several sit in a traffic lane. They are **not changed**, because there is no symbol to check them
 against. They are listed for a check on site, or for Andrew to mark (`evidence/light_towers_and_other_arrow_positions.jpg`). P26, P28, P47, CP1 and T0243 came from arrows
