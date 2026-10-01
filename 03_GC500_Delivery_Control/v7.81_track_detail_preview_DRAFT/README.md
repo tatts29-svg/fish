@@ -65,6 +65,7 @@ Built from live v7.80, SHA256 `303029e3e64d5a43654bafc400d09e5bed2efbb93060a9642
   That run used `f0cb213548f5cc824caab27873cc40612a8010217839f517547e8c54caeb4ecc` (1,117,971 bytes).
   The final file adds only a 27-byte flag reset in the full-page-only handler, which the standalone never attaches;
   `evidence/standalone-final-delta.json` proves the exact difference. The changed handler passes the full-page checks.
+  A further **13/13 focused smoke checks** pass on the exact final `22ac12d0…` file; see `evidence/final-smoke.json`.
 - All **7,540,964 bytes** before the GC3D renderer match the live base, including page data, operational/financial
   code, MP4, weather and existing speedos. Static checks pass all six inline scripts with no new credentials.
 - Track detail: **14,564 triangles**; facade detail: **6,312 triangles**; one additional draw call for each mesh.

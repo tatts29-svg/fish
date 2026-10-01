@@ -15,7 +15,8 @@ Claude review requested, not READY TO UPLOAD.** Full-page draft: 8,725,360 bytes
 `cd8bbbc5207541836de42001ff1e1dc471f9ec8d54e40ba69c131c0dadd5db7b`. Standalone visual preview:
 1,117,998 bytes, SHA256 `22ac12d01aa8938c4d1f40113229a2dccf4aece3917ff0db592db6e1afb843ba`.
 Full-page 24/24 checks; exact default-off pixel equality with v7.80; final desktop/phone sweeps each 21 tabs and
-7 links with zero errors. Standalone 43/43 plus the documented full-page-only final delta. Actual desktop/phone
+7 links with zero errors. Standalone 43/43 plus the documented full-page-only final delta and **13/13 smoke checks
+on the exact final standalone**. Actual desktop/phone
 frames and evidence are in `v7.81_track_detail_preview_DRAFT/evidence/`. This is an environment study, still below
 the approved concept's realism; placements are illustrative. Claude has not accessed Andrew's private photo
 originals. Live stays v7.80; MP4, weather, speedos and records remain unchanged by this preview.
