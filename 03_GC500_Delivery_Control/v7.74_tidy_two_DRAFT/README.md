@@ -58,7 +58,9 @@ only, no figure changes:
 1. **On a phone the cost and ratio tables opened on a blank first column with the figures off the screen.** The card's
    first column was set not to wrap, so the widest chip ("Temporary Staff · 3210 · 2143", 225 px of a 390 px screen) set
    the column for the whole table. On a phone the column now wraps, and the wages chip is the codes alone, "Temporary
-   Staff" moved into the words beside it. Phone screenshot in `evidence/regress/`.
+   Staff" moved into the words beside it; the basis column gets a minimum width so a long basis no longer stacks into
+   a 500 px-tall row. The table still scrolls sideways for its last two columns, as every wide table on the page does.
+   Phone screenshot in `evidence/regress/`.
 2. **The Direct costs tile hung the job-end split on the on-the-record figure** ("$235,372 … of which $420,740"). It now
    reads "$235,372 on the record today · to job end: $420,740 on the ledger's direct lines + $23,671 travel,
    accommodation, meals and printing — the Costs to job end card's figure".

@@ -27,7 +27,7 @@ from rep import rep  # noqa: E402
 #    390 px screen) set the column for the whole table and pushed the figures off the screen. The column wraps on a phone,
 #    and the wages chip is the codes alone - "Temporary Staff" moves into the words beside it.
 t = rep(t, ".pl770-tbl td:first-child,.pl770-tbl th:first-child{width:1%;white-space:nowrap}.pl770-over td,.pl770-over td b{color:var(--mute)}",
- ".pl770-tbl td:first-child,.pl770-tbl th:first-child{width:1%;white-space:nowrap}.pl770-over td,.pl770-over td b{color:var(--mute)}@media (max-width:640px){.pl770-tbl td:first-child,.pl770-tbl th:first-child{white-space:normal;width:auto}}", 'pl770 phone column', p, True)
+ ".pl770-tbl td:first-child,.pl770-tbl th:first-child{width:1%;white-space:nowrap}.pl770-over td,.pl770-over td b{color:var(--mute)}@media (max-width:640px){.pl770-tbl td:first-child,.pl770-tbl th:first-child{white-space:normal;width:auto}.pl770-tbl td.acc761-why{min-width:240px}}", 'pl770 phone column', p, True)
 t = rep(t, """<span class="chip ref mono">Temporary Staff · 3210 · 2143</span></td><td><b>Wages</b><br><span class="acc761-w">beside, never added — Finance says which line</span>""",
  """<span class="chip ref mono">3210 · 2143</span></td><td><b>Wages</b><br><span class="acc761-w">Temporary Staff on the P&amp;L · beside, never added — Finance says which line</span>""", 'wages chip', p, True)
 # 2. The Direct costs tile hung the job-end split on the on-the-record figure ("$235,372 … of which $420,740").
