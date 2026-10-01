@@ -2,6 +2,15 @@
 
 Author: Andrew Fisher · 1 Oct 2026
 
+## Completed — 1 Oct 2026 17:03 AEST
+
+The authorised follow-up ran through the page after v7.69 was verified live. Private full backups and fresh
+service readback were retained. Record version **3503 → 3520**, **17 new documents**, zero updated or deleted
+documents; idempotence passed, existing charges preserved and no page errors. The guarded executor checked scope
+and concurrent edits before sending only the reviewed additions. The preparation below is historical; do not rerun
+it as outstanding work. `completion.json` holds the compact completion proof.
+
+
 Andrew, 1 Oct 15:30 AEST: "WC60 has 2 waste tanks, I told you this. This needs to have a level cost and install cost."
 
 The numbers are on the record since 14:03 (toilet block 1119489 with waste tank 1328980; 1087500 with 1328981; both

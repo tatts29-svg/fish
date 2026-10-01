@@ -88,12 +88,16 @@ t = rep(t, """function labourUnits(a, item){
 """function labourUnits(a, item){
  /* v7.68 - a waste tank line's pieces are the tanks: the numbers the note names as tanks, the units recorded as a waste
  tank, and what the line was dealt - whether or not they count as buildings (a tank recorded as a unit is contents by
- the v5.59 rule, and would otherwise drop its piece and its ticks). One tank: the reference's own tick, as WC05. */
+ the v5.59 rule, and would otherwise drop its piece and its ticks). Keep even one numbered piece and the unnumbered
+ remainder, so existing unit ticks stay visible and a partly numbered order can be recorded one piece at a time.
+ Reference-level ticks still count through labourTicked's existing fallback. */
  if (/waste tank|holding tank/i.test(String(item || ''))) {
  const m = lineNumbersOf(a); const fromLine = m ? (m[item] || []) : []; const noted = tank768NotedNumbers(a.key);
  const asUnits = unitsOf(a.key).filter(u => /waste tank|holding tank/i.test(String(u.label || '')) && u.asset_no).map(u => String(u.asset_no).trim());
  const all = [...new Set(fromLine.concat(noted, asUnits).map(String).filter(Boolean))]; const q = labourLineQty(a, item);
- const us = q != null && all.length > q ? all.slice(0, q) : all; return us.length <= 1 ? [] : us; }
+ let us = q != null && all.length > q ? labourKeep(a, all, q) : all;
+ if (q != null && us.length && us.length < q) us = us.concat([LAB_REST]);
+ return us; }
  /* v5.59 — the BUILDINGS, never the things inside them: a fridge is not a place to fit stairs */""", 'tank pieces for labour', p, True)
 
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
