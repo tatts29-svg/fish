@@ -1,4 +1,4 @@
-# v7.74 — tidy, the second pass (DRAFT — built on v7.73, under test)
+# v7.74 — tidy, the second pass (READY TO UPLOAD — one patch on the live v7.73)
 
 Author: Andrew Fisher · 1 Oct 2026, 18:10 AEST
 
@@ -99,8 +99,23 @@ The suite to run on it is the released one, `v7.70_pl_in_the_business_lines_LIVE
 checks, Codex's alignment to the live Installation and Rehire Recovery rules), with `GC500_TEST_RESULTS_DIR` pointed at
 this folder's `evidence/regress/` so the released evidence is not overwritten.
 
-## Results
+## Results — `build/GC500_v7.74` on the live v7.73 (8,667,935 bytes, SHA-256 `60105388…`), 18:38–18:42 AEST
 
-Filled in from `evidence/regress/` when the chain finishes: both sweeps (a replacement that reaches for something that
-is not there would show as a page error on its tab), every tab's text dumped and searched for "undefined", "NaN",
-"[object" and template leftovers, the v7.70 suite on the build, and a read of the changed lines.
+**8,673,113 bytes, SHA-256 `59e58833ab1ee8c6fb0ad2f8c2b3ff5e7b13c14923cd3e70459bc32503fda7d8`**, check_page PASS.
+
+| Check | Result |
+|---|---|
+| Wordings | 70 of 72 applied; the 2 skipped are the "via Codex" recorder stamps on Today and Progress, already handled by the release's display helper |
+| The review's card fixes | all applied: phone first column wraps and the basis column keeps a minimum width; the wages chip is the codes; the direct-costs tile reads "$235,372 on the record today · to job end: $420,740 … + $23,671 …"; the 1010 line bridges to the Rehire card's $302,742; the fencing behind the programme ($48,262 / $41,111) named; the 31 Coates-numbered toilet lines named |
+| No agent's name | every tab's text dumped (21 tabs): neither name anywhere — the Change log and the Fencing docket, note and form tables included |
+| Text | no "undefined", "NaN", "[object" or template leftovers on any tab; "sub-hired forklifts $82,778" spaced |
+| The released suite (`v7.70_…_LIVE/evidence/practice_tests.js`, 31 checks) | **31/31 desktop · 31/31 phone** (`evidence/regress/practice_results*.json`) |
+| Sweeps | 21 tabs, 0 page errors, 0 console errors, 7 deep links clean — desktop and phone (`evidence/regress/sweep_*.log`) |
+| Screenshots | the card on desktop and phone (`evidence/regress/card_*.png`), read: tiles, revenue, costs and ratio tables; the costs table's last two columns scroll sideways on a phone, as every wide table on the page does |
+
+**READY TO UPLOAD** — one patch on the live v7.73:
+```
+bash toolchain/build.sh v7.74 v7.74_tidy_two_DRAFT/patch_v774.py
+python3 toolchain/upload_page.py build/GC500_v7.74/GC500_Delivery_Control_hosted.html
+```
+If the live page is no longer v7.73 (8,667,935 bytes), rebuild on what is there: the patch skips, never guesses, and prints what it skipped.
