@@ -1,12 +1,15 @@
-# v7.87 — Inventory: one line per location (DRAFT)
+# v7.87 — Inventory: one line per location (LIVE)
 
 Author: Andrew Fisher · 2 Oct 2026. It goes on after v7.86:
 
 ```
-bash toolchain/build.sh v7.87 v7.86_fence_blocks_line_DRAFT/patch_v786.py v7.87_inventory_one_line_DRAFT/patch_v787.py
+bash toolchain/build.sh v7.87 v7.87_inventory_one_line_LIVE/patch_v787.py
 ```
 
-That build gives **8,856,302 bytes, SHA-256 `79682fd031b7cf517424101ad01311c5e8f91298ad9f030015f68fe9df785dc6`**, built on the live v7.85 `2e73ac04`.
+The final reviewed build gives **8,858,382 bytes, SHA-256 `d592847abc0d774502f53fc568f1bfaaff1706be7dd23a3a54a70a1552a4c367`**, built on live v7.86 `0513542d`.
+The earlier handover candidate was `a39c652d`. Independent review found that the new per-type list displayed
+reference and map buttons without binding their click actions. The final patch binds those controls in both lists;
+the existing Directions links and navigation rules are unchanged. Published **2 Oct 2026 09:14 AEST**; the public view matches these bytes exactly. The shared record remains **3538**.
 - The scrub changes nothing.
 - `check_page` passes, with no keys in the page.
 
@@ -74,7 +77,7 @@ Each line carries:
 
 ## Results
 
-- **`evidence/one_line_tests.js`: 18/18 on desktop and 18/18 on phone.**
+- **`evidence/one_line_tests.js`: 20/20 on desktop and 20/20 on phone on the final reviewed build.**
   - L1–L12 cover the every-location list:
     - all 116 locations are listed, each with what is still to do, the location words, the pin, the QR and the satellite picture;
     - the reference, the to-do and the QR sit on one line;
@@ -86,6 +89,7 @@ Each line carries:
     - each line has a due day and a place;
     - each line has a Directions link that equals the QR, which equals the drivers' navigation;
     - each line has its QR and satellite picture.
+  - T1–T2: table references add up to each Still-to-come number, and open the selected location line.
   - E1–E2: no page errors, and nothing written.
 - **`evidence/inventory_pdf_tests.js` (the v7.83 suite): 9/9 on desktop and 9/9 on phone.**
   - Every page fits its sheet.
@@ -94,3 +98,23 @@ Each line carries:
   - P33 is never printed as a destination.
   - Share PDF makes the file.
 - **Full regression:** see `evidence/regress/` and STATUS.md.
+
+
+## Final independent release check
+
+The final candidate above is **LIVE, 2 Oct 2026 09:14 AEST**, verified at the public view byte for byte. The per-type list's reference, Map and locator
+controls now work, including the fallback Set in Edit action through the same reference binding. The new
+`evidence/drill_click_tests.js` dispatches real clicks and runs production navigation in both lists; it does not
+replace navigation with a mock.
+
+- Actual reference, Map and locator clicks: **8/8 desktop and 8/8 phone**.
+- One-line Inventory: **20/20 desktop and 20/20 phone**.
+- Share PDF: **9/9 desktop and 9/9 phone**.
+- Both sweeps: **21 tabs, 7 deep links, zero page and console errors**.
+- Six inline scripts parse, no new keys, official upload dry-run and fresh-base check pass.
+- Phone layout and ten-location A4 page visually inspected. No record writes, journals or real messages.
+- The official page-only upload completed after these checks; fresh public verification and unchanged record **3538** are recorded in `evidence/release_verification.json`.
+
+Aggregate proof is `evidence/independent_review.json`; the phone view is `evidence/independent_phone.png`.
+The earlier full regression remains recorded under `evidence/regress/`; only the two click-binding selectors changed
+since that handover, and the relevant checks above were rerun on the final hash.
