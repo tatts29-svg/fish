@@ -14,10 +14,11 @@ For future task updates, both agents finish their work and review of the same fr
 findings and record completion before publication. A candidate that changes after review needs both agents to
 check the changes. The handover then says **READY TO UPLOAD**. This rule is also in `AGENTS.md`.
 
-Current follow-up: Claude's v7.76 cross-check found that an edit committed during navigation can leave the display
-using an earlier snapshot until the next redraw; the saved record remains correct. Claude owns the v7.75 fix on
-the live v7.76 base and reported an approximate 20:30 AEST handover target. Codex will review that frozen candidate
-before upload. This is a target for review, not a confirmed release time; the follow-up is not complete or ready yet.
+Current follow-up (21:56 AEST): v7.75 is **LIVE** within the v7.75 + v7.77 release, verified fresh at 21:53 at
+`35e4b00b…` (see Live now). Server v5.87 has been **ACTIVE** since 21:50, with pictures going from the ClickSend shared number.
+Its one end-to-end test picture (Codex, the recipient confirmed by Andrew) has reached provider SENT/200 with
+no error code, but there is no delivered receipt yet. Picture messages are not called fixed until it is delivered or
+Andrew confirms it arrived. No second test while that one is pending.
 
 ## Release completed — v7.76 LIVE, 1 Oct 2026 18:59 AEST
 
