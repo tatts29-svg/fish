@@ -8,8 +8,12 @@ question. Newest first in each section. Times AEST.
 Author: Andrew Fisher. Codex owns this change. Andrew asks for a more professional message with a picture,
 navigation and a welcome to Coates GC500. Retain the working map picture and verified MMS delivery; update the
 message to welcome the recipient, identify the reference/equipment, label navigation clearly and keep the confirmed
-site access instructions. v7.78 plain-text-default proposal stays on hold. Both agents review the frozen candidate
-before publication. Status: in progress, not ready to upload. Branch `codex/gc500-v7.79-professional-text`.
+site access instructions. v7.78 plain-text-default proposal stays on hold. **Both reviews complete — READY TO UPLOAD.**
+Final candidate: 8,682,654 bytes, SHA256 `19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a`.
+23/23 practice checks on desktop and phone, both 21-tab/7-link sweeps with zero page/console errors, phone visual
+review, static checks and upload dry-run pass. Across 201 references all 199 existing details links and 184 due
+lines survive (200 links now fit); maximum 456 GSM units. No real sends or record writes in these checks.
+Branch `codex/gc500-v7.79-professional-text`, PR #18. Review proof is in the release folder's evidence.
 
 ## Andrew's release instruction — both agents finish first, 1 Oct 2026
 
