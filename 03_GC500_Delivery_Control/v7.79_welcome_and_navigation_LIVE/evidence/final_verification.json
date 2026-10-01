@@ -3,7 +3,7 @@
   "bytes": 8682654,
   "sha256": "19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a",
   "base_sha256": "35e4b00b150e081425e70a642945799d4dbab822bdbc7939c888c0503e5c26ef",
-  "status": "READY TO UPLOAD",
+  "status": "LIVE",
   "static_checks": "pass",
   "upload_dry_run": "pass",
   "phone_visual_review": "pass",
@@ -48,5 +48,13 @@
     "baseline_due_lines": 184,
     "candidate_due_lines": 184,
     "lost_due_lines": 0
-  }
+  },
+  "live_at": "2026-10-01T22:17:11+10:00",
+  "live_verified_at": "2026-10-01T12:19:08.225350+00:00",
+  "live_sha256": "19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a",
+  "live_bytes": 8682654,
+  "server": "v5.87",
+  "record_before": 3521,
+  "record_after": 3521,
+  "record_unchanged": true
 }
