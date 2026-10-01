@@ -234,6 +234,9 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.82 — Maps accuracy and driver rules, claimed by Claude, 2 Oct 2026 01:20 AEST.** Author: Andrew Fisher.
+Andrew, 2 Oct: "you have picked locations that don't exist, example GN21 … if it's not on the master you back track to their other map, find it, then add the location to the master." Scope: (1) correct the master positions the drawings contradict (GN21: the 27 Sep trace followed the wrong leader line; D024 puts it beside GN20 at the pit lane's west end); cross-check every master position against its own drawing; never invent a position. (2) Driver rules on Text it and the delivery views: Main Beach Pde entry by side (seaside via the Seaworld Dr roundabout end, per Andrew's marked map; land side, e.g. S08, from the other end, race direction); delivery order (waste tanks first; P03 → P01 → P05; WC05 tank → WC05 → P05; P04 after WC05; GN21 before GN20); stagger arrivals; parks: wildlife and low branches, very tight. Checked against what has already been delivered. (3) A clear pulsing "done" marker on the maps. Built on the live page; Codex's v7.81 Showcase preview is separate and unaffected. Both reviews before any upload.
+
 **v7.80 — LIVE 2 Oct 2026 00:45 AEST (see Live now). Claimed by Claude, 1 Oct 2026 22:01 AEST.** Author: Andrew Fisher.
 Found by the v7.75 critic: after a paid fence rate is typed on the Fencing tab, the "Paid to Advanced, by P&L line" card
 (`fencePaidSplit`) keeps the old figure until the next tab change, while the KPI above it shows the new one. The fix:
