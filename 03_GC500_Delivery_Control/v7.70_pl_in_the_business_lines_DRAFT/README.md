@@ -26,27 +26,28 @@ figures. If a line ever fails to reconcile the totals row says so instead of pre
 | Line | What it reads from | On the record today |
 |---|---|---|
 | 1005 Hire Revenue | the contracts by the rate and from the card, less the delivery lines and the hired-in lines | $187,300 |
-| 1010 Rehire Revenue | the Event Portables toilet lines, the SUB lines and the sub-hired forklifts (the Rehire by branch groups, less the servicing the toilets group carries) + Advanced's fencing dockets at the card; to job end + the fencing programme to come | $203,691 (job $452,500) |
+| 1010 Rehire Revenue | the Event Portables toilet lines, the SUB lines and the sub-hired forklifts (the Rehire by branch groups, less the servicing the toilets group carries) + Advanced's fencing dockets at the card; to job end + the fencing programme to come | $203,691 (job $462,274) |
 | 1030 · 1031 Transport Revenue | the delivery and pickup lines on the contracts | $6,938 |
 | 1032 Toilet Pumpouts | the servicing at the card's pump-out rates + the water truck and pre-fill at cost (Q6844) | $94,702 |
 | 1020 Consumables | the water deliveries and the drinking-water tank at cost (Q6846) | $4,350 |
-| 1047 Installation | Labour Install ticked per piece + the event labour scope (people, accommodation and travel) | $74,987 |
+| 1047 Installation | Labour Install ticked per piece + the event labour scope (people, accommodation and travel) | $75,486 |
 | 1015 Damage Waiver | nothing — not on the 2026 contracts; the card says waiver on the hire only; the branch's rate | — |
-| **Total revenue** | = the Forecast P&L's revenue | **$571,967** (job $820,777) |
+| **Total revenue** | = the Forecast P&L's revenue | **$572,467** (job $831,050) |
 
 **Direct costs — what Coates pays**
 
 | Line | What it reads from | On the record today |
 |---|---|---|
-| 2126 · 2127 Rehire | Event Portables' Q6845 and Q6847 (the toilet hire with their delivery and pickup) + Advanced's gear on the dockets; to job end + the fencing programme at Advanced's rates | $132,602 (job $312,692) |
+| 2126 Rehire | Event Portables' Q6845 and Q6847 (the toilet hire with their delivery and pickup) + Advanced's gear on the dockets; to job end + the fencing programme at Advanced's rates | $132,602 (job $312,692) |
 | 3325 Toilet Pumpout Costs | Q6844: the service visits, tank pump-outs, block cleans, the water truck and the pre-fill | $56,145 |
 | 2144 Consumables | Q6846: the water deliveries and the tank, with their delivery and pickup | $4,850 |
-| 2120 Transport | the carriers' figures; to job end + the loads without a figure at the card and the average | $22,011 (job $44,376) |
+| 2120 · 2140 Transport | the carriers' figures; to job end + the loads without a figure at the card and the average | $22,011 (job $44,376) |
 | 2142 Installation — external contractors | Advanced's crew on the dockets + the green book | $2,100 |
-| **Direct costs — the ledger's lines** | | **$217,708** (job $420,162) |
-| 3520 · 2357 · 3501 Travel and accommodation, meals, R&M, printing | the tracker — job costs the P&L carries below the direct lines | $17,664 (job $24,249) |
+| 2357 R&M | the tracker's equipment lines | $578 |
+| **Direct costs — the ledger's direct lines** | | **$218,286** (job $420,740) |
+| 3520 · 3501 Travel and accommodation, meals, printing | the tracker — overheads on the P&L unless Finance journals them to the job; inside the Forecast P&L's direct costs known | $17,086 (job $23,671) |
 | **Direct costs known — the Forecast P&L's figure** | = the Forecast P&L's direct costs known; to job end = the Costs to job end card | **$235,372** (job $444,411) |
-| 3210 · 2143 Wages | beside, never added — Direct Staff, or Installation internal labour if charged to the install; Finance says which | $6,925 (job $31,824) |
+| 3210 · 2143 Wages (Temporary Staff) | beside, never added — Direct Staff, or Installation internal labour if charged to the install; Finance says which | $6,925 (job $31,824) |
 
 The four Event Portables quotes are split by what each line is (the quote's own delivery and pickup go with its
 largest kitty); the split adds back to the P&L's rehire figure to the cent, and if it ever did not the whole figure
