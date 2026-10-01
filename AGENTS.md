@@ -153,6 +153,7 @@ Use these words, not synonyms, on the page, in READMEs and in messages.
 | **ex GST**, **damage waiver** (never on labour, steps, fire extinguishers, cleaning, install/demob, pump outs) | — | every figure is ex GST; damage waiver is a separate charge on hire only |
 | **Over the event** (23, 24, 25 Oct, both ends billed) / **from when they go in** | on-site days | the two charged windows: forklifts, VMS and water barriers from when they go in; everything else over the event only |
 | **Pre-bill** | — | never used for anything |
+| **What we are charged, we charge on** (Andrew, 1 Oct 2026: "all our cost — what we charge should cover what we get charged") | absorbing a cost, no revenue assumed | every Rehire cost has a Rehire Revenue at least equal to it. Where the card has no line and the branch no rate, the line is charged to the V8s at the supplier's figure — the floor, never less — until a rate lands, and says so ("at cost"). A rate typed on Costs stands in; one under the supplier's figure is flagged. The Rehire by branch card says, per group, whether what we charge covers what we are charged |
 
 **What the Coates P&L calls these** (the ledger lines, read from the July 2026 Industrial Solutions P&L,
 `03_GC500_Delivery_Control/pl_guide_01Oct2026/README.md` is the plain-words guide). Use Andrew's words on the page; put
