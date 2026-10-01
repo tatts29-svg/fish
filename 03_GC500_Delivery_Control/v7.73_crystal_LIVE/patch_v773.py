@@ -2,7 +2,7 @@
 r"""v7.73 - Crystal. Andrew, 1 Oct 2026, 17:37 AEST: "Please do a clean sweep of all pages. I want 4K ultra crystal clear
 contrast on all words. No blurring. No delays. No lagging. Perfection at every look and turn. Work with Codex for
 perfection 10/10."
-Apply after v7.72 (on the live page: v7.70, v7.72, then v7.73). CSS only; no figure, rule or record changes.
+Apply after v7.72 (on the live page: v7.70, v7.72, then v7.73). CSS and per-draw memoisation; no figure, rule or record changes.
 
   A clarity audit of every tab (desktop at 2x, phone at 3x) measured every visible text run's contrast against the colour
   actually behind it, its size, and the blur, scale and opacity on its way up the tree (evidence/audit.json,
@@ -37,7 +37,7 @@ CSS = r"""
 @media screen{
 :root{--mute:#4b535b;--slate:#4a5560;--ink2:#2f3841;--orange-ink:#9a3f0a}
 @media (prefers-color-scheme:dark){:root{--mute:#b4bcc4;--slate:#b4bcc4;--ink2:#c6cdd4;--orange-ink:#ff9a4d}
- .fin745,.pl752,.cj765,.card.pl752{--mute:#4b535b;--slate:#4a5560;--ink2:#2f3841;--orange-ink:#9a3f0a}}
+ .fin745,.pl752,.cj765,.card.pl752{--paper:#fff;--tint2:#fcfbfa;--ink:#14181d;--mute:#4b535b;--slate:#4a5560;--ink2:#2f3841;--orange-ink:#9a3f0a;color:var(--ink)}}
 .pl752{--pl-mute:#4f5860}.pl752 .pl-tag.none{color:#4f5860}.pl752 .pl-tag.est{color:#8f3a08}.pl752 .pl-tag.ok{color:#145f2c}
 .pl752 .pl-tag{font-size:10.5px}.pl752 .pl-tbl th{font-size:10.5px}.plfold765 > summary small{color:#4f5860}
 .pl752 .pl-sub .w{color:var(--mute);font-size:11.5px}.pl752 .pl-sub .pl-todo{font-size:11.5px}
@@ -46,7 +46,7 @@ CSS = r"""
 .doccard .slash.doc{color:var(--orange-ink)}.slash{color:var(--mute)}
 .tick{background:#0f7a37}.tick.sm{font-size:11.5px}
 .pgban .rbcap{background:rgba(18,14,12,.8);color:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}.rbcap span,.pgban .rbcap span{opacity:1}
-.tblwrap thead th{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.97)}
+.tblwrap thead th{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--tint2)}
 .hublist .hubrow .anos small{font-size:11px}.navbtn .navpinned,.btn .navpinned{font-size:10.5px}
 .day .dfig em,.day.on .dfig em{font-size:10px}.day .wxo,.day .wxo.ol{font-size:10px;color:#5b6670}.day .wxrain.nil,.day .wxwind em{font-size:10px;color:#5b6670}
 .dmotto{font-size:10.5px;opacity:1}em.wxnw,.day .wxnw{font-size:10.5px}
