@@ -685,6 +685,99 @@ function zoneEntry782(a){
 function entry782(a){
  const nt = navTargetFor(a); const s = nt ? mbpSide782(nt.ll) : null; if (!s) return zoneEntry782(a);""", 'way in by area', p, True)
 
+# 12. ONE DESTINATION, READ THE SAME EVERYWHERE (Codex recheck, 2 Oct 2026). The text, Full details, the Navigate button
+#     (its label, its spoken text and its tooltip), the load and drop-card QR codes, the sheet and the way in each worked out
+#     the destination for themselves, so an item with no drop-off could be texted to the pit lane while the button sent the
+#     driver to its unverified drawing spot, and the text could pair the pit lane with an ENTRY line worked out from the
+#     item's own spot. dest782() is now the one answer they all read: the spot the description names (water barriers), then
+#     the pit lane when there is no drop-off, then the position on the record - with its provenance, said the same way on
+#     every surface, and an approximate spot that says so even in the short text. The due date and the time asked for are
+#     always in the text; only the link and the extras give way when it is long.
+t = rep(t, "function report782(a){ return a && !movedFor(a) && noDrop782(a) ? reportTo782() : null; }",
+        r"""function report782(a){ return a && !movedFor(a) && noDrop782(a) ? reportTo782() : null; }
+/* v7.82 - ONE DESTINATION for an item, read by every surface that sends a driver (Codex recheck) */
+function dest782(a){
+ if (!a) return null;
+ if (!movedFor(a)) {
+  const D = descLoc782(a);
+  if (D) { const ap = /approximate/i.test(D.src || ''); return {kind: 'desc', ll: D.ll, a, approx: ap, label: 'description',
+   sms: 'water barriers: the spot the description names' + (ap ? ', approximate - check on site' : ''),
+   spoken: 'to the spot the description names' + (ap ? ' (approximate - check on site)' : '') + ' for', nav: 'the spot the description names for ' + a.key + ' - ' + D.src}; }
+  const R = report782(a);
+  if (R) return {kind: 'report', ll: R.ll, a: R.a || a, approx: false, label: 'pit lane', sms: 'pit lane',
+   spoken: 'to the pit lane (no drop-off yet) for', nav: 'the pit lane - no drop-off is set for ' + a.key + ' yet; the driver reports there and site directs them'};
+ }
+ const nt = navTargetFor(a); if (!nt || !nt.ll) return null;
+ const L = nt.pinned && nt.fix && nt.fix.master ? locSrc782(a.key) : null;
+ if (L) return {kind: L.kind, ll: nt.ll, a, nt, approx: L.kind === 'unverified', label: L.kind === 'confirmed' ? 'confirmed' : 'not verified', sms: L.sms,
+  spoken: L.kind === 'confirmed' ? 'to the spot the project manager confirmed for' : 'to a drawing position (not verified - check it on site) for', nav: L.nav};
+ if (nt.pinned && nt.fix && nt.fix.master) return {kind: 'master', ll: nt.ll, a, nt, approx: false, label: 'master plan', sms: 'master plan', spoken: 'to the spot on the master plan for'};
+ if (nt.pinned) return {kind: 'pinned', ll: nt.ll, a, nt, approx: false, label: 'pinned', sms: 'pinned on site' + (nt.fix && nt.fix.acc != null ? ', within ' + Math.max(1, Math.round(nt.fix.acc)) + ' m' : ''), spoken: 'to the spot pinned on site for'};
+ if (nt.placed) return {kind: 'placed', ll: nt.ll, a, nt, approx: true, label: 'placed', sms: 'placed on the map, not yet checked on site', spoken: 'to the spot placed on the map (not yet checked on site) for'};
+ return {kind: 'area', ll: nt.ll, a, nt, approx: true, label: 'area', sms: 'the area, not the exact spot', spoken: 'to the planned area (not the exact spot) for'};
+}
+/* the fallbacks the text names on its own (the pit lane, the description) - every other surface reads these the same way */
+function destOwn782(a){ const d = dest782(a); return d && (d.kind === 'report' || d.kind === 'desc') ? d : null; }""", 'one destination', p, True)
+
+# the short text: where, from the one destination
+i0 = t.find('function text747Where(a){'); i1 = t.find('function text747WayIn(a){')
+assert i0 > 0 and i1 > i0 and t.count('function text747Where(a){') == 1, 'text747Where'
+t = t[:i0] + r"""function text747Where(a){
+ const D7 = dest782(a); /* v7.82 - the one destination (Codex recheck) */
+ if (!D7) return [movedFor(a) ? 'Location changed. Please confirm the new location before departure.' : 'Location not yet confirmed. Please contact the site team before departure.'];
+ if (D7.kind === 'report') return ['No drop-off yet: report to the pit lane.', 'GPS: ' + D7.ll.text + ' (pit lane)', 'Navigate: ' + navUrl(D7.ll)];
+ return ['GPS: ' + D7.ll.lat.toFixed(6) + ', ' + D7.ll.lon.toFixed(6) + ' (' + D7.sms + ')', 'Navigate: ' + navUrl(D7.ll)];
+}
+""" + t[i1:]
+# the due date and the time asked for always go; only the link and the extras give way
+t = rep(t, """ const link = text747Link(a);
+ [text747When(a),link ? 'Delivery details: ' + link : ''].filter(Boolean).forEach(o => {""",
+        """ { const w = text747When(a); if (w) L.push(w); } /* v7.82 - the due date and the time asked for always go (Codex recheck) */
+ const link = text747Link(a);
+ [link ? 'Delivery details: ' + link : ''].filter(Boolean).forEach(o => {""", 'text: the time always goes', p, True)
+# the way in: from the destination - the pit lane's own when the driver reports there, never the item's
+t = rep(t, "function entry782(a){\n const nt = navTargetFor(a); const s = nt ? mbpSide782(nt.ll) : null; if (!s) return zoneEntry782(a);",
+        "function entry782(a){\n { const R = report782(a); if (R) return R.a && R.a.key !== a.key ? entry782(R.a) : null; } /* v7.82 - the pit lane's way in, never the item's own (Codex recheck) */\n const D7 = dest782(a); const s = D7 ? mbpSide782(D7.ll) : null; if (!s) return zoneEntry782(a);", 'way in from the destination', p, True)
+t = rep(t, """function zoneEntry782(a){
+ if (!a || inPlace782(a.key)) return null;
+ let nt = null; try { nt = navTargetFor(a); } catch (e) {}
+ const D = typeof descLoc782 === 'function' ? descLoc782(a) : null, ll = nt ? nt.ll : D ? D.ll : null, pt = ptOf782(a, ll); if (!pt) return null;""",
+        """function zoneEntry782(a){
+ if (!a || inPlace782(a.key)) return null;
+ { const R = report782(a); if (R) return R.a && R.a.key !== a.key ? zoneEntry782(R.a) : null; } /* v7.82 - the pit lane's own */
+ const D7 = dest782(a), ll = D7 ? D7.ll : null, pt = D7 && D7.kind === 'desc' && !(MASTER_LOC[a.key] && MASTER_LOC[a.key].pt) ? ptOf782({key: ''}, ll) : ptOf782(a, ll); if (!pt) return null;""", 'zone way in from the destination', p, True)
+# the Navigate button: where it goes, its label, its spoken words and its tooltip all from the one destination
+t = rep(t, "function navPointFor(a){ const t = navTargetFor(a); return t ? t.ll : null; }",
+        "function navPointFor(a){ const d = dest782(a); return d ? d.ll : null; } /* v7.82 - the one destination */", 'navigate: the one destination', p, True)
+t = rep(t, "function navSays(a){\n const t = navTargetFor(a);",
+        "function navSays(a){\n { const D7 = dest782(a); if (D7 && (D7.kind === 'report' || D7.kind === 'desc' || D7.kind === 'confirmed' || D7.kind === 'unverified')) return 'Opens your maps app with driving directions to ' + D7.nav + '.'; } /* v7.82 */\n const t = navTargetFor(a);", 'navigate: tooltip', p, True)
+t = rep(t, """ title="${esc(navSays(a))}"${(navTargetFor(a) || {}).pinned ? ' data-pinned="1"' : ''}>${NAV_PIN}<span>Navigate</span>${(navTargetFor(a) || {}).pinned ?'<span class="navpinned" aria-hidden="true">' + (masterUnit(a && a.key) ? 'master plan' : 'pinned') + '</span>' : ''}<span class="vh"> ${(navTargetFor(a) || {}).pinned ? (masterUnit(a && a.key) ? 'to the spot on the master plan for' : 'to the spot pinned on site for') : 'to the planned area for'} ${esc((a && a.key) || 'this drop')}, opens your maps app</span></a>`;""",
+        """ title="${esc(navSays(a))}"${D7n && D7n.kind !== 'area' && D7n.kind !== 'placed' ? ' data-pinned="1"' : ''}>${NAV_PIN}<span>Navigate</span>${D7n && D7n.kind !== 'area' ? '<span class="navpinned" aria-hidden="true">' + esc(D7n.label) + '</span>' : ''}<span class="vh"> ${esc(D7n ? D7n.spoken : 'to the planned area for')} ${esc((a && a.key) || 'this drop')}, opens your maps app</span></a>`; /* v7.82 - label, spoken words and tooltip from one destination */""", 'navigate: label and spoken words', p, True)
+t = rep(t, "function navBtn(a, opts){\n const o = opts || {};\n const ll = o.ll || navPointFor(a);",
+        "function navBtn(a, opts){\n const o = opts || {};\n const D7n = dest782(a), ll = o.ll || (D7n ? D7n.ll : null);", 'navigate: button', p, True)
+# Full details: the same destination
+t = rep(t, " const nt = navTargetFor(a), ll = nt ? nt.ll : null;\n if (ll && nt.pinned) {",
+        " const D7f = destOwn782(a), nt = navTargetFor(a), ll = D7f ? D7f.ll : nt ? nt.ll : null; /* v7.82 - the one destination */\n if (D7f) {\n L.push(`Directions: ${navUrl(ll)}`);\n L.push(`Or key in: ${ll.text} — ${D7f.nav}.`);\n } else if (ll && nt.pinned) {", 'full details: the one destination', p, True)
+# the load's go button and QR, and the drop card
+t = rep(t, " let t = null; try { t = navTargetFor(r.a); } catch (e) { t = null; }\n if (t && t.ll) return {t, a: r.a, more: g.rows.length > 1};",
+        " let t = null; try { const D7 = dest782(r.a); t = D7 ? Object.assign({}, D7.nt || {}, {ll: D7.ll, D7}) : null; } catch (e) { t = null; } /* v7.82 - the one destination */\n if (t && t.ll) return {t, a: r.a, more: g.rows.length > 1};", 'load go: the one destination', p, True)
+t = rep(t, "function ldGoWord751(t){\n", "function ldGoWord751(t){\n if (t.D7) return t.D7.sms; /* v7.82 - said the same way as the text */\n", 'load go: words', p, True)
+t = rep(t, "const qrT = navTargetFor(a), qr = qrT ?", "const qrT = dest782(a), qr = qrT ?", 'drop picture QR: the one destination', p, True)
+t = rep(t, " const pinT = (as.length === 1 ? navTargetFor(as[0]) : null);",
+        " const D7c = as.length === 1 ? destOwn782(as[0]) : null, pinT = D7c ? {pinned: true, ll: D7c.ll, D7: D7c} : (as.length === 1 ? navTargetFor(as[0]) : null); /* v7.82 - the one destination */", 'drop card: the one destination', p, True)
+t = rep(t, "${ll ? `<p class=\"fine\">Satnav: <b class=\"mono\">${cardEsc(ll.text)}</b> — the drawing's spot for this reference, good to within a metre or so. It is a drawing position, not a surveyed one: drive to it, then take the spot from the supervisor.</p>` : ''}",
+        "${ll ? `<p class=\"fine\">Satnav: <b class=\"mono\">${cardEsc(ll.text)}</b> — ${pinT && pinT.D7 ? cardEsc(pinT.D7.nav) + '.' : 'the drawing\\'s spot for this reference, good to within a metre or so. It is a drawing position, not a surveyed one: drive to it, then take the spot from the supervisor.'}</p>` : ''}", 'drop card: satnav words', p, True)
+t = rep(t, "${pinT && pinT.pinned ? 'Navigate to the pinned spot' : 'Navigate to the drop area'}",
+        "${pinT && pinT.D7 ? (pinT.D7.kind === 'report' ? 'Navigate to the pit lane' : 'Navigate to the spot the description names') : pinT && pinT.pinned ? 'Navigate to the pinned spot' : 'Navigate to the drop area'}", 'drop card: button words', p, True)
+# the satellite block's Navigate and the day table's drive link
+t = rep(t, "${(() => { const t = navTargetFor(a); return t && t.pinned\n ? `<a class=\"btn ghost tiny out\" href=\"${esc(navUrl(t.ll))}\" target=\"_blank\" rel=\"noopener\" title=\"${esc(navSays(a))}\">Navigate ↗ <span class=\"navpinned\">pinned</span></a>`",
+        "${(() => { const D7s = destOwn782(a), t = D7s ? {pinned: true, ll: D7s.ll, D7: D7s} : navTargetFor(a); return t && t.pinned\n ? `<a class=\"btn ghost tiny out\" href=\"${esc(navUrl(t.ll))}\" target=\"_blank\" rel=\"noopener\" title=\"${esc(navSays(a))}\">Navigate ↗ <span class=\"navpinned\">${esc(t.D7 ? t.D7.label : (dest782(a) || {}).label || 'pinned')}</span></a>`", 'satellite block: the one destination', p, True)
+t = rep(t, "function dayPinCell(a){\n if (!a || !isRef(a.key)) return '';",
+        "function dayPinCell(a){\n if (!a || !isRef(a.key)) return '';\n { const D7 = destOwn782(a); if (D7) return `<br><span class=\"chip ref\" title=\"${esc(D7.nav)}\">${esc(D7.label)}</span>\n <a class=\"linkish\" href=\"${navUrl(D7.ll)}\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"driving directions to ${esc(D7.nav)}\">drive</a>\n <a class=\"linkish\" href=\"${walkUrl(D7.ll)}\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"walking directions to ${esc(D7.nav)}\">walk to it</a>`; } /* v7.82 - the one destination */", 'day table: the one destination', p, True)
+# the sheet: the description's spot is named as the description, as the text names it
+t = rep(t, " { const R = report782(a); if (R) return {kind: 'report', lat: R.ll.lat, lon: R.ll.lon, pt: fr(R.ll.lat, R.ll.lon), ref: R.ref}; } /* v7.82 */",
+        " { const R = report782(a); if (R) return {kind: 'report', lat: R.ll.lat, lon: R.ll.lon, pt: fr(R.ll.lat, R.ll.lon), ref: R.ref}; } /* v7.82 */\n { const D7 = dest782(a); if (D7 && D7.kind === 'desc') return {kind: 'desc', lat: D7.ll.lat, lon: D7.ll.lon, pt: fr(D7.ll.lat, D7.ll.lon), how: descLoc782(a).src}; } /* v7.82 - as the text names it */", 'sheet: the one destination', p, True)
+
 t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch, a check before driver sheets print, location signs, the pit lane when there is no drop-off, water barriers from their description, every location still to come in Inventory). */\n/* v7.80 - a save empties', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
 print('v7.82 applied: GN21 corrected on the master; driver rules on Text it and Full details')
