@@ -1,0 +1,47 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.85/GC500_Delivery_Control_hosted.html",
+ "passed": 8,
+ "of": 8,
+ "tests": [
+  {
+   "name": "B1 a Fence blocks line at the 2026 card's $3.02 a block, counted each",
+   "pass": true,
+   "detail": "{\"col\":{\"unit\":\"each\",\"card_line\":\"Fence Blocks( per block)\",\"rate\":3.02},\"rate\":{\"value\":3.02,\"source\":\"card\"}}"
+  },
+  {
+   "name": "B2 36566 as used - 216 blocks - is charged $652.32",
+   "pass": true,
+   "detail": "{\"cost\":652.32,\"lines\":[[\"fence_blocks\",216,3.02,652.32]]}"
+  },
+  {
+   "name": "B3 what Advanced bill for blocks is not known and is not estimated (paid side left for their invoice)",
+   "pass": true,
+   "detail": "{\"paid\":{\"value\":null,\"source\":null},\"paidTotal\":0,\"paidUnpriced\":[\"fence_blocks\"]}"
+  },
+  {
+   "name": "B4 the record-a-paper form offers the Fence blocks line",
+   "pass": true,
+   "detail": "true"
+  },
+  {
+   "name": "B5 the docket counts on the Fencing tab as usable, and the tab draws with the line on it",
+   "pass": true,
+   "detail": "{\"inAll\":{\"cost\":652.32,\"usable\":true,\"problems\":[]},\"rendered\":true,\"err\":null}"
+  },
+  {
+   "name": "B6 no existing docket's charge or paid figure moves (63 dockets)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "B7 the settled line is not raised as an open rate question",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}
