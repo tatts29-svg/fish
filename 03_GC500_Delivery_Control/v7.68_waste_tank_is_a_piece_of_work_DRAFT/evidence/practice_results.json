@@ -135,6 +135,7 @@
   ],
   "money": {
    "total": 558017.15,
+   "servicing": 85101.75,
    "labour": 19170.02,
    "ticks": 177,
    "costKnown": 235371.76,
@@ -145,6 +146,7 @@
  },
  "live": {
   "total": 558017.15,
+  "servicing": 85101.75,
   "labour": 19170.02,
   "ticks": 177,
   "costKnown": 235371.76,

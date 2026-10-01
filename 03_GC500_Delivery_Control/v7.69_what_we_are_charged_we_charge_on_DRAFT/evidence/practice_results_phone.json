@@ -1,7 +1,8 @@
 {
  "mobile": true,
  "checks": {
-  "waterLinesAtCost": true,
+  "waterLinesAtTheQuotesFigures": true,
+  "tankIsSixWeeks": true,
   "pumpOutsUnchanged": true,
   "servicingIsTheRevenueLine": true,
   "toiletsGroupFollows": true,
@@ -13,7 +14,7 @@
   "readOnly": true,
   "revenueUpByTheWaterOnly": true,
   "typedRateStandsIn": true,
-  "underCostIsFlagged": true,
+  "underCostIsNotApplied": true,
   "noBrokenValues": true,
   "noHorizontalOverflow": true,
   "noErrors": true,
@@ -30,7 +31,9 @@
      "rate": 6800,
      "amount": 6800,
      "from": "at cost",
-     "covered": true
+     "covered": true,
+     "period": null,
+     "theirAmount": 6800
     },
     {
      "d": "Water Truck - Pre fill",
@@ -38,7 +41,9 @@
      "rate": 2800,
      "amount": 2800,
      "from": "at cost",
-     "covered": true
+     "covered": true,
+     "period": null,
+     "theirAmount": 2800
     },
     {
      "d": "Water delivery",
@@ -46,27 +51,32 @@
      "rate": 375,
      "amount": 2250,
      "from": "at cost",
-     "covered": true
+     "covered": true,
+     "period": null,
+     "theirAmount": 2250
     },
     {
      "d": "3000 Ltr Free Drinking Water Tank",
      "qty": 1,
-     "rate": 350,
-     "amount": 350,
+     "rate": 2100,
+     "amount": 2100,
      "from": "at cost",
-     "covered": true
+     "covered": true,
+     "period": "6 weeks",
+     "theirAmount": 2100
     }
    ],
-   "total": 97301.75,
+   "total": 99051.75,
    "cardTotal": 85101.75,
-   "atCostTotal": 12200,
+   "atCostTotal": 13950,
    "their": 46545,
-   "theirWater": 12200,
-   "under": 0
+   "theirWater": 13950,
+   "under": 0,
+   "quotesWater": 13950
   },
   "money": {
-   "total": 570217.15,
-   "servicing": 97301.75,
+   "total": 571967.15,
+   "servicing": 99051.75,
    "labour": 19170.02,
    "costKnown": 235371.76,
    "missingShort": [
@@ -85,33 +95,38 @@
    ]
   },
   "toilets": {
-   "rev": 166394.01,
-   "expect": 166394.01,
+   "rev": 168144.01,
+   "expect": 168144.01,
    "cost": 118575
   },
   "totals": {
-   "rev": 300992.49,
+   "rev": 302742.49,
    "revToCome": 248809.54,
    "cost": 193596.5,
    "costToCome": 180090.1,
    "costMissing": 3,
    "lines": 199,
-   "revJob": 549802.03,
+   "revJob": 551552.03,
    "costJob": 373686.6,
-   "share": 0.6712870736849859,
-   "shareNow": 0.5278559054212942
+   "share": 0.6719879313336738,
+   "shareNow": 0.5293004851764651
   },
   "text": {
    "plHasWater": true,
    "plOldPhrase": true,
    "plUnder": false,
+   "plStale": false,
    "cardRows": 4,
    "cardHint": true,
    "cardOldHint": false,
+   "hubStale": false,
+   "paneHasQuotedRule": true,
    "rhRule": true,
    "rhCovers": 3,
    "rhNotOnRecord": 3,
-   "rhShort": false
+   "rhShort": false,
+   "rhCrew": true,
+   "rhOldPaid": false
   },
   "questions": {
    "water": {
@@ -121,12 +136,12 @@
     "group": "By branch",
     "id": "water-service-rate753",
     "q": "Water services — charged on at what we are charged",
-    "why": "Andrew, 1 Oct 2026: \"all our cost — what we charge should cover what we get charged.\" The water lines on the Event Portables quotes have no line on the card, so each is charged to the V8s at the supplier's figure — $12,200 ex GST in all — until the branch puts a rate on (a rate typed on Costs stands in). Revenue; the same cost stays in the Rehire cost.",
+    "why": "Andrew, 1 Oct 2026: “all our cost — what we charge should cover what we get charged.” The water lines on the Event Portables quotes have no line on the card, so each is charged to the V8s at the quote’s own figure — $13,950 ex GST in all — until the branch puts a rate on (a rate typed on Costs stands in; one under the supplier’s figure is not applied). Revenue; the same cost stays in the Rehire cost.",
     "rows": [
-     "Water Truck · $6,800.00 at cost · supplier $6,800.00 ex GST",
-     "Water Truck - Pre fill · $2,800.00 at cost · supplier $2,800.00 ex GST",
-     "Water delivery · $375.00 at cost · supplier $2,250.00 ex GST",
-     "3000 Ltr Free Drinking Water Tank · $350.00 at cost · supplier $350.00 ex GST"
+     "Water Truck · charged $6,800.00 (at cost) · Event Portables charge us $6,800.00 ex GST",
+     "Water Truck - Pre fill · charged $2,800.00 (at cost) · Event Portables charge us $2,800.00 ex GST",
+     "Water delivery · charged $2,250.00 (at cost) · Event Portables charge us $2,250.00 ex GST",
+     "3000 Ltr Free Drinking Water Tank · charged $2,100.00 (at cost, 6 weeks) · Event Portables charge us $2,100.00 ex GST"
     ],
     "go": "costs"
    }
@@ -151,12 +166,14 @@
    "key": "service|Water Truck",
    "card_line": null,
    "card_rate": null,
+   "period": null,
    "rate": 7000,
    "from": "typed",
+   "typed_under": null,
    "amount": 7000,
    "covered": true
   },
-  "t1": 97501.75,
+  "t1": 99251.75,
   "typedDown": {
    "quote": "Q6846",
    "description": "Water delivery",
@@ -166,18 +183,20 @@
    "key": "service|Water delivery",
    "card_line": null,
    "card_rate": null,
-   "rate": 300,
-   "from": "typed",
-   "amount": 1800,
-   "covered": false
+   "period": null,
+   "rate": 375,
+   "from": "at cost",
+   "typed_under": 300,
+   "amount": 2250,
+   "covered": true
   },
-  "t2": 97051.75,
+  "t2": 99251.75,
   "under": [
    "Water delivery"
   ],
   "plUnder": true,
   "cardFlag": true,
-  "back": 97301.75
+  "back": 99051.75
  },
  "overflow": 0,
  "errors": [],
