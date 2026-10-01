@@ -51,18 +51,18 @@ for ref, g in GEN.items():
 # 1b. P47 (QPS Amenities Crib Room, due 6 Oct). Andrew, 2 Oct: "is this location correct?" The current master (D001 rev 03)
 # does not draw P47 anywhere; its compound by Gate 2 / Commodore Park shows P46 (QPS Command Post), P08, OP14 and GEM. D022
 # (rev 02) callout 047 points into that compound. The 27 Sep reading put P47 on the compound's west fence line, beside P46,
-# on no building. So: the compound is supported, the spot is not - the text says so, and nobody is sent to a made-up spot.
+# beside P46. Andrew, 2 Oct 2026, on seeing it: "P47 looks good" - so the spot stands, as his confirmation, and says so.
 k = t.index('"P47":{', start); obj_at = k + len('"P47":')
 old, end = json.JSONDecoder().raw_decode(t, obj_at)
 if old.get('how') != 'leader line from callout 047 on D022': sys.exit('P47 on the master changed - review before applying')
 new = dict(old)
-new['how'] = 'the QPS compound by Gate 2 / Commodore Park, beside P46 (QPS Command Post): D022 rev 02 callout 047 points into it, but the current master (rev 03) does not draw P47 - the exact spot is to be confirmed on site'
-new['confirm'] = 'exact spot not on the current master'
+new['how'] = 'the QPS compound by Gate 2 / Commodore Park, beside P46 (QPS Command Post): D022 rev 02 callout 047 points into it; the current master (rev 03) does not draw P47 - the spot confirmed by the project manager, 2 Oct 2026'
+new['confirmed'] = 'the project manager, 2 Oct 2026'
 new.pop('img', None)
 t = t[:obj_at] + json.dumps(new, ensure_ascii=False, separators=(',', ':')) + t[end:]
 t = rep(t, " const src = nt.pinned && nt.fix && nt.fix.master ? 'master plan'",
-        " const conf782 = nt.pinned && nt.fix && nt.fix.master && typeof masterLoc === 'function' && masterLoc(a.key) && masterLoc(a.key).confirm; /* v7.82 */\n const src = conf782 ? 'the compound - exact spot to be confirmed on site' : nt.pinned && nt.fix && nt.fix.master ? 'master plan'",
-        'a master place that is a compound, not a spot, says so', p, True)
+        " const conf782 = nt.pinned && nt.fix && nt.fix.master && typeof masterLoc === 'function' && masterLoc(a.key) && masterLoc(a.key).confirmed; /* v7.82 */\n const src = conf782 ? 'confirmed by the project manager' : nt.pinned && nt.fix && nt.fix.master ? 'master plan'",
+        'a spot the project manager confirmed says so', p, True)
 
 # 2. driver rules
 line = json.load(open(os.path.join(HERE, 'evidence', 'main_beach_pde_tomtom.json')))['lonlat']

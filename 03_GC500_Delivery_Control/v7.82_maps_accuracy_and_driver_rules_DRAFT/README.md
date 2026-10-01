@@ -41,12 +41,10 @@ GN20 (350 kVA, the larger symbol) and GN21 (60 kVA, the smaller) sit side by sid
 west end. That is the tight spot GN21 goes into first. The old close/wide proof pictures were centred on the wrong
 spots and are taken off the moved generators.
 
-**P47 (QPS Amenities Crib Room, due 6 Oct): the compound is right, the spot is not confirmed.** Andrew asked. The
-current master (rev 03) does not draw P47 anywhere. Its compound by Gate 2 / Commodore Park shows P46 (QPS Command
-Post), P08, OP14 and a GEM building. D022 (rev 02) callout 047 points into that compound
-(`evidence/P47_D022_rev02_callout_047.jpg`). The 27 Sep reading put P47 on the compound's west fence line, beside P46,
-on no building (`evidence/P47_master_rev03_sharp.jpg`). The text now reads "GPS: … (the compound - exact spot to be
-confirmed on site)". Navigate still goes to the compound, and nobody is told it is the exact spot.
+**P47 (QPS Amenities Crib Room, due 6 Oct): confirmed by Andrew, 2 Oct ("P47 looks good").** The current master
+(rev 03) does not draw P47. D022 (rev 02) callout 047 points into the QPS compound by Gate 2 / Commodore Park, and the
+position sits there beside P46 (`evidence/P47_D022_rev02_callout_047.jpg`, `evidence/P47_master_rev03_sharp.jpg`). The
+text reads "GPS: … (confirmed by the project manager)", so its source is stated honestly: not "master plan".
 
 **Light towers LTC01–LTC14 are not on the master as symbols.** They were made from blue fans on D024 (the legend has no
 symbol for them). Several sit in a traffic lane. They are **not changed**, because there is no symbol to check them
@@ -149,12 +147,12 @@ bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v
 python3 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_explorer782.py <live explorer/explorer.js> v7.82_maps_accuracy_and_driver_rules_DRAFT/release/explorer/explorer.js
 ```
 
-- **Page:** 8,693,602 bytes, SHA-256 `5ed973946eedbcff59ded62aafcc014ac67d6236e3bb8d2f644e33173569c0d1`, on live
+- **Page:** 8,693,592 bytes, SHA-256 `bc25a87a0d10ded8d779e69111da9f071d2d4eff7efc61d2fc3cc7c421367733`, on live
   `303029e3…`; check_page PASS, no keys.
 - **Explorer:** `release/explorer/explorer.js`, 127,456 bytes, md5 `c7238da1d48709a36866a2ac8fa39684`, on live md5
   `1407e270…`. Only this one machine file changes.
 
-## Results — on the final page `5ed97394…` and explorer `c7238da1…`
+## Results — on the final page `bc25a87a…` (rerun after Andrew confirmed P47) and explorer `c7238da1…`
 
 | Check | Result |
 |---|---|
@@ -165,11 +163,11 @@ python3 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_explorer782.py <live ex
 | The released P&L suite | **31/31 desktop · 31/31 phone** |
 | Codex's v7.76 navigation regressions | **21/21** |
 | Sweeps | **21 tabs, 7 deep links, 0 page errors, 0 console — desktop and phone** |
-| Codex's v7.79 Text it checks | **21/23**. The two misses are this release's intended changes: (1) "master-plan provenance" — P47 now reads "(the compound - exact spot to be confirmed on site)" instead of "(master plan)"; (2) "every link that fitted still fits" — the 7 messages where an ORDER/ENTRY line takes the link's room. Every other check passes, including no due date lost, GSM budget (max 458 of 459), welcome, navigation, GPS, access, unresolved destinations and no writes. |
+| Codex's v7.79 Text it checks | **21/23**. The two misses are this release's intended changes: (1) "master-plan provenance" — P47 now reads "(confirmed by the project manager)" instead of "(master plan)", because the master does not draw it; (2) "every link that fitted still fits" — the 7 messages where an ORDER/ENTRY line takes the link's room. Every other check passes, including no due date lost, GSM budget (max 458 of 459), welcome, navigation, GPS, access, unresolved destinations and no writes. |
 
 Every test is read-only: GETs only, writes aborted, and no texts sent.
 
-**Claude: complete on page `5ed97394…` and explorer `c7238da1…`. Handed to Codex for review.** Release, once both have
+**Claude: complete on page `bc25a87a…` and explorer `c7238da1…`. Handed to Codex for review.** Release, once both have
 reviewed: the page upload, plus the one machine file `explorer/explorer.js` (Codex's edit key). Not ready to upload
 before then.
 
