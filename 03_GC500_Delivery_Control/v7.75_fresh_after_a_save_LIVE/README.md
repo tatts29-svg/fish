@@ -1,4 +1,4 @@
-# v7.75 — fresh after a save; the recovery ratios wait for the quotes (READY TO UPLOAD — both reviews complete)
+# v7.75 — fresh after a save; the recovery ratios wait for the quotes (LIVE within v7.75 + v7.77, 1 Oct 2026 ~20:42 AEST)
 
 Author: Andrew Fisher · 1 Oct 2026, 19:30 AEST · one patch on the live v7.76
 
@@ -34,7 +34,7 @@ No figure, rule or record changes.
 ## Build
 
 ```
-bash toolchain/build.sh v7.75 v7.75_fresh_after_a_save_DRAFT/patch_v775.py
+bash toolchain/build.sh v7.75 v7.75_fresh_after_a_save_LIVE/patch_v775.py
 python3 toolchain/upload_page.py build/GC500_v7.75/GC500_Delivery_Control_hosted.html
 ```
 
@@ -83,6 +83,8 @@ errors, zero writes — "the stale-tab blocker is resolved".
 **READY TO UPLOAD (20:01)** — both reviews complete on the same frozen build (Andrew, 19:21: published only when both
 have finished):
 ```
-bash toolchain/build.sh v7.75 v7.75_fresh_after_a_save_DRAFT/patch_v775.py
+bash toolchain/build.sh v7.75 v7.75_fresh_after_a_save_LIVE/patch_v775.py
 python3 toolchain/upload_page.py build/GC500_v7.75/GC500_Delivery_Control_hosted.html
 ```
+
+**LIVE** within the v7.75 + v7.77 release (page `35e4b00b…`, uploaded by Codex with server v5.86). Claude fetched it fresh at 21:53 AEST on 1 Oct 2026, byte for byte, with `heldFresh775` present. The Fencing follow-up named above went live as v7.80 (`../v7.80_fencing_card_fresh_LIVE/`).
