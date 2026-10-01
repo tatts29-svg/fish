@@ -1,12 +1,14 @@
-# v7.89: compact header and full-width tabs (READY TO UPLOAD)
+# v7.89: compact header and full-width tabs (LIVE)
 
 Author: Andrew Fisher · 2 Oct 2026. One patch on the live v7.87 (`d592847a…`):
 
 ```
-bash toolchain/build.sh v7.89 v7.89_compact_header_full_width_DRAFT/patch_v789.py
+bash toolchain/build.sh v7.89 v7.89_compact_header_full_width_LIVE/patch_v789.py
 ```
 
-That build gives **8,861,306 bytes, SHA-256 `0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac`**.
+Published **2 Oct 2026 09:44 AEST**: **8,861,306 bytes**, SHA256 `0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac`.
+The official page-only upload passed its fresh-base guard, and the public view matches the tested build byte for byte.
+Shared record **3538** is unchanged. Publication proof: `evidence/release_verification.json`.
 - The scrub changes nothing.
 - `check_page` passes.
 
@@ -56,7 +58,7 @@ The phone header is still 255 px (30% of an iPhone screen). That is a separate j
 
 ## Independent review of the final candidate
 
-The exact `0d165f5f` candidate is **READY TO UPLOAD; not published**. Independent checks passed:
+The exact `0d165f5f` candidate is **LIVE, 2 Oct 2026 09:44 AEST**. Independent checks passed:
 
 - **30/30 header checks:** equal pods at 1333, 1920, 1100 and 641 px; exactly half the header content row at laptop
   and wide sizes; full-width panes; native scroll behaviour at 90/91/50/12/11/80/600/0 px; restoration at the top;
