@@ -1,0 +1,187 @@
+{
+ "mobile": false,
+ "checks": {
+  "waterLinesAtCost": true,
+  "pumpOutsUnchanged": true,
+  "servicingIsTheRevenueLine": true,
+  "toiletsGroupFollows": true,
+  "gapIsACaveatNow": true,
+  "plSaysSo": true,
+  "cardListsTheWaterLines": true,
+  "rehireCardSaysWhoCovers": true,
+  "coverForTheBusinessIsRight": true,
+  "readOnly": true,
+  "revenueUpByTheWaterOnly": true,
+  "typedRateStandsIn": true,
+  "underCostIsFlagged": true,
+  "noBrokenValues": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true,
+  "everyWriteBlocked": true
+ },
+ "data": {
+  "sv": {
+   "n": 7,
+   "card": 3,
+   "atCost": [
+    {
+     "d": "Water Truck",
+     "qty": 1,
+     "rate": 6800,
+     "amount": 6800,
+     "from": "at cost",
+     "covered": true
+    },
+    {
+     "d": "Water Truck - Pre fill",
+     "qty": 1,
+     "rate": 2800,
+     "amount": 2800,
+     "from": "at cost",
+     "covered": true
+    },
+    {
+     "d": "Water delivery",
+     "qty": 6,
+     "rate": 375,
+     "amount": 2250,
+     "from": "at cost",
+     "covered": true
+    },
+    {
+     "d": "3000 Ltr Free Drinking Water Tank",
+     "qty": 1,
+     "rate": 350,
+     "amount": 350,
+     "from": "at cost",
+     "covered": true
+    }
+   ],
+   "total": 97301.75,
+   "cardTotal": 85101.75,
+   "atCostTotal": 12200,
+   "their": 46545,
+   "theirWater": 12200,
+   "under": 0
+  },
+  "money": {
+   "total": 570217.15,
+   "servicing": 97301.75,
+   "labour": 19170.02,
+   "costKnown": 235371.76,
+   "missingShort": [
+    "labour actuals and forecasts reviewed separately",
+    "event staff not on the tracker",
+    "31 nights unpriced",
+    "transport only partly in",
+    "subhire rehire cost not on the record",
+    "2 contract lines unrated"
+   ],
+   "caveatsShort": [
+    "event labour times still to be updated",
+    "rehire toilet total not final",
+    "water charged on at cost",
+    "35 transport figures are minimums"
+   ]
+  },
+  "toilets": {
+   "rev": 166394.01,
+   "expect": 166394.01,
+   "cost": 118575
+  },
+  "totals": {
+   "rev": 300992.49,
+   "revToCome": 248809.54,
+   "cost": 193596.5,
+   "costToCome": 180090.1,
+   "costMissing": 3,
+   "lines": 199,
+   "revJob": 549802.03,
+   "costJob": 373686.6,
+   "share": 0.6712870736849859,
+   "shareNow": 0.5278559054212942
+  },
+  "text": {
+   "plHasWater": true,
+   "plOldPhrase": true,
+   "plUnder": false,
+   "cardRows": 4,
+   "cardHint": true,
+   "cardOldHint": false,
+   "rhRule": true,
+   "rhCovers": 3,
+   "rhNotOnRecord": 3,
+   "rhShort": false
+  },
+  "questions": {
+   "water": {
+    "st": "done",
+    "need": "",
+    "confirmed753": true,
+    "group": "By branch",
+    "id": "water-service-rate753",
+    "q": "Water services — charged on at what we are charged",
+    "why": "Andrew, 1 Oct 2026: \"all our cost — what we charge should cover what we get charged.\" The water lines on the Event Portables quotes have no line on the card, so each is charged to the V8s at the supplier's figure — $12,200 ex GST in all — until the branch puts a rate on (a rate typed on Costs stands in). Revenue; the same cost stays in the Rehire cost.",
+    "rows": [
+     "Water Truck · $6,800.00 at cost · supplier $6,800.00 ex GST",
+     "Water Truck - Pre fill · $2,800.00 at cost · supplier $2,800.00 ex GST",
+     "Water delivery · $375.00 at cost · supplier $2,250.00 ex GST",
+     "3000 Ltr Free Drinking Water Tank · $350.00 at cost · supplier $350.00 ex GST"
+    ],
+    "go": "costs"
+   }
+  },
+  "readOnly": true
+ },
+ "live": {
+  "total": 558017.15,
+  "servicing": 85101.75,
+  "labour": 19170.02,
+  "costKnown": 235371.76,
+  "revJob": 537602.03,
+  "costJob": 373686.6
+ },
+ "rehearsal": {
+  "typedUp": {
+   "quote": "Q6844",
+   "description": "Water Truck",
+   "qty": 1,
+   "their_rate": 6800,
+   "their_amount": 6800,
+   "key": "service|Water Truck",
+   "card_line": null,
+   "card_rate": null,
+   "rate": 7000,
+   "from": "typed",
+   "amount": 7000,
+   "covered": true
+  },
+  "t1": 97501.75,
+  "typedDown": {
+   "quote": "Q6846",
+   "description": "Water delivery",
+   "qty": 6,
+   "their_rate": 375,
+   "their_amount": 2250,
+   "key": "service|Water delivery",
+   "card_line": null,
+   "card_rate": null,
+   "rate": 300,
+   "from": "typed",
+   "amount": 1800,
+   "covered": false
+  },
+  "t2": 97051.75,
+  "under": [
+   "Water delivery"
+  ],
+  "plUnder": true,
+  "cardFlag": true,
+  "back": 97301.75
+ },
+ "overflow": 0,
+ "errors": [],
+ "console": [],
+ "blocked": 0,
+ "pass": true
+}
