@@ -6,7 +6,7 @@ Apply after v7.70 (on the live page: v7.70 then v7.72; Codex's v7.71 is the fenc
   From the management read of every tab (desktop and phone text, every fold open), the findings verified against the
   page source. Wording and display only; no figure, rule or record changes.
     1. No agent's name on the page: a recorder stamped "<name> via Codex" (or "via Claude") on the record shows as the
-       person's name alone wherever the page prints it (Today's delivery updates, Progress's RECORDED BY column, the
+       person's name alone on recorder displays (Today's delivery updates, Progress's RECORDED BY column, the
        folds). The record itself is untouched - this is how the page shows it.
     2. Progress - "All branches together": the sentence under the branch bars added the scope and the labour ticked to
        the branches and called it the whole revenue; the toilets' servicing and water charged on at our rates was left
@@ -27,9 +27,28 @@ t = open(p, encoding='utf-8').read(); bom = t.startswith('﻿'); t = t.lstrip('�
 if 'v7.72 - no agent name' in t: sys.exit('v7.72 already applied')
 if 'pl770Model' not in t: sys.exit('needs v7.70 first')
 
-# 1. no agent's name on the page: the escaper every rendering goes through drops a " via Codex" / " via Claude (...)" suffix
-t = rep(t, "const esc = s => String(s == null ? '' : s).replace(/[&<>\"']/g, c => (",
- "/* v7.72 - no agent name on the page: a recorder stamped \"<name> via Codex\" (or Claude) on the record shows as the person alone */\nconst esc = s => String(s == null ? '' : s).replace(/ via (?:Codex|Claude)(?: \\([^)]*\\))?/g, '').replace(/[&<>\"']/g, c => (", 'escaper', p, True)
+# 1. Recorder names are display-only: keep the shared HTML escaper lossless.
+helper = r"""/* v7.72 - no agent name on recorder displays; notes, forms and the stored record remain unchanged */
+function recorderDisplay772(value){
+ return esc(String(value == null ? '' : value).replace(/ via (?:Codex|Claude)(?: \([^)]*\))?$/, ''));
+}
+"""
+t = rep(t, 'const esc = s =>', helper + 'const esc = s =>', 'recorder display helper', p, True)
+recorder_sites = [
+    ("'no branch recorded'} · ${esc(r.by || 'unnamed')}", "'no branch recorded'} · ${recorderDisplay772(r.by || 'unnamed')}", 'Today delivery updates'),
+    ("esc(x.d.by || 'a person')", "recorderDisplay772(x.d.by || 'a person')", 'Progress recorded deliveries'),
+    ("esc(deliveryOf(o.key).by || 'a person')", "recorderDisplay772(deliveryOf(o.key).by || 'a person')", 'on-hire confirmation label'),
+    ("<td>${esc(r.by || 'unnamed')}${r.d.done ?", "<td>${recorderDisplay772(r.by || 'unnamed')}${r.d.done ?", 'recorded-by arrival column'),
+    ("<td>${esc(r.by || 'unnamed')}</td></tr>", "<td>${recorderDisplay772(r.by || 'unnamed')}</td></tr>", 'printed arrival recorder'),
+    ("+ ' (' + esc(r.by || 'unnamed') + ')'", "+ ' (' + recorderDisplay772(r.by || 'unnamed') + ')'", 'printed off-site recorder'),
+    ("esc(t.by || 'unnamed')", "recorderDisplay772(t.by || 'unnamed')", 'typed-field attribution'),
+    ("by <b>${esc(d.by || 'unnamed')}</b>", "by <b>${recorderDisplay772(d.by || 'unnamed')}</b>", 'delivery drawer recorder'),
+    ("esc(h.by || 'unnamed')", "recorderDisplay772(h.by || 'unnamed')", 'delivery history recorder'),
+    ("<em>${esc(h.by || '')}</em>", "<em>${recorderDisplay772(h.by || '')}</em>", 'delivery card history recorder'),
+    ("<td>${esc(who || 'unnamed')}${at ?", "<td>${recorderDisplay772(who || 'unnamed')}${at ?", 'field-change recorder'),
+]
+for old, new, label in recorder_sites:
+    t = rep(t, old, new, label, p, True)
 
 # 2. Progress - the sentence under the branch bars names the servicing and water charged on, so its parts add
 t = rep(t, """Not on a branch: the event labour scope, ${esc(money0(MS.charge.race.amount))}${MS.charge.labour_ticks ? `, and the labour ticked, ${esc(money0(MS.charge.labour))}` : ''} — the job's. With ${MS.charge.labour_ticks ? 'them' : 'it'}, ${esc(money0(MS.charge.total))} is the revenue charged to the V8s""",
