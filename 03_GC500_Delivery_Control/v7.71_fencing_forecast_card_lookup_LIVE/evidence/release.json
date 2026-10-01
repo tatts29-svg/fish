@@ -1,0 +1,29 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v7.71",
+  "live_aest": "2026-10-01 17:19",
+  "bytes": 8638736,
+  "sha256": "919b23f2b030af4b5a06c2a6b98661a3e637040582ede75e9d51cdcb181b3d29",
+  "public_view_matches": true,
+  "source_pdf_verified": true,
+  "synthetic_checks": 26,
+  "integration_checks": 13,
+  "forecast_regression_checks": 22,
+  "sweeps": {
+    "desktop": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "phone_screenshots_reviewed": true,
+  "shared_record_writes": 0,
+  "ledger_postings": 0
+}

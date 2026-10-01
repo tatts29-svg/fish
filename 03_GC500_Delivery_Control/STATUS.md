@@ -3,6 +3,20 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Release completed — v7.71 LIVE, 1 Oct 2026 17:19 AEST
+
+Author: Andrew Fisher
+
+The programme forecast lookup correction is live: **8,638,736 bytes**, SHA256
+`919b23f2b030af4b5a06c2a6b98661a3e637040582ede75e9d51cdcb181b3d29`; public view verified byte for byte.
+Source PDF verified; 26 synthetic, 13 integration and 22 forecast regression checks pass. Both sweeps passed
+21 tabs and 7 deep links with zero page/console errors. Phone screenshots inspected. No record or ledger writes.
+Source: `v7.71_fencing_forecast_card_lookup_LIVE/`. Claimed and pushed at 17:10 AEST, separately from v7.70.
+
+v7.70 remains DRAFT: independent review of e288743 found classification and completeness defects despite its
+reconciliation checks passing. Claude was notified on PR #1. Detailed review is private pending authorisation to
+publish it to the public PR. Any subsequent patch must build on the now-live v7.71 and use an unclaimed version.
+
 ## Release completed — v7.69 LIVE, 1 Oct 2026 17:02 AEST
 
 Author: Andrew Fisher
@@ -216,4 +230,3 @@ Author: Andrew Fisher
   deep links: 15 panes displayed directly, six redirected by design, and there were 0 page errors, 0 console
   errors and 0 navigation exceptions. `upload_page.py --dry-run` confirmed HTTP 200 edit-level access and stopped
   before upload. No page upload or live-record change was made.
-
