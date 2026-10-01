@@ -4,6 +4,11 @@
 `0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac`**. Desktop only: one row (lockup, search, three equal pods taking half the header width), slims to 105 px when the page is scrolled, tabs full width (1,500 px cap lifted). Laptop header 39% → 27% (15%
 scrolled). Sweeps ×2 clean, navigation 21/21, fresh-after-save 11/11. Phone bar untouched. (v7.88 = Codex's full lap.)
 
+Independent final-candidate review complete (Codex): exact `0d165f5f` rebuilt; header **30/30**, fresh-after-save
+**11/11**, both **21-tab/7-link** sweeps with zero page/console errors, desktop/phone visual inspection, protected
+source preservation, static checks and dry-run pass. Claude's final handover and Codex's review now cover the same
+candidate. **READY TO UPLOAD, NOT PUBLISHED**. Proof: `v7.89_compact_header_full_width_DRAFT/evidence/independent_review.json`.
+
 # GC500 status board
 
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
