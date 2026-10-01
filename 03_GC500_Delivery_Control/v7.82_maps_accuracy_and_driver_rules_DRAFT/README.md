@@ -20,21 +20,40 @@ Author: Andrew Fisher · 2 Oct 2026 · built on the live page v7.80 (`303029e3�
 
 ## 1. Map accuracy
 
-**GN21 was wrong, and it was our error.** The 27 Sep trace (`locations_from_master_27sep/trace.py`) found two
-candidate positions for callout 021 on D024. It kept the wrong one, following the leader line where it crosses 012's,
-and put GN21 by Gate 2 / Commodore Dr, 423 m away. On D024 the 021 arrow lands beside 020's at the pit lane's west end
-(`evidence/D024_gn20_21.jpg`). That matches Andrew: GN21 goes first into the tight spot, then GN20. **Fixed.** The
-master now reads that arrow: −27.985425, 153.427216, about 12 m from GN20, "leader line from callout 021 on D024 —
-corrected 2 Oct 2026". The old proof photographs of the wrong spot are removed from GN21.
+**Why GN21 was in the wrong place.** On 27 Sep we read the generator positions off the generator drawing D024 by
+machine (`locations_from_master_27sep/trace.py`). It followed each callout's leader line to its end. For 021, two lines
+cross, it took the wrong one, and it put GN21 by Gate 2 / Commodore Dr, 423 m from where it goes. Nobody checked the
+result against the master, and that was our miss. On D024, 021's arrow lands beside 020's at the west end of the pit
+lane (`evidence/D024_gn20_21.jpg`).
+
+**And every other generator was a few metres off too (Andrew, 2 Oct: "you can see an orange mark that looks like a
+generator").** The master D001 draws each generator as an orange symbol. The 27 Sep reading used the end of D024's
+arrow, which stops beside the symbol: on the road (GN03, GN01, GN20), on the fence line (GN06, GN13), on the next
+building (GN18, GN23) or in the trees (GN24). **Fixed: all twelve now sit on their own orange symbol**, read off D001
+and turned into GPS through the 12 nearest unit tags (worst fit 0.1 m) (`evidence/generators_on_their_master_symbol.json`,
+before: `evidence/generators_before_red_ours_blue_symbol.jpg`, after: `evidence/generators_after_on_symbol.jpg`):
+
+| | GN01 | GN03 | GN04 | GN06 | GN10 | GN13 | GN18 | GN19 | GN20 | GN21 | GN23 | GN24 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| moved (m) | 4.4 | 9.0 | 1.3 | 6.5 | 4.1 | 8.7 | 13.5 | 10.2 | 9.4 | 423 | 6.5 | 7.1 |
+
+GN20 (350 kVA, the larger symbol) and GN21 (60 kVA, the smaller) sit side by side, about 4 m apart, at the pit lane's
+west end. That is the tight spot GN21 goes into first. The old close/wide proof pictures were centred on the wrong
+spots and are taken off the moved generators.
+
+**Light towers LTC01–LTC14 are not on the master as symbols.** They were made from blue fans on D024 (the legend has no
+symbol for them). Several sit in a traffic lane. They are **not changed**, because there is no symbol to check them
+against. They are listed for a check on site, or for Andrew to mark (`evidence/light_towers_and_other_arrow_positions.jpg`). P26, P28, P47, CP1 and T0243 came from arrows
+too, and they sit on or against their buildings on the master.
 
 **Every other master position was compared with its own drawing** (`evidence/crosscheck_master_vs_own_drawing.json`):
 133 units, median 5 m apart. The four large gaps are all explained, and none is a master error:
 
 | Unit | Gap | What the evidence shows |
 |---|---|---|
-| GN06 | 1,019 m | The master is right: 120 The Esplanade, Surfers Paradise (reverse lookup). D024 draws it in the Esplanade panel (`evidence/D024_006.jpg`). The page's own arrow-to-ground conversion for that panel is what is off. |
-| GN10 | 653 m | The master is right: 162 The Esplanade, at the Main Beach Pde corner (`evidence/D024_010.jpg`). Same panel conversion issue. |
-| GN04 | 183 m | The master is right: 3355 Gold Coast Hwy, by S15 / Jarriparilla Park (`evidence/D024_004.jpg`). |
+| GN06 | 1,019 m | The master was right to within metres (now on its symbol): 120 The Esplanade, Surfers Paradise (reverse lookup). D024 draws it in the Esplanade panel (`evidence/D024_006.jpg`). The page's own arrow-to-ground conversion for that panel is what is off. |
+| GN10 | 653 m | The master was right to within metres (now on its symbol): 162 The Esplanade, at the Main Beach Pde corner (`evidence/D024_010.jpg`). Same panel conversion issue. |
+| GN04 | 183 m | The master is right (on its symbol): 3355 Gold Coast Hwy, by S15 / Jarriparilla Park (`evidence/D024_004.jpg`). |
 | P53, P54 | 45–61 m | The master and D022 agree: the west edge of Helen Park by Breaker St (`evidence/D001_P53_54.jpg`, `D022_053_054.jpg`). This is an edge-of-sheet conversion effect. |
 
 All other gaps are 32 m or less, and the board already explains them (rev 03 master against rev 02 sheets, and block tags).
@@ -123,7 +142,7 @@ bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v
 python3 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_explorer782.py <live explorer/explorer.js> v7.82_maps_accuracy_and_driver_rules_DRAFT/release/explorer/explorer.js
 ```
 
-- **Page:** 8,693,597 bytes, SHA-256 `78f8373b4094fd31517cd4eecf34393b026bf656cdb15b7b6c2366faf1533e8a`, on live
+- **Page:** 8,693,308 bytes, SHA-256 `a42d7bee4a6d4d7d7a7c546a889743fbda3d98156e5a2354d0bb28abbcf28a30`, on live
   `303029e3…`; check_page PASS, no keys.
 - **Explorer:** `release/explorer/explorer.js`, 127,456 bytes, md5 `c7238da1d48709a36866a2ac8fa39684`, on live md5
   `1407e270…`. Only this one machine file changes.

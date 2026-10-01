@@ -5,7 +5,7 @@ Andrew, 2 Oct 2026: "you have picked locations that don't exist. Example GN21 - 
 from? If we go to the generator map we can then find the correct location." And: if a location is not on the master,
 go back to the unit's own map, find it, and add it to the master; never make one up.
 
-  1. GN21 on the master. The 27 Sep trace (locations_from_master_27sep/trace.py) followed the wrong leader line from
+  1. Generators on the master (GN21 and eleven more). The 27 Sep trace (locations_from_master_27sep/trace.py) followed the wrong leader line from
      callout 021 on D024, where it crosses 012's, and put GN21 by Gate 2 / Commodore Dr, 423 m away. D024's own 021
      arrow lands beside 020's at the west end of the pit lane (evidence/D024_gn20_21.jpg). GN21 now reads that arrow.
      Every other master position was compared with its own drawing (evidence/crosscheck_master_vs_own_drawing.json, README): none else is wrong.
@@ -29,16 +29,24 @@ t = open(p, encoding='utf-8').read(); bom = t.startswith('ï»¿'); t = t.lstrip('ï
 if 'function mbpSide782(' in t: sys.exit('v7.82 already applied')
 if 'function dropSmsText(' not in t or 'const MASTER_LOC = ' not in t: sys.exit('v7.82 needs the live v7.79+ page')
 
-# 1. GN21 on the master: replace exactly the one entry, nothing else in MASTER_LOC moves
+# 1. Generators on the master: every one now sits on its own orange generator symbol on the master D001 (Andrew,
+# 2 Oct: "you can see an orange mark that looks like a generator ... go to where the arrow is"). The 27 Sep trace used the
+# end of each D024 arrow, which lands beside the symbol (on the road, the fence line or the next building), and for GN21
+# it followed the wrong arrow altogether (423 m away by Gate 2). Positions: evidence/generators_on_their_master_symbol.json,
+# read off D001 and turned into latitude and longitude through the 12 nearest unit tags (worst fit 0.1 m).
+GEN = json.load(open(os.path.join(HERE, 'evidence', 'generators_on_their_master_symbol.json')))
 start = t.index('const MASTER_LOC = ')
-k = t.index('"GN21":{', start)
-obj_at = k + len('"GN21":')
-old, end = json.JSONDecoder().raw_decode(t, obj_at)
-if old.get('ll') != [-27.982825, 153.424072]: sys.exit('GN21 on the master is not the 27 Sep trace any more - review before applying')
-new = {"ll": [-27.985425, 153.427216],
-       "how": "leader line from callout 021 on D024 - corrected 2 Oct 2026: its arrow lands beside 020's at the pit lane's west end (the 27 Sep trace had followed the crossing line to Gate 2, 423 m away)",
-       "near": ["S13 (~45 m)", "Pit Lane (~60 m)"], "beside": ["GN20"], "prec": "unit", "pt": [0.32958, 0.42909], "sec": "S13"}
-t = t[:obj_at] + json.dumps(new, ensure_ascii=False, separators=(',', ':')) + t[end:]
+for ref, g in GEN.items():
+    k = t.index('"' + ref + '":{', start); obj_at = k + len('"' + ref + '":')
+    old, end = json.JSONDecoder().raw_decode(t, obj_at)
+    if not str(old.get('how', '')).startswith('leader line from callout'): sys.exit(ref + ' on the master is not the 27 Sep arrow reading - review before applying')
+    new = dict(old)
+    new['ll'] = g['ll']; new['pt'] = g['pt']
+    new['how'] = ('the orange generator symbol on the master D001, at the end of callout ' + old['how'].split('callout ')[1].split(' ')[0] + "'s line on D024"
+                  + (' (corrected 2 Oct 2026: the 27 Sep trace had followed the wrong line to Gate 2, 423 m away)' if ref == 'GN21' else ' (corrected 2 Oct 2026: it was ' + str(g['moved_m']) + ' m off, at the arrow\'s end)' if g['moved_m'] >= 2 else ''))
+    if ref == 'GN21': new['near'] = ['S13 (~45 m)', 'Pit Lane (~60 m)']; new['beside'] = ['GN20']; new['sec'] = 'S13'
+    if g['moved_m'] >= 2: new.pop('img', None)  # the old close/wide pictures were centred on the wrong spot
+    t = t[:obj_at] + json.dumps(new, ensure_ascii=False, separators=(',', ':')) + t[end:]
 
 # 2. driver rules
 line = json.load(open(os.path.join(HERE, 'evidence', 'main_beach_pde_tomtom.json')))['lonlat']

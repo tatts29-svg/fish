@@ -1,12 +1,17 @@
 {
  "page": "../../build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
- "passed": 17,
- "of": 17,
+ "passed": 18,
+ "of": 18,
  "tests": [
   {
-   "name": "G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021), not by Gate 2",
+   "name": "G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021, its orange symbol on the master), not by Gate 2",
    "pass": true,
-   "detail": "[-27.985425,153.427216,\"leader line from callout 021 on D024 - corrected 2 Oct 2026: its arrow lands beside 020's at the pit lane's west end (the 27 Sep trace had followed the crossing line to Gate 2, 423 m away)\"]"
+   "detail": "[-27.985403,153.427226,\"the orange generator symbol on the master D001, at the end of callout 021's line on D024 (corrected 2 Oct 2026: the 27 Sep trace had followed the wrong line to Gate 2, 423 m away)\"]"
+  },
+  {
+   "name": "G2 every generator the master places sends the driver to its orange symbol (within 1 m)",
+   "pass": true,
+   "detail": "GN01:0 GN03:0 GN04:0 GN06:0 GN10:0 GN13:0 GN18:0 GN19:0 GN20:0 GN21:0 GN23:0 GN24:0"
   },
   {
    "name": "R1 every text stays inside three texts (<= 459 GSM units), all plain",
@@ -51,7 +56,7 @@
   {
    "name": "R9 park drops carry the wildlife and branches caution, in the text when it fits and always in Full details",
    "pass": true,
-   "detail": "71 in Full details · 0 in the short text"
+   "detail": "72 in Full details · 0 in the short text"
   },
   {
    "name": "R10 the order check reads the record (GN21 before GN20 recorded out of order; P01 vs P03; WC05 vs P05, P04)",
@@ -81,7 +86,7 @@
   {
    "name": "R13 (measure) three-text messages",
    "pass": true,
-   "detail": "live 100 → 119"
+   "detail": "live 100 → 120"
   },
   {
    "name": "E1 no page errors",
@@ -91,8 +96,8 @@
  ],
  "samples": {
   "P05": "Welcome to Coates GC500\nP05 - Portable building (Building 6m) - Event Control Center (ECC)\nGPS: -27.983378, 153.426635 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: only after P01 and WC05 (tank, then toilet) are in.\nDue Mon 14 Sep 2026, on site 07:00",
-  "GN20": "Welcome to Coates GC500\nGN20 - Generator (350kva) - S01\nGPS: -27.985412, 153.427092 (master plan)\nNavigate: <url>\nORDER: only after GN21 60kVA is placed (tight spot).\nDue Wed 30 Sep 2026\nDelivery details: <url>\nStagger arrivals - the site is congested every Supercars week.",
-  "GN21": "Welcome to Coates GC500\nGN21 - Generator (60kva)\nGPS: -27.985425, 153.427216 (master plan)\nNavigate: <url>\nORDER: GN21 60kVA first - tight spot. GN20 350kVA after it.\nDue Wed 30 Sep 2026\nDelivery details: <url>\nStagger arrivals - the site is congested every Supercars week.",
+  "GN20": "Welcome to Coates GC500\nGN20 - Generator (350kva) - S01\nGPS: -27.985391, 153.427185 (master plan)\nNavigate: <url>\nORDER: only after GN21 60kVA is placed (tight spot).\nDue Wed 30 Sep 2026\nDelivery details: <url>\nStagger arrivals - the site is congested every Supercars week.",
+  "GN21": "Welcome to Coates GC500\nGN21 - Generator (60kva)\nGPS: -27.985403, 153.427226 (master plan)\nNavigate: <url>\nORDER: GN21 60kVA first - tight spot. GN20 350kVA after it.\nDue Wed 30 Sep 2026\nDelivery details: <url>\nStagger arrivals - the site is congested every Supercars week.",
   "WC27": "Welcome to Coates GC500\nWC27 - Toilets (Toilet Block 6m, Waste tank) - Toilet (Tank Mounted)\nGPS: -27.985240, 153.429459 (master plan)\nNavigate: <url>\nORDER: waste tank first - no toilet block before the tank is in.\nENTRY: land side - in from the Surfers end of Main Beach Pde, drive north (race direction).\nDue Fri 25 Sep 2026",
   "WC50": "Welcome to Coates GC500\nWC50 - Toilets (FWF)\nGPS: -27.989762, 153.429836 (master plan)\nNavigate: <url>\nENTRY: seaside - in at the Seaworld Dr roundabout end of Main Beach Pde, drive south.\nDue Mon 21 Sep 2026, on site 12:00\nDelivery details: <url>",
   "WC05": "Welcome to Coates GC500\nWC05 - Toilets (Waste tank, Toilet Block 6m) - Event Operations Compound Toilet - Combo Block (Tanked)\nGPS: -27.983608, 153.426357 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: waste tank first, toilet block on top. P05, P04 wait for WC05.\nDue Mon 14 Sep 2026, on site 07:00",

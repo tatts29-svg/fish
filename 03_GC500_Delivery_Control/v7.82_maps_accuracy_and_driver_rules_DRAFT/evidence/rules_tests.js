@@ -12,7 +12,8 @@ async function texts(page, mob) {
       link: /\n(Delivery details|Pictures): /.test(t), due: /\nDue /.test(t), long: typeof rules782Long === 'function' ? text747Plain(dropSmsLong(a)) : null,
       side: typeof entry782 === 'function' ? (entry782(a) || {}).side || null : null, html: typeof rules782Html === 'function' ? rules782Html(a) : null}; });
     const nt = navTargetFor(allAssets().find(a => a.key === 'GN21'));
-    return {texts: out, gn21: nt ? [nt.ll.lat, nt.ll.lon, nt.fix && nt.fix.how] : null, check: typeof orderCheck782 === 'function' ? orderCheck782() : null,
+    const gens = {}; allAssets().filter(a => /^GN\d/.test(a.key)).forEach(a => { const n = navTargetFor(a); if (n) gens[a.key] = [n.ll.lat, n.ll.lon]; });
+    return {texts: out, gens, gn21: nt ? [nt.ll.lat, nt.ll.lon, nt.fix && nt.fix.how] : null, check: typeof orderCheck782 === 'function' ? orderCheck782() : null,
       doneKeys: typeof window.gc500DoneKeys === 'function' ? window.gc500DoneKeys().length : null,
       css: (() => { try { state.mapMasterSeen = true; state.sheet = 'MASTER'; go('map'); } catch (e) { return 'go: ' + e.message; }
         const ok = [...document.querySelectorAll('.mk[data-complete="1"] .okx')]; return {pills: ok.length, anim: ok[0] ? getComputedStyle(ok[0]).animationName : null}; })(), max: TEXT747_MAX};
@@ -24,7 +25,9 @@ async function texts(page, mob) {
   const T = [], ok = (name, pass, detail) => T.push({name, pass: !!pass, detail: String(detail)});
   const keys = Object.keys(N.texts);
   const hav = (a, b) => { const r = x => x * Math.PI / 180, R = 6371000, h = Math.sin(r(b[0] - a[0]) / 2) ** 2 + Math.cos(r(a[0])) * Math.cos(r(b[0])) * Math.sin(r(b[1] - a[1]) / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
-  ok('G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021), not by Gate 2', N.gn21 && hav(N.gn21, [-27.985412, 153.427092]) < 20 && hav(N.gn21, [-27.982825, 153.424072]) > 400, JSON.stringify(N.gn21));
+  ok('G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021, its orange symbol on the master), not by Gate 2', N.gn21 && hav(N.gn21, [-27.985391, 153.427185]) < 10 && hav(N.gn21, [-27.982825, 153.424072]) > 400, JSON.stringify(N.gn21));
+  const GEN = JSON.parse(fs.readFileSync(__dirname + '/generators_on_their_master_symbol.json', 'utf8'));
+  ok('G2 every generator the master places sends the driver to its orange symbol (within 1 m)', Object.keys(GEN).every(k => N.gens[k] && hav(N.gens[k], GEN[k].ll) < 1), Object.keys(GEN).map(k => k + ':' + (N.gens[k] ? Math.round(hav(N.gens[k], GEN[k].ll) * 10) / 10 : 'none')).join(' '));
   ok('R1 every text stays inside three texts (<= 459 GSM units), all plain', keys.every(k => N.texts[k].u <= N.max), 'max ' + Math.max(...keys.map(k => N.texts[k].u)));
   const has = (k, re) => N.texts[k] && re.test(N.texts[k].t);
   ok('R2 the order line is on every named unit', has('P03', /ORDER: P03 first, then P01, then P05/) && has('P01', /ORDER: only after P03 is in/) && has('P05', /ORDER: only after P01 and WC05/) && has('P04', /ORDER: only after the WC05 toilet block/) && has('WC05', /ORDER: waste tank first, toilet block on top/) && has('GN21', /ORDER: GN21 60kVA first - tight spot/) && has('GN20', /ORDER: only after GN21 60kVA is placed/), ['P03','P01','P05','P04','WC05','GN21','GN20'].map(k => k + ':' + (N.texts[k].t.match(/ORDER:[^\n]*/) || ['-'])[0]).join(' | '));
