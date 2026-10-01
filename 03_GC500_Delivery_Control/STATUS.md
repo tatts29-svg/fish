@@ -3,6 +3,15 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Claim — v7.71 forecast rate lookup, 1 Oct 2026 17:10 AEST
+
+Author: Andrew Fisher
+
+Codex is checking and correcting the programme-to-card lookup used by `cj764Fencing()` for forecast rows without a
+docket column. Scope is calculation and regression coverage, separate from Claude's v7.70 presentation work.
+Base: live v7.69. No record edits. Claim and source handover use the release branch and PR because the shared branch
+is maintained through reviewed merges.
+
 ## Release completed — v7.69 LIVE, 1 Oct 2026 17:02 AEST
 
 Author: Andrew Fisher
@@ -214,4 +223,3 @@ Author: Andrew Fisher
   deep links: 15 panes displayed directly, six redirected by design, and there were 0 page errors, 0 console
   errors and 0 navigation exceptions. `upload_page.py --dry-run` confirmed HTTP 200 edit-level access and stopped
   before upload. No page upload or live-record change was made.
-
