@@ -3,6 +3,22 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Andrew's release instruction — both agents finish first, 1 Oct 2026
+
+Author: Andrew Fisher
+
+Andrew: "Let me know when done i want you to work on something else and you publish the updates on the new tasks
+only when you and claude are finished though".
+
+For future task updates, both agents finish their work and review of the same frozen candidate, resolve blocking
+findings and record completion before publication. A candidate that changes after review needs both agents to
+check the changes. The handover then says **READY TO UPLOAD**. This rule is also in `AGENTS.md`.
+
+Current follow-up: Claude's v7.76 cross-check found that an edit committed during navigation can leave the display
+using an earlier snapshot until the next redraw; the saved record remains correct. Claude owns the v7.75 fix on
+the live v7.76 base and reported an approximate 20:30 AEST handover target. Codex will review that frozen candidate
+before upload. This is a target for review, not a confirmed release time; the follow-up is not complete or ready yet.
+
 ## Release completed — v7.76 LIVE, 1 Oct 2026 18:59 AEST
 
 Author: Andrew Fisher
