@@ -3,6 +3,19 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Release completed — v7.86 LIVE, 2 Oct 2026 08:45 AEST
+
+Author: Andrew Fisher. The incomplete Track detail button is hidden until the visual upgrade covers the whole lap.
+The existing full-circuit Showcase, MP4 car/weather, speedos and controls are preserved. The settled Fence blocks
+line is also available; the supplier's per-block cost stays unknown until the invoice. No docket entry was changed.
+**Claude implemented and checked the final handover; Codex independently reviewed, built, tested and published the
+same final candidate.** Page **8,838,586 bytes**, SHA256
+`0513542de21e7e00b2498c2416d90941ca7ded90e965fa1540ac50fc55e2e425`, verified live byte for byte.
+Track detail off **4/4 per device**, Fence blocks **8/8 per device**, both **21-tab/7-link** sweeps with zero page or
+console errors, six-script static checks, phone visual review and official dry-run passed. Shared record **3527** and
+the active machine manifest are unchanged. No record changes, journals or real messages. Whole-lap graphics work
+remains separate and unfinished. Source and proof: `v7.86_fence_blocks_line_LIVE/evidence/release_verification.json`.
+
 ## Signed papers uploaded — 2 Oct 2026 07:42 AEST
 
 Author: Andrew Fisher. Andrew provided the private archive code and authorised the 15 signed-paper uploads.
@@ -244,6 +257,7 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 
 | version | what | live | by |
 |---|---|---|---|
+| **v7.86 LIVE** | Incomplete Track detail option hidden; existing full-circuit Showcase preserved. Settled Fence blocks line available; existing docket figures unchanged. Both agents checked exact `0513542d…`; byte-verified live, record 3527 and explorer unchanged. | 2 Oct 2026 08:45 | Claude (implementation), Codex (independent review/checks/upload) |
 | **v7.84 LIVE** | Andrew’s five confirmed ways in; shared directions across text, driver sheet, drawer and print check. Exact c9958a42 candidate verified live; record 3527 and explorer unchanged. | 2 Oct 2026 06:28 | Claude (implementation/full regression), Codex (independent checks/upload) |
 | **v7.83 LIVE (includes v7.82)** | Map accuracy, Done markers, consistent driver sheets/texts/pictures, print confirmation and Inventory Share PDF. Both agents completed checks on f6544262; page and explorer verified byte for byte. Record 3527 unchanged. See release proof above. | 2 Oct 2026 05:24 | Claude (implementation/full regression), Codex (independent checks/upload) |
 | **v7.80 LIVE** | The Fencing tab's "Paid to Advanced, by P&L line" card follows a typed paid rate at once: a save empties the per-draw memo (`RENDER_MEMO`). On live v7.79 the card stayed stale (3/5); now 5/5 on desktop and phone, v7.75 11/11, P&L 31/31, navigation 21/21, sweeps clean. Both reviews on the same build. Claude fetched it fresh at 00:45: **8,682,905 bytes, SHA-256 `303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7`**. No record changes. `v7.80_fencing_card_fresh_LIVE/`. | 2 Oct 2026 00:45 | Codex (upload), Claude (fix) |
@@ -305,16 +319,16 @@ v7.82 Inventory still-to-come 11/11 ×2; v7.75 fresh-after-save 7/7 ×2; sweeps 
 on the chain build all pass (v7.79 text checks 16/23, the same 7 intended misses as v7.86). Satellite pictures use the
 service's public map key at run time; nothing in the repo. No record writes.
 
-**v7.86 — LIVE 2 Oct 2026 08:45 AEST (Codex upload, verified by Claude: live = `0513542d…`).** Fence blocks line + Showcase Track detail OFF: READY TO UPLOAD, URGENT (Claude, 2 Oct 2026 07:58 AEST).**
+**v7.86 — LIVE 2 Oct 2026 08:45 AEST (Codex upload, independently verified by Claude: `0513542d…`). Historical READY TO UPLOAD handover follows (Claude, 2 Oct 2026 07:58 AEST).**
 Andrew, 2 Oct: "can we take this out until its fixed, don't have it in there, its almost like a bug ... make it go live so
 people don't see". The v7.85 Track detail covers 250 m of the pit straight and the drive runs out of it; its button is no
 longer added (`attach()` returns), so it cannot be switched on. The scene's code stays in the page untouched for Codex to
 finish (whole lap) and switch back on. Plus the Fence blocks line ($3.02, 36566). One patch on the live v7.85:
-`bash toolchain/build.sh v7.86 v7.86_fence_blocks_line_DRAFT/patch_v786.py` → **8,838,586 bytes, SHA-256
+`bash toolchain/build.sh v7.86 v7.86_fence_blocks_line_LIVE/patch_v786.py` → **8,838,586 bytes, SHA-256
 `0513542de21e7e00b2498c2416d90941ca7ded90e965fa1540ac50fc55e2e425`**. Claude's checks on 0513542d: Track detail off 4/4
 desktop and phone (Showcase opens with all its controls, no button, scene off; live v7.85 shows the button); Fence blocks
 8/8; full regression of the Fence blocks part passed on 3e1612dd (only the Track detail switch was added since); 21-tab/7-link
-sweeps clean on desktop and phone (0 errors, 0 console). After upload: Codex enters 36566.
+sweeps clean on desktop and phone (0 errors, 0 console). Docket 36566 entry remains a separate authorised record task; it was not entered by this release.
 
 **v7.84 — LIVE, 2 Oct 2026 06:28 AEST.** Claude's READY handover at `335886e` was independently checked,
 published by Codex and verified byte for byte. See the release completion and Live now entries above.
