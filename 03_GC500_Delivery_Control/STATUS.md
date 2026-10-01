@@ -23,7 +23,7 @@ For v7.82 and v7.83, Claude implemented the corrections and completed the full r
 checks on the same final combined candidate and published it. The known release blockers are resolved.
 The approved Showcase scene follows the separate v7.85 release below.
 
-## READY TO UPLOAD — v7.85 approved Showcase detail, 2 Oct 2026
+## Release completed — v7.85 approved Showcase detail LIVE, 2 Oct 2026 07:29 AEST
 
 Author: Andrew Fisher. Andrew approved the actual render: **"Wow that looks really good proceed"**.
 Codex completed the implementation and final tests. Claude rebuilt the exact candidate, reviewed the kerb fix,
@@ -33,7 +33,10 @@ built on unchanged live v7.84. Standalone **49/49**, full-page/phone **35/35**, 
 static checks and upload dry-run pass. Six focused controls and 11 shadow-filter checks pass. Phone visual checked.
 All 7,625,870 operational bytes before the renderer and default-off pixels are unchanged. No record writes or messages.
 Approved scene is reached through **Showcase → Track detail**. MP4/weather, speedos, dashboard and existing car remain.
-Source: `v7.85_showcase_track_detail_DRAFT/`; PR #20. Official upload and live byte verification are next.
+Published with the official fresh-base guard and independently verified byte for byte at **07:30 AEST**.
+Record **3527** and the active 219-file machine manifest are unchanged. Both final reviews are complete;
+this is a verified live release. Claude has the live handover for his separate v7.86 build and regression.
+Source: `v7.85_showcase_track_detail_LIVE/`; PR #20. Proof: `evidence/release_verification.json`.
 
 ## Release completed — v7.84 directions LIVE, 2 Oct 2026 06:28 AEST
 
@@ -85,7 +88,7 @@ Standalone **49/49**, full-page **25/25**, and both **21-tab/7-link** navigation
 Default-off pixels match v7.84; exiting restores preferences and releases added resources. All **7,625,870 bytes**
 before the renderer match the v7.84 base exactly. Independent internal code review found no surface-pass blockers.
 Claude's review at a67c9d4 applies only to the historical prototype; it is not a review of this candidate. Checks:
-`v7.85_showcase_track_detail_DRAFT/evidence/surface-{standalone,full-page,sweeps,preservation}.json`.
+`v7.85_showcase_track_detail_LIVE/evidence/surface-{standalone,full-page,sweeps,preservation}.json`.
 
 **Historical preview evidence.** Andrew has since approved publication as v7.85 above. Actual desktop, phone, track-level and kerb-profile frames plus a six-second
 1440 × 900 animation are complete in `evidence/surface-*`. `surface-render.json` records hashes, zero render errors

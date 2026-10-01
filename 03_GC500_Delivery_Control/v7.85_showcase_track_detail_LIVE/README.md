@@ -14,18 +14,20 @@ and restores the saved camera/options when leaving, changing backdrop or closing
 ## Build
 
 ```sh
-bash toolchain/build.sh v7.85 v7.85_showcase_track_detail_DRAFT/patch_v785.py
-python3 v7.85_showcase_track_detail_DRAFT/build_preview.py \
+bash toolchain/build.sh v7.85 v7.85_showcase_track_detail_LIVE/patch_v785.py
+python3 v7.85_showcase_track_detail_LIVE/build_preview.py \
   build/GC500_v7.85/GC500_Delivery_Control_hosted.html \
   build/GC500_v7.85/track_detail_preview.html
 ```
 
+These commands document the original build on live v7.84; do not apply the patch again to the released page.
 The patch requires the v7.84 directions release and refuses a second application. The numbered 781 modules are
 retained from the approved implementation; the release wrapper and runtime report identify v7.85.
 
 ## Validation and publication
 
-**READY TO UPLOAD.** Built on live v7.84 (`c9958a42…a725`). Final full page: **8,836,973 bytes**, SHA256
+**LIVE — 2 Oct 2026 07:29 AEST**, independently verified at **07:30 AEST**.
+Built on live v7.84 (`c9958a42…a725`). Final full page: **8,836,973 bytes**, SHA256
 `2e73ac04d3c8f8105db6ff801998bbd8016a0e60b70374acfe9e4dad3e09c297`.
 Standalone: **1,145,788 bytes**, SHA256
 `3904d7d517e1e36161d07c2703495e8f7e83014ea19466d35fb758a288ad99e8`.
@@ -42,8 +44,10 @@ Standalone: **1,145,788 bytes**, SHA256
   Official upload dry-run and fresh-base check pass. No service writes were attempted by the browser tests.
 
 Current proof is `evidence/release-*.json`, with the checked phone frame in `evidence/release-phone.png`.
-Historical preview evidence is in PREVIEW_HISTORY.md. Publication will use the official fresh-base guard and
-byte-for-byte public view verification; v7.85 has not been uploaded yet.
+Historical preview evidence is in PREVIEW_HISTORY.md. Publication passed the official fresh-base guard and
+byte-for-byte public view verification. Record version **3527** and the active 219-file machine manifest are unchanged.
+No record changes, journals or real texts. Public proof: `evidence/release_verification.json`.
+Open [GC500](https://gc500-production.up.railway.app/v/Coates-GC500-2026#progress), then **Showcase → Track detail**.
 
 Temporary structures and detailed kerb profiles are illustrative, not surveyed. The street geometry, source building
 shells and original tree positions are retained. Software rendering proves output and behaviour, not real-device or
