@@ -107,11 +107,10 @@ const ORDER782 = [
 const SEQ782 = 'The sequence: 1 P03 > 2 P01 > 3 P05 > 4 WC05 waste tank > 5 WC05 toilet block > 6 P04. One truck at a time, staggered. A truck out of this order is refused entry and waits - waiting delays apply.';
 
 /* LOADING at Kingston (the project manager, 2 Oct 2026): loads done by 05:00 so trucks reach the Gold Coast in time, and in
-   the delivery order - you would not load a waste tank after 09:00 with the toilet block first. Peak windows as he
-   supplied them: heavy and oversize loads under permit face daytime travel restrictions on the M1 and arterials toward
-   the Gold Coast 07:00-09:00 and 16:00-18:00 - every driver checks their own permit's conditions. Schedule load times are
+   the delivery order - you would not load a waste tank after 09:00 with the toilet block first. No travel to the Gold
+   Coast 07:00-09:00 or 16:00-18:00 (the project manager, 2 Oct 2026: they cannot travel then). Schedule load times are
    Kingston load times; the run to site is the page's planning figure (transport.kingston_run, about 70 min). */
-const LOAD782 = 'LOAD at Kingston by 05:00, in the delivery order - about 70 min to site. Keep off the M1 into the Gold Coast 07:00-09:00 and 16:00-18:00 (heavy/oversize permit loads: check your permit).';
+const LOAD782 = 'LOAD: loaded and away from Kingston by 05:00, in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00 - be in before 07:00, or travel after 09:00.';
 const LOAD_BY782 = 5 * 60;
 const LOAD_SMS782 = 'LOAD: Kingston by 05:00, in order.';
 const PEAKS782 = [[7 * 60, 9 * 60], [16 * 60, 18 * 60]];
@@ -124,8 +123,9 @@ function loads782(a){
 /* a unit already on site has nothing left to load - the check is for what is still to come */
 function loadCheck782(a){
  const out = [], L = inPlace782(a.key) ? [] : loads782(a);
- L.forEach(l => { const p = PEAKS782.find(([s, e]) => l.at < e && l.arrive > s), late = l.at > LOAD_BY782; if (!p && !late) return;
-  out.push((l.item ? l.item + ': ' : '') + 'load ' + clock782(l.at) + (late ? ' is after 05:00' : '') + (p ? (late ? ' and puts' : ' puts') + ' the truck on the road ' + clock782(l.at) + '-' + clock782(l.arrive) + ', inside the ' + clock782(p[0]) + '-' + clock782(p[1]) + ' peak' : '')); });
+ const timed = hhmm782((deliveryOf(a.key) || {}).eta) != null; /* a timed delivery gets the no-travel call in its time check */
+ L.forEach(l => { const p = !timed && PEAKS782.find(([s, e]) => l.at < e && l.arrive > s), late = l.at > LOAD_BY782; if (!p && !late) return;
+  out.push((l.item ? l.item + ': ' : '') + 'load ' + clock782(l.at) + (late ? ' - away from Kingston after 05:00' : '') + (p ? (late ? ' and puts' : ' puts') + ' the truck on the road ' + clock782(l.at) + '-' + clock782(l.arrive) + ', inside the ' + clock782(p[0]) + '-' + clock782(p[1]) + ' no-travel window' : '')); });
  const tank = L.find(l => /waste tank/i.test(l.item)), block = L.find(l => /toilet block/i.test(l.item));
  if (tank && block && tank.at >= block.at) out.push('the waste tank loads at ' + clock782(tank.at) + ', not before the toilet block (' + clock782(block.at) + ') - load the tank first');
  const o = ORDER782.find(x => x.ref === a.key);
@@ -235,7 +235,7 @@ t = rep(t, "/* the text itself: what, where, how in - always; then the day and t
  if (e) L.push(row('Way in', esc(e.words)));
  if (pk) L.push(row('Park', 'Watch for wildlife and low branches - very tight in places. ' + esc((DATA.driver_rules || {}).escort || '')));
  L.push(row('Arrivals', 'Stagger them - the site is congested every Supercars week.'));
- L.push(row('Loading', esc(LOAD782.replace(/^LOAD /, 'Load '))));
+ L.push(row('Loading', esc(LOAD782.replace(/^LOAD: l/, 'L'))));
  loadCheck782(a).forEach(w => L.push(row('Check the load', '<span class="no782">' + esc(w) + '</span>')));
  return `<div class="rules782"><div class="sect">Driver rules</div><ul>${L.join('')}</ul><p class="sub">Set by ${esc(ORDER782_BY)}. In every text and in Full details.</p></div>`;
 }
@@ -261,14 +261,27 @@ window.gc500PlanItems = function(){""", 'done list for the explorer', p, True)
 #    off by concrete barriers, or no traffic controllers. Time frames must be adhered to."
 t = rep(t, "const ORDER782_BY = 'the project manager, 2 Oct 2026';", """/* v7.82 - the planned time on a delivery is when the truck must be UNLOADED by, not when it arrives (the project
    manager, 2 Oct 2026). Miss it and the other work fronts wait, or the area is shut (barriers in, no traffic control). */
-const TIME782 = 'TIME: the time given is when you must be UNLOADED by - not when you arrive. Get there early. Miss it and the other crews wait, or the area is closed (barriers in, no traffic control). Time frames must be kept.';
+const UNLOAD_MIN782 = 30; /* the project manager, 2 Oct 2026: unloading takes at least 30 min */
+const TIME782 = 'TIME: the time given is when you must be UNLOADED by - not when you arrive. Unloading takes at least 30 min, so be on site 30 min before it - and no travel to the Gold Coast 07:00-09:00 or 16:00-18:00, so a run that would hit those hours comes in before them. Miss it and the other crews wait, or the area is closed (barriers in, no traffic control). Time frames must be kept.';
+function run782(){ const kr = (DATA.transport || {}).kingston_run || {}; return Math.round(kr.minutes_rounded || kr.minutes || 70); }
+/* work back from the unloaded-by time: 30 min to unload, then the run - and the run may not touch a no-travel window,
+   so a time that would put the truck on the road 07:00-09:00 (or 16:00-18:00) brings it in before the window instead */
+function plan782(by){
+ const run = run782(); let onBy = by - UNLOAD_MIN782, ban = null;
+ for (let i = 0; i < 4; i++) { const b = PEAKS782.find(([s, e]) => onBy - run < e && onBy > s); if (!b) break; ban = b; onBy = b[0]; }
+ return {by, onBy, leaveBy: onBy - run, run, ban};
+}
+function planWords782(P){ return P.ban ? ' (no travel ' + clock782(P.ban[0]) + '-' + clock782(P.ban[1]) + ', so in before ' + clock782(P.ban[0]) + ')' : ''; }
 function timeCheck782(a){
  const d = deliveryOf(a.key) || {}, by = hhmm782(d.eta); if (by == null || inPlace782(a.key)) return [];
- const kr = (DATA.transport || {}).kingston_run || {}, run = Math.round(kr.minutes_rounded || kr.minutes || 70), out = [];
- const L = loads782(a);
- if (!L.length) return ['no load time on the schedule - to be unloaded by ' + clock782(by) + ' it must leave Kingston before ' + clock782(by - run) + ' (' + run + ' min run), earlier by the time unloading takes'];
- L.forEach(l => { const spare = by - l.arrive;
-  out.push((l.item ? l.item + ': ' : '') + 'load ' + clock782(l.at) + ', on site about ' + clock782(l.arrive) + (spare < 0 ? ' - AFTER ' + clock782(by) + ', when it must already be unloaded. Load earlier.' : ' - ' + spare + ' min to unload before ' + clock782(by) + (spare === 0 ? '. No time to unload: load earlier.' : '.'))); });
+ const P = plan782(by), out = [], L = loads782(a);
+ if (!L.length) return ['no load time on the schedule - to be unloaded by ' + clock782(by) + ': on site by ' + clock782(P.onBy) + planWords782(P) + ', so leave Kingston by ' + clock782(P.leaveBy) + ', loaded before then (' + P.run + ' min run, at least ' + UNLOAD_MIN782 + ' min to unload)'];
+ L.forEach(l => { const spare = by - l.arrive, hit = PEAKS782.find(([s, e]) => l.at < e && l.arrive > s);
+  out.push((l.item ? l.item + ': ' : '') + 'load ' + clock782(l.at) + ', on site about ' + clock782(l.arrive)
+   + (hit ? ' - on the road in the ' + clock782(hit[0]) + '-' + clock782(hit[1]) + ' no-travel window. Leave Kingston by ' + clock782(P.leaveBy) + ', loaded before then.'
+   : spare < 0 ? ' - AFTER ' + clock782(by) + ', when it must already be unloaded. Leave Kingston by ' + clock782(P.leaveBy) + ', loaded before then.'
+   : spare < UNLOAD_MIN782 ? ' - only ' + spare + ' min to unload before ' + clock782(by) + ' (at least ' + UNLOAD_MIN782 + ' needed). Leave Kingston by ' + clock782(P.leaveBy) + ', loaded before then.'
+   : ' - ' + spare + ' min to unload before ' + clock782(by) + '.')); });
  return out;
 }
 const ORDER782_BY = 'the project manager, 2 Oct 2026';""", 'unloaded-by check', p, True)
@@ -276,18 +289,42 @@ t = rep(t, " L.push(LOAD782);\n loadCheck782(a).forEach(w => L.push('CHECK THE L
         " L.push(TIME782);\n timeCheck782(a).forEach(w => L.push('CHECK THE TIME: ' + w));\n L.push(LOAD782);\n loadCheck782(a).forEach(w => L.push('CHECK THE LOAD: ' + w + '.'));", 'time in Full details', p, True)
 t = rep(t, " const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a); if (!o && !e && !pk && !lw.length) return '';",
         " const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a), tw = timeCheck782(a); if (!o && !e && !pk && !lw.length && !tw.length) return '';", 'drawer shows for a time warning', p, True)
-t = rep(t, " L.push(row('Loading', esc(LOAD782.replace(/^LOAD /, 'Load '))));",
-        " { const by = (deliveryOf(a.key) || {}).eta; L.push(row('Time', by ? 'Unloaded by <b>' + esc(by) + '</b> - not arriving at ' + esc(by) + '. Get there early: miss it and the other crews wait, or the area is closed.' : 'The time given is when the truck must be unloaded by - get there early.')); }\n tw.forEach(w => L.push(row('Check the time', /AFTER|No time/.test(w) ? '<span class=\"no782\">' + esc(w) + '</span>' : esc(w))));\n L.push(row('Loading', esc(LOAD782.replace(/^LOAD /, 'Load '))));", 'drawer time row', p, True)
+t = rep(t, " L.push(row('Loading', esc(LOAD782.replace(/^LOAD: l/, 'L'))));",
+        " { const by = (deliveryOf(a.key) || {}).eta, m = hhmm782(by); const P = m != null ? plan782(m) : null; L.push(row('Time', P ? 'Unloaded by <b>' + esc(by) + '</b> - so on site by <b>' + clock782(P.onBy) + '</b>' + esc(planWords782(P)) + ', leave Kingston by <b>' + clock782(P.leaveBy) + '</b>, loaded before then (unloading takes at least ' + UNLOAD_MIN782 + ' min). Miss it and the other crews wait, or the area is closed.' : 'The time given is when the truck must be unloaded by - be on site at least ' + UNLOAD_MIN782 + ' min before it.')); }\n tw.forEach(w => L.push(row('Check the time', /AFTER|only [0-9]+ min|no-travel/.test(w) ? '<span class=\"no782\">' + esc(w) + '</span>' : esc(w))));\n L.push(row('Loading', esc(LOAD782.replace(/^LOAD: l/, 'L'))));", 'drawer time row', p, True)
 # the words everywhere the time shows: unloaded by, not "on site"
-t = rep(t, "return 'Due ' + fmtDate(day) + (d.eta ? ', on site ' + d.eta : '');", "return 'Due ' + fmtDate(day) + (d.eta ? (d.state === 'on site' ? ', on site ' : ', unloaded by ') + d.eta : ''); /* v7.82 - the time is an unloaded-by time (a delivered record keeps its words) */", 'text: unloaded by', p, True)
-t = rep(t, "${d.eta ? ' · planned on site ' + d.eta : ''}${ev.load_time", "${d.eta ? (d.state === 'on site' ? ' · planned on site ' + d.eta : ' · unloaded by ' + d.eta + ' (get there early)') : ''}${ev.load_time", 'Full details: unloaded by', p, True)
+t = rep(t, "return 'Due ' + fmtDate(day) + (d.eta ? ', on site ' + d.eta : '');", "return 'Due ' + fmtDate(day) + (d.eta ? (d.state === 'on site' ? ', on site ' + d.eta : ', on site by ' + clock782(plan782(hhmm782(d.eta)).onBy) + ', unloaded by ' + d.eta) : ''); /* v7.82 - the time is an unloaded-by time (a delivered record keeps its words) */", 'text: unloaded by', p, True)
+t = rep(t, "${d.eta ? ' · planned on site ' + d.eta : ''}${ev.load_time", "${d.eta ? (d.state === 'on site' ? ' · planned on site ' + d.eta : (P => ' · on site by ' + clock782(P.onBy) + planWords782(P) + ', unloaded by ' + d.eta + ' - leave Kingston by ' + clock782(P.leaveBy) + ', loaded (at least ' + UNLOAD_MIN782 + ' min to unload)')(plan782(hhmm782(d.eta)))) : ''}${ev.load_time", 'Full details: unloaded by', p, True)
 t = rep(t, "dv.eta ? ' · planned on site ' + esc(dv.eta) : ''}</span>`", "dv.eta ? (dv.state === 'on site' ? ' · planned on site ' : ' · unloaded by ') + esc(dv.eta) : ''}</span>`", 'card: unloaded by', p, True)
 t = rep(t, "<span class=\"rs-sup\">planned on site — no load time in the schedule</span>", "<span class=\"rs-sup\">${dv.state === 'on site' ? 'planned on site' : 'unloaded by'} — no load time in the schedule</span>", 'running sheet: unloaded by', p, True)
 t = rep(t, "color:#b9b2ab\">on site ${e(dv.eta)}</td>", "color:#b9b2ab\">${dv.state === 'on site' ? 'on site' : 'unloaded by'} ${e(dv.eta)}</td>", 'print card: unloaded by', p, True)
 t = rep(t, ">Planned time to site</label>", ">Unloaded by (the time asked for)</label>", 'drawer field label', p, True)
 t = rep(t, "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'shared record') : ''}</div></div>",
-        "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'shared record') + ' · ' : ''}the truck is unloaded by then - it arrives early</div></div>", 'drawer field hint', p, True)
+        "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'shared record') + ' · ' : ''}the truck is unloaded by then - on site at least 30 min before</div></div>", 'drawer field hint', p, True)
 
-t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time). */\n/* v7.80 - a save empties', 1)
+# 6. FIRM INSTRUCTIONS BEFORE ANYONE LEAVES (the project manager, 2 Oct 2026): "No drivers should leave the pick up point until
+#    they have firm instructions on where they are going. Every item has a map drop off location and a direction point
+#    they need to head to."
+t = rep(t, "const ORDER782_BY = 'the project manager, 2 Oct 2026';", """/* v7.82 - nobody leaves the pick-up point without firm instructions: the drop-off location on the map AND the point to head
+   for (the way in: a pinned turn-in, the pit lane rule, or the Main Beach Pde entry end). Either missing = hold the truck. */
+const DISPATCH782 = 'DISPATCH: no driver leaves the pick-up point without firm instructions - the drop-off location on the map AND the direction point to head for (the way in). If either is missing, the truck holds until the site team gives it.';
+function ready782(a){
+ if (!a || inPlace782(a.key)) return null;
+ const nt = navTargetFor(a), drop = !!(nt && (nt.pinned || nt.placed)), dir = !!(entryOf(a.key) || entry782(a));
+ const missing = [drop ? '' : 'no drop-off location on the map', dir ? '' : 'no direction point (way in) set'].filter(Boolean);
+ return {drop, dir, ok: drop && dir, missing};
+}
+const ORDER782_BY = 'the project manager, 2 Oct 2026';""", 'dispatch readiness', p, True)
+# the text: a drop with a location but no way in says HOLD (no location already says "contact the site team before departure")
+t = rep(t, "function rules782Sms(a){\n const L = []; const o = order782(a); if (o) L.push(o.sms);",
+        "function rules782Sms(a){\n const L = []; const r = ready782(a); if (r && r.drop && !r.dir) L.push('HOLD: way in not set - do not leave until site gives it.');\n const o = order782(a); if (o) L.push(o.sms);", 'text: hold without a way in', p, True)
+t = rep(t, " L.push(TIME782);\n", " { const r = ready782(a); L.push(DISPATCH782); if (r) L.push(r.ok ? 'READY TO SEND: drop-off location and direction point both set.' : 'NOT READY TO SEND: ' + r.missing.join('; ') + '. Hold the truck.'); }\n L.push(TIME782);\n", 'dispatch in Full details', p, True)
+t = rep(t, "lw = loadCheck782(a), tw = timeCheck782(a); if (!o && !e && !pk && !lw.length && !tw.length) return '';",
+        "lw = loadCheck782(a), tw = timeCheck782(a), rd = ready782(a); if (!o && !e && !pk && !lw.length && !tw.length && !(rd && !rd.ok)) return '';", 'drawer shows when not ready', p, True)
+t = rep(t, " { const by = (deliveryOf(a.key) || {}).eta, m = hhmm782(by);",
+        " if (rd) L.push(row('Dispatch', rd.ok ? '<span class=\"ok782\">Ready to send</span> - drop-off location and direction point both set.' : '<span class=\"no782\">NOT READY TO SEND - ' + esc(rd.missing.join('; ')) + '.</span> No driver leaves until both are set' + (rd.dir ? '' : ' (Pin the way in, below)') + '.'));\n { const by = (deliveryOf(a.key) || {}).eta, m = hhmm782(by);", 'drawer dispatch row', p, True)
+window_line = "window.gc500DoneKeys = function(){"
+t = rep(t, window_line, "/* v7.82 - deliveries still to come that are not ready to send (no drop-off location, or no direction point) */\nwindow.gc500NotReady = function(){ try { return allAssets().filter(a => !a._cancelled).map(a => ({key: a.key, r: ready782(a)})).filter(x => x.r && !x.r.ok).map(x => ({key: x.key, missing: x.r.missing})); } catch (e) { return null; } };\n" + window_line, 'not-ready list', p, True)
+
+t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch). */\n/* v7.80 - a save empties', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
 print('v7.82 applied: GN21 corrected on the master; driver rules on Text it and Full details')

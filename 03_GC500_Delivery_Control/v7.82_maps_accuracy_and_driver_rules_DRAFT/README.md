@@ -18,13 +18,16 @@ Author: Andrew Fisher · 2 Oct 2026 · built on the live page v7.80 (`303029e3�
   P04. Trucks must arrive in this order. Staggered. Trucks should not arrive out of order to this sequence or entry
   won't be allowed, waiting delays will incur."
 - Loading: "load times will need to be done minimum 5am at Kingston to allow time to get to Gold Coast. So you wouldn't
-  load a waste tank after 9am and a toilet block first. Needs to be very clear. Common sense." He also passed on peak
-  windows for heavy and oversize loads on the M1 into the Gold Coast (07:00–09:00 and 16:00–18:00).
+  load a waste tank after 9am and a toilet block first. Needs to be very clear. Common sense." Trucks can't travel to the
+  Gold Coast 07:00–09:00 or 16:00–18:00 ("they can't travel between a certain time to Gold Coast, I told you this").
 - The time: "When requests are made or a time frame on site, it means it needs to be off loaded by a certain time, not
   arrive right on that time. If a request is for 9 AM … he will need to be early as he needs to be unloaded by 10 am.
   Multiple work fronts operate. If we hold up or have delays we then delay all other work fronts (construction of
   stands, fencing erecting). If we miss times we miss access into areas … closed off by concrete barriers, or no
   traffic controllers. Time frames must be adhered to."
+- Unloading: "Unloading time min 30m." And the times worked back are "leaving Kingston at that time, not loading".
+- Dispatch: "No drivers should leave the pick up point until they have firm instructions on where they are going. Every
+  item has a map drop off location and a direction point they need to head to."
 - Park entries: watch for wildlife and branches; some spots are very tight.
 - When something is complete, mark it on the map with an icon that pulses in its own way, clear and not confusing.
 
@@ -145,76 +148,92 @@ the light was ticked, not when the truck arrived, so treat them as "check" rathe
 | GN21 → GN20 | GN20 07:23, GN21 10:49 on 30 Sep | out of order |
 | tank first | WC27 and WC60 done; **WC20 due 7 Oct** carries the tank rule | — |
 
+### Firm instructions before anyone leaves (dispatch)
+
+No driver leaves the pick-up point without **both**:
+1. the drop-off location on the map (a pin, a placed position or the master plan);
+2. a direction point to head for: the way in (a pinned turn-in, the pit lane rule, or the Main Beach Pde entry end).
+
+- **Every Full details** carries `DISPATCH: no driver leaves the pick-up point without firm instructions - the drop-off
+  location on the map AND the direction point to head for (the way in). If either is missing, the truck holds until
+  the site team gives it.` Then `READY TO SEND` or `NOT READY TO SEND: <what's missing>. Hold the truck.`
+- **The drawer** gets a Dispatch row: green "Ready to send", or red "NOT READY TO SEND", pointing to the existing
+  **Pin the way in** button.
+- **The text**: with no location it already says "Location not yet confirmed. Please contact the site team before
+  departure." With a location but no way in it now leads with `HOLD: way in not set - do not leave until site gives
+  it.` No due date is lost.
+
+**Where we stand (116 deliveries still to come):**
+
+| | Count |
+|---|---|
+| Ready to send (location and way in) | **19**: GN13, GN24, LTC05, LTC06, LTC09, LTC10, LTC11, LTC14, P45, P69, WC09, WC20, WC23, WC26, WC28, WC57, WC61, WC62, WC73 |
+| Location on the map, no way in | 58 |
+| No location and no way in | 39 (the ones the map audit found on no drawing) |
+
+Only one way in has been pinned on site so far. **This is the main job before the next deliveries:** pin the way in
+for the 58, and get locations for the 39. I haven't guessed a gate for any of them. A gate that's closed by barriers on
+the day would send a driver the wrong way. `window.gc500NotReady()` lists them with what's missing.
+
 ### Loading at Kingston
 
-Every sequence truck's Full details and drawer now carry:
+Every Full details and drawer carry:
 
-`LOAD at Kingston by 05:00, in the delivery order - about 70 min to site. Keep off the M1 into the Gold Coast
-07:00-09:00 and 16:00-18:00 (heavy/oversize permit loads: check your permit).`
+`LOAD: loaded and away from Kingston by 05:00, in the delivery order - about 70 min to site. NO travel to the Gold
+Coast 07:00-09:00 or 16:00-18:00 - be in before 07:00, or travel after 09:00.`
 
-The text message carries a short `LOAD: Kingston by 05:00, in order.` only where it fits inside three texts (P01 and
-P05 today). It never displaces the due date. The 70 minutes is the page's own planning figure
-(`transport.kingston_run`: 46.7 km straight line × 1.25 at 60 km/h + 10 min), not a live time.
+The text carries a short `LOAD: Kingston by 05:00, in order.` only where it fits inside three texts (P01 and P05
+today). It never displaces the due date. The 70 minutes is the page's own planning figure (`transport.kingston_run`:
+46.7 km straight line × 1.25 at 60 km/h + 10 min), not a live time. The schedule's `load_time` is read as the time the
+truck is loaded and leaves Kingston, as `transport.time_meaning` (11 Sep) already says.
 
-**How I read "minimum 5am":** loaded and away **by** 05:00, so the truck is on site about 06:10, before the 07:00 peak.
-If you meant "not before 05:00", it's a one-word change.
-
-**The peak windows** came from text Andrew pasted, not from a permit or a TMR notice. The page says "check your permit"
-rather than stating it as a ban. Each operator's permit conditions are what count.
-
-**The load check.** For a unit still to come, the drawer and Full details list any scheduled load (`load_time`, at
-Kingston) that:
-- is after 05:00;
-- puts the truck on the road inside a peak window;
+**The load check** (drawer and Full details, units still to come) flags a load that:
+- leaves Kingston after 05:00;
+- puts the truck on the road in a no-travel window (when the delivery has no time asked for; with one, the time check
+  below makes the call);
 - loads a waste tank after (or alongside) its toilet block;
-- does not load after the truck before it in the sequence (same slot = not staggered).
+- doesn't leave after the truck before it in the sequence (same slot = not staggered).
 
-A unit already on site gets no check, so finished work shows no noise. Run against the 14 Sep plan as if it were
-still to come:
-
-| Truck | Scheduled load | The check says |
-|---|---|---|
-| 1 P03 | 04:30 (Irwins) | fine |
-| 2 P01 | 04:30 | same slot as P03, not staggered |
-| 3 P05 | 05:00 (SFL) | fine |
-| 4 WC05 waste tank | 08:30 (T0230, SFL) | after 05:00, and on the road 08:30–09:40 inside the 07:00–09:00 peak |
-| 5 WC05 toilet block | 09:30 (T0012) | after 05:00 |
-| 6 P04 | 09:30 (Irwins turnaround) | after 05:00; same slot as the WC05 toilet block |
-
-The tank did load before its toilet block on 14 Sep, so that part was right. The late loads are the issue.
+A unit already on site gets no check, so finished work shows no noise.
 
 ### The time is an unloaded-by time
 
-The time on a delivery (the drawer's time field) now means **the truck is unloaded by then**, not when it arrives.
+The time on a delivery (the drawer's time field) means **the truck is unloaded by then**. Unloading takes **at least 30
+min**, and the truck can't be on the road to the Gold Coast **07:00–09:00 or 16:00–18:00**. So the page works back:
 
-- **Every Full details** carries: `TIME: the time given is when you must be UNLOADED by - not when you arrive. Get there
-  early. Miss it and the other crews wait, or the area is closed (barriers in, no traffic control). Time frames must be
-  kept.`
-- **The text** for a delivery still to come reads `Due Fri 16 Oct 2026, unloaded by 09:00` (it was "on site 09:00").
-  If all 99 still-to-come texts were given a time, none would lose its due date.
-- **The drawer**: the field is now labelled "Unloaded by (the time asked for)", with the hint "the truck is unloaded by
-  then - it arrives early". The Driver rules box gets a Time row.
+| Unloaded by | On site by | Leave Kingston by (loaded) |
+|---|---|---|
+| 07:00 | 06:30 | 05:20 |
+| 09:00 | **07:00** (no travel 07:00–09:00) | 05:50 |
+| 10:00 | **07:00** | 05:50 |
+| 10:30 | **07:00** | 05:50 |
+| 10:40 | 10:10 | 09:00 |
+| 12:00 | 11:30 | 10:20 |
+| 18:30 | **16:00** (no travel 16:00–18:00) | 14:50 |
+
+- **Every Full details** carries: `TIME: the time given is when you must be UNLOADED by - not when you arrive. Unloading
+  takes at least 30 min, so be on site 30 min before it - and no travel to the Gold Coast 07:00-09:00 or 16:00-18:00, so
+  a run that would hit those hours comes in before them. Miss it and the other crews wait, or the area is closed
+  (barriers in, no traffic control). Time frames must be kept.`
+- **The text** for a delivery still to come reads `Due Fri 16 Oct 2026, on site by 07:00, unloaded by 09:00`. If all 99
+  still-to-come texts were given a time, none would lose its due date.
+- **The drawer**: the field is labelled "Unloaded by (the time asked for)", hint "on site at least 30 min before". The
+  Time row reads e.g. "Unloaded by **09:00** - so on site by **07:00** (no travel 07:00-09:00, so in before 07:00),
+  leave Kingston by **05:50**, loaded before then".
 - **Timeline cards, the running sheet and the printed card** say "unloaded by" for anything still to come.
 - **Delivered records keep their own words** ("on site 07:00"). The 50 times on the record are all on delivered units,
-  and some look like stamps (14:36, 14:37) rather than requests, so they aren't relabelled.
+  and some look like stamps (14:36, 14:37), so they aren't relabelled.
 
-**The time check** (drawer and Full details, units still to come):
-- With a load time: when it reaches site (load + 70 min) and how many minutes that leaves to unload. **AFTER the
-  unloaded-by time** is shown in red ("Load earlier").
-- With no load time: the latest it can leave Kingston, e.g. *"to be unloaded by 09:00 it must leave Kingston before
-  07:50 (70 min run), earlier by the time unloading takes."*
-
-The page has no unloading time per item, so it shows the minutes left and doesn't judge whether they are enough.
-Andrew can give a standard allowance (say per building, per toilet block, per generator) and the check will use it.
-
-Today no delivery still to come has a time or a load time on it, so the check is quiet until one is entered. Run on the
-14 Sep plan as if still to come: P03/P01 (04:30) reach site about 05:40, 80 min to unload before 07:00. P05 (05:00):
-06:10, 50 min. WC05 tank (08:30) and toilet block (09:30), and P04 (09:30): all reach site **after** the 07:00 on their
-records.
+**The time check** (units still to come with a time): when the truck reaches site from its scheduled departure; red if
+it's on the road in a no-travel window, lands after the unloaded-by time, or leaves less than 30 min to unload. Each
+gives the "Leave Kingston by" time. Today no delivery still to come has a time or a load time, so it's quiet until one
+is entered. On the 14 Sep plan as if still to come (all 07:00): P03/P01 (04:30) on site about 05:40, 80 min to
+unload; P05 (05:00) 06:10, 50 min; WC05 tank (08:30) on the road in the no-travel window; WC05 toilet block and P04
+(09:30) land after 07:00. All of those should have left Kingston by 05:20.
 
 **Something to settle:** `transport.arrival` (11 Sep) says "however early a truck loads, it reaches the Gold Coast
-after 07:00", while 24 delivered units carry 07:00. Read as unloaded-by times, the two can't both hold. Under the new
-rule, the 11 Sep note reads as superseded for anything with an earlier time asked for. I haven't changed it.
+after 07:00", while 24 delivered units carry 07:00. With the new rules that note no longer holds for an early time. I
+haven't changed it.
 
 ## 3. Done on the map
 
