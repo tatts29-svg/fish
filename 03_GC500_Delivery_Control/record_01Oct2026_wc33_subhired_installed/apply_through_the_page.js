@@ -1,5 +1,6 @@
 // Andrew Fisher, 1 Oct 2026, two record changes, through the page's own functions on the edit link, in the name
 // "Andrew Fisher via Claude":
+//   WC59 - "WC59 is here and installed and sub-hired. Asset no 0492 0935 0497 0633 0064 0066 0533." (the same three calls)
 //   WC56 - "WC56 is sub-hired and installed. Asset no 0721 0491 0190 0294 0970 0974 0004 0003 0445 0088 0442 0009." (the same three calls)
 //   WC33 - "Sub-hired WC33 toilets are here and installed, add for me. Tick complete. Assets 0634 0582 0548 0782 0657 0912
 //          0554 0920 0971 0586 0487 0790 0297 0456 0012 0938 0597."
@@ -16,12 +17,13 @@ const OUT = __dirname, DRY = process.env.DRY === '1';
 const PLAN = {
  sub: [ /* sub-hired locations: Event Portables gear, the fleet numbers, complete */
   {key: 'WC33', co: 'Event Portables', nos: '0634 0582 0548 0782 0657 0912 0554 0920 0971 0586 0487 0790 0297 0456 0012 0938 0597'},
-  {key: 'WC56', co: 'Event Portables', nos: '0721 0491 0190 0294 0970 0974 0004 0003 0445 0088 0442 0009'}],
+  {key: 'WC56', co: 'Event Portables', nos: '0721 0491 0190 0294 0970 0974 0004 0003 0445 0088 0442 0009'},
+  {key: 'WC59', co: 'Event Portables', nos: '0492 0935 0497 0633 0064 0066 0533'}],
  wc60: {key: 'WC60', numbers: ['1119489', '1328980', '1087500', '1328981'], note: 'Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 — both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026.'}
 };
 /* the same three-plus-four calls the page's own buttons make, in the browser */
 const ACTIONS = ([P]) => { const log = [], r2 = k => { const d = deliveryOf(k); return {done: d.done, levelled: d.levelled, steps: d.steps, state: d.state, note: d.note}; };
- /* the sub-hired locations: WC33, WC56 */
+ /* the sub-hired locations: WC33, WC56, WC59 */
  P.sub.forEach(x => {
   log.push([x.key + ' subhireMark', subhireMark(x.key, x.co, false), subhireOf(x.key)]);
   const r = subhire744Many(x.key, x.co, x.nos); log.push([x.key + ' subhire744Many', r ? {added: r.added, refused: r.refused} : null]);
