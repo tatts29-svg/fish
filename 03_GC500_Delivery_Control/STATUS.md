@@ -141,6 +141,13 @@ not ready, whatever its tests say (1 Oct 2026: v7.49 went live mid-correction).
 
 ## Waiting on Andrew
 
+- **The P&L (1 Oct, from `pl_guide_01Oct2026/README.md` §5):** (1) which P&L does GC500 report into — Industrial Solutions',
+  or the Brisbane branches' (KINP, NVAC, MEAD, STPS)? (2) Transport: are the delivery and pickup charges to the V8s still
+  to go on the contracts, or is transport inside the event rates? The contracts carry $6,938 against $22,011 already paid
+  to carriers (Transport Recovery 0.32 against the business's 1.06). (3) Wages: the crew's install hours charged to the
+  job (2143) or branch staff cost (3210)? (4) The fencing card rate's split between hire and installation — for Advanced.
+  Then the eight v7.68 proposals in §4 (wording and grouping only) — yes or no.
+
 - Brenden Meek's email (1 Oct 2026, rules now in AGENTS.md): "Attached is pricing for the rehire toilets" — the
   attachment has not reached the repo; if it differs from quote Q6844 the servicing figures need it. "No updated
   pricing yet, waiting on Corey Machado" — when it comes, type the new rates on Costs → From the Street Rate Card
