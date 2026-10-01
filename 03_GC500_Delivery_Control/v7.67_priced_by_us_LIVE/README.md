@@ -1,3 +1,5 @@
+**LIVE — 1 Oct 2026 15:04 AEST, within v7.67.** Author: Andrew Fisher. Deployed and verified byte for byte; final release evidence is in the v7.67 folder. Earlier draft notes below are historical.
+
 # v7.67 — Priced by us (DRAFT · built and tested)
 
 Author: Andrew Fisher · 1 Oct 2026
