@@ -57,6 +57,7 @@
     "newKeys": 0
   },
   "dryRun": "PASS; live base unchanged and edit capability recognised; no upload.",
-  "readiness": "READY TO UPLOAD; not published",
-  "checkedAtAEST": "02 Oct 2026 09:13 AEST"
+  "checkedAtAEST": "02 Oct 2026 09:13 AEST",
+  "readinessAtReview": "READY TO UPLOAD; not published",
+  "publication": "LIVE, 02 Oct 2026 09:14 AEST; see release_verification.json"
 }

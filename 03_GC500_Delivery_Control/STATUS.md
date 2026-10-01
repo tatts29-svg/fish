@@ -3,6 +3,19 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Release completed — v7.87 Inventory LIVE, 2 Oct 2026 09:14 AEST
+
+Author: Andrew Fisher. Inventory now shows the waiting references under each Still-to-come number, with one line per
+location for its due day, remaining equipment, locator, satellite image, directions and QR. Share PDF uses the same
+location lines. The new per-type list's reference and map controls were corrected during independent review.
+**Claude implemented the original handover and regression; Codex corrected the click bindings, completed final-candidate
+checks, published and verified the release.** A second final-hash review by Claude is not claimed.
+Page **8,858,382 bytes**, SHA256 `d592847abc0d774502f53fc568f1bfaaff1706be7dd23a3a54a70a1552a4c367`.
+Actual clicks **8/8 ×2**, one-line Inventory **20/20 ×2**, Share PDF **9/9 ×2**, both **21-tab/7-link sweeps** with zero
+page/console errors, phone and A4 visual checks, six-script static checks, dry-run and fresh-base guard passed.
+Fresh public bytes match the build. Shared record **3538** is unchanged; no record changes, journals or real messages.
+Whole-lap graphics work remains separate. Source and proof: `v7.87_inventory_one_line_LIVE/evidence/release_verification.json`.
+
 ## Release completed — v7.86 LIVE, 2 Oct 2026 08:45 AEST
 
 Author: Andrew Fisher. The incomplete Track detail button is hidden until the visual upgrade covers the whole lap.
@@ -306,19 +319,20 @@ the fence metres: 36564 40 m, 36568 462.5 m); "new 60 was north 68 is south" (no
 (36560 north); 36566 "charge as per what was used" and "continue with your logic" - 36567 smoking zones CCB Event, 36568
 median strip CCB Demarcation, 36566 216 fence blocks at the card's $3.02 (needs v7.85, below). Charged as recorded $29,114.17; paid to Advanced $20,965 (36566 blocks from their invoice); service notes 2.75 h ($275). Signed-paper photos (these 8 and the 29 Sep 7) are with Andrew; they stay off the public repo.
 
-**v7.87 — Inventory: one line per location: READY TO UPLOAD, NOT PUBLISHED (final independent check, 02 Oct 2026 09:13 AEST).** Author: Andrew Fisher.
+**v7.87 — Inventory: one line per location: LIVE, 2 Oct 2026 09:14 AEST (verified byte for byte).** Author: Andrew Fisher.
 Andrew asked for the reference, work still to do, map location and QR on the same line, keeping the Inventory table's
 look. Claude implemented the one-line lists, table references and Share PDF and completed the original regression.
 Codex independently rebuilt the handover, found unbound reference and map controls in the per-type drill, and fixed
 the two selectors. Actual-click tests now prove both lists open the selected reference and map location.
 One patch on live v7.86:
-`bash toolchain/build.sh v7.87 v7.87_inventory_one_line_DRAFT/patch_v787.py` → **8,858,382 bytes, SHA256
+`bash toolchain/build.sh v7.87 v7.87_inventory_one_line_LIVE/patch_v787.py` → **8,858,382 bytes, SHA256
 `d592847abc0d774502f53fc568f1bfaaff1706be7dd23a3a54a70a1552a4c367`**. This supersedes the earlier `a39c652d` handover.
 Codex's final-candidate checks: drill clicks **8/8 ×2**, one-line display **20/20 ×2**, Share PDF **9/9 ×2**, both
 **21-tab/7-link sweeps with zero page/console errors**, phone and A4 visual review, six-script static checks and official
 dry-run. Claude's broader regression is retained as earlier-candidate evidence; no second final-hash review is implied.
 Satellite pictures use the service's public map key at run time; no credentials are committed. No record changes,
-journals, real messages or upload. Proof: `v7.87_inventory_one_line_DRAFT/evidence/independent_review.json`.
+journals or real messages. Codex completed the official page-only upload; a fresh public GET matches the build and
+shared record **3538** is unchanged. Publication proof: `v7.87_inventory_one_line_LIVE/evidence/release_verification.json`. Review proof: `v7.87_inventory_one_line_LIVE/evidence/independent_review.json`.
 
 **v7.86 — LIVE 2 Oct 2026 08:45 AEST (Codex upload, independently verified by Claude: `0513542d…`). Historical READY TO UPLOAD handover follows (Claude, 2 Oct 2026 07:58 AEST).**
 Andrew, 2 Oct: "can we take this out until its fixed, don't have it in there, its almost like a bug ... make it go live so
