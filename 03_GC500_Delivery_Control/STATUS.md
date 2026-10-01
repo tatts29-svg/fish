@@ -292,7 +292,20 @@ the fence metres: 36564 40 m, 36568 462.5 m); "new 60 was north 68 is south" (no
 (36560 north); 36566 "charge as per what was used" and "continue with your logic" - 36567 smoking zones CCB Event, 36568
 median strip CCB Demarcation, 36566 216 fence blocks at the card's $3.02 (needs v7.85, below). Charged as recorded $29,114.17; paid to Advanced $20,965 (36566 blocks from their invoice); service notes 2.75 h ($275). Signed-paper photos (these 8 and the 29 Sep 7) are with Andrew; they stay off the public repo.
 
-**v7.86 — Fence blocks line + Showcase Track detail OFF: READY TO UPLOAD, URGENT (Claude, 2 Oct 2026 07:58 AEST).**
+**v7.87 — Inventory: one line per location: READY TO UPLOAD (Claude, 2 Oct 2026 08:55 AEST).** Andrew: "on the same line
+each location reference, what still needs to be done, the Map location and QR code" ... "i want it all" ... "the reference on
+this line, where each one that has not turned up goes, then a direct link to location - works out good for toilets so we know
+where to place" ... "give me a reference for each one, keeping this same look". One patch on the live v7.86:
+`bash toolchain/build.sh v7.87 v7.87_inventory_one_line_DRAFT/patch_v787.py` → **8,858,339 bytes, SHA-256
+`a39c652de0f9722d17190f6b6e0c38e4ff29d0627ebc0d28e1479a457b6adae7`** (the same bytes as the chain build tested on v7.85 +
+v7.86). The table keeps its look with the references under each Still-to-come number; pressing a number or a reference
+gives one line per location (due, still to do, locator + satellite close-up, Map, Directions, QR); the every-location list
+and the Share PDF use the same lines (ten to an A4 page). Checks: one-line 20/20 desktop and phone; Share PDF 9/9 ×2;
+v7.82 Inventory still-to-come 11/11 ×2; v7.75 fresh-after-save 7/7 ×2; sweeps 21 tabs/7 links 0 errors ×2; full regression
+on the chain build all pass (v7.79 text checks 16/23, the same 7 intended misses as v7.86). Satellite pictures use the
+service's public map key at run time; nothing in the repo. No record writes.
+
+**v7.86 — LIVE 2 Oct 2026 08:45 AEST (Codex upload, verified by Claude: live = `0513542d…`).** Fence blocks line + Showcase Track detail OFF: READY TO UPLOAD, URGENT (Claude, 2 Oct 2026 07:58 AEST).**
 Andrew, 2 Oct: "can we take this out until its fixed, don't have it in there, its almost like a bug ... make it go live so
 people don't see". The v7.85 Track detail covers 250 m of the pit straight and the drive runs out of it; its button is no
 longer added (`attach()` returns), so it cannot be switched on. The scene's code stays in the page untouched for Codex to
