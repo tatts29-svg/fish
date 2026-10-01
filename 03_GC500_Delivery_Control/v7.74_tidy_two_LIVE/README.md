@@ -1,3 +1,6 @@
+> **LIVE — 1 Oct 2026 18:45 AEST.** Exact handover uploaded and public view verified byte for byte.
+> Release proof: `evidence/release_verification.json`. No record or ledger writes.
+
 # v7.74 — tidy, the second pass (READY TO UPLOAD — one patch on the live v7.73)
 
 Author: Andrew Fisher · 1 Oct 2026, 18:10 AEST
@@ -91,7 +94,7 @@ same helper. Every tab's text was dumped on the build and searched for both name
 On the live v7.73 (which already carries v7.70, v7.72 and v7.73 as Codex released them), one patch:
 
 ```
-bash toolchain/build.sh v7.74 v7.74_tidy_two_DRAFT/patch_v774.py
+bash toolchain/build.sh v7.74 v7.74_tidy_two_LIVE/patch_v774.py
 python3 toolchain/upload_page.py build/GC500_v7.74/GC500_Delivery_Control_hosted.html
 ```
 
@@ -115,7 +118,7 @@ this folder's `evidence/regress/` so the released evidence is not overwritten.
 
 **READY TO UPLOAD** — one patch on the live v7.73:
 ```
-bash toolchain/build.sh v7.74 v7.74_tidy_two_DRAFT/patch_v774.py
+bash toolchain/build.sh v7.74 v7.74_tidy_two_LIVE/patch_v774.py
 python3 toolchain/upload_page.py build/GC500_v7.74/GC500_Delivery_Control_hosted.html
 ```
 If the live page is no longer v7.73 (8,667,935 bytes), rebuild on what is there: the patch skips, never guesses, and prints what it skipped.
