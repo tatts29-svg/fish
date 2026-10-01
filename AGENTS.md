@@ -141,6 +141,29 @@ Use these words, not synonyms, on the page, in READMEs and in messages.
 | **Over the event** (23, 24, 25 Oct, both ends billed) / **from when they go in** | on-site days | the two charged windows: forklifts, VMS and water barriers from when they go in; everything else over the event only |
 | **Pre-bill** | — | never used for anything |
 
+**What the Coates P&L calls these** (the ledger lines, read from the July 2026 Industrial Solutions P&L,
+`03_GC500_Delivery_Control/pl_guide_01Oct2026/README.md` is the plain-words guide). Use Andrew's words on the page; put
+the ledger name beside them where Finance will read it.
+
+| Andrew's word | the P&L line it lands on |
+|---|---|
+| Revenue for our own gear | **Hire Revenue** (1005 Hire Fleet; 1008 Accrual is hire earned but not yet billed; 1054 Rebates) |
+| Rehire Revenue | **Rehire Revenue** (1010) — hired-in gear charged at our rates |
+| Transport Revenue | **Transport** (1030 Cartage Internal, 1031 Cartage External) · toilet pump-outs charged are **1032 Toilet Pumpouts**, in the same group |
+| labour charged per piece, install, steps, levelling, demob | **Installation** (1047) — the ratio the business reads is "Labour Recovery – Installation" |
+| cleaning charged, damage waiver, environmental charge, consumables | 1025 Cleaning · 1015 Damage Waiver · 1048 Environmental Charge · 1020 Consumables |
+| Rehire cost | **Rehire** (2126 Re Hire Contract Costs) |
+| Transport (cartage) | **Transport** (2120 Cartage – Recoverable; 2140 Not Recovered when we wear it; a Coates truck is Internal Truck Costs; 3325 Toilet Pumpout Costs) |
+| Installation — external contractors | **Installation** (2142 Installation – External Contractors); our own people's install time is 2143 Installation – Internal Labour |
+| wages (Coates people) | **Direct Staff** (3210 Wages & Salaries, an overhead) unless charged to the install (2143); labour-hire people are Temporary Staff |
+| accommodation, meals, travel | **Travel & Accommodation** (3520) and Rent – Residential (3345): overheads, not direct costs, unless Finance journals them to the job |
+| Difference so far | **Gross Margin** (revenue less direct costs) once the costs are complete; **GM %** = Gross Margin ÷ Total Revenue |
+| recovery | **Rehire Recovery** = Rehire Revenue ÷ Rehire cost · **Transport Recovery** · **Installation Recovery** · for every $1 paid out, what was charged on |
+| the bottom lines | **EBITDA** (Gross Margin less overheads) · **EBIT** (less depreciation) · **TU** time utilisation · **FU** financial utilisation · **ROC** return on capital |
+
+The July workbook is Industrial Solutions' (business units EAIS, NOIS, STIS, WAIS). GC500's contracts sit on KINP, NVAC,
+MEAD and STPS; which P&L the job reports into is Andrew's to say, and the line names are the same on every branch.
+
 **How the P&L reads (top to bottom):** Revenue (by stream, then by branch) → Direct costs, recorded against the
 eight categories management expect — *Internal labour hours and overtime; External contractor costs; Rehire costs;
 Equipment costs (including generators and associated assets); Temporary fencing and crowd control; Any
