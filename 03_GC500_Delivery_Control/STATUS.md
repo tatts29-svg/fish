@@ -282,9 +282,13 @@ the fence metres: 36564 40 m, 36568 462.5 m); "new 60 was north 68 is south" (no
 (36560 north); 36566 "charge as per what was used" and "continue with your logic" - 36567 smoking zones CCB Event, 36568
 median strip CCB Demarcation, 36566 216 fence blocks at the card's $3.02 (needs v7.85, below). Charged as recorded $29,114.17; paid to Advanced $20,965 (36566 blocks from their invoice); service notes 2.75 h ($275). Signed-paper photos (these 8 and the 29 Sep 7) are with Andrew; they stay off the public repo.
 
-**v7.85 — a Fence blocks line, claimed by Claude, 2 Oct 2026. NOT READY (regression running).** One patch on the live
-v7.84: `bash toolchain/build.sh v7.85 v7.85_fence_blocks_line_DRAFT/patch_v785.py`. The 2026 card's "Fence Blocks( per
-block)" $3.02, for 36566; no existing docket's figure moves. Tests 8/8 desktop.
+**v7.86 — a Fence blocks line, claimed by Claude, 2 Oct 2026. NOT READY (waits for Codex's v7.85 Showcase release).**
+Renumbered from v7.85 when Codex claimed v7.85 for the approved Showcase. One patch:
+`bash toolchain/build.sh v7.86 v7.86_fence_blocks_line_DRAFT/patch_v786.py` - the 2026 card's "Fence Blocks( per block)"
+$3.02, for 36566; no existing docket's figure moves. Pre-check on the live v7.84: Fence blocks 8/8 desktop and phone,
+rules 45/45. (A first build put a name into the page code, so the attribution scrub collapsed every double space in the
+script and broke the indented order lines in Full details - R7 caught it; the patch now names "the project manager" and
+the scrub changes nothing.) To be rebuilt and fully regressed on the live v7.85 before READY.
 
 **v7.84 — LIVE, 2 Oct 2026 06:28 AEST.** Claude's READY handover at `335886e` was independently checked,
 published by Codex and verified byte for byte. See the release completion and Live now entries above.

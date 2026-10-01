@@ -1,4 +1,4 @@
-// v7.85 - a Fence blocks line. Author: Andrew Fisher. Read-only: GETs only, writes aborted by the harness; synthetic dockets live in this browser only.
+// v7.86 - a Fence blocks line. Author: Andrew Fisher. Read-only: GETs only, writes aborted by the harness; synthetic dockets live in this browser only.
 //   PAGE=<built page> BASE=<live page> [MOB=1] [OUT=<json>] node fence_blocks_tests.js
 const {open} = require('../../toolchain/harness/open_page');
 const fs = require('fs');
