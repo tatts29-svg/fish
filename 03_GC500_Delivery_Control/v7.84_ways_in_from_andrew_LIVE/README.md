@@ -1,4 +1,4 @@
-# v7.84 — the ways in Andrew gave (READY TO UPLOAD)
+# v7.84 — the ways in Andrew gave (LIVE)
 
 Author: Andrew Fisher · 2 Oct 2026 · one patch on the live v7.83 (`f6544262…`)
 
@@ -23,7 +23,7 @@ Author: Andrew Fisher · 2 Oct 2026 · one patch on the live v7.83 (`f6544262…
 ## Build
 
 ```
-bash toolchain/build.sh v7.84 v7.84_ways_in_from_andrew_DRAFT/patch_v784.py
+bash toolchain/build.sh v7.84 v7.84_ways_in_from_andrew_LIVE/patch_v784.py
 ```
 
 8,767,811 bytes, SHA-256 `c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725`. check_page PASS, no keys.
@@ -50,3 +50,16 @@ Explorer unchanged (`dd6256bc…`).
 ## Who checked what
 
 Claude built it and ran everything above. A second audit is optional under the 2 Oct arrangement.
+
+## Verified live — 2 Oct 2026 06:28 AEST
+
+The official uploader published this exact candidate and verified the public view byte for byte:
+**8,767,811 bytes**, SHA256 `c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725`.
+The fresh-base guard and upload dry-run passed. Independent directions checks passed **10/10 desktop and 10/10 phone**;
+the phone drawer was visually checked at 390 px, with no horizontal overflow or page errors. Current destination
+checks cover the behaviour that superseded the legacy v7.79 assertions above.
+
+The record remained **3527** and the active 219-file machine manifest remained
+`1436f85afdfe6d8da043a0b4d134eb8f054c9fe4a28c23d8c2103299ad25c490`.
+No record changes, journals or real messages. The Showcase preview remains unpublished.
+Public release proof: `evidence/release_verification.json`. Detailed independent fixtures and screenshots remain private.
