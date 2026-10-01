@@ -15,7 +15,7 @@ const {open} = require('../../toolchain/harness/open_page.js'); const fs = requi
  R.checks.pricedByUsSaid = /Hire priced by us from the street rate card 2026/i.test(D.pl) && /priced by us at our pump-out rates/i.test(D.pl) && !/an estimate until the branch puts a rate/i.test(D.pl) && !/on no contract line yet · servicing/i.test(D.pl);
  R.checks.servicingWorkingShown = /780 × FWF Pump out/i.test(D.pl) && /24 × Tank Pump Out/i.test(D.pl) && /Event Portables charge us \$46,545/i.test(D.pl);
  R.checks.ruleSaid = /day rate × the days to the term date/i.test(D.pl) && /whole-event rate/i.test(D.pl);
- R.checks.unpricedNamedWithSibling = D.unpriced.n === 2 && D.unpriced.sib >= 1 && D.unpriced.words.some(w => /Rate 1 \$9\.30/.test(w)) && /own line SUB-2527 carries Rate 1 \$9\.30/.test(D.pl) && /what the contracts hold for them/i.test(D.pl);
+ R.checks.unpricedNamedWithSibling = D.unpriced.n === 2 && D.unpriced.sib >= 1 && D.unpriced.words.some(w => /Rate 1 \$9\.30 a week/.test(w)) && /own line SUB-2527 carries Rate 1 \$9\.30 a week/.test(D.pl) && /for the branch to confirm/.test(D.pl) && /what the contracts hold for them/i.test(D.pl);
  R.checks.linkToEachLine = D.link;
  R.checks.noFigureMoved = Math.abs(D.servicing - D.svTotal) < 0.02 && D.total > 500000;
  R.checks.readOnly = D.readOnly;

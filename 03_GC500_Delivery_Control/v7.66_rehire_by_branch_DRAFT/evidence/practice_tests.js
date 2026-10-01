@@ -23,7 +23,7 @@ const {open} = require('../../toolchain/harness/open_page.js'); const fs = requi
  toilets: {rev: g('Toilets') && g('Toilets').rev, expect: r2((kinp.rehireCharge || 0) + (c.servicing || 0)), lines: g('Toilets') && g('Toilets').lines, toiletLines, cost: g('Toilets') && g('Toilets').cost, kRehire: k.rehire},
  forks: {n: g('Forklifts') && g('Forklifts').lines, expectN: forks.length, rev: g('Forklifts') && g('Forklifts').rev, expectRev: forkSum, cost: g('Forklifts') && g('Forklifts').cost},
  subs: {n: Rh.groups.filter(x => /^Sub-hired — /.test(x.what) && !/forklift$/i.test(x.what)).length, expectN: subs.length, kLines: k.subhire_lines},
- fence: {rev: g('Fencing') && g('Fencing').rev, expectRev: r2(c.fencing || 0), revToCome: g('Fencing') && g('Fencing').revToCome, expectRevTC: X.fencing.revenue, cost: g('Fencing') && g('Fencing').cost, expectCost: r2(fenceCat.amount || 0), costToCome: g('Fencing') && g('Fencing').costToCome, expectCostTC: X.fencing.cost},
+ fence: {rev: g('Fencing') && g('Fencing').rev, expectRev: r2(c.fencing || 0), revToCome: g('Fencing') && g('Fencing').revToCome, expectRevTC: X.fencing.revenue, cost: g('Fencing') && g('Fencing').cost, expectCost: r2((fencePaidSplit().gear) || 0), installation: g('Fencing') && g('Fencing').installation, expectInstall: r2(fencePaidSplit().installation || 0), plCategory: r2(fenceCat.amount || 0), costToCome: g('Fencing') && g('Fencing').costToCome, expectCostTC: X.fencing.cost},
  totals: {T, sumRev, sumCost, sumRevTC, sumCostTC, revenueJob: Rh.revenueJob, xJob: X.revenue.job, revenueNow: Rh.revenueNow, cTotal: c.total}, others: Rh.others.length, byBranch: Rh.byBranch, glanceLink: !!document.querySelector('#costs765 [data-jump765="rehire766"]'), readOnly: before === JSON.stringify(moneySummary())}; });
  const D = R.data, near = (a, b) => a != null && b != null && Math.abs(a - b) < 0.02;
  R.checks.cardUnderCostsToJobEnd = D.order.costs764 >= 0 && D.order.costs764 < D.order.rehire766 && D.order.rehire766 < D.order.monthend;
@@ -31,6 +31,7 @@ const {open} = require('../../toolchain/harness/open_page.js'); const fs = requi
  R.checks.forkliftsAreEveryNvacForkliftLine = D.forks.n === D.forks.expectN && D.forks.n >= 2 && near(D.forks.rev, D.forks.expectRev) && D.forks.cost == null;
  R.checks.subLinesEachCounted = D.subs.n === D.subs.expectN && D.subs.n === D.subs.kLines;
  R.checks.fencingIsThePLsAndTheProgramme = near(D.fence.rev, D.fence.expectRev) && near(D.fence.revToCome, D.fence.expectRevTC) && near(D.fence.cost, D.fence.expectCost) && near(D.fence.costToCome, D.fence.expectCostTC);
+ R.checks.fencingGearNotInstallation = near(D.fence.installation, D.fence.expectInstall) && near(D.fence.cost + D.fence.installation, D.fence.plCategory) && D.fence.installation > 0;
  R.checks.totalsAdd = near(D.totals.T.rev, D.totals.sumRev) && near(D.totals.T.cost, D.totals.sumCost) && near(D.totals.T.revJob, D.totals.sumRev + D.totals.sumRevTC) && near(D.totals.T.costJob, D.totals.sumCost + D.totals.sumCostTC) && near(D.totals.revenueJob, D.totals.xJob) && near(D.totals.revenueNow, D.totals.cTotal) && D.totals.T.share > 0.3 && D.totals.T.share < 1;
  R.checks.fourBranches = D.byBranch.length >= 4 && ['KINP', 'NVAC', 'MEAD', 'STPS'].every(b => D.byBranch.some(x => x.branch === b));
  R.checks.othersListed = D.others >= 3;

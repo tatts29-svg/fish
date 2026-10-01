@@ -19,11 +19,11 @@ job end. Every figure is the Forecast P&L's or the Costs to job end card's — a
 | KINP | Sub-hired — refrigerated container SUB-2131 · supplier code ROY002 | $1,428 | — | $1,428 | not on the record | — | — |
 | MEAD | Sub-hired — forklift extension SUB-2527 · supplier code QUE011 | $9 | — | $9 | not on the record | — | — |
 | NVAC | Forklifts and their attachments — sub-hired (Andrew, 1 Oct) · 9 lines | $35,276 | — | $35,276 | not on the record | — | — |
-| STPS | Fencing — Advanced Temporary Fencing · 63 dockets | $120,913 | $248,810 | $369,723 | $77,122 | $180,090 | $257,212 |
-| | **Rehire — the business** | **$311,821** | **$248,810** | **$560,630** | **$195,697** | **$180,090** | **$375,787** |
+| STPS | Fencing — Advanced Temporary Fencing · 63 dockets | $120,913 | $248,810 | $369,723 | $75,022 (gear; installation $2,100 beside it) | $180,090 | $255,112 |
+| | **Rehire — the business** | **$311,821** | **$248,810** | **$560,630** | **$193,597** | **$180,090** | **$373,687** |
 
 Tiles: Rehire Revenue on the record $311,821 (56 % of the $556,076 revenue on the record) · to job end $560,630 (70 % of
-the $804,885 revenue to job end) · Rehire cost on the record $195,697 · to job end $375,787, a floor until the three
+the $804,885 revenue to job end) · Rehire cost on the record $193,597 · to job end $373,687, a floor until the three
 suppliers' costs are on the record (the container, the forklift extension, the NVAC forklifts).
 
 A contract line is rehire here when every toilet line is Event Portables gear (the toilets stream's rule), when its item
@@ -51,8 +51,15 @@ The glance's flow list gains "Rehire by branch".
   toilets, then the NVAC forklifts, then other machines marked hired in, then the rest), so no line can be in two groups
   or fall between them; the toilets group follows whichever branch carries them. The model returns `coverage` and the
   test holds groups + not counted + Coates's own plant-numbered hire = every contract line.
-- **The fencing note read keys `fencePaidSplit` does not return.** It now reads `gear`, `installation` and `green`.
+- **Rehire cost is Advanced's gear, never their crew.** The fencing group's Rehire cost on the record is now
+  `fencePaidSplit().gear` ($75,022), with Installation — external contractors ($2,100: their crew on the dockets $850 +
+  the green book $1,250) shown beside it, never inside it; the P&L's fencing category ($77,122) is the two together, and
+  the test holds gear + installation = the category. The fencing note reads the split's real keys (`gear`,
+  `installation`, `docket_labour`, `green`).
 - The fencing row's still-to-come follows v7.64's correction (ended weeks carried as behind the programme).
+
+Codex's six offline synthetic checks (`../review_v764_v767/evidence/synthetic_regressions.js`) pass 6/6 on the corrected
+patches.
 
 ## Files
 

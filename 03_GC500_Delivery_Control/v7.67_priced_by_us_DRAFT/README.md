@@ -16,7 +16,7 @@ The page already priced every one of those lines; the P&L framed them as open qu
 |---|---|---|
 | 32 lines, $48,436 | "Hire with no contract rate yet — from the card, or a rate typed on Costs · an estimate until the branch puts a rate on the line" | **"Hire priced by us from the street rate card 2026"** — the branch has not put Rate 1 on yet; we charge the card line each one matches: forklifts, VMS and barriers at the day rate × the days to the term date, the rest at the whole-event rate; a rate the branch gives us is typed on Costs and stands in for the card; a link **each line and its rate** opens the table under The working; when Rate 1 lands on the contract it takes over |
 | Toilet servicing, $85,102 | "Event Portables' quantities on Q6844 · Rehire Revenue on no contract line yet" | **"priced by us at our pump-out rates"** — 780 × FWF Pump out & Clean & Restock at $72.87 · 24 × Tank Pump Out & Clean & Restock at $624.60 · 51 × Sewer Connect Units Clean & Restock at $260.25; Event Portables charge us $46,545 for the same work, inside the Rehire cost; the branch adds the servicing lines when it bills |
-| 2 lines with no rate and no card line | "unknown, not nought" | still unknown, with what the contracts hold for them: the telehandler fork extension 1800 mm (NVAC) — **MEAD's own line SUB-2527 carries Rate 1 $9.30 (W) for the nearest thing on the contracts, a forklift extension: type it on the card to charge it**; the forklift tyne rotator (NVAC) — no rate for it anywhere on the contracts or the card |
+| 2 lines with no rate and no card line | "unknown, not nought" | still unknown, with what the contracts hold for them: the telehandler fork extension 1800 mm (NVAC) — **MEAD's own line SUB-2527 carries Rate 1 $9.30 a week for the nearest thing on the contracts, a forklift extension with no size stated: a starting point for the branch to confirm, not a rate to copy**; the forklift tyne rotator (NVAC) — no rate for it anywhere on the contracts or the card |
 
 The tag "from the card" reads "priced by us · the card". The card table's heading under The working reads "Toilet
 servicing — priced by us at our pump-out rates". A jump to something inside a closed fold now opens the fold first.
@@ -25,7 +25,10 @@ servicing — priced by us at our pump-out rates". A jump to something inside a 
 
 A sibling line was matched on one shared word ("extension"). Now a sibling is the same description once the branch
 prefixes are stripped, failing that the one named thing the contracts carry twice — a forklift extension, which needs a
-fork word and "extension" on both sides — and the P&L says "the nearest thing on the contracts", not "the same thing".
+fork word and "extension" on both sides **and no conflicting stated size** (1800 mm is not 2400 mm; a line that states
+no size is not contradicted). The rate is named with its period ("$9.30 a week") and the P&L calls it "a starting point
+for the branch to confirm (the size and the period), not a rate to copy". Codex's synthetic check for different
+dimensions passes; all six of its checks pass on the corrected patches.
 
 ## Files
 

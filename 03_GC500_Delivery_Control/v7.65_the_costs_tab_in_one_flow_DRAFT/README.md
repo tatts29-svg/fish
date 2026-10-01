@@ -73,5 +73,5 @@ Not for upload until the four-patch Costs release is live and Codex has reviewed
 patches in order:
 
 ```
-bash toolchain/build.sh v7.65 v7.60_costs_in_andrews_structure_DRAFT/patch_v760.py v7.61_accruals_for_finance_DRAFT/patch_v761.py v7.62_finance_review_basis_DRAFT/patch_v762.py v7.63_accruals_in_andrews_words_DRAFT/patch_v763.py v7.64_costs_correct_and_to_job_end_DRAFT/patch_v764.py v7.65_the_costs_tab_in_one_flow_DRAFT/patch_v765.py
+bash toolchain/build.sh v7.67 v7.64_costs_correct_and_to_job_end_DRAFT/patch_v764.py v7.65_the_costs_tab_in_one_flow_DRAFT/patch_v765.py v7.66_rehire_by_branch_DRAFT/patch_v766.py v7.67_priced_by_us_DRAFT/patch_v767.py   (on the live v7.63; v7.60-v7.63 are live)
 ```

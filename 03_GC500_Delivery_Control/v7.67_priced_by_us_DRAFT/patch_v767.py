@@ -60,9 +60,12 @@ function pl767Unpriced(){
  /* a sibling is the SAME description once the branch prefixes are stripped; failing that, the one named thing the contracts
     carry twice - a forklift extension (fork/forklift/telehandler + extension on both sides). Sharing one word is not a match (Codex's review, 1 Oct). */
  const forkExt = s => /\b(fork|forklift|telehandler)\b/i.test(s || '') && /\bextension\b/i.test(s || '');
- const items = open.map(r => { const exact = rated.find(x => norm(x.description) === norm(r.description)); const near = !exact && forkExt(r.description) ? rated.find(x => forkExt(x.description)) : null; return {r, sib: exact || near || null, how: exact ? 'the same thing' : near ? 'the nearest thing on the contracts, a forklift extension' : null}; });
- const words = items.map(x => `${x.r.description || x.r.item} (${x.r.branch_code})${x.sib ? ` — ${x.sib.branch_code}’s own line ${x.sib.item} carries Rate 1 ${money(x.sib.rate_1)}${x.sib.rate_type ? ' (' + x.sib.rate_type + ')' : ''} for ${x.how}: type it on the card to charge it` : ' — no rate for it anywhere on the contracts or the card'}`);
- return {n: open.length, items, words, short: items.length ? (items.filter(x => x.sib).length ? `${fmtNum(items.filter(x => x.sib).length)} with a rate we can take from a sibling line` : 'no rate anywhere on the contracts') : 'none'};
+ /* a stated size is a specification: two lines that both state one must state the same (1800 mm is not 2400 mm); a line that states none is not contradicted */
+ const sizes = s => [...String(s || '').matchAll(/(\d+(?:\.\d+)?)\s*(mm|m|t|kg|kva)\b/gi)].map(m => m[1] + m[2].toLowerCase());
+ const compatible = (a, b) => { const sa = sizes(a), sb = sizes(b); return !sa.length || !sb.length || sa.every(x => sb.includes(x)); };
+ const items = open.map(r => { const exact = rated.find(x => norm(x.description) === norm(r.description)); const near = !exact && forkExt(r.description) ? rated.find(x => forkExt(x.description) && compatible(r.description, x.description)) : null; const sib = exact || near || undefined; return {r, sib, how: exact ? 'the same thing' : near ? 'the nearest thing on the contracts — a forklift extension with no size stated' : null, rateWords: sib ? `Rate 1 ${money(sib.rate_1)}${sib.rate_type === 'W' ? ' a week' : sib.rate_type === 'D' ? ' a day' : sib.rate_type ? ' (' + sib.rate_type + ')' : ''}` : ''}; });
+ const words = items.map(x => `${x.r.description || x.r.item} (${x.r.branch_code})${x.sib ? ` — ${x.sib.branch_code}’s own line ${x.sib.item} carries ${x.rateWords} for ${x.how}: a starting point for the branch to confirm (the size and the period), not a rate to copy` : ' — no rate for it anywhere on the contracts or the card'}`);
+ return {n: open.length, items, words, short: items.length ? (items.filter(x => x.sib).length ? `${fmtNum(items.filter(x => x.sib).length)} with a sibling rate on the contracts for the branch to confirm` : 'no rate anywhere on the contracts') : 'none'};
 }
 """
 t = rep(t, "function pl752Card(){", JS + "function pl752Card(){", 'priced-by-us helpers', p, True)
