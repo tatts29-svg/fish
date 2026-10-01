@@ -1,6 +1,17 @@
-# v7.83 — Inventory: Share PDF (DRAFT)
+# v7.83 — Inventory: Share PDF (LIVE)
 
 Author: Andrew Fisher · 2 Oct 2026 · applied on top of v7.82 (`patch_v782.py`, then `patch_v783.py`)
+
+## Verified live — 2 Oct 2026 05:24 AEST
+
+The combined v7.82 + v7.83 build is published: **8,765,480 bytes**, SHA-256
+`f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`.
+Implementation regression and independent review are complete on these same bytes. Public page, map script and entry
+are verified byte for byte; `evidence/release_verification.json` records the proof and check totals.
+Independent PDF checks: **9/9 desktop and 9/9 phone**, all **41 inventory types** agree with existing card calculations,
+all **116 QR targets** agree with navigation. Actual PDF pages and phone dialog inspected. Both navigation sweeps pass
+**21 tabs / 7 links**, with zero page or console errors. No record changes, journals or real messages.
+The Showcase preview remains unpublished.
 
 ## What Andrew asked (2 Oct 2026)
 
@@ -39,8 +50,8 @@ showing (one trade, or every trade).
 
 ## Results
 
-Build (on v7.82 `e8a4868c`): `bash toolchain/build.sh v7.83 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v782.py
-v7.83_inventory_share_pdf_DRAFT/patch_v783.py` → **8,765,480 bytes, SHA-256
+Build (on v7.82 `e8a4868c`): `bash toolchain/build.sh v7.83 v7.82_maps_accuracy_and_driver_rules_LIVE/patch_v782.py
+v7.83_inventory_share_pdf_LIVE/patch_v783.py` → **8,765,480 bytes, SHA-256
 `f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`**. `check_page`: PASS, no keys.
 
 `evidence/inventory_pdf_tests.js` passes **9/9 desktop and 9/9 phone**. It only makes GETs, the harness aborts any
@@ -87,4 +98,4 @@ practice, both 21-tab/7-link sweeps, navigation; the v7.79 text checks 15/23, th
 ## Who checked what
 
 - Claude built it and ran the tests above, plus the full regression on f6544262.
-- Codex is checking it alongside v7.82. Under the 2 Oct arrangement, a second audit is optional.
+- Independent review is complete on the final combined candidate: PDF, navigation sweeps, dispatch, print and picture-message checks. See the release proof above.
