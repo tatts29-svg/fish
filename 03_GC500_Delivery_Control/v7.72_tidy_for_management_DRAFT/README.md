@@ -49,9 +49,16 @@ skipped and printed, never guessed).
 
 ## Results
 
-Filled in from `evidence/` when the chain finishes: the v7.70 suite on the combined build, desktop and phone; both
-sweeps; the text of every tab dumped and searched for "via Codex" (none), for the branch paragraph's new clause and
-for the transport fold's new words; screenshots of the new card on desktop and phone.
+On `build/GC500_v7.72` (8,662,539 bytes, SHA-256 `8695ee3806155d871c26929ecfee3799162355589e0d8d20e59e5424529b7ee8`), 17:31–17:35 AEST:
+
+| Check | Result |
+|---|---|
+| v7.70 suite on the combined build (`../v7.70_pl_in_the_business_lines_DRAFT/evidence/`) | **30/30 desktop · 30/30 phone** |
+| Sweeps (`evidence/regress/`) | 21 tabs, 0 page errors, 0 console errors, desktop and phone; 7 deep links clean |
+| Every tab's rendered text (desktop), searched | "via Codex" / "via Claude": **0** (was 11) · the Progress paragraph: "…the labour ticked per piece, $19,670, and the toilets' servicing and water charged on at our rates, $99,052 — the job's. With them, $572,467 is the revenue charged to the V8s" · the transport fold: "No transport line typed here yet. The carriers' figures on the schedule's TPORT COST column are counted in the Forecast P&L above." · Today: "Rehire · Event Portables" ×3 · "35 of them written with a plus" · "2025" on the Costs tab: **0** |
+| Screenshots of the new card | desktop and phone inspected: tiles, three tables, codes as chips, nothing cut, the page not widened |
+
+**READY TO UPLOAD** — one build on the live v7.71: the two commands under Build.
 
 ## Left for the next pass (from the management read — wording, not figures)
 
