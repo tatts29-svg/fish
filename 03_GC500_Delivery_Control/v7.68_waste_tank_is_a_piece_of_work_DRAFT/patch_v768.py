@@ -64,5 +64,37 @@ t = rep(t, " return Object.assign({}, a, {\n name: desc || a.name || null,\n ite
  item_types: itemTypes,
  charge_lines: chargeLinesOut,""", 'waste tank line from the contract', p, True)
 
+# 3. which numbers are the tanks: the ones the delivery note names as a waste tank (Codex-style review, 1 Oct: the pieces must
+#    never depend on the order the numbers sit in; a tank recorded as a unit named "Waste tank" must keep its piece)
+t = rep(t, """ return TANK768_BY_REF.get(String(key || '')) || [];
+}""",
+""" return TANK768_BY_REF.get(String(key || '')) || [];
+}
+/* v7.68 - the numbers the delivery note names as a waste tank ("toilet block 1119489 with waste tank 1328980; toilet block
+ 1087500 with waste tank 1328981" - Andrew, 1 Oct 2026), so the tank line's pieces are the tanks whatever order the numbers sit in */
+function tank768NotedNumbers(key){
+ try { const d = typeof deliveryOf === 'function' ? deliveryOf(key) : null; const s = String((d && d.note) || '');
+ return [...new Set([...s.matchAll(/(?:waste|holding)\\s+tank\\s*#?\\s*(\\d{5,8})/gi)].map(m => m[1]))]; } catch (e) { return []; }
+}""", 'noted tank numbers', p, True)
+t = rep(t, """ /* the rest, by room: what turned up where it was counted, else the order */
+ const room = L.map((l, i) => {""",
+""" /* v7.68 - a number the delivery note names as a waste tank is the tank's: it goes to the Waste tank line before the rest
+ are dealt out by room, so the pieces never depend on the order the numbers sit in */
+ const noted768 = tank768NotedNumbers(a.key); if (noted768.length) L.filter(l => /waste tank|holding tank/i.test(String(l.item || ''))).forEach(l => noted768.forEach(n => { if (nums.includes(n) && !taken.has(n)) { out[l.item].push(n); taken.add(n); } }));
+ /* the rest, by room: what turned up where it was counted, else the order */
+ const room = L.map((l, i) => {""", 'noted numbers go to the tank line', p, True)
+t = rep(t, """function labourUnits(a, item){
+ /* v5.59 — the BUILDINGS, never the things inside them: a fridge is not a place to fit stairs */""",
+"""function labourUnits(a, item){
+ /* v7.68 - a waste tank line's pieces are the tanks: the numbers the note names as tanks, the units recorded as a waste
+ tank, and what the line was dealt - whether or not they count as buildings (a tank recorded as a unit is contents by
+ the v5.59 rule, and would otherwise drop its piece and its ticks). One tank: the reference's own tick, as WC05. */
+ if (/waste tank|holding tank/i.test(String(item || ''))) {
+ const m = lineNumbersOf(a); const fromLine = m ? (m[item] || []) : []; const noted = tank768NotedNumbers(a.key);
+ const asUnits = unitsOf(a.key).filter(u => /waste tank|holding tank/i.test(String(u.label || '')) && u.asset_no).map(u => String(u.asset_no).trim());
+ const all = [...new Set(fromLine.concat(noted, asUnits).map(String).filter(Boolean))]; const q = labourLineQty(a, item);
+ const us = q != null && all.length > q ? all.slice(0, q) : all; return us.length <= 1 ? [] : us; }
+ /* v5.59 — the BUILDINGS, never the things inside them: a fridge is not a place to fit stairs */""", 'tank pieces for labour', p, True)
+
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
-print("v7.68 applied: a tank-mounted toilet location gets its Waste tank line from the contract, so the tanks' install and levelling can be ticked and charged")
+print("v7.68 applied: a tank-mounted toilet location gets its Waste tank line from the contract, so the tanks' install and levelling can be ticked and charged; the tanks are the pieces the note names")
