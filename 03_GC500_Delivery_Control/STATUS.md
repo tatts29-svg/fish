@@ -3,6 +3,18 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Release completed — v7.80 Fencing card refresh LIVE, 2 Oct 2026 00:45 AEST
+
+Author: Andrew Fisher. A typed paid fence rate now refreshes the Fencing breakdown immediately, so the card and
+its headline total agree. Saving clears the per-draw memo before and after the existing save; all other v7.79 content
+is preserved. **Both reviews complete on the same final candidate; published and verified live.**
+**8,682,905 bytes**, SHA256 `303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7`.
+Independent Fencing checks: **5/5 desktop and 5/5 phone**, zero page errors. Final handover: fresh-after-save **11/11**
+and P&L **31/31** on both devices; navigation **21/21**; both **21-tab/7-link** sweeps with zero page/console errors.
+Static checks, upload dry-run and base guard pass; public view verified byte for byte. Server **v5.87** and record
+version **3521** unchanged. No record changes, journals or real texts. Source and proof:
+`v7.80_fencing_card_fresh_LIVE/`; `evidence/release_verification.json`.
+
 ## Release completed — v7.79 welcome and navigation text LIVE, 1 Oct 2026 22:17 AEST
 
 Author: Andrew Fisher. Codex owns this change. Andrew asks for a more professional message with a picture,
@@ -27,11 +39,9 @@ For future task updates, both agents finish their work and review of the same fr
 findings and record completion before publication. A candidate that changes after review needs both agents to
 check the changes. The handover then says **READY TO UPLOAD**. This rule is also in `AGENTS.md`.
 
-Current state (21:58 AEST): **picture texting fixed and verified end to end.** Server v5.87 has been LIVE since 21:50
-(pictures from the ClickSend shared number; plain texts unchanged). The one authorised test picture was confirmed
-arrived by Andrew and read back as DELIVERED / 201 with no error code. v7.75 + v7.77 page LIVE at `35e4b00b…`.
-Next: v7.78 (plain-text default) stays on hold, no longer needed; Claude's Fencing follow-up (a save also
-clears `RENDER_MEMO`) proceeds from the live base, with both agents reviewing it before upload.
+Current state (2 Oct 2026 00:45 AEST): **v7.80 is LIVE**, including the v7.79 welcome/navigation message and the
+Fencing card refresh. Picture texting remains verified end to end on server **v5.87**. The v7.78 plain-text-default
+proposal stays on hold. The Showcase preview is a separate unpublished task.
 
 ## Release completed — v7.76 LIVE, 1 Oct 2026 18:59 AEST
 
