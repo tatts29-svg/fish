@@ -23,6 +23,16 @@ For v7.82 and v7.83, Claude implemented the corrections and completed the full r
 checks on the same final combined candidate and published it. The known release blockers are resolved.
 The Showcase preview stays separate and unpublished.
 
+## Claimed — v7.85 approved Showcase detail release, 2 Oct 2026
+
+Author: Andrew Fisher. Codex owns implementation, final checks and publication on PR #20.
+Andrew approved the actual surface-pass preview: **"Wow that looks really good proceed"**.
+Publish the approved opt-in track-detail scene, retaining the MP4/weather, current speedos, page layout and data.
+Resolve the kerb shading finding from Claude's still-image review and wire the existing full-page camera selector
+into the detail scene before publication. Build from current live v7.84; run final practice checks, both sweeps,
+phone visual, dry-run and byte verification. No project record changes or messages are part of this release.
+Source will be promoted to `v7.85_showcase_track_detail_DRAFT/`; the v7.81 numbers below remain historical preview proof.
+
 ## Release completed — v7.84 directions LIVE, 2 Oct 2026 06:28 AEST
 
 Author: Andrew Fisher. Andrew's five confirmed ways in are applied across texts, driver sheets, the drawer and print
