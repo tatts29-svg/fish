@@ -49,15 +49,17 @@
    "date": "2026-09-30",
    "location": "Rear of pit building / rear of Puppet Theatre",
    "contact": "Brendan",
-   "quantities": {},
+   "quantities": {
+    "fence_blocks": 216
+   },
    "components": {
     "base": 216,
     "clamp": 216,
     "brace": 108
    },
-   "note": "Written on the paper: \"Brace existing fence. Not scrimmed.\" No metres on any charge line.",
+   "note": "Written on the paper: \"Brace existing fence. Not scrimmed.\" No metres on any charge line. Charged as used (Andrew, 2 Oct): 216 bases on the card line Fence Blocks( per block), $3.02 = $652.32; clamps and braces have no card line and are not charged separately; what Advanced bill comes off their invoice.",
    "to_confirm": [
-    "Andrew: \"charge as per what was used\". Proposed: 216 bases at the card's Fence Blocks line ($3.02 each = $652.32); clamps (216) and braces (108) have no card line and are not charged separately; Advanced's cost comes off their invoice (their sheet prices by the metre only). Needs a Fence blocks line on the page - waiting on his yes."
+    "Needs the v7.85 Fence blocks line live before it can be entered."
    ],
    "signed_by": "Andrew (2 Oct 2026)",
    "installer_date": "2026-09-30"
@@ -69,15 +71,13 @@
    "location": "Smoking zones - trackwide",
    "contact": "Brendan",
    "quantities": {
-    "ccb_demarc": 215
+    "ccb_event": 215
    },
    "components": {
     "cc_barrier": 86
    },
-   "note": "Written on the paper: 26 areas with 3 CCBs, 1 area with 8 CCBs (= 86 barriers, 215 m at 2.5 m a barrier). Paper says CC Barrier; event or demarcation not written - recorded as demarcation, to confirm, as 36559/36560.",
-   "to_confirm": [
-    "CC barrier: event ($7.51/m) or demarcation ($13.08/m)?"
-   ],
+   "note": "Written on the paper: 26 areas with 3 CCBs, 1 area with 8 CCBs (= 86 barriers, 215 m at 2.5 m a barrier). Paper says CC Barrier; smoking zones are for the crowd - CCB Event (Andrew, 2 Oct: \"continue with your logic\").",
+   "to_confirm": [],
    "signed_by": "Andrew (2 Oct 2026)",
    "installer_date": "2026-09-30"
   },
@@ -100,10 +100,8 @@
     "brace": 151,
     "wheels": 6
    },
-   "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - recorded as demarcation, to confirm. Scrim 462.5 m, same as the fence (Andrew, 2 Oct).",
-   "to_confirm": [
-    "CC barrier: event or demarcation?"
-   ],
+   "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - demarcation: the median strip barrier keeps people off the road, as 36560 (Andrew, 2 Oct). Scrim 462.5 m, same as the fence (Andrew, 2 Oct).",
+   "to_confirm": [],
    "read_with_care": [
     "Base 474 and brace 151 - the last digit of each is a hurried hand; check against the paper."
    ],
@@ -156,18 +154,16 @@
   }
  ],
  "effect_at_the_card_as_recorded": {
-  "charged": "36564 $1,667.63 + 36565 $404.02 + 36567 $2,812.20 + 36568 $24,775.55 = $29,659.40 (ex GST)",
-  "paid_to_advanced": "$1,376 + $250 + $1,161 + $18,178 = $20,965",
+  "charged": "36564 $1,667.63 + 36565 $404.02 + 36566 $652.32 + 36567 $1,614.65 + 36568 $24,775.55 = $29,114.17 (ex GST)",
+  "paid_to_advanced": "36564 $1,376 + 36565 $250 + 36567 $1,161 + 36568 $18,178 = $20,965; 36566 blocks: from their invoice",
   "service_notes": "2.75 h at the tracker's $100 = $275 paid",
-  "if_cc_barrier_is_event_instead": "635 m at $7.51 = $4,768.85 charged instead of $8,305.80 at demarcation (-$3,536.95)",
-  "not_charged_until_answered": [
-   "36566 bracing"
-  ]
+  "not_charged_until_answered": []
  },
  "andrew_answers": [
   "Andrew, 2 Oct 2026: \"shade cloth same as fencing\" - the shade cloth (scrim) is the same metres as the fence on the docket, charged on the card Scrim line ($25.53/m charged, $24.40/m paid).",
   "Andrew, 2 Oct 2026: \"new 60 was north 68 is south\" - 36568 is new fence: 36560 is the median strip north, 36568 the south. No overlap.",
   "Andrew, 2 Oct 2026: \"no shade cloth gone on as yet\" (the 36560 north run) - nothing added for it.",
-  "Andrew, 2 Oct 2026, on 36566: \"charge as per what was used\" - proposed: 216 bases on the card's Fence Blocks line ($3.02 each = $652.32); clamps and braces have no card line. Waiting on his yes; needs a Fence blocks line on the page."
+  "Andrew, 2 Oct 2026, on 36566: \"charge as per what was used\" - proposed: 216 bases on the card's Fence Blocks line ($3.02 each = $652.32); clamps and braces have no card line. Waiting on his yes; needs a Fence blocks line on the page.",
+  "Andrew, 2 Oct 2026: \"continue with your logic please\" - 36567 smoking zones are crowd barrier: CCB Event ($7.51/m); 36568 median strip barrier keeps people off the road: CCB Demarcation ($13.08/m), as 36560; 36566 charged as used: 216 fence blocks at the card $3.02 (needs v7.85)."
  ]
 }

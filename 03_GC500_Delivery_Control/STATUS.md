@@ -275,15 +275,16 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
-**Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude, 07:20 AEST).** Author: Andrew Fisher.
+**Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude).** Author: Andrew Fisher.
 HA 36564-36568 and SN 24463-24465 transcribed from Andrew's photographs:
-`record_02Oct2026_fencing_papers_36564_36568/papers.json`. Andrew, 2 Oct: "shade cloth same as fencing" - shade cloth
-(scrim) is the same metres as the fence on the docket, on the card's Scrim line (36564 40 m, 36568 462.5 m). Charged as
-recorded $29,659.40; paid to Advanced $20,965; service notes 2.75 h ($275). Andrew, 2 Oct: "new 60 was north 68 is south" -
-36568 is new fence (south), no overlap with 36560. Andrew: "no shade cloth gone on as yet" (36560 north); on
-36566 "charge as per what was used" (proposed: 216 fence blocks at the card's $3.02 = $652.32 - his yes pending). Still with Andrew: CC barrier event or demarcation (recorded demarcation, to confirm); 36566 bracing an
-existing fence (no card line - held). Signed-paper photos (these 8 and the 29 Sep 7) are with Andrew to upload on the
-Documents tab named by number; they stay off the repo.
+`record_02Oct2026_fencing_papers_36564_36568/papers.json`. Andrew's answers, 2 Oct: "shade cloth same as fencing" (scrim =
+the fence metres: 36564 40 m, 36568 462.5 m); "new 60 was north 68 is south" (no overlap); "no shade cloth gone on as yet"
+(36560 north); 36566 "charge as per what was used" and "continue with your logic" - 36567 smoking zones CCB Event, 36568
+median strip CCB Demarcation, 36566 216 fence blocks at the card's $3.02 (needs v7.85, below). Charged as recorded $29,114.17; paid to Advanced $20,965 (36566 blocks from their invoice); service notes 2.75 h ($275). Signed-paper photos (these 8 and the 29 Sep 7) are with Andrew; they stay off the public repo.
+
+**v7.85 — a Fence blocks line, claimed by Claude, 2 Oct 2026. NOT READY (regression running).** One patch on the live
+v7.84: `bash toolchain/build.sh v7.85 v7.85_fence_blocks_line_DRAFT/patch_v785.py`. The 2026 card's "Fence Blocks( per
+block)" $3.02, for 36566; no existing docket's figure moves. Tests 8/8 desktop.
 
 **v7.84 — LIVE, 2 Oct 2026 06:28 AEST.** Claude's READY handover at `335886e` was independently checked,
 published by Codex and verified byte for byte. See the release completion and Live now entries above.
