@@ -1,8 +1,8 @@
 {
   "author": "Andrew Fisher",
   "device": "desktop",
-  "sha256": "a42d7bee4a6d4d7d7a7c546a889743fbda3d98156e5a2354d0bb28abbcf28a30",
-  "bytes": 8693308,
+  "sha256": "5ed973946eedbcff59ded62aafcc014ac67d6236e3bb8d2f644e33173569c0d1",
+  "bytes": 8693602,
   "tests": [
     {
       "name": "Every current reference fits the GSM and service budgets",
@@ -26,7 +26,8 @@
     },
     {
       "name": "Master-plan provenance stays explicit",
-      "pass": true
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(assets.valid[key])\n"
     },
     {
       "name": "Site access retains recorded entry or the applicable pit-lane direction",
@@ -114,7 +115,7 @@
       "navigation": true,
       "gps": true,
       "master": true,
-      "provenance": true,
+      "provenance": false,
       "access": true,
       "unknown": true,
       "preservedDetails": false,
@@ -132,9 +133,9 @@
     "syntheticDryRuns": 2,
     "unexpectedPosts": 0,
     "blockedWrites": 0,
-    "readRequests": 128
+    "readRequests": 126
   },
   "pageErrors": [],
-  "passed": 22,
+  "passed": 21,
   "total": 23
 }
