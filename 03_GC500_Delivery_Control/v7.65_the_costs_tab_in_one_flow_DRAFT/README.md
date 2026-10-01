@@ -61,8 +61,9 @@ Every one is read from the same functions the cards below are drawn from (`money
 
 `build/GC500_v7.65/GC500_Delivery_Control_hosted.html` — v7.60 → v7.61 → v7.62 → v7.63 → v7.64 → v7.65 on the live
 v7.59: **8,601,283 bytes**, check_page PASS, key grep clean. Practice test desktop 22/22 and phone 22/22 (no overflow);
-v7.64's test 20/20 and v7.63's test 33/33 on the same build. Sweeps: see `evidence/sweep_desktop.txt` and
-`evidence/sweep_phone.txt` (recorded on the board when done).
+v7.64's test 20/20 and v7.63's test 33/33 on the same build. Sweeps desktop 21 tabs, 0 errors, 0 console; phone 21 tabs, 0 errors, 0 console
+(`evidence/sweep_desktop.txt`, `evidence/sweep_phone.txt`). Pictures `evidence/shot765_glance.png` and
+`shot765_glance_phone.png`.
 
 Not for upload until the four-patch Costs release is live and Codex has reviewed v7.64 and v7.65; then one build, six
 patches in order:
