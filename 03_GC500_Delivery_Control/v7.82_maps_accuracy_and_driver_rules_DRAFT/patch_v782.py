@@ -94,14 +94,17 @@ function entry782(a){
 }
 /* the order things go in. A later item must not arrive before the one it waits for is in place. */
 const ORDER782 = [
- {ref: 'P03', sms: 'ORDER: P03 first, then P01, then P05.'},
- {ref: 'P01', after: ['P03'], sms: 'ORDER: only after P03 is in. P05 after P01.'},
- {ref: 'WC05', tank: true, sms: 'ORDER: waste tank first, toilet block on top. P05, P04 wait for WC05.'},
- {ref: 'P05', after: ['P01', 'WC05'], sms: 'ORDER: only after P01 and WC05 (tank, then toilet) are in.'},
- {ref: 'P04', after: ['WC05'], sms: 'ORDER: only after the WC05 toilet block is in.'},
+ /* the Macintosh Island sequence, the project manager, 2 Oct 2026: P03, P01, P05, WC05 waste tank, WC05 toilet block, P04 -
+    trucks arrive in this order, staggered; a truck out of order is refused entry and waits */
+ {ref: 'P03', seq: true, sms: 'ORDER: truck 1 of 6 (P03, P01, P05, WC05 tank, WC05 toilet, P04). Out of order = no entry.'},
+ {ref: 'P01', seq: true, after: ['P03'], sms: 'ORDER: truck 2 of 6 - only after P03 is in. Out of order = no entry.'},
+ {ref: 'P05', seq: true, after: ['P01'], sms: 'ORDER: truck 3 of 6 - only after P01 is in. Out of order = no entry.'},
+ {ref: 'WC05', seq: true, tank: true, after: ['P05'], sms: 'ORDER: trucks 4-5 of 6: tank, toilet, after P05. Out of order = no entry.'},
+ {ref: 'P04', seq: true, after: ['WC05'], sms: 'ORDER: truck 6 of 6 - only after the WC05 toilet block is in. Out of order = no entry.'},
  {ref: 'GN21', sms: 'ORDER: GN21 60kVA first - tight spot. GN20 350kVA after it.'},
  {ref: 'GN20', after: ['GN21'], sms: 'ORDER: only after GN21 60kVA is placed (tight spot).'}
 ];
+const SEQ782 = 'The sequence: 1 P03 > 2 P01 > 3 P05 > 4 WC05 waste tank > 5 WC05 toilet block > 6 P04. One truck at a time, staggered. A truck out of this order is refused entry and waits - waiting delays apply.';
 const ORDER782_BY = 'the project manager, 2 Oct 2026';
 function hasTank782(a){ return /waste tank/i.test(((a && (a.item_types || a.asked_for)) || []).join(' ')); }
 function order782(a){
@@ -149,6 +152,7 @@ function rules782Long(a){
  const o = order782(a);
  if (o) { L.push(o.sms);
   (o.after || []).forEach(f => L.push('  ' + f + ': ' + (inPlace782(f) ? 'in place on the record' : 'NOT in place yet - do not send ' + a.key + ' until it is'))); }
+ if (o && o.seq) L.push(SEQ782);
  const e = entry782(a); if (e) L.push(e.words);
  if (park782(a)) L.push('Park access: watch for wildlife and low branches; some spots have no room to spare. ' + ((DATA.driver_rules || {}).escort || ''));
  L.push(STAGGER782 + ' Bring things in the order above.');
@@ -195,6 +199,7 @@ t = rep(t, "/* the text itself: what, where, how in - always; then the day and t
  const row = (k, v) => `<li><b>${esc(k)}</b> ${v}</li>`;
  const L = [];
  if (o) { L.push(row('Order', esc(o.sms.replace(/^ORDER: /, ''))));
+  if (o.seq) L.push(row('Sequence', esc(SEQ782.replace(/^The sequence: /, ''))));
   (o.after || []).forEach(f => L.push(row(f, inPlace782(f) ? '<span class="ok782">in place on the record</span>' : '<span class="no782">not in place yet - hold ' + esc(a.key) + '</span>'))); }
  if (e) L.push(row('Way in', esc(e.words)));
  if (pk) L.push(row('Park', 'Watch for wildlife and low branches - very tight in places. ' + esc((DATA.driver_rules || {}).escort || '')));

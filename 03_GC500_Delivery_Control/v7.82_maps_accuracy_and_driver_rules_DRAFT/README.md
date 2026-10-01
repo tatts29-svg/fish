@@ -88,18 +88,25 @@ follows the race direction. Pinned positions are worked out the same way when th
 | Seaside | `ENTRY: seaside - in at the Seaworld Dr roundabout end of Main Beach Pde, drive south.` | GN13, LTC05, P45, P69, WC50, WC56, WC57, WC59, WC60, WC61, WC62 · the area-only T0024, T0025 and T0085 get the line once they are pinned |
 | Land side / on the road | `ENTRY: land side - in from the Surfers end of Main Beach Pde, drive north (race direction).` | WC23, WC26, WC27 (S08), WC28, WC33, LTC06 · the area-only WB02 and WB19 (S08), WB15 and WB17 get the line once they are pinned |
 
-**Delivery order** (the project manager's, 2 Oct 2026):
+**Delivery order** (the project manager, 2 Oct 2026). Andrew set the Macintosh Island sequence exactly: "P03 then P01 then
+P05, then WC05 waste tank, then WC05 toilet block, then P04. Trucks must arrive in this order. Staggered. Trucks should
+not arrive out of order to this sequence or entry won't be allowed; waiting delays will incur." This replaces my first
+reading, in which P05 waited for WC05.
 
 | Reference | Line in the text |
 |---|---|
-| P03 | `ORDER: P03 first, then P01, then P05.` |
-| P01 | `ORDER: only after P03 is in. P05 after P01.` |
-| WC05 | `ORDER: waste tank first, toilet block on top. P05, P04 wait for WC05.` |
-| P05 | `ORDER: only after P01 and WC05 (tank, then toilet) are in.` |
-| P04 | `ORDER: only after the WC05 toilet block is in.` |
+| P03 | `ORDER: truck 1 of 6 (P03, P01, P05, WC05 tank, WC05 toilet, P04). Out of order = no entry.` |
+| P01 | `ORDER: truck 2 of 6 - only after P03 is in. Out of order = no entry.` |
+| P05 | `ORDER: truck 3 of 6 - only after P01 is in. Out of order = no entry.` |
+| WC05 | `ORDER: trucks 4-5 of 6: tank, toilet, after P05. Out of order = no entry.` |
+| P04 | `ORDER: truck 6 of 6 - only after the WC05 toilet block is in. Out of order = no entry.` |
 | GN21 | `ORDER: GN21 60kVA first - tight spot. GN20 350kVA after it.` |
 | GN20 | `ORDER: only after GN21 60kVA is placed (tight spot).` |
 | any reference with a waste tank (WC20, WC27, WC60 …) | `ORDER: waste tank first - no toilet block before the tank is in.` |
+
+Full details and the drawer also carry the whole sequence: "1 P03 > 2 P01 > 3 P05 > 4 WC05 waste tank > 5 WC05 toilet
+block > 6 P04. One truck at a time, staggered. A truck out of this order is refused entry and waits - waiting delays
+apply."
 
 **Park drops** (Macintosh Island, Helen Park, any "Park", and everything under the pit-lane rule):
 `PARK: wildlife and low branches - very tight. Escort only.` This goes in the text where it fits, and always in Full
@@ -123,7 +130,7 @@ the light was ticked, not when the truck arrived, so treat them as "check" rathe
 |---|---|---|
 | P03 → P01 | P01 08:00, P03 08:30 on 14 Sep | out of order |
 | P01 → P05 | P01 08:00, P05 09:00 | in order |
-| WC05 → P05 | P05 09:00, WC05 16:45 on 14 Sep | out of order |
+| P05 → WC05 | P05 09:00, WC05 16:45 | in order |
 | WC05 → P04 | P04 12:00, WC05 16:45 on 14 Sep | out of order |
 | GN21 → GN20 | GN20 07:23, GN21 10:49 on 30 Sep | out of order |
 | tank first | WC27 and WC60 done; **WC20 due 7 Oct** carries the tank rule | — |
@@ -147,12 +154,12 @@ bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v
 python3 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_explorer782.py <live explorer/explorer.js> v7.82_maps_accuracy_and_driver_rules_DRAFT/release/explorer/explorer.js
 ```
 
-- **Page:** 8,693,592 bytes, SHA-256 `bc25a87a0d10ded8d779e69111da9f071d2d4eff7efc61d2fc3cc7c421367733`, on live
+- **Page:** 8,694,336 bytes, SHA-256 `e8a25aca9e776b927c5d7444581876c2ab909d6818e331c4b71cdd9605ea6f10`, on live
   `303029e3…`; check_page PASS, no keys.
 - **Explorer:** `release/explorer/explorer.js`, 127,456 bytes, md5 `c7238da1d48709a36866a2ac8fa39684`, on live md5
   `1407e270…`. Only this one machine file changes.
 
-## Results — on the final page `bc25a87a…` (rerun after Andrew confirmed P47) and explorer `c7238da1…`
+## Results — on the final page `e8a25aca…` (rerun after Andrew confirmed P47 and set the six-truck sequence) and explorer `c7238da1…`
 
 | Check | Result |
 |---|---|
@@ -167,7 +174,7 @@ python3 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_explorer782.py <live ex
 
 Every test is read-only: GETs only, writes aborted, and no texts sent.
 
-**Claude: complete on page `bc25a87a…` and explorer `c7238da1…`. Handed to Codex for review.** Release, once both have
+**Claude: complete on page `e8a25aca…` and explorer `c7238da1…`. Handed to Codex for review.** Release, once both have
 reviewed: the page upload, plus the one machine file `explorer/explorer.js` (Codex's edit key). Not ready to upload
 before then.
 
@@ -176,6 +183,5 @@ before then.
 1. The seaside entry: "in at the Seaworld Dr roundabout end, drive south" is how I read your marked map. Your red line
    also shows the approach from Southport along the Gold Coast Hwy, over the bridge and along the Broadwater edge. The
    text states only the entry end; I can add the approach if you want it.
-2. P04 waits only for WC05 (not for P05).
 3. "Done" means the Complete tick.
 4. The seaside and land-side lists above. Tell me any drop that's on the wrong list.
