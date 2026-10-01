@@ -1,3 +1,5 @@
+**LIVE — 1 Oct 2026 13:57 AEST, released within v7.63.** Author: Andrew Fisher. Approved four-patch build verified byte for byte. See v7.63 release evidence. Earlier draft/review notes below are historical.
+
 # v7.61 — Accruals for Finance, on the Costs tab (DRAFT · built and tested · awaiting Andrew's yes)
 
 Author: Andrew Fisher · 1 Oct 2026
