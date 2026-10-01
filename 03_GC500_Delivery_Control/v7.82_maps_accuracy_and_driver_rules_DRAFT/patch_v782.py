@@ -105,6 +105,35 @@ const ORDER782 = [
  {ref: 'GN20', after: ['GN21'], sms: 'ORDER: only after GN21 60kVA is placed (tight spot).'}
 ];
 const SEQ782 = 'The sequence: 1 P03 > 2 P01 > 3 P05 > 4 WC05 waste tank > 5 WC05 toilet block > 6 P04. One truck at a time, staggered. A truck out of this order is refused entry and waits - waiting delays apply.';
+
+/* LOADING at Kingston (the project manager, 2 Oct 2026): loads done by 05:00 so trucks reach the Gold Coast in time, and in
+   the delivery order - you would not load a waste tank after 09:00 with the toilet block first. Peak windows as he
+   supplied them: heavy and oversize loads under permit face daytime travel restrictions on the M1 and arterials toward
+   the Gold Coast 07:00-09:00 and 16:00-18:00 - every driver checks their own permit's conditions. Schedule load times are
+   Kingston load times; the run to site is the page's planning figure (transport.kingston_run, about 70 min). */
+const LOAD782 = 'LOAD at Kingston by 05:00, in the delivery order - about 70 min to site. Keep off the M1 into the Gold Coast 07:00-09:00 and 16:00-18:00 (heavy/oversize permit loads: check your permit).';
+const LOAD_BY782 = 5 * 60;
+const LOAD_SMS782 = 'LOAD: Kingston by 05:00, in order.';
+const PEAKS782 = [[7 * 60, 9 * 60], [16 * 60, 18 * 60]];
+function hhmm782(s){ const m = /^\s*(\d{1,2}):?(\d{2})\s*$/.exec(String(s || '')); if (!m) return null; const h = +m[1], mi = +m[2]; return h < 24 && mi < 60 ? h * 60 + mi : null; }
+function clock782(n){ return String(Math.floor(n / 60) %% 24).padStart(2, '0') + ':' + String(n %% 60).padStart(2, '0'); }
+function loads782(a){
+ const kr = (DATA.transport || {}).kingston_run || {}, run = Math.round(kr.minutes_rounded || kr.minutes || 70);
+ return (a.events || []).filter(e => e.movement !== 'remove').map(e => { const m = hhmm782(e.load_time); return m == null ? null : {item: e.item || '', date: e.date, at: m, arrive: m + run, run}; }).filter(Boolean);
+}
+/* a unit already on site has nothing left to load - the check is for what is still to come */
+function loadCheck782(a){
+ const out = [], L = inPlace782(a.key) ? [] : loads782(a);
+ L.forEach(l => { const p = PEAKS782.find(([s, e]) => l.at < e && l.arrive > s), late = l.at > LOAD_BY782; if (!p && !late) return;
+  out.push((l.item ? l.item + ': ' : '') + 'load ' + clock782(l.at) + (late ? ' is after 05:00' : '') + (p ? (late ? ' and puts' : ' puts') + ' the truck on the road ' + clock782(l.at) + '-' + clock782(l.arrive) + ', inside the ' + clock782(p[0]) + '-' + clock782(p[1]) + ' peak' : '')); });
+ const tank = L.find(l => /waste tank/i.test(l.item)), block = L.find(l => /toilet block/i.test(l.item));
+ if (tank && block && tank.at >= block.at) out.push('the waste tank loads at ' + clock782(tank.at) + ', not before the toilet block (' + clock782(block.at) + ') - load the tank first');
+ const o = ORDER782.find(x => x.ref === a.key);
+ (o && o.after || []).forEach(f => { const fa = assetOf(f), fl = fa ? loads782(fa) : []; if (!fl.length || !L.length) return;
+  const mine = Math.min(...L.map(l => l.at)), theirs = Math.max(...fl.map(l => l.at));
+  if (mine <= theirs) out.push('loads at ' + clock782(mine) + ', not after ' + f + ' (' + clock782(theirs) + ') - load in the delivery order, staggered'); });
+ return out;
+}
 const ORDER782_BY = 'the project manager, 2 Oct 2026';
 function hasTank782(a){ return /waste tank/i.test(((a && (a.item_types || a.asked_for)) || []).join(' ')); }
 function order782(a){
@@ -143,7 +172,7 @@ function rules782Sms(a){
  const e = entry782(a); if (e) L.push(e.sms);
  return L;
 }
-function rules782Optional(a){ return [park782(a) ? PARK782 : '', STAGGER782].filter(Boolean); }
+function rules782Optional(a){ const o = order782(a); return [o && o.seq ? LOAD_SMS782 : '', park782(a) ? PARK782 : '', STAGGER782].filter(Boolean); }
 /* park fits if it stays inside three texts; stagger only if it adds no text (it is on every message's long form) */
 function rules782Fits(L, o){ const now = smsShape(text747Plain(L.join('\n'))), next = smsShape(text747Plain(L.concat(o).join('\n'))); return next.units <= TEXT747_MAX && (o !== STAGGER782 || next.parts === now.parts); }
 /* the long form: Full details and the drawer */
@@ -153,6 +182,8 @@ function rules782Long(a){
  if (o) { L.push(o.sms);
   (o.after || []).forEach(f => L.push('  ' + f + ': ' + (inPlace782(f) ? 'in place on the record' : 'NOT in place yet - do not send ' + a.key + ' until it is'))); }
  if (o && o.seq) L.push(SEQ782);
+ L.push(LOAD782);
+ loadCheck782(a).forEach(w => L.push('CHECK THE LOAD: ' + w + '.'));
  const e = entry782(a); if (e) L.push(e.words);
  if (park782(a)) L.push('Park access: watch for wildlife and low branches; some spots have no room to spare. ' + ((DATA.driver_rules || {}).escort || ''));
  L.push(STAGGER782 + ' Bring things in the order above.');
@@ -195,7 +226,7 @@ t = rep(t, """ return dropText(a, {link});
 t = rep(t, " ${givenRefBlock(a)}\n ${pinBlock(a)}", " ${givenRefBlock(a)}\n ${rules782Html(a)}\n ${pinBlock(a)}", 'drawer carries the rules', p, True)
 t = rep(t, "/* the text itself: what, where, how in - always; then the day and the pictures while it stays inside three texts */",
         """function rules782Html(a){
- const o = order782(a), e = entry782(a), pk = park782(a); if (!o && !e && !pk) return '';
+ const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a); if (!o && !e && !pk && !lw.length) return '';
  const row = (k, v) => `<li><b>${esc(k)}</b> ${v}</li>`;
  const L = [];
  if (o) { L.push(row('Order', esc(o.sms.replace(/^ORDER: /, ''))));
@@ -204,6 +235,8 @@ t = rep(t, "/* the text itself: what, where, how in - always; then the day and t
  if (e) L.push(row('Way in', esc(e.words)));
  if (pk) L.push(row('Park', 'Watch for wildlife and low branches - very tight in places. ' + esc((DATA.driver_rules || {}).escort || '')));
  L.push(row('Arrivals', 'Stagger them - the site is congested every Supercars week.'));
+ L.push(row('Loading', esc(LOAD782.replace(/^LOAD /, 'Load '))));
+ loadCheck782(a).forEach(w => L.push(row('Check the load', '<span class="no782">' + esc(w) + '</span>')));
  return `<div class="rules782"><div class="sect">Driver rules</div><ul>${L.join('')}</ul><p class="sub">Set by ${esc(ORDER782_BY)}. In every text and in Full details.</p></div>`;
 }
 /* the text itself: what, where, how in - always; then the day and the pictures while it stays inside three texts */""",

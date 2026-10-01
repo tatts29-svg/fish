@@ -14,6 +14,10 @@ async function texts(page, mob) {
     const nt = navTargetFor(allAssets().find(a => a.key === 'GN21'));
     const gens = {}; allAssets().filter(a => /^GN\d/.test(a.key)).forEach(a => { const n = navTargetFor(a); if (n) gens[a.key] = [n.ll.lat, n.ll.lon]; });
     return {texts: out, gens, gn21: nt ? [nt.ll.lat, nt.ll.lon, nt.fix && nt.fix.how] : null, check: typeof orderCheck782 === 'function' ? orderCheck782() : null,
+      load: typeof loadCheck782 === 'function' ? (() => { const keep = window.inPlace782; window.inPlace782 = () => false; /* as if still to come */
+        try { const wc = JSON.parse(JSON.stringify(assetOf('WC05'))); const swap = wc.events.map(e => /waste tank/i.test(e.item || '') ? Object.assign(e, {load_time: '1000'}) : /toilet block/i.test(e.item || '') ? Object.assign(e, {load_time: '0430'}) : e);
+          wc.events = swap; return {wc05: loadCheck782(assetOf('WC05')), p01: loadCheck782(assetOf('P01')), p04: loadCheck782(assetOf('P04')), p05: loadCheck782(assetOf('P05')), swapped: loadCheck782(wc)}; } finally { window.inPlace782 = keep; } })() : null,
+      loadNow: typeof loadCheck782 === 'function' ? loadCheck782(assetOf('WC05')).length : null,
       doneKeys: typeof window.gc500DoneKeys === 'function' ? window.gc500DoneKeys().length : null,
       css: (() => { try { state.mapMasterSeen = true; state.sheet = 'MASTER'; go('map'); } catch (e) { return 'go: ' + e.message; }
         const ok = [...document.querySelectorAll('.mk[data-complete="1"] .okx')]; return {pills: ok.length, anim: ok[0] ? getComputedStyle(ok[0]).animationName : null}; })(), max: TEXT747_MAX};
@@ -40,6 +44,10 @@ async function texts(page, mob) {
   ok('R8 the drawer shows a Driver rules box for a named unit, none for a unit no rule touches', /Driver rules/.test(N.texts.GN20.html) && /GN21/.test(N.texts.GN20.html), (N.texts.GN20.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 240));
   ok('R9 park drops carry the wildlife and branches caution, in the text when it fits and always in Full details', keys.filter(k => /Park access: watch for wildlife/.test(N.texts[k].long)).length > 20, keys.filter(k => /Park access/.test(N.texts[k].long)).length + ' in Full details · ' + keys.filter(k => /PARK: watch/.test(N.texts[k].t)).length + ' in the short text');
   ok('R10 the order check reads the record (GN21 before GN20 recorded out of order; P01 vs P03; WC05 vs P05, P04)', Array.isArray(N.check) && N.check.length === 5, JSON.stringify(N.check.map(c => c.first + '>' + c.then + ':' + c.state)));
+  ok('L1 the load rule (Kingston by 05:00, in order, M1 peaks, check your permit) is in Full details for every sequence truck, and the drawer', ['P03','P01','P05','WC05','P04'].every(k => /LOAD at Kingston by 05:00, in the delivery order/.test(N.texts[k].long) && /07:00-09:00 and 16:00-18:00/.test(N.texts[k].long) && /check your permit/.test(N.texts[k].long)) && /Load at Kingston by 05:00/.test(N.texts.P04.html || ''), (N.texts.P04.long.match(/LOAD at[^\n]*/) || ['-'])[0]);
+  ok('L2 the load check flags the 14 Sep plan as if still to come (WC05 tank 08:30 in the 07:00-09:00 peak; toilet 09:30 after 05:00; P01 same slot as P03; P04 same slot as the WC05 toilet; P05 clean)', N.load && N.load.wc05.some(x => /Waste tank: load 08:30 is after 05:00 and puts the truck on the road 08:30-09:40, inside the 07:00-09:00 peak/.test(x)) && N.load.wc05.some(x => /Toilet Block 6m: load 09:30 is after 05:00$/.test(x)) && N.load.p01.some(x => /not after P03 \(04:30\)/.test(x)) && N.load.p04.some(x => /not after WC05 \(09:30\)/.test(x)) && !N.load.p05.length, JSON.stringify(N.load));
+  ok('L3 a waste tank loading after its toilet block is called out', N.load && N.load.swapped.some(x => /the waste tank loads at 10:00, not before the toilet block \(04:30\) - load the tank first/.test(x)), JSON.stringify(N.load && N.load.swapped));
+  ok('L4 nothing to check on a unit already on site (no noise on finished work)', N.loadNow === 0, N.loadNow);
   ok('M1 the done tick has its own double beat on the master plan', N.css && N.css.pills > 0 && N.css.anim === 'done782', JSON.stringify(N.css));
   ok('M2 the explorer gets the finished list', N.doneKeys > 0, N.doneKeys);
   if (B) {

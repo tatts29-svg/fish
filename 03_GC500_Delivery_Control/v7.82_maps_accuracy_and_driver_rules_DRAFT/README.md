@@ -11,10 +11,15 @@ Author: Andrew Fisher · 2 Oct 2026 · built on the live page v7.80 (`303029e3�
   A drop on the other side of the road, e.g. S08, enters from the other end of Main Beach Pde, so it goes round the
   way a race car would. Make this very clear on deliveries.
 - Stagger drivers, and bring things in the right order, because of congestion on site every week of Supercars.
-- Waste tanks go first. A toilet block that sits on a tank must not arrive before the tank. P03, then P01, then P05.
-  P05 waits for WC05 (tank, then toilet block). After the WC05 toilet block, P04 can come. GN21 (60 kVA) always goes
+- Waste tanks go first. A toilet block that sits on a tank must not arrive before the tank. GN21 (60 kVA) always goes
   first into a tight spot; GN20 (350 kVA) only once GN21 is placed. Apply this to everything coming, and check it
   against what has already been done.
+- The sequence (set later the same day): "P03 then P01 then P05, then WC05 waste tank, then WC05 toilet block, then
+  P04. Trucks must arrive in this order. Staggered. Trucks should not arrive out of order to this sequence or entry
+  won't be allowed, waiting delays will incur."
+- Loading: "load times will need to be done minimum 5am at Kingston to allow time to get to Gold Coast. So you wouldn't
+  load a waste tank after 9am and a toilet block first. Needs to be very clear. Common sense." He also passed on peak
+  windows for heavy and oversize loads on the M1 into the Gold Coast (07:00–09:00 and 16:00–18:00).
 - Park entries: watch for wildlife and branches; some spots are very tight.
 - When something is complete, mark it on the map with an icon that pulses in its own way, clear and not confusing.
 
@@ -134,6 +139,44 @@ the light was ticked, not when the truck arrived, so treat them as "check" rathe
 | WC05 → P04 | P04 12:00, WC05 16:45 on 14 Sep | out of order |
 | GN21 → GN20 | GN20 07:23, GN21 10:49 on 30 Sep | out of order |
 | tank first | WC27 and WC60 done; **WC20 due 7 Oct** carries the tank rule | — |
+
+### Loading at Kingston
+
+Every sequence truck's Full details and drawer now carry:
+
+`LOAD at Kingston by 05:00, in the delivery order - about 70 min to site. Keep off the M1 into the Gold Coast
+07:00-09:00 and 16:00-18:00 (heavy/oversize permit loads: check your permit).`
+
+The text message carries a short `LOAD: Kingston by 05:00, in order.` only where it fits inside three texts (P01 and
+P05 today). It never displaces the due date. The 70 minutes is the page's own planning figure
+(`transport.kingston_run`: 46.7 km straight line × 1.25 at 60 km/h + 10 min), not a live time.
+
+**How I read "minimum 5am":** loaded and away **by** 05:00, so the truck is on site about 06:10, before the 07:00 peak.
+If you meant "not before 05:00", it's a one-word change.
+
+**The peak windows** came from text Andrew pasted, not from a permit or a TMR notice. The page says "check your permit"
+rather than stating it as a ban. Each operator's permit conditions are what count.
+
+**The load check.** For a unit still to come, the drawer and Full details list any scheduled load (`load_time`, at
+Kingston) that:
+- is after 05:00;
+- puts the truck on the road inside a peak window;
+- loads a waste tank after (or alongside) its toilet block;
+- does not load after the truck before it in the sequence (same slot = not staggered).
+
+A unit already on site gets no check, so finished work shows no noise. Run against the 14 Sep plan as if it were
+still to come:
+
+| Truck | Scheduled load | The check says |
+|---|---|---|
+| 1 P03 | 04:30 (Irwins) | fine |
+| 2 P01 | 04:30 | same slot as P03, not staggered |
+| 3 P05 | 05:00 (SFL) | fine |
+| 4 WC05 waste tank | 08:30 (T0230, SFL) | after 05:00, and on the road 08:30–09:40 inside the 07:00–09:00 peak |
+| 5 WC05 toilet block | 09:30 (T0012) | after 05:00 |
+| 6 P04 | 09:30 (Irwins turnaround) | after 05:00; same slot as the WC05 toilet block |
+
+The tank did load before its toilet block on 14 Sep, so that part was right. The late loads are the issue.
 
 ## 3. Done on the map
 
