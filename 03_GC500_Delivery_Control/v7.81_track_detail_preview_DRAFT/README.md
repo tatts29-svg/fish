@@ -84,3 +84,16 @@ claimed. Sponsor lettering is reconstructed typography, not supplied official ar
 
 Visual fidelity remains unfinished against the approved concept. **Not READY TO UPLOAD.** No graphics publication,
 record changes or real texts. The live page was freshly checked after the review and still matches v7.80 byte for byte.
+
+## Additional visual reference from Andrew
+
+Andrew supplied [YouTube video VEavLG5dwc8, starting at 0:20](https://www.youtube.com/watch?v=VEavLG5dwc8&t=20s)
+and asked us to use **0:20–1:30** for ideas on how the track looks. This supplements his track photographs and
+approved concept. **Received, not visually reviewed:** the workspace's network proxy refused access to YouTube
+with HTTP 403. No observation of the footage, date, sign positions or circuit geometry is claimed.
+
+When the footage is accessible, compare recognisable building silhouettes and setbacks, foliage, road repairs and
+markings, barrier/fence construction, gantry order and camera perspective against the current preview. These are
+review questions derived from the preview's visible gaps, not findings from the video. Review the original footage
+before changing placement; visual inspiration alone does not establish surveyed locations. No source footage has
+been downloaded or committed, and this reference note does not change the frozen candidate.
