@@ -663,7 +663,11 @@ function setMode(m) {
   /* v7.90 - the plan and the satellite views measure in different coordinates (sheet units against metres on the ground), so
      a camera carried from one into the other lands off the drawing - the project manager, 2 Oct 2026, saw the plan pushed into
      the bottom-right on black. Changing between the two now fits the whole view; within one family the view is kept. */
-  if (geoOn() !== wasGeo790) fit(); else changeView(false);
+  if (geoOn() !== wasGeo790) {
+    /* The old coordinate-space anchor must not move the newly fitted view on a later animation frame. */
+    stopZoomAnim(); stopFling(); cancelAnimationFrame(rotAnim); rotAnim = 0;
+    fit();
+  } else changeView(false);
 }
 /* v6.97 - one request for the key however many callers ask (the <head> may already have sent it) */
 let keyPromise = null;

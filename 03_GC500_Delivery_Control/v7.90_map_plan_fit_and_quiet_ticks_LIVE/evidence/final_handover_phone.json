@@ -1,0 +1,46 @@
+{
+  "tag": "final_handover_phone",
+  "done": {
+    "real": 80,
+    "used": 80
+  },
+  "T": [
+    {
+      "name": "X1 the explorer opens on Satellite + plan",
+      "pass": true,
+      "detail": "{\"mode\":\"hybrid\",\"ticks\":0,\"chip\":\"\u2713Done 70\",\"on\":\"false\",\"cam\":{\"cx\":1192,\"cy\":842,\"z\":1}}"
+    },
+    {
+      "name": "X2 no Done ticks until asked for (80 finished units known)",
+      "pass": true,
+      "detail": "{\"mode\":\"hybrid\",\"ticks\":0,\"chip\":\"\u2713Done 70\",\"on\":\"false\",\"cam\":{\"cx\":1192,\"cy\":842,\"z\":1}}"
+    },
+    {
+      "name": "X3 switching to Original plan shows the whole drawing (fitted, not carried over from satellite)",
+      "pass": true,
+      "detail": "{\"now\":{\"cx\":1192,\"cy\":842,\"z\":1},\"fitted\":{\"cx\":1192,\"cy\":842,\"z\":1}}"
+    },
+    {
+      "name": "X4 back to satellite fits the whole circuit again",
+      "pass": true,
+      "detail": "{\"now\":{\"cx\":1451,\"cy\":753,\"z\":0.8503},\"fitted\":{\"cx\":1451,\"cy\":753,\"z\":0.8503}}"
+    },
+    {
+      "name": "X5 tapping Done shows the finished units' ticks",
+      "pass": true,
+      "detail": "{\"mode\":\"satellite\",\"ticks\":70,\"chip\":\"\u2713Done 70\",\"on\":\"true\",\"cam\":{\"cx\":1451,\"cy\":753,\"z\":0.8503}}"
+    },
+    {
+      "name": "X6 tapping Done again hides them",
+      "pass": true,
+      "detail": "{\"mode\":\"satellite\",\"ticks\":0,\"chip\":\"\u2713Done 70\",\"on\":\"false\",\"cam\":{\"cx\":1451,\"cy\":753,\"z\":0.8503}}"
+    },
+    {
+      "name": "E1 no page errors and nothing written",
+      "pass": true,
+      "detail": "{\"errors\":[],\"blocked\":0}"
+    }
+  ],
+  "candidateSha256": "ad9ab5e488d690444c59730f8ad286b2df60ab0353cd1d21dabc40e398a3b5a4",
+  "author": "Andrew Fisher"
+}
