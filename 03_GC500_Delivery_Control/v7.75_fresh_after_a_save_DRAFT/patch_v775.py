@@ -32,7 +32,7 @@ const HELD_MEMO = new Map();
 /* v7.75 - a save inside a hold makes the held list and memo stale; the next read rebuilds them once, so the rest of
    that draw shows the record as it now is. A draw with no save in it builds once, as before. */
 let HELD_STALE775 = false;
-function heldFresh775(){ if (ASSETS_HELD && HELD_STALE775) { HELD_STALE775 = false; ASSETS_HELD = buildAllAssets(); HELD_MEMO.clear(); } }
+function heldFresh775(){ if (ASSETS_HELD && HELD_STALE775) { HELD_STALE775 = false; HELD_MEMO.clear(); ASSETS_HELD = buildAllAssets(); } } /* the memo is emptied first, so the rebuilt list's own lookups (rentalOf) are fresh too */
 function heldMemo(k, f){ if (!ASSETS_HELD) return f(); heldFresh775(); if (HELD_MEMO.has(k)) return HELD_MEMO.get(k); const v = f(); HELD_MEMO.set(k, v); return v; }""",
  'held memo goes stale on a save', p, True)
 t = rep(t, "function allAssets(){ return ASSETS_HELD || buildAllAssets(); }",
