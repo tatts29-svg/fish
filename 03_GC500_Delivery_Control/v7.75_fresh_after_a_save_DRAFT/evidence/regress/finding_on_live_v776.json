@@ -1,0 +1,59 @@
+{
+ "page": "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/mgmt/live_776.html",
+ "mobile": false,
+ "passed": 5,
+ "of": 10,
+ "errors": [],
+ "tests": [
+  {
+   "name": "A1 the commit ran inside the held draw (the v7.76 path)",
+   "pass": true,
+   "detail": "{\"inList\":false,\"listRebuilt\":false,\"modelRebuilt\":false,\"rehireRebuilt\":false,\"held\":true}"
+  },
+  {
+   "name": "A2 the rest of the draw sees the saved record (asset list)",
+   "pass": false,
+   "detail": "{\"inList\":false,\"listRebuilt\":false,\"modelRebuilt\":false,\"rehireRebuilt\":false,\"held\":true}"
+  },
+  {
+   "name": "A3 the forecast and Rehire models are worked out again after the save",
+   "pass": false,
+   "detail": "{\"inList\":false,\"listRebuilt\":false,\"modelRebuilt\":false,\"rehireRebuilt\":false,\"held\":true}"
+  },
+  {
+   "name": "A4 after the draw the probe is gone from the list (the page is left as found)",
+   "pass": true,
+   "detail": "201"
+  },
+  {
+   "name": "B1 a tab change builds the asset list once at most (no save, no rebuild)",
+   "pass": true,
+   "detail": "{\"today\":1,\"progress\":1,\"map\":1,\"docs\":1,\"plant\":1,\"fencing\":1,\"prestarts\":1,\"coatesway\":1,\"costs\":1,\"change\":1,\"pricing\":1,\"timeline\":1,\"runsheet\":1,\"questions\":1,\"about\":1}"
+  },
+  {
+   "name": "C1 today the quotes split and the ratios read as before",
+   "pass": true,
+   "detail": "qClean true · transport 1.3004722966349904 · consumables 0.8969072164948454"
+  },
+  {
+   "name": "C2 quotes not approved: Transport and Consumables Recovery wait, and say why",
+   "pass": false,
+   "detail": "4.617619332536473 2.290439957769823 · cartage alone: $6,938 of delivery and pickup on the contracts against $22,011 to pay the carriers so far (×0.32), $44,376 to job end (×0.16) — the pump-outs carry the group; the transport charge lines are the branch’s to add to the contracts"
+  },
+  {
+   "name": "C3 quotes not splitting to the cent: Transport and Consumables Recovery wait, and say why",
+   "pass": false,
+   "detail": "4.617619332536473 · cartage alone: $6,938 of delivery and pickup on the contracts against $22,011 to pay the carriers so far (×0.32), $44,376 to job end (×0.16) — the pump-outs carry the group; the transport charge lines are the branch’s to add to the contracts"
+  },
+  {
+   "name": "C4 put back: the ratios read as before",
+   "pass": true,
+   "detail": "1.3004722966349904"
+  },
+  {
+   "name": "A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save",
+   "pass": false,
+   "detail": "{\"paneElements\":15095,\"fired\":true,\"held\":true,\"inList\":false}"
+  }
+ ]
+}
