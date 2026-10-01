@@ -201,11 +201,16 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 Andrew reports that a text he sends does not arrive on his phone. Trace the page and live message service,
 fix the verified cause and exercise the paths with provider sends blocked in tests. Claude owns v7.75 separately.
 Both agents must complete review of the final candidate before any publication, under Andrew's latest rule.
-Codex review complete: combined v7.75 + v7.77 page **8,682,471 bytes**, SHA256 `577c69b20fbe1b89cb2e270755a5e19aadd836b074a69ff784bcb5870a29d87d`;
+Review correction: combined v7.75 + v7.77 page **8,682,665 bytes**, SHA256 `35e4b00b150e081425e70a642945799d4dbab822bdbc7939c888c0503e5c26ef`;
 server v5.86 **236,308 bytes**, SHA256 `f5b9a3f7efdf880b5f10d0ee339761d35adf9b9ff5bdd3a528505215be6b6fe9`.
-UI 24/24 and save checks 11/11 on both viewports, 10 pure checks, both 21-tab/7-link sweeps with zero errors,
-82 local server checks and uploader dry-run pass. **Awaiting Claude's final review; not READY TO UPLOAD.**
+Both agents reviewed the previous page 577c69b2 and the unchanged server; Claude requested failure wording
+that covers provider cancellations and escaped provider status/note detail. Codex applied and reviewed that
+correction; 12/12 pure checks, static checks and uploader dry-run pass. The 25-case browser suite and both
+sweeps are being rerun. **Awaiting Claude's correction re-check; not READY TO UPLOAD.** Earlier page checks:
+UI 24/24 and save checks 11/11 on both viewports, both 21-tab/7-link sweeps with zero errors; 82 local server checks.
 Draft handover: [PR #17](https://github.com/tatts29-svg/fish/pull/17). No real messages or record writes by tests.
+The README includes the read-only check of earlier message reports after server activation. Actual non-arrival
+is not considered resolved until the existing reports or handset evidence establish what happened.
 
 
 **v7.62 — LIVE within v7.63 at 13:57 AEST. Earlier validation: 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Claude has claimed v7.63 for the final presentation pass (PR #7); v7.62 is frozen and handed over with no overlapping edits. Combined release is not yet marked READY TO UPLOAD. No upload or record changes. Author: Andrew Fisher.

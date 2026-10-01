@@ -117,6 +117,21 @@ function delivery(n, state, extra = {}) {
       await send(); await refresh(); assert.match(await recipient(0), /failed|not delivered/i);
       assert.equal(sendRequests().length, 1);
     });
+    await test('Delivery lookup preserves provider status and explanation as escaped visible detail', async () => {
+      const providerStatus = 'FAILED<script>window.sms777Injected=true</script>';
+      const note = 'Synthetic <img src=x onerror="window.sms777Injected=true"> & explanation';
+      await openBox({status: {messages: [delivery(0, 'failed', {status_code: 301, provider_status: providerStatus, note})]}});
+      await send(); await refresh();
+      const visible = await recipient(0);
+      assert.match(visible, /messaging service or phone network reported a failure/);
+      assert.ok(visible.includes('301') && visible.includes(providerStatus) && visible.includes(note));
+      assert.equal(await p.locator('#smResults script, #smResults img').count(), 0);
+      assert.equal(await p.evaluate(() => window.sms777Injected), undefined);
+      assert.equal(sendRequests().length, 1);
+      const size = await drawer().evaluate(el => ({scroll: el.scrollWidth, client: el.clientWidth}));
+      assert.ok(size.scroll <= size.client + 1, JSON.stringify(size));
+      await drawer().screenshot({path: path.join(out, 'sms-detail-' + (mobile ? 'phone' : 'desktop') + '.png')});
+    });
     await test('Mixed accepted and rejected recipients keep separate results', async () => {
       await openBox({post: reply([accepted(), {to: NUMBERS[1], status: 'INVALID_RECIPIENT', message_id: null}])}, NUMBERS.slice(0, 2));
       await send(); assert.match(await recipient(0), /accepted|pending|awaiting/i);

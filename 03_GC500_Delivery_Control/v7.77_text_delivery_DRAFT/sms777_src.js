@@ -29,11 +29,12 @@ function sms777Results(host, rows){
   const state = row.delivery_status;
   const words = state === 'delivered' ? 'Delivered — confirmed by the phone network'
    : row.rejected ? 'Not accepted by the messaging service'
-   : state === 'failed' ? 'Not delivered — the phone network reported a failure'
+   : state === 'failed' ? 'Not delivered — the messaging service or phone network reported a failure'
    : state === 'unsupported' ? (row.accepted ? 'Accepted — delivery tracking is unavailable for this message' : 'Delivery tracking is unavailable — check before sending again')
    : state === 'pending' ? (row.accepted ? 'Accepted — waiting for delivery confirmation' : 'Waiting for delivery confirmation — acceptance is unknown')
    : 'Delivery unknown — check before sending again';
-  const detail = row.error_code || row.status_code || (row.rejected ? row.submission_status : '');
+  const detail = [row.error_code || row.status_code || (row.rejected ? row.submission_status : ''),
+   row.provider_status, row.note].filter(value => value != null && value !== '').map(String).join(' · ');
   return '<div data-sm-recipient="' + esc(row.to) + '" style="padding:10px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere"><b>'
    + esc(row.to) + '</b><br>' + esc(words) + (detail ? '<br><small>' + esc(String(detail)) + '</small>' : '') + '</div>';
  }).join('');
@@ -120,7 +121,8 @@ async function smsDropBox(a){ /* v7.77 — truthful submission and delivery stat
     const report = reports.find(report => report.message_id === row.message_id && (!report.to || sms777Number(report.to) === row.to));
     if (!row.message_id || !report || row.rejected) return row;
     const state = ['delivered','pending','failed','unknown','unsupported'].includes(report.delivery_status) ? report.delivery_status : 'unknown';
-    return Object.assign({}, row, {delivery_status: state, status_code: report.status_code, error_code: report.error_code});
+    return Object.assign({}, row, {delivery_status: state, status_code: report.status_code, error_code: report.error_code,
+     provider_status: report.provider_status, note: report.note});
    });
    msg.textContent = rows.every(row => row.delivery_status === 'delivered') ? 'Delivery confirmed for every recipient.'
     : 'Delivery check complete. Each number has its own result below. No message was sent again.';

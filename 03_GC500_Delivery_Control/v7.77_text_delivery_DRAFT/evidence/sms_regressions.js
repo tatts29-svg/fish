@@ -48,6 +48,17 @@ test('Provider detail is escaped before rendering', () => {
   const row = {...submission('SUCCESS'), error_code: '<img src=x onerror="synthetic">'};
   const html = rendered(row, 'failed'); assert.doesNotMatch(html, /<img/); assert.match(html, /&lt;img/);
 });
+test('Failed delivery does not blame only the phone network', () => {
+  assert.match(rendered(submission('SUCCESS'), 'failed'), /messaging service or phone network reported a failure/);
+});
+test('Provider status and explanation are visible as escaped detail alongside the code', () => {
+  const row = {...submission('SUCCESS'), status_code: 301, provider_status: 'FAILED<script>synthetic</script>',
+    note: 'Synthetic <img src=x onerror="synthetic"> & explanation'};
+  const html = rendered(row, 'failed');
+  assert.match(html, /301 · FAILED&lt;script&gt;synthetic&lt;\/script&gt; · Synthetic &lt;img/);
+  assert.match(html, /&quot;synthetic&quot;&gt; &amp; explanation/);
+  assert.doesNotMatch(html, /<(?:script|img)\b/);
+});
 const report = {author: 'Andrew Fisher', tests, passed: tests.filter(t => t.pass).length, total: tests.length,
   networkCalls: 0, recordWrites: 0, messagingWrites: 0};
 console.log(JSON.stringify(report)); if (report.passed !== report.total) process.exitCode = 1;
