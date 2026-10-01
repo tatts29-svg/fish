@@ -17,6 +17,11 @@ async function texts(page, mob) {
       load: typeof loadCheck782 === 'function' ? (() => { const keep = window.inPlace782; window.inPlace782 = () => false; /* as if still to come */
         try { const wc = JSON.parse(JSON.stringify(assetOf('WC05'))); const swap = wc.events.map(e => /waste tank/i.test(e.item || '') ? Object.assign(e, {load_time: '1000'}) : /toilet block/i.test(e.item || '') ? Object.assign(e, {load_time: '0430'}) : e);
           wc.events = swap; return {wc05: loadCheck782(assetOf('WC05')), p01: loadCheck782(assetOf('P01')), p04: loadCheck782(assetOf('P04')), p05: loadCheck782(assetOf('P05')), swapped: loadCheck782(wc)}; } finally { window.inPlace782 = keep; } })() : null,
+      time: typeof timeCheck782 === 'function' ? (() => { const keepD = window.deliveryOf, keepP = window.inPlace782;
+        try { window.deliveryOf = k => k === 'WB04' ? Object.assign({}, keepD(k), {eta: '09:00', state: 'not on site'}) : keepD(k);
+          const wb = assetOf('WB04'), r = {wb04Sms: (dropSmsText(wb).match(/Due[^\n]*/) || [''])[0], wb04Check: timeCheck782(wb), wb04Html: rules782Html(wb).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ')};
+          window.deliveryOf = keepD; window.inPlace782 = () => false; r.wc05 = timeCheck782(assetOf('WC05')); r.p05 = timeCheck782(assetOf('P05')); return r; }
+        finally { window.deliveryOf = keepD; window.inPlace782 = keepP; } })() : null,
       loadNow: typeof loadCheck782 === 'function' ? loadCheck782(assetOf('WC05')).length : null,
       doneKeys: typeof window.gc500DoneKeys === 'function' ? window.gc500DoneKeys().length : null,
       css: (() => { try { state.mapMasterSeen = true; state.sheet = 'MASTER'; go('map'); } catch (e) { return 'go: ' + e.message; }
@@ -48,6 +53,10 @@ async function texts(page, mob) {
   ok('L2 the load check flags the 14 Sep plan as if still to come (WC05 tank 08:30 in the 07:00-09:00 peak; toilet 09:30 after 05:00; P01 same slot as P03; P04 same slot as the WC05 toilet; P05 clean)', N.load && N.load.wc05.some(x => /Waste tank: load 08:30 is after 05:00 and puts the truck on the road 08:30-09:40, inside the 07:00-09:00 peak/.test(x)) && N.load.wc05.some(x => /Toilet Block 6m: load 09:30 is after 05:00$/.test(x)) && N.load.p01.some(x => /not after P03 \(04:30\)/.test(x)) && N.load.p04.some(x => /not after WC05 \(09:30\)/.test(x)) && !N.load.p05.length, JSON.stringify(N.load));
   ok('L3 a waste tank loading after its toilet block is called out', N.load && N.load.swapped.some(x => /the waste tank loads at 10:00, not before the toilet block \(04:30\) - load the tank first/.test(x)), JSON.stringify(N.load && N.load.swapped));
   ok('L4 nothing to check on a unit already on site (no noise on finished work)', N.loadNow === 0, N.loadNow);
+  ok('T1 the time given is an UNLOADED-BY time: every Full details says so (get there early; miss it and other crews wait or the area is closed)', keys.every(k => /TIME: the time given is when you must be UNLOADED by - not when you arrive\. Get there early\./.test(N.texts[k].long || '')), keys.filter(k => !/TIME: /.test(N.texts[k].long || '')).join(',') || 'all');
+  ok('T2 a delivery still to come with a time reads "unloaded by" in the text, and the check gives the latest Kingston departure (WB04 at 09:00, no load time: before 07:50)', N.time && /unloaded by 09:00/.test(N.time.wb04Sms) && N.time.wb04Check.some(x => /must leave Kingston before 07:50 \(70 min run\), earlier by the time unloading takes/.test(x)) && /Unloaded by 09:00 - not arriving at 09:00/.test(N.time.wb04Html), JSON.stringify(N.time && {sms: N.time.wb04Sms, check: N.time.wb04Check}));
+  ok('T3 a load that reaches site after its unloaded-by time is called out (WC05 07:00 vs tank 08:30 / toilet 09:30, as if to come); one that makes it shows its unloading time (P05: 50 min)', N.time && N.time.wc05.length === 2 && N.time.wc05.every(x => /AFTER 07:00, when it must already be unloaded\. Load earlier\./.test(x)) && N.time.p05.some(x => /load 05:00, on site about 06:10 - 50 min to unload before 07:00/.test(x)), JSON.stringify(N.time && {wc05: N.time.wc05, p05: N.time.p05}));
+  ok('T4 a delivered record keeps its own words (P03: "on site 07:00")', /Due Mon 14 Sep 2026, on site 07:00/.test(N.texts.P03.t), (N.texts.P03.t.match(/Due[^\n]*/) || ['-'])[0]);
   ok('M1 the done tick has its own double beat on the master plan', N.css && N.css.pills > 0 && N.css.anim === 'done782', JSON.stringify(N.css));
   ok('M2 the explorer gets the finished list', N.doneKeys > 0, N.doneKeys);
   if (B) {

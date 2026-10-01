@@ -255,6 +255,39 @@ t = rep(t, "window.gc500PlanItems = function(){", """/* v7.82 - the finished lis
 window.gc500DoneKeys = function(){ try { return allAssets().filter(a => !a._cancelled && deliveryOf(a.key).done).map(a => a.key); } catch (e) { return null; } };
 window.gc500PlanItems = function(){""", 'done list for the explorer', p, True)
 
-t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks). */\n/* v7.80 - a save empties', 1)
+# 5. THE TIME IS AN UNLOADED-BY TIME (the project manager, 2 Oct 2026): "When requests are made or a time frame on site, it
+#    means it needs to be off loaded by a certain time, not arrive right on that time ... Multiple work fronts operate. If
+#    we hold up or have delays we then delay all other work fronts ... If we miss times we miss access into areas, closed
+#    off by concrete barriers, or no traffic controllers. Time frames must be adhered to."
+t = rep(t, "const ORDER782_BY = 'the project manager, 2 Oct 2026';", """/* v7.82 - the planned time on a delivery is when the truck must be UNLOADED by, not when it arrives (the project
+   manager, 2 Oct 2026). Miss it and the other work fronts wait, or the area is shut (barriers in, no traffic control). */
+const TIME782 = 'TIME: the time given is when you must be UNLOADED by - not when you arrive. Get there early. Miss it and the other crews wait, or the area is closed (barriers in, no traffic control). Time frames must be kept.';
+function timeCheck782(a){
+ const d = deliveryOf(a.key) || {}, by = hhmm782(d.eta); if (by == null || inPlace782(a.key)) return [];
+ const kr = (DATA.transport || {}).kingston_run || {}, run = Math.round(kr.minutes_rounded || kr.minutes || 70), out = [];
+ const L = loads782(a);
+ if (!L.length) return ['no load time on the schedule - to be unloaded by ' + clock782(by) + ' it must leave Kingston before ' + clock782(by - run) + ' (' + run + ' min run), earlier by the time unloading takes'];
+ L.forEach(l => { const spare = by - l.arrive;
+  out.push((l.item ? l.item + ': ' : '') + 'load ' + clock782(l.at) + ', on site about ' + clock782(l.arrive) + (spare < 0 ? ' - AFTER ' + clock782(by) + ', when it must already be unloaded. Load earlier.' : ' - ' + spare + ' min to unload before ' + clock782(by) + (spare === 0 ? '. No time to unload: load earlier.' : '.'))); });
+ return out;
+}
+const ORDER782_BY = 'the project manager, 2 Oct 2026';""", 'unloaded-by check', p, True)
+t = rep(t, " L.push(LOAD782);\n loadCheck782(a).forEach(w => L.push('CHECK THE LOAD: ' + w + '.'));",
+        " L.push(TIME782);\n timeCheck782(a).forEach(w => L.push('CHECK THE TIME: ' + w));\n L.push(LOAD782);\n loadCheck782(a).forEach(w => L.push('CHECK THE LOAD: ' + w + '.'));", 'time in Full details', p, True)
+t = rep(t, " const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a); if (!o && !e && !pk && !lw.length) return '';",
+        " const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a), tw = timeCheck782(a); if (!o && !e && !pk && !lw.length && !tw.length) return '';", 'drawer shows for a time warning', p, True)
+t = rep(t, " L.push(row('Loading', esc(LOAD782.replace(/^LOAD /, 'Load '))));",
+        " { const by = (deliveryOf(a.key) || {}).eta; L.push(row('Time', by ? 'Unloaded by <b>' + esc(by) + '</b> - not arriving at ' + esc(by) + '. Get there early: miss it and the other crews wait, or the area is closed.' : 'The time given is when the truck must be unloaded by - get there early.')); }\n tw.forEach(w => L.push(row('Check the time', /AFTER|No time/.test(w) ? '<span class=\"no782\">' + esc(w) + '</span>' : esc(w))));\n L.push(row('Loading', esc(LOAD782.replace(/^LOAD /, 'Load '))));", 'drawer time row', p, True)
+# the words everywhere the time shows: unloaded by, not "on site"
+t = rep(t, "return 'Due ' + fmtDate(day) + (d.eta ? ', on site ' + d.eta : '');", "return 'Due ' + fmtDate(day) + (d.eta ? (d.state === 'on site' ? ', on site ' : ', unloaded by ') + d.eta : ''); /* v7.82 - the time is an unloaded-by time (a delivered record keeps its words) */", 'text: unloaded by', p, True)
+t = rep(t, "${d.eta ? ' · planned on site ' + d.eta : ''}${ev.load_time", "${d.eta ? (d.state === 'on site' ? ' · planned on site ' + d.eta : ' · unloaded by ' + d.eta + ' (get there early)') : ''}${ev.load_time", 'Full details: unloaded by', p, True)
+t = rep(t, "dv.eta ? ' · planned on site ' + esc(dv.eta) : ''}</span>`", "dv.eta ? (dv.state === 'on site' ? ' · planned on site ' : ' · unloaded by ') + esc(dv.eta) : ''}</span>`", 'card: unloaded by', p, True)
+t = rep(t, "<span class=\"rs-sup\">planned on site — no load time in the schedule</span>", "<span class=\"rs-sup\">${dv.state === 'on site' ? 'planned on site' : 'unloaded by'} — no load time in the schedule</span>", 'running sheet: unloaded by', p, True)
+t = rep(t, "color:#b9b2ab\">on site ${e(dv.eta)}</td>", "color:#b9b2ab\">${dv.state === 'on site' ? 'on site' : 'unloaded by'} ${e(dv.eta)}</td>", 'print card: unloaded by', p, True)
+t = rep(t, ">Planned time to site</label>", ">Unloaded by (the time asked for)</label>", 'drawer field label', p, True)
+t = rep(t, "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'shared record') : ''}</div></div>",
+        "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'shared record') + ' · ' : ''}the truck is unloaded by then - it arrives early</div></div>", 'drawer field hint', p, True)
+
+t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time). */\n/* v7.80 - a save empties', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
 print('v7.82 applied: GN21 corrected on the master; driver rules on Text it and Full details')

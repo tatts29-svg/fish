@@ -20,6 +20,11 @@ Author: Andrew Fisher · 2 Oct 2026 · built on the live page v7.80 (`303029e3�
 - Loading: "load times will need to be done minimum 5am at Kingston to allow time to get to Gold Coast. So you wouldn't
   load a waste tank after 9am and a toilet block first. Needs to be very clear. Common sense." He also passed on peak
   windows for heavy and oversize loads on the M1 into the Gold Coast (07:00–09:00 and 16:00–18:00).
+- The time: "When requests are made or a time frame on site, it means it needs to be off loaded by a certain time, not
+  arrive right on that time. If a request is for 9 AM … he will need to be early as he needs to be unloaded by 10 am.
+  Multiple work fronts operate. If we hold up or have delays we then delay all other work fronts (construction of
+  stands, fencing erecting). If we miss times we miss access into areas … closed off by concrete barriers, or no
+  traffic controllers. Time frames must be adhered to."
 - Park entries: watch for wildlife and branches; some spots are very tight.
 - When something is complete, mark it on the map with an icon that pulses in its own way, clear and not confusing.
 
@@ -177,6 +182,39 @@ still to come:
 | 6 P04 | 09:30 (Irwins turnaround) | after 05:00; same slot as the WC05 toilet block |
 
 The tank did load before its toilet block on 14 Sep, so that part was right. The late loads are the issue.
+
+### The time is an unloaded-by time
+
+The time on a delivery (the drawer's time field) now means **the truck is unloaded by then**, not when it arrives.
+
+- **Every Full details** carries: `TIME: the time given is when you must be UNLOADED by - not when you arrive. Get there
+  early. Miss it and the other crews wait, or the area is closed (barriers in, no traffic control). Time frames must be
+  kept.`
+- **The text** for a delivery still to come reads `Due Fri 16 Oct 2026, unloaded by 09:00` (it was "on site 09:00").
+  If all 99 still-to-come texts were given a time, none would lose its due date.
+- **The drawer**: the field is now labelled "Unloaded by (the time asked for)", with the hint "the truck is unloaded by
+  then - it arrives early". The Driver rules box gets a Time row.
+- **Timeline cards, the running sheet and the printed card** say "unloaded by" for anything still to come.
+- **Delivered records keep their own words** ("on site 07:00"). The 50 times on the record are all on delivered units,
+  and some look like stamps (14:36, 14:37) rather than requests, so they aren't relabelled.
+
+**The time check** (drawer and Full details, units still to come):
+- With a load time: when it reaches site (load + 70 min) and how many minutes that leaves to unload. **AFTER the
+  unloaded-by time** is shown in red ("Load earlier").
+- With no load time: the latest it can leave Kingston, e.g. *"to be unloaded by 09:00 it must leave Kingston before
+  07:50 (70 min run), earlier by the time unloading takes."*
+
+The page has no unloading time per item, so it shows the minutes left and doesn't judge whether they are enough.
+Andrew can give a standard allowance (say per building, per toilet block, per generator) and the check will use it.
+
+Today no delivery still to come has a time or a load time on it, so the check is quiet until one is entered. Run on the
+14 Sep plan as if still to come: P03/P01 (04:30) reach site about 05:40, 80 min to unload before 07:00. P05 (05:00):
+06:10, 50 min. WC05 tank (08:30) and toilet block (09:30), and P04 (09:30): all reach site **after** the 07:00 on their
+records.
+
+**Something to settle:** `transport.arrival` (11 Sep) says "however early a truck loads, it reaches the Gold Coast
+after 07:00", while 24 delivered units carry 07:00. Read as unloaded-by times, the two can't both hold. Under the new
+rule, the 11 Sep note reads as superseded for anything with an earlier time asked for. I haven't changed it.
 
 ## 3. Done on the map
 
