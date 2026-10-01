@@ -10,7 +10,15 @@ Author: Andrew Fisher. Codex owns the working track-detail preview. Andrew appro
 using the supplied gantry/fence/road photographs as visual references; retain the existing MP4 car, weather,
 speedos and car identity. Private originals remain private. This is a working preview, not a graphics publication.
 Both agents review the same final candidate before any future release. Do not overlap Claude's v7.80 Fencing work.
-Branch `codex/gc500-v7.81-showcase-preview`. Status: in progress; not ready to upload.
+Branch `codex/gc500-v7.81-showcase-preview`, draft PR #20. **Working preview and local checks complete; final
+Claude review requested, not READY TO UPLOAD.** Full-page draft: 8,725,360 bytes, SHA256
+`cd8bbbc5207541836de42001ff1e1dc471f9ec8d54e40ba69c131c0dadd5db7b`. Standalone visual preview:
+1,117,998 bytes, SHA256 `22ac12d01aa8938c4d1f40113229a2dccf4aece3917ff0db592db6e1afb843ba`.
+Full-page 24/24 checks; exact default-off pixel equality with v7.80; final desktop/phone sweeps each 21 tabs and
+7 links with zero errors. Standalone 43/43 plus the documented full-page-only final delta. Actual desktop/phone
+frames and evidence are in `v7.81_track_detail_preview_DRAFT/evidence/`. This is an environment study, still below
+the approved concept's realism; placements are illustrative. Claude has not accessed Andrew's private photo
+originals. Live stays v7.80; MP4, weather, speedos and records remain unchanged by this preview.
 
 ## Release completed — v7.80 Fencing card refresh LIVE, 2 Oct 2026 00:45 AEST
 

@@ -1,0 +1,699 @@
+{
+  "author": "Andrew Fisher",
+  "preview": "track_detail_preview.html",
+  "rendering": "Software-rendered Chromium; not a physical-device performance benchmark",
+  "checks": [
+    {
+      "name": "standalone preview exists",
+      "pass": true
+    },
+    {
+      "name": "desktop: opens behind explicit start control",
+      "pass": true,
+      "detail": {
+        "scene": false,
+        "disabled": true,
+        "gate": true
+      }
+    },
+    {
+      "name": "desktop: WebGL scene starts",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "enabled": true,
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 200,
+          "triangles": 14564,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 16,
+          "roofParapets": 157,
+          "facadeFins": 369,
+          "triangles": 6312,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and OSM building footprints; illustrative facade detail, not surveyed event works"
+        },
+        "meshes": 2,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          1440,
+          900
+        ],
+        "paused": true,
+        "reduced": false
+      }
+    },
+    {
+      "name": "desktop: new geometry installed",
+      "pass": true
+    },
+    {
+      "name": "desktop: shader programs linked",
+      "pass": true,
+      "detail": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "desktop: no WebGL error after first render",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "desktop: canvas has drawable dimensions",
+      "pass": true,
+      "detail": [
+        1440,
+        900
+      ]
+    },
+    {
+      "name": "desktop: paused status reports actual canvas dimensions",
+      "pass": true,
+      "detail": {
+        "text": "PAUSED \u00b7 1440 \u00d7 900",
+        "expected": "1440 \u00d7 900"
+      }
+    },
+    {
+      "name": "desktop: comparison changes actual WebGL pixels",
+      "pass": true,
+      "detail": {
+        "on": "b0657e55",
+        "off": "b2fa785b"
+      }
+    },
+    {
+      "name": "desktop: captured comparison frames differ",
+      "pass": true
+    },
+    {
+      "name": "desktop: comparison releases added GPU resources",
+      "pass": true
+    },
+    {
+      "name": "desktop: comparison preserves car model and position",
+      "pass": true,
+      "detail": {
+        "disabled": true,
+        "car": true,
+        "parts": true,
+        "stats": true,
+        "position": true,
+        "clock": true,
+        "vehicle": true,
+        "ui": "false"
+      }
+    },
+    {
+      "name": "desktop: comparison restores detail",
+      "pass": true
+    },
+    {
+      "name": "desktop: all four camera controls select finite rigs",
+      "pass": true,
+      "detail": [
+        {
+          "name": "chase",
+          "requested": "chase",
+          "view": "chase",
+          "eye": [
+            -38.36993203972421,
+            0.5187322665280062,
+            15.158130392310111
+          ],
+          "target": [
+            -34.28948480681464,
+            0.25768193759345764,
+            11.89474167948547
+          ],
+          "active": "true"
+        },
+        {
+          "name": "onboard",
+          "requested": "onboard",
+          "view": "onboard",
+          "eye": [
+            -36.97237062554267,
+            0.2745238942989124,
+            13.875245986951736
+          ],
+          "target": [
+            -25.482031361495338,
+            0.31662878606254924,
+            5.393086124671971
+          ],
+          "active": "true"
+        },
+        {
+          "name": "hero",
+          "requested": "hero",
+          "view": "hero",
+          "eye": [
+            -34.94429935403769,
+            0.333470742768004,
+            13.84349136664501
+          ],
+          "target": [
+            -37.13496976607165,
+            0.1397882406552744,
+            13.9952765510406
+          ],
+          "active": "true"
+        },
+        {
+          "name": "heli",
+          "requested": "heli",
+          "view": "heli",
+          "eye": [
+            -38.709201457039825,
+            5.419741667815337,
+            17.250753320189055
+          ],
+          "target": [
+            -32.663493401524924,
+            0.030315522069818544,
+            10.694436038596825
+          ],
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "desktop: cameras produce different viewpoints",
+      "pass": true
+    },
+    {
+      "name": "desktop: animation advances the existing simulation",
+      "pass": true,
+      "detail": {
+        "before": {
+          "s": 345.18954131729726,
+          "clock": 3.5
+        },
+        "advanced": {
+          "s": 345.24024130868474,
+          "clock": 3.583333333333333
+        }
+      }
+    },
+    {
+      "name": "desktop: pause holds simulation position",
+      "pass": true
+    },
+    {
+      "name": "desktop: replay returns to section start without unpausing",
+      "pass": true
+    },
+    {
+      "name": "desktop: no final WebGL error",
+      "pass": true
+    },
+    {
+      "name": "phone: opens behind explicit start control",
+      "pass": true,
+      "detail": {
+        "scene": false,
+        "disabled": true,
+        "gate": true
+      }
+    },
+    {
+      "name": "phone: WebGL scene starts",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "enabled": true,
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 200,
+          "triangles": 14564,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 16,
+          "roofParapets": 157,
+          "facadeFins": 369,
+          "triangles": 6312,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and OSM building footprints; illustrative facade detail, not surveyed event works"
+        },
+        "meshes": 2,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          390,
+          844
+        ],
+        "paused": true,
+        "reduced": false
+      }
+    },
+    {
+      "name": "phone: new geometry installed",
+      "pass": true
+    },
+    {
+      "name": "phone: shader programs linked",
+      "pass": true,
+      "detail": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "phone: no WebGL error after first render",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "phone: canvas has drawable dimensions",
+      "pass": true,
+      "detail": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "phone: paused status reports actual canvas dimensions",
+      "pass": true,
+      "detail": {
+        "text": "PAUSED \u00b7 390 \u00d7 844",
+        "expected": "390 \u00d7 844"
+      }
+    },
+    {
+      "name": "phone: no horizontal page overflow",
+      "pass": true,
+      "detail": {
+        "width": 390,
+        "documentWidth": 390,
+        "controls": [
+          {
+            "label": "Play",
+            "x": 16,
+            "right": 60.640625,
+            "top": 645.21875,
+            "bottom": 685.21875,
+            "w": 44.640625,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Replay section",
+            "x": 65.640625,
+            "right": 165.28125,
+            "top": 645.21875,
+            "bottom": 685.21875,
+            "w": 99.640625,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Detail on",
+            "x": 170.28125,
+            "right": 238.734375,
+            "top": 645.21875,
+            "bottom": 685.21875,
+            "w": 68.453125,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Chase",
+            "x": 16,
+            "right": 71.03125,
+            "top": 695.21875,
+            "bottom": 735.21875,
+            "w": 55.03125,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Track level",
+            "x": 76.03125,
+            "right": 154.3125,
+            "top": 695.21875,
+            "bottom": 735.21875,
+            "w": 78.28125,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Car follow",
+            "x": 159.3125,
+            "right": 234.484375,
+            "top": 695.21875,
+            "bottom": 735.21875,
+            "w": 75.171875,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Overhead",
+            "x": 239.484375,
+            "right": 312.234375,
+            "top": 695.21875,
+            "bottom": 735.21875,
+            "w": 72.75,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "BalancedHighUltra",
+            "x": 55.140625,
+            "right": 146.140625,
+            "top": 745.21875,
+            "bottom": 785.21875,
+            "w": 91,
+            "h": 40,
+            "disabled": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone: touch controls stay inside viewport",
+      "pass": true,
+      "detail": [
+        {
+          "label": "Play",
+          "x": 16,
+          "right": 60.640625,
+          "top": 645.21875,
+          "bottom": 685.21875,
+          "w": 44.640625,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Replay section",
+          "x": 65.640625,
+          "right": 165.28125,
+          "top": 645.21875,
+          "bottom": 685.21875,
+          "w": 99.640625,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Detail on",
+          "x": 170.28125,
+          "right": 238.734375,
+          "top": 645.21875,
+          "bottom": 685.21875,
+          "w": 68.453125,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Chase",
+          "x": 16,
+          "right": 71.03125,
+          "top": 695.21875,
+          "bottom": 735.21875,
+          "w": 55.03125,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Track level",
+          "x": 76.03125,
+          "right": 154.3125,
+          "top": 695.21875,
+          "bottom": 735.21875,
+          "w": 78.28125,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Car follow",
+          "x": 159.3125,
+          "right": 234.484375,
+          "top": 695.21875,
+          "bottom": 735.21875,
+          "w": 75.171875,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Overhead",
+          "x": 239.484375,
+          "right": 312.234375,
+          "top": 695.21875,
+          "bottom": 735.21875,
+          "w": 72.75,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "BalancedHighUltra",
+          "x": 55.140625,
+          "right": 146.140625,
+          "top": 745.21875,
+          "bottom": 785.21875,
+          "w": 91,
+          "h": 40,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "name": "phone: controls have at least 40px touch height",
+      "pass": true
+    },
+    {
+      "name": "phone: comparison responds to touch",
+      "pass": true
+    },
+    {
+      "name": "phone: camera responds to touch",
+      "pass": true
+    },
+    {
+      "name": "phone: no WebGL error",
+      "pass": true
+    },
+    {
+      "name": "reduced-motion: opens behind explicit start control",
+      "pass": true,
+      "detail": {
+        "scene": false,
+        "disabled": true,
+        "gate": true
+      }
+    },
+    {
+      "name": "reduced-motion: WebGL scene starts",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "enabled": true,
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 200,
+          "triangles": 14564,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 16,
+          "roofParapets": 157,
+          "facadeFins": 369,
+          "triangles": 6312,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and OSM building footprints; illustrative facade detail, not surveyed event works"
+        },
+        "meshes": 2,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          1000,
+          700
+        ],
+        "paused": true,
+        "reduced": true
+      }
+    },
+    {
+      "name": "reduced-motion: new geometry installed",
+      "pass": true
+    },
+    {
+      "name": "reduced-motion: shader programs linked",
+      "pass": true,
+      "detail": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "reduced-motion: no WebGL error after first render",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "reduced-motion: canvas has drawable dimensions",
+      "pass": true,
+      "detail": [
+        1000,
+        700
+      ]
+    },
+    {
+      "name": "reduced-motion: paused status reports actual canvas dimensions",
+      "pass": true,
+      "detail": {
+        "text": "PAUSED \u00b7 1000 \u00d7 700",
+        "expected": "1000 \u00d7 700"
+      }
+    },
+    {
+      "name": "reduced-motion: initial scene is paused",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "enabled": true,
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 200,
+          "triangles": 14564,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 16,
+          "roofParapets": 157,
+          "facadeFins": 369,
+          "triangles": 6312,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and OSM building footprints; illustrative facade detail, not surveyed event works"
+        },
+        "meshes": 2,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          1000,
+          700
+        ],
+        "paused": true,
+        "reduced": true
+      }
+    },
+    {
+      "name": "reduced-motion: initial still does not advance",
+      "pass": true
+    },
+    {
+      "name": "offline preview requests no external resources",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no page, shader or console errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "screenshots": [
+    {
+      "name": "desktop-detail-on",
+      "path": "desktop-detail-on.png",
+      "sha256": "c7c4d6d98541d8e47d253d2774bb398629b921ec41645062b29a67a143929e7b"
+    },
+    {
+      "name": "desktop-current",
+      "path": "desktop-current.png",
+      "sha256": "3604efaa81c5d2f211585aac2dbaf0e64667db0601e9d4d4a0bddf58cfe1f706"
+    },
+    {
+      "name": "desktop-preview",
+      "path": "desktop-preview.png",
+      "sha256": "39b0b9a749d8a13fa772086f432d06e06923cb8d1adcf2bd68285ecccb075ae8"
+    },
+    {
+      "name": "phone-preview",
+      "path": "phone-preview.png",
+      "sha256": "af46bce973131a65d01cc27349e43cd15717db0c5f1e606354587a31029e5e0f"
+    }
+  ],
+  "sourceSha256": "f0cb213548f5cc824caab27873cc40612a8010217839f517547e8c54caeb4ecc",
+  "sourceBytes": 1117971
+}
