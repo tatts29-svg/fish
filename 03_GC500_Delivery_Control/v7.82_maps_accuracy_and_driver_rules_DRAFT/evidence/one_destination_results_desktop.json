@@ -1,0 +1,52 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
+ "passed": 9,
+ "of": 9,
+ "tests": [
+  {
+   "name": "D1 every item: the Navigate button, the text, Full details, the sheet and its QR all go to the same point (196 items)",
+   "pass": true,
+   "detail": "{\"kinds\":{\"master\":125,\"report\":53,\"confirmed\":1,\"desc\":15,\"pinned\":2},\"disagree\":[],\"missing\":[]}"
+  },
+  {
+   "name": "D2 synthetic fallback: an item with no drop-off goes to the pit lane on every surface",
+   "pass": true,
+   "detail": "{\"ref\":\"GN06\",\"kind\":\"report\",\"own\":\"ENTRY: seaside - in at the Seaworld Dr roundabout end of Main Beach Pde, drive south.\",\"entry\":\"\",\"pitEntry\":\"\",\"way\":\"Site access: turn in at -27.984841, 153.426813.\",\"pitWay\":\"Site access: turn in at -27.984841, 153.426813.\",\"onPit\":[],\"label\":\"pit lane\",\"spoken\":\"to the pit lane (no drop-off yet) for GN06, opens your maps app\",\"title\":\"Opens your maps app with driving directions to the pit lane - no drop-off is set for GN06 yet; the driver reports there and site directs them.\",\"says\":true}"
+  },
+  {
+   "name": "D3 synthetic fallback: the way in is the pit lane's own - never the one worked out from the item's own spot",
+   "pass": true,
+   "detail": "{\"own\":\"ENTRY: seaside - in at the Seaworld Dr roundabout end of Main Beach Pde, drive south.\",\"entry\":\"\",\"pitEntry\":\"\",\"way\":\"Site access: turn in at -27.984841, 153.426813.\",\"pitWay\":\"Site access: turn in at -27.984841, 153.426813.\"}"
+  },
+  {
+   "name": "D4 synthetic fallback: the button's label, spoken words and tooltip all say pit lane",
+   "pass": true,
+   "detail": "{\"label\":\"pit lane\",\"spoken\":\"to the pit lane (no drop-off yet) for GN06, opens your maps app\",\"title\":\"Opens your maps app with driving directions to the pit lane - no drop-off is set for GN06 yet; the driver reports there and site directs them.\"}"
+  },
+  {
+   "name": "D5 a time asked for keeps the due date and the time, even when the text is full (only the link gives way)",
+   "pass": true,
+   "detail": "{\"ref\":\"GN04\",\"when\":\"Due Mon 19 Oct 2026, on site by 06:10, unloaded by 10:00\",\"kept\":true,\"hasDue\":true,\"hasTime\":true,\"units\":509,\"linkDropped\":true}"
+  },
+  {
+   "name": "D6 every Navigate button: visible label, spoken words and tooltip name the same source",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "D7 every approximate destination keeps its qualification in the short text (1 approximate)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "D8 WB06 (description spot, approximate) says so in the text and on the button",
+   "pass": true,
+   "detail": "{\"kind\":\"desc\",\"gps\":\"GPS: -27.985905, 153.426834 (water barriers: the spot the description names, approximate - check on site)\",\"label\":\"description\",\"spoken\":\"to the spot the description names (approximate - check on site) for WB06, opens your maps app\"}"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

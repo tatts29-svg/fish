@@ -31,7 +31,7 @@
   {
    "name": "R4 S08 drops (WB02, WB19, WC27) are land side: enter from the Surfers (south) end, race direction",
    "pass": true,
-   "detail": "WB02:null WB19:land side WC27:land side"
+   "detail": "WB02:land side WB19:land side WC27:land side"
   },
   {
    "name": "R5 seaside drops (WC50, WC60, WC62) come in at the Seaworld Dr roundabout end and drive south",
@@ -169,9 +169,9 @@
    "detail": "{\"html\":\" Driver rules Order truck 1 of 6 (P03, P01, P05, WC05 tank, WC05 toilet, P04). Out of order = no entry. Sequence 1 P03 &gt; 2 P01 &gt; 3 P05 &gt; 4 WC05 waste tank &gt; 5 WC05 toilet block &gt; 6 P04.\"}"
   },
   {
-   "name": "V1 a position the map review left unverified does not count as a drop-off: LTC01 goes to the pit lane, and its source says not verified everywhere",
+   "name": "V1 a position the map review left unverified does not count as a drop-off: LTC01 goes to the pit lane - its source still says not verified, and Navigate names the pit lane it goes to (Codex recheck: the tooltip matches the destination)",
    "pass": true,
-   "detail": "{\"by\":\"drawing D024 arrow (not verified)\",\"nav\":\"Opens your maps app with driving directions to where an arrow on drawing D024 puts LTC01 - not verified, check it on site.\",\"dirs\":{\"drop\":false,\"dir\":true,\"ok\":true,\"report\":\"P33\",\"missing\":[],\"unverified\":false,\"located\":true},\"sheet\":\"report\",\"sms\":[\"No drop-off yet: report to the pit lane.\",\"GPS: -27.984876, 153.426644 (pit lane)\"]}"
+   "detail": "{\"by\":\"drawing D024 arrow (not verified)\",\"nav\":\"Opens your maps app with driving directions to the pit lane - no drop-off is set for LTC01 yet; the driver reports there and site directs them.\",\"dirs\":{\"drop\":false,\"dir\":true,\"ok\":true,\"report\":\"P33\",\"missing\":[],\"unverified\":false,\"located\":true},\"sheet\":\"report\",\"sms\":[\"No drop-off yet: report to the pit lane.\",\"GPS: -27.984876, 153.426644 (pit lane)\"]}"
   },
   {
    "name": "V2 one source label on every surface: P47 is \"confirmed by the project manager\" in the text, Navigate, the pin record and the driver sheet",
@@ -206,12 +206,12 @@
   {
    "name": "M2 the explorer gets the finished list",
    "pass": true,
-   "detail": "78"
+   "detail": "80"
   },
   {
    "name": "R11 (measure) a delivery-details link gives way only where a v7.82 line needs the room (ORDER, ENTRY, HOLD, the pit-lane directions, the spot for a water barrier) (the link stays in Full details)",
    "pass": true,
-   "detail": "LTC01,LTC03,LTC04,LTC05,LTC06,LTC07,LTC08,LTC09,LTC10,LTC11,LTC12,LTC14,P01,P03,P04,P05,WB05,WB06,WB07,WB14,WB15,WB17,WB19,WC20,WC27,WC60,T0258,T0266 · live 200 → 172"
+   "detail": "P01,P03,P04,P05,WB02,WB05,WB06,WB07,WB14,WB15,WB17,WB19,WC20,WC27,WC60 · live 200 → 185"
   },
   {
    "name": "R12 no Due line lost against the live page",

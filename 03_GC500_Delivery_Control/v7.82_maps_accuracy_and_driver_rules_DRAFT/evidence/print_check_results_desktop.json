@@ -1,8 +1,8 @@
 {
  "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
  "day": "2026-10-06",
- "passed": 20,
- "of": 20,
+ "passed": 26,
+ "of": 26,
  "tests": [
   {
    "name": "P1 Drivers ▾ > All loads opens the check first - no PDF is made yet",
@@ -37,12 +37,12 @@
   {
    "name": "P7 every driver sheet carries \"Checked by <name> · <date, time>\"",
    "pass": true,
-   "detail": "{\"pages\":12,\"stamped\":12,\"sample\":\"Checked by Test Person · 02 Oct 2026, 03:46 AEST · drop-off, way in, times and order\"}"
+   "detail": "{\"pages\":12,\"stamped\":12,\"sample\":\"Checked by Test Person · 02 Oct 2026, 04:28 AEST · drop-off, way in, times and order\"}"
   },
   {
    "name": "P12 every driver sheet is followed by an A4 location sign for each item on it (deliveries), and every sign fits its page",
    "pass": true,
-   "detail": "{\"seq\":[\"D1\",\"S:P08\",\"D2\",\"S:P46\",\"D3\",\"S:P47\",\"D4\",\"S:P51\",\"D5\",\"S:T0085\",\"D6\",\"S:T0089\"],\"n\":6,\"want\":6,\"fit\":true,\"words\":\"Coates · GC500 2026Delivery location Location referenceP08 Building 6mGOES TOSecuritynear Gate 2, Commodore · beside P51, WC38, GEM Due on siteTue 06 Oct 2026Load1 of 6Item1 of 1 Laminate this sign and fix it to the item where it can be seen.Leave it on until the item is in its place.Checked by Test Person · 02 Oct 2026, 03:46 AEST · drop-off, way in, times and order\"}"
+   "detail": "{\"seq\":[\"D1\",\"S:P08\",\"D2\",\"S:P46\",\"D3\",\"S:P47\",\"D4\",\"S:P51\",\"D5\",\"S:T0085\",\"D6\",\"S:T0089\"],\"n\":6,\"want\":6,\"fit\":true,\"words\":\"Coates · GC500 2026Delivery location Location referenceP08 Building 6mGOES TOSecuritynear Gate 2, Commodore · beside P51, WC38, GEM Due on siteTue 06 Oct 2026Load1 of 6Item1 of 1 Laminate this sign and fix it to the item where it can be seen.Leave it on until the item is in its place.Checked by Test Person · 02 Oct 2026, 04:28 AEST · drop-off, way in, times and order\"}"
   },
   {
    "name": "P13 each load PDF holds its sheet and its signs; the all-loads PDF holds every page",
@@ -97,7 +97,37 @@
   {
    "name": "P19 the time on the sheet is the project time (Brisbane, AEST), whatever the device says",
    "pass": true,
-   "detail": "02 Oct 2026, 03:46 AEST"
+   "detail": "02 Oct 2026, 04:29 AEST"
+  },
+  {
+   "name": "P20 moving the way in from one pinned point to another voids the check",
+   "pass": true,
+   "detail": "{\"ref\":\"P08\",\"load\":1,\"master\":true,\"wayIn\":{\"held\":true,\"afterMove\":false},\"drop\":{\"held\":true,\"printedMoved\":true,\"afterMove\":false},\"loadTime\":{\"day\":\"2026-09-14\",\"from\":\"430\",\"to\":\"05:00\",\"held\":true,\"afterChange\":false},\"carrier\":{\"day\":\"2026-09-14\",\"from\":\"IRWINS SUPER TILT\",\"held\":true,\"afterChange\":false},\"same\":{\"held\":true,\"twice\":true}}"
+  },
+  {
+   "name": "P21 moving the drop-off from one pin to another voids the check (when the sheet's drop-off moves)",
+   "pass": true,
+   "detail": "{\"held\":true,\"printedMoved\":true,\"afterMove\":false}"
+  },
+  {
+   "name": "P22 changing a load time from one valid time to another voids the check",
+   "pass": true,
+   "detail": "{\"day\":\"2026-09-14\",\"from\":\"430\",\"to\":\"05:00\",\"held\":true,\"afterChange\":false}"
+  },
+  {
+   "name": "P22b changing the carrier on a load from one name to another voids the check",
+   "pass": true,
+   "detail": "{\"day\":\"2026-09-14\",\"from\":\"IRWINS SUPER TILT\",\"held\":true,\"afterChange\":false}"
+  },
+  {
+   "name": "P23 nothing changed: the check still holds (no false alarms), and it reads the same every time",
+   "pass": true,
+   "detail": "{\"held\":true,\"twice\":true}"
+  },
+  {
+   "name": "P24 the way in moved while the check is open: pressing the button shows it again as it stands now - nothing is made",
+   "pass": true,
+   "detail": "{\"ref\":\"P08\",\"again\":true,\"chg\":true,\"held\":false}"
   },
   {
    "name": "E1 no page errors",

@@ -53,7 +53,7 @@
   {
    "name": "A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save",
    "pass": true,
-   "detail": "{\"paneElements\":15095,\"fired\":true,\"held\":true,\"inList\":true}"
+   "detail": "{\"paneElements\":15098,\"fired\":true,\"held\":true,\"inList\":true}"
   },
   {
    "name": "A6 on an editing link the tab bar that save() redraws reads the edit",
