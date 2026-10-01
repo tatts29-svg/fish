@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_bytes": 8682471,
+  "candidate_sha256": "577c69b20fbe1b89cb2e270755a5e19aadd836b074a69ff784bcb5870a29d87d",
+  "ui": {
+    "desktop": {
+      "passed": 24,
+      "total": 24,
+      "page_errors": 0,
+      "production_messaging_writes": 0
+    },
+    "phone": {
+      "passed": 24,
+      "total": 24,
+      "page_errors": 0,
+      "production_messaging_writes": 0
+    }
+  },
+  "fresh_after_save": {
+    "desktop": {
+      "passed": 11,
+      "total": 11,
+      "page_errors": 0
+    },
+    "phone": {
+      "passed": 11,
+      "total": 11,
+      "page_errors": 0
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "tabs_visited": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "tabs_visited": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "test_policy": "All SMS/MMS calls mocked with synthetic fixtures. Shared browser harness blocks production record writes. No test sends.",
+  "phone_visual_review": "Passed: synthetic per-recipient results and controls are readable at a 390 by 844 emulated phone viewport; Send is visibly disabled after acceptance; no horizontal overflow. Screenshots remain private.",
+  "pure_helpers": {
+    "passed": 10,
+    "total": 10,
+    "network_calls": 0,
+    "record_writes": 0,
+    "messaging_writes": 0
+  }
+}
