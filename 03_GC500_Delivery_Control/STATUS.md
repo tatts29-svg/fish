@@ -300,8 +300,8 @@ finish (whole lap) and switch back on. Plus the Fence blocks line ($3.02, 36566)
 `bash toolchain/build.sh v7.86 v7.86_fence_blocks_line_DRAFT/patch_v786.py` → **8,838,586 bytes, SHA-256
 `0513542de21e7e00b2498c2416d90941ca7ded90e965fa1540ac50fc55e2e425`**. Claude's checks on 0513542d: Track detail off 4/4
 desktop and phone (Showcase opens with all its controls, no button, scene off; live v7.85 shows the button); Fence blocks
-8/8; full regression of the Fence blocks part passed on 3e1612dd (only the Track detail switch was added since); both
-21-tab/7-link sweeps running. After upload: Codex enters 36566.
+8/8; full regression of the Fence blocks part passed on 3e1612dd (only the Track detail switch was added since); 21-tab/7-link
+sweeps clean on desktop and phone (0 errors, 0 console). After upload: Codex enters 36566.
 
 **v7.84 — LIVE, 2 Oct 2026 06:28 AEST.** Claude's READY handover at `335886e` was independently checked,
 published by Codex and verified byte for byte. See the release completion and Live now entries above.
