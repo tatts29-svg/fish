@@ -39,7 +39,9 @@ const fs = require('fs');
   ok('Toilet Pumpouts and Consumables together are the servicing line; the water truck and pre-fill sit with the pump-outs', near(L.pump.now + L.cons.now, R.svTotal) && near(L.pump.now, R.svCard + R.wp) && near(L.cons.now, R.wc), `${L.pump.now} + ${L.cons.now} vs ${R.svTotal}`);
   ok('Installation is the labour ticked plus the event labour scope', near(L.install.now, R.c.labour + R.c.race), `${L.install.now}`);
   ok('Damage Waiver carries no figure and says the branch sets the rate', L.waiver.now == null && /branch/.test(L.waiver.basis || ''), L.waiver.basis);
-  ok('Difference so far is the Forecast P&L figure; to job end is the At a glance figure after priced wages', near(P.diff.now, R.difference0) && near(P.diff.job, R.X.revenueJob - R.X.job - R.X.wagesJob), `${P.diff.now} / ${P.diff.job}`);
+  /* the P&L's difference0 is kept to the dollar; the card's is to the cent */
+  ok('Difference so far is the Forecast P&L figure (to the dollar)', Math.abs(P.diff.now - R.difference0) < 0.51, `${P.diff.now} vs ${R.difference0}`);
+  ok('Difference to job end is the At a glance figure after priced wages', near(P.diff.job, R.X.revenueJob - R.X.job - R.X.wagesJob), `${P.diff.job} vs ${R.X.revenueJob - R.X.job - R.X.wagesJob}`);
   ok('Gross margin is revenue less the ledger lines, with a percentage', near(P.gm.now, P.revNow - P.direct) && P.gm.pcNow > 0 && P.gm.pcNow < 1, `${P.gm.now} ${Math.round(P.gm.pcNow * 100)}%`);
   const tRec = P.rec.find(r => r.name === 'Transport Recovery'), iRec = P.rec.find(r => r.name === 'Installation Recovery'), cRec = P.rec.find(r => r.name === 'Consumables Recovery');
   ok('Transport Recovery groups the pump-outs with cartage and names cartage alone in words', tRec && near(tRec.now, (L.transport.now + L.pump.now) / (L.cTransport.now + L.cPump.now)) && /cartage alone/.test(tRec.words), tRec && tRec.words);
