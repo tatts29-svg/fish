@@ -197,6 +197,11 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.77 — Text it delivery, claimed by Codex, 1 Oct 2026 19:39 AEST.** Author: Andrew Fisher.
+Andrew reports that a text he sends does not arrive on his phone. Trace the page and live message service,
+fix the verified cause and exercise the paths with provider sends blocked in tests. Claude owns v7.75 separately.
+Both agents must complete review of the final candidate before any publication, under Andrew's latest rule.
+
 
 **v7.62 — LIVE within v7.63 at 13:57 AEST. Earlier validation: 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Claude has claimed v7.63 for the final presentation pass (PR #7); v7.62 is frozen and handed over with no overlapping edits. Combined release is not yet marked READY TO UPLOAD. No upload or record changes. Author: Andrew Fisher.
 
