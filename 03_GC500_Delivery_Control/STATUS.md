@@ -21,7 +21,7 @@ a completed handover and a verified live release; do not imply a second review t
 
 For v7.82 and v7.83, Claude implemented the corrections and completed the full regression; Codex completed independent
 checks on the same final combined candidate and published it. The known release blockers are resolved.
-The Showcase preview stays separate and unpublished.
+The approved Showcase scene follows the separate v7.85 release below.
 
 ## Claimed — v7.85 approved Showcase detail release, 2 Oct 2026
 
@@ -62,7 +62,7 @@ Record **3527** before and after; no record changes, journals or real sends. Ope
 The Showcase stays unpublished. Sources: `v7.82_maps_accuracy_and_driver_rules_LIVE/` and
 `v7.83_inventory_share_pdf_LIVE/`; each holds `evidence/release_verification.json`.
 
-## Preview ready — v7.81 Showcase surface refinement, 2 Oct 2026
+## Historical preview proof — v7.81 surface refinement, superseded by v7.85 approval
 
 Author: Andrew Fisher. Codex owns this separate preview on `codex/gc500-v7.81-showcase-preview`, draft PR #20.
 Andrew: “Lets proceed with showcase improvments” and “don't undo everything else we have done your improving the
@@ -83,9 +83,9 @@ Standalone **49/49**, full-page **25/25**, and both **21-tab/7-link** navigation
 Default-off pixels match v7.84; exiting restores preferences and releases added resources. All **7,625,870 bytes**
 before the renderer match the v7.84 base exactly. Independent internal code review found no surface-pass blockers.
 Claude's review at a67c9d4 applies only to the historical prototype; it is not a review of this candidate. Checks:
-`v7.81_track_detail_preview_DRAFT/evidence/surface-{standalone,full-page,sweeps,preservation}.json`.
+`v7.85_showcase_track_detail_DRAFT/evidence/surface-{standalone,full-page,sweeps,preservation}.json`.
 
-**Preview only; not READY TO UPLOAD.** Actual desktop, phone, track-level and kerb-profile frames plus a six-second
+**Historical preview evidence.** Andrew has since approved publication as v7.85 above. Actual desktop, phone, track-level and kerb-profile frames plus a six-second
 1440 × 900 animation are complete in `evidence/surface-*`. `surface-render.json` records hashes, zero render errors
 or external requests, and a native 3840 × 2160 still retained in Andrew's local review package. Software exports do
 not establish real-time/4K frame rates. Earlier evidence is marked historical in the README. Visual fidelity and performance

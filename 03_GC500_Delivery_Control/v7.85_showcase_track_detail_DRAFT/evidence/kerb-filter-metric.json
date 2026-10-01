@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "roi": [
+    900,
+    430,
+    1300,
+    470
+  ],
+  "units": "8-bit luminance; adjacent horizontal pixels within the same white kerb top",
+  "comparison": {
+    "before-shadow": {
+      "maximum_adjacent_luminance_jump": 30.263600000000025,
+      "p99_adjacent_luminance_jump": 6.097802000000001,
+      "jumps_above_3": 213
+    },
+    "after-shadow": {
+      "maximum_adjacent_luminance_jump": 1.2125999999999522,
+      "p99_adjacent_luminance_jump": 0.927800000000019,
+      "jumps_above_3": 0
+    }
+  }
+}

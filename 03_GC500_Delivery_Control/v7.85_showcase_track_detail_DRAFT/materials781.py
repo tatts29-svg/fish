@@ -24,6 +24,23 @@ vec3 previewSurface781(vec3 normal,float visibility){
 }""", "shared preview light")
     r("float slope=1.-max(dot(normalize(normal),normalize(vec3(.45,.80,.40))),0.);",
       "float slope=1.-max(dot(normalize(normal),previewSun781()),0.);", "shadow slope")
+    r("float bias=.00032+.0011*slope;\n float lit=0.;",
+      """float bias=.00032+.0011*slope;
+ if(uDetail781>.5){
+  /* The NEAREST depth map needs interpolation of comparison results, not
+     interpolation of depth. Preserve the 3x3 filter footprint while removing
+     its discrete n/9 brightness bands across kerbs and the adjacent road. */
+  vec2 pixel=q.xy/uShadowTexel-.5,cell=floor(pixel),f=fract(pixel);
+  float lit781=0.;
+  for(int y=-1;y<=2;y++)for(int x=-1;x<=2;x++){
+   vec2 uv=(cell+vec2(float(x),float(y))+.5)*uShadowTexel;
+   float wx=x==-1?1.-f.x:(x==2?f.x:1.),wy=y==-1?1.-f.y:(y==2?f.y:1.);
+   float sampleLit=(uv.x<=0.||uv.x>=1.||uv.y<=0.||uv.y>=1.)?1.:step(q.z-bias,texture(uShadow,uv).r);
+   lit781+=sampleLit*wx*wy;
+  }
+  return lit781/9.;
+ }
+ float lit=0.;""", "continuous preview shadow filtering")
     r("vec3 litConcrete=concrete*(ambient+.80*sun*visibility);\n litConcrete+=vec3(.010,.023,.038)*(1.-sun*.7);",
       """vec3 litConcrete=concrete*(ambient+.80*sun*visibility);
  litConcrete+=vec3(.010,.023,.038)*(1.-sun*.7);

@@ -1,8 +1,8 @@
-/* Author: Andrew Fisher. Opt-in preview controls; no service or record access. */
+/* Author: Andrew Fisher. Opt-in track detail controls; no service or record access. */
 (function(){
 'use strict';
 const G=window.GC3D;
-G.preview781={version:'v7.81',kind:'working preview',camera:'chase',enabled:false};
+G.preview781={version:'v7.85',kind:'approved track detail',camera:'chase',enabled:false};
 G.enablePreview781=function(on){
  const S=G.S;if(!S)return false;
  G.preview781.enabled=!!on;S.detail781Enabled=!!on;
@@ -44,21 +44,39 @@ G.camStep=function(dt){
  c.name=name;S.previewCam781=c;S.cam=c;S.camRoll=0;S.shotName=name;S.tune.shiftX=0;S.tune.shiftY=0;
 };
 G.previewReport781=function(){
- const S=G.S;return {author:'Andrew Fisher',version:'v7.81',publication:'preview only',enabled:!!(S&&S.detail781Enabled),
+ const S=G.S;return {author:'Andrew Fisher',version:'v7.85',publication:'approved for release',enabled:!!(S&&S.detail781Enabled),
   scope:'One illustrative pit-straight section; photograph-informed details are not surveyed locations',
   camera:G.preview781.camera,graphics:S?G.graphicsReport():null,track:S&&(S.trackDetail781&&S.trackDetail781.stats||S.detail781Stats)||null,
   architecture:S&&(S.architecture781&&S.architecture781.stats||S.architecture781Stats)||null,
   vegetation:G.vegetationReport781&&S?G.vegetationReport781(S):null};
 };
-// In the full candidate this is an explicitly selected preview, never the default Showcase.
+// Track detail is explicitly selected; the saved Showcase appearance remains the default.
 function attach(){
  const controls=document.getElementById('showQualityL')||document.getElementById('showBackdrop');
  if(!controls||document.getElementById('detail781Button'))return;
- const b=document.createElement('button');b.id='detail781Button';b.type='button';b.textContent='Track detail preview';b.setAttribute('aria-pressed','false');
+ const b=document.createElement('button');b.id='detail781Button';b.type='button';b.className='shbtn';b.textContent='Track detail';b.setAttribute('aria-pressed','false');
+ const detailTitle='Enhanced pit-straight loop · uses the existing car and controls';b.title=detailTitle;
+ const viewControl=document.getElementById('showView'),detailViews=new Set(['hero','onboard','chase','heli']);
  let previous=null;
- const resetButton=()=>{G.preview781.enabled=false;b.setAttribute('aria-pressed','false');b.textContent='Track detail preview';};
+ const resetButton=()=>{G.preview781.enabled=false;b.setAttribute('aria-pressed','false');b.textContent='Track detail';b.title=detailTitle;};
+ const restoreViewControl=before=>{
+  const saved=before&&before.viewControl;if(!saved||!viewControl)return;
+  for(const item of saved.options){item.option.hidden=item.hidden;item.option.disabled=item.disabled;}
+  viewControl.value=saved.value;
+  if(saved.label==null)viewControl.removeAttribute('aria-label');else viewControl.setAttribute('aria-label',saved.label);
+ };
+ if(viewControl)viewControl.addEventListener('change',event=>{
+  if(!previous||!G.preview781.enabled||!G.S||!G.S.previewLoop781)return;
+  // The ordinary View handler persists its choice. A tour camera is temporary,
+  // so handle it first and keep the saved Showcase camera preference intact.
+  event.stopImmediatePropagation();
+  const camera=detailViews.has(viewControl.value)?viewControl.value:'chase';viewControl.value=camera;
+  G.preview781.camera=camera;G.setView(camera);G.S.previewCam781=null;G.camStep(0);G.S.needsRender=true;
+  if(G.S.paused)G.render();
+ },true);
  G.restorePreview781=function(closed){
   if(!previous)return;const before=previous;previous=null;
+  restoreViewControl(before);
   if(G.S){G.enablePreview781(false);G.S.previewLoop781=false;G.simReset();G.S.calmDrive=before.calm;G.S.paused=before.paused;G.setView(before.view);}
   if(!closed&&typeof showSetBack==='function')showSetBack(before.back);
   try{if(before.stored==null)localStorage.removeItem('gc500.showback');else localStorage.setItem('gc500.showback',before.stored);}catch(e){}
@@ -71,7 +89,12 @@ function attach(){
    paused:typeof SHOW!=='undefined'?!SHOW.playing:!!(G.S&&G.S.paused),view:typeof showViewGet==='function'?showViewGet():'hero'};
   if(typeof showSetBack==='function')showSetBack('circuit3d_day');
   if(!G.S){G.restorePreview781(false);b.textContent='3D unavailable on this device';return;}
-  G.enablePreview781(true);b.setAttribute('aria-pressed','true');b.textContent='Leave track preview';
+  if(viewControl){
+   previous.viewControl={value:viewControl.value,label:viewControl.getAttribute('aria-label'),options:Array.from(viewControl.options,option=>({option,hidden:option.hidden,disabled:option.disabled}))};
+   for(const option of viewControl.options)if(!detailViews.has(option.value)){option.hidden=true;option.disabled=true;}
+   viewControl.value='chase';viewControl.setAttribute('aria-label','Camera — track detail');
+  }
+  G.enablePreview781(true);b.setAttribute('aria-pressed','true');b.textContent='Leave track detail';
   G.S.previewLoop781=true;G.S.calmDrive=true;G.preview781.camera='chase';G.restartPreview781();
   if(G.S.paused)G.render();
  };
@@ -81,8 +104,8 @@ function attach(){
  const backdrop=document.getElementById('showBackdrop');
  if(backdrop)backdrop.addEventListener('change',()=>{
   // A deliberate backdrop selection replaces the preview and remains the user's new preference.
-  if(!previous)return;previous=null;
-  if(G.S){G.enablePreview781(false);G.S.previewLoop781=false;G.S.calmDrive=false;G.simReset();G.S.paused=typeof SHOW!=='undefined'?!SHOW.playing:false;}
+  if(!previous)return;const before=previous;previous=null;restoreViewControl(before);
+  if(G.S){G.enablePreview781(false);G.S.previewLoop781=false;G.S.calmDrive=before.calm;G.simReset();G.S.paused=typeof SHOW!=='undefined'?!SHOW.playing:false;G.setView(before.view);}
   resetButton();
  });
 }

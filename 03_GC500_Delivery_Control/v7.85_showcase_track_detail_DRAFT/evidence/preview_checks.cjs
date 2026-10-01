@@ -4,8 +4,8 @@
 // No claims about physical-device FPS: Chromium uses software rendering here.
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const {chromium,devices}=require('playwright');
-const pageFile=path.resolve(process.env.PREVIEW_FILE||path.join(__dirname,'../../build/GC500_v7.81/track_detail_preview.html'));
-const out=path.resolve(process.env.OUT||'/workspace/private-showcase781');
+const pageFile=path.resolve(process.env.PREVIEW_FILE||path.join(__dirname,'../../build/GC500_v7.85/track_detail_preview.html'));
+const out=path.resolve(process.env.OUT||'/workspace/private-showcase785');
 const results={author:'Andrew Fisher',preview:path.basename(pageFile),rendering:'Software-rendered Chromium; not a physical-device performance benchmark',checks:[],errors:[],externalRequests:[],screenshots:[]};
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 function check(name,pass,detail,fatal=true){results.checks.push({name,pass:!!pass,...(detail===undefined?{}:{detail})});writeResults();if(!pass&&fatal)throw Error(name);}

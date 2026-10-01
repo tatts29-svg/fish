@@ -36,9 +36,16 @@ float visibility(vec3 n){
  vec4 p=uLightVP*vec4(vWorld,1.);vec3 q=p.xyz/max(p.w,.00001)*.5+.5;
  if(any(lessThanEqual(q,vec3(0.)))||any(greaterThanEqual(q,vec3(1.))))return 1.;
  float bias=.00035+.0011*(1.-max(dot(n,normalize(uSun)),0.));float lit=0.;
- for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){
- vec2 uv=q.xy+vec2(float(x),float(y))*uShadowTexel;
- lit+=(any(lessThanEqual(uv,vec2(0.)))||any(greaterThanEqual(uv,vec2(1.))))?1.:step(q.z-bias,texture(uShadow,uv).r);}
+ /* The shared depth map uses NEAREST filtering. Nine hard comparisons make
+    visible n/9 brightness bands on a continuous kerb top. Bilinearly filter
+    the comparisons, not depth: this is the same 3x3 PCF footprint expressed
+    with its sixteen unique texels. Geometry, material and bias stay fixed. */
+ vec2 pixel=q.xy/uShadowTexel-.5,cell=floor(pixel),f=fract(pixel);
+ for(int y=-1;y<=2;y++)for(int x=-1;x<=2;x++){
+ vec2 uv=(cell+vec2(float(x),float(y))+.5)*uShadowTexel;
+ float wx=x==-1?1.-f.x:(x==2?f.x:1.),wy=y==-1?1.-f.y:(y==2?f.y:1.);
+ float sampleLit=(any(lessThanEqual(uv,vec2(0.)))||any(greaterThanEqual(uv,vec2(1.))))?1.:step(q.z-bias,texture(uShadow,uv).r);
+ lit+=sampleLit*wx*wy;}
  return lit/9.;
 }
 void main(){
