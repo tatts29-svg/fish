@@ -57,7 +57,7 @@
    },
    "note": "Written on the paper: \"Brace existing fence. Not scrimmed.\" No metres on any charge line.",
    "to_confirm": [
-    "Bracing an existing fence: 216 bases, 216 clamps, 108 braces and no metres. The card has no bracing line - how is it charged? Not recorded as a charge until Andrew says (the docket form needs a quantity, so this one waits)."
+    "Andrew: \"charge as per what was used\". Proposed: 216 bases at the card's Fence Blocks line ($3.02 each = $652.32); clamps (216) and braces (108) have no card line and are not charged separately; Advanced's cost comes off their invoice (their sheet prices by the metre only). Needs a Fence blocks line on the page - waiting on his yes."
    ],
    "signed_by": "Andrew (2 Oct 2026)",
    "installer_date": "2026-09-30"
@@ -102,8 +102,7 @@
    },
    "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - recorded as demarcation, to confirm. Scrim 462.5 m, same as the fence (Andrew, 2 Oct).",
    "to_confirm": [
-    "CC barrier: event or demarcation?",
-    "36560 (north) is recorded 'no shade cloth yet'. If shade cloth has since gone on the north run too, that is a further 507.5 m of scrim - not added until Andrew says."
+    "CC barrier: event or demarcation?"
    ],
    "read_with_care": [
     "Base 474 and brace 151 - the last digit of each is a hurried hand; check against the paper."
@@ -167,6 +166,8 @@
  },
  "andrew_answers": [
   "Andrew, 2 Oct 2026: \"shade cloth same as fencing\" - the shade cloth (scrim) is the same metres as the fence on the docket, charged on the card Scrim line ($25.53/m charged, $24.40/m paid).",
-  "Andrew, 2 Oct 2026: \"new 60 was north 68 is south\" - 36568 is new fence: 36560 is the median strip north, 36568 the south. No overlap."
+  "Andrew, 2 Oct 2026: \"new 60 was north 68 is south\" - 36568 is new fence: 36560 is the median strip north, 36568 the south. No overlap.",
+  "Andrew, 2 Oct 2026: \"no shade cloth gone on as yet\" (the 36560 north run) - nothing added for it.",
+  "Andrew, 2 Oct 2026, on 36566: \"charge as per what was used\" - proposed: 216 bases on the card's Fence Blocks line ($3.02 each = $652.32); clamps and braces have no card line. Waiting on his yes; needs a Fence blocks line on the page."
  ]
 }
