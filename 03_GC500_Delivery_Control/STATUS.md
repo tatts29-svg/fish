@@ -23,6 +23,18 @@ For v7.82 and v7.83, Claude implemented the corrections and completed the full r
 checks on the same final combined candidate and published it. The known release blockers are resolved.
 The Showcase preview stays separate and unpublished.
 
+## Release completed — v7.84 directions LIVE, 2 Oct 2026 06:28 AEST
+
+Author: Andrew Fisher. Andrew's five confirmed ways in are applied across texts, driver sheets, the drawer and print
+checks. **Claude completed implementation/full regression; Codex independently reviewed and checked the exact candidate,
+then published and verified it live.** Page **8,767,811 bytes**, SHA256
+`c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725`.
+Independent directions **10/10 desktop and phone**, phone visual review, static checks, dry-run and fresh-base guard pass.
+Claude's current regression suites and both **21-tab/7-link** sweeps pass; legacy text expectations are documented in the README.
+Record **3527** and the active machine manifest are unchanged. No record changes, journals or real sends.
+The remaining unconfirmed access decisions stay open. Showcase stays unpublished.
+Source and public proof: `v7.84_ways_in_from_andrew_LIVE/evidence/release_verification.json`.
+
 ## Release completed — v7.83 including v7.82 LIVE, 2 Oct 2026 05:24 AEST
 
 Author: Andrew Fisher. Map positions and Done markers, one consistent destination across driver sheets, navigation,
@@ -222,6 +234,7 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 
 | version | what | live | by |
 |---|---|---|---|
+| **v7.84 LIVE** | Andrew’s five confirmed ways in; shared directions across text, driver sheet, drawer and print check. Exact c9958a42 candidate verified live; record 3527 and explorer unchanged. | 2 Oct 2026 06:28 | Claude (implementation/full regression), Codex (independent checks/upload) |
 | **v7.83 LIVE (includes v7.82)** | Map accuracy, Done markers, consistent driver sheets/texts/pictures, print confirmation and Inventory Share PDF. Both agents completed checks on f6544262; page and explorer verified byte for byte. Record 3527 unchanged. See release proof above. | 2 Oct 2026 05:24 | Claude (implementation/full regression), Codex (independent checks/upload) |
 | **v7.80 LIVE** | The Fencing tab's "Paid to Advanced, by P&L line" card follows a typed paid rate at once: a save empties the per-draw memo (`RENDER_MEMO`). On live v7.79 the card stayed stale (3/5); now 5/5 on desktop and phone, v7.75 11/11, P&L 31/31, navigation 21/21, sweeps clean. Both reviews on the same build. Claude fetched it fresh at 00:45: **8,682,905 bytes, SHA-256 `303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7`**. No record changes. `v7.80_fencing_card_fresh_LIVE/`. | 2 Oct 2026 00:45 | Codex (upload), Claude (fix) |
 | **v7.79 LIVE** | Professional welcome, reference, Navigate link and site access in Text it; existing delivery-details links and due dates retained. Both reviews, 23/23 checks per viewport, both sweeps and byte verification complete. No record writes. | 1 Oct 2026 22:17 | Codex, reviewed with Claude |
@@ -262,18 +275,9 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
-**v7.84 — the ways in Andrew gave: READY TO UPLOAD (Claude's handover, 2 Oct 2026 06:55 AEST).** Claimed 06:10.
-Author: Andrew Fisher. Andrew, 2 Oct 2026: "wc25 meet at pitlane start point. wc31 from North head towards hill to drop
-off. location on map.. wc45 meet at starting point pitlane wc47 meet at starting point pitlane Lane. gn04 meet at
-starting point pitlane". WC25, WC45, WC47, GN04: the way in is to meet at the pit lane start point (the pit lane entry
-the pit lane rule uses); WC31: in from the north end towards The Hill to its drop-off on the map. Drop-offs unchanged.
-Still open with Andrew: WB07 (Admiralty Dr), WB13, WB18, WB20 (Turn 2 / Ferny Ave) - on HOLD; Gate 1 / Gate 2; the 05:00
-scope. One patch on the live v7.83: `bash toolchain/build.sh v7.84 v7.84_ways_in_from_andrew_DRAFT/patch_v784.py` →
-8,767,811 bytes, SHA-256 `c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725` (explorer unchanged). Claude's full
-regression on c9958a42: every suite passes desktop and phone - ways in 10/10, rules 45/45 (the v7.84 copy: D2 and Z2
-follow Andrew's answers), print check, one destination, inventory, explorer, fencing, fresh-after-save, P&L practice,
-both sweeps, navigation, Inventory PDF 9/9; v7.79 text checks 16/23. A second audit is optional under the 2 Oct
-arrangement; Codex to upload. Claude checked: the live page fetched at 06:05 AEST is byte for byte the approved v7.83 (`f6544262…`).
+**v7.84 — LIVE, 2 Oct 2026 06:28 AEST.** Claude's READY handover at `335886e` was independently checked,
+published by Codex and verified byte for byte. See the release completion and Live now entries above.
+Source: `v7.84_ways_in_from_andrew_LIVE/`. Remaining access and timing questions stay open.
 
 **v7.82 — LIVE within v7.83, 2 Oct 2026 05:24 AEST. Historical ready handover follows.**
 Author: Andrew Fisher. One patch on the live v7.80, plus the explorer:
