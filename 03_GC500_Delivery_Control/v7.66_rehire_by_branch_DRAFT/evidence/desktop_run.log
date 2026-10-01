@@ -6,6 +6,7 @@
   "forkliftsAreEveryNvacForkliftLine": true,
   "subLinesEachCounted": true,
   "fencingIsThePLsAndTheProgramme": true,
+  "fencingGearNotInstallation": true,
   "totalsAdd": true,
   "fourBranches": true,
   "othersListed": true,
@@ -80,9 +81,9 @@
    "rev": 120913.08,
    "revToCome": 248809.54,
    "revJob": 369722.62,
-   "cost": 77121.5,
+   "cost": 75021.5,
    "costToCome": 180090.1,
-   "costJob": 257211.6,
+   "costJob": 255111.6,
    "missing": 0
   }
  ],
@@ -111,8 +112,11 @@
   "expectRev": 120913.08,
   "revToCome": 248809.54,
   "expectRevTC": 248809.54,
-  "cost": 77121.5,
-  "expectCost": 77121.5,
+  "cost": 75021.5,
+  "expectCost": 75021.5,
+  "installation": 2100,
+  "expectInstall": 2100,
+  "plCategory": 77121.5,
   "costToCome": 180090.1,
   "expectCostTC": 180090.1
  },
@@ -120,17 +124,17 @@
   "T": {
    "rev": 311820.69,
    "revToCome": 248809.54,
-   "cost": 195696.5,
+   "cost": 193596.5,
    "costToCome": 180090.1,
    "costMissing": 3,
    "lines": 206,
    "revJob": 560630.23,
-   "costJob": 375786.6,
+   "costJob": 373686.6,
    "share": 0.6965343828775984,
    "shareNow": 0.5607522522833582
   },
   "sumRev": 311820.69,
-  "sumCost": 195696.5,
+  "sumCost": 193596.5,
   "sumRevTC": 248809.54,
   "sumCostTC": 180090.1,
   "revenueJob": 804885.22,
@@ -143,7 +147,7 @@
    "branch": "STPS",
    "groups": 1,
    "revJob": 369722.62,
-   "costJob": 257211.6,
+   "costJob": 255111.6,
    "costMissing": 0
   },
   {
