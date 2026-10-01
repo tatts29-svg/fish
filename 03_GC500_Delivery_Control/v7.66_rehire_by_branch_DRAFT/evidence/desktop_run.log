@@ -10,6 +10,7 @@
   "fourBranches": true,
   "othersListed": true,
   "glanceLinksToIt": true,
+  "everyLineInOnePlace": true,
   "readOnly": true,
   "andrewsWords": true,
   "neverPartners": true,
@@ -77,11 +78,11 @@
    "lines": 63,
    "units": null,
    "rev": 120913.08,
-   "revToCome": 200547.71,
-   "revJob": 321460.79,
+   "revToCome": 248809.54,
+   "revJob": 369722.62,
    "cost": 77121.5,
-   "costToCome": 138979.5,
-   "costJob": 216101,
+   "costToCome": 180090.1,
+   "costJob": 257211.6,
    "missing": 0
   }
  ],
@@ -108,41 +109,41 @@
  "fence": {
   "rev": 120913.08,
   "expectRev": 120913.08,
-  "revToCome": 200547.71,
-  "expectRevTC": 200547.71,
+  "revToCome": 248809.54,
+  "expectRevTC": 248809.54,
   "cost": 77121.5,
   "expectCost": 77121.5,
-  "costToCome": 138979.5,
-  "expectCostTC": 138979.5
+  "costToCome": 180090.1,
+  "expectCostTC": 180090.1
  },
  "totals": {
   "T": {
    "rev": 311820.69,
-   "revToCome": 200547.71,
+   "revToCome": 248809.54,
    "cost": 195696.5,
-   "costToCome": 138979.5,
+   "costToCome": 180090.1,
    "costMissing": 3,
    "lines": 206,
-   "revJob": 512368.4,
-   "costJob": 334676,
-   "share": 0.6773080473692779,
-   "shareNow": 0.5608992564782534
+   "revJob": 560630.23,
+   "costJob": 375786.6,
+   "share": 0.6965343828775984,
+   "shareNow": 0.5607522522833582
   },
   "sumRev": 311820.69,
   "sumCost": 195696.5,
-  "sumRevTC": 200547.71,
-  "sumCostTC": 138979.5,
-  "revenueJob": 756477.65,
-  "xJob": 756477.65,
-  "revenueNow": 555929.94,
-  "cTotal": 555929.94
+  "sumRevTC": 248809.54,
+  "sumCostTC": 180090.1,
+  "revenueJob": 804885.22,
+  "xJob": 804885.22,
+  "revenueNow": 556075.68,
+  "cTotal": 556075.68
  },
  "byBranch": [
   {
    "branch": "STPS",
    "groups": 1,
-   "revJob": 321460.79,
-   "costJob": 216101,
+   "revJob": 369722.62,
+   "costJob": 257211.6,
    "costMissing": 0
   },
   {

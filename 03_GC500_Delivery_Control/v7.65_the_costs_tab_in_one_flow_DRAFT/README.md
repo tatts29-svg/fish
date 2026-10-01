@@ -21,13 +21,13 @@ Gone from the tab: the v5.83 ledger "Are we making money?" — its streams, bran
 Forecast P&L and the Costs to job end card. The by-branch revenue card and the eight-categories card are folded under
 The working rather than shown a second time. The functions stay in the page; nothing else calls them.
 
-## The glance's figures (the record on 1 Oct 2026, version 3283)
+## The glance's figures (the record on 1 Oct 2026, version 3288, on the corrected v7.64)
 
 | Tile | Today | To job end |
 |---|---|---|
-| Revenue | $555,930 on the record | $756,478 (+ $200,548 of fencing still to come at the 2026 card) |
-| Direct costs | $235,372 known | $403,300 (+ wages priced $31,824 Job Connect · 1,626 h of Coates wages not priced) |
-| Difference | $320,558 so far | $321,353 to job end, after priced wages — not a margin; 7 items not priced |
+| Revenue | $556,076 on the record | $804,885 (+ $248,810 of fencing still to come at the 2026 card, the behind-the-programme metres among it) |
+| Direct costs | $235,372 known | $444,411 (+ wages priced $31,824 Job Connect · 1,626 h of Coates wages not priced) |
+| Difference | $320,704 so far | $328,650 to job end, after priced wages — not a margin; 8 items not priced |
 | Month-end for Finance | September 2026: $176,968 revenue earned, not yet billed | $70,331 of costs to accrue (proposal) · $21,950 for Finance's call · 5 lines with no day to put them in |
 
 Every one is read from the same functions the cards below are drawn from (`moneySummary`, `cj764Model`,

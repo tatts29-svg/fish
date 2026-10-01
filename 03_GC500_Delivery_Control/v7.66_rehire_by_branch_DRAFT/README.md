@@ -19,11 +19,11 @@ job end. Every figure is the Forecast P&L's or the Costs to job end card's — a
 | KINP | Sub-hired — refrigerated container SUB-2131 · supplier code ROY002 | $1,428 | — | $1,428 | not on the record | — | — |
 | MEAD | Sub-hired — forklift extension SUB-2527 · supplier code QUE011 | $9 | — | $9 | not on the record | — | — |
 | NVAC | Forklifts and their attachments — sub-hired (Andrew, 1 Oct) · 9 lines | $35,276 | — | $35,276 | not on the record | — | — |
-| STPS | Fencing — Advanced Temporary Fencing · 63 dockets | $120,913 | $200,548 | $321,461 | $77,122 | $138,980 | $216,101 |
-| | **Rehire — the business** | **$311,821** | **$200,548** | **$512,368** | **$195,697** | **$138,980** | **$334,676** |
+| STPS | Fencing — Advanced Temporary Fencing · 63 dockets | $120,913 | $248,810 | $369,723 | $77,122 | $180,090 | $257,212 |
+| | **Rehire — the business** | **$311,821** | **$248,810** | **$560,630** | **$195,697** | **$180,090** | **$375,787** |
 
-Tiles: Rehire Revenue on the record $311,821 (56 % of the $555,930 revenue on the record) · to job end $512,368 (68 % of
-the $756,478 revenue to job end) · Rehire cost on the record $195,697 · to job end $334,676, a floor until the three
+Tiles: Rehire Revenue on the record $311,821 (56 % of the $556,076 revenue on the record) · to job end $560,630 (70 % of
+the $804,885 revenue to job end) · Rehire cost on the record $195,697 · to job end $375,787, a floor until the three
 suppliers' costs are on the record (the container, the forklift extension, the NVAC forklifts).
 
 A contract line is rehire here when every toilet line is Event Portables gear (the toilets stream's rule), when its item
@@ -45,6 +45,15 @@ What the card says that the record needs an answer to:
 
 The glance's flow list gains "Rehire by branch".
 
+## Codex's review, 1 Oct 14:00 — two corrections
+
+- **Every contract line lands in exactly one group.** A `take()` helper hands each line out once (SUB lines, then the
+  toilets, then the NVAC forklifts, then other machines marked hired in, then the rest), so no line can be in two groups
+  or fall between them; the toilets group follows whichever branch carries them. The model returns `coverage` and the
+  test holds groups + not counted + Coates's own plant-numbered hire = every contract line.
+- **The fencing note read keys `fencePaidSplit` does not return.** It now reads `gear`, `installation` and `green`.
+- The fencing row's still-to-come follows v7.64's correction (ended weeks carried as behind the programme).
+
 ## Files
 
 - `patch_v766.py` — `rh766Model`, `rh766Card` before `cj764Model`; mounted after `cj764Card()`; the glance link;
@@ -57,7 +66,5 @@ The glance's flow list gains "Rehire by branch".
 
 ## Build and evidence
 
-Built and tested within `build/GC500_v7.67` (eight patches, 8,621,316 bytes, check_page PASS) — see
-`../v7.67_priced_by_us_DRAFT/README.md` for the sweeps. Practice test desktop 16/16 and phone 16/16.
-
-Not for upload until the four-patch Costs release is live and Codex has reviewed; then one build, eight patches.
+Built and tested within `build/GC500_v7.67d` (four patches on the live v7.63, 8,624,985 bytes, check_page PASS) — see
+`../v7.67_priced_by_us_DRAFT/README.md` for the sweeps. Practice test desktop 17/17 and phone 17/17.
