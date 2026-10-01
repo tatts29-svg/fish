@@ -39,7 +39,12 @@ stamp, so Today and the Timeline show them arrived and complete on 1 Oct); WC60 
 
 ## Status
 
-**Rehearsed, not yet written.** `rehearsal_result.json`: every step run against the live record's copy in memory on
+**WRITTEN by Codex at 14:03 AEST, 1 Oct 2026, in the name "Andrew Fisher via Codex"; record version 3283 → 3288. Verified
+by Claude at 14:10 on a read-only pass of the live record (`record_after_verified.json`):** WC33 Event Portables, 17
+units, complete, on site · WC56 Event Portables, 12 units, complete, on site · WC59 Event Portables, 7 units, complete,
+on site · WC60 numbers 1119489, 1328980, 1087500, 1328981, levelled, steps, complete, on site.
+
+Earlier: **Rehearsed, not yet written.** `rehearsal_result.json`: every step run against the live record's copy in memory on
 the view link with every write blocked — WC33, WC56 and WC59 marked Event Portables, 17, 12 and 7 units added, none refused,
 complete and on site; WC60 carries the four numbers (none refused, none on another reference), the note, levelled, steps, complete, on
 site. The edit key is not in this session's environment, so the write needs one of:
