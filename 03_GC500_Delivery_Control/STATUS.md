@@ -52,7 +52,7 @@ Record **3527** before and after; no record changes, journals or real sends. Ope
 The Showcase stays unpublished. Sources: `v7.82_maps_accuracy_and_driver_rules_LIVE/` and
 `v7.83_inventory_share_pdf_LIVE/`; each holds `evidence/release_verification.json`.
 
-## In progress — v7.81 Showcase surface refinement, 2 Oct 2026
+## Preview ready — v7.81 Showcase surface refinement, 2 Oct 2026
 
 Author: Andrew Fisher. Codex owns this separate preview on `codex/gc500-v7.81-showcase-preview`, draft PR #20.
 Andrew: “Lets proceed with showcase improvments” and “don't undo everything else we have done your improving the
@@ -75,9 +75,10 @@ before the renderer match the v7.84 base exactly. Independent internal code revi
 Claude's review at a67c9d4 applies only to the historical prototype; it is not a review of this candidate. Checks:
 `v7.81_track_detail_preview_DRAFT/evidence/surface-{standalone,full-page,sweeps,preservation}.json`.
 
-**Preview only; not READY TO UPLOAD.** Render capture is in progress; a completed video or native 4K result is not
-yet claimed. The intended visual evidence is `surface-desktop.png`, `surface-phone.png`, `surface-kerb.png` and
-`surface-render.json`. Earlier evidence is clearly marked historical in the README. Visual fidelity and performance
+**Preview only; not READY TO UPLOAD.** Actual desktop, phone, track-level and kerb-profile frames plus a six-second
+1440 × 900 animation are complete in `evidence/surface-*`. `surface-render.json` records hashes, zero render errors
+or external requests, and a native 3840 × 2160 still retained in Andrew's local review package. Software exports do
+not establish real-time/4K frame rates. Earlier evidence is marked historical in the README. Visual fidelity and performance
 on physical devices remain unfinished. Private photos and clips remain private. No graphics publication, project
 record edits, journals or real messages. The released operational corrections remain in the v7.84 base.
 

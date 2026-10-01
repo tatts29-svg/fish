@@ -47,14 +47,17 @@ Checks on those exact candidate hashes:
   confirmed valid normals/indices and unchanged source data for both kerb orientations, excluding subsequent
   grid paint from the source copy. This is not a new external reviewer sign-off.
 
-Render capture is being completed separately; no completed video or native 4K result is claimed here. The intended
-current visual evidence is `surface-desktop.png`, `surface-phone.png`, `surface-kerb.png` and `surface-render.json`
-under `evidence/`. Earlier `refinement-*` and unprefixed images below show historical candidates.
+Actual runtime proof: [six-second animation](evidence/surface-preview.mp4),
+[desktop](evidence/surface-desktop.png), [track level](evidence/surface-track-level.png),
+[kerb profile](evidence/surface-kerb.png) and [phone](evidence/surface-phone.png).
+`evidence/surface-render.json` records their hashes, the native **3840 × 2160** still, and zero render errors or
+external requests. The animation is **1440 × 900, 72 frames at 12 fps**, with original fixed-step simulation timing;
+it is not 4K video or a real-time performance benchmark. The 4K still is retained in Andrew's local review package.
+Earlier `refinement-*` and unprefixed images below show historical candidates.
 
 **Preview only; not READY TO UPLOAD.** Live graphics have not changed. Private photographs and video references
 remain private; no project records, journals or real messages were changed. Visual fidelity against the approved
-concept and performance on physical devices remain unfinished. A 4K still, when captured, will not establish a
-4K animation frame rate.
+concept and performance on physical devices remain unfinished. The 4K still does not establish a 4K animation frame rate.
 
 ## Previous facade and foliage refinement — historical checks, 2 Oct 2026
 
@@ -116,6 +119,20 @@ requests. Open it in a WebGL 2 browser and select **Open animated preview**. Pau
 select four cameras, or change quality. Reduced-motion users start paused.
 
 The full candidate exposes **Track detail preview** in Showcase, explicitly selected. It is not ready to upload.
+
+To reproduce the stills and a six-second, 12 fps animation from that same standalone file:
+
+```sh
+NODE_PATH=toolchain/node_modules node v7.81_track_detail_preview_DRAFT/evidence/surface_render.cjs \
+  build/GC500_v7.81/track_detail_preview.html build/GC500_v7.81/visuals --frames --4k
+ffmpeg -framerate 12 -i build/GC500_v7.81/visuals/frames/%04d.png \
+  -c:v libx264 -pix_fmt yuv420p -crf 19 -movflags +faststart \
+  build/GC500_v7.81/visuals/showcase-surface-preview.mp4
+```
+
+The exporter blocks network requests. The 4K option asserts a native 3840 × 2160 framebuffer for one still;
+the fixed-step animation uses 1440 × 900 frames. `--kerb-only` exports the low fixed-camera detail separately.
+These exports show rendered output, not a real-time performance measurement.
 
 ## What the preview shows
 

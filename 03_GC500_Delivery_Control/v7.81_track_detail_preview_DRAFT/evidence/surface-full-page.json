@@ -353,5 +353,6 @@
     "file": "GC500_Delivery_Control_hosted.html",
     "sha256": "d5cd59c5df09caadfa835f3c10f1aef2a073852ec6922474107f97efefb67c21"
   },
-  "metadataNote": "Comparison label corrected from the old hardcoded v7.80 to baseline; this run used the v7.84 SHA256 in baseline. Results unchanged."
+  "metadataNote": "Comparison label corrected from the old hardcoded v7.80 to baseline; this run used the v7.84 SHA256 in baseline. Results unchanged.",
+  "captureFilesCommitted": false
 }

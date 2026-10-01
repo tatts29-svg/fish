@@ -948,22 +948,22 @@
   "screenshots": [
     {
       "name": "desktop-detail-on",
-      "path": "desktop-detail-on.png",
+      "path": "surface-comparison-detail.png",
       "sha256": "3727f72df12e62bb0594bd4c1aaaee8320033cc2fd997ca4a3841ec90cc2e068"
     },
     {
       "name": "desktop-current",
-      "path": "desktop-current.png",
+      "path": "surface-comparison-original.png",
       "sha256": "3604efaa81c5d2f211585aac2dbaf0e64667db0601e9d4d4a0bddf58cfe1f706"
     },
     {
       "name": "desktop-preview",
-      "path": "desktop-preview.png",
+      "path": "surface-check-desktop.png",
       "sha256": "87e38d7d8b025ea3b89746ec30077f9881aa48fb3edcb92523ec0c4b31ec2fa3"
     },
     {
       "name": "phone-preview",
-      "path": "phone-preview.png",
+      "path": "surface-phone.png",
       "sha256": "6c0116144b6a45be27756cefa107f5207edbde6de35f57d14fb3a7696dcf7c0b"
     }
   ],
