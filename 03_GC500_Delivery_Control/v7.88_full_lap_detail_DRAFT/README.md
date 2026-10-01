@@ -33,9 +33,11 @@ modules, 260 kerb profiles; 80 roadside building parts, 354 facades; 337 source 
 distance coverage bins. The bins are test diagnostics, not official race sectors. Two bins have no eligible tower
 parts; this draft does not invent buildings to fill them. The route, building/tree positions and dimensions remain unchanged. Original kerb source arrays remain intact; only their visual width/paint scale is corrected.
 
-**Not ready to upload.** Continuous full-lap desktop/phone checks, visual review and integration checks remain in
-progress. No claim is made about physical-device frame rate or 4K real-time performance. The live release is v7.87;
-this graphics correction has not been published.
+**Working preview; not ready to upload.** The final continuous full-lap, integration and navigation checks pass.
+Independent visual review is in progress. Buildings and foliage remain stylised: this working preview does not yet
+match the photoreal concept. No claim is made about physical-device frame rate or 4K real-time performance.
+This candidate was built on live v7.87; the separate v7.89 header release is being reviewed. These graphics have
+not been published, and any eventual release must be rebuilt on the then-current live page.
 
 The first complete desktop sweep passed 30/30 checks over 2,935 m, but exposed oversized original kerb shapes.
 That candidate is superseded by the narrower kerb treatment above. The corrected candidate also respects the
@@ -44,7 +46,19 @@ geometry fails, the original scene continues. Geometry, lifecycle and forced-all
 
 Current candidate: 8,854,418 bytes, SHA256 `121d183a400d95d997bfbf4db07b5cb5872b57a8e3ec80d163adc4eaec1dd91e`.
 Offline review copy: 1,139,977 bytes, SHA256 `a31ccb858829675a8ae1b9364107058b823a70b80ec23d1b0467e402ce5191db`.
-Full-page integration **23/23** passes on this revision across desktop and phone: complete detail, original camera choices, moving shadow target reuse, shadow fallback/recovery, original day/night remount and complete disposal on close. No page errors or writes. Phone visual inspected. Final full-lap visual sampling is in progress.
+Full-page integration **23/23** passes on this revision across desktop and phone: complete detail, original camera choices, moving shadow target reuse, shadow fallback/recovery, original day/night remount and complete disposal on close. No page errors or writes. Phone visual inspected.
+
+Final whole-lap checks **68/68** pass on these exact page and preview hashes. Each desktop and emulated-phone run
+advances the unchanged original simulation for **8,163 steps**, **71 checkpoints** and **13 rendered views**,
+covering **2,935.189 m** without a reset or teleport (the source lap is 2,910.109 m). Four original camera views,
+pause, animation, reduced motion and all eight added track-resource disposals pass. No page/graphics errors or
+external requests. Kerbs measure at most 0.85 m wide and paint blocks at most 1 m; all 1,928 remaining road-paint
+triangles match their original arrays. These are software-rendered sampled stills, not a gameplay video or a
+physical-device performance benchmark. The contact sheets and phone frame have been visually inspected.
+
+See `evidence/final-full-lap-checks.json`, `evidence/final-desktop-contact.png` and
+`evidence/final-phone-contact.png`. Individual track-level and chicane views are beside them. These show the actual
+working renderer around the circuit; diagnostic distance labels are simulated metres travelled, not official sectors.
 
 Required navigation sweeps pass on the corrected candidate: **21 tabs / 7 links** each on desktop and phone,
 zero page or console errors. Official upload dry-run passes against unchanged live v7.87; nothing uploaded.

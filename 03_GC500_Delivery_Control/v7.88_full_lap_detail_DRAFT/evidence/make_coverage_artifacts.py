@@ -22,13 +22,14 @@ for name, case in data['cases'].items():
     phone = name == 'phone'
     tile_w, tile_h = (195, 422) if phone else (320, 180)
     cols = 3 if phone else 4
-    gutter, header, label_h = 10, 60, 24
+    gutter, header, label_h = 10, 76, 36
     rows = (len(chosen) + cols - 1) // cols
     sheet = Image.new('RGB', (cols * (tile_w + gutter) + gutter,
                               header + rows * (tile_h + label_h + gutter)), '#101618')
     draw = ImageDraw.Draw(sheet)
-    draw.text((gutter, 12), f'GC500 v7.88 draft | {name} | original complete circuit', fill='white')
-    draw.text((gutter, 32), '12 sampled views; accelerated physics check, not a video/FPS benchmark', fill='#bdc5c8')
+    draw.text((gutter, 12), f'GC500 v7.88 | ACTUAL BROWSER RENDER | DRAFT | {name} | Author: Andrew Fisher', fill='white')
+    draw.text((gutter, 32), 'Metres travelled in simulation, not official circuit distance markers', fill='#bdc5c8')
+    draw.text((gutter, 50), f"12 sampled views | Preview {data['files']['preview']['sha256'][:12]} | No FPS claim", fill='#bdc5c8')
     for i, row in enumerate(chosen):
         with Image.open(root / row['screenshot']['file']) as source:
             frame = source.convert('RGB')
@@ -36,7 +37,8 @@ for name, case in data['cases'].items():
         x = gutter + (i % cols) * (tile_w + gutter)
         y = header + (i // cols) * (tile_h + label_h + gutter)
         sheet.paste(frame, (x, y))
-        draw.text((x, y + tile_h + 4), f"{row['distanceM']:.0f} m | t={row['simulationTimeS']:.1f} s", fill='#ff9b51')
+        draw.text((x, y + tile_h + 4), f"{row['distanceM']:.0f} m travelled", fill='#ff9b51')
+        draw.text((x, y + tile_h + 18), f"t={row['simulationTimeS']:.1f} s | {row['camera']}", fill='#bdc5c8')
     target = root / f'{name}-coverage-contact.png'
     sheet.save(target)
     print(target)

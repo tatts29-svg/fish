@@ -2,7 +2,8 @@
  * Independent full-circuit checks. No live records or network access.
  * The full-lap sweep advances the ORIGINAL 120 Hz physics one step at a time;
  * it does not assign distance, move the car, replace the camera, or reset midlap.
- * Physics checkpoints are every 50 m; screenshots default to 100 m intervals.
+ * Physics checkpoints are no more than 50 m apart; screenshots cover twelve
+ * equal-distance lap positions plus the finish, not a real-device FPS benchmark.
  * BASE=... PAGE=... PREVIEW=... OUT=... [CASES=desktop,phone] node full_lap_checks.cjs
  */
 'use strict';
@@ -14,8 +15,8 @@ const pageFile=path.resolve(process.env.PAGE||path.join(project,'build/GC500_v7.
 const previewFile=path.resolve(process.env.PREVIEW||path.join(project,'build/GC500_v7.88/full_lap_preview.html'));
 const out=path.resolve(process.env.OUT||'/workspace/private-v788-full-lap');
 const hash=x=>crypto.createHash('sha256').update(x).digest('hex');
-const captureEvery=Math.max(50,Number(process.env.CAPTURE_EVERY_M)||100);
-const result={captureEveryMetres:captureEvery,author:'Andrew Fisher',method:'Original fixed-step physics; continuous lap checked every 50 m, rendered at the recorded screenshot interval',
+const captureBins=Math.max(1,Number(process.env.CAPTURE_BINS)||12);
+const result={captureBins,author:'Andrew Fisher',method:'Original fixed-step physics; continuous lap checked at no more than 50 m intervals, rendered at twelve equal-distance lap positions plus the finish',
  limitations:['Software-rendered Chromium, not a physical-device performance benchmark','Continuous simulation is accelerated; screenshots sample distance, not every rendered video frame','Geometry coverage is not proof of surveyed landmark accuracy'],
  files:{},checks:[],errors:[],externalRequests:[],cases:{}};
 fs.mkdirSync(out,{recursive:true});
@@ -67,23 +68,32 @@ async function begin(p,name){
   const G=GC3D,S=G.S;S.qualityChoice='manual';G.render();
   window.__lapAudit788={startS:S.sim.s,startClock:S.clock,previousS:S.sim.s,previousClock:S.clock,steps:0,maxDistanceError:0,maxStepMetres:0,maxPoseStepMetres:0,minStepMetres:Infinity,nonfinite:0,reverseSteps:0,clockRewinds:0,unexpectedLapResets:0,car:S.car,kerb:S.kerb,kerbVertices:JSON.stringify(S.kerb.v),kerbIndices:JSON.stringify(S.kerb.i),line:JSON.stringify(S.CL.p),outer:JSON.stringify(S.outer),inner:JSON.stringify(S.inner),normalDrive:!S.calmDrive};
   const tr=S.trackDetail781&&S.trackDetail781.stats;
-  return {started,paused:S.paused,normalDrive:!S.calmDrive,detail:S.detail781Enabled,track:tr,architecture:S.architecture781&&S.architecture781.stats,vegetation:S.vegetation781&&S.vegetation781.stats,canvas:[S.cv.width,S.cv.height],glError:S.gl.getError(),links:[S.trackDetail781,S.architecture781].filter(Boolean).map(x=>S.gl.getProgramParameter(x.program.p,S.gl.LINK_STATUS))};
+  const D=S.trackDetail781,M=G.M_PER_PT,quads=S.kerbStats.blocks*2,removedVertices=quads*4,removedIndices=quads*6;
+  const widths=D.kerbEdges.flatMap(e=>[['outerStart','innerStart'],['outerEnd','innerEnd']].map(([a,b])=>Math.hypot(e[a][0]-e[b][0],e[a][2]-e[b][2])*M));
+  const kerbChecks={maxWidthM:Math.max(...widths),minWidthM:Math.min(...widths),maxStripeM:tr.kerbMaxStripeM,sourceQuads:quads,profiles:tr.kerbProfiles,
+   removedPaintTriangles:removedIndices/3,originalTriangles:S.kerb.ni/3,retainedTriangles:D.paint.ni/3,
+   paintVerticesExact:JSON.stringify(Array.from(D.paint.v))===JSON.stringify(Array.from(S.kerb.v).slice(removedVertices*9)),
+   paintIndicesExact:JSON.stringify(Array.from(D.paint.i))===JSON.stringify(Array.from(S.kerb.i).slice(removedIndices).map(i=>i-removedVertices))};
+  return {started,paused:S.paused,normalDrive:!S.calmDrive,detail:S.detail781Enabled,track:tr,kerbChecks,architecture:S.architecture781&&S.architecture781.stats,vegetation:S.vegetation781&&S.vegetation781.stats,canvas:[S.cv.width,S.cv.height],glError:S.gl.getError(),links:[S.trackDetail781,S.architecture781].filter(Boolean).map(x=>S.gl.getProgramParameter(x.program.p,S.gl.LINK_STATUS))};
  });
  check(name+': full circuit starts with normal original drive',info.started&&info.normalDrive&&info.detail,info);
  check(name+': both complete closed boundaries are detailed',info.track&&info.track.boundaries.length===2&&info.track.boundaries.every(b=>b.coveredSegments===b.sourceSegments&&Math.abs(b.coveredLengthM-b.lengthM)<1e-6),info.track&&info.track.boundaries);
  check(name+': detail covers every diagnostic twelfth of the lap',info.track.coverageBins===12&&info.track.coverageFraction>.999999,info.track.sectors);
  check(name+': programs link and WebGL is clean',info.glError===0&&info.links.length>=1&&info.links.every(Boolean),{glError:info.glError,links:info.links});
+ check(name+': physical kerbs are at most 0.85 m wide with metre-scale stripes',info.kerbChecks.maxWidthM<=.85000001&&info.kerbChecks.minWidthM>0&&info.kerbChecks.maxStripeM<=1.00000001&&info.kerbChecks.profiles===info.kerbChecks.sourceQuads,info.kerbChecks);
+ check(name+': road paint is exact after excluding only the 520 nominal kerb triangles',info.kerbChecks.removedPaintTriangles===520&&info.kerbChecks.retainedTriangles===info.kerbChecks.originalTriangles-520&&info.kerbChecks.paintVerticesExact&&info.kerbChecks.paintIndicesExact,info.kerbChecks);
  return info;
 }
-async function capture(p,name,label,rendered=true){
- const data=await p.evaluate(rendered=>{
+async function capture(p,name,label,rendered=true,camera=null){
+ const data=await p.evaluate(({rendered,camera})=>{
   const G=GC3D,S=G.S,A=window.__lapAudit788,M=G.M_PER_PT||6;
+  if(camera&&S.view!==camera){G.setView(camera);S.camBase=null;G.camStep(0);document.querySelectorAll('[data-camera]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.camera===camera)));}
   const gl=S.gl;let pixelHash=2166136261,lit=0,count=0;
   if(rendered){G.render();S.needsRender=false;const pixels=new Uint8Array(S.cv.width*S.cv.height*4);gl.readPixels(0,0,S.cv.width,S.cv.height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
    for(let i=0;i<pixels.length;i+=4*97){pixelHash=Math.imul(pixelHash^pixels[i],16777619);pixelHash=Math.imul(pixelHash^pixels[i+1],16777619);pixelHash=Math.imul(pixelHash^pixels[i+2],16777619);if(pixels[i]+pixels[i+1]+pixels[i+2]>24)lit++;count++;}}
   let nearby=Infinity;const v=S.trackDetail781.mesh.v,p=S.pose.pos;for(let i=0;i<v.length;i+=12)nearby=Math.min(nearby,Math.hypot(p[0]-v[i],p[2]-v[i+2])*M);
   return {rendered,distanceM:(S.sim.s-A.startS)*M,simulationTimeS:S.clock,lap:S.sim.lap,carPosition:S.pose.pos.slice(),speedMps:S.sim.v*M/(S.tune.tc||1),camera:S.view,eye:S.cam.eye.slice(),target:S.cam.tgt.slice(),nearbyDetailM:nearby,glError:gl.getError(),pixelHash:rendered?(pixelHash>>>0).toString(16):null,nonblackFraction:rendered?lit/count:null,detail:S.detail781Enabled,fullLapReport:G.fullLapReport788(),continuity:{steps:A.steps,maxDistanceError:A.maxDistanceError,maxStepMetres:A.maxStepMetres,maxPoseStepMetres:A.maxPoseStepMetres,reverseSteps:A.reverseSteps,clockRewinds:A.clockRewinds,nonfinite:A.nonfinite,unexpectedLapResets:A.unexpectedLapResets}};
- },rendered);
+ },{rendered,camera});
  if(rendered){const filename=name+'-'+label+'.png',bytes=await p.locator('#stage canvas').screenshot({path:path.join(out,filename),timeout:180000});
  data.screenshot={file:filename,sha256:hash(bytes)};}
  return data;
@@ -110,16 +120,20 @@ async function lapCase(browser,name,options){
   run.samples.push(await capture(p,name,'0000m'));
   // Full fixed-step lap plus a little past the finish proves it never returns to
   // the old short section. No reset or renderAt is used inside this sequence.
-  const targets=[];for(let metres=50;metres<lapM+25;metres+=50)targets.push(metres);targets.push(lapM+25);
+  const renderedTargets=Array.from({length:captureBins-1},(_,i)=>lapM*(i+1)/captureBins).concat(lapM+25);
+  const targets=renderedTargets.slice();for(let metres=50;metres<lapM+25;metres+=50)targets.push(metres);targets.sort((a,b)=>a-b);
+  run.renderedTargetsMetres=[0,...renderedTargets];
   for(const metres of targets){
    const moved=await advance(p,metres);if(!moved.reached)throw Error(name+': original drive failed to reach '+metres+' m');
-   const sample=await capture(p,name,String(Math.round(metres)).padStart(4,'0')+'m',metres===targets[targets.length-1]||metres%captureEvery===0);run.samples.push(sample);save();
+   const rendered=renderedTargets.includes(metres),bin=renderedTargets.indexOf(metres)+1,camera=rendered&&[2,5,8,11].includes(bin)?'onboard':rendered?'chase':null;
+   const sample=await capture(p,name,String(Math.round(metres)).padStart(4,'0')+'m',rendered,camera);run.samples.push(sample);save();
    if(sample.glError||!sample.detail||!Number.isFinite(sample.nearbyDetailM))throw Error(name+': invalid rendering at '+metres+' m');
   }
   const final=run.samples[run.samples.length-1],a=final.continuity;
   check(name+': original physics completes the whole lap without resetting',final.lap>=1&&final.distanceM>=lapM&&a.reverseSteps===0&&a.clockRewinds===0&&a.unexpectedLapResets===0&&a.nonfinite===0,a);
   check(name+': each physics step matches speed times dt; no teleport',a.maxDistanceError<1e-8&&a.maxStepMetres<2&&a.maxPoseStepMetres<3,{maxDistanceError:a.maxDistanceError,maxStepMetres:a.maxStepMetres,maxPoseStepMetres:a.maxPoseStepMetres,steps:a.steps});
   check(name+': simulation checkpoints cover the whole lap at 50 m intervals',run.samples.length>=Math.floor(lapM/50)&&run.samples.every((s,i)=>!i||s.distanceM-run.samples[i-1].distanceM<52),{samples:run.samples.length,lastMetres:final.distanceM});
+  check(name+': twelve evenly distributed lap positions and finish are rendered',run.samples.filter(s=>s.rendered).length===captureBins+1,{renderedFrames:run.samples.filter(s=>s.rendered).length,positions:run.renderedTargetsMetres});
   check(name+': added geometry remains beside every sampled section',run.samples.every(s=>s.nearbyDetailM<60),{maxNearestDetailM:Math.max(...run.samples.map(s=>s.nearbyDetailM))});
   check(name+': every full-lap frame draws without GL errors',run.samples.every(s=>s.glError===0&&(!s.rendered||s.nonblackFraction>.25)),{uniquePixelHashes:new Set(run.samples.filter(s=>s.rendered).map(s=>s.pixelHash)).size});
   check(name+': scene changes through the lap',new Set(run.samples.filter(s=>s.rendered).map(s=>s.pixelHash)).size>run.samples.filter(s=>s.rendered).length*.9);
@@ -131,10 +145,15 @@ async function lapCase(browser,name,options){
    cameraStates.push(await p.evaluate(camera=>({camera,view:GC3D.S.view,pressed:document.querySelector('[data-camera="'+camera+'"]').getAttribute('aria-pressed'),eye:GC3D.S.cam.eye.slice(),target:GC3D.S.cam.tgt.slice(),s:GC3D.S.sim.s,clock:GC3D.S.clock}),camera));
   }
   check(name+': all four original cameras work without moving the car',cameraStates.every(c=>c.view===c.camera&&c.pressed==='true'&&c.eye.concat(c.target).every(Number.isFinite)&&c.s===cameraStates[0].s&&c.clock===cameraStates[0].clock)&&new Set(cameraStates.map(c=>JSON.stringify(c.eye))).size===4,cameraStates);
-  const position=await p.evaluate(()=>({s:GC3D.S.sim.s,clock:GC3D.S.clock}));
+  const position=await p.evaluate(()=>{
+   const S=GC3D.S,D=S.trackDetail781,gl=S.gl;
+   window.__trackResources788=[['isBuffer',D.mesh.vb],['isBuffer',D.mesh.ib],['isVertexArray',D.mesh.vao],['isBuffer',D.paint.vb],['isBuffer',D.paint.ib],['isVertexArray',D.paint.vao],['isTexture',D.atlas.texture],['isProgram',D.program.p]];
+   return {s:S.sim.s,clock:S.clock,allocatedResources:window.__trackResources788.filter(([kind,resource])=>gl[kind](resource)).length};
+  });
   await p.locator('#compare').click();
-  const off=await p.evaluate(()=>({s:GC3D.S.sim.s,clock:GC3D.S.clock,off:!GC3D.S.detail781Enabled,disposed:!GC3D.S.trackDetail781&&!GC3D.S.architecture781&&!GC3D.S.vegetation781}));
+  const off=await p.evaluate(()=>({s:GC3D.S.sim.s,clock:GC3D.S.clock,off:!GC3D.S.detail781Enabled,disposed:!GC3D.S.trackDetail781&&!GC3D.S.architecture781&&!GC3D.S.vegetation781,releasedResources:window.__trackResources788.filter(([kind,resource])=>!GC3D.S.gl[kind](resource)).length}));
   check(name+': original-scene comparison keeps complete-lap position and releases detail',off.off&&off.disposed&&off.s===position.s&&off.clock===position.clock,off);
+  check(name+': all eight track and retained-paint GPU resources are released',position.allocatedResources===8&&off.releasedResources===8,{allocated:position.allocatedResources,released:off.releasedResources});
   await p.locator('#compare').click();
   check(name+': restoring upgraded scene keeps full-lap position',await p.evaluate(before=>GC3D.S.detail781Enabled&&GC3D.S.sim.s===before.s&&GC3D.S.clock===before.clock,position));
   await p.locator('[data-camera="chase"]').click();

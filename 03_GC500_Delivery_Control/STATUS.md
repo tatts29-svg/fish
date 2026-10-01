@@ -364,16 +364,23 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
-**v7.88 — full-lap Showcase visual correction, claimed by Codex, 2 Oct 2026. IN PROGRESS; not ready or live.**
+**v7.88 — full-lap Showcase visual correction, Codex, 2 Oct 2026. WORKING PREVIEW; visual review pending, not live.**
 Author: Andrew Fisher. Andrew: "the job was to keep what we have and we are upgrading the look ... its the whole
 track not 10 mtrs of it. U also have mp4 videos of whole track to help you". Preserve the existing circuit geometry,
 car, driving simulation, cameras, MP4/weather and speedos. Replace the separate short detail run with improvements
 over the full existing lap. Review both original GC500_Codex_Part_01.mp4 and Part_02.mp4 privately; record observed
 detail without invented locations. Claude has been asked to independently check lap coverage and visual continuity.
-The incomplete v7.85 scene is hidden in verified-live v7.86. Initial v7.88 build renders: the full 2,910.1 m lap,
+The incomplete v7.85 scene is hidden in verified-live v7.86. The v7.88 draft renders the full 2,910.1 m lap,
 498/498 boundary segments, 260 original kerb profiles, 80 roadside building parts and 337 refined source trees.
-Continuous full-lap desktop/phone checks and independent review are in progress; these counts are not visual sign-off.
-v7.87 Inventory belongs to Claude and is being reviewed separately. No financial record changes are included in this graphics task.
+Final desktop/emulated-phone full-lap checks **68/68** pass: 8,163 original physics steps, 71 checkpoints and 13
+rendered views per device through 2,935 m, no resets, teleports, graphics errors or external requests. Full-page
+integration **23/23** and both **21-tab/7-link sweeps** pass with zero errors. Narrow kerbs and original road paint
+are verified. Actual-render contact sheets are in `v7.88_full_lap_detail_DRAFT/evidence/final-*.png`.
+Candidate built on v7.87: **8,854,418 bytes**, SHA256 `121d183a400d95d997bfbf4db07b5cb5872b57a8e3ec80d163adc4eaec1dd91e`;
+offline preview **1,139,977 bytes**, SHA256 `a31ccb858829675a8ae1b9364107058b823a70b80ec23d1b0467e402ce5191db`.
+Claude is independently reviewing the same frozen renderer. Buildings/foliage remain stylised; the technical passes
+are not visual sign-off or a physical-device/4K performance claim. Rebuild on the latest live base before release.
+v7.87 Inventory is verified live; v7.89 header review runs separately. No financial record changes are included.
 
 **Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude).** Author: Andrew Fisher.
 HA 36564-36568 and SN 24463-24465 transcribed from Andrew's photographs:
