@@ -35,6 +35,13 @@ source: every release starts from the live page, applies a patch, and goes back 
 
 ## How a release goes (both agents, every time)
 
+**Both agents finish before publication** (Andrew, 1 Oct 2026): "you publish the updates on the new tasks only
+when you and claude are finished though". For future task updates, Claude and Codex must both complete their work
+and review of the same frozen candidate, resolve blocking findings, and record completion on `STATUS.md` or the
+coordination PR before upload. Then mark the handover **READY TO UPLOAD**. Passing one agent's tests while the
+other is still reviewing is not completion. If the candidate changes after review, both agents check the changes
+before publication. Tell Andrew when the agreed work is complete and distinguish that from a verified live release.
+
 1. **Pull** the shared branch and read `STATUS.md`. If the other agent has claimed something, do not touch it.
 2. **Claim** the next version on `STATUS.md` (one line: version, what, who, when) and push that before you start.
    If the push is rejected, somebody else just claimed: pull, take the next number.
