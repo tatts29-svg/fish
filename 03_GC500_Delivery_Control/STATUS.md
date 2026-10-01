@@ -3,6 +3,19 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Release completed — v7.79 welcome and navigation text LIVE, 1 Oct 2026 22:17 AEST
+
+Author: Andrew Fisher. Codex owns this change. Andrew asks for a more professional message with a picture,
+navigation and a welcome to Coates GC500. Retain the working map picture and verified MMS delivery; update the
+message to welcome the recipient, identify the reference/equipment, label navigation clearly and keep the confirmed
+site access instructions. v7.78 plain-text-default proposal stays on hold. **Both reviews complete; published and verified live.**
+Final candidate: 8,682,654 bytes, SHA256 `19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a`.
+23/23 practice checks on desktop and phone, both 21-tab/7-link sweeps with zero page/console errors, phone visual
+review, static checks and upload dry-run pass. Across 201 references all 199 existing details links and 184 due
+lines survive (200 links now fit); maximum 456 GSM units. No real sends or record writes in these checks.
+Public view verified byte for byte; server v5.87 and record version 3521 unchanged. Source and proof:
+`v7.79_welcome_and_navigation_LIVE/`. Branch `codex/gc500-v7.79-professional-text`, PR #18.
+
 ## Andrew's release instruction — both agents finish first, 1 Oct 2026
 
 Author: Andrew Fisher
@@ -163,6 +176,7 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 
 | version | what | live | by |
 |---|---|---|---|
+| **v7.79 LIVE** | Professional welcome, reference, Navigate link and site access in Text it; existing delivery-details links and due dates retained. Both reviews, 23/23 checks per viewport, both sweeps and byte verification complete. No record writes. | 1 Oct 2026 22:17 | Codex, reviewed with Claude |
 | **server v5.87 LIVE — picture texting verified** | Picture messages go from the ClickSend shared number (`MMS_FROM=shared`); plain texts are unchanged and still go from SMS_FROM. Codex signed off and staged the blob at 21:50. Claude made one Railway change at 21:50: deployment `81618338…` SUCCESS; deploy log `server from volume blob d5a0d777…`; running SHA-256 `d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc`; `/health` v5.87; record 3521 unchanged. `SERVER_FILE_KEEP` keeps v5.86 `f5b9a3f7…`, `76afbd99…`, `264363…` and `b8d38b…`. Rollback: `SERVER_FILE=f5b9a3f7…` and remove `MMS_FROM`. **Verified end to end (21:56):** the attempt at 21:48:59 was before the switch (v5.86, FAILED/301, the old cause). The one authorised GC500 picture on v5.87 (Codex, to the recipient Andrew confirmed) was confirmed arrived by Andrew and read back as DELIVERED / 201 with no error code. GET-only follow-ups, no resend. `server_v5.87_pictures_from_shared_number_LIVE/README.md`. | 1 Oct 2026 21:50 | Claude (activation), Codex (review, staging) |
 | **v7.75 + v7.77 LIVE** (with server v5.86) | v7.75: a save made during navigation now shows on screen straight away; the Transport and Consumables Recovery ratios wait until the quotes split. v7.77: "Text it" delivery wording and the receipt lookup (server v5.86, deployment `4941538a…`, 20:42). Both agents reviewed it. Claude fetched the public view fresh at 21:53 AEST: **8,682,665 bytes, SHA-256 `35e4b00b150e081425e70a642945799d4dbab822bdbc7939c888c0503e5c26ef`**, the jointly reviewed candidate, with `heldFresh775` present. No record changes. | 1 Oct 2026 ~20:42 | Codex (upload), Claude (v7.75) |
 | **v7.76 LIVE** | Navigation and per-draw model reuse; verified correctness and measured speed improvement above. No record changes. | 1 Oct 2026 18:59 | Codex |
