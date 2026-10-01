@@ -1,11 +1,11 @@
 # Event Portables, 2025 — Coates's purchase-order lines (reference only; nothing from it goes on the page)
 
-Author: Andrew Fisher · 1 Oct 2026, 18:30 AEST
+Author: Andrew Fisher · 1 Oct 2026, 16:30 AEST
 
-Andrew, 1 Oct 18:25: "hopefully all this data helps with how things were charged last year." The file is
+Andrew, 1 Oct 16:28: "hopefully all this data helps with how things were charged last year." The file is
 `Event_Portables_2025_portaloos.xlsx` (SHA-256 `da6133ff…`), one sheet, Coates's purchase-order lines to Event Portables
 for the 2025 GC500: nineteen lines over three quotes, each with the ledger account Finance coded it to. The lines as read
-are `Event_Portables_2025_po_lines.csv`. Andrew, 18:20: "I don't wanna see last year's" — so this is our own check and
+are `Event_Portables_2025_po_lines.csv`. Andrew, about 16:25: "I don't wanna see last year's" — so this is our own check and
 the source of the ledger names, not a figure for the page.
 
 ## The nineteen lines, by the account Finance coded them to (branch KINP, cost centre 201)

@@ -1,8 +1,8 @@
 # How the portable toilets were charged last year — INV24406837 decoded (reference only)
 
-Author: Andrew Fisher · 1 Oct 2026, 19:00 AEST · nothing from this goes on the page (Andrew, 18:20)
+Author: Andrew Fisher · 1 Oct 2026, 16:38 AEST · nothing from this goes on the page (Andrew, about 16:25)
 
-Andrew, 1 Oct 18:50: "take note of how portable toilets were charged last year with sub-hired and ours — does this make
+Andrew, 1 Oct 16:34: "take note of how portable toilets were charged last year with sub-hired and ours — does this make
 sense to you now with our rate cards, keeping in mind these would be 2025 rates." The invoice is
 `invoices/INV24406837.PDF` (SHA-256 `cc47c2bc…`): Coates Hire Operations, Kingston (P), tax invoice 24406837 of
 30 Oct 2025 to V8 Supercars Aust Pty Ltd ATF AVESCO Unit Trust, hire schedule 9774835, 105 lines over 8 pages, a
@@ -72,37 +72,36 @@ the hire only, never on labour, steps, cleaning, install/demob or pump-outs — 
 year's page carries **no damage-waiver line**; the 2026 export's waiver fields are empty. One for the branch: does LTD
 waiver apply to the 2026 contracts, and at what rate.
 
-## 6. Where this year's contracts do NOT line up with last year's quoted rates
+## 6. What this year's card does with last year's one figure (corrected 1 Oct 16:58)
 
-The 2026 Rate 1 figures on the toilet lines, against 2025's invoiced rates (2025 + 3 % shown for the lines that moved
-by that):
+An earlier draft of this section read the FWF, accessible and 16-pan Rate 1 figures as "quoted low" against last
+year's. That was wrong, and Andrew put the Street Rate Card 2026 beside it (16:50: "you add the hire and the pump-out,
+it equals what was charged, almost"; "this info is literally trying to help us come up with correct logic on how things
+are getting priced … and split things into the correct kitty"). The card is in `../reference_street_rate_card_2026/`.
 
-| Line | 2025 invoiced, each | 2026 Rate 1, each (export of 1 Oct) | Reading |
-|---|---|---|---|
-| 6 × 3 toilet block | $2,404.71 · $3,133.41 | **$2,476.85 · $3,227.41** | **+3.0 %, lines up** |
-| FWF toilet with trailer | $237.71 | **$237.71** | the same |
-| **Fresh Water Flush toilet** (222 units on 104 lines, sub-hired and Coates alike) | **$237.71** | **$90.07** | **38 % of last year's** |
-| **Accessible / disabled-access toilet** (4) | **$1,380.24** | **$337.75** | **24 %** |
-| **16-pan block** (2) | **$4,306.31** | **$2,852.13** | **66 %** |
-| Pee panels (WC09, 6) | $4,404.96 the set | on the FWF line at $90.07 each | not the same thing |
+| Card line (2026) | Daily | Hire for the event | Labour per piece | Pump-out |
+|---|---|---|---|---|
+| Portable FWF Single | $4.29 | **$90.07** = 21 days | install $36.44 · demob $36.44 | $72.87 a visit |
+| Accessible Toilet 3.6 × 2.4 | $16.08 | **$337.75** = 21 days | install $88.49 · demob $88.49 | $72.87 a visit |
+| 16 Pan Unit | $40.74 | **$2,852.13** = 70 days | the block's five figures | $260.25 (sewer) · $624.60 (tank) |
+| Sewer Combo / Tank Mount 6 × 3 | $35.38 / $46.11 | $2,476.85 / $3,227.41 = 70 days | the five figures | as above |
+| Waste Tank 6m (Additional) | $10.72 | $750.56 = 70 days | install $145.74 · levelling $104.10 · cleaning $156.15 · demob $145.74 | — |
 
-Rate Type is W on every 2026 line, blocks included, and the blocks are plainly whole-event figures — so the three
-lines above are not "weekly rates"; they are quoted figures well under last year's. If the branch confirms last year's
-basis plus 3 %, the difference on this year's quantities is about **$42,000 of Rehire Revenue**: FWF 222 × ($244.84 −
-$90.07) ≈ $34,360; accessible 4 × ($1,421.65 − $337.75) ≈ $4,340; 16-pan 2 × ($4,435.50 − $2,852.13) ≈ $3,170. The page
-charges what the contract says (Rate 1); it cannot decide this. **A question for the branch, with this invoice beside
-it.**
+$90.07 hire + $36.44 install + $36.44 demob + one $72.87 pump-out = **$235.81**, which is last year's one-line figure
+near enough. So this year's card **splits** what last year's line bundled: the hire is the hire, the labour is the
+labour, the pump-outs are the pump-outs — each into its own kitty. The contracts' Rate 1 on those lines is the card's
+hire figure and is right; the page charges the labour per piece and the servicing per visit as their own lines, which
+is the card's logic. **Nothing on those lines is a question for the branch.**
 
-Two revenue lines the page does not carry at all yet, which last year's invoice does: **transport per movement**
-($500 each way per block — this year's contracts carry $6,938 of delivery and pickup in all) and **LTD waiver** (12 %
-of hire).
+Two kitties the card names that the page does not carry yet: **damage waiver** (the card: "Prices exclude GST and
+damage waiver … no damage waiver to be charged on labour / steps / fire extinguishers / cleaning / installation &
+demobilisation / pump outs" — so waiver on the hire only, at a rate the branch sets) and **transport** (the card has
+no transport line; the contracts carry $6,938 of delivery and pickup lines). Both are this year's questions, from this
+year's card.
 
 ## 7. Does it make sense with our rate cards?
 
-Yes. The page already does what the 2025 invoice shows: one Coates rate per unit whether the unit is ours or
-Event Portables'; servicing at the card's pump-out rates; labour per piece at the card's five figures; the event
-labour scope and accommodation charged on. The 2025 figures are last year's quoted rates; this year's blocks are those
-plus 3 %, and the 2026 street card the page falls back to carries the current figures. What the invoice exposes is not
-the page's method but **three contract lines quoted low** (FWF, accessible, 16-pan), and **two lines missing from this
-year's picture** (transport per movement, LTD waiver). None of it goes on the page as "last year's"; it goes to the
-branch as this year's questions.
+Yes. The page already does what the card says: one Coates rate per unit whether the unit is ours or Event Portables';
+servicing at the card's pump-out rates per visit; labour per piece at the card's figures; the event labour scope and
+accommodation charged on as Installation. What the 2025 paper is for is the logic and the kitties — which line each
+charge goes to — not a comparison of figures. None of it goes on the page as "last year's".

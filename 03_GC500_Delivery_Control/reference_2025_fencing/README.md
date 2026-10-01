@@ -1,8 +1,8 @@
 # Last year's fence — Advanced Temporary Fencing's purchase orders, GC500 2025 (reference only)
 
-Author: Andrew Fisher · 1 Oct 2026, 17:50 AEST · read only: nothing on the page or the record changes from this
+Author: Andrew Fisher · 1 Oct 2026, 16:12 AEST · read only: nothing on the page or the record changes from this
 
-Andrew, 1 Oct 17:45: "these are last year Advanced Fencing purchase orders. I don't have any more data and I can't get
+Andrew, 1 Oct 16:08: "these are last year Advanced Fencing purchase orders. I don't have any more data and I can't get
 any more data to do with this." Received as a screenshot (`advanced_purchase_orders_2025.png`, SHA-256 `6b8b8b97…`) and
 typed out in his message; the eleven lines are in `advanced_purchase_orders_2025.csv` exactly as given. Purely for
 guidance (Andrew: "to see how it looked last year … maybe it answers some questions").
@@ -76,7 +76,7 @@ installation split or last year's recovery. Andrew says there is no more to get.
 
 ## How it is used
 
-Andrew, 1 Oct 18:20: "I don't wanna see last year's." So nothing from this file goes on the page — no reference line, no
+Andrew, 1 Oct, about 16:25: "I don't wanna see last year's." So nothing from this file goes on the page — no reference line, no
 last-year column. It is our own check on this year's forecast and the questions it raises for Advanced: the removal rate
 for 968 m, and what last year's event week covered that this year's plan does not. The page presents this year's figures
 only, in the business's own lines.
