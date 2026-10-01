@@ -7,4 +7,5 @@ PASS C1 today the quotes split and the ratios read as before — qClean true · 
 PASS C2 quotes not approved: Transport and Consumables Recovery wait, and say why — null null · not readable yet: the Event Portables quotes are not approved, so the pump-out and water costs are not counted
 PASS C3 quotes not splitting to the cent: Transport and Consumables Recovery wait, and say why — null · not readable yet: the Event Portables quotes did not split to the cent by line, so they are carried whole on Rehire and the pump-out and water costs are 
 PASS C4 put back: the ratios read as before — 1.3004722966349904
-9/9 phone · page errors 0
+PASS A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save — {"paneElements":15095,"fired":true,"held":true,"inList":true}
+10/10 phone · page errors 0

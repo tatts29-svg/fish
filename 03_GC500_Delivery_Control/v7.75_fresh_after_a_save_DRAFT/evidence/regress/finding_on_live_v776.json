@@ -2,7 +2,7 @@
  "page": "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/mgmt/live_776.html",
  "mobile": false,
  "passed": 5,
- "of": 9,
+ "of": 10,
  "errors": [],
  "tests": [
   {
@@ -49,6 +49,11 @@
    "name": "C4 put back: the ratios read as before",
    "pass": true,
    "detail": "1.3004722966349904"
+  },
+  {
+   "name": "A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save",
+   "pass": false,
+   "detail": "{\"paneElements\":15095,\"fired\":true,\"held\":true,\"inList\":false}"
   }
  ]
 }

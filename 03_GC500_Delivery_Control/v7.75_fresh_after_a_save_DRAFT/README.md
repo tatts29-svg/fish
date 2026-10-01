@@ -23,8 +23,9 @@ the cent, or are not approved, those costs are not on their own lines, and the l
 
 1. `save()` marks an active hold stale; the next read in it (`allAssets`, `heldMemo`, a nested `holdAssets`) rebuilds the
    list and empties the memo once. A draw with no save builds exactly as v7.76 does. Every edit path reaches `save()`, so
-   every route is covered — the focus move, the pane emptied on leaving, and any other — and so is every held lookup, not
-   only the two models.
+   every route is covered — the focus move, the pane emptied on leaving (the v7.76 review's critic: ending the hold at
+   `render()` would miss this one, since the Plant and Edit panes are emptied before it), and any other — and so is every
+   held lookup, not only the two models.
 2. Transport Recovery and Consumables Recovery read "not readable yet", with the reason, when the quotes do not split or
    are not approved — as Rehire Recovery already does.
 
@@ -43,7 +44,7 @@ python3 toolchain/upload_page.py build/GC500_v7.75/GC500_Delivery_Control_hosted
 
 | Check | Live v7.76 | v7.75 build |
 |---|---|---|
-| `evidence/fresh_after_save_tests.js` — a box commits during `go()`'s focus move, writes and saves; the rest of the draw must see it (list and both models); builds per tab change; the ratios with the quotes unapproved and not splitting | **5/9 — fails the four the patch fixes** (the save not seen; Transport Recovery ×4.62 unapproved) | **9/9 desktop · 9/9 phone** |
+| `evidence/fresh_after_save_tests.js` — a box commits during `go()`'s focus move, writes and saves, and the rest of the draw must see it (list and both models); the second route: a box typed with real keystrokes on the Plant pane (15,095 elements) is committed as the pane is emptied inside the hold; builds per tab change; the ratios with the quotes unapproved and not splitting | **5/10 — fails the five the patch fixes** (the save not seen by either route; Transport Recovery ×4.62 unapproved) | **10/10 desktop · 10/10 phone** |
 | Builds of the asset list per tab change, no save (every tab) | 1 each | 1 each — unchanged |
 | Codex's v7.76 navigation regressions (`v7.76_…_LIVE/evidence/navigation_regressions.js`, on the build) | 21/21 | **21/21** |
 | The released P&L suite (`v7.70_…_LIVE/evidence/practice_tests.js`) | 31/31 | **31/31 desktop · 31/31 phone** |

@@ -7,4 +7,5 @@ PASS C1 today the quotes split and the ratios read as before — qClean true · 
 FAIL C2 quotes not approved: Transport and Consumables Recovery wait, and say why — 4.617619332536473 2.290439957769823 · cartage alone: $6,938 of delivery and pickup on the contracts against $22,011 to pay the carriers so far (×0.32), $44,376 
 FAIL C3 quotes not splitting to the cent: Transport and Consumables Recovery wait, and say why — 4.617619332536473 · cartage alone: $6,938 of delivery and pickup on the contracts against $22,011 to pay the carriers so far (×0.32), $44,376 to job end (×0.16)
 PASS C4 put back: the ratios read as before — 1.3004722966349904
-5/9 desktop · page errors 0 · (page without v7.75)
+FAIL A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save — {"paneElements":15095,"fired":true,"held":true,"inList":false}
+5/10 desktop · page errors 0 · (page without v7.75)

@@ -76,6 +76,17 @@ const fs = require('fs');
     ok('C4 put back: the ratios read as before', P3.qClean && row(P3, 'Transport Recovery').now === row(P0, 'Transport Recovery').now, `${row(P3, 'Transport Recovery').now}`);
     return {v775, tests: out};
   });
+  /* A5. the second route (the v7.76 review's critic): leaving a pane of more than 3,000 elements empties it inside
+     go()'s hold, and Chromium commits a box typed in but not left — a real keystroke, so a real change event. */
+  await p.evaluate(() => go('plant')); await p.waitForTimeout(2500);
+  const big = await p.evaluate(() => { const pane = document.getElementById('pane-plant'); const box = document.createElement('input'); box.id = 'v775e'; pane.appendChild(box);
+    window.__e = {}; box.addEventListener('change', () => { window.__e.fired = true; S.added = S.added || []; S.added.push({key: 'V775-E', name: 'probe', added_by: 'probe'}); save(); render();
+      window.__e.held = typeof ASSETS_HELD !== 'undefined' && !!ASSETS_HELD; window.__e.inList = allAssets().some(a => a.key === 'V775-E'); S.added.pop(); save(); }, {once: true});
+    box.focus(); return pane.getElementsByTagName('*').length; });
+  await p.keyboard.type('3');
+  await p.evaluate(() => go('costs'));
+  const e5 = await p.evaluate(() => window.__e);
+  R.tests.push({name: 'A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save', pass: !!(e5.fired && e5.held && e5.inList && big > 3000), detail: JSON.stringify({paneElements: big, ...e5})});
   const passed = R.tests.filter(t => t.pass).length;
   R.tests.forEach(t => console.log(`${t.pass ? 'PASS' : 'FAIL'} ${t.name} — ${t.detail.slice(0, 160)}`));
   console.log(`${passed}/${R.tests.length} ${MOB ? 'phone' : 'desktop'} · page errors ${s.errors.length}${R.v775 ? '' : ' · (page without v7.75)'}`);
