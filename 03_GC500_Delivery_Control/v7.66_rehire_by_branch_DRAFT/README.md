@@ -18,12 +18,12 @@ job end. Every figure is the Forecast P&L's or the Costs to job end card's — a
 | KINP | Toilets — Event Portables · 132 lines · 251 units (+ servicing at the card) | $154,194 | — | $154,194 | $118,575 approved | — | $118,575 |
 | KINP | Sub-hired — refrigerated container SUB-2131 · supplier code ROY002 | $1,428 | — | $1,428 | not on the record | — | — |
 | MEAD | Sub-hired — forklift extension SUB-2527 · supplier code QUE011 | $9 | — | $9 | not on the record | — | — |
-| NVAC | Forklifts and their attachments — sub-hired (Andrew, 1 Oct) · 9 lines | $35,276 | — | $35,276 | not on the record | — | — |
+| NVAC | Forklifts — sub-hired · lines 31 and 34 on MISCITEM (Andrew, 1 Oct: "it's cleared, we have spoken about this") | $12,248 | — | $12,248 | not on the record | — | — |
 | STPS | Fencing — Advanced Temporary Fencing · 63 dockets | $120,913 | $248,810 | $369,723 | $75,022 (gear; installation $2,100 beside it) | $180,090 | $255,112 |
-| | **Rehire — the business** | **$311,821** | **$248,810** | **$560,630** | **$193,597** | **$180,090** | **$373,687** |
+| | **Rehire — the business** | **$288,792** | **$248,810** | **$537,602** | **$193,596** | **$180,090** | **$373,687** |
 
-Tiles: Rehire Revenue on the record $311,821 (56 % of the $556,076 revenue on the record) · to job end $560,630 (70 % of
-the $804,885 revenue to job end) · Rehire cost on the record $193,597 · to job end $373,687, a floor until the three
+Tiles: Rehire Revenue on the record $288,792 (52 % of the $556,076 revenue on the record) · to job end $537,602 (67 % of
+the $804,885 revenue to job end) · Rehire cost on the record $193,596 · to job end $373,687, a floor until the three
 suppliers' costs are on the record (the container, the forklift extension, the NVAC forklifts).
 
 A contract line is rehire here when every toilet line is Event Portables gear (the toilets stream's rule), when its item
@@ -35,8 +35,10 @@ What the card says that the record needs an answer to:
 
 - **Toilets:** 101 lines on MISCITEM (220 units, $36,928) and 31 lines carrying a Coates plant number (31 units,
   $32,164), all counted as Event Portables rehire — Andrew, 1 Oct: "some of the toilets may not have MISC next to them".
-- **NVAC forklifts:** 2 lines on MISCITEM ($12,248; the 5 t forklift with tynes marked hired in on 12 Sep) and 7 lines
-  carrying a Coates plant number ($23,028) — counted on Andrew's word; confirm each one, the supplier and the Rehire cost.
+- **NVAC forklifts:** lines 31 and 34 on MISCITEM ($12,248: the 5 t forklift with tynes marked hired in on 12 Sep, and the
+  one-day AT009) — Andrew, 1 Oct 14:50, with the Baseplan export: "it's cleared, we have spoken about this: line 31 and
+  line 34". The six forklift lines carrying Coates plant numbers are Coates's own hire. Still needed: the supplier and the
+  Rehire cost for the two.
 - **The two SUB lines:** the supplier's name and the Rehire cost (a quote or invoice). The container's sales analysis
   code names STPS on a KINP contract.
 - **Not counted as rehire** — a second table lists every other contract line with no Coates plant number (STPS VMS 5
@@ -60,6 +62,13 @@ The glance's flow list gains "Rehire by branch".
 
 Codex's six offline synthetic checks (`../review_v764_v767/evidence/synthetic_regressions.js`) pass 6/6 on the corrected
 patches.
+
+## Sources
+
+- `sources/Baseplan_SuperCars_2026-10-01_1450.xlsx` — the export Andrew sent at 14:50 (SHA-256 `3c0a4cb9c340e7a5…`). Compared
+  field by field with the 1 Oct export on the record (`../v7.61_accruals_for_finance_LIVE/sources/`): 308 lines on ten
+  contract sheets, **no difference in any field** — still 0 of 308 lines billed, lines 31 and 34 of 9961976 both MISCITEM,
+  NVAC-HIR, no Rate 1. Kept beside the draft as the paper for the lines 31 and 34 rule.
 
 ## Files
 

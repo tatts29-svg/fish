@@ -3,7 +3,7 @@
  "checks": {
   "cardUnderCostsToJobEnd": true,
   "toiletsAreTheKinpCellPlusServicing": true,
-  "forkliftsAreEveryNvacForkliftLine": true,
+  "forkliftsAreLines31And34": true,
   "subLinesEachCounted": true,
   "fencingIsThePLsAndTheProgramme": true,
   "fencingGearNotInstallation": true,
@@ -62,12 +62,12 @@
   },
   {
    "branch": "NVAC",
-   "what": "Forklifts and their attachments — sub-hired",
-   "lines": 9,
-   "units": 9,
-   "rev": 35276.3,
+   "what": "Forklifts — sub-hired",
+   "lines": 2,
+   "units": 2,
+   "rev": 12248.1,
    "revToCome": 0,
-   "revJob": 35276.3,
+   "revJob": 12248.1,
    "cost": null,
    "costToCome": 0,
    "costJob": null,
@@ -96,11 +96,15 @@
   "kRehire": 118575
  },
  "forks": {
-  "n": 9,
-  "expectN": 9,
-  "rev": 35276.3,
-  "expectRev": 35276.3,
-  "cost": null
+  "n": 2,
+  "expectN": 2,
+  "rev": 12248.1,
+  "expectRev": 12248.1,
+  "cost": null,
+  "lines": [
+   31,
+   34
+  ]
  },
  "subs": {
   "n": 2,
@@ -122,18 +126,18 @@
  },
  "totals": {
   "T": {
-   "rev": 311820.69,
+   "rev": 288792.49,
    "revToCome": 248809.54,
    "cost": 193596.5,
    "costToCome": 180090.1,
    "costMissing": 3,
-   "lines": 206,
-   "revJob": 560630.23,
+   "lines": 199,
+   "revJob": 537602.03,
    "costJob": 373686.6,
-   "share": 0.6965343828775984,
-   "shareNow": 0.5607522522833582
+   "share": 0.6679238438494374,
+   "shareNow": 0.5193402631814431
   },
-  "sumRev": 311820.69,
+  "sumRev": 288792.49,
   "sumCost": 193596.5,
   "sumRevTC": 248809.54,
   "sumCostTC": 180090.1,
@@ -160,7 +164,7 @@
   {
    "branch": "NVAC",
    "groups": 1,
-   "revJob": 35276.3,
+   "revJob": 12248.1,
    "costJob": 0,
    "costMissing": 1
   },
