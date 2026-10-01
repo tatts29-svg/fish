@@ -21,28 +21,37 @@ The four water lines on the Event Portables quotes were in the approved Rehire c
 | Water Truck | Q6844 | 1 | $6,800.00 | $6,800.00 at cost |
 | Water Truck - Pre fill | Q6844 | 1 | $2,800.00 | $2,800.00 at cost |
 | Water delivery | Q6846 | 6 × $375.00 | $2,250.00 | $2,250.00 at cost |
-| 3000 Ltr Free Drinking Water Tank | Q6846 | 1 | $350.00 | $350.00 at cost |
-| | | | **$12,200.00** | **+$12,200.00 Rehire Revenue** |
+| 3000 Ltr Free Drinking Water Tank | Q6846 | 1 (6 weeks at $350 a week) | $2,100.00 | $2,100.00 at cost |
+| | | | **$13,950.00** | **+$13,950.00 Rehire Revenue** |
 
-1. `servicing748()` carries the water lines at cost (`at_cost`, with `service|<description>` as the typed-rate key) inside
-   the servicing total — so the P&L's revenue, the Rehire by branch toilets group, the accrual's event forecast and the
-   Costs card all follow from the one figure. `card_lines`, `card_total`, `at_cost_total`, `their_water` and `under`
-   (lines typed under the supplier's figure) are returned beside.
+The supplier's figure is the quote's own total for the line (Q6846 prints the tank as 6 weeks × $350 = $2,100); an earlier reading of the
+data block had the tank at $350 and was corrected in the 1 Oct adversarial review.
+
+1. `servicing748()` carries the water lines at the quotes' own figures (`at_cost`, with `service|<description>` as the
+   typed-rate key) inside the servicing total — so the P&L's revenue, the Rehire by branch toilets group, the accrual's
+   event forecast and the Costs card all follow from the one figure. A rate typed under the supplier's figure is **not
+   applied** (the floor holds) and the line says so. `card_lines`, `card_total`, `at_cost_total`, `their_water` and
+   `under` (lines with a typed rate that was not applied) are returned beside.
 2. The P&L line reads "Toilet servicing, cleaning and water — KINP rehire, priced by us at our pump-out rates · the water
    at what we are charged"; its working names each water line "(at cost)", says what Event Portables charge us for the
-   servicing ($46,545) and the water ($12,200), and flags any line typed under cost. The gap "water services have no
+   servicing ($46,545) and the water ($13,950), and names any rate typed under cost as not applied. The branch note, the
+   stream notes, the management email, the hub card and the Rehire by branch group all say "pump-outs at the card, water
+   at what we are charged" instead of "at our pump-out rates". The gap "water services have no
    customer rate" is a caveat now ("charged on at what Event Portables charge us … until the branch puts a rate on").
 3. The Costs card's servicing table lists the water lines with "at cost — what Event Portables charge us" and a rate box
    each; the old "Not charged — no line on the card … Needs a price agreed" hint is gone.
 4. The Questions item `water-service-rate753` is answered in Andrew's words, with the four lines and their figures.
-5. The Rehire by branch card: "Andrew's rule (1 Oct 2026): what we charge covers what we get charged" with the business's
-   figure to job end (Rehire Revenue ÷ Rehire cost), and each group's own line: "covers what we are charged: ×1.40
-   ($166,394 charged against $118,575 paid)", or "supplier cost not on the record — cover cannot be checked" (the two SUB
+5. The Rehire by branch card: "Andrew's rule (1 Oct 2026): 'what we charge should cover what we get charged'" with the
+   business's figure to job end (Rehire Revenue ÷ Rehire cost plus Installation — external contractors, Advanced's crew
+   counted in what we are charged), and each group's own line: "covers what we are charged — ×1.41: $168,144 charged
+   against $118,575 Rehire cost to pay", or "supplier cost not on the record — cover cannot be checked" (the two SUB
    lines, the NVAC forklifts), or "SHORT of what we are charged by $…" if ever it is.
-6. The accrual row is named "Toilet servicing and water — event forecast".
+6. The accrual row keeps its name (Finance's wording keys on it); its basis names the water lines and its source Q6846.
 
-Nothing on the record changes. Revenue on the record rises by exactly $12,200 (the servicing line); costs do not move
-(the $12,200 was already in the approved Rehire cost).
+Nothing on the record changes. Revenue on the record rises by exactly $13,950 (the servicing line); costs do not move
+(the $13,950 was already in the approved Rehire cost). Last year Finance coded the water truck with the pump-outs and
+the water deliveries and tank as consumables (`../reference_2025_contracts_and_invoices/event_portables_2025.md`) — the
+ledger homes for these lines when the P&L is presented in the business's lines (v7.70).
 
 ## Files
 
@@ -59,18 +68,6 @@ bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_DRAFT/patch_v7
 python3 toolchain/upload_page.py build/GC500_v7.69/GC500_Delivery_Control_hosted.html
 ```
 
-## Results — the chain on `build/GC500_v7.69` (8,633,034 bytes; v7.68 + v7.69 on the live v7.67), 1 Oct 2026 16:55–17:40 AEST
+## Results
 
-| Check | Desktop | Phone |
-|---|---|---|
-| v7.69 practice tests (`evidence/practice_results*.json`) | **17/17** | **17/17** |
-| v7.68 waste tank is a piece of work (`regress/v768*`) | **16/16** | **16/16** |
-| v7.67 priced by us (`regress/v767*`) | **12/12** | **12/12** |
-| v7.66 rehire by branch (`regress/v766*`) | **18/18** | **18/18** |
-| v7.64 costs to job end (`regress/v764`) | **22/22** | — |
-| v7.65 the Costs tab in one flow (`regress/v765`) | **22/22** | — |
-| v7.63 accruals in Andrew's words (`regress/v763`) | **33/33** | — |
-| Codex's six synthetic checks | 6/6 | — |
-| Sweep, 21 tabs (`regress/sweep_*.json`) | 21 tabs, 0 errors, 0 console | 21 tabs, 0 errors, 0 console |
-
-Against the live page read on the same record at the same moment: revenue +$12,200.00 (the servicing line), Rehire Revenue to job end +$12,200.00, labour, direct costs known and Rehire cost unchanged. The adversarial code review (three lenses, each finding verified) is recorded below when it reports.
+_(the chain on the corrected build is running; filled in when it finishes)_
