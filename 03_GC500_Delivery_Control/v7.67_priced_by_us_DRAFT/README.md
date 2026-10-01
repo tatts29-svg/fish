@@ -33,7 +33,8 @@ servicing — priced by us at our pump-out rates". A jump to something inside a 
 
 `build/GC500_v7.67/GC500_Delivery_Control_hosted.html` — v7.60 → … → v7.66 → v7.67 on the live v7.59: **8,621,316
 bytes**, check_page PASS, key grep clean. Practice tests desktop 12/12 and phone 12/12; v7.66 16/16 both; v7.65, v7.64
-and v7.63 hold on the same build; sweeps recorded on the board.
+and v7.63 hold on the same build; sweeps desktop 21 tabs, 0 errors, 0 console; phone 21 tabs, 0 errors, 0 console
+(`evidence/sweep_desktop.txt`, `evidence/sweep_phone.txt`).
 
 Not for upload until the four-patch Costs release is live and Codex has reviewed; then one build, eight patches:
 
