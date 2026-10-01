@@ -35,6 +35,9 @@ const {open} = require('../../toolchain/harness/open_page.js'); const fs = requi
  R.checks.fourBranches = D.byBranch.length >= 4 && ['KINP', 'NVAC', 'MEAD', 'STPS'].every(b => D.byBranch.some(x => x.branch === b));
  R.checks.othersListed = D.others >= 3;
  R.checks.glanceLinksToIt = D.glanceLink;
+ /* Codex's review, 1 Oct: every non-charge contract line is in exactly one place - a group, the not-counted table, or Coates's own plant-numbered hire */
+ R.coverage = await p.evaluate(() => { const Rh = rh766Model(); const rows = ONHIRE_ROWS.filter(r => !r.charge_line); return Object.assign({}, Rh.coverage, {expectLines: rows.length, sumGroupLines: Rh.groups.filter(g => !/Fencing/.test(g.what)).reduce((s, g) => s + g.lines, 0), othersLines: Rh.others.reduce((s, g) => s + g.n, 0)}); });
+ R.checks.everyLineInOnePlace = R.coverage.adds === true && R.coverage.lines === R.coverage.expectLines && R.coverage.inGroups === R.coverage.sumGroupLines && R.coverage.notCounted === R.coverage.othersLines;
  R.checks.readOnly = D.readOnly;
  R.text = await p.evaluate(() => document.getElementById('rehire766').innerText);
  R.checks.andrewsWords = /Rehire Revenue/.test(R.text) && /Rehire cost/i.test(R.text) && /Sub-hired/i.test(R.text) && /Event Portables/.test(R.text) && /Advanced Temporary Fencing/.test(R.text) && /our rates/i.test(R.text);

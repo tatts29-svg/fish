@@ -57,8 +57,11 @@ function pl767Unpriced(){
  const norm = s => String(s || '').replace(/^(SUPPLY|COATES|EVENTS|SPARE)-?\s*/i, '').replace(/\b(telehandler|forklift)\b/gi, '').replace(/\s+/g, ' ').trim().toLowerCase();
  const open = ONHIRE_ROWS.filter(r => !r.charge_line && !r.subhired && typeof r.rate_1 !== 'number' && !(typeof lr748Decided === 'function' && lr748Decided(r)) && !(typeof lr748For === 'function' && lr748For(r)));
  const rated = ONHIRE_ROWS.filter(r => typeof r.rate_1 === 'number' && !r.charge_line);
- const items = open.map(r => { const sib = rated.find(x => /extension/i.test(x.description || '') && /extension/i.test(r.description || '')) || rated.find(x => norm(x.description) === norm(r.description)); return {r, sib}; });
- const words = items.map(x => `${x.r.description || x.r.item} (${x.r.branch_code})${x.sib ? ` — ${x.sib.branch_code}’s own line ${x.sib.item} carries Rate 1 ${money(x.sib.rate_1)}${x.sib.rate_type ? ' (' + x.sib.rate_type + ')' : ''} for the same thing: type it on the card to charge it` : ' — no rate for it anywhere on the contracts or the card'}`);
+ /* a sibling is the SAME description once the branch prefixes are stripped; failing that, the one named thing the contracts
+    carry twice - a forklift extension (fork/forklift/telehandler + extension on both sides). Sharing one word is not a match (Codex's review, 1 Oct). */
+ const forkExt = s => /\b(fork|forklift|telehandler)\b/i.test(s || '') && /\bextension\b/i.test(s || '');
+ const items = open.map(r => { const exact = rated.find(x => norm(x.description) === norm(r.description)); const near = !exact && forkExt(r.description) ? rated.find(x => forkExt(x.description)) : null; return {r, sib: exact || near || null, how: exact ? 'the same thing' : near ? 'the nearest thing on the contracts, a forklift extension' : null}; });
+ const words = items.map(x => `${x.r.description || x.r.item} (${x.r.branch_code})${x.sib ? ` — ${x.sib.branch_code}’s own line ${x.sib.item} carries Rate 1 ${money(x.sib.rate_1)}${x.sib.rate_type ? ' (' + x.sib.rate_type + ')' : ''} for ${x.how}: type it on the card to charge it` : ' — no rate for it anywhere on the contracts or the card'}`);
  return {n: open.length, items, words, short: items.length ? (items.filter(x => x.sib).length ? `${fmtNum(items.filter(x => x.sib).length)} with a rate we can take from a sibling line` : 'no rate anywhere on the contracts') : 'none'};
 }
 """

@@ -55,18 +55,24 @@ function cj764WeekEnd(week){ const w = (DATA.weeks || []).find(x => x.sheet === 
 function cj764RelocNote(){ try { const n = allDockets().filter(d => d.usable && (d.paid_unpriced || []).includes('relocation')).length; return n ? ` · the relocation metres on ${n} docket${n === 1 ? '' : 's'} are costed by the hour through the green book, not per metre` : ''; } catch (e) { return ''; } }
 /* the fencing programme's weeks still to come, at Advanced's rates and at the card */
 function cj764Fencing(){
- const today = todayIso(), r2 = n => Math.round(n * 100) / 100; const out = {weeks: [], cost: 0, revenue: 0, noCostRate: {}, noCardRate: {}, notRolled: [], hourly: {}};
+ const today = todayIso(), r2 = n => Math.round(n * 100) / 100; const out = {weeks: [], cost: 0, revenue: 0, noCostRate: {}, noCardRate: {}, notRolled: [], hourly: {}, behind: []};
  let W; try { W = fenceByWeek(allDockets()); } catch (e) { return Object.assign(out, {error: String(e)}); }
- W.forEach(w => { if (!w.planWords) return; if (!w.rolled) { out.notRolled.push(w.week); return; } if (w.end && w.end < today) return; /* done: the dockets are the truth */
- const row = {week: w.week, prog: w.progSheet, start: w.start, end: w.end, state: w.start && w.start > today ? 'to come' : 'in progress', cost: 0, revenue: 0, lines: []};
+ W.forEach(w => { if (!w.planWords) return; if (!w.rolled) { out.notRolled.push(w.week); return; }
+ /* a week whose end has passed is not dropped: the dockets are the truth for what was DONE, and whatever the plan still
+    carries undocketed is still to do - carried forward and named "behind", never silently lost (Codex's review, 1 Oct) */
+ const past = !!(w.end && w.end < today);
+ const row = {week: w.week, prog: w.progSheet, start: w.start, end: w.end, state: past ? 'behind — week ended, metres still on the plan' : (w.start && w.start > today ? 'to come' : 'in progress'), past, cost: 0, revenue: 0, lines: []};
  w.lines.forEach(l => { const q = l.remaining != null ? Math.max(0, l.remaining) : 0; if (!q) return; const rate = fenceRateFor(l.column), paid = fenceCostFor(l.column);
  const rev = rate && rate.value != null ? q * rate.value : null; const cost = paid && paid.value != null ? q * paid.value : null;
  if (rev != null) row.revenue += rev; else out.noCardRate[l.name] = r2((out.noCardRate[l.name] || 0) + q);
  if (cost != null) row.cost += cost; else if (paid && paid.source === 'hourly') out.hourly[l.name] = r2((out.hourly[l.name] || 0) + q); else out.noCostRate[l.name] = r2((out.noCostRate[l.name] || 0) + q);
  row.lines.push({name: l.name, unit: l.unit, q, rev, cost}); });
  /* programme types the dockets have no column for (hoarding, flat feet, WPF) */
- try { const ps = ((DATA.fencing || {}).week_sheets || []).find(x => x.sheet === w.progSheet); if (ps && ps.totals) Object.entries(ps.totals).forEach(([type, q]) => { if (!q || (FCOL || []).some(c => c.programme_type === type)) return; out.noCardRate[type] = r2((out.noCardRate[type] || 0) + q); out.noCostRate[type] = r2((out.noCostRate[type] || 0) + q); }); } catch (e) {}
- row.cost = r2(row.cost); row.revenue = r2(row.revenue); out.cost = r2(out.cost + row.cost); out.revenue = r2(out.revenue + row.revenue); out.weeks.push(row); });
+ if (past && !row.lines.length) return; /* a past week with nothing left on the plan: done; the dockets are the truth */
+ if (!past) try { const ps = ((DATA.fencing || {}).week_sheets || []).find(x => x.sheet === w.progSheet); if (ps && ps.totals) Object.entries(ps.totals).forEach(([type, q]) => { if (!q || (FCOL || []).some(c => c.programme_type === type)) return; out.noCardRate[type] = r2((out.noCardRate[type] || 0) + q); out.noCostRate[type] = r2((out.noCostRate[type] || 0) + q); }); } catch (e) {}
+ row.cost = r2(row.cost); row.revenue = r2(row.revenue); out.cost = r2(out.cost + row.cost); out.revenue = r2(out.revenue + row.revenue); out.weeks.push(row);
+ if (past) { out.behind.push(row.prog || row.week); out.behindCost = r2((out.behindCost || 0) + row.cost); out.behindRevenue = r2((out.behindRevenue || 0) + row.revenue); } });
+ out.behindCost = out.behindCost || 0; out.behindRevenue = out.behindRevenue || 0;
  return out;
 }
 function cj764Model(){
@@ -76,10 +82,12 @@ function cj764Model(){
  const push = (stream, branch, toDate, toCome, basis, note) => rows.push({stream, branch, toDate, toCome, job: toDate == null && toCome == null ? null : r2((toDate || 0) + (toCome || 0)), basis, note});
  /* fencing */
  const F = cj764Fencing(); const SP = fencePaidSplit(); const fenceToDate = r2(cat('fencing').amount || 0);
- const fenceWeeks = F.weeks.map(w => `${w.prog || w.week} ${w.state}`).join(', ');
+ const fenceWeeks = F.weeks.map(w => `${w.prog || w.week} ${w.past ? 'behind' : w.state}`).join(', ');
+ const behindWords = F.behind && F.behind.length ? ` · of which ${money0(F.behindCost)} (${money0(F.behindRevenue)} at the card) is BEHIND THE PROGRAMME: ${F.behind.join(', ')} ended with metres still on the plan and no docket for them — still to do, or done and docketed under another week; Advanced to confirm` : '';
  push('Fencing — Advanced Temporary Fencing, rehire cost', typeof pl760FencingBranch === 'function' ? pl760FencingBranch() : 'STPS', fenceToDate, F.cost,
- `to date: ${fmtNum(SP.dockets || allDockets().filter(d => d.usable).length)} dockets at Advanced’s own sheet${SP.green ? ' + the green book ' + money0(SP.green) : ''} · to come: the 2026 fencing programme’s remaining weeks (${fenceWeeks || 'none'}) × Advanced’s rates — clean, scrim, CCB, gates${cj764RelocNote() ? '' : ''}`,
+ `to date: ${fmtNum(allDockets().filter(d => d.usable).length)} dockets at Advanced’s own sheet${SP.green ? ' + the green book ' + money0(SP.green) : ''} · to come: the 2026 fencing programme’s remaining weeks (${fenceWeeks || 'none'}) × Advanced’s rates — clean, scrim, CCB, gates${behindWords}`,
  [Object.keys(F.hourly).length ? `relocation ${Object.entries(F.hourly).map(([n, q]) => fmtNum(q) + ' m').join(', ')} is billed by the hour — hours not yet known` : '', Object.keys(F.noCostRate).length ? `no rate on Advanced’s sheet for ${Object.entries(F.noCostRate).map(([n, q]) => `${n.replace(/^Temporary Fence \(m\) — |^Crowd Control Barriers \(m\) — /, '')} ${fmtNum(q)}`).join(', ')}` : '', F.notRolled.length ? `the deconstruction weeks (${F.notRolled.join(', ')}) still carry 2025 dates — a reference, not a plan — so removal is not forecast` : ''].filter(Boolean).join(' · '));
+ if (F.behind && F.behind.length) gap(`Fencing behind the programme: ${F.behind.join(', ')} ended with metres still on the plan (${money0(F.behindCost)} at Advanced’s rates, ${money0(F.behindRevenue)} at the card)`, 'carried as still to come until Advanced say whether it was done under another week or dropped', 'Andrew — Advanced’s programme manager');
  if (Object.keys(F.hourly).length || Object.keys(F.noCostRate).length) gap('Fencing still to come: relocation hours, hoarding, flat feet, WPF and removal', 'Advanced’s sheet has no per-metre rate for them; the programme has the quantities', 'Andrew — a rate or an hours estimate from Advanced');
  /* toilets */
  const rq = Number(k.rehire) || 0; push('Toilets — Event Portables, rehire cost', typeof pl760ToiletBranch === 'function' ? pl760ToiletBranch() : 'KINP', rq, 0, `the four approved quotes ex GST, counted whole on the P&L (${k.rehire_approved ? 'approved on Andrew’s word' : 'quoted'}); no invoice yet`, 'the final total may change · Q6846 has no hire dates');
@@ -88,7 +96,9 @@ function cj764Model(){
  /* transport */
  const ST = (k.transport || {}).schedule || {}; const tToDate = r2(Number(k.transport && k.transport.amount) || 0);
  const live = allAssets().filter(a => !a._cancelled && !a.rest_of); let cardCost = 0, cardRefs = 0, loadsNoFig = 0, loadsNoFigNoCard = 0;
- live.forEach(a => { const ev = (a.events || []).filter(e => e.carrier || e.dd || e.transport_cost); if (!ev.length) return; const noFig = ev.filter(e => !(e.transport_cost && (e.transport_cost.amount != null || e.transport_cost.internal))); if (!noFig.length) return; const T = assetTotal(a); const cc = (T.lines || []).reduce((s, l) => s + ((l.transport_cost != null && l.qty != null) ? l.transport_cost * l.qty : 0), 0); if (cc) { cardCost += cc; cardRefs++; loadsNoFig += noFig.length; } else loadsNoFigNoCard += noFig.length; });
+ /* a reference whose transport cost is already on OUR typed line is known, not to come - the P&L gives that line precedence over the schedule, so this does too (Codex's review, 1 Oct) */
+ let ourRefs = new Set(); try { ourRefs = new Set(ourCosts().filter(x => x.kind === 'transport' && x.usable && x.amount != null && x.ref).map(x => x.ref)); } catch (e) {}
+ live.forEach(a => { if (ourRefs.has(a.key)) return; const ev = (a.events || []).filter(e => e.carrier || e.dd || e.transport_cost); if (!ev.length) return; const noFig = ev.filter(e => !(e.transport_cost && (e.transport_cost.amount != null || e.transport_cost.internal))); if (!noFig.length) return; const T = assetTotal(a); const cc = (T.lines || []).reduce((s, l) => s + ((l.transport_cost != null && l.qty != null) ? l.transport_cost * l.qty : 0), 0); if (cc) { cardCost += cc; cardRefs++; loadsNoFig += noFig.length; } else loadsNoFigNoCard += noFig.length; });
  [(((DATA.plant_lines || {}).fencing_rows_not_plant) || []), (DATA.unreferenced || [])].forEach(rs => rs.forEach(r => { const tc = r.transport_cost; if (!(tc && (tc.amount != null || tc.internal))) loadsNoFigNoCard++; }));
  const avg = ST.counted_refs ? r2(ST.counted / ST.counted_refs) : null; const avgPart = avg != null ? r2(avg * loadsNoFigNoCard) : null;
  push('Transport (cartage) — carriers’ charges', 'the job', tToDate, r2(cardCost + (avgPart || 0)),
@@ -118,7 +128,7 @@ function cj764Model(){
  const plParts = r2(rq + fenceToDate + tToDate + (Number(A.amount) || 0) + meals + misc);
  /* the card's "to date" for accommodation is nights to today; the P&L counts every priced night (planned too) - the difference is the planned priced nights, shown under to come */
  const revenue = {record: r2(Number(c.total) || 0), fenceToCome: F.revenue, job: r2((Number(c.total) || 0) + F.revenue), noCardRate: F.noCardRate};
- return {asAt: today, rows, gaps, known, toCome, job: r2(known + toCome), plKnown, plParts, revenue, fencing: F, wages: {toDate: r2(wToDate), toCome: r2(wToCome), unpricedHours: r2(unpH), known: wagesKnown, toCome2: wagesToCome, job: r2(wagesKnown + wagesToCome)}};
+ return {asAt: today, rows, gaps, known, toCome, job: r2(known + toCome), plKnown, plParts, revenue, fencing: F, transport: {ourRefs: ourRefs.size, cardRefs, loadsNoFig, loadsNoFigNoCard}, wages: {toDate: r2(wToDate), toCome: r2(wToCome), unpricedHours: r2(unpH), known: wagesKnown, toCome2: wagesToCome, job: r2(wagesKnown + wagesToCome)}};
 }
 function cj764Card(){
  let X; try { X = cj764Model(); } catch (e) { return `<section id="costs764" class="fin745 cj764"><p class="fin745-eyebrow">COSTS TO JOB END</p><p>Could not be worked out from this record: ${esc(String(e && e.message || e))}</p></section>`; }
@@ -128,7 +138,7 @@ function cj764Card(){
  <div class="fin745-heading"><div><p class="fin745-eyebrow">COSTS TO JOB END · AUD EX GST · FORECAST</p><h2 id="cj764Title">What the job will cost, and what it will bring in, carried to the end</h2><p>The Forecast P&amp;L above is the record as it stands: revenue on the contracts, the card and the dockets so far, and the direct costs known. This carries each stream to job end — what is still to come, and on what basis — and names what is not priced yet and who can price it. As at ${esc(fmtDate(X.asAt))}. Revenue and cost are never added together.</p></div></div>
  <div class="fin745-metrics acc761-metrics">
  ${fin745Card('Direct costs known today', money0(X.known), 'the P&L’s figure · toilets approved, fencing docketed, loads with a figure, nights and expenses on the tracker')}
- ${fin745Card('Still to come — forecast', money0(X.toCome), 'the fencing programme’s remaining weeks, the loads without a figure, the nights with no rate yet')}
+ ${fin745Card('Still to come — forecast', money0(X.toCome), `the fencing programme’s remaining weeks${X.fencing.behind && X.fencing.behind.length ? ` (incl. ${esc(money0(X.fencing.behindCost))} behind the programme — ended weeks with metres still on the plan)` : ''}, the loads without a figure, the nights with no rate yet`)}
  ${fin745Card('Direct costs to job end', money0(X.job), `+ wages priced ${esc(money0(X.wages.job))} (Job Connect) · before ${esc(fmtNum(X.wages.unpricedHours))} h of Coates wages and the items not priced below`)}
  ${fin745Card('Revenue to job end', money0(R.job), `${esc(money0(R.record))} on the record + ${esc(money0(R.fenceToCome))} of fencing still to come at the 2026 card`)}
  </div>
