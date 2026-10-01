@@ -9,7 +9,7 @@ visual refinements to the existing complete 2.91 km circuit, retaining its car, 
 stands, crowds, signs and garages. The MP4/weather, gauges, records and other page features remain in the live base.
 
 The short-section reset and replacement camera wrappers are removed. Surface materials follow the full road and
-both closed track edges; all 260 existing kerb footprints receive physical profiles. Additive joints and fittings
+both closed track edges; all 260 original kerb outer lips receive 0.85 m wide, 70 mm high physical profiles with metre-scale paint blocks. Additive joints and fittings
 retain existing barrier paint. Roadside facade and foliage refinement select from the entire circuit, with bounded
 geometry budgets. The sunlight target follows the car without reallocating a texture every time it moves.
 
@@ -31,8 +31,17 @@ pause, restart the complete lap or compare the original graphics. This is a revi
 Initial build and browser render pass with no errors. Real geometry: 498/498 boundary segments, 1,822 detail
 modules, 260 kerb profiles; 80 roadside building parts, 354 facades; 337 source trees refined across all 12 equal
 distance coverage bins. The bins are test diagnostics, not official race sectors. Two bins have no eligible tower
-parts; this draft does not invent buildings to fill them. Source positions and dimensions remain unchanged.
+parts; this draft does not invent buildings to fill them. The route, building/tree positions and dimensions remain unchanged. Original kerb source arrays remain intact; only their visual width/paint scale is corrected.
 
 **Not ready to upload.** Continuous full-lap desktop/phone checks, visual review and integration checks remain in
-progress. No claim is made about physical-device frame rate or 4K real-time performance. The live release is v7.86;
+progress. No claim is made about physical-device frame rate or 4K real-time performance. The live release is v7.87;
 this graphics correction has not been published.
+
+The first complete desktop sweep passed 30/30 checks over 2,935 m, but exposed oversized original kerb shapes.
+That candidate is superseded by the narrower kerb treatment above. The corrected candidate also respects the
+existing performance ladder: shadow-off remains off as the car moves; if the composite is disabled or optional
+geometry fails, the original scene continues. Geometry, lifecycle and forced-allocation CPU checks pass.
+
+Current candidate: 8,854,418 bytes, SHA256 `121d183a400d95d997bfbf4db07b5cb5872b57a8e3ec80d163adc4eaec1dd91e`.
+Offline review copy: 1,139,977 bytes, SHA256 `a31ccb858829675a8ae1b9364107058b823a70b80ec23d1b0467e402ce5191db`.
+Full-lap browser and full-page checks are running on this revision.

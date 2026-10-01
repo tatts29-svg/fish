@@ -269,13 +269,17 @@ void main(){
     stats.coverageSectors=stats.sectors.filter(s=>s.facades>0).length;
     stats.eligibleSectors=stats.sectors.filter(s=>s.eligibleFacades>0).length;
     stats.fullEligibleCoverage=stats.facadeElevations===stats.eligibleFacades;
+    let program=null;
     try{
-      const program=compile(S.gl);mesh.upload();stats.triangles=mesh.ni/3;stats.gpuBytes=mesh.v.length*4+mesh.i.length*4;
+      program=compile(S.gl);mesh.upload();stats.triangles=mesh.ni/3;stats.gpuBytes=mesh.v.length*4+mesh.i.length*4;
       S.architecture781={mesh,program,stats};
       if(!S.detail781ShadowMeshes)S.detail781ShadowMeshes=[];
       if(!S.detail781ShadowMeshes.includes(mesh))S.detail781ShadowMeshes.push(mesh);
       return stats;
-    }catch(error){S.gl.deleteBuffer(mesh.vb);S.gl.deleteBuffer(mesh.ib);S.gl.deleteVertexArray(mesh.vao);throw error;}
+    }catch(error){
+      if(program)S.gl.deleteProgram(program.p);
+      S.gl.deleteBuffer(mesh.vb);S.gl.deleteBuffer(mesh.ib);S.gl.deleteVertexArray(mesh.vao);throw error;
+    }
   };
   G.drawArchitecture781 = function (S,VP,fog) {
     if(!S||!S.detail781Enabled)return;

@@ -1,8 +1,8 @@
 {
   "author": "Andrew Fisher",
   "test": "CPU checks against actual baseline full circuit; not a rendered visual review",
-  "elapsedMs": 378.241938,
-  "sourceSha256": "4a430d4af34a90fd1ebc1188d79c65e4f7591cd3aee3a2a9a586c0a19fc4ad6e",
+  "elapsedMs": 491.44550200000003,
+  "sourceSha256": "0ecf87d77ca096d7260a24b702908c80f73dcf59996d3e94f34eac41656d4be7",
   "stats": {
     "author": "Andrew Fisher",
     "source": "Full existing circuit boundaries and original kerb footprints; original paint and signs retained, additive fittings only",
@@ -32,7 +32,7 @@
     "camerasChanged": false,
     "panelMetres": 4,
     "moduleLimit": 2400,
-    "kerbSourceRule": "Every original nominal curvature-based kerb footprint; decorative profiles only",
+    "kerbSourceRule": "Original outer lips retained; visual width 0.85 m; original source arrays and physics unchanged",
     "boundaries": [
       {
         "name": "outer",
@@ -141,7 +141,16 @@
         "boundaryLengthM": 506.37381547256314
       }
     ],
-    "triangles": 33848,
+    "triangles": 57648,
+    "kerbSourceQuads": 260,
+    "kerbFootprints": 260,
+    "kerbPaintBlocks": 2640,
+    "kerbWidthM": 0.85,
+    "kerbHeightM": 0.07,
+    "kerbMaxStripeM": 0.9997885421258389,
+    "retainedPaintVertices": 4,
+    "retainedPaintTriangles": 2,
+    "originalKerbPaintHiddenOnly": true,
     "coverageFraction": 1,
     "coverageBins": 12,
     "coverageBinMeaning": "12 equal-distance diagnostic bins on the existing lap, not official race sectors",
@@ -150,8 +159,8 @@
       "maxBoltPairs": 480,
       "wholeBoundaryAlwaysCovered": true
     },
-    "vertices": 64832,
-    "gpuBytes": 3518116
+    "vertices": 112432,
+    "gpuBytes": 6088684
   },
   "checks": [
     {
@@ -229,9 +238,29 @@
       ]
     },
     {
-      "name": "every source kerb footprint retained",
+      "name": "all source kerb locations retained",
       "pass": true,
       "detail": 260
+    },
+    {
+      "name": "outer lips match exact original x/z",
+      "pass": true
+    },
+    {
+      "name": "visual kerb width is at most 0.85m",
+      "pass": true
+    },
+    {
+      "name": "metre-scale stripes replace long colour slabs",
+      "pass": true,
+      "detail": {
+        "stripes": 2640,
+        "max": 0.9997885421258389
+      }
+    },
+    {
+      "name": "non-kerb road paint is copied exactly",
+      "pass": true
     },
     {
       "name": "no replacement barriers or sponsor signage",
@@ -260,7 +289,7 @@
     {
       "name": "triangle count remains modest",
       "pass": true,
-      "detail": 33848
+      "detail": 57648
     },
     {
       "name": "installation reuses resources",
@@ -270,7 +299,7 @@
       "name": "all module GPU resources disposed",
       "pass": true,
       "detail": {
-        "deleted": 5
+        "deleted": 8
       }
     }
   ]

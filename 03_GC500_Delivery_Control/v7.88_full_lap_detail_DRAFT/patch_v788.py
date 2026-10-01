@@ -17,7 +17,7 @@ def apply(t,p):
     # simulation, registered geometry and complete camera implementation stay.
     start=t.index('/* Author: Andrew Fisher. Detailed foliage, with the original placement retained. */')
     end=t.index('</script>',start)
-    sky=(HERE.parent/'v7.85_showcase_track_detail_LIVE/sky781_src.js').read_text()
+    sky=(HERE/'sky788_src.js').read_text()
     modules='\n'.join((HERE/name).read_text() for name in ['vegetation788_src.js','track_detail788_src.js','architecture788_src.js'])+'\n'+sky+'\n'+(HERE/'full_lap788_src.js').read_text()
     r(t[start:end],modules+'\n','Full-circuit detail modules')
     # The previous study hid existing features. The full-lap upgrade preserves
@@ -27,6 +27,9 @@ def apply(t,p):
     r('if(!S.detail781Enabled&&S.gantry){const m=S.sim||{},t=clock;','if(S.gantry){const m=S.sim||{},t=clock;','Retain existing start lamps')
     for old in ['if(S.standDecor&&S.standDecor.ni)','if(S.standMesh&&S.standMesh.ni)','if(S.standEdge)S.standEdge.draw();','if(S.crowdMesh&&S.crowdMesh.ni)','if(S.people&&S.people.n&&tg>0)','if(S.crowd&&(L.lines.dynAdd==null?1:L.lines.dynAdd)>0)']:
         r(old.replace('if(','if(!S.detail781Enabled&&',1),old,'Retain original stands and crowds')
+    r('if(S.kerb){flat(detail781?14:0,L.mat.kerb);S.kerb.draw();}',
+      'if(S.kerb){flat(detail781?14:0,L.mat.kerb);const paint788=S.detail781Enabled&&S.trackDetail781&&S.trackDetail781.paint;(paint788||S.kerb).draw();}',
+      'Keep source road paint beside metre-scale physical kerbs')
     # Avoid coincident balcony layers. Original shells always remain visible;
     # source city detail is restored by the offline comparison control.
     r('if(S.cityDetail)S.cityDetail.draw();','if(S.cityDetail&&!(S.detail781Enabled&&S.architecture781))S.cityDetail.draw();','Single facade shadow layer')
@@ -65,6 +68,8 @@ def apply(t,p):
  gl.drawBuffers([gl.NONE]);gl.readBuffer(gl.NONE);R.ok=gl.checkFramebufferStatus(gl.FRAMEBUFFER)===gl.FRAMEBUFFER_COMPLETE;
 '''+shadow[alloc_b:]
     shadow=shadow.replace('const span=detail781?48:235','const span=detail781?72:235')
+    shadow=shadow.replace(' let R=S.sunShadow;', ' let R=S.sunShadow;\n if(S.shadowOff){if(R)R.ok=false;return R;}')
+    shadow=shadow.replace(' if(R&&R.source===S.bMesh', ' if(R&&R.ok&&R.source===S.bMesh')
     if 'focus781=detail781?' in shadow:raise SystemExit('Shadow focus replacement did not match')
     r(t[a:b],shadow,'Stable reusable full-lap shadow target')
     return t

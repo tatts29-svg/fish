@@ -164,27 +164,58 @@ function build(S,D){
   const fraction=((along-S.gridS)%S.CL.L+S.CL.L)%S.CL.L/S.CL.L;
   return Math.min(11,Math.floor(fraction*12));
  };
- /* Profile only the already-drawn kerb quads. Copy their exact x/z footprint
-    from the original batch; never reclassify an edge or move the racing line.
-    The old batch (including grid/edge paint) stays intact for comparison. */
+ /* The source's nominal kerb paint is several metres wide. The refined
+    visual is a 0.85 m kerb seated on the same outer lip, with metre-scale paint
+    blocks. Keep every source array and all driving signals immutable. */
  if(S.kerb&&S.kerbStats){
-  const vertices=S.kerb.v,stride=9,quads=S.kerbStats.blocks*2;
-  if(quads*4*stride>vertices.length)throw new Error('Kerb source range exceeds the original mesh');
+  const vertices=S.kerb.v,stride=9,quads=S.kerbStats.blocks*2,firstPaintVertex=quads*4,firstPaintIndex=quads*6;
+  if(firstPaintVertex*stride>vertices.length||firstPaintIndex>S.kerb.i.length)throw new Error('Kerb source range exceeds the original mesh');
+  const widthM=.85,stripeM=1.,lo=H+.008/M,hi=H+.070/M;
+  stats.kerbSourceQuads=quads;stats.kerbFootprints=0;stats.kerbPaintBlocks=0;
+  stats.kerbWidthM=widthM;stats.kerbHeightM=.070;stats.kerbMaxStripeM=0;
+  stats.kerbSourceRule='Original outer lips retained; visual width 0.85 m; original source arrays and physics unchanged';
+  D.kerbEdges=[];
+  const lerp=(a,b,t)=>a.map((v,k)=>v+(b[k]-v)*t);
   for(let q=0;q<quads;q++){
    const points=Array.from({length:4},(_,k)=>Array.from(vertices.slice((q*4+k)*stride,(q*4+k)*stride+3)));
-   const index=q*4*stride,paint=[vertices[index+3],vertices[index+4],vertices[index+5],.94];
-   const span=(a,b,t,height)=>[a[0]+(b[0]-a[0])*t,height,a[2]+(b[2]-a[2])*t];
-   const y=points[0][1],lo=y+.003/M,hi=y+.067/M;
-   const a=[span(points[0],points[1],0,lo),span(points[0],points[1],.16,hi),span(points[0],points[1],.86,hi),span(points[0],points[1],1,lo)];
-   const b=[span(points[3],points[2],0,lo),span(points[3],points[2],.16,hi),span(points[3],points[2],.86,hi),span(points[3],points[2],1,lo)];
-   for(let k=0;k<3;k++)face([a[k],b[k],b[k+1],a[k+1]],paint);
-   const bottom=p=>[p[0],H+.001/M,p[2]],edgePaint=paint.map((v,k)=>k<3?v*.72:v);
-   face([bottom(a[0]),bottom(b[0]),b[0],a[0]],edgePaint);
-   face([bottom(b[3]),bottom(a[3]),a[3],b[3]],edgePaint);
-   face([bottom(a[0]),a[0],a[1],a[2],a[3],bottom(a[3])],edgePaint);
-   face([bottom(b[3]),b[3],b[2],b[1],b[0],bottom(b[0])],edgePaint);
-   stats.kerbProfiles++;
+   const widthA=Math.hypot(points[1][0]-points[0][0],points[1][2]-points[0][2]),
+    widthB=Math.hypot(points[2][0]-points[3][0],points[2][2]-points[3][2]),
+    innerA=lerp(points[1],points[0],Math.min(1,widthM/M/Math.max(widthA,1e-9))),
+    innerB=lerp(points[2],points[3],Math.min(1,widthM/M/Math.max(widthB,1e-9))),
+    lengthM=Math.hypot(points[2][0]-points[1][0],points[2][2]-points[1][2])*M,
+    pieces=Math.max(1,Math.ceil(lengthM/stripeM)),index=q*4*stride,
+    startsRed=vertices[index+3]>vertices[index+4]*2;
+   D.kerbEdges.push({sourceQuad:q,outerStart:points[1].slice(),outerEnd:points[2].slice(),innerStart:innerA.slice(),innerEnd:innerB.slice()});
+   for(let j=0;j<pieces;j++){
+    const u0=j/pieces,u1=(j+1)/pieces,ia=lerp(innerA,innerB,u0),ib=lerp(innerA,innerB,u1),
+     oa=lerp(points[1],points[2],u0),ob=lerp(points[1],points[2],u1),
+     paint=((j%2===0)===startsRed)?[.42,.030,.022,.94]:[.60,.60,.62,.94],
+     span=(a,b,t,height)=>[a[0]+(b[0]-a[0])*t,height,a[2]+(b[2]-a[2])*t],
+     aa=[span(ia,oa,0,lo),span(ia,oa,.18,hi),span(ia,oa,.86,hi),span(ia,oa,1,lo)],
+     bb=[span(ib,ob,0,lo),span(ib,ob,.18,hi),span(ib,ob,.86,hi),span(ib,ob,1,lo)];
+    for(let k=0;k<3;k++)face([aa[k],bb[k],bb[k+1],aa[k+1]],paint);
+    const bottom=p=>[p[0],H+.001/M,p[2]],edgePaint=paint.map((v,k)=>k<3?v*.72:v);
+    face([bottom(aa[0]),bottom(bb[0]),bb[0],aa[0]],edgePaint);
+    face([bottom(bb[3]),bottom(aa[3]),aa[3],bb[3]],edgePaint);
+    // Only the source span's two ends need a closing side. Interior paint
+    // stripes meet at the identical cross-section, avoiding hidden faces.
+    if(j===0)face([bottom(aa[0]),aa[0],aa[1],aa[2],aa[3],bottom(aa[3])],edgePaint);
+    if(j===pieces-1)face([bottom(bb[3]),bb[3],bb[2],bb[1],bb[0],bottom(bb[0])],edgePaint);
+    stats.kerbPaintBlocks++;
+   }
+   stats.kerbProfiles++;stats.kerbFootprints++;stats.kerbMaxStripeM=Math.max(stats.kerbMaxStripeM,lengthM/pieces);
   }
+  // Original grid boxes, chequered start line, road-edge lines and rubber
+  // retain their exact original vertices/colours/UV and triangle order.
+  const paint=D.paint=new G.MeshBatch(S.gl,[3,4,2],false);
+  for(let i=firstPaintVertex;i<vertices.length/stride;i++)paint.vert(...vertices.slice(i*stride,i*stride+stride));
+  for(let i=firstPaintIndex;i<S.kerb.i.length;i+=3){
+   const ids=Array.from(S.kerb.i.slice(i,i+3),v=>v-firstPaintVertex);
+   if(ids.some(v=>v<0||v>=paint.nv))throw new Error('Road paint index overlaps a source kerb');
+   paint.tri(...ids);
+  }
+  paint.upload();stats.retainedPaintVertices=paint.nv;stats.retainedPaintTriangles=paint.ni/3;
+  stats.originalKerbPaintHiddenOnly=true;
  }
 
  const blend=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
@@ -244,12 +275,12 @@ function build(S,D){
  stats.coverageBinMeaning='12 equal-distance diagnostic bins on the existing lap, not official race sectors';
  stats.geometryLimit={maxDetailedModules:D.geometry.moduleLimit,maxBoltPairs:480,wholeBoundaryAlwaysCovered:true};
  mesh.upload();stats.triangles=mesh.ni/3;stats.vertices=mesh.nv;
- stats.gpuBytes=mesh.nv*12*4+mesh.ni*4+4;
+ stats.gpuBytes=mesh.nv*12*4+mesh.ni*4+4+(D.paint?D.paint.nv*9*4+D.paint.ni*4:0);
 }
 G.installTrackDetail781=function(S){
  S=S||G.S;if(!S||!S.gl||!S.CL||!Number.isFinite(S.gridS))return null;
  if(S.trackDetail781)return S.trackDetail781.stats;
- const gl=S.gl,D={mesh:null,atlas:null,program:null,stats:null};
+ const gl=S.gl,D={mesh:null,paint:null,atlas:null,program:null,stats:null};
  try{
   D.geometry=geometry(S);D.mesh=new G.MeshBatch(gl,[3,3,2,4],false);D.atlas=makeAtlas(gl);D.program=program(gl);build(S,D);
   S.trackDetail781=D;S.detail781Enabled=true;S.needsRender=true;
@@ -277,7 +308,7 @@ G.drawTrackDetailShadow781=function(S){const D=S&&S.detail781Enabled&&S.trackDet
 G.disposeTrackDetail781=function(S){
  S=S||G.S;const D=S&&S.trackDetail781;if(!D)return;
  const gl=S.gl,m=D.mesh;
- if(m){gl.deleteBuffer(m.vb);gl.deleteBuffer(m.ib);gl.deleteVertexArray(m.vao);}
+ for(const batch of [m,D.paint])if(batch){gl.deleteBuffer(batch.vb);gl.deleteBuffer(batch.ib);gl.deleteVertexArray(batch.vao);}
  if(D.atlas)gl.deleteTexture(D.atlas.texture);if(D.program)gl.deleteProgram(D.program.p);
  if(S.detail781ShadowMeshes)S.detail781ShadowMeshes=S.detail781ShadowMeshes.filter(x=>x!==m);
  S.trackDetail781=null;S.detail781Enabled=false;if(S.sunShadow)S.sunShadow.source=null;
