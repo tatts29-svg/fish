@@ -41,17 +41,18 @@ const INV83_CSS = '.i83{position:absolute;left:-30000px;top:0;background:#fff;co
  + '.i83 th{text-align:left;font:700 7.2pt/1.15 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5d6468;border-bottom:.5mm solid #15181a;padding:1.4mm 1.5mm}'
  + '.i83 td{border-bottom:.25mm solid #e3e6e8;padding:1.25mm 1.5mm;vertical-align:top}.i83 td.n,.i83 th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}'
  + '.i83 tr.dh td{background:#f3f4f5;font:800 8pt/1.2 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;border-bottom:.35mm solid #c9ced2}'
+ + '.i83 .pg.lan table{font-size:7.7pt}.i83 .pg.lan td{padding:.85mm 1.4mm}.i83 .pg.lan th{padding:1mm 1.4mm}.i83 .pg.lan .tiles .tile b{font-size:16pt}'
  + '.i83 tfoot td{border-top:.6mm solid #15181a;border-bottom:0;font-weight:800}.i83 .nr{color:#8a9196;font-weight:500}.i83 .tg{color:#b42318;font-weight:700}'
- + '.i83 .ft{margin-top:auto;display:flex;justify-content:space-between;border-top:.35mm solid #d7dbde;padding-top:2mm;font:500 7.2pt/1.3 Inter,sans-serif;color:#5d6468}'
+ + '.i83 .ft{margin-top:auto;display:flex;justify-content:space-between;border-top:.35mm solid #d7dbde;padding-top:2mm;font:500 7.2pt/1.3 Inter,sans-serif;color:#5d6468}.ft span:first-child{flex:1;min-width:0;padding-right:6mm}.ft span:last-child{flex:none;white-space:nowrap;font-weight:700}'
  + '.i83 .lh{display:flex;justify-content:space-between;align-items:baseline}.i83 .lh h2{margin:0;font:800 15pt/1 "Barlow Condensed",Inter,sans-serif}.i83 .lh span{font:600 8.5pt Inter,sans-serif;color:#5d6468}'
- + '.i83 .cards{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:47.5mm;gap:3mm}'
+ + '.i83 .cards{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:44mm;gap:2.6mm}'
  + '.i83 .card{display:grid;grid-template-columns:1fr 31mm;gap:3mm;border:.4mm solid #15181a;border-radius:2.5mm;padding:2.8mm 3mm;overflow:hidden}'
  + '.i83 .card .ref{display:inline-block;background:#ff6a13;color:#15181a;font:800 15pt/1 "Barlow Condensed",Inter,sans-serif;padding:.8mm 2.2mm;border-radius:1mm}'
  + '.i83 .card .due{float:right;font:700 8pt/1.4 Inter,sans-serif;color:#5d6468}.i83 .card .nm{margin-top:1.6mm;font:800 9.6pt/1.2 Inter,sans-serif}'
  + '.i83 .card .lo{margin-top:.8mm;font:500 8.2pt/1.3 Inter,sans-serif}.i83 .card .it{margin-top:.8mm;font:500 7.8pt/1.3 Inter,sans-serif;color:#5d6468}'
  + '.i83 .card .st{margin-top:1.2mm;font:700 7.6pt/1.2 Inter,sans-serif}.i83 .card .st.ok{color:#1a7f45}.i83 .card .st.no{color:#b42318}.i83 .card .st.rp{color:#b45309}'
  + '.i83 .qr{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm;text-align:center;font:700 6.6pt/1.15 Inter,sans-serif;color:#5d6468}'
- + '.i83 .qr svg{width:29mm;height:29mm;display:block}.i83 .qr .nq{width:27mm;height:27mm;border:.35mm dashed #c9ced2;border-radius:2mm;display:grid;place-items:center;padding:2mm;box-sizing:border-box}';
+ + '.i83 .qr svg{width:27mm;height:27mm;display:block}.i83 .qr .nq{width:27mm;height:27mm;border:.35mm dashed #c9ced2;border-radius:2mm;display:grid;place-items:center;padding:2mm;box-sizing:border-box}';
 /* the money of each inventory type, from the Pricing tab's own figure (assetTotal) - line by line, never estimated */
 function inv83Money(rows){
  const out = new Map(), seen = new Map();
@@ -91,14 +92,14 @@ function inv83Pages(){
  const body = []; let last = null; rows.forEach(r => { if (all && r.disc !== last) { body.push(`<tr class="dh"><td colspan="7">${esc(r.disc)}</td></tr>`); last = r.disc; } body.push(tr(r)); });
  const tfoot = `<tfoot><tr><td>Total</td><td class="n">${tot('asked')}</td><td class="n">${tot('on')}</td><td class="n">${rows.reduce((n, r) => n + Object.values(r.sub).reduce((a, b) => a + b, 0), 0)}</td><td class="n">${spares}</td><td class="n">${toCome}</td><td class="n">${m0(money.total)}</td></tr></tfoot>`;
  /* one portrait page when it fits; otherwise landscape pages, the table carried on */
- const PORTRAIT_ROWS = 34, LAND_ROWS = 23, pages = [];
+ const PORTRAIT_ROWS = 34, LAND_ROWS = 33, pages = [];
  if (body.length <= PORTRAIT_ROWS) pages.push({o: 'por', html: (n, of) => `<section class="pg por">${head('Inventory - on site and still to come', n, of)}${tiles}<table>${thead}<tbody>${body.join('')}</tbody>${tfoot}</table>${foot()}</section>`});
- else { const first = LAND_ROWS - 4; const parts = [body.slice(0, first)]; for (let i = first; i < body.length; i += LAND_ROWS) parts.push(body.slice(i, i + LAND_ROWS));
+ else { const first = LAND_ROWS - 9; const parts = [body.slice(0, first)]; for (let i = first; i < body.length; i += LAND_ROWS) parts.push(body.slice(i, i + LAND_ROWS));
   parts.forEach((part, k) => pages.push({o: 'lan', html: (n, of) => `<section class="pg lan">${head(k ? 'Inventory - continued' : 'Inventory - on site and still to come', n, of)}${k ? '' : tiles}<table>${thead}<tbody>${part.join('')}</tbody>${k === parts.length - 1 ? tfoot : ''}</table>${foot()}</section>`})); }
  /* every location still to come: ten to a page, each with a QR code that opens navigation to it */
  const card = e => { const a = e.a, m = masterLoc(a.key) || {}, w = whereText(a), dr = dirs782(a), P = dpPos(a);
   const clean = xs => (xs || []).map(v => String(v).replace(/\s*\(~[^)]*\)\s*$/, '')).filter(Boolean), nb = clean(m.near).slice(0, 2), bs = clean([].concat(m.beside || [], m.next || [])).slice(0, 3);
-  const loc = [m.sec ? 'Section ' + m.sec : '', nb.length ? 'near ' + nb.join(', ') : '', bs.length ? 'beside ' + bs.join(', ') : ''].filter(Boolean).join(' · ') || (P.kind === 'desc' ? 'the spot the description names' : P.kind === 'report' ? 'no drop-off yet - report to the pit lane' : 'no location on the map yet');
+  const loc = [m.sec ? 'Section ' + m.sec : '', nb.length ? 'near ' + nb.join(', ') : '', bs.length ? 'beside ' + bs.join(', ') : ''].filter(Boolean).join(' · ') || (P.kind === 'desc' ? 'the spot the description names' : P.kind === 'report' ? 'drop-off to be set in Edit' : 'no location on the map yet');
   const st = dr.ok && dr.report ? ['rp', 'No drop-off yet - report to the pit lane'] : dr.ok ? ['ok', 'Directions set'] : ['no', dr.missing.join('; ')];
   const q = P.lat != null ? qrSvg(navUrl({lat: P.lat, lon: P.lon}), 3) : '';
   return `<div class="card"><div><span class="ref">${esc(a.key)}</span><span class="due">${e.due ? esc(fmtDate(e.due)) : 'No date yet'}</span>
@@ -138,7 +139,7 @@ function inv83Open(){
  box.innerHTML = `<div class="pdf7-card"><div class="pdf7-hd"><div class="pdf7-ht"><span class="pdf7-k">Inventory · ${esc(INV.disc === '*' ? 'every trade' : INV.disc)} · ${esc(fmtDate(todayIso()))}</span><h2 id="inv83h">Share the inventory</h2></div><button type="button" class="btn" data-x83>Close</button></div>
   <p class="pdf7-say" id="inv83say">Getting ready…</p><div class="pdf7-acts" id="inv83acts"></div></div>`;
  document.body.appendChild(box);
- const say = m => { const e = box.querySelector('#inv83say'); if (e) e.textContent = m; window.__inv83 = Object.assign(window.__inv83 || {}, {state: 'making', say: m}); };
+ const say = m => { const e = box.querySelector('#inv83say'); if (e) e.textContent = m; window.__inv83 = Object.assign(window.__inv83 || {}, {say: m}); };
  box.querySelector('[data-x83]').onclick = () => box.remove(); box.addEventListener('click', e => { if (e.target === box) box.remove(); });
  window.__inv83 = {state: 'making'};
  inv83Make(say).then(F => {

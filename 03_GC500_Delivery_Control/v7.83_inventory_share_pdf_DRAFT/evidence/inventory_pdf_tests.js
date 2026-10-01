@@ -16,14 +16,14 @@ const fs = require('fs'), path = require('path');
   // the layout itself, checked before it is photographed
   const lay = async disc => p.evaluate(d => { INV.disc = d; const D = inv83Pages(); const st = document.getElementById('inv83css') || Object.assign(document.createElement('style'), {id: 'inv83css', textContent: INV83_CSS}); document.head.appendChild(st);
     const w = document.createElement('div'); w.className = 'i83'; w.innerHTML = D.pages.map(x => x.html).join(''); document.body.appendChild(w);
-    const pg = [...w.querySelectorAll('.pg')], fit = pg.every(x => x.scrollHeight <= x.clientHeight + 1 && x.scrollWidth <= x.clientWidth + 1);
+    const pg = [...w.querySelectorAll('.pg')], over = pg.map((x, i) => x.scrollHeight > x.clientHeight + 1 || x.scrollWidth > x.clientWidth + 1 ? i + 1 + ':' + x.scrollHeight + '/' + x.clientHeight : null).filter(Boolean), fit = !over.length;
     const cards = [...w.querySelectorAll('.card')], qrs = cards.filter(c => c.querySelector('.qr svg')).length, noQr = cards.filter(c => !c.querySelector('.qr svg')).map(c => c.querySelector('.ref').textContent);
     const money = (w.querySelector('.tile:nth-child(4) b') || {}).textContent, foot = (w.querySelector('tfoot') || {}).textContent || '', words = w.textContent;
-    w.remove(); return {pages: D.pages.map(x => x.o), rows: D.rows, bodyRows: D.bodyRows, togo: D.togo, cards: cards.length, qrs, noQr, fit, money, foot: foot.replace(/\s+/g, ' ').trim(), p33: /\bP33\b/.test(words.replace(/\bP33\b(?= *<)/g, '')) && /report to P33|P33 \(pit|P33, pit/.test(words), known: D.money}; }, disc);
+    w.remove(); return {over, pages: D.pages.map(x => x.o), rows: D.rows, bodyRows: D.bodyRows, togo: D.togo, cards: cards.length, qrs, noQr, fit, money, foot: foot.replace(/\s+/g, ' ').trim(), p33: /\bP33\b/.test(words.replace(/\bP33\b(?= *<)/g, '')) && /report to P33|P33 \(pit|P33, pit/.test(words), known: D.money}; }, disc);
   const A = await lay('*');
   ok('F1 every trade: the summary, then every location still to come at ten to a page (' + A.togo + ' locations, ' + A.pages.length + ' pages)', A.togo > 0 && A.cards === A.togo && A.pages.length === (A.pages.filter(x => x === 'lan').length || 1) + Math.ceil(A.togo / 10), JSON.stringify({pages: A.pages, rows: A.rows, togo: A.togo}));
-  ok('F2 the summary is one A4 portrait page when it fits, else A4 landscape pages (every trade: ' + A.rows + ' types)', (A.bodyRows <= 34 ? A.pages[0] === 'por' : A.pages[0] === 'lan'), A.bodyRows + ' table rows · ' + A.pages.join(','));
-  ok('F3 every page fits its sheet (nothing cut off)', A.fit, '');
+  ok('F2 the summary is one A4 portrait page when it fits, else two A4 landscape pages (every trade: ' + A.rows + ' types)', (A.bodyRows <= 34 ? A.pages[0] === 'por' : A.pages[0] === 'lan' && A.pages.filter(x => x === 'lan').length <= 2), A.bodyRows + ' table rows · ' + A.pages.join(','));
+  ok('F3 every page fits its sheet (nothing cut off)', A.fit, JSON.stringify(A.over));
   ok('F4 every location with a position has a QR code that navigates to it; one with none says set it in Edit', A.qrs + A.noQr.length === A.cards && A.qrs > 0, JSON.stringify({qr: A.qrs, none: A.noQr}));
   ok('F5 costed from the Pricing figure (assetTotal): a total in $, and lines with no rate counted, not added', /^\$[\d,]+$/.test(A.money) && /Total/.test(A.foot), JSON.stringify({money: A.money, known: A.known}));
   ok('F6 "P33" is never printed as a destination', !A.p33, '');
