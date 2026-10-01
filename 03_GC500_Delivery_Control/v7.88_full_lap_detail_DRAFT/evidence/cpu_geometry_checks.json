@@ -1,0 +1,277 @@
+{
+  "author": "Andrew Fisher",
+  "test": "CPU checks against actual baseline full circuit; not a rendered visual review",
+  "elapsedMs": 378.241938,
+  "sourceSha256": "4a430d4af34a90fd1ebc1188d79c65e4f7591cd3aee3a2a9a586c0a19fc4ad6e",
+  "stats": {
+    "author": "Andrew Fisher",
+    "source": "Full existing circuit boundaries and original kerb footprints; original paint and signs retained, additive fittings only",
+    "scope": "complete existing circuit",
+    "lapLengthM": 2910.1086655413205,
+    "boundaryLengthM": 5927.4931548513305,
+    "coveredLengthM": 5927.493154851339,
+    "sourceSegments": 498,
+    "coveredSegments": 498,
+    "barrierSkins": 0,
+    "detailedModules": 1822,
+    "jointCovers": 1822,
+    "fixings": 912,
+    "mountingPlates": 0,
+    "kerbProfiles": 260,
+    "gantriesAdded": 0,
+    "bridgesAdded": 0,
+    "streetlights": 0,
+    "sponsorPanels": 0,
+    "catchFenceMeshesAdded": 0,
+    "originalFacesPreserved": true,
+    "sourcePaintChanged": false,
+    "sourceTrackChanged": false,
+    "sourceKerbChanged": false,
+    "sourceBuildingChanged": false,
+    "drivingChanged": false,
+    "camerasChanged": false,
+    "panelMetres": 4,
+    "moduleLimit": 2400,
+    "kerbSourceRule": "Every original nominal curvature-based kerb footprint; decorative profiles only",
+    "boundaries": [
+      {
+        "name": "outer",
+        "sourceSegments": 260,
+        "coveredSegments": 260,
+        "lengthM": 3105.441830170978,
+        "coveredLengthM": 3105.441830170978,
+        "modules": 949,
+        "sectors": [
+          84,
+          76,
+          79,
+          77,
+          87,
+          78,
+          84,
+          76,
+          72,
+          70,
+          75,
+          91
+        ]
+      },
+      {
+        "name": "inner",
+        "sourceSegments": 238,
+        "coveredSegments": 238,
+        "lengthM": 2822.051324680353,
+        "coveredLengthM": 2822.051324680353,
+        "modules": 873,
+        "sectors": [
+          66,
+          78,
+          76,
+          78,
+          67,
+          79,
+          64,
+          73,
+          76,
+          78,
+          71,
+          67
+        ]
+      }
+    ],
+    "sectors": [
+      {
+        "sector": 1,
+        "modules": 150,
+        "boundaryLengthM": 487.8462773056688
+      },
+      {
+        "sector": 2,
+        "modules": 154,
+        "boundaryLengthM": 485.51353826438884
+      },
+      {
+        "sector": 3,
+        "modules": 155,
+        "boundaryLengthM": 498.4917547828821
+      },
+      {
+        "sector": 4,
+        "modules": 155,
+        "boundaryLengthM": 491.66341004901454
+      },
+      {
+        "sector": 5,
+        "modules": 154,
+        "boundaryLengthM": 494.5852845274444
+      },
+      {
+        "sector": 6,
+        "modules": 157,
+        "boundaryLengthM": 522.6359483940166
+      },
+      {
+        "sector": 7,
+        "modules": 148,
+        "boundaryLengthM": 498.65750783895584
+      },
+      {
+        "sector": 8,
+        "modules": 149,
+        "boundaryLengthM": 486.4178171204009
+      },
+      {
+        "sector": 9,
+        "modules": 148,
+        "boundaryLengthM": 483.2541667021885
+      },
+      {
+        "sector": 10,
+        "modules": 148,
+        "boundaryLengthM": 486.14798174353535
+      },
+      {
+        "sector": 11,
+        "modules": 146,
+        "boundaryLengthM": 485.90565265027425
+      },
+      {
+        "sector": 12,
+        "modules": 158,
+        "boundaryLengthM": 506.37381547256314
+      }
+    ],
+    "triangles": 33848,
+    "coverageFraction": 1,
+    "coverageBins": 12,
+    "coverageBinMeaning": "12 equal-distance diagnostic bins on the existing lap, not official race sectors",
+    "geometryLimit": {
+      "maxDetailedModules": 2400,
+      "maxBoltPairs": 480,
+      "wholeBoundaryAlwaysCovered": true
+    },
+    "vertices": 64832,
+    "gpuBytes": 3518116
+  },
+  "checks": [
+    {
+      "name": "all original circuit and kerb arrays unchanged",
+      "pass": true
+    },
+    {
+      "name": "both complete boundaries covered",
+      "pass": true
+    },
+    {
+      "name": "all 12 lap bins have detail",
+      "pass": true,
+      "detail": [
+        {
+          "sector": 1,
+          "modules": 150,
+          "boundaryLengthM": 487.8462773056688
+        },
+        {
+          "sector": 2,
+          "modules": 154,
+          "boundaryLengthM": 485.51353826438884
+        },
+        {
+          "sector": 3,
+          "modules": 155,
+          "boundaryLengthM": 498.4917547828821
+        },
+        {
+          "sector": 4,
+          "modules": 155,
+          "boundaryLengthM": 491.66341004901454
+        },
+        {
+          "sector": 5,
+          "modules": 154,
+          "boundaryLengthM": 494.5852845274444
+        },
+        {
+          "sector": 6,
+          "modules": 157,
+          "boundaryLengthM": 522.6359483940166
+        },
+        {
+          "sector": 7,
+          "modules": 148,
+          "boundaryLengthM": 498.65750783895584
+        },
+        {
+          "sector": 8,
+          "modules": 149,
+          "boundaryLengthM": 486.4178171204009
+        },
+        {
+          "sector": 9,
+          "modules": 148,
+          "boundaryLengthM": 483.2541667021885
+        },
+        {
+          "sector": 10,
+          "modules": 148,
+          "boundaryLengthM": 486.14798174353535
+        },
+        {
+          "sector": 11,
+          "modules": 146,
+          "boundaryLengthM": 485.90565265027425
+        },
+        {
+          "sector": 12,
+          "modules": 158,
+          "boundaryLengthM": 506.37381547256314
+        }
+      ]
+    },
+    {
+      "name": "every source kerb footprint retained",
+      "pass": true,
+      "detail": 260
+    },
+    {
+      "name": "no replacement barriers or sponsor signage",
+      "pass": true
+    },
+    {
+      "name": "no invented landmark or lighting placements",
+      "pass": true
+    },
+    {
+      "name": "no camera or simulation APIs added",
+      "pass": true
+    },
+    {
+      "name": "bounded fittings and modules",
+      "pass": true,
+      "detail": {
+        "modules": 1822,
+        "fixings": 912
+      }
+    },
+    {
+      "name": "finite vertices and valid indices",
+      "pass": true
+    },
+    {
+      "name": "triangle count remains modest",
+      "pass": true,
+      "detail": 33848
+    },
+    {
+      "name": "installation reuses resources",
+      "pass": true
+    },
+    {
+      "name": "all module GPU resources disposed",
+      "pass": true,
+      "detail": {
+        "deleted": 5
+      }
+    }
+  ]
+}

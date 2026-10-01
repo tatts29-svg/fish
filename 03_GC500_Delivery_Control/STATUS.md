@@ -351,8 +351,10 @@ track not 10 mtrs of it. U also have mp4 videos of whole track to help you". Pre
 car, driving simulation, cameras, MP4/weather and speedos. Replace the separate short detail run with improvements
 over the full existing lap. Review both original GC500_Codex_Part_01.mp4 and Part_02.mp4 privately; record observed
 detail without invented locations. Claude has been asked to independently check lap coverage and visual continuity.
-The incomplete v7.85 scene is being hidden through the final v7.86 handover while this is corrected. v7.87 Inventory
-belongs to Claude and is separate. No financial record changes are included in this graphics task.
+The incomplete v7.85 scene is hidden in verified-live v7.86. Initial v7.88 build renders: the full 2,910.1 m lap,
+498/498 boundary segments, 260 original kerb profiles, 80 roadside building parts and 337 refined source trees.
+Continuous full-lap desktop/phone checks and independent review are in progress; these counts are not visual sign-off.
+v7.87 Inventory belongs to Claude and is being reviewed separately. No financial record changes are included in this graphics task.
 
 **Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude).** Author: Andrew Fisher.
 HA 36564-36568 and SN 24463-24465 transcribed from Andrew's photographs:

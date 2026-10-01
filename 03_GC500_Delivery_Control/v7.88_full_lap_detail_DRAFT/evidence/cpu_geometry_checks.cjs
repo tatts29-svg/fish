@@ -1,0 +1,37 @@
+/* Author: Andrew Fisher. CPU invariants against the original complete circuit. */
+const fs=require('fs'),vm=require('vm'),crypto=require('crypto');
+const path=require('path');
+if(!process.argv[2])throw Error('Usage: node cpu_geometry_checks.cjs BASE_OFFLINE_PREVIEW [OUTPUT_JSON]');
+const html=fs.readFileSync(process.argv[2],'utf8');
+const data=JSON.parse(html.match(/const DATA=(.*);/)[1]);
+const source=fs.readFileSync(path.join(__dirname,'..','track_detail788_src.js'),'utf8');
+let allocations=0,releases=0;
+const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,getUniformLocation:()=>0}, {get:(o,k)=>k in o?o[k]:k.startsWith('create')?()=>{allocations++;return{};}:k.startsWith('delete')?()=>{releases++;}:()=>{}});
+class MeshBatch{constructor(){this.v=[];this.i=[];this.nv=0;this.ni=0;this.vb={};this.ib={};this.vao={};allocations+=3;}vert(...a){this.v.push(...a);return this.nv++;}tri(a,b,c){this.i.push(a,b,c);this.ni+=3;}upload(){if(!this.v.every(Number.isFinite))throw Error('nonfinite vertex');if(!this.i.every(i=>Number.isInteger(i)&&i>=0&&i<this.nv))throw Error('bad index');}draw(){}}
+const G={M_PER_PT:5.937552372855356,MeshBatch},S={gl,tune:{deckH:.08}};G.S=S;
+const context=vm.createContext({console,window:{GC3D:G},G,S,data,o:{ring:data.circuit.ring,roadWidth:data.circuit.roadWidth},Map,Set,Float32Array,Uint8Array,Math,Error,Number,Array,Object});
+const helpers=html.slice(html.indexOf('const area=G.area='),html.indexOf('/* ear clipping'));
+const centre=html.slice(html.indexOf(' /* key plan → world:'),html.indexOf(' /* speed from curvature'));
+const curvature=html.slice(html.indexOf(' const hd=C.map'),html.indexOf(' /* corner speed'));
+const kerb=html.slice(html.indexOf(' const kerb=S.kerb='),html.indexOf(' /* Restrained non-emissive grid paint.'));
+vm.runInContext(helpers+centre+curvature+'\nS.gridS=0;const H=S.tune.deckH;const gl=S.gl;'+kerb+'\nS.kerb.upload();',context);
+const digest=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
+const before=digest({o:S.outer,i:S.inner,p:S.CL.p,c:S.CL.cum,k:S.kerb.v}),beforeFunctions=Object.keys(G);
+vm.runInContext(source,context);
+const start=performance.now(),stats=G.installTrackDetail781(S),mesh=S.trackDetail781.mesh,elapsedMs=performance.now()-start;
+const checks=[];const ck=(name,pass,detail)=>{checks.push({name,pass,detail});if(!pass)throw Error(name);};
+ck('all original circuit and kerb arrays unchanged',before===digest({o:S.outer,i:S.inner,p:S.CL.p,c:S.CL.cum,k:S.kerb.v}));
+ck('both complete boundaries covered',stats.boundaries.length===2&&stats.boundaries.every(r=>r.coveredSegments===r.sourceSegments&&Math.abs(r.lengthM-r.coveredLengthM)<1e-7));
+ck('all 12 lap bins have detail',stats.coverageBins===12,stats.sectors);
+ck('every source kerb footprint retained',stats.kerbProfiles===S.kerbStats.blocks*2,stats.kerbProfiles);
+ck('no replacement barriers or sponsor signage',stats.barrierSkins===0&&stats.sponsorPanels===0&&stats.originalFacesPreserved&&stats.catchFenceMeshesAdded===0);
+ck('no invented landmark or lighting placements',stats.gantriesAdded===0&&stats.bridgesAdded===0&&stats.streetlights===0);
+ck('no camera or simulation APIs added',!G.step&&!G.camStep&&!G.simReset);
+ck('bounded fittings and modules',stats.detailedModules<=stats.geometryLimit.maxDetailedModules&&stats.fixings<=960,{modules:stats.detailedModules,fixings:stats.fixings});
+ck('finite vertices and valid indices',mesh.v.every(Number.isFinite)&&mesh.i.every(i=>i>=0&&i<mesh.nv));
+ck('triangle count remains modest',stats.triangles<50000,stats.triangles);
+ck('installation reuses resources',G.installTrackDetail781(S)===stats);
+const deletionBefore=releases;G.disposeTrackDetail781(S);ck('all module GPU resources disposed',releases-deletionBefore===5&&S.trackDetail781===null&&S.detail781Enabled===false,{deleted:releases-deletionBefore});
+const result={author:'Andrew Fisher',test:'CPU checks against actual baseline full circuit; not a rendered visual review',elapsedMs,sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),stats,checks};
+if(process.argv[3])fs.writeFileSync(process.argv[3],JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({checks:checks.length,elapsedMs,lapLengthM:stats.lapLengthM,boundaryLengthM:stats.boundaryLengthM,segments:stats.coveredSegments,modules:stats.detailedModules,kerbs:stats.kerbProfiles,triangles:stats.triangles,gpuBytes:stats.gpuBytes},null,2));

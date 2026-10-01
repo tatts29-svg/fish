@@ -1,0 +1,291 @@
+/* Author: Andrew Fisher.
+ * v7.88 facade refinement around the complete existing circuit.
+ * Source footprints, roof heights, pit garages and collision geometry stay fixed.
+ * Coastal facade treatments are illustrative, not surveyed landmark reconstructions.
+ */
+(function () {
+  'use strict';
+  const G = window.GC3D;
+  if (!G || G.installArchitecture781) return;
+  const setBuildings = G.setBuildings;
+  G.setBuildings = function (list) {
+    const result = setBuildings.apply(this, arguments);
+    if (G.S) {G.S.architecture781Source = list;G.S.architecture781NominalShown=true;}
+    return result;
+  };
+  // Retained compatibility entry: full-lap detail never removes the original garages.
+  G.toggleNominalGarages781 = function () { return true; };
+  const VS = `#version 300 es
+precision highp float;
+layout(location=0) in vec3 aPosition;
+layout(location=1) in vec3 aNormal;
+layout(location=2) in vec3 aColour;
+layout(location=3) in float aMaterial;
+uniform mat4 uVP;
+out vec3 vPosition; out vec3 vNormal; out vec3 vColour;
+out float vMaterial; out float vDepth;
+void main(){
+  vec4 p=uVP*vec4(aPosition,1.);
+  gl_Position=p; vPosition=aPosition; vNormal=aNormal;
+  vColour=aColour; vMaterial=aMaterial; vDepth=p.w;
+}`;
+  const FS = `#version 300 es
+precision highp float;
+in vec3 vPosition; in vec3 vNormal; in vec3 vColour;
+in float vMaterial; in float vDepth;
+uniform vec3 uEye; uniform vec3 uSun; uniform vec2 uFog; uniform float uDay;
+uniform highp sampler2D uShadow; uniform mat4 uLightVP;
+uniform float uShadowOn; uniform vec2 uShadowTexel;
+out vec4 o;
+float visibility(vec3 p,vec3 n){
+  if(uShadowOn<.5)return 1.;
+  vec4 q=uLightVP*vec4(p,1.); vec3 c=q.xyz/q.w*.5+.5;
+  if(c.x<=0.||c.x>=1.||c.y<=0.||c.y>=1.||c.z<=0.||c.z>=1.)return 1.;
+  float bias=.00038+.001*(1.-max(dot(n,uSun),0.));
+  float sum=0.;
+  for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)
+    sum+=step(c.z-bias,texture(uShadow,c.xy+vec2(x,y)*uShadowTexel).r);
+  return sum/9.;
+}
+void main(){
+  vec3 n=normalize(vNormal),eye=normalize(uEye-vPosition);
+  float lambert=max(dot(n,uSun),0.),lit=visibility(vPosition,n);
+  float ao=.80+.20*smoothstep(0.,.65,vPosition.y);
+  vec3 c=vColour*(vec3(.24,.29,.35)+vec3(.98,.82,.61)*lambert*lit)*ao;
+  if(vMaterial>.5&&vMaterial<1.5){
+    // Restrained glass response; this is analytic sky colour, not a scene reflection.
+    vec3 r=reflect(-eye,n);
+    vec3 sky=mix(vec3(.18,.23,.25),vec3(.37,.56,.68),smoothstep(-.15,.70,r.y));
+    float f=.13+.56*pow(1.-max(dot(n,eye),0.),5.);
+    c=mix(c,sky,f);
+  }
+  if(vMaterial>1.5){
+    // Subtle horizontal roller-door corrugation, derivative-filtered at distance.
+    float frequency=72.,w=fwidth(vPosition.y*frequency);
+    float rib=sin(vPosition.y*frequency)*(.035*(1.-smoothstep(.6,1.8,w)));
+    c*=1.+rib;
+  }
+  if(uDay<.5)c=vColour*vec3(.14,.17,.23)+vec3(.05,.025,.006)*max(n.y,0.);
+  float fog=smoothstep(uFog.x,uFog.y,vDepth);
+  vec3 haze=uDay>.5?vec3(.60,.68,.69):vec3(.015,.023,.034);
+  o=vec4(mix(c,haze,fog*.72),1.);
+}`;
+
+  function compile(gl) {
+    const shaders = [], p = gl.createProgram();
+    try {
+      for (const [type, source] of [[gl.VERTEX_SHADER, VS], [gl.FRAGMENT_SHADER, FS]]) {
+        const s = gl.createShader(type); shaders.push(s);
+        gl.shaderSource(s, source); gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error('Architecture preview: ' + gl.getShaderInfoLog(s));
+        gl.attachShader(p, s);
+      }
+      gl.linkProgram(p);
+      if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error('Architecture preview: ' + gl.getProgramInfoLog(p));
+      const u = {};
+      for (const name of ['uVP', 'uEye', 'uSun', 'uFog', 'uDay', 'uShadow', 'uLightVP', 'uShadowOn', 'uShadowTexel']) u[name] = gl.getUniformLocation(p, name);
+      return {p, u};
+    } catch (error) { gl.deleteProgram(p); throw error; }
+    finally { for (const s of shaders) gl.deleteShader(s); }
+  }
+
+  G.disposeArchitecture781 = function (S) {
+    const a = S && S.architecture781;
+    if (!a) return;
+    const gl = S.gl;
+    if(S.detail781ShadowMeshes)S.detail781ShadowMeshes=S.detail781ShadowMeshes.filter(mesh=>mesh!==a.mesh);
+    gl.deleteBuffer(a.mesh.vb); gl.deleteBuffer(a.mesh.ib); gl.deleteVertexArray(a.mesh.vao);
+    gl.deleteProgram(a.program.p); S.architecture781 = null;
+  };
+
+
+  // Exact point-to-segment distance over the entire closed circuit, not the grid.
+  // Sector indices are equal-distance reporting bins; they are not invented event sectors.
+  const circuitQuery = S => {
+    if(S.facadeTrackQuery788&&S.facadeTrackQuery788.CL===S.CL)return S.facadeTrackQuery788;
+    const P=S.CL.p,segments=[],N=S.CL.n||P.length;let length=0;
+    for(let i=0;i<N;i++){
+      const a=P[i],b=P[(i+1)%N],dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz);
+      if(l>1e-9){segments.push({x:a[0],z:a[1],dx,dz,l,l2:l*l,s:length});length+=l;}
+    }
+    const nearest=(x,z)=>{
+      let d2=Infinity,px=0,pz=0,along=0;
+      for(const e of segments){
+        const t=Math.max(0,Math.min(1,((x-e.x)*e.dx+(z-e.z)*e.dz)/e.l2)),qx=e.x+e.dx*t,qz=e.z+e.dz*t;
+        const d=(x-qx)**2+(z-qz)**2;
+        if(d<d2){d2=d;px=qx;pz=qz;along=e.s+t*e.l;}
+      }
+      const rel=((along-(S.gridS||0))%length+length)%length;
+      return {d:Math.sqrt(d2),x:px,z:pz,s:along,sector:Math.min(11,Math.floor(rel/length*12))};
+    };
+    return S.facadeTrackQuery788={CL:S.CL,nearest,length};
+  };
+
+  G.installArchitecture781 = function (S) {
+    if (!S || !S.gl || !S.CL) return null;
+    if (S.architecture781) return S.architecture781.stats;
+    const source=S.architecture781Source||[];if(!source.length)return null;
+    const mesh=new G.MeshBatch(S.gl,[3,3,3,1],false),unit=(S.pack&&S.pack.mPerPt)||G.M_PER_PT||5.93755;
+    const route=circuitQuery(S),nearest=route.nearest,BUDGET=150000,SECTOR_BUDGET=BUDGET/12,RADIUS_M=215;
+    const stats={garageModules:0,garageDoors:0,hospitalityBays:0,towerParts:0,
+      roofParapets:0,facadeFins:0,facadeElevations:0,balconySlabs:0,balconyRails:0,
+      balconyPosts:0,balconyDividers:0,recessedGlazingBays:0,verticalCores:0,podiumBays:0,
+      duplicateFacadesSkipped:0,hiddenFacadeSpansSkipped:0,maxBalconyDepthM:0,
+      facadeProfiles:{},sourceShellsChanged:0,sourceTopHeightsChanged:0,
+      sourceFootprintsUnchanged:true,sourceHeightsUnchanged:true,sourceRowsUnchanged:true,
+      garagesPreserved:true,omittedNominalGarages:0,triangles:0,triangleBudget:BUDGET,drawCalls:1,
+      fullCircuitSelection:true,circuitLengthM:route.length*unit,refinementDistanceM:RADIUS_M,
+      eligibleTowerParts:0,eligibleFacades:0,coverageSectors:0,budgetSkips:0,
+      sectors:Array.from({length:12},(_,i)=>({sector:i+1,eligibleParts:0,eligibleFacades:0,towerParts:0,facades:0,triangles:0})),
+      source:'Unchanged OSM footprints and roof heights; full-circuit road-facing generic coastal facades, not surveyed building or event details'};
+    let remaining=BUDGET,currentSector=null,edgeRemaining=0;
+    const quad=(p,col,material=0)=>{
+      if(remaining<2||edgeRemaining<2)return false;
+      const a=p[0],b=p[1],c=p[2],x=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],y=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];
+      const n=G.V.norm([x[1]*y[2]-x[2]*y[1],x[2]*y[0]-x[0]*y[2],x[0]*y[1]-x[1]*y[0]]),base=mesh.nv;
+      p.forEach(v=>mesh.vert(...v,...n,...col,material));mesh.tri(base,base+1,base+2);mesh.tri(base,base+2,base+3);
+      remaining-=2;edgeRemaining-=2;if(currentSector)currentSector.triangles+=2;return true;
+    };
+    const solid=(a,t,n,u0,u1,d0,d1,y0,y1,col,material=0)=>{
+      if(remaining<12||edgeRemaining<12||u1<=u0||y1<=y0)return false;
+      const at=(u,d,y)=>[a[0]+t[0]*u+n[0]*d,y,a[1]+t[1]*u+n[1]*d];
+      const p=[at(u0,d0,y0),at(u1,d0,y0),at(u1,d1,y0),at(u0,d1,y0),at(u0,d0,y1),at(u1,d0,y1),at(u1,d1,y1),at(u0,d1,y1)];
+      const reverse=t[0]*n[1]-t[1]*n[0]>0;
+      for(const ix of [[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]])quad((reverse?ix.slice().reverse():ix).map(i=>p[i]),col,material);
+      return true;
+    };
+    const panel=(a,t,n,u0,u1,d,y0,y1,col,material=0)=>quad([
+      [a[0]+t[0]*u0+n[0]*d,y0,a[1]+t[1]*u0+n[1]*d],
+      [a[0]+t[0]*u0+n[0]*d,y1,a[1]+t[1]*u0+n[1]*d],
+      [a[0]+t[0]*u1+n[0]*d,y1,a[1]+t[1]*u1+n[1]*d],
+      [a[0]+t[0]*u1+n[0]*d,y0,a[1]+t[1]*u1+n[1]*d]],col,material);
+    const world=b=>{
+      const P=b.p.map(S.toWorld);
+      if(P.length>2&&Math.hypot(P[0][0]-P[P.length-1][0],P[0][1]-P[P.length-1][1])<1e-6)P.pop();
+      return P;
+    };
+    const metal=[.19,.22,.23],glass=[.09,.15,.18],floor=3.1/unit,seen=new Set(),wallCoverage=new Map();
+    const hash=(x,z,k)=>{const q=Math.sin(x*12.9898+z*78.233+k*37.719)*43758.5453;return q-Math.floor(q);};
+    const profiles=[
+      {name:'ivory balconies',stone:[.77,.75,.68],core:[.63,.61,.54],rail:[.28,.37,.38],depth:1.38,railHeight:.62},
+      {name:'sandstone terraces',stone:[.70,.65,.55],core:[.54,.49,.41],rail:[.34,.37,.34],depth:1.18,railHeight:.30},
+      {name:'sea glass balconies',stone:[.71,.76,.73],core:[.40,.49,.48],rail:[.22,.39,.41],depth:1.30,railHeight:.76},
+      {name:'white coastal wings',stone:[.80,.79,.74],core:[.64,.67,.63],rail:[.32,.40,.43],depth:1.46,railHeight:.46}
+    ];
+    const local=source.filter(b=>!b.pit).map((b,index)=>({b,index,P:world(b)}))
+      .filter(p=>p.P.length>=3&&p.P.every(v=>v.every(Number.isFinite))&&Number.isFinite(p.b.h));
+    const inside=(p,P)=>{
+      let hit=false;for(let i=0,j=P.length-1;i<P.length;j=i++){
+        const a=P[i],b=P[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])hit=!hit;
+      }return hit;
+    };
+    // One immutable spatial lookup avoids a full city scan at every wall sample.
+    const cell=16,grid=new Map();
+    for(const item of local){
+      const xs=item.P.map(p=>p[0]),zs=item.P.map(p=>p[1]);
+      for(let x=Math.floor(Math.min(...xs)/cell);x<=Math.floor(Math.max(...xs)/cell);x++)
+        for(let z=Math.floor(Math.min(...zs)/cell);z<=Math.floor(Math.max(...zs)/cell);z++){
+          const key=x+','+z;if(!grid.has(key))grid.set(key,[]);grid.get(key).push(item);
+        }
+    }
+    const bins=Array.from({length:12},()=>[]);
+    for(const part of local){
+      const {b,P,index}=part;if(b.h-(b.y0||0)<18/unit)continue;
+      const cx=P.reduce((s,p)=>s+p[0],0)/P.length,cz=P.reduce((s,p)=>s+p[1],0)/P.length;
+      let nr=nearest(cx,cz);for(const p of P){const q=nearest(...p);if(q.d<nr.d)nr=q;}
+      if(nr.d*unit>RADIUS_M)continue;
+      const key=P.map(p=>p.map(v=>v.toFixed(5)).join(',')).sort().join(';')+'|'+b.h+'|'+(b.y0||0);
+      if(seen.has(key))continue;seen.add(key);if(G.area(P)<0)P.reverse();
+      const profile=profiles[Math.floor(hash(cx,cz,19)*profiles.length)],edges=[];
+      for(let i=0;i<P.length;i++){
+        const a=P[i],q=P[(i+1)%P.length],dx=q[0]-a[0],dz=q[1]-a[1],len=Math.hypot(dx,dz);
+        if(len<3.4/unit||len>140/unit)continue;
+        const t=[dx/len,dz/len],n=[t[1],-t[0]],mx=(a[0]+q[0])*.5,mz=(a[1]+q[1])*.5,track=nearest(mx,mz);
+        if(track.d*unit>RADIUS_M||((track.x-mx)*n[0]+(track.z-mz)*n[1])/Math.max(track.d,.001)<-.18)continue;
+        const margin=Math.min(.24/unit,len*.07),depth=Math.min(profile.depth/unit,len*.22);
+        let wallBase=b.y0||0;
+        for(const u of [margin,len*.5,len-margin]){
+          const p=[a[0]+t[0]*u+n[0]*(depth+.06/unit),a[1]+t[1]*u+n[1]*(depth+.06/unit)];
+          for(const other of grid.get(Math.floor(p[0]/cell)+','+Math.floor(p[1]/cell))||[]){
+            if(other.b===b||other.b.h<=wallBase||(other.b.y0||0)>(b.y0||0)+.01)continue;
+            if(inside(p,other.P))wallBase=Math.max(wallBase,other.b.h);
+          }
+        }
+        if(wallBase>(b.y0||0)+.01)stats.hiddenFacadeSpansSkipped++;
+        if(b.h-wallBase<floor)continue;
+        const ends=[a,q].map(p=>p.map(v=>v.toFixed(5)).join(',')).sort(),wallKey=ends.join('|'),covered=wallCoverage.get(wallKey)||[];
+        if(covered.some(r=>r[0]<=wallBase+.001&&r[1]>=b.h-.001)){stats.duplicateFacadesSkipped++;continue;}
+        covered.push([wallBase,b.h]);wallCoverage.set(wallKey,covered);
+        edges.push({a,t,n,len,i,track,margin,depth,wallBase,top:b.h});
+      }
+      edges.sort((a,b)=>a.track.d-b.track.d||a.i-b.i);
+      if(!edges.length)continue;
+      const sector=stats.sectors[nr.sector];sector.eligibleParts++;sector.eligibleFacades+=edges.length;
+      stats.eligibleTowerParts++;stats.eligibleFacades+=edges.length;
+      bins[nr.sector].push({P,b,cx,cz,index,profile,edges,dist:nr.d});
+    }
+    // Every sector receives its own budget: a dense city block cannot consume the lap.
+    // The level is chosen once at installation. There are no per-frame geometry rebuilds.
+    for(let sectorIndex=0;sectorIndex<12;sectorIndex++){
+      const bin=bins[sectorIndex],sector=stats.sectors[sectorIndex];currentSector=sector;
+      const facadeCount=sector.eligibleFacades,allowance=facadeCount?Math.floor(SECTOR_BUDGET/facadeCount/2)*2:0;
+      bin.sort((a,b)=>a.dist-b.dist||a.index-b.index);
+      for(const part of bin){
+        let added=false;const profile=part.profile,col=profile.stone;
+        for(const e of part.edges){
+          edgeRemaining=Math.min(allowance,SECTOR_BUDGET-sector.triangles,remaining);
+          if(edgeRemaining<40){stats.budgetSkips++;continue;}
+          const {a,t,n,len,margin,depth,wallBase,top}=e,initial=mesh.i.length;
+          const first=Math.ceil((wallBase+.6)/floor)*floor,ys=[];
+          for(let y=first;y+1.1/unit<top-.22/unit;y+=floor)ys.push(y);
+          const bays=Math.max(1,Math.min(4,Math.round((len-2*margin)/(5.5/unit)))),bay=(len-2*margin)/bays;
+          const close=e.track.d*unit<85&&edgeRemaining>600,posts=close?Math.min(3,bays-1):0;
+          const perFloor=40+posts*12,slots=Math.max(1,Math.floor((edgeRemaining-28)/perFloor));
+          const step=Math.max(1,Math.ceil(ys.length/slots));
+          // Glazing stays at the original wall; an exposed core gives tall elevations scale.
+          panel(a,t,n,margin,len-margin,.010,wallBase,top,glass,1);stats.recessedGlazingBays++;
+          if(edgeRemaining>100&&len>9/unit){
+            const middle=len*(profile.name==='white coastal wings'?.5:.29),w=Math.min(1.8/unit,len*.12);
+            if(solid(a,t,n,middle-w*.5,middle+w*.5,.018,.25/unit,wallBase,top,profile.core))stats.verticalCores++;
+          }
+          for(let f=0;f<ys.length;f+=step){
+            if(edgeRemaining<perFloor+12)break;const y=ys[f],railY=y+1.01/unit,front=depth-.08/unit;
+            if(solid(a,t,n,margin,len-margin,-.015,depth,y-.26/unit,y,col))stats.balconySlabs++;
+            if(solid(a,t,n,margin,len-margin,front,depth,y+.13/unit,y+profile.railHeight/unit,profile.rail,profile.railHeight>.5?1:0))stats.balconyRails++;
+            if(solid(a,t,n,margin,len-margin,front-.025/unit,depth+.012/unit,railY-.055/unit,railY,metal))stats.balconyRails++;
+            for(let j=1;j<=posts;j++){
+              const u=margin+(len-2*margin)*j/(posts+1),w=.045/unit;
+              if(solid(a,t,n,u-w,u+w,front-.02/unit,front+.04/unit,y,railY,metal))stats.balconyPosts++;
+            }
+            // Shadowed rear divisions are flat geometry, deliberately cheap at driving distance.
+            if(close){const u=len*.5;panel(a,t,n,u-.035/unit,u+.035/unit,.026,y,Math.min(top,y+floor-.34/unit),profile.core);}
+          }
+          if(solid(a,t,n,margin,len-margin,-.02,.22/unit,top-.28/unit,top,col))stats.roofParapets++;
+          if(mesh.i.length>initial){stats.facadeElevations++;sector.facades++;added=true;stats.maxBalconyDepthM=Math.max(stats.maxBalconyDepthM,depth*unit+.012);}
+        }
+        if(added){stats.towerParts++;sector.towerParts++;stats.facadeProfiles[profile.name]=(stats.facadeProfiles[profile.name]||0)+1;}
+      }
+    }
+    stats.coverageSectors=stats.sectors.filter(s=>s.facades>0).length;
+    stats.eligibleSectors=stats.sectors.filter(s=>s.eligibleFacades>0).length;
+    stats.fullEligibleCoverage=stats.facadeElevations===stats.eligibleFacades;
+    try{
+      const program=compile(S.gl);mesh.upload();stats.triangles=mesh.ni/3;stats.gpuBytes=mesh.v.length*4+mesh.i.length*4;
+      S.architecture781={mesh,program,stats};
+      if(!S.detail781ShadowMeshes)S.detail781ShadowMeshes=[];
+      if(!S.detail781ShadowMeshes.includes(mesh))S.detail781ShadowMeshes.push(mesh);
+      return stats;
+    }catch(error){S.gl.deleteBuffer(mesh.vb);S.gl.deleteBuffer(mesh.ib);S.gl.deleteVertexArray(mesh.vao);throw error;}
+  };
+  G.drawArchitecture781 = function (S,VP,fog) {
+    if(!S||!S.detail781Enabled)return;
+    if(!S.architecture781)G.installArchitecture781(S);
+    const a=S.architecture781;if(!a)return;
+    const gl=S.gl,p=a.program,u=p.u;
+    gl.disable(gl.BLEND);gl.depthMask(true);gl.disable(gl.CULL_FACE);gl.enable(gl.DEPTH_TEST);
+    gl.useProgram(p.p);gl.uniformMatrix4fv(u.uVP,false,VP);gl.uniform2fv(u.uFog,fog);
+    gl.uniform3fv(u.uEye,S.cam&&S.cam.eye||[0,2,0]);gl.uniform3fv(u.uSun,G.sunDirection);
+    gl.uniform1f(u.uDay,S.look&&S.look.day?1:0);G.bindSunShadow(S,p,!!(S.look&&S.look.day));
+    a.mesh.draw();
+  };
+})();
