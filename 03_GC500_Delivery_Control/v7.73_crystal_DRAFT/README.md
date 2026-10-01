@@ -53,7 +53,20 @@ bash toolchain/build.sh v7.73 v7.70_pl_in_the_business_lines_DRAFT/patch_v770.py
 python3 toolchain/upload_page.py build/GC500_v7.73/GC500_Delivery_Control_hosted.html
 ```
 
-## Results
+## Results — `build/GC500_v7.73` (v7.70 + v7.72 + v7.73 on the live v7.71), 8,665,987 bytes, SHA-256 `113483bdf67779eb1a1306b318a87ba13d077953c7aa9f27a153f60b9efacedd`, 17:53–17:58 AEST
 
-Filled in when the chain finishes: the audit re-run on the build (low-contrast groups before → after, per tab, desktop
-and phone), the v7.70 suite, both sweeps, screenshots.
+| Check | Result |
+|---|---|
+| The clarity audit, re-run on the build (`evidence/after/`) | **real low-contrast text runs 418 → 31 on desktop, 435 → 31 on phone** (opacity ≥ .85, no gradient or photograph behind). Per tab, before → after: Fencing 157 → 0 · Plant 84 → 4 · Costs 48 → 0 · Timeline 42 → 0 · Progress 43 → 24 · Today 22 → 2 · Documents 31 → 0 (phone) · Pre-starts 16 → 0 · Pricing 2 → 0 · About 3 → 0. |
+| What the 31 are | 24 on the Where we are instrument panel — white and pale text on the panel's dark SVG-drawn ground, which the audit reads as white (checked by eye: they pass); 1 brand chip (white on the brand orange, 2.9:1 — the design's, left); 4 "cancelled" in red on pale green (4.5:1 — borderline, left); 1 rail label and 1 phase label on the Today programme card (one run each; the phase label joins v7.74). |
+| Small text | the Timeline's day figures and weather lines, the P&L's tags and headings, the delivery-card kickers, the hub asset numbers lifted to 10–11 px; what remains under 11 px is chips and glyph flags at 10–10.5 px bold. |
+| Blur | the banner caption and the table headers no longer sit on backdrop blur; nothing else on the page blurs text. |
+| v7.70 suite on the build | **30/30 desktop · 30/30 phone** |
+| Sweeps (`evidence/regress/`) | 21 tabs, 0 page errors, 0 console errors, desktop and phone; 7 deep links clean |
+| Open-to-paint and long tasks | unchanged (CSS does not change the JavaScript work): Costs 0.7–0.9 s, Progress 0.5–1.1 s, the empty tabs 0.5–0.6 s each — Codex's half, with the per-tab figures in `evidence/before/audit*.json` |
+
+**READY TO UPLOAD** — one build on the live v7.71, three patches:
+```
+bash toolchain/build.sh v7.73 v7.70_pl_in_the_business_lines_DRAFT/patch_v770.py v7.72_tidy_for_management_DRAFT/patch_v772.py v7.73_crystal_DRAFT/patch_v773.py
+python3 toolchain/upload_page.py build/GC500_v7.73/GC500_Delivery_Control_hosted.html
+```
