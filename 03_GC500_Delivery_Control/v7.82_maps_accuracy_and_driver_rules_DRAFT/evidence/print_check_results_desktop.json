@@ -1,8 +1,8 @@
 {
  "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
  "day": "2026-10-06",
- "passed": 26,
- "of": 26,
+ "passed": 28,
+ "of": 28,
  "tests": [
   {
    "name": "P1 Drivers ▾ > All loads opens the check first - no PDF is made yet",
@@ -37,12 +37,12 @@
   {
    "name": "P7 every driver sheet carries \"Checked by <name> · <date, time>\"",
    "pass": true,
-   "detail": "{\"pages\":12,\"stamped\":12,\"sample\":\"Checked by Test Person · 02 Oct 2026, 04:28 AEST · drop-off, way in, times and order\"}"
+   "detail": "{\"pages\":12,\"stamped\":12,\"sample\":\"Checked by Test Person · 02 Oct 2026, 05:00 AEST · drop-off, way in, times and order\"}"
   },
   {
    "name": "P12 every driver sheet is followed by an A4 location sign for each item on it (deliveries), and every sign fits its page",
    "pass": true,
-   "detail": "{\"seq\":[\"D1\",\"S:P08\",\"D2\",\"S:P46\",\"D3\",\"S:P47\",\"D4\",\"S:P51\",\"D5\",\"S:T0085\",\"D6\",\"S:T0089\"],\"n\":6,\"want\":6,\"fit\":true,\"words\":\"Coates · GC500 2026Delivery location Location referenceP08 Building 6mGOES TOSecuritynear Gate 2, Commodore · beside P51, WC38, GEM Due on siteTue 06 Oct 2026Load1 of 6Item1 of 1 Laminate this sign and fix it to the item where it can be seen.Leave it on until the item is in its place.Checked by Test Person · 02 Oct 2026, 04:28 AEST · drop-off, way in, times and order\"}"
+   "detail": "{\"seq\":[\"D1\",\"S:P08\",\"D2\",\"S:P46\",\"D3\",\"S:P47\",\"D4\",\"S:P51\",\"D5\",\"S:T0085\",\"D6\",\"S:T0089\"],\"n\":6,\"want\":6,\"fit\":true,\"words\":\"Coates · GC500 2026Delivery location Location referenceP08 Building 6mGOES TOSecuritynear Gate 2, Commodore · beside P51, WC38, GEM Due on siteTue 06 Oct 2026Load1 of 6Item1 of 1 Laminate this sign and fix it to the item where it can be seen.Leave it on until the item is in its place.Checked by Test Person · 02 Oct 2026, 05:00 AEST · drop-off, way in, times and order\"}"
   },
   {
    "name": "P13 each load PDF holds its sheet and its signs; the all-loads PDF holds every page",
@@ -97,7 +97,7 @@
   {
    "name": "P19 the time on the sheet is the project time (Brisbane, AEST), whatever the device says",
    "pass": true,
-   "detail": "02 Oct 2026, 04:29 AEST"
+   "detail": "02 Oct 2026, 05:01 AEST"
   },
   {
    "name": "P20 moving the way in from one pinned point to another voids the check",
@@ -128,6 +128,16 @@
    "name": "P24 the way in moved while the check is open: pressing the button shows it again as it stands now - nothing is made",
    "pass": true,
    "detail": "{\"ref\":\"P08\",\"again\":true,\"chg\":true,\"held\":false}"
+  },
+  {
+   "name": "P25 the printed sheet's way in is the one the text gives, and follows a change from one pinned point to another",
+   "pass": true,
+   "detail": "{\"ref\":\"P08\",\"a\":{\"text\":\"turn in at -27.970000, 153.430000\",\"onSheet\":true},\"b\":{\"text\":\"turn in at -27.975000, 153.432000\",\"onSheet\":true,\"oldGone\":true},\"pit\":{\"ref\":\"T0001\",\"text\":\"turn in at -27.984841, 153.426813\",\"onSheet\":true,\"wayIn\":[\"turn in at -27.984841, 153.426813\"]}}"
+  },
+  {
+   "name": "P26 an item that reports to the pit lane prints the pit lane's way in, the one its text gives",
+   "pass": true,
+   "detail": "{\"ref\":\"T0001\",\"text\":\"turn in at -27.984841, 153.426813\",\"onSheet\":true,\"wayIn\":[\"turn in at -27.984841, 153.426813\"]}"
   },
   {
    "name": "E1 no page errors",
