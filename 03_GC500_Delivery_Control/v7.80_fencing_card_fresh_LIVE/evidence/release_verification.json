@@ -1,0 +1,33 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.80",
+  "published_at": "2026-10-02T00:45:45.861+10:00",
+  "verified_at": "2026-10-02T00:46:31.084640+10:00",
+  "public_view": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+  "sha256": "303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7",
+  "bytes": 8682905,
+  "public_bytes_match_reviewed_candidate": true,
+  "base_release": "v7.79",
+  "base_sha256": "19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a",
+  "source_commit": "68877bc35b0260acc1a2a5db9b6a135d288db33d",
+  "record_version_before": 3521,
+  "record_version_after": 3521,
+  "server_build": "v5.87",
+  "health_ok": true,
+  "joint_review": {
+    "claude": "https://github.com/tatts29-svg/fish/pull/1#issuecomment-5931335117",
+    "codex_ready": "https://github.com/tatts29-svg/fish/pull/1#issuecomment-5933823770"
+  },
+  "checks": {
+    "independent_fencing_desktop": "5/5, no page errors",
+    "independent_fencing_phone": "5/5, no page errors",
+    "claude_fresh_after_save": "11/11 desktop and phone",
+    "claude_pl_regressions": "31/31 desktop and phone",
+    "claude_navigation_regressions": "21/21",
+    "claude_sweeps": "21 tabs, 7 deep links, zero page/console errors, desktop and phone",
+    "static_checks": "PASS",
+    "upload_dry_run": "PASS",
+    "upload_base_guard": "PASS"
+  },
+  "side_effects": "Page publication only; no record writes, journals, real texts or Showcase changes."
+}
