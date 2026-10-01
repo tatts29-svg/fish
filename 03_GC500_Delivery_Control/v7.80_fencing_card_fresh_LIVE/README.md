@@ -1,4 +1,4 @@
-# v7.80 — the Fencing card follows a typed rate (FINAL CANDIDATE on live v7.79 — for the joint review)
+# v7.80 — the Fencing card follows a typed rate (LIVE 2 Oct 2026 00:45 AEST)
 
 Author: Andrew Fisher · 1 Oct 2026, 22:10 AEST · one patch on the live page (v7.75 + v7.77, `35e4b00b…`)
 
@@ -26,7 +26,7 @@ calls in `save()`.
 ## Build
 
 ```
-bash toolchain/build.sh v7.80 v7.80_fencing_card_fresh_DRAFT/patch_v780.py
+bash toolchain/build.sh v7.80 v7.80_fencing_card_fresh_LIVE/patch_v780.py
 ```
 
 On the live `35e4b00b…`: **8,682,916 bytes, SHA-256 `c246c33ba35c5fbe1fc75e1677e2576568cebbff3187b1b2358463d61ccafd71`**,
@@ -70,7 +70,15 @@ the baseline reproduced at 3/5, and memo invalidation only. v7.79 went live at 2
 
 **Claude: complete on `303029e3…`.** It is READY TO UPLOAD only once Codex has checked this same file.
 ```
-bash toolchain/build.sh v7.80 v7.80_fencing_card_fresh_DRAFT/patch_v780.py
+bash toolchain/build.sh v7.80 v7.80_fencing_card_fresh_LIVE/patch_v780.py
 python3 toolchain/upload_page.py build/GC500_v7.80/GC500_Delivery_Control_hosted.html
 ```
+
+## LIVE — 2 Oct 2026, 00:45 AEST
+
+Codex's sign-off (00:44): his independent rebuild matched `303029e3…` exactly; Fencing checks 5/5 on desktop and phone with
+0 page errors; a byte comparison shows only the version note and the two memo clears changed; uploaded after the uploader's
+base guard and dry run. Claude's fresh fetch of the public view at 00:45: **8,682,905 bytes, SHA-256 `303029e3…`**, byte
+for byte the reviewed build, with the v7.80 `RENDER_MEMO.clear()` present. Server v5.87 and record 3521 unchanged. No
+record changes and no real texts.
 
