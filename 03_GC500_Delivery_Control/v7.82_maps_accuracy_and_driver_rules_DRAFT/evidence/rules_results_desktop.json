@@ -1,7 +1,7 @@
 {
  "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
- "passed": 42,
- "of": 42,
+ "passed": 45,
+ "of": 45,
  "tests": [
   {
    "name": "G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021, its orange symbol on the master), not by Gate 2",
@@ -31,7 +31,7 @@
   {
    "name": "R4 S08 drops (WB02, WB19, WC27) are land side: enter from the Surfers (south) end, race direction",
    "pass": true,
-   "detail": "WB02:null WB19:null WC27:land side"
+   "detail": "WB02:null WB19:land side WC27:land side"
   },
   {
    "name": "R5 seaside drops (WC50, WC60, WC62) come in at the Seaworld Dr roundabout end and drive south",
@@ -66,7 +66,7 @@
   {
    "name": "L1 the load rule (morning: away from Kingston by 05:00, in order, no travel 07:00-09:00 or 16:00-18:00; a timed delivery follows its own leave-by) is in Full details and the drawer of a delivery still to come",
    "pass": true,
-   "detail": "LOAD: for a morning delivery, loaded and away from Kingston by 05:00. Load in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00. A delivery with a time asked for follows its own leave-by time."
+   "detail": "LOAD: for a morning delivery (on site before 07:00), loaded and away from Kingston by 05:00. Load in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00. A delivery with a time asked for gets one leave-by time that meets all of these."
   },
   {
    "name": "L2 the general load check flags the 14 Sep plan as if still to come and untimed (WC05 tank 08:30 after 05:00 and in the 07:00-09:00 no-travel window; toilet 09:30 after 05:00; P01 same slot as P03; P04 same slot as the WC05 toilet; P05 clean)",
@@ -89,24 +89,29 @@
    "detail": "120 to come with the rule ·  delivered with it"
   },
   {
-   "name": "T2 a delivery still to come with a time reads \"on site by .., unloaded by ..\" (30 min to unload), and the check gives the latest Kingston departure (WB04 at 09:00, no load time: no travel 07:00-09:00, so on site by 07:00, away by 05:50)",
+   "name": "T2 a delivery still to come with a time reads \"on site by .., unloaded by ..\" (30 min to unload), and the check gives the latest Kingston departure (WB04 at 09:00, no load time: in before the 07:00-09:00 window and a morning run away by 05:00, so on site by 06:10)",
    "pass": true,
-   "detail": "{\"sms\":\"Due Fri 16 Oct 2026, on site by 07:00, unloaded by 09:00\",\"check\":[\"no load time on the schedule - to be unloaded by 09:00: on site by 07:00 (no travel 07:00-09:00, so in before 07:00), so leave Kingston by 05:50, loaded before then (70 min run, at least 30 min to unload)\"]}"
+   "detail": "{\"sms\":\"Due Fri 16 Oct 2026, on site by 06:10, unloaded by 09:00\",\"check\":[\"no load time on the schedule - to be unloaded by 09:00: on site by 06:10 (no travel 07:00-09:00, so in before 07:00; a morning run leaves Kingston by 05:00), so leave Kingston by 05:00, loaded before then (70 min run, at least 30 min to unload)\"]}"
   },
   {
-   "name": "T5 a load that would be on the road in a no-travel window is called out with the load-by time (load 07:30 for 09:00: leave Kingston by 05:50)",
+   "name": "T5 a load that would be on the road in a no-travel window is called out with the load-by time (load 07:30 for 09:00: leave Kingston by 05:00)",
    "pass": true,
-   "detail": "[\"test load: load 07:30, on site about 08:40 - on the road in the 07:00-09:00 no-travel window. Leave Kingston by 05:50, loaded before then.\"]"
+   "detail": "[\"test load: load 07:30, on site about 08:40 - on the road in the 07:00-09:00 no-travel window. Leave Kingston by 05:00, loaded before then.\"]"
   },
   {
-   "name": "T6 working back from the unloaded-by time: 30 min to unload, 70 min run, never on the road 07:00-09:00 or 16:00-18:00",
+   "name": "T7 one plan, one answer: a timed morning load that leaves after 05:00 is called out, even with time to unload (load 05:30 for 09:00)",
    "pass": true,
-   "detail": "07:00>06:30/05:20 09:00>07:00/05:50 10:00>07:00/05:50 10:30>07:00/05:50 10:40>10:10/09:00 12:00>11:30/10:20 18:30>16:00/14:50"
+   "detail": "[\"test load: load 05:30, on site about 06:40 - leaves Kingston after its leave-by time (no travel 07:00-09:00, so in before 07:00; a morning run leaves Kingston by 05:00). Leave Kingston by 05:00, loaded before then.\"]"
+  },
+  {
+   "name": "T6 one plan meets every constraint: 30 min to unload, 70 min run, never on the road 07:00-09:00 or 16:00-18:00, and a morning run away from Kingston by 05:00",
+   "pass": true,
+   "detail": "07:00>06:10/05:00 09:00>06:10/05:00 10:00>06:10/05:00 10:30>06:10/05:00 10:40>10:10/09:00 12:00>11:30/10:20 18:30>16:00/14:50"
   },
   {
    "name": "T3 a load that reaches site after its unloaded-by time is called out (WC05 07:00: tank 08:30 runs into the no-travel window, toilet 09:30 lands after 07:00, as if to come); one that makes it shows its unloading time (P05: 50 min)",
    "pass": true,
-   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30, on site about 10:40 - AFTER 07:00, when it must already be unloaded. Leave Kingston by 05:20, loaded before then.\",\"Waste tank: load 08:30, on site about 09:40 - on the road in the 07:00-09:00 no-travel window. Leave Kingston by 05:20, loaded before then.\"],\"p05\":[\"Building 6m: load 05:00, on site about 06:10 - 50 min to unload before 07:00.\"]}"
+   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30, on site about 10:40 - AFTER 07:00, when it must already be unloaded. Leave Kingston by 05:00, loaded before then.\",\"Waste tank: load 08:30, on site about 09:40 - on the road in the 07:00-09:00 no-travel window. Leave Kingston by 05:00, loaded before then.\"],\"p05\":[\"Building 6m: load 05:00, on site about 06:10 - 50 min to unload before 07:00.\"]}"
   },
   {
    "name": "T4 a delivered record keeps its own words (P03: \"on site 07:00\")",
@@ -131,7 +136,7 @@
   {
    "name": "D4 (measure) still to come: ready to send vs not, and why; delivered units are not counted",
    "pass": true,
-   "detail": "116 to come · 53 ready · 63 not ready (0 no location, 63 no way in) · ready: GN13,GN24,GN25,GN?,LT01,LT02,LT03,LT04,LT05,LT06,LTC01,LTC02,LTC03,LTC04,LTC05,LTC06,LTC07,LTC08,LTC09,LTC10,LTC11,LTC12,LTC14,P45,P69,PG01,PG03,PG05,PG29,WC09,WC10,WC20,WC23,WC26,WC28,WC57,WC61,WC62,WC73,WC85,T0089,T0258,T0103,T0265,T0266,T0128,T0158,T0159,T0162,T0268,T0169,T0170,T0176"
+   "detail": "116 to come · 108 ready · 8 not ready (0 no location, 8 no way in) · ready: GN06,GN10,GN13,GN18,GN19,GN24,GN25,GN?,LT01,LT02,LT03,LT04,LT05,LT06,LTC01,LTC02,LTC03,LTC04,LTC05,LTC06,LTC07,LTC08,LTC09,LTC10,LTC11,LTC12,LTC14,P08,P25,P26,P28,P34,P45,P46,P47,P51,P52,P54,P55,P56,P57,P60,P62,P63,P65,P66,P67,P69,PG01,PG03,PG05,PG29,WB04,WB05,WB06,WB14,WB15,WB16,WB17,WB19,WC09,WC10,WC13,WC19,WC20,WC23,WC24,WC26,WC28,WC29,WC30,WC32,WC34,WC35,WC38,WC39,WC40,WC46,WC48,WC49,WC51,WC53,WC54,WC55,WC57,WC61,WC62,WC65,WC68,WC69,WC70,WC72,WC73,WC85,WC86,T0089,T0258,T0103,T0265,T0266,T0128,T0158,T0159,T0162,T0268,T0169,T0170,T0176"
   },
   {
    "name": "D5 a drop-off placed at the branch (Edit) reaches the driver sheet as well as the text - it replaces the pit-lane fallback (T0085, in memory only)",
@@ -184,6 +189,16 @@
    "detail": "[]"
   },
   {
+   "name": "Z1 every location has its way in by area (the project manager, 2 Oct 2026; zones read off the master D001): the island by the pit lane; seaside from the north end; land side and over the bridge from the south end; Gate 1 by the Tedder Ave access point and Gate 2 by the GC Hwy underpass (D007)",
+   "pass": true,
+   "detail": "{\"P26\":\"island/pit lane\",\"WC86\":\"island/pit lane\",\"WB06\":\"island/pit lane\",\"WC54\":\"main beach/seaside\",\"WC49\":\"main beach/seaside\",\"WC13\":\"main beach/land side\",\"WB15\":\"main beach/land side\",\"WC30\":\"main beach/land side\",\"P52\":\"gate 1/Tedder Ave\",\"WC68\":\"gate 1/Tedder Ave\",\"P46\":\"gate 2/Gate 2\",\"WC38\":\"gate 2/Gate 2\",\"GN04\":null,\"WB07\":null}"
+  },
+  {
+   "name": "Z2 only Turn 2 / Ferny Ave and Admiralty Dr still need a way in (not in the rules or D007 - for the project manager)",
+   "pass": true,
+   "detail": "[\"GN04\",\"WB07\",\"WB13\",\"WB18\",\"WB20\",\"WC25\",\"WC45\",\"WC47\"]"
+  },
+  {
    "name": "M1 the done tick has its own double beat on the master plan",
    "pass": true,
    "detail": "{\"pills\":68,\"anim\":\"done782\"}"
@@ -196,7 +211,7 @@
   {
    "name": "R11 (measure) a delivery-details link gives way only where a v7.82 line needs the room (ORDER, ENTRY, HOLD, the pit-lane directions, the spot for a water barrier) (the link stays in Full details)",
    "pass": true,
-   "detail": "LTC05,LTC06,P01,P03,P04,P05,WB06,WB07,WC20,WC27,WC60 · live 200 → 189"
+   "detail": "LTC01,LTC03,LTC04,LTC05,LTC06,LTC07,LTC08,LTC09,LTC10,LTC11,LTC12,LTC14,P01,P03,P04,P05,WB05,WB06,WB07,WB14,WB15,WB17,WB19,WC20,WC27,WC60,T0258,T0266 · live 200 → 172"
   },
   {
    "name": "R12 no Due line lost against the live page",
