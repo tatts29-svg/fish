@@ -44,4 +44,8 @@ geometry fails, the original scene continues. Geometry, lifecycle and forced-all
 
 Current candidate: 8,854,418 bytes, SHA256 `121d183a400d95d997bfbf4db07b5cb5872b57a8e3ec80d163adc4eaec1dd91e`.
 Offline review copy: 1,139,977 bytes, SHA256 `a31ccb858829675a8ae1b9364107058b823a70b80ec23d1b0467e402ce5191db`.
-Full-lap browser and full-page checks are running on this revision.
+Full-page integration **23/23** passes on this revision across desktop and phone: complete detail, original camera choices, moving shadow target reuse, shadow fallback/recovery, original day/night remount and complete disposal on close. No page errors or writes. Phone visual inspected. Final full-lap visual sampling is in progress.
+
+Required navigation sweeps pass on the corrected candidate: **21 tabs / 7 links** each on desktop and phone,
+zero page or console errors. Official upload dry-run passes against unchanged live v7.87; nothing uploaded.
+Evidence: `evidence/navigation_checks.json` and `evidence/full_page_checks.json`.
