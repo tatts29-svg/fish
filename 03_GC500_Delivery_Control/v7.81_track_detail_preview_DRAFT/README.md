@@ -76,6 +76,11 @@ phone, console-quality, 4K frame-rate or hardware performance claim is made.
 
 ## Review and release state
 
-Implementation and local checks are complete for this preview. Final independent review of these frozen bytes
-is requested on PR #20; early review findings are fixed and covered above. Reviewers still need to judge the actual
-frames against the intended look. **Not READY TO UPLOAD.** No graphics publication, record changes or real texts.
+Implementation, local checks and final independent code review are complete for this preview. The reviewer rebuilt
+both files byte-identical at source a67c9d4 and recorded no blocking findings on 2 Oct 2026 at 01:35 AEST:
+[final review](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5934777145). All four early findings are resolved.
+The reviewer saw the committed runtime frames, not the private photographs; no source-photo fidelity review is
+claimed. Sponsor lettering is reconstructed typography, not supplied official artwork.
+
+Visual fidelity remains unfinished against the approved concept. **Not READY TO UPLOAD.** No graphics publication,
+record changes or real texts. The live page was freshly checked after the review and still matches v7.80 byte for byte.

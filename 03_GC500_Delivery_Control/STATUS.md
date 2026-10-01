@@ -10,8 +10,10 @@ Author: Andrew Fisher. Codex owns the working track-detail preview. Andrew appro
 using the supplied gantry/fence/road photographs as visual references; retain the existing MP4 car, weather,
 speedos and car identity. Private originals remain private. This is a working preview, not a graphics publication.
 Both agents review the same final candidate before any future release. Do not overlap Claude's v7.80 Fencing work.
-Branch `codex/gc500-v7.81-showcase-preview`, draft PR #20. **Working preview and local checks complete; final
-Claude review requested, not READY TO UPLOAD.** Full-page draft: 8,725,360 bytes, SHA256
+Branch `codex/gc500-v7.81-showcase-preview`, draft PR #20. **Both code reviews complete on the same frozen
+preview; not READY TO UPLOAD.** Claude rebuilt both files byte-identical at source a67c9d4 and recorded no blocking
+findings at [final review](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5934777145), 2 Oct 2026 01:35 AEST.
+All four early findings are resolved. Visual fidelity remains unfinished. Full-page draft: 8,725,360 bytes, SHA256
 `cd8bbbc5207541836de42001ff1e1dc471f9ec8d54e40ba69c131c0dadd5db7b`. Standalone visual preview:
 1,117,998 bytes, SHA256 `22ac12d01aa8938c4d1f40113229a2dccf4aece3917ff0db592db6e1afb843ba`.
 Full-page 24/24 checks; exact default-off pixel equality with v7.80; final desktop/phone sweeps each 21 tabs and
