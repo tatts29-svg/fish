@@ -1,4 +1,4 @@
-# v7.63 — Accruals for Finance, in Andrew's words (DRAFT · built and tested · awaiting Andrew's yes)
+# v7.63 — Accruals for Finance, in Andrew's words (DRAFT · built and tested · READY TO UPLOAD with v7.60, v7.61, v7.62 — one build)
 
 Author: Andrew Fisher · 1 Oct 2026
 
@@ -93,4 +93,4 @@ shown as a proposal, and the invoices recorded are known from the POs' weeks); v
 expecting the words "Not confirmed" (an unpriced cost reads "hours only, no rate" / "not priced"); v7.61's
 `sepFencingCostIncurredIs…PlusLabourShare` (the green book is its own row).
 
-Not for upload until Andrew says yes; then one build, the four patches in order.
+Marked READY TO UPLOAD 1 Oct 2026 11:55 AEST on Andrew's instruction that this information go in the Costs section; one build, the four patches in order, 8,572,884 bytes, SHA-256 `e723a1fb…7fa3` on the live v7.59. Rebuilt and re-tested on Codex's final v7.62 (PR #7 head 7321fb2): same bytes, same results.
