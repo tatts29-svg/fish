@@ -16,7 +16,8 @@ reached for a field or a helper the verifier had not shown exists — the "rows 
 Documents "checking file availability" state, the on-site time on the Due today card, the demob date on the Plant
 rows). Each carries the tab, the quote as a manager read it, why it misleads, the exact source string and the
 replacement. `patch_v774.py` applies each only where the string still occurs exactly once; one that does not is skipped
-and printed, never guessed.
+and printed, never guessed. On the live v7.73 (Codex's release of 18:19) 70 apply; the two skipped are the "via Codex"
+recorder stamps on Today and Progress, which his release already handles with a display helper, so nothing is lost.
 
 By tab:
 - **Today** — "197 assets" → "197 references"; "a snapshot taken for this build" → "when this page was published";
