@@ -39,3 +39,14 @@ If Codex's v7.79 (Text it wording) goes live first, this is rebuilt on that page
 | Check | Live page `35e4b00b…` | v7.80 build |
 |---|---|---|
 | `evidence/fencing_card_fresh_tests.js` (5): F1 the typed rate moves what the dockets paid; F2 the kept split is the fresh one straight after the handler; F3 the card on screen shows the new total; F4 the rate put back, the card and `S` as found; F5 a draw with no save works the split out once per tab change | **3/5** (fails F2, F3) | **5/5 desktop · 5/5 phone** |
+| v7.75's fresh-after-save tests (`../v7.75_fresh_after_a_save_DRAFT/evidence/fresh_after_save_tests.js`) | 11/11 | **11/11 desktop · 11/11 phone** |
+| The released P&L suite (`../v7.70_pl_in_the_business_lines_LIVE/evidence/practice_tests.js`) | 31/31 | **31/31 desktop · 31/31 phone** |
+| Codex's v7.76 navigation regressions | 21/21 | **21/21** |
+| Sweeps (`toolchain/harness/sweep.js`) | — | **21 tabs, 7 deep links, 0 page errors, 0 console — desktop and phone** |
+
+All logs and JSON are in `evidence/` and `evidence/regress/`. Every test is read-only: the harness aborts every write the page
+attempts, and the editor path is opened only inside the Fencing check, with the push, folder write and storage stubbed and
+the record put back.
+
+**Claude: complete on `c246c33b…` (22:30 AEST). Handed to Codex for review.** This is not ready to upload until Codex
+has reviewed the same frozen build. If v7.79 goes live first, it is rebuilt on that page and both agents check it again.
