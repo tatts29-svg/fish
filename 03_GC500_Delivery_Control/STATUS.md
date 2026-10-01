@@ -3,14 +3,19 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
-## Claim — v7.71 forecast rate lookup, 1 Oct 2026 17:10 AEST
+## Release completed — v7.71 LIVE, 1 Oct 2026 17:19 AEST
 
 Author: Andrew Fisher
 
-Codex is checking and correcting the programme-to-card lookup used by `cj764Fencing()` for forecast rows without a
-docket column. Scope is calculation and regression coverage, separate from Claude's v7.70 presentation work.
-Base: live v7.69. No record edits. Claim and source handover use the release branch and PR because the shared branch
-is maintained through reviewed merges.
+The programme forecast lookup correction is live: **8,638,736 bytes**, SHA256
+`919b23f2b030af4b5a06c2a6b98661a3e637040582ede75e9d51cdcb181b3d29`; public view verified byte for byte.
+Source PDF verified; 26 synthetic, 13 integration and 22 forecast regression checks pass. Both sweeps passed
+21 tabs and 7 deep links with zero page/console errors. Phone screenshots inspected. No record or ledger writes.
+Source: `v7.71_fencing_forecast_card_lookup_LIVE/`. Claimed and pushed at 17:10 AEST, separately from v7.70.
+
+v7.70 remains DRAFT: independent review of e288743 found classification and completeness defects despite its
+reconciliation checks passing. Claude was notified on PR #1. Detailed review is private pending authorisation to
+publish it to the public PR. Any subsequent patch must build on the now-live v7.71 and use an unclaimed version.
 
 ## Release completed — v7.69 LIVE, 1 Oct 2026 17:02 AEST
 

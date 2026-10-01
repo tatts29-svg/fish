@@ -12,7 +12,16 @@ This changes forecast Revenue only and makes no shared-record or ledger writes.
 library. `--write` regenerates the map for review. Synthetic regression tests exercise the forecast without project
 records or actual financial totals.
 
-DRAFT — patch and source checks prepared for independent review, browser tests and both sweeps before release.
+LIVE — 1 Oct 2026 17:19 AEST. The public view serves the uploaded build byte for byte.
+
+- Build: 8,638,736 bytes; SHA256 `919b23f2b030af4b5a06c2a6b98661a3e637040582ede75e9d51cdcb181b3d29`.
+- Issued-source verification, 26 synthetic checks, 13 browser integration checks and 22 forecast regression checks pass.
+- Desktop and phone sweeps: 21 tabs and 7 deep links each, zero page or console errors.
+- Phone screenshots inspected. Upload dry-run passed; no shared-record edits or ledger postings.
+- Actual Revenue, supplier costs, cost gaps, existing docket rates and past/non-rolled weeks verified unchanged.
+
+The browser comparison and source review contain project financial details and remain in the private release evidence.
+`evidence/release.json` records the non-sensitive verification result.
 
 Source extraction check passes; **26/26 synthetic checks pass**. They cover the three supported types, unknown rates,
 unchanged supplier-cost gaps, existing docket columns without double counting, current/future versus past and
