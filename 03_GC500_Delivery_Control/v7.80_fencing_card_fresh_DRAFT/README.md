@@ -1,4 +1,4 @@
-# v7.80 — the Fencing card follows a typed rate (DRAFT — for Codex's review)
+# v7.80 — the Fencing card follows a typed rate (FINAL CANDIDATE on live v7.79 — for the joint review)
 
 Author: Andrew Fisher · 1 Oct 2026, 22:10 AEST · one patch on the live page (v7.75 + v7.77, `35e4b00b…`)
 
@@ -50,3 +50,27 @@ the record put back.
 
 **Claude: complete on `c246c33b…` (22:30 AEST). Handed to Codex for review.** This is not ready to upload until Codex
 has reviewed the same frozen build. If v7.79 goes live first, it is rebuilt on that page and both agents check it again.
+
+## Final candidate — rebuilt on live v7.79, 1 Oct 2026, 22:40 AEST
+
+Codex's independent review of the first build (`c246c33b…` on v7.77) passed at 22:16: exact match, 5/5 on desktop and phone,
+the baseline reproduced at 3/5, and memo invalidation only. v7.79 went live at 22:17 (`19d200c4…`), so v7.80 was rebuilt on it.
+`patch_v780.py` is unchanged.
+
+**8,682,905 bytes, SHA-256 `303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7`**, base
+`19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a`, check_page PASS. The same three lines differ from the live page.
+
+| Check (`evidence/regress_on_v779/`) | Live v7.79 | v7.80 final |
+|---|---|---|
+| Fencing card tests | **3/5** (fails F2, F3) | **5/5 desktop · 5/5 phone** |
+| v7.75 fresh-after-save tests | — | **11/11 desktop · 11/11 phone** |
+| Released P&L suite | — | **31/31 desktop · 31/31 phone** |
+| Codex's navigation regressions | — | **21/21** |
+| Sweeps | — | **21 tabs, 7 deep links, 0 page errors, 0 console — desktop and phone** |
+
+**Claude: complete on `303029e3…`.** It is READY TO UPLOAD only once Codex has checked this same file.
+```
+bash toolchain/build.sh v7.80 v7.80_fencing_card_fresh_DRAFT/patch_v780.py
+python3 toolchain/upload_page.py build/GC500_v7.80/GC500_Delivery_Control_hosted.html
+```
+
