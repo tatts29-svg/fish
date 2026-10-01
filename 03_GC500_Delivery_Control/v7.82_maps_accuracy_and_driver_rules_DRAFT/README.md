@@ -28,6 +28,13 @@ Author: Andrew Fisher · 2 Oct 2026 · built on the live page v7.80 (`303029e3�
 - Unloading: "Unloading time min 30m." And the times worked back are "leaving Kingston at that time, not loading".
 - Dispatch: "No drivers should leave the pick up point until they have firm instructions on where they are going. Every
   item has a map drop off location and a direction point they need to head to."
+- Printing: "The print drivers PDFs are generally fine from the pick up point, so the transport team will have to download
+  these and give them to the drivers. What would be cool is prompts before they print, ensuring the process is followed -
+  putting responsibility back on whoever prints these. This isn't a do-your-job-properly, so it needs to be done neatly.
+  The Coates way, the life saving rules way, the positive communication way. Tidy, neat, dummy it down, don't over
+  complicate." Then: "Drop-off locations can be done at the branch via Edit. If they update it, the run sheet locations
+  update. This responsibility falls on whoever is printing these off." And: "We need to check this theory though -
+  every reference should now have a drop-off location to match to."
 - Park entries: watch for wildlife and branches; some spots are very tight.
 - When something is complete, mark it on the map with an icon that pulses in its own way, clear and not confusing.
 
@@ -174,6 +181,49 @@ No driver leaves the pick-up point without **both**:
 Only one way in has been pinned on site so far. **This is the main job before the next deliveries:** pin the way in
 for the 58, and get locations for the 39. I haven't guessed a gate for any of them. A gate that's closed by barriers on
 the day would send a driver the wrong way. `window.gc500NotReady()` lists them with what's missing.
+
+### Before the driver sheets print
+
+**Drivers ▾ → All loads / Load N** (the PDFs the transport team downloads, prints or emails) now opens a short check
+first. Nothing is made until it's done. The install-team sheets and the pre-start aren't held up.
+
+- **What the page knows, in one box.** Green: "All 6 items have a drop-off pin and a way in." Or red: "6 items not
+  ready to send - set them here at the branch in Edit (the drop-off on the map, and the way in) - the sheets update with
+  them". Each red item is one tap from **Fix in Edit ›**, which opens that item, where the existing **Place it from
+  outside** and **Pin the way in** buttons are.
+- **Four plain ticks:**
+  1. Anything in red is fixed in Edit first, or it stays in the yard until it is. (When all are green: "Every driver has
+     a drop-off pin and a way in.")
+  2. Leave times work: in before 07:00, or on the road after 09:00. No travel 07:00-09:00 or 16:00-18:00.
+  3. Loads go in order. Waste tanks before toilet blocks.
+  4. I have talked each driver through their sheet. If anything looks wrong on the day, they stop and call site.
+- **Checked by** (a name, remembered on that device). The button stays locked until all four ticks and a name are in.
+- **Every sheet** then carries, small, at the foot: `Checked by <name> · 02 Oct 2026, 05:10 · drop-off, way in, times
+  and order`. That's the responsibility, on the paper. It's only stamped for 15 minutes after the check, so an old
+  check never lands on a later print.
+- Tone: "A quick check - about 30 seconds. You're the last set of eyes before a truck leaves the yard. Thanks for
+  getting it right first time." Footer: "Safe, clear, on time. If in doubt, stop and ask."
+
+Screenshots: `evidence/print_check_desktop.png`, `evidence/print_check_phone.png`.
+
+### Does every reference have a drop-off? (checked, 197 references on the live record)
+
+| Drop-off | References |
+|---|---|
+| Exact: master-plan position | 139 |
+| Exact: pinned on site | 2 |
+| **Area only** (master-plan zone, not a spot) | **23** |
+| **None** | **33** |
+
+**Not yet. 56 references have no exact drop-off:** WB 15, T 23, LT 6, PG 4, WC 3, GN 2, FL 2, NVLT 1. The 17 area-only
+and 22 with none that are **still to come** are the ones to place at the branch before their sheets go out:
+GN25, GN?, LT01-LT06, PG01, PG03, PG05, PG29, WB04-WB07, WB13-WB20, WC10, WC85, T0089, T0258, T0103, T0265, T0266, T0128,
+T0158, T0159, T0162, T0268, T0169, T0170, T0176.
+
+**A bug this found, now fixed.** The driver sheet put a master-plan *area* ahead of a position placed at the branch. So
+"Place it from outside" changed the text and the map but **not the sheet**. Now the order is: a pin on site, then a
+master-plan unit position, then a placed position, then an area. A branch placement reaches the sheet, the text and
+Navigate together (test D5). A master-plan unit position still wins over a placement, as it already did in the text.
 
 ### Loading at Kingston
 

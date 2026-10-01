@@ -325,6 +325,91 @@ t = rep(t, " { const by = (deliveryOf(a.key) || {}).eta, m = hhmm782(by);",
 window_line = "window.gc500DoneKeys = function(){"
 t = rep(t, window_line, "/* v7.82 - deliveries still to come that are not ready to send (no drop-off location, or no direction point) */\nwindow.gc500NotReady = function(){ try { return allAssets().filter(a => !a._cancelled).map(a => ({key: a.key, r: ready782(a)})).filter(x => x.r && !x.r.ok).map(x => ({key: x.key, missing: x.r.missing})); } catch (e) { return null; } };\n" + window_line, 'not-ready list', p, True)
 
-t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch). */\n/* v7.80 - a save empties', 1)
+# 7. BEFORE THE DRIVER SHEETS ARE PRINTED (the project manager, 2 Oct 2026): "The transport team will download these and give
+#    them to the drivers. What would be cool is prompts before they print, ensuring the process is followed - putting
+#    responsibility back on whoever prints them. Not a do-your-job. Neatly: the Coates Way, the Life Saving Rules way, the
+#    positive communication way. Tidy, neat, dummy it down, don't over complicate."
+t = rep(t, "function dpWirePlate(pane){", r"""/* v7.82 - a short check before driver sheets go out: the page shows what it knows for the loads being printed (drop-off
+   pin and way in), the person ticks four plain checks and puts their name on it. The name prints on every sheet. */
+const DRV782_CSS = '#drv782{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:16px;background:rgba(12,14,16,.55)}'
+ + '#drv782 .box{width:min(520px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--card,#fff);color:var(--ink,#15181a);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.35);padding:18px 18px 14px;border-top:6px solid var(--orange,#ff6a13);font:400 14px/1.45 Inter,system-ui,sans-serif}'
+ + '#drv782 h2{margin:0 0 4px;font:800 20px/1.2 "Barlow Condensed",Inter,sans-serif;letter-spacing:.01em}#drv782 .lead{margin:0 0 12px;color:var(--mute,#5d6468)}'
+ + '#drv782 .facts{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:rgba(31,174,87,.09)}#drv782 .facts.bad{background:rgba(180,35,24,.08)}#drv782 .facts b.f-ok{color:#0f7a3d}#drv782 .facts b.f-no{color:#b42318}#drv782 .facts ul{margin:6px 0 0;padding-left:18px}#drv782 .fx782{all:unset;cursor:pointer;display:inline}#drv782 .fx782 u{color:#b42318;font-weight:700;white-space:nowrap}#drv782 .fx782:focus-visible{outline:2px solid var(--orange,#ff6a13)}'
+ + '#drv782 label.ck{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-bottom:1px solid rgba(0,0,0,.08);cursor:pointer}#drv782 label.ck input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--orange,#ff6a13)}'
+ + '#drv782 .dw782{display:grid;gap:4px;margin:12px 0 4px}#drv782 .dw782 input{font:inherit;padding:9px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.2)}#drv782 .dw782 small{color:var(--mute,#5d6468)}'
+ + '#drv782 .row{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}#drv782 .row button{font:700 15px Inter,sans-serif;padding:10px 16px;border-radius:10px;border:0;cursor:pointer}'
+ + '#drv782 .b-go{background:var(--orange,#ff6a13);color:#fff}#drv782 .b-go:disabled{opacity:.45;cursor:not-allowed}#drv782 .b-no{background:transparent;color:inherit;border:1.5px solid rgba(0,0,0,.2)!important}'
+ + '#drv782 .tag{margin:12px 0 0;font-size:12px;color:var(--mute,#5d6468);text-align:center}'
+ + '.dp-page{position:relative}.dp782{position:absolute;right:3mm;bottom:1.6mm;z-index:2;padding:.4mm 1.6mm;background:#fff;border:.25mm solid #d7dbde;border-radius:1mm;font:600 6.6pt/1.2 Inter,sans-serif;color:#15181a}';
+let DRV782_OK = null; /* {iso, by, at}: the check behind the sheets being laid out now */
+function drvFacts782(iso, only){
+ const d = programmeDays().find(x => x.iso === iso); if (!d) return null;
+ const loads = dpLoads(d), pick = only != null && loads[only] ? [only] : loads.map((g, i) => i), bad = [];
+ let n = 0;
+ pick.forEach(i => (loads[i].rows || []).forEach(r => { const a = r.a; if (!a) return; n++;
+  const nt = navTargetFor(a), drop = !!(nt && (nt.pinned || nt.placed)), dir = !!(entryOf(a.key) || entry782(a));
+  if (!drop || !dir) bad.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key + ' - ' + [drop ? '' : 'no drop-off pin', dir ? '' : 'no way in'].filter(Boolean).join(', ')}); }));
+ return {loads: pick.length, items: n, bad};
+}
+function drvStamp782(){ const z = x => String(x).padStart(2, '0'), d = new Date(), M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ return z(d.getDate()) + ' ' + M[d.getMonth()] + ' ' + d.getFullYear() + ', ' + z(d.getHours()) + ':' + z(d.getMinutes()); }
+function drvCheck782(iso, only, go){
+ document.querySelectorAll('#drv782').forEach(e => e.remove());
+ if (!document.getElementById('drv782css')) { const st = document.createElement('style'); st.id = 'drv782css'; st.textContent = DRV782_CSS; document.head.appendChild(st); }
+ const F = drvFacts782(iso, only); if (!F) { go(); return; }
+ let name = ''; try { name = localStorage.getItem('gc500.printedBy') || ''; } catch (e) {}
+ const facts = F.bad.length
+  ? `<div class="facts bad"><b class="f-no">${F.bad.length} item${F.bad.length === 1 ? '' : 's'} not ready to send</b> - no firm instructions yet. Set them here at the branch in Edit (the drop-off on the map, and the way in) - the sheets update with them.<ul>${F.bad.slice(0, 8).map(x => '<li><button type="button" class="fx782" data-k="' + esc(x.key) + '">' + esc(x.line) + ' <u>Fix in Edit ›</u></button></li>').join('')}${F.bad.length > 8 ? '<li>and ' + (F.bad.length - 8) + ' more</li>' : ''}</ul></div>`
+  : `<div class="facts"><b class="f-ok">✓ All ${F.items} item${F.items === 1 ? '' : 's'} have a drop-off pin and a way in.</b></div>`;
+ const C = [
+  F.bad.length ? 'Anything in red is fixed in Edit first - or it stays in the yard until it is.' : 'Every driver has a drop-off pin and a way in.',
+  'Leave times work: in before 07:00, or on the road after 09:00. No travel 07:00-09:00 or 16:00-18:00.',
+  'Loads go in order. Waste tanks before toilet blocks.',
+  'I have talked each driver through their sheet. If anything looks wrong on the day, they stop and call site.'];
+ const box = document.createElement('div'); box.id = 'drv782'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'drv782h');
+ box.innerHTML = `<div class="box"><h2 id="drv782h">Before these go to the drivers</h2>
+  <p class="lead">A quick check - about 30 seconds. You're the last set of eyes before a truck leaves the yard. Thanks for getting it right first time.</p>
+  ${facts}${C.map((c, i) => `<label class="ck"><input type="checkbox" data-c="${i}"><span>${esc(c)}</span></label>`).join('')}
+  <div class="dw782"><label for="drv782n"><b>Checked by</b></label><input id="drv782n" autocomplete="name" placeholder="Your name" value="${esc(name)}"><small>Your name and the time print at the foot of every sheet.</small></div>
+  <div class="row"><button type="button" class="b-no">Not yet</button><button type="button" class="b-go" disabled>Checked - get the sheets</button></div>
+  <p class="tag">Safe, clear, on time. If in doubt, stop and ask.</p></div>`;
+ document.body.appendChild(box);
+ const goB = box.querySelector('.b-go'), nm = box.querySelector('#drv782n'), cks = [...box.querySelectorAll('input[type=checkbox]')];
+ const sync = () => { goB.disabled = !(cks.every(c => c.checked) && nm.value.trim().length >= 2); };
+ cks.forEach(c => c.addEventListener('change', sync)); nm.addEventListener('input', sync); sync();
+ const close = () => box.remove();
+ box.querySelector('.b-no').onclick = close;
+ box.querySelectorAll('.fx782').forEach(b => b.onclick = () => { close(); location.hash = '#asset/' + b.dataset.k; }); /* straight to that item's drawer: drop-off and Pin the way in */
+ box.addEventListener('click', e => { if (e.target === box) close(); });
+ box.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+ goB.onclick = () => { const by = nm.value.trim().slice(0, 60); try { localStorage.setItem('gc500.printedBy', by); } catch (e) {}
+  DRV782_OK = {iso, by, at: drvStamp782(), bad: F.bad.length, t: Date.now()}; close(); go(); };
+ setTimeout(() => (cks[0] || nm).focus(), 30);
+}
+function dpWirePlate(pane){""", 'driver print check', p, True)
+t = rep(t, "pane.querySelectorAll('[data-print-drv]').forEach(n => n.onclick = () => dpPrint(n.dataset.printDrv, 'drv'));",
+        "pane.querySelectorAll('[data-print-drv]').forEach(n => n.onclick = () => drvCheck782(n.dataset.printDrv, null, () => dpPrint(n.dataset.printDrv, 'drv'))); /* v7.82 - the check first */", 'print button checks first', p, True)
+t = rep(t, " pdf7Open(b.dataset.pdf7, b.dataset.iso, b.dataset.only != null && b.dataset.only !== '' ? +b.dataset.only : null, b.dataset.mail === '1');",
+        " const open7 = () => pdf7Open(b.dataset.pdf7, b.dataset.iso, b.dataset.only != null && b.dataset.only !== '' ? +b.dataset.only : null, b.dataset.mail === '1');\n if (b.dataset.pdf7 === 'drivers') drvCheck782(b.dataset.iso, b.dataset.only != null && b.dataset.only !== '' ? +b.dataset.only : null, open7); else open7(); /* v7.82 - driver PDFs: the check first */", 'driver PDFs check first', p, True)
+t = rep(t, " wrap.innerHTML = pages.join(''); wrap.classList.remove('ps7wrap'); wrap.classList.add('dpwrap'); wrap.dataset.dpReady = '';",
+        " wrap.innerHTML = pages.join(''); wrap.classList.remove('ps7wrap'); wrap.classList.add('dpwrap'); wrap.dataset.dpReady = '';\n if (doc === 'drv' && DRV782_OK && DRV782_OK.iso === iso && Date.now() - DRV782_OK.t < 900000) { if (!document.getElementById('drv782css')) { const s7 = document.createElement('style'); s7.id = 'drv782css'; s7.textContent = DRV782_CSS; document.head.appendChild(s7); }\n  wrap.querySelectorAll('.dp-page').forEach(pg => { const f = document.createElement('div'); f.className = 'dp782'; f.textContent = 'Checked by ' + DRV782_OK.by + ' · ' + DRV782_OK.at + ' · drop-off, way in, times and order'; pg.appendChild(f); }); } /* v7.82 */", 'checked-by on every sheet', p, True)
+
+# 7b. A drop-off placed at the branch reaches the driver sheet (the project manager, 2 Oct 2026: "drop off locations can be done at
+#     the branch via Edit - if they update it, the run sheet locations update"). The sheet put a master-plan AREA ahead of a
+#     placed position, so a branch placement changed the text but not the sheet. Now: a pin, a master-plan unit position, a
+#     placed position, and only then an area - the same order the text and Navigate use.
+t = rep(t, """ const m = masterLoc(a.key);
+ if (m && m.ll) return {kind: m.prec === 'unit' ? 'master' : 'area', lat: m.ll[0], lon: m.ll[1], pt: fr(m.ll[0], m.ll[1]), how: m.how};
+ let t = null; try { t = navTargetFor(a); } catch (e) { t = null; }
+ if (t && t.ll) {
+ if (t.placed) return {kind: 'placed', lat: t.ll.lat, lon: t.ll.lon, pt: fr(t.ll.lat, t.ll.lon), place: t.place};""", """ const m = masterLoc(a.key);
+ if (m && m.ll && m.prec === 'unit') return {kind: 'master', lat: m.ll[0], lon: m.ll[1], pt: fr(m.ll[0], m.ll[1]), how: m.how};
+ let t = null; try { t = navTargetFor(a); } catch (e) { t = null; }
+ if (t && t.ll && t.placed) return {kind: 'placed', lat: t.ll.lat, lon: t.ll.lon, pt: fr(t.ll.lat, t.ll.lon), place: t.place}; /* v7.82 - the branch's placement beats an area */
+ if (m && m.ll) return {kind: 'area', lat: m.ll[0], lon: m.ll[1], pt: fr(m.ll[0], m.ll[1]), how: m.how};
+ if (t && t.ll) {
+ if (t.placed) return {kind: 'placed', lat: t.ll.lat, lon: t.ll.lon, pt: fr(t.ll.lat, t.ll.lon), place: t.place};""", 'placed beats area on the driver sheet', p, True)
+
+t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch, a check before driver sheets print). */\n/* v7.80 - a save empties', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
 print('v7.82 applied: GN21 corrected on the master; driver rules on Text it and Full details')

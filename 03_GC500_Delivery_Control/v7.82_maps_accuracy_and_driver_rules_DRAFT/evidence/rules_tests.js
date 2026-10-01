@@ -28,6 +28,9 @@ async function texts(page, mob) {
         const one = k => { const a = assetOf(k); return {sms: dropSmsText(a), html: rules782Html(a).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '), long: text747Plain(dropSmsLong(a))}; };
         return {nFuture: fut.length, notReady: nr.length, noDrop: nr.filter(x => /no drop-off/.test(x.missing.join())).length, noDir: nr.filter(x => /no direction point/.test(x.missing.join())).length,
           gn04: one('GN04'), pg01: one('PG01'), ready: fut.filter(a => ready782(a).ok).map(a => a.key), delivered: ready782(assetOf('P03'))}; })() : null,
+      drops: (() => { const all = allAssets().filter(a => !a._cancelled), tally = {}; all.forEach(a => { const k = dpPos(a).kind; tally[k] = (tally[k] || 0) + 1; });
+        const keep = S.places, k = 'T0085', a = assetOf(k), before = dpPos(a).kind; S.places = Object.assign({}, keep || {}, {[k]: {lat: -27.98, lon: 153.43, at: new Date().toISOString(), by: 'test', how: 'test'}});
+        const after = dpPos(a), txt = text747Where(a)[0]; S.places = keep; return {n: all.length, tally, before, after: after.kind, sheetLat: after.lat, txt}; })(),
       loadNow: typeof loadCheck782 === 'function' ? loadCheck782(assetOf('WC05')).length : null,
       doneKeys: typeof window.gc500DoneKeys === 'function' ? window.gc500DoneKeys().length : null,
       css: (() => { try { state.mapMasterSeen = true; state.sheet = 'MASTER'; go('map'); } catch (e) { return 'go: ' + e.message; }
@@ -69,6 +72,8 @@ async function texts(page, mob) {
   ok('D2 a delivery with a location but no way in is held - in the text, the drawer and Full details (GN04)', N.ready && /\nHOLD: way in not set - do not leave until site gives it\./.test(N.ready.gn04.sms) && /NOT READY TO SEND - no direction point \(way in\) set\. No driver leaves until both are set \(Pin the way in, below\)/.test(N.ready.gn04.html) && /NOT READY TO SEND: no direction point \(way in\) set\. Hold the truck\./.test(N.ready.gn04.long), JSON.stringify(N.ready && {sms: N.ready.gn04.sms.split('\n').slice(0, 4)}));
   ok('D3 a delivery with no location says so before departure and is not ready (PG01)', N.ready && /Location not yet confirmed\. Please contact the site team before departure\./.test(N.ready.pg01.sms) && /NOT READY TO SEND: no drop-off location on the map; no direction point \(way in\) set/.test(N.ready.pg01.long), (N.ready && N.ready.pg01.long.match(/NOT READY[^\n]*/) || ['-'])[0]);
   ok('D4 (measure) still to come: ready to send vs not, and why; delivered units are not counted', N.ready && N.ready.delivered === null && N.ready.notReady + N.ready.ready.length === N.ready.nFuture, N.ready && (N.ready.nFuture + ' to come · ' + N.ready.ready.length + ' ready · ' + N.ready.notReady + ' not ready (' + N.ready.noDrop + ' no location, ' + N.ready.noDir + ' no way in) · ready: ' + N.ready.ready.join(',')));
+  ok('D5 a drop-off placed at the branch (Edit) reaches the driver sheet as well as the text - it beats a master-plan area (T0085, in memory only)', N.drops && N.drops.before === 'area' && N.drops.after === 'placed' && N.drops.sheetLat === -27.98 && /^GPS: -27\.980000, 153\.430000 \(placed on the map/.test(N.drops.txt), JSON.stringify(N.drops && {before: N.drops.before, after: N.drops.after, txt: N.drops.txt}));
+  ok('D6 (measure) every reference: exact drop-off (pin or master) vs area only vs none', N.drops && N.drops.n > 0, N.drops && (N.drops.n + ' references · ' + Object.entries(N.drops.tally).map(([k, v]) => k + ' ' + v).join(' · ')));
   ok('M1 the done tick has its own double beat on the master plan', N.css && N.css.pills > 0 && N.css.anim === 'done782', JSON.stringify(N.css));
   ok('M2 the explorer gets the finished list', N.doneKeys > 0, N.doneKeys);
   if (B) {
