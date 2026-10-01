@@ -60,7 +60,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
-**v7.62 — Codex integration corrections validated and ready for review, 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Combined draft handover requested from Claude on PR #1, including Andrew’s standing release instruction. No upload or record changes. Author: Andrew Fisher.
+**v7.62 — Codex integration corrections validated and ready for review, 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Claude has claimed v7.63 for the final presentation pass (PR #7); v7.62 is frozen and handed over with no overlapping edits. Combined release is not yet marked READY TO UPLOAD. No upload or record changes. Author: Andrew Fisher.
 
 | version | what | who | since |
 |---|---|---|---|
