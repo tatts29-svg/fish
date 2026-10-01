@@ -33,6 +33,8 @@ const path = require('path');
    const people = L.people.filter(person => person.month === X.month);
    const peopleBlock = Array.from(root.querySelectorAll('.fin745-block')).find(e => e.querySelector('h3')?.textContent.startsWith('People, days and hours'));
    const personRows = peopleBlock.querySelectorAll('tbody tr');
+   const invoiceEvidence = [...root.querySelectorAll('details')].find(e => e.querySelector('summary')?.textContent.startsWith('Supplier invoice evidence'));
+   const invoiceRows = invoiceEvidence.querySelectorAll('tbody tr');
    const currentWork = fin745Rows(todayIso());
    const result = {
     noBrokenValues: !/\b(?:NaN|undefined|Infinity)\b/.test(text),
@@ -41,10 +43,17 @@ const path = require('path');
     unknownInvoicesStayUnknown: X.costs.every(row => row.invoiced === null),
     paidFencingDoesNotInventAmount: X.wip.length > 0 && X.wip.every(row => row.paidAmount === null),
     datedBillingSnapshotQualified: text.includes('This does not establish current unbilled Revenue'),
+    monthlyInvoiceTileQualified: text.includes('Invoices dated in this month') && text.includes('Undated invoices are listed separately below'),
+    allSupplierInvoicesRemainVisible: X.invoiceRecords.length ? invoiceRows.length === X.invoiceRecords.length && X.invoiceRecords.every((invoice,i) => {
+     const cells=invoiceRows[i].querySelectorAll('td');
+     return cells[0].textContent === String(invoice.invoice) && cells[2].textContent === acc762FmtMoney(invoice.amount) && cells[3].textContent === (invoice.invoiceDate ? fmtDate(invoice.invoiceDate) : 'Not supplied');
+    }) : invoiceEvidence.textContent.includes('No supplier invoices in this record'),
+    invoiceDatesNotInferred: X.invoiceRecords.every(invoice=>invoice.invoiceDate || invoiceRows.length > 0) && invoiceEvidence.textContent.includes('not assigned to a work month'),
+    invoicePaymentNotInferred: invoiceEvidence.textContent.includes('Invoice evidence does not confirm payment'),
     noLedgerPostingPromiseVisible: text.includes('No ledger entries are posted'),
-    monthlyCandidateValuesRendered: X.costs.length === rows.length && X.costs.every((row,i) => rows[i].querySelectorAll('td')[2].textContent.trim() === acc762FmtMoney(row.candidate)),
+    monthlyCandidateValuesRendered: X.costs.length === rows.length && X.costs.every((row,i) => rows[i].querySelectorAll('td')[2].childNodes[0].textContent.trim() === acc762FmtMoney(row.candidate)),
     unallocatedSourcesVisible: !(X.unallocatedRevenue.length + X.unallocatedCosts.length) || text.includes('Recorded work and costs needing month allocation'),
-    workDateWarningVisible: !(X.unallocatedRevenue.length + X.unallocatedCosts.length) || text.includes('time a tick was entered is not a confirmed work date'),
+    workDateWarningAvailable: !(X.unallocatedRevenue.length + X.unallocatedCosts.length) || root.textContent.includes('time a tick was entered is not a confirmed work date'),
     candidateSumExplained: near(X.costCandidateTotal, X.costs.reduce((sum,row) => sum + (row.candidate || 0),0)),
     wholePackageReconciles: near(L.packageTotal,L.per.total+(L.scope || 0)),
     labourOnlyExcludesSupportAndOtherCharges: near(L.labourOnlyTotal,L.groups.install.total+(L.scopePeople || 0)),
@@ -80,6 +89,18 @@ const path = require('path');
    return result;
   }));
 
+  const allocationSummary = p.locator('#accruals761 details > summary').filter({hasText:'Recorded work and costs needing month allocation'});
+  if (await allocationSummary.count()) {
+   await allocationSummary.click();
+   checks.allocationDetailsExpand = await allocationSummary.locator('..').evaluate(element => element.open && element.innerText.includes('not a confirmed work date') && element.querySelector('tbody tr') !== null);
+   await allocationSummary.click();
+  }
+  const invoiceSummary = p.locator('#accruals761 details > summary').filter({hasText:'Supplier invoice evidence'});
+  await invoiceSummary.click();
+  checks.invoiceDisclosureExpands = await invoiceSummary.locator('..').evaluate(element => element.open && element.innerText.includes('Invoice evidence does not confirm payment') && element.querySelector('tbody tr') !== null);
+  await p.screenshot({path:path.join(out,'review_'+suffix+'_invoices.png')});
+  await invoiceSummary.click();
+
   const months = await p.evaluate(() => ({all:acc761Months(),selected:acc761Month()}));
   const alternative = months.all.find(month => month !== months.selected);
   if (alternative) {
@@ -108,15 +129,20 @@ const path = require('path');
     csvCostCandidateValuesPresent: X.costs.every(row=>file.text.includes(fin745CsvCell(row.stream)) && file.text.includes(fin745CsvCell(row.candidate==null?'':row.candidate))),
     csvContainsPeopleDaysAndStatus: file.text.includes('Days entered') && file.text.includes('Confirmed paid hours') && file.text.includes('Awaiting confirmation paid hours') && file.text.includes('Forecast paid hours'),
     csvContainsEveryPersonMonth: L.people.every(person=>file.text.includes(fin745CsvCell(person.person)) && file.text.includes(person.month)),
+    csvIncludesAllSupplierInvoices: file.text.split('\r\n').filter(row=>row.startsWith(fin745CsvCell('Supplier invoice evidence — all dates')+',')).length === X.invoiceRecords.length && X.invoiceRecords.every(invoice=>file.text.includes(fin745CsvCell(invoice.invoice)) && file.text.includes(fin745CsvCell(invoice.amount))),
+    csvUndatedInvoicesQualified: !X.invoiceRecords.some(invoice=>!invoice.invoiceDate) || file.text.includes('Invoice date not supplied'),
+    csvInvoicePaymentNotInferred: !X.invoiceRecords.length || file.text.includes('work period and payment unconfirmed'),
     csvNoAutomaticAccrual: file.text.includes('No automatic accrual') || file.text.includes('no automatic accrual'),
     clipboardCaptured: typeof copy==='string' && copy===expectedCopy,
     clipboardIncludesReviewAndLabourBasis: copy.includes('Accrual to post: not confirmed') && copy.includes('Labour-only forecast:') && copy.includes('PEOPLE, DAYS AND HOURS'),
     clipboardContainsSelectedPeople: L.people.filter(person=>person.month===X.month).every(person=>copy.includes(person.person)),
+    clipboardIncludesAllSupplierInvoices: copy.includes('SUPPLIER INVOICE RECORDS — ALL DATES') && X.invoiceRecords.every(invoice=>copy.includes('Invoice '+invoice.invoice) && copy.includes(acc762FmtMoney(invoice.amount))),
     exportsHaveNoBrokenValues: !/\b(?:NaN|undefined|Infinity)\b/.test(file.text+'\n'+copy)
    };
   }));
 
   checks.noPageHorizontalOverflow = await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth+1);
+  await p.waitForTimeout(4200);
   await p.locator('#accruals761').scrollIntoViewIfNeeded();
   await p.locator('#acc761Title').scrollIntoViewIfNeeded();
   await p.screenshot({path:path.join(out,'review_'+suffix+'_top.png')});
