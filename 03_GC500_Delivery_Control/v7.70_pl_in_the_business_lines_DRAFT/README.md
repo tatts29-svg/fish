@@ -73,12 +73,33 @@ Not a new total anywhere; not a comparison with any other year; not a change to 
 in the At a glance flow, two CSS rules. The diff of the build against the live page shows the three anchor lines
 re-emitted with the insertions and nothing else removed.
 
+## Corrected after the three-lens review (17:30)
+
+Arithmetic: every figure recomputed independently from the page's functions matched to the cent — no change. Wording
+and robustness, fixed: the direct-costs tile is the Costs to job end figure ($444,411) with the ledger split in its
+note, so three cards no longer show two "direct costs to job end"; the difference tile is "Difference before
+overheads — the P&L's Gross Margin once the costs are complete", never "margin" on its own, and the fourth tile is
+the Forecast P&L's own "Difference so far — not a margin yet" (its figure, to the dollar); the 1010 and 2126 lines
+bridge to the Rehire by branch card's figures ("the Rehire by branch card's $302,742 less the $99,052 of servicing
+and water the P&L posts to Toilet Pumpouts and Consumables below"; "the Forecast P&L carries the four quotes as one
+Rehire cost of $118,575"), and Rehire Recovery names that card's ×1.47 beside its own ×1.45; one classification of the
+quote lines on both sides (the same `kit()`), so a renamed line can never land on different lines for revenue and
+cost; R&M (2357, the tracker's equipment lines, $578) on its own direct line, the below-the-line row being travel,
+accommodation, meals and printing (3520 · 3501); the transport line reads "2120 · 2140" with the recoverable / not
+recovered words; the wages row reads "Temporary Staff · 3210 · 2143" (Job Connect's people); cleaning and fire
+extinguishers land where their words say (fire extinguishers on Hire Revenue, cleaning on a 1025 line when ticked —
+both nought today); Hire Revenue says "gear on the contracts not booked as hired in" and "Rate 1 over the event —
+forklifts, VMS and water barriers by the day from when they go in"; the words when the quotes are not approved
+(the quoted figure, "not counted") or the dockets not split ("gear and crew together"); quote names joined with
+commas and "and"; "kitty" off the card; the Transport Recovery words give cartage alone to job end too (×0.16).
+
 ## Build
 
-Built on the live v7.69 (Codex's upload of 17:02 AEST, 8,637,431 bytes, SHA-256 `ea4643899d33b677…` — v7.68 + v7.69
-with his correction to the tank helper): `bash toolchain/build.sh v7.70 v7.70_pl_in_the_business_lines_DRAFT/patch_v770.py`
-→ `build/GC500_v7.70/GC500_Delivery_Control_hosted.html` **8,656,702 bytes, SHA-256 `43c5b5629270c810…`**, check_page
-PASS (secrets 0).
+Built with v7.72 (the management tidy) on the live v7.71 (Codex's fencing forecast lookup, 8,638,736 bytes):
+`bash toolchain/build.sh v7.72 v7.70_pl_in_the_business_lines_DRAFT/patch_v770.py v7.72_tidy_for_management_DRAFT/patch_v772.py`
+→ `build/GC500_v7.72/GC500_Delivery_Control_hosted.html` **8,662,539 bytes, SHA-256 `8695ee3806155d87…`**, check_page
+PASS (secrets 0). (An earlier build of v7.70 alone on the live v7.69 — 8,656,702 bytes — was 27/27 before the review's
+corrections.)
 
 ## Results
 

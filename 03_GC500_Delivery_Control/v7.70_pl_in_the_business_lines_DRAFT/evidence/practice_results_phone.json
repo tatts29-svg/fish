@@ -1,13 +1,13 @@
 {
- "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.70/GC500_Delivery_Control_hosted.html",
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.72/GC500_Delivery_Control_hosted.html",
  "mobile": true,
- "passed": 27,
- "of": 27,
+ "passed": 29,
+ "of": 29,
  "tests": [
   {
    "name": "the card is on the Costs tab",
    "pass": true,
-   "detail": "rows 21"
+   "detail": "rows 22"
   },
   {
    "name": "revenue lines add to the Forecast P&L revenue, to the cent",
@@ -17,7 +17,7 @@
   {
    "name": "revenue to job end is the Costs to job end card figure",
    "pass": true,
-   "detail": "821276.37 vs 821276.37"
+   "detail": "831050.2 vs 831050.2"
   },
   {
    "name": "cost lines plus the below-the-line costs add to direct costs known, to the cent",
@@ -72,27 +72,27 @@
   {
    "name": "Difference so far is the Forecast P&L figure (to the dollar)",
    "pass": true,
-   "detail": "337095.07 vs 337095"
+   "detail": "337095 vs 337095"
   },
   {
    "name": "Difference to job end is the At a glance figure after priced wages",
    "pass": true,
-   "detail": "345041.36 vs 345041.36"
+   "detail": "354815.19 vs 354815.18999999994"
   },
   {
    "name": "Gross margin is revenue less the ledger lines, with a percentage",
    "pass": true,
-   "detail": "354758.94 62%"
+   "detail": "354180.94 62%"
   },
   {
    "name": "Transport Recovery groups the pump-outs with cartage and names cartage alone in words",
    "pass": true,
-   "detail": "cartage alone: $6,938 of delivery and pickup on the contracts against $22,011 paid to carriers so far (×0.32) — the transport charge lines are the branch’s to add to the contracts"
+   "detail": "cartage alone: $6,938 of delivery and pickup on the contracts against $22,011 to pay the carriers so far (×0.32), $44,376 to job end (×0.16) — the pump-outs carry the group; the transport charge lines are the branch’s to add to the contracts"
   },
   {
    "name": "Installation Recovery is not readable yet and says why",
    "pass": true,
-   "detail": "not readable yet: $75,486 charged against $2,100 paid to Advanced’s crew — our own people’s install hours carry no wage rate (1,626 h) and the fencing install sits inside the fence rate"
+   "detail": "not readable yet: $75,486 charged against $2,100 to pay Advanced’s crew — our own people’s install hours carry no wage rate (1,626 h) and the fencing install sits inside the fence rate"
   },
   {
    "name": "Consumables Recovery says what is not charged on when under one",
@@ -120,6 +120,16 @@
    "detail": ""
   },
   {
+   "name": "the card bridges to the Rehire by branch card and never calls the difference a margin",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "the direct costs tile is the Costs to job end figure",
+   "pass": true,
+   "detail": "444411.03"
+  },
+  {
    "name": "the At a glance flow links to the card",
    "pass": true,
    "detail": "In the business’s lines"
@@ -142,22 +152,23 @@
  ],
  "figures": {
   "revNow": 572466.83,
-  "revJob": 821276.37,
-  "direct": 217707.89,
-  "directJob": 420162.45,
-  "over": 17663.87,
-  "overJob": 24248.58,
+  "revJob": 831050.2,
+  "direct": 218285.89,
+  "directJob": 420740.45,
+  "over": 17085.87,
+  "overJob": 23670.58,
   "costNow": 235371.76,
   "costJob": 444411.03,
   "gm": {
-   "now": 354758.94,
-   "job": 401113.92,
-   "pcNow": 0.6197021755828194,
-   "pcJob": 0.48840309383307834
+   "now": 354180.94,
+   "job": 410309.75,
+   "pcNow": 0.618692510097048,
+   "pcJob": 0.4937243863246769
   },
   "diff": {
-   "now": 337095.07,
-   "job": 345041.36
+   "now": 337095,
+   "job": 354815.19,
+   "pcNow": 0.5888463441628575
   },
   "qk": {
    "pump": 56145,
@@ -168,7 +179,7 @@
    {
     "name": "Rehire Recovery",
     "now": 1.536111884103875,
-    "job": 1.447113641684011
+    "job": 1.478370733335977
    },
    {
     "name": "Transport Recovery",
