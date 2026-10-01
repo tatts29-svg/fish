@@ -3,6 +3,26 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Current working arrangement — share implementation; independent releases allowed, 2 Oct 2026
+
+Author: Andrew Fisher
+
+Andrew: "u both work together and share the load. if he is busy u build and edit. os some occasions. u work alone
+u edit, u upgrade yourself with out the other person auditing".
+
+Claude and Codex both edit, build and test; split independent scopes and coordinate any ownership transfer.
+Codex may complete and publish appropriate changes independently after its own checks. A second agent's audit is
+not mandatory for every release; use judgement about when it helps. This replaces the blanket 1 Oct rule below
+and any older claim wording requiring two reviews for every upload. `AGENTS.md` records the same instruction.
+
+Required tests, fresh-base checks, verified live bytes, record authorisation and credential protections still apply.
+Resolve known release-blocking findings and record who actually checked the final candidate. Distinguish a draft,
+a completed handover and a verified live release; do not imply a second review took place when it did not.
+
+For the current v7.82 work, Claude owns the corrections already in progress. Codex has handed over reproducible
+dispatch, map and print-check findings through PR #1. Those known blockers still need correction and verification;
+the change in working arrangement does not mark that candidate ready or live. The Showcase preview stays separate.
+
 ## Release completed — v7.80 Fencing card refresh LIVE, 2 Oct 2026 00:45 AEST
 
 Author: Andrew Fisher. A typed paid fence rate now refreshes the Fencing breakdown immediately, so the card and
@@ -28,16 +48,15 @@ lines survive (200 links now fit); maximum 456 GSM units. No real sends or recor
 Public view verified byte for byte; server v5.87 and record version 3521 unchanged. Source and proof:
 `v7.79_welcome_and_navigation_LIVE/`. Branch `codex/gc500-v7.79-professional-text`, PR #18.
 
-## Andrew's release instruction — both agents finish first, 1 Oct 2026
+## Earlier release instruction — 1 Oct 2026, superseded by the 2 Oct arrangement above
 
 Author: Andrew Fisher
 
 Andrew: "Let me know when done i want you to work on something else and you publish the updates on the new tasks
 only when you and claude are finished though".
 
-For future task updates, both agents finish their work and review of the same frozen candidate, resolve blocking
-findings and record completion before publication. A candidate that changes after review needs both agents to
-check the changes. The handover then says **READY TO UPLOAD**. This rule is also in `AGENTS.md`.
+This was the rule for the releases recorded below. Their completed joint reviews remain part of the release
+history. For current and future work, use the 2 Oct arrangement above and the updated `AGENTS.md`.
 
 Current state (2 Oct 2026 00:45 AEST): **v7.80 is LIVE**, including the v7.79 welcome/navigation message and the
 Fencing card refresh. Picture texting remains verified end to end on server **v5.87**. The v7.78 plain-text-default

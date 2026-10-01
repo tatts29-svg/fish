@@ -1,6 +1,6 @@
 # Working on Andrew Fisher's repo — for Claude and Codex alike
 
-Author: Andrew Fisher · Shutdown Manager, Coates · last updated 1 Oct 2026
+Author: Andrew Fisher · Shutdown Manager, Coates · last updated 2 Oct 2026
 
 Two AI agents work on this repo: **Claude (Claude Code)** and **Codex (ChatGPT Codex cloud)**. Same jobs, same
 rules, same tools. One day one of you does a job, the next day the other picks it up. Everything either of you needs
@@ -33,14 +33,21 @@ A single self-contained HTML page (about 8.3 MB) served by a small Node service 
 units, fencing dockets and more) on the service, synced document by document. The page on the service **is** the
 source: every release starts from the live page, applies a patch, and goes back up.
 
-## How a release goes (both agents, every time)
+## How we share the work and release it
 
-**Both agents finish before publication** (Andrew, 1 Oct 2026): "you publish the updates on the new tasks only
-when you and claude are finished though". For future task updates, Claude and Codex must both complete their work
-and review of the same frozen candidate, resolve blocking findings, and record completion on `STATUS.md` or the
-coordination PR before upload. Then mark the handover **READY TO UPLOAD**. Passing one agent's tests while the
-other is still reviewing is not completion. If the candidate changes after review, both agents check the changes
-before publication. Tell Andrew when the agreed work is complete and distinguish that from a verified live release.
+**Share implementation; independent releases are allowed** (Andrew, 2 Oct 2026): "u both work together and share
+the load. if he is busy u build and edit. os some occasions. u work alone u edit, u upgrade yourself with out the
+other person auditing". This supersedes the blanket two-agent audit requirement from 1 Oct 2026.
+
+Claude and Codex both code, build and test. Split independent scopes and coordinate ownership transfers so edits
+do not conflict. Codex may also own a change through implementation, testing and publication without waiting for
+Claude's audit. Use judgement about when a second review adds value; it is not mandatory for every release.
+
+Run the required checks on the final candidate and resolve known release-blocking findings before publication.
+Record who implemented, tested and reviewed it on `STATUS.md` or the coordination PR, including when the other
+agent has not reviewed it. A handover says **READY TO UPLOAD** only when its agreed scope and checks are complete.
+If the candidate changes, rerun the affected checks and update the review record. Keep draft, ready to upload and
+verified live states explicit. Never describe an independent release as having both agents' review.
 
 1. **Pull** the shared branch and read `STATUS.md`. If the other agent has claimed something, do not touch it.
 2. **Claim** the next version on `STATUS.md` (one line: version, what, who, when) and push that before you start.
