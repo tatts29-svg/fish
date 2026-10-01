@@ -74,14 +74,9 @@ What the V8s were charged for the fence last year (Rehire Revenue and Installati
 and their crew, the metres, the per-metre rates in quote 26181, and GST. So it cannot settle the fencing hire-versus-
 installation split or last year's recovery. Andrew says there is no more to get.
 
-## Proposed use (v7.70, not built — Andrew to say)
+## How it is used
 
-- A **"last year" reference line** under Costs to job end on the fencing row: "2025: Advanced's eleven purchase orders
-  $334,666 (build weeks $215,240 · Event Week $95,812 · bump-out $23,586). This year's forecast $257,212 is $77k under,
-  with relocation hours, removal, hoarding, flat feet, WPF and the demob weeks not yet priced." Shown beside the figure,
-  never added to it.
-- Until Advanced give a removal rate, the demob row could carry **last year's bump-out ($23,586) as a reference
-  estimate**, flagged "last year's figure, not this year's rate". That would take the forecast to about $280,798 and
-  the difference to job end down by the same. Only if Andrew wants an estimate in the figure; otherwise it stays beside.
-- Two asks for Advanced: the removal rate for 968 m, and what last year's event week covered that this year's plan does
-  not.
+Andrew, 1 Oct 18:20: "I don't wanna see last year's." So nothing from this file goes on the page — no reference line, no
+last-year column. It is our own check on this year's forecast and the questions it raises for Advanced: the removal rate
+for 968 m, and what last year's event week covered that this year's plan does not. The page presents this year's figures
+only, in the business's own lines.
