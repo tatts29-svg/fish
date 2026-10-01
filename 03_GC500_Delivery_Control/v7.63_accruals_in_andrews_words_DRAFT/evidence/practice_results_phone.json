@@ -1,0 +1,796 @@
+{
+ "mobile": true,
+ "checks": {
+  "defaultIsLastCompleteMonth": true,
+  "everyMonthPlusUnallocatedAddsToThePLRevenue": true,
+  "readOnlyKeepsTotalsAndJournals": true,
+  "baseplanBilledColumnsRead": true,
+  "sepInvoicesRecordedAreTheConfirmedPOsByProgrammeWeek": true,
+  "sepFencingAccrueIsIncurredLessInvoiced": true,
+  "sepLabourTicksDatedByTheDayIn": true,
+  "sepFencingRevenueIsAllDocketsAtTheCard": true,
+  "sepNoRowIsPlanned": true,
+  "sepHasWipQuestionAskedAsAQuestion": true,
+  "octFutureRowsArePlanned": true,
+  "octIncludesTheToiletsAtOurRates": true,
+  "labour_perEqualsPlan": true,
+  "labour_chargedEqualsPL": true,
+  "labour_packageReconciles": true,
+  "labour_labourOnlyExcludesSupport": true,
+  "labour_hoursClassified": true,
+  "labour_hoursEqualRows": true,
+  "andrewsWordsNotAuditSpeak": true,
+  "caveatSaidOnceNotPerRow": true,
+  "badgesPresent": true,
+  "peopleDaysHoursTable": true,
+  "noBrokenValues": true,
+  "unallocatedExplained": true,
+  "currentMonthSplitsToDateFromPlanned": true,
+  "futureMonthSaysPlannedNotIncurred": true,
+  "monthSwitchBack": true,
+  "csvExported": true,
+  "copyTextCarriesTheFigures": true,
+  "exportsHaveNoBrokenValues": true,
+  "noWriteLeftThePage": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true
+ },
+ "present": true,
+ "model": {
+  "months": {
+   "2026-09": {
+    "label": "September 2026",
+    "revenueTotal": 176968.07,
+    "revenue": [
+     {
+      "stream": "Transport Revenue — contract allocation",
+      "branch": "KINP",
+      "amount": 1000,
+      "status": "review",
+      "act": "accrue"
+     },
+     {
+      "stream": "Hire Revenue — daily contract allocation",
+      "branch": "NVAC",
+      "amount": 11655.87,
+      "status": "review",
+      "act": "accrue"
+     },
+     {
+      "stream": "Hire Revenue — daily contract allocation",
+      "branch": "STPS",
+      "amount": 26316.31,
+      "status": "review",
+      "act": "accrue"
+     },
+     {
+      "stream": "Fencing Revenue — dated docket estimate",
+      "branch": "STPS",
+      "amount": 120913.08,
+      "status": "review",
+      "act": "accrue"
+     },
+     {
+      "stream": "Labour Install — recorded per-piece work",
+      "branch": "KINP",
+      "amount": 16458.21,
+      "status": "review",
+      "act": "accrue"
+     },
+     {
+      "stream": "Labour Install — recorded per-piece work",
+      "branch": "NVAC",
+      "amount": 624.6,
+      "status": "review",
+      "act": "accrue"
+     }
+    ],
+    "costs": [
+     {
+      "stream": "Fencing — supplier docket estimate",
+      "branch": "STPS",
+      "candidate": 73396.5,
+      "invoiced": 42662,
+      "accrue": 30734.5,
+      "status": "review",
+      "act": "accrue"
+     },
+     {
+      "stream": "Installation — external contractors, green book",
+      "branch": "STPS",
+      "candidate": 1250,
+      "invoiced": null,
+      "accrue": null,
+      "status": "review",
+      "act": "check"
+     },
+     {
+      "stream": "Toilets — supplier quote, provisional day-share",
+      "branch": "KINP",
+      "candidate": 21950.24,
+      "invoiced": null,
+      "accrue": null,
+      "status": "review",
+      "act": "decide"
+     },
+     {
+      "stream": "Transport — schedule estimate",
+      "branch": "the job",
+      "candidate": 22011.39,
+      "invoiced": null,
+      "accrue": null,
+      "status": "review",
+      "act": "check"
+     },
+     {
+      "stream": "Accommodation — tracker source",
+      "branch": "the job",
+      "candidate": 5475.84,
+      "invoiced": null,
+      "accrue": null,
+      "status": "review",
+      "act": "check"
+     },
+     {
+      "stream": "Meals away from home — tracker source",
+      "branch": "the job",
+      "candidate": 1380.83,
+      "invoiced": null,
+      "accrue": null,
+      "status": "review",
+      "act": "check"
+     },
+     {
+      "stream": "Other expenses — tracker source",
+      "branch": "the job",
+      "candidate": 718.7,
+      "invoiced": null,
+      "accrue": null,
+      "status": "review",
+      "act": "check"
+     },
+     {
+      "stream": "Labour hire — confirmed hours",
+      "branch": "the job",
+      "candidate": 6284.85,
+      "invoiced": null,
+      "accrue": null,
+      "status": "confirmed",
+      "act": "check"
+     },
+     {
+      "stream": "Coates CNA allocation — confirmed hours",
+      "branch": "the job",
+      "candidate": null,
+      "invoiced": null,
+      "accrue": null,
+      "status": "confirmed",
+      "act": "none"
+     },
+     {
+      "stream": "Coates salary allocation — confirmed hours",
+      "branch": "the job",
+      "candidate": null,
+      "invoiced": null,
+      "accrue": null,
+      "status": "confirmed",
+      "act": "none"
+     }
+    ],
+    "toAccrue": 67856.11,
+    "decide": 21950.24,
+    "planned": 0,
+    "invoiced": 42662,
+    "invoiceRecords": [
+     {
+      "number": "4647508",
+      "invoice": "4918492",
+      "amount": 8992,
+      "invoiceDate": "2026-09-12",
+      "dateBasis": "the programme week on the order (Week 6, ending Sat 12 Sep 2026)",
+      "period": "Construction week 6",
+      "paidAmount": null,
+      "paymentStatus": "unknown",
+      "workMonth": "2026-09"
+     },
+     {
+      "number": "4647509",
+      "invoice": "4922398",
+      "amount": 33670,
+      "invoiceDate": "2026-09-18",
+      "dateBasis": "the programme week on the order (Week 5, ending Fri 18 Sep 2026)",
+      "period": "Construction week 5",
+      "paidAmount": null,
+      "paymentStatus": "unknown",
+      "workMonth": "2026-09"
+     }
+    ],
+    "unallocatedRevenue": [
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 22,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 23,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 45,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 103.3,
+      "basis": "Delivery for HA Line Item(s) 1,2 15 Sep 2026: delivery date missing"
+     }
+    ],
+    "unallocatedCosts": [
+     {
+      "stream": "Fencing — supplier docket estimate",
+      "amount": 2475,
+      "basis": "Docket work date missing"
+     },
+     {
+      "stream": "Toilets — supplier quote",
+      "amount": 4850,
+      "basis": "Quote hire dates need confirmation"
+     }
+    ],
+    "wip": [
+     "Fencing — Advanced Temporary Fencing’s invoices recorded $42,662 against the fencing charge to the V8s $120,913 for September 2026, none of it billed by the branch yet (Andrew, 1 Oct 2026: the fencing is paid)"
+    ],
+    "decisions": 2
+   },
+   "2026-10": {
+    "label": "October 2026",
+    "revenueTotal": 361652.78,
+    "revenue": [
+     {
+      "stream": "Toilet Rehire Revenue — event allocation",
+      "branch": "KINP",
+      "amount": 69092.26,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Hire Revenue — event allocation",
+      "branch": "KINP",
+      "amount": 65564.17,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Rehire Revenue — event allocation",
+      "branch": "KINP",
+      "amount": 1428,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Hire Revenue — event allocation",
+      "branch": "NVAC",
+      "amount": 12015.42,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Hire Revenue — daily contract allocation",
+      "branch": "NVAC",
+      "amount": 19304.58,
+      "status": "review",
+      "act": "accrue"
+     },
+     {
+      "stream": "Hire Revenue — daily contract allocation",
+      "branch": "NVAC",
+      "amount": 4315.85,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Hire Revenue — daily contract allocation",
+      "branch": "MEAD",
+      "amount": 4723.2,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Transport Revenue — contract allocation",
+      "branch": "MEAD",
+      "amount": 4000,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Hire Revenue — event allocation",
+      "branch": "MEAD",
+      "amount": 820,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Rehire Revenue — event allocation",
+      "branch": "MEAD",
+      "amount": 9.3,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Hire Revenue — daily contract allocation",
+      "branch": "STPS",
+      "amount": 33774.61,
+      "status": "review",
+      "act": "accrue"
+     },
+     {
+      "stream": "Hire Revenue — daily contract allocation",
+      "branch": "STPS",
+      "amount": 5587.08,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Hire Revenue — event allocation",
+      "branch": "STPS",
+      "amount": 100,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Toilet servicing — event forecast",
+      "branch": "KINP",
+      "amount": 85101.75,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Event scope — people, accommodation and travel",
+      "branch": "the job",
+      "amount": 55816.56,
+      "status": "forecast",
+      "act": "planned"
+     }
+    ],
+    "costs": [
+     {
+      "stream": "Toilets — supplier quote, provisional day-share",
+      "branch": "KINP",
+      "candidate": 32279.76,
+      "invoiced": null,
+      "accrue": null,
+      "status": "review",
+      "act": "decide"
+     },
+     {
+      "stream": "Toilets — supplier quote, provisional day-share",
+      "branch": "KINP",
+      "candidate": 59495,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Accommodation — tracker source",
+      "branch": "the job",
+      "candidate": 6708.9,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Accommodation — tracker source",
+      "branch": "the job",
+      "candidate": 472.41,
+      "invoiced": null,
+      "accrue": null,
+      "status": "review",
+      "act": "check"
+     },
+     {
+      "stream": "Labour hire — hours awaiting confirmation",
+      "branch": "the job",
+      "candidate": 640.55,
+      "invoiced": null,
+      "accrue": null,
+      "status": "pending",
+      "act": "check"
+     },
+     {
+      "stream": "Labour hire — forecast hours",
+      "branch": "the job",
+      "candidate": 18493.08,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Coates CNA allocation — hours awaiting confirmation",
+      "branch": "the job",
+      "candidate": null,
+      "invoiced": null,
+      "accrue": null,
+      "status": "pending",
+      "act": "none"
+     },
+     {
+      "stream": "Coates CNA allocation — forecast hours",
+      "branch": "the job",
+      "candidate": null,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Coates salary allocation — hours awaiting confirmation",
+      "branch": "the job",
+      "candidate": null,
+      "invoiced": null,
+      "accrue": null,
+      "status": "pending",
+      "act": "none"
+     },
+     {
+      "stream": "Coates salary allocation — forecast hours",
+      "branch": "the job",
+      "candidate": null,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     }
+    ],
+    "toAccrue": 1112.96,
+    "decide": 1291.19,
+    "planned": 115685.55,
+    "invoiced": 0,
+    "invoiceRecords": [
+     {
+      "number": "4647508",
+      "invoice": "4918492",
+      "amount": 8992,
+      "invoiceDate": "2026-09-12",
+      "dateBasis": "the programme week on the order (Week 6, ending Sat 12 Sep 2026)",
+      "period": "Construction week 6",
+      "paidAmount": null,
+      "paymentStatus": "unknown",
+      "workMonth": "2026-09"
+     },
+     {
+      "number": "4647509",
+      "invoice": "4922398",
+      "amount": 33670,
+      "invoiceDate": "2026-09-18",
+      "dateBasis": "the programme week on the order (Week 5, ending Fri 18 Sep 2026)",
+      "period": "Construction week 5",
+      "paidAmount": null,
+      "paymentStatus": "unknown",
+      "workMonth": "2026-09"
+     }
+    ],
+    "unallocatedRevenue": [
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 22,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 23,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 45,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 103.3,
+      "basis": "Delivery for HA Line Item(s) 1,2 15 Sep 2026: delivery date missing"
+     }
+    ],
+    "unallocatedCosts": [
+     {
+      "stream": "Fencing — supplier docket estimate",
+      "amount": 2475,
+      "basis": "Docket work date missing"
+     },
+     {
+      "stream": "Toilets — supplier quote",
+      "amount": 4850,
+      "basis": "Quote hire dates need confirmation"
+     }
+    ],
+    "wip": [
+     "Fencing — Advanced Temporary Fencing’s invoices recorded $0 against the fencing charge to the V8s $0 for October 2026, none of it billed by the branch yet (Andrew, 1 Oct 2026: the fencing is paid)"
+    ],
+    "decisions": 2
+   },
+   "2026-11": {
+    "label": "November 2026",
+    "revenueTotal": 16370.62,
+    "revenue": [
+     {
+      "stream": "Transport Revenue — contract allocation",
+      "branch": "KINP",
+      "amount": 1000,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Hire Revenue — daily contract allocation",
+      "branch": "STPS",
+      "amount": 15370.62,
+      "status": "forecast",
+      "act": "planned"
+     }
+    ],
+    "costs": [
+     {
+      "stream": "Accommodation — tracker source",
+      "branch": "the job",
+      "candidate": 2907.19,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Labour hire — forecast hours",
+      "branch": "the job",
+      "candidate": 6405.5,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Coates CNA allocation — forecast hours",
+      "branch": "the job",
+      "candidate": null,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     },
+     {
+      "stream": "Coates salary allocation — forecast hours",
+      "branch": "the job",
+      "candidate": null,
+      "invoiced": null,
+      "accrue": null,
+      "status": "forecast",
+      "act": "planned"
+     }
+    ],
+    "toAccrue": 0,
+    "decide": 0,
+    "planned": 9312.69,
+    "invoiced": 0,
+    "invoiceRecords": [
+     {
+      "number": "4647508",
+      "invoice": "4918492",
+      "amount": 8992,
+      "invoiceDate": "2026-09-12",
+      "dateBasis": "the programme week on the order (Week 6, ending Sat 12 Sep 2026)",
+      "period": "Construction week 6",
+      "paidAmount": null,
+      "paymentStatus": "unknown",
+      "workMonth": "2026-09"
+     },
+     {
+      "number": "4647509",
+      "invoice": "4922398",
+      "amount": 33670,
+      "invoiceDate": "2026-09-18",
+      "dateBasis": "the programme week on the order (Week 5, ending Fri 18 Sep 2026)",
+      "period": "Construction week 5",
+      "paidAmount": null,
+      "paymentStatus": "unknown",
+      "workMonth": "2026-09"
+     }
+    ],
+    "unallocatedRevenue": [
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 22,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 23,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 278.39,
+      "basis": "Delivery for HA Line Item(s) 45,* 23 Sep 2026: delivery date missing"
+     },
+     {
+      "stream": "Transport Revenue",
+      "amount": 103.3,
+      "basis": "Delivery for HA Line Item(s) 1,2 15 Sep 2026: delivery date missing"
+     }
+    ],
+    "unallocatedCosts": [
+     {
+      "stream": "Fencing — supplier docket estimate",
+      "amount": 2475,
+      "basis": "Docket work date missing"
+     },
+     {
+      "stream": "Toilets — supplier quote",
+      "amount": 4850,
+      "basis": "Quote hire dates need confirmation"
+     }
+    ],
+    "wip": [
+     "Fencing — Advanced Temporary Fencing’s invoices recorded $0 against the fencing charge to the V8s $0 for November 2026, none of it billed by the branch yet (Andrew, 1 Oct 2026: the fencing is paid)"
+    ],
+    "decisions": 1
+   }
+  },
+  "pl": {
+   "total": 555929.94,
+   "labour": 17082.81,
+   "fencing": 120913.08
+  },
+  "allMonthsRevenue": 554991.47,
+  "unallocatedRevenue": 938.47,
+  "reconciles": true,
+  "ticksAllDated": true,
+  "readOnly": true,
+  "baseplan": {
+   "n": 307,
+   "billed": 0,
+   "billedAmount": 0,
+   "supplied_on": "2026-09-24",
+   "scope": "Contract export snapshot only; not a current unbilled balance or confirmation that all streams remain unbilled."
+  }
+ },
+ "sep": {
+  "revenueTotal": 176968.07,
+  "toAccrue": 67856.11,
+  "decide": 21950.24,
+  "invoiced": 42662,
+  "fence": {
+   "stream": "Fencing — supplier docket estimate",
+   "branch": "STPS",
+   "candidate": 73396.5,
+   "invoiced": 42662,
+   "accrue": 30734.5,
+   "status": "review",
+   "act": "accrue"
+  },
+  "labourRows": [
+   [
+    "KINP",
+    16458.21
+   ],
+   [
+    "NVAC",
+    624.6
+   ]
+  ],
+  "unallocated": [
+   {
+    "stream": "Transport Revenue",
+    "amount": 278.39,
+    "basis": "Delivery for HA Line Item(s) 22,* 23 Sep 2026: delivery date missing"
+   },
+   {
+    "stream": "Transport Revenue",
+    "amount": 278.39,
+    "basis": "Delivery for HA Line Item(s) 23,* 23 Sep 2026: delivery date missing"
+   },
+   {
+    "stream": "Transport Revenue",
+    "amount": 278.39,
+    "basis": "Delivery for HA Line Item(s) 45,* 23 Sep 2026: delivery date missing"
+   },
+   {
+    "stream": "Transport Revenue",
+    "amount": 103.3,
+    "basis": "Delivery for HA Line Item(s) 1,2 15 Sep 2026: delivery date missing"
+   },
+   {
+    "stream": "Fencing — supplier docket estimate",
+    "amount": 2475,
+    "basis": "Docket work date missing"
+   },
+   {
+    "stream": "Toilets — supplier quote",
+    "amount": 4850,
+    "basis": "Quote hire dates need confirmation"
+   }
+  ],
+  "wip": [
+   "Fencing — Advanced Temporary Fencing’s invoices recorded $42,662 against the fencing charge to the V8s $120,913 for September 2026, none of it billed by the branch yet (Andrew, 1 Oct 2026: the fencing is paid)"
+  ],
+  "decisions": 2
+ },
+ "labour": {
+  "per": {
+   "charged": 17082.81,
+   "expected": 6943.47,
+   "tocome": 21215.58,
+   "later": 35706.3,
+   "n": 687,
+   "unpriced": 0,
+   "unpricedByState": {
+    "charged": 0,
+    "expected": 0,
+    "tocome": 0,
+    "later": 0
+   },
+   "total": 80948.16,
+   "complete": true
+  },
+  "install": {
+   "charged": 17082.81,
+   "expected": 5277.87,
+   "tocome": 20278.68,
+   "later": 27222.15,
+   "n": 570,
+   "unpriced": 0,
+   "unpricedByState": {
+    "charged": 0,
+    "expected": 0,
+    "tocome": 0,
+    "later": 0
+   },
+   "total": 69861.51,
+   "complete": true
+  },
+  "scope": 55816.56,
+  "scopePeople": 36714.96,
+  "scopeSupport": 19101.6,
+  "labourOnly": 106576.47,
+  "packageTotal": 136764.72,
+  "all": {
+   "hours": 2103,
+   "cost": 31823.98,
+   "unpriced": 1626,
+   "confirmed": 670,
+   "pending": 61.5,
+   "forecast": 1371.5
+  },
+  "months": {
+   "2026-09": {
+    "hours": 670,
+    "cost": 6284.85,
+    "unpriced": 565
+   },
+   "2026-10": {
+    "hours": 1028,
+    "cost": 19133.63,
+    "unpriced": 756
+   },
+   "2026-11": {
+    "hours": 405,
+    "cost": 6405.5,
+    "unpriced": 305
+   }
+  },
+  "people": 17,
+  "perEqualsPlan": true,
+  "chargedEqualsPL": true,
+  "packageReconciles": true,
+  "labourOnlyExcludesSupport": true,
+  "hoursClassified": true,
+  "hoursEqualRows": true
+ },
+ "blocked": 0,
+ "overflow": 0,
+ "errors": [],
+ "console": [],
+ "pass": true
+}
