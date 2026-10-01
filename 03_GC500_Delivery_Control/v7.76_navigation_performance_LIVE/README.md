@@ -1,4 +1,6 @@
-# Faster navigation — v7.76 draft
+> **LIVE — 1 Oct 2026 18:59 AEST.** Built on v7.74 and verified byte for byte. No record or ledger writes.
+
+# Faster navigation — v7.76 LIVE
 
 Author: Andrew Fisher
 
@@ -12,10 +14,10 @@ The patch requires the v7.74 base and refuses a second application. It does not 
 
 ## Checks
 
-**21/21 synthetic regressions pass**, in `evidence/navigation_regressions.js`. They exercise the actual patched navigation function, render dispatch, model wrappers and existing hold implementation with synthetic records, including record replacement, deletion, errors, nested holds, scheduled callbacks, permission refreshes and fresh standalone model calls. They also check that the original navigation and model bodies are unchanged and the patch refuses a wrong base or second application. Browser comparison and both release sweeps are required before release; no speed improvement is claimed until the comparison finishes.
+**21/21 synthetic regressions pass**, in `evidence/navigation_regressions.js`. They exercise the actual patched navigation function, render dispatch, model wrappers and existing hold implementation with synthetic records, including record replacement, deletion, errors, nested holds, scheduled callbacks, permission refreshes and fresh standalone model calls. They also check that the original navigation and model bodies are unchanged and the patch refuses a wrong base or second application. Browser comparison and both release sweeps pass; final results and timing limitations are below.
 
 ```bash
-node v7.76_navigation_performance_DRAFT/evidence/navigation_regressions.js
+node v7.76_navigation_performance_LIVE/evidence/navigation_regressions.js
 ```
 
 The test can instead read a built candidate with `PAGE=/absolute/path/to/page.html`. Without `PAGE`, it applies this patch to a temporary copy of the saved v7.74 build; it does not alter the build or contact the service.
@@ -39,4 +41,4 @@ Full aggregate results, including p95, are in `evidence/benchmark_summary.json`;
 Asset construction falls from 3 to 1 per navigation; forecast model construction from 5 to 1, and Rehire model
 construction from 2 to 1 on Costs. This is a targeted improvement, not a claim that every view is instantaneous.
 The phone Progress paint median was unchanged in this sample. Both release sweeps and the live-byte proof are
-recorded separately once complete.
+recorded in `evidence/release_verification.json`.

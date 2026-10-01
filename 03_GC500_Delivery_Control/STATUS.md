@@ -3,6 +3,21 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Release completed — v7.76 LIVE, 1 Oct 2026 18:59 AEST
+
+Author: Andrew Fisher
+
+Navigation and the selected page now share the existing synchronous asset snapshot; the forecast and Rehire models
+are reused within that same draw. Original calculation bodies are unchanged. **8,674,101 bytes**, SHA256
+`449f9d0c292d64388c7cb804bcab13307bac3d7cd48118160f147742a9a9e1d1`; public view verified byte for byte.
+21 synthetic regressions, 36/36 paired checks on each device, both 21-tab/7-link sweeps, phone visual review and
+upload dry-run pass. Same displayed content, financial models, permissions and fresh-record behaviour as v7.74.
+Costs median JavaScript navigation: **426 → 330.5 ms desktop (22.4%)**, **368.8 → 312.8 ms phone viewport (15.2%)**,
+five warmed runs per build on the same host. Phone is emulated, not physical handset timing; full aggregate results
+and limitations are in `v7.76_navigation_performance_LIVE/evidence/benchmark_summary.json`.
+Record stayed **3521**; no record or ledger writes. Claude has the live proof and is completing an additional cross-check.
+His v7.75 follow-up builds on this release. Final proof: `v7.76_navigation_performance_LIVE/evidence/release_verification.json`.
+
 ## Release completed — v7.74 LIVE, 1 Oct 2026 18:45 AEST
 
 Author: Andrew Fisher
@@ -131,6 +146,7 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 
 | version | what | live | by |
 |---|---|---|---|
+| **v7.76 LIVE** | Navigation and per-draw model reuse; verified correctness and measured speed improvement above. No record changes. | 1 Oct 2026 18:59 | Codex |
 | **v7.74 verified** | Claude fetched the public view fresh at 18:46 AEST, 1 Oct 2026: **8,673,113 bytes, SHA-256 `59e58833ab1ee8c6fb0ad2f8c2b3ff5e7b13c14923cd3e70459bc32503fda7d8`**, byte-identical to the frozen build. Checks on the live file: both sweeps 21 tabs, 7 deep links, 0 page and console errors, desktop and phone; the released suite 31/31 desktop and phone; every tab's text — no agent's name, no undefined or NaN (`v7.74_tidy_two_LIVE/evidence/regress/live_*`). Record version 3521 (was 3520 at 18:24): read through the page, the newest saved entry on the record is still the WC60 tank ticks of 17:03 and nothing is stamped after 18:00; files 308, unchanged — the version moved without a change to the job's data that the page shows. | 1 Oct 2026 18:51 | Claude |
 | **v7.74 LIVE** | Phone tables, management wording and recorder display improvements; exact frozen handover and byte proof above. No record changes. | 1 Oct 2026 18:45 | Codex, from Claude’s handover |
 | **v7.73 verified** | Claude fetched the public view fresh at 18:24 AEST, 1 Oct 2026: **8,667,935 bytes, SHA-256 `6010538894d3637c4d7267fecd4da75ad46484bdc22170244244d4835927a5f9`** — the same bytes Codex recorded at 18:19; `/health` still version 3520 (no record write). It is v7.70 + v7.72 + v7.73 on the live v7.71 with Codex's release corrections (19 hunks read in a diff against the frozen candidate: the recorder-name strip scoped to a display helper, not `esc()`; the event scope on its own "allocation pending" revenue row until Finance states the people split; Rehire Recovery "not readable yet" while the fence rate bundles installation; the fixed-light cards given their own paper and ink tokens in dark mode; table headers on the tint token). Checks on the live file: both sweeps 21 tabs, 0 page errors, 0 console, 7 deep links clean, desktop and phone (`v7.73_crystal_LIVE/evidence/regress/live_*`); the v7.70 suite as it stood 28/29 both — the one check that failed encoded the Installation rule Codex changed on purpose; his LIVE suite (31 checks) is the one to run from here. None of the corrections touches the five v7.74 fixes. | 1 Oct 2026 18:24 | Claude |
@@ -165,11 +181,6 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
-**v7.76 — navigation performance, claimed by Codex, 1 Oct 2026 18:35 AEST.** Author: Andrew Fisher.
-Measure redundant synchronous work during tab changes; share existing per-render caches where safe, preserve
-record freshness and capability checks, verify desktop and phone, then release on the current live page.
-v7.74 remains Claude’s phone/wording handover; v7.75 is left available for the follow-up he noted.
-No record writes, changes to pricing rules, or car/gauge redesign.
 
 **v7.62 — LIVE within v7.63 at 13:57 AEST. Earlier validation: 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Claude has claimed v7.63 for the final presentation pass (PR #7); v7.62 is frozen and handed over with no overlapping edits. Combined release is not yet marked READY TO UPLOAD. No upload or record changes. Author: Andrew Fisher.
 
