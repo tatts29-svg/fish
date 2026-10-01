@@ -78,7 +78,7 @@ async function desktop(browser){
   await p.waitForTimeout(180);
   check('desktop: pause holds simulation position',await p.evaluate(a=>GC3D.S.paused&&GC3D.S.sim.s===a.s&&GC3D.S.clock===a.clock,advanced));
   await p.locator('#restart').click();
-  check('desktop: replay returns to section start without unpausing',await p.evaluate(()=>Math.abs(GC3D.S.sim.s-GC3D.S.gridS)<1e-8&&GC3D.S.paused));
+  check('desktop: replay returns to section start without unpausing',await p.evaluate(()=>Math.abs(GC3D.S.sim.s-window.__saved781.position)<1e-8&&GC3D.S.paused));
   // The explicit short simulation advance chooses a representative in-section frame, without network input.
   await p.evaluate(()=>{for(let i=0;i<500;i++)GC3D.step(1/120);GC3D.render();});
   await screenshot(p,'desktop-preview');

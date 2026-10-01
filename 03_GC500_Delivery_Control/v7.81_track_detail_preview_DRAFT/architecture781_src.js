@@ -1,8 +1,8 @@
 /* Author: Andrew Fisher.
  * v7.81 opt-in architecture preview. Existing OSM footprints and top heights stay fixed.
  * Pit buildings are the existing NOMINAL garage row, not surveyed temporary works.
- * Their previous city-window material made a continuous glass wall. This bounded overlay
- * gives that same row garage doors, recessed upper glazing and physical awnings instead.
+ * The unsupported continuous garage wall can be omitted in the opt-in photograph study;
+ * the comparison restores its exact original source. Real OSM buildings remain in place.
  */
 (function () {
   'use strict';
@@ -11,8 +11,28 @@
   const setBuildings = G.setBuildings;
   G.setBuildings = function (list) {
     const result = setBuildings.apply(this, arguments);
-    if (G.S) G.S.architecture781Source = list;
+    if (G.S) {G.S.architecture781Source = list;G.S.architecture781NominalShown=true;}
     return result;
+  };
+
+  G.toggleNominalGarages781 = function (S,show) {
+    if(!S||G.S!==S||!S.architecture781Source)return false;
+    show=!!show;
+    if((S.architecture781NominalShown!==false)===show)return show;
+    const source=S.architecture781Source,oldMesh=S.bMesh,oldEdges=S.bEdges;
+    const hadDetail=!!S.architecture781;
+    // b.pit is explicitly added by the nominal pit-row generator. No OSM source row
+    // has this flag; filtering it cannot delete an identified real building or part.
+    setBuildings.call(G,show?source:source.filter(b=>!b.pit));
+    S.architecture781NominalShown=show;
+    S.architecture781OmittedNominal=show?0:source.filter(b=>b.pit).length;
+    if(oldMesh&&oldMesh!==S.bMesh){
+      S.gl.deleteBuffer(oldMesh.vb);S.gl.deleteBuffer(oldMesh.ib);S.gl.deleteVertexArray(oldMesh.vao);
+    }
+    if(oldEdges&&oldEdges!==S.bEdges){S.gl.deleteBuffer(oldEdges.buf);S.gl.deleteVertexArray(oldEdges.vao);}
+    if(hadDetail){G.disposeArchitecture781(S);G.installArchitecture781(S);}
+    S.needsRender=true;
+    return show;
   };
 
   const VS = `#version 300 es
@@ -107,7 +127,7 @@ void main(){
     const unit = (S.pack && S.pack.mPerPt) || G.M_PER_PT || 5.93755;
     const atGrid = S.CL.at(S.gridS || 0);
     const stats = {garageModules: 0,garageDoors: 0,hospitalityBays: 0,towerParts: 0,
-      roofParapets: 0,facadeFins: 0,triangles: 0,drawCalls: 1,
+      roofParapets: 0,facadeFins: 0,triangles: 0,drawCalls: 1,omittedNominalGarages:S.architecture781OmittedNominal||0,
       source: 'Existing nominal pit garage and OSM building footprints; illustrative facade detail, not surveyed event works'};
     const quad = (p, col, material = 0) => {
       const a = p[0], b = p[1], c = p[2], x = [b[0]-a[0],b[1]-a[1],b[2]-a[2]], y = [c[0]-a[0],c[1]-a[1],c[2]-a[2]];
@@ -130,7 +150,7 @@ void main(){
     const white=[.74,.72,.67],metal=[.19,.22,.23],glass=[.09,.15,.18],concrete=[.53,.52,.48],orange=[.86,.27,.04];
 
     // Low fronts replace the visual reading of the old all-glass pit row without moving it.
-    for(const b of source.filter(b=>b.pit)){
+    for(const b of source.filter(b=>b.pit&&S.architecture781NominalShown!==false)){
       const P=world(b);if(P.length<3)continue;
       const a=P[0],q=P[1],dx=q[0]-a[0],dz=q[1]-a[1],len=Math.hypot(dx,dz);
       if(len<.2)continue;

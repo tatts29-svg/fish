@@ -42,7 +42,11 @@ vec3 previewSurface781(vec3 normal,float visibility){
       "col=mix(col,uDetail781>.5?vec3(.62,.66,.67):vec3(.67,.76,.80),haze*.22);", "depth atmosphere")
 
     r("if(uMode<.5||uMode>11.5){\n float lit=uDay>.5?mix(.60,1.,sunlight(vWorld,vec3(0.,1.,0.))):1.;\n o=vec4(base*lit*a,a);",
-      """if(uMode>12.5&&uMode<13.5&&uDetail781>.5){
+      """if(uMode>12.5&&uMode<14.5&&uDetail781>.5){
+ /* Mode 14 is the existing static kerb/marking batch. Its nominal broad rubber
+    ribbon is not a measured tyre mark; omit that flat hard-edged overlay here.
+    Simulation-generated tyre marks remain a separate, unchanged mode 10. */
+ if(uMode>13.5&&vCol.a<.17&&max(vCol.r,max(vCol.g,vCol.b))<.020)discard;
  /* Preview road paint: millimetre-scale wear fades to its mean before minification.
     No time term: a held camera stays still and the surface cannot crawl. */
  vec2 wearP=vP*72.;
@@ -70,8 +74,9 @@ vec3 previewSurface781(vec3 normal,float visibility){
   float visibility=sunlight(vWorld,N);
   float broad=pow(max(dot(N,halfV),0.),18.);
   float grazing=.025+.11*pow(1.-max(dot(N,view),0.),5.);
-  vec3 body=base*.74*(1.+grain*.24+aggregate*.20+grade*.11);
-  asphalt=body*previewSurface781(N,visibility);
+  float neutral=dot(base,vec3(.2126,.7152,.0722));
+  vec3 body=mix(base,vec3(neutral),.82)*.94*(1.+grain*.24+aggregate*.20+grade*.085);
+  asphalt=body*(previewSurface781(N,visibility)+vec3(.035,.040,.045));
   asphalt+=vec3(1.05,.83,.57)*broad*grazing*.11*visibility;
   asphalt+=vec3(.0035,.0038,.0041)*stone*visibility;
  }
@@ -125,6 +130,8 @@ G.default781Sun=G.sunDirection;""", "preview sun constant")
       "gl.uniform3fv(pr.mesh.u.uEye,cam.eye);gl.uniform1f(pr.mesh.u.uDetail781,detail781);G.bindSunShadow(S,pr.mesh,!!L.day);", "mesh preview binding")
     r("gl.uniform1f(pr.flat.u.uDay,L.day);gl.uniform3fv(pr.flat.u.uEye,cam.eye);",
       "gl.uniform1f(pr.flat.u.uDay,L.day);gl.uniform1f(pr.flat.u.uDetail781,detail781);gl.uniform3fv(pr.flat.u.uEye,cam.eye);", "flat preview binding")
+    r("if(S.kerb){flat(0,L.mat.kerb);S.kerb.draw();}",
+      "if(S.kerb){flat(detail781?14:0,L.mat.kerb);S.kerb.draw();}", "static road marking preview")
     r("gl.uniform1f(P2.comp.u.uK,L.bloom);gl.uniform1f(P2.comp.u.uDay,L.day);",
       "gl.uniform1f(P2.comp.u.uK,L.bloom);gl.uniform1f(P2.comp.u.uDay,L.day);gl.uniform1f(P2.comp.u.uDetail781,detail781);", "composite preview binding")
 

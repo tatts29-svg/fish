@@ -6,6 +6,7 @@ G.preview781={version:'v7.81',kind:'working preview',camera:'chase',enabled:fals
 G.enablePreview781=function(on){
  const S=G.S;if(!S)return false;
  G.preview781.enabled=!!on;S.detail781Enabled=!!on;
+ if(G.toggleNominalGarages781)G.toggleNominalGarages781(S,!on);
  if(on){G.installTrackDetail781(S);G.installArchitecture781(S);}
  S.needsRender=true;return !!on;
 };

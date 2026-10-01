@@ -96,8 +96,8 @@ function makeAtlas(gl,geo){
  const bridgeW=2*(Math.max(geo.edge(115,-1),geo.edge(115,1))+2.45)+2.3;
  panel(0,gantryW,1.35,(w,h)=>{c.fillStyle='#101114';c.fillRect(0,0,w,h);const end=3.05;c.fillStyle='#ef5524';c.fillRect(0,0,end,h);c.fillRect(w-end,0,end,h);for(const x of [end/2,w-end/2]){text('WORKS ITS',x,.41,.36,'#101114','800',end-.20);text('ARSE OFF',x,.91,.36,'#101114','800',end-.20);}text('boost mobile',w/2,.71,.94,'#fff','500',w-end*2-.7);});
  panel(1,bridgeW,1.70,(w,h)=>{c.fillStyle='#fbf5e9';c.fillRect(0,0,w,h);c.fillStyle='#d7263e';for(const [x,y,r] of [[.22,.02,.44],[w-.2,h-.04,.48],[w*.47,.02,.27]]){c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();}text('GOLD COAST',w*.25,.44,.33,'#bc1732');text('500',w*.25,1.04,.85,'#bc1732','800');text('THE FINALS STARTS HERE',w*.75,.65,.40,'#bc1732','800',w*.46);text('23–25 OCT 2026',w*.75,1.21,.38,'#171719','800',w*.46);c.fillStyle='#b99f91';c.fillRect(w/2,0,.018,h);});
- panel(2,4.97,geo.edgeInfo(0,-1).height-.075,(w,h)=>{c.fillStyle='#111214';c.fillRect(0,0,w,h);text('KMC',w/2,h*.43,h*.73,'#f8f8f3','900',w*.86);text('W H E E L S',w/2,h*.85,h*.15,'#f8f8f3','700',w*.8);});
- panel(3,4.97,geo.edgeInfo(0,1).height-.075,(w,h)=>{c.fillStyle='#c4d51c';c.fillRect(0,0,w,h);c.fillStyle='#f3f3dc';c.fillRect(0,0,.9,h);text('bp',.45,h*.34,h*.28,'#43883e','700');c.fillStyle='#51a841';for(let i=0;i<16;i++){c.save();c.translate(.45,h*.67);c.rotate(i*Math.PI/8);c.fillRect(-.04,-h*.20,.08,h*.17);c.restore();}text('ultimate',2.9,h*.55,h*.59,'#163560','700',3.7);});
+ panel(2,4.97,geo.edgeInfo(0,1).height-.075,(w,h)=>{c.fillStyle='#111214';c.fillRect(0,0,w,h);text('KMC',w/2,h*.43,h*.73,'#f8f8f3','900',w*.86);text('W H E E L S',w/2,h*.85,h*.15,'#f8f8f3','700',w*.8);});
+ panel(3,4.97,geo.edgeInfo(0,-1).height-.075,(w,h)=>{c.fillStyle='#c4d51c';c.fillRect(0,0,w,h);c.fillStyle='#f3f3dc';c.fillRect(0,0,.9,h);text('bp',.45,h*.34,h*.28,'#43883e','700');c.fillStyle='#51a841';for(let i=0;i<16;i++){c.save();c.translate(.45,h*.67);c.rotate(i*Math.PI/8);c.fillRect(-.04,-h*.20,.08,h*.17);c.restore();}text('ultimate',2.9,h*.55,h*.59,'#163560','700',3.7);});
  panel(4,8,1.4,(w,h)=>{c.fillStyle='#ed6416';c.fillRect(0,0,w,h);text('Coates',w/2,.63,.95,'#fff','700');text('GC500',w/2,1.20,.24,'#1b1b19','700');});
  panel(5,20,1.4,(w,h)=>{c.fillStyle='#bf3e58';c.fillRect(0,0,w,h);text('GOLDCOAST.',w/2,.75,1.04,'#fff','800',w-.8);});
  /* White atlas sample reserved for untextured geometry. */
@@ -184,7 +184,7 @@ function build(S,D){
   for(const sg of [-1,1]){
    const la=sg*(edge(s,sg)-.032),lb=sg*(edge(s+4.97,sg)-.032),ha=edgeInfo(s,sg).height-.045,hb=edgeInfo(s+4.97,sg).height-.045;
    const points=sg<0?[at(s,la,.03),at(s+4.97,lb,.03),at(s+4.97,lb,hb),at(s,la,ha)]:[at(s+4.97,lb,.03),at(s,la,.03),at(s,la,ha),at(s+4.97,lb,hb)];
-   const rect=atlas.panels[sg<0?2:3];
+   const rect=atlas.panels[sg<0?3:2];
    face(points,WHITE,rect);
    stats.barrierSkins++;
    /* Slim joint cover and metal fixings; no new collision line or continuous duplicate fence. */
