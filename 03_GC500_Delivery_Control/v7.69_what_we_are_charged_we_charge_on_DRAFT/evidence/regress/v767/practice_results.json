@@ -15,9 +15,9 @@
   "noWriteLeftThePage": true
  },
  "data": {
-  "total": 570217.15,
-  "servicing": 97301.75,
-  "svTotal": 97301.75,
+  "total": 571967.15,
+  "servicing": 99051.75,
+  "svTotal": 99051.75,
   "their": 46545,
   "unpriced": {
    "n": 2,
@@ -33,7 +33,7 @@
  },
  "jump": {
   "foldOpen": true,
-  "top": 272,
+  "top": 273,
   "vh": 1000
  },
  "overflow": 0,

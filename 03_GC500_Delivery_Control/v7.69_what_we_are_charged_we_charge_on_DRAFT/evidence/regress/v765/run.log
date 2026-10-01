@@ -57,8 +57,8 @@
  "tiles": [
   {
    "label": "Revenue",
-   "now": "$570,217",
-   "end": "$819,027"
+   "now": "$571,967",
+   "end": "$820,777"
   },
   {
    "label": "Direct costs",
@@ -67,10 +67,10 @@
   },
   {
    "label": "Difference",
-   "now": "$334,845",
-   "nowB": "$334,845",
-   "end": "$342,792",
-   "endB": "$342,792"
+   "now": "$336,595",
+   "nowB": "$336,595",
+   "end": "$344,542",
+   "endB": "$344,542"
   },
   {
    "label": "Month-end for Finance",
@@ -79,12 +79,12 @@
   }
  ],
  "glance": {
-  "record": "$570,217",
-  "job": "$819,027",
+  "record": "$571,967",
+  "job": "$820,777",
   "known": "$235,372",
   "costJob": "$444,411",
-  "diffNow": "$334,845",
-  "diffEnd": "$342,792",
+  "diffNow": "$336,595",
+  "diffEnd": "$344,542",
   "accRev": "$176,968",
   "toAccrue": "$70,331",
   "month": "September 2026"
@@ -120,8 +120,8 @@
   }
  },
  "text": {
-  "visible": 42368,
-  "opened": 71183
+  "visible": 42624,
+  "opened": 71454
  },
  "controls": {
   "fin745Month": true,
@@ -148,7 +148,7 @@
   "closesByHand": true
  },
  "jump": {
-  "top": 371,
+  "top": 370,
   "vh": 1000
  },
  "errors": [],

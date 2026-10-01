@@ -1,4 +1,4 @@
-# v7.68 — a waste tank is a piece of work (DRAFT: built and tested on the live v7.67; Andrew to say "make it live")
+# v7.68 — a waste tank is a piece of work (READY TO UPLOAD with v7.69 — one build, two patches on the live v7.67)
 
 Author: Andrew Fisher · 1 Oct 2026
 
@@ -84,3 +84,16 @@ $19,170.02 over 177 ticks, direct costs known $235,371.76 at 16:05 — Andrew ha
 more since 15:00); the Pricing tab's card comparison is $1,501.12 higher, the two tanks' card hire, as WC20's and
 WC27's lines already are. An adversarial code review of the patch (three lenses, each finding verified) is recorded
 below when it reports.
+
+## The adversarial review (1 Oct, three lenses, every finding verified) and what changed
+
+Confirmed and fixed: the two tank pieces were whichever two numbers sorted highest, not the tanks — now the numbers the
+delivery note names as a waste tank ("toilet block 1119489 with waste tank 1328980") go to the Waste tank line first
+(`tank768NotedNumbers`, read in `lineNumbersOf`), and `labourUnits` for a tank line reads the tanks whether or not they
+count as buildings, so a tank recorded later as a unit named "Waste tank" keeps its piece and its ticks. Noted, by
+design or pre-existing: the Pricing comparison (never added to revenue) shows the tanks' card hire as WC20's and WC27's
+schedule lines already do; the expected-labour forecast moves by the tanks' $499.68 before any tick (that is what
+"expected on site" means); WC60's "what was supplied" row reads "not recorded" until the record script pins the numbers.
+
+## Results on the combined build (`build/GC500_v7.69`, 8,637,181 bytes): 16/16 desktop and 16/16 phone; the whole chain
+clean — see `../v7.69_what_we_are_charged_we_charge_on_DRAFT/README.md`.

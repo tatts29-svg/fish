@@ -26,9 +26,9 @@
    "what": "Toilets — Event Portables",
    "lines": 132,
    "units": 251,
-   "rev": 166394.01,
+   "rev": 168144.01,
    "revToCome": 0,
-   "revJob": 166394.01,
+   "revJob": 168144.01,
    "cost": 118575,
    "costToCome": 0,
    "costJob": 118575,
@@ -88,8 +88,8 @@
   }
  ],
  "toilets": {
-  "rev": 166394.01,
-  "expect": 166394.01,
+  "rev": 168144.01,
+  "expect": 168144.01,
   "lines": 132,
   "toiletLines": 132,
   "cost": 118575,
@@ -126,25 +126,25 @@
  },
  "totals": {
   "T": {
-   "rev": 300992.49,
+   "rev": 302742.49,
    "revToCome": 248809.54,
    "cost": 193596.5,
    "costToCome": 180090.1,
    "costMissing": 3,
    "lines": 199,
-   "revJob": 549802.03,
+   "revJob": 551552.03,
    "costJob": 373686.6,
-   "share": 0.6712870736849859,
-   "shareNow": 0.5278559054212942
+   "share": 0.6719879313336738,
+   "shareNow": 0.5293004851764651
   },
-  "sumRev": 300992.49,
+  "sumRev": 302742.49,
   "sumCost": 193596.5,
   "sumRevTC": 248809.54,
   "sumCostTC": 180090.1,
-  "revenueJob": 819026.69,
-  "xJob": 819026.69,
-  "revenueNow": 570217.15,
-  "cTotal": 570217.15
+  "revenueJob": 820776.69,
+  "xJob": 820776.69,
+  "revenueNow": 571967.15,
+  "cTotal": 571967.15
  },
  "byBranch": [
   {
@@ -157,7 +157,7 @@
   {
    "branch": "KINP",
    "groups": 2,
-   "revJob": 167822.01,
+   "revJob": 169572.01,
    "costJob": 118575,
    "costMissing": 1
   },

@@ -68,6 +68,38 @@ bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_DRAFT/patch_v7
 python3 toolchain/upload_page.py build/GC500_v7.69/GC500_Delivery_Control_hosted.html
 ```
 
-## Results
+## Results — the chain on the corrected build `build/GC500_v7.69` (8,637,181 bytes, SHA-256 `383051df1f6e0058…`; v7.68 + v7.69 on the live v7.67), 1 Oct 2026 18:50–19:20 AEST
 
-_(the chain on the corrected build is running; filled in when it finishes)_
+| Check | Desktop | Phone |
+|---|---|---|
+| v7.69 practice tests (`evidence/practice_results*.json`) | **18/18** | **18/18** |
+| v7.68 waste tank is a piece of work (`regress/v768*`) | **16/16** | **16/16** |
+| v7.67 priced by us (`regress/v767*`) | **12/12** | **12/12** |
+| v7.66 rehire by branch (`regress/v766*`) | **18/18** | **18/18** |
+| v7.64 costs to job end (`regress/v764`) | **22/22** | — |
+| v7.65 the Costs tab in one flow (`regress/v765`) | **22/22** | — |
+| v7.63 accruals in Andrew's words (`regress/v763`) | **33/33** | — |
+| Codex's six synthetic checks | 6/6 | — |
+| Sweep, 21 tabs (`regress/sweep_*.json`) | 21 tabs, 0 errors, 0 console | 21 tabs, 0 errors, 0 console |
+
+Against the live page read on the same record at the same moment: revenue +$13,950.00 (the servicing line), Rehire
+Revenue to job end +$13,950.00, labour, direct costs known and Rehire cost unchanged.
+
+## The adversarial review (1 Oct, three lenses, every finding verified against the code) and what changed
+
+Confirmed and fixed: the drinking-water tank is $2,100 on Q6846 (6 weeks at $350), not $350 — the floor now uses the
+quote's own total; a typed rate under the supplier's figure was charged as typed — now not applied, and the line says so;
+six places (the hub card, the Costs card, the branch note, the stream note, the management email, the Rehire by branch
+group) still said "at our pump-out rates" for a figure holding the water — all say "pump-outs at the card, the water at
+what we are charged"; the Questions card-estimate item quoted the whole $97,302 as pump-outs — it quotes the pump-outs
+only; the fencing cover left Advanced's crew out — the cover counts Installation — external contractors; renaming the
+accrual row broke Finance's wording — the row keeps its name, its basis names the water and its source Q6846; Andrew's
+words are quoted ("should cover"), not paraphrased; the cover sentence says "to pay" for a forecast; the P&L working is
+short sentences. Noted, by design: the business cover counts Rehire Revenue for groups whose cost is not on the record,
+and says so ("before the N supplier costs not on the record").
+
+**READY TO UPLOAD** with v7.68 — one build, two patches on the live v7.67:
+```
+bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_DRAFT/patch_v768.py v7.69_what_we_are_charged_we_charge_on_DRAFT/patch_v769.py
+python3 toolchain/upload_page.py build/GC500_v7.69/GC500_Delivery_Control_hosted.html
+```

@@ -241,7 +241,7 @@
    },
    "2026-10": {
     "label": "October 2026",
-    "revenueTotal": 375939.99,
+    "revenueTotal": 377689.99,
     "revenue": [
      {
       "stream": "Toilet Rehire Revenue — event allocation",
@@ -356,9 +356,9 @@
       "act": "planned"
      },
      {
-      "stream": "Toilet servicing and water — event forecast",
+      "stream": "Toilet servicing — event forecast",
       "branch": "KINP",
-      "amount": 97301.75,
+      "amount": 99051.75,
       "status": "forecast",
       "act": "planned"
      },
@@ -645,11 +645,11 @@
    }
   },
   "pl": {
-   "total": 570217.15,
+   "total": 571967.15,
    "labour": 19170.02,
    "fencing": 120913.08
   },
-  "allMonthsRevenue": 569278.68,
+  "allMonthsRevenue": 571028.68,
   "unallocatedRevenue": 938.47,
   "reconciles": true,
   "ticksAllDated": true,
