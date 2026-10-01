@@ -35,7 +35,8 @@ async function begin(p,name,paused=true){
   return {started,enabled:S.detail781Enabled,track:S.trackDetail781&&S.trackDetail781.stats,
    architecture:S.architecture781&&S.architecture781.stats,meshes:(S.detail781ShadowMeshes||[]).length,
    glError:S.gl.getError(),links:[S.trackDetail781&&S.trackDetail781.program,S.architecture781&&S.architecture781.program].filter(Boolean).map(x=>S.gl.getProgramParameter(x.p,S.gl.LINK_STATUS)),
-   canvas:[S.cv.width,S.cv.height],paused:S.paused,reduced:S.reducedMotion};
+   canvas:[S.cv.width,S.cv.height],paused:S.paused,reduced:S.reducedMotion,
+   vegetation:G.vegetationReport781&&G.vegetationReport781(S)};
  },paused);
  check(name+': WebGL scene starts',state.started,state);
  check(name+': new geometry installed',state.enabled&&state.track&&state.track.triangles>1000&&state.architecture&&state.meshes>=2);
@@ -65,12 +66,22 @@ async function desktop(browser){
   await begin(p,'desktop');
   await p.evaluate(()=>{const S=GC3D.S;window.__saved781={car:S.car,parts:S.raceCarParts,carStats:JSON.stringify(S.raceCarStats),position:S.sim.s,clock:S.clock,vehicle:S.vehicle||'car'};});
   const onPixels=await framebuffer(p);const on=await screenshot(p,'desktop-detail-on',true);
+  const foliage=await p.evaluate(()=>{const S=GC3D.S,D=S.vegetation781;if(!D)return null;
+   window.__foliage781={mesh:D.mesh,original:D.originalDayTrees,trees:D.originalTrees,geometry:JSON.stringify(S.treeGeometry),count:S.treeCount};
+   return {refined:D.stats.refinedTrees,total:D.stats.sourceTrees,count:S.treeCount,relocated:D.stats.relocatedTrees,
+    originalUnchanged:D.originalDayTrees!==D.mesh,finite:D.mesh.v.every(Number.isFinite),
+    indices:D.mesh.i.every(i=>i>=0&&i<D.mesh.nv)};});
+  check('desktop: foliage refines existing trees with finite bounded geometry',foliage&&foliage.refined>0&&foliage.total===foliage.count&&foliage.relocated===0&&foliage.originalUnchanged&&foliage.finite&&foliage.indices,foliage);
   await p.locator('#compare').click();
   const offPixels=await framebuffer(p);const off=await screenshot(p,'desktop-current',true);
   const preserved=await p.evaluate(()=>{const S=GC3D.S,A=window.__saved781;return {disabled:!S.detail781Enabled,car:S.car===A.car,parts:S.raceCarParts===A.parts,stats:JSON.stringify(S.raceCarStats)===A.carStats,position:S.sim.s===A.position,clock:S.clock===A.clock,vehicle:(S.vehicle||'car')===A.vehicle,ui:document.querySelector('#compare').getAttribute('aria-pressed')};});
   check('desktop: comparison changes actual WebGL pixels',onPixels!==offPixels,{on:onPixels,off:offPixels});
   check('desktop: captured comparison frames differ',on!==off);
   check('desktop: comparison releases added GPU resources',await p.evaluate(()=>!GC3D.S.trackDetail781&&!GC3D.S.architecture781&&(GC3D.S.detail781ShadowMeshes||[]).length===0));
+  const restored=await p.evaluate(()=>{const S=GC3D.S,F=window.__foliage781;return {restored:!S.vegetation781&&S.dayTrees===F.original&&S.trees===F.trees,
+   count:S.treeCount===F.count,geometry:JSON.stringify(S.treeGeometry)===F.geometry,
+   released:!S.gl.isBuffer(F.mesh.vb)&&!S.gl.isBuffer(F.mesh.ib)&&!S.gl.isVertexArray(F.mesh.vao)};});
+  check('desktop: original foliage restored and refinement buffers released',Object.values(restored).every(Boolean),restored);
   check('desktop: comparison preserves car model and position',Object.entries(preserved).every(([k,v])=>k==='ui'?v==='false':v),preserved);
   await p.locator('#compare').click();
   check('desktop: comparison restores detail',await p.evaluate(()=>GC3D.S.detail781Enabled&&document.querySelector('#compare').getAttribute('aria-pressed')==='true'));

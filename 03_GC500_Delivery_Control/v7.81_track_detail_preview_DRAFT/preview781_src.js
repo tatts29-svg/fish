@@ -7,8 +7,8 @@ G.enablePreview781=function(on){
  const S=G.S;if(!S)return false;
  G.preview781.enabled=!!on;S.detail781Enabled=!!on;
  if(G.toggleNominalGarages781)G.toggleNominalGarages781(S,!on);
- if(on){G.installTrackDetail781(S);G.installArchitecture781(S);}
- else{G.disposeTrackDetail781(S);G.disposeArchitecture781(S);G.disposeSky781(S);}
+ if(on){G.installTrackDetail781(S);G.installArchitecture781(S);if(G.installVegetation781)G.installVegetation781(S);}
+ else{G.disposeTrackDetail781(S);G.disposeArchitecture781(S);if(G.disposeVegetation781)G.disposeVegetation781(S);G.disposeSky781(S);}
  S.needsRender=true;return !!on;
 };
 G.restartPreview781=function(){
@@ -47,7 +47,8 @@ G.previewReport781=function(){
  const S=G.S;return {author:'Andrew Fisher',version:'v7.81',publication:'preview only',enabled:!!(S&&S.detail781Enabled),
   scope:'One illustrative pit-straight section; photograph-informed details are not surveyed locations',
   camera:G.preview781.camera,graphics:S?G.graphicsReport():null,track:S&&(S.trackDetail781&&S.trackDetail781.stats||S.detail781Stats)||null,
-  architecture:S&&(S.architecture781&&S.architecture781.stats||S.architecture781Stats)||null};
+  architecture:S&&(S.architecture781&&S.architecture781.stats||S.architecture781Stats)||null,
+  vegetation:G.vegetationReport781&&S?G.vegetationReport781(S):null};
 };
 // In the full candidate this is an explicitly selected preview, never the default Showcase.
 function attach(){

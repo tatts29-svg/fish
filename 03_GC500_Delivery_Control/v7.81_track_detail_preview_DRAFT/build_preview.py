@@ -3,6 +3,7 @@
 import json
 import sys
 from pathlib import Path
+from vegetation781 import _SOURCE as vegetation_source
 
 HERE = Path(__file__).resolve().parent
 source = Path(sys.argv[1]).read_text()
@@ -10,7 +11,7 @@ start = source.index('const DATA = ') + len('const DATA = ')
 data, _ = json.JSONDecoder().raw_decode(source[start:])
 visual = {key: data[key] for key in ('circuit', 'surrounds')}
 core = source[source.index('/* GC3D part 1 —'):source.index('/* GC3D part 6 —')]
-modules = '\n'.join((HERE / name).read_text() for name in (
+modules = vegetation_source + '\n' + '\n'.join((HERE / name).read_text() for name in (
     'track_detail781_src.js', 'architecture781_src.js', 'sky781_src.js', 'preview781_src.js'))
 template = (HERE / 'preview_shell781.html').read_text()
 out = Path(sys.argv[2])

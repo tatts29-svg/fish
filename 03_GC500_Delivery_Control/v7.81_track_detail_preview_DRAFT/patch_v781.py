@@ -7,6 +7,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
 from materials781 import apply as materials
+from vegetation781 import apply as vegetation, _SOURCE as vegetation_source
 
 
 def apply(text, path):
@@ -15,6 +16,7 @@ def apply(text, path):
     if 'save775Inner' not in text:
         raise SystemExit('Expected the reviewed v7.77-or-later live base')
     text = materials(text, rep, path)
+    text = vegetation(text, rep, path)
     text = rep(text, ' /* start gantry: five red lamps, one at a time, then out */',
         ' if(!S.detail781Enabled){\n /* start gantry: five red lamps, one at a time, then out */',
         'Hide nominal wire gantry in detail preview', path)
@@ -41,7 +43,9 @@ def apply(text, path):
     text = rep(text, ' /* v5.66 — rubber first: it lies ON the road, under the car\'s own shadow, and writes no depth so the',
         ' if(S.detail781Enabled){G.drawTrackDetail781(S,VP,fog);G.drawArchitecture781(S,VP,fog);gl.enable(gl.BLEND);}\n /* v5.66 — rubber first: it lies ON the road, under the car\'s own shadow, and writes no depth so the',
         'Opt-in static track and architecture', path)
-    modules = '\n'.join((HERE / name).read_text() for name in (
+    # The existing final script contains an inert PDF library. Lifecycle hooks
+    # must live in our executable extension script, not inside that text/plain block.
+    modules = vegetation_source + '\n' + '\n'.join((HERE / name).read_text() for name in (
         'track_detail781_src.js', 'architecture781_src.js', 'sky781_src.js', 'preview781_src.js'))
     return rep(text, '</script>\n</body></html>', '</script>\n<script>\n'+modules+'\n</script>\n</body></html>', 'Preview modules', path)
 

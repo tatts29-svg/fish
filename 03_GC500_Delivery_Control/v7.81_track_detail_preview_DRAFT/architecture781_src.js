@@ -1,5 +1,6 @@
 /* Author: Andrew Fisher.
- * v7.81 opt-in architecture preview. Existing OSM footprints and top heights stay fixed.
+ * v7.81 opt-in architecture preview. Existing OSM source shells and top heights stay fixed.
+ * Additive coastal facade profiles are illustrative: balcony depths are not surveyed.
  * Pit buildings are the existing NOMINAL garage row, not surveyed temporary works.
  * The unsupported continuous garage wall can be omitted in the opt-in photograph study;
  * the comparison restores its exact original source. Real OSM buildings remain in place.
@@ -127,8 +128,12 @@ void main(){
     const unit = (S.pack && S.pack.mPerPt) || G.M_PER_PT || 5.93755;
     const atGrid = S.CL.at(S.gridS || 0);
     const stats = {garageModules: 0,garageDoors: 0,hospitalityBays: 0,towerParts: 0,
-      roofParapets: 0,facadeFins: 0,triangles: 0,drawCalls: 1,omittedNominalGarages:S.architecture781OmittedNominal||0,
-      source: 'Existing nominal pit garage and OSM building footprints; illustrative facade detail, not surveyed event works'};
+      roofParapets: 0,facadeFins: 0,facadeElevations: 0,balconySlabs: 0,balconyRails: 0,
+      balconyPosts: 0,balconyDividers: 0,recessedGlazingBays: 0,verticalCores: 0,podiumBays: 0,
+      duplicateFacadesSkipped: 0,hiddenFacadeSpansSkipped: 0,maxBalconyDepthM: 0,
+      facadeProfiles: {},sourceShellsChanged: 0,sourceTopHeightsChanged: 0,
+      triangles: 0,drawCalls: 1,omittedNominalGarages:S.architecture781OmittedNominal||0,
+      source: 'Existing nominal pit garage and unchanged OSM building shells; illustrative additive coastal balconies, not surveyed facade dimensions or event works'};
     const quad = (p, col, material = 0) => {
       const a = p[0], b = p[1], c = p[2], x = [b[0]-a[0],b[1]-a[1],b[2]-a[2]], y = [c[0]-a[0],c[1]-a[1],c[2]-a[2]];
       const n = G.V.norm([x[1]*y[2]-x[2]*y[1],x[2]*y[0]-x[0]*y[2],x[0]*y[1]-x[1]*y[0]]), base = mesh.nv;
@@ -180,39 +185,126 @@ void main(){
       stats.garageModules++;
     }
 
-    // Detail nearby existing towers only. Do not fabricate an extra city around the track.
-    const seen=new Set(),parts=[];
-    for(const b of source){
-      if(b.pit||b.h-(b.y0||0)<18/unit)continue;
-      const P=world(b);if(P.length<3)continue;
+    // The original building mesh, reflections, collision grid and source rows remain intact.
+    // The source glass sits BEHIND these physical slabs/rails; no new tower volume is made.
+    // Align with the renderer's existing 3.1 m floor cadence, enclosing its shallow ledges.
+    const floor=3.1/unit,seen=new Set(),parts=[],wallCoverage=new Map();
+    const hash=(x,z,k)=>{const q=Math.sin(x*12.9898+z*78.233+k*37.719)*43758.5453;return q-Math.floor(q);};
+    const profiles=[
+      {name:'ivory balconies',stone:[.77,.75,.68],core:[.63,.61,.54],rail:[.28,.37,.38],depth:1.38,railHeight:.62},
+      {name:'sandstone terraces',stone:[.70,.65,.55],core:[.54,.49,.41],rail:[.34,.37,.34],depth:1.18,railHeight:.30},
+      {name:'sea glass balconies',stone:[.71,.76,.73],core:[.40,.49,.48],rail:[.22,.39,.41],depth:1.30,railHeight:.76},
+      {name:'white coastal wings',stone:[.80,.79,.74],core:[.64,.67,.63],rail:[.32,.40,.43],depth:1.46,railHeight:.46}
+    ];
+    const local=source.filter(b=>!b.pit).map((b,index)=>({b,index,P:world(b)}))
+      .filter(p=>p.P.length>=3&&p.P.every(v=>v.every(Number.isFinite))&&Number.isFinite(p.b.h));
+    for(const part of local){
+      const {b,P,index}=part;if(b.h-(b.y0||0)<18/unit)continue;
       const cx=P.reduce((s,p)=>s+p[0],0)/P.length,cz=P.reduce((s,p)=>s+p[1],0)/P.length;
       const dist=Math.min(...P.map(p=>Math.hypot(p[0]-atGrid[0],p[1]-atGrid[1])));
       if(dist>360/unit)continue;
-      const key=[cx.toFixed(3),cz.toFixed(3),b.h.toFixed(3),(b.y0||0).toFixed(3)].join(',');
+      const key=P.map(p=>p.map(v=>v.toFixed(5)).join(',')).sort().join(';')+'|'+b.h+'|'+(b.y0||0);
       if(seen.has(key))continue;seen.add(key);
-      if(G.area(P)<0)P.reverse();parts.push({P,b,cx,cz,dist});
+      if(G.area(P)<0)P.reverse();parts.push({P,b,cx,cz,dist,index});
     }
-    parts.sort((a,b)=>a.dist-b.dist);
+    const inside=(p,P)=>{
+      let hit=false;
+      for(let i=0,j=P.length-1;i<P.length;j=i++){
+        const a=P[i],b=P[j];
+        if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])hit=!hit;
+      }
+      return hit;
+    };
+    parts.sort((a,b)=>a.dist-b.dist||a.index-b.index);
     for(const part of parts.slice(0,16)){
       const {P,b}=part,base=b.y0||0,top=b.h;
-      const facade=(Math.sin(part.cx*.73+part.cz*.29)+1)*.5;
-      const col=[.61+facade*.14,.59+facade*.13,.54+facade*.12];
+      const profile=profiles[Math.floor(hash(part.cx,part.cz,19)*profiles.length)],col=profile.stone;
+      const edges=[];
       for(let i=0;i<P.length;i++){
         const a=P[i],q=P[(i+1)%P.length],dx=q[0]-a[0],dz=q[1]-a[1],len=Math.hypot(dx,dz);
-        if(len<.3||len>35)continue;
+        if(len<3.4/unit||len>65/unit)continue;
         const t=[dx/len,dz/len],n=[t[1],-t[0]];
-        // Shallow roof coping inside source height. Its outward overhang is < 0.25 m.
-        solid(a,t,n,0,len,-.025,.04,Math.max(base,top-.35/unit),top+.006,col);
-        stats.roofParapets++;
-        // Vertical fins break repetitive all-glass elevations. Generic coastal treatment.
-        const bays=Math.min(11,Math.max(1,Math.floor(len/(4.4/unit))));
-        for(let j=0;j<=bays;j++){
-          const u=j*len/bays;
-          solid(a,t,n,Math.max(0,u-.015),Math.min(len,u+.015),.008,.075,base+.05,top-.04,col);
-          stats.facadeFins++;
-        }
+        const mx=(a[0]+q[0])*.5,mz=(a[1]+q[1])*.5,d=Math.hypot(atGrid[0]-mx,atGrid[1]-mz);
+        // Only elevations visible from this straight get the expensive balcony detail.
+        if(((atGrid[0]-mx)*n[0]+(atGrid[1]-mz)*n[1])/Math.max(d,.001)<-.18)continue;
+        edges.push({a,t,n,len,i,d});
       }
-      stats.towerParts++;
+      edges.sort((a,b)=>a.d-b.d||a.i-b.i);let added=false;
+      for(const e of edges.slice(0,8)){
+        const {a,t,n,len}=e,margin=Math.min(.24/unit,len*.07);
+        const depth=Math.min(profile.depth/unit,len*.22),slab=.26/unit;
+        // Adjacent OSM parts often share walls. Avoid adding a balcony inside a taller part;
+        // retain any exposed storeys above it, and never push a core through its roof.
+        let wallBase=base;
+        for(const other of local){
+          if(other.b===b||other.b.h<=wallBase||(other.b.y0||0)>base+.01)continue;
+          if([margin,len*.5,len-margin].some(u=>inside([a[0]+t[0]*u+n[0]*(depth+.06/unit),a[1]+t[1]*u+n[1]*(depth+.06/unit)],other.P)))wallBase=Math.max(wallBase,other.b.h);
+        }
+        if(wallBase>base+.01)stats.hiddenFacadeSpansSkipped++;
+        if(top-wallBase<3.1/unit)continue;
+        // Exact co-planar source walls must not receive competing finishes or balcony rows.
+        const ends=[a,[a[0]+t[0]*len,a[1]+t[1]*len]].map(p=>p.map(v=>v.toFixed(5)).join(',')).sort();
+        const key=ends.join('|'),covered=wallCoverage.get(key)||[];
+        if(covered.some(r=>r[0]<=wallBase+.001&&r[1]>=top-.001)){stats.duplicateFacadesSkipped++;continue;}
+        const first=Math.ceil((wallBase+.6)/floor)*floor;
+        const isCovered=y=>covered.some(r=>y>r[0]-.001&&y<r[1]+.001);
+        const coreWidth=len>9/unit?Math.min(2.6/unit,len*.17):0;
+        const coreMid=len*(profile.name==='white coastal wings'?.5:.29);
+        const core0=coreMid-coreWidth*.5,core1=coreMid+coreWidth*.5;
+        const startY=Math.max(wallBase,Math.min(first,top-floor));
+        if(coreWidth&&!covered.length){
+          solid(a,t,n,core0,core1,.018,.26/unit,wallBase,top,profile.core);
+          solid(a,t,n,core0,core0+.10/unit,.027,.35/unit,wallBase,top,col);
+          solid(a,t,n,core1-.10/unit,core1,.027,.35/unit,wallBase,top,col);
+          stats.verticalCores++;stats.facadeFins+=2;
+        }
+        // Two-storey base reads as a supporting podium, at the same source footprint.
+        // Recessed glazing and broad piers replace the continuous blue-grid appearance.
+        const bays=Math.max(1,Math.min(6,Math.round((len-2*margin)/(4.4/unit)))),bay=(len-2*margin)/bays;
+        if(!covered.length&&startY-wallBase>1/unit){
+          for(let j=0;j<bays;j++){
+            const u0=margin+j*bay,u1=u0+bay;
+            solid(a,t,n,u0,u1,.015,.04,wallBase,startY,profile.core);
+            solid(a,t,n,u0+.14/unit,u1-.14/unit,.042,.055,wallBase+.38/unit,startY-.36/unit,glass,1);
+            solid(a,t,n,u0,u0+.18/unit,.045,.32/unit,wallBase,startY,col);
+            stats.podiumBays++;
+          }
+        }
+        for(let y=first;y+1.1/unit<top-.22/unit;y+=floor){
+          if(isCovered(y))continue;
+          // Real slab top, soffit, edge and end faces: depth produces parallax and shadow.
+          solid(a,t,n,margin,len-margin,-.015,depth,y-slab,y,col);
+          const railY=y+1.01/unit,front=depth-.08/unit;
+          solid(a,t,n,margin,len-margin,front,depth,y+.13/unit,y+profile.railHeight/unit,profile.rail,profile.railHeight>.5?1:0);
+          solid(a,t,n,margin,len-margin,front-.025/unit,depth+.012/unit,railY-.055/unit,railY,metal);
+          stats.balconySlabs++;stats.balconyRails+=2;
+          for(let j=0;j<=bays;j++){
+            const u=margin+j*bay,w=.048/unit;
+            solid(a,t,n,Math.max(margin,u-w),Math.min(len-margin,u+w),front-.02/unit,front+.04/unit,y,railY,metal);
+            stats.balconyPosts++;
+          }
+          for(let j=0;j<bays;j++){
+            const u0=margin+j*bay+.10/unit,u1=margin+(j+1)*bay-.10/unit;
+            // Dark rear glazing is physically separated from the rail by ~1 m. A small
+            // offset prevents fighting with the retained source facade; it is not a new shell.
+            if(coreWidth&&u0<core1&&u1>core0)continue;
+            solid(a,t,n,u0,u1,.010,.025,y+.06/unit,Math.min(top,y+floor-.34/unit),glass,1);
+            const mid=(u0+u1)*.5;
+            solid(a,t,n,mid-.026/unit,mid+.026/unit,.026,.065,y+.06/unit,Math.min(top,y+floor-.34/unit),profile.core);
+            stats.recessedGlazingBays++;
+            if(j>0&&j%2===1){
+              solid(a,t,n,u0-.12/unit,u0-.02/unit,.04,depth-.12/unit,y,Math.min(top,y+2.2/unit),col);
+              stats.balconyDividers++;
+            }
+          }
+        }
+        // The coping stops exactly at the original top; there is no added crown/storey.
+        solid(a,t,n,margin,len-margin,-.02,.22/unit,top-.28/unit,top,col);
+        stats.roofParapets++;
+        stats.facadeElevations++;stats.maxBalconyDepthM=Math.max(stats.maxBalconyDepthM,depth*unit+.012);
+        covered.push([wallBase,top]);wallCoverage.set(key,covered);added=true;
+      }
+      if(added){stats.towerParts++;stats.facadeProfiles[profile.name]=(stats.facadeProfiles[profile.name]||0)+1;}
     }
     try {
       const program=compile(S.gl);mesh.upload();stats.triangles=mesh.ni/3;

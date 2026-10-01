@@ -9,6 +9,50 @@ It is not a claim that the runtime already matches the generated concept or a 4K
 The MP4 car, weather, existing speedos, project records and financial calculations are outside this change.
 The separate v7.80 Fencing freshness fix is already live. This preview builds on that live page.
 
+## Additive refinement — 2 Oct 2026
+
+Andrew: “don't undo everything else we have done your improving the look not full redign”.
+
+This pass retains the previous preview layout, camera rigs, controls, sequence, car and circuit geometry.
+It adds facade depth to the existing nearby buildings, refines foliage at existing tree positions, and improves
+road/concrete materials and their lighting. It does not extend the earlier omission of nominal garages/stands.
+All source building shells, top heights and 1,392 tree positions remain; 159 nearby trees receive detailed crowns,
+palm leaflets and smoother shading. Four coastal facade palettes use additive slabs, rails, glazing and podiums
+on 14 existing building parts. These are illustrative details, not surveyed reconstructions of named buildings.
+
+The first rendered colour pass was too bright. Leaf values now account for the existing tone mapper and use deep
+coastal greens with restrained highlights. The road has stable, filtered aggregate, small illustrative repairs and
+paving joints aligned with the existing straight. No racing behaviour or new camera sequence is introduced.
+
+Current files (supersede the historical hashes below):
+
+| File | Bytes | SHA256 |
+|---|---:|---|
+| Full-page draft | 8,744,684 | `34e5defbe3fe39bcb40d8715d3d032ebb5c9841dbea35e90b47090c427bfbcb5` |
+| Offline visual preview | 1,138,328 | `4b07428254f7a84535820f65b0ed065b05df7f4c2acfb0f775fce43be98b1288` |
+
+Actual runtime frames: [before](evidence/refinement-before.png), [desktop refinement](evidence/refinement-desktop.png)
+and [phone refinement](evidence/refinement-phone.png). The before and desktop refinement use the same camera and
+simulation advance; the car, control layout and underlying scene composition are retained.
+
+- Standalone **45/45** on the exact current hash: desktop, phone, four cameras, animation, pause/replay, reduced
+  motion, unchanged car, finite foliage geometry, exact original-tree restoration and GPU buffer disposal.
+  Zero external requests, page/shader/console errors or WebGL errors.
+- Both navigation sweeps: **21 tabs and seven deep links each**, zero page or console errors.
+- All **7,540,964 bytes** before the renderer remain byte-identical to the v7.80 base. Static checks pass all six
+  inline scripts. Phone rendering and controls were visually inspected.
+- An independent internal code review found no blockers and confirmed matching full/standalone renderer cores,
+  one copy of the foliage module and preserved source geometry. This is not an external reviewer sign-off.
+
+- Full-page **25/25** on the final full hash: lifecycle hooks execute before opening Showcase; the default scene
+  has exact pixel equality with v7.80; preview exit restores controls/preferences and releases all 14 tracked GPU
+  resources, including foliage buffers. Running/paused states, legacy backdrop preferences and close/reopen pass.
+  Zero service-write attempts or page/shader/console errors. Evidence: `refinement-full-page.json`.
+
+The prior external review below applies to the older prototype, not these changes. This remains **preview only**, not READY TO UPLOAD. The broader visual milestones remain
+unfinished, including surveyed temporary-structure positions, richer section-specific modelling and hardware
+performance checks. Neither console-quality realism nor native 4K performance is claimed.
+
 ## Build
 
 From `03_GC500_Delivery_Control`:
@@ -48,7 +92,7 @@ location descriptions have not been converted into verified survey coordinates. 
 concepts are committed here. The other reviewer has not had access to those private originals; a summary is not
 a source review. Existing key-plan/OSM attribution remains visible.
 
-## Frozen candidates and checks
+## Previous frozen prototype — historical checks
 
 Built from live v7.80, SHA256 `303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7`.
 
@@ -74,7 +118,7 @@ Built from live v7.80, SHA256 `303029e3e64d5a43654bafc400d09e5bed2efbb93060a9642
 Evidence and repeatable test scripts are in `evidence/`. Browser rendering used software Chromium; no physical
 phone, console-quality, 4K frame-rate or hardware performance claim is made.
 
-## Review and release state
+## Previous prototype review and release state
 
 Implementation, local checks and final independent code review are complete for this preview. The reviewer rebuilt
 both files byte-identical at source a67c9d4 and recorded no blocking findings on 2 Oct 2026 at 01:35 AEST:
@@ -108,8 +152,8 @@ verified offsets into YouTube.
 | Part 02, 25.2–34.7 s | Straight opens out, with grandstands left, close fence/barriers right, road/grid markings and overhead signage ahead. | Vary enclosure by section; do not narrow the entire circuit from the earlier street views. |
 
 **Priority:** recognisable buildings and dense vegetation first; physical kerbs, barriers and surface variation
-next; then matched camera framing and controlled sun/shade. These are proposed implementation changes, not
-changes already made. The current runtime has overly uniform towers, faceted foliage and even road lighting.
+next; then matched camera framing and controlled sun/shade. These observations set the refinement priorities below. The previous prototype had overly uniform towers,
+faceted foliage and even road lighting.
 
 The source clips do not establish their filming year, surveyed dimensions or the 2026 sponsor layout. Current
 photographs and the master plan take precedence for those decisions. No dimensions or map positions are inferred
@@ -120,7 +164,8 @@ Source identities: Part 01 is 17,370,560 bytes, SHA256
 `b9bca4fe70c71295b684b6878a523eddd756c807b68cea0171f213e772bffb89`.
 Original clips and extracted stills remain in the private workspace, outside this repository. The external reviewer
 has not yet confirmed access to these uploads; shared notes are not a substitute for their own source review.
-The frozen preview code and hashes are unchanged; no graphics publication or record edits.
+Those reference notes did not change the then-frozen preview. The refinement below supersedes its hashes;
+no graphics publication or record edits.
 
 ## Next visual milestones — plan, 2 Oct 2026
 
@@ -129,7 +174,7 @@ Author: Andrew Fisher
 The next build should prove the visual improvement on one representative straight before extending it around the
 circuit. Its current owner implements the Showcase build. Share separable source/location or visual checks with
 the other agent when available; coordinate ownership rather than changing the same files concurrently. These milestones are
-planned work, not features already delivered by the frozen preview above.
+milestones. The first additive refinement below begins milestone 1; the complete milestones are not yet delivered.
 
 1. **Make one section convincing.** Match the road enclosure and landmark sequence to the current photographs
    and plan. Replace uniform nearby towers with distinct balcony depths, recesses, podiums and setbacks. Replace

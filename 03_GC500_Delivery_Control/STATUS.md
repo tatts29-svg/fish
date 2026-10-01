@@ -3,25 +3,29 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
-## Claimed — v7.81 detailed Showcase preview, 2 Oct 2026 00:36 AEST
+## In progress — v7.81 Showcase visual refinement, 2 Oct 2026
 
-Author: Andrew Fisher. Codex owns the working track-detail preview. Andrew approved the attached track concept:
-“looks good”, following his request for an Atari-to-PS3/PS4-scale graphics improvement. Build one detailed section
-using the supplied gantry/fence/road photographs as visual references; retain the existing MP4 car, weather,
-speedos and car identity. Private originals remain private. This is a working preview, not a graphics publication.
-Both agents review the same final candidate before any future release. Do not overlap Claude's v7.80 Fencing work.
-Branch `codex/gc500-v7.81-showcase-preview`, draft PR #20. **Both code reviews complete on the same frozen
-preview; not READY TO UPLOAD.** Claude rebuilt both files byte-identical at source a67c9d4 and recorded no blocking
-findings at [final review](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5934777145), 2 Oct 2026 01:35 AEST.
-All four early findings are resolved. Visual fidelity remains unfinished. Full-page draft: 8,725,360 bytes, SHA256
-`cd8bbbc5207541836de42001ff1e1dc471f9ec8d54e40ba69c131c0dadd5db7b`. Standalone visual preview:
-1,117,998 bytes, SHA256 `22ac12d01aa8938c4d1f40113229a2dccf4aece3917ff0db592db6e1afb843ba`.
-Full-page 24/24 checks; exact default-off pixel equality with v7.80; final desktop/phone sweeps each 21 tabs and
-7 links with zero errors. Standalone 43/43 plus the documented full-page-only final delta and **13/13 smoke checks
-on the exact final standalone**. Actual desktop/phone
-frames and evidence are in `v7.81_track_detail_preview_DRAFT/evidence/`. This is an environment study, still below
-the approved concept's realism; placements are illustrative. Claude has not accessed Andrew's private photo
-originals. Live stays v7.80; MP4, weather, speedos and records remain unchanged by this preview.
+Author: Andrew Fisher. Codex owns this separate preview on `codex/gc500-v7.81-showcase-preview`, draft PR #20.
+Andrew: “don't undo everything else we have done your improving the look not full redign”. Preserve the existing
+layout, controls, cameras, car, MP4, weather, speedos, scene sequence and project data. This pass adds facade depth,
+refines nearby trees at their existing positions, and improves road/concrete materials and lighting. Source building
+shells, heights and tree positions are retained. Current ownership follows the 2 Oct working arrangement in PR #21;
+this entry does not impose a new two-agent release gate.
+
+Current full draft: **8,744,684 bytes**, SHA256
+`34e5defbe3fe39bcb40d8715d3d032ebb5c9841dbea35e90b47090c427bfbcb5`.
+Standalone preview: **1,138,328 bytes**, SHA256
+`4b07428254f7a84535820f65b0ed065b05df7f4c2acfb0f775fce43be98b1288`.
+Standalone **45/45**, full-page **25/25**, and both **21-tab/7-link** navigation sweeps pass, with no errors or service
+write attempts. Default-off pixels exactly match v7.80; exiting restores preferences and releases added resources.
+Internal independent code review is complete. Claude's earlier review at a67c9d4 applies only to the historical
+prototype recorded in the README, not this refinement. Actual before/after and phone frames are in
+`v7.81_track_detail_preview_DRAFT/evidence/refinement-*.png`.
+
+**Preview only; not READY TO UPLOAD.** Visual fidelity remains below the approved concept. Temporary structures
+remain illustrative, and physical-device/4K performance is unverified. Private photos and clips remain private.
+No graphics publication or project-record changes. The live base remains v7.80; Claude's v7.82/v7.83 corrections are
+separate and being coordinated on PR #1.
 
 ## Release completed — v7.80 Fencing card refresh LIVE, 2 Oct 2026 00:45 AEST
 

@@ -19,6 +19,7 @@ async function openPage(file,label){
  p.on('request',r=>{const u=new URL(r.url());if(u.hostname==='gc500-production.up.railway.app'&&!['GET','HEAD'].includes(r.method()))R.serviceWriteAttempts.push({case:label,method:r.method(),path:u.pathname});});
  p.on('console',m=>{if(m.type()==='error'||/INVALID_(?:OPERATION|VALUE|ENUM)|shader.*(?:error|fail)|program.*link.*fail/i.test(m.text()))R.errors.push({case:label,kind:m.type(),message:m.text().slice(0,300)});});
  await p.waitForFunction(()=>typeof showOpen==='function'&&window.GC3D&&typeof GC3D.renderAt==='function');
+ if(label==='candidate')check('foliage lifecycle hooks execute before opening Showcase',await p.evaluate(()=>typeof GC3D.installVegetation781==='function'&&typeof GC3D.disposeVegetation781==='function'),undefined,true);
  await p.evaluate(()=>{GC3D.noGuard=true;localStorage.setItem('gc500.showquality','balanced');localStorage.setItem('gc500.showview','hero');localStorage.setItem('gc500.showvehicle','car');localStorage.setItem('gc500.showpace','1');});
  return {s,p,label};
 }
@@ -50,7 +51,9 @@ async function capture(c,name){
   const G=GC3D,S=G.S;G.noGuard=true;S.paused=true;G.setQuality('balanced');S.qualityChoice='manual';
   // Neutralise layout easing so frame timing cannot move the identical test camera.
   S.tune.shiftX=0;S.tune.shiftY=0;S.shiftGoal=0;S.distGoal=1;S.distK=1;S.calm=false;
-  G.renderAt(8,'hero');S.needsRender=false;const gl=S.gl,cv=S.cv;
+  // renderAt uses simReset, which clears S.paused. Keep the diagnostic capture
+  // consistent with the already-paused Showcase before testing restoration.
+  G.renderAt(8,'hero');S.paused=true;S.needsRender=false;const gl=S.gl,cv=S.cv;
   const pixels=new Uint8Array(cv.width*cv.height*4);gl.readPixels(0,0,cv.width,cv.height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
   let binary='';for(let i=0;i<pixels.length;i+=32768)binary+=String.fromCharCode(...pixels.subarray(i,i+32768));
   return {width:cv.width,height:cv.height,rgba:btoa(binary),png:cv.toDataURL('image/png').split(',')[1],
@@ -69,20 +72,25 @@ async function lifecycle(p){
  await p.waitForSelector('#detail781Button');
  check('preview control initially inactive',(await snapshot(p)).button==='false');
  // The first run starts from the same paused Day scene used in the pixel check.
- const before=await snapshot(p);await p.locator('#detail781Button').click();
+ const before=await snapshot(p);
+ check('paused lifecycle setup agrees with Showcase controls',before.paused&&!before.playing,before,true);
+ await p.locator('#detail781Button').click();
  let a=await snapshot(p);check('enter preview keeps Showcase paused and enables section',a.detail&&a.enabled&&a.loop&&a.paused&&a.button==='true',a);
  const disposal=await p.evaluate(()=>{
-  const G=GC3D,S=G.S;G.render();const gl=S.gl,t=S.trackDetail781,a=S.architecture781,k=S.sky781;
+  const G=GC3D,S=G.S;G.render();const gl=S.gl,t=S.trackDetail781,a=S.architecture781,k=S.sky781,v=S.vegetation781;
   const refs=[['buffer',t&&t.mesh.vb],['buffer',t&&t.mesh.ib],['vao',t&&t.mesh.vao],['texture',t&&t.atlas&&t.atlas.texture],['program',t&&t.program&&t.program.p],
-   ['buffer',a&&a.mesh.vb],['buffer',a&&a.mesh.ib],['vao',a&&a.mesh.vao],['program',a&&a.program.p],['program',k&&k.p],['vao',k&&k.vao]].filter(x=>x[1]);
+   ['buffer',a&&a.mesh.vb],['buffer',a&&a.mesh.ib],['vao',a&&a.mesh.vao],['program',a&&a.program.p],['program',k&&k.p],['vao',k&&k.vao],
+   ['buffer',v&&v.mesh.vb],['buffer',v&&v.mesh.ib],['vao',v&&v.mesh.vao]].filter(x=>x[1]);
   G.enablePreview781(false);gl.useProgram(null);gl.bindVertexArray(null);
   const methods={buffer:'isBuffer',vao:'isVertexArray',texture:'isTexture',program:'isProgram'};
   return {allocated:refs.length,remaining:refs.filter(([kind,value])=>gl[methods[kind]](value)).map(x=>x[0]),
-   fieldsCleared:!S.trackDetail781&&!S.architecture781&&!S.sky781,shadowMeshes:(S.detail781ShadowMeshes||[]).length,disabled:!S.detail781Enabled&&!G.preview781.enabled};
+   fieldsCleared:!S.trackDetail781&&!S.architecture781&&!S.sky781&&!S.vegetation781,
+   foliageRestored:!!v&&S.dayTrees===v.originalDayTrees&&S.trees===v.originalTrees,
+   shadowMeshes:(S.detail781ShadowMeshes||[]).length,disabled:!S.detail781Enabled&&!G.preview781.enabled};
  });
- check('disable releases added GPU resources',disposal.allocated>=9&&disposal.remaining.length===0&&disposal.fieldsCleared&&disposal.shadowMeshes===0&&disposal.disabled,disposal);
+ check('disable releases added GPU resources',disposal.allocated>=12&&disposal.remaining.length===0&&disposal.fieldsCleared&&disposal.foliageRestored&&disposal.shadowMeshes===0&&disposal.disabled,disposal);
  await p.locator('#detail781Button').click();a=await snapshot(p);
- check('leave preview restores paused scene and original preference',a.stored===before.stored&&a.preference===before.preference&&a.backdrop===before.backdrop&&a.paused===before.paused&&a.view===before.view&&!a.enabled&&!a.detail&&!a.loop&&a.button==='false',a);
+ check('leave preview restores paused scene and original preference',a.stored===before.stored&&a.preference===before.preference&&a.backdrop===before.backdrop&&a.paused===before.paused&&a.view===before.view&&!a.enabled&&!a.detail&&!a.loop&&a.button==='false',{before,after:a});
  // Resume through the actual UI, then prove leaving the preview returns to a running normal scene.
  await p.locator('#showPause').click();check('normal Showcase resumes',(await snapshot(p)).playing);
  await p.locator('#detail781Button').click();await p.locator('#detail781Button').click();a=await snapshot(p);

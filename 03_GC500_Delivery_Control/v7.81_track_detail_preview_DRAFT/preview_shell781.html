@@ -52,7 +52,7 @@ $('#quality').onchange=()=>{G.setQuality($('#quality').value);G.S.qualityChoice=
 document.addEventListener('visibilitychange',()=>{if(!G.S)return;if(document.hidden){autoPaused=!G.S.paused;pause(true);}else if(autoPaused){autoPaused=false;pause(false);}});
 rm.addEventListener('change',()=>{if(G.S){G.S.reducedMotion=rm.matches;if(rm.matches)pause(true);}});
 window.addEventListener('resize',()=>{if(G.S){G.S.needsRender=true;paintState();}});
-window.addEventListener('pagehide',()=>{running=false;cancelAnimationFrame(raf);if(G.S){G.disposeTrackDetail781(G.S);G.disposeArchitecture781(G.S);G.disposeSky781(G.S);}});
+window.addEventListener('pagehide',()=>{running=false;cancelAnimationFrame(raf);if(G.S){G.disposeTrackDetail781(G.S);G.disposeArchitecture781(G.S);if(G.disposeVegetation781)G.disposeVegetation781(G.S);G.disposeSky781(G.S);}});
 window.pausePreview781=pause;
 })();
 </script></body></html>
