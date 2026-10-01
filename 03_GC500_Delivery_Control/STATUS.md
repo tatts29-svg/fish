@@ -60,6 +60,8 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.62 — Codex integration corrections in progress, 1 Oct 2026.** Review of the combined v7.60/v7.61 draft found date, forecast classification and unknown-value defects. Corrections and regression checks are being prepared on `codex/gc500-v7.62-finance-review`; no live upload or record mutation yet. Author: Andrew Fisher.
+
 | version | what | who | since |
 |---|---|---|---|
 | **v7.55 + v7.56** | Complete — LIVE within v7.59 at 08:11 AEST. | Codex / Claude | 1 Oct 2026 |
