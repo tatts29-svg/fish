@@ -22,8 +22,15 @@ const FS = `#version 300 es
 precision highp float;
 in vec3 vWorld; in vec3 vNormal; in vec2 vUV; in vec4 vColour; in float vDepth;
 uniform sampler2D uAtlas; uniform vec3 uEye; uniform vec3 uSun; uniform vec2 uFog; uniform float uDay;
+uniform float uDeck; uniform float uMetres;
 uniform highp sampler2D uShadow; uniform mat4 uLightVP; uniform float uShadowOn; uniform vec2 uShadowTexel;
 out vec4 outColour;
+float grain781(vec3 p){return fract(sin(dot(p,vec3(12.9898,78.233,37.719)))*43758.5453);}
+float stone781(vec3 p){
+ vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+ return mix(mix(mix(grain781(i),grain781(i+vec3(1,0,0)),f.x),mix(grain781(i+vec3(0,1,0)),grain781(i+vec3(1,1,0)),f.x),f.y),
+ mix(mix(grain781(i+vec3(0,0,1)),grain781(i+vec3(1,0,1)),f.x),mix(grain781(i+vec3(0,1,1)),grain781(i+vec3(1,1,1)),f.x),f.y),f.z);
+}
 float visibility(vec3 n){
  if(uShadowOn<.5)return 1.;
  vec4 p=uLightVP*vec4(vWorld,1.);vec3 q=p.xyz/max(p.w,.00001)*.5+.5;
@@ -39,9 +46,20 @@ void main(){
  vec3 view=normalize(uEye-vWorld),sun=normalize(uSun);
  vec3 ink=texture(uAtlas,vUV).rgb;vec3 base=pow(max(ink,vec3(.001)),vec3(2.2))*vColour.rgb;
  float rough=clamp(vColour.a,.15,1.),direct=max(dot(n,sun),0.),shadow=visibility(n);
- float ambient=.24+.12*max(n.y,0.);float daylight=ambient+.72*direct*shadow;
+ vec3 skyFill=mix(vec3(.105,.112,.123),vec3(.25,.295,.355),clamp(n.y*.5+.5,0.,1.));
+ vec3 daylight=skyFill+vec3(1.16,.995,.78)*direct*shadow;
+ /* Stable world-space wear, filtered before minification. Lower-edge dust
+    belongs to the barrier, not the sign artwork or a screen-space overlay. */
+ float height=(vWorld.y-uDeck)*uMetres;
+ vec3 surfacePoint=vWorld*uMetres*6.;
+ float detailCoverage=1.-smoothstep(.30,1.,max(length(dFdx(surfacePoint)),length(dFdy(surfacePoint))));
+ float grain=(stone781(surfacePoint)-.5)*detailCoverage;
+ float substrate=smoothstep(.70,.92,rough);
+ float foot=(1.-smoothstep(.04,.32,height))*(1.-abs(n.y))*substrate;
+ base*=1.+grain*.085*substrate-foot*.19;
+ rough=clamp(rough+grain*.025,.15,1.);
  vec3 halfVector=normalize(view+sun);float spec=pow(max(dot(n,halfVector),0.),mix(130.,10.,rough));
- vec3 light=base*mix(.20,daylight,clamp(uDay,0.,1.));
+ vec3 light=base*mix(vec3(.20),daylight,clamp(uDay,0.,1.));
  light+=vec3(1.,.80,.59)*spec*(1.-rough)*.16*shadow*mix(.15,1.,uDay);
  float fog=1.-smoothstep(uFog.x,uFog.y,vDepth);
  outColour=vec4(light*fog,fog);
@@ -50,7 +68,7 @@ const add=(a,b,k=1)=>a.map((x,i)=>x+b[i]*k);
 const sub=(a,b)=>a.map((x,i)=>x-b[i]);
 const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
 const unit=a=>{const n=Math.hypot(...a)||1;return a.map(v=>v/n);};
-const METAL=[.63,.67,.70,.28],DARK=[.17,.20,.22,.40],CONCRETE=[.66,.65,.61,.95],BLACK=[.032,.034,.037,.83],WHITE=[1,1,1,.77];
+const METAL=[.29,.33,.36,.52],DARK=[.10,.12,.135,.64],CONCRETE=[.46,.45,.42,.95],BLACK=[.032,.034,.037,.83],WHITE=[1,1,1,.77];
 function shader(gl,type,source){
  const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);
  if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){const error=gl.getShaderInfoLog(s);gl.deleteShader(s);throw new Error('Track preview shader: '+error);}
@@ -60,7 +78,7 @@ function program(gl){
  const vs=shader(gl,gl.VERTEX_SHADER,VS),fs=shader(gl,gl.FRAGMENT_SHADER,FS),p=gl.createProgram();
  gl.attachShader(p,vs);gl.attachShader(p,fs);gl.linkProgram(p);gl.deleteShader(vs);gl.deleteShader(fs);
  if(!gl.getProgramParameter(p,gl.LINK_STATUS)){const error=gl.getProgramInfoLog(p);gl.deleteProgram(p);throw new Error('Track preview shader link: '+error);}
- const u={};for(const name of ['uVP','uAtlas','uEye','uSun','uFog','uDay','uShadow','uLightVP','uShadowOn','uShadowTexel'])u[name]=gl.getUniformLocation(p,name);
+ const u={};for(const name of ['uVP','uAtlas','uEye','uSun','uFog','uDay','uDeck','uMetres','uShadow','uLightVP','uShadowOn','uShadowTexel'])u[name]=gl.getUniformLocation(p,name);
  return {p,u};
 }
 /* One local canvas atlas: browser font rasterisation, mipmaps and anisotropic filtering.
@@ -112,7 +130,7 @@ function makeAtlas(gl,geo){
 }
 function build(S,D){
  const M=G.M_PER_PT||6,H=S.tune.deckH,mesh=D.mesh,atlas=D.atlas;
- const stats=D.stats={author:'Andrew Fisher',source:SOURCE,start_m:-100,end_m:150,gantry_m:45,bridge_m:115,streetlights:0,barrierSkins:0,fixings:0,triangles:0};
+ const stats=D.stats={author:'Andrew Fisher',source:SOURCE,start_m:-100,end_m:150,gantry_m:45,bridge_m:115,streetlights:0,barrierSkins:0,fixings:0,mountingPlates:0,kerbProfiles:0,kerbSourceRule:'Existing nominal curvature-based footprints; decorative profiles only',triangles:0};
  const {frame,edge,edgeInfo}=D.geometry;
  const at=(s,l,y)=>{const f=frame(s);return [f.p[0]+f.n[0]*l/M,H+y/M,f.p[2]+f.n[2]*l/M];};
  const local=(s,l,y,delta)=>add(at(s,l,y),frame(s).t,(delta||0)/M);
@@ -131,6 +149,28 @@ function build(S,D){
   for(let i=0;i<sides;i++){const j=(i+1)%sides;face([A[i],A[j],B[j],B[i]],colour);}face(A.slice().reverse(),colour);face(B,colour);
  }
  const rod=(s,l,y,ss,ll,yy,r,c)=>tube(at(s,l,y),at(ss,ll,yy),r,c);
+ /* Profile only the already-drawn kerb quads. Copy their exact x/z footprint
+    from the original batch; never reclassify an edge or move the racing line.
+    The old batch (including grid/edge paint) stays intact for comparison. */
+ if(S.kerb&&S.kerbStats){
+  const vertices=S.kerb.v,stride=9,quads=S.kerbStats.blocks*2;
+  if(quads*4*stride>vertices.length)throw new Error('Kerb source range exceeds the original mesh');
+  for(let q=0;q<quads;q++){
+   const points=Array.from({length:4},(_,k)=>Array.from(vertices.slice((q*4+k)*stride,(q*4+k)*stride+3)));
+   const index=q*4*stride,paint=[vertices[index+3],vertices[index+4],vertices[index+5],.94];
+   const span=(a,b,t,height)=>[a[0]+(b[0]-a[0])*t,height,a[2]+(b[2]-a[2])*t];
+   const y=points[0][1],lo=y+.003/M,hi=y+.067/M;
+   const a=[span(points[0],points[1],0,lo),span(points[0],points[1],.16,hi),span(points[0],points[1],.86,hi),span(points[0],points[1],1,lo)];
+   const b=[span(points[3],points[2],0,lo),span(points[3],points[2],.16,hi),span(points[3],points[2],.86,hi),span(points[3],points[2],1,lo)];
+   for(let k=0;k<3;k++)face([a[k],b[k],b[k+1],a[k+1]],paint);
+   const bottom=p=>[p[0],H+.001/M,p[2]],edgePaint=paint.map((v,k)=>k<3?v*.72:v);
+   face([bottom(a[0]),bottom(b[0]),b[0],a[0]],edgePaint);
+   face([bottom(b[3]),bottom(a[3]),a[3],b[3]],edgePaint);
+   face([bottom(a[0]),a[0],a[1],a[2],a[3],bottom(a[3])],edgePaint);
+   face([bottom(b[3]),b[3],b[2],b[1],b[0],bottom(b[0])],edgePaint);
+   stats.kerbProfiles++;
+  }
+ }
  const banner=(s,l0,l1,y0,y1,index,depth=.24)=>{
   const mid=(l0+l1)/2;box(s,mid,y0,l1-l0,depth,y1-y0,DARK);
   /* Face towards the approaching car; back face reverses vertex order so letters are not mirrored. */
@@ -139,7 +179,12 @@ function build(S,D){
  };
  /* Slim advertising gantry: no pedestrian deck, trusses or fictional start lamps. */
  {const s=45,half=Math.max(edge(s,-1),edge(s,1))+1.05;
-  for(const sg of [-1,1]){box(s,sg*half,0,.72,.72,.16,CONCRETE);rod(s,sg*half,.16,s,sg*half,7.15,.105,METAL);box(s,sg*half,5.62,.31,.32,.22,DARK);}
+  for(const sg of [-1,1]){
+   box(s,sg*half,0,.72,.72,.16,CONCRETE);box(s,sg*half,.16,.39,.39,.035,METAL);stats.mountingPlates++;
+   for(const dl of [-.14,.14])for(const ds of [-.14,.14]){rod(s+ds,sg*half+dl,.195,s+ds,sg*half+dl,.24,.018,DARK);stats.fixings++;}
+   rod(s,sg*half,.195,s,sg*half,7.15,.105,METAL);box(s,sg*half,5.62,.31,.32,.22,DARK);
+   for(const y of [5.72,6.94]){box(s,sg*half,y,.34,.35,.055,METAL);stats.mountingPlates++;}
+  }
   rod(s,-half,6.95,s,half,6.95,.065,METAL);banner(s,-half-.22,half+.22,5.75,7.10,0,.22);
  }
  /* Pedestrian bridge: lattice towers, a load-carrying deck, rail-height advertising and two real stair flights. */
@@ -148,7 +193,10 @@ function build(S,D){
   banner(s+1.23,-half-1.15,half+1.15,deck+.28,deck+1.98,1,.16);
   for(const sg of [-1,1]){
    const centre=sg*half;
-   for(const dl of [-1.0,1.0])for(const ds of [-.98,.98])rod(s+ds,centre+dl,0,s+ds,centre+dl,deck+.1,.053,METAL);
+   for(const dl of [-1.0,1.0])for(const ds of [-.98,.98]){
+    box(s+ds,centre+dl,0,.30,.30,.035,METAL);stats.mountingPlates++;
+    rod(s+ds,centre+dl,.035,s+ds,centre+dl,deck+.1,.053,METAL);
+   }
    for(let y=0;y<deck-.1;y+=1.46){const top=Math.min(deck,y+1.46);
     for(const ds of [-.98,.98]){rod(s+ds,centre-1,y,s+ds,centre+1,top,.034,METAL);rod(s+ds,centre+1,y,s+ds,centre-1,top,.034,METAL);}
     for(const dl of [-1,1]){rod(s-.98,centre+dl,y,s+.98,centre+dl,top,.034,METAL);rod(s+.98,centre+dl,y,s-.98,centre+dl,top,.034,METAL);}
@@ -184,11 +232,15 @@ function build(S,D){
   for(const sg of [-1,1]){
    const la=sg*(edge(s,sg)-.032),lb=sg*(edge(s+4.97,sg)-.032),ha=edgeInfo(s,sg).height-.045,hb=edgeInfo(s+4.97,sg).height-.045;
    const points=sg<0?[at(s,la,.03),at(s+4.97,lb,.03),at(s+4.97,lb,hb),at(s,la,ha)]:[at(s+4.97,lb,.03),at(s,la,.03),at(s,la,ha),at(s+4.97,lb,hb)];
-   const rect=atlas.panels[sg<0?3:2];
-   face(points,WHITE,rect);
+   const rect=atlas.panels[sg<0?3:2],shade=.93+.045*Math.sin(s*.73+sg*1.7);
+   face(points,[shade,shade,shade,.83],rect);
    stats.barrierSkins++;
    /* Slim joint cover and metal fixings; no new collision line or continuous duplicate fence. */
    box(s,la,.03,.038,.050,ha-.03,DARK);
+   /* A narrow lower return seats the sign against its existing concrete line.
+      The joint feet are visual fixings, not new barriers projecting into the lane. */
+   box(s+2.485,(la+lb)*.5,.018,.065,4.94,.045,DARK);
+   box(s,la,.08,.075,.15,.14,METAL);stats.mountingPlates++;
    for(const y of [.29,1.1]){rod(s,la-sg*.014,y,s,la-sg*.035,y,.024,METAL);stats.fixings++;}
   }
  }
@@ -228,6 +280,7 @@ G.drawTrackDetail781=function(S,VP,fog){
  const D=S&&S.detail781Enabled&&S.trackDetail781;if(!D)return;
  const gl=S.gl,P=D.program,u=P.u;
  gl.useProgram(P.p);gl.uniformMatrix4fv(u.uVP,false,VP);gl.uniform3fv(u.uEye,S.cam.eye);gl.uniform3fv(u.uSun,G.sunDirection||[.45,.8,.4]);
+ gl.uniform1f(u.uDeck,S.tune.deckH);gl.uniform1f(u.uMetres,G.M_PER_PT||6);
  gl.uniform2f(u.uFog,fog[0],fog[1]);gl.uniform1f(u.uDay,S.look&&S.look.day?1:0);
  gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,D.atlas.texture);gl.uniform1i(u.uAtlas,0);
  if(G.bindSunShadow)G.bindSunShadow(S,P,!!(S.look&&S.look.day));

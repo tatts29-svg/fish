@@ -1,0 +1,972 @@
+{
+  "author": "Andrew Fisher",
+  "preview": "track_detail_preview.html",
+  "rendering": "Software-rendered Chromium; not a physical-device performance benchmark",
+  "checks": [
+    {
+      "name": "standalone preview exists",
+      "pass": true
+    },
+    {
+      "name": "desktop: opens behind explicit start control",
+      "pass": true,
+      "detail": {
+        "scene": false,
+        "disabled": true,
+        "gate": true
+      }
+    },
+    {
+      "name": "desktop: WebGL scene starts",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "enabled": true,
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 208,
+          "mountingPlates": 114,
+          "kerbProfiles": 260,
+          "kerbSourceRule": "Existing nominal curvature-based footprints; decorative profiles only",
+          "triangles": 22036,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 14,
+          "roofParapets": 50,
+          "facadeFins": 18,
+          "facadeElevations": 50,
+          "balconySlabs": 670,
+          "balconyRails": 1340,
+          "balconyPosts": 1655,
+          "balconyDividers": 165,
+          "recessedGlazingBays": 874,
+          "verticalCores": 9,
+          "podiumBays": 80,
+          "duplicateFacadesSkipped": 0,
+          "hiddenFacadeSpansSkipped": 39,
+          "maxBalconyDepthM": 1.472,
+          "facadeProfiles": {
+            "white coastal wings": 2,
+            "sea glass balconies": 2,
+            "sandstone terraces": 3,
+            "ivory balconies": 7
+          },
+          "sourceShellsChanged": 0,
+          "sourceTopHeightsChanged": 0,
+          "triangles": 70740,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and unchanged OSM building shells; illustrative additive coastal balconies, not surveyed facade dimensions or event works"
+        },
+        "meshes": 2,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          1440,
+          900
+        ],
+        "paused": true,
+        "reduced": false,
+        "vegetation": {
+          "enabled": true,
+          "trees": 1392,
+          "sourceTrees": 1392,
+          "palms": 348,
+          "broadleaf": 1044,
+          "detailedTrees": 159,
+          "refinedTrees": 159,
+          "distantTrees": 1233,
+          "crownLobes": 468,
+          "leafSprays": 7848,
+          "palmFronds": 442,
+          "palmLeaflets": 11656,
+          "originalTriangles": 327318,
+          "triangles": 426142,
+          "vertices": 496962,
+          "addedTriangles": 98824,
+          "drawCalls": 1,
+          "additionalDrawCalls": 0,
+          "gpuBytes": 23004336,
+          "sourcePositionsUnchanged": true,
+          "relocatedTrees": 0,
+          "refinementRadiusWorld": 46,
+          "placementRngCalls": 0,
+          "source": "Existing accepted tree positions and dimensions; foliage geometry only, no new planting"
+        },
+        "kerbs": {
+          "profiles": 260,
+          "sourceQuads": 260,
+          "finite": true,
+          "indices": true
+        }
+      }
+    },
+    {
+      "name": "desktop: new geometry installed",
+      "pass": true
+    },
+    {
+      "name": "desktop: shader programs linked",
+      "pass": true,
+      "detail": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "desktop: no WebGL error after first render",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "desktop: physical kerbs retain the source count with valid geometry",
+      "pass": true,
+      "detail": {
+        "profiles": 260,
+        "sourceQuads": 260,
+        "finite": true,
+        "indices": true
+      }
+    },
+    {
+      "name": "desktop: canvas has drawable dimensions",
+      "pass": true,
+      "detail": [
+        1440,
+        900
+      ]
+    },
+    {
+      "name": "desktop: paused status reports actual canvas dimensions",
+      "pass": true,
+      "detail": {
+        "text": "PAUSED \u00b7 1440 \u00d7 900",
+        "expected": "1440 \u00d7 900"
+      }
+    },
+    {
+      "name": "desktop: foliage refines existing trees with finite bounded geometry",
+      "pass": true,
+      "detail": {
+        "refined": 159,
+        "total": 1392,
+        "count": 1392,
+        "relocated": 0,
+        "originalUnchanged": true,
+        "finite": true,
+        "indices": true
+      }
+    },
+    {
+      "name": "desktop: comparison changes actual WebGL pixels",
+      "pass": true,
+      "detail": {
+        "on": "43038422",
+        "off": "b2fa785b"
+      }
+    },
+    {
+      "name": "desktop: captured comparison frames differ",
+      "pass": true
+    },
+    {
+      "name": "desktop: comparison releases added GPU resources",
+      "pass": true
+    },
+    {
+      "name": "desktop: original foliage restored and refinement buffers released",
+      "pass": true,
+      "detail": {
+        "restored": true,
+        "count": true,
+        "geometry": true,
+        "released": true
+      }
+    },
+    {
+      "name": "desktop: comparison preserves car model and position",
+      "pass": true,
+      "detail": {
+        "disabled": true,
+        "car": true,
+        "parts": true,
+        "stats": true,
+        "position": true,
+        "clock": true,
+        "vehicle": true,
+        "ui": "false"
+      }
+    },
+    {
+      "name": "desktop: comparison retains original kerbs and road markings exactly",
+      "pass": true
+    },
+    {
+      "name": "desktop: comparison restores detail",
+      "pass": true
+    },
+    {
+      "name": "desktop: all four camera controls select finite rigs",
+      "pass": true,
+      "detail": [
+        {
+          "name": "chase",
+          "requested": "chase",
+          "view": "chase",
+          "eye": [
+            -38.36993203972421,
+            0.5187322665280062,
+            15.158130392310111
+          ],
+          "target": [
+            -34.28948480681464,
+            0.25768193759345764,
+            11.89474167948547
+          ],
+          "active": "true"
+        },
+        {
+          "name": "onboard",
+          "requested": "onboard",
+          "view": "onboard",
+          "eye": [
+            -36.97237062554267,
+            0.2745238942989124,
+            13.875245986951736
+          ],
+          "target": [
+            -25.482031361495338,
+            0.31662878606254924,
+            5.393086124671971
+          ],
+          "active": "true"
+        },
+        {
+          "name": "hero",
+          "requested": "hero",
+          "view": "hero",
+          "eye": [
+            -34.94429935403769,
+            0.333470742768004,
+            13.84349136664501
+          ],
+          "target": [
+            -37.13496976607165,
+            0.1397882406552744,
+            13.9952765510406
+          ],
+          "active": "true"
+        },
+        {
+          "name": "heli",
+          "requested": "heli",
+          "view": "heli",
+          "eye": [
+            -38.709201457039825,
+            5.419741667815337,
+            17.250753320189055
+          ],
+          "target": [
+            -32.663493401524924,
+            0.030315522069818544,
+            10.694436038596825
+          ],
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "desktop: cameras produce different viewpoints",
+      "pass": true
+    },
+    {
+      "name": "desktop: animation advances the existing simulation",
+      "pass": true,
+      "detail": {
+        "before": {
+          "s": 345.18954131729726,
+          "clock": 3.5
+        },
+        "advanced": {
+          "s": 345.24024130868474,
+          "clock": 3.583333333333333
+        }
+      }
+    },
+    {
+      "name": "desktop: pause holds simulation position",
+      "pass": true
+    },
+    {
+      "name": "desktop: replay returns to section start without unpausing",
+      "pass": true
+    },
+    {
+      "name": "desktop: no final WebGL error",
+      "pass": true
+    },
+    {
+      "name": "phone: opens behind explicit start control",
+      "pass": true,
+      "detail": {
+        "scene": false,
+        "disabled": true,
+        "gate": true
+      }
+    },
+    {
+      "name": "phone: WebGL scene starts",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "enabled": true,
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 208,
+          "mountingPlates": 114,
+          "kerbProfiles": 260,
+          "kerbSourceRule": "Existing nominal curvature-based footprints; decorative profiles only",
+          "triangles": 22036,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 14,
+          "roofParapets": 50,
+          "facadeFins": 18,
+          "facadeElevations": 50,
+          "balconySlabs": 670,
+          "balconyRails": 1340,
+          "balconyPosts": 1655,
+          "balconyDividers": 165,
+          "recessedGlazingBays": 874,
+          "verticalCores": 9,
+          "podiumBays": 80,
+          "duplicateFacadesSkipped": 0,
+          "hiddenFacadeSpansSkipped": 39,
+          "maxBalconyDepthM": 1.472,
+          "facadeProfiles": {
+            "white coastal wings": 2,
+            "sea glass balconies": 2,
+            "sandstone terraces": 3,
+            "ivory balconies": 7
+          },
+          "sourceShellsChanged": 0,
+          "sourceTopHeightsChanged": 0,
+          "triangles": 70740,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and unchanged OSM building shells; illustrative additive coastal balconies, not surveyed facade dimensions or event works"
+        },
+        "meshes": 2,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          390,
+          844
+        ],
+        "paused": true,
+        "reduced": false,
+        "vegetation": {
+          "enabled": true,
+          "trees": 1392,
+          "sourceTrees": 1392,
+          "palms": 348,
+          "broadleaf": 1044,
+          "detailedTrees": 159,
+          "refinedTrees": 159,
+          "distantTrees": 1233,
+          "crownLobes": 468,
+          "leafSprays": 7848,
+          "palmFronds": 442,
+          "palmLeaflets": 11656,
+          "originalTriangles": 327318,
+          "triangles": 426142,
+          "vertices": 496962,
+          "addedTriangles": 98824,
+          "drawCalls": 1,
+          "additionalDrawCalls": 0,
+          "gpuBytes": 23004336,
+          "sourcePositionsUnchanged": true,
+          "relocatedTrees": 0,
+          "refinementRadiusWorld": 46,
+          "placementRngCalls": 0,
+          "source": "Existing accepted tree positions and dimensions; foliage geometry only, no new planting"
+        },
+        "kerbs": {
+          "profiles": 260,
+          "sourceQuads": 260,
+          "finite": true,
+          "indices": true
+        }
+      }
+    },
+    {
+      "name": "phone: new geometry installed",
+      "pass": true
+    },
+    {
+      "name": "phone: shader programs linked",
+      "pass": true,
+      "detail": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "phone: no WebGL error after first render",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "phone: physical kerbs retain the source count with valid geometry",
+      "pass": true,
+      "detail": {
+        "profiles": 260,
+        "sourceQuads": 260,
+        "finite": true,
+        "indices": true
+      }
+    },
+    {
+      "name": "phone: canvas has drawable dimensions",
+      "pass": true,
+      "detail": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "phone: paused status reports actual canvas dimensions",
+      "pass": true,
+      "detail": {
+        "text": "PAUSED \u00b7 390 \u00d7 844",
+        "expected": "390 \u00d7 844"
+      }
+    },
+    {
+      "name": "phone: no horizontal page overflow",
+      "pass": true,
+      "detail": {
+        "width": 390,
+        "documentWidth": 390,
+        "controls": [
+          {
+            "label": "Play",
+            "x": 16,
+            "right": 60.640625,
+            "top": 645.21875,
+            "bottom": 685.21875,
+            "w": 44.640625,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Replay section",
+            "x": 65.640625,
+            "right": 165.28125,
+            "top": 645.21875,
+            "bottom": 685.21875,
+            "w": 99.640625,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Detail on",
+            "x": 170.28125,
+            "right": 238.734375,
+            "top": 645.21875,
+            "bottom": 685.21875,
+            "w": 68.453125,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Chase",
+            "x": 16,
+            "right": 71.03125,
+            "top": 695.21875,
+            "bottom": 735.21875,
+            "w": 55.03125,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Track level",
+            "x": 76.03125,
+            "right": 154.3125,
+            "top": 695.21875,
+            "bottom": 735.21875,
+            "w": 78.28125,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Car follow",
+            "x": 159.3125,
+            "right": 234.484375,
+            "top": 695.21875,
+            "bottom": 735.21875,
+            "w": 75.171875,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "Overhead",
+            "x": 239.484375,
+            "right": 312.234375,
+            "top": 695.21875,
+            "bottom": 735.21875,
+            "w": 72.75,
+            "h": 40,
+            "disabled": false
+          },
+          {
+            "label": "BalancedHighUltra",
+            "x": 55.140625,
+            "right": 146.140625,
+            "top": 745.21875,
+            "bottom": 785.21875,
+            "w": 91,
+            "h": 40,
+            "disabled": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone: touch controls stay inside viewport",
+      "pass": true,
+      "detail": [
+        {
+          "label": "Play",
+          "x": 16,
+          "right": 60.640625,
+          "top": 645.21875,
+          "bottom": 685.21875,
+          "w": 44.640625,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Replay section",
+          "x": 65.640625,
+          "right": 165.28125,
+          "top": 645.21875,
+          "bottom": 685.21875,
+          "w": 99.640625,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Detail on",
+          "x": 170.28125,
+          "right": 238.734375,
+          "top": 645.21875,
+          "bottom": 685.21875,
+          "w": 68.453125,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Chase",
+          "x": 16,
+          "right": 71.03125,
+          "top": 695.21875,
+          "bottom": 735.21875,
+          "w": 55.03125,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Track level",
+          "x": 76.03125,
+          "right": 154.3125,
+          "top": 695.21875,
+          "bottom": 735.21875,
+          "w": 78.28125,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Car follow",
+          "x": 159.3125,
+          "right": 234.484375,
+          "top": 695.21875,
+          "bottom": 735.21875,
+          "w": 75.171875,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "Overhead",
+          "x": 239.484375,
+          "right": 312.234375,
+          "top": 695.21875,
+          "bottom": 735.21875,
+          "w": 72.75,
+          "h": 40,
+          "disabled": false
+        },
+        {
+          "label": "BalancedHighUltra",
+          "x": 55.140625,
+          "right": 146.140625,
+          "top": 745.21875,
+          "bottom": 785.21875,
+          "w": 91,
+          "h": 40,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "name": "phone: controls have at least 40px touch height",
+      "pass": true
+    },
+    {
+      "name": "phone: comparison responds to touch",
+      "pass": true
+    },
+    {
+      "name": "phone: camera responds to touch",
+      "pass": true
+    },
+    {
+      "name": "phone: no WebGL error",
+      "pass": true
+    },
+    {
+      "name": "reduced-motion: opens behind explicit start control",
+      "pass": true,
+      "detail": {
+        "scene": false,
+        "disabled": true,
+        "gate": true
+      }
+    },
+    {
+      "name": "reduced-motion: WebGL scene starts",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "enabled": true,
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 208,
+          "mountingPlates": 114,
+          "kerbProfiles": 260,
+          "kerbSourceRule": "Existing nominal curvature-based footprints; decorative profiles only",
+          "triangles": 22036,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 14,
+          "roofParapets": 50,
+          "facadeFins": 18,
+          "facadeElevations": 50,
+          "balconySlabs": 670,
+          "balconyRails": 1340,
+          "balconyPosts": 1655,
+          "balconyDividers": 165,
+          "recessedGlazingBays": 874,
+          "verticalCores": 9,
+          "podiumBays": 80,
+          "duplicateFacadesSkipped": 0,
+          "hiddenFacadeSpansSkipped": 39,
+          "maxBalconyDepthM": 1.472,
+          "facadeProfiles": {
+            "white coastal wings": 2,
+            "sea glass balconies": 2,
+            "sandstone terraces": 3,
+            "ivory balconies": 7
+          },
+          "sourceShellsChanged": 0,
+          "sourceTopHeightsChanged": 0,
+          "triangles": 70740,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and unchanged OSM building shells; illustrative additive coastal balconies, not surveyed facade dimensions or event works"
+        },
+        "meshes": 2,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          1000,
+          700
+        ],
+        "paused": true,
+        "reduced": true,
+        "vegetation": {
+          "enabled": true,
+          "trees": 1392,
+          "sourceTrees": 1392,
+          "palms": 348,
+          "broadleaf": 1044,
+          "detailedTrees": 159,
+          "refinedTrees": 159,
+          "distantTrees": 1233,
+          "crownLobes": 468,
+          "leafSprays": 7848,
+          "palmFronds": 442,
+          "palmLeaflets": 11656,
+          "originalTriangles": 327318,
+          "triangles": 426142,
+          "vertices": 496962,
+          "addedTriangles": 98824,
+          "drawCalls": 1,
+          "additionalDrawCalls": 0,
+          "gpuBytes": 23004336,
+          "sourcePositionsUnchanged": true,
+          "relocatedTrees": 0,
+          "refinementRadiusWorld": 46,
+          "placementRngCalls": 0,
+          "source": "Existing accepted tree positions and dimensions; foliage geometry only, no new planting"
+        },
+        "kerbs": {
+          "profiles": 260,
+          "sourceQuads": 260,
+          "finite": true,
+          "indices": true
+        }
+      }
+    },
+    {
+      "name": "reduced-motion: new geometry installed",
+      "pass": true
+    },
+    {
+      "name": "reduced-motion: shader programs linked",
+      "pass": true,
+      "detail": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "reduced-motion: no WebGL error after first render",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "reduced-motion: physical kerbs retain the source count with valid geometry",
+      "pass": true,
+      "detail": {
+        "profiles": 260,
+        "sourceQuads": 260,
+        "finite": true,
+        "indices": true
+      }
+    },
+    {
+      "name": "reduced-motion: canvas has drawable dimensions",
+      "pass": true,
+      "detail": [
+        1000,
+        700
+      ]
+    },
+    {
+      "name": "reduced-motion: paused status reports actual canvas dimensions",
+      "pass": true,
+      "detail": {
+        "text": "PAUSED \u00b7 1000 \u00d7 700",
+        "expected": "1000 \u00d7 700"
+      }
+    },
+    {
+      "name": "reduced-motion: initial scene is paused",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "enabled": true,
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 208,
+          "mountingPlates": 114,
+          "kerbProfiles": 260,
+          "kerbSourceRule": "Existing nominal curvature-based footprints; decorative profiles only",
+          "triangles": 22036,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 14,
+          "roofParapets": 50,
+          "facadeFins": 18,
+          "facadeElevations": 50,
+          "balconySlabs": 670,
+          "balconyRails": 1340,
+          "balconyPosts": 1655,
+          "balconyDividers": 165,
+          "recessedGlazingBays": 874,
+          "verticalCores": 9,
+          "podiumBays": 80,
+          "duplicateFacadesSkipped": 0,
+          "hiddenFacadeSpansSkipped": 39,
+          "maxBalconyDepthM": 1.472,
+          "facadeProfiles": {
+            "white coastal wings": 2,
+            "sea glass balconies": 2,
+            "sandstone terraces": 3,
+            "ivory balconies": 7
+          },
+          "sourceShellsChanged": 0,
+          "sourceTopHeightsChanged": 0,
+          "triangles": 70740,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and unchanged OSM building shells; illustrative additive coastal balconies, not surveyed facade dimensions or event works"
+        },
+        "meshes": 2,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          1000,
+          700
+        ],
+        "paused": true,
+        "reduced": true,
+        "vegetation": {
+          "enabled": true,
+          "trees": 1392,
+          "sourceTrees": 1392,
+          "palms": 348,
+          "broadleaf": 1044,
+          "detailedTrees": 159,
+          "refinedTrees": 159,
+          "distantTrees": 1233,
+          "crownLobes": 468,
+          "leafSprays": 7848,
+          "palmFronds": 442,
+          "palmLeaflets": 11656,
+          "originalTriangles": 327318,
+          "triangles": 426142,
+          "vertices": 496962,
+          "addedTriangles": 98824,
+          "drawCalls": 1,
+          "additionalDrawCalls": 0,
+          "gpuBytes": 23004336,
+          "sourcePositionsUnchanged": true,
+          "relocatedTrees": 0,
+          "refinementRadiusWorld": 46,
+          "placementRngCalls": 0,
+          "source": "Existing accepted tree positions and dimensions; foliage geometry only, no new planting"
+        },
+        "kerbs": {
+          "profiles": 260,
+          "sourceQuads": 260,
+          "finite": true,
+          "indices": true
+        }
+      }
+    },
+    {
+      "name": "reduced-motion: initial still does not advance",
+      "pass": true
+    },
+    {
+      "name": "offline preview requests no external resources",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no page, shader or console errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "screenshots": [
+    {
+      "name": "desktop-detail-on",
+      "path": "desktop-detail-on.png",
+      "sha256": "3727f72df12e62bb0594bd4c1aaaee8320033cc2fd997ca4a3841ec90cc2e068"
+    },
+    {
+      "name": "desktop-current",
+      "path": "desktop-current.png",
+      "sha256": "3604efaa81c5d2f211585aac2dbaf0e64667db0601e9d4d4a0bddf58cfe1f706"
+    },
+    {
+      "name": "desktop-preview",
+      "path": "desktop-preview.png",
+      "sha256": "87e38d7d8b025ea3b89746ec30077f9881aa48fb3edcb92523ec0c4b31ec2fa3"
+    },
+    {
+      "name": "phone-preview",
+      "path": "phone-preview.png",
+      "sha256": "6c0116144b6a45be27756cefa107f5207edbde6de35f57d14fb3a7696dcf7c0b"
+    }
+  ],
+  "sourceSha256": "8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e",
+  "sourceBytes": 1142904
+}

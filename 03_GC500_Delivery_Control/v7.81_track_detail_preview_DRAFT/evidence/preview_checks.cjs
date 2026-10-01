@@ -36,12 +36,15 @@ async function begin(p,name,paused=true){
    architecture:S.architecture781&&S.architecture781.stats,meshes:(S.detail781ShadowMeshes||[]).length,
    glError:S.gl.getError(),links:[S.trackDetail781&&S.trackDetail781.program,S.architecture781&&S.architecture781.program].filter(Boolean).map(x=>S.gl.getProgramParameter(x.p,S.gl.LINK_STATUS)),
    canvas:[S.cv.width,S.cv.height],paused:S.paused,reduced:S.reducedMotion,
-   vegetation:G.vegetationReport781&&G.vegetationReport781(S)};
+   vegetation:G.vegetationReport781&&G.vegetationReport781(S),
+   kerbs:{profiles:S.trackDetail781.stats.kerbProfiles,sourceQuads:S.kerbStats.blocks*2,
+    finite:S.trackDetail781.mesh.v.every(Number.isFinite),indices:S.trackDetail781.mesh.i.every(i=>i>=0&&i<S.trackDetail781.mesh.nv)}};
  },paused);
  check(name+': WebGL scene starts',state.started,state);
  check(name+': new geometry installed',state.enabled&&state.track&&state.track.triangles>1000&&state.architecture&&state.meshes>=2);
  check(name+': shader programs linked',state.links.length>=1&&state.links.every(Boolean),state.links);
  check(name+': no WebGL error after first render',state.glError===0,state.glError);
+ check(name+': physical kerbs retain the source count with valid geometry',state.kerbs.profiles===state.kerbs.sourceQuads&&state.kerbs.profiles>0&&state.kerbs.finite&&state.kerbs.indices,state.kerbs);
  check(name+': canvas has drawable dimensions',state.canvas[0]>100&&state.canvas[1]>100,state.canvas);
  await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
  const status=await p.evaluate(()=>({text:document.querySelector('#state').textContent,expected:GC3D.S.cv.width+' × '+GC3D.S.cv.height}));
@@ -64,7 +67,7 @@ async function desktop(browser){
  const {context,p}=await openCase(browser,'desktop',{viewport:{width:1440,height:900},deviceScaleFactor:1});
  try{
   await begin(p,'desktop');
-  await p.evaluate(()=>{const S=GC3D.S;window.__saved781={car:S.car,parts:S.raceCarParts,carStats:JSON.stringify(S.raceCarStats),position:S.sim.s,clock:S.clock,vehicle:S.vehicle||'car'};});
+  await p.evaluate(()=>{const S=GC3D.S;window.__saved781={car:S.car,parts:S.raceCarParts,carStats:JSON.stringify(S.raceCarStats),position:S.sim.s,clock:S.clock,vehicle:S.vehicle||'car',kerb:S.kerb,kerbVertices:JSON.stringify(S.kerb.v),kerbIndices:JSON.stringify(S.kerb.i)};});
   const onPixels=await framebuffer(p);const on=await screenshot(p,'desktop-detail-on',true);
   const foliage=await p.evaluate(()=>{const S=GC3D.S,D=S.vegetation781;if(!D)return null;
    window.__foliage781={mesh:D.mesh,original:D.originalDayTrees,trees:D.originalTrees,geometry:JSON.stringify(S.treeGeometry),count:S.treeCount};
@@ -83,6 +86,7 @@ async function desktop(browser){
    released:!S.gl.isBuffer(F.mesh.vb)&&!S.gl.isBuffer(F.mesh.ib)&&!S.gl.isVertexArray(F.mesh.vao)};});
   check('desktop: original foliage restored and refinement buffers released',Object.values(restored).every(Boolean),restored);
   check('desktop: comparison preserves car model and position',Object.entries(preserved).every(([k,v])=>k==='ui'?v==='false':v),preserved);
+  check('desktop: comparison retains original kerbs and road markings exactly',await p.evaluate(()=>{const S=GC3D.S,A=window.__saved781;return S.kerb===A.kerb&&JSON.stringify(S.kerb.v)===A.kerbVertices&&JSON.stringify(S.kerb.i)===A.kerbIndices;}));
   await p.locator('#compare').click();
   check('desktop: comparison restores detail',await p.evaluate(()=>GC3D.S.detail781Enabled&&document.querySelector('#compare').getAttribute('aria-pressed')==='true'));
   const cameras=[];

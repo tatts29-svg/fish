@@ -141,6 +141,28 @@ float previewRepair781(vec2 p,vec2 halfSize){
  }
  o=vec4(colour*a,a);""", "concrete surface weathering")
 
+    r("float coverage=1.-(1.-wire.x)*(1.-wire.y);a*=coverage;\n if(a<.006)discard;\n o=vec4(base*mix(.35,1.,uDay)*a,a);",
+      """float coverage=1.-(1.-wire.x)*(1.-wire.y);a*=coverage;
+ vec3 wireColour781=base*mix(.35,1.,uDay);
+ if(uDetail781>.5){
+  /* The registered catch fence already supplies its geometry and filtered wire
+     coverage. Light that surface with the same key and sky as the track, rather
+     than painting uniformly bright wire over the shaded surroundings. Derive
+     the normal before the coverage discard so thin wires keep valid gradients. */
+  vec3 raw781=cross(dFdx(vWorld),dFdy(vWorld));
+  float scale781=max(max(abs(raw781.x),max(abs(raw781.y),abs(raw781.z))),.000000000001);
+  vec3 scaled781=raw781/scale781;float length781=length(scaled781);
+  vec3 normal781=length781>.00001?scaled781/max(length781,.00001):vec3(0.,1.,0.);
+  if(dot(normal781,uEye-vWorld)<0.)normal781=-normal781;
+  vec3 light781=previewSurface781(normal781,1.);
+  /* Dull galvanised wire has broad reflected light, not needle highlights.
+     Coverage above still converges to the physical wire area at distance. No
+     time noise, new shadow samples or draw calls are introduced. */
+  wireColour781=base*(vec3(.08)+light781*.68);
+ }
+ if(a<.006)discard;
+ o=vec4(wireColour781*a,a);""", "orientation-lit catch fence")
+
     # Root owns the preview sky. This keeps the existing post-process sky's fallback
     # sun direction consistent if the optional background pass is absent.
     r("uniform vec3 uCamRight; uniform vec3 uCamUp; uniform vec3 uCamForward;",

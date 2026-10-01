@@ -7,9 +7,56 @@ improvement. This is an opt-in working preview of one section, built on the exis
 It is not a claim that the runtime already matches the generated concept or a 4K performance promise.
 
 The MP4 car, weather, existing speedos, project records and financial calculations are outside this change.
-The separate v7.80 Fencing freshness fix is already live. This preview builds on that live page.
+This preview now builds on live v7.84, preserving the released operational corrections. The draft version label
+v7.81 identifies this separate graphics work; it is not the live release number.
 
-## Additive refinement — 2 Oct 2026
+## Current surface refinement — 2 Oct 2026
+
+Andrew: “Lets proceed with showcase improvments” and “don't undo everything else we have done your improving the
+look not full redign”.
+
+This additive pass raises **260 kerb profiles** within the exact footprints of the existing nominal kerb batch.
+It gives the catch-fence wire consistent sun and sky lighting, adds gantry and bridge mounting plates and bolt
+heads, and refines barrier joints, lower returns and material wear. The track-detail batch now holds **114 mounting
+plates, 208 fixings, 100 barrier skins and 22,036 triangles**. All new detail remains in the existing additional
+mesh; it adds no new draw calls or per-frame geometry construction.
+
+The earlier facade and foliage refinement remains. Source kerb arrays, building shells, tree positions, car
+geometry, livery and driving simulation are preserved. The MP4/weather, current speedos, page layout and controls
+are unchanged. Kerb footprints follow the existing nominal curvature rule; their profile heights and the temporary
+structures remain illustrative, not surveyed positions or measurements from the reference photographs.
+
+Frozen base: **v7.84**, **8,767,811 bytes**, SHA256
+`c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725`
+([live release PR #23](https://github.com/tatts29-svg/fish/pull/23)).
+
+| Current file | Bytes | SHA256 |
+|---|---:|---|
+| Full-page draft | 8,834,099 | `d5cd59c5df09caadfa835f3c10f1aef2a073852ec6922474107f97efefb67c21` |
+| Offline visual preview | 1,142,904 | `8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e` |
+
+Checks on those exact candidate hashes:
+
+- Standalone **49/49**: desktop and phone, the existing camera/animation controls, source preservation, added
+  kerb profiles, finite geometry, comparison restoration and resource disposal. See `evidence/surface-standalone.json`.
+- Full-page **25/25**: default-off equality with the v7.84 scene, preview lifecycle, controls/preferences,
+  close/reopen and resource disposal. See `evidence/surface-full-page.json`.
+- Both navigation sweeps: **21 tabs and seven deep links each**, zero errors. See `evidence/surface-sweeps.json`.
+- All **7,625,870 bytes** before the renderer match the v7.84 base exactly. See `evidence/surface-preservation.json`.
+- Independent internal code review found no blockers in the surface changes. A separate no-GPU geometry check
+  confirmed valid normals/indices and unchanged source data for both kerb orientations, excluding subsequent
+  grid paint from the source copy. This is not a new external reviewer sign-off.
+
+Render capture is being completed separately; no completed video or native 4K result is claimed here. The intended
+current visual evidence is `surface-desktop.png`, `surface-phone.png`, `surface-kerb.png` and `surface-render.json`
+under `evidence/`. Earlier `refinement-*` and unprefixed images below show historical candidates.
+
+**Preview only; not READY TO UPLOAD.** Live graphics have not changed. Private photographs and video references
+remain private; no project records, journals or real messages were changed. Visual fidelity against the approved
+concept and performance on physical devices remain unfinished. A 4K still, when captured, will not establish a
+4K animation frame rate.
+
+## Previous facade and foliage refinement — historical checks, 2 Oct 2026
 
 Andrew: “don't undo everything else we have done your improving the look not full redign”.
 
@@ -24,7 +71,7 @@ The first rendered colour pass was too bright. Leaf values now account for the e
 coastal greens with restrained highlights. The road has stable, filtered aggregate, small illustrative repairs and
 paving joints aligned with the existing straight. No racing behaviour or new camera sequence is introduced.
 
-Current files (supersede the historical hashes below):
+Historical files from the preceding facade and foliage pass (superseded by the current surface refinement):
 
 | File | Bytes | SHA256 |
 |---|---:|---|
@@ -35,7 +82,7 @@ Actual runtime frames: [before](evidence/refinement-before.png), [desktop refine
 and [phone refinement](evidence/refinement-phone.png). The before and desktop refinement use the same camera and
 simulation advance; the car, control layout and underlying scene composition are retained.
 
-- Standalone **45/45** on the exact current hash: desktop, phone, four cameras, animation, pause/replay, reduced
+- Standalone **45/45** on that historical standalone hash: desktop, phone, four cameras, animation, pause/replay, reduced
   motion, unchanged car, finite foliage geometry, exact original-tree restoration and GPU buffer disposal.
   Zero external requests, page/shader/console errors or WebGL errors.
 - Both navigation sweeps: **21 tabs and seven deep links each**, zero page or console errors.
@@ -49,9 +96,8 @@ simulation advance; the car, control layout and underlying scene composition are
   resources, including foliage buffers. Running/paused states, legacy backdrop preferences and close/reopen pass.
   Zero service-write attempts or page/shader/console errors. Evidence: `refinement-full-page.json`.
 
-The prior external review below applies to the older prototype, not these changes. This remains **preview only**, not READY TO UPLOAD. The broader visual milestones remain
-unfinished, including surveyed temporary-structure positions, richer section-specific modelling and hardware
-performance checks. Neither console-quality realism nor native 4K performance is claimed.
+The external review below applied to the older prototype. These historical checks do not replace the current
+surface-pass evidence above. Neither console-quality realism nor native 4K performance was established.
 
 ## Build
 
@@ -83,9 +129,9 @@ The full candidate exposes **Track detail preview** in Showcase, explicitly sele
   state. The normal race restarts at the grid; it does not resume its earlier track position. Closing Showcase also
   restores the saved preference. A manually chosen new backdrop stays selected. Added GPU resources are released.
 
-Actual runtime screenshots: [desktop](evidence/desktop-preview.png) and [phone](evidence/phone-preview.png).
-These are an environment study, still below the approved concept's realism. More accurate vegetation, individual
-building modelling, physically richer surfaces and verified temporary-structure placement remain visual work.
+Historical prototype screenshots: [desktop](evidence/desktop-preview.png) and [phone](evidence/phone-preview.png).
+These show the earlier environment study, not the current surface candidate. The current checks and visual
+evidence are identified at the top of this document.
 
 Structures are informed by seven supplied photographs, but their scene offsets are illustrative. Andrew's
 location descriptions have not been converted into verified survey coordinates. No original photos or generated
@@ -120,14 +166,14 @@ phone, console-quality, 4K frame-rate or hardware performance claim is made.
 
 ## Previous prototype review and release state
 
-Implementation, local checks and final independent code review are complete for this preview. The reviewer rebuilt
+Implementation, local checks and final independent code review were complete for that historical prototype. The reviewer rebuilt
 both files byte-identical at source a67c9d4 and recorded no blocking findings on 2 Oct 2026 at 01:35 AEST:
 [final review](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5934777145). All four early findings are resolved.
 The reviewer saw the committed runtime frames, not the private photographs; no source-photo fidelity review is
 claimed. Sponsor lettering is reconstructed typography, not supplied official artwork.
 
 Visual fidelity remains unfinished against the approved concept. **Not READY TO UPLOAD.** No graphics publication,
-record changes or real texts. The live page was freshly checked after the review and still matches v7.80 byte for byte.
+record changes or real texts. At that historical review, the live page still matched v7.80 byte for byte; the current preview base is v7.84.
 
 ## Additional visual reference from Andrew
 
@@ -164,7 +210,7 @@ Source identities: Part 01 is 17,370,560 bytes, SHA256
 `b9bca4fe70c71295b684b6878a523eddd756c807b68cea0171f213e772bffb89`.
 Original clips and extracted stills remain in the private workspace, outside this repository. The external reviewer
 has not yet confirmed access to these uploads; shared notes are not a substitute for their own source review.
-Those reference notes did not change the then-frozen preview. The refinement below supersedes its hashes;
+Those reference notes did not change the then-frozen preview. The current surface refinement above supersedes its hashes;
 no graphics publication or record edits.
 
 ## Next visual milestones — plan, 2 Oct 2026
@@ -173,8 +219,8 @@ Author: Andrew Fisher
 
 The next build should prove the visual improvement on one representative straight before extending it around the
 circuit. Its current owner implements the Showcase build. Share separable source/location or visual checks with
-the other agent when available; coordinate ownership rather than changing the same files concurrently. These milestones are
-milestones. The first additive refinement below begins milestone 1; the complete milestones are not yet delivered.
+the other agent when available; coordinate ownership rather than changing the same files concurrently. The facade,
+foliage and surface refinements above advance milestone 1; the complete milestones are not yet delivered.
 
 1. **Make one section convincing.** Match the road enclosure and landmark sequence to the current photographs
    and plan. Replace uniform nearby towers with distinct balcony depths, recesses, podiums and setbacks. Replace

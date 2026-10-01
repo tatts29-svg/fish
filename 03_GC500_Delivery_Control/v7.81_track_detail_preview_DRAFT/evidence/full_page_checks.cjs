@@ -1,7 +1,7 @@
 // Author: Andrew Fisher.
 // Read-only full-page preview lifecycle and default-off pixel preservation checks.
 // Run only after the frozen build and the shared software-GPU slot are available.
-// PAGE=<candidate> BASE_PAGE=<v7.80 base> OUT=<private directory> node full_page_checks.cjs
+// PAGE=<candidate> BASE_PAGE=<live base> OUT=<private directory> node full_page_checks.cjs
 // The normal harness blocks service writes. Local preferences belong to fresh disposable contexts.
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const {open}=require('../../toolchain/harness/open_page');
@@ -122,7 +122,7 @@ async function lifecycle(p){
   const sameSize=base.width===current.width&&base.height===current.height;let differentPixels=0,maxChannelDifference=0;
   if(sameSize){for(let i=0;i<base.rgba.length;i+=4){let differs=false;for(let k=0;k<4;k++){const delta=Math.abs(base.rgba[i+k]-current.rgba[i+k]);if(delta)differs=true;maxChannelDifference=Math.max(maxChannelDifference,delta);}if(differs)differentPixels++;}}
   check('default-off camera and clock match baseline',base.clock===current.clock&&base.view===current.view&&JSON.stringify(base.eye)===JSON.stringify(current.eye)&&JSON.stringify(base.target)===JSON.stringify(current.target));
-  check('default-off canvas has exact pixel equality with v7.80',sameSize&&differentPixels===0,{sameSize,differentPixels,maxChannelDifference,pngBytesIdentical:base.png.equals(current.png)});
+  check('default-off canvas has exact pixel equality with baseline',sameSize&&differentPixels===0,{sameSize,differentPixels,maxChannelDifference,pngBytesIdentical:base.png.equals(current.png)});
   await lifecycle(c.p);
  }finally{await closePage(c);}
  check('no service writes attempted',R.serviceWriteAttempts.length===0,R.serviceWriteAttempts);

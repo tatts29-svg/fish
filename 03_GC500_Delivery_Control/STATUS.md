@@ -40,32 +40,34 @@ Record **3527** before and after; no record changes, journals or real sends. Ope
 The Showcase stays unpublished. Sources: `v7.82_maps_accuracy_and_driver_rules_LIVE/` and
 `v7.83_inventory_share_pdf_LIVE/`; each holds `evidence/release_verification.json`.
 
-## In progress — v7.81 Showcase visual refinement, 2 Oct 2026
+## In progress — v7.81 Showcase surface refinement, 2 Oct 2026
 
 Author: Andrew Fisher. Codex owns this separate preview on `codex/gc500-v7.81-showcase-preview`, draft PR #20.
-Andrew: “Lets proceed with showcase improvments”. Next additive pass: physical kerb profiles within existing
-footprints, consistent fence lighting, barrier/gantry material and connection detail. Existing MP4/weather,
-speedos, layout, controls and driving simulation remain outside the edits. Preview proof before graphics publication.
-Andrew: “don't undo everything else we have done your improving the look not full redign”. Preserve the existing
-layout, controls, cameras, car, MP4, weather, speedos, scene sequence and project data. This pass adds facade depth,
-refines nearby trees at their existing positions, and improves road/concrete materials and lighting. Source building
-shells, heights and tree positions are retained. Current ownership follows the 2 Oct working arrangement in PR #21;
-this entry does not impose a new two-agent release gate.
+Andrew: “Lets proceed with showcase improvments” and “don't undo everything else we have done your improving the
+look not full redign”. The current pass adds physical profiles to **260 existing kerb footprints**, consistent
+fence lighting and barrier/gantry material and connection detail. It retains the earlier facade and foliage work,
+source arrays, car, MP4/weather, speedos, layout, controls and driving simulation. The track-detail batch contains
+**114 mounting plates, 208 fixings, 100 barrier skins and 22,036 triangles**. Temporary structures and kerb profiles
+remain illustrative, not surveyed. Current ownership follows the 2 Oct arrangement in PR #21.
 
-Current full draft: **8,744,684 bytes**, SHA256
-`34e5defbe3fe39bcb40d8715d3d032ebb5c9841dbea35e90b47090c427bfbcb5`.
-Standalone preview: **1,138,328 bytes**, SHA256
-`4b07428254f7a84535820f65b0ed065b05df7f4c2acfb0f775fce43be98b1288`.
-Standalone **45/45**, full-page **25/25**, and both **21-tab/7-link** navigation sweeps pass, with no errors or service
-write attempts. Default-off pixels exactly match v7.80; exiting restores preferences and releases added resources.
-Internal independent code review is complete. Claude's earlier review at a67c9d4 applies only to the historical
-prototype recorded in the README, not this refinement. Actual before/after and phone frames are in
-`v7.81_track_detail_preview_DRAFT/evidence/refinement-*.png`.
+Built on **live v7.84** ([PR #23](https://github.com/tatts29-svg/fish/pull/23)), **8,767,811 bytes**, SHA256
+`c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725`. The v7.81 label identifies this separate graphics
+draft, not the current live release. Full draft: **8,834,099 bytes**, SHA256
+`d5cd59c5df09caadfa835f3c10f1aef2a073852ec6922474107f97efefb67c21`.
+Standalone preview: **1,142,904 bytes**, SHA256
+`8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e`.
 
-**Preview only; not READY TO UPLOAD.** Visual fidelity remains below the approved concept. Temporary structures
-remain illustrative, and physical-device/4K performance is unverified. Private photos and clips remain private.
-No graphics publication or project-record changes. The live base remains v7.80; Claude's v7.82/v7.83 corrections are
-separate and being coordinated on PR #1.
+Standalone **49/49**, full-page **25/25**, and both **21-tab/7-link** navigation sweeps pass on those hashes.
+Default-off pixels match v7.84; exiting restores preferences and releases added resources. All **7,625,870 bytes**
+before the renderer match the v7.84 base exactly. Independent internal code review found no surface-pass blockers.
+Claude's review at a67c9d4 applies only to the historical prototype; it is not a review of this candidate. Checks:
+`v7.81_track_detail_preview_DRAFT/evidence/surface-{standalone,full-page,sweeps,preservation}.json`.
+
+**Preview only; not READY TO UPLOAD.** Render capture is in progress; a completed video or native 4K result is not
+yet claimed. The intended visual evidence is `surface-desktop.png`, `surface-phone.png`, `surface-kerb.png` and
+`surface-render.json`. Earlier evidence is clearly marked historical in the README. Visual fidelity and performance
+on physical devices remain unfinished. Private photos and clips remain private. No graphics publication, project
+record edits, journals or real messages. The released operational corrections remain in the v7.84 base.
 
 
 ## Release completed — v7.80 Fencing card refresh LIVE, 2 Oct 2026 00:45 AEST
