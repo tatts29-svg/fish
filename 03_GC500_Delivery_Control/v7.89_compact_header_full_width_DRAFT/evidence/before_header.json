@@ -1,0 +1,174 @@
+{
+ "laptop": {
+  "top": {
+   "header": 273,
+   "win": 693,
+   "pct": 39,
+   "pods": [
+    509,
+    236,
+    531
+   ],
+   "paneW": 1301,
+   "winW": 1333,
+   "over": false
+  },
+  "scrolled": {
+   "header": 273,
+   "win": 693,
+   "pct": 39,
+   "pods": [
+    509,
+    236,
+    531
+   ],
+   "paneW": 1301,
+   "winW": 1333,
+   "over": false
+  },
+  "back": {
+   "header": 273,
+   "win": 693,
+   "pct": 39,
+   "pods": [
+    509,
+    236,
+    531
+   ],
+   "paneW": 1301,
+   "winW": 1333,
+   "over": false
+  },
+  "errors": 0,
+  "blocked": 0
+ },
+ "wide": {
+  "top": {
+   "header": 273,
+   "win": 1040,
+   "pct": 26,
+   "pods": [
+    802,
+    236,
+    824
+   ],
+   "paneW": 1500,
+   "winW": 1920,
+   "over": false
+  },
+  "scrolled": {
+   "header": 273,
+   "win": 1040,
+   "pct": 26,
+   "pods": [
+    802,
+    236,
+    824
+   ],
+   "paneW": 1500,
+   "winW": 1920,
+   "over": false
+  },
+  "back": {
+   "header": 273,
+   "win": 1040,
+   "pct": 26,
+   "pods": [
+    802,
+    236,
+    824
+   ],
+   "paneW": 1500,
+   "winW": 1920,
+   "over": false
+  },
+  "errors": 0,
+  "blocked": 0
+ },
+ "small": {
+  "top": {
+   "header": 273,
+   "win": 800,
+   "pct": 34,
+   "pods": [
+    403,
+    236,
+    403
+   ],
+   "paneW": 1068,
+   "winW": 1100,
+   "over": false
+  },
+  "scrolled": {
+   "header": 273,
+   "win": 800,
+   "pct": 34,
+   "pods": [
+    403,
+    236,
+    403
+   ],
+   "paneW": 1068,
+   "winW": 1100,
+   "over": false
+  },
+  "back": {
+   "header": 273,
+   "win": 800,
+   "pct": 34,
+   "pods": [
+    403,
+    236,
+    403
+   ],
+   "paneW": 1068,
+   "winW": 1100,
+   "over": false
+  },
+  "errors": 0,
+  "blocked": 0
+ },
+ "phone": {
+  "top": {
+   "header": 255,
+   "win": 844,
+   "pct": 30,
+   "pods": [
+    97,
+    119,
+    119
+   ],
+   "paneW": 370,
+   "winW": 390,
+   "over": false
+  },
+  "scrolled": {
+   "header": 255,
+   "win": 844,
+   "pct": 30,
+   "pods": [
+    97,
+    119,
+    119
+   ],
+   "paneW": 370,
+   "winW": 390,
+   "over": false
+  },
+  "back": {
+   "header": 255,
+   "win": 844,
+   "pct": 30,
+   "pods": [
+    97,
+    119,
+    119
+   ],
+   "paneW": 370,
+   "winW": 390,
+   "over": false
+  },
+  "errors": 0,
+  "blocked": 0
+ }
+}
