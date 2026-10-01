@@ -1,8 +1,8 @@
 {
   "author": "Andrew Fisher",
   "device": "desktop",
-  "sha256": "5ed973946eedbcff59ded62aafcc014ac67d6236e3bb8d2f644e33173569c0d1",
-  "bytes": 8693602,
+  "sha256": "bc25a87a0d10ded8d779e69111da9f071d2d4eff7efc61d2fc3cc7c421367733",
+  "bytes": 8693592,
   "tests": [
     {
       "name": "Every current reference fits the GSM and service budgets",
@@ -133,7 +133,7 @@
     "syntheticDryRuns": 2,
     "unexpectedPosts": 0,
     "blockedWrites": 0,
-    "readRequests": 125
+    "readRequests": 128
   },
   "pageErrors": [],
   "passed": 21,
