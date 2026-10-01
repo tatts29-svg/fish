@@ -1,0 +1,57 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.84/GC500_Delivery_Control_hosted.html",
+ "passed": 10,
+ "of": 10,
+ "tests": [
+  {
+   "name": "W1 WC25, WC45, WC47, GN04: the text says meet at the pit lane start point - Site access and ENTRY - and no HOLD",
+   "pass": true,
+   "detail": "[[\"WC25\",\"Site access: meet at the pit lane start point - Gold Coast Hwy > north-west pit lane entry.\",\"ENTRY: meet at the pit lane start point.\",false],[\"WC45\",\"Site access: meet at the pit lane start point - Gold Coast Hwy > north-west pit lane entry.\",\"ENTRY: meet at the pit lane start point.\",false],[\"WC47\",\"Site access: meet at the pit lane start point - Gold Coast Hwy > north-west pit lane entry.\",\"ENTRY: meet at the pit lane start point.\",false],[\"GN04\",\"Site access: meet at the pit lane start point - Gold Coast Hwy > north-west pit lane entry.\",\"ENTRY: meet at the pit lane start point.\",false]]"
+  },
+  {
+   "name": "W2 WC31: the text says in from the north, towards The Hill, to the drop-off on the map - and no HOLD",
+   "pass": true,
+   "detail": "{\"inPlace\":true,\"dir\":true,\"ok\":true,\"missing\":[],\"kind\":\"master\",\"entry\":\"ENTRY: from the north end, head towards The Hill to the drop-off (location on the map).\",\"access\":\"\",\"hold\":false,\"units\":412,\"sheetHas\":true,\"sheetFound\":true,\"wayIn\":[\"from the north end, head towards The Hill to the drop-off (location on the map)\"],\"drawer\":\"Way inwhere a truck turns off the street not pinned yet Pin the way in\"}"
+  },
+  {
+   "name": "W3 the drop-off for all five is still their own spot on the map (not the pit lane)",
+   "pass": true,
+   "detail": "[[\"WC25\",\"master\"],[\"WC45\",\"master\"],[\"WC47\",\"master\"],[\"GN04\",\"master\"],[\"WC31\",\"master\"]]"
+  },
+  {
+   "name": "W4 the driver sheet prints the same way in the text gives (where the item is on a load)",
+   "pass": true,
+   "detail": "[[\"WC25\",true,true,[\"meet at the pit lane start point - Gold Coast Hwy > north-west pit lane entry\",\"meet at the pit lane start point\"]],[\"WC45\",true,true,[\"meet at the pit lane start point - Gold Coast Hwy > north-west pit lane entry\",\"meet at the pit lane start point\"]],[\"WC47\",true,true,[\"meet at the pit lane start point - Gold Coast Hwy > north-west pit lane entry\",\"meet at the pit lane start point\"]],[\"GN04\",true,true,[\"meet at the pit lane start point - Gold Coast Hwy > north-west pit lane entry\",\"meet at the pit lane start point\"]],[\"WC31\",true,true,[\"from the north end, head towards The Hill to the drop-off (location on the map)\"]]]"
+  },
+  {
+   "name": "W5 the drawer says \"meet at the pit lane start point\", not \"like everything in the park\"",
+   "pass": true,
+   "detail": "[\"Way inmeet at the pit lane start point - the project manager, 2 Oct 2026 The pit lane is the way in: off the Gold Coast Highway into the pit lane at its north-w\",\"Way inmeet at the pit lane start point - the project manager, 2 Oct 2026 The pit lane is the way in: off the Gold Coast Highway into the pit lane at its north-w\",\"Way inmeet at the pit lane start point - the project manager, 2 Oct 2026 The pit lane is the way in: off the Gold Coast Highway into the pit lane at its north-w\",\"Way inmeet at the pit lane start point - the project manager, 2 Oct 2026 The pit lane is the way in: off the Gold Coast Highway into the pit lane at its north-w\"]"
+  },
+  {
+   "name": "W6 the only items still to come with no way in are the four Andrew has not answered: WB07, WB13, WB18, WB20",
+   "pass": true,
+   "detail": "[\"WB07\",\"WB13\",\"WB18\",\"WB20\"]"
+  },
+  {
+   "name": "W7 a way in pinned on site still wins over the given words",
+   "pass": true,
+   "detail": "true"
+  },
+  {
+   "name": "W8 a park item keeps the park's own pit lane rule (unchanged)",
+   "pass": true,
+   "detail": "{\"ref\":\"AA\",\"access\":\"Site access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\",\"drawer\":\"Way inthe pit lane, like everything in the park The pit lane is the way in: off the Gold Coast Highway into the pit lane\"}"
+  },
+  {
+   "name": "W9 every one of the five texts still fits three texts",
+   "pass": true,
+   "detail": "[[\"WC25\",430],[\"WC45\",430],[\"WC47\",430],[\"GN04\",434],[\"WC31\",412]]"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

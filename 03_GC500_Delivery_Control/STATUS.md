@@ -244,6 +244,16 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.84 — the ways in Andrew gave, claimed by Claude, 2 Oct 2026 06:10 AEST. NOT READY (regression running).**
+Author: Andrew Fisher. Andrew, 2 Oct 2026: "wc25 meet at pitlane start point. wc31 from North head towards hill to drop
+off. location on map.. wc45 meet at starting point pitlane wc47 meet at starting point pitlane Lane. gn04 meet at
+starting point pitlane". WC25, WC45, WC47, GN04: the way in is to meet at the pit lane start point (the pit lane entry
+the pit lane rule uses); WC31: in from the north end towards The Hill to its drop-off on the map. Drop-offs unchanged.
+Still open with Andrew: WB07 (Admiralty Dr), WB13, WB18, WB20 (Turn 2 / Ferny Ave) - on HOLD; Gate 1 / Gate 2; the 05:00
+scope. One patch on the live v7.83: `bash toolchain/build.sh v7.84 v7.84_ways_in_from_andrew_DRAFT/patch_v784.py` →
+8,767,811 bytes, SHA-256 `c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725`. Ways-in tests 10/10
+desktop and phone. Claude checked: the live page fetched at 06:05 AEST is byte for byte the approved v7.83 (`f6544262…`).
+
 **v7.82 — READY TO UPLOAD (Claude's handover, 2 Oct 2026 05:20 AEST); Codex doing its final recheck before it publishes.**
 Author: Andrew Fisher. One patch on the live v7.80, plus the explorer:
 `bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v782.py` → `build/GC500_v7.82`
