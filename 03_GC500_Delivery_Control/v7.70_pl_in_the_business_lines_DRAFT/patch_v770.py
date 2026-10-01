@@ -55,7 +55,7 @@ function pl770Model(){
    basis: sv ? `Event Portables’ quantities on Q6844 at the card’s pump-out rates ${money0(sv.card_total)} + the water truck and the pre-fill at cost ${money0(waterPump)} · on no contract line yet: the branch adds the lines when it bills` : 'no servicing on the record'},
   {key: 'cons', code: '1020', line: 'Consumables', what: 'water deliveries and the drinking-water tank at what we are charged', now: waterCons, job: waterCons, basis: 'Q6846’s lines at cost — the line Finance posts water to'},
   {key: 'install', code: '1047', line: 'Installation', what: 'labour ticked per piece, and the event labour scope', now: install, job: install,
-   basis: `Labour Install ticked per piece ${money0(labour)} (${fmtNum(ticks)} tick${ticks === 1 ? '' : 's'}: install, steps, levelling and demob${TK.cleaning.amount ? ', cleaning ' + money0(TK.cleaning.amount) : ''}) + the event labour scope ${money0(race)} (${fmtNum(n(c.race && c.race.hours))} h of people over the event, with accommodation and travel) · the fencing install sits inside the fence rate above`},
+   basis: `Labour Install ticked per piece ${money0(labour)} (${fmtNum(ticks)} tick${ticks === 1 ? '' : 's'}: install, steps, levelling and demob${TK.cleaning.amount ? ', cleaning ' + money0(TK.cleaning.amount) : ''}) + the event labour scope ${money0(race)} (${fmtNum(n(c.race && c.race.hours))} h of people over the event, with accommodation and travel) · to job end as ticked today — the ticks still to come are charged as the work is done and are not carried here · the fencing install sits inside the fence rate above`},
   {key: 'waiver', code: '1015', line: 'Damage Waiver', what: 'on the hire only — never on labour, steps, cleaning, install, demob or pump-outs (the card)', now: null, job: null, basis: 'not on the 2026 contracts yet — the branch’s rate'},
  ];
  if (n(c.other)) rev.push({key: 'other', code: '—', line: 'Other charge lines on the record', what: 'charge lines typed on Costs', now: r2(n(c.other)), job: r2(n(c.other)), basis: `${fmtNum(n(c.other_lines))} line${n(c.other_lines) === 1 ? '' : 's'} — each on its own line`});
@@ -148,7 +148,7 @@ t = rep(t, """<li><button class="linkish" data-jump765="costs764">Costs to job e
  """<li><button class="linkish" data-jump765="pl770">In the business’s lines</button> — the same figures on the P&amp;L’s own lines, with the recovery ratios</li><li><button class="linkish" data-jump765="costs764">Costs to job end</button>""", 'glance flow', p, True)
 
 # 3. two CSS rules
-t = rep(t, ".rh766-miss{color:#9c470c;font-weight:600}", ".rh766-miss{color:#9c470c;font-weight:600}.pl770-tbl td:first-child{white-space:nowrap}.pl770-over td,.pl770-over td b{color:var(--mute)}", 'css', p, True)
+t = rep(t, ".rh766-miss{color:#9c470c;font-weight:600}", ".rh766-miss{color:#9c470c;font-weight:600}.pl770-tbl td:first-child,.pl770-tbl th:first-child{width:1%;white-space:nowrap}.pl770-over td,.pl770-over td b{color:var(--mute)}", 'css', p, True)
 
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
 print("v7.70 applied: the Forecast P&L in the business's lines - one card, every figure read from the cards already on the page, self-checked to the cent")

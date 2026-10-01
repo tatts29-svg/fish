@@ -100,5 +100,5 @@ the chain finishes (see the board).
 ## Open for the next patch (not tonight)
 
 - Q6846's delivery and pickup ($500) are a cost we are charged and not charged on — Andrew's rule says charge it on.
-  v7.71: a line at cost beside the water lines.
+  v7.72 or later: a line at cost beside the water lines.
 - Damage waiver and the transport charge lines: the branch's to add to the contracts; the card names both.
