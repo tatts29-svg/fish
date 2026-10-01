@@ -405,22 +405,29 @@ const DRV782_CSS = '#drv782{position:fixed;inset:0;z-index:2147483000;display:gr
 let DRV782_OK = null; /* {iso, by, at, t, snaps}: the check behind the sheets being laid out now - bound to the loads it
    covered and to what they said when it was done (Codex review): another load, or a changed location, way in or time,
    needs a fresh check */
-/* what a load's sheet depends on, as one string: its references, where each goes, its way in, its times */
-function drvLoadSnap782(g){
- return JSON.stringify((g.rows || []).map(r => { const a = r.a; if (!a) return null; const P = dpPos(a), dr = dirs782(a), d = deliveryOf(a.key) || {};
-  return [a.key, P.kind, P.lat, P.lon, dr.ok, dr.missing.join(';'), d.eta || '', (a.events || []).map(e => e.load_time || '').join(','), timeCheck782(a).join('|')]; }));
+/* what a load's sheet depends on, as one string. Codex review 2: the VALUES the check covers, not only that each is filled
+   in - where each item goes (the exact point), the way in (the exact point), the times, the plan and the order - and the
+   sheet's own instruction sections and location signs as they print. One complete value changed to another voids the
+   check, the same as one cleared. */
+function drvLoadSnap782(g, d){
+ const rows = (g.rows || []).map(r => { const a = r.a; if (!a) return null;
+  const P = dpPos(a), dr = dirs782(a), dl = deliveryOf(a.key) || {}, nt = navTargetFor(a), R = report782(a), E = entryOf(R ? R.ref : a.key), Z = R ? (R.a ? entry782(R.a) : null) : entry782(a), D = descLoc782(a), o = order782(a);
+  return [a.key, P, dr, nt ? nt.ll : null, R ? R.ref : null, E || null, Z ? Z.words : null, D ? D.ll : null, dl.eta || '', dl.date || '', dl.note || '',
+   (r.events || []).map(e => [e.load_time || '', e.carrier || '', e.note || '']), (a.events || []).map(e => e.load_time || '').join(','), timeCheck782(a), planFor782(a), o ? o.sms : null]; });
+ let sheet = ''; try { sheet = dpTruck(g, 'drv') + dpWhere(g, 'drv', a => dpPos(a)) + (d ? pl782Pages(d, g, 0, 0) : ''); } catch (e) { sheet = 'unreadable: ' + String(e && e.message || e); }
+ return JSON.stringify({time: g.time || '', raw: g.timeRaw || '', carrier: g.carrier || '', rows, sheet});
 }
 function drvSnaps782(iso, only){
  const d = programmeDays().find(x => x.iso === iso); if (!d) return null;
  const loads = dpLoads(d), pick = only != null && loads[only] ? [only] : loads.map((g, i) => i), out = {};
- pick.forEach(i => { out[i] = drvLoadSnap782(loads[i]); }); return out;
+ pick.forEach(i => { out[i] = drvLoadSnap782(loads[i], d); }); return out;
 }
 /* is there a fresh check, by name, for exactly these loads as they stand now */
 function drvValid782(iso, pick){
  if (!DRV782_OK || DRV782_OK.iso !== iso || Date.now() - DRV782_OK.t > 900000) return false;
  const d = programmeDays().find(x => x.iso === iso); if (!d) return false;
  const loads = dpLoads(d);
- return (pick || []).every(i => loads[i] && DRV782_OK.snaps[i] != null && DRV782_OK.snaps[i] === drvLoadSnap782(loads[i]));
+ return (pick || []).every(i => loads[i] && DRV782_OK.snaps[i] != null && DRV782_OK.snaps[i] === drvLoadSnap782(loads[i], d));
 }
 function drvFacts782(iso, only){
  const d = programmeDays().find(x => x.iso === iso); if (!d) return null;

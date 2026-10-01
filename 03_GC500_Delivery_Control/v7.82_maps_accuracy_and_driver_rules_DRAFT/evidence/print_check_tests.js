@@ -86,6 +86,50 @@ const fs = require('fs'), path = require('path');
   await p.evaluate(() => { document.querySelectorAll('#drv782').forEach(e => e.remove()); try { dpBarClose(); } catch (e) {} });
   ok('P18 a direct print link (#print/drivers/…) asks for the check first', link.asked, JSON.stringify(link));
   ok('P19 the time on the sheet is the project time (Brisbane, AEST), whatever the device says', /^\d\d [A-Z][a-z]{2} \d{4}, \d\d:\d\d AEST$/.test(await p.evaluate(() => drvStamp782())), await p.evaluate(() => drvStamp782()));
+  /* Codex review 2: a confirmation covers the VALUES it was given (drop-off, way in, times, order), not just that each one
+     is filled in - change one complete value to another complete value and the check must be asked for again.
+     Synthetic values only (made-up points and times on one reference of the day), each put back straight after. */
+  const cv = await p.evaluate(async iso => { const d = programmeDays().find(x => x.iso === iso), mc = () => { try { RENDER_MEMO.clear(); } catch (e) {} };
+    const loads = dpLoads(d); let li = -1, ri = -1;
+    loads.some((g, i) => (g.rows || []).some((r, j) => r.a && !report782(r.a) && !masterUnit(r.a.key) && (li = i, ri = j, true)));
+    if (li < 0) loads.some((g, i) => (g.rows || []).some((r, j) => r.a && !report782(r.a) && (li = i, ri = j, true)));
+    if (li < 0) return {skip: 'no reference on this day with its own drop-off'};
+    const a = loads[li].rows[ri].a, out = {ref: a.key, load: li + 1, master: !!masterUnit(a.key)};
+    const arm = () => { mc(); DRV782_OK = {iso, by: 'Test Person', at: drvStamp782(), bad: 0, t: Date.now(), snaps: drvSnaps782(iso, li)}; };
+    const valid = () => { mc(); return drvValid782(iso, [li]); };
+    const pin = (lat, lon, at) => ({lat, lon, acc: 4, at, by: 'Test Person', n: 5});
+    const T0 = '2026-10-02T00:00:00.000Z', T1 = '2026-10-02T00:05:00.000Z';
+    /* the way in: one pinned point, then another */
+    const kE = S.entries; S.entries = Object.assign({}, kE || {}, {[a.key]: pin(-27.9700, 153.4300, T0)}); arm(); const e0 = valid();
+    S.entries = Object.assign({}, kE || {}, {[a.key]: pin(-27.9750, 153.4320, T1)}); out.wayIn = {held: e0, afterMove: valid()}; S.entries = kE; mc();
+    /* the drop-off: one phone pin, then a newer one somewhere else (a master-held reference keeps the master's spot - nothing printed moves) */
+    const kF = S.fixes; S.fixes = Object.assign({}, kF || {}, {[a.key]: pin(-27.9600, 153.4300, T0)}); arm(); const f0 = valid(), w0 = JSON.stringify(dpPos(a));
+    S.fixes = Object.assign({}, kF || {}, {[a.key]: pin(-27.9610, 153.4310, T1)}); mc(); const moved = JSON.stringify(dpPos(a)) !== w0; out.drop = {held: f0, printedMoved: moved, afterMove: valid()}; S.fixes = kF; mc();
+    /* the time and the carrier: a load time on the schedule, one valid time to another; a carrier, one name to another.
+       The first day of the programme with a load time on it (this day may have none). */
+    { let D = null, L = -1, ev = null;
+      programmeDays().some(x => dpLoads(x).some((g, i) => (g.rows || []).some(r => { const e = (r.events || []).find(e => dpT(e.load_time) && String(e.carrier || '').trim()); if (e) { D = x; L = i; ev = e; return true; } })));
+      if (!ev) out.loadTime = out.carrier = {skip: 'no load time anywhere in the programme'};
+      else { const armD = () => { mc(); DRV782_OK = {iso: D.iso, by: 'Test Person', at: drvStamp782(), bad: 0, t: Date.now(), snaps: drvSnaps782(D.iso, L)}; }, validD = () => { mc(); return drvValid782(D.iso, [L]); };
+        const k = ev.load_time, t = dpT(k), [h, m] = t.split(':').map(Number), nt = String((h + (m >= 30 ? 1 : 0)) % 24).padStart(2, '0') + ':' + (m >= 30 ? '00' : '30');
+        armD(); const t0 = validD(); ev.load_time = nt; out.loadTime = {day: D.iso, from: k, to: nt, held: t0, afterChange: validD()}; ev.load_time = k; mc();
+        const c = ev.carrier; armD(); const c0 = validD(); ev.carrier = c + ' X'; out.carrier = {day: D.iso, from: c, held: c0, afterChange: validD()}; ev.carrier = c; mc(); } }
+    /* nothing changed: the check holds, and the snapshot is the same twice over */
+    arm(); out.same = {held: valid(), twice: JSON.stringify(drvSnaps782(iso, li)) === JSON.stringify(drvSnaps782(iso, li))};
+    DRV782_OK = null; return out; }, iso);
+  ok('P20 moving the way in from one pinned point to another voids the check', !!cv.skip || (cv.wayIn.held && !cv.wayIn.afterMove), JSON.stringify(cv));
+  ok('P21 moving the drop-off from one pin to another voids the check (when the sheet\'s drop-off moves)', !!cv.skip || (cv.drop.held && (cv.drop.printedMoved ? !cv.drop.afterMove : cv.drop.afterMove)), JSON.stringify(cv.drop || cv));
+  ok('P22 changing a load time from one valid time to another voids the check', !!cv.skip || !!cv.loadTime.skip || (cv.loadTime.held && !cv.loadTime.afterChange), JSON.stringify(cv.loadTime || cv));
+  ok('P22b changing the carrier on a load from one name to another voids the check', !!cv.skip || !!cv.carrier.skip || (cv.carrier.held && !cv.carrier.afterChange), JSON.stringify(cv.carrier || cv));
+  ok('P23 nothing changed: the check still holds (no false alarms), and it reads the same every time', !!cv.skip || (cv.same.held && cv.same.twice), JSON.stringify(cv.same || cv));
+  /* and while the check is open: the way in moved before "Checked" is pressed - it comes back as it stands now */
+  await p.evaluate(iso => { DRV782_OK = null; document.querySelector(`.dplate [data-pdf7="drivers"][data-iso="${iso}"][data-only="0"]`).click(); }, iso); await p.waitForSelector('#drv782');
+  const reo2 = await p.evaluate(iso => { const cks = [...document.querySelectorAll('#drv782 input[type=checkbox]')]; cks.forEach(c => c.click()); const nm = document.querySelector('#drv782n'); nm.value = 'Test Person'; nm.dispatchEvent(new Event('input'));
+    const g = dpLoads(programmeDays().find(x => x.iso === iso))[0], r = (g.rows || []).find(x => x.a && !report782(x.a)) || g.rows[0], a = r.a, mc = () => { try { RENDER_MEMO.clear(); } catch (e) {} };
+    const ref = report782(a) ? report782(a).ref : a.key, keep = S.entries, cur = entryOf(ref), base = cur && cur.lat != null ? cur : {lat: -27.97, lon: 153.43};
+    S.entries = Object.assign({}, keep || {}, {[ref]: {lat: base.lat + 0.0015, lon: base.lon + 0.0015, acc: 4, at: '2026-10-02T00:09:00.000Z', by: 'Test Person', n: 5}}); mc();
+    document.querySelector('#drv782 .b-go').click(); const again = !!document.querySelector('#drv782'), chg = !!document.querySelector('#drv782 .chg'), held = !!DRV782_OK; S.entries = keep; mc(); document.querySelectorAll('#drv782').forEach(e => e.remove()); try { pdf7Close(); } catch (e) {} DRV782_OK = null; return {ref, again, chg, held}; }, iso);
+  ok('P24 the way in moved while the check is open: pressing the button shows it again as it stands now - nothing is made', reo2.again && reo2.chg && !reo2.held, JSON.stringify(reo2));
   ok('E1 no page errors', !s.errors.length, JSON.stringify(s.errors).slice(0, 200));
   const passed = T.filter(t => t.pass).length;
   T.forEach(t => console.log((t.pass ? 'PASS ' : 'FAIL ') + t.name + ' — ' + t.detail));
