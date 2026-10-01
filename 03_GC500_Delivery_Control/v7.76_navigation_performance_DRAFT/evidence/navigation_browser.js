@@ -108,16 +108,29 @@ async function invariants(p, permission) {
     go('costs'); const before = read();
     try {
       S.costs = (original || []).concat([{id: 'BENCH-776-EXPENSE', side: 'ours', kind: 'misc', category: OUR_KIND.misc.category, recorded_by: 'Benchmark example', date: todayIso(), description: 'Synthetic browser-only cache freshness check', amount}]);
+      // Existing financial helpers use RENDER_MEMO, whose normal draw lifecycle
+      // invalidates on a render. Isolate the new held memo from that older cache:
+      // invalidate only RENDER_MEMO, without rendering or touching HELD_MEMO.
+      RENDER_MEMO.clear();
+      // A standalone read must see the new record before any render can clear a
+      // cache. Rehire is read too, although this misc cost does not belong to it.
+      const standalone = read(), rehireStandalone = rh766Model();
+      const standaloneChanged = Object.keys(before).every(k => Math.abs(standalone[k] - before[k] - amount) < 0.001);
       go('costs'); const after = read();
       const changed = Object.keys(before).every(k => Math.abs(after[k] - before[k] - amount) < 0.001);
-      S.costs = original; go('costs'); return {changed, restored: same(before, read())};
+      S.costs = original;
+      RENDER_MEMO.clear();
+      const standaloneRestored = same(before, read()), rehireRestored = rh766Model();
+      go('costs'); return {standaloneChanged, standaloneRestored, rehireUnaffected: JSON.stringify(rehireStandalone) === JSON.stringify(rehireRestored), changed, restored: same(before, read())};
     } finally { S.costs = original; go('about'); }
   });
   ok('a synthetic expense refreshes all financial cards after navigation', financialFreshness.changed);
   ok('removing the synthetic expense restores all financial cards', financialFreshness.restored);
+  ok('standalone financial calls refresh before rendering after upstream memo invalidation', financialFreshness.standaloneChanged && financialFreshness.standaloneRestored);
+  ok('a misc cost leaves standalone Rehire figures unchanged', financialFreshness.rehireUnaffected);
   const throwing = await p.evaluate(() => {
     const original = renderPass; let propagated = false;
-    renderPass = () => { throw Error('synthetic render failure'); };
+    renderPass = () => { cj764Model(); rh766Model(); throw Error('synthetic render failure'); };
     try { go('about'); } catch (e) { propagated = e.message === 'synthetic render failure'; } finally { renderPass = original; }
     const cleared = ASSETS_HELD === null && HELD_MEMO.size === 0;
     go('about'); return {propagated, cleared};
@@ -127,7 +140,7 @@ async function invariants(p, permission) {
 }
 async function instrument(p) {
   await p.evaluate(() => {
-    const names = ['go', 'go776Held', 'renderTabs', 'attention', 'buildAllAssets', 'rentalOf_', 'dsnState_', 'render', 'renderPass', 'hzTodayPod', 'applyCapability', 'markCards'];
+    const names = ['go', 'go776Held', 'renderTabs', 'attention', 'buildAllAssets', 'rentalOf_', 'dsnState_', 'render', 'renderPass', 'hzTodayPod', 'applyCapability', 'markCards', 'cj764Model', 'rh766Model', 'cj764Model776Held', 'rh766Model776Held'];
     window.__nav776 = {active: false, phase: null, counts: {}, elapsed: {}};
     for (const name of names) {
       if (typeof window[name] !== 'function') continue;
@@ -172,6 +185,12 @@ async function inspect(file, label, fixture) {
     const model = await models(session.p), rules = await invariants(session.p, session.permission);
     const evidence = {file, sha256: sha(fs.readFileSync(file)), version: session.version, dom, model, rules};
     write(label + '-semantics.json', evidence);
+    if (mobile && label === 'candidate') {
+      await session.p.evaluate(() => go('costs')); await settle(session.p);
+      await session.p.evaluate(() => document.getElementById('pl770').scrollIntoView({block: 'start'}));
+      await settle(session.p);
+      await session.p.screenshot({path: path.join(OUT, 'candidate-costs-phone.png')});
+    }
     return {session, evidence};
   } catch (e) { await session.h.browser.close(); throw e; }
 }
@@ -193,6 +212,7 @@ async function inspect(file, label, fixture) {
     comparisons.push(...base.evidence.rules.checks.map(x => ({...x, name: 'baseline: ' + x.name})), ...next.evidence.rules.checks.map(x => ({...x, name: 'candidate: ' + x.name})));
     const candidateBench = await benchmark(next.session); write('candidate-benchmark.json', candidateBench);
     comparisons.push({name: 'candidate builds one asset snapshot per synchronous navigation', pass: Object.values(candidateBench.samples).flat().every(x => x.counts['sync:buildAllAssets'] === 1)});
+    if (candidateBench.samples.costs) comparisons.push({name: 'candidate builds each finance model once per Costs navigation', pass: candidateBench.samples.costs.every(x => x.counts['sync:cj764Model776Held'] === 1 && x.counts['sync:rh766Model776Held'] === 1)});
     comparisons.push({name: 'all navigation calls and first paints release held caches', pass: Object.values(baselineBench.summaries).concat(Object.values(candidateBench.summaries)).every(s => s.heldCachesAlwaysReleased)});
     comparisons.push({name: 'no page or console errors', pass: !baselineErrors.page.length && !baselineErrors.console.length && !next.session.h.errors.length && !next.session.consoleErrors.length});
     const timing = Object.fromEntries(tabs.map(t => [t, {baseline: baselineBench.summaries[t], candidate: candidateBench.summaries[t], goMedianImprovementPct: 100 * (1 - candidateBench.summaries[t].goMs.median / baselineBench.summaries[t].goMs.median)}]));

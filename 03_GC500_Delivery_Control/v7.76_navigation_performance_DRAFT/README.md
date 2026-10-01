@@ -19,3 +19,24 @@ node v7.76_navigation_performance_DRAFT/evidence/navigation_regressions.js
 ```
 
 The test can instead read a built candidate with `PAGE=/absolute/path/to/page.html`. Without `PAGE`, it applies this patch to a temporary copy of the saved v7.74 build; it does not alter the build or contact the service.
+
+## Paired browser verification
+
+On the v7.74 baseline and the final candidate, **36/36 desktop and 36/36 phone checks pass**. Displayed content,
+financial/labour/asset models, permissions and record freshness match; no page/console errors or page overflow.
+The original navigation and both model calculation bodies are unchanged. **21/21 synthetic regressions pass.**
+
+Five warmed navigations per view and build, one Chromium at a time, with the same private record, document index
+and clock; reduced motion. The phone is a 390 × 844 emulated viewport on this host, not physical handset timing.
+Full aggregate results, including p95, are in `evidence/benchmark_summary.json`; raw records/screenshots stay private.
+
+| Costs navigation | Desktop | Phone viewport |
+|---|---|---|
+| Median JavaScript navigation, before → after | 426 → 330.5 ms | 368.8 → 312.8 ms |
+| Change | 22.4% faster | 15.2% faster |
+| Median navigation to paint, before → after | 501.1 → 404.7 ms | 442.1 → 383.8 ms |
+
+Asset construction falls from 3 to 1 per navigation; forecast model construction from 5 to 1, and Rehire model
+construction from 2 to 1 on Costs. This is a targeted improvement, not a claim that every view is instantaneous.
+The phone Progress paint median was unchanged in this sample. Both release sweeps and the live-byte proof are
+recorded separately once complete.
