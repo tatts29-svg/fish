@@ -45,6 +45,10 @@ Every one is read from the same functions the cards below are drawn from (`money
 - Visible text on opening the tab: 33,416 characters, against 61,686 with the folds open (the old tab ran about 53,000
   with nothing folded).
 
+Later drafts add links of their own that use the same jump: v7.66 puts "Rehire by branch" in the glance's list and
+v7.67 links the P&L's card-priced line to the card table (and makes a jump open the fold it lands in). The test counts
+at least four links, not exactly four.
+
 ## Files
 
 - `patch_v765.py` — the pane assembly in `renderCosts_held` (the glance, the order, the two headings, three folds);

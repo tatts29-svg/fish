@@ -33,7 +33,7 @@ const {open} = require('../../toolchain/harness/open_page.js'); const fs = requi
  R.checks.oldLedgerOffTheTab = !D.ledger;
  R.checks.theWorkingFolded = D.folds.n === 3 && D.folds.closed === 3 && D.folds.cats && D.folds.cats.key === 'costs765|cats' && D.folds.transport && D.folds.workforce && D.folds.branch && D.folds.branch.key === 'costs765|branch' && D.folds.lines && D.folds.lines.hasTable;
  R.checks.visibleTextShorter = D.text.visible < D.text.opened * 0.75;
- R.checks.controlsStillReachable = D.controls.fin745Month && D.controls.acc761Month && D.controls.ourForm && D.controls.filters >= 3 && D.controls.jumps === 4;
+ R.checks.controlsStillReachable = D.controls.fin745Month && D.controls.acc761Month && D.controls.ourForm && D.controls.filters >= 3 && D.controls.jumps >= 4; /* v7.66 and v7.67 add links of their own */
  R.checks.readOnly = D.readOnly;
  /* a fold opened stays open through a re-render */
  R.fold = await p.evaluate(async () => { const d = document.querySelector('#pane-costs details[data-sfold="costs765|cats"]'); d.querySelector('summary').click(); await new Promise(r => setTimeout(r, 150)); const openedByClick = d.open; renderCosts(); await new Promise(r => setTimeout(r, 300)); const d2 = document.querySelector('#pane-costs details[data-sfold="costs765|cats"]'); const stillOpen = d2.open; d2.querySelector('summary').click(); await new Promise(r => setTimeout(r, 150)); renderCosts(); await new Promise(r => setTimeout(r, 300)); const d3 = document.querySelector('#pane-costs details[data-sfold="costs765|cats"]'); return {openedByClick, stillOpen, closedAgain: !d3.open}; });

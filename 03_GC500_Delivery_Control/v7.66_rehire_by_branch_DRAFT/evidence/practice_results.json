@@ -1,0 +1,185 @@
+{
+ "mobile": false,
+ "checks": {
+  "cardUnderCostsToJobEnd": true,
+  "toiletsAreTheKinpCellPlusServicing": true,
+  "forkliftsAreEveryNvacForkliftLine": true,
+  "subLinesEachCounted": true,
+  "fencingIsThePLsAndTheProgramme": true,
+  "totalsAdd": true,
+  "fourBranches": true,
+  "othersListed": true,
+  "glanceLinksToIt": true,
+  "readOnly": true,
+  "andrewsWords": true,
+  "neverPartners": true,
+  "noBrokenValues": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true,
+  "noWriteLeftThePage": true
+ },
+ "data": {
+  "order": {
+   "costs764": 350,
+   "rehire766": 580,
+   "monthend": 838
+  },
+  "groups": [
+   {
+    "branch": "KINP",
+    "what": "Toilets — Event Portables",
+    "lines": 132,
+    "units": 251,
+    "rev": 154194.01,
+    "revToCome": 0,
+    "revJob": 154194.01,
+    "cost": 118575,
+    "costToCome": 0,
+    "costJob": 118575,
+    "missing": 0
+   },
+   {
+    "branch": "KINP",
+    "what": "Sub-hired — Container - Refrigerated 6.0M x 2.4M",
+    "lines": 1,
+    "units": 1,
+    "rev": 1428,
+    "revToCome": 0,
+    "revJob": 1428,
+    "cost": null,
+    "costToCome": 0,
+    "costJob": null,
+    "missing": 1
+   },
+   {
+    "branch": "MEAD",
+    "what": "Sub-hired — Forklift Attachment - Extension",
+    "lines": 1,
+    "units": 1,
+    "rev": 9.3,
+    "revToCome": 0,
+    "revJob": 9.3,
+    "cost": null,
+    "costToCome": 0,
+    "costJob": null,
+    "missing": 1
+   },
+   {
+    "branch": "NVAC",
+    "what": "Forklifts and their attachments — sub-hired",
+    "lines": 9,
+    "units": 9,
+    "rev": 35276.3,
+    "revToCome": 0,
+    "revJob": 35276.3,
+    "cost": null,
+    "costToCome": 0,
+    "costJob": null,
+    "missing": 1
+   },
+   {
+    "branch": "STPS",
+    "what": "Fencing — Advanced Temporary Fencing",
+    "lines": 63,
+    "units": null,
+    "rev": 120913.08,
+    "revToCome": 200547.71,
+    "revJob": 321460.79,
+    "cost": 77121.5,
+    "costToCome": 138979.5,
+    "costJob": 216101,
+    "missing": 0
+   }
+  ],
+  "toilets": {
+   "rev": 154194.01,
+   "expect": 154194.01,
+   "lines": 132,
+   "toiletLines": 132,
+   "cost": 118575,
+   "kRehire": 118575
+  },
+  "forks": {
+   "n": 9,
+   "expectN": 9,
+   "rev": 35276.3,
+   "expectRev": 35276.3,
+   "cost": null
+  },
+  "subs": {
+   "n": 2,
+   "expectN": 2,
+   "kLines": 2
+  },
+  "fence": {
+   "rev": 120913.08,
+   "expectRev": 120913.08,
+   "revToCome": 200547.71,
+   "expectRevTC": 200547.71,
+   "cost": 77121.5,
+   "expectCost": 77121.5,
+   "costToCome": 138979.5,
+   "expectCostTC": 138979.5
+  },
+  "totals": {
+   "T": {
+    "rev": 311820.69,
+    "revToCome": 200547.71,
+    "cost": 195696.5,
+    "costToCome": 138979.5,
+    "costMissing": 3,
+    "lines": 206,
+    "revJob": 512368.4,
+    "costJob": 334676,
+    "share": 0.6773080473692779,
+    "shareNow": 0.5608992564782534
+   },
+   "sumRev": 311820.69,
+   "sumCost": 195696.5,
+   "sumRevTC": 200547.71,
+   "sumCostTC": 138979.5,
+   "revenueJob": 756477.65,
+   "xJob": 756477.65,
+   "revenueNow": 555929.94,
+   "cTotal": 555929.94
+  },
+  "others": 8,
+  "byBranch": [
+   {
+    "branch": "STPS",
+    "groups": 1,
+    "revJob": 321460.79,
+    "costJob": 216101,
+    "costMissing": 0
+   },
+   {
+    "branch": "KINP",
+    "groups": 2,
+    "revJob": 155622.01,
+    "costJob": 118575,
+    "costMissing": 1
+   },
+   {
+    "branch": "NVAC",
+    "groups": 1,
+    "revJob": 35276.3,
+    "costJob": 0,
+    "costMissing": 1
+   },
+   {
+    "branch": "MEAD",
+    "groups": 1,
+    "revJob": 9.3,
+    "costJob": 0,
+    "costMissing": 1
+   }
+  ],
+  "glanceLink": true,
+  "readOnly": true
+ },
+ "overflow": 0,
+ "errors": [],
+ "console": [],
+ "blocked": 0,
+ "pass": true
+}
