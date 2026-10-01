@@ -88,12 +88,36 @@ record changes or real texts. The live page was freshly checked after the review
 ## Additional visual reference from Andrew
 
 Andrew supplied [YouTube video VEavLG5dwc8, starting at 0:20](https://www.youtube.com/watch?v=VEavLG5dwc8&t=20s)
-and asked us to use **0:20–1:30** for ideas on how the track looks. This supplements his track photographs and
-approved concept. **Received, not visually reviewed:** the workspace's network proxy refused access to YouTube
-with HTTP 403. No observation of the footage, date, sign positions or circuit geometry is claimed.
+and asked us to use **0:20–1:30** for ideas on how the track looks. Direct access was refused with HTTP 403.
+Andrew then supplied **GC500_Codex_Part_01.mp4** and **GC500_Codex_Part_02.mp4**, both received and visually
+reviewed on **2 Oct 2026**. Each contains 35 seconds of 1920 × 1080 video at 25 fps. Review used sampled frames
+across both clips and full-resolution frames at the points below; audio was not reviewed. The uploads supplement
+his photographs and approved concept. All times below are **relative to each uploaded clip**, not independently
+verified offsets into YouTube.
 
-When the footage is accessible, compare recognisable building silhouettes and setbacks, foliage, road repairs and
-markings, barrier/fence construction, gantry order and camera perspective against the current preview. These are
-review questions derived from the preview's visible gaps, not findings from the video. Review the original footage
-before changing placement; visual inspiration alone does not establish surveyed locations. No source footage has
-been downloaded or committed, and this reference note does not change the frozen candidate.
+| Source and time | Observed detail | Use in the next graphics pass |
+|---|---|---|
+| Part 01, 0.8 s | Close mesh fencing, barrier runs, varied tower profiles and layered street frontage. | Establish believable foreground, middle distance and skyline in each sector. |
+| Part 01, 5.5 s and 27.5 s | Raised red/white kerbs, narrow yellow edge paint, orange blocks on islands and dark tyre traces around chicanes. | Model kerb height/profile and island shape; use local wear and rubber following the corner. |
+| Part 01, 11.7 s | Tight corner enclosed by barriers; deep balconies, distinct building shapes, palms and ordinary street markings. | Replace repeated glass-box facades with recognisable balcony/recess profiles; verify camera perspective before altering geometry. |
+| Part 01, 18.5 s and 32 s | Foliage and buildings cast broken shadows; lane markings, surface seams, barrier feet/joints and spectators behind fencing remain visible. | Add layered foliage, ground contact, varied concrete and restrained road repair/paint detail. |
+| Part 01, 23.7 s | Overhead Queensland sign, 200 boards, street lamps, road markings and differing spectator structures on each side. | Give each section a recognisable sequence of landmarks; avoid repeating the same roadside modules everywhere. |
+| Part 02, 0–5.2 s | Narrow street enclosure, 100/50 boards, Hino panels and the pink GOLDCOAST. bridge among balcony towers and foliage. | Further bridge/streetscape reference; this does not verify Breaker Street or a map coordinate. |
+| Part 02, 5.2 s onward | Edit into cockpit view; bright exterior framed by dark cabin. Coates wall panels appear later in this sequence. | Study exposure balance and a low-mounted viewpoint. Preserve the approved car identity and MP4. |
+| Part 02, 20–22.7 s | Boost Mobile panels around a bend, spectators/canopies, yellow kerb and a small green island. | Sector-specific event detail and landscaping; sponsor placement/year is unverified. |
+| Part 02, 25.2–34.7 s | Straight opens out, with grandstands left, close fence/barriers right, road/grid markings and overhead signage ahead. | Vary enclosure by section; do not narrow the entire circuit from the earlier street views. |
+
+**Priority:** recognisable buildings and dense vegetation first; physical kerbs, barriers and surface variation
+next; then matched camera framing and controlled sun/shade. These are proposed implementation changes, not
+changes already made. The current runtime has overly uniform towers, faceted foliage and even road lighting.
+
+The source clips do not establish their filming year, surveyed dimensions or the 2026 sponsor layout. Current
+photographs and the master plan take precedence for those decisions. No dimensions or map positions are inferred
+from the wide-angle camera alone. Broadcaster overlays and the reference car are not proposed product assets.
+
+Source identities: Part 01 is 17,370,560 bytes, SHA256
+`0fd0246faa834e338cebbd0e088c81f202500c81fac5aca9bf9eea8d45f21be2`; Part 02 is 17,337,172 bytes, SHA256
+`b9bca4fe70c71295b684b6878a523eddd756c807b68cea0171f213e772bffb89`.
+Original clips and extracted stills remain in the private workspace, outside this repository. The external reviewer
+has not yet confirmed access to these uploads; shared notes are not a substitute for their own source review.
+The frozen preview code and hashes are unchanged; no graphics publication or record edits.
