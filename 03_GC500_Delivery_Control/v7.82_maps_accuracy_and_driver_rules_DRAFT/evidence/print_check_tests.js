@@ -33,7 +33,7 @@ const fs = require('fs'), path = require('path');
   ok('P6 after the check the driver PDFs are made', made.gone && made.panel && made.state === 'ready', JSON.stringify(made));
   // the same layout the PDFs are photographed from: every sheet carries the name and time
   const st = await p.evaluate(async iso => { try { pdf7Close(); } catch (e) {} const L = await pdf7Layout('drivers', iso, null); const pages = [...L.wrap.querySelectorAll('.dp-page')], s = pages.map(pg => (pg.querySelector('.dp782') || {}).textContent || ''); try { L.done && L.done(); } catch (e) {}
-    return {pages: pages.length, stamped: s.filter(x => /^Checked by Test Person · \d\d [A-Z][a-z]{2} \d{4}, \d\d:\d\d · drop-off, way in, times and order$/.test(x)).length, sample: s[0]}; }, iso);
+    return {pages: pages.length, stamped: s.filter(x => /^Checked by Test Person · \d\d [A-Z][a-z]{2} \d{4}, \d\d:\d\d AEST · drop-off, way in, times and order$/.test(x)).length, sample: s[0]}; }, iso);
   ok('P7 every driver sheet carries "Checked by <name> · <date, time>"', st.pages > 0 && st.stamped === st.pages, JSON.stringify(st));
   const files = made.files || [];
   const sg = await p.evaluate(async iso => { const d = programmeDays().find(x => x.iso === iso), loads = dpLoads(d); const L = await pdf7Layout('drivers', iso, null);
@@ -57,6 +57,35 @@ const fs = require('fs'), path = require('path');
   const fx2 = await p.evaluate(() => ({drawer: !!document.querySelector('[data-entry-pin], .drawer.open, #drawer.open, [aria-label*="drawer" i]'), way: [...document.querySelectorAll('button')].some(b => /Pin the way in/.test(b.textContent))}));
   ok('P11 each red item is one tap from Edit: "Fix in Edit" closes the check and opens that item (drop-off and Pin the way in)', fx.none || (fx.hash === '#asset/' + fx.k && !fx.open && fx2.way), JSON.stringify(Object.assign(fx, fx2)));
   ok('P10 the install-team sheets are not held up by the driver check', ins && !ins.asked && ins.panel, JSON.stringify(ins));
+  /* Codex review: the check is bound to the loads it covered and to what they said; every way in asks for it */
+  const bind = await p.evaluate(async iso => { const d = programmeDays().find(x => x.iso === iso), n = dpLoads(d).length; if (n < 2) return {skip: true};
+    DRV782_OK = {iso, by: 'Test Person', at: drvStamp782(), bad: 0, t: Date.now(), snaps: drvSnaps782(iso, 0)}; /* load 1 checked */
+    const one = drvValid782(iso, [0]), other = drvValid782(iso, [1]), all = drvValid782(iso, dpLoads(d).map((g, i) => i));
+    const L = await pdf7Layout('drivers', iso, 1); const st = [...L.wrap.querySelectorAll('.dp-page .dp782')].length; try { L.done && L.done(); } catch (e) {}
+    /* a changed location after the check: the check no longer holds */
+    const a = dpLoads(d)[0].rows[0].a, keep = S.delivery; const mc = () => { try { RENDER_MEMO.clear(); } catch (e) {} }; S.delivery = Object.assign({}, keep || {}, {[a.key]: Object.assign({}, (keep || {})[a.key] || {}, {eta: '11:45'})}); mc();
+    const changed = drvValid782(iso, [0]); S.delivery = keep; mc(); const back = drvValid782(iso, [0]);
+    return {one, other, all, otherStamped: st, changed, back}; }, iso);
+  ok('P14 a check covers only the loads it was done for: load 1 checked does not stamp load 2 or "all loads"', bind.skip || (bind.one && !bind.other && !bind.all && bind.otherStamped === 0), JSON.stringify(bind));
+  ok('P15 a change after the check (a time asked for, here) voids it until it is checked again', bind.skip || (!bind.changed && bind.back), JSON.stringify(bind));
+  const mk = await p.evaluate(async iso => { const keep = S.delivery, a = dpLoads(programmeDays().find(x => x.iso === iso))[0].rows[0].a, mc = () => { try { RENDER_MEMO.clear(); } catch (e) {} };
+    DRV782_OK = {iso, by: 'Test Person', at: drvStamp782(), bad: 0, t: Date.now(), snaps: drvSnaps782(iso, 0)};
+    S.delivery = Object.assign({}, keep || {}, {[a.key]: Object.assign({}, (keep || {})[a.key] || {}, {eta: '11:45'})}); mc();
+    let err = null; try { PDF7.job++; await pdf7Make('drivers', iso, 0, {say: () => {}}, PDF7.job); } catch (e) { err = String(e.message || e); } finally { S.delivery = keep; mc(); }
+    return err; }, iso);
+  ok('P16 the PDF maker checks again after it syncs: changed data stops it with a plain message', /something changed since the check/.test(mk || ''), mk);
+  /* the confirm button looks again: a change while the check is open brings it back, as it stands now */
+  await p.evaluate(iso => { DRV782_OK = null; document.querySelector(`.dplate [data-pdf7="drivers"][data-iso="${iso}"][data-only="0"]`).click(); }, iso); await p.waitForSelector('#drv782');
+  const reopen = await p.evaluate(iso => { const cks = [...document.querySelectorAll('#drv782 input[type=checkbox]')]; cks.forEach(c => c.click()); const nm = document.querySelector('#drv782n'); nm.value = 'Test Person'; nm.dispatchEvent(new Event('input'));
+    const a = dpLoads(programmeDays().find(x => x.iso === iso))[0].rows[0].a, mc = () => { try { RENDER_MEMO.clear(); } catch (e) {} }; window.__keepD = S.delivery; S.delivery = Object.assign({}, S.delivery || {}, {[a.key]: Object.assign({}, (S.delivery || {})[a.key] || {}, {eta: '11:45'})}); mc();
+    document.querySelector('#drv782 .b-go').click(); const again = !!document.querySelector('#drv782'), chg = !!document.querySelector('#drv782 .chg'), ok = !!DRV782_OK; S.delivery = window.__keepD; mc(); document.querySelectorAll('#drv782').forEach(e => e.remove()); try { pdf7Close(); } catch (e) {} return {again, chg, ok}; }, iso);
+  ok('P17 a change while the check is open: pressing the button shows it again as it stands now - nothing is made', reopen.again && reopen.chg && !reopen.ok, JSON.stringify(reopen));
+  /* a direct print link asks too */
+  await p.evaluate(iso => { DRV782_OK = null; dpFromLink('drivers', iso, null); }, iso); await new Promise(r => setTimeout(r, 2500));
+  const link = await p.evaluate(() => ({asked: !!document.querySelector('#drv782')}));
+  await p.evaluate(() => { document.querySelectorAll('#drv782').forEach(e => e.remove()); try { dpBarClose(); } catch (e) {} });
+  ok('P18 a direct print link (#print/drivers/…) asks for the check first', link.asked, JSON.stringify(link));
+  ok('P19 the time on the sheet is the project time (Brisbane, AEST), whatever the device says', /^\d\d [A-Z][a-z]{2} \d{4}, \d\d:\d\d AEST$/.test(await p.evaluate(() => drvStamp782())), await p.evaluate(() => drvStamp782()));
   ok('E1 no page errors', !s.errors.length, JSON.stringify(s.errors).slice(0, 200));
   const passed = T.filter(t => t.pass).length;
   T.forEach(t => console.log((t.pass ? 'PASS ' : 'FAIL ') + t.name + ' — ' + t.detail));

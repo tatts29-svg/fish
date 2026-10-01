@@ -142,7 +142,7 @@ const SEQ782 = 'The sequence: 1 P03 > 2 P01 > 3 P05 > 4 WC05 waste tank > 5 WC05
    the delivery order - you would not load a waste tank after 09:00 with the toilet block first. No travel to the Gold
    Coast 07:00-09:00 or 16:00-18:00 (the project manager, 2 Oct 2026: they cannot travel then). Schedule load times are
    Kingston load times; the run to site is the page's planning figure (transport.kingston_run, about 70 min). */
-const LOAD782 = 'LOAD: for a morning delivery, loaded and away from Kingston by 05:00. Load in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00. A delivery with a time asked for follows its own leave-by time.';
+const LOAD782 = 'LOAD: for a morning delivery (on site before 07:00), loaded and away from Kingston by 05:00. Load in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00. A delivery with a time asked for gets one leave-by time that meets all of these.';
 const LOAD_BY782 = 5 * 60;
 const LOAD_SMS782 = 'LOAD: Kingston by 05:00, in order.';
 const PEAKS782 = [[7 * 60, 9 * 60], [16 * 60, 18 * 60]];
@@ -229,9 +229,9 @@ function rules782Long(a){
  L.push(LOAD782);
  loadCheck782(a).forEach(w => L.push('CHECK THE LOAD: ' + w + '.'));
  const e = entry782(a); if (e) L.push(e.words);
- if (park782(a)) L.push('Park access: watch for wildlife and low branches; some spots have no room to spare. ' + ((DATA.driver_rules || {}).escort || ''));
+ if (park782(a)) L.push('Park access: watch for wildlife and low branches; some spots have no room to spare. ' + ((DATA.driver_rules || {}).escort || '') + ' Event days (D007 Track Access Details): contractor access to Macintosh Park only from 21:30 Fri 23, 22:15 Sat 24 and 19:00 Sun 25 Oct.');
  L.push(STAGGER782 + ' Bring things in the order above.');
- L.push('Event week (D007): circuit traffic one-way counter-clockwise 00:00 Mon 20 Oct to 17:00 Mon 27 Oct · 40 km/h on track · 10 km/h in Macintosh Park.');
+ L.push('Event week (D007 Track Access Details): circuit closed to local traffic, one-way anti-clockwise (race direction) from 05:00 Mon 19 Oct; roads reopen 17:00 Mon 26 Oct. D007 General Note 1 gives different dates - the drawing conflicts, confirm with site. 40 km/h on track · 10 km/h in Macintosh Park.');
  return inPlace782(a.key) ? L.filter(x => !/^(TIME|DISPATCH|LOAD|DIRECTIONS[A-Z ]*|CHECK THE (TIME|LOAD)):/.test(x)) : L; /* delivered: its record, not a plan */
 }
 """
@@ -311,11 +311,15 @@ const TIME782 = 'TIME: the time given is when you must be UNLOADED by - not when
    no-travel window, so a time that would put the truck on the road 07:00-09:00 (or 16:00-18:00) brings it in before the
    window instead. This is the one plan for a timed delivery: the text, Full details, the drawer and the checks all read it. */
 function plan782(by){
- const run = run782(); let onBy = by - UNLOAD_MIN782, ban = null;
+ const run = run782(); let onBy = by - UNLOAD_MIN782, ban = null, morning = false;
  for (let i = 0; i < 6; i++) { const b = ban782(onBy - run, onBy); if (!b) break; ban = b; onBy = b[0]; }
- return {by, onBy, leaveBy: onBy - run, run, ban};
+ let leaveBy = onBy - run;
+ /* a morning run (on site before 07:00) is loaded and away from Kingston by 05:00 - the general rule applies here too */
+ const day = Math.floor(onBy / 1440) * 1440;
+ if (onBy <= day + 7 * 60 && leaveBy > day + LOAD_BY782) { leaveBy = day + LOAD_BY782; onBy = leaveBy + run; morning = true; }
+ return {by, onBy, leaveBy, run, ban, morning};
 }
-function planWords782(P){ return P.ban ? ' (no travel ' + clock782(P.ban[0]) + '-' + clock782(P.ban[1]) + ', so in before ' + clock782(P.ban[0]) + ')' : ''; }
+function planWords782(P){ const w = [P.ban ? 'no travel ' + clock782(P.ban[0]) + '-' + clock782(P.ban[1]) + ', so in before ' + clock782(P.ban[0]) : '', P.morning ? 'a morning run leaves Kingston by 05:00' : ''].filter(Boolean); return w.length ? ' (' + w.join('; ') + ')' : ''; }
 /* the plan for a delivery still to come with a time asked for, on its own due day; null otherwise */
 function planFor782(a){
  const d = deliveryOf(a.key) || {}, m = hhmm782(d.eta); if (m == null || d.state === 'on site') return null;
@@ -331,6 +335,7 @@ function timeCheck782(a){
    + (hit ? ' - on the road in the ' + clock782(hit[0]) + '-' + clock782(hit[1]) + ' no-travel window. Leave Kingston by ' + w(P.leaveBy) + ', loaded before then.'
    : spare < 0 ? ' - AFTER ' + w(P.by) + ', when it must already be unloaded. Leave Kingston by ' + w(P.leaveBy) + ', loaded before then.'
    : spare < UNLOAD_MIN782 ? ' - only ' + spare + ' min to unload before ' + w(P.by) + ' (at least ' + UNLOAD_MIN782 + ' needed). Leave Kingston by ' + w(P.leaveBy) + ', loaded before then.'
+   : l.at > P.leaveBy ? ' - leaves Kingston after its leave-by time' + planWords782(P) + '. Leave Kingston by ' + w(P.leaveBy) + ', loaded before then.'
    : ' - ' + spare + ' min to unload before ' + w(P.by) + '.')); });
  return out;
 }
@@ -340,7 +345,7 @@ t = rep(t, " L.push(LOAD782);\n loadCheck782(a).forEach(w => L.push('CHECK THE L
 t = rep(t, " const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a); if (!o && !e && !pk && !lw.length) return '';",
         " const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a), tw = timeCheck782(a); if (!o && !e && !pk && !lw.length && !tw.length) return '';", 'drawer shows for a time warning', p, True)
 t = rep(t, " if (!inPlace782(a.key)) L.push(row('Loading', esc(LOAD782.replace(/^LOAD: f/, 'F'))));",
-        " if (!inPlace782(a.key)) { const P = planFor782(a), w = n => when782(n, P && P.base); L.push(row('Time', P ? 'Unloaded by <b>' + esc(w(P.by)) + '</b> - so on site by <b>' + esc(w(P.onBy)) + '</b>' + esc(planWords782(P)) + ', leave Kingston by <b>' + esc(w(P.leaveBy)) + '</b>, loaded before then (unloading takes at least ' + UNLOAD_MIN782 + ' min). Miss it and the other crews wait, or the area is closed.' : 'The time given is when the truck must be unloaded by - be on site at least ' + UNLOAD_MIN782 + ' min before it.')); }\n tw.forEach(w => L.push(row('Check the time', /AFTER|only [0-9]+ min|no-travel/.test(w) ? '<span class=\"no782\">' + esc(w) + '</span>' : esc(w))));\n if (!inPlace782(a.key)) L.push(row('Loading', esc(LOAD782.replace(/^LOAD: f/, 'F'))));", 'drawer time row', p, True)
+        " if (!inPlace782(a.key)) { const P = planFor782(a), w = n => when782(n, P && P.base); L.push(row('Time', P ? 'Unloaded by <b>' + esc(w(P.by)) + '</b> - so on site by <b>' + esc(w(P.onBy)) + '</b>' + esc(planWords782(P)) + ', leave Kingston by <b>' + esc(w(P.leaveBy)) + '</b>, loaded before then (unloading takes at least ' + UNLOAD_MIN782 + ' min). Miss it and the other crews wait, or the area is closed.' : 'The time given is when the truck must be unloaded by - be on site at least ' + UNLOAD_MIN782 + ' min before it.')); }\n tw.forEach(w => L.push(row('Check the time', /AFTER|only [0-9]+ min|no-travel|leaves Kingston after/.test(w) ? '<span class=\"no782\">' + esc(w) + '</span>' : esc(w))));\n if (!inPlace782(a.key)) L.push(row('Loading', esc(LOAD782.replace(/^LOAD: f/, 'F'))));", 'drawer time row', p, True)
 # the words everywhere the time shows: unloaded by, not "on site"
 t = rep(t, "return 'Due ' + fmtDate(day) + (d.eta ? ', on site ' + d.eta : '');", "return 'Due ' + fmtDate(day) + (d.eta ? (d.state === 'on site' ? ', on site ' + d.eta : (P => P ? ', on site by ' + when782(P.onBy, P.base) + ', unloaded by ' + d.eta : ', unloaded by ' + d.eta)(planFor782(a))) : ''); /* v7.82 - the time is an unloaded-by time (a delivered record keeps its words) */", 'text: unloaded by', p, True)
 t = rep(t, "${d.eta ? ' · planned on site ' + d.eta : ''}${ev.load_time", "${d.eta ? (d.state === 'on site' ? ' · planned on site ' + d.eta : (P => P ? ' · on site by ' + when782(P.onBy, P.base) + planWords782(P) + ', unloaded by ' + d.eta + ' - leave Kingston by ' + when782(P.leaveBy, P.base) + ', loaded (at least ' + UNLOAD_MIN782 + ' min to unload)' : ' · unloaded by ' + d.eta)(planFor782(a))) : ''}${ev.load_time", 'Full details: unloaded by', p, True)
@@ -394,9 +399,29 @@ const DRV782_CSS = '#drv782{position:fixed;inset:0;z-index:2147483000;display:gr
  + '#drv782 .dw782{display:grid;gap:4px;margin:12px 0 4px}#drv782 .dw782 input{font:inherit;padding:9px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.2)}#drv782 .dw782 small{color:var(--mute,#5d6468)}'
  + '#drv782 .row{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}#drv782 .row button{font:700 15px Inter,sans-serif;padding:10px 16px;border-radius:10px;border:0;cursor:pointer}'
  + '#drv782 .b-go{background:var(--orange,#ff6a13);color:#fff}#drv782 .b-go:disabled{opacity:.45;cursor:not-allowed}#drv782 .b-no{background:transparent;color:inherit;border:1.5px solid rgba(0,0,0,.2)!important}'
+ + '#drv782 .chg{margin:0 0 10px;padding:8px 10px;border-radius:8px;background:rgba(180,35,24,.08);color:#b42318;font-weight:700}'
  + '#drv782 .tag{margin:12px 0 0;font-size:12px;color:var(--mute,#5d6468);text-align:center}#drv782 .facts.rep{background:rgba(255,106,19,.09)}#drv782 .facts.rep u{color:#b45309}#drv782 .pl-note{margin:0 0 8px;padding:8px 10px;border-left:4px solid #15181a;background:rgba(0,0,0,.04);font-size:13px}'
  + '.dp-page{position:relative}.dp782{position:absolute;right:3mm;bottom:1.6mm;z-index:2;padding:.4mm 1.6mm;background:#fff;border:.25mm solid #d7dbde;border-radius:1mm;font:600 6.6pt/1.2 Inter,sans-serif;color:#15181a}';
-let DRV782_OK = null; /* {iso, by, at}: the check behind the sheets being laid out now */
+let DRV782_OK = null; /* {iso, by, at, t, snaps}: the check behind the sheets being laid out now - bound to the loads it
+   covered and to what they said when it was done (Codex review): another load, or a changed location, way in or time,
+   needs a fresh check */
+/* what a load's sheet depends on, as one string: its references, where each goes, its way in, its times */
+function drvLoadSnap782(g){
+ return JSON.stringify((g.rows || []).map(r => { const a = r.a; if (!a) return null; const P = dpPos(a), dr = dirs782(a), d = deliveryOf(a.key) || {};
+  return [a.key, P.kind, P.lat, P.lon, dr.ok, dr.missing.join(';'), d.eta || '', (a.events || []).map(e => e.load_time || '').join(','), timeCheck782(a).join('|')]; }));
+}
+function drvSnaps782(iso, only){
+ const d = programmeDays().find(x => x.iso === iso); if (!d) return null;
+ const loads = dpLoads(d), pick = only != null && loads[only] ? [only] : loads.map((g, i) => i), out = {};
+ pick.forEach(i => { out[i] = drvLoadSnap782(loads[i]); }); return out;
+}
+/* is there a fresh check, by name, for exactly these loads as they stand now */
+function drvValid782(iso, pick){
+ if (!DRV782_OK || DRV782_OK.iso !== iso || Date.now() - DRV782_OK.t > 900000) return false;
+ const d = programmeDays().find(x => x.iso === iso); if (!d) return false;
+ const loads = dpLoads(d);
+ return (pick || []).every(i => loads[i] && DRV782_OK.snaps[i] != null && DRV782_OK.snaps[i] === drvLoadSnap782(loads[i]));
+}
 function drvFacts782(iso, only){
  const d = programmeDays().find(x => x.iso === iso); if (!d) return null;
  const loads = dpLoads(d), pick = only != null && loads[only] ? [only] : loads.map((g, i) => i), bad = [], rep = [];
@@ -405,15 +430,20 @@ function drvFacts782(iso, only){
   const dr = dirs782(a);
   if (dr.ok && dr.report) rep.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key});
   if (!dr.ok) bad.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key + ' - ' + [dr.drop ? '' : dr.unverified ? 'drop-off not verified' : 'no drop-off pin', dr.dir ? '' : 'no way in'].filter(Boolean).join(', ')});
-  timeCheck782(a).filter(w => /AFTER|only [0-9]+ min|no-travel/.test(w)).forEach(w => bad.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key + ' - time: ' + w})); }));
+  timeCheck782(a).filter(w => /AFTER|only [0-9]+ min|no-travel|leaves Kingston after/.test(w)).forEach(w => bad.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key + ' - time: ' + w})); }));
  return {loads: pick.length, items: n, bad, rep};
 }
-function drvStamp782(){ const z = x => String(x).padStart(2, '0'), d = new Date(), M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
- return z(d.getDate()) + ' ' + M[d.getMonth()] + ' ' + d.getFullYear() + ', ' + z(d.getHours()) + ':' + z(d.getMinutes()); }
-function drvCheck782(iso, only, go){
+/* the project's own time (Brisbane, AEST), whatever the device is set to */
+function drvStamp782(){
+ try { const P = Object.fromEntries(new Intl.DateTimeFormat('en-AU', {timeZone: 'Australia/Brisbane', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}).formatToParts(new Date()).map(x => [x.type, x.value]));
+  return P.day + ' ' + P.month.replace('.', '') + ' ' + P.year + ', ' + P.hour + ':' + P.minute + ' AEST'; }
+ catch (e) { const d = new Date(Date.now() + 10 * 3600000), z = x => String(x).padStart(2, '0'), M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return z(d.getUTCDate()) + ' ' + M[d.getUTCMonth()] + ' ' + d.getUTCFullYear() + ', ' + z(d.getUTCHours()) + ':' + z(d.getUTCMinutes()) + ' AEST'; } }
+function drvCheck782(iso, only, go, changed){
  document.querySelectorAll('#drv782').forEach(e => e.remove());
  if (!document.getElementById('drv782css')) { const st = document.createElement('style'); st.id = 'drv782css'; st.textContent = DRV782_CSS; document.head.appendChild(st); }
  const F = drvFacts782(iso, only); if (!F) { go(); return; }
+ const snaps0 = drvSnaps782(iso, only);
  let name = ''; try { name = localStorage.getItem('gc500.printedBy') || ''; } catch (e) {}
  const facts = F.bad.length
   ? `<div class="facts bad"><b class="f-no">${F.bad.length} item${F.bad.length === 1 ? '' : 's'} not ready to send</b> - no firm instructions yet. Set them here at the branch in Edit (the drop-off on the map, and the way in) - the sheets update with them.<ul>${F.bad.slice(0, 8).map(x => '<li><button type="button" class="fx782" data-k="' + esc(x.key) + '">' + esc(x.line) + ' <u>Fix in Edit ›</u></button></li>').join('')}${F.bad.length > 8 ? '<li>and ' + (F.bad.length - 8) + ' more</li>' : ''}</ul></div>`
@@ -426,7 +456,7 @@ function drvCheck782(iso, only, go){
   'I have talked each driver through their sheet. If anything looks wrong on the day, they stop and call site.'];
  const box = document.createElement('div'); box.id = 'drv782'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'drv782h');
  box.innerHTML = `<div class="box"><h2 id="drv782h">Before these go to the drivers</h2>
-  <p class="lead">A quick check - about 30 seconds. You're the last set of eyes before a truck leaves the yard. Thanks for getting it right first time.</p>
+  <p class="lead">A quick check - about 30 seconds. You're the last set of eyes before a truck leaves the yard. Thanks for getting it right first time.</p>${changed ? '<p class="chg">Something changed since you opened this (a location, a way in or a time) - here it is as it stands now.</p>' : ''}
   ${facts}${repBox}<p class="pl-note">Each driver sheet comes with an A4 location sign for every item on it. Laminate it and fix it to the item, so it shows where the item goes when it arrives.</p>${C.map((c, i) => `<label class="ck"><input type="checkbox" data-c="${i}"><span>${esc(c)}</span></label>`).join('')}
   <div class="dw782"><label for="drv782n"><b>Checked by</b></label><input id="drv782n" autocomplete="name" placeholder="Your name" value="${esc(name)}"><small>Your name and the time print at the foot of every sheet.</small></div>
   <div class="row"><button type="button" class="b-no">Not yet</button><button type="button" class="b-go" disabled>Checked - get the sheets</button></div>
@@ -441,7 +471,8 @@ function drvCheck782(iso, only, go){
  box.addEventListener('click', e => { if (e.target === box) close(); });
  box.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
  goB.onclick = () => { const by = nm.value.trim().slice(0, 60); try { localStorage.setItem('gc500.printedBy', by); } catch (e) {}
-  DRV782_OK = {iso, by, at: drvStamp782(), bad: F.bad.length, t: Date.now()}; close(); go(); };
+  const now = drvSnaps782(iso, only); if (JSON.stringify(now) !== JSON.stringify(snaps0)) { close(); drvCheck782(iso, only, go, true); return; } /* checked against what it says now */
+  DRV782_OK = {iso, by, at: drvStamp782(), bad: F.bad.length, t: Date.now(), snaps: now}; close(); go(); };
  setTimeout(() => (cks[0] || nm).focus(), 30);
 }
 function dpWirePlate(pane){""", 'driver print check', p, True)
@@ -450,7 +481,13 @@ t = rep(t, "pane.querySelectorAll('[data-print-drv]').forEach(n => n.onclick = (
 t = rep(t, " pdf7Open(b.dataset.pdf7, b.dataset.iso, b.dataset.only != null && b.dataset.only !== '' ? +b.dataset.only : null, b.dataset.mail === '1');",
         " const open7 = () => pdf7Open(b.dataset.pdf7, b.dataset.iso, b.dataset.only != null && b.dataset.only !== '' ? +b.dataset.only : null, b.dataset.mail === '1');\n if (b.dataset.pdf7 === 'drivers') drvCheck782(b.dataset.iso, b.dataset.only != null && b.dataset.only !== '' ? +b.dataset.only : null, open7); else open7(); /* v7.82 - driver PDFs: the check first */", 'driver PDFs check first', p, True)
 t = rep(t, " wrap.innerHTML = pages.join(''); wrap.classList.remove('ps7wrap'); wrap.classList.add('dpwrap'); wrap.dataset.dpReady = '';",
-        " wrap.innerHTML = pages.join(''); wrap.classList.remove('ps7wrap'); wrap.classList.add('dpwrap'); wrap.dataset.dpReady = '';\n if (doc === 'drv' && DRV782_OK && DRV782_OK.iso === iso && Date.now() - DRV782_OK.t < 900000) { if (!document.getElementById('drv782css')) { const s7 = document.createElement('style'); s7.id = 'drv782css'; s7.textContent = DRV782_CSS; document.head.appendChild(s7); }\n  wrap.querySelectorAll('.dp-page').forEach(pg => { const f = document.createElement('div'); f.className = 'dp782'; f.textContent = 'Checked by ' + DRV782_OK.by + ' · ' + DRV782_OK.at + ' · drop-off, way in, times and order'; pg.appendChild(f); }); } /* v7.82 */", 'checked-by on every sheet', p, True)
+        " wrap.innerHTML = pages.join(''); wrap.classList.remove('ps7wrap'); wrap.classList.add('dpwrap'); wrap.dataset.dpReady = '';\n if (doc === 'drv' && drvValid782(iso, pick)) { if (!document.getElementById('drv782css')) { const s7 = document.createElement('style'); s7.id = 'drv782css'; s7.textContent = DRV782_CSS; document.head.appendChild(s7); }\n  wrap.querySelectorAll('.dp-page').forEach(pg => { const f = document.createElement('div'); f.className = 'dp782'; f.textContent = 'Checked by ' + DRV782_OK.by + ' · ' + DRV782_OK.at + ' · drop-off, way in, times and order'; pg.appendChild(f); }); } /* v7.82 */", 'checked-by on every sheet', p, True)
+t = rep(t, "else dpPrint(iso, kind === 'install' ? 'ins' : 'drv', {link: true, only});",
+        "else if (kind === 'install') dpPrint(iso, 'ins', {link: true, only}); else drvCheck782(iso, only, () => dpPrint(iso, 'drv', {link: true, only})); /* v7.82 - a direct link checks first too */",
+        'direct print links check first', p, True)
+t = rep(t, " T.lib = performance.now() - T.t0;\n if (!alive()) return null;",
+        " T.lib = performance.now() - T.t0;\n if (!alive()) return null;\n if (kind === 'drivers' && !drvValid782(iso, pick)) throw new Error('something changed since the check (a location, a way in or a time) - press Drivers again and check it'); /* v7.82 - checked against the synced record */",
+        'the PDF maker checks again after syncing', p, True)
 
 # 7b. A drop-off placed at the branch reaches the driver sheet (the project manager, 2 Oct 2026: "drop off locations can be done at
 #     the branch via Edit - if they update it, the run sheet locations update"). The sheet put a master-plan AREA ahead of a
@@ -598,6 +635,48 @@ t = rep(t, ".rules782{margin:10px 0;", """.tg782{margin:14px 0 6px}.tg782 .tg-bo
 .tg782 .tg-ref{all:unset;cursor:pointer}.tg782 .tg-ref:focus-visible{outline:2px solid var(--orange,#ff6a13)}.tg782 .tg-w{min-width:0;display:flex;flex-direction:column;gap:2px}.tg782 .tg-w b{overflow-wrap:anywhere}.tg782 .tg-w span{color:var(--mute,#5d6468);font-size:13px}
 .tg782 .tg-w .tg-loc{color:var(--ink,#15181a);font-size:13.5px}.tg782 .tg-w .tg-t{font-size:12px;font-weight:700}.tg782 .tg-w .tg-ok{color:#1f9d55}.tg782 .tg-w .tg-no{color:#d93d2f}.tg782 .tg-w .tg-r{color:#d97706}
 .rules782{margin:10px 0;""", 'list styles', p, True)
+
+# 11. EVERY LOCATION HAS ITS WAY IN (the project manager, 2 Oct 2026: "the pit lane is the entry point for anything in the
+#     Macintosh Island area. Main Beach seaside: entry from the north end. The other side of the road on Main Beach: entry
+#     from the south end of Main Beach Rd as you come around the track. Everything over the pedestrian bridge from the island
+#     to the Main Beach Rd area: from the south end of Main Beach, coming around the race track. We should know all entry
+#     points for everything now - don't flag them"). Zones read off the master D001 (evidence/entry_zones_D001.json and
+#     entry_zones_on_master_D001.jpg). Gate 1 / Helen Park and Gate 2 / Commodore Park use D007's own entry points (the Tedder
+#     Ave access point - heavy vehicle entry; Gate 2 at the GC Hwy underpass via Commodore Dr), for the project manager to
+#     confirm. Turn 2 / Ferny Ave and Admiralty Dr are not covered by either and stay flagged until he says.
+ZJ = json.load(open(os.path.join(HERE, 'evidence', 'entry_zones_D001.json')))
+t = rep(t, "function entry782(a){\n const nt = navTargetFor(a); const s = nt ? mbpSide782(nt.ll) : null; if (!s) return null;",
+        "/* v7.82 - the way in by area, read off the master D001 */\nconst ZONES782 = " + json.dumps(ZJ['zones'], separators=(',', ':')) + ", ROAD782 = " + json.dumps(ZJ['mbp_esplanade_road'], separators=(',', ':')) + """;
+let PTFIT782 = null;
+/* a position on the master sheet: the master's own point, else from latitude and longitude through a fit of every master unit */
+function ptOf782(a, ll){
+ const m = MASTER_LOC[a.key]; if (m && m.pt) return m.pt;
+ if (!ll) return null;
+ if (!PTFIT782) { const S = [[0,0,0],[0,0,0],[0,0,0]], bx = [0,0,0], by = [0,0,0];
+  Object.values(MASTER_LOC).forEach(v => { if (!v.ll || !v.pt || v.prec !== 'unit') return; const r = [v.ll[1], v.ll[0], 1];
+   for (let i = 0; i < 3; i++) { for (let j = 0; j < 3; j++) S[i][j] += r[i] * r[j]; bx[i] += r[i] * v.pt[0]; by[i] += r[i] * v.pt[1]; } });
+  const solve = (M, b) => { const A = M.map((r, i) => r.concat([b[i]])); for (let c = 0; c < 3; c++) { let p = c; for (let r = c + 1; r < 3; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r; [A[c], A[p]] = [A[p], A[c]];
+    for (let r = 0; r < 3; r++) if (r !== c) { const f = A[r][c] / A[c][c]; for (let k = c; k < 4; k++) A[r][k] -= f * A[c][k]; } } return A.map((r, i) => r[3] / r[i]); };
+  PTFIT782 = {x: solve(S, bx), y: solve(S, by)}; }
+ const r = [ll.lon, ll.lat, 1], f = PTFIT782; return [r[0] * f.x[0] + r[1] * f.x[1] + f.x[2], r[0] * f.y[0] + r[1] * f.y[1] + f.y[2]];
+}
+function inPoly782(p, P){ let c = false; for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const [xi, yi] = P[i], [xj, yj] = P[j]; if (((yi > p[1]) !== (yj > p[1])) && p[0] < (xj - xi) * (p[1] - yi) / (yj - yi) + xi) c = !c; } return c; }
+function roadY782(x){ for (let i = 1; i < ROAD782.length; i++) if (x <= ROAD782[i][0]) { const [x0, y0] = ROAD782[i - 1], [x1, y1] = ROAD782[i]; return y0 + (y1 - y0) * (x - x0) / (x1 - x0); } return ROAD782[ROAD782.length - 1][1]; }
+function zoneEntry782(a){
+ if (!a || inPlace782(a.key)) return null;
+ let nt = null; try { nt = navTargetFor(a); } catch (e) {}
+ const D = typeof descLoc782 === 'function' ? descLoc782(a) : null, ll = nt ? nt.ll : D ? D.ll : null, pt = ptOf782(a, ll); if (!pt) return null;
+ if (inPoly782(pt, ZONES782.island)) return {side: 'pit lane', zone: 'island', sms: 'ENTRY: Macintosh Island area - in via the pit lane.', words: 'Macintosh Island area: the pit lane is the way in (the project manager, 2 Oct 2026).'};
+ if (inPoly782(pt, ZONES782.mbp) || inPoly782(pt, ZONES782.surfers)) {
+  if (pt[1] < roadY782(pt[0]) - 0.004) return {side: 'seaside', zone: 'main beach', sms: 'ENTRY: seaside - in at the Seaworld Dr roundabout end of Main Beach Pde, drive south.', words: 'Seaside of Main Beach Pde / The Esplanade: come in at the Seaworld Dr roundabout (north) end and drive south (the project manager, 2 Oct 2026).'};
+  return {side: 'land side', zone: 'main beach', sms: 'ENTRY: land side - in from the Surfers end of Main Beach Pde, drive north (race direction).', words: 'Land side of Main Beach Pde, and everything over the pedestrian bridge from the island: come in at the south end of Main Beach Pde and follow the track around (the project manager, 2 Oct 2026).'};
+ }
+ if (inPoly782(pt, ZONES782.gate1)) return {side: 'Tedder Ave', zone: 'gate 1', sms: 'ENTRY: in at the Tedder Ave access point (heavy vehicle entry, D007).', words: 'Gate 1 / Helen Park / The Hill: in at the Tedder Ave access point - D007 marks it heavy vehicle entry only.'};
+ if (inPoly782(pt, ZONES782.gate2)) return {side: 'Gate 2', zone: 'gate 2', sms: 'ENTRY: in at Gate 2, the GC Hwy underpass, via Commodore Dr (D007).', words: 'Gate 2 / Commodore Park: in at Gate 2, the Gold Coast Hwy underpass, via Commodore Dr (D007).'};
+ return null;
+}
+function entry782(a){
+ const nt = navTargetFor(a); const s = nt ? mbpSide782(nt.ll) : null; if (!s) return zoneEntry782(a);""", 'way in by area', p, True)
 
 t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch, a check before driver sheets print, location signs, the pit lane when there is no drop-off, water barriers from their description, every location still to come in Inventory). */\n/* v7.80 - a save empties', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
