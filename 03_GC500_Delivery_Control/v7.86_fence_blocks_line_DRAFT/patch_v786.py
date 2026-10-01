@@ -18,7 +18,7 @@ from rep import rep  # noqa: E402
 p = sys.argv[1]
 t = open(p, encoding='utf-8').read(); bom = t.startswith('﻿'); t = t.lstrip('﻿')
 if "key: 'fence_blocks'" in t: sys.exit('v7.86 already applied')
-for need in ('const WAYIN784 = ', 'function costDocket(', 'function paperCols('):
+for need in ('const WAYIN784 = ', 'function costDocket(', 'function paperCols(', 'detail781Button'):
     if need not in t: sys.exit('v7.86 needs v7.84 or later (missing ' + need + ')')
 t = rep(t, "const FCOL = FENCE.columns || [];",
         r"""const FCOL = FENCE.columns || [];
@@ -32,6 +32,13 @@ if (!FCOL.some(c => c.key === 'fence_blocks')) FCOL.push({key: 'fence_blocks', n
  unit_basis: 'the card line prices per block', rate: 3.02, rate_year: 2026, rate_source: 'the project manager, 2026-10-02',
  card: null, card_line: 'Fence Blocks( per block)', card_state: 'matched', card_why: 'the same words', card_candidates: [],
  cost_rate: null, cost_basis: "Advanced's price sheet has no per-block line - the cost comes off their invoice", issued_card_rate: 3.02, issued_card_differs: false});""", 'fence blocks line', p, True)
-t = t.replace('/* v7.84 - the ways in the project manager gave', "/* v7.86 - a Fence blocks line on the Fencing tab ($3.02 a block, the 2026 card), for 36566. */\n/* v7.84 - the ways in the project manager gave", 1)
+# 2. TRACK DETAIL OFF UNTIL IT COVERS THE WHOLE LAP (the project manager, 2 Oct 2026: "The whole point is to have the whole
+#    track" ... "can we take this out until its fixed, don't have it in there, it's almost like a bug"). The v7.85 scene
+#    details 250 m of the pit straight and the drive runs out of it. Its button is simply not added, so nobody can switch
+#    it on; the rest of the Showcase (MP4/weather, speedos, cameras, the car) is exactly as before v7.85. The scene's code
+#    stays in the page, untouched, for Codex to finish and switch back on.
+t = rep(t, "function attach(){\n const controls=document.getElementById('showQualityL')||document.getElementById('showBackdrop');",
+        "function attach(){ if (window.TRACK_DETAIL_OFF786 !== false) return; /* v7.86 - off until it covers the whole lap */\n const controls=document.getElementById('showQualityL')||document.getElementById('showBackdrop');", 'track detail off', p, True)
+t = t.replace('/* v7.84 - the ways in the project manager gave', "/* v7.86 - a Fence blocks line on the Fencing tab ($3.02 a block, the 2026 card), for 36566; Showcase Track detail off until it covers the whole lap. */\n/* v7.84 - the ways in the project manager gave", 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
-print('v7.86 applied: a Fence blocks line')
+print('v7.86 applied: a Fence blocks line; Track detail off until the whole lap')

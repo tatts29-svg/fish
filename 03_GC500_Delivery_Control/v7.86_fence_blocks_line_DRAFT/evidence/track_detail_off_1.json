@@ -1,0 +1,27 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.86/GC500_Delivery_Control_hosted.html",
+ "passed": 4,
+ "of": 4,
+ "tests": [
+  {
+   "name": "T1 the live v7.85 shows the Track detail button (what is being taken out)",
+   "pass": true,
+   "detail": "{\"button\":true,\"open\":true,\"controls\":[\"showView\",\"showQuality\",\"showBackdrop\",\"showPace\"],\"enabled\":false,\"openErr\":null}"
+  },
+  {
+   "name": "T2 the Showcase still opens, with its own controls (view, detail, backdrop, speed)",
+   "pass": true,
+   "detail": "{\"button\":false,\"open\":true,\"controls\":[\"showView\",\"showQuality\",\"showBackdrop\",\"showPace\"],\"enabled\":false,\"openErr\":null}"
+  },
+  {
+   "name": "T3 there is no Track detail button, and the part-built scene is not on",
+   "pass": true,
+   "detail": "{\"button\":false,\"enabled\":false}"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

@@ -3,6 +3,16 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Signed papers uploaded — 2 Oct 2026 07:42 AEST
+
+Author: Andrew Fisher. Andrew provided the private archive code and authorised the 15 signed-paper uploads.
+Codex uploaded all **15** through Documents as Fencing dockets, retaining the paper-number filenames.
+Fresh reads prove **15/15 original byte matches**, **15/15 open previews**, and **15/15 filename matches** through
+the existing page function. All **308** prior file entries and shared record **3527** are unchanged.
+This is attachment completion only; pending docket transcription and the v7.86 Fence blocks work remain separate.
+The encrypted transfer file is removed in the cleanup PR; no password, signatures or private source details are committed.
+Proof: `record_02Oct2026_fencing_papers_36564_36568/UPLOAD_VERIFICATION.json`.
+
 ## Current working arrangement — share implementation; independent releases allowed, 2 Oct 2026
 
 Author: Andrew Fisher
@@ -328,13 +338,16 @@ the fence metres: 36564 40 m, 36568 462.5 m); "new 60 was north 68 is south" (no
 (36560 north); 36566 "charge as per what was used" and "continue with your logic" - 36567 smoking zones CCB Event, 36568
 median strip CCB Demarcation, 36566 216 fence blocks at the card's $3.02 (needs v7.85, below). Charged as recorded $29,114.17; paid to Advanced $20,965 (36566 blocks from their invoice); service notes 2.75 h ($275). Signed-paper photos (these 8 and the 29 Sep 7) are with Andrew; they stay off the public repo.
 
-**v7.86 — a Fence blocks line, claimed by Claude, 2 Oct 2026. NOT READY (waits for Codex's v7.85 Showcase release).**
-Renumbered from v7.85 when Codex claimed v7.85 for the approved Showcase. One patch:
-`bash toolchain/build.sh v7.86 v7.86_fence_blocks_line_DRAFT/patch_v786.py` - the 2026 card's "Fence Blocks( per block)"
-$3.02, for 36566; no existing docket's figure moves. Pre-check on the live v7.84: Fence blocks 8/8 desktop and phone,
-rules 45/45. (A first build put a name into the page code, so the attribution scrub collapsed every double space in the
-script and broke the indented order lines in Full details - R7 caught it; the patch now names "the project manager" and
-the scrub changes nothing.) To be rebuilt and fully regressed on the live v7.85 before READY.
+**v7.86 — Fence blocks line + Showcase Track detail OFF: READY TO UPLOAD, URGENT (Claude, 2 Oct 2026 07:58 AEST).**
+Andrew, 2 Oct: "can we take this out until its fixed, don't have it in there, its almost like a bug ... make it go live so
+people don't see". The v7.85 Track detail covers 250 m of the pit straight and the drive runs out of it; its button is no
+longer added (`attach()` returns), so it cannot be switched on. The scene's code stays in the page untouched for Codex to
+finish (whole lap) and switch back on. Plus the Fence blocks line ($3.02, 36566). One patch on the live v7.85:
+`bash toolchain/build.sh v7.86 v7.86_fence_blocks_line_DRAFT/patch_v786.py` → **8,838,586 bytes, SHA-256
+`0513542de21e7e00b2498c2416d90941ca7ded90e965fa1540ac50fc55e2e425`**. Claude's checks on 0513542d: Track detail off 4/4
+desktop and phone (Showcase opens with all its controls, no button, scene off; live v7.85 shows the button); Fence blocks
+8/8; full regression of the Fence blocks part passed on 3e1612dd (only the Track detail switch was added since); 21-tab/7-link
+sweeps clean on desktop and phone (0 errors, 0 console). After upload: Codex enters 36566.
 
 **v7.84 — LIVE, 2 Oct 2026 06:28 AEST.** Claude's READY handover at `335886e` was independently checked,
 published by Codex and verified byte for byte. See the release completion and Live now entries above.

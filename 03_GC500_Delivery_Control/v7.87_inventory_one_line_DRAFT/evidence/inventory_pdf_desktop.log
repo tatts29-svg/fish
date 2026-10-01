@@ -1,0 +1,10 @@
+PASS F1 every trade: the summary, then every location still to come at ten to a page (116 locations, 14 pages) — {"pages":["lan","lan","por","por","por","por","por","por","por","por","por","por","por","por"],"rows":41,"togo":116}
+PASS F2 the summary is one A4 portrait page when it fits, else two A4 landscape pages (every trade: 41 types) — 51 table rows · lan,lan,por,por,por,por,por,por,por,por,por,por,por,por
+PASS F3 every page fits its sheet (nothing cut off) — []
+PASS F4 every location with a position has a QR code that navigates to it; one with none says set it in Edit — {"qr":116,"none":[]}
+PASS F5 costed from the Pricing figure (assetTotal): a total in $, and lines with no rate counted, not added — {"money":"$200,062","known":{"total":200062.16667840004,"unknown":37,"known":168}}
+PASS F6 "P33" is never printed as a destination — 
+PASS F7 one trade fits one A4 portrait summary page (Toilets & amenities: 7 types) — por,por,por,por,por,por
+PASS F8 Share PDF makes the file on this device and offers Open and Save (Share where the device can) — {"state":"ready","name":"GC500_Inventory_Toilets-amenities_2026-10-02.pdf","pages":6,"size":2992159,"togo":46,"rows":7,"orient":["por","por","por","por","por","por"],"say":"GC500_Inventory_Toilets-amenities_2026-10-02.pdf · 6 pages · 2.9 MB · 46 locations to come, each with a QR code","acts":["Open"
+PASS E1 no page errors — []
+9/9 desktop

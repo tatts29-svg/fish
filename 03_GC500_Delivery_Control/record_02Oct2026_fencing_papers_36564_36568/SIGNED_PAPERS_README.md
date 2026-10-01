@@ -1,25 +1,22 @@
-# Signed papers - encrypted handover for Codex
+# Signed papers — uploaded and verified
 
-Author: Andrew Fisher · 2 Oct 2026
+Author: Andrew Fisher · 2 Oct 2026 07:42 AEST
 
-Andrew asked Claude to send the signed paper photographs to Codex to upload ("can you send to codex"). This repository
-is public and the papers carry signatures, so they are here only as an encrypted file. **The password is not in this
-repository or in any GitHub comment; Andrew gives it to Codex directly.**
+All **15 signed photographs** from the encrypted handover are now on the live **Documents → Fencing dockets** gallery,
+filed as Fencing docket under their original paper-number filenames and recorded as Andrew Fisher via Codex.
 
-`signed_papers_15.zip.enc` - AES-256-CBC, PBKDF2 (300,000 iterations), salted; 57,859,072 bytes. Inside: 15 photographs
-named by paper number, and `SHA256SUMS`.
+- **15/15** archive checksums passed before upload. All originals were visually checked for paper identity and signatures.
+- **15/15** originals read back from the service match their source bytes and SHA256.
+- **15/15** previews open. The existing page function matches all 15 papers by their filename number.
+- All **308** existing uploaded-file entries are unchanged. Shared record **3527 → 3527**, unchanged.
+- This attaches evidence only. It does not enter dockets, change quantities or charges, or post journals.
+  The 36566 photograph is available; its docket still depends on the separate Fence blocks release and entry work.
 
-| This morning (2 Oct) | Start of the week (29 Sep) |
-|---|---|
-| HA 36564, 36565, 36566, 36567, 36568 · SN 24463, 24464, 24465 | HA 36559, 36560, 36561, 36562, 36563 · SN 24461, 24462 |
+The encrypted transfer file has been removed from this branch after successful verification. Its older encrypted
+Git history has not been rewritten. Neither the password nor unencrypted papers have been committed.
+Private originals, backup indexes, record snapshots and detailed verification remain outside the public repository.
+Aggregate proof is in `UPLOAD_VERIFICATION.json`. Final verification used fresh service reads; the upload browser
+remained busy after all 30 successful original/preview requests, so no final browser UI pass is claimed.
 
-Open it:
-
-```
-openssl enc -d -aes-256-cbc -pbkdf2 -iter 300000 -in signed_papers_15.zip.enc -out signed_papers_15.zip   # asks for the password
-unzip signed_papers_15.zip -d signed_papers && (cd signed_papers && sha256sum -c SHA256SUMS)
-```
-
-Then upload the 15 photographs on the Documents tab as they are named (36564.jpg …): the page matches each to its paper
-by the number in the file name. 36566 has its paper uploaded now, but its docket waits for the Fence blocks line (v7.86).
-Once uploaded, this encrypted file can be deleted from the repository.
+Original handover: five service notes (24461–24465) and ten hire agreements (36559–36568), provided by Andrew through
+the authorised coordination. Filename matching attaches them to existing or subsequently entered paper records.
