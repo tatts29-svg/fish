@@ -1,7 +1,7 @@
 {
  "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
- "passed": 18,
- "of": 18,
+ "passed": 26,
+ "of": 26,
  "tests": [
   {
    "name": "G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021, its orange symbol on the master), not by Gate 2",
@@ -16,12 +16,12 @@
   {
    "name": "R1 every text stays inside three texts (<= 459 GSM units), all plain",
    "pass": true,
-   "detail": "max 458"
+   "detail": "max 459"
   },
   {
    "name": "R2 the order line is on every named unit",
    "pass": true,
-   "detail": "P03:ORDER: P03 first, then P01, then P05. | P01:ORDER: only after P03 is in. P05 after P01. | P05:ORDER: only after P01 and WC05 (tank, then toilet) are in. | P04:ORDER: only after the WC05 toilet block is in. | WC05:ORDER: waste tank first, toilet block on top. P05, P04 wait for WC05. | GN21:ORDER: GN21 60kVA first - tight spot. GN20 350kVA after it. | GN20:ORDER: only after GN21 60kVA is placed (tight spot)."
+   "detail": "P03:ORDER: truck 1 of 6 (P03, P01, P05, WC05 tank, WC05 toilet, P04). Out of order = no entry. | P01:ORDER: truck 2 of 6 - only after P03 is in. Out of order = no entry. | P05:ORDER: truck 3 of 6 - only after P01 is in. Out of order = no entry. | P04:ORDER: truck 6 of 6 - only after the WC05 toilet block is in. Out of order = no entry. | WC05:ORDER: trucks 4-5 of 6: tank, toilet, after P05. Out of order = no entry. | GN21:ORDER: GN21 60kVA first - tight spot. GN20 350kVA after it. | GN20:ORDER: only after GN21 60kVA is placed (tight spot)."
   },
   {
    "name": "R3 every reference with a waste tank says the tank goes first",
@@ -46,12 +46,12 @@
   {
    "name": "R7 Full details carries the whole rule set (order, entry, park, stagger, D007 event-week facts)",
    "pass": true,
-   "detail": " (the project manager, 2 Oct 2026):\nORDER: only after P01 and WC05 (tank, then toilet) are in.\n  P01: in place on the record\n  WC05: in place on the record\nPark access: watch for wildlife and low branches; some spots have no room to spare. Do not drive through the park unescorted.\nStagger arrivals -"
+   "detail": " (the project manager, 2 Oct 2026):\nORDER: truck 3 of 6 - only after P01 is in. Out of order = no entry.\n  P01: in place on the record\nThe sequence: 1 P03 > 2 P01 > 3 P05 > 4 WC05 waste tank > 5 WC05 toilet block > 6 P04. One truck at a time, staggered. A truck out of this order is refused entry and"
   },
   {
    "name": "R8 the drawer shows a Driver rules box for a named unit, none for a unit no rule touches",
    "pass": true,
-   "detail": " Driver rules Order only after GN21 60kVA is placed (tight spot). GN21 in place on the record Arrivals Stagger them - the site is congested every Supercars week. Set by the project manager, 2 Oct 2026. In every text and in Full details. "
+   "detail": " Driver rules Order only after GN21 60kVA is placed (tight spot). GN21 in place on the record Arrivals Stagger them - the site is congested every Supercars week. Time The time given is when the truck must be unloaded by - get there early. L"
   },
   {
    "name": "R9 park drops carry the wildlife and branches caution, in the text when it fits and always in Full details",
@@ -61,7 +61,47 @@
   {
    "name": "R10 the order check reads the record (GN21 before GN20 recorded out of order; P01 vs P03; WC05 vs P05, P04)",
    "pass": true,
-   "detail": "[\"P03>P01:out of order\",\"P01>P05:in order\",\"WC05>P05:out of order\",\"WC05>P04:out of order\",\"GN21>GN20:out of order\"]"
+   "detail": "[\"P03>P01:out of order\",\"P01>P05:in order\",\"P05>WC05:in order\",\"WC05>P04:out of order\",\"GN21>GN20:out of order\"]"
+  },
+  {
+   "name": "L1 the load rule (Kingston by 05:00, in order, M1 peaks, check your permit) is in Full details for every sequence truck, and the drawer",
+   "pass": true,
+   "detail": "LOAD at Kingston by 05:00, in the delivery order - about 70 min to site. Keep off the M1 into the Gold Coast 07:00-09:00 and 16:00-18:00 (heavy/oversize permit loads: check your permit)."
+  },
+  {
+   "name": "L2 the load check flags the 14 Sep plan as if still to come (WC05 tank 08:30 in the 07:00-09:00 peak; toilet 09:30 after 05:00; P01 same slot as P03; P04 same slot as the WC05 toilet; P05 clean)",
+   "pass": true,
+   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30 is after 05:00\",\"Waste tank: load 08:30 is after 05:00 and puts the truck on the road 08:30-09:40, inside the 07:00-09:00 peak\"],\"p01\":[\"loads at 04:30, not after P03 (04:30) - load in the delivery order, staggered\"],\"p04\":[\"Building 12m: load 09:30 is after 05:00\",\"loads at 09:30, not after WC05 (09:30) - load in the delivery order, staggered\"],\"p05\":[],\"swapped\":[\"Waste tank: load 10:00 is after 05:00\",\"the waste tank loads at 10:00, not before the toilet block (04:30) - load the tank first\",\"loads at 04:30, not after P05 (05:00) - load in the delivery order, staggered\"]}"
+  },
+  {
+   "name": "L3 a waste tank loading after its toilet block is called out",
+   "pass": true,
+   "detail": "[\"Waste tank: load 10:00 is after 05:00\",\"the waste tank loads at 10:00, not before the toilet block (04:30) - load the tank first\",\"loads at 04:30, not after P05 (05:00) - load in the delivery order, staggered\"]"
+  },
+  {
+   "name": "L4 nothing to check on a unit already on site (no noise on finished work)",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "name": "T1 the time given is an UNLOADED-BY time: every Full details says so (get there early; miss it and other crews wait or the area is closed)",
+   "pass": true,
+   "detail": "all"
+  },
+  {
+   "name": "T2 a delivery still to come with a time reads \"unloaded by\" in the text, and the check gives the latest Kingston departure (WB04 at 09:00, no load time: before 07:50)",
+   "pass": true,
+   "detail": "{\"sms\":\"Due Fri 16 Oct 2026, unloaded by 09:00\",\"check\":[\"no load time on the schedule - to be unloaded by 09:00 it must leave Kingston before 07:50 (70 min run), earlier by the time unloading takes\"]}"
+  },
+  {
+   "name": "T3 a load that reaches site after its unloaded-by time is called out (WC05 07:00 vs tank 08:30 / toilet 09:30, as if to come); one that makes it shows its unloading time (P05: 50 min)",
+   "pass": true,
+   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30, on site about 10:40 - AFTER 07:00, when it must already be unloaded. Load earlier.\",\"Waste tank: load 08:30, on site about 09:40 - AFTER 07:00, when it must already be unloaded. Load earlier.\"],\"p05\":[\"Building 6m: load 05:00, on site about 06:10 - 50 min to unload before 07:00.\"]}"
+  },
+  {
+   "name": "T4 a delivered record keeps its own words (P03: \"on site 07:00\")",
+   "pass": true,
+   "detail": "Due Mon 14 Sep 2026, on site 07:00"
   },
   {
    "name": "M1 the done tick has its own double beat on the master plan",
@@ -95,12 +135,12 @@
   }
  ],
  "samples": {
-  "P05": "Welcome to Coates GC500\nP05 - Portable building (Building 6m) - Event Control Center (ECC)\nGPS: -27.983378, 153.426635 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: only after P01 and WC05 (tank, then toilet) are in.\nDue Mon 14 Sep 2026, on site 07:00",
+  "P05": "Welcome to Coates GC500\nP05 - Portable building (Building 6m) - Event Control Center (ECC)\nGPS: -27.983378, 153.426635 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: truck 3 of 6 - only after P01 is in. Out of order = no entry.\nDue Mon 14 Sep 2026, on site 07:00\nLOAD: Kingston by 05:00, in order.",
   "GN20": "Welcome to Coates GC500\nGN20 - Generator (350kva) - S01\nGPS: -27.985391, 153.427185 (master plan)\nNavigate: <url>\nORDER: only after GN21 60kVA is placed (tight spot).\nDue Wed 30 Sep 2026\nDelivery details: <url>\nStagger arrivals - the site is congested every Supercars week.",
   "GN21": "Welcome to Coates GC500\nGN21 - Generator (60kva)\nGPS: -27.985403, 153.427226 (master plan)\nNavigate: <url>\nORDER: GN21 60kVA first - tight spot. GN20 350kVA after it.\nDue Wed 30 Sep 2026\nDelivery details: <url>\nStagger arrivals - the site is congested every Supercars week.",
   "WC27": "Welcome to Coates GC500\nWC27 - Toilets (Toilet Block 6m, Waste tank) - Toilet (Tank Mounted)\nGPS: -27.985240, 153.429459 (master plan)\nNavigate: <url>\nORDER: waste tank first - no toilet block before the tank is in.\nENTRY: land side - in from the Surfers end of Main Beach Pde, drive north (race direction).\nDue Fri 25 Sep 2026",
   "WC50": "Welcome to Coates GC500\nWC50 - Toilets (FWF)\nGPS: -27.989762, 153.429836 (master plan)\nNavigate: <url>\nENTRY: seaside - in at the Seaworld Dr roundabout end of Main Beach Pde, drive south.\nDue Mon 21 Sep 2026, on site 12:00\nDelivery details: <url>",
-  "WC05": "Welcome to Coates GC500\nWC05 - Toilets (Waste tank, Toilet Block 6m) - Event Operations Compound Toilet - Combo Block (Tanked)\nGPS: -27.983608, 153.426357 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: waste tank first, toilet block on top. P05, P04 wait for WC05.\nDue Mon 14 Sep 2026, on site 07:00",
-  "P03": "Welcome to Coates GC500\nP03 - Portable building (Building 12m) - SCA Event Management Office\nGPS: -27.983541, 153.426512 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: P03 first, then P01, then P05.\nDue Mon 14 Sep 2026, on site 07:00\nPARK: wildlife and low branches - very tight. Escort only."
+  "WC05": "Welcome to Coates GC500\nWC05 - Toilets (Waste tank, Toilet Block 6m) - Event Operations Compound Toilet - Combo Block (Tanked)\nGPS: -27.983608, 153.426357 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: trucks 4-5 of 6: tank, toilet, after P05. Out of order = no entry.\nDue Mon 14 Sep 2026, on site 07:00",
+  "P03": "Welcome to Coates GC500\nP03 - Portable building (Building 12m) - SCA Event Management Office\nGPS: -27.983541, 153.426512 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: truck 1 of 6 (P03, P01, P05, WC05 tank, WC05 toilet, P04). Out of order = no entry.\nDue Mon 14 Sep 2026, on site 07:00"
  }
 }
