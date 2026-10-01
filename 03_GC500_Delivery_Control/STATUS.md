@@ -14,11 +14,11 @@ For future task updates, both agents finish their work and review of the same fr
 findings and record completion before publication. A candidate that changes after review needs both agents to
 check the changes. The handover then says **READY TO UPLOAD**. This rule is also in `AGENTS.md`.
 
-Current follow-up (21:56 AEST): v7.75 is **LIVE** within the v7.75 + v7.77 release, verified fresh at 21:53 at
-`35e4b00b…` (see Live now). Server v5.87 has been **ACTIVE** since 21:50, with pictures going from the ClickSend shared number.
-Its one end-to-end test picture (Codex, the recipient confirmed by Andrew) has reached provider SENT/200 with
-no error code, but there is no delivered receipt yet. Picture messages are not called fixed until it is delivered or
-Andrew confirms it arrived. No second test while that one is pending.
+Current state (21:58 AEST): **picture texting fixed and verified end to end.** Server v5.87 has been LIVE since 21:50
+(pictures from the ClickSend shared number; plain texts unchanged). The one authorised test picture was confirmed
+arrived by Andrew and read back as DELIVERED / 201 with no error code. v7.75 + v7.77 page LIVE at `35e4b00b…`.
+Next: v7.78 (plain-text default) stays on hold, no longer needed; Claude's Fencing follow-up (a save also
+clears `RENDER_MEMO`) proceeds from the live base, with both agents reviewing it before upload.
 
 ## Release completed — v7.76 LIVE, 1 Oct 2026 18:59 AEST
 
@@ -163,7 +163,7 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 
 | version | what | live | by |
 |---|---|---|---|
-| **server v5.87 ACTIVE** | Picture messages go from the ClickSend shared number (`MMS_FROM=shared`); plain texts are unchanged and still go from SMS_FROM. Codex signed off and staged the blob at 21:50. Claude made one Railway change at 21:50: deployment `81618338…` SUCCESS; deploy log `server from volume blob d5a0d777…`; running SHA-256 `d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc`; `/health` v5.87; record 3521 unchanged. `SERVER_FILE_KEEP` keeps v5.86 `f5b9a3f7…`, `76afbd99…`, `264363…` and `b8d38b…`. Rollback: `SERVER_FILE=f5b9a3f7…` and remove `MMS_FROM`. **Not yet called fixed:** the GC500 attempt at 21:48:59 was before the switch (still v5.86). The end-to-end test picture is pending. `server_v5.87_pictures_from_shared_number_DRAFT/README.md`. | 1 Oct 2026 21:50 | Claude (activation), Codex (review, staging) |
+| **server v5.87 LIVE — picture texting verified** | Picture messages go from the ClickSend shared number (`MMS_FROM=shared`); plain texts are unchanged and still go from SMS_FROM. Codex signed off and staged the blob at 21:50. Claude made one Railway change at 21:50: deployment `81618338…` SUCCESS; deploy log `server from volume blob d5a0d777…`; running SHA-256 `d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc`; `/health` v5.87; record 3521 unchanged. `SERVER_FILE_KEEP` keeps v5.86 `f5b9a3f7…`, `76afbd99…`, `264363…` and `b8d38b…`. Rollback: `SERVER_FILE=f5b9a3f7…` and remove `MMS_FROM`. **Verified end to end (21:56):** the attempt at 21:48:59 was before the switch (v5.86, FAILED/301, the old cause). The one authorised GC500 picture on v5.87 (Codex, to the recipient Andrew confirmed) was confirmed arrived by Andrew and read back as DELIVERED / 201 with no error code. GET-only follow-ups, no resend. `server_v5.87_pictures_from_shared_number_LIVE/README.md`. | 1 Oct 2026 21:50 | Claude (activation), Codex (review, staging) |
 | **v7.75 + v7.77 LIVE** (with server v5.86) | v7.75: a save made during navigation now shows on screen straight away; the Transport and Consumables Recovery ratios wait until the quotes split. v7.77: "Text it" delivery wording and the receipt lookup (server v5.86, deployment `4941538a…`, 20:42). Both agents reviewed it. Claude fetched the public view fresh at 21:53 AEST: **8,682,665 bytes, SHA-256 `35e4b00b150e081425e70a642945799d4dbab822bdbc7939c888c0503e5c26ef`**, the jointly reviewed candidate, with `heldFresh775` present. No record changes. | 1 Oct 2026 ~20:42 | Codex (upload), Claude (v7.75) |
 | **v7.76 LIVE** | Navigation and per-draw model reuse; verified correctness and measured speed improvement above. No record changes. | 1 Oct 2026 18:59 | Codex |
 | **v7.74 verified** | Claude fetched the public view fresh at 18:46 AEST, 1 Oct 2026: **8,673,113 bytes, SHA-256 `59e58833ab1ee8c6fb0ad2f8c2b3ff5e7b13c14923cd3e70459bc32503fda7d8`**, byte-identical to the frozen build. Checks on the live file: both sweeps 21 tabs, 7 deep links, 0 page and console errors, desktop and phone; the released suite 31/31 desktop and phone; every tab's text — no agent's name, no undefined or NaN (`v7.74_tidy_two_LIVE/evidence/regress/live_*`). Record version 3521 (was 3520 at 18:24): read through the page, the newest saved entry on the record is still the WC60 tank ticks of 17:03 and nothing is stamped after 18:00; files 308, unchanged — the version moved without a change to the job's data that the page shows. | 1 Oct 2026 18:51 | Claude |

@@ -1,4 +1,4 @@
-# Server v5.87 — pictures from a sender that can send them (ACTIVE 21:50 AEST — end-to-end picture test pending)
+# Server v5.87 — pictures from a sender that can send them (LIVE 21:50 AEST — verified end to end 21:56)
 
 Author: Andrew Fisher · 1 Oct 2026, 21:45 AEST · one patch on the live server v5.86 (`f5b9a3f7…`)
 
@@ -58,6 +58,11 @@ python3 patch_server_v587.py ../v7.77_text_delivery_DRAFT/server_v5.86/server.js
   `d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc` (blob route, not the SERVER_B64 fallback). The
   banner shows "pictures from a ClickSend shared number", texting is unchanged, and 5 server blobs are kept off the public set.
 - **`/health`:** `"build":"v5.87"`, record version 3521 (unchanged), files 308. Page unchanged: v7.77 `35e4b00b…`.
-- **Still to come:** Codex sends one authorised test picture through GC500, then runs the delivery lookup. This is
-  called fixed only when ClickSend reports it delivered.
+- **Before the switch:** the GC500 picture at 21:48:59 went on v5.86 from the Own Number and FAILED/301 (the old cause).
+- **End-to-end test (Codex, 21:54–21:56):** after Andrew confirmed the recipient was his own phone (the handset that got
+  the Quick MMS), exactly one authorised picture (the map image) was sent through GC500 on v5.87. It went from
+  QUEUED to SENT/200, then **DELIVERED, status 201, no error code**, and Andrew confirmed the picture arrived on his phone.
+  Follow-ups were GET only, with no resend.
+
+**Result: picture texting is fixed.** No graphics, record or journal changes in this release.
 
