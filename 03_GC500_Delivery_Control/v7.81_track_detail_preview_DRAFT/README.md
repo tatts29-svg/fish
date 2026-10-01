@@ -121,3 +121,41 @@ Source identities: Part 01 is 17,370,560 bytes, SHA256
 Original clips and extracted stills remain in the private workspace, outside this repository. The external reviewer
 has not yet confirmed access to these uploads; shared notes are not a substitute for their own source review.
 The frozen preview code and hashes are unchanged; no graphics publication or record edits.
+
+## Next visual milestones — plan, 2 Oct 2026
+
+Author: Andrew Fisher
+
+The next build should prove the visual improvement on one representative straight before extending it around the
+circuit. Its current owner implements the Showcase build. Share separable source/location or visual checks with
+the other agent when available; coordinate ownership rather than changing the same files concurrently. These milestones are
+planned work, not features already delivered by the frozen preview above.
+
+1. **Make one section convincing.** Match the road enclosure and landmark sequence to the current photographs
+   and plan. Replace uniform nearby towers with distinct balcony depths, recesses, podiums and setbacks. Replace
+   angular placeholder foliage with layered trees and palms, with believable scale and ground contact. Add physical
+   kerb profiles, road seams and restrained rubber/paint wear; refine fence supports, barrier joints and gantry
+   construction. Make sun, shade and material response consistent across this section.
+   **Proof:** a short playable loop plus before/after frames from the same camera, location and lighting preset;
+   identify any changes to scene composition rather than presenting them as material-detail improvements.
+   The section must read as the photographed Gold Coast street circuit from both low and elevated viewpoints.
+   Temporary structures stay illustrative until their locations are verified; footage alone is not a survey.
+2. **Make the journey convincing.** Extend the same standard to a chicane and a bridge approach. Connect chase,
+   low trackside and overhead views with deliberate, smooth transitions. Vary enclosure, skyline and roadside
+   furniture by section. Check camera clipping, distant detail changes, fence shimmer and road texture stability
+   while moving. Refine cornering and wheel/steering presentation only where the existing 3D simulation needs it;
+   the user's MP4 is a separate asset and is not replaced or treated as an editable 3D model.
+   **Proof:** an actual rendered animated sequence covering the three sections, including pause/replay and Motion
+   Off behaviour. Offer a sunset treatment after the daylight scene reads correctly.
+3. **Connect the presentation and finish.** Add restrained sector titles and verified project-record callouts
+   without obscuring the car or existing speedos. Keep project figures distinct from decorative racing telemetry.
+   Test the integrated Showcase on desktop and phone, check text readability, and measure rendering performance
+   before selecting quality defaults. Scale shadows and distant detail to device capability; native 4K and a
+   frame-rate target are goals to test on suitable hardware, not promises from the software-rendered preview.
+   **Proof:** working preview for Andrew to see before live graphics change, followed by the appropriate regression
+   checks and byte-verified release once the visual direction is accepted. Keep the original scene available as a
+   fallback. No project-record edits are part of this graphics work.
+
+The MP4 car, weather and current speedos remain. The approved concept is the visual target; actual runtime frames
+and video will demonstrate progress. AI may assist with asset or material drafts, but verified source geometry,
+legible branding and measured browser performance decide what is used.
