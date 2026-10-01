@@ -1,13 +1,38 @@
-**v7.89 — compact header + full-width tabs: READY TO UPLOAD (Claude, 2 Oct 2026 09:40 AEST).** Andrew: "let's fix this first"
+**v7.90 — map explorer (machine files only): READY TO UPLOAD (Claude, 2 Oct 2026 10:00 AEST).** Andrew: "please fix maps,
+you are putting green ticks everywhere" (and the Original plan pushed bottom-right on black). `explorer/explorer.js` 128318 bytes
+`893f2c65d76e93684d4519a365b8a502549093c7434dc693360e50f325e7c1a1` + `explorer/index.html` 23737 bytes `bc075d658d7de26636d962dac902f688f61928226470c1e863e28b042c686a26` (version query bumped). Switching plan ⇄ satellite now fits
+the view (the two measure in different coordinates); Done ticks start hidden and show from the ✓ Done chip. Explorer tests 7/7
+desktop and phone (live files 2/7). Dashboard page unchanged.
+
+**v7.89 — compact header + full-width tabs: LIVE, 2 Oct 2026 09:44 AEST.** Andrew: "let's fix this first"
 ... "should we not be using the full page" ... "should these not all be the same size". One patch on the live v7.87
-`d592847a`: `bash toolchain/build.sh v7.89 v7.89_compact_header_full_width_DRAFT/patch_v789.py` → **8,861,306 bytes, SHA-256
+`d592847a`: `bash toolchain/build.sh v7.89 v7.89_compact_header_full_width_LIVE/patch_v789.py` → **8,861,306 bytes, SHA-256
 `0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac`**. Desktop only: one row (lockup, search, three equal pods taking half the header width), slims to 105 px when the page is scrolled, tabs full width (1,500 px cap lifted). Laptop header 39% → 27% (15%
 scrolled). Sweeps ×2 clean, navigation 21/21, fresh-after-save 11/11. Phone bar untouched. (v7.88 = Codex's full lap.)
+
+Independent final-candidate review complete (Codex): exact `0d165f5f` rebuilt; header **30/30**, fresh-after-save
+**11/11**, both **21-tab/7-link** sweeps with zero page/console errors, desktop/phone visual inspection, protected
+source preservation, static checks and dry-run pass. Claude's final handover and Codex's review now cover the same
+candidate. **Codex published and verified it LIVE, 2 Oct 2026 09:44 AEST**; public bytes match and shared record **3538** is unchanged.
+Publication proof: `v7.89_compact_header_full_width_LIVE/evidence/release_verification.json`.
 
 # GC500 status board
 
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
+
+## Release completed — v7.89 compact header LIVE, 2 Oct 2026 09:44 AEST
+
+Author: Andrew Fisher. The desktop clock, race-day and record pods are equal and occupy half the header row on
+laptop and wide screens. The header slims after scrolling past 90 px and restores within 12 px of the top. Tabs use
+the full available page width. The phone layout, original data, car, media and Showcase code are preserved.
+**Claude implemented and tested the final handover; Codex independently reviewed and tested the same final candidate,
+then published and verified it live.** Page **8,861,306 bytes**, SHA256
+`0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac`.
+Independent header **30/30**, fresh-after-save **11/11**, both **21-tab/7-link sweeps** with zero page/console errors,
+desktop/phone visual inspection, source preservation, static checks, dry-run and fresh-base guard passed.
+Public view verified byte for byte; shared record **3538** unchanged. No record changes, journals or real messages.
+The v7.88 full-lap and v7.90 map drafts remain separate. Proof: `v7.89_compact_header_full_width_LIVE/evidence/release_verification.json`.
 
 ## Release completed — v7.87 Inventory LIVE, 2 Oct 2026 09:14 AEST
 
@@ -322,6 +347,8 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 
 | version | what | live | by |
 |---|---|---|---|
+| **v7.89 LIVE** | Compact desktop header, three equal pods occupying half the row, scroll hysteresis and full-width tabs; phone unchanged. Both agents checked exact `0d165f5f…`; public bytes verified, record 3538 unchanged. | 2 Oct 2026 09:44 | Claude (implementation/checks), Codex (independent review/checks/upload) |
+| **v7.87 LIVE** | Inventory waiting references and location lines with due day, remaining equipment, locator, satellite, navigation and QR; shared PDF layout. Drill click bindings corrected during review. Exact `d592847a…` byte-verified live, record 3538 unchanged. | 2 Oct 2026 09:14 | Claude (original implementation/regression), Codex (binding fix/final checks/upload) |
 | **v7.86 LIVE** | Incomplete Track detail option hidden; existing full-circuit Showcase preserved. Settled Fence blocks line available; existing docket figures unchanged. Both agents checked exact `0513542d…`; byte-verified live, record 3527 and explorer unchanged. | 2 Oct 2026 08:45 | Claude (implementation), Codex (independent review/checks/upload) |
 | **v7.84 LIVE** | Andrew’s five confirmed ways in; shared directions across text, driver sheet, drawer and print check. Exact c9958a42 candidate verified live; record 3527 and explorer unchanged. | 2 Oct 2026 06:28 | Claude (implementation/full regression), Codex (independent checks/upload) |
 | **v7.83 LIVE (includes v7.82)** | Map accuracy, Done markers, consistent driver sheets/texts/pictures, print confirmation and Inventory Share PDF. Both agents completed checks on f6544262; page and explorer verified byte for byte. Record 3527 unchanged. See release proof above. | 2 Oct 2026 05:24 | Claude (implementation/full regression), Codex (independent checks/upload) |

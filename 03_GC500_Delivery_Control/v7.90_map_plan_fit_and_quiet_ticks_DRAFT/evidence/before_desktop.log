@@ -1,0 +1,8 @@
+FAIL X1 the explorer opens on Satellite + plan :: {"mode":"hybrid","ticks":0,"chip":"","on":null,"cam":{"cx":1192,"cy":842,"z":1}}
+FAIL X2 no Done ticks until asked for (80 finished units known) :: {"mode":"hybrid","ticks":0,"chip":"","on":null,"cam":{"cx":1192,"cy":842,"z":1}}
+PASS X3 switching to Original plan shows the whole drawing (fitted, not carried over from satellite)
+FAIL X4 back to satellite fits the whole circuit again :: {"now":{"cx":1192,"cy":842,"z":1},"fitted":{"cx":1451,"cy":753,"z":1.1835}}
+FAIL X5 tapping Done shows the finished units' ticks :: {"mode":"satellite","ticks":0,"chip":"","on":null,"cam":{"cx":1192,"cy":842,"z":1}}
+FAIL X6 tapping Done again hides them :: {"mode":"satellite","ticks":0,"chip":"","on":null,"cam":{"cx":1192,"cy":842,"z":1}}
+PASS E1 no page errors and nothing written
+before_desktop: 2/7
