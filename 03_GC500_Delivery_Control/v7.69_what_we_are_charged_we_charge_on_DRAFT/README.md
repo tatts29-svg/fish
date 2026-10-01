@@ -68,7 +68,7 @@ bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_DRAFT/patch_v7
 python3 toolchain/upload_page.py build/GC500_v7.69/GC500_Delivery_Control_hosted.html
 ```
 
-## Results — the chain on the corrected build `build/GC500_v7.69` (8,637,181 bytes, SHA-256 `383051df1f6e0058…`; v7.68 + v7.69 on the live v7.67), 1 Oct 2026 18:50–19:20 AEST
+## Results — the chain on the corrected build `build/GC500_v7.69` (8,637,181 bytes, SHA-256 `383051df1f6e0058…`; v7.68 + v7.69 on the live v7.67), 1 Oct 2026 16:20–16:38 AEST
 
 | Check | Desktop | Phone |
 |---|---|---|

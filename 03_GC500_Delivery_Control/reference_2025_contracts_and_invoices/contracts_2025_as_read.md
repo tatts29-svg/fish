@@ -1,4 +1,4 @@
-# (Helper read, 1 Oct 2026 19:30 AEST — the 2025 export and the fourteen invoices; every figure reconciled to the invoices to the cent. Reference only: nothing from it goes on the page.)
+# (Helper read, 1 Oct 2026 16:45 AEST — the 2025 export and the fourteen invoices; every figure reconciled to the invoices to the cent. Reference only: nothing from it goes on the page.)
 
 # GC500 2025 — what the V8s were actually billed (read-only reference pass)
 
@@ -135,7 +135,7 @@ Rehire was **55 %** of the ex-GST revenue; Transport Revenue **9.7 %**; Installa
 | Microwave / Sink with tap / Zip boiler / Urn | 48.69 / 88.04 / 52.70 / 49.77 | | | |
 | Desk / Swivel chair / Stacking chair / Folding table | 5.68 / 3.93 / 2.19 / 3.50 | bulk | | |
 
-The Coates-plant building and toilet-block rates this year are exactly **1.03 x** last year's block rates — same rate card uplifted 3 %. The 2026 export's VMS, barrier, trakmat, FWF toilet and machine rates are weekly placeholders well below last year's event-block numbers, which is the gap to close.
+The Coates-plant building and toilet-block rates this year are exactly **1.03 x** last year's block rates — same rate card uplifted 3 %. The 2026 export's FWF toilet, accessible toilet and 16-pan figures are the Street Rate Card 2026's own hire figures ($90.07 = 21 days at $4.29; $337.75 = 21 days at $16.08; $2,852.13 = 70 days at $40.74): this year's card splits hire from install, demob and pump-outs, which last year's one line bundled (Andrew, 1 Oct 16:50: "you add the hire and the pump-out, it equals what was charged, almost" — $90.07 + $36.44 + $36.44 + $72.87 = $235.81). VMS, barriers and machines carry the card's daily rates and the page charges them by the day for the days on the contract. Nothing on those lines is a gap.
 
 ## 6. Service lines — Transport, Installation, servicing
 
