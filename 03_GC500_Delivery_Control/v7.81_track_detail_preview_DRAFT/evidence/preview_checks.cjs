@@ -8,7 +8,7 @@ const pageFile=path.resolve(process.env.PREVIEW_FILE||path.join(__dirname,'../..
 const out=path.resolve(process.env.OUT||'/workspace/private-showcase781');
 const results={author:'Andrew Fisher',preview:path.basename(pageFile),rendering:'Software-rendered Chromium; not a physical-device performance benchmark',checks:[],errors:[],externalRequests:[],screenshots:[]};
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
-function check(name,pass,detail){results.checks.push({name,pass:!!pass,...(detail===undefined?{}:{detail})});if(!pass)throw Error(name);}
+function check(name,pass,detail,fatal=true){results.checks.push({name,pass:!!pass,...(detail===undefined?{}:{detail})});writeResults();if(!pass&&fatal)throw Error(name);}
 function writeResults(){fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'preview-checks.json'),JSON.stringify(results,null,2));}
 async function openCase(browser,name,options){
  const context=await browser.newContext({locale:'en-AU',timezoneId:'Australia/Brisbane',...options});
@@ -42,7 +42,18 @@ async function begin(p,name,paused=true){
  check(name+': shader programs linked',state.links.length>=1&&state.links.every(Boolean),state.links);
  check(name+': no WebGL error after first render',state.glError===0,state.glError);
  check(name+': canvas has drawable dimensions',state.canvas[0]>100&&state.canvas[1]>100,state.canvas);
+ await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ const status=await p.evaluate(()=>({text:document.querySelector('#state').textContent,expected:GC3D.S.cv.width+' × '+GC3D.S.cv.height}));
+ check(name+': paused status reports actual canvas dimensions',status.text.includes(status.expected),status,false);
  return state;
+}
+async function framebuffer(p){
+ return p.evaluate(()=>{
+  const S=GC3D.S;GC3D.render();
+  const pixels=new Uint8Array(S.cv.width*S.cv.height*4);S.gl.readPixels(0,0,S.cv.width,S.cv.height,S.gl.RGBA,S.gl.UNSIGNED_BYTE,pixels);
+  let h=2166136261;for(let i=0;i<pixels.length;i+=13)h=Math.imul(h^pixels[i],16777619);
+  return (h>>>0).toString(16);
+ });
 }
 async function screenshot(p,name,canvasOnly=false){
  const file=path.join(out,name+'.png');const bytes=canvasOnly?await p.locator('#stage canvas').screenshot({path:file,timeout:120000}):await p.screenshot({path:file,timeout:120000});
@@ -53,11 +64,13 @@ async function desktop(browser){
  try{
   await begin(p,'desktop');
   await p.evaluate(()=>{const S=GC3D.S;window.__saved781={car:S.car,parts:S.raceCarParts,carStats:JSON.stringify(S.raceCarStats),position:S.sim.s,clock:S.clock,vehicle:S.vehicle||'car'};});
-  const on=await screenshot(p,'desktop-detail-on',true);
+  const onPixels=await framebuffer(p);const on=await screenshot(p,'desktop-detail-on',true);
   await p.locator('#compare').click();
-  const off=await screenshot(p,'desktop-current',true);
+  const offPixels=await framebuffer(p);const off=await screenshot(p,'desktop-current',true);
   const preserved=await p.evaluate(()=>{const S=GC3D.S,A=window.__saved781;return {disabled:!S.detail781Enabled,car:S.car===A.car,parts:S.raceCarParts===A.parts,stats:JSON.stringify(S.raceCarStats)===A.carStats,position:S.sim.s===A.position,clock:S.clock===A.clock,vehicle:(S.vehicle||'car')===A.vehicle,ui:document.querySelector('#compare').getAttribute('aria-pressed')};});
-  check('desktop: comparison changes rendered canvas',on!==off);
+  check('desktop: comparison changes actual WebGL pixels',onPixels!==offPixels,{on:onPixels,off:offPixels});
+  check('desktop: captured comparison frames differ',on!==off);
+  check('desktop: comparison releases added GPU resources',await p.evaluate(()=>!GC3D.S.trackDetail781&&!GC3D.S.architecture781&&(GC3D.S.detail781ShadowMeshes||[]).length===0));
   check('desktop: comparison preserves car model and position',Object.entries(preserved).every(([k,v])=>k==='ui'?v==='false':v),preserved);
   await p.locator('#compare').click();
   check('desktop: comparison restores detail',await p.evaluate(()=>GC3D.S.detail781Enabled&&document.querySelector('#compare').getAttribute('aria-pressed')==='true'));
@@ -115,10 +128,12 @@ async function reducedMotion(browser){
 }
 (async()=>{
  fs.mkdirSync(out,{recursive:true});check('standalone preview exists',fs.existsSync(pageFile));
+ const sourceBytes=fs.readFileSync(pageFile);results.sourceSha256=hash(sourceBytes);results.sourceBytes=sourceBytes.length;
  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']});
  try{await desktop(browser);await phone(browser);await reducedMotion(browser);
   check('offline preview requests no external resources',results.externalRequests.length===0,results.externalRequests);
   check('no page, shader or console errors',results.errors.length===0,results.errors);
  }finally{await browser.close();writeResults();}
+ if(results.checks.some(x=>!x.pass))process.exitCode=1;
  console.log(JSON.stringify({passed:results.checks.filter(x=>x.pass).length,total:results.checks.length,errors:results.errors.length,externalRequests:results.externalRequests.length,results:path.join(out,'preview-checks.json'),screenshots:results.screenshots}));
 })().catch(e=>{results.failure=e.message;writeResults();console.error(JSON.stringify({failure:e.message,results:path.join(out,'preview-checks.json')}));process.exitCode=1;});

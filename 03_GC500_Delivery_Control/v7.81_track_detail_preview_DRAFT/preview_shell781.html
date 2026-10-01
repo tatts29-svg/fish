@@ -26,9 +26,9 @@
 (function(){'use strict';
 const G=window.GC3D,$=s=>document.querySelector(s),rm=matchMedia('(prefers-reduced-motion: reduce)'),state=$('#state');
 let running=false,raf=0,last=0,frames=0,elapsed=0,slow=0,autoPaused=false;
-function paintState(){const S=G.S;if(!S)return;state.textContent=(S.paused?'PAUSED':(S.fps?S.fps+' FPS':'RUNNING'))+' · '+S.cv.width+' × '+S.cv.height;}
+function paintState(){const S=G.S;if(!S)return;const label=(S.paused?'PAUSED':(S.fps?S.fps+' FPS':'RUNNING'))+' · '+S.cv.width+' × '+S.cv.height;if(state.textContent!==label)state.textContent=label;}
 function frame(t){if(!running)return;raf=requestAnimationFrame(frame);const S=G.S;if(document.hidden||!S)return;
- G.frame(t);$('#progress').style.width=Math.min(100,Math.max(0,((S.sim.s-S.gridS)*(G.M_PER_PT||6)+80)/155*100))+'%';
+ G.frame(t);paintState();$('#progress').style.width=Math.min(100,Math.max(0,((S.sim.s-S.gridS)*(G.M_PER_PT||6)+80)/155*100))+'%';
  if(!S.paused){if(last){elapsed+=t-last;frames++;}if(elapsed>1800&&frames>3){S.fps=Math.round(frames*1000/elapsed);if(S.fps<22)slow++;else slow=0;
  if(slow>=2&&S.qualityChoice!=='manual'){if(S.quality.name==='ultra')G.setQuality('high',true);else if(S.quality.name==='high')G.setQuality('balanced',true);else if(S.o.ss>.65)S.o.ss=.65;slow=0;$('#quality').value=S.quality.name;}
  frames=0;elapsed=0;paintState();}}last=S.paused?0:t;
@@ -46,7 +46,7 @@ window.startPreview781=function(){
 $('#launch').onclick=()=>{ $('#launch').textContent='Building the scene…';requestAnimationFrame(()=>setTimeout(window.startPreview781,0));};
 $('#play').onclick=()=>pause(!G.S.paused);
 $('#restart').onclick=()=>{G.restartPreview781();G.render();};
-$('#compare').onclick=()=>{const on=G.enablePreview781(!G.S.detail781Enabled);$('#compare').setAttribute('aria-pressed',String(on));$('#compare').textContent=on?'Detail on':'Current graphics';$('#lookLabel').textContent=on?'Warm light. Real depth. Detail at track level.':'Current renderer · same car, camera and track position.';G.render();};
+$('#compare').onclick=()=>{const on=G.enablePreview781(!G.S.detail781Enabled);$('#compare').setAttribute('aria-pressed',String(on));$('#compare').textContent=on?'Detail on':'Original scene';$('#lookLabel').textContent=on?'Warm light. Real depth. Detail at track level.':'Original scene · includes its nominal garages and crowds.';G.render();};
 document.querySelectorAll('[data-camera]').forEach(b=>b.onclick=()=>{G.preview781.camera=b.dataset.camera;G.setView(b.dataset.camera);G.S.camBase=null;G.camStep(0);G.render();document.querySelectorAll('[data-camera]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
 $('#quality').onchange=()=>{G.setQuality($('#quality').value);G.S.qualityChoice='manual';G.render();paintState();};
 document.addEventListener('visibilitychange',()=>{if(!G.S)return;if(document.hidden){autoPaused=!G.S.paused;pause(true);}else if(autoPaused){autoPaused=false;pause(false);}});
