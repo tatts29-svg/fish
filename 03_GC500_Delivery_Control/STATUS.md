@@ -292,7 +292,7 @@ the fence metres: 36564 40 m, 36568 462.5 m); "new 60 was north 68 is south" (no
 (36560 north); 36566 "charge as per what was used" and "continue with your logic" - 36567 smoking zones CCB Event, 36568
 median strip CCB Demarcation, 36566 216 fence blocks at the card's $3.02 (needs v7.85, below). Charged as recorded $29,114.17; paid to Advanced $20,965 (36566 blocks from their invoice); service notes 2.75 h ($275). Signed-paper photos (these 8 and the 29 Sep 7) are with Andrew; they stay off the public repo.
 
-**v7.86 — Fence blocks line + Showcase Track detail OFF: READY TO UPLOAD, URGENT (Claude, 2 Oct 2026 08:45 AEST).**
+**v7.86 — Fence blocks line + Showcase Track detail OFF: READY TO UPLOAD, URGENT (Claude, 2 Oct 2026 07:58 AEST).**
 Andrew, 2 Oct: "can we take this out until its fixed, don't have it in there, its almost like a bug ... make it go live so
 people don't see". The v7.85 Track detail covers 250 m of the pit straight and the drive runs out of it; its button is no
 longer added (`attach()` returns), so it cannot be switched on. The scene's code stays in the page untouched for Codex to
