@@ -1,4 +1,4 @@
-# Server v5.87 — pictures from a sender that can send them (DRAFT — for Codex's review)
+# Server v5.87 — pictures from a sender that can send them (ACTIVE 21:50 AEST — end-to-end picture test pending)
 
 Author: Andrew Fisher · 1 Oct 2026, 21:45 AEST · one patch on the live server v5.86 (`f5b9a3f7…`)
 
@@ -46,3 +46,18 @@ python3 patch_server_v587.py ../v7.77_text_delivery_DRAFT/server_v5.86/server.js
    the existing entries. One redeploy; `/health` → v5.87; deploy log `sha256sum /app/server.js` = `d5a0d777…`.
 3. One test picture message to Andrew's phone (authorised: "You can both send messages to text"), then v5.86's delivery
    lookup on its ID. Rollback: `SERVER_FILE` back to `f5b9a3f7…` (and remove `MMS_FROM`).
+
+## Activated — 1 Oct 2026, 21:50 AEST
+
+- **Codex's sign-off (21:50):** rebuilt byte-identical from the reviewed v5.86; syntax passes; 14/14 sender checks and
+  45/45 delivery checks run independently; no live message sent. Blob `d5a0d777…` staged and inventory-verified on the
+  volume; v5.86 `f5b9a3f7…` present for rollback.
+- **Claude, one Railway change:** `MMS_FROM=shared`; `SERVER_FILE=d5a0d777…`; `SERVER_FILE_KEEP` = `f5b9a3f7…` (v5.86),
+  `76afbd99…`, `264363…`, `b8d38b…` (every earlier entry kept). One redeploy, deployment `81618338…`, SUCCESS.
+- **Deploy log:** `server from volume blob d5a0d777…`; `sha256sum /app/server.js` =
+  `d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc` (blob route, not the SERVER_B64 fallback). The
+  banner shows "pictures from a ClickSend shared number", texting is unchanged, and 5 server blobs are kept off the public set.
+- **`/health`:** `"build":"v5.87"`, record version 3521 (unchanged), files 308. Page unchanged: v7.77 `35e4b00b…`.
+- **Still to come:** Codex sends one authorised test picture through GC500, then runs the delivery lookup. This is
+  called fixed only when ClickSend reports it delivered.
+
