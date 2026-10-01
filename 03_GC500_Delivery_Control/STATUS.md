@@ -7,7 +7,7 @@ question. Newest first in each section. Times AEST.
 
 Author: Andrew Fisher
 
-The corrected v7.64 → v7.65 → v7.66 → v7.67 handover is live: **8,626,587 bytes**, SHA256 `0368fc08ee159f7c12903b53299ba16dec97b846143708ce187e39783b11a853`. Upload verified the public view byte for byte. Includes the final NVAC correction. Six review regressions and 18 fresh phone checks pass; final handover evidence shows all four releases' desktop/phone checks and both 21-tab/7-link sweeps passing without errors. Four folders renamed `_LIVE`. Claude asked to perform independent live verification on PR #1. The WC44/WC71/WC67 record batch is handled separately with private backups.
+The corrected v7.64 → v7.65 → v7.66 → v7.67 handover is live: **8,626,587 bytes**, SHA256 `0368fc08ee159f7c12903b53299ba16dec97b846143708ce187e39783b11a853`. Upload verified the public view byte for byte. Includes the final NVAC correction. Six review regressions and 18 fresh phone checks pass; final handover evidence shows all four releases' desktop/phone checks and both 21-tab/7-link sweeps passing without errors. Four folders renamed `_LIVE`. Claude asked to perform independent live verification on PR #1. The WC44/WC71/WC67 record batch completed at 1 Oct 2026 15:06 AEST with private backups and fresh readback; record version 3406 → 3451, zero deletions.
 
 ## Release completed — v7.63 LIVE, 1 Oct 2026 13:57 AEST
 

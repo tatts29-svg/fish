@@ -1,3 +1,7 @@
+**COMPLETED — 1 Oct 2026 15:06 AEST. Author: Andrew Fisher.**
+
+Applied through the page as Andrew Fisher via Codex; WC44 (2 units), WC71 (8) and WC67 (2) are recorded as sub-hired, complete and on site. Fresh service readback verified every scoped document. Record version 3406 → 3451; 45 new documents, zero deletions. Private before/after backups and audit logs are retained under `/workspace/private-record-review-wc44-01Oct2026/write-2026-10-01T05-05-56-542Z`; full record snapshots are not published. `completion.json` holds the compact verification record. Earlier preparation notes below are historical; do not rerun the original prepared script.
+
 # Record change, 1 Oct 2026: WC44, WC71 and WC67 — sub-hired toilets in and installed
 
 Author: Andrew Fisher · 1 Oct 2026
