@@ -31,8 +31,8 @@ t = rep(t, ".pl770-tbl td:first-child,.pl770-tbl th:first-child{width:1%;white-s
 t = rep(t, """<span class="chip ref mono">Temporary Staff · 3210 · 2143</span></td><td><b>Wages</b><br><span class="acc761-w">beside, never added — Finance says which line</span>""",
  """<span class="chip ref mono">3210 · 2143</span></td><td><b>Wages</b><br><span class="acc761-w">Temporary Staff on the P&amp;L · beside, never added — Finance says which line</span>""", 'wages chip', p, True)
 # 2. The Direct costs tile hung the job-end split on the on-the-record figure ("$235,372 … of which $420,740").
-t = rep(t, """`${esc(money0(P.costNow))} on the record today — the Costs to job end card’s figure · of which ${esc(money0(P.directJob))} on the ledger’s direct lines and ${esc(money0(P.overJob))} travel, accommodation, meals and printing`""",
- """`${esc(money0(P.costNow))} on the record today · to job end: ${esc(money0(P.directJob))} on the ledger’s direct lines + ${esc(money0(P.overJob))} travel, accommodation, meals and printing — the Costs to job end card’s figure`""", 'direct costs tile', p, True)
+t = rep(t, """money0(P.costJob), `${esc(money0(P.costNow))} on the record today — the Costs to job end card’s figure · of which ${esc(money0(P.directJob))} on the ledger’s direct lines and ${esc(money0(P.overJob))} travel, accommodation, meals and printing`""",
+ """money0(P.costJob), `${esc(money0(P.costNow))} on the record today · to job end: ${esc(money0(P.directJob))} on the ledger’s direct lines + ${esc(money0(P.overJob))} travel, accommodation, meals and printing — the Costs to job end card’s figure`""", 'direct costs tile', p, True)
 # 3. The 1010 basis bridges to the figure the Rehire by branch card prints (its total, fencing inside), names the toilet
 #    lines that carry a Coates plant number (counted as Event Portables rehire, being checked), and both the 1010 and the
 #    2126 lines name the fencing behind the programme inside their to-job-end figure, as the neighbouring cards do.
@@ -42,12 +42,19 @@ t = rep(t, """ const RT = R.totals || {};
  const CN = (Array.isArray(rows752) ? rows752 : []).reduce((s, b) => s + n(b && b.rehireCoatesNos), 0);
  const behind = !!(F.behind && F.behind.length);
  const rev = [""", 'pl770 model: coates numbers, behind', p, True)
-t = rep(t, """${money0(rehireLines)} — the Rehire by branch card’s ${money0(rehireTotal)} less the ${money0(n(c.servicing))} of servicing and water the P&L posts to Toilet Pumpouts and Consumables below · Advanced’s fencing dockets at the 2026 card ${money0(fence)}${n(F.revenue) ? ' · to job end adds the fencing programme to come at the card, ' + money0(F.revenue) : ''}""",
- """${money0(rehireLines)} — the Rehire by branch card’s ${money0(r2(rehireTotal + fence))} less its fencing ${money0(fence)} and the ${money0(n(c.servicing))} of servicing and water the P&L posts to Toilet Pumpouts and Consumables below${CN ? ' · ' + fmtNum(CN) + ' of the toilet lines carry a Coates plant number and are counted as Event Portables rehire, as that card counts them — being checked' : ''} · Advanced’s fencing dockets at the 2026 card ${money0(fence)}${n(F.revenue) ? ' · to job end adds the fencing programme to come at the card, ' + money0(F.revenue) + (behind ? ' (of which ' + money0(n(F.behindRevenue)) + ' is behind the programme — weeks that ended with metres still on the plan; Advanced to confirm)' : '') : ''}""", '1010 basis', p, True)
+t = rep(t, """forklifts ${money0(rehireLines)} — the Rehire by branch card’s ${money0(rehireTotal)} less the ${money0(n(c.servicing))} of servicing and water the P&L posts to Toilet Pumpouts and Consumables below · Advanced’s fencing dockets at the 2026 card ${money0(fence)}${n(F.revenue) ? ' · to job end adds the fencing programme to come at the card, ' + money0(F.revenue) : ''}""",
+ """forklifts ${money0(rehireLines)} — the Rehire by branch card’s ${money0(r2(rehireTotal + fence))} less its fencing ${money0(fence)} and the ${money0(n(c.servicing))} of servicing and water the P&L posts to Toilet Pumpouts and Consumables below${CN ? ' · ' + fmtNum(CN) + ' of the toilet lines carry a Coates plant number and are counted as Event Portables rehire, as that card counts them — being checked' : ''} · Advanced’s fencing dockets at the 2026 card ${money0(fence)}${n(F.revenue) ? ' · to job end adds the fencing programme to come at the card, ' + money0(F.revenue) + (behind ? ' (of which ' + money0(n(F.behindRevenue)) + ' is behind the programme — weeks that ended with metres still on the plan; Advanced to confirm)' : '') : ''}""", '1010 basis', p, True)
 t = rep(t, """${n(F.cost) ? ' · to job end adds the fencing programme to come at Advanced’s rates, ' + money0(F.cost) : ''}`,
    missing: 'the SUB lines’ and the sub-hired forklifts’ supplier costs'},""",
  """${n(F.cost) ? ' · to job end adds the fencing programme to come at Advanced’s rates, ' + money0(F.cost) + (behind ? ' (of which ' + money0(n(F.behindCost)) + ' is behind the programme — Advanced to confirm)' : '') : ''}`,
    missing: 'the SUB lines’ and the sub-hired forklifts’ supplier costs'},""", '2126 basis', p, True)
+
+# 4. No agent's name on the page (Andrew's rule; v7.72 as released scopes the strip to recorder displays through
+#    recorderDisplay772). Four recorder displays were still on esc() and showed "Andrew Fisher via Codex" on the Change
+#    log and "… via Claude" on the Fencing docket, green-book note and form tables: they go through the same helper.
+t = rep(t, """<span class="w"> · ${esc(x.by || 'unnamed')}</span>""", """<span class="w"> · ${recorderDisplay772(x.by || 'unnamed')}</span>""", 'change log recorder', p, True)
+for v in ('d', 'n', 'c'):
+    t = rep(t, "<td>${esc(" + v + ".recorded_by || '—')}", "<td>${recorderDisplay772(" + v + ".recorded_by || '—')}", 'recorded_by cell ' + v, p, True)
 
 t = t.replace('/* v7.73 - CRYSTAL.', '/* v7.74 - tidy, the second pass: ' + str(applied) + ' verified wordings from the management read of 1 Oct 2026, and the review\'s fixes on the P&L-in-the-lines card (phone columns, the direct-costs tile, the 1010 bridge, the fencing behind the programme, the Coates-numbered toilet lines). */\n/* v7.73 - CRYSTAL.', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)

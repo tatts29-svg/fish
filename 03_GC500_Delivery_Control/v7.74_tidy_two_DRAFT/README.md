@@ -75,13 +75,29 @@ only, no figure changes:
 
 Not taken (latent, no figure wrong today): the ratio rows do not yet blank themselves when the Event Portables quotes
 fail to split or are unapproved — the 3325 and 2144 lines say so, the ratios would still divide. Noted for v7.75.
+(Rehire Recovery itself is already "not readable yet" on the live page, by Codex's release correction, while the fence
+rate bundles installation on the revenue side.)
+
+## And no agent's name on the page
+
+Codex's release scoped v7.72's strip of "via Codex" / "via Claude" to recorder displays, through a display helper, so
+typed notes and the stored record stay as they are. Four recorder displays were still on the plain escaper and showed
+the suffix on the live page: the Change log's rows ("WC60 1328981 put on · Andrew Fisher via Codex") and the Recorded
+by cells of the Fencing docket, green-book note and form tables ("Andrew Fisher via Claude"). They now go through the
+same helper. Every tab's text was dumped on the build and searched for both names: none.
 
 ## Build
 
+On the live v7.73 (which already carries v7.70, v7.72 and v7.73 as Codex released them), one patch:
+
 ```
-bash toolchain/build.sh v7.74 v7.70_pl_in_the_business_lines_DRAFT/patch_v770.py v7.72_tidy_for_management_DRAFT/patch_v772.py v7.73_crystal_DRAFT/patch_v773.py v7.74_tidy_two_DRAFT/patch_v774.py
+bash toolchain/build.sh v7.74 v7.74_tidy_two_DRAFT/patch_v774.py
 python3 toolchain/upload_page.py build/GC500_v7.74/GC500_Delivery_Control_hosted.html
 ```
+
+The suite to run on it is the released one, `v7.70_pl_in_the_business_lines_LIVE/evidence/practice_tests.js` (31
+checks, Codex's alignment to the live Installation and Rehire Recovery rules), with `GC500_TEST_RESULTS_DIR` pointed at
+this folder's `evidence/regress/` so the released evidence is not overwritten.
 
 ## Results
 
