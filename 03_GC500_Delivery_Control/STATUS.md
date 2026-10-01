@@ -200,6 +200,12 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.80 — Fencing card fresh after a rate is typed, claimed by Claude, 1 Oct 2026 22:01 AEST.** Author: Andrew Fisher.
+Found by the v7.75 critic: after a paid fence rate is typed on the Fencing tab, the "Paid to Advanced, by P&L line" card
+(`fencePaidSplit`) keeps the old figure until the next tab change, while the KPI above it shows the new one. The fix:
+a save also clears `RENDER_MEMO`. No figure, rule or record changes. Built on the live base; if v7.79 (Codex, Text it
+wording) goes live first, it will be rebuilt on that base. One frozen candidate goes to Codex, and both reviews happen before any upload.
+
 **v7.77 — Text it delivery, claimed by Codex, 1 Oct 2026 19:39 AEST.** Author: Andrew Fisher.
 Andrew reports that a text he sends does not arrive on his phone. Trace the page and live message service,
 fix the verified cause and exercise the paths with provider sends blocked in tests. Claude owns v7.75 separately.
