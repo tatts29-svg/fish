@@ -40,9 +40,9 @@ dimensions passes; all six of its checks pass on the corrected patches.
 
 ## Build and evidence
 
-`build/GC500_v7.67d/GC500_Delivery_Control_hosted.html` — v7.64 → v7.65 → v7.66 → v7.67 on the live v7.63 (8,572,884 bytes):
-**8,624,985 bytes**, check_page PASS, key grep clean. Practice tests desktop 12/12 and phone 12/12; v7.66 17/17 both; v7.64
-22/22 both; v7.65 and v7.63 hold on the same build; sweeps desktop 21 tabs, 0 errors, 0 console; phone 21 tabs, 0 errors, 0 console
+`build/GC500_v7.67e/GC500_Delivery_Control_hosted.html` — v7.64 → v7.65 → v7.66 → v7.67 on the live v7.63 (8,572,884 bytes):
+**8,626,266 bytes**, check_page PASS, key grep clean. Practice tests desktop 12/12 and phone 12/12; v7.66 18/18 both; v7.64
+22/22 both; v7.65 and v7.63 hold on the same build; Codex's six synthetic checks 6/6; sweeps desktop 21 tabs, 0 errors, 0 console; phone 21 tabs, 0 errors, 0 console
 (`evidence/sweep_desktop.txt`, `evidence/sweep_phone.txt`).
 
 The four-patch Costs release went live at 13:57 AEST (v7.63). On it, this is one build of four patches, for Codex to review and upload:
