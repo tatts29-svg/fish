@@ -1,7 +1,7 @@
 {
  "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
- "passed": 26,
- "of": 26,
+ "passed": 32,
+ "of": 32,
  "tests": [
   {
    "name": "G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021, its orange symbol on the master), not by Gate 2",
@@ -51,7 +51,7 @@
   {
    "name": "R8 the drawer shows a Driver rules box for a named unit, none for a unit no rule touches",
    "pass": true,
-   "detail": " Driver rules Order only after GN21 60kVA is placed (tight spot). GN21 in place on the record Arrivals Stagger them - the site is congested every Supercars week. Time The time given is when the truck must be unloaded by - get there early. L"
+   "detail": " Driver rules Order only after GN21 60kVA is placed (tight spot). GN21 in place on the record Arrivals Stagger them - the site is congested every Supercars week. Time The time given is when the truck must be unloaded by - be on site at leas"
   },
   {
    "name": "R9 park drops carry the wildlife and branches caution, in the text when it fits and always in Full details",
@@ -64,19 +64,19 @@
    "detail": "[\"P03>P01:out of order\",\"P01>P05:in order\",\"P05>WC05:in order\",\"WC05>P04:out of order\",\"GN21>GN20:out of order\"]"
   },
   {
-   "name": "L1 the load rule (Kingston by 05:00, in order, M1 peaks, check your permit) is in Full details for every sequence truck, and the drawer",
+   "name": "L1 the load rule (Kingston by 05:00, in order, no travel 07:00-09:00 or 16:00-18:00) is in Full details for every sequence truck, and the drawer",
    "pass": true,
-   "detail": "LOAD at Kingston by 05:00, in the delivery order - about 70 min to site. Keep off the M1 into the Gold Coast 07:00-09:00 and 16:00-18:00 (heavy/oversize permit loads: check your permit)."
+   "detail": "LOAD: loaded and away from Kingston by 05:00, in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00 - be in before 07:00, or travel after 09:00."
   },
   {
-   "name": "L2 the load check flags the 14 Sep plan as if still to come (WC05 tank 08:30 in the 07:00-09:00 peak; toilet 09:30 after 05:00; P01 same slot as P03; P04 same slot as the WC05 toilet; P05 clean)",
+   "name": "L2 the load check flags the 14 Sep plan as if still to come (WC05 tank 08:30 and toilet 09:30 away after 05:00 - its no-travel hit is in its time check; P01 same slot as P03; P04 same slot as the WC05 toilet; P05 clean)",
    "pass": true,
-   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30 is after 05:00\",\"Waste tank: load 08:30 is after 05:00 and puts the truck on the road 08:30-09:40, inside the 07:00-09:00 peak\"],\"p01\":[\"loads at 04:30, not after P03 (04:30) - load in the delivery order, staggered\"],\"p04\":[\"Building 12m: load 09:30 is after 05:00\",\"loads at 09:30, not after WC05 (09:30) - load in the delivery order, staggered\"],\"p05\":[],\"swapped\":[\"Waste tank: load 10:00 is after 05:00\",\"the waste tank loads at 10:00, not before the toilet block (04:30) - load the tank first\",\"loads at 04:30, not after P05 (05:00) - load in the delivery order, staggered\"]}"
+   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30 - away from Kingston after 05:00\",\"Waste tank: load 08:30 - away from Kingston after 05:00\"],\"p01\":[\"loads at 04:30, not after P03 (04:30) - load in the delivery order, staggered\"],\"p04\":[\"Building 12m: load 09:30 - away from Kingston after 05:00\",\"loads at 09:30, not after WC05 (09:30) - load in the delivery order, staggered\"],\"p05\":[],\"swapped\":[\"Waste tank: load 10:00 - away from Kingston after 05:00\",\"the waste tank loads at 10:00, not before the toilet block (04:30) - load the tank first\",\"loads at 04:30, not after P05 (05:00) - load in the delivery order, staggered\"]}"
   },
   {
    "name": "L3 a waste tank loading after its toilet block is called out",
    "pass": true,
-   "detail": "[\"Waste tank: load 10:00 is after 05:00\",\"the waste tank loads at 10:00, not before the toilet block (04:30) - load the tank first\",\"loads at 04:30, not after P05 (05:00) - load in the delivery order, staggered\"]"
+   "detail": "[\"Waste tank: load 10:00 - away from Kingston after 05:00\",\"the waste tank loads at 10:00, not before the toilet block (04:30) - load the tank first\",\"loads at 04:30, not after P05 (05:00) - load in the delivery order, staggered\"]"
   },
   {
    "name": "L4 nothing to check on a unit already on site (no noise on finished work)",
@@ -89,19 +89,49 @@
    "detail": "all"
   },
   {
-   "name": "T2 a delivery still to come with a time reads \"unloaded by\" in the text, and the check gives the latest Kingston departure (WB04 at 09:00, no load time: before 07:50)",
+   "name": "T2 a delivery still to come with a time reads \"on site by .., unloaded by ..\" (30 min to unload), and the check gives the latest Kingston departure (WB04 at 09:00, no load time: no travel 07:00-09:00, so on site by 07:00, away by 05:50)",
    "pass": true,
-   "detail": "{\"sms\":\"Due Fri 16 Oct 2026, unloaded by 09:00\",\"check\":[\"no load time on the schedule - to be unloaded by 09:00 it must leave Kingston before 07:50 (70 min run), earlier by the time unloading takes\"]}"
+   "detail": "{\"sms\":\"Due Fri 16 Oct 2026, on site by 07:00, unloaded by 09:00\",\"check\":[\"no load time on the schedule - to be unloaded by 09:00: on site by 07:00 (no travel 07:00-09:00, so in before 07:00), so leave Kingston by 05:50, loaded before then (70 min run, at least 30 min to unload)\"]}"
   },
   {
-   "name": "T3 a load that reaches site after its unloaded-by time is called out (WC05 07:00 vs tank 08:30 / toilet 09:30, as if to come); one that makes it shows its unloading time (P05: 50 min)",
+   "name": "T5 a load that would be on the road in a no-travel window is called out with the load-by time (load 07:30 for 09:00: leave Kingston by 05:50)",
    "pass": true,
-   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30, on site about 10:40 - AFTER 07:00, when it must already be unloaded. Load earlier.\",\"Waste tank: load 08:30, on site about 09:40 - AFTER 07:00, when it must already be unloaded. Load earlier.\"],\"p05\":[\"Building 6m: load 05:00, on site about 06:10 - 50 min to unload before 07:00.\"]}"
+   "detail": "[\"test load: load 07:30, on site about 08:40 - on the road in the 07:00-09:00 no-travel window. Leave Kingston by 05:50, loaded before then.\"]"
+  },
+  {
+   "name": "T6 working back from the unloaded-by time: 30 min to unload, 70 min run, never on the road 07:00-09:00 or 16:00-18:00",
+   "pass": true,
+   "detail": "07:00>06:30/05:20 09:00>07:00/05:50 10:00>07:00/05:50 10:30>07:00/05:50 10:40>10:10/09:00 12:00>11:30/10:20 18:30>16:00/14:50"
+  },
+  {
+   "name": "T3 a load that reaches site after its unloaded-by time is called out (WC05 07:00: tank 08:30 runs into the no-travel window, toilet 09:30 lands after 07:00, as if to come); one that makes it shows its unloading time (P05: 50 min)",
+   "pass": true,
+   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30, on site about 10:40 - AFTER 07:00, when it must already be unloaded. Leave Kingston by 05:20, loaded before then.\",\"Waste tank: load 08:30, on site about 09:40 - on the road in the 07:00-09:00 no-travel window. Leave Kingston by 05:20, loaded before then.\"],\"p05\":[\"Building 6m: load 05:00, on site about 06:10 - 50 min to unload before 07:00.\"]}"
   },
   {
    "name": "T4 a delivered record keeps its own words (P03: \"on site 07:00\")",
    "pass": true,
    "detail": "Due Mon 14 Sep 2026, on site 07:00"
+  },
+  {
+   "name": "D1 every Full details carries the dispatch rule (no driver leaves without the drop-off location AND the direction point)",
+   "pass": true,
+   "detail": "all"
+  },
+  {
+   "name": "D2 a delivery with a location but no way in is held - in the text, the drawer and Full details (GN04)",
+   "pass": true,
+   "detail": "{\"sms\":[\"Welcome to Coates GC500\",\"GN04 - Generator (30kva)\",\"GPS: -27.990479, 153.428280 (master plan)\",\"Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.990479,153.428280&travelmode=driving\"]}"
+  },
+  {
+   "name": "D3 a delivery with no location says so before departure and is not ready (PG01)",
+   "pass": true,
+   "detail": "NOT READY TO SEND: no drop-off location on the map; no direction point (way in) set. Hold the truck."
+  },
+  {
+   "name": "D4 (measure) still to come: ready to send vs not, and why; delivered units are not counted",
+   "pass": true,
+   "detail": "116 to come · 19 ready · 97 not ready (39 no location, 97 no way in) · ready: GN13,GN24,LTC05,LTC06,LTC09,LTC10,LTC11,LTC14,P45,P69,WC09,WC20,WC23,WC26,WC28,WC57,WC61,WC62,WC73"
   },
   {
    "name": "M1 the done tick has its own double beat on the master plan",
@@ -126,7 +156,7 @@
   {
    "name": "R13 (measure) three-text messages",
    "pass": true,
-   "detail": "live 100 → 120"
+   "detail": "live 100 → 146"
   },
   {
    "name": "E1 no page errors",
