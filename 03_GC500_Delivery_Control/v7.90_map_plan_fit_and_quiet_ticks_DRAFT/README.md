@@ -8,7 +8,7 @@ The entry's version query is bumped so a cached script can't mask the change. Th
 | `release/explorer/explorer.js` | 128318 | `893f2c65d76e93684d4519a365b8a502549093c7434dc693360e50f325e7c1a1` |
 | `release/explorer/index.html` | 23737 | `bc075d658d7de26636d962dac902f688f61928226470c1e863e28b042c686a26` |
 
-Built from the live explorer `dd6256bc…` (the v7.82 release), and the live entry `111e9eab…` is the same as the v7.82 entry.
+Built from the live explorer `dd6256bc…` (the v7.82 release), and the live entry `634881d7…`, which is the same as the v7.82 entry. An earlier version of this README gave `111e9eab…`; that was the hash of a not-found page fetched from the wrong path. Corrected after Codex's review.
 
 ## What Andrew asked (2 Oct 2026)
 
@@ -43,3 +43,9 @@ His screenshot showed the Original plan pushed into the bottom-right, on black.
 - The Done layer was on by default.
 
 The pictures are `evidence/before_*` and `evidence/after_*`.
+
+## Codex's review (2 Oct 2026)
+
+Codex found one release blocker. If a zoom is still easing when you switch between the plan and satellite, the old zoom anchor overwrites the new fit.
+
+Codex is making the narrow fix: cancel any zoom, fling or rotation in progress when the view switches family, then fit. Codex will then re-run the checks on the final bytes and upload. The final hashes are Codex's.
