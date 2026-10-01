@@ -9,7 +9,7 @@ Author: Andrew Fisher
 
 The approved v7.60 → v7.61 → v7.62 → v7.63 build is uploaded and served byte for byte: **8,572,884 bytes**, SHA256 `e723a1fbe2ba001812d91e98d15d0c8761639bb4578d552e2e471e433b5a7fa3`. Matched the frozen handover candidate; 33/33 desktop and phone checks and both 21-tab/7-link sweeps recorded as passing, build checks rerun. Page upload began with record version 3283; a later read showed 3287 during independent live activity. Record changes are audited separately. No ledger posting. Four source folders renamed `_LIVE`.
 
-v7.64–v7.67 remain under review pending their frozen handover. The queued WC33/WC56/WC59/WC60 record update is being checked separately.
+v7.64–v7.67 remain under review pending their frozen handover. The queued WC33/WC56/WC59/WC60 record update completed at 14:03 AEST through the page and was verified by fresh read; see its completion record. Record version 3288 → 3401, zero deletions.
 
 ## Brief from Andrew — 1 Oct 2026 12:20 AEST: "All costs must be correct and accurate. Forecast as much as we can. Clean data, tidy, presentable — all in on GC500."
 
