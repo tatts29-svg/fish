@@ -36,8 +36,9 @@ const {open} = require('../../toolchain/harness/open_page.js'); const fs = requi
  const basePath = process.env.BASE || path.join(path.dirname(build), 'base_live.html');
  R.live = await (async () => { const s2 = await open(MOB ? {pageFile: basePath, mobile: true, W: 390, H: 844, dpr: 2} : {pageFile: basePath, W: 1440, H: 1000}); const p2 = s2.page;
  await p2.waitForFunction(() => typeof moneySummary === 'function' && typeof allAssets === 'function' && allAssets().length > 50 && SYNC && SYNC.status === 'live' && SYNC.first.size === Object.keys(SYNC_COLLS).length, null, {timeout: 240000}); await p2.waitForTimeout(1500);
- const v = await p2.evaluate(() => { const M = moneySummary(); return {total: M.charge.total, labour: M.charge.labour, ticks: M.charge.labour_ticks, costKnown: M.cost.known, cardHire: M.charge.card_hire, version: SYNC.version, wc60Lines: chargeLines(assetOf('WC60')).map(l => l.item + ' x' + l.quantity)}; }); await s2.browser.close(); return v; })();
- R.checks.plUnmovedUntilTicked = near(D.money.total, R.live.total) && near(D.money.labour, R.live.labour) && D.money.ticks === R.live.ticks && near(D.money.costKnown, R.live.costKnown);
+ const v = await p2.evaluate(() => { const M = moneySummary(); return {total: M.charge.total, servicing: M.charge.servicing || 0, labour: M.charge.labour, ticks: M.charge.labour_ticks, costKnown: M.cost.known, cardHire: M.charge.card_hire, version: SYNC.version, wc60Lines: chargeLines(assetOf('WC60')).map(l => l.item + ' x' + l.quantity)}; }); await s2.browser.close(); return v; })();
+ /* the servicing line is v7.69's (the water charged on at cost) and is left out of this comparison: v7.68 moves nothing but the tank line */
+ R.checks.plUnmovedUntilTicked = near(D.money.total - (D.money.servicing || 0), R.live.total - (R.live.servicing || 0)) && near(D.money.labour, R.live.labour) && D.money.ticks === R.live.ticks && near(D.money.costKnown, R.live.costKnown);
  R.checks.cardComparisonRisesByTheTanksOnly = near(D.money.cardHire - R.live.cardHire, 2 * 750.561);
  R.checks.liveHadNoTankLine = Array.isArray(R.live.wc60Lines) && R.live.wc60Lines.length === 1 && R.live.wc60Lines[0] === 'Toilet Block 6m x2';
  /* rehearsal: tick install and levelling on each tank with the writes blocked (view link, capability stubbed) */
