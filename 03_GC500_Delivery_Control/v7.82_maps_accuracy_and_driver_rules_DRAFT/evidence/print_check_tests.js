@@ -15,12 +15,12 @@ const fs = require('fs'), path = require('path');
   await p.click(ALL);
   await p.waitForSelector('#drv782', {timeout: 10000});
   const shown = await p.evaluate(() => { const b = document.querySelector('#drv782'); const r = b.querySelector('.box').getBoundingClientRect();
-    return {title: b.querySelector('h2').textContent, checks: b.querySelectorAll('input[type=checkbox]').length, goDisabled: b.querySelector('.b-go').disabled, facts: b.querySelector('.facts').textContent.trim().replace(/\s+/g, ' ').slice(0, 300),
+    return {title: b.querySelector('h2').textContent, checks: b.querySelectorAll('input[type=checkbox]').length, goDisabled: b.querySelector('.b-go').disabled, facts: b.querySelector('.facts').textContent.trim().replace(/\s+/g, ' ').slice(0, 300), note: /Each driver sheet comes with an A4 location sign for every item on it\. Laminate it and fix it to the item/.test(b.textContent), rep: (b.querySelector('.facts.rep') || {}).textContent || '',
       panel: !!document.querySelector('#pdf7'), fits: r.left >= 0 && r.right <= innerWidth + 1, overflowX: document.documentElement.scrollWidth > innerWidth + 1}; });
   await p.screenshot({path: path.join(__dirname, 'print_check_' + (MOB ? 'phone' : 'desktop') + '.png')});
   ok('P1 Drivers ▾ > All loads opens the check first - no PDF is made yet', shown.title === 'Before these go to the drivers' && !shown.panel, JSON.stringify({title: shown.title, panel: shown.panel}));
   ok('P2 four plain checks and a name; the button is locked until all are done', shown.checks === 4 && shown.goDisabled, shown.checks + ' checks, locked ' + shown.goDisabled);
-  ok('P3 the page states what it knows for these loads (drop-off pin and way in)', /have a drop-off pin and a way in|not ready to send/.test(shown.facts), shown.facts);
+  ok('P3 the page states what it knows for these loads (drop-off pin and way in)', /Every item has firm directions|not ready to send/.test(shown.facts) && shown.note, shown.facts);
   ok('P4 fits the screen, no sideways scroll', shown.fits && !shown.overflowX, JSON.stringify({fits: shown.fits, overflowX: shown.overflowX}));
   await p.evaluate(() => { const cks = [...document.querySelectorAll('#drv782 input[type=checkbox]')]; cks.slice(0, 3).forEach(c => c.click()); const n = document.querySelector('#drv782n'); n.value = 'Test Person'; n.dispatchEvent(new Event('input')); });
   const part = await p.evaluate(() => document.querySelector('#drv782 .b-go').disabled);
@@ -29,12 +29,21 @@ const fs = require('fs'), path = require('path');
   ok('P5 every check must be ticked (three of four stays locked; four unlocks)', part === true && all === false, 'three: ' + part + ' · four: ' + all);
   await p.click('#drv782 .b-go');
   await p.waitForFunction(() => window.__pdf707 && window.__pdf707.state && window.__pdf707.state !== 'making', null, {timeout: 240000}).catch(() => null);
-  const made = await p.evaluate(() => ({gone: !document.querySelector('#drv782'), panel: !!document.querySelector('#pdf7'), state: (window.__pdf707 || {}).state, remembered: localStorage.getItem('gc500.printedBy')}));
+  const made = await p.evaluate(() => ({gone: !document.querySelector('#drv782'), panel: !!document.querySelector('#pdf7'), state: (window.__pdf707 || {}).state, remembered: localStorage.getItem('gc500.printedBy'), files: (PDF7.files || []).map(f => ({role: f.role, pages: f.pages, label: f.label}))}));
   ok('P6 after the check the driver PDFs are made', made.gone && made.panel && made.state === 'ready', JSON.stringify(made));
   // the same layout the PDFs are photographed from: every sheet carries the name and time
   const st = await p.evaluate(async iso => { try { pdf7Close(); } catch (e) {} const L = await pdf7Layout('drivers', iso, null); const pages = [...L.wrap.querySelectorAll('.dp-page')], s = pages.map(pg => (pg.querySelector('.dp782') || {}).textContent || ''); try { L.done && L.done(); } catch (e) {}
     return {pages: pages.length, stamped: s.filter(x => /^Checked by Test Person · \d\d [A-Z][a-z]{2} \d{4}, \d\d:\d\d · drop-off, way in, times and order$/.test(x)).length, sample: s[0]}; }, iso);
   ok('P7 every driver sheet carries "Checked by <name> · <date, time>"', st.pages > 0 && st.stamped === st.pages, JSON.stringify(st));
+  const files = made.files || [];
+  const sg = await p.evaluate(async iso => { const d = programmeDays().find(x => x.iso === iso), loads = dpLoads(d); const L = await pdf7Layout('drivers', iso, null);
+    const pg = [...L.wrap.querySelectorAll('.dp-page')], seq = pg.map(x => x.classList.contains('pl782') ? 'S:' + x.dataset.pl : 'D' + x.dataset.load);
+    const signs = pg.filter(x => x.classList.contains('pl782')), fit = signs.every(x => x.scrollHeight <= x.clientHeight + 1 && [...x.querySelectorAll('.pl-ref')].every(r => r.scrollWidth <= r.clientWidth + 1));
+    const want = loads.reduce((n, g) => n + (g.kind === 'removals' ? 0 : g.rows.reduce((m, r) => m + Math.max(1, (r.events || []).filter(e => e.movement !== 'remove').length), 0)), 0);
+    const words = signs[0] ? signs[0].textContent.replace(/\s+/g, ' ') : ''; try { L.done && L.done(); } catch (e) {} return {seq, n: signs.length, want, fit, words}; }, iso);
+  ok('P12 every driver sheet is followed by an A4 location sign for each item on it (deliveries), and every sign fits its page', sg.n > 0 && sg.n === sg.want && sg.fit && /^D1/.test(sg.seq[0]) && /Location reference/i.test(sg.words) && /Laminate this sign and fix it to the item/.test(sg.words), JSON.stringify(sg));
+  const loadsFiles = files.filter(f => f.role === 'load'), allFile = files.find(f => f.role === 'all');
+  ok('P13 each load PDF holds its sheet and its signs; the all-loads PDF holds every page', loadsFiles.length > 0 && loadsFiles.every(f => f.pages >= 2 && /location sign/.test(f.label)) && (!allFile || allFile.pages === sg.seq.length), JSON.stringify(files));
   ok('P8 the name is remembered on this device for next time', made.remembered === 'Test Person', made.remembered);
   await p.evaluate(() => { try { pdf7Close(); } catch (e) {} document.querySelectorAll('#drv782').forEach(e => e.remove()); });
   await p.evaluate(sel => document.querySelector(sel).click(), `.dplate [data-pdf7="drivers"][data-iso="${iso}"][data-only="0"]`); await p.waitForSelector('#drv782');

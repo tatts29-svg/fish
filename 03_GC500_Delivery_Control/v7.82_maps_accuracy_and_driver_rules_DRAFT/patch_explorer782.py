@@ -67,5 +67,15 @@ function drawMarks(v) {""")
 # the chip row is rebuilt with the plan's own chips
 rep("  const fh = document.querySelector('#findCard h3'); if (fh) fh.textContent = HOST ? 'Find on the master plan' : 'Find on the drawing';",
     "  done782Chip(); /* v7.82 */\n  const fh = document.querySelector('#findCard h3'); if (fh) fh.textContent = HOST ? 'Find on the master plan' : 'Find on the drawing';")
+# category chips and Escape reset only the category chips - the Done chip keeps its own state (Codex review, 2 Oct)
+rep("const on = b.getAttribute('aria-pressed') !== 'true'; document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', 'false'));",
+    "const on = b.getAttribute('aria-pressed') !== 'true'; document.querySelectorAll('#chips .chip').forEach(x => x.setAttribute('aria-pressed', 'false')); /* v7.82 - not the Done chip */")
+rep("stopPulse(); document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', 'false')); $('findList').classList.remove('show');",
+    "stopPulse(); document.querySelectorAll('#chips .chip').forEach(x => x.setAttribute('aria-pressed', 'false')); /* v7.82 - not the Done chip */ $('findList').classList.remove('show');")
+# the dashboard's Motion Off holds the rings still too, as well as the device's reduced-motion setting
+rep("'.d782.moving{display:none}@media (prefers-reduced-motion:reduce){.d782 i{animation:none;opacity:0}}'",
+    "'.d782.moving{display:none}@media (prefers-reduced-motion:reduce){.d782 i{animation:none;opacity:0}}html.d782still .d782 i{animation:none;opacity:0}'")
+rep("function done782Pull() { let keys = null; try { const w = window.parent && window.parent !== window ? window.parent : window; if (typeof w.gc500DoneKeys === 'function') keys = w.gc500DoneKeys(); } catch (e) {}",
+    "function done782Pull() { let keys = null; try { const w = window.parent && window.parent !== window ? window.parent : window; document.documentElement.classList.toggle('d782still', w !== window && w.document.documentElement.getAttribute('data-motion') === 'off'); if (typeof w.gc500DoneKeys === 'function') keys = w.gc500DoneKeys(); } catch (e) {}")
 open(sys.argv[2], 'w', encoding='utf-8').write(src)
 print('explorer v7.82: Done layer (green tick, double-beat ring, one chip)')

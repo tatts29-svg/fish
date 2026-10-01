@@ -1,0 +1,78 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
+ "day": "2026-10-06",
+ "passed": 14,
+ "of": 14,
+ "tests": [
+  {
+   "name": "P1 Drivers ▾ > All loads opens the check first - no PDF is made yet",
+   "pass": true,
+   "detail": "{\"title\":\"Before these go to the drivers\",\"panel\":false}"
+  },
+  {
+   "name": "P2 four plain checks and a name; the button is locked until all are done",
+   "pass": true,
+   "detail": "4 checks, locked true"
+  },
+  {
+   "name": "P3 the page states what it knows for these loads (drop-off pin and way in)",
+   "pass": true,
+   "detail": "4 items not ready to send - no firm instructions yet. Set them here at the branch in Edit (the drop-off on the map, and the way in) - the sheets update with them.Load 1 · P08 - no way in Fix in Edit ›Load 2 · P46 - no way in Fix in Edit ›Load 3 · P47 - no way in Fix in Edit ›Load 4 · P51 - no way in"
+  },
+  {
+   "name": "P4 fits the screen, no sideways scroll",
+   "pass": true,
+   "detail": "{\"fits\":true,\"overflowX\":false}"
+  },
+  {
+   "name": "P5 every check must be ticked (three of four stays locked; four unlocks)",
+   "pass": true,
+   "detail": "three: true · four: false"
+  },
+  {
+   "name": "P6 after the check the driver PDFs are made",
+   "pass": true,
+   "detail": "{\"gone\":true,\"panel\":true,\"state\":\"ready\",\"remembered\":\"Test Person\",\"files\":[{\"role\":\"all\",\"pages\":12,\"label\":\"All 6 loads · 12 pages\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 1 · P08 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 2 · P46 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 3 · P47 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 4 · P51 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 5 · T0085 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 6 · T0089 · 1 location sign\"}]}"
+  },
+  {
+   "name": "P7 every driver sheet carries \"Checked by <name> · <date, time>\"",
+   "pass": true,
+   "detail": "{\"pages\":12,\"stamped\":12,\"sample\":\"Checked by Test Person · 02 Oct 2026, 03:29 · drop-off, way in, times and order\"}"
+  },
+  {
+   "name": "P12 every driver sheet is followed by an A4 location sign for each item on it (deliveries), and every sign fits its page",
+   "pass": true,
+   "detail": "{\"seq\":[\"D1\",\"S:P08\",\"D2\",\"S:P46\",\"D3\",\"S:P47\",\"D4\",\"S:P51\",\"D5\",\"S:T0085\",\"D6\",\"S:T0089\"],\"n\":6,\"want\":6,\"fit\":true,\"words\":\"Coates · GC500 2026Delivery location Location referenceP08 Building 6mGOES TOSecuritynear Gate 2, Commodore · beside P51, WC38, GEM Due on siteTue 06 Oct 2026Load1 of 6Item1 of 1 Laminate this sign and fix it to the item where it can be seen.Leave it on until the item is in its place.Checked by Test Person · 02 Oct 2026, 03:29 · drop-off, way in, times and order\"}"
+  },
+  {
+   "name": "P13 each load PDF holds its sheet and its signs; the all-loads PDF holds every page",
+   "pass": true,
+   "detail": "[{\"role\":\"all\",\"pages\":12,\"label\":\"All 6 loads · 12 pages\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 1 · P08 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 2 · P46 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 3 · P47 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 4 · P51 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 5 · T0085 · 1 location sign\"},{\"role\":\"load\",\"pages\":2,\"label\":\"Load 6 · T0089 · 1 location sign\"}]"
+  },
+  {
+   "name": "P8 the name is remembered on this device for next time",
+   "pass": true,
+   "detail": "Test Person"
+  },
+  {
+   "name": "P9 one load asks too; \"Not yet\" closes it and nothing is made; the name is already filled in",
+   "pass": true,
+   "detail": "{\"open\":false,\"panel\":false,\"pre\":\"Test Person\"}"
+  },
+  {
+   "name": "P11 each red item is one tap from Edit: \"Fix in Edit\" closes the check and opens that item (drop-off and Pin the way in)",
+   "pass": true,
+   "detail": "{\"k\":\"P08\",\"hash\":\"#asset/P08\",\"open\":false,\"drawer\":false,\"way\":true}"
+  },
+  {
+   "name": "P10 the install-team sheets are not held up by the driver check",
+   "pass": true,
+   "detail": "{\"asked\":false,\"panel\":true}"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

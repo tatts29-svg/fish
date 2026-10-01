@@ -60,9 +60,41 @@ new['how'] = 'the QPS compound by Gate 2 / Commodore Park, beside P46 (QPS Comma
 new['confirmed'] = 'the project manager, 2 Oct 2026'
 new.pop('img', None)
 t = t[:obj_at] + json.dumps(new, ensure_ascii=False, separators=(',', ':')) + t[end:]
+
+# 1c. The light towers LTC01-LTC14 were read off blue fans on D024; the master has no light-tower symbol to check them
+# against, and several sit in a traffic lane (README, map accuracy). They keep their position for review, marked unverified.
+for k in ['LTC%02d' % i for i in range(1, 15)]:
+    at = t.find('"' + k + '":{', start)
+    if at < 0: continue
+    obj_at = at + len('"' + k + '":'); old, end = json.JSONDecoder().raw_decode(t, obj_at)
+    if not str(old.get('how', '')).startswith('leader line from callout'): sys.exit(k + ' on the master changed - review before applying')
+    new = dict(old); new['unverified'] = 'read off a blue fan on D024 - the master has no light-tower symbol to check it against; check it on site (map review, 2 Oct 2026)'
+    t = t[:obj_at] + json.dumps(new, ensure_ascii=False, separators=(',', ':')) + t[end:]
+
+# one source label for a master-held position, used by the text, Navigate, the pin record and the driver sheet alike
+t = rep(t, "function text747Where(a){", """/* v7.82 - where a master-held position came from, in the same words on every surface */
+function locSrc782(ref){
+ const m = (typeof MASTER_LOC !== 'undefined' && MASTER_LOC[ref]) || null; if (!m) return null;
+ if (m.confirmed) return {kind: 'confirmed', sms: 'confirmed by the project manager', nav: 'the spot the project manager confirmed for ' + ref + ' (' + m.confirmed.replace(/^the project manager, /, '') + ')', by: 'the project manager (' + m.confirmed.replace(/^the project manager, /, '') + ')', took: 'confirmed by the project manager', label: 'Confirmed position', line: 'Confirmed by the project manager · not a phone pin'};
+ if (m.unverified) return {kind: 'unverified', sms: 'drawing arrow, not checked on site', nav: 'where an arrow on drawing D024 puts ' + ref + ' - not verified, check it on site', by: 'drawing D024 arrow (not verified)', took: 'read off a drawing arrow - not verified', label: 'Drawing position - not verified', line: 'From an arrow on D024 · check it on site'};
+ return null;
+}
+function text747Where(a){""", 'one provenance label', p, True)
 t = rep(t, " const src = nt.pinned && nt.fix && nt.fix.master ? 'master plan'",
-        " const conf782 = nt.pinned && nt.fix && nt.fix.master && typeof masterLoc === 'function' && masterLoc(a.key) && masterLoc(a.key).confirmed; /* v7.82 */\n const src = conf782 ? 'confirmed by the project manager' : nt.pinned && nt.fix && nt.fix.master ? 'master plan'",
-        'a spot the project manager confirmed says so', p, True)
+        " const L782 = nt.pinned && nt.fix && nt.fix.master ? locSrc782(a.key) : null; /* v7.82 */\n const src = L782 ? L782.sms : nt.pinned && nt.fix && nt.fix.master ? 'master plan'",
+        'a confirmed or unverified spot says so', p, True)
+t = rep(t, "if (t && t.pinned && t.fix && t.fix.master) return 'Opens your maps app with driving directions to where the master plan D001-26003-03 puts '",
+        "if (t && t.pinned && t.fix && t.fix.master && locSrc782(a && a.key)) return 'Opens your maps app with driving directions to ' + locSrc782(a.key).nav + '.'; /* v7.82 */\nif (t && t.pinned && t.fix && t.fix.master) return 'Opens your maps app with driving directions to where the master plan D001-26003-03 puts '",
+        'Navigate says the same source', p, True)
+t = rep(t, " return {lat: m.ll[0], lon: m.ll[1], acc: null, at: '2026-09-27T00:00:00.000Z', by: 'master plan D001-26003-03',",
+        " const L782 = locSrc782(ref); /* v7.82 */\n return {lat: m.ll[0], lon: m.ll[1], acc: null, at: '2026-09-27T00:00:00.000Z', by: L782 ? L782.by : 'master plan D001-26003-03', src782: L782 ? L782.kind : null,",
+        'the pin record says the same source', p, True)
+t = rep(t, " ref: ref, unit: null, n: 0, took: 'read off the master plan', master: true, how: m.how}; }",
+        " ref: ref, unit: null, n: 0, took: L782 ? L782.took : 'read off the master plan', master: true, how: m.how}; }",
+        'the pin record says how', p, True)
+t = rep(t, " if (P.kind === 'master') return {label: 'Master-plan position', ll, line: 'From master plan D001 · not a phone pin'};",
+        " if (P.kind === 'master' && P.src) return {label: P.src.label, ll, line: P.src.line}; /* v7.82 */\n if (P.kind === 'master') return {label: 'Master-plan position', ll, line: 'From master plan D001 · not a phone pin'};",
+        'the driver sheet says the same source', p, True)
 
 # 2. driver rules
 line = json.load(open(os.path.join(HERE, 'evidence', 'main_beach_pde_tomtom.json')))['lonlat']
@@ -110,28 +142,40 @@ const SEQ782 = 'The sequence: 1 P03 > 2 P01 > 3 P05 > 4 WC05 waste tank > 5 WC05
    the delivery order - you would not load a waste tank after 09:00 with the toilet block first. No travel to the Gold
    Coast 07:00-09:00 or 16:00-18:00 (the project manager, 2 Oct 2026: they cannot travel then). Schedule load times are
    Kingston load times; the run to site is the page's planning figure (transport.kingston_run, about 70 min). */
-const LOAD782 = 'LOAD: loaded and away from Kingston by 05:00, in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00 - be in before 07:00, or travel after 09:00.';
+const LOAD782 = 'LOAD: for a morning delivery, loaded and away from Kingston by 05:00. Load in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00. A delivery with a time asked for follows its own leave-by time.';
 const LOAD_BY782 = 5 * 60;
 const LOAD_SMS782 = 'LOAD: Kingston by 05:00, in order.';
 const PEAKS782 = [[7 * 60, 9 * 60], [16 * 60, 18 * 60]];
 function hhmm782(s){ const m = /^\s*(\d{1,2}):?(\d{2})\s*$/.exec(String(s || '')); if (!m) return null; const h = +m[1], mi = +m[2]; return h < 24 && mi < 60 ? h * 60 + mi : null; }
-function clock782(n){ return String(Math.floor(n / 60) %% 24).padStart(2, '0') + ':' + String(n %% 60).padStart(2, '0'); }
+/* times are minutes from 1 Jan 1970 (UTC calendar days, so a day is always 1,440 minutes); a clock is always 00:00-23:59 */
+function clock782(n){ n = ((Math.round(n) %% 1440) + 1440) %% 1440; return String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n %% 60).padStart(2, '0'); }
+function day782(iso){ const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || '')); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) / 60000 : null; }
+/* a time as a clock, naming the day when it is not the delivery's own */
+function when782(n, base){ const c = clock782(n); if (base == null) return c; const dd = Math.floor((n - base) / 1440);
+ return dd === 0 ? c : c + (dd === -1 ? ' the day before' : dd === 1 ? ' the next day' : dd < 0 ? ' (' + -dd + ' days before)' : ' (' + dd + ' days after)'); }
+function run782(){ const kr = (DATA.transport || {}).kingston_run || {}; return Math.round(kr.minutes_rounded || kr.minutes || 70); }
+function due782(a){ let eff = null; try { eff = effectiveDates(a); } catch (e) {} return day782((eff && eff.in) || (a && a.first_date)); }
 function loads782(a){
- const kr = (DATA.transport || {}).kingston_run || {}, run = Math.round(kr.minutes_rounded || kr.minutes || 70);
- return (a.events || []).filter(e => e.movement !== 'remove').map(e => { const m = hhmm782(e.load_time); return m == null ? null : {item: e.item || '', date: e.date, at: m, arrive: m + run, run}; }).filter(Boolean);
+ const run = run782(), due = due782(a);
+ return (a.events || []).filter(e => e.movement !== 'remove').map(e => { const m = hhmm782(e.load_time); if (m == null) return null;
+  const d = day782(e.date), base = d != null ? d : due != null ? due : 0;
+  return {item: e.item || '', date: e.date, tod: m, base, at: base + m, arrive: base + m + run, run}; }).filter(Boolean);
 }
-/* a unit already on site has nothing left to load - the check is for what is still to come */
+/* the no-travel window (absolute start and end) that a run from s to e touches, on any day; null when it touches none */
+function ban782(s, e){ for (let k = Math.floor(s / 1440) - 1; k <= Math.floor(e / 1440); k++) for (const [ps, pe] of PEAKS782) { const A = k * 1440 + ps, B = k * 1440 + pe; if (s < B && e > A) return [A, B]; } return null; }
+/* a unit already on site has nothing left to load - the check is for what is still to come. A delivery with a time asked
+   for is planned from that time alone (timeCheck782); this general check covers the deliveries without one. */
 function loadCheck782(a){
  const out = [], L = inPlace782(a.key) ? [] : loads782(a);
- const timed = hhmm782((deliveryOf(a.key) || {}).eta) != null; /* a timed delivery gets the no-travel call in its time check */
- L.forEach(l => { const p = !timed && PEAKS782.find(([s, e]) => l.at < e && l.arrive > s), late = l.at > LOAD_BY782; if (!p && !late) return;
+ const timed = hhmm782((deliveryOf(a.key) || {}).eta) != null;
+ if (!timed) L.forEach(l => { const p = ban782(l.at, l.arrive), late = l.tod > LOAD_BY782; if (!p && !late) return;
   out.push((l.item ? l.item + ': ' : '') + 'load ' + clock782(l.at) + (late ? ' - away from Kingston after 05:00' : '') + (p ? (late ? ' and puts' : ' puts') + ' the truck on the road ' + clock782(l.at) + '-' + clock782(l.arrive) + ', inside the ' + clock782(p[0]) + '-' + clock782(p[1]) + ' no-travel window' : '')); });
  const tank = L.find(l => /waste tank/i.test(l.item)), block = L.find(l => /toilet block/i.test(l.item));
- if (tank && block && tank.at >= block.at) out.push('the waste tank loads at ' + clock782(tank.at) + ', not before the toilet block (' + clock782(block.at) + ') - load the tank first');
+ if (tank && block && tank.at >= block.at) out.push('the waste tank loads at ' + when782(tank.at, block.base) + ', not before the toilet block (' + clock782(block.at) + ') - load the tank first');
  const o = ORDER782.find(x => x.ref === a.key);
  (o && o.after || []).forEach(f => { const fa = assetOf(f), fl = fa ? loads782(fa) : []; if (!fl.length || !L.length) return;
-  const mine = Math.min(...L.map(l => l.at)), theirs = Math.max(...fl.map(l => l.at));
-  if (mine <= theirs) out.push('loads at ' + clock782(mine) + ', not after ' + f + ' (' + clock782(theirs) + ') - load in the delivery order, staggered'); });
+  const mine = L.reduce((x, l) => l.at < x.at ? l : x), theirs = fl.reduce((x, l) => l.at > x.at ? l : x);
+  if (mine.at <= theirs.at) out.push('loads at ' + clock782(mine.at) + ', not after ' + f + ' (' + when782(theirs.at, mine.base) + ') - load in the delivery order, staggered'); });
  return out;
 }
 const ORDER782_BY = 'the project manager, 2 Oct 2026';
@@ -188,7 +232,7 @@ function rules782Long(a){
  if (park782(a)) L.push('Park access: watch for wildlife and low branches; some spots have no room to spare. ' + ((DATA.driver_rules || {}).escort || ''));
  L.push(STAGGER782 + ' Bring things in the order above.');
  L.push('Event week (D007): circuit traffic one-way counter-clockwise 00:00 Mon 20 Oct to 17:00 Mon 27 Oct · 40 km/h on track · 10 km/h in Macintosh Park.');
- return L;
+ return inPlace782(a.key) ? L.filter(x => !/^(TIME|DISPATCH|LOAD|DIRECTIONS[A-Z ]*|CHECK THE (TIME|LOAD)):/.test(x)) : L; /* delivered: its record, not a plan */
 }
 """
 rules_js = rules_js % json.dumps(line, separators=(',', ':'))
@@ -235,7 +279,7 @@ t = rep(t, "/* the text itself: what, where, how in - always; then the day and t
  if (e) L.push(row('Way in', esc(e.words)));
  if (pk) L.push(row('Park', 'Watch for wildlife and low branches - very tight in places. ' + esc((DATA.driver_rules || {}).escort || '')));
  L.push(row('Arrivals', 'Stagger them - the site is congested every Supercars week.'));
- L.push(row('Loading', esc(LOAD782.replace(/^LOAD: l/, 'L'))));
+ if (!inPlace782(a.key)) L.push(row('Loading', esc(LOAD782.replace(/^LOAD: f/, 'F'))));
  loadCheck782(a).forEach(w => L.push(row('Check the load', '<span class="no782">' + esc(w) + '</span>')));
  return `<div class="rules782"><div class="sect">Driver rules</div><ul>${L.join('')}</ul><p class="sub">Set by ${esc(ORDER782_BY)}. In every text and in Full details.</p></div>`;
 }
@@ -263,25 +307,31 @@ t = rep(t, "const ORDER782_BY = 'the project manager, 2 Oct 2026';", """/* v7.82
    manager, 2 Oct 2026). Miss it and the other work fronts wait, or the area is shut (barriers in, no traffic control). */
 const UNLOAD_MIN782 = 30; /* the project manager, 2 Oct 2026: unloading takes at least 30 min */
 const TIME782 = 'TIME: the time given is when you must be UNLOADED by - not when you arrive. Unloading takes at least 30 min, so be on site 30 min before it - and no travel to the Gold Coast 07:00-09:00 or 16:00-18:00, so a run that would hit those hours comes in before them. Miss it and the other crews wait, or the area is closed (barriers in, no traffic control). Time frames must be kept.';
-function run782(){ const kr = (DATA.transport || {}).kingston_run || {}; return Math.round(kr.minutes_rounded || kr.minutes || 70); }
-/* work back from the unloaded-by time: 30 min to unload, then the run - and the run may not touch a no-travel window,
-   so a time that would put the truck on the road 07:00-09:00 (or 16:00-18:00) brings it in before the window instead */
+/* work back from the unloaded-by time (absolute minutes): 30 min to unload, then the run - and the run may not touch a
+   no-travel window, so a time that would put the truck on the road 07:00-09:00 (or 16:00-18:00) brings it in before the
+   window instead. This is the one plan for a timed delivery: the text, Full details, the drawer and the checks all read it. */
 function plan782(by){
  const run = run782(); let onBy = by - UNLOAD_MIN782, ban = null;
- for (let i = 0; i < 4; i++) { const b = PEAKS782.find(([s, e]) => onBy - run < e && onBy > s); if (!b) break; ban = b; onBy = b[0]; }
+ for (let i = 0; i < 6; i++) { const b = ban782(onBy - run, onBy); if (!b) break; ban = b; onBy = b[0]; }
  return {by, onBy, leaveBy: onBy - run, run, ban};
 }
 function planWords782(P){ return P.ban ? ' (no travel ' + clock782(P.ban[0]) + '-' + clock782(P.ban[1]) + ', so in before ' + clock782(P.ban[0]) + ')' : ''; }
+/* the plan for a delivery still to come with a time asked for, on its own due day; null otherwise */
+function planFor782(a){
+ const d = deliveryOf(a.key) || {}, m = hhmm782(d.eta); if (m == null || d.state === 'on site') return null;
+ const base = due782(a), b0 = base != null ? base : 0; return Object.assign(plan782(b0 + m), {base: base != null ? base : null, eta: d.eta});
+}
 function timeCheck782(a){
- const d = deliveryOf(a.key) || {}, by = hhmm782(d.eta); if (by == null || inPlace782(a.key)) return [];
- const P = plan782(by), out = [], L = loads782(a);
- if (!L.length) return ['no load time on the schedule - to be unloaded by ' + clock782(by) + ': on site by ' + clock782(P.onBy) + planWords782(P) + ', so leave Kingston by ' + clock782(P.leaveBy) + ', loaded before then (' + P.run + ' min run, at least ' + UNLOAD_MIN782 + ' min to unload)'];
- L.forEach(l => { const spare = by - l.arrive, hit = PEAKS782.find(([s, e]) => l.at < e && l.arrive > s);
-  out.push((l.item ? l.item + ': ' : '') + 'load ' + clock782(l.at) + ', on site about ' + clock782(l.arrive)
-   + (hit ? ' - on the road in the ' + clock782(hit[0]) + '-' + clock782(hit[1]) + ' no-travel window. Leave Kingston by ' + clock782(P.leaveBy) + ', loaded before then.'
-   : spare < 0 ? ' - AFTER ' + clock782(by) + ', when it must already be unloaded. Leave Kingston by ' + clock782(P.leaveBy) + ', loaded before then.'
-   : spare < UNLOAD_MIN782 ? ' - only ' + spare + ' min to unload before ' + clock782(by) + ' (at least ' + UNLOAD_MIN782 + ' needed). Leave Kingston by ' + clock782(P.leaveBy) + ', loaded before then.'
-   : ' - ' + spare + ' min to unload before ' + clock782(by) + '.')); });
+ if (inPlace782(a.key)) return [];
+ const P = planFor782(a); if (!P) return [];
+ const out = [], L = loads782(a), w = n => when782(n, P.base);
+ if (!L.length) return ['no load time on the schedule - to be unloaded by ' + w(P.by) + ': on site by ' + w(P.onBy) + planWords782(P) + ', so leave Kingston by ' + w(P.leaveBy) + ', loaded before then (' + P.run + ' min run, at least ' + UNLOAD_MIN782 + ' min to unload)'];
+ L.forEach(l => { const spare = P.by - l.arrive, hit = ban782(l.at, l.arrive);
+  out.push((l.item ? l.item + ': ' : '') + 'load ' + w(l.at) + ', on site about ' + w(l.arrive)
+   + (hit ? ' - on the road in the ' + clock782(hit[0]) + '-' + clock782(hit[1]) + ' no-travel window. Leave Kingston by ' + w(P.leaveBy) + ', loaded before then.'
+   : spare < 0 ? ' - AFTER ' + w(P.by) + ', when it must already be unloaded. Leave Kingston by ' + w(P.leaveBy) + ', loaded before then.'
+   : spare < UNLOAD_MIN782 ? ' - only ' + spare + ' min to unload before ' + w(P.by) + ' (at least ' + UNLOAD_MIN782 + ' needed). Leave Kingston by ' + w(P.leaveBy) + ', loaded before then.'
+   : ' - ' + spare + ' min to unload before ' + w(P.by) + '.')); });
  return out;
 }
 const ORDER782_BY = 'the project manager, 2 Oct 2026';""", 'unloaded-by check', p, True)
@@ -289,17 +339,17 @@ t = rep(t, " L.push(LOAD782);\n loadCheck782(a).forEach(w => L.push('CHECK THE L
         " L.push(TIME782);\n timeCheck782(a).forEach(w => L.push('CHECK THE TIME: ' + w));\n L.push(LOAD782);\n loadCheck782(a).forEach(w => L.push('CHECK THE LOAD: ' + w + '.'));", 'time in Full details', p, True)
 t = rep(t, " const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a); if (!o && !e && !pk && !lw.length) return '';",
         " const o = order782(a), e = entry782(a), pk = park782(a), lw = loadCheck782(a), tw = timeCheck782(a); if (!o && !e && !pk && !lw.length && !tw.length) return '';", 'drawer shows for a time warning', p, True)
-t = rep(t, " L.push(row('Loading', esc(LOAD782.replace(/^LOAD: l/, 'L'))));",
-        " { const by = (deliveryOf(a.key) || {}).eta, m = hhmm782(by); const P = m != null ? plan782(m) : null; L.push(row('Time', P ? 'Unloaded by <b>' + esc(by) + '</b> - so on site by <b>' + clock782(P.onBy) + '</b>' + esc(planWords782(P)) + ', leave Kingston by <b>' + clock782(P.leaveBy) + '</b>, loaded before then (unloading takes at least ' + UNLOAD_MIN782 + ' min). Miss it and the other crews wait, or the area is closed.' : 'The time given is when the truck must be unloaded by - be on site at least ' + UNLOAD_MIN782 + ' min before it.')); }\n tw.forEach(w => L.push(row('Check the time', /AFTER|only [0-9]+ min|no-travel/.test(w) ? '<span class=\"no782\">' + esc(w) + '</span>' : esc(w))));\n L.push(row('Loading', esc(LOAD782.replace(/^LOAD: l/, 'L'))));", 'drawer time row', p, True)
+t = rep(t, " if (!inPlace782(a.key)) L.push(row('Loading', esc(LOAD782.replace(/^LOAD: f/, 'F'))));",
+        " if (!inPlace782(a.key)) { const P = planFor782(a), w = n => when782(n, P && P.base); L.push(row('Time', P ? 'Unloaded by <b>' + esc(w(P.by)) + '</b> - so on site by <b>' + esc(w(P.onBy)) + '</b>' + esc(planWords782(P)) + ', leave Kingston by <b>' + esc(w(P.leaveBy)) + '</b>, loaded before then (unloading takes at least ' + UNLOAD_MIN782 + ' min). Miss it and the other crews wait, or the area is closed.' : 'The time given is when the truck must be unloaded by - be on site at least ' + UNLOAD_MIN782 + ' min before it.')); }\n tw.forEach(w => L.push(row('Check the time', /AFTER|only [0-9]+ min|no-travel/.test(w) ? '<span class=\"no782\">' + esc(w) + '</span>' : esc(w))));\n if (!inPlace782(a.key)) L.push(row('Loading', esc(LOAD782.replace(/^LOAD: f/, 'F'))));", 'drawer time row', p, True)
 # the words everywhere the time shows: unloaded by, not "on site"
-t = rep(t, "return 'Due ' + fmtDate(day) + (d.eta ? ', on site ' + d.eta : '');", "return 'Due ' + fmtDate(day) + (d.eta ? (d.state === 'on site' ? ', on site ' + d.eta : ', on site by ' + clock782(plan782(hhmm782(d.eta)).onBy) + ', unloaded by ' + d.eta) : ''); /* v7.82 - the time is an unloaded-by time (a delivered record keeps its words) */", 'text: unloaded by', p, True)
-t = rep(t, "${d.eta ? ' · planned on site ' + d.eta : ''}${ev.load_time", "${d.eta ? (d.state === 'on site' ? ' · planned on site ' + d.eta : (P => ' · on site by ' + clock782(P.onBy) + planWords782(P) + ', unloaded by ' + d.eta + ' - leave Kingston by ' + clock782(P.leaveBy) + ', loaded (at least ' + UNLOAD_MIN782 + ' min to unload)')(plan782(hhmm782(d.eta)))) : ''}${ev.load_time", 'Full details: unloaded by', p, True)
+t = rep(t, "return 'Due ' + fmtDate(day) + (d.eta ? ', on site ' + d.eta : '');", "return 'Due ' + fmtDate(day) + (d.eta ? (d.state === 'on site' ? ', on site ' + d.eta : (P => P ? ', on site by ' + when782(P.onBy, P.base) + ', unloaded by ' + d.eta : ', unloaded by ' + d.eta)(planFor782(a))) : ''); /* v7.82 - the time is an unloaded-by time (a delivered record keeps its words) */", 'text: unloaded by', p, True)
+t = rep(t, "${d.eta ? ' · planned on site ' + d.eta : ''}${ev.load_time", "${d.eta ? (d.state === 'on site' ? ' · planned on site ' + d.eta : (P => P ? ' · on site by ' + when782(P.onBy, P.base) + planWords782(P) + ', unloaded by ' + d.eta + ' - leave Kingston by ' + when782(P.leaveBy, P.base) + ', loaded (at least ' + UNLOAD_MIN782 + ' min to unload)' : ' · unloaded by ' + d.eta)(planFor782(a))) : ''}${ev.load_time", 'Full details: unloaded by', p, True)
 t = rep(t, "dv.eta ? ' · planned on site ' + esc(dv.eta) : ''}</span>`", "dv.eta ? (dv.state === 'on site' ? ' · planned on site ' : ' · unloaded by ') + esc(dv.eta) : ''}</span>`", 'card: unloaded by', p, True)
 t = rep(t, "<span class=\"rs-sup\">planned on site — no load time in the schedule</span>", "<span class=\"rs-sup\">${dv.state === 'on site' ? 'planned on site' : 'unloaded by'} — no load time in the schedule</span>", 'running sheet: unloaded by', p, True)
 t = rep(t, "color:#b9b2ab\">on site ${e(dv.eta)}</td>", "color:#b9b2ab\">${dv.state === 'on site' ? 'on site' : 'unloaded by'} ${e(dv.eta)}</td>", 'print card: unloaded by', p, True)
-t = rep(t, ">Planned time to site</label>", ">Unloaded by (the time asked for)</label>", 'drawer field label', p, True)
+t = rep(t, ">Planned time to site</label>", ">${deliveryOf(a.key).state === 'on site' ? 'Planned time to site' : 'Unloaded by (the time asked for)'}</label>", 'drawer field label', p, True)
 t = rep(t, "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'shared record') : ''}</div></div>",
-        "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'shared record') + ' · ' : ''}the truck is unloaded by then - on site at least 30 min before</div></div>", 'drawer field hint', p, True)
+        "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'shared record') + (deliveryOf(a.key).state === 'on site' ? '' : ' · ') : ''}${deliveryOf(a.key).state === 'on site' ? '' : 'the truck is unloaded by then - on site at least 30 min before'}</div></div>", 'drawer field hint', p, True)
 
 # 6. FIRM INSTRUCTIONS BEFORE ANYONE LEAVES (the project manager, 2 Oct 2026): "No drivers should leave the pick up point until
 #    they have firm instructions on where they are going. Every item has a map drop off location and a direction point
@@ -307,21 +357,26 @@ t = rep(t, "<div class=\"hint\">${d.eta ? (d.eta_where === 'local' ? LW() : 'sha
 t = rep(t, "const ORDER782_BY = 'the project manager, 2 Oct 2026';", """/* v7.82 - nobody leaves the pick-up point without firm instructions: the drop-off location on the map AND the point to head
    for (the way in: a pinned turn-in, the pit lane rule, or the Main Beach Pde entry end). Either missing = hold the truck. */
 const DISPATCH782 = 'DISPATCH: no driver leaves the pick-up point without firm instructions - the drop-off location on the map AND the direction point to head for (the way in). If either is missing, the truck holds until the site team gives it.';
-function ready782(a){
- if (!a || inPlace782(a.key)) return null;
- const nt = navTargetFor(a), drop = !!(nt && (nt.pinned || nt.placed)), dir = !!(entryOf(a.key) || entry782(a));
- const missing = [drop ? '' : 'no drop-off location on the map', dir ? '' : 'no direction point (way in) set'].filter(Boolean);
- return {drop, dir, ok: drop && dir, missing};
+/* directions only: a verified drop-off and a way in. The order and time checks are separate and say so themselves. A
+   position the map review left unverified (MASTER_LOC .unverified) is shown for review but does not count as a drop-off. */
+function dirs782(a){
+ { const R = report782(a); if (R) { const dir = !!(R.a && (entryOf(R.ref) || entry782(R.a))); return {drop: false, dir, ok: dir, report: R.ref, missing: dir ? [] : ['no way in to the pit lane'], unverified: false, located: true}; } }
+ const nt = navTargetFor(a), m = (typeof MASTER_LOC !== 'undefined' && MASTER_LOC[a.key]) || null;
+ const unv = !!(nt && nt.pinned && nt.fix && nt.fix.master && m && m.unverified);
+ const drop = (!!(nt && (nt.pinned || nt.placed)) && !unv) || !!descLoc782(a), dir = !!(entryOf(a.key) || entry782(a));
+ const missing = [drop ? '' : unv ? 'drop-off not verified (a drawing arrow only - check it on site)' : 'no drop-off location on the map', dir ? '' : 'no direction point (way in) set'].filter(Boolean);
+ return {drop, dir, ok: drop && dir, missing, unverified: unv, located: !!nt || !!descLoc782(a)};
 }
+function ready782(a){ return !a || inPlace782(a.key) ? null : dirs782(a); }
 const ORDER782_BY = 'the project manager, 2 Oct 2026';""", 'dispatch readiness', p, True)
 # the text: a drop with a location but no way in says HOLD (no location already says "contact the site team before departure")
 t = rep(t, "function rules782Sms(a){\n const L = []; const o = order782(a); if (o) L.push(o.sms);",
-        "function rules782Sms(a){\n const L = []; const r = ready782(a); if (r && r.drop && !r.dir) L.push('HOLD: way in not set - do not leave until site gives it.');\n const o = order782(a); if (o) L.push(o.sms);", 'text: hold without a way in', p, True)
-t = rep(t, " L.push(TIME782);\n", " { const r = ready782(a); L.push(DISPATCH782); if (r) L.push(r.ok ? 'READY TO SEND: drop-off location and direction point both set.' : 'NOT READY TO SEND: ' + r.missing.join('; ') + '. Hold the truck.'); }\n L.push(TIME782);\n", 'dispatch in Full details', p, True)
+        "function rules782Sms(a){\n const L = []; const r = ready782(a); if (r && r.located && !r.ok) L.push('HOLD: ' + (r.drop ? 'way in not set' : r.unverified ? 'drop-off not verified' : 'exact drop-off not set') + ' - do not leave until site gives it.');\n const o = order782(a); if (o) L.push(o.sms);", 'text: hold without a way in', p, True)
+t = rep(t, " L.push(TIME782);\n", " { const r = ready782(a); L.push(DISPATCH782); if (r) L.push(r.ok && r.report ? 'DIRECTIONS SET: no drop-off yet - report to the pit lane; site directs the driver from there. Set the drop-off in Edit when it is known.' : r.ok ? 'DIRECTIONS SET: drop-off location and direction point (way in). The order and time checks still apply.' : 'DIRECTIONS MISSING: ' + r.missing.join('; ') + '. Hold the truck.'); }\n L.push(TIME782);\n", 'dispatch in Full details', p, True)
 t = rep(t, "lw = loadCheck782(a), tw = timeCheck782(a); if (!o && !e && !pk && !lw.length && !tw.length) return '';",
         "lw = loadCheck782(a), tw = timeCheck782(a), rd = ready782(a); if (!o && !e && !pk && !lw.length && !tw.length && !(rd && !rd.ok)) return '';", 'drawer shows when not ready', p, True)
-t = rep(t, " { const by = (deliveryOf(a.key) || {}).eta, m = hhmm782(by);",
-        " if (rd) L.push(row('Dispatch', rd.ok ? '<span class=\"ok782\">Ready to send</span> - drop-off location and direction point both set.' : '<span class=\"no782\">NOT READY TO SEND - ' + esc(rd.missing.join('; ')) + '.</span> No driver leaves until both are set' + (rd.dir ? '' : ' (Pin the way in, below)') + '.'));\n { const by = (deliveryOf(a.key) || {}).eta, m = hhmm782(by);", 'drawer dispatch row', p, True)
+t = rep(t, " if (!inPlace782(a.key)) { const P = planFor782(a), w = n => when782(n, P && P.base);",
+        " if (rd) L.push(row('Directions', rd.ok && rd.report ? '<span class=\"ok782\">Report to the pit lane</span> - no drop-off yet; the driver goes to the pit lane and site directs them. Set the drop-off when it is known.' : rd.ok ? '<span class=\"ok782\">Set</span> - drop-off location and direction point (way in).' : '<span class=\"no782\">MISSING - ' + esc(rd.missing.join('; ')) + '.</span> No driver leaves until both are set' + (rd.dir ? '' : ' (Pin the way in, below)') + '.'));\n if (!inPlace782(a.key)) { const P = planFor782(a), w = n => when782(n, P && P.base);", 'drawer dispatch row', p, True)
 window_line = "window.gc500DoneKeys = function(){"
 t = rep(t, window_line, "/* v7.82 - deliveries still to come that are not ready to send (no drop-off location, or no direction point) */\nwindow.gc500NotReady = function(){ try { return allAssets().filter(a => !a._cancelled).map(a => ({key: a.key, r: ready782(a)})).filter(x => x.r && !x.r.ok).map(x => ({key: x.key, missing: x.r.missing})); } catch (e) { return null; } };\n" + window_line, 'not-ready list', p, True)
 
@@ -339,17 +394,19 @@ const DRV782_CSS = '#drv782{position:fixed;inset:0;z-index:2147483000;display:gr
  + '#drv782 .dw782{display:grid;gap:4px;margin:12px 0 4px}#drv782 .dw782 input{font:inherit;padding:9px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.2)}#drv782 .dw782 small{color:var(--mute,#5d6468)}'
  + '#drv782 .row{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}#drv782 .row button{font:700 15px Inter,sans-serif;padding:10px 16px;border-radius:10px;border:0;cursor:pointer}'
  + '#drv782 .b-go{background:var(--orange,#ff6a13);color:#fff}#drv782 .b-go:disabled{opacity:.45;cursor:not-allowed}#drv782 .b-no{background:transparent;color:inherit;border:1.5px solid rgba(0,0,0,.2)!important}'
- + '#drv782 .tag{margin:12px 0 0;font-size:12px;color:var(--mute,#5d6468);text-align:center}'
+ + '#drv782 .tag{margin:12px 0 0;font-size:12px;color:var(--mute,#5d6468);text-align:center}#drv782 .facts.rep{background:rgba(255,106,19,.09)}#drv782 .facts.rep u{color:#b45309}#drv782 .pl-note{margin:0 0 8px;padding:8px 10px;border-left:4px solid #15181a;background:rgba(0,0,0,.04);font-size:13px}'
  + '.dp-page{position:relative}.dp782{position:absolute;right:3mm;bottom:1.6mm;z-index:2;padding:.4mm 1.6mm;background:#fff;border:.25mm solid #d7dbde;border-radius:1mm;font:600 6.6pt/1.2 Inter,sans-serif;color:#15181a}';
 let DRV782_OK = null; /* {iso, by, at}: the check behind the sheets being laid out now */
 function drvFacts782(iso, only){
  const d = programmeDays().find(x => x.iso === iso); if (!d) return null;
- const loads = dpLoads(d), pick = only != null && loads[only] ? [only] : loads.map((g, i) => i), bad = [];
+ const loads = dpLoads(d), pick = only != null && loads[only] ? [only] : loads.map((g, i) => i), bad = [], rep = [];
  let n = 0;
  pick.forEach(i => (loads[i].rows || []).forEach(r => { const a = r.a; if (!a) return; n++;
-  const nt = navTargetFor(a), drop = !!(nt && (nt.pinned || nt.placed)), dir = !!(entryOf(a.key) || entry782(a));
-  if (!drop || !dir) bad.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key + ' - ' + [drop ? '' : 'no drop-off pin', dir ? '' : 'no way in'].filter(Boolean).join(', ')}); }));
- return {loads: pick.length, items: n, bad};
+  const dr = dirs782(a);
+  if (dr.ok && dr.report) rep.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key});
+  if (!dr.ok) bad.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key + ' - ' + [dr.drop ? '' : dr.unverified ? 'drop-off not verified' : 'no drop-off pin', dr.dir ? '' : 'no way in'].filter(Boolean).join(', ')});
+  timeCheck782(a).filter(w => /AFTER|only [0-9]+ min|no-travel/.test(w)).forEach(w => bad.push({key: a.key, line: 'Load ' + (i + 1) + ' · ' + a.key + ' - time: ' + w})); }));
+ return {loads: pick.length, items: n, bad, rep};
 }
 function drvStamp782(){ const z = x => String(x).padStart(2, '0'), d = new Date(), M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
  return z(d.getDate()) + ' ' + M[d.getMonth()] + ' ' + d.getFullYear() + ', ' + z(d.getHours()) + ':' + z(d.getMinutes()); }
@@ -360,7 +417,8 @@ function drvCheck782(iso, only, go){
  let name = ''; try { name = localStorage.getItem('gc500.printedBy') || ''; } catch (e) {}
  const facts = F.bad.length
   ? `<div class="facts bad"><b class="f-no">${F.bad.length} item${F.bad.length === 1 ? '' : 's'} not ready to send</b> - no firm instructions yet. Set them here at the branch in Edit (the drop-off on the map, and the way in) - the sheets update with them.<ul>${F.bad.slice(0, 8).map(x => '<li><button type="button" class="fx782" data-k="' + esc(x.key) + '">' + esc(x.line) + ' <u>Fix in Edit ›</u></button></li>').join('')}${F.bad.length > 8 ? '<li>and ' + (F.bad.length - 8) + ' more</li>' : ''}</ul></div>`
-  : `<div class="facts"><b class="f-ok">✓ All ${F.items} item${F.items === 1 ? '' : 's'} have a drop-off pin and a way in.</b></div>`;
+  : `<div class="facts"><b class="f-ok">✓ Every item has firm directions${F.rep.length ? '' : ' - a drop-off pin and a way in'}.</b></div>`;
+ const repBox = F.rep.length ? `<div class="facts rep"><b>${F.rep.length} item${F.rep.length === 1 ? '' : 's'} with no drop-off yet</b> - the driver reports to the pit lane and site directs them. Set the drop-off in Edit when you know it.<ul>${F.rep.slice(0, 6).map(x => '<li><button type="button" class="fx782" data-k="' + esc(x.key) + '">' + esc(x.line) + ' <u>Set it in Edit ›</u></button></li>').join('')}${F.rep.length > 6 ? '<li>and ' + (F.rep.length - 6) + ' more</li>' : ''}</ul></div>` : '';
  const C = [
   F.bad.length ? 'Anything in red is fixed in Edit first - or it stays in the yard until it is.' : 'Every driver has a drop-off pin and a way in.',
   'Leave times work: in before 07:00, or on the road after 09:00. No travel 07:00-09:00 or 16:00-18:00.',
@@ -369,7 +427,7 @@ function drvCheck782(iso, only, go){
  const box = document.createElement('div'); box.id = 'drv782'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'drv782h');
  box.innerHTML = `<div class="box"><h2 id="drv782h">Before these go to the drivers</h2>
   <p class="lead">A quick check - about 30 seconds. You're the last set of eyes before a truck leaves the yard. Thanks for getting it right first time.</p>
-  ${facts}${C.map((c, i) => `<label class="ck"><input type="checkbox" data-c="${i}"><span>${esc(c)}</span></label>`).join('')}
+  ${facts}${repBox}<p class="pl-note">Each driver sheet comes with an A4 location sign for every item on it. Laminate it and fix it to the item, so it shows where the item goes when it arrives.</p>${C.map((c, i) => `<label class="ck"><input type="checkbox" data-c="${i}"><span>${esc(c)}</span></label>`).join('')}
   <div class="dw782"><label for="drv782n"><b>Checked by</b></label><input id="drv782n" autocomplete="name" placeholder="Your name" value="${esc(name)}"><small>Your name and the time print at the foot of every sheet.</small></div>
   <div class="row"><button type="button" class="b-no">Not yet</button><button type="button" class="b-go" disabled>Checked - get the sheets</button></div>
   <p class="tag">Safe, clear, on time. If in doubt, stop and ask.</p></div>`;
@@ -403,13 +461,144 @@ t = rep(t, """ const m = masterLoc(a.key);
  let t = null; try { t = navTargetFor(a); } catch (e) { t = null; }
  if (t && t.ll) {
  if (t.placed) return {kind: 'placed', lat: t.ll.lat, lon: t.ll.lon, pt: fr(t.ll.lat, t.ll.lon), place: t.place};""", """ const m = masterLoc(a.key);
- if (m && m.ll && m.prec === 'unit') return {kind: 'master', lat: m.ll[0], lon: m.ll[1], pt: fr(m.ll[0], m.ll[1]), how: m.how};
+ if (m && m.ll && m.prec === 'unit') return {kind: 'master', lat: m.ll[0], lon: m.ll[1], pt: fr(m.ll[0], m.ll[1]), how: m.how, src: locSrc782(a.key)};
  let t = null; try { t = navTargetFor(a); } catch (e) { t = null; }
  if (t && t.ll && t.placed) return {kind: 'placed', lat: t.ll.lat, lon: t.ll.lon, pt: fr(t.ll.lat, t.ll.lon), place: t.place}; /* v7.82 - the branch's placement beats an area */
+ { const D = descLoc782(a); if (D) return {kind: 'desc', lat: D.ll.lat, lon: D.ll.lon, pt: fr(D.ll.lat, D.ll.lon), how: D.src}; } /* v7.82 - water barriers */
  if (m && m.ll) return {kind: 'area', lat: m.ll[0], lon: m.ll[1], pt: fr(m.ll[0], m.ll[1]), how: m.how};
  if (t && t.ll) {
  if (t.placed) return {kind: 'placed', lat: t.ll.lat, lon: t.ll.lon, pt: fr(t.ll.lat, t.ll.lon), place: t.place};""", 'placed beats area on the driver sheet', p, True)
 
-t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch, a check before driver sheets print). */\n/* v7.80 - a save empties', 1)
+# 8. NO DROP-OFF YET: REPORT TO P33 (the project manager, 2 Oct 2026: "if no location, let's direct drivers to the pit lane
+#    where P33 is"). Anything without an exact drop-off (none, an area only, or a position the map review left unverified)
+#    sends the driver to P33 in the pit lane, where site directs them. The text, the driver sheet and the checks say so.
+t = rep(t, "function text747Where(a){", """/* v7.82 - no exact drop-off yet: the driver reports to the pit lane (the spot by P33 that drivers know; the reference is
+   never shown - it is only where the point is taken from) */
+const REPORT_REF782 = 'P33';
+function reportTo782(){ const m = (typeof MASTER_LOC !== 'undefined' && MASTER_LOC[REPORT_REF782]) || null; if (!m || !m.ll) return null;
+ return {ref: REPORT_REF782, a: assetOf(REPORT_REF782), ll: {lat: m.ll[0], lon: m.ll[1], text: m.ll[0].toFixed(6) + ', ' + m.ll[1].toFixed(6)}}; }
+function noDrop782(a){
+ if (!a || a.key === REPORT_REF782) return false;
+ if (descLoc782(a)) return false;
+ let nt = null; try { nt = navTargetFor(a); } catch (e) {}
+ if (nt && nt.placed) return false;
+ if (nt && nt.pinned) return !!(nt.fix && nt.fix.master && MASTER_LOC[a.key] && MASTER_LOC[a.key].unverified);
+ return true;
+}
+function report782(a){ return a && !movedFor(a) && noDrop782(a) ? reportTo782() : null; }
+/* v7.82 - water barriers: the description names the spot. Twelve have it marked on the master (the label or marker the
+   master puts at the place the description names); three the master does not mark were looked up from the description
+   (evidence/water_barriers_from_description.json). */
+const WB_DESC782 = {"WB01":{"ll":[-27.982069,153.423912],"src":"Gold Coast Hwy at the Tedder Ave intersection (from the description)"},"WB05":{"ll":[-27.982059,153.42347],"src":"Main Beach light rail station, Gold Coast Hwy (from the description)"},"WB06":{"ll":[-27.985905,153.426834],"src":"Gold Coast Hwy at the Macintosh Park turning lane (from the description - approximate, check on site)"}};
+function descLoc782(a){
+ if (!a || !/^WB\\d/.test(a.key)) return null;
+ let nt = null; try { nt = navTargetFor(a); } catch (e) {}
+ if (nt && (nt.placed || (nt.pinned && !(nt.fix && nt.fix.master)))) return null; /* a pin or a placement wins */
+ const m = MASTER_LOC[a.key];
+ if (m && m.ll) return {ll: {lat: m.ll[0], lon: m.ll[1], text: m.ll[0].toFixed(6) + ', ' + m.ll[1].toFixed(6)}, src: 'the spot the description names - ' + m.how};
+ const w = WB_DESC782[a.key];
+ return w ? {ll: {lat: w.ll[0], lon: w.ll[1], text: w.ll[0].toFixed(6) + ', ' + w.ll[1].toFixed(6)}, src: w.src} : null;
+}
+function text747Where(a){
+ { const D = descLoc782(a); if (D && !movedFor(a)) return ['GPS: ' + D.ll.text + ' (water barriers: the spot the description names)', 'Navigate: ' + navUrl(D.ll)]; }
+ { const R = report782(a); if (R) return ['No drop-off yet: report to the pit lane.', 'GPS: ' + R.ll.text + ' (pit lane)', 'Navigate: ' + navUrl(R.ll)]; }""", 'text: report to P33', p, True)
+t = rep(t, "function text747WayIn(a){\n const e = entryOf(a.key); if (!e) return '';",
+        "function text747WayIn(a){\n { const R = report782(a); if (R && R.a) return text747WayIn(R.a); } /* v7.82 - the way in to P33 */\n const e = entryOf(a.key); if (!e) return '';", 'text: the way in to P33', p, True)
+t = rep(t, "function dpPos(a){\n const fr = (lat, lon) => { const p = frameOf(lat, lon); return dpInFrame(p) ? {ax: p.ax, ay: p.ay} : null; };",
+        "function dpPos(a){\n const fr = (lat, lon) => { const p = frameOf(lat, lon); return dpInFrame(p) ? {ax: p.ax, ay: p.ay} : null; };\n { const R = report782(a); if (R) return {kind: 'report', lat: R.ll.lat, lon: R.ll.lon, pt: fr(R.ll.lat, R.ll.lon), ref: R.ref}; } /* v7.82 */", 'sheet: report to P33', p, True)
+t = rep(t, " if (P.kind === 'master' && P.src) return {label: P.src.label, ll, line: P.src.line}; /* v7.82 */",
+        " if (P.kind === 'desc') return {label: 'Where the description says', ll, line: P.how}; /* v7.82 */\n if (P.kind === 'report') return {label: 'Report to the pit lane', ll, line: 'No drop-off set yet · site directs you from there'}; /* v7.82 */\n if (P.kind === 'master' && P.src) return {label: P.src.label, ll, line: P.src.line}; /* v7.82 */", 'sheet: report words', p, True)
+
+# 9. AN A4 LOCATION SIGN FOR EVERY ITEM (the project manager, 2 Oct 2026: "when sheets are done it also prints off a very
+#    large reference number of the location, bordered, looking really nice in black and white, to be laminated and placed
+#    on the delivery item ... so when things turn up it has a reference to where it goes"). Each driver sheet is followed,
+#    in the same PDF and the same print, by one A4 sign per item it carries (deliveries only).
+t = rep(t, "function dpPage(d, g, doc, i, n){", r"""/* v7.82 - the location sign: one A4 per item on a delivery load, black and white, for laminating */
+const PL782_CSS = '.dp-page.pl782{justify-content:space-between;gap:0;padding:7mm;border:2.6mm solid #000;outline-offset:0;background:#fff;color:#000;font-family:Inter,Arial,sans-serif}'
+ + '.pl782 .pl-top{display:flex;justify-content:space-between;align-items:center;border-bottom:.8mm solid #000;padding-bottom:3mm;font:800 13pt/1.1 "Barlow Condensed",Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase}'
+ + '.pl782 .pl-k{margin-top:5mm;font:800 15pt/1 "Barlow Condensed",Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;text-align:center}'
+ + '.pl782 .pl-ref{font:800 var(--plz,220pt)/.86 "Barlow Condensed",Inter,sans-serif;letter-spacing:-.01em;text-align:center;margin:6mm 0 5mm;white-space:nowrap}'
+ + '.pl782 .pl-what{text-align:center;font:700 22pt/1.15 Inter,sans-serif;border-top:.5mm solid #000;border-bottom:.5mm solid #000;padding:3mm 0}'
+ + '.pl782 .pl-where{margin-top:5mm;padding:4mm 5mm;border:.8mm solid #000;font:600 15pt/1.3 Inter,sans-serif}.pl782 .pl-where b{display:block;font:800 12pt/1 "Barlow Condensed",Inter,sans-serif;letter-spacing:.18em;margin-bottom:2mm}'
+ + '.pl782 .pl-where.rep{border-width:1.6mm;font-weight:800}'
+ + '.pl782 .pl-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:5mm;border:.5mm solid #000}.pl782 .pl-grid div{padding:2.5mm 3mm;border-left:.5mm solid #000;font:700 14pt/1.15 Inter,sans-serif}.pl782 .pl-grid div:first-child{border-left:0}.pl782 .pl-grid span{display:block;font:700 9pt/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.5mm}'
+ + '.pl782 .pl-foot{margin-top:5mm;padding-top:3mm;border-top:.8mm solid #000;font:700 12pt/1.3 Inter,sans-serif;text-align:center}';
+function pl782Pages(d, g, i, n){
+ if (g.kind === 'removals') return '';
+ const out = [], items = [];
+ g.rows.forEach(r => { const a = r.a; if (!a) return; const evs = (r.events || []).filter(e => e.movement !== 'remove');
+  (evs.length ? evs : [{item: (a.item_types || a.asked_for || []).join(', ')}]).forEach(e => items.push({a, item: String(e.item || '').trim()})); });
+ items.forEach((x, k) => { const a = x.a, m = masterLoc(a.key) || {}, R = report782(a), w = whereText(a);
+  const clean = xs => (xs || []).map(v => String(v).replace(/\s*\(~[^)]*\)\s*$/, '')).filter(Boolean);
+  const bits = [m.sec ? 'Section ' + m.sec : '', clean(m.near).slice(0, 2).length ? 'near ' + clean(m.near).slice(0, 2).join(', ') : '', clean([].concat(m.beside || [], m.next || [])).slice(0, 3).length ? 'beside ' + clean([].concat(m.beside || [], m.next || [])).slice(0, 3).join(', ') : ''].filter(Boolean);
+  const where = R ? '<div class="pl-where rep"><b>DROP-OFF</b>No drop-off set yet. Report to the pit lane - site will direct you.</div>'
+   : '<div class="pl-where"><b>GOES TO</b>' + esc(w.main || bits.join(' · ') || 'See the driver sheet') + (w.main && bits.length ? '<br><span style="font-weight:500">' + esc(bits.join(' · ')) + '</span>' : '') + '</div>';
+  const L = String(a.key).length, z = L <= 3 ? 330 : L === 4 ? 265 : L === 5 ? 215 : L === 6 ? 180 : 140;
+  out.push(`<section class="dp-page pl782" data-load="${i}" data-pl="${esc(a.key)}"><div><div class="pl-top"><span>Coates · GC500 2026</span><span>Delivery location</span></div>
+   <div class="pl-k">Location reference</div><div class="pl-ref" style="--plz:${z}pt">${esc(a.key)}</div>
+   <div class="pl-what">${esc(x.item || 'Delivery item')}</div>${where}
+   <div class="pl-grid"><div><span>Due on site</span>${esc(fmtDate(d.iso))}</div><div><span>Load</span>${i} of ${n}</div><div><span>Item</span>${k + 1} of ${items.length}</div></div></div>
+   <div class="pl-foot">Laminate this sign and fix it to the item where it can be seen.<br>Leave it on until the item is in its place.</div></section>`); });
+ return out.join('');
+}
+function dpPage(d, g, doc, i, n){""", 'location signs', p, True)
+t = rep(t, "const pages = pick.map(i => dpPage(d, loads[i], doc, i + 1, loads.length));",
+        "const pages = pick.map(i => dpPage(d, loads[i], doc, i + 1, loads.length) + (doc === 'drv' ? pl782Pages(d, loads[i], i + 1, loads.length) : '')); /* v7.82 - each driver sheet, then its location signs */\n if (doc === 'drv' && !document.getElementById('pl782css')) { const s9 = document.createElement('style'); s9.id = 'pl782css'; s9.textContent = PL782_CSS; document.head.appendChild(s9); }",
+        'signs follow each driver sheet', p, True)
+# the PDFs: a load's file holds its sheet and its signs; "all loads" holds every page
+t = rep(t, "const shots = [];", "const shots = [], grp782 = []; /* v7.82 - pages per load: a sheet, then its signs */", 'pages grouped per load', p, True)
+t = rep(t, "shots.push(sh);\n }", "shots.push(sh);\n if (!grp782.length || !(nodes[i].classList && nodes[i].classList.contains('pl782'))) grp782.push([]); grp782[grp782.length - 1].push(sh);\n }", 'group the pages', p, True)
+t = rep(t, "pdf7Put(D, shots[k], true, m); file(D, pdf7Name(kind, iso, g, li, n), 'load', 1, 'Load ' + (li + 1) + ' · ' + refs, li);",
+        "const G = grp782[k] || [shots[k]]; G.forEach((sh, j) => pdf7Put(D, sh, j === 0, m)); file(D, pdf7Name(kind, iso, g, li, n), 'load', G.length, 'Load ' + (li + 1) + ' · ' + refs + (G.length > 1 ? ' · ' + (G.length - 1) + ' location sign' + (G.length === 2 ? '' : 's') : ''), li);",
+        'a load file carries its signs', p, True)
+
+# 10. INVENTORY: EVERY LOCATION STILL TO COME, CLICKABLE (the project manager, 2 Oct 2026: "in inventory, you know how it says
+#     still to come - let's mention all locations that still need to be done. You can click on the location and it also
+#     shows you where it is, so everything clickable"). Under the inventory table: every location with something still to
+#     come (the table's own "Still to come" count, by the same trade filter), grouped by due day. The reference opens the
+#     item; Map shows where it goes.
+t = rep(t, "function invHtml(ro){", r"""/* v7.82 - every location still to come, grouped by due day; the reference opens the item, Map shows where it goes */
+function togo782Html(I){
+ const rows = I.list.filter(r => INV.disc === '*' || r.disc === INV.disc), by = new Map();
+ rows.forEach(r => Object.values(r.refs || {}).forEach(x => { const n = x.asked - x.on; if (n <= 0) return;
+  const e = by.get(x.key) || {key: x.key, items: [], short: !!x.onsite}; e.items.push(n + ' × ' + r.item); by.set(x.key, e); }));
+ /* and every other location not on site yet - the ones with no priced line are still deliveries to do */
+ allAssets().filter(a => !a._cancelled && !a.relocation && !movedAway(a.key) && !by.has(a.key) && !inPlace782(a.key)).forEach(a => {
+  let d = ''; try { d = invTypeDisc(invTypeOf(a) || ''); } catch (e) {}
+  if (INV.disc !== '*' && d !== INV.disc) return;
+  const w = (a.item_types || a.asked_for || []).filter(Boolean).join(', ') || a.name || '';
+  by.set(a.key, {key: a.key, items: [w || 'not priced on the schedule'], short: false}); });
+ const list = [...by.values()].map(e => { const a = assetOf(e.key); return Object.assign(e, {a, due: (a && effectiveDates(a).in) || ''}); }).filter(e => e.a)
+  .sort((p, q) => String(p.due || '9').localeCompare(String(q.due || '9')) || p.key.localeCompare(q.key, undefined, {numeric: true}));
+ if (!list.length) return `<div class="tg782"><h3 class="invh">Still to come - every location</h3><p class="norate">Nothing still to come${INV.disc !== '*' ? ' in ' + esc(INV.disc) : ''}.</p></div>`;
+ const days = new Map(); list.forEach(e => { const k = e.due || ''; if (!days.has(k)) days.set(k, []); days.get(k).push(e); });
+ const line = e => { const a = e.a, w = whereText(a), m = masterLoc(a.key) || {}, dr = typeof dirs782 === 'function' && !inPlace782(a.key) ? dirs782(a) : null;
+  const clean = xs => (xs || []).map(v => String(v).replace(/\s*\(~[^)]*\)\s*$/, '')).filter(Boolean), nb = clean(m.near).slice(0, 2), bs = clean([].concat(m.beside || [], m.next || [])).slice(0, 3);
+  const D = typeof descLoc782 === 'function' ? descLoc782(a) : null;
+  const loc = [m.sec ? 'Section ' + m.sec : '', nb.length ? 'near ' + nb.join(', ') : '', bs.length ? 'beside ' + bs.join(', ') : ''].filter(Boolean).join(' · ')
+   || (D ? 'the spot the description names' : dr && dr.report ? 'no drop-off yet - report to the pit lane' : 'no location on the map yet');
+  const where = a.name || w.main || a.key;
+  const tag = !dr ? '' : dr.ok && dr.report ? '<span class="tg-t tg-r">set the drop-off in Edit</span>' : dr.ok ? '<span class="tg-t tg-ok">directions set</span>' : '<span class="tg-t tg-no">' + esc(dr.missing.join(', ')) + '</span>';
+  return `<li><button type="button" class="tg-ref" data-open="${esc(a.key)}" title="Open ${esc(a.key)}">${refPlate(a.key, 18)}</button>
+   <div class="tg-w"><b>${esc(where)}</b><span class="tg-loc">${esc(loc)}</span><span>${esc(e.items.join(' · '))}${e.short ? ' · short - the rest still to come' : ''}</span>${tag}</div>
+   ${mapPlaceFor(a) || mapSheetFor(a) ? `<button type="button" class="btn sm tg-map" data-map="${esc(a.key)}" title="Show ${esc(a.key)} on the map">Map ›</button>` : `<button type="button" class="btn sm ghost tg-map" data-open="${esc(a.key)}" title="No spot on the map yet - open ${esc(a.key)} to place it">Set in Edit ›</button>`}</li>`; };
+ return `<div class="tg782" id="tg782"><h3 class="invh">Still to come - every location (${list.length})</h3>
+  <p class="hint">Everything ordered that is not on site yet${INV.disc !== '*' ? ' in ' + esc(INV.disc) : ''}, by the day it is due. Press a reference to open it, or Map to see where it goes.</p>
+  <div class="tg-box">${[...days.entries()].map(([d, es]) => `<div class="tg-day"><div class="tg-dh">${d ? esc(fmtDate(d)) : 'No date yet'} <span class="w">· ${es.length} location${es.length === 1 ? '' : 's'}</span></div><ul>${es.map(line).join('')}</ul></div>`).join('')}</div></div>`;
+}
+function invHtml(ro){""", 'inventory: every location still to come', p, True)
+t = rep(t, " ${invDrillHtml(I)}\n<div class=\"hint\">Press any number", " ${invDrillHtml(I)}\n${togo782Html(I)}\n<div class=\"hint\">Press any number", 'the list under the table', p, True)
+t = rep(t, "function invBind(pane){\n const q = s => pane.querySelector(s);", """function invBind(pane){
+ const q = s => pane.querySelector(s);
+ pane.querySelectorAll('#tg782 [data-open]').forEach(b => b.onclick = () => openAsset(b.dataset.open)); /* v7.82 */
+ pane.querySelectorAll('#tg782 [data-map]').forEach(b => b.onclick = () => showOnMap(b.dataset.map));""", 'the list is clickable', p, True)
+t = rep(t, ".rules782{margin:10px 0;", """.tg782{margin:14px 0 6px}.tg782 .tg-box{max-height:560px;overflow:auto;border:1px solid var(--line,rgba(0,0,0,.12));border-radius:10px;padding:4px 10px}
+.tg782 .tg-dh{position:sticky;top:0;background:var(--card,#fff);padding:8px 0 4px;font-weight:800;border-bottom:1px solid var(--line,rgba(0,0,0,.12));z-index:1}
+.tg782 ul{list-style:none;margin:0;padding:0}.tg782 li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line,rgba(0,0,0,.1))}
+.tg782 .tg-ref{all:unset;cursor:pointer}.tg782 .tg-ref:focus-visible{outline:2px solid var(--orange,#ff6a13)}.tg782 .tg-w{min-width:0;display:flex;flex-direction:column;gap:2px}.tg782 .tg-w b{overflow-wrap:anywhere}.tg782 .tg-w span{color:var(--mute,#5d6468);font-size:13px}
+.tg782 .tg-w .tg-loc{color:var(--ink,#15181a);font-size:13.5px}.tg782 .tg-w .tg-t{font-size:12px;font-weight:700}.tg782 .tg-w .tg-ok{color:#1f9d55}.tg782 .tg-w .tg-no{color:#d93d2f}.tg782 .tg-w .tg-r{color:#d97706}
+.rules782{margin:10px 0;""", 'list styles', p, True)
+
+t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch, a check before driver sheets print, location signs, the pit lane when there is no drop-off, water barriers from their description, every location still to come in Inventory). */\n/* v7.80 - a save empties', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
 print('v7.82 applied: GN21 corrected on the master; driver rules on Text it and Full details')

@@ -26,6 +26,21 @@
    "detail": ""
   },
   {
+   "name": "X6 picking a category leaves the Done chip as it was, and its layer showing",
+   "pass": true,
+   "detail": "{\"pressed\":\"true\",\"on\":true,\"list\":20}"
+  },
+  {
+   "name": "X7 Escape clears the category chips but not the Done chip",
+   "pass": true,
+   "detail": "{\"pressed\":\"true\",\"on\":true,\"list\":20,\"cats\":0}"
+  },
+  {
+   "name": "X8 the dashboard's Motion Off holds the rings still; turning motion back on brings the beat back",
+   "pass": true,
+   "detail": "{\"off\":{\"still\":true,\"rings\":21,\"anim\":\"none\"},\"on\":{\"still\":false,\"anim\":\"d782beat\"}}"
+  },
+  {
    "name": "E1 no page errors",
    "pass": true,
    "detail": "[\"console: Failed to load resource: net::ERR_FAILED\"]"

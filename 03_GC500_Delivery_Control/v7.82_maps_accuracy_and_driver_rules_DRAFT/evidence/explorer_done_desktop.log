@@ -7,4 +7,4 @@ PASS X6 picking a category leaves the Done chip as it was, and its layer showing
 PASS X7 Escape clears the category chips but not the Done chip — {"pressed":"true","on":true,"list":20,"cats":0}
 PASS X8 the dashboard's Motion Off holds the rings still; turning motion back on brings the beat back — {"off":{"still":true,"rings":21,"anim":"none"},"on":{"still":false,"anim":"d782beat"}}
 PASS E1 no page errors — ["console: Failed to load resource: net::ERR_FAILED"]
-9/9 phone · trade items 183
+9/9 desktop · trade items 183

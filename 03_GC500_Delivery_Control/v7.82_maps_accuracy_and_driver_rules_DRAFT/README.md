@@ -35,6 +35,13 @@ Author: Andrew Fisher · 2 Oct 2026 · built on the live page v7.80 (`303029e3�
   complicate." Then: "Drop-off locations can be done at the branch via Edit. If they update it, the run sheet locations
   update. This responsibility falls on whoever is printing these off." And: "We need to check this theory though -
   every reference should now have a drop-off location to match to."
+- No location: "If no location, let's direct drivers to the pit lane where P33 is." Then: "Don't mention P33 as P33 -
+  it's purely a location they know where to go if no map location has been given. Water barriers you should have
+  locations - it tells you in the description."
+- Location signs: "When sheets are done it also prints off a very, very large reference number of the location,
+  bordered, make it look really nice for black and white, to be laminated and placed on the delivery item. Use correct
+  wording. That way when things turn up it has a reference to where it goes. Mention this when we print the drivers
+  run sheet: an A4 will be printed for each run sheet to go on the item."
 - Park entries: watch for wildlife and branches; some spots are very tight.
 - When something is complete, mark it on the map with an icon that pulses in its own way, clear and not confusing.
 
@@ -157,30 +164,30 @@ the light was ticked, not when the truck arrived, so treat them as "check" rathe
 
 ### Firm instructions before anyone leaves (dispatch)
 
-No driver leaves the pick-up point without **both**:
-1. the drop-off location on the map (a pin, a placed position or the master plan);
+No driver leaves the pick-up point without firm **directions**:
+1. a drop-off location: a pin, a placed position, a master-plan position, or for water barriers the spot their
+   description names. With none of those, the pit lane (see below).
 2. a direction point to head for: the way in (a pinned turn-in, the pit lane rule, or the Main Beach Pde entry end).
 
-- **Every Full details** carries `DISPATCH: no driver leaves the pick-up point without firm instructions - the drop-off
-  location on the map AND the direction point to head for (the way in). If either is missing, the truck holds until
-  the site team gives it.` Then `READY TO SEND` or `NOT READY TO SEND: <what's missing>. Hold the truck.`
-- **The drawer** gets a Dispatch row: green "Ready to send", or red "NOT READY TO SEND", pointing to the existing
-  **Pin the way in** button.
-- **The text**: with no location it already says "Location not yet confirmed. Please contact the site team before
-  departure." With a location but no way in it now leads with `HOLD: way in not set - do not leave until site gives
-  it.` No due date is lost.
+- **Every Full details** of a delivery still to come carries `DISPATCH: no driver leaves the pick-up point without firm
+  instructions - the drop-off location on the map AND the direction point to head for (the way in). If either is
+  missing, the truck holds until the site team gives it.` Then `DIRECTIONS SET: …` or `DIRECTIONS MISSING: <what's
+  missing>. Hold the truck.` This covers directions only. The order and time checks say their own red lines (Codex's
+  review).
+- **The drawer** has a Directions row, pointing to the existing **Pin the way in** button.
+- **The text** leads with `HOLD: way in not set - do not leave until site gives it.` where the way in is missing. No due
+  date is lost.
 
 **Where we stand (116 deliveries still to come):**
 
 | | Count |
 |---|---|
-| Ready to send (location and way in) | **19**: GN13, GN24, LTC05, LTC06, LTC09, LTC10, LTC11, LTC14, P45, P69, WC09, WC20, WC23, WC26, WC28, WC57, WC61, WC62, WC73 |
-| Location on the map, no way in | 58 |
-| No location and no way in | 39 (the ones the map audit found on no drawing) |
+| Directions set | **53**: 14 with their own drop-off and way in, and 39 going to the pit lane until a drop-off is set |
+| Drop-off known, **no way in** (HOLD) | **63**, including the 15 water barriers |
 
-Only one way in has been pinned on site so far. **This is the main job before the next deliveries:** pin the way in
-for the 58, and get locations for the 39. I haven't guessed a gate for any of them. A gate that's closed by barriers on
-the day would send a driver the wrong way. `window.gc500NotReady()` lists them with what's missing.
+**This is the main job before the next deliveries:** pin the way in for the 63. I haven't guessed a gate for any of
+them, because a gate closed by barriers on the day would send a driver the wrong way. `window.gc500NotReady()` lists
+them with what's missing.
 
 ### Before the driver sheets print
 
@@ -208,22 +215,98 @@ Screenshots: `evidence/print_check_desktop.png`, `evidence/print_check_phone.png
 
 ### Does every reference have a drop-off? (checked, 197 references on the live record)
 
+Before today: 141 exact, 23 area only, 33 none. Now, on the driver sheet:
+
 | Drop-off | References |
 |---|---|
-| Exact: master-plan position | 139 |
-| Exact: pinned on site | 2 |
-| **Area only** (master-plan zone, not a spot) | **23** |
-| **None** | **33** |
+| Master-plan position | 126 |
+| Pinned on site | 2 |
+| **From the description** (water barriers) | **15** |
+| **Report to the pit lane** (no drop-off yet: none, area only, or an unverified drawing arrow) | **53** |
+| Location changed, waiting to be confirmed | 1 |
 
-**Not yet. 56 references have no exact drop-off:** WB 15, T 23, LT 6, PG 4, WC 3, GN 2, FL 2, NVLT 1. The 17 area-only
-and 22 with none that are **still to come** are the ones to place at the branch before their sheets go out:
-GN25, GN?, LT01-LT06, PG01, PG03, PG05, PG29, WB04-WB07, WB13-WB20, WC10, WC85, T0089, T0258, T0103, T0265, T0266, T0128,
-T0158, T0159, T0162, T0268, T0169, T0170, T0176.
+The pit-lane ones still to come are the ones to place at the branch (Edit, **Place it from outside**) when the spot is
+known. Doing so replaces the pit lane on the text, the sheet and the sign at once.
 
 **A bug this found, now fixed.** The driver sheet put a master-plan *area* ahead of a position placed at the branch. So
 "Place it from outside" changed the text and the map but **not the sheet**. Now the order is: a pin on site, then a
-master-plan unit position, then a placed position, then an area. A branch placement reaches the sheet, the text and
-Navigate together (test D5). A master-plan unit position still wins over a placement, as it already did in the text.
+master-plan unit position, then a placed position, then the water barrier's description spot, then the pit lane (test D5).
+
+### No drop-off yet: report to the pit lane
+
+Anything without an exact drop-off (none, a master-plan area only, or a position the map review left unverified, e.g.
+the light towers) sends the driver to **the pit lane**: the spot by P33 that drivers know. **P33 is never named**, it's
+only where the point is taken from.
+- **Text:** `No drop-off yet: report to the pit lane.` then `GPS: -27.984876, 153.426644 (pit lane)` and Navigate, plus
+  the pit lane's own way in.
+- **Driver sheet:** "Report to the pit lane · No drop-off set yet · site directs you from there", with its QR code.
+- **Sign:** "No drop-off set yet. Report to the pit lane - site will direct you."
+- **Drawer and Full details:** `DIRECTIONS SET: no drop-off yet - report to the pit lane; site directs the driver from
+  there. Set the drop-off in Edit when it is known.`
+- **Print check:** these are listed separately (not red), each with **Set it in Edit ›**.
+
+A drop-off placed at the branch replaces the pit lane at once, on the text, the sheet and the sign (test D5). Test W2
+checks that "P33" appears nowhere a driver sees it.
+
+### Water barriers: the drop-off is in the description
+
+Andrew was right: every water barrier's description names the place. **All 15 now have a drop-off from it**
+(`evidence/water_barriers_from_description.json`):
+- **12** use the mark the master already puts at that place: Turn 2, Turn 4, Turn 11, Turns 6-9, Helen Park,
+  Commodore Park, Admiralty Dr, sectors S08 and S15.
+- **3** the master doesn't mark were looked up from the description (TomTom):
+  - WB01 is Gold Coast Hwy at the Tedder Ave intersection.
+  - WB05 is Main Beach light rail station.
+  - WB06 is Gold Coast Hwy at the Macintosh Park turning lane. **This one is approximate, check on site.**
+
+The text reads `GPS: … (water barriers: the spot the description names)`, and the sheet reads "Where the description
+says". A pin or a branch placement still wins. They still need a way in before they're ready to send.
+
+### A4 location sign for every item
+
+Every driver sheet is now followed, in the same print and the same PDF, by **one A4 sign per item on it** (deliveries
+only). The sign is black and white, with a heavy border, made to be laminated and fixed to the item:
+- "COATES · GC500 2026 · DELIVERY LOCATION";
+- "LOCATION REFERENCE" with the reference **as large as the page allows** (330 pt for three characters, scaled for
+  longer ones, always on one line);
+- the item (e.g. "Building 6m");
+- **GOES TO**: the location words, section, near and beside (or the pit lane fallback);
+- Due on site · Load n of N · Item n of N;
+- "Laminate this sign and fix it to the item where it can be seen. Leave it on until the item is in its place."
+
+A load's PDF holds its sheet and its signs; "All loads" holds every page. The print check tells the person printing:
+"Each driver sheet comes with an A4 location sign for every item on it. Laminate it and fix it to the item, so it shows
+where the item goes when it arrives." Samples: `evidence/location_sign_1.png` (P08), `location_sign_3.png` (P47),
+`location_sign_5.png` (no drop-off yet).
+
+### Inventory: every location still to come, clickable
+
+Andrew: "in inventory, you know how it says still to come - let's mention all locations that still need to be done.
+You can click on the location and it also shows you where it is, so everything clickable."
+
+Under the Inventory table (Change deliveries) is a new list: **Still to come - every location**. It follows the same
+trade chips as the table, so "Everything" shows all 116, grouped by the day each is due. Each row has:
+- the reference, which **opens the item**;
+- its name, location words (section · near · beside) and items;
+- a green, amber or red tag: directions set / set the drop-off in Edit / what's missing;
+- **Map ›**, which shows it on the map. When there's no map spot yet it says **Set in Edit ›** instead.
+
+Tests I1-I6 (desktop and phone). Screenshots: `evidence/inventory_still_to_come_desktop.png`, `_phone.png`.
+
+## Codex's review (2 Oct): every finding fixed
+
+| Finding | Fix | Test |
+|---|---|---|
+| Negative clock values | Times are calendar minutes from the delivery's own date. A clock is always 00:00-23:59, and another day is named ("23:50 the day before"). | C1, C2 |
+| `plan782` and `loadCheck782` could disagree | One plan: a timed delivery is planned only from its unloaded-by time. The general 05:00 and no-travel flags apply only to deliveries with no time. | L2, T3 |
+| Deadline wording on completed history | A delivered unit keeps its record: the old drawer label, no Time or Loading row, no TIME/LOAD/DISPATCH lines, no checks. | H1, T1 |
+| `ready782` said ready while order or time said hold | Narrowed and renamed: **Directions** (drop-off and way in) only. Order and time stay separate red checks. The print check also lists time reds. | D2 |
+| Loads compared by clock only | Calendar-aware throughout (load on the day before, overnight). | C3 |
+| Explorer: category chips and Escape reset the Done chip | Only `#chips .chip` is reset. | X6, X7 (fail on the old file, pass now) |
+| Explorer: app Motion Off ignored | The rings follow the dashboard's Motion Off as well as reduced motion. | X8 (fails on the old file) |
+| Unverified positions counted as ready | `MASTER_LOC.unverified` on LTC01-14. It doesn't count as a drop-off, so they go to the pit lane, and the position is kept for review. | V1 |
+| Provenance differed by surface | One label (`locSrc782`) for the text, Navigate, the pin record and the driver sheet (P47 "confirmed by the project manager"; light towers "drawing arrow, not verified"). | V2 |
+| A source document with conflicting schedule notes | Waiting for Codex to name the document and field. Not changed. | - |
 
 ### Loading at Kingston
 

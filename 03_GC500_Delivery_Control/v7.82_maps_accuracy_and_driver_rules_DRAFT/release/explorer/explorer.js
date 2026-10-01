@@ -753,7 +753,7 @@ function buildItems() {
   done782Chip(); /* v7.82 */
   const fh = document.querySelector('#findCard h3'); if (fh) fh.textContent = HOST ? 'Find on the master plan' : 'Find on the drawing';
   const sh3 = $('q') && $('q').closest('div') && $('q').closest('div').parentElement.querySelector('h3'); if (sh3 && HOST) sh3.textContent = 'Search the master plan and the drawing';
-  $('chips').onclick = e => { const b = e.target.closest('[data-cat]'); if (!b) return; const on = b.getAttribute('aria-pressed') !== 'true'; document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', String(on)); showCategory(on ? b.dataset.cat : null); };
+  $('chips').onclick = e => { const b = e.target.closest('[data-cat]'); if (!b) return; const on = b.getAttribute('aria-pressed') !== 'true'; document.querySelectorAll('#chips .chip').forEach(x => x.setAttribute('aria-pressed', 'false')); /* v7.82 - not the Done chip */ b.setAttribute('aria-pressed', String(on)); showCategory(on ? b.dataset.cat : null); };
 }
 function showCategory(id) {
   selected = null; stopPulse(); const L = $('findList');
@@ -792,11 +792,11 @@ let DONE782 = new Set(), done782Sig = '', DONE782_ON = (() => { try { return loc
 (() => { const st = document.createElement('style'); st.textContent = '.d782{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;z-index:1}'
   + '.d782 i{position:absolute;left:-10px;top:-10px;width:20px;height:20px;border-radius:50%;border:2px solid #2bd46b;box-sizing:border-box;opacity:0;will-change:transform,opacity;animation:d782beat 3.2s ease-out infinite}'
   + '@keyframes d782beat{0%{transform:scale(1);opacity:.95}12%{transform:scale(2.1);opacity:0}13%{transform:scale(1);opacity:.95}27%{transform:scale(2.5);opacity:0}100%{transform:scale(2.5);opacity:0}}'
-  + '.d782.moving{display:none}@media (prefers-reduced-motion:reduce){.d782 i{animation:none;opacity:0}}'
+  + '.d782.moving{display:none}@media (prefers-reduced-motion:reduce){.d782 i{animation:none;opacity:0}}html.d782still .d782 i{animation:none;opacity:0}'
   + '.d782row{display:flex;align-items:center;gap:8px;margin:8px 0 2px;flex-wrap:wrap}.d782row small.k{color:var(--mute,#9aa3ad);font:500 11px Inter,sans-serif}'
   + '#done782 b{display:inline-grid;place-items:center;width:14px;height:14px;border-radius:50%;background:#1fae57;color:#fff;font:800 10px/1 Inter,sans-serif;box-shadow:0 0 0 1.5px #fff}';
   document.head.appendChild(st); })();
-function done782Pull() { let keys = null; try { const w = window.parent && window.parent !== window ? window.parent : window; if (typeof w.gc500DoneKeys === 'function') keys = w.gc500DoneKeys(); } catch (e) {}
+function done782Pull() { let keys = null; try { const w = window.parent && window.parent !== window ? window.parent : window; document.documentElement.classList.toggle('d782still', w !== window && w.document.documentElement.getAttribute('data-motion') === 'off'); if (typeof w.gc500DoneKeys === 'function') keys = w.gc500DoneKeys(); } catch (e) {}
   if (!Array.isArray(keys)) return; const sig = keys.slice().sort().join(','); if (sig === done782Sig) return; done782Sig = sig; DONE782 = new Set(keys.map(norm)); done782Chip(); requestPaint(); }
 setInterval(done782Pull, 4000); setTimeout(done782Pull, 600);
 function done782List() { if (!DONE782_ON || !DONE782.size || typeof ITEMS === 'undefined' || !ITEMS) return []; return ITEMS.filter(it => it.places.length && it.cat && it.cat.host === 'trade' && DONE782.has(it.code)); }
@@ -930,7 +930,7 @@ window.addEventListener('keydown', e => { if (e.target.matches('input,textarea,s
   if (!['+', '=', '-', '_', 'home', '0', 'z', '/', 'escape', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown', '1', '2', '3', 'r', 'n', 'd'].includes(key)) return; e.preventDefault();
   if (key === '+' || key === '=') zoomBy(1.5); else if (key === '-' || key === '_') zoomBy(1 / 1.5); else if (key === 'home' || key === '0') fit(); else if (key === 'z') setBox(!boxMode); else if (key === '/') { document.body.classList.add('nav'); $('q').focus(); }
   else if (key === '1') chooseMode('original'); else if (key === '2') chooseMode('hybrid'); else if (key === '3') chooseMode('satellite');
-  else if (key === 'escape') { setBox(false); highlight = null; marks = []; selected = null; stopPulse(); document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', 'false')); $('findList').classList.remove('show'); $('sel').style.display = 'none'; boxStart = null; $('legend').classList.remove('show'); document.body.classList.remove('nav'); requestPaint(); }
+  else if (key === 'escape') { setBox(false); highlight = null; marks = []; selected = null; stopPulse(); document.querySelectorAll('#chips .chip').forEach(x => x.setAttribute('aria-pressed', 'false')); /* v7.82 - not the Done chip */ $('findList').classList.remove('show'); $('sel').style.display = 'none'; boxStart = null; $('legend').classList.remove('show'); document.body.classList.remove('nav'); requestPaint(); }
   else if (key === 'r') rotateTo(camera.rot + (e.shiftKey ? -15 : 15)); else if (key === 'n') northUp(); else if (key === 'd') asDrawn();
   else { const amount = (e.shiftKey ? 240 : 90) / (fitScale * camera.z), r = camera.rot * Math.PI / 180, dx = key === 'arrowleft' ? -1 : key === 'arrowright' ? 1 : 0, dy = key === 'arrowup' ? -1 : key === 'arrowdown' ? 1 : 0;
     camera.cx += amount * (dx * Math.cos(r) + dy * Math.sin(r)); camera.cy += amount * (-dx * Math.sin(r) + dy * Math.cos(r)); changeView(); } });
