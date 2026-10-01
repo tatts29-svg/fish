@@ -7,7 +7,8 @@ be the same size" (the clock, race-day and record pods).
 
 On a laptop screen the header took 272 of 693 px - 40% of the window - on every tab, and the page under it was held to a
 1,500 px column in the middle of a wide screen. On a desktop (641 px and wider; the phone bar is untouched):
-  - ONE ROW: the GC500 lockup, the search, and the three pods side by side, all the same size (214 px each). Below 1,280 px
+  - ONE ROW: the GC500 lockup, the search, and the three pods side by side - the pods take half the header's width (the project
+    manager: "make sure these get half the page"), split three equal ways. Below 1,280 px
     the pods take a second row of their own, still equal. The shift lights stay along the top of the pods.
   - SLIM WHEN YOU SCROLL: once the page under the header is scrolled, the pods fold away and only the lockup, search and tabs
     stay; back at the top they return.
@@ -28,13 +29,13 @@ t = rep(t, ".brandrow{position:relative;z-index:4}", """.brandrow{position:relat
    the full page" ... "should these not all be the same size"). Desktop only; the phone bar keeps its own rules. */
 @media (min-width:641px){
  .pane{max-width:none!important}
- header.top .brandrow{display:grid!important;grid-template-columns:auto minmax(220px,1fr) auto!important;grid-template-areas:"lock search cluster"!important;
+ header.top .brandrow{display:grid!important;grid-template-columns:auto minmax(200px,1fr) 50%!important;grid-template-areas:"lock search cluster"!important;
   column-gap:16px!important;row-gap:8px!important;align-items:center!important;padding:8px 16px!important}
  header.top .lockup{grid-area:lock!important}
  header.top .brandrow > .search{grid-area:search!important;min-width:0}
  header.top .hzmap{display:none!important}
- header.top .hzcluster{grid-area:cluster!important;flex:0 0 auto!important;max-width:none!important;flex-wrap:nowrap!important;margin-left:0!important;justify-content:flex-start!important}
- header.top .hzcluster > .tpodwrap,header.top .hzcluster > .hzpod,header.top .hzcluster > .recstrip{flex:0 0 214px!important;width:214px!important;max-width:214px!important;min-width:0!important;box-sizing:border-box}
+ header.top .hzcluster{grid-area:cluster!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;width:100%!important;max-width:none!important;margin-left:0!important;box-sizing:border-box}
+ header.top .hzcluster > .tpodwrap,header.top .hzcluster > .hzpod,header.top .hzcluster > .recstrip{width:auto!important;max-width:none!important;min-width:0!important;box-sizing:border-box}
  header.top .hzcluster > .tpodwrap .tpcard,header.top .hzcluster > .tpodwrap .face{width:100%!important;max-width:100%!important;box-sizing:border-box}
  header.top.slim89 .hzcluster{display:none!important}
  header.top.slim89 .brandrow{padding-top:6px!important;padding-bottom:6px!important;min-height:0!important;height:auto!important}

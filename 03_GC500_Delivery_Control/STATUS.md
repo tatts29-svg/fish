@@ -1,8 +1,7 @@
 **v7.89 — compact header + full-width tabs: READY TO UPLOAD (Claude, 2 Oct 2026 09:40 AEST).** Andrew: "let's fix this first"
 ... "should we not be using the full page" ... "should these not all be the same size". One patch on the live v7.87
-`d592847a`: `bash toolchain/build.sh v7.89 v7.89_compact_header_full_width_DRAFT/patch_v789.py` → **8,861,300 bytes, SHA-256
-`5e46ae82f23d2146f934068f55d728323b33eb2c81c9547c2f43f18ea06ffaa0`**. Desktop only: one row (lockup, search, three equal
-214 px pods), slims to 105 px when the page is scrolled, tabs full width (1,500 px cap lifted). Laptop header 39% → 27% (15%
+`d592847a`: `bash toolchain/build.sh v7.89 v7.89_compact_header_full_width_DRAFT/patch_v789.py` → **8,861,306 bytes, SHA-256
+`0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac`**. Desktop only: one row (lockup, search, three equal pods taking half the header width), slims to 105 px when the page is scrolled, tabs full width (1,500 px cap lifted). Laptop header 39% → 27% (15%
 scrolled). Sweeps ×2 clean, navigation 21/21, fresh-after-save 11/11. Phone bar untouched. (v7.88 = Codex's full lap.)
 
 # GC500 status board
