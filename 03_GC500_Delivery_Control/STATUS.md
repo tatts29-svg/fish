@@ -205,9 +205,12 @@ Review correction: combined v7.75 + v7.77 page **8,682,665 bytes**, SHA256 `35e4
 server v5.86 **236,308 bytes**, SHA256 `f5b9a3f7efdf880b5f10d0ee339761d35adf9b9ff5bdd3a528505215be6b6fe9`.
 Both agents reviewed the previous page 577c69b2 and the unchanged server; Claude requested failure wording
 that covers provider cancellations and escaped provider status/note detail. Codex applied and reviewed that
-correction; 12/12 pure checks, static checks and uploader dry-run pass. The 25-case browser suite and both
-sweeps are being rerun. **Awaiting Claude's correction re-check; not READY TO UPLOAD.** Earlier page checks:
-UI 24/24 and save checks 11/11 on both viewports, both 21-tab/7-link sweeps with zero errors; 82 local server checks.
+correction; 12/12 pure checks, static checks and uploader dry-run pass. UI 25/25 on desktop and phone; both
+21-tab/7-link sweeps pass with zero page and console errors. Phone detail screenshot inspected. Claude explicitly
+completed the changed-page review on PR #1 (`issuecomment-5929668833`); Codex's review and checks are complete.
+**READY TO UPLOAD — both agents finished on the same page and server candidate.** Server f5b9a3f7 is staged,
+not activated; v5.85 rollback blob `76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684` is present.
+Earlier unchanged save checks pass 11/11 on both viewports; server provider-mock checks pass 82/82.
 Draft handover: [PR #17](https://github.com/tatts29-svg/fish/pull/17). No real messages or record writes by tests.
 The README includes the read-only check of earlier message reports after server activation. Actual non-arrival
 is not considered resolved until the existing reports or handset evidence establish what happened.

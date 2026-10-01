@@ -1,4 +1,4 @@
-# Text delivery — draft, not ready for publication
+# Text delivery — READY TO UPLOAD
 
 Author: Andrew Fisher · 1 Oct 2026
 
@@ -33,10 +33,13 @@ This avoids attributing a provider cancellation to the carrier.
 
 Corrected combined page: **8,682,665 bytes**, SHA256
 `35e4b00b150e081425e70a642945799d4dbab822bdbc7939c888c0503e5c26ef`.
-Codex reviewed the narrow change; **12/12 pure checks**, static checks and uploader dry-run pass. The UI suite
-now includes a 25th case for the report merge and escaped provider detail. Desktop/phone browser checks and
-both sweeps are being rerun. Claude's re-check of this changed page is pending; **not READY TO UPLOAD**.
-The server bytes below are unchanged and have both agents' completed reviews.
+Both agents completed review of these exact page bytes: Claude's sign-off is recorded on PR #1 at
+`issuecomment-5929668833`; Codex's final checks are complete. **12/12 pure checks**, static checks and uploader
+dry-run pass. UI **25/25 desktop and 25/25 phone**; both sweeps **21 tabs, seven deep links, zero page and console
+errors**. The added case verifies the report merge and escaped provider detail; its phone screenshot has clean
+wrapping and no horizontal overflow. **READY TO UPLOAD.** The server bytes below are unchanged and have both
+agents' completed reviews. Readiness is not publication; live proof will be recorded after activation/upload.
+Current aggregate evidence: `evidence/final_verification.json`.
 
 ## Previous candidate and completed checks
 
