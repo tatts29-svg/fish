@@ -128,6 +128,14 @@ t = rep(t, "<p class=\"hint\">Everything ordered that is not on site yet${INV.di
         "<p class=\"hint\">Everything ordered that is not on site yet${INV.disc !== '*' ? ' in ' + esc(INV.disc) : ''}, by the day it is due - one line each: what is still to do, where it goes, and a code to scan for directions. Press a reference to open it, or the map to see where it goes.</p>",
         'card list hint', p, True)
 
+# Bind the controls in both the every-location list and the per-type drill.
+t = rep(t, "pane.querySelectorAll('#tg782 [data-open]')",
+        "pane.querySelectorAll('#tg782 [data-open], #invDrill [data-open]')",
+        'bind references in both inventory lists', p, True)
+t = rep(t, "pane.querySelectorAll('#tg782 [data-map]')",
+        "pane.querySelectorAll('#tg782 [data-map], #invDrill [data-map]')",
+        'bind map controls in both inventory lists', p, True)
+
 # 3. the screen styles
 t = rep(t, ".tg782 .tg-w .tg-r{color:#d97706}\n",
         r""".tg782 .tg-w .tg-r{color:#d97706}

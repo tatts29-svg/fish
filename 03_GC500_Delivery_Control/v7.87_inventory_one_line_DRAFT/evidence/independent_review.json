@@ -1,0 +1,62 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent review of Inventory one-line display, navigation, satellite and PDF",
+  "candidate": {
+    "bytes": 8858382,
+    "sha256": "d592847abc0d774502f53fc568f1bfaaff1706be7dd23a3a54a70a1552a4c367"
+  },
+  "baseSha256": "0513542de21e7e00b2498c2416d90941ca7ded90e965fa1540ac50fc55e2e425",
+  "checks": {
+    "drill_desktop": {
+      "passed": 8,
+      "total": 8
+    },
+    "drill_phone": {
+      "passed": 8,
+      "total": 8
+    },
+    "one_line_desktop": {
+      "passed": 20,
+      "total": 20
+    },
+    "one_line_phone": {
+      "passed": 20,
+      "total": 20
+    },
+    "pdf_desktop": {
+      "passed": 9,
+      "total": 9
+    },
+    "pdf_phone": {
+      "passed": 9,
+      "total": 9
+    },
+    "sweep_desktop": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    "sweep_phone": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0
+    }
+  },
+  "phoneVisual": "Inspected Inventory per-type list: reference, due day, quantity, state, locator, satellite, QR and actions fit without horizontal page overflow.",
+  "pdfVisual": "Inspected ten-location A4 page: all rows, imagery, navigation QR codes and attribution fit.",
+  "recordWrites": false,
+  "uploaded": false,
+  "issuesResolved": [
+    "New per-type list reference and map controls were not bound; selectors now cover both lists."
+  ],
+  "static": {
+    "inlineScripts": 6,
+    "checkPage": "PASS",
+    "newKeys": 0
+  },
+  "dryRun": "PASS; live base unchanged and edit capability recognised; no upload.",
+  "readiness": "READY TO UPLOAD; not published",
+  "checkedAtAEST": "02 Oct 2026 09:13 AEST"
+}
