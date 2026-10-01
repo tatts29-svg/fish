@@ -1,6 +1,22 @@
-# v7.82 — maps accuracy and driver rules (DRAFT — for Codex's review)
+# v7.82 — maps accuracy and driver rules (LIVE within v7.83)
 
 Author: Andrew Fisher · 2 Oct 2026 · built on the live page v7.80 (`303029e3…`) and the live explorer (v7.58, md5 `1407e270…`)
+
+## Verified live — 2 Oct 2026 05:24 AEST
+
+Released within **v7.83**, on the v7.80 base. Page **8,765,480 bytes**, SHA-256
+`f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`.
+The final standalone v7.82 review was on `e8a4868c`; the combined v7.83 review was rerun on `f6544262`.
+Both implementation and independent checks are complete; the public page, explorer and entry match the release bytes.
+Explorer: **127,720 bytes**, SHA-256 `dd6256bcd3e20cd89a70ba1c1d32e5f3b7b1acf09a2d19f1ac824f05fea93d3e`.
+The explorer entry now requests that script with a version query, so a previously cached script cannot mask this release.
+The other **217 machine files** are unchanged. No records, journals or real messages were written.
+
+Final independent checks: dispatch/calendar **9/9**, driver print **10/10**, **201 current texts + 198 timed variants**,
+**68 picture centres**, two picture/dialog flows; Inventory PDF **9/9 per viewport**; both **21-tab/7-link** sweeps clean.
+The unchanged explorer also passed **18/18** isolated checks. Full implementation regression is in `evidence/regress/`.
+Proof: `evidence/release_verification.json`. Earlier candidate results below are historical, not the published bytes.
+Unconfirmed ways in, gate confirmation and morning-run scope remain visible for confirmation; no directions are guessed.
 
 ## What Andrew asked (2 Oct 2026)
 
@@ -383,16 +399,16 @@ haven't changed it.
 ## Build
 
 ```
-bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v782.py
-python3 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_explorer782.py <live explorer/explorer.js> v7.82_maps_accuracy_and_driver_rules_DRAFT/release/explorer/explorer.js
+bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_LIVE/patch_v782.py
+python3 v7.82_maps_accuracy_and_driver_rules_LIVE/patch_explorer782.py <live explorer/explorer.js> v7.82_maps_accuracy_and_driver_rules_LIVE/release/explorer/explorer.js
 ```
 
 - **Page:** 8,741,138 bytes, SHA-256 `b5af68eb24134f3c37359192cb3cdd9d2bed3bc7f2ac5c297ee3275f912b516b`. Built on the live
   page `303029e3…`. check_page PASS, no keys. Source commit `b6a015b`.
 - **Explorer:** `release/explorer/explorer.js`, 127,720 bytes, md5 `2b6d4b4360a923bc805fb3fc707b3c6f`. Built on the live
-  md5 `1407e270…`. Only this one machine file changes.
+  md5 `1407e270…`. The release also versions its script URL in `explorer/index.html`; see the live proof above.
 
-## Results: final page `b5af68eb…` and explorer `2b6d4b43…`
+## Historical results: superseded page `b5af68eb…` and explorer `2b6d4b43…`
 
 | Check | Result |
 |---|---|
