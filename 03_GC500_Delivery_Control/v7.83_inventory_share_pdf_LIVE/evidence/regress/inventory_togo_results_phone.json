@@ -1,0 +1,42 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.83/GC500_Delivery_Control_hosted.html",
+ "passed": 7,
+ "of": 7,
+ "tests": [
+  {
+   "name": "I1 with Everything chosen, every location not on site yet is listed once (116)",
+   "pass": true,
+   "detail": "{\"n\":116,\"missing\":[]}"
+  },
+  {
+   "name": "I2 grouped by the day it is due, each location with its words and a status",
+   "pass": true,
+   "detail": "Tue 06 Oct 2026 | Wed 07 Oct 2026 | Thu 08 Oct 2026 | Mon 12 Oct 2026 | Tue 13 Oct 2026 | Wed 14 Oct 2026 | Thu 15 Oct 2026 | Fri 16 Oct 2026 | Sun 18 Oct 2026 | Mon 19 Oct 2026 | Tue 20 Oct 2026 | Wed 21 Oct 2026 | Thu 22 Oct 2026 | Mon 26 Oct 2026 | Mon 02 Nov 2026 | No date yet · 1"
+  },
+  {
+   "name": "I3 everything clickable: the reference opens the item; Map shows where it goes (or Set in Edit when there is no map spot yet)",
+   "pass": true,
+   "detail": "116 rows"
+  },
+  {
+   "name": "I4 \"P33\" is not shown in the list words; no sideways scroll",
+   "pass": true,
+   "detail": "{\"p33\":false,\"overflowX\":false}"
+  },
+  {
+   "name": "I5 pressing a reference opens that item",
+   "pass": true,
+   "detail": "P08"
+  },
+  {
+   "name": "I6 Map takes you to the map at that location",
+   "pass": true,
+   "detail": "{\"hash\":\"#sheet/__explorer\",\"tab\":\"Map explorer\",\"key\":\"P08\"}"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

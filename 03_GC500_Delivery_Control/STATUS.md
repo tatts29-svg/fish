@@ -19,9 +19,26 @@ Required tests, fresh-base checks, verified live bytes, record authorisation and
 Resolve known release-blocking findings and record who actually checked the final candidate. Distinguish a draft,
 a completed handover and a verified live release; do not imply a second review took place when it did not.
 
-For the current v7.82 work, Claude owns the corrections already in progress. Codex has handed over reproducible
-dispatch, map and print-check findings through PR #1. Those known blockers still need correction and verification;
-the change in working arrangement does not mark that candidate ready or live. The Showcase preview stays separate.
+For v7.82 and v7.83, Claude implemented the corrections and completed the full regression; Codex completed independent
+checks on the same final combined candidate and published it. The known release blockers are resolved.
+The Showcase preview stays separate and unpublished.
+
+## Release completed — v7.83 including v7.82 LIVE, 2 Oct 2026 05:24 AEST
+
+Author: Andrew Fisher. Map positions and Done markers, one consistent destination across driver sheets, navigation,
+texts and pictures, print confirmation that expires when its inputs change, and Inventory Share PDF are live.
+**Claude and Codex completed checks on the same final candidate; published and verified live.**
+Page **8,765,480 bytes**, SHA256 `f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`.
+Explorer **127,720 bytes**, SHA256 `dd6256bcd3e20cd89a70ba1c1d32e5f3b7b1acf09a2d19f1ac824f05fea93d3e`.
+The map entry versions its script URL to avoid serving an older cached explorer; the other 217 machine files remain unchanged.
+Active 219-file manifest: `1436f85afdfe6d8da043a0b4d134eb8f054c9fe4a28c23d8c2103299ad25c490`.
+Claude's full regression is recorded in the release folders. Codex's final independent checks: dispatch/calendar **9/9**,
+driver print **10/10**, **201 current messages + 198 timed variants**, **68 picture centres**, two picture/dialog flows,
+PDF **9/9 desktop and phone**, **41 inventory types / 116 QR targets** agreeing, and both **21-tab/7-link** sweeps clean.
+Unchanged explorer **18/18** isolated checks. Static, dry-run, fresh-base and public byte checks pass.
+Record **3527** before and after; no record changes, journals or real sends. Operational questions remain visibly unresolved.
+The Showcase stays unpublished. Sources: `v7.82_maps_accuracy_and_driver_rules_LIVE/` and
+`v7.83_inventory_share_pdf_LIVE/`; each holds `evidence/release_verification.json`.
 
 ## In progress — v7.81 Showcase visual refinement, 2 Oct 2026
 
@@ -83,7 +100,7 @@ only when you and claude are finished though".
 This was the rule for the releases recorded below. Their completed joint reviews remain part of the release
 history. For current and future work, use the 2 Oct arrangement above and the updated `AGENTS.md`.
 
-Current state (2 Oct 2026 00:45 AEST): **v7.80 is LIVE**, including the v7.79 welcome/navigation message and the
+Historical state (2 Oct 2026 00:45 AEST): **v7.80 was LIVE**, including the v7.79 welcome/navigation message and the
 Fencing card refresh. Picture texting remains verified end to end on server **v5.87**. The v7.78 plain-text-default
 proposal stays on hold. The Showcase preview is a separate unpublished task.
 
@@ -230,6 +247,7 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 
 | version | what | live | by |
 |---|---|---|---|
+| **v7.83 LIVE (includes v7.82)** | Map accuracy, Done markers, consistent driver sheets/texts/pictures, print confirmation and Inventory Share PDF. Both agents completed checks on f6544262; page and explorer verified byte for byte. Record 3527 unchanged. See release proof above. | 2 Oct 2026 05:24 | Claude (implementation/full regression), Codex (independent checks/upload) |
 | **v7.80 LIVE** | The Fencing tab's "Paid to Advanced, by P&L line" card follows a typed paid rate at once: a save empties the per-draw memo (`RENDER_MEMO`). On live v7.79 the card stayed stale (3/5); now 5/5 on desktop and phone, v7.75 11/11, P&L 31/31, navigation 21/21, sweeps clean. Both reviews on the same build. Claude fetched it fresh at 00:45: **8,682,905 bytes, SHA-256 `303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7`**. No record changes. `v7.80_fencing_card_fresh_LIVE/`. | 2 Oct 2026 00:45 | Codex (upload), Claude (fix) |
 | **v7.79 LIVE** | Professional welcome, reference, Navigate link and site access in Text it; existing delivery-details links and due dates retained. Both reviews, 23/23 checks per viewport, both sweeps and byte verification complete. No record writes. | 1 Oct 2026 22:17 | Codex, reviewed with Claude |
 | **server v5.87 LIVE — picture texting verified** | Picture messages go from the ClickSend shared number (`MMS_FROM=shared`); plain texts are unchanged and still go from SMS_FROM. Codex signed off and staged the blob at 21:50. Claude made one Railway change at 21:50: deployment `81618338…` SUCCESS; deploy log `server from volume blob d5a0d777…`; running SHA-256 `d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc`; `/health` v5.87; record 3521 unchanged. `SERVER_FILE_KEEP` keeps v5.86 `f5b9a3f7…`, `76afbd99…`, `264363…` and `b8d38b…`. Rollback: `SERVER_FILE=f5b9a3f7…` and remove `MMS_FROM`. **Verified end to end (21:56):** the attempt at 21:48:59 was before the switch (v5.86, FAILED/301, the old cause). The one authorised GC500 picture on v5.87 (Codex, to the recipient Andrew confirmed) was confirmed arrived by Andrew and read back as DELIVERED / 201 with no error code. GET-only follow-ups, no resend. `server_v5.87_pictures_from_shared_number_LIVE/README.md`. | 1 Oct 2026 21:50 | Claude (activation), Codex (review, staging) |
@@ -268,6 +286,46 @@ see `record_29Sep2026_master_plan_positions/`.
 The live page's own proof: `toolchain/fetch_live.sh` then compare with the release folder's README.
 
 ## Claimed — being worked on now
+
+**v7.84 — the ways in Andrew gave: READY TO UPLOAD (Claude's handover, 2 Oct 2026 06:55 AEST).** Claimed 06:10.
+Author: Andrew Fisher. Andrew, 2 Oct 2026: "wc25 meet at pitlane start point. wc31 from North head towards hill to drop
+off. location on map.. wc45 meet at starting point pitlane wc47 meet at starting point pitlane Lane. gn04 meet at
+starting point pitlane". WC25, WC45, WC47, GN04: the way in is to meet at the pit lane start point (the pit lane entry
+the pit lane rule uses); WC31: in from the north end towards The Hill to its drop-off on the map. Drop-offs unchanged.
+Still open with Andrew: WB07 (Admiralty Dr), WB13, WB18, WB20 (Turn 2 / Ferny Ave) - on HOLD; Gate 1 / Gate 2; the 05:00
+scope. One patch on the live v7.83: `bash toolchain/build.sh v7.84 v7.84_ways_in_from_andrew_DRAFT/patch_v784.py` →
+8,767,811 bytes, SHA-256 `c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725` (explorer unchanged). Claude's full
+regression on c9958a42: every suite passes desktop and phone - ways in 10/10, rules 45/45 (the v7.84 copy: D2 and Z2
+follow Andrew's answers), print check, one destination, inventory, explorer, fencing, fresh-after-save, P&L practice,
+both sweeps, navigation, Inventory PDF 9/9; v7.79 text checks 16/23. A second audit is optional under the 2 Oct
+arrangement; Codex to upload. Claude checked: the live page fetched at 06:05 AEST is byte for byte the approved v7.83 (`f6544262…`).
+
+**v7.82 — LIVE within v7.83, 2 Oct 2026 05:24 AEST. Historical ready handover follows.**
+Author: Andrew Fisher. One patch on the live v7.80, plus the explorer:
+`bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_LIVE/patch_v782.py` → `build/GC500_v7.82`
+**8,748,278 bytes, SHA-256 `e8a4868c0b6c08dd300bb8817b5343b8fd7d0c09b20b9358c23769385b5f202d`** (commit 2d0e23d);
+explorer `v7.82_maps_accuracy_and_driver_rules_LIVE/release/explorer/explorer.js` 127,720 bytes, md5 `2b6d4b43…`,
+SHA-256 `dd6256bcd3e20cd89a70ba1c1d32e5f3b7b1acf09a2d19f1ac824f05fea93d3e`. b5af68eb, 987f92f1, bcad902b and b0157d26
+are superseded.
+**Who checked what.** Claude: full regression on e8a4868c, every suite passing desktop and phone — rules 45/45,
+print check 28/28, one destination 12/12, Inventory still-to-come, explorer done chip, fencing, fresh-after-save, P&L
+practice, both 21-tab/7-link sweeps, navigation; the v7.79 text checks 15/23 with the same 8 misses as the accepted
+b5af68eb (old raw-destination assertions Codex is replacing). Codex: four rounds of findings on PR #1, each reproduced
+and fixed with a test that fails on the previous build (logs committed): confirmation invalidated by a changed value;
+one destination for the text, Navigate, labels, QR codes and sheet; the printed way in; the picture and a sendable
+text. Codex's final recheck of e8a4868c and combined f6544262 is complete; published within v7.83. No record writes, no real texts.
+**Left visibly unresolved on purpose (Andrew's answers, not guesses):** the way in for GN04, WB13, WB18, WB20, WC25,
+WC45, WC47 (Turn 2 / Ferny Ave), WB07 (Admiralty Dr) and WC31 (S25) — their sheets print "Way in: not set - do not
+leave until site gives it", their texts carry a HOLD line and the print check lists them in red; Gate 1 (Tedder Ave
+access point) and Gate 2 (GC Hwy underpass via Commodore Dr) are D007's entry points pending his confirmation; the
+05:00 morning-run scope; items with no drop-off report to the pit lane until one is set in Edit.
+
+**v7.83 — Inventory Share PDF: LIVE with v7.82, verified 2 Oct 2026 05:24 AEST. Historical ready handover follows.** Author: Andrew Fisher.
+`bash toolchain/build.sh v7.83 v7.82_maps_accuracy_and_driver_rules_LIVE/patch_v782.py v7.83_inventory_share_pdf_LIVE/patch_v783.py`
+→ **8,765,480 bytes, SHA-256 `f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`** (same explorer as
+v7.82). Claude: full regression on f6544262, every suite passing desktop and phone (as v7.82, v7.79 text checks the
+same 15/23); Inventory PDF 9/9 desktop and phone. Codex completed the final independent checks and published this combined build with the matching explorer.
+Both scopes are verified live; see the release proof above.
 
 **v7.82 — Maps accuracy and driver rules, claimed by Claude, 2 Oct 2026 01:20 AEST.** Author: Andrew Fisher.
 Andrew, 2 Oct: "you have picked locations that don't exist, example GN21 … if it's not on the master you back track to their other map, find it, then add the location to the master." Scope: (1) correct the master positions the drawings contradict (GN21: the 27 Sep trace followed the wrong leader line; D024 puts it beside GN20 at the pit lane's west end); cross-check every master position against its own drawing; never invent a position. (2) Driver rules on Text it and the delivery views: Main Beach Pde entry by side (seaside via the Seaworld Dr roundabout end, per Andrew's marked map; land side, e.g. S08, from the other end, race direction); delivery order (waste tanks first; P03 → P01 → P05; WC05 tank → WC05 → P05; P04 after WC05; GN21 before GN20); stagger arrivals; parks: wildlife and low branches, very tight. Checked against what has already been delivered. (3) A clear pulsing "done" marker on the maps. Built on the live page; Codex's v7.81 Showcase preview is separate and unaffected. Both reviews before any upload.
