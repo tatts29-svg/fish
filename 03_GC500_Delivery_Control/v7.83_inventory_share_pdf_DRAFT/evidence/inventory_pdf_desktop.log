@@ -5,6 +5,6 @@ PASS F4 every location with a position has a QR code that navigates to it; one w
 PASS F5 costed from the Pricing figure (assetTotal): a total in $, and lines with no rate counted, not added — {"money":"$200,062","known":{"total":200062.16667840004,"unknown":37,"known":168}}
 PASS F6 "P33" is never printed as a destination — 
 PASS F7 one trade fits one A4 portrait summary page (Toilets & amenities: 7 types) — por,por,por,por,por,por
-PASS F8 Share PDF makes the file on this device and offers Open and Save (Share where the device can) — {"state":"ready","name":"GC500_Inventory_Toilets-amenities_2026-10-02.pdf","pages":6,"size":2825832,"togo":46,"rows":7,"orient":["por","por","por","por","por","por"],"say":"GC500_Inventory_Toilets-amenities_2026-10-02.pdf · 6 pages · 2.7 MB · 46 locations to come, each with a QR code","acts":["Open"
+PASS F8 Share PDF makes the file on this device and offers Open and Save (Share where the device can) — {"state":"ready","name":"GC500_Inventory_Toilets-amenities_2026-10-02.pdf","pages":6,"size":2825650,"togo":46,"rows":7,"orient":["por","por","por","por","por","por"],"say":"GC500_Inventory_Toilets-amenities_2026-10-02.pdf · 6 pages · 2.7 MB · 46 locations to come, each with a QR code","acts":["Open"
 PASS E1 no page errors — []
 9/9 desktop

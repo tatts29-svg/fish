@@ -264,9 +264,12 @@ leave until site gives it", their texts carry a HOLD line and the print check li
 access point) and Gate 2 (GC Hwy underpass via Commodore Dr) are D007's entry points pending his confirmation; the
 05:00 morning-run scope; items with no drop-off report to the pit lane until one is set in Edit.
 
-**v7.83 — Inventory Share PDF, Claude, NOT READY (regression running).** v7.82 + `v7.83_inventory_share_pdf_DRAFT/patch_v783.py`
-→ 8,765,480 bytes, SHA-256 `f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`. PDF tests 9/9 desktop
-and phone on the earlier build; full regression on this build in progress. Can follow v7.82 separately.
+**v7.83 — Inventory Share PDF: READY TO UPLOAD (Claude's handover, 2 Oct 2026 05:45 AEST), after v7.82.** Author: Andrew Fisher.
+`bash toolchain/build.sh v7.83 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v782.py v7.83_inventory_share_pdf_DRAFT/patch_v783.py`
+→ **8,765,480 bytes, SHA-256 `f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`** (same explorer as
+v7.82). Claude: full regression on f6544262, every suite passing desktop and phone (as v7.82, v7.79 text checks the
+same 15/23); Inventory PDF 9/9 desktop and phone. Codex checking it alongside v7.82. It contains v7.82, so uploading
+it publishes both; uploading v7.82 alone first is also fine.
 
 **v7.82 — Maps accuracy and driver rules, claimed by Claude, 2 Oct 2026 01:20 AEST.** Author: Andrew Fisher.
 Andrew, 2 Oct: "you have picked locations that don't exist, example GN21 … if it's not on the master you back track to their other map, find it, then add the location to the master." Scope: (1) correct the master positions the drawings contradict (GN21: the 27 Sep trace followed the wrong leader line; D024 puts it beside GN20 at the pit lane's west end); cross-check every master position against its own drawing; never invent a position. (2) Driver rules on Text it and the delivery views: Main Beach Pde entry by side (seaside via the Seaworld Dr roundabout end, per Andrew's marked map; land side, e.g. S08, from the other end, race direction); delivery order (waste tanks first; P03 → P01 → P05; WC05 tank → WC05 → P05; P04 after WC05; GN21 before GN20); stagger arrivals; parks: wildlife and low branches, very tight. Checked against what has already been delivered. (3) A clear pulsing "done" marker on the maps. Built on the live page; Codex's v7.81 Showcase preview is separate and unaffected. Both reviews before any upload.

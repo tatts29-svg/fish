@@ -39,8 +39,9 @@ showing (one trade, or every trade).
 
 ## Results
 
-Build: `build/GC500_v7.83/GC500_Delivery_Control_hosted.html`, md5 `c15f364a…`, 8,758,340 bytes. It was built from
-the live page plus v7.82 and v7.83. `check_page`: PASS, no keys.
+Build (on v7.82 `e8a4868c`): `bash toolchain/build.sh v7.83 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v782.py
+v7.83_inventory_share_pdf_DRAFT/patch_v783.py` → **8,765,480 bytes, SHA-256
+`f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e`**. `check_page`: PASS, no keys.
 
 `evidence/inventory_pdf_tests.js` passes **9/9 desktop and 9/9 phone**. It only makes GETs, the harness aborts any
 write, and nothing is shared.
@@ -57,8 +58,10 @@ write, and nothing is shared.
 | F8 Share PDF makes the file and offers Open and Save | 6 pages, 2.7 MB, state ready |
 | E1 no page errors | none |
 
-The full regression on this build (the v7.82 suites plus the standing ones) is in `evidence/regress/`. See the
-summary at the end of this file.
+**Full regression on f6544262 (2 Oct 2026, `evidence/regress/`): every suite passes desktop and phone** — rules 45/45,
+print check 28/28, one destination 12/12, Inventory still-to-come, explorer done chip, fencing, fresh-after-save, P&L
+practice, both 21-tab/7-link sweeps, navigation; the v7.79 text checks 15/23, the same 8 intended misses as v7.82
+(old raw-destination assertions). Inventory PDF 9/9 desktop and phone on this build.
 
 ## Ideas to make it better (for Andrew to pick)
 
@@ -83,5 +86,5 @@ summary at the end of this file.
 
 ## Who checked what
 
-- Claude built it and ran the tests above, plus the full regression.
-- Codex hasn't reviewed it yet. Under the 2 Oct arrangement, a second audit is optional.
+- Claude built it and ran the tests above, plus the full regression on f6544262.
+- Codex is checking it alongside v7.82. Under the 2 Oct arrangement, a second audit is optional.

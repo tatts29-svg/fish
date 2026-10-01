@@ -41,7 +41,7 @@
   {
    "name": "F8 Share PDF makes the file on this device and offers Open and Save (Share where the device can)",
    "pass": true,
-   "detail": "{\"state\":\"ready\",\"name\":\"GC500_Inventory_Toilets-amenities_2026-10-02.pdf\",\"pages\":6,\"size\":2825832,\"togo\":46,\"rows\":7,\"orient\":[\"por\",\"por\",\"por\",\"por\",\"por\",\"por\"],\"say\":\"GC500_Inventory_Toilets-amenities_2026-10-02.pdf · 6 pages · 2.7 MB · 46 locations to come, each with a QR code\",\"acts\":[\"Open\",\"Save\"],\"panel\":true}"
+   "detail": "{\"state\":\"ready\",\"name\":\"GC500_Inventory_Toilets-amenities_2026-10-02.pdf\",\"pages\":6,\"size\":2825650,\"togo\":46,\"rows\":7,\"orient\":[\"por\",\"por\",\"por\",\"por\",\"por\",\"por\"],\"say\":\"GC500_Inventory_Toilets-amenities_2026-10-02.pdf · 6 pages · 2.7 MB · 46 locations to come, each with a QR code\",\"acts\":[\"Open\",\"Save\"],\"panel\":true}"
   },
   {
    "name": "E1 no page errors",
