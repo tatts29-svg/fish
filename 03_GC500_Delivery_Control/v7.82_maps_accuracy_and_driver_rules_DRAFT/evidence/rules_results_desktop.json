@@ -1,7 +1,7 @@
 {
  "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.82/GC500_Delivery_Control_hosted.html",
- "passed": 32,
- "of": 32,
+ "passed": 34,
+ "of": 34,
  "tests": [
   {
    "name": "G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021, its orange symbol on the master), not by Gate 2",
@@ -132,6 +132,16 @@
    "name": "D4 (measure) still to come: ready to send vs not, and why; delivered units are not counted",
    "pass": true,
    "detail": "116 to come · 19 ready · 97 not ready (39 no location, 97 no way in) · ready: GN13,GN24,LTC05,LTC06,LTC09,LTC10,LTC11,LTC14,P45,P69,WC09,WC20,WC23,WC26,WC28,WC57,WC61,WC62,WC73"
+  },
+  {
+   "name": "D5 a drop-off placed at the branch (Edit) reaches the driver sheet as well as the text - it beats a master-plan area (T0085, in memory only)",
+   "pass": true,
+   "detail": "{\"before\":\"area\",\"after\":\"placed\",\"txt\":\"GPS: -27.980000, 153.430000 (placed on the map, not yet checked on site)\"}"
+  },
+  {
+   "name": "D6 (measure) every reference: exact drop-off (pin or master) vs area only vs none",
+   "pass": true,
+   "detail": "197 references · master 139 · none 33 · area 23 · pin 2"
   },
   {
    "name": "M1 the done tick has its own double beat on the master plan",

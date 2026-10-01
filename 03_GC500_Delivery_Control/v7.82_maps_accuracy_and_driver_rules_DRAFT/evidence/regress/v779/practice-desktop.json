@@ -1,8 +1,8 @@
 {
   "author": "Andrew Fisher",
   "device": "desktop",
-  "sha256": "54c2c5acbf0329b9bb8a44687b056b6ae4e803bec5ff9a3062c6e5678bf1a836",
-  "bytes": 8697619,
+  "sha256": "e88b00302f83fb04ef6c5750b7148557cb478f8b4810ba6c5d8cf84c4dafc803",
+  "bytes": 8703949,
   "tests": [
     {
       "name": "Every current reference fits the GSM and service budgets",

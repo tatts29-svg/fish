@@ -27,10 +27,12 @@ PASS D1 every Full details carries the dispatch rule (no driver leaves without t
 PASS D2 a delivery with a location but no way in is held - in the text, the drawer and Full details (GN04) — {"sms":["Welcome to Coates GC500","GN04 - Generator (30kva)","GPS: -27.990479, 153.428280 (master plan)","Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.990479,153.428280&travelmode=driving"]}
 PASS D3 a delivery with no location says so before departure and is not ready (PG01) — NOT READY TO SEND: no drop-off location on the map; no direction point (way in) set. Hold the truck.
 PASS D4 (measure) still to come: ready to send vs not, and why; delivered units are not counted — 116 to come · 19 ready · 97 not ready (39 no location, 97 no way in) · ready: GN13,GN24,LTC05,LTC06,LTC09,LTC10,LTC11,LTC14,P45,P69,WC09,WC20,WC23,WC26,WC28,WC57,WC61,WC62,WC73
+PASS D5 a drop-off placed at the branch (Edit) reaches the driver sheet as well as the text - it beats a master-plan area (T0085, in memory only) — {"before":"area","after":"placed","txt":"GPS: -27.980000, 153.430000 (placed on the map, not yet checked on site)"}
+PASS D6 (measure) every reference: exact drop-off (pin or master) vs area only vs none — 197 references · master 139 · none 33 · area 23 · pin 2
 PASS M1 the done tick has its own double beat on the master plan — {"pills":68,"anim":"done782"}
 PASS M2 the explorer gets the finished list — 78
 PASS R11 (measure) a delivery-details link gives way only where an ORDER/ENTRY line needs the room — P01,P03,P04,P05,WC20,WC27,WC60 · live 200 → 193
 PASS R12 no Due line lost against the live page — 
 PASS R13 (measure) three-text messages — live 100 → 146
 PASS E1 no page errors — []
-32/32 phone
+34/34 phone
