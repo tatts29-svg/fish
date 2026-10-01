@@ -197,6 +197,24 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.77 — Text it delivery, claimed by Codex, 1 Oct 2026 19:39 AEST.** Author: Andrew Fisher.
+Andrew reports that a text he sends does not arrive on his phone. Trace the page and live message service,
+fix the verified cause and exercise the paths with provider sends blocked in tests. Claude owns v7.75 separately.
+Both agents must complete review of the final candidate before any publication, under Andrew's latest rule.
+Review correction: combined v7.75 + v7.77 page **8,682,665 bytes**, SHA256 `35e4b00b150e081425e70a642945799d4dbab822bdbc7939c888c0503e5c26ef`;
+server v5.86 **236,308 bytes**, SHA256 `f5b9a3f7efdf880b5f10d0ee339761d35adf9b9ff5bdd3a528505215be6b6fe9`.
+Both agents reviewed the previous page 577c69b2 and the unchanged server; Claude requested failure wording
+that covers provider cancellations and escaped provider status/note detail. Codex applied and reviewed that
+correction; 12/12 pure checks, static checks and uploader dry-run pass. UI 25/25 on desktop and phone; both
+21-tab/7-link sweeps pass with zero page and console errors. Phone detail screenshot inspected. Claude explicitly
+completed the changed-page review on PR #1 (`issuecomment-5929668833`); Codex's review and checks are complete.
+**READY TO UPLOAD — both agents finished on the same page and server candidate.** Server f5b9a3f7 is staged,
+not activated; v5.85 rollback blob `76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684` is present.
+Earlier unchanged save checks pass 11/11 on both viewports; server provider-mock checks pass 82/82.
+Draft handover: [PR #17](https://github.com/tatts29-svg/fish/pull/17). No real messages or record writes by tests.
+The README includes the read-only check of earlier message reports after server activation. Actual non-arrival
+is not considered resolved until the existing reports or handset evidence establish what happened.
+
 
 **v7.62 — LIVE within v7.63 at 13:57 AEST. Earlier validation: 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Claude has claimed v7.63 for the final presentation pass (PR #7); v7.62 is frozen and handed over with no overlapping edits. Combined release is not yet marked READY TO UPLOAD. No upload or record changes. Author: Andrew Fisher.
 

@@ -1,0 +1,88 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_bytes": 8680544,
+  "candidate_sha256": "e74dc0752f85dd162397b4e41c403ce9e7becc199451c899b50ec280cadc5c01",
+  "browser": {
+    "desktop": {
+      "passed": 24,
+      "total": 24,
+      "page_errors": 0,
+      "production_messaging_writes": 0,
+      "checks": [
+        "Acceptance is pending; dialog stays open and never claims delivered",
+        "Explicit refresh confirms delivered by message ID, without resending",
+        "A failed delivery report is visibly failed",
+        "Mixed accepted and rejected recipients keep separate results",
+        "SUCCESS is exact: UNSUCCESSFUL never counts as acceptance",
+        "Unknown provider status does not unlock a potentially duplicate send",
+        "Timeout is unknown and duplicate send remains blocked after editing",
+        "Accepted send cannot be duplicated through edits or Full details",
+        "Unsupported status endpoint preserves acceptance and says delivery is unavailable",
+        "Delivery lookup timeout does not mark accepted text as failed or resend",
+        "Dry-run remains explicitly unsent and allows a later actual send",
+        "Dry-run after acceptance does not erase the earlier delivery state",
+        "Rapid double click makes one submission while response is pending",
+        "Prepare another message requires confirmation for unresolved result",
+        "Out-of-order delivery reports reconcile by ID, not recipient order",
+        "Missing or foreign report rows cannot confirm an unrelated delivery",
+        "HTTP failure with provider UNKNOWN never asserts nothing was sent",
+        "Recipient numbers with spaces remain one number per comma/semicolon",
+        "No recipient makes no messaging request",
+        "Unconfigured messaging keeps manual copy/open fallback",
+        "Picture-message acceptance does not imply delivery; unsupported tracking stays explicit",
+        "Unticking the picture sends text only through the SMS endpoint",
+        "Picture generation failure leaves a visible explanation and disables the picture option",
+        "Result and controls stay within the viewport"
+      ]
+    },
+    "phone": {
+      "passed": 24,
+      "total": 24,
+      "page_errors": 0,
+      "production_messaging_writes": 0,
+      "checks": [
+        "Acceptance is pending; dialog stays open and never claims delivered",
+        "Explicit refresh confirms delivered by message ID, without resending",
+        "A failed delivery report is visibly failed",
+        "Mixed accepted and rejected recipients keep separate results",
+        "SUCCESS is exact: UNSUCCESSFUL never counts as acceptance",
+        "Unknown provider status does not unlock a potentially duplicate send",
+        "Timeout is unknown and duplicate send remains blocked after editing",
+        "Accepted send cannot be duplicated through edits or Full details",
+        "Unsupported status endpoint preserves acceptance and says delivery is unavailable",
+        "Delivery lookup timeout does not mark accepted text as failed or resend",
+        "Dry-run remains explicitly unsent and allows a later actual send",
+        "Dry-run after acceptance does not erase the earlier delivery state",
+        "Rapid double click makes one submission while response is pending",
+        "Prepare another message requires confirmation for unresolved result",
+        "Out-of-order delivery reports reconcile by ID, not recipient order",
+        "Missing or foreign report rows cannot confirm an unrelated delivery",
+        "HTTP failure with provider UNKNOWN never asserts nothing was sent",
+        "Recipient numbers with spaces remain one number per comma/semicolon",
+        "No recipient makes no messaging request",
+        "Unconfigured messaging keeps manual copy/open fallback",
+        "Picture-message acceptance does not imply delivery; unsupported tracking stays explicit",
+        "Unticking the picture sends text only through the SMS endpoint",
+        "Picture generation failure leaves a visible explanation and disables the picture option",
+        "Result and controls stay within the viewport"
+      ]
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "tabs_visited": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "tabs_visited": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "phone_visual_review": "Readable per-recipient results and controls; disabled Send is visibly dimmed; no horizontal overflow. Screenshots are private.",
+  "messaging_test_policy": "Every SMS/MMS read and write locally fulfilled or aborted with synthetic fixtures. No production message sends or record writes.",
+  "scope": "UI browser checks and standard read-only sweeps on this candidate. Does not prove delivery to a physical handset or server deployment."
+}
