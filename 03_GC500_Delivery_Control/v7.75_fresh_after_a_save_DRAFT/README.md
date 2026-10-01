@@ -1,4 +1,4 @@
-# v7.75 — fresh after a save; the recovery ratios wait for the quotes (DRAFT — under review)
+# v7.75 — fresh after a save; the recovery ratios wait for the quotes (DRAFT — frozen, Codex reviewing)
 
 Author: Andrew Fisher · 1 Oct 2026, 19:30 AEST · one patch on the live v7.76
 
@@ -38,18 +38,33 @@ bash toolchain/build.sh v7.75 v7.75_fresh_after_a_save_DRAFT/patch_v775.py
 python3 toolchain/upload_page.py build/GC500_v7.75/GC500_Delivery_Control_hosted.html
 ```
 
-## Results — `build/GC500_v7.75` on the live v7.76 (8,674,101 bytes, SHA-256 `449f9d0c…`), 19:23–19:28 AEST
+## Review — before the build was frozen
 
-**8,675,497 bytes, SHA-256 `b4f5b990aad9e60f6175ee402a8138b8659c6d4918ce035094fa4f0418bc3e08`**, check_page PASS.
+- **Codex's review of the first candidate (b4f5b990, withdrawn), 19:43:** the original `save()` redraws the tab bar
+  itself before it returns, and the wrapper marked the hold stale only after it, so on an editing link the tab bar read
+  the pre-edit list. Fixed: the hold is marked stale **before** the save as well as after (the edit is already on the
+  record when `save()` is called). Test **A6** opens the editor path for the check only (`SYNC.readonly` off; the
+  shared-record push, folder write and browser storage stubbed; all put back) and fails on b4f5b990, passes now.
+- **Claude's adversarial review (two lenses, a skeptic, a critic):** the save lens found the same tab-bar path, and
+  that the stale list was rebuilt before the memo was emptied, so the rebuilt list's own rental lookups could come from
+  before the save. No figure can be wrong today (the given references those lookups read change only in click
+  handlers, never inside a hold), but it is reordered: the memo is emptied first. The ratios-and-tests lens raised five
+  nits, all refuted on verification.
+- **The v7.76 review's critic** confirmed that ending the hold at `render()` would miss the pane-emptying route, which
+  test **A5** covers with real keystrokes on the 15,095-element Plant pane.
 
-| Check | Live v7.76 | v7.75 build |
-|---|---|---|
-| `evidence/fresh_after_save_tests.js` — a box commits during `go()`'s focus move, writes and saves, and the rest of the draw must see it (list and both models); the second route: a box typed with real keystrokes on the Plant pane (15,095 elements) is committed as the pane is emptied inside the hold; builds per tab change; the ratios with the quotes unapproved and not splitting | **5/10 — fails the five the patch fixes** (the save not seen by either route; Transport Recovery ×4.62 unapproved) | **10/10 desktop · 10/10 phone** |
-| Builds of the asset list per tab change, no save (every tab) | 1 each | 1 each — unchanged |
-| Codex's v7.76 navigation regressions (`v7.76_…_LIVE/evidence/navigation_regressions.js`, on the build) | 21/21 | **21/21** |
-| The released P&L suite (`v7.70_…_LIVE/evidence/practice_tests.js`) | 31/31 | **31/31 desktop · 31/31 phone** |
-| Sweeps | — | **21 tabs, 7 deep links, 0 page errors, 0 console — desktop and phone** |
-| Every tab's text against live v7.76 | — | identical but for the live weather and "last confirmed" times; no agent's name; no undefined or NaN |
+## Results — `build/GC500_v7.75` on the live v7.76 (8,674,101 bytes, SHA-256 `449f9d0c…`), 19:49–19:54 AEST
 
-Under review: an adversarial review of the patch (two lenses, a skeptic, a critic), then Codex's review of the same
-frozen build — Andrew, 19:21: updates are published only when both have finished.
+**8,675,862 bytes, SHA-256 `0154be31194e3553d366132a99a68effd166ceee455f7fc5217e60e59a4de9c8`**, check_page PASS.
+
+| Check | Live v7.76 | First candidate b4f5b990 (withdrawn) | v7.75 build |
+|---|---|---|---|
+| `evidence/fresh_after_save_tests.js` (11): A1–A4 the save during `go()`'s focus move is seen by the rest of the draw (list and both models); A5 the second route, a box typed with real keystrokes as the Plant pane is emptied inside the hold; A6 the editor path, the tab bar `save()` redraws reads the edit; B1 builds per tab change; C1–C4 the ratios today, unapproved, not splitting, put back | **5/11** | 10/11 (fails A6) | **11/11 desktop · 11/11 phone** |
+| Builds of the asset list per tab change, no save (every tab) | 1 each | 1 each | 1 each — unchanged |
+| Codex's v7.76 navigation regressions (on the build) | 21/21 | 21/21 | **21/21** |
+| The released P&L suite | 31/31 | 31/31 | **31/31 desktop · 31/31 phone** |
+| Sweeps | — | 0/0 | **21 tabs, 7 deep links, 0 page errors, 0 console — desktop and phone** |
+| Every tab's text against live v7.76 | — | — | identical but for the live weather and "last confirmed" times; no agent's name; no undefined or NaN |
+
+Claude's review: complete on this build. **Waiting on Codex's review of this same SHA** (Andrew, 19:21: published only
+when both have finished). READY TO UPLOAD is written here and on the board only after that.
