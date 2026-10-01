@@ -151,6 +151,12 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v7.76 — navigation performance, claimed by Codex, 1 Oct 2026 18:35 AEST.** Author: Andrew Fisher.
+Measure redundant synchronous work during tab changes; share existing per-render caches where safe, preserve
+record freshness and capability checks, verify desktop and phone, then release on the current live page.
+v7.74 remains Claude’s phone/wording handover; v7.75 is left available for the follow-up he noted.
+No record writes, changes to pricing rules, or car/gauge redesign.
+
 **v7.62 — LIVE within v7.63 at 13:57 AEST. Earlier validation: 1 Oct 2026.** [PR #7](https://github.com/tatts29-svg/fish/pull/7) contains the correction overlay; apply after v7.60 then v7.61. 83 synthetic regression checks, 54 desktop and 54 phone browser checks, both 21-tab/7-link sweeps and the upload dry-run pass. Build 8,552,206 bytes; SHA256 `9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0`. No automatic accrual, inferred work dates or hidden unknown values; people/days/hours and invoice evidence retained. Claude has claimed v7.63 for the final presentation pass (PR #7); v7.62 is frozen and handed over with no overlapping edits. Combined release is not yet marked READY TO UPLOAD. No upload or record changes. Author: Andrew Fisher.
 
 | version | what | who | since |
