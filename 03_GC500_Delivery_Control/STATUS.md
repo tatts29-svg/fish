@@ -391,7 +391,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
-**v7.88 — full-lap Showcase visual correction, Codex, 2 Oct 2026. WORKING PREVIEW; visual review pending, not live.**
+**v7.88 — full-lap Showcase visual correction, Codex, 2 Oct 2026. WORKING PREVIEW; independent checks complete, not live.**
 Author: Andrew Fisher. Andrew: "the job was to keep what we have and we are upgrading the look ... its the whole
 track not 10 mtrs of it. U also have mp4 videos of whole track to help you". Preserve the existing circuit geometry,
 car, driving simulation, cameras, MP4/weather and speedos. Replace the separate short detail run with improvements
@@ -405,9 +405,12 @@ integration **23/23** and both **21-tab/7-link sweeps** pass with zero errors. N
 are verified. Actual-render contact sheets are in `v7.88_full_lap_detail_DRAFT/evidence/final-*.png`.
 Candidate built on v7.87: **8,854,418 bytes**, SHA256 `121d183a400d95d997bfbf4db07b5cb5872b57a8e3ec80d163adc4eaec1dd91e`;
 offline preview **1,139,977 bytes**, SHA256 `a31ccb858829675a8ae1b9364107058b823a70b80ec23d1b0467e402ce5191db`.
-Claude is independently reviewing the same frozen renderer. Buildings/foliage remain stylised; the technical passes
-are not visual sign-off or a physical-device/4K performance claim. Rebuild on the latest live base before release.
-v7.87 Inventory is verified live; v7.89 header review runs separately. No financial record changes are included.
+Claude independently rebuilt the same hashes and completed **61/61** in-page lap checkpoints, **45/45** driver rules,
+and **58/58** in the earlier lap harness on desktop/phone. He inspected the circuit views and start/finish join;
+no movement jumps or graphics errors. Evidence: `v7.88_review_by_claude/` and PR #1 comment 5942850787 for the finished
+phone rerun. Buildings/foliage remain stylised; these checks do not claim Andrew's visual acceptance or physical-device/4K
+performance. Rebuild on the latest live base before release. v7.89 header is now verified live; v7.90 maps are being
+reviewed separately. No financial record changes are included in this graphics preview.
 
 **Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude).** Author: Andrew Fisher.
 HA 36564-36568 and SN 24463-24465 transcribed from Andrew's photographs:

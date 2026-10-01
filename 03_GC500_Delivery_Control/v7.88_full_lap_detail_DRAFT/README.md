@@ -34,9 +34,9 @@ distance coverage bins. The bins are test diagnostics, not official race sectors
 parts; this draft does not invent buildings to fill them. The route, building/tree positions and dimensions remain unchanged. Original kerb source arrays remain intact; only their visual width/paint scale is corrected.
 
 **Working preview; not ready to upload.** The final continuous full-lap, integration and navigation checks pass.
-Independent visual review is in progress. Buildings and foliage remain stylised: this working preview does not yet
+Independent technical and lap-visual review is complete. Buildings and foliage remain stylised: this working preview does not yet
 match the photoreal concept. No claim is made about physical-device frame rate or 4K real-time performance.
-This candidate was built on live v7.87; the separate v7.89 header release is being reviewed. These graphics have
+This candidate was built on v7.87; the separate v7.89 header release is now live. These graphics have
 not been published, and any eventual release must be rebuilt on the then-current live page.
 
 The first complete desktop sweep passed 30/30 checks over 2,935 m, but exposed oversized original kerb shapes.
@@ -59,6 +59,13 @@ physical-device performance benchmark. The contact sheets and phone frame have b
 See `evidence/final-full-lap-checks.json`, `evidence/final-desktop-contact.png` and
 `evidence/final-phone-contact.png`. Individual track-level and chicane views are beside them. These show the actual
 working renderer around the circuit; diagnostic distance labels are simulated metres travelled, not official sectors.
+
+An independent rebuild matches both hashes. Its in-page run passes **61/61** coverage checkpoints through more than
+3,000 m, with no movement jumps or graphics errors and a clean start/finish join. Driver rules pass **45/45**.
+Its rerun of the earlier lap harness passes **58/58** across desktop and phone (the final 68-check harness above
+also checks the corrected kerb dimensions, retained paint and resource count). The review confirms the original
+large tyre-smoke effect is retained. Actual reviewer attribution and the completed rerun are recorded on STATUS
+and the authorised coordination PR. This supports the working preview, not a claim that the visual target is finished.
 
 Required navigation sweeps pass on the corrected candidate: **21 tabs / 7 links** each on desktop and phone,
 zero page or console errors. Official upload dry-run passes against unchanged live v7.87; nothing uploaded.
