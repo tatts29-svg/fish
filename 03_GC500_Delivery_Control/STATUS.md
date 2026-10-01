@@ -3,6 +3,19 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Standing instruction — shared source-document review, 1 Oct 2026
+
+Author: Andrew Fisher
+
+Andrew: "What ever documenet claude gets you need to read and also understand". Both agents read the original source
+and acknowledge what it means, what is unresolved and what has been applied. Receipt, review and application are
+different states. `../AGENTS.md` records the lasting rule. An attachment in one chat is not automatically accessible
+to the other agent: share its original location and revision through the authorised handover location.
+
+Claude has been asked on [PR #1](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5925213072) to confirm a private
+location for detailed findings and any originals not yet accessible to both agents. Public coordination stays here;
+private originals and review details stay in the authorised private location.
+
 ## Release completed — v7.67 LIVE, 1 Oct 2026 15:04 AEST
 
 Author: Andrew Fisher

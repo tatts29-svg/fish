@@ -1,6 +1,6 @@
 # Working on Andrew Fisher's repo — for Claude and Codex alike
 
-Author: Andrew Fisher · Shutdown Manager, Coates · last updated 30 Sep 2026
+Author: Andrew Fisher · Shutdown Manager, Coates · last updated 1 Oct 2026
 
 Two AI agents work on this repo: **Claude (Claude Code)** and **Codex (ChatGPT Codex cloud)**. Same jobs, same
 rules, same tools. One day one of you does a job, the next day the other picks it up. Everything either of you needs
@@ -74,6 +74,19 @@ overstated revenue by $66,000).
 
 **The other agent does not hear your chat with Andrew.** Anything he decides that matters beyond the one job — a
 rule, a price, a yes or no — goes into `STATUS.md` (or into the rules below if it is lasting), in his words.
+
+**Both agents read the original documents** (Andrew, 1 Oct 2026: "What ever documenet claude gets you need to read
+and also understand"). When either agent receives a document, share its filename, revision/date, accessible source
+location and Andrew's accompanying decisions through the authorised handover location. Use `STATUS.md` for
+non-sensitive coordination; keep private originals and detailed findings in an authorised private location. Do not
+publish a private attachment merely to hand it over. The receiving agent reads the source, including relevant
+sheets, notes and attachments, checks it against the current records and settled rules, and records what it means
+for quantities, asset numbers, rates, labour, Revenue, Direct costs or Finance reporting. Distinguish what the source
+says from interpretation and Andrew's decisions. Record the review status, discrepancies, action owner and resulting
+release or record change; "received", "read" and "applied" are different states. A summary alone is not a source
+review. If the original is inaccessible, name the missing file and ask the other agent for its location; never claim
+it was read. Check for newer revisions before applying changes. Reading a document does not itself authorise a
+record change or a ledger posting.
 
 Andrew asks for changes and expects them live once tested — that has been the way since 25 Sep. Anything he
 marks as a draft, or anything risky to the record, waits for his yes.
