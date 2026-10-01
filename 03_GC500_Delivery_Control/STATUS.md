@@ -275,6 +275,15 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude, 07:20 AEST).** Author: Andrew Fisher.
+HA 36564-36568 and SN 24463-24465 transcribed from Andrew's photographs:
+`record_02Oct2026_fencing_papers_36564_36568/papers.json`. Andrew, 2 Oct: "shade cloth same as fencing" - shade cloth
+(scrim) is the same metres as the fence on the docket, on the card's Scrim line (36564 40 m, 36568 462.5 m). Charged as
+recorded $29,659.40; paid to Advanced $20,965; service notes 2.75 h ($275). Still with Andrew: whether 36568 overlaps
+36560 (median strip north); CC barrier event or demarcation (recorded demarcation, to confirm); 36566 bracing an
+existing fence (no card line - held). Signed-paper photos (these 8 and the 29 Sep 7) are with Andrew to upload on the
+Documents tab named by number; they stay off the repo.
+
 **v7.84 — LIVE, 2 Oct 2026 06:28 AEST.** Claude's READY handover at `335886e` was independently checked,
 published by Codex and verified byte for byte. See the release completion and Live now entries above.
 Source: `v7.84_ways_in_from_andrew_LIVE/`. Remaining access and timing questions stay open.
