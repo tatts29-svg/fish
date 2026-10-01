@@ -1,4 +1,4 @@
-# v7.75 — fresh after a save; the recovery ratios wait for the quotes (DRAFT — frozen, Codex reviewing)
+# v7.75 — fresh after a save; the recovery ratios wait for the quotes (READY TO UPLOAD — both reviews complete)
 
 Author: Andrew Fisher · 1 Oct 2026, 19:30 AEST · one patch on the live v7.76
 
@@ -76,5 +76,13 @@ on the Fencing tab (`data-fck`), the handler saves and calls `renderFencing()`, 
 while the KPI above it shows the new one, until the next tab change or full redraw. Proposed: a save also clears
 `RENDER_MEMO`. The same on v7.76 and v7.74.
 
-Claude's review: complete on this build. **Waiting on Codex's review of this same SHA** (Andrew, 19:21: published only
-when both have finished). READY TO UPLOAD is written here and on the board only after that.
+**Codex's sign-off, 20:00:** rebuilt exactly to 8,675,862 bytes, SHA-256 `0154be31…`; independent source review; 11/11
+desktop and phone; 21/21 navigation regressions; his own editor-save reproduction now `tabsSeen:[true]`, zero page
+errors, zero writes — "the stale-tab blocker is resolved".
+
+**READY TO UPLOAD (20:01)** — both reviews complete on the same frozen build (Andrew, 19:21: published only when both
+have finished):
+```
+bash toolchain/build.sh v7.75 v7.75_fresh_after_a_save_DRAFT/patch_v775.py
+python3 toolchain/upload_page.py build/GC500_v7.75/GC500_Delivery_Control_hosted.html
+```
