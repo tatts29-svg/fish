@@ -1,0 +1,1864 @@
+[
+ {
+  "key": "GN06",
+  "item": "50kva",
+  "apart_m": 1019,
+  "master": [
+   -27.993975,
+   153.430684
+  ],
+  "master_how": "leader line from callout 006 on D024",
+  "drawing_arrow": [
+   -27.984860575948197,
+   153.42963287141006
+  ]
+ },
+ {
+  "key": "GN10",
+  "item": "20kva",
+  "apart_m": 653,
+  "master": [
+   -27.990969,
+   153.430056
+  ],
+  "master_how": "leader line from callout 010 on D024",
+  "drawing_arrow": [
+   -27.985289956759,
+   153.4283743291665
+  ]
+ },
+ {
+  "key": "GN21",
+  "item": "60kva",
+  "apart_m": 423,
+  "master": [
+   -27.982825,
+   153.424072
+  ],
+  "master_how": "leader line from callout 021 on D024",
+  "drawing_arrow": [
+   -27.98542456275069,
+   153.42721626604103
+  ]
+ },
+ {
+  "key": "GN04",
+  "item": "30kva",
+  "apart_m": 183,
+  "master": [
+   -27.990489,
+   153.428273
+  ],
+  "master_how": "leader line from callout 004 on D024, read by eye (the tracer missed it)",
+  "drawing_arrow": [
+   -27.99100198499869,
+   153.4300444373646
+  ]
+ },
+ {
+  "key": "P54",
+  "item": "Building 6m",
+  "apart_m": 61,
+  "master": [
+   -27.981318,
+   153.423936
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98094214676797,
+   153.42348509971401
+  ]
+ },
+ {
+  "key": "P53",
+  "item": "Building 6m",
+  "apart_m": 45,
+  "master": [
+   -27.981273,
+   153.423961
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.980891146653725,
+   153.4238065114573
+  ]
+ },
+ {
+  "key": "WC33",
+  "item": "FWF",
+  "apart_m": 45,
+  "master": [
+   -27.986092,
+   153.429504
+  ],
+  "master_how": "tag on the unit, master D001 \u2014 the newer master (rev 03) is used; the older D023 (rev 02) arrow points about 45 m away",
+  "drawing_arrow": [
+   -27.985683324894556,
+   153.42948202716124
+  ]
+ },
+ {
+  "key": "WC20",
+  "item": "Toilet Block 6m/Waste tank",
+  "apart_m": 32,
+  "master": [
+   -27.987468,
+   153.428179
+  ],
+  "master_how": "tag on the unit, master D001 \u2014 the newer master (rev 03) is used; the older D023 (rev 02) arrow points about 31 m away",
+  "drawing_arrow": [
+   -27.9877103181429,
+   153.42834711146952
+  ]
+ },
+ {
+  "key": "WC40",
+  "item": "FWF",
+  "apart_m": 25,
+  "master": [
+   -27.983644,
+   153.424458
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983859704846992,
+   153.42437059569667
+  ]
+ },
+ {
+  "key": "P29",
+  "item": "Building 6m",
+  "apart_m": 24,
+  "master": [
+   -27.984773,
+   153.426571
+  ],
+  "master_how": "the block tag P34/24/26/27/28/29 on the master D001 (D022 rev 02 drew callout 029 about 20 m west, beside T&S)",
+  "drawing_arrow": [
+   -27.984573285956174,
+   153.42649145035207
+  ]
+ },
+ {
+  "key": "LTC10",
+  "item": "Light Tower",
+  "apart_m": 23,
+  "master": [
+   -27.985244,
+   153.428424
+  ],
+  "master_how": "leader line from callout 10 on D024",
+  "drawing_arrow": [
+   -27.985452761473624,
+   153.42840174955964
+  ]
+ },
+ {
+  "key": "P27",
+  "item": "Building 4.8m",
+  "apart_m": 21,
+  "master": [
+   -27.984773,
+   153.426571
+  ],
+  "master_how": "the block tag P34/24/26/27/28/29 on the master D001 (D022 rev 02 drew callout 027 about 20 m west, beside T&S)",
+  "drawing_arrow": [
+   -27.98458495465307,
+   153.42655167972507
+  ]
+ },
+ {
+  "key": "LTC03",
+  "item": "Light Tower",
+  "apart_m": 19,
+  "master": [
+   -27.988157,
+   153.427924
+  ],
+  "master_how": "leader line from callout 03 on D024",
+  "drawing_arrow": [
+   -27.988062594222228,
+   153.42808953295477
+  ]
+ },
+ {
+  "key": "LTC09",
+  "item": "Light Tower",
+  "apart_m": 17,
+  "master": [
+   -27.984259,
+   153.426138
+  ],
+  "master_how": "leader line from callout 09 on D024",
+  "drawing_arrow": [
+   -27.984175640848292,
+   153.42628548710573
+  ]
+ },
+ {
+  "key": "LTC04",
+  "item": "Light Tower",
+  "apart_m": 16,
+  "master": [
+   -27.990972,
+   153.430106
+  ],
+  "master_how": "leader line from callout 04 on D024",
+  "drawing_arrow": [
+   -27.99093144328073,
+   153.42995062586567
+  ]
+ },
+ {
+  "key": "LTC02",
+  "item": "Light Tower",
+  "apart_m": 15,
+  "master": [
+   -27.98676,
+   153.427371
+  ],
+  "master_how": "leader line from callout 02 on D024",
+  "drawing_arrow": [
+   -27.9866708689782,
+   153.42748110956572
+  ]
+ },
+ {
+  "key": "LTC07",
+  "item": "Light Tower",
+  "apart_m": 15,
+  "master": [
+   -27.982017,
+   153.423901
+  ],
+  "master_how": "leader line from callout 07 on D024",
+  "drawing_arrow": [
+   -27.98194198767512,
+   153.42402404103524
+  ]
+ },
+ {
+  "key": "P56",
+  "item": "Building 3.6m",
+  "apart_m": 15,
+  "master": [
+   -27.981305,
+   153.423889
+  ],
+  "master_how": "tag on the unit, master D001 \u2014 the newer master (rev 03) is used; the older D022 (rev 02) arrow points about 16 m away",
+  "drawing_arrow": [
+   -27.981409894805246,
+   153.42379507680624
+  ]
+ },
+ {
+  "key": "LTC01",
+  "item": "Light Tower",
+  "apart_m": 13,
+  "master": [
+   -27.986063,
+   153.426946
+  ],
+  "master_how": "leader line from callout 01 on D024",
+  "drawing_arrow": [
+   -27.9859881406589,
+   153.42704614557238
+  ]
+ },
+ {
+  "key": "GN03",
+  "item": "30kva",
+  "apart_m": 12,
+  "master": [
+   -27.988016,
+   153.42792
+  ],
+  "master_how": "leader line from callout 003 on D024",
+  "drawing_arrow": [
+   -27.98810969165091,
+   153.42797187566333
+  ]
+ },
+ {
+  "key": "LTC05",
+  "item": "Light Tower",
+  "apart_m": 12,
+  "master": [
+   -27.985328,
+   153.430109
+  ],
+  "master_how": "leader line from callout 05 on D024",
+  "drawing_arrow": [
+   -27.98538493612128,
+   153.43000878704026
+  ]
+ },
+ {
+  "key": "LTC11",
+  "item": "Light Tower",
+  "apart_m": 12,
+  "master": [
+   -27.985043,
+   153.426903
+  ],
+  "master_how": "leader line from callout 11 on D024",
+  "drawing_arrow": [
+   -27.98502266476995,
+   153.42702801703805
+  ]
+ },
+ {
+  "key": "WC12",
+  "item": "FWF",
+  "apart_m": 12,
+  "master": [
+   -27.985457,
+   153.427346
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.985510815615207,
+   153.42724251456568
+  ]
+ },
+ {
+  "key": "WC67",
+  "item": "FWF",
+  "apart_m": 12,
+  "master": [
+   -27.981388,
+   153.424153
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.981284808953948,
+   153.42419108007925
+  ]
+ },
+ {
+  "key": "WC09",
+  "item": "FWF/Pee Panel/Toilet Block 6m",
+  "apart_m": 11,
+  "master": [
+   -27.98474,
+   153.427965
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984678308444355,
+   153.42805286453304
+  ]
+ },
+ {
+  "key": "WC11",
+  "item": "FWF",
+  "apart_m": 11,
+  "master": [
+   -27.984901,
+   153.426559
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984994567291107,
+   153.42659431721182
+  ]
+ },
+ {
+  "key": "WC69",
+  "item": "FWF",
+  "apart_m": 11,
+  "master": [
+   -27.981495,
+   153.424185
+  ],
+  "master_how": "tag on the unit, master D001 (the second of its two tags; D023 callout WC69 and zone page K228 both put it here)",
+  "drawing_arrow": [
+   -27.981524757078752,
+   153.4240734196624
+  ]
+ },
+ {
+  "key": "GN01",
+  "item": "60kva",
+  "apart_m": 10,
+  "master": [
+   -27.985974,
+   153.426924
+  ],
+  "master_how": "leader line from callout 001 on D024",
+  "drawing_arrow": [
+   -27.986027802952076,
+   153.42700823975753
+  ]
+ },
+ {
+  "key": "P57",
+  "item": "Building 9.6m",
+  "apart_m": 10,
+  "master": [
+   -27.981319,
+   153.424194
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98128849446699,
+   153.42409461949998
+  ]
+ },
+ {
+  "key": "P58",
+  "item": "Building 6m",
+  "apart_m": 9,
+  "master": [
+   -27.983887,
+   153.426502
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983816838913704,
+   153.42645193207588
+  ]
+ },
+ {
+  "key": "LTC06",
+  "item": "Light Tower",
+  "apart_m": 8,
+  "master": [
+   -27.984817,
+   153.429688
+  ],
+  "master_how": "leader line from callout 06 on D024",
+  "drawing_arrow": [
+   -27.984878023875982,
+   153.4296413787165
+  ]
+ },
+ {
+  "key": "LTC12",
+  "item": "Light Tower",
+  "apart_m": 8,
+  "master": [
+   -27.985413,
+   153.427052
+  ],
+  "master_how": "leader line from callout 12 on D024",
+  "drawing_arrow": [
+   -27.985344928180357,
+   153.4270824348716
+  ]
+ },
+ {
+  "key": "GN13",
+  "item": "45kva",
+  "apart_m": 7,
+  "master": [
+   -27.988507,
+   153.430183
+  ],
+  "master_how": "leader line from callout 013 on D024",
+  "drawing_arrow": [
+   -27.988508267321517,
+   153.4301118237097
+  ]
+ },
+ {
+  "key": "GN18",
+  "item": "50kva",
+  "apart_m": 7,
+  "master": [
+   -27.983572,
+   153.42418
+  ],
+  "master_how": "leader line from callout 018 on D024",
+  "drawing_arrow": [
+   -27.983520598195522,
+   153.42414812209572
+  ]
+ },
+ {
+  "key": "GN20",
+  "item": "350kva",
+  "apart_m": 7,
+  "master": [
+   -27.985412,
+   153.427092
+  ],
+  "master_how": "leader line from callout 020 on D024",
+  "drawing_arrow": [
+   -27.985397452396573,
+   153.42716330527915
+  ]
+ },
+ {
+  "key": "GN23",
+  "item": "150kva",
+  "apart_m": 7,
+  "master": [
+   -27.986317,
+   153.427711
+  ],
+  "master_how": "leader line from callout 023 on D024",
+  "drawing_arrow": [
+   -27.986295221895247,
+   153.42777891340185
+  ]
+ },
+ {
+  "key": "GN24",
+  "item": "80kva",
+  "apart_m": 7,
+  "master": [
+   -27.983211,
+   153.426767
+  ],
+  "master_how": "leader line from callout 024 on D024",
+  "drawing_arrow": [
+   -27.98325945017473,
+   153.4267240073089
+  ]
+ },
+ {
+  "key": "LTC08",
+  "item": "Light Tower",
+  "apart_m": 7,
+  "master": [
+   -27.982312,
+   153.424364
+  ],
+  "master_how": "leader line from callout 08 on D024",
+  "drawing_arrow": [
+   -27.982329318322968,
+   153.42429748136925
+  ]
+ },
+ {
+  "key": "P04",
+  "item": "Building 12m",
+  "apart_m": 7,
+  "master": [
+   -27.983494,
+   153.426438
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983553818725618,
+   153.4264644918197
+  ]
+ },
+ {
+  "key": "P52",
+  "item": "Building 12m",
+  "apart_m": 7,
+  "master": [
+   -27.981311,
+   153.424032
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.981253502273724,
+   153.42405235274293
+  ]
+ },
+ {
+  "key": "WC24",
+  "item": "FWF",
+  "apart_m": 7,
+  "master": [
+   -27.990988,
+   153.429651
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.991046722081865,
+   153.42965023912393
+  ]
+ },
+ {
+  "key": "WC25",
+  "item": "FWF",
+  "apart_m": 7,
+  "master": [
+   -27.990016,
+   153.428841
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.990075162254783,
+   153.42883794641253
+  ]
+ },
+ {
+  "key": "WC30",
+  "item": "FWF",
+  "apart_m": 7,
+  "master": [
+   -27.982388,
+   153.427844
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.982445714391016,
+   153.42781940228136
+  ]
+ },
+ {
+  "key": "GN19",
+  "item": "60kva",
+  "apart_m": 6,
+  "master": [
+   -27.982197,
+   153.424611
+  ],
+  "master_how": "leader line from callout 019 on D024",
+  "drawing_arrow": [
+   -27.98222794071283,
+   153.42455586044846
+  ]
+ },
+ {
+  "key": "LTC14",
+  "item": "Light Tower",
+  "apart_m": 6,
+  "master": [
+   -27.98348,
+   153.426263
+  ],
+  "master_how": "leader line from callout 14 on D024",
+  "drawing_arrow": [
+   -27.983531551316368,
+   153.42624529663817
+  ]
+ },
+ {
+  "key": "P44",
+  "item": "Building 6m",
+  "apart_m": 6,
+  "master": [
+   -27.983838,
+   153.426473
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983889116174925,
+   153.42648060965547
+  ]
+ },
+ {
+  "key": "P46",
+  "item": "Building 12m",
+  "apart_m": 6,
+  "master": [
+   -27.983501,
+   153.423964
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98348106332665,
+   153.42390279543025
+  ]
+ },
+ {
+  "key": "P51",
+  "item": "Building 12m",
+  "apart_m": 6,
+  "master": [
+   -27.983569,
+   153.424249
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983592834330974,
+   153.42419751635964
+  ]
+ },
+ {
+  "key": "WC01",
+  "item": "Accessible Toilet/FWF",
+  "apart_m": 6,
+  "master": [
+   -27.983425,
+   153.42525
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98337544010492,
+   153.42526863454106
+  ]
+ },
+ {
+  "key": "WC19",
+  "item": "FWF",
+  "apart_m": 6,
+  "master": [
+   -27.988201,
+   153.428261
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.988255516826722,
+   153.42826485002857
+  ]
+ },
+ {
+  "key": "WC28",
+  "item": "FWF",
+  "apart_m": 6,
+  "master": [
+   -27.983376,
+   153.429175
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983419375079805,
+   153.42914518992507
+  ]
+ },
+ {
+  "key": "WC31",
+  "item": "Accessible Toilet/16Pan Block",
+  "apart_m": 6,
+  "master": [
+   -27.982469,
+   153.425324
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.982448686315355,
+   153.4253810115792
+  ]
+ },
+ {
+  "key": "WC39",
+  "item": "FWF",
+  "apart_m": 6,
+  "master": [
+   -27.983559,
+   153.423886
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983523990754414,
+   153.42383367020287
+  ]
+ },
+ {
+  "key": "WC45",
+  "item": "FWF",
+  "apart_m": 6,
+  "master": [
+   -27.990704,
+   153.428409
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.99075523321277,
+   153.42840331107368
+  ]
+ },
+ {
+  "key": "WC53",
+  "item": "FWF",
+  "apart_m": 6,
+  "master": [
+   -27.992683,
+   153.430294
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.992684577602066,
+   153.4303570541551
+  ]
+ },
+ {
+  "key": "WC59",
+  "item": "FWF",
+  "apart_m": 6,
+  "master": [
+   -27.988171,
+   153.430113
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.988219189042347,
+   153.43013367952764
+  ]
+ },
+ {
+  "key": "WC65",
+  "item": "FWF",
+  "apart_m": 6,
+  "master": [
+   -27.981482,
+   153.426352
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98148835762823,
+   153.4264148191
+  ]
+ },
+ {
+  "key": "P17",
+  "item": "Building 9.6m",
+  "apart_m": 5,
+  "master": [
+   -27.984888,
+   153.426979
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984908857204225,
+   153.42702538640717
+  ]
+ },
+ {
+  "key": "P33",
+  "item": "Building 9.6m",
+  "apart_m": 5,
+  "master": [
+   -27.984876,
+   153.426644
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984881054887293,
+   153.42658962614806
+  ]
+ },
+ {
+  "key": "WC15",
+  "item": "Toilet Block 6m",
+  "apart_m": 5,
+  "master": [
+   -27.986024,
+   153.428091
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986006785119677,
+   153.42813285875678
+  ]
+ },
+ {
+  "key": "WC23",
+  "item": "FWF",
+  "apart_m": 5,
+  "master": [
+   -27.989492,
+   153.429184
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.989523401091063,
+   153.42915044244359
+  ]
+ },
+ {
+  "key": "WC26",
+  "item": "FWF",
+  "apart_m": 5,
+  "master": [
+   -27.98884,
+   153.429563
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.988799373394727,
+   153.42958370072736
+  ]
+ },
+ {
+  "key": "WC29",
+  "item": "FWF",
+  "apart_m": 5,
+  "master": [
+   -27.983537,
+   153.428563
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983571230980036,
+   153.42853396148035
+  ]
+ },
+ {
+  "key": "WC34",
+  "item": "FWF",
+  "apart_m": 5,
+  "master": [
+   -27.982349,
+   153.425863
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.982305922649076,
+   153.42588414993293
+  ]
+ },
+ {
+  "key": "WC35",
+  "item": "FWF",
+  "apart_m": 5,
+  "master": [
+   -27.981848,
+   153.427746
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.981807203999846,
+   153.42774975198842
+  ]
+ },
+ {
+  "key": "WC51",
+  "item": "Accessible Toilet/FWF",
+  "apart_m": 5,
+  "master": [
+   -27.993005,
+   153.430532
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.993015510335788,
+   153.4305772342539
+  ]
+ },
+ {
+  "key": "WC60",
+  "item": "Toilet Block 6m/Waste tank",
+  "apart_m": 5,
+  "master": [
+   -27.985279,
+   153.430053
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.985272824816132,
+   153.43010448939563
+  ]
+ },
+ {
+  "key": "WC68",
+  "item": "FWF",
+  "apart_m": 5,
+  "master": [
+   -27.981453,
+   153.424445
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.981492998695558,
+   153.42445302356396
+  ]
+ },
+ {
+  "key": "WC71",
+  "item": "FWF",
+  "apart_m": 5,
+  "master": [
+   -27.981269,
+   153.423502
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.981304293011213,
+   153.423471000977
+  ]
+ },
+ {
+  "key": "P06",
+  "item": "Building 6m",
+  "apart_m": 4,
+  "master": [
+   -27.984233,
+   153.427739
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984233487786963,
+   153.42778418804295
+  ]
+ },
+ {
+  "key": "P25",
+  "item": "Building 4.8m",
+  "apart_m": 4,
+  "master": [
+   -27.991486,
+   153.430428
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.991499893208896,
+   153.4304608777688
+  ]
+ },
+ {
+  "key": "P69",
+  "item": "Building 6m",
+  "apart_m": 4,
+  "master": [
+   -27.988165,
+   153.430065
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98813981695623,
+   153.4300881790969
+  ]
+ },
+ {
+  "key": "WC02",
+  "item": "FWF",
+  "apart_m": 4,
+  "master": [
+   -27.983601,
+   153.425725
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983568414812954,
+   153.425713888777
+  ]
+ },
+ {
+  "key": "WC04",
+  "item": "FWF",
+  "apart_m": 4,
+  "master": [
+   -27.983871,
+   153.426545
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98384042295745,
+   153.4265217848583
+  ]
+ },
+ {
+  "key": "WC16",
+  "item": "Toilet Block 6m",
+  "apart_m": 4,
+  "master": [
+   -27.985974,
+   153.427681
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98595479431152,
+   153.42771176014875
+  ]
+ },
+ {
+  "key": "WC27",
+  "item": "Toilet Block 6m/Waste tank",
+  "apart_m": 4,
+  "master": [
+   -27.98524,
+   153.429459
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.985215948486264,
+   153.42943281510068
+  ]
+ },
+ {
+  "key": "WC43",
+  "item": "FWF",
+  "apart_m": 4,
+  "master": [
+   -27.986363,
+   153.427238
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98638848120451,
+   153.4272107868767
+  ]
+ },
+ {
+  "key": "WC49",
+  "item": "FWF",
+  "apart_m": 4,
+  "master": [
+   -27.99397,
+   153.430693
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.993971632314196,
+   153.4306525363183
+  ]
+ },
+ {
+  "key": "WC61",
+  "item": "FWF",
+  "apart_m": 4,
+  "master": [
+   -27.984129,
+   153.429805
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98412777919652,
+   153.42984986360446
+  ]
+ },
+ {
+  "key": "P05",
+  "item": "Building 6m",
+  "apart_m": 3,
+  "master": [
+   -27.983378,
+   153.426635
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98335782773949,
+   153.42665578048096
+  ]
+ },
+ {
+  "key": "P09",
+  "item": "Building 6m",
+  "apart_m": 3,
+  "master": [
+   -27.984826,
+   153.426698
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98482620254682,
+   153.42672725403594
+  ]
+ },
+ {
+  "key": "P12",
+  "item": "Building 4.8m",
+  "apart_m": 3,
+  "master": [
+   -27.986719,
+   153.428176
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986739077541344,
+   153.42816230234456
+  ]
+ },
+ {
+  "key": "P14",
+  "item": "Building 4.8m",
+  "apart_m": 3,
+  "master": [
+   -27.986829,
+   153.428218
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986842194815267,
+   153.42819705631817
+  ]
+ },
+ {
+  "key": "P16",
+  "item": "Building 4.8m",
+  "apart_m": 3,
+  "master": [
+   -27.986942,
+   153.428259
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986972038385847,
+   153.42825817809555
+  ]
+ },
+ {
+  "key": "P18",
+  "item": "Building 4.8m",
+  "apart_m": 3,
+  "master": [
+   -27.98496,
+   153.426846
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984987676704016,
+   153.42683836199612
+  ]
+ },
+ {
+  "key": "P19",
+  "item": "Building 4.8m",
+  "apart_m": 3,
+  "master": [
+   -27.984921,
+   153.426893
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984945505929435,
+   153.42689326615016
+  ]
+ },
+ {
+  "key": "P20",
+  "item": "Building 4.8m",
+  "apart_m": 3,
+  "master": [
+   -27.984958,
+   153.426944
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984981642122584,
+   153.42694512195365
+  ]
+ },
+ {
+  "key": "P21",
+  "item": "Building 4.8m",
+  "apart_m": 3,
+  "master": [
+   -27.984901,
+   153.426869
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984879435987605,
+   153.42689047862658
+  ]
+ },
+ {
+  "key": "P37",
+  "item": "Building 6m",
+  "apart_m": 3,
+  "master": [
+   -27.986862,
+   153.428274
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986879393521154,
+   153.42829962533258
+  ]
+ },
+ {
+  "key": "P41",
+  "item": "Building 6m",
+  "apart_m": 3,
+  "master": [
+   -27.983593,
+   153.425652
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983565486317705,
+   153.42564977067886
+  ]
+ },
+ {
+  "key": "P65",
+  "item": "Building 6m",
+  "apart_m": 3,
+  "master": [
+   -27.991376,
+   153.430418
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.991368066153967,
+   153.430448398089
+  ]
+ },
+ {
+  "key": "P66",
+  "item": "Building 6m",
+  "apart_m": 3,
+  "master": [
+   -27.991452,
+   153.430425
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.99145056067763,
+   153.43045948353222
+  ]
+ },
+ {
+  "key": "WC05",
+  "item": "Waste tank/Toilet Block 6m",
+  "apart_m": 3,
+  "master": [
+   -27.983608,
+   153.426357
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983578926948788,
+   153.42635397917488
+  ]
+ },
+ {
+  "key": "WC13",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.990939,
+   153.429512
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.990966260206935,
+   153.42949548234787
+  ]
+ },
+ {
+  "key": "WC17",
+  "item": "Toilet Block 6m",
+  "apart_m": 3,
+  "master": [
+   -27.98653,
+   153.428137
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986533427091008,
+   153.4281646351718
+  ]
+ },
+ {
+  "key": "WC38",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.983631,
+   153.424238
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98365345464606,
+   153.4242330623515
+  ]
+ },
+ {
+  "key": "WC41",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.984821,
+   153.42607
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984833240440903,
+   153.42604454917617
+  ]
+ },
+ {
+  "key": "WC42",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.983295,
+   153.424824
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98328120529871,
+   153.42479225937947
+  ]
+ },
+ {
+  "key": "WC46",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.992227,
+   153.429399
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.99222521620032,
+   153.42936911751414
+  ]
+ },
+ {
+  "key": "WC48",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.993745,
+   153.430484
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.99374095688319,
+   153.43051286359827
+  ]
+ },
+ {
+  "key": "WC56",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.98982,
+   153.430057
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.989821908768818,
+   153.43009055724812
+  ]
+ },
+ {
+  "key": "WC70",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.981683,
+   153.424001
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.981659079280462,
+   153.424008502643
+  ]
+ },
+ {
+  "key": "WC73",
+  "item": "FWF",
+  "apart_m": 3,
+  "master": [
+   -27.986964,
+   153.428121
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986976880618357,
+   153.42809245901623
+  ]
+ },
+ {
+  "key": "AA",
+  "item": "Building 6m",
+  "apart_m": 2,
+  "master": [
+   -27.986807,
+   153.428251
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986809588902947,
+   153.42827270780455
+  ]
+ },
+ {
+  "key": "HRP",
+  "item": "Building 6m",
+  "apart_m": 2,
+  "master": [
+   -27.986753,
+   153.42823
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986751418593098,
+   153.42825015628515
+  ]
+ },
+ {
+  "key": "P01",
+  "item": "Building 12m",
+  "apart_m": 2,
+  "master": [
+   -27.983447,
+   153.42658
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983463467501128,
+   153.42659499777312
+  ]
+ },
+ {
+  "key": "P03",
+  "item": "Building 12m",
+  "apart_m": 2,
+  "master": [
+   -27.983541,
+   153.426512
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983550339070607,
+   153.42653075391553
+  ]
+ },
+ {
+  "key": "P08",
+  "item": "Building 6m",
+  "apart_m": 2,
+  "master": [
+   -27.983582,
+   153.424149
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.983601371756148,
+   153.42414941049887
+  ]
+ },
+ {
+  "key": "P10",
+  "item": "Building 4.8m",
+  "apart_m": 2,
+  "master": [
+   -27.986604,
+   153.428131
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98658992898553,
+   153.4281481183161
+  ]
+ },
+ {
+  "key": "P11",
+  "item": "Building 4.8m",
+  "apart_m": 2,
+  "master": [
+   -27.986661,
+   153.428152
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98667261834344,
+   153.42813632310967
+  ]
+ },
+ {
+  "key": "P15",
+  "item": "Building 4.8m",
+  "apart_m": 2,
+  "master": [
+   -27.986885,
+   153.428239
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986900923993332,
+   153.42823125638824
+  ]
+ },
+ {
+  "key": "P36",
+  "item": "Building 6m",
+  "apart_m": 2,
+  "master": [
+   -27.986696,
+   153.42821
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986692666924533,
+   153.42822719063588
+  ]
+ },
+ {
+  "key": "P62",
+  "item": "Building 6m",
+  "apart_m": 2,
+  "master": [
+   -27.99391,
+   153.430602
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.993924983112105,
+   153.43061971467552
+  ]
+ },
+ {
+  "key": "P63",
+  "item": "Building 6m",
+  "apart_m": 2,
+  "master": [
+   -27.993845,
+   153.430599
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.993837087863923,
+   153.43061768204194
+  ]
+ },
+ {
+  "key": "P67",
+  "item": "Building 6m",
+  "apart_m": 2,
+  "master": [
+   -27.991346,
+   153.430415
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.99133447662595,
+   153.43043417049367
+  ]
+ },
+ {
+  "key": "WC06",
+  "item": "FWF",
+  "apart_m": 2,
+  "master": [
+   -27.984688,
+   153.426541
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98469199022578,
+   153.4265201729959
+  ]
+ },
+ {
+  "key": "WC21",
+  "item": "FWF",
+  "apart_m": 2,
+  "master": [
+   -27.989162,
+   153.428592
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.989175972292372,
+   153.42858544481814
+  ]
+ },
+ {
+  "key": "WC50",
+  "item": "FWF",
+  "apart_m": 2,
+  "master": [
+   -27.989762,
+   153.429836
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.989777727163933,
+   153.42984119606777
+  ]
+ },
+ {
+  "key": "WC55",
+  "item": "FWF",
+  "apart_m": 2,
+  "master": [
+   -27.991245,
+   153.429848
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.991248518398915,
+   153.42982475997934
+  ]
+ },
+ {
+  "key": "WC57",
+  "item": "FWF",
+  "apart_m": 2,
+  "master": [
+   -27.988177,
+   153.430191
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98818701419073,
+   153.4302123213815
+  ]
+ },
+ {
+  "key": "WC62",
+  "item": "FWF",
+  "apart_m": 2,
+  "master": [
+   -27.981644,
+   153.429238
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.98166464110081,
+   153.4292462674744
+  ]
+ },
+ {
+  "key": "WC72",
+  "item": "FWF",
+  "apart_m": 2,
+  "master": [
+   -27.982154,
+   153.423999
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.982131538010943,
+   153.4239983632772
+  ]
+ },
+ {
+  "key": "P13",
+  "item": "Building 4.8m",
+  "apart_m": 1,
+  "master": [
+   -27.986778,
+   153.428198
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.986787490691814,
+   153.42818791479402
+  ]
+ },
+ {
+  "key": "P26",
+  "item": "Fridge Lge",
+  "apart_m": 1,
+  "master": [
+   -27.984736,
+   153.426507
+  ],
+  "master_how": "leader line from callout 026 on D022",
+  "drawing_arrow": [
+   -27.984739875383355,
+   153.42651908895485
+  ]
+ },
+ {
+  "key": "P28",
+  "item": "Fridge Lge",
+  "apart_m": 1,
+  "master": [
+   -27.984763,
+   153.426511
+  ],
+  "master_how": "leader line from callout 028 on D022",
+  "drawing_arrow": [
+   -27.98476082636548,
+   153.42652255707006
+  ]
+ },
+ {
+  "key": "P34",
+  "item": "Pad Chair",
+  "apart_m": 1,
+  "master": [
+   -27.984791,
+   153.426549
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.984781454396867,
+   153.42654199980905
+  ]
+ },
+ {
+  "key": "P47",
+  "item": "Building 6m",
+  "apart_m": 1,
+  "master": [
+   -27.983465,
+   153.424018
+  ],
+  "master_how": "leader line from callout 047 on D022",
+  "drawing_arrow": [
+   -27.98347426579553,
+   153.42402717770787
+  ]
+ },
+ {
+  "key": "P55",
+  "item": "Ticket Box 6m",
+  "apart_m": 1,
+  "master": [
+   -27.981347,
+   153.423803
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.981354122031487,
+   153.42380953462217
+  ]
+ },
+ {
+  "key": "WC07",
+  "item": "FWF",
+  "apart_m": 1,
+  "master": [
+   -27.984455,
+   153.4268975
+  ],
+  "master_how": "tag on the unit, master D001 (the second of its two tags; Andrew's pin is 3.9 m from it)",
+  "drawing_arrow": [
+   -27.98445195020269,
+   153.42690632715747
+  ]
+ },
+ {
+  "key": "WC32",
+  "item": "FWF",
+  "apart_m": 1,
+  "master": [
+   -27.982793,
+   153.424621
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.982790024746134,
+   153.42463227557957
+  ]
+ },
+ {
+  "key": "WC44",
+  "item": "FWF",
+  "apart_m": 1,
+  "master": [
+   -27.988994,
+   153.428226
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.988987956180107,
+   153.4282129729003
+  ]
+ },
+ {
+  "key": "WC47",
+  "item": "FWF",
+  "apart_m": 1,
+  "master": [
+   -27.990189,
+   153.428359
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.990194588261122,
+   153.4283558627171
+  ]
+ },
+ {
+  "key": "WC54",
+  "item": "FWF",
+  "apart_m": 1,
+  "master": [
+   -27.991578,
+   153.430438
+  ],
+  "master_how": "tag on the unit, master D001",
+  "drawing_arrow": [
+   -27.991578224799664,
+   153.43044309068273
+  ]
+ }
+]
