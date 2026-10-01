@@ -43,6 +43,9 @@ The Showcase stays unpublished. Sources: `v7.82_maps_accuracy_and_driver_rules_L
 ## In progress — v7.81 Showcase visual refinement, 2 Oct 2026
 
 Author: Andrew Fisher. Codex owns this separate preview on `codex/gc500-v7.81-showcase-preview`, draft PR #20.
+Andrew: “Lets proceed with showcase improvments”. Next additive pass: physical kerb profiles within existing
+footprints, consistent fence lighting, barrier/gantry material and connection detail. Existing MP4/weather,
+speedos, layout, controls and driving simulation remain outside the edits. Preview proof before graphics publication.
 Andrew: “don't undo everything else we have done your improving the look not full redign”. Preserve the existing
 layout, controls, cameras, car, MP4, weather, speedos, scene sequence and project data. This pass adds facade depth,
 refines nearby trees at their existing positions, and improves road/concrete materials and lighting. Source building
