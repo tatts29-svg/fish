@@ -799,6 +799,43 @@ t = rep(t, " <td><span class=\"dp-ll\">${esc(W.ll)}</span><span>${esc(W.line)}</
 t = rep(t, " const top = doc === 'drv' ? `<div class=\"dp-way\"><b>${esc(dpWayIn(gate))}</b>",
         " const top = doc === 'drv' ? `<div class=\"dp-way\">Site gate: <b>${esc(dpWayIn(gate))}</b>", 'sheet: the gate named as the gate', p, True)
 
+# 14. THE PICTURE GOES WHERE THE TEXT GOES, AND THE TEXT ALWAYS SENDS (Codex recheck, 2 Oct 2026). The map picture with
+#     the text framed the item's own position: for an item sent to the pit lane it showed the old spot, and an item placed
+#     only by its description had no picture. It now frames, pins and labels the one destination (dest782), and whether a
+#     picture can be drawn is asked of that destination too. And a requested time could push the text past what the
+#     service will send: when the text is long, the generated wording shortens one step at a time (the greeting, the
+#     item's long name, the worked-out on-site time, the coordinates already inside the Navigate link) - never the due
+#     date, the time asked for, the destination, its qualification, the way in, the order or a hold.
+t = rep(t, "async function mms757Picture(a){\n const nt = navTargetFor(a); if (!nt || !nt.ll) throw new Error('no position on the record for ' + a.key);",
+        "/* v7.82 - can a picture be drawn: asked of the one destination */\nfunction pic782Can(a){ const D7 = dest782(a); return !!(D7 && D7.ll && DATA.georef && frameOf(D7.ll.lat, D7.ll.lon) && (DATA.sheets || []).some(s => s.key === 'AERIAL' && typeof s.src === 'string')); }\nasync function mms757Picture(a){\n const D7 = dest782(a), nt = D7 ? Object.assign({}, D7.nt || {}, {ll: D7.ll}) : null; if (!nt || !nt.ll) throw new Error('no position on the record for ' + a.key); /* v7.82 - the one destination */", 'picture: the one destination', p, True)
+t = rep(t, " const word = nt.pinned && nt.fix && nt.fix.master ? 'from the master plan D001' : nt.pinned ? 'pinned on site' + (nt.fix && nt.fix.acc != null ? ', within ' + Math.max(1, Math.round(nt.fix.acc)) + ' m' : '') : nt.placed ? 'placed on the map, not yet checked on site' : 'from the drawing';\n const m = typeof masterUnit === 'function' ? masterUnit(a.key) : null, near = m && typeof masterWords === 'function' ? masterWords(m) : '';",
+        " const word = D7.kind === 'master' ? 'from the master plan D001' : D7.sms; /* v7.82 - said as the text says it */\n const m = typeof masterUnit === 'function' && (D7.kind === 'master' || D7.kind === 'confirmed') ? masterUnit(a.key) : null, near = m && typeof masterWords === 'function' ? masterWords(m) : '';", 'picture: band words', p, True)
+t = rep(t, " c.save(); c.font = 'bold 30px system-ui, -apple-system, Segoe UI, Roboto, sans-serif'; c.textBaseline = 'middle'; const lw = c.measureText(a.key).width + 26;",
+        " const tag782 = D7.kind === 'report' ? a.key + ' - report here (pit lane)' : a.key; /* v7.82 */\n c.save(); c.font = 'bold 30px system-ui, -apple-system, Segoe UI, Roboto, sans-serif'; c.textBaseline = 'middle'; const lw = c.measureText(tag782).width + 26;", 'picture: pin label', p, True)
+t = rep(t, "c.fillStyle = '#ff6a13'; c.fillText(a.key, lx + 13, ly + 1); c.restore();", "c.fillStyle = '#ff6a13'; c.fillText(tag782, lx + 13, ly + 1); c.restore();", 'picture: pin label text', p, True)
+t = rep(t, " return {dataUrl: url, bytes: bytesOf(url), w: W, h: H + B, quality: q, plan, words: plan ? 'the aerial with the master plan over it' : 'the aerial'};",
+        " return {dataUrl: url, bytes: bytesOf(url), w: W, h: H + B, quality: q, plan, words: plan ? 'the aerial with the master plan over it' : 'the aerial', ll: nt.ll, kind: D7.kind, word, tag: tag782};", 'picture: what it shows', p, True)
+t = rep(t, " const nt = navTargetFor(a), canPic = !!(nt && nt.ll && DATA.georef && (DATA.sheets || []).some(s => s.key === 'AERIAL' && typeof s.src === 'string'));",
+        " const nt = dest782(a), canPic = pic782Can(a); /* v7.82 - the one destination */", 'picture: can it be drawn', p, True)
+# the text stays sendable: shorten generated wording, never the facts a driver needs
+t = rep(t, " { const w = text747When(a); if (w) L.push(w); } /* v7.82 - the due date and the time asked for always go (Codex recheck) */",
+        " { const w = text747When(a); if (w) L.push(w); } /* v7.82 - the due date and the time asked for always go (Codex recheck) */\n fit782(L, a); /* v7.82 - and it stays sendable */", 'text: stays sendable', p, True)
+t = rep(t, "function dropSmsText(a){", r"""/* v7.82 - a text over three texts is shortened one step at a time: generated wording only, never a fact the driver needs */
+function fit782(L, a){
+ const units = () => smsShape(text747Plain(L.join('\n'))).units, at = re => L.findIndex(x => re.test(x));
+ const steps = [
+  () => { if (L[0] === 'Welcome to Coates GC500') L[0] = 'Coates GC500'; },
+  () => { const i = 1, s = String(L[i] || '').split(' - '); if (s.length > 2) L[i] = s.slice(0, 2).join(' - '); },
+  () => { const i = at(/^Due /); if (i >= 0) L[i] = L[i].replace(/, on site by [^,]+, unloaded by/, ', unloaded by'); },
+  () => { const i = at(/^GPS: -?[\d.]+, -?[\d.]+ \(/); if (i >= 0) L[i] = L[i].replace(/^GPS: -?[\d.]+, -?[\d.]+ \((.*)\)$/, 'Spot: $1'); },
+  () => { const i = at(/^Navigate: /); if (i >= 0) L[i] = L[i].replace('&travelmode=driving', ''); },
+  () => { const i = 1; L[i] = String(L[i] || '').replace(/ \([^)]*\)/, ''); },
+  () => { if (L[0] === 'Coates GC500') L.splice(0, 1); }];
+ for (const s of steps) { if (units() <= TEXT747_MAX) break; s(); }
+ return L;
+}
+function dropSmsText(a){""", 'text: shorten generated wording', p, True)
+
 t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch, a check before driver sheets print, location signs, the pit lane when there is no drop-off, water barriers from their description, every location still to come in Inventory). */\n/* v7.80 - a save empties', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
 print('v7.82 applied: GN21 corrected on the master; driver rules on Text it and Full details')

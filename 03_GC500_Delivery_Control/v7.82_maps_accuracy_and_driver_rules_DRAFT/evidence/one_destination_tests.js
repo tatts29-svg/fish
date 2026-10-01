@@ -63,10 +63,40 @@ const fs = require('fs');
   ok('D3 synthetic fallback: the way in is the pit lane\'s own - never the one worked out from the item\'s own spot', !f.skip && f.entry === (f.pitEntry ? 'ENTRY: ' + f.pitEntry.replace(/^ENTRY: /, '') : '') && f.way === f.pitWay && !!f.pitWay && f.entry !== f.own && !/seaside/i.test(f.entry + f.way), JSON.stringify({own: f.own, entry: f.entry, pitEntry: f.pitEntry, way: f.way, pitWay: f.pitWay}));
   ok('D4 synthetic fallback: the button\'s label, spoken words and tooltip all say pit lane', !f.skip && /pit lane/i.test(f.label) && /pit lane/i.test(f.spoken) && /pit lane/i.test(f.title), JSON.stringify({label: f.label, spoken: f.spoken, title: f.title}));
   const b = R.tight;
-  ok('D5 a time asked for keeps the due date and the time, even when the text is full (only the link gives way)', !b.skip && b.kept && b.hasDue && b.hasTime && b.linkDropped, JSON.stringify(b));
+  ok('D5 a time asked for keeps the due date and the time, even when the text is full - the link and generated wording give way, and it stays sendable', !b.skip && b.hasDue && b.hasTime && b.linkDropped && b.units <= 459, JSON.stringify(b));
   ok('D6 every Navigate button: visible label, spoken words and tooltip name the same source', !r.provenance.length, JSON.stringify(r.provenance.slice(0, 10)));
   ok('D7 every approximate destination keeps its qualification in the short text (' + r.approxN + ' approximate)', !r.approx.length, JSON.stringify(r.approx.slice(0, 10)));
   ok('D8 WB06 (description spot, approximate) says so in the text and on the button', R.wb6 && /approximate/i.test(R.wb6.gps) && /approximate/i.test(R.wb6.spoken), JSON.stringify(R.wb6));
+  /* Codex recheck 4: the picture goes where the text goes; and a requested time never makes the text unsendable */
+  const P = await p.evaluate(async () => { const mc = () => { try { RENDER_MEMO.clear(); } catch (e) {} };
+    const same = (x, y) => !!x && !!y && Math.abs(x.lat - y.lat) < 2e-6 && Math.abs(x.lon - y.lon) < 2e-6, out = {};
+    const all = allAssets().filter(a => !a._cancelled);
+    /* the fallback: a seaside master item marked unverified (in this browser only) - the picture frames the pit lane */
+    const sea = all.find(a => { const m = MASTER_LOC[a.key]; if (!m || m.unverified || m.confirmed || !masterUnit(a.key) || inPlace782(a.key)) return false; const e = entry782(a); return e && e.side === 'seaside'; });
+    if (sea) { const m = MASTER_LOC[sea.key]; m.unverified = true; mc();
+      try { const D = dest782(sea), can = typeof pic782Can === 'function' ? pic782Can(sea) : 'none on this page'; let pic = null, err = null; try { pic = await mms757Picture(sea); } catch (e) { err = String(e.message || e); }
+        out.fallback = {ref: sea.key, kind: D.kind, can, err, centred: !!pic && same(pic.ll, D.ll), notOwn: !!pic && !same(pic.ll, {lat: m.ll[0], lon: m.ll[1]}), word: pic && pic.word, tag: pic && pic.tag}; }
+      finally { delete m.unverified; mc(); } }
+    /* a destination placed only by its description (no position of its own on the record) */
+    const dsc = all.find(a => { const D = dest782(a); return D && D.kind === 'desc' && !navTargetFor(a) && !inPlace782(a.key); }) || all.find(a => { const D = dest782(a); return D && D.kind === 'desc' && !inPlace782(a.key); });
+    if (dsc) { const D = dest782(dsc), can = typeof pic782Can === 'function' ? pic782Can(dsc) : 'none on this page'; let pic = null, err = null; try { pic = await mms757Picture(dsc); } catch (e) { err = String(e.message || e); }
+      out.desc = {ref: dsc.key, ownPosition: !!navTargetFor(dsc), can, err, centred: !!pic && same(pic.ll, D.ll), word: pic && pic.word}; }
+    /* every item still to come, with a time asked for: within three texts, and nothing the driver needs is lost */
+    const keep = S.delivery, bad = [], over = []; let n = 0, max = 0;
+    all.filter(a => !inPlace782(a.key)).forEach(a => { S.delivery = Object.assign({}, keep || {}, {[a.key]: Object.assign({}, (keep || {})[a.key] || {}, {eta: '10:00'})}); mc();
+      const t = dropSmsText(a), u = smsShape(t).units, D = dest782(a), miss = []; n++; max = Math.max(max, u); if (u > TEXT747_MAX) over.push(a.key + ':' + u);
+      const eff = effectiveDates(a), day = (eff && eff.in) || a.first_date;
+      if (day && !t.includes('Due ' + fmtDate(day))) miss.push('due date'); if (day && !/unloaded by 10:00/.test(t)) miss.push('time asked for');
+      if (D && !t.includes(D.ll.lat.toFixed(6) + ',' + D.ll.lon.toFixed(6))) miss.push('destination');
+      if (D && D.approx && !/approximate|not the exact spot|not yet checked|not verified/i.test(t)) miss.push('qualification');
+      const w = text747WayIn(a); if (w && !t.includes(w)) miss.push('site access');
+      rules782Sms(a).forEach(x => { if (!t.includes(x)) miss.push(x.slice(0, 12)); });
+      if (miss.length) bad.push(a.key + ': ' + miss.join(', ')); });
+    S.delivery = keep; mc(); out.text = {n, max, limit: TEXT747_MAX, service: TEXT747_SERVICE_MAX, over, bad: bad.slice(0, 12)};
+    return out; });
+  ok('D9 synthetic fallback: the picture frames, pins and labels the pit lane - not the item\'s own spot', P.fallback && P.fallback.can === true && !P.fallback.err && P.fallback.centred && P.fallback.notOwn && /pit lane/.test(P.fallback.word) && /pit lane/.test(P.fallback.tag), JSON.stringify(P.fallback));
+  ok('D10 a destination placed by its description has a picture, centred on that spot', P.desc && P.desc.can === true && !P.desc.err && P.desc.centred && /description/.test(P.desc.word), JSON.stringify(P.desc));
+  ok('D11 with a time asked for, every text stays within three texts (sendable) and keeps the due date, the time, the destination, its qualification, the way in, the order and any hold (' + P.text.n + ' items, longest ' + P.text.max + ')', !P.text.over.length && !P.text.bad.length && P.text.max <= P.text.limit, JSON.stringify(P.text));
   ok('E1 no page errors', !s.errors.length, JSON.stringify(s.errors).slice(0, 200));
   const passed = T.filter(t => t.pass).length;
   T.forEach(t => console.log((t.pass ? 'PASS ' : 'FAIL ') + t.name + ' — ' + t.detail.slice(0, 600)));

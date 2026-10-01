@@ -206,7 +206,7 @@
   {
    "name": "M2 the explorer gets the finished list",
    "pass": true,
-   "detail": "79"
+   "detail": "80"
   },
   {
    "name": "R11 (measure) a delivery-details link gives way only where a v7.82 line needs the room (ORDER, ENTRY, HOLD, the pit-lane directions, the spot for a water barrier) (the link stays in Full details)",
