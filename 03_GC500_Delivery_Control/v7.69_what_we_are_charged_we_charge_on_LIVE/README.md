@@ -1,6 +1,17 @@
-# v7.69 — what we are charged, we charge on (DRAFT: built and tested with v7.68 on the live v7.67)
+# v7.69 — what we are charged, we charge on (LIVE)
 
 Author: Andrew Fisher · 1 Oct 2026
+
+## Released — 1 Oct 2026 17:02 AEST
+
+The combined v7.68 + v7.69 release is live: **8,637,431 bytes**, SHA256
+`ea4643899d33b677c0911b679b0b3e97e5610fe686ab383a39a239a34baf2c43`.
+The uploader verified the public view byte for byte. Final review corrected the tank helper to preserve a single
+numbered piece and the unnumbered remainder of a partly numbered order, retaining existing ticks.
+Seven synthetic regression cases pass; fresh v7.69 desktop/phone checks pass 18/18 each, tank phone checks 16/16,
+and both sweeps pass 21 tabs and seven deep links without page or console errors. Phone screenshots inspected.
+The earlier build evidence below is historical; `evidence/release.json` records this released candidate.
+
 
 Andrew, 1 Oct 16:40 AEST, reading the Questions page's "Water services — customer rates still required … Supplier cost is
 not the rate charged to the V8s, so no Revenue is assumed": **"all our cost — what we charge should cover what we get
@@ -64,7 +75,7 @@ ledger homes for these lines when the P&L is presented in the business's lines (
 ## Build
 
 ```
-bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_DRAFT/patch_v768.py v7.69_what_we_are_charged_we_charge_on_DRAFT/patch_v769.py
+bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_LIVE/patch_v768.py v7.69_what_we_are_charged_we_charge_on_LIVE/patch_v769.py
 python3 toolchain/upload_page.py build/GC500_v7.69/GC500_Delivery_Control_hosted.html
 ```
 
@@ -100,6 +111,6 @@ and says so ("before the N supplier costs not on the record").
 
 **READY TO UPLOAD** with v7.68 — one build, two patches on the live v7.67:
 ```
-bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_DRAFT/patch_v768.py v7.69_what_we_are_charged_we_charge_on_DRAFT/patch_v769.py
+bash toolchain/build.sh v7.69 v7.68_waste_tank_is_a_piece_of_work_LIVE/patch_v768.py v7.69_what_we_are_charged_we_charge_on_LIVE/patch_v769.py
 python3 toolchain/upload_page.py build/GC500_v7.69/GC500_Delivery_Control_hosted.html
 ```

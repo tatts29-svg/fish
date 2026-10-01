@@ -1,6 +1,17 @@
-# v7.68 — a waste tank is a piece of work (READY TO UPLOAD with v7.69 — one build, two patches on the live v7.67)
+# v7.68 — a waste tank is a piece of work (LIVE within v7.69)
 
 Author: Andrew Fisher · 1 Oct 2026
+
+## Released — 1 Oct 2026 17:02 AEST
+
+The combined v7.68 + v7.69 release is live: **8,637,431 bytes**, SHA256
+`ea4643899d33b677c0911b679b0b3e97e5610fe686ab383a39a239a34baf2c43`.
+The uploader verified the public view byte for byte. Final review corrected the tank helper to preserve a single
+numbered piece and the unnumbered remainder of a partly numbered order, retaining existing ticks.
+Seven synthetic regression cases pass; fresh v7.69 desktop/phone checks pass 18/18 each, tank phone checks 16/16,
+and both sweeps pass 21 tabs and seven deep links without page or console errors. Phone screenshots inspected.
+The earlier build evidence below is historical; `evidence/release.json` records this released candidate.
+
 
 Andrew, 1 Oct 15:30 AEST: "WC60 has 2 waste tanks, I told you this. This needs to have a level cost and install cost."
 
@@ -60,7 +71,7 @@ later** — on v7.67 there is no line to tick, and the script stops.
 ## Build
 
 ```
-bash toolchain/build.sh v7.68 v7.68_waste_tank_is_a_piece_of_work_DRAFT/patch_v768.py
+bash toolchain/build.sh v7.68 v7.68_waste_tank_is_a_piece_of_work_LIVE/patch_v768.py
 python3 toolchain/upload_page.py build/GC500_v7.68/GC500_Delivery_Control_hosted.html
 ```
 On the live v7.67 (8,626,587 bytes): **8,629,390 bytes**, check_page PASS, key grep clean. Results of the test chain
@@ -96,4 +107,4 @@ schedule lines already do; the expected-labour forecast moves by the tanks' $499
 "expected on site" means); WC60's "what was supplied" row reads "not recorded" until the record script pins the numbers.
 
 ## Results on the combined build (`build/GC500_v7.69`, 8,637,181 bytes): 16/16 desktop and 16/16 phone; the whole chain
-clean — see `../v7.69_what_we_are_charged_we_charge_on_DRAFT/README.md`.
+clean — see `../v7.69_what_we_are_charged_we_charge_on_LIVE/README.md`.
