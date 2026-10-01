@@ -3,6 +3,16 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Signed papers uploaded — 2 Oct 2026 07:42 AEST
+
+Author: Andrew Fisher. Andrew provided the private archive code and authorised the 15 signed-paper uploads.
+Codex uploaded all **15** through Documents as Fencing dockets, retaining the paper-number filenames.
+Fresh reads prove **15/15 original byte matches**, **15/15 open previews**, and **15/15 filename matches** through
+the existing page function. All **308** prior file entries and shared record **3527** are unchanged.
+This is attachment completion only; pending docket transcription and the v7.86 Fence blocks work remain separate.
+The encrypted transfer file is removed in the cleanup PR; no password, signatures or private source details are committed.
+Proof: `record_02Oct2026_fencing_papers_36564_36568/UPLOAD_VERIFICATION.json`.
+
 ## Current working arrangement — share implementation; independent releases allowed, 2 Oct 2026
 
 Author: Andrew Fisher
