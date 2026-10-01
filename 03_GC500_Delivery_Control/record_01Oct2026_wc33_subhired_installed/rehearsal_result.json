@@ -1,203 +1,224 @@
 {
  "before": {
-  "subhire": null,
-  "units": 0,
-  "delivery": {
-   "state": "not on site",
-   "c": "red",
-   "recorded": false,
-   "where": null,
-   "by": null,
-   "set_at": null,
-   "eta": null,
-   "eta_where": null,
-   "note": null,
-   "history": [],
-   "date": null,
-   "date_by": null,
-   "date_at": null,
-   "date_where": null,
-   "date_cleared": false,
-   "date_cleared_by": null,
-   "date_cleared_at": null,
-   "out_date": null,
-   "out_by": null,
-   "out_at": null,
-   "out_date_where": null,
-   "out_date_cleared": false,
-   "out_date_cleared_by": null,
-   "out_date_cleared_at": null,
+  "wc33": {
+   "subhire": null,
+   "units": 0,
+   "done": false
+  },
+  "wc60": {
+   "numbers": [],
    "done": false,
-   "done_by": null,
-   "done_at": null,
-   "done_where": null,
    "levelled": false,
-   "levelled_by": null,
-   "levelled_at": null,
-   "levelled_where": null,
    "steps": false,
-   "steps_by": null,
-   "steps_at": null,
-   "steps_where": null
+   "state": "not on site"
   }
  },
- "log": [
-  [
-   "subhireMark",
-   true,
-   {
+ "out": {
+  "log": [
+   [
+    "WC33 subhireMark",
+    true,
+    {
+     "co": "Event Portables",
+     "by": "Andrew Fisher via Claude (rehearsal)",
+     "at": "2026-10-01T03:43:21.239Z",
+     "coates_off": null
+    }
+   ],
+   [
+    "WC33 subhire744Many",
+    {
+     "added": [
+      "0634",
+      "0582",
+      "0548",
+      "0782",
+      "0657",
+      "0912",
+      "0554",
+      "0920",
+      "0971",
+      "0586",
+      "0487",
+      "0790",
+      "0297",
+      "0456",
+      "0012",
+      "0938",
+      "0597"
+     ],
+     "refused": []
+    }
+   ],
+   [
+    "WC33 setDone",
+    true,
+    {
+     "done": true,
+     "levelled": false,
+     "steps": false,
+     "state": "on site",
+     "note": null
+    }
+   ],
+   [
+    "WC60 number",
+    "1119489",
+    "put on",
+    ""
+   ],
+   [
+    "WC60 number",
+    "1328980",
+    "put on",
+    ""
+   ],
+   [
+    "WC60 number",
+    "1087500",
+    "put on",
+    ""
+   ],
+   [
+    "WC60 number",
+    "1328981",
+    "put on",
+    ""
+   ],
+   [
+    "WC60 note",
+    "Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 — both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026."
+   ],
+   [
+    "WC60 setLevelled",
+    true,
+    {
+     "done": true,
+     "levelled": true,
+     "steps": false,
+     "state": "on site",
+     "note": "Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 — both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026."
+    }
+   ],
+   [
+    "WC60 setSteps",
+    true,
+    {
+     "done": true,
+     "levelled": true,
+     "steps": true,
+     "state": "on site",
+     "note": "Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 — both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026."
+    }
+   ]
+  ],
+  "wc33": {
+   "subhire": {
     "co": "Event Portables",
     "by": "Andrew Fisher via Claude (rehearsal)",
-    "at": "2026-10-01T03:34:28.940Z",
+    "at": "2026-10-01T03:43:21.239Z",
     "coates_off": null
-   }
-  ],
-  [
-   "subhire744Many",
-   {
-    "added": [
-     "0634",
-     "0582",
-     "0548",
-     "0782",
-     "0657",
-     "0912",
-     "0554",
-     "0920",
-     "0971",
-     "0586",
-     "0487",
-     "0790",
-     "0297",
-     "0456",
-     "0012",
-     "0938",
-     "0597"
-    ],
-    "refused": []
-   }
-  ],
-  [
-   "setDone",
-   true,
-   true,
-   "on site"
-  ]
- ],
- "units": [
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0634"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0582"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0548"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0782"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0657"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0912"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0554"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0920"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0971"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0586"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0487"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0790"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0297"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0456"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0012"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0938"
-  },
-  {
-   "label": "Sub-hire: Event Portables",
-   "no": "0597"
-  }
- ],
- "delivery": {
-  "state": "on site",
-  "c": "green",
-  "recorded": true,
-  "where": "local",
-  "by": "Andrew Fisher via Claude (rehearsal)",
-  "set_at": "2026-10-01T03:34:32.462Z",
-  "eta": null,
-  "eta_where": null,
-  "note": null,
-  "history": [
-   {
+   },
+   "units": [
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0634"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0582"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0548"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0782"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0657"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0912"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0554"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0920"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0971"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0586"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0487"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0790"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0297"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0456"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0012"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0938"
+    },
+    {
+     "label": "Sub-hire: Event Portables",
+     "no": "0597"
+    }
+   ],
+   "delivery": {
+    "done": true,
+    "levelled": false,
+    "steps": false,
     "state": "on site",
-    "at": "2026-10-01T03:34:32.462Z",
-    "by": "Andrew Fisher via Claude (rehearsal)"
+    "note": null
    }
-  ],
-  "date": null,
-  "date_by": null,
-  "date_at": null,
-  "date_where": null,
-  "date_cleared": false,
-  "date_cleared_by": null,
-  "date_cleared_at": null,
-  "out_date": null,
-  "out_by": null,
-  "out_at": null,
-  "out_date_where": null,
-  "out_date_cleared": false,
-  "out_date_cleared_by": null,
-  "out_date_cleared_at": null,
-  "done": true,
-  "done_by": "Andrew Fisher via Claude (rehearsal)",
-  "done_at": "2026-10-01T03:34:32.462Z",
-  "done_where": "local",
-  "levelled": false,
-  "levelled_by": null,
-  "levelled_at": null,
-  "levelled_where": null,
-  "steps": false,
-  "steps_by": null,
-  "steps_at": null,
-  "steps_where": null
+  },
+  "wc60": {
+   "numbers": [
+    "1119489",
+    "1328980",
+    "1087500",
+    "1328981"
+   ],
+   "delivery": {
+    "done": true,
+    "levelled": true,
+    "steps": true,
+    "state": "on site",
+    "note": "Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 — both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026."
+   }
+  }
  },
- "elsewhere": [],
- "banner": " SUB-HIRED · Event Portables 17 units at WC33 belong to Event Portables - their numbers 0634 0582 0548 0782 0657 0912 0554 0920 0971 0586 0487 0790 0297 0456 0012 0938 0597 . Coates contract and branch details are hidden for this location. Marked by Andrew Fisher via Claude (rehearsal) · 01 Oct 13:34. Not sub-hired after all "
+ "wc60Drawer": [
+  "1119489",
+  "1328980",
+  "1087500",
+  "1328981"
+ ],
+ "wc60Contract": 0
 }
+blocked writes 0 errors []
