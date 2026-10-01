@@ -130,6 +130,28 @@ const fs = require('fs'), path = require('path');
     S.entries = Object.assign({}, keep || {}, {[ref]: {lat: base.lat + 0.0015, lon: base.lon + 0.0015, acc: 4, at: '2026-10-02T00:09:00.000Z', by: 'Test Person', n: 5}}); mc();
     document.querySelector('#drv782 .b-go').click(); const again = !!document.querySelector('#drv782'), chg = !!document.querySelector('#drv782 .chg'), held = !!DRV782_OK; S.entries = keep; mc(); document.querySelectorAll('#drv782').forEach(e => e.remove()); try { pdf7Close(); } catch (e) {} DRV782_OK = null; return {ref, again, chg, held}; }, iso);
   ok('P24 the way in moved while the check is open: pressing the button shows it again as it stands now - nothing is made', reo2.again && reo2.chg && !reo2.held, JSON.stringify(reo2));
+  /* Codex recheck 3: the printed sheet's way in follows the way in the check covers - the same words the text sends.
+     Synthetic: one item's way in pinned at point A, then point B; and an item with no drop-off (the pit lane). */
+  const wy = await p.evaluate(async iso => { const d = programmeDays().find(x => x.iso === iso), mc = () => { try { RENDER_MEMO.clear(); } catch (e) {} };
+    const loads = dpLoads(d); let li = -1, a = null; loads.some((g, i) => (g.rows || []).some(r => r.a && !report782(r.a) && (li = i, a = r.a, true)));
+    if (!a) return {skip: 'no item with its own drop-off on this day'};
+    const sheet = () => { mc(); const g = dpLoads(d)[li], box = document.createElement('div'); box.innerHTML = dpPage(d, g, 'drv', li + 1, loads.length); return box.textContent.replace(/\s+/g, ' '); };
+    const access = () => { mc(); return ((/Site access: ([^\n]*)/.exec(dropSmsText(a)) || [])[1] || '').replace(/\.$/, ''); };
+    const pin = (lat, lon, at) => ({lat, lon, acc: 4, at, by: 'Test Person', n: 5}), keep = S.entries, out = {ref: a.key};
+    try { S.entries = Object.assign({}, keep || {}, {[a.key]: pin(-27.9700, 153.4300, '2026-10-02T00:00:00.000Z')});
+      const s1 = sheet(), t1 = access();
+      S.entries = Object.assign({}, keep || {}, {[a.key]: pin(-27.9750, 153.4320, '2026-10-02T00:05:00.000Z')});
+      const s2 = sheet(), t2 = access();
+      out.a = {text: t1, onSheet: !!t1 && s1.includes(t1)}; out.b = {text: t2, onSheet: !!t2 && s2.includes(t2), oldGone: !s2.includes(t1)}; }
+    finally { S.entries = keep; mc(); }
+    /* the pit lane: an item that reports there prints the pit lane's way in, the one its text gives */
+    let rp = null; programmeDays().some(x => dpLoads(x).some((g, i) => (g.rows || []).some(r => { if (r.a && report782(r.a)) { rp = {d: x, g, i, a: r.a}; return true; } })));
+    if (rp) { mc(); const box = document.createElement('div'); box.innerHTML = dpPage(rp.d, rp.g, 'drv', rp.i + 1, dpLoads(rp.d).length); const st = box.textContent.replace(/\s+/g, ' ');
+      const ta = ((/Site access: ([^\n]*)/.exec(dropSmsText(rp.a)) || [])[1] || '').replace(/\.$/, ''), own = (zoneEntry782({key: rp.a.key, events: []}) || {}).sms || '';
+      out.pit = {ref: rp.a.key, text: ta, onSheet: !!ta && st.includes(ta), wayIn: typeof wayIn782 === 'function' ? wayIn782(rp.a) : 'none on this page'}; }
+    return out; }, iso);
+  ok('P25 the printed sheet\'s way in is the one the text gives, and follows a change from one pinned point to another', !!wy.skip || (wy.a.onSheet && wy.b.onSheet && wy.b.oldGone), JSON.stringify(wy));
+  ok('P26 an item that reports to the pit lane prints the pit lane\'s way in, the one its text gives', !!wy.skip || !wy.pit || wy.pit.onSheet, JSON.stringify(wy.pit || wy));
   ok('E1 no page errors', !s.errors.length, JSON.stringify(s.errors).slice(0, 200));
   const passed = T.filter(t => t.pass).length;
   T.forEach(t => console.log((t.pass ? 'PASS ' : 'FAIL ') + t.name + ' — ' + t.detail));

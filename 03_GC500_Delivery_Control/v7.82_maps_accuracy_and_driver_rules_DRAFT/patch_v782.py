@@ -558,7 +558,8 @@ t = rep(t, " if (P.kind === 'master' && P.src) return {label: P.src.label, ll, l
 #    on the delivery item ... so when things turn up it has a reference to where it goes"). Each driver sheet is followed,
 #    in the same PDF and the same print, by one A4 sign per item it carries (deliveries only).
 t = rep(t, "function dpPage(d, g, doc, i, n){", r"""/* v7.82 - the location sign: one A4 per item on a delivery load, black and white, for laminating */
-const PL782_CSS = '.dp-page.pl782{justify-content:space-between;gap:0;padding:7mm;border:2.6mm solid #000;outline-offset:0;background:#fff;color:#000;font-family:Inter,Arial,sans-serif}'
+const PL782_CSS = '.dp-wi{display:block;margin-top:.6mm;font-weight:700;color:#15181a}.dp-wi-no{color:#b42318}'
+ + '.dp-page.pl782{justify-content:space-between;gap:0;padding:7mm;border:2.6mm solid #000;outline-offset:0;background:#fff;color:#000;font-family:Inter,Arial,sans-serif}'
  + '.pl782 .pl-top{display:flex;justify-content:space-between;align-items:center;border-bottom:.8mm solid #000;padding-bottom:3mm;font:800 13pt/1.1 "Barlow Condensed",Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase}'
  + '.pl782 .pl-k{margin-top:5mm;font:800 15pt/1 "Barlow Condensed",Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;text-align:center}'
  + '.pl782 .pl-ref{font:800 var(--plz,220pt)/.86 "Barlow Condensed",Inter,sans-serif;letter-spacing:-.01em;text-align:center;margin:6mm 0 5mm;white-space:nowrap}'
@@ -777,6 +778,26 @@ t = rep(t, "function dayPinCell(a){\n if (!a || !isRef(a.key)) return '';",
 # the sheet: the description's spot is named as the description, as the text names it
 t = rep(t, " { const R = report782(a); if (R) return {kind: 'report', lat: R.ll.lat, lon: R.ll.lon, pt: fr(R.ll.lat, R.ll.lon), ref: R.ref}; } /* v7.82 */",
         " { const R = report782(a); if (R) return {kind: 'report', lat: R.ll.lat, lon: R.ll.lon, pt: fr(R.ll.lat, R.ll.lon), ref: R.ref}; } /* v7.82 */\n { const D7 = dest782(a); if (D7 && D7.kind === 'desc') return {kind: 'desc', lat: D7.ll.lat, lon: D7.ll.lon, pt: fr(D7.ll.lat, D7.ll.lon), how: descLoc782(a).src}; } /* v7.82 - as the text names it */", 'sheet: the one destination', p, True)
+
+# 13. THE PRINTED SHEET'S WAY IN IS THE ONE THE TEXT GIVES (Codex recheck, 2 Oct 2026: "changing an approved way-in
+#     correctly invalidates the confirmation, but the printed driver sheet's way-in instructions remain unchanged"). The
+#     sheet printed the event's general heavy-vehicle gate for every load. It now prints, for each item, the same access
+#     lines the text sends - the pinned turn-in (or the pit lane rule) and the entry by area - from the destination the
+#     driver is sent to; the general gate stays on its own line.
+t = rep(t, "function dpWayIn(gate){", r"""/* v7.82 - an item's way in, in the words the text sends (Site access, then ENTRY), from its one destination */
+function wayIn782(a){
+ if (!a) return [];
+ const L = []; let w = ''; try { w = text747WayIn(a); } catch (e) {} if (w) L.push(w.replace(/^Site access: /, '').replace(/\.$/, ''));
+ let e = null; try { e = entry782(a); } catch (x) {} if (e && e.sms) L.push(e.sms.replace(/^ENTRY: /, '').replace(/\.$/, ''));
+ return L;
+}
+function dpWayIn(gate){""", 'sheet: an item\'s way in', p, True)
+t = rep(t, " L.push(line('Way in', `<b>${esc(dpWayIn(gate))}</b>`, true));",
+        " { const wi = wayIn782(a); L.push(line('Way in', wi.length ? `<b>${esc(wi.join(' · '))}</b>` : '<b class=\"dp-wi-no\">Not set - do not leave until site gives it</b>', true)); L.push(line('Site gate', `<b>${esc(dpWayIn(gate))}</b>`, true)); } /* v7.82 - the way in the text gives (Codex recheck) */", 'sheet: one item way in', p, True)
+t = rep(t, " <td><span class=\"dp-ll\">${esc(W.ll)}</span><span>${esc(W.line)}</span></td>",
+        " <td><span class=\"dp-ll\">${esc(W.ll)}</span><span>${esc(W.line)}</span>${(wi => `<span class=\"dp-wi\">Way in: ${wi.length ? esc(wi.join(' · ')) : 'not set - do not leave until site gives it'}</span>`)(wayIn782(a))}</td>", 'sheet: each item way in', p, True)
+t = rep(t, " const top = doc === 'drv' ? `<div class=\"dp-way\"><b>${esc(dpWayIn(gate))}</b>",
+        " const top = doc === 'drv' ? `<div class=\"dp-way\">Site gate: <b>${esc(dpWayIn(gate))}</b>", 'sheet: the gate named as the gate', p, True)
 
 t = t.replace('/* v7.80 - a save empties', '/* v7.82 - GN21 read off D024 correctly; driver rules (entry by side of Main Beach Pde, delivery order, stagger, parks, loading at Kingston, the time is an unloaded-by time, firm instructions before dispatch, a check before driver sheets print, location signs, the pit lane when there is no drop-off, water barriers from their description, every location still to come in Inventory). */\n/* v7.80 - a save empties', 1)
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + t)
