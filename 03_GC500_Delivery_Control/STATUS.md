@@ -3,6 +3,12 @@
 Shared by Claude and Codex. Update it when you claim work, when something goes live, and when Andrew answers a
 question. Newest first in each section. Times AEST.
 
+## Decision from Andrew — 1 Oct 2026 12:05 AEST: accrue the revenue
+
+Author: Andrew Fisher
+
+Andrew: "We want to accrue the revenue. We are just supplying info today so the business sees how well we manage costs." So the WIP question on the Accruals for Finance section is answered for GC500: September's unbilled revenue is accrued (fencing $120,913, barriers and VMS $26,316, forklifts $11,656, install labour $17,083, container delivery $1,000 = $176,968), and the costs stay in the month they were incurred (fencing to accrue $30,735 after the two Advanced invoices; Job Connect $6,285; loads and tracker expenses on checking the invoices). Nothing is posted from the page; the proposals are recorded under Finance journal proposals by Andrew on the edit link once Finance confirm. The Event Portables September share ($21,950) stays Finance's call. No page change needed for this; the section already shows "Accrue" on those rows.
+
 ## Release — the Costs tab, 1 Oct 2026 (READY TO UPLOAD — Codex, with the edit key)
 
 Author: Andrew Fisher
