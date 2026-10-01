@@ -1,8 +1,8 @@
 {
   "author": "Andrew Fisher",
   "device": "desktop",
-  "sha256": "e88b00302f83fb04ef6c5750b7148557cb478f8b4810ba6c5d8cf84c4dafc803",
-  "bytes": 8703949,
+  "sha256": "b5af68eb24134f3c37359192cb3cdd9d2bed3bc7f2ac5c297ee3275f912b516b",
+  "bytes": 8741138,
   "tests": [
     {
       "name": "Every current reference fits the GSM and service budgets",
@@ -14,11 +14,13 @@
     },
     {
       "name": "Every navigation link retains the exact recorded coordinates and appropriate label",
-      "pass": true
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(assets.valid[key])\n"
     },
     {
       "name": "GPS values agree with the navigation destination",
-      "pass": true
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(assets.valid[key])\n"
     },
     {
       "name": "Master-plan unit positions retain priority",
@@ -31,11 +33,13 @@
     },
     {
       "name": "Site access retains recorded entry or the applicable pit-lane direction",
-      "pass": true
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(assets.valid[key])\n"
     },
     {
       "name": "Unresolved destinations retain a clear confirmation instruction",
-      "pass": true
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(assets.valid[key])\n"
     },
     {
       "name": "Every delivery-details link that fitted the baseline still fits this candidate",
@@ -56,7 +60,8 @@
     },
     {
       "name": "Approximate area is not described as an exact delivery location",
-      "pass": true
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(synthetic.area.includes('Navigate: ' + synthetic.url))\n"
     },
     {
       "name": "A pin preserves its accuracy and a master target preserves its source",
@@ -64,7 +69,8 @@
     },
     {
       "name": "Missing and moved destinations have no fabricated navigation or GPS",
-      "pass": true
+      "pass": false,
+      "error": "The input did not match the regular expression /Location not yet confirmed/. Input:\n\n'No drop-off yet: report to the pit lane.\\n' +\n  'GPS: -27.984876, 153.426644 (pit lane)\\n' +\n  'Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.984876,153.426644&travelmode=driving'\n"
     },
     {
       "name": "North, south and recorded turn-in instructions retain their distinct meaning",
@@ -106,18 +112,18 @@
     "maxCharacters": 459,
     "maxGsmUnits": 459,
     "resolved": 144,
-    "details": 193,
+    "details": 172,
     "baselineDetails": 200,
     "baselineDue": 184,
     "valid": {
       "plain": true,
       "welcome": true,
-      "navigation": true,
-      "gps": true,
+      "navigation": false,
+      "gps": false,
       "master": true,
       "provenance": false,
-      "access": true,
-      "unknown": true,
+      "access": false,
+      "unknown": false,
       "preservedDetails": false,
       "preservedDue": true
     },
@@ -136,6 +142,6 @@
     "readRequests": 128
   },
   "pageErrors": [],
-  "passed": 21,
+  "passed": 15,
   "total": 23
 }

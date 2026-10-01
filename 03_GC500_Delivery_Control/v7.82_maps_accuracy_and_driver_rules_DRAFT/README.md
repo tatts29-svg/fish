@@ -387,29 +387,31 @@ bash toolchain/build.sh v7.82 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_v
 python3 v7.82_maps_accuracy_and_driver_rules_DRAFT/patch_explorer782.py <live explorer/explorer.js> v7.82_maps_accuracy_and_driver_rules_DRAFT/release/explorer/explorer.js
 ```
 
-- **Page:** 8,694,336 bytes, SHA-256 `e8a25aca9e776b927c5d7444581876c2ab909d6818e331c4b71cdd9605ea6f10`, on live
-  `303029e3…`; check_page PASS, no keys.
-- **Explorer:** `release/explorer/explorer.js`, 127,456 bytes, md5 `c7238da1d48709a36866a2ac8fa39684`, on live md5
-  `1407e270…`. Only this one machine file changes.
+- **Page:** 8,741,138 bytes, SHA-256 `b5af68eb24134f3c37359192cb3cdd9d2bed3bc7f2ac5c297ee3275f912b516b`. Built on the live
+  page `303029e3…`. check_page PASS, no keys. Source commit `b6a015b`.
+- **Explorer:** `release/explorer/explorer.js`, 127,720 bytes, md5 `2b6d4b4360a923bc805fb3fc707b3c6f`. Built on the live
+  md5 `1407e270…`. Only this one machine file changes.
 
-## Results — on the final page `e8a25aca…` (rerun after Andrew confirmed P47 and set the six-truck sequence) and explorer `c7238da1…`
+## Results: final page `b5af68eb…` and explorer `2b6d4b43…`
 
 | Check | Result |
 |---|---|
-| `evidence/rules_tests.js` (18): GN21 beside GN20; every generator on its orange symbol; order lines; waste tanks; Main Beach seaside/land side; Full details; drawer box; park caution; the order check against the record; the done tick's double beat on the master plan; the explorer's finished list; no due date lost; no page errors | **18/18 desktop · 18/18 phone** |
-| `evidence/explorer_done_tests.js` (6): the live explorer with this explorer.js swapped in. Done chip on by default with the count; every finished unit has a double-beat ring; the chip hides the layer and remembers it; a new tick shows without a reload; the Find chips still work; no page errors | **6/6 desktop · 6/6 phone** |
-| v7.80 Fencing card checks | **5/5** |
-| v7.75 fresh-after-save checks | **11/11 desktop · 11/11 phone** |
+| `evidence/rules_tests.js` (45). Areas covered: generators; order; tanks; Main Beach entry; the way in by area (Z1, Z2); loading; the unloaded-by time and one plan (T1-T7); calendar times (C1-C3); history (H1); directions (D1-D6); verification and provenance (V1, V2); water barriers (W1); no "P33" shown to drivers (W2); done tick; no due date lost; no page errors | **45/45 desktop · 45/45 phone** |
+| `evidence/print_check_tests.js` (20). Checks: the check before driver PDFs; the signs; a check bound to its loads and data; direct links; re-check after sync; AEST stamp | **20/20 desktop · 20/20 phone** |
+| `evidence/inventory_togo_tests.js` (7): every location still to come, each one clickable | **7/7 desktop · 7/7 phone** |
+| `evidence/explorer_done_tests.js` (9). Includes X6-X8 (category chips, Escape, Motion Off), which fail on the old `c7238da1…` | **9/9 desktop · 9/9 phone** |
+| v7.80 Fencing card | **5/5** |
+| v7.75 fresh-after-save | **11/11 desktop · 11/11 phone** |
 | The released P&L suite | **31/31 desktop · 31/31 phone** |
 | Codex's v7.76 navigation regressions | **21/21** |
-| Sweeps | **21 tabs, 7 deep links, 0 page errors, 0 console — desktop and phone** |
-| Codex's v7.79 Text it checks | **21/23**. The two misses are this release's intended changes: (1) "master-plan provenance" — P47 now reads "(confirmed by the project manager)" instead of "(master plan)", because the master does not draw it; (2) "every link that fitted still fits" — the 7 messages where an ORDER/ENTRY line takes the link's room. Every other check passes, including no due date lost, GSM budget (max 458 of 459), welcome, navigation, GPS, access, unresolved destinations and no writes. |
+| Sweeps | **21 tabs, 0 page errors, 0 console, desktop and phone** |
+| Codex's v7.79 Text-it checks | **15/23**. The 8 misses are this release's intended changes, made on Andrew's instructions. They assume the text always points at the "recorded" spot. Now: no drop-off means the pit lane; a water barrier uses its description; an unverified light tower goes to the pit lane; the way in comes from the area; P47 says "confirmed by the project manager". A separate check of all 201 texts found **every GPS line agrees with its Navigate link, and there is no Navigate without GPS**. No due date is lost. 29 texts move the delivery-details link to Full details to make room for the way-in line. The v7.79 invariants need updating for these rules. |
 
-Every test is read-only: GETs only, writes aborted, and no texts sent.
+Every test is read-only: GETs only, writes aborted, nothing sent.
 
-**Claude: complete on page `e8a25aca…` and explorer `c7238da1…`. Handed to Codex for review.** Release, once both have
-reviewed: the page upload, plus the one machine file `explorer/explorer.js` (Codex's edit key). Not ready to upload
-before then.
+**Claude: complete on page `b5af68eb…` and explorer `2b6d4b43…`.** Codex's earlier findings are fixed. Still open with
+Andrew: the way in for Turn 2 / Ferny Ave (7) and WB07 at Admiralty Dr. Also to confirm: Gate 1 and Gate 2 (D007 entry
+points), and the 05:00 morning-run scope. If any answer changes the rules, the candidate changes.
 
 ## For Andrew to confirm
 
