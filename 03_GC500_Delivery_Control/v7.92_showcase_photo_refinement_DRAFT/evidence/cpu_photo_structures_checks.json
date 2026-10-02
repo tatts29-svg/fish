@@ -1,0 +1,374 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU geometry on actual retained pit source; browser visual and smoothness checks remain required",
+  "sourceSha256": "cf1420a9f3bfe27ec4af60a212dea85823637323f886b2abc100f5d77713d1ca",
+  "elapsedMs": 67.78522199999998,
+  "maximumProjectionM": 0.16000000000002074,
+  "stats": {
+    "author": "Andrew Fisher",
+    "reference": "20701.jpg and 20702.jpg: visual construction detail only",
+    "source": "Existing pit:true shells beside registered pit-lane ways 179722656 and 501847689",
+    "placement": "Original source shell edges; lane-facing edge selected against unchanged S.pitPts",
+    "limits": "Pit buildings remain nominal. Facade relief is illustrative, not surveyed construction or new access guidance.",
+    "sourcePitModules": 26,
+    "modules": 26,
+    "invalidSourceModules": 0,
+    "missingLaneAnchors": 0,
+    "duplicateModules": 0,
+    "omittedModules": 0,
+    "lowerBays": 100,
+    "upperRails": 152,
+    "steelUprights": 126,
+    "braces": 52,
+    "roofEdges": 104,
+    "floorBands": 52,
+    "triangles": 6136,
+    "triangleBudget": 9600,
+    "newDrawCalls": 0,
+    "newGPUResources": 0,
+    "perFrameWork": 0,
+    "sourceFootprintsUnchanged": true,
+    "sourceRoofHeightsUnchanged": true,
+    "pitLaneUnchanged": true,
+    "bridgesAdded": 0,
+    "gantriesAdded": 0,
+    "standsMoved": 0,
+    "maxFacadeReliefM": 0.16,
+    "anchors": [
+      {
+        "sourceIndex": 0,
+        "frontageEdge": 0,
+        "frontageLengthM": 23.147344232511724,
+        "laneDistanceM": 4.034691659264865,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 0,
+        "vertexEnd": 480
+      },
+      {
+        "sourceIndex": 1,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205148,
+        "laneDistanceM": 5.046919516927075,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 480,
+        "vertexEnd": 960
+      },
+      {
+        "sourceIndex": 2,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205063,
+        "laneDistanceM": 5.046919516926669,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 960,
+        "vertexEnd": 1440
+      },
+      {
+        "sourceIndex": 3,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205063,
+        "laneDistanceM": 5.046919516926805,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 1440,
+        "vertexEnd": 1920
+      },
+      {
+        "sourceIndex": 4,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.68169357814745,
+        "laneDistanceM": 5.106285708468717,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 1920,
+        "vertexEnd": 2400
+      },
+      {
+        "sourceIndex": 5,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169271925,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 2400,
+        "vertexEnd": 2880
+      },
+      {
+        "sourceIndex": 6,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169271925,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 2880,
+        "vertexEnd": 3360
+      },
+      {
+        "sourceIndex": 7,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169272085,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 3360,
+        "vertexEnd": 3840
+      },
+      {
+        "sourceIndex": 8,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169272005,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 3840,
+        "vertexEnd": 4320
+      },
+      {
+        "sourceIndex": 9,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.888243257098484,
+        "laneDistanceM": 5.044772081982228,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 4320,
+        "vertexEnd": 4800
+      },
+      {
+        "sourceIndex": 10,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.634331276589112,
+        "laneDistanceM": 5.044723708083001,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 4800,
+        "vertexEnd": 5280
+      },
+      {
+        "sourceIndex": 11,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.981460644294046,
+        "laneDistanceM": 5.246891279705925,
+        "sourceTop": 1.2,
+        "triangles": 214,
+        "vertexStart": 5280,
+        "vertexEnd": 5708
+      },
+      {
+        "sourceIndex": 12,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.9648315717342,
+        "laneDistanceM": 5.046919516927046,
+        "sourceTop": 1.2,
+        "triangles": 214,
+        "vertexStart": 5708,
+        "vertexEnd": 6136
+      },
+      {
+        "sourceIndex": 13,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.07813519409607,
+        "laneDistanceM": 4.501767664993397,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 6136,
+        "vertexEnd": 6616
+      },
+      {
+        "sourceIndex": 14,
+        "frontageEdge": 0,
+        "frontageLengthM": 20.3268717495124,
+        "laneDistanceM": 4.8827587447387835,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 6616,
+        "vertexEnd": 7096
+      },
+      {
+        "sourceIndex": 15,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.05774298122324,
+        "laneDistanceM": 5.046919516927359,
+        "sourceTop": 1.2,
+        "triangles": 214,
+        "vertexStart": 7096,
+        "vertexEnd": 7524
+      },
+      {
+        "sourceIndex": 16,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.72605321147771,
+        "laneDistanceM": 4.873561072486895,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 7524,
+        "vertexEnd": 8004
+      },
+      {
+        "sourceIndex": 17,
+        "frontageEdge": 0,
+        "frontageLengthM": 22.212207432431015,
+        "laneDistanceM": 5.046919516927183,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 8004,
+        "vertexEnd": 8484
+      },
+      {
+        "sourceIndex": 18,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.294482684440595,
+        "laneDistanceM": 4.499796608016199,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 8484,
+        "vertexEnd": 8964
+      },
+      {
+        "sourceIndex": 19,
+        "frontageEdge": 0,
+        "frontageLengthM": 20.227681833791113,
+        "laneDistanceM": 5.137915698293881,
+        "sourceTop": 1.2,
+        "triangles": 214,
+        "vertexStart": 8964,
+        "vertexEnd": 9392
+      },
+      {
+        "sourceIndex": 20,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.580608576404355,
+        "laneDistanceM": 5.046919516927124,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 9392,
+        "vertexEnd": 9872
+      },
+      {
+        "sourceIndex": 21,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.580608576405627,
+        "laneDistanceM": 5.046919516927057,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 9872,
+        "vertexEnd": 10352
+      },
+      {
+        "sourceIndex": 22,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.724175825099813,
+        "laneDistanceM": 5.000631730586948,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 10352,
+        "vertexEnd": 10832
+      },
+      {
+        "sourceIndex": 23,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566975,
+        "laneDistanceM": 5.046919516926806,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 10832,
+        "vertexEnd": 11312
+      },
+      {
+        "sourceIndex": 24,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566847,
+        "laneDistanceM": 5.046919516927443,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 11312,
+        "vertexEnd": 11792
+      },
+      {
+        "sourceIndex": 25,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566975,
+        "laneDistanceM": 5.046919516926816,
+        "sourceTop": 1.2,
+        "triangles": 240,
+        "vertexStart": 11792,
+        "vertexEnd": 12272
+      }
+    ],
+    "allValidModulesDetailed": true,
+    "uniformModuleTriangleAllowance": 368
+  },
+  "checks": [
+    {
+      "name": "actual registered source pit buildings all receive detail",
+      "pass": true,
+      "detail": {
+        "source": 26,
+        "detailed": 26
+      }
+    },
+    {
+      "name": "existing source, pit lane, complete route, simulation and camera unchanged",
+      "pass": true
+    },
+    {
+      "name": "static additions reuse parent mesh with no uploads or GPU allocations",
+      "pass": true
+    },
+    {
+      "name": "finite correctly-strided mesh and valid indices",
+      "pass": true
+    },
+    {
+      "name": "non-degenerate faces with correct unit normals and winding",
+      "pass": true
+    },
+    {
+      "name": "bounded below ten thousand triangles",
+      "pass": true,
+      "detail": 6136
+    },
+    {
+      "name": "meaningful complete frontage treatment",
+      "pass": true
+    },
+    {
+      "name": "facade relief stays within sixteen centimetres of source shell",
+      "pass": true,
+      "detail": 0.16000000000002074
+    },
+    {
+      "name": "no new roof-height silhouette",
+      "pass": true
+    },
+    {
+      "name": "repeat call is idempotent",
+      "pass": true
+    },
+    {
+      "name": "frontage follows pit lane with anticlockwise source winding",
+      "pass": true
+    },
+    {
+      "name": "frontage follows pit lane with clockwise source winding",
+      "pass": true
+    },
+    {
+      "name": "larger source distributes bounded detail across every module",
+      "pass": true,
+      "detail": {
+        "modules": 90,
+        "triangles": 9540
+      }
+    },
+    {
+      "name": "missing lane anchor adds no guessed placement",
+      "pass": true
+    },
+    {
+      "name": "malformed duplicate and non-pit source rows do not create extra structures",
+      "pass": true
+    }
+  ]
+}
