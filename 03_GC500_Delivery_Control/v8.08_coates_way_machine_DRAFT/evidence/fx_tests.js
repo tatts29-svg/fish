@@ -80,6 +80,7 @@ async function capture(page) {
   const before = await state(page);
   const [dl] = await Promise.all([page.waitForEvent('download', {timeout: 900000}), page.evaluate(() => document.getElementById('capture').click())]);
   const p = await dl.path(), b = fs.readFileSync(p), png = b.slice(1, 4).toString() === 'PNG';
+  if (process.env.SHOTS) fs.writeFileSync(path.join(process.env.SHOTS, `${process.env.TAG || 'run'}_capture4k.png`), b);
   await frame(page); const after = await state(page);
   return {png, width: b.readUInt32BE(16), height: b.readUInt32BE(20), bytes: b.length, restored: after.buffer.join('x') === before.buffer.join('x'), before: before.buffer, after: after.buffer};
 }

@@ -168,6 +168,7 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
 
   /* ---- THE LEGS: one loft each, hip to ankle — thigh, the knee, the calf, the ankle — skinned into the pelvis at the top and across
      the knee, on the leg's striped canvas (the stripes down the sides, the reflective hoops round the shin) ---- */
+  const legRect = at.rect(ATLAS.leg);
   for (const [side, k] of [['L', 1], ['R', -1]]) {
     const x = k * d.hipX, kn = d.hipY - d.L1, thigh = B['thigh' + side], shin = B['shin' + side];
     /* [y (metres at 1.78), half-width, half-depth, z offset]: the thigh fuller in front, the knee narrower, the calf behind */
@@ -179,6 +180,8 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
     put(loftGeometry(T, st), at.rect(ATLAS.leg), legW);
     /* the knee pad of the suit: a slightly proud oval over the front of the knee, on the shin so it rides the joint */
     put(M(new T.SphereGeometry(.05 * s * w, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2), x, kn + .005 * s, .03 * s, Math.PI / 2, 0, 0, 1, .5, 1.2), SW('charcoal'), (px, py) => blend2(thigh, shin, .6));
+    /* the knee itself: a rounded cap on the shin at the joint, so a bent knee keeps its volume instead of pinching where the loft folds */
+    put(M(new T.SphereGeometry(.057 * s * w, 14, 10), x, kn + .01 * s, .006 * s, 0, 0, 0, 1, 1.05, 1.08), (u, v) => legRect(.5 + (v - .5) * .12, (u + .75) % 1), (px, py) => blend2(thigh, shin, .75));
   }
   /* ---- THE BOOTS on the foot bones: toe box, instep, heel, the collar round the ankle, the rubber sole and heel block (their
      underside is y 0), the orange pull tab and the reflective strip at the heel ---- */

@@ -12,9 +12,12 @@ export const COATES_ORANGE='#FF6A13';
    nearest texel: a blocky grit on every chrome part in a close-up), filtered linearly, mipmapped and anisotropic; the carbon is the
    cockpit's 2 × 2 twill (cockpit-surfaces.js) as a normal map under a clear coat, in place of a checkerboard bump. */
 function surface(kind){const n=256,a=new Uint8Array(n*n*4);let seed=91827;const rnd=()=>(seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296;
- const lattice=c=>Array.from({length:c*c},rnd),g1=lattice(16),g2=lattice(64),sm=t=>t*t*(3-2*t);
- const vn=(g,c,x,y)=>{const fx=x/n*c,fy=y/n*c,x0=Math.floor(fx),y0=Math.floor(fy),tx=sm(fx-x0),ty=sm(fy-y0),v=(i,j)=>g[((j%c)*c)+(i%c)];const p=v(x0,y0)+(v(x0+1,y0)-v(x0,y0))*tx,q=v(x0,y0+1)+(v(x0+1,y0+1)-v(x0,y0+1))*tx;return p+(q-p)*ty;};
- for(let y=0;y<n;y++)for(let x=0;x<n;x++){const v=130+(vn(g1,16,x,y)-.5)*30+(vn(g2,64,x,y)-.5)*26+(rnd()-.5)*8;const i=(y*n+x)*4;a[i]=a[i+1]=a[i+2]=Math.max(0,Math.min(255,Math.round(v)));a[i+3]=255;}
+ /* two octaves of tileable value noise (16 and 64 cells across), interpolated row by row with a smoothstep table: a few ms */
+ const oct=(c,amp)=>{const g=Float32Array.from({length:c*c},rnd),f=new Float32Array(n),i0=new Int32Array(n),out=new Float32Array(n*n),step=n/c;
+  for(let x=0;x<n;x++){const u=x/step,k=Math.floor(u),t=u-k;i0[x]=k;f[x]=t*t*(3-2*t);}
+  for(let y=0;y<n;y++){const ky=i0[y],ty=f[y],r0=(ky%c)*c,r1=((ky+1)%c)*c;for(let x=0;x<n;x++){const kx=i0[x],tx=f[x],x1=(kx+1)%c,p=g[r0+kx]+(g[r0+x1]-g[r0+kx])*tx,q=g[r1+kx]+(g[r1+x1]-g[r1+kx])*tx;out[y*n+x]=(p+(q-p)*ty-.5)*amp;}}return out;};
+ const o1=oct(16,30),o2=oct(64,26);
+ for(let i=0;i<n*n;i++){const v=130+o1[i]+o2[i]+(rnd()-.5)*8;a[i*4]=a[i*4+1]=a[i*4+2]=v<0?0:v>255?255:Math.round(v);a[i*4+3]=255;}
  const t=new T.DataTexture(a,n,n);t.wrapS=t.wrapT=T.RepeatWrapping;t.repeat.set(20,20);t.generateMipmaps=true;t.minFilter=T.LinearMipmapLinearFilter;t.magFilter=T.LinearFilter;t.anisotropy=T.Texture.DEFAULT_ANISOTROPY;t.needsUpdate=true;return t;}
 function carbonWeave(){const tw=carbonTwill(T);tw.normalMap.repeat.set(8,8);return tw.normalMap;}
 export function makeMaterials(){const metal=surface('metal'),weave=carbonWeave();return {

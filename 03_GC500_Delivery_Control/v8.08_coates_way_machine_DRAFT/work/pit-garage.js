@@ -150,7 +150,7 @@ function wallMap() {
 /* alpha ramps for the drawn shadows: a straight fade and a soft disc (the green channel is what alphaMap reads) */
 function ramp() {
   const t = textCanvas(4, 256, (g, W, H) => { const grad = g.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, '#000'); grad.addColorStop(1, '#fff'); g.fillStyle = grad; g.fillRect(0, 0, W, H); }, {maxScale: 1});
-  t.colorSpace = T.NoColorSpace; t.generateMipmaps = false; t.minFilter = T.LinearFilter; return t;
+  t.colorSpace = T.NoColorSpace; return t;   /* v8.08: mipmapped like everything else (a ramp seen edge-on no longer shimmers) */
 }
 function disc() {
   const t = textCanvas(256, 256, (g, W, H) => { const rg = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W / 2); rg.addColorStop(0, '#fff'); rg.addColorStop(.45, '#b4b4b4'); rg.addColorStop(1, '#000'); g.fillStyle = rg; g.fillRect(0, 0, W, H); }, {maxScale: 1});
@@ -351,7 +351,7 @@ function rollerStripe() {
 }
 function hazeSprite() {
   const t = textCanvas(64, 64, (g, W, H) => { const rg = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W / 2); rg.addColorStop(0, 'rgba(255,255,255,.55)'); rg.addColorStop(.5, 'rgba(255,255,255,.12)'); rg.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = rg; g.fillRect(0, 0, W, H); }, {maxScale: 1});
-  t.generateMipmaps = false; t.minFilter = T.LinearFilter; return t;
+  return t;   /* v8.08: mipmapped */
 }
 function pegboard() {
   return textCanvas(2048, 1024, (g, W, H) => {

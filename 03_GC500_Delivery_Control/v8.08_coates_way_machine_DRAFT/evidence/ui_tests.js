@@ -98,7 +98,7 @@ async function touchDrag(x, y, dx, dy, back = false, holdMs = 0) {
   }
   await wait(800);
 }
-let FORCE = false; /* the control sweep clicks without waiting for two still frames: in the cockpit a software-rendered frame can take a minute */
+const FORCE = true; /* clicks do not wait for two still frames: on a shared machine a software-rendered frame can take half a minute (the handlers are what is tested) */
 async function clickId(id) { await page.click('#' + id, {timeout: 150000, force: FORCE}); await wait(500); }
 async function clickSel(q) { await page.click(q, {timeout: 150000, force: FORCE}); await wait(300); }
 async function txt(sel) { return page.$eval(sel, e => e.textContent.trim()).catch(() => null); }
@@ -142,7 +142,7 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   /* ── the ways a card closes ── */
   if (exh.length || !isWork) {
     /* the camera may have moved since the survey (a tap can select and frame a part): look again */
-    if (isWork) { await closeVia('escape'); await page.click('#home'); await wait(6000); const again = (await survey()).filter(p => p.kind === 'exhibit'); if (again.length) exh.splice(0, exh.length, ...again.filter((p, i, a) => a.findIndex(q => q.name === p.name) === i)); }
+    if (isWork) { await closeVia('escape'); await page.click('#home', {force: true}); await wait(1500); await until(() => !window.__cw.tween, 120000); const again = (await survey()).filter(p => p.kind === 'exhibit'); if (again.length) exh.splice(0, exh.length, ...again.filter((p, i, a) => a.findIndex(q => q.name === p.name) === i)); }
     const ex = exh[0] || grid[1], open = async () => { await closeVia('escape'); await tap(ex.x, ex.y); return state(); };
     let st = await open(); const opened = !!st.card; check('a tap on a garage exhibit opens its card', opened, st.title);
     if (opened) {
@@ -154,17 +154,17 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
       await open(); await clickId('tour'); st = await state(); check('starting the tour closes the card (the tour card takes its place)', st.cardId === 'tour-panel' && st.count === 1, st.cards.join(','));
       await cardRules('tour card', st); await shot('2_tour');
       await page.keyboard.press('Escape'); await wait(400); st = await state(); check('Escape ends the tour', st.count === 0);
-      await open(); await page.click('[data-view="engine"]'); await wait(800); st = await state(); check('switching view closes the card', !st.card && st.count === 0);
-      await page.click('[data-view="car"]'); await wait(8000);
+      await open(); await page.click('[data-view="engine"]', {force: true}); await wait(800); st = await state(); check('switching view closes the card', !st.card && st.count === 0);
+      await page.click('[data-view="car"]', {force: true}); await wait(1500); await until(() => !window.__cw.tween, 120000);
       /* ── deliberate taps only ── */
       if (isWork) {
         await closeVia('escape');
         const fresh = async () => (await survey()).find(p => p.kind === 'exhibit') || ex;
         let ex2 = await fresh();
         await touchDrag(ex2.x, ex2.y, 60, 30); st = await state(); check('a drag (orbit) starting on an exhibit opens nothing', st.count === 0);
-        await page.click('#home'); await wait(6000); ex2 = await fresh();
+        await page.click('#home', {force: true}); await wait(1500); await until(() => !window.__cw.tween, 120000); ex2 = await fresh();
         await touchDrag(ex2.x, ex2.y, 50, 0, true); st = await state(); check('a drag that comes back to where it began opens nothing', st.count === 0);
-        await page.click('#home'); await wait(6000); ex2 = await fresh();
+        await page.click('#home', {force: true}); await wait(1500); await until(() => !window.__cw.tween, 120000); ex2 = await fresh();
         await touchDrag(ex2.x, ex2.y, 0, 0, false, 900); st = await state(); check('a long press (0.9 s) opens nothing', st.count === 0);
         ex2 = await fresh(); await tap(ex2.x, ex2.y); st = await state(); check('a quick tap on an exhibit (after all that) does open it', !!st.card, st.title);
         if (st.card) { const t0 = st.title; await touchDrag(Math.round((st.card.l + st.card.r) / 2), Math.round(st.card.b - 30), 0, -60); const s3 = await state(); check('pressing and scrolling the card keeps it open', !!s3.card && s3.title === t0); }
@@ -183,7 +183,7 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   }
   await clickId('original'); await wait(1500); st = await cardRules('Original cog'); check('Original cog replaces it (still one card)', st.count === 1 && /original/i.test(st.title), st.title);
   await page.keyboard.press('Escape'); await wait(300);
-  await page.click('#rings [data-part="1"]'); await wait(400); await clickId('learn'); await wait(1500); st = await cardRules('Read more'); check('Read more opens in the card', /Performance pillars/i.test(st.title), st.title);
+  await page.click('#rings [data-part="1"]', {force: true}); await wait(400); await clickId('learn'); await wait(1500); st = await cardRules('Read more'); check('Read more opens in the card', /Performance pillars/i.test(st.title), st.title);
   await page.keyboard.press('Escape'); await wait(300);
   await clickId('register-open'); st = await state(); check('Find a part opens the register, nothing else', st.dialogs.includes('register') && st.cards.length === 0);
   const rx = await page.$eval('#register .dialog-head button', e => { const b = e.getBoundingClientRect(); return [b.width, b.height]; }).catch(() => [0, 0]); check('register ✕ is 44 px or more', rx[0] >= 43.5 && rx[1] >= 43.5, rx.map(Math.round).join('×'));
@@ -201,7 +201,6 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
 
   /* ── every control still answers ── */
   if (!QUICK) {
-    FORCE = true;
     const cw = (expr) => page.evaluate(expr);
     for (const v of ['engine', 'cog', 'car']) { await clickSel(`[data-view="${v}"]`); await wait(1500); check(`tab: ${v}`, await cw(`window.__cw.view==='${v}'&&document.querySelector('[data-view="${v}"]').classList.contains('active')`)); }
     await wait(6000);

@@ -50,7 +50,14 @@ function valueNoise(n, cells, seed) {
    height, so the light and the pattern agree. Warp and weft differ a shade in the colour map and run at right
    angles in the anisotropy map — the reason real carbon flickers light-dark as you move round it. ---- */
 export const TWILL = Object.freeze({size: 256, tows: 16, cellMetres: .004, get tileMetres() { return this.tows * this.cellMetres; }, get perMetre() { return 1 / (this.tows * this.cellMetres); }});
+/* v8.08 — the weave is worked out once per page: the car's carbon (car-scene.js) and the cockpit's share the pixels, each with its own
+   texture objects (clones share the image and its upload) so each can repeat it at its own scale */
+let twillMemo = null;
 export function carbonTwill(T) {
+  if (twillMemo && twillMemo.T === T) { const m = twillMemo.v; return {map: m.map.clone(), normalMap: m.normalMap.clone(), anisotropyMap: m.anisotropyMap.clone(), perMetre: m.perMetre}; }
+  const v = makeTwill(T); twillMemo = {T, v}; return {map: v.map.clone(), normalMap: v.normalMap.clone(), anisotropyMap: v.anisotropyMap.clone(), perMetre: v.perMetre};
+}
+function makeTwill(T) {
   const n = TWILL.size, c = n / TWILL.tows, col = new Uint8Array(n * n * 4), aniso = new Uint8Array(n * n * 4), H = new Float32Array(n * n);
   const r = lcg(26), towShade = Array.from({length: TWILL.tows * TWILL.tows}, () => .92 + .16 * r());
   for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
