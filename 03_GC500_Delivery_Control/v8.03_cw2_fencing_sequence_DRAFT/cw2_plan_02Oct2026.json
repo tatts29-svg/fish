@@ -196,7 +196,7 @@
       "fields": {
         "Temporary Fence (m) — Relocation": 100
       },
-      "note": "Use the relocated fencing for flower-bed fencing; scrim if wanted.",
+      "note": "Fencing used for flower-bed fencing; scrim if wanted.",
       "requirements": [
         {
           "id": "s04-relocate-1",

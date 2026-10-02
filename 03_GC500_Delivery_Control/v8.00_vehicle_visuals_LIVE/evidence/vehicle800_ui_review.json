@@ -1,0 +1,223 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "1f04890c4f655a6afcb34301ff9660d291143916460236eac9f4635d4c09cd7d",
+  "scope": "Actual existing UI views; desktop Detail and phone Front detail for all seven selections; deterministic 120Hz simulation, smoke removed only for inspection",
+  "browserChecks": 71,
+  "errors": [],
+  "blockedWrites": 0,
+  "captures": [
+    {
+      "id": "desktop-car-detail",
+      "file": "desktop-car-detail.png",
+      "sha256": "05cafa75886e6b2f4bb020e3a331e231d6ba2dac02486a9dda5509fb3d515059",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517
+      },
+      "maxX": 0.5318384516858601,
+      "maxY": 0.7197880697319988,
+      "clear": true
+    },
+    {
+      "id": "desktop-car_vms-detail",
+      "file": "desktop-car_vms-detail.png",
+      "sha256": "78f954e1dcc7f7b764acdf28be2366e9bc1430ed647cfe2a87ffcb738092991f",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517
+      },
+      "maxX": 0.3721034824807399,
+      "maxY": 0.8209250783354493,
+      "clear": true
+    },
+    {
+      "id": "desktop-car_loo-detail",
+      "file": "desktop-car_loo-detail.png",
+      "sha256": "c2de0b489d814c67c4ab4f4a29352c0bf83194e25d1c5e3e71359ee3215aea0d",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517
+      },
+      "maxX": 0.4975868041936491,
+      "maxY": 0.8454038895363416,
+      "clear": true
+    },
+    {
+      "id": "desktop-forklift-detail",
+      "file": "desktop-forklift-detail.png",
+      "sha256": "bea69e1b35572df96c1155703c69256d87b001f5987f00358c47a3aa9a901bfc",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517
+      },
+      "maxX": 0.4303561053957391,
+      "maxY": 0.8516981947925454,
+      "clear": true
+    },
+    {
+      "id": "desktop-boom-detail",
+      "file": "desktop-boom-detail.png",
+      "sha256": "e22e88e3b66529ac77444cd8aef40f8afb121124790e9ef1dc19ecd4b5c1dc8a",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517
+      },
+      "maxX": 0.4406988208845456,
+      "maxY": 0.7713937080785624,
+      "clear": true
+    },
+    {
+      "id": "desktop-scissor-detail",
+      "file": "desktop-scissor-detail.png",
+      "sha256": "cfa59f128ad0582c9174972c33fd4c3f20d195cb0a0427162c46f5b56e17ea81",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517
+      },
+      "maxX": 0.3568680067118167,
+      "maxY": 0.7993473953588439,
+      "clear": true
+    },
+    {
+      "id": "desktop-tractor-detail",
+      "file": "desktop-tractor-detail.png",
+      "sha256": "b9e1e3d185ac9371f70df6d08c8fc2da62b1946d7b7c8c2c8b1de68c848ee265",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517
+      },
+      "maxX": 0.42731389179263857,
+      "maxY": 0.846269219688069,
+      "clear": true
+    },
+    {
+      "id": "phone-car-frontdetail",
+      "file": "phone-car-frontdetail.png",
+      "sha256": "616c87a448aa7b98f6d52823785140549603858e01616e373ef71265480e5d42",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590
+      },
+      "maxX": 0.8233186364271038,
+      "maxY": 0.2623458893991514,
+      "clear": true
+    },
+    {
+      "id": "phone-car_vms-frontdetail",
+      "file": "phone-car_vms-frontdetail.png",
+      "sha256": "eda214552e4636b5cde3162f32a5afa82b97b38533dde092f9d8f5651a319bed",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590
+      },
+      "maxX": 0.8301444039569251,
+      "maxY": 0.42060971076475545,
+      "clear": true
+    },
+    {
+      "id": "phone-car_loo-frontdetail",
+      "file": "phone-car_loo-frontdetail.png",
+      "sha256": "4837cf4f3a94c99135ecb8e44a772057686ecc89f6110b3e6cad3db6c6d06049",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590
+      },
+      "maxX": 0.8285047993440288,
+      "maxY": 0.3319566812251899,
+      "clear": true
+    },
+    {
+      "id": "phone-forklift-frontdetail",
+      "file": "phone-forklift-frontdetail.png",
+      "sha256": "1d43dcc0a10714c32f4684ff9f56c6d23f69867abed031bd435f3bb5c0009cc5",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590
+      },
+      "maxX": 0.8280490909456169,
+      "maxY": 0.44143058947062397,
+      "clear": true
+    },
+    {
+      "id": "phone-boom-frontdetail",
+      "file": "phone-boom-frontdetail.png",
+      "sha256": "233f8b0434159f563bb507a120adc81828146af2aeac3a0a72ed02fd6f89a00c",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590
+      },
+      "maxX": 0.8300654577990351,
+      "maxY": 0.21506207628860993,
+      "clear": true
+    },
+    {
+      "id": "phone-scissor-frontdetail",
+      "file": "phone-scissor-frontdetail.png",
+      "sha256": "31b93e1b1bb9d3ff08d50291954e4a39d2223504d5f325add3de39f083dd9b2f",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590
+      },
+      "maxX": 0.8235358604456448,
+      "maxY": 0.48238145750724776,
+      "clear": true
+    },
+    {
+      "id": "phone-tractor-frontdetail",
+      "file": "phone-tractor-frontdetail.png",
+      "sha256": "b69f8e8f83d8027882a6c7a4ed1e51e8855b503a57613d897badf01df2f09110",
+      "samples": 4,
+      "nativeCanvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590
+      },
+      "maxX": 0.8250739607953442,
+      "maxY": 0.43019717079522923,
+      "clear": true
+    }
+  ],
+  "review": "Directly reviewed all 14 captures: all seven phone Front detail and all seven desktop Detail views. Complete bodies, wheels, forks, cage/platform, cab roof and towing connections remain visible. No scenery obstruction or cropped attachment. All 14 product reports pass frame margins and clear sight lines.",
+  "antiAliasing": "All 14 native Balanced captures report supported 4x multisample attachments and GL clear. The actual UI views no longer rely on test-only camera fitting.",
+  "limitations": "Controlled held-pose inspection removes smoke; separate ordinary opening/tour captures preserve original smoke. Software stills establish framing and appearance, not hardware frame rate."
+}

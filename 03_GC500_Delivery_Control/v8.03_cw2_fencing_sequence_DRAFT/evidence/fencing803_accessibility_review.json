@@ -1,0 +1,35 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent desktop and phone review plus the two bounded accessibility corrections",
+  "rendererSha256": "c6447f4d5e0dfa3488e41031078d40db77892ba41f49f3e885db3cd59bec2970",
+  "reviewedCandidateSha256": "f6cab88e0f9959f86a3cc0e0a17f2ee8b1bfd6c4cc3ac9f90df8c2e6c4a7f589",
+  "originalPlanOnlyCandidateSha256": "55a4c450b45dbcabd7639e6d9c0a4ec76a4901f59a9b014ebeae6cf3d7e16149",
+  "changes": [
+    {
+      "problem": "Existing quiet styling hid the essential source basis, original PDF link and checklist-versus-completion sentence.",
+      "fix": "Use component-specific paragraph classes rather than the existing sub/norate classes.",
+      "verified": "The complete source basis and original PDF link are visible in both screenshots and rendered text."
+    },
+    {
+      "problem": "The globally sticky first table column permanently covered the beginning of phone prerequisite text.",
+      "fix": "Only tables inside data-cw2-plan803 use static first cells.",
+      "verified": "Ordinary horizontal scrolling reaches both the beginning and end of QPS prerequisites without first-column obstruction."
+    }
+  ],
+  "visualReview": "Desktop and phone week header, all three unresolved quantity-conflict rows, Friday row, and the phone prerequisite scroll positions were inspected. No remaining blocker within this bounded plan-only review.",
+  "checksPassed": 29,
+  "checksFailed": 0,
+  "sourceTasksRepresented": 26,
+  "taskTableRows": 25,
+  "closedMondayNotices": 1,
+  "sourceQuantityConflicts": 3,
+  "actualSnapshotSha256": "48c1421dfceebbe164ce2fbd2f5e74c48faac9888b63d45f057d7a55382b129f",
+  "actualQuantitiesAndCostsUnchanged": true,
+  "pageErrors": [],
+  "attemptedWrites": 0,
+  "privateScreenshots": "/workspace/private-cw2-fencing/ui-accessible",
+  "limitations": [
+    "Phone tables retain horizontal scrolling; long prerequisite lines are read by panning between their beginning and end.",
+    "This plan-only review does not establish editable requirement-confirmation behavior; that integration has separate evidence."
+  ]
+}

@@ -1,0 +1,67 @@
+// Author: Andrew Fisher. Isolated browser mutations; live-service writes are blocked by the shared harness.
+const fs=require('fs'),path=require('path'),crypto=require('crypto');
+const {open}=require('../../toolchain/harness/open_page');
+const pageFile=process.env.PAGE || '/workspace/private-wed7-bookings/v803_sequence_candidate.html';
+const out=process.env.OUT || path.dirname(__filename);
+(async()=>{const h=await open({pageFile,W:1440,H:1000});try{
+ await h.page.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:240000});
+ const result=await h.page.evaluate(()=>{
+  const checks=[],ck=(name,pass)=>checks.push({name,pass:!!pass});
+  const backup={S:JSON.parse(JSON.stringify(S)),last:JSON.parse(JSON.stringify(SYNC.last)),queue:SYNC.queue,inflight:SYNC.inflight,status:SYNC.status,readonly:SYNC.readonly,level:SYNC.level};
+  const funcs={save,mayWrite,whoAmI,syncPush,syncSend,dirs782,bookingConflict801};
+  let staged=0;
+  const ack=(collection,key)=>{const id=docIdOf(key),doc=toDocs(collection)[id];delete SYNC.inflight[collection+'/'+id];syncSettled(collection,id,doc,JSON.stringify(doc));SYNC.status='live';RENDER_MEMO.clear();};
+  try{
+   mayWrite=()=>true;whoAmI=()=> 'Practice reviewer';SYNC.readonly=false;SYNC.level='edit';SYNC.status='live';SYNC.queue={};SYNC.inflight={};
+   syncPush=()=>{syncStage();staged++;};syncSend=()=>{};
+   dirs782=()=>({ok:true,drop:true,dir:true,missing:[]});bookingConflict801=()=>'';
+   const loads=dispatch803Context().loads,first=loads.find(l=>l.departure_order===1),second=loads.find(l=>l.departure_order===2),id=loadId(first);
+   ck('Confirmed source produces 11 unique truck records',loads.length===11&&new Set(loads.map(loadId)).size===11);
+   ck('Unticked checks initially hold the first truck',dispatch803State(id).phase==='Hold');
+   const before=JSON.stringify(S.loads || {});
+   ck('Out-of-order departure refused without changing any load',!dispatch803Record(loadId(second),'depart')&&before===JSON.stringify(S.loads || {}));
+   SYNC.status='unreachable';ck('Offline prerequisite edit and departure both refused',!dispatch803Record(id,'check','cargo',true)&&!dispatch803Record(id,'depart')&&before===JSON.stringify(S.loads || {}));SYNC.status='live';
+   const native=loadOf(first);ck('First cargo check records through the normal save path',dispatch803Record(id,'check','cargo',true)&&staged>0);
+   ck('Pending local check does not count as shared readiness',sequence803Shared('loads',id).pending&&dispatch803State(id).phase==='Hold');
+   ck('New check preserves supplied reference and drop pairing',JSON.stringify(S.loads[id].keys)===JSON.stringify(native.keys)&&S.loads[id].drop===native.drop);
+   ck('Load records survive supported shared-store serialization',JSON.stringify(fromDocs('loads',toDocs('loads'))[id])===JSON.stringify(S.loads[id]));
+   ack('loads',id);
+   ['pretransit','instructions'].forEach(field=>{dispatch803Record(id,'check',field,true);ack('loads',id);});
+   ck('All acknowledged checks make first truck ready',dispatch803State(id).phase==='Ready');
+   const freshAt=SYNC.at;SYNC.at=Date.now()-3600000;ck('A stale live heartbeat cannot authorise departure',dispatch803State(id).phase==='Hold'&&!dispatch803Record(id,'depart'));SYNC.at=freshAt;
+   ck('Malformed names and impossible ISO dates are not departure evidence',!sequence803Stamp({by:'',at:'2026-10-07T01:00:00.000Z'})&&!sequence803Stamp({by:'Practice',at:'2026-02-31T01:00:00.000Z'})&&!dispatch803Checked({ok:'false',by:'Practice',at:'2026-10-07T01:00:00.000Z'}));
+   dirs782=()=>({ok:false,drop:false,dir:true,missing:['no drop-off location on the map']});ck('Missing directions hold an otherwise checked truck',dispatch803State(id).phase==='Hold'&&!dispatch803Record(id,'depart'));dirs782=()=>({ok:true,drop:true,dir:true,missing:[]});
+   const savedBefore=JSON.stringify(S.loads[id]),stampBefore=S.stamps['loads/'+id];save=()=>false;
+   ck('Failed save rolls back departure and its stamp',!dispatch803Record(id,'depart')&&JSON.stringify(S.loads[id])===savedBefore&&S.stamps['loads/'+id]===stampBefore);save=funcs.save;
+   ck('Ready first truck records a named actual departure',dispatch803Record(id,'depart')&&S.loads[id].dispatch803.departure.by==='Practice reviewer'&&/^\d{4}-\d{2}-\d{2}T/.test(S.loads[id].dispatch803.departure.at));
+   ck('Unacknowledged departure remains saving',dispatch803State(id).phase==='Departure saving');
+   const secondId=loadId(second);ck('Unacknowledged predecessor still holds next truck',dispatch803State(secondId).reasons.some(x=>x.includes('Earlier DD departures')));ack('loads',id);
+   ck('Acknowledged departure releases only the predecessor hold',!dispatch803State(secondId).reasons.some(x=>x.includes('Earlier DD departures'))&&dispatch803State(secondId).phase==='Hold');
+   const complete=l=>{const k=loadId(l);S.loads[k]={...loadOf(l),dispatch803:{source:dispatch803Signature(l),checks:Object.fromEntries(DISPATCH803_CHECKS.map(c=>[c.id,{ok:true,by:'Practice reviewer',at:new Date().toISOString()}])),history:[],departure:{by:'Practice reviewer',at:new Date().toISOString()}}};ack('loads',k);};
+   loads.filter(l=>l.departure_order<7).forEach(complete);
+   const tanks=loads.filter(l=>l.departure_order===7),blocks=loads.filter(l=>l.departure_order===8);
+   tanks.forEach(l=>{const k=loadId(l);S.loads[k]={...loadOf(l),dispatch803:{source:dispatch803Signature(l),checks:Object.fromEntries(DISPATCH803_CHECKS.map(c=>[c.id,{ok:true,by:'Practice reviewer',at:new Date().toISOString()}])),history:[]}};ack('loads',k);});
+   ck('Same-rank tank trucks may leave in either order',tanks.every(l=>dispatch803State(loadId(l)).phase==='Ready'));
+   complete(tanks[0]);ck('Block trucks wait until both seventh-ranked tank trucks departed',blocks.every(l=>dispatch803State(loadId(l)).reasons.some(x=>x.includes(tanks[1].dd))));complete(tanks[1]);
+   ck('Both seventh-ranked departures satisfy eighth-rank predecessor hold',blocks.every(l=>!dispatch803State(loadId(l)).reasons.some(x=>x.includes('Earlier DD departures'))));
+   const gen=loads.find(l=>l.refs.includes('GN18'));bookingConflict801=funcs.bookingConflict801;
+   ck('Generator held for unknown rank and allocation conflict',dispatch803State(loadId(gen)).reasons.some(x=>x.includes('order has not been supplied'))&&dispatch803State(loadId(gen)).reasons.some(x=>x.includes('GN13')));
+   const x=sequence803Requirement('pit-stairs','pit-stairs-1'),key=sequence803Key(x),prior=(S.answers || {})[key];
+   ck('Fencing key binds source revision fingerprint and requirement',key.startsWith('fencing803:'+x.plan.sha256.slice(0,16)+':')&&key.endsWith(':pit-stairs:pit-stairs-1'));
+   ck('Fencing confirmation saved as complete structured value',sequence803Record('pit-stairs','pit-stairs-1',true)&&JSON.stringify(JSON.parse(S.answers[key]))===S.answers[key]&&S.answers[key].length<=600);
+   ck('Pending fencing confirmation cannot satisfy a hold',sequence803RequirementState(x).pending&&!sequence803RequirementState(x).confirmed);ack('answers',key);
+   ck('Acknowledged fencing confirmation includes operator time and exact source',sequence803RequirementState(x).confirmed&&sequence803Parse(S.answers[key]).by==='Practice reviewer'&&sequence803Parse(S.answers[key]).requirement===x.requirement.text);
+   const fenceBefore=S.answers[key];save=()=>false;ck('Failed fencing save rolls back the answer',!sequence803Record('pit-stairs','pit-stairs-1',false)&&S.answers[key]===fenceBefore);save=funcs.save;
+   sequence803Record('pit-stairs','pit-stairs-1',false);ack('answers',key);ck('Revocation stays visible and no longer satisfies hold',!sequence803RequirementState(x).confirmed&&sequence803TaskChecks(x.row).includes('Revocation recorded by'));
+   const changed=JSON.parse(S.answers[key]);changed.confirmed=true;changed.source='a'.repeat(64);S.answers[key]=JSON.stringify(changed);ack('answers',key);ck('Another PDF source cannot satisfy current requirement',!sequence803RequirementState(x).confirmed);
+   S.answers[key]=fenceBefore;ack('answers',key);S.answers['practice-unrelated-answer']='A retained ordinary note';
+   const Q=questionsList();ck('Owned visible fencing answer excluded from Questions; ordinary unknown note retained',!Q.some(q=>(q.noteId || q.id)===key)&&Q.some(q=>(q.noteId || q.id)==='practice-unrelated-answer'));
+   ck('Malformed or unrelated answer namespace is not hidden',!sequence803OwnAnswer('fencing803:garbage','{}')&&!sequence803OwnAnswer('ordinary',S.answers[key]));
+   ck('Confirmation remains in supported answer export',fromDocs('answers',toDocs('answers'))[key]===S.answers[key]);
+   ck('Conditional instructions are reviewed rather than declared completed',sequence803Label('condition')==='Condition reviewed with the crew'&&sequence803TaskChecks(sequence803Requirement('club-creek','club-creek-1').row).includes('completed later'));
+   ck('No delivery, installation or completed-fencing mutation',JSON.stringify(S.delivery)===JSON.stringify(backup.S.delivery)&&JSON.stringify(S.fenceDone)===JSON.stringify(backup.S.fenceDone)&&JSON.stringify(S.fenceDockets)===JSON.stringify(backup.S.fenceDockets));
+  }finally{Object.assign(window,funcs);S=backup.S;SYNC.last=backup.last;SYNC.queue=backup.queue;SYNC.inflight=backup.inflight;SYNC.status=backup.status;SYNC.readonly=backup.readonly;SYNC.level=backup.level;RENDER_MEMO.clear();}
+  return {checks};
+ });
+ result.candidateSha256=crypto.createHash('sha256').update(fs.readFileSync(pageFile)).digest('hex');result.errors=h.errors;result.requests=h.counts;fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'sequence803_tests.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));if(result.checks.some(x=>!x.pass)||h.errors.length||h.counts.blocked)process.exitCode=1;
+}finally{await h.browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
