@@ -18,7 +18,8 @@ What changes (screen; paper prints as before):
       the milestone strip - the programme card has the key dates;
       Where we are's "As at" line and Today's date line - the header carries the date and the programme card the
         day count (the "Recording as" line still shows on an editing link);
-      Today's Fencing and Costs & charges cards - By group and Money carry those figures;
+      Today's Costs & charges card - Money carries those figures. (Today's Fencing card stays: Andrew, 2 Oct 2026, "why isnt
+        the info of fencing in today" - its docket count, quote flag and this week's lines are on no other card.)
       Where we are's chicane picture - one banner, Today's; and its own "View only" line - Today has one.
   - "Today's work" heads the cards; the roads card joins them when it is alone in its column.
 
@@ -123,7 +124,7 @@ CSS = """/* v7.93 - Today and Where we are on one tab: the repeats are left off 
   #pane-progress.wwa793 > .pgban,#pane-progress.wwa793 > .rochip,#pane-progress.wwa793 .dsn > .head{display:none!important}
   #pane-today.m793 > .hubhead > div:first-child{display:none!important}
   body.viewonly #pane-today.m793 > .hubhead{display:none!important}
-  #pane-today.m793 .hub > .card[data-go="fencing"],#pane-today.m793 .hub > .card[data-go="costs"]{display:none!important}
+  #pane-today.m793 .hub > .card[data-go="costs"]{display:none!important}
   #pane-today.m793 > .acts793{margin:0 0 14px}
   #pane-today.m793 > .acts793 .head{display:flex;flex-direction:column;gap:12px}
   #pane-today.m793 > .acts793 .hacts{margin:0}

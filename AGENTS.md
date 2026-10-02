@@ -126,6 +126,14 @@ marks as a draft, or anything risky to the record, waits for his yes.
 
 ## Rules the page lives by (settled with Andrew — do not undo)
 
+- **Layout and design** (Andrew, 2 Oct 2026: "We are professional your taking away all the good work we did" ... "make sure we
+  dont double up info" ... "Layout needs to be perfection now"):
+  - keep every component as it was built: arrange, fold or pack it, never redraw or restyle it;
+  - every fact shows once on a page; a repeat is left off (the one kept on his word: Today's Fencing card dollars);
+  - no dead space: measure it, and pack cards at their natural height rather than stretching rows;
+  - show a mock-up on the real page and get his yes before building a new layout;
+  - Plant is called **Equipment** (address still `#plant`) and carries the Inventory; Where we are lives inside **Today**.
+
 - **Master plan wins** (v6.85, confirmed 29 Sep 2026): a reference the master plan D001-26003-03 tags on the unit
   takes its position from the plan, always. Pins are used only where the plan has no unit tag.
 - **The pit lane is the way in** (v7.42): everything in Macintosh Island Park comes off the Gold Coast Highway into

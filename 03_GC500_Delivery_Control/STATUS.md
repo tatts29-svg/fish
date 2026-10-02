@@ -1,6 +1,73 @@
-**v7.96 — Plant and Inventory as one Equipment tab: CLAIMED by Claude, 2 Oct 2026 14:50 AEST.** Author: Andrew Fisher. Andrew: "merge plant and inventory together. They are basically the same thing. Keeping th same look as inventory" ... "We need to start to tidy up things now to ensure we dont double up on information. Layout needs to be perfection now"; shown the mock-up, "Lets do it". Tab renamed Plant → Equipment; Inventory on top; Plant's reference rows in one fold; contracts and branches at the bottom; Inventory leaves Change deliveries. Builds on v7.95 (patch chain v7.91 → v7.93 → v7.95 → v7.96). Draft in `v7.96_equipment_tab_DRAFT/`.
+## STANDING INSTRUCTION — Andrew, 2 Oct 2026 16:05 AEST: "Put pressure on codex to do more and use more agents to get 10/10 out of them for building more and getting more of an elite feel. They do more into the build"
 
-**v7.95 — Today packed, with jump buttons and folding sections: READY TO UPLOAD (Claude, 2 Oct 2026 14:20 AEST).** Author: Andrew Fisher. Andrew: "We have a lot of dead space in all of them try again"; he said "Ok" to Packed + folds. Carries v7.91 and v7.93 (upload this one only). Programme card in one band; Today's work, By group and By branch packed at natural height; By branch, Money and On site fold; jump buttons under the Today heading; paper prints as before. Empty card area 27% → 13%, page 6,693 → 4,171 px at 1,440 px. On live v7.92 `476f0dcc`: `bash toolchain/build.sh v7.95 v7.91_today_tidy_full_width_DRAFT/patch_v791.py v7.93_one_tab_today_DRAFT/patch_v793.py v7.95_today_packed_DRAFT/patch_v795.py` → **8,898,954 bytes, SHA-256 `90bfc09366d028fbf8667117011f6f57991be31317baf3933cc964f02e2d3698`**. Packed tests 20/20 desktop + 14/14 phone, both sweeps clean, navigation 21/21, rules 45/45, fresh 11/11; v7.93 checks 22/24 (the 2 look for headings now inside folds). Claude implemented and tested; Codex has not reviewed. Source and evidence: `v7.95_today_packed_DRAFT/`.
+**The bar for every release from now on (both agents): 10/10, elite.** A release is not READY until all of these hold:
+1. Andrew's design rules (AGENTS.md): components kept as built, every fact once, no dead space, mock-up on the real page and his yes before any new layout.
+2. Measured, not eyeballed: empty card area per section (target under 15% on a 1,440 px laptop), page length before and after, tab open time (median of 6, no worse than live).
+3. Both 21-tab/7-link sweeps clean, the release's own practice tests, and the standing suites (navigation, rules, fresh-after-save, packed Today, Equipment).
+4. Phone and desktop pictures looked at before anyone says done.
+5. An independent review by a separate agent before READY, and its findings fixed or answered in the README.
+
+**Use parallel agents** for every release: per-tab auditors, a test writer, a separate reviewer, a phone checker. One agent doing everything in sequence is not the standard.
+
+**Codex's build list** (on top of the v7.94 Showcase and the record entries in the alignment below), in this order; claim each on this board first:
+
+| # | Work | What 10/10 looks like |
+|---|---|---|
+| C1 | **Upload v7.96 today** (or v7.94 then v7.96 rebuilt) | Andrew sees the one-tab Today and Equipment live |
+| C2 | **Record entries today**: fencing 36564–36568, 24461–24465; Tue/Wed delivery notes | fencing figures current to 2 Oct; notes on the day views and driver sheets |
+| C3 | **Timeline**: same treatment as Today (repeats off, no dead space, packed cards, phone first) + Print for drivers / Print for installers (one page per load, reference hero, picture, pinned location, QR) | measured before/after; driver sheet tested on paper and phone |
+| C4 | **Documents** tab: one look with Equipment and Today, every repeat off, the fencing papers findable by docket number | measured; every file opens |
+| C5 | **Fencing** and **Costs** tabs: the same clean-up; every $ traces to a docket, contract line or card rate; nothing shown twice across Today, Equipment, Fencing, Costs | a cross-tab repeat report with zero unexplained repeats |
+| C6 | **Showcase** day/night look and the Machine view: no wall through the car, nothing blocking any angle, no lag | frame-rate and visual checks on desktop and phone |
+
+**Claude's list** (claimed on this board as they start): Map explorer and Coates Way with the same treatment; the cross-tab repeat checker every release runs; rebuilds of v7.96 on whatever goes live; review of Codex's releases on request.
+
+Each agent posts on PR #1 when it claims, when it is READY, and when it is LIVE. Andrew should never have to ask "when".
+
+## ALIGNMENT — Claude and Codex, 2 Oct 2026 15:55 AEST (Andrew: "Please have you both aligned")
+
+Read this first. Live is **v7.92** (`476f0dcc`, record 3538). Nothing newer has gone up.
+
+**1. Release queue.** One live page; whoever uploads second rebuilds on the new live page and reruns their checks.
+
+| Version | Owner | State | What it carries |
+|---|---|---|---|
+| v7.94 | Codex | in progress (`codex/gc500-v794-lap-cameras`, PR #30) | Showcase: full lap, cameras, phone controls |
+| **v7.96** | Claude | **READY TO UPLOAD** `c0056535…`, 8,906,474 bytes | v7.91 tidy + v7.93 Today/Where we are on one tab + v7.95 packed Today + Equipment tab (Plant + Inventory) |
+| v7.95 | Claude | READY `a24644fa…` (subset of v7.96) | only if v7.96 is not wanted yet |
+| v7.91, v7.93, `90bfc093…` (old v7.95) | — | superseded | never upload these on their own |
+
+Proposed order, so Andrew sees the Today merge he keeps asking for: **Codex uploads v7.96 as soon as convenient** (Codex holds the
+key; Claude cannot upload), then rebuilds v7.94 on it — the Showcase patch does not touch Today, Equipment or Change deliveries.
+If v7.94 is ready first, upload it and Claude rebuilds v7.96 on it within the hour. Either way, both go up today.
+
+**2. Record work — Codex (edit key), Andrew has authorised:**
+- Fencing: hire agreements **36564–36568** and service notes **24461–24465** (29 Sep – 2 Oct) are photographed and uploaded but
+  **not entered**; figures in `record_02Oct2026_fencing_papers_36564_36568/papers.json` (≈ $29,114.17 charged at the card).
+  Until they are in, every fencing figure on the page stops at 29 Sep. Andrew: "why isnt the info of fencing in today. I need you up to date".
+- Delivery notes for next week, for the drivers and installers, in Andrew's words:
+  - Tue 06 Oct: "3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area
+    and have had a couple of incidents with hitting light poles in past years."
+  - Wed 07 Oct: "Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there
+    from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start.
+    They will also install WC20 toilets after Helen park."
+  - Open with Andrew: he said 3 buildings for Commodore Park; the record has 4 that day (P08, P46, P47, P51).
+
+**3. Who owns what next.** Claude: Today, Equipment, layout and repeat clean-up across tabs. Codex: Showcase, record entries,
+uploads. Claim the next number (v7.97 up) on this board before starting; never edit the other's claimed scope.
+
+**4. Andrew's design rules, settled today (also in AGENTS.md):** keep every component as built — arrange, never redraw or restyle;
+every fact once (the only kept overlap: Today's Fencing card dollars); no dead space; show a mock-up on the real page and get his
+yes before building a layout; Plant is now **Equipment**; Where we are lives inside **Today**.
+
+**5. Open questions for Andrew:** P51 on Tuesday (above); fold or keep the Branches counts on Equipment (folded now); the overlaps
+already inside the old Where we are (branch totals in "All branches together"; the Revenue line in "Are we making money?").
+
+**v7.96 — Plant and Inventory as one Equipment tab: READY TO UPLOAD (Claude, 2 Oct 2026 15:40 AEST).** Author: Andrew Fisher. Andrew: "merge plant and inventory together ... Keeping th same look as inventory" ... "Layout needs to be perfection now"; shown the mock-up, "Lets do it". Carries v7.91, v7.93 and v7.95 (upload this one, or v7.95 first then this). Plant renamed Equipment (#plant unchanged); Inventory on top in its look; Plant's rows in one fold; contracts and folded branches at the bottom; Inventory off Change deliveries. On live v7.92 `476f0dcc`: four-patch build in its README → **8,906,474 bytes, SHA-256 `c0056535f95cdff1f2b018e2a02ee59db23cf5abb8c4567dfdd3daa929fbce30`**. Equipment tests 22/22 desktop + 22/22 phone, packed 20/20 + 14/14, both sweeps clean, navigation 21/21, rules 45/45, fresh 11/11. Claude implemented and tested; Codex has not reviewed. Source and evidence: `v7.96_equipment_tab_DRAFT/`.
+
+**Fencing on Today — corrected 2 Oct 2026.** Andrew: "why isnt the info of fencing in today. I need you up to date". v7.93 had hidden Today's Fencing card as a repeat; its docket count, quote flag and week lines are on no other card, so it is back (fix in the v7.93 patch). **v7.95 rebuilt: 8,898,905 bytes, SHA-256 `a24644fa0c3611324eb6250797746a3266cf7f6cc8a1ce6d52dad2ee78a202a6`; the earlier `90bfc093…` is superseded — do not upload it.** Record still behind: hire agreements 36564–36568 and service notes 24461–24465 (transcribed in `record_02Oct2026_fencing_papers_36564_36568/papers.json`, about $29,114.17 charged) are not entered; asked of Codex (edit key) on PR #1.
+
+**v7.95 — Today packed, with jump buttons and folding sections: READY TO UPLOAD (Claude, 2 Oct 2026 14:20 AEST).** Author: Andrew Fisher. Andrew: "We have a lot of dead space in all of them try again"; he said "Ok" to Packed + folds. Carries v7.91 and v7.93 (upload this one only). Programme card in one band; Today's work, By group and By branch packed at natural height; By branch, Money and On site fold; jump buttons under the Today heading; paper prints as before. Empty card area 27% → 13%, page 6,693 → 4,171 px at 1,440 px. On live v7.92 `476f0dcc`: `bash toolchain/build.sh v7.95 v7.91_today_tidy_full_width_DRAFT/patch_v791.py v7.93_one_tab_today_DRAFT/patch_v793.py v7.95_today_packed_DRAFT/patch_v795.py` → superseded by the rebuild with Today's Fencing card (see the Fencing note above: `a24644fa…`). Packed tests 20/20 desktop + 14/14 phone, both sweeps clean, navigation 21/21, rules 45/45, fresh 11/11; v7.93 checks 22/24 (the 2 look for headings now inside folds). Claude implemented and tested; Codex has not reviewed. Source and evidence: `v7.95_today_packed_DRAFT/`.
 
 **v7.94 — Showcase complete-lap presentation and cameras: CLAIMED by Codex, 2 Oct 2026.**
 Author: Andrew Fisher. Andrew: "Feel like your missing hslf the track. . Cameras not as good. . I need this better".

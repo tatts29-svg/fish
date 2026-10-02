@@ -40,7 +40,7 @@ const OUT = process.env.OUTD || __dirname;
   ok('one set of those buttons on the page', L.hactsCount === 1, L.hactsCount);
   ok('instruments kept: lights, deliveries, programme card with its key dates', L.lights && L.deliv && L.prog && L.keydates);
   ok('repeats left off: dial panel, strip, As at, Today date line', Object.values(L.hidden).every(Boolean), L.hidden);
-  ok('Today\'s Fencing and Costs cards left off', !L.fencingCard && !L.costsCard, L.cards);
+  ok('Today\'s Fencing card stays (its dockets, quote and week lines are on no other card); Costs card left off', L.fencingCard && !L.costsCard, L.cards);
   ok('roads card sits with the cards', L.roadsInCards, L.cards);
   ok('By group, By branch, Money, On site and the detail all there', ['By group', 'By branch', 'Money'].every(x => L.secs.includes(x)) && L.detail, L.secs);
   ok('Where we are off the tab row', !L.tabs.some(t => /Where/.test(t)), L.tabs);
@@ -56,7 +56,10 @@ const OUT = process.env.OUTD || __dirname;
     const facts = {}; units.forEach(u => new Set((u.innerText.match(/\$[\d,]{5,}|\b\d{1,3}(?:,\d{3})+ m\b|\b\d+ of \d+\b/g) || [])).forEach(f => (facts[f] = facts[f] || []).push(name(u) + (u.closest('#pane-progress') ? ' [W]' : ' [T]'))));
     return Object.entries(facts).filter(([, w]) => w.length > 1 && w.some(x => x.endsWith('[T]'))).map(([f, w]) => f + ' -> ' + w.join(' | '));
   });
-  ok('no figure doubles up between Today\'s cards and Where we are', rep.length === 0, rep);
+  /* one known overlap, kept on Andrew's word (2 Oct 2026, "why isnt the info of fencing in today"): Today's Fencing card's
+     dollars charged, which By group's Fencing card also carries. Anything else doubled up fails. */
+  const rest = rep.filter(x => !/^\$[\d,]+ -> Fencing \[T\]/.test(x) || x.split('|').length > 2);
+  ok('no figure doubles up between Today\'s cards and Where we are (bar the fencing dollars, kept by Andrew)', rest.length === 0, rep);
 
   // a link or bookmark to Where we are lands on Today at By group
   await p.evaluate(() => { const m = $('main'); m.scrollTop = 0; }); await wait(300);
