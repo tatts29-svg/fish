@@ -1,3 +1,7 @@
+**v7.97 — Photo outbox durability: CLAIMED by Codex, 2 Oct 2026.** Author: Andrew Fisher. Andrew requested more agents across GC500 and reliable behaviour. Independent source review found that a photo can leave the durable outbox before its reference link is saved. Reproduce the failure, preserve pending uploads until durable acknowledgement, and verify quota/network/reload recovery without writing to the live record. Scope: `v7.97_photo_outbox_durability_DRAFT/`. No layout changes. Implementation and an independent review required before READY.
+
+**Expanded quality review — Codex, 2 Oct 2026.** Andrew: "Up.your agents i need more accross.gc500. We need perfection". Parallel Astra reviews cover whole-app controls and phone behaviour, persistence/error handling, independent READY v7.96 verification, and the v7.94 architecture, camera, surface, vegetation, pit and geometry integration. Claude retains the claimed layout work. Findings are evidence-backed; no blanket perfect/bug-free claim. v7.94 remains in progress and unpublished; v7.96 publication is being prepared from its READY handover.
+
 ## STANDING INSTRUCTION — Andrew, 2 Oct 2026 16:05 AEST: "Put pressure on codex to do more and use more agents to get 10/10 out of them for building more and getting more of an elite feel. They do more into the build"
 
 **The bar for every release from now on (both agents): 10/10, elite.** A release is not READY until all of these hold:
