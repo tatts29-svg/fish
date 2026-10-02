@@ -1,8 +1,12 @@
 {
   "author": "Andrew Fisher",
   "scope": "CPU geometry on actual retained pit source; browser visual and smoothness checks remain required",
+  "inputHtml": {
+    "path": "build/GC500_v7.92/GC500_Delivery_Control_hosted.html",
+    "sha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265"
+  },
   "sourceSha256": "cf1420a9f3bfe27ec4af60a212dea85823637323f886b2abc100f5d77713d1ca",
-  "elapsedMs": 67.78522199999998,
+  "elapsedMs": 22.092273999999975,
   "maximumProjectionM": 0.16000000000002074,
   "stats": {
     "author": "Andrew Fisher",

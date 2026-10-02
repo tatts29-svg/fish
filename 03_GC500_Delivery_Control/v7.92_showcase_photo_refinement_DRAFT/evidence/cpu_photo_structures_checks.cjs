@@ -1,8 +1,8 @@
 /* Author: Andrew Fisher. Actual source pit shells, geometry limits and lifecycle checks. */
 'use strict';
 const fs=require('fs'),vm=require('vm'),path=require('path'),crypto=require('crypto');
-if(!process.argv[2])throw Error('Usage: node cpu_photo_structures_checks.cjs ORIGINAL_FULL_LAP_PREVIEW [OUTPUT_JSON]');
-const html=fs.readFileSync(process.argv[2],'utf8'),data=JSON.parse(html.match(/const DATA=(.*);/)[1]),
+if(!process.argv[2])throw Error('Usage: node cpu_photo_structures_checks.cjs SOURCE_HTML [OUTPUT_JSON]');
+const html=fs.readFileSync(process.argv[2],'utf8'),data=JSON.parse(html.match(/\bconst\s+DATA\s*=\s*(.*);/)[1]),
       source=fs.readFileSync(path.join(__dirname,'..','photo_structures792_src.js'),'utf8');
 let allocations=0,uploads=0;
 class MeshBatch{
@@ -78,6 +78,6 @@ ck('missing lane anchor adds no guessed placement',noLane.stats.modules===0&&noL
 const invalid=fixture();invalid.architecture781Source.push({pit:true,h:1.2,p:[[NaN,0],[1,0],[1,1],[0,1]]},{h:1.2,p:[[10,0],[13,0],[13,2],[10,2]]});
 invalid.architecture781Source.push({...invalid.architecture781Source[0]});const malformed=runFixture(invalid);
 ck('malformed duplicate and non-pit source rows do not create extra structures',malformed.stats.modules===1&&malformed.stats.invalidSourceModules===1&&malformed.stats.duplicateModules===1&&validMesh(malformed.mesh));
-const result={author:'Andrew Fisher',scope:'CPU geometry on actual retained pit source; browser visual and smoothness checks remain required',sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),elapsedMs,maximumProjectionM:maximumProjection,stats,checks};
+const result={author:'Andrew Fisher',scope:'CPU geometry on actual retained pit source; browser visual and smoothness checks remain required',inputHtml:{path:process.argv[2],sha256:crypto.createHash('sha256').update(html).digest('hex')},sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),elapsedMs,maximumProjectionM:maximumProjection,stats,checks};
 if(process.argv[3])fs.writeFileSync(process.argv[3],JSON.stringify(result,null,2)+'\n');
 console.log(JSON.stringify({passed:checks.length,modules:stats.modules,triangles:stats.triangles,maximumProjectionM:maximumProjection,elapsedMs}));
