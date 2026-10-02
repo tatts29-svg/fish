@@ -1,4 +1,4 @@
-**v7.93 — Today and Where we are on one tab (Andrew's Example A): CLAIMED by Claude, 2 Oct 2026 11:40 AEST.** Author: Andrew Fisher. Andrew: "we really need to merge both today and where we are into one" ... "make sure we dont double up info"; he picked Example A. Every component kept as built; only repeats left off. Built on live v7.92 with the v7.91 tidy folded in (v7.91 is not uploaded separately). Draft in `v7.93_one_tab_today_DRAFT/`.
+**v7.93 — Today and Where we are on one tab (Andrew's Example A): READY TO UPLOAD (Claude, 2 Oct 2026 12:40 AEST).** Author: Andrew Fisher. Andrew: "we really need to merge both today and where we are into one" ... "make sure we dont double up info"; he picked Example A. Today carries Where we are (its own code, its own pane) under Today's cards; Where we are leaves the tab row and Tools (`#progress` opens Today at By group); repeats left off on screen only (dial panel, milestone strip, As at / Today date line, Today's Fencing and Costs cards, chicane picture, second View only line). Also fixes the dead Open lines on Today's instruments (live wired `.island.hubgo`). v7.91 folded in, not uploaded separately. On live v7.92 `476f0dcc`: `bash toolchain/build.sh v7.93 v7.91_today_tidy_full_width_DRAFT/patch_v791.py v7.93_one_tab_today_DRAFT/patch_v793.py` → **8,889,991 bytes, SHA-256 `2aeecb8ca3287511b4dcdff6d2db02612fd3d02ef784e4fc49076ac9a1f3564b`**. One-tab tests 24/24 desktop + 24/24 phone, both 21-tab/7-link sweeps clean, navigation 21/21, rules 45/45, fresh-after-save 11/11, editing link checked. Claude implemented and tested; Codex has not reviewed. Source and evidence: `v7.93_one_tab_today_DRAFT/`.
 
 **v7.92 — Showcase photo-informed whole-lap refinement and smoothness: LIVE, 02 Oct 2026 11:19 AEST.**
 Author: Andrew Fisher. Andrew: "Revisit showcase again. Wiith new info. Must be smooth. No bugs no errors".
@@ -20,7 +20,7 @@ No record changes or journals. Proof: `v7.92_showcase_photo_refinement_LIVE/evid
 looks now, this needs some work to clean up". On the live v7.89: `bash toolchain/build.sh v7.91
 v7.91_today_tidy_full_width_DRAFT/patch_v791.py` → **8,862,008 bytes, SHA-256 `a942bebe86fabc53d905e8267b526a9a1d54699adf5243fb9314ee6bf65d05e6`**.
 Back in the header row; picture bands capped at 1,400 px (same crop); Deliveries fills its panel; Today's cards fill each row.
-Desktop only. Sweeps ×2 clean, navigation 21/21. Its recorded candidate predates v7.92; rebuild on the current live page before upload.
+Desktop only. Sweeps ×2 clean, navigation 21/21. **Superseded: folded into v7.93 above; do not upload v7.91 on its own.**
 
 **v7.90 — map explorer (machine files only): LIVE, 2 Oct 2026 09:55 AEST.** Plan ⇄ satellite fits the view;
 Done markers start hidden until selected. Codex found and fixed the pending zoom/pan/rotation race during independent
