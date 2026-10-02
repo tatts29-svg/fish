@@ -31,14 +31,16 @@ cd toolchain && PAGE=../build/GC500_v7.96/GC500_Delivery_Control_hosted.html OUT
 
 ## The repeats, grouped by what they are
 
+The checker matches numerals. **The same number in two places is not always the same fact**, so every removal is checked against what each place says it is before anything is cut (Codex's semantic review).
+
 | # | What repeats | Where | Shared figures | Proposed single home (Andrew to decide) |
 |---|---|---|---|---|
 | R1 | **Each fencing docket's metres and dollars** | Fencing: Docket register, By area, Fencing by day, Quoted quantities · Costs: Charge lines on the record | 57, 48 and 47 between the pairs | **Fencing → Docket register.** By day and By area become views of that one register (a sort or filter, not separate tables). Costs shows one fencing total line and links to it. |
 | R2 | **The money totals**: revenue $572,467, direct costs $235,372, difference $337,095, and the streams | Today: Money (Revenue by stream; Are we making money?) · Costs: At a glance, the P&L sheet, the Forecast P&L table | 3 to 14 per pair; the three totals show up to 5 times | **Costs** for the money detail. Today keeps one line (revenue · direct costs · difference) linking to Costs. Within Costs, At a glance, the P&L sheet and the forecast table currently say the same totals three times; one should carry them. |
 | R3 | **Revenue by branch** (STPS $202,165, KINP $138,920, NVAC $47,292, MEAD $9,552, all $397,929) | Today: By branch (All branches together + each branch card) · Costs: By branch table, the P&L sheet | 7 per pair | **One home.** Either Today's By branch cards (with Costs linking there) or Costs' By branch table. Inside Today, "All branches together" also repeats each branch card. |
-| R4 | **Labour and wages** ($15,564, $22,011, $31,823) | Costs: Internal labour, the P&L sheet · Running sheet: Running totals · Questions: Pending | 3 to 8 per pair | **Running sheet for the hours, Costs for the dollars.** Questions keeps the question words and links to the figure. |
+| R4 | **Three different costs, first grouped here as "labour" by mistake** (corrected 2 Oct 2026 after Codex traced each on the page): $15,564 is **accommodation** (70 priced nights); $22,011 is **carrier transport** (37 loads from the schedule's TPORT COST column); $31,823.98 is the **partial whole-job labour outlook** | Costs (several places each) · Running sheet: Running totals · Questions: Pending | 3 to 8 per pair | **Costs** keeps each where it's explained: accommodation, transport and the labour outlook each in its own line. Running sheet and Questions keep their own scope (hours; the open question) and link to Costs rather than restating the dollars. Each repeat is reviewed one by one, not removed by the number alone. |
 | R5 | **Street card rates** ($2,100, $6,800, $2,800…) | Costs: From the Street Rate Card 2026 · Questions: Answered or history | 12 | **Costs.** The Questions history says what was decided and links to the rate. |
-| R6 | **Fencing planned against done** (137.5 m, 215 m, 800 m…) | Today: the trade-by-trade detail "Fencing — planned to date against done" and By group's Fencing plate · Fencing: Quoted quantities | 3 per pair | **Fencing tab.** Today keeps the By group Fencing plate, its one summary. |
+| R6 | **Fencing quantities: the same metres, but three different baselines**: the whole-job quote, planned to date, and actual dockets (137.5 m, 215 m, 800 m…) | Today: the trade-by-trade detail and By group's Fencing plate · Fencing: Quoted quantities | 3 per pair | **Not a repeat to remove** (corrected 2 Oct 2026, Codex's review). Each answers a different question, so all three stay; each must say which baseline it is. One actuals register is shared (R1). |
 | R7 | **Today's Fencing card dollars** ($120,913) | Today: Fencing card and By group Fencing | 1 | **Kept on Andrew's word** (2 Oct 2026): "why isnt the info of fencing in today". |
 | R8 | **Scorecard figures** (1,895 m, 800 of 1,895, 75 of 75) | Coates Way: the third ring · Questions · Today: Deliveries | 3 | Coates Way's scorecard is a summary that points at the job; it could read the same figures as words ("fencing demarcation behind") and link. Andrew to say. |
 
@@ -65,7 +67,7 @@ Importance key:
 
 ## What happens next
 
-1. Andrew picks a home for R1 to R6 and R8, and confirms or changes the importance table.
+1. Andrew picks a home for R1 to R5 and R8 (R6 stays, R7 is kept), and confirms or changes the importance table.
 2. Each tab is then mocked up on the real page and shown to Andrew before it's built, as AGENTS.md requires.
    - Codex: Timeline, Documents, Fencing and Costs.
    - Claude: Map explorer and Coates Way, plus Today and Equipment follow-ups.
