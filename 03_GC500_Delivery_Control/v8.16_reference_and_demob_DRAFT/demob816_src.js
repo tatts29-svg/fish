@@ -65,7 +65,9 @@ function needsEmpty816(a){ const x = a && a.key ? a : assetOf(a); if (!x) return
 function emptiedOf816(key){
 	const l = (S.delivery || {})[key] || {}, c = ((typeof CROW !== 'undefined' && CROW.get(key)) || {}).delivery || {};
 	/* the newest record wins, local or committed, by its own time; a tie goes to this device's */
-	const s = [l, c].filter(x => typeof x.emptied === 'boolean').sort((x, y) => String(y.emptied_at || '').localeCompare(String(x.emptied_at || '')))[0] || null;
+	const both = [l, c].filter(x => typeof x.emptied === 'boolean').sort((x, y) => String(y.emptied_at || '').localeCompare(String(x.emptied_at || '')));
+	/* two records of the same moment that disagree are not proof: the not-emptied one stands until it is ticked again */
+	const s = both.length === 2 && String(both[0].emptied_at || '') === String(both[1].emptied_at || '') && both[0].emptied !== both[1].emptied ? both.find(x => x.emptied === false) : both[0] || null;
 	const proven = !!(s && s.emptied === true && s.emptied_by && s.emptied_at && !isNaN(Date.parse(s.emptied_at)));
 	/* a clearance belongs to this use: one recorded before the unit last arrived (an earlier visit, a reuse) clears nothing */
 	const on = lastOnSite816(key), stale = !!(proven && on && Date.parse(s.emptied_at) < Date.parse(on));
@@ -106,7 +108,13 @@ function setEmptied816(key, on){
 function everOnSite816(key){ const d = deliveryOf(key); return d.state === 'on site' || !!d.done || (d.history || []).some(h => h && h.state === 'on site'); }
 /* AN INCOMING TRIP, said out loud: the record has never had this unit on site, so a light moving it towards site is a
  delivery, not a collection. Every collection path (the Demob tab's Collected) is gated whatever this says. */
-function incoming816(key){ return !everOnSite816(key); }
+function incoming816(key){
+	if (everOnSite816(key)) return false;
+	/* from the first collection day (its own planned out date, or the start of demob, whichever is earlier) every move is outgoing */
+	let out = null; try { const r = demobOf816(key); out = r && r.iso; } catch (e) { out = null; }
+	const from = [DM816.start, out].filter(Boolean).sort()[0];
+	return todayIso() < from;
+}
 function emptyGate816(key, state, force){
 	const a = assetOf(key); if (!a || !needsEmpty816(a)) return true;
 	if (state !== 'in transit' && state !== 'not on site') return true;
@@ -134,7 +142,7 @@ function cmp816(x, y){
 }
 /* pack event-portable units into loads of DM816.cap, in the order given: each load takes the next references that fit */
 function pack816(items, cap){
-	const q = items.map(x => ({r: x.r || x, n: x.n != null ? x.n : x.evtN, part: false})), loads = [];
+	const q = items.map(x => ({r: x.r || x, n: Math.max(0, x.n != null ? x.n : x.evtN), part: false})), loads = [];
 	while (q.length) {
 		const L = {rows: [], units: 0};
 		for (let i = 0; i < q.length && L.units < cap;) {
@@ -148,6 +156,14 @@ function pack816(items, cap){
 	}
 	return loads;
 }
+/* the portions a person confirmed for a reference picked up over several days: kept only while they still end on the
+ reference's due-out date (a later move of the date sets them aside) */
+function storedPortions816(key, outDate){
+	const raw = ((S.delivery || {})[key] || {}).out_portions;
+	if (!outDate || !Array.isArray(raw) || raw.length < 2) return null;
+	const P = raw.filter(p => p && /^\d{4}-\d{2}-\d{2}$/.test(p.date) && Number(p.units) > 0).map(p => ({iso: p.date, n: Number(p.units)}));
+	return P.length === raw.length && P.map(p => p.iso).sort().pop() === outDate ? P : null;
+}
 function demob816(){
 	const memo = typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map ? RENDER_MEMO : null;
 	if (memo && memo.has('demob816')) return memo.get('demob816');
@@ -155,12 +171,13 @@ function demob816(){
 	const refs = allAssets().filter(a => !a._cancelled && !rowOff(a.key)).map(a => {
 		const d = deliveryOf(a.key), eff = effectiveDates(a), c = contract816(a), z = zone816(a), u = units816(a);
 		const evtN = u.filter(x => x.evt).reduce((s, x) => s + x.n, 0), evtUnk = u.some(x => x.evt && x.unknown), other = u.filter(x => !x.evt && (x.n > 0 || x.unknown));
-		const plan = a._added && a.last_date && a.last_date === a.first_date ? null : eff.out_plan; /* a reference added for one day has no plan date out */
+		const removeEv = (a.events || []).some(e => e && e.movement === 'remove' && e.date);
+		const plan = a._added && !removeEv && a.last_date && a.last_date === a.first_date ? null : eff.out_plan; /* an added reference's own first day is not a plan date out; a dated removal event is */
 		let br = '—'; try { const b = branchOf(a.key); br = (b && (b.code || b)) || '—'; } catch (e) {}
 		if (typeof br !== 'string') br = '—';
 		const src = d.out_date ? 'confirmed' : plan ? 'plan' : c.early ? 'contract' : 'proposed';
 		return {key: a.key, a, kind: refKind(a), branch: br, zone: z.zone, side: z.side, pt: z.pt, src,
-			iso: d.out_date || plan || c.early || null, contractEnd: c.last, units: u, evtN, evtUnk, evtPure: (evtN > 0 || evtUnk) && !other.length, portions: null,
+			iso: d.out_date || plan || c.early || null, contractEnd: c.last, units: u, evtN, evtUnk, evtPure: (evtN > 0 || evtUnk) && !other.length, portions: storedPortions816(a.key, d.out_date),
 			empty: needsEmpty816(a), emptied: emptiedOf816(a.key).on, big: refKind(a) === 'building' || u.some(x => !x.evt && (x.n > 0 || x.unknown) && BIG816.test(x.type)),
 			tank: u.some(x => x.tank && (x.n > 0 || x.unknown)), sub: (() => { try { const s = subhireOf(a.key); return s ? s.co : null; } catch (e) { return null; } })()};
 	});
@@ -203,9 +220,10 @@ function demob816(){
 		const loads = planned.filter(L => L.iso === iso).map(L => ({rows: L.rows.map(x => ({r: x.r, n: x.n, part: x.part, iso})), units: L.units, planned: true}));
 		const placed = new Set(loads.flatMap(L => L.rows.map(x => x.r.key)));
 		const rest = list.filter(r => (r.evtN > 0 || r.evtUnk) && !placed.has(r.key));
-		rest.forEach(r => { let n = r.evtN;
-			for (const L of loads) { if (n <= 0) break; if (L.rows[0].r.side !== r.side && r.side !== 'unknown') continue; const room = DM816.cap - L.units; if (room >= n) { L.rows.push({r, n, part: false}); L.units += n; n = 0; } }
-			if (n > 0) pack816([{r, n}], DM816.cap).forEach(x => loads.push(Object.assign(x, {planned: false}))); });
+		rest.forEach(r => { const P = r.portions && r.portions.find(p => p.iso === iso); let n = P ? P.n : r.evtN, done = false;
+			/* an unknown quantity rides as a row of its own - nothing assumed - so its load says its total is not certain */
+			for (const L of loads) { if (done) break; if (L.rows[0].r.side !== r.side && r.side !== 'unknown') continue; const room = DM816.cap - L.units; if (room >= n) { L.rows.push({r, n, part: !!P, iso}); L.units += n; done = true; } }
+			if (!done) pack816([{r, n}], DM816.cap).forEach(x => { x.rows.forEach(y => { y.iso = iso; y.part = y.part || !!P; }); loads.push(Object.assign(x, {planned: false})); }); });
 		const sideIx = L => L.rows[0].r.side === 'outside' ? 0 : L.rows[0].r.side === 'inside' ? 1 : 2;
 		loads.sort((x, y) => sideIx(x) - sideIx(y) || cmp816(x.rows[0].r, y.rows[0].r));
 		loads.forEach((L, k) => { L.n = k + 1; L.free = DM816.cap - L.units; L.uncertain = L.rows.some(x => x.r.evtUnk); L.rows.sort((x, y) => cmp816(x.r, y.r)); });
@@ -341,7 +359,7 @@ function dayHtml816(M, Dy){
 <div class="acts816">${prop.length ? `<button type="button" class="btn editonly" data-conf816="1">Confirm the ${prop.length} proposed</button>` : ''}
 <button type="button" class="btn" data-print816="day">Print run sheets · ${T.length}</button>
 <a class="btn primary" data-mail816="1" href="${esc(mail816(iso, br, shown, T))}">Email ${br === 'all' ? 'the branches' : esc(br)}</a></div></div>
-${DM816.confirm && ed && prop.length ? `<div class="notice warn confirm816" role="alert"><b>Write ${prop.length} proposed date${prop.length === 1 ? '' : 's'} to the record?</b> Each of ${esc(prop.map(r => r.key).join(', '))} becomes due out ${esc(dayWords816(iso))}, in your name. Nothing else changes, and each one can be moved again.
+${DM816.confirm && ed && prop.length ? `<div class="notice warn confirm816" role="alert"><b>Write ${prop.length} proposed date${prop.length === 1 ? '' : 's'} to the record?</b> ${esc(prop.map(r => r.key + (r.portions ? ' (' + r.portions.map(p => p.n + ' on ' + dayWords816(p.iso)).join(', ') + ')' : r.iso !== iso ? ' (' + dayWords816(r.iso) + ')' : '')).join(', '))} ${prop.length === 1 ? 'becomes' : 'become'} due out ${esc(dayWords816(iso))}${prop.some(r => r.portions || r.iso !== iso) ? ', or on the day shown' : ''}, in your name. Nothing else changes, and each one can be moved again.
 <span class="acts816"><button type="button" class="btn primary" data-conf816="yes">Confirm ${prop.length}</button><button type="button" class="btn ghost" data-conf816="no">Not now</button></span></div>` : ''}
 <div class="regviewsw segs816" role="group" aria-label="What to show">${seg('list', 'Pick-up list · ' + shown.length)}${seg('toilets', 'Toilet run · ' + tl + ' load' + (tl === 1 ? '' : 's') + (tu ? ' · ' + tu : ''))}${seg('pump', 'Pump-out run · ' + Dy.pump.length)}${seg('trucks', 'Trucks and times · ' + T.length)}</div>
 <div class="dmbody816">${body}</div>
@@ -370,7 +388,7 @@ function listHtml816(rows){
 function toiletHtml816(Dy){
 	if (!Dy.loads.length) return '<p class="note816">No event portables come off site on this day.</p>';
 	const M = demob816(), next = M.days[M.days.indexOf(Dy.iso) + 1];
-	return `<p class="note816">Event portables - single portable toilets and urinals (FWF, Pee Panel) - go 24 to a pick-up. Toilet blocks, accessible toilets, trailers and waste tanks are bigger and stay on the pick-up list. <b>Every unit is pumped out before it is loaded.</b></p>` + Dy.loads.map(L => `<div class="card load816 nosfold"><div class="hubtitle"><h3>Load ${L.n} · ${L.units}${L.uncertain ? ' + quantity to confirm' : ''} of ${DM816.cap}</h3>${L.uncertain ? '<span class="chip crit">total not certain - count on site</span>' : ''}${L.free ? `<span class="chip act">${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top up from ' + esc(dayWords816(next)) : ''}</span>` : '<span class="chip ok">full</span>'}</div>
+	return `<p class="note816">Event portables - single portable toilets and urinals (FWF, Pee Panel) - go 24 to a pick-up. Toilet blocks, accessible toilets, trailers and waste tanks are bigger and stay on the pick-up list. <b>Every unit is pumped out before it is loaded.</b></p>` + Dy.loads.map(L => `<div class="card load816 nosfold"><div class="hubtitle"><h3>Load ${L.n} · ${L.units}${L.uncertain ? ' + quantity to confirm' : ''} of ${DM816.cap}</h3>${L.uncertain ? '<span class="chip crit">total not certain - count on site</span>' : ''}${L.free && !L.uncertain ? `<span class="chip act">${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top up from ' + esc(dayWords816(next)) : ''}</span>` : '<span class="chip ok">full</span>'}</div>
 <div class="cside">${dashLeds([[L.units / DM816.cap, L.planned ? 'o' : 'b']], L.units + ' of ' + DM816.cap + ' units', DM816.cap)}</div>
 <div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>#</th><th>GC500 ID</th><th>Units</th><th>Area</th><th>Date from</th></tr></thead><tbody>${L.rows.map((x, i) => `<tr><td class="t" data-label="#">${i + 1}</td><td class="refcell" data-label="GC500 ID">${refPlate(x.r.key, 14)}</td><td data-label="Units">${x.r.evtUnk ? (x.n ? x.n + ' + ' : '') + 'quantity to confirm' : x.n + ' unit' + (x.n === 1 ? '' : 's')}${x.part || x.r.portions ? ' (part of ' + (x.r.evtN) + ')' : ''}</td><td data-label="Area">${esc(DM816.name[x.r.zone])}</td><td data-label="Date from">${srcChip816(x.r.src)} ${notReady816(x.r)}</td></tr>`).join('')}</tbody></table></div>
 <div class="acts816"><button type="button" class="btn sm" data-print816="load" data-load816="${L.n}">Print this load</button></div></div>`).join('');
@@ -399,7 +417,7 @@ function mail816(iso, br, rows, T){
 	DM816.order.forEach(z => { const rs = rows.filter(r => r.zone === z); if (!rs.length) return;
 		L.push(DM816.name[z] + ':'); rs.forEach(r => L.push('- ' + r.key + ' - ' + ((r.a.item_types || []).join(', ') || kindWord(r.a)) + ' (' + r.branch + ', ' + r.src + ')' + (r.empty && !r.emptied ? ' - NOT READY: empty first' : ''))); L.push(''); });
 	const Dy = demob816().day[iso];
-	if (Dy && Dy.loads.length) { L.push('Toilet run (24 a load):'); Dy.loads.forEach(Ld => L.push('- Load ' + Ld.n + ' - ' + Ld.units + ' of 24: ' + Ld.rows.map(x => x.r.key + ' x' + x.n).join(', '))); L.push(''); }
+	if (Dy && Dy.loads.length) { L.push('Toilet run (24 a load):'); Dy.loads.forEach(Ld => L.push('- Load ' + Ld.n + ' - ' + Ld.units + (Ld.uncertain ? ' + quantity to confirm' : '') + ' of 24: ' + Ld.rows.map(x => x.r.key + ' x' + (x.r.evtUnk ? (x.n ? x.n + '+?' : '? (quantity to confirm)') : x.n)).join(', '))); L.push(''); }
 	L.push('Proposed dates are not booked until they are confirmed on the page. Draft - check before sending.');
 	let body = L.join('\n'); const cap = typeof DP_MAIL_MAX === 'number' ? DP_MAIL_MAX : 1800;
 	if (body.length > cap) body = body.slice(0, cap - 60) + '\n... and more - see the Demob tab.';
@@ -437,9 +455,12 @@ function confirm816(iso, br){
 	const who = whoAmI(); if (!who) return 0;
 	const Dy = demob816().day[iso]; if (!Dy) return 0;
 	/* a reference picked up in portions over several days is written with its last day, when it is all off site */
-	const keys = Dy.list.filter(r => r.src === 'proposed' && (br === 'all' || r.branch === br)).map(r => [r.key, r.iso || iso]);
+	const rows = Dy.list.filter(r => r.src === 'proposed' && (br === 'all' || r.branch === br));
 	const b0 = bump; let n = 0;
-	try { bump = () => {}; keys.forEach(([k, d]) => { if (setDate(k, d, 'out')) n++; }); } finally { bump = b0; }
+	try { bump = () => {}; rows.forEach(r => { const d = r.iso || iso;
+		if (setDate(r.key, d, 'out')) { n++;
+			/* a reference picked up over several days keeps each portion on its own day, on the same record and stamp */
+			if (r.portions && r.portions.length > 1 && S.delivery[r.key]) S.delivery[r.key].out_portions = r.portions.map(p => ({date: p.iso, units: p.n})); } }); } finally { bump = b0; }
 	DM816.confirm = false; bump();
 	flash(n + ' due-out date' + (n === 1 ? '' : 's') + ' written for ' + dayWords816(iso) + ', in the name of ' + who + '.');
 	return n;

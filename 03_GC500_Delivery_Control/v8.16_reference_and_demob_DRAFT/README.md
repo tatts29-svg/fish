@@ -108,12 +108,23 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
   FWF Trailer**. Proposed portables go as full 24-unit loads, outside the island first, then the island, then those with
   no position; a day can carry several loads; a part load says how many spaces are left and to top up from the next day.
   Mixed references (WC01, WC09, WC51) stay on the list and put their portables on that day's toilet run.
+  A reference over 24 units is picked up in **portions**, each with its own day, load, list entry and pump-out; confirming
+  writes the last day as the due-out date and the portions beside it (`out_portions`, merged with the due-out day), so the
+  split survives a reload; a later move of the date sets the portions aside. A quantity nobody stated is "quantity to
+  confirm" — counted as unknown, never as 1 — and its load says its total is not certain (on screen, print and email).
 - **Emptied (pumped out)** — a fourth tick on the delivery record (`emptied`, `emptied_by`, `emptied_at`, history), edit
-  link only, never set by itself. From Event Week (19 Oct) `setLight` refuses taking an on-site toilet or tank to in transit
-  / not on site until it is emptied, and says why; the Demob tab's "Collected — on the truck" is refused before then too.
-  `deliveryEmpty` now counts the tick, so a record holding only it is not dropped.
+  link only, never set by itself. It clears a unit only with a person and a time, only if it is the newest record (local
+  or committed; a same-moment disagreement reads as not emptied), and only if it was recorded after the unit last arrived
+  on site — setting a toilet or tank on site again takes an earlier pump-out off, in the setter's name, with the reason.
+  The gate: the Demob tab's "Collected — on the truck" is always refused until then; the ordinary lights refuse taking a
+  toilet or tank to in transit / not on site the same way, with **one named exception** (`incoming816`): a unit the record
+  has never had on site, before its collection window (its own out date or 26 Oct, whichever is first), is on its way IN.
+  No date or light-colour shortcut otherwise. `deliveryEmpty` counts the tick; `mergeRecords` keeps value, who, when and
+  history (later stamp wins; the same moment keeps "not emptied" on every copy and writes the clash down).
 - **Toilet before tank.** Pairs found in the data (one reference holding a toilet block and its waste tank): **WC05, WC20,
-  WC27, WC60**. The block is always the stop line before its tank, and both are on one day.
+  WC27, WC60**. A reference holding toilets and a tank is two stops — the toilets, then the tank — and the toilet run is
+  timed first, so a tank never starts before every toilet of its reference is off, on any truck (an unknown-quantity
+  toilet still has its stop). Relationships between different references are not in the data and are not invented.
 - **Pump-out run:** toilets and tanks due today or on the next working day and not yet emptied — pumped the day before,
   or first thing that morning.
 - **Trucks and times:** one load per oversize piece (buildings, toilet blocks, trailers — "Oversize: check permit /
@@ -136,7 +147,6 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
 | Pieces on one truck (not oversize) | 4 | **assumption** |
 | Site hours | 07:00–17:00 | Andrew, 3 Oct 2026 |
 | No travel | 07:00–09:00, 16:00–18:00 | the PM, 2 Oct 2026 (PEAKS782) — applied both ways |
-| Emptied gate starts | Mon 19 Oct (Event Week) | DATA.weeks; **assumption** for when toilets are in use |
 
 ### Open questions for Andrew
 1. "Event portables": the toilets typed FWF / Pee Panel (233 units), or only the gear sub-hired from **Event Portables**
@@ -151,9 +161,9 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
 In `programmeDaysBefore801()`, after the `evs.forEach(...)` loop, inside the `allAssets().forEach`:
 ```js
  /* v8.16 - a due-out typed on a reference with no remove event reaches its day as a removal (Andrew, 3 Oct 2026) */
- if (eff.out && !eff.out_plan && !evs.some(e => e.movement === 'remove')) { const rl = day(eff.out).removals; if (!rl.some(r => r.a.key === a.key)) rl.push({a, events: [{date: eff.out, sheet: 'due-out typed on the page', activity: null, movement: 'remove', movement_stated: true, quantity_display: null, carrier: null, dd: null, note: null, typed816: true}], moved_from: null}); }
+ { const typed816 = deliveryOf(a.key).out_date; if (typed816 && !evs.some(e => e.movement === 'remove')) { const rl = day(typed816).removals; if (!rl.some(r => r.a.key === a.key)) rl.push({a, events: [{date: typed816, sheet: 'due-out typed on the page', activity: null, movement: 'remove', movement_stated: true, quantity_display: null, carrier: null, dd: null, note: null, typed816: true}], moved_from: null}); } }
 ```
-It only adds a removal for a typed due-out where the plan has none; a moved remove event is untouched. Tested: P42 typed
+It only adds a removal for a typed due-out where the record has no remove event (an added one-day reference included, review 6a/7); a moved remove event is untouched. Tested: P42 typed
 for Wed 4 Nov shows under DUE OUT on the Timeline, in `calendarDays()` and in `dpLoads` (the day documents).
 
 ## Tests (`evidence/`)

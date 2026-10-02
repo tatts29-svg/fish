@@ -17,7 +17,7 @@ function ctx(assets = []) {
     rowOff: () => false, subhireOf: () => null, onhireForAsset: () => [], branchOf: k => assets.find(a => a.key === k).branch || 'KINP',
     effectiveDates: a => ({out_plan: a.out || null}), flash: () => {}, mayWrite: () => true, whoAmI: () => 'Fixture operator',
     isRef: k => assets.some(a => a.key === k), bump: () => {}, buzz: () => {}, blank: () => ({}), tombed: () => false,
-    fmtStamp: x => x});
+    fmtStamp: x => x, fmtDay: iso => ({dow: 'Day', dm: String(iso).slice(8, 10) + ' Oct'}), fmtDate: x => x});
   vm.runInContext(source, c);
   vm.runInContext(`zone816=a=>({zone:a.zone||'gate1',side:a.side||'outside'});
     deliveryOf=k=>S.delivery[k]||{state:'on site'};`, c);
@@ -31,7 +31,10 @@ block('gate fixtures 1-5', () => {
   c.todayIso = () => '2026-10-18';
   ok(run(c, "emptyGate816('WC01','in transit')") === false, '1 gate_before_event_week: no date exception (refused on 18 Oct)');
   c.todayIso = () => '2026-10-26'; c.S.delivery.WC01 = {state: 'not on site'};
-  ok(run(c, "emptyGate816('WC01','in transit') === true && incoming816('WC01') === true && emptyGate816('WC01','in transit',true) === false") === true, '2 gate_unrecorded_or_non_green_light: an incoming trip is named (incoming816), and the collection path is still refused');
+  ok(run(c, "emptyGate816('WC01','in transit') === false && incoming816('WC01') === false && emptyGate816('WC01','in transit',true) === false") === true, '2 gate_unrecorded_or_non_green_light: from the collection window a move with no recorded arrival is outgoing - refused');
+  c.todayIso = () => '2026-10-10';
+  ok(run(c, "incoming816('WC01') === true && emptyGate816('WC01','in transit') === true && emptyGate816('WC01','in transit',true) === false") === true, '2c before its collection window a unit never on site is an incoming trip (named), and the collection path is still refused');
+  c.todayIso = () => '2026-10-26';
   c.S.delivery.WC01 = {state: 'not on site', history: [{state: 'on site', at: '2026-10-01T00:00:00Z'}]};
   ok(run(c, "emptyGate816('WC01','in transit')") === false, '2b a unit that has been on site and now shows red is refused (no light shortcut)');
   c.S.delivery.WC01 = {state: 'on site', emptied: true};
@@ -82,5 +85,46 @@ block('fixture 9', () => {
   const once = run(c, "JSON.stringify(mergeRecords({delivery:{WC01:{emptied:true,emptied_by:'A',emptied_at:'2026-10-26T00:00:00Z',emptied_history:[{emptied:true,by:'A',at:'2026-10-26T00:00:00Z'}]}}},{}).merged.delivery)");
   const twice = run(c, "JSON.stringify(mergeRecords({delivery:JSON.parse(" + JSON.stringify(once) + ")},{delivery:JSON.parse(" + JSON.stringify(once) + ")}).merged.delivery)");
   ok(once === twice, '9c merging the result with itself changes nothing');
+});
+
+// ---- the follow-up review at 968aefb (review_968aefb.md, commit 6485fa9): seven cases
+const pageFn = (name, endMark) => { const s = page.indexOf('function ' + name + '('), e = page.indexOf(endMark, s); if (!(s >= 0 && e > s)) throw new Error(name + ' not found'); return page.slice(s, e); };
+block('follow-up 2 and 3: confirming a split keeps its portions; every portion has its pump-out', () => {
+  const c = ctx([asset('WC25', [{asked: 'FWF', qty_supplied: 25}]), asset('WC49', [{asked: 'FWF', qty_supplied: 49}], {zone: 'surfers'})]);
+  vm.runInContext(pageFn('setDate', '\n/* ------------------------------------------------------------------ typed over the schedule') + '\n' + pageFn('deliveryEmpty', '\n/* The tick as a chip'), c);
+  const before = run(c, "JSON.parse(JSON.stringify(demob816().byKey.get('WC25').portions))");
+  const first = before.map(p => p.iso).sort()[0];
+  run(c, `confirm816('${first}', 'all'); RENDER_MEMO.clear(); 1`);
+  const after = run(c, "JSON.parse(JSON.stringify({rec: S.delivery.WC25, r: {src: demobOf816('WC25').src, iso: demobOf816('WC25').iso, portions: demobOf816('WC25').portions}, loads: demob816().days.flatMap(d => demob816().day[d].loads.flatMap(l => l.rows.filter(x => x.r.key === 'WC25').map(x => ({day: d, n: x.n})))) }))");
+  const same = JSON.stringify(after.loads.map(x => [x.day, x.n]).sort()) === JSON.stringify(before.map(p => [p.iso, p.n]).sort());
+  ok(after.r.src === 'confirmed' && same && Array.isArray(after.rec.out_portions) && after.rec.out_portions.length === before.length, 'F2 confirming a split proposal keeps each portion on its own day, on the record', {before, after});
+  const p49 = run(c, "JSON.parse(JSON.stringify((() => { const M = demob816(), r = M.byKey.get('WC49'); return {portions: r.portions, pumped: (r.portions || []).map(p => M.days.some(d => d <= p.iso && M.day[d].pump.some(x => x.r.key === 'WC49')))}; })()))");
+  ok(p49.portions && p49.portions.length === 3 && p49.pumped.every(Boolean), 'F3 a 49-unit reference: every portion, the first included, has a pump-out on or before its own day', p49);
+});
+block('follow-up 4: unknown quantities stay on the trucks after confirmation; a tank waits for an unresolved toilet', () => {
+  const c = ctx([asset('WCU', [{asked: 'FWF', qty_asked: null, qty_supplied: null}]), asset('WCM', [{asked: 'FWF', qty_asked: null, qty_supplied: null}, {asked: 'Waste tank', qty_supplied: 1}])]);
+  c.S.delivery.WCU = {state: 'on site', out_date: '2026-10-27', out_by: 'A', out_at: '2026-10-03T00:00:00Z'};
+  c.S.delivery.WCM = {state: 'on site', out_date: '2026-10-27', out_by: 'A', out_at: '2026-10-03T00:00:00Z'};
+  const u = run(c, "JSON.parse(JSON.stringify({loads: demob816().day['2026-10-27'].loads.map(l => ({units: l.units, uncertain: l.uncertain, keys: l.rows.map(x => x.r.key)})), trucks: trucks816('2026-10-27', 'all').map(l => ({kind: l.kind, st: l.t.st.map(s => ({k: s.s.r.key, tank: !!s.s.tankOnly, at: s.at, end: s.end}))}))}))");
+  const st = u.trucks.flatMap(l => l.st), toiletM = st.filter(x => x.k === 'WCM' && !x.tank), tankM = st.find(x => x.k === 'WCM' && x.tank);
+  ok(u.loads.some(l => l.uncertain && l.keys.includes('WCU')) && st.some(x => x.k === 'WCU'), 'F4a a confirmed unknown-quantity portable stays on its load, marked, and on a truck', u);
+  ok(toiletM.length && tankM && tankM.at >= Math.max(...toiletM.map(x => x.end)), 'F4b a tank under an unknown-quantity toilet waits for that toilet stop', {toiletM, tankM});
+});
+block('follow-up 6: an equal-time pump-out disagreement is settled the same way in either order, and written down', () => {
+  const c = ctx([]);
+  vm.runInContext(pageFn('mergeRecords', '\nfunction applyImport('), c); run(c, "deliveryEmpty=d=>!d.state && typeof d.emptied!=='boolean'");
+  const A = "{delivery:{X:{emptied:true,emptied_by:'A',emptied_at:'2026-10-26T00:00:00Z'}}}", B = "{delivery:{X:{emptied:false,emptied_by:'B',emptied_at:'2026-10-26T00:00:00Z'}}}";
+  const ab = run(c, `JSON.parse(JSON.stringify(mergeRecords(${A},${B})))`), ba = run(c, `JSON.parse(JSON.stringify(mergeRecords(${B},${A})))`);
+  const again = run(c, `JSON.parse(JSON.stringify(mergeRecords(${JSON.stringify(ab.merged)}, ${JSON.stringify(ab.merged)}).merged))`);
+  ok(ab.merged.delivery.X.emptied === false && ba.merged.delivery.X.emptied === false && ab.report.clashes.some(x => /emptied/.test(x)) && ba.report.clashes.some(x => /emptied/.test(x)) && JSON.stringify(again.delivery) === JSON.stringify(ab.merged.delivery),
+    'F6 same time, two answers: not emptied on every copy, in either order, idempotent, the clash written down', {ab: ab.merged.delivery, ba: ba.merged.delivery, clashes: ab.report.clashes});
+  c.S.delivery.Y = {emptied: true, emptied_by: 'A', emptied_at: '2026-10-26T00:00:00Z'}; c.CROW.set('Y', {delivery: {emptied: false, emptied_by: 'B', emptied_at: '2026-10-26T00:00:00Z'}});
+  ok(run(c, "emptiedOf816('Y').on") === false, 'F6b the page itself reads an equal-time disagreement as not emptied');
+});
+block('follow-up 7: an added reference\'s dated removal event is its plan date out', () => {
+  const c = ctx([asset('AD1', [{asked: 'Generator', qty_supplied: 1}], {kind: 'generator', _added: true, first_date: '2026-10-20', last_date: '2026-10-20', out: '2026-11-05', events: [{movement: 'place', date: '2026-10-20'}, {movement: 'remove', date: '2026-11-05'}]}),
+    asset('AD2', [{asked: 'Generator', qty_supplied: 1}], {kind: 'generator', _added: true, first_date: '2026-10-20', last_date: '2026-10-20', out: '2026-10-20', events: []})]);
+  const r = run(c, "JSON.parse(JSON.stringify([demobOf816('AD1'), demobOf816('AD2')].map(x => ({src: x.src, iso: x.iso}))))");
+  ok(r[0].src === 'plan' && r[0].iso === '2026-11-05' && r[1].src === 'proposed', 'F7 an explicit removal event keeps its date (5 Nov); a one-day added reference without one is proposed', r);
 });
 console.log(fails ? `\n${fails} FAILED, ${passes} passed` : `\nALL PASSED (${passes})`); process.exitCode = fails ? 1 : 0;
