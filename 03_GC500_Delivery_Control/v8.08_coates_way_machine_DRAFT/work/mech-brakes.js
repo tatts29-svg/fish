@@ -145,7 +145,7 @@ export function buildBrakes(T, mats, assembly, mesh, batch, h) {
     const mat = new T.MeshBasicMaterial({vertexColors: true, color: 0x000000, transparent: true, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2});
     const m = new T.Mesh(geo, mat); m.name = 'Brake disc heat'; m.visible = false; m.renderOrder = 2; return m;
   }
-  const HOT = new T.Color(0xff8a2a), DULL = new T.Color(0x8a1200), glowCol = new T.Color();
+  const HOT = new T.Color(0xff6a10), DULL = new T.Color(0xa01400), glowCol = new T.Color();
   /* the wheels belong to the car's body; they are found once in the scene the powertrain has been added to, by their ids */
   let searched = 0;
   function attachHubs(root) {
@@ -188,7 +188,7 @@ export function buildBrakes(T, mats, assembly, mesh, batch, h) {
         const a = c.hub.rotation.z, turned = c.lastHub === null ? 0 : Math.abs(a - c.lastHub); c.lastHub = a;
         const share = c.axle === 'front' ? BRAKE_BIAS : 1 - BRAKE_BIAS;
         c.heat = Math.min(1.25, c.heat * Math.exp(-dt / 11) + (connected(c.id) ? b * share * Math.min(turned, 2) * .09 : 0));
-        if (c.glow) { const k = Math.min(1, c.heat); c.glow.visible = c.heat > .015; glowCol.copy(DULL).lerp(HOT, Math.min(1, k * 1.2)).multiplyScalar(Math.min(1.4, c.heat * 1.6)); c.glow.material.color.copy(glowCol); }
+        if (c.glow) { const k = Math.min(1, c.heat); c.glow.visible = c.heat > .015; glowCol.copy(DULL).lerp(HOT, Math.min(1, k * 1.2)).multiplyScalar(Math.min(2.4, c.heat * 2.2)); c.glow.material.color.copy(glowCol); }
       }
     }
   }
