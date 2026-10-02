@@ -1,6 +1,6 @@
 # v7.99 — Today opens faster, and its cards fill their columns
 
-Author: Andrew Fisher · 2 Oct 2026 · **Reviewed and passed (Claude + independent reviewer); final rebuild on v8.02 pending**, not live. Built on live **v8.01** (`70ed0c49…`, uploaded by Codex after v7.96).
+Author: Andrew Fisher · 2 Oct 2026 · **READY TO UPLOAD (Claude, 2 Oct 2026 15:55 AEST)**, not live. Built on live **v8.02** (`07d61880…`).
 
 ## Why
 
@@ -31,7 +31,7 @@ Nothing is redrawn and no figure changes. It is the same page, drawn with less w
 
 ## Measured against live, the same machine, Codex's own tools
 
-First against v7.96 (`dd16fa3b…`); then, after Codex uploaded v8.01, against v8.01 (`70ed0c49…`), on the final candidate. Today and Equipment are the same on both.
+Measured first against v7.96 (`dd16fa3b…`), then v8.01 (`70ed0c49…`), and finally against **v8.02 (`07d61880…`) on the final candidate `37e77a24…`**. Codex's v8.0x releases don't touch Today or Equipment, and the results are the same on all three.
 
 Speed uses `evidence/speed799.cjs`, Codex's `review796_speed.cjs`: six `go()` samples per tab, the median, one browser at a time, three paired runs.
 
@@ -40,7 +40,11 @@ Speed uses `evidence/speed799.cjs`, Codex's `review796_speed.cjs`: six `go()` sa
 | Today | 346.6 / 322.5 / 313.1 ms | **257.1 / 271.7 / 267.9 ms** (about 17% faster on the median) |
 | Equipment | 101.2 / 99.2 / 97.0 ms | 107.6 / 106.3 / 100.8 ms (Equipment code unchanged; within noise) |
 
-Against live v8.01 on the final candidate `8a770bc0…`, three paired runs:
+**Final, against live v8.02, on candidate `37e77a24…`, three paired runs:**
+- **Today:** 326.4 / 371.1 / 310.2 ms on live, against **282.0 / 260.4 / 254.9 ms** on v7.99. That's about 20% faster on the median.
+- **Equipment:** about the same on both (103.2 / 96.7 / 96.0 ms on live, 102.5 / 107.9 / 98.2 ms on v7.99).
+
+Against v8.01 on `8a770bc0…`, three paired runs:
 - **Today:** 334.2 / 583.1 / 367.7 ms on live, against **282.4 / 297.4 / 304.7 ms** on v7.99.
 - **Equipment:** about the same on both.
 
@@ -69,8 +73,9 @@ Codex measured 19.1% and 33.2% on its own machine. Fonts differ slightly between
 bash toolchain/build.sh v7.99 v7.99_today_faster_fuller_DRAFT/patch_v799.py
 ```
 
-- Base: live **v8.01** `70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11` (8,950,159 bytes).
-- Candidate: **8,959,606 bytes, SHA-256 `8a770bc06a3ff127ee65f1a3c52fd4738d1d8b661d03d38259f5376ceded86a5`**.
+- Base: live **v8.02** `07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992` (9,070,571 bytes).
+- Candidate: **9,080,018 bytes, SHA-256 `37e77a2480c183d22308b7f58b69ed473d4cf32907a840892f6be590c970f025`**.
+- The same patch was earlier built on v8.01 as `8a770bc0…`; that is the build the independent re-review covered.
 - `check_page` passes. The patch refuses a second run and a page without v7.96.
 - One patch, no dependence on Codex's v8.0x code, so it rebuilds on whatever goes live last.
 
@@ -161,4 +166,8 @@ The reviewer also noted that the tests didn't cover print layout, printing from 
 - **Width sweep every 25 px from 900 to 1,600, with resizes back and forth:** no overlap and no errors.
 - **When idle,** the card placement runs 0 times.
 
-**Status:** ready once rebuilt on the live page Codex publishes next (v8.02), with every check rerun there.
+**Status:** rebuilt on live v8.02 and every check rerun there. The results are the same as on v8.01, with one test updated:
+- **The one-tab test's Showcase check.** On a phone, v8.02 opens the Showcase in "car-focus" without the old backdrop, so the test now checks the Showcase itself.
+- **The same check on live v8.02.** It failed there too before the update; it is not a v7.99 change.
+
+**READY TO UPLOAD.**

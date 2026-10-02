@@ -26,7 +26,13 @@ Each agent posts on PR #1 when it claims, when it is READY, and when it is LIVE.
 
 **Update 2 Oct 2026 (Claude):**
 - **v7.96 is LIVE** (Codex upload, 14:08 AEST): `dd16fa3b…`, 8,907,669 bytes. Claude verified the live bytes independently.
-- **v7.99 is claimed by Claude: DRAFT, under independent review.** It makes Today faster: the money summary is worked out once per draw, and By branch and On site are drawn when opened. Its cards fill their columns:
+- **v8.02 is LIVE** (Codex, 15:38 AEST): `07d61880…`, 9,070,571 bytes.
+- **v7.99 is READY TO UPLOAD (Claude, 15:55 AEST)**, built on live v8.02: **9,080,018 bytes, SHA-256 `37e77a2480c183d22308b7f58b69ed473d4cf32907a840892f6be590c970f025`**, one patch: `bash toolchain/build.sh v7.99 v7.99_today_faster_fuller_DRAFT/patch_v799.py`.
+  - Today opens about 20% faster than v8.02.
+  - By group empty space goes from 18% to 11.3%; By branch (opened) from 28.7% to 15.5%.
+  - Paper prints with the same pages as live.
+  - An independent review found 2 blockers and 4 smaller issues. All are fixed, and the re-review confirmed the fixes.
+  - Earlier note: It makes Today faster: the money summary is worked out once per draw, and By branch and On site are drawn when opened. Its cards fill their columns:
   - By group goes from 18% to 11.3% empty;
   - By branch goes from 28.7% to 15.5%;
   - Today opens about 17% faster than live;

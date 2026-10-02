@@ -108,7 +108,7 @@ const OUT = process.env.OUTD || __dirname;
 
   // Start showcase
   const sc = await p.evaluate(async () => { document.querySelector('#pane-today > .acts793 .showgo').click(); await new Promise(r => setTimeout(r, 2500));
-    const bd = document.getElementById('showBackdrop'); const open = !!bd && getComputedStyle(bd).display !== 'none' && bd.getClientRects().length > 0;
+    const bd = document.getElementById('showBackdrop'), sh = document.getElementById('showcase'); /* v8.02 shows the car without the backdrop on a phone */ const seen = e => !!e && getComputedStyle(e).display !== 'none' && e.getClientRects().length > 0; const open = seen(bd) || seen(sh);
     try { if (typeof showClose === 'function') showClose(); else document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'})); } catch (e) {}
     return {open}; });
   ok('Start showcase opens the showcase', sc.open, sc);

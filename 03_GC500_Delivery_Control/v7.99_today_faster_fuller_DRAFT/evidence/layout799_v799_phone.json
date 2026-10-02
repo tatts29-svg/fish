@@ -2,7 +2,7 @@
   "author": "Andrew Fisher",
   "tag": "v799",
   "mobile": true,
-  "sha256": "8a770bc06a3ff127ee65f1a3c52fd4738d1d8b661d03d38259f5376ceded86a5",
+  "sha256": "37e77a2480c183d22308b7f58b69ed473d4cf32907a840892f6be590c970f025",
   "screenshots": [
     "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/v799-today-phone-top.png",
     "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/v799-today-phone-middle.png",
@@ -45,7 +45,7 @@
   "errors": [],
   "requests": {
     "page": 1,
-    "live": 132,
+    "live": 130,
     "blocked": 0
   }
 }

@@ -1,15 +1,15 @@
 {
   "author": "Andrew Fisher",
-  "tag": "live801",
+  "tag": "live802",
   "mobile": false,
-  "sha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "sha256": "07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992",
   "screenshots": [
-    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live801-today-desktop-top.png",
-    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live801-today-desktop-middle.png",
-    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live801-today-desktop-bottom.png",
-    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live801-plant-desktop-top.png",
-    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live801-plant-desktop-middle.png",
-    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live801-plant-desktop-bottom.png"
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802-today-desktop-top.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802-today-desktop-middle.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802-today-desktop-bottom.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802-plant-desktop-top.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802-plant-desktop-middle.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802-plant-desktop-bottom.png"
   ],
   "measures": {
     "today": {
