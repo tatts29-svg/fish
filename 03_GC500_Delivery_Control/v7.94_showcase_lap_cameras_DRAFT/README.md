@@ -1,22 +1,22 @@
-# Showcase lap coverage and cameras — DRAFT
+# Showcase complete lap, cameras and reference detail — DRAFT
 
 Author: Andrew Fisher · 2 Oct 2026
 
-Andrew: “Feel like your missing hslf the track. . Cameras not as good. . I need this better”.
+Andrew asked for the missing half of the lap, better cameras, a fresh review of both MP4s and the photos, and finer visual detail. The original wall-clock stop could end playback after only 52.9% of the lap at an 8 Hz callback cadence. Playback now waits for the full circuit and the figures, with pause/replay/loop and appearance recovery preserved.
 
-The old figure timer stopped the car after 90.1 seconds regardless of distance. With the actual route and original fixed-step frame function, an 8 Hz callback cadence reached only 52.9% of the lap; a half-speed selection also stopped early. The old default camera faced back towards the car and Auto never scheduled a complete-circuit view.
+Route-aware cameras spend most of the tour at road level and use the actual screen aspect when setting their lenses. The opening shows the complete circuit; its progress map appears in road views. Desktop's old intended 68° driver lens was effectively 90.7°. The corrected lens and lower chase views keep the route legible on desktop and phone.
 
-This release waits for both the figures and a complete lap, adds route-aware road cameras and a distance-led Circuit tour, and preserves the current position through appearance changes. A route map shows progress. Phone controls give more space to the circuit. Existing pit and stand anchors gain structural depth.
+The render corridor now follows the existing centre-line carriageway width metadata instead of the much wider schematic source contours. This is an illustrative rendering correction, not surveyed race-fence placement. Original DATA/source loops, simulation and operational placements remain unchanged. Pavement, kerbs, walls, mesh and their owned banners share coherent derived boundaries. All eight road-camera laps and the conservative car envelope clear them. The original D001 master plan behind Map Explorer was visually read; its separate inset is surrounding streets, not a missing racing lap. Its three pedestrian crossings, five over-track signs and stand locations need a verified source-to-scene crosswalk before additional placements.
 
-Original route, road widths, source positions, car, physics, business page and records are retained. Added structures are illustrative; the photographs do not establish survey coordinates for new signs or bridges.
+Both MP4s and 39 photos informed quieter asphalt, joined kerb profiles, irregular foliage, recessed facades and 26 open pit structures. Original media remain private. These are source-informed illustrative structures; no unsupported building heights or surveyed anchors are claimed.
 
-Final verification underway; not yet live.
+## Current verification
 
-- Playback: 52 CPU checks, including slow cadence/pace, launch pause, replay, loop, commentary, reduced motion and non-3D completion.
-- Cameras: 15 focused checks and 4,056 actual-route samples on each of desktop/phone, covering all 12 lap sections with no obstruction fallbacks.
-- Scenery: 19 checks, including exact embedded-source identity, source envelopes, blocked stairs and geometry/resource budgets.
-- Integrated build `8aa55ec6…`: 55 desktop/phone browser checks; 26 full-lap views plus selected camera views, six manual cameras while paused, Day/Night retention, actual WebGL loss/recovery, close/disposal and phone Options. Zero detected page/GL errors or record writes. The phone circuit occupies 590 px of an 844 px viewport.
-- Both official navigation sweeps: 21 tab routes and seven deep links, zero page/console errors or blocked write attempts. Existing restricted-tab redirects retained.
-- Exact rebuild and preservation of the entire earlier page outside the appended extension verified.
+- Playback:52 exact-source CPU cases.
+- Camera:17 focused cases;4,056 route samples across four aspect ratios. All12 sections covered; no settled road-camera fallback or lost tracked car.
+- Structure:38 architecture,27 pit,14 vegetation,13 kerb and17 surface checks. Geometry/resource budgets recorded in evidence.
+- Corridor:48 CPU cases passed independently on integrated candidate5270f18; whole lap car clearance3.49m, kerb lip0.571m, eight settled camera laps clear. Upload rollback and fatal fallback are tested.
+- Integrated intermediate5270f18:61 browser checks passed, zero page/GL errors or live record writes.30 desktop/phone views reviewed. Day/night, detail switch and actual WebGL loss/recovery retain coherent geometry and the current paused lap.
+- Visual review found one pre-existing first/last fence-banner overlap exposed by narrower geometry. A bounded seam-spacing correction is now undergoing its new49-case check and targeted visual verification;5270f18 is not final sign-off for that correction.
 
-Visual review of that intermediate build found a phone Driver roof/body intrusion despite the structural checks passing. The camera eye was moved ahead of the roof and raised slightly. That correction and truthful non-3D completion wording are now in candidate `bb245eb1…`; a fresh full desktop/phone browser run and navigation sweeps are underway before publication. This headless browser uses software rendering; it does not establish a physical phone frame rate.
+A fresh official build on the current live Today/Equipment release, final standing suites, final screenshots and guarded publication remain. Software-rendered Chromium proves execution and geometry, not physical-phone frame rate. The vehicle appearance is a separately claimed v8.00 improvement requested after this draft; the old car model is not being described as visually finished.

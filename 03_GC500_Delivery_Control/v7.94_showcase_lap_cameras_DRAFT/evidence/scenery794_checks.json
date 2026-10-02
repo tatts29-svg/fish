@@ -3,10 +3,10 @@
   "scope": "CPU geometry and source/lifecycle invariants; visual browser validation required",
   "inputHtml": {
     "path": "build/GC500_v7.94/GC500_Delivery_Control_hosted.html",
-    "sha256": "bb245eb19de977e984bc8d1c045fa9bf59fc943649933f416f7d384f9fa0c8e1"
+    "sha256": "4502f5f4d403ccb73433428971d3c8a863af372dd9c609eece227443a379d7fe"
   },
-  "sourceSha256": "da8b443496c6535a6522de3e1528df0a0381e29a2efb6ba947be2863ee7632c8",
-  "elapsedMs": 85.48233500000003,
+  "sourceSha256": "f1c47bac922eac694876de1489f94efdbc8f2968c966d5102495e1150bb06f87",
+  "elapsedMs": 110.96249899999998,
   "maximumPitReliefM": 0.15500000000003056,
   "checks": [
     {

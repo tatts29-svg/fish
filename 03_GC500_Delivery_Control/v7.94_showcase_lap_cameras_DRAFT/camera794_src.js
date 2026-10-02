@@ -7,7 +7,7 @@
 const G=window.GC3D;if(!G||G.camera794)return;
 const originalStep=G.camStep,originalView=G.setView,originalFov=G.framedFov;
 const RAD=Math.PI/180,MAIN=new Set(['tour','auto','chase','onboard','hero','heli','top','wide']);
-const TOUR=['chase','onboard','heli','chase','onboard','heli','chase','hero','heli','onboard','chase','wide'];
+const TOUR=['chase','onboard','hero','chase','onboard','heli','chase','hero','onboard','onboard','chase','hero'];
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),mix=(a,b,t)=>a+(b-a)*t;
 const add=(a,b)=>a.map((x,i)=>x+b[i]),sub=(a,b)=>a.map((x,i)=>x-b[i]);
 const scale=(a,k)=>a.map(x=>x*k),dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0);
@@ -96,8 +96,9 @@ function wanted(S,name){
  const lookM=name==='onboard'?clamp(10+speed*.60,12,43):name==='heli'?clamp(30+speed*.80,35,80):clamp(9+speed*.36,10,28);
  const far=path(S,s+lookM/M),near=path(S,s+Math.min(lookM*.42,10)/M),f=norm(sub(far,path(S,s))),right=[-f[2],0,f[0]];
  const horizontal=name==='onboard'?68:name==='heli'?58:name==='hero'?54:53;
- // Keep useful horizontal road coverage in portrait without an extreme fisheye lens.
- const fov=clamp(2*Math.atan(Math.tan(horizontal*RAD/2)/Math.min(1.65,aspect(S)))/RAD,38,88);
+ // Convert the intended horizontal angle using the actual viewport. A vertical
+ // floor widens ultrawide shots; only cap the vertical angle in portrait.
+ const fov=Math.min(88,2*Math.atan(Math.tan(horizontal*RAD/2)/aspect(S))/RAD);
  let eye,tgt;
  if(name==='onboard'){
   const heading=norm(lerp(tangent(S,s),f,.34));
@@ -110,14 +111,18 @@ function wanted(S,name){
   if(C&&(C.rig!=='heli'||!C.droneSide))C.droneSide=turn<0?-1:1;
   const side=C&&C.droneSide||1; // Lock the side for the shot; an inflection must not swap banks mid-blend.
   eye=add(anchor,add(scale(right,side*12/M),[0,(42+speed*.16)/M,0]));
-  tgt=lerp([car[0],car[1]+1/M,car[2]],[far[0],car[1]+1/M,far[2]],.24);
+  // With a genuinely fixed horizontal lens, ultrawide frames have little
+  // vertical room. Reduce aerial lead rather than widening the lens or losing
+  // the car below the bottom edge.
+  tgt=lerp([car[0],car[1]+1/M,car[2]],[far[0],car[1]+1/M,far[2]],.24*Math.min(1,1.4/aspect(S)));
  }else{
-  const backM=name==='hero'?16:17+speed*.07,heightM=name==='hero'?6.4:5.2+speed*.025,sideM=name==='hero'?4.4:.7;
+  const backM=name==='hero'?12:13+speed*.045,heightM=name==='hero'?3.8:3.7+speed*.012,sideM=name==='hero'?2.7:.55;
   // Sample the travelled route for the eye; a tangent-only arm swings outside hairpins.
   const anchor=path(S,s-backM/M),rearT=tangent(S,s-backM/M),rearR=[-rearT[2],0,rearT[0]],width=S.CL.at(s-backM/M)[2]||2;
   const safeSide=Math.min(sideM/M,width*.32);
   eye=add(anchor,add(scale(rearR,safeSide),[0,heightM/M,0]));
   tgt=lerp([car[0],car[1]+.80/M,car[2]],[near[0],car[1]+1.05/M,near[2]],name==='hero'?.34:.43);
+  if(aspect(S)>2.5)tgt=lerp(car,tgt,2.5/aspect(S));
  }
  return {eye,tgt,fov,whole:false,following:true,lookAheadM:lookM};
 }
@@ -185,8 +190,21 @@ function begin(C,S,rig,to){
 function choose(S,view){
  const L=S.CL.L,s=S.sim.s-(S.gridS||0),p=((s%L)+L)%L/L,bin=Math.min(11,Math.floor(p*12));
  if(view!=='tour'&&view!=='auto')return {rig:view,bin,p};
- // The opening reveals the entire route before the continuous, distance-led lap begins.
- const intro=(S.clock||0)<5.6,rig=intro?'top':TOUR[bin];return {rig,bin,p};
+ // Establish the whole route, then keep the street and its detail legible for
+ // almost the entire lap. The final short overview closes the route, rather
+ // than hiding the pit approach for a whole equal-distance section.
+ if((S.clock||0)<5.6)return {rig:'top',bin,p};
+ if(p>.985)return {rig:'wide',bin,p};
+ let rig=TOUR[bin];
+ // Sample actual route headings: a contextual aerial must not obscure a bend.
+ // Hysteresis keeps the rig stable through the approach, apex and early exit.
+ const M=metres(S),C=S.camera794||{},here=S.sim.s;
+ const a=tangent(S,here-8/M),b=tangent(S,here+26/M),c=tangent(S,here+50/M);
+ const angle=(u,v)=>Math.abs(Math.atan2(cross(u,v)[1],dot(u,v)));
+ const bend=Math.max(angle(a,b),angle(b,c));
+ C.cornerAhead794=bend>(C.cornerAhead794?.24:.40);
+ if(C.cornerAhead794&&rig==='heli')rig='chase';
+ return {rig,bin,p};
 }
 function restoreProjection(S,C){if(C&&C.projection){S.tune.shiftX=C.projection[0];S.tune.shiftY=C.projection[1];C.projection=null;}}
 function special(S,view){return !MAIN.has(view)||(S.vehicle||G.vehicle||'car')!=='car'||S.towVms||S.camDebug||(S.fw&&S.fw.cam)||(S.towKind==='loo'&&S.loo&&S.loo.ph!=='shut');}
@@ -216,6 +234,15 @@ G.camStep=function(dt){
  if(!C||!S.cam||(C.clock!=null&&(S.clock||0)<C.clock-.01)){restoreProjection(S,C);restoreOpacity(S,C);C=S.camera794={};}
  if(!C.projection)C.projection=[S.tune.shiftX||0,S.tune.shiftY||0];S.tune.shiftX=0;S.tune.shiftY=0;
  C.active=true;const pick=choose(S,view),raw=wanted(S,pick.rig),desired=safeRig(S,raw);
+ const viewportAspect=aspect(S);
+ if(C.aspect&&C.aspect!==viewportAspect){
+  // Keep the current road shot's horizontal framing through resize, including
+  // a transition's starting lens. Its target already uses the new aspect.
+  const resized=f=>Math.min(88,2*Math.atan(Math.tan(f*RAD/2)*C.aspect/viewportAspect)/RAD);
+  if(C.cam&&!C.cam.whole)C.cam.fov=resized(C.cam.fov);
+  if(C.transition&&!C.transition.fromWhole)C.transition.from.fov=resized(C.transition.from.fov);
+ }
+ C.aspect=viewportAspect;
  if(C.view!==view||C.rig!==pick.rig)begin(C,S,pick.rig,desired);
  const delta=C.anchor?sub(S.pose.pos,C.anchor):[0,0,0];
  if(reducedMotion(S)){C.transition=null;C.cam=desired;restoreOpacity(S,C);}
@@ -233,6 +260,8 @@ G.camStep=function(dt){
  const a=aspect(S),car=projection(S.cam,S.pose.pos,a);
  C.report={view,shot:S.shotName,requestedShot:pick.rig,lapSection:pick.bin+1,lapFraction:pick.p,circuitLengthM:S.CL.L*metres(S),lookAheadM:raw.lookAheadM,
   transitionActive:!!C.transition,transitionRemainingSeconds:C.transition?1-C.transition.elapsed:0,aspect:a,fov:S.cam.fov,
+  desiredFov:raw.fov,horizontalFov:2*Math.atan(Math.tan(S.cam.fov*RAD/2)*a)/RAD,
+  desiredHorizontalFov:2*Math.atan(Math.tan(raw.fov*RAD/2)*a)/RAD,
   transitionKind:C.transition?C.transition.kind:null,transitionOpacity:C.transitionOpacity==null?1:C.transitionOpacity,
   carInFrame:car.z>0&&Math.abs(car.x)<.95&&Math.abs(car.y)<.95,carScreen:{x:car.x,y:car.y},
   obstructionClear:clearRay(S,Object.assign({},C.cam,{whole:C.cam.whole})),obstructionAdjusted:!!C.cam.adjusted,

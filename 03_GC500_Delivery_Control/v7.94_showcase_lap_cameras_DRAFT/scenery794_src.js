@@ -87,7 +87,9 @@ G.addScenery794=function(S,D){
 
  const anchors=original&&original.anchors||[],source=S.architecture781Source||[];
  itemBudget=anchors.length?Math.floor(PIT_BUDGET/anchors.length/2)*2:PIT_BUDGET;
- for(const anchor of anchors){
+ // Open structures commit atomically; retain the original relief if validation fails.
+ const openPit794=G.addOpenPit794&&G.addOpenPit794(S,D,anchors);
+ for(const anchor of (openPit794?[]:anchors)){
   const b=source[anchor.sourceIndex];if(!b)continue;
   const P=b.p.map(S.toWorld);if(P.length>4)P.pop();if(P.length!==4||!P.every(finite))continue;
   const begin=mesh.nv;itemStart=mesh.i.length;

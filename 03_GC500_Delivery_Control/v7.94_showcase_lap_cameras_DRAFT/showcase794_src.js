@@ -48,7 +48,10 @@ function paint(force){
  const now=performance.now();if(!force&&now-lastPaint<180)return;lastPaint=now;
  install();if(!map)return;
  const S=G.S,show=byId('showcase'),active=!!(S&&SHOW.open&&show&&show.classList.contains('car-focus')&&showRenderer()==='3d');
- map.hidden=!active;if(!active)return;
+ // An overview already shows the route. Keep its complete circuit unobstructed
+ // instead of covering its northern section with a second map.
+ const overview=!!(S&&S.camera794&&S.camera794.active&&S.camera794.cam&&S.camera794.cam.whole);
+ map.hidden=!active||overview;if(!active)return;
  if(S.capEl&&!S.compactCredit794){
   S.capEl.title=S.credit||'';S.credit=S.creditShort='Circuit: iEDM key plan · © OpenStreetMap contributors (ODbL) · illustrative view';
   S.capEl.textContent=S.credit;S.compactCredit794=true;
@@ -74,5 +77,11 @@ showClose=function(){const result=close.apply(this,arguments);if(map)map.hidden=
 const frame=G.frame;
 G.frame=function(){const result=frame.apply(this,arguments);paint(false);return result;};
 G.showcase794={version:'v7.94',paint};
+const fullReport=G.fullLapReport788;
+if(fullReport)G.fullLapReport788=function(){
+ const report=fullReport.apply(this,arguments);
+ return Object.assign(report,{version:'v7.94',cameraOverride:!!(G.S&&G.S.camera794&&G.S.camera794.active),
+  sourceRoutePreserved:true,renderCorridor:G.corridorReport794?G.corridorReport794():null});
+};
 install();
 })();

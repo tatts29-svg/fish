@@ -15,7 +15,15 @@
       "passed": true
     },
     {
-      "name": "Tour includes every diagnostic lap section and recurring aerial orientation",
+      "name": "Tour covers all twelve sections, favours road shots and reserves closing overview for lap end",
+      "passed": true
+    },
+    {
+      "name": "Road lens preserves intended horizontal FOV on desktop, 4:1 and 6:1 and caps portrait vertical FOV",
+      "passed": true
+    },
+    {
+      "name": "Widening viewport preserves horizontal road framing immediately and resizing during blend remains bounded",
       "passed": true
     },
     {

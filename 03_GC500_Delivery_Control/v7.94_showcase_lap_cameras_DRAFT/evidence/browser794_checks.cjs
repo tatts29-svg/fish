@@ -13,7 +13,12 @@ async function run(phone){
   await p.evaluate(()=>{localStorage.removeItem('gc500.showview');localStorage.setItem('gc500.showquality','balanced');localStorage.setItem('gc500.showback','circuit3d_day');document.getElementById('showView').value=showViewGet();GC3D.noGuard=true;showOpen();});
   await p.waitForFunction(()=>GC3D.S&&GC3D.S.gl&&GC3D.S.camera794);
   const initial=await p.evaluate(()=>({view:GC3D.S.view,selected:document.getElementById('showView').value,options:[...document.getElementById('showView').options].map(o=>o.value),map:!document.getElementById('showLap794').hidden,gl:GC3D.S.gl.getError()}));
-  check(name+': new viewers get Circuit tour and visible route progress',initial.view==='tour'&&initial.selected==='tour'&&initial.options.includes('top')&&initial.map&&initial.gl===0,initial);
+  check(name+': new viewers get Circuit tour with an unobstructed opening overview',initial.view==='tour'&&initial.selected==='tour'&&initial.options.includes('top')&&!initial.map&&initial.gl===0,initial);
+  const detail=await p.evaluate(()=>{const G=GC3D,r=G.fullLapReport788();return {enabled:r.enabled,error:r.detailError,
+   joins:r.track&&r.track.kerbSharedJoins,pit:r.track&&r.track.openPit794&&r.track.openPit794.modules,
+   facades:r.architecture&&r.architecture.facadeElevations,architectureComplete:r.architecture&&r.architecture.fullEligibleCoverage,
+   vegetationComplete:r.vegetation&&r.vegetation.fullEligibleCoverage,corridor:G.corridorReport794()};});
+  check(name+': all refined geometry and corrected boundaries install without silent fallback',detail.enabled&&!detail.error&&detail.joins===224&&detail.pit===26&&detail.facades===354&&detail.architectureComplete&&detail.vegetationComplete&&detail.corridor.enabled&&!detail.corridor.failed,detail);
   // Drive the real fixed-step frame function; skip GPU work between review frames.
   // Timer completion is separately exercised using the actual scheduler in the VM regression.
   await p.evaluate(()=>{if(SHOW.playing)showPause();window.__render794=GC3D.render;window.__time794=0;GC3D.setQuality('balanced');GC3D.S.qualityChoice='manual';});
@@ -25,13 +30,14 @@ async function run(phone){
     // Review the settled shot shortly after a distance-led handoff, not a black fade midpoint.
     if(section>0)for(let i=0;i<78;i++){window.__time794+=1000/60;G.frame(window.__time794);}
     G.render=window.__render794;S.paused=true;S.last=null;G.camStep(0);G.render();G.showcase794.paint(true);
-    const c=G.cameraReport794(),r=G.playback794.report();return {section,distanceM:r.distanceM,progress:r.progress,view:c,gl:S.gl.getError(),finite:S.cam.eye.concat(S.cam.tgt,[S.cam.fov]).every(Number.isFinite)};
+    const c=G.cameraReport794(),r=G.playback794.report();return {section,distanceM:r.distanceM,progress:r.progress,view:c,gl:S.gl.getError(),finite:S.cam.eye.concat(S.cam.tgt,[S.cam.fov]).every(Number.isFinite),map:!document.getElementById('showLap794').hidden};
    },section);
    result.views.push({device:name,...view});
    check(name+': tour section '+section+' renders a finite clear camera',view.finite&&view.gl===0&&view.view.obstructionClear,view.view);
    await p.screenshot({path:path.join(out,name+'-tour-'+String(section).padStart(2,'0')+'.png'),timeout:180000});
   }
   check(name+': rendered every twelfth of the complete lap',result.views.filter(v=>v.device===name).at(-1).progress>=1);
+  check(name+': road views show progress without covering the opening overview',result.views.some(v=>v.device===name&&v.view.shot==='onboard'&&v.map)&&!result.views.find(v=>v.device===name&&v.section===0).map);
   for(const camera of ['top','wide','chase','onboard','hero','heli']){
    await p.selectOption('#showView',camera);
    const c=await p.evaluate(()=>{const G=GC3D,S=G.S,start=S.sim.s;G.render=()=>{};for(let i=0;i<85;i++){window.__time794+=1000/60;G.frame(window.__time794);}G.render=window.__render794;G.render();return {camera:G.cameraReport794(),paused:S.paused,still:S.sim.s===start,gl:S.gl.getError()};});
@@ -49,11 +55,13 @@ async function run(phone){
   const appearance=await p.evaluate(()=>{const G=GC3D,old=G.S,start=old.sim.s,clock=old.clock,view=old.view;showSetBack('circuit3d');const S=G.S;G.render();return {newScene:S!==old,retained:S.sim.s===start&&S.clock===clock&&S.view===view,paused:S.paused,night:!S.look.day,disposed:!old.trackDetail781&&!old.architecture781,gl:S.gl.getError()};});
   check(name+': Day/Night retains lap camera and pause, releases old graphics',appearance.newScene&&appearance.retained&&appearance.paused&&appearance.night&&appearance.disposed&&appearance.gl===0,appearance);
   await p.evaluate(()=>{showSetBack('circuit3d_day');GC3D.render();});
+  const detailSwitch=await p.evaluate(()=>{const G=GC3D,S=G.S;G.enableFullLap788(false);G.render();const off=!G.corridorReport794().enabled&&!S.trackDetail781&&!S.architecture781;G.enableFullLap788(true);G.render();return {off,on:G.corridorReport794().enabled&&!!S.trackDetail781&&!!S.architecture781,gl:S.gl.getError()};});
+  check(name+': detail off and on restore a coherent scene without double boundaries',detailSwitch.off&&detailSwitch.on&&detailSwitch.gl===0,detailSwitch);
   const loss=await p.evaluate(()=>{const S=GC3D.S;window.__loss794={s:S.sim.s,clock:S.clock,view:S.view,old:S};const ex=S.gl.getExtension('WEBGL_lose_context');if(!ex)return false;ex.loseContext();setTimeout(()=>ex.restoreContext(),100);return true;});
   if(loss){
    await p.waitForFunction(()=>GC3D.S&&GC3D.S!==window.__loss794.old&&!GC3D.S.lost,null,{timeout:180000});
-   const recovered=await p.evaluate(()=>{const S=GC3D.S,b=window.__loss794;GC3D.render();return {same:S.sim.s===b.s&&S.clock===b.clock&&S.view===b.view,paused:S.paused,canvases:document.querySelectorAll('canvas.gc3d').length,gl:S.gl.getError()};});
-   check(name+': graphics recovery preserves paused lap and camera once',recovered.same&&recovered.paused&&recovered.canvases===1&&recovered.gl===0,recovered);
+   const recovered=await p.evaluate(()=>{const S=GC3D.S,b=window.__loss794;GC3D.render();return {same:S.sim.s===b.s&&S.clock===b.clock&&S.view===b.view,paused:S.paused,canvases:document.querySelectorAll('canvas.gc3d').length,gl:S.gl.getError(),corridor:GC3D.corridorReport794()};});
+   check(name+': graphics recovery preserves paused lap camera and coherent boundaries once',recovered.same&&recovered.paused&&recovered.canvases===1&&recovered.gl===0&&recovered.corridor.enabled&&!recovered.corridor.failed,recovered);
   }
   const close=await p.evaluate(()=>{const S=GC3D.S;showClose();return {hidden:document.getElementById('showcase').hidden,map:document.getElementById('showLap794').hidden,disposed:!S.trackDetail781&&!S.architecture781};});
   check(name+': close releases graphics and hides orientation map',close.hidden&&close.map&&close.disposed,close);

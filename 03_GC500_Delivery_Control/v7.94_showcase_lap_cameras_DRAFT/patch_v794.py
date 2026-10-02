@@ -6,13 +6,27 @@ import sys
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
+import finish794_patch
+import patch_kerb794
+import patch_pit794
+import patch_vegetation794
+import patch_architecture794
+import patch_presentation794
+import patch_corridor794
+
+def refine(text, path):
+    for patch in (finish794_patch, patch_kerb794, patch_pit794,
+                  patch_vegetation794, patch_architecture794, patch_presentation794, patch_corridor794):
+        text = patch.apply(text, path)
+    return text
 
 def apply(text, path):
     if '/* Showcase complete lap v7.94 */' in text:
         raise SystemExit('v7.94 already applied')
     if 'G.photoRefinement792=' not in text:
         raise SystemExit('v7.94 requires the live v7.92 photo refinement or later')
-    names = ['camera794_src.js', 'scenery794_src.js', 'playback794_src.js', 'showcase794_src.js']
+    text = refine(text, path)
+    names = ['camera794_src.js', 'scenery794_src.js', 'pit794_src.js', 'playback794_src.js', 'showcase794_src.js', 'corridor794_src.js']
     source = '\n'.join((HERE / name).read_text() for name in names)
     styles = (HERE / 'showcase794_src.css').read_text()
     addition = ('<!-- Showcase complete lap v7.94 -->\n<style>\n' + styles +

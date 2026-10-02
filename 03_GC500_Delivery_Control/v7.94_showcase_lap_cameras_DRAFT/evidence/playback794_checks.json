@@ -1,7 +1,7 @@
 {
   "author": "Andrew Fisher",
   "test": "Actual hosted G.frame, G.step, route and original scheduler baseline; timer/DOM render stubs isolate playback lifecycle, not physical-device performance",
-  "baselineSha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+  "baselineSha256": "4502f5f4d403ccb73433428971d3c8a863af372dd9c609eece227443a379d7fe",
   "sourceSha256": "50a9c02318f6d8294a47218193f55fc7549cca0db29414e78401343d6d26019a",
   "cases": [
     {

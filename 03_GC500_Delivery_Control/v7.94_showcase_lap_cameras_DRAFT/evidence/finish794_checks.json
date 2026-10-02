@@ -1,0 +1,82 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Only FLAT_FS and COMP_FS change; all geometry, cameras, paint, runtime and resource setup preserved",
+      "pass": true
+    },
+    {
+      "name": "Existing shader uniform declarations preserved",
+      "pass": true
+    },
+    {
+      "name": "Existing sky, depth reconstruction and ambient contact functions unchanged",
+      "pass": true
+    },
+    {
+      "name": "Composite main keeps exposure, bloom, alpha and sky expressions exactly",
+      "pass": true
+    },
+    {
+      "name": "Only six additional scene reads, no new depth or bloom reads",
+      "pass": true
+    },
+    {
+      "name": "Baseline and night bypass before neighbour sampling",
+      "pass": true
+    },
+    {
+      "name": "Transparent centre, diagonals and directional taps guarded",
+      "pass": true
+    },
+    {
+      "name": "Low contrast pixels skip both directional taps",
+      "pass": true
+    },
+    {
+      "name": "Two-texel direction bound and luminance range protection",
+      "pass": true
+    },
+    {
+      "name": "No loops, random/time inputs, allocations or added texture resources",
+      "pass": true
+    },
+    {
+      "name": "Original baseline asphalt scales retained outside detail mode",
+      "pass": true
+    },
+    {
+      "name": "Fine noise retains derivative filtering",
+      "pass": true
+    },
+    {
+      "name": "Broad road modulation amplitude reduced by over 80 percent",
+      "pass": true
+    },
+    {
+      "name": "Day roughness remains matte and grazing sheen is reduced",
+      "pass": true
+    },
+    {
+      "name": "Opaque road atmospheric coverage unchanged",
+      "pass": true
+    },
+    {
+      "name": "Duplicate application rejected",
+      "pass": true
+    },
+    {
+      "name": "Wrong base rejected",
+      "pass": true
+    }
+  ],
+  "passed": 17,
+  "scope": "CPU/source contracts only; no browser, GPU compilation or physical-phone timing claim",
+  "resourceBudget": {
+    "newPasses": 0,
+    "newTextures": 0,
+    "newUniforms": 0,
+    "extraSceneReadsOpaqueFlat": 4,
+    "extraSceneReadsOpaqueEdgeMaximum": 6
+  }
+}

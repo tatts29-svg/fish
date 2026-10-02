@@ -16,12 +16,12 @@ function locate(S,s){S.sim.s=s;const p=CL.at(s),q=CL.at(s+.1);S.pose={pos:[p[0],
 function settle(S,mode){G.S=S;G.setView(mode);for(let i=0;i<150;i++){S.clock+=1/120;G.camStep(1/120);}return G.cameraReport794();}
 function check(name,fn){fn();checks.push({name,passed:true});}
 check('Full circuit fits both axes at all lap positions in landscape, portrait and ultrawide',()=>{
- for(const [w,h] of [[1280,720],[390,844],[2560,720]])for(const mode of ['top','wide'])for(let bin=0;bin<12;bin++){
+ for(const [w,h] of [[1280,720],[390,844],[2560,720],[2400,600],[3600,600]])for(const mode of ['top','wide'])for(let bin=0;bin<12;bin++){
   const S=scene(w,h);locate(S,CL.L*bin/12);const r=settle(S,mode);assert(r.wholeCircuitInFrame,mode+' '+w+' '+bin);assert.strictEqual(r.visibleRouteVertices,N);
  }
 });
 check('Forward-facing chase and car-follow retain the car in frame throughout lap',()=>{
- for(const [w,h] of [[1280,720],[390,844]])for(const mode of ['chase','hero','heli'])for(let bin=0;bin<12;bin++){
+ for(const [w,h] of [[1280,720],[390,844],[2400,600],[3600,600]])for(const mode of ['chase','hero','heli'])for(let bin=0;bin<12;bin++){
   const S=scene(w,h);locate(S,CL.L*bin/12);const r=settle(S,mode);assert(r.carInFrame,mode+' '+w+' '+bin+' '+JSON.stringify(r.carScreen));assert(r.obstructionClear);
  }
 });
@@ -34,11 +34,32 @@ check('Driver aims along the forthcoming route and uses a road-level lens',()=>{
   assert(v[1]>1.5,'Portrait field of view exposes roof/body below the lens');
  }
 });
-check('Tour includes every diagnostic lap section and recurring aerial orientation',()=>{
- const S=scene(),seen=new Set(),rigs=new Set();
- for(let bin=0;bin<12;bin++){locate(S,CL.L*(bin+.25)/12);const r=settle(S,'tour');seen.add(r.lapSection);rigs.add(r.shot);}
- assert.strictEqual(seen.size,12);for(const mode of ['chase','onboard','heli','hero','wide'])assert(rigs.has(mode));
+check('Tour covers all twelve sections, favours road shots and reserves closing overview for lap end',()=>{
+ const S=scene(),seen=new Set(),rigs=new Set();let road=0;
+ for(let bin=0;bin<12;bin++){locate(S,CL.L*(bin+.25)/12);const r=settle(S,'tour');seen.add(r.lapSection);rigs.add(r.shot);if(['chase','onboard','hero'].includes(r.shot))road++;}
+ assert.strictEqual(seen.size,12);for(const mode of ['chase','onboard','heli','hero'])assert(rigs.has(mode));assert(road>=10);assert(!rigs.has('wide'));
+ locate(S,CL.L*.98);assert.notStrictEqual(settle(S,'tour').shot,'wide');
+ locate(S,CL.L*.99);const closing=settle(S,'tour');assert.strictEqual(closing.shot,'wide');assert(closing.wholeCircuitInFrame);
  S.clock=0;S.cam=null;const r=settle(S,'tour');assert.strictEqual(r.shot,'top');assert(r.wholeCircuitInFrame);
+});
+check('Road lens preserves intended horizontal FOV on desktop, 4:1 and 6:1 and caps portrait vertical FOV',()=>{
+ const intended={onboard:68,heli:58,hero:54,chase:53};
+ for(const [w,h] of [[1280,517],[1280,720],[390,844],[390,590],[2400,600],[3600,600]])for(const [mode,horizontal] of Object.entries(intended)){
+  const r=settle(scene(w,h),mode),expected=Math.min(88,2*Math.atan(Math.tan(horizontal*Math.PI/360)/(w/h))*180/Math.PI);
+  assert(Math.abs(r.desiredFov-expected)<1e-9);assert(Math.abs(r.fov-expected)<1e-9);assert(r.fov>0&&r.fov<=88);
+  assert(r.desiredHorizontalFov<=horizontal+1e-9);if(expected<88)assert(Math.abs(r.horizontalFov-horizontal)<1e-9);
+ }
+});
+check('Widening viewport preserves horizontal road framing immediately and resizing during blend remains bounded',()=>{
+ const S=scene(1280,517);settle(S,'onboard');const sim=JSON.stringify(S.sim);
+ for(const [w,h] of [[2400,600],[3600,600],[390,844],[1280,517]]){
+  S.cv.clientWidth=w;S.cv.clientHeight=h;G.camStep(0);let r=G.cameraReport794();assert(r.fov<=88&&r.fov>0);assert(r.horizontalFov<=68+1e-9);
+  r=settle(S,'onboard');assert(Math.abs(r.fov-r.desiredFov)<.015);
+ }
+ G.setView('hero');G.camStep(.1);S.cv.clientWidth=3600;S.cv.clientHeight=600;G.camStep(0);
+ const r=G.cameraReport794();assert(r.transitionActive);assert(r.horizontalFov<=68+1e-9);assert(r.desiredHorizontalFov<=54+1e-9);
+ for(let i=0;i<121;i++)G.camStep(1/120);assert(!G.cameraReport794().transitionActive);assert(Math.abs(G.cameraReport794().horizontalFov-54)<1e-9);
+ assert.strictEqual(JSON.stringify(S.sim),sim);
 });
 check('Camera-only updates preserve simulation, source route and source building rows',()=>{
  const S=scene(),source=[{h:20,p:[[20,20],[23,20],[23,23],[20,23]]}];S.architecture781Source=source;
