@@ -1,3 +1,5 @@
+**v7.93 — Today and Where we are on one tab (Andrew's Example A): CLAIMED by Claude, 2 Oct 2026 11:40 AEST.** Author: Andrew Fisher. Andrew: "we really need to merge both today and where we are into one" ... "make sure we dont double up info"; he picked Example A. Every component kept as built; only repeats left off. Built on live v7.92 with the v7.91 tidy folded in (v7.91 is not uploaded separately). Draft in `v7.93_one_tab_today_DRAFT/`.
+
 **v7.92 — Showcase photo-informed whole-lap refinement and smoothness: LIVE, 02 Oct 2026 11:19 AEST.**
 Author: Andrew Fisher. Andrew: "Revisit showcase again. Wiith new info. Must be smooth. No bugs no errors".
 Built on the then-current live v7.89 page, carrying forward the whole-lap work and 39 new photo references.
