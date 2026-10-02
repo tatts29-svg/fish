@@ -283,7 +283,7 @@ export class Crewman {
     this.sPrev = this.s; this.pathPrev = this.path;
     if (this.path) {
       const L = this.path.length, remain = L - this.s, A = GAIT.accel;
-      let vT = remain > 1e-4 ? this.speed : 0; vT = Math.min(vT, Math.sqrt(2 * A * Math.max(0, remain - .002)));
+      let vT = remain > 1e-4 && !this.giveWay ? this.speed : 0; vT = Math.min(vT, Math.sqrt(2 * A * Math.max(0, remain - .002)));   /* (v8.08: giveWay — he stops for someone crossing his way, crew.js update) */
       const tan = this.path.yawAt(Math.min(L, this.s + .06)), lag = Math.abs(wrap(tan - this.yaw));
       vT *= clamp(1 - (lag - .3) / .8, .2, 1);
       this.v = Math.max(0, this.v + clamp(vT - this.v, -A * dt * 1.5, A * dt));
@@ -980,7 +980,8 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
      or the car is coming apart, instead of being walked to the end first) */
   function* go(m, to, face = null, speed = null, abort = null) {
     const pts = plan([m.pos.x, m.pos.z], to, m).slice(1);
-    m.walkTo(pts.length ? pts : [to], {face, speed: speed ?? m.walkSpeed, clearOf: obstacles(m)}); yield () => m.arrived || !!(abort && abort());
+    m.walkTo(pts.length ? pts : [to], {face, speed: speed ?? m.walkSpeed, clearOf: obstacles(m)}); m.goal = {to, face, speed: speed ?? m.walkSpeed, replans: 0}; yield () => m.arrived || !!(abort && abort());
+    m.goal = null;
     if (!m.arrived && abort && abort()) { m.path = null; m.faceYaw = null; yield () => m.arrived; }
   }
   const phase = () => service ? service.phase : 'ready', hold = () => service ? service.hold : null;
@@ -1263,6 +1264,28 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   }
   resetProps(); placeAll();
 
+  /* ---- v8.08 — NOBODY WALKS INTO ANYBODY. Each frame, a walker looks along his own path 0.25 to 0.9 m ahead: someone standing (or
+     kneeling, or crouched at a job) there is walked round — the route is planned again with that person as a box on the floor, at most
+     once a second and three times a walk; someone walking there is waited for, for up to four seconds, if he is going the same way, or
+     if he has the way (the service's people first: the mechanic, the pit technician, the lead, the engine technician, then the safety
+     officer on his round). ---- */
+  const RANK = {mechanic: 5, tech: 4, lead: 3, engine: 2, safety: 1};
+  const _ahead = V();
+  function giveWay(dt) {
+    const walkers = ['mechanic', 'tech', 'lead', 'engine', 'safety'].map(id => men[id]);
+    for (const m of walkers) {
+      let block = null;
+      if (m.path && m.goal) for (const d of [.25, .5, .9]) { m.path.at(Math.min(m.path.length, m.s + d), _ahead); if (m.path.length - m.s < d - .2) break;
+        for (const q of walkers) { if (q === m) continue; const r = Math.hypot(_ahead.x - q.pos.x, _ahead.z - q.pos.z); if (r < .55) { block = q; break; } } if (block) break; }
+      if (block && !block.path && m.goal.replans < 3 && S.t - (m.replannedAt ?? -9) > 1) {
+        m.replannedAt = S.t; m.goal.replans++; const g = m.goal, pts = plan([m.pos.x, m.pos.z], g.to, m).slice(1);
+        m.walkTo(pts.length ? pts : [g.to], {face: g.face, speed: g.speed, clearOf: obstacles(m)}); m.goal = g; m.giveWay = false; m.waited = 0; continue; }
+      /* he waits for someone ahead going his way (never walks up his back), or for someone crossing who has the way */
+      const same = block && block.path && Math.cos(block.motionYaw - m.motionYaw) > .3;
+      const wait = !!block && !!block.path && (same || RANK[block.role.id] > RANK[m.role.id]) && (m.waited || 0) < 4;
+      m.giveWay = wait; m.waited = wait ? (m.waited || 0) + dt : 0;
+    }
+  }
   /* ---- the frame ---- */
   let screenCtx = sc;
   function screenState() {
@@ -1283,6 +1306,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     for (const k of ['operator', 'engine', 'lead', 'tech', 'mechanic', 'driver', 'safety']) scripts[k].step(dt);
     /* the forklift holds still while a wheel is off the car (the service's close-up), and goes on after */
     forklift.update(dt, ['wheelOff', 'inspect', 'refit'].includes(ph) || !!st.closeUp); driverFeet();
+    giveWay(dt);
     for (const k of ['operator', 'engine', 'lead', 'tech', 'mechanic', 'driver', 'safety']) men[k].update(dt);
     /* the things carried follow the hands that carry them */
     if (S.rackAt === 'carried') { const p = rackCarryPose(men.tech); rack.position.copy(p.p); rack.rotation.set(0, p.yaw, 0); }
@@ -1303,13 +1327,14 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   function reset() {
     for (const k of Object.keys(flags)) flags[k] = false;
     resetProps(); gunBlend = null; S.laying = false; S.served = false; S.complete = 0; S.ackd = true; S.lastPhase = 'ready';
-    for (const m of Object.values(men)) { m.reach(0, null); m.reach(1, null); m.hands.forEach(h => { h.w = 0; h.valid = false; }); m.gest = null; m.carrying = 0; m.bendWant = 0; m.bend = 0; m.sideWant = 0; m.side = 0; m.lookAt(null); m.look.target = null; m.look.hasNext = false; }
+    for (const m of Object.values(men)) { m.reach(0, null); m.reach(1, null); m.hands.forEach(h => { h.w = 0; h.valid = false; }); m.gest = null; m.carrying = 0; m.bendWant = 0; m.bend = 0; m.sideWant = 0; m.side = 0; m.lookAt(null); m.look.target = null; m.look.hasNext = false; m.goal = null; m.giveWay = false; m.waited = 0; }
     placeAll(); forklift.reset(); for (const s of Object.values(scripts)) s.restart(); S.screenAt = 1;
   }
   /* the service asks before each step it cannot take alone */
   const carrier = {ready: hold => !!flags[hold]};
   /* screen(): what the operator's screens say now (read-only; the tests read it rather than the canvas) */
-  const crew = {root, men, props: {gun, rack, tablet, station, forklift: fork}, forklift, carrier, update, reset, flags, S, crewClear, scripts, screen: () => screenState(),
+  /* plan(from, to): a route on the crew's floor round the boxes, the people standing on it and, where it can, in plain view (car-app.js walks the race driver with it) */
+  const crew = {root, men, props: {gun, rack, tablet, station, forklift: fork}, forklift, carrier, update, reset, flags, S, crewClear, scripts, plan: (from, to) => plan(from, to), obstacles: () => obstacles(), screen: () => screenState(),
     exhibits: Object.values(men).map(m => m.box),
     info: () => ({phase: phase(), hold: hold(), flags: {...flags}, gun: S.gunAt, rack: S.rackAt, clear: crewClear(), forklift: forklift.state, people: Object.fromEntries(Object.entries(men).map(([k, m]) => [k, {x: +m.pos.x.toFixed(3), z: +m.pos.z.toFixed(3), post: m.post.kind, k: +m.post.k.toFixed(2), moving: !!m.path}]))})};
   update(0, {});

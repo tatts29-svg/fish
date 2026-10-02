@@ -18,6 +18,7 @@ const DEVICES = {
   desktop: {W: 1440, H: 900, dpr: 1, mobile: false},
   '4k': {W: 3840, H: 2160, dpr: 1, mobile: false, query: '?tune=dpr:0.35'}, /* a smaller drawing buffer only, so the software renderer keeps up; the interface is laid out at full 4K */
 };
+const TUNE = process.env.TUNE || ''; /* e.g. dpr:0.5 — a smaller drawing buffer for a slow software renderer; the interface is unaffected */
 const ROOT = process.env.ROOT || 'v8.08_coates_way_machine_DRAFT/work', DEVICE = process.env.DEVICE || 'phone', SHOTS = process.env.SHOTS || '', QUICK = process.env.QUICK === '1';
 const dev = DEVICES[DEVICE]; if (!dev) throw new Error('DEVICE must be one of ' + Object.keys(DEVICES).join(', '));
 const wait = ms => new Promise(r => setTimeout(r, ms));
@@ -97,14 +98,16 @@ async function touchDrag(x, y, dx, dy, back = false, holdMs = 0) {
   }
   await wait(800);
 }
-async function clickId(id) { await page.click('#' + id, {timeout: 150000}); await wait(500); }
+let FORCE = false; /* the control sweep clicks without waiting for two still frames: in the cockpit a software-rendered frame can take a minute */
+async function clickId(id) { await page.click('#' + id, {timeout: 150000, force: FORCE}); await wait(500); }
+async function clickSel(q) { await page.click(q, {timeout: 150000, force: FORCE}); await wait(300); }
 async function txt(sel) { return page.$eval(sel, e => e.textContent.trim()).catch(() => null); }
 async function setRange(id, v) { await page.$eval('#' + id, (e, v) => { e.value = v; e.dispatchEvent(new Event('input', {bubbles: true})); }, v); await wait(200); }
 async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.now() - t < ms) { if (await page.evaluate(fn, arg).catch(() => false)) return true; await wait(300); } return false; }
 
 (async () => {
   console.log(`v8.08 interface tests · ${ROOT} · ${DEVICE} ${dev.W}×${dev.H} @${dev.dpr}${dev.mobile ? ' touch' : ''}`);
-  m = await openMachine({root: ROOT, W: dev.W, H: dev.H, dpr: dev.dpr, mobile: dev.mobile, query: dev.query || ''}); page = m.page; page.setDefaultTimeout(120000);
+  m = await openMachine({root: ROOT, W: dev.W, H: dev.H, dpr: dev.dpr, mobile: dev.mobile, query: dev.query || (TUNE ? '?tune=' + TUNE : '')}); page = m.page; page.setDefaultTimeout(120000);
   if (dev.mobile) cdp = await page.context().newCDPSession(page);
   await page.waitForFunction(() => window.__cw && window.__cw.ready, null, {timeout: 300000});
   await wait(25000);
@@ -198,17 +201,18 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
 
   /* ── every control still answers ── */
   if (!QUICK) {
+    FORCE = true;
     const cw = (expr) => page.evaluate(expr);
-    for (const v of ['engine', 'cog', 'car']) { await page.click(`[data-view="${v}"]`); await wait(1500); check(`tab: ${v}`, await cw(`window.__cw.view==='${v}'&&document.querySelector('[data-view="${v}"]').classList.contains('active')`)); }
+    for (const v of ['engine', 'cog', 'car']) { await clickSel(`[data-view="${v}"]`); await wait(1500); check(`tab: ${v}`, await cw(`window.__cw.view==='${v}'&&document.querySelector('[data-view="${v}"]').classList.contains('active')`)); }
     await wait(6000);
     await clickId('tour'); check('Guided tour starts', await cw(`!document.getElementById('tour-panel').hidden`)); await clickId('tour-next'); check('tour: Next', /02/.test(await txt('#tour-step'))); await clickId('tour-close'); check('tour: End tour', await cw(`document.getElementById('tour-panel').hidden`));
-    await page.click('[data-view="car"]'); await wait(6000);
+    await clickSel('[data-view="car"]'); await wait(6000);
     const sound0 = await txt('#sound'); await clickId('sound'); await wait(1500); const sound1 = await txt('#sound'), toastS = await txt('#toast'); check('Sound answers', sound1 !== sound0 || /unavailable/i.test(toastS), `${sound0} → ${sound1}`); if (sound1 !== sound0) await clickId('sound');
     await clickId('fullscreen'); await wait(1000); const fs1 = await cw('!!document.fullscreenElement'), toastF = await txt('#toast'); check('Full screen answers', fs1 || /not available/i.test(toastF), fs1 ? 'entered' : toastF); if (fs1) { await page.evaluate(() => document.exitFullscreen()); await wait(1000); }
     await clickId('register-open'); await page.fill('#search', 'piston'); await wait(400); const rc = await txt('#results-count'); check('Find a part: search', /^\d+/.test(rc) && !/^138 /.test(rc), rc);
-    await page.click('#results .result-row'); await wait(600); check('Find a part: picking a row selects it and closes the register', await cw(`!document.getElementById('register').open`) && /piston/i.test(await txt('#selected-name')), await txt('#selected-name'));
-    await page.click('#rings [data-part="2"]'); await wait(400); check('part list (rings) selects', /Scorecard/i.test(await txt('#selected-name')));
-    await page.click('#rings [data-part="0"]'); await wait(400);
+    await clickSel('#results .result-row'); await wait(600); check('Find a part: picking a row selects it and closes the register', await cw(`!document.getElementById('register').open`) && /piston/i.test(await txt('#selected-name')), await txt('#selected-name'));
+    await clickSel('#rings [data-part="2"]'); await wait(400); check('part list (rings) selects', /Scorecard/i.test(await txt('#selected-name')));
+    await clickSel('#rings [data-part="0"]'); await wait(400);
     await clickId('start'); check('Start V8', await until(() => window.__cw.drive.running || !window.__cw.drive.stationary, 20000));
     await setRange('throttle', 60); check('throttle', (await txt('#throttle-value')) === '60%');
     await setRange('brake', 30); check('brake', (await txt('#brake-value')) === '30%'); await setRange('brake', 0);
@@ -225,7 +229,7 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
     const b0 = await txt('#body-mode'); await clickId('body-mode'); check('cutaway toggles', (await txt('#body-mode')) !== b0); await clickId('body-mode');
     await clickId('slow'); check('slow motion', await cw(`document.getElementById('slow').getAttribute('aria-pressed')==='true'`)); await clickId('slow');
     await clickId('power'); check('power path', await cw(`document.getElementById('power').getAttribute('aria-pressed')==='true'`)); await clickId('power');
-    for (const id of ['zoom-in', 'zoom-out', 'home']) { await page.click('#' + id); check(`camera: ${id}`, await until(() => !!window.__cw.tween, 3000)); await wait(1500); }
+    for (const id of ['zoom-in', 'zoom-out', 'home']) { await clickSel('#' + id); check(`camera: ${id}`, await until(() => !!window.__cw.tween, 3000)); await wait(1500); }
     /* one press is tested by hand; the two more that bring it round to Laptop are pressed together, so the software renderer never has to draw a High frame */
     const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); await page.evaluate(() => { const b = document.getElementById('quality'); b.click(); b.click(); }); await wait(1500); check('Quality cycles (and comes round again)', q1 !== q0 && (await txt('#quality')) === q0, `${q0} → ${q1} → ${await txt('#quality')}`);
     const dl = page.waitForEvent('download', {timeout: 180000}).catch(() => null); await clickId('capture'); const d = await dl; check('4K capture saves a picture', !!d || /saved/.test(await txt('#toast')), d ? d.suggestedFilename() : await txt('#toast'));

@@ -115,7 +115,7 @@ async function sample(P, label) {
       /* (the wheel off the car is in the mechanic's hands, and goes past his knees onto the hub: contact, not a clash) */
       const svcWheel = cw.service.state.wheel, carried = svcWheel && (crew.S.carry || cw.service.state.wheelIsOff) && ['mechanic', 'tech'].includes(p.k);
       const hc = firstInside(carSolids, q => carried && isUnder(q.o, svcWheel)); if (hc) bad('body inside the car', {part: hc});
-      if (!seated) (A.__cores || (A.__cores = [])).push({k: p.k, core: core.clone(), at, post});
+      if (!seated) (A.__cores || (A.__cores = [])).push({k: p.k, core: core.clone(), at, post, pts});
       /* 2. the hall and the props (his own seat, truck, load or the rack he carries excepted) */
       const hh = firstInside(hallSolids); if (hh) bad('body inside a hall object', {part: hh});
       const hp = firstInside(propSolids, q => (p.k === 'operator' && q.k === 'station') || (p.k === 'driver' && (q.k === 'forklift' || q.k === 'load')) || (p.k === 'tech' && q.k === 'rack') || (p.k === 'mechanic' && q.k === 'gun'));
@@ -142,9 +142,10 @@ async function sample(P, label) {
         }
       }
     }
-    /* people clear of one another (bodies shrunk 4 cm: shoulders may pass close) */
-    { const cs = A.__cores || []; for (let i = 0; i < cs.length; i++) for (let j = i + 1; j < cs.length; j++) { const a = cs[i].core.clone().expandByScalar(-.04), b = cs[j].core.clone().expandByScalar(-.04);
-        if (a.intersectsBox(b)) { const key = cs[i].k + ' and ' + cs[j].k; const R = A.people[cs[i].k]; R.counts['into ' + cs[j].k] = (R.counts['into ' + cs[j].k] || 0) + 1; const w = R.worst['into ' + cs[j].k] || (R.worst['into ' + cs[j].k] = []); if (w.length < 3) w.push({t: clock, label, at: cs[i].at, other: cs[j].at}); } }
+    /* people clear of one another: no point of one body within 3 cm of a point of another */
+    { const cs = A.__cores || []; for (let i = 0; i < cs.length; i++) for (let j = i + 1; j < cs.length; j++) { const a = cs[i].core, b = cs[j].core;
+        let touch = false; if (a.intersectsBox(b)) { const P1 = cs[i].pts, P2 = cs[j].pts; for (let x = 0; x < P1.length && !touch; x += 3) { const p1 = P1[x]; if (!b.containsPoint(p1)) continue; for (let y = 0; y < P2.length; y += 3) if (p1.distanceToSquared(P2[y]) < .0009) { touch = true; break; } } }
+        if (touch) { const key = cs[i].k + ' and ' + cs[j].k; const R = A.people[cs[i].k]; R.counts['into ' + cs[j].k] = (R.counts['into ' + cs[j].k] || 0) + 1; const w = R.worst['into ' + cs[j].k] || (R.worst['into ' + cs[j].k] = []); if (w.length < 3) w.push({t: clock, label, at: cs[i].at, other: cs[j].at}); } }
       A.__cores = []; }
     /* the seated race driver: in his seat, under the roof, gloves on the rim */
     if (driverG && shown(driverG)) { driverG.updateMatrixWorld(true); const helmet = driverG.getObjectByName('Helmet'), hc = new Vec(); helmet.getWorldPosition(hc);

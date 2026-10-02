@@ -34,7 +34,10 @@ async function hijack(page) {
   await page.waitForFunction(() => window.__rafQ.length > 0, null, {timeout: 600000, polling: 200});
 }
 /* one whole frame, timed to the end of the graphics work */
-const frame = page => page.evaluate(() => { const t0 = performance.now(); window.__step(); const gl = window.__cw.renderer.getContext(); gl.finish(); return performance.now() - t0; });
+const frame = page => page.evaluate(() => { const r = window.__cw.renderer, f0 = r.info.render.frame, t0 = performance.now(); window.__step(); r.getContext().finish(); const ms = performance.now() - t0;
+  window.__lastFrame = {ms, renders: r.info.render.frame - f0, calls: r.info.render.calls, triangles: r.info.render.triangles}; return ms; });
+/* a frame's cost, timed on a frame that really drew (the page skips a frame that comes inside its own frame budget) */
+async function timedFrame(page) { for (let i = 0; i < 4; i++) { await wait(60); const ms = await frame(page); const lf = await page.evaluate(() => window.__lastFrame); if (lf.renders > 0) return {ms, ...lf}; } return {ms: NaN, renders: 0}; }
 const state = page => page.evaluate(() => { const c = window.__cw, r = c.renderer, gl = r.getContext(), v = document.getElementById('viewport').getBoundingClientRect();
   return {quality: c.quality, ratio: r.getPixelRatio(), target: c.motion.target, moving: c.motion.moving, buffer: [gl.drawingBufferWidth, gl.drawingBufferHeight], css: [Math.round(v.width), Math.round(v.height)],
     composerSamples: c.composerSamples, shadow: c.shadowMapSize, dprScale: c.dprScale, fx: window.__fx ? window.__fx.info : null, label: document.getElementById('quality').textContent}; });
@@ -118,10 +121,10 @@ async function run(dev) {
       const has = await setQuality(m.page, q);
       if (!has) { check(dev, `rung ${q} offered by the Quality button`, false, 'not on the ladder'); continue; }
       const steps = await settle(m.page), s = await state(m.page), times = [];
-      for (let i = 0; i < 3; i++) times.push(await frame(m.page));
+      let info = null; for (let i = 0; i < 3; i++) { info = await timedFrame(m.page); times.push(info.ms); }
       times.sort((a, b) => a - b);
       const css = s.css, dev0 = dpr, exp = q === 'ultra' ? Math.min(4, Math.max(dev0, Math.sqrt(3840 * 2160 / (css[0] * css[1])))) : Math.min(dev0, 3);
-      const p = {quality: s.quality, label: s.label, ratio: +s.ratio.toFixed(3), expected: +exp.toFixed(3), buffer: s.buffer, css, megapixels: +(s.buffer[0] * s.buffer[1] / 1e6).toFixed(2), composerSamples: s.composerSamples, shadow: s.shadow, dprScale: s.dprScale, prints: s.fx && s.fx.prints, frameMs: Math.round(times[1]), settleFrames: steps};
+      const p = {quality: s.quality, label: s.label, ratio: +s.ratio.toFixed(3), expected: +exp.toFixed(3), buffer: s.buffer, css, megapixels: +(s.buffer[0] * s.buffer[1] / 1e6).toFixed(2), composerSamples: s.composerSamples, shadow: s.shadow, dprScale: s.dprScale, prints: s.fx && s.fx.prints, frameMs: Math.round(times[1]), drawCalls: info && info.calls, triangles: info && info.triangles, settleFrames: steps};
       out.presets[q] = p;
       check(dev, `${q}: still pixel ratio = ${p.expected} (buffer ${p.buffer.join('x')})`, Math.abs(p.ratio - p.expected) < .02, {ratio: p.ratio, megapixels: p.megapixels});
       if (q === 'ultra') check(dev, 'ultra: at least 3840 x 2160 worth of pixels', p.buffer[0] * p.buffer[1] >= 3840 * 2160 * .98, p.megapixels + ' MP');

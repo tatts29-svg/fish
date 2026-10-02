@@ -681,9 +681,10 @@ function readUiScale(){uiZ=parseFloat(getComputedStyle(document.documentElement)
 const phoneLayout=()=>innerWidth<=800;
 function visibleBottom(){const v=window.visualViewport;return v?v.offsetTop+v.height:innerHeight;}
 function overlaps(a,b){return a.left<b.right&&b.left<a.right&&a.top<b.bottom&&b.top<a.bottom;}
+let cardZone=null;
 function placeCards(){const el=!$('exhibit').hidden?$('exhibit'):!$('tour-panel').hidden?$('tour-panel'):null;
  for(const x of document.querySelectorAll('.under-card'))x.classList.remove('under-card');
- if(!el)return;const S=sel('.studio').getBoundingClientRect(),dock=sel('.dock').getBoundingClientRect(),nav=sel('.masthead nav').getBoundingClientRect(),z=uiZ,gap=10*z;
+ cardZone=null;if(!el)return;const S=sel('.studio').getBoundingClientRect(),dock=sel('.dock').getBoundingClientRect(),nav=sel('.masthead nav').getBoundingClientRect(),z=uiZ,gap=10*z;
  const floor=Math.min(dock.top,visibleBottom(),S.bottom)-gap,s=el.style;
  if(phoneLayout()){/* a sheet: from just above the dock up, as tall as its words need, at most 56 % of the scene (never under 210 px) and never above the tabs or the top of the screen */
   const roof=Math.max(nav.bottom,S.top,0)+gap,cap=Math.max(210*z,(dock.top-S.top)*.56),h=Math.max(120*z,Math.min(floor-roof,cap));
@@ -692,7 +693,7 @@ function placeCards(){const el=!$('exhibit').hidden?$('exhibit'):!$('tour-panel'
   const vo=sel('.view-options').getBoundingClientRect(),top=Math.max(vo.bottom,S.top,nav.bottom,0)+12*z;
   s.bottom='auto';s.top=(top-S.top)/z+'px';s.maxHeight=Math.max(140*z,floor-top)/z+'px';}
  /* what the card now covers is put away until it closes (pointer-free scenery such as the title is left: the card is opaque over it) */
- const box=el.getBoundingClientRect();for(const x of document.querySelectorAll('.view-options,.camera-tools,.telemetry,.scene-top,#part-label,#service-callouts span'))if(!x.hidden&&overlaps(box,x.getBoundingClientRect()))x.classList.add('under-card');}
+ const box=el.getBoundingClientRect();cardZone=box;for(const x of document.querySelectorAll('.view-options,.camera-tools,.telemetry,.scene-top,#service-callouts span'))if(!x.hidden&&overlaps(box,x.getBoundingClientRect()))x.classList.add('under-card');}
 /* the toast: under the view buttons, between the left edge (or an open card on the left) and the zoom buttons; if a sheet is up on a
    phone and there is no room above it, at the very top of the scene over the title. Never on the dock, the tabs or a card. */
 function placeToast(){const t=$('toast');if(!t)return;const S=sel('.studio').getBoundingClientRect(),z=uiZ,gap=10*z,s=t.style;s.bottom='auto';
@@ -710,7 +711,9 @@ function updateCallout(){const label=$('part-label'),svg=$('callout-line');const
  if(!show){label.hidden=true;svg.hidden=true;return;}
  calloutBox.setFromObject(p.group);if(calloutBox.isEmpty()){label.hidden=true;svg.hidden=true;return;}calloutBox.getCenter(calloutV).project(camera);
  if(calloutV.z>1||Math.abs(calloutV.x)>1.2||Math.abs(calloutV.y)>1.2){label.hidden=true;svg.hidden=true;return;}
- const r=$('viewport').getBoundingClientRect(),x=(calloutV.x+1)/2*r.width,y=(1-calloutV.y)/2*r.height,lx=Math.min(r.width-160,Math.max(160,x-110)),ly=Math.min(Math.max(70,y-95),sel('.dock').getBoundingClientRect().top-r.top-12);/* v8.08: never down on the dock */
+ const r=$('viewport').getBoundingClientRect(),x=(calloutV.x+1)/2*r.width,y=(1-calloutV.y)/2*r.height;let lx=Math.min(r.width-160,Math.max(160,x-110)),ly=Math.min(Math.max(70,y-95),sel('.dock').getBoundingClientRect().top-r.top-12);/* v8.08: never down on the dock */
+ /* v8.08: and never under an open card — beside the column on a wide screen, above the sheet on a phone (or not at all if there is no room) */
+ if(cardZone){if(phoneLayout()){ly=Math.min(ly,cardZone.top-r.top-8);if(ly<70){label.hidden=true;svg.hidden=true;return;}}else lx=Math.max(lx,cardZone.right-r.left+(label.offsetWidth||200)/2+10);}
  const state=drive.connected(selected)?'selected':'',text=specs[selected].name+(drive.connected(selected)?'':' · disconnected');
  label.className=state;svg.setAttribute('class',state);label.querySelector('span').textContent=text;label.style.transform=`translate(${lx}px,${ly}px) translate(-50%,-100%)`;label.hidden=false;
  const line=svg.querySelector('line'),dot=svg.querySelector('circle');line.setAttribute('x1',lx);line.setAttribute('y1',ly);line.setAttribute('x2',x);line.setAttribute('y2',y);dot.setAttribute('cx',x);dot.setAttribute('cy',y);svg.hidden=false;}
