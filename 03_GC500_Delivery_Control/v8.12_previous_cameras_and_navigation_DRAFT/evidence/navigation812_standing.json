@@ -1,0 +1,92 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+  "passed": 21,
+  "total": 21,
+  "checks": [
+    {
+      "name": "patch leaves the original navigation body unchanged",
+      "pass": true
+    },
+    {
+      "name": "forecast and Rehire calculation bodies are unchanged",
+      "pass": true
+    },
+    {
+      "name": "patch refuses a second application without changing the file",
+      "pass": true
+    },
+    {
+      "name": "patch refuses a base without the previous release",
+      "pass": true
+    },
+    {
+      "name": "navigation shares one asset snapshot and rental lookup per key",
+      "pass": true
+    },
+    {
+      "name": "baseline and patched navigation produce the same synthetic model",
+      "pass": true
+    },
+    {
+      "name": "record replacement is fresh on the next navigation",
+      "pass": true
+    },
+    {
+      "name": "same-tab redraw sees edited and deleted records",
+      "pass": true
+    },
+    {
+      "name": "empty snapshots are held once and later additions appear",
+      "pass": true
+    },
+    {
+      "name": "alert failure releases the cache and the next navigation recovers",
+      "pass": true
+    },
+    {
+      "name": "render failure releases the cache and navigation flag",
+      "pass": true
+    },
+    {
+      "name": "nested navigation retains its caller hold until the caller returns",
+      "pass": true
+    },
+    {
+      "name": "scheduled frame and microtask read fresh records outside the navigation hold",
+      "pass": true
+    },
+    {
+      "name": "a direct render after a record refresh remains fresh",
+      "pass": true
+    },
+    {
+      "name": "capability refresh still runs on every draw after permission changes",
+      "pass": true
+    },
+    {
+      "name": "unknown tabs and register aliases keep their original routes",
+      "pass": true
+    },
+    {
+      "name": "forecast and Rehire builders each run once within a shared hold",
+      "pass": true
+    },
+    {
+      "name": "standalone model calls stay uncached and read later record edits",
+      "pass": true
+    },
+    {
+      "name": "new model holds and standalone calls cannot reuse a completed hold",
+      "pass": true
+    },
+    {
+      "name": "failed model construction is not cached and a later hold recovers",
+      "pass": true
+    },
+    {
+      "name": "a scheduled model calculation reads a fresh snapshot",
+      "pass": true
+    }
+  ]
+}

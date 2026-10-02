@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+  "review": {
+    "candidateSha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+    "componentPreservation": {
+      "passed": 44,
+      "total": 44,
+      "evidence": "/workspace/private-v810-independent/combined812/component_preservation.json"
+    },
+    "independentDifferentialRoutes": {
+      "passed": 60,
+      "total": 60,
+      "evidence": "/workspace/private-v810-independent/differential_final812.json"
+    },
+    "independentReceiptSemantics": {
+      "passed": 34,
+      "failed": 0,
+      "evidence": "/workspace/private-v810-independent/receipt_final812.json"
+    },
+    "byteExactOfflineReplay": true,
+    "camera811RenderingBlocksExact": true,
+    "embeddedBusinessDATAPreserved": true,
+    "findings": []
+  },
+  "findings": [],
+  "sourceReviewSha256": "07a5ed0c745cecc68d31b63a342e8c09ce6e8df386f4a5c2e84b716995835ea5"
+}
