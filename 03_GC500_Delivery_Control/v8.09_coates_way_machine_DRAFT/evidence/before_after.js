@@ -10,7 +10,7 @@ const path = require('path'), fs = require('fs');
 const {openMachine} = require('./machine_rig');
 const OUT = process.env.OUT; if (!OUT) throw new Error('OUT=<dir> is required (keep pictures out of the repo)');
 const which = process.argv[2] || 'both', devs = process.argv[3] || 'both';
-const ROOTS = (which === 'both' ? ['base', 'work'] : [which]).map(r => [r, path.join(__dirname, '..', r)]);
+const ROOTS = (which === 'both' ? ['work', 'base'] : [which]).map(r => [r, path.join(__dirname, '..', r)]);
 const DEVS = {desk: {W: 1440, H: 900, dpr: 1, mobile: false}, phone: {W: 390, H: 844, dpr: 2, mobile: true}};
 const wait = ms => new Promise(r => setTimeout(r, ms));
 (async () => {
@@ -32,7 +32,12 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     await page.evaluate(() => window.__cw.setView('car')); await settle();
     const spot = dev === 'phone' ? [374, 399] : [1250, 520];
     const found = await page.evaluate(([W, H]) => { if (!window.__cw.pickAt) return null; for (let y = H * .25; y < H * .75; y += 23) for (let x = 12; x < W - 12; x += 29) { const k = window.__cw.pickAt(x, y); if (k && k.kind === 'exhibit') return [x, y]; } return null; }, [DEVS[dev].W, DEVS[dev].H]);
-    const [x, y] = found || spot; await page.mouse.click(x, y); await wait(6000); await shot('4_card');
+    /* the same spot in both: work finds a garage exhibit and records it; base (run after work) taps that spot */
+    const spotFile = path.join(OUT, `spot_${dev}.json`);
+    if (found) fs.writeFileSync(spotFile, JSON.stringify(found));
+    const [x, y] = found || (fs.existsSync(spotFile) ? JSON.parse(fs.readFileSync(spotFile, 'utf8')) : spot);
+    for (let i = 0; i < 3; i++) { await page.mouse.click(x, y); await wait(6000); if (await page.evaluate(() => window.__cw.card !== undefined ? !!window.__cw.card : (e => !!e && !e.hidden && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().height > 0)(document.getElementById('exhibit')))) break; }
+    await shot('4_card');
     console.log(tag, dev, 'errors', JSON.stringify(m.errors.slice(0, 5)));
     await m.close();
   }
