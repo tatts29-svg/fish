@@ -51,4 +51,28 @@ No other file was touched.
 ## Tests
 
 `evidence/mech_tests.js` runs through the rig, on desktop (1440 × 900) and phone (390 × 844, dpr 2):
-RESULTS_PLACEHOLDER
+**Result, 2 Oct 2026: 46 / 46 checks passed** (23 on desktop, 23 on phone). No page errors and no console errors.
+
+- **Register and scene.** The count reads 326 / 326 parts fitted. The register lists 326 rows. Each of the 16 new references appears exactly once, and each new part is in the scene exactly once.
+- **Starting.** With the clutch in, the crank turns while the gearbox input holds still.
+- **Running in gear.** The clutch cover, the disc and the input all turn with the crank. The pinion turns with the main shaft. The crown wheel turns at exactly 10/39 of the pinion. Driving straight, both side gears turn with the crown wheel and the spiders do not turn on their pin.
+- **Tensioner.** It turns at −1.819 × the crank.
+- **Oil.** The oil travels |Δcrank| × 0.5 × 0.08, and the instance matrices move with it.
+- **Full right lock.** The rack moves +0.074. The knuckles, the front pads and the body's own front wheels all turn −18.00°. Left over right = 1.2356, which is (1 + 0.1054)/(1 − 0.1054), the exact turning geometry. The spiders turn by the difference × 1.6.
+- **Brake at 60 %.** The push rods move −0.0168, the line glow reads 0.96 and every pad gap is 0.6 mm. The rear heat rises to about 0.26 and the glow is visible on the hub. The front heat stays at 0.
+- **Brake off.** Every pad gap is 3.6 mm and the pistons are home.
+- **Stopped.** Nothing moves.
+
+**What I looked at** (dpr-2 screenshots, scratchpad only, not committed):
+- Explode on: the crown wheel's bevel teeth, the carrier, both side gears and the orange spider gears all come apart along their own pulls. The tensioner's idler, arm and spring housing are clear, with the oil pulses on the drillings beside it.
+- Isolate: the pads and pistons show as arcs on the disc band. The knuckle shows its upright, arm, ball-joint eye and stub axle. The brake lines and the master cylinders with their balance bar are visible. The clutch shows its cover with three windows, the orange diaphragm fingers and the friction disc.
+- A close-up of the near rear wheel under brake, running, shows the disc's warm glow behind the spokes. Since then the glow has been made stronger and more orange.
+
+**Limitations, stated plainly:**
+- With everything fitted, the differential and the clutch sit inside the original GC500 body's tub and tunnel. The original surfaces are never altered, so from outside the car these two are best seen with Explode or Isolate.
+- The pads sit inside the body's orange caliper, which encloses them as a real caliper does. Their clamping is seen in Isolate, Explode and the tests.
+- Software rendering here runs at about 1 fps. I could not measure phone frame rate. The additions are light: one instanced mesh for all the oil pulses (rewritten only when the pump moves), merged geometry per moving body, no new shadow-casting oil or glow meshes, and shared materials apart from one emissive line material and one glow material per rear disc.
+
+## Also noticed (not mine to change)
+
+- `index.html` footer `#render-stats` starts as the static text "V8 · 310 PARTS". It is replaced by the frame-rate readout once the fps is measured, but on a slow device it stays on screen and reads 310 while the register says 326. Suggested edit in `index.html`: change the text to `V8 · 326 PARTS`. Better still, have `car-app.js` write `specs.length` into it once the scene is ready.

@@ -968,7 +968,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   /* (others: anyone else walking the crew's floor, added with crew.addPerson — car-app.js's race driver when he is out of the car) */
   const others = [];
   const obstacles = (self = null) => { const o = OBSTACLES.slice(); if (S.rackAt === 'placed') { const r = rack.position; o.push([r.x - .32, r.z - .3, r.x + .32, r.z + .3]); }
-    for (const q of [...['mechanic', 'tech', 'engine', 'lead', 'safety'].map(id => men[id]), ...others.filter(o => o.fig.root.visible)]) { if (q === self || (q.path && !q.giveWay && q.v >= .15) || q.post.kind === 'sit') continue; const h = q.post.kind === 'stand' ? .24 : .34; o.push([q.pos.x - h, q.pos.z - h, q.pos.x + h, q.pos.z + h]); }
+    for (const q of [...['mechanic', 'tech', 'engine', 'lead', 'safety'].map(id => men[id]), ...others.filter(o => o.fig.root.visible)]) { if (q === self || (q.path && !q.giveWay && q.v >= .15) || q.post.kind === 'sit') continue; const h = q.post.kind === 'stand' ? .3 + q.bend * .15 : .38; o.push([q.pos.x - h, q.pos.z - h, q.pos.x + h, q.pos.z + h]); }
     return o; };
   /* v8.08 — a walk from one place in plain view to another stays in plain view: it goes round by the aisle points the car does not
      hide (behindCar), and only by the far aisle when there is no other way or the place itself is there */
@@ -1259,7 +1259,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     {at: [4.1, 1.95], look: [3.6, .05, 1.5], crouch: .8, what: 'rear tie-down, near'},
     {at: [5.6, 1.1], look: [XW + .4, .25, .3], crouch: 0, what: 'the rollers and the rear wheels, from behind the cell'},
     {at: [-4.6, -1.95], look: [-4.1, .05, -1.5], crouch: .8, what: 'front tie-down, far'},
-    {at: [-2.6, -1.8], look: [-1.34, .06, -.83], crouch: .7, what: 'front chock, far'},
+    {at: [-2.75, -2.0], look: [-1.34, .06, -.83], crouch: .5, what: 'front chock, far (from clear of the engine bay, where the engine technician works)'},
     {at: [SAFETY_START[0], SAFETY_START[1]], look: [0, .8, 0], crouch: 0, what: 'the cell, from his corner'}];
   const scripts = {safety: new Script(safety), operator: new Script(operator), engine: new Script(engine), lead: new Script(lead), tech: new Script(tech), mechanic: new Script(mechanic), driver: new Script(driver)};
   function placeAll() {
@@ -1286,7 +1286,10 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
       if (m.yielding) { if (!m.path && m.faceYaw === null) { const q = m.yielding.from; if (Math.hypot(q.pos.x - m.pos.x, q.pos.z - m.pos.z) > 1.1 || S.t - m.yielding.t > 7) { m.yielding = null; replanGoal(m); } } m.giveWay = false; continue; }
       let block = null;
       if (m.path && m.goal) for (const d of [.25, .5, .9]) { m.path.at(Math.min(m.path.length, m.s + d), _ahead); if (m.path.length - m.s < d - .2) break;
-        for (const q of [...walkers, ...others.filter(o => o.fig.root.visible)]) { if (q === m) continue; const r = Math.hypot(_ahead.x - q.pos.x, _ahead.z - q.pos.z); if (r < .55) { block = q; break; } } if (block) break; }
+        for (const q of [...walkers, ...others.filter(o => o.fig.root.visible)]) { if (q === m) continue; const r = Math.hypot(_ahead.x - q.pos.x, _ahead.z - q.pos.z);
+          /* (and where a walker will be in about the time it takes to get there) */
+          const lead = q.path ? Math.min(1.2, d / Math.max(.3, m.v || .3)) * (q.v || 0) : 0, px = q.pos.x + Math.sin(q.motionYaw) * lead, pz = q.pos.z + Math.cos(q.motionYaw) * lead;
+          if (r < .62 || Math.hypot(_ahead.x - px, _ahead.z - pz) < .62) { block = q; break; } } if (block) break; }
       const stopped = block && (!block.path || block.giveWay || block.v < .15);   /* (someone waiting, or barely moving, is walked round like someone standing) */
       if (stopped && m.goal.replans < 3 && S.t - (m.replannedAt ?? -9) > 1) {
         m.replannedAt = S.t; m.goal.replans++; const g = m.goal, pts = plan([m.pos.x, m.pos.z], g.to, m).slice(1);

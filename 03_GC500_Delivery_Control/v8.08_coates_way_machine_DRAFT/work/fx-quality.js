@@ -59,9 +59,10 @@ export function samplesFor(renderer, q) {
 /* ---------------------------------------------------------------- prints */
 const prints = [];
 let scaleNow = 1, maxDim = MOBILE ? 2048 : 4096, pending = null, budgetMs = 6;
-/* no print is drawn past about 4.2 million pixels (2048 × 2048): a sign or a label gets its full 2×, a sheet already drawn big (the Life
-   Saving Rules, the values wheel, the tool wall) only what keeps it under that — so the higher rungs add sharpness, not hundreds of MB */
-const MAX_PIXELS = 4.2e6;
+/* no print is drawn past about 2.4 million pixels (1550 × 1550; 1.2 million on a phone): a sign or a label gets its full 2×, a sheet
+   already drawn big (the Life Saving Rules, the values wheel, the tool wall) only what keeps it under that. All 71 prints come to about
+   27 MP at their own size, about 55 MP on Balanced and about 74 MP on High and Ultra (measured: printStats) */
+const MAX_PIXELS = MOBILE ? 1.2e6 : 2.4e6;
 /* a canvas the size asked for, drawn once, registered so a higher rung can draw it again sharper.
    mode 'logical': draw(g, w, h) works in the base size's coordinates and the context is scaled to the canvas;
    mode 'pixel': draw(g, cw, ch) is given the canvas's own size (a drawing laid out in proportions).
