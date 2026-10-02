@@ -1,3 +1,9 @@
+**v7.91 — Today tidy-up after full width: READY TO UPLOAD (Claude, 2 Oct 2026 10:35 AEST).** Andrew: "this is how today
+looks now, this needs some work to clean up". On the live v7.89: `bash toolchain/build.sh v7.91
+v7.91_today_tidy_full_width_DRAFT/patch_v791.py` → **8,862,008 bytes, SHA-256 `a942bebe86fabc53d905e8267b526a9a1d54699adf5243fb9314ee6bf65d05e6`**.
+Back in the header row; picture bands capped at 1,400 px (same crop); Deliveries fills its panel; Today's cards fill each row.
+Desktop only. Sweeps ×2 clean, navigation 21/21.
+
 **v7.90 — map explorer (machine files only): READY TO UPLOAD (Claude, 2 Oct 2026 10:00 AEST).** Andrew: "please fix maps,
 you are putting green ticks everywhere" (and the Original plan pushed bottom-right on black). `explorer/explorer.js` 128318 bytes
 `893f2c65d76e93684d4519a365b8a502549093c7434dc693360e50f325e7c1a1` + `explorer/index.html` 23737 bytes `bc075d658d7de26636d962dac902f688f61928226470c1e863e28b042c686a26` (version query bumped). Switching plan ⇄ satellite now fits
