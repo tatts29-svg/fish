@@ -163,5 +163,12 @@
   "reviewArtifacts": [
     "ui813_runner.cjs",
     "ui813_controls.cjs"
-  ]
+  ],
+  "baselineCacheQualification": {
+    "discoveredDuring": "Post-publication live smoke",
+    "baselineHost": "Exact v8.12 cd3159be",
+    "baselineBrowserEntry": "dbd48209254e9ca6438cf7e0ea1552168b56d084c726db4c32781dfc5eeabcb3",
+    "baselineBrowserEngine": "a8309dc9c749d57756688988784bf7ad2fcdf558187d77944a876b27a6a1b339",
+    "qualification": "The baseline external assets came from the shared harness disk cache and differ from the separate fresh-source inventory. Do not treat those external-map baseline captures as an exact fresh-live comparison. Host geometry remains tied to its exact host bytes. All final candidate runs served explicit hash-bound assets and remain valid. Separate performance evidence must use its own source bindings."
+  }
 }
