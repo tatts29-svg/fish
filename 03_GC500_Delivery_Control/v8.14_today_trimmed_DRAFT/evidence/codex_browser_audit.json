@@ -1,0 +1,189 @@
+{
+  "author": "Andrew Fisher",
+  "devices": [
+    {
+      "name": "desktop",
+      "checks": [
+        {
+          "name": "render shows 0 unexported changes",
+          "pass": true
+        },
+        {
+          "name": "reminder styling 0",
+          "pass": true
+        },
+        {
+          "name": "reminder title 0",
+          "pass": true
+        },
+        {
+          "name": "render shows 1 unexported changes",
+          "pass": true
+        },
+        {
+          "name": "reminder styling 1",
+          "pass": true
+        },
+        {
+          "name": "reminder title 1",
+          "pass": true
+        },
+        {
+          "name": "render shows 7 unexported changes",
+          "pass": true
+        },
+        {
+          "name": "reminder styling 7",
+          "pass": true
+        },
+        {
+          "name": "reminder title 7",
+          "pass": true
+        },
+        {
+          "name": "changes during export remain unexported",
+          "pass": true
+        },
+        {
+          "name": "cancelled export preserves reminder",
+          "pass": true
+        },
+        {
+          "name": "successful export clears only exported changes",
+          "pass": true
+        }
+      ],
+      "dates": [
+        {
+          "date": "2026-10-03",
+          "programmeDay": false,
+          "due": false,
+          "pass": true,
+          "titles": [
+            "The lights",
+            "Deliveries due by today met",
+            "Where we are on the programme",
+            "Delivery updates today",
+            "Who to call",
+            "Variances",
+            "Breakdowns",
+            "Costs & charges",
+            "Edit"
+          ]
+        },
+        {
+          "date": "2026-10-07",
+          "programmeDay": true,
+          "due": true,
+          "pass": true,
+          "titles": [
+            "The lights",
+            "Deliveries due by today met",
+            "Where we are on the programme",
+            "Due today",
+            "Delivery updates today",
+            "Who to call",
+            "Variances",
+            "Breakdowns",
+            "Costs & charges",
+            "Edit"
+          ]
+        }
+      ],
+      "pageErrors": [],
+      "blockedWrites": 0
+    },
+    {
+      "name": "phone",
+      "checks": [
+        {
+          "name": "render shows 0 unexported changes",
+          "pass": true
+        },
+        {
+          "name": "reminder styling 0",
+          "pass": true
+        },
+        {
+          "name": "reminder title 0",
+          "pass": true
+        },
+        {
+          "name": "render shows 1 unexported changes",
+          "pass": true
+        },
+        {
+          "name": "reminder styling 1",
+          "pass": true
+        },
+        {
+          "name": "reminder title 1",
+          "pass": true
+        },
+        {
+          "name": "render shows 7 unexported changes",
+          "pass": true
+        },
+        {
+          "name": "reminder styling 7",
+          "pass": true
+        },
+        {
+          "name": "reminder title 7",
+          "pass": true
+        },
+        {
+          "name": "changes during export remain unexported",
+          "pass": true
+        },
+        {
+          "name": "cancelled export preserves reminder",
+          "pass": true
+        },
+        {
+          "name": "successful export clears only exported changes",
+          "pass": true
+        }
+      ],
+      "dates": [
+        {
+          "date": "2026-10-03",
+          "programmeDay": false,
+          "due": false,
+          "pass": true,
+          "titles": [
+            "The lights",
+            "Deliveries due by today met",
+            "Where we are on the programme",
+            "Delivery updates today",
+            "Who to call",
+            "Variances",
+            "Breakdowns",
+            "Costs & charges",
+            "Edit"
+          ]
+        },
+        {
+          "date": "2026-10-07",
+          "programmeDay": true,
+          "due": true,
+          "pass": true,
+          "titles": [
+            "The lights",
+            "Deliveries due by today met",
+            "Where we are on the programme",
+            "Due today",
+            "Delivery updates today",
+            "Who to call",
+            "Variances",
+            "Breakdowns",
+            "Costs & charges",
+            "Edit"
+          ]
+        }
+      ],
+      "pageErrors": [],
+      "blockedWrites": 0
+    }
+  ]
+}
