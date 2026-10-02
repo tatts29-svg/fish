@@ -1,0 +1,52 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "assessment": "Accepted for the bounded Today opening, immediate-jump and By group packing release.",
+  "inspectedByImplementingReviewer": [
+    "candidate807-by-group-desktop-top.png",
+    "candidate807-by-group-phone-top.png",
+    "candidate807-normal-desktop-branches-bottom.png",
+    "candidate807-normal-phone-branches-top.png"
+  ],
+  "releaseOwnerReview": "Root independently inspected final-hash normal desktop and phone branch captures and requested/received unobscured By group body captures before publication.",
+  "screenshots": [
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-by-group-desktop-top.png",
+      "sha256": "0c08a0b78b65a81c86a298dd107742643fe9c7bee5f3f732df213135c3cf2346"
+    },
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-by-group-desktop-bottom.png",
+      "sha256": "42fe3e2eeade3974bc8d96a01ea68ad4edeab5587a5ac95a8859787b6bf3666d"
+    },
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-by-group-phone-top.png",
+      "sha256": "2f63e36dfd59bcaecee753f362fb2ee4f35e5f3fabc73a554dc0f068ca006076"
+    },
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-by-group-phone-bottom.png",
+      "sha256": "7ac93ed7e54338ed347ab1788674d7b20011666073d2ddf251610e906b7d941a"
+    },
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-normal-desktop-branches-top.png",
+      "sha256": "835da83c8d490b3f73de88eba5cfbd1404b6a6a2a17bf51729ffaf59d9ea588f"
+    },
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-normal-desktop-branches-bottom.png",
+      "sha256": "13b9e59559abdd260e0efaa6864f7f9251f3f7e7eb1481aeddab6b3f9743286e"
+    },
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-normal-phone-branches-top.png",
+      "sha256": "21d3610a94c0f8d4c19acf55e24f99743527c8bce9d7aeef8426bdfedd8e8dd8"
+    }
+  ],
+  "findings": [
+    "By group heading and packed cards are visible in the body captures, with no obstructing modal.",
+    "Phone retains the existing one-column presentation; current desktop/phone focus and overflow checks pass.",
+    "Normal first-open By branch remains33.2% empty/944px; source-owner15.5% result was not reproduced. This is an explicit follow-up, not a met target."
+  ],
+  "limits": [
+    "Not a blanket10/10 or absence-of-all-defects claim.",
+    "One paired single-host opening benchmark; no general performance or physical-device frame-rate guarantee."
+  ],
+  "captureNote": "The sweep leaves the existing driver preflight open after its print link. Initial body pictures were rejected as obscured; final body retakes use the native Not yet cancellation and do not confirm or write anything."
+}

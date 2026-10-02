@@ -1,0 +1,125 @@
+{
+  "author": "Andrew Fisher",
+  "recordedAtUtc": "2026-10-02T06:50:01.590399+00:00",
+  "suite": "v7.76_navigation_performance_LIVE/evidence/navigation_regressions.js",
+  "suiteSha256": "b75367903f9265d5b49b2dd926f1338cee0235474c0025333edc6c7f826d6e91",
+  "historicalPatchSha256": "6efa3fd824d46401c68430f538b5be32e7bb115ddc51ae9c9f3dda6b267318fa",
+  "candidateSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "candidateBytes": 9101458,
+  "baseline": {
+    "path": "/workspace/gc500-v767-release/03_GC500_Delivery_Control/build/GC500_v7.74/GC500_Delivery_Control_hosted.html",
+    "release": "v7.74",
+    "sha256": "59e58833ab1ee8c6fb0ad2f8c2b3ff5e7b13c14923cd3e70459bc32503fda7d8",
+    "bytes": 8673113,
+    "provenance": "v7.76_navigation_performance_LIVE/evidence/benchmark_summary.json",
+    "provenanceSha256": "e534f534ef480dbe50ca9cccbca3c79206a6c329cbb9d5cdea6f9750b4fb465d",
+    "exactHistoricalHashAndSizeMatch": true
+  },
+  "execution": {
+    "cwd": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control",
+    "argv": [
+      "node",
+      "v7.76_navigation_performance_LIVE/evidence/navigation_regressions.js"
+    ],
+    "environment": {
+      "GC500_NAV_BASE": "/workspace/gc500-v767-release/03_GC500_Delivery_Control/build/GC500_v7.74/GC500_Delivery_Control_hosted.html",
+      "PAGE": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/build/GC500_v8.07/GC500_Delivery_Control_hosted.html",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "exitCode": 0,
+    "stdoutFinalLine": "21/21 navigation regressions passed"
+  },
+  "passed": 21,
+  "total": 21,
+  "checks": [
+    {
+      "name": "patch leaves the original navigation body unchanged",
+      "pass": true
+    },
+    {
+      "name": "forecast and Rehire calculation bodies are unchanged",
+      "pass": true
+    },
+    {
+      "name": "patch refuses a second application without changing the file",
+      "pass": true
+    },
+    {
+      "name": "patch refuses a base without the previous release",
+      "pass": true
+    },
+    {
+      "name": "navigation shares one asset snapshot and rental lookup per key",
+      "pass": true
+    },
+    {
+      "name": "baseline and patched navigation produce the same synthetic model",
+      "pass": true
+    },
+    {
+      "name": "record replacement is fresh on the next navigation",
+      "pass": true
+    },
+    {
+      "name": "same-tab redraw sees edited and deleted records",
+      "pass": true
+    },
+    {
+      "name": "empty snapshots are held once and later additions appear",
+      "pass": true
+    },
+    {
+      "name": "alert failure releases the cache and the next navigation recovers",
+      "pass": true
+    },
+    {
+      "name": "render failure releases the cache and navigation flag",
+      "pass": true
+    },
+    {
+      "name": "nested navigation retains its caller hold until the caller returns",
+      "pass": true
+    },
+    {
+      "name": "scheduled frame and microtask read fresh records outside the navigation hold",
+      "pass": true
+    },
+    {
+      "name": "a direct render after a record refresh remains fresh",
+      "pass": true
+    },
+    {
+      "name": "capability refresh still runs on every draw after permission changes",
+      "pass": true
+    },
+    {
+      "name": "unknown tabs and register aliases keep their original routes",
+      "pass": true
+    },
+    {
+      "name": "forecast and Rehire builders each run once within a shared hold",
+      "pass": true
+    },
+    {
+      "name": "standalone model calls stay uncached and read later record edits",
+      "pass": true
+    },
+    {
+      "name": "new model holds and standalone calls cannot reuse a completed hold",
+      "pass": true
+    },
+    {
+      "name": "failed model construction is not cached and a later hold recovers",
+      "pass": true
+    },
+    {
+      "name": "a scheduled model calculation reads a fresh snapshot",
+      "pass": true
+    }
+  ],
+  "limits": [
+    "Unchanged standing CPU suite with synthetic in-memory records and extracted actual candidate functions.",
+    "No browser, visual or service checks; no record writes.",
+    "Historical patch applies only to a disposable temporary baseline copy; candidate, archived baseline and product source files are unchanged."
+  ]
+}
