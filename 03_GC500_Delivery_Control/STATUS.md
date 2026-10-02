@@ -15,6 +15,15 @@ and both **21-tab/7-link** sweeps; Claude independently checked the same candida
 rules, **58/58** earlier lap harness), PR #1 comment `5942850787`. This is stylised browser graphics, not photorealistic.
 The graphics must be rebuilt and checked on the latest live page before a future release. Separate from the live map fix.
 
+**Further whole-track photographs — received/read, not applied, 2 Oct 2026.** Author: Andrew Fisher.
+Codex and its source-review subagents visually reviewed 39 originals: `20490`, `20491`, `20526`, `20527`,
+`20667`–`20696`, `20698`–`20702` (all `.jpg`). Byte-verified private copies and provenance manifest:
+`/workspace/private-full-lap-references/photos-02Oct2026/` on the Codex workspace; access from Claude's workspace
+is not established. Claude's original-photo review remains pending; a text summary is not a source review.
+Shared observations and placement limits: `v7.88_full_lap_detail_DRAFT/PHOTO_REFERENCES_02Oct2026.md`.
+Two different Boost gantries, three bridge designs and the separate pit/access lane are distinguished.
+Codex owns intake and the draft's next visual pass. No graphics, preview, record or live service changed in this intake.
+
 **v7.89 — compact header + full-width tabs: LIVE, 2 Oct 2026 09:44 AEST.** Andrew: "let's fix this first"
 ... "should we not be using the full page" ... "should these not all be the same size". One patch on the live v7.87
 `d592847a`: `bash toolchain/build.sh v7.89 v7.89_compact_header_full_width_LIVE/patch_v789.py` → **8,861,306 bytes, SHA-256

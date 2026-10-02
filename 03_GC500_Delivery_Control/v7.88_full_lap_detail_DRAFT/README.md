@@ -17,6 +17,11 @@ Both supplied MP4s have been reviewed privately across 34 frames, including thei
 chicanes, a leafy corridor, overhead spans and pit sections. Their temporary signs are not treated as surveyed
 2026 locations. Original building and tree placement is retained; added facade detail is illustrative.
 
+A further 39 supplied photographs have been retained privately and reviewed for the next visual pass. See
+[the photo reference index](PHOTO_REFERENCES_02Oct2026.md) for the two different Boost gantries, three bridge
+designs, coastal stands, tower/foliage detail and separate pit access lane. **These photographs have not yet
+been applied**; this intake does not change the candidate or preview below.
+
 ## Build and review
 
 ```sh
