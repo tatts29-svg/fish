@@ -1,6 +1,6 @@
 # v7.99 — Today opens faster, and its cards fill their columns
 
-Author: Andrew Fisher · 2 Oct 2026 · **DRAFT — review findings fixed, re-review in progress (Claude)**, not live. Built on live **v8.01** (`70ed0c49…`, uploaded by Codex after v7.96).
+Author: Andrew Fisher · 2 Oct 2026 · **Reviewed and passed (Claude + independent reviewer); final rebuild on v8.02 pending**, not live. Built on live **v8.01** (`70ed0c49…`, uploaded by Codex after v7.96).
 
 ## Why
 
@@ -154,4 +154,11 @@ It confirmed three things and found six problems. All six are fixed or answered 
 
 The reviewer also noted that the tests didn't cover print layout, printing from another tab, scroll and focus, or resizing after widening. All four are tested now.
 
-**Re-review of the fixes: in progress.** This is not marked READY until it reports.
+**Re-review of the fixes (same reviewer, on `8a770bc0…` against live v8.01): all four confirmed, nothing new found.**
+- **Real `page.pdf()`:** the Print button and Ctrl+P, with folds open and closed, give the same pages as live, no blank pages, and the same text.
+- **Print from Equipment:** `state.list` stays at 74 → 74.
+- **Opening a fold by mouse or Enter:** the fold stays at the same place and keeps focus.
+- **Width sweep every 25 px from 900 to 1,600, with resizes back and forth:** no overlap and no errors.
+- **When idle,** the card placement runs 0 times.
+
+**Status:** ready once rebuilt on the live page Codex publishes next (v8.02), with every check rerun there.
