@@ -1,3 +1,11 @@
+**v7.94 — Showcase complete-lap presentation and cameras: CLAIMED by Codex, 2 Oct 2026.**
+Author: Andrew Fisher. Andrew: "Feel like your missing hslf the track. . Cameras not as good. . I need this better".
+Audit actual hosted playback and visible route coverage, improve corner framing and camera continuity using the
+track photographs, and verify the complete experience on desktop/phone. Camera changes are explicitly requested;
+the source route/car/records remain protected unless evidence identifies a route defect. Earlier offline lap tests
+alone do not establish that normal Showcase playback presents the full track. Claude retains v7.93 Today ownership.
+Scope: `v7.94_showcase_lap_cameras_DRAFT/`, branch `codex/gc500-v794-lap-cameras`.
+
 **v7.93 — Today and Where we are on one tab (Andrew's Example A): READY TO UPLOAD (Claude, 2 Oct 2026 12:40 AEST).** Author: Andrew Fisher. Andrew: "we really need to merge both today and where we are into one" ... "make sure we dont double up info"; he picked Example A. Today carries Where we are (its own code, its own pane) under Today's cards; Where we are leaves the tab row and Tools (`#progress` opens Today at By group); repeats left off on screen only (dial panel, milestone strip, As at / Today date line, Today's Fencing and Costs cards, chicane picture, second View only line). Also fixes the dead Open lines on Today's instruments (live wired `.island.hubgo`). v7.91 folded in, not uploaded separately. On live v7.92 `476f0dcc`: `bash toolchain/build.sh v7.93 v7.91_today_tidy_full_width_DRAFT/patch_v791.py v7.93_one_tab_today_DRAFT/patch_v793.py` → **8,889,991 bytes, SHA-256 `2aeecb8ca3287511b4dcdff6d2db02612fd3d02ef784e4fc49076ac9a1f3564b`**. One-tab tests 24/24 desktop + 24/24 phone, both 21-tab/7-link sweeps clean, navigation 21/21, rules 45/45, fresh-after-save 11/11, editing link checked. Claude implemented and tested; Codex has not reviewed. Source and evidence: `v7.93_one_tab_today_DRAFT/`.
 
 **v7.92 — Showcase photo-informed whole-lap refinement and smoothness: LIVE, 02 Oct 2026 11:19 AEST.**
