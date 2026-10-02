@@ -1,0 +1,206 @@
+{
+ "author": "Andrew Fisher",
+ "mobile": false,
+ "results": [
+  {
+   "name": "the money summary is worked out once per opening of Today, not twice",
+   "pass": true,
+   "detail": [
+    "2026-10-02"
+   ]
+  },
+  {
+   "name": "folded By branch and On site wait to be opened",
+   "pass": true,
+   "detail": [
+    "groups branches lazy799 mas95",
+    "out lazy799"
+   ]
+  },
+  {
+   "name": "the By branch fold line still counts the branches",
+   "pass": true,
+   "detail": {
+    "lazy": [
+     "groups branches lazy799 mas95",
+     "out lazy799"
+    ],
+    "words": {
+     "By branch": "4 branches and all of them together · who gets the revenue, and what each branch charges the V8s — the contracts by the rate and the charge lines by kind",
+     "Money": "revenue · direct costs known so far · the difference — revenue is what Coates charges the V8s, a direct cost is what Coates pays for the job",
+     "On site": "what has gone out, by date"
+    },
+    "count": 5
+   }
+  },
+  {
+   "name": "the On site fold line is unchanged",
+   "pass": true,
+   "detail": {
+    "By branch": "4 branches and all of them together · who gets the revenue, and what each branch charges the V8s — the contracts by the rate and the charge lines by kind",
+    "Money": "revenue · direct costs known so far · the difference — revenue is what Coates charges the V8s, a direct cost is what Coates pays for the job",
+    "On site": "what has gone out, by date"
+   }
+  },
+  {
+   "name": "opening By branch draws its plates, word for word as a full draw",
+   "pass": true,
+   "detail": {
+    "plates": 5,
+    "same": true
+   }
+  },
+  {
+   "name": "opening On site draws it, word for word as a full draw",
+   "pass": true,
+   "detail": {
+    "len": 18732,
+    "same": true
+   }
+  },
+  {
+   "name": "both stay open once drawn",
+   "pass": true,
+   "detail": [
+    "By branch:true",
+    "Money:false",
+    "On site:true"
+   ]
+  },
+  {
+   "name": "a redraw of the record keeps opened folds drawn",
+   "pass": true,
+   "detail": {
+    "lazy": 0,
+    "plates": 5
+   }
+  },
+  {
+   "name": "every fold opened at once stays open, and all are drawn",
+   "pass": true,
+   "detail": {
+    "open": [
+     "By branch:true",
+     "Money:true",
+     "On site:true"
+    ],
+    "lazy": 0
+   }
+  },
+  {
+   "name": "print draws By branch and On site in full and opens every fold",
+   "pass": true,
+   "detail": {
+    "during": {
+     "lazy": 0,
+     "plates": 5,
+     "open": true,
+     "out": true
+    },
+    "after": [
+     "By branch:false",
+     "Money:false",
+     "On site:false"
+    ]
+   }
+  },
+  {
+   "name": "after printing the folds close again",
+   "pass": true,
+   "detail": [
+    "By branch:false",
+    "Money:false",
+    "On site:false"
+   ]
+  },
+  {
+   "name": "every jump button lands its part at the top, folds opened and drawn",
+   "pass": true,
+   "detail": [
+    {
+     "name": "Today",
+     "top": 12,
+     "end": false,
+     "open": null
+    },
+    {
+     "name": "Today’s work",
+     "top": 12,
+     "end": false,
+     "open": null
+    },
+    {
+     "name": "By group",
+     "top": 12,
+     "end": false,
+     "open": null
+    },
+    {
+     "name": "By branch",
+     "top": 12,
+     "end": false,
+     "open": true
+    },
+    {
+     "name": "Money",
+     "top": 183,
+     "end": true,
+     "open": true
+    },
+    {
+     "name": "On site",
+     "top": 291,
+     "end": true,
+     "open": true
+    },
+    {
+     "name": "Trade by trade",
+     "top": 12,
+     "end": false,
+     "open": null
+    }
+   ]
+  },
+  {
+   "name": "cards are placed, and the two-wide plates stay two wide",
+   "pass": true,
+   "detail": {
+    "fence": "1 / span 2",
+    "all": "1 / span 2",
+    "placed": 24,
+    "wide": [
+     "MEAD Brisbane Mechanical Speci"
+    ]
+   }
+  },
+  {
+   "name": "no overlap and nothing outside its box at 1440 px",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "no overlap and nothing outside its box at 1280 px",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "no overlap and nothing outside its box at 1000 px",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "the date control replays the day with the folds still waiting",
+   "pass": true,
+   "detail": {
+    "lazy": 2,
+    "words": "4 branches and all of them together · who gets the revenue, and what each branch charges the V8s — the contracts by the rate and the charge lines by kind"
+   }
+  },
+  {
+   "name": "no page errors",
+   "pass": true,
+   "detail": []
+  }
+ ],
+ "errors": []
+}

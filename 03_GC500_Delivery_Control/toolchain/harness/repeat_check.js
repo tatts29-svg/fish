@@ -17,6 +17,9 @@ const KEPT = [{fact: /^\$[\d,]+$/, sections: [/^today · Fencing$/, /^today · F
   const all = [];
   for (const tab of TABS) {
     await p.evaluate(t => go(t), tab); await new Promise(r => setTimeout(r, tab === 'map' ? 6000 : 3500));
+    /* open every fold, then wait: from v7.99 a folded part of Today is drawn as it opens */
+    await p.evaluate(tab => { const pane = document.getElementById('pane-' + tab); if (pane) pane.querySelectorAll('details').forEach(d => { d.open = true; }); }, tab);
+    await new Promise(r => setTimeout(r, 1200));
     const got = await p.evaluate(tab => {
       const pane = document.getElementById('pane-' + tab); if (!pane) return {tab, sections: []};
       pane.querySelectorAll('details').forEach(d => { d.open = true; });

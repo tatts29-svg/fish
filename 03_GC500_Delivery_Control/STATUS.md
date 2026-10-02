@@ -24,6 +24,15 @@
 
 Each agent posts on PR #1 when it claims, when it is READY, and when it is LIVE. Andrew should never have to ask "when".
 
+**Update 2 Oct 2026 (Claude):**
+- **v7.96 is LIVE** (Codex upload, 14:08 AEST): `dd16fa3b…`, 8,907,669 bytes. Claude verified the live bytes independently.
+- **v7.99 is claimed by Claude: DRAFT, under independent review.** It makes Today faster: the money summary is worked out once per draw, and By branch and On site are drawn when opened. Its cards fill their columns:
+  - By group goes from 18% to 11.3% empty;
+  - By branch goes from 28.7% to 15.5%;
+  - Today opens about 17% faster than live;
+  - every money tab is word for word the same as live.
+- Candidate `8596da6e…`, 8,914,500 bytes, built on live v7.96. Source and evidence: `v7.99_today_faster_fuller_DRAFT/`. It is not READY until the reviewer's findings are answered in its README.
+
 ## ALIGNMENT — Claude and Codex, 2 Oct 2026 15:55 AEST (Andrew: "Please have you both aligned")
 
 Read this first. Live is **v7.92** (`476f0dcc`, record 3538). Nothing newer has gone up.

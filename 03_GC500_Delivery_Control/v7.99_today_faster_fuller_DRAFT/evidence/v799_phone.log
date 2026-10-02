@@ -1,0 +1,16 @@
+PASS the money summary is worked out once per opening of Today, not twice
+PASS folded By branch and On site wait to be opened
+PASS the By branch fold line still counts the branches
+PASS the On site fold line is unchanged
+PASS opening By branch draws its plates, word for word as a full draw
+PASS opening On site draws it, word for word as a full draw
+PASS both stay open once drawn
+PASS a redraw of the record keeps opened folds drawn
+PASS every fold opened at once stays open, and all are drawn
+PASS print draws By branch and On site in full and opens every fold
+PASS after printing the folds close again
+PASS every jump button lands its part at the top, folds opened and drawn
+PASS phone: one column as before, nothing placed, no sideways scroll
+PASS the date control replays the day with the folds still waiting
+PASS no page errors
+15/15 phone · page errors 0
