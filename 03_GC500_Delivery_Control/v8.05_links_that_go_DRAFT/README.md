@@ -1,6 +1,6 @@
 # v8.05 — links that go where they say, and Today's money once
 
-Author: Andrew Fisher · 2 Oct 2026 · **DRAFT, under independent review (Claude)**, not live. Built on live v8.07 (`35024d43…`), which already carries v7.99.
+Author: Andrew Fisher · 2 Oct 2026 · **READY TO UPLOAD (Claude, 2 Oct 2026 18:30 AEST)**, not live. Built on live v8.07 (`35024d43…`), which already carries v7.99.
 
 ## Why
 
@@ -72,6 +72,15 @@ Screenshots stay out of the repo (Today shows "Who to call" numbers).
 - The Costs link works.
 - Paper page counts equal live, from real PDFs.
 
-**Re-review of the fixes:** in progress.
+**Re-review of the fixes:** both confirmed, nothing new found. The reviewer rebuilt the patch and got exactly `36d27b55…`.
+- **Each map address, loaded fresh:** all land where they should, with no D022 flash.
+  - `#map`, `#sheet/__explorer` and `#sheet/__satellite` open the explorer.
+  - `#sheet/__satellite3d`, MASTER and NOPE open the master plan.
+  - AERIAL and D022 open themselves.
+- **A leftover explorer request:** a later link or search wins.
+- **A slow connection:** the explorer opens once, and a search or link wins over it.
+- **Nits, not regressions:** if the connection is slow and the person leaves the map, the Map tab later opens the master plan, as live does; an address with escaped underscores lands on the master plan.
+
+**Codex's semantic review of the Money change** (PR #1, 2 Oct): PASS, with its own 10/10 actual-page checks. No unique fact is lost.
 
 **Repeats on the same live record:** live 165 (119 across tabs, 46 on the same tab); v8.05 165 (117, 48). The two money totals no longer repeat across tabs. The moved More info restates each stream's revenue beside its bar, as the hidden card did.
