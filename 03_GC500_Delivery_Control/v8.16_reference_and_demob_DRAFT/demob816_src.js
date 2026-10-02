@@ -261,7 +261,7 @@ function renderDemob816(){
 	const strip = M.days.map((iso, i) => { const x = M.day[iso], f = fmtDay(iso), wk = i % 5 === 0 ? `<span class="wk816">WK ${i / 5 + 1}</span>` : '';
 		const h = n => (n / max * 100).toFixed(1) + '%', tl = x.loads.length, tu = x.loads.reduce((s, L) => s + L.units, 0);
 		return `<button type="button" class="dday816${iso === sel ? ' on' : ''}${i % 5 === 0 ? ' wks' : ''}" data-dday816="${esc(iso)}" aria-pressed="${iso === sel}" aria-label="${esc(dayWords816(iso) + ': ' + x.list.length + ' to pick up' + (tl ? ', ' + tl + ' toilet load' + (tl === 1 ? '' : 's') : ''))}">${wk}
-<span class="dw816">${esc(f.dow.toUpperCase())}</span><b class="dn816">${esc(String(Number(f.dm.slice(0, 2))))}</b><span class="dm816">${esc(f.dm.slice(3).toUpperCase())}</span>
+<span class="dw816">${esc(f.dow.toUpperCase())}</span><b class="dn816">${esc(String(Number(f.dm.slice(0, 2))))}</b><span class="dmo816">${esc(f.dm.slice(3).toUpperCase())}</span>
 <span class="bar816" style="--d:${i * 40}ms"><i class="o" style="height:${h(x.outside)}"></i><i class="n" style="height:${h(x.island)}"></i><i class="u" style="height:${h(x.unknown)}"></i></span>
 <b class="dc816">${x.list.length}</b>${tl ? `<span class="tl816" title="${tl} toilet load${tl === 1 ? '' : 's'}, ${tu} units">${loo816(11)}${tl} · ${tu}</span>` : '<span class="tl816 none"></span>'}</button>`; }).join('');
 	const early = M.outside.length ? `<p class="note816">Dated by the plan outside the window: ${M.outside.map(r => `<button type="button" class="linkish" data-k816="${esc(r.key)}">${esc(r.key)}</button> ${esc(dayWords816(r.iso))}`).join(' · ')}.</p>` : '';
