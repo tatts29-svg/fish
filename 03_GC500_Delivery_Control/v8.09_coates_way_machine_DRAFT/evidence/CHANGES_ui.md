@@ -176,3 +176,17 @@ officer at -3.66, -2.68). Left with the people agent (crew.js).
 - Two more checks in `ui_tests.js` hardened against timing on the software renderer, still testing the same thing:
   - The "quick tap after all that" looks again once if the travelling crane has moved off the spot.
   - The zoom check also accepts the camera's distance having changed. The 0.18 s glide can be over between two 0.3 s polls.
+
+### Codex review fixes (f45961b)
+An independent review (branch `codex/gc500-v794-lap-cameras`, commit f45961b, `review_v809_extra_agents/`) found two phone faults. Both
+were checked against our code and fixed with their patch.
+- **Two fingers on the steering wheel.** A second finger landing while one held the wheel threw away the hold. Once both fingers were
+  lifted, the wheel stayed held and the view could not be turned. Now the hold is kept until its own finger lifts or is cancelled.
+- **Find a part during the guided tour.** The tour card stayed open under the register, and came back when the register closed. Opening
+  Find a part now ends the tour first, so only one thing is open.
+- **Button names.** Guided tour has `aria-label="Guided tour"` (its words are hidden on narrower screens). The part-details toggle (− / +)
+  is named "Toggle selected part details" and points at what it opens.
+- **Not taken:** their optional change moving focus to the tour heading on every Next. A keyboard user would have to tab back to Next at
+  each step. Focus still goes to the heading when the tour starts.
+- New in `ui_tests.js`: Find a part during the tour; the two button names; two fingers on the wheel on the phone, lifted in either order
+  and cancelled (real touches, at a point where the page's own picking finds the wheel).

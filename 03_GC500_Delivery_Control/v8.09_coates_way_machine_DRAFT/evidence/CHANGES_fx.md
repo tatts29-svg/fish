@@ -233,3 +233,16 @@ solid.
 | `people_tests.js work both` | desktop PASS, phone PASS (2,193 samples each; about 295 faded person-samples checked on each) |
 | `driver_tests.js` desk / phone | 41/41, 41/41 |
 | `ui_tests.js` desktop | 131/131 (seven fewer card checks than before: one tap landed where the travelling crane had just been, so no card opened and its seven checks did not run) |
+
+### Codex review fixes (f45961b)
+An independent review (commit f45961b, `review_v809_extra_agents/performance.md`) found two faults in how the picture is managed. Both
+were already in the live copy. Both are fixed with their patch.
+- **Quality changes left graphics memory behind.** Going back to Laptop threw away the post stack without releasing its passes' own
+  render targets, noise textures and materials. On the phone, each Balanced/Laptop round added 6 textures. Every pass is now released
+  once, and so is a stack that fails part-way through being built. The bundled `vendor/.../GTAOPass.js` now also releases its two
+  materials that its own clean-up missed.
+- **A hidden tab could lower the quality.** The one-off "drop to Laptop under 24 fps" check counted time spent in another tab as slow
+  drawing. Coming back, Balanced fell to Laptop and stayed there. The frame-rate and adaptive-resolution timing now starts afresh when
+  the tab is shown again, or when the page comes back from the browser's back/forward cache.
+- New in `fx_tests.js`: the texture count after repeated Balanced/Laptop rounds; and a small extra page that spends 8 s hidden on
+  Balanced and must still be on Balanced after.

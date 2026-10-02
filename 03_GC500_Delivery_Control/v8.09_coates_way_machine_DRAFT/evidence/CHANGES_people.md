@@ -333,3 +333,14 @@ technician's walk to the engine bay's far corner.
 
 `before_after.js work desk` and `work phone`, "The car" a minute in: nobody over the roof. The pit technician is crouched at the near rear
 tyre, in plain view.
+
+### Codex review fixes (f45961b)
+An independent review (commit f45961b, `review_v809_extra_agents/camera.md`) found that the first frame of the driver walking out was
+drawn where his figure had last been drawn, not at the sill. That was 1.7 m off the first time, and 6.1 m off after a Reset from the safe
+spot. For that one frame he could be seen in the wrong place. He is now posed at the sill (`m.update(0)`, no time added) before he is
+shown. The camera, the walk and the crouch are unchanged. New in `driver_tests.js`: the first walking frame is at the sill, crouched,
+facing the right way, on the first exit and again after a Reset.
+
+Not taken from that review: the optional camera-ownership change (`cameras/camera_ownership*`). It is outside their combined proposal and
+is not a confirmed fault. Their visual suggestions (complete body as the opening view, fewer workshop props, tighter door framing) are
+left for Andrew to decide.

@@ -95,3 +95,13 @@ No other file was touched.
 | `mech_tests.js` | **50/50**: 25 on desktop, 25 on the phone, including the two new handbrake checks on each. No page or console errors. |
 
 Re-run after the follow-up (the camera at the driver's door, the print budgets): `mech_tests.js` **50/50**.
+
+### Codex review fixes (f45961b)
+An independent review (commit f45961b, `review_v809_extra_agents/mechanics.md`) found two small clutch faults. Both are fixed with their
+patch.
+- **The starter reached the clutch a frame late.** On the first starting frame, the crank's turn still went into the gearbox. The
+  starter's state is now passed to the clutch before the engine is moved that frame.
+- **The clutch take-up depended on frame size.** It used the end-of-step engagement for the whole crank step. A release over the stated
+  two thirds of a radian passed 0.67 rad in one step but 0.34 rad in a hundred. The take-up ramp is now worked out across the step, so it
+  passes 1/3 rad however the frames fall.
+- New in `mech_tests.js`: the first starting frame has the clutch out, and the same release in 1, 2, 10 or 100 steps passes the same turn.
