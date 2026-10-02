@@ -1,4 +1,6 @@
-# v8.08 — The Coates Way machine upgrade
+# v8.09 — The Coates Way machine upgrade
+
+> **Version note:** this release is **v8.09**. Codex claimed v8.08 first, in f4455f0. The folder keeps its `v8.08_` name until the four builds running in it finish; it is renamed before any handover.
 
 Author: Andrew Fisher · 2 Oct 2026 · **DRAFT, in progress (Claude)**, not live. The live machine set is `v7.90-map-fit-quiet-done` (219 files); its code is copied unchanged in `base/`, and the work is done in `work/`.
 
