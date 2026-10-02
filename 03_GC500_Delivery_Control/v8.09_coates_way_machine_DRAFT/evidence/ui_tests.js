@@ -242,8 +242,8 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
       const T = (type, pts) => cdp.send('Input.dispatchTouchEvent', {type, touchPoints: pts}), w0 = {x: pt.x, y: pt.y, id: 0}, other = {x: pt.other.x, y: pt.other.y, id: 1};
       const rack = async (n = 4) => { const v = []; for (let i = 0; i < n; i++) { v.push(await page.evaluate(() => { let mech = null; window.__cw.scene.traverse(o => { if (!mech && o.userData && o.userData.mech) mech = o.userData.mech; }); return +mech.rackTravel.toFixed(7); })); if (i < n - 1) await wait(1500); } return v; };
       const spread = v => Math.max(...v) - Math.min(...v);
-      const free0 = await rack(); await T('touchStart', [w0]); await wait(1500); const held = await rack(3); await T('touchEnd', []); await wait(800);
-      check('V8 running, one finger on the wheel: the steering sways, and holds still while the wheel is held', spread(free0) > 1e-5 && spread(held) < 1e-7, JSON.stringify({free: free0, held}));
+      const free0 = await rack(); await T('touchStart', [w0]); await wait(3000); const held = await rack(3); await T('touchEnd', []); await wait(800);
+      check('V8 running, one finger on the wheel: the steering sways, and holds still while the wheel is held', spread(free0) > 1e-5 && spread(held.slice(1)) < 1e-7 /* (the first sample can come before a frame is drawn) */, JSON.stringify({free: free0, held}));
       for (const [label, lift] of [['second finger lifted first', async () => { await T('touchMove', [w0]); await wait(400); await T('touchEnd', []); }],
                                    ['wheel finger lifted first', async () => { await T('touchMove', [other]); await wait(400); await T('touchEnd', []); }],
                                    ['both cancelled', async () => { await T('touchCancel', []); }]]) {

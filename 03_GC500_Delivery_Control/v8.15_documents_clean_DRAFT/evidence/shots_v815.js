@@ -15,7 +15,7 @@ fs.mkdirSync(OUTD, {recursive: true});
     const top = async () => { await p.evaluate(() => { const m = document.querySelector('main'); if (m) m.scrollTop = 0; window.scrollTo(0, 0); }); await wait(600); };
     const shot = async (file, full) => {
       if (!full) return p.screenshot({path: path.join(OUTD, file)});
-      const h = await p.evaluate(() => { const m = document.querySelector('main'); return Math.min(24000, Math.max(document.documentElement.scrollHeight, (m ? m.scrollHeight + m.getBoundingClientRect().top : 0) + 80)); });
+      const h = await p.evaluate(() => { const m = document.querySelector('main'); return Math.ceil(Math.min(24000, Math.max(document.documentElement.scrollHeight, (m ? m.scrollHeight + m.getBoundingClientRect().top : 0) + 80))); });
       await p.setViewportSize({width: dev.W, height: h}); await wait(1500);
       await p.screenshot({path: path.join(OUTD, file), scale: 'css'});
       await p.setViewportSize({width: dev.W, height: dev.H}); await wait(800);

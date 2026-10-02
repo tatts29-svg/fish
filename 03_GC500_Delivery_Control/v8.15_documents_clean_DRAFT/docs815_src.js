@@ -123,6 +123,12 @@ function setLight815(list){
  if (list.some(d => d.availability === 'unchecked')) return '<span class="tl none"><i></i><span class="w">not checked</span></span>';
  return list.length ? '<span class="tl green" title="Every file is there"><i></i></span>' : '';
 }
+/* the card's light: the pip alone - the words are on the line under it */
+function pip815(list){
+ const s = list.some(d => d.availability === 'missing') ? ['red', 'Something here is not uploaded'] : list.some(d => d.availability === 'checking') ? ['amber', 'Checking the service']
+  : list.some(d => d.availability === 'unchecked') ? ['none', 'The service did not answer'] : ['green', 'Every file is there'];
+ return `<span class="tl ${s[0]}" title="${s[1]}" aria-label="${s[1]}"><i></i></span>`;
+}
 function row815(d, o){
  o = o || {};
  const href = docHref(d), canAdd = !!(SYNC.backend && SYNC.backend.fileUrl) && !SYNC.readonly;
@@ -218,11 +224,11 @@ function tilesHtml815(by, found){
  const sel = state.docTile815;
  return TILES815.filter(([k]) => k !== 'invoices' || by[k].length).map(([k, label]) => {
   const list = by[k], n = found ? found.filter(d => d.category === TILES815.find(x => x[0] === k)[2]).length : list.length;
-  const on = sel === k && !found;
+  const on = sel === k && !found, miss = list.filter(d => d.availability === 'missing').length;
   const noun = k === 'photos' ? ['photo', 'photos'] : k === 'dockets' ? ['docket', 'dockets'] : k === 'maps' ? ['drawing', 'drawings'] : ['file', 'files'];
   return `<div class="card hubcard tile815${on ? ' on815' : ''}${found && !n ? ' dim815' : ''}" role="button" tabindex="0" data-tile815="${k}" aria-pressed="${on}" aria-controls="docBody815">
-   <div class="hubtitle"><h3>${esc(label)}</h3>${setLight815(list)}</div>
-   <div class="hubbig"><b>${fmtNum(n)}</b> ${found ? 'found' : esc(n === 1 ? noun[0] : noun[1])}</div>
+   <div class="hubtitle"><h3>${esc(label)}</h3>${pip815(list)}</div>
+   <div class="hubbig"><b>${fmtNum(n)}</b> ${found ? 'found' : esc(n === 1 ? noun[0] : noun[1])}${miss && !found ? ` <span class="w">·</span> ${fmtNum(miss)} not uploaded` : ''}</div>
    <div class="hubgo">${on ? 'Showing below ↓' : 'Show →'}</div></div>`; }).join('');
 }
 function bodyHtml815(all, by, found){
