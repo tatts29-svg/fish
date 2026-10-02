@@ -104,8 +104,8 @@ function collect816(key){
 }
 /* -------- the out date: typed, then the plan's remove event, then a contract off-hire BEFORE 13 Nov, then proposed */
 function contract816(a){
-	let r = null; try { r = subhireOf(a.key) ? null : rentalOf(a.key); } catch (e) { r = null; }
-	const ds = r ? (r.lines || []).map(l => l.demob_date).filter(Boolean).sort() : [];
+	let rows = []; try { rows = subhireOf(a.key) ? [] : typeof onhireForAsset === 'function' ? onhireForAsset(a) || [] : ((rentalOf(a.key) || {}).lines || []); } catch (e) { rows = []; }
+	const ds = [...new Set(rows.map(l => l.demob_date).filter(Boolean))].sort();
 	return {early: ds.find(x => x < DM816.end) || null, last: ds.length ? ds[ds.length - 1] : null};
 }
 function cmp816(x, y){
@@ -152,13 +152,15 @@ function demob816(){
 	const loadsOut = pack816(outP.filter(r => r.evtPure), DM816.cap), loadsIn = pack816(inP.concat(unkP).filter(r => r.evtPure), DM816.cap);
 	const block = L => ({load: L, size: L.rows.length, key: L.rows[0].r});
 	const queue = (rs, Ls) => rs.filter(r => !r.evtPure).map(r => ({r, size: 1, key: r})).concat(Ls.map(block)).sort((x, y) => cmp816(x.key, y.key));
+	/* balanced per day, in order: each day is filled to its share of the window's running total (fixed dates included),
+	 so the order holds - outside before the island, area by area - and the remainder lands at the end */
 	const fill = (Q, days) => {
-		const count = days.map(fixedOn), total = Q.reduce((s, x) => s + x.size, 0) + count.reduce((s, x) => s + x, 0);
-		const target = Math.ceil(total / days.length); let di = 0;
+		const n = days.length, fixed = days.map(fixedOn), total = Q.reduce((s, x) => s + x.size, 0) + fixed.reduce((s, x) => s + x, 0);
+		const share = k => total * (k + 1) / n; let di = 0, cum = fixed[0];
 		Q.forEach(it => {
-			while (di < days.length - 1 && count[di] >= target) di++;
-			if (di < days.length - 1 && count[di] > 0 && count[di] + it.size > target && count[di] + it.size - target > target - count[di]) di++;
-			const iso = days[di]; count[di] += it.size;
+			/* a toilet load goes whole onto the first day that still has room */
+			while (di < n - 1 && (it.load ? cum >= share(di) : cum + it.size / 2 > share(di))) { di++; cum += fixed[di]; }
+			const iso = days[di]; cum += it.size;
 			if (it.load) { it.load.iso = iso; it.load.rows.forEach(x => { x.r.iso = iso; }); } else it.r.iso = iso;
 		});
 	};

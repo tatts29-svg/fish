@@ -123,7 +123,6 @@ function drawer816(a){
 	/* 3. the summary band: the start light, the chips, In and Out */
 	const M = demobOf816(key), z = M ? {zone: M.zone, side: M.side} : zone816(a);
 	const v = deliveryView(key);
-	const since = d.recorded ? (d.state === 'on site' ? 'On site' : (LIGHT[d.state] || {}).label || d.state) + (d.set_at ? ' since ' + fmtStamp(d.set_at) : '') + (d.by ? ' · ' + d.by : '') : (v.why || 'no light set yet');
 	const chip = (cls, html) => `<span class="ch816 ${cls}">${html}</span>`;
 	const em = emptiedOf816(key);
 	const chips = [d.done ? chip('ok', '✓ Complete') : '', d.levelled ? chip('ok', levelGlyph(12) + ' Levelled') : '', d.steps ? chip('ok', stepsGlyph(12) + ' Steps') : '',
@@ -135,7 +134,9 @@ function drawer816(a){
 		: M.src === 'plan' ? 'the plan\'s remove event' : M.src === 'contract' ? 'contract off-hire' : 'confirmed' + (d.out_by ? ' by ' + d.out_by : '');
 	const hireEnd = M && M.contractEnd === DM816.end && M.src !== 'contract' ? ' · hire ends 13 Nov' : '';
 	const sum = document.createElement('section'); sum.className = 'sum816';
-	sum.innerHTML = `<div class="lt816">${a._cancelled ? '<b class="cx816">Cancelled</b>' : dstat(a, {size: 'lg', ctl: true})}<span class="since816">${esc(since)}</span></div>
+	const word = d.recorded ? ((LIGHT[d.state] || {}).label || d.state) : (v.label || 'No light set');
+	const sinceW = d.recorded ? [d.set_at ? 'since ' + fmtStamp(d.set_at) : '', d.by ? recorderDisplay772(d.by) : ''].filter(Boolean).join(' · ') : esc(v.why || 'nobody has set a light yet');
+	sum.innerHTML = `<div class="lt816">${a._cancelled ? '<b class="cx816">Cancelled</b>' : dstat(a, {size: 'lg', ctl: true, bare: true})}<span class="lw816"><b>${esc(word)}</b><span class="since816">${sinceW}</span></span></div>
 <div class="chips816">${chips}</div>
 <div class="dates816"><div class="dt816"><small>In</small><b class="racenum">${eff.in ? esc(dayWords816(eff.in)) : '—'}</b><span>${esc(inWhy)}</span></div>
 <div class="dt816 out${M && M.src === 'proposed' ? ' prop' : ''}"><small>Out ${M ? srcChip816(M.src) : ''}</small><b class="racenum">${M && M.iso ? esc(dayWords816(M.iso)) : '—'}</b><span>${esc(outWhy + hireEnd)}</span></div></div>
@@ -231,6 +232,8 @@ ${units.length > 1 ? `<select id="ph816unit" aria-label="Which unit">${units.map
 	F.forEach(([id, t, s, inner, cls]) => { if (!inner) return; folds.insertAdjacentHTML('beforeend', fold816(id, t, s, ' ', cls));
 		const fb = folds.lastElementChild.querySelector('.fb816'); if (inner.tagName === 'DIV' && !inner.className) [...inner.childNodes].forEach(n => fb.appendChild(n)); else fb.appendChild(inner); });
 	{ const pf = folds.querySelector('[data-f816="photos"]'); if (pf) ph.appendChild(pf); }
+	/* the empty-state lines a general reader does not need: a part with nothing in it is simply not there */
+	folds.querySelectorAll('p.norate, p.hint').forEach(e => { if (/^(Nothing recorded inside this one|No drawing link|No scheduled events|None filed on the admin page|Nothing reported against this one)/.test(plain816(e))) e.remove(); });
 	/* 8. the body, in its new order */
 	db.innerHTML = '';
 	db.appendChild(sum);

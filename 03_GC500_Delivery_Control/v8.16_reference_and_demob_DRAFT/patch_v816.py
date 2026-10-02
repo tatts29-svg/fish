@@ -43,6 +43,9 @@ t = rep(t, "const TAB_PRIMARY = ['today', 'timeline', 'plant', 'map', 'docs', 'c
 t = rep(t, " more: '<circle cx=\"3.5\" cy=\"8\" r=\"1.4\" fill=\"currentColor\"/>",
         " demob: '<path d=\"M1.5 4.5h8v6.5h-8zM9.5 7h3l2 2.2V11h-5z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linejoin=\"round\"/><circle cx=\"4.2\" cy=\"12\" r=\"1.3\" fill=\"currentColor\"/><circle cx=\"11.8\" cy=\"12\" r=\"1.3\" fill=\"currentColor\"/><path d=\"M3.5 7.7h3.2M5.4 6.4l1.3 1.3-1.3 1.3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>', /* v8.16 */\n more: '<circle cx=\"3.5\" cy=\"8\" r=\"1.4\" fill=\"currentColor\"/>",
         'Demob glyph', p)
+# on a phone the row is a glyph over a word in seven cells: Equipment may break, with a hyphen, over two lines
+t = rep(t, "const TAB_WORDS = {progress: 'Where <span class=\"nb\">we are</span>'};",
+        "const TAB_WORDS = {progress: 'Where <span class=\"nb\">we are</span>', plant: 'Equip<span class=\\"hy816\\" aria-hidden=\\"true\\"></span>ment'}; /* v8.16 - two lines on a phone, one word everywhere else */", 'Equipment may hyphenate on a phone', p)
 t = rep(t, '<section class="pane" id="pane-plant"></section>',
         '<section class="pane" id="pane-plant"></section>\n  <section class="pane" id="pane-demob"></section>', 'Demob pane', p)
 t = rep(t, "else if (state.tab === 'questions') renderQuestions();",
