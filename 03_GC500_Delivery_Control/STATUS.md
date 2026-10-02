@@ -1,3 +1,11 @@
+**v7.92 — Showcase photo-informed whole-lap refinement and smoothness: CLAIMED by Codex, 2 Oct 2026.**
+Author: Andrew Fisher. Andrew: "Revisit showcase again. Wiith new info. Must be smooth. No bugs no errors".
+Build on the then-current live page, carrying forward the reviewed full-lap work and the 39 new photo references.
+Preserve the original circuit, car, cameras, media/weather, controls and records. Investigate frame pacing and
+resource/lifecycle behaviour; check complete laps, desktop/phone visuals and page regressions before publication.
+Scope: `v7.92_showcase_photo_refinement_DRAFT/`, branch `codex/gc500-v788-full-lap` / PR #26.
+Independent implementation/review tasks are split within Codex; Claude's Today work remains separately owned.
+
 **v7.91 — Today tidy-up after full width: READY TO UPLOAD (Claude, 2 Oct 2026 10:35 AEST).** Andrew: "this is how today
 looks now, this needs some work to clean up". On the live v7.89: `bash toolchain/build.sh v7.91
 v7.91_today_tidy_full_width_DRAFT/patch_v791.py` → **8,862,008 bytes, SHA-256 `a942bebe86fabc53d905e8267b526a9a1d54699adf5243fb9314ee6bf65d05e6`**.
