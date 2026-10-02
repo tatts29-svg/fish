@@ -1,0 +1,76 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "scope": "Exact photo/save/sync source with CPU mocked storage and transports; zero live requests",
+  "sourceSha256": "7ca939e5bbc47ebe5d0d2b42000c09a8b6bb5e22b124f0217af88071c19afb72",
+  "checks": [
+    {
+      "name": "success retains queue until actual document acknowledgement; stale caller cannot reupload",
+      "pass": true
+    },
+    {
+      "name": "localStorage quota keeps uploaded file queued and recovers without another upload",
+      "pass": true
+    },
+    {
+      "name": "document network rejection retains queue and retries through existing serial sync",
+      "pass": true
+    },
+    {
+      "name": "reload after upload uses durable returned opaque service ID",
+      "pass": true
+    },
+    {
+      "name": "reload after receipt checkpoint failure recovers exact filename and checksum without duplicate upload",
+      "pass": true
+    },
+    {
+      "name": "lost file response reconciles service identity by exact filename and checksum",
+      "pass": true
+    },
+    {
+      "name": "file network rejection retries when service confirms no matching file",
+      "pass": true
+    },
+    {
+      "name": "initial IndexedDB refusal stops before upload and reports no durable retention",
+      "pass": true
+    },
+    {
+      "name": "Forget failure is truthful and successful Forget prevents stale retries",
+      "pass": true
+    },
+    {
+      "name": "completed queue cleanup failure retries deletion only",
+      "pass": true
+    },
+    {
+      "name": "later removal survives queued upload retry without resurrection",
+      "pass": true
+    },
+    {
+      "name": "late upload does not replace a newer slot photo; active upload cannot be falsely forgotten",
+      "pass": true
+    },
+    {
+      "name": "ordinary Replace retains previous-file tombstone and waits for both documents",
+      "pass": true
+    },
+    {
+      "name": "checksum/name conflict never guesses a service ID or sends a duplicate",
+      "pass": true
+    },
+    {
+      "name": "IndexedDB abort rejects rather than leaving the upload hanging",
+      "pass": true
+    },
+    {
+      "name": "Web Locks prevent a second tab sending or forgetting an active photo; completed entry reread suppresses stale upload",
+      "pass": true
+    },
+    {
+      "name": "same-page fallback works when Web Locks is unavailable",
+      "pass": true
+    }
+  ]
+}
