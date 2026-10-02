@@ -1,0 +1,45 @@
+# v8.16 follow-up review at 968aefb — moving draft, not READY
+
+Author: Andrew Fisher
+
+Reviewed exact commit `968aefba33abd387b7b646b71340d41775679b25`, privately archived without checking out or editing the implementation. The original `c1f6fb5` report and evidence are unchanged. This follow-up is source/CPU feedback to the implementation owner, not approval to release.
+
+The exact patch applies successfully to the local v8.13 baseline `f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec`. The resulting private audit HTML is `726f207af38123079c3eeaef78c8def695537cf87b55ae7a85107f85419a36ef`. This is a test fixture, not a fresh-live release build. Frozen Demob source SHA-256: `380ebc2ead349bdeaeb230fc78099dd233fd1e70815ba47b878ae7a8a39657b0`.
+
+## Original eight findings
+
+| Original finding | Result at this commit |
+| --- | --- |
+| 1. Pump-out gate exceptions | Date exception removed; a name and parseable time are now required; an amber reference with earlier on-site history is blocked. A historyless/non-green reference still bypasses the ordinary light gate because incoming travel is inferred rather than recorded. Remains open in that case. |
+| 2. Old pump-out clearance/current cycle | A newer committed false now beats an older local true. Reuse is still unhandled: returning the reference on site retains its old clearance and permits its next collection. Remains open. |
+| 3. Merge drops pump-out evidence | Basic loss is fixed: value, name, time and history survive, and a later false wins. New equal-timestamp conflict handling is order-dependent and silent; see below. |
+| 4. Split reference dates | Portions now appear on each day's list, with the last day labelled as final Out. Actual confirmation still collapses those portions onto the last day, and earlier portions may lack a pump task. Remains open. |
+| 5. Toilet before tank across runs | Original known-quantity, same-reference fixture is fixed: toilet 07:00–07:15, tank begins 07:15. Unknown toilet quantity still allows a tank-only schedule with no predecessor. Cross-reference relationships are still not represented or verified. |
+| 6. Unknown quantities silently become one | The numeric-one assumption is removed and proposed unknown quantities are labelled. Confirmation loses a pure unknown portable from truck/run output; mixed unknown portable/tank also loses the portable stop. Remains open. |
+| 7. Added same-day reference typed removal | Fixed. Exact Timeline hunk correctly adds, changes and clears the typed removal, preserving delivery and avoiding duplicate existing removals. |
+| 8. Cancelled reference's drawer Out date | Fixed for cancelled typed, plan and early-contract dates. Source-rendering checks retain cancellation/source labels and active proposed/confirmed wording. |
+
+## Remaining actionable findings
+
+1. **P1 — An earlier use cycle still authorises a later collection.** `demob816_src.js:65–70,95` and unchanged `setLight`: start with a valid old pump-out record, return the reference from transit to `on site`, then call the forced collection gate. It returns `true` using the old record. No source change resets, invalidates or versions the clearance when the reference returns or its units change. Resolve this before treating the tick as permission to load. The new tests cover stale local versus committed values, but do not exercise reuse.
+
+2. **P1 — Confirming a split proposal changes the collection plan that was presented.** `demob816_src.js:161–162,183–189,419–423`. Offline fixture: 25 FWF units produce 24 on Mon 26 Oct and 1 on Tue 27 Oct. Calling the actual `confirm816('2026-10-26', 'all')`, using the actual page `setDate`, saves only `out_date:2026-10-27`; after the normal redraw both loads move to Tuesday and Monday's load disappears. Portions are computed only for proposed references and are not persisted. The confirmation prompt at line 324 says each reference becomes due out on the selected Monday, although the setter writes Tuesday. Keep all parts on one date unless durable per-portion scheduling exists, or preserve and truthfully confirm the individual portions. Test the model after confirmation and reload, not just membership in its pre-confirmation list.
+
+3. **P1 — Pump-out tasks still follow only the final split date.** `demob816_src.js:194–195` ignores `portions`. A 49-unit fixture schedules 24 on Monday, 24 Tuesday and 1 Wednesday, but Monday's pump list is empty. The first task is Tuesday because the reference's final `iso` is Wednesday. Derive prerequisites from each actual load/portion, including the first collection day. This is a related gap in original finding 4, not evidence of a current live 49-unit reference.
+
+4. **P1 — Unknown portable quantities disappear after confirmation and can leave their tank scheduled alone.** `demob816_src.js:186–189,234–238,263`. A proposed pure FWF reference with unknown quantity gets an uncertain zero-count load, visibly marked for confirmation. After confirming its date it remains on the pick-up list but has no load and zero trucks, because the fixed-date path only packs `n > 0`. A fixed-date mixed FWF-unknown + one-tank reference produces only a 07:00–07:30 waste-tank stop, with no toilet stop or unresolved predecessor. Keep unknown collection work represented on confirmed/plan dates and block a tank's sequenced plan when its supporting toilet is unresolved. Check print/email as well: the email load text still renders numeric totals/quantities without the uncertainty marker, and the uncertain load card still advertises numeric spaces for topping up.
+
+5. **P1 — The ordinary light gate still treats missing history as proof of an incoming trip.** `demob816_src.js:87–95` returns true whenever `everOnSite816` is false. A reference showing `not on site` or transit with no recorded on-site history can still be marked for outward transport without clearance through the existing light controls. The forced Demob action is correctly blocked. Absence of a recorded arrival does not establish an unused toilet or incoming movement; represent the movement purpose explicitly or keep an outgoing/loading action blocked until clearance is present. The original date and known-history bypasses are fixed and should stay fixed.
+
+6. **P2 — Equal-time pump-out conflicts choose whichever record is passed first.** New merge hunk `patch_v816.py:89–95`, plus `emptiedOf816:68`. For the same timestamp, A says emptied=true and B says false. `mergeRecords(A,B)` silently returns true; `mergeRecords(B,A)` silently returns false. Neither reports a clash. Use a deterministic conflict rule consistent with the merge contract, keep contradictory evidence, and avoid letting an unresolved contradictory clearance silently permit loading. Test both input orders, idempotence and conflict history, alongside the now-fixed later-stamp case.
+
+7. **P2 — Added-reference correction now overrides an explicit removal event.** New `demob816_src.js:139` drops every `eff.out_plan` when an added reference's initial first/last dates match. A valid added record can also carry explicit events. Fixture: first=last=20 Oct, place event 20 Oct, remove event 5 Nov, no typed override/contract. The exact `effectiveDates` and Timeline both retain **5 Nov**, but Demob changes it to **proposed 26 Oct**. Only suppress the same-day `last_date` fallback when no dated removal event exists; explicit plan removals retain precedence. This was independently reproduced, separately from the 12 positive Timeline/drawer checks.
+
+## Exact verification and limits
+
+- Original nine CPU observations rerun against the new Demob source and actual patched baseline functions. Results: `/workspace/private-release-audit-v816-968aefb/original_fixture_rerun.json`.
+- Six additional CPU observations exercise actual confirmation, 49-unit pump coverage, confirmed unknown quantity, unknown mixed toilet/tank, equal-time merge order and the repaired known-history amber gate. Portable fixture/results: `/workspace/private-release-audit-v816-968aefb/followup_cpu.cjs` and `followup_cpu.json`. These record observed failures as well as fixes; they are not a passing release suite.
+- Independent narrow recheck: **12/12 intended-behaviour checks pass** for the original Timeline/drawer corrections. A separate assertion reproduces the new explicit-plan divergence and is not counted as a passing behaviour check. Portable fixture/results: `/workspace/private-release-audit-v816-968aefb/timeline_drawer_recheck.cjs` and `timeline_drawer_recheck.json`.
+- The updated `v816_tests.js` was read, not run in a browser. Its split test examines the pre-confirmation model; its unknown-quantity test examines only a proposed reference; its merge test uses unequal timestamps. Those cases do not settle the remaining findings.
+
+No browser, network request, live/operational write, implementation edit or commit. No visual, physical-device, print-layout, fresh-live-build or standing-suite approval is implied. The owner must resolve the blockers, rebuild from the then-current live page and rerun affected and required checks before a READY handover.

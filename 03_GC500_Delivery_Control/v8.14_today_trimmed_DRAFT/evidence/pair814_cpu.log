@@ -1,0 +1,30 @@
+PASS patch applies to the original trimmed page
+PASS second application refuses and preserves bytes
+PASS wrong base refuses without mutation
+PASS missing replacement anchor refuses without mutation
+PASS only placement function changes
+PASS two-card Today pair uses 1 + 1 columns at C2 [{"name":"updates","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"team","column":"2 / span 1","row":"1","placed":"1","wide":null}]
+PASS programme day keeps existing placement at C2 [{"name":"due","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"updates","column":"1 / span 2","row":"151","placed":"1","wide":null},{"name":"team","column":"1 / span 2","row":"261","placed":"1","wide":"1"}]
+PASS extra visible alert keeps existing placement at C2 [{"name":"updates","column":"1 / span 2","row":"1","placed":"1","wide":null},{"name":"team","column":"1 / span 1","row":"111","placed":"1","wide":null},{"name":"alert","column":"2 / span 1","row":"111","placed":"1","wide":null}]
+PASS other section keeps existing placement at C2 [{"name":"updates","column":"1 / span 2","row":"1","placed":"1","wide":null},{"name":"team","column":"1 / span 2","row":"111","placed":"1","wide":"1"}]
+PASS single card keeps existing placement at C2 [{"name":"updates","column":"1 / span 2","row":"1","placed":"1","wide":null}]
+PASS hidden cards do not suppress the visible pair at C2
+PASS two-card Today pair uses 1 + 2 columns at C3 [{"name":"updates","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"team","column":"2 / span 2","row":"1","placed":"1","wide":null}]
+PASS programme day keeps existing placement at C3 [{"name":"due","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"updates","column":"1 / span 2","row":"151","placed":"1","wide":null},{"name":"team","column":"3 / span 1","row":"1","placed":"1","wide":null}]
+PASS extra visible alert keeps existing placement at C3 [{"name":"updates","column":"1 / span 2","row":"1","placed":"1","wide":null},{"name":"team","column":"3 / span 1","row":"1","placed":"1","wide":null},{"name":"alert","column":"1 / span 2","row":"111","placed":"1","wide":"1"}]
+PASS other section keeps existing placement at C3 [{"name":"updates","column":"1 / span 2","row":"1","placed":"1","wide":null},{"name":"team","column":"3 / span 1","row":"1","placed":"1","wide":null}]
+PASS single card keeps existing placement at C3 [{"name":"updates","column":"1 / span 3","row":"1","placed":"1","wide":"1"}]
+PASS hidden cards do not suppress the visible pair at C3
+PASS two-card Today pair uses 1 + 3 columns at C4 [{"name":"updates","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"team","column":"2 / span 3","row":"1","placed":"1","wide":null}]
+PASS programme day keeps existing placement at C4 [{"name":"due","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"updates","column":"2 / span 2","row":"1","placed":"1","wide":null},{"name":"team","column":"4 / span 1","row":"1","placed":"1","wide":null}]
+PASS extra visible alert keeps existing placement at C4 [{"name":"updates","column":"1 / span 2","row":"1","placed":"1","wide":null},{"name":"team","column":"3 / span 1","row":"1","placed":"1","wide":null},{"name":"alert","column":"4 / span 1","row":"1","placed":"1","wide":null}]
+PASS other section keeps existing placement at C4 [{"name":"updates","column":"1 / span 2","row":"1","placed":"1","wide":null},{"name":"team","column":"3 / span 2","row":"1","placed":"1","wide":"1"}]
+PASS single card keeps existing placement at C4 [{"name":"updates","column":"1 / span 3","row":"1","placed":"1","wide":"1"}]
+PASS hidden cards do not suppress the visible pair at C4
+PASS same nodes resize to C4 without stale spans [{"name":"updates","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"team","column":"2 / span 3","row":"1","placed":"1","wide":null}]
+PASS same nodes resize to C3 without stale spans [{"name":"updates","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"team","column":"2 / span 2","row":"1","placed":"1","wide":null}]
+PASS same nodes resize to C2 without stale spans [{"name":"updates","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"team","column":"2 / span 1","row":"1","placed":"1","wide":null}]
+PASS same nodes resize to C4 without stale spans [{"name":"updates","column":"1 / span 1","row":"1","placed":"1","wide":null},{"name":"team","column":"2 / span 3","row":"1","placed":"1","wide":null}]
+PASS phone removes placement and writes no grid coordinates [{"name":"updates","column":null,"row":null,"placed":null,"wide":null},{"name":"team","column":null,"row":null,"placed":null,"wide":null}]
+PASS paper removes placement and writes no grid coordinates [{"name":"updates","column":null,"row":null,"placed":null,"wide":null},{"name":"team","column":null,"row":null,"placed":null,"wide":null}]
+29/29 CPU checks passed
