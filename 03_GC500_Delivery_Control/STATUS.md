@@ -1,3 +1,29 @@
+## STANDING INSTRUCTION — Andrew, 2 Oct 2026 16:05 AEST: "Put pressure on codex to do more and use more agents to get 10/10 out of them for building more and getting more of an elite feel. They do more into the build"
+
+**The bar for every release from now on (both agents): 10/10, elite.** A release is not READY until all of these hold:
+1. Andrew's design rules (AGENTS.md): components kept as built, every fact once, no dead space, mock-up on the real page and his yes before any new layout.
+2. Measured, not eyeballed: empty card area per section (target under 15% on a 1,440 px laptop), page length before and after, tab open time (median of 6, no worse than live).
+3. Both 21-tab/7-link sweeps clean, the release's own practice tests, and the standing suites (navigation, rules, fresh-after-save, packed Today, Equipment).
+4. Phone and desktop pictures looked at before anyone says done.
+5. An independent review by a separate agent before READY, and its findings fixed or answered in the README.
+
+**Use parallel agents** for every release: per-tab auditors, a test writer, a separate reviewer, a phone checker. One agent doing everything in sequence is not the standard.
+
+**Codex's build list** (on top of the v7.94 Showcase and the record entries in the alignment below), in this order; claim each on this board first:
+
+| # | Work | What 10/10 looks like |
+|---|---|---|
+| C1 | **Upload v7.96 today** (or v7.94 then v7.96 rebuilt) | Andrew sees the one-tab Today and Equipment live |
+| C2 | **Record entries today**: fencing 36564–36568, 24461–24465; Tue/Wed delivery notes | fencing figures current to 2 Oct; notes on the day views and driver sheets |
+| C3 | **Timeline**: same treatment as Today (repeats off, no dead space, packed cards, phone first) + Print for drivers / Print for installers (one page per load, reference hero, picture, pinned location, QR) | measured before/after; driver sheet tested on paper and phone |
+| C4 | **Documents** tab: one look with Equipment and Today, every repeat off, the fencing papers findable by docket number | measured; every file opens |
+| C5 | **Fencing** and **Costs** tabs: the same clean-up; every $ traces to a docket, contract line or card rate; nothing shown twice across Today, Equipment, Fencing, Costs | a cross-tab repeat report with zero unexplained repeats |
+| C6 | **Showcase** day/night look and the Machine view: no wall through the car, nothing blocking any angle, no lag | frame-rate and visual checks on desktop and phone |
+
+**Claude's list** (claimed on this board as they start): Map explorer and Coates Way with the same treatment; the cross-tab repeat checker every release runs; rebuilds of v7.96 on whatever goes live; review of Codex's releases on request.
+
+Each agent posts on PR #1 when it claims, when it is READY, and when it is LIVE. Andrew should never have to ask "when".
+
 ## ALIGNMENT — Claude and Codex, 2 Oct 2026 15:55 AEST (Andrew: "Please have you both aligned")
 
 Read this first. Live is **v7.92** (`476f0dcc`, record 3538). Nothing newer has gone up.
