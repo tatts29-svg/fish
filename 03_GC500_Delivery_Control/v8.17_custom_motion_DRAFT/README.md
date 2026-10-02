@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher
 
-State: **local visual preview, 3 Oct 2026. Not live or READY TO UPLOAD.**
+State: **PARKED — VISUAL DIRECTION REJECTED, 3 Oct 2026. Do not integrate or publish.**
+
+Andrew: “the whole look. don't worry about this at the moment”. Animation work is paused until he reopens it. Files below are historical preview evidence only; they never went live.
 
 Andrew opened his Lottie Creator and asked whether original animations could help throughout GC500. This package proves three editable examples in the existing Map Explorer colours:
 
