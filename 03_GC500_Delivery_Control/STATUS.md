@@ -434,8 +434,8 @@ Claude independently rebuilt the same hashes and completed **61/61** in-page lap
 and **58/58** in the earlier lap harness on desktop/phone. He inspected the circuit views and start/finish join;
 no movement jumps or graphics errors. Evidence: `v7.88_review_by_claude/` and PR #1 comment 5942850787 for the finished
 phone rerun. Buildings/foliage remain stylised; these checks do not claim Andrew's visual acceptance or physical-device/4K
-performance. Rebuild on the latest live base before release. v7.89 header is now verified live; v7.90 maps are being
-reviewed separately. No financial record changes are included in this graphics preview.
+performance. Rebuild on the latest live base before release. v7.89 header and v7.90 maps are now verified live.
+No financial record changes are included in this graphics preview.
 
 **Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude).** Author: Andrew Fisher.
 HA 36564-36568 and SN 24463-24465 transcribed from Andrew's photographs:
