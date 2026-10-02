@@ -37,7 +37,7 @@ async function hijack(page) {
 const frame = page => page.evaluate(() => { const t0 = performance.now(); window.__step(); const gl = window.__cw.renderer.getContext(); gl.finish(); return performance.now() - t0; });
 const state = page => page.evaluate(() => { const c = window.__cw, r = c.renderer, gl = r.getContext(), v = document.getElementById('viewport').getBoundingClientRect();
   return {quality: c.quality, ratio: r.getPixelRatio(), target: c.motion.target, moving: c.motion.moving, buffer: [gl.drawingBufferWidth, gl.drawingBufferHeight], css: [Math.round(v.width), Math.round(v.height)],
-    composerSamples: c.composerSamples, shadow: c.shadowMapSize, fx: window.__fx ? window.__fx.info : null, label: document.getElementById('quality').textContent}; });
+    composerSamples: c.composerSamples, shadow: c.shadowMapSize, dprScale: c.dprScale, fx: window.__fx ? window.__fx.info : null, label: document.getElementById('quality').textContent}; });
 async function setQuality(page, q) {
   for (let i = 0; i < 6; i++) { const now = await page.evaluate(() => window.__cw.quality); if (now === q) return true; await page.evaluate(() => document.getElementById('quality').click()); }
   return page.evaluate(q => window.__cw.quality === q, q);
@@ -88,12 +88,18 @@ async function run(dev) {
   const phone = dev === 'phone', W = +(process.env.W || (phone ? 390 : 1440)), H = +(process.env.H || (phone ? 844 : 900)), dpr = +(process.env.DPR || (phone ? 3 : 2));
   /* ?tune=adapt:0 holds the adaptive resolution off (the page's own measuring switch): a software renderer is always "slow", and the
      test is of what each rung asks for when the frames keep up */
-  const t0 = Date.now(), m = await openMachine({root: ROOT, W, H, dpr, mobile: phone, query: process.env.QUERY ?? '?tune=adapt:0'});
+  const m = await openMachine({root: ROOT, W, H, dpr, mobile: phone, query: process.env.QUERY ?? '?tune=adapt:0'});
+  /* the page checks its frame rate once, six seconds after its first frame, and a software renderer always fails it: on Laptop that also
+     caps the ratio at 2 for good (lowDpr). The moment the car is ready this puts the rung on Balanced, so the check only drops it back to
+     Laptop and every rung can then be measured as asked. (A script added to the page, so it runs before the check can; the page is
+     loaded again for it.) */
+  await m.page.addInitScript(() => { const iv = setInterval(() => { const c = window.__cw; if (c && c.ready) { clearInterval(iv); window.__pickedQuality = c.quality; if (c.quality === 'laptop') document.getElementById('quality').click(); } }, 15); });
+  const t0 = Date.now(); await m.page.reload({waitUntil: 'domcontentloaded', timeout: 240000});
   const out = {dev, root: ROOT, W, H, dpr, presets: {}};
   try {
     await m.page.waitForFunction(() => window.__cw && window.__cw.ready, null, {timeout: 600000, polling: 500});
     out.readyMs = Date.now() - t0;
-    out.picked = await m.page.evaluate(() => window.__cw.quality);
+    out.picked = await m.page.evaluate(() => window.__pickedQuality || window.__cw.quality);   /* the rung the page picked on load, before the script above moved it */
     const wired = await m.page.evaluate(() => !!window.__fx);
     await setQuality(m.page, 'balanced');   /* before the page's own 6 s check can see Laptop (see passQualityCheck) */
     await hijack(m.page);
@@ -115,7 +121,7 @@ async function run(dev) {
       for (let i = 0; i < 3; i++) times.push(await frame(m.page));
       times.sort((a, b) => a - b);
       const css = s.css, dev0 = dpr, exp = q === 'ultra' ? Math.min(4, Math.max(dev0, Math.sqrt(3840 * 2160 / (css[0] * css[1])))) : Math.min(dev0, 3);
-      const p = {quality: s.quality, label: s.label, ratio: +s.ratio.toFixed(3), expected: +exp.toFixed(3), buffer: s.buffer, css, megapixels: +(s.buffer[0] * s.buffer[1] / 1e6).toFixed(2), composerSamples: s.composerSamples, shadow: s.shadow, prints: s.fx && s.fx.prints, frameMs: Math.round(times[1]), settleFrames: steps};
+      const p = {quality: s.quality, label: s.label, ratio: +s.ratio.toFixed(3), expected: +exp.toFixed(3), buffer: s.buffer, css, megapixels: +(s.buffer[0] * s.buffer[1] / 1e6).toFixed(2), composerSamples: s.composerSamples, shadow: s.shadow, dprScale: s.dprScale, prints: s.fx && s.fx.prints, frameMs: Math.round(times[1]), settleFrames: steps};
       out.presets[q] = p;
       check(dev, `${q}: still pixel ratio = ${p.expected} (buffer ${p.buffer.join('x')})`, Math.abs(p.ratio - p.expected) < .02, {ratio: p.ratio, megapixels: p.megapixels});
       if (q === 'ultra') check(dev, 'ultra: at least 3840 x 2160 worth of pixels', p.buffer[0] * p.buffer[1] >= 3840 * 2160 * .98, p.megapixels + ' MP');

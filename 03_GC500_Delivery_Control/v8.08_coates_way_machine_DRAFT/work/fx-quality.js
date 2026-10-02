@@ -19,7 +19,9 @@ import * as T from './vendor/three.module.js';
 
 const HAS_DOC = typeof document !== 'undefined';
 const UA = typeof navigator !== 'undefined' ? navigator.userAgent || '' : '';
-export const MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(UA);
+/* a phone or a tablet: by its user agent, or (an iPad says it is a Mac) by a coarse pointer on a touch screen */
+const COARSE = (() => { try { return typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches && (navigator.maxTouchPoints || 0) > 0; } catch (e) { return false; } })();
+export const MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(UA) || COARSE;
 /* every texture constructed from here on (three.js reads this default in the Texture constructor) */
 /* ?fx=aniso:1,print:1 holds the anisotropy or the print scale at a value, for measuring what each costs (like car-app.js's ?tune=) */
 const FIX = {}; try { const q = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('fx') : null; if (q) q.split(',').forEach(p => { const [k, v] = p.split(':'); if (isFinite(+v)) FIX[k] = +v; }); } catch (e) {}

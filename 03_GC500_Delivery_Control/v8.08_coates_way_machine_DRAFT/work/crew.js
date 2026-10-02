@@ -762,8 +762,8 @@ export function sideSpots(o) {
      right hand is then toward the nut and his raised knee is clear of the tyre) */
   /* v8.08 — the mechanic lays the wheel in the rack from beside it (he stood 11 cm from its middle, inside its frame), and the pit
      technician kneels at the sill 15 cm further out (his forward boot went under the side skirt) */
-  return {o, kneel: [XW - o * .46, o * 1.45], kneelYaw: o > 0 ? Math.PI : 0, rack: [XW + 1.75, o * 2.35], rackYaw: Math.PI / 2, approach: [XW + 1.75 - .36 - .56, o * 2.35], receive: [XW + 1.75 + .56, o * 2.35],
-    sill: [-.1, o * 1.55], supervise: o > 0 ? [XW + 2.75, 3.35] : [XW + 4.8, .2], rackPlace: [XW + 1.75 - .36, o * 2.35]};   /* v8.08: the far side's supervising place is behind the tail (on the far aisle the car hid him) */
+  return {o, kneel: [XW - o * .46, o * 1.58], kneelYaw: o > 0 ? Math.PI : 0, rack: [XW + 1.75, o * 2.35], rackYaw: Math.PI / 2, approach: [XW + 1.75 - .36 - .56, o * 2.35], receive: [XW + 1.75 + .56, o * 2.35],
+    sill: [-.1, o * 1.65], supervise: o > 0 ? [XW + 2.75, 3.35] : [XW + 4.8, .2], rackPlace: [XW + 1.75 - .36, o * 2.35]};   /* v8.08: the far side's supervising place is behind the tail (on the far aisle the car hid him) */
 }
 /* the loop of aisle points round the cell, and what stands on the floor (boxes x0, z0, x1, z1) */
 export const NODES = Object.freeze([[-4.8, 2.6], [-4.8, 0], [-4.8, -2.6], [-1.0, 2.85], [1.8, 2.95], [4.4, 2.6], [4.4, 0], [4.4, -2.6], [1.8, -2.95], [-1.0, -2.85], [-6.6, -2.6], [-6.6, 2.4], [5.7, .3]]);
@@ -963,18 +963,25 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   const inZone = m => m.pos.x > -3.3 && m.pos.x < 4.2 && Math.abs(m.pos.z) < 2.75;
   const crewClear = () => !inZone(men.mechanic) && !inZone(men.tech) && S.gunAt === 'stand' && S.rackAt === 'store' && !men.mechanic.path && !men.tech.path;
   /* the route from where a person stands to a place */
-  const obstacles = () => { const o = OBSTACLES.slice(); if (S.rackAt === 'placed') { const r = rack.position; o.push([r.x - .32, r.z - .3, r.x + .32, r.z + .3]); } return o; };
+  /* v8.08: and whoever is standing, kneeling or crouching still on the floor is walked round too (the mechanic carrying the gun passed
+     close enough to the pit technician kneeling at the sill to brush him with it) */
+  const obstacles = (self = null) => { const o = OBSTACLES.slice(); if (S.rackAt === 'placed') { const r = rack.position; o.push([r.x - .32, r.z - .3, r.x + .32, r.z + .3]); }
+    for (const id of ['mechanic', 'tech', 'engine', 'lead', 'safety']) { const q = men[id]; if (q === self || q.path || q.post.kind === 'sit') continue; const h = q.post.kind === 'stand' ? .24 : .34; o.push([q.pos.x - h, q.pos.z - h, q.pos.x + h, q.pos.z + h]); }
+    return o; };
   /* v8.08 — a walk from one place in plain view to another stays in plain view: it goes round by the aisle points the car does not
      hide (behindCar), and only by the far aisle when there is no other way or the place itself is there */
   const SEEN = NODES.filter(n => !behindCar(n[0], n[1]));
-  function plan(from, to) {
-    const ob = obstacles();
+  function plan(from, to, self = null) {
+    const ob = obstacles(self);
     if (!behindCar(from[0], from[1]) && !behindCar(to[0], to[1])) { const r = route(from, to, ob, SEEN); let ok = true; for (let i = 1; i < r.length && ok; i++) ok = segmentClear(r[i - 1][0], r[i - 1][1], r[i][0], r[i][1], ob, .02); if (ok) return r; }
     return route(from, to, ob, NODES);
   }
-  function* go(m, to, face = null, speed = null) {
-    const pts = plan([m.pos.x, m.pos.z], to).slice(1);
-    m.walkTo(pts.length ? pts : [to], {face, speed: speed ?? m.walkSpeed, clearOf: obstacles()}); yield () => m.arrived;
+  /* (v8.08: `abort`, if given, stops the walk where he is — a chore at the car is dropped the moment the V8 starts, a service needs him
+     or the car is coming apart, instead of being walked to the end first) */
+  function* go(m, to, face = null, speed = null, abort = null) {
+    const pts = plan([m.pos.x, m.pos.z], to, m).slice(1);
+    m.walkTo(pts.length ? pts : [to], {face, speed: speed ?? m.walkSpeed, clearOf: obstacles(m)}); yield () => m.arrived || !!(abort && abort());
+    if (!m.arrived && abort && abort()) { m.path = null; m.faceYaw = null; yield () => m.arrived; }
   }
   const phase = () => service ? service.phase : 'ready', hold = () => service ? service.hold : null;
   const hubPoint = () => { const w = wheelOf(); if (!w) return V(); const p = V(0, 0, .09 * sideOf(w)); w.updateWorldMatrix(true, false); return p.applyMatrix4(w.matrixWorld); };
@@ -1021,7 +1028,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
           m.lookAt(m.rand() < .6 ? screensAt[1] : screensAt[0]); m.reach(1, handTo(m, 'foreR', deskW(.42, STATION.deskY + .05, .12)), 3);
           yield waitFor(2.5 + m.rand() * 2, () => S.running); m.reach(1, null); if (S.running) break;
           if (calm()) {
-            yield* go(m, bay, yawTo(bayHand.x - bay[0], bayHand.z - bay[1])); if (S.running) break;
+            yield* go(m, bay, yawTo(bayHand.x - bay[0], bayHand.z - bay[1]), null, () => !calm()); if (!calm()) break;
             m.lookAt(bayHand); m.bendWant = .7; m.reach(1, handTo(m, 'foreR', bayHand), 3); yield waitFor(2.6, () => S.running);
             m.reach(1, null); m.bendWant = 0; m.lookAt(null); if (S.running) break;
             yield* go(m, SPOTS.engineDesk, yawTo(screensAt[1].x - SPOTS.engineDesk[0], screensAt[1].z - SPOTS.engineDesk[1])); if (S.running) break;
@@ -1069,7 +1076,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
       const needed = () => ['supported', 'wheelOff'].includes(phase()) && service.standsIn < 1;
       while (!needed()) yield* techChores(needed);
       const sp = S.spots;
-      yield* go(m, sp.sill, sp.kneelYaw); m.kneel(true); m.bendWant = .95; yield () => m.arrived;
+      yield* go(m, sp.sill, sp.kneelYaw); m.kneel(true); m.bendWant = .6; yield () => m.arrived;
       m.lookAt(V(-.1, .1, sp.o * .85)); m.reach(0, (p, q) => { p.set(-.45, .16, sp.o * (.85 + (1 - service.standsIn) * .65)); q.copy(m.fig.bones.foreL.getWorldQuaternion(q)); return true; }, 3);
       m.reach(1, (p, q) => { p.set(.25, .16, sp.o * (.85 + (1 - service.standsIn) * .65)); q.copy(m.fig.bones.foreR.getWorldQuaternion(q)); return true; }, 3);
       yield sec(.4); flags.stands = true; yield () => service.standsIn >= 1 || phase() === 'ready'; flags.stands = false; m.reach(0, null); m.reach(1, null); yield sec(.2);
@@ -1085,7 +1092,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
       yield () => phase() === 'ready' || phase() === 'refit';
       if (phase() === 'refit') { m.lookAt(() => rotorPose(wheelOf()).c.clone()); yield () => phase() === 'ready'; }
       /* Ready: the stands out, then the rack back where it lives */
-      yield* go(m, sp.sill, sp.kneelYaw); m.kneel(true); m.bendWant = .95; yield () => m.arrived; m.lookAt(V(-.1, .1, sp.o * .85));
+      yield* go(m, sp.sill, sp.kneelYaw); m.kneel(true); m.bendWant = .6; yield () => m.arrived; m.lookAt(V(-.1, .1, sp.o * .85));
       flags.stands = true; yield () => service.standsIn <= 0 || !['ready'].includes(phase()); flags.stands = false; m.kneel(false); m.bendWant = 0; yield () => m.arrived;
       yield* go(m, sp.rackPlace, Math.PI / 2); m.crouch(1); m.bendWant = .6; m.reach(0, rackGrip(m, 0), 4); m.reach(1, rackGrip(m, 1), 4); yield () => m.arrived; yield sec(.2);
       S.rackAt = 'carried'; S.rackPlaced = false; S.receiving = false; m.crouch(0); m.bendWant = 0; yield () => m.arrived;
@@ -1101,7 +1108,9 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
      the crew lead waits to give the all-clear they stand clear at their posts, so it is never held up. Nothing here changes the service's
      own state: the gun stays in its holster, the rack in its store. */
   const FRONT_X = -1.337, REAR_X = 1.222;
-  const calm = () => !S.running && phase() === 'ready' && !(service && service.clearing);
+  /* (v8.08: and the car is together — while it is apart its parts stand out round it, and the crew keep to their posts; car-app.js tells
+     the crew with crewState().apart) */
+  const calm = () => !S.running && !S.apart && phase() === 'ready' && !(service && service.clearing);
   const waitFor = (sec, stop) => (t => dt => (t += dt) >= sec || stop())(0);
   const handTo = (m, bone, p) => (pos, quat) => { pos.copy(p); quat.copy(m.fig.bones[bone].getWorldQuaternion(quat)); return true; };
   function* holdClear(m, post) { yield* go(m, post, yawTo(-post[0], -post[1])); m.lookAt(V(0, .8, 0)); yield () => !(service && service.clearing) || phase() !== 'ready'; m.lookAt(null); }
@@ -1112,7 +1121,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     m.lookAt(gun); m.bendWant = .6; m.reach(1, handOnGun(m, () => gunPose()), 3); yield waitFor(1.8, needed); m.reach(1, null, 3); m.bendWant = 0; yield sec(.3); m.lookAt(null);
     for (const o of [1, -1]) {
       if (stop()) break;
-      yield* go(m, [FRONT_X - o * .46, o * 1.45], o > 0 ? Math.PI : 0); if (stop()) break;
+      yield* go(m, [FRONT_X - o * .46, o * 1.45], o > 0 ? Math.PI : 0, null, stop); if (stop()) break;
       m.kneel(true); yield () => m.arrived;
       const valve = V(FRONT_X + .1, .3, o * .97); m.lookAt(valve); m.bendWant = .8; m.reach(1, handTo(m, 'foreR', valve), 3);
       yield waitFor(2.2, stop);
@@ -1129,7 +1138,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     yield waitFor(1.6, needed); m.reach(0, null); m.reach(1, null); m.crouch(0); m.bendWant = 0; yield () => m.arrived; m.lookAt(null);
     for (const o of [1, -1]) {
       if (stop()) break;
-      yield* go(m, [REAR_X + .15, o * 1.75], o > 0 ? Math.PI : 0); if (stop()) break;
+      yield* go(m, [REAR_X + .15, o * 1.75], o > 0 ? Math.PI : 0, null, stop); if (stop()) break;
       m.crouch(.75); m.bendWant = .5; yield () => m.arrived || stop();
       const tread = V(REAR_X, .5, o * .9); m.lookAt(tread); m.reach(1, handTo(m, 'foreR', tread), 3);
       yield waitFor(2.0, stop);
@@ -1223,6 +1232,8 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
       /* v7.00 — HIS ROUND IS A SAFETY CHECK, NOT A WALK (Andrew Fisher, 27 Sep 2026: "everyone here has a purpose"). Stop by stop: each
          tie-down's anchor and each front wheel's chock. He walks to it, crouches beside it, looks it over, points to it (checked), stands,
          and goes on to the next; between rounds he checks the cell's line from his start spot. While the V8 runs he holds the line (above). */
+      /* v8.08: with the car apart he watches it from his corner, clear of the parts standing out round it */
+      if (S.apart) { yield* go(m, SAFETY_START, yawTo(-SAFETY_START[0], -SAFETY_START[1])); m.lookAt(V(0, .8, 0)); yield () => !S.apart || S.running; m.lookAt(null); continue; }
       const c = CHECKS[i % CHECKS.length]; i++;
       yield* go(m, c.at, yawTo(c.look[0] - c.at[0], c.look[2] - c.at[1])); if (S.running) continue;
       m.lookAt(V(c.look[0], c.look[1], c.look[2]));
@@ -1264,7 +1275,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
       clear: crewClear(), phaseLine: service ? ({ready: service.clearing ? 'Ready · all-clear to give' : 'Ready', isolated: 'Isolated · drive locked out', supported: 'On stands', wheelOff: 'Wheel off', inspect: 'Inspecting hub, disc, caliper', refit: 'Refit'}[ph]) : 'Ready'};
   }
   function update(dt, st = {}) {
-    S.t += dt; S.events.length = 0; S.rpm = st.rpm || 0;
+    S.t += dt; S.events.length = 0; S.rpm = st.rpm || 0; S.apart = !!st.apart;
     const running = !!st.running; if (running && !S.running) { S.events.push('start'); S.startAt = S.t; } if (!running && S.running) S.stopAt = S.t; S.running = running;
     /* the service's side decides the places at the car */
     const w = wheelOf(); if (w && (phase() === 'isolated' || phase() === 'ready' && !service.clearing)) { S.side = sideOf(w); S.spots = sideSpots(S.side); }

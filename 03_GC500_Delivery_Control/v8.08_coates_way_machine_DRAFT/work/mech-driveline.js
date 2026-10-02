@@ -53,7 +53,8 @@ export function buildDriveline(T,mats,assembly,mesh,batch,h){
  const clutch=assembly('clutch','Twin-plate clutch & release bearing',[flyX,crankY,0],[.12,.38,.85]);
  const alongX=g=>{g.rotateZ(Math.PI/2);return g;};
  const cover=new T.Group();clutch.add(cover);       /* turns with the crank */
- {const shell=[alongX(new T.CylinderGeometry(.122,.122,.006,40)).translate(.050,0,0),alongX(new T.CylinderGeometry(.122,.122,.044,40,1,true)).translate(.028,0,0)];
+ {/* the cover is a pressed ring with three straps across to the flywheel and three windows between them, so the plates and the diaphragm show */
+  const shell=[new T.TorusGeometry(.116,.006,6,40).rotateY(Math.PI/2).translate(.050,0,0),...[0,1,2].map(k=>alongX(new T.CylinderGeometry(.122,.122,.044,10,1,true,k*Math.PI*2/3,Math.PI/4)).translate(.028,0,0))];
   const lugs=[];for(let k=0;k<6;k++){const a=k/6*Math.PI*2;lugs.push(alongX(new T.CylinderGeometry(.008,.008,.012,6)).translate(.056,Math.cos(a)*.11,Math.sin(a)*.11));}
   batch(cover,'steel',shell,'Clutch cover');batch(cover,'chrome',lugs,'Cover bolts');}
  const plate=new T.Group();cover.add(plate);         /* the pressure plate: turns with the cover, lifts toward the gearbox when the clutch is in */

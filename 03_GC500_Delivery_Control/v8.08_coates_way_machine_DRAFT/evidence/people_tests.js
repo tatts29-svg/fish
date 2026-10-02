@@ -43,7 +43,9 @@ async function setup(P) {
     if (!carRoots.includes(carRoot)) carRoots.push(carRoot);
     const studio = tops.filter(t => t.c !== crew.root && !carRoots.includes(t.c) && t.n > 50).map(t => t.c);
     window.__ptState = {carRoots, studio, carBox, Box3, Vec, tops: tops.map(t => [t.name, t.n])};
-    return {tops: tops.map(t => [t.name, t.n, t.b.isEmpty() ? null : [t.b.min.toArray().map(v => +v.toFixed(2)), t.b.max.toArray().map(v => +v.toFixed(2))]]), carRoots: carRoots.map(c => c.name), studio: studio.map(c => c.name), carBox: [carBox.min.toArray(), carBox.max.toArray()]};
+    const rimNames = []; for (const r of carRoots) r.traverse(o => { if (/rim/i.test(o.name) && rimNames.length < 12) rimNames.push(o.name); });
+    window.__ptState.rimNames = rimNames;
+    return {rimNames, tops: tops.map(t => [t.name, t.n, t.b.isEmpty() ? null : [t.b.min.toArray().map(v => +v.toFixed(2)), t.b.max.toArray().map(v => +v.toFixed(2))]]), carRoots: carRoots.map(c => c.name), studio: studio.map(c => c.name), carBox: [carBox.min.toArray(), carBox.max.toArray()]};
   });
 }
 
@@ -96,19 +98,24 @@ async function sample(P, label) {
       const bad = (what, extra = {}) => { R.counts[what] = (R.counts[what] || 0) + 1; const w = R.worst[what] || (R.worst[what] = []); if (w.length < 3) w.push({t: clock, label, post, at, ...extra}); };
       const names = mesh.skeleton.bones.map(b => b.name.split(', ').pop());
       const si = mesh.geometry.attributes.skinIndex, sw = mesh.geometry.attributes.skinWeight, n = mesh.geometry.attributes.position.count;
-      const core = new Box3(), soles = [9, 9], pts = [];
+      const core = new Box3(), soles = [9, 9], pts = [], ptBone = [];
       for (let i = 0; i < n; i += 4) {
         let best = 0, bw = -1; for (let k = 0; k < 4; k++) { const w = sw.getComponent(i, k); if (w > bw) { bw = w; best = si.getComponent(i, k); } }
         const bn = names[best]; mesh.getVertexPosition(i, v); v.applyMatrix4(mesh.matrixWorld);
         if (/^(foot|toe)L/.test(bn)) soles[0] = Math.min(soles[0], v.y); else if (/^(foot|toe)R/.test(bn)) soles[1] = Math.min(soles[1], v.y);
         if (/^(fore|hand)/.test(bn)) continue;   /* hands and forearms may touch what they work on */
-        core.expandByPoint(v); pts.push(v.clone());
+        core.expandByPoint(v); pts.push(v.clone()); ptBone.push(bn);
       }
-      const firstInside = (list, skip) => { for (const q of list) { if (skip && skip(q)) continue; if (!core.intersectsBox(q.wb)) continue; for (const pt of pts) if (inside(q, pt, .02)) return q.name; } return null; };
+      const firstInside = (list, skip) => { for (const q of list) { if (skip && skip(q)) continue; if (!core.intersectsBox(q.wb)) continue; for (let j = 0; j < pts.length; j++) if (inside(q, pts[j], .02)) return q.name + ' (his ' + ptBone[j] + ')'; } return null; };
       /* 1. the car: standing or walking, nobody's body inside the car's box; at any time, nobody's body inside any part of it */
-      const working = p.m ? (p.m.hands.some(h => h.target && h.w > .2) || post !== 'stand' || p.m.bend > .2) : false;
+      /* at work: reaching, kneeling, crouching or bent over something, or one of the wheel service's three while a service is under way */
+      const inService = cw.service.phase !== 'ready' || cw.service.state.clearing;
+      const working = p.m ? (p.m.hands.some(h => h.target && h.w > .2) || post !== 'stand' || p.m.bend > .2 || (inService && ['mechanic', 'tech', 'lead'].includes(p.k))) : false;
       if (!seated && moving && !working && core.intersectsBox(carBox.clone().expandByScalar(-.01))) bad('walking inside the car box');
-      const hc = firstInside(carSolids); if (hc) bad('body inside the car', {part: hc});
+      /* (the wheel off the car is in the mechanic's hands, and goes past his knees onto the hub: contact, not a clash) */
+      const svcWheel = cw.service.state.wheel, carried = svcWheel && (crew.S.carry || cw.service.state.wheelIsOff) && ['mechanic', 'tech'].includes(p.k);
+      const hc = firstInside(carSolids, q => carried && isUnder(q.o, svcWheel)); if (hc) bad('body inside the car', {part: hc});
+      if (!seated) (A.__cores || (A.__cores = [])).push({k: p.k, core: core.clone(), at, post});
       /* 2. the hall and the props (his own seat, truck, load or the rack he carries excepted) */
       const hh = firstInside(hallSolids); if (hh) bad('body inside a hall object', {part: hh});
       const hp = firstInside(propSolids, q => (p.k === 'operator' && q.k === 'station') || (p.k === 'driver' && (q.k === 'forklift' || q.k === 'load')) || (p.k === 'tech' && q.k === 'rack') || (p.k === 'mechanic' && q.k === 'gun'));
@@ -135,6 +142,10 @@ async function sample(P, label) {
         }
       }
     }
+    /* people clear of one another (bodies shrunk 4 cm: shoulders may pass close) */
+    { const cs = A.__cores || []; for (let i = 0; i < cs.length; i++) for (let j = i + 1; j < cs.length; j++) { const a = cs[i].core.clone().expandByScalar(-.04), b = cs[j].core.clone().expandByScalar(-.04);
+        if (a.intersectsBox(b)) { const key = cs[i].k + ' and ' + cs[j].k; const R = A.people[cs[i].k]; R.counts['into ' + cs[j].k] = (R.counts['into ' + cs[j].k] || 0) + 1; const w = R.worst['into ' + cs[j].k] || (R.worst['into ' + cs[j].k] = []); if (w.length < 3) w.push({t: clock, label, at: cs[i].at, other: cs[j].at}); } }
+      A.__cores = []; }
     /* the seated race driver: in his seat, under the roof, gloves on the rim */
     if (driverG && shown(driverG)) { driverG.updateMatrixWorld(true); const helmet = driverG.getObjectByName('Helmet'), hc = new Vec(); helmet.getWorldPosition(hc);
       const hb = new Box3().setFromObject(helmet), top = hb.max.y;
@@ -159,7 +170,7 @@ async function run(device) {
   const P = m.page;
   for (let i = 0; i < 400; i++) { if (await P.evaluate(() => !!(window.__cw && window.__cw.renderer && document.getElementById('loading').hidden)).catch(() => false)) break; await wait(2000); }
   log('ready');
-  const info = await setup(P); log('car', JSON.stringify(info.carRoots), 'hall', JSON.stringify(info.studio));
+  const info = await setup(P); log('car', JSON.stringify(info.carRoots), 'hall', JSON.stringify(info.studio), 'rims', JSON.stringify(info.rimNames));
   /* the opening cameras as the page fits them on this screen: the car view's (now) and the V8 powertrain view's (its fit's end) */
   const cams = await P.evaluate(() => { const cw = window.__cw, out = []; const Vec = cw.carBox.min.constructor;
     out.push({name: 'car view', p: cw.camera.position.clone()});
