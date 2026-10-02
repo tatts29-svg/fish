@@ -1,0 +1,166 @@
+{
+  "author": "Andrew Fisher",
+  "checkedAtUtc": "2026-10-02T01:09:03.993763+00:00",
+  "scope": "Read-only protected source comparison; not a publication or browser-performance assertion",
+  "base": {
+    "path": "build/GC500_v7.92/base_live.html",
+    "bytes": 8861306,
+    "sha256": "0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac"
+  },
+  "candidate": {
+    "path": "build/GC500_v7.92/GC500_Delivery_Control_hosted.html",
+    "bytes": 8883495,
+    "sha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265"
+  },
+  "pass": true,
+  "checks": [
+    {
+      "name": "entire operational page prefix before renderer part 1 is byte-identical",
+      "pass": true,
+      "baseBytes": 7650105,
+      "candidateBytes": 7650105,
+      "baseSha256": "bda584f44e1c79e57913500b80f8a72aaaeb217bff7ce091d9e7b2622a794fd5",
+      "candidateSha256": "bda584f44e1c79e57913500b80f8a72aaaeb217bff7ce091d9e7b2622a794fd5"
+    },
+    {
+      "name": "embedded DATA literal is byte-identical",
+      "pass": true,
+      "baseBytes": 3246399,
+      "candidateBytes": 3246399,
+      "baseSha256": "f9892e3ff48452f3f81b936cba4db11bc93ffa09c07e86d0054de2ad35d0fb43",
+      "candidateSha256": "f9892e3ff48452f3f81b936cba4db11bc93ffa09c07e86d0054de2ad35d0fb43"
+    },
+    {
+      "name": "embedded DATA is semantically unchanged",
+      "pass": true
+    },
+    {
+      "name": "complete route, widths, curvature, speed profile and pit alignment construction unchanged",
+      "pass": true,
+      "baseBytes": 6446,
+      "candidateBytes": 6446,
+      "baseSha256": "418614ee1188961745605b0616f932a51ff0da465a2ce839d544f459741a9d60",
+      "candidateSha256": "418614ee1188961745605b0616f932a51ff0da465a2ce839d544f459741a9d60"
+    },
+    {
+      "name": "original metre scale and vehicle tuning unchanged",
+      "pass": true,
+      "baseBytes": 4689,
+      "candidateBytes": 4689,
+      "baseSha256": "f6550137687d8a294fc7c116cb4d4f436332102108e2ae3bacdac51e3e2d4161",
+      "candidateSha256": "f6550137687d8a294fc7c116cb4d4f436332102108e2ae3bacdac51e3e2d4161"
+    },
+    {
+      "name": "original unit conversions and pace control unchanged",
+      "pass": true,
+      "baseBytes": 4800,
+      "candidateBytes": 4800,
+      "baseSha256": "be2af303defb3b488665482242c16c5db585ef10d8fed4ae96a16294bb67d0d0",
+      "candidateSha256": "be2af303defb3b488665482242c16c5db585ef10d8fed4ae96a16294bb67d0d0"
+    },
+    {
+      "name": "original car hull and car model unchanged",
+      "pass": true,
+      "baseBytes": 9908,
+      "candidateBytes": 9908,
+      "baseSha256": "236bf7e09d9943b80ee3e8374267b7ff61846a8f473743efcefa4a85430ba2a3",
+      "candidateSha256": "236bf7e09d9943b80ee3e8374267b7ff61846a8f473743efcefa4a85430ba2a3"
+    },
+    {
+      "name": "original simulation reset, pose and physics step unchanged",
+      "pass": true,
+      "baseBytes": 14810,
+      "candidateBytes": 14810,
+      "baseSha256": "43a3df6f688875022a5d3480d52e2e01ca2d43eba9923f1374557eb193e35c55",
+      "candidateSha256": "43a3df6f688875022a5d3480d52e2e01ca2d43eba9923f1374557eb193e35c55"
+    },
+    {
+      "name": "complete original car/dynamics part changes limited to restored start lights and daylight direction",
+      "pass": true,
+      "baseBytes": 344616,
+      "candidateBytes": 344616,
+      "baseSha256": "9ccfb1d74e2cb111b573dd36bbc2fb9fdb55b7ddae025c39a1d529f770645047",
+      "candidateSha256": "9ccfb1d74e2cb111b573dd36bbc2fb9fdb55b7ddae025c39a1d529f770645047"
+    },
+    {
+      "name": "original view choices, camera director and frame function bodies unchanged",
+      "pass": true,
+      "baseBytes": 18586,
+      "candidateBytes": 18586,
+      "baseSha256": "5b4e0e67f628c9249ed4fda5ffeb715e5f8b7c15e27ff15f11f5ed8ce52a7f6c",
+      "candidateSha256": "5b4e0e67f628c9249ed4fda5ffeb715e5f8b7c15e27ff15f11f5ed8ce52a7f6c"
+    },
+    {
+      "name": "registered surroundings, pit lane and existing building source unchanged",
+      "pass": true,
+      "baseBytes": 30134,
+      "candidateBytes": 30134,
+      "baseSha256": "e9bcbe0c0ca126b765dc4162dda4151a422e40552d2b700e3dbff877561b8e85",
+      "candidateSha256": "e9bcbe0c0ca126b765dc4162dda4151a422e40552d2b700e3dbff877561b8e85"
+    },
+    {
+      "name": "original sound section unchanged",
+      "pass": true,
+      "baseBytes": 130222,
+      "candidateBytes": 130222,
+      "baseSha256": "aa379a3f1c86a0562e33b5ca6a4ea473229bb721b5c0c4bdb7f2562c3cfb1f1f",
+      "candidateSha256": "aa379a3f1c86a0562e33b5ca6a4ea473229bb721b5c0c4bdb7f2562c3cfb1f1f"
+    },
+    {
+      "name": "video media reference multiset unchanged",
+      "pass": true,
+      "baseReferences": 4,
+      "candidateReferences": 4,
+      "referenceSha256": "e384e6be9edeb724c4463518c510b19e0773c311e9cab6246b1840052c989477"
+    },
+    {
+      "name": "candidate has one original assignment per protected car/physics/camera function",
+      "pass": true,
+      "assignmentCounts": {
+        "step": 1,
+        "simReset": 1,
+        "pose": 1,
+        "carHull": 1,
+        "carModel": 1,
+        "camStep": 1,
+        "framedFov": 1,
+        "setView": 1,
+        "setPace": 1,
+        "units": 1,
+        "defaultTune": 1
+      }
+    },
+    {
+      "name": "short-section preview override is absent and complete-lap module present",
+      "pass": true
+    }
+  ],
+  "mutationChecks": [
+    {
+      "name": "prefix change",
+      "pass": true
+    },
+    {
+      "name": "car change",
+      "pass": true
+    },
+    {
+      "name": "physics change",
+      "pass": true
+    },
+    {
+      "name": "camera change",
+      "pass": true
+    },
+    {
+      "name": "extra camera override",
+      "pass": true
+    }
+  ],
+  "limits": [
+    "Visual shaders, materials, static facade/vegetation detail and rendering/lifecycle wrappers intentionally change.",
+    "Original camera/physics bodies are identical; frame scheduling may pause while hidden or context-lost.",
+    "Source preservation is not verification of live records or GPU performance; browser checks remain required.",
+    "Function-assignment counting is a narrow guard, not a general JavaScript semantic proof."
+  ]
+}

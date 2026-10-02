@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.85",
+  "files": {
+    "base_live.html": {
+      "bytes": 8767811,
+      "sha256": "c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725"
+    },
+    "GC500_Delivery_Control_hosted.html": {
+      "bytes": 8836973,
+      "sha256": "2e73ac04d3c8f8105db6ff801998bbd8016a0e60b70374acfe9e4dad3e09c297"
+    },
+    "track_detail_preview.html": {
+      "bytes": 1145788,
+      "sha256": "3904d7d517e1e36161d07c2703495e8f7e83014ea19466d35fb758a288ad99e8"
+    }
+  },
+  "unchangedPrefixBytes": 7625870,
+  "prefixIdentical": true,
+  "scope": "Operational page, MP4, weather and speedos before the renderer are byte-identical to v7.84."
+}

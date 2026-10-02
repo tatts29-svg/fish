@@ -1,8 +1,24 @@
+**v7.92 — Showcase photo-informed whole-lap refinement and smoothness: LIVE, 02 Oct 2026 11:19 AEST.**
+Author: Andrew Fisher. Andrew: "Revisit showcase again. Wiith new info. Must be smooth. No bugs no errors".
+Built on the then-current live v7.89 page, carrying forward the whole-lap work and 39 new photo references.
+Adds coastal facade/foliage detail, pit framing, clearer lettering and daylight. Rendering storage is reused,
+pixel quality adapts earlier, and graphics recovery retains the current lap/camera/pause. Original circuit, car,
+physics, cameras, media/weather, operational page and records are preserved.
+Scope: `v7.92_showcase_photo_refinement_LIVE/`, branch `codex/gc500-v788-full-lap` / PR #26.
+Implementation and independent subtask reviews completed within Codex; Claude's Today work remains separately owned.
+Final page `476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265`, 8,883,495 bytes.
+74/74 lap, 28/28 smoothness/recovery, 23/23 integration, both 21-tab/7-link sweeps: zero detected errors.
+Protected source 15/15, mutation 5/5, pit 15/15, signage 15/15, storage/quality 10/10, shader 9/9;
+26 lap views plus hosted desktop/phone visually inspected. Exact rebuild/static checks/dry-run pass.
+Codex implemented, delegated independent source/visual/shader reviews, and ran final browser integration.
+Claude has not reviewed this final v7.92 candidate. Codex published and verified exact public bytes; record **3538** unchanged.
+No record changes or journals. Proof: `v7.92_showcase_photo_refinement_LIVE/evidence/release_verification.json`.
+
 **v7.91 — Today tidy-up after full width: READY TO UPLOAD (Claude, 2 Oct 2026 10:35 AEST).** Andrew: "this is how today
 looks now, this needs some work to clean up". On the live v7.89: `bash toolchain/build.sh v7.91
 v7.91_today_tidy_full_width_DRAFT/patch_v791.py` → **8,862,008 bytes, SHA-256 `a942bebe86fabc53d905e8267b526a9a1d54699adf5243fb9314ee6bf65d05e6`**.
 Back in the header row; picture bands capped at 1,400 px (same crop); Deliveries fills its panel; Today's cards fill each row.
-Desktop only. Sweeps ×2 clean, navigation 21/21.
+Desktop only. Sweeps ×2 clean, navigation 21/21. Its recorded candidate predates v7.92; rebuild on the current live page before upload.
 
 **v7.90 — map explorer (machine files only): LIVE, 2 Oct 2026 09:55 AEST.** Plan ⇄ satellite fits the view;
 Done markers start hidden until selected. Codex found and fixed the pending zoom/pan/rotation race during independent
@@ -13,13 +29,22 @@ machine publication passed. Codex published and verified the final corrected can
 review preceded this narrow correction. Other 217 machine files, v7.89 page and record **3538** unchanged.
 Proof: `v7.90_map_plan_fit_and_quiet_ticks_LIVE/evidence/release_verification.json`.
 
-**v7.88 — full-lap Showcase refinement: working preview, NOT LIVE; Andrew's visual acceptance pending.**
+**v7.88 — historical full-lap Showcase study: superseded by the tested, LIVE v7.92 refinement above.**
 Codex preserved the existing car, route and cameras while adding detail across the full 2.91 km source lap; both MP4
 references were read. Source, tests and actual-browser contact sheets: PR #26, branch `codex/gc500-v788-full-lap`
 (`d950bd9`). Frozen page `121d183a…`, preview `a31ccb85…`: Codex **68/68** full-lap checks, **23/23** integration
 and both **21-tab/7-link** sweeps; Claude independently checked the same candidate (**61/61** in-page lap, **45/45**
 rules, **58/58** earlier lap harness), PR #1 comment `5942850787`. This is stylised browser graphics, not photorealistic.
-The graphics must be rebuilt and checked on the latest live page before a future release. Separate from the live map fix.
+The frozen v7.88 bytes were never uploaded. Their whole-lap changes were carried into v7.92, rebuilt on then-live v7.89 and fully retested before publication. Separate from the live map fix.
+
+**Further whole-track photographs — reviewed and applied in v7.92, 2 Oct 2026.** Author: Andrew Fisher.
+Codex and its source-review subagents visually reviewed 39 originals: `20490`, `20491`, `20526`, `20527`,
+`20667`–`20696`, `20698`–`20702` (all `.jpg`). Byte-verified private copies and provenance manifest:
+`/workspace/private-full-lap-references/photos-02Oct2026/` on the Codex workspace; access from Claude's workspace
+is not established. Claude's original-photo review remains pending; a text summary is not a source review.
+Shared observations and placement limits: `v7.88_full_lap_detail_DRAFT/PHOTO_REFERENCES_02Oct2026.md`.
+Two different Boost gantries, three bridge designs and the separate pit/access lane are distinguished.
+The intake itself changed no graphics or records. The later v7.92 release applies illustrative coastal facade/foliage treatments, pit framing, clearer existing lettering and daylight; exact new gantry locations were not inferred. Originals remain private; Claude's original-photo review is still pending.
 
 **v7.89 — compact header + full-width tabs: LIVE, 2 Oct 2026 09:44 AEST.** Andrew: "let's fix this first"
 ... "should we not be using the full page" ... "should these not all be the same size". One patch on the live v7.87
@@ -118,7 +143,22 @@ a completed handover and a verified live release; do not imply a second review t
 
 For v7.82 and v7.83, Claude implemented the corrections and completed the full regression; Codex completed independent
 checks on the same final combined candidate and published it. The known release blockers are resolved.
-The Showcase preview stays separate and unpublished.
+The approved Showcase scene follows the separate v7.85 release below.
+
+## Release completed — v7.85 approved Showcase detail LIVE, 2 Oct 2026 07:29 AEST
+
+Author: Andrew Fisher. Andrew approved the actual render: **"Wow that looks really good proceed"**.
+Codex completed the implementation and final tests. Claude rebuilt the exact candidate, reviewed the kerb fix,
+and passed 45/45 driver rules; no remaining blocker ([review](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5940892989)).
+Full page **8,836,973 bytes**, SHA256 `2e73ac04d3c8f8105db6ff801998bbd8016a0e60b70374acfe9e4dad3e09c297`,
+built on unchanged live v7.84. Standalone **49/49**, full-page/phone **35/35**, both **21-tab/7-link** sweeps,
+static checks and upload dry-run pass. Six focused controls and 11 shadow-filter checks pass. Phone visual checked.
+All 7,625,870 operational bytes before the renderer and default-off pixels are unchanged. No record writes or messages.
+Approved scene is reached through **Showcase → Track detail**. MP4/weather, speedos, dashboard and existing car remain.
+Published with the official fresh-base guard and independently verified byte for byte at **07:30 AEST**.
+Record **3527** and the active 219-file machine manifest are unchanged. Both final reviews are complete;
+this is a verified live release. Claude has the live handover for his separate v7.86 build and regression.
+Source: `v7.85_showcase_track_detail_LIVE/`; PR #20. Proof: `evidence/release_verification.json`.
 
 ## Release completed — v7.84 directions LIVE, 2 Oct 2026 06:28 AEST
 
@@ -148,6 +188,37 @@ Unchanged explorer **18/18** isolated checks. Static, dry-run, fresh-base and pu
 Record **3527** before and after; no record changes, journals or real sends. Operational questions remain visibly unresolved.
 The Showcase stays unpublished. Sources: `v7.82_maps_accuracy_and_driver_rules_LIVE/` and
 `v7.83_inventory_share_pdf_LIVE/`; each holds `evidence/release_verification.json`.
+
+## Historical preview proof — v7.81 surface refinement, superseded by v7.85 approval
+
+Author: Andrew Fisher. Codex owns this separate preview on `codex/gc500-v7.81-showcase-preview`, draft PR #20.
+Andrew: “Lets proceed with showcase improvments” and “don't undo everything else we have done your improving the
+look not full redign”. The current pass adds physical profiles to **260 existing kerb footprints**, consistent
+fence lighting and barrier/gantry material and connection detail. It retains the earlier facade and foliage work,
+source arrays, car, MP4/weather, speedos, layout, controls and driving simulation. The track-detail batch contains
+**114 mounting plates, 208 fixings, 100 barrier skins and 22,036 triangles**. Temporary structures and kerb profiles
+remain illustrative, not surveyed. Current ownership follows the 2 Oct arrangement in PR #21.
+
+Built on **live v7.84** ([PR #23](https://github.com/tatts29-svg/fish/pull/23)), **8,767,811 bytes**, SHA256
+`c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725`. The v7.81 label identifies this separate graphics
+draft, not the current live release. Full draft: **8,834,099 bytes**, SHA256
+`d5cd59c5df09caadfa835f3c10f1aef2a073852ec6922474107f97efefb67c21`.
+Standalone preview: **1,142,904 bytes**, SHA256
+`8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e`.
+
+Standalone **49/49**, full-page **25/25**, and both **21-tab/7-link** navigation sweeps pass on those hashes.
+Default-off pixels match v7.84; exiting restores preferences and releases added resources. All **7,625,870 bytes**
+before the renderer match the v7.84 base exactly. Independent internal code review found no surface-pass blockers.
+Claude's review at a67c9d4 applies only to the historical prototype; it is not a review of this candidate. Checks:
+`v7.85_showcase_track_detail_LIVE/evidence/surface-{standalone,full-page,sweeps,preservation}.json`.
+
+**Historical preview evidence.** Andrew has since approved publication as v7.85 above. Actual desktop, phone, track-level and kerb-profile frames plus a six-second
+1440 × 900 animation are complete in `evidence/surface-*`. `surface-render.json` records hashes, zero render errors
+or external requests, and a native 3840 × 2160 still retained in Andrew's local review package. Software exports do
+not establish real-time/4K frame rates. Earlier evidence is marked historical in the README. Visual fidelity and performance
+on physical devices remain unfinished. Private photos and clips remain private. No graphics publication, project
+record edits, journals or real messages. The released operational corrections remain in the v7.84 base.
+
 
 ## Release completed — v7.80 Fencing card refresh LIVE, 2 Oct 2026 00:45 AEST
 
@@ -375,6 +446,27 @@ see `record_29Sep2026_master_plan_positions/`.
 The live page's own proof: `toolchain/fetch_live.sh` then compare with the release folder's README.
 
 ## Claimed — being worked on now
+
+**v7.88 — full-lap Showcase visual correction, Codex, 2 Oct 2026. WORKING PREVIEW; independent checks complete, not live.**
+Author: Andrew Fisher. Andrew: "the job was to keep what we have and we are upgrading the look ... its the whole
+track not 10 mtrs of it. U also have mp4 videos of whole track to help you". Preserve the existing circuit geometry,
+car, driving simulation, cameras, MP4/weather and speedos. Replace the separate short detail run with improvements
+over the full existing lap. Review both original GC500_Codex_Part_01.mp4 and Part_02.mp4 privately; record observed
+detail without invented locations. Claude has been asked to independently check lap coverage and visual continuity.
+The incomplete v7.85 scene is hidden in verified-live v7.86. The v7.88 draft renders the full 2,910.1 m lap,
+498/498 boundary segments, 260 original kerb profiles, 80 roadside building parts and 337 refined source trees.
+Final desktop/emulated-phone full-lap checks **68/68** pass: 8,163 original physics steps, 71 checkpoints and 13
+rendered views per device through 2,935 m, no resets, teleports, graphics errors or external requests. Full-page
+integration **23/23** and both **21-tab/7-link sweeps** pass with zero errors. Narrow kerbs and original road paint
+are verified. Actual-render contact sheets are in `v7.88_full_lap_detail_DRAFT/evidence/final-*.png`.
+Candidate built on v7.87: **8,854,418 bytes**, SHA256 `121d183a400d95d997bfbf4db07b5cb5872b57a8e3ec80d163adc4eaec1dd91e`;
+offline preview **1,139,977 bytes**, SHA256 `a31ccb858829675a8ae1b9364107058b823a70b80ec23d1b0467e402ce5191db`.
+Claude independently rebuilt the same hashes and completed **61/61** in-page lap checkpoints, **45/45** driver rules,
+and **58/58** in the earlier lap harness on desktop/phone. He inspected the circuit views and start/finish join;
+no movement jumps or graphics errors. Evidence: `v7.88_review_by_claude/` and PR #1 comment 5942850787 for the finished
+phone rerun. Buildings/foliage remain stylised; these checks do not claim Andrew's visual acceptance or physical-device/4K
+performance. Rebuild on the latest live base before release. v7.89 header and v7.90 maps are now verified live.
+No financial record changes are included in this graphics preview.
 
 **Fencing papers 2 Oct 2026 — entry sheet ready for Codex (Claude).** Author: Andrew Fisher.
 HA 36564-36568 and SN 24463-24465 transcribed from Andrew's photographs:
