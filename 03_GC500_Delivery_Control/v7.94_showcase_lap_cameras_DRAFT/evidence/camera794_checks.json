@@ -1,0 +1,61 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Full circuit fits both axes at all lap positions in landscape, portrait and ultrawide",
+      "passed": true
+    },
+    {
+      "name": "Forward-facing chase and car-follow retain the car in frame throughout lap",
+      "passed": true
+    },
+    {
+      "name": "Driver aims along the forthcoming route and uses a road-level lens",
+      "passed": true
+    },
+    {
+      "name": "Tour includes every diagnostic lap section and recurring aerial orientation",
+      "passed": true
+    },
+    {
+      "name": "Camera-only updates preserve simulation, source route and source building rows",
+      "passed": true
+    },
+    {
+      "name": "Exact building footprints avoid false high lifts from coarse city cells",
+      "passed": true
+    },
+    {
+      "name": "Expanded footprint clearance avoids a building intersecting the requested camera",
+      "passed": true
+    },
+    {
+      "name": "Manual selection transitions continuously and finishes after one second",
+      "passed": true
+    },
+    {
+      "name": "Paused selection animates camera without stepping the simulation or original frame",
+      "passed": true
+    },
+    {
+      "name": "Reduced motion settles camera selection immediately and stops an active transition",
+      "passed": true
+    },
+    {
+      "name": "Context recovery preserves selected view and in-progress camera blend without old caches",
+      "passed": true
+    },
+    {
+      "name": "Detail, plant, tow, fireworks and diagnostic views delegate to existing camera",
+      "passed": true
+    },
+    {
+      "name": "Camera reset drops prior-lap anchor and recreates deterministic opening view",
+      "passed": true
+    }
+  ],
+  "scope": "CPU camera geometry and lifecycle; actual GPU rendering and motion require browser review",
+  "physicsModified": false,
+  "glResources": 0
+}
