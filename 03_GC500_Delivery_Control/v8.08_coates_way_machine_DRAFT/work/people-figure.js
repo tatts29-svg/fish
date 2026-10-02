@@ -116,17 +116,17 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
   /* ---- THE HELMET: a full-face shell over the head bone, its front +z ---- */
   { const hc = [0, d.headY + .078 * s, .012 * s], hr = .133 * s, HS = [1, 1.06, 1.1];
     /* the helmet's canvas faces its "front" (u .75) toward −z as three.js lays a sphere out; turned half round it faces +z */
-    put(M(new T.SphereGeometry(hr, 40, 28, 0, Math.PI * 2, 0, Math.PI * .86), hc[0], hc[1], hc[2], 0, Math.PI, 0, ...HS), at.rect(helmet === 'lead' ? ATLAS.helmetLead : ATLAS.helmet), B.head);
+    put(M(new T.SphereGeometry(hr, 34, 22, 0, Math.PI * 2, 0, Math.PI * .86), hc[0], hc[1], hc[2], 0, Math.PI, 0, ...HS), at.rect(helmet === 'lead' ? ATLAS.helmetLead : ATLAS.helmet), B.head);
     /* the underside of the shell, closed round the neck: the neck roll */
     put(M(new T.TorusGeometry(hr * .45, .017 * s, 8, 28), hc[0], hc[1] - hr * HS[1] * .89, hc[2], Math.PI / 2, 0, 0, 1, HS[2], 1), SW('black'), B.head);
     /* the visor: a smoked band over the eye port, a hair proud of the shell, in its rubber gasket, with its pivot plates either side */
-    put(M(new T.SphereGeometry(hr * 1.028, 32, 10, .2 * Math.PI, .6 * Math.PI, .35 * Math.PI, .21 * Math.PI), hc[0], hc[1], hc[2], 0, 0, 0, ...HS), SW('smoke'), B.head);
+    put(M(new T.SphereGeometry(hr * 1.028, 24, 8, .2 * Math.PI, .6 * Math.PI, .35 * Math.PI, .21 * Math.PI), hc[0], hc[1], hc[2], 0, 0, 0, ...HS), SW('smoke'), B.head);
     { const on = (ph, th) => new T.Vector3(hc[0] - hr * 1.034 * HS[0] * Math.cos(ph * Math.PI) * Math.sin(th * Math.PI), hc[1] + hr * 1.034 * HS[1] * Math.cos(th * Math.PI), hc[2] + hr * 1.034 * HS[2] * Math.sin(ph * Math.PI) * Math.sin(th * Math.PI));
       const edge = [], N = 16; for (let i = 0; i <= N; i++) edge.push(on(.2 + .6 * i / N, .35)); for (let i = 1; i <= 6; i++) edge.push(on(.8, .35 + .21 * i / 6)); for (let i = 1; i <= N; i++) edge.push(on(.8 - .6 * i / N, .56)); for (let i = 1; i < 6; i++) edge.push(on(.2, .56 - .21 * i / 6));
-      put(new T.TubeGeometry(new T.CatmullRomCurve3(edge, true, 'catmullrom', .05), 96, .0048 * s, 5, true), SW('black'), B.head); }
+      put(new T.TubeGeometry(new T.CatmullRomCurve3(edge, true, 'catmullrom', .05), 64, .0048 * s, 4, true), SW('black'), B.head); }
     for (const k of [-1, 1]) put(M(new T.CylinderGeometry(.024 * s, .024 * s, .008 * s, 14), hc[0] + k * hr * 1.0, hc[1] + .005 * s, hc[2] + .03 * s, 0, 0, Math.PI / 2), SW('gunmetal'), B.head);
     /* the chin bar: fuller at the front, its vent */
-    put(M(new T.SphereGeometry(hr * .62, 20, 10, .15 * Math.PI, .7 * Math.PI, .45 * Math.PI, .4 * Math.PI), hc[0], hc[1] - .05 * s, hc[2] + .03 * s, 0, 0, 0, 1.25, 1, 1.38), SW('black'), B.head);
+    put(M(new T.SphereGeometry(hr * .62, 14, 7, .15 * Math.PI, .7 * Math.PI, .45 * Math.PI, .4 * Math.PI), hc[0], hc[1] - .05 * s, hc[2] + .03 * s, 0, 0, 0, 1.25, 1, 1.38), SW('black'), B.head);
     put(M(new T.BoxGeometry(.05 * s, .014 * s, .01 * s), hc[0], hc[1] - .085 * s, hc[2] + hr * 1.12, -.3), SW('gunmetal'), B.head);
     /* the crown vents and the rear spoiler */
     for (const k of [-1, 1]) put(M(new T.BoxGeometry(.018 * s, .012 * s, .05 * s), hc[0] + k * .03 * s, hc[1] + hr * HS[1] * .985 + .004 * s, hc[2] + .03 * s, -.25), SW('black'), B.head);
@@ -144,7 +144,7 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
     const x = k * d.shX, ys = d.shY, ye = ys - d.U1, yw = ye - d.U2, arm = B['arm' + side], fore = B['fore' + side], hand = B['hand' + side];
     const elbowW = (px, py) => blend2(arm, fore, smooth((ye + .035 * s - py) / (.07 * s)));
     /* the deltoid: a rounded cap over the joint, on the arm bone */
-    put(M(new T.SphereGeometry(.054 * s * w, 20, 14), x + k * .002, ys - .004 * s, 0, 0, 0, 0, .95, 1.0, 1.06), SW('orange'), arm);
+    put(M(new T.SphereGeometry(.054 * s * w, 16, 10), x + k * .002, ys - .004 * s, 0, 0, 0, 0, .95, 1.0, 1.06), SW('orange'), arm);
     const ua = [[ys + .02 * s, .055], [ys - .03 * s, .056], [ys - .09 * s, .053], [ys - .16 * s, .049], [ys - .23 * s, .045], [ye + .02 * s, .041], [ye - .03 * s, .039]];
     { const legUV = at.rect(ATLAS.leg); put(loftGeometry(T, ua.map(([y, r]) => ring([x, y, 0], [0, 0, 1], [1, 0, 0], r * s * w * 1.04, r * s * w, 18))), (u, v) => legUV(u * .6, v), elbowW); }   /* the stripes without the shin's hoops */
     const fa = [[ye + .03 * s, .040], [ye - .01 * s, .043], [ye - .07 * s, .044], [ye - .13 * s, .040], [ye - .19 * s, .035], [yw + .03 * s, .031], [yw + .005 * s, .03]];
@@ -153,7 +153,7 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
        At rest the hand hangs: fingers down, the palm toward the thigh (−k x), the thumb forward (+z) ---- */
     put(M(new T.CylinderGeometry(.034 * s, .039 * s, .042 * s, 18), x, yw + .004 * s, 0, 0, 0, 0, 1, 1, 1.08), SW('glove'), hand);
     put(M(new T.CylinderGeometry(.0395 * s, .0395 * s, .01 * s, 18), x, yw + .02 * s, 0, 0, 0, 0, 1, 1, 1.08), SW('gloveOrange'), hand);
-    put(M(new T.SphereGeometry(.05 * s, 16, 12), x - k * .002 * s, yw - .06 * s, .002 * s, 0, 0, 0, .44, 1.04, .9), at.rect(ATLAS.glove), hand);
+    put(M(new T.SphereGeometry(.05 * s, 12, 9), x - k * .002 * s, yw - .06 * s, .002 * s, 0, 0, 0, .44, 1.04, .9), at.rect(ATLAS.glove), hand);
     const curl = [.28, .62], fingers = [[.026, .95], [.009, 1.0], [-.009, .96], [-.025, .8]];
     for (const [fz, len] of fingers) {
       const base = [x - k * .002 * s, yw - .104 * s, fz * s], L1 = .042 * s * len, L2 = .040 * s * len, r = .0098 * s;
@@ -186,13 +186,13 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
     /* toe first: [z, half-width, bottom, top] (metres at 1.78) */
     const BOOT = [[.214, .022, .016, .040], [.205, .034, .013, .054], [.185, .044, .012, .066], [.15, .051, .012, .078], [.10, .053, .012, .090], [.05, .051, .012, .110],
       [0, .047, .013, .135], [-.04, .045, .015, .14], [-.065, .041, .02, .132], [-.08, .032, .03, .115], [-.086, .018, .045, .09]];
-    const ring2 = ([z, hw, yb, yt], grow = 0) => rrect(x, ((yb + yt) / 2) * s, z * s, hw * s * w + grow, ((yt - yb) / 2) * s + grow, 22, .62);
+    const ring2 = ([z, hw, yb, yt], grow = 0) => rrect(x, ((yb + yt) / 2) * s, z * s, hw * s * w + grow, ((yt - yb) / 2) * s + grow, 18, .62);
     put(loftGeometry(T, BOOT.map(r => ring2(r))), at.rect(ATLAS.boot), foot);
     /* the collar round the ankle, up under the trouser cuff */
     put(loftGeometry(T, [[.19, .047, .052], [.165, .05, .056], [.13, .05, .058]].map(([y, a, b]) => ring([x, y * s, -.012 * s], [0, 0, 1], [1, 0, 0], b * s * w, a * s * w, 18))), at.rect(ATLAS.boot), (px, py) => py > .17 * s ? [[foot, .7], [B['shin' + side], .3]] : [[foot, 1]]);
     /* the sole: a rubber slab from toe to heel, 13 mm, its underside the floor; the heel block under the back */
     const SOLE = [[.218, .024], [.205, .037], [.18, .048], [.14, .056], [.09, .058], [.04, .054], [-.01, .051], [-.05, .05], [-.075, .045], [-.09, .03]];
-    put(loftGeometry(T, SOLE.map(([z, hw]) => rrect(x, .0065 * s, z * s, (hw + .003) * s * w, .0065 * s, 18, .45))), SW('sole'), foot);
+    put(loftGeometry(T, SOLE.map(([z, hw]) => rrect(x, .0065 * s, z * s, (hw + .003) * s * w, .0065 * s, 14, .45))), SW('sole'), foot);
     put(M(new T.BoxGeometry(.088 * s * w, .025 * s, .06 * s), x, .0125 * s, -.058 * s), SW('sole'), foot);
     put(M(new T.BoxGeometry(.03 * s, .03 * s, .006 * s), x, .17 * s, -.088 * s), SW('gloveOrange'), foot);
     put(M(new T.BoxGeometry(.05 * s, .014 * s, .005 * s), x, .085 * s, -.084 * s, -.2), SW('reflect'), foot);

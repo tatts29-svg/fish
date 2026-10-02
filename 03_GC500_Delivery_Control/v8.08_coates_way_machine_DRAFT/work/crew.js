@@ -93,13 +93,20 @@ const swing = a => [[0, -a], [.5, a], [1, -a]], swing2 = a => [[0, a], [.5, -a],
 export const CLIPS = {
   /* one stride: the left foot lands at 0, the right at .5; the arms swing against the legs, the pelvis turns with the
      leading hip and the chest against it, the swing side's hip drops, the body sways over the stance foot */
-  walk: new Clip('walk', {'armL.pitch': swing(.30), 'armR.pitch': swing2(.30), 'armL.elbow': [[0, .16], [.5, .44], [1, .16]], 'armR.elbow': [[0, .44], [.5, .16], [1, .44]],
-    'pelvis.yaw': swing(.07), 'chest.yaw': swing2(.055), 'pelvis.roll': [[0, 0], [.25, .035], [.5, 0], [.75, -.035], [1, 0]],
-    'pelvis.sway': [[0, -.003], [.31, .021], [.56, 0], [.81, -.021], [1, -.003]], 'pelvis.bob': [[0, -.012], [.31, .006], [.5, -.012], [.81, .006], [1, -.012]], 'spine.pitch': [[0, .05], [1, .05]]}, {loop: true}),
-  /* standing: two breaths and a slow weight shift in 8.4 s; everybody starts it at a different point */
-  idle: new Clip('idle', {'spine.pitch': [[0, .01], [2.1, .026], [4.2, .01], [6.3, .026], [8.4, .01]], 'pelvis.sway': [[0, -.008], [4.2, .012], [8.4, -.008]],
-    'armL.roll': [[0, .13], [4.2, .16], [8.4, .13]], 'armR.roll': [[0, .15], [4.2, .12], [8.4, .15]], 'armL.pitch': [[0, .04], [8.4, .04]], 'armR.pitch': [[0, .05], [8.4, .05]],
-    'armL.elbow': [[0, .2], [4.2, .26], [8.4, .2]], 'armR.elbow': [[0, .24], [4.2, .19], [8.4, .24]]}, {loop: true}),
+  walk: new Clip('walk', {'armL.pitch': swing(.34), 'armR.pitch': swing2(.34), 'armL.elbow': [[0, .14], [.5, .48], [1, .14]], 'armR.elbow': [[0, .48], [.5, .14], [1, .48]],
+    'armL.roll': [[0, .1], [1, .1]], 'armR.roll': [[0, .1], [1, .1]],
+    'pelvis.yaw': swing(.08), 'chest.yaw': swing2(.07), 'pelvis.roll': [[0, 0], [.25, .04], [.5, 0], [.75, -.04], [1, 0]],
+    'pelvis.sway': [[0, -.003], [.31, .024], [.56, 0], [.81, -.024], [1, -.003]], 'pelvis.bob': [[0, -.014], [.31, .007], [.5, -.014], [.81, .007], [1, -.014]], 'spine.pitch': [[0, .05], [.25, .065], [.5, .05], [.75, .065], [1, .05]],
+    /* v8.08: the head steadies itself against the bob and the shoulders' turn, as a walker's eyes stay level */
+    'head.pitch': [[0, .02], [.31, -.012], [.5, .02], [.81, -.012], [1, .02]], 'head.yaw': swing(.03)}, {loop: true}),
+  /* standing: two breaths and a slow weight shift in 8.4 s; everybody starts it at a different point. v8.08: the shift is a real
+     one — the hips move four centimetres over one foot and the other hip drops (that knee softens: the legs' solve does it), the
+     shoulders tilt back against it, the head settles and looks about a little, the hands hang loose with the elbows soft */
+  idle: new Clip('idle', {'spine.pitch': [[0, .01], [2.1, .026], [4.2, .01], [6.3, .026], [8.4, .01]],
+    'pelvis.sway': [[0, -.032], [1.6, -.032], [4.2, .034], [5.8, .034], [8.4, -.032]], 'pelvis.roll': [[0, -.045], [1.6, -.045], [4.2, .05], [5.8, .05], [8.4, -.045]],
+    'chest.yaw': [[0, .02], [4.2, -.03], [8.4, .02]], 'head.pitch': [[0, .03], [3.1, -.02], [5.5, .045], [8.4, .03]], 'head.yaw': [[0, 0], [2.6, .12], [4.4, .05], [6.8, -.1], [8.4, 0]],
+    'armL.roll': [[0, .14], [4.2, .17], [8.4, .14]], 'armR.roll': [[0, .16], [4.2, .13], [8.4, .16]], 'armL.pitch': [[0, .05], [4.2, .02], [8.4, .05]], 'armR.pitch': [[0, .03], [4.2, .06], [8.4, .03]],
+    'armL.elbow': [[0, .22], [4.2, .3], [8.4, .22]], 'armR.elbow': [[0, .28], [4.2, .2], [8.4, .28]], 'armL.wrist': [[0, .08], [8.4, .08]], 'armR.wrist': [[0, .1], [8.4, .1]]}, {loop: true}),
   /* the kneel and the crouch, by depth: how the torso leans as the pelvis goes down */
   kneel: new Clip('kneel', {'spine.pitch': [[0, 0], [.5, .12], [1, .34]], 'head.pitch': [[0, 0], [1, .18]]}),
   crouch: new Clip('crouch', {'spine.pitch': [[0, 0], [.4, .18], [1, .62]], 'head.pitch': [[0, 0], [1, .3]]}),
@@ -444,7 +451,8 @@ Crewman.prototype.pose = function (dt) {
   /* the spine: the lean (clips) split over spine and chest, the chest turned against the pelvis; seated, upright */
   this.bend += clamp(this.bendWant - this.bend, -dt * 1.6, dt * 1.6); this.side += clamp(this.sideWant - this.side, -dt * 1.4, dt * 1.4);
   const lean = (ch['spine.pitch'] || 0) + this.bend + (p.kind === 'sit' ? -ppitch + (p.seat?.lean || 0) : 0), cyaw = (ch['chest.yaw'] || 0) + this.look.torso * .5;
-  b.spine.quaternion.copy(qx(lean * .45, _Q[2])).multiply(qy(cyaw * .4, _Q[3])).multiply(qz(this.side * .45, _Q[4])); b.chest.quaternion.copy(qx(lean * .55, _Q[2])).multiply(qy(cyaw * .6, _Q[3])).multiply(qz(this.side * .55, _Q[4]));
+  /* (v8.08: the spine takes the pelvis's roll back out and a little more, so with the weight on one leg the shoulders tilt against the hips) */
+  b.spine.quaternion.copy(qx(lean * .45, _Q[2])).multiply(qy(cyaw * .4, _Q[3])).multiply(qz(this.side * .45 - proll * .5, _Q[4])); b.chest.quaternion.copy(qx(lean * .55, _Q[2])).multiply(qy(cyaw * .6, _Q[3])).multiply(qz(this.side * .55 - proll * .65, _Q[4]));
   fig.root.updateMatrixWorld(true);
   /* the legs: hip to ankle, the knee toward the front (for a knee on the floor, forward and down) */
   const hipsW = worldQ(b.hips, _Q[5]), pf = _P[9].set(0, 0, 1).applyQuaternion(hipsW).setY(0).normalize();
@@ -751,7 +759,7 @@ export function sideSpots(o) {
   /* the mechanic kneels at the wheel's corner, beside the line it slides out on (ahead of the near wheel, behind the far one: his
      right hand is then toward the nut and his raised knee is clear of the tyre) */
   return {o, kneel: [XW - o * .46, o * 1.45], kneelYaw: o > 0 ? Math.PI : 0, rack: [XW + 1.75, o * 2.35], rackYaw: Math.PI / 2, approach: [XW + 1.75 - .47, o * 2.35], receive: [XW + 1.75 + .56, o * 2.35],
-    sill: [-.1, o * 1.40], supervise: o > 0 ? [XW + 2.75, 3.35] : [XW + 4.45, -.2], rackPlace: [XW + 1.75 - .36, o * 2.35]};   /* v8.08: the far side's supervising place is behind the tail (on the far aisle the car hid him) */
+    sill: [-.1, o * 1.40], supervise: o > 0 ? [XW + 2.75, 3.35] : [XW + 4.8, .2], rackPlace: [XW + 1.75 - .36, o * 2.35]};   /* v8.08: the far side's supervising place is behind the tail (on the far aisle the car hid him) */
 }
 /* the loop of aisle points round the cell, and what stands on the floor (boxes x0, z0, x1, z1) */
 export const NODES = Object.freeze([[-4.8, 2.6], [-4.8, 0], [-4.8, -2.6], [-1.0, 2.85], [1.8, 2.95], [4.4, 2.6], [4.4, 0], [4.4, -2.6], [1.8, -2.95], [-1.0, -2.85], [-6.6, -2.6], [-6.6, 2.4], [5.7, .3]]);
@@ -1228,7 +1236,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     {at: [4.1, 1.95], look: [3.6, .05, 1.5], crouch: .8, what: 'rear tie-down, near'},
     {at: [5.6, 1.1], look: [XW + .4, .25, .3], crouch: 0, what: 'the rollers and the rear wheels, from behind the cell'},
     {at: [-4.6, -1.95], look: [-4.1, .05, -1.5], crouch: .8, what: 'front tie-down, far'},
-    {at: [-2.3, -1.78], look: [-1.34, .06, -.83], crouch: .7, what: 'front chock, far'},
+    {at: [-2.6, -1.8], look: [-1.34, .06, -.83], crouch: .7, what: 'front chock, far'},
     {at: [SAFETY_START[0], SAFETY_START[1]], look: [0, .8, 0], crouch: 0, what: 'the cell, from his corner'}];
   const scripts = {safety: new Script(safety), operator: new Script(operator), engine: new Script(engine), lead: new Script(lead), tech: new Script(tech), mechanic: new Script(mechanic), driver: new Script(driver)};
   function placeAll() {
