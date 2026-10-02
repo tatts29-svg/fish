@@ -8,7 +8,7 @@ The original nine camera choices, Car follow default and race-responsive automat
 
 This also carries Claude’s frozen5fac75b link/Money corrections, planned versus recorded supply on the existing driver/install sheets, and clear recovery from invalid reference/day links. Actual Tools-entry testing found a separate inherited focus bug: closing Showcase tried to focus a now-hidden menu item. Its opener now remembers the visible Tools button; native camera and close code are unchanged. Original visible Start entries retain their own return target. No operational records are edited.
 
-State: READY TO UPLOAD on exact final candidate `cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee`, 9,077,977 bytes, built from live v8.07 `35024d43`. Codex implemented the integration, delegated independent source/camera/focus reviews and owns publication. Claude supplied frozen805 and will independently verify live bytes; he has not reviewed this final combined build.
+State: LIVE, 2 Oct 2026 18:57 AEST, exact public candidate `cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee`, 9,077,977 bytes, built from live v8.07 `35024d43`. Codex implemented the integration, delegated independent source/camera/focus reviews and owns publication. Claude supplied frozen805 and will independently verify live bytes; he has not reviewed this final combined build.
 
 ## Validation
 
@@ -22,4 +22,6 @@ State: READY TO UPLOAD on exact final candidate `cd3159be30b7ec931d5ffa907b90b58
 
 ## Rebuild
 
-From the project directory, use `bash toolchain/build.sh v8.12 v8.12_previous_cameras_and_navigation_DRAFT/patch_v812.py`. The patch pins the exact source files and original live base and refuses a duplicate or changed base. Separate machine-set work, backend deployment and saved dispatch controls are not included. Private full pages, source documents, record snapshots, diagnostic logs and screenshots remain outside Git.
+From the project directory, use `bash toolchain/build.sh v8.12 v8.12_previous_cameras_and_navigation_LIVE/patch_v812.py`. The patch pins the exact source files and original live base and refuses a duplicate or changed base. Separate machine-set work, backend deployment and saved dispatch controls are not included. Private full pages, source documents, record snapshots, diagnostic logs and screenshots remain outside Git.
+
+Publication returned HTTP200. Public readback matches all9,077,977bytes; all shared collections and record3552 are unchanged. See evidence/release_verification.json. Source folders were renamed LIVE after publication; the final wrapper has only path updates and reproduces identical bytes.
