@@ -55,6 +55,9 @@ export function samplesFor(renderer, q) {
 /* ---------------------------------------------------------------- prints */
 const prints = [];
 let scaleNow = 1, maxDim = MOBILE ? 2048 : 4096, pending = null, budgetMs = 6;
+/* no print is drawn past about 4.2 million pixels (2048 × 2048): a sign or a label gets its full 2×, a sheet already drawn big (the Life
+   Saving Rules, the values wheel, the tool wall) only what keeps it under that — so the higher rungs add sharpness, not hundreds of MB */
+const MAX_PIXELS = 4.2e6;
 /* a canvas the size asked for, drawn once, registered so a higher rung can draw it again sharper.
    mode 'logical': draw(g, w, h) works in the base size's coordinates and the context is scaled to the canvas;
    mode 'pixel': draw(g, cw, ch) is given the canvas's own size (a drawing laid out in proportions).
@@ -70,7 +73,7 @@ export function print(w, h, draw, {mode = 'logical', live = false, srgb = true, 
   return {texture: t, canvas: c};
 }
 /* the scale an entry is drawn at on this rung: never past its own cap, never past the largest canvas this device should hold, never under its base size */
-function fitScale(e, k) { return Math.max(1, Math.min(k, e.maxScale, maxDim / Math.max(e.w, e.h))); }
+function fitScale(e, k) { return Math.max(1, Math.min(k, e.maxScale, maxDim / Math.max(e.w, e.h), Math.sqrt(MAX_PIXELS / (e.w * e.h)))); }
 function paint(entry, k) {
   const c = entry.canvas, cw = Math.max(1, Math.round(entry.w * k)), ch = Math.max(1, Math.round(entry.h * k));
   if (c.width !== cw || c.height !== ch) { c.width = cw; c.height = ch; }
@@ -104,7 +107,7 @@ export function setPrintScale(k) { scaleNow = Math.max(1, Math.min(2, k || 1)); 
 export function flushPrints() { for (const e of prints) { const k = fitScale(e, scaleNow); if (Math.abs(e.scale - k) >= .01) redraw(e, k); } }
 export function printStats() {
   let px = 0, done = 0; for (const e of prints) { px += e.canvas.width * e.canvas.height; if (Math.abs(e.scale - fitScale(e, scaleNow)) < .01) done++; }
-  return {count: prints.length, scale: scaleNow, megapixels: +(px / 1e6).toFixed(2), done};
+  return {count: prints.length, scale: scaleNow, megapixels: +(px / 1e6).toFixed(2), done, list: prints.map(e => [e.name || '', e.w, e.h, +e.scale.toFixed(2)])};
 }
 
 /* ---------------------------------------------------------------- shared shader switches */

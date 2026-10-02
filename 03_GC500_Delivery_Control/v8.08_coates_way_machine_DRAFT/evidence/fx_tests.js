@@ -85,7 +85,9 @@ const check = (dev, name, ok, detail) => { checks.push({dev, name, ok: !!ok, det
 
 async function run(dev) {
   const phone = dev === 'phone', W = phone ? 390 : 1440, H = phone ? 844 : 900, dpr = phone ? 3 : 2;
-  const t0 = Date.now(), m = await openMachine({root: ROOT, W, H, dpr, mobile: phone});
+  /* ?tune=adapt:0 holds the adaptive resolution off (the page's own measuring switch): a software renderer is always "slow", and the
+     test is of what each rung asks for when the frames keep up */
+  const t0 = Date.now(), m = await openMachine({root: ROOT, W, H, dpr, mobile: phone, query: process.env.QUERY ?? '?tune=adapt:0'});
   const out = {dev, root: ROOT, W, H, dpr, presets: {}};
   try {
     await m.page.waitForFunction(() => window.__cw && window.__cw.ready, null, {timeout: 600000, polling: 500});

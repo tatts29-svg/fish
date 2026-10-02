@@ -28,7 +28,9 @@
    wheel comes off. */
 import * as T3 from './vendor/three.module.js';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
-import {loftGeometry, ring, capsuleGeometry, suitTexture, limbTexture, helmetTexture, ORANGE, FONT} from './car-driver.js';
+import {ORANGE} from './car-driver.js';
+import {ATLAS, crewAtlas} from './people-atlas.js';
+import {buildFigure} from './people-figure.js';
 import {GARAGE, DYNO, GUN_STAND, EXHIBITS as GARAGE_EXHIBITS, LIFE_SAVING_RULES} from './pit-garage.js';
 import {WHEEL_SERVICE} from './car-motion.js';
 
@@ -45,85 +47,10 @@ const V = (x = 0, y = 0, z = 0) => new T3.Vector3(x, y, z), Q = () => new T3.Qua
 const UP = new T3.Vector3(0, 1, 0), XA = new T3.Vector3(1, 0, 0), YA = new T3.Vector3(0, 1, 0), ZA = new T3.Vector3(0, 0, 1);
 
 /* ------------------------------------------------------------------------------------------------ THE ATLAS
-   One canvas for every person and every thing the crew handles, so a person is one draw and the whole crew shares one
-   material: the suit (the driver's canvas in charcoal, with seams), two helmets (the crew's orange crown, the lead's white),
-   the sleeve with its cuff band, the leg with its side stripes, eight labels (the six jobs across the backs, the Coates
-   wordmark for the forklift and the cage's plate) and sixteen flat swatches. Its companion map carries roughness (green)
-   and metalness (blue) in the same layout, so a visor shines, a glove does not, and a fork is steel. */
-export const ATLAS = Object.freeze({
-  W: 2048, H: 1536, gutter: 6,
-  suit: [0, 0, 1024, 1024], helmet: [1024, 0, 1024, 512], helmetLead: [1024, 512, 1024, 512],
-  sleeve: [0, 1024, 1024, 256], leg: [0, 1280, 1024, 256], labels: [1024, 1024, 1024, 384], swatches: [1024, 1408, 1024, 128],
-});
-export const SWATCH = Object.freeze({orange: 0, charcoal: 1, black: 2, glove: 3, visor: 4, steel: 5, rubber: 6, yellow: 7, white: 8, grey: 9, darkGrey: 10, alu: 11, red: 12, screen: 13, orangeDark: 14, timber: 15});
-const SWATCH_RGB = ['#ff6a13', '#2a2f35', '#111317', '#141518', '#0a0d11', '#8d989f', '#141517', '#f2b400', '#eceeec', '#5b646b', '#23282d', '#b8c1c6', '#b5161a', '#05080b', '#c84f10', '#8a6a44'];
-/* roughness (0–1) and metalness (0–1) of each swatch, in the same order */
-const SWATCH_RM = [[.48, 0], [.9, 0], [.72, 0], [.74, 0], [.07, .25], [.34, .9], [.93, 0], [.6, 0], [.55, 0], [.7, 0], [.6, .1], [.36, .85], [.5, 0], [.12, 0], [.52, 0], [.82, 0]];
-/* the six jobs, across the back of each suit; then the forklift's wordmark and the cage's plate */
-export const LABELS = Object.freeze(['WHEELS', 'PIT TECH', 'ENGINE', 'TELEMETRY', 'CREW LEAD', 'FORKLIFT', 'Coates', 'COATES · TYRES']);
-const CHARCOAL = '#2a2f35';
-
-function makeCanvas(w, h) { if (typeof document === 'undefined') return null; const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
-/* a picture into an atlas rectangle, inset by the gutter, and its edges stretched out into the gutter so the mip chain of a
-   neighbour never bleeds into it */
-function blit(g, src, [x, y, w, h], gut) {
-  if (!src) return; const sw = src.width, sh = src.height, iw = w - 2 * gut, ih = h - 2 * gut;
-  g.drawImage(src, 0, 0, sw, sh, x + gut, y + gut, iw, ih);
-  g.drawImage(src, 0, 0, sw, 1, x + gut, y, iw, gut); g.drawImage(src, 0, sh - 1, sw, 1, x + gut, y + h - gut, iw, gut);
-  g.drawImage(src, 0, 0, 1, sh, x, y + gut, gut, ih); g.drawImage(src, sw - 1, 0, 1, sh, x + w - gut, y + gut, gut, ih);
-}
-let sharedAtlas = null;
-export function crewAtlas() {
-  if (sharedAtlas) return sharedAtlas;
-  const A = ATLAS, c = makeCanvas(A.W, A.H), m = makeCanvas(A.W / 4, A.H / 4);
-  let map = null, orm = null;
-  if (c) {
-    const g = c.getContext('2d'), gm = m.getContext('2d');
-    g.fillStyle = CHARCOAL; g.fillRect(0, 0, A.W, A.H);
-    /* the suit: the driver's livery in the crew's charcoal, seams and zip drawn in */
-    blit(g, suitTexture(T3, {base: CHARCOAL, seams: true, chest: .5, backDir: 1, back: .6})?.image, A.suit, A.gutter);
-    blit(g, helmetTexture(T3, {seam: true})?.image, A.helmet, A.gutter);
-    blit(g, helmetTexture(T3, {crown: '#eceeec', word: ORANGE, seam: true})?.image, A.helmetLead, A.gutter);
-    blit(g, limbTexture(T3, 'Coates', 0, {size: 24, x: 330, cuff: [.72, .80], base: CHARCOAL})?.image, A.sleeve, A.gutter);
-    /* the leg (and the upper arm): charcoal, an orange stripe down each side (canvas y 64 and 192 are the limb's two sides) */
-    { const lc = makeCanvas(1024, 256), lg = lc.getContext('2d'); lg.fillStyle = CHARCOAL; lg.fillRect(0, 0, 1024, 256);
-      lg.fillStyle = ORANGE; for (const y of [64, 192]) lg.fillRect(0, y - 15, 1024, 30); lg.fillStyle = '#f4f5f3'; for (const y of [64, 192]) { lg.fillRect(0, y - 17, 1024, 2); lg.fillRect(0, y + 15, 1024, 2); }
-      lg.fillStyle = '#f4f5f3'; lg.font = `800 22px ${FONT}`; lg.textAlign = 'center'; lg.textBaseline = 'middle'; for (const y of [64, 192]) lg.fillText('Coates', 170, y);
-      blit(g, lc, A.leg, A.gutter); }
-    /* the labels: white on the suit's charcoal with an orange rule (the jobs), white on orange (the wordmark), dark on steel (the plate) */
-    LABELS.forEach((text, i) => {
-      const [x0, y0] = A.labels, x = x0 + (i % 2) * 512, y = y0 + Math.floor(i / 2) * 96;
-      const brand = text === 'Coates', plate = i === 7;
-      g.fillStyle = brand ? ORANGE : plate ? '#9aa4aa' : CHARCOAL; g.fillRect(x, y, 512, 96);
-      g.fillStyle = brand ? '#ffffff' : plate ? '#101417' : '#f4f5f3'; g.textAlign = 'center'; g.textBaseline = 'middle';
-      g.font = brand ? `900 76px Arial, Helvetica, sans-serif` : `800 50px Arial, Helvetica, sans-serif`;
-      if ('letterSpacing' in g) g.letterSpacing = brand ? '-2px' : '4px';
-      g.fillText(text, x + 256, y + (brand ? 50 : 44));
-      if (!brand && !plate) { g.fillStyle = ORANGE; g.fillRect(x + 96, y + 78, 320, 6); }
-      if ('letterSpacing' in g) g.letterSpacing = '0px';
-    });
-    SWATCH_RGB.forEach((col, i) => { g.fillStyle = col; g.fillRect(A.swatches[0] + i * 64, A.swatches[1], 64, 128); });
-    /* a little weave in the charcoal swatch and a grain in the timber, so a flat face is not plastic */
-    { const [sx, sy] = A.swatches; g.fillStyle = 'rgba(255,255,255,.04)'; for (let yy = 0; yy < 128; yy += 4) g.fillRect(sx + 64, sy + yy, 64, 1);
-      g.fillStyle = 'rgba(0,0,0,.18)'; for (let yy = 3; yy < 128; yy += 9) g.fillRect(sx + 15 * 64, sy + yy, 64, 2); }
-    /* roughness (green) and metalness (blue), a quarter the size */
-    const R = (r, mt) => `rgb(255,${Math.round(r * 255)},${Math.round(mt * 255)})`, q = ([x, y, w, h]) => [x / 4, y / 4, w / 4, h / 4];
-    gm.fillStyle = R(.9, 0); gm.fillRect(0, 0, m.width, m.height);
-    for (const k of ['helmet', 'helmetLead']) { gm.fillStyle = R(.26, 0); gm.fillRect(...q(A[k])); }
-    gm.fillStyle = R(.8, 0); gm.fillRect(...q(A.labels));
-    SWATCH_RM.forEach(([r, mt], i) => { gm.fillStyle = R(r, mt); gm.fillRect((A.swatches[0] + i * 64) / 4, A.swatches[1] / 4, 16, 32); });
-    map = new T3.CanvasTexture(c); map.colorSpace = T3.SRGBColorSpace; map.anisotropy = 8;
-    orm = new T3.CanvasTexture(m); orm.colorSpace = T3.NoColorSpace;
-  }
-  const material = new T3.MeshStandardMaterial({color: map ? 0xffffff : 0x2a2f35, map, roughnessMap: orm, metalnessMap: orm, roughness: orm ? 1 : .85, metalness: orm ? 1 : 0, envMapIntensity: .85});
-  material.name = 'Crew atlas';
-  /* where a region's u,v (0..1, v up, as its own canvas was drawn) lands in the atlas */
-  const rect = ([x, y, w, h], gut = A.gutter) => (u, v) => [(x + gut + u * (w - 2 * gut)) / A.W, 1 - (y + gut + (1 - v) * (h - 2 * gut)) / A.H];
-  const swatch = name => { const i = SWATCH[name], [sx, sy] = A.swatches; return [(sx + i * 64 + 32) / A.W, 1 - (sy + 64) / A.H]; };
-  const label = i => { const [x0, y0] = A.labels; return rect([x0 + (i % 2) * 512, y0 + Math.floor(i / 2) * 96, 512, 96], 3); };
-  sharedAtlas = {map, orm, material, rect, swatch, label};
-  return sharedAtlas;
-}
+   v8.08 — the atlas (one canvas for every person and every thing the crew handles, one material for them all) lives in
+   people-atlas.js now, with the vest, the glove, the boot and a second row of swatches; it is re-exported here for the props and
+   for anything that read it from crew.js. */
+export {ATLAS, SWATCH, LABELS, crewAtlas} from './people-atlas.js';
 
 /* ------------------------------------------------------------------------------------------------ geometry into one skin */
 /* a geometry into the figure's (or a prop's) part list: its uv mapped into the atlas, bound to one bone or several */
@@ -135,119 +62,15 @@ function prepare(geo, uv) {
   else if (Array.isArray(uv)) { for (let i = 0; i < n; i++) uvA.setXY(i, uv[0], uv[1]); }
   g.clearGroups(); return g;
 }
-function skin(g, weights) {
-  const n = g.attributes.position.count, si = new Uint16Array(n * 4), sw = new Float32Array(n * 4);
-  for (let i = 0; i < n; i++) { const w = typeof weights === 'number' ? [[weights, 1]] : weights(g.attributes.position.getY(i), i); w.forEach(([b, x], k) => { si[i * 4 + k] = b; sw[i * 4 + k] = x; }); }
-  g.setAttribute('skinIndex', new T3.Uint16BufferAttribute(si, 4)); g.setAttribute('skinWeight', new T3.Float32BufferAttribute(sw, 4)); return g;
-}
+function makeCanvas(w, h) { if (typeof document === 'undefined') return null; const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 const moved = (geo, x, y, z, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1) => geo.applyMatrix4(new T3.Matrix4().compose(new T3.Vector3(x, y, z), new T3.Quaternion().setFromEuler(new T3.Euler(rx, ry, rz)), new T3.Vector3(sx, sy, sz)));
 
 /* ------------------------------------------------------------------------------------------------ THE FIGURE
-   buildFigure(T, opts) → a standing person in the Coates suit on a 19-bone skeleton: hips, spine, chest, neck, head, both
-   clavicles, shoulders (upper arms), elbows (forearms), wrists (hands), hips (thighs), knees (shins), ankles (feet). Built
-   in the rest pose — upright, arms hanging, facing +z (the figure's left is +x), feet on y 0 — out of the driver's own lofts
-   and capsules (car-driver.js) and his livery canvases in charcoal. Every limb is rigid on its bone with a sphere at the
-   joint, as the driver's are; the torso is lofted and its skin is shared between hips, spine and chest so it bends. One
-   SkinnedMesh, one material (the crew atlas), one draw.
-   opts: height (m, without the helmet; 1.78 is the driver), build (shoulder and hip width, 1 = the driver), label (index
-   into LABELS, across the back), helmet ('crew' | 'lead'), headset (a boom microphone on the helmet), title (the name). */
-export const BONES = Object.freeze(['hips', 'spine', 'chest', 'neck', 'head', 'clavL', 'armL', 'foreL', 'handL', 'clavR', 'armR', 'foreR', 'handR', 'thighL', 'shinL', 'footL', 'thighR', 'shinR', 'footR']);
-export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet = 'crew', headset = false, title = 'crew'} = {}) {
-  const s = height / 1.78, w = build, at = crewAtlas(), B = Object.fromEntries(BONES.map((n, i) => [n, i]));
-  /* the joints at rest, in the figure's own metres */
-  const d = {s, w, height, pelvisY: .95 * s, hipY: .93 * s, L1: .43 * s, L2: .42 * s, ankleH: .08 * s, hipX: .09 * w, shX: .19 * w, shY: 1.43 * s,
-    U1: .30 * s, U2: .265 * s, toeL: .15 * s, toeTip: .21 * s, heel: .075 * s, track: .20 * w, stride: 1.25 * s, headY: 1.58 * s, chestY: 1.25 * s, knee: .064 * s};
-  const J = {hips: [0, d.pelvisY, 0], spine: [0, 1.05 * s, 0], chest: [0, d.chestY, 0], neck: [0, 1.47 * s, 0], head: [0, d.headY, 0]};
-  for (const [side, k] of [['L', 1], ['R', -1]]) {
-    J['clav' + side] = [k * .035 * w, d.shY, 0]; J['arm' + side] = [k * d.shX, d.shY, 0]; J['fore' + side] = [k * d.shX, d.shY - d.U1, 0]; J['hand' + side] = [k * d.shX, d.shY - d.U1 - d.U2, 0];
-    J['thigh' + side] = [k * d.hipX, d.hipY, 0]; J['shin' + side] = [k * d.hipX, d.hipY - d.L1, 0]; J['foot' + side] = [k * d.hipX, d.ankleH, 0];
-  }
-  const PARENT = {spine: 'hips', chest: 'spine', neck: 'chest', head: 'neck', clavL: 'chest', armL: 'clavL', foreL: 'armL', handL: 'foreL', clavR: 'chest', armR: 'clavR', foreR: 'armR', handR: 'foreR', thighL: 'hips', shinL: 'thighL', footL: 'shinL', thighR: 'hips', shinR: 'thighR', footR: 'shinR'};
-  const root = new T.Group(); root.name = 'Crew, ' + title;
-  const bones = {}, list = BONES.map(n => { const b = new T.Bone(); b.name = 'Crew, ' + title + ', ' + n; bones[n] = b; return b; });
-  for (const n of BONES) { const p = PARENT[n], j = J[n], pj = p ? J[p] : [0, 0, 0]; bones[n].position.set(j[0] - pj[0], j[1] - pj[1], j[2] - pj[2]); if (p) bones[p].add(bones[n]); }
-  const parts = [], put = (geo, uv, weights) => parts.push(skin(prepare(geo, uv), weights));
-  const SW = name => at.swatch(name);
-
-  /* the torso: lofted from the seat of the suit to the shoulders, reclined not at all; u runs up the spine and v round the body
-     exactly as the driver's does, so the suit canvas (Coates across the chest, the 26, Coates across the back, the orange side
-     panels and yoke) lands the same way. Its skin is the hips' at the bottom, the chest's at the top and the spine's between. */
-  const TORSO = [[.84, .160, .112, .10, 0], [.90, .173, .119, .15, -.006], [.97, .166, .111, .2, -.004], [1.04, .153, .103, .25, 0], [1.12, .161, .108, .25, .006],
-                 [1.20, .179, .118, .25, .012], [1.28, .197, .125, .25, .015], [1.35, .206, .122, .3, .012], [1.41, .201, .110, .35, .005], [1.46, .162, .088, .35, 0], [1.495, .086, .07, .2, 0]];
-  const st = TORSO.map(([y, a, b, sq, z]) => ring([0, y * s, z * s], [1, 0, 0], [0, 0, 1], a * w, b * s, 28, sq));
-  const torsoW = y => { const h = 1 - ease((y / s - .92) / .16), c = ease((y / s - 1.08) / .18); const m = Math.max(0, 1 - h - c); return [[B.hips, h], [B.spine, m], [B.chest, c]].filter(v => v[1] > 1e-4).map(([b, x]) => [b, x / (h + m + c)]); };
-  put(loftGeometry(T, st), at.rect(ATLAS.suit), torsoW);
-  /* the job across the back: a patch of the torso's own surface, 2.5 mm proud of it, under the back's Coates and the 26 */
-  if (label !== null && label !== undefined) {
-    const ringAt = y => { const yy = y / s; let k = 0; while (k < TORSO.length - 2 && TORSO[k + 1][0] < yy) k++; const [y0, a0, b0, q0, z0] = TORSO[k], [y1, a1, b1, q1, z1] = TORSO[k + 1], t = clamp((yy - y0) / (y1 - y0), 0, 1); return [lerp(a0, a1, t) * w, lerp(b0, b1, t) * s, lerp(q0, q1, t), lerp(z0, z1, t) * s]; };
-    const rows = [], th0 = 1.5 * Math.PI - .62, th1 = 1.5 * Math.PI + .62;
-    for (const y of [1.085 * s, 1.125 * s, 1.165 * s]) { const [a, b, sq, z] = ringAt(y), row = [];
-      for (let i = 0; i <= 10; i++) { const t = lerp(th0, th1, i / 10), cs = Math.cos(t), sn = Math.sin(t), be = b * (1 - sq * Math.max(0, -sn)), nx = cs / a, nz = sn / be, nl = Math.hypot(nx, nz);
-        row.push([a * cs + .0025 * nx / nl, y, z + be * sn + .0025 * nz / nl]); } rows.push(row); }
-    /* rows run up the back and across it; seen from behind the text reads from the figure's right to its left */
-    const g = loftGeometry(T, rows, {caps: false}), uvA = g.attributes.uv, map = at.label(label);
-    for (let i = 0; i < uvA.count; i++) { const along = uvA.getY(i), up = uvA.getX(i); const [u, v] = map(1 - along, up); uvA.setXY(i, u, v); }
-    put(g, null, B.chest);
-  }
-  /* the collar, the neck and the helmet with its visor, rim, chin bar and spoiler; the operator's headset */
-  put(moved(new T.TorusGeometry(.074 * s, .017 * s, 8, 24), 0, 1.475 * s, 0, Math.PI / 2), SW('orange'), B.chest);
-  put(capsuleGeometry(T, [0, 1.44 * s, -.005], [0, 1.62 * s, .01], .052 * s, .05 * s, {stations: 4, sides: 12}), SW('charcoal'), B.neck);
-  const hc = [0, d.headY + .078 * s, .012 * s], hr = .133 * s;
-  /* the helmet's canvas faces its "front" (u .75) toward −z as three.js lays a sphere out; turned half round it faces +z */
-  put(moved(new T.SphereGeometry(hr, 30, 22), hc[0], hc[1], hc[2], 0, Math.PI, 0, 1, 1.06, 1.1), at.rect(helmet === 'lead' ? ATLAS.helmetLead : ATLAS.helmet), B.head);
-  put(moved(new T.SphereGeometry(hr * 1.035, 24, 8, .2 * Math.PI, .6 * Math.PI, .345 * Math.PI, .22 * Math.PI), hc[0], hc[1], hc[2], 0, 0, 0, 1, 1.06, 1.1), SW('visor'), B.head);
-  put(moved(new T.TorusGeometry(hr * 1.04, .005 * s, 6, 30, .62 * Math.PI), hc[0], hc[1] + .026 * s, hc[2], 0, -.19 * Math.PI, 0, 1, 1.06, 1.1), SW('black'), B.head);
-  put(moved(new T.CapsuleGeometry(.03 * s, .085 * s, 4, 10), hc[0], hc[1] - .082 * s, hc[2] + .106 * s, 0, 0, Math.PI / 2, 1, .8, 1), SW('black'), B.head);
-  put(moved(new T.BoxGeometry(.11 * s, .012 * s, .05 * s), hc[0], hc[1] + .105 * s, hc[2] - .11 * s, -.35), SW('black'), B.head);
-  if (headset) {
-    /* the boom microphone of a helmeted computer operator: a cup over the ear, the boom round to the chin, the foam */
-    put(moved(new T.CylinderGeometry(.04 * s, .04 * s, .03 * s, 16), hc[0] - hr * 1.02, hc[1] - .01 * s, hc[2], 0, 0, Math.PI / 2), SW('orange'), B.head);
-    put(capsuleGeometry(T, [hc[0] - hr * 1.02, hc[1] - .03 * s, hc[2] + .01], [hc[0] - .07 * s, hc[1] - .085 * s, hc[2] + .12 * s], .0055 * s, .0055 * s, {stations: 3, sides: 6}), SW('black'), B.head);
-    put(moved(new T.SphereGeometry(.016 * s, 10, 8), hc[0] - .045 * s, hc[1] - .09 * s, hc[2] + .15 * s), SW('black'), B.head);
-  }
-  /* the arms: the orange shoulder, the upper arm in the leg's striped charcoal, the elbow, the forearm with its cuff band and
-     wordmark, the glove (palm, fingers, thumb, an orange cuff); each on its own bone */
-  for (const [side, k] of [['L', 1], ['R', -1]]) {
-    const x = k * d.shX, y0 = d.shY, y1 = y0 - d.U1, y2 = y1 - d.U2;
-    put(new T.SphereGeometry(.058 * s * w, 16, 12).translate(x, y0, 0), SW('orange'), B['arm' + side]);
-    put(capsuleGeometry(T, [x, y0 + .01 * s, 0], [x, y1, 0], .056 * s * w, .047 * s * w, {stations: 6, sides: 14}), at.rect(ATLAS.leg), B['arm' + side]);
-    put(new T.SphereGeometry(.046 * s * w, 14, 10).translate(x, y1, 0), SW('charcoal'), B['fore' + side]);
-    put(capsuleGeometry(T, [x, y1, 0], [x, y2 + .015 * s, 0], .046 * s * w, .036 * s * w, {stations: 6, sides: 14}), at.rect(ATLAS.sleeve), B['fore' + side]);
-    put(moved(new T.CylinderGeometry(.039 * s, .041 * s, .035 * s, 16), x, y2 + .005 * s, 0), SW('orange'), B['hand' + side]);
-    put(moved(new T.SphereGeometry(.05 * s, 14, 10), x, y2 - .058 * s, .004, 0, 0, 0, .46, 1.05, .95), SW('glove'), B['hand' + side]);
-    put(moved(new T.CapsuleGeometry(.024 * s, .05 * s, 4, 10), x - k * .003, y2 - .125 * s, .004, 0, 0, 0, .7, 1, 1.7), SW('glove'), B['hand' + side]);
-    put(moved(new T.CapsuleGeometry(.0115 * s, .038 * s, 4, 8), x - k * .012 * s, y2 - .075 * s, .042 * s, .5, 0, k * .25), SW('glove'), B['hand' + side]);
-  }
-  /* the legs: the striped charcoal thigh, the knee, the shin, and the boot — a lofted toe box and heel, its sole, the orange
-     band round the ankle; the boot is on the foot bone at the ankle */
-  for (const [side, k] of [['L', 1], ['R', -1]]) {
-    const x = k * d.hipX, kn = d.hipY - d.L1;
-    put(capsuleGeometry(T, [x, d.hipY + .03 * s, 0], [x, kn, 0], .094 * s * w, .066 * s * w, {stations: 8, sides: 16}), at.rect(ATLAS.leg), B['thigh' + side]);
-    put(new T.SphereGeometry(d.knee * w, 14, 10).translate(x, kn, .004), SW('charcoal'), B['shin' + side]);
-    put(capsuleGeometry(T, [x, kn, 0], [x, d.ankleH + .06 * s, -.005], .062 * s * w, .048 * s * w, {stations: 7, sides: 14}), at.rect(ATLAS.leg), B['shin' + side]);
-    /* toe first: a loft laid from the toe back to the heel faces outward with this ring (the heel-first order faced inward) */
-    const BOOT = [[.205, .031, .034, .028], [.165, .038, .050, .037], [.115, .046, .055, .046], [.055, .062, .054, .062], [0, .088, .052, .088], [-.05, .08, .049, .08], [-.078, .062, .038, .058]];
-    const bst = BOOT.map(([z, y, hw, hh]) => ring([x, y * s, z * s], [1, 0, 0], [0, 1, 0], hw * s * w, hh * s, 16, .55));
-    put(loftGeometry(T, bst), SW('black'), B['foot' + side]);
-    const sst = BOOT.map(([z, , hw]) => ring([x, .007 * s, z * s], [1, 0, 0], [0, 1, 0], (hw + .004) * s * w, .0075 * s, 12, 0));
-    put(loftGeometry(T, sst), SW('rubber'), B['foot' + side]);
-    put(moved(new T.TorusGeometry(.05 * s * w, .009 * s, 6, 18), x, .15 * s, -.006, Math.PI / 2), SW('orange'), B['foot' + side]);
-  }
-
-  const geo = mergeGeometries(parts, false); parts.forEach(p => p.dispose());
-  const mesh = new T.SkinnedMesh(geo, at.material); mesh.name = 'Crew figure, ' + title; mesh.castShadow = true; mesh.receiveShadow = true;
-  /* the whole person always fits this sphere, walking, kneeling or reaching — set once, so the renderer never re-skins the
-     vertices on the processor to find it */
-  mesh.boundingSphere = new T.Sphere(new T.Vector3(0, .9 * s, 0), 1.45 * s);
-  root.add(mesh, bones.hips); root.updateMatrixWorld(true);
-  const skeleton = new T.Skeleton(list); mesh.bind(skeleton);
-  /* named points on the bones for the tests and the props: the toe pivot of each foot (where it rolls off the floor), each
-     palm's grip point */
-  const marker = (bone, x, y, z, name) => { const o = new T.Object3D(); o.name = name; o.position.set(x, y, z); bones[bone].add(o); return o; };
-  const markers = {toeL: marker('footL', 0, -d.ankleH, d.toeL, 'toe pivot L'), toeR: marker('footR', 0, -d.ankleH, d.toeL, 'toe pivot R'),
-    gripL: marker('handL', -.012 * s, -.085 * s, .012 * s, 'grip L'), gripR: marker('handR', .012 * s, -.085 * s, .012 * s, 'grip R')};
-  return {root, mesh, bones, skeleton, dims: d, markers, title, triangles: geo.index.count / 3};
-}
+   v8.08 — buildFigure (people-figure.js): the same 19 bones at the same joints as the v5.81 figure, a new body round them —
+   continuous lofted limbs skinned across the knees and elbows, gloves with fingers, work boots on the floor, a full-face helmet
+   with its visor, the Coates suit's belt and reflective hoops, and the safety officer's vest in his own skin. Re-exported here so
+   car-app.js (the race driver's walk-out) and the tests keep importing it from crew.js. */
+export {BONES, buildFigure} from './people-figure.js';
 
 /* ------------------------------------------------------------------------------------------------ CLIPS
    A small keyframe system: a clip is named channels of [time, value] keys, eased between them, looped or not. The walk is
@@ -909,16 +732,29 @@ export const SPOTS = Object.freeze({
   mechanicPost: [-6.5, -3.1], techPost: [4.95, 2.45], leadPost: [-3.75, -3.05], nose: [-3.3, -1.95],   /* v5.82: clear of the footprint beside the nose (OBSTACLES: z −1.65 … −.45), where he stood inside it by 20 cm */ engineDesk: [-1.35, -3.62],
   desk: [-2.4, -4.3], rackStore: [5.6, 3.1],
 });
-/* v5.86 — where the safety control officer stands when the hall opens: the far aisle beside the car, behind it from the opening camera */
-export const SAFETY_START = Object.freeze([1.8, -2.95]);
+/* v5.86 — where the safety control officer stands when the hall opens. v8.08 — not on the far aisle behind the car any more: from the
+   opening camera (and the V8 powertrain one) the car hid him from the knees down and he read as a man standing up out of its roof
+   (Andrew Fisher, 2 Oct 2026: "The guy who is the driver looks like he crawls out of vehicle" — the helmet with the 26 and the SAFETY
+   vest are his). He starts at the near corner behind the tail, on the floor in plain view, watching the car. */
+export const SAFETY_START = Object.freeze([4.4, 2.6]);
+/* v8.08 — WHERE THE CAR HIDES THE FLOOR. The car and V8 powertrain views look at the car from these directions across the floor
+   (car-app.js LOOK: camY/camZ and engY/engZ, x −1): a person standing where the line from him toward either camera crosses the car is
+   seen with his legs behind it and his body over it — on its roof. A standing place, a post or a patrol leg is chosen outside that;
+   a job at the far side of the car (a wheel, a tyre, the engine bay) still goes where the job is. */
+export const VIEW_DIRS = Object.freeze([[-1, .5], [-1, .8]]);
+export const CAR_FOOTPRINT = Object.freeze([-2.62, -1.12, 2.62, 1.12]);
+export function behindCar(x, z, pad = .3) {
+  for (const [dx, dz] of VIEW_DIRS) { const L = Math.hypot(dx, dz); if (!segmentClear(x, z, x + dx / L * 40, z + dz / L * 40, [CAR_FOOTPRINT], pad)) return true; }
+  return false;
+}
 export function sideSpots(o) {
   /* the mechanic kneels at the wheel's corner, beside the line it slides out on (ahead of the near wheel, behind the far one: his
      right hand is then toward the nut and his raised knee is clear of the tyre) */
   return {o, kneel: [XW - o * .46, o * 1.45], kneelYaw: o > 0 ? Math.PI : 0, rack: [XW + 1.75, o * 2.35], rackYaw: Math.PI / 2, approach: [XW + 1.75 - .47, o * 2.35], receive: [XW + 1.75 + .56, o * 2.35],
-    sill: [-.1, o * 1.40], supervise: [XW + 2.75, o * 3.35], rackPlace: [XW + 1.75 - .36, o * 2.35]};
+    sill: [-.1, o * 1.40], supervise: o > 0 ? [XW + 2.75, 3.35] : [XW + 4.45, -.2], rackPlace: [XW + 1.75 - .36, o * 2.35]};   /* v8.08: the far side's supervising place is behind the tail (on the far aisle the car hid him) */
 }
 /* the loop of aisle points round the cell, and what stands on the floor (boxes x0, z0, x1, z1) */
-export const NODES = Object.freeze([[-4.8, 2.6], [-4.8, 0], [-4.8, -2.6], [-1.0, 2.85], [1.8, 2.95], [4.4, 2.6], [4.4, 0], [4.4, -2.6], [1.8, -2.95], [-1.0, -2.85], [-6.6, -2.6], [-6.6, 2.4]]);
+export const NODES = Object.freeze([[-4.8, 2.6], [-4.8, 0], [-4.8, -2.6], [-1.0, 2.85], [1.8, 2.95], [4.4, 2.6], [4.4, 0], [4.4, -2.6], [1.8, -2.95], [-1.0, -2.85], [-6.6, -2.6], [-6.6, 2.4], [5.7, .3]]);
 export const OBSTACLES = Object.freeze([[-2.62, -1.12, 2.62, 1.12], [.35, -1.42, 2.1, 1.42], [-4.25, .45, -2.4, 1.65], [-4.25, -1.65, -2.4, -.45], [2.3, .5, 3.75, 1.65], [2.3, -1.65, 3.75, -.5],
   [-6.45, -1.0, -5.35, 1.0], [-.98, -4.05, .98, -3.35], [-3.18, -4.7, -1.62, -3.9], [-2.7, -3.95, -2.1, -3.3], [-7.7, -4.25, -7.1, -3.75]]);
 
@@ -942,7 +778,7 @@ export const ROLES = Object.freeze([
   {id: 'lead', title: 'crew lead', label: 4, height: 1.86, build: 1.03, helmet: 'lead', seed: 53, walk: 1.15},
   {id: 'driver', title: 'forklift operator', label: 5, height: 1.78, build: 1.06, helmet: 'crew', seed: 67, walk: 1.1},
   /* v5.85 — the safety control officer (Andrew Fisher, 26 Sep 2026): white helmet, a hi-vis vest over the suit (the vest carries his title; the suit's label under it is never seen) */
-  {id: 'safety', title: 'safety control officer', label: 4, height: 1.79, build: 1.0, helmet: 'lead', seed: 79, walk: 1.0},
+  {id: 'safety', title: 'safety control officer', label: 4, height: 1.79, build: 1.0, helmet: 'lead', seed: 79, walk: 1.0, vest: true},
 ]);
 /* The Coates words on the crew's cards are the garage's own (pit-garage.js: its exhibits, and the Life Saving Rules as Andrew sent
    them) — taken from there, never typed again here; only the sentence saying what each person does is this file's. */
@@ -1023,7 +859,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   const screenMat = new T3.MeshBasicMaterial({color: 0xffffff, map: screenTex}); screenMat.name = 'Crew screens';
   /* the people */
   const men = {};
-  for (const r of ROLES) { const fig = buildFigure(T3, {title: r.title, label: r.label, height: r.height, build: r.build, helmet: r.helmet, headset: !!r.headset});
+  for (const r of ROLES) { const fig = buildFigure(T3, {title: r.title, label: r.label, height: r.height, build: r.build, helmet: r.helmet, headset: !!r.headset, vest: !!r.vest});
     const m = new Crewman(fig, {seed: r.seed, name: r.id, walk: r.walk}); m.role = r; men[r.id] = m;
     /* a pick box for the card, on the person */
     const box = new T3.Mesh(new T3.BoxGeometry(.62, 1.9, .5), new T3.MeshBasicMaterial({visible: false})); box.position.y = .95; box.name = 'exhibit-' + CREW_EXHIBITS[r.id].id; box.userData.exhibit = CREW_EXHIBITS[r.id]; fig.root.add(box); m.box = box; }
@@ -1116,8 +952,16 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   const crewClear = () => !inZone(men.mechanic) && !inZone(men.tech) && S.gunAt === 'stand' && S.rackAt === 'store' && !men.mechanic.path && !men.tech.path;
   /* the route from where a person stands to a place */
   const obstacles = () => { const o = OBSTACLES.slice(); if (S.rackAt === 'placed') { const r = rack.position; o.push([r.x - .32, r.z - .3, r.x + .32, r.z + .3]); } return o; };
+  /* v8.08 — a walk from one place in plain view to another stays in plain view: it goes round by the aisle points the car does not
+     hide (behindCar), and only by the far aisle when there is no other way or the place itself is there */
+  const SEEN = NODES.filter(n => !behindCar(n[0], n[1]));
+  function plan(from, to) {
+    const ob = obstacles();
+    if (!behindCar(from[0], from[1]) && !behindCar(to[0], to[1])) { const r = route(from, to, ob, SEEN); let ok = true; for (let i = 1; i < r.length && ok; i++) ok = segmentClear(r[i - 1][0], r[i - 1][1], r[i][0], r[i][1], ob, .02); if (ok) return r; }
+    return route(from, to, ob, NODES);
+  }
   function* go(m, to, face = null, speed = null) {
-    const pts = route([m.pos.x, m.pos.z], to, obstacles(), NODES).slice(1);
+    const pts = plan([m.pos.x, m.pos.z], to).slice(1);
     m.walkTo(pts.length ? pts : [to], {face, speed: speed ?? m.walkSpeed, clearOf: obstacles()}); yield () => m.arrived;
   }
   const phase = () => service ? service.phase : 'ready', hold = () => service ? service.hold : null;
@@ -1349,23 +1193,12 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     }
   }
 
-  /* ---- v5.85 — the safety control officer: the vest, and the patrol ---- */
-  { const m = men.safety, f = m.fig, B = f.bones; f.root.updateMatrixWorld(true);
-    const P = b => new T3.Vector3().setFromMatrixPosition(b.matrixWorld), sp = P(B.spine), nk = P(B.neck), cl = P(B.armL), cr = P(B.armR);   /* the shoulder joints: the collarbones start together at the neck */
-    const up = nk.clone().sub(sp), H = up.length(); up.normalize(); const side = cr.clone().sub(cl), W = side.length(); side.normalize(); const fw = new T3.Vector3().crossVectors(side, up).normalize();
-    const vc = makeCanvas(512, 256), vg = vc && vc.getContext('2d');
-    if (vg) { vg.fillStyle = '#c6f21a'; vg.fillRect(0, 0, 512, 256); vg.fillStyle = '#e9ecec'; for (const y of [150, 196]) vg.fillRect(0, y, 512, 16); for (const x of [96, 160, 352, 416]) vg.fillRect(x - 7, 0, 14, 150);
-      vg.fillStyle = '#1b2226'; vg.font = '900 44px Arial, Helvetica, sans-serif'; vg.textAlign = 'center'; vg.textBaseline = 'middle'; for (const x of [128, 384]) vg.fillText('SAFETY', x, 96); }
-    const vt = vc ? new T3.CanvasTexture(vc) : null; if (vt) vt.colorSpace = T3.SRGBColorSpace;
-    const vest = new T3.Mesh(new T3.CylinderGeometry(1, .96, 1, 20, 1, true), new T3.MeshStandardMaterial({color: 0xffffff, map: vt, roughness: .75, metalness: 0, emissive: 0x1a2200, side: T3.DoubleSide}));
-    vest.name = 'Safety officer hi-vis vest';
-    const basis = new T3.Matrix4().makeBasis(side, up, fw); vest.quaternion.setFromRotationMatrix(basis); vest.scale.set(W * .63, H * 1.08, W * .47);
-    vest.position.copy(sp).addScaledVector(up, H * .52); B.chest.attach(vest); }
+  /* ---- v5.85 — the safety control officer: the vest, and the patrol. v8.08: the vest is his own skin (people-figure.js, vest: true),
+     drawn with the rest of him in one draw, and it bends with him; no separate mesh is hung on his chest any more ---- */
   /* v5.86 — out of the opening shot (Andrew Fisher's first-open audit, 26 Sep 2026): he began at the near corner (−4.8, 2.6), which
      sits on the line from the opening camera to the car on a laptop and on a phone alike, and he stood there first — dead centre in
      front of the car. He now starts on the far aisle beside the car (SAFETY_START), watching it across the cell, and the patrol no
      longer stops at that corner; he still walks past it, and while he is between the camera and the car he fades (view-fx.js). */
-  const PATROL = [[-1.0, -2.85], [-4.8, -2.6], [-4.8, 0], [-1.0, 2.85], [1.8, 2.95], [4.4, 2.6], [4.4, 0], [4.4, -2.6], [SAFETY_START[0], SAFETY_START[1]]];
   function* safety() {
     const m = men.safety; let i = 0;
     for (;;) {
@@ -1388,15 +1221,15 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
       m.lookAt(null);
     }
   }
-  /* the stops of his check (x, z to stand at; the thing he checks, x, y, z), every one outside the crew's floor boxes (OBSTACLES) */
+  /* the stops of his check (x, z to stand at; the thing he checks, x, y, z), every one outside the crew's floor boxes (OBSTACLES) and,
+     v8.08, every one in plain view from the car and V8 powertrain cameras (behindCar): the far rear tie-down and the far aisle stops are
+     gone (the car hid him there from the knees down), and the near front ones (he stood between the camera and the car, and was faded) */
   const CHECKS = [
     {at: [4.1, 1.95], look: [3.6, .05, 1.5], crouch: .8, what: 'rear tie-down, near'},
-    {at: [4.1, -1.95], look: [3.6, .05, -1.5], crouch: .8, what: 'rear tie-down, far'},
-    {at: [-1.3, -1.62], look: [-1.34, .06, -.83], crouch: .7, what: 'front chock, far'},
+    {at: [5.6, 1.1], look: [XW + .4, .25, .3], crouch: 0, what: 'the rollers and the rear wheels, from behind the cell'},
     {at: [-4.6, -1.95], look: [-4.1, .05, -1.5], crouch: .8, what: 'front tie-down, far'},
-    {at: [-4.6, 1.95], look: [-4.1, .05, 1.5], crouch: .8, what: 'front tie-down, near'},
-    {at: [-1.3, 1.62], look: [-1.34, .06, .83], crouch: .7, what: 'front chock, near'},
-    {at: [SAFETY_START[0], SAFETY_START[1]], look: [0, .8, 0], crouch: 0, what: 'the cell, from his line'}];
+    {at: [-2.3, -1.78], look: [-1.34, .06, -.83], crouch: .7, what: 'front chock, far'},
+    {at: [SAFETY_START[0], SAFETY_START[1]], look: [0, .8, 0], crouch: 0, what: 'the cell, from his corner'}];
   const scripts = {safety: new Script(safety), operator: new Script(operator), engine: new Script(engine), lead: new Script(lead), tech: new Script(tech), mechanic: new Script(mechanic), driver: new Script(driver)};
   function placeAll() {
     men.mechanic.place(...SPOTS.mechanicPost, yawTo(-SPOTS.mechanicPost[0], -SPOTS.mechanicPost[1]));
