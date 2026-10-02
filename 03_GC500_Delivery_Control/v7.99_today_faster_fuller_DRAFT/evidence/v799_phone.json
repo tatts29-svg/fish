@@ -178,6 +178,42 @@
    }
   },
   {
+   "name": "a print from Equipment leaves its list alone and draws nothing on Today",
+   "pass": true,
+   "detail": {
+    "before": 74,
+    "after": 74,
+    "same": true,
+    "lazy": 2
+   }
+  },
+  {
+   "name": "opening On site by its line keeps it in place, open, drawn",
+   "pass": true,
+   "detail": {
+    "before": 675,
+    "after": {
+     "top": 675,
+     "open": true,
+     "focus": true,
+     "drawn": true
+    }
+   }
+  },
+  {
+   "name": "opening By branch by its line keeps it in place, open, drawn",
+   "pass": true,
+   "detail": {
+    "before": 675,
+    "after": {
+     "top": 675,
+     "open": true,
+     "focus": true,
+     "drawn": true
+    }
+   }
+  },
+  {
    "name": "no page errors",
    "pass": true,
    "detail": []

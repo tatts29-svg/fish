@@ -7,7 +7,7 @@ SECTIONS THAT SHARE FIGURES (most first):
   14  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  costs · table (table)   e.g. $120,913, $572,467, $1,250, $2,100, $99,052, $235,372
   12  costs · From the Street Rate Card 2026 · what the card f (table)  <->  questions · Answered or history   e.g. $2,100, $6,800, $2,800, $2,250, $1,415, $5,548
    9  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)   e.g. $120,913, $572,467, $99,052, $55,817, $19,670, $6,938
-   9  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  <->  costs · table (table)   e.g. $572,467, $235,372, $831,050, $444,411, $31,824, $258,583
+   9  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  <->  costs · table (table)   e.g. $572,467, $235,372, $831,050, $447,384, $31,824, $258,583
    8  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  costs · Internal labour hours and overtime   e.g. $1,250, $15,564, $22,011, $75,871, $75,021, $1,380
    7  costs · By branch 4 (table)  <->  today · All branches together (By branch)   e.g. $120,913, $99,052, $202,165, $138,920, $47,292, $9,552
    7  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  today · All branches together (By branch)   e.g. $120,913, $572,467, $99,052, $55,817, $19,670, $6,938
@@ -181,7 +181,7 @@ across tabs 800 of 1,895   questions · Needs an answer  |  coatesway · The thi
 same tab    $118,575       costs · (page text)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · table (table)  |  costs · Internal labour hours and overtime
 same tab    $16,148        fencing · By week — planned, done, still to do  |  fencing · By week — planned, done, still to do (table)  |  fencing · Purchase orders 9 (table)
 same tab    $831,050       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  |  costs · table (table)
-same tab    $444,411       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  |  costs · table (table)
+same tab    $447,384       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  |  costs · table (table)
 same tab    $31,824        costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  |  costs · table (table)
 same tab    $258,583       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  |  costs · table (table)
 same tab    $176,968       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  |  costs · table (table)
@@ -201,10 +201,10 @@ same tab    $40,829        today · Forklifts (By group)  |  today · Revenue, b
 same tab    20 of 20       today · Track mat (By group)  |  today · STPS (By branch)
 same tab    $2,383         fencing · By area — what has been done where (table)  |  fencing · Docket register 63 RED BOOK · HIRE AGREEMENTS (table)
 same tab    $1,850         fencing · By week — planned, done, still to do (table)  |  fencing · Docket register 63 RED BOOK · HIRE AGREEMENTS (table)
-same tab    $420,740       costs · (page text)  |  costs · table (table)
+same tab    $423,714       costs · (page text)  |  costs · table (table)
 same tab    $23,671        costs · (page text)  |  costs · table (table)
-same tab    $354,815       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026
-same tab    $209,039       costs · (page text)  |  costs · table (table)
+same tab    $351,842       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026
+same tab    $212,013       costs · (page text)  |  costs · table (table)
 same tab    $70,223        costs · (page text)  |  costs · table (table)
 same tab    $302,742       costs · (page text)  |  costs · table (table)
 same tab    $561,326       costs · (page text)  |  costs · table (table)

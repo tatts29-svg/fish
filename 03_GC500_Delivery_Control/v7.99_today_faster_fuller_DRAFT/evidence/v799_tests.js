@@ -76,14 +76,16 @@ const MOB = process.env.MOB === '1';
     if (!MOB) {
       await p.evaluate(() => document.querySelectorAll('#pane-today details.fold95').forEach(d => { d.open = true; })); await wait(1500);
       const pk = await p.evaluate(() => { const fence = document.querySelector('#pane-progress .groups:not(.branches) > .grp.fence'), all = document.querySelector('#pane-progress .groups.branches > .grp.branch.all');
-        return {fence: fence && fence.style.gridColumn, all: all && all.style.gridColumn, placed: document.querySelectorAll('#pane-today .mas95 > [style*="grid-row-start"]').length,
+        return {fence: fence && fence.style.getPropertyValue('--c799'), all: all && all.style.getPropertyValue('--c799'), placed: document.querySelectorAll('#pane-today .mas95 > [data-p799]').length,
           wide: [...document.querySelectorAll('[data-wide799]')].map(k => (k.querySelector('.k,h3') || k).textContent.trim().slice(0, 30))}; });
       ok('cards are placed, and the two-wide plates stay two wide', pk.placed > 10 && /span 2/.test(pk.fence || '') && /span 2/.test(pk.all || ''), pk);
       for (const [w, h] of [[1440, 900], [1280, 800], [1000, 800]]) { await p.setViewportSize({width: w, height: h}); await wait(1500);
         const ov = await overlaps(); ok(`no overlap and nothing outside its box at ${w} px`, ov.length === 0, ov); }
-      await p.setViewportSize({width: 1440, height: 900}); await wait(1200);
+      await p.setViewportSize({width: 1440, height: 900}); await wait(1500);
+      const wb = await p.evaluate(() => [...document.querySelectorAll('[data-wide799]')].map(k => (k.querySelector('.k,h3') || k).textContent.trim().slice(0, 30)));
+      ok('widening is decided afresh after the window changes, and comes back the same', JSON.stringify(wb) === JSON.stringify(pk.wide), {before: pk.wide, after: wb});
     } else {
-      const ph = await p.evaluate(() => ({w: document.documentElement.scrollWidth, placed: document.querySelectorAll('#pane-today .mas95 > [style*="grid-row-start"]').length}));
+      const ph = await p.evaluate(() => ({w: document.documentElement.scrollWidth, placed: document.querySelectorAll('#pane-today .mas95 > [data-p799]').length}));
       ok('phone: one column as before, nothing placed, no sideways scroll', ph.w <= 391 && ph.placed === 0, ph);
     }
 
@@ -93,6 +95,37 @@ const MOB = process.env.MOB === '1';
       const r = {lazy: document.querySelectorAll('#pane-progress .lazy799').length, words: document.querySelector('#pane-today details.fold95[data-fold="By branch"] summary span').textContent};
       i.value = todayIso(); i.dispatchEvent(new Event('change')); await new Promise(r => setTimeout(r, 1200)); return r; });
     ok('the date control replays the day with the folds still waiting', d.lazy === 2 && /branch/.test(d.words), d);
+    // 8. a print from another tab leaves Where we are, and the list it sets, alone (independent review, finding 2)
+    const other = await p.evaluate(async () => { folds795().clear(); go('today'); await new Promise(r => setTimeout(r, 900)); go('plant'); await new Promise(r => setTimeout(r, 1200));
+      const before = (state.list || []).slice(); window.dispatchEvent(new Event('beforeprint')); window.dispatchEvent(new Event('afterprint')); await new Promise(r => setTimeout(r, 300));
+      return {before: before.length, after: (state.list || []).length, same: JSON.stringify(before) === JSON.stringify(state.list || []), lazy: document.querySelectorAll('#pane-progress .lazy799').length}; });
+    ok('a print from Equipment leaves its list alone and draws nothing on Today', other.same && other.lazy === 2, other);
+
+    // 9. opening a fold by its own line keeps it where it was on screen, and keeps the focus (finding 3)
+    await p.evaluate(() => { folds795().clear(); go('today'); }); await wait(1500);
+    for (const name of ['On site', 'By branch']) {
+      const before = await p.evaluate(name => { const sm = document.querySelector(`#pane-today details.fold95[data-fold="${name}"] > summary`), m = $('main');
+        m.scrollTop += sm.getBoundingClientRect().top - m.getBoundingClientRect().top - 420; return Math.round(sm.getBoundingClientRect().top); }, name); await wait(400);
+      if (MOB) await p.tap(`#pane-today details.fold95[data-fold="${name}"] > summary`); else await p.click(`#pane-today details.fold95[data-fold="${name}"] > summary`);
+      await wait(1800);
+      const after = await p.evaluate(name => { const sm = document.querySelector(`#pane-today details.fold95[data-fold="${name}"] > summary`);
+        return {top: Math.round(sm.getBoundingClientRect().top), open: sm.parentElement.open, focus: document.activeElement === sm, drawn: !sm.parentElement.querySelector('.lazy799')}; }, name);
+      ok(`opening ${name} by its line keeps it in place, open, drawn${MOB ? '' : ' and focused'}`, Math.abs(after.top - before) <= 30 && after.open && after.drawn && (MOB || after.focus), {before, after});
+    }
+
+    // 10. paper is laid out as live's: the same number of pages, both ways of printing (finding 1)
+    if (process.env.BASE && !MOB) {
+      const pages = async file => { const h = await open({pageFile: file, W: 1440, H: 900, gl: false}), q = h.page;
+        await q.waitForFunction(() => SYNC.status === 'live' && SYNC.first.size === Object.keys(SYNC_COLLS).length, null, {timeout: 240000}); await q.emulateMedia({reducedMotion: 'reduce'}); await wait(2000);
+        await q.evaluate(() => go('today')); await wait(1500);
+        await q.evaluate(() => document.querySelectorAll('#pane-today details.fold95').forEach(d => { d.open = true; })); await wait(2000);
+        const count = b => (b.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length;
+        const ctrlP = count(await q.pdf({format: 'A4'}));
+        await q.evaluate(() => document.body.classList.add('printing-progress')); const report = count(await q.pdf({format: 'A4'}));
+        await q.evaluate(() => document.body.classList.remove('printing-progress')); await h.browser.close(); return {ctrlP, report}; };
+      const a = await pages(process.env.BASE), b = await pages(process.env.PAGE);
+      ok('paper has as many pages as live: Ctrl+P on Today and the A4 report', a.ctrlP === b.ctrlP && a.report === b.report, {live: a, v799: b});
+    }
     ok('no page errors', s.errors.length === 0, s.errors.slice(0, 3));
   } finally {
     const pass = res.filter(r => r.pass).length; console.log(`${pass}/${res.length} ${MOB ? 'phone' : 'desktop'} · page errors ${s.errors.length}`);

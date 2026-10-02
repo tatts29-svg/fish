@@ -1,6 +1,6 @@
 {
  "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.99/GC500_Delivery_Control_hosted.html",
- "at": "2026-10-02T05:14:11.952Z",
+ "at": "2026-10-02T05:35:28.599Z",
  "tabs": [
   {
    "tab": "today",
@@ -1364,7 +1364,7 @@
    "kept": null
   },
   {
-   "fact": "$444,411",
+   "fact": "$447,384",
    "places": [
     "costs · (page text)",
     "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
@@ -1551,7 +1551,7 @@
    "kept": null
   },
   {
-   "fact": "$420,740",
+   "fact": "$423,714",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1569,7 +1569,7 @@
    "kept": null
   },
   {
-   "fact": "$354,815",
+   "fact": "$351,842",
    "places": [
     "costs · (page text)",
     "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026"
@@ -1578,7 +1578,7 @@
    "kept": null
   },
   {
-   "fact": "$209,039",
+   "fact": "$212,013",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1795,7 +1795,7 @@
     "$572,467",
     "$235,372",
     "$831,050",
-    "$444,411",
+    "$447,384",
     "$31,824",
     "$258,583"
    ]
