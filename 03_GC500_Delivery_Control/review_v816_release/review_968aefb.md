@@ -37,9 +37,11 @@ The exact patch applies successfully to the local v8.13 baseline `f07e92cc79ad41
 
 ## Exact verification and limits
 
-- Original nine CPU observations rerun against the new Demob source and actual patched baseline functions. Results: `/workspace/private-release-audit-v816-968aefb/original_fixture_rerun.json`.
-- Six additional CPU observations exercise actual confirmation, 49-unit pump coverage, confirmed unknown quantity, unknown mixed toilet/tank, equal-time merge order and the repaired known-history amber gate. Portable fixture/results: `/workspace/private-release-audit-v816-968aefb/followup_cpu.cjs` and `followup_cpu.json`. These record observed failures as well as fixes; they are not a passing release suite.
-- Independent narrow recheck: **12/12 intended-behaviour checks pass** for the original Timeline/drawer corrections. A separate assertion reproduces the new explicit-plan divergence and is not counted as a passing behaviour check. Portable fixture/results: `/workspace/private-release-audit-v816-968aefb/timeline_drawer_recheck.cjs` and `timeline_drawer_recheck.json`.
+- Original nine CPU observations rerun against the new Demob source and actual patched baseline functions. Results: [original_fixture_rerun_968aefb.json](evidence/original_fixture_rerun_968aefb.json).
+- Six additional CPU observations exercise actual confirmation, 49-unit pump coverage, confirmed unknown quantity, unknown mixed toilet/tank, equal-time merge order and the repaired known-history amber gate. Portable [fixture](evidence/followup_cpu_968aefb.cjs) and [results](evidence/followup_cpu_968aefb.json). These record observed failures as well as fixes; they are not a passing release suite.
+- Independent narrow recheck: **12/12 intended-behaviour checks pass** for the original Timeline/drawer corrections. A separate assertion reproduces the new explicit-plan divergence and is not counted as a passing behaviour check. Portable [fixture](evidence/timeline_drawer_recheck_968aefb.cjs) and [results](evidence/timeline_drawer_recheck_968aefb.json).
 - The updated `v816_tests.js` was read, not run in a browser. Its split test examines the pre-confirmation model; its unknown-quantity test examines only a proposed reference; its merge test uses unequal timestamps. Those cases do not settle the remaining findings.
+
+See [reproduction instructions](evidence/reproduce_968aefb.md) for frozen-source extraction, exact baseline/candidate hashes and CLI arguments. The portable copies contain only synthetic fixture data; no private operational records were included.
 
 No browser, network request, live/operational write, implementation edit or commit. No visual, physical-device, print-layout, fresh-live-build or standing-suite approval is implied. The owner must resolve the blockers, rebuild from the then-current live page and rerun affected and required checks before a READY handover.
