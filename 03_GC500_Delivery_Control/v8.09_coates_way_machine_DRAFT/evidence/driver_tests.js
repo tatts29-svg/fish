@@ -54,6 +54,20 @@ async function run() {
   await P.evaluate(() => window.__cw.renderer.setAnimationLoop(null));
   await P.evaluate(HELPERS); log('ready');
 
+  /* 0. (Codex review fixes f45961b) the first frame he is seen walking is drawn where he is: at the sill, turned the way he faces. The
+     walker was shown after being placed at the sill but before his figure was posed there, so for one frame he stood where he had last
+     been drawn (1.7 m off the first time; 6.1 m after a Reset from the safe spot). Fails on ba9fff7. */
+  { const r = await P.evaluate(() => { const H = window.__dt, cw = window.__cw, out = [];
+      const first = () => { const m = cw.driverMan; let n = 0; while (!m.fig.root.visible && n++ < 600) cw.advance(1 / 30, 1 / 30); if (!m.fig.root.visible) return null;
+        const rp = m.fig.root.position, q = m.fig.root.quaternion, yaw = 2 * Math.atan2(q.y, q.w), dy = Math.atan2(Math.sin(yaw - m.yaw), Math.cos(yaw - m.yaw));
+        return {phase: cw.driverExit.phase, off: +Math.hypot(rp.x - m.pos.x, rp.z - m.pos.z).toFixed(3), yawOff: +Math.abs(dy).toFixed(3), post: m.post.kind}; };
+      H.reset(); H.press(); out.push(first());
+      H.step(60, () => H.apart()); document.getElementById('reset').click(); cw.advance(.5, 1 / 30); H.bad = []; H.press(); out.push(first());
+      H.reset(); return out; });
+    const ok = x => x && x.off < .01 && x.yawOff < .01 && x.post === 'crouch';
+    check('the first frame he is seen walking out is drawn at the sill, crouched, facing the right way', ok(r[0]), JSON.stringify(r[0]));
+    check('…and the same after a Reset from the safe spot', ok(r[1]), JSON.stringify(r[1])); }
+
   /* 1. Explode again at every stage */
   const stages = [
     ['door', 'the door opening (a second press while it opens)', e => e.phase === 'door' && e.door > .4, 'rest'],

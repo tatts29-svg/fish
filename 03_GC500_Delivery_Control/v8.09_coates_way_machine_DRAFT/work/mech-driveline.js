@@ -124,8 +124,12 @@ export function buildDriveline(T,mats,assembly,mesh,batch,h){
   /* the pedal is down before the starter turns, so the plates open at once; they take up again over two thirds of a radian of the
      crank's turn once the engine runs (a little slip, as a real one has) — measured in the crank's own travel, so it is the same
      however the frames fall */
-  engaged=starting?0:Math.min(1,engaged+Math.abs(d)*1.5);
-  clutchAngle+=d*engaged;
+  /* Integrate the take-up ramp over this crank step, including any fully clamped remainder.
+     Sampling only the final engagement transfers too much turn on a longer frame. */
+  if(starting)engaged=0;
+  else{const travel=Math.abs(d),ramp=Math.min(travel,(1-engaged)/1.5),before=engaged;
+   engaged=Math.min(1,engaged+ramp*1.5);
+   clutchAngle+=Math.sign(d)*(ramp*(before+engaged)/2+(travel-ramp));}
   if(connected('clutch')){cover.rotation.x=crankAngle;discs.rotation.x=clutchAngle;const open=1-engaged;plate.position.x=.003*open;bearing.position.x=-.010*open;fingers.scale.x=1;fingers.rotation.x=0;fingers.position.x=.054-.006*open;}
   return clutchAngle;
  }

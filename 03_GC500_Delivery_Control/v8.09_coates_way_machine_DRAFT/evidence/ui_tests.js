@@ -205,6 +205,50 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   await clickId('register-open'); st = await state(); check('Find a part opens the register, nothing else', st.dialogs.includes('register') && st.cards.length === 0);
   const rx = await page.$eval('#register .dialog-head button', e => { const b = e.getBoundingClientRect(); return [b.width, b.height]; }).catch(() => [0, 0]); check('register ✕ is 44 px or more', rx[0] >= 43.5 && rx[1] >= 43.5, rx.map(Math.round).join('×'));
   await page.keyboard.press('Escape'); await wait(500);
+  /* (Codex review fixes f45961b) Find a part during the guided tour: the register is the only thing open, and closing it does not bring
+     the tour back (the tour card stayed open underneath it). Closed by its ✕, not Escape, so nothing else can end the tour. Fails on ba9fff7. */
+  if (isWork) {
+    await clickId('tour'); await clickId('register-open'); st = await state();
+    check('Find a part during the guided tour: the register is the only thing open (the tour ends)', st.dialogs.includes('register') && st.count === 1, `${[...st.cards, ...st.dialogs].join(', ')}`);
+    await clickSel('#register .dialog-head button'); await wait(500); st = await state();
+    check('…and closing the register leaves nothing open (the tour does not come back)', st.count === 0, `${[...st.cards, ...st.dialogs].join(', ') || 'none'}`);
+    if (st.cards.includes('tour-panel')) await clickId('tour-close');
+    /* the two buttons whose words are hidden or are a sign have their own names */
+    const nm = await page.evaluate(() => ({tour: document.getElementById('tour').getAttribute('aria-label'), inspect: document.getElementById('inspect-toggle').getAttribute('aria-label'), controls: document.getElementById('inspect-toggle').getAttribute('aria-controls')}));
+    check('Guided tour and the part-details toggle have explicit names', nm.tour === 'Guided tour' && /selected part details/i.test(nm.inspect || '') && nm.controls === 'inspect-content', JSON.stringify(nm));
+  }
+
+  /* ── two fingers on the steering wheel (phone) ── */
+  /* (Codex review fixes f45961b) a second finger down while one holds the wheel: once both are lifted, in either order or by a cancel, the
+     wheel lets go and the view can be turned again (the second touch dropped the grab, so the wheel stayed held and orbit stayed off).
+     Real touches through the browser, at a point where the page's own picking finds the wheel. Fails on ba9fff7. */
+  if (isWork && dev.mobile) {
+    await page.click('[data-view="car"]', {force: true}); await wait(1500); await page.click('#home', {force: true}); await until(() => !window.__cw.tween, 120000);
+    await page.evaluate(() => { window.__tp = []; const c = document.getElementById('canvas'); for (const t of ['pointerdown', 'pointerup', 'pointercancel']) c.addEventListener(t, e => window.__tp.push(t.replace('pointer', '') + e.pointerId)); });
+    const names = await page.evaluate(() => { const cat = document.getElementById('category'), opt = [...cat.options].find(o => /cog/i.test(o.value)); if (!opt) return []; cat.value = opt.value; cat.dispatchEvent(new Event('change')); cat.dispatchEvent(new Event('input'));
+      const out = [...document.querySelectorAll('#results .result-row b')].map(b => b.textContent); cat.value = ''; cat.dispatchEvent(new Event('change')); cat.dispatchEvent(new Event('input')); return out; });
+    const cands = await page.evaluate(names => { const c = document.getElementById('canvas').getBoundingClientRect(), dock = document.querySelector('.dock').getBoundingClientRect(), out = [];
+      for (let y = c.top + 40; y < Math.min(c.bottom, dock.top) - 10; y += 10) for (let x = c.left + 10; x < c.right - 10; x += 10) { if (document.elementFromPoint(x, y) !== document.getElementById('canvas')) continue;
+        const k = window.__cw.pickAt(x, y); if (k && k.kind === 'part' && (names.includes(k.name) || /rim|spoke|tooth bolt|quick-release/i.test(k.name))) out.push({x: Math.round(x), y: Math.round(y), name: k.name}); }
+      return out; }, names);
+    const T = (type, pts) => cdp.send('Input.dispatchTouchEvent', {type, touchPoints: pts});
+    const held = () => page.evaluate(() => !window.__cw.controls.enabled);
+    let wheel = null; for (const p of cands.filter((_, i) => i % Math.max(1, Math.floor(cands.length / 8)) === 0).slice(0, 8)) { await T('touchStart', [{x: p.x, y: p.y, id: 0}]); await wait(300); const h = await held(); await T('touchCancel', []); await wait(300); if (h) { wheel = p; break; } }
+    check('a point on the steering wheel takes the grab (orbit off while held)', !!wheel, wheel ? JSON.stringify(wheel) : `${cands.length} wheel points tried`);
+    if (wheel) {
+      const other = {x: Math.round(wheel.x < dev.W / 2 ? wheel.x + 120 : wheel.x - 120), y: wheel.y, id: 1}, w0 = {x: wheel.x, y: wheel.y, id: 0};
+      for (const [label, lift] of [['second finger lifted first', async () => { await T('touchMove', [w0]); await wait(300); await T('touchEnd', []); }],
+                                   ['wheel finger lifted first', async () => { await T('touchMove', [other]); await wait(300); await T('touchEnd', []); }],
+                                   ['both cancelled', async () => { await T('touchCancel', []); }]]) {
+        await page.evaluate(() => { window.__tp.length = 0; });
+        await T('touchStart', [w0]); await wait(300); const grabbed = await held(); await T('touchStart', [w0, other]); await wait(300); await lift(); await wait(600);
+        const r = await page.evaluate(() => ({orbit: window.__cw.controls.enabled, events: window.__tp.join(' ')}));
+        check(`two fingers on the wheel (${label}): once both are up the wheel lets go and the view turns again`, grabbed && r.orbit, JSON.stringify({grabbed, ...r}));
+        /* if it stuck, one clean touch on the wheel lets go, so the rest of the run is not left with the orbit off */
+        if (!r.orbit) { await T('touchStart', [w0]); await wait(300); await T('touchEnd', []); await wait(600); }
+      }
+    }
+  }
 
   /* ── the toast ── */
   await page.evaluate(() => window.scrollTo(0, 0)); await wait(300);

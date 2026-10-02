@@ -13,7 +13,8 @@
 //   · started, in gear and on the throttle, every new mechanism moves, and each by its own law: the clutch disc and the
 //     gearbox input with the crank, the pinion with the prop shaft, the crown wheel at the pinion's 10/39, both side gears with
 //     the crown wheel while straight, the tensioner's idler at belt speed against the sprockets, the oil by the pump's turn;
-//   · while the V8 is being started the clutch is out: the crank turns and the gearbox input stands still;
+//   · while the V8 is being started the clutch is out: the crank turns and the gearbox input stands still — from the very first
+//     starting frame, and the clutch's take-up passes the same turn however the frames fall (Codex review fixes f45961b);
 //   · full right lock: the rack moves 0.074 to the left, the knuckles, the front pads and the front wheels turn the same 18°,
 //     the left side gear runs faster than the right by the road's turning geometry, and the spiders turn on their pin;
 //   · brake: the push rods go in, the lines carry pressure, every pad closes on its disc, the turning rear discs heat and
@@ -79,7 +80,12 @@ async function run(kind) {
   check(`${kind}: the rear discs' heat is mounted on the wheels' own hubs`, s0.hubs.every(Boolean), JSON.stringify(s0.hubs));
 
   /* start: the clutch is held out while the V8 catches */
-  await page.evaluate(() => { const t = document.getElementById('throttle'); t.value = 70; t.dispatchEvent(new Event('input')); document.getElementById('start').click(); });
+  /* (Codex review fixes f45961b) from the very first starting frame: the starter's state reached the clutch a frame late, so that frame
+     the crank's turn went straight into the gearbox. Started and stepped one frame in one evaluate, so no rendered frame comes between. Fails on ba9fff7. */
+  const f1 = await page.evaluate(`(() => { const S = ${SAMPLE.toString()}; const t = document.getElementById('throttle'); t.value = 70; t.dispatchEvent(new Event('input'));
+    const a = S(); document.getElementById('start').click(); window.__cw.advance(.1, 1 / 30); const b = S();
+    return {starting: b.clutch.starting, engaged: b.clutch.engaged, crank: b.crank - a.crank, input: b.input - a.input}; })()`);
+  check(`${kind}: the first starting frame already has the clutch out (the crank turns, the gearbox input does not)`, f1.starting && f1.engaged < 1e-9 && Math.abs(f1.crank) > 1e-5 && Math.abs(f1.input) < 1e-9, JSON.stringify(f1));
   /* one evaluate, so no rendered frame comes between the samples */
   const st = await page.evaluate(`(() => { const S = ${SAMPLE.toString()}; const out = []; for (let k = 0; k < 12; k++) { window.__cw.advance(.03, 1 / 120); const s = S(); out.push({crank: s.crank, input: s.input, engaged: s.clutch.engaged, st: s.clutch.starting}); } return out; })()`);
   const open = st.filter(x => x.st && x.engaged < .5);
@@ -140,6 +146,13 @@ async function run(kind) {
   const h = await page.evaluate(SAMPLE); await page.evaluate(() => window.__cw.advance(3)); const i = await page.evaluate(SAMPLE);
   const still = ['crank', 'input', 'pinion', 'crown', 'left', 'right', 'spider', 'tensioner', 'oil', 'clutchDisc'].filter(k => Math.abs(i[k] - h[k]) > 1e-9);
   check(`${kind}: stopped — every new mechanism holds still`, /Start/.test(i.status) && still.length === 0, still.join(',') || i.status);
+  /* (Codex review fixes f45961b) the clutch takes up over two thirds of a radian of the crank however the frames fall: the same release in
+     1, 2, 10 or 100 steps passes the same turn (1/3 rad, the ramp's average). It used the end-of-step engagement for the whole step.
+     Driven straight through the driveline's own clutchStep; last, as it leaves the clutch's angle off the scene's. Fails on ba9fff7. */
+  const part = await page.evaluate(() => { let mech = null; window.__cw.scene.traverse(o => { if (!mech && o.userData && o.userData.mech) mech = o.userData.mech; });
+    const dl = mech.driveline, out = {}; for (const n of [1, 2, 10, 100]) { dl.setClutch(true); dl.clutchStep(50); dl.clutchStep(50); dl.setClutch(false); const a0 = dl.clutch.angle;
+      for (let i = 1; i <= n; i++) dl.clutchStep(50 + (2 / 3) * i / n); out[n] = +(dl.clutch.angle - a0).toFixed(6); } return out; });
+  check(`${kind}: clutch take-up passes the same turn however the frames fall (1/3 rad in 1, 2, 10 or 100 steps)`, Object.values(part).every(v => Math.abs(v - 1 / 3) < 1e-5), JSON.stringify(part));
   check(`${kind}: no page or console errors`, m.errors.length === 0, m.errors.slice(0, 5).join(' | '));
   await m.close();
 }

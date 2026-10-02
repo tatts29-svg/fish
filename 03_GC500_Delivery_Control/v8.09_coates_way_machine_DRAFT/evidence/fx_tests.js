@@ -19,6 +19,8 @@
 //   · v8.09 review: on the phone only Laptop and Balanced are offered (High and Ultra are not on its Quality button), its prints never go
 //     past 1.5×, all the prints together stay inside the budget (on a laptop 40 MP Balanced, 56 MP High, 72 MP Ultra — the full 2×; 20 MP on
 //     a phone, or every print at its own size where its own sizes already come to more), and its 4K still is drawn without the post stack.
+//   · Codex review fixes (f45961b): Quality Balanced/Laptop round and round leaves the renderer's texture count where it was (CYCLES=0 skips);
+//     and back from a hidden tab, Balanced stays Balanced (a small extra page; HIDDEN=0 skips).
 //
 // The software renderer the rig runs (SwiftShader) draws a frame in seconds, not milliseconds, so the page's animation loop is
 // stepped by hand here: every frame measured is a whole frame, and nothing the page does on its own (the adaptive resolution, the
@@ -150,6 +152,15 @@ async function run(dev) {
     check(dev, `every texture mipmapped (${tex.total} textures)`, tex.noMip === 0, tex.noMipList);
     check(dev, `every texture filtered at ${tex.need}x anisotropy`, tex.low === 0, tex.lowList);
     check(dev, 'livery atlas mipmapped and anisotropic', tex.atlas && tex.atlas.mip && tex.atlas.aniso >= tex.need, tex.atlas);
+    /* (Codex review fixes f45961b) Quality round and round: Balanced builds the post stack, Laptop drops it. Dropping it left the passes'
+       own targets, noise textures and materials alive (+6 textures on the renderer each Balanced/Laptop pair). After one round to warm
+       up, two more rounds must leave the renderer's texture count where it was. Fails on ba9fff7. */
+    if (process.env.CYCLES !== '0') {
+      const texCount = () => m.page.evaluate(() => window.__cw.renderer.info.memory.textures), counts = [];
+      for (let k = 0; k < 3; k++) { await setQuality(m.page, 'balanced'); await settle(m.page, {max: 4}); await setQuality(m.page, 'laptop'); await settle(m.page, {max: 4}); counts.push(await texCount()); }
+      out.textureCycles = counts;
+      check(dev, 'Quality Balanced/Laptop round and round: the renderer\'s texture count stays put', counts[2] <= counts[0], `after rounds 1-3: ${counts.join(' → ')}`);
+    }
     if (process.env.CAPTURE !== '0') {
       const c = await capture(m.page); out.capture = c;
       check(dev, `4K capture is a ${c.width} x ${c.height} PNG`, c.png && c.width === 3840 && c.height === 2160, {bytes: c.bytes});
@@ -163,9 +174,36 @@ async function run(dev) {
   check(dev, 'no page or console errors', m.errors.length === 0, m.errors.slice(0, 5));
   results.push(out); await m.close();
 }
+/* (Codex review fixes f45961b) time in a hidden tab is not slow drawing. The page's one-off "drop to Laptop under 24 fps" check counted
+   the hidden seconds as frames not drawn: back on the tab, Balanced fell to Laptop. A small fresh page whose frames are held from the moment
+   it is ready (so the check has not run), on Balanced: two frames, then 8 s hidden, then two frames (well inside the page's own 6 s of visible frames before it judges) — still Balanced.
+   (document.hidden is played by the test; the page's own visibilitychange handler is what runs.) Fails on ba9fff7. */
+async function hiddenRun() {
+  const dev = 'hidden-tab', m = await openMachine({root: ROOT, W: 640, H: 480, dpr: 1, mobile: false, query: process.env.QUERY ?? '?tune=adapt:0'});
+  await m.page.addInitScript(() => { const raf = window.requestAnimationFrame.bind(window); window.__rafQ = [];
+    window.requestAnimationFrame = cb => raf(t => { if (window.__cw && window.__cw.ready) window.__rafQ.push(cb); else cb(t); });
+    window.__step = () => { const q = window.__rafQ.splice(0), t = performance.now(); for (const cb of q) { try { cb(t); } catch (e) { console.error(e); } } return q.length; };
+    let hidden = false; Object.defineProperty(document, 'hidden', {configurable: true, get: () => hidden}); Object.defineProperty(document, 'visibilityState', {configurable: true, get: () => hidden ? 'hidden' : 'visible'});
+    window.__setHidden = h => { hidden = h; document.dispatchEvent(new Event('visibilitychange')); }; });
+  await m.page.reload({waitUntil: 'domcontentloaded', timeout: 240000});
+  try {
+    await m.page.waitForFunction(() => window.__cw && window.__cw.ready, null, {timeout: 600000, polling: 500});
+    await setQuality(m.page, 'balanced');
+    await m.page.waitForFunction(() => window.__rafQ.length > 0, null, {timeout: 600000, polling: 200});
+    await frame(m.page); await wait(200); await frame(m.page);
+    const before = await m.page.evaluate(() => window.__cw.quality);
+    await m.page.evaluate(() => window.__setHidden(true)); await wait(8000); await m.page.evaluate(() => window.__setHidden(false));
+    const t0 = Date.now(); for (let i = 0; i < 2; i++) { await wait(300); await frame(m.page); }
+    const after = await m.page.evaluate(() => ({quality: window.__cw.quality, toast: document.getElementById('toast').textContent}));
+    check(dev, 'back from 8 s in a hidden tab: Balanced stays Balanced (hidden time is not counted as slow frames)', before === 'balanced' && after.quality === 'balanced', {before, after: after.quality, toast: after.toast, frames_s: ((Date.now() - t0) / 1000).toFixed(1)});
+  } catch (e) { check(dev, 'run completed', false, String(e).slice(0, 300)); }
+  check(dev, 'no page or console errors', m.errors.length === 0, m.errors.slice(0, 5));
+  await m.close();
+}
 (async () => {
   const d = process.env.DEVICE || 'both';
   for (const dev of d === 'both' ? ['desktop', 'phone'] : [d]) await run(dev);
+  if (process.env.HIDDEN !== '0') await hiddenRun();
   const failed = checks.filter(c => !c.ok);
   console.log(`\n${checks.length - failed.length}/${checks.length} checks passed (${ROOT})`);
   if (process.env.OUT) fs.writeFileSync(process.env.OUT, JSON.stringify({root: ROOT, at: new Date().toISOString(), checks, results}, null, 1));
