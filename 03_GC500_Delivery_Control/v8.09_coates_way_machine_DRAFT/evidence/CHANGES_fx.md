@@ -203,3 +203,33 @@ Ultra gives every print the full 2×.
 | run, after the follow-up | result |
 |---|---|
 | `fx_tests.js` | **47/47**. Laptop: Balanced 1.3× (39.96 MP), High 1.665× (55.96 MP), Ultra 2× (71.44 MP). Phone: 1× (26.97 MP), Laptop and Balanced only, 4K still without the post stack. |
+
+### Follow-up: a faded person is seen through as one (`view-fx.js`)
+When the clear view fades someone out of the way of the car (a crew member near the camera, kept at 30 % while at work), a solid helmet
+floated on a see-through body. The figure is one mesh with one opacity. But the see-through copy was drawn without writing depth, so each
+layer of the figure blended over the one behind it. The helmet's five layers (shell, visor, gasket, chin bar, vents) added up to nearly
+solid.
+- Each faded mesh now gets a depth-only twin, with the same geometry and the same skeleton, drawn first and after everything else in the
+  scene. Only the person's nearest surface is then blended: once, at one opacity, all over him.
+- The twin is hidden with him when he is faded right out, and is removed when he comes back.
+- Something a person carries, such as the impact gun in the mechanic's hand, fades with him at his opacity, never on its own. The people
+  test caught a solid gun in a see-through hand during a far-wheel service.
+- Live (`base/`) fades people the same way, with no depth pass; its stick figure has fewer layers, so it shows less.
+- I kept the fade rather than keeping people out of the cameras' line. The fade works from any orbit, and walkers can't be kept off every
+  line from every camera.
+- `people_tests.js` now steps the clear view with the machine and checks every sample that each drawn person has one opacity, and a
+  depth pass when he is see-through.
+  - On the old `view-fx.js` it fails: mechanic 54 samples, pit technician 71, over 150 s at rest.
+  - On the new one it passes, with 125 faded person-samples checked.
+- Measured on desktop: the same frame rendered three ways, with the person as he is (at 0.30), forced solid, and hidden. That gives how
+  much of the solid figure shows at each pixel.
+  - Now: helmet 0.301 and body 0.300 on average, 90 % of pixels at or under 0.31.
+  - Before: helmet 0.40 and body 0.47 on average, the top tenth of pixels at 0.72 to 0.76, which is the solid-looking helmet.
+  - On High the ambient-occlusion pass still shades him from depth as if he were solid, so on screen he reads a little denser than 0.30.
+    It does so evenly over the whole figure.
+
+| run, after this follow-up | result |
+|---|---|
+| `people_tests.js work both` | desktop PASS, phone PASS (2,193 samples each; about 295 faded person-samples checked on each) |
+| `driver_tests.js` desk / phone | 41/41, 41/41 |
+| `ui_tests.js` desktop | 131/131 (seven fewer card checks than before: one tap landed where the travelling crane had just been, so no card opened and its seven checks did not run) |

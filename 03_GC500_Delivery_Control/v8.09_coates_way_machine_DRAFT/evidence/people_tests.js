@@ -19,7 +19,8 @@
 //      car" look); people moving or working at the far side are reported, with the time it lasted; a pause on the way counts as moving
 //      for 1.5 s only, and the race driver out of his car is checked too (v8.09 review); and the race driver, at every sample, from the
 //      camera actually in use (the camera comes round to his door while he gets out and back in — v8.09 follow-up);
-//   6. no page errors; the people's draws and triangles.
+//   6. no page errors; the people's draws and triangles;
+//   7. (follow-up) never partly faded: one opacity over every mesh of a person, and a see-through person drawn with his depth pass.
 // Scenarios: the hall at rest (crew doing their chores, 300 s — five simulated minutes), the V8 started and running (40 s), a far-rear wheel service end to
 // end (to 200 s), and Explode (the race driver's walk-out, 40 s).
 //
@@ -133,6 +134,12 @@ async function sample(P, label) {
       const hh = firstInside(hallSolids); if (hh) bad('body inside a hall object', {part: hh});
       const hp = firstInside(propSolids, q => (p.k === 'operator' && q.k === 'station') || (p.k === 'driver' && (q.k === 'forklift' || q.k === 'load')) || (p.k === 'tech' && q.k === 'rack') || (p.k === 'mechanic' && q.k === 'gun'));
       if (hp) bad('body inside a prop', {part: hp});
+      /* 2b. follow-up: never partly faded. Every mesh of him that is drawn has one and the same opacity, and when he is see-through (the clear
+         view fading him out of the way of the car) each see-through mesh has its depth pass, so only his nearest surface is blended — once
+         over, not layer on layer (his helmet's five layers made it solid on a ghosted body) */
+      { const ops = [], noDepth = []; p.fig.root.traverse(o => { if (!(o.isMesh || o.isSkinnedMesh) || o.userData.fadeDepth || !shown(o) || !o.layers.test(cw.camera.layers)) return;   /* (drawn: shown, and on the camera's layer — a person faded right out is moved off it) */ for (const x of [].concat(o.material)) { if (!x || x.visible === false || x.colorWrite === false) continue; ops.push(+(+x.opacity).toFixed(3));
+          if (x.transparent && x.opacity < 1 && !x.depthWrite && !o.children.some(c => c.userData.fadeDepth && c.visible)) noDepth.push(o.name); } });
+        if (ops.length && (Math.max(...ops) - Math.min(...ops) > .001 || noDepth.length)) bad('partly faded (not one opacity, or see-through without its depth pass)', {opacities: [...new Set(ops)], noDepth: noDepth.slice(0, 2)}); }
       /* 3. the floor */
       if (!seated && p.m) { const fl = p.m.floor(p.fig.root.position.x, p.fig.root.position.z); const lo = Math.min(...soles) - fl;
         R.minSole = Math.min(R.minSole, lo); R.maxSole = Math.max(R.maxSole, lo);
@@ -207,7 +214,7 @@ async function run(device) {
   log('cameras', JSON.stringify(cams));
   await P.addScriptTag({type: 'module', content: `import * as T from './vendor/three.module.js'; window.__ptRay = new T.Raycaster(); window.__ptRay.layers.enableAll(); window.__ptRay.camera = window.__cw.camera; window.__ptCams = ${JSON.stringify(cams)}.map(c => ({name: c.name, p: new T.Vector3(...c.p)}));`});
   for (let i = 0; i < 30 && !(await P.evaluate(() => !!window.__ptRay)); i++) await wait(500);
-  const step = async (sec, label, every = .25) => { for (let s = 0; s < sec; s += every) { await P.evaluate(([dt]) => { window.__cw.advance(dt, 1 / 30); window.__cw.__ptClock = (window.__cw.__ptClock || 0) + dt; }, [every]); await sample(P, label); } };
+  const step = async (sec, label, every = .25) => { for (let s = 0; s < sec; s += every) { await P.evaluate(([dt]) => { window.__cw.advance(dt, 1 / 30); window.__cw.__ptClock = (window.__cw.__ptClock || 0) + dt; const cv = window.__cw.clearView; if (cv) cv.update(dt); window.__ptFaded = (window.__ptFaded || 0) + (cv ? cv.units.filter(u => u.crew && u.alpha < 1 && u.alpha > 0).length : 0); }, [every]);   /* (follow-up: the clear view stepped with the machine, as the screen's own loop does, so a person faded out of the way is checked as drawn) */ await sample(P, label); } };
   /* 1. the hall at rest: the crew at their chores */
   await sample(P, 'rest'); await step(+(process.env.REST || 300), 'rest'); log('rest done');   /* (follow-up: five simulated minutes of the hall at rest) */
   /* 2. the V8 started and running */
@@ -228,7 +235,7 @@ async function run(device) {
   const de = await P.evaluate(() => window.__cw.driverExit); log('driver exit', JSON.stringify(de));
   await P.evaluate(() => document.getElementById('explode').click()); await step(30, 'explode: driver back');
   const acc = await P.evaluate(() => { const A = window.__ptAcc; const cw = window.__cw; let draws = 0, tris = 0; cw.crew.root.traverse(o => { if ((o.isMesh || o.isSkinnedMesh) && o.visible && !(o.material && o.material.visible === false)) { draws++; tris += o.geometry.index ? o.geometry.index.count / 3 : o.geometry.attributes.position.count / 3; } });
-    return {...A, crewDraws: draws, crewTriangles: Math.round(tris), heldMax: +(cw.crew.S.heldMax || 0).toFixed(2), lastWords: cw.crew.S.lastWords || 0}; });
+    return {...A, fadedSamples: window.__ptFaded || 0, crewDraws: draws, crewTriangles: Math.round(tris), heldMax: +(cw.crew.S.heldMax || 0).toFixed(2), lastWords: cw.crew.S.lastWords || 0}; });
   acc.errors = m.errors.slice(); acc.cams = cams; acc.servicePhases = phases; acc.driverExit = de;
   await m.close(); return acc;
 }
@@ -253,7 +260,7 @@ function verdict(acc) {
     console.log(`\n==== ${which} · ${dev}: ${fails.length ? fails.length + ' FAIL' : 'PASS'} (${acc.samples} samples, crew ${acc.crewDraws} draws, ${acc.crewTriangles} triangles)`);
     for (const f of fails) console.log('  FAIL ' + f);
     for (const [k, R] of Object.entries(acc.people)) console.log(`  ${k.padEnd(22)} samples ${R.samples}  sole ${(R.minSole * 100).toFixed(1)}…${(R.maxSole * 100).toFixed(1)} cm  slide max ${(R.maxSlide * 1000).toFixed(1)} mm  longest pause ${R.longestPause || 0} s  posts ${JSON.stringify(R.post)}`);
-    console.log(`  crew: longest hold ${acc.heldMax} s, last words ${acc.lastWords}; the race driver checked from the camera in use in ${acc.inUse || 0} samples`);
+    console.log(`  crew: longest hold ${acc.heldMax} s, last words ${acc.lastWords}; the race driver checked from the camera in use in ${acc.inUse || 0} samples; people seen faded in ${acc.fadedSamples} person-samples`);
     for (const [k, o] of Object.entries(acc.over)) console.log(`  over the car (feet hidden, helmet seen): ${k}: no far-side service ${o.idle}, standing clear ${o.still}, with the car apart ${o.stillApart}, moving ${o.moving}, at work ${o['at work']} ${JSON.stringify(o.samples.slice(0, 3))}`);
     console.log('  seated driver', JSON.stringify(acc.seatChecks.slice(0, 2)));
   }

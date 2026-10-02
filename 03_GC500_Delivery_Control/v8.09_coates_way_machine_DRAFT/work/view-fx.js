@@ -33,7 +33,8 @@ export function collectUnits(T, roots, {fixed = new Set(), dynamic = () => false
 function measure(T, u, box) { u.box.makeEmpty(); for (const m of u.meshes) { if (!m.geometry) continue; box.setFromObject(m); u.box.union(box); } }
 export function buildClearView(T, {camera, units, carBox, enabled = () => true, keep = () => false, margin = .32, grid = [13, 6, 7]}) {
   const pts = [], view = new T.Box3(), tmp = new T.Box3(), grown = new T.Box3(), carKey = new Float64Array(6).fill(NaN);
-  const live = units.filter(u => !u.fixed);
+  const live = units.filter(u => !u.fixed), ownerOf = new Map();
+  for (const u of live) for (const o of u.objects) ownerOf.set(o, u);
   /* the lattice over the car's box, rebuilt only when the box has moved by a centimetre (no strings or arrays made per frame) */
   function lattice(b) { const k = [b.min.x, b.min.y, b.min.z, b.max.x, b.max.y, b.max.z]; let same = true; for (let i = 0; i < 6; i++) if (!(Math.abs(k[i] - carKey[i]) < .01)) { same = false; carKey[i] = k[i]; }
     if (same) return; pts.length = 0; const [nx, ny, nz] = grid;
@@ -45,13 +46,24 @@ export function buildClearView(T, {camera, units, carBox, enabled = () => true, 
   function segHits(e, px, py, pz, b) { tt[0] = 0; tt[1] = 1;
     return slab(e.x, px - e.x, b.min.x, b.max.x, tt) !== null && slab(e.y, py - e.y, b.min.y, b.max.y, tt) !== null && slab(e.z, pz - e.z, b.min.z, b.max.z, tt) !== null; }
   let version = 0;   /* changes whenever a unit is hidden or shown: the shadow map is redrawn then (a person taken out of the way takes his shadow with him) */
-  function setHidden(u, h) { if (u.hidden === h) return; u.hidden = h; version++; for (const m of u.all) { if (h) { m.layers.disable(0); m.layers.enable(HIDDEN_LAYER); } else { m.layers.enable(0); m.layers.disable(HIDDEN_LAYER); } } }
+  function setHidden(u, h) { if (u.hidden === h) return; u.hidden = h; version++; for (const m of u.all) { if (h) { m.layers.disable(0); m.layers.enable(HIDDEN_LAYER); } else { m.layers.enable(0); m.layers.disable(HIDDEN_LAYER); } } if (u.fades) for (const f of u.fades) if (f.depth) f.depth.visible = !h; }
   /* the see-through copies of a unit's materials are made once and kept (warm() below has their shaders compiled at load), so a fade never
      waits on a new shader: a transparent material is a different shader from its solid original, and building one mid-orbit is a hitch */
-  function prepare(u) { u.fades = u.meshes.map(m => { const orig = m.material, list = Array.isArray(orig) ? orig : [orig]; const c = list.map(x => { const k = x.clone(); k.transparent = true; k.depthWrite = false; return k; }); return {m, orig, c, base: list.map(x => x.opacity ?? 1)}; }); }
+  /* follow-up — A FADED THING IS SEEN THROUGH AS ONE. The see-through copy is drawn without writing depth, so each surface of it blended over
+     the one behind: a person's helmet (shell, visor, gasket, chin bar, vents — five layers) added up to near solid at 30 % while a single
+     sleeve stayed ghosted, and a solid helmet floated on a see-through body. Each faded mesh now has a depth-only twin (same geometry, same
+     skeleton) drawn first, after everything else in the scene: only the nearest surface of the figure passes, and it is blended once, at
+     the one opacity, all over him. */
+  const DEPTH_ORDER = 10;
+  function depthTwin(m, orig) { if (!(m.isMesh && !m.isInstancedMesh)) return null; const list = Array.isArray(orig) ? orig : [orig];
+    const dm = list.map(x => { const k = x.clone(); k.transparent = true; k.colorWrite = false; k.depthWrite = true; k.opacity = 1; return k; });
+    const d = m.isSkinnedMesh ? new T.SkinnedMesh(m.geometry, Array.isArray(orig) ? dm : dm[0]) : new T.Mesh(m.geometry, Array.isArray(orig) ? dm : dm[0]);
+    if (m.isSkinnedMesh) { d.bind(m.skeleton, m.bindMatrix); d.bindMode = m.bindMode; } if (m.boundingSphere) d.boundingSphere = m.boundingSphere;
+    d.name = (m.name || 'mesh') + ' (depth for a fade)'; d.castShadow = d.receiveShadow = false; d.renderOrder = DEPTH_ORDER; d.frustumCulled = m.frustumCulled; d.layers.mask = m.layers.mask; d.userData.fadeDepth = true; return d; }
+  function prepare(u) { u.fades = u.meshes.map(m => { const orig = m.material, list = Array.isArray(orig) ? orig : [orig]; const c = list.map(x => { const k = x.clone(); k.transparent = true; k.depthWrite = false; return k; }); return {m, orig, c, base: list.map(x => x.opacity ?? 1), depth: depthTwin(m, orig), order: m.renderOrder}; }); }
   function fadeMats(u, on) {
-    if (on && !u.clones) { if (!u.fades || u.fades.some(f => f.m.material !== f.orig)) prepare(u); u.clones = u.fades; for (const {m, orig, c} of u.clones) m.material = Array.isArray(orig) ? c : c[0]; }
-    if (!on && u.clones) { for (const {m, orig} of u.clones) m.material = orig; u.clones = null; } }
+    if (on && !u.clones) { if (!u.fades || u.fades.some(f => f.m.material !== f.orig)) prepare(u); u.clones = u.fades; for (const f of u.clones) { const {m, orig, c} = f; m.material = Array.isArray(orig) ? c : c[0]; m.renderOrder = DEPTH_ORDER + 1; if (f.depth) { f.depth.visible = !u.hidden; m.add(f.depth); } } }
+    if (!on && u.clones) { for (const f of u.clones) { f.m.material = f.orig; f.m.renderOrder = f.order; if (f.depth) f.m.remove(f.depth); } u.clones = null; } }
   const api = {
     units, hidden: () => units.filter(u => u.hidden || u.alpha < 1).map(u => u.name),
     get blockedCount() { return units.filter(u => u.target < 1).length; },
@@ -69,10 +81,15 @@ export function buildClearView(T, {camera, units, carBox, enabled = () => true, 
           u.target = blocked ? (typeof k === 'number' ? k : 0) : 1; } }
       else for (const u of live) u.target = 1; },
     update(dt) { api.check();
-      for (const u of live) { if (u.alpha === u.target) { if (u.alpha >= 1 && u.clones) fadeMats(u, false); continue; }
+      /* follow-up: a thing carried by someone — the impact gun in the mechanic's hand, hung from his hand bone — is part of him while he
+         carries it, and fades with him, at his opacity, never on its own (a solid gun in a see-through hand) */
+      for (const u of live) { u.carrier = null; for (let p = u.objects[0] && u.objects[0].parent; p; p = p.parent) { const c = ownerOf.get(p); if (c && c !== u) { u.carrier = c; break; } } }
+      for (const u of live) { if (u.carrier) continue; if (u.alpha === u.target) { if (u.alpha >= 1 && u.clones) fadeMats(u, false); continue; }
         if (u.target < u.alpha) { u.alpha = Math.max(u.target, u.alpha - dt / .12); if (u.alpha <= 0) { setHidden(u, true); continue; } }
         else { if (u.hidden) setHidden(u, false); u.alpha = Math.min(u.target, u.alpha + dt / .25); if (u.alpha >= 1) { fadeMats(u, false); continue; } }
-        fadeMats(u, true); for (const {c, base} of u.clones) c.forEach((k, i) => { k.opacity = base[i] * u.alpha; }); } },
+        fadeMats(u, true); for (const {c, base} of u.clones) c.forEach((k, i) => { k.opacity = base[i] * u.alpha; }); }
+      for (const u of live) { const c = u.carrier; if (!c) continue; u.target = c.target; u.alpha = c.alpha; setHidden(u, c.hidden);
+        if (u.alpha >= 1) { if (u.clones) fadeMats(u, false); continue; } fadeMats(u, true); for (const {c: cl, base} of u.clones) cl.forEach((k, i) => { k.opacity = base[i] * u.alpha; }); } },
     /* everything back, at once (the cockpit: the driver sees what is there) */
     restore() { for (const u of live) { u.target = 1; u.alpha = 1; setHidden(u, false); fadeMats(u, false); } }
   };
