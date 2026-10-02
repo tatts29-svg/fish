@@ -21,6 +21,7 @@ import * as T from './vendor/three.module.js';
 import {Reflector} from './vendor/addons/objects/Reflector.js';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
 import {buildMachinery,craneRunY} from './pit-machinery.js';
+import {print, currentPrintScale, MOBILE} from './fx-quality.js';
 
 export const COATES_ORANGE = '#FF6A13';
 /* THE HALL. Andrew Fisher, 23 Sep 2026: a huge Coates garage, with no wall in the way when
@@ -50,11 +51,11 @@ export const GUN_STAND = Object.freeze({x: GARAGE.bayFront - 1.2 + .14, y: .78, 
 export const DYNO = Object.freeze({axleX: 1.222, tyreR: .334, wheelZ: .83, rollerR: .22, rollerDX: .30, rollerLen: .56, axisY: -.132, pit: {x0: .35, x1: 2.1, z0: -1.4, z1: 1.4, depth: .5}});
 
 /* ---------------------------------------------------------------- helpers */
-function textCanvas(w, h, draw) {
-  const c = document.createElement('canvas'); c.width = w; c.height = h;
-  const g = c.getContext('2d'); draw(g, w, h);
-  const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 8; t.minFilter = T.LinearMipmapLinearFilter; t.magFilter = T.LinearFilter; t.generateMipmaps = true;
-  return t;
+/* v8.08 — every canvas here is a PRINT (fx-quality.js): drawn at the size given on load, as before, and drawn again at 1.5× or 2× the
+   pixels on the Balanced, High and Ultra rungs when the page is idle, so the signs stay crisp in a 4K frame. The drawing works in the
+   size given (w × h); the canvas under it may be bigger. `maxScale` 1 keeps a pattern or a soft gradient at its own size. */
+function textCanvas(w, h, draw, {maxScale = 2} = {}) {
+  return print(w, h, draw, {mode: 'logical', maxScale}).texture;
 }
 /* one line of type, centred, in Arial — the page's own face — on a flat colour */
 function sign(text, {w = 1024, h = 256, bg = '#0d1216', fg = COATES_ORANGE, weight = 800, size = null, letter = 0.04, sub = null, subFg = '#c9d1d6'} = {}) {
@@ -112,6 +113,7 @@ function hatch() {
    darken into the floor and the ceiling instead of reading as one flat colour, and the gradients the fake
    contact shadows and the light beams are drawn with. Nothing here is a downloaded picture. */
 function noiseInto(g, W, H, seed, amount) {
+  W = g.canvas.width; H = g.canvas.height;   /* v8.08: the canvas's own pixels — a print may be drawn bigger than its logical size */
   const img = g.getImageData(0, 0, W, H), d = img.data; let s = seed >>> 0;
   for (let i = 0; i < d.length; i += 4) { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; const n = (s / 4294967296 - .5) * amount; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
   g.putImageData(img, 0, 0);
@@ -125,7 +127,7 @@ function floorMap() {
     g.strokeStyle = 'rgba(0,0,0,.42)'; g.lineWidth = 3; for (const v of [0, 512]) { g.beginPath(); g.moveTo(v, 0); g.lineTo(v, H); g.stroke(); g.beginPath(); g.moveTo(0, v); g.lineTo(W, v); g.stroke(); }
     g.strokeStyle = 'rgba(255,255,255,.05)'; g.lineWidth = 2; for (const v of [3, 515]) { g.beginPath(); g.moveTo(v, 0); g.lineTo(v, H); g.stroke(); g.beginPath(); g.moveTo(0, v); g.lineTo(W, v); g.stroke(); }
   });
-  t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = 8; return t;
+  t.wrapS = t.wrapT = T.RepeatWrapping; return t;
 }
 function floorRoughness() {
   const t = textCanvas(512, 512, (g, W, H) => {
@@ -143,16 +145,45 @@ function wallMap() {
     g.fillStyle = grad; g.fillRect(0, 0, W, H);
     noiseInto(g, W, H, 777, 7);
   });
-  t.wrapS = T.RepeatWrapping; t.anisotropy = 4; return t;
+  t.wrapS = T.RepeatWrapping; return t;
 }
 /* alpha ramps for the drawn shadows: a straight fade and a soft disc (the green channel is what alphaMap reads) */
 function ramp() {
-  const t = textCanvas(4, 256, (g, W, H) => { const grad = g.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, '#000'); grad.addColorStop(1, '#fff'); g.fillStyle = grad; g.fillRect(0, 0, W, H); });
+  const t = textCanvas(4, 256, (g, W, H) => { const grad = g.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, '#000'); grad.addColorStop(1, '#fff'); g.fillStyle = grad; g.fillRect(0, 0, W, H); }, {maxScale: 1});
   t.colorSpace = T.NoColorSpace; t.generateMipmaps = false; t.minFilter = T.LinearFilter; return t;
 }
 function disc() {
-  const t = textCanvas(256, 256, (g, W, H) => { const rg = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W / 2); rg.addColorStop(0, '#fff'); rg.addColorStop(.45, '#b4b4b4'); rg.addColorStop(1, '#000'); g.fillStyle = rg; g.fillRect(0, 0, W, H); });
+  const t = textCanvas(256, 256, (g, W, H) => { const rg = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W / 2); rg.addColorStop(0, '#fff'); rg.addColorStop(.45, '#b4b4b4'); rg.addColorStop(1, '#000'); g.fillStyle = rg; g.fillRect(0, 0, W, H); }, {maxScale: 1});
   t.colorSpace = T.NoColorSpace; return t;
+}
+/* v8.08 — THE FLOOR'S WEAR, once across the whole hall (it does not repeat, unlike the slab texture): red is the grime that dulls the
+   epoxy's reflections (read as the ambient occlusion), green is the clear coat's roughness (polished where nobody walks, satin down
+   the aisles and the forklift's lane, scuffed where the car's tyres came in from the door and where it stands on the rollers). Drawn
+   in the hall's own metres: x along the hall from the door, z across it from the working wall. */
+function floorWear(G, D) {
+  const L = G.back - G.front, Wd = G.near - G.far, W = 1024, H = Math.round(1024 * Wd / L);
+  return textCanvas(W, H, (g) => {
+    const X = x => (x - G.front) / L * W, Z = z => (z - G.far) / Wd * H, M = m => m / L * W;
+    /* polished: ao 1 (255), clear-coat roughness .20 of the material's .5 → .10 */
+    g.fillStyle = 'rgb(255,51,0)'; g.fillRect(0, 0, W, H);
+    g.globalCompositeOperation = 'source-over';
+    const band = (z0, z1, rgb, a) => { g.fillStyle = `rgba(${rgb},${a})`; g.fillRect(0, Z(z0), W, Z(z1) - Z(z0)); };
+    /* grime and wear along the walls (where the benches, racks and machines stand and the mop never quite reaches) */
+    for (const [z, dir] of [[G.far, 1], [G.near, -1]]) { const gr = g.createLinearGradient(0, Z(z), 0, Z(z + dir * 3.2)); gr.addColorStop(0, 'rgba(178,120,0,.85)'); gr.addColorStop(1, 'rgba(178,120,0,0)'); g.fillStyle = gr; g.fillRect(0, Math.min(Z(z), Z(z + dir * 3.2)), W, Math.abs(Z(z + dir * 3.2) - Z(z))); }
+    for (const [x, dir] of [[G.front, 1], [G.back, -1]]) { const gr = g.createLinearGradient(X(x), 0, X(x + dir * 3.2), 0); gr.addColorStop(0, 'rgba(178,120,0,.85)'); gr.addColorStop(1, 'rgba(178,120,0,0)'); g.fillStyle = gr; g.fillRect(Math.min(X(x), X(x + dir * 3.2)), 0, Math.abs(X(x + dir * 3.2) - X(x)), H); }
+    /* the walkways along the yellow lines and the forklift's lane: satin, slightly dull */
+    band(-8.4, -6.6, '232,92,0', .55); band(6.6, 8.4, '232,92,0', .55); band(-9.4, -7.8, '214,110,0', .6);
+    /* the car's way in: two tyre tracks from the roller door to the cell, dark and rough with rubber */
+    g.lineCap = 'round';
+    for (const z of [-D.wheelZ, D.wheelZ]) for (let k = 0; k < 3; k++) { g.strokeStyle = `rgba(120,150,0,${.20 - k * .05})`; g.lineWidth = M(.20 + k * .10); g.beginPath(); g.moveTo(X(G.front + .5), Z(z + (k - 1) * .03)); g.bezierCurveTo(X(-16), Z(z * 1.04), X(-9), Z(z * .98), X(G.bayFront), Z(z)); g.stroke(); }
+    /* the cell: rubber dust round the rollers, scuffs where the crew work round the car, the hatch line worn */
+    for (const z of [-D.wheelZ, D.wheelZ]) { const rg = g.createRadialGradient(X(D.axleX), Z(z), 0, X(D.axleX), Z(z), M(1.1)); rg.addColorStop(0, 'rgba(110,160,0,.75)'); rg.addColorStop(1, 'rgba(110,160,0,0)'); g.fillStyle = rg; g.fillRect(X(D.axleX) - M(1.1), Z(z) - M(1.1), M(2.2), M(2.2)); }
+    { const rg = g.createRadialGradient(X(-.3), Z(0), M(1.6), X(-.3), Z(0), M(4.2)); rg.addColorStop(0, 'rgba(225,85,0,.0)'); rg.addColorStop(.5, 'rgba(225,85,0,.35)'); rg.addColorStop(1, 'rgba(225,85,0,0)'); g.fillStyle = rg; g.fillRect(X(-.3) - M(4.2), Z(0) - M(4.2), M(8.4), M(8.4)); }
+    /* scattered scuffs and heel marks: small, many, soft */
+    let seed = 2610; const rnd = () => (seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296;
+    for (let i = 0; i < 420; i++) { const x = G.front + 1 + rnd() * (L - 2), z = G.far + 1 + rnd() * (Wd - 2), r = M(.15 + rnd() * .6), dark = rnd() < .35;
+      const rg = g.createRadialGradient(X(x), Z(z), 0, X(x), Z(z), r); rg.addColorStop(0, dark ? 'rgba(170,130,0,.35)' : 'rgba(240,95,0,.35)'); rg.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = rg; g.fillRect(X(x) - r, Z(z) - r, 2 * r, 2 * r); }
+  }, {maxScale: 1});
 }
 /* a lamp's beam, drawn as a soft trapezoid on black for additive blending: bright and narrow at the lamp,
    wide and gone before the floor — no hard silhouette from any angle, unlike a cone */
@@ -163,7 +194,7 @@ function beamMap() {
     g.fillStyle = v; g.beginPath(); g.moveTo(W * .42, 0); g.lineTo(W * .58, 0); g.lineTo(W * .98, H); g.lineTo(W * .02, H); g.closePath(); g.fill();
     const h = g.createLinearGradient(0, 0, W, 0); h.addColorStop(0, 'rgba(0,0,0,1)'); h.addColorStop(.3, 'rgba(0,0,0,0)'); h.addColorStop(.7, 'rgba(0,0,0,0)'); h.addColorStop(1, 'rgba(0,0,0,1)');
     g.fillStyle = h; g.fillRect(0, 0, W, H);
-  });
+  }, {maxScale: 1});
 }
 
 /* THE TWO DOCUMENTS ANDREW SENT ON 23 SEP 2026, to go into the garage — redrawn here from
@@ -315,11 +346,11 @@ function rollerDoor() {
   });
 }
 function rollerStripe() {
-  const t = textCanvas(64, 64, (g, W, H) => { g.fillStyle = '#7d868c'; g.fillRect(0, 0, W, H); g.fillStyle = '#4a5257'; for (let y = 0; y < H; y += 8) g.fillRect(0, y, W, 3); g.fillStyle = '#9aa3a8'; for (let y = 4; y < H; y += 8) g.fillRect(0, y, W, 1); });
+  const t = textCanvas(64, 64, (g, W, H) => { g.fillStyle = '#7d868c'; g.fillRect(0, 0, W, H); g.fillStyle = '#4a5257'; for (let y = 0; y < H; y += 8) g.fillRect(0, y, W, 3); g.fillStyle = '#9aa3a8'; for (let y = 4; y < H; y += 8) g.fillRect(0, y, W, 1); }, {maxScale: 1});
   t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(2, 24); return t;
 }
 function hazeSprite() {
-  const t = textCanvas(64, 64, (g, W, H) => { const rg = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W / 2); rg.addColorStop(0, 'rgba(255,255,255,.55)'); rg.addColorStop(.5, 'rgba(255,255,255,.12)'); rg.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = rg; g.fillRect(0, 0, W, H); });
+  const t = textCanvas(64, 64, (g, W, H) => { const rg = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W / 2); rg.addColorStop(0, 'rgba(255,255,255,.55)'); rg.addColorStop(.5, 'rgba(255,255,255,.12)'); rg.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = rg; g.fillRect(0, 0, W, H); }, {maxScale: 1});
   t.generateMipmaps = false; t.minFilter = T.LinearFilter; return t;
 }
 function pegboard() {
@@ -456,7 +487,10 @@ export function buildPitGarage({reflectorSize = [18, 9], reflectorTexture = [102
   const reflector = new Reflector(plane(reflectorSize[0], reflectorSize[1]), {clipBias: .003, textureWidth: reflectorTexture[0], textureHeight: reflectorTexture[1], color: 0x23282c});
   reflector.rotation.x = -Math.PI / 2; reflector.position.set(0, -.009, 0); reflector.visible = false; root.add(reflector); root.userData.reflector = reflector;
   const floorTex = floorMap(), floorRough = floorRoughness(); floorTex.repeat.set(floorW / 2.4, floorD / 2.4); floorRough.repeat.set(floorW / 2.4, floorD / 2.4);
-  const epoxy = new T.Mesh(plane(floorW, floorD), new T.MeshPhysicalMaterial({color: 0xffffff, map: floorTex, roughnessMap: floorRough, roughness: 1, metalness: .04, clearcoat: 1, clearcoatRoughness: .10, transparent: true, opacity: 1, depthWrite: false, envMapIntensity: 1.0}));
+  /* v8.08 — the epoxy's sheen now varies across the hall (floorWear): mirror-polished in the open, satin down the walkways, dull and
+     rubbery where the car came in and where it stands. One map, two channels, its own UVs (once across the floor, not tiled). */
+  const wear = floorWear(G, D); wear.colorSpace = T.NoColorSpace;
+  const epoxy = new T.Mesh(plane(floorW, floorD), new T.MeshPhysicalMaterial({color: 0xffffff, map: floorTex, roughnessMap: floorRough, roughness: 1, metalness: .04, clearcoat: 1, clearcoatRoughness: .5, clearcoatRoughnessMap: wear, aoMap: wear, aoMapIntensity: .85, transparent: true, opacity: 1, depthWrite: false, envMapIntensity: 1.0}));
   epoxy.material.userData.solid = {opacity: 1, envMapIntensity: 1.0}; epoxy.material.userData.overReflector = {opacity: .80, envMapIntensity: .35};
   M.wall.emissive = new T.Color(0x1b2226); M.ceiling.emissive = new T.Color(0x0c1114); M.wallDark.emissive = new T.Color(0x0d1216);   /* v6.92: the hall is bigger than its lamps' reach */
   M.asphalt.envMapIntensity = .15; M.wall.envMapIntensity = .45; M.wallDark.envMapIntensity = .4; M.ceiling.envMapIntensity = .3; M.concrete.envMapIntensity = .3;
@@ -530,6 +564,22 @@ export function buildPitGarage({reflectorSize = [18, 9], reflectorTexture = [102
   }
   for (const [x, z] of [[-3.5, 0], [2.5, 0], [-.5, -4]]) { const l = new T.PointLight(0xffe7c8, 16, 16, 1.5); l.position.set(x, 7.4, z); root.add(l); lights.push(l); }   /* v6.92: the cell's lamps stay 7.4 m up, over the car, as they were */
   for (const [x, z] of [[-15, 7], [15, -7]]) { const l = new T.PointLight(0xdfeeff, 16, 38, 1.3); l.position.set(x, G.height - 2.2, z); root.add(l); lights.push(l); }
+  /* v8.08 — THE LIGHT RIG OVER THE CELL. A studio frame of four LED battens hung over the car (5.6 m up, outside its roof line, so no
+     camera the hall allows looks at the car through one), their diffusers brighter than white: the garage is captured once into the
+     environment the paint, the chrome and the glass reflect (car-app.js), and these are the long clean highlight lines down the
+     #26's flanks and across its roof that a showroom shot has. The fittings in the roof are brighter than white for the same reason.
+     And a cool rim light from behind the car, high on the far side, that draws the roof line and the wing against the dark hall
+     (not on a phone: one light fewer for every pixel there). */
+  M.ledPanel.color.multiplyScalar(2.2);
+  { const strip = new T.MeshBasicMaterial({color: new T.Color(0xf6f2ea).multiplyScalar(3.2)}), ry = 5.6, half = 3.7, zs = 2.45;
+    const battens = [[0, -zs, 2 * half, 0], [0, zs, 2 * half, 0], [-half - .35, 0, 2 * zs + .3, Math.PI / 2], [half + .35, 0, 2 * zs + .3, Math.PI / 2]];
+    battens.forEach(([x, z, len, rot], i) => {
+      B.unit('light rig ' + i).add(M.black, box(len, .09, .18), x, ry + .05, z, 0, rot, 0).add(strip, box(len - .12, .025, .13), x, ry - .005, z, 0, rot, 0);
+      B.unit('shell');   /* the hangers are a centimetre thick and never in the way */
+      for (const f of [-.42, .42]) { const hx = x + (rot ? 0 : f * len), hz = z + (rot ? f * len : 0); between(B, M.steel, [hx, ry + .1, hz], [hx, G.height - .55, hz], .012, .012); }
+    });
+    B.unit('shell'); }
+  if (!MOBILE) { const rim = new T.SpotLight(0xdce8ff, 38, 15, Math.PI * .16, .75, 1.5); rim.position.set(4.6, 6.2, -5.0); rim.target.position.set(-.4, .9, .2); rim.name = 'rim light'; root.add(rim, rim.target); lights.push(rim); }
   /* the roller door: the beam, the drum, the number on the beam, the company\'s name beside it */
   B.add(M.black, box(.5, G.height - G.lintel + .1, G.doorNear - G.doorFar + 1.2), G.front - .2, (G.height + G.lintel) / 2 - .05, 0);
   B.add(M.orange, box(.52, .1, G.doorNear - G.doorFar + 1.2), G.front - .2, G.lintel + .05, 0);
@@ -547,7 +597,7 @@ export function buildPitGarage({reflectorSize = [18, 9], reflectorTexture = [102
   beamSign2.position.set(G.front - .46, (G.height + G.lintel) / 2, 2.6); beamSign2.rotation.y = -Math.PI / 2; root.add(beamSign2);
   /* the wordmark, eight metres of it, high on the back wall, lit */
   root.userData.ready = new Promise(resolve => new T.TextureLoader().load('./assets/coates-logo.png', tex => {
-    tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    tex.colorSpace = T.SRGBColorSpace;
     const mark = new T.Mesh(plane(8, 2.4), new T.MeshBasicMaterial({map: tex, transparent: true, color: COATES_ORANGE, depthWrite: false}));
     mark.position.set(G.back - .06, 6.6, 3); mark.rotation.y = -Math.PI / 2; root.add(mark);
     const mark2 = new T.Mesh(plane(5.2, 1.56), new T.MeshBasicMaterial({map: tex, transparent: true, color: COATES_ORANGE, depthWrite: false}));
@@ -786,7 +836,7 @@ export function buildPitGarage({reflectorSize = [18, 9], reflectorTexture = [102
   B.unit('console');
   B.add(M.black, box(1.1, .9, .6), cx, .45, cz).add(M.orange, box(1.1, .04, .6), cx, .92, cz).add(M.steel, box(.08, 1.2, .08), cx, 1.5, cz).add(M.black, box(1.9, 1.1, .06), cx, 2.05, cz - .02);
   const consoleCanvas = document.createElement('canvas'); consoleCanvas.width = 1024; consoleCanvas.height = 576;
-  const consoleTex = new T.CanvasTexture(consoleCanvas); consoleTex.colorSpace = T.SRGBColorSpace; consoleTex.anisotropy = 8;
+  const consoleTex = new T.CanvasTexture(consoleCanvas); consoleTex.colorSpace = T.SRGBColorSpace;
   const consoleScreen = new T.Mesh(plane(1.8, 1.0), new T.MeshBasicMaterial({map: consoleTex})); consoleScreen.position.set(cx, 2.05, cz + .02); consoleScreen.name = 'dyno-console'; tag(consoleScreen, 'console'); root.add(consoleScreen);
   const stackCanvas = document.createElement('canvas'); stackCanvas.width = 32; stackCanvas.height = 96;
   const stackTex = new T.CanvasTexture(stackCanvas); stackTex.colorSpace = T.SRGBColorSpace;
@@ -890,8 +940,12 @@ export function buildPitGarage({reflectorSize = [18, 9], reflectorTexture = [102
     if (st.consoleAt > .16) { st.consoleAt = 0; st.history.push(d.rpm || 0); if (st.history.length > 180) st.history.shift();
       const flat = st.history.every(v => v === 0), key = [running, winding, open, d.status, Math.abs(wheelOmega) > 1e-4, Math.round(d.rpm || 0), flat].join('|');
       if (key !== st.consoleKey || !flat) st.consoleDirty = true; st.consoleKey = key; }
-    if (st.consoleDirty && (!d.frustum || d.frustum.intersectsObject(consoleScreen))) { st.consoleDirty = false;
-      drawConsole(consoleCanvas.getContext('2d'), consoleCanvas.width, consoleCanvas.height, {running, winding, open, rpm: d.rpm || 0, rollers: Math.abs(wheelOmega) > 1e-4, status: d.status, history: st.history}); consoleTex.needsUpdate = true; }
+    if ((st.consoleDirty || consoleCanvas.width !== Math.round(1024 * Math.min(1.5, currentPrintScale()))) && (!d.frustum || d.frustum.intersectsObject(consoleScreen))) { st.consoleDirty = false;
+      /* v8.08 — on the higher rungs the screen is drawn at up to 1.5× (1536 × 864): the same drawing, scaled, so DYNO CELL stays crisp in 4K */
+      const k = Math.min(1.5, currentPrintScale()), cw = Math.round(1024 * k), ch = Math.round(576 * k);
+      if (consoleCanvas.width !== cw) { consoleCanvas.width = cw; consoleCanvas.height = ch; consoleTex.dispose(); }
+      const cg = consoleCanvas.getContext('2d'); cg.setTransform(cw / 1024, 0, 0, ch / 576, 0, 0);
+      drawConsole(cg, 1024, 576, {running, winding, open, rpm: d.rpm || 0, rollers: Math.abs(wheelOmega) > 1e-4, status: d.status, history: st.history}); cg.setTransform(1, 0, 0, 1, 0, 0); consoleTex.needsUpdate = true; }
     if (running !== st.lastRunning || open !== st.lastOpen || winding !== st.lastWinding) { st.lastRunning = running; st.lastOpen = open; st.lastWinding = winding;
       drawStack(stackCanvas.getContext('2d'), stackCanvas.width, stackCanvas.height, {running, winding, open}); stackTex.needsUpdate = true; }
   };

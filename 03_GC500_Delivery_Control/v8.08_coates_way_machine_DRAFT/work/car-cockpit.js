@@ -272,7 +272,7 @@ export function buildCockpit(T,cabinGroup,mats){
    const housing=new T.Mesh(new T.BoxGeometry(.030,oh-.004,ow-.006),carbon);housing.position.set(-.021,0,0);put(housing,'Display pod housing');metricUV(housing.geometry);
    const screws=[];for(const [yy,zz] of [[1,1],[1,-1],[-1,1],[-1,-1]]){const sc=new T.CylinderGeometry(.0022,.0022,.0016,12);sc.rotateZ(Math.PI/2);sc.translate(.0075,yy*(oh/2-.0035),zz*(ow/2-.006));screws.push(sc);}
    merged(screws,machined,'Display bezel screws',pod);}
-  const drawn=canvasTexture(T,Math.round(D.w*COCKPIT.print.display),Math.round(D.h*COCKPIT.print.display),(g,w,h)=>drawDisplay(g,w,h,{ign:false}));displayTex=drawn;
+  const drawn=canvasTexture(T,Math.round(D.w*COCKPIT.print.display),Math.round(D.h*COCKPIT.print.display),(g,w,h)=>drawDisplay(g,w,h,{ign:false}),{live:true});displayTex=drawn;
   if(drawn){drawn.texture.generateMipmaps=true;drawn.texture.minFilter=T.LinearMipmapLinearFilter;}
   const screen=new T.Mesh(new T.PlaneGeometry(D.w,D.h),drawn?new T.MeshBasicMaterial({map:drawn.texture,toneMapped:false}):new T.MeshStandardMaterial({color:0x0a0c10,emissive:0x101418}));
   screen.position.set(.0035,0,0);screen.rotation.set(0,Math.PI/2,0);put(screen,'Driver display');
@@ -347,7 +347,7 @@ export function buildCockpit(T,cabinGroup,mats){
   {const rx=.096,ry=-.125,rz=0;
    const unit=put(new T.Mesh(new T.BoxGeometry(.016,.056,.18),black),'Radio unit');unit.position.set(rx,ry,rz);unit.receiveShadow=true;const radioSpec={kind:'button',id:'RADIO',part:'panel-button',src:'panel'};control(unit,radioSpec);
    {const bg=new T.BoxGeometry(.004,.062,.186);bg.translate(rx-.005,ry,rz);trim.push(bg);}
-   radioTex=canvasTexture(T,Math.round(.09*COCKPIT.print.panel),Math.round(.03*COCKPIT.print.panel),(g,w,h)=>drawRadio(g,w,h,radioState));
+   radioTex=canvasTexture(T,Math.round(.09*COCKPIT.print.panel),Math.round(.03*COCKPIT.print.panel),(g,w,h)=>drawRadio(g,w,h,radioState),{live:true});
    if(radioTex){const win=new T.Mesh(new T.PlaneGeometry(.09,.03),new T.MeshBasicMaterial({map:radioTex.texture,toneMapped:false}));win.position.set(rx+.0082,ry+.008,rz+.030);win.rotation.y=Math.PI/2;win.name='Radio channel window';consoleG.add(win);all.push(win);control(win,radioSpec);}
    const ptt=put(new T.Mesh(new T.CylinderGeometry(.009,.009,.008,24),new T.MeshPhysicalMaterial({color:0xffb020,roughness:.3,metalness:.05,clearcoat:.6,clearcoatRoughness:.2,emissive:0xffb020,emissiveIntensity:.25})),'Radio PTT');ptt.position.set(rx+.012,ry-.014,rz+.064);ptt.rotation.z=Math.PI/2;
    if(!buttonCaps.has('RADIO'))buttonCaps.set('RADIO',[]);buttonCaps.get('RADIO').push({cap:ptt,home:rx+.012});radioSpec.cap=ptt;control(ptt,radioSpec);

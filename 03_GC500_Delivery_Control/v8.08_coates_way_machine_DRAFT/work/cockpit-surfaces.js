@@ -10,6 +10,7 @@
    few that carry printed words (labels, the net, the engraved plate) are canvases and are made only where there is
    a document, with a plain material in their place otherwise. */
 
+import {print} from './fx-quality.js';
 const TAU = Math.PI * 2;
 function lcg(seed) { let s = seed >>> 0; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
 function tex(T, data, n, {srgb = false} = {}) {
@@ -128,10 +129,13 @@ export function uvMetres(g) {
 }
 
 /* ---- PRINTED THINGS, where there is a document: a canvas the size asked for, drawn once ---- */
-export function canvasTexture(T, w, h, draw, {srgb = true, repeat = false} = {}) {
+/* v8.08 — a print (fx-quality.js): the drawing is laid out in proportions of the canvas it is given, so on the Balanced, High and Ultra
+   rungs it is drawn again at 1.5× or 2× the pixels in an idle moment and the labels, the gauge faces and the plates stay crisp in a 4K
+   frame. `live`: the caller redraws the canvas itself (the driver's display, the radio's window) — drawn once at the size given and
+   left to the caller, as before. */
+export function canvasTexture(T, w, h, draw, {srgb = true, repeat = false, live = false, maxScale = 2} = {}) {
   if (typeof document === 'undefined') return null;
-  const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h);
-  const t = new T.CanvasTexture(c); if (srgb) t.colorSpace = T.SRGBColorSpace; t.anisotropy = 8;
-  if (repeat) t.wrapS = t.wrapT = T.RepeatWrapping;
-  return {texture: t, canvas: c};
+  const p = print(w, h, draw, {mode: 'pixel', srgb, live, maxScale});
+  if (repeat) p.texture.wrapS = p.texture.wrapT = T.RepeatWrapping;
+  return p;
 }

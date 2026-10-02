@@ -5,13 +5,22 @@ import {buildPitGarage} from './pit-garage.js';
    anything that wants the car's carbon asks the scene for it. They are generated at load; nothing is downloaded. makeMaterials()
    below is unchanged: the original car's own carbon keeps its original look (its UVs are the source's, not metres). */
 export {carbonTwill,suede,brushed,webbing,metricUV,scaleUV,uvMetres,TWILL} from './cockpit-surfaces.js';
+import {carbonTwill} from './cockpit-surfaces.js';
 export const COATES_ORANGE='#FF6A13';
 /** Small repeatable material maps, generated once. No remote texture dependencies. */
-function surface(kind){const n=128,a=new Uint8Array(n*n*4);let seed=91827;for(let y=0;y<n;y++)for(let x=0;x<n;x++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const noise=seed/4294967296;let v=kind==='carbon'?85+((Math.floor(x/5)+Math.floor(y/5))%2)*65+Math.sin((x+y)*.8)*12:130+(noise-.5)*42;const i=(y*n+x)*4;a[i]=a[i+1]=a[i+2]=v;a[i+3]=255;}const t=new T.DataTexture(a,n,n);t.wrapS=t.wrapT=T.RepeatWrapping;t.repeat.set(kind==='carbon'?8:20,kind==='carbon'?8:20);t.generateMipmaps=true;t.minFilter=T.LinearMipmapLinearFilter;t.needsUpdate=true;return t;}
-export function makeMaterials(){const carbon=surface('carbon'),metal=surface('metal');return {
+/* v8.08 — the metal's grain is 256 px of smooth, tileable two-octave noise (it was 128 px of per-pixel white noise, magnified with the
+   nearest texel: a blocky grit on every chrome part in a close-up), filtered linearly, mipmapped and anisotropic; the carbon is the
+   cockpit's 2 × 2 twill (cockpit-surfaces.js) as a normal map under a clear coat, in place of a checkerboard bump. */
+function surface(kind){const n=256,a=new Uint8Array(n*n*4);let seed=91827;const rnd=()=>(seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296;
+ const lattice=c=>Array.from({length:c*c},rnd),g1=lattice(16),g2=lattice(64),sm=t=>t*t*(3-2*t);
+ const vn=(g,c,x,y)=>{const fx=x/n*c,fy=y/n*c,x0=Math.floor(fx),y0=Math.floor(fy),tx=sm(fx-x0),ty=sm(fy-y0),v=(i,j)=>g[((j%c)*c)+(i%c)];const p=v(x0,y0)+(v(x0+1,y0)-v(x0,y0))*tx,q=v(x0,y0+1)+(v(x0+1,y0+1)-v(x0,y0+1))*tx;return p+(q-p)*ty;};
+ for(let y=0;y<n;y++)for(let x=0;x<n;x++){const v=130+(vn(g1,16,x,y)-.5)*30+(vn(g2,64,x,y)-.5)*26+(rnd()-.5)*8;const i=(y*n+x)*4;a[i]=a[i+1]=a[i+2]=Math.max(0,Math.min(255,Math.round(v)));a[i+3]=255;}
+ const t=new T.DataTexture(a,n,n);t.wrapS=t.wrapT=T.RepeatWrapping;t.repeat.set(20,20);t.generateMipmaps=true;t.minFilter=T.LinearMipmapLinearFilter;t.magFilter=T.LinearFilter;t.anisotropy=T.Texture.DEFAULT_ANISOTROPY;t.needsUpdate=true;return t;}
+function carbonWeave(){const tw=carbonTwill(T);tw.normalMap.repeat.set(8,8);return tw.normalMap;}
+export function makeMaterials(){const metal=surface('metal'),weave=carbonWeave();return {
 orange:new T.MeshPhysicalMaterial({color:COATES_ORANGE,metalness:.28,roughness:.25,clearcoat:1,clearcoatRoughness:.15}),
 black:new T.MeshPhysicalMaterial({color:0x15191e,metalness:.35,roughness:.25,clearcoat:.9,clearcoatRoughness:.16}),
-carbon:new T.MeshStandardMaterial({color:0x202428,metalness:.28,roughness:.4,bumpMap:carbon,bumpScale:.0015}),
+carbon:new T.MeshPhysicalMaterial({color:0x202428,metalness:.28,roughness:.42,normalMap:weave,normalScale:new T.Vector2(.45,.45),clearcoat:.85,clearcoatRoughness:.07}),
 glass:new T.MeshPhysicalMaterial({color:0x70838d,metalness:.05,roughness:.14,transparent:true,opacity:.36,depthWrite:false,side:T.DoubleSide}),
 chrome:new T.MeshStandardMaterial({color:0xc3ccd2,metalness:.94,roughness:.2,bumpMap:metal,bumpScale:.0003}),
 steel:new T.MeshStandardMaterial({color:0x87949b,metalness:.9,roughness:.33,bumpMap:metal,bumpScale:.0005}),

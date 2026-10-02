@@ -16,6 +16,7 @@
    then put on a layer the camera, the shadow camera and the picking ray do not see; it comes back (0.25 s) once it is clear.
    Units marked fixed — the building's shell, the floor, the door, what the car stands on — are never tested and never hidden.
    Every frame, a few thousand box tests: well under a millisecond. */
+import {print} from './fx-quality.js';
 export const HIDDEN_LAYER = 30;
 export function collectUnits(T, roots, {fixed = new Set(), dynamic = () => false, floorY = .05} = {}) {
   const units = new Map(), box = new T.Box3();
@@ -77,14 +78,19 @@ export function buildClearView(T, {camera, units, carBox, enabled = () => true, 
   };
   return api;
 }
+/* v8.08 — a print (fx-quality.js): drawn at 256 px on load and at up to 512 on the higher rungs; the streaks come from a fixed seed so
+   every redraw is the same picture */
 function blurTexture(T) {
-  const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'), cx = 128;
+  return print(256, 256, drawBlur, {mode: 'logical', name: 'wheel blur'}).texture;
+}
+function drawBlur(g) {
+  const cx = 128; let seed = 2626; const rnd = () => (seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296;
   for (let r = 128; r > 0; r--) { const u = r / 128;
     let col = u > .9 ? [205, 210, 214, .96] : u > .84 ? [120, 126, 132, .93] : u > .26 ? [150 + 20 * Math.sin(u * 60), 156 + 20 * Math.sin(u * 60), 162 + 20 * Math.sin(u * 60), .88] : u > .16 ? [70, 74, 78, .95] : [36, 38, 41, .97];
     g.fillStyle = `rgba(${col[0] | 0},${col[1] | 0},${col[2] | 0},${col[3]})`; g.beginPath(); g.arc(cx, cx, r, 0, Math.PI * 2); g.fill(); }
   /* a faint streak ring where the spokes were */
-  g.globalAlpha = .18; g.strokeStyle = '#ffffff'; for (let k = 0; k < 24; k++) { g.lineWidth = 1 + Math.random() * 2; g.beginPath(); g.arc(cx, cx, 40 + Math.random() * 64, 0, Math.PI * 2); g.stroke(); }
-  const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; return t;
+  g.globalAlpha = .18; g.strokeStyle = '#ffffff'; for (let k = 0; k < 24; k++) { g.lineWidth = 1 + rnd() * 2; g.beginPath(); g.arc(cx, cx, 40 + rnd() * 64, 0, Math.PI * 2); g.stroke(); }
+  g.globalAlpha = 1;
 }
 export function buildWheelBlur(T, wheels) {
   const tex = blurTexture(T), mats = [];

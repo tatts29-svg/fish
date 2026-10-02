@@ -3,6 +3,12 @@ import {valveLift,camProfileRadius,camLobePhase,ENGINE_LAYOUT} from './engine-ki
 import {buildFrontDrive} from './front-drive.js';
 import {buildAccessories} from './engine-accessories.js';
 import {buildSystems} from './engine-systems.js';
+import './mech-register.js';   /* v8.08: the new mechanisms' references, before the register is drawn */
+import {buildDriveline} from './mech-driveline.js';
+import {buildBrakes} from './mech-brakes.js';
+import {buildOilGalleries} from './mech-oil.js';
+import {ENGINE_FIT} from './engine-kinematics.js';
+import {CAR_AXLES} from './car-gc500.js';
 // Illustrative, mechanically legible cutaway; dimensions are in metres.
 // Receives the host's Three.js instance so this asset has no external imports.
 export function buildPowertrain(T, materials = {}) {
@@ -394,17 +400,23 @@ export function buildPowertrain(T, materials = {}) {
   batch(shaftRotor,'chrome',shaftMetal,'Drive shaft and U-joint crosses');
 
   const diff = assembly('rear-differential','Rear differential & CV axle shafts',[1.65,.404,0],[.30,.45,-.55]);
-  const diffMetal = [cyl(.173,.173,.37,[0,0,0],[Math.PI/2,0,0],16),cyl(.090,.14,.22,[-.16,0,0],[0,0,Math.PI/2],14)];
+  /* v8.08 — the case is sectioned on its near-top quarter, like the gearbox, so the pinion, the crown wheel, the carrier, the
+     spider gears and the side gears inside can be watched working (mech-driveline.js). Its fins stay on the closed lower half. */
+  /* the open quarter is the front-top one, toward the V8 view's camera, and the near end is open; the nose is open on its near half */
+  const diffMetal = [transformed(new T.CylinderGeometry(.173,.173,.37,28,1,true,Math.PI*1.5,Math.PI*1.5),[0,0,0],[Math.PI/2,0,0]),
+    transformed(new T.CylinderGeometry(.173,.173,.012,28,1,false,Math.PI*1.5,Math.PI*1.5),[0,0,-.18],[Math.PI/2,0,0]),
+    transformed(new T.CylinderGeometry(.090,.14,.22,16,1,true,Math.PI/2,Math.PI),[-.16,0,0],[0,0,Math.PI/2])];
   const boots = [];
-  for(let i=0;i<7;i++) diffMetal.push(box(.34,.018,.31,[0,-.087+i*.029,0]));
+  for(let i=0;i<4;i++){const y=-.10-i*.022;diffMetal.push(box(2*Math.sqrt(.173*.173-y*y)+.05,.012,.31,[0,y,0]));}
   for (const side of [-1,1]) {
-    {const ax=cyl(.035,.035,.66,[0,0,side*.53],[Math.PI/2,0,0],12);ax.userData={axle:true};diffMetal.push(ax);}
+    {const ax=cyl(.030,.030,.79,[0,0,side*.465],[Math.PI/2,0,0],12);ax.userData={axle:true,side};diffMetal.push(ax);}   /* from the side gear's hub out to the hub */
     for (const z of [.25,.81]) for(let j=0;j<5;j++) boots.push(torus(.054-Math.abs(j-2)*.004,.012,[0,0,side*(z+j*.022)],undefined));
   }
-  /* the half shafts turn at the wheels' rate: their own rotor about the axle, read off the main shaft through the final drive */
-  const axleRotor=new T.Group();diff.add(axleRotor);
-  batch(diff,'steel',diffMetal.filter(g=>!(g.userData&&g.userData.axle)),'Finned differential case');
-  batch(axleRotor,'steel',diffMetal.filter(g=>g.userData&&g.userData.axle),'Steel half shafts to the hubs');
+  /* the half shafts turn at the wheels' rate: their own rotor about the axle, read off the main shaft through the final drive —
+     v8.08: one rotor each side, splined to its side gear, so a steered differential turns them at different speeds */
+  const axleRotors=[1,-1].map(side=>{const r=new T.Group();r.userData.side=side;diff.add(r);return r;});
+  batch(diff,'steel',diffMetal.filter(g=>!(g.userData&&g.userData.axle)),'Finned differential case (sectioned)');
+  for(const r of axleRotors)batch(r,'steel',diffMetal.filter(g=>g.userData&&g.userData.axle&&g.userData.side===r.userData.side),(r.userData.side>0?'Left':'Right')+' half shaft to the hub');
   batch(diff,'rubber',boots,'Pleated inboard and outboard CV boots');
   boltBatch(diff,Array.from({length:8},(_,i)=>{const a=i*Math.PI/4;return[Math.sin(a)*.142,Math.cos(a)*.142,.195,Math.PI/2];}),.011);
 
@@ -569,7 +581,9 @@ export function buildPowertrain(T, materials = {}) {
      front axle; the rack bar slides across the car as the wheel turns (setRack), its tie rods follow it to the
      uprights' steering arms, and the front wheels turn on their kingpins (car-app.js updateTransforms). Built at
      the true front axle (car-fit.js shifts the suspension to −1.482, not this) in rig units. */
-  let rackBar=null,rackTravel=0;const tieRods=[];
+  let rackBar=null,rackTravel=0,steerYaw=0;const tieRods=[],knuckles=[];
+  const STEER_ROAD=18*Math.PI/180,RACK_MAX=.074,ARM=RACK_MAX/Math.sin(STEER_ROAD);
+  const KINGPIN={x:(CAR_AXLES.front-ENGINE_FIT.x)/ENGINE_FIT.scale,y:.45,z:.94};   /* the front axle line (car-fit.js moves the wishbones there) at the upright */
   {
     const rack = assembly('steering-rack', 'Rack and pinion steering', [0, 0, 0], [0, 0.34, -0.6]);
     const rackSteel = [], rackDark = [];
@@ -589,44 +603,78 @@ export function buildPowertrain(T, materials = {}) {
       const end=new T.Mesh(cyl(0.026, 0.026, 0.05, [0, 0, 0], [Math.PI / 2, 0, 0], 10),mats.dark);end.name=name+' end';end.castShadow=true;rod.add(end);   /* the track-rod end on the upright's arm */
       tieRods.push({side,bar,end,inner:new T.Vector3(-0.95,0.50,side*0.82),outer:new T.Vector3(-1.36,0.45,side*0.92)});
     }
+    /* v8.08 — THE STEERING KNUCKLES. The tie rods used to end in mid-air beside a fixed upright while the wheels turned on their
+       own. Now each front upright turns on its kingpin, carrying a steering arm that trails back to the tie rod's outer ball
+       joint: the rack pushes the rod, the rod swings the arm, the arm turns the upright — and the upright's turn is the wheel's,
+       18° at full lock (car-app.js STEER_ROAD). The arm's length is what makes those agree: the rack's 55 mm of travel each way
+       (0.074 rig units) is the arm's swing, so arm × sin 18° = 0.074. With a rack behind the axle and trailing arms, a right
+       turn moves the rack to the left (+z) — the rack's direction is corrected to match (it used to go the other way). */
+    for(const side of [1,-1]){
+      const id='steering-knuckle-'+(side>0?'left':'right');
+      const k=assembly(id,(side>0?'Left':'Right')+' front upright & steering arm',[KINGPIN.x,KINGPIN.y,side*KINGPIN.z],[-.15,.30,side*.95]);
+      const turn=new T.Group();k.add(turn);
+      const kDark=[box(.07,.30,.05,[0,0,0]),cyl(.03,.03,.06,[0,.17,0],undefined,10),cyl(.03,.03,.06,[0,-.17,0],undefined,10)];
+      const kSteel=[box(ARM,.022,.03,[ARM/2,-.02,0]),cyl(.016,.016,.03,[ARM,-.02,0],undefined,10),cyl(.045,.045,.07,[0,0,side*.05],[Math.PI/2,0,0],16)];
+      batch(turn,'dark',kDark,'Upright and kingpin bosses');batch(turn,'steel',kSteel,'Steering arm, ball-joint eye and stub axle');
+      knuckles.push({id,side,turn});
+    }
     batch(rack, 'steel', rackSteel, 'Pinion');
     batch(rack, 'dark', rackDark, 'Rack housing and pinion housing');
   }
   const tieDir=new T.Vector3(),tieX=new T.Vector3(1,0,0);
   /* t: the wheel's turn, −1…1 (full left to full right). The rack's travel is ±55 mm at full lock (rig units
      ×.74 in the car); a right turn pulls the bar toward the driver's side (−z) and the arms swing the uprights */
-  function layTieRods(){for(const r of tieRods){const inner=r.inner.clone();inner.z+=rackTravel;const outer=r.outer.clone();outer.z+=rackTravel*.85;outer.x+=r.side*rackTravel*.35;
-    tieDir.subVectors(outer,inner);const L=tieDir.length();r.bar.position.copy(inner);r.bar.scale.set(L,1,1);r.bar.quaternion.setFromUnitVectors(tieX,tieDir.normalize());r.end.position.copy(outer);}}
-  function setRack(t){rackTravel=-Math.max(-1,Math.min(1,t||0))*0.074;if(rackBar)rackBar.position.z=rackTravel;layTieRods();}   /* 0.074 rig units is 55 mm in the car */
+  /* the outer joint is wherever the knuckle's arm has put it: the kingpin plus the arm, turned by the upright's yaw */
+  function layTieRods(){for(const r of tieRods){const inner=r.inner.clone();inner.z+=rackTravel;const outer=new T.Vector3(KINGPIN.x+ARM*Math.cos(steerYaw),KINGPIN.y-.02,r.side*KINGPIN.z-ARM*Math.sin(steerYaw));r.outer.copy(outer);
+    tieDir.subVectors(outer,inner);const L=tieDir.length();r.bar.position.copy(inner);r.bar.scale.set(L,1,1);r.bar.quaternion.setFromUnitVectors(tieX,tieDir.normalize());r.end.position.copy(outer);}
+    for(const k of knuckles)k.turn.rotation.y=steerYaw;}
+  /* t: the wheel's turn, −1…1. The rack slides 0.074 rig units (55 mm in the car) at full lock; the uprights turn by the angle
+     whose arm swing is that travel — the same 18° the wheels are given (car-app.js roadYaw = −t × 18°) */
+  function setRack(t){const c=Math.max(-1,Math.min(1,t||0));rackTravel=c*RACK_MAX;steerYaw=-Math.asin(c*RACK_MAX/ARM);if(rackBar)rackBar.position.z=rackTravel;layTieRods();if(brakes)brakes.setSteer(c);if(driveline)driveline.setSteer(c);}
+  let brakes=null,driveline=null;
   setRack(0);
   let fanForce=false,fanSpin=0;function setFans(on){fanForce=!!on;}
   const timing=buildTimingDrive(T,mats,assembly,mesh);
   const frontDrive=buildFrontDrive(T,mats,assembly,mesh,batch);
   const accessories=buildAccessories(T,mats,assembly,mesh,batch,{cyl,box,tube,transformed});
   const systems=buildSystems(T,mats,assembly,mesh,batch,{cyl,box,tube,transformed});
+  /* v8.08 — the mechanisms added for Andrew Fisher's 2 Oct 2026 brief: the clutch and the opened differential (mech-driveline.js),
+     the brakes from the balance bar to the pads and the discs' heat (mech-brakes.js), the oil in the block's drillings (mech-oil.js) */
+  driveline=buildDriveline(T,mats,assembly,mesh,batch,{cyl,box,tube,transformed});
+  brakes=buildBrakes(T,mats,assembly,mesh,batch,{cyl,box,tube,transformed});
+  const oil=buildOilGalleries(T,mats,assembly,mesh,batch,{cyl,box,tube,transformed});
+  setRack(0);
+  let lastStepDt=1/60,inputAngle=0;
+  function setStarter(active,dt=1/60){lastStepDt=Math.max(0,Math.min(.1,dt||0));driveline.setClutch(active);systems.setStarter(active,dt);}
 
   // A scalar crank angle drives each actual piston and conrod. The callback is
   // consulted per removable assembly, so detached parts freeze in their pose.
   const animDirection = new T.Vector3();
   const alwaysConnected = () => true;
+  let crankNow=0;
   function animate(angle,connectedFn) {
-    const connected = connectedFn || alwaysConnected;
+    const connected = connectedFn || alwaysConnected;crankNow=angle;
     if (connected('crankshaft')) rotor.rotation.x = angle;
     for (const item of camRotors) if (connected(item.id)) item.rotor.rotation.x = angle*.5;
     /* the fans follow the running V8, or the FAN switch on the cockpit panel, which runs them with the V8 off */
     if(fanForce)fanSpin+=.45;for(const item of fanRotors)if(connected(item.id))item.rotor.rotation.x=fanForce?fanSpin+angle*1.4:angle*1.4;
     /* the crank's step this call; the main shaft integrates it at the engaged gear's rate and holds in neutral */
-    const dCrank=prevCrank===null?0:angle-prevCrank;prevCrank=angle;if(gearNow&&connected('gearbox'))mainAngle+=dCrank*gearRateOf(gearNow);
+    /* v8.08 — the gearbox's input is the clutch disc, not the crank: held in while the V8 is started, it stands still */
+    inputAngle=driveline.clutchStep(angle,lastStepDt,connected);
+    const dCrank=prevCrank===null?0:inputAngle-prevCrank;prevCrank=inputAngle;if(gearNow&&connected('gearbox')&&connected('clutch'))mainAngle+=dCrank*gearRateOf(gearNow);
     if(connected('prop-shaft'))shaftRotor.rotation.x=mainAngle;
-    if(connected('rear-differential'))axleRotor.rotation.z=mainAngle/FINAL_DRIVE;
+    const shafts=driveline.animate(mainAngle,connected);
+    if(connected('rear-differential')){axleRotors[0].rotation.z=shafts.left;axleRotors[1].rotation.z=shafts.right;}
     /* the gear train (v5.80): the input at crank speed, the lay shaft through the input pair, each main-shaft gear at its own rate, the main shaft at the engaged gear's */
-    if(connected('gearbox')){gearRotors.input.rotation.x=angle;const lay=-angle*GB.inPair[0]/GB.inPair[1];gearRotors.lay.rotation.x=lay;
+    if(connected('gearbox')){gearRotors.input.rotation.x=inputAngle;const lay=-inputAngle*GB.inPair[0]/GB.inPair[1];gearRotors.lay.rotation.x=lay;
      gearRotors.mains.forEach((g,i)=>{g.rotation.x=-lay*GB.rLay[i]/GB.rMain[i];});
      const out=mainAngle;gearRotors.output.rotation.x=out;gearRotors.dogs.forEach(d=>{d.group.rotation.x=out;});}
     timing.animate(angle,connected);
     frontDrive.animate(angle,connected);
     accessories.animate(angle,connected);
     systems.animate(angle,connected);
+    oil.animate(angle,connected);
+    brakes.animate(root,connected);
     for(const item of valveMotions){
       const lift=valveLift(angle,item.n,item.kind,item.side,item.phase);
       if(connected(item.id))item.movingValve.position.set(0,-lift*bankCos,-item.side*lift*bankCos);
@@ -646,11 +694,13 @@ export function buildPowertrain(T, materials = {}) {
     }
   }
   animate(0);
+  /* v8.08 — what the mechanisms are doing, for the tests (evidence/mech_tests.js reads it off the scene) and nothing else */
+  root.userData.mech={driveline,brakes,oil,timing,knuckles,axleRotors,get crank(){return crankNow;},get input(){return inputAngle;},get main(){return mainAngle;},get steerYaw(){return steerYaw;},get rackTravel(){return rackTravel;},get gear(){return gearNow;},tieRods};
   root.updateMatrixWorld(true);
   root.traverse(obj => {
     if (obj.isMesh) { obj.castShadow = true; obj.receiveShadow = true; }
   });
   const bounds = new T.Box3().setFromObject(root);
   boxBase.dispose();
-  return {root,removable,animate,setThrottle:accessories.setThrottle,setStarter:systems.setStarter,setRack,setFans,setGear,gearRateOf,finalDrive:FINAL_DRIVE,get mainAngle(){return mainAngle;},gearbox,get rackTravel(){return rackTravel;},tieRods,bounds,valveMotions,pistonMotions,camRotors,timing,frontDrive,accessories,systems};
+  return {root,removable,animate,setThrottle:accessories.setThrottle,setStarter,setBrake:brakes.setBrake,setRack,driveline,brakes,oil,knuckles,get steerYaw(){return steerYaw;},get inputAngle(){return inputAngle;},axleRotors,setFans,setGear,gearRateOf,finalDrive:FINAL_DRIVE,get mainAngle(){return mainAngle;},gearbox,get rackTravel(){return rackTravel;},tieRods,bounds,valveMotions,pistonMotions,camRotors,timing,frontDrive,accessories,systems};
 }

@@ -1,6 +1,7 @@
 import {CAR_AXLES} from './car-gc500.js';
 import {ENGINE_LAYOUT,ENGINE_FIT,COG_CAR} from './engine-kinematics.js';
 import {buildCockpit} from './car-cockpit.js';
+import {print} from './fx-quality.js';
 
 // Package the illustrative mechanical rig inside the original, five-metre car.
 export {ENGINE_FIT};
@@ -36,13 +37,13 @@ export function fitCarMechanics(T,body,engine){
   const add=(w,h,d,x,y,z,mat)=>{const m=new T.Mesh(new T.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;m.name='Firewall';cabin.group.add(m);return m;};
   add(.02,.40,1.40,-.20,.86,0,carbon);add(.02,.38,.44,-.20,.51,.48,carbon);add(.02,.38,.44,-.20,.51,-.48,carbon);   /* top at rig 1.06 = world 0.78, under the bonnet's rear edge (0.79) */
   if(typeof document!=='undefined'){
-   const c=document.createElement('canvas');c.width=512;c.height=200;const g=c.getContext('2d');
+   /* v8.08 — a print (fx-quality.js): the same drawing, at up to twice the pixels on the higher rungs */
+   const tex=print(512,200,g=>{
    g.fillStyle='#07090b';g.fillRect(0,0,512,200);
    for(let i=0;i<12;i++){g.fillStyle=i<7?'#2ec46a':i<10?'#ffb020':'#e5342a';g.fillRect(30+i*38,24,30,10);}
    g.fillStyle='#f3f4f2';g.font='700 118px system-ui, Segoe UI, Arial, sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText('N',256,112);
    g.font='700 26px system-ui, Segoe UI, Arial, sans-serif';g.textAlign='left';g.fillStyle='#9aa3a8';g.fillText('0 rpm',34,172);
-   g.textAlign='right';g.fillStyle='#ff6a13';g.fillText('COATES · 26',478,172);
-   const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=4;
+   g.textAlign='right';g.fillStyle='#ff6a13';g.fillText('COATES · 26',478,172);},{mode:'logical',name:'firewall display'}).texture;
    const bezel=add(.03,.12,.24,-.12,.85,-.415,carbon);bezel.name='Dash display bezel';
    const screen=new T.Mesh(new T.PlaneGeometry(.21,.09),new T.MeshBasicMaterial({map:tex,toneMapped:false}));
    screen.position.set(-.103,.85,-.415);screen.rotation.y=Math.PI/2;screen.name='Dash display';cabin.group.add(screen);
