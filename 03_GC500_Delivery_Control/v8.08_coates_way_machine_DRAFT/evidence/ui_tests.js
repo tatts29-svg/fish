@@ -200,7 +200,7 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   await page.keyboard.press('Escape'); await wait(300);
 
   /* ── every control still answers ── */
-  if (!QUICK) {
+  if (!QUICK) try {
     const cw = (expr) => page.evaluate(expr);
     for (const v of ['engine', 'cog', 'car']) { await clickSel(`[data-view="${v}"]`); await wait(1500); check(`tab: ${v}`, await cw(`window.__cw.view==='${v}'&&document.querySelector('[data-view="${v}"]').classList.contains('active')`)); }
     await wait(6000);
@@ -231,10 +231,11 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
     for (const id of ['zoom-in', 'zoom-out', 'home']) { await clickSel('#' + id); check(`camera: ${id}`, await until(() => !!window.__cw.tween, 3000)); await wait(1500); }
     /* one press is tested by hand; the two more that bring it round to Laptop are pressed together, so the software renderer never has to draw a High frame */
     const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); await page.evaluate(() => { const b = document.getElementById('quality'); b.click(); b.click(); }); await wait(1500); check('Quality cycles (and comes round again)', q1 !== q0 && (await txt('#quality')) === q0, `${q0} → ${q1} → ${await txt('#quality')}`);
-    const dl = page.waitForEvent('download', {timeout: 180000}).catch(() => null); await clickId('capture'); const d = await dl; check('4K capture saves a picture', !!d || /saved/.test(await txt('#toast')), d ? d.suggestedFilename() : await txt('#toast'));
+    /* the 4K frame is drawn in the click itself: on a software renderer that is minutes, so the click is fired without waiting on it */
+    const dl = page.waitForEvent('download', {timeout: 900000}).catch(() => null); await page.evaluate(() => setTimeout(() => document.getElementById('capture').click(), 0)); const d = await dl; check('4K capture saves a picture', !!d || /saved/.test(await txt('#toast')), d ? d.suggestedFilename() : await txt('#toast'));
     await clickId('original'); check('Original cog', /original/i.test(await txt('#exhibit-name'))); await page.keyboard.press('Escape');
     await clickId('help'); check('Controls', /Explore the car/.test(await txt('#exhibit-name'))); await page.keyboard.press('Escape');
-  }
+  } catch (e) { check('control sweep ran to the end', false, e.message.split('\n')[0]); }
   await wait(500);
   const errs = m.errors.filter(e => !/favicon/i.test(e));
   check('no page errors', !errs.length, errs.slice(0, 5).join(' | '));

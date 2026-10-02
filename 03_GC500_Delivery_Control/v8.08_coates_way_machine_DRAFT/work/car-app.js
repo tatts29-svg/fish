@@ -179,7 +179,7 @@ function dynoStep(dt){if(dt<=0)return;dynoT+=dt;const now=dynoT,manual=now-manua
  dynoSpin+=(target-dynoSpin)*(1-Math.exp(-dt*(target>dynoSpin?.9:.45)));if(dynoSpin<.02&&target===0)dynoSpin=0;}
 function rollerSpeed(){return PT.kmh;}
 /* what the crew are told each frame (v5.81): whether the V8 runs, its revs (the machine's own), and nothing they could not see */
-function crewState(){return {running:drive.running&&drive.omega>1e-3,rpm:PT.rpm};}
+function crewState(){return {running:drive.running&&drive.omega>1e-3,rpm:PT.rpm,apart:drive.spread>.01||drive.spreadTarget>.01||DX.state!=='seated'};}
 /* the harness's fast-forward: the drive, the service and the crew stepped on without rendering (a software renderer takes seconds a frame; the crew's walks take tens of seconds).
    `until`, if given, is asked before every step and stops it at the first step it is true (the tests wait on the crew this way: a moment is caught to the
    step, and the parts and the dock are brought up to date once, at the end, not once a step) */
@@ -542,9 +542,9 @@ function clearCarBox(){if(!ready)return null;const now=performance.now();/* the 
    clear of the car's side does it start to come apart. When it is back together he walks back, the door opens, he ducks in and is the seated
    driver again, and the door shuts. In the cockpit the camera is his eyes, so going there, or Reset, puts him straight back in his seat. */
 const DX={state:'seated',phase:null,door:0,doorTo:0,seated:true,man:null,fig:null,spreadStarted:false,hinge:null};
-const DX_SEAT=[.70,-.32],DX_SILL=[-.10,-1.45],DX_SAFE=[3.0,-3.95],DX_FACE=[.4,-.2];
+const DX_SEAT=[.70,-.32],DX_SILL=[.70,-1.50],DX_SAFE=[-4.4,-3.75],DX_FACE=[.4,-.2];
 function buildDriverWalker(){try{const fig=buildFigure(T,{title:'race driver',label:6,height:1.78,build:1,helmet:'crew'});fig.root.visible=false;fig.root.traverse(o=>{if(o.isMesh)o.castShadow=false;});
- const man=new Crewman(fig,{seed:26,name:'race driver',walk:1.05});man.floor=crewFloorAt;crew.root.add(fig.root);DX.man=man;DX.fig=fig;}catch(e){console.warn('Driver walk-out unavailable:',e.message);DX.man=null;}}
+ const man=new Crewman(fig,{seed:26,name:'race driver',walk:1.05});man.floor=crewFloorAt;crew.root.add(fig.root);if(crew.addPerson)crew.addPerson(man);DX.man=man;DX.fig=fig;}catch(e){console.warn('Driver walk-out unavailable:',e.message);DX.man=null;}}
 function swingDoor(g){if(!DX.hinge){const b=new T.Box3().setFromObject(g),h=new T.Vector3(b.min.x,(b.min.y+b.max.y)/2,b.min.z);g.parent.updateWorldMatrix(true,false);DX.hinge=g.parent.worldToLocal(h);}
  const k=DX.door*DX.door*(3-2*DX.door),q=tempQuat.setFromAxisAngle(yAxis,1.05*k);g.position.sub(DX.hinge).applyQuaternion(q).add(DX.hinge);g.quaternion.premultiply(q);}
 function driverShow(walking){DX.seated=!walking;if(DX.fig)DX.fig.root.visible=walking;}
@@ -554,8 +554,8 @@ function driverOut(){const m=DX.man;if(!m)return;DX.spreadStarted=false;
  DX.state='exiting';if(DX.phase==='crawlin'||DX.phase==='duck'){m.crouch(1);m.walkTo([DX_SILL],{speed:.7});DX.phase='crawlout';}else{DX.phase='rise';}}
 function driverBackIn(){const m=DX.man;if(!m)return;if(DX.state!=='exiting')return;DX.state='returning';
  if(DX.phase==='door'){DX.doorTo=0;DX.phase='shut';return;}
- if(DX.phase==='crawlout'||DX.phase==='rise'){m.crouch(1);m.walkTo([DX_SEAT],{speed:.6});DX.phase='crawlin';return;}
- DX.phase='walkback';m.walkTo(crewRoute([m.pos.x,m.pos.z],DX_SILL,CREW_OBSTACLES,CREW_NODES),{face:DX_FACE,clearOf:CREW_OBSTACLES});}
+ if(DX.phase==='crawlout'||DX.phase==='rise'){m.crouch(1);DX.phase='duck';return;}
+ DX.phase='walkback';m.walkTo(crew.plan([m.pos.x,m.pos.z],DX_SILL,m).slice(1),{face:DX_FACE,clearOf:CREW_OBSTACLES});}
 function driverHome(){if(!DX.man)return;DX.state='seated';DX.phase=null;DX.door=DX.doorTo=0;DX.spreadStarted=false;DX.man.path=null;driverShow(false);}
 function driverStep(dt){const m=DX.man;if(!m)return;
  DX.door+=Math.max(-dt/.6,Math.min(dt/.6,DX.doorTo-DX.door));
@@ -564,14 +564,14 @@ function driverStep(dt){const m=DX.man;if(!m)return;
  if(!DX.seated)m.update(dt);
  const P=DX.phase;
  if(DX.state==='exiting'){
-  if(P==='door'&&DX.door>=1){m.place(DX_SEAT[0],DX_SEAT[1],Math.PI);m.post={kind:'crouch',k:1,want:1,stage:null,rate:1.4,seat:null,kneel:null};driverShow(true);m.walkTo([DX_SILL],{speed:.7});DX.phase='crawlout';}
+  if(P==='door'&&DX.door>=1){m.place(DX_SILL[0],DX_SILL[1],Math.PI);m.post={kind:'crouch',k:1,want:1,stage:null,rate:1.4,seat:null,kneel:null};driverShow(true);DX.phase='crawlout';}
   else if(P==='crawlout'&&!m.path){m.crouch(0);DX.phase='rise';}
-  else if(P==='rise'&&m.post.kind==='stand'&&m.post.k<=0){m.walkTo(crewRoute([m.pos.x,m.pos.z],DX_SAFE,CREW_OBSTACLES,CREW_NODES),{face:[0,0],clearOf:CREW_OBSTACLES});DX.doorTo=0;DX.phase='walkaway';}
+  else if(P==='rise'&&m.post.kind==='stand'&&m.post.k<=0){DX.doorTo=0;if(DX.door<=0){m.walkTo(crew.plan([m.pos.x,m.pos.z],DX_SAFE,m).slice(1),{face:[0,0],clearOf:CREW_OBSTACLES});DX.phase='walkaway';}}
   else if(P==='walkaway'){if(!DX.spreadStarted&&DX.door<=0&&m.pos.z<-2.2){DX.spreadStarted=true;applySpread(true);}if(m.arrived&&DX.spreadStarted){DX.state='out';DX.phase=null;}}}
- else if(DX.state==='out'){if(drive.spreadTarget<=.01&&drive.spread<.002){DX.state='returning';DX.phase='walkback';m.walkTo(crewRoute([m.pos.x,m.pos.z],DX_SILL,CREW_OBSTACLES,CREW_NODES),{face:DX_FACE,clearOf:CREW_OBSTACLES});}}
+ else if(DX.state==='out'){if(drive.spreadTarget<=.01&&drive.spread<.002){DX.state='returning';DX.phase='walkback';m.walkTo(crew.plan([m.pos.x,m.pos.z],DX_SILL,m).slice(1),{face:DX_FACE,clearOf:CREW_OBSTACLES});}}
  else if(DX.state==='returning'){
-  if(P==='walkback'){if(Math.hypot(m.pos.x-DX_SILL[0],m.pos.z-DX_SILL[1])<1.4)DX.doorTo=1;if(m.arrived&&DX.door>=1){m.crouch(1);DX.phase='duck';}}
-  else if(P==='duck'&&m.post.k>=1){m.walkTo([DX_SEAT],{speed:.6});DX.phase='crawlin';}
+  if(P==='walkback'){if(m.arrived)DX.doorTo=1;if(m.arrived&&DX.door>=1){m.crouch(1);DX.phase='duck';}}
+  else if(P==='duck'&&m.post.k>=1){DX.phase='crawlin';}
   else if(P==='crawlin'&&!m.path){driverShow(false);DX.doorTo=0;DX.state='seated';DX.phase='shut';}}}
 /* v6.99b — SMALL PARTS ARE NOT DRAWN WHILE THEY ARE SMALLER THAN A PIXEL. In the car view a third of the car's meshes (bolts, nuts, pins, the
    cog's fine pieces) cover under a pixel and a half of the screen; each is still a draw call and its triangles. In the car and V8 views a mesh

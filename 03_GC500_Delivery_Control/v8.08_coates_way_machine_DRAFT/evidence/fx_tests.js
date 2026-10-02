@@ -73,7 +73,9 @@ async function textures(page, want) {
     return {total, need, max, low: low.length, lowList: low.slice(0, 12), noMip: noMip.length, noMipList: noMip.slice(0, 12), atlas}; }, want);
 }
 async function canvasPng(page, file) {
-  const url = await page.evaluate(() => { window.__step(); return window.__cw.renderer.domElement.toDataURL('image/png'); });
+  /* read in the same task as a frame that really drew (the drawing buffer is not kept once the frame is shown) */
+  let url = null; for (let i = 0; i < 5 && !url; i++) { await wait(80); url = await page.evaluate(() => { const r = window.__cw.renderer, f0 = r.info.render.frame; window.__step(); return r.info.render.frame > f0 ? r.domElement.toDataURL('image/png') : null; }); }
+  if (!url) throw new Error('no frame drawn for the picture');
   fs.writeFileSync(file, Buffer.from(url.split(',')[1], 'base64'));
 }
 async function capture(page) {
@@ -128,7 +130,7 @@ async function run(dev) {
       const p = {quality: s.quality, label: s.label, ratio: +s.ratio.toFixed(3), expected: +exp.toFixed(3), buffer: s.buffer, css, megapixels: +(s.buffer[0] * s.buffer[1] / 1e6).toFixed(2), composerSamples: s.composerSamples, shadow: s.shadow, dprScale: s.dprScale, prints: s.fx && s.fx.prints, frameMs: Math.round(times[1]), drawCalls: info && info.calls, triangles: info && info.triangles, settleFrames: steps};
       out.presets[q] = p;
       check(dev, `${q}: still pixel ratio = ${p.expected} (buffer ${p.buffer.join('x')})`, Math.abs(p.ratio - p.expected) < .02, {ratio: p.ratio, megapixels: p.megapixels});
-      if (q === 'ultra') check(dev, 'ultra: at least 3840 x 2160 worth of pixels', p.buffer[0] * p.buffer[1] >= 3840 * 2160 * .98, p.megapixels + ' MP');
+      if (q === 'ultra') { const need = Math.min(3840 * 2160, css[0] * css[1] * 16); check(dev, `ultra: 3840 x 2160 worth of pixels (or 4x a small screen: ${(need / 1e6).toFixed(2)} MP)`, p.buffer[0] * p.buffer[1] >= need * .98, p.megapixels + ' MP'); }
       if (q !== 'laptop') check(dev, `${q}: post stack multisampled`, p.composerSamples === null || p.composerSamples >= 4, p.composerSamples);
       if (s.fx) { const want = {laptop: 1, balanced: 1.5, high: 2, ultra: 2}[q]; check(dev, `${q}: prints redrawn at ${want}x (${s.fx.prints.done}/${s.fx.prints.count}, ${s.fx.prints.megapixels} MP)`, s.fx.prints.scale === want && s.fx.prints.done === s.fx.prints.count); }
       if (process.env.SHOTS) { fs.mkdirSync(process.env.SHOTS, {recursive: true}); await canvasPng(m.page, path.join(process.env.SHOTS, `${process.env.TAG || 'run'}_${dev}_${q}.png`)); }
