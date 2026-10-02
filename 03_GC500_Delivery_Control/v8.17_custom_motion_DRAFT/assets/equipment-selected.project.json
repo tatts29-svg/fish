@@ -1,0 +1,483 @@
+{
+  "version": 1,
+  "revision": 1,
+  "name": "GC500 Equipment selected · Author: Andrew Fisher",
+  "author": "Author: Andrew Fisher",
+  "width": 128,
+  "height": 128,
+  "fps": 30,
+  "duration": 1.2,
+  "background": "#1A1614",
+  "selectedId": "selection-rule",
+  "layers": [
+    {
+      "id": "selection-rule",
+      "name": "Selected equipment underline",
+      "type": "rectangle",
+      "fill": "#FF6A13",
+      "x": 58,
+      "y": 105,
+      "width": 76,
+      "height": 4,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 2,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 58,
+          "y": 105,
+          "scale": 86,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.15,
+          "x": 58,
+          "y": 105,
+          "scale": 86,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.5,
+          "x": 58,
+          "y": 105,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 58,
+          "y": 105,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-support-right",
+      "name": "Right support",
+      "type": "rectangle",
+      "fill": "#FF6A13",
+      "x": 83,
+      "y": 95,
+      "width": 10,
+      "height": 6,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 1,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 83,
+          "y": 99,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 83,
+          "y": 95,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 83,
+          "y": 95,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-support-left",
+      "name": "Left support",
+      "type": "rectangle",
+      "fill": "#FF6A13",
+      "x": 30,
+      "y": 95,
+      "width": 10,
+      "height": 6,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 1,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 30,
+          "y": 99,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 30,
+          "y": 95,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 30,
+          "y": 95,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-base",
+      "name": "Portable building base",
+      "type": "rectangle",
+      "fill": "#F3EFE9",
+      "x": 58,
+      "y": 90,
+      "width": 84,
+      "height": 5,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 1,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 58,
+          "y": 94,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 58,
+          "y": 90,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 58,
+          "y": 90,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-window-right",
+      "name": "Right window",
+      "type": "rectangle",
+      "fill": "#1A1614",
+      "x": 55,
+      "y": 58,
+      "width": 14,
+      "height": 15,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 1,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 55,
+          "y": 62,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 55,
+          "y": 58,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 55,
+          "y": 58,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-window-left",
+      "name": "Left window",
+      "type": "rectangle",
+      "fill": "#1A1614",
+      "x": 35,
+      "y": 58,
+      "width": 14,
+      "height": 15,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 1,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 35,
+          "y": 62,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 35,
+          "y": 58,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 35,
+          "y": 58,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-door-window",
+      "name": "Door glass",
+      "type": "rectangle",
+      "fill": "#F3EFE9",
+      "x": 79,
+      "y": 64,
+      "width": 9,
+      "height": 9,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 1,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 79,
+          "y": 68,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 79,
+          "y": 64,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 79,
+          "y": 64,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-door",
+      "name": "Entry door",
+      "type": "rectangle",
+      "fill": "#1A1614",
+      "x": 79,
+      "y": 72,
+      "width": 15,
+      "height": 34,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 1,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 79,
+          "y": 76,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 79,
+          "y": 72,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 79,
+          "y": 72,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-roof",
+      "name": "Orange flat roof",
+      "type": "rectangle",
+      "fill": "#FF6A13",
+      "x": 58,
+      "y": 38,
+      "width": 86,
+      "height": 8,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 2,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 58,
+          "y": 42,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 58,
+          "y": 38,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 58,
+          "y": 38,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    },
+    {
+      "id": "building-wall",
+      "name": "Portable building walls",
+      "type": "rectangle",
+      "fill": "#F3EFE9",
+      "x": 58,
+      "y": 64,
+      "width": 78,
+      "height": 50,
+      "scale": 100,
+      "rotation": 0,
+      "opacity": 100,
+      "roundness": 3,
+      "easing": "linear",
+      "visible": true,
+      "locked": false,
+      "keyframes": [
+        {
+          "time": 0,
+          "x": 58,
+          "y": 68,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 0,
+          "easing": "linear"
+        },
+        {
+          "time": 0.3,
+          "x": 58,
+          "y": 64,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        },
+        {
+          "time": 1.2,
+          "x": 58,
+          "y": 64,
+          "scale": 100,
+          "rotation": 0,
+          "opacity": 100,
+          "easing": "linear"
+        }
+      ]
+    }
+  ]
+}
