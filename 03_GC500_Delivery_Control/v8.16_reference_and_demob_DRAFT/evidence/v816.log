@@ -30,7 +30,7 @@ PASS desktop: Email the branch is a mailto draft with the list  - GC500 demob - 
 Site hours 07:00-17:00. No travel to or from the Gold Coast 07:00-09:00 or 16:00-18:00.
 Every toilet and waste tank is pumped out before it is loaded - do not load o
 PASS desktop: Print run sheets lays out one A4 per load and opens print  - {"pages":8,"expect":8,"printed":1}
-PASS desktop: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off  - Coates INDUSTRIAL SOLUTIONS DEMOB RUN SHEET · GC500 2026 Collection · Wed 28 Oct 2026 Toilet run TRUCK 1 · LOAD 6 OF 8
+PASS desktop: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off  - Coates INDUSTRIAL SOLUTIONS DEMOB RUN SHEET · GC500 2026 Collection · Wed 28 Oct 2026 Toilet run TRUCK 1 · LOAD 1 OF 8
 PASS desktop: run sheets carry the emptied line with a tick box per unit, and NOT READY for a toilet not yet emptied
 PASS desktop: no toilet load is over 24 units (13 loads)
 PASS desktop: every event-portable unit is in exactly one load (233 units on 63 references; types FWF, Pee Panel)
@@ -44,6 +44,17 @@ PASS desktop: editors see Moved? Change it and Add a photo
 PASS desktop: the pump-out gate refuses a collection (and the light off site) until the toilet is emptied (T0024, on site)  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
 PASS desktop: Emptied (pumped out) records who and when, then the collection is allowed  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
 PASS desktop: Confirm the N proposed asks on the page, then writes each through setDate(key, iso, 'out')  - {"n":16,"calls":16,"confirmed":16}
+PASS desktop: [review 1] no light shortcut - a used toilet showing amber is still refused off site until emptied
+PASS desktop: [review 1] no date shortcut - refused on 2026-10-03, before Event Week
+PASS desktop: [review 1] emptied: true without who and when is not proof - refused
+PASS desktop: [review 1, 8] the newest record wins - a newer committed un-tick beats an older local tick
+PASS desktop: [review 7] a pump-out from an earlier use does not clear a unit set on site again  - {"ok1":true,"after":false,"refused":true,"because":"set on site again - a new use"}
+PASS desktop: [review 2] a merge keeps emptied, who, when and its history, and the later stamp wins  - {"x1":true,"x2":true}
+PASS desktop: [review 3] a 25-unit reference goes in portions, each on its own day, in its load and in that day's confirmation  - {"k":"WC13","portions":[{"iso":"2026-10-30","n":24},{"iso":"2026-10-30","n":1}],"sum":25,"eachDay":true,"maxLoad":24,"outIsLast":true,"inConfirm":true}
+PASS desktop: [review 4] a tank under a toilet on another truck is timed after the toilet is off  - {"k":"PG01","iso":"2026-11-09","topEnd":440,"tankAt":800,"ok":true,"loads":2}
+PASS desktop: [review 5] an unknown quantity is "quantity to confirm", never 1, and its load says its total is not certain  - {"k":"PG01","unk":true,"evtN":0,"uncertain":true,"shows":true}
+PASS desktop: [review 6a] a reference added for one day with a typed due-out reaches that day
+PASS desktop: [review 6b] a cancelled reference shows its stored due-out, marked cancelled  - {"k":"P27","o":"OUT\nCANCELLED\n\nTUE 3 NOV\ncancelled · the due-out typed on it","ok":true}
 PASS desktop: no page errors
 blocked writes: 0 (the harness aborts any)
 PASS desktop: reduced motion is respected (no bar growth, no pulse, folds open without sliding)  - {"bar":"none","pin":"none","anims":0,"open":true}
@@ -81,7 +92,7 @@ PASS phone: Email the branch is a mailto draft with the list  - GC500 demob - pi
 Site hours 07:00-17:00. No travel to or from the Gold Coast 07:00-09:00 or 16:00-18:00.
 Every toilet and waste tank is pumped out before it is loaded - do not load o
 PASS phone: Print run sheets lays out one A4 per load and opens print  - {"pages":8,"expect":8,"printed":1}
-PASS phone: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off  - Coates INDUSTRIAL SOLUTIONS DEMOB RUN SHEET · GC500 2026 Collection · Wed 28 Oct 2026 Toilet run TRUCK 1 · LOAD 6 OF 8
+PASS phone: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off  - Coates INDUSTRIAL SOLUTIONS DEMOB RUN SHEET · GC500 2026 Collection · Wed 28 Oct 2026 Toilet run TRUCK 1 · LOAD 1 OF 8
 PASS phone: run sheets carry the emptied line with a tick box per unit, and NOT READY for a toilet not yet emptied
 PASS phone: no toilet load is over 24 units (13 loads)
 PASS phone: every event-portable unit is in exactly one load (233 units on 63 references; types FWF, Pee Panel)
@@ -95,9 +106,20 @@ PASS phone: editors see Moved? Change it and Add a photo
 PASS phone: the pump-out gate refuses a collection (and the light off site) until the toilet is emptied (T0024, on site)  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
 PASS phone: Emptied (pumped out) records who and when, then the collection is allowed  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
 PASS phone: Confirm the N proposed asks on the page, then writes each through setDate(key, iso, 'out')  - {"n":16,"calls":16,"confirmed":16}
+PASS phone: [review 1] no light shortcut - a used toilet showing amber is still refused off site until emptied
+PASS phone: [review 1] no date shortcut - refused on 2026-10-03, before Event Week
+PASS phone: [review 1] emptied: true without who and when is not proof - refused
+PASS phone: [review 1, 8] the newest record wins - a newer committed un-tick beats an older local tick
+PASS phone: [review 7] a pump-out from an earlier use does not clear a unit set on site again  - {"ok1":true,"after":false,"refused":true,"because":"set on site again - a new use"}
+PASS phone: [review 2] a merge keeps emptied, who, when and its history, and the later stamp wins  - {"x1":true,"x2":true}
+PASS phone: [review 3] a 25-unit reference goes in portions, each on its own day, in its load and in that day's confirmation  - {"k":"WC13","portions":[{"iso":"2026-10-30","n":24},{"iso":"2026-10-30","n":1}],"sum":25,"eachDay":true,"maxLoad":24,"outIsLast":true,"inConfirm":true}
+PASS phone: [review 4] a tank under a toilet on another truck is timed after the toilet is off  - {"k":"PG01","iso":"2026-11-09","topEnd":440,"tankAt":800,"ok":true,"loads":2}
+PASS phone: [review 5] an unknown quantity is "quantity to confirm", never 1, and its load says its total is not certain  - {"k":"PG01","unk":true,"evtN":0,"uncertain":true,"shows":true}
+PASS phone: [review 6a] a reference added for one day with a typed due-out reaches that day
+PASS phone: [review 6b] a cancelled reference shows its stored due-out, marked cancelled  - {"k":"P27","o":"OUT\nCANCELLED\n\nTUE 3 NOV\ncancelled · the due-out typed on it","ok":true}
 PASS phone: no page errors
 blocked writes: 0 (the harness aborts any)
 PASS phone: reduced motion is respected (no bar growth, no pulse, folds open without sliding)  - {"bar":"none","pin":"none","anims":0,"open":true}
 PASS phone: no page errors (reduced motion)
 
-ALL PASSED (79)
+ALL PASSED (101)

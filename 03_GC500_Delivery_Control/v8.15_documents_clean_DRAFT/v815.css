@@ -34,10 +34,15 @@
 #pane-docs .in815{animation:paneIn .22s ease-out both}
 @media (prefers-reduced-motion:reduce){#pane-docs .in815{animation:none}}
 html[data-motion="off"] #pane-docs .in815{animation:none}
+/* the list on paper: always on the page, shown only when printing (Print the list, Ctrl+P or the browser menu) */
+#pane-docs .print815{display:none}
 @media print{
-  #pane-docs .tiles815, #pane-docs .docfind815, #pane-docs .docfoot815, #pane-docs #docAddCard, #pane-docs .recent815,
-  #pane-docs .rows815 .btn, #pane-docs .rows815 .ph815{display:none!important}
-  #pane-docs .rows815{display:block}
-  #pane-docs .rows815 > li{break-inside:avoid}
-  #pane-docs details.fold815 > summary::after{display:none}
+  #pane-docs .head815, #pane-docs .tiles815, #pane-docs #docBody815, #pane-docs .docfoot815, #pane-docs #docAddCard{display:none!important}
+  #pane-docs .print815{display:block!important}
+  #pane-docs .prtcat815{margin:0 0 4mm}
+  #pane-docs .prtcat815 > h3{margin:0 0 1mm;font-size:12pt;break-after:avoid}
+  #pane-docs .print815 .sub815{margin:2mm 0 1mm;break-after:avoid}
+  #pane-docs .print815 .rows815{display:block}
+  #pane-docs .print815 .rows815 > li{break-inside:avoid;padding:1px 0}
+  #pane-docs .print815 .btn, #pane-docs .print815 .anos.editonly{display:none!important}
 }

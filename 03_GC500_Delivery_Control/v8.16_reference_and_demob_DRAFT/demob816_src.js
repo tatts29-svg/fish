@@ -159,8 +159,9 @@ function pack816(items, cap){
 /* the portions a person confirmed for a reference picked up over several days: kept only while they still end on the
  reference's due-out date (a later move of the date sets them aside) */
 function storedPortions816(key, outDate){
+	if (!outDate) return null;
 	const raw = ((S.delivery || {})[key] || {}).out_portions;
-	if (!outDate || !Array.isArray(raw) || raw.length < 2) return null;
+	if (!Array.isArray(raw) || raw.length < 2) return null;
 	const P = raw.filter(p => p && /^\d{4}-\d{2}-\d{2}$/.test(p.date) && Number(p.units) > 0).map(p => ({iso: p.date, n: Number(p.units)}));
 	return P.length === raw.length && P.map(p => p.iso).sort().pop() === outDate ? P : null;
 }

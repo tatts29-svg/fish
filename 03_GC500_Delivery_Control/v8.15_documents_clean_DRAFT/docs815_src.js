@@ -21,7 +21,8 @@ const TILES815 = [
  ['dockets', 'Fencing dockets', 'Fencing dockets', 'docket'],
  ['invoices', 'Invoices', 'Invoices', null]];
 const DOCSEC815 = {swms: 'swms', transport: 'transport', maps: 'maps', packs: 'packs', photos: 'photos', invoices: 'invoices',
- dockets: 'dockets', fencing: 'dockets'}; /* the old section names, and "fencing" (the fencing papers) lands on Fencing dockets */
+ dockets: 'dockets', fencing: 'maps'}; /* the old section names; "fencing" is the fencing tab's "Open the plan": the plans, under Drawings */
+const DOCSEC_AT815 = {fencing: 'docsub815-fencing'}; /* ...scrolled to the Fencing plans heading */
 const words815 = (n, one, many) => fmtNum(n) + ' ' + (n === 1 ? one : many);
 
 /* THE SAME PAPER TWICE. Five Advanced Fencing pre-starts are in the build's catalogue under one name and were uploaded
@@ -29,10 +30,23 @@ const words815 = (n, one, many) => fmtNum(n) + ' ' + (n === 1 ? one : many);
  once available. A catalogue entry with no file, in the same category as an uploaded file whose name says the same thing,
  is that file: it is shown once, available, under the catalogue's title. Called by docCollection(), so every count that
  reads the collection (this tab, Today's card, the printed list) counts it once. */
+function twinKey815(id){ return String(id || '').toLowerCase().replace(/\.[a-z0-9]+$/, '')
+ .replace(/advanced_temporary_fencing|advanced_fencing/g, 'advfence').replace(/(^|_)atf(?=_|$)/g, '$1advfence').replace(/[^a-z0-9]+/g, '_'); }
+/* the header search reads the build's catalogue, not the collection: it is told which catalogue id is now its uploaded
+ copy, so it opens the one file. Worked out from the service's file list alone (no docket matching), once per list. */
+function twinIds815(){
+ try {
+  if (DOCS.state !== 'ready' || !DOCS.files) return {};
+  if (twinIds815.at === DOCS.at && twinIds815.map) return twinIds815.map;
+  const cat = (DATA.docs || {}).docs || [], known = new Set(cat.map(d => d.id)), by = new Map();
+  Object.values(DOCS.files).forEach(f => { if (!known.has(f.id)) by.set(twinKey815(f.id) + '|' + (f.kind || ''), f.id); });
+  const map = {}; cat.forEach(d => { if (DOCS.files[d.id]) return; const u = by.get(twinKey815(d.id) + '|' + (d.kind || '')); if (u) map[d.id] = u; });
+  twinIds815.at = DOCS.at; twinIds815.map = map; return map;
+ } catch (e) { return {}; }
+}
 function twins815(items){
  try {
-  const key = d => String(d.id || '').toLowerCase().replace(/\.[a-z0-9]+$/, '')
-   .replace(/advanced_temporary_fencing|advanced_fencing/g, 'advfence').replace(/(^|_)atf(?=_|$)/g, '$1advfence').replace(/[^a-z0-9]+/g, '_');
+  const key = d => twinKey815(d.id);
   const up = new Map();
   items.forEach(d => { if (d.source === 'uploaded' && d.availability === 'ready') up.set(key(d) + '|' + d.category, d); });
   for (let i = items.length - 1; i >= 0; i--) {
@@ -98,6 +112,7 @@ function meta815(d){
  if (d.pages) m.push(d.pages + (d.pages === 1 ? ' page' : ' pages'));
  if (d.paper) m.push(esc(d.paper));
  if (d.ext && d.ext !== 'pdf' && !/^(jpe?g|png|webp|heic)$/i.test(d.ext)) m.push(esc(String(d.ext).toUpperCase()));
+ if (d.ref && d.category !== 'Photographs') m.push('filed against <button type="button" class="linkish" data-open815="' + esc(d.ref) + '">' + esc(d.ref) + '</button>');
  if (d.branch) m.push('branch ' + esc(d.branch)); if (d.invoice_no) m.push('invoice ' + esc(d.invoice_no));
  const up = d._up;
  if (up && up.uploaded) m.push('uploaded ' + esc(fmtStamp(up.uploaded)) + (up.by ? ' · ' + esc(up.by) : ''));
@@ -131,6 +146,7 @@ function pip815(list){
 }
 function row815(d, o){
  o = o || {};
+ if (o.print) o = Object.assign({}, o, {thumb: false});
  const href = docHref(d), canAdd = !!(SYNC.backend && SYNC.backend.fileUrl) && !SYNC.readonly;
  const isPhoto = d.category === 'Photographs';
  const ref = isPhoto ? photoRef815(d) : null;
@@ -142,11 +158,12 @@ function row815(d, o){
  const open = href ? `<a class="btn sm" href="${esc(href)}" target="_blank" rel="noopener">Open</a>` : '';
  const print = d.map_key && (DATA.sheets || []).some(s => s.key === d.map_key) ? `<button type="button" class="btn sm" data-printsheet="${esc(d.map_key)}">Print sheet</button>` : '';
  const del = d.source === 'uploaded' && canAdd ? `<button type="button" class="btn sm editonly" data-delfile="${esc(d.id)}" title="Remove this file from the service">Remove</button>` : '';
- return `<li class="hubrow row815" data-doc815="${esc(d.id)}">${lead}${thumb}<span class="w"${d.note ? ` title="${esc(d.note)}"` : ''}><b>${esc(o.title || title815(d))}</b>${meta ? `<span class="anos">${meta}</span>` : ''}${why}</span>${light815(d.availability)}${open}${print}${del}</li>`;
+ return `<li class="hubrow row815" ${o.print ? 'data-print815' : 'data-doc815'}="${esc(d.id)}">${lead}${thumb}<span class="w"${d.note ? ` title="${esc(d.note)}"` : ''}><b>${esc(o.title || title815(d))}</b>${meta ? `<span class="anos">${meta}</span>` : ''}${why}</span>${light815(d.availability)}${open}${print}${del}</li>`;
 }
 const list815 = (items, o) => items.length ? `<ul class="hublist rows815">${items.map(d => row815(d, o)).join('')}</ul>` : '';
-function fold815(key, label, items, body, extra){
- const open = !!((state.docOpen815 || {})[key]) || !!state.docPrint815;
+function fold815(key, label, items, body, extra, P){
+ if (P) return `<h4 class="sub815">${extra || ''} ${label}</h4>${body}`;
+ const open = !!((state.docOpen815 || {})[key]);
  return `<details class="sfold fold815" data-fold815="${esc(key)}"${open ? ' open' : ''}><summary>${extra || ''}<span>${label}</span>${setLight815(items)}</summary><div class="sfoldbody">${body}</div></details>`;
 }
 
@@ -162,37 +179,46 @@ function photoGroups815(items){
  return [...g.entries()].sort((a, b) => (a[0] ? 0 : 1) - (b[0] ? 0 : 1) || a[0].localeCompare(b[0], 'en', {numeric: true}))
   .map(([ref, list]) => [ref, list.sort((x, y) => String((x._up || {}).uploaded || '').localeCompare(String((y._up || {}).uploaded || '')))]);
 }
-function photosBody815(items, o){
- o = o || {};
+function photosBody815(items, P){
+ /* on paper: one line per reference - the photographs themselves stay on the screen */
+ if (P) return `<ul class="hublist rows815">${photoGroups815(items).map(([ref, list]) => { const last = list[list.length - 1] && list[list.length - 1]._up;
+  return `<li class="hubrow row815" data-printref815="${esc(ref)}">${ref ? refPlate(ref, 14) : refPlate('SITE', 14, 'inv')}<span class="w"><b>${words815(list.length, 'photo', 'photos')}</b>${last && last.uploaded ? `<span class="anos">latest ${esc(fmtStamp(last.uploaded))}</span>` : ''}</span>${setLight815(list)}</li>`; }).join('')}</ul>`;
  return `<div class="folds815">${photoGroups815(items).map(([ref, list]) =>
   fold815('ph:' + ref, words815(list.length, 'photo', 'photos'), list,
    `<ul class="hublist rows815">${list.map(d => row815(d, {time: true, thumb: true})).join('')}</ul>`,
    ref ? refPlate(ref, 13) : refPlate('SITE', 13, 'inv'))).join('')}</div>`;
 }
-const sub815 = (title, items, o) => items.length ? `<h4 class="sub815">${esc(title)}</h4>${list815(items, o)}` : '';
-function catBody815(key, items){
- if (key === 'photos') return photosBody815(items);
- if (key === 'dockets') return list815(items.slice().sort((a, b) => String(docketNo815(a) || '').localeCompare(String(docketNo815(b) || ''), 'en', {numeric: true})));
+const sub815 = (title, items, o, id) => items.length ? `<h4 class="sub815"${id ? ` id="${id}"` : ''}>${esc(title)}</h4>${list815(items, o)}` : '';
+function catBody815(key, items, P){
+ const o = P ? {print: true} : undefined;
+ if (key === 'photos') return photosBody815(items, P);
+ if (key === 'dockets') return list815(items.slice().sort((a, b) => String(docketNo815(a) || '').localeCompare(String(docketNo815(b) || ''), 'en', {numeric: true})), o);
  if (key === 'maps') {
   const fence = d => d.group === 'fencing' || (d.source === 'uploaded' && /fenc/i.test(String(d.title || '') + ' ' + d.id));
   const print = items.filter(d => ['a1', 'a3', 'a3_single'].includes(d.group));
   const issued = items.filter(d => d.group === 'issued'), plans = items.filter(d => !print.includes(d) && !issued.includes(d) && fence(d));
   const other = items.filter(d => !print.includes(d) && !issued.includes(d) && !plans.includes(d));
-  return sub815('As issued — project 26003', issued) + sub815('Fencing plans', plans) + sub815('Other drawings', other)
+  return sub815('As issued — project 26003', issued, o) + sub815('Fencing plans', plans, o, P ? '' : 'docsub815-fencing') + sub815('Other drawings', other, o)
    + (print.length ? fold815('print', 'Print set — ' + words815(print.length, 'plate', 'plates'), print,
-     sub815('A1 aerial plates', print.filter(d => d.group === 'a1')) + sub815('A3', print.filter(d => d.group === 'a3')) + sub815('Single A3 plates', print.filter(d => d.group === 'a3_single'))) : '');
+     sub815('A1 aerial plates', print.filter(d => d.group === 'a1'), o) + sub815('A3', print.filter(d => d.group === 'a3'), o) + sub815('Single A3 plates', print.filter(d => d.group === 'a3_single'), o), '', P) : '');
  }
  if (key === 'packs') {
   const pre = items.filter(prestart815).sort((a, b) => (isoIn815(a) || '9').localeCompare(isoIn815(b) || '9') || String(a.title).localeCompare(String(b.title)));
-  return list815(items.filter(d => !pre.includes(d)))
-   + (pre.length ? fold815('prestarts', 'Daily pre-starts — ' + fmtNum(pre.length), pre, list815(pre)) : '');
+  return list815(items.filter(d => !pre.includes(d)), o)
+   + (pre.length ? fold815('prestarts', 'Daily pre-starts — ' + fmtNum(pre.length), pre, list815(pre, o), '', P) : '');
  }
  if (key === 'invoices') {
   const codes = (BRANCHES.branches || []).map(b => b.code);
   const groups = [...new Set(items.map(d => d.branch || '—'))].sort((x, y) => (codes.indexOf(x) + 1 || 99) - (codes.indexOf(y) + 1 || 99) || x.localeCompare(y));
-  return groups.map(c => sub815(c + (branchName(c) ? ' — ' + branchName(c) : ''), items.filter(d => (d.branch || '—') === c))).join('');
+  return groups.map(c => sub815(c + (branchName(c) ? ' — ' + branchName(c) : ''), items.filter(d => (d.branch || '—') === c), o)).join('');
  }
- return list815(items);
+ return list815(items, o);
+}
+/* THE LIST ON PAPER, however printing is started (Print the list, Ctrl+P, the browser menu): every category in full,
+ folds as headings, photographs one line per reference. Hidden on screen; the screen's cards and buttons are hidden on paper. */
+function printList815(by){
+ return `<div class="print815">${TILES815.filter(([k]) => by[k].length).map(([k, label]) =>
+  `<section class="prtcat815"><h3>${esc(label)} <span class="w">· ${fmtNum(by[k].length)}</span></h3>${catBody815(k, by[k], true)}</section>`).join('')}</div>`;
 }
 
 /* --- the find box: every word must be somewhere in what the file is */
@@ -232,8 +258,6 @@ function tilesHtml815(by, found){
    <div class="hubgo">${on ? 'Showing below ↓' : 'Show →'}</div></div>`; }).join('');
 }
 function bodyHtml815(all, by, found){
- if (state.docPrint815) return TILES815.filter(([k]) => by[k].length).map(([k, label]) =>
-  `<div class="card hubcard static815" id="docsec-${k}"><div class="hubtitle"><h3>${esc(label)}</h3></div>${catBody815(k, by[k])}</div>`).join('');
  if (found) return resultsBody815(found, state.docQ815);
  const sel = state.docTile815 && by[state.docTile815] ? state.docTile815 : null;
  const recent = all.filter(d => d._up && d._up.uploaded).sort((a, b) => String(b._up.uploaded).localeCompare(String(a._up.uploaded))).slice(0, 5);
@@ -266,7 +290,7 @@ function renderDocs815(){
  let land = null;
  if (state.docsec) {
   const k = DOCSEC815[state.docsec];
-  if (k && by[k] && by[k].length) { state.docTile815 = k; state.docQ815 = ''; land = k; state.docAnim815 = true; state.docsec = null; }
+  if (k && by[k] && by[k].length) { state.docTile815 = k; state.docQ815 = ''; land = DOCSEC_AT815[state.docsec] || 'docsec-' + k; state.docAnim815 = true; state.docsec = null; }
   else if (!hosted || !['unrequested', 'loading'].includes(DOCS.state)) { flash('That document section has no files to show.'); state.docsec = null; }
  }
  const pane = $('#pane-docs');
@@ -279,11 +303,12 @@ function renderDocs815(){
  <div class="hub tiles815" id="docTiles815">${tilesHtml815(by, found)}</div>
  <div id="docBody815" aria-live="polite">${bodyHtml815(all, by, found)}</div>
  <div class="daynav docfoot815"><button type="button" class="btn sm" id="docsPrintList">Print the list</button>${hosted ? '<button type="button" class="btn sm" id="docsRefresh">Refresh</button>' : ''}${canAdd ? '<button type="button" class="btn sm editonly" id="docAdd815" aria-expanded="' + !!state.docAdd815 + '">+ Add</button>' : ''}</div>
- ${canAdd ? addFormHtml815() : ''}`;
+ ${canAdd ? addFormHtml815() : ''}
+ ${printList815(by)}`;
  state.docAnim815 = false;
  wireDocs815(pane, all);
  if (hadQ) { const q = $('#docQ815'); if (q) { try { q.focus({preventScroll: true}); if (caret) q.setSelectionRange(caret[0], caret[1]); } catch (e) {} } }
- if (land) setTimeout(() => { const el = $('#docsec-' + land); if (el && document.contains(el) && state.tab === 'docs') el.scrollIntoView({block: 'start', behavior: 'auto'}); }, 0);
+ if (land) setTimeout(() => { const el = $('#' + land); if (el && document.contains(el) && state.tab === 'docs') el.scrollIntoView({block: 'start', behavior: 'auto'}); }, 0);
 }
 /* typing repaints the cards and the list under them, never the box being typed in */
 function paintDocs815(){
@@ -316,7 +341,6 @@ function wireDocs815(pane, all, partial){
   b.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickTile815(b.dataset.tile815); } };
  });
  pane.querySelectorAll('[data-fold815]').forEach(d => d.addEventListener('toggle', () => {
-  if (state.docPrint815) return;
   state.docOpen815 = Object.assign({}, state.docOpen815, {[d.dataset.fold815]: d.open}); }));
  pane.querySelectorAll('[data-printsheet]').forEach(b => b.onclick = () => printSheet(b.dataset.printsheet));
  pane.querySelectorAll('[data-open815]').forEach(b => b.onclick = () => openAsset(b.dataset.open815));
@@ -345,11 +369,5 @@ function wireDocs815(pane, all, partial){
  const dk = $('#docKind'); if (dk) { const on = () => { const k = dk.value.split('|')[0]; const r = $('#docRef'), i = $('#docInv');
   if (r) r.hidden = !(k === 'photo' || k === 'invoice' || k === 'map'); if (i) i.hidden = k !== 'invoice'; }; dk.onchange = on; on(); }
 }
-/* Print the list: every card, every fold open, on paper; the screen goes back as it was afterwards */
-function printDocs815(){
- state.docPrint815 = true; renderDocs();
- let back = false; const done = () => { if (back) return; back = true; state.docPrint815 = false; if (state.tab === 'docs') renderDocs(); };
- window.addEventListener('afterprint', done, {once: true});
- try { markCards(); window.print(); } catch (e) { done(); }
- setTimeout(() => { if (!matchMedia('print').matches) done(); }, 1500);
-}
+/* Print the list: the paper list is always on the page (printList815), so this is the browser's own print */
+function printDocs815(){ try { markCards(); window.print(); } catch (e) {} }

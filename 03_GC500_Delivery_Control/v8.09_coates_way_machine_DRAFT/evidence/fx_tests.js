@@ -176,10 +176,10 @@ async function run(dev) {
 }
 /* (Codex review fixes f45961b) time in a hidden tab is not slow drawing. The page's one-off "drop to Laptop under 24 fps" check counted
    the hidden seconds as frames not drawn: back on the tab, Balanced fell to Laptop. A small fresh page whose frames are held from the moment
-   it is ready (so the check has not run), on Balanced: two frames, then 8 s hidden, then two frames (well inside the page's own 6 s of visible frames before it judges) — still Balanced.
+   it is ready (so the check has not run), on Balanced: one frame, then 8 s hidden, then two frames (well inside the page's own 6 s of visible frames before it judges) — still Balanced.
    (document.hidden is played by the test; the page's own visibilitychange handler is what runs.) Fails on ba9fff7. */
 async function hiddenRun() {
-  const dev = 'hidden-tab', m = await openMachine({root: ROOT, W: 640, H: 480, dpr: 1, mobile: false, query: process.env.QUERY ?? '?tune=adapt:0'});
+  const dev = 'hidden-tab', m = await openMachine({root: ROOT, W: 480, H: 360, dpr: 1, mobile: false, query: process.env.QUERY ?? '?tune=adapt:0'});
   await m.page.addInitScript(() => { const raf = window.requestAnimationFrame.bind(window); window.__rafQ = [];
     window.requestAnimationFrame = cb => raf(t => { if (window.__cw && window.__cw.ready) window.__rafQ.push(cb); else cb(t); });
     window.__step = () => { const q = window.__rafQ.splice(0), t = performance.now(); for (const cb of q) { try { cb(t); } catch (e) { console.error(e); } } return q.length; };
@@ -190,7 +190,7 @@ async function hiddenRun() {
     await m.page.waitForFunction(() => window.__cw && window.__cw.ready, null, {timeout: 600000, polling: 500});
     await setQuality(m.page, 'balanced');
     await m.page.waitForFunction(() => window.__rafQ.length > 0, null, {timeout: 600000, polling: 200});
-    await frame(m.page); await wait(200); await frame(m.page);
+    await frame(m.page);   /* one frame only before hiding: the first is slow (shaders), and on a software renderer more would trip the page's own 6 s check for real */
     const before = await m.page.evaluate(() => window.__cw.quality);
     await m.page.evaluate(() => window.__setHidden(true)); await wait(8000); await m.page.evaluate(() => window.__setHidden(false));
     const t0 = Date.now(); for (let i = 0; i < 2; i++) { await wait(300); await frame(m.page); }
@@ -202,7 +202,7 @@ async function hiddenRun() {
 }
 (async () => {
   const d = process.env.DEVICE || 'both';
-  for (const dev of d === 'both' ? ['desktop', 'phone'] : [d]) await run(dev);
+  for (const dev of d === 'both' ? ['desktop', 'phone'] : d === 'none' ? [] : [d]) await run(dev);   /* DEVICE=none: the hidden-tab page only */
   if (process.env.HIDDEN !== '0') await hiddenRun();
   const failed = checks.filter(c => !c.ok);
   console.log(`\n${checks.length - failed.length}/${checks.length} checks passed (${ROOT})`);

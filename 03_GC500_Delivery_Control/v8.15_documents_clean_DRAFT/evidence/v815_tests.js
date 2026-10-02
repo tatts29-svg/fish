@@ -28,6 +28,7 @@ async function live(dev) {
 }
 
 async function build(dev, L, name) {
+  const out815 = {};
   const s = await open({pageFile: BUILD, hash: '#docs', ...dev}); const p = s.page; await ready(p); await wait(3000);
   // tile counts (the big figures have finished counting up by now)
   const t = await p.evaluate(() => {
@@ -113,14 +114,16 @@ async function build(dev, L, name) {
   ok(rc.ids.length === 5 && JSON.stringify(rc.ids) === JSON.stringify(rc.want), `${name}: Recent is the last 5 uploads`, rc.ids.join(', '));
 
   // the deep links
-  for (const [h, k] of [['docs/swms', 'swms'], ['docs/transport', 'transport'], ['docs/maps', 'maps'], ['docs/packs', 'packs'], ['docs/photos', 'photos'], ['docs/dockets', 'dockets'], ['docs/fencing', 'dockets']]) {
+  for (const [h, k] of [['docs/swms', 'swms'], ['docs/transport', 'transport'], ['docs/maps', 'maps'], ['docs/packs', 'packs'], ['docs/photos', 'photos'], ['docs/dockets', 'dockets'], ['docs/fencing', 'maps']]) {
     await p.evaluate(() => go('today')); await wait(700);
     await p.evaluate(h => { location.hash = h; }, '#' + h); await wait(1500);
     const r = await p.evaluate(() => ({tab: state.tab, tile: state.docTile815, box: !!document.querySelector('#pane-docs .static815[id^="docsec-"]:not(#docsec-results)'), on: (document.querySelector('#pane-docs .tile815.on815') || {dataset: {}}).dataset.tile815}));
     ok(r.tab === 'docs' && r.tile === k && r.on === k && r.box, `${name}: #${h} opens Documents on ${k}`, JSON.stringify(r));
   }
-  const fen = await p.evaluate(async () => { go('fencing'); await new Promise(r => setTimeout(r, 900)); state.docsec = 'fencing'; go('docs'); await new Promise(r => setTimeout(r, 900)); return {tab: state.tab, tile: state.docTile815}; });
-  ok(fen.tab === 'docs' && fen.tile === 'dockets', `${name}: the fencing papers link (state.docsec = 'fencing') lands on Fencing dockets`, JSON.stringify(fen));
+  const fen = await p.evaluate(async () => { go('fencing'); await new Promise(r => setTimeout(r, 900)); state.docsec = 'fencing'; go('docs'); await new Promise(r => setTimeout(r, 900));
+    const h = document.getElementById('docsub815-fencing'), m = document.querySelector('main');
+    return {tab: state.tab, tile: state.docTile815, plans: h ? h.nextElementSibling.querySelectorAll('[data-doc815]').length : 0, top: h ? Math.round(h.getBoundingClientRect().top - (m ? m.getBoundingClientRect().top : 0)) : null}; });
+  ok(fen.tab === 'docs' && fen.tile === 'maps' && fen.plans >= 5 && fen.top !== null && fen.top < 400, `${name}: the Fencing tab's "Open the plan" (state.docsec 'fencing') lands on the fencing plans under Drawings, not on the dockets`, JSON.stringify(fen));
   const inv = await p.evaluate(async () => { location.hash = '#docs/invoices'; await new Promise(r => setTimeout(r, 1200)); return {tab: state.tab, flash: (document.getElementById('flash') || {}).textContent || ''}; });
   ok(inv.tab === 'docs', `${name}: #docs/invoices with no invoices opens Documents and says so`, JSON.stringify(inv));
   const tap = await p.evaluate(async () => { location.hash = '#docs'; await new Promise(r => setTimeout(r, 900)); state.docTile815 = null; paintDocs815();
@@ -142,12 +145,44 @@ async function build(dev, L, name) {
   await p.emulateMedia({reducedMotion: 'reduce'}); const a3 = await anim(); await p.emulateMedia({reducedMotion: 'no-preference'});
   ok(a1 === 'paneIn' && a2 === 'none' && a3 === 'none', `${name}: the card eases in; not with Motion off or reduced motion (${a1} / ${a2} / ${a3})`);
 
-  // Print the list: every card and every fold, the 4 not uploaded say so in words
-  const pr = await p.evaluate(() => { state.docPrint815 = true; renderDocs(); const pane = document.getElementById('pane-docs');
-    const r = {rows: pane.querySelectorAll('[data-doc815]').length, folds: [...pane.querySelectorAll('details')].every(d => d.open), words: pane.querySelectorAll('.tl.red .w').length};
-    state.docPrint815 = false; renderDocs(); return r; });
-  const total = Object.values(t.by).reduce((a, b) => a + b, 0);
-  ok(pr.rows === total && pr.folds && pr.words === 4, `${name}: Print the list carries all ${total} files, folds open, 4 marked not uploaded`, JSON.stringify(pr));
+  // paper, however printing is started: with print media the screen cards go and the whole list shows
+  const pr = await p.evaluate(() => { state.docTile815 = null; renderDocs(); return null; });
+  await p.emulateMedia({media: 'print'}); await wait(300);
+  const pv = await p.evaluate(() => { const pane = document.getElementById('pane-docs'), vis = e => !!(e.offsetParent || e.getClientRects().length);
+    return {rows: [...pane.querySelectorAll('[data-print815]')].filter(vis).map(e => e.dataset.print815), refs: [...pane.querySelectorAll('[data-printrefs815], [data-printref815]')].filter(vis).length,
+      tiles: [...pane.querySelectorAll('.tiles815, #docBody815')].some(vis), red: [...pane.querySelectorAll('.print815 .tl.red .w')].filter(vis).length}; });
+  await p.emulateMedia({media: 'screen'});
+  const C2 = await p.evaluate(() => docCollection().items.filter(d => d.category !== 'Photographs').map(d => d.id));
+  ok(!pv.tiles && pv.rows.length === C2.length && C2.every(id => pv.rows.includes(id)) && pv.refs >= 40 && pv.red === 4,
+    `${name}: Ctrl+P (print media, no button pressed) prints every file (${pv.rows.length}), photographs by reference (${pv.refs}), 4 marked not uploaded, and no screen cards`, JSON.stringify({rows: pv.rows.length, want: C2.length, refs: pv.refs, red: pv.red, tiles: pv.tiles}));
+  out815.printRows = pv.rows;
+
+  // a file filed against a reference keeps its link to that reference (upload records ref for maps and invoices)
+  const rl = await p.evaluate(() => { const fake = {id: 'test815.pdf', title: 'A plan filed against P03', category: 'Maps and drawings', ref: 'P03', availability: 'ready', source: 'uploaded', ext: 'pdf'};
+    const html = row815(fake); const real = docCollection().items.filter(d => d.ref && d.category !== 'Photographs');
+    return {fake: /data-open815="P03"[^>]*>P03</.test(html) && /filed against/.test(html), real: real.length}; });
+  ok(rl.fake, `${name}: a non-photo file filed against a reference shows "filed against" with the reference as a link (${rl.real} such files in the record now)`, JSON.stringify(rl));
+  const rlc = await p.evaluate(async () => { const b = document.createElement('div'); b.innerHTML = row815({id: 't', title: 't', category: 'Maps and drawings', ref: 'P03', availability: 'ready'});
+    document.getElementById('pane-docs').appendChild(b); wireDocs815(document.getElementById('pane-docs'), [], true); let got = null; const was = window.openAsset; window.openAsset = k => { got = k; };
+    b.querySelector('[data-open815]').click(); window.openAsset = was; b.remove(); return got; });
+  ok(rlc === 'P03', `${name}: pressing the reference opens it`, rlc);
+
+  // the header search opens the one merged file, and lands on a not-uploaded one in Documents
+  const fd = await p.evaluate(async () => {
+    const tw = twinIds815(), idx = finderIndex().filter(x => x.kind === 'doc'), C = docCollection();
+    const twinEntries = idx.filter(x => Object.values(tw).includes(x.id)), oldIds = idx.filter(x => Object.keys(tw).includes(x.id));
+    let opened = null; const wo = window.open; window.open = u => { opened = u; return null; };
+    FINDER.list = [twinEntries[0]]; finderPick(0); window.open = wo;
+    const miss = C.items.find(d => d.availability === 'missing' && /SWMS/.test(d.id));
+    FINDER.list = [{kind: 'doc', id: miss.id, title: miss.title}]; finderPick(0); await new Promise(r => setTimeout(r, 900));
+    const rows = [...document.querySelectorAll('#docsec-results [data-doc815]')].map(e => e.dataset.doc815);
+    const sw = finderMatches('Advanced Fencing pre-start 14 Sep').filter(x => x.kind === 'doc');
+    const r = {twins: Object.keys(tw).length, twinEntries: twinEntries.length, oldIds: oldIds.length, opened: opened || '', want: twinEntries[0] && twinEntries[0].id, tab: state.tab, q: state.docQ815, rows, miss: miss.id, swIds: sw.map(x => x.id)};
+    state.docQ815 = ''; paintDocs815(); return r; });
+  ok(fd.twins === 5 && fd.twinEntries === 5 && !fd.oldIds && fd.opened.includes(encodeURIComponent(fd.want).replace(/%2F/g, '/')) || (fd.twins === 5 && fd.twinEntries === 5 && !fd.oldIds && fd.opened.includes(fd.want)),
+    `${name}: the header search carries the merged pre-starts under their uploaded file and opens it`, JSON.stringify(fd));
+  ok(fd.tab === 'docs' && fd.rows.includes(fd.miss) && fd.rows.length <= 3, `${name}: picking a not-uploaded document in the header search lands on it in Documents`, JSON.stringify({tab: fd.tab, q: fd.q, rows: fd.rows}));
+  ok(fd.swIds.length && fd.swIds.every(id => /ATF/.test(id)), `${name}: "Advanced Fencing pre-start 14 Sep" in the header search finds the uploaded file, not the empty catalogue entry`, JSON.stringify(fd.swIds));
 
   // the edit link: "+ Add" with the form behind it, and the reason a red file is red (flags flipped in this browser only)
   const ed = await p.evaluate(async () => {
@@ -159,13 +194,33 @@ async function build(dev, L, name) {
     return r; });
   ok(ed.add && ed.hiddenFirst === true && ed.shown && ed.kind === 'map' && ed.why === 2 && !ed.viewWhy && !ed.viewAdd, `${name}: edit link: + Add opens the upload form set to the open card; the reason shows on the edit link only`, JSON.stringify(ed));
 
-  const out = {paneH: t.paneH, firstOpenY: t.firstOpenY};
+  const out = Object.assign({paneH: t.paneH, firstOpenY: t.firstOpenY}, {printRows: out815.printRows.length});
   ok(!s.errors.length, `${name}: no page errors`, s.errors.join(' | '));
   await s.browser.close(); return out;
 }
 
+// paper as the browser prints it: page.pdf() of the tab as it opens (Ctrl+P, no button), live against the build
+async function paper(file) {
+  const s = await open({pageFile: file, hash: '#docs', W: 1440, H: 900}); const p = s.page; await ready(p); await wait(2500);
+  await p.emulateMedia({reducedMotion: 'reduce'});
+  const pdf = await p.pdf({format: 'A4'}); const pages = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length;
+  await p.emulateMedia({media: 'print'}); await wait(300);
+  const r = await p.evaluate(() => { const pane = document.getElementById('pane-docs'), vis = e => !!(e.offsetParent || e.getClientRects().length);
+    return {ids: [...pane.querySelectorAll('[data-doc], [data-print815]')].filter(vis).map(e => e.dataset.doc || e.dataset.print815),
+      twins: typeof docCollection === 'function' ? docCollection().items.filter(d => d.twin_of).map(d => [d.twin_of, d.id]) : []}; });
+  await s.browser.close(); return Object.assign(r, {pages, errors: s.errors.slice()});
+}
 (async () => {
   const report = {};
+  if (!ONLY || ONLY === 'desktop') {
+    console.log('\n== paper (page.pdf, A4, the tab as it opens)');
+    const a = await paper(BASE), b = await paper(BUILD), tw = new Map(b.twins);
+    const lost = a.ids.filter(id => !b.ids.includes(id) && !(tw.has(id) && b.ids.includes(tw.get(id))));
+    console.log(`  live: ${a.pages} pages, ${a.ids.length} files on paper · v8.15: ${b.pages} pages, ${b.ids.length} files on paper`);
+    ok(b.pages > 0 && b.ids.length >= a.ids.length - tw.size && !lost.length, `paper: every file live prints is on v8.15's paper (${a.ids.length} live -> ${b.ids.length})`, lost.join(', '));
+    ok(b.pages <= a.pages, `paper: no more pages than live (${a.pages} -> ${b.pages})`);
+    report.paper = {live: {pages: a.pages, files: a.ids.length}, v815: {pages: b.pages, files: b.ids.length}};
+  }
   for (const [name, dev] of [['desktop', {W: 1440, H: 900}], ['phone', {W: 390, H: 844, dpr: 2, mobile: true}]]) {
     if (ONLY && ONLY !== name) continue;
     console.log(`\n== ${name}`);
