@@ -94,7 +94,11 @@ async function run(kind) {
   check(`${kind}: clutch disc and gearbox input turn with the crank`, Math.abs(d('crank')) > .5 && Math.abs(d('input') - d('crank')) < 1e-6 && Math.abs(d('clutchCover') - d('crank')) < 1e-6, `crank ${d('crank').toFixed(3)} input ${d('input').toFixed(3)}`);
   check(`${kind}: pinion turns with the main shaft`, Math.abs(d('pinion')) > .1 && Math.abs(d('pinion') - d('main')) < 1e-6, `pinion ${d('pinion').toFixed(3)} main ${d('main').toFixed(3)}`);
   check(`${kind}: crown wheel turns at 10/39 of the pinion`, Math.abs(d('crown') / d('pinion') - 10 / 39) < 1e-6, (d('crown') / d('pinion')).toFixed(5));
-  check(`${kind}: straight ahead both side gears turn with the crown wheel and the spiders rest on their pin`, Math.abs(d('left') - d('crown')) < 1e-6 && Math.abs(d('right') - d('crown')) < 1e-6 && Math.abs(d('spider')) < 1e-6, `L ${d('left').toFixed(4)} R ${d('right').toFixed(4)} spider ${d('spider').toFixed(5)}`);
+  /* "straight ahead" with the V8 running is not exactly straight: the wheel sways a few hundredths of a radian with the rumble
+     (steerSway, live since before v8.08) and the rack follows the wheel, so the side gears may part by a hair. What must hold
+     exactly is the differential's own law: the side gears average the crown wheel, the spiders turn by the difference x 16/10,
+     and with no steering asked the split stays within what the sway can make (under 2 % of the crown wheel's turn). */
+  check(`${kind}: straight ahead the side gears average the crown wheel, the spiders turn only by their difference, and they part by no more than the wheel's sway`, Math.abs((d('left') + d('right')) / 2 - d('crown')) < 1e-6 && Math.abs(d('spider') - (d('left') - d('crown')) * 1.6) < 1e-6 && Math.abs(d('left') - d('right')) < .02 * Math.abs(d('crown')) && Math.abs(d('crown')) > .1, `L ${d('left').toFixed(4)} R ${d('right').toFixed(4)} crown ${d('crown').toFixed(4)} spider ${d('spider').toFixed(5)}`);
   check(`${kind}: tensioner idler turns at belt speed, against the sprockets`, Math.abs(d('tensioner') - d('crank') * a.tensionerRatio) < 1e-6 && a.tensionerRatio < 0, `idler ${d('tensioner').toFixed(3)} ratio ${a.tensionerRatio.toFixed(3)}`);
   check(`${kind}: oil moves by the pump's turn (half the crank) × its displacement`, Math.abs(d('oil') - Math.abs(d('crank')) * .5 * .08) < 1e-6 && Math.hypot(b.oil0[0] - a.oil0[0], b.oil0[1] - a.oil0[1], b.oil0[2] - a.oil0[2]) > 1e-4, `oil ${d('oil').toFixed(4)}`);
 

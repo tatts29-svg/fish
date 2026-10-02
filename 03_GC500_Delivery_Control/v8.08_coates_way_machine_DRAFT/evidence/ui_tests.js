@@ -148,8 +148,9 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
     if (opened) {
       st = await closeVia('x'); check('closes with ✕', !st.card);
       await open(); st = await closeVia('escape'); check('closes with Escape', !st.card);
-      st = await open();
-      const empty = isWork ? (byKind('none').concat(byKind('part'))).find(p => !(p.x > st.card.l && p.x < st.card.r && p.y > st.card.t && p.y < st.card.b)) : null;
+      st = await open(); if (!st.card && isWork) { /* the exhibit can move (the overhead crane travels) or a crew member can walk across it: look again and tap what is there now */ const now = (await survey()).filter(p => p.kind === 'exhibit'); if (now.length) { await closeVia('escape'); await tap(now[0].x, now[0].y); st = await state(); } }
+      if (!st.card) check('the exhibit card opens again for the empty-scene check', false, 'no card after two taps');
+      const empty = isWork && st.card ? (byKind('none').concat(byKind('part'))).find(p => !(p.x > st.card.l && p.x < st.card.r && p.y > st.card.t && p.y < st.card.b)) : null;
       if (empty) { await tap(empty.x, empty.y); const s2 = await state(); check(`closes with a tap on empty scene (${empty.kind}${empty.name ? ': ' + empty.name : ''})`, !s2.card); } else check('closes with a tap on empty scene', false, 'no empty spot clear of the card found');
       await open(); await clickId('tour'); st = await state(); check('starting the tour closes the card (the tour card takes its place)', st.cardId === 'tour-panel' && st.count === 1, st.cards.join(','));
       await cardRules('tour card', st); await shot('2_tour');
@@ -230,7 +231,7 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
     await clickId('power'); check('power path', await cw(`document.getElementById('power').getAttribute('aria-pressed')==='true'`)); await clickId('power');
     for (const id of ['zoom-in', 'zoom-out', 'home']) { await clickSel('#' + id); check(`camera: ${id}`, await until(() => !!window.__cw.tween, 3000)); await wait(1500); }
     /* one press is tested by hand; the two more that bring it round to Laptop are pressed together, so the software renderer never has to draw a High frame */
-    const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); await page.evaluate(() => { const b = document.getElementById('quality'); b.click(); b.click(); }); await wait(1500); check('Quality cycles (and comes round again)', q1 !== q0 && (await txt('#quality')) === q0, `${q0} → ${q1} → ${await txt('#quality')}`);
+    const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); const seen = [q0, q1]; /* as many settings as the machine offers (four since v8.08 added Ultra): click on until it comes round */ for (let i = 0; i < 6 && seen[seen.length - 1] !== q0; i++) { await page.evaluate(() => document.getElementById('quality').click()); await wait(500); seen.push(await txt('#quality')); } check('Quality cycles (and comes round again)', q1 !== q0 && seen[seen.length - 1] === q0 && new Set(seen).size >= 3, seen.join(' → '));
     /* the 4K frame is drawn in the click itself: on a software renderer that is minutes, so the click is fired without waiting on it */
     const dl = page.waitForEvent('download', {timeout: 900000}).catch(() => null); await page.evaluate(() => setTimeout(() => document.getElementById('capture').click(), 0)); const d = await dl; check('4K capture saves a picture', !!d || /saved/.test(await txt('#toast')), d ? d.suggestedFilename() : await txt('#toast'));
     await clickId('original'); check('Original cog', /original/i.test(await txt('#exhibit-name'))); await page.keyboard.press('Escape');
