@@ -10,3 +10,6 @@ PASS the date control redraw keeps the folds and one jump row  {"f":["By branch:
 PASS Print opens every fold for the paper  {"called":1,"during":[true,true,true]}
 PASS on paper: By branch, Money, On site printed with their headings (On site has its own), nothing packed, no jump row  {"branches":true,"money":true,"out":true,"summaries":0,"heads":2,"rows":"auto","jump":false}
 PASS after the print the folds close again  [false,false,false]
+PASS round trip comes back packed and folded  {"embedded":true,"hacts":1,"folds":[{"name":"By branch","open":false,"words":"4 branches and all of them together · who gets the revenue, and what each branch charges the V8s — the contracts by the rate and the charge lines by kind"},{"name":"Money","open":false,"words":"revenue · direct costs known so far · the difference — revenue is what Coates charges the V8s, a direct cost is what Coates pays for the job"},{"name":"On site","open":false,"words":"what has gone out, by date"}],"byGroupOpen":true,"jump":["Today","Today’s work","By group","By branch","Money","On site","Trade by trade"],"packed":0,"wide":0}
+PASS no page errors  []
+phone: 14/14
