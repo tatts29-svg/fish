@@ -188,5 +188,7 @@ were checked against our code and fixed with their patch.
   is named "Toggle selected part details" and points at what it opens.
 - **Not taken:** their optional change moving focus to the tour heading on every Next. A keyboard user would have to tab back to Next at
   each step. Focus still goes to the heading when the tour starts.
-- New in `ui_tests.js`: Find a part during the tour; the two button names; two fingers on the wheel on the phone, lifted in either order
-  and cancelled (real touches, at a point where the page's own picking finds the wheel).
+- New in `ui_tests.js`: Find a part during the tour; the two button names; and two fingers on the wheel on the phone, lifted in either
+  order or cancelled. These are real touches in the driver's seat, the only place a phone can reach the wheel. With the V8 running, the
+  check reads the steering rack: a held wheel holds still, and once both fingers are up it must sway with the rumble again. Desktop has no
+  second finger, so this runs on the phone only.

@@ -70,25 +70,25 @@ async function run(name, dev) {
   const navOrder = await p.evaluate(() => [...document.querySelectorAll('#tabs [role="tab"]')].map(b => b.dataset.tab));
   ok(navOrder.indexOf('demob') === navOrder.indexOf('plant') + 1, `${name}: Demob sits after Equipment on the tab row`, navOrder);
   await p.evaluate(() => go('demob')); await wait(2000);
-  const T = await p.evaluate(() => { const pane = document.getElementById('pane-demob'), M = demob816();
+  const T = await p.evaluate(() => { DM816.sel = '2026-10-28'; DM816.view = 'list'; render(); const pane = document.getElementById('pane-demob'), M = demob816();
     return {kpi: pane.querySelector('.kp816').innerText, days: pane.querySelectorAll('.dday816').length, hash: location.hash, txt: pane.innerText.slice(0, 300),
       n: M.refs.length, keys: new Set(M.refs.map(r => r.key)).size, everyDate: M.refs.every(r => /^\d{4}-\d{2}-\d{2}$/.test(r.iso || '') && ['confirmed', 'plan', 'contract', 'proposed'].includes(r.src)),
       wrong: M.refs.filter(r => r.src === 'proposed' && ((r.side === 'outside' && week816(r.iso) !== 1) || (r.side === 'inside' && week816(r.iso) < 2) || (r.side === 'unknown' && week816(r.iso) !== 3))).map(r => r.key + ':' + r.iso),
       counts: M.counts, perDay: M.days.map(d => M.day[d].list.length), proposedChips: pane.querySelectorAll('.src816.s-proposed').length,
-      bars: getComputedStyle(pane.querySelector('.bar816')).animationName, sideways: document.documentElement.scrollWidth > innerWidth + 1,
+      bars: getComputedStyle(pane.querySelector('.dday816 .dled i.on')).animationName, sideways: document.documentElement.scrollWidth > innerWidth + 1,
       strip: (() => { const st = pane.querySelector('.strip816'); return {cw: st.clientWidth, sw: st.scrollWidth, ox: getComputedStyle(st).overflowX}; })()}; });
   ok(/\b197\b/.test(T.kpi) && T.days === 15 && T.hash === '#demob', `${name}: the Demob tab shows 197 and all 15 working days`, {kpi: T.kpi.replace(/\n/g, ' '), days: T.days});
   ok(T.n === 197 && T.keys === 197 && T.everyDate, `${name}: every live reference has exactly one out date and one source`, T.counts);
   ok(T.counts.plan === 50 && T.counts.contract === 15 && T.counts.proposed === 132, `${name}: 50 by the plan, 15 by a contract before 13 Nov, 132 proposed`, T.counts);
   ok(!T.wrong.length, `${name}: proposed outside the island in week 1, Macintosh Island in weeks 2-3, no position at the end of week 3`, T.wrong.join(' '));
   ok(T.proposedChips > 0, `${name}: proposed dates carry the dashed proposed chip on the Demob tab`);
-  ok(T.bars === 'bar816', `${name}: the day bars grow in`, T.bars);
+  ok(T.bars === 'dledOn', `${name}: the day bars (LED strips) light up in turn`, T.bars);
   ok(!T.sideways, `${name}: no sideways scroll on the page`, T);
   if (name === 'phone') ok(T.strip.ox === 'auto' && T.strip.sw > T.strip.cw, `${name}: the day strip scrolls sideways inside its own container`, T.strip);
   // the branch filter
   const BR = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms)); DM816.sel = '2026-10-28'; DM816.branch = 'all'; DM816.view = 'list'; render(); await w(300);
-    const b = [...document.querySelectorAll('#pane-demob [data-br816]')].find(x => x.dataset.br816 === 'KINP'); const all = document.querySelectorAll('#pane-demob .row816').length; b.click(); await w(300);
-    const rows = [...document.querySelectorAll('#pane-demob .row816 .brn816')].map(e => e.textContent.trim()); const r = {all, kinp: rows.length, only: rows.every(x => x === 'KINP')}; DM816.branch = 'all'; render(); return r; });
+    const b = [...document.querySelectorAll('#pane-demob [data-br816]')].find(x => x.dataset.br816 === 'KINP'); const all = document.querySelectorAll('#pane-demob tr[data-row816]').length; b.click(); await w(300);
+    const rows = [...document.querySelectorAll('#pane-demob tr[data-row816] td[data-label="Branch"]')].map(e => e.textContent.trim()); const r = {all, kinp: rows.length, only: rows.every(x => x === 'KINP')}; DM816.branch = 'all'; render(); return r; });
   ok(BR.kinp > 0 && BR.kinp < BR.all && BR.only, `${name}: the branch filter shows only that branch`, BR);
   // print and email
   const PR = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms)); window.__printed = 0; window.print = () => { window.__printed++; };
@@ -105,7 +105,7 @@ async function run(name, dev) {
     document.body.classList.remove('printing-day'); if (wrap) { wrap.classList.remove('dpwrap'); wrap.innerHTML = ''; } document.querySelectorAll('#dayPage').forEach(e => e.remove()); return r; });
   ok(PR.mail === 'mailto:' && /GC500 demob/.test(PR.mailBody), `${name}: Email the branch is a mailto draft with the list`, PR.mailBody);
   ok(PR.pages === PR.expect && PR.pages > 0 && PR.printed === 1, `${name}: Print run sheets lays out one A4 per load and opens print`, {pages: PR.pages, expect: PR.expect, printed: PR.printed});
-  ok(/Collection/.test(PR.head) && /Truck \d+ · Load \d+ of \d+/.test(PR.head) && PR.hours && PR.depot && PR.sign, `${name}: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off`, PR.head);
+  ok(/Collection/.test(PR.head) && /Truck \d+ · Load \d+ of \d+/i.test(PR.head) && PR.hours && PR.depot && PR.sign, `${name}: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off`, PR.head);
   ok(PR.empt && PR.notReady, `${name}: run sheets carry the emptied line with a tick box per unit, and NOT READY for a toilet not yet emptied`);
   // ---------------- toilets, tanks, times
   const D = await p.evaluate(() => { const M = demob816(), all = [];
@@ -137,7 +137,7 @@ async function run(name, dev) {
     S.delivery = S.delivery || {}; S.delivery[k] = Object.assign({}, had || {}, {out_date: iso, out_by: 'test', out_at: new Date().toISOString()}); RENDER_MEMO.clear();
     const afterDay = (calendarDays().find(d => d.iso === iso) || {removals: []}).removals.some(r => r.a.key === k);
     state.day = iso; go('timeline'); await w(1500);
-    const pane = document.getElementById('pane-timeline'), txt = pane.innerText, onTl = /P42/.test(txt) && /Due out|due out|Removal|removal/.test(txt);
+    const pane = document.getElementById('pane-timeline'), txt = pane.innerText, onTl = /P42/.test(txt) && /due out/i.test(txt);
     const loads = dpLoads(programmeDays().find(d => d.iso === iso)).some(g => g.kind === 'removals' && g.rows.some(r => r.a.key === k));
     const src = demobOf816(k).src;
     if (had) S.delivery[k] = had; else delete S.delivery[k]; RENDER_MEMO.clear(); go('demob'); await w(500);
@@ -145,7 +145,7 @@ async function run(name, dev) {
   ok(TL.noRemove && !TL.beforeDay && TL.afterDay && TL.onTl && TL.loads && TL.src === 'confirmed', `${name}: a typed due-out on a reference with no remove event reaches the Timeline, the day list and the day documents`, TL);
   // ---------------- editors (simulated in the page; the page's own push is stubbed)
   const E = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms));
-    const sent = []; window.syncPush = () => { sent.push('push'); }; window.folderWrite = () => {}; window.confirm = () => { throw new Error('no confirm() dialogs'); };
+    const sent = []; window.syncPush = () => { sent.push('push'); }; window.save = () => { RENDER_MEMO.clear(); try { if (ASSETS_HELD) HELD_STALE775 = true; } catch (e) {} return true; }; window.folderWrite = () => {}; window.confirm = () => { throw new Error('no confirm() dialogs'); };
     window.capability = () => 'edit'; window.mayWrite = () => true; SYNC.readonly = false; SYNC.level = 'edit'; S.operator = 'Test editor'; applyCapability();
     EMPTY816.from = '2026-01-01';
     const r = {};
@@ -160,7 +160,7 @@ async function run(name, dev) {
     r.gateKey = k; r.st0 = st0; r.em0 = em0;
     r.collectRefused = collect816(k) === false && deliveryOf(k).state === st0;
     r.lightRefused = setLight(k, 'in transit') === false && deliveryOf(k).state === st0;
-    openAsset(k); await w(800); r.emptiedPod = !!document.querySelector('#drawer .pod816.emp'); document.getElementById('dclose').click(); await w(200);
+    openAsset(k); await w(800); r.emptiedPod = !!document.querySelector('#drawer .hl.emp816[data-emptied]'); document.getElementById('dclose').click(); await w(200);
     r.emptiedSet = setEmptied816(k, true) && emptiedOf816(k).on && !!S.delivery[k].emptied_by && !!S.delivery[k].emptied_at;
     r.collectAllowed = collect816(k) !== false && deliveryOf(k).state === 'in transit';
     r.recordKept = (() => { const d = {emptied: true}; return !deliveryEmpty(d); })();
@@ -186,9 +186,9 @@ async function run(name, dev) {
   await s.browser.close();
   // reduced motion
   const s2 = await open({pageFile: BUILD, hash: '#demob', ...dev}); await s2.page.emulateMedia({reducedMotion: 'reduce'}); await ready(s2.page);
-  const rm = await s2.page.evaluate(async () => { go('demob'); await new Promise(r => setTimeout(r, 800)); const b = document.querySelector('#pane-demob .bar816'); openAsset('P42'); await new Promise(r => setTimeout(r, 800));
+  const rm = await s2.page.evaluate(async () => { go('demob'); await new Promise(r => setTimeout(r, 800)); const b = document.querySelector('#pane-demob .dday816 .dled i.on'); openAsset('P42'); await new Promise(r => setTimeout(r, 800));
     const d = document.querySelector('#drawer [data-f816="history"]'); d.querySelector('summary').click(); const anims = d.querySelector('.fb816').getAnimations().length;
-    return {bar: getComputedStyle(b).animationName, pin: getComputedStyle(document.querySelector('#drawer .pin816') || document.body).animationName, anims, open: d.open}; });
+    return {bar: [...document.querySelectorAll('#pane-demob .dled i.on')].every(e => getComputedStyle(e).animationName === 'none') ? 'none' : 'animated', pin: getComputedStyle(document.querySelector('#drawer .pin816') || document.body).animationName, anims, open: d.open}; });
   ok(rm.bar === 'none' && rm.anims === 0 && rm.open && (rm.pin === 'none'), `${name}: reduced motion is respected (no bar growth, no pulse, folds open without sliding)`, rm);
   ok(!s2.errors.length, `${name}: no page errors (reduced motion)`, s2.errors.join(' | '));
   await s2.browser.close();

@@ -149,25 +149,32 @@ function demob816(){
 	const prop = refs.filter(r => r.src === 'proposed').sort(cmp816);
 	const outP = prop.filter(r => r.side === 'outside'), inP = prop.filter(r => r.side === 'inside'), unkP = prop.filter(r => r.side === 'unknown');
 	/* the event portables go as full loads: outside first, then the island (and those with no position last) */
-	const loadsOut = pack816(outP.filter(r => r.evtPure), DM816.cap), loadsIn = pack816(inP.concat(unkP).filter(r => r.evtPure), DM816.cap);
+	const loadsOut = pack816(outP.filter(r => r.evtPure), DM816.cap), loadsIn = pack816(inP.filter(r => r.evtPure), DM816.cap), loadsUnk = pack816(unkP.filter(r => r.evtPure), DM816.cap);
 	const block = L => ({load: L, size: L.rows.length, key: L.rows[0].r});
 	const queue = (rs, Ls) => rs.filter(r => !r.evtPure).map(r => ({r, size: 1, key: r})).concat(Ls.map(block)).sort((x, y) => cmp816(x.key, y.key));
 	/* balanced per day, in order: each day is filled to its share of the window's running total (fixed dates included),
 	 so the order holds - outside before the island, area by area - and the remainder lands at the end */
 	const fill = (Q, days) => {
-		const n = days.length, fixed = days.map(fixedOn), total = Q.reduce((s, x) => s + x.size, 0) + fixed.reduce((s, x) => s + x, 0);
-		const share = k => total * (k + 1) / n; let di = 0, cum = fixed[0];
-		Q.forEach(it => {
-			/* a toilet load goes whole onto the first day that still has room */
-			while (di < n - 1 && (it.load ? cum >= share(di) : cum + it.size / 2 > share(di))) { di++; cum += fixed[di]; }
-			const iso = days[di]; cum += it.size;
-			if (it.load) { it.load.iso = iso; it.load.rows.forEach(x => { x.r.iso = iso; }); } else it.r.iso = iso;
-		});
+		const n = days.length, base = days.map(d => refs.filter(r => r.iso === d).length);
+		const put = (it, k) => { const iso = days[k]; if (it.load) { it.load.iso = iso; it.load.rows.forEach(x => { x.r.iso = iso; }); } else it.r.iso = iso; };
+		/* a toilet load goes whole, onto the day with the most room left in its weeks */
+		Q.filter(it => it.load).forEach(it => { let best = 0; for (let k = 1; k < n; k++) if (base[k] < base[best]) best = k; base[best] += it.size; put(it, best); });
+		/* then the rest, in order, so every day ends as level as it can: the water level L that the singles fill to */
+		const singles = Q.filter(it => !it.load), S = singles.length;
+		let lo = 0, hi = Math.max(...base) + S;
+		for (let k = 0; k < 60; k++) { const mid = (lo + hi) / 2; if (base.reduce((s, b) => s + Math.max(0, mid - b), 0) < S) lo = mid; else hi = mid; }
+		const want = base.map(b => Math.max(0, hi - b)), quota = want.map(Math.floor);
+		let left = S - quota.reduce((s, x) => s + x, 0);
+		want.map((w, k) => [w - Math.floor(w), k]).sort((x, y) => y[0] - x[0] || x[1] - y[1]).forEach(([, k]) => { if (left > 0) { quota[k]++; left--; } });
+		let di = 0;
+		singles.forEach(it => { while (di < n - 1 && quota[di] <= 0) di++; quota[di]--; put(it, di); });
 	};
 	fill(queue(outP, loadsOut), D.slice(0, 5));
-	fill(queue(inP, []).concat(queue(unkP, [])).concat(loadsIn.map(block)).sort((x, y) => cmp816(x.key, y.key)), D.slice(5));
+	fill(queue(inP, loadsIn), D.slice(5));
+	/* no position of its own: the end of week 3, once the island is planned */
+	fill(queue(unkP, loadsUnk), D.slice(-3));
 	/* each day: its references, its toilet run, its pump-out run */
-	const planned = loadsOut.concat(loadsIn);
+	const planned = loadsOut.concat(loadsIn, loadsUnk);
 	const day = {};
 	D.forEach((iso, i) => {
 		const list = refs.filter(r => r.iso === iso).sort(cmp816);
@@ -194,7 +201,9 @@ function demob816(){
 }
 function demobOf816(key){ return demob816().byKey.get(key) || null; }
 const SRC816 = {confirmed: 'confirmed', plan: 'plan', contract: 'contract', proposed: 'proposed'};
-function srcChip816(src){ return `<span class="src816 s-${esc(src)}" title="${esc({confirmed: 'a person typed this due-out date', plan: 'the plan\'s remove event', contract: 'the rental contract\'s off-hire date', proposed: 'worked out by the demob rule - not on the record until a person confirms it'}[src] || '')}">${esc(SRC816[src] || src)}</span>`; }
+/* the page's own chips: confirmed ok, plan ref, contract cand; a proposed date is the act chip with a dashed edge */
+const SRCC816 = {confirmed: 'ok', plan: 'ref', contract: 'cand', proposed: 'act'};
+function srcChip816(src){ return `<span class="chip ${SRCC816[src] || ''} src816 s-${esc(src)}" title="${esc({confirmed: 'a person typed this due-out date', plan: 'the plan\'s remove event', contract: 'the rental contract\'s off-hire date', proposed: 'worked out by the demob rule - not on the record until a person confirms it'}[src] || '')}">${esc(SRC816[src] || src)}</span>`; }
 /* -------- planning assumptions: the page's own figures first; anything else is labelled and can be changed here */
 const ASSUME816_KEY = 'gc500.demob816.assume';
 function assume816(){
@@ -255,28 +264,27 @@ function trucks816(iso, branch){
 }
 /* -------- the tab */
 function demobSel816(M){ if (!DM816.sel || !M.day[DM816.sel]) { const t = todayIso(); DM816.sel = M.days.find(d => d >= t) || M.days[0]; } return DM816.sel; }
-function loo816(px){ return `<svg class="loo816" width="${px || 14}" height="${px || 14}" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5h5v4H4zM3 7.5h8.5a0 0 0 0 1 0 0c0 2.4-1.6 4-3.8 4.3L8.3 14H5.2l.6-2.3C4 11.2 3 9.6 3 7.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>`; }
 function renderDemob816(){
 	const pane = $('#pane-demob'); if (!pane) return;
 	const M = demob816(), sel = demobSel816(M), C = M.counts, Dy = M.day[sel];
 	const max = Math.max(1, ...M.days.map(d => M.day[d].list.length));
-	const strip = M.days.map((iso, i) => { const x = M.day[iso], f = fmtDay(iso), wk = i % 5 === 0 ? `<span class="wk816">WK ${i / 5 + 1}</span>` : '';
-		const h = n => (n / max * 100).toFixed(1) + '%', tl = x.loads.length, tu = x.loads.reduce((s, L) => s + L.units, 0);
-		return `<button type="button" class="dday816${iso === sel ? ' on' : ''}${i % 5 === 0 ? ' wks' : ''}" data-dday816="${esc(iso)}" aria-pressed="${iso === sel}" aria-label="${esc(dayWords816(iso) + ': ' + x.list.length + ' to pick up' + (tl ? ', ' + tl + ' toilet load' + (tl === 1 ? '' : 's') : ''))}">${wk}
-<span class="dw816">${esc(f.dow.toUpperCase())}</span><b class="dn816">${esc(String(Number(f.dm.slice(0, 2))))}</b><span class="dmo816">${esc(f.dm.slice(3).toUpperCase())}</span>
-<span class="bar816" style="--d:${i * 40}ms"><i class="o" style="height:${h(x.outside)}"></i><i class="n" style="height:${h(x.island)}"></i><i class="u" style="height:${h(x.unknown)}"></i></span>
-<b class="dc816">${x.list.length}</b>${tl ? `<span class="tl816" title="${tl} toilet load${tl === 1 ? '' : 's'}, ${tu} units">${loo816(11)}${tl} · ${tu}</span>` : '<span class="tl816 none"></span>'}</button>`; }).join('');
+	const strip = M.days.map((iso, i) => { const x = M.day[iso], f = fmtDay(iso), tl = x.loads.length, tu = x.loads.reduce((s, L) => s + L.units, 0);
+		const n = 12, o = x.outside / max, b = (x.outside + x.island) / max, u = x.list.length / max;
+		return `<button type="button" class="ctile dday816${iso === sel ? ' on' : ''}${i % 5 === 0 ? ' wks' : ''}" data-dday816="${esc(iso)}" aria-pressed="${iso === sel}" aria-label="${esc(dayWords816(iso) + ': ' + x.list.length + ' to pick up' + (tl ? ', ' + tl + ' toilet load' + (tl === 1 ? '' : 's') : ''))}">
+<span class="wk816">${i % 5 === 0 ? `<span class="chip act">Week ${i / 5 + 1}</span>` : ''}</span><p class="ctk">${esc(f.dow + ' ' + f.dm.slice(3))}</p><b>${esc(String(Number(f.dm.slice(0, 2))))}</b><span>${x.list.length} to pick up</span>
+${dashLeds([[o, 'o'], [b, 'b'], [u, 'u']], x.outside + ' outside the island, ' + x.island + ' Macintosh Island, ' + x.unknown + ' position to confirm', n)}
+${tl ? `<span class="chip cand tl816" title="the toilet run: ${tl} load${tl === 1 ? '' : 's'}, ${tu} units">WC ${tl}·${tu}</span>` : '<span class="tl816 none"></span>'}</button>`; }).join('');
 	const early = M.outside.length ? `<p class="note816">Dated by the plan outside the window: ${M.outside.map(r => `<button type="button" class="linkish" data-k816="${esc(r.key)}">${esc(r.key)}</button> ${esc(dayWords816(r.iso))}`).join(' · ')}.</p>` : '';
 	pane.innerHTML = paneHeadingHtml('demob') + `
-<section class="card island dm816 nosfold"><div class="hubtitle"><h3>Demob · pick-up board</h3></div>
-<div class="dmhead816"><div><h2 class="racenum">Mon 26 Oct – Fri 13 Nov</h2>
-<p>15 working days from the Monday after the race. Outside the island first, in week 1; Macintosh Island next, in weeks 2 and 3. Grouped by area so a truck clears one gate at a time, then by branch and type. Toilets and waste tanks are emptied before they are moved.</p></div>
-<div class="kp816"><span><b class="racenum">${C.total}</b>references to come off site</span><span><b class="racenum">${C.plan}</b>dated by the plan</span><span><b class="racenum">${C.contract}</b>dated by the contract</span>${C.confirmed ? `<span><b class="racenum">${C.confirmed}</b>confirmed here</span>` : ''}<span class="pr"><b class="racenum">${C.proposed}</b>proposed - confirm or move</span></div></div>
-<div class="ord816"><span class="t-out">1 · Outside the island · week 1</span><span class="t-in">2 · Macintosh Island · weeks 2–3</span><span class="t-u">Position to confirm · end of week 3</span></div>
-<div class="strip816" role="group" aria-label="Demob days">${strip}</div>
-<div class="leg816"><span><i class="o"></i>outside the island</span><span><i class="n"></i>Macintosh Island</span><span><i class="u"></i>position to confirm</span><span>${loo816(12)} toilet run loads · units (24 a load)</span></div>
-${early}</section>
-<section class="card c816 dmday816 nosfold" aria-live="polite">${dayHtml816(M, Dy)}</section>
+<div class="card hubcard island dialcard racecard dm816 nosfold"><div class="hubtitle"><h3>Demob · pick-up board</h3><span class="chip ref">Mon 26 Oct – Fri 13 Nov</span></div>
+<div class="dmhead816"><div class="pstat"><b>15</b><span>working days</span><em>From the Monday after the race to Fri 13 Nov. Outside the island first, in week 1; Macintosh Island next, in weeks 2 and 3; area by area, then branch and type. Toilets and waste tanks are emptied before they are moved.</em></div>
+<div class="cside"><div class="ctwo kp816"><div class="ctile good"><p class="ctk">To come off site</p><b>${C.total}</b><span>references</span></div><div class="ctile plan"><p class="ctk">Dated by the plan</p><b>${C.plan}</b><span>remove events</span></div>
+<div class="ctile plan"><p class="ctk">Dated by the contract</p><b>${C.contract}</b><span>off-hire before 13 Nov</span></div><div class="ctile pr816"><p class="ctk">Proposed</p><b>${C.proposed}</b><span>confirm or move${C.confirmed ? ' · ' + C.confirmed + ' confirmed here' : ''}</span></div></div></div></div>
+<div class="ord816"><span class="chip act">1 · Outside the island · week 1</span><span class="chip ref">2 · Macintosh Island · weeks 2–3</span><span class="chip cand">Position to confirm · end of week 3</span></div>
+<div class="cside strip816" role="group" aria-label="Demob days">${strip}</div>
+<p class="note816 leg816">Lights on each day: orange outside the island · blue Macintosh Island · grey position to confirm · WC: the toilet run's loads · units, 24 to a load.</p>
+${early}<div class="hubgo" data-go="timeline" role="link" tabindex="0">Open the Timeline →</div></div>
+<div class="card hubcard dmday816 nosfold" aria-live="polite">${dayHtml816(M, Dy)}</div>
 ${assumeHtml816()}`;
 	wireDemob816(pane);
 	if (DM816.dir) { const s = pane.querySelector('.dmbody816'); if (s && !motionOff816()) s.classList.add(DM816.dir > 0 ? 'in-r' : 'in-l'); DM816.dir = 0; }
@@ -288,62 +296,65 @@ function dayHtml816(M, Dy){
 	const prop = shown.filter(r => r.src === 'proposed');
 	const T = trucks816(iso, br);
 	const tl = Dy.loads.length, tu = Dy.loads.reduce((s, L) => s + L.units, 0);
-	const seg = (k, words) => `<button type="button" class="seg816${DM816.view === k ? ' on' : ''}" data-view816="${k}" aria-pressed="${DM816.view === k}">${words}</button>`;
+	const seg = (k, words) => `<button type="button" class="btn sm" data-view816="${k}" aria-pressed="${DM816.view === k}">${words}</button>`;
 	const body = DM816.view === 'toilets' ? toiletHtml816(Dy) : DM816.view === 'pump' ? pumpHtml816(Dy) : DM816.view === 'trucks' ? trucksHtml816(Dy, T) : listHtml816(shown);
-	return `<div class="dmsh816"><h3><span class="racenum">${esc(dayWords816(iso))}</span> · ${shown.length} to pick up <small>week ${week816(iso)}</small></h3>
-<div class="br816" role="group" aria-label="Branch">${['all'].concat(brs).map(b => `<button type="button" class="${br === b ? 'on' : ''}" data-br816="${esc(b)}" aria-pressed="${br === b}">${b === 'all' ? 'All' : esc(b) + ' ' + Dy.list.filter(r => r.branch === b).length}</button>`).join('')}</div>
+	return `<div class="hubtitle dmsh816"><h3>${esc(fmtDate(iso))} · ${shown.length} to pick up</h3><span class="chip ref">week ${week816(iso)}</span></div>
+<div class="dmbar816"><div class="regviewsw br816" role="group" aria-label="Branch">${['all'].concat(brs).map(b => `<button type="button" class="btn sm" data-br816="${esc(b)}" aria-pressed="${br === b}">${b === 'all' ? 'All' : esc(b) + ' ' + Dy.list.filter(r => r.branch === b).length}</button>`).join('')}</div>
 <div class="acts816">${prop.length ? `<button type="button" class="btn editonly" data-conf816="1">Confirm the ${prop.length} proposed</button>` : ''}
 <button type="button" class="btn" data-print816="day">Print run sheets · ${T.length}</button>
 <a class="btn primary" data-mail816="1" href="${esc(mail816(iso, br, shown, T))}">Email ${br === 'all' ? 'the branches' : esc(br)}</a></div></div>
-${DM816.confirm && ed && prop.length ? `<div class="confirm816" role="alert"><b>Write ${prop.length} proposed date${prop.length === 1 ? '' : 's'} to the record?</b> Each of ${esc(prop.map(r => r.key).join(', '))} becomes due out ${esc(dayWords816(iso))}, in your name. Nothing else changes, and each one can be moved again.
-<span><button type="button" class="btn primary" data-conf816="yes">Confirm ${prop.length}</button><button type="button" class="btn ghost" data-conf816="no">Not now</button></span></div>` : ''}
-<div class="segs816" role="group" aria-label="What to show">${seg('list', 'Pick-up list · ' + shown.length)}${seg('toilets', loo816(13) + ' Toilet run · ' + tl + ' load' + (tl === 1 ? '' : 's') + (tu ? ' · ' + tu : ''))}${seg('pump', 'Pump-out run · ' + Dy.pump.length)}${seg('trucks', 'Trucks and times · ' + T.length)}</div>
+${DM816.confirm && ed && prop.length ? `<div class="notice warn confirm816" role="alert"><b>Write ${prop.length} proposed date${prop.length === 1 ? '' : 's'} to the record?</b> Each of ${esc(prop.map(r => r.key).join(', '))} becomes due out ${esc(dayWords816(iso))}, in your name. Nothing else changes, and each one can be moved again.
+<span class="acts816"><button type="button" class="btn primary" data-conf816="yes">Confirm ${prop.length}</button><button type="button" class="btn ghost" data-conf816="no">Not now</button></span></div>` : ''}
+<div class="regviewsw segs816" role="group" aria-label="What to show">${seg('list', 'Pick-up list · ' + shown.length)}${seg('toilets', 'Toilet run · ' + tl + ' load' + (tl === 1 ? '' : 's') + (tu ? ' · ' + tu : ''))}${seg('pump', 'Pump-out run · ' + Dy.pump.length)}${seg('trucks', 'Trucks and times · ' + T.length)}</div>
 <div class="dmbody816">${body}</div>
-<details class="ovn816"><summary>Oversize: check permit / travel window for ${esc(dayWords816(iso))}</summary><label for="ovn816">Note for this day (kept on this device)</label><textarea id="ovn816" data-ro rows="2" placeholder="Permit, escort or travel window for the buildings and toilet blocks on this day">${esc(ovNote816(iso))}</textarea></details>`;
+<details class="dsect ovn816"><summary>Oversize: check permit / travel window for ${esc(dayWords816(iso))}</summary><div class="form"><div class="f"><label for="ovn816">Note for this day (kept on this device)</label><textarea id="ovn816" data-ro rows="2" placeholder="Permit, escort or travel window for the buildings and toilet blocks on this day">${esc(ovNote816(iso))}</textarea></div></div></details>`;
 }
 function ovNote816(iso, v){ const k = 'gc500.demob816.oversize.' + iso; try { if (v != null) { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); return v; } return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
-function notReady816(r){ return r.empty && !r.emptied ? '<span class="nr816" title="No toilet or waste tank is loaded until it is pumped out">NOT READY: empty first</span>' : r.empty ? '<span class="em816">emptied</span>' : ''; }
+function notReady816(r){ return r.empty && !r.emptied ? '<span class="chip crit nr816" title="No toilet or waste tank is loaded until it is pumped out">NOT READY: empty first</span>' : r.empty ? '<span class="chip ok">emptied</span>' : ''; }
 function rowHtml816(r, extra){
 	const ed = canEdit(), what = [(r.a.item_types || []).join(', ') || r.a.product || kindWord(r.a), r.a.name].filter(Boolean).join(' · ');
 	const open = DM816.menu === r.key;
-	return `<div class="row816" data-row816="${esc(r.key)}"><button type="button" class="linkish plate816" data-k816="${esc(r.key)}" aria-label="Open ${esc(r.key)}">${refPlate(r.key, 15)}</button>
-<span class="what816">${esc(what)}${r.evtN && !r.evtPure ? ` <small>+ ${r.evtN} on the toilet run</small>` : ''}${r.side === 'unknown' ? ' <span class="chip cand">position to confirm</span>' : ''}${r.sub ? ` <span class="chip subhirechip">${esc(r.sub)}</span>` : ''}${extra || ''}</span>
-<span class="brn816">${esc(r.branch)}</span>${srcChip816(r.src)}${notReady816(r)}
-<details class="menu816"${open ? ' open' : ''} data-menu816="${esc(r.key)}"><summary aria-label="More for ${esc(r.key)}">⋯</summary><div>
+	return `<tr data-row816="${esc(r.key)}"><td class="refcell" data-label="GC500 ID"><button type="button" class="linkish plateb" data-k816="${esc(r.key)}" aria-label="Open ${esc(r.key)}">${refPlate(r.key, 15)}</button></td>
+<td data-label="What">${esc(what)}${r.evtN && !r.evtPure ? `<br><span class="w">+ ${r.evtN} on the toilet run</span>` : ''}${r.side === 'unknown' ? ' <span class="chip cand">position to confirm</span>' : ''}${r.sub ? ` <span class="chip subhirechip">${esc(r.sub)}</span>` : ''}${extra || ''}</td>
+<td data-label="Branch">${esc(r.branch)}</td><td data-label="Date from">${srcChip816(r.src)} ${notReady816(r)}</td>
+<td data-label="Actions"><details class="menu816"${open ? ' open' : ''} data-menu816="${esc(r.key)}"><summary class="btn ghost sm" aria-label="More for ${esc(r.key)}">More</summary><div>
 <button type="button" class="btn ghost sm" data-k816="${esc(r.key)}">Open ${esc(r.key)}</button>
 ${ed ? `<span class="mv816"><select data-mvd816="${esc(r.key)}" aria-label="Move ${esc(r.key)} to another day">${demob816().days.map(d => `<option value="${esc(d)}"${d === r.iso ? ' selected' : ''}>${esc(dayWords816(d))}</option>`).join('')}</select><button type="button" class="btn sm" data-mv816="${esc(r.key)}">Move</button></span>
 ${r.empty ? `<button type="button" class="btn sm${r.emptied ? '' : ' primary'}" data-emp816="${esc(r.key)}">${r.emptied ? 'Un-tick emptied' : 'Emptied (pumped out)'}</button>` : ''}
-<button type="button" class="btn sm" data-col816="${esc(r.key)}">Collected - on the truck</button>` : ''}</div></details></div>`;
+<button type="button" class="btn sm" data-col816="${esc(r.key)}">Collected - on the truck</button>` : ''}</div></details></td></tr>`;
 }
+const TH816 = '<thead><tr><th>GC500 ID</th><th>What</th><th>Branch</th><th>Date from</th><th>Actions</th></tr></thead>';
 function listHtml816(rows){
 	if (!rows.length) return '<p class="note816">Nothing to pick up for this branch on this day.</p>';
 	return DM816.order.map(z => { const rs = rows.filter(r => r.zone === z); if (!rs.length) return '';
-		return `<div class="area816"><h4>${esc(DM816.name[z])} <small>${rs.length}</small></h4>${rs.map(r => rowHtml816(r)).join('')}</div>`; }).join('');
+		return `<h4 class="area816">${esc(DM816.name[z])} · ${rs.length}</h4><div class="tblwrap daywrap"><table class="daytbl dm816t">${TH816}<tbody>${rs.map(r => rowHtml816(r)).join('')}</tbody></table></div>`; }).join('');
 }
 function toiletHtml816(Dy){
 	if (!Dy.loads.length) return '<p class="note816">No event portables come off site on this day.</p>';
 	const M = demob816(), next = M.days[M.days.indexOf(Dy.iso) + 1];
-	return `<p class="note816">Event portables - single portable toilets and urinals (${esc('FWF, Pee Panel')}) - go 24 to a pick-up. Toilet blocks, accessible toilets, trailers and waste tanks are bigger and stay on the pick-up list. <b>Every unit is pumped out before it is loaded.</b></p>` + Dy.loads.map(L => `<div class="load816${L.free ? '' : ' full'}"><div class="lh816"><b class="racenum">Load ${L.n}</b> <span>${L.units} of ${DM816.cap}</span>${dashLeds([[L.units / DM816.cap, L.planned ? 'o' : 'b']], L.units + ' of ' + DM816.cap + ' units', DM816.cap)}
-${L.free ? `<em>${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top it up from ' + esc(dayWords816(next)) : ''}</em>` : '<em>full</em>'}<button type="button" class="btn sm" data-print816="load" data-load816="${L.n}">Print this load</button></div>
-${L.rows.map((x, i) => `<div class="lr816"><span class="seq816">${i + 1}</span>${refPlate(x.r.key, 14)}<span>${x.n} unit${x.n === 1 ? '' : 's'}${x.part ? ' (part)' : ''}</span><span class="ar816">${esc(DM816.name[x.r.zone])}</span>${srcChip816(x.r.src)}${notReady816(x.r)}</div>`).join('')}</div>`).join('');
+	return `<p class="note816">Event portables - single portable toilets and urinals (FWF, Pee Panel) - go 24 to a pick-up. Toilet blocks, accessible toilets, trailers and waste tanks are bigger and stay on the pick-up list. <b>Every unit is pumped out before it is loaded.</b></p>` + Dy.loads.map(L => `<div class="card load816 nosfold"><div class="hubtitle"><h3>Load ${L.n} · ${L.units} of ${DM816.cap}</h3>${L.free ? `<span class="chip act">${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top up from ' + esc(dayWords816(next)) : ''}</span>` : '<span class="chip ok">full</span>'}</div>
+<div class="cside">${dashLeds([[L.units / DM816.cap, L.planned ? 'o' : 'b']], L.units + ' of ' + DM816.cap + ' units', DM816.cap)}</div>
+<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>#</th><th>GC500 ID</th><th>Units</th><th>Area</th><th>Date from</th></tr></thead><tbody>${L.rows.map((x, i) => `<tr><td class="t" data-label="#">${i + 1}</td><td class="refcell" data-label="GC500 ID">${refPlate(x.r.key, 14)}</td><td data-label="Units">${x.n} unit${x.n === 1 ? '' : 's'}${x.part ? ' (part)' : ''}</td><td data-label="Area">${esc(DM816.name[x.r.zone])}</td><td data-label="Date from">${srcChip816(x.r.src)} ${notReady816(x.r)}</td></tr>`).join('')}</tbody></table></div>
+<div class="acts816"><button type="button" class="btn sm" data-print816="load" data-load816="${L.n}">Print this load</button></div></div>`).join('');
 }
 function pumpHtml816(Dy){
 	if (!Dy.pump.length) return '<p class="note816">Nothing due for pick-up today or tomorrow still needs pumping out.</p>';
 	const ed = canEdit();
-	return `<p class="note816"><b>Pump out ahead of the truck</b> - the day before the pick-up, or first thing that morning. No toilet or waste tank is loaded until it is emptied.</p>` + Dy.pump.map(({r, when}) => `<div class="row816 pump816"><button type="button" class="linkish plate816" data-k816="${esc(r.key)}">${refPlate(r.key, 15)}</button><span class="what816">${esc(r.units.filter(u => u.n > 0).map(u => u.n + ' × ' + u.type).join(', ') || kindWord(r.a))}${r.tank ? ' <small>toilet first, then the tank under it</small>' : ''}</span><span class="brn816">${esc(DM816.name[r.zone])}</span><span class="when816">${when === 'today' ? 'pick-up today - pump first thing' : 'for pick-up ' + esc(dayWords816(r.iso))}</span>${notReady816(r)}${ed ? `<button type="button" class="btn sm primary" data-emp816="${esc(r.key)}">Emptied (pumped out)</button>` : ''}</div>`).join('');
+	return `<p class="note816"><b>Pump out ahead of the truck</b> - the day before the pick-up, or first thing that morning. No toilet or waste tank is loaded until it is emptied.</p><div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>GC500 ID</th><th>What</th><th>Area</th><th>Pick-up</th><th></th></tr></thead><tbody>` + Dy.pump.map(({r, when}) => `<tr><td class="refcell" data-label="GC500 ID"><button type="button" class="linkish plateb" data-k816="${esc(r.key)}">${refPlate(r.key, 15)}</button></td><td data-label="What">${esc(r.units.filter(u => u.n > 0).map(u => u.n + ' × ' + u.type).join(', ') || kindWord(r.a))}${r.tank ? '<br><span class="w">toilet first, then the tank under it</span>' : ''}</td><td data-label="Area">${esc(DM816.name[r.zone])}</td><td data-label="Pick-up">${when === 'today' ? 'today - pump first thing' : esc(dayWords816(r.iso))} ${notReady816(r)}</td><td data-label="">${ed ? `<button type="button" class="btn sm primary" data-emp816="${esc(r.key)}">Emptied (pumped out)</button>` : ''}</td></tr>`).join('') + '</tbody></table></div>';
 }
 function trucksHtml816(Dy, T){
 	if (!T.length) return '<p class="note816">No truck runs for this branch on this day.</p>';
-	return `<p class="note816">Site hours 07:00–17:00. No travel to or from the Gold Coast 07:00–09:00 or 16:00–18:00. Times are a planning sketch from the assumptions below, not a booking.</p>` + T.map(L => `<div class="truck816${L.t.over ? ' over' : ''}"><div class="lh816"><b class="racenum">${esc(L.group)} · truck ${L.truck}</b><span>load ${L.n} of ${L.of}${L.kind === 'oversize' ? ' · <b class="ovs816">Oversize: check permit / travel window</b>' : ''}${L.kind === 'toilets' ? ' · ' + L.toilet.units + ' of 24' : ''}</span>
-<em>leave Kingston ${clock816(L.t.dep)} · site ${clock816(L.t.arrive)} · leave site ${clock816(L.t.leave)} · back ${clock816(L.t.back)}</em><button type="button" class="btn sm" data-print816="truck" data-truck816="${L.n}">Print</button></div>
-${L.t.st.map(s => `<div class="lr816"><span class="seq816">${clock816(s.at)}</span>${refPlate(s.s.r.key, 14)}<span>${esc(s.s.parts.map(p => p.n + ' × ' + p.type + (p.tank ? ' (tank, after the toilet)' : '')).join(', '))}</span><span class="ar816">${esc(DM816.name[s.s.area])}</span>${notReady816(s.s.r)}</div>`).join('')}${L.t.over ? '<p class="nr816">This load does not fit the site hours - split it.</p>' : ''}</div>`).join('');
+	return `<p class="note816">Site hours 07:00–17:00. No travel to or from the Gold Coast 07:00–09:00 or 16:00–18:00. Times are a planning sketch from the assumptions below, not a booking.</p>` + T.map(L => `<div class="card load816 truck816 nosfold"><div class="hubtitle"><h3>${esc(L.group)} · truck ${L.truck} · load ${L.n} of ${L.of}</h3>${L.kind === 'oversize' ? '<span class="chip crit">Oversize: check permit / travel window</span>' : L.kind === 'toilets' ? `<span class="chip cand">toilet run · ${L.toilet.units} of 24</span>` : ''}</div>
+<p class="note816">Leave Kingston ${clock816(L.t.dep)} · on site ${clock816(L.t.arrive)} · leave site ${clock816(L.t.leave)} · back ${clock816(L.t.back)}</p>
+<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>Time</th><th>GC500 ID</th><th>What · units</th><th>Area</th><th></th></tr></thead><tbody>${L.t.st.map(s => `<tr><td class="t" data-label="Time">${clock816(s.at)}</td><td class="refcell" data-label="GC500 ID">${refPlate(s.s.r.key, 14)}</td><td data-label="What">${esc(s.s.parts.map(p => p.n + ' × ' + p.type + (p.tank ? ' (tank, after the toilet)' : '')).join(', '))}</td><td data-label="Area">${esc(DM816.name[s.s.area])}</td><td data-label="">${notReady816(s.s.r)}</td></tr>`).join('')}</tbody></table></div>${L.t.over ? '<p class="chip crit">This load does not fit the site hours - split it.</p>' : ''}
+<div class="acts816"><button type="button" class="btn sm" data-print816="truck" data-truck816="${L.n}">Print this load</button></div></div>`).join('');
 }
 function assumeHtml816(){
 	const A = assume816();
-	return `<section class="card c816 nosfold asm816"><details><summary>Planning assumptions behind the run sheets · edit</summary>
+	return `<div class="card nosfold asm816"><details class="dsect"><summary>Planning assumptions behind the run sheets · edit</summary>
 <p class="note816">Site hours 07:00–17:00 (Andrew, 3 Oct 2026). No travel to the Gold Coast 07:00–09:00 or 16:00–18:00 (the project manager, 2 Oct 2026). Changes here are kept on this device only and change no record.</p>
-<div class="asg816">${Object.keys(A).map(k => `<label>${esc(A[k].lab)}<span><input type="number" min="1" step="1" data-ro data-asm816="${k}" value="${esc(String(A[k].v))}"> ${k === 'perLoad' ? 'pieces' : 'min'}</span><small>${esc(A[k].why)}${A[k].edited ? ' · changed on this device' : ''}</small></label>`).join('')}</div>
-<button type="button" class="btn ghost sm" data-asm816="reset">Back to the page's figures</button></details></section>`;
+<div class="form asg816">${Object.keys(A).map(k => `<div class="f"><label for="asm816${k}">${esc(A[k].lab)} (${k === 'perLoad' ? 'pieces' : 'min'})</label><input id="asm816${k}" type="number" min="1" step="1" data-ro data-asm816="${k}" value="${esc(String(A[k].v))}"><div class="hint">${esc(A[k].why)}${A[k].edited ? ' · changed on this device' : ''}</div></div>`).join('')}</div>
+<button type="button" class="btn ghost sm" data-asm816="reset">Back to the page's figures</button></details></div>`;
 }
 function mail816(iso, br, rows, T){
 	const L = [`GC500 demob - pick-ups ${dayWords816(iso)}${br === 'all' ? '' : ' - ' + br}`, '', 'Site hours 07:00-17:00. No travel to or from the Gold Coast 07:00-09:00 or 16:00-18:00.', 'Every toilet and waste tank is pumped out before it is loaded - do not load one that is not.', ''];
@@ -364,6 +375,7 @@ function wireDemob816(pane){
 	pane.querySelectorAll('[data-br816]').forEach(b => b.onclick = () => { DM816.branch = b.dataset.br816; DM816.confirm = false; renderDemob816(); applyCapability(); });
 	pane.querySelectorAll('[data-view816]').forEach(b => b.onclick = () => { DM816.view = b.dataset.view816; renderDemob816(); applyCapability(); });
 	pane.querySelectorAll('[data-k816]').forEach(b => b.onclick = () => openAsset(b.dataset.k816));
+	pane.querySelectorAll('.hubgo[data-go]').forEach(b => { b.onclick = () => go(b.dataset.go); b.onkeydown = e => { if (e.key === 'Enter') go(b.dataset.go); }; });
 	pane.querySelectorAll('details[data-menu816]').forEach(d => d.addEventListener('toggle', () => { if (d.open) { DM816.menu = d.dataset.menu816; pane.querySelectorAll('details[data-menu816]').forEach(o => { if (o !== d) o.open = false; }); } else if (DM816.menu === d.dataset.menu816) DM816.menu = null; }));
 	pane.querySelectorAll('[data-conf816]').forEach(b => b.onclick = () => {
 		const v = b.dataset.conf816;

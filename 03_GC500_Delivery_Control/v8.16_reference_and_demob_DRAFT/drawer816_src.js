@@ -49,18 +49,13 @@ function mini816(a, D, z){
 		.map(q => (50 + (q.ax - P.ax) * W).toFixed(2) + ',' + (50 + (q.ay - P.ay) * H).toFixed(2)).join(' ');
 	return `<div class="air816" role="img" aria-label="${esc('Aerial photograph, the pin on ' + a.key + (z.zone === 'island' ? ', inside Macintosh Island' : ''))}">
 <img src="${esc(src)}" alt="" loading="lazy" decoding="async" style="width:${W.toFixed(2)}%;height:${H.toFixed(2)}%;left:${L.toFixed(2)}%;top:${T.toFixed(2)}%">
-${isl ? `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="${isl}" class="isl816"/></svg><span class="islw816">MACINTOSH ISLAND</span>` : ''}
-<i class="pin816" aria-hidden="true"></i><span class="aircap816">${esc(D.kind === 'report' ? 'the pit lane - report here' : a.key)}</span></div>`;
-}
-function stepPod816(kind, key, on, label, when, glyph, ed, light){
-	const attr = light ? (on ? '' : ` data-light="${esc(key)}" data-s="on site"`) : ` data-${kind}="${esc(key)}"`;
-	return `<button type="button" class="pod816${on ? ' on' : ''}${kind === 'emptied' ? ' emp' : ''}"${attr} aria-pressed="${on}"${ed ? '' : ' disabled'} title="${esc(label + (on ? ' - ' + (when || 'recorded') : ' - not yet'))}">
-<span class="lens816" aria-hidden="true">${glyph}</span><b>${esc(label)}</b><small>${on ? esc(when || 'done') : 'not yet'}</small></button>`;
+${isl ? `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="${isl}" class="isl816"/></svg><span class="chip ref islw816">Macintosh Island</span>` : ''}
+<i class="pin816" aria-hidden="true"></i><span class="aircap816">${D.kind === 'report' ? '<span class="chip act">the pit lane - report here</span>' : refPlate(a.key, 14)}</span></div>`;
 }
 function fold816(id, title, sub, inner, cls){
 	if (!inner) return '';
 	const open = F816.open.has(id);
-	return `<details class="f816${cls ? ' ' + cls : ''}" data-f816="${esc(id)}"${open ? ' open' : ''}><summary><span class="ft816">${title}</span>${sub ? `<small>${sub}</small>` : ''}<i class="chev816" aria-hidden="true"></i></summary><div class="fb816"></div></details>`;
+	return `<details class="dsect f816${cls ? ' ' + cls : ''}" data-f816="${esc(id)}"${open ? ' open' : ''}><summary><span class="ft816">${title}</span>${sub ? `<span class="w">${sub}</span>` : ''}</summary><div class="fb816"></div></details>`;
 }
 function drawer816(a){
 	const dr = $('#drawer'); if (!dr || !a) return;
@@ -114,54 +109,55 @@ function drawer816(a){
 	const nameLine = [a.name || a.item || key, (a.item_types || [])[0]].filter(Boolean).filter((x, i, l) => l.indexOf(x) === i).join(' · ');
 	dh.innerHTML = '';
 	const top = document.createElement('div'); top.className = 'dh816';
-	if (title) { title.innerHTML = refPlate(key, 30); top.appendChild(title); }
+	if (title) { title.innerHTML = refPlate(key, 26); top.appendChild(title); }
 	const nm = document.createElement('div'); nm.className = 'nm816';
 	nm.innerHTML = `<div class="sub nmx816">${esc(nameLine)}</div><div class="kl816">${esc(kindLine)}${shortChip(a)}${subhireChip(key)}</div>`;
 	top.appendChild(nm); dh.appendChild(top);
 	if (restore) dh.appendChild(restore);
 	if (close) dh.appendChild(close);
-	/* 3. the summary band: the start light, the chips, In and Out */
+	/* 3. the summary: what state it is in, the ticks it carries, In and Out - the Today instruments' island and tiles */
 	const M = demobOf816(key), z = M ? {zone: M.zone, side: M.side} : zone816(a);
-	const v = deliveryView(key);
-	const chip = (cls, html) => `<span class="ch816 ${cls}">${html}</span>`;
-	const em = emptiedOf816(key);
-	const chips = [d.done ? chip('ok', '✓ Complete') : '', d.levelled ? chip('ok', levelGlyph(12) + ' Levelled') : '', d.steps ? chip('ok', stepsGlyph(12) + ' Steps') : '',
-		needsEmpty816(a) && em.on ? chip('ok', 'Emptied') : '',
-		z.zone === 'island' ? chip('in', '◆ Macintosh Island') : z.zone === 'unknown' ? chip('unk', 'Position to confirm') : chip('out', '◆ Outside the island')].join('');
+	const v = deliveryView(key), em = emptiedOf816(key);
+	const zoneChip = z.zone === 'island' ? '<span class="chip ref">Macintosh Island</span>' : z.zone === 'unknown' ? '<span class="chip cand">Position to confirm</span>' : '<span class="chip act">Outside the island</span>';
+	const ticks = [d.done ? '<span class="tick">✓ Complete</span>' : '', levelChip(a), stepsChip(a), needsEmpty816(a) && em.on ? '<span class="tick">✓ Emptied</span>' : ''].join('');
 	const inWhy = eff.in ? (eff.in_moved ? 'moved' + (eff.in_by ? ' by ' + eff.in_by : '') : a.first_date ? 'on the plan' : '') + (d.state === 'on site' ? ' · arrived' : '') + (d.eta ? ' · ' + d.eta : '') : 'no date on the schedule';
 	const outWhy = !M || !M.iso ? 'no date - position to confirm'
 		: M.src === 'proposed' ? 'proposed · ' + (M.side === 'inside' ? 'island, week ' + week816(M.iso) : M.side === 'outside' ? 'outside the island, week 1' : 'position to confirm, end of week 3')
 		: M.src === 'plan' ? 'the plan\'s remove event' : M.src === 'contract' ? 'contract off-hire' : 'confirmed' + (d.out_by ? ' by ' + d.out_by : '');
 	const hireEnd = M && M.contractEnd === DM816.end && M.src !== 'contract' ? ' · hire ends 13 Nov' : '';
-	const sum = document.createElement('section'); sum.className = 'sum816';
-	const word = d.recorded ? ((LIGHT[d.state] || {}).label || d.state) : (v.label || 'No light set');
+	const word = a._cancelled ? 'Cancelled' : d.recorded ? ((LIGHT[d.state] || {}).label || d.state) : (v.label || 'No light set');
 	const sinceW = d.recorded ? [d.set_at ? 'since ' + fmtStamp(d.set_at) : '', d.by ? recorderDisplay772(d.by) : ''].filter(Boolean).join(' · ') : esc(v.why || 'nobody has set a light yet');
-	sum.innerHTML = `<div class="lt816">${a._cancelled ? '<b class="cx816">Cancelled</b>' : dstat(a, {size: 'lg', ctl: true, bare: true})}<span class="lw816"><b>${esc(word)}</b><span class="since816">${sinceW}</span></span></div>
-<div class="chips816">${chips}</div>
-<div class="dates816"><div class="dt816"><small>In</small><b class="racenum">${eff.in ? esc(dayWords816(eff.in)) : '—'}</b><span>${esc(inWhy)}</span></div>
-<div class="dt816 out${M && M.src === 'proposed' ? ' prop' : ''}"><small>Out ${M ? srcChip816(M.src) : ''}</small><b class="racenum">${M && M.iso ? esc(dayWords816(M.iso)) : '—'}</b><span>${esc(outWhy + hireEnd)}</span></div></div>
-${dForm ? '<button type="button" class="linkish editonly chg816" data-chg816="dates" aria-expanded="false">Change the dates</button><div class="chgp816" data-chgp816="dates" hidden></div>' : ''}`;
+	const sum = document.createElement('section'); sum.className = 'card hubcard island dialcard sum816 nosfold';
+	sum.innerHTML = `<div class="hubtitle"><h3>${esc(word)}</h3>${zoneChip}</div><p class="since816">${sinceW}</p>
+${ticks ? `<div class="chips816">${ticks}</div>` : ''}
+<div class="cside"><div class="ctwo"><div class="ctile plan"><p class="ctk">In</p><b>${eff.in ? esc(dayWords816(eff.in)) : '—'}</b><span>${esc(inWhy)}</span></div>
+<div class="ctile ${M && M.src === 'proposed' ? 'pr816' : 'good'} dt816 out"><p class="ctk">Out ${M ? srcChip816(M.src) : ''}</p><b>${M && M.iso ? esc(dayWords816(M.iso)) : '—'}</b><span>${esc(outWhy + hireEnd)}</span></div></div></div>
+${dForm ? '<button type="button" class="linkish editonly chg816 hubgo" data-chg816="dates" aria-expanded="false">Change the dates →</button><div class="chgp816" data-chgp816="dates" hidden></div>' : ''}`;
 	if (dForm) sum.querySelector('[data-chgp816="dates"]').appendChild(dForm);
-	/* 4. Complete it: the start-light pods, and Emptied for a toilet or a tank */
-	const lvl = needsLevel(a), stp = mentionsSteps(a) || d.steps;
-	const pods = [stepPod816('light', key, d.state === 'on site', 'On site', d.state === 'on site' && d.set_at ? fmtStamp(d.set_at).slice(0, 6) : '', '●', ed, true),
-		stepPod816('done', key, d.done, 'Complete', d.done_at ? fmtStamp(d.done_at).slice(0, 6) : '', '✓', ed)];
-	if (lvl) pods.push(stepPod816('levelled', key, d.levelled, 'Levelled', d.levelled_at ? fmtStamp(d.levelled_at).slice(0, 6) : '', levelGlyph(18), ed));
-	if (stp) pods.push(stepPod816('steps', key, d.steps, 'Steps', d.steps_at ? fmtStamp(d.steps_at).slice(0, 6) : '', stepsGlyph(18), ed));
-	const got = [d.state === 'on site', d.done, lvl && d.levelled, stp && d.steps].filter(Boolean).length, of = pods.length;
-	const cmp = document.createElement('section'); cmp.className = 'card island cmp816 nosfold';
-	cmp.innerHTML = `<div class="hubtitle"><h3>Complete it</h3><b class="racenum n816">${got}<small> of ${of}</small></b></div>
-<div class="pods816" style="--n:${of}">${pods.join('')}</div>${dashLeds([[got / of, got === of ? 'g' : 'o']], got + ' of ' + of + ' done', of * 3)}
-${needsEmpty816(a) ? `<div class="empt816"><span class="ek816">Before pick-up</span>${stepPod816('emptied', key, em.on, 'Emptied (pumped out)', em.on && em.at ? fmtStamp(em.at).slice(0, 6) + (em.by ? ' · ' + em.by : '') : '', '⤓', ed)}<p>${em.on ? 'Pumped out - it may be loaded.' : 'No toilet or waste tank is moved or loaded until it is pumped out.'}${M && M.tank ? ' The toilet comes off before the tank under it.' : ''}</p></div>` : ''}`;
+	/* 4. Complete it: Today's lights island for one reference - the signal head, a row per light, a row per tick */
+	const lvl = needsLevel(a), stp = mentionsSteps(a) || d.steps, dis = ed ? '' : ' disabled';
+	const when = s => s ? ' <span class="w">' + esc(fmtStamp(s).slice(0, 6)) + '</span>' : '';
+	const lrow = (go, s, words) => { const on = d.recorded && d.state === s; return `<button type="button" class="hl${on ? '' : ' off816'}" data-lf-go="${go}" data-light="${esc(key)}" data-s="${esc(s)}" aria-pressed="${on}"${dis}><span class="tl ${go}"><i></i></span><b>${on ? '✓' : '–'}</b> ${words}${on ? when(d.set_at) : ''}</button>`; };
+	const trow = (go, attr, on, words, at, glyph) => `<button type="button" class="hl${on ? '' : ' off816'}" data-lf-go="${go}" data-${attr}="${esc(key)}" aria-pressed="${on}"${dis}><span class="tick sm${go === 'levelled' ? ' lvl' : go === 'steps' ? ' stp' : ''}" aria-hidden="true">${glyph}</span><b>${on ? '✓' : '–'}</b> ${words}${on ? when(at) : ''}</button>`;
+	const rows = [lrow('green', 'on site', 'on site'), lrow('amber', 'in transit', 'in transit'), lrow('red', 'not on site', 'not on site'),
+		trow('done', 'done', d.done, 'complete', d.done_at, '✓')];
+	if (lvl) rows.push(trow('levelled', 'levelled', d.levelled, 'levelled', d.levelled_at, levelGlyph(11)));
+	if (stp) rows.push(trow('steps', 'steps', d.steps, 'steps', d.steps_at, stepsGlyph(11)));
+	if (needsEmpty816(a)) rows.push(`<button type="button" class="hl emp816${em.on ? '' : ' off816'}" data-lf-go="${em.on ? 'done' : 'red'}" data-emptied="${esc(key)}" aria-pressed="${em.on}"${dis} title="No toilet or waste tank is moved or loaded until it is pumped out"><span class="tl ${em.on ? 'green' : 'red'}"><i></i></span><b>${em.on ? '✓' : '!'}</b> emptied (pumped out)${em.on ? when(em.at) : ' <span class="w">before pick-up</span>'}</button>`);
+	const got = [d.state === 'on site', d.done, lvl && d.levelled, stp && d.steps].filter(Boolean).length, of = 2 + (lvl ? 1 : 0) + (stp ? 1 : 0);
+	const cmp = document.createElement('section'); cmp.className = 'card hubcard island lights cmp816 nosfold';
+	cmp.innerHTML = `<div class="hubtitle"><h3>Complete it</h3><span class="chip ${got === of ? 'ok' : 'ref'}">${got} of ${of}</span></div>
+<div class="hublights">${signalHead({green: d.recorded && d.state === 'on site' ? 1 : 0, amber: d.recorded && d.state === 'in transit' ? 1 : 0, red: d.recorded && d.state === 'not on site' ? 1 : 0})}${rows.join('')}</div>
+${needsEmpty816(a) && !em.on ? `<p class="since816">No toilet or waste tank is moved or loaded until it is pumped out.${M && M.tank ? ' The toilet comes off before the tank under it.' : ''}</p>` : ''}`;
 	cmp.querySelectorAll('[data-emptied]').forEach(b => b.onclick = e => { e.preventDefault(); e.stopPropagation(); setEmptied816(key, !emptiedOf816(key).on); });
 	/* 5. Where it is / where it goes: the one destination Navigate uses */
 	let D = null; try { D = dest782(a); } catch (e) { D = null; }
 	const typed = (S.locations || {})[key], sched = (a._locationMoved && a._locationMoved.from) || (a.locations || []).find(l => l && l !== key) || '';
 	const near = (() => { try { return masterWords(masterUnit(key)); } catch (e) { return ''; } })();
 	const showMap = dr.querySelector('#showOnMap'), toPlant = dr.querySelector('#toPlant');
-	const wh = document.createElement('section'); wh.className = 'card c816 where816 nosfold';
-	wh.innerHTML = `<h3>Where it is <span class="srcp816${D ? '' : ' none'}">${esc(srcWords816(a, D))}</span></h3>${mini816(a, D, z)}
-<dl class="kv816"><dt>Goes to</dt><dd><b>${esc(typed || sched || 'not named on the schedule')}</b>${typed && sched && typed !== sched ? `<small>the schedule says ${esc(sched)}</small>` : ''}${near ? `<small>${esc(near)}</small>` : ''}</dd>
+	const wh = document.createElement('section'); wh.className = 'card hubcard where816 nosfold';
+	wh.innerHTML = `<div class="hubtitle"><h3>Where it is</h3><span class="chip ${D ? 'ok' : 'cand'} srcp816">${esc(srcWords816(a, D))}</span></div>${mini816(a, D, z)}
+<dl class="kv kv816"><dt>Goes to</dt><dd><b>${esc(typed || sched || 'not named on the schedule')}</b>${typed && sched && typed !== sched ? `<small>the schedule says ${esc(sched)}</small>` : ''}${near ? `<small>${esc(near)}</small>` : ''}</dd>
 <dt>Area</dt><dd>${esc(DM816.name[z.zone] || '—')}</dd><dt>Way in</dt><dd>${esc(wayIn816(a, z))}</dd></dl>
 <div class="acts816 wa816"></div><div class="chgp816" data-chgp816="where" hidden></div>`;
 	const wa = wh.querySelector('.wa816');
@@ -172,15 +168,15 @@ ${needsEmpty816(a) ? `<div class="empt816"><span class="ek816">Before pick-up</s
 	const wp = wh.querySelector('[data-chgp816="where"]');
 	all('where').forEach(e => wp.appendChild(e)); all('map').forEach(e => wp.appendChild(e));
 	/* 6. the photographs: a stable slot (data-photo-slot) for the photo-stage work; filled photographs only */
-	const ph = document.createElement('section'); ph.className = 'card c816 ph816 nosfold'; ph.setAttribute('data-photo-slot', key);
+	const ph = document.createElement('section'); ph.className = 'card hubcard ph816 nosfold'; ph.setAttribute('data-photo-slot', key);
 	let list = []; try { list = dropPhotosOf(key); } catch (e) { list = []; }
 	const cells = list.map(p => { let r = {}; try { r = photoFor(p); } catch (e) {} const url = r.state === 'ready' ? r.url : null; if (!url) return '';
 		const lab = (p.caption || (DROP_SLOTS[p.slot] || {}).lab || 'Photo');
-		return `<button type="button" class="phi816" data-ph816="${esc(url)}" title="${esc(lab)}"><img src="${esc(r.thumb || url)}" alt="${esc(key + ' - ' + lab)}" loading="lazy"><b>${esc(lab)}</b></button>`; }).filter(Boolean);
+		return `<button type="button" class="phi816" data-ph816="${esc(url)}" title="${esc(lab)}"><img src="${esc(r.thumb || url)}" alt="${esc(key + ' - ' + lab)}" loading="lazy"><span class="chip">${esc(lab)}</span></button>`; }).filter(Boolean);
 	const units = (() => { try { return dropPhotoUnits(a); } catch (e) { return []; } })();
 	const hosted = !!(SYNC.backend && SYNC.backend.fileUrl);
-	ph.innerHTML = `<h3>Photos <small>${list.length || ''}</small></h3>${cells.length ? `<div class="strip816p">${cells.join('')}</div>` : list.length ? `<p class="note816">${list.length} photograph${list.length === 1 ? '' : 's'} on the record - loading.</p>` : ''}
-${hosted ? `<div class="add816 editonly"><label class="btn primary" for="ph816in">＋ Add a photo</label><input class="dphin" type="file" id="ph816in" accept="image/jpeg,image/png,image/webp">
+	ph.innerHTML = `<div class="hubtitle"><h3>Photos</h3>${list.length ? `<span class="chip ref">${list.length}</span>` : ''}</div>${cells.length ? `<div class="strip816p">${cells.join('')}</div>` : list.length ? `<p class="note816">${list.length} photograph${list.length === 1 ? '' : 's'} on the record - loading.</p>` : ''}
+${hosted ? `<div class="add816 editonly"><label class="btn primary" for="ph816in">Add a photo</label><input class="dphin" type="file" id="ph816in" accept="image/jpeg,image/png,image/webp">
 <select id="ph816slot" aria-label="What is this a photo of?">${DROP_SLOTS.map((s, i) => `<option value="${i}">${esc(s.lab)}</option>`).join('')}</select>
 ${units.length > 1 ? `<select id="ph816unit" aria-label="Which unit">${units.map(u => `<option value="${esc(u)}">asset ${esc(u)}</option>`).join('')}</select>` : ''}<span class="note816" id="ph816msg"></span></div>` : ''}`;
 	if (!list.length && !ed) ph.hidden = true;
@@ -216,6 +212,7 @@ ${units.length > 1 ? `<select id="ph816unit" aria-label="Which unit">${units.map
 	const hire = one('hire'); if (hire) [...hire.children].filter(e => e.tagName !== 'SUMMARY').forEach(e => charges.appendChild(e));
 	if (rentalLines) charges.appendChild(rentalLines);
 	const cc = one('costs'); if (cc && !/No cost line names this asset/.test(plain816(cc))) charges.appendChild(cc);
+	all('top').filter(e => /\$\s?\d/.test(e.textContent || '')).forEach(e => { B.top.splice(B.top.indexOf(e), 1); charges.appendChild(e); }); /* a charge in a notice is a charge */
 	if (moneyOut.length) { const h = document.createElement('div'); h.className = 'sect'; h.textContent = 'Transport, from the driver\'s card'; charges.appendChild(h); moneyOut.forEach(e => charges.appendChild(e)); }
 	const sup = one('supplied');
 	let hasSup = false; try { hasSup = itemRows(a).some(r => r.supplied || r.qty_supplied != null) || allVariances().some(x => [x.ref, x.key, x.reference, x.asset].includes(key)); } catch (e) {}
@@ -224,7 +221,7 @@ ${units.length > 1 ? `<select id="ph816unit" aria-label="Which unit">${units.map
 	const F = [['history', 'History and notes', [evN ? evN + ' schedule event' + (evN === 1 ? '' : 's') : '', lastLight ? 'light set ' + fmtStamp(lastLight.at).slice(0, 6) : ''].filter(Boolean).join(' · '), hist, ''],
 		['contents', 'Inside it and asset numbers', [accN ? accN + ' inside' : '', nos.length ? nos.length + ' asset number' + (nos.length === 1 ? '' : 's') : ''].filter(Boolean).join(' · '), showContents && contents.children.length ? contents : null, ''],
 		['driver', 'Driver\'s card', 'for the truck', drvBody, ''],
-		['charges', 'Contract &amp; charges <span class="lock816">EDITORS ONLY</span>', 'rental, rates, hire start, labour', charges.children.length ? charges : null, 'editonly'],
+		['charges', 'Contract &amp; charges <span class="chip cand">editors only</span>', 'rental, rates, hire start, labour', charges.children.length ? charges : null, 'editonly'],
 		['supplied', hasSup ? 'What was supplied' : 'Record a difference', hasSup ? 'against what was asked for' : 'what turned up against the order', sup, hasSup ? '' : 'editonly'],
 		['breakdowns', 'Breakdowns', '', hasBd ? bd : null, ''],
 		['sub744', 'Sub-hired gear', sub ? sub.co : 'add a supplier\'s units', sub744, sub ? '' : 'editonly'],
@@ -287,7 +284,8 @@ function motion816Off(){ return motionOff816(); }
 /* the driver's card names the one destination when the plan or a pin has it, not "nothing on the drawings" */
 function driverPos816(a){
 	let D = null; try { D = dest782(a); } catch (e) { D = null; }
-	if (!D || D.kind === 'report' || D.kind === 'area') return null;
+	if (D && D.kind === 'report') return {tone: 'gap', kick: 'Drop position · no drop-off yet', head: 'Report to the pit lane', say: 'No drop-off is set for this one yet: the driver reports to the pit lane and site directs them. Navigate goes to the pit lane.'};
+	if (!D || D.kind === 'area') return null;
 	const w = srcWords816(a, D);
 	return D.kind === 'pinned' || D.kind === 'confirmed'
 		? {tone: 'good', kick: 'Drop position · ' + w, head: 'Where it goes - ' + w, say: 'Navigate goes to this spot. Confirm with the supervisor on arrival.'}

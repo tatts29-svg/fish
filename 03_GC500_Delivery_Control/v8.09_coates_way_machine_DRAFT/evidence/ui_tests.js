@@ -219,35 +219,44 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   }
 
   /* ── two fingers on the steering wheel (phone) ── */
-  /* (Codex review fixes f45961b) a second finger down while one holds the wheel: once both are lifted, in either order or by a cancel, the
-     wheel lets go and the view can be turned again (the second touch dropped the grab, so the wheel stayed held and orbit stayed off).
-     Real touches through the browser, at a point where the page's own picking finds the wheel. Fails on ba9fff7. */
+  /* (Codex review fixes f45961b) a second finger down while one holds the wheel threw the hold away, so the wheel stayed "held" once both
+     fingers were up. On a phone the wheel can be taken only from the driver's seat (the view keeps the orbit off there by design), so what
+     shows is the steering: with the V8 running it sways a little with the rumble, and a held wheel does not. Real touches through the
+     browser at the wheel point with the most wheel around it (the seat camera shakes with the rumble); the steering read off the rack.
+     Lifted in either order, or cancelled, the wheel must let go and the steering sway again. Fails on ba9fff7. (Desktop has no second
+     finger; the outside-view half of the fault, orbit left off, needs the wheel in reach from outside, which it is not on the phone.) */
   if (isWork && dev.mobile) {
-    await page.click('[data-view="car"]', {force: true}); await wait(1500); await page.click('#home', {force: true}); await until(() => !window.__cw.tween, 120000);
-    await page.evaluate(() => { window.__tp = []; const c = document.getElementById('canvas'); for (const t of ['pointerdown', 'pointerup', 'pointercancel']) c.addEventListener(t, e => window.__tp.push(t.replace('pointer', '') + e.pointerId)); });
-    const names = await page.evaluate(() => { const cat = document.getElementById('category'), opt = [...cat.options].find(o => /cog/i.test(o.value)); if (!opt) return []; cat.value = opt.value; cat.dispatchEvent(new Event('change')); cat.dispatchEvent(new Event('input'));
-      const out = [...document.querySelectorAll('#results .result-row b')].map(b => b.textContent); cat.value = ''; cat.dispatchEvent(new Event('change')); cat.dispatchEvent(new Event('input')); return out; });
-    const cands = await page.evaluate(names => { const c = document.getElementById('canvas').getBoundingClientRect(), dock = document.querySelector('.dock').getBoundingClientRect(), out = [];
-      for (let y = c.top + 40; y < Math.min(c.bottom, dock.top) - 10; y += 10) for (let x = c.left + 10; x < c.right - 10; x += 10) { if (document.elementFromPoint(x, y) !== document.getElementById('canvas')) continue;
-        const k = window.__cw.pickAt(x, y); if (k && k.kind === 'part' && (names.includes(k.name) || /rim|spoke|tooth bolt|quick-release/i.test(k.name))) out.push({x: Math.round(x), y: Math.round(y), name: k.name}); }
-      return out; }, names);
-    const T = (type, pts) => cdp.send('Input.dispatchTouchEvent', {type, touchPoints: pts});
-    const held = () => page.evaluate(() => !window.__cw.controls.enabled);
-    let wheel = null; for (const p of cands.filter((_, i) => i % Math.max(1, Math.floor(cands.length / 8)) === 0).slice(0, 8)) { await T('touchStart', [{x: p.x, y: p.y, id: 0}]); await wait(300); const h = await held(); await T('touchCancel', []); await wait(300); if (h) { wheel = p; break; } }
-    check('a point on the steering wheel takes the grab (orbit off while held)', !!wheel, wheel ? JSON.stringify(wheel) : `${cands.length} wheel points tried`);
-    if (wheel) {
-      const other = {x: Math.round(wheel.x < dev.W / 2 ? wheel.x + 120 : wheel.x - 120), y: wheel.y, id: 1}, w0 = {x: wheel.x, y: wheel.y, id: 0};
-      for (const [label, lift] of [['second finger lifted first', async () => { await T('touchMove', [w0]); await wait(300); await T('touchEnd', []); }],
-                                   ['wheel finger lifted first', async () => { await T('touchMove', [other]); await wait(300); await T('touchEnd', []); }],
+    await page.click('[data-view="cog"]', {force: true}); await wait(6000); await until(() => !window.__cw.tween, 120000);
+    const pt = await page.evaluate(() => { const cat = document.getElementById('category'); cat.value = 'Coates cog'; cat.dispatchEvent(new Event('change'));
+      const names = [...document.querySelectorAll('#results .result-row b')].map(b => b.textContent); cat.value = ''; cat.dispatchEvent(new Event('change'));
+      const cv = document.getElementById('canvas'), c = cv.getBoundingClientRect(), dockTop = document.querySelector('.dock').getBoundingClientRect().top, hit = new Map(), S = 8;
+      for (let y = c.top + 20; y < Math.min(c.bottom, dockTop) - 10; y += S) for (let x = c.left + 10; x < c.right - 10; x += S) { if (document.elementFromPoint(x, y) !== cv) continue; const k = window.__cw.pickAt(x, y);
+        if (k && k.kind === 'part' && (names.includes(k.name) || /rim|spoke|tooth bolt|quick-release/i.test(k.name))) hit.set(x + ',' + y, k.name); }
+      let best = null; for (const key of hit.keys()) { const [x, y] = key.split(',').map(Number); let n = 0; for (let dy = -3; dy <= 3; dy++) for (let dx = -3; dx <= 3; dx++) if (hit.has((x + dx * S) + ',' + (y + dy * S))) n++; if (!best || n > best.n) best = {x: Math.round(x), y: Math.round(y), n, name: hit.get(key)}; }
+      if (!best) return null; const free = [[120, -150], [-120, -150], [120, 120], [-120, 120]].map(([dx, dy]) => ({x: best.x + dx, y: best.y + dy})).find(q => q.x > 8 && q.x < innerWidth - 8 && q.y > c.top + 8 && q.y < Math.min(c.bottom, dockTop) - 8 && document.elementFromPoint(q.x, q.y) === cv && !(window.__cw.pickAt(q.x, q.y) || {}).name?.match(/rim|spoke|bolt/i));
+      return free ? {...best, other: free} : null; });
+    check('the steering wheel is in reach from the driver\'s seat', !!pt, JSON.stringify(pt));
+    if (pt) {
+      await page.evaluate(() => { window.__tp = []; const c = document.getElementById('canvas'); for (const t of ['pointerdown', 'pointerup', 'pointercancel']) c.addEventListener(t, e => window.__tp.push(t.replace('pointer', '') + e.pointerId)); });
+      await clickId('start'); await until(() => window.__cw.drive.running && window.__cw.drive.omega > .48, 60000);
+      const T = (type, pts) => cdp.send('Input.dispatchTouchEvent', {type, touchPoints: pts}), w0 = {x: pt.x, y: pt.y, id: 0}, other = {x: pt.other.x, y: pt.other.y, id: 1};
+      const rack = async (n = 4) => { const v = []; for (let i = 0; i < n; i++) { v.push(await page.evaluate(() => { let mech = null; window.__cw.scene.traverse(o => { if (!mech && o.userData && o.userData.mech) mech = o.userData.mech; }); return +mech.rackTravel.toFixed(7); })); if (i < n - 1) await wait(1500); } return v; };
+      const spread = v => Math.max(...v) - Math.min(...v);
+      const free0 = await rack(); await T('touchStart', [w0]); await wait(1500); const held = await rack(3); await T('touchEnd', []); await wait(800);
+      check('V8 running, one finger on the wheel: the steering sways, and holds still while the wheel is held', spread(free0) > 1e-5 && spread(held) < 1e-7, JSON.stringify({free: free0, held}));
+      for (const [label, lift] of [['second finger lifted first', async () => { await T('touchMove', [w0]); await wait(400); await T('touchEnd', []); }],
+                                   ['wheel finger lifted first', async () => { await T('touchMove', [other]); await wait(400); await T('touchEnd', []); }],
                                    ['both cancelled', async () => { await T('touchCancel', []); }]]) {
         await page.evaluate(() => { window.__tp.length = 0; });
-        await T('touchStart', [w0]); await wait(300); const grabbed = await held(); await T('touchStart', [w0, other]); await wait(300); await lift(); await wait(600);
-        const r = await page.evaluate(() => ({orbit: window.__cw.controls.enabled, events: window.__tp.join(' ')}));
-        check(`two fingers on the wheel (${label}): once both are up the wheel lets go and the view turns again`, grabbed && r.orbit, JSON.stringify({grabbed, ...r}));
-        /* if it stuck, one clean touch on the wheel lets go, so the rest of the run is not left with the orbit off */
-        if (!r.orbit) { await T('touchStart', [w0]); await wait(300); await T('touchEnd', []); await wait(600); }
+        await T('touchStart', [w0]); await wait(400); await T('touchStart', [w0, other]); await wait(400); await lift(); await wait(800);
+        const after = await rack(), events = await page.evaluate(() => window.__tp.join(' '));
+        check(`two fingers on the wheel (${label}): once both are up the wheel lets go and the steering sways again`, spread(after) > 1e-5, JSON.stringify({after, events}));
+        /* if it stuck, one clean touch on the wheel lets go, so the rest of the run starts clean */
+        if (!(spread(after) > 1e-5)) { await T('touchStart', [w0]); await wait(400); await T('touchEnd', []); await wait(800); }
       }
+      await clickId('start'); await until(() => !window.__cw.drive.running && window.__cw.drive.stationary, 60000);
     }
+    await page.click('[data-view="car"]', {force: true}); await wait(1500); await until(() => !window.__cw.tween, 120000);
   }
 
   /* ── the toast ── */

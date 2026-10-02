@@ -45,7 +45,7 @@ t = rep(t, " more: '<circle cx=\"3.5\" cy=\"8\" r=\"1.4\" fill=\"currentColor\"/
         'Demob glyph', p)
 # on a phone the row is a glyph over a word in seven cells: Equipment may break, with a hyphen, over two lines
 t = rep(t, "const TAB_WORDS = {progress: 'Where <span class=\"nb\">we are</span>'};",
-        "const TAB_WORDS = {progress: 'Where <span class=\"nb\">we are</span>', plant: 'Equip<span class=\\"hy816\\" aria-hidden=\\"true\\"></span>ment'}; /* v8.16 - two lines on a phone, one word everywhere else */", 'Equipment may hyphenate on a phone', p)
+        "const TAB_WORDS = {progress: 'Where <span class=\"nb\">we are</span>', plant: 'Equip<span class=hy816 aria-hidden=true></span>ment'}; /* v8.16 - two lines on a phone, one word everywhere else */", 'Equipment may hyphenate on a phone', p)
 t = rep(t, '<section class="pane" id="pane-plant"></section>',
         '<section class="pane" id="pane-plant"></section>\n  <section class="pane" id="pane-demob"></section>', 'Demob pane', p)
 t = rep(t, "else if (state.tab === 'questions') renderQuestions();",
