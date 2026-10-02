@@ -86,6 +86,11 @@ t = rep(t, """ else list.push({a, events:[e], moved_from: moved});
  });
  (((DATA.transport || {}).carrier || {}).loads || []).forEach(l => day(l.date).loads.push(l));""", 'typed due-out reaches the day', p)
 
+# 4a. a toilet or tank set on site again starts a new use: an earlier pump-out no longer clears it
+t = rep(t, """ d.state = state; d.set_at = now; d.by = who;
+ d.history = (d.history || []).concat([{state, at: now, by: who}]).slice(-400);""", """ d.state = state; d.set_at = now; d.by = who;
+ d.history = (d.history || []).concat([{state, at: now, by: who}]).slice(-400);
+ if (state === 'on site' && typeof revokeEmptied816 === 'function') revokeEmptied816(key, d, who, now); /* v8.16 - a new use needs a new pump-out */""", 'arrival revokes an earlier pump-out', p)
 # 4b. a merge of two copies keeps Emptied: the later stamp wins, like steps, and its history is kept
 t = rep(t, " if (pw) Object.assign(m, pw);",
         " if (pw) Object.assign(m, pw);\n /* v8.16 - emptied (pumped out) merges on its own clock: value, who and when together; an un-tick is a dated event too */\n const ea816 = typeof a.emptied === 'boolean' ? {emptied: a.emptied, emptied_by: a.emptied_by, emptied_at: a.emptied_at} : null, eb816 = typeof b.emptied === 'boolean' ? {emptied: b.emptied, emptied_by: b.emptied_by, emptied_at: b.emptied_at} : null;\n const ew816 = !ea816 ? eb816 : !eb816 ? ea816 : (String(eb816.emptied_at || '') > String(ea816.emptied_at || '') ? eb816 : ea816); if (ew816) Object.assign(m, ew816);",

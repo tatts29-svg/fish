@@ -67,7 +67,23 @@ function emptiedOf816(key){
 	/* the newest record wins, local or committed, by its own time; a tie goes to this device's */
 	const s = [l, c].filter(x => typeof x.emptied === 'boolean').sort((x, y) => String(y.emptied_at || '').localeCompare(String(x.emptied_at || '')))[0] || null;
 	const proven = !!(s && s.emptied === true && s.emptied_by && s.emptied_at && !isNaN(Date.parse(s.emptied_at)));
-	return {on: proven, by: s ? s.emptied_by || null : null, at: s ? s.emptied_at || null : null, unproven: !!(s && s.emptied === true && !proven)};
+	/* a clearance belongs to this use: one recorded before the unit last arrived (an earlier visit, a reuse) clears nothing */
+	const on = lastOnSite816(key), stale = !!(proven && on && Date.parse(s.emptied_at) < Date.parse(on));
+	return {on: proven && !stale, by: s ? s.emptied_by || null : null, at: s ? s.emptied_at || null : null, unproven: !!(s && s.emptied === true && !proven), stale};
+}
+/* when the record last had the unit arrive on site - the start of the use a pump-out has to follow */
+function lastOnSite816(key){
+	let d = null; try { d = deliveryOf(key); } catch (e) { d = null; } if (!d) return null;
+	const ts = (d.history || []).filter(h => h && h.state === 'on site' && h.at).map(h => h.at).concat(d.state === 'on site' && d.set_at ? [d.set_at] : []).filter(x => !isNaN(Date.parse(x)));
+	return ts.length ? ts.sort((x, y) => Date.parse(x) - Date.parse(y)).pop() : null;
+}
+/* a unit set on site again starts a new use: an earlier pump-out is taken off, in the setter's name, with the reason */
+function revokeEmptied816(key, d, who, now){
+	if (!needsEmpty816(key) || !d) return;
+	const c = ((typeof CROW !== 'undefined' && CROW.get(key)) || {}).delivery || {};
+	if (d.emptied !== true && c.emptied !== true) return;
+	d.emptied = false; d.emptied_by = who; d.emptied_at = now;
+	d.emptied_history = (d.emptied_history || []).concat([{emptied: false, at: now, by: who, because: 'set on site again - a new use'}]).slice(-400);
 }
 /* EMPTIED (PUMPED OUT): its own tick with its own name and time, on the shared delivery record like the other three.
  Nothing ever sets it by itself, and un-ticking it is recorded too. */
@@ -88,10 +104,13 @@ function setEmptied816(key, on){
  person and a time says it was pumped out - whatever the date and whatever light it shows now. The one thing the gate
  leaves alone is a unit the record has never had on site: it is still on its way in, and nothing has used it. */
 function everOnSite816(key){ const d = deliveryOf(key); return d.state === 'on site' || !!d.done || (d.history || []).some(h => h && h.state === 'on site'); }
+/* AN INCOMING TRIP, said out loud: the record has never had this unit on site, so a light moving it towards site is a
+ delivery, not a collection. Every collection path (the Demob tab's Collected) is gated whatever this says. */
+function incoming816(key){ return !everOnSite816(key); }
 function emptyGate816(key, state, force){
 	const a = assetOf(key); if (!a || !needsEmpty816(a)) return true;
 	if (state !== 'in transit' && state !== 'not on site') return true;
-	if (!force && !everOnSite816(key)) return true;
+	if (!force && incoming816(key)) return true;
 	if (emptiedOf816(key).on) return true;
 	flash(key + ' has not been emptied. No toilet or waste tank is moved, loaded or carried until it is pumped out - tick Emptied (pumped out) first.');
 	return false;
@@ -159,7 +178,7 @@ function demob816(){
 		const n = days.length, base = days.map(d => refs.filter(r => r.iso === d || (r.portions && r.portions.some(p => p.iso === d))).length);
 		/* a reference split over loads keeps a portion per load, each with its own day; its out date is the last of them */
 		const put = (it, k) => { const iso = days[k]; if (!it.load) { it.r.iso = iso; return; } it.load.iso = iso;
-			it.load.rows.forEach(x => { if (x.r.split816) { x.r.portions = (x.r.portions || []).concat([{iso, n: x.n}]); x.r.iso = x.r.portions.map(p => p.iso).sort().pop(); } else x.r.iso = iso; }); };
+			it.load.rows.forEach(x => { x.iso = iso; if (x.r.split816) { x.r.portions = (x.r.portions || []).concat([{iso, n: x.n}]); x.r.iso = x.r.portions.map(p => p.iso).sort().pop(); } else x.r.iso = iso; }); };
 		/* a toilet load goes whole, onto the day with the most room left in its weeks */
 		Q.filter(it => it.load).forEach(it => { let best = 0; for (let k = 1; k < n; k++) if (base[k] < base[best]) best = k; base[best] += it.size; put(it, best); });
 		/* then the rest, in order, so every day ends as level as it can: the water level L that the singles fill to */
@@ -181,7 +200,7 @@ function demob816(){
 	const day = {};
 	D.forEach((iso, i) => {
 		const list = refs.filter(r => r.iso === iso || (r.portions && r.portions.some(p => p.iso === iso))).sort(cmp816);
-		const loads = planned.filter(L => L.iso === iso).map(L => ({rows: L.rows.map(x => ({r: x.r, n: x.n, part: x.part})), units: L.units, planned: true}));
+		const loads = planned.filter(L => L.iso === iso).map(L => ({rows: L.rows.map(x => ({r: x.r, n: x.n, part: x.part, iso})), units: L.units, planned: true}));
 		const placed = new Set(loads.flatMap(L => L.rows.map(x => x.r.key)));
 		const rest = list.filter(r => (r.evtN > 0 || r.evtUnk) && !placed.has(r.key));
 		rest.forEach(r => { let n = r.evtN;
@@ -191,8 +210,9 @@ function demob816(){
 		loads.sort((x, y) => sideIx(x) - sideIx(y) || cmp816(x.rows[0].r, y.rows[0].r));
 		loads.forEach((L, k) => { L.n = k + 1; L.free = DM816.cap - L.units; L.uncertain = L.rows.some(x => x.r.evtUnk); L.rows.sort((x, y) => cmp816(x.r, y.r)); });
 		const next = D[i + 1];
-		const pump = refs.filter(r => r.empty && !r.emptied && (r.iso === iso || (next && r.iso === next))).sort(cmp816)
-			.map(r => ({r, when: r.iso === iso ? 'today' : 'next'}));
+		const onDay = (r, d) => r.iso === d || !!(r.portions && r.portions.some(p => p.iso === d));
+		const pump = refs.filter(r => r.empty && !r.emptied && (onDay(r, iso) || (next && onDay(r, next)))).sort(cmp816)
+			.map(r => ({r, when: onDay(r, iso) ? 'today' : 'next'}));
 		day[iso] = {iso, i, list, loads, pump, outside: list.filter(r => r.side === 'outside').length, island: list.filter(r => r.side === 'inside').length, unknown: list.filter(r => r.side === 'unknown').length};
 	});
 	const counts = {total: refs.length, plan: refs.filter(r => r.src === 'plan').length, contract: refs.filter(r => r.src === 'contract').length,

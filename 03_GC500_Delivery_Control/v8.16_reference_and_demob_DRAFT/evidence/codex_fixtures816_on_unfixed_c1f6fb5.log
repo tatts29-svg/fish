@@ -1,0 +1,15 @@
+FAIL 1 gate_before_event_week: no date exception (refused on 18 Oct)
+FAIL 2 gate_unrecorded_or_non_green_light: an incoming trip is named (incoming816), and the collection path is still refused
+FAIL 2b a unit that has been on site and now shows red is refused (no light shortcut)
+FAIL 3 gate_without_actor_or_time: emptied with no person or time is refused
+FAIL 4 newer_committed_untick: the newer committed un-tick wins  - {"on":true,"by":"Older operator","at":"2026-10-25T00:00:00Z"}
+FAIL 5 reused_reference_old_pumpout: set on site again, the earlier pump-out no longer clears it  - {"emptied":{"on":true,"by":"Older operator","at":"2026-10-25T00:00:00Z"},"nextCollectionAllowed":true}
+FAIL 5b a pump-out recorded before the last arrival (an earlier visit) clears nothing
+PASS 5c a pump-out after the last arrival, with a person and a time, clears the collection
+FAIL 6 unknown_quantity: kept unknown, not a one-unit load; the load says its total is not certain  - [{"units":1,"rows":[{"key":"WC01","n":1}]}]
+FAIL 7 split_reference_dates: each portion on its own day, in its load, on that day's list, pump-out and confirmation  - [{"day":"2026-10-26","units":24,"onDayList":false,"onPumpList":true,"proposedHere":false},{"day":"2026-10-27","units":1,"onDayList":true,"onPumpList":true,"proposedHere":true}]
+FAIL 8 mixed_toilet_tank_order: the tank starts after the toilet on it is off, across separate runs  - [{"kind":"normal","group":"KINP","stops":[{"at":420,"end":450,"tank":false,"parts":["Waste tank"]}]},{"kind":"toilets","group":"Toilet run","stops":[{"at":420,"end":435,"tank":false,"parts":["FWF"]}]}]
+FAIL 9 merge_emptied_evidence: value, who, when and history survive a merge  - {}
+FAIL fixture 9 (threw: Cannot read properties of undefined (reading 'emptied'))
+
+12 FAILED, 1 passed

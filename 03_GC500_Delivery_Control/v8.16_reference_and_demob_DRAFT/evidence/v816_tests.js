@@ -199,6 +199,11 @@ async function run(name, dev) {
       if (row) row.delivery = Object.assign({}, had || {}, {emptied: false, emptied_by: 'B', emptied_at: '2026-10-21T00:00:00.000Z'}); else CROW.set(k, {delivery: {emptied: false, emptied_by: 'B', emptied_at: '2026-10-21T00:00:00.000Z'}});
       RENDER_MEMO.clear(); out.staleRefused = !emptiedOf816(k).on && collect816(k) === false;
       if (row) row.delivery = had; else CROW.delete(k); back(k, was); }
+    // 1e. a pump-out belongs to the use it followed: set on site again, it no longer clears the unit
+    { const k = toilets.find(x => deliveryOf(x).state === 'on site'), was = keep(k);
+      const ok1 = setEmptied816(k, true) && emptiedOf816(k).on; setLight(k, 'on site');
+      const h = (S.delivery[k].emptied_history || []).slice(-1)[0] || {};
+      out.reuse = {ok1, after: emptiedOf816(k).on, refused: collect816(k) === false, because: h.because || ''}; back(k, was); }
     // 2. a merge keeps Emptied, and the later stamp wins
     { const A1 = {delivery: {X1: {emptied: true, emptied_by: 'A', emptied_at: '2026-10-25T01:00:00.000Z', emptied_history: [{emptied: true, at: '2026-10-25T01:00:00.000Z', by: 'A'}]}, X2: {emptied: true, emptied_by: 'A', emptied_at: '2026-10-25T01:00:00.000Z'}}};
       const B1 = {delivery: {X2: {emptied: false, emptied_by: 'B', emptied_at: '2026-10-25T02:00:00.000Z'}}};
@@ -239,7 +244,8 @@ async function run(name, dev) {
   ok(RV.amberRefused, `${name}: [review 1] no light shortcut - a used toilet showing amber is still refused off site until emptied`);
   ok(RV.dateRefused, `${name}: [review 1] no date shortcut - refused on ${RV.today}, before Event Week`);
   ok(RV.unprovenRefused, `${name}: [review 1] emptied: true without who and when is not proof - refused`);
-  ok(RV.staleRefused, `${name}: [review 1] the newest record wins - a stale local true loses to a newer committed false`);
+  ok(RV.staleRefused, `${name}: [review 1, 8] the newest record wins - a newer committed un-tick beats an older local tick`);
+  ok(RV.reuse.ok1 && !RV.reuse.after && RV.reuse.refused && /new use/.test(RV.reuse.because), `${name}: [review 7] a pump-out from an earlier use does not clear a unit set on site again`, RV.reuse);
   ok(RV.merge.x1 && RV.merge.x2, `${name}: [review 2] a merge keeps emptied, who, when and its history, and the later stamp wins`, RV.merge);
   ok(RV.split.sum === 25 && RV.split.portions.length === 2 && RV.split.eachDay && RV.split.inConfirm && RV.split.outIsLast && RV.split.maxLoad <= 24, `${name}: [review 3] a 25-unit reference goes in portions, each on its own day, in its load and in that day's confirmation`, RV.split);
   ok(RV.tank.ok, `${name}: [review 4] a tank under a toilet on another truck is timed after the toilet is off`, RV.tank);
