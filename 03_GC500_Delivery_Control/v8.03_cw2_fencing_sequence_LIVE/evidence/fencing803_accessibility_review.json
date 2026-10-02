@@ -2,7 +2,7 @@
   "author": "Andrew Fisher",
   "scope": "Independent desktop and phone review plus the two bounded accessibility corrections",
   "rendererSha256": "c6447f4d5e0dfa3488e41031078d40db77892ba41f49f3e885db3cd59bec2970",
-  "reviewedCandidateSha256": "f6cab88e0f9959f86a3cc0e0a17f2ee8b1bfd6c4cc3ac9f90df8c2e6c4a7f589",
+  "reviewedCandidateSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
   "originalPlanOnlyCandidateSha256": "55a4c450b45dbcabd7639e6d9c0a4ec76a4901f59a9b014ebeae6cf3d7e16149",
   "changes": [
     {
@@ -16,7 +16,7 @@
       "verified": "Ordinary horizontal scrolling reaches both the beginning and end of QPS prerequisites without first-column obstruction."
     }
   ],
-  "visualReview": "Desktop and phone week header, all three unresolved quantity-conflict rows, Friday row, and the phone prerequisite scroll positions were inspected. No remaining blocker within this bounded plan-only review.",
+  "visualReview": "Official-build desktop/phone source header, all three quantity-conflict rows and phone prerequisite scroll positions were inspected. Desktop Friday note retains both contradictory source date/place statements. No visual blocker within this bounded plan-only review; phone tables retain ordinary horizontal scrolling.",
   "checksPassed": 29,
   "checksFailed": 0,
   "sourceTasksRepresented": 26,
@@ -27,9 +27,15 @@
   "actualQuantitiesAndCostsUnchanged": true,
   "pageErrors": [],
   "attemptedWrites": 0,
-  "privateScreenshots": "/workspace/private-cw2-fencing/ui-accessible",
+  "privateScreenshots": "/workspace/private-cw2-fencing/ui-official-fa32",
   "limitations": [
     "Phone tables retain horizontal scrolling; long prerequisite lines are read by panning between their beginning and end.",
-    "This plan-only review does not establish editable requirement-confirmation behavior; that integration has separate evidence."
-  ]
+    "This plan-only review does not establish editable requirement-confirmation behavior."
+  ],
+  "finalOfficialSourceReview": {
+    "candidateSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+    "independentPeer": "fleet_cpu_review",
+    "result": "Embedded rows and all three conflicts exactly match the source JSON; 25 task rows plus closed Monday. Friday preserves the conflicting 10th/Macintosh Park heading and dated Friday 9 October basis; S04 uses the exact supplied note. Source header classes and static first-cell CSS remain component-scoped.",
+    "productChangesDuringFinalReview": false
+  }
 }

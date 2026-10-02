@@ -57,7 +57,7 @@ function sequence803TaskChecks(row){
 function sequence803Dialog(rowId,requirementId){
  const x=sequence803Requirement(rowId,requirementId);if(!x)return;
  const d=document.createElement('div'),scrim=document.createElement('div');d.className='drawer on';d.style.zIndex=30;d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Fencing prerequisite confirmation');scrim.className='scrim on';scrim.style.zIndex=29;
- const close=()=>{clearInterval(timer);d.remove();scrim.remove();bump();};
+ const close=()=>{clearInterval(timer);d.remove();scrim.remove();render();};
  const draw=()=>{const s=sequence803RequirementState(x),r=s.record;
   d.innerHTML='<div class="dh"><div><h2>'+esc(x.row.location)+'</h2><div class="sub">'+esc(x.row.description)+' · '+esc(fmtDate(x.row.date))+'</div></div><button class="btn" data-sequence803-close>Close</button></div><div class="db"><p><b>'+esc(x.requirement.text)+'</b></p><p class="norate">'+esc(x.plan.file)+' · revision '+esc(x.plan.revision)+' · p. '+esc(x.requirement.page)+'</p>'+
    (x.requirement.kind==='condition'?'<p class="notice info">Record that this condition has been reviewed with the crew. Follow the timing and alternatives stated above; this does not mean all conditional work has already happened.</p>':'<p class="notice info">Record this only after the stated confirmation or check has been obtained.</p>')+

@@ -11,7 +11,8 @@ function sequence803Shared(collection,key){
  const queued=Object.prototype.hasOwnProperty.call(SYNC.queue[collection] || {},id) || Object.prototype.hasOwnProperty.call(SYNC.inflight,collection+'/'+id);
  return {local,ack,pending:queued || (local!==undefined && JSON.stringify(local)!==JSON.stringify(ack))};
 }
-function sequence803Connected(){ const age=Date.now()-SYNC.at;return SYNC.on && SYNC.status==='live' && Number.isFinite(SYNC.at) && SYNC.at>0 && age>=0 && age<=15000 && SYNC.first.has('loads') && SYNC.first.has('answers') && !SYNC.unkept; }
+function sequence803DurableVersion(v){const supported=!!(v && v.durable_record_reads===true),changed=SYNC.durableRecordWrites!==supported;SYNC.durableRecordWrites=supported;if(changed)setTimeout(()=>{try{render();}catch(e){}},0);return supported;}
+function sequence803Connected(){ const age=Date.now()-SYNC.at;return SYNC.on && SYNC.status==='live' && SYNC.durableRecordWrites===true && Number.isFinite(SYNC.at) && SYNC.at>0 && age>=0 && age<=15000 && SYNC.first.has('loads') && SYNC.first.has('answers') && !SYNC.unkept; }
 function sequence803Stamp(r){return !!(r && typeof r.by==='string' && r.by.trim() && typeof r.at==='string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(r.at) && Number.isFinite(Date.parse(r.at)) && new Date(r.at).toISOString()===(r.at.length===20?r.at.slice(0,-1)+'.000Z':r.at));}
 function dispatch803Checked(r){return !!(r && r.ok===true && sequence803Stamp(r));}
 function dispatch803Context(){
@@ -69,7 +70,7 @@ function dispatch803Evidence(l){
 function dispatch803State(id){
  const l=dispatch803Load(id);if(!l)return {phase:'Hold',reasons:['This booking is no longer on the current day.'],load:null};
  const ev=dispatch803Evidence(l),g=dispatch803Group(l),reasons=[],legacy=((S.loads || {})[id] || sequence803Shared('loads',id).ack || {}).dispatch803 || null;
- if(!sequence803Connected())reasons.push('Wait for a current shared record: the connection must be live and checked within the last 15 seconds.');
+ if(!sequence803Connected())reasons.push(SYNC.durableRecordWrites!==true?'Shared checklist recording is not available on this service yet.':'Wait for a current shared record: the connection must be live and checked within the last 15 seconds.');
  if(ev.pending)reasons.push('This load has checks waiting for the shared record.');
  if(ev.invalid || Object.values(ev.graphs).some(x=>!x.valid))reasons.push('The recorded event history is incomplete or invalid; review it before departure.');
  if(l.departure_order==null)reasons.push('DD departure order has not been supplied.');
@@ -111,7 +112,7 @@ function dispatch803Reminders(g){
 function dispatch803Dialog(id){
  const initial=dispatch803State(id);if(!initial.load)return;
  const d=document.createElement('div'),scrim=document.createElement('div');d.className='drawer on';d.style.zIndex=30;d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Departure checks');scrim.className='scrim on';scrim.style.zIndex=29;
- const close=()=>{clearInterval(timer);d.remove();scrim.remove();bump();};
+ const close=()=>{clearInterval(timer);d.remove();scrim.remove();render();};
  const draw=()=>{
   const s=dispatch803State(id),l=s.load;if(!l){close();return;}
   d.innerHTML='<div class="dh"><div><h2>DD departure '+esc(bookingOrder801(l.departure_order))+'</h2><div class="sub">DD '+esc(l.dd)+' · '+esc(l.carrier)+' · '+esc(fmtDate(l.date))+'</div></div><button class="btn" data-dispatch803-close>Close</button></div><div class="db">'+

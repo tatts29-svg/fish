@@ -5,9 +5,9 @@
 'use strict';
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),assert=require('assert');
 const {open}=require('../../toolchain/harness/open_page');
-const pageFile=process.env.PAGE||'/workspace/private-cw2-fencing/candidate.html',out=process.env.OUT||'/workspace/private-cw2-fencing/ui-review';fs.mkdirSync(out,{recursive:true});
+const pageFile=process.env.PAGE||path.join(__dirname,'../../build/GC500_v8.03/GC500_Delivery_Control_hosted.html'),out=process.env.OUT||'/workspace/private-cw2-fencing/ui-review';fs.mkdirSync(out,{recursive:true});
 const source=JSON.parse(fs.readFileSync(path.join(__dirname,'../cw2_plan_02Oct2026.json'),'utf8')),hash=x=>crypto.createHash('sha256').update(x).digest('hex');
-const result={author:'Andrew Fisher',scope:'Independent browser review of the existing Fencing / CON WK2 component, plan-only candidate',candidateSha256:hash(fs.readFileSync(pageFile)),sourceSha256:source.source_sha256,rendererSha256:hash(fs.readFileSync(path.join(__dirname,'../fencing803_src.js'))),limitations:['Phone tables retain horizontal scrolling; long prerequisite lines are read by panning between their beginning and end.','This plan-only review does not establish editable requirement-confirmation behavior; that integration has separate evidence.'],checks:[],devices:[],errors:[],blockedWrites:0};
+const result={author:'Andrew Fisher',scope:'Independent browser review of the existing Fencing / CON WK2 component, plan-only candidate',candidateSha256:hash(fs.readFileSync(pageFile)),sourceSha256:source.source_sha256,rendererSha256:hash(fs.readFileSync(path.join(__dirname,'../fencing803_src.js'))),limitations:['Phone tables retain horizontal scrolling; long prerequisite lines are read by panning between their beginning and end.','This plan-only review does not establish editable requirement-confirmation behavior.'],checks:[],devices:[],errors:[],blockedWrites:0};
 const save=()=>fs.writeFileSync(path.join(__dirname,'fencing803_ui_review.json'),JSON.stringify(result,null,2)+'\n');
 const ck=(name,pass,detail)=>{result.checks.push({name,pass:!!pass,...(detail===undefined?{}:{detail})});save();};
 (async()=>{
@@ -33,9 +33,9 @@ const ck=(name,pass,detail)=>{result.checks.push({name,pass:!!pass,...(detail===
    const expected=source.rows.filter(r=>r.id!=='site-closed');
    ck(device+': every dated task location, description and source page is visible',expected.every(r=>{const row=dom.rows.find(x=>x.id===r.id);return row&&row.text.includes(r.location)&&row.text.includes(r.description)&&row.text.includes('Source p. '+r.page);}));
    ck(device+': all three unresolved source quantity conflicts remain visible',source.conflicts.every(c=>{const row=dom.rows.find(r=>r.id===c.row);return row&&row.text.includes('Awaiting confirmation')&&row.text.includes(c.summary)&&row.text.includes(c.detail);}));
-   ck(device+': Friday heading discrepancy remains visible',dom.text.includes('Page 15 heading says Friday 10th')&&dom.text.includes('Friday 9 October 2026'));
-   const noteWords=r=>r.id==='s04-relocate'?'Use the relocated fencing for flower-bed fencing; scrim if wanted.':r.note; // Semantically identical plan wording verified independently against the supplied source note.
-   const missingNotes=expected.flatMap(r=>{const row=dom.rows.find(x=>x.id===r.id);return(!r.note||row.text.includes(noteWords(r)))&&(r.requirements||[]).every(q=>row.text.includes(q.text))?[]:[{id:r.id,note:r.note,requirements:r.requirements,displayed:row.text}];});
+   const friday=source.rows.find(r=>r.id==='scrim-fri');
+   ck(device+': Friday heading discrepancy remains visible',dom.text.includes(friday.note)&&friday.note.includes('Friday 10th')&&friday.note.includes('Macintosh Park CZ fencing for stage build')&&friday.note.includes('Friday 9 October'));
+   const missingNotes=expected.flatMap(r=>{const row=dom.rows.find(x=>x.id===r.id);return(!r.note||row.text.includes(r.note))&&(r.requirements||[]).every(q=>row.text.includes(q.text))?[]:[{id:r.id,note:r.note,requirements:r.requirements,displayed:row.text}];});
    ck(device+': all source prerequisites and notes remain visible',missingNotes.length===0,missingNotes);
    ck(device+': planned work is explicit with no completion control or green done status',/Planned quantity/i.test(dom.text)&&dom.inputCount===0);
    ck(device+': checklist-versus-completion explanation is visible',dom.text.includes('A checklist confirmation is not a completion docket.'));

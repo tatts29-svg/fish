@@ -1,8 +1,13 @@
 {
   "author": "Andrew Fisher",
   "scope": "Independent browser review of the existing Fencing / CON WK2 component, plan-only candidate",
-  "candidateSha256": "f6cab88e0f9959f86a3cc0e0a17f2ee8b1bfd6c4cc3ac9f90df8c2e6c4a7f589",
+  "candidateSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
   "sourceSha256": "c6d7f4ec14d8853d4901a700c3328207265d18a53fcca626995c680699c5cbf0",
+  "rendererSha256": "c6447f4d5e0dfa3488e41031078d40db77892ba41f49f3e885db3cd59bec2970",
+  "limitations": [
+    "Phone tables retain horizontal scrolling; long prerequisite lines are read by panning between their beginning and end.",
+    "This plan-only review does not establish editable requirement-confirmation behavior."
+  ],
   "checks": [
     {
       "name": "desktop: existing week control selects CON WK2",
@@ -329,10 +334,5 @@
       }
     ]
   },
-  "complete": true,
-  "rendererSha256": "c6447f4d5e0dfa3488e41031078d40db77892ba41f49f3e885db3cd59bec2970",
-  "limitations": [
-    "Phone tables retain horizontal scrolling; long prerequisite lines are read by panning between their beginning and end.",
-    "This plan-only review does not establish editable requirement-confirmation behavior; that integration has separate evidence."
-  ]
+  "complete": true
 }
