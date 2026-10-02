@@ -125,9 +125,8 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
       const edge = [], N = 16; for (let i = 0; i <= N; i++) edge.push(on(.2 + .6 * i / N, .35)); for (let i = 1; i <= 6; i++) edge.push(on(.8, .35 + .21 * i / 6)); for (let i = 1; i <= N; i++) edge.push(on(.8 - .6 * i / N, .56)); for (let i = 1; i < 6; i++) edge.push(on(.2, .56 - .21 * i / 6));
       put(new T.TubeGeometry(new T.CatmullRomCurve3(edge, true, 'catmullrom', .05), 64, .0048 * s, 4, true), SW('black'), B.head); }
     for (const k of [-1, 1]) put(M(new T.CylinderGeometry(.024 * s, .024 * s, .008 * s, 14), hc[0] + k * hr * 1.0, hc[1] + .005 * s, hc[2] + .03 * s, 0, 0, Math.PI / 2), SW('gunmetal'), B.head);
-    /* the chin bar: fuller at the front, its vent */
+    /* the chin bar: fuller at the front */
     put(M(new T.SphereGeometry(hr * .62, 14, 7, .15 * Math.PI, .7 * Math.PI, .45 * Math.PI, .4 * Math.PI), hc[0], hc[1] - .05 * s, hc[2] + .03 * s, 0, 0, 0, 1.25, 1, 1.38), SW('black'), B.head);
-    put(M(new T.BoxGeometry(.05 * s, .014 * s, .01 * s), hc[0], hc[1] - .085 * s, hc[2] + hr * 1.12, -.3), SW('gunmetal'), B.head);
     /* the crown vents and the rear spoiler */
     for (const k of [-1, 1]) put(M(new T.BoxGeometry(.018 * s, .012 * s, .05 * s), hc[0] + k * .03 * s, hc[1] + hr * HS[1] * .985 + .004 * s, hc[2] + .03 * s, -.25), SW('black'), B.head);
     put(M(new T.BoxGeometry(.12 * s, .012 * s, .05 * s), hc[0], hc[1] + .1 * s, hc[2] - .125 * s, -.5), SW('black'), B.head);

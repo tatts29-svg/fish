@@ -60,8 +60,7 @@ function vestCanvas() {
   g.fillStyle = 'rgba(30,40,10,.55)'; g.fillRect(0, H * .75 - 3, W, 6);
   /* SAFETY across the back, between the hoops, read from behind; Coates over the heart, small */
   across(g, 'SAFETY', W * .31, H * .25, 50, '#1b2226', 1, 900, 2);
-  across(g, 'Coates', W * .80, H * .75 + 46, 34, '#1b2226', 1, 900, -1);
-  across(g, 'Coates', W * .32, H * .75 - 58, 30, '#1b2226', 1, 900, -1);
+  across(g, 'Coates', W * .78, H * .75 + 82, 24, '#1b2226', 1, 900, -1);
   /* the edge binding at the waist and the arm holes */
   g.fillStyle = 'rgba(40,50,20,.45)'; g.fillRect(0, 0, 10, H); g.fillRect(W - 12, 0, 12, H);
   return c;
