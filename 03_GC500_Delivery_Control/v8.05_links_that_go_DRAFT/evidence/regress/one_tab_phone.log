@@ -11,7 +11,7 @@ FAIL By group, By branch, Money, On site and the detail all there  ["By group"]
 PASS Where we are off the tab row  ["Today","Timeline","Equipment","Map explorer","Coates Way"]
 PASS Where we are off the Tools list  14
 PASS no page wider than the screen  0
-PASS no figure doubles up between Today's cards and Where we are (bar the fencing dollars, kept by Andrew)  ["$120,913 -> Fencing [T] | Open the Fencing tab\n Fenc [W]"]
+PASS no figure doubles up between Today's cards and Where we are (bar the fencing dollars, kept by Andrew)  ["$150,027 -> Fencing [T] | Open the Fencing tab\n Fenc [W]"]
 PASS "Open the summary" goes to By group on Today  {"tab":"today","hash":"#today","top":12,"scroll":6159}
 PASS "Open the register" on the lights opens Plant
 PASS #progress opens Today with Where we are in it  {"hash":"#today","tab":"today"}

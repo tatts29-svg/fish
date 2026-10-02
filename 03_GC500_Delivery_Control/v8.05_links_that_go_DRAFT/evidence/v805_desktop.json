@@ -201,13 +201,64 @@
    }
   },
   {
-   "name": "a link to a named drawing still opens that drawing, not the explorer",
+   "name": "a link to #sheet/AERIAL opens AERIAL",
    "pass": true,
    "detail": {
-    "key": "AERIAL",
-    "tab": "map",
+    "want": "AERIAL",
     "sheet": "AERIAL",
-    "explorer": false
+    "explorer": false,
+    "hash": "#sheet/AERIAL"
+   }
+  },
+  {
+   "name": "a link to #sheet/D007 opens D007",
+   "pass": true,
+   "detail": {
+    "want": "D007",
+    "sheet": "D007",
+    "explorer": false,
+    "hash": "#sheet/D007"
+   }
+  },
+  {
+   "name": "a link to #sheet/D016 opens D016",
+   "pass": true,
+   "detail": {
+    "want": "D016",
+    "sheet": "D016",
+    "explorer": false,
+    "hash": "#sheet/D016"
+   }
+  },
+  {
+   "name": "a link to #sheet/__satellite3d opens MASTER",
+   "pass": true,
+   "detail": {
+    "want": "MASTER",
+    "sheet": "MASTER",
+    "explorer": false,
+    "hash": "#sheet/MASTER"
+   }
+  },
+  {
+   "name": "a link to #sheet/NOPE opens MASTER",
+   "pass": true,
+   "detail": {
+    "want": "MASTER",
+    "sheet": "MASTER",
+    "explorer": false,
+    "hash": "#sheet/MASTER"
+   }
+  },
+  {
+   "name": "a pending explorer request does not override a later drawing link",
+   "pass": true,
+   "detail": {
+    "key": "D022",
+    "sheet": "D022",
+    "explorer": false,
+    "hash": "#sheet/D022",
+    "flag": false
    }
   },
   {
@@ -234,6 +285,20 @@
    "detail": {
     "ledger": true,
     "m805": false
+   }
+  },
+  {
+   "name": "paper (real PDF): as many pages as live, Ctrl+P on Today and the A4 report",
+   "pass": true,
+   "detail": {
+    "live": {
+     "ctrlP": 15,
+     "report": 8
+    },
+    "v805": {
+     "ctrlP": 15,
+     "report": 8
+    }
    }
   },
   {

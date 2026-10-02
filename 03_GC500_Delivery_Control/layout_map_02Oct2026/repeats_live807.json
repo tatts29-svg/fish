@@ -1,10 +1,10 @@
 {
- "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.05/GC500_Delivery_Control_hosted.html",
- "at": "2026-10-02T08:02:53.641Z",
+ "page": "/home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.05/base_live.html",
+ "at": "2026-10-02T08:05:37.905Z",
  "tabs": [
   {
    "tab": "today",
-   "sections": 24,
+   "sections": 25,
    "heads": [
     "Today — Boost Mobile Gold Coast 500",
     "Today",
@@ -198,6 +198,7 @@
    "places": [
     "today · All branches together (By branch)",
     "today · Revenue, by stream (Money)",
+    "today · Are we making money? (Money)",
     "costs · (page text)",
     "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
     "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026",
@@ -228,6 +229,18 @@
     "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)",
     "costs · table (table)",
     "costs · By branch 4 (table)"
+   ],
+   "scope": "across tabs",
+   "kept": null
+  },
+  {
+   "fact": "$256,612",
+   "places": [
+    "today · Are we making money? (Money)",
+    "costs · (page text)",
+    "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
+    "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026",
+    "costs · table (table)"
    ],
    "scope": "across tabs",
    "kept": null
@@ -331,6 +344,17 @@
     "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026",
     "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)",
     "costs · table (table)"
+   ],
+   "scope": "across tabs",
+   "kept": null
+  },
+  {
+   "fact": "$344,969",
+   "places": [
+    "today · Are we making money? (Money)",
+    "costs · (page text)",
+    "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
+    "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026"
    ],
    "scope": "across tabs",
    "kept": null
@@ -1359,17 +1383,6 @@
    "kept": null
   },
   {
-   "fact": "$256,612",
-   "places": [
-    "costs · (page text)",
-    "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
-    "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026",
-    "costs · table (table)"
-   ],
-   "scope": "same tab",
-   "kept": null
-  },
-  {
    "fact": "$16,148",
    "places": [
     "fencing · By week — planned, done, still to do",
@@ -1395,16 +1408,6 @@
     "costs · (page text)",
     "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
     "costs · table (table)"
-   ],
-   "scope": "same tab",
-   "kept": null
-  },
-  {
-   "fact": "$344,969",
-   "places": [
-    "costs · (page text)",
-    "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
-    "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026"
    ],
    "scope": "same tab",
    "kept": null
@@ -1841,8 +1844,8 @@
     "$601,581",
     "$1,525",
     "$99,052",
-    "$2,100",
-    "$15,564"
+    "$256,612",
+    "$2,100"
    ]
   },
   {
@@ -2040,6 +2043,24 @@
    ]
   },
   {
+   "pair": "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  <->  today · Are we making money? (Money)",
+   "shared": 3,
+   "examples": [
+    "$601,581",
+    "$256,612",
+    "$344,969"
+   ]
+  },
+  {
+   "pair": "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  today · Are we making money? (Money)",
+   "shared": 3,
+   "examples": [
+    "$601,581",
+    "$256,612",
+    "$344,969"
+   ]
+  },
+  {
    "pair": "costs · Internal labour hours and overtime  <->  fencing · Paid to Advanced Temporary Fencing, by P&L line ",
    "shared": 3,
    "examples": [
@@ -2183,6 +2204,14 @@
    "examples": [
     "$150,027",
     "$231,279"
+   ]
+  },
+  {
+   "pair": "costs · table (table)  <->  today · Are we making money? (Money)",
+   "shared": 2,
+   "examples": [
+    "$601,581",
+    "$256,612"
    ]
   },
   {
@@ -2557,6 +2586,27 @@
   },
   {
    "pair": "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026  <->  today · Revenue, by stream (Money)",
+   "shared": 1,
+   "examples": [
+    "$601,581"
+   ]
+  },
+  {
+   "pair": "costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  <->  today · Are we making money? (Money)",
+   "shared": 1,
+   "examples": [
+    "$601,581"
+   ]
+  },
+  {
+   "pair": "today · All branches together (By branch)  <->  today · Are we making money? (Money)",
+   "shared": 1,
+   "examples": [
+    "$601,581"
+   ]
+  },
+  {
+   "pair": "today · Are we making money? (Money)  <->  today · Revenue, by stream (Money)",
    "shared": 1,
    "examples": [
     "$601,581"

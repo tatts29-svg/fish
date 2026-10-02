@@ -32,14 +32,15 @@ bash toolchain/build.sh v8.05 v8.05_links_that_go_DRAFT/patch_v805.py
 ```
 
 - Base: live v8.07 `35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed` (9,101,458 bytes).
-- Candidate: **9,103,335 bytes, SHA-256 `d0f5391fa7504114d51625f989b12bef896dd098a186903f6c390a8d3e86db0c`**.
+- Candidate: **9,103,625 bytes, SHA-256 `36d27b553b9d2ee8c221b155d49d760d02fd225645653eaaec9f3637fd3789ad`**.
+- Superseded: `d0f5391f…`, before the review fixes below.
 - `check_page` passes.
 
 ## Checks (`evidence/run_all.sh`, all read-only)
 
 | Suite | Result |
 |---|---|
-| `v805_tests.js` | **10/10 desktop, 10/10 phone**. On live v8.07 the same file fails the link, explorer, drawing and Money checks, which is the reason for this release. |
+| `v805_tests.js` | **16/16 desktop, 15/15 phone**. Added after the review: three drawing links, `__satellite3d` and an unknown key landing on the master plan, a pending explorer request never overriding a later link, Money totals read from the record, and real-PDF page counts equal to live. On live v8.07 the same file fails the link, explorer, drawing and Money checks, which is the reason for this release. |
 | v7.99 tests | 23/23, 18/18 |
 | packed | 20/20, 14/14 |
 | Equipment | 22/22, 22/22 |
@@ -52,3 +53,25 @@ bash toolchain/build.sh v8.05 v8.05_links_that_go_DRAFT/patch_v805.py
 | Text against live | Every tab matches word for word except Today's Money. Today loses "Are we making money?", "Difference so far", $235,372 and $337,095, and gains the stream differences and the caveat. |
 
 Screenshots stay out of the repo (Today shows "Who to call" numbers).
+
+## Independent review (a separate agent, 2 Oct 2026)
+
+**Found in `d0f5391f`:**
+
+| # | Severity | Finding | Fix |
+|---|---|---|---|
+| 1 | **Blocker** | A link to a map view that is not a drawing (`#sheet/__satellite3d`) or an unknown key opened drawing D022 instead of the master plan. The check read the page's default sheet, not the key in the address. | It now reads the key from the address. These links land on the master plan, as live does. |
+| 2 | Should fix | A pending explorer request was never cleared, so with poor signal it could override a later drawing link or a map search. | Any other address, or a search, now clears it, and it only acts while the address still asks for the explorer. |
+| 3 | Test gaps | | Filled; see the checks table above. |
+| 4 | Nit | The Coates Way red rows can't be reached by keyboard. This is older than this release. | Left for the Coates Way layout follow-up. |
+| 5 | Nit | The docstring named the wrong base, and the patch had no base guard. | Fixed. |
+
+**Confirmed clean:**
+- Coates Way links by mouse, Enter and Space, and the back button.
+- The Money block's figures match the hidden card character for character.
+- The Costs link works.
+- Paper page counts equal live, from real PDFs.
+
+**Re-review of the fixes:** in progress.
+
+**Repeats on the same live record:** live 165 (119 across tabs, 46 on the same tab); v8.05 165 (117, 48). The two money totals no longer repeat across tabs. The moved More info restates each stream's revenue beside its bar, as the hidden card did.

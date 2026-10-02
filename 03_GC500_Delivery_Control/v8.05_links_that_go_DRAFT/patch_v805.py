@@ -18,13 +18,14 @@ routing only: nothing is redrawn, no layout changes, no figure changes.
     into the Revenue by stream card: each stream's direct costs and difference (in its More info), and the line that
     says the forecast is incomplete, with a link to Costs. Paper prints as before.
 
-    python3 patch_v805.py <page.html>     (on live v8.03; v7.99 before or after makes no difference)"""
+    python3 patch_v805.py <page.html>     (on live v8.07, which carries v7.99)"""
 import os, re, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'toolchain'))
 from rep import rep  # noqa: E402
 p = sys.argv[1]
 t = open(p, encoding='utf-8').read(); bom = t.startswith('﻿'); t = t.lstrip('﻿')
 if 'v8.05 - links' in t: sys.exit('v8.05 already applied')
+if 'function place799(' not in t: sys.exit('v8.05 needs v7.99 (live from v8.07)')
 
 # 1. The Coates Way: every link goes through go()
 t = rep(t, "const go2 = () => { state.tab = b.dataset.cwgo; render(); };",
@@ -35,15 +36,15 @@ t = re.sub(r"go: \(\) => \{ state\.tab = '(\w+)'; render\(\); \}", r"go: () => g
 
 # 2. Map explorer: a link to the explorer is remembered until the connection is up, then the explorer opens
 t = rep(t, "(m[1] === SAT_EXPLORER && expOn())) { state.sheet = m[1]; state.sel = null; } go('map'); }",
-        "(m[1] === SAT_EXPLORER && expOn())) { state.sheet = m[1]; state.sel = null; } else if (m[1] === SAT_EXPLORER) state.wantExp805 = true; /* v8.05 - links that go where they say: asked for before the connection is up */ go('map'); }",
+        "(m[1] === SAT_EXPLORER && expOn())) { state.sheet = m[1]; state.sel = null; state.wantExp805 = false; } else state.wantExp805 = m[1] === SAT_EXPLORER; /* v8.05 - links that go where they say: asked for before the connection is up */ go('map'); }",
         'explorer link remembered', p)
 t = rep(t, "function renderMap_held(){\n",
-        "function renderMap_held(){\n if (state.wantExp805 && expOn()) { state.wantExp805 = false; state.sheet = SAT_EXPLORER; state.mapMasterSeen = true; state.found = null; } /* v8.05 - the explorer a link asked for, once it can open */\n",
+        "function renderMap_held(){\n if (state.wantExp805 && (location.hash !== '#sheet/' + SAT_EXPLORER || state.found)) state.wantExp805 = false; /* a later link or search wins */\n if (state.wantExp805 && expOn()) { state.wantExp805 = false; state.sheet = SAT_EXPLORER; state.mapMasterSeen = true; } /* v8.05 - the explorer a link asked for, once it can open */\n",
         'explorer opens once it can', p)
 
 # 2b. a link to a named drawing opens that drawing (the first visit no longer replaces it with the master plan)
 t = rep(t, "if (!state.mapMasterSeen) { state.mapMasterSeen = true; if (!state.found) state.sheet = 'MASTER'; }",
-        "if (!state.mapMasterSeen) { state.mapMasterSeen = true; if (!state.found && !(/^#sheet\\//.test(location.hash) && DATA.sheets.some(x => x.key === state.sheet))) state.sheet = 'MASTER'; } /* v8.05 - a link to a drawing opens that drawing */",
+        "if (!state.mapMasterSeen) { state.mapMasterSeen = true; const hk805 = (() => { try { return decodeURIComponent(location.hash.replace(/^#sheet\\//, '')); } catch (e) { return ''; } })(); if (!state.found && !(/^#sheet\\//.test(location.hash) && hk805 === state.sheet && DATA.sheets.some(x => x.key === hk805))) state.sheet = 'MASTER'; } /* v8.05 - a link to a drawing opens that drawing */",
         'a link to a drawing opens it', p)
 
 # 3. Today, Money: the three totals once (on Costs); what only this card held moves into the stream card, screen only

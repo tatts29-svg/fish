@@ -33,11 +33,21 @@ const live = p => p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.st
     const b = await p.evaluate(() => ({tab: state.tab, sheet: state.sheet, explorer: !!document.querySelector('#pane-map #expcard'), hash: location.hash}));
     ok(`a link to ${hash} opens the explorer, and it is still there after Today and back`, a.explorer && a.sheet === '__explorer' && b.explorer && b.sheet === '__explorer', {a, b});
     errors.push(...s.errors); await s.browser.close(); }
-  // 3. a link to a named drawing still opens that drawing
-  { const s0 = await open(Object.assign({pageFile: process.env.PAGE}, sz)); await live(s0.page); const key = await s0.page.evaluate(() => (DATA.sheets[0] || {}).key); await s0.browser.close();
-    const s = await open(Object.assign({pageFile: process.env.PAGE, hash: '#sheet/' + key}, sz)), p = s.page; await live(p); await wait(5000);
-    const c = await p.evaluate(() => ({tab: state.tab, sheet: state.sheet, explorer: !!document.querySelector('#pane-map #expcard')}));
-    ok('a link to a named drawing still opens that drawing, not the explorer', c.sheet === key && !c.explorer, Object.assign({key}, c));
+  // 3. a link to a named drawing opens that drawing; a map view or unknown key opens the master plan as live does
+  { const s0 = await open(Object.assign({pageFile: process.env.PAGE}, sz)); await live(s0.page);
+    const keys = await s0.page.evaluate(() => DATA.sheets.map(s => s.key).filter(k => k !== 'MASTER' && k !== state.sheet).filter((k, i, a) => i === 0 || i === Math.floor(a.length / 2) || i === a.length - 1));
+    await s0.browser.close();
+    for (const [hash, want] of keys.map(k => ['#sheet/' + k, k]).concat([['#sheet/__satellite3d', 'MASTER'], ['#sheet/NOPE', 'MASTER']])) {
+      const s = await open(Object.assign({pageFile: process.env.PAGE, hash}, sz)), p = s.page; await live(p); await wait(4500);
+      const c = await p.evaluate(() => ({sheet: state.sheet, explorer: !!document.querySelector('#pane-map #expcard'), hash: location.hash}));
+      ok(`a link to ${hash} opens ${want}`, c.sheet === want && !c.explorer, Object.assign({want}, c));
+      errors.push(...s.errors); await s.browser.close(); } }
+  // 3b. a pending explorer request never overrides a later drawing link
+  { const s = await open(Object.assign({pageFile: process.env.PAGE}, sz)), p = s.page; await live(p); await wait(2000);
+    const key = await p.evaluate(() => DATA.sheets.map(x => x.key).filter(k => k !== 'MASTER')[1]);
+    const c = await p.evaluate(async key => { go('today'); state.wantExp805 = true; location.hash = '#sheet/' + key; await new Promise(z => setTimeout(z, 2500));
+      return {sheet: state.sheet, explorer: !!document.querySelector('#pane-map #expcard'), hash: location.hash, flag: !!state.wantExp805}; }, key);
+    ok('a pending explorer request does not override a later drawing link', c.sheet === key && !c.explorer && !c.flag, Object.assign({key}, c));
     errors.push(...s.errors); await s.browser.close(); }
   // 4. Today, Money: the three totals leave Today's screen; what only that card held is in the stream card; paper as before
   { const s = await open(Object.assign({pageFile: process.env.PAGE}, sz)), p = s.page; await live(p); await wait(2000);
@@ -47,7 +57,7 @@ const live = p => p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.st
       const vis = e => !!e && e.getClientRects().length > 0, txt = d.innerText;
       const ledger = d.querySelector('.mcard.ledgerc'), m805 = d.querySelector('.m805');
       return {ledgerShown: vis(ledger), m805Shown: vis(m805), hasStreamsDiff: /Each stream: revenue · direct costs · the difference/.test(txt), hasCaveat: /Forecast incomplete/.test(txt),
-        costTotalOnScreen: txt.includes('$235,372'), diffTotalOnScreen: txt.includes('$337,095'), link: !!d.querySelector('[data-go805="costs"]')}; });
+        costTotalOnScreen: txt.includes(money0(moneySummary().cost.known)), diffTotalOnScreen: txt.includes(money0(Math.abs(moneySummary().difference0))), link: !!d.querySelector('[data-go805="costs"]')}; });
     ok('Today: "Are we making money?" is off the screen; its stream differences and caveat are in the stream card', !m.ledgerShown && m.m805Shown && m.hasStreamsDiff && m.hasCaveat && !m.costTotalOnScreen && !m.diffTotalOnScreen && m.link, m);
     await p.click('#pane-today [data-go805="costs"]').catch(() => {}); await wait(1200);
     const t2 = await p.evaluate(() => state.tab); ok('the stream card\'s link opens Costs & charges', t2 === 'costs', t2);
@@ -55,6 +65,14 @@ const live = p => p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.st
     const pr = await p.evaluate(() => { const d = document.querySelector('#pane-today details.fold95[data-fold="Money"]'), vis = e => !!e && e.getClientRects().length > 0; return {ledger: vis(d.querySelector('.mcard.ledgerc')), m805: vis(d.querySelector('.m805'))}; });
     ok('paper: the Money card prints as before and the screen-only part does not', pr.ledger && !pr.m805, pr);
     errors.push(...s.errors); await s.browser.close(); }
+  if (process.env.BASE && !MOB) {
+    const pages = async file => { const h = await open({pageFile: file, W: 1440, H: 900, gl: false}), q = h.page; await live(q); await q.emulateMedia({reducedMotion: 'reduce'}); await wait(2000);
+      await q.evaluate(() => go('today')); await wait(1500); await q.evaluate(() => document.querySelectorAll('#pane-today details.fold95').forEach(d => { d.open = true; })); await wait(2000);
+      const count = b => (b.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length;
+      const ctrlP = count(await q.pdf({format: 'A4'})); await q.evaluate(() => document.body.classList.add('printing-progress')); const report = count(await q.pdf({format: 'A4'}));
+      await h.browser.close(); return {ctrlP, report}; };
+    const a = await pages(process.env.BASE), b = await pages(process.env.PAGE);
+    ok('paper (real PDF): as many pages as live, Ctrl+P on Today and the A4 report', a.ctrlP === b.ctrlP && a.report === b.report, {live: a, v805: b}); }
   ok('no page errors', errors.length === 0, errors.slice(0, 3));
   const pass = res.filter(r => r.pass).length; console.log(`${pass}/${res.length} ${MOB ? 'phone' : 'desktop'}`);
   fs.writeFileSync(path.join(__dirname, 'v805_' + (MOB ? 'phone' : 'desktop') + '.json'), JSON.stringify({author: 'Andrew Fisher', mobile: MOB, results: res, errors}, null, 1));

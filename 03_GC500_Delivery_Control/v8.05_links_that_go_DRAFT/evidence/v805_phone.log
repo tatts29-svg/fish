@@ -3,9 +3,14 @@ PASS the page shown is the page the record says (no tab says Costs while Coates 
 PASS the pillars go to Pre-starts, Today (Where we are), Equipment (the register) and Costs
 PASS a link to #sheet/__explorer opens the explorer, and it is still there after Today and back
 PASS a link to #map opens the explorer, and it is still there after Today and back
-PASS a link to a named drawing still opens that drawing, not the explorer
+PASS a link to #sheet/AERIAL opens AERIAL
+PASS a link to #sheet/D007 opens D007
+PASS a link to #sheet/D016 opens D016
+PASS a link to #sheet/__satellite3d opens MASTER
+PASS a link to #sheet/NOPE opens MASTER
+PASS a pending explorer request does not override a later drawing link
 PASS Today: "Are we making money?" is off the screen; its stream differences and caveat are in the stream card
 PASS the stream card's link opens Costs & charges
 PASS paper: the Money card prints as before and the screen-only part does not
 PASS no page errors
-10/10 phone
+15/15 phone
