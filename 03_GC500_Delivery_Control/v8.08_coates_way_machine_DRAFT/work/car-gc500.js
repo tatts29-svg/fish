@@ -148,7 +148,11 @@ export function buildCarBody(T,materials={}){
  /* v8.08 — the livery's atlas is mipmapped and filtered anisotropically (it was a single 1024 × 512 level: shimmer and stair-steps on the far
     door, a smear on the bonnet at a glancing angle), and its decal shader keeps the edges sharp however close the camera goes (crispDecal) */
  const atlas=new T.DataTexture(rgba,1024,512);atlas.flipY=false;atlas.colorSpace=T.SRGBColorSpace;atlas.magFilter=T.LinearFilter;atlas.minFilter=T.LinearMipmapLinearFilter;atlas.generateMipmaps=true;atlas.anisotropy=T.Texture.DEFAULT_ANISOTROPY;atlas.needsUpdate=true;
- for(const [key,color]of [['decal',[.96,.96,.96]],['yellow',[1,.79,.008]]])palette[key]=crispDecal(new T.MeshBasicMaterial({map:atlas,color:new T.Color(...color),transparent:true,alphaTest:.015,depthWrite:false,side:T.FrontSide,polygonOffset:true,polygonOffsetFactor:-1,toneMapped:false}));
+ for(const [key,color]of [['decal',[.96,.96,.96]],['yellow',[1,.79,.008]]])palette[key]=crispDecal(new T.MeshPhysicalMaterial({map:atlas,color:new T.Color(...color),transparent:true,alphaTest:.015,depthWrite:false,side:T.FrontSide,polygonOffset:true,polygonOffsetFactor:-1,
+  /* v8.08 — the print is lit, under the same clear coat as the paint round it: the lamps' highlights and the light rig's lines run across
+     COATES, 26 and FISHER as they run across the panel, instead of the letters glowing flat white in a dark hall (and floating white
+     in the floor's reflection with no car round them). A faint glow of their own keeps every word as readable as before. */
+  roughness:.34,metalness:0,clearcoat:1,clearcoatRoughness:.12,emissive:new T.Color(...color).multiplyScalar(.16)}));
  const keyFor=(x,y,z,n,p)=>{
   const side=z<0?'R':'L',az=Math.abs(z),name=p.name;
   if(p.wheel)return `CAR-BODY-WHEEL-${p.wheel.x>0?'FRONT':'REAR'}-${p.wheel.side<0?'R':'L'}`;

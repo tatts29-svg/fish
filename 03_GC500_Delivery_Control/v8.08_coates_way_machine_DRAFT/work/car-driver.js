@@ -17,6 +17,7 @@
    thigh; the helmet black carbon with the orange crown, Coates over the visor and on the chin. */
 
 import {DRIVER_HEAD} from './engine-kinematics.js';
+import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
 
 /* v5.81 — {metric:true} gives the loft UVs in METRES along its surface (u the distance across the stations, v the
    distance along each section), so a texture repeated N times a metre has one size all over it: the dash's twill is
@@ -164,7 +165,7 @@ export function buildDriver(T,addTo,wheel,materials){
 
  /* ---- the arms: jointed, to the wheel at a quarter to three, re-posed every frame (setWheel) ---- */
  const arms=[];const W=new T.Vector3(wheel.x,wheel.y,wheel.z);
- [-1,1].forEach(q=>{const sh=[.53,.865,zd+q*.19],el=[.26,.74,zd+q*.26],wr=[wheel.x+.045,wheel.y+.005,wheel.z+q*.172];   /* upper arm 30 cm, forearm 33 to the grip: a man's, nearly straight to a wheel this far away */
+ [-1,1].forEach(q=>{const sh=[.53,.865,zd+q*.19],el=[.26,.74,zd+q*.26],wr=[wheel.x+.078,wheel.y+.004,wheel.z+q*.188];   /* v8.08: the wrist 3 cm further back, so the hand between it and the rim is a hand's length */   /* upper arm 30 cm, forearm 33 to the grip: a man's, nearly straight to a wheel this far away */
   /* v5.79c: the arms at a man's size — 8 cm at the upper arm, 6 at the wrist (Andrew Fisher: the driver looked poor) */
   /* v5.81: and shaped like arms — the forearm tapers from 45 mm at the elbow to 35 at the wrist, the upper arm is the
      fuller limb above it, the elbow a joint as wide as both; the grip is 7 mm further out because the rim is (parts.js
@@ -175,10 +176,24 @@ export function buildDriver(T,addTo,wheel,materials){
   /* the glove, built round the rim at rest and gathered into a group standing at the wrist so it turns with the rim */
   const hand=new T.Group();hand.name='Driver, hand';hand.position.set(...wr);driver.add(hand);
   const at=(m,x,y,z)=>{m.position.set(x-wr[0],y-wr[1],z-wr[2]);return m;};
-  const palm=at(new T.Mesh(new T.CapsuleGeometry(.03,.06,6,12),glove),wheel.x+.015,wheel.y,wheel.z+q*.170);palm.rotation.x=Math.PI/2;add(palm,'Driver, glove',hand);
-  for(let f=0;f<4;f++){const fg=at(new T.Mesh(new T.CapsuleGeometry(.0095,.045,4,8),glove),wheel.x-.014,wheel.y+.028-f*.019,wheel.z+q*.188);fg.rotation.z=Math.PI/2;fg.rotation.y=q*.3;add(fg,'Driver, finger',hand);}
-  const th=at(new T.Mesh(new T.CapsuleGeometry(.010,.04,4,8),glove),wheel.x+.02,wheel.y+.035,wheel.z+q*.152);th.rotation.x=Math.PI/2;add(th,'Driver, thumb',hand);
-  const cuff=at(new T.Mesh(new T.CylinderGeometry(.04,.04,.03,20),suitOrange),wheel.x+.075,wheel.y+.003,wheel.z+q*.172);cuff.rotation.z=Math.PI/2;add(cuff,'Driver, glove cuff',hand);
+  /* v8.08 — THE GLOVE CLOSES ROUND THE GRIP (Andrew Fisher, 2 Oct 2026: "Improve every thing on here. 10/10"). The back of the hand
+     runs from the cuff to the knuckles at the rim's outer front; each finger wraps the grip in three joints — over the outside, round
+     the back, its tip on the inside of the rim — the little finger shorter; the thumb lies over the front of the rim toward the
+     spokes. The grip's tube (parts.js WHEEL: 4.5 units to its centre, .55 thick at the grips, 335 mm over them) is 149 mm from the
+     column and 18.5 mm round. One mesh a glove (it was six), the cuff the other. */
+  {const Rr=.149,rt=.0185,G=[];const yc=wheel.y+.004;
+   const cap=(a,b,r)=>{const A=new T.Vector3(...a),B=new T.Vector3(...b),d=B.clone().sub(A),L=d.length();const g=new T.CapsuleGeometry(r,Math.max(1e-4,L),3,8);g.applyQuaternion(new T.Quaternion().setFromUnitVectors(new T.Vector3(0,1,0),d.normalize()));g.translate((A.x+B.x)/2-wr[0],(A.y+B.y)/2-wr[1],(A.z+B.z)/2-wr[2]);return g;};
+   const round=(y,th,rho)=>[wheel.x+rho*Math.cos(th),y,wheel.z+q*(Rr+rho*Math.sin(th))];
+   /* the back of the hand: a flattened ellipsoid from the cuff to the knuckle row */
+   {const k=round(yc,.7,rt+.0095),c=[(wr[0]+k[0])/2,yc,(wr[2]+k[2])/2],dx=k[0]-wr[0],dz=k[2]-wr[2],L=Math.hypot(dx,dz);
+    const g=new T.SphereGeometry(1,16,12);g.scale(L/2+.012,.046,.021);g.rotateY(Math.atan2(-dz,dx));g.translate(c[0]-wr[0],c[1]-wr[1],c[2]-wr[2]);G.push(g);}
+   /* four fingers, index at the top */
+   [[.029,1],[.0095,1.04],[-.0095,.98],[-.028,.82]].forEach(([dy,len])=>{const y=yc+dy,rho=rt+.0095,P=[.7,1.85,3.0,4.15].map((t,i)=>round(y-i*.0015,.7+(t-.7)*len,rho));
+    G.push(cap(P[0],P[1],.0102),cap(P[1],P[2],.0096),cap(P[2],P[3],.0088));});
+   /* the thumb over the front of the rim, toward the spokes */
+   {const a=[wheel.x+.05,yc+.036,wheel.z+q*(Rr+.03)],b=[wheel.x+.03,yc+.03,wheel.z+q*(Rr+.006)],c=[wheel.x+.026,yc+.024,wheel.z+q*(Rr-.022)];G.push(cap(a,b,.0115),cap(b,c,.0105));}
+   const g=mergeGeometries(G,false);G.forEach(x=>x.dispose());const m=new T.Mesh(g,glove);add(m,'Driver, glove',hand);}
+  const cuff=at(new T.Mesh(new T.CylinderGeometry(.039,.041,.034,20),suitOrange),wr[0]+.004,wr[1],wr[2]);cuff.rotation.z=Math.PI/2;cuff.rotation.y=q*-.25;add(cuff,'Driver, glove cuff',hand);
   arms.push({q,sh:new T.Vector3(...sh),upper,elbow,fore,hand,grip0:new T.Vector3(...wr).sub(W),
    rest:new T.Vector3(.33,.665,zd+q*.17),pole:new T.Vector3(sh[0]-.10,sh[1]-.40,sh[2]+q*.28)});
   /* the legs: hip to knee to the pedal, the boot on the pedal */
