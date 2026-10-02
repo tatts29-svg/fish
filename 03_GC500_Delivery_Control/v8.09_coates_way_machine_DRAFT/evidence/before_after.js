@@ -31,7 +31,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     /* an info card: the first garage exhibit the machine reports (work), or the same spot on screen (base) */
     await page.evaluate(() => window.__cw.setView('car')); await settle();
     const spot = dev === 'phone' ? [374, 399] : [1250, 520];
-    const found = await page.evaluate(([W, H]) => { if (!window.__cw.pickAt) return null; for (let y = H * .25; y < H * .75; y += 23) for (let x = 12; x < W - 12; x += 29) { const k = window.__cw.pickAt(x, y); if (k && k.kind === 'exhibit') return [x, y]; } return null; }, [DEVS[dev].W, DEVS[dev].H]);
+    const found = await page.evaluate(([W, H]) => { if (!window.__cw.pickAt) return null; for (let y = H * .25; y < H * .75; y += 23) for (let x = 12; x < W - 12; x += 29) { if (document.elementFromPoint(x, y)?.tagName !== 'CANVAS') continue; /* only where the 3D view itself takes the tap, not under a panel */ const k = window.__cw.pickAt(x, y); if (k && k.kind === 'exhibit') return [x, y]; } return null; }, [DEVS[dev].W, DEVS[dev].H]);
     /* the same spot in both: work finds a garage exhibit and records it; base (run after work) taps that spot */
     const spotFile = path.join(OUT, `spot_${dev}.json`);
     if (found) fs.writeFileSync(spotFile, JSON.stringify(found));
