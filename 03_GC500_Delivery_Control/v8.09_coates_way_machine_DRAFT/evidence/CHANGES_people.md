@@ -293,3 +293,43 @@ the roof. His door is on the far side from both opening cameras, so no walking r
 Screenshots (scratchpad, not the repo; desktop and phone) were looked at. They show him stepping out beside his open door, walking away
 as the car comes apart, back in the person's own view, stepping back in, and ducking in. In every one he is seen whole, feet on the floor;
 he is never over the roof.
+
+### Follow-up: nobody over the roof in the default view
+
+In "The car" view a minute in, a crew member's helmet and chest showed over the rear wing with his legs hidden. It was the **pit
+technician**. Between services his chores take him to each rear tyre's temperature. For the far rear tyre he walked down the aisle
+behind the tail, which both opening cameras see across the car, to a crouch spot at (1.37, −1.75). The test let it through because he was
+walking. The same was true of the mechanic kneeling at the far front tyre's valve (his helmet showed over the car), and of the engine
+technician's walk to the engine bay's far corner.
+
+- **The rule now** (crew.js `farService`, `inView`): with no far-side wheel service under way, nobody goes where the car hides him from
+  the opening cameras (`behindCar`).
+  - The far-tyre checks are left out; the near ones stay.
+  - The engine-bay check is left out. Its only spot is the far corner, and from his desk there is no way round to the near side that the
+    cameras see all the way, so he works at his desk between runs.
+  - A walk between two places in view keeps to the aisle in view, even past someone standing on it, before it would take the far aisle.
+  - Nobody steps aside into the hidden zone.
+  - A new aisle point (−2.0, −2.95), in view from both cameras, links the engine technician's desk pocket to the aisle at the nose end.
+    His only other way out, (−1.0, −2.85), lies just inside the hidden zone, so his walks went round by the tail.
+  - While the car is apart, its raised panels hid the engine technician's feet at his desk from the V8 powertrain camera, with his helmet
+    over them. He now watches from behind the painted line at the nose end (−5.4, −4.5), clear of the car apart from both cameras, and goes back
+    to his desk when it is together.
+  - During a far-wheel service the crew at the far wheel work there as before, kneeling or crouched at the wheel.
+- **Found on the way** (crew.js `route`): when a post was boxed in (the engine technician's, by his desk and the console), the route
+  search found no way out at the ends' usual margin. It fell back to a straight line, which here went through the car. It now tries again
+  with the first and last legs allowed within 2 cm; a straight line is only the very last resort.
+- **The test** (people_tests.js): the over-the-car check from both opening cameras now runs every sample, on desktop and on phone (each
+  device's own opening cameras). With no far-side service running, any crew sample with the feet hidden and the helmet over the car fails,
+  whether walking, still or at a chore. "Moving" and "at work" excuse it only during a far-side service. The hall at rest now runs for five
+  simulated minutes.
+  - On the code before this fix it failed on both devices: the pit technician (about 425 samples), the mechanic (about 230) and the engine
+    technician (1, desktop). After the fix it passes on both.
+
+| run, after this follow-up | result |
+|---|---|
+| `people_tests.js work both` | desktop PASS, phone PASS (2,193 samples each, with five minutes at rest) |
+| `driver_tests.js` desk / phone | 41/41, 41/41 |
+| `ui_tests.js` phone / desktop | 129/129, 138/138 |
+
+`before_after.js work desk` and `work phone`, "The car" a minute in: nobody over the roof. The pit technician is crouched at the near rear
+tyre, in plain view.

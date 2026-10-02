@@ -20,7 +20,7 @@
 //      for 1.5 s only, and the race driver out of his car is checked too (v8.09 review); and the race driver, at every sample, from the
 //      camera actually in use (the camera comes round to his door while he gets out and back in — v8.09 follow-up);
 //   6. no page errors; the people's draws and triangles.
-// Scenarios: the hall at rest (crew doing their chores, 150 s), the V8 started and running (40 s), a far-rear wheel service end to
+// Scenarios: the hall at rest (crew doing their chores, 300 s — five simulated minutes), the V8 started and running (40 s), a far-rear wheel service end to
 // end (to 200 s), and Explode (the race driver's walk-out, 40 s).
 //
 //   cd 03_GC500_Delivery_Control
@@ -142,18 +142,21 @@ async function sample(P, label) {
       if (p.m) { const prev = p.m.__ptToe || []; const now = p.m.feet.map(f => ({planted: f.planted && !f.step, toe: f.toe.clone()}));
         now.forEach((f, i) => { if (f.planted && prev[i] && prev[i].planted && p.m.post.kind === 'stand') { const d = f.toe.distanceTo(prev[i].toe); R.maxSlide = Math.max(R.maxSlide, d); if (d > .005) bad('a planted foot slid', {mm: +(d * 1000).toFixed(1)}); } });
         p.m.__ptToe = now; }
-      /* 5. over the car, from the opening cameras: his feet hidden by the car, his helmet seen over it */
-      if (!seated && window.__ptCams && A.samples % 4 === 0) {
+      /* 5. over the car, from the opening cameras: his feet hidden by the car, his helmet seen over it. Follow-up: every sample, not every fourth;
+         and with no far-side wheel service running, nobody of the crew may be seen so at all — walking, standing or at a chore. "Moving" and
+         "at work" excuse it only while a far-side service is actually under way (the crew at the far wheel are working on the car). */
+      const svcW = cw.service.state.wheel, farSvc = !!svcW && svcW.userData.side !== 'near' && (cw.service.phase !== 'ready' || !!cw.service.state.clearing);
+      if (!seated && window.__ptCams) {
         const head = new Vec(); mesh.skeleton.bones[4].getWorldPosition(head); head.y += .2;
         const foot = new Vec(p.fig.root.position.x, Math.max(0, Math.min(...soles)) + .03, p.fig.root.position.z);
         const fp = [-2.62, -1.12, 2.62, 1.12], gap = Math.hypot(Math.max(fp[0] - foot.x, 0, foot.x - fp[2]), Math.max(fp[1] - foot.z, 0, foot.z - fp[3]));
         /* (beside the car is "at work" for the crew; the race driver's only work there is getting in and out, crouched in his doorway: standing
            beside his door he is checked like anyone standing still — v8.09 review) */
-        const kind = moving ? 'moving' : (gap < .8 && !p.driver) || working ? 'at work' : 'still';
+        const kind = p.m && !p.driver && !farSvc ? 'idle' : moving ? 'moving' : (gap < .8 && !p.driver) || working ? 'at work' : 'still';
         for (const c of window.__ptCams) {
           const hidden = q => { const dir = q.clone().sub(c.p), L = dir.length(); dir.normalize(); ray.set(c.p, dir); ray.far = L - .08; ray.near = 0;
             return ray.intersectObjects(S.carRoots, true).some(h => shown(h.object) && !(driverG && isUnder(h.object, driverG))); };
-          if (hidden(foot) && !hidden(head)) { const key = p.k + ' · ' + c.name; const o = A.over[key] || (A.over[key] = {still: 0, stillApart: 0, moving: 0, 'at work': 0, samples: []}); o[kind === 'still' && /explode/.test(label) ? 'stillApart' : kind]++; if (o.samples.length < 4 || (kind === 'still' && o.samples.filter(x => x.kind === 'still').length < 3)) o.samples.push({t: clock, at, post, label, kind}); }
+          if (hidden(foot) && !hidden(head)) { const key = p.k + ' · ' + c.name; const o = A.over[key] || (A.over[key] = {still: 0, stillApart: 0, moving: 0, 'at work': 0, idle: 0, samples: []}); o[kind === 'still' && /explode/.test(label) ? 'stillApart' : kind]++; if (o.samples.length < 4 || (['still', 'idle'].includes(kind) && o.samples.filter(x => x.kind === kind).length < 3)) o.samples.push({t: clock, at, post, label, kind, goal: p.m && p.m.goal ? p.m.goal.to.map(v => +(+v).toFixed(2)) : null}); }
         }
       }
       /* 5b. v8.09 follow-up: the race driver from the camera actually in use at this moment (it comes round to his door while he gets out and
@@ -206,7 +209,7 @@ async function run(device) {
   for (let i = 0; i < 30 && !(await P.evaluate(() => !!window.__ptRay)); i++) await wait(500);
   const step = async (sec, label, every = .25) => { for (let s = 0; s < sec; s += every) { await P.evaluate(([dt]) => { window.__cw.advance(dt, 1 / 30); window.__cw.__ptClock = (window.__cw.__ptClock || 0) + dt; }, [every]); await sample(P, label); } };
   /* 1. the hall at rest: the crew at their chores */
-  await sample(P, 'rest'); await step(150, 'rest'); log('rest done');
+  await sample(P, 'rest'); await step(+(process.env.REST || 300), 'rest'); log('rest done');   /* (follow-up: five simulated minutes of the hall at rest) */
   /* 2. the V8 started and running */
   await P.evaluate(() => document.getElementById('start').click()); await step(40, 'V8 running'); await P.evaluate(() => document.getElementById('start').click()); await step(12, 'V8 stopping'); log('running done');
   /* 3. a wheel service on the far rear wheel, end to end */
@@ -234,6 +237,8 @@ function verdict(acc) {
   const fails = [];
   for (const [k, R] of Object.entries(acc.people)) for (const [what, n] of Object.entries(R.counts)) fails.push(`${k}: ${what} in ${n} of ${R.samples} samples ${JSON.stringify(R.worst[what])}`);
   for (const [k, o] of Object.entries(acc.over)) if (o.still) fails.push(`${k}: standing clear of the car with it hiding his legs and his helmet over it, ${o.still} samples ${JSON.stringify(o.samples.filter(x => x.kind === 'still').slice(0, 2))}`);
+  /* (follow-up: with no far-side service running, the crew are never seen over the car from either opening camera — walking or at a chore) */
+  for (const [k, o] of Object.entries(acc.over)) if (o.idle) fails.push(`${k}: helmet over the car with his feet hidden by it, no far-side service running, ${o.idle} samples ${JSON.stringify(o.samples.filter(x => x.kind === 'idle').slice(0, 3))}`);
   const s = acc.seatWorst; if (s) fails.push('seated driver: ' + JSON.stringify(s));
   if (!acc.seatChecks.length) fails.push('seated driver: never seen');
   if (!acc.inUse) fails.push('race driver: never checked from the camera in use (he never got out)');
@@ -249,7 +254,7 @@ function verdict(acc) {
     for (const f of fails) console.log('  FAIL ' + f);
     for (const [k, R] of Object.entries(acc.people)) console.log(`  ${k.padEnd(22)} samples ${R.samples}  sole ${(R.minSole * 100).toFixed(1)}…${(R.maxSole * 100).toFixed(1)} cm  slide max ${(R.maxSlide * 1000).toFixed(1)} mm  longest pause ${R.longestPause || 0} s  posts ${JSON.stringify(R.post)}`);
     console.log(`  crew: longest hold ${acc.heldMax} s, last words ${acc.lastWords}; the race driver checked from the camera in use in ${acc.inUse || 0} samples`);
-    for (const [k, o] of Object.entries(acc.over)) console.log(`  over the car (feet hidden, helmet seen): ${k}: standing clear ${o.still}, with the car apart ${o.stillApart}, moving ${o.moving}, at work ${o['at work']} ${JSON.stringify(o.samples.slice(0, 3))}`);
+    for (const [k, o] of Object.entries(acc.over)) console.log(`  over the car (feet hidden, helmet seen): ${k}: no far-side service ${o.idle}, standing clear ${o.still}, with the car apart ${o.stillApart}, moving ${o.moving}, at work ${o['at work']} ${JSON.stringify(o.samples.slice(0, 3))}`);
     console.log('  seated driver', JSON.stringify(acc.seatChecks.slice(0, 2)));
   }
   if (outFile) fs.writeFileSync(outFile, JSON.stringify(all, null, 1));

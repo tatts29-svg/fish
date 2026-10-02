@@ -170,12 +170,12 @@ export function segmentClear(ax, az, bx, bz, boxes, r) {
 }
 /* how far a floor point stands from the nearest box (0 inside one) */
 export function clearanceOf(p, boxes) { let d = Infinity; for (const b of boxes) { const dx = Math.max(b[0] - p[0], 0, p[0] - b[2]), dz = Math.max(b[1] - p[1], 0, p[1] - b[3]); d = Math.min(d, Math.hypot(dx, dz)); } return d; }
-export function route(from, to, boxes, nodes, r = .3) {
+export function route(from, to, boxes, nodes, r = .3, endCap = 1) {
   /* v5.82 — the margin at either end is what that end allows: a man standing 17 cm from the gun stand, or kneeling 3 cm from the
      wheel's footprint, used to fail every segment out of (or into) that spot at the fixed .6 r margin, and the route fell back to
      a straight line — through the car (the crew test caught the mechanic crossing the cell that way). Now the first and last
      legs are asked to clear the boxes by the smaller of .6 r and the end point's own clearance; the legs between nodes keep r. */
-  const rFrom = Math.min(r * .6, Math.max(0, clearanceOf(from, boxes) - .005)), rTo = Math.min(r * .6, Math.max(0, clearanceOf(to, boxes) - .005));
+  const rFrom = Math.min(r * .6, endCap, Math.max(0, clearanceOf(from, boxes) - .005)), rTo = Math.min(r * .6, endCap, Math.max(0, clearanceOf(to, boxes) - .005));
   if (segmentClear(from[0], from[1], to[0], to[1], boxes, Math.min(rFrom, rTo))) return [from, to];
   const N = [from, to, ...nodes], n = N.length, g = new Array(n).fill(Infinity), prev = new Array(n).fill(-1), open = new Set([0]); g[0] = 0;
   const h = i => Math.hypot(N[i][0] - to[0], N[i][1] - to[1]);
@@ -185,7 +185,10 @@ export function route(from, to, boxes, nodes, r = .3) {
     for (let j = 0; j < n; j++) { if (j === cur) continue; const c = g[cur] + Math.hypot(N[j][0] - N[cur][0], N[j][1] - N[cur][1]);
       if (c < g[j] && segmentClear(N[cur][0], N[cur][1], N[j][0], N[j][1], boxes, cur === 0 && j === 1 ? Math.min(rFrom, rTo) : cur === 0 ? rFrom : j === 1 ? rTo : r)) { g[j] = c; prev[j] = cur; open.add(j); } }
   }
-  if (prev[1] < 0) return [from, to];     /* nothing clear: straight, as the last resort (never happens with the cell's loop) */
+  /* nothing clear: first (follow-up) the first and last legs allowed to pass as close as 2 cm — a post boxed in by a desk and a console
+     (the engine technician's) has no way out at the ends' usual margin, and the straight line through the car was taken instead — then
+     straight, as the last resort */
+  if (prev[1] < 0) return endCap > .02 ? route(from, to, boxes, nodes, r, .02) : [from, to];
   const out = []; for (let i = 1; i >= 0; i = prev[i]) { out.unshift(N[i]); if (i === 0) break; } return out;
 }
 
@@ -769,7 +772,9 @@ export function sideSpots(o) {
     sill: [-.1, o * 1.65], supervise: o > 0 ? [XW + 2.75, 3.35] : [XW + 4.8, .2], rackPlace: [XW + 1.75 - .36, o * 2.35]};   /* v8.09: the far side's supervising place is behind the tail (on the far aisle the car hid him) */
 }
 /* the loop of aisle points round the cell, and what stands on the floor (boxes x0, z0, x1, z1) */
-export const NODES = Object.freeze([[-4.8, 2.6], [-4.8, 0], [-4.8, -2.6], [-1.0, 2.85], [1.8, 2.95], [4.4, 2.6], [4.4, 0], [4.4, -2.6], [1.8, -2.95], [-1.0, -2.85], [-6.6, -2.6], [-6.6, 2.4], [5.7, .3]]);
+/* (follow-up: (−2.0, −2.95), in plain view from both opening cameras, links the engine technician's desk pocket to the seen aisle at the nose
+   end — its only other way out, (−1.0, −2.85), is just inside the zone the car hides, and his walks then went round by the tail) */
+export const NODES = Object.freeze([[-4.8, 2.6], [-4.8, 0], [-4.8, -2.6], [-1.0, 2.85], [1.8, 2.95], [4.4, 2.6], [4.4, 0], [4.4, -2.6], [1.8, -2.95], [-1.0, -2.85], [-6.6, -2.6], [-6.6, 2.4], [5.7, .3], [-2.0, -2.95]]);
 export const OBSTACLES = Object.freeze([[-2.62, -1.12, 2.62, 1.12], [.35, -1.42, 2.1, 1.42], [-4.25, .45, -2.4, 1.65], [-4.25, -1.65, -2.4, -.45], [2.3, .5, 3.75, 1.65], [2.3, -1.65, 3.75, -.5],
   [-6.45, -1.0, -5.35, 1.0], [-.98, -4.05, .98, -3.35], [-3.18, -4.7, -1.62, -3.9], [-2.7, -3.95, -2.1, -3.3], [-7.7, -4.25, -7.1, -3.75]]);
 
@@ -989,7 +994,9 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     const people = [...obstacles(self), ...extra].filter(b => !near(b, from) && !near(b, to)), fixed = obstacles(self).slice(0, OBSTACLES.length + (S.rackAt === 'placed' ? 1 : 0));
     const clear = (r, ob) => { for (let i = 1; i < r.length; i++) if (!segmentClear(r[i - 1][0], r[i - 1][1], r[i][0], r[i][1], ob, .02)) return false; return true; };
     const seen = !behindCar(from[0], from[1]) && !behindCar(to[0], to[1]);
-    for (const t of [seen ? [people, SEEN] : null, [people, NODES], seen ? [fixed, SEEN] : null, [fixed, NODES]]) { if (!t) continue; const r = route(from, to, t[0], t[1]); if (clear(r, t[0])) { r.roundPeople = t[0] === people; return r; } }
+    /* (follow-up: between two places in plain view the walk keeps to the seen aisle even past someone standing on it — personal space and
+       giving way see him by — before it would take the far aisle the car hides; a walk from or to a hidden place may use any aisle) */
+    for (const t of seen ? [[people, SEEN], [fixed, SEEN], [people, NODES], [fixed, NODES]] : [[people, NODES], [fixed, NODES]]) { if (!t) continue; const r = route(from, to, t[0], t[1]); if (clear(r, t[0])) { r.roundPeople = t[0] === people; return r; } }
     const r = route(from, to, fixed, NODES); r.roundPeople = false; return r;
   }
   /* (v8.09: `abort`, if given, stops the walk where he is — a chore at the car is dropped the moment the V8 starts, a service needs him
@@ -1002,7 +1009,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   }
   const phase = () => service ? service.phase : 'ready', hold = () => service ? service.hold : null;
   const hubPoint = () => { const w = wheelOf(); if (!w) return V(); const p = V(0, 0, .09 * sideOf(w)); w.updateWorldMatrix(true, false); return p.applyMatrix4(w.matrixWorld); };
-  const engineLook = V(-1.55, .72, -.05);
+  const engineLook = V(-1.55, .72, -.05), ENGINE_APART = [-5.4, -4.5];
   const face = (m, p) => yawTo(p[0] - m.pos.x, p[1] - m.pos.z);
 
   /* ---- the telemetry operator: always seated; types, glances between the screens, acknowledges SERVICE COMPLETE ---- */
@@ -1034,6 +1041,9 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   function* engine() {
     const m = men.engine;
     for (;;) {
+      /* (follow-up: with the car apart, its raised panels hid his feet at the desk from the V8 powertrain camera while his helmet showed
+         over them — he watches from beside the operator's screens instead, clear of the car apart from both opening cameras) */
+      if (S.apart && !S.running) { yield* go(m, ENGINE_APART, yawTo(-ENGINE_APART[0], -ENGINE_APART[1])); m.lookAt(V(0, .8, 0)); yield () => !S.apart || S.running; m.lookAt(null); continue; }
       if (S.running) { yield* go(m, SPOTS.nose, yawTo(engineLook.x - SPOTS.nose[0], engineLook.z - SPOTS.nose[1])); m.lookAt(engineLook);
         yield () => !S.running && S.t - S.stopAt > 1.5; }
       else { yield* go(m, SPOTS.engineDesk, yawTo(screensAt[1].x - SPOTS.engineDesk[0], screensAt[1].z - SPOTS.engineDesk[1]));
@@ -1042,9 +1052,12 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
            in the bay), then back to the desk. A start has him out of the bay and to his place at the nose at once. */
         const bay = [-2.1, -1.35], bayHand = V(-2.0, .7, -.7);
         for (;;) {
+          if (S.apart) break;
           m.lookAt(m.rand() < .6 ? screensAt[1] : screensAt[0]); m.reach(1, handTo(m, 'foreR', deskW(.42, STATION.deskY + .05, .12)), 3);
-          yield waitFor(2.5 + m.rand() * 2, () => S.running); m.reach(1, null); if (S.running) break;
-          if (calm()) {
+          yield waitFor(2.5 + m.rand() * 2, () => S.running || S.apart); m.reach(1, null); if (S.running || S.apart) break;
+          /* (follow-up: the bay's far corner is behind the car from the opening cameras, and from his desk there is no way round to the near
+             side the cameras see all the way — so with no far-side service the check is left, and he works at the desk between runs) */
+          if (calm() && inView(bay)) {
             yield* go(m, bay, yawTo(bayHand.x - bay[0], bayHand.z - bay[1]), null, () => !calm()); if (!calm()) break;
             m.lookAt(bayHand); m.bendWant = .7; m.reach(1, handTo(m, 'foreR', bayHand), 3); yield waitFor(2.6, () => S.running);
             m.reach(1, null); m.bendWant = 0; m.lookAt(null); if (S.running) break;
@@ -1128,6 +1141,13 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   /* (v8.09: and the car is together — while it is apart its parts stand out round it, and the crew keep to their posts; car-app.js tells
      the crew with crewState().apart) */
   const calm = () => !S.running && !S.apart && phase() === 'ready' && !(service && service.clearing);
+  /* follow-up (Andrew Fisher: "The guy who is the driver looks like he crawls out of vehicle" — seen again on 2 Oct 2026, in the default view:
+     the pit technician walking behind the tail to the far rear tyre, helmet and chest over the rear wing, legs hidden). With no far-side
+     wheel service under way nobody goes where the car hides him from the opening cameras (behindCar): the chores there are left for the
+     near side, and the engine bay is checked from the near side. During a far-side service the crew at the far wheel are working on the
+     car, kneeling or crouched at it. */
+  const farService = () => !!service && (phase() !== 'ready' || !!service.clearing) && S.side < 0;
+  const inView = p => !behindCar(p[0], p[1]);
   const waitFor = (sec, stop) => (t => dt => (t += dt) >= sec || stop())(0);
   const handTo = (m, bone, p) => (pos, quat) => { pos.copy(p); quat.copy(m.fig.bones[bone].getWorldQuaternion(quat)); return true; };
   function* holdClear(m, post) { yield* go(m, post, yawTo(-post[0], -post[1])); m.lookAt(V(0, .8, 0)); yield () => !(service && service.clearing) || phase() !== 'ready'; m.lookAt(null); }
@@ -1138,6 +1158,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     m.lookAt(gun); m.bendWant = .6; m.reach(1, handOnGun(m, () => gunPose()), 3); yield waitFor(1.8, needed); m.reach(1, null, 3); m.bendWant = 0; yield sec(.3); m.lookAt(null);
     for (const o of [1, -1]) {
       if (stop()) break;
+      if (!inView([FRONT_X - o * .46, o * 1.45])) continue;   /* (follow-up: the far front tyre is behind the car from the opening cameras) */
       yield* go(m, [FRONT_X - o * .46, o * 1.45], o > 0 ? Math.PI : 0, null, stop); if (stop()) break;
       m.kneel(true); yield () => m.arrived;
       const valve = V(FRONT_X + .1, .3, o * .97); m.lookAt(valve); m.bendWant = .8; m.reach(1, handTo(m, 'foreR', valve), 3);
@@ -1155,6 +1176,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     yield waitFor(1.6, needed); m.reach(0, null); m.reach(1, null); m.crouch(0); m.bendWant = 0; yield () => m.arrived; m.lookAt(null);
     for (const o of [1, -1]) {
       if (stop()) break;
+      if (!inView([REAR_X + .15, o * 1.75])) continue;   /* (follow-up: so is the far rear tyre) */
       yield* go(m, [REAR_X + .15, o * 1.75], o > 0 ? Math.PI : 0, null, stop); if (stop()) break;
       m.crouch(.75); m.bendWant = .5; yield () => m.arrived || stop();
       const tread = V(REAR_X, .5, o * .9); m.lookAt(tread); m.reach(1, handTo(m, 'foreR', tread), 3);
@@ -1313,6 +1335,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     const rWalk = Math.min(.28, Math.max(0, clearanceOf([m.pos.x, m.pos.z], ob) - .005));
     for (const rad of radii) for (let k = 0; k < 12; k++) { const a = k / 12 * TAU, px = m.pos.x + Math.sin(a) * rad, pz = m.pos.z + Math.cos(a) * rad;
       if (clearanceOf([px, pz], ob) < .3 || !segmentClear(m.pos.x, m.pos.z, px, pz, ob, rWalk)) continue;
+      if (!farService() && !behindCar(m.pos.x, m.pos.z) && behindCar(px, pz)) continue;   /* (follow-up: never stepping aside to where the car hides him) */
       const dWay = Math.min(...bp.map(q => Math.hypot(q[0] - px, q[1] - pz)));
       if (dWay > .75 && dWay - rad * .2 > bestD) { bestD = dWay - rad * .2; best = [px, pz]; } }
     if (!best) return false;

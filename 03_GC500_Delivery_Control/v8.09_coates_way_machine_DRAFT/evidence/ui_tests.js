@@ -176,7 +176,10 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
         await touchDrag(ex2.x, ex2.y, 50, 0, true); st = await state(); check('a drag that comes back to where it began opens nothing', st.count === 0);
         await page.click('#home', {force: true}); await wait(1500); await until(() => !window.__cw.tween, 120000); ex2 = await fresh();
         await touchDrag(ex2.x, ex2.y, 0, 0, false, 900); st = await state(); check('a long press (0.9 s) opens nothing', st.count === 0);
-        ex2 = await fresh(); await tap(ex2.x, ex2.y); st = await state(); check('a quick tap on an exhibit (after all that) does open it', !!st.card, st.title);
+        ex2 = await fresh(); await tap(ex2.x, ex2.y); st = await state();
+        /* (the overhead crane travels: if it has moved off the spot between the survey and the tap, look again once and tap what is there now) */
+        if (!st.card) { ex2 = await fresh(); await tap(ex2.x, ex2.y); st = await state(); }
+        check('a quick tap on an exhibit (after all that) does open it', !!st.card, st.cardId ? st.title : 'no card');
         if (st.card) { const t0 = st.title; await touchDrag(Math.round((st.card.l + st.card.r) / 2), Math.round(st.card.b - 30), 0, -60); const s3 = await state(); check('pressing and scrolling the card keeps it open', !!s3.card && s3.title === t0); }
         await wait(16000); st = await state(); check('the card stays until it is closed (no timer)', !!st.card);
         await closeVia('escape');
@@ -242,7 +245,9 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
     const b0 = await txt('#body-mode'); await clickId('body-mode'); check('cutaway toggles', (await txt('#body-mode')) !== b0); await clickId('body-mode');
     await clickId('slow'); check('slow motion', await cw(`document.getElementById('slow').getAttribute('aria-pressed')==='true'`)); await clickId('slow');
     await clickId('power'); check('power path', await cw(`document.getElementById('power').getAttribute('aria-pressed')==='true'`)); await clickId('power');
-    for (const id of ['zoom-in', 'zoom-out', 'home']) { await clickSel('#' + id); check(`camera: ${id}`, await until(() => !!window.__cw.tween, 3000)); await wait(1500); }
+    /* (the zoom's glide is 0.18 s and can be over between two polls on a software renderer: the camera's distance having changed proves it too) */
+    for (const id of ['zoom-in', 'zoom-out', 'home']) { const d0 = await page.evaluate(() => window.__cw.camera.position.distanceTo(window.__cw.controls.target)); await clickSel('#' + id);
+      check(`camera: ${id}`, await until(d0 => !!window.__cw.tween || Math.abs(window.__cw.camera.position.distanceTo(window.__cw.controls.target) - d0) > d0 * .03, 3000, d0)); await wait(1500); }
     /* one press is tested by hand; the two more that bring it round to Laptop are pressed together, so the software renderer never has to draw a High frame */
     const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); const seen = [q0, q1]; /* as many settings as the machine offers (four since v8.09 added Ultra): click on until it comes round */ for (let i = 0; i < 6 && seen[seen.length - 1] !== q0; i++) { await page.evaluate(() => document.getElementById('quality').click()); await wait(500); seen.push(await txt('#quality')); }
     /* v8.09 review: a phone or a touch tablet is offered Laptop and Balanced only; High and Ultra are more than its graphics memory holds */

@@ -173,3 +173,6 @@ officer at -3.66, -2.68). Left with the people agent (crew.js).
 |---|---|
 | phone | **129/129** |
 | desktop | **138/138** |
+- Two more checks in `ui_tests.js` hardened against timing on the software renderer, still testing the same thing:
+  - The "quick tap after all that" looks again once if the travelling crane has moved off the spot.
+  - The zoom check also accepts the camera's distance having changed. The 0.18 s glide can be over between two 0.3 s polls.
