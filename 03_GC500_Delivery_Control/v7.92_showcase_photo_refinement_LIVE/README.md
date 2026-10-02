@@ -1,4 +1,4 @@
-# Showcase photo refinement — DRAFT
+# Showcase photo refinement — LIVE
 
 Author: Andrew Fisher · 2 Oct 2026
 
@@ -10,15 +10,15 @@ The 39 new originals were reviewed privately. Their provenance and placement lim
 
 Rendering improvements cache context capabilities, reuse dynamic smoke/rubber storage, simplify the sky shader, replace 30,584 block-letter triangles with 224 label triangles, and reduce render resolution before losing visible detail. The automatic quality policy targets 45 FPS while useful pixel reductions remain, with the original final fallback retained. This is an adaptation target, not a measured device guarantee.
 
-The standalone review copy now preserves pause on restart, resets elapsed time after hiding, and handles browser Back/Forward and graphics-context recovery. Context loss testing found stale-handle cleanup; it is corrected in both the review copy and the hosted page. The final candidate passes 28/28 graphics lifecycle and rendering checks, including real graphics loss and recovery. The final candidate is READY TO UPLOAD after complete-lap and page regression checks passed.
+The standalone review copy now preserves pause on restart, resets elapsed time after hiding, and handles browser Back/Forward and graphics-context recovery. Context loss testing found stale-handle cleanup; it is corrected in both the review copy and the hosted page. The final candidate passes 28/28 graphics lifecycle and rendering checks, including real graphics loss and recovery. **LIVE 02 Oct 2026 11:19 AEST**. The public view serves the exact tested bytes; shared record 3538 is unchanged.
 
 ## Rebuild
 
-Run from `03_GC500_Delivery_Control`:
+Commands used before publication, from `03_GC500_Delivery_Control`. After publication, reproduce from the recorded pre-release base; the patch intentionally refuses a second application:
 
 ```sh
-bash toolchain/build.sh v7.92 v7.92_showcase_photo_refinement_DRAFT/patch_v792.py
-python3 v7.92_showcase_photo_refinement_DRAFT/build_preview.py build/GC500_v7.92/GC500_Delivery_Control_hosted.html build/GC500_v7.92/full_lap_preview.html
+bash toolchain/build.sh v7.92 v7.92_showcase_photo_refinement_LIVE/patch_v792.py
+python3 v7.92_showcase_photo_refinement_LIVE/build_preview.py build/GC500_v7.92/GC500_Delivery_Control_hosted.html build/GC500_v7.92/full_lap_preview.html
 ```
 
 ## Final candidate checks
@@ -36,4 +36,4 @@ Offline preview: **1,168,436 bytes**, SHA-256 `6373a7fe1782104a9f01f5df26d910631
 
 The final browser suites report zero detected page, console or WebGL errors and no service record writes. Tests block record writes. Browser verification uses software-rendered Chromium; it establishes errors, state continuity and comparative work, not physical-phone FPS. Eight fixed 640 × 360 Balanced renders with pixel readback measured a 902.20 ms median versus 947.55 ms for v7.88 (about 4.8% lower); run-to-run variability makes this a limited comparison, not a frame-rate promise.
 
-Implementation, independent subtask reviews and final integration verification are complete. The other external collaborator has not reviewed this final successor candidate; its independent review of v7.88 remains historical. Publication proof will be added after upload.
+Implementation, independent subtask reviews and final integration verification are complete. The other external collaborator has not reviewed this final successor candidate; its independent review of v7.88 remains historical. Publication proof: `evidence/release_verification.json`. The uploader verified the fresh live base and then proved the public page byte for byte; a further public fetch matched. No record changes or journals.

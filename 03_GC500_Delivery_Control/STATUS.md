@@ -1,22 +1,24 @@
-**v7.92 — Showcase photo-informed whole-lap refinement and smoothness: READY TO UPLOAD (Codex), 2 Oct 2026.**
+**v7.92 — Showcase photo-informed whole-lap refinement and smoothness: LIVE, 02 Oct 2026 11:19 AEST.**
 Author: Andrew Fisher. Andrew: "Revisit showcase again. Wiith new info. Must be smooth. No bugs no errors".
-Build on the then-current live page, carrying forward the reviewed full-lap work and the 39 new photo references.
-Preserve the original circuit, car, cameras, media/weather, controls and records. Investigate frame pacing and
-resource/lifecycle behaviour; check complete laps, desktop/phone visuals and page regressions before publication.
-Scope: `v7.92_showcase_photo_refinement_DRAFT/`, branch `codex/gc500-v788-full-lap` / PR #26.
-Independent implementation/review tasks are split within Codex; Claude's Today work remains separately owned.
+Built on the then-current live v7.89 page, carrying forward the whole-lap work and 39 new photo references.
+Adds coastal facade/foliage detail, pit framing, clearer lettering and daylight. Rendering storage is reused,
+pixel quality adapts earlier, and graphics recovery retains the current lap/camera/pause. Original circuit, car,
+physics, cameras, media/weather, operational page and records are preserved.
+Scope: `v7.92_showcase_photo_refinement_LIVE/`, branch `codex/gc500-v788-full-lap` / PR #26.
+Implementation and independent subtask reviews completed within Codex; Claude's Today work remains separately owned.
 Final page `476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265`, 8,883,495 bytes.
 74/74 lap, 28/28 smoothness/recovery, 23/23 integration, both 21-tab/7-link sweeps: zero detected errors.
 Protected source 15/15, mutation 5/5, pit 15/15, signage 15/15, storage/quality 10/10, shader 9/9;
 26 lap views plus hosted desktop/phone visually inspected. Exact rebuild/static checks/dry-run pass.
 Codex implemented, delegated independent source/visual/shader reviews, and ran final browser integration.
-Claude has not reviewed this final v7.92 candidate. No record changes. Publication pending guarded upload.
+Claude has not reviewed this final v7.92 candidate. Codex published and verified exact public bytes; record **3538** unchanged.
+No record changes or journals. Proof: `v7.92_showcase_photo_refinement_LIVE/evidence/release_verification.json`.
 
 **v7.91 — Today tidy-up after full width: READY TO UPLOAD (Claude, 2 Oct 2026 10:35 AEST).** Andrew: "this is how today
 looks now, this needs some work to clean up". On the live v7.89: `bash toolchain/build.sh v7.91
 v7.91_today_tidy_full_width_DRAFT/patch_v791.py` → **8,862,008 bytes, SHA-256 `a942bebe86fabc53d905e8267b526a9a1d54699adf5243fb9314ee6bf65d05e6`**.
 Back in the header row; picture bands capped at 1,400 px (same crop); Deliveries fills its panel; Today's cards fill each row.
-Desktop only. Sweeps ×2 clean, navigation 21/21.
+Desktop only. Sweeps ×2 clean, navigation 21/21. Its recorded candidate predates v7.92; rebuild on the current live page before upload.
 
 **v7.90 — map explorer (machine files only): LIVE, 2 Oct 2026 09:55 AEST.** Plan ⇄ satellite fits the view;
 Done markers start hidden until selected. Codex found and fixed the pending zoom/pan/rotation race during independent
@@ -27,22 +29,22 @@ machine publication passed. Codex published and verified the final corrected can
 review preceded this narrow correction. Other 217 machine files, v7.89 page and record **3538** unchanged.
 Proof: `v7.90_map_plan_fit_and_quiet_ticks_LIVE/evidence/release_verification.json`.
 
-**v7.88 — full-lap Showcase refinement: working preview, NOT LIVE; Andrew's visual acceptance pending.**
+**v7.88 — historical full-lap Showcase study: superseded by the tested, LIVE v7.92 refinement above.**
 Codex preserved the existing car, route and cameras while adding detail across the full 2.91 km source lap; both MP4
 references were read. Source, tests and actual-browser contact sheets: PR #26, branch `codex/gc500-v788-full-lap`
 (`d950bd9`). Frozen page `121d183a…`, preview `a31ccb85…`: Codex **68/68** full-lap checks, **23/23** integration
 and both **21-tab/7-link** sweeps; Claude independently checked the same candidate (**61/61** in-page lap, **45/45**
 rules, **58/58** earlier lap harness), PR #1 comment `5942850787`. This is stylised browser graphics, not photorealistic.
-The graphics must be rebuilt and checked on the latest live page before a future release. Separate from the live map fix.
+The frozen v7.88 bytes were never uploaded. Their whole-lap changes were carried into v7.92, rebuilt on then-live v7.89 and fully retested before publication. Separate from the live map fix.
 
-**Further whole-track photographs — received/read, not applied, 2 Oct 2026.** Author: Andrew Fisher.
+**Further whole-track photographs — reviewed and applied in v7.92, 2 Oct 2026.** Author: Andrew Fisher.
 Codex and its source-review subagents visually reviewed 39 originals: `20490`, `20491`, `20526`, `20527`,
 `20667`–`20696`, `20698`–`20702` (all `.jpg`). Byte-verified private copies and provenance manifest:
 `/workspace/private-full-lap-references/photos-02Oct2026/` on the Codex workspace; access from Claude's workspace
 is not established. Claude's original-photo review remains pending; a text summary is not a source review.
 Shared observations and placement limits: `v7.88_full_lap_detail_DRAFT/PHOTO_REFERENCES_02Oct2026.md`.
 Two different Boost gantries, three bridge designs and the separate pit/access lane are distinguished.
-Codex owns intake and the draft's next visual pass. No graphics, preview, record or live service changed in this intake.
+The intake itself changed no graphics or records. The later v7.92 release applies illustrative coastal facade/foliage treatments, pit framing, clearer existing lettering and daylight; exact new gantry locations were not inferred. Originals remain private; Claude's original-photo review is still pending.
 
 **v7.89 — compact header + full-width tabs: LIVE, 2 Oct 2026 09:44 AEST.** Andrew: "let's fix this first"
 ... "should we not be using the full page" ... "should these not all be the same size". One patch on the live v7.87
