@@ -31,6 +31,28 @@ def frozen():
  for name, meta in report['assets'].items():
   assert sha(ROOT/'release'/name) == meta['sha256'], 'Map candidate changed during standing checks: ' + name
 
+def assess(spec, exit_code, existing=False):
+ name, source, mobile = spec
+ result, log = OUT/(name+'.json'), OUT/(name+'.log')
+ if name.startswith('sweep'):
+  if existing: raw=json.loads(result.read_text())
+  else:
+   raw=json.loads(log.read_text().strip().splitlines()[-1]); result.write_text(json.dumps(raw))
+  redirects={'register':('#plant','Equipment'), **{k:('#today','Today') for k in ('journal','breakdowns','variances','edit','add')}}
+  tabs_good=all(not t.get('goerr') and not t.get('errors') and not t.get('console') and (t['shown'] or (k in redirects and (t.get('hash'),t.get('active'))==redirects[k])) for k,t in raw['tabs'].items())
+  targets={'#timeline':'pane-timeline','#day/2026-09-28':'pane-timeline','#change/2026-09-28':'pane-change','#print/drivers/2026-09-28':'pane-timeline','#sheet/__satellite3d':'pane-map','#plant':'pane-plant','#today':'pane-today'}
+  links_good=set(raw['hashes'])==set(targets) and all(v.get('pane')==targets[k] and not v.get('errors') for k,v in raw['hashes'].items())
+  back_good=raw.get('back')=={'hash':'#plant','pane':'pane-plant'}
+  good=exit_code==0 and len(raw.get('tabs',{}))==21 and not raw.get('allErrors') and not raw.get('cons') and tabs_good and links_good and back_good
+  count={'tabs':len(raw.get('tabs',{})),'links':len(raw.get('hashes',{})),'errors':len(raw.get('allErrors',[])),'consoleErrors':len(raw.get('cons',[]))}
+ else:
+  raw=json.loads(result.read_text()) if result.exists() else {}
+  tests=raw if isinstance(raw,list) else raw.get('tests',[])
+  passed=sum(bool(x.get('pass')) for x in tests)
+  good=exit_code==0 and bool(tests) and passed==len(tests) and not (raw.get('errors') if isinstance(raw,dict) else [])
+  count={'passed':passed,'total':len(tests)}
+ return {'name':name,'source':source,'sourceSha256':sha(PROJECT/source),'exitCode':exit_code,'pass':good,**count,'privateResultSha256':sha(result) if result.exists() else None, 'assessedFromCompletedRun':existing}
+
 def run(spec):
  name, source, mobile = spec
  frozen()
@@ -41,24 +63,28 @@ def run(spec):
  if mobile: env['MOB']='1'
  with log.open('w') as stream:
   done=subprocess.run(['node','--require',str(ROOT/'evidence/override813.cjs'),str(PROJECT/source)],cwd=PROJECT,env=env,stdout=stream,stderr=subprocess.STDOUT)
- if name.startswith('sweep'):
-  raw=json.loads(log.read_text().strip().splitlines()[-1]); result.write_text(json.dumps(raw))
-  good=done.returncode==0 and len(raw.get('tabs',{}))==21 and len(raw.get('hashes',{}))==7 and not raw.get('allErrors') and not raw.get('cons') and all(t['shown'] and not t.get('goerr') for t in raw['tabs'].values())
-  count={'tabs':len(raw.get('tabs',{})),'links':len(raw.get('hashes',{})),'errors':len(raw.get('allErrors',[])),'consoleErrors':len(raw.get('cons',[]))}
- else:
-  raw=json.loads(result.read_text()) if result.exists() else {}
-  tests=raw if isinstance(raw,list) else raw.get('tests',[])
-  passed=sum(bool(x.get('pass')) for x in tests)
-  good=done.returncode==0 and bool(tests) and passed==len(tests) and not (raw.get('errors') if isinstance(raw,dict) else [])
-  count={'passed':passed,'total':len(tests)}
  frozen()
- return {'name':name,'source':source,'sourceSha256':sha(PROJECT/source),'exitCode':done.returncode,'pass':good,**count,'privateResultSha256':sha(result) if result.exists() else None}
+ return assess(spec, done.returncode)
 
 frozen()
+remaining_specs=specs
+if '--resume' in sys.argv[3:]:
+ previous=json.loads((ROOT/'evidence/standing813_browser.json').read_text())
+ for key in ('pageSha256','baseSha256','assetOverrideSha256','assets'):
+  assert previous[key]==report[key], 'Cannot resume checks from a different candidate: '+key
+ report['assessmentNote']='Expected Register/Equipment and view-only restricted-tab redirects are accepted against unchanged source and prior v8.12 evidence. Original incorrect all-panes-visible assessment is retained privately; raw browser results are unchanged.'
+ for item in previous['runs']:
+  spec=next(s for s in specs if s[0]==item['name'])
+  assert item['sourceSha256']==sha(PROJECT/spec[1]) and item['privateResultSha256']==sha(OUT/(spec[0]+'.json')), 'Completed evidence changed'
+  reviewed=assess(spec,item['exitCode'],True)
+  assert reviewed['pass'], 'Completed evidence still fails: '+spec[0]
+  report['runs'].append(reviewed)
+ remaining_specs=[s for s in specs if s[0] not in {r['name'] for r in report['runs']}]
+ (ROOT/'evidence/standing813_browser.json').write_text(json.dumps(report,indent=2)+'\n')
 failed = False
 # Each child owns one browser and one private result. Only this parent writes the combined summary.
 with ThreadPoolExecutor(max_workers=2) as pool:
- pending = {pool.submit(run, spec): spec for spec in specs}
+ pending = {pool.submit(run, spec): spec for spec in remaining_specs}
  for future in as_completed(pending):
   spec = pending[future]
   try:

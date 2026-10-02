@@ -62,6 +62,14 @@ for label, text in [('changed input', source + '\n'), ('repeat application', res
     except SystemExit:
         rejected = True
     check(label + ' rejected', rejected)
+if len(sys.argv) > 3:
+    previous = Path(sys.argv[3]).read_text(encoding='utf-8')
+    marker = '/* Author: Andrew Fisher. Arrange the existing map controls around the drawing. */'
+    def without_arrangement_css(text):
+        start = text.index(marker)
+        end = text.index('</style>', start)
+        return text[:start] + text[end:]
+    check('final layout repair preserves all reviewed HTML and scripts', without_arrangement_css(previous) == without_arrangement_css(result))
 report = {'author': 'Andrew Fisher', 'sourceSHA256': patch.BASE_SHA256, 'candidateSHA256': hashlib.sha256(result.encode()).hexdigest(), 'checks': checks, 'passed': sum(c['pass'] for c in checks), 'total': len(checks)}
 if len(sys.argv) > 2:
     Path(sys.argv[2]).write_text(json.dumps(report, indent=2) + '\n')

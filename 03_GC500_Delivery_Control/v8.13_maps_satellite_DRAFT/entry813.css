@@ -45,7 +45,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,#stage:focus-visible{
   .dial button{position:static;flex:none;width:44px;height:44px;margin:0;transform:none!important;border:1px solid var(--rule);border-radius:8px;background:rgba(15,13,12,.88)}
   .dial button b{line-height:42px;transform:none!important}
   .rose #sheetBtn{min-height:44px}
-  .hud{top:8px;right:320px}
+  .hud{top:8px;right:390px}
   .hud .pill{max-width:100%;overflow-wrap:anywhere}
   .qual{max-width:calc(100% - 432px)}
 }

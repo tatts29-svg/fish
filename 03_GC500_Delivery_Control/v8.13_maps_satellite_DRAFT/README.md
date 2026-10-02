@@ -1,4 +1,4 @@
-# Maps and satellite upgrade — draft
+# Maps and satellite upgrade — ready to upload
 
 Author: Andrew Fisher.
 
@@ -19,6 +19,10 @@ The request and camera tests reproduce faults against live code and exercise cor
 
 Build the page with `toolchain/build.sh v8.13 v8.13_maps_satellite_DRAFT/patch_v813.py`. Build the four assets with `build_assets813.py SOURCE_DIRECTORY RETAINED_MANIFEST`. The sources must match the reviewed live fingerprints. Source originals and complete operational/browser logs stay in the private workspace; published evidence contains checks and fingerprints only.
 
-Current state: component CPU/source checks pass; integrated browser, visual, performance and standing regression checks are in progress. This draft is **not READY TO UPLOAD**. No faultlessness, physical-device frame-rate or provider capture-date claim is made.
+Current state: **READY TO UPLOAD**. Exact host `f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec`, 9,079,773 bytes; prepared machine set `65c47180502d9052ca3661e5aedd06683e8168c1e9be9297bcbcb7c2e4d9fe86`. The four changed paths are verified and all 215 other descriptors are identical. Final checks pass: both 21-tab/seven-link sweeps and Back with zero page or console errors, 134 standing functional assertions, 21 navigation CPU checks, 13 host checks, independent 2D/entry reviews, and the separately bound 3D recovery/settled-imagery checks. See `evidence/ready813.json` and the linked summaries for exact source bindings and overlapping test counts. Codex implements and publishes with independent subagent review; Claude confirmed ownership but is not claimed as the final map reviewer.
 
-Andrew also asked whether installed-track satellite images can be found. Public imagery research is separate from the verified map rendering changes; no new imagery layer is claimed or substituted without source/date/use checks.
+Independent review reproduced and corrected the phone map extending about 319 px below its usable area, two panels opening from one map pick, a stale reference after category changes, Sources dismissal and long-checksum overflow, and a compass blocking Full screen in short landscape. All four existing direction controls remain available. The earlier functional 3D screenshots were taken during loading; separate settled phone and wide captures have zero pending or processing tiles. Manual recovery was checked by the real pointer hit and button press after graphics loss.
+
+The measured first-view download reduction is 14,439,157 bytes on both tested viewport profiles; startup and zoom latency are mixed. See [PERFORMANCE.md](PERFORMANCE.md) for measurements, sample sizes and limitations. No faultlessness, physical-device frame-rate, universal faster-zoom or higher-resolution-provider claim is made. A stalled parser-blocking Cesium CDN transfer remains outside the later runtime recovery timer; the 2D map remains independently available.
+
+Andrew also asked whether installed-track satellite images can be found. [IMAGERY.md](IMAGERY.md) records the verified 26 October 2019 helicopter photo and the 15–16 October 2014 partial-setup overhead survey, with attribution and use limits. No event-day satellite capture or new imagery layer is claimed.

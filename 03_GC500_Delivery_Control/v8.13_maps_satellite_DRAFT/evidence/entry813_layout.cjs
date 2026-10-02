@@ -14,7 +14,7 @@ const check = (name, pass, detail) => checks.push({name, pass:!!pass, detail});
   try {
     const page = await browser.newPage();
     await page.route('**/*', route => {requests++;return route.abort();});
-    for (const size of [{width:320,height:568},{width:360,height:640},{width:390,height:540},{width:600,height:198},{width:810,height:198},{width:844,height:320},{width:1406,height:600}]) {
+    for (const size of [{width:320,height:568},{width:360,height:640},{width:390,height:540},{width:600,height:198},{width:810,height:198},{width:844,height:320},{width:1406,height:198},{width:1406,height:600}]) {
       await page.setViewportSize(size); await page.setContent(html);
       await page.evaluate(() => {
         document.getElementById('loader').hidden = true;

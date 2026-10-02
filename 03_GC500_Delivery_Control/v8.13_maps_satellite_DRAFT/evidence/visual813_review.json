@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "reviewer": "Codex primary reviewer",
+  "inspected": [
+    {
+      "privatePath": "/workspace/private-maps813/audit/final813b/desktop-initial.png",
+      "sha256": "9f6aa9cc341e7e1b1603412f0b6cb65c74c1111300742af6f7db60f2cfebd49f"
+    },
+    {
+      "privatePath": "/workspace/private-maps813/audit/final813b/phone-initial.png",
+      "sha256": "8e99a78b73cd6c4d2c3230f66e79d0b9cf575a97e324b318477860d61761d666"
+    },
+    {
+      "privatePath": "/workspace/private-maps813/audit/final813c/phone-landscape-fixed.png",
+      "sha256": "22755d8afec73d4ddbd5aa2e260a3c395981c90ce4ce27a3d8d0f4237eb92389"
+    },
+    {
+      "privatePath": "/workspace/private-maps813/audit/final813c/phone-sources-320.png",
+      "sha256": "5a1321fc4d98b874c0601bcd4a82b10c4e18a70c2ddf0a687b1609964915561f"
+    },
+    {
+      "privatePath": "/workspace/private-maps813/audit/final813d/desktop-wide-short.png",
+      "sha256": "f20af1ba9d64db3e1667e5866be11115bd8e5315717f2f7fadb1097be3d3a555"
+    },
+    {
+      "privatePath": "/workspace/private-maps813/3d/settled-final/phone-auto-settled.png",
+      "sha256": "7aa309e630d4f93b18dd198cc0b252d687a62284fc8c10bf328d82bb135c377d"
+    },
+    {
+      "privatePath": "/workspace/private-maps813/3d/settled-remaining/wide-auto-settled.png",
+      "sha256": "6f56f6acc75ec3e724d6b1e72b7d3b867b88451dc64bd9a80ea852cc3dda7769"
+    }
+  ],
+  "observations": [
+    "Portrait map ends above the footer; the complete map and controls are visible.",
+    "Sources content wraps and Close remains at the top; the panel scrolls for full source details.",
+    "Short landscape keeps existing four direction controls in a compact row clear of zoom and Full screen. The large existing host header still needs scrolling on very short viewports; native Full screen was independently checked.",
+    "Settled phone and wide 3D imagery shows the city and terrain; earlier partially loaded screenshots are not used as clarity evidence."
+  ],
+  "binding": "Actual UI report binds the earlier captures to the final affected CSS proof; 3D child assets are unchanged by entry CSS."
+}
