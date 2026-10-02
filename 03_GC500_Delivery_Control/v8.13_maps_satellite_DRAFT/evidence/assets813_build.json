@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "baseFiles": {
+    "explorer.js": "ad9ab5e488d690444c59730f8ad286b2df60ab0353cd1d21dabc40e398a3b5a4",
+    "index.html": "dd4b44d2169f38ef46d056d488d9bfaa39fa6942233ad3f98a9750af8e9ef25f",
+    "explorer-merge.js": "efa5dffd3946310b37cab45e2a85b77391720cbdfc53a22d6cfa5668a495ddfd",
+    "poc3d/index.html": "0a060bed5acfdd970cc04c209b2163cba3199728575c84ac8196a10014b861f7"
+  },
+  "files": {
+    "explorer/explorer.js": {
+      "sha256": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+      "bytes": 133534
+    },
+    "explorer/explorer-merge.js": {
+      "sha256": "cb5943d8e5a9c3fe43910b361e053d92574812c3b3314d1197dc0340bd33b8de",
+      "bytes": 24895
+    },
+    "poc3d/index.html": {
+      "sha256": "e6651e5c5bc73b2259d9bce1965d332eadd58ca89c2a655242fb314c68d384bf",
+      "bytes": 44092
+    },
+    "explorer/index.html": {
+      "sha256": "3bef2f4570e9bde233782f1b6a0252e15709e32702ee7c68ec88492b7ffd8d5b",
+      "bytes": 26775
+    }
+  }
+}

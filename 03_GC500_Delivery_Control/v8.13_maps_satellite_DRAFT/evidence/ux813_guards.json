@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "source": {
+    "base": "b312edb6cd07a02dcdad4f1ace57f06921b2f3d597d9e23cbd3de6c8f6e6cd43",
+    "merge_base": "efa5dffd3946310b37cab45e2a85b77391720cbdfc53a22d6cfa5668a495ddfd",
+    "explorer": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+    "merge": "6797644c8b96e11fb9dbfa5887ab54b464fdf7e41563803d8add934b553bedf1",
+    "patch": "db302829934f6cee25be0baa78285dd344cc0a0cad407197e3b0bf2252499f0a"
+  },
+  "checks": [
+    {
+      "id": "duplicate explorer application",
+      "pass": true
+    },
+    {
+      "id": "duplicate merge application",
+      "pass": true
+    },
+    {
+      "id": "wrong explorer base",
+      "pass": true
+    },
+    {
+      "id": "wrong merge base",
+      "pass": true
+    },
+    {
+      "id": "unowned file",
+      "pass": true
+    },
+    {
+      "id": "changed source anchor",
+      "pass": true
+    },
+    {
+      "id": "ambiguous source anchor",
+      "pass": true
+    }
+  ],
+  "passed": 7
+}
