@@ -59,7 +59,7 @@ t = rep(t, "if (h > 0) e.target.style.setProperty('--sp95', rows(h)); })))) : nu
 # a jump button finds its part when pressed: a fold drawn as it opens is a new element, and the button made before it
 # must not hold the old one
 t = rep(t, " b.onclick = () => { if (el.tagName === 'DETAILS' && !el.open) el.open = true; land795(() => el); };",
-        " b.onclick = () => { const cur = () => el.isConnected ? el : jump799(n); const e0 = cur(); if (e0 && e0.tagName === 'DETAILS' && !e0.open) { e0.dataset.jump799 = '1'; e0.open = true; } land795(cur); }; /* v7.99 */",
+        " b.onclick = () => { const cur = () => el.isConnected ? el : jump799(n); const e0 = cur(); if (e0 && e0.tagName === 'DETAILS' && !e0.open) { e0.dataset.jump799 = '1'; e0.open = true; if (e0.querySelector('.lazy799')) { folds795().add(n); renderProgress(); } } land795(cur); }; /* v7.99 - a fold drawn on opening is drawn now, so the jump lands at once */",
         'jump buttons find their part when pressed', p)
 t = rep(t, "boxes.forEach(b => { b.classList.add('mas95'); [...b.children].forEach(k => { if (ro) ro.observe(k, {box: 'border-box'}); else span(k); }); });",
         "boxes.forEach(b => { b.classList.add('mas95'); [...b.children].forEach(k => { if (ro) ro.observe(k, {box: 'border-box'}); else span(k); }); place799Soon(b); });", 'place after packing', p)

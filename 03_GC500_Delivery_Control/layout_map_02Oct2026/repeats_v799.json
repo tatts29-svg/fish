@@ -1,6 +1,6 @@
 {
  "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.99/GC500_Delivery_Control_hosted.html",
- "at": "2026-10-02T05:49:47.071Z",
+ "at": "2026-10-02T06:28:21.158Z",
  "tabs": [
   {
    "tab": "today",
@@ -990,15 +990,6 @@
    "kept": null
   },
   {
-   "fact": "310 m",
-   "places": [
-    "today · Roads between Coates Kingston and the circuit",
-    "costs · table (table)"
-   ],
-   "scope": "across tabs",
-   "kept": null
-  },
-  {
    "fact": "$75,872",
    "places": [
     "today · Fencing (By group)",
@@ -1354,7 +1345,7 @@
    "kept": null
   },
   {
-   "fact": "$831,050",
+   "fact": "$829,590",
    "places": [
     "costs · (page text)",
     "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
@@ -1364,7 +1355,7 @@
    "kept": null
   },
   {
-   "fact": "$447,384",
+   "fact": "$447,639",
    "places": [
     "costs · (page text)",
     "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
@@ -1384,7 +1375,7 @@
    "kept": null
   },
   {
-   "fact": "$258,583",
+   "fact": "$257,123",
    "places": [
     "costs · (page text)",
     "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026",
@@ -1551,7 +1542,7 @@
    "kept": null
   },
   {
-   "fact": "$423,714",
+   "fact": "$423,969",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1569,7 +1560,7 @@
    "kept": null
   },
   {
-   "fact": "$351,842",
+   "fact": "$350,127",
    "places": [
     "costs · (page text)",
     "costs · AT A GLANCE · AUD EX GST · AS AT FRI 02 OCT 2026"
@@ -1578,7 +1569,7 @@
    "kept": null
   },
   {
-   "fact": "$212,013",
+   "fact": "$212,268",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1605,7 +1596,7 @@
    "kept": null
   },
   {
-   "fact": "$561,326",
+   "fact": "$559,866",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1623,7 +1614,7 @@
    "kept": null
   },
   {
-   "fact": "$373,687",
+   "fact": "$373,942",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1632,7 +1623,7 @@
    "kept": null
   },
   {
-   "fact": "$180,090",
+   "fact": "$180,345",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1641,7 +1632,7 @@
    "kept": null
   },
   {
-   "fact": "$379,496",
+   "fact": "$378,037",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1650,7 +1641,7 @@
    "kept": null
   },
   {
-   "fact": "$255,112",
+   "fact": "$255,367",
    "places": [
     "costs · (page text)",
     "costs · table (table)"
@@ -1713,7 +1704,7 @@
    "kept": null
   }
  ],
- "unresolved": 156,
+ "unresolved": 155,
  "errors": [],
  "pairs": [
   {
@@ -1794,10 +1785,10 @@
    "examples": [
     "$572,467",
     "$235,372",
-    "$831,050",
-    "$447,384",
+    "$829,590",
+    "$447,639",
     "$31,824",
-    "$258,583"
+    "$257,123"
    ]
   },
   {
@@ -2889,13 +2880,6 @@
    "shared": 1,
    "examples": [
     "800 m"
-   ]
-  },
-  {
-   "pair": "costs · table (table)  <->  today · Roads between Coates Kingston and the circuit",
-   "shared": 1,
-   "examples": [
-    "310 m"
    ]
   },
   {

@@ -27,7 +27,8 @@ Each agent posts on PR #1 when it claims, when it is READY, and when it is LIVE.
 **Update 2 Oct 2026 (Claude):**
 - **v7.96 is LIVE** (Codex upload, 14:08 AEST): `dd16fa3b…`, 8,907,669 bytes. Claude verified the live bytes independently.
 - **v8.02 is LIVE** (Codex, 15:38 AEST): `07d61880…`, 9,070,571 bytes.
-- **v7.99 is READY TO UPLOAD (Claude, 15:55 AEST)**, built on live v8.02: **9,080,018 bytes, SHA-256 `37e77a2480c183d22308b7f58b69ed473d4cf32907a840892f6be590c970f025`**, one patch: `bash toolchain/build.sh v7.99 v7.99_today_faster_fuller_DRAFT/patch_v799.py`.
+- **v8.03 is LIVE** (Codex, 16:02 AEST): `fa32b0a1…`.
+- **v7.99 is READY TO UPLOAD (Claude, 16:25 AEST)**, built on live v8.03: **9,101,136 bytes, SHA-256 `d49ccddc7b395ba5daab9603d99b115bfe7c256a5d19b82c33fc7fb820a5d512`**, one patch: `bash toolchain/build.sh v7.99 v7.99_today_faster_fuller_DRAFT/patch_v799.py`.
   - Today opens about 20% faster than v8.02.
   - By group empty space goes from 18% to 11.3%; By branch (opened) from 28.7% to 15.5%.
   - Paper prints with the same pages as live.

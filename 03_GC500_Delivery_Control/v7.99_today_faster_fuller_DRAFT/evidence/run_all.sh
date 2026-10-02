@@ -3,6 +3,7 @@
 export CHROMIUM_PATH=${CHROMIUM_PATH:-/opt/pw-browsers/chromium} NODE_PATH=${NODE_PATH:-$(npm root -g)}
 PAGE=$PWD/build/GC500_v7.99/GC500_Delivery_Control_hosted.html; BASE=$PWD/build/GC500_v7.99/base_live.html; export PAGE
 E=v7.99_today_faster_fuller_DRAFT/evidence; R=$E/regress; mkdir -p $R
+if [ "$(sha256sum < $PAGE)" = "$(sha256sum < $BASE)" ] || ! grep -q 'function place799(' $PAGE; then echo 'STOP: the built page is not v7.99 (the patch did not apply)'; exit 1; fi
 (BASE=$BASE node $E/v799_tests.js > $E/v799_desktop.log 2>&1) & (MOB=1 node $E/v799_tests.js > $E/v799_phone.log 2>&1) & wait
 (node v7.95_today_packed_DRAFT/evidence/packed_tests.js > $R/packed_desktop.log 2>&1) & (MOB=1 node v7.95_today_packed_DRAFT/evidence/packed_tests.js > $R/packed_phone.log 2>&1) & (node v7.96_equipment_tab_DRAFT/evidence/equipment_tests.js > $R/equipment_desktop.log 2>&1) & (MOB=1 node v7.96_equipment_tab_DRAFT/evidence/equipment_tests.js > $R/equipment_phone.log 2>&1) & wait
 (node $E/results796_tests.cjs > $R/results_desktop.log 2>&1) & (MOB=1 node $E/results796_tests.cjs > $R/results_phone.log 2>&1) & (OUTD=$R node v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js > $R/one_tab_desktop.log 2>&1) & (MOB=1 OUTD=$R node v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js > $R/one_tab_phone.log 2>&1) & wait

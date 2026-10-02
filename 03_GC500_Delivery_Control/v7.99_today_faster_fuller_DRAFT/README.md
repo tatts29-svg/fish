@@ -1,6 +1,6 @@
 # v7.99 — Today opens faster, and its cards fill their columns
 
-Author: Andrew Fisher · 2 Oct 2026 · **READY TO UPLOAD (Claude, 2 Oct 2026 15:55 AEST)**, not live. Built on live **v8.02** (`07d61880…`).
+Author: Andrew Fisher · 2 Oct 2026 · **READY TO UPLOAD (Claude, 2 Oct 2026 16:25 AEST)**, not live. Built on live **v8.03** (`fa32b0a1…`).
 
 ## Why
 
@@ -73,8 +73,9 @@ Codex measured 19.1% and 33.2% on its own machine. Fonts differ slightly between
 bash toolchain/build.sh v7.99 v7.99_today_faster_fuller_DRAFT/patch_v799.py
 ```
 
-- Base: live **v8.02** `07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992` (9,070,571 bytes).
-- Candidate: **9,080,018 bytes, SHA-256 `37e77a2480c183d22308b7f58b69ed473d4cf32907a840892f6be590c970f025`**.
+- Base: live **v8.03** `fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213` (9,091,548 bytes).
+- Candidate: **9,101,136 bytes, SHA-256 `d49ccddc7b395ba5daab9603d99b115bfe7c256a5d19b82c33fc7fb820a5d512`**.
+- Built earlier on v8.02 as `37e77a24…`, the build the speed figures above come from. The v8.03 build differs by one change: a jump button into an undrawn fold now draws it at once.
 - The same patch was earlier built on v8.01 as `8a770bc0…`; that is the build the independent re-review covered.
 - `check_page` passes. The patch refuses a second run and a page without v7.96.
 - One patch, no dependence on Codex's v8.0x code, so it rebuilds on whatever goes live last.
@@ -169,5 +170,9 @@ The reviewer also noted that the tests didn't cover print layout, printing from 
 **Status:** rebuilt on live v8.02 and every check rerun there. The results are the same as on v8.01, with one test updated:
 - **The one-tab test's Showcase check.** On a phone, v8.02 opens the Showcase in "car-focus" without the old backdrop, so the test now checks the Showcase itself.
 - **The same check on live v8.02.** It failed there too before the update; it is not a v7.99 change.
+
+**Rebuilt again on live v8.03.**
+- **The jump fix.** On v8.03, under heavy load (four browsers at once), the v7.95 jump check caught the By branch jump landing late. Under that much load, drawing the fold on the next frame took longer than the check's half second. Run alone, it passed on live and on v7.99. A jump into a fold that has not been drawn now draws it straight away. With every suite rerun in parallel, packed is 20/20 on desktop and 14/14 on phone.
+- **The repeat checker** reads 155, because v8.03 itself changed one figure. Every money tab still matches live word for word.
 
 **READY TO UPLOAD.**
