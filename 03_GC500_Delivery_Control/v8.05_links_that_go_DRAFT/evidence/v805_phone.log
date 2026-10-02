@@ -1,0 +1,11 @@
+PASS every Coates Way link leaves The Coates Way
+PASS the page shown is the page the record says (no tab says Costs while Coates Way shows)
+PASS the pillars go to Pre-starts, Today (Where we are), Equipment (the register) and Costs
+PASS a link to #sheet/__explorer opens the explorer, and it is still there after Today and back
+PASS a link to #map opens the explorer, and it is still there after Today and back
+PASS a link to a named drawing still opens that drawing, not the explorer
+PASS Today: "Are we making money?" is off the screen; its stream differences and caveat are in the stream card
+PASS the stream card's link opens Costs & charges
+PASS paper: the Money card prints as before and the screen-only part does not
+PASS no page errors
+10/10 phone
