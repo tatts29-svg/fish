@@ -966,7 +966,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   /* v8.08: and whoever is standing, kneeling or crouching still on the floor is walked round too (the mechanic carrying the gun passed
      close enough to the pit technician kneeling at the sill to brush him with it) */
   const obstacles = (self = null) => { const o = OBSTACLES.slice(); if (S.rackAt === 'placed') { const r = rack.position; o.push([r.x - .32, r.z - .3, r.x + .32, r.z + .3]); }
-    for (const id of ['mechanic', 'tech', 'engine', 'lead', 'safety']) { const q = men[id]; if (q === self || q.path || q.post.kind === 'sit') continue; const h = q.post.kind === 'stand' ? .24 : .34; o.push([q.pos.x - h, q.pos.z - h, q.pos.x + h, q.pos.z + h]); }
+    for (const id of ['mechanic', 'tech', 'engine', 'lead', 'safety']) { const q = men[id]; if (q === self || (q.path && !q.giveWay && q.v >= .15) || q.post.kind === 'sit') continue; const h = q.post.kind === 'stand' ? .24 : .34; o.push([q.pos.x - h, q.pos.z - h, q.pos.x + h, q.pos.z + h]); }
     return o; };
   /* v8.08 — a walk from one place in plain view to another stays in plain view: it goes round by the aisle points the car does not
      hide (behindCar), and only by the far aisle when there is no other way or the place itself is there */
@@ -980,9 +980,9 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
      or the car is coming apart, instead of being walked to the end first) */
   function* go(m, to, face = null, speed = null, abort = null) {
     const pts = plan([m.pos.x, m.pos.z], to, m).slice(1);
-    m.walkTo(pts.length ? pts : [to], {face, speed: speed ?? m.walkSpeed, clearOf: obstacles(m)}); m.goal = {to, face, speed: speed ?? m.walkSpeed, replans: 0}; yield () => m.arrived || !!(abort && abort());
+    m.walkTo(pts.length ? pts : [to], {face, speed: speed ?? m.walkSpeed, clearOf: obstacles(m)}); m.goal = {to, face, speed: speed ?? m.walkSpeed, replans: 0}; yield () => (m.arrived && !m.yielding) || !!(abort && abort());
     m.goal = null;
-    if (!m.arrived && abort && abort()) { m.path = null; m.faceYaw = null; yield () => m.arrived; }
+    if (!(m.arrived && !m.yielding) && abort && abort()) { m.path = null; m.faceYaw = null; m.yielding = null; yield () => m.arrived; }
   }
   const phase = () => service ? service.phase : 'ready', hold = () => service ? service.hold : null;
   const hubPoint = () => { const w = wheelOf(); if (!w) return V(); const p = V(0, 0, .09 * sideOf(w)); w.updateWorldMatrix(true, false); return p.applyMatrix4(w.matrixWorld); };
@@ -1271,18 +1271,28 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
      officer on his round). ---- */
   const RANK = {mechanic: 5, tech: 4, lead: 3, engine: 2, safety: 1};
   const _ahead = V();
+  const replanGoal = m => { const g = m.goal; if (!g) return; const pts = plan([m.pos.x, m.pos.z], g.to, m).slice(1); m.walkTo(pts.length ? pts : [g.to], {face: g.face, speed: g.speed, clearOf: obstacles(m)}); m.goal = g; };
   function giveWay(dt) {
     const walkers = ['mechanic', 'tech', 'lead', 'engine', 'safety'].map(id => men[id]);
     for (const m of walkers) {
+      /* stood aside for someone coming the other way: back on his way once they have passed */
+      if (m.yielding) { if (!m.path && m.faceYaw === null) { const q = m.yielding.from; if (Math.hypot(q.pos.x - m.pos.x, q.pos.z - m.pos.z) > 1.1 || S.t - m.yielding.t > 7) { m.yielding = null; replanGoal(m); } } m.giveWay = false; continue; }
       let block = null;
       if (m.path && m.goal) for (const d of [.25, .5, .9]) { m.path.at(Math.min(m.path.length, m.s + d), _ahead); if (m.path.length - m.s < d - .2) break;
         for (const q of walkers) { if (q === m) continue; const r = Math.hypot(_ahead.x - q.pos.x, _ahead.z - q.pos.z); if (r < .55) { block = q; break; } } if (block) break; }
-      if (block && !block.path && m.goal.replans < 3 && S.t - (m.replannedAt ?? -9) > 1) {
+      const stopped = block && (!block.path || block.giveWay || block.v < .15);   /* (someone waiting, or barely moving, is walked round like someone standing) */
+      if (stopped && m.goal.replans < 3 && S.t - (m.replannedAt ?? -9) > 1) {
         m.replannedAt = S.t; m.goal.replans++; const g = m.goal, pts = plan([m.pos.x, m.pos.z], g.to, m).slice(1);
         m.walkTo(pts.length ? pts : [g.to], {face: g.face, speed: g.speed, clearOf: obstacles(m)}); m.goal = g; m.giveWay = false; m.waited = 0; continue; }
       /* he waits for someone ahead going his way (never walks up his back), or for someone crossing who has the way */
-      const same = block && block.path && Math.cos(block.motionYaw - m.motionYaw) > .3;
-      const wait = !!block && !!block.path && (same || RANK[block.role.id] > RANK[m.role.id]) && (m.waited || 0) < 4;
+      const same = block && !stopped && Math.cos(block.motionYaw - m.motionYaw) > .3;
+      const wait = !!block && !stopped && (same || RANK[block.role.id] > RANK[m.role.id]) && (m.waited || 0) < 4;
+      /* coming straight at him: he steps 0.7 m to one side (whichever is clear) and lets him by */
+      if (wait && !same) { const bx = m.pos.x - block.pos.x, bz = m.pos.z - block.pos.z, bv = fwdOf(block.motionYaw, _t1);
+        if (bv.x * bx + bv.z * bz > 0) { const L = leftOf(m.motionYaw, _t2), ob = obstacles(m);
+          for (const sg of [1, -1]) { const px = m.pos.x + L.x * sg * .7, pz = m.pos.z + L.z * sg * .7;
+            if (clearanceOf([px, pz], ob) > .25 && segmentClear(m.pos.x, m.pos.z, px, pz, ob, .1) && Math.hypot(px - block.pos.x, pz - block.pos.z) > .8) { const g = m.goal; m.walkTo([[px, pz]], {speed: .9, face: block.motionYaw + Math.PI}); m.goal = g; m.yielding = {from: block, t: S.t}; break; } }
+          if (m.yielding) { m.giveWay = false; m.waited = 0; continue; } } }
       m.giveWay = wait; m.waited = wait ? (m.waited || 0) + dt : 0;
     }
   }
@@ -1327,7 +1337,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   function reset() {
     for (const k of Object.keys(flags)) flags[k] = false;
     resetProps(); gunBlend = null; S.laying = false; S.served = false; S.complete = 0; S.ackd = true; S.lastPhase = 'ready';
-    for (const m of Object.values(men)) { m.reach(0, null); m.reach(1, null); m.hands.forEach(h => { h.w = 0; h.valid = false; }); m.gest = null; m.carrying = 0; m.bendWant = 0; m.bend = 0; m.sideWant = 0; m.side = 0; m.lookAt(null); m.look.target = null; m.look.hasNext = false; m.goal = null; m.giveWay = false; m.waited = 0; }
+    for (const m of Object.values(men)) { m.reach(0, null); m.reach(1, null); m.hands.forEach(h => { h.w = 0; h.valid = false; }); m.gest = null; m.carrying = 0; m.bendWant = 0; m.bend = 0; m.sideWant = 0; m.side = 0; m.lookAt(null); m.look.target = null; m.look.hasNext = false; m.goal = null; m.giveWay = false; m.waited = 0; m.yielding = null; }
     placeAll(); forklift.reset(); for (const s of Object.values(scripts)) s.restart(); S.screenAt = 1;
   }
   /* the service asks before each step it cannot take alone */

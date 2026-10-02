@@ -186,7 +186,7 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   await page.click('#rings [data-part="1"]'); await wait(400); await clickId('learn'); await wait(1500); st = await cardRules('Read more'); check('Read more opens in the card', /Performance pillars/i.test(st.title), st.title);
   await page.keyboard.press('Escape'); await wait(300);
   await clickId('register-open'); st = await state(); check('Find a part opens the register, nothing else', st.dialogs.includes('register') && st.cards.length === 0);
-  const rx = await page.$eval('#register .card-x', e => { const b = e.getBoundingClientRect(); return [b.width, b.height]; }); check('register ✕ is 44 px or more', rx[0] >= 43.5 && rx[1] >= 43.5, rx.map(Math.round).join('×'));
+  const rx = await page.$eval('#register .dialog-head button', e => { const b = e.getBoundingClientRect(); return [b.width, b.height]; }).catch(() => [0, 0]); check('register ✕ is 44 px or more', rx[0] >= 43.5 && rx[1] >= 43.5, rx.map(Math.round).join('×'));
   await page.keyboard.press('Escape'); await wait(500);
 
   /* ── the toast ── */
