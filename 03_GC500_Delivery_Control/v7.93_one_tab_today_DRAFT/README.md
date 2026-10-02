@@ -33,7 +33,9 @@ It is still Where we are's own code drawing into its own pane, which sits inside
 | The big dial panel (delivery, fencing, revenue) | The Deliveries panel reads delivery against the plan; By group carries the fencing and Money the revenue |
 | The milestone strip | The programme card carries the key dates |
 | Where we are's "As at" line and Today's date line | The header carries the date; the programme card carries the day count. "Recording as" still shows on an editing link. |
-| Today's Fencing card and its Costs & charges card | By group and Money carry those figures |
+| Today's Costs & charges card | Money carries those figures |
+
+**Changed 2 Oct 2026 after Andrew asked "why isnt the info of fencing in today":** Today's Fencing card is no longer hidden. Its docket count, quote flag and this week's lines appear on no other card. Its dollars charged is the one figure Today now shows twice (By group's Fencing card carries it too), kept on his word. This patch change means the v7.93 hash above is superseded; v7.95 carries it (see its README).
 | Where we are's chicane picture and its second "View only" line | Today already has one of each |
 
 **v7.91 is folded in.** That was the Today tidy-up: Back in the header row, picture bands capped at 1,400 px, Deliveries filling its panel, and cards filling each row. It is not uploaded separately.

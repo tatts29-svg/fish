@@ -51,13 +51,13 @@ bash toolchain/build.sh v7.95 v7.91_today_tidy_full_width_DRAFT/patch_v791.py v7
 ```
 
 - Base: live v7.92 `476f0dcc…`.
-- Candidate: **8,898,954 bytes, SHA-256 `90bfc09366d028fbf8667117011f6f57991be31317baf3933cc964f02e2d3698`**.
+- Candidate: **8,898,905 bytes, SHA-256 `a24644fa0c3611324eb6250797746a3266cf7f6cc8a1ce6d52dad2ee78a202a6`** (rebuilt 2 Oct 2026 with Today's Fencing card kept: Andrew, "why isnt the info of fencing in today". The earlier `90bfc093…` is superseded; do not upload it).
 - `check_page` passes.
 - The patch refuses a second run, and refuses a page without v7.93.
 
 ## Checks on the final candidate (all read-only; every write aborted)
 
-**`evidence/packed_tests.js`: 20/20 desktop, 14/14 phone.** It covers:
+**`evidence/packed_tests.js`: 20/20 desktop, 14/14 phone** (rerun on the rebuilt candidate: same). It covers:
 - Folds: which sections fold, and a fold's line carries words, not figures.
 - Jump buttons: seven buttons, each lands its part and opens its fold.
 - Packing:
