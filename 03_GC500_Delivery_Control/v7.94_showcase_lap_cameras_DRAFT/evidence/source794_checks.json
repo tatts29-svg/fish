@@ -1,0 +1,51 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+  "candidateSha256": "bb245eb19de977e984bc8d1c045fa9bf59fc943649933f416f7d384f9fa0c8e1",
+  "bytes": 8929002,
+  "checks": [
+    {
+      "name": "exact official scrubbed rebuild matches final candidate",
+      "pass": true
+    },
+    {
+      "name": "one extension block",
+      "pass": true
+    },
+    {
+      "name": "entire prior live page preserved outside appended extension",
+      "pass": true
+    },
+    {
+      "name": "double application refused",
+      "pass": true
+    },
+    {
+      "name": "wrong base refused",
+      "pass": true
+    },
+    {
+      "name": "showcase794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "scenery794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "camera794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "playback794_src.js parses",
+      "pass": true
+    }
+  ],
+  "sources": {
+    "camera794_src.js": "24ec49c2b6b23506b84d5f95c1858efc1c30fd68f196c63a27a5e69f4751dcfd",
+    "playback794_src.js": "50a9c02318f6d8294a47218193f55fc7549cca0db29414e78401343d6d26019a",
+    "scenery794_src.js": "da8b443496c6535a6522de3e1528df0a0381e29a2efb6ba947be2863ee7632c8",
+    "showcase794_src.css": "49ab68004899774848ef2b3ee3ac58b906cbbfeeef496f994cd5be41dbb5aec2",
+    "showcase794_src.js": "3b56c9e755e0fd82782d2efe1f1ffd60e58d85467d721a074323175d16a50adc"
+  }
+}

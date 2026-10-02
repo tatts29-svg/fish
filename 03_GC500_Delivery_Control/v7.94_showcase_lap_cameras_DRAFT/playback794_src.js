@@ -109,7 +109,8 @@ showSyncControls=function(){
  const result=controls.apply(this,arguments),pause=$('#showPause'),status=$('#showState');
  if(pause&&!SHOW.reduced)pause.textContent=SHOW.playing?'Pause':run.finished?'Replay':'Resume';
  if(status&&!SHOW.reduced&&run.deckComplete){
-  status.textContent=run.finished?'Lap and figures complete · paused':SHOW.playing?'Playing · completing the full lap':'Paused · full lap in progress';
+  const lapDone=run.length>0&&run.distance+1e-7>=run.length;
+  status.textContent=run.finished?(lapDone?'Lap and figures complete · paused':'Figures complete · paused'):SHOW.playing?'Playing · completing the full lap':'Paused · full lap in progress';
  }
  return result;
 };
@@ -173,6 +174,15 @@ if(typeof bcPlay==='function'&&typeof bcStart==='function'){
   return result;
  };
 }
+
+/* Motion Off changes transport directly in the host page. It must also hold
+   commentary, and enabling motion again must wait for an explicit Resume. */
+const motionChanged=showMotionChanged;
+showMotionChanged=function(){
+ const result=motionChanged.apply(this,arguments);
+ if(SHOW.reduced||!SHOW.open||!SHOW.playing)pauseBroadcast();
+ return result;
+};
 
 /* The public Day/Night control used to throw away the drive. Keep its live CPU
    state across that synchronous appearance rebuild, as context recovery does. */

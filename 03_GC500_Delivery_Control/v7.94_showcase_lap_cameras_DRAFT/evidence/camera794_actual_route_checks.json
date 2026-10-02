@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "cameraSha256": "24ec49c2b6b23506b84d5f95c1858efc1c30fd68f196c63a27a5e69f4751dcfd",
+  "cases": [
+    {
+      "width": 1280,
+      "height": 720,
+      "samples": 4056,
+      "sections": 12,
+      "adjusted": 0,
+      "fallbacks": 0,
+      "maxVisibleStepM": 1.6943499867791734,
+      "hiddenOverviewChanges": 2
+    },
+    {
+      "width": 390,
+      "height": 650,
+      "samples": 4056,
+      "sections": 12,
+      "adjusted": 0,
+      "fallbacks": 0,
+      "maxVisibleStepM": 1.6943499867791734,
+      "hiddenOverviewChanges": 2
+    }
+  ],
+  "scope": "Actual source circuit, OSM footprints and original physics at 60 Hz in CPU fixture; rendering quality and device frame rate require browser checks"
+}

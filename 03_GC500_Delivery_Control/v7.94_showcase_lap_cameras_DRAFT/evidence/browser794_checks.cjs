@@ -22,6 +22,8 @@ async function run(phone){
     const G=GC3D,S=G.S,target=section*S.CL.L/12;
     S.paused=false;S.last=null;G.render=()=>{};
     let steps=0;while(S.sim.s-S.gridS<target&&steps++<36000){window.__time794+=1000/60;G.frame(window.__time794);}
+    // Review the settled shot shortly after a distance-led handoff, not a black fade midpoint.
+    if(section>0)for(let i=0;i<78;i++){window.__time794+=1000/60;G.frame(window.__time794);}
     G.render=window.__render794;S.paused=true;S.last=null;G.camStep(0);G.render();G.showcase794.paint(true);
     const c=G.cameraReport794(),r=G.playback794.report();return {section,distanceM:r.distanceM,progress:r.progress,view:c,gl:S.gl.getError(),finite:S.cam.eye.concat(S.cam.tgt,[S.cam.fov]).every(Number.isFinite)};
    },section);
@@ -59,4 +61,4 @@ async function run(phone){
   result.errors.push(...s.errors.map(message=>({device:name,message})));result.blockedWrites+=s.counts.blocked;await s.browser.close();fs.writeFileSync(path.join(out,'browser794_checks.json'),JSON.stringify(result,null,2)+'\n');
  }
 }
-(async()=>{try{await run(false);await run(true);check('no page errors or record writes',result.errors.length===0&&result.blockedWrites===0);result.complete=true;console.log(JSON.stringify({passed:result.checks.length,errors:result.errors.length}));}catch(e){result.failure=e.stack;console.error(e.stack);process.exitCode=1;}finally{fs.writeFileSync(path.join(out,'browser794_checks.json'),JSON.stringify(result,null,2)+'\n');}})();
+(async()=>{try{const devices=process.env.PHONE_FIRST? [true,false]:[false,true];for(const phone of devices)await run(phone);check('no page errors or record writes',result.errors.length===0&&result.blockedWrites===0);result.complete=true;console.log(JSON.stringify({passed:result.checks.length,errors:result.errors.length}));}catch(e){result.failure=e.stack;console.error(e.stack);process.exitCode=1;}finally{fs.writeFileSync(path.join(out,'browser794_checks.json'),JSON.stringify(result,null,2)+'\n');}})();

@@ -1,7 +1,7 @@
 /* Author: Andrew Fisher. Retained source geometry, bounded structure and lifecycle checks. */
 'use strict';
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(!process.argv[2])throw Error('Usage: node scenery794_checks.cjs SOURCE_HTML [OUTPUT_JSON]');
+if(!process.argv[2])throw Error('Usage: node scenery794_checks.cjs CANDIDATE_HTML [OUTPUT_JSON]');
 const input=fs.readFileSync(process.argv[2],'utf8'),data=JSON.parse(input.match(/\bconst\s+DATA\s*=\s*(.*);/)[1]),
       moduleSource=fs.readFileSync(path.join(__dirname,'../scenery794_src.js'),'utf8'),
       oldSource=fs.readFileSync(path.join(__dirname,'../../v7.92_showcase_photo_refinement_LIVE/photo_structures792_src.js'),'utf8');
@@ -37,6 +37,12 @@ freeze(protectedSource());
 const D={mesh:new Mesh({},[3,3,2,4]),atlas:{white:[.5,.5]},stats:{}},allocationStart=allocations,uploadStart=uploads,
       start=performance.now(),pit=G.addPhotoStructures792(S,D),elapsedMs=performance.now()-start,stats=D.stats.scenery794,checks=[];
 const ck=(name,pass,detail)=>{checks.push({name,pass,detail});if(!pass)throw Error(name);};
+// The existing build attribution scrubber normalises repeated spaces and this
+// author string. Match its only applicable transforms; never accept an older
+// embedded helper just because its source DATA is compatible with this test.
+const builtModuleSource=moduleSource.replace("author:'Andrew Fisher'","author:'the project manager'")
+ .replace(/ {2,}/g,' ').replaceAll(' .','.').replaceAll(' ,',',');
+ck('candidate embeds the exact tested helper after attribution scrubbing',input.includes(moduleSource)||input.includes(builtModuleSource));
 const valid=m=>m.v.length===m.nv*12&&m.v.every(Number.isFinite)&&m.i.every(n=>Number.isInteger(n)&&n>=0&&n<m.nv);
 const winding=m=>{
  for(let i=0;i<m.i.length;i+=3){const a=m.v.slice(m.i[i]*12,m.i[i]*12+6),b=m.v.slice(m.i[i+1]*12,m.i[i+1]*12+3),c=m.v.slice(m.i[i+2]*12,m.i[i+2]*12+3),
@@ -78,6 +84,10 @@ const empty={gl:{},tune:{deckH:.03},architecture781Source:[],pitPts:[],stands:[]
 G.addScenery794(empty,blank);ck('absent source produces no guessed geometry',blank.mesh.i.length===0&&blank.stats.scenery794.standsDetailed===0);
 const malformed={...S,standMesh:{stride:9,v:S.standMesh.v.slice(1)}};
 ck('invalid stand source layout is rejected without invented anchors',G.standFrames794(malformed).length===0);
+const obstructed={...S,heightAt:()=>Infinity},blocked={mesh:new Mesh({},[3,3,2,4]),atlas:{white:[.5,.5]},stats:{}};
+G.addScenery794(obstructed,blocked);
+ck('occupied stand ends skip stairs while retaining connected roof supports',blocked.stats.scenery794.stairRuns===0&&
+ blocked.stats.scenery794.stairRunsSkipped===S.stands.length&&blocked.stats.scenery794.roofSupportColumns===S.stands.length*4&&valid(blocked.mesh));
 const result={author:'Andrew Fisher',scope:'CPU geometry and source/lifecycle invariants; visual browser validation required',
  inputHtml:{path:process.argv[2],sha256:sha(input)},sourceSha256:sha(moduleSource),elapsedMs,maximumPitReliefM:projection,checks,stats};
 if(process.argv[3])fs.writeFileSync(process.argv[3],JSON.stringify(result,null,2)+'\n');

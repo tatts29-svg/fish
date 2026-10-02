@@ -3,12 +3,16 @@
   "scope": "CPU geometry and source/lifecycle invariants; visual browser validation required",
   "inputHtml": {
     "path": "build/GC500_v7.94/GC500_Delivery_Control_hosted.html",
-    "sha256": "2ad88076d9598faf26a585f169e1415b1480a2004ea9063f5df3234a9ce32282"
+    "sha256": "bb245eb19de977e984bc8d1c045fa9bf59fc943649933f416f7d384f9fa0c8e1"
   },
   "sourceSha256": "da8b443496c6535a6522de3e1528df0a0381e29a2efb6ba947be2863ee7632c8",
-  "elapsedMs": 99.57616800000005,
+  "elapsedMs": 85.48233500000003,
   "maximumPitReliefM": 0.15500000000003056,
   "checks": [
+    {
+      "name": "candidate embeds the exact tested helper after attribution scrubbing",
+      "pass": true
+    },
     {
       "name": "all actual existing pit modules receive replacement detail",
       "pass": true,
@@ -91,6 +95,10 @@
     },
     {
       "name": "invalid stand source layout is rejected without invented anchors",
+      "pass": true
+    },
+    {
+      "name": "occupied stand ends skip stairs while retaining connected roof supports",
       "pass": true
     }
   ],

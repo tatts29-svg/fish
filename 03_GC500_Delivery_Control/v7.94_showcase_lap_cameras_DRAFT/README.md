@@ -10,4 +10,13 @@ This release waits for both the figures and a complete lap, adds route-aware roa
 
 Original route, road widths, source positions, car, physics, business page and records are retained. Added structures are illustrative; the photographs do not establish survey coordinates for new signs or bridges.
 
-In progress, not ready to upload. Playback, camera contracts and scenery CPU checks pass. Actual-route review found a long-range camera handoff that is being corrected; desktop/phone browser and final release checks are underway.
+Final verification underway; not yet live.
+
+- Playback: 52 CPU checks, including slow cadence/pace, launch pause, replay, loop, commentary, reduced motion and non-3D completion.
+- Cameras: 15 focused checks and 4,056 actual-route samples on each of desktop/phone, covering all 12 lap sections with no obstruction fallbacks.
+- Scenery: 19 checks, including exact embedded-source identity, source envelopes, blocked stairs and geometry/resource budgets.
+- Integrated build `8aa55ec6…`: 55 desktop/phone browser checks; 26 full-lap views plus selected camera views, six manual cameras while paused, Day/Night retention, actual WebGL loss/recovery, close/disposal and phone Options. Zero detected page/GL errors or record writes. The phone circuit occupies 590 px of an 844 px viewport.
+- Both official navigation sweeps: 21 tab routes and seven deep links, zero page/console errors or blocked write attempts. Existing restricted-tab redirects retained.
+- Exact rebuild and preservation of the entire earlier page outside the appended extension verified.
+
+Visual review of that intermediate build found a phone Driver roof/body intrusion despite the structural checks passing. The camera eye was moved ahead of the roof and raised slightly. That correction and truthful non-3D completion wording are now in candidate `bb245eb1…`; a fresh full desktop/phone browser run and navigation sweeps are underway before publication. This headless browser uses software rendering; it does not establish a physical phone frame rate.

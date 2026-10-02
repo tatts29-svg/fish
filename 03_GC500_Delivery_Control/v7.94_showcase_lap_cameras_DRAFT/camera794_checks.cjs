@@ -11,7 +11,7 @@ vm.runInNewContext(fs.readFileSync(path.join(__dirname,'camera794_src.js'),'utf8
 const TAU=Math.PI*2,N=240,points=Array.from({length:N},(_,i)=>[100*Math.cos(i*TAU/N),65*Math.sin(i*TAU/N),2.2]);
 const lengths=[0];for(let i=1;i<=N;i++){const a=points[i-1],b=points[i%N];lengths.push(lengths[i-1]+Math.hypot(b[0]-a[0],b[1]-a[1]));}
 const CL={p:points,n:N,L:lengths[N],at(s){s=((s%this.L)+this.L)%this.L;let i=0;while(lengths[i+1]<s)i++;const a=points[i],b=points[(i+1)%N],t=(s-lengths[i])/(lengths[i+1]-lengths[i]);return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,2.2];}};
-function scene(width=1280,height=720){return {CL,gridS:0,clock:20,cv:{clientWidth:width,clientHeight:height},pack:{mPerPt:6},toWorld:p=>p.slice(),tune:{tc:1,carS:.38,deckH:.02,shiftX:.38,shiftY:-.04},sim:{s:0,v:7,lap:0,rnd(){throw Error('Camera must not consume simulation RNG');}},pose:{pos:[100,.02,0],hd:Math.PI/2},heightAt:()=>0,view:'chase',forceShot:'chase',paused:false};}
+function scene(width=1280,height=720){return {CL,gridS:0,clock:20,cv:{clientWidth:width,clientHeight:height,style:{}},pack:{mPerPt:6},toWorld:p=>p.slice(),tune:{tc:1,carS:.38,deckH:.02,shiftX:.38,shiftY:-.04},sim:{s:0,v:7,lap:0,rnd(){throw Error('Camera must not consume simulation RNG');}},pose:{pos:[100,.02,0],hd:Math.PI/2},heightAt:()=>0,view:'chase',forceShot:'chase',paused:false};}
 function locate(S,s){S.sim.s=s;const p=CL.at(s),q=CL.at(s+.1);S.pose={pos:[p[0],.02,p[1]],hd:Math.atan2(q[1]-p[1],q[0]-p[0])};}
 function settle(S,mode){G.S=S;G.setView(mode);for(let i=0;i<150;i++){S.clock+=1/120;G.camStep(1/120);}return G.cameraReport794();}
 function check(name,fn){fn();checks.push({name,passed:true});}
@@ -26,8 +26,13 @@ check('Forward-facing chase and car-follow retain the car in frame throughout la
  }
 });
 check('Driver aims along the forthcoming route and uses a road-level lens',()=>{
- const S=scene();locate(S,CL.L*.17);const r=settle(S,'onboard'),q=CL.at(S.sim.s+r.lookAheadM/6);
- assert(Math.hypot(r.target[0]-q[0],r.target[2]-q[1])<1e-9);assert(r.eye[1]*6<2);assert(r.lookAheadM>10);
+ for(const [w,h] of [[1280,517],[390,590],[2560,720]])for(let bin=0;bin<12;bin++){
+  const S=scene(w,h);locate(S,CL.L*(bin+.17)/12);const r=settle(S,'onboard'),q=CL.at(S.sim.s+r.lookAheadM/6);
+  assert(Math.hypot(r.target[0]-q[0],r.target[2]-q[1])<1e-9);assert(r.eye[1]*6<2);assert(r.lookAheadM>10);
+  const v=r.eye.map((x,i)=>(x-S.pose.pos[i])*6),forward=[Math.cos(S.pose.hd),0,Math.sin(S.pose.hd)];
+  assert(v[0]*forward[0]+v[2]*forward[2]>.45,'Driver lens behind roof leading edge');
+  assert(v[1]>1.5,'Portrait field of view exposes roof/body below the lens');
+ }
 });
 check('Tour includes every diagnostic lap section and recurring aerial orientation',()=>{
  const S=scene(),seen=new Set(),rigs=new Set();
@@ -53,6 +58,17 @@ check('Manual selection transitions continuously and finishes after one second',
  const S=scene();settle(S,'chase');const from=S.cam.eye.slice();G.setView('heli');G.camStep(0);
  assert(Math.hypot(...S.cam.eye.map((x,i)=>x-from[i]))<1e-9);assert(G.cameraReport794().transitionActive);
  for(let i=0;i<121;i++)G.camStep(1/120);assert(!G.cameraReport794().transitionActive);assert.strictEqual(G.cameraReport794().shot,'heli');
+});
+check('Overview transitions fade before changing distant rigs and interrupted fades do not flash',()=>{
+ const S=scene();settle(S,'top');G.setView('chase');G.camStep(0);assert.strictEqual(G.cameraReport794().transitionKind,'fade');
+ let prior=G.cameraReport794(),swapped=false;
+ for(let i=0;i<121;i++){G.camStep(1/120);const r=G.cameraReport794(),distance=Math.hypot(...r.eye.map((x,j)=>x-prior.eye[j]))*6;if(distance>120){assert(r.transitionOpacity<.01&&prior.transitionOpacity<.01);swapped=true;}prior=r;}
+ assert(swapped);assert.strictEqual(S.cv.style.opacity,'');
+ G.setView('top');G.camStep(.1);const before=+S.cv.style.opacity;G.setView('wide');G.camStep(0);assert(Math.abs(+S.cv.style.opacity-before)<1e-9);
+});
+check('Overview principal-axis orientation stays fixed while a resized viewport still fits',()=>{
+ const S=scene(390,844);settle(S,'top');const right=S.routeCamera794.right.slice();S.cv.clientWidth=1600;S.cv.clientHeight=700;
+ const r=settle(S,'top');assert.deepStrictEqual(S.routeCamera794.right,right);assert(r.wholeCircuitInFrame);
 });
 check('Paused selection animates camera without stepping the simulation or original frame',()=>{
  const S=scene();settle(S,'chase');S.paused=true;const sim=JSON.stringify(S.sim),beforeFrames=frames,beforeDraws=draws;

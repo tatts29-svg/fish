@@ -1,0 +1,159 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Static visual review only; no browser or GPU launched by this reviewer",
+  "status": "baseline-reviewed; narrow Driver correction awaiting rendered review",
+  "baseline": {
+    "candidateSha256": "8aa55ec6fda92560c75e2fce90fb6b77ea0c51be617e76825dd9dc18d8a386d0",
+    "cameraSha256": "3088617023b7f1cedbe50072743bfc0375f07273d27dc821093fa1a67c14311e",
+    "scenerySha256": "da8b443496c6535a6522de3e1528df0a0381e29a2efb6ba947be2863ee7632c8",
+    "screenshots": [
+      {
+        "file": "desktop-onboard.png",
+        "sha256": "a4e2974dcbf7fdec4edd0e01603bded676a49e0d8b09e3ae7fd40fe47d2ca186"
+      },
+      {
+        "file": "desktop-top.png",
+        "sha256": "f24e2dead018b3324bad67706689a3933ab700b047622d16ec2b80b381b47adc"
+      },
+      {
+        "file": "desktop-tour-00.png",
+        "sha256": "1b865b0ae3129b6b681ed7ea683af5d0be6753adf0deae8c7d3a1005a634229f"
+      },
+      {
+        "file": "desktop-tour-01.png",
+        "sha256": "abe8b8350401dec9b83bbc4a655fc3c8f7b70b4ae041c0e5e625a9e1da3a4133"
+      },
+      {
+        "file": "desktop-tour-02.png",
+        "sha256": "6726c43423bff7818f3d6f39aea8f5804df45e30cf73a85feceae0c3ac18d051"
+      },
+      {
+        "file": "desktop-tour-03.png",
+        "sha256": "7027622c4022f5c9a75c293b0e4970bc42810e053c329c49838891860d0e0efd"
+      },
+      {
+        "file": "desktop-tour-04.png",
+        "sha256": "8480835aae2609d6324616db2644f8b23f18e5e5d739467a15b4cefd001c97be"
+      },
+      {
+        "file": "desktop-tour-05.png",
+        "sha256": "cd4cc4ef7a456fbd3046d583761dcc2c2a2a3e3d5f3955ff27c9fabfdfb46f0c"
+      },
+      {
+        "file": "desktop-tour-06.png",
+        "sha256": "abb8c8f2a31359cb8ced4bf45fe495bb7b133e243bac76a57bc0022732e0384f"
+      },
+      {
+        "file": "desktop-tour-07.png",
+        "sha256": "9636d99032076742d8c3511119e7170962939e779e40d63fe3a683ccfddac6b5"
+      },
+      {
+        "file": "desktop-tour-08.png",
+        "sha256": "60bb26251de87d5ee3746413c60b2b178a46eb1e11139935c884f58c1dba0bc6"
+      },
+      {
+        "file": "desktop-tour-09.png",
+        "sha256": "57a69996aeff0e369336292287559cbdbc1d7e762ae74cb5fd5436b1758e58ac"
+      },
+      {
+        "file": "desktop-tour-10.png",
+        "sha256": "c839bfaa269328c825a8d48f07edde58c3c309af82f2e0d2f434bcd470906e04"
+      },
+      {
+        "file": "desktop-tour-11.png",
+        "sha256": "71e0bfe2f289b86ac8747ae929f151f4197430029cc416e2cca1a928ef3d0c76"
+      },
+      {
+        "file": "desktop-tour-12.png",
+        "sha256": "0361ccdb5c75b5380ccdd9db8bb126ec0665381e37b3124d1ae235e4c37974d7"
+      },
+      {
+        "file": "phone-onboard.png",
+        "sha256": "1d69df7c829b4cb0c776fdf3fd20a08fc0f842ec2d284d8b70b73bf5ea369dec"
+      },
+      {
+        "file": "phone-top.png",
+        "sha256": "e841b24076bca1dc698f713a736a8a59c8b931b25ddeec7b2202e484d491b083"
+      },
+      {
+        "file": "phone-tour-00.png",
+        "sha256": "d31fe647c6d16579489f42551c14ed30b5489605cc17fece21b73c3edb89ca09"
+      },
+      {
+        "file": "phone-tour-01.png",
+        "sha256": "e7d2dfd75ce405606f84949f619de60c67ba3026d3d8811218facdc951e325cd"
+      },
+      {
+        "file": "phone-tour-02.png",
+        "sha256": "70335da3fa36d445be55a5f4061fe85f900d67cb52a47ea7e2dfbf8d04904442"
+      },
+      {
+        "file": "phone-tour-03.png",
+        "sha256": "2e211990d288f7a1c7d21e4133d48a4279df18b8aa63b158fd70643cf5395b28"
+      },
+      {
+        "file": "phone-tour-04.png",
+        "sha256": "03ed2e83514065815b7744f1b04d4e00b110cd9e23a5803832f3ac60c6c7a1e5"
+      },
+      {
+        "file": "phone-tour-05.png",
+        "sha256": "4c5453c825a30dda59787c4a71c84bf36f3658d0ca052ab28df08a6aecd0dbac"
+      },
+      {
+        "file": "phone-tour-06.png",
+        "sha256": "ef1bd7c464082a40f021d757233efdaeb1fb5da997288a768af29bcdac06d221"
+      },
+      {
+        "file": "phone-tour-07.png",
+        "sha256": "766e97bee1a3ce01b9302de932f20bd1f5bef3f63566bddc2bf093ba70341751"
+      },
+      {
+        "file": "phone-tour-08.png",
+        "sha256": "f6666b33321015227842d1b302e2b6f5694738d99627f64f570df1c424f7d517"
+      },
+      {
+        "file": "phone-tour-09.png",
+        "sha256": "8746a8e2d7995c0b43c72985fd3e1fb759dae809418662cf0f5b93470472c697"
+      },
+      {
+        "file": "phone-tour-10.png",
+        "sha256": "39d4c8cfd2f8725d2a2e1470ca2cf994834e20a46fb59f73a77004f76d606714"
+      },
+      {
+        "file": "phone-tour-11.png",
+        "sha256": "10dd80c34b6991c981b93ebce31137c92861087bf57eda1385ff4dda1ddbc8f1"
+      },
+      {
+        "file": "phone-tour-12.png",
+        "sha256": "96370d6b4f66dee7491d049337f223eadd9ff3d566f82953b4bc8485b1c74480"
+      }
+    ]
+  },
+  "observations": [
+    "Desktop and phone Tour cover all 12 diagnostic route sections and end at the displayed 2.91 km lap distance.",
+    "Chase and Car follow retain the car with clear upcoming road; Driver has a useful corner-ahead target.",
+    "Recurring Drone and whole-circuit views establish both sides of the circuit; portrait overview uses the screen long axis.",
+    "No unexpected opacity, facade shader corruption or visibly floating stand supports in settled frames."
+  ],
+  "findings": [
+    {
+      "id": "driver-portrait-roof",
+      "blocking": true,
+      "status": "source corrected; rendered verification pending",
+      "frames": [
+        "phone-tour-01.png",
+        "phone-tour-04.png",
+        "phone-tour-09.png",
+        "phone-onboard.png"
+      ],
+      "detail": "Portrait Driver exposes a large flat roof/body panel and lower body/wheel fragments below the bonnet. Desktop Driver does not expose these fragments.",
+      "correction": "Move Driver lens from 0.55 m behind to 0.60 m ahead of car anchor and raise lens from 1.35 to 1.60 m; retain FOV, look-ahead and other rigs.",
+      "correctedCameraSha256": "24ec49c2b6b23506b84d5f95c1858efc1c30fd68f196c63a27a5e69f4751dcfd"
+    }
+  ],
+  "limits": [
+    "Static images cannot establish animation smoothness, continuous transition behaviour or device frame rate.",
+    "Scene remains stylised browser graphics; this review does not establish survey accuracy or photorealism.",
+    "Original reference photographs remain private; no screenshots or originals are included in this evidence file."
+  ]
+}

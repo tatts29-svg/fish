@@ -12,18 +12,20 @@ const deck=take('const SHOW_HOLD =','/* ----------------------------------------
 const original=take('function showSchedule(){','function showOpen(){')+take('function showMove(n){','/* The working, in full,');
 const recovery=take('const resumeFields=','/* Smoke and rubber');
 const broadcast=take('const BC =','/* ONE MOTION SETTING.');
+const motion=take('function showReduced(){','function showClear(){');
 const checks=[],cases=[];
 function check(name,pass,detail){checks.push({name,pass:!!pass,detail});if(!pass)throw Error(name+' '+JSON.stringify(detail));}
 function rig({pace=1,fps=60,patched=true}={}){
  let wall=0,serial=0,nextFrame=1000/fps,frames=0;const timers=new Map(),nodes=new Map(),document={hidden:false};
- const node=id=>{if(!nodes.has(id))nodes.set(id,{textContent:'',hidden:false,classList:{toggle(){}},setAttribute(){},querySelectorAll(){return[];}});return nodes.get(id);};
+ const node=id=>{if(!nodes.has(id))nodes.set(id,{textContent:'',hidden:false,classList:{toggle(){},remove(){}},setAttribute(){},querySelectorAll(){return[];}});return nodes.get(id);};
  const G={render(){frames++;},camStep(){},carModel:()=>({}),setQuality(){},resetRenderLimits792(){}},S={gl:{},car:{},quality:{name:'balanced'},o:{ss:1}};G.S=S;
  class AudioStub{constructor(src){this.src=src;this.paused=true;this.currentTime=0;this.plays=0;}play(){this.paused=false;this.plays++;return {catch:fn=>{this.failed=fn;}};}pause(){this.paused=true;}}
  const context=vm.createContext({G,S,data,document,performance:{now:()=>wall},Audio:AudioStub,window:{GC3D:G},console,Math,Number,Float32Array,$:node,
   setTimeout(fn,delay){const id=++serial;timers.set(id,{at:wall+delay,fn});return id;},clearTimeout(id){timers.delete(id);},setInterval(){return 0;},clearInterval(){}});
- vm.runInContext(engine+'\nconst HW=.395;S.tune=G.defaultTune();S.tune.tc='+pace+';G.units(S.tune);const o={ring:data.circuit.ring,roadWidth:data.circuit.roadWidth,pit:data.surrounds.pit.map(r=>G.packPts(data.surrounds,r,1))};'+geometry+'\nG.simReset();'+deck+original+recovery+broadcast+`
+ vm.runInContext(engine+'\nconst HW=.395;S.tune=G.defaultTune();S.tune.tc='+pace+';G.units(S.tune);const o={ring:data.circuit.ring,roadWidth:data.circuit.roadWidth,pit:data.surrounds.pit.map(r=>G.packPts(data.surrounds,r,1))};'+geometry+'\nG.simReset();'+deck+original+recovery+broadcast+motion+`
  function showClear(){if(SHOW.timer)clearTimeout(SHOW.timer);if(SHOW.launchTimer)clearTimeout(SHOW.launchTimer);SHOW.timer=SHOW.launchTimer=null;}
- function motionOff(){return SHOW.reduced;}
+ let motionSetting=false;function motionOff(){return motionSetting;}
+ function showPlateMotion(){showSyncControls();}
  function showStopClock(){} function showTickClock(){}
  function showSyncControls(){if(G.S){G.S.paused=!SHOW.open||!SHOW.playing||SHOW.reduced||document.hidden;if(G.S.paused)G.S.last=null;}}
  function showRender(){showSyncControls();showSchedule();}
@@ -136,6 +138,34 @@ for(const fps of [60,12,8])for(const pace of [.25,.5,1]){
  r.call('showPause()');audio.failed();r.advance(5);
  check('failed audio cannot arm a timer behind Pause',r.context.broadcast.i===1&&!r.context.broadcast.hold);
  r.call('showPause()');r.advance(2.1);check('failed audio uses one bounded fallback hold on Resume',r.context.broadcast.i===2);
+}
+{
+ const r=rig({fps:60});r.call('bcTurns=()=>Array.from({length:35},(_,i)=>({slot:i+1,secs:2,section:1,audio:"memory:take"}));bcStart()');
+ const audio=r.context.broadcast.el;r.call('motionSetting=true;showMotionChanged()');
+ check('Motion Off pauses active commentary and car immediately',audio.paused&&r.G.S.paused&&!r.context.show.playing&&r.context.show.reduced);
+ r.call('motionSetting=false;showMotionChanged()');r.advance(3);
+ check('Motion On waits for explicit Resume of commentary',audio.paused&&!r.context.show.playing&&!r.context.show.reduced&&r.context.broadcast.i===1);
+ r.call('showPause()');check('explicit Resume restarts commentary after Motion On',!audio.paused&&r.context.show.playing);
+}
+{
+ const r=rig({fps:60});r.call('bcTurns=()=>Array.from({length:35},(_,i)=>({slot:i+1,secs:2,section:1}));bcStart()');r.advance(.7);
+ r.call('motionSetting=true;showMotionChanged()');r.advance(5);
+ check('Motion Off cancels silent fallback countdown immediately',r.context.broadcast.i===1&&!r.context.broadcast.hold);
+ r.call('motionSetting=false;showMotionChanged();showPause()');r.advance(1);
+ check('Motion resume retains silent fallback remaining time',r.context.broadcast.i===1);r.advance(.5);
+ check('silent commentary continues after remaining hold',r.context.broadcast.i===2);
+}
+{
+ const r=rig({fps:60});r.G.S=null;r.until(()=>r.G.playback794.report().finished);
+ check('flat or unavailable scene completion makes no full-lap claim',r.node('#showState').textContent==='Figures complete · paused'&&r.G.playback794.report().progress===0);
+}
+{
+ const r=rig({fps:60});r.advance(10);r.G.S=null;r.until(()=>r.G.playback794.report().finished);
+ check('failed scene after partial travel makes no full-lap claim',r.node('#showState').textContent==='Figures complete · paused'&&r.G.playback794.report().progress<1);
+}
+{
+ const r=rig({fps:60});r.until(()=>r.G.playback794.report().finished);
+ check('completed circuit and figures retain accurate completion label',r.node('#showState').textContent==='Lap and figures complete · paused'&&r.G.playback794.report().progress===1);
 }
 const result={author:'Andrew Fisher',test:'Actual hosted G.frame, G.step, route and original scheduler baseline; timer/DOM render stubs isolate playback lifecycle, not physical-device performance',baselineSha256:crypto.createHash('sha256').update(html).digest('hex'),sourceSha256:crypto.createHash('sha256').update(moduleSource).digest('hex'),cases,checks};
 fs.writeFileSync(path.join(__dirname,'playback794_checks.json'),JSON.stringify(result,null,2)+'\n');

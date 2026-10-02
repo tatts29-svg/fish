@@ -2,7 +2,7 @@
   "author": "Andrew Fisher",
   "test": "Actual hosted G.frame, G.step, route and original scheduler baseline; timer/DOM render stubs isolate playback lifecycle, not physical-device performance",
   "baselineSha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
-  "sourceSha256": "3e4c6bcfba07ea2e5669e837fa6a99447bc300f0467b2327ebca080eb80a57b9",
+  "sourceSha256": "50a9c02318f6d8294a47218193f55fc7549cca0db29414e78401343d6d26019a",
   "cases": [
     {
       "fps": 60,
@@ -355,6 +355,42 @@
     },
     {
       "name": "failed audio uses one bounded fallback hold on Resume",
+      "pass": true
+    },
+    {
+      "name": "Motion Off pauses active commentary and car immediately",
+      "pass": true
+    },
+    {
+      "name": "Motion On waits for explicit Resume of commentary",
+      "pass": true
+    },
+    {
+      "name": "explicit Resume restarts commentary after Motion On",
+      "pass": true
+    },
+    {
+      "name": "Motion Off cancels silent fallback countdown immediately",
+      "pass": true
+    },
+    {
+      "name": "Motion resume retains silent fallback remaining time",
+      "pass": true
+    },
+    {
+      "name": "silent commentary continues after remaining hold",
+      "pass": true
+    },
+    {
+      "name": "flat or unavailable scene completion makes no full-lap claim",
+      "pass": true
+    },
+    {
+      "name": "failed scene after partial travel makes no full-lap claim",
+      "pass": true
+    },
+    {
+      "name": "completed circuit and figures retain accurate completion label",
       "pass": true
     }
   ]

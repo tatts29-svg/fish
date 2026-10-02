@@ -101,7 +101,9 @@ function wanted(S,name){
  let eye,tgt;
  if(name==='onboard'){
   const heading=norm(lerp(tangent(S,s),f,.34));
-  eye=add(car,add(scale(heading,-.55/M),[0,1.35/M,0]));
+  // Mount ahead of the roof's leading edge. A lens behind the car centre lets
+  // the portrait field of view expose the flat roof and lower body fragments.
+  eye=add(car,add(scale(heading,.60/M),[0,1.60/M,0]));
   tgt=[far[0],car[1]+1.10/M,far[2]];
  }else if(name==='heli'){
   const anchor=path(S,s-24/M),turn=cross(tangent(S,s),tangent(S,s+32/M))[1],C=S.camera794;

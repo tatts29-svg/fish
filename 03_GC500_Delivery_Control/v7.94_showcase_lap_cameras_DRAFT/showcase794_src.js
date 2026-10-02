@@ -57,7 +57,7 @@ function paint(force){
  const report=G.playback794&&G.playback794.report();
  const M=G.M_PER_PT||6,L=S.CL.L*M;
  const metres=report?report.distanceM:Math.max(0,(S.sim.s-S.gridS)*M);
- const looping=report&&report.loop&&report.laps>=1;
+ const looping=report&&(report.loop||(typeof BC!=='undefined'&&BC.on))&&report.laps>=1;
  const progress=looping?report.lapProgress:report?report.progress:Math.min(1,metres/L),percent=Math.min(100,Math.floor(progress*100));
  const point=mapProject(S.CL.at(S.sim.s)),dot=map.querySelector('.shlapCar794');dot.setAttribute('cx',point[0]);dot.setAttribute('cy',point[1]);
  map.querySelector('.shlapDone794').style.strokeDasharray=progress+' 1';

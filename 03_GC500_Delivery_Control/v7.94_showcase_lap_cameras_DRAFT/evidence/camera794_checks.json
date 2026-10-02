@@ -35,6 +35,14 @@
       "passed": true
     },
     {
+      "name": "Overview transitions fade before changing distant rigs and interrupted fades do not flash",
+      "passed": true
+    },
+    {
+      "name": "Overview principal-axis orientation stays fixed while a resized viewport still fits",
+      "passed": true
+    },
+    {
       "name": "Paused selection animates camera without stepping the simulation or original frame",
       "passed": true
     },
