@@ -17,7 +17,7 @@
 //   · full right lock: the rack moves 0.074 to the left, the knuckles, the front pads and the front wheels turn the same 18°,
 //     the left side gear runs faster than the right by the road's turning geometry, and the spiders turn on their pin;
 //   · brake: the push rods go in, the lines carry pressure, every pad closes on its disc, the turning rear discs heat and
-//     glow, and the brake off opens the pads again;
+//     glow, and the brake off opens the pads again; the handbrake clamps the rear pads only, with the pedal's push rods and lines left alone;
 //   · stopped, nothing moves; no page errors and no console errors.
 const path = require('path'), fs = require('fs');
 const {openMachine} = require('./machine_rig');
@@ -48,7 +48,7 @@ const SAMPLE = () => {
     rack: mech.rackTravel, knuckleL: byId('steering-knuckle-left').children[0].rotation.y, knuckleR: byId('steering-knuckle-right').children[0].rotation.y,
     wheelYawL: yawOf(wheel('CAR-BODY-WHEEL-FRONT-R')), wheelYawR: yawOf(wheel('CAR-BODY-WHEEL-FRONT-L')),
     frontPadYaw: b.corners.filter(c => c.axle === 'front').map(c => c.yaw.rotation.y),
-    padGaps: b.corners.map(c => b.padGap(c)), heat: b.heat, glow: b.corners.filter(c => c.glow).map(c => c.glow.visible && c.glow.parent && c.glow.parent.name === 'Wheel hub'),
+    padGaps: b.corners.map(c => b.padGap(c)), axles: b.corners.map(c => c.axle), handbrake: b.handbrake, heat: b.heat, glow: b.corners.filter(c => c.glow).map(c => c.glow.visible && c.glow.parent && c.glow.parent.name === 'Wheel hub'),
     hubs: b.corners.map(c => !!c.hub), brake: b.brake, piston: b.mcPistons.map(p => p.position.x), lines: b.lineMat.emissiveIntensity,
     status: document.getElementById('start-text').textContent, count: document.getElementById('count').textContent,
     partIds: Object.fromEntries(ids)
@@ -124,6 +124,14 @@ async function run(kind) {
   await page.evaluate(() => { const t = document.getElementById('brake'); t.value = 0; t.dispatchEvent(new Event('input')); window.__cw.advance(.2); });
   const g = await page.evaluate(SAMPLE);
   check(`${kind}: brake off — the pads stand clear again`, g.padGaps.every(x => Math.abs(x - .0036) < 1e-5) && g.piston.every(x => x === 0), JSON.stringify(g.padGaps));
+  /* v8.08 review: the handbrake works the rear pads only — the pedal stays up, so the push rods stay home, the lines carry no pressure and the
+     front pads stand clear (it used to go through the master cylinders and clamp the fronts too) */
+  await page.evaluate(() => { window.__cw.operate({kind: 'switch', id: 'HBRAKE', part: 'handbrake'}); window.__cw.advance(.2); });
+  const hb = await page.evaluate(SAMPLE), gapsBy = (s, ax) => s.padGaps.filter((_, i) => s.axles[i] === ax);
+  check(`${kind}: handbrake — the rear pads clamp; the front pads stand clear, the push rods stay home and the lines carry no pressure`, hb.handbrake > 0 && gapsBy(hb, 'rear').length === 2 && gapsBy(hb, 'rear').every(x => x < .001) && gapsBy(hb, 'front').every(x => Math.abs(x - .0036) < 1e-5) && hb.piston.every(x => x === 0) && hb.lines === 0, `rear ${JSON.stringify(gapsBy(hb, 'rear'))} front ${JSON.stringify(gapsBy(hb, 'front'))} pistons ${hb.piston} lines ${hb.lines}`);
+  await page.evaluate(() => { window.__cw.operate({kind: 'switch', id: 'HBRAKE', part: 'handbrake'}); window.__cw.advance(.2); });
+  const hb2 = await page.evaluate(SAMPLE);
+  check(`${kind}: handbrake off — every pad stands clear again`, hb2.handbrake === 0 && hb2.padGaps.every(x => Math.abs(x - .0036) < 1e-5), JSON.stringify(hb2.padGaps));
 
   if (SHOTS && !phone) await shots(page, kind);
 

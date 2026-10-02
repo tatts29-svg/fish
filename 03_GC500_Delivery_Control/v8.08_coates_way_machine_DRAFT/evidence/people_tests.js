@@ -16,7 +16,8 @@
 //   4. no sliding — a planted foot's toe pivot moves under 5 mm between samples;
 //   5. not over the car from the opening cameras — from the car view's and the V8 powertrain view's cameras (as the page fits them,
 //      on this screen), nobody standing still has his feet hidden by the car while his helmet shows over it (the "crawling out of the
-//      car" look); people moving or working at the far side are reported, with the time it lasted;
+//      car" look); people moving or working at the far side are reported, with the time it lasted; a pause on the way counts as moving
+//      for 1.5 s only, and the race driver out of his car is checked too (v8.08 review);
 //   6. no page errors; the people's draws and triangles.
 // Scenarios: the hall at rest (crew doing their chores, 150 s), the V8 started and running (40 s), a far-rear wheel service end to
 // end (to 200 s), and Explode (the race driver's walk-out, 40 s).
@@ -86,14 +87,25 @@ async function sample(P, label) {
     const carBox = S.carBox.clone();   /* the car together, as it stood at the start (the live box grows with a wheel off or the car apart) */
     /* everyone */
     const people = Object.entries(crew.men).map(([k, m]) => ({k, m, fig: m.fig}));
-    const ex = cw.driverExit; if (ex && ex.state !== 'seated') { const f = crew.root.children.find(c => /race driver/.test(c.name)); if (f && f.visible) people.push({k: 'race driver, walking', m: null, fig: {root: f, mesh: f.children.find(c => c.isSkinnedMesh)}}); }
-    const v = new Vec(), clock = +(cw.__ptClock || 0).toFixed(1);
+    /* v8.08 review: the race driver out of his car is checked like everyone else — his own walker (window.__cw.driverMan): the floor, sliding, and
+       the opening cameras, which a stand-in with no walker (m: null, always "moving") never was */
+    const ex = cw.driverExit, dm = cw.driverMan; if (ex && ex.state !== 'seated' && dm && dm.fig.root.visible) people.push({k: 'race driver, walking', m: dm, fig: dm.fig, driver: true});
+    const v = new Vec(), clock = +(cw.__ptClock || 0).toFixed(2);
     for (const p of people) {
       const mesh = p.fig.mesh || p.fig.root.children.find(c => c.isSkinnedMesh); if (!mesh || !shown(mesh)) continue;
       mesh.updateMatrixWorld(true); mesh.skeleton.update();
       const R = A.people[p.k] || (A.people[p.k] = {samples: 0, counts: {}, maxSlide: 0, minSole: 9, maxSole: -9, worst: {}, post: {}});
       R.samples++; const post = p.m ? p.m.post.kind : 'stand'; R.post[post] = (R.post[post] || 0) + 1;
-      const seated = post === 'sit', moving = p.m ? (p.m.moving || !!p.m.goal) : true;   /* (mid-walk, waiting for someone to pass, is on the move) */
+      /* on the move: walking, turning or stepping. v8.08 review: a pause on the way (waiting for someone to pass, giving way, waiting for a
+         door) counts as on the move for 1.5 s and no longer — "moving or on his way" counted every pause, however long, as moving */
+      /* (on his way he is moving only while he gets somewhere — held up, his feet mark time on the spot; turning or settling his feet counts once
+         the walk is done; faceYaw is kept from the start of a walk for its end) */
+      const walking = p.m ? (p.m.path ? p.m.v > .05 : (p.m.faceYaw !== null || p.m.feet.some(f => !f.planted || f.step))) : true;
+      const paused = !!p.m && !walking && (!!p.m.path || !!p.m.goal || !!p.m.yielding);
+      if (p.m) { if (!paused) p.m.__ptPauseAt = null; else if (p.m.__ptPauseAt == null) p.m.__ptPauseAt = clock; }
+      const pausedFor = paused ? clock - p.m.__ptPauseAt : 0;
+      if (paused) R.longestPause = Math.max(R.longestPause || 0, +pausedFor.toFixed(2));
+      const seated = post === 'sit', moving = walking || (paused && pausedFor <= 1.5);
       const at = [+p.fig.root.position.x.toFixed(2), +p.fig.root.position.z.toFixed(2)];
       const bad = (what, extra = {}) => { R.counts[what] = (R.counts[what] || 0) + 1; const w = R.worst[what] || (R.worst[what] = []); if (w.length < 3) w.push({t: clock, label, post, at, ...extra}); };
       const names = mesh.skeleton.bones.map(b => b.name.split(', ').pop());
@@ -134,7 +146,9 @@ async function sample(P, label) {
         const head = new Vec(); mesh.skeleton.bones[4].getWorldPosition(head); head.y += .2;
         const foot = new Vec(p.fig.root.position.x, Math.max(0, Math.min(...soles)) + .03, p.fig.root.position.z);
         const fp = [-2.62, -1.12, 2.62, 1.12], gap = Math.hypot(Math.max(fp[0] - foot.x, 0, foot.x - fp[2]), Math.max(fp[1] - foot.z, 0, foot.z - fp[3]));
-        const kind = moving ? 'moving' : gap < .8 || working ? 'at work' : 'still';
+        /* (beside the car is "at work" for the crew; the race driver's only work there is getting in and out, crouched in his doorway: standing
+           beside his door he is checked like anyone standing still — v8.08 review) */
+        const kind = moving ? 'moving' : (gap < .8 && !p.driver) || working ? 'at work' : 'still';
         for (const c of window.__ptCams) {
           const hidden = q => { const dir = q.clone().sub(c.p), L = dir.length(); dir.normalize(); ray.set(c.p, dir); ray.far = L - .08; ray.near = 0;
             return ray.intersectObjects(S.carRoots, true).some(h => shown(h.object) && !(driverG && isUnder(h.object, driverG))); };
@@ -202,7 +216,7 @@ async function run(device) {
   const de = await P.evaluate(() => window.__cw.driverExit); log('driver exit', JSON.stringify(de));
   await P.evaluate(() => document.getElementById('explode').click()); await step(30, 'explode: driver back');
   const acc = await P.evaluate(() => { const A = window.__ptAcc; const cw = window.__cw; let draws = 0, tris = 0; cw.crew.root.traverse(o => { if ((o.isMesh || o.isSkinnedMesh) && o.visible && !(o.material && o.material.visible === false)) { draws++; tris += o.geometry.index ? o.geometry.index.count / 3 : o.geometry.attributes.position.count / 3; } });
-    return {...A, crewDraws: draws, crewTriangles: Math.round(tris)}; });
+    return {...A, crewDraws: draws, crewTriangles: Math.round(tris), heldMax: +(cw.crew.S.heldMax || 0).toFixed(2), lastWords: cw.crew.S.lastWords || 0}; });
   acc.errors = m.errors.slice(); acc.cams = cams; acc.servicePhases = phases; acc.driverExit = de;
   await m.close(); return acc;
 }
@@ -223,7 +237,8 @@ function verdict(acc) {
     const acc = await run(dev); const fails = verdict(acc); all[dev] = {fails, ...acc};
     console.log(`\n==== ${which} · ${dev}: ${fails.length ? fails.length + ' FAIL' : 'PASS'} (${acc.samples} samples, crew ${acc.crewDraws} draws, ${acc.crewTriangles} triangles)`);
     for (const f of fails) console.log('  FAIL ' + f);
-    for (const [k, R] of Object.entries(acc.people)) console.log(`  ${k.padEnd(22)} samples ${R.samples}  sole ${(R.minSole * 100).toFixed(1)}…${(R.maxSole * 100).toFixed(1)} cm  slide max ${(R.maxSlide * 1000).toFixed(1)} mm  posts ${JSON.stringify(R.post)}`);
+    for (const [k, R] of Object.entries(acc.people)) console.log(`  ${k.padEnd(22)} samples ${R.samples}  sole ${(R.minSole * 100).toFixed(1)}…${(R.maxSole * 100).toFixed(1)} cm  slide max ${(R.maxSlide * 1000).toFixed(1)} mm  longest pause ${R.longestPause || 0} s  posts ${JSON.stringify(R.post)}`);
+    console.log(`  crew: longest hold ${acc.heldMax} s, last words ${acc.lastWords}`);
     for (const [k, o] of Object.entries(acc.over)) console.log(`  over the car (feet hidden, helmet seen): ${k}: standing clear ${o.still}, with the car apart ${o.stillApart}, moving ${o.moving}, at work ${o['at work']} ${JSON.stringify(o.samples.slice(0, 3))}`);
     console.log('  seated driver', JSON.stringify(acc.seatChecks.slice(0, 2)));
   }

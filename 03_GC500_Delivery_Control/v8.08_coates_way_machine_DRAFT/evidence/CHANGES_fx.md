@@ -166,3 +166,28 @@ tyre print, floor wear and the light rig's lines.)
 - The rig's SwiftShader trips the page's "under 24 fps, drop to Laptop" check on every run, and on Laptop that also caps
   the ratio at 2 for good (`lowDpr`). The tests step the frame loop by hand and move the rung to Balanced first, so each
   rung is measured as asked. A real graphics chip does not trip it.
+
+## Review fixes (independent review, 2 Oct 2026)
+
+- **Phones no longer get High or Ultra** (`fx-quality.js` QUALITY_ORDER). On a phone or touch tablet (`MOBILE`, which car-app.js now
+  uses for its own phone test too), Quality steps Laptop ⇄ Balanced only. On a phone the prints never go past 1.5×.
+- **The 4K still on a phone is drawn without the post stack** (`capture4K`, `post: !MOBILE`). The post stack's full-size ambient-occlusion
+  targets, on top of a 3840 × 2160 buffer, are what makes a phone lose the graphics connection. The composer is not resized either. The
+  still is still 3840 × 2160. A laptop keeps the post stack.
+- **The prints have a total budget**: about 40 MP on a laptop and 20 MP on a phone. Past it, the rung's print scale is lowered for every
+  print alike until the total fits. No print is ever drawn below its own size.
+  - Measured on a laptop: Balanced, High and Ultra all come to 39.96 MP at 1.3×. Before, Balanced was 49 MP and High and Ultra 71 MP.
+  - The 71 prints already come to 26.97 MP at their own size. So on a phone they stay at their own size (1×) on both rungs.
+  - In plain words: on a laptop the signs and labels are now drawn at 1.3× on the higher rungs, not 1.5× or 2×. That is the price of
+    staying inside the budget.
+- **A print with no 2D context is skipped** (`paint`). iOS gives no context once its canvas memory is spent. The print is then left as
+  it is, not resized and not cleared, and is not tried again. The copy already on the graphics card stays in place. A print whose drawing
+  throws is skipped the same way, so the idle redraw loop carries on with the others. Before, it stopped.
+- `fx_tests.js` new and updated checks:
+  - on the phone: only Laptop and Balanced are offered, and High and Ultra are reported as not offered (no longer as failures);
+  - the 4K still is drawn without the post stack on the phone;
+  - on every rung: the prints are inside the budget, or each one is at its own size.
+
+| run | result |
+|---|---|
+| `fx_tests.js` (desktop and phone) | **46/46**, no page or console errors |

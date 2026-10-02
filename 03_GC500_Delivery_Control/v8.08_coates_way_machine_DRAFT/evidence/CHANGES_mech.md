@@ -76,3 +76,20 @@ No other file was touched.
 ## Also noticed (not mine to change)
 
 - `index.html` footer `#render-stats` starts as the static text "V8 · 310 PARTS". It is replaced by the frame-rate readout once the fps is measured, but on a slow device it stays on screen and reads 310 while the register says 326. Suggested edit in `index.html`: change the text to `V8 · 326 PARTS`. Better still, have `car-app.js` write `specs.length` into it once the scene is ready.
+
+## Review fixes (independent review, 2 Oct 2026)
+
+- **The handbrake now works the rear pads only.** car-app.js used to pass `effBrake()`, the larger of the pedal and the handbrake. So with
+  the handbrake on and the pedal up, the master-cylinder push rods went in, the lines glowed and the front pads clamped. Now it is
+  `engine.setBrake(pedal, handbrake)` (`mech-brakes.js`). The pedal goes through the balance bar, the master cylinders and the lines to
+  all four corners. The handbrake clamps the two rear pads and heats the rear discs, and leaves the push rods and lines alone. The drive
+  still slows for either, as before.
+- **The front wheels stop at the lock.** At full lock with the V8 running, the steering's sway turned the front wheels 18.35°. The rack and
+  the knuckles stay clamped at 18°. The wheels' angle in car-app.js is now held at the lock as well. `mech_tests.js` caught this.
+- `mech_tests.js` has two new checks:
+  - handbrake on: the rear pads clamp, the front pads stay 3.6 mm clear, the push rods stay home and the lines carry no pressure;
+  - handbrake off: every pad clear again.
+
+| run | result |
+|---|---|
+| `mech_tests.js` | **50/50**: 25 on desktop, 25 on the phone, including the two new handbrake checks on each. No page or console errors. |

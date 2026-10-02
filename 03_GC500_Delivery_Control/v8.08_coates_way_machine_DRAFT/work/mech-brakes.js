@@ -162,8 +162,10 @@ export function buildBrakes(T, mats, assembly, mesh, batch, h) {
     }
   }
 
-  let brake = 0, brakeSet = false, steerT = 0, lastT = null, clampNow = 0;
-  function setBrake(b) { brakeSet = true; brake = Math.max(0, Math.min(1, +b || 0)); }
+  let brake = 0, hand = 0, brakeSet = false, steerT = 0, lastT = null, clampNow = 0, clampRear = 0;
+  /* v8.08 review: the pedal and the handbrake are two things. The pedal goes through the balance bar, the master cylinders and the lines to
+     all four corners; the handbrake works the rear pads only (a mechanical pull on the rear calipers), the pedal and the lines left as they are */
+  function setBrake(pedalB, handB = 0) { brakeSet = true; brake = Math.max(0, Math.min(1, +pedalB || 0)); hand = Math.max(0, Math.min(1, +handB || 0)); }
   function setSteer(t) { steerT = Math.max(-1, Math.min(1, t || 0)); }
   /* until car-app.js passes the brake (engine.setBrake), the pedal's own slider is read: the same number the drive is slowed by */
   function pedal() { if (brakeSet || typeof document === 'undefined') return brake; const el = document.getElementById('brake'); return el ? Math.max(0, Math.min(1, +el.value / 100 || 0)) : 0; }
@@ -174,7 +176,7 @@ export function buildBrakes(T, mats, assembly, mesh, batch, h) {
     if (searched < 3 && corners.some(c => !c.hub)) { attachHubs(root); if (corners.every(c => c.hub)) searched = 3; else if (root.parent) searched++; }
     const b = pedal();
     /* the pads take up their 3 mm in the first few percent of the pedal, then clamp: the pressure is what the lines show */
-    const clamp = Math.min(1, b / .06); clampNow = clamp;
+    const clamp = Math.min(1, b / .06), rearClamp = Math.max(clamp, Math.min(1, hand / .06)); clampNow = clamp; clampRear = rearClamp;
     lineMat.emissiveIntensity = b * 1.6;
     /* the pedal moves the bar; the bar's pivot is set off-centre so the front cylinder takes 60 % of the force, both pistons going in together */
     if (connected('brake-master-cylinders')) { for (const p of mcPistons) p.position.x = -STROKE * b; bar.position.x = .095 - STROKE * b; }
@@ -182,18 +184,18 @@ export function buildBrakes(T, mats, assembly, mesh, batch, h) {
     if (connected('brake-lines')) for (const hz of hoses) layHose(hz, yaw);
     for (const c of corners) {
       if (c.axle === 'front') c.yaw.rotation.y = yaw;
-      if (connected(c.id)) placePads(c, clamp);
+      if (connected(c.id)) placePads(c, c.axle === 'rear' ? rearClamp : clamp);
       /* heat: the push on this disc times the angle it has really turned since last frame, cooling with a half-minute fall */
       if (c.hub) {
         const a = c.hub.rotation.z, turned = c.lastHub === null ? 0 : Math.abs(a - c.lastHub); c.lastHub = a;
-        const share = c.axle === 'front' ? BRAKE_BIAS : 1 - BRAKE_BIAS;
-        c.heat = Math.min(1.25, c.heat * Math.exp(-dt / 11) + (connected(c.id) ? b * share * Math.min(turned, 2) * .09 : 0));
+        const push = c.axle === 'front' ? b * BRAKE_BIAS : Math.max(b, hand) * (1 - BRAKE_BIAS);   /* (the handbrake's pull on a rear disc, as hard as the pedal's at the same setting) */
+        c.heat = Math.min(1.25, c.heat * Math.exp(-dt / 11) + (connected(c.id) ? push * Math.min(turned, 2) * .09 : 0));
         if (c.glow) { const k = Math.min(1, c.heat); c.glow.visible = c.heat > .015; glowCol.copy(DULL).lerp(HOT, Math.min(1, k * 1.2)).multiplyScalar(Math.min(2.4, c.heat * 2.2)); c.glow.material.color.copy(glowCol); }
       }
     }
   }
   return {animate, setBrake, setSteer, corners, mcPistons, hoses, lineMat,
-    get brake() { return pedal(); }, get clamp() { return clampNow; },
+    get brake() { return pedal(); }, get handbrake() { return hand; }, get clamp() { return clampNow; }, get clampRear() { return clampRear; },
     padGap(c) { return +(c.o * c.padOut.position.z - DISC_Z).toFixed(5); },
     get heat() { return corners.map(c => +c.heat.toFixed(4)); }};
 }

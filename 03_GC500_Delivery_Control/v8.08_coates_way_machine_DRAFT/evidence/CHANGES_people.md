@@ -217,3 +217,48 @@ The `crewRoute`, `CREW_NODES` and `buildFigure` imports can stay; nothing else i
   are then seen behind the car, as they would be in a photo. The test counts those as "at work", not as standing over the car.
 - **Visibility depends on the camera:** what is "behind the car" depends on the camera. Orbiting round will always put someone behind
   it from some angle. The posts and the safety officer's round are set for the two opening views on a laptop and on a phone.
+
+## Review fixes (independent review, 2 Oct 2026)
+
+The review found the race driver could get stuck, walk through the crew lead, and stand behind the car for a second or two each time
+while his door shut, which the test could not see. Each was checked against the code, then fixed in `work/car-app.js` and `work/crew.js`.
+
+**The driver's walk-out can no longer get stuck** (car-app.js `driverOut`, `driverBackIn`, `driverStep`, `explode`).
+- Explode pressed twice while the door was opening left him a hidden walker nobody moved, and the crew frozen until Reset. Now that
+  second press means he never left his seat: the door shuts again and he is the seated driver.
+- Every stage answers a press: crouched in the doorway or standing up, he ducks back in; walking away with the car still whole, he walks
+  back; once the car has started coming apart, the press brings it back together first and he walks back only when it is whole (he used
+  to walk back and sit in a car in pieces). On his way back in, a press turns him round from wherever he is.
+- Reset and the cockpit view put him straight back in his seat from any stage.
+- In the cockpit only the steering wheel comes apart, so the crew no longer drop their chores for it.
+
+**He is never left standing behind the car, and never in the door's way.**
+- The door is 2.4 m long and swings 60°, so the spot beside his seat is inside its swing; the old code shut the door through him while
+  he stood there. He now comes out crouched, stands, and walks straight on out of the door's reach. The door shuts behind him once he is
+  clear of it, without him stopping. Coming back, the door opens while he is still clear of it, and he waits for it if it is not yet open.
+- The safe spot moved to (−4.4, −4.9): off the crew lead's line (the old line passed 1 cm from his post), behind the painted line, in plain
+  view from both opening cameras.
+
+**He walks under the crew's own rules** (crew.js `walk`, `release`, `arrived`). His walks are planned by the crew's planner, looked at
+again every second (someone come to stand on his route is walked round), and he goes through the same waits, giving way and personal
+space as the crew.
+
+**No wait lasts for ever** (crew.js, `tieBreak`). Each wait now has an end. The same-way wait (4 s), the wait for someone stopped (6 s),
+the personal-space hold and the step-aside (7 s, even on the way to the side spot) used to start again each time they ran out. The time
+held now keeps counting until he walks on freely. After about 8 s held up by each other, the higher-ranked of the two goes and the other
+steps aside, up to 2.5 m. If he has nowhere to step, he goes round another way. If he is at the blind end of a narrow spot, the one with
+the way steps back and lets him out. While the car is apart, the floor a metre round it is kept clear, so nobody steps aside into it.
+
+**The test was tightened, not loosened** (people_tests.js).
+- A pause on the way now counts as moving for 1.5 s only. Before, any pause counted as moving, however long.
+- The walking driver is checked like everyone else: floor, sliding, and the opening cameras. Before, he was never tested.
+- Standing beside his door counts as standing still for him, not as being "at work".
+
+**New test:** `evidence/driver_tests.js`. It presses Explode again at all ten stages of the walk out and back, plus the double press.
+It also tries Reset and the cockpit view at every stage, checks that nobody is in the door's swing while it moves, and runs the
+narrow-spot standoff in three rank orders.
+
+| run | result |
+|---|---|
+| `people_tests.js work both` | desktop PASS (1,579 samples), phone PASS (1,579 samples) |
+| `driver_tests.js work desk` / `phone` | 35/35, 35/35 |

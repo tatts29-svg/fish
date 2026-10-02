@@ -16,6 +16,9 @@
 //     3840 × 2160 worth of pixels), the post stack, the prints' scale (all redrawn), and the frame time (median of three frames);
 //   · the 4K capture is a PNG of exactly 3840 × 2160, and the canvas is back at its own size afterwards;
 //   · on the phone: the Laptop rung, prints at their base size, no rim light, the per-pixel detail switched off.
+//   · v8.08 review: on the phone only Laptop and Balanced are offered (High and Ultra are not on its Quality button), its prints never go
+//     past 1.5×, all the prints together stay inside the budget (40 MP on a laptop, 20 MP on a phone, or every print at its own size where
+//     its own sizes already come to more), and its 4K still is drawn without the post stack.
 //
 // The software renderer the rig runs (SwiftShader) draws a frame in seconds, not milliseconds, so the page's animation loop is
 // stepped by hand here: every frame measured is a whole frame, and nothing the page does on its own (the adaptive resolution, the
@@ -120,8 +123,10 @@ async function run(dev) {
     }
     await passQualityCheck(m.page);
     const presets = (process.env.PRESETS || 'laptop,balanced,high,ultra').split(',');
+    if (phone && wired) { const qs = await m.page.evaluate(() => window.__fx.info.qualities); check(dev, 'phone: the Quality button offers Laptop and Balanced only', JSON.stringify(qs) === '["laptop","balanced"]', qs); }
     for (const q of presets) {
       const has = await setQuality(m.page, q);
+      if (phone && (q === 'high' || q === 'ultra')) { check(dev, `phone: ${q} not offered by the Quality button`, !has, has ? 'offered' : 'not on the ladder'); continue; }
       if (!has) { check(dev, `rung ${q} offered by the Quality button`, false, 'not on the ladder'); continue; }
       const steps = await settle(m.page), s = await state(m.page), times = [];
       let info = null; for (let i = 0; i < 3; i++) { info = await timedFrame(m.page); times.push(info.ms); }
@@ -132,7 +137,8 @@ async function run(dev) {
       check(dev, `${q}: still pixel ratio = ${p.expected} (buffer ${p.buffer.join('x')})`, Math.abs(p.ratio - p.expected) < .02, {ratio: p.ratio, megapixels: p.megapixels});
       if (q === 'ultra') { const need = Math.min(3840 * 2160, css[0] * css[1] * 16); check(dev, `ultra: 3840 x 2160 worth of pixels (or 4x a small screen: ${(need / 1e6).toFixed(2)} MP)`, p.buffer[0] * p.buffer[1] >= need * .98, p.megapixels + ' MP'); }
       if (q !== 'laptop') check(dev, `${q}: post stack multisampled`, p.composerSamples === null || p.composerSamples >= 4, p.composerSamples);
-      if (s.fx) { const want = {laptop: 1, balanced: 1.5, high: 2, ultra: 2}[q]; check(dev, `${q}: prints redrawn at ${want}x (${s.fx.prints.done}/${s.fx.prints.count}, ${s.fx.prints.megapixels} MP)`, s.fx.prints.scale === want && s.fx.prints.done === s.fx.prints.count); }
+      if (s.fx) { const want = {laptop: 1, balanced: 1.5, high: 2, ultra: 2}[q], pr = s.fx.prints; check(dev, `${q}: prints redrawn at ${want}x, as far as the budget allows (${pr.allowed}x; ${pr.done}/${pr.count}, ${pr.megapixels} MP)`, pr.scale === want && pr.done === pr.count && !pr.failed);
+        check(dev, `${q}: prints inside the ${pr.budget} MP budget (or every one at its own size)`, pr.megapixels <= pr.budget * 1.01 || pr.allowed === 1, `${pr.megapixels} MP at ${pr.allowed}x`); }
       if (process.env.SHOTS) { fs.mkdirSync(process.env.SHOTS, {recursive: true}); await canvasPng(m.page, path.join(process.env.SHOTS, `${process.env.TAG || 'run'}_${dev}_${q}.png`)); }
       console.log(`      ${dev} ${q}: frame ${p.frameMs} ms (median of 3, software renderer), ${p.megapixels} MP`);
     }
@@ -145,6 +151,8 @@ async function run(dev) {
       const c = await capture(m.page); out.capture = c;
       check(dev, `4K capture is a ${c.width} x ${c.height} PNG`, c.png && c.width === 3840 && c.height === 2160, {bytes: c.bytes});
       check(dev, '4K capture puts the canvas back at its own size', c.restored, {before: c.before, after: c.after});
+      const lc = await m.page.evaluate(() => window.__fx && window.__fx.info.lastCapture);
+      if (phone) check(dev, 'phone: the 4K still is drawn without the post stack', lc && lc.post === false, lc);
     }
     await frame(m.page);
   } catch (e) { check(dev, 'run completed', false, String(e).slice(0, 300)); }

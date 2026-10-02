@@ -134,3 +134,30 @@ officer at -3.66, -2.68). Left with the people agent (crew.js).
   matched): new `DX_SILL` (.70, -1.50) and `DX_SAFE` (-4.4, -3.75); `crewState().apart`; `crew.addPerson(man)`; the driver
   appears crouched outside the open door instead of crawling through the car, shuts the door before walking off, the door
   opens when he arrives back, no crawl back in; both walks back to the door use `crew.plan(...).slice(1)`.
+
+## Review fixes (independent review, 2 Oct 2026)
+
+- **A card is said when it opens** (`car-app.js` openCard / closeCard / endTour, `index.html`).
+  - The card was a dialog named by its title, but focus never went into it, so a screen reader said nothing.
+  - Opening a card now moves focus to its title. The title is a heading kept out of the tab order (`tabindex="-1"`), so the reader says
+    the card's name. The Guided tour does the same when it starts.
+  - When the card closes, focus goes back to whatever opened it: the scene, Controls ?, Original cog or Guided tour. It does not do this
+    if the person has already moved focus to something else, such as a view tab. A card replaced from another button returns focus to
+    that button.
+  - A keyboard user sees an orange outline on the focused title. A mouse or finger sees none.
+- **"Ready to run" is still read out when it folds to its dot** (`car.css`). It was hidden with `display:none`, which hides it from screen
+  readers too. It is now hidden to the eye only (a 1 px clipped box).
+- **The quality setting on a phone** (shared with the fx part). On a phone or touch tablet, Quality steps Laptop ⇄ Balanced only. car-app.js
+  now uses one phone test, `fx-quality.js` `MOBILE` (an iPad that reports itself as a Mac counts too), for choosing the starting rung and
+  for the exhaust lights.
+- `ui_tests.js` new checks:
+  - focus goes to the card's title, in a dialog named by it;
+  - focus returns to the opener when the card closes;
+  - focus goes to the tour's title when it starts, and back to Guided tour when it ends;
+  - a quiet "Ready to run" is still in the page for a screen reader;
+  - on a phone, Quality never offers High or Ultra.
+
+| run (`TUNE=dpr:0.5`) | result |
+|---|---|
+| phone 390 × 844 | **123/123**. A first run had 122/123: "camera: zoom-out" missed its 0.18 s glide between two 0.3 s polls on the software renderer. The re-run passed, and no code was changed between the two runs. |
+| desktop 1440 × 900 | **138/138** |

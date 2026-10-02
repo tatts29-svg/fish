@@ -119,6 +119,9 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   check('nothing is open at rest', s.count === 0);
   const ui = await page.evaluate(() => { const b = document.getElementById('start-text').getBoundingClientRect(), f = parseFloat(getComputedStyle(document.getElementById('start-text')).fontSize); const z = parseFloat(getComputedStyle(document.querySelector('.dock')).zoom) || 1; return {textPx: f * z, h: b.height}; });
   check('dock words a readable size on this screen', ui.textPx >= (DEVICE === '4k' ? 24 : 11.5), `Start V8 at ${ui.textPx.toFixed(1)} px`);
+  /* v8.08 review: a quiet "Ready to run" is hidden to the eye only — still in the page for a screen reader (it was display:none) */
+  if (isWork) { await until(() => document.getElementById('status').classList.contains('quiet'), 20000); const qs = await page.evaluate(() => { const t = document.getElementById('status-text'), c = getComputedStyle(t), r = t.getBoundingClientRect(); return {quiet: document.getElementById('status').classList.contains('quiet'), text: t.textContent, display: c.display, visibility: c.visibility, w: r.width, h: r.height}; });
+    check('quiet status: "Ready to run" still read by a screen reader (visually hidden, not display:none)', qs.quiet && qs.text === 'Ready to run' && qs.display !== 'none' && qs.visibility !== 'hidden' && qs.w <= 1 && qs.h <= 1, JSON.stringify(qs)); }
   await shot('0_rest');
 
   /* ── where things are: the page's own picking over the scene (work), or a fixed grid (live copy) ── */
@@ -154,7 +157,9 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
       if (empty) { await tap(empty.x, empty.y); const s2 = await state(); check(`closes with a tap on empty scene (${empty.kind}${empty.name ? ': ' + empty.name : ''})`, !s2.card); } else check('closes with a tap on empty scene', false, 'no empty spot clear of the card found');
       await open(); await clickId('tour'); st = await state(); check('starting the tour closes the card (the tour card takes its place)', st.cardId === 'tour-panel' && st.count === 1, st.cards.join(','));
       await cardRules('tour card', st); await shot('2_tour');
+      if (isWork) { const f = await page.evaluate(() => document.activeElement && document.activeElement.id); check('starting the tour moves focus to its title', f === 'tour-title', f); }
       await page.keyboard.press('Escape'); await wait(400); st = await state(); check('Escape ends the tour', st.count === 0);
+      if (isWork) { const f = await page.evaluate(() => document.activeElement && document.activeElement.id); check('ending the tour puts focus back on Guided tour', f === 'tour', f); }
       await open(); await page.click('[data-view="engine"]', {force: true}); await wait(800); st = await state(); check('switching view closes the card', !st.card && st.count === 0);
       await page.click('[data-view="car"]', {force: true}); await wait(1500); await until(() => !window.__cw.tween, 120000);
       /* ── deliberate taps only ── */
@@ -177,6 +182,9 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
 
   /* ── the information cards ── */
   await clickId('help'); await wait(1500); let st = await cardRules('Controls ?'); check('Controls ? opens in the card', st.cardId === 'exhibit' && /Explore the car/.test(st.title), st.title);
+  /* v8.08 review: the card is said as it opens — focus goes to its title in a dialog named by it — and focus goes back to the opener on close */
+  const a11y = () => page.evaluate(() => { const e = document.getElementById('exhibit'), f = document.activeElement; return {focus: f ? f.id || f.tagName : null, role: e.getAttribute('role'), named: e.getAttribute('aria-labelledby'), tab: document.getElementById('exhibit-name').getAttribute('tabindex')}; });
+  if (isWork) { const a = await a11y(); check('opening a card moves focus to its title (a dialog named by that title)', a.focus === 'exhibit-name' && a.role === 'dialog' && a.named === 'exhibit-name' && a.tab === '-1', JSON.stringify(a)); }
   await shot('3_help');
   if (st.card) {
     const sc = await page.evaluate(() => { const b = document.getElementById('exhibit-body'); const before = b.scrollHeight > b.clientHeight + 4; b.scrollTop = b.scrollHeight; return {scrolls: before, top: b.scrollTop}; });
@@ -184,6 +192,7 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   }
   await clickId('original'); await wait(1500); st = await cardRules('Original cog'); check('Original cog replaces it (still one card)', st.count === 1 && /original/i.test(st.title), st.title);
   await page.keyboard.press('Escape'); await wait(300);
+  if (isWork) { const a = await a11y(); check('closing the card puts focus back on what opened it (Original cog)', a.focus === 'original', JSON.stringify(a)); }
   await page.click('#rings [data-part="1"]', {force: true}); await wait(400); await clickId('learn'); await wait(1500); st = await cardRules('Read more'); check('Read more opens in the card', /Performance pillars/i.test(st.title), st.title);
   await page.keyboard.press('Escape'); await wait(300);
   await clickId('register-open'); st = await state(); check('Find a part opens the register, nothing else', st.dialogs.includes('register') && st.cards.length === 0);
@@ -231,7 +240,10 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
     await clickId('power'); check('power path', await cw(`document.getElementById('power').getAttribute('aria-pressed')==='true'`)); await clickId('power');
     for (const id of ['zoom-in', 'zoom-out', 'home']) { await clickSel('#' + id); check(`camera: ${id}`, await until(() => !!window.__cw.tween, 3000)); await wait(1500); }
     /* one press is tested by hand; the two more that bring it round to Laptop are pressed together, so the software renderer never has to draw a High frame */
-    const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); const seen = [q0, q1]; /* as many settings as the machine offers (four since v8.08 added Ultra): click on until it comes round */ for (let i = 0; i < 6 && seen[seen.length - 1] !== q0; i++) { await page.evaluate(() => document.getElementById('quality').click()); await wait(500); seen.push(await txt('#quality')); } check('Quality cycles (and comes round again)', q1 !== q0 && seen[seen.length - 1] === q0 && new Set(seen).size >= 3, seen.join(' → '));
+    const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); const seen = [q0, q1]; /* as many settings as the machine offers (four since v8.08 added Ultra): click on until it comes round */ for (let i = 0; i < 6 && seen[seen.length - 1] !== q0; i++) { await page.evaluate(() => document.getElementById('quality').click()); await wait(500); seen.push(await txt('#quality')); }
+    /* v8.08 review: a phone or a touch tablet is offered Laptop and Balanced only; High and Ultra are more than its graphics memory holds */
+    if (dev.mobile) check('Quality cycles Laptop ⇄ Balanced on a phone, never High or Ultra (and comes round again)', q1 !== q0 && seen[seen.length - 1] === q0 && new Set(seen).size === 2 && !seen.some(x => /High|Ultra/.test(x)), seen.join(' → '));
+    else check('Quality cycles (and comes round again)', q1 !== q0 && seen[seen.length - 1] === q0 && new Set(seen).size >= 3, seen.join(' → '));
     /* the 4K frame is drawn in the click itself: on a software renderer that is minutes, so the click is fired without waiting on it */
     const dl = page.waitForEvent('download', {timeout: 900000}).catch(() => null); await page.evaluate(() => setTimeout(() => document.getElementById('capture').click(), 0)); const d = await dl; check('4K capture saves a picture', !!d || /saved/.test(await txt('#toast')), d ? d.suggestedFilename() : await txt('#toast'));
     await clickId('original'); check('Original cog', /original/i.test(await txt('#exhibit-name'))); await page.keyboard.press('Escape');

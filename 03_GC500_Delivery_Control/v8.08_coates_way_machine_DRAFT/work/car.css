@@ -109,7 +109,8 @@ body:has([data-view="cog"].active) .telemetry{display:none}
 /* whatever scene button the card would cover is put away while it is up (car-app.js placeCards) */
 .under-card{visibility:hidden!important}
 /* "Ready to run" folds to its green dot once it has been said (car-app.js statusQuiet) */
-.status.quiet{padding:.65rem}.status.quiet #status-text{display:none}
+.status.quiet{padding:.65rem}.status.quiet #status-text{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}   /* v8.08 review: hidden to the eye only — a screen reader still reads "Ready to run" */
+.card h2[tabindex="-1"]:focus{outline:none}.card h2[tabindex="-1"]:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 @media(max-width:800px){
  .card{left:8px;right:8px;width:auto;top:auto;bottom:205px;max-height:55%;border-radius:14px;box-shadow:0 -6px 40px #000c}
  .card-head{padding:10px 8px 8px 14px}.card-head h2{font-size:1.05rem}

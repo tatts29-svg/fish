@@ -37,7 +37,9 @@ export const TIERS = Object.freeze({
   high:     Object.freeze({print: 2,   aniso: 16, shadow: 4096, env: 512, samples: 4, still: 3, move: 1.5}),
   ultra:    Object.freeze({print: 2,   aniso: 16, shadow: 4096, env: 512, samples: 4, still: 4, move: 1.5, pixels: 3840 * 2160}),
 });
-export const QUALITY_ORDER = Object.freeze(['laptop', 'balanced', 'high', 'ultra']);
+/* v8.08 review: a phone is offered Laptop and Balanced only. High and Ultra (prints at 2×, a 4096 shadow map, a buffer supersampled to
+   3840 × 2160) ask more graphics memory than a phone has, and a phone that runs out loses the picture altogether */
+export const QUALITY_ORDER = Object.freeze(MOBILE ? ['laptop', 'balanced'] : ['laptop', 'balanced', 'high', 'ultra']);
 export const tierOf = q => { const t = TIERS[q] || TIERS.laptop; return FIX.aniso || FIX.print ? {...t, aniso: FIX.aniso || t.aniso, print: FIX.print || t.print} : t; };
 export const CAPTURE = Object.freeze({width: 3840, height: 2160});
 
@@ -63,6 +65,11 @@ let scaleNow = 1, maxDim = MOBILE ? 2048 : 4096, pending = null, budgetMs = 6;
    already drawn big (the Life Saving Rules, the values wheel, the tool wall) only what keeps it under that. All 71 prints come to about
    27 MP at their own size, about 49 MP on Balanced and about 71 MP on High and Ultra (measured: printStats) */
 const MAX_PIXELS = MOBILE ? 1.2e6 : 2.4e6;
+/* v8.08 review — AND ALL OF THEM TOGETHER INSIDE A BUDGET: about 40 MP on a laptop, 20 MP on a phone (a megapixel is 4 MB of canvas, and as
+   much again on the graphics card with its mipmaps). Past it the rung's scale is lowered for every print alike until the total fits; no print is
+   ever drawn smaller than its own size, so a phone, whose prints already come to more than that at their own size, keeps them there. A phone's
+   prints also never go past 1.5× (setPrintScale). */
+const BUDGET = MOBILE ? 20e6 : 40e6, PHONE_SCALE = 1.5;
 /* a canvas the size asked for, drawn once, registered so a higher rung can draw it again sharper.
    mode 'logical': draw(g, w, h) works in the base size's coordinates and the context is scaled to the canvas;
    mode 'pixel': draw(g, cw, ch) is given the canvas's own size (a drawing laid out in proportions).
@@ -70,7 +77,7 @@ const MAX_PIXELS = MOBILE ? 1.2e6 : 2.4e6;
 export function print(w, h, draw, {mode = 'logical', live = false, srgb = true, maxScale = 2, name = ''} = {}) {
   if (!HAS_DOC) return null;
   const c = document.createElement('canvas'), entry = {w, h, draw, mode, canvas: c, texture: null, scale: 0, maxScale, name};
-  paint(entry, 1);
+  paint(entry, 1, true);
   const t = new T.CanvasTexture(c); if (srgb) t.colorSpace = T.SRGBColorSpace;
   t.minFilter = T.LinearMipmapLinearFilter; t.magFilter = T.LinearFilter; t.generateMipmaps = true; t.anisotropy = T.Texture.DEFAULT_ANISOTROPY;
   entry.texture = t; t.userData.print = entry;
@@ -78,17 +85,30 @@ export function print(w, h, draw, {mode = 'logical', live = false, srgb = true, 
   return {texture: t, canvas: c};
 }
 /* the scale an entry is drawn at on this rung: never past its own cap, never past the largest canvas this device should hold, never under its base size */
-function fitScale(e, k) { return Math.max(1, Math.min(k, e.maxScale, maxDim / Math.max(e.w, e.h), Math.sqrt(MAX_PIXELS / (e.w * e.h)))); }
-function paint(entry, k) {
-  const c = entry.canvas, cw = Math.max(1, Math.round(entry.w * k)), ch = Math.max(1, Math.round(entry.h * k));
-  if (c.width !== cw || c.height !== ch) { c.width = cw; c.height = ch; }
-  const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cw, ch);
-  if (entry.mode === 'logical') { g.setTransform(cw / entry.w, 0, 0, ch / entry.h, 0, 0); entry.draw(g, entry.w, entry.h); }
-  else entry.draw(g, cw, ch);
-  g.setTransform(1, 0, 0, 1, 0, 0); entry.scale = k;
+function fitRaw(e, k) { return Math.max(1, Math.min(k, e.maxScale, maxDim / Math.max(e.w, e.h), Math.sqrt(MAX_PIXELS / (e.w * e.h)))); }
+const totalAt = k => prints.reduce((n, e) => n + e.w * e.h * fitRaw(e, k) ** 2, 0);
+let budgetKey = '', budgetK = 1;
+/* the largest scale up to k at which every print together stays inside the budget (worked out again when the rung or the prints change) */
+function budgetScale(k) { const key = k + '|' + prints.length; if (key === budgetKey) return budgetK; budgetKey = key;
+  if (k <= 1 || totalAt(k) <= BUDGET) return (budgetK = k);
+  let lo = 1, hi = k; for (let i = 0; i < 20; i++) { const mid = (lo + hi) / 2; if (totalAt(mid) <= BUDGET) lo = mid; else hi = mid; } return (budgetK = lo); }
+function fitScale(e, k) { return fitRaw(e, budgetScale(k)); }
+/* v8.08 review: with no 2D context (iOS gives none once its canvas memory is spent) a print is skipped as it is — not resized, not cleared —
+   and not tried again; a redraw that fails leaves the picture already on the graphics card in place. Returns whether it drew. */
+function paint(entry, k, first = false) {
+  const c = entry.canvas, cw = Math.max(1, Math.round(entry.w * k)), ch = Math.max(1, Math.round(entry.h * k)), ow = c.width, oh = c.height;
+  let g = c.getContext('2d'); if (!g) { entry.failed = true; return false; }
+  if (c.width !== cw || c.height !== ch) { c.width = cw; c.height = ch; g = c.getContext('2d'); if (!g) { c.width = ow; c.height = oh; entry.failed = true; return false; } }
+  try {
+    g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cw, ch);
+    if (entry.mode === 'logical') { g.setTransform(cw / entry.w, 0, 0, ch / entry.h, 0, 0); entry.draw(g, entry.w, entry.h); }
+    else entry.draw(g, cw, ch);
+    g.setTransform(1, 0, 0, 1, 0, 0);
+  } catch (e) { if (first) throw e; entry.failed = true; try { g.setTransform(1, 0, 0, 1, 0, 0); } catch (e2) {} return false; }
+  entry.scale = k; return true;
 }
 function redraw(entry, k) {
-  paint(entry, k);
+  if (!paint(entry, k)) return;
   const t = entry.texture; if (!t) return;
   /* the GPU copy was allocated at the old size (immutable storage): free it, and the next frame uploads the new one with its mipmaps */
   t.dispose(); t.needsUpdate = true;
@@ -98,21 +118,22 @@ function schedule() { if (pending || !HAS_DOC) return; pending = idle(step); }
 function step(deadline) {
   pending = null; const t0 = performance.now();
   for (const e of prints) {
+    if (e.failed) continue;
     const k = fitScale(e, scaleNow);
     if (Math.abs(e.scale - k) < .01) continue;
-    redraw(e, k);
+    try { redraw(e, k); } catch (err) { e.failed = true; }   /* (one print that throws never stops the others) */
     if (performance.now() - t0 > budgetMs || (deadline && deadline.timeRemaining && deadline.timeRemaining() < 1)) break;
   }
-  if (prints.some(e => Math.abs(e.scale - fitScale(e, scaleNow)) >= .01)) schedule();
+  if (prints.some(e => !e.failed && Math.abs(e.scale - fitScale(e, scaleNow)) >= .01)) schedule();
 }
 /* the rung changed: prints are drawn again at its scale, a few at a time, when the page is idle */
 export const currentPrintScale = () => scaleNow;
-export function setPrintScale(k) { scaleNow = Math.max(1, Math.min(2, k || 1)); schedule(); }
+export function setPrintScale(k) { scaleNow = Math.max(1, Math.min(MOBILE ? PHONE_SCALE : 2, k || 1)); schedule(); }
 /* every print at the current scale, now (the 4K capture wants them all before it draws) */
-export function flushPrints() { for (const e of prints) { const k = fitScale(e, scaleNow); if (Math.abs(e.scale - k) >= .01) redraw(e, k); } }
+export function flushPrints() { for (const e of prints) { if (e.failed) continue; const k = fitScale(e, scaleNow); if (Math.abs(e.scale - k) >= .01) { try { redraw(e, k); } catch (err) { e.failed = true; } } } }
 export function printStats() {
-  let px = 0, done = 0; for (const e of prints) { px += e.canvas.width * e.canvas.height; if (Math.abs(e.scale - fitScale(e, scaleNow)) < .01) done++; }
-  return {count: prints.length, scale: scaleNow, megapixels: +(px / 1e6).toFixed(2), done, list: prints.map(e => [e.name || '', e.w, e.h, +e.scale.toFixed(2)])};
+  let px = 0, done = 0, failed = 0; for (const e of prints) { px += e.canvas.width * e.canvas.height; if (e.failed) failed++; else if (Math.abs(e.scale - fitScale(e, scaleNow)) < .01) done++; }
+  return {count: prints.length, scale: scaleNow, allowed: +budgetScale(scaleNow).toFixed(3), budget: BUDGET / 1e6, megapixels: +(px / 1e6).toFixed(2), done, failed, list: prints.map(e => [e.name || '', e.w, e.h, +e.scale.toFixed(2)])};
 }
 
 /* ---------------------------------------------------------------- shared shader switches */
@@ -172,10 +193,14 @@ export function upgradeTextures(root, {renderer = renderer0, aniso = tierOf(curr
 /* ---------------------------------------------------------------- the 4K still */
 /* A true 3840 × 2160 frame: the drawing buffer is set to it at ratio 1 (multisampled, as the screen is), the post stack (if
    the rung has one) is sized to it, the shadow map redrawn, every print brought to the current rung's scale, one frame drawn
-   and copied out, and everything put back before the browser paints. `render` draws the frame (the composer or the plain
-   renderer — the caller's own call). Resolves with {blob, width, height}. */
-export function capture4K({renderer, camera, composer = null, render, width = CAPTURE.width, height = CAPTURE.height, type = 'image/png'}) {
+   and copied out, and everything put back before the browser paints. `render(post)` draws the frame (through the composer when post is
+   true, else the plain renderer — the caller's own call). v8.08 review: on a phone the still is drawn without the post stack — its
+   full-size ambient-occlusion targets on top of a 3840 × 2160 buffer are what makes a phone drop the graphics context — and the composer
+   is not resized. Resolves with {blob, width, height, post}. */
+let lastCapture = null;
+export function capture4K({renderer, camera, composer = null, render, width = CAPTURE.width, height = CAPTURE.height, type = 'image/png', post = !MOBILE}) {
   return new Promise((resolve, reject) => {
+    if (!post) composer = null;
     const size = renderer.getSize(new T.Vector2()), ratio = renderer.getPixelRatio(), aspect = camera.aspect, cRatio = composer ? ratio : 0;
     let restored = false;
     const restore = () => { if (restored) return; restored = true;
@@ -188,10 +213,11 @@ export function capture4K({renderer, camera, composer = null, render, width = CA
       if (composer) { composer.setPixelRatio(1); composer.setSize(width, height); }
       camera.aspect = width / height; camera.updateProjectionMatrix();
       if (renderer.shadowMap) renderer.shadowMap.needsUpdate = true;
-      render();
+      render(!!composer);
       const canvas = renderer.domElement, w = canvas.width, h = canvas.height;
       /* the copy is taken now, synchronously (toBlob snapshots the bitmap when called); the size goes back straight after */
-      canvas.toBlob(blob => blob ? resolve({blob, width: w, height: h}) : reject(new Error('no image')), type);
+      lastCapture = {width: w, height: h, post: !!composer};
+      canvas.toBlob(blob => blob ? resolve({blob, width: w, height: h, post: !!composer}) : reject(new Error('no image')), type);
       restore();
     } catch (e) { restore(); reject(e); }
   });
@@ -200,5 +226,5 @@ export function capture4K({renderer, camera, composer = null, render, width = CA
 export async function pngSize(blob) { const b = new DataView(await blob.slice(0, 24).arrayBuffer()); return {width: b.getUint32(16), height: b.getUint32(20)}; }
 
 /* for the harness */
-export const fxInfo = () => ({quality: current, tier: tierOf(current), prints: printStats(), mobile: MOBILE, defaultAnisotropy: T.Texture.DEFAULT_ANISOTROPY});
+export const fxInfo = () => ({quality: current, tier: tierOf(current), prints: printStats(), mobile: MOBILE, defaultAnisotropy: T.Texture.DEFAULT_ANISOTROPY, qualities: QUALITY_ORDER.slice(), lastCapture});
 if (typeof window !== 'undefined') window.__fx = {get info() { return fxInfo(); }, flushPrints, printStats, upgradeTextures, setQuality, ratioFor, TIERS, capture4K, pngSize};
