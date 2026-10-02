@@ -1,3 +1,5 @@
+**v7.95 — Today packed, with jump buttons and folding sections: CLAIMED by Claude, 2 Oct 2026 13:30 AEST.** Author: Andrew Fisher. Andrew: "We have a lot of dead space in all of them try again"; shown the packed layouts with measured empty space, he said "Ok" to Packed + folds. Builds on v7.93 (patch chain v7.91 → v7.93 → v7.95 on live); one upload carries all three. (v7.94 is Codex's showcase cameras.) Draft in `v7.95_today_packed_DRAFT/`.
+
 **v7.94 — Showcase complete-lap presentation and cameras: CLAIMED by Codex, 2 Oct 2026.**
 Author: Andrew Fisher. Andrew: "Feel like your missing hslf the track. . Cameras not as good. . I need this better".
 Audit actual hosted playback and visible route coverage, improve corner framing and camera continuity using the
