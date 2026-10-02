@@ -1,0 +1,556 @@
+{
+  "author": "Andrew Fisher",
+  "source_author": "John Brett",
+  "file": "05_CW2_Fencing Installation Plan.pdf",
+  "source_sha256": "c6d7f4ec14d8853d4901a700c3328207265d18a53fcca626995c680699c5cbf0",
+  "revision": "2026-10-02",
+  "received": "2 Oct 2026",
+  "pages": 15,
+  "created_display": "2 Oct 2026 13:54 (AEST)",
+  "basis": "Planning figures are transcribed from the dated weekly summary on page 1. Conflicting detail quantities are shown beside their tasks and remain awaiting confirmation. These are planned works, not completed works or signed dockets.",
+  "rows": [
+    {
+      "id": "site-closed",
+      "date": "2026-10-05",
+      "location": "Site wide",
+      "description": "Public holiday — site closed",
+      "page": 2,
+      "fields": {},
+      "note": "No fencing works scheduled.",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "tv-parking",
+      "date": "2026-10-06",
+      "location": "Paradise Waters Park",
+      "description": "Perimeter fence — TV parking",
+      "page": 4,
+      "fields": {
+        "Temporary Fence (m) — Clean": 200,
+        "Vehicle Gates": 1
+      },
+      "note": "Reduced from 2025; the helipad is not required.",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "gate2",
+      "date": "2026-10-06",
+      "location": "Gate 2 Entry",
+      "description": "Perimeter fence — Gate 2 entry",
+      "page": 4,
+      "fields": {
+        "Temporary Fence (m) — Clean": 110
+      },
+      "note": "Moved to Tuesday 6 October and reduced to 110 m. Source comment says “Tuesday 7th”; the dated row is 6 October.",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "pit-stairs",
+      "date": "2026-10-06",
+      "location": "Pit Building/Paddock",
+      "description": "Perimeter fence — S01 and S02 stairs",
+      "page": 5,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 128
+      },
+      "note": "Afternoon, depending on approval.",
+      "requirements": [
+        {
+          "id": "pit-stairs-1",
+          "text": "Confirm with Ben / Cliftons that the structures have been signed off structurally.",
+          "page": 5,
+          "kind": "hold"
+        },
+        {
+          "id": "pit-stairs-2",
+          "text": "Hard hat zone — active construction site.",
+          "page": 5,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "fire-hydrant",
+      "date": "2026-10-06",
+      "location": "Pit Building/Paddock",
+      "description": "Exclusion zone — S01 fire hydrant",
+      "page": 5,
+      "fields": {
+        "Temporary Fence (m) — Clean": 14
+      },
+      "note": "",
+      "requirements": [
+        {
+          "id": "fire-hydrant-1",
+          "text": "Confirm with Ben / Cliftons that the structures have been signed off structurally.",
+          "page": 5,
+          "kind": "hold"
+        },
+        {
+          "id": "fire-hydrant-2",
+          "text": "Hard hat zone — active construction site.",
+          "page": 5,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "toilet-infill",
+      "date": "2026-10-06",
+      "location": "Pit Building/Paddock",
+      "description": "Perimeter fence — S01 toilet infill",
+      "page": 5,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 3
+      },
+      "note": "",
+      "requirements": [
+        {
+          "id": "toilet-infill-1",
+          "text": "Confirm with Ben / Cliftons that the structures have been signed off structurally.",
+          "page": 5,
+          "kind": "hold"
+        },
+        {
+          "id": "toilet-infill-2",
+          "text": "Hard hat zone — active construction site.",
+          "page": 5,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "club-storage",
+      "date": "2026-10-06",
+      "location": "Club 500",
+      "description": "Perimeter fence — Club 500 storage",
+      "page": 6,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 40,
+        "Vehicle Gates": 1
+      },
+      "note": "",
+      "requirements": [
+        {
+          "id": "club-storage-1",
+          "text": "Confirm whether storage remains throughout and whether it should be scrimmed.",
+          "page": 6,
+          "kind": "hold"
+        }
+      ],
+      "conflicts": [
+        "club-storage-quantity"
+      ]
+    },
+    {
+      "id": "club-creek",
+      "date": "2026-10-06",
+      "location": "Club 500",
+      "description": "CCB — Club 500 creek protection",
+      "page": 6,
+      "fields": {
+        "Crowd Control Barriers (m) — Event": 87,
+        "Crowd Control Barriers (m) — Flat Feet": 45
+      },
+      "note": "45 m flat-feet CCB with 20 blocks and F brackets. Star pickets required behind S01.",
+      "requirements": [
+        {
+          "id": "club-creek-1",
+          "text": "Check flat-feet CCB availability. The plan allows that portion to be completed later if it is not on site; install the available work.",
+          "page": 6,
+          "kind": "condition"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "s04-demarc",
+      "date": "2026-10-06",
+      "location": "S04 Corporate",
+      "description": "Demarcation CCB — S04 Corporate",
+      "page": 7,
+      "fields": {},
+      "note": "From stockpile; quantity not supplied.",
+      "requirements": [
+        {
+          "id": "s04-demarc-1",
+          "text": "JB to work through the S04 / TV compound changes with the crew.",
+          "page": 7,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "s04-relocate",
+      "date": "2026-10-06",
+      "location": "S04 Corporate",
+      "description": "Fence relocation — S04 Corporate CZ",
+      "page": 7,
+      "fields": {
+        "Temporary Fence (m) — Relocation": 100
+      },
+      "note": "Use the relocated fencing for flower-bed fencing; scrim if wanted.",
+      "requirements": [
+        {
+          "id": "s04-relocate-1",
+          "text": "JB to work through the S04 / TV compound changes with the crew.",
+          "page": 7,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "tv-garden",
+      "date": "2026-10-06",
+      "location": "TV Compound",
+      "description": "Perimeter fence — TV compound garden bed",
+      "page": 7,
+      "fields": {
+        "Temporary Fence (m) — Clean": 42
+      },
+      "note": "",
+      "requirements": [
+        {
+          "id": "tv-garden-1",
+          "text": "JB to work through the S04 / TV compound changes with the crew.",
+          "page": 7,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "qps",
+      "date": "2026-10-07",
+      "location": "Commodore Park",
+      "description": "Perimeter fence — QPS",
+      "page": 9,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 100,
+        "Vehicle Gates": 2,
+        "Ped. Gates": 2
+      },
+      "note": "QPS compound first. The page 9 yellow confirmation note is incomplete in the supplied PDF.",
+      "requirements": [
+        {
+          "id": "qps-1",
+          "text": "Only start the QPS compound first. GEMA and COW fencing follows once their items are installed.",
+          "page": 9,
+          "kind": "condition"
+        }
+      ],
+      "conflicts": [
+        "qps-gates"
+      ]
+    },
+    {
+      "id": "s19-walkthrough",
+      "date": "2026-10-07",
+      "location": "S19 Walkthrough — TBC",
+      "description": "Fencing for scrim",
+      "page": 10,
+      "fields": {
+        "Temporary Fence (m) — Clean": 40
+      },
+      "note": "Cable-tie panels to the Fortress structure.",
+      "requirements": [
+        {
+          "id": "s19-walkthrough-1",
+          "text": "Contractor confirmation of structural sign-off is required before these works.",
+          "page": 10,
+          "kind": "hold"
+        },
+        {
+          "id": "s19-walkthrough-2",
+          "text": "Hard hat zone.",
+          "page": 10,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "s20-walkthrough",
+      "date": "2026-10-07",
+      "location": "S20 Walkthrough — TBC",
+      "description": "Fencing for scrim",
+      "page": 10,
+      "fields": {
+        "Temporary Fence (m) — Clean": 40
+      },
+      "note": "Cable-tie panels to the Fortress structure.",
+      "requirements": [
+        {
+          "id": "s20-walkthrough-1",
+          "text": "Contractor confirmation of structural sign-off is required before these works.",
+          "page": 10,
+          "kind": "hold"
+        },
+        {
+          "id": "s20-walkthrough-2",
+          "text": "Hard hat zone.",
+          "page": 10,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "s21-walkthrough",
+      "date": "2026-10-07",
+      "location": "S21 Walkthrough — TBC",
+      "description": "Fencing for scrim",
+      "page": 10,
+      "fields": {
+        "Temporary Fence (m) — Clean": 40
+      },
+      "note": "Cable-tie panels to the Fortress structure.",
+      "requirements": [
+        {
+          "id": "s21-walkthrough-1",
+          "text": "Contractor confirmation of structural sign-off is required before these works.",
+          "page": 10,
+          "kind": "hold"
+        },
+        {
+          "id": "s21-walkthrough-2",
+          "text": "Hard hat zone.",
+          "page": 10,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "scrim-wed",
+      "date": "2026-10-07",
+      "location": "Site wide",
+      "description": "Scrim — available fencelines",
+      "page": 1,
+      "fields": {},
+      "note": "Listed in the weekly summary; no quantity supplied.",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "helen-perimeter",
+      "date": "2026-10-08",
+      "location": "Helen Park",
+      "description": "Perimeter fence — Helen Park",
+      "page": 12,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 61,
+        "Vehicle Gates": 1
+      },
+      "note": "Date moved from CW5; one current task on 8 October.",
+      "requirements": [
+        {
+          "id": "helen-perimeter-1",
+          "text": "Keep gates open; implement CCB when the construction zone is closed.",
+          "page": 12,
+          "kind": "condition"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "helen-reconfigure",
+      "date": "2026-10-08",
+      "location": "Helen Park",
+      "description": "Fencing reconfiguration / CCB stockpile",
+      "page": 12,
+      "fields": {
+        "Temporary Fence (m) — Clean": 6,
+        "Temporary Fence (m) — Braced for Scrim": 43,
+        "Temporary Fence (m) — Relocation": 83,
+        "Crowd Control Barriers (m) — Event": 48
+      },
+      "note": "CCB stockpile serves the ticketing booth and sign-on marquee.",
+      "requirements": [
+        {
+          "id": "helen-reconfigure-1",
+          "text": "Confirm building configuration and completed infrastructure installation before reconfiguring the fence.",
+          "page": 12,
+          "kind": "hold"
+        },
+        {
+          "id": "helen-reconfigure-2",
+          "text": "Keep gates open; implement CCB when the construction zone is closed.",
+          "page": 12,
+          "kind": "condition"
+        }
+      ],
+      "conflicts": [
+        "helen-ccb"
+      ]
+    },
+    {
+      "id": "s23-cz",
+      "date": "2026-10-08",
+      "location": "Helen Park",
+      "description": "Exclusion zone — S23 Grandstand CZ",
+      "page": 12,
+      "fields": {
+        "Temporary Fence (m) — Clean": 141,
+        "Vehicle Gates": 1
+      },
+      "note": "Date moved from CW5; one current task on 8 October.",
+      "requirements": [
+        {
+          "id": "s23-cz-1",
+          "text": "Keep gates open; implement CCB when the construction zone is closed.",
+          "page": 12,
+          "kind": "condition"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "wc20-kitchen",
+      "date": "2026-10-08",
+      "location": "S04 Corporate Facility",
+      "description": "Perimeter fence — WC20 toilets and GEMA kitchen",
+      "page": 13,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 33,
+        "Temporary Fence (m) — Relocation": 40,
+        "Vehicle Gates": 1,
+        "Ped. Gates": 1
+      },
+      "note": "",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "s01-north",
+      "date": "2026-10-08",
+      "location": "Pit Building/Paddock",
+      "description": "Perimeter fence — S01 north infill",
+      "page": 13,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 10
+      },
+      "note": "",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "podium",
+      "date": "2026-10-08",
+      "location": "Pit Building/Paddock",
+      "description": "Perimeter fence — podium",
+      "page": 13,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 36,
+        "Ped. Gates": 1
+      },
+      "note": "",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "teams",
+      "date": "2026-10-08",
+      "location": "Teams Area — Behind S02 PB",
+      "description": "Perimeter fence — teams area",
+      "page": 13,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 30
+      },
+      "note": "",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "event-ops",
+      "date": "2026-10-09",
+      "location": "Event Operations",
+      "description": "Perimeter fence — event operations",
+      "page": 15,
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 27,
+        "Vehicle Gates": 1
+      },
+      "note": "Double-wide vehicle gate required, with three wheels.",
+      "requirements": [],
+      "conflicts": []
+    },
+    {
+      "id": "club-cz",
+      "date": "2026-10-09",
+      "location": "Club 500",
+      "description": "Exclusion zone — Club 500 CZ",
+      "page": 15,
+      "fields": {
+        "Temporary Fence (m) — Clean": 100,
+        "Vehicle Gates": 2
+      },
+      "note": "",
+      "requirements": [
+        {
+          "id": "club-cz-1",
+          "text": "Keep CZ fencing gates cable-tied open for the weekend.",
+          "page": 15,
+          "kind": "check"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "scrim-fri",
+      "date": "2026-10-09",
+      "location": "Site wide",
+      "description": "Scrim — available fencelines",
+      "page": 15,
+      "fields": {},
+      "note": "No quantity supplied. Page 15 heading says Friday 10th; dated tables, summary and page 14 say Friday 9 October 2026.",
+      "requirements": [],
+      "conflicts": []
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "qps-gates",
+      "row": "qps",
+      "description": "Commodore QPS vehicle gates",
+      "summary": "2 vehicle gates (p. 1)",
+      "detail": "4 vehicle gates (pp. 8–9)",
+      "state": "awaiting confirmation"
+    },
+    {
+      "id": "club-storage-quantity",
+      "row": "club-storage",
+      "description": "Club 500 storage fence",
+      "summary": "40 m braced for scrim (pp. 1, 3, 6)",
+      "detail": "30 m clean (p. 5)",
+      "state": "awaiting confirmation"
+    },
+    {
+      "id": "helen-ccb",
+      "row": "helen-reconfigure",
+      "description": "Helen Park CCB stockpile",
+      "summary": "48 m event CCB (pp. 1, 11, 12 table)",
+      "detail": "50 m CCB stockpile (p. 12 map)",
+      "state": "awaiting confirmation"
+    }
+  ],
+  "reported_weekly_totals": {
+    "Temporary Fence (m) — Clean": 733,
+    "Temporary Fence (m) — Braced for Scrim": 511,
+    "Temporary Fence (m) — Relocation": 223,
+    "Temporary Fence (m) — Removal": 0,
+    "Vehicle Gates": 10,
+    "Ped. Gates": 4,
+    "Crowd Control Barriers (m) — Event": 135,
+    "Crowd Control Barriers (m) — Demarcation": 0,
+    "Crowd Control Barriers (m) — Flat Feet": 45
+  }
+}

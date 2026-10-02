@@ -1,0 +1,59 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "55a4c450b45dbcabd7639e6d9c0a4ec76a4901f59a9b014ebeae6cf3d7e16149",
+  "sourceSha256": "c6d7f4ec14d8853d4901a700c3328207265d18a53fcca626995c680699c5cbf0",
+  "checks": [
+    {
+      "name": "26 unique dated tasks; no duplicate imports",
+      "pass": true
+    },
+    {
+      "name": "Source dates 5\u20139 Oct 2026, Monday closed without quantities",
+      "pass": true
+    },
+    {
+      "name": "Five day totals exactly match the weekly summary",
+      "pass": true
+    },
+    {
+      "name": "Nine weekly quantities reconcile without mixing units",
+      "pass": true
+    },
+    {
+      "name": "Three source conflicts are visible and not settled",
+      "pass": true
+    },
+    {
+      "name": "QPS initial work is not held behind its later GEMA/COW stage",
+      "pass": true
+    },
+    {
+      "name": "Structure sign-offs kept on all three pit rows and walkthroughs",
+      "pass": true
+    },
+    {
+      "name": "Both Helen Park vehicle gates retain keep-open condition",
+      "pass": true
+    },
+    {
+      "name": "Deferred flat-feet work remains conditional",
+      "pass": true
+    },
+    {
+      "name": "No quantity invented for stockpile demarcation or available scrim",
+      "pass": true
+    },
+    {
+      "name": "Historical CW5 and unrelated weeks unchanged",
+      "pass": true
+    },
+    {
+      "name": "Reversing only the approved plan update restores all original DATA",
+      "pass": true
+    },
+    {
+      "name": "Commercial rates, actual dockets, bookings, assets and maps untouched",
+      "pass": true
+    }
+  ]
+}
