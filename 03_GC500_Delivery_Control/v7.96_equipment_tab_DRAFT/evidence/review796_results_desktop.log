@@ -1,9 +1,0 @@
-PASS routine first Equipment visit keeps Every reference closed {"tab":"plant","group":"Toilets & amenities","query":"","referenceCount":74,"open":false,"rows":0,"top":2545}
-PASS Inventory hydrates once and visible navigation QR codes render {"calls":1,"codes":7}
-PASS Today no-record control opens filtered references and lands them in view {"tab":"plant","light":"none","group":null,"query":"","referenceCount":116,"open":true,"rows":116,"top":12}
-PASS record redraw respects a manually closed filtered-results fold {"tab":"plant","light":"none","group":null,"query":"","referenceCount":116,"open":false,"rows":0,"top":12}
-PASS pressing the same shortcut again reveals the results again {"tab":"plant","light":"none","group":null,"query":"","referenceCount":116,"open":true,"rows":116,"top":12}
-PASS typing a search opens the matching reference rows {"tab":"plant","light":null,"group":"Toilets & amenities","query":"WC","referenceCount":66,"open":true,"rows":66,"top":12}
-PASS search redraw preserves a subsequently closed fold {"tab":"plant","light":null,"group":"Toilets & amenities","query":"WC","referenceCount":66,"open":false,"rows":0,"top":421}
-PASS Equipment from a reference drawer opens its existing reference rows {"tab":"plant","light":null,"group":"Portable buildings","query":"","referenceCount":56,"open":true,"rows":56,"top":12}
-PASS no page errors []

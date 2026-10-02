@@ -1,8 +1,0 @@
-// Author: Andrew Fisher. Read-only renderer call profile; no product changes.
-const fs=require('fs'); const {open}=require('../../toolchain/harness/open_page');
-(async()=>{const h=await open({pageFile:process.env.PAGE,W:1440,H:900,gl:false}),p=h.page;try{
- await p.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:240000});await p.emulateMedia({reducedMotion:'reduce'});
- const result=await p.evaluate(async()=>{const names=['render','renderPass','renderToday','renderToday_held','renderProgress','renderProgress_held','progressAsOf','renderPlant','renderPlant_held','eq796','eq796Disc','invHtml','inventory','inv87Hydrate','inv87HydrateBox','plantGroups','buildAllAssets','fitKpis','foldStories','foldForPhone','wwaEmbed793','wwaPlace793','pack795','plantPump'];const originals={},stats={};let phase='sync';for(const n of names){if(typeof window[n]!=='function')continue;const old=originals[n]=window[n];window[n]=function(...a){const k=phase+':'+n,s=stats[k]||(stats[k]={calls:0,ms:0}),t=performance.now();s.calls++;try{return old.apply(this,a)}finally{s.ms+=performance.now()-t;}};Object.assign(window[n],old);}
- const out={};try{for(const tab of ['today','plant']){go('timeline');await new Promise(r=>setTimeout(r,700));for(const k of Object.keys(stats))delete stats[k];phase='sync';go(tab);phase='after';await new Promise(r=>setTimeout(r,900));out[tab]=JSON.parse(JSON.stringify(stats));}}finally{for(const[n,fn]of Object.entries(originals))window[n]=fn;}return out;});
- fs.writeFileSync(__dirname+'/review796_profile.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));
- }finally{await h.browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
