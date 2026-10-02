@@ -536,6 +536,12 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**v8.14 — Today, trimmed: CLAIMED by Claude, 3 Oct 2026 07:45 AEST.** Author: Andrew Fisher. Andrew, with screenshots: "starting with today we don't these in here. Unless u think overwise". Off Today: Map, Documents, Also on the schedule — no reference, Roads, Fencing, Your records (its export warning moves to Tools → Export). Next programme day stays only as Due today on delivery days (put to Andrew). No figure changes. Scope: `v8.14_today_trimmed_DRAFT/`. Not READY: tests, pictures, Andrew's yes.
+
+**v8.15 — Documents, clean and tidy: ASKED of Codex (its scope), 3 Oct 2026.** Andrew: "lets clean up the document area and increase the look in here and clean it up. make it look clean and tidy". Claude does a read-only mock-up; build only on Codex's release.
+
+**Map markers and complete icons: PASSED to Codex (its scope), 3 Oct 2026.** Andrew: "maps we want to use a svg or something that pulsates more ... we also want to use icons when something is complete something that matches and references it".
+
 **v7.88 — full-lap Showcase visual correction, Codex, 2 Oct 2026. WORKING PREVIEW; independent checks complete, not live.**
 Author: Andrew Fisher. Andrew: "the job was to keep what we have and we are upgrading the look ... its the whole
 track not 10 mtrs of it. U also have mp4 videos of whole track to help you". Preserve the existing circuit geometry,
