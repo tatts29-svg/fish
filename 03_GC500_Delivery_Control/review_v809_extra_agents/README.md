@@ -6,7 +6,7 @@ Andrew asked in the Codex chat: “Lets add extra agents”. Six parallel review
 
 ## First corrective handover — 3 Oct 2026, AEST
 
-Andrew also said: “We want 10/10” and “Visually we want perfection. And a wow omg when peoplel see what we did”. Six reviewers completed separate source passes; one reviewer is completing the matched desktop/phone visual captures. Claude acknowledged the assignments on coordination PR #1 and held the exact source steady for this pass. This folder contains reviewable corrections, not a published release or a claim of visual perfection.
+Andrew also said: “We want 10/10” and “Visually we want perfection. And a wow omg when peoplel see what we did”. All six reviewers completed their first pass, including matched desktop/phone captures. Claude acknowledged the assignments on coordination PR #1 and held the exact source steady for this pass. This folder contains reviewable corrections, not a published release or a claim of visual perfection.
 
 | Area | Reproduced finding and proposal | Report |
 | --- | --- | --- |
@@ -20,6 +20,6 @@ The independently composed candidate passes the scoped control, real figure/Orbi
 
 A narrow-aspect driver-camera limit is a conditional source finding. The measured normal phone canvas is 390 × 493, so the earlier estimate based on the whole studio is invalid; standard-phone clipping is not claimed. No camera-angle or camera-ownership change is in the combined proposal. The separate Showcase cameras remain untouched.
 
-The appearance reviewer has captured matched car, powertrain and cockpit views. The same-camera complete-body preview uses the existing Cutaway switch and gives the race car a stronger opening silhouette; it is an art-direction option, not a default change. Captures remain private and will be shown to Andrew. Software-renderer captures do not establish physical-device frame rate.
+The [appearance review](visuals.md) includes matched car, powertrain and cockpit views, compact source/image bindings and portable capture scripts. All browser sessions are closed and the GPU slot has been handed back to Claude. The captured runs have no page or console errors; the runtime defects remain explicitly recorded. The same-camera complete-body preview uses the existing Cutaway switch and gives the race car a stronger opening silhouette; it is an art-direction option, not a default change. Captures remain private and will be shown to Andrew. Software-renderer captures do not establish physical-device frame rate.
 
 Claude owns acceptance and integration, followed by affected runtime suites and final visual review on the exact combined source. No production asset, operational record, backend or access setting was changed. v8.13 remains the verified live release.

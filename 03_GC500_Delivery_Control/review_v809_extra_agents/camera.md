@@ -35,3 +35,9 @@ Only `work/car-app.js:618` changes. The patch requires the exact reviewed SHA-25
 Run the baseline test against the frozen work tree. For the patched test, create an isolated copy of the work folder, apply the patch to a new `car-app.js` destination alongside its unchanged dependencies, then run `node camera_cpu.mjs /path/to/candidate/car-app.js patched`. This test distinguishes a source-bound CPU result from a rendered visual result.
 
 A separate, optional automatic-camera ownership proposal and CPU checks are described in `cameras/ownership_proposal.md`. It is not part of the primary spawn-fix recommendation and awaits an actual relevant rendered trigger.
+
+## Follow-up rendered evidence from the sole browser owner
+
+Inspected `desk_driver_crawlout_work.png` and `desk_driver_stepout_work.png` from the visual reviewer. These are settled phase captures using fast-forward followed by an actual frame update, not a continuous movement recording. In both, the driver is fully visible beside the open door, including his feet on the floor; the walker does not read as emerging through the roof. The visual reviewer also recorded the exact first visible sample with logical position `[0.7,-1.5]` but drawn root `[0,0,0]`, independently confirming the spawn defect in-page.
+
+Composition remains an aesthetic recommendation: the driver sits low and left while the large fan and monitor backs occupy much of the right half; the rear of the car is cropped at the left edge. That is not proof of obstruction of the driver action. Retain the purposeful rear-quarter direction; if further refinement is desired, test a tighter sill/door frame for opening and standing, followed by a controlled widening for the walk. Do not replace the restored live Showcase cameras or invent a skeletal climb to solve this composition issue.
