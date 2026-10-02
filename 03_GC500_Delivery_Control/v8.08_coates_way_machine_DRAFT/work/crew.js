@@ -1242,11 +1242,12 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
          and goes on to the next; between rounds he checks the cell's line from his start spot. While the V8 runs he holds the line (above). */
       /* v8.08: with the car apart he watches it from his corner, clear of the parts standing out round it */
       if (S.apart) { yield* go(m, SAFETY_START, yawTo(-SAFETY_START[0], -SAFETY_START[1])); m.lookAt(V(0, .8, 0)); yield () => !S.apart || S.running; m.lookAt(null); continue; }
-      /* v8.08: while a wheel service is under way his round stops: he watches the wheel come off and go back on from his corner, out
-         of the way of the mechanic, the pit technician and the lead, who have the far aisle and the back of the cell (on his round he
+      /* v8.08: while a wheel service is under way his round stops: he watches the wheel come off and go back on from his corner (or,
+         for a near-side wheel, from behind the cell), out of the way of the mechanic, the pit technician and the lead, who have the far aisle and the back of the cell (on his round he
          crossed the mechanic's way to the far rear wheel) */
       const serviceOn = () => service && (phase() !== 'ready' || service.clearing);
-      if (serviceOn()) { yield* go(m, SAFETY_START, yawTo(-SAFETY_START[0], -SAFETY_START[1])); m.lookAt(() => wheelOf() ? rotorPose(wheelOf()).c.clone() : V(XW, .4, 0));
+      if (serviceOn()) { const w = S.side > 0 ? [5.6, 1.1] : SAFETY_START;   /* (a near-side service has its rack and its lead by his corner: he watches from behind the cell) */
+        yield* go(m, w, yawTo(XW - w[0], S.side * .9 - w[1])); m.lookAt(() => wheelOf() ? rotorPose(wheelOf()).c.clone() : V(XW, .4, 0));
         yield () => !serviceOn() || S.running || S.apart; m.lookAt(null); continue; }
       const c = CHECKS[i % CHECKS.length]; i++;
       yield* go(m, c.at, yawTo(c.look[0] - c.at[0], c.look[2] - c.at[1]), null, () => S.running || S.apart || !!(service && (phase() !== 'ready' || service.clearing))); if (S.running || S.apart || (service && (phase() !== 'ready' || service.clearing))) continue;
