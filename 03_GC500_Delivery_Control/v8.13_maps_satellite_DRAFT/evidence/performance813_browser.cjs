@@ -2,7 +2,7 @@
 'use strict';
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const arg=n=>{const i=process.argv.indexOf(n);return i<0?null:process.argv[i+1]};
-const input=arg('--source'),dir=arg('--output'),mobile=process.argv.includes('--mobile'),demand=process.argv.includes('--demand');
+const input=arg('--source'),dir=arg('--output'),mobile=process.argv.includes('--mobile'),demand=process.argv.includes('--demand'),demandOnly=process.argv.includes('--demand-only');
 if(!input||!dir)throw Error('Usage: --source explorer.js --output private-directory [--mobile] [--demand]');
 fs.mkdirSync(dir,{recursive:true});process.env.GC500_CACHE=path.join(dir,'curl-cache');
 const ROOT=path.resolve(__dirname,'../../toolchain'),{curlFetch}=require(ROOT+'/harness/curlfetch'),{chromium,devices}=require('playwright');
@@ -29,11 +29,11 @@ let browser;
  await page.goto('https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/index.html?embed=1&back=v#hybrid',{waitUntil:'domcontentloaded',timeout:120000});
  await page.waitForFunction(()=>window.GC500Explorer?.state.ready&&window.__perf?.firstSharpMs,null,{timeout:90000});
  report.first=await page.evaluate(()=>({ready:window.__ready,mode:GC500Explorer.state.mode,firstSharpMs:__perf.firstSharpMs,firstViewMs:Math.round(loaderAt),canvas:{width:canvas.width,height:canvas.height,dpr},perf:{...__perf}}));
- await page.waitForTimeout(8000);
+ if(!demandOnly)await page.waitForTimeout(8000);
  report.idle=await page.evaluate(()=>({sceneReady,underComp:!!underComp,underJob:!!underJob,perf:{...__perf},frames:__frames.length}));report.idleAt=Date.now();
  report.idleRequests=report.requests.length;report.idleBytes=report.requests.reduce((n,r)=>n+(r.bytes||0),0);report.idleHeavy=report.requests.filter(r=>r.path.endsWith('/drawing-scene.bin')||/\/underlay\/.*\.webp$/.test(r.path));
  report.zoom=[];
- for(let i=0;i<3;i++){
+ for(let i=0;i<(demandOnly?0:3);i++){
   const before=await page.evaluate(()=>camera.z);await page.locator('#zoomIn').click();
   await page.waitForFunction(z=>{const t=__inputs813.at(-1);return __frames.some(f=>f.t>=t&&!f.inter&&f.z>z&&!f.vtMiss&&!f.satMiss&&!f.underMiss)},before,{timeout:60000});
   const result=await page.evaluate(z=>{const t=__inputs813.at(-1),frames=__frames.filter(f=>f.t>=t&&f.z>z),first=frames[0],sharp=frames.find(f=>!f.inter&&!f.vtMiss&&!f.satMiss&&!f.underMiss);return {from:z,to:camera.z,inputAt:t,firstFrameMs:first.t-t,sharpMs:sharp.t-t,drawMs:frames.map(f=>f.ms),sceneReady}},before);report.zoom.push(result);
@@ -45,7 +45,8 @@ let browser;
  if(source.includes('function stopCameraMotion813('))check('Fit retains its requested camera after a zoom click',JSON.stringify(fitted)===JSON.stringify(afterFit),report.fitAfterZoom);
  if(demand){
   check('Hybrid idle did not load heavy scene or aerial',!report.idle.sceneReady&&!report.idle.underJob&&report.idleHeavy.length===0,{requests:report.idleHeavy.length});
-  await page.locator('#zoomInput').fill('6400%');await page.locator('#zoomInput').press('Enter');
+  if(mobile){for(let i=0;i<12;i++)await page.locator('#zoomIn').click()}
+  else {await page.locator('#zoomInput').fill('6400%');await page.locator('#zoomInput').press('Enter')}
   await page.waitForFunction(()=>sceneReady,null,{timeout:90000});check('Detail beyond pyramid loads the source scene',await page.evaluate(()=>sceneReady));
   await page.locator('button[data-mode="original"]').click();await page.locator('#fitBtn').click();
   await page.waitForFunction(()=>!!underComp,null,{timeout:90000});check('Original plan loads its aerial when selected',await page.evaluate(()=>mode==='original'&&!!underComp));

@@ -14,7 +14,7 @@ const check = (name, pass, detail) => checks.push({name, pass:!!pass, detail});
   try {
     const page = await browser.newPage();
     await page.route('**/*', route => {requests++;return route.abort();});
-    for (const size of [{width:320,height:568},{width:360,height:640},{width:390,height:540},{width:844,height:320},{width:1406,height:600}]) {
+    for (const size of [{width:320,height:568},{width:360,height:640},{width:390,height:540},{width:600,height:198},{width:810,height:198},{width:844,height:320},{width:1406,height:600}]) {
       await page.setViewportSize(size); await page.setContent(html);
       await page.evaluate(() => {
         document.getElementById('loader').hidden = true;
@@ -32,6 +32,11 @@ const check = (name, pass, detail) => checks.push({name, pass:!!pass, detail});
       check(p+' complete toolbar fits map',m.toolbar.every(r=>inside(r,m.main)),m.toolbar);
       check(p+' embedded duplicate brand absent',!m.brandVisible);
       check(p+' Find open and About folded',m.findOpen&&!m.aboutOpen);
+      check(p+' full-screen button receives its own pointer',await page.locator('#fullBtn').evaluate(el=>{const r=el.getBoundingClientRect();return el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));}));
+      if(size.height<=300&&size.width>=600){
+        const directions=await page.locator('#dial button,#sheetBtn').evaluateAll(els=>els.map(el=>{const r=el.getBoundingClientRect();return {label:el.getAttribute('aria-label'),width:r.width,height:r.height,hit:el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))};}));
+        check(p+' all original direction and sheet controls remain reachable44px targets',directions.length===5&&directions.every(d=>d.width>=43.9&&d.height>=43.9&&d.hit),directions);
+      }
       if(size.width<=900){
         check(p+' phone main controls at least44px',m.modes.concat(m.toolbar,[m.find]).every(r=>r.width>=43.9&&r.height>=43.9));
         check(p+' closed phone side removed from keyboard visibility',!m.sideVisible);
@@ -42,6 +47,9 @@ const check = (name, pass, detail) => checks.push({name, pass:!!pass, detail});
         await page.screenshot({path:path.join(out,p+'-menu.png')});
         await page.evaluate(()=>document.body.classList.remove('nav'));
       }
+      await page.locator('#legend').evaluate(el=>{el.classList.add('show');el.innerHTML='<button class="jump" data-closelegend813>Close sources</button><h4>Source</h4><p>PDF SHA-256 '+ '0123456789abcdef'.repeat(4)+'</p>';});
+      check(p+' full source checksum fits panel width',await page.locator('#legend').evaluate(el=>el.scrollWidth<=el.clientWidth+1));
+      await page.locator('#legend').evaluate(el=>el.classList.remove('show'));
       await page.screenshot({path:path.join(out,p+'-map-shell.png')});
     }
     check('fixture made no network requests',requests===0,{requests});

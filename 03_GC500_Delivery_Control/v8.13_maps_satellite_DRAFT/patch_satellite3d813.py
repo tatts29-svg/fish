@@ -53,17 +53,21 @@ def apply_poc(text, path='poc3d/index.html'):
     bootPhase813 = 'access';
     const k = await key(); $('loadText').textContent = 'Starting the 3D scene…';
     bootPhase813 = 'graphics';""", 'distinguish startup failure stages')
+    once('requestRenderMode: true, maximumRenderTimeChange: Infinity, msaaSamples: 1,',
+         'showRenderLoopErrors: false, requestRenderMode: true, maximumRenderTimeChange: Infinity, msaaSamples: 1,',
+         'single reachable recovery UI instead of a second blocking error overlay')
     once('const sc = viewer.scene;\n    sc.globe.show = false;', """const sc = viewer.scene;
     viewer.canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); graphicsLost813 = true; bootProblem813('context'); });
+    sc.renderError.addEventListener(() => bootProblem813(graphicsLost813 ? 'context' : 'render'));
     bootPhase813 = 'imagery';
     sc.globe.show = false;""", 'manual graphics-loss recovery')
     once('sc.primitives.add(tileset); applyQuality();',
-         "if (graphicsLost813) { tileset.destroy(); bootProblem813('context'); return; }\n    sc.primitives.add(tileset); applyQuality();", 'late imagery cannot restart a lost graphics context')
+         "if (terminalProblem813) { tileset.destroy(); bootProblem813(terminalProblem813); return; }\n    sc.primitives.add(tileset); applyQuality();", 'late imagery cannot restart failed graphics')
     once("$('loader').classList.add('done'); fly('overhead', 0); window.__ready = true;", """clearTimeout(bootTimer813); window.__bootError = null; $('retry3d813').hidden = true;
     $('loader').classList.add('done'); fly('overhead', 0); window.__ready = true;
     try { if (EMBED3D && window.parent.gc500Explorer3DReady813) window.parent.gc500Explorer3DReady813(window); } catch (e) {}""", 'successful and late startup publishes readiness')
     once("() => { stopOrbit(); stopFace(); }, {passive: true}", "() => { stopMotion813(); }, {passive: true}", 'direct input takes camera control')
-    once("} catch (e) { console.error(e); $('loadText').textContent = String(e.message || e); window.__bootError = String(e); }", "} catch (e) { bootProblem813(graphicsLost813 ? 'context' : bootPhase813); }", 'safe contextual startup failure')
+    once("} catch (e) { console.error(e); $('loadText').textContent = String(e.message || e); window.__bootError = String(e); }", "} catch (e) { bootProblem813(terminalProblem813 || (graphicsLost813 ? 'context' : bootPhase813)); }", 'safe contextual startup failure')
     once('window.GC500_3D = {fly, faceTo, startOrbit, stopOrbit,', 'window.GC500_3D = {fly, faceTo, startOrbit, stopOrbit, stopMotion813,', 'parent can stop all camera motion')
     once('return {ready: !!viewer, quality, perf, loaded:', 'return {ready: window.__ready === true && !window.__bootError, quality, perf, loaded:', 'readiness means completed startup')
     return text
@@ -80,13 +84,20 @@ def apply_merge(text, path='explorer-merge.js'):
         text = rep(text, old, new, why, path)
     once('  /* ---------------- the 3D mode */', '''  /* ---------------- the 3D mode */
   let wait3dTimer813 = 0, load3dEpoch813 = 0;
+  window.gc500Explorer3DFailed813 = source => {
+    if (!frame || source !== frame.contentWindow) return false;
+    clearTimeout(wait3dTimer813); load3dEpoch813++; ready3d = false;
+    return true;
+  };
   window.gc500Explorer3DReady813 = source => {
-    if (!frame || source !== frame.contentWindow || !source.__ready || !source.GC500_3D) return false;
+    if (!frame || source !== frame.contentWindow || !source.__ready || source.__bootError || !source.GC500_3D) return false;
     clearTimeout(wait3dTimer813); load3dEpoch813++; ready3d = true;
     source.GC500_3D.setPins(pins3d());
     if (in3d) sync3d(true); else if (source.GC500_3D.stopMotion813) source.GC500_3D.stopMotion813();
     return true;
   };''', 'one readiness owner per 3D frame load')
+    once('const a = api3d(); if (!a || !ready3d) return;',
+         'const a = api3d(); if (!a || !ready3d || !a.state || !a.state.ready) return;', 'failed graphics cannot receive camera and pin synchronisation')
     old = '''    frame.addEventListener('load', () => {
       const t0 = Date.now();
       (function wait() {

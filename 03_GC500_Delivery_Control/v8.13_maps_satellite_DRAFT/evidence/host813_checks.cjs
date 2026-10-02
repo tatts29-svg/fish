@@ -5,13 +5,14 @@ const root=path.resolve(__dirname,'..'),checks=[];
 function ok(name,fn){fn();checks.push({name,pass:true});}
 function pending(){
  const timers=new Map();let id=0;
- const c={EXP:{mode3d:true},state:{tab:'map'},setTimeout:f=>{timers.set(++id,f);return id},clearTimeout:i=>timers.delete(i),flash:m=>c.message=m};
+ const c={EXP:{mode3d:true},state:{tab:'map',sheet:'__explorer'},SAT_EXPLORER:'__explorer',setTimeout:f=>{timers.set(++id,f);return id},clearTimeout:i=>timers.delete(i),flash:m=>c.message=m};
  vm.createContext(c);vm.runInContext(fs.readFileSync(root+'/map_pending813_src.js','utf8'),c);
  c.tick=()=>{for(const [i,f] of [...timers]){timers.delete(i);f()}};c.timers=timers;return c;
 }
 ok('Repeated 3D requests share one timer',()=>{const c=pending();for(let i=0;i<5;i++)c.expFlush3d();assert.equal(c.timers.size,1)});
 ok('Opening completes once when the map becomes ready',()=>{const c=pending();let opens=0;c.expFlush3d();c.EXP.frame={contentWindow:{__ready:true,GC500Explorer:{mode3d:()=>opens++}}};c.tick();c.expFlush3d();assert.equal(opens,1);assert.equal(c.timers.size,0);assert.equal(c.EXP.mode3d,false)});
 ok('Navigation away cancels a pending opening',()=>{const c=pending();c.expFlush3d();c.state.tab='today';c.tick();assert.equal(c.timers.size,0);assert.equal(c.EXP.mode3d,false)});
+ok('Choosing another drawing cancels hidden 3D startup',()=>{const c=pending();c.expFlush3d();c.state.sheet='D002';c.tick();assert.equal(c.timers.size,0);assert.equal(c.EXP.mode3d,false)});
 ok('Explicit 2D selection cancels its timer',()=>{const c=pending();c.expFlush3d();c.expCancel3d813();assert.equal(c.timers.size,0);assert.equal(c.EXP.mode3d,false)});
 ok('A failed opening stops and gives a retry instruction',()=>{const c=pending();c.expFlush3d();for(let i=0;i<150;i++)c.tick();assert.equal(c.timers.size,0);assert.match(c.message,/retry/);assert.equal(c.EXP.mode3dTries,0)});
 ok('A subsequent retry can complete',()=>{const c=pending();c.expFlush3d();for(let i=0;i<150;i++)c.tick();let opens=0;c.EXP.mode3d=true;c.EXP.frame={contentWindow:{__ready:true,GC500Explorer:{mode3d:()=>opens++}}};c.expFlush3d();assert.equal(opens,1)});

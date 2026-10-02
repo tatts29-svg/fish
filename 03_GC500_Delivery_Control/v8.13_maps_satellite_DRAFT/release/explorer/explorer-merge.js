@@ -55,15 +55,20 @@ body.in3d #layers{opacity:.45;pointer-events:none}
   }
   const api3d = () => { try { return frame && frame.contentWindow && frame.contentWindow.GC500_3D; } catch (e) { return null; } };
   function sync3d(fly) {
-    const a = api3d(); if (!a || !ready3d) return;
+const a = api3d(); if (!a || !ready3d || !a.state || !a.state.ready) return;
     a.showGroups(curCat ? [String(curCat)] : null);
     if (lastCode) { if (fly) a.find(lastCode); else a.ring(lastCode); }
   }
 
   /* ---------------- the 3D mode */
   let wait3dTimer813 = 0, load3dEpoch813 = 0;
+  window.gc500Explorer3DFailed813 = source => {
+    if (!frame || source !== frame.contentWindow) return false;
+    clearTimeout(wait3dTimer813); load3dEpoch813++; ready3d = false;
+    return true;
+  };
   window.gc500Explorer3DReady813 = source => {
-    if (!frame || source !== frame.contentWindow || !source.__ready || !source.GC500_3D) return false;
+    if (!frame || source !== frame.contentWindow || !source.__ready || source.__bootError || !source.GC500_3D) return false;
     clearTimeout(wait3dTimer813); load3dEpoch813++; ready3d = true;
     source.GC500_3D.setPins(pins3d());
     if (in3d) sync3d(true); else if (source.GC500_3D.stopMotion813) source.GC500_3D.stopMotion813();

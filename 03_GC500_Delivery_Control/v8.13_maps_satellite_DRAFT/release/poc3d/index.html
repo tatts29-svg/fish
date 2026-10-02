@@ -186,7 +186,7 @@ document.addEventListener('pointerdown', () => hideStatus(true), true);
 document.addEventListener('touchstart', () => hideStatus(true), {capture: true, passive: true});
 document.addEventListener('wheel', () => hideStatus(true), {capture: true, passive: true});
 /* Author: Andrew Fisher. Recovery is an explicit press; never open or reload a billed 3D session automatically. */
-let bootPhase813 = 'library', bootTimer813 = 0, graphicsLost813 = false;
+let bootPhase813 = 'library', bootTimer813 = 0, graphicsLost813 = false, terminalProblem813 = null;
 function bootProblem813(kind) {
   clearTimeout(bootTimer813);
   const words = {
@@ -195,9 +195,12 @@ function bootProblem813(kind) {
     graphics: 'This browser could not start 3D graphics. Retry, or use the 2D map on this device.',
     imagery: 'The 3D imagery could not load. Check the connection, then press Retry 3D.',
     slow: '3D is taking longer to load. You can wait, or press Retry 3D to start again.',
-    context: 'The browser stopped 3D graphics. Press Retry 3D, or return to the 2D map.'
+    context: 'The browser stopped 3D graphics. Press Retry 3D, or return to the 2D map.',
+    render: 'The 3D picture stopped drawing. Press Retry 3D, or return to the 2D map.'
   };
-  window.__bootError = kind;
+  if (kind !== 'slow') terminalProblem813 = kind;
+  window.__bootError = kind; window.__ready = false;
+  try { if (EMBED3D && window.parent.gc500Explorer3DFailed813) window.parent.gc500Explorer3DFailed813(window); } catch (e) {}
   $('loadText').textContent = words[kind] || words.imagery;
   $('retry3d813').hidden = false;
   $('loader').classList.remove('done');
@@ -372,9 +375,10 @@ if (!window.Cesium) { bootProblem813('library'); return; }
     const k = await key(); $('loadText').textContent = 'Starting the 3D scene…';
     bootPhase813 = 'graphics';
     viewer = new Cesium.Viewer('cesium', {baseLayer: false, baseLayerPicker: false, geocoder: false, homeButton: false, sceneModePicker: false, navigationHelpButton: false, animation: false, timeline: false, fullscreenButton: false, infoBox: false, selectionIndicator: false,
-      requestRenderMode: true, maximumRenderTimeChange: Infinity, msaaSamples: 1, contextOptions: {webgl: {powerPreference: 'high-performance', antialias: false}}});   /* v7.14: Cesium draws to its own buffers; MSAA set per quality */
+showRenderLoopErrors: false, requestRenderMode: true, maximumRenderTimeChange: Infinity, msaaSamples: 1, contextOptions: {webgl: {powerPreference: 'high-performance', antialias: false}}});   /* v7.14: Cesium draws to its own buffers; MSAA set per quality */
 const sc = viewer.scene;
     viewer.canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); graphicsLost813 = true; bootProblem813('context'); });
+    sc.renderError.addEventListener(() => bootProblem813(graphicsLost813 ? 'context' : 'render'));
     bootPhase813 = 'imagery';
     sc.globe.show = false; sc.skyAtmosphere.show = true; sc.fog.enabled = true; sc.fog.density = 1.2e-4; sc.postProcessStages.fxaa.enabled = true;
     sc.highDynamicRange = false; sc.shadowMap && (sc.shadowMap.enabled = false); sc.backgroundColor = Cesium.Color.fromCssColorString('#0f0d0c');
@@ -383,7 +387,7 @@ const sc = viewer.scene;
       cacheBytes: PHONE ? 512 * 1048576 : LOWPOWER ? 768 * 1048576 : 1536 * 1048576, maximumCacheOverflowBytes: PHONE ? 256 * 1048576 : LOWPOWER ? 384 * 1048576 : 768 * 1048576,
       preloadFlightDestinations: true, cullRequestsWhileMoving: true, cullRequestsWhileMovingMultiplier: 60, foveatedScreenSpaceError: true, foveatedConeSize: .25,
       dynamicScreenSpaceError: true, dynamicScreenSpaceErrorDensity: 2e-4, dynamicScreenSpaceErrorFactor: 24, progressiveResolutionHeightFraction: .5});
-if (graphicsLost813) { tileset.destroy(); bootProblem813('context'); return; }
+if (terminalProblem813) { tileset.destroy(); bootProblem813(terminalProblem813); return; }
     sc.primitives.add(tileset); applyQuality();
     let failT = 0; tileset.tileFailed.addEventListener(() => { const n = performance.now(); if (n - failT > 30000) { failT = n; setStatus('<b>Some of the 3D imagery did not load</b> · the connection may be weak; it retries as you move', 4000); } });
     tileset.tileLoad.addEventListener(t => { perf.tilesLoaded++; const c = t.content; if (c && c.byteLength) perf.bytes += c.byteLength; });
@@ -410,7 +414,7 @@ clearTimeout(bootTimer813); window.__bootError = null; $('retry3d813').hidden = 
     $('fsBtn').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(() => {}); };
     await loadPins(); sc.requestRender();
     const f = new URLSearchParams(location.search).get('find'); if (f) { const p = PINS.find(x => x.k.toUpperCase() === f.toUpperCase()); if (p) flyToPin(p); }
-} catch (e) { bootProblem813(graphicsLost813 ? 'context' : bootPhase813); }
+} catch (e) { bootProblem813(terminalProblem813 || (graphicsLost813 ? 'context' : bootPhase813)); }
 }
 function perfText() {
   if (!viewer) return; const cam = viewer.camera.positionCartographic; const h = Math.round(cam.height);

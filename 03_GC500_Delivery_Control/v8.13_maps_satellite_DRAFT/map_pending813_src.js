@@ -5,7 +5,7 @@ function expCancel3d813(){
 }
 function expFlush3d(){
  if (!EXP.mode3d || EXP.mode3dTimer) return;
- if (state.tab !== 'map') { expCancel3d813(); return; }
+ if (state.tab !== 'map' || state.sheet !== SAT_EXPLORER) { expCancel3d813(); return; }
  try {
   const w = EXP.frame && EXP.frame.contentWindow;
   if (w && w.__ready && w.GC500Explorer && typeof w.GC500Explorer.mode3d === 'function') {

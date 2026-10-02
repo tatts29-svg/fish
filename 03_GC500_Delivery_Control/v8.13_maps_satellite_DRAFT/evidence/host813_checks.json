@@ -14,6 +14,10 @@
       "pass": true
     },
     {
+      "name": "Choosing another drawing cancels hidden 3D startup",
+      "pass": true
+    },
+    {
       "name": "Explicit 2D selection cancels its timer",
       "pass": true
     },
