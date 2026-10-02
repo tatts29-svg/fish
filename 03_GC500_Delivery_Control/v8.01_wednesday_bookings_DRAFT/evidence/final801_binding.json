@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "candidate": "/workspace/private-v801-review/70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11/candidate.html",
+  "candidateSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "bytes": 8950159,
+  "browser_checks": 33,
+  "source_checks": 4,
+  "guards": 3,
+  "status": "Booking implementation READY; independent actual-card review pending"
+}

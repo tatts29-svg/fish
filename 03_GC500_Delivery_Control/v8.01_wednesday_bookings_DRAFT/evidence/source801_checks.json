@@ -1,0 +1,81 @@
+{
+  "author": "Andrew Fisher",
+  "base_sha256": "9a52ec22c794a514d44936ef84335b62a6876c2664fa54f211a35f1315666d95",
+  "candidate_sha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "checks": [
+    {
+      "name": "14 unique original events updated",
+      "pass": true
+    },
+    {
+      "name": "Restoring source provenance returns exact prior DATA including prices positions allocations and all other dates",
+      "pass": true
+    },
+    {
+      "name": "No added or removed references",
+      "pass": true
+    },
+    {
+      "name": "All operational asset arrays preserved",
+      "pass": true
+    }
+  ],
+  "updated_events": [
+    [
+      "GN18",
+      "T0090"
+    ],
+    [
+      "P52",
+      "T0253"
+    ],
+    [
+      "P54",
+      "T0254"
+    ],
+    [
+      "P55",
+      "T0255"
+    ],
+    [
+      "P56",
+      "T0256"
+    ],
+    [
+      "P57",
+      "T0257"
+    ],
+    [
+      "WC20",
+      "T0250"
+    ],
+    [
+      "WC20",
+      "T0251"
+    ],
+    [
+      "WC38",
+      "T0091"
+    ],
+    [
+      "WC39",
+      "T0092"
+    ],
+    [
+      "WC40",
+      "T0093"
+    ],
+    [
+      "WC61",
+      "T0095"
+    ],
+    [
+      "WC86",
+      "T0252"
+    ],
+    [
+      "T0258",
+      "T0258"
+    ]
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "author": "Andrew Fisher",
+  "received": "2 Oct 2026",
+  "source": "Andrew Fisher, bookings and DD departure order supplied in chat",
+  "date": "2026-10-07",
+  "instruction": "Please ensure the trucks leave Kingston in the order shown in the DD column.",
+  "rows": [
+    {
+      "reference": "WC20",
+      "task_id": "T0250",
+      "date": "2026-10-07",
+      "product": "Toilet",
+      "item": "Toilet Block 6m",
+      "quantity": 2,
+      "location": "WC20 - Toilets (Tank Mounted)",
+      "notes": null,
+      "activity": "Crane onsite",
+      "customer": "scars",
+      "asset_text": "1327228 - 1327225",
+      "departure_order": 8,
+      "dd_as_supplied": "8th  26112783/ 26112786",
+      "load_times_as_supplied": "0900/0900",
+      "carriers_as_supplied": "sfl/sfl",
+      "loads": [
+        {
+          "truck_id": "dd-26112783",
+          "dd": "26112783",
+          "load_time": "0900",
+          "carrier": "SFL",
+          "quantity": 1,
+          "asset_numbers": [
+            "1327228"
+          ]
+        },
+        {
+          "truck_id": "dd-26112786",
+          "dd": "26112786",
+          "load_time": "0900",
+          "carrier": "SFL",
+          "quantity": 1,
+          "asset_numbers": [
+            "1327225"
+          ]
+        }
+      ],
+      "asset_pairing_basis": "Asset numbers and DDs paired in the order supplied in the two lists."
+    },
+    {
+      "reference": "WC20",
+      "task_id": "T0251",
+      "date": "2026-10-07",
+      "product": "Toilet",
+      "item": "Waste tank",
+      "quantity": 2,
+      "location": "WC20",
+      "notes": null,
+      "activity": null,
+      "customer": "scars",
+      "asset_text": null,
+      "departure_order": 7,
+      "dd_as_supplied": "7th  26112769/ 26112776",
+      "load_times_as_supplied": "0630/0700",
+      "carriers_as_supplied": "kev/sfl",
+      "loads": [
+        {
+          "truck_id": "dd-26112769",
+          "dd": "26112769",
+          "load_time": "0630",
+          "carrier": "KEV",
+          "quantity": 1,
+          "asset_numbers": []
+        },
+        {
+          "truck_id": "dd-26112776",
+          "dd": "26112776",
+          "load_time": "0700",
+          "carrier": "SFL",
+          "quantity": 1,
+          "asset_numbers": []
+        }
+      ]
+    },
+    {
+      "reference": "GN18",
+      "task_id": "T0090",
+      "date": "2026-10-07",
+      "product": "Generator",
+      "item": "50kva",
+      "quantity": 1,
+      "location": "GN18 - Generator",
+      "notes": null,
+      "activity": null,
+      "customer": "scars",
+      "asset_text": "1261273 ex REED",
+      "departure_order": null,
+      "dd_as_supplied": "26112495",
+      "load_times_as_supplied": "0930",
+      "carriers_as_supplied": "kev",
+      "loads": [
+        {
+          "truck_id": "dd-26112495",
+          "dd": "26112495",
+          "load_time": "0930",
+          "carrier": "KEV",
+          "quantity": 1,
+          "asset_numbers": [
+            "1261273"
+          ]
+        }
+      ],
+      "asset_source": "ex REED"
+    },
+    {
+      "reference": "WC38",
+      "task_id": "T0091",
+      "date": "2026-10-07",
+      "product": "Toilet",
+      "item": "FWF",
+      "quantity": 1,
+      "location": "WC38 - Toilet",
+      "notes": "7.00-11.00am",
+      "activity": null,
+      "customer": "scars",
+      "asset_text": "na",
+      "departure_order": null,
+      "dd_as_supplied": "NA",
+      "load_times_as_supplied": null,
+      "carriers_as_supplied": null,
+      "loads": []
+    },
+    {
+      "reference": "WC39",
+      "task_id": "T0092",
+      "date": "2026-10-07",
+      "product": "Toilet",
+      "item": "FWF",
+      "quantity": 2,
+      "location": "WC39 - Toilets",
+      "notes": null,
+      "activity": null,
+      "customer": "scars",
+      "asset_text": "na",
+      "departure_order": null,
+      "dd_as_supplied": "NA",
+      "load_times_as_supplied": null,
+      "carriers_as_supplied": null,
+      "loads": []
+    },
+    {
+      "reference": "WC40",
+      "task_id": "T0093",
+      "date": "2026-10-07",
+      "product": "Toilet",
+      "item": "FWF",
+      "quantity": 5,
+      "location": "WC40 - Toilets",
+      "notes": null,
+      "activity": null,
+      "customer": "scars",
+      "asset_text": "na",
+      "departure_order": null,
+      "dd_as_supplied": "NA",
+      "load_times_as_supplied": null,
+      "carriers_as_supplied": null,
+      "loads": []
+    },
+    {
+      "reference": "P52",
+      "task_id": "T0253",
+      "date": "2026-10-07",
+      "product": "Portable Building",
+      "item": "Building 12m",
+      "quantity": 1,
+      "location": "P52 - Gate 1 Volunteer Check-In",
+      "notes": "Fridge (Full Size)",
+      "activity": "Crane onsite",
+      "customer": "scars",
+      "asset_text": "13227211",
+      "departure_order": 6,
+      "dd_as_supplied": "6th  26112762",
+      "load_times_as_supplied": "0830",
+      "carriers_as_supplied": "readys",
+      "loads": [
+        {
+          "truck_id": "dd-26112762",
+          "dd": "26112762",
+          "load_time": "0830",
+          "carrier": "READYS",
+          "quantity": 1,
+          "asset_numbers": [
+            "13227211"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "P54",
+      "task_id": "T0254",
+      "date": "2026-10-07",
+      "product": "Portable Building",
+      "item": "Building 6m",
+      "quantity": 1,
+      "location": "P54 - Accred Centre BOH",
+      "notes": null,
+      "activity": "Crane onsite",
+      "customer": "scars",
+      "asset_text": "1327219",
+      "departure_order": 3,
+      "dd_as_supplied": "3rd  26112733",
+      "load_times_as_supplied": "0530",
+      "carriers_as_supplied": "readys",
+      "loads": [
+        {
+          "truck_id": "dd-26112733",
+          "dd": "26112733",
+          "load_time": "0530",
+          "carrier": "READYS",
+          "quantity": 1,
+          "asset_numbers": [
+            "1327219"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "P55",
+      "task_id": "T0255",
+      "date": "2026-10-07",
+      "product": "Portable Building",
+      "item": "Ticket Box 6m",
+      "quantity": 1,
+      "location": "P55 - Gate 1 Ticket Box",
+      "notes": null,
+      "activity": "Crane onsite",
+      "customer": "scars",
+      "asset_text": "172114",
+      "departure_order": 1,
+      "dd_as_supplied": "1st  26112709",
+      "load_times_as_supplied": "0500",
+      "carriers_as_supplied": "sfl",
+      "loads": [
+        {
+          "truck_id": "dd-26112709",
+          "dd": "26112709",
+          "load_time": "0500",
+          "carrier": "SFL",
+          "quantity": 1,
+          "asset_numbers": [
+            "172114"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "P56",
+      "task_id": "T0256",
+      "date": "2026-10-07",
+      "product": "Portable Building",
+      "item": "Building 3.6m",
+      "quantity": 1,
+      "location": "P56 - Gate 1 Ticket BOH",
+      "notes": null,
+      "activity": "Crane onsite",
+      "customer": "scars",
+      "asset_text": "1268865",
+      "departure_order": 2,
+      "dd_as_supplied": "2nd  26112730",
+      "load_times_as_supplied": "0500",
+      "carriers_as_supplied": "sfl",
+      "loads": [
+        {
+          "truck_id": "dd-26112730",
+          "dd": "26112730",
+          "load_time": "0500",
+          "carrier": "SFL",
+          "quantity": 1,
+          "asset_numbers": [
+            "1268865"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "P57",
+      "task_id": "T0257",
+      "date": "2026-10-07",
+      "product": "Portable Building",
+      "item": "Building 9.6m",
+      "quantity": 1,
+      "location": "P57 - Radio Distribution Office",
+      "notes": "Fridge (Full Size)",
+      "activity": "Crane onsite",
+      "customer": "scars",
+      "asset_text": "1268888",
+      "departure_order": 5,
+      "dd_as_supplied": "5th  26112756",
+      "load_times_as_supplied": "0830",
+      "carriers_as_supplied": "readys",
+      "loads": [
+        {
+          "truck_id": "dd-26112756",
+          "dd": "26112756",
+          "load_time": "0830",
+          "carrier": "READYS",
+          "quantity": 1,
+          "asset_numbers": [
+            "1268888"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "T0258",
+      "task_id": "T0258",
+      "date": "2026-10-07",
+      "product": "Portable Building",
+      "item": "3.0m Cont",
+      "quantity": 1,
+      "location": "Helen Park",
+      "notes": null,
+      "activity": "Crane onsite",
+      "customer": "scars",
+      "asset_text": "with toilet",
+      "departure_order": 4,
+      "dd_as_supplied": "4th  26112749",
+      "load_times_as_supplied": "0530",
+      "carriers_as_supplied": "irwins",
+      "loads": [
+        {
+          "truck_id": "wed7-r4",
+          "dd": "26112749",
+          "load_time": "0530",
+          "carrier": "IRWINS",
+          "quantity": 1,
+          "asset_numbers": []
+        }
+      ]
+    },
+    {
+      "reference": "WC86",
+      "task_id": "T0252",
+      "date": "2026-10-07",
+      "product": "Toilet",
+      "item": "Accessible Toilet",
+      "quantity": 1,
+      "location": "WC86 - Toilet",
+      "notes": null,
+      "activity": "Coates",
+      "customer": "scars",
+      "asset_text": "with container",
+      "departure_order": 4,
+      "dd_as_supplied": "4th  26112797",
+      "load_times_as_supplied": "0530",
+      "carriers_as_supplied": "irwins",
+      "loads": [
+        {
+          "truck_id": "wed7-r4",
+          "dd": "26112797",
+          "load_time": "0530",
+          "carrier": "IRWINS",
+          "quantity": 1,
+          "asset_numbers": []
+        }
+      ]
+    },
+    {
+      "reference": "WC61",
+      "task_id": "T0095",
+      "date": "2026-10-07",
+      "product": "Toilet",
+      "item": "FWF",
+      "quantity": 8,
+      "location": "WC61 - Toilets",
+      "notes": null,
+      "activity": null,
+      "customer": "scars",
+      "asset_text": "na",
+      "departure_order": null,
+      "dd_as_supplied": "NA",
+      "load_times_as_supplied": null,
+      "carriers_as_supplied": null,
+      "loads": []
+    }
+  ]
+}
