@@ -6,7 +6,7 @@ export CHROMIUM_PATH=${CHROMIUM_PATH:-/opt/pw-browsers/chromium} NODE_PATH=${NOD
 PAGE=$PWD/build/GC500_v8.16/GC500_Delivery_Control_hosted.html; BASE=$PWD/build/GC500_v8.16/base_live.html; export PAGE
 T=v7.99_today_faster_fuller_DRAFT/evidence; E=v8.16_reference_and_demob_DRAFT/evidence; R=$E/regress; mkdir -p $R
 if [ "$(sha256sum < $PAGE)" = "$(sha256sum < $BASE)" ] || ! grep -q 'v8.16 - reference drawer and Demob tab' $PAGE; then echo 'STOP: the built page is not v8.16 (the patch did not apply)'; exit 1; fi
-quiet() { while pgrep -f "machine_rig|people_tests|driver_tests|ui_tests|mech_tests|fx_tests" > /dev/null; do echo "waiting: a 3D test is running"; sleep 60; done; }
+quiet() { while pgrep -f "node .*(machine_rig|people_tests|driver_tests|ui_tests|mech_tests|fx_tests)" > /dev/null; do echo "waiting: a 3D test is running"; sleep 60; done; }
 step() { quiet; echo "== $1"; }
 step v816;            node $E/v816_tests.js > $E/v816.log 2>&1
 step v799-desktop;    BASE=$BASE node $T/v799_tests.js > $E/v799_desktop.log 2>&1

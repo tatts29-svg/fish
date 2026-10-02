@@ -121,7 +121,9 @@ function drawer816(a){
 	const zoneChip = z.zone === 'island' ? '<span class="chip ref">Macintosh Island</span>' : z.zone === 'unknown' ? '<span class="chip cand">Position to confirm</span>' : '<span class="chip act">Outside the island</span>';
 	const ticks = [d.done ? '<span class="tick">✓ Complete</span>' : '', levelChip(a), stepsChip(a), needsEmpty816(a) && em.on ? '<span class="tick">✓ Emptied</span>' : ''].join('');
 	const inWhy = eff.in ? (eff.in_moved ? 'moved' + (eff.in_by ? ' by ' + eff.in_by : '') : a.first_date ? 'on the plan' : '') + (d.state === 'on site' ? ' · arrived' : '') + (d.eta ? ' · ' + d.eta : '') : 'no date on the schedule';
-	const outWhy = !M || !M.iso ? 'no date - position to confirm'
+	/* a cancelled reference is off the demob, but a due-out it still carries is shown, marked cancelled */
+	const cxOut = !M && a._cancelled ? (d.out_date || eff.out || contract816(a).early || null) : null;
+	const outWhy = cxOut ? 'cancelled · ' + (d.out_date ? 'the due-out typed on it' : eff.out_plan ? 'the plan\'s remove event' : 'contract off-hire') : !M || !M.iso ? 'no date - position to confirm'
 		: M.src === 'proposed' ? 'proposed · ' + (M.side === 'inside' ? 'island, week ' + week816(M.iso) : M.side === 'outside' ? 'outside the island, week 1' : 'position to confirm, end of week 3')
 		: M.src === 'plan' ? 'the plan\'s remove event' : M.src === 'contract' ? 'contract off-hire' : 'confirmed' + (d.out_by ? ' by ' + d.out_by : '');
 	const hireEnd = M && M.contractEnd === DM816.end && M.src !== 'contract' ? ' · hire ends 13 Nov' : '';
@@ -131,7 +133,7 @@ function drawer816(a){
 	sum.innerHTML = `<div class="hubtitle"><h3>${esc(word)}</h3>${zoneChip}</div><p class="since816">${sinceW}</p>
 ${ticks ? `<div class="chips816">${ticks}</div>` : ''}
 <div class="cside"><div class="ctwo"><div class="ctile plan"><p class="ctk">In</p><b>${eff.in ? esc(dayWords816(eff.in)) : '—'}</b><span>${esc(inWhy)}</span></div>
-<div class="ctile ${M && M.src === 'proposed' ? 'pr816' : 'good'} dt816 out"><p class="ctk">Out ${M ? srcChip816(M.src) : ''}</p><b>${M && M.iso ? esc(dayWords816(M.iso)) : '—'}</b><span>${esc(outWhy + hireEnd)}</span></div></div></div>
+<div class="ctile ${M && M.src === 'proposed' ? 'pr816' : cxOut ? 'stop' : 'good'} dt816 out"><p class="ctk">Out ${M ? srcChip816(M.src) : cxOut ? '<span class="chip crit">cancelled</span>' : ''}</p><b>${M && M.iso ? esc(dayWords816(M.iso)) : cxOut ? esc(dayWords816(cxOut)) : '—'}</b><span>${esc(outWhy + hireEnd)}</span></div></div></div>
 ${dForm ? '<button type="button" class="linkish editonly chg816 hubgo" data-chg816="dates" aria-expanded="false">Change the dates →</button><div class="chgp816" data-chgp816="dates" hidden></div>' : ''}`;
 	if (dForm) sum.querySelector('[data-chgp816="dates"]').appendChild(dForm);
 	/* 4. Complete it: Today's lights island for one reference - the signal head, a row per light, a row per tick */

@@ -119,6 +119,7 @@ async function run(name, dev) {
     M.days.forEach(d => trucks816(d, 'all').forEach(L => { const t = L.t;
       if (t.over || t.arrive < 420 || t.leave > 1020 || t.st.some(s => s.at < 420 || s.end > 1020) || ban816(t.dep, t.dep + assume816().run.v) || ban816(t.leave, t.leave + assume816().run.v)) times.push(d + ' ' + L.group + ' load ' + L.n);
       L.stops.forEach(s => { const ix = s.parts.map(p => p.tank ? 1 : 0); if (ix.some((v, i) => i && v < ix[i - 1])) tankBad.push(d + ' ' + s.r.key); }); }));
+    M.days.forEach(d => { const st = trucks816(d, 'all').flatMap(L => L.t.st); st.filter(x => x.s.tankOnly).forEach(x => { if (st.some(y => !y.s.tankOnly && y.s.r.key === x.s.r.key && y.end > x.at)) tankBad.push(d + ' ' + x.s.r.key + ' by time'); }); });
     const pairs = M.refs.filter(r => r.tank && r.units.some(u => !u.tank && !u.evt && u.n > 0)).map(r => r.key);
     M.refs.filter(r => r.empty && !r.emptied && r.iso >= M.days[0] && r.iso <= M.days[M.days.length - 1]).forEach(r => { if (!M.days.some(d => d <= r.iso && M.day[d].pump.some(x => x.r.key === r.key))) noPump.push(r.key); });
     return {loads: all.length, over: all.filter(L => L.units > 24).map(L => L.d + ' L' + L.n + ' ' + L.units), mismatch, evtRefs: evt.length, units: evt.reduce((s, r) => s + r.evtN, 0), dayOrder, badWeek: badWeek.length, planned: planned.length, mixedSide: all.filter(L => L.sides.length > 1 && !L.sides.includes('unknown')).length,
@@ -147,7 +148,6 @@ async function run(name, dev) {
   const E = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms));
     const sent = []; window.syncPush = () => { sent.push('push'); }; window.save = () => { RENDER_MEMO.clear(); try { if (ASSETS_HELD) HELD_STALE775 = true; } catch (e) {} return true; }; window.folderWrite = () => {}; window.confirm = () => { throw new Error('no confirm() dialogs'); };
     window.capability = () => 'edit'; window.mayWrite = () => true; SYNC.readonly = false; SYNC.level = 'edit'; S.operator = 'Test editor'; applyCapability();
-    EMPTY816.from = '2026-01-01';
     const r = {};
     // the drawer, as an editor
     openAsset('P42'); await w(1000);
@@ -172,7 +172,7 @@ async function run(name, dev) {
     r.confirmBar = !!document.querySelector('#pane-demob .confirm816');
     document.querySelector('#pane-demob [data-conf816="yes"]').click(); await w(500);
     window.setDate = sd;
-    r.confirmN = n; r.calls = calls.length; r.callsOk = calls.every(c => c[1] === '2026-10-29' && c[2] === 'out');
+    r.confirmN = n; r.calls = calls.length; r.callsOk = calls.every(c => c[1] === (demobOf816(c[0]) || {}).iso && c[2] === 'out');
     r.nowConfirmed = demob816().day['2026-10-29'].list.filter(x => x.src === 'confirmed').length;
     r.pushes = sent.length;
     return r; });
@@ -181,6 +181,71 @@ async function run(name, dev) {
   ok(E.collectRefused && E.lightRefused, `${name}: the pump-out gate refuses a collection (and the light off site) until the toilet is emptied (${E.gateKey}, ${E.st0})`, E);
   ok(E.emptiedPod && E.emptiedSet && E.collectAllowed && E.recordKept, `${name}: Emptied (pumped out) records who and when, then the collection is allowed`, E);
   ok(E.confirmBar && E.calls === E.confirmN && E.callsOk && E.nowConfirmed === E.confirmN && E.confirmN > 0, `${name}: Confirm the N proposed asks on the page, then writes each through setDate(key, iso, 'out')`, {n: E.confirmN, calls: E.calls, confirmed: E.nowConfirmed});
+  // ---------------- the reviewer's findings (3 Oct 2026), one check each; every one of these failed on the unfixed source
+  const RV = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms)), out = {};
+    const toilets = allAssets().filter(a => !a._cancelled && needsEmpty816(a) && !emptiedOf816(a.key).on).map(a => a.key).sort();
+    const keep = k => JSON.parse(JSON.stringify((S.delivery || {})[k] || null)), back = (k, v) => { if (v) S.delivery[k] = v; else delete S.delivery[k]; RENDER_MEMO.clear(); };
+    // 1a. no light shortcut: a toilet that has been on site and now shows amber still cannot go off site un-emptied
+    { const k = toilets[1], was = keep(k); S.delivery[k] = Object.assign({}, was || {}, {state: 'in transit', set_at: '2026-10-26T00:00:00.000Z', by: 'test', history: [{state: 'on site', at: '2026-10-01T00:00:00.000Z', by: 'test'}, {state: 'in transit', at: '2026-10-26T00:00:00.000Z', by: 'test'}]}); RENDER_MEMO.clear();
+      out.amberRefused = setLight(k, 'not on site') === false && deliveryOf(k).state === 'in transit'; back(k, was); }
+    // 1b. no date shortcut: today is before Event Week and the gate still holds (setLight, not forced)
+    { const k = toilets.find(x => deliveryOf(x).state === 'on site'); out.today = todayIso(); out.dateRefused = setLight(k, 'in transit') === false && deliveryOf(k).state === 'on site'; }
+    // 1c. emptied: true with no person and no time is not proof
+    { const k = toilets.find(x => deliveryOf(x).state === 'on site'), was = keep(k); S.delivery[k] = Object.assign({}, was || {}, {emptied: true}); delete S.delivery[k].emptied_by; delete S.delivery[k].emptied_at; RENDER_MEMO.clear();
+      out.unprovenRefused = !emptiedOf816(k).on && emptiedOf816(k).unproven && collect816(k) === false; back(k, was); }
+    // 1d. a stale local true loses to a newer committed false
+    { const k = toilets.find(x => deliveryOf(x).state === 'on site'), was = keep(k), row = CROW.get(k), had = row ? row.delivery : undefined;
+      S.delivery[k] = Object.assign({}, was || {}, {emptied: true, emptied_by: 'A', emptied_at: '2026-10-20T00:00:00.000Z'});
+      if (row) row.delivery = Object.assign({}, had || {}, {emptied: false, emptied_by: 'B', emptied_at: '2026-10-21T00:00:00.000Z'}); else CROW.set(k, {delivery: {emptied: false, emptied_by: 'B', emptied_at: '2026-10-21T00:00:00.000Z'}});
+      RENDER_MEMO.clear(); out.staleRefused = !emptiedOf816(k).on && collect816(k) === false;
+      if (row) row.delivery = had; else CROW.delete(k); back(k, was); }
+    // 2. a merge keeps Emptied, and the later stamp wins
+    { const A1 = {delivery: {X1: {emptied: true, emptied_by: 'A', emptied_at: '2026-10-25T01:00:00.000Z', emptied_history: [{emptied: true, at: '2026-10-25T01:00:00.000Z', by: 'A'}]}, X2: {emptied: true, emptied_by: 'A', emptied_at: '2026-10-25T01:00:00.000Z'}}};
+      const B1 = {delivery: {X2: {emptied: false, emptied_by: 'B', emptied_at: '2026-10-25T02:00:00.000Z'}}};
+      const m = mergeRecords(A1, B1).merged.delivery;
+      out.merge = {x1: m.X1 && m.X1.emptied === true && m.X1.emptied_by === 'A' && !!m.X1.emptied_at && (m.X1.emptied_history || []).length === 1, x2: m.X2 && m.X2.emptied === false && m.X2.emptied_by === 'B'}; }
+    // 3. a 25-unit event-portable reference is picked up in portions, each on its own day, in its load and its day's confirmation
+    { const u0 = window.units816, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure && r.side === 'outside').key;
+      window.units816 = a => a.key === k ? [{type: 'FWF', n: 25, unknown: false, evt: true, tank: false}] : u0(a); RENDER_MEMO.clear();
+      const M = demob816(), r = M.byKey.get(k), P = r.portions || [];
+      out.split = {k, portions: P, sum: P.reduce((s, x) => s + x.n, 0), eachDay: P.every(x => M.day[x.iso].list.some(y => y.key === k) && M.day[x.iso].loads.some(L => L.rows.some(y => y.r.key === k && y.n === x.n))),
+        maxLoad: Math.max(...M.days.flatMap(d => M.day[d].loads.map(L => L.units))), outIsLast: r.iso === P.map(x => x.iso).sort().pop(),
+        inConfirm: P.every(x => M.day[x.iso].list.filter(y => y.src === 'proposed').some(y => y.key === k))};
+      window.units816 = u0; RENDER_MEMO.clear(); }
+    // 4. a toilet on the toilet run sits on a waste tank on another truck: the tank's time is after the toilet's end
+    { const u0 = window.units816, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure && r.side === 'inside').key;
+      window.units816 = a => a.key === k ? [{type: 'FWF', n: 4, unknown: false, evt: true, tank: false}, {type: 'Waste tank', n: 1, unknown: false, evt: false, tank: true}] : u0(a); RENDER_MEMO.clear();
+      const iso = demobOf816(k).iso, T = trucks816(iso, 'all'), st = T.flatMap(L => L.t.st.map(x => Object.assign({load: L.n}, x))).filter(x => x.s.r.key === k);
+      const topEnd = Math.max(...st.filter(x => !x.s.tankOnly).map(x => x.end)), tank = st.find(x => x.s.tankOnly);
+      out.tank = {k, iso, topEnd, tankAt: tank ? tank.at : null, ok: !!tank && tank.at >= topEnd, loads: [...new Set(st.map(x => x.load))].length};
+      window.units816 = u0; RENDER_MEMO.clear(); }
+    // 5. an unknown quantity is shown and counted as unknown, never as one
+    { const i0 = window.itemRows, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure).key;
+      window.itemRows = a => a.key === k ? i0(a).map(x => Object.assign({}, x, {qty_asked: null, qty_supplied: null})) : i0(a); RENDER_MEMO.clear();
+      const M = demob816(), r = M.byKey.get(k), L = M.days.flatMap(d => M.day[d].loads).find(L => L.rows.some(x => x.r.key === k));
+      DM816.sel = r.iso; DM816.view = 'toilets'; render(); await w(200); const html = document.getElementById('pane-demob').innerText;
+      out.unknown = {k, unk: r.units.every(u => u.unknown && u.n === 0), evtN: r.evtN, uncertain: !!(L && L.uncertain), shows: /quantity to confirm/i.test(html) && /total not certain/i.test(html)};
+      window.itemRows = i0; DM816.view = 'list'; RENDER_MEMO.clear(); render(); await w(200); }
+    // 6a. a reference added for one day with a typed due-out reaches that day
+    { const a0 = window.allAssets, z = {key: 'ZZ816', _added: true, first_date: '2026-10-27', last_date: '2026-10-27', events: [], discipline: 'Generators', item_types: ['Generator'], accessories: [], asset_numbers: []};
+      window.allAssets = () => a0().concat([z]); S.delivery.ZZ816 = {out_date: '2026-11-05', out_by: 'test', out_at: new Date().toISOString()}; RENDER_MEMO.clear();
+      out.added = (calendarDays().find(d => d.iso === '2026-11-05') || {removals: []}).removals.some(r => r.a.key === 'ZZ816');
+      window.allAssets = a0; delete S.delivery.ZZ816; RENDER_MEMO.clear(); }
+    // 6b. a cancelled reference shows the due-out it still carries, marked cancelled
+    { const c = allAssets().find(a => a._cancelled), k = c.key, was = keep(k); S.delivery[k] = Object.assign({}, was || {}, {out_date: '2026-11-03', out_by: 'test', out_at: new Date().toISOString()}); RENDER_MEMO.clear();
+      openAsset(k); await w(800); const o = (document.querySelector('#drawer .dt816.out') || {}).innerText || '';
+      out.cancelled = {k, o, ok: /3 NOV/i.test(o) && /cancelled/i.test(o)}; document.getElementById('dclose').click(); back(k, was); }
+    return out; });
+  ok(RV.amberRefused, `${name}: [review 1] no light shortcut - a used toilet showing amber is still refused off site until emptied`);
+  ok(RV.dateRefused, `${name}: [review 1] no date shortcut - refused on ${RV.today}, before Event Week`);
+  ok(RV.unprovenRefused, `${name}: [review 1] emptied: true without who and when is not proof - refused`);
+  ok(RV.staleRefused, `${name}: [review 1] the newest record wins - a stale local true loses to a newer committed false`);
+  ok(RV.merge.x1 && RV.merge.x2, `${name}: [review 2] a merge keeps emptied, who, when and its history, and the later stamp wins`, RV.merge);
+  ok(RV.split.sum === 25 && RV.split.portions.length === 2 && RV.split.eachDay && RV.split.inConfirm && RV.split.outIsLast && RV.split.maxLoad <= 24, `${name}: [review 3] a 25-unit reference goes in portions, each on its own day, in its load and in that day's confirmation`, RV.split);
+  ok(RV.tank.ok, `${name}: [review 4] a tank under a toilet on another truck is timed after the toilet is off`, RV.tank);
+  ok(RV.unknown.unk && RV.unknown.evtN === 0 && RV.unknown.uncertain && RV.unknown.shows, `${name}: [review 5] an unknown quantity is "quantity to confirm", never 1, and its load says its total is not certain`, RV.unknown);
+  ok(RV.added, `${name}: [review 6a] a reference added for one day with a typed due-out reaches that day`);
+  ok(RV.cancelled.ok, `${name}: [review 6b] a cancelled reference shows its stored due-out, marked cancelled`, RV.cancelled);
   ok(!s.errors.length, `${name}: no page errors`, s.errors.join(' | '));
   console.log(`blocked writes: ${s.counts.blocked} (the harness aborts any)`);
   await s.browser.close();

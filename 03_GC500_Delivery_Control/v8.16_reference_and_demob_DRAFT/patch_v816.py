@@ -82,9 +82,17 @@ t = rep(t, """ else list.push({a, events:[e], moved_from: moved});
         """ else list.push({a, events:[e], moved_from: moved});
  });
  /* v8.16 - a due-out typed on a reference with no remove event reaches its day as a removal (Andrew, 3 Oct 2026) */
- if (eff.out && !eff.out_plan && !evs.some(e => e.movement === 'remove')) { const rl = day(eff.out).removals; if (!rl.some(r => r.a.key === a.key)) rl.push({a, events: [{date: eff.out, sheet: 'due-out typed on the page', activity: null, movement: 'remove', movement_stated: true, quantity_display: null, carrier: null, dd: null, note: null, typed816: true}], moved_from: null}); }
+ { const typed816 = deliveryOf(a.key).out_date; if (typed816 && !evs.some(e => e.movement === 'remove')) { const rl = day(typed816).removals; if (!rl.some(r => r.a.key === a.key)) rl.push({a, events: [{date: typed816, sheet: 'due-out typed on the page', activity: null, movement: 'remove', movement_stated: true, quantity_display: null, carrier: null, dd: null, note: null, typed816: true}], moved_from: null}); } }
  });
  (((DATA.transport || {}).carrier || {}).loads || []).forEach(l => day(l.date).loads.push(l));""", 'typed due-out reaches the day', p)
+
+# 4b. a merge of two copies keeps Emptied: the later stamp wins, like steps, and its history is kept
+t = rep(t, " if (pw) Object.assign(m, pw);",
+        " if (pw) Object.assign(m, pw);\n /* v8.16 - emptied (pumped out) merges on its own clock: value, who and when together; an un-tick is a dated event too */\n const ea816 = typeof a.emptied === 'boolean' ? {emptied: a.emptied, emptied_by: a.emptied_by, emptied_at: a.emptied_at} : null, eb816 = typeof b.emptied === 'boolean' ? {emptied: b.emptied, emptied_by: b.emptied_by, emptied_at: b.emptied_at} : null;\n const ew816 = !ea816 ? eb816 : !eb816 ? ea816 : (String(eb816.emptied_at || '') > String(ea816.emptied_at || '') ? eb816 : ea816); if (ew816) Object.assign(m, ew816);",
+        'emptied merges', p)
+t = rep(t, " if (PH.length) m.steps_history = PH;",
+        " if (PH.length) m.steps_history = PH;\n const EH816 = hist(a.emptied_history, b.emptied_history, h => h.emptied + '|' + h.at); if (EH816.length) m.emptied_history = EH816; /* v8.16 */",
+        'emptied history merges', p)
 
 # 6. the code and the look
 t = rep(t, 'function renderPass(){', js + '\nfunction renderPass(){', 'v8.16 code', p)
