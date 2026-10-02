@@ -1,3 +1,9 @@
+**v7.91 — Today tidy-up after full width: READY TO UPLOAD (Claude, 2 Oct 2026 10:35 AEST).** Andrew: "this is how today
+looks now, this needs some work to clean up". On the live v7.89: `bash toolchain/build.sh v7.91
+v7.91_today_tidy_full_width_DRAFT/patch_v791.py` → **8,862,008 bytes, SHA-256 `a942bebe86fabc53d905e8267b526a9a1d54699adf5243fb9314ee6bf65d05e6`**.
+Back in the header row; picture bands capped at 1,400 px (same crop); Deliveries fills its panel; Today's cards fill each row.
+Desktop only. Sweeps ×2 clean, navigation 21/21.
+
 **v7.90 — map explorer (machine files only): LIVE, 2 Oct 2026 09:55 AEST.** Plan ⇄ satellite fits the view;
 Done markers start hidden until selected. Codex found and fixed the pending zoom/pan/rotation race during independent
 review of Claude's ready handover. Final exact JS **128511 bytes** `ad9ab5e488d690444c59730f8ad286b2df60ab0353cd1d21dabc40e398a3b5a4`,
