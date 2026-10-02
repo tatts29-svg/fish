@@ -739,7 +739,9 @@ export class Forklift {
    the dyno console. A place for the service's wheel is worked out for its side (o = +1 the near side, −1 the far). */
 const XW = DYNO.axleX;
 export const SPOTS = Object.freeze({
-  mechanicPost: [-6.5, -3.1], techPost: [4.95, 2.45], leadPost: [-3.75, -3.05], nose: [-3.3, -1.95],   /* v5.82: clear of the footprint beside the nose (OBSTACLES: z −1.65 … −.45), where he stood inside it by 20 cm */ engineDesk: [-1.35, -3.62],
+  /* v8.08: the three posts moved off the aisle the crew walk (each was within 0.4–0.6 m of an aisle point or leg, and people brushed past
+     whoever stood there): the mechanic's from (−6.5, −3.1), the pit technician's from (4.95, 2.45), the lead's from (−3.75, −3.05) */
+  mechanicPost: [-6.2, -3.6], techPost: [5.6, 2.15], leadPost: [-3.75, -3.45], nose: [-3.3, -1.95],   /* v5.82: clear of the footprint beside the nose (OBSTACLES: z −1.65 … −.45), where he stood inside it by 20 cm */ engineDesk: [-1.35, -3.62],
   desk: [-2.4, -4.3], rackStore: [5.6, 3.1],
 });
 /* v5.86 — where the safety control officer stands when the hall opens. v8.08 — not on the far aisle behind the car any more: from the
@@ -969,7 +971,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   /* (others: anyone else walking the crew's floor, added with crew.addPerson — car-app.js's race driver when he is out of the car) */
   const others = [];
   const obstacles = (self = null) => { const o = OBSTACLES.slice(); if (S.rackAt === 'placed') { const r = rack.position; o.push([r.x - .32, r.z - .3, r.x + .32, r.z + .3]); }
-    for (const q of [...['mechanic', 'tech', 'engine', 'lead', 'safety'].map(id => men[id]), ...others.filter(o => o.fig.root.visible)]) { if (q === self || (q.path && !q.giveWay && q.v >= .15) || q.post.kind === 'sit') continue; const h = q.post.kind === 'stand' ? .34 + q.bend * .2 : .42; let x0 = q.pos.x - h, z0 = q.pos.z - h, x1 = q.pos.x + h, z1 = q.pos.z + h;
+    for (const q of [...['mechanic', 'tech', 'engine', 'lead', 'safety'].map(id => men[id]), ...others.filter(o => o.fig.root.visible)]) { if (q === self || (q.path && !q.giveWay && q.v >= .15) || q.post.kind === 'sit') continue; const h = q.post.kind === 'stand' ? .38 + q.bend * .2 : .42; let x0 = q.pos.x - h, z0 = q.pos.z - h, x1 = q.pos.x + h, z1 = q.pos.z + h;
       for (const f of q.feet) { x0 = Math.min(x0, f.toe.x - .3, f.ankle.x - .3); z0 = Math.min(z0, f.toe.z - .3, f.ankle.z - .3); x1 = Math.max(x1, f.toe.x + .3, f.ankle.x + .3); z1 = Math.max(z1, f.toe.z + .3, f.ankle.z + .3); }   /* (a kneeling man's back foot is half a metre behind him) */
       o.push([x0, z0, x1, z1]); }
     return o; };
@@ -1281,7 +1283,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
   }
   resetProps(); placeAll();
 
-  /* ---- v8.08 — NOBODY WALKS INTO ANYBODY. Each frame, a walker looks along his own path 0.25 to 0.9 m ahead: someone standing (or
+  /* ---- v8.08 — NOBODY WALKS INTO ANYBODY. Each frame, a walker looks along his own path 0.25 to 0.9 m ahead, 0.75 m either side (a metre for someone walking): someone standing (or
      kneeling, or crouched at a job) there is walked round — the route is planned again with that person as a box on the floor, at most
      once a second and three times a walk; someone walking there is waited for, for up to four seconds, if he is going the same way, or
      if he has the way (the service's people first: the mechanic, the pit technician, the lead, the engine technician, then the safety
@@ -1302,6 +1304,29 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     if (!best) return false;
     const g = m.goal; m.walkTo([best], {speed: .9, face: yawTo(block.pos.x - best[0], block.pos.z - best[1])}); m.goal = g; m.yielding = {from: block, t: S.t}; return true;
   }
+  /* v8.08 — PERSONAL SPACE, the last word before anyone takes a step: a walker does not step closer than a body's room to anyone — to
+     within 0.3 m of the floor a person standing or kneeling still takes up (his feet included), or, if both are walking, to within 0.95 m
+     of where the other will be (a stride reaches 0.45 m ahead of each) unless the other is giving way to him or he has the way. Held up
+     for over two seconds by someone standing still, he steps aside or goes round. */
+  const boxDist = (b, x, z) => Math.hypot(Math.max(b[0] - x, 0, x - b[2]), Math.max(b[1] - z, 0, z - b[3]));
+  const footBox = q => { const h = q.post.kind === 'stand' ? .3 : .38; let x0 = q.pos.x - h, z0 = q.pos.z - h, x1 = q.pos.x + h, z1 = q.pos.z + h;
+    for (const f of q.feet) { x0 = Math.min(x0, f.toe.x - .15, f.ankle.x - .15); z0 = Math.min(z0, f.toe.z - .15, f.ankle.z - .15); x1 = Math.max(x1, f.toe.x + .15, f.ankle.x + .15); z1 = Math.max(z1, f.toe.z + .15, f.ankle.z + .15); } return [x0, z0, x1, z1]; };
+  function personalSpace(dt) {
+    const walkers = ['mechanic', 'tech', 'lead', 'engine', 'safety'].map(id => men[id]), all = [...walkers, ...others.filter(o => o.fig.root.visible)];
+    for (const m of walkers) {
+      if (!m.path) { m.spaceHeld = 0; continue; }
+      const step = Math.max(m.v, .35) * .45, nx = m.pos.x + Math.sin(m.motionYaw) * step, nz = m.pos.z + Math.cos(m.motionYaw) * step;
+      let hold = null;
+      for (const q of all) { if (q === m || q.post.kind === 'sit') continue;
+        const still = !q.path || q.giveWay || q.v < .15;
+        if (still) { const b = footBox(q), d1 = boxDist(b, nx, nz); if (d1 < .3 && d1 < boxDist(b, m.pos.x, m.pos.z)) { hold = q; break; } }
+        else { const qs = Math.max(q.v, .2) * .45, qx = q.pos.x + Math.sin(q.motionYaw) * qs, qz = q.pos.z + Math.cos(q.motionYaw) * qs, d0 = Math.hypot(m.pos.x - q.pos.x, m.pos.z - q.pos.z), d1 = Math.hypot(nx - qx, nz - qz);
+          if (d1 < .95 && d1 < d0 && !(rank(m) > rank(q) && (q.giveWay || q.yielding))) { if (rank(q) > rank(m) || rank(q) === rank(m) || Math.cos(q.motionYaw - m.motionYaw) > .3 || q.giveWay) { hold = q; break; } } } }
+      if (!hold) { m.spaceHeld = 0; continue; }
+      m.giveWay = true; m.spaceHeld = (m.spaceHeld || 0) + dt;
+      if (m.spaceHeld > 2 && !m.yielding) { m.spaceHeld = 0; if (m.goal && (!hold.path || hold.giveWay)) { const g = m.goal, r = plan([m.pos.x, m.pos.z], g.to, m); if (r.roundPeople) { m.walkTo(r.slice(1).length ? r.slice(1) : [g.to], {face: g.face, speed: g.speed, clearOf: obstacles(m)}); m.goal = g; m.giveWay = false; continue; } } stepAside(m, hold); }
+    }
+  }
   function giveWay(dt) {
     const walkers = ['mechanic', 'tech', 'lead', 'engine', 'safety'].map(id => men[id]);
     for (const m of walkers) {
@@ -1312,7 +1337,8 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
         for (const q of [...walkers, ...others.filter(o => o.fig.root.visible)]) { if (q === m) continue; const r = Math.hypot(_ahead.x - q.pos.x, _ahead.z - q.pos.z);
           /* (and where a walker will be in about the time it takes to get there) */
           const lead = q.path ? Math.min(1.2, d / Math.max(.3, m.v || .3)) * (q.v || 0) : 0, px = q.pos.x + Math.sin(q.motionYaw) * lead, pz = q.pos.z + Math.cos(q.motionYaw) * lead;
-          if (r < .62 || Math.hypot(_ahead.x - px, _ahead.z - pz) < .62) { block = q; break; } } if (block) break; }
+          /* (a walker's boots reach 0.45 m ahead of him in his stride: two walking people keep a metre apart) */
+          const near = q.path && q.v > .15 ? .98 : .75; if (r < near || Math.hypot(_ahead.x - px, _ahead.z - pz) < near) { block = q; break; } } if (block) break; }
       /* two people held up by each other: the one without the way steps aside */
       if (block && rank(block) > rank(m) && (block.blockedBy === m || block.giveWay) && stepAside(m, block)) { m.giveWay = false; m.waited = 0; continue; }
       const stopped = block && (!block.path || block.giveWay || block.v < .15);   /* (someone waiting, or barely moving, is walked round like someone standing) */
@@ -1353,7 +1379,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     for (const k of ['operator', 'engine', 'lead', 'tech', 'mechanic', 'driver', 'safety']) scripts[k].step(dt);
     /* the forklift holds still while a wheel is off the car (the service's close-up), and goes on after */
     forklift.update(dt, ['wheelOff', 'inspect', 'refit'].includes(ph) || !!st.closeUp); driverFeet();
-    giveWay(dt);
+    giveWay(dt); personalSpace(dt);
     for (const k of ['operator', 'engine', 'lead', 'tech', 'mechanic', 'driver', 'safety']) men[k].update(dt);
     /* the things carried follow the hands that carry them */
     if (S.rackAt === 'carried') { const p = rackCarryPose(men.tech); rack.position.copy(p.p); rack.rotation.set(0, p.yaw, 0); }

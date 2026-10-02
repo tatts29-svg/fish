@@ -93,7 +93,7 @@ async function sample(P, label) {
       mesh.updateMatrixWorld(true); mesh.skeleton.update();
       const R = A.people[p.k] || (A.people[p.k] = {samples: 0, counts: {}, maxSlide: 0, minSole: 9, maxSole: -9, worst: {}, post: {}});
       R.samples++; const post = p.m ? p.m.post.kind : 'stand'; R.post[post] = (R.post[post] || 0) + 1;
-      const seated = post === 'sit', moving = p.m ? p.m.moving : true;
+      const seated = post === 'sit', moving = p.m ? (p.m.moving || !!p.m.goal) : true;   /* (mid-walk, waiting for someone to pass, is on the move) */
       const at = [+p.fig.root.position.x.toFixed(2), +p.fig.root.position.z.toFixed(2)];
       const bad = (what, extra = {}) => { R.counts[what] = (R.counts[what] || 0) + 1; const w = R.worst[what] || (R.worst[what] = []); if (w.length < 3) w.push({t: clock, label, post, at, ...extra}); };
       const names = mesh.skeleton.bones.map(b => b.name.split(', ').pop());

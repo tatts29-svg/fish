@@ -44,17 +44,32 @@ whenever a heel lifted.
   - A walk between two places in plain view goes round by the aisle points the car doesn't hide.
   - The far aisle is used only when the job is there: a far wheel, a far tyre or the engine bay.
 - **The safety officer:**
-  - He starts at the near corner behind the tail (4.4, 2.6), on the floor in plain view, watching the car.
-  - His round is the near rear tie-down, the rollers from behind the cell, the far front tie-down and the far front chock (from 2.75,
-    -2.0, clear of the engine bay), then back to his corner. All of these are in plain view from both cameras.
+  - He starts at the near corner behind the tail (3.3, 3.7), on the floor in plain view, watching the car. This is just off the
+    crew's aisle, not on its corner point.
+  - His round is the near rear tie-down (from the cell side), the rollers from behind the cell, the far front tie-down and the far
+    front chock (from 2.75, -2.0, clear of the engine bay), then back to his corner. All of these are in plain view from both cameras,
+    and none is on an aisle the crew walk.
   - While the car is apart he holds his corner.
+  - While a wheel service is under way his round stops. He watches the wheel from his corner (or, for a near-side wheel, from behind
+    the cell at 5.6, 1.1), out of the way of the mechanic, the pit technician and the lead.
+  - While the V8 runs he holds the line at (1.8, 3.75), just behind the cell line.
+- **Posts moved off the aisles:** each of these stood within 0.4 to 0.6 m of an aisle point or leg, and people brushed past whoever
+  stood there:
+  - mechanic: (-6.5, -3.1) to (-6.2, -3.6);
+  - pit technician: (4.95, 2.45) to (5.6, 2.15);
+  - lead: (-3.75, -3.05) to (-3.75, -3.45).
 - In a far-wheel service the crew lead now supervises from behind the tail (6.0, 0.2) instead of the far aisle.
 - **Nobody walks into anybody:**
   - Someone standing, kneeling or waiting on a walker's way is walked round, by replanning the route with that person as a box on the
     floor.
   - A walker waits for someone ahead going the same way, or for someone crossing who has the way. The order is mechanic, pit
     technician, lead, engine technician, then safety officer.
-  - When someone comes straight at him, he steps 0.7 m aside and lets them pass.
+  - When someone comes straight at him, he steps out of their way (to the clear place within 1.5 m furthest from where they are going)
+    and lets them pass. Two people held up by each other: the one without the way steps aside.
+  - Where there is no way round someone (a narrow aisle), the walker waits while the other steps aside.
+  - Personal space, the last check before every step: nobody steps to within 0.3 m of the floor a person standing or kneeling still
+    takes up (his feet included). Two walkers keep 0.95 m between where each will be, because a stride reaches 0.45 m ahead.
+  - In a 15-minute headless run, nobody is held up mid-walk for more than 2.8 s.
   - Routes never fall back to a straight line through the car.
 - Chores at the car are dropped the moment the V8 starts, a service needs the crew, or the car is coming apart. A walk to a chore stops
   where the person is.
@@ -128,9 +143,18 @@ There must also be no page errors.
 | run | result |
 |---|---|
 | base, desktop | 21 fails. The safety officer stands behind the car with his legs hidden and his helmet over it, 12 samples from the car view (Andrew's "driver"). The race driver crawls through the car. Soles go up to 7 cm into the floor. The mechanic's foot is in the rack. The pit technician's head is in the side skirt. The mechanic's head is in the rear quarter. Crew walk into each other. |
-| work, desktop (car-app.js as it is) | 6 fails, all in Explode. The hall at rest, the V8 run and the far-wheel service have none. In Explode the race driver crawls through the car, and the crew are not told it is coming apart. Both need the car-app.js edit below. |
-| work + the car-app.js edit, desktop 1440 x 900 | **PASS**, 1,555 samples |
-| work + the car-app.js edit, phone 390 x 844 at dpr 2 | **PASS**, 1,555 samples |
+| work, desktop (before the car-app.js edit) | 6 fails, all in Explode. The hall at rest, the V8 run and the far-wheel service have none. In Explode the race driver crawls through the car, and the crew are not told it is coming apart. Both need the car-app.js edit below. |
+| work + the car-app.js edit (scratch copy), desktop and phone | PASS |
+| **work, with the car-app.js edit applied (final), `people_tests.js work both`** | **desktop 1440 x 900: PASS, 1,575 samples. Phone 390 x 844 at dpr 2: PASS, 1,575 samples. Run twice, both PASS.** |
+
+A later run showed the mechanic brushing the safety officer in 2 of 1,565 samples during the far-wheel service. That was fixed in the
+crew's behaviour, not by loosening the test:
+- the safety officer stops his round and watches from his corner during a service;
+- his corner and checks, and three crew posts, are moved off the aisles;
+- step-aside and personal space added (above).
+
+The one change to the test itself: someone mid-walk who is waiting for another to pass counts as on the move, not as standing still,
+in the "seen over the car" check.
 
 Other results from the passing runs:
 - **Seated driver:** helmet top 7.4 cm under the roof and inside the car.
@@ -155,7 +179,7 @@ repo, as asked:
 There are no phone screenshots: a dpr 2 frame takes minutes on the software renderer. The phone was checked by the test run above
 (390 x 844 at dpr 2, PASS).
 
-## Edit needed in a file I don't own: `work/car-app.js`
+## The edit to `work/car-app.js` (now applied in work by its owner)
 
 The race driver should get out beside his door and never through the car. The crew should be told when the car is coming apart.
 Make these eight exact replacements. Each search text appears once, except the last, which appears twice. All of them were checked
