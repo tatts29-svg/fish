@@ -85,8 +85,7 @@ body:has([data-view="cog"].active) .telemetry{display:none}
    Every piece of teaching text opens in the one card (#exhibit; the tour's #tour-panel shares its place). The header with the ✕ never
    scrolls: only the body does, under it. car-app.js placeCards() sets where it sits from the page as measured — a sheet above the dock on
    a phone, a column under the view buttons on the left of anything wider — so these are only the starting values. */
-.card{position:absolute;z-index:7;left:25px;top:140px;width:min(390px,calc(100% - 140px));max-height:60%;display:flex;flex-direction:column;background:#0f171df7;border:1px solid #ffffff2b;border-top:3px solid var(--orange);border-radius:12px;box-shadow:0 12px 44px #000a;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);overflow:hidden;color:var(--white);animation:card-in .18s ease-out}
-@keyframes card-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{position:absolute;z-index:7;left:25px;top:140px;width:min(390px,calc(100% - 140px));max-height:60%;display:flex;flex-direction:column;background:#0f171df7;border:1px solid #ffffff2b;border-top:3px solid var(--orange);border-radius:12px;box-shadow:0 12px 44px #000a;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);overflow:hidden;color:var(--white)}
 .card-head{flex:none;display:flex;align-items:flex-start;gap:10px;padding:12px 10px 10px 16px;border-bottom:1px solid #ffffff17;background:#131d24}
 .card-titles{min-width:0;flex:1;padding-top:4px}
 .card-head .eyebrow{font-size:.68rem}

@@ -4,7 +4,8 @@
 // From 03_GC500_Delivery_Control, with CHROMIUM_PATH=/opt/pw-browsers/chromium NODE_PATH=$(npm root -g):
 //   ROOT=v8.08_coates_way_machine_DRAFT/work node v8.08_coates_way_machine_DRAFT/evidence/fx_tests.js
 //   DEVICE=desktop|phone|both (default both) · SHOTS=<dir> also saves the canvas at each rung · OUT=<file.json> saves the results
-//   PRESETS=laptop,balanced,high,ultra (the rungs to step through) · CAPTURE=0 skips the 4K still
+//   PRESETS=laptop,balanced,high,ultra (the rungs to step through) · CAPTURE=0 skips the 4K still · W, H, DPR override the viewport
+//   QUERY (default ?tune=adapt:0) is added to the page address, e.g. '?tune=adapt:0&fx=aniso:1' to measure without anisotropic filtering
 //
 // What it checks, on a 1,440 × 900 laptop at device pixel ratio 2 and a 390 × 844 phone at 3:
 //   · no page error and no console error from load to the end;
@@ -84,7 +85,7 @@ const results = [], checks = [];
 const check = (dev, name, ok, detail) => { checks.push({dev, name, ok: !!ok, detail}); console.log(`${ok ? 'PASS' : 'FAIL'}  ${dev}  ${name}${detail !== undefined ? '  ' + (typeof detail === 'string' ? detail : JSON.stringify(detail)) : ''}`); };
 
 async function run(dev) {
-  const phone = dev === 'phone', W = phone ? 390 : 1440, H = phone ? 844 : 900, dpr = phone ? 3 : 2;
+  const phone = dev === 'phone', W = +(process.env.W || (phone ? 390 : 1440)), H = +(process.env.H || (phone ? 844 : 900)), dpr = +(process.env.DPR || (phone ? 3 : 2));
   /* ?tune=adapt:0 holds the adaptive resolution off (the page's own measuring switch): a software renderer is always "slow", and the
      test is of what each rung asks for when the frames keep up */
   const t0 = Date.now(), m = await openMachine({root: ROOT, W, H, dpr, mobile: phone, query: process.env.QUERY ?? '?tune=adapt:0'});
@@ -94,6 +95,7 @@ async function run(dev) {
     out.readyMs = Date.now() - t0;
     out.picked = await m.page.evaluate(() => window.__cw.quality);
     const wired = await m.page.evaluate(() => !!window.__fx);
+    await setQuality(m.page, 'balanced');   /* before the page's own 6 s check can see Laptop (see passQualityCheck) */
     await hijack(m.page);
     const gl = await m.page.evaluate(() => { const g = window.__cw.renderer.getContext(); return {antialias: g.getContextAttributes().antialias, samples: g.getParameter(g.SAMPLES), webgl2: window.__cw.renderer.capabilities.isWebGL2, maxAniso: window.__cw.renderer.capabilities.getMaxAnisotropy()}; });
     out.gl = gl;

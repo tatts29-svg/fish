@@ -667,7 +667,7 @@ function showExhibit(e){if(!e)return;openCard('garage',{kicker:'IN THE GARAGE',t
 let cardKind=null;
 function openCard(kind,{kicker,title,body}){const el=$('exhibit'),b=$('exhibit-body');cardKind=kind;el.dataset.kind=kind;setT('exhibit-kicker',kicker||'');setT('exhibit-name',title||'');b.replaceChildren(...(body||[]));b.scrollTop=0;el.hidden=false;$('tour-panel').hidden=true;document.body.classList.add('card-open');showStudio();placeCards();}
 /* a card opened from below the scene (Read more, Controls ?, Original cog on a phone, where the scene has scrolled away) brings the scene back into view with it */
-function showStudio(){const S=sel('.studio').getBoundingClientRect();if(S.top<-2||S.bottom>visibleBottom()+2)try{sel('.studio').scrollIntoView({block:S.height>innerHeight?'start':'nearest',behavior:reduced?'auto':'smooth'});}catch(e){}}
+function showStudio(){const S=sel('.studio').getBoundingClientRect(),vb=visibleBottom();if(S.top>=-2&&S.bottom<=vb+2)return;/* the scene's foot to the screen's foot (the masthead comes back above it on a phone), or its head to the top if it is taller than the screen; at once, so the card is placed once */const d=S.height<=vb?S.bottom-vb:S.top;try{window.scrollBy({top:d,behavior:'instant'});}catch(e){window.scrollBy(0,d);}}
 function closeCard(){const el=$('exhibit');if(el.hidden)return false;el.hidden=true;cardKind=null;document.body.classList.remove('card-open');if(tour>=0)$('tour-panel').hidden=false;placeCards();return true;}
 function endTour(){if(tour<0)return false;tour=-1;$('tour-panel').hidden=true;$('tour').setAttribute('aria-pressed',false);placeCards();return true;}
 $('exhibit-close').onclick=()=>closeCard();

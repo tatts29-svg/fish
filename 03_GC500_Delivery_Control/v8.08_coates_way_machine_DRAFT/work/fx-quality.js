@@ -21,7 +21,9 @@ const HAS_DOC = typeof document !== 'undefined';
 const UA = typeof navigator !== 'undefined' ? navigator.userAgent || '' : '';
 export const MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(UA);
 /* every texture constructed from here on (three.js reads this default in the Texture constructor) */
-T.Texture.DEFAULT_ANISOTROPY = MOBILE ? 8 : 16;
+/* ?fx=aniso:1,print:1 holds the anisotropy or the print scale at a value, for measuring what each costs (like car-app.js's ?tune=) */
+const FIX = {}; try { const q = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('fx') : null; if (q) q.split(',').forEach(p => { const [k, v] = p.split(':'); if (isFinite(+v)) FIX[k] = +v; }); } catch (e) {}
+T.Texture.DEFAULT_ANISOTROPY = FIX.aniso || (MOBILE ? 8 : 16);
 
 /* THE RUNGS. print: the canvas scale; aniso: the anisotropy upgradeTextures() gives; shadow: the key light's map; env: the
    garage cube's face size; samples: the post stack's multisampling; still: the cap on the still pixel ratio (the device's own
@@ -34,7 +36,7 @@ export const TIERS = Object.freeze({
   ultra:    Object.freeze({print: 2,   aniso: 16, shadow: 4096, env: 512, samples: 4, still: 4, move: 1.5, pixels: 3840 * 2160}),
 });
 export const QUALITY_ORDER = Object.freeze(['laptop', 'balanced', 'high', 'ultra']);
-export const tierOf = q => TIERS[q] || TIERS.laptop;
+export const tierOf = q => { const t = TIERS[q] || TIERS.laptop; return FIX.aniso || FIX.print ? {...t, aniso: FIX.aniso || t.aniso, print: FIX.print || t.print} : t; };
 export const CAPTURE = Object.freeze({width: 3840, height: 2160});
 
 /* the still pixel ratio a rung asks for on this screen: the device's own (never less: a still frame is never blurry), capped

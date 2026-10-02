@@ -25,7 +25,9 @@ import {loftGeometry, ring, capsuleGeometry} from './car-driver.js';
 import {ATLAS, crewAtlas} from './people-atlas.js';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
 
-export const BONES = Object.freeze(['hips', 'spine', 'chest', 'neck', 'head', 'clavL', 'armL', 'foreL', 'handL', 'clavR', 'armR', 'foreR', 'handR', 'thighL', 'shinL', 'footL', 'thighR', 'shinR', 'footR']);
+/* v8.08: two toe bones at the end of the v5.81 nineteen (the ball of each foot, where the walk's toe pivot is): the rig bends the boot there,
+   so a heel coming up rolls over the toes instead of driving the toe cap into the floor */
+export const BONES = Object.freeze(['hips', 'spine', 'chest', 'neck', 'head', 'clavL', 'armL', 'foreL', 'handL', 'clavR', 'armR', 'foreR', 'handR', 'thighL', 'shinL', 'footL', 'thighR', 'shinR', 'footR', 'toeL', 'toeR']);
 const clamp = (v, a, b) => v < a ? a : v > b ? b : v, lerp = (a, b, t) => a + (b - a) * t;
 const smooth = t => { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); };
 
@@ -64,9 +66,9 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
   const J = {hips: [0, d.pelvisY, 0], spine: [0, 1.05 * s, 0], chest: [0, d.chestY, 0], neck: [0, 1.47 * s, 0], head: [0, d.headY, 0]};
   for (const [side, k] of [['L', 1], ['R', -1]]) {
     J['clav' + side] = [k * .035 * w, d.shY, 0]; J['arm' + side] = [k * d.shX, d.shY, 0]; J['fore' + side] = [k * d.shX, d.shY - d.U1, 0]; J['hand' + side] = [k * d.shX, d.shY - d.U1 - d.U2, 0];
-    J['thigh' + side] = [k * d.hipX, d.hipY, 0]; J['shin' + side] = [k * d.hipX, d.hipY - d.L1, 0]; J['foot' + side] = [k * d.hipX, d.ankleH, 0];
+    J['thigh' + side] = [k * d.hipX, d.hipY, 0]; J['shin' + side] = [k * d.hipX, d.hipY - d.L1, 0]; J['foot' + side] = [k * d.hipX, d.ankleH, 0]; J['toe' + side] = [k * d.hipX, 0, d.toeL];
   }
-  const PARENT = {spine: 'hips', chest: 'spine', neck: 'chest', head: 'neck', clavL: 'chest', armL: 'clavL', foreL: 'armL', handL: 'foreL', clavR: 'chest', armR: 'clavR', foreR: 'armR', handR: 'foreR', thighL: 'hips', shinL: 'thighL', footL: 'shinL', thighR: 'hips', shinR: 'thighR', footR: 'shinR'};
+  const PARENT = {toeL: 'footL', toeR: 'footR', spine: 'hips', chest: 'spine', neck: 'chest', head: 'neck', clavL: 'chest', armL: 'clavL', foreL: 'armL', handL: 'foreL', clavR: 'chest', armR: 'clavR', foreR: 'armR', handR: 'foreR', thighL: 'hips', shinL: 'thighL', footL: 'shinL', thighR: 'hips', shinR: 'thighR', footR: 'shinR'};
   const root = new T.Group(); root.name = 'Crew, ' + title;
   const bones = {}, list = BONES.map(n => { const b = new T.Bone(); b.name = 'Crew, ' + title + ', ' + n; bones[n] = b; return b; });
   for (const n of BONES) { const p = PARENT[n], j = J[n], pj = p ? J[p] : [0, 0, 0]; bones[n].position.set(j[0] - pj[0], j[1] - pj[1], j[2] - pj[2]); if (p) bones[p].add(bones[n]); }
@@ -186,17 +188,18 @@ export function buildFigure(T, {height = 1.78, build = 1, label = null, helmet =
     const BOOT = [[.214, .022, .016, .040], [.205, .034, .013, .054], [.185, .044, .012, .066], [.15, .051, .012, .078], [.10, .053, .012, .090], [.05, .051, .012, .110],
       [0, .047, .013, .135], [-.04, .045, .015, .14], [-.065, .041, .02, .132], [-.08, .032, .03, .115], [-.086, .018, .045, .09]];
     const ring2 = ([z, hw, yb, yt], grow = 0) => rrect(x, ((yb + yt) / 2) * s, z * s, hw * s * w + grow, ((yt - yb) / 2) * s + grow, 18, .62);
-    put(loftGeometry(T, BOOT.map(r => ring2(r))), at.rect(ATLAS.boot), foot);
+    const toe = B['toe' + side], toeW = (px, py, pz) => blend2(foot, toe, smooth((pz - (d.toeL - .035 * s)) / (.05 * s)));
+    put(loftGeometry(T, BOOT.map(r => ring2(r))), at.rect(ATLAS.boot), toeW);
     /* the collar round the ankle, up under the trouser cuff */
     put(loftGeometry(T, [[.19, .047, .052], [.165, .05, .056], [.13, .05, .058]].map(([y, a, b]) => ring([x, y * s, -.012 * s], [0, 0, 1], [1, 0, 0], b * s * w, a * s * w, 18))), at.rect(ATLAS.boot), (px, py) => py > .17 * s ? [[foot, .7], [B['shin' + side], .3]] : [[foot, 1]]);
     /* the sole: a rubber slab from toe to heel, 13 mm, its underside the floor; the heel block under the back */
     const SOLE = [[.218, .024], [.205, .037], [.18, .048], [.14, .056], [.09, .058], [.04, .054], [-.01, .051], [-.05, .05], [-.075, .045], [-.09, .03]];
-    put(loftGeometry(T, SOLE.map(([z, hw]) => rrect(x, .0065 * s, z * s, (hw + .003) * s * w, .0065 * s, 14, .45))), SW('sole'), foot);
+    put(loftGeometry(T, SOLE.map(([z, hw]) => rrect(x, .0065 * s, z * s, (hw + .003) * s * w, .0065 * s, 14, .45))), SW('sole'), toeW);
     put(M(new T.BoxGeometry(.088 * s * w, .025 * s, .06 * s), x, .0125 * s, -.058 * s), SW('sole'), foot);
     put(M(new T.BoxGeometry(.03 * s, .03 * s, .006 * s), x, .17 * s, -.088 * s), SW('gloveOrange'), foot);
     put(M(new T.BoxGeometry(.05 * s, .014 * s, .005 * s), x, .085 * s, -.084 * s, -.2), SW('reflect'), foot);
     /* the laces down the instep: three bars */
-    for (let i = 0; i < 3; i++) put(M(new T.BoxGeometry(.04 * s, .005 * s, .006 * s), x, (.083 + i * .014) * s, (.075 - i * .03) * s, -.5), SW('tan'), foot);
+    for (let i = 0; i < 3; i++) put(M(new T.BoxGeometry(.04 * s, .005 * s, .006 * s), x, (.083 + i * .014) * s, (.075 - i * .03) * s, -.5), SW('tan'), toeW);
   }
 
   const geo = mergeGeometries(parts, false); parts.forEach(p => p.dispose());

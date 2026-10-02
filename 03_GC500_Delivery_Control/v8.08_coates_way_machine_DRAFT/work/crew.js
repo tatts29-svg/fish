@@ -462,6 +462,8 @@ Crewman.prototype.pose = function (dt) {
     const nn = solveTwo(H, f.ankle, d.L1, d.L2, pole, K, A);
     const thW = basisQ(_t1.copy(K).sub(H), nn, _Q[6]), shW = basisQ(_t2.copy(A).sub(K), nn, _Q[7]), ftW = _Q[3].copy(qy(f.yaw, _Q[2])).multiply(qx(f.pitch, _Q[4]));
     th.quaternion.copy(hipsW).invert().multiply(thW); sh.quaternion.copy(thW).invert().multiply(shW); ft.quaternion.copy(shW).invert().multiply(ftW);
+    /* v8.08: the toes stay on the floor while the heel is up (the boot bends at the ball of the foot, where it pivots) */
+    const toe = i ? b.toeR : b.toeL; if (toe) toe.quaternion.copy(qx(-Math.max(0, f.pitch), _Q[2]));
   });
   /* the head: where it was told to look, after its own delay; with nothing to look at, a glance about now and then */
   const L = this.look; if (L.hasNext) { L.wait -= dt; if (L.wait <= 0) { L.target = L.next; L.hasNext = false; L.next = null; } }
@@ -758,8 +760,10 @@ export function behindCar(x, z, pad = .3) {
 export function sideSpots(o) {
   /* the mechanic kneels at the wheel's corner, beside the line it slides out on (ahead of the near wheel, behind the far one: his
      right hand is then toward the nut and his raised knee is clear of the tyre) */
-  return {o, kneel: [XW - o * .46, o * 1.45], kneelYaw: o > 0 ? Math.PI : 0, rack: [XW + 1.75, o * 2.35], rackYaw: Math.PI / 2, approach: [XW + 1.75 - .47, o * 2.35], receive: [XW + 1.75 + .56, o * 2.35],
-    sill: [-.1, o * 1.40], supervise: o > 0 ? [XW + 2.75, 3.35] : [XW + 4.8, .2], rackPlace: [XW + 1.75 - .36, o * 2.35]};   /* v8.08: the far side's supervising place is behind the tail (on the far aisle the car hid him) */
+  /* v8.08 — the mechanic lays the wheel in the rack from beside it (he stood 11 cm from its middle, inside its frame), and the pit
+     technician kneels at the sill 15 cm further out (his forward boot went under the side skirt) */
+  return {o, kneel: [XW - o * .46, o * 1.45], kneelYaw: o > 0 ? Math.PI : 0, rack: [XW + 1.75, o * 2.35], rackYaw: Math.PI / 2, approach: [XW + 1.75 - .36 - .56, o * 2.35], receive: [XW + 1.75 + .56, o * 2.35],
+    sill: [-.1, o * 1.55], supervise: o > 0 ? [XW + 2.75, 3.35] : [XW + 4.8, .2], rackPlace: [XW + 1.75 - .36, o * 2.35]};   /* v8.08: the far side's supervising place is behind the tail (on the far aisle the car hid him) */
 }
 /* the loop of aisle points round the cell, and what stands on the floor (boxes x0, z0, x1, z1) */
 export const NODES = Object.freeze([[-4.8, 2.6], [-4.8, 0], [-4.8, -2.6], [-1.0, 2.85], [1.8, 2.95], [4.4, 2.6], [4.4, 0], [4.4, -2.6], [1.8, -2.95], [-1.0, -2.85], [-6.6, -2.6], [-6.6, 2.4], [5.7, .3]]);
@@ -1149,7 +1153,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
       /* to the wheel, and down on one knee */
       m.lookAt(hubPoint); yield* go(m, sp.kneel, sp.kneelYaw); m.kneel(true); yield () => m.arrived;
       /* the gun onto the nut, the other hand on the tyre */
-      m.bendWant = 1.0; moveGun(gunOnNutPose, .6, 'nut'); m.reach(1, handOnGun(m, () => gunPose()), 6); m.reach(0, wheelGrip(m, 0), 3); yield sec(.65);
+      m.bendWant = .8; moveGun(gunOnNutPose, .6, 'nut');   /* v8.08: .8, not 1.0 — bent further his helmet went into the rear quarter */ m.reach(1, handOnGun(m, () => gunPose()), 6); m.reach(0, wheelGrip(m, 0), 3); yield sec(.65);
       gunBlend.to = gunOnNutPose; flags.gun = true;
       yield () => service.time >= WHEEL_SERVICE.release || !service.motion || phase() === 'ready'; flags.gun = false;
       if (phase() === 'ready') continue;
@@ -1172,7 +1176,7 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
       yield* go(m, sp.kneel, sp.kneelYaw, .85); carryTo(() => axleOutPose(w), 1.1); m.kneel(true); m.bendWant = .6; yield () => m.arrived && carried();
       flags.carryOn = true; yield () => service.hold === 'gunOn' || !service.motion; flags.carryOn = false; S.carry = null; m.carrying = 0;
       /* the gun back up from the floor and onto the nut: run on and torqued */
-      m.bendWant = 1.0; m.sideWant = .45; m.reach(0, wheelGrip(m, 0), 3); m.reach(1, handOnGun(m, () => gunPose()), 4); yield sec(.55); m.sideWant = 0; moveGun(gunOnNutPose, .5, 'nut'); yield sec(.55); gunBlend.to = gunOnNutPose;
+      m.bendWant = .8; m.sideWant = .45; m.reach(0, wheelGrip(m, 0), 3); m.reach(1, handOnGun(m, () => gunPose()), 4); yield sec(.55); m.sideWant = 0; moveGun(gunOnNutPose, .5, 'nut'); yield sec(.55); gunBlend.to = gunOnNutPose;
       flags.gunOn = true; yield () => !service.motion; flags.gunOn = false; yield sec(.3);
       /* up, the gun back in its holster, and back to his place */
       gunBlend = null; gunToHand(m); m.reach(1, null); m.reach(0, null); m.kneel(false); m.bendWant = 0; m.lookAt(null); yield () => m.arrived;

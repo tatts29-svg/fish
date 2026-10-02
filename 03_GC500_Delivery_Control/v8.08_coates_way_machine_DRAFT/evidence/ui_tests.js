@@ -97,7 +97,7 @@ async function touchDrag(x, y, dx, dy, back = false, holdMs = 0) {
   }
   await wait(800);
 }
-async function clickId(id) { await page.click('#' + id, {timeout: 60000}); await wait(500); }
+async function clickId(id) { await page.click('#' + id, {timeout: 150000}); await wait(500); }
 async function txt(sel) { return page.$eval(sel, e => e.textContent.trim()).catch(() => null); }
 async function setRange(id, v) { await page.$eval('#' + id, (e, v) => { e.value = v; e.dispatchEvent(new Event('input', {bubbles: true})); }, v); await wait(200); }
 async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.now() - t < ms) { if (await page.evaluate(fn, arg).catch(() => false)) return true; await wait(300); } return false; }
@@ -138,6 +138,8 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
 
   /* ── the ways a card closes ── */
   if (exh.length || !isWork) {
+    /* the camera may have moved since the survey (a tap can select and frame a part): look again */
+    if (isWork) { await closeVia('escape'); await page.click('#home'); await wait(6000); const again = (await survey()).filter(p => p.kind === 'exhibit'); if (again.length) exh.splice(0, exh.length, ...again.filter((p, i, a) => a.findIndex(q => q.name === p.name) === i)); }
     const ex = exh[0] || grid[1], open = async () => { await closeVia('escape'); await tap(ex.x, ex.y); return state(); };
     let st = await open(); const opened = !!st.card; check('a tap on a garage exhibit opens its card', opened, st.title);
     if (opened) {
@@ -154,11 +156,14 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
       /* ── deliberate taps only ── */
       if (isWork) {
         await closeVia('escape');
-        const ex2 = (await survey()).find(p => p.kind === 'exhibit') || ex;
+        const fresh = async () => (await survey()).find(p => p.kind === 'exhibit') || ex;
+        let ex2 = await fresh();
         await touchDrag(ex2.x, ex2.y, 60, 30); st = await state(); check('a drag (orbit) starting on an exhibit opens nothing', st.count === 0);
+        await page.click('#home'); await wait(6000); ex2 = await fresh();
         await touchDrag(ex2.x, ex2.y, 50, 0, true); st = await state(); check('a drag that comes back to where it began opens nothing', st.count === 0);
+        await page.click('#home'); await wait(6000); ex2 = await fresh();
         await touchDrag(ex2.x, ex2.y, 0, 0, false, 900); st = await state(); check('a long press (0.9 s) opens nothing', st.count === 0);
-        await tap(ex2.x, ex2.y); st = await state(); check('a quick tap on the same spot does open it', !!st.card, st.title);
+        ex2 = await fresh(); await tap(ex2.x, ex2.y); st = await state(); check('a quick tap on an exhibit (after all that) does open it', !!st.card, st.title);
         if (st.card) { const t0 = st.title; await touchDrag(Math.round((st.card.l + st.card.r) / 2), Math.round(st.card.b - 30), 0, -60); const s3 = await state(); check('pressing and scrolling the card keeps it open', !!s3.card && s3.title === t0); }
         await wait(16000); st = await state(); check('the card stays until it is closed (no timer)', !!st.card);
         await closeVia('escape');
@@ -171,7 +176,7 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   await shot('3_help');
   if (st.card) {
     const sc = await page.evaluate(() => { const b = document.getElementById('exhibit-body'); const before = b.scrollHeight > b.clientHeight + 4; b.scrollTop = b.scrollHeight; return {scrolls: before, top: b.scrollTop}; });
-    const s2 = await cardRules('Controls ? scrolled to the end'); check('a long card scrolls inside itself, its ✕ stays put', sc.scrolls && s2.close && Math.abs(s2.close.t - st.close.t) < 1, JSON.stringify(sc));
+    const s2 = await cardRules('Controls ? scrolled to the end'); check('a long card scrolls inside itself, its ✕ stays put in the header', sc.scrolls && s2.close && Math.abs((s2.close.t - s2.card.t) - (st.close.t - st.card.t)) < 1, JSON.stringify(sc));
   }
   await clickId('original'); await wait(1500); st = await cardRules('Original cog'); check('Original cog replaces it (still one card)', st.count === 1 && /original/i.test(st.title), st.title);
   await page.keyboard.press('Escape'); await wait(300);
@@ -221,7 +226,8 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
     await clickId('slow'); check('slow motion', await cw(`document.getElementById('slow').getAttribute('aria-pressed')==='true'`)); await clickId('slow');
     await clickId('power'); check('power path', await cw(`document.getElementById('power').getAttribute('aria-pressed')==='true'`)); await clickId('power');
     for (const id of ['zoom-in', 'zoom-out', 'home']) { await page.click('#' + id); check(`camera: ${id}`, await until(() => !!window.__cw.tween, 3000)); await wait(1500); }
-    const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); check('Quality cycles', q1 !== q0, `${q0} → ${q1}`); await clickId('quality'); await clickId('quality'); await wait(1000);
+    /* one press is tested by hand; the two more that bring it round to Laptop are pressed together, so the software renderer never has to draw a High frame */
+    const q0 = await txt('#quality'); await clickId('quality'); const q1 = await txt('#quality'); await page.evaluate(() => { const b = document.getElementById('quality'); b.click(); b.click(); }); await wait(1500); check('Quality cycles (and comes round again)', q1 !== q0 && (await txt('#quality')) === q0, `${q0} → ${q1} → ${await txt('#quality')}`);
     const dl = page.waitForEvent('download', {timeout: 180000}).catch(() => null); await clickId('capture'); const d = await dl; check('4K capture saves a picture', !!d || /saved/.test(await txt('#toast')), d ? d.suggestedFilename() : await txt('#toast'));
     await clickId('original'); check('Original cog', /original/i.test(await txt('#exhibit-name'))); await page.keyboard.press('Escape');
     await clickId('help'); check('Controls', /Explore the car/.test(await txt('#exhibit-name'))); await page.keyboard.press('Escape');
