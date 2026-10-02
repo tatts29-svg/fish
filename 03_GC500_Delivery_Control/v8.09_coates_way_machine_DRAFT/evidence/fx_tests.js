@@ -175,27 +175,32 @@ async function run(dev) {
   results.push(out); await m.close();
 }
 /* (Codex review fixes f45961b) time in a hidden tab is not slow drawing. The page's one-off "drop to Laptop under 24 fps" check counted
-   the hidden seconds as frames not drawn: back on the tab, Balanced fell to Laptop. A small fresh page whose frames are held from the moment
-   it is ready (so the check has not run), on Balanced: one frame, then 8 s hidden, then two frames (well inside the page's own 6 s of visible frames before it judges) — still Balanced.
-   (document.hidden is played by the test; the page's own visibilitychange handler is what runs.) Fails on ba9fff7. */
+   the hidden seconds as frames not drawn: back on the tab, Balanced fell to Laptop and stayed there. A small fresh page on Balanced whose
+   frames are held from the moment it is ready (so the check has not run) and whose clock is the test's: frames 33 ms apart (30 fps, a
+   healthy rate, so only the hidden time could trip the check), then 8 s hidden, then three more frames — still Balanced. The software
+   renderer's real speed plays no part. document.hidden and the clock are played by the test; the page's own handlers are what run.
+   Fails on ba9fff7. */
 async function hiddenRun() {
   const dev = 'hidden-tab', m = await openMachine({root: ROOT, W: 480, H: 360, dpr: 1, mobile: false, query: process.env.QUERY ?? '?tune=adapt:0'});
-  await m.page.addInitScript(() => { const raf = window.requestAnimationFrame.bind(window); window.__rafQ = [];
+  await m.page.addInitScript(() => { const raf = window.requestAnimationFrame.bind(window), realNow = performance.now.bind(performance); window.__rafQ = []; window.__vt = null;
+    performance.now = () => window.__vt === null ? realNow() : window.__vt;
     window.requestAnimationFrame = cb => raf(t => { if (window.__cw && window.__cw.ready) window.__rafQ.push(cb); else cb(t); });
     window.__step = () => { const q = window.__rafQ.splice(0), t = performance.now(); for (const cb of q) { try { cb(t); } catch (e) { console.error(e); } } return q.length; };
     let hidden = false; Object.defineProperty(document, 'hidden', {configurable: true, get: () => hidden}); Object.defineProperty(document, 'visibilityState', {configurable: true, get: () => hidden ? 'hidden' : 'visible'});
     window.__setHidden = h => { hidden = h; document.dispatchEvent(new Event('visibilitychange')); }; });
   await m.page.reload({waitUntil: 'domcontentloaded', timeout: 240000});
+  const tick = async (ms = 33) => { await m.page.evaluate(ms => { window.__vt += ms; }, ms); await frame(m.page); };
   try {
     await m.page.waitForFunction(() => window.__cw && window.__cw.ready, null, {timeout: 600000, polling: 500});
     await setQuality(m.page, 'balanced');
     await m.page.waitForFunction(() => window.__rafQ.length > 0, null, {timeout: 600000, polling: 200});
-    await frame(m.page);   /* one frame only before hiding: the first is slow (shaders), and on a software renderer more would trip the page's own 6 s check for real */
+    await m.page.evaluate(() => { window.__vt = performance.now(); });
+    for (let i = 0; i < 3; i++) await tick();
     const before = await m.page.evaluate(() => window.__cw.quality);
-    await m.page.evaluate(() => window.__setHidden(true)); await wait(8000); await m.page.evaluate(() => window.__setHidden(false));
-    const t0 = Date.now(); for (let i = 0; i < 2; i++) { await wait(300); await frame(m.page); }
+    await m.page.evaluate(() => { window.__setHidden(true); window.__vt += 8000; window.__setHidden(false); });
+    for (let i = 0; i < 3; i++) await tick();
     const after = await m.page.evaluate(() => ({quality: window.__cw.quality, toast: document.getElementById('toast').textContent}));
-    check(dev, 'back from 8 s in a hidden tab: Balanced stays Balanced (hidden time is not counted as slow frames)', before === 'balanced' && after.quality === 'balanced', {before, after: after.quality, toast: after.toast, frames_s: ((Date.now() - t0) / 1000).toFixed(1)});
+    check(dev, 'back from 8 s in a hidden tab: Balanced stays Balanced (hidden time is not counted as slow frames)', before === 'balanced' && after.quality === 'balanced', {before, after: after.quality, toast: after.toast});
   } catch (e) { check(dev, 'run completed', false, String(e).slice(0, 300)); }
   check(dev, 'no page or console errors', m.errors.length === 0, m.errors.slice(0, 5));
   await m.close();
