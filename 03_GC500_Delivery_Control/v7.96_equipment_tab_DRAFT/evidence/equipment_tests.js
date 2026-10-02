@@ -29,7 +29,7 @@ const {open} = require(path.join(__dirname, '..', '..', 'toolchain', 'harness', 
   ok('a light on Today opens Equipment on every trade with that light', L.tab === 'plant' && !L.group && L.light === 'none' && L.disc === '*', {group: L.group, light: L.light, disc: L.disc});
   await p.evaluate(() => { state.light = null; render(); }); await wait(1500);
   // a fresh visit (as on a new page): the first trade
-  await p.evaluate(() => { eq796s().seen = false; state.plantGroup = null; state.light = null; go('today'); }); await wait(1500);
+  await p.evaluate(() => { eq796s.s = null; state.plantGroup = null; state.light = null; go('today'); }); await wait(1500);
   await p.evaluate(() => go('plant')); await wait(3500);
   L = await look();
   ok('the tab is called Equipment; Plant is gone from the row', L.tabs.some(t => /Equipment/.test(t)) && !L.tabs.some(t => /^Plant$/.test(t)), L.tabs);

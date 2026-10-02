@@ -55,6 +55,11 @@ t = rep(t, " chBind(pane); chSwapBind(pane); invBind(pane);",
         " chBind(pane); chSwapBind(pane); invBind(pane); pane.querySelectorAll('[data-invjump]').forEach(b => { b.title = 'The Inventory is on the Equipment tab'; b.onclick = () => go('plant'); }); /* v7.96 */",
         'inventory button opens equipment', p)
 
+# An explicit reference/filter link reveals its existing results fold. Routine visits keep the chosen fold state.
+t = rep(t, "state.light = b.dataset.lfGo || null; state.disc = null; go('register');", "state.light = b.dataset.lfGo || null; state.disc = null; state.plantGroup = null; go('register');", 'Today light shortcuts cover every trade', p)
+t = rep(t, "function go793(tab){\n", "function go793(tab){\n if (typeof eq796s === 'function' && (tab === 'register' || tab === 'plant' && (state.light || String(state.q || '').trim()))) eq796s().reveal = true; /* v7.96 - requested reference results must be visible */\n", 'reveal requested Equipment results', p)
+t = rep(t, " state.plantGroup = (a && (a.product || a.discipline)) || null;\n go('plant');", " state.plantGroup = a ? (PLANT_GROUP_WORDS[a.product] || a.product || a.discipline) : null;\n eq796s().reveal = true; /* v7.96 - a reference link opens its rows */\n go('plant');", 'reference link reveals its rows', p)
+
 JS = r"""/* v7.96 - Plant and Inventory as one Equipment tab (Andrew, 2 Oct 2026: "merge plant and inventory together ... Keeping
    th same look as inventory ... ensure we dont double up on information"). Plant draws as it always has; this lays it
    out: one heading with the trade buttons, the Inventory for the trade chosen, Plant's reference rows in one fold,
@@ -72,6 +77,17 @@ function eq796Disc(){
  const list = (plantGroups().find(([n]) => n === g) || [])[1] || []; const n = {};
  list.forEach(a => { const d = invTypeDisc(invTypeOf(a) || ''); if (d) n[d] = (n[d] || 0) + 1; });
  return Object.entries(n).sort((x, y) => y[1] - x[1]).map(x => x[0])[0] || '*';
+}
+/* A new filter or an explicit reference shortcut opens the result rows and brings them into view.
+   Remember the filter separately so a record redraw respects a fold the person then closes. */
+function eq796Results(refs){
+ const S = eq796s(), query = String(state.q || '').trim(), filter = JSON.stringify([state.light || '', query]);
+ const reveal = S.reveal || !!(state.light || query) && filter !== S.lastFilter;
+ S.reveal = false; S.lastFilter = filter;
+ if (!reveal) return;
+ S.open.add('Every reference'); refs.open = true;
+ requestAnimationFrame(() => { if (state.tab !== 'plant' || !refs.isConnected) return;
+  const m = $('main'); if (m) m.scrollTop += refs.getBoundingClientRect().top - m.getBoundingClientRect().top - 12; });
 }
 function eq796Fold(name, words, parts){
  const S = eq796s(), d = document.createElement('details'); d.className = 'fold96'; d.dataset.fold = name; d.open = S.open.has(name);
@@ -106,9 +122,10 @@ function eq796(){
  const refs = eq796Fold('Every reference', words, keep.concat(tables)); refs.classList.add('eqrefs');
  /* the order: heading, the VMS note, the Inventory, every reference, then contracts and branches */
  (vms || top).before(head); top.before(inv); inv.after(refs); top.remove();
+ eq796Results(refs); /* a requested light, search or reference is never hidden in a closed fold */
  if (regsum) { const br = regsum.children[1]; if (br) { const f = eq796Fold('Branches', 'which branch each asset carries, and where the branch code is set', []); br.before(f); f.appendChild(br); } }
  invBind(pane);
- if (typeof inv87Hydrate === 'function') { try { inv87Hydrate(); } catch (e) {} }
+ /* invHtml already schedules inv87Hydrate once; do not create a second observer for the same QR codes. */
  if (!eq796.print) { eq796.print = true; /* paper cannot be pressed open: the folds open for the print and close after */
   window.addEventListener('beforeprint', () => { eq796.shut = [...document.querySelectorAll('#pane-plant details.fold96:not([open])')]; eq796.shut.forEach(d => { d.dataset.print = '1'; d.open = true; }); });
   window.addEventListener('afterprint', () => { (eq796.shut || []).forEach(d => { d.open = false; delete d.dataset.print; }); eq796.shut = []; }); }
