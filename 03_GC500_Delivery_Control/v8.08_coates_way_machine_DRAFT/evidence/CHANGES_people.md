@@ -262,3 +262,34 @@ narrow-spot standoff in three rank orders.
 |---|---|
 | `people_tests.js work both` | desktop PASS (1,579 samples), phone PASS (1,579 samples) |
 | `driver_tests.js work desk` / `phone` | 35/35, 35/35 |
+
+### Follow-up: the camera comes round to his door
+
+After the review fixes, a screenshot from "The car" view still showed him getting out behind the car: legs hidden, torso and helmet over
+the roof. His door is on the far side from both opening cameras, so no walking route could keep him in plain view there.
+- Now, when he gets out in the car or V8 powertrain view, the camera eases round over 1.2 s to a three-quarter view from behind his door's
+  side (car-app.js `dxCamStart`, `dxShot`, `dxCamStep`). With reduced motion it cuts.
+- It is the rear quarter because from the front quarter his open door would hide his legs.
+- The shot is framed from the sill to the far aisle, on desktop and phone. The door waits shut until the camera is there.
+- The camera goes round by the car's far side, so it never looks at him across the car. It eases back to the person's own view the
+  same way, once he can be seen whole from that view. I chose to ease back so the person gets their own view back and sees the car come
+  apart from it.
+- On his way back in, it goes round again and comes back once he is in his seat with the door shut.
+- Any drag, pinch, scroll, zoom, fit or view button leaves the camera where it is, with the person.
+- `people_tests.js` checks the race driver at every sample from the camera actually in use, whether crouched, standing or walking. His feet
+  must never be hidden by the car (its door included) while his head shows over it.
+- `driver_tests.js` checks the glide, the door waiting, the camera coming back, the cancel by a drag and by a view button, and the cut
+  with reduced motion.
+- One phone run showed the engine technician's thigh in the telemetry station for one sample. Someone stepping aside chose a spot 0.3 m
+  clear of the desk, but the walk to it was checked only 0.1 m clear: less than half a body's width. That margin was in the original code.
+  The walk to a side spot now keeps the same 0.3 m room as the spot itself, less only where he already stands closer than that (crew.js
+  `stepAside`). The run was not exactly repeatable, so this is the cause found from the code and the position. It was not reproduced.
+
+| run, after the follow-up | result |
+|---|---|
+| `people_tests.js work both` | desktop PASS, phone PASS (1,579 samples each); the race driver is checked from the camera in use in 178 samples on each, with no fails |
+| `driver_tests.js work desk` / `phone` | 41/41, 41/41 |
+
+Screenshots (scratchpad, not the repo; desktop and phone) were looked at. They show him stepping out beside his open door, walking away
+as the car comes apart, back in the person's own view, stepping back in, and ducking in. In every one he is seen whole, feet on the floor;
+he is never over the roof.

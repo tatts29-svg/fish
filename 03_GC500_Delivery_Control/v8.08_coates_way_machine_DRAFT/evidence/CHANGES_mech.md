@@ -93,3 +93,5 @@ No other file was touched.
 | run | result |
 |---|---|
 | `mech_tests.js` | **50/50**: 25 on desktop, 25 on the phone, including the two new handbrake checks on each. No page or console errors. |
+
+Re-run after the follow-up (the camera at the driver's door, the print budgets): `mech_tests.js` **50/50**.

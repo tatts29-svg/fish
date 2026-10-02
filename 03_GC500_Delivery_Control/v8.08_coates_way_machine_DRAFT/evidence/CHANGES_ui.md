@@ -161,3 +161,15 @@ officer at -3.66, -2.68). Left with the people agent (crew.js).
 |---|---|
 | phone 390 × 844 | **123/123**. A first run had 122/123: "camera: zoom-out" missed its 0.18 s glide between two 0.3 s polls on the software renderer. The re-run passed, and no code was changed between the two runs. |
 | desktop 1440 × 900 | **138/138** |
+
+### Follow-up (camera at the driver's door, print budgets)
+- The camera now comes round to the driver's door while he gets out and back in. Details are in CHANGES_people.md. A drag, pinch, scroll,
+  zoom or view button leaves the camera with the person at once.
+- `ui_tests.js`: the first tap on a garage exhibit now looks again if the exhibit has moved, as the third tap already did. Logged in the
+  page: the overhead crane was under the tap point just before the tap and gone from it just after. The crane travels, and it moved in
+  the 0.4 s between the survey and the tap. A card must still open from a real tap on an exhibit.
+
+| run (`TUNE=dpr:0.5`), final | result |
+|---|---|
+| phone | **129/129** |
+| desktop | **138/138** |

@@ -147,7 +147,11 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
     /* the camera may have moved since the survey (a tap can select and frame a part): look again */
     if (isWork) { await closeVia('escape'); await page.click('#home', {force: true}); await wait(1500); await until(() => !window.__cw.tween, 120000); const again = (await survey()).filter(p => p.kind === 'exhibit'); if (again.length) exh.splice(0, exh.length, ...again.filter((p, i, a) => a.findIndex(q => q.name === p.name) === i)); }
     const ex = exh[0] || grid[1], open = async () => { await closeVia('escape'); await tap(ex.x, ex.y); return state(); };
-    let st = await open(); const opened = !!st.card; check('a tap on a garage exhibit opens its card', opened, st.title);
+    let st = await open();
+    /* (the exhibit can move between the survey and the tap — the overhead crane travels — or someone can walk across it: as for the third open
+       below, look again and tap what is there now; a card must still open from a real tap on an exhibit) */
+    if (!st.card && isWork) { const now = (await survey()).filter(p => p.kind === 'exhibit'); if (now.length) { await closeVia('escape'); await tap(now[0].x, now[0].y); st = await state(); } }
+    const opened = !!st.card; check('a tap on a garage exhibit opens its card', opened, st.cardId ? st.title : 'no card');
     if (opened) {
       st = await closeVia('x'); check('closes with ✕', !st.card);
       await open(); st = await closeVia('escape'); check('closes with Escape', !st.card);

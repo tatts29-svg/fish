@@ -1308,8 +1308,11 @@ export function buildCrew({service = null, wheels = [], kit = null} = {}) {
     if (block.path) for (let d = 0; d <= 3; d += .25) { block.path.at(Math.min(block.path.length, block.s + d), _t3); bp.push([_t3.x, _t3.z]); }
     else bp.push([block.pos.x, block.pos.z]);
     let best = null, bestD = -1;
+    /* (v8.08 follow-up: the walk to the side spot keeps a body's room from what stands on the floor, as the spot itself does — 0.1 m let a
+       thigh pass through the telemetry station on the way — less only where he already stands closer than that) */
+    const rWalk = Math.min(.28, Math.max(0, clearanceOf([m.pos.x, m.pos.z], ob) - .005));
     for (const rad of radii) for (let k = 0; k < 12; k++) { const a = k / 12 * TAU, px = m.pos.x + Math.sin(a) * rad, pz = m.pos.z + Math.cos(a) * rad;
-      if (clearanceOf([px, pz], ob) < .3 || !segmentClear(m.pos.x, m.pos.z, px, pz, ob, .1)) continue;
+      if (clearanceOf([px, pz], ob) < .3 || !segmentClear(m.pos.x, m.pos.z, px, pz, ob, rWalk)) continue;
       const dWay = Math.min(...bp.map(q => Math.hypot(q[0] - px, q[1] - pz)));
       if (dWay > .75 && dWay - rad * .2 > bestD) { bestD = dWay - rad * .2; best = [px, pz]; } }
     if (!best) return false;

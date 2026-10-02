@@ -65,11 +65,13 @@ let scaleNow = 1, maxDim = MOBILE ? 2048 : 4096, pending = null, budgetMs = 6;
    already drawn big (the Life Saving Rules, the values wheel, the tool wall) only what keeps it under that. All 71 prints come to about
    27 MP at their own size, about 49 MP on Balanced and about 71 MP on High and Ultra (measured: printStats) */
 const MAX_PIXELS = MOBILE ? 1.2e6 : 2.4e6;
-/* v8.08 review — AND ALL OF THEM TOGETHER INSIDE A BUDGET: about 40 MP on a laptop, 20 MP on a phone (a megapixel is 4 MB of canvas, and as
-   much again on the graphics card with its mipmaps). Past it the rung's scale is lowered for every print alike until the total fits; no print is
-   ever drawn smaller than its own size, so a phone, whose prints already come to more than that at their own size, keeps them there. A phone's
-   prints also never go past 1.5× (setPrintScale). */
-const BUDGET = MOBILE ? 20e6 : 40e6, PHONE_SCALE = 1.5;
+/* v8.08 review — AND ALL OF THEM TOGETHER INSIDE A BUDGET, set by the rung (a megapixel is 4 MB of canvas, and as much again on the graphics
+   card with its mipmaps): on a laptop 40 MP on Balanced, about 56 MP on High, and on Ultra — the setting the person has chosen for the sharpest
+   picture — the full 2× (about 72 MP); on a phone 20 MP whatever the rung. Past it the rung's scale is lowered for every print alike until the
+   total fits; no print is ever drawn smaller than its own size, so a phone, whose prints already come to more than 20 MP at their own size,
+   keeps them there. A phone's prints also never go past 1.5× (setPrintScale). */
+const BUDGETS = {laptop: 40e6, balanced: 40e6, high: 56e6, ultra: 72e6}, PHONE_BUDGET = 20e6, PHONE_SCALE = 1.5;
+let BUDGET = MOBILE ? PHONE_BUDGET : BUDGETS.laptop;
 /* a canvas the size asked for, drawn once, registered so a higher rung can draw it again sharper.
    mode 'logical': draw(g, w, h) works in the base size's coordinates and the context is scaled to the canvas;
    mode 'pixel': draw(g, cw, ch) is given the canvas's own size (a drawing laid out in proportions).
@@ -89,7 +91,7 @@ function fitRaw(e, k) { return Math.max(1, Math.min(k, e.maxScale, maxDim / Math
 const totalAt = k => prints.reduce((n, e) => n + e.w * e.h * fitRaw(e, k) ** 2, 0);
 let budgetKey = '', budgetK = 1;
 /* the largest scale up to k at which every print together stays inside the budget (worked out again when the rung or the prints change) */
-function budgetScale(k) { const key = k + '|' + prints.length; if (key === budgetKey) return budgetK; budgetKey = key;
+function budgetScale(k) { const key = k + '|' + prints.length + '|' + BUDGET; if (key === budgetKey) return budgetK; budgetKey = key;
   if (k <= 1 || totalAt(k) <= BUDGET) return (budgetK = k);
   let lo = 1, hi = k; for (let i = 0; i < 20; i++) { const mid = (lo + hi) / 2; if (totalAt(mid) <= BUDGET) lo = mid; else hi = mid; } return (budgetK = lo); }
 function fitScale(e, k) { return fitRaw(e, budgetScale(k)); }
@@ -146,6 +148,7 @@ let current = 'laptop', renderer0 = null;
 export function setQuality(q, {renderer = renderer0, scene = null} = {}) {
   current = TIERS[q] ? q : 'laptop'; if (renderer) renderer0 = renderer;
   FX_UNIFORMS.fxDetail.value = current === 'laptop' && MOBILE ? 0 : 1;
+  BUDGET = MOBILE ? PHONE_BUDGET : BUDGETS[current];
   setPrintScale(tierOf(current).print);
   if (scene) upgradeTextures(scene, {renderer: renderer0, aniso: tierOf(current).aniso});
   return tierOf(current);

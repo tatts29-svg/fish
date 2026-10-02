@@ -174,12 +174,9 @@ tyre print, floor wear and the light rig's lines.)
 - **The 4K still on a phone is drawn without the post stack** (`capture4K`, `post: !MOBILE`). The post stack's full-size ambient-occlusion
   targets, on top of a 3840 × 2160 buffer, are what makes a phone lose the graphics connection. The composer is not resized either. The
   still is still 3840 × 2160. A laptop keeps the post stack.
-- **The prints have a total budget**: about 40 MP on a laptop and 20 MP on a phone. Past it, the rung's print scale is lowered for every
-  print alike until the total fits. No print is ever drawn below its own size.
-  - Measured on a laptop: Balanced, High and Ultra all come to 39.96 MP at 1.3×. Before, Balanced was 49 MP and High and Ultra 71 MP.
-  - The 71 prints already come to 26.97 MP at their own size. So on a phone they stay at their own size (1×) on both rungs.
-  - In plain words: on a laptop the signs and labels are now drawn at 1.3× on the higher rungs, not 1.5× or 2×. That is the price of
-    staying inside the budget.
+- **The prints have a total budget.** Past it, the rung's print scale is lowered for every print alike until the total fits; no print is
+  ever drawn below its own size. The budgets by setting are in the follow-up below (first 40 MP for all, now 40 / 56 / 72 MP on a laptop,
+  20 MP on a phone). The 71 prints come to 26.97 MP at their own size, so on a phone they stay at 1×.
 - **A print with no 2D context is skipped** (`paint`). iOS gives no context once its canvas memory is spent. The print is then left as
   it is, not resized and not cleared, and is not tried again. The copy already on the graphics card stays in place. A print whose drawing
   throws is skipped the same way, so the idle redraw loop carries on with the others. Before, it stopped.
@@ -191,3 +188,18 @@ tyre print, floor wear and the light rig's lines.)
 | run | result |
 |---|---|
 | `fx_tests.js` (desktop and phone) | **46/46**, no page or console errors |
+
+### Follow-up: the print budget by setting
+
+The single 40 MP budget held Balanced, High and Ultra all at 1.3×, which undid part of the "4K crystal clear" work. The budget is now set
+by the rung on a laptop:
+- Balanced: 40 MP.
+- High: 56 MP.
+- Ultra: 72 MP, which is the full 2×. Ultra is the setting a person chooses for the sharpest picture.
+
+A phone keeps 20 MP and the Laptop ⇄ Balanced cycle. The no-context guard is unchanged. `fx_tests.js` checks each rung's budget, and that
+Ultra gives every print the full 2×.
+
+| run, after the follow-up | result |
+|---|---|
+| `fx_tests.js` | **47/47**. Laptop: Balanced 1.3× (39.96 MP), High 1.665× (55.96 MP), Ultra 2× (71.44 MP). Phone: 1× (26.97 MP), Laptop and Balanced only, 4K still without the post stack. |

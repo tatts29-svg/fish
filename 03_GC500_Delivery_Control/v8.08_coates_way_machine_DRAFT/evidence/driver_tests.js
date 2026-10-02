@@ -11,6 +11,8 @@
 //      press from there must bring it together with him back in his seat. The crew are never left held by "the car is apart".
 //   2. Reset, and a change to the cockpit view, at every stage: the driver straight back in his seat, the door shut, the crew free.
 //   3. Throughout, nobody is inside the door's swing while the door moves, and the driver never sits back down in a car that is apart.
+//   3b. (v8.08 follow-up) the camera eases round to his door's side while he gets out and back in, the door waiting for it, and back to where
+//      it was after; a drag or a view button leaves it with the person; with prefers-reduced-motion it cuts (section 5).
 //   4. The last word: two crew sent through the narrow pocket between the car's nose stands from opposite ends, each rank order, both get
 //      where they are going, never closer than 0.5 m, and no one is held up for more than about 9 s.
 //
@@ -54,7 +56,7 @@ async function run() {
 
   /* 1. Explode again at every stage */
   const stages = [
-    ['door', 'the door opening (the double press, 0.3 s after the first)', e => e.phase === 'door' && e.door > .4, 'rest'],
+    ['door', 'the door opening (a second press while it opens)', e => e.phase === 'door' && e.door > .4, 'rest'],
     ['crawlout', 'crouched in the doorway', e => e.phase === 'crawlout' || (e.phase === 'rise' && window.__cw.driverMan.post.k > .5), 'rest'],
     ['rise', 'standing up', e => e.phase === 'rise', 'rest'],
     ['stepout', 'stepping out of the door\'s swing', e => e.phase === 'stepout', 'rest'],
@@ -67,10 +69,9 @@ async function run() {
   ];
   for (const [id, words, reach, expect] of stages) {
     const r = await P.evaluate(([src, expect, id]) => { const H = window.__dt, cw = window.__cw, reach = eval(src); H.reset();
-      H.press(); let tReach = H.step(id === 'door' ? .35 : 40, () => reach(cw.driverExit));
+      H.press(); let tReach = H.step(id === 'door' ? 3 : 40, () => reach(cw.driverExit));
       /* the walk back: the car together after an Explode, out and back */
       if (tReach === null && ['walkback', 'stepin', 'duck'].includes(id)) { H.step(60, () => H.apart()); H.press(); tReach = H.step(60, () => reach(cw.driverExit)); }
-      if (tReach === null && id === 'door') tReach = reach(cw.driverExit) ? .3 : null;
       const at = {...cw.driverExit}; if (tReach === null) return {reached: false, at};
       H.press();
       const settled = H.step(120, () => expect === 'rest' ? H.rest() : H.apart());
@@ -92,9 +93,9 @@ async function run() {
   /* 2. Reset, and the cockpit view, at every stage */
   for (const how of ['Reset', 'the cockpit view']) for (const [id, words, reach] of stages) {
     const r = await P.evaluate(([src, how, id]) => { const H = window.__dt, cw = window.__cw, reach = eval(src); H.reset();
-      H.press(); let t = H.step(id === 'door' ? .35 : 40, () => reach(cw.driverExit));
+      H.press(); let t = H.step(id === 'door' ? 3 : 40, () => reach(cw.driverExit));
       if (t === null && ['walkback', 'stepin', 'duck'].includes(id)) { H.step(60, () => H.apart()); H.press(); t = H.step(60, () => reach(cw.driverExit)); }
-      if (t === null && id !== 'door') return {reached: false};
+      if (t === null) return {reached: false};
       if (how === 'Reset') document.getElementById('reset').click(); else cw.setView('cog');
       H.step(1.5); const e = {...cw.driverExit}, walker = cw.driverMan.fig.root.visible, seen = cw.cockpit.driver.visible || cw.view === 'cog';
       const ok = e.state === 'seated' && e.door <= 0 && !walker && cw.drive.spreadTarget <= .01 && H.crewFree();
@@ -103,6 +104,27 @@ async function run() {
       return {reached: true, ok, e, walker, again, home, bad: H.bad.slice(0, 3)}; }, [reach.toString(), how, id]);
     if (!r.reached) { check(`${how} at "${words}": stage reached`, false); continue; }
     check(`${how} at "${words}" → seated, door shut, crew free; then Explode works again`, r.ok && r.again !== null && r.home !== null && !r.bad.length, JSON.stringify({e: r.e, walker: r.walker, again: r.again, home: r.home, bad: r.bad}));
+  }
+
+  /* 3b. v8.08 follow-up — the camera comes round to his door: getting out the door waits shut while it glides (1.2 s); then it is on his
+     door's side, behind the car's rear quarter; it comes back to where it was once he can be seen whole from there; the same on the way back
+     in. A drag (the orbit controls' start) or a view button leaves the camera where it is, with the person. */
+  { const r = await P.evaluate(() => { const H = window.__dt, cw = window.__cw; H.reset(); cw.advance(.2, 1 / 30); const home = cw.camera.position.clone();
+      H.press(); let doorShut = true, glide = 0; for (let i = 0; i < 40 && cw.driverCam.mode === 'in'; i++) { cw.advance(.05, 1 / 60); glide += .05; if (cw.driverCam.mode === 'in' && cw.driverExit.door > 0) doorShut = false; }
+      const shot = cw.camera.position.clone(), hold = cw.driverCam.mode, tgt = cw.controls.target.clone();
+      const backOut = H.step(60, () => cw.driverCam.mode === null); const atHome = cw.camera.position.distanceTo(home), stateWhenBack = cw.driverExit.state + '/' + cw.driverExit.phase;
+      H.step(60, () => H.apart()); H.press(); const goIn = H.step(60, () => cw.driverCam.mode === 'hold'); const shot2 = cw.camera.position.clone();
+      const backIn = H.step(120, () => cw.driverCam.mode === null && H.rest()); const atHome2 = cw.camera.position.distanceTo(home);
+      return {glide: +glide.toFixed(2), doorShut, hold, shot: shot.toArray().map(v => +v.toFixed(2)), target: tgt.toArray().map(v => +v.toFixed(2)), backOut, stateWhenBack, atHome: +atHome.toFixed(3), goIn, shot2: shot2.toArray().map(v => +v.toFixed(2)), backIn, atHome2: +atHome2.toFixed(3), bad: H.bad.slice(0, 3)}; });
+    const doorSide = p => p[2] < r.target[2] - 2 && p[0] > r.target[0] + 2;
+    check('Explode: the camera eases round (1.2 s) to his door\'s side, behind the rear quarter, the door shut until it is there', r.glide >= 1.15 && r.glide <= 1.3 && r.doorShut && r.hold === 'hold' && doorSide(r.shot), JSON.stringify({glide: r.glide, doorShut: r.doorShut, hold: r.hold, shot: r.shot, target: r.target}));
+    check('…and back to where it was once he can be seen whole from there', r.backOut !== null && r.atHome < .01, JSON.stringify({backOut: r.backOut, atHome: r.atHome, when: r.stateWhenBack}));
+    check('on his way back in: round to his door again, and back to where it was once he is in his seat', r.goIn !== null && doorSide(r.shot2) && r.backIn !== null && r.atHome2 < .01 && !r.bad.length, JSON.stringify({goIn: r.goIn, shot2: r.shot2, backIn: r.backIn, atHome2: r.atHome2, bad: r.bad})); }
+  for (const how of ['a drag (the orbit controls start)', 'a view button']) {
+    const r = await P.evaluate(how => { const H = window.__dt, cw = window.__cw; H.reset(); cw.advance(.2, 1 / 30); H.press(); cw.advance(.5, 1 / 30); const mid = cw.driverCam.mode;
+      if (/drag/.test(how)) cw.cameraStart(); else document.querySelector('[data-view="engine"]').click();
+      const at = cw.camera.position.clone(), mode = cw.driverCam.mode; cw.advance(2, 1 / 30); const moved = cw.camera.position.distanceTo(at); const out = {mid, mode, moved: +moved.toFixed(4)}; document.querySelector('[data-view="car"]').click(); H.reset(); return out; }, how);
+    check(`${how} during the glide leaves the camera with the person at once`, r.mid === 'in' && r.mode === null && r.moved < 1e-4, JSON.stringify(r));
   }
 
   /* 4. the last word: two crew through the narrow pocket between the nose stands, from opposite ends, each rank order */
@@ -119,6 +141,13 @@ async function run() {
       delete crew.scripts[a].step; delete crew.scripts[b].step; if (crew.scripts[a].step !== keep[0]) crew.scripts[a].step = keep[0]; if (crew.scripts[b].step !== keep[1]) crew.scripts[b].step = keep[1]; H.reset(); return out; }, [a, b]);
     check(`last word: the ${a} out of the pocket by the car's nose, the ${b} in — both arrive, never closer than 0.5 m, no hold over 9 s`, r.doneA !== null && r.doneB !== null && r.minD >= .5 && r.heldMax <= 9, JSON.stringify(r));
   }
+  /* 5. prefers-reduced-motion: no glide, a cut */
+  await P.emulateMedia({reducedMotion: 'reduce'}); await P.reload({waitUntil: 'domcontentloaded'});
+  for (let i = 0; i < 400; i++) { if (await P.evaluate(() => !!(window.__cw && window.__cw.ready && document.getElementById('loading').hidden)).catch(() => false)) break; await wait(2000); }
+  await P.evaluate(() => window.__cw.renderer.setAnimationLoop(null)); await P.evaluate(HELPERS);
+  { const r = await P.evaluate(() => { const H = window.__dt, cw = window.__cw, reduced = matchMedia('(prefers-reduced-motion: reduce)').matches; cw.advance(.2, 1 / 30); const home = cw.camera.position.clone(); H.press(); cw.advance(1 / 30, 1 / 30);
+      return {reduced, mode: cw.driverCam.mode, jump: +cw.camera.position.distanceTo(home).toFixed(2)}; });
+    check('reduced motion: the camera cuts to his door at once (no glide)', r.reduced && r.mode === 'hold' && r.jump > 1, JSON.stringify(r)); }
   const errs = m.errors.filter(e => !/favicon/i.test(e)); check('no page errors', !errs.length, errs.slice(0, 4).join(' | '));
   await m.close();
   console.log(`\n${passes}/${passes + fails} passed · ${which} · ${device}`); process.exitCode = fails ? 1 : 0;

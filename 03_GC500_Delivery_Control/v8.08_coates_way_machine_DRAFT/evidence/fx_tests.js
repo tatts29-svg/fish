@@ -17,8 +17,8 @@
 //   · the 4K capture is a PNG of exactly 3840 × 2160, and the canvas is back at its own size afterwards;
 //   · on the phone: the Laptop rung, prints at their base size, no rim light, the per-pixel detail switched off.
 //   · v8.08 review: on the phone only Laptop and Balanced are offered (High and Ultra are not on its Quality button), its prints never go
-//     past 1.5×, all the prints together stay inside the budget (40 MP on a laptop, 20 MP on a phone, or every print at its own size where
-//     its own sizes already come to more), and its 4K still is drawn without the post stack.
+//     past 1.5×, all the prints together stay inside the budget (on a laptop 40 MP Balanced, 56 MP High, 72 MP Ultra — the full 2×; 20 MP on
+//     a phone, or every print at its own size where its own sizes already come to more), and its 4K still is drawn without the post stack.
 //
 // The software renderer the rig runs (SwiftShader) draws a frame in seconds, not milliseconds, so the page's animation loop is
 // stepped by hand here: every frame measured is a whole frame, and nothing the page does on its own (the adaptive resolution, the
@@ -138,7 +138,10 @@ async function run(dev) {
       if (q === 'ultra') { const need = Math.min(3840 * 2160, css[0] * css[1] * 16); check(dev, `ultra: 3840 x 2160 worth of pixels (or 4x a small screen: ${(need / 1e6).toFixed(2)} MP)`, p.buffer[0] * p.buffer[1] >= need * .98, p.megapixels + ' MP'); }
       if (q !== 'laptop') check(dev, `${q}: post stack multisampled`, p.composerSamples === null || p.composerSamples >= 4, p.composerSamples);
       if (s.fx) { const want = {laptop: 1, balanced: 1.5, high: 2, ultra: 2}[q], pr = s.fx.prints; check(dev, `${q}: prints redrawn at ${want}x, as far as the budget allows (${pr.allowed}x; ${pr.done}/${pr.count}, ${pr.megapixels} MP)`, pr.scale === want && pr.done === pr.count && !pr.failed);
-        check(dev, `${q}: prints inside the ${pr.budget} MP budget (or every one at its own size)`, pr.megapixels <= pr.budget * 1.01 || pr.allowed === 1, `${pr.megapixels} MP at ${pr.allowed}x`); }
+        /* v8.08 follow-up: the budget is set by the rung on a laptop — 40 MP Balanced, 56 MP High, 72 MP Ultra (the full 2×) — and is 20 MP on a phone */
+        const wantBudget = phone ? 20 : {laptop: 40, balanced: 40, high: 56, ultra: 72}[q];
+        check(dev, `${q}: prints inside the ${wantBudget} MP budget for this setting (or every one at its own size)`, pr.budget === wantBudget && (pr.megapixels <= pr.budget * 1.01 || pr.allowed === 1), `${pr.megapixels} MP at ${pr.allowed}x, budget ${pr.budget} MP`);
+        if (q === 'ultra') check(dev, 'ultra: every print at the full 2× its rung asks for', pr.allowed === 2 && pr.done === pr.count, `${pr.allowed}x, ${pr.megapixels} MP`); }
       if (process.env.SHOTS) { fs.mkdirSync(process.env.SHOTS, {recursive: true}); await canvasPng(m.page, path.join(process.env.SHOTS, `${process.env.TAG || 'run'}_${dev}_${q}.png`)); }
       console.log(`      ${dev} ${q}: frame ${p.frameMs} ms (median of 3, software renderer), ${p.megapixels} MP`);
     }

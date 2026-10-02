@@ -17,7 +17,8 @@
 //   5. not over the car from the opening cameras — from the car view's and the V8 powertrain view's cameras (as the page fits them,
 //      on this screen), nobody standing still has his feet hidden by the car while his helmet shows over it (the "crawling out of the
 //      car" look); people moving or working at the far side are reported, with the time it lasted; a pause on the way counts as moving
-//      for 1.5 s only, and the race driver out of his car is checked too (v8.08 review);
+//      for 1.5 s only, and the race driver out of his car is checked too (v8.08 review); and the race driver, at every sample, from the
+//      camera actually in use (the camera comes round to his door while he gets out and back in — v8.08 follow-up);
 //   6. no page errors; the people's draws and triangles.
 // Scenarios: the hall at rest (crew doing their chores, 150 s), the V8 started and running (40 s), a far-rear wheel service end to
 // end (to 200 s), and Explode (the race driver's walk-out, 40 s).
@@ -155,6 +156,14 @@ async function sample(P, label) {
           if (hidden(foot) && !hidden(head)) { const key = p.k + ' · ' + c.name; const o = A.over[key] || (A.over[key] = {still: 0, stillApart: 0, moving: 0, 'at work': 0, samples: []}); o[kind === 'still' && /explode/.test(label) ? 'stillApart' : kind]++; if (o.samples.length < 4 || (kind === 'still' && o.samples.filter(x => x.kind === 'still').length < 3)) o.samples.push({t: clock, at, post, label, kind}); }
         }
       }
+      /* 5b. v8.08 follow-up: the race driver from the camera actually in use at this moment (it comes round to his door while he gets out and
+         back in): at every sample — crouched in the doorway, standing or walking — never his feet hidden by the car (its open door
+         included) with his head seen over it */
+      if (p.driver && ray) { const cp = cw.camera.position.clone(), head = new Vec(); mesh.skeleton.bones[4].getWorldPosition(head); head.y += .2;
+        const foot = new Vec(p.fig.root.position.x, Math.max(0, Math.min(...soles)) + .03, p.fig.root.position.z);
+        const hid = q => { const dir = q.clone().sub(cp), L = dir.length(); dir.normalize(); ray.set(cp, dir); ray.far = L - .08; ray.near = 0; return ray.intersectObjects(S.carRoots, true).some(h => shown(h.object) && !(driverG && isUnder(h.object, driverG))); };
+        A.inUse = (A.inUse || 0) + 1;
+        if (hid(foot) && !hid(head)) bad('seen over the car from the camera in use', {cam: cp.toArray().map(v => +v.toFixed(2)), phase: cw.driverExit.phase}); }
     }
     /* people clear of one another: no point of one body within 3 cm of a point of another */
     { const cs = A.__cores || []; for (let i = 0; i < cs.length; i++) for (let j = i + 1; j < cs.length; j++) { const a = cs[i].core, b = cs[j].core;
@@ -227,6 +236,7 @@ function verdict(acc) {
   for (const [k, o] of Object.entries(acc.over)) if (o.still) fails.push(`${k}: standing clear of the car with it hiding his legs and his helmet over it, ${o.still} samples ${JSON.stringify(o.samples.filter(x => x.kind === 'still').slice(0, 2))}`);
   const s = acc.seatWorst; if (s) fails.push('seated driver: ' + JSON.stringify(s));
   if (!acc.seatChecks.length) fails.push('seated driver: never seen');
+  if (!acc.inUse) fails.push('race driver: never checked from the camera in use (he never got out)');
   if (acc.errors.length) fails.push('page errors: ' + JSON.stringify(acc.errors.slice(0, 4)));
   return fails;
 }
@@ -238,7 +248,7 @@ function verdict(acc) {
     console.log(`\n==== ${which} · ${dev}: ${fails.length ? fails.length + ' FAIL' : 'PASS'} (${acc.samples} samples, crew ${acc.crewDraws} draws, ${acc.crewTriangles} triangles)`);
     for (const f of fails) console.log('  FAIL ' + f);
     for (const [k, R] of Object.entries(acc.people)) console.log(`  ${k.padEnd(22)} samples ${R.samples}  sole ${(R.minSole * 100).toFixed(1)}…${(R.maxSole * 100).toFixed(1)} cm  slide max ${(R.maxSlide * 1000).toFixed(1)} mm  longest pause ${R.longestPause || 0} s  posts ${JSON.stringify(R.post)}`);
-    console.log(`  crew: longest hold ${acc.heldMax} s, last words ${acc.lastWords}`);
+    console.log(`  crew: longest hold ${acc.heldMax} s, last words ${acc.lastWords}; the race driver checked from the camera in use in ${acc.inUse || 0} samples`);
     for (const [k, o] of Object.entries(acc.over)) console.log(`  over the car (feet hidden, helmet seen): ${k}: standing clear ${o.still}, with the car apart ${o.stillApart}, moving ${o.moving}, at work ${o['at work']} ${JSON.stringify(o.samples.slice(0, 3))}`);
     console.log('  seated driver', JSON.stringify(acc.seatChecks.slice(0, 2)));
   }
