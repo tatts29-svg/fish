@@ -6,7 +6,7 @@ Andrew (2 Oct 2026, about the Coates Way machine): "You need to get rid of the i
 close. I need you to upgrade this area. Push your limits further. ... Make this all 4k crystal clear. Improve every thing on
 here. 10/10".
 
-This note covers the interface only (files: `work/car-app.js`, `work/car.css`, `work/index.html`, `work/style.css`). The
+This note covers the interface only (files: `work/car-app.js`, `work/car.css`, `work/index.html`, `work/style.css`; `mechanism.html`, `app.js` and `content.js` unchanged). The
 car, the driver, the garage and the mechanics are other people's files in the same release and are not touched here.
 
 ## What was wrong (seen on a phone, 390 × 844, on the live copy in `../base/`)
@@ -70,8 +70,67 @@ Test hooks added (read only): `window.__cw.pickAt(x, y)` (what a tap there would
 
 ## Test results
 
-RESULTS_PLACEHOLDER
+Run with `evidence/ui_tests.js` (instructions at the top of the file) on 2 Oct 2026, through the read-only rig, on the
+`work/` folder with all the edits below in place. Final runs used `TUNE=dpr:0.5` (a smaller 3D drawing buffer; the interface
+is laid out at full size) because the shared machine was drawing one software frame every 25–30 s. That was as slow on the
+live copy (`base/`) as on `work/`, so the slowness is the machine, not this change.
+
+| device | result |
+|---|---|
+| phone 390 × 844 @2, touch | **124 / 124 pass** (cards + toast + every control) |
+| laptop 1440 × 900 | **133 / 133 pass** (cards + toast + every control) |
+| tablet 768 × 1024 @2, touch | **88 / 88 pass** (cards, toast, layout) |
+| 4K 3840 × 2160 @1 | **96 / 96 pass** (cards, toast, layout; ✕ 88 px, dock words 28 px) |
+| live copy, phone (comparison) | 23 / 30: Close button 63 × 39 px and **covered** at its centre; register × 32 × 30 px; Controls ?, Original cog and Read more open a full-page modal, not the card |
+| live copy, laptop (comparison) | 19 / 24: same register and modal findings (the fixed tap grid did not land on an exhibit there) |
+
+What the card tests prove, on each device:
+- six taps on the scene (exhibits and parts found by the page's own picking): never more than one card or dialog open;
+- after every open: the ✕ is at least 44 px (88 px at 4K), inside the screen, and `elementFromPoint` at its centre is the ✕;
+  the card is clear of the dock and the tabs and inside the screen; on laptop and 4K it is off the centre of the scene;
+- the card closes with the ✕, Escape, a tap on empty scene, a view change; starting the tour swaps it for the tour card
+  (which passes the same checks), and Escape ends the tour;
+- a drag that starts on an exhibit, a drag that comes back to where it started, and a 0.9 s long press all open nothing;
+  a quick tap on the same exhibit does open it;
+- pressing and scrolling a card keeps it open; it is still open 16 s later (no timer);
+- Controls ? scrolls inside itself with its ✕ fixed in the header; Original cog replaces it (still one card); Read more
+  opens in the card; Find a part opens only the register, whose ✕ is 44 px;
+- a toast covers no control, and with a card open covers neither the card nor the dock;
+- no page errors or console errors.
+
+Controls checked (phone and laptop): the three tabs, Guided tour (start, Next, End), Sound, Full screen, Find a part (search
+and pick), the part list, Start V8 / Stop V8, throttle, brake, steer, gears up and down, Explode powertrain (the driver gets
+out first), Service (first step), Reset, cutaway, slow motion, power path, zoom in / out / fit, Quality (all three steps),
+4K capture (the PNG downloads), Original cog, Controls.
+
+Pictures looked at (kept in the scratchpad, not the repo): phone at rest, garage card, tour card, Controls ? with a toast,
+on phone, tablet, laptop and 4K. On a phone the sheet covers the lower half of the scene while it is open; that is the
+trade for full-size teaching text with its ✕ in reach, and the ✕ puts the car back.
+
+**Also run:** `people_tests.js work desk` after the people agent's edits: the race driver now gets out beside his open door
+and walks to the safe spot (state "out" at -4.4, -3.75). **1 FAIL remains, in crew behaviour, not in car-app.js:**
+"mechanic: into safety in 2 of 1565 samples" during the far wheel service (mechanic at -3.30, -2.67 brushing the safety
+officer at -3.66, -2.68). Left with the people agent (crew.js).
 
 ## Changes needed in files I do not own
 
-NEEDS_PLACEHOLDER
+**None needed from me for this scope.** Three things for the others:
+
+1. **For whoever adds on-screen text later (any file):** please put teaching text through `openCard(kind, {kicker, title,
+   body})` and messages through `toast()` in `car-app.js`, not new floating boxes, so the one-card rule and the placement
+   keep holding. Tests can read `window.__cw.card` and `window.__cw.pickAt(x, y)`.
+2. **people agent (crew.js):** the remaining people_tests FAIL above (mechanic into the safety officer, 2 of 1,565 samples).
+3. **Performance (whoever owns it):** under software rendering on this shared machine a laptop frame took 25–30 s, as on the
+   live copy. Not an interface issue, but worth a frame-time check on a real GPU before release.
+
+## Edits folded in for other agents (in files I own)
+
+- **mech agent, `car-app.js`:** in `updateTransforms()`, after `engine.setStarter(...)`:
+  `if(engine.setBrake)engine.setBrake(effBrake());` so the pedal or the handbrake clamps the new brake pads (mech-brakes.js);
+  a no-op without it.
+- **mech agent, `index.html` + `car-app.js`:** the footer's starting text says "V8 · 326 PARTS" (was 310), and car-app.js
+  writes the register's own count there at load (`specs.length`) until the frame counter takes over.
+- **people agent, `car-app.js`:** the eight replacements from `CHANGES_people.md`, applied exactly (all search strings
+  matched): new `DX_SILL` (.70, -1.50) and `DX_SAFE` (-4.4, -3.75); `crewState().apart`; `crew.addPerson(man)`; the driver
+  appears crouched outside the open door instead of crawling through the car, shuts the door before walking off, the door
+  opens when he arrives back, no crawl back in; both walks back to the door use `crew.plan(...).slice(1)`.
