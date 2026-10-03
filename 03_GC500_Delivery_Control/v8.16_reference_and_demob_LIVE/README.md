@@ -3,6 +3,8 @@
 Author: Andrew Fisher · Claude implemented and tested; Codex reviewed the source three times (88a716e, 6485fa9/0019508,
 and the follow-up after 6a0bb20) and every finding is fixed below · 3 Oct 2026 (AEST)
 
+**LIVE — 3 Oct 2026, 14:27 AEST.** Published from frozen `7f7d906` after independent final review. Public page matches `7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0` exactly (9,244,210 bytes); operational-record fingerprints are unchanged. Independent final checks: 56 CPU, 115 browser, both 22-tab/seven-link/Back sweeps, zero page/console errors; desktop and phone images inspected. [Publication proof](evidence/release_verification.json). Final independent review and legend-only comparison are in `../review_v816_release/evidence/`. Historical READY/test notes below describe the handover; this LIVE proof supersedes their not-uploaded wording. Original Queensland guide was not independently available: the page labels its road window as project planning and requires permit checks. Some drawer spacing remains above the recorded target.
+
 **State: see "Release state" at the end.** Not uploaded and not committed by this work; nothing written to the live record.
 The tests read the live record through `toolchain/harness/open_page.js`, which aborts every write; the editor checks
 also stub the page's own push, so no write is even attempted.
