@@ -1,8 +1,8 @@
 {
   "author": "Andrew Fisher",
   "sourceCommit": "e540cbc31bef88500f9b781688c53f8693932514",
-  "demobSha256": "32e80a5dcda4d816a60c4d924a5925bf3fcf50c458b7bc92ca21bc24a231a6ff",
-  "candidateSha256": "8ea94e1cb51001cf110d89708a31b5316b3dd1da14262d0c04500dc3bbdd757c",
+  "demobSha256": "9367fc806a72f725ae6d72f50cace9ae7b46e9b67591487a12ef4b72645fdfd3",
+  "candidateSha256": "cf29603544e22000a5d421b7d7435f2c1f507d2bf80a46fcf4ad0c0540c15016",
   "passed": 33,
   "failed": 0,
   "interpretationNote": "The before-event historyless-movement assertion retains the previous review expectation for comparison; its failure is an unresolved incoming-purpose interpretation, not by itself proof of a mandatory policy violation.",

@@ -217,7 +217,8 @@ toilets". He also sent the Queensland Access Conditions Guide v6.0 (Dec 2023), w
   in the precinct, 70 min), labelled "planning figure, not a live time", editable per run; a live figure goes in the same
   field later. Blank = "travel time to confirm": no departure or return is worked out.
 - **Oversize - only a load the branch flags** (a tick on each truck load, kept on this device; nothing is guessed). A
-  flagged load shows: not on Gold Coast roads 07:00-09:00 or 16:00-18:00; a planning latest departure = 16:00 less the
+  flagged load shows the project planning window ("the QLD guide bars oversize vehicles in the Gold Coast 07:00-09:00 and
+  16:00-18:00 on business days; with site hours 07:00-17:00 we plan oversize moves 09:00-16:00"); a planning latest departure = 16:00 less the
   run's travel time (a planning figure, not a permit time; or "travel time to confirm"); a flag when it leaves after that,
   or when its time on the road overlaps either peak; "stagger departures" when two flagged loads leave
   together (no convoys); "pilot / escort: check permit" (never a number); and "Check TMR Conditions of Operation Database
@@ -265,6 +266,10 @@ Fixtures: `evidence/codex_fixtures816.js` (CPU, **FIXTURE-COUNT**), Codex's own 
 | roads 3 | the travel editor was gone and an old override ignored | a travel field per run (Coates toilet run, branch trucks); a figure typed under the old assumptions is kept | **I7**; browser test blanks it and types 90 |
 | roads 4 | supplier times printed as 00:00 | the supplier has no times anywhere; an unknown Coates/branch travel time reads "travel time to confirm" | H7, H8; Codex `supplier_null_travel_times_do_not_render_midnight` |
 | roads (scope) | the 06:00 "peak" overstatement | the peak flag is exactly the guide's 07:00-09:00 / 16:00-18:00 on-road overlap; the latest departure is labelled a planning figure, not a permit time | **H12b** |
+| 8c821da (6b1066d) blocker 1 | mixed-owner dates collapsed (reviewed source predated the per-run portions) | per-run portions through planning and confirmation (above) | **I1-I4**; Codex `followup_abbb01b_streams` mixed 3/3, `followup_8c821da_ui` 20/20 |
+| 8c821da blocker 2 | a truck set to 8 left a 12-unit load at 12, "full", free -4 | a lower capacity re-packs the load (12 at 8 becomes 8 + 4, the new load marked "re-packed"); a load over its truck is never "full" - "overloaded - n over this truck's N"; above 14 still warns | **J1, J2**; Codex `followup_8c821da_ui` capacity checks |
+| 8c821da (a) | an earlier draft's saved travel setting | carried over once into both runs, labelled "carried over from the earlier Kingston-run setting", and the old setting removed - never silent | **I7** |
+| 8c821da (b) | the 09:00-16:00 window read as a legal rule | "Project planning window: the QLD guide bars oversize vehicles in the Gold Coast 07:00-09:00 and 16:00-18:00 on business days; with site hours 07:00-17:00 we plan oversize moves 09:00-16:00." Source in the tooltip: "QLD Access Conditions Guide v6.0 (copy supplied by the project manager)" | browser UI test checks the words; Codex `followup_8c821da_roads` 16/16 |
 
 Before/after evidence: `evidence/codex_fixtures816_before_fix_0006166.log` (8 failed: G1, G1b, G2a-e, G3; G2d only
 because the change field did not exist), `evidence/codex_fixtures816_before_zero_fix.log` (G4, G4b, G4c fail on

@@ -2,8 +2,8 @@
   "author": "Andrew Fisher",
   "sourceCommit": "abbb01baf3318d39d970313063c29cdb30990d33",
   "scope": "Read-only synthetic CPU stream integration checks. New owner inputs supplied explicitly. No browser or shared-record writes; not release readiness.",
-  "demobSha256": "e48530570d21f013178aba3bed1d9930ee2ee8434ccf39a593a68ff51c778b41",
-  "candidateSha256": "8ea94e1cb51001cf110d89708a31b5316b3dd1da14262d0c04500dc3bbdd757c",
+  "demobSha256": "00a72d68016e513bea921b58472bc15ffe61c6c7c74482c4f94ab723f908f2c7",
+  "candidateSha256": "cf29603544e22000a5d421b7d7435f2c1f507d2bf80a46fcf4ad0c0540c15016",
   "passed": 20,
   "failed": 0,
   "results": [
