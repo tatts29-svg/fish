@@ -1,3 +1,5 @@
+# v8.19 checks · source commit 865c1f2700f5a721ac21a4d2c7c4078a7a12410f · candidate sha256 5b952723b5db0883fd0a9f5ffaf109531a78a6ad31a05105c6d2a8d8aa64af9d (9355592 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T13:30:59Z
+# suite: packed-phone · command: env MOB=1 flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v7.95_today_packed_DRAFT/evidence/packed_tests.js
 PASS Today still carries Where we are, one set of buttons  {"embedded":true,"hacts":1,"folds":[{"name":"By branch","open":false,"words":"4 branches and all of them together · who gets the revenue, and what each branch charges the V8s — the contracts by the rate and the charge lines by kind"},{"name":"Money","open":false,"words":"revenue · direct costs known so far · the difference — revenue is what Coates charges the V8s, a direct cost is what Coates pays for the job"},{"name":"On site","open":false,"words":"what has gone out, by date"}],"byGroupOpen":true,"jump":["Today","Today’s work","By group","By branch","Money","On site","Trade by trade"],"packed":0,"wide":0}
 PASS By branch, Money and On site fold; By group stays open  [{"name":"By branch","open":false,"words":"4 branches and all of them together · who gets the revenue, and what each branch charges the V8s — the contracts by the rate and the charge lines by kind"},{"name":"Money","open":false,"words":"revenue · direct costs known so far · the difference — revenue is what Coates charges the V8s, a direct cost is what Coates pays for the job"},{"name":"On site","open":false,"words":"what has gone out, by date"}]
 PASS a fold's line carries words, not figures  ["4 branches and all of them together · who gets the revenue, ","revenue · direct costs known so far · the difference — reven","what has gone out, by date"]
@@ -6,78 +8,10 @@ PASS no page wider than the screen  0
 PASS each jump button lands its part at the top (or as far as the page goes)  [{"name":"Today","top":12,"end":false,"open":null},{"name":"Today’s work","top":12,"end":false,"open":null},{"name":"By group","top":12,"end":false,"open":null},{"name":"By branch","top":12,"end":false,"open":true},{"name":"Money","top":12,"end":false,"open":true},{"name":"On site","top":12,"end":false,"open":true},{"name":"Trade by trade","top":12,"end":false,"open":null}]
 PASS a jump to a fold opens it  [{"name":"By branch","top":12,"end":false,"open":true},{"name":"Money","top":12,"end":false,"open":true},{"name":"On site","top":12,"end":false,"open":true}]
 PASS opened folds stay open through a redraw  ["By branch:true","Money:true","On site:true"]
-node:internal/process/promises:394
-    triggerUncaughtException(err, true /* fromPromise */);
-    ^
-
-page.evaluate: Target page, context or browser has been closed
-Browser logs:
-
-<launching> /opt/pw-browsers/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --lang=en-AU --user-data-dir=/tmp/playwright_chromiumdev_profile-ibUDF3 --remote-debugging-pipe --no-startup-window
-<launched> pid=11724
-[pid=11724][err] [11724:11738:1003/104801.608889:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-[pid=11724][err] [11724:11738:1003/104801.614948:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[pid=11724][err] [11724:11738:1003/104801.615218:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-[pid=11724][err] [11724:11738:1003/104801.615240:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-[pid=11724][err] [11724:11738:1003/104801.645937:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[pid=11724][err] [11724:11724:1003/104801.659795:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
-[pid=11724][err] [11724:11738:1003/104801.660431:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[pid=11724][err] [11724:11738:1003/104801.660463:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[pid=11724][err] [11724:11738:1003/104801.660497:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[pid=11724][err] [11724:11738:1003/104801.660519:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[pid=11724][err] [11724:11738:1003/104801.660539:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
-[pid=11724][err] [11724:11724:1003/104801.679409:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
-[pid=11724][err] [11724:11724:1003/104801.682193:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
-[pid=11724][err] [11724:11738:1003/104801.682344:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-[pid=11724][err] [11724:11738:1003/104801.682395:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-[pid=11724][err] [11724:11724:1003/104801.682982:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
-[pid=11724][err] [11724:11724:1003/104801.690901:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type: 
-[pid=11724][err] [11756:11789:1003/104801.903254:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104801.936047:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104802.050753:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104802.050992:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104803.108686:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104803.542381:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104804.337028:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104804.841889:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104805.105757:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104805.109588:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104805.343878:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104805.597935:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104806.288369:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104806.680861:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104806.681986:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104806.682135:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104806.682661:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104807.529023:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104807.583279:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104807.636727:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104807.647560:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104807.676551:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104808.598656:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104808.797673:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104808.882003:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104808.915186:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104808.990896:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104809.894671:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104810.731252:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104810.958007:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104810.971685:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104811.208474:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104811.620097:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104812.002634:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104813.121721:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104813.597153:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104813.820767:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104813.986151:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104814.064793:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104814.365557:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104814.417890:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724][err] [11756:11789:1003/104815.960554:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
-[pid=11724] <gracefully close start>
-[pid=11724][err] [11724:11724:1003/104816.647272:ERROR:content/common/zygote/zygote_communication_linux.cc:293] Failed to send GetTerminationStatus message to zygote
-    at /home/user/fish/03_GC500_Delivery_Control/v7.95_today_packed_DRAFT/evidence/packed_tests.js:57:21 {
-  log: []
-}
-
-Node.js v22.22.2
+PASS the date control redraw keeps the folds and one jump row  {"f":["By branch:true","Money:true","On site:true"],"n":1}
+PASS Print opens every fold for the paper  {"called":1,"during":[true,true,true]}
+PASS on paper: By branch, Money, On site printed with their headings (On site has its own), nothing packed, no jump row  {"branches":true,"money":true,"out":true,"summaries":0,"heads":2,"rows":"auto","jump":false}
+PASS after the print the folds close again  [false,false,false]
+PASS round trip comes back packed and folded  {"embedded":true,"hacts":1,"folds":[{"name":"By branch","open":false,"words":"4 branches and all of them together · who gets the revenue, and what each branch charges the V8s — the contracts by the rate and the charge lines by kind"},{"name":"Money","open":false,"words":"revenue · direct costs known so far · the difference — revenue is what Coates charges the V8s, a direct cost is what Coates pays for the job"},{"name":"On site","open":false,"words":"what has gone out, by date"}],"byGroupOpen":true,"jump":["Today","Today’s work","By group","By branch","Money","On site","Trade by trade"],"packed":0,"wide":0}
+PASS no page errors  []
+phone: 14/14
