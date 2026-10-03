@@ -1,0 +1,99 @@
+{
+ "mobile": true,
+ "today (reference)": {
+  "Today lights card": {
+   "w": 342,
+   "h": 402,
+   "emptyPct": 30.8
+  }
+ },
+ "drawer P42": {
+  "summary In/Out tiles": {
+   "w": 334,
+   "h": 112,
+   "emptyPct": 13.4
+  },
+  "Complete it lights": {
+   "w": 334,
+   "h": 348,
+   "emptyPct": 28.8
+  },
+  "Where it is": {
+   "w": 326,
+   "h": 122,
+   "emptyPct": 25.1
+  },
+  "photo strip": {
+   "w": 326,
+   "h": 247,
+   "emptyPct": 29.2
+  }
+ },
+ "drawer WC05": {
+  "summary In/Out tiles": {
+   "w": 334,
+   "h": 112,
+   "emptyPct": 7.2
+  },
+  "Complete it lights": {
+   "w": 334,
+   "h": 414,
+   "emptyPct": 31
+  },
+  "Where it is": {
+   "w": 326,
+   "h": 160,
+   "emptyPct": 26.8
+  },
+  "photo strip": {
+   "w": 326,
+   "h": 119,
+   "emptyPct": 2.5
+  }
+ },
+ "demob 2026-10-28": {
+  "board head (words | counts)": {
+   "w": 342,
+   "h": 377,
+   "emptyPct": 4.2
+  },
+  "count tiles": {
+   "w": 342,
+   "h": 197,
+   "emptyPct": 9.4
+  },
+  "day strip": {
+   "w": 342,
+   "h": 212,
+   "emptyPct": 0
+  },
+  "day bar (branches | actions)": {
+   "w": 334,
+   "h": 72,
+   "emptyPct": 32.2
+  }
+ },
+ "demob 2026-11-04": {
+  "board head (words | counts)": {
+   "w": 342,
+   "h": 377,
+   "emptyPct": 4.2
+  },
+  "count tiles": {
+   "w": 342,
+   "h": 197,
+   "emptyPct": 9.4
+  },
+  "day strip": {
+   "w": 342,
+   "h": 212,
+   "emptyPct": 0
+  },
+  "day bar (branches | actions)": {
+   "w": 334,
+   "h": 72,
+   "emptyPct": 40.2
+  }
+ },
+ "errors": []
+}

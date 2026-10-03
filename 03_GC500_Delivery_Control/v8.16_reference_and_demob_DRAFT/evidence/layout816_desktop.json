@@ -47,13 +47,13 @@
  "demob 2026-10-28": {
   "board head (words | counts)": {
    "w": 1380,
-   "h": 192,
-   "emptyPct": 22
+   "h": 107,
+   "emptyPct": 4.1
   },
   "count tiles": {
    "w": 714,
-   "h": 192,
-   "emptyPct": 5.9
+   "h": 101,
+   "emptyPct": 10.6
   },
   "day strip": {
    "w": 1380,
@@ -69,13 +69,13 @@
  "demob 2026-11-04": {
   "board head (words | counts)": {
    "w": 1380,
-   "h": 192,
-   "emptyPct": 22
+   "h": 107,
+   "emptyPct": 4.1
   },
   "count tiles": {
    "w": 714,
-   "h": 192,
-   "emptyPct": 5.9
+   "h": 101,
+   "emptyPct": 10.6
   },
   "day strip": {
    "w": 1380,

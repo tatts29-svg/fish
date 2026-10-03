@@ -16,13 +16,14 @@ What the patch does (DRAFT - not uploaded):
      was there (drawer816_src.js);
   2. the off-site date chain and the Demob tab (demob816_src.js): typed > plan > contract before 13 Nov > proposed;
      proposed dates are worked out at runtime and never written unless a person confirms them;
-  3. Emptied (pumped out): a fourth tick on the delivery record, and a gate in setLight that refuses taking a toilet
-     or a tank off site, from Event Week, until it is emptied;
+  3. Emptied (pumped out): a fourth tick on the delivery record (who and when, merged on its own clock, cleared by a
+     new arrival on site), and a gate in setLight that refuses moving a toilet or a tank that may have been used until
+     the current use has a pump-out; the only exception is a unit never recorded on site, before the event, on its way in;
   4. the driver's card names the master-plan / pinned position instead of "nothing on the drawings";
   5. Codex's scope, kept to one hunk: a typed due-out on a reference with no remove event becomes a removal on its
      day in programmeDaysBefore801(), so it reaches the Timeline, the day lists and the day documents.
 
-    python3 patch_v816.py <page.html>     (on live v8.13, f07e92cc; independent of v8.09 and v8.14)"""
+    python3 patch_v816.py <page.html>     (built on live v8.14, 6365fd09; also applies on v8.13 f07e92cc; independent of v8.09)"""
 import os, sys
 here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, '..', 'toolchain'))

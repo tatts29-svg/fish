@@ -22,6 +22,9 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
       }
       st.remove(); return out; }, sels);
     const R = {mobile};
+    /* the reference: Today's own lights card, measured the same way (the drawer's Complete it is that component) */
+    await p.evaluate(() => go('today')); await wait(1500);
+    R['today (reference)'] = await measure({'Today lights card': '#pane-today .lights .hublights'});
     for (const k of ['P42', 'WC05']) {
       await p.evaluate(k => openAsset(k), k); await wait(1500);
       R['drawer ' + k] = await measure({'summary In/Out tiles': '#drawer .sum816 .ctwo', 'Complete it lights': '#drawer .cmp816 .hublights', 'Where it is': '#drawer .where816 dl.kv816', 'photo strip': '#drawer .ph816 .strip816p'});
