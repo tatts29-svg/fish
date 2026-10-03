@@ -120,8 +120,12 @@ async function until(fn, ms = 15000, arg) { const t = Date.now(); while (Date.no
   const ui = await page.evaluate(() => { const b = document.getElementById('start-text').getBoundingClientRect(), f = parseFloat(getComputedStyle(document.getElementById('start-text')).fontSize); const z = parseFloat(getComputedStyle(document.querySelector('.dock')).zoom) || 1; return {textPx: f * z, h: b.height}; });
   check('dock words a readable size on this screen', ui.textPx >= (DEVICE === '4k' ? 24 : 11.5), `Start V8 at ${ui.textPx.toFixed(1)} px`);
   /* v8.09 review: a quiet "Ready to run" is hidden to the eye only — still in the page for a screen reader (it was display:none) */
-  if (isWork) { await until(() => document.getElementById('status').classList.contains('quiet'), 20000); const qs = await page.evaluate(() => { const t = document.getElementById('status-text'), c = getComputedStyle(t), r = t.getBoundingClientRect(); return {quiet: document.getElementById('status').classList.contains('quiet'), text: t.textContent, display: c.display, visibility: c.visibility, w: r.width, h: r.height}; });
-    check('quiet status: "Ready to run" still read by a screen reader (visually hidden, not display:none)', qs.quiet && qs.text === 'Ready to run' && qs.display !== 'none' && qs.visibility !== 'hidden' && qs.w <= 1 && qs.h <= 1, JSON.stringify(qs)); }
+  /* its size is read in CSS pixels: on a 4K screen the interface is drawn at zoom var(--ui) = 2, so its 1 px box measures 2 screen px
+     (the same correction the dock-words check above makes); and the clip that makes it invisible is checked, not only its size */
+  if (isWork) { await until(() => document.getElementById('status').classList.contains('quiet'), 20000); const qs = await page.evaluate(() => { const t = document.getElementById('status-text'), c = getComputedStyle(t), r = t.getBoundingClientRect();
+      let z = 1; for (let n = t; n && n.nodeType === 1; n = n.parentElement) z *= parseFloat(getComputedStyle(n).zoom) || 1;
+      return {quiet: document.getElementById('status').classList.contains('quiet'), text: t.textContent, display: c.display, visibility: c.visibility, zoom: z, w: r.width / z, h: r.height / z, overflow: c.overflow, clipPath: c.clipPath, clip: c.clip}; });
+    check('quiet status: "Ready to run" still read by a screen reader (visually hidden, not display:none)', qs.quiet && qs.text === 'Ready to run' && qs.display !== 'none' && qs.visibility !== 'hidden' && qs.w <= 1 && qs.h <= 1 && qs.overflow === 'hidden' && (qs.clipPath === 'inset(50%)' || /rect\(0px,? 0px,? 0px,? 0px\)/.test(qs.clip)), JSON.stringify(qs)); }
   await shot('0_rest');
 
   /* ── where things are: the page's own picking over the scene (work), or a fixed grid (live copy) ── */

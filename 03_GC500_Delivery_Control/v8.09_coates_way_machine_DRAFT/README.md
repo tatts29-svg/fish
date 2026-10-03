@@ -2,7 +2,7 @@
 
 > **Version note:** this release is **v8.09**. Codex claimed v8.08 first, in f4455f0. The folder was first named `v8.08_` and was renamed `v8.09_` once the four builds finished; the version labels in its code and tests say v8.09.
 
-Author: Andrew Fisher · 2 Oct 2026 · **DRAFT, in progress (Claude)**, not live. The live machine set is `v7.90-map-fit-quiet-done` (219 files); its code is copied unchanged in `base/`, and the work is done in `work/`.
+Author: Andrew Fisher · 2 Oct 2026, handover 3 Oct 2026 · **STATUS_LINE** The live machine set is v8.13 `65c47180…` (`v8.13-maps-satellite`, 219 files). The 56 machine files v8.09 builds on are copied unchanged in `base/`, and the work is in `work/`. See **READY handover** at the end.
 
 ## Andrew's words (Claude's chat, 2 Oct 2026)
 
@@ -25,6 +25,10 @@ Author: Andrew Fisher · 2 Oct 2026 · **DRAFT, in progress (Claude)**, not live
 
 Each area records its changes in `evidence/CHANGES_*.md`.
 
-**Test rig:** `evidence/machine_rig.js` serves `work/` locally. It fetches models and sounds from the live machine by GET only.
+**Test rig:** `evidence/machine_rig.js` serves `work/` locally. It fetches models and sounds from the live machine by GET only. Every fetched file must match its descriptor in `evidence/manifest_v809.json` (see the handover).
 
 **Publishing** needs the edit key, so Codex publishes once this is READY. Mock-up pictures go to Andrew first.
+
+## READY handover
+
+HANDOVER_BODY

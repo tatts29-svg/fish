@@ -192,3 +192,10 @@ were checked against our code and fixed with their patch.
   order or cancelled. These are real touches in the driver's seat, the only place a phone can reach the wheel. With the V8 running, the
   check reads the steering rack: a held wheel holds still, and once both fingers are up it must sway with the rumble again. Desktop has no
   second finger, so this runs on the phone only.
+
+### Final runs (3 Oct 2026): one test measurement corrected, no page change
+On the 4K screen, the check that a quiet "Ready to run" is still read by a screen reader failed: the text measured 2 × 2 px against a
+limit of 1 px. The page is right. The text is hidden the standard way (1 CSS px, `overflow:hidden`, `clip`, `clip-path:inset(50%)`).
+On a 4K screen the interface is drawn at `zoom: var(--ui)` = 2, so 1 CSS px measures 2 screen px. The test now reads the size in CSS
+px, dividing by the zoom as the dock-words check already does. It also requires the clip that makes the text invisible, so the check
+is stricter than before. A `display:none` still fails it.
