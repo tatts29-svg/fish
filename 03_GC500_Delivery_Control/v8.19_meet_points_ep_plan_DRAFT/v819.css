@@ -17,6 +17,7 @@
 #drawer .mp819-park ul,.ep819 .ep819-park ul{margin:4px 0 0;padding-left:18px;font-size:12.5px;line-height:1.35;font-weight:600}
 /* the Timeline: the load plan card */
 .ep819{margin-top:14px}
+.ep819 table{min-width:0}   /* the page sets table{min-width:640px}; this card's tables fit the screen */
 .ep819 .ep819-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
 .ep819 .ep819-hd h3{margin:0}
 .ep819 .ep819-hd .sub{margin:3px 0 0}
@@ -30,6 +31,7 @@
 .ep819 .ep819-box.dm li:nth-child(2){font-weight:700}
 .ep819 .ep819-ord{margin:2px 0 4px;font-size:12.5px;color:var(--ink2)}
 .ep819 .ep819-ord b{color:var(--ink)}
+.ep819 .ep819-rec{grid-column:1/-1;margin:0;padding:5px 12px;border:1px solid var(--ld-edge);border-top:0;border-left:4px solid var(--orange);background:var(--orange-soft);color:var(--ink);font-size:12.5px;font-weight:700}
 .ep819 .ep819-list{margin-bottom:8px}
 .ep819 .ldlist.timed .ldl{grid-template-columns:52px 112px minmax(0,1fr) minmax(0,330px) 22px}
 .ep819 .ld-c .ld-sw{color:var(--ld-or)}
@@ -83,35 +85,55 @@
  .ep819 .ld.on .ld-go.ep819-go{border-radius:0;border-color:var(--ld-or)}
  .ep819 .ld-refs .ld-w{display:block;white-space:normal}
  .ep819 .ld-p span{white-space:normal}
- .ep819 .ep819-st th:nth-child(1),.ep819 .ep819-st td:nth-child(1){display:none}
- .ep819 .ep819-st td,.ep819 .ep819-st th{padding:5px 5px}
+ /* each stop a card: meet point and the two counts on top, the WC numbers under them */
+ .ep819 .ep819-st,.ep819 .ep819-st tbody{display:block;width:100%}
+ .ep819 .ep819-st thead{display:none}
+ .ep819 .ep819-st tr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 12px;padding:8px 2px;border-bottom:1px solid var(--rule)}
+ .ep819 .ep819-st td{display:block;padding:0;border:0;min-width:0;overflow-wrap:anywhere}
+ .ep819 .ep819-st td:nth-child(1){display:none}
+ .ep819 .ep819-st td:nth-child(2){grid-column:1;grid-row:1}
+ .ep819 .ep819-st td:nth-child(3){grid-column:1/-1;grid-row:2}
+ .ep819 .ep819-st td:nth-child(4){grid-column:2;grid-row:1}
+ .ep819 .ep819-st td:nth-child(5){grid-column:3;grid-row:1}
+ .ep819 .ep819-st td:nth-child(4)::before,.ep819 .ep819-st td:nth-child(5)::before{display:block;font:700 9.5px/1.2 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.05em;text-transform:uppercase;color:var(--slate);text-align:right}
+ .ep819 .ep819-st td:nth-child(4)::before{content:'FWF'}
+ .ep819 .ep819-st td:nth-child(5)::before{content:'Left on truck'}
+ .ep819 .ep819-qt td,.ep819 .ep819-qt th,.ep819 .ep819-cx td{overflow-wrap:anywhere;word-break:break-word}
+ .ep819 .ep819-qw{overflow-x:visible}
+ .ep819 .ep819-cx{table-layout:fixed}
+ .ep819 .ep819-cx th:nth-child(1){width:18%}.ep819 .ep819-cx th:nth-child(2){width:24%}.ep819 .ep819-cx th:nth-child(3){width:26%}
  .ep819 .ep819-qt table{font-size:12.5px;table-layout:fixed}
  .ep819 .ep819-qt th:nth-child(1){width:31%}.ep819 .ep819-qt th:nth-child(2){width:15%}.ep819 .ep819-qt th:nth-child(4){width:24%}
  .ep819 .ep819-qt th{font-size:9.5px;letter-spacing:.03em}
  .ep819 .ep819-qt th,.ep819 .ep819-qt td{padding:5px 5px}
  #drawer .mp819-qr{width:84px;height:84px}
 }
-/* the driver's sheet: one band at the foot of Where it goes - the meet point beside the site rules, in one row and with no
-   heading of its own, so the photographs keep their room. mpMeetBlock819() / mpRulesBlock819() are styled here under
-   .dp-page; outside a sheet that sets --k they take the scale 1. */
-.dp-page .mp819d-band{display:grid;grid-template-columns:auto minmax(0,1fr);gap:calc(1.4mm * var(--k, 1));align-items:stretch;margin-top:calc(.9mm * var(--k, 1))}
-.dp-page .mp819d-band.many{grid-template-columns:minmax(0,1fr)}
-.dp-page .mp819d-g{display:flex;gap:calc(1.4mm * var(--k, 1));min-width:0}
-.dp-page .mp819d-band.many .mp819d-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(48mm,1fr))}
-.dp-page .mp819d{display:flex;gap:1.4mm;align-items:center;padding:.35mm 1.2mm;border:.35mm solid var(--hair);border-left:1.2mm solid var(--acc);border-radius:1.2mm;min-width:0}
-.dp-page .mp819d-band:not(.many) .mp819d{max-width:54mm}
-.dp-page .mp819d-q{flex:0 0 auto;width:calc(12mm * var(--k, 1))}
+/* the driver's sheet: the meet point in room the sheet already has - inside the master-plan position box for one
+   reference, or a line and a QR column in the several-reference table - so the photographs keep every pixel they had */
+#dayprint .dp-pos-t .mp819p{display:flex;gap:1.4mm;align-items:center;margin-top:.6mm;padding-top:1mm;border-top:.3mm solid var(--hair)}
+#dayprint .dp-pos-t .mp819p .mp819d-q{flex:0 0 auto;width:calc(13mm * var(--k, 1))}
+#dayprint .mp819d-q svg{display:block;width:100%;height:auto}
+#dayprint .dp-pos-t .mp819p-t{display:flex;flex-direction:column;gap:.2mm;min-width:0;line-height:1.15}
+#dayprint .dp-pos-t .mp819p-t em{font-size:.7em;letter-spacing:.08em;color:var(--acc)}
+#dayprint .dp-pos-t .mp819p-t b{font-size:.86em;color:var(--ink)}
+#dayprint .dp-pos-t .mp819p-t span{font-size:.76em}
+#dayprint .dp-wtbl .mp819-qc{width:calc(14mm * var(--k, 1));text-align:center}
+#dayprint .dp-wtbl td.mp819-qc{padding:.6mm 0}
+#dayprint .dp-wtbl .mp819-qc .mp819d-q{width:calc(12mm * var(--k, 1));margin:0 auto}
+#dayprint .dp-wtbl .mp819r{display:block;color:var(--ink)}
+#dayprint .dp-rline .mp819l-park{color:#b42318;font-weight:700}
+/* mpMeetBlock819() / mpRulesBlock819(): blocks for a sheet with room for them (not used on the driver sheet) */
+.dp-page .mp819d-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(52mm,1fr));gap:calc(1.4mm * var(--k, 1))}
+.dp-page .mp819d{display:flex;gap:1.4mm;align-items:center;padding:.6mm 1.2mm;border:.35mm solid var(--hair);border-left:1.2mm solid var(--acc);border-radius:1.2mm;min-width:0}
+.dp-page .mp819d .mp819d-q{flex:0 0 auto;width:calc(13mm * var(--k, 1))}
 .dp-page .mp819d-q svg{display:block;width:100%;height:auto}
-.dp-page .mp819d-t{display:flex;flex-direction:column;gap:.1mm;min-width:0;font-size:.74em;line-height:1.12}
-.dp-page .mp819d-t b{font-size:1.12em}
+.dp-page .mp819d-t{display:flex;flex-direction:column;gap:.1mm;min-width:0;font-size:.8em;line-height:1.14}
 .dp-page .mp819d-t em{font-style:normal;font-weight:800;font-size:.86em;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
-.dp-page .mp819d-r{padding:.5mm 1.4mm;border:.45mm solid var(--ink);border-radius:1.2mm;background:#fafafa;min-width:0}
-.dp-page .mp819d-c{columns:3;column-gap:3.4mm;font-size:.71em;line-height:1.11}
-.dp-page .mp819d-band.many .mp819d-c{columns:4}
+.dp-page .mp819d-r{margin-top:calc(1.4mm * var(--k, 1));padding:.6mm 1.4mm;border:.45mm solid var(--ink);border-radius:1.2mm;background:#fafafa;min-width:0}
+.dp-page .mp819d-c{columns:3;column-gap:3.4mm;font-size:.76em;line-height:1.12}
 .dp-page .mp819d-c > b{float:left;margin:.15mm 1.4mm 0 0;padding:.2mm 1.2mm;border-radius:.6mm;background:var(--ink);color:#fff;font-size:.9em;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
 .dp-page .mp819d-c ol{margin:0;padding:0;list-style:none}
 .dp-page .mp819d-c li + li{margin-top:.5mm}
-.dp-page .mp819d-c li{orphans:2;widows:2}
 .dp-page .mp819d-park{font-weight:700;color:#b42318}
 /* the run sheet: one A4 page, on screen as a preview over the page and alone on paper */
 #ep819print{display:none}
@@ -142,6 +164,7 @@ body.ep819-printing #ep819print{display:block}
 .rs819 .rs-rules li:first-child{font-weight:800}
 .rs819 .rs-rules li:last-child{color:#a3200f}
 .rs819 .rs-ord{margin:0;padding:0 1mm;font-size:.92em;color:#3c4247}
+.rs819 .rs-rec{margin:0;padding:1mm 2mm;border-left:1.2mm solid var(--or);background:#fdece2;font-weight:800;font-size:.95em}
 .rs819 table,.rs819 th,.rs819 td{font-family:inherit;font-size:inherit;color:inherit;text-transform:none;letter-spacing:normal;line-height:1.3;background:none;box-shadow:none;min-width:0;max-width:none;white-space:normal}
 .rs819 ul,.rs819 ol,.rs819 li{text-transform:none;letter-spacing:normal}
 .rs819 .rs-tbl{width:100%;border-collapse:collapse;table-layout:fixed}

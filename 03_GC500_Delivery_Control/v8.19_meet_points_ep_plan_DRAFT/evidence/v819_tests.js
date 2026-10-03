@@ -64,6 +64,13 @@ async function run(name, dev) {
     await qrShot(await p.$('#drawer a.mp819-qr'), want, `${tag}_drawer_${k}`);
     if (id === 'ISLAND_WEST_PARK' || (phone && id === 'PITLANE')) await p.screenshot({path: path.join(SHOTS, `${tag}_drawer_${k}.png`)});
   }
+  /* the reviewer's cases: pinned / confirmed gear gets the area and nearest rules too; pit garages say so */
+  const X = await p.evaluate(() => Object.fromEntries(['T0022', 'T0023', 'P47', 'PG01'].map(k => { const a = allAssets().find(x => x.key === k); if (!a) return [k, null]; const r = meetPoint819(a); let D = null; try { D = dest782(a); } catch (e) {} return [k, {id: r.p.id, how: r.how, kind: D && D.kind, why: mpWhy819(r, k)}]; })));
+  ok(X.T0022 && X.T0022.id === 'ISLAND_WEST_PARK' && X.T0023 && X.T0023.id === 'ISLAND_WEST_PARK', `${name}: T0022 and T0023 get the island west parkland point`, X);
+  ok(X.P47 && X.P47.id === 'COMMODORE', `${name}: P47 gets Commodore Park`, X.P47);
+  ok(X.PG01 && X.PG01.id === 'PITLANE' && X.PG01.why === 'Pit lane entry – pit garages', `${name}: pit garages: "Pit lane entry – pit garages"`, X.PG01);
+  for (const k of ['T0022', 'T0023']) { await p.evaluate(k => openAsset(k), k); await wait(1000); const pk = await p.evaluate(() => !!document.querySelector('#drawer .mp819-park')); ok(pk, `${name}: the ${k} drawer carries the parkland safety box`); }
+  await p.evaluate(() => { const c = document.getElementById('dclose'); if (c) c.click(); }); await wait(400);
   const park = await p.evaluate(() => { const b = document.querySelector('#drawer .mp819-park'); return b ? b.innerText : null; });
   await p.evaluate(() => { const c = document.getElementById('dclose'); if (c) c.click(); }); await wait(400);
   await p.evaluate(k => openAsset(k), 'WC02'); await wait(1200);
@@ -78,7 +85,7 @@ async function run(name, dev) {
     return {rows, inTimeline: !!c.closest('#pane-timeline'), rules: [...c.querySelectorAll('.ep819-box.sr ol li')].map(x => x.textContent), park: (c.querySelector('.ep819-park') || {}).textContent || '',
       demob: [...c.querySelectorAll('.ep819-box.dm li')].map(x => x.textContent), head: c.querySelector('.ep819-box.dm h4').textContent, ord: c.querySelector('.ep819-ord').textContent,
       qhead: [...q.querySelectorAll('th')].map(x => x.textContent), nowcBg: nowc.map(x => getComputedStyle(x).backgroundColor), nowcN: nowc.map(x => x.querySelector('b').textContent),
-      qnote: q.querySelector('.ep819-nw').textContent, cx: [...c.querySelectorAll('.ep819-cx tbody tr')].map(r => r.cells[0].textContent), text: c.innerText, w: c.scrollWidth, cw: c.clientWidth}; });
+      qnote: q.querySelector('.ep819-nw').textContent, tot: !!q.querySelector('tr.tot'), rec: [...c.querySelectorAll('.ep819-rec')].map(x => x.textContent), cxh: [...c.querySelectorAll('.ep819-cx th')].map(x => x.textContent), cx: [...c.querySelectorAll('.ep819-cx tbody tr')].map(r => r.cells[0].textContent), text: c.innerText, w: c.scrollWidth, cw: c.clientWidth}; });
   ok(!!P && P.inTimeline, `${name}: the Event Portables load plan card is on the Timeline`);
   if (P) {
     ok(P.rows.length === 5 && P.rows.every(r => r.fwf === 24) && P.rows.reduce((s, r) => s + r.fwf, 0) === 120, `${name}: 5 loads, 24 FWF each, 120 FWF in all`, P.rows);
@@ -91,11 +98,13 @@ async function run(name, dev) {
     const dm = P.demob.join(' ');
     ok(asked.split('. ').every(x => dm.includes(x.replace(/\.$/, ''))), `${name}: the demob notice carries every sentence of the brief`);
     ok(P.ord.includes('Stop order within a load is suggested') && P.ord.includes('Early is fine') && !/Andrew/.test(P.ord), `${name}: the early-delivery rule sits beside the fill-order wording`, P.ord);
-    ok(P.qhead.join('|').includes('No WC allocation') && P.nowcBg.length === 6 && P.nowcBg.every(c => c === 'rgb(253, 224, 205)'), `${name}: the No WC allocation column is highlighted in Coates orange`, P.nowcBg);
-    ok(JSON.stringify(P.nowcN) === JSON.stringify(['56', '0', '0', '4', '3', '63']), `${name}: No WC allocation 56 / 0 / 0 / 4 / 3, 63 in all`, P.nowcN);
+    ok(P.qhead.join('|').includes('No WC allocation') && P.nowcBg.length === 5 && P.nowcBg.every(c => c === 'rgb(253, 224, 205)'), `${name}: the No WC allocation column is highlighted in Coates orange`, P.nowcBg);
+    ok(JSON.stringify(P.nowcN) === JSON.stringify(['56', '0', '0', '4', '3']) && !P.tot, `${name}: No WC allocation 56 / 0 / 0 / 4 / 3, and no total row adding unlike items`, P.nowcN);
     ok(P.qnote === PLAN.quote_vs_allocation.no_wc_allocation_note, `${name}: the No WC allocation note`);
     ok(JSON.stringify(P.cx) === JSON.stringify(['WC32', 'WC66', 'WC09']), `${name}: the cancelled list WC32, WC66, WC09`, P.cx);
     ok(!/\$\s?\d|SiteIQ/i.test(P.text) && !/(?<!\d)(?:\+?61\s?|0)[2-478](?:[\s-]?\d){8}(?!\d)/.test(P.text), `${name}: no money, phone numbers or SiteIQ in the card`);
+    ok(!/\b(Codex|Claude)\b/i.test(P.text) && P.cxh[3] === 'Source', `${name}: no agent named on the card; the cancelled list's last column is Source`, P.cxh);
+    ok(P.rec.length >= 1 && /^Record still shows .*Wed 7 Oct for WC38, WC39, WC40, WC61.* – moving to Fri 9 Oct per Coates$/.test(P.rec[0]), `${name}: Load 1 says where the record still shows its references on another day`, P.rec);
     ok(P.w <= P.cw + 1, `${name}: the card does not scroll sideways`, {w: P.w, cw: P.cw});
   }
   // open Load 1 and look at it
@@ -125,6 +134,7 @@ async function run(name, dev) {
     ok(R.bar === `Load ${L.n} of 5 · ${['Fri 9 Oct 2026', 'Tue 13 Oct 2026', 'Thu 15 Oct 2026', 'Mon 19 Oct 2026', 'Mon 19 Oct 2026'][L.n - 1]} · 24 FWF${L.n === 1 ? ' (+6 pee panels)' : ''}`, `${name}: Load ${L.n} header`, R.bar);
     ok(PLAN.site_rules.every(x => R.txt.includes(x)) && PLAN.demob_notice.lines.every(x => R.txt.includes(x)) && /Sign-off/.test(R.txt) && /Driver name/.test(R.txt) && R.txt.includes('Early is fine') && R.txt.includes('Author: Andrew Fisher'),
       `${name}: Load ${L.n} sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author`);
+    if (L.n === 1) ok(/Record still shows .*WC38.* – moving to Fri 9 Oct per Coates/.test(R.txt) && R.txt.includes('Event Portables delivery plan (to quote Q6845)'), `${name}: Load 1 run sheet carries the record line and the plan label`);
     ok(!/\$\s?\d|SiteIQ/i.test(R.txt) && !/(?<!\d)(?:\+?61\s?|0)[2-478](?:[\s-]?\d){8}(?!\d)/.test(R.txt), `${name}: Load ${L.n} sheet has no money, phone numbers or SiteIQ`);
     if (!phone) {
       const qs = await p.$$('#ep819print .rs-qr');
@@ -175,21 +185,15 @@ async function run(name, dev) {
     /* the page's own print, as the Drivers button runs it from a link (the #print/drivers route waits in this rig, on live too) */
     await p.evaluate(iso => { window.__dpLast = null; dpPrint(iso, 'drv', {link: true}); }, iso); await p.waitForFunction(() => window.__dpLast, null, {timeout: 40000}).catch(() => {}); await wait(800);
     const D = await p.evaluate(() => { const pages = [...document.querySelectorAll('#dayprint .dp-page.dp-drv')];
-      return {n: pages.length, last: window.__dpLast || null, sec: pages.map(pg => { const s = pg.querySelector('.mp819s'); if (!s) return null;
-        return {qrs: [...s.querySelectorAll('.mp819d-q')].map(q => q.dataset.mp819Url), refs: [...pg.querySelectorAll('.dp-refg > *')].length, rules: s.querySelectorAll('.mp819d-r li:not(.mp819d-park)').length, park: !!s.querySelector('.mp819d-park'), txt: s.innerText}; })}; });
-    ok(D.n > 0 && D.sec.every(Boolean), `${name}: ${iso}: every driver sheet (${D.n}) has the Meet point · site rules section`);
-    ok(D.sec.every(x => x && x.qrs.length >= 1 && x.rules === 3 && x.park), `${name}: ${iso}: each has a QR per meet point, the three site rules beyond the hours and the parkland rules`, D.sec.map(x => x && [x.qrs.length, x.rules, x.park]));
+      return {n: pages.length, last: window.__dpLast || null, sec: pages.map(pg => { const mp = [...pg.querySelectorAll('[data-mp819]')], rl = pg.querySelector('.dp-rline');
+        return {mps: mp.length, qrs: pg.querySelectorAll('.mp819d-q').length, rows: pg.querySelectorAll('.dp-wtbl tbody tr').length || 1, inWhere: mp.every(x => x.closest('.dp-pos-t, .dp-wtbl')),
+          rl: rl ? rl.textContent : '', park: !!pg.querySelector('.mp819l-park'), parkMp: mp.some(x => x.dataset.mp819 === 'ISLAND_WEST_PARK'), band: !!pg.querySelector('.mp819s, .mp819d-band')}; })}; });
+    ok(D.n > 0 && D.sec.every(x => x.mps === x.rows && x.qrs === x.rows && x.inWhere && !x.band), `${name}: ${iso}: every driver sheet (${D.n}) shows each reference's meet point and its QR inside Where it goes, with no extra band`, D.sec.map(x => [x.mps, x.qrs, x.rows, x.inWhere]));
+    ok(D.sec.every(x => x.rl.includes('Go to the meet point – Coates meets you') && x.rl.includes('If unsure, go to the pit lane entry') && x.rl.includes('Site hours') && x.park === x.parkMp), `${name}: ${iso}: the site rules are on the sheet's own rules line, with the parkland rules only where the load goes to the parkland`, D.sec.map(x => x.rl.slice(-80)));
     ok(D.last && !(D.last.over || []).length, `${name}: ${iso}: no driver sheet runs past one page`, D.last && D.last.over);
-    /* the photo strip, measured: the band costs the photographs room; reported per sheet, judged on one-meet-point sheets */
-    const PH = await p.evaluate(() => [...document.querySelectorAll('#dayprint .dp-page.dp-drv')].map(pg => ({load: pg.dataset.load, k: pg.style.getPropertyValue('--k'), pts: pg.querySelectorAll('.mp819d').length,
-      pics: Math.round((pg.querySelector('.dp-pics') || {getBoundingClientRect: () => ({height: 0})}).getBoundingClientRect().height), band: Math.round(pg.querySelector('.mp819s').getBoundingClientRect().height)})));
-    console.log(`   ${iso} photo strip px by load:`, PH.map(x => `L${x.load}:${x.pics}${x.pts > 1 ? '(' + x.pts + ' meet points)' : ''}`).join(' '), '· band px', [...new Set(PH.map(x => x.band))].join('/'));
-    const one = PH.filter(x => x.pts === 1);
-    ok(one.length && one.every(x => x.pics >= 100 && x.band <= 50), `${name}: ${iso}: on every one-meet-point sheet the band is at most 50 px and the photo strip keeps at least 100 px (min ${Math.min(...one.map(x => x.pics))})`, one);
-    const want = await p.evaluate(() => [...document.querySelectorAll('#dayprint .dp-page.dp-drv')].map(pg => [...pg.querySelectorAll('.dp-tbl .dp-rk, .dp-refg b')].map(x => x.textContent.trim()).filter(Boolean)));
-    const truth = await p.evaluate(() => [...document.querySelectorAll('#dayprint .dp-page.dp-drv')].map(pg => [...pg.querySelectorAll('.mp819d')].map(c => c.querySelector('.mp819d-q').dataset.mp819Url)));
-    const expect = await p.evaluate(iso => { const d = programmeDays().find(x => x.iso === iso); return dpLoads(d).map(g => [...new Set(g.rows.map(r => navUrl({lat: meetPoint819(r.a).p.ll[0], lon: meetPoint819(r.a).p.ll[1]})))]); }, iso);
-    ok(JSON.stringify(truth) === JSON.stringify(expect), `${name}: ${iso}: each sheet's meet point QRs are its loads' meet points, in order`);
+    const truth = await p.evaluate(() => [...document.querySelectorAll('#dayprint .dp-page.dp-drv')].map(pg => [...pg.querySelectorAll('.mp819d-q')].map(q => q.dataset.mp819Url)));
+    const expect = await p.evaluate(iso => { const d = programmeDays().find(x => x.iso === iso); return dpLoads(d).map(g => g.rows.map(r => navUrl({lat: meetPoint819(r.a).p.ll[0], lon: meetPoint819(r.a).p.ll[1]}))); }, iso);
+    ok(JSON.stringify(truth) === JSON.stringify(expect), `${name}: ${iso}: each sheet's meet point QRs are its references' meet points, in order`);
     if (!phone) { const qs = await p.$$('#dayprint .dp-page .mp819d-q'); for (let i = 0; i < Math.min(qs.length, 8); i++) await qrShot(qs[i], await qs[i].evaluate(e => e.dataset.mp819Url), `drv_${iso}_${i + 1}`); }
     const pg = await p.$('#dayprint .dp-page.dp-drv'); if (pg && iso === '2026-10-06') { await pg.screenshot({path: path.join(SHOTS, `${tag}_driver_sheet_${iso}.png`)}); }
     await p.evaluate(() => { try { dpBarClose(); } catch (e) {} }); await wait(800);

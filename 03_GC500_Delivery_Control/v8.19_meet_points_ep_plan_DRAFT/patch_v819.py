@@ -93,13 +93,13 @@ early = re.sub(r'\s*\(Andrew[^)]*\)', '', EP['early_delivery_rule']).strip()   #
 EP819 = {'version': EP['version'], 'prepared': EP['prepared'], 'loads': loads,
          'quote': {'quote': Q['quote'], 'rows': [{k: r[k] for k in ('item', 'quote', 'allocated_to_wc', 'allocated_detail', 'no_wc_allocation', 'note') if k in r} for r in Q['rows']],
                    'no_wc_note': Q['no_wc_allocation_note'], 'wc31_note': Q.get('wc31_note')},
-         'cancelled': [{k: c[k] for k in ('ref', 'fwf', 'note', 'source') if k in c} for c in EP['cancelled']],
+         'cancelled': [{k: re.sub(r'\s*via (?:Codex|Claude)\b', '', c[k]) if k == 'source' else c[k] for k in ('ref', 'fwf', 'note', 'source') if k in c} for c in EP['cancelled']],   # the page never names an agent
          'site_rules': EP['site_rules'], 'park': {'area': EP['park_rules']['area'], 'rules': EP['park_rules']['rules']},
          'demob': {'heading': EP['demob_notice']['heading'], 'lines': EP['demob_notice']['lines']}, 'order': order, 'early': early}
 assert EP['park_rules']['meet_point_id'] == MP819['park']
 data = 'const MP819 = ' + json.dumps(MP819, ensure_ascii=False, separators=(',', ':')) + ';\nconst EP819 = ' + json.dumps(EP819, ensure_ascii=False, separators=(',', ':')) + ';\n'
 # no money, no phone numbers, no other brand, nothing that would close the script
-for bad, what in ((r'\$\s?\d', 'a dollar figure'), (r'(?<!\d)(?:\+?61\s?|0)[2-478](?:[\s-]?\d){8}(?!\d)', 'a phone number'), (r'(?i)site\s?iq', 'SiteIQ'), (r'</script', 'a closing tag')):
+for bad, what in ((r'\$\s?\d', 'a dollar figure'), (r'(?<!\d)(?:\+?61\s?|0)[2-478](?:[\s-]?\d){8}(?!\d)', 'a phone number'), (r'(?i)site\s?iq', 'SiteIQ'), (r'</script', 'a closing tag'), (r'(?i)\b(?:codex|claude|chatgpt|openai|anthropic|gpt-?\d)', 'an agent or model name')):
     if re.search(bad, data): sys.exit('the plan data carries ' + what + ' - stopping')
 
 js = data + open(os.path.join(here, 'mp819_src.js'), encoding='utf-8').read() + '\n' + open(os.path.join(here, 'ep819_src.js'), encoding='utf-8').read()
@@ -112,12 +112,15 @@ t = rep(t, "try { drawer816(a); } catch (e) { try { console.warn('v8.16 drawer',
         'drawer meet point', p)
 # 2. the driver sheet: a Meet point section after Where it goes
 t = rep(t, "dpSec('Where it goes', dpWhere(g, doc, posOf) + dpDeliveryNotes798(g)), dpSec('Photos', dpPics(g, doc, posOf), 'dp-ph')];",
-        "dpSec('Where it goes', dpWhere(g, doc, posOf) + dpDeliveryNotes798(g) + (doc === 'drv' && typeof mpDrvSec819 === 'function' ? mpDrvSec819(g) : '')), dpSec('Photos', dpPics(g, doc, posOf), 'dp-ph')]; /* v8.19 - the meet point and the site rules: one band at the foot of Where it goes on the driver sheet */",
+        "dpSec('Where it goes', (doc === 'drv' && typeof mpWhere819 === 'function' ? mpWhere819(dpWhere(g, doc, posOf), g) : dpWhere(g, doc, posOf)) + dpDeliveryNotes798(g)), dpSec('Photos', dpPics(g, doc, posOf), 'dp-ph')]; /* v8.19 - the meet point in the room Where it goes already has, on the driver sheet */",
         'driver sheet meet point', p)
+t = rep(t, "secs.push(dpSec('Safety', (doc === 'drv' ? dpRulesLine() : '') + dpSafe(doc)),",
+        "secs.push(dpSec('Safety', (doc === 'drv' ? (typeof mpRulesLine819 === 'function' ? mpRulesLine819(dpRulesLine(), g) : dpRulesLine()) : '') + dpSafe(doc)), /* v8.19 - the site rules on the sheet's own rules line */",
+        'driver sheet rules line', p)
 # 3. the Timeline: the load plan card under the day
 t = rep(t, """(idx >= 0 ? dayBlock(days[idx], true) : '<div class="empty">No scheduled dates in the register.</div>')}""",
         """(idx >= 0 ? dayBlock(days[idx], true) : '<div class="empty">No scheduled dates in the register.</div>')}
- ${typeof ep819Html === 'function' ? ep819Html() : ''}""", 'Timeline load plan card', p)
+ ${(() => { try { return typeof ep819Html === 'function' ? ep819Html() : ''; } catch (e) { try { console.warn('v8.19 load plan', e); } catch (x) {} return ''; } })()}""", 'Timeline load plan card', p)
 # 4. the footer and the release marker
 # matched by pattern, not by their exact text, because a later live release (Codex's Today work) may change either; a
 # missing or doubled anchor stops the build with a plain message rather than landing in the wrong place

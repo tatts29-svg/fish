@@ -33,6 +33,24 @@ function epStopsTable819(l){
  here adds its loads to programmeDays(), the Timeline's day lists or any record collection; the card and the run sheets
  are drawn from EP819 alone and always carry the label below. */
 function epLabel819(){ return 'Event Portables delivery plan (to quote ' + ((EP819 && EP819.quote && EP819.quote.quote) || 'Q6845') + ')'; }
+/* where the record (read only, from the page's own day lists) still shows a reference of a load on another day, say so
+ on the load - "Record still shows Wed 7 Oct for WC38, WC39, WC40, WC61 – moving to Fri 9 Oct per Coates". Nothing is
+ written; the line goes when the record moves. Read-only use of programmeDays()/dpLoads(); kept for a few seconds. */
+const EPR819 = {at: 0, map: null};
+function epRecDays819(){
+	if (EPR819.map && Date.now() - EPR819.at < 4000) return EPR819.map;
+	const m = new Map();
+	try { programmeDays().forEach(d => { let L = []; try { L = dpLoads(d) || []; } catch (e) { L = []; }
+		L.forEach(g => { if (g && g.kind === 'removals') return; (g && g.rows || []).forEach(r => { const k = r && r.a && r.a.key; if (!k) return; if (!m.has(k)) m.set(k, new Set()); m.get(k).add(d.iso); }); }); }); } catch (e) {}
+	EPR819.map = m; EPR819.at = Date.now(); return m;
+}
+function epRecLine819(l){
+	const m = epRecDays819(), by = new Map();
+	l.stops.forEach(s => s.drops.forEach(x => { const ds = x.ref && m.get(x.ref); if (!ds || !ds.size || ds.has(l.date)) return;
+		[...ds].sort().forEach(iso => { if (!by.has(iso)) by.set(iso, []); if (by.get(iso).indexOf(x.ref) < 0) by.get(iso).push(x.ref); }); }));
+	if (!by.size) return '';
+	return 'Record still shows ' + [...by.keys()].sort().map(iso => epDay819(iso, false) + ' for ' + by.get(iso).join(', ')).join('; ') + ' – moving to ' + epDay819(l.date, false) + ' per Coates';
+}
 function ep819Html(){
 	if (typeof EP819 === 'undefined' || !EP819 || !(EP819.loads || []).length) return '';
 	const T = epTotals819(), E = EP819, Q = E.quote;
@@ -44,21 +62,20 @@ function ep819Html(){
 <span class="ld-refs"><span class="ld-ref"><span class="ld-c"><b>${l.fwf} FWF</b>${l.pee_panels ? `<span class="ld-sw">+${l.pee_panels} pee panels</span>` : ''}</span><span class="ld-w">${esc(l.zone)}</span></span></span>
 <span class="ld-p" title="${esc(mps.join(' · '))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg><span>${l.stops.length} stop${l.stops.length === 1 ? '' : 's'} · ${esc(mps.join(' · '))}</span></span><span class="ld-x" aria-hidden="true"></span></button>
 <div class="ld-go ep819-go"><button type="button" class="btn ep819-pr" data-ep819-print="${l.n}" title="${esc('One A4 page for the driver: stops, the count left on the truck, a directions QR per meet point, site rules, demob notice and sign-off')}">Print run sheet</button></div>
-<div class="ldb ep819-b" id="ep819b${l.n}"${on ? '' : ' hidden'}>${epStopsTable819(l)}</div></div>`; }).join('');
-	const qr = Q.rows, tq = qr.reduce((s, r) => s + r.quote, 0), ta = qr.reduce((s, r) => s + r.allocated_to_wc, 0), tn = qr.reduce((s, r) => s + r.no_wc_allocation, 0);
+${epRecLine819(l) ? `<p class="ep819-rec">${esc(epRecLine819(l))}</p>` : ''}<div class="ldb ep819-b" id="ep819b${l.n}"${on ? '' : ' hidden'}>${epStopsTable819(l)}</div></div>`; }).join('');
+	const qr = Q.rows;   /* no total row: the rows are unlike items (FWF, accessibles, VIP blocks) */
 	const fold = (id, title, n, body) => `<details class="ldsec ep819-f" data-ep819-f="${id}"${EPF819.folds.has(id) ? ' open' : ''}><summary><span class="ldsec-t">${title}</span><span class="ldsec-n">${n}</span><span class="ldsec-x" aria-hidden="true"></span></summary><div class="ldsec-b">${body}</div></details>`;
 	return `<section class="card nosfold ep819" id="ep819" aria-labelledby="ep819h">
-<div class="ep819-hd"><div><h3 id="ep819h">${esc(epLabel819())}</h3><p class="sub">${T.fwf} FWF${T.pp ? ' and ' + T.pp + ' pee panels' : ''} to WC areas · first load ${esc(epDay819(first.date))} · the supplier's plan as it stands, not the GC500 delivery record</p></div></div>
+<div class="ep819-hd"><div><h3 id="ep819h">${esc(epLabel819())}</h3><p class="sub">To WC areas · first load ${esc(epDay819(first.date))} · the supplier's plan as it stands, not the GC500 delivery record</p></div></div>
 <div class="ep819-rules"><div class="ep819-box sr"><h4>Site rules · all gear and equipment</h4><ol>${E.site_rules.map(x => `<li>${esc(x)}</li>`).join('')}</ol>${mpParkHtml819('ep819-park')}</div>
 <div class="ep819-box dm"><h4>${esc(E.demob.heading)}</h4><ul>${E.demob.lines.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>
 <div class="sect">Loads · ${T.n}${T.each ? ' × ' + T.each + ' FWF' : ''}</div>
 <p class="ep819-ord">${esc(E.order)} <b>${esc(E.early)}</b></p>
 <div class="ldlist timed ep819-list" role="list" aria-label="Event Portables loads">${rows}</div>
 <div class="ep819-qt"><h4>Quote ${esc(Q.quote)} against WC allocation</h4><div class="ep819-qw"><table><thead><tr><th>Item</th><th class="n">Quote</th><th>Allocated to WC numbers</th><th class="n nowc">No WC allocation</th></tr></thead><tbody>${
-		qr.map(r => `<tr><td><b>${esc(r.item)}</b></td><td class="n">${r.quote}</td><td>${esc(r.allocated_detail)}</td><td class="n nowc"><b>${r.no_wc_allocation}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}</td></tr>`).join('')}
-<tr class="tot"><td><b>Total units on the quote</b></td><td class="n"><b>${tq}</b></td><td><b>${ta}</b></td><td class="n nowc"><b>${tn}</b></td></tr></tbody></table></div>
+		qr.map(r => `<tr><td><b>${esc(r.item)}</b></td><td class="n">${r.quote}</td><td>${esc(r.allocated_detail)}</td><td class="n nowc"><b>${r.no_wc_allocation}</b>${r.note ? `<small>${esc(r.note)}</small>` : ''}</td></tr>`).join('')}</tbody></table></div>
 <p class="ep819-nw">${esc(Q.no_wc_note)}</p>${Q.wc31_note ? `<p class="note">${esc(Q.wc31_note)}</p>` : ''}</div>
-${fold('cx', 'Cancelled – do not deliver', E.cancelled.length, `<table class="ep819-cx"><thead><tr><th>WC ref</th><th>Planned</th><th>Status</th><th>Cancelled by</th></tr></thead><tbody>${
+${fold('cx', 'Cancelled – do not deliver', E.cancelled.length, `<table class="ep819-cx"><thead><tr><th>WC ref</th><th>Planned</th><th>Status</th><th>Source</th></tr></thead><tbody>${
 		E.cancelled.map(c => `<tr><td><b>${esc(c.ref)}</b></td><td>${c.fwf} FWF${c.note ? `<small>${esc(c.note)}</small>` : ''}</td><td><span class="chip crit">Cancelled</span> do not deliver</td><td>${esc(c.source)}</td></tr>`).join('')}</tbody></table>`)}
 </section>`;
 }
@@ -74,7 +91,7 @@ function epRunSheet819(l){
 <header class="rs-hd"><b>Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet</b><span>${esc(epLabel819())} · Author: Andrew Fisher</span></header>
 <h1 class="rs-bar">Load ${l.n} of ${n} · ${esc(epDay819(l.date))} · ${esc(epCount819(l))}</h1>
 <ul class="rs-rules">${rules}</ul>
-<p class="rs-ord">${esc(E.order)} ${esc(E.early)} ‘Left on truck’ counts down to 0 – tick each stop when dropped.</p>
+<p class="rs-ord">${esc(E.order)} ${esc(E.early)} ‘Left on truck’ counts down to 0 – tick each stop when dropped.</p>${epRecLine819(l) ? `<p class="rs-rec">${esc(epRecLine819(l))}</p>` : ''}
 <table class="rs-tbl"><thead><tr><th>Stop</th><th>Meet point · way in</th><th>WC numbers dropped here</th><th class="rs-n">FWF</th><th class="rs-n">Left on truck</th><th>Directions (Google Maps, driving)</th><th>Done</th></tr></thead><tbody>${stops}</tbody></table>
 <div class="rs-low"><div class="rs-dm"><b>${esc(E.demob.heading)}</b><ul>${E.demob.lines.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
 <div class="rs-so"><b>Sign-off</b><table><tr><td>Delivered qty</td><td>Time on site</td><td>Time off site</td></tr><tr><td>Coates rep name</td><td colspan="2">Signature</td></tr><tr><td>Driver name</td><td colspan="2">Signature</td></tr></table></div></div>
