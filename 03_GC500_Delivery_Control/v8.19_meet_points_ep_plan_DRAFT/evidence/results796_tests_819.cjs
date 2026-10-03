@@ -22,7 +22,15 @@ await p.locator('#pane-plant .eqrefs>summary').click();await settle();await p.ev
 await p.locator('#tab-today').click();await settle();await p.locator('#pane-today .lights [data-lf-go="none"]').click();await settle();x=await state();check('pressing the same shortcut again reveals the results again',x.open&&x.rows>0&&Math.abs(x.top-12)<30,x);
 await p.evaluate(()=>{state.light=null;state.q='';state.plantGroup=null;eq796s.s=null;go('plant');});await settle();if(mobile){await p.locator('#searchBtn').click();}await p.locator('#q').fill('WC');await p.locator('#q').press('Tab');await settle();x=await state();check('typing a search opens the matching reference rows',x.query==='WC'&&x.open&&x.rows>0,x);
 await p.locator('#pane-plant .eqrefs>summary').click();await settle();await p.evaluate(()=>render());await settle();x=await state();check('search redraw preserves a subsequently closed fold',!x.open,x);
-await p.evaluate(()=>{state.q='';document.querySelector('#q').value='';eq796s.s=null;openAsset('P03');});await settle();await p.locator('#toPlant').click();await settle();x=await state();check('Equipment from a reference drawer opens its existing reference rows',x.tab==='plant'&&x.group==='Portable buildings'&&x.referenceCount===56&&x.open&&x.rows===56&&Math.abs(x.top-12)<30,x);
+await p.evaluate(()=>{state.q='';document.querySelector('#q').value='';eq796s.s=null;openAsset('P03');});await settle();
+/* v8.19 bounded correction 2: since v8.16 the drawer keeps "Equipment page" (#toPlant) in its More menu, so the original
+   click timed out on the live page too (regress/basecmp/). Open More with its own control, then press the same button.
+   The expected rows come from the page's own rule (showPlantGroup: the reference's product group) instead of a
+   hard-coded 56. */
+const grp819=await p.evaluate(()=>{const g=x=>PLANT_GROUP_WORDS[x.product]||x.product||x.discipline;const a=allAssets().find(x=>x.key==='P03');const G=g(a);return{G,want:allAssets().filter(x=>g(x)===G).map(x=>x.key).sort()};});
+if(!(await p.locator('#toPlant').isVisible()))await p.locator('#drawer .more816>summary').click();await settle();
+await p.locator('#toPlant').click();await settle();x=await state();const got2=await p.evaluate(()=>state.list.map(a=>typeof a==='string'?a:a&&a.key).sort());
+check('Equipment from a reference drawer opens its existing reference rows',x.tab==='plant'&&x.group===grp819.G&&grp819.G==='Portable buildings'&&JSON.stringify(got2)===JSON.stringify(grp819.want)&&x.referenceCount===grp819.want.length&&x.open&&x.rows===grp819.want.length&&Math.abs(x.top-12)<30,Object.assign({want:grp819.want.length,got:got2.length},x));
 check('no page errors',h.errors.length===0,h.errors);
 const result={author:'Andrew Fisher',mobile,sha256:crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex'),passed:tests.filter(t=>t.pass).length,total:tests.length,tests,requests:h.counts};fs.writeFileSync(__dirname+'/regress/review796_results_'+(mobile?'phone':'desktop')+'.json',JSON.stringify(result,null,2));if(result.passed!==result.total)process.exitCode=1;
 }finally{await h.browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
