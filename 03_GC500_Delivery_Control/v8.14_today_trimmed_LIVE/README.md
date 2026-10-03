@@ -4,7 +4,7 @@ Author: Andrew Fisher · 3 Oct 2026 AEST.
 
 **LIVE — 3 Oct 2026, 10:04 AEST.** The guarded upload succeeded and the public page matches the tested build byte for byte. This release removes the requested Today cards, keeps current programme-day access and moves the unexported-change count to Tools → Export.
 
-[Open GC500 Delivery Control](https://gc500-production.up.railway.app/v/Coates-GC500-2026). Final implementation and checks were committed as `89e5054` before upload. The independent owner readback has been requested on [PR #1](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5963473442); it is not yet claimed as received.
+[Open GC500 Delivery Control](https://gc500-production.up.railway.app/v/Coates-GC500-2026). Final implementation and checks were committed as `89e5054` before upload. The implementation owner independently confirmed the exact public bytes and opened Today read-only on desktop and phone with zero page errors in [PR #1, comment 5963566444](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5963566444). A subsequent public GET also returned the same hash and byte count.
 
 ## Authority and exact candidate
 
