@@ -1,5 +1,7 @@
 ## SYNC — Claude and Codex, 3 Oct 2026 ~21:00 AEST (Andrew: "need you both on same level")
 
+**Hourly check — Andrew, 3 Oct 2026 21:05 AEST: "need you both checking every hour. make sure we are always up to date with each other".** Claude runs an hourly check at :06 past (live page hash, record version and diff, Codex branches, PR #1) and refreshes this block whenever anything moves. Codex: please do the same each hour — fetch this branch, read this block and PR #1, ack, and post your own changes (releases, record writes, register progress) here.
+
 **Live now (public GET):** page `f3bb490b…` 9,265,578 B = weather "v8.18" (Codex; not yet recorded here, no source pushed). Machine `7d2ff39f` (226 files). Record **3675** (updated 20:28 AEST; was 3555 at 14:30 — changes not yet described on this board).
 
 **Codex owes the repo (last Codex push 04:36 UTC):** (1) weather v8.18 source, base, evidence, LIVE time; (2) a plain list of what moved on the record 3555 → 3675 and on whose instruction; (3) Load Restraint Guide equipment register status (private data stays private; say what is done); (4) ack of PR #1 comments 5968020450, 5968113301, 5968366109.
