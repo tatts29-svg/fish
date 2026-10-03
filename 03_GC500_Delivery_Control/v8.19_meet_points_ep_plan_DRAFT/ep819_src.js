@@ -33,10 +33,12 @@ function epStopsTable819(l){
  here adds its loads to programmeDays(), the Timeline's day lists or any record collection; the card and the run sheets
  are drawn from EP819 alone and always carry the label below. */
 function epLabel819(){ return 'Event Portables delivery plan (to quote ' + ((EP819 && EP819.quote && EP819.quote.quote) || 'Q6845') + ')'; }
-/* where the record (read only, from the page's own day lists) still shows a reference of a load on another day, say so
- on the load - "Record still shows Wed 7 Oct for WC38, WC39, WC40, WC61 – moving to Fri 9 Oct per Coates". Nothing is
- written; the line goes when the record moves. Read-only use of programmeDays()/dpLoads(); kept for a few seconds. */
-const EPR819 = {at: 0, map: null};
+/* where the record (read only, from the page's own day lists) shows a reference of a load on another day, say so on the
+ load. Andrew, 3 Oct 2026: "deliries for next week we move to the 9th oct" - so a record date in that week (Mon 5 to Thu
+ 8 Oct) for a reference on the Fri 9 Oct load reads "Record still shows Thu 8 Oct for WC09, WC34 – moving to Fri 9 Oct per
+ Coates"; any other difference is stated plainly ("Record shows Mon 12 Oct for WC57 – this plan has Fri 9 Oct"), never as
+ a move. Nothing is written; a line goes when the record agrees. programmeDays()/dpLoads() are only read, kept 4 s. */
+const EPR819 = {at: 0, map: null}, EP_MOVE819 = {from: '2026-10-05', to: '2026-10-08', on: '2026-10-09'};
 function epRecDays819(){
 	if (EPR819.map && Date.now() - EPR819.at < 4000) return EPR819.map;
 	const m = new Map();
@@ -45,11 +47,15 @@ function epRecDays819(){
 	EPR819.map = m; EPR819.at = Date.now(); return m;
 }
 function epRecLine819(l){
-	const m = epRecDays819(), by = new Map();
+	const m = epRecDays819(), mv = new Map(), other = new Map();
 	l.stops.forEach(s => s.drops.forEach(x => { const ds = x.ref && m.get(x.ref); if (!ds || !ds.size || ds.has(l.date)) return;
-		[...ds].sort().forEach(iso => { if (!by.has(iso)) by.set(iso, []); if (by.get(iso).indexOf(x.ref) < 0) by.get(iso).push(x.ref); }); }));
-	if (!by.size) return '';
-	return 'Record still shows ' + [...by.keys()].sort().map(iso => epDay819(iso, false) + ' for ' + by.get(iso).join(', ')).join('; ') + ' – moving to ' + epDay819(l.date, false) + ' per Coates';
+		[...ds].sort().forEach(iso => { const to = l.date === EP_MOVE819.on && iso >= EP_MOVE819.from && iso <= EP_MOVE819.to ? mv : other;
+			if (!to.has(iso)) to.set(iso, []); if (to.get(iso).indexOf(x.ref) < 0) to.get(iso).push(x.ref); }); }));
+	const say = M => [...M.keys()].sort().map(iso => epDay819(iso, false) + ' for ' + M.get(iso).join(', ')).join('; ');
+	const out = [];
+	if (mv.size) out.push('Record still shows ' + say(mv) + ' – moving to ' + epDay819(l.date, false) + ' per Coates');
+	if (other.size) out.push('Record shows ' + say(other) + ' – this plan has ' + epDay819(l.date, false));
+	return out.join(' · ');
 }
 function ep819Html(){
 	if (typeof EP819 === 'undefined' || !EP819 || !(EP819.loads || []).length) return '';

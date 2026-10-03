@@ -1,4 +1,4 @@
-# v8.19 checks · source commit f84eddeb8f033f4e93368fffc34d751cefed516f + UNCOMMITTED CHANGES (trial run, not evidence) · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:14:32Z
+# v8.19 checks · source commit 7338ed702814b0eb92db3afbce44f6b7377be02c · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:20:23Z
 live page: 9265578 bytes -> /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/base_live.html
 == applying v8.19_meet_points_ep_plan_DRAFT/patch_v819.py
 v8.19 applied: meet points, site rules and the Event Portables load plan

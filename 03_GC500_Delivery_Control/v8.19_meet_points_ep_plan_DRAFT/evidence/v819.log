@@ -1,4 +1,4 @@
-# v8.19 checks · source commit f84eddeb8f033f4e93368fffc34d751cefed516f + UNCOMMITTED CHANGES (trial run, not evidence) · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:14:32Z
+# v8.19 checks · source commit 7338ed702814b0eb92db3afbce44f6b7377be02c · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:20:23Z
 # suite: v819 · command: env SHOTS=/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v819/final flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/v819_tests.js
 
 == desktop 1440
@@ -40,7 +40,7 @@ PASS desktop 1440: the No WC allocation note
 PASS desktop 1440: the cancelled list WC32, WC66, WC09  - ["WC32","WC66","WC09"]
 PASS desktop 1440: no money, phone numbers or SiteIQ in the card
 PASS desktop 1440: no agent named on the card; the cancelled list's last column is Source  - ["WC ref","Planned","Status","Source"]
-PASS desktop 1440: Load 1 says where the record still shows its references on another day  - ["Record still shows Wed 7 Oct for WC38, WC39, WC40, WC61; Thu 8 Oct for WC09, WC34; Mon 12 Oct for WC57 – moving to Fri 9 Oct per Coates","Record still shows Thu 1 Oct for WC67; Mon 12 Oct for WC67; Mon 19 Oct for WC68, WC72, WC29 – moving to Tue 13 Oct per Coates","Record still shows Mon 19 Oct for WC46, WC55 – moving to Thu 15 Oct per Coates","Record still shows Tue 20 Oct for PG01, PG03, PG05, PG29, WC85 – moving to Mon 19 Oct per Coates"]
+FAIL desktop 1440: Load 1 says where the record still shows its references on another day  - ["Record still shows Thu 8 Oct for WC09, WC34; Mon 12 Oct for WC57 – moving to Fri 9 Oct per Coates","Record still shows Thu 1 Oct for WC67; Mon 12 Oct for WC67; Mon 19 Oct for WC68, WC72, WC29 – moving to Tue 13 Oct per Coates","Record still shows Mon 19 Oct for WC46, WC55 – moving to Thu 15 Oct per Coates","Record still shows Tue 20 Oct for PG01, PG03, PG05, PG29, WC85 – moving to Mon 19 Oct per Coates"]
 PASS desktop 1440: the card does not scroll sideways  - {"w":1408,"cw":1408}
 PASS desktop 1440: Load 1 opens to its 6 stops, left on truck down to 0  - ["23","19","11","10","2","0"]
 PASS desktop 1440: each stop links to driving directions to its meet point
@@ -50,7 +50,7 @@ PASS desktop 1440: Print run sheet opens the print dialog once
 PASS desktop 1440: Load 1: 6 stops, a QR per stop to its meet point, counts down to 0  - ["23","19","11","10","2","0"]
 PASS desktop 1440: Load 1 header  - Load 1 of 5 · Fri 9 Oct 2026 · 24 FWF (+6 pee panels)
 PASS desktop 1440: Load 1 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
-PASS desktop 1440: Load 1 run sheet carries the record line and the plan label
+FAIL desktop 1440: Load 1 run sheet carries the record line and the plan label
 PASS desktop 1440: Load 1 sheet has no money, phone numbers or SiteIQ
 PASS desktop 1440: Close puts the page back
 PASS desktop 1440: Load 2 run sheet fits one A4 page (scale 1)
@@ -98,7 +98,7 @@ PASS desktop 1440: 2026-10-06: no driver sheet runs past one page  - []
 PASS desktop 1440: 2026-10-06: each sheet's meet point QRs are its references' meet points, in order
 PASS desktop 1440: no page errors  - []
 PASS desktop 1440: no console errors  - []
-PASS desktop 1440: no write was attempted  - {"page":1,"live":916,"blocked":0}
+PASS desktop 1440: no write was attempted  - {"page":1,"live":919,"blocked":0}
 
 == phone 390
 PASS phone 390: the release marker and the footer read v8.19  - {"meta":"v8.19","foot":"Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · v8.19"}
@@ -129,7 +129,7 @@ PASS phone 390: the No WC allocation note
 PASS phone 390: the cancelled list WC32, WC66, WC09  - ["WC32","WC66","WC09"]
 PASS phone 390: no money, phone numbers or SiteIQ in the card
 PASS phone 390: no agent named on the card; the cancelled list's last column is Source  - ["WC ref","Planned","Status","Source"]
-PASS phone 390: Load 1 says where the record still shows its references on another day  - ["Record still shows Wed 7 Oct for WC38, WC39, WC40, WC61; Thu 8 Oct for WC09, WC34; Mon 12 Oct for WC57 – moving to Fri 9 Oct per Coates","Record still shows Thu 1 Oct for WC67; Mon 12 Oct for WC67; Mon 19 Oct for WC68, WC72, WC29 – moving to Tue 13 Oct per Coates","Record still shows Mon 19 Oct for WC46, WC55 – moving to Thu 15 Oct per Coates","Record still shows Tue 20 Oct for PG01, PG03, PG05, PG29, WC85 – moving to Mon 19 Oct per Coates"]
+FAIL phone 390: Load 1 says where the record still shows its references on another day  - ["Record still shows Thu 8 Oct for WC09, WC34; Mon 12 Oct for WC57 – moving to Fri 9 Oct per Coates","Record still shows Thu 1 Oct for WC67; Mon 12 Oct for WC67; Mon 19 Oct for WC68, WC72, WC29 – moving to Tue 13 Oct per Coates","Record still shows Mon 19 Oct for WC46, WC55 – moving to Thu 15 Oct per Coates","Record still shows Tue 20 Oct for PG01, PG03, PG05, PG29, WC85 – moving to Mon 19 Oct per Coates"]
 PASS phone 390: the card does not scroll sideways  - {"w":370,"cw":370}
 PASS phone 390: Load 1 opens to its 6 stops, left on truck down to 0  - ["23","19","11","10","2","0"]
 PASS phone 390: each stop links to driving directions to its meet point
@@ -139,7 +139,7 @@ PASS phone 390: Print run sheet opens the print dialog once
 PASS phone 390: Load 1: 6 stops, a QR per stop to its meet point, counts down to 0  - ["23","19","11","10","2","0"]
 PASS phone 390: Load 1 header  - Load 1 of 5 · Fri 9 Oct 2026 · 24 FWF (+6 pee panels)
 PASS phone 390: Load 1 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
-PASS phone 390: Load 1 run sheet carries the record line and the plan label
+FAIL phone 390: Load 1 run sheet carries the record line and the plan label
 PASS phone 390: Load 1 sheet has no money, phone numbers or SiteIQ
 PASS phone 390: Close puts the page back
 PASS phone 390: Close before the print starts cancels it - nothing is printed afterwards  - {"open":true,"prints":0,"closed":true,"timer":0,"after":false}
@@ -155,6 +155,6 @@ PASS phone 390: 2026-10-06: no driver sheet runs past one page  - []
 PASS phone 390: 2026-10-06: each sheet's meet point QRs are its references' meet points, in order
 PASS phone 390: no page errors  - []
 PASS phone 390: no console errors  - []
-PASS phone 390: no write was attempted  - {"page":1,"live":171,"blocked":0}
+PASS phone 390: no write was attempted  - {"page":1,"live":170,"blocked":0}
 
-145 passed, 0 failed
+141 passed, 4 failed

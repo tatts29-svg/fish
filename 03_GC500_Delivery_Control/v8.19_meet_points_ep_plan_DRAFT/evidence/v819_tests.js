@@ -104,7 +104,17 @@ async function run(name, dev) {
     ok(JSON.stringify(P.cx) === JSON.stringify(['WC32', 'WC66', 'WC09']), `${name}: the cancelled list WC32, WC66, WC09`, P.cx);
     ok(!/\$\s?\d|SiteIQ/i.test(P.text) && !/(?<!\d)(?:\+?61\s?|0)[2-478](?:[\s-]?\d){8}(?!\d)/.test(P.text), `${name}: no money, phone numbers or SiteIQ in the card`);
     ok(!/\b(Codex|Claude)\b/i.test(P.text) && P.cxh[3] === 'Source', `${name}: no agent named on the card; the cancelled list's last column is Source`, P.cxh);
-    ok(P.rec.length >= 1 && /^Record still shows .*Wed 7 Oct for WC38, WC39, WC40, WC61.* – moving to Fri 9 Oct per Coates$/.test(P.rec[0]), `${name}: Load 1 says where the record still shows its references on another day`, P.rec);
+    /* the record-date lines, against the record worked out here independently: every plan reference whose record
+       delivery days do not include its load's day is named, under the right wording, and no other */
+    const RL = await p.evaluate(() => { const days = new Map(); programmeDays().forEach(d => (dpLoads(d) || []).forEach(g => { if (g.kind === 'removals') return; (g.rows || []).forEach(r => { const k = r.a && r.a.key; if (k) days.set(k, (days.get(k) || []).concat(d.iso)); }); }));
+      const dw = iso => { const [y, m, dd] = iso.split('-').map(Number), d = new Date(Date.UTC(y, m - 1, dd)); return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getUTCDay()] + ' ' + dd + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]; };
+      return EP819.loads.map((l, i) => { const shown = (document.querySelectorAll('#ep819 .ep819-ld')[i].querySelector('.ep819-rec') || {}).textContent || '';
+        const off = []; l.stops.forEach(s => s.drops.forEach(x => { const ds = x.ref && days.get(x.ref); if (ds && ds.length && !ds.includes(l.date)) off.push({ref: x.ref, days: [...new Set(ds)].sort()}); }));
+        const moved = off.filter(o => l.date === '2026-10-09' && o.days.every(d => d >= '2026-10-05' && d <= '2026-10-08'));
+        return {n: l.n, shown, off, good: off.every(o => shown.includes(o.ref) && o.days.every(d => shown.includes(dw(d)))) && (off.length ? true : shown === '')
+          && moved.every(o => /Record still shows .* – moving to Fri 9 Oct per Coates/.test(shown)) && (!/per Coates/.test(shown) || l.date === '2026-10-09')
+          && (shown.match(/WC\d+|T\d{4}/g) || []).every(r => off.some(o => o.ref === r))}; }); });
+    ok(RL.every(x => x.good), `${name}: each load names exactly the references the record has on another day (moves per Coates only for next week onto Fri 9 Oct)`, RL.map(x => [x.n, x.shown, x.off.map(o => o.ref + '@' + o.days.join('/'))]));
     ok(P.w <= P.cw + 1, `${name}: the card does not scroll sideways`, {w: P.w, cw: P.cw});
   }
   // open Load 1 and look at it
@@ -134,7 +144,8 @@ async function run(name, dev) {
     ok(R.bar === `Load ${L.n} of 5 · ${['Fri 9 Oct 2026', 'Tue 13 Oct 2026', 'Thu 15 Oct 2026', 'Mon 19 Oct 2026', 'Mon 19 Oct 2026'][L.n - 1]} · 24 FWF${L.n === 1 ? ' (+6 pee panels)' : ''}`, `${name}: Load ${L.n} header`, R.bar);
     ok(PLAN.site_rules.every(x => R.txt.includes(x)) && PLAN.demob_notice.lines.every(x => R.txt.includes(x)) && /Sign-off/.test(R.txt) && /Driver name/.test(R.txt) && R.txt.includes('Early is fine') && R.txt.includes('Author: Andrew Fisher'),
       `${name}: Load ${L.n} sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author`);
-    if (L.n === 1) ok(/Record still shows .*WC38.* – moving to Fri 9 Oct per Coates/.test(R.txt) && R.txt.includes('Event Portables delivery plan (to quote Q6845)'), `${name}: Load 1 run sheet carries the record line and the plan label`);
+    { const want = await p.evaluate(n => epRecLine819(EP819.loads.find(x => x.n === n)), L.n);
+      ok(R.txt.includes('Event Portables delivery plan (to quote Q6845)') && (!want || R.txt.includes(want)), `${name}: Load ${L.n} run sheet carries the plan label${want ? ' and its record line' : ''}`, want); }
     ok(!/\$\s?\d|SiteIQ/i.test(R.txt) && !/(?<!\d)(?:\+?61\s?|0)[2-478](?:[\s-]?\d){8}(?!\d)/.test(R.txt), `${name}: Load ${L.n} sheet has no money, phone numbers or SiteIQ`);
     if (!phone) {
       const qs = await p.$$('#ep819print .rs-qr');

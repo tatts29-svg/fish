@@ -1,4 +1,4 @@
-# v8.19 checks · source commit f84eddeb8f033f4e93368fffc34d751cefed516f + UNCOMMITTED CHANGES (trial run, not evidence) · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:14:32Z
+# v8.19 checks · source commit 7338ed702814b0eb92db3afbce44f6b7377be02c · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:20:23Z
 # suite: qr · command: python3 v8.19_meet_points_ep_plan_DRAFT/evidence/qr_decode819.py /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v819/final
 40 of 40 QR screenshots decode to exactly https://www.google.com/maps/dir/?api=1&destination=<lat6>,<lng6>&travelmode=driving for their meet point
 PASS run sheet PDF load 1: 1 page(s), 6 of 6 QR codes decoded from the paper and all match

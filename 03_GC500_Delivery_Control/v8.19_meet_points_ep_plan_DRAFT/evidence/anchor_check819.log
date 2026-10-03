@@ -1,3 +1,10 @@
-# v8.19 checks · source commit f84eddeb8f033f4e93368fffc34d751cefed516f + UNCOMMITTED CHANGES (trial run, not evidence) · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:14:08Z
+# v8.19 checks · source commit 7338ed702814b0eb92db3afbce44f6b7377be02c · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:20:23Z
 # suite: anchors · command: python3 v8.19_meet_points_ep_plan_DRAFT/evidence/anchor_check819.py /home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.19/base_live.html
-FAIL forced failure (FORCE_FAIL) - proving the aggregate exit code
+PASS the live base: applies, footer and marker read v8.19  - v8.19 applied: meet points, site rules and the Event Portables load plan
+PASS a second run is refused  - v8.19 meet points already applied
+PASS built a base with the footer and the marker moved on (v8.20)
+PASS moved footer and marker: still applies; the footer drops the other release tag and names v8.19 once  - $('#footL').textContent = String(DATA.brand.footer + ' · built ' + DATA.built + ' · ' + DATA.build_version + ' · v8.20').replace(/ · v\d+\.\d+$/, '') + ' · v8.19';
+PASS no release marker: stops with a plain message, writes nothing  - v8.19 patch: the release marker (meta gc500-release) anchor was found 0 times (want exactly 1) - the live page has moved; look at it and update the anchor in patch_v819.py. Pattern: <meta name="gc500-release" content="v[0-9.]+">
+PASS no footer: stops with a plain message, writes nothing  - v8.19 patch: the footer (#footL) anchor was found 0 times (want exactly 1) - the live page has moved; look at it and update the anchor in patch_v819.py. Pattern: \$\('#footL'\)\.textContent\s*=\s*([^;\n]+);
+
+6 passed, 0 failed
