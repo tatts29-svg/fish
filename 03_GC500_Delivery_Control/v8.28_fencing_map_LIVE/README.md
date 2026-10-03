@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-This folder preserves the reviewed v8.28 Fencing map component. It is being integrated with the Fencing source and estimate presentation into the upcoming v8.29 release. It is not a separate live release. Final combined-page review, navigation checks, publication and public readback remain with the release owner; consult the shared board for their current result.
+This folder preserves the reviewed v8.28 Fencing map component. It was integrated with the Fencing source and estimate presentation into v8.29, LIVE 4 Oct 2026 at 02:45 AEST. It is not a separate host release. The complete asset union and combined host match their exact public readback. See the v8.29 release review for final combined checks and post-publication browser verification.
 
 Fencing opens directly in the existing Map explorer. Source-aligned annotations retain their source and revision, while independently recorded area sign-offs use distinct markers. An area tick never certifies every fence line or later task at that location. Type, source, day, status and search filters preserve unknown and unmapped states. Leaving Map stops its refresh loop. PNG exports retain the overlay and wrapped provenance, and use the existing satellite mosaic compositor to avoid rotated tile seams. No operational or financial record is changed by this component.
 

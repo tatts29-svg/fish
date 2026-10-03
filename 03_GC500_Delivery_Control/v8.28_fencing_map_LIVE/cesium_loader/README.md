@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-This is the bounded library correction included with the Fencing map assets for the upcoming v8.29 integration. It is not a separate live release. `patch_loader.py` changes exactly four regions of the bound existing v8.13 3D asset and refuses a different base or repeated application.
+This is the bounded library correction included with the Fencing map assets for the v8.29 integration, LIVE 4 Oct 2026 at 02:45 AEST. It is not a separate live release. `patch_loader.py` changes exactly four regions of the bound existing v8.13 3D asset and refuses a different base or repeated application.
 
 The controller and native recovery handlers are installed before one asynchronous attempt to load the same pinned Cesium JavaScript. A 30-second library deadline, download failure or missing library global exposes the existing Retry. Failed or abandoned attempts cannot start map access or a scene if the library arrives late. Only native Retry opens a new document. Distance-display-condition construction moves after library success, retaining desktop and phone values. Camera presets, quality policy, labels, parent API, access logic and downstream runtime recovery remain unchanged.
 
@@ -10,7 +10,7 @@ External stylesheet links are unchanged. A stylesheet that blocks inline executi
 
 ## Offline reproduction
 
-Run from the parent `v8.28_fencing_map_DRAFT` directory. Supply private absolute input/output paths through the shown variables. The first command creates only a local candidate; the tests use synthetic DOM, timers, CDN and graphics with no real network or credentials. Their optional final report argument writes only to the chosen private path. Without it they report counts on stdout.
+Run from the parent `v8.28_fencing_map_LIVE` directory. Supply private absolute input/output paths through the shown variables. The first command creates only a local candidate; the tests use synthetic DOM, timers, CDN and graphics with no real network or credentials. Their optional final report argument writes only to the chosen private path. Without it they report counts on stdout.
 
 ```sh
 python3 cesium_loader/patch_loader.py "$GC500_PRIVATE_CESIUM_BASE" "$GC500_PRIVATE_CESIUM_CANDIDATE"

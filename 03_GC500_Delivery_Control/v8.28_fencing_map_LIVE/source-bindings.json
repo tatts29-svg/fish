@@ -1,12 +1,12 @@
 {
   "author": "Andrew Fisher",
-  "state": "Frozen v8.28 component for upcoming v8.29 integration; not a separate live release",
+  "state": "LIVE as a component of v8.29 at 4 Oct 2026 02:45 AEST; no separate host publication",
   "base_host_sha256": "f7126dd4e0d3217bfc1eb926c401a7668aa3d72f14a9e670fd186d33a9f1c01f",
   "candidate_host_sha256": "ca9f26f604176bba4ac8e35e71ad8a5c3ee2c19f4ce4760bc1e51ee5569d79ea",
   "private_catalogue_sha256": "9a2f0d55ac97c02ede9923eb66d76bc46bcccc3cafc4d8219822ac8849083e73",
   "generic_files": {
-    "README.md": "076bf6fb3c55e56e9728be83720e9df13db8048fd170bb34a933d64cfa3c2a8f",
-    "cesium_loader/README.md": "80f37fdc202d5612d029de1aac2658c57b80c887cfc7da912f3018e6038f846c",
+    "README.md": "805c851f0d11cb30bb93788a124daa800e768371d3035c513575167002955f32",
+    "cesium_loader/README.md": "d93fd0f48803667f4b38fb861ebb0b7895c1b7d5693306d78fe994db1160897c",
     "cesium_loader/cesium_library_loader.js": "6482f1922f31b3efdcb851fda6988ba1a1e5d7b93a96366bbd7c672e9287c8a7",
     "cesium_loader/patch_loader.py": "2f0e399ccdcac3c7f91ee11b60443cec5ad9523fa39c46837dae8cfa35cee98f",
     "cesium_loader/tests/preservation.py": "e06b22b081852f4639b541332b1b00e14f61cba6544517a8244e0ec24a650339",
@@ -30,5 +30,6 @@
     "packaging_changes": "Relative shared-toolchain import; tests take explicit external HTML/report paths. Product loader bytes and candidate unchanged."
   },
   "asset_manifest_canonical_sha256": "d573ed4017f9ebf0c9c8502367b847f4409eac75c9f3d4f59d5977151ffb7b13",
-  "asset_manifest_file_sha256": "2a7efcffc74bafaac32458a015437aa2eabc6bd716fd33931b1a3feaa32a9ee0"
+  "asset_manifest_file_sha256": "2a7efcffc74bafaac32458a015437aa2eabc6bd716fd33931b1a3feaa32a9ee0",
+  "combined_host_sha256": "8af09119006f7fad218b4fad3146ccc49d5c7cb6546f5f8a2ab626304484ccbf"
 }
