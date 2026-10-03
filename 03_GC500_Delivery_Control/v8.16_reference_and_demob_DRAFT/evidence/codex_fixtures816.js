@@ -15,7 +15,7 @@ function ctx(assets = []) {
     localStorage: {getItem: () => null}, todayIso: () => '2026-10-26', allAssets: () => assets,
     assetOf: k => assets.find(a => a.key === k), itemRows: a => a.rows, refKind: a => a.kind || 'toilet',
     rowOff: () => false, subhireOf: () => null, onhireForAsset: () => [], branchOf: k => assets.find(a => a.key === k).branch || 'KINP',
-    effectiveDates: a => ({out_plan: a.out || null}), flash: () => {}, mayWrite: () => true, whoAmI: () => 'Fixture operator',
+    effectiveDates: a => ({out_plan: a.out || null, in: a.in || null}), flash: () => {}, mayWrite: () => true, whoAmI: () => 'Fixture operator',
     isRef: k => assets.some(a => a.key === k), bump: () => {}, buzz: () => {}, blank: () => ({}), tombed: () => false,
     fmtStamp: x => x, fmtDay: iso => ({dow: 'Day', dm: String(iso).slice(8, 10) + ' Oct'}), fmtDate: x => x});
   vm.runInContext(source, c);
@@ -32,13 +32,22 @@ block('gate fixtures 1-5', () => {
   ok(run(c, "emptyGate816('WC01','in transit')") === false, '1 gate_before_event_week: no date exception (refused on 18 Oct)');
   c.todayIso = () => '2026-10-26'; c.S.delivery.WC01 = {state: 'not on site'};
   ok(run(c, "emptyGate816('WC01','in transit') === false && incoming816('WC01') === false && emptyGate816('WC01','in transit',true) === false") === true, '2 gate_unrecorded_or_non_green_light: from the collection window a move with no recorded arrival is outgoing - refused');
-  c.todayIso = () => '2026-10-10';
+  c.todayIso = () => '2026-10-10'; c.assets[0].in = '2026-10-15'; /* the record holds its delivery date */
   ok(run(c, "incoming816('WC01') === true && emptyGate816('WC01','in transit') === true && emptyGate816('WC01','in transit',true) === false") === true, '2c before its collection window a unit never on site is an incoming trip (named), and the collection path is still refused');
   /* 968aefb #5: from the first event day a unit the record never had on site may have been used - not an incoming trip */
   run(c, "var EVENT_DAYS = ['2026-10-23','2026-10-24','2026-10-25']"); c.todayIso = () => '2026-10-23';
   ok(run(c, "incoming816('WC01') === false && emptyGate816('WC01','in transit') === false") === true, '2d [968aefb #5] from the first event day (23 Oct) a unit with no recorded arrival is not an incoming trip - refused until emptied');
   c.todayIso = () => '2026-10-22';
   ok(run(c, "incoming816('WC01') === true") === true, '2e the day before the event a unit never on site is still an incoming delivery');
+  /* R1 (be47bb5): the rule both ways - an incoming delivery needs the record to say so */
+  delete c.assets[0].in; c.todayIso = () => '2026-10-18';
+  ok(run(c, "movePurpose816('WC01') === 'outgoing' && emptyGate816('WC01','in transit') === false && emptyGate816('WC01','not on site') === false") === true, 'R1a [be47bb5 R1] no recorded arrival and NO delivery date, before the event (18 Oct): outgoing - refused until emptied');
+  c.assets[0].in = '2026-10-15';
+  ok(run(c, "movePurpose816('WC01') === 'incoming delivery' && emptyGate816('WC01','in transit') === true && emptyGate816('WC01','in transit',true) === false") === true, 'R1b no recorded arrival, a delivery date in the record, before the event: its delivery (allowed), and a collection is still refused');
+  c.S.delivery.WC01 = {state: 'not on site', history: [{state: 'on site', at: '2026-10-16T00:00:00Z'}]};
+  ok(run(c, "movePurpose816('WC01') === 'outgoing' && emptyGate816('WC01','in transit') === false") === true, 'R1c an arrival on record, before the event, a delivery date too: outgoing - refused until emptied');
+  c.S.delivery.WC01 = {state: 'not on site'}; c.todayIso = () => '2026-10-23';
+  ok(run(c, "movePurpose816('WC01') === 'outgoing' && emptyGate816('WC01','in transit') === false") === true, 'R1d no arrival, a delivery date, but on the first event day: outgoing - refused until emptied');
   run(c, "EVENT_DAYS = []");
   c.todayIso = () => '2026-10-26';
   c.S.delivery.WC01 = {state: 'not on site', history: [{state: 'on site', at: '2026-10-01T00:00:00Z'}]};

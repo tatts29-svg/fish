@@ -1,8 +1,17 @@
 {
   "author": "Andrew Fisher",
-  "source": "v8.16_reference_and_demob_DRAFT",
-  "baseline": "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/live_now.html",
-  "checks": 13,
+  "source": "6a0bb204d5bf55e4b65be8cf07866e7b3f1402df",
+  "hashes": {
+    "baseline_sha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+    "source_sha256": {
+      "patch_v816.py": "9b17360533c8a346b54ed7364c729dc890b4948a7c29be334e50c9a7e2a1d411",
+      "drawer816_src.js": "8223d5513ce002c7f866ea5e999abce7b62fb9e33a868682d5d30146bb2f9445",
+      "demob816_src.js": "a9e076a3dff429281b50e3ec0de1783734f025a0c14382deb46e00765cf09bea"
+    },
+    "timeline_replacement_sha256": "8e9e00f0bd00f01edae6ecef1ed4fa12059fa92e703bfd33f990d79657db7a26"
+  },
+  "scope": "Read-only synthetic CPU fixtures; actual date functions and drawer template; no browser, DOM, CSS, network, record writes or full release verification",
+  "checks": 17,
   "passed": [
     "same-day added reference now has one typed removal",
     "same-day added reference retains its original delivery",
@@ -16,11 +25,13 @@
     "cancelled early contract date remains visible with its source",
     "active proposed date retains proposal styling and wording",
     "active confirmed date retains confirmed source and recorder",
-    "added reference keeps its explicit removal event as the plan date (fixed)"
+    "dated removal event on a same-day added reference wins in Demob and Timeline",
+    "typed override still wins over the added reference explicit removal",
+    "same-day added reference without a removal event remains proposed",
+    "undated removal does not become an authoritative plan date",
+    "distinct added-reference last date remains the plan fallback"
   ],
-  "newFinding": {
-    "file": "demob816_src.js",
-    "line": 139,
+  "explicitRemovalFixed": {
     "fixture": {
       "key": "ADDED",
       "_added": true,
@@ -59,5 +70,6 @@
         }
       ]
     }
-  }
+  },
+  "remaining_findings_in_scope": []
 }

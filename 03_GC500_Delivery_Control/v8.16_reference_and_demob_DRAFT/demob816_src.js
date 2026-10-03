@@ -102,25 +102,30 @@ function setEmptied816(key, on){
 	flash(on ? key + ' emptied (pumped out) - recorded by ' + who + '. It may now be loaded.' : key + ' un-ticked emptied by ' + who + ' - it may not be loaded until it is pumped out.');
 	return true;
 }
-/* THE GATE. A toilet or a waste tank that has been on site is not moved, loaded or carried until an Emptied record with a
- person and a time says it was pumped out - whatever the date and whatever light it shows now. The one thing the gate
- leaves alone is a unit the record has never had on site: it is still on its way in, and nothing has used it. */
+/* THE GATE - THE RULE IN ONE LINE: the emptied gate applies to every OUTGOING movement of a toilet or a waste tank
+ (collection, loading, carrying it off, taking it off site). It is passed only by an Emptied record with a person and a
+ time, newer than the unit's last arrival on site - whatever the date and whatever light it shows now.
+ The one movement it does not gate is an INCOMING DELIVERY, and only when the record itself says so (movePurpose816):
+   - the record has never had the unit on site (no arrival, no complete tick, no on-site history), AND
+   - the record holds a delivery date for it (the plan's or a typed one: effectiveDates(a).in), AND
+   - today is before the first event day, its own out date and the start of demob, whichever is earliest.
+ A unit with no recorded arrival AND no delivery date is not assumed to be on its way in: refused until emptied. Every
+ collection path (the Demob tab's Collected) is forced through the gate whatever the purpose says. */
 function everOnSite816(key){ const d = deliveryOf(key); return d.state === 'on site' || !!d.done || (d.history || []).some(h => h && h.state === 'on site'); }
-/* AN INCOMING TRIP, said out loud: the record has never had this unit on site, so a light moving it towards site is a
- delivery, not a collection. Every collection path (the Demob tab's Collected) is gated whatever this says. */
-function incoming816(key){
-	if (everOnSite816(key)) return false;
-	/* from the first event day, or its own planned out date, or the start of demob - whichever is earliest - every move is
-	 outgoing: a toilet that may have been used is never assumed to be on its way in */
+function movePurpose816(key){
+	if (everOnSite816(key)) return 'outgoing';
+	const a = assetOf(key); let inDate = null; try { inDate = a ? (effectiveDates(a) || {}).in || null : null; } catch (e) { inDate = null; }
+	if (!inDate) return 'outgoing';
 	let out = null; try { const r = demobOf816(key); out = r && r.iso; } catch (e) { out = null; }
 	const ev0 = (typeof EVENT_DAYS !== 'undefined' && EVENT_DAYS.length ? EVENT_DAYS.slice().sort()[0] : null);
 	const from = [DM816.start, out, ev0].filter(Boolean).sort()[0];
-	return todayIso() < from;
+	return todayIso() < from ? 'incoming delivery' : 'outgoing';
 }
+function incoming816(key){ return movePurpose816(key) === 'incoming delivery'; }
 function emptyGate816(key, state, force){
 	const a = assetOf(key); if (!a || !needsEmpty816(a)) return true;
 	if (state !== 'in transit' && state !== 'not on site') return true;
-	if (!force && incoming816(key)) return true;
+	if (!force && incoming816(key)) { flash(key + ': ' + state + ' recorded as its delivery to site - no arrival is recorded yet and it is before the event. The emptied rule applies when it leaves.'); return true; }
 	if (emptiedOf816(key).on) return true;
 	flash(key + ' has not been emptied. No toilet or waste tank is moved, loaded or carried until it is pumped out - tick Emptied (pumped out) first.');
 	return false;

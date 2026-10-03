@@ -3,10 +3,14 @@ PASS 2 gate_unrecorded_or_non_green_light: from the collection window a move wit
 PASS 2c before its collection window a unit never on site is an incoming trip (named), and the collection path is still refused
 PASS 2d [968aefb #5] from the first event day (23 Oct) a unit with no recorded arrival is not an incoming trip - refused until emptied
 PASS 2e the day before the event a unit never on site is still an incoming delivery
+PASS R1a [be47bb5 R1] no recorded arrival and NO delivery date, before the event (18 Oct): outgoing - refused until emptied
+PASS R1b no recorded arrival, a delivery date in the record, before the event: its delivery (allowed), and a collection is still refused
+PASS R1c an arrival on record, before the event, a delivery date too: outgoing - refused until emptied
+PASS R1d no arrival, a delivery date, but on the first event day: outgoing - refused until emptied
 PASS 2b a unit that has been on site and now shows red is refused (no light shortcut)
 PASS 3 gate_without_actor_or_time: emptied with no person or time is refused
 PASS 4 newer_committed_untick: the newer committed un-tick wins  - {"on":false,"by":"Newer operator","at":"2026-10-26T00:00:00Z","unproven":false,"stale":false}
-PASS 5 reused_reference_old_pumpout: set on site again, the earlier pump-out no longer clears it  - {"emptied":{"on":false,"by":"Fixture operator","at":"2026-10-03T01:03:02.342Z","unproven":false,"stale":false},"nextCollectionAllowed":false}
+PASS 5 reused_reference_old_pumpout: set on site again, the earlier pump-out no longer clears it  - {"emptied":{"on":false,"by":"Fixture operator","at":"2026-10-03T01:15:57.098Z","unproven":false,"stale":false},"nextCollectionAllowed":false}
 PASS 5b a pump-out recorded before the last arrival (an earlier visit) clears nothing
 PASS 5c a pump-out after the last arrival, with a person and a time, clears the collection
 PASS 6 unknown_quantity: kept unknown, not a one-unit load; the load says its total is not certain  - [{"units":0,"uncertain":true,"rows":[{"key":"WC01","n":0,"unknown":true}]}]
@@ -15,7 +19,7 @@ PASS 8 mixed_toilet_tank_order: the tank starts after the toilet on it is off, a
 PASS 9 merge_emptied_evidence: value, who, when and history survive a merge  - {"WC01":{"emptied":true,"emptied_by":"Fixture operator","emptied_at":"2026-10-26T00:00:00Z","emptied_history":[{"emptied":true,"by":"Fixture operator","at":"2026-10-26T00:00:00Z"}]}}
 PASS 9b a newer un-tick wins the merge, whichever copy is named first  - {"h":{"WC01":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T01:00:00Z"}},"h2":{"WC01":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T01:00:00Z"}}}
 PASS 9c merging the result with itself changes nothing
-PASS F2 confirming a split proposal keeps each portion on its own day, on the record  - {"before":[{"iso":"2026-10-26","n":24,"id":"2026-10-26#1"},{"iso":"2026-10-27","n":1,"id":"2026-10-27#1"}],"after":{"rec":{"out_date":"2026-10-27","out_by":"Fixture operator","out_at":"2026-10-03T01:03:02.368Z","out_portions":[{"id":"2026-10-26#1","date":"2026-10-26","units":24},{"id":"2026-10-27#1","date":"2026-10-27","units":1}]},"r":{"src":"confirmed","iso":"2026-10-27","portions":[{"iso":"2026
+PASS F2 confirming a split proposal keeps each portion on its own day, on the record  - {"before":[{"iso":"2026-10-26","n":24,"id":"2026-10-26#1"},{"iso":"2026-10-27","n":1,"id":"2026-10-27#1"}],"after":{"rec":{"out_date":"2026-10-27","out_by":"Fixture operator","out_at":"2026-10-03T01:15:57.121Z","out_portions":[{"id":"2026-10-26#1","date":"2026-10-26","units":24},{"id":"2026-10-27#1","date":"2026-10-27","units":1}]},"r":{"src":"confirmed","iso":"2026-10-27","portions":[{"iso":"2026
 PASS F3 a 49-unit reference: every portion, the first included, has a pump-out on or before its own day  - {"portions":[{"iso":"2026-10-28","n":24,"id":"2026-10-28#1"},{"iso":"2026-10-29","n":24,"id":"2026-10-29#1"},{"iso":"2026-10-30","n":1,"id":"2026-10-30#1"}],"pumped":[true,true,true]}
 PASS F4a a confirmed unknown-quantity portable stays on its load, marked, and on a truck  - {"loads":[{"units":0,"uncertain":true,"keys":["WCM","WCU"]}],"trucks":[{"kind":"toilets","st":[{"k":"WCM","tank":false,"at":420,"end":435},{"k":"WCU","tank":false,"at":435,"end":450}]},{"kind":"normal","st":[{"k":"WCM","tank":true,"at":435,"end":465}]}]}
 PASS F4b a tank under an unknown-quantity toilet waits for that toilet stop  - {"toiletM":[{"k":"WCM","tank":false,"at":420,"end":435}],"tankM":{"k":"WCM","tank":true,"at":435,"end":465}}
@@ -31,4 +35,4 @@ PASS G2d an unchanged quantity carries no change note
 PASS G2e the toilet run shows the unplanned units and the change  - "<p class=\"note816\">Event portables - single portable toilets and urinals (FWF, Pee Panel) - go 24 to a pick-up. Toilet b"
 PASS G3 [after 6a0bb20 #3] a load holding an unknown quantity shows amber "to confirm", never green "full"  - {"unc":1,"chips":["<span class=\"chip cand unc816\">to confirm - total not certain, count on site"]}
 
-ALL PASSED (32)
+ALL PASSED (36)

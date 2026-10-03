@@ -120,8 +120,8 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
   or committed; a same-moment disagreement reads as not emptied), and only if it was recorded after the unit last arrived
   on site — setting a toilet or tank on site again takes an earlier pump-out off, in the setter's name, with the reason.
   The gate: the Demob tab's "Collected — on the truck" is always refused until then; the ordinary lights refuse taking a
-  toilet or tank to in transit / not on site the same way, with **one named exception** (`incoming816`): a unit the record
-  has never had on site, before the first event day (23 Oct), its own out date or 26 Oct, whichever is first, is on its way IN.
+  toilet or tank to in transit / not on site the same way, with **one named exception** (`movePurpose816`, see "This pass"): a unit the record
+  has never had on site, with a delivery date in the record, before the first event day (23 Oct), its own out date or 26 Oct, whichever is first, is on its way IN.
   From the first event day a unit with no recorded arrival may have been used, so it is gated like any other (968aefb #5).
   No date or light-colour shortcut otherwise. `deliveryEmpty` counts the tick; `mergeRecords` keeps value, who, when and
   history (later stamp wins; the same moment keeps "not emptied" on every copy and writes the clash down).
@@ -153,8 +153,18 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
 | No travel | 07:00–09:00, 16:00–18:00 | the PM, 2 Oct 2026 (PEAKS782) — applied both ways |
 
 ## This pass (3 Oct 2026): what changed since the frozen drafts Codex reviewed
-- **Pump-out gate (968aefb #5):** the "on its way in" exception is now bounded by the first event day as well: from
-  Fri 23 Oct a toilet or tank the record never had on site is treated as possibly used and is refused until emptied.
+- **Pump-out gate, the exact rule (968aefb #5, be47bb5 R1).** *The emptied gate applies to every outgoing movement of a
+  toilet or a waste tank - collection, loading, carrying it off, taking it off site - and is passed only by an Emptied
+  record with a person and a time, newer than the unit's last arrival on site, whatever the date or the light. The one
+  movement it does not gate is an incoming delivery, and only when the record says so (`movePurpose816`): no arrival
+  ever recorded, a delivery date in the record (`effectiveDates(a).in`, the plan's or a typed one), and today before
+  the first event day (23 Oct), its own out date and 26 Oct, whichever is earliest. A unit with no recorded arrival and
+  no delivery date is not assumed to be coming in: refused. Every collection path is forced through the gate whatever
+  the purpose says.* When the delivery exception is used the page says so ("recorded as its delivery to site ... the
+  emptied rule applies when it leaves"). Why keep it: a new toilet on its way to site has not been used, and refusing its
+  amber light would stop delivery tracking during the build (deliveries run until 22 Oct); nothing that may have been
+  used can pass. Tests both ways: fixtures 2c, 2d, 2e, R1a-R1d, and Codex's `historyless_before_event_cannot_prove_incoming_trip`
+  now passes (that unit has no delivery date in the record).
 - **Portions (after 6a0bb20 #1):** every portion carries a stable id (its day and its place among that day's portions,
   e.g. `2026-10-26#2`); the day's loads place **every** portion on that day, not the first one found; confirmation
   writes the ids with the dates and units.
@@ -196,12 +206,12 @@ Fixtures: `evidence/codex_fixtures816.js` (CPU, **FIXTURE-COUNT**), Codex's own 
 | 968aefb 2 | confirming a split collapsed it to the last day | `out_portions` saved with the date on the same stamp; merged with the due-out group | fixture F2; Codex `confirm_split_collapses_dates` before = after |
 | 968aefb 3 | pump-out only before the final split day | pump list uses every portion's day | fixture F3; Codex `split_early_load_without_pump_task` pump on all 3 days |
 | 968aefb 4 | unknown portable vanished after confirmation; tank alone | fixed-date path keeps unknown rows on an uncertain load; a tank waits for that stop | fixtures F4a, F4b; Codex `unknown_confirmed_*`, `unknown_toilet_tank_*` |
-| 968aefb 5 | missing history read as an incoming trip | `incoming816` bounded by the first event day, own out date and 26 Oct | fixtures 2, 2c, **2d, 2e (new)** |
+| 968aefb 5 / be47bb5 R1 | missing history read as an incoming trip | `movePurpose816`: incoming only with no arrival, a delivery date in the record, and before the event / own out date / 26 Oct; otherwise outgoing and gated | fixtures 2, 2c, **2d, 2e, R1a-R1d (new)**; Codex `historyless_before_event_cannot_prove_incoming_trip` passes |
 | 968aefb 6 | equal-time merge depended on order | same moment, two answers -> not emptied on every copy, clash written down | fixtures F6, F6b; Codex `merge_equal_time_order_dependent` (both orders false, clash) |
 | 968aefb 7 | added reference lost its explicit removal date | the same-day fallback is dropped only when no dated remove event exists | fixture F7; Codex recheck (its regression assertion flipped: `plan` 5 Nov) |
-| after 6a0bb20 1 | two portions on one day: `.find` kept only the first | portion ids; every portion of the day placed; ids written on confirm | **G1, G1b** - fail on 0006166, pass now |
-| after 6a0bb20 2 | quantity corrected after portions saved | `reconcile816`: unplanned / fewer / now unknown, said everywhere | **G2a-G2e** - fail on 0006166, pass now |
-| after 6a0bb20 3 | uncertain load showed green "full" | amber "to confirm", never "full" | **G3** - fails on 0006166, passes now |
+| after 6a0bb20 1 = be47bb5 R2 | two portions on one day: `.find` kept only the first | portion ids; every portion of the day placed; ids written on confirm | **G1, G1b** - fail on 0006166, pass now |
+| after 6a0bb20 2 = be47bb5 R3 | quantity corrected after portions saved | `reconcile816`: unplanned / fewer / now unknown, said everywhere | **G2a-G2e** - fail on 0006166, pass now |
+| after 6a0bb20 3 = be47bb5 R4 | uncertain load showed green "full" | amber "to confirm", never "full" | **G3** - fails on 0006166, passes now |
 
 Before/after evidence: `evidence/codex_fixtures816_before_fix_0006166.log` (8 failed: G1, G1b, G2a-e, G3; G2d only
 because the change field did not exist) and `evidence/codex_fixtures816.log` (all pass).
