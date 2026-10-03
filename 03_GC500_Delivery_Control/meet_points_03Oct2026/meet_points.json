@@ -85,6 +85,18 @@
    "way_in": "to confirm from the page's island wording",
    "fit": "5 pins (WC17, WC73, WC20, WC86, WC19), residuals 0.1-0.2 m, leave-one-out < 1.5 m",
    "andrew": "Anything here entry location and meet point is here ... This goes for all gear and equipment ... If we unsure they refer back to entry pitlane"
+  },
+  {
+   "id": "MBP_LANDSIDE",
+   "name": "Main Beach Pde land side - meet point by T8 / A19",
+   "covers": "Main Beach Pde land (river) side: S07, S08, GA viewing mound, WC27, WC33 ...",
+   "ll": [
+    -27.98565,
+    153.429787
+   ],
+   "way_in": "to confirm from the page's land-side wording",
+   "fit": "4 pins (WC60, WC27, WC33, WC59), residuals 0.1-0.2 m, leave-one-out < 1 m",
+   "andrew": "Anything here meet point is here (screenshot of S07 / S08 / WC27 / WC33 / GA viewing mound, 3 Oct 2026)"
   }
  ],
  "not_yet": "Not built into the live page. Which items belong to which point (area boundaries) is to be shown to Andrew on a map before any build.",
