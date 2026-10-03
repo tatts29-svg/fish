@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Private release preparation. Not deployed. Final standard-build browser checks remain pending.
+LIVE 4 Oct 2026 at 02:16 AEST. Guarded upload and public readback match the exact tested candidate. Actual public desktop/phone playback checks passed 15/15.
 
 Today’s embedded progress section has no banner of its own, but its `wireBoard()` call previously disposed the real Today banner before checking for a replacement figure. The Play handler was consequently removed. The patch checks for an actual board first, then replaces existing resources.
 
@@ -18,4 +18,4 @@ python3 patch_v827.py /private/path/working_copy.html
 
 Root owns the standard build and publication. The wrapper alone changes the two release labels from v8.26 to v8.27. It refuses a stale base, altered source or repeat application.
 
-Current evidence: 53 CPU controller checks, 14 build/source-boundary checks and the page syntax/security check pass on the exact rebased candidate. Earlier native-browser evidence proved the missing handler and the playback/reduced-motion/fallback repair, but final restored-network Retry and standard-build browser checks are still required after the last defensive change.
+Final candidate evidence: 53/53 CPU controller checks, 14/14 build/source-boundary guards, 6/6 restored-network Retry checks, 18/18 real-media checks, 11/11 native lifecycle checks, Today 23/23 desktop and 18/18 phone, selected-card motion 16/16 per viewport, and both 22-tab/seven-link/Back sweeps. No page errors or operational writes occurred in these bounded browser checks. Full wider v8.26 suites were not repeated; exact byte preservation demonstrates their source remains unchanged. See `TESTING.md` for reproducible test sources, scope limits and the preserved historical-fixture correction rationale. The portable actual-public smoke subsequently passed 15/15 on the served v8.27 page. Runtime reports and screenshots remain private.
