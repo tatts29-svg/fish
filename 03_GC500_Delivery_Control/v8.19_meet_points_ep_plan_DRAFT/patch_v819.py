@@ -99,7 +99,9 @@ EP819 = {'version': EP['version'], 'prepared': EP['prepared'], 'loads': loads,
                    'no_wc_note': Q['no_wc_allocation_note'], 'wc31_note': Q.get('wc31_note')},
          'cancelled': [{k: re.sub(r'\s*via (?:Codex|Claude)\b', '', c[k]) if k == 'source' else c[k] for k in ('ref', 'fwf', 'note', 'source') if k in c} for c in EP['cancelled']],   # the page never names an agent
          'site_rules': EP['site_rules'], 'park': {'area': EP['park_rules']['area'], 'rules': EP['park_rules']['rules']},
-         'demob': {'heading': EP['demob_notice']['heading'], 'lines': EP['demob_notice']['lines']}, 'order': order, 'early': early}
+         'demob': {'heading': EP['demob_notice']['heading'], 'lines': EP['demob_notice']['lines']}, 'order': order, 'early': early,
+         # Andrew's yes, 3 Oct 2026: the Load Restraint Guide's pre-departure check on each run sheet's sign-off (text and source only)
+         'predep': {k: EP['pre_departure_check'][k] for k in ('text', 'source')} if EP.get('pre_departure_check') else None}
 assert EP['park_rules']['meet_point_id'] == MP819['park']
 data = 'const MP819 = ' + json.dumps(MP819, ensure_ascii=False, separators=(',', ':')) + ';\nconst EP819 = ' + json.dumps(EP819, ensure_ascii=False, separators=(',', ':')) + ';\n'
 # no money, no phone numbers, no other brand, nothing that would close the script

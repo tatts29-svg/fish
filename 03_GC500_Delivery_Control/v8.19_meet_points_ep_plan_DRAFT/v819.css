@@ -194,6 +194,9 @@ body.ep819-printing #ep819print{display:block}
 .rs819 .rs-dm ul{margin:0;padding:1.6mm 2.4mm 1.6mm 6mm;font-size:.95em}
 .rs819 .rs-dm li:nth-child(2){font-weight:800}
 .rs819 .rs-so > b{display:block;font-size:1.05em;margin:0 0 1mm}
+.rs819 .rs-pd{display:flex;gap:2mm;align-items:flex-start;margin:0 0 1.2mm;padding:1mm 1.6mm;border:.3mm solid #16191b;font-size:.92em;line-height:1.25}
+.rs819 .rs-pd .rs-bx{flex:0 0 auto;width:4.2mm;height:4.2mm;border:.4mm solid #16191b;border-radius:.5mm;margin-top:.2mm}
+.rs819 .rs-pd small{display:block;color:#666;font-size:.85em;font-weight:400}
 .rs819 .rs-so table{width:100%;border-collapse:collapse}
 .rs819 .rs-so td{height:calc(9mm * var(--k));border:.3mm solid #c8ccce;padding:1mm 1.6mm;vertical-align:top;font-size:.9em;color:#555}
 .rs819 .rs-ft{margin-top:auto;display:grid;grid-template-columns:1fr auto;gap:.6mm 4mm;padding-top:1.6mm;border-top:.3mm solid #c8ccce;font-size:.88em;color:#555}

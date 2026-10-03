@@ -37,17 +37,20 @@ function epLabel819(){ return 'Event Portables delivery plan (to quote ' + ((EP8
  load. Andrew, 3 Oct 2026: "deliries for next week we move to the 9th oct" - so a record date in that week (Mon 5 to Thu
  8 Oct) for a reference on the Fri 9 Oct load reads "Record still shows Thu 8 Oct for WC09, WC34 – moving to Fri 9 Oct per
  Coates"; any other difference is stated plainly ("Record shows Mon 12 Oct for WC57 – this plan has Fri 9 Oct"), never as
- a move. Nothing is written; a line goes when the record agrees. programmeDays()/dpLoads() are only read, kept 4 s. */
-const EPR819 = {at: 0, map: null}, EP_MOVE819 = {from: '2026-10-05', to: '2026-10-08', on: '2026-10-09'};
+ a move. Nothing is written; a line goes when the record agrees.
+ NO CACHE (Codex preflight, 3 Oct 2026: a time-based cache filled before the shared record hydrated kept stale wording
+ on the card after the page's own redraw). The native projection - programmeDays() / dpLoads(), only read - is worked out
+ afresh once per drawing of the card and once per printed run sheet, so every redraw the page makes (hydration, a record
+ change) shows the record as it is then. The native programme stays the authority; the plan stays separate. */
+const EP_MOVE819 = {from: '2026-10-05', to: '2026-10-08', on: '2026-10-09'};
 function epRecDays819(){
-	if (EPR819.map && Date.now() - EPR819.at < 4000) return EPR819.map;
 	const m = new Map();
 	try { programmeDays().forEach(d => { let L = []; try { L = dpLoads(d) || []; } catch (e) { L = []; }
 		L.forEach(g => { if (g && g.kind === 'removals') return; (g && g.rows || []).forEach(r => { const k = r && r.a && r.a.key; if (!k) return; if (!m.has(k)) m.set(k, new Set()); m.get(k).add(d.iso); }); }); }); } catch (e) {}
-	EPR819.map = m; EPR819.at = Date.now(); return m;
+	return m;
 }
-function epRecLine819(l){
-	const m = epRecDays819(), mv = new Map(), other = new Map();
+function epRecLine819(l, days){
+	const m = days || epRecDays819(), mv = new Map(), other = new Map();
 	l.stops.forEach(s => s.drops.forEach(x => { const ds = x.ref && m.get(x.ref); if (!ds || !ds.size || ds.has(l.date)) return;
 		[...ds].sort().forEach(iso => { const to = l.date === EP_MOVE819.on && iso >= EP_MOVE819.from && iso <= EP_MOVE819.to ? mv : other;
 			if (!to.has(iso)) to.set(iso, []); if (to.get(iso).indexOf(x.ref) < 0) to.get(iso).push(x.ref); }); }));
@@ -59,7 +62,7 @@ function epRecLine819(l){
 }
 function ep819Html(){
 	if (typeof EP819 === 'undefined' || !EP819 || !(EP819.loads || []).length) return '';
-	const T = epTotals819(), E = EP819, Q = E.quote;
+	const T = epTotals819(), E = EP819, Q = E.quote, REC = epRecDays819();   /* the record as it is at this drawing */
 	const first = E.loads[0];
 	const rows = E.loads.map(l => { const on = EPF819.open.has(l.n), mps = [...new Set(l.stops.map(s => s.meet_point_name))];
 		return `<div class="ld go ep819-ld${on ? ' on' : ''}" role="listitem">
@@ -68,7 +71,7 @@ function ep819Html(){
 <span class="ld-refs"><span class="ld-ref"><span class="ld-c"><b>${l.fwf} FWF</b>${l.pee_panels ? `<span class="ld-sw">+${l.pee_panels} pee panels</span>` : ''}</span><span class="ld-w">${esc(l.zone)}</span></span></span>
 <span class="ld-p" title="${esc(mps.join(' · '))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg><span>${l.stops.length} stop${l.stops.length === 1 ? '' : 's'} · ${esc(mps.join(' · '))}</span></span><span class="ld-x" aria-hidden="true"></span></button>
 <div class="ld-go ep819-go"><button type="button" class="btn ep819-pr" data-ep819-print="${l.n}" title="${esc('One A4 page for the driver: stops, the count left on the truck, a directions QR per meet point, site rules, demob notice and sign-off')}">Print run sheet</button></div>
-${epRecLine819(l) ? `<p class="ep819-rec">${esc(epRecLine819(l))}</p>` : ''}<div class="ldb ep819-b" id="ep819b${l.n}"${on ? '' : ' hidden'}>${epStopsTable819(l)}</div></div>`; }).join('');
+${epRecLine819(l, REC) ? `<p class="ep819-rec">${esc(epRecLine819(l, REC))}</p>` : ''}<div class="ldb ep819-b" id="ep819b${l.n}"${on ? '' : ' hidden'}>${epStopsTable819(l)}</div></div>`; }).join('');
 	const qr = Q.rows;   /* no total row: the rows are unlike items (FWF, accessibles, VIP blocks) */
 	const fold = (id, title, n, body) => `<details class="ldsec ep819-f" data-ep819-f="${id}"${EPF819.folds.has(id) ? ' open' : ''}><summary><span class="ldsec-t">${title}</span><span class="ldsec-n">${n}</span><span class="ldsec-x" aria-hidden="true"></span></summary><div class="ldsec-b">${body}</div></details>`;
 	return `<section class="card nosfold ep819" id="ep819" aria-labelledby="ep819h">
@@ -87,7 +90,7 @@ ${fold('cx', 'Cancelled – do not deliver', E.cancelled.length, `<table class="
 }
 /* ---------- the run sheet: one A4 page per load */
 function epRunSheet819(l){
-	const E = EP819, n = E.loads.length;
+	const E = EP819, n = E.loads.length, rec = epRecLine819(l), pd = E.predep;
 	const rules = E.site_rules.map(x => `<li>${esc(x)}</li>`).join('') + (E.park ? `<li><b>${esc(E.park.area)}:</b> ${E.park.rules.map(esc).join(' · ')}</li>` : '');
 	const stops = l.stops.map(s => `<tr><td class="rs-no">${s.stop}</td><td class="rs-mp"><b>${esc(s.meet_point_name)}</b><span>Way in: ${esc(s.way_in)}</span><small>${esc(s.ll[0].toFixed(6) + ', ' + s.ll[1].toFixed(6))}</small></td>
 <td class="rs-wc">${s.drops.map(x => `<span><b>${esc(x.ref || x.name)}</b> ×${x.fwf}${x.pee_panels ? ' + ' + x.pee_panels + ' pee panels' : ''}${x.no_pin || x.no_wc_number ? ' <i>· Coates directs to the spot</i>' : ''}</span>`).join('')}</td>
@@ -97,10 +100,10 @@ function epRunSheet819(l){
 <header class="rs-hd"><b>Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet</b><span>${esc(epLabel819())} · Author: Andrew Fisher</span></header>
 <h1 class="rs-bar">Load ${l.n} of ${n} · ${esc(epDay819(l.date))} · ${esc(epCount819(l))}</h1>
 <ul class="rs-rules">${rules}</ul>
-<p class="rs-ord">${esc(E.order)} ${esc(E.early)} ‘Left on truck’ counts down to 0 – tick each stop when dropped.</p>${epRecLine819(l) ? `<p class="rs-rec">${esc(epRecLine819(l))}</p>` : ''}
+<p class="rs-ord">${esc(E.order)} ${esc(E.early)} ‘Left on truck’ counts down to 0 – tick each stop when dropped.</p>${rec ? `<p class="rs-rec">${esc(rec)}</p>` : ''}
 <table class="rs-tbl"><thead><tr><th>Stop</th><th>Meet point · way in</th><th>WC numbers dropped here</th><th class="rs-n">FWF</th><th class="rs-n">Left on truck</th><th>Directions (Google Maps, driving)</th><th>Done</th></tr></thead><tbody>${stops}</tbody></table>
 <div class="rs-low"><div class="rs-dm"><b>${esc(E.demob.heading)}</b><ul>${E.demob.lines.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
-<div class="rs-so"><b>Sign-off</b><table><tr><td>Delivered qty</td><td>Time on site</td><td>Time off site</td></tr><tr><td>Coates rep name</td><td colspan="2">Signature</td></tr><tr><td>Driver name</td><td colspan="2">Signature</td></tr></table></div></div>
+<div class="rs-so"><b>Sign-off</b>${pd && pd.text ? `<p class="rs-pd"><i class="rs-bx" aria-hidden="true"></i><span><b>${esc(pd.text)}</b>${pd.source ? `<small>${esc(pd.source)}</small>` : ''}</span></p>` : ''}<table><tr><td>Delivered qty</td><td>Time on site</td><td>Time off site</td></tr><tr><td>Coates rep name</td><td colspan="2">Signature</td></tr><tr><td>Driver name</td><td colspan="2">Signature</td></tr></table></div></div>
 <footer class="rs-ft"><b>Call the Coates lead on arrival</b><span>Coates Industrial Solutions · GC500 2026 · Author: Andrew Fisher · quantities as the GC500 delivery plan ${esc(E.version)}, ${esc(epDay819(E.prepared).replace(/^\w+ /, ''))} · to quote ${esc(E.quote.quote)}</span><span>Load ${l.n} of ${n}</span></footer>
 </div>`;
 }

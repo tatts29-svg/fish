@@ -146,6 +146,9 @@ async function run(name, dev) {
       `${name}: Load ${L.n} sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author`);
     { const want = await p.evaluate(n => epRecLine819(EP819.loads.find(x => x.n === n)), L.n);
       ok(R.txt.includes('Event Portables delivery plan (to quote Q6845)') && (!want || R.txt.includes(want)), `${name}: Load ${L.n} run sheet carries the plan label${want ? ' and its record line' : ''}`, want); }
+    { const PD = PLAN.pre_departure_check; const so = await p.evaluate(() => { const s = document.querySelector('#ep819print .rs-so'), pd = s && s.querySelector('.rs-pd'), tb = s && s.querySelector('table');
+        return {txt: pd ? pd.innerText : '', box: !!(pd && pd.querySelector('.rs-bx')), above: !!(pd && tb && (pd.compareDocumentPosition(tb) & Node.DOCUMENT_POSITION_FOLLOWING))}; });
+      ok(!!PD && so.txt.includes(PD.text) && so.txt.includes(PD.source) && so.box && so.above, `${name}: Load ${L.n} sheet has the pre-departure check as a tick box in the sign-off, above the signatures, with its source`, so); }
     ok(!/\$\s?\d|SiteIQ/i.test(R.txt) && !/(?<!\d)(?:\+?61\s?|0)[2-478](?:[\s-]?\d){8}(?!\d)/.test(R.txt), `${name}: Load ${L.n} sheet has no money, phone numbers or SiteIQ`);
     if (!phone) {
       const qs = await p.$$('#ep819print .rs-qr');

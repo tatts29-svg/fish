@@ -68,6 +68,7 @@ suite probe          $E/probe819.log            env OUT=$SCRATCH/v819/probe819.j
 suite assign         $E/assign_check819.log     python3 $E/assign_check819.py $SCRATCH/v819/probe819.json $SCRATCH/event_portables/work
 suite v819           $E/v819.log                env SHOTS=$SHOTS flock "$LOCK" node $E/v819_tests.js
 suite qr             $E/qr_decode819.log        python3 $E/qr_decode819.py $SHOTS
+suite fresh819       $E/fresh819.log            flock "$LOCK" node $E/fresh819.js
 suite photo          $E/photo819.log            env BASE=$BASE flock "$LOCK" node $E/photo819.js
 suite phone-widths   $E/phone819.log            env SHOTS=$SHOTS flock "$LOCK" node $E/phone819.js
 # ---- the standing suites (they write their own evidence into their release folders; put back at the end)
