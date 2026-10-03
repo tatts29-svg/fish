@@ -218,9 +218,13 @@
    "date": "2026-10-03"
   },
   {
-   "rule": "Plan Event Portables quantities to quote Q6845 as it stands (246 FWF). Units beyond the areas' needs go to the pit lane spares pool and Coates directs them. Quote items with no schedule row (4 accessibles, 3 VIP combo blocks) are held until Coates names a destination.",
+   "rule": "Plan Event Portables quantities to quote Q6845 as it stands (246 FWF). The load plan carries only what the areas need (5 loads of 24). Quote spares (55 FWF, 4 accessibles, 3 VIP combo blocks) are kept separate from the load plan - Coates advises if and where they are needed.",
    "andrew": "We go by whats on the quote at the moment",
-   "date": "2026-10-03"
+   "date": "2026-10-03",
+   "updated": {
+    "andrew": "So take off the spares keelp.the spares seperate.",
+    "date": "2026-10-03"
+   }
   }
  ]
 }
