@@ -6,7 +6,7 @@ const {curlFetch} = require('../../toolchain/harness/curlfetch.js');
 const pageFile = process.env.PAGE, out = process.env.OUT, mobile = !!process.env.MOB;
 if (!pageFile || !out) throw Error('PAGE and a private OUT directory are required');
 fs.mkdirSync(out, {recursive: true});
-const report = {author:'Andrew Fisher', mobile, source:crypto.createHash('sha256').update(fs.readFileSync(pageFile)).digest('hex'), checks:[], actions:[], errors:[], consoleErrors:[]};
+const report = {author:'Andrew Fisher', mobile, source:crypto.createHash('sha256').update(fs.readFileSync(pageFile)).digest('hex'), checks:[], actions:[], errors:[], consoleErrors:[],resourceFailures:[]};
 const save = () => fs.writeFileSync(path.join(out, 'interactions.json'), JSON.stringify(report, null, 2));
 const check = (name, pass, detail) => { report.checks.push({name, pass:!!pass, detail}); save(); if (!pass) throw Error(name); };
 async function native() {
@@ -19,17 +19,18 @@ const settle = async () => { await page.waitForTimeout(600); await page.evaluate
 async function metric(selector) {
   return page.evaluate(selector => {
     const el = document.querySelector(selector), main = document.querySelector('main'), wrap = el.closest('.tblwrap');
-    return {mainY:main.scrollTop, tableX:wrap?.scrollLeft || 0, rowTop:el.closest('tr')?.getBoundingClientRect().top, targetTop:el.getBoundingClientRect().top,
+    return {mainY:main.scrollTop, tableX:wrap?.scrollLeft || 0, tableMax:wrap?wrap.scrollWidth-wrap.clientWidth:0, rowTop:el.closest('tr')?.getBoundingClientRect().top, targetTop:el.getBoundingClientRect().top,
       folds:document.querySelectorAll('#pane-pricing details.sfold').length, focused:document.activeElement === el,
+      foldState:[...document.querySelectorAll('#pane-pricing details.sfold')].map(el=>[el.dataset.sfold,el.open]),
       drawerY:document.querySelector('#drawer').scrollTop, drawerBodyY:document.querySelector('#drawer .db')?.scrollTop || 0};
   }, selector);
 }
-async function contextAction(name, selector, action, drawer = false) {
+async function contextAction(name, selector, action, drawer = false, middle = false) {
   const locator = page.locator(selector);
   await locator.evaluate(target=>{const details=[];for(let n=target.parentElement;n;n=n.parentElement)if(n.tagName==='DETAILS')details.unshift(n);for(const d of details)if(!d.open)d.querySelector(':scope > summary')?.click();});
   await settle();
   await locator.scrollIntoViewIfNeeded(); await settle();
-  await locator.evaluate(el => { const wrap = el.closest('.tblwrap'); if (wrap) wrap.scrollLeft = wrap.scrollWidth; });
+  await locator.evaluate((el,middle) => { const wrap = el.closest('.tblwrap'); if (wrap) wrap.scrollLeft = middle?(wrap.scrollWidth-wrap.clientWidth)/2:wrap.scrollWidth; },middle);
   // Keep the control visible before recording context. Browser autofocusing an
   // off-screen input legitimately scrolls its table before onchange runs.
   await locator.scrollIntoViewIfNeeded();
@@ -42,12 +43,16 @@ async function contextAction(name, selector, action, drawer = false) {
   const writes = await page.evaluate(start => __capturedWrites.slice(start), writeStart);
   report.actions.push({name, selector, pre, post, writes}); save();
   await page.screenshot({path:path.join(out, name + '-after.png')});
-  check(name + ' keeps horizontal table position', Math.abs(post.tableX - pre.tableX) <= 1);
+  // Cell content can shorten a table: an end position must clamp to its new
+  // browser maximum. A genuine middle position must remain exactly unchanged.
+  check(name + ' keeps horizontal table position within its new bounds', Math.abs(post.tableX - Math.min(pre.tableX,post.tableMax)) <= 1,{before:pre.tableX,after:post.tableX,maxBefore:pre.tableMax,maxAfter:post.tableMax});
+  if(middle) check(name+' keeps a genuine middle position exactly',pre.tableX>0&&pre.tableX<post.tableMax&&Math.abs(post.tableX-pre.tableX)<=1);
   if (drawer) {
     check(name + ' keeps drawer scroll', Math.abs(post.drawerY-pre.drawerY)<=1 && Math.abs(post.drawerBodyY-pre.drawerBodyY)<=1);
   } else {
     check(name + ' keeps the visible row anchor', Math.abs(post.rowTop-pre.rowTop)<=1, {before:pre.rowTop,after:post.rowTop});
     check(name + ' keeps folded presentation', post.folds === pre.folds && post.folds > 0);
+    check(name + ' keeps each disclosure state',JSON.stringify(post.foldState)===JSON.stringify(pre.foldState));
   }
   check(name + ' captures native writes without sending them', writes.length > 0 && writes.every(w => /^(?:labour|rates|accRates|minDays|eventHours|stamps|by)\//.test(w.key)));
   return {pre,post,writes};
@@ -62,6 +67,8 @@ async function restoreFixture(tab) {
   before = await native(); fs.writeFileSync(path.join(out,'native-before.json'),JSON.stringify(before));
   harness = await open({pageFile,W:mobile?390:1440,H:mobile?844:1000,mobile,dpr:mobile?2:1}); page=harness.page;
   page.on('console', m => { if(m.type()==='error') report.consoleErrors.push(m.text().slice(0,250)); });
+  page.on('response', response=>{if(response.status()>=400)report.resourceFailures.push({status:response.status(),url:response.url().split('?')[0]});});
+  page.on('requestfailed', request=>report.resourceFailures.push({url:request.url().split('?')[0],failure:request.failure()?.errorText}));
   page.on('dialog', d => d.dismiss());
   await page.waitForFunction(() => typeof SYNC!=='undefined' && SYNC.status==='live' && SYNC.first.size===Object.keys(SYNC_COLLS).length, null, {timeout:180000});
   if (process.env.REFERENCE) {
@@ -108,6 +115,9 @@ async function restoreFixture(tab) {
     check(attr+' retains native key and setter value',result.writes.some(w=>w.key.startsWith(collection+'/')&&w.body?._k===expectedKey&&w.body.v===value));
     check(attr+' applies the intended field',await page.evaluate(({collection,key,value})=>S[collection][key]===value,{collection,key:expectedKey,value}));
   }
+  await restoreFixture('pricing');
+  const middleKey=await page.locator('#pane-pricing input[data-ak]').first().getAttribute('data-ak');
+  await contextAction('pricing-ak-middle','#pane-pricing input[data-ak='+JSON.stringify(middleKey)+']',async el=>{await el.fill('3');await el.press('Tab');},false,true);
   if(process.env.REFERENCE) {
     await restoreFixture('plant');
     await page.evaluate(ref=>openAsset(ref),process.env.REFERENCE);await settle();
