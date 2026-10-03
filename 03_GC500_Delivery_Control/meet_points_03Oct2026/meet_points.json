@@ -97,6 +97,18 @@
    "way_in": "to confirm from the page's land-side wording",
    "fit": "4 pins (WC60, WC27, WC33, WC59), residuals 0.1-0.2 m, leave-one-out < 1 m",
    "andrew": "Anything here meet point is here (screenshot of S07 / S08 / WC27 / WC33 / GA viewing mound, 3 Oct 2026)"
+  },
+  {
+   "id": "SEASIDE_NORTH",
+   "name": "Main Beach Pde seaside north - meet point between S21 and S22",
+   "covers": "Seaside north: S21, S22, WC60, WC61 ...",
+   "ll": [
+    -27.984831,
+    153.429945
+   ],
+   "way_in": "to confirm from the page's seaside wording",
+   "fit": "2 pins only (WC60, WC61) - similarity fit, scale 0.227 m/px, map facing east; no residual check possible, allow a few metres",
+   "andrew": "Anything here is here (screenshot of S21 / S22 / WC60 / WC61, 3 Oct 2026)"
   }
  ],
  "not_yet": "Not built into the live page. Which items belong to which point (area boundaries) is to be shown to Andrew on a map before any build.",
