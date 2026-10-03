@@ -36,11 +36,11 @@ fs.mkdirSync(OUTD, {recursive: true});
       await p.evaluate(() => go('docs')); await wait(900);
     }
     await p.evaluate(() => go('today')); await p.waitForFunction(() => document.querySelector('#pane-today .hubcard'), null, {timeout: 60000}); await wait(2500); await top();
-    await p.evaluate(() => { const h = document.querySelector('#pane-today .hub') || document.querySelector('#pane-today .inst'); if (h) h.scrollIntoView({block: 'start'}); });
+    await p.evaluate(() => { const h = document.querySelector('#pane-today .inst') || document.querySelector('#pane-today .hub'); if (h) h.scrollIntoView({block: 'start'}); });
     await wait(800);
     await shot(`${TAG}_${name}_today_cards.png`);
     out[name].errors = s.errors.slice();
     await s.browser.close();
   }
   console.log(JSON.stringify(out));
-})().catch(e => { console.error(e); process.exitCode = 1; });
+})().catch(e => { console.error(e); process.exit(1); });

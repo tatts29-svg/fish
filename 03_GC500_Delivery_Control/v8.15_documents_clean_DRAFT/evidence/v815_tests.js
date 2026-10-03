@@ -19,8 +19,8 @@ const ready = p => p.waitForFunction(() => typeof DOCS !== 'undefined' && DOCS.s
 const squash = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 // a real PDF's page count and text (PyMuPDF), so "on paper" means in the file the browser printed
 function pdfFacts(file) {
-  const out = execFileSync('python3', ['-c', 'import fitz,sys,json; d=fitz.open(sys.argv[1]); print(json.dumps({"pages": d.page_count, "text": "".join(p.get_text() for p in d)}))', file], {maxBuffer: 64 << 20});
-  return JSON.parse(out.toString());
+  const out = execFileSync('python3', ['-c', 'import pymupdf as fitz,sys,json; fitz.TOOLS.mupdf_display_errors(False); d=fitz.open(sys.argv[1]); print(json.dumps({"pages": d.page_count, "text": "".join(p.get_text() for p in d)}))', file], {maxBuffer: 64 << 20});
+  return JSON.parse(out.toString().trim().split('\n').pop());
 }
 
 // ---------------------------------------------------------------- paper: page.pdf() of the tab, live against v8.15
@@ -297,4 +297,4 @@ async function build(dev, L, name) {
   }
   if (process.env.OUT) fs.writeFileSync(process.env.OUT, JSON.stringify(report, null, 1));
   console.log(`\n${passes} passed, ${fails} failed`); console.log(fails ? 'FAILED' : 'ALL PASSED'); process.exitCode = fails ? 1 : 0;
-})().catch(e => { console.error(e); process.exitCode = 1; });
+})().catch(e => { console.error(e); process.exit(1); });

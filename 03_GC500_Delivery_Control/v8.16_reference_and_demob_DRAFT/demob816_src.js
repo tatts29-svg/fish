@@ -502,7 +502,9 @@ function printDay816(iso, br, what, n){
 	document.body.classList.add('printing-day');
 	const done = () => { st.remove(); wrap.classList.remove('dpwrap'); document.body.classList.remove('printing-day'); };
 	window.addEventListener('afterprint', done, {once: true});
-	flash('Preparing ' + T.length + ' run sheet' + (T.length === 1 ? '' : 's') + ', one page per load.');
+	/* a load too long for its one page is said out loud, never clipped in silence */
+	const long = T.filter(L => L.t.st.length > 13).map(L => 'load ' + L.n);
+	flash('Preparing ' + T.length + ' run sheet' + (T.length === 1 ? '' : 's') + ', one page per load.' + (long.length ? ' Check ' + long.join(', ') + ': more stops than one page holds - print it per stop or split the load.' : ''));
 	setTimeout(() => { try { window.print(); } catch (e) { done(); } }, 60);
 	return T.length;
 }
