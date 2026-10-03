@@ -11,10 +11,14 @@ const page = fs.readFileSync(process.argv[3] || path.join(ROOT, 'build/GC500_v8.
 let fails = 0, passes = 0; const ok = (c, what, d) => { if (c) passes++; else fails++; console.log((c ? 'PASS ' : 'FAIL ') + what + (d !== undefined ? '  - ' + JSON.stringify(d).slice(0, 400) : '')); };
 function ctx(assets = []) {
   const c = vm.createContext({console, Date, Map, Set, Math, JSON, Number, String, isFinite, isNaN, assets,
-    S: {delivery: {}}, CROW: new Map(), RENDER_MEMO: new Map(), DATA: {depot: {planning: {precinct_min: 10}}},
-    localStorage: {getItem: () => null}, todayIso: () => '2026-10-26', allAssets: () => assets,
+    S: {delivery: {}}, CROW: new Map(), RENDER_MEMO: new Map(), DATA: {depot: {planning: {precinct_min: 10}}, transport: {kingston_run: {minutes_rounded: 70, basis: '46.7 km straight line × 1.25 = about 58 km by road, at 60 km/h + 10 min in the precinct — a planning figure, not a live time'}}},
+    localStorage: (() => { const m = new Map(); return {getItem: k => m.has(k) ? m.get(k) : null, setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k)}; })(), todayIso: () => '2026-10-26', allAssets: () => assets,
+    /* who owns the portables (v7.29 inventory): an asset says owner 'coates' or 'unknown'; otherwise its units are the supplier's, as these fixtures were written */
+    subOf: k => { const a = assets.find(x => x.key === k) || {}; if (a.owner === 'coates' || a.owner === 'unknown') return []; const n = (a.rows || []).reduce((s, r) => s + (Number(r.qty_supplied != null ? r.qty_supplied : r.qty_asked) || 0), 0); return Array.from({length: n}, () => ({co: 'Event Portables'})); },
+    invCountNums: a => a.owner === 'coates' ? (a.rows || []).flatMap(r => Array.from({length: Number(r.qty_supplied) || 0}, (_, i) => String(100000 + i))) : [], itemNumbersOf: () => null,
+    run782: () => 70,
     assetOf: k => assets.find(a => a.key === k), itemRows: a => a.rows, refKind: a => a.kind || 'toilet',
-    rowOff: () => false, subhireOf: () => null, onhireForAsset: () => [], branchOf: k => assets.find(a => a.key === k).branch || 'KINP',
+    rowOff: () => false, subhireOf: k => { const a = assets.find(x => x.key === k) || {}; return a.owner ? null : {co: 'Event Portables'}; }, onhireForAsset: () => [], branchOf: k => assets.find(a => a.key === k).branch || 'KINP',
     effectiveDates: a => ({out_plan: a.out || null, in: a.in || null}), flash: () => {}, mayWrite: () => true, whoAmI: () => 'Fixture operator',
     isRef: k => assets.some(a => a.key === k), bump: () => {}, buzz: () => {}, blank: () => ({}), tombed: () => false,
     fmtStamp: x => x, fmtDay: iso => ({dow: 'Day', dm: String(iso).slice(8, 10) + ' Oct'}), fmtDate: x => x});

@@ -416,7 +416,9 @@ function renderDemob816(){
 <span class="wk816">${i % 5 === 0 ? `<span class="chip act">Week ${i / 5 + 1}</span>` : ''}</span><p class="ctk">${esc(f.dow + ' ' + f.dm.slice(3))}</p><b>${esc(String(Number(f.dm.slice(0, 2))))}</b><span>${x.list.length} to pick up</span>
 ${dashLeds([[o, 'o'], [b, 'b'], [u, 'u']], x.outside + ' outside the island, ' + x.island + ' Macintosh Island, ' + x.unknown + ' position to confirm', n)}
 ${tl ? `<span class="chip cand tl816" title="the toilet run: ${tl} load${tl === 1 ? '' : 's'}, ${tu} units">WC ${tu}${tq}</span>` : '<span class="tl816 none"></span>'}</button>`; }).join('');
-	const early = M.outside.length ? `<p class="note816">Dated by the plan outside the window: ${M.outside.map(r => `<button type="button" class="linkish" data-k816="${esc(r.key)}">${esc(r.key)}</button> ${esc(dayWords816(r.iso))}`).join(' · ')}.</p>` : '';
+	/* dated outside the demob days: before or after the window, or a weekend / public holiday inside it - shown, never lost */
+	const offDay = r => r.iso >= M.days[0] && r.iso <= M.days[M.days.length - 1];
+	const early = M.outside.length ? `<p class="note816">Dated outside the demob days: ${M.outside.map(r => `<button type="button" class="linkish" data-k816="${esc(r.key)}">${esc(r.key)}</button> ${esc(dayWords816(r.iso))} (${esc(SRC816[r.src] || r.src)})${offDay(r) ? ' <span class="chip crit wkd816" title="' + esc(OVSRC816) + '">not a demob day - weekend or public holiday: an oversize load over 3.1 m wide or 25 m long may not travel 07:00 to sunset</span>' : ''}`).join(' · ')}.</p>` : '';
 	pane.innerHTML = paneHeadingHtml('demob') + `
 <div class="card hubcard island dialcard racecard dm816 nosfold"><div class="hubtitle"><h3>Demob · pick-up board</h3><span class="chip ref">Mon 26 Oct – Fri 13 Nov</span></div>
 <div class="dmhead816"><div class="pstat"><b>15</b><span>working days</span><em>From the Monday after the race to Fri 13 Nov. Outside the island first, in week 1; Macintosh Island next, in weeks 2 and 3; area by area, then branch and type. Toilets and waste tanks are emptied before they are moved.</em></div>
@@ -449,7 +451,7 @@ function dayHtml816(M, Dy){
 <a class="btn primary" data-mail816="1" href="${esc(mail816(iso, br, shown, T))}">Email ${br === 'all' ? 'the branches' : esc(br)}</a></div></div>
 ${DM816.confirm && ed && prop.length ? `<div class="notice warn confirm816" role="alert"><b>Write ${prop.length} proposed date${prop.length === 1 ? '' : 's'} to the record?</b> ${esc(prop.map(r => r.key + (r.portions ? ' (' + r.portions.map(p => p.n + ' on ' + dayWords816(p.iso)).join(', ') + ')' : r.iso !== iso ? ' (' + dayWords816(r.iso) + ')' : '')).join(', '))} ${prop.length === 1 ? 'becomes' : 'become'} due out ${esc(dayWords816(iso))}${prop.some(r => r.portions || r.iso !== iso) ? ', or on the day shown' : ''}, in your name. Nothing else changes, and each one can be moved again.
 <span class="acts816"><button type="button" class="btn primary" data-conf816="yes">Confirm ${prop.length}</button><button type="button" class="btn ghost" data-conf816="no">Not now</button></span></div>` : ''}
-<div class="regviewsw segs816" role="group" aria-label="What to show">${seg('list', 'Pick-up list · ' + shown.length)}${seg('toilets', 'Toilet run · ' + tl + ' load' + (tl === 1 ? '' : 's') + (tu ? ' · ' + tu : ''))}${seg('pump', 'Pump-out run · ' + Dy.pump.length)}${seg('trucks', 'Trucks and times · ' + T.length)}</div>
+<div class="regviewsw segs816" role="group" aria-label="What to show">${seg('list', 'Pick-up list · ' + shown.length)}${seg('toilets', 'Toilet runs · ' + tl + ' load' + (tl === 1 ? '' : 's') + (tu ? ' · ' + tu : ''))}${seg('pump', 'Pump-out run · ' + Dy.pump.length)}${seg('trucks', 'Trucks and times · ' + T.length)}</div>
 <div class="dmbody816">${body}</div>
 <details class="dsect ovn816"><summary>Oversize: check permit / travel window for ${esc(dayWords816(iso))}</summary><div class="form"><div class="f"><label for="ovn816">Note for this day (kept on this device)</label><textarea id="ovn816" data-ro rows="2" placeholder="Permit, escort or travel window for the buildings and toilet blocks on this day">${esc(ovNote816(iso))}</textarea></div></div></details>`;
 }
@@ -459,7 +461,7 @@ function rowHtml816(r, extra){
 	const ed = canEdit(), what = [(r.a.item_types || []).join(', ') || r.a.product || kindWord(r.a), r.a.name].filter(Boolean).join(' · ');
 	const open = DM816.menu === r.key;
 	return `<tr data-row816="${esc(r.key)}"><td class="refcell" data-label="GC500 ID"><button type="button" class="linkish plateb" data-k816="${esc(r.key)}" aria-label="Open ${esc(r.key)}">${refPlate(r.key, 15)}</button></td>
-<td data-label="What">${esc(what)}${(r.evtN || r.evtUnk) && !r.evtPure ? `<br><span class="w">+ ${r.evtUnk ? 'quantity to confirm' : r.evtN} on the toilet run</span>` : ''}${r.portions ? `<br><span class="w">${esc(r.portions.map(p => p.n + ' on ' + dayWords816(p.iso)).join(', '))} - out ${esc(dayWords816(r.iso))}</span>` : ''}${r.units.some(u => u.unknown) ? ' <span class="chip crit">quantity to confirm</span>' : ''}${r.qtyChange ? ` <span class="chip crit qc816">${esc(r.qtyChange.words)}</span>` : ''}${r.nothing ? ' <span class="chip cand">quantity 0 - nothing to collect</span>' : ''}${r.side === 'unknown' ? ' <span class="chip cand">position to confirm</span>' : ''}${r.sub ? ` <span class="chip subhirechip">${esc(r.sub)}</span>` : ''}${extra || ''}</td>
+<td data-label="What">${esc(what)}${(r.evtN || r.evtUnk) && !r.evtPure ? `<br><span class="w">+ ${r.evtUnk ? 'quantity to confirm' : r.evtN} on the toilet run</span>` : ''}${r.portions ? `<br><span class="w">${esc(r.portions.map(p => p.n + ' on ' + dayWords816(p.iso)).join(', '))} - out ${esc(dayWords816(r.iso))}</span>` : ''}${r.units.some(u => u.unknown) ? ' <span class="chip crit">quantity to confirm</span>' : ''}${r.qtyChange ? ` <span class="chip crit qc816">${esc(r.qtyChange.words)}</span>` : ''}${r.nothing ? ' <span class="chip cand">quantity 0 - nothing to collect</span>' : ''}${(r.streams || []).map(s => ` <span class="chip ref">${s.s === 'sub' ? 'sub-hire pick-up' : 'Coates toilet run'}${r.streams.length > 1 ? ' · ' + s.n : ''}</span>`).join('')}${r.ownerUnk ? ` <span class="chip cand">owner to confirm${r.streams.length ? ' · ' + r.ownerUnk : ''}</span>` : ''}${r.side === 'unknown' ? ' <span class="chip cand">position to confirm</span>' : ''}${r.sub ? ` <span class="chip subhirechip">${esc(r.sub)}</span>` : ''}${extra || ''}</td>
 <td data-label="Branch">${esc(r.branch)}</td><td data-label="Date from">${srcChip816(r.src)} ${notReady816(r)}</td>
 <td data-label="Actions"><details class="menu816"${open ? ' open' : ''} data-menu816="${esc(r.key)}"><summary class="btn ghost sm" aria-label="More for ${esc(r.key)}">More</summary><div>
 <button type="button" class="btn ghost sm" data-k816="${esc(r.key)}">Open ${esc(r.key)}</button>
@@ -473,24 +475,67 @@ function listHtml816(rows){
 	return DM816.order.map(z => { const rs = rows.filter(r => r.zone === z); if (!rs.length) return '';
 		return `<h4 class="area816">${esc(DM816.name[z])} · ${rs.length}</h4><div class="tblwrap daywrap"><table class="daytbl dm816t">${TH816}<tbody>${rs.map(r => rowHtml816(r)).join('')}</tbody></table></div>`; }).join('');
 }
+/* a time, or the words that say it is not known - never a made-up figure */
+function tm816(n){ return n == null ? 'travel time to confirm' : clock816(n); }
+function sideWords816(L){ const s = L.rows[0].r.side; return s === 'inside' ? 'Macintosh Island' : s === 'outside' ? 'outside the island' : 'position to confirm'; }
+/* where a unit is: the destination Navigate uses and where that comes from (pin, master plan), else its reference */
+function where816(r){
+	let D = null; try { D = dest782(r.a); } catch (e) { D = null; }
+	const goes = (S.locations || {})[r.key] || (r.a._locationMoved && r.a._locationMoved.from) || (r.a.locations || []).find(l => l && l !== r.key) || '';
+	return [goes, D ? srcWords816(r.a, D) : 'reference ' + r.key].filter(Boolean).join(' · ');
+}
+function loadCard816(Dy, L, next){
+	const coates = L.stream === 'coates', cap = L.cap;
+	const chip = L.uncertain ? '<span class="chip cand unc816">to confirm - total not certain, count on site</span>'
+		: L.free > 0 ? `<span class="chip act">${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top up from ' + esc(dayWords816(next)) : ''}</span>` : '<span class="chip ok">full</span>';
+	return `<div class="card load816 nosfold" data-load-run816="${esc(L.stream)}"><div class="hubtitle"><h3>Load ${L.n} · ${esc(sideWords816(L))}${L.uncertain ? ' · quantity to confirm' : ''}</h3>${chip}${L.capWarn ? '<span class="chip crit capw816">over 14 - check the truck: 12–14 per load</span>' : ''}</div>
+<div class="cside lg816"><div class="ctile"><p class="ctk">Units on this load</p><b>${L.units}${L.uncertain ? '+' : ''}</b><span>of ${cap}${coates ? ' · this truck' : ' · supplier pick-up'}${L.uncertain ? ' · plus quantity to confirm' : ''}</span>${dashLeds([[L.units / cap, L.rows[0].r.side === 'inside' ? 'b' : 'o']], L.units + ' of ' + cap + ' units', cap)}</div>
+${coates ? `<div class="form cap816"><div class="f"><label for="cap816${esc(L.id)}">This truck takes (units)</label><input id="cap816${esc(L.id)}" type="number" min="1" step="1" data-ro data-cap816="${esc(Dy.iso + '.' + L.id)}" value="${cap}"><div class="hint">12–14 per load (the project manager, 3 Oct 2026) · planned at 12 · kept on this device</div></div></div>` : ''}</div>
+<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>#</th><th>GC500 ID</th><th>Units</th><th>Where</th><th>Date from · emptied</th></tr></thead><tbody>${L.rows.map((x, i) => `<tr><td class="t" data-label="#">${i + 1}</td><td class="refcell" data-label="GC500 ID">${refPlate(x.r.key, 14)}</td><td data-label="Units">${x.r.evtUnk ? (x.n ? x.n + ' + ' : '') + 'quantity to confirm' : x.n + ' unit' + (x.n === 1 ? '' : 's')}${x.part || x.r.portions ? ' (part of ' + (x.r.evtUnk ? 'a total to confirm' : x.r.evtN) + ')' : ''}${x.unplanned ? ' <span class="chip crit">unplanned - quantity changed</span>' : ''}${x.r.qtyChange && !x.unplanned ? ` <span class="chip cand">${esc(x.r.qtyChange.words)}</span>` : ''}</td><td data-label="Where">${esc(DM816.name[x.r.zone])}<br><span class="w">${esc(where816(x.r))}</span></td><td data-label="Date from">${srcChip816(x.r.src)} ${notReady816(x.r)}</td></tr>`).join('')}</tbody></table></div>
+<div class="acts816"><button type="button" class="btn sm" data-print816="load" data-load816="${esc(L.id)}">Print this load</button></div></div>`;
+}
 function toiletHtml816(Dy){
-	if (!Dy.loads.length) return '<p class="note816">No event portables come off site on this day.</p>';
 	const M = demob816(), next = M.days[M.days.indexOf(Dy.iso) + 1];
-	return `<p class="note816">Event portables - single portable toilets and urinals (FWF, Pee Panel) - go 24 to a pick-up. Toilet blocks, accessible toilets, trailers and waste tanks are bigger and stay on the pick-up list. <b>Every unit is pumped out before it is loaded.</b></p>` + Dy.loads.map(L => `<div class="card load816 nosfold"><div class="hubtitle"><h3>Load ${L.n} · ${esc(L.rows[0].r.side === 'inside' ? 'Macintosh Island' : L.rows[0].r.side === 'outside' ? 'outside the island' : 'position to confirm')}${L.uncertain ? ' · quantity to confirm' : ''}</h3>${L.uncertain ? '<span class="chip cand unc816">to confirm - total not certain, count on site</span>' : L.free ? `<span class="chip act">${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top up from ' + esc(dayWords816(next)) : ''}</span>` : '<span class="chip ok">full</span>'}</div>
-<div class="cside lg816"><div class="ctile"><p class="ctk">Units on this load</p><b>${L.units}${L.uncertain ? '+' : ''}</b><span>of ${DM816.cap}${L.uncertain ? ' · plus quantity to confirm' : ''}</span>${dashLeds([[L.units / DM816.cap, L.rows[0].r.side === 'inside' ? 'b' : 'o']], L.units + ' of ' + DM816.cap + ' units', DM816.cap)}</div></div>
-<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>#</th><th>GC500 ID</th><th>Units</th><th>Area</th><th>Date from</th></tr></thead><tbody>${L.rows.map((x, i) => `<tr><td class="t" data-label="#">${i + 1}</td><td class="refcell" data-label="GC500 ID">${refPlate(x.r.key, 14)}</td><td data-label="Units">${x.r.evtUnk ? (x.n ? x.n + ' + ' : '') + 'quantity to confirm' : x.n + ' unit' + (x.n === 1 ? '' : 's')}${x.part || x.r.portions ? ' (part of ' + (x.r.evtUnk ? 'a total to confirm' : x.r.evtN) + ')' : ''}${x.unplanned ? ' <span class="chip crit">unplanned - quantity changed</span>' : ''}${x.r.qtyChange && !x.unplanned ? ` <span class="chip cand">${esc(x.r.qtyChange.words)}</span>` : ''}</td><td data-label="Area">${esc(DM816.name[x.r.zone])}</td><td data-label="Date from">${srcChip816(x.r.src)} ${notReady816(x.r)}</td></tr>`).join('')}</tbody></table></div>
-<div class="acts816"><button type="button" class="btn sm" data-print816="load" data-load816="${L.n}">Print this load</button></div></div>`).join('');
+	const subL = Dy.loads.filter(L => L.stream === 'sub'), coL = Dy.loads.filter(L => L.stream === 'coates');
+	const own = Dy.list.filter(r => r.ownerUnk > 0);
+	if (!Dy.loads.length && !own.length) return '<p class="note816">No event portables come off site on this day.</p>';
+	const co = [...new Set(subL.flatMap(L => L.rows.map(x => x.r.subCo)).filter(Boolean))].join(', ') || 'sub-hire supplier';
+	return `<p class="note816">Event portables - single portable toilets and urinals (FWF, Pee Panel). The sub-hired ones and Coates' own go on separate runs and never share a load. Toilet blocks, accessible toilets, trailers and waste tanks are bigger and stay on the pick-up list. <b>Every unit is pumped out before it is loaded.</b></p>`
+		+ (subL.length ? `<h4 class="area816">Sub-hire pick-up · ${esc(co)} · ${subL.length} load${subL.length === 1 ? '' : 's'}</h4><p class="note816">Supplier's own transport, organised by the supplier (Coopers Plains, Brisbane). This is a pick-up list, not a truck plan: what is ready, in loads of up to 24, on site 07:00–17:00.</p>` + subL.map(L => loadCard816(Dy, L, next)).join('') : '')
+		+ (coL.length ? `<h4 class="area816">Coates toilet run · ${coL.length} load${coL.length === 1 ? '' : 's'}</h4><p class="note816">Coates' own portable toilets, 12–14 per load (the project manager, 3 Oct 2026), planned at 12. A truck the branch confirms at 13 or 14 can be set on its load.</p>` + coL.map(L => loadCard816(Dy, L, next)).join('') : '')
+		+ (own.length ? `<p class="note816 own816"><b>Owner to confirm - on neither run:</b> ${own.map(r => `<button type="button" class="linkish" data-k816="${esc(r.key)}">${esc(r.key)}</button> ${r.ownerUnk} unit${r.ownerUnk === 1 ? '' : 's'}`).join(' · ')}. Nothing on the record says whether these are Coates' or the supplier's.</p>` : '');
 }
 function pumpHtml816(Dy){
 	if (!Dy.pump.length) return '<p class="note816">Nothing due for pick-up today or tomorrow still needs pumping out.</p>';
 	const ed = canEdit();
 	return `<p class="note816"><b>Pump out ahead of the truck</b> - the day before the pick-up, or first thing that morning. No toilet or waste tank is loaded until it is emptied.</p><div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>GC500 ID</th><th>What</th><th>Area</th><th>Pick-up</th><th></th></tr></thead><tbody>` + Dy.pump.map(({r, when}) => `<tr><td class="refcell" data-label="GC500 ID"><button type="button" class="linkish plateb" data-k816="${esc(r.key)}">${refPlate(r.key, 15)}</button></td><td data-label="What">${esc(r.units.filter(u => u.n > 0 || u.unknown).map(u => partWords816(u)).join(', ') || kindWord(r.a))}${r.tank ? '<br><span class="w">toilet first, then the tank under it</span>' : ''}</td><td data-label="Area">${esc(DM816.name[r.zone])}</td><td data-label="Pick-up">${when === 'today' ? 'today - pump first thing' : esc(dayWords816(r.iso))} ${notReady816(r)}</td><td data-label="">${ed ? `<button type="button" class="btn sm primary" data-emp816="${esc(r.key)}">Emptied (pumped out)</button>` : ''}</td></tr>`).join('') + '</tbody></table></div>';
 }
+function ovHtml816(L){
+	if (L.kind === 'toilets' || L.kind === 'supplier') return '';
+	const tog = `<label class="ovt816"><input type="checkbox" data-ro data-ov816="${esc(L.ovId)}"${L.ov ? ' checked' : ''}> Oversize load (the branch's flag)</label>`;
+	if (!L.ov) return `<div class="acts816 ov816">${tog}</div>`;
+	const c = L.ovc;
+	return `<div class="acts816 ov816">${tog}<span class="chip crit" title="${esc(OVSRC816)}">Oversize: check permit / travel window</span></div>
+<p class="note816" title="${esc(OVSRC816)}">On Gold Coast roads 09:00–16:00 only · latest departure ${c.latest != null ? clock816(c.latest) + ' (16:00 less ' + L.t.travel + ' min)' : 'travel time to confirm'} · pilot / escort: check permit · Check TMR Conditions of Operation Database before each trip</p>
+${c.flags.map(f => `<span class="chip crit ovf816">${esc(f)}</span>`).join(' ')}`;
+}
+function travelHtml816(T){
+	const runs = [...new Set(T.filter(L => L.run).map(L => L.run))];
+	if (!runs.length) return '';
+	const lab = {coates: 'Coates toilet run - Kingston ⇄ site, each way (min)', branch: 'Branch trucks - Kingston ⇄ site, each way (min)'};
+	return `<div class="form asg816 trv816">${runs.map(k => { const tv = travel816(k); return `<div class="f"><label for="trv816${k}">${esc(lab[k])}</label><input id="trv816${k}" type="number" min="1" step="1" data-ro data-trv816="${k}" value="${tv.v != null ? tv.v : ''}" placeholder="to confirm"><div class="hint">${esc(tv.v == null ? 'travel time to confirm' : tv.words)}${tv.basis ? ' · ' + esc(tv.basis.replace(/ - a planning figure, not a live time$/, '').replace(/ — a planning figure, not a live time$/, '')) : ''}</div></div>`; }).join('')}</div>`;
+}
 function trucksHtml816(Dy, T){
 	if (!T.length) return '<p class="note816">No truck runs for this branch on this day.</p>';
-	return `<p class="note816">Site hours 07:00–17:00. No travel to or from the Gold Coast 07:00–09:00 or 16:00–18:00. Times are a planning sketch from the assumptions below, not a booking.</p>` + T.map(L => `<div class="card load816 truck816 nosfold"><div class="hubtitle"><h3>${esc(L.group)} · truck ${L.truck} · load ${L.n} of ${L.of}</h3>${L.kind === 'oversize' ? '<span class="chip crit">Oversize: check permit / travel window</span>' : L.kind === 'toilets' ? `<span class="chip cand">toilet run · ${L.toilet.units}${L.toilet.uncertain ? ' + to confirm' : ''} of 24</span>` : ''}</div>
-<p class="note816">Leave Kingston ${clock816(L.t.dep)} · on site ${clock816(L.t.arrive)} · leave site ${clock816(L.t.leave)} · back ${clock816(L.t.back)}</p>
-<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>Time</th><th>GC500 ID</th><th>What · units</th><th>Area</th><th></th></tr></thead><tbody>${L.t.st.map(s => `<tr><td class="t" data-label="Time">${clock816(s.at)}</td><td class="refcell" data-label="GC500 ID">${refPlate(s.s.r.key, 14)}</td><td data-label="What">${esc(s.s.parts.map(partWords816).join(', '))}</td><td data-label="Area">${esc(DM816.name[s.s.area])}</td><td data-label="">${notReady816(s.s.r)}</td></tr>`).join('')}</tbody></table></div>${L.t.over ? '<p class="chip crit">This load does not fit the site hours - split it.</p>' : ''}
+	return `<p class="note816">Site hours 07:00–17:00. No travel to or from the Gold Coast 07:00–09:00 or 16:00–18:00. Times are a planning sketch from the travel times and assumptions here, not a booking.</p>${travelHtml816(T)}` + T.map(L => L.kind === 'supplier'
+		? `<div class="card load816 truck816 sup816 nosfold"><div class="hubtitle"><h3>${esc(L.group)} · load ${L.n} of ${L.of}</h3><span class="chip cand">supplier's own transport · ${L.toilet.units}${L.toilet.uncertain ? ' + to confirm' : ''} of 24</span></div>
+<p class="note816">Organised by the supplier (Coopers Plains, Brisbane). No departure or travel time is planned here. On site 07:00–17:00.</p>
+<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>GC500 ID</th><th>What · units</th><th>Where</th><th>Emptied</th></tr></thead><tbody>${L.t.st.map(s => `<tr><td class="refcell" data-label="GC500 ID">${refPlate(s.s.r.key, 14)}</td><td data-label="What">${esc(s.s.parts.map(partWords816).join(', '))}</td><td data-label="Where">${esc(DM816.name[s.s.area])}<br><span class="w">${esc(where816(s.s.r))}</span></td><td data-label="Emptied">${notReady816(s.s.r)}</td></tr>`).join('')}</tbody></table></div>
+<div class="acts816"><button type="button" class="btn sm" data-print816="truck" data-truck816="${L.n}">Print this pick-up list</button></div></div>`
+		: `<div class="card load816 truck816 nosfold"><div class="hubtitle"><h3>${esc(L.group)} · truck ${L.truck} · load ${L.n} of ${L.of}</h3>${L.kind === 'toilets' ? `<span class="chip cand">Coates toilet run · ${L.toilet.units}${L.toilet.uncertain ? ' + to confirm' : ''} of ${L.toilet.cap}</span>` : ''}</div>
+<p class="note816">Leave Kingston ${tm816(L.t.dep)} · on site ${clock816(L.t.arrive)} · leave site ${clock816(L.t.leave)} · back ${tm816(L.t.back)}</p>
+${ovHtml816(L)}
+<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>Time</th><th>GC500 ID</th><th>What · units</th><th>Area</th><th></th></tr></thead><tbody>${L.t.st.map(s => `<tr><td class="t" data-label="Time">${clock816(s.at)}</td><td class="refcell" data-label="GC500 ID">${refPlate(s.s.r.key, 14)}</td><td data-label="What">${esc(s.s.parts.map(partWords816).join(', '))}${s.s.afterSupplier ? '<br><span class="w">after the supplier has lifted the toilet off it</span>' : ''}</td><td data-label="Area">${esc(DM816.name[s.s.area])}</td><td data-label="">${notReady816(s.s.r)}</td></tr>`).join('')}</tbody></table></div>${L.t.over ? '<p class="chip crit">This load does not fit the site hours - split it.</p>' : ''}
 <div class="acts816"><button type="button" class="btn sm" data-print816="truck" data-truck816="${L.n}">Print this load</button></div></div>`).join('');
 }
 function assumeHtml816(){
@@ -505,7 +550,8 @@ function mail816(iso, br, rows, T){
 	DM816.order.forEach(z => { const rs = rows.filter(r => r.zone === z); if (!rs.length) return;
 		L.push(DM816.name[z] + ':'); rs.forEach(r => L.push('- ' + r.key + ' - ' + ((r.a.item_types || []).join(', ') || kindWord(r.a)) + ' (' + r.branch + ', ' + r.src + ')' + (r.nothing ? ' - quantity 0, nothing to collect' : r.empty && !r.emptied ? ' - NOT READY: empty first' : '') + (r.qtyChange ? ' - ' + r.qtyChange.words.toUpperCase() : ''))); L.push(''); });
 	const Dy = demob816().day[iso];
-	if (Dy && Dy.loads.length) { L.push('Toilet run (24 a load):'); Dy.loads.forEach(Ld => L.push('- Load ' + Ld.n + ' - ' + Ld.units + (Ld.uncertain ? ' + quantity to confirm' : '') + ' of 24: ' + Ld.rows.map(x => x.r.key + ' x' + (x.r.evtUnk ? (x.n ? x.n + '+?' : '? (quantity to confirm)') : x.n) + (x.unplanned ? ' (unplanned - quantity changed)' : '')).join(', '))); L.push(''); }
+	if (Dy && Dy.loads.length) [['sub', 'Sub-hire pick-up (the supplier\'s own transport, up to 24 a load):'], ['coates', 'Coates toilet run (12-14 a load, planned at 12):']].forEach(([s, head]) => { const Ls = Dy.loads.filter(Ld => Ld.stream === s); if (!Ls.length) return; L.push(head); Ls.forEach(Ld => L.push('- Load ' + Ld.n + ' - ' + Ld.units + (Ld.uncertain ? ' + quantity to confirm' : '') + ' of ' + Ld.cap + ': ' + Ld.rows.map(x => x.r.key + ' x' + (x.r.evtUnk ? (x.n ? x.n + '+?' : '? (quantity to confirm)') : x.n) + (x.unplanned ? ' (unplanned - quantity changed)' : '')).join(', '))); L.push(''); });
+	{ const own = rows.filter(r => r.ownerUnk > 0); if (own.length) { L.push('Owner to confirm - on neither run: ' + own.map(r => r.key + ' ' + r.ownerUnk).join(', ')); L.push(''); } }
 	L.push('Proposed dates are not booked until they are confirmed on the page. Draft - check before sending.');
 	let body = L.join('\n'); const cap = typeof DP_MAIL_MAX === 'number' ? DP_MAIL_MAX : 1800;
 	if (body.length > cap) body = body.slice(0, cap - 60) + '\n... and more - see the Demob tab.';
@@ -530,10 +576,19 @@ function wireDemob816(pane){
 	pane.querySelectorAll('[data-mv816]').forEach(b => b.onclick = () => { const k = b.dataset.mv816, s = pane.querySelector('[data-mvd816="' + k + '"]'); if (!s) return; DM816.menu = null; setDate(k, s.value, 'out'); });
 	pane.querySelectorAll('[data-emp816]').forEach(b => b.onclick = () => { const k = b.dataset.emp816; setEmptied816(k, !emptiedOf816(k).on); });
 	pane.querySelectorAll('[data-col816]').forEach(b => b.onclick = () => { collect816(b.dataset.col816); });
-	pane.querySelectorAll('[data-print816]').forEach(b => b.onclick = () => printDay816(DM816.sel, DM816.branch, b.dataset.print816, Number(b.dataset.load816 || b.dataset.truck816 || 0)));
+	pane.querySelectorAll('[data-print816]').forEach(b => b.onclick = () => printDay816(DM816.sel, DM816.branch, b.dataset.print816, b.dataset.load816 || Number(b.dataset.truck816 || 0)));
 	const ov = pane.querySelector('#ovn816'); if (ov) ov.onchange = () => ovNote816(DM816.sel, ov.value.trim());
 	pane.querySelectorAll('input[data-asm816]').forEach(i => i.onchange = () => { let m = {}; try { m = JSON.parse(localStorage.getItem(ASSUME816_KEY) || '{}') || {}; } catch (e) {} const v = Number(i.value);
 		if (isFinite(v) && v > 0) m[i.dataset.asm816] = v; else delete m[i.dataset.asm816]; try { localStorage.setItem(ASSUME816_KEY, JSON.stringify(m)); } catch (e) {} redraw(); });
+	/* a Coates truck's capacity (12 planned; 13 or 14 once the branch confirms it; above 14 warns) - kept on this device */
+	pane.querySelectorAll('input[data-cap816]').forEach(i => i.onchange = () => { const v = Math.round(Number(i.value)), k = 'gc500.demob816.cap.' + i.dataset.cap816;
+		try { if (isFinite(v) && v > 0 && v !== RUN816.coates.cap) localStorage.setItem(k, String(v)); else localStorage.removeItem(k); } catch (e) {}
+		if (v > RUN816.coates.max) flash('Over ' + RUN816.coates.max + ' on one load - check the truck: Coates portable toilets go 12–14 per load.'); redraw(); });
+	/* a run's travel time: the planning figure until somebody types the real one; blank means "to confirm" */
+	pane.querySelectorAll('input[data-trv816]').forEach(i => i.onchange = () => { let m = {}; try { m = JSON.parse(localStorage.getItem(TRAVEL816_KEY) || '{}') || {}; } catch (e) { m = {}; }
+		const v = String(i.value).trim(), k = i.dataset.trv816; if (v === '') m[k] = ''; else if (Number(v) > 0) m[k] = Math.round(Number(v)); else delete m[k];
+		try { localStorage.setItem(TRAVEL816_KEY, JSON.stringify(m)); } catch (e) {} redraw(); });
+	pane.querySelectorAll('input[data-ov816]').forEach(i => i.onchange = () => { ovFlag816(i.dataset.ov816, i.checked); redraw(); });
 	const rs = pane.querySelector('button[data-asm816="reset"]'); if (rs) rs.onclick = () => { try { localStorage.removeItem(ASSUME816_KEY); } catch (e) {} redraw(); };
 	{ const st = pane.querySelector('.strip816'), on = st && st.querySelector('.dday816.on'); if (st && on) { const l = on.offsetLeft - st.clientWidth / 2 + on.offsetWidth / 2; if (l > 0 && st.scrollWidth > st.clientWidth) st.scrollLeft = l; } }
 }
@@ -555,29 +610,35 @@ function confirm816(iso, br){
 }
 /* -------- the run sheets: one A4 per load, in the day documents' look */
 function sheet816(iso, L){
-	const A = assume816(), dep = DATA.depot || {}, rules = DATA.driver_rules || {};
+	const A = assume816(), dep = DATA.depot || {}, rules = DATA.driver_rules || {}, sup = L.kind === 'supplier';
 	const emp = L.stops.some(s => s.r.empty), pairs = L.stops.filter(s => s.parts.some(p => p.tank) && s.parts.some(p => !p.tank));
 	const box = n => '<span class="rsb816">' + '<i></i>'.repeat(Math.max(1, Math.min(n, 30))) + '</span>';
+	const emptied = r => { if (!r.empty) return '<span class="na">-</span>'; const e = emptiedOf816(r.key); return e.on ? `<div>emptied · ${esc(e.by || '')}</div><span>${esc(fmtStamp(e.at))}</span>` : '<div class="nr">NOT READY: empty first</div>'; };
 	const rows = L.t.st.map((x, i) => { const s = x.s, r = s.r;
-		return `<tr><td class="c">${i + 1}</td><td>${clock816(x.at)}</td><td><b>${esc(DM816.name[r.zone])}</b><span>${esc(wayIn816(r.a, {zone: r.zone, sea: null}))}</span></td><td class="pl">${esc(r.key)}</td>
-<td>${s.parts.map(p => `<div>${esc(partWords816(p))}</div>`).join('')}${r.empty && !r.emptied ? '<div class="nr">NOT READY: empty first</div>' : ''}${r.qtyChange ? `<div class="nr">${esc(r.qtyChange.words)}</div>` : ''}</td>
-<td>${r.empty ? s.parts.map(p => p.unknown ? box(1) + '<span>count them</span>' : box(p.n)).join('') : '<span class="na">-</span>'}</td><td>${box(1)}</td></tr>`; }).join('');
+		return `<tr><td class="c">${i + 1}</td>${sup ? '' : `<td>${clock816(x.at)}</td>`}<td><b>${esc(DM816.name[r.zone])}</b><span>${esc(sup ? where816(r) : wayIn816(r.a, {zone: r.zone, sea: null}))}</span></td><td class="pl">${esc(r.key)}</td>
+<td>${s.parts.map(p => `<div>${esc(partWords816(p))}</div>`).join('')}${s.afterSupplier ? '<div>after the supplier has lifted the toilet off it</div>' : ''}${sup ? '' : r.empty && !r.emptied ? '<div class="nr">NOT READY: empty first</div>' : ''}${r.qtyChange ? `<div class="nr">${esc(r.qtyChange.words)}</div>` : ''}</td>
+${sup ? `<td>${emptied(r)}</td>` : ''}<td>${r.empty ? s.parts.map(p => p.unknown ? box(1) + '<span>count them</span>' : box(p.n)).join('') : '<span class="na">-</span>'}</td><td>${box(1)}</td></tr>`; }).join('');
+	const keys = sup
+		? `<span><label>Site hours</label><b>07:00–17:00</b></span><span><label>Pick-up</label><b>${esc(dayWords816(iso))}</b></span><span><label>Transport</label><b>Supplier's own</b><em>organised by the supplier (Coopers Plains, Brisbane)</em></span><span><label>Units</label><b>${L.toilet.units}${L.toilet.uncertain ? '+' : ''} of 24</b></span><span><label>Supplier</label><b>${esc(L.co)}</b></span><span><label>Area</label><b>${esc(sideWords816(L.toilet))}</b></span>`
+		: `<span><label>Site hours</label><b>07:00–17:00</b></span><span><label>Depot</label><b>${esc(dep.name || 'Coates Kingston')}</b>${dep.address ? `<em>${esc(dep.address)}</em>` : ''}</span><span><label>Leave Kingston</label><b>${esc(tm816(L.t.dep))}</b></span><span><label>On site</label><b>${clock816(L.t.arrive)}</b></span><span><label>Leave site</label><b>${clock816(L.t.leave)}</b></span><span><label>Back</label><b>${esc(tm816(L.t.back))}</b></span>`;
+	const ov = L.ov ? `<div class="rso816">Oversize (the branch's flag): on Gold Coast roads 09:00–16:00 only · latest departure ${L.ovc.latest != null ? clock816(L.ovc.latest) : 'travel time to confirm'} · pilot / escort: check permit · check the TMR Conditions of Operation Database before each trip.${L.ovc.flags.length ? ' ' + esc(L.ovc.flags.join('; ')) + '.' : ''}${ovNote816(iso) ? ' Note: ' + esc(ovNote816(iso)) : ''}</div>` : '';
+	const tv = L.run ? travel816(L.run) : null;
 	return `<div class="dp-page dp-drv rs816${L.t.st.length > 5 ? ' rsc816' : ''}"><header class="dp-hd"><div class="dp-hd-l"><b>Coates</b><span>Industrial Solutions</span></div>
-<div class="dp-hd-m"><span>Demob run sheet · GC500 2026</span><h1>Collection · ${esc(fmtDate(iso))}</h1></div>
-<div class="dp-hd-r"><b>${esc(L.group)}</b><span class="dp-lx">Truck ${L.truck} · Load ${L.n} of ${L.of}</span></div></header>
-<div class="rsk816"><span><label>Site hours</label><b>07:00–17:00</b></span><span><label>Depot</label><b>${esc(dep.name || 'Coates Kingston')}</b>${dep.address ? `<em>${esc(dep.address)}</em>` : ''}</span><span><label>Leave Kingston</label><b>${clock816(L.t.dep)}</b></span><span><label>On site</label><b>${clock816(L.t.arrive)}</b></span><span><label>Leave site</label><b>${clock816(L.t.leave)}</b></span><span><label>Back</label><b>${clock816(L.t.back)}</b></span></div>
+<div class="dp-hd-m"><span>Demob ${sup ? 'pick-up list' : 'run sheet'} · GC500 2026</span><h1>Collection · ${esc(fmtDate(iso))}</h1></div>
+<div class="dp-hd-r"><b>${esc(L.group)}</b><span class="dp-lx">${sup ? 'Pick-up' : 'Truck ' + L.truck} · Load ${L.n} of ${L.of}</span></div></header>
+<div class="rsk816">${keys}</div>
 ${emp ? '<div class="rsw816">MUST BE EMPTIED BEFORE LOADING — DO NOT LOAD IF NOT PUMPED OUT. Tick each unit as it is pumped out.</div>' : ''}
-${L.kind === 'oversize' ? `<div class="rso816">Oversize: check permit / travel window before this truck leaves.${ovNote816(iso) ? ' Note: ' + esc(ovNote816(iso)) : ''}</div>` : ''}
-<section class="dp-sec"><h2>Stops, in pick-up order</h2><table class="rst816"><thead><tr><th>#</th><th>Time</th><th>Area · way in</th><th>Ref</th><th>What · units</th><th class="pu816">Pumped out</th><th>Loaded</th></tr></thead><tbody>${rows}</tbody></table></section>
+${ov}
+<section class="dp-sec"><h2>${sup ? 'Ready for pick-up' : 'Stops, in pick-up order'}</h2><table class="rst816"><thead><tr><th>#</th>${sup ? '' : '<th>Time</th>'}<th>${sup ? 'Where it is' : 'Area · way in'}</th><th>Ref</th><th>What · units</th>${sup ? '<th>Emptied</th>' : ''}<th class="pu816">Pumped out</th><th>Loaded</th></tr></thead><tbody>${rows}</tbody></table></section>
 ${pairs.length ? `<section class="dp-sec"><h2>Toilet before tank</h2><p>${pairs.map(s => `<b>${esc(s.r.key)}</b>: lift the toilet off first, then the waste tank under it.`).join(' ')}</p></section>` : ''}
-<section class="dp-sec"><h2>Rules</h2><p>No travel to or from the Gold Coast 07:00–09:00 or 16:00–18:00. ${esc(rules.escort || '')} ${rules.ppe ? 'PPE: ' + esc(rules.ppe.join(', ')) + '.' : ''} Times are planned from: ${esc(A.run.lab)} ${A.run.v} min; ${esc(A.between.lab.toLowerCase())} ${A.between.v} min; ${esc(A.stop.lab.toLowerCase())} ${A.stop.v} min${L.kind === 'toilets' ? '; each event portable ' + A.unit.v + ' min' : ''} - a planning sketch, not a booking.</p></section>
+<section class="dp-sec"><h2>Rules</h2><p>${sup ? 'On site 07:00–17:00. No unit is loaded until it is recorded as emptied, by name and time. A waste tank goes after the toilet on it. The supplier organises its own transport; no times are planned here.' : `No travel to or from the Gold Coast 07:00–09:00 or 16:00–18:00. ${esc(rules.escort || '')} ${rules.ppe ? 'PPE: ' + esc(rules.ppe.join(', ')) + '.' : ''} Times are planned from: travel ${tv && tv.v != null ? tv.v + ' min each way (' + esc(tv.words) + ')' : 'to confirm'}; ${esc(A.between.lab.toLowerCase())} ${A.between.v} min; ${esc(A.stop.lab.toLowerCase())} ${A.stop.v} min${L.kind === 'toilets' ? '; each event portable ' + A.unit.v + ' min' : ''} - a planning sketch, not a booking.`}</p></section>
 ${L.t.st.length <= 5 ? '<section class="dp-sec rsn816"><h2>Notes on site</h2><i></i><i></i><i></i><i></i></section>' : ''}
-<section class="dp-sec rss816"><h2>Sign-off</h2><div><span>Driver</span><i></i><span>Signature</span><i></i><span>Time</span><i></i></div><div><span>Site lead</span><i></i><span>Signature</span><i></i><span>Time</span><i></i></div></section>
+<section class="dp-sec rss816"><h2>Sign-off</h2><div><span>${sup ? 'Supplier' : 'Driver'}</span><i></i><span>Signature</span><i></i><span>Time</span><i></i></div><div><span>Site lead</span><i></i><span>Signature</span><i></i><span>Time</span><i></i></div></section>
 <div class="dp-ft"><span><b>${esc(DATA.brand.org || 'Coates Industrial Solutions')} · GC500 2026 · Author: ${esc(DATA.brand.author || 'Andrew Fisher')}</b></span><span>A proposed date is not a booking until it is confirmed on the page</span><span>Demob · ${esc(fmtDate(iso))} · Load ${L.n} of ${L.of}</span></div></div>`;
 }
 function printDay816(iso, br, what, n){
 	let T = trucks816(iso, br);
-	if (what === 'load') T = T.filter(L => L.kind === 'toilets' && L.toilet.n === n);
+	if (what === 'load') T = T.filter(L => L.toilet && L.toilet.id === n);
 	if (what === 'truck') T = T.filter(L => L.n === n);
 	if (!T.length) { flash('Nothing to print for ' + dayWords816(iso) + '.'); return 0; }
 	const wrap = document.getElementById('dayprint') || (() => { const e = document.createElement('div'); e.id = 'dayprint'; document.body.appendChild(e); return e; })();
