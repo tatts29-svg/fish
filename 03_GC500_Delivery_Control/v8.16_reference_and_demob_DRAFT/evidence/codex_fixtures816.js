@@ -34,6 +34,12 @@ block('gate fixtures 1-5', () => {
   ok(run(c, "emptyGate816('WC01','in transit') === false && incoming816('WC01') === false && emptyGate816('WC01','in transit',true) === false") === true, '2 gate_unrecorded_or_non_green_light: from the collection window a move with no recorded arrival is outgoing - refused');
   c.todayIso = () => '2026-10-10';
   ok(run(c, "incoming816('WC01') === true && emptyGate816('WC01','in transit') === true && emptyGate816('WC01','in transit',true) === false") === true, '2c before its collection window a unit never on site is an incoming trip (named), and the collection path is still refused');
+  /* 968aefb #5: from the first event day a unit the record never had on site may have been used - not an incoming trip */
+  run(c, "var EVENT_DAYS = ['2026-10-23','2026-10-24','2026-10-25']"); c.todayIso = () => '2026-10-23';
+  ok(run(c, "incoming816('WC01') === false && emptyGate816('WC01','in transit') === false") === true, '2d [968aefb #5] from the first event day (23 Oct) a unit with no recorded arrival is not an incoming trip - refused until emptied');
+  c.todayIso = () => '2026-10-22';
+  ok(run(c, "incoming816('WC01') === true") === true, '2e the day before the event a unit never on site is still an incoming delivery');
+  run(c, "EVENT_DAYS = []");
   c.todayIso = () => '2026-10-26';
   c.S.delivery.WC01 = {state: 'not on site', history: [{state: 'on site', at: '2026-10-01T00:00:00Z'}]};
   ok(run(c, "emptyGate816('WC01','in transit')") === false, '2b a unit that has been on site and now shows red is refused (no light shortcut)');

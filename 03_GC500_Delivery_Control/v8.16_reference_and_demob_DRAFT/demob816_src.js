@@ -110,9 +110,11 @@ function everOnSite816(key){ const d = deliveryOf(key); return d.state === 'on s
  delivery, not a collection. Every collection path (the Demob tab's Collected) is gated whatever this says. */
 function incoming816(key){
 	if (everOnSite816(key)) return false;
-	/* from the first collection day (its own planned out date, or the start of demob, whichever is earlier) every move is outgoing */
+	/* from the first event day, or its own planned out date, or the start of demob - whichever is earliest - every move is
+	 outgoing: a toilet that may have been used is never assumed to be on its way in */
 	let out = null; try { const r = demobOf816(key); out = r && r.iso; } catch (e) { out = null; }
-	const from = [DM816.start, out].filter(Boolean).sort()[0];
+	const ev0 = (typeof EVENT_DAYS !== 'undefined' && EVENT_DAYS.length ? EVENT_DAYS.slice().sort()[0] : null);
+	const from = [DM816.start, out, ev0].filter(Boolean).sort()[0];
 	return todayIso() < from;
 }
 function emptyGate816(key, state, force){
@@ -409,7 +411,7 @@ function trucksHtml816(Dy, T){
 function assumeHtml816(){
 	const A = assume816();
 	return `<div class="card nosfold asm816"><details class="dsect"><summary>Planning assumptions behind the run sheets · edit</summary>
-<p class="note816">Site hours 07:00–17:00 (Andrew, 3 Oct 2026). No travel to the Gold Coast 07:00–09:00 or 16:00–18:00 (the project manager, 2 Oct 2026). Changes here are kept on this device only and change no record.</p>
+<p class="note816">Site hours 07:00–17:00 (the project manager, 3 Oct 2026). No travel to the Gold Coast 07:00–09:00 or 16:00–18:00 (the project manager, 2 Oct 2026). Changes here are kept on this device only and change no record.</p>
 <div class="form asg816">${Object.keys(A).map(k => `<div class="f"><label for="asm816${k}">${esc(A[k].lab)} (${k === 'perLoad' ? 'pieces' : 'min'})</label><input id="asm816${k}" type="number" min="1" step="1" data-ro data-asm816="${k}" value="${esc(String(A[k].v))}"><div class="hint">${esc(A[k].why)}${A[k].edited ? ' · changed on this device' : ''}</div></div>`).join('')}</div>
 <button type="button" class="btn ghost sm" data-asm816="reset">Back to the page's figures</button></details></div>`;
 }
