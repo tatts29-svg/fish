@@ -61,6 +61,22 @@ function units816(a){
 	return rows.map(r => { const q = r.qty_supplied != null ? r.qty_supplied : r.qty_asked, unknown = q == null || q === '' || !isFinite(Number(q));
 		return {type: r.asked, n: unknown ? 0 : Number(q), unknown, evt: EVT816.test(String(r.asked).trim()), tank: TANK816.test(r.asked)}; });
 }
+/* WHO OWNS THE PORTABLES - two runs that never mix (the project manager, 3 Oct 2026: "Its the subhired porta loos will
+ go on a run... coates portaloos will go on their own run if any"). Read from the v7.29 inventory's own record: the
+ supplier's units on the reference (subOf) and the Coates asset numbers on it (invCountNums, by item where itemNumbersOf
+ has them). A unit nobody has recorded as either is "owner to confirm" and goes on neither run. */
+const RUN816 = {sub: {cap: 24, words: 'Sub-hire toilet run'}, coates: {cap: 12, max: 14, words: 'Coates toilet run'}};
+function owner816(a, u, evtN, evtUnk){
+	let subs = [], nums = [], LM = null, site = null;
+	try { subs = subOf(a.key) || []; } catch (e) {} try { nums = (invCountNums(a) || []).map(String); } catch (e) {}
+	try { LM = itemNumbersOf(a); } catch (e) {} try { site = subhireOf(a.key); } catch (e) {}
+	const co = [...new Set(subs.map(s => s && s.co).filter(Boolean))].join(', ') || (site && site.co) || '';
+	const pure = u.every(x => x.evt), cn = new Set(nums);
+	const coatesNums = LM ? u.filter(x => x.evt).reduce((s, x) => s + (LM[x.type] || []).filter(n => cn.has(String(n))).length, 0) : pure ? nums.length : 0;
+	if (evtUnk) { const s = subs.length || site ? 'sub' : coatesNums ? 'coates' : null; return {streams: s ? [{s, n: evtN}] : [], ownerUnk: s ? 0 : Math.max(evtN, 1), co}; }
+	const sub = Math.min(subs.length, evtN), coates = Math.min(coatesNums, evtN - sub), unk = evtN - sub - coates;
+	return {streams: [sub ? {s: 'sub', n: sub} : null, coates ? {s: 'coates', n: coates} : null].filter(Boolean), ownerUnk: unk, co};
+}
 function needsEmpty816(a){ const x = a && a.key ? a : assetOf(a); if (!x) return false; return refKind(x) === 'toilet' || (x.item_types || []).some(t => TANK816.test(t)); }
 function emptiedOf816(key){
 	const l = (S.delivery || {})[key] || {}, c = ((typeof CROW !== 'undefined' && CROW.get(key)) || {}).delivery || {};
@@ -199,7 +215,8 @@ function demob816(){
 		let br = '—'; try { const b = branchOf(a.key); br = (b && (b.code || b)) || '—'; } catch (e) {}
 		if (typeof br !== 'string') br = '—';
 		const src = d.out_date ? 'confirmed' : plan ? 'plan' : c.early ? 'contract' : 'proposed';
-		return {key: a.key, a, kind: refKind(a), branch: br, zone: z.zone, side: z.side, pt: z.pt, src,
+		const own = owner816(a, u, evtN, evtUnk);
+		return {key: a.key, a, kind: refKind(a), branch: br, zone: z.zone, side: z.side, pt: z.pt, src, streams: own.streams, ownerUnk: own.ownerUnk, subCo: own.co,
 			iso: d.out_date || plan || c.early || null, contractEnd: c.last, units: u, evtN, evtUnk, evtPure: (evtN > 0 || evtUnk) && !other.length, ...(() => { const rc = reconcile816(storedPortions816(a.key, d.out_date), evtN, evtUnk, d.out_date); return {portions: rc.portions, qtyChange: rc.qty}; })(),
 			nothing: u.length > 0 && u.every(x => !x.unknown && x.n === 0), empty: needsEmpty816(a), emptied: emptiedOf816(a.key).on, big: refKind(a) === 'building' || u.some(x => !x.evt && (x.n > 0 || x.unknown) && BIG816.test(x.type)),
 			tank: u.some(x => x.tank && (x.n > 0 || x.unknown)), sub: (() => { try { const s = subhireOf(a.key); return s ? s.co : null; } catch (e) { return null; } })()};
@@ -209,17 +226,19 @@ function demob816(){
 	const prop = refs.filter(r => r.src === 'proposed').sort(cmp816);
 	const outP = prop.filter(r => r.side === 'outside'), inP = prop.filter(r => r.side === 'inside'), unkP = prop.filter(r => r.side === 'unknown');
 	/* the event portables go as full loads: outside first, then the island (and those with no position last) */
-	const packs = r => r.evtPure && (r.evtN > 0 || r.evtUnk); /* a known quantity of 0 makes no load; an unknown one rides as "to confirm" */
-	const loadsOut = pack816(outP.filter(packs), DM816.cap), loadsIn = pack816(inP.filter(packs), DM816.cap), loadsUnk = pack816(unkP.filter(packs), DM816.cap);
+	const packs = r => r.evtPure && (r.evtN > 0 || r.evtUnk) && r.streams.length > 0; /* a known 0 makes no load; an unknown quantity rides as "to confirm"; an unknown owner rides on neither run */
+	/* each run packs on its own: the supplier's at up to 24, Coates at 12 - a load never holds both */
+	const packRun = rs => ['sub', 'coates'].flatMap(s => pack816(rs.filter(packs).flatMap(r => r.streams.filter(x => x.s === s).map(x => ({r, n: x.n}))), RUN816[s].cap).map(L => Object.assign(L, {stream: s})));
+	const loadsOut = packRun(outP), loadsIn = packRun(inP), loadsUnk = packRun(unkP);
 	const block = L => ({load: L, size: L.rows.length, key: L.rows[0].r});
-	const queue = (rs, Ls) => rs.filter(r => !r.evtPure).map(r => ({r, size: 1, key: r})).concat(Ls.map(block)).sort((x, y) => cmp816(x.key, y.key));
+	const queue = (rs, Ls) => rs.filter(r => !packs(r)).map(r => ({r, size: 1, key: r})).concat(Ls.map(block)).sort((x, y) => cmp816(x.key, y.key));
 	/* balanced per day, in order: each day is filled to its share of the window's running total (fixed dates included),
 	 so the order holds - outside before the island, area by area - and the remainder lands at the end */
 	const fill = (Q, days) => {
 		const n = days.length, base = days.map(d => refs.filter(r => r.iso === d || (r.portions && r.portions.some(p => p.iso === d))).length);
 		/* a reference split over loads keeps a portion per load, each with its own day; its out date is the last of them */
 		const put = (it, k) => { const iso = days[k]; if (!it.load) { it.r.iso = iso; return; } it.load.iso = iso;
-			it.load.rows.forEach(x => { x.iso = iso; if (x.r.split816) { x.r.portions = portionIds816((x.r.portions || []).concat([{iso, n: x.n}])); x.r.iso = x.r.portions.map(p => p.iso).sort().pop(); } else x.r.iso = iso; }); };
+			it.load.rows.forEach(x => { x.iso = iso; if (x.r.split816 && x.r.streams.length === 1) { x.r.portions = portionIds816((x.r.portions || []).concat([{iso, n: x.n}])); x.r.iso = x.r.portions.map(p => p.iso).sort().pop(); } else x.r.iso = iso; }); };
 		/* a toilet load goes whole, onto the day with the most room left in its weeks */
 		Q.filter(it => it.load).forEach(it => { let best = 0; for (let k = 1; k < n; k++) if (base[k] < base[best]) best = k; base[best] += it.size; put(it, best); });
 		/* then the rest, in order, so every day ends as level as it can: the water level L that the singles fill to */
@@ -241,18 +260,20 @@ function demob816(){
 	const day = {};
 	D.forEach((iso, i) => {
 		const list = refs.filter(r => r.iso === iso || (r.portions && r.portions.some(p => p.iso === iso))).sort(cmp816);
-		const loads = planned.filter(L => L.iso === iso).map(L => ({rows: L.rows.map(x => ({r: x.r, n: x.n, part: x.part, iso})), units: L.units, planned: true}));
+		const loads = planned.filter(L => L.iso === iso).map(L => ({rows: L.rows.map(x => ({r: x.r, n: x.n, part: x.part, iso})), units: L.units, planned: true, stream: L.stream}));
 		const placed = new Set(loads.flatMap(L => L.rows.map(x => x.r.key)));
-		const rest = list.filter(r => (r.evtN > 0 || r.evtUnk) && !placed.has(r.key));
+		const rest = list.filter(r => (r.evtN > 0 || r.evtUnk) && r.streams.length && !placed.has(r.key));
 		/* each portion of the day is placed on its own (two portions on one day are two portions); a reference without
 		 portions is one piece of work. An unknown quantity rides as a row of its own - nothing assumed. */
-		const work = rest.flatMap(r => r.portions ? r.portions.filter(p => p.iso === iso).map(P => ({r, P, n: P.n})) : [{r, P: null, n: r.evtN}]);
-		work.forEach(({r, P, n}) => { let done = false; const extra = {part: !!P, iso, pid: P ? P.id : null, unplanned: !!(P && P.unplanned)};
-			for (const L of loads) { if (done) break; if (L.rows[0].r.side !== r.side && r.side !== 'unknown') continue; const room = DM816.cap - L.units; if (room >= n) { L.rows.push(Object.assign({r, n}, extra)); L.units += n; done = true; } }
-			if (!done) pack816([{r, n}], DM816.cap).forEach(x => { x.rows.forEach(y => Object.assign(y, extra, {part: y.part || !!P})); loads.push(Object.assign(x, {planned: false})); }); });
+		const work = rest.flatMap(r => r.portions && r.streams.length === 1 ? r.portions.filter(p => p.iso === iso).map(P => ({r, P, n: P.n, s: r.streams[0].s})) : r.streams.map(x => ({r, P: null, n: x.n, s: x.s})));
+		work.forEach(({r, P, n, s}) => { let done = false; const extra = {part: !!P, iso, pid: P ? P.id : null, unplanned: !!(P && P.unplanned)};
+			for (const L of loads) { if (done) break; if (L.stream !== s || (L.rows[0].r.side !== r.side && r.side !== 'unknown')) continue; const room = RUN816[s].cap - L.units; if (room >= n) { L.rows.push(Object.assign({r, n}, extra)); L.units += n; done = true; } }
+			if (!done) pack816([{r, n}], RUN816[s].cap).forEach(x => { x.rows.forEach(y => Object.assign(y, extra, {part: y.part || !!P})); loads.push(Object.assign(x, {planned: false, stream: s})); }); });
 		const sideIx = L => L.rows[0].r.side === 'outside' ? 0 : L.rows[0].r.side === 'inside' ? 1 : 2;
-		loads.sort((x, y) => sideIx(x) - sideIx(y) || cmp816(x.rows[0].r, y.rows[0].r));
-		loads.forEach((L, k) => { L.n = k + 1; L.free = DM816.cap - L.units; L.uncertain = L.rows.some(x => x.r.evtUnk); L.rows.sort((x, y) => cmp816(x.r, y.r)); });
+		loads.sort((x, y) => (x.stream === y.stream ? 0 : x.stream === 'sub' ? -1 : 1) || sideIx(x) - sideIx(y) || cmp816(x.rows[0].r, y.rows[0].r));
+		const seq = {};
+		loads.forEach(L => { L.n = (seq[L.stream] = (seq[L.stream] || 0) + 1); L.id = L.stream + L.n; L.cap = capOf816(iso, L);
+			L.free = L.cap - L.units; L.capWarn = L.stream === 'coates' && L.cap > RUN816.coates.max; L.uncertain = L.rows.some(x => x.r.evtUnk); L.rows.sort((x, y) => cmp816(x.r, y.r)); });
 		const next = D[i + 1];
 		const onDay = (r, d) => r.iso === d || !!(r.portions && r.portions.some(p => p.iso === d));
 		const pump = refs.filter(r => r.empty && !r.emptied && !r.nothing && (onDay(r, iso) || (next && onDay(r, next)))).sort(cmp816)
@@ -261,10 +282,15 @@ function demob816(){
 	});
 	const counts = {total: refs.length, plan: refs.filter(r => r.src === 'plan').length, contract: refs.filter(r => r.src === 'contract').length,
 		proposed: refs.filter(r => r.src === 'proposed').length, confirmed: refs.filter(r => r.src === 'confirmed').length};
-	const outside = refs.filter(r => r.iso && (r.iso < first || r.iso > last)).sort((x, y) => x.iso.localeCompare(y.iso));
+	const outside = refs.filter(r => r.iso && !D.includes(r.iso)).sort((x, y) => x.iso.localeCompare(y.iso)); /* before, after, or a weekend / public holiday inside the window */
 	const M = {refs, byKey, days: D, day, counts, outside, planned};
 	if (memo) memo.set('demob816', M);
 	return M;
+}
+function capOf816(iso, L){
+	if (L.stream !== 'coates') return RUN816.sub.cap;
+	let v = null; try { v = Number(localStorage.getItem('gc500.demob816.cap.' + iso + '.' + L.stream + L.n)); } catch (e) { v = null; }
+	return v && isFinite(v) && v > 0 ? Math.round(v) : RUN816.coates.cap;
 }
 function demobOf816(key){ return demob816().byKey.get(key) || null; }
 const SRC816 = {confirmed: 'confirmed', plan: 'plan', contract: 'contract', proposed: 'proposed'};
@@ -275,10 +301,8 @@ function srcChip816(src){ return `<span class="chip ${SRCC816[src] || ''} src816
 const ASSUME816_KEY = 'gc500.demob816.assume';
 function assume816(){
 	let mine = {}; try { mine = JSON.parse(localStorage.getItem(ASSUME816_KEY) || '{}') || {}; } catch (e) { mine = {}; }
-	let run = 70; try { run = run782(); } catch (e) {}
 	const pre = ((DATA.depot || {}).planning || {}).precinct_min;
-	const base = {run: {v: run, lab: 'Kingston ⇄ circuit, each way', why: 'the page\'s planning figure for the Kingston run (transport.kingston_run)'},
-		between: {v: pre != null ? pre : 10, lab: 'Between areas inside the precinct', why: 'the depot\'s precinct allowance (DATA.depot.planning)'},
+	const base = {between: {v: pre != null ? pre : 10, lab: 'Between areas inside the precinct', why: 'the depot\'s precinct allowance (DATA.depot.planning)'},
 		stop: {v: typeof UNLOAD_MIN782 === 'number' ? UNLOAD_MIN782 : 30, lab: 'Loading at each stop', why: 'planning assumption: the 30 min the project manager set for unloading, used for loading - edit'},
 		unit: {v: 5, lab: 'Each event portable on the toilet run', why: 'planning assumption - edit'},
 		unload: {v: typeof UNLOAD_MIN782 === 'number' ? UNLOAD_MIN782 : 30, lab: 'Unloading back at Kingston', why: 'the 30 min unloading allowance'},
@@ -307,41 +331,78 @@ function partWords816(p){ return (p.unknown ? 'quantity to confirm' : p.n) + ' �
 /* the trucks for one day: oversize pieces each on their own load; the rest by area, a few to a truck; the toilet run
  in its 24-unit loads, timed first so a tank waits for the toilets that sit on it. Each load is timed from Kingston and
  back inside the site hours and the no-travel windows; a load that does not fit a truck's day takes another truck. */
+/* TRAVEL TIME, per run. Coates' own runs (the Coates toilet run and the branch's trucks) go from and back to Coates
+ Kingston and start from the page's own planning figure - DATA.transport.kingston_run, the figure the v7.82 delivery-load
+ rule uses (46.7 km straight line x 1.25 at 60 km/h + 10 min in the precinct) - labelled a planning figure, not a live
+ time, and editable per run on this device; a live figure, when there is one, goes in the same field. Blank means "travel
+ time to confirm": no departure is worked out. The supplier's pick-up has no travel time - it is not ours to plan. */
+const TRAVEL816_KEY = 'gc500.demob816.travel';
+function travel816(run){
+	let mine = {}; try { mine = JSON.parse(localStorage.getItem(TRAVEL816_KEY) || '{}') || {}; } catch (e) { mine = {}; }
+	if (mine[run] === '') return {v: null, edited: true, words: 'travel time to confirm'};
+	const v = Number(mine[run]); if (mine[run] != null && isFinite(v) && v > 0) return {v: Math.round(v), edited: true, words: 'typed for this run on this device'};
+	let r = null; try { r = run782(); } catch (e) { r = null; }
+	return r ? {v: r, edited: false, words: 'planning figure, not a live time', basis: ((DATA.transport || {}).kingston_run || {}).basis || ''} : {v: null, edited: false, words: 'travel time to confirm'};
+}
+/* OVERSIZE - only a load the branch flags (never guessed). QLD Access Conditions Guide v6.0 (Dec 2023): s11.2 Table 3,
+ Gold Coast business days, no oversize travel 07:00-09:00 or 16:00-18:00, so on the road 09:00-16:00; s9 no convoys;
+ s10.2 check the TMR Conditions of Operation Database before each trip; pilots and escorts by the permit. */
+const OVSRC816 = 'QLD Access Conditions Guide v6.0 (Dec 2023): s11.2 Table 3 Gold Coast peak hours; s11.3 Table 4 weekends and public holidays; s9 no convoys; s10.2 before every trip';
+const OVFLAG816_KEY = 'gc500.demob816.oversize';
+function ovFlag816(id, v){ let m = {}; try { m = JSON.parse(localStorage.getItem(OVFLAG816_KEY) || '{}') || {}; } catch (e) { m = {}; }
+	if (v === undefined) return !!m[id]; if (v) m[id] = 1; else delete m[id]; try { localStorage.setItem(OVFLAG816_KEY, JSON.stringify(m)); } catch (e) {} return !!v; }
+function ovCheck816(leave, travel){
+	const out = {latest: travel != null ? 16 * 60 - travel : null, flags: []};
+	if (travel == null) out.flags.push('travel time to confirm - no latest departure worked out');
+	if (leave != null && leave < 9 * 60) out.flags.push('on the road before 09:00 - Gold Coast peak');
+	if (out.latest != null && leave != null && leave > out.latest) out.flags.push('leaves site ' + clock816(leave) + ', after the latest departure ' + clock816(out.latest) + ' - it would be on the road after 16:00');
+	return out;
+}
 function trucks816(iso, branch){
 	const M = demob816(), Dy = M.day[iso]; if (!Dy) return [];
-	const A = assume816(), groups = new Map();
+	const A = assume816(), groups = new Map(), sup = [];
 	const add = (g, L) => { if (!groups.has(g)) groups.set(g, []); groups.get(g).push(L); };
-	Dy.loads.filter(L => branch === 'all' || L.rows.some(x => x.r.branch === branch)).forEach(L => add('Toilet run', {kind: 'toilets', toilet: L, stops: stops816(L.rows, true)}));
+	const mineB = L => branch === 'all' || L.rows.some(x => x.r.branch === branch);
+	/* the supplier's pick-up: a list of what is ready, in loads of up to 24 - no truck plan, no times */
+	Dy.loads.filter(L => L.stream === 'sub' && mineB(L)).forEach(L => sup.push({kind: 'supplier', toilet: L, stops: stops816(L.rows, true), co: [...new Set(L.rows.map(x => x.r.subCo).filter(Boolean))].join(', ') || 'sub-hire supplier'}));
+	Dy.loads.filter(L => L.stream === 'coates' && mineB(L)).forEach(L => add(RUN816.coates.words, {kind: 'toilets', run: 'coates', toilet: L, stops: stops816(L.rows, true)}));
 	const list = Dy.list.filter(r => !r.evtPure && !r.nothing && (branch === 'all' || r.branch === branch));
-	list.filter(r => r.big).forEach(r => add(r.branch, {kind: 'oversize', stops: stops816([{r, n: 1}], false)}));
+	list.filter(r => r.big).forEach(r => add(r.branch, {kind: 'single', run: 'branch', stops: stops816([{r, n: 1}], false)}));
 	const small = list.filter(r => !r.big);
-	for (let i = 0; i < small.length; i += A.perLoad.v) { const ch = small.slice(i, i + A.perLoad.v); add(ch[0].branch, {kind: 'normal', stops: stops816(ch.map(r => ({r, n: 1})), false)}); }
+	for (let i = 0; i < small.length; i += A.perLoad.v) { const ch = small.slice(i, i + A.perLoad.v); add(ch[0].branch, {kind: 'normal', run: 'branch', stops: stops816(ch.map(r => ({r, n: 1})), false)}); }
+	const supKeys = new Set(sup.flatMap(L => L.stops.map(s => s.r.key)));
 	const out = [], topEnd = new Map(); /* the latest time a toilet of each reference is off, across every truck */
 	groups.forEach((loads, g) => {
 		const lanes = [];
 		loads.forEach(L => {
-			const fit = (t0, strict) => { let dep = Math.max(t0, OPEN816 - A.run.v), b;
-				while ((b = ban816(dep, dep + A.run.v))) dep = b[1];
-				let t = Math.max(dep + A.run.v, OPEN816); const arrive = t, st = [], mine = new Map(); let prev = null;
+			const tv = travel816(L.run).v;
+			const fit = (t0, strict) => { let dep = null, b, t;
+				if (tv != null) { dep = Math.max(t0, OPEN816 - tv); while ((b = ban816(dep, dep + tv))) dep = b[1]; t = Math.max(dep + tv, OPEN816); }
+				else t = Math.max(t0, OPEN816);
+				const arrive = t, st = [], mine = new Map(); let prev = null;
 				L.stops.forEach(s => { if (prev && prev !== s.area) t += A.between.v;
-					if (s.tankOnly) t = Math.max(t, topEnd.get(s.r.key) || 0, mine.get(s.r.key) || 0);
+					if (s.tankOnly) { t = Math.max(t, topEnd.get(s.r.key) || 0, mine.get(s.r.key) || 0); if (supKeys.has(s.r.key)) s.afterSupplier = true; }
 					const dur = L.kind === 'toilets' ? Math.max(15, s.n * A.unit.v) : A.stop.v; st.push({s, at: t, end: t + dur});
 					if (!s.tankOnly) mine.set(s.r.key, Math.max(mine.get(s.r.key) || 0, t + dur));
 					t += dur; prev = s.area; });
-				let leave = t; while ((b = ban816(leave, leave + A.run.v))) leave = b[1];
+				let leave = t; if (tv != null) while ((b = ban816(leave, leave + tv))) leave = b[1];
 				if (strict && (leave > CLOSE816 || t > CLOSE816)) return null;
-				return {dep, arrive, st, leave, back: leave + A.run.v, done: leave + A.run.v + A.unload.v};
+				return {dep, arrive, st, leave, travel: tv, back: tv != null ? leave + tv : null, done: tv != null ? leave + tv + A.unload.v : Infinity};
 			};
 			let placed = null;
-			for (const ln of lanes) { const f = fit(ln.free, true); if (f) { placed = {ln, f}; break; } }
+			for (const ln of lanes) { if (!isFinite(ln.free)) continue; const f = fit(ln.free, true); if (f) { placed = {ln, f}; break; } }
 			if (!placed) { const ln = {n: lanes.length + 1, free: 0, loads: []}; let f = fit(0, true); if (!f) f = Object.assign(fit(0, false), {over: true}); lanes.push(ln); placed = {ln, f}; }
 			placed.f.st.forEach(x => { if (!x.s.tankOnly) topEnd.set(x.s.r.key, Math.max(topEnd.get(x.s.r.key) || 0, x.end)); });
 			placed.ln.free = placed.f.done; placed.ln.loads.push(Object.assign({}, L, {t: placed.f, truck: placed.ln.n}));
 		});
 		lanes.forEach(ln => ln.loads.forEach(L => out.push(Object.assign(L, {group: g}))));
 	});
-	out.forEach((L, i) => { L.n = i + 1; L.of = out.length; });
-	return out;
+	/* a load the branch flags oversize is checked against the guide; two leaving together are told to stagger */
+	out.forEach(L => { if (L.kind === 'toilets') return; L.ovId = iso + '|' + L.stops.map(s => s.r.key).join(','); L.ov = ovFlag816(L.ovId); if (L.ov) L.ovc = ovCheck816(L.t.leave, L.t.travel); });
+	out.filter(L => L.ov).forEach(L => { if (out.some(o => o !== L && o.ov && o.t.leave === L.t.leave)) L.ovc.flags.push('stagger departures - oversize loads may not run in convoy'); });
+	const all = sup.map(L => Object.assign(L, {group: 'Sub-hire pick-up · ' + L.co, t: {st: L.stops.map(s => ({s, at: null, end: null})), dep: null, arrive: null, leave: null, back: null, travel: null}, truck: L.toilet.n})).concat(out);
+	all.forEach((L, i) => { L.n = i + 1; L.of = all.length; });
+	return all;
 }
 /* -------- the tab */
 function demobSel816(M){ if (!DM816.sel || !M.day[DM816.sel]) { const t = todayIso(); DM816.sel = M.days.find(d => d >= t) || M.days[0]; } return DM816.sel; }

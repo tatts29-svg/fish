@@ -40,3 +40,27 @@ PASS desktop: an uploaded file is found by its title ("CW2 Fencing Installation 
 PASS desktop: Show on WC01 opens Photos at that reference (6 photos)  - {"ref":"WC01","tile":"photos","open":true,"photos":6,"hash":"#docs/photos"}
 PASS desktop: Recent is the last 5 uploads, newest first  - 05_CW2_Fencing_Installation_Plan.pdf, 36568.jpg, 36567.jpg, 36566.jpg, 36565.jpg
 PASS desktop: Details on a merged pre-start unfolds the catalogue's note (GC500_Prestart_ATF_2026-09-14.pdf)  - {"id":"GC500_Prestart_ATF_2026-09-14.pdf","hiddenFirst":true,"shown":true,"text":"The pre-start held that day for Advanced Temporary Fencing, run to THEIR OWN SWMS for the installation, relocation and removal of temporary fencing, revision 18/09/2026: its twelve task steps with their controls and ri
+PASS desktop: #docs/swms opens Documents on swms  - {"tab":"docs","tile":"swms","box":true,"on":"swms"}
+PASS desktop: #docs/transport opens Documents on transport  - {"tab":"docs","tile":"transport","box":true,"on":"transport"}
+PASS desktop: #docs/maps opens Documents on maps  - {"tab":"docs","tile":"maps","box":true,"on":"maps"}
+PASS desktop: #docs/packs opens Documents on packs  - {"tab":"docs","tile":"packs","box":true,"on":"packs"}
+PASS desktop: #docs/photos opens Documents on photos  - {"tab":"docs","tile":"photos","box":true,"on":"photos"}
+PASS desktop: #docs/dockets opens Documents on dockets  - {"tab":"docs","tile":"dockets","box":true,"on":"dockets"}
+PASS desktop: #docs/fencing opens Documents on maps  - {"tab":"docs","tile":"maps","box":true,"on":"maps"}
+PASS desktop: the Fencing tab's 2 "Open the plan" button(s) (pressed on each of 10 weeks) land on the fencing plans under Drawings, not the signed dockets  - {"weeks":10,"buttons":2,"words":["Week 5: Open the plan on the Documents tab","Week 3: Open the plan on the Documents tab"],"lands":[{"week":"Week 5","tab":"docs","tile":"maps","plans":6,"dockets":false,"top":149},{"week":"Week 3","tab":"docs","tile":"maps","plans":6,"dockets":false,"top":149}]}
+PASS desktop: #docs/invoices with no invoices opens Documents and says so  - {"tab":"docs","flash":"That document section has no files to show."}
+PASS desktop: a card opens with its own address, a second press closes it  - {"h1":"#docs/transport","h2":"#docs","tile":null}
+PASS desktop: header search, merged pre-start: it says "opens the file" and pressing it opens the one uploaded file  - {"found":true,"docRows":1,"words":"opens the file","opened":"/f/Coates-GC500-2026/GC500_Prestart_ATF_2026-09-14.pdf","tab":"docs","q":"","current":null,"focused":false,"inView":false}
+FAIL desktop: header search, not-uploaded SWMS: lands on Documents with that row marked, in view, keyboard on it  - {"found":true,"docRows":6,"words":"listed in Documents — the file is not on the service","opened":null,"tab":"docs","q":"Installation, relocation and removal of temporary fencing — Advanced Temporary Fencing SWMS","current":null,"focused":false,"inView":false}
+PASS desktop: header search, an available original opens its file  - {"found":true,"docRows":1,"words":"opens the file","opened":"/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf","tab":"docs","q":"Installation, relocation and removal of temporary fencing — Advanced Temporary Fencing SWMS","current":null,"focused":false,"inView":false}
+PASS desktop: the header search lists 8 documents for "SWMS" (was capped at 4)
+PASS desktop: a map or invoice filed against a reference says so and the reference opens it, known or not (0 such files in the record now)  - {"Maps and drawings P03":{"says":true,"opens":"P03"},"Invoices P03":{"says":true,"opens":"P03"},"Maps and drawings NOSUCHREF":{"says":true,"opens":"NOSUCHREF"},"realRows":0}
+PASS desktop: the open card eases in; not with Motion off or reduced motion (paneIn / none / none)
+PASS desktop: edit link: + Add opens the upload form set to the open card, Remove is offered, the reason a file is red shows; none of it on the view link  - {"add":true,"hiddenFirst":true,"shown":true,"kind":"map","upload":true,"file":true,"why":2,"remove":73,"viewWhy":0,"viewAdd":false,"viewRemove":0}
+PASS desktop: the tab opens as fast as live (median of 6: live 436 ms, v8.15 427 ms)
+PASS desktop: no page errors
+  height of the tab as it opens: 8949 px -> 511 px; first Open button 1024 px -> 345 px down the tab
+PASS desktop: the tab as it opens is under a quarter of its old height
+
+57 passed, 1 failed
+FAILED
