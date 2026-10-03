@@ -1,0 +1,126 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Synthetic CPU day projection review; no network or live writes",
+  "pageSha256": "f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000",
+  "nativeBookingSha256": "249049da37ea626383aba14d45be7e957b1d121cb90a45d438e48b2ca46afab2",
+  "projectionSha256": "3bbb5ffeb3dc566a1a6f3dfc745908f835aa2601bbfb70eb9c8fe88f6c8f64a5",
+  "rendererSha256": "63493735d72d44eb13f17bc8cfc049462bf166233100cc2e13d009aa5ebdac5a",
+  "proposalSha256": "64f19431ee6fdffce9d82212224de0fc4d682b4947defdd230b21918fba3c0d7",
+  "reproduced": {
+    "native": [
+      "CURRENT"
+    ],
+    "proposal": [
+      "CURRENT",
+      "MOVED"
+    ]
+  },
+  "passed": 26,
+  "total": 26,
+  "results": [
+    {
+      "name": "Existing native omission reproduced: rescheduled booking mixed with a current booking",
+      "pass": true
+    },
+    {
+      "name": "DD departure rank remains ahead of clock order",
+      "pass": true
+    },
+    {
+      "name": "Shared truck retains separate references and docket identities",
+      "pass": true
+    },
+    {
+      "name": "Distinct split loads preserve one reference twice with exact cargo slices",
+      "pass": true
+    },
+    {
+      "name": "Cancellation and removal rows never appear in delivery export",
+      "pass": true
+    },
+    {
+      "name": "Exact resolved day includes moved events despite original event date",
+      "pass": true
+    },
+    {
+      "name": "Ordinary same-time carrier grouping matches native behavior",
+      "pass": true
+    },
+    {
+      "name": "Active unassigned booking remains visible with unknown time",
+      "pass": true
+    },
+    {
+      "name": "Mixed original/current events under one reference are not reference-deduplicated",
+      "pass": true
+    },
+    {
+      "name": "Foreign-day transport-plan metadata cannot apply to selected day",
+      "pass": true
+    },
+    {
+      "name": "Selected-day ordinary transport-plan grouping remains",
+      "pass": true
+    },
+    {
+      "name": "Resolved input day, source assets and booking objects stay unchanged",
+      "pass": true
+    },
+    {
+      "name": "Defensive cancel/remove exclusion holds for directly supplied resolved rows",
+      "pass": true
+    },
+    {
+      "name": "Separate supplier plan cannot override native selected-day dates or add extra loads",
+      "pass": true
+    },
+    {
+      "name": "Narrow native dpLoads patch retains moved plus current booking",
+      "pass": true
+    },
+    {
+      "name": "Narrow native patch preserves shared/split grouping and source immutability",
+      "pass": true
+    },
+    {
+      "name": "Narrow native patch still retains removals for existing driver sheets",
+      "pass": true
+    },
+    {
+      "name": "Narrow native patch does not alter valid-only output order",
+      "pass": true
+    },
+    {
+      "name": "Integrated exact-day projection rejects invalid ISO calendar date",
+      "pass": true
+    },
+    {
+      "name": "Integrated projection contains current day only with cancelled/removal excluded",
+      "pass": true
+    },
+    {
+      "name": "Integrated delivery notes retain own recorded instruction and exclude another reference",
+      "pass": true
+    },
+    {
+      "name": "Integrated moved booking preserves instruction without stale clock/DD booking detail",
+      "pass": true
+    },
+    {
+      "name": "Integrated split cargo and reference receipt context stay distinct",
+      "pass": true
+    },
+    {
+      "name": "Optional meet-point data follows each selected reference, with scoped park safety only",
+      "pass": true
+    },
+    {
+      "name": "No-v8.19 fallback preserves canonical destination and honest map basis",
+      "pass": true
+    },
+    {
+      "name": "Day renderer excludes explicitly foreign day groups and rows",
+      "pass": true
+    }
+  ]
+}
