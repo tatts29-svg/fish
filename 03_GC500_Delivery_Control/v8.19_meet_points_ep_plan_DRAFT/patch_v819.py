@@ -10,17 +10,21 @@ go" - "We allocate everything to a WC number. Then at the end quote is this many
 these" - "Nothing is to be picked up unless emptied" - "They can take early we can store in pit regardless".
 
 What the patch does (DRAFT - not uploaded):
-  1. writes the ten meet points (meet_points.json) and the load plan (event_portables_plan.json) into the page as data,
-     after checking them: no money, no phone numbers, 5 loads of 24 = 120 FWF, every count down reaches 0, every
-     directions link is the meet point at 6 decimals;
-  2. meetPoint819(): the assignment rule, the same as the reference the supplier sheets were made with (mp819_src.js);
-  3. the reference drawer: "Meet point: <name>", a QR for Google Maps driving directions to it, and the parkland box
-     where it applies - under Where it is;
-  4. the driver sheet (GC500-DRV-01): a Meet point section per load - each meet point with its QR - and the site rules;
-  5. the Timeline: the Event Portables load plan card under the day - site rules (the one place on the page), the demob
-     notice, the 5 loads with their stops and a Print run sheet each (one A4 page), Quote Q6845 against WC allocation
-     with No WC allocation in Coates orange, and the cancelled list (ep819_src.js, v819.css);
-  6. the footer and the release marker read v8.19.
+  1. writes the ten meet points (meet_points.json) and the Event Portables delivery plan (event_portables_plan.json) into
+     the page as data (MP819, EP819), after checking them: no money, no phone numbers, no agent or model names, 5 loads of
+     24 = 120 FWF, every count down reaches 0, every directions link is the meet point at 6 decimals;
+  2. meetPoint819(): the assignment rule - the same as the reference the supplier sheets were made with for every
+     master-plan reference, extended to pinned and confirmed gear (mp819_src.js);
+  3. the reference drawer: "Meet point: <name>", a QR for Google Maps driving directions to it, why, and the parkland
+     box where it applies - under Where it is;
+  4. the driver sheet (GC500-DRV-01): each reference's meet point and its QR in room Where it goes already has, and the
+     site rules on the sheet's own rules line - the photographs keep every pixel they had;
+  5. the Timeline: the "Event Portables delivery plan (to quote Q6845)" card under the day - site rules (the one place on
+     the page), the demob notice, the 5 loads with their stops and a Print run sheet each (one A4 page), Quote Q6845
+     against WC allocation with No WC allocation in Coates orange, and the cancelled list (ep819_src.js, v819.css). It
+     reads EP819 only and adds nothing to the native day data;
+  6. the footer and the release marker read v8.19 (matched by pattern, so a later release's change to either does not
+     stop the build; a missing anchor stops it with a plain message).
 Codex's Demob register, two-location cap, crane rules and equipment register are not touched.
 
     python3 patch_v819.py <page.html>     (built on live f3bb490b - the v8.18 selected-day weather release, which has not been on the board)"""

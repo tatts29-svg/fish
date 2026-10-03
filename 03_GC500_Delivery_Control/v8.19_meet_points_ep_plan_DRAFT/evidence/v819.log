@@ -1,8 +1,10 @@
+# v8.19 checks · source commit f84eddeb8f033f4e93368fffc34d751cefed516f + UNCOMMITTED CHANGES (trial run, not evidence) · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:14:32Z
+# suite: v819 · command: env SHOTS=/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v819/final flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/v819_tests.js
 
 == desktop 1440
-FAIL desktop 1440: the release marker and the footer read v8.19  - {"meta":"v8.19","foot":"Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · v8.19"}
+PASS desktop 1440: the release marker and the footer read v8.19  - {"meta":"v8.19","foot":"Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · v8.19"}
 PASS desktop 1440: all 201 reference drawers show "Meet point: <name>", a directions QR to that point and the parkland box only for the parkland  - []
-   by meet point: {"ISLAND_NORTH":21,"PITLANE":111,"MEDIAN_PITSTOP":24,"MAIN_BEACH":5,"COMMODORE":8,"HILL_A47":5,"ISLAND_WEST_PARK":11,"HELEN_PARK":12,"MBP_LANDSIDE":2,"SEASIDE_NORTH":2}
+   by meet point: {"ISLAND_NORTH":21,"PITLANE":108,"MEDIAN_PITSTOP":24,"MAIN_BEACH":5,"COMMODORE":9,"HILL_A47":5,"ISLAND_WEST_PARK":13,"HELEN_PARK":12,"MBP_LANDSIDE":2,"SEASIDE_NORTH":2}
 PASS desktop 1440: all ten meet points are in use across the drawers  - ["ISLAND_NORTH","PITLANE","MEDIAN_PITSTOP","MAIN_BEACH","COMMODORE","HILL_A47","ISLAND_WEST_PARK","HELEN_PARK","MBP_LANDSIDE","SEASIDE_NORTH"]
 PASS desktop 1440: AA drawer shows its meet point box (ISLAND_NORTH)
 PASS desktop 1440: CP1 drawer shows its meet point box (PITLANE)
@@ -14,6 +16,11 @@ PASS desktop 1440: GN24 drawer shows its meet point box (ISLAND_WEST_PARK)
 PASS desktop 1440: P52 drawer shows its meet point box (HELEN_PARK)
 PASS desktop 1440: WC27 drawer shows its meet point box (MBP_LANDSIDE)
 PASS desktop 1440: WC60 drawer shows its meet point box (SEASIDE_NORTH)
+PASS desktop 1440: T0022 and T0023 get the island west parkland point  - {"T0022":{"id":"ISLAND_WEST_PARK","how":"area","kind":"pinned","why":"inside the island west parkland outline"},"T0023":{"id":"ISLAND_WEST_PARK","how":"area","kind":"pinned","why":"inside the island west parkland outline"},"P47":{"id":"COMMODORE","how":"rule","kind":"confirmed","why":"nearest meet point on the same side, about 25 m from the plan position"},"PG01":{"id":"PITLANE","how":"precinct","kind":"report","why":"Pit lane entry – pit garages"}}
+PASS desktop 1440: P47 gets Commodore Park  - {"id":"COMMODORE","how":"rule","kind":"confirmed","why":"nearest meet point on the same side, about 25 m from the plan position"}
+PASS desktop 1440: pit garages: "Pit lane entry – pit garages"  - {"id":"PITLANE","how":"precinct","kind":"report","why":"Pit lane entry – pit garages"}
+PASS desktop 1440: the T0022 drawer carries the parkland safety box
+PASS desktop 1440: the T0023 drawer carries the parkland safety box
 PASS desktop 1440: the WC02 drawer carries the parkland rules word for word  - Macintosh Island west parkland (around WC02, WC04, WC05, the OPS compound and the merch strip)
 No vehicle enters the park – trucks stop at the entry point
 Spotters and escort required for every movement
@@ -27,102 +34,14 @@ PASS desktop 1440: parkland rules with the site rules
 PASS desktop 1440: demob notice word for word  - ["Coates will issue a demob plan and run sheets before pick-up. Collect only what is on the Coates run sheet.","Nothing is to be picked up unless it has been emptied. No unit, block or waste tank leaves site until it has been pumped out.","If a unit has not been emptied, leave it and call the Coates lead."]
 PASS desktop 1440: the demob notice carries every sentence of the brief
 PASS desktop 1440: the early-delivery rule sits beside the fill-order wording  - Stop order within a load is suggested (nearest next meet point) – Coates may change it on the day. Early is fine: if an area is not ready when its load arrives, Coates stores those units in the pit lane until it is.
-PASS desktop 1440: the No WC allocation column is highlighted in Coates orange  - ["rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)"]
-PASS desktop 1440: No WC allocation 56 / 0 / 0 / 4 / 3, 63 in all  - ["56","0","0","4","3","63"]
+PASS desktop 1440: the No WC allocation column is highlighted in Coates orange  - ["rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)"]
+PASS desktop 1440: No WC allocation 56 / 0 / 0 / 4 / 3, and no total row adding unlike items  - ["56","0","0","4","3"]
 PASS desktop 1440: the No WC allocation note
 PASS desktop 1440: the cancelled list WC32, WC66, WC09  - ["WC32","WC66","WC09"]
 PASS desktop 1440: no money, phone numbers or SiteIQ in the card
+PASS desktop 1440: no agent named on the card; the cancelled list's last column is Source  - ["WC ref","Planned","Status","Source"]
+PASS desktop 1440: Load 1 says where the record still shows its references on another day  - ["Record still shows Wed 7 Oct for WC38, WC39, WC40, WC61; Thu 8 Oct for WC09, WC34; Mon 12 Oct for WC57 – moving to Fri 9 Oct per Coates","Record still shows Thu 1 Oct for WC67; Mon 12 Oct for WC67; Mon 19 Oct for WC68, WC72, WC29 – moving to Tue 13 Oct per Coates","Record still shows Mon 19 Oct for WC46, WC55 – moving to Thu 15 Oct per Coates","Record still shows Tue 20 Oct for PG01, PG03, PG05, PG29, WC85 – moving to Mon 19 Oct per Coates"]
 PASS desktop 1440: the card does not scroll sideways  - {"w":1408,"cw":1408}
 PASS desktop 1440: Load 1 opens to its 6 stops, left on truck down to 0  - ["23","19","11","10","2","0"]
 PASS desktop 1440: each stop links to driving directions to its meet point
 PASS desktop 1440: an open load stays open through a redraw
-PASS desktop 1440: Load 1 run sheet fits one A4 page (scale 0.94)
-PASS desktop 1440: Print run sheet opens the print dialog once
-PASS desktop 1440: Load 1: 6 stops, a QR per stop to its meet point, counts down to 0  - ["23","19","11","10","2","0"]
-PASS desktop 1440: Load 1 header  - Load 1 of 5 · Fri 9 Oct 2026 · 24 FWF (+6 pee panels)
-PASS desktop 1440: Load 1 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
-PASS desktop 1440: Load 1 sheet has no money, phone numbers or SiteIQ
-PASS desktop 1440: Close puts the page back
-PASS desktop 1440: Load 2 run sheet fits one A4 page (scale 1)
-PASS desktop 1440: Print run sheet opens the print dialog once
-PASS desktop 1440: Load 2: 2 stops, a QR per stop to its meet point, counts down to 0  - ["7","0"]
-PASS desktop 1440: Load 2 header  - Load 2 of 5 · Tue 13 Oct 2026 · 24 FWF
-PASS desktop 1440: Load 2 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
-PASS desktop 1440: Load 2 sheet has no money, phone numbers or SiteIQ
-PASS desktop 1440: Close puts the page back
-PASS desktop 1440: Load 3 run sheet fits one A4 page (scale 1)
-PASS desktop 1440: Print run sheet opens the print dialog once
-PASS desktop 1440: Load 3: 1 stops, a QR per stop to its meet point, counts down to 0  - ["0"]
-PASS desktop 1440: Load 3 header  - Load 3 of 5 · Thu 15 Oct 2026 · 24 FWF
-PASS desktop 1440: Load 3 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
-PASS desktop 1440: Load 3 sheet has no money, phone numbers or SiteIQ
-PASS desktop 1440: Close puts the page back
-PASS desktop 1440: Load 4 run sheet fits one A4 page (scale 1)
-PASS desktop 1440: Print run sheet opens the print dialog once
-PASS desktop 1440: Load 4: 2 stops, a QR per stop to its meet point, counts down to 0  - ["23","0"]
-PASS desktop 1440: Load 4 header  - Load 4 of 5 · Mon 19 Oct 2026 · 24 FWF
-PASS desktop 1440: Load 4 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
-PASS desktop 1440: Load 4 sheet has no money, phone numbers or SiteIQ
-PASS desktop 1440: Close puts the page back
-PASS desktop 1440: Load 5 run sheet fits one A4 page (scale 1)
-PASS desktop 1440: Print run sheet opens the print dialog once
-PASS desktop 1440: Load 5: 2 stops, a QR per stop to its meet point, counts down to 0  - ["21","0"]
-PASS desktop 1440: Load 5 header  - Load 5 of 5 · Mon 19 Oct 2026 · 24 FWF
-PASS desktop 1440: Load 5 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
-PASS desktop 1440: Load 5 sheet has no money, phone numbers or SiteIQ
-PASS desktop 1440: Close puts the page back
-PASS desktop 1440: 2026-09-28: every driver sheet (7) has the Meet point · site rules section
-PASS desktop 1440: 2026-09-28: each has a QR per meet point, the three site rules beyond the hours and the parkland rules  - [[1,3,true],[1,3,true],[1,3,true],[3,3,true],[1,3,true],[1,3,true],[1,3,true]]
-PASS desktop 1440: 2026-09-28: no driver sheet runs past one page  - []
-PASS desktop 1440: 2026-09-28: each sheet's meet point QRs are its loads' meet points, in order
-PASS desktop 1440: 2026-10-06: every driver sheet (6) has the Meet point · site rules section
-PASS desktop 1440: 2026-10-06: each has a QR per meet point, the three site rules beyond the hours and the parkland rules  - [[1,3,true],[1,3,true],[1,3,true],[1,3,true],[1,3,true],[1,3,true]]
-PASS desktop 1440: 2026-10-06: no driver sheet runs past one page  - []
-PASS desktop 1440: 2026-10-06: each sheet's meet point QRs are its loads' meet points, in order
-PASS desktop 1440: no page errors  - []
-PASS desktop 1440: no console errors  - []
-PASS desktop 1440: no write was attempted  - {"page":1,"live":907,"blocked":0}
-
-== phone 390
-FAIL phone 390: the release marker and the footer read v8.19  - {"meta":"v8.19","foot":"Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · v8.19"}
-PASS phone 390: WC02 drawer shows its meet point box (ISLAND_WEST_PARK)
-PASS phone 390: WC21 drawer shows its meet point box (PITLANE)
-PASS phone 390: WC38 drawer shows its meet point box (COMMODORE)
-PASS phone 390: the WC02 drawer carries the parkland rules word for word  - Macintosh Island west parkland (around WC02, WC04, WC05, the OPS compound and the merch strip)
-No vehicle enters the park – trucks stop at the entry point
-Spotters and escort required for every movement
-Wildlife · extremely low branches · very limited room
-PASS phone 390: the Event Portables load plan card is on the Timeline
-PASS phone 390: 5 loads, 24 FWF each, 120 FWF in all  - [{"fwf":24,"n":"1","t":"Fri 9 Oct2026","pr":true},{"fwf":24,"n":"2","t":"Tue 13 Oct2026","pr":true},{"fwf":24,"n":"3","t":"Thu 15 Oct2026","pr":true},{"fwf":24,"n":"4","t":"Mon 19 Oct2026","pr":true},{"fwf":24,"n":"5","t":"Mon 19 Oct2026","pr":true}]
-PASS phone 390: every load has a Print run sheet button
-PASS phone 390: Load 1 is Fri 9 Oct  - Fri 9 Oct2026
-PASS phone 390: site rules word for word from the plan  - ["Site hours 07:00–17:00.","Go to the meet point named for each area – Coates meets you there and places the units.","If unsure, go to the pit lane entry (Gold Coast Hwy, north-west end of the pit lane).","Directions get you to the meet point – follow the Way in and site signage, event road closures apply."]
-PASS phone 390: parkland rules with the site rules
-PASS phone 390: demob notice word for word  - ["Coates will issue a demob plan and run sheets before pick-up. Collect only what is on the Coates run sheet.","Nothing is to be picked up unless it has been emptied. No unit, block or waste tank leaves site until it has been pumped out.","If a unit has not been emptied, leave it and call the Coates lead."]
-PASS phone 390: the demob notice carries every sentence of the brief
-PASS phone 390: the early-delivery rule sits beside the fill-order wording  - Stop order within a load is suggested (nearest next meet point) – Coates may change it on the day. Early is fine: if an area is not ready when its load arrives, Coates stores those units in the pit lane until it is.
-PASS phone 390: the No WC allocation column is highlighted in Coates orange  - ["rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)"]
-PASS phone 390: No WC allocation 56 / 0 / 0 / 4 / 3, 63 in all  - ["56","0","0","4","3","63"]
-PASS phone 390: the No WC allocation note
-PASS phone 390: the cancelled list WC32, WC66, WC09  - ["WC32","WC66","WC09"]
-PASS phone 390: no money, phone numbers or SiteIQ in the card
-PASS phone 390: the card does not scroll sideways  - {"w":370,"cw":370}
-PASS phone 390: Load 1 opens to its 6 stops, left on truck down to 0  - ["23","19","11","10","2","0"]
-PASS phone 390: each stop links to driving directions to its meet point
-PASS phone 390: an open load stays open through a redraw
-PASS phone 390: Load 1 run sheet fits one A4 page (scale 0.91)
-PASS phone 390: Print run sheet opens the print dialog once
-PASS phone 390: Load 1: 6 stops, a QR per stop to its meet point, counts down to 0  - ["23","19","11","10","2","0"]
-PASS phone 390: Load 1 header  - Load 1 of 5 · Fri 9 Oct 2026 · 24 FWF (+6 pee panels)
-PASS phone 390: Load 1 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
-PASS phone 390: Load 1 sheet has no money, phone numbers or SiteIQ
-PASS phone 390: Close puts the page back
-PASS phone 390: 2026-10-06: every driver sheet (6) has the Meet point · site rules section
-PASS phone 390: 2026-10-06: each has a QR per meet point, the three site rules beyond the hours and the parkland rules  - [[1,3,true],[1,3,true],[1,3,true],[1,3,true],[1,3,true],[1,3,true]]
-PASS phone 390: 2026-10-06: no driver sheet runs past one page  - []
-PASS phone 390: 2026-10-06: each sheet's meet point QRs are its loads' meet points, in order
-PASS phone 390: no page errors  - []
-PASS phone 390: no console errors  - []
-PASS phone 390: no write was attempted  - {"page":1,"live":161,"blocked":0}
-
-113 passed, 2 failed
