@@ -216,6 +216,11 @@
    "rule": "Coates decides where every sub-hire unit goes. Extras and unplaced units are allocated by Coates to areas that still need fulfilling; the supplier is told where. Not left to the supplier or parked without a location.",
    "andrew": "We decide where they go we allocate to areas. That need to be fulfilled",
    "date": "2026-10-03"
+  },
+  {
+   "rule": "Plan Event Portables quantities to quote Q6845 as it stands (246 FWF). Units beyond the areas' needs go to the pit lane spares pool and Coates directs them. Quote items with no schedule row (4 accessibles, 3 VIP combo blocks) are held until Coates names a destination.",
+   "andrew": "We go by whats on the quote at the moment",
+   "date": "2026-10-03"
   }
  ]
 }
