@@ -21,3 +21,5 @@ The Fencing, Equipment/Demob and checklist modules contain operational or financ
 
 Verification and publication
 Run the shared syntax/secret checks, the affected owner checks, both navigation sweeps and the standing checks on the exact standard-toolchain candidate. Inspect phone/desktop views and printed sheets. Source hashes alone are not release approval. Root owns final scope, privacy review, fresh-live verification and publication. This wrapper itself never accesses the network, sends a message or changes the shared record.
+
+LIVE 4 Oct 2026 at 01:55 AEST. Exact public page cde8d4295b58d6f0ec85d46b49091698afd847bc4f49a4bad90a2c14d17c595e, 9,654,140 bytes. See RELEASE_REVIEW.txt for final checks and limitations.
