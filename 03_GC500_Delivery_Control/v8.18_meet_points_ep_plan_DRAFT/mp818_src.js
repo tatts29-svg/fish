@@ -66,8 +66,8 @@ function mpDrawer818(a){
 	const sameWay = norm(w0).replace(/ race direction$/, '') === norm(p.way).replace(/ race direction$/, '');
 	const box = document.createElement('div'); box.className = 'mp818' + (p.id === MP818.park ? ' park' : ''); box.dataset.mp818 = p.id;
 	box.innerHTML = `<a class="mp818-qr" href="${esc(url)}" target="_blank" rel="noopener noreferrer" data-mp818-url="${esc(url)}" title="${esc('Scan or tap: driving directions to ' + p.name)}" aria-label="${esc('QR code: driving directions to the meet point, ' + p.name)}">${qrSvg(url, 3)}</a>
-<div class="mp818-t"><p class="ctk">Meet point</p><b class="mp818-n">Meet point: ${esc(p.name)}</b>${sameWay ? '' : `<span>Way in: ${esc(p.way)}</span>`}<span class="mp818-w">${esc(mpWhy818(r))}</span>
-<span class="mp818-s">Scan or tap for driving directions · ${esc(mpLl818(p))}</span><span class="mp818-c">Coates meets you there · if unsure, go to the pit lane entry</span></div>`;
+<div class="mp818-t"><b class="mp818-n">Meet point: ${esc(p.name)}</b>${sameWay ? '' : `<span>Way in: ${esc(p.way)}</span>`}<span class="mp818-w">${esc(mpWhy818(r))}</span>
+<span class="mp818-s">Scan or tap for driving directions · ${esc(mpLl818(p))}</span></div>`;
 	if (p.id === MP818.park) box.insertAdjacentHTML('beforeend', mpParkHtml818('mp818-park'));
 	const acts = wh.querySelector('.wa816');
 	if (acts) wh.insertBefore(box, acts); else wh.appendChild(box);
@@ -80,9 +80,9 @@ function mpDrvSec818(g){
 		if (!seen.has(k)) seen.set(k, {p: m.p, refs: []}); seen.get(k).refs.push(r.a.key); });
 	const pts = [...seen.values()];
 	const cards = pts.map(x => { const url = mpUrl818(x.p);
-		return `<div class="mp818d"><div class="mp818d-q" data-mp818-url="${esc(url)}">${qrSvg(url, 3)}</div><div class="mp818d-t"><label>Meet point</label><b>${esc(x.p.name)}</b><span>Way in: ${esc(x.p.way)}</span><span class="dp-ll">${esc(mpLl818(x.p))}</span><span>For ${esc(x.refs.join(', '))}</span><em>Scan for driving directions to the meet point</em></div></div>`; }).join('');
+		return `<div class="mp818d"><div class="mp818d-q" data-mp818-url="${esc(url)}">${qrSvg(url, 3)}</div><div class="mp818d-t"><b>${esc(x.p.name)}</b><span>Way in: ${esc(x.p.way)}</span><span><span class="dp-ll">${esc(mpLl818(x.p))}</span> · for ${esc(x.refs.join(', '))}</span><em>Scan: driving directions to the meet point</em></div></div>`; }).join('');
 	const E = typeof EP818 !== 'undefined' ? EP818 : null;
 	const rules = E ? E.site_rules.filter(x => !/^site hours/i.test(x)) : [];
-	const park = E && E.park ? `<div class="mp818d-park"><b>${esc(E.park.area)}</b> ${E.park.rules.map(esc).join(' · ')}</div>` : '';
-	return `<div class="mp818d-g mp818d-n${Math.min(pts.length, 3)}">${cards}</div>${rules.length || park ? `<div class="mp818d-r"><b>SITE RULES</b><div><ol>${rules.map(x => `<li>${esc(x)}</li>`).join('')}</ol>${park}</div></div>` : ''}`;
+	const park = E && E.park ? `<li class="mp818d-park"><b>${esc(E.park.area)}:</b> ${E.park.rules.map(esc).join(' · ')}</li>` : '';
+	return `<div class="mp818d-band"><div class="mp818d-g">${cards}</div>${rules.length || park ? `<div class="mp818d-r"><b>SITE RULES</b><ol>${rules.map(x => `<li>${esc(x)}</li>`).join('')}${park}</ol></div>` : ''}</div>`;
 }

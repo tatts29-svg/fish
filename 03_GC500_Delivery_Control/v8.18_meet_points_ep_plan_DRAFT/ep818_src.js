@@ -43,10 +43,10 @@ function ep818Html(){
 	const qr = Q.rows, tq = qr.reduce((s, r) => s + r.quote, 0), ta = qr.reduce((s, r) => s + r.allocated_to_wc, 0), tn = qr.reduce((s, r) => s + r.no_wc_allocation, 0);
 	const fold = (id, title, n, body) => `<details class="ldsec ep818-f" data-ep818-f="${id}"${EPF818.folds.has(id) ? ' open' : ''}><summary><span class="ldsec-t">${title}</span><span class="ldsec-n">${n}</span><span class="ldsec-x" aria-hidden="true"></span></summary><div class="ldsec-b">${body}</div></details>`;
 	return `<section class="card nosfold ep818" id="ep818" aria-labelledby="ep818h">
-<div class="ep818-hd"><div><h3 id="ep818h">Event Portables · load plan</h3><p class="sub">${T.fwf} FWF${T.pp ? ' and ' + T.pp + ' pee panels' : ''} to WC areas in ${T.n} loads${T.each ? ' of ' + T.each : ''} · first load ${esc(epDay818(first.date))} · to quote ${esc(Q.quote)}</p></div><span class="chip ref">${esc(Q.quote)}</span></div>
+<div class="ep818-hd"><div><h3 id="ep818h">Event Portables · load plan</h3><p class="sub">${T.fwf} FWF${T.pp ? ' and ' + T.pp + ' pee panels' : ''} to WC areas · planned to quote ${esc(Q.quote)} as it stands · first load ${esc(epDay818(first.date))}</p></div></div>
 <div class="ep818-rules"><div class="ep818-box sr"><h4>Site rules · all gear and equipment</h4><ol>${E.site_rules.map(x => `<li>${esc(x)}</li>`).join('')}</ol>${mpParkHtml818('ep818-park')}</div>
 <div class="ep818-box dm"><h4>${esc(E.demob.heading)}</h4><ul>${E.demob.lines.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>
-<div class="sect">Loads · ${T.fwf} FWF${T.each ? ' · ' + T.n + ' × ' + T.each : ''}</div>
+<div class="sect">Loads · ${T.n}${T.each ? ' × ' + T.each + ' FWF' : ''}</div>
 <p class="ep818-ord">${esc(E.order)} <b>${esc(E.early)}</b></p>
 <div class="ldlist timed ep818-list" role="list" aria-label="Event Portables loads">${rows}</div>
 <div class="ep818-qt"><h4>Quote ${esc(Q.quote)} against WC allocation</h4><div class="ep818-qw"><table><thead><tr><th>Item</th><th class="n">Quote</th><th>Allocated to WC numbers</th><th class="n nowc">No WC allocation</th></tr></thead><tbody>${
@@ -64,7 +64,7 @@ function epRunSheet818(l){
 	const stops = l.stops.map(s => `<tr><td class="rs-no">${s.stop}</td><td class="rs-mp"><b>${esc(s.meet_point_name)}</b><span>Way in: ${esc(s.way_in)}</span><small>${esc(s.ll[0].toFixed(6) + ', ' + s.ll[1].toFixed(6))}</small></td>
 <td class="rs-wc">${s.drops.map(x => `<span><b>${esc(x.ref || x.name)}</b> ×${x.fwf}${x.pee_panels ? ' + ' + x.pee_panels + ' pee panels' : ''}${x.no_pin || x.no_wc_number ? ' <i>· Coates directs to the spot</i>' : ''}</span>`).join('')}</td>
 <td class="rs-n">${s.fwf}${s.drops.some(x => x.pee_panels) ? `<small>+${s.drops.reduce((t, x) => t + (x.pee_panels || 0), 0)} pee</small>` : ''}</td><td class="rs-n">${s.left_on_truck}</td>
-<td class="rs-q"><div class="rs-qr" data-ep818-url="${esc(s.directions_url)}">${qrSvg(s.directions_url, 3)}</div><span>Scan for directions to ${esc(s.meet_point_name)}</span></td><td class="rs-done"><i></i></td></tr>`).join('');
+<td class="rs-q"><div class="rs-qw"><div class="rs-qr" data-ep818-url="${esc(s.directions_url)}">${qrSvg(s.directions_url, 3)}</div><span>Scan for directions to ${esc(s.meet_point_name)}</span></div></td><td class="rs-done"><i></i></td></tr>`).join('');
 	return `<div class="rs818" data-ep818-sheet="${l.n}">
 <header class="rs-hd"><b>Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet</b><span>Author: Andrew Fisher</span></header>
 <h1 class="rs-bar">Load ${l.n} of ${n} · ${esc(epDay818(l.date))} · ${esc(epCount818(l))}</h1>
@@ -95,7 +95,7 @@ function ep818Print(n, o){
 	let w = document.getElementById('ep818print');
 	if (!w) { w = document.createElement('div'); w.id = 'ep818print'; w.setAttribute('role', 'dialog'); w.setAttribute('aria-modal', 'true'); document.body.appendChild(w); }
 	w.setAttribute('aria-label', 'Run sheet, load ' + l.n);
-	w.innerHTML = `<div class="ep818-pbar"><span>Run sheet · Load ${l.n} of ${EP818.loads.length} · one A4 page</span><button type="button" class="btn primary" data-ep818-go>Print / Save as PDF</button><button type="button" class="btn" data-ep818-x>Close</button></div>${epRunSheet818(l)}`;
+	w.innerHTML = `<div class="ep818-pbar"><span>Run sheet · Load ${l.n} of ${EP818.loads.length} · one A4 page</span><button type="button" data-ep818-go>Print / Save as PDF</button><button type="button" data-ep818-x>Close</button></div>${epRunSheet818(l)}`;
 	w.hidden = false;
 	document.querySelectorAll('#ep818page').forEach(e => e.remove());
 	const st = document.createElement('style'); st.id = 'ep818page'; st.textContent = '@page{size:A4 portrait;margin:8mm}'; document.head.appendChild(st);
