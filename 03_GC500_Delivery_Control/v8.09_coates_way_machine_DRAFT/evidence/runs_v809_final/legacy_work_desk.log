@@ -1,0 +1,23 @@
+PASS  desk: loads ready (loading cover gone, no graphics fallback)
+PASS  desk: #tour drawn, on top, text ≥ 11 px  — {"id":"tour","w":108,"h":40,"x":1149,"y":19,"font":14,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #sound drawn, on top, text ≥ 11 px  — {"id":"sound","w":83,"h":40,"x":1272,"y":19,"font":14,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #fullscreen drawn, on top, text ≥ 11 px  — {"id":"fullscreen","w":40,"h":40,"x":1370,"y":19,"font":25,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #view-3d drawn, on top, text ≥ 11 px  — {"id":"view-3d","w":43,"h":32,"x":360,"y":107,"font":13,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #view-front drawn, on top, text ≥ 11 px  — {"id":"view-front","w":59,"h":32,"x":403,"y":107,"font":13,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #view-back drawn, on top, text ≥ 11 px  — {"id":"view-back","w":61,"h":32,"x":461,"y":107,"font":13,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #gearbox drawn, on top, text ≥ 11 px  — {"id":"gearbox","w":74,"h":32,"x":522,"y":107,"font":13,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #zoom-out drawn, on top, text ≥ 11 px  — {"id":"zoom-out","w":33,"h":32,"x":1311,"y":696,"font":20,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #zoom-in drawn, on top, text ≥ 11 px  — {"id":"zoom-in","w":33,"h":32,"x":1344,"y":696,"font":20,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #motor drawn, on top, text ≥ 11 px  — {"id":"motor","w":128,"h":41,"x":554,"y":778,"font":14,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #quality drawn, on top, text ≥ 11 px  — {"id":"quality","w":90,"h":16,"x":1127,"y":870,"font":12,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #reference drawn, on top, text ≥ 11 px  — {"id":"reference","w":86,"h":17,"x":1241,"y":870,"font":12,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #help drawn, on top, text ≥ 11 px  — {"id":"help","w":64,"h":16,"x":1351,"y":870,"font":12,"shown":true,"onTop":true,"inView":true}
+PASS  desk: #part-register drawn, on top, text ≥ 11 px  — {"id":"part-register","w":251,"h":24,"x":39,"y":385,"font":13,"shown":true,"onTop":true,"inView":true}
+PASS  desk: help opens #info; #info-close ≥ 44 × 44, wholly on screen, on top  — {"id":"info-close","w":44,"h":44,"x":1042,"y":141,"font":22,"shown":true,"onTop":true,"inView":true}
+PASS  desk: a click on #info-close closes #info
+PASS  desk: part-register opens #parts-dialog; #register-close ≥ 44 × 44, wholly on screen, on top  — {"id":"register-close","w":44,"h":44,"x":1042,"y":70,"font":22,"shown":true,"onTop":true,"inView":true}
+PASS  desk: a click on #register-close closes #parts-dialog
+PASS  desk: no legacy control moved or resized against the live copy (legacy_base_desk.json)  — []
+PASS  desk: no page or console errors
+
+21/21 checks passed (work, desk)
