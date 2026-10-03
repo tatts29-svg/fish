@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher · 3 Oct 2026 AEST.
 
-**READY TO UPLOAD — all final checks complete; guarded publication next.** This candidate removes the requested Today cards, keeps current programme-day access and moves the unexported-change count to Tools → Export. Final standing checks and print/visual review are complete; guarded publication remains with the release owner.
+**LIVE — 3 Oct 2026, 10:04 AEST.** The guarded upload succeeded and the public page matches the tested build byte for byte. This release removes the requested Today cards, keeps current programme-day access and moves the unexported-change count to Tools → Export.
+
+[Open GC500 Delivery Control](https://gc500-production.up.railway.app/v/Coates-GC500-2026). Final implementation and checks were committed as `89e5054` before upload. The independent owner readback has been requested on [PR #1](https://github.com/tatts29-svg/fish/pull/1#issuecomment-5963473442); it is not yet claimed as received.
 
 ## Authority and exact candidate
 
@@ -14,7 +16,7 @@ The implementation owner supplied the frozen `dd83f06` handover in [PR #1, comme
 - Apply `patch_v814_export_audit.py` after that original patch to correct the audited Export label, then `patch_v814_pair_audit.py` for the two-card desktop arrangement.
 - Live base: `f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec`, 9,079,773 bytes.
 - Combined candidate: `6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce`, 9,074,112 bytes.
-- Shared-record baseline before publication: **3554**, with collection hashes recorded in `evidence/publication_before.json`. No operational record change is included in this release.
+- Audit-start shared-record baseline: **3554**, with collection hashes recorded in `evidence/publication_before.json`. A separate record change occurred during the audit, before upload. Actual uploader preflight and post-upload readback were both **3555**, with unchanged update metadata across upload. No operational record write is included in this release.
 
 ## What changes
 
@@ -54,7 +56,7 @@ The independent audit reproduced one defect in the original patch: `renderTabs()
 | Full navigation sweeps | **21 tabs, seven deep links and Back on desktop and phone; zero page/console errors.** |
 | Actual phone Showcase after printing | Live base and candidate both open, expose Options, close and reopen correctly; modal state, dimensions, focus and Back checked. |
 | Corrected one-tab legacy suite | **24/24 desktop + 24/24 phone pass** with the actual-modal assertion. |
-| Guarded upload and exact public-byte/record readback | **Pending. Not live.** |
+| Guarded upload and exact public-byte/record readback | **LIVE, byte-exact**; shared record **3555 unchanged across upload**. See the audit-start comparison qualification below. |
 
 Evidence: `evidence/codex_source_review.md`, `source_cpu_corrected.log`, and `codex_browser_audit.json`. The earlier owner removal log and partial v7.99 logs are historical checks; they do not replace final standing-suite completion on this candidate.
 
@@ -62,13 +64,21 @@ Only expectations invalidated by the authorised removals may be retired: the del
 
 Implementation and the independent source audit are recorded above; the release owner owns the correction, final combined validation and publication. The moving v8.09, v8.15 and v8.16 drafts are outside this release. The rejected v8.17 animation direction remains parked.
 
+## Publication record
+
+`evidence/release_verification.json` preserves the original post-upload comparison against the earlier audit-start snapshot. Its page match passes, while `recordUnchanged:false` correctly records **3554 → 3555** during the audit. It must not be interpreted as a record mutation by the upload, or rewritten as an unchanged audit-start result. `evidence/publication_record_review.json` records the actual **3555 → 3555** upload boundary and equal service-update metadata; private operational details remain outside Git.
+
+`evidence/ready814.json` is the historical pre-publication certificate, so its pending-publication field remains as originally recorded. This README and the publication evidence supersede that state. No later Documents, Demob, machine or animation draft was included.
+
 ## Rebuild
 
-From `03_GC500_Delivery_Control`, starting from the named live base:
+From `03_GC500_Delivery_Control`, the original build command on the named **v8.13** live base was:
 
 ```sh
-bash toolchain/build.sh v8.14 v8.14_today_trimmed_DRAFT/patch_v814.py v8.14_today_trimmed_DRAFT/patch_v814_export_audit.py v8.14_today_trimmed_DRAFT/patch_v814_pair_audit.py
+bash toolchain/build.sh v8.14 v8.14_today_trimmed_LIVE/patch_v814.py v8.14_today_trimmed_LIVE/patch_v814_export_audit.py v8.14_today_trimmed_LIVE/patch_v814_pair_audit.py
 ```
+
+Do not reapply this release to the now-live v8.14 page: the duplicate guard deliberately refuses. The renamed patches were replayed offline against the saved v8.13 base, producing the exact published hash; see `evidence/live_path_replay.json`.
 
 The strict sequential inherited-suite runner is `evidence/standing814_runs.py`. It records original/adapted source hashes, rejects nonzero exits, failed assertions, page/console errors and incomplete contexts. Historical `run_all.sh` and the partial original logs are not release gates. Private screenshots and raw browser results remain outside Git.
 

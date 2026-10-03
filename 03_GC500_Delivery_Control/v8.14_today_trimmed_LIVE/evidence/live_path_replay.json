@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Fisher",
+  "purpose": "Offline replay after LIVE-folder rename; saved historical base, no network or publication.",
+  "baseSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "replaySha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "publishedSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "bytes": 9074112,
+  "exactMatch": true,
+  "patches": [
+    {
+      "path": "v8.14_today_trimmed_LIVE/patch_v814.py",
+      "sha256": "255a548a259bc747d975b79f2a1f4d8c23851b7b7014b51eae2b5e318a33cddf"
+    },
+    {
+      "path": "v8.14_today_trimmed_LIVE/patch_v814_export_audit.py",
+      "sha256": "ae6c6003a9f182eac0655845b47aac744dbae54caafdbf0b99246761218b0648"
+    },
+    {
+      "path": "v8.14_today_trimmed_LIVE/patch_v814_pair_audit.py",
+      "sha256": "92d0f0e3059a8c7dd68cdacf093480d6cae8c0e62a5322db68677cbcb091f022"
+    }
+  ]
+}
