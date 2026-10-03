@@ -1,7 +1,7 @@
 {
   "author": "Andrew Fisher",
-  "source": "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v816work/demob_shim.js",
-  "base": "build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
+  "source": "/tmp/tmp.QBR4TNEeSZ",
+  "base": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
   "results": [
     {
       "name": "gate_before_event_week",
@@ -35,7 +35,7 @@
         "emptied": {
           "on": false,
           "by": "Fixture operator",
-          "at": "2026-10-03T01:38:03.194Z",
+          "at": "2026-10-03T01:41:01.088Z",
           "unproven": false,
           "stale": false
         },

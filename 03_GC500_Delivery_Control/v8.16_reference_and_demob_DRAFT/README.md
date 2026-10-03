@@ -106,7 +106,7 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
   iso, 'out')` for each, one redraw), Print run sheets, Email the branch(es) (mailto draft only). Four views: Pick-up list
   (the day table, by area, with the source chip, NOT READY, and a More menu: open, move to another day, Emptied, Collected),
   Toilet run, Pump-out run, Trucks and times. Out-of-window plan dates (WB02, WB03, WB14) are listed under the strip.
-- **Toilet run.** Event portables = **FWF** (single portable toilets) and **Pee Panel** (urinals) — 233 units on 63
+- **Toilet run** (now two runs that never mix - see "Two toilet runs, travel time and oversize" below). Event portables = **FWF** (single portable toilets) and **Pee Panel** (urinals) — 233 units on 63
   references. Not counted (they stay on the pick-up list): **Toilet Block 6m, 16Pan Block, Accessible Toilet, Waste tank,
   FWF Trailer**. Proposed portables go as full 24-unit loads, outside the island first, then the island, then those with
   no position; a day can carry several loads; a part load says how many spaces are left and to top up from the next day.
@@ -131,7 +131,7 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
   toilet still has its stop). Relationships between different references are not in the data and are not invented.
 - **Pump-out run:** toilets and tanks due today or on the next working day and not yet emptied — pumped the day before,
   or first thing that morning.
-- **Trucks and times:** one load per oversize piece (buildings, toilet blocks, trailers — "Oversize: check permit /
+- **Trucks and times** (oversize is now the branch's flag, see below): one load per big piece (buildings, toilet blocks, trailers — "Oversize: check permit /
   travel window", plus a per-day note), the rest a few to a truck by area, the toilet run in its 24-unit loads; each load
   timed from Kingston and back inside **07:00–17:00 on site** and never on the road 07:00–09:00 or 16:00–18:00, with a
   new truck when the next load would not fit.
@@ -199,7 +199,8 @@ toilets". He also sent the Queensland Access Conditions Guide v6.0 (Dec 2023), w
 - **Who owns each portable** is read from the v7.29 inventory's own record (`owner816`): the supplier's units on the
   reference (`subOf`, e.g. Event Portables) and the Coates asset numbers on it (`invCountNums`, by item where
   `itemNumbersOf` has them). A unit recorded as neither is **"owner to confirm"** and goes on **neither** run; it stays on
-  the pick-up list, the pump-out list and the email, flagged. On the live record: OWNER-COUNTS.
+  the pick-up list, the pump-out list and the email, flagged. On the live record: **70 sub-hire, 40 Coates, 123 owner to
+  confirm** (of 233).
 - **Sub-hire pick-up** - "Supplier's own transport, organised by the supplier (Coopers Plains, Brisbane)". A pick-up list,
   not a truck plan: what is ready, in loads of up to 24, where each unit is (its destination and whether that is the
   master plan, a pin or the reference), its emptied status by name and time, the pick-up date, site hours 07:00-17:00.
@@ -296,15 +297,19 @@ The day bar (branch buttons left, actions right) is a toolbar, not a card row.
 TEST-RESULTS
 
 ## Open questions for Andrew
-1. **Which toilets count toward the 24:** built as the types FWF and Pee Panel (233 units on 63 references). Or only the
-   gear sub-hired from Event Portables (WC33, WC41, WC42, WC43, WC44, WC56, WC59, WC67, WC71, WC81)? One line changes it.
-   Toilet blocks, accessible toilets, trailers and waste tanks are on the normal list.
-2. **Travel times:** Kingston to the circuit 70 min each way (the page's figure), loading 30 min a stop and 5 min a
-   portable, 4 pieces a truck are planning assumptions, flagged on the tab and editable per device. Are they right, and
-   do the 07:00-09:00 / 16:00-18:00 no-travel windows apply to the run back as well?
-3. **Oversize:** what permit or travel window applies on Gold Coast roads for buildings and toilet blocks? Nothing is
-   invented; every oversize load says "check permit / travel window" and each day has a note.
-4. Should the per-day oversize note and the assumptions be shared (a new record collection) rather than per device?
+1. **Which toilets are whose (the 24 and the 12-14):** on the record, 70 units are the supplier's (Event Portables on
+   WC33, WC41, WC42, WC43, WC44, WC56, WC59, WC67, WC71, WC81) and 40 are Coates' (Coates asset numbers on WC01, WC02,
+   WC04, WC06, WC07, WC11, WC12, WC21, WC50, T0024). **123 units have no owner recorded** and are "owner to confirm" on
+   neither run until somebody records the supplier's units or the Coates numbers on them (the Equipment / sub-hire
+   drawer). Is it right that toilet blocks, accessible toilets, trailers and waste tanks stay off both toilet runs?
+2. **Travel times:** the Coates toilet run and the branch trucks use the 70 min Kingston planning figure (not a live
+   time, editable per run). Loading 30 min a stop, 5 min a portable and 4 pieces a truck are planning assumptions,
+   flagged and editable. Are they right, and does the 07:00-09:00 / 16:00-18:00 rule apply to the run back as well?
+3. **Oversize:** which loads does the branch flag (it is a tick per load, never guessed), and what are their widths and
+   lengths (the weekend rule is for over 3.1 m wide or 25 m long)? Is QLD Access Conditions Guide v6.0 still current,
+   and is there a statewide public holiday in 26 Oct - 13 Nov (none known)? Pilot and escort counts come from the permit.
+4. Should the per-day oversize note, the oversize ticks, the Coates truck capacities and the travel times be shared
+   (a new record collection) rather than kept on each device?
 
 ## Release state
 RELEASE-STATE

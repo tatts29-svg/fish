@@ -234,7 +234,13 @@ async function build(dev, L, name) {
     const rows = [...document.querySelectorAll('#finder .fi.doc')], row = rows.find(r => (r.querySelector('b') || {}).textContent === pickTitle);
     const words = row ? row.querySelector('.fiw').textContent : '';
     const before = {active: ae0 ? (ae0.dataset && (ae0.dataset.tile815 || ae0.dataset.doc815)) || ae0.id || ae0.tagName : null, sel: state.docSel815, tile: state.docTile815};
-    if (row) row.click(); await new Promise(r => setTimeout(r, 900)); window.open = wo; window.renderDocs815 = rd;
+    /* the usual case: the file list is more than 30 s old, so landing on Documents asks the service again and redraws the tab
+     when it answers (docsRefresh -> docsRedraw). Make that so, then wait for the answer - a real condition, not a longer sleep */
+    const at0 = DOCS.at; DOCS.at = 0;
+    if (row) row.click();
+    for (let i = 0; i < 200 && (DOCS.busy || DOCS.state !== 'ready'); i++) await new Promise(r => setTimeout(r, 50));
+    if (DOCS.at === 0) DOCS.at = at0; /* a pick that opened a file drew nothing and asked nothing: leave the list's age as it was */
+    await new Promise(r => setTimeout(r, 300)); window.open = wo; window.renderDocs815 = rd;
     const cur = document.querySelector('#pane-docs [data-doc815][aria-current]');
     return {before, trace, rowsShown: [...document.querySelectorAll('#pane-docs #docBody815 [data-doc815]')].map(e => e.dataset.doc815).slice(0, 4), found: !!row, docRows: rows.length, words, opened, tab: state.tab, q: state.docQ815, current: cur ? cur.dataset.doc815 : null, focused: !!(cur && document.activeElement === cur),
       inView: cur ? (() => { const b = cur.getBoundingClientRect(); return b.top >= 0 && b.bottom <= innerHeight; })() : false};

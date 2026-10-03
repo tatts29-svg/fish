@@ -3,19 +3,19 @@
   "before": {
    "paneH": 8949,
    "firstOpenY": 1024,
-   "open": 436
+   "open": 439
   },
   "after": {
    "paneH": 511,
    "firstOpenY": 345,
-   "open": 427,
+   "open": 440,
    "press": {
-    "swms": 392,
-    "transport": 433,
-    "maps": 364,
-    "packs": 373,
-    "photos": 413,
-    "dockets": 395
+    "swms": 384,
+    "transport": 388,
+    "maps": 344,
+    "packs": 360,
+    "photos": 409,
+    "dockets": 399
    }
   }
  }

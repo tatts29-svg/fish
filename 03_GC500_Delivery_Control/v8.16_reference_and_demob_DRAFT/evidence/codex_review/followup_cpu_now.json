@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "source": "v8.16_reference_and_demob_DRAFT/demob816_src.js",
+  "source": "/tmp/tmp.QBR4TNEeSZ",
   "base": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
   "results": [
     {
@@ -27,7 +27,7 @@
         "stored": {
           "out_date": "2026-10-27",
           "out_by": "Fixture operator",
-          "out_at": "2026-10-03T01:18:12.538Z",
+          "out_at": "2026-10-03T01:41:00.966Z",
           "out_portions": [
             {
               "id": "2026-10-26#1",
@@ -123,11 +123,11 @@
       "name": "unknown_toilet_tank_without_predecessor",
       "observed": [
         {
-          "kind": "toilets",
+          "kind": "supplier",
           "stops": [
             {
-              "at": 420,
-              "end": 435,
+              "at": null,
+              "end": null,
               "parts": [
                 "FWF"
               ]
@@ -138,8 +138,8 @@
           "kind": "normal",
           "stops": [
             {
-              "at": 435,
-              "end": 465,
+              "at": 420,
+              "end": 450,
               "parts": [
                 "Waste tank"
               ]

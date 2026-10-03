@@ -12,15 +12,16 @@ step() { quiet; echo "== $1"; }
 LOCK=${BROWSER_LOCK:-/tmp/gc500-browser.lock}
 # Codex's CPU fixtures, rerun against this source and this build (no browser)
 C=${CODEX816:-}; step codex-fixtures; node $E/codex_fixtures816.js v8.16_reference_and_demob_DRAFT/demob816_src.js $PAGE > $E/codex_fixtures816.log 2>&1
-if [ -n "$C" ]; then node $C/followup_cpu_968aefb.cjs v8.16_reference_and_demob_DRAFT/demob816_src.js $PAGE > $E/codex_review/followup_cpu_now.json 2>&1
-  node $C/demob_cpu_audit.js v8.16_reference_and_demob_DRAFT/demob816_src.js $PAGE > $E/codex_review/demob_cpu_audit_now.json 2>&1
-  node $C/followup_6a0bb20_cpu.cjs v8.16_reference_and_demob_DRAFT/demob816_src.js $PAGE > $E/codex_review/followup_6a0bb20_cpu_now.json 2>&1
-  [ -f $C/followup_e540cbc_cpu.cjs ] && node $C/followup_e540cbc_cpu.cjs v8.16_reference_and_demob_DRAFT/demob816_src.js $PAGE > $E/codex_review/followup_e540cbc_cpu_now.json 2>&1
+if [ -n "$C" ]; then SH=$(mktemp); cat v8.16_reference_and_demob_DRAFT/demob816_src.js $E/codex_review/owner_shim816.js > $SH  # their fixtures predate the two runs: every portable the supplier's, as written
+  node $C/followup_cpu_968aefb.cjs $SH $PAGE > $E/codex_review/followup_cpu_now.json 2>&1
+  node $C/demob_cpu_audit.js $SH $PAGE > $E/codex_review/demob_cpu_audit_now.json 2>&1
+  node $C/followup_6a0bb20_cpu.cjs $SH $PAGE > $E/codex_review/followup_6a0bb20_cpu_now.json 2>&1
+  [ -f $C/followup_e540cbc_cpu.cjs ] && node $C/followup_e540cbc_cpu.cjs $SH $PAGE > $E/codex_review/followup_e540cbc_cpu_now.json 2>&1
   # the two Timeline rechecks take the unpatched v8.13 page (V813, f07e92cc) as Codex wrote them
   if [ -n "${V813:-}" ]; then node $E/codex_review/timeline_drawer_recheck_fixed.cjs $V813 v8.16_reference_and_demob_DRAFT > $E/codex_review/timeline_drawer_recheck_fixed.log 2>&1
     cp $E/codex_review/followup_6a0bb20_timeline_current.cjs $C/_cur816.cjs && node $C/_cur816.cjs $V813 $PWD/v8.16_reference_and_demob_DRAFT > $E/codex_review/followup_6a0bb20_timeline_now.json 2>&1; rm -f $C/_cur816.cjs
     [ -f $C/followup_e540cbc_timeline.cjs ] && cp $E/codex_review/followup_e540cbc_timeline_current.cjs $C/_cur816e.cjs && node $C/_cur816e.cjs $V813 $PWD/v8.16_reference_and_demob_DRAFT > $E/codex_review/followup_e540cbc_timeline_now.json 2>&1; rm -f $C/_cur816e.cjs; fi; fi
-step v816;            flock "$LOCK" node $E/v816_tests.js > $E/v816.log 2>&1
+[ -n "${SKIP_V816:-}" ] || step v816; [ -n "${SKIP_V816:-}" ] || flock "$LOCK" node $E/v816_tests.js > $E/v816.log 2>&1
 step v799-desktop;    BASE=$BASE flock "$LOCK" node $T/v799_tests.js > $E/v799_desktop.log 2>&1
 step v799-phone;      MOB=1 flock "$LOCK" node $T/v799_tests.js > $E/v799_phone.log 2>&1
 step packed-desktop;  flock "$LOCK" node v7.95_today_packed_DRAFT/evidence/packed_tests.js > $R/packed_desktop.log 2>&1
