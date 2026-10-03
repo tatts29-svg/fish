@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-v8.34 — READY TO UPLOAD after corrected final review, not live
+v8.34 — VERIFIED LIVE 4 Oct2026 08:46AEST; historical review checkpoints retained below.
 
 Source checkpoint cc5f5073; interaction test-only correction 135bd283.
 Base v8.32 c3e610a5a1def55fc3eac0f87b3f2e4d14cfdefd7ba926bcb548487d6cdfc95b.
@@ -18,3 +18,6 @@ Corrected candidate review, 4 Oct 2026:
 Exact final e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb, 10,169,498 bytes. Late table issue fixed with one wrapper class and max640px first-column positioning only. Root independently inspected the phone wage image. Staff runtime43/43; final desktop and phone each22 tabs/seven deep links/Back, zero page/console errors or attempted native writes. Prior financial/source evidence retained through exact inverse byte proof; these earlier checks were not falsely relabelled as rerun. Original failed and superseded checks remain historical evidence. Guarded upload/public verification pending.
 
 Independent review accepts prior590 financial checks as carried unchanged-source evidence, not newly executed final-candidate checks. Unique298-byte stylesheet plus15-byte wrapper-class addition inverse to exact prior candidate. New43 runtime and both final sweeps bind final bytes; public full-model comparison remains required after upload.
+
+Final release result:
+Source/READY8908090a. Guarded publication at08:46AEST and exact public e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb (10,169,498 bytes) pass. Actual-public desktop/phone79/79 pass with exact raw/CDP identity (explicit UTF-8-BOM decoding only), no HTML substitution, full approved financial/staffing model parity, wage visibility and Today MP4 playback/stop. Zero page/console errors and attempted writes. Root inspected the published phone image. All33 operational collections and record3739 unchanged. Server healthy v5.87, no backend deployment. Claude remains paused. The separate v8.35 draft must integrate from this exact new live base.
