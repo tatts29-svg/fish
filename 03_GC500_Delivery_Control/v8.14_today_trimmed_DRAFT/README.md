@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 3 Oct 2026 AEST.
 
-**DRAFT — final release checks in progress; not live.** This candidate removes the requested Today cards, keeps current programme-day access and moves the unexported-change count to Tools → Export. Final standing checks, print/visual review and guarded publication remain with the release owner.
+**READY TO UPLOAD — all final checks complete; guarded publication next.** This candidate removes the requested Today cards, keeps current programme-day access and moves the unexported-change count to Tools → Export. Final standing checks and print/visual review are complete; guarded publication remains with the release owner.
 
 ## Authority and exact candidate
 
@@ -46,8 +46,14 @@ The independent audit reproduced one defect in the original patch: `renderTabs()
 | Actual-page current/gap programme date checks, 3 and 7 Oct 2026 | **2/2 desktop, 2/2 phone**. |
 | Errors and writes in that focused browser audit | No page errors; no attempted live writes. |
 | Actual packing function, two/three/four columns, resize, programme/alert/other-section isolation, phone/print and patch guards | **29/29 pass**, bound to the final candidate. |
-| Layout, 1,440 px desktop | Today pane **3,798 → 3,540 px**; Today work empty area **11.9% → 10.7%**; other visible measured sections below 15%; retained Equipment height unchanged. Final phone review follows. |
-| Final standing suites, both navigation sweeps, final print checks and phone/desktop visual review | **Pending release-owner completion.** |
+| Layout, 1,440 px desktop | Today pane **3,798 → 3,540 px**; Today work empty area **11.9% → 10.7%**; other visible measured sections below 15%; retained Equipment height unchanged. Phone work-row empty area **4.5%**, no horizontal overflow; actual desktop/phone viewport screenshots inspected. |
+| Paired six-sample synchronous navigation timing | Today **197.8 → 181.0 ms** median on this test host. Equipment code/height unchanged; timing mixed (**86.5 → 94.4 ms**), so no general speed claim. |
+| Standing packed/Equipment/rules/fresh suites | **134/134 pass**. |
+| Today behaviour/printing and result navigation | **41/41 + 18/18 pass**. Ordinary Today print **13 → 12 pages**; A4 report **8 → 8**. |
+| Retained text/figures | All seven checked views match after excluding only the authorised removed Today cards. |
+| Full navigation sweeps | **21 tabs, seven deep links and Back on desktop and phone; zero page/console errors.** |
+| Actual phone Showcase after printing | Live base and candidate both open, expose Options, close and reopen correctly; modal state, dimensions, focus and Back checked. |
+| Corrected one-tab legacy suite | **24/24 desktop + 24/24 phone pass** with the actual-modal assertion. |
 | Guarded upload and exact public-byte/record readback | **Pending. Not live.** |
 
 Evidence: `evidence/codex_source_review.md`, `source_cpu_corrected.log`, and `codex_browser_audit.json`. The earlier owner removal log and partial v7.99 logs are historical checks; they do not replace final standing-suite completion on this candidate.
@@ -65,3 +71,7 @@ bash toolchain/build.sh v8.14 v8.14_today_trimmed_DRAFT/patch_v814.py v8.14_toda
 ```
 
 The strict sequential inherited-suite runner is `evidence/standing814_runs.py`. It records original/adapted source hashes, rejects nonzero exits, failed assertions, page/console errors and incomplete contexts. Historical `run_all.sh` and the partial original logs are not release gates. Private screenshots and raw browser results remain outside Git.
+
+## Corrected legacy Showcase assertion
+
+The original phone one-tab run reported 23/24 because it checked `#showBackdrop`. That is a Backdrop `<select>`, intentionally hidden by the existing mobile car-focus Options rule; the actual dialog is `#showcase`. Exact Showcase open/close, print handlers and mobile CSS are unchanged from the live base. The initial result remains in `standing814_initial_browser.json`; it was not waived as a product failure. The corrected test requires the actual modal role, open state, visibility, nonzero dimensions, Back control and focus containment. `showcase814_phone.cjs` separately reproduces the print path and verifies modal/Options/Back/reopen on both baseline and candidate. This control probe pauses automatic scene changes before using scene-dependent Options; its earlier unpaused second-Options-click timeout is retained privately. No Showcase product code changed for this correction.
