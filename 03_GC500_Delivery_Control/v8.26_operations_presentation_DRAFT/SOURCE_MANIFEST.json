@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "state": "Generic source package; release requires private reviewed inputs and final verification",
+  "shared_rep_sha256": "2cd061a81284c9a157a108be1a3d01a0f45dc5e40ceacccdc394f3474513acc9",
+  "files": {
+    "README.txt": {
+      "sha256": "4fc6169da8a1ea89884daef3bbfae1c1b41c2521cda0637f5891f832e1eab291",
+      "bytes": 2986
+    },
+    "apply_reviewed_contract_supplement.py": {
+      "sha256": "edfa586a02fdd46da83f71d75389ff51d87dd604c56bc81847b1211c03765a1f",
+      "bytes": 4552
+    },
+    "costs_preview.css": {
+      "sha256": "da2095b7a4ea8dd99a279993c21bb1a699a7dfbb00285ff0f7c256c13c614ede",
+      "bytes": 6121
+    },
+    "costs_preview.js": {
+      "sha256": "4a17d1ba2f86230438eec88c9682f0f57427d1802f9e50c4c0ece1b8c9268721",
+      "bytes": 4499
+    },
+    "demob826_adapter.js": {
+      "sha256": "3186f33ec857a35eb5730dba658e39fb036ddfa597aaba89ab9c2f657f461aad",
+      "bytes": 1362
+    },
+    "fencing_preview.css": {
+      "sha256": "b2561b7adbeb74d9bf1eeb9357a417c238889d4f2603e75379ad3c534b38ff70",
+      "bytes": 12679
+    },
+    "patch_quote_period_warning.py": {
+      "sha256": "a578e70abe668fdd0e894d0107816da01c9f0dbcf4f50c24bd0df46e860c9f57",
+      "bytes": 1393
+    },
+    "patch_v826.py": {
+      "sha256": "27bffa867c2d6bc835b606bffcc2906e700d804dfaf64f2e90aa816790159a76",
+      "bytes": 2192
+    },
+    "patch_v826_release.py": {
+      "sha256": "933624352eb54363cbb3a14cdca6fdb0fa454acc9671e8c4580df991c32637b2",
+      "bytes": 7844
+    },
+    "refresh-preview.css": {
+      "sha256": "16490a24520b17c08fa914cfea14fb05aea3675a29d8f12d67548e0b1a775229",
+      "bytes": 18910
+    }
+  }
+}

@@ -1,0 +1,10 @@
+Author: Andrew Fisher
+DRAFT — not ready or live.
+
+Generic source checkpoint for the integrated presentation and selected-load checks. Original source files and full-page inputs remain private.
+
+Built on v8.21 a505155e749d35c2231add24762a2db08ae617b9efcd4d06c8aee8507750a414.
+Standard candidate cde8d4295b58d6f0ec85d46b49091698afd847bc4f49a4bad90a2c14d17c595e, 9,654,140 bytes.
+Focused combined and selected-load checks passed102/102; private native Finance checks passed41/41. Both desktop/phone navigation sweeps passed. Final standing semantic reconciliation remains in progress, with original failures preserved. No publication is claimed.
+
+Implementation, integration and verification are owned by Codex. Claude is intentionally paused and is not claimed as reviewer.
