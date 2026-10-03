@@ -1,0 +1,127 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "968aefba33abd387b7b646b71340d41775679b25",
+  "baseSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "baselineExcerptSha256": "6ff6b78ac55daf080952bd3792d1e192158db60a9dbffa2207e62cd7056c76f7",
+  "sourceFiles": {
+    "docs815_src.js": "4e482531fca0aac3859966ab3bf4bf29bc42f179764eb171c10b00a9ab1ae5dc",
+    "v815.css": "f2a079e3bb8f55528cd57c1409d7ff800ad8056ff58b39170e61982a9d4600e5",
+    "patch_v815.py": "b1efdd24395bd70d06e19f5da98452a443f30b43b30e2f4292147626b69e6a6b"
+  },
+  "fixture": "Invented documents, notes, file-index entries, operator, references and example.invalid URLs only; no operational data.",
+  "method": "Exact reviewed functions, limited DOM/helper doubles, and the exact collection integration hook; no browser or network.",
+  "limits": "Native print is established from rendered HTML and print CSS, not a generated PDF. Drop-photo/docket classification and geometry are not assessed.",
+  "regressionReproductions": 7,
+  "allFrozenFindingsReproduced": true,
+  "rows": [
+    {
+      "name": "Native print has no document rows from the initial body",
+      "reproduced": true,
+      "detail": {
+        "defaultRows": 5,
+        "onlyRecent": true,
+        "printCssHidesRecent": true,
+        "newSourceRegistersBeforeprint": false
+      }
+    },
+    {
+      "name": "Recorded reference disappears from map row",
+      "reproduced": true,
+      "detail": {
+        "kind": "map",
+        "oldShowsReference": true,
+        "oldHasDrawerAction": true,
+        "newShowsReference": false,
+        "newHasDrawerAction": false,
+        "oldOpenUrlPreserved": true,
+        "newOpenUrlPreserved": true
+      }
+    },
+    {
+      "name": "Recorded reference disappears from invoice row",
+      "reproduced": true,
+      "detail": {
+        "kind": "invoice",
+        "oldShowsReference": true,
+        "oldHasDrawerAction": true,
+        "newShowsReference": false,
+        "newHasDrawerAction": false,
+        "oldOpenUrlPreserved": true,
+        "newOpenUrlPreserved": true
+      }
+    },
+    {
+      "name": "Existing plan button is routed to signed dockets",
+      "reproduced": true,
+      "detail": {
+        "buttonAsksForPlan": true,
+        "callerRequestsFencing": true,
+        "actualDestination": "dockets"
+      }
+    },
+    {
+      "name": "Header fallback loses selected merged twin",
+      "reproduced": true,
+      "detail": {
+        "pickedId": "Synthetic_Prestart_Advanced_Fencing_2026-09-14.pdf",
+        "resolvedId": "Synthetic_Prestart_ATF_2026-09-14.pdf",
+        "pickedHref": null,
+        "resolvedHref": "https://example.invalid/files/Synthetic_Prestart_ATF_2026-09-14.pdf",
+        "tab": "docs",
+        "tile": null,
+        "query": "",
+        "selectedDocumentRendered": false
+      }
+    },
+    {
+      "name": "Header fallback loses selected missing original",
+      "reproduced": true,
+      "detail": {
+        "pickedId": "synthetic_missing_swms.pdf",
+        "resolvedId": "synthetic_missing_swms.pdf",
+        "pickedHref": null,
+        "resolvedHref": null,
+        "tab": "docs",
+        "tile": null,
+        "query": "",
+        "selectedDocumentRendered": false
+      }
+    },
+    {
+      "name": "All five merged synthetic catalogue notes are lost",
+      "reproduced": true,
+      "detail": [
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-14.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-14.pdf",
+          "originalNoteRetained": false,
+          "mergedHasNote": false
+        },
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-15.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-15.pdf",
+          "originalNoteRetained": false,
+          "mergedHasNote": false
+        },
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-16.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-16.pdf",
+          "originalNoteRetained": false,
+          "mergedHasNote": false
+        },
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-17.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-17.pdf",
+          "originalNoteRetained": false,
+          "mergedHasNote": false
+        },
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-18.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-18.pdf",
+          "originalNoteRetained": false,
+          "mergedHasNote": false
+        }
+      ]
+    }
+  ]
+}

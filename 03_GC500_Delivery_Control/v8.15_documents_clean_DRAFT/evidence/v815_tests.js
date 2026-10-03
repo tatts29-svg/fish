@@ -45,7 +45,7 @@ async function paper(file, tag, how) {
     const ids = [...pane.querySelectorAll('[data-doc], [data-print815]')].filter(vis).map(e => e.dataset.doc || e.dataset.print815);
     const C = docCollection(), byId = new Map(C.items.map(d => [d.id, d]));
     return {ids, titles: ids.map(id => (byId.get(id) || {}).title || '').filter(Boolean),
-      twins: C.items.filter(d => d.twin_of).map(d => [d.twin_of, d.id]), screenCards: [...pane.querySelectorAll('.tiles815, #docBody815, .head815')].some(vis)}; }));
+      twins: C.items.filter(d => d.twin_of).map(d => [d.twin_of, d.id]), twinTitles: C.items.filter(d => d.twin_of && d.twin_title).map(d => [d.twin_title, d.title]), screenCards: [...pane.querySelectorAll('.tiles815, #docBody815, .head815')].some(vis)}; }));
   await p.emulateMedia({media: 'screen'});
   if (how === 'filtered') r.after = await p.evaluate(() => ({q: state.docQ815, tile: state.docTile815, results: !!document.getElementById('docsec-results')}));
   r.errors = s.errors.slice(); await s.browser.close(); return r;
@@ -272,13 +272,15 @@ async function build(dev, L, name) {
     console.log('\n== paper (page.pdf, A4)');
     const a = await paper(BASE, 'live_ctrlp'), b = await paper(BUILD, 'v815_ctrlp'), c = await paper(BUILD, 'v815_button', 'button'), d = await paper(BUILD, 'v815_filtered', 'filtered');
     const tw = new Map(b.twins), txt = {b: squash(b.text), c: squash(c.text), d: squash(d.text)};
-    const liveTitles = [...new Set(a.titles)], missingFrom = k => liveTitles.filter(x => !txt[k].includes(squash(x)));
+    // a merged pre-start prints once, under the catalogue's title: live's title for its uploaded copy counts as printed when that is
+    const asTitle = new Map(b.twinTitles), liveTitles = [...new Set(a.titles)];
+    const missingFrom = k => liveTitles.filter(x => !txt[k].includes(squash(x)) && !(asTitle.has(x) && txt[k].includes(squash(asTitle.get(x)))));
     console.log(`  live: ${a.pages} pages, ${a.ids.length} files · v8.15 Ctrl+P: ${b.pages} pages, ${b.ids.length} files · button: ${c.pages} pages · filtered view: ${d.pages} pages`);
     const lost = a.ids.filter(id => !b.ids.includes(id) && !(tw.has(id) && b.ids.includes(tw.get(id))));
     ok(b.pages > 0 && !lost.length && !b.screenCards, `paper, Ctrl+P from the tab as it opens: every file live prints is on v8.15's paper (${a.ids.length} live -> ${b.ids.length}), no screen cards`, lost.join(', '));
     ok(!missingFrom('b').length, `paper, Ctrl+P: the PDF itself carries every title live's PDF does (${liveTitles.length})`, missingFrom('b').slice(0, 8).join(' | '));
     ok(c.button.found && c.button.called === 1 && /Print/.test(c.button.text), `paper, the Print the list button calls the browser's print once`, JSON.stringify(c.button));
-    ok(c.pages === b.pages && JSON.stringify(c.ids) === JSON.stringify(b.ids) && !missingFrom('c').length, `paper, the button's PDF is the same as Ctrl+P's (${c.pages} pages, ${c.ids.length} files)`);
+    ok(c.pages === b.pages && JSON.stringify(c.ids) === JSON.stringify(b.ids) && !missingFrom('c').length, `paper, the button's PDF is the same as Ctrl+P's (${c.pages} pages, ${c.ids.length} files)`, JSON.stringify({pages: [b.pages, c.pages], ids: [b.ids.length, c.ids.length], missing: missingFrom('c')}));
     ok(d.pages === b.pages && JSON.stringify(d.ids) === JSON.stringify(b.ids) && !missingFrom('d').length && JSON.stringify(d.before) === JSON.stringify(d.after) && d.after.q === 'WC' && d.after.results,
       `paper, Ctrl+P with a search typed and a fold open still prints the whole list, and the screen is left as it was`, JSON.stringify({pages: d.pages, before: d.before, after: d.after}));
     ok(b.pages <= a.pages, `paper: no more pages than live (${a.pages} -> ${b.pages})`);

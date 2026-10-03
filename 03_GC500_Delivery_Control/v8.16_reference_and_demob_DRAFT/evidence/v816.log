@@ -1,0 +1,127 @@
+
+== desktop
+drawer height (folds closed) before → after: {"P42":4424,"WC05":4907,"P46":3949} → {"P42":1709,"WC05":1924,"P46":1587}
+PASS desktop: the drawer opens short (under 60% of live for P42, WC05, P46)  - {"before":{"P42":4424,"WC05":4907,"P46":3949},"after":{"P42":1709,"WC05":1924,"P46":1587}}
+PASS desktop: no money on the public view (9 drawers, every fold a viewer can open, opened)
+PASS desktop: Contract & charges is in the drawer and hidden from the view link
+PASS desktop: the empty states, precision tags, This link, Demob-week and Off-hire lines and Rental ID are gone
+PASS desktop: P42 shows the master-plan position with the pin, not "no drawing link"  - master plan · on the unit
+PASS desktop: the complete buttons appear once (none in the header)  - P42:111/0 WC05:111/0 WC07:110/0 P46:111/0 GN20:100/0 LT01:100/0 WB04:100/0 T0085:100/0 WC60:111/0
+PASS desktop: the photo slot section[data-photo-slot] is there, straight after Where it is
+PASS desktop: the five precision tags are gone
+PASS desktop: footer is Print drop sheet, Text it, Copy link and More  - ["Print drop sheet","Text it","Copy link"]
+PASS desktop: P42's Out date is proposed, with the dashed chip  - OUT
+PROPOSED
+
+FRI 6 NOV
+proposed · island, week 2 · hire ends 13 Nov
+PASS desktop: History and notes opens and closes, animated  - {"anim":1,"opened":true,"closed":true}
+PASS desktop: Demob sits after Equipment on the tab row  - ["today","timeline","plant","demob","map","docs","coatesway"]
+PASS desktop: the Demob tab shows 197 and all 15 working days  - {"kpi":"TO COME OFF SITE  197 references  DATED BY THE PLAN  50 remove events  DATED BY THE CONTRACT  15 off-hire before 13 Nov  PROPOSED  132 confirm or move","days":15}
+PASS desktop: every live reference has exactly one out date and one source  - {"total":197,"plan":50,"contract":15,"proposed":132,"confirmed":0}
+PASS desktop: 50 by the plan, 15 by a contract before 13 Nov, 132 proposed  - {"total":197,"plan":50,"contract":15,"proposed":132,"confirmed":0}
+PASS desktop: proposed outside the island in week 1, Macintosh Island in weeks 2-3, no position at the end of week 3
+PASS desktop: proposed dates carry the dashed proposed chip on the Demob tab
+PASS desktop: the day bars (LED strips) light up in turn  - dledOn
+PASS desktop: no sideways scroll on the page  - {"kpi":"TO COME OFF SITE\n\n197\nreferences\n\nDATED BY THE PLAN\n\n50\nremove events\n\nDATED BY THE CONTRACT\n\n15\noff-hire before 13 Nov\n\nPROPOSED\n\n132\nconfirm or move","days":15,"hash":"#demob","txt":"View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported.\n\nDemob — Boost Mobile Gold Coast 500\nDEMOB · PICK-UP BOAR
+PASS desktop: the branch filter shows only that branch  - {"all":21,"kinp":18,"only":true}
+PASS desktop: Email the branch is a mailto draft with the list  - GC500 demob - pick-ups Wed 28 Oct
+
+Site hours 07:00-17:00. No travel to or from the Gold Coast 07:00-09:00 or 16:00-18:00.
+Every toilet and waste tank is pumped out before it is loaded - do not load o
+PASS desktop: Print run sheets lays out one A4 per load and opens print  - {"pages":8,"expect":8,"printed":1}
+PASS desktop: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off  - Coates INDUSTRIAL SOLUTIONS DEMOB RUN SHEET · GC500 2026 Collection · Wed 28 Oct 2026 Toilet run TRUCK 1 · LOAD 1 OF 8
+PASS desktop: run sheets carry the emptied line with a tick box per unit, and NOT READY for a toilet not yet emptied
+PASS desktop: all 98 run sheets across the 15 days fit their A4 page, tick boxes apart  - {"n":98,"bad":[],"boxBad":[],"zero":0}
+PASS desktop: no toilet load is over 24 units (13 loads)
+PASS desktop: every event-portable unit is in exactly one load (233 units on 63 references; types FWF, Pee Panel)
+PASS desktop: toilet loads keep the island priority (outside loads first, outside in week 1, island in weeks 2-3, sides not mixed)  - {"dayOrder":[],"badWeek":0,"mixed":0}
+PASS desktop: no waste tank is ordered before its toilet (pairs WC05, WC20, WC27, WC60)
+PASS desktop: every pick-up runs inside 07:00-17:00 and no truck travels 07:00-09:00 or 16:00-18:00
+PASS desktop: every toilet and tank is on a pump-out list on or before its pick-up day
+PASS desktop: a typed due-out on a reference with no remove event reaches the Timeline, the day list and the day documents  - {"noRemove":true,"beforeDay":false,"afterDay":true,"onTl":true,"loads":true,"src":"confirmed"}
+PASS desktop: editors see Contract & charges, with the money and the Rental ID  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
+PASS desktop: editors see Moved? Change it and Add a photo
+PASS desktop: the pump-out gate refuses a collection (and the light off site) until the toilet is emptied (T0024, on site)  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
+PASS desktop: Emptied (pumped out) records who and when, then the collection is allowed  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
+PASS desktop: Confirm the N proposed asks on the page, then writes each through setDate(key, iso, 'out')  - {"n":16,"calls":16,"confirmed":16}
+PASS desktop: [review 1] no light shortcut - a used toilet showing amber is still refused off site until emptied
+PASS desktop: [review 1] no date shortcut - refused on 2026-10-03, before Event Week
+PASS desktop: [review 1] emptied: true without who and when is not proof - refused
+PASS desktop: [review 1, 8] the newest record wins - a newer committed un-tick beats an older local tick
+PASS desktop: [review 7] a pump-out from an earlier use does not clear a unit set on site again  - {"ok1":true,"after":false,"refused":true,"because":"set on site again - a new use"}
+PASS desktop: [review 2] a merge keeps emptied, who, when and its history, and the later stamp wins  - {"x1":true,"x2":true}
+PASS desktop: [review 3] a 25-unit reference goes in portions, each on its own day, in its load and in that day's confirmation  - {"k":"WC13","portions":[{"iso":"2026-10-30","n":24,"id":"2026-10-30#1"},{"iso":"2026-10-30","n":1,"id":"2026-10-30#2"}],"sum":25,"eachDay":true,"maxLoad":24,"outIsLast":true,"inConfirm":true}
+PASS desktop: [review 4] a tank under a toilet on another truck is timed after the toilet is off  - {"k":"PG01","iso":"2026-11-09","topEnd":440,"tankAt":800,"ok":true,"loads":2}
+PASS desktop: [review 5] an unknown quantity is "quantity to confirm", never 1, and its load says its total is not certain  - {"k":"PG01","unk":true,"evtN":0,"uncertain":true,"shows":true}
+PASS desktop: [review 6a] a reference added for one day with a typed due-out reaches that day
+PASS desktop: [review 6b] a cancelled reference shows its stored due-out, marked cancelled  - {"k":"P27","o":"OUT\nCANCELLED\n\nTUE 3 NOV\ncancelled · the due-out typed on it","ok":true}
+PASS desktop: no page errors
+blocked writes: 0 (the harness aborts any)
+PASS desktop: reduced motion is respected (no bar growth, no pulse, folds open without sliding)  - {"bar":"none","pin":"none","anims":0,"open":true}
+PASS desktop: no page errors (reduced motion)
+
+== phone
+drawer height (folds closed) before → after: {"P42":4934,"WC05":5448,"P46":4396} → {"P42":1739,"WC05":1999,"P46":1685}
+PASS phone: the drawer opens short (under 60% of live for P42, WC05, P46)  - {"before":{"P42":4934,"WC05":5448,"P46":4396},"after":{"P42":1739,"WC05":1999,"P46":1685}}
+PASS phone: no money on the public view (9 drawers, every fold a viewer can open, opened)
+PASS phone: Contract & charges is in the drawer and hidden from the view link
+PASS phone: the empty states, precision tags, This link, Demob-week and Off-hire lines and Rental ID are gone
+PASS phone: P42 shows the master-plan position with the pin, not "no drawing link"  - master plan · on the unit
+PASS phone: the complete buttons appear once (none in the header)  - P42:111/0 WC05:111/0 WC07:110/0 P46:111/0 GN20:100/0 LT01:100/0 WB04:100/0 T0085:100/0 WC60:111/0
+PASS phone: the photo slot section[data-photo-slot] is there, straight after Where it is
+PASS phone: the five precision tags are gone
+PASS phone: footer is Print drop sheet, Text it, Copy link and More  - ["Print drop sheet","Text it","Copy link"]
+PASS phone: P42's Out date is proposed, with the dashed chip  - OUT
+PROPOSED
+
+FRI 6 NOV
+proposed · island, week 2 · hire ends 13 Nov
+PASS phone: History and notes opens and closes, animated  - {"anim":1,"opened":true,"closed":true}
+PASS phone: Demob sits after Equipment on the tab row  - ["today","timeline","plant","demob","map","coatesway"]
+PASS phone: the Demob tab shows 197 and all 15 working days  - {"kpi":"TO COME OFF SITE  197 references  DATED BY THE PLAN  50 remove events  DATED BY THE CONTRACT  15 off-hire before 13 Nov  PROPOSED  132 confirm or move","days":15}
+PASS phone: every live reference has exactly one out date and one source  - {"total":197,"plan":50,"contract":15,"proposed":132,"confirmed":0}
+PASS phone: 50 by the plan, 15 by a contract before 13 Nov, 132 proposed  - {"total":197,"plan":50,"contract":15,"proposed":132,"confirmed":0}
+PASS phone: proposed outside the island in week 1, Macintosh Island in weeks 2-3, no position at the end of week 3
+PASS phone: proposed dates carry the dashed proposed chip on the Demob tab
+PASS phone: the day bars (LED strips) light up in turn  - dledOn
+PASS phone: no sideways scroll on the page  - {"kpi":"TO COME OFF SITE\n\n197\nreferences\n\nDATED BY THE PLAN\n\n50\nremove events\n\nDATED BY THE CONTRACT\n\n15\noff-hire before 13 Nov\n\nPROPOSED\n\n132\nconfirm or move","days":15,"hash":"#demob","txt":"View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported.\n\nDemob — Boost Mobile Gold Coast 500\nDEMOB · PICK-UP BOAR
+PASS phone: the day strip scrolls sideways inside its own container  - {"cw":342,"sw":1256,"ox":"auto"}
+PASS phone: the branch filter shows only that branch  - {"all":21,"kinp":18,"only":true}
+PASS phone: Email the branch is a mailto draft with the list  - GC500 demob - pick-ups Wed 28 Oct
+
+Site hours 07:00-17:00. No travel to or from the Gold Coast 07:00-09:00 or 16:00-18:00.
+Every toilet and waste tank is pumped out before it is loaded - do not load o
+PASS phone: Print run sheets lays out one A4 per load and opens print  - {"pages":8,"expect":8,"printed":1}
+PASS phone: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off  - Coates INDUSTRIAL SOLUTIONS DEMOB RUN SHEET · GC500 2026 Collection · Wed 28 Oct 2026 Toilet run TRUCK 1 · LOAD 1 OF 8
+PASS phone: run sheets carry the emptied line with a tick box per unit, and NOT READY for a toilet not yet emptied
+PASS phone: all 98 run sheets across the 15 days fit their A4 page, tick boxes apart  - {"n":98,"bad":[],"boxBad":[],"zero":0}
+PASS phone: no toilet load is over 24 units (13 loads)
+PASS phone: every event-portable unit is in exactly one load (233 units on 63 references; types FWF, Pee Panel)
+PASS phone: toilet loads keep the island priority (outside loads first, outside in week 1, island in weeks 2-3, sides not mixed)  - {"dayOrder":[],"badWeek":0,"mixed":0}
+PASS phone: no waste tank is ordered before its toilet (pairs WC05, WC20, WC27, WC60)
+PASS phone: every pick-up runs inside 07:00-17:00 and no truck travels 07:00-09:00 or 16:00-18:00
+PASS phone: every toilet and tank is on a pump-out list on or before its pick-up day
+PASS phone: a typed due-out on a reference with no remove event reaches the Timeline, the day list and the day documents  - {"noRemove":true,"beforeDay":false,"afterDay":true,"onTl":true,"loads":true,"src":"confirmed"}
+PASS phone: editors see Contract & charges, with the money and the Rental ID  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
+PASS phone: editors see Moved? Change it and Add a photo
+PASS phone: the pump-out gate refuses a collection (and the light off site) until the toilet is emptied (T0024, on site)  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
+PASS phone: Emptied (pumped out) records who and when, then the collection is allowed  - {"chargesVisible":true,"chargesMoney":true,"rentalId":true,"changeWhere":true,"addPhoto":true,"gateKey":"T0024","st0":"on site","em0":false,"collectRefused":true,"lightRefused":true,"emptiedPod":true,"emptiedSet":true,"collectAllowed":true,"recordKept":true,"confirmBar":true,"confirmN":16,"calls":16,"callsOk":true,"nowConfirmed":16,"pushes":0}
+PASS phone: Confirm the N proposed asks on the page, then writes each through setDate(key, iso, 'out')  - {"n":16,"calls":16,"confirmed":16}
+PASS phone: [review 1] no light shortcut - a used toilet showing amber is still refused off site until emptied
+PASS phone: [review 1] no date shortcut - refused on 2026-10-03, before Event Week
+PASS phone: [review 1] emptied: true without who and when is not proof - refused
+PASS phone: [review 1, 8] the newest record wins - a newer committed un-tick beats an older local tick
+PASS phone: [review 7] a pump-out from an earlier use does not clear a unit set on site again  - {"ok1":true,"after":false,"refused":true,"because":"set on site again - a new use"}
+PASS phone: [review 2] a merge keeps emptied, who, when and its history, and the later stamp wins  - {"x1":true,"x2":true}
+PASS phone: [review 3] a 25-unit reference goes in portions, each on its own day, in its load and in that day's confirmation  - {"k":"WC13","portions":[{"iso":"2026-10-30","n":24,"id":"2026-10-30#1"},{"iso":"2026-10-30","n":1,"id":"2026-10-30#2"}],"sum":25,"eachDay":true,"maxLoad":24,"outIsLast":true,"inConfirm":true}
+PASS phone: [review 4] a tank under a toilet on another truck is timed after the toilet is off  - {"k":"PG01","iso":"2026-11-09","topEnd":440,"tankAt":800,"ok":true,"loads":2}
+PASS phone: [review 5] an unknown quantity is "quantity to confirm", never 1, and its load says its total is not certain  - {"k":"PG01","unk":true,"evtN":0,"uncertain":true,"shows":true}
+PASS phone: [review 6a] a reference added for one day with a typed due-out reaches that day
+PASS phone: [review 6b] a cancelled reference shows its stored due-out, marked cancelled  - {"k":"P27","o":"OUT\nCANCELLED\n\nTUE 3 NOV\ncancelled · the due-out typed on it","ok":true}
+PASS phone: no page errors
+blocked writes: 0 (the harness aborts any)
+PASS phone: reduced motion is respected (no bar growth, no pulse, folds open without sliding)  - {"bar":"none","pin":"none","anims":0,"open":true}
+PASS phone: no page errors (reduced motion)
+
+ALL PASSED (103)
