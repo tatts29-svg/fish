@@ -1,0 +1,47 @@
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
+# suite: results-desktop · command: flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/results796_tests_819.cjs
+PASS routine first Equipment visit keeps Every reference closed {"tab":"plant","group":"Toilets & amenities","query":"","referenceCount":74,"open":false,"rows":0,"top":2522}
+PASS Inventory hydrates once and visible navigation QR codes render {"calls":1,"codes":7}
+FAIL Today no-record control opens filtered references and lands them in view {"want":["P65","T0159"],"got":[null,null],"tab":"plant","light":"none","group":null,"query":"","referenceCount":2,"open":true,"rows":2,"top":12}
+PASS record redraw respects a manually closed filtered-results fold {"tab":"plant","light":"none","group":null,"query":"","referenceCount":2,"open":false,"rows":0,"top":12}
+PASS pressing the same shortcut again reveals the results again {"tab":"plant","light":"none","group":null,"query":"","referenceCount":2,"open":true,"rows":2,"top":12}
+PASS typing a search opens the matching reference rows {"tab":"plant","light":null,"group":"Toilets & amenities","query":"WC","referenceCount":66,"open":true,"rows":66,"top":12}
+PASS search redraw preserves a subsequently closed fold {"tab":"plant","light":null,"group":"Toilets & amenities","query":"WC","referenceCount":66,"open":false,"rows":0,"top":421}
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#toPlant')[22m
+[2m    - locator resolved to <button class="btn" id="toPlant">Equipment page</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not visible[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at /home/user/fish/03_GC500_Delivery_Control/v8.19_meet_points_ep_plan_DRAFT/evidence/results796_tests_819.cjs:24:149 {
+  log: [
+    "  - waiting for locator('#toPlant')",
+    '    - locator resolved to <button class="btn" id="toPlant">Equipment page</button>',
+    '  - attempting click action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying click action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying click action',
+    '      - waiting 100ms',
+    '    58 × waiting for element to be visible, enabled and stable',
+    '       - element is not visible',
+    '     - retrying click action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}

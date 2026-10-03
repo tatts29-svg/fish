@@ -1,0 +1,8 @@
+# v8.19 checks · source commit 90cdfa1cde892bf5825d5078b0707aa22b9016b7 · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:38:50Z
+live page: 9293149 bytes -> /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/base_live.html
+== applying v8.19_meet_points_ep_plan_DRAFT/patch_v819.py
+v8.19 applied: meet points, site rules and the Event Portables load plan
+scrubbed /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/GC500_Delivery_Control_hosted.html 9337803 -> 9337815 | visible code mentions left: 75
+checked /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/GC500_Delivery_Control_hosted.html: 8 inline scripts, 9,356,879 bytes, secrets {'google key': 0, 'mapbox token': 0}
+PASS all checks
+BUILT /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/GC500_Delivery_Control_hosted.html

@@ -1,3 +1,13 @@
+## Current release and ownership — 4 Oct 2026
+
+Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
+
+**v8.19 LIVE at 01:00 AEST.** Frozen product `1cd16dcd`, evidence `84e4cf14`, READY board `dacf75dd`. Exact public SHA-256 `0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c`, 9,356,879 bytes, built on `88a7b6b1`. Claude implemented and tested; Codex independently reviewed and published. Corrected hydration, five A4 run sheets and QR destinations checked. The two inherited Today suites were resolved with the existing semantic test correction: 96/96 base/candidate desktop/phone checks, original failures retained. Fresh build and guarded public readback match. Actual public-host desktop/phone smoke passes12/12 with zero browser errors or attempted writes. No operational collections changed. See `v8.19_meet_points_ep_plan_LIVE/RELEASE_REVIEW.txt`.
+
+**Codex owns the remaining handover.** Andrew directly asked Codex to work through PR #1 comment5970309935; receipt is5970331843. Claude has stopped work and his hourly routine. Codex's existing hourly coordination remains active and honours that stop. No automatic restart is inferred from the inconsistent Wednesday/8 October wording. Additional record dates and undecided allocations/prices remain separate decisions.
+
+**Next: v8.21 daily runs and installer messaging**, rebuilding on the new live page and checking supplier-card styling and shared print surfaces. The v8.22–v8.26 previews remain separate, not live. v8.17 stays parked.
+
 ## Current release work — 3 Oct 2026, Codex
 
 **v8.26 driver and Demob load checklists — CLAIMED by Codex, 4 Oct 2026.** Author: Andrew Fisher. Review selected-load relevance, dispatch accountability and plain wording in the existing driver check and Demob print flow. Preserve native schedule confirmation and separate manual checks from recorded completion or resource reservations. Coordinate shared print surfaces with v8.19/v8.21 and Demob presentation v8.24. Private preview and read-only verification first; no live operational writes. DRAFT, not READY or LIVE.

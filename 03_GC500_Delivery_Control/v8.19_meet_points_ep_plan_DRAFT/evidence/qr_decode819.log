@@ -1,7 +1,0 @@
-40 of 40 QR screenshots decode to the intended directions URL
-PASS run sheet PDF load 1: 1 page(s), 6 of 6 QR codes decoded from the paper and all match
-PASS run sheet PDF load 2: 1 page(s), 2 of 2 QR codes decoded from the paper and all match
-PASS run sheet PDF load 3: 1 page(s), 1 of 1 QR codes decoded from the paper and all match
-PASS run sheet PDF load 4: 1 page(s), 2 of 2 QR codes decoded from the paper and all match
-PASS run sheet PDF load 5: 1 page(s), 2 of 2 QR codes decoded from the paper and all match
-5 of 5 printed run sheets are one A4 page whose QR codes all decode to their meet points
