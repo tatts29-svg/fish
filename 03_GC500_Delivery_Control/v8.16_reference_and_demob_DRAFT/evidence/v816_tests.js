@@ -165,10 +165,10 @@ async function run(name, dev) {
     const card = () => pane().querySelector(`input[data-ov816="${CSS.escape(sid)}"]`).closest('.truck816');
     out.before = /Oversize: check permit/i.test(card().innerText) || false; out.status = /oversize\? the branch to say/i.test(card().innerText);
     card().querySelector('input[data-ov816]').click(); await w(300);
-    const c1 = card(); out.after = /Oversize: check permit/i.test(c1.innerText) && /Check TMR Conditions of Operation Database before each trip/.test(c1.innerText) && /pilot \/ escort: check permit/.test(c1.innerText) && /planning latest departure \d\d:\d\d/.test(c1.innerText);
+    const c1 = card(); out.after = /Oversize: check permit/i.test(c1.innerText) && /Check TMR Conditions of Operation Database before each trip/.test(c1.innerText) && /pilot \/ escort: check permit/.test(c1.innerText) && /planning latest departure \d\d:\d\d/i.test(c1.innerText) && /Project planning window/.test(c1.innerText);
     out.tip = /s11\.2 Table 3/.test((c1.querySelector('[title*="Guide v6.0"]') || {}).title || '');
     const tb = pane().querySelector('input[data-trv816="branch"]'); await set(tb, '');
-    const c2 = card(); out.blank = /Leave Kingston travel time to confirm/.test(c2.innerText) && /latest departure travel time to confirm/.test(c2.innerText) && /travel time to confirm/.test(c2.innerText);
+    const c2 = card(); out.blank = /Leave Kingston travel time to confirm/.test(c2.innerText) && /latest departure travel time to confirm/i.test(c2.innerText) && /travel time to confirm/.test(c2.innerText);
     await set(pane().querySelector('input[data-trv816="branch"]'), '90'); out.typed = /\(16:00 less the 90 min run/.test(card().innerText) && travel816('branch').v === 90;
     card().querySelector('input[data-ov816]').click(); await w(250); out.unflag = !/Oversize: check permit/i.test(card().innerText);
     try { localStorage.removeItem(TRAVEL816_KEY); localStorage.removeItem(OVFLAG816_KEY); } catch (e) {}

@@ -297,12 +297,21 @@ block('I: supplier print, travel overrides, the permit status and the supplier h
   const sh = run(kinds, "(() => { const T = trucks816('2026-10-27', 'all'); return T.map(L => { try { const h = sheet816('2026-10-27', L); return {kind: L.kind, ok: h.length > 500 && !/00:00/.test(h.replace(/\d\d:00–\d\d:00/g, ''))}; } catch (e) { return {kind: L.kind, err: e.message}; } }); })()");
   ok(['supplier', 'toilets', 'single', 'normal'].every(k => sh.some(x => x.kind === k && x.ok)), 'I6 a non-empty run sheet prints for every run type - supplier pick-up, Coates toilet run, single big piece, branch truck - with no midnight times', sh);
   const o = ctx([]); o.localStorage.setItem('gc500.demob816.assume', JSON.stringify({run: 120}));
-  ok(run(o, "travel816('branch').v") === 120, 'I7 a Kingston-run figure typed before the per-run field is kept (120 min), not dropped back to the planning figure');
+  const mig = run(o, "JSON.parse(JSON.stringify({b: travel816('branch'), c: travel816('coates'), old: JSON.parse(localStorage.getItem(ASSUME816_KEY) || '{}').run}))");
+  ok(mig.b.v === 120 && mig.c.v === 120 && /carried over from the earlier Kingston-run setting/.test(mig.b.words) && mig.old === undefined, 'I7 a Kingston-run figure saved under the earlier draft (120 min) is carried over once into both runs, said so, and the old setting removed - never applied silently', mig);
   run(kinds, "ovFlag816(trucks816('2026-10-27', 'all').find(L => L.kind === 'single').ovId, false); RENDER_MEMO.clear()");
   const hk = String(run(kinds, "trucksHtml816(demob816().day['2026-10-27'], trucks816('2026-10-27', 'all'))"));
   ok(/oversize\? the branch to say - permit not checked/.test(hk) && /data-ov816=/.test(hk) && /data-trv816="branch"/.test(hk) && /data-trv816="coates"/.test(hk), 'I8 an unflagged big piece says "oversize? the branch to say - permit not checked"; the oversize tick and both travel fields are on the page');
   const t2 = ctx([asset('TT', [{asked: 'FWF', qty_supplied: 2}, {asked: 'Waste tank', qty_supplied: 1}])]); fixed(t2, ['TT'], '2026-10-27'); run(t2, stubs);
   const ht = String(run(t2, "trucksHtml816(demob816().day['2026-10-27'], trucks816('2026-10-27', 'all'))")), st = String(run(t2, "(() => { const L = trucks816('2026-10-27', 'all').find(L => L.kind === 'normal'); return sheet816('2026-10-27', L); })()"));
   ok(/hold: after the supplier has lifted the toilet off it, and the tank is emptied/.test(ht) && /<td class="t" data-label="Time">after the supplier<\/td>/.test(ht) && /HOLD: only after the supplier/.test(st), 'I9 a tank under a supplier\'s toilet carries a hold, not a clock time: after the supplier\'s pick-up, and emptied');
+});
+block('J: a Coates truck that takes fewer (Codex 8c821da)', () => {
+  const c = ctx([asset('C12', [{asked: 'FWF', qty_supplied: 12}], {owner: 'coates'})]); fixed(c, ['C12'], '2026-10-27'); run(c, stubs);
+  c.localStorage.setItem('gc500.demob816.cap.2026-10-27.coates1', '8'); run(c, 'RENDER_MEMO.clear()');
+  const L = loadsOf(c, '2026-10-27'), h = String(run(c, "toiletHtml816(demob816().day['2026-10-27'])"));
+  ok(L.map(l => l.units + '/' + l.cap).join(' ') === '8/8 4/12' && !/overloaded/.test(h) && /re-packed/.test(h), 'J1 a 12-unit Coates load on a truck set to 8 is re-packed 8 + 4; neither is over its truck', L);
+  const over = run(c, "(() => { const Dy = demob816().day['2026-10-27'], L = Object.assign({}, Dy.loads[0], {units: 10, free: -2}); return loadCard816(Dy, L, null); })()");
+  ok(/overloaded - 2 over this truck's 8/.test(over) && !/>full</.test(over), 'J2 a load over its truck is never "full": it says "overloaded" and by how many', String(over).match(/<span class="chip[^"]*">[^<]*/g));
 });
 console.log(fails ? `\n${fails} FAILED, ${passes} passed` : `\nALL PASSED (${passes})`); process.exitCode = fails ? 1 : 0;

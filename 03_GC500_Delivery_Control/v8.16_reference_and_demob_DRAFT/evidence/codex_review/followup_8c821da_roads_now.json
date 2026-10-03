@@ -1,0 +1,23 @@
+node:assert:150
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: '00a72d68016e513bea921b58472bc15ffe61c6c7c74482c4f94ab723f908f2c7' == 'bafd51d93afd3716c4e277eec4a93d56f358d94820f17e485e2a64dd0745d143'
+    at Object.<anonymous> (/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/codex6b10/03_GC500_Delivery_Control/review_v816_release/evidence/followup_8c821da_roads.cjs:8:8)
+    at Module._compile (node:internal/modules/cjs/loader:1705:14)
+    at Object..js (node:internal/modules/cjs/loader:1838:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '00a72d68016e513bea921b58472bc15ffe61c6c7c74482c4f94ab723f908f2c7',
+  expected: 'bafd51d93afd3716c4e277eec4a93d56f358d94820f17e485e2a64dd0745d143',
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.22.2

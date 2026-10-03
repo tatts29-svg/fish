@@ -285,8 +285,13 @@ function demob816(){
 		const sideIx = L => L.rows[0].r.side === 'outside' ? 0 : L.rows[0].r.side === 'inside' ? 1 : 2;
 		loads.sort((x, y) => (x.stream === y.stream ? 0 : x.stream === 'sub' ? -1 : 1) || sideIx(x) - sideIx(y) || cmp816(x.rows[0].r, y.rows[0].r));
 		const seq = {};
-		loads.forEach(L => { L.n = (seq[L.stream] = (seq[L.stream] || 0) + 1); L.id = L.stream + L.n; L.cap = capOf816(iso, L);
-			L.free = L.cap - L.units; L.capWarn = L.stream === 'coates' && L.cap > RUN816.coates.max; L.uncertain = L.rows.some(x => x.r.evtUnk); L.rows.sort((x, y) => cmp816(x.r, y.r)); });
+		for (let k = 0; k < loads.length && k < 200; k++) { const L = loads[k]; L.n = (seq[L.stream] = (seq[L.stream] || 0) + 1); L.id = L.stream + L.n; L.cap = capOf816(iso, L);
+			/* the truck takes fewer than the load holds (a lower capacity typed for it): what does not fit goes on a new load of the same run, same side */
+			if (L.units > L.cap) { let room = L.cap; const keep = [], over = [];
+				L.rows.forEach(x => { if (room >= x.n) { keep.push(x); room -= x.n; } else if (room > 0) { keep.push(Object.assign({}, x, {n: room, part: true})); over.push(Object.assign({}, x, {n: x.n - room, part: true})); room = 0; } else over.push(x); });
+				L.rows = keep; L.units = keep.reduce((s, x) => s + x.n, 0);
+				if (over.length) loads.splice(k + 1, 0, {rows: over, units: over.reduce((s, x) => s + x.n, 0), planned: false, stream: L.stream, repacked: true}); }
+			L.free = L.cap - L.units; L.over = L.units > L.cap; L.capWarn = L.stream === 'coates' && L.cap > RUN816.coates.max; L.uncertain = L.rows.some(x => x.r.evtUnk); L.rows.sort((x, y) => cmp816(x.r, y.r)); }
 		const next = D[i + 1];
 		const onDay = (r, d) => r.iso === d || !!(r.portions && r.portions.some(p => p.iso === d));
 		const pump = refs.filter(r => r.empty && !r.emptied && !r.nothing && (onDay(r, iso) || (next && onDay(r, next)))).sort(cmp816)
@@ -353,17 +358,20 @@ const TRAVEL816_KEY = 'gc500.demob816.travel';
 function travel816(run){
 	let mine = {}; try { mine = JSON.parse(localStorage.getItem(TRAVEL816_KEY) || '{}') || {}; } catch (e) { mine = {}; }
 	if (mine[run] === '') return {v: null, edited: true, words: 'travel time to confirm'};
-	const v = Number(mine[run]); if (mine[run] != null && isFinite(v) && v > 0) return {v: Math.round(v), edited: true, words: 'typed for this run on this device'};
-	/* a Kingston-run figure typed before the per-run field existed is kept, not dropped */
-	let old = null; try { old = Number((JSON.parse(localStorage.getItem(ASSUME816_KEY) || '{}') || {}).run); } catch (e) { old = null; }
-	if (old && isFinite(old) && old > 0) return {v: Math.round(old), edited: true, words: 'typed on this device earlier'};
+	const v = Number(mine[run]); if (mine[run] != null && isFinite(v) && v > 0) return {v: Math.round(v), edited: true, words: mine._from || 'typed for this run on this device'};
+	/* a Kingston-run figure typed under the earlier draft's single setting is carried over once into every run, said so,
+	 and the old setting removed - it never applies silently */
+	try { const A0 = JSON.parse(localStorage.getItem(ASSUME816_KEY) || '{}') || {}, old = Number(A0.run);
+		if (A0.run != null) { if (isFinite(old) && old > 0) { ['coates', 'branch'].forEach(k => { if (mine[k] == null) mine[k] = Math.round(old); }); mine._from = 'carried over from the earlier Kingston-run setting'; localStorage.setItem(TRAVEL816_KEY, JSON.stringify(mine)); }
+			delete A0.run; localStorage.setItem(ASSUME816_KEY, JSON.stringify(A0)); if (mine[run] != null && mine[run] !== '') return {v: Math.round(Number(mine[run])), edited: true, words: mine._from}; } } catch (e) {}
 	let r = null; try { r = run782(); } catch (e) { r = null; }
 	return r ? {v: r, edited: false, words: 'planning figure, not a live time', basis: ((DATA.transport || {}).kingston_run || {}).basis || ''} : {v: null, edited: false, words: 'travel time to confirm'};
 }
 /* OVERSIZE - only a load the branch flags (never guessed). QLD Access Conditions Guide v6.0 (Dec 2023): s11.2 Table 3,
  Gold Coast business days, no oversize travel 07:00-09:00 or 16:00-18:00, so on the road 09:00-16:00; s9 no convoys;
  s10.2 check the TMR Conditions of Operation Database before each trip; pilots and escorts by the permit. */
-const OVSRC816 = 'QLD Access Conditions Guide v6.0 (Dec 2023): s11.2 Table 3 Gold Coast peak hours; s11.3 Table 4 weekends and public holidays; s9 no convoys; s10.2 before every trip';
+const OVSRC816 = 'QLD Access Conditions Guide v6.0 (copy supplied by the project manager): s11.2 Table 3 Gold Coast peak hours; s11.3 Table 4 weekends and public holidays; s9 no convoys; s10.2 before every trip';
+const OVWIN816 = 'Project planning window: the QLD guide bars oversize vehicles in the Gold Coast 07:00–09:00 and 16:00–18:00 on business days; with site hours 07:00–17:00 we plan oversize moves 09:00–16:00.';
 const OVFLAG816_KEY = 'gc500.demob816.oversize';
 function ovFlag816(id, v){ let m = {}; try { m = JSON.parse(localStorage.getItem(OVFLAG816_KEY) || '{}') || {}; } catch (e) { m = {}; }
 	if (v === undefined) return !!m[id]; if (v) m[id] = 1; else delete m[id]; try { localStorage.setItem(OVFLAG816_KEY, JSON.stringify(m)); } catch (e) {} return !!v; }
@@ -504,8 +512,9 @@ function where816(r){
 function loadCard816(Dy, L, next){
 	const coates = L.stream === 'coates', cap = L.cap;
 	const chip = L.uncertain ? '<span class="chip cand unc816">to confirm - total not certain, count on site</span>'
+		: L.units > cap ? `<span class="chip crit">overloaded - ${L.units - cap} over this truck's ${cap}</span>`
 		: L.free > 0 ? `<span class="chip act">${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top up from ' + esc(dayWords816(next)) : ''}</span>` : '<span class="chip ok">full</span>';
-	return `<div class="card load816 nosfold" data-load-run816="${esc(L.stream)}"><div class="hubtitle"><h3>Load ${L.n} · ${esc(sideWords816(L))}${L.uncertain ? ' · quantity to confirm' : ''}</h3>${chip}${L.capWarn ? '<span class="chip crit capw816">over 14 - check the truck: 12–14 per load</span>' : ''}</div>
+	return `<div class="card load816 nosfold" data-load-run816="${esc(L.stream)}"><div class="hubtitle"><h3>Load ${L.n} · ${esc(sideWords816(L))}${L.uncertain ? ' · quantity to confirm' : ''}</h3>${chip}${L.capWarn ? '<span class="chip crit capw816">over 14 - check the truck: 12–14 per load</span>' : ''}${L.repacked ? '<span class="chip cand">re-packed - the truck before takes fewer</span>' : ''}</div>
 <div class="cside lg816"><div class="ctile"><p class="ctk">Units on this load</p><b>${L.units}${L.uncertain ? '+' : ''}</b><span>of ${cap}${coates ? ' · this truck' : ' · supplier pick-up'}${L.uncertain ? ' · plus quantity to confirm' : ''}</span>${dashLeds([[L.units / cap, L.rows[0].r.side === 'inside' ? 'b' : 'o']], L.units + ' of ' + cap + ' units', cap)}</div>
 ${coates ? `<div class="form cap816"><div class="f"><label for="cap816${esc(L.id)}">This truck takes (units)</label><input id="cap816${esc(L.id)}" type="number" min="1" step="1" data-ro data-cap816="${esc(Dy.iso + '.' + L.id)}" value="${cap}"><div class="hint">12–14 per load (the project manager, 3 Oct 2026) · planned at 12 · kept on this device</div></div></div>` : ''}</div>
 <div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>#</th><th>GC500 ID</th><th>Units</th><th>Where</th><th>Date from · emptied</th></tr></thead><tbody>${L.rows.map((x, i) => `<tr><td class="t" data-label="#">${i + 1}</td><td class="refcell" data-label="GC500 ID">${refPlate(x.r.key, 14)}</td><td data-label="Units">${x.r.evtUnk ? (x.n ? x.n + ' + ' : '') + 'quantity to confirm' : x.n + ' unit' + (x.n === 1 ? '' : 's')}${x.part || x.r.portions ? ' (part of ' + (x.r.evtUnk ? 'a total to confirm' : x.r.evtN) + ')' : ''}${x.unplanned ? ' <span class="chip crit">unplanned - quantity changed</span>' : ''}${x.r.qtyChange && !x.unplanned ? ` <span class="chip cand">${esc(x.r.qtyChange.words)}</span>` : ''}</td><td data-label="Where">${esc(DM816.name[x.r.zone])}<br><span class="w">${esc(where816(x.r))}</span></td><td data-label="Date from">${srcChip816(x.r.src)} ${notReady816(x.r)}</td></tr>`).join('')}</tbody></table></div>
@@ -533,7 +542,7 @@ function ovHtml816(L){
 	if (!L.ov) return `<div class="acts816 ov816">${tog}${L.kind === 'single' ? `<span class="chip cand" title="${esc(OVSRC816)}">oversize? the branch to say - permit not checked</span>` : ''}</div>`;
 	const c = L.ovc;
 	return `<div class="acts816 ov816">${tog}<span class="chip crit" title="${esc(OVSRC816)}">Oversize: check permit / travel window</span></div>
-<p class="note816" title="${esc(OVSRC816)}">Not on Gold Coast roads 07:00–09:00 or 16:00–18:00 · planning latest departure ${c.latest != null ? clock816(c.latest) + ' (16:00 less the ' + L.t.travel + ' min run - a planning figure, not a permit time)' : 'travel time to confirm'} · pilot / escort: check permit · Check TMR Conditions of Operation Database before each trip</p>
+<p class="note816" title="${esc(OVSRC816)}">${esc(OVWIN816)} Planning latest departure ${c.latest != null ? clock816(c.latest) + ' (16:00 less the ' + L.t.travel + ' min run - a planning figure, not a permit time)' : 'travel time to confirm'} · pilot / escort: check permit · Check TMR Conditions of Operation Database before each trip</p>
 ${c.flags.map(f => `<span class="chip crit ovf816">${esc(f)}</span>`).join(' ')}`;
 }
 function travelHtml816(T){
@@ -603,7 +612,7 @@ function wireDemob816(pane){
 		if (v > RUN816.coates.max) flash('Over ' + RUN816.coates.max + ' on one load - check the truck: Coates portable toilets go 12–14 per load.'); redraw(); });
 	/* a run's travel time: the planning figure until somebody types the real one; blank means "to confirm" */
 	pane.querySelectorAll('input[data-trv816]').forEach(i => i.onchange = () => { let m = {}; try { m = JSON.parse(localStorage.getItem(TRAVEL816_KEY) || '{}') || {}; } catch (e) { m = {}; }
-		const v = String(i.value).trim(), k = i.dataset.trv816; if (v === '') m[k] = ''; else if (Number(v) > 0) m[k] = Math.round(Number(v)); else delete m[k];
+		const v = String(i.value).trim(), k = i.dataset.trv816; delete m._from; if (v === '') m[k] = ''; else if (Number(v) > 0) m[k] = Math.round(Number(v)); else delete m[k];
 		try { localStorage.setItem(TRAVEL816_KEY, JSON.stringify(m)); } catch (e) {} redraw(); });
 	pane.querySelectorAll('input[data-ov816]').forEach(i => i.onchange = () => { ovFlag816(i.dataset.ov816, i.checked); redraw(); });
 	const rs = pane.querySelector('button[data-asm816="reset"]'); if (rs) rs.onclick = () => { try { localStorage.removeItem(ASSUME816_KEY); } catch (e) {} redraw(); };
@@ -638,7 +647,7 @@ ${sup ? `<td>${emptied(r)}</td>` : ''}<td>${r.empty ? s.parts.map(p => p.unknown
 	const keys = sup
 		? `<span><label>Site hours</label><b>07:00–17:00</b></span><span><label>Pick-up</label><b>${esc(dayWords816(iso))}</b></span><span><label>Transport</label><b>Supplier's own</b><em>organised by the supplier (Coopers Plains, Brisbane)</em></span><span><label>Units</label><b>${L.toilet.units}${L.toilet.uncertain ? '+' : ''} of 24</b></span><span><label>Supplier</label><b>${esc(L.co)}</b></span><span><label>Area</label><b>${esc(sideWords816(L.toilet))}</b></span>`
 		: `<span><label>Site hours</label><b>07:00–17:00</b></span><span><label>Depot</label><b>${esc(dep.name || 'Coates Kingston')}</b>${dep.address ? `<em>${esc(dep.address)}</em>` : ''}</span><span><label>Leave Kingston</label><b>${esc(tm816(L.t.dep))}</b></span><span><label>On site</label><b>${clock816(L.t.arrive)}</b></span><span><label>Leave site</label><b>${clock816(L.t.leave)}</b></span><span><label>Back</label><b>${esc(tm816(L.t.back))}</b></span>`;
-	const ov = L.ov ? `<div class="rso816">Oversize (the branch's flag): not on Gold Coast roads 07:00–09:00 or 16:00–18:00 · planning latest departure ${L.ovc.latest != null ? clock816(L.ovc.latest) : 'travel time to confirm'} · pilot / escort: check permit · check the TMR Conditions of Operation Database before each trip.${L.ovc.flags.length ? ' ' + esc(L.ovc.flags.join('; ')) + '.' : ''}${ovNote816(iso) ? ' Note: ' + esc(ovNote816(iso)) : ''}</div>` : '';
+	const ov = L.ov ? `<div class="rso816">Oversize (the branch's flag). ${esc(OVWIN816)} Planning latest departure ${L.ovc.latest != null ? clock816(L.ovc.latest) : 'travel time to confirm'} · pilot / escort: check permit · check the TMR Conditions of Operation Database before each trip.${L.ovc.flags.length ? ' ' + esc(L.ovc.flags.join('; ')) + '.' : ''}${ovNote816(iso) ? ' Note: ' + esc(ovNote816(iso)) : ''}</div>` : '';
 	const tv = L.run ? travel816(L.run) : null;
 	return `<div class="dp-page dp-drv rs816${L.t.st.length > 5 ? ' rsc816' : ''}"><header class="dp-hd"><div class="dp-hd-l"><b>Coates</b><span>Industrial Solutions</span></div>
 <div class="dp-hd-m"><span>Demob ${sup ? 'pick-up list' : 'run sheet'} · GC500 2026</span><h1>Collection · ${esc(fmtDate(iso))}</h1></div>

@@ -10,7 +10,7 @@ PASS R1d no arrival, a delivery date, but on the first event day: outgoing - ref
 PASS 2b a unit that has been on site and now shows red is refused (no light shortcut)
 PASS 3 gate_without_actor_or_time: emptied with no person or time is refused
 PASS 4 newer_committed_untick: the newer committed un-tick wins  - {"on":false,"by":"Newer operator","at":"2026-10-26T00:00:00Z","unproven":false,"stale":false}
-PASS 5 reused_reference_old_pumpout: set on site again, the earlier pump-out no longer clears it  - {"emptied":{"on":false,"by":"Fixture operator","at":"2026-10-03T01:58:21.378Z","unproven":false,"stale":false},"nextCollectionAllowed":false}
+PASS 5 reused_reference_old_pumpout: set on site again, the earlier pump-out no longer clears it  - {"emptied":{"on":false,"by":"Fixture operator","at":"2026-10-03T02:24:15.158Z","unproven":false,"stale":false},"nextCollectionAllowed":false}
 PASS 5b a pump-out recorded before the last arrival (an earlier visit) clears nothing
 PASS 5c a pump-out after the last arrival, with a person and a time, clears the collection
 PASS 6 unknown_quantity: kept unknown, not a one-unit load; the load says its total is not certain  - [{"units":0,"uncertain":true,"rows":[{"key":"WC01","n":0,"unknown":true}]}]
@@ -19,7 +19,7 @@ PASS 8 mixed_toilet_tank_order: the tank starts after the toilet on it is off, a
 PASS 9 merge_emptied_evidence: value, who, when and history survive a merge  - {"WC01":{"emptied":true,"emptied_by":"Fixture operator","emptied_at":"2026-10-26T00:00:00Z","emptied_history":[{"emptied":true,"by":"Fixture operator","at":"2026-10-26T00:00:00Z"}]}}
 PASS 9b a newer un-tick wins the merge, whichever copy is named first  - {"h":{"WC01":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T01:00:00Z"}},"h2":{"WC01":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T01:00:00Z"}}}
 PASS 9c merging the result with itself changes nothing
-PASS F2 confirming a split proposal keeps each portion on its own day, on the record  - {"before":[{"iso":"2026-10-26","n":24,"s":"sub","id":"2026-10-26.sub#1"},{"iso":"2026-10-27","n":1,"s":"sub","id":"2026-10-27.sub#1"}],"after":{"rec":{"out_date":"2026-10-27","out_by":"Fixture operator","out_at":"2026-10-03T01:58:21.399Z","out_portions":[{"id":"2026-10-26.sub#1","date":"2026-10-26","units":24,"stream":"sub"},{"id":"2026-10-27.sub#1","date":"2026-10-27","units":1,"stream":"sub"}]},
+PASS F2 confirming a split proposal keeps each portion on its own day, on the record  - {"before":[{"iso":"2026-10-26","n":24,"s":"sub","id":"2026-10-26.sub#1"},{"iso":"2026-10-27","n":1,"s":"sub","id":"2026-10-27.sub#1"}],"after":{"rec":{"out_date":"2026-10-27","out_by":"Fixture operator","out_at":"2026-10-03T02:24:15.195Z","out_portions":[{"id":"2026-10-26.sub#1","date":"2026-10-26","units":24,"stream":"sub"},{"id":"2026-10-27.sub#1","date":"2026-10-27","units":1,"stream":"sub"}]},
 PASS F3 a 49-unit reference: every portion, the first included, has a pump-out on or before its own day  - {"portions":[{"iso":"2026-10-28","n":24,"s":"sub","id":"2026-10-28.sub#1"},{"iso":"2026-10-29","n":24,"s":"sub","id":"2026-10-29.sub#1"},{"iso":"2026-10-30","n":1,"s":"sub","id":"2026-10-30.sub#1"}],"pumped":[true,true,true]}
 PASS F4a a confirmed unknown-quantity portable stays on its load, marked, and on a truck  - {"loads":[{"units":0,"uncertain":true,"keys":["WCM","WCU"]}],"trucks":[{"kind":"supplier","st":[{"k":"WCM","tank":false,"at":null,"end":null},{"k":"WCU","tank":false,"at":null,"end":null}]},{"kind":"normal","st":[{"k":"WCM","tank":true,"at":420,"end":450}]}]}
 PASS F4b a tank under an unknown-quantity toilet waits for that toilet stop  - {"toiletM":[{"k":"WCM","tank":false,"at":null,"end":null}],"tankM":{"k":"WCM","tank":true,"at":420,"end":450}}
@@ -64,8 +64,10 @@ PASS I3 after a reload (the record read back) the runs and days are the same
 PASS I4 when the split between owners changes after confirmation, each run is reconciled on its own and the change is said  - {"moved":[{"d":"2026-10-26","s":"sub","n":22},{"d":"2026-10-27","s":"coates","n":3}],"w":"the owners changed since the portions were confirmed - re-planned by owner"}
 PASS I5 "Print this load" on a supplier load prints it (by its run-aware id, or by its number)
 PASS I6 a non-empty run sheet prints for every run type - supplier pick-up, Coates toilet run, single big piece, branch truck - with no midnight times  - [{"kind":"supplier","ok":true},{"kind":"toilets","ok":true},{"kind":"single","ok":true},{"kind":"normal","ok":true}]
-PASS I7 a Kingston-run figure typed before the per-run field is kept (120 min), not dropped back to the planning figure
+PASS I7 a Kingston-run figure saved under the earlier draft (120 min) is carried over once into both runs, said so, and the old setting removed - never applied silently  - {"b":{"v":120,"edited":true,"words":"carried over from the earlier Kingston-run setting"},"c":{"v":120,"edited":true,"words":"carried over from the earlier Kingston-run setting"}}
 PASS I8 an unflagged big piece says "oversize? the branch to say - permit not checked"; the oversize tick and both travel fields are on the page
 PASS I9 a tank under a supplier's toilet carries a hold, not a clock time: after the supplier's pick-up, and emptied
+PASS J1 a 12-unit Coates load on a truck set to 8 is re-packed 8 + 4; neither is over its truck  - [{"stream":"coates","units":8,"cap":8,"capWarn":false,"keys":["C12"]},{"stream":"coates","units":4,"cap":12,"capWarn":false,"keys":["C12"]}]
+PASS J2 a load over its truck is never "full": it says "overloaded" and by how many  - ["<span class=\"chip crit\">overloaded - 2 over this truck's 8"]
 
-ALL PASSED (69)
+ALL PASSED (71)
