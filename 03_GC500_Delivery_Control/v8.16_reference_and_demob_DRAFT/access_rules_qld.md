@@ -29,6 +29,27 @@ The demob window is Mon 26 Oct to Fri 13 Nov 2026, and it runs on weekdays only.
 not demob days. As far as I know there is no Queensland statewide public holiday in the window (King's Birthday was Mon 5 Oct 2026), but
 please confirm.
 
+## Source text the rules rely on (exact quotes from Andrew's copy)
+
+Andrew uploaded the copy into the chat on 3 Oct 2026. The PDF itself is not committed. These are the exact passages, from text extracted out of
+that copy (32 pages). Title page: "Queensland Access Conditions Guide, Version 6.0 | December 2023". s3: "Version 6.0 of this Guide
+commences on 11 December 2023. It revokes and replaces Version 5.1."
+
+- s9: "Oversize vehicles are not permitted to operate in convoy formation. An oversize vehicle must drive 200m behind another
+  oversize vehicle unless on a multi-lane road or a road in a built-up area."
+- s11.2 Table 3: "Any oversize vehicle | Brisbane City Council, Gold Coast City Council, or The CBD of any other city | On a business day |
+  Between the hours of: 7am and 9am, and 4pm and 6pm."
+- s11.3 Table 4: "more than 3.1m in width, or 25m in length | Saturdays, Sundays, and statewide public holidays, including a day on a
+  statewide long weekend | Between the hours of: 7am and sunset of the day." and "The day prior to a statewide long weekend | Between the
+  hours of: 12pm (midday) and sunset."
+- s5 Table 1: "A vehicle required to travel with a pilot or escort. 80km/h", "A vehicle not required to travel with a pilot or escort. 90km/h".
+- s10.2: "Both the operator and driver are responsible for checking the Conditions of Operation Database before any trip."
+- Definitions: "Southeast corner means the area bounded by Coolangatta in the south, Gympie in the north, Toowoomba, and Warwick in the
+  west." "Business day means a day that is not a Saturday or Sunday; or a public holiday, special holiday, or bank holiday ..."
+
+The guide was supplied as a file, so I have no source URL for it. It is published by Queensland Department of Transport and Main Roads (TMR).
+Before relying on it, confirm on the TMR website that 6.0 is still the current version.
+
 ## What the guide does not give us
 
 - **Pilot and escort numbers** (Tables 9–11): these tables are images in the PDF and could not be extracted. The page shows "check permit"
