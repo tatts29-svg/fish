@@ -192,6 +192,42 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
 - **Space:** the Demob board's words and counts were 22% empty (2-line text beside a 2x2 block); the four counts sit in
   one row from 1,100 px, **4.1%**. The photo strip fills its row (WC05 36% -> 2%; P42 on a phone 29% -> one row).
 
+## Two toilet runs, travel time and oversize (3 Oct 2026, Andrew's answers relayed by the coordinator)
+Andrew: "Its the subhired porta loos will go on a run... coates portaloos will go on their own run if any"; on the supplier:
+"They use their own transport and organise.. Looks like they are from brisbane coopers ains"; on the Coates run: "12 -14
+toilets". He also sent the Queensland Access Conditions Guide v6.0 (Dec 2023), written up in `access_rules_qld.md`.
+- **Who owns each portable** is read from the v7.29 inventory's own record (`owner816`): the supplier's units on the
+  reference (`subOf`, e.g. Event Portables) and the Coates asset numbers on it (`invCountNums`, by item where
+  `itemNumbersOf` has them). A unit recorded as neither is **"owner to confirm"** and goes on **neither** run; it stays on
+  the pick-up list, the pump-out list and the email, flagged. On the live record: OWNER-COUNTS.
+- **Sub-hire pick-up** - "Supplier's own transport, organised by the supplier (Coopers Plains, Brisbane)". A pick-up list,
+  not a truck plan: what is ready, in loads of up to 24, where each unit is (its destination and whether that is the
+  master plan, a pin or the reference), its emptied status by name and time, the pick-up date, site hours 07:00-17:00.
+  No departure, no travel time, no travel field. The supplier is named only where the record names it ("Event Portables"
+  on those units); otherwise "sub-hire supplier".
+- **Coates toilet run** - only when there are Coates toilets that day. 12-14 per load, planned at 12; a truck the branch
+  confirms at 13 or 14 is set on its load (kept on this device); above 14 shows "over 14 - check the truck". Timed from
+  Kingston like the branch trucks.
+- **Never mixed:** a load holds one run's units only; the gate (emptied, by name and time, before loading), toilet before
+  tank, and site hours apply to both. A tank under a supplier's toilet is marked "after the supplier has lifted the
+  toilet off it".
+- **Travel time, per run:** the Coates toilet run and the branch trucks start from the page's own Kingston figure,
+  read from `DATA.transport.kingston_run` (the v7.82 delivery-load rule: 46.7 km straight line x 1.25 at 60 km/h + 10 min
+  in the precinct, 70 min), labelled "planning figure, not a live time", editable per run; a live figure goes in the same
+  field later. Blank = "travel time to confirm": no departure or return is worked out.
+- **Oversize - only a load the branch flags** (a tick on each truck load, kept on this device; nothing is guessed). A
+  flagged load shows: on Gold Coast roads 09:00-16:00 only; the latest departure = 16:00 less the travel time (or "travel
+  time to confirm"); a flag when it leaves after that or before 09:00; "stagger departures" when two flagged loads leave
+  together (no convoys); "pilot / escort: check permit" (never a number); and "Check TMR Conditions of Operation Database
+  before each trip". The source sits in a tooltip: QLD Access Conditions Guide v6.0, s11.2 Table 3, s11.3 Table 4, s9,
+  s10.2. A reference dated on a weekend or public holiday inside the window is listed as "not a demob day", with the
+  over-3.1 m-wide / 25 m-long weekend rule beside it.
+- The page says "(the project manager, 3 Oct 2026)" beside 12-14, as the page's rule on names requires.
+- Codex's earlier fixtures were written before the two runs: their synthetic toilets carry no owner, so the page would
+  call them "owner to confirm" and make no load (`codex_review/followup_e540cbc_cpu_noshim.log`). They are rerun with
+  `codex_review/owner_shim816.js` appended, which says what they assumed (every portable is the supplier's, 24 a load);
+  the page never uses it.
+
 ## Codex's findings, the fix, and the test
 Fixtures: `evidence/codex_fixtures816.js` (CPU, **FIXTURE-COUNT**), Codex's own scripts rerun on this build
 (`evidence/codex_review/*_now.json`, `timeline_drawer_recheck_fixed.log`), and the browser suite `v816_tests.js`.

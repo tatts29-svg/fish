@@ -1,7 +1,7 @@
 {
   "author": "Andrew Fisher",
-  "source": "v8.16_reference_and_demob_DRAFT/demob816_src.js",
-  "base": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
+  "source": "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v816work/demob_shim.js",
+  "base": "build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
   "results": [
     {
       "name": "gate_before_event_week",
@@ -35,7 +35,7 @@
         "emptied": {
           "on": false,
           "by": "Fixture operator",
-          "at": "2026-10-03T01:18:12.658Z",
+          "at": "2026-10-03T01:38:03.194Z",
           "unproven": false,
           "stale": false
         },
@@ -82,12 +82,12 @@
       "name": "mixed_toilet_tank_order",
       "observed": [
         {
-          "kind": "toilets",
-          "group": "Toilet run",
+          "kind": "supplier",
+          "group": "Sub-hire pick-up · Event Portables",
           "stops": [
             {
-              "at": 420,
-              "end": 435,
+              "at": null,
+              "end": null,
               "parts": [
                 "FWF"
               ]
@@ -99,8 +99,8 @@
           "group": "KINP",
           "stops": [
             {
-              "at": 435,
-              "end": 465,
+              "at": 420,
+              "end": 450,
               "parts": [
                 "Waste tank"
               ]

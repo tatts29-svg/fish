@@ -228,12 +228,15 @@ async function build(dev, L, name) {
   const header = async (q, pickTitle) => p.evaluate(async ([q, pickTitle]) => {
     if (state.tab !== 'docs') { go('docs'); await new Promise(r => setTimeout(r, 600)); }
     let opened = null; const wo = window.open; window.open = u => { opened = u; return null; };
+    const trace = [], rd = window.renderDocs815, t0 = performance.now(); const ae0 = document.activeElement;
+    window.renderDocs815 = function () { trace.push({t: Math.round(performance.now() - t0), sel: state.docSel815, q: String(state.docQ815 || '').slice(0, 16), tile: state.docTile815}); return rd.apply(this, arguments); };
     const box = document.getElementById('q'); box.value = q; box.dispatchEvent(new Event('input', {bubbles: true})); await new Promise(r => setTimeout(r, 500));
     const rows = [...document.querySelectorAll('#finder .fi.doc')], row = rows.find(r => (r.querySelector('b') || {}).textContent === pickTitle);
     const words = row ? row.querySelector('.fiw').textContent : '';
-    if (row) row.click(); await new Promise(r => setTimeout(r, 900)); window.open = wo;
+    const before = {active: ae0 ? (ae0.dataset && (ae0.dataset.tile815 || ae0.dataset.doc815)) || ae0.id || ae0.tagName : null, sel: state.docSel815, tile: state.docTile815};
+    if (row) row.click(); await new Promise(r => setTimeout(r, 900)); window.open = wo; window.renderDocs815 = rd;
     const cur = document.querySelector('#pane-docs [data-doc815][aria-current]');
-    return {found: !!row, docRows: rows.length, words, opened, tab: state.tab, q: state.docQ815, current: cur ? cur.dataset.doc815 : null, focused: !!(cur && document.activeElement === cur),
+    return {before, trace, rowsShown: [...document.querySelectorAll('#pane-docs #docBody815 [data-doc815]')].map(e => e.dataset.doc815).slice(0, 4), found: !!row, docRows: rows.length, words, opened, tab: state.tab, q: state.docQ815, current: cur ? cur.dataset.doc815 : null, focused: !!(cur && document.activeElement === cur),
       inView: cur ? (() => { const b = cur.getBoundingClientRect(); return b.top >= 0 && b.bottom <= innerHeight; })() : false};
   }, [q, pickTitle]);
   const H = await p.evaluate(() => { const C = holdAssets(() => docCollection()).items, tw = C.find(d => d.twin_of), miss = C.find(d => d.availability === 'missing' && /SWMS/.test(d.id)), avail = C.find(d => d.source === 'catalogue' && d.availability === 'ready' && /SWMS/.test(d.id));

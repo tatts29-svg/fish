@@ -96,7 +96,7 @@ async function run(name, dev) {
     const mail = (document.querySelector('#pane-demob [data-mail816]') || {}).href || '';
     document.querySelector('#pane-demob [data-print816="day"]').click(); await w(400);
     const wrap = document.getElementById('dayprint'), pages = wrap ? [...wrap.querySelectorAll('.rs816')] : [];
-    const one = pages.find(pg => /Toilet run/.test(pg.innerText)) || pages[0];
+    const one = pages.find(pg => /Truck \d+ · Load/i.test(pg.innerText)) || pages[0];
     const r = {mail: mail.slice(0, 7), mailBody: decodeURIComponent(mail.split('body=')[1] || '').slice(0, 200), pages: pages.length, expect: trucks816('2026-10-28', 'all').length, printed: window.__printed,
       head: one ? one.querySelector('.dp-hd').innerText.replace(/\s+/g, ' ') : '', hours: one ? /07:00–17:00/.test(one.innerText) : false, depot: one ? /Coates Kingston/.test(one.innerText) : false,
       sign: one ? /Driver/.test(one.querySelector('.rss816').innerText) && /Site lead/.test(one.querySelector('.rss816').innerText) : false,
@@ -119,27 +119,43 @@ async function run(name, dev) {
   ok(FIT.n > 0 && !FIT.zero && !FIT.bad.length && !FIT.boxBad.length, `${name}: all ${FIT.n} run sheets across the 15 days fit their A4 page, tick boxes apart`, FIT);
   // ---------------- toilets, tanks, times
   const D = await p.evaluate(() => { const M = demob816(), all = [];
-    M.days.forEach(d => M.day[d].loads.forEach(L => all.push({d, n: L.n, units: L.units, sides: [...new Set(L.rows.map(x => x.r.side))], rows: L.rows.map(x => [x.r.key, x.n])})));
-    const per = {}; all.forEach(L => L.rows.forEach(([k, n]) => { per[k] = (per[k] || 0) + n; }));
-    const evt = M.refs.filter(r => r.evtN > 0 && r.iso >= M.days[0] && r.iso <= M.days[M.days.length - 1]);
-    const mismatch = evt.filter(r => per[r.key] !== r.evtN).map(r => r.key + ':' + per[r.key] + '/' + r.evtN);
-    const dayOrder = M.days.filter(d => { const sides = M.day[d].loads.map(L => L.rows[0].r.side === 'outside' ? 0 : 1); return sides.some((s, i) => i && s < sides[i - 1]); });
+    M.days.forEach(d => M.day[d].loads.forEach(L => all.push({d, n: L.n, stream: L.stream, cap: L.cap, units: L.units, sides: [...new Set(L.rows.map(x => x.r.side))], owners: [...new Set(L.rows.map(x => x.r.streams.map(s => s.s).join('+')))], rows: L.rows.map(x => [x.r.key, x.n])})));
+    const per = {}; all.forEach(L => L.rows.forEach(([k, n]) => { per[L.stream + ':' + k] = (per[L.stream + ':' + k] || 0) + n; }));
+    const inWin = r => r.iso >= M.days[0] && r.iso <= M.days[M.days.length - 1] && M.days.includes(r.iso);
+    const evt = M.refs.filter(r => r.evtN > 0 && inWin(r));
+    const mismatch = evt.flatMap(r => r.streams.filter(s => per[s.s + ':' + r.key] !== s.n).map(s => r.key + ' ' + s.s + ':' + per[s.s + ':' + r.key] + '/' + s.n));
+    const ownerOnLoad = M.refs.filter(r => r.ownerUnk > 0 && !r.streams.length && all.some(L => L.rows.some(([k]) => k === r.key))).map(r => r.key);
+    const dayOrder = M.days.filter(d => ['sub', 'coates'].some(s => { const sides = M.day[d].loads.filter(L => L.stream === s).map(L => L.rows[0].r.side === 'outside' ? 0 : 1); return sides.some((x, i) => i && x < sides[i - 1]); }));
     const planned = M.planned.map(L => ({side: L.rows[0].r.side, wk: week816(L.iso)})), badWeek = planned.filter(x => (x.side === 'outside' && x.wk !== 1) || (x.side !== 'outside' && x.wk < 2));
     const times = [], tankBad = [], noPump = [];
-    M.days.forEach(d => trucks816(d, 'all').forEach(L => { const t = L.t;
-      if (t.over || t.arrive < 420 || t.leave > 1020 || t.st.some(s => s.at < 420 || s.end > 1020) || ban816(t.dep, t.dep + assume816().run.v) || ban816(t.leave, t.leave + assume816().run.v)) times.push(d + ' ' + L.group + ' load ' + L.n);
+    M.days.forEach(d => trucks816(d, 'all').forEach(L => { const t = L.t; if (L.kind === 'supplier') { if (t.dep != null || t.travel != null) times.push(d + ' supplier has a time'); return; }
+      if (t.over || t.arrive < 420 || t.leave > 1020 || t.st.some(s => s.at < 420 || s.end > 1020) || (t.travel != null && (ban816(t.dep, t.dep + t.travel) || ban816(t.leave, t.leave + t.travel)))) times.push(d + ' ' + L.group + ' load ' + L.n);
       L.stops.forEach(s => { const ix = s.parts.map(p => p.tank ? 1 : 0); if (ix.some((v, i) => i && v < ix[i - 1])) tankBad.push(d + ' ' + s.r.key); }); }));
-    M.days.forEach(d => { const st = trucks816(d, 'all').flatMap(L => L.t.st); st.filter(x => x.s.tankOnly).forEach(x => { if (st.some(y => !y.s.tankOnly && y.s.r.key === x.s.r.key && y.end > x.at)) tankBad.push(d + ' ' + x.s.r.key + ' by time'); }); });
+    M.days.forEach(d => { const st = trucks816(d, 'all').filter(L => L.kind !== 'supplier').flatMap(L => L.t.st); st.filter(x => x.s.tankOnly).forEach(x => { if (st.some(y => !y.s.tankOnly && y.s.r.key === x.s.r.key && y.end > x.at)) tankBad.push(d + ' ' + x.s.r.key + ' by time'); }); });
     const pairs = M.refs.filter(r => r.tank && r.units.some(u => !u.tank && !u.evt && u.n > 0)).map(r => r.key);
-    M.refs.filter(r => r.empty && !r.emptied && !r.nothing && r.iso >= M.days[0] && r.iso <= M.days[M.days.length - 1]).forEach(r => { if (!M.days.some(d => d <= r.iso && M.day[d].pump.some(x => x.r.key === r.key))) noPump.push(r.key); });
-    return {loads: all.length, over: all.filter(L => L.units > 24).map(L => L.d + ' L' + L.n + ' ' + L.units), mismatch, evtRefs: evt.length, units: evt.reduce((s, r) => s + r.evtN, 0), dayOrder, badWeek: badWeek.length, planned: planned.length, mixedSide: all.filter(L => L.sides.length > 1 && !L.sides.includes('unknown')).length,
+    M.refs.filter(r => r.empty && !r.emptied && !r.nothing && inWin(r)).forEach(r => { if (!M.days.some(d => d <= r.iso && M.day[d].pump.some(x => x.r.key === r.key))) noPump.push(r.key); });
+    const runUnits = s => M.refs.reduce((n, r) => n + r.streams.filter(x => x.s === s).reduce((a, x) => a + x.n, 0), 0);
+    return {loads: all.length, over: all.filter(L => L.units > L.cap || (L.stream === 'coates' && L.cap !== 12) || (L.stream === 'sub' && L.cap !== 24)).map(L => L.d + ' ' + L.stream + L.n + ' ' + L.units + '/' + L.cap), mixed: all.filter(L => L.owners.some(o => o.includes('+')) ? false : new Set(L.owners).size > 1).length,
+      mismatch, ownerOnLoad, evtRefs: evt.length, sub: runUnits('sub'), coates: runUnits('coates'), ownerUnk: M.refs.reduce((n, r) => n + (r.ownerUnk || 0), 0), dayOrder, badWeek: badWeek.length, planned: planned.length, mixedSide: all.filter(L => L.sides.length > 1 && !L.sides.includes('unknown')).length,
       times, tankBad, pairs, noPump, types: [...new Set(M.refs.flatMap(r => r.units.filter(u => u.evt).map(u => u.type)))]}; });
-  ok(D.loads > 0 && !D.over.length, `${name}: no toilet load is over 24 units (${D.loads} loads)`, D.over.join(' '));
-  ok(!D.mismatch.length && D.units > 0, `${name}: every event-portable unit is in exactly one load (${D.units} units on ${D.evtRefs} references; types ${D.types.join(', ')})`, D.mismatch.join(' '));
-  ok(!D.dayOrder.length && !D.badWeek && !D.mixedSide, `${name}: toilet loads keep the island priority (outside loads first, outside in week 1, island in weeks 2-3, sides not mixed)`, {dayOrder: D.dayOrder, badWeek: D.badWeek, mixed: D.mixedSide});
+  ok(D.loads > 0 && !D.over.length, `${name}: no load over its run's capacity (sub-hire 24, Coates 12 planned; ${D.loads} loads)`, D.over.join(' '));
+  ok(!D.mixed && !D.mismatch.length && !D.ownerOnLoad.length && D.sub > 0, `${name}: sub-hire and Coates units never share a load; every owned unit is in exactly one load of its own run (sub-hire ${D.sub}, Coates ${D.coates}); owner-to-confirm units (${D.ownerUnk}) on neither run`, {mismatch: D.mismatch, ownerOnLoad: D.ownerOnLoad});
+  ok(!D.dayOrder.length && !D.badWeek && !D.mixedSide, `${name}: toilet loads keep the island priority within each run (outside loads first, outside in week 1, island in weeks 2-3, sides not mixed)`, {dayOrder: D.dayOrder, badWeek: D.badWeek, mixed: D.mixedSide});
   ok(!D.tankBad.length && D.pairs.length > 0, `${name}: no waste tank is ordered before its toilet (pairs ${D.pairs.join(', ')})`, D.tankBad.join(' '));
-  ok(!D.times.length, `${name}: every pick-up runs inside 07:00-17:00 and no truck travels 07:00-09:00 or 16:00-18:00`, D.times.join(' | '));
+  ok(!D.times.length, `${name}: every timed pick-up runs inside 07:00-17:00, no truck travels 07:00-09:00 or 16:00-18:00, and the supplier's pick-up carries no time`, D.times.join(' | '));
   ok(!D.noPump.length, `${name}: every toilet and tank is on a pump-out list on or before its pick-up day`, D.noPump.join(' '));
+  // the two runs on the live record: Coates' run starts from the 70 min planning figure; the supplier's pick-up has no times
+  const RN = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms)), M = demob816();
+    const dc = M.days.find(d => trucks816(d, 'all').some(L => L.kind === 'toilets')), ds = M.days.find(d => trucks816(d, 'all').some(L => L.kind === 'supplier'));
+    const r = {dc, ds};
+    if (dc) { DM816.sel = dc; DM816.branch = 'all'; DM816.view = 'trucks'; render(); await w(250); const pane = document.getElementById('pane-demob'), i = pane.querySelector('input[data-trv816="coates"]');
+      r.coates = {value: i && i.value, label: /planning figure, not a live time/.test(pane.innerText), hint: i ? i.closest('.f').innerText.slice(0, 80) : ''};
+      DM816.view = 'toilets'; render(); await w(250); r.coatesCap = /12–14 per load/.test(pane.innerText) && !!pane.querySelector('input[data-cap816]'); }
+    if (ds) { DM816.sel = ds; DM816.view = 'trucks'; render(); await w(250); const c = [...document.querySelectorAll('#pane-demob .sup816')];
+      r.sup = {cards: c.length, times: c.some(x => /Leave Kingston|travel time to confirm/.test(x.innerText) || x.querySelector('input[data-trv816]')), own: c.every(x => /supplier's own transport/i.test(x.innerText) && /Coopers Plains, Brisbane/.test(x.innerText))}; }
+    DM816.view = 'list'; render(); await w(150); return r; });
+  ok(RN.dc && RN.coates && RN.coates.value === '70' && RN.coates.label && RN.coatesCap, `${name}: the Coates toilet run starts from 70 min, labelled "planning figure, not a live time", with 12–14 per load and an editable capacity`, RN);
+  ok(RN.ds && RN.sup && RN.sup.cards > 0 && !RN.sup.times && RN.sup.own, `${name}: the sub-hire pick-up shows no departure, no travel time and no travel field - supplier's own transport`, RN.sup);
   // ---------------- the Timeline gap: a typed due-out reaches its day
   const TL = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms)), k = 'P42', iso = '2026-11-04';
     const had = (S.delivery || {})[k] ? JSON.parse(JSON.stringify(S.delivery[k])) : null, a = assetOf(k);
@@ -220,27 +236,28 @@ async function run(name, dev) {
       const m = mergeRecords(A1, B1).merged.delivery;
       out.merge = {x1: m.X1 && m.X1.emptied === true && m.X1.emptied_by === 'A' && !!m.X1.emptied_at && (m.X1.emptied_history || []).length === 1, x2: m.X2 && m.X2.emptied === false && m.X2.emptied_by === 'B'}; }
     // 3. a 25-unit event-portable reference is picked up in portions, each on its own day, in its load and its day's confirmation
-    { const u0 = window.units816, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure && r.side === 'outside').key;
+    const o0 = window.owner816, own = (k, s) => { window.owner816 = (a, u, n, unk) => a.key === k ? {streams: [{s, n}], ownerUnk: 0, co: s === 'sub' ? 'Event Portables' : ''} : o0(a, u, n, unk); };
+    { const u0 = window.units816, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure && r.side === 'outside').key; own(k, 'sub'); /* the supplier's run, 24 a load */
       window.units816 = a => a.key === k ? [{type: 'FWF', n: 25, unknown: false, evt: true, tank: false}] : u0(a); RENDER_MEMO.clear();
       const M = demob816(), r = M.byKey.get(k), P = r.portions || [];
       out.split = {k, portions: P, sum: P.reduce((s, x) => s + x.n, 0), eachDay: P.every(x => M.day[x.iso].list.some(y => y.key === k) && M.day[x.iso].loads.some(L => L.rows.some(y => y.r.key === k && y.n === x.n))),
         maxLoad: Math.max(...M.days.flatMap(d => M.day[d].loads.map(L => L.units))), outIsLast: r.iso === P.map(x => x.iso).sort().pop(),
         inConfirm: P.every(x => M.day[x.iso].list.filter(y => y.src === 'proposed').some(y => y.key === k))};
-      window.units816 = u0; RENDER_MEMO.clear(); }
+      window.units816 = u0; window.owner816 = o0; RENDER_MEMO.clear(); }
     // 4. a toilet on the toilet run sits on a waste tank on another truck: the tank's time is after the toilet's end
-    { const u0 = window.units816, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure && r.side === 'inside').key;
+    { const u0 = window.units816, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure && r.side === 'inside').key; own(k, 'coates'); /* Coates' run is timed, so the order is checkable by the clock */
       window.units816 = a => a.key === k ? [{type: 'FWF', n: 4, unknown: false, evt: true, tank: false}, {type: 'Waste tank', n: 1, unknown: false, evt: false, tank: true}] : u0(a); RENDER_MEMO.clear();
       const iso = demobOf816(k).iso, T = trucks816(iso, 'all'), st = T.flatMap(L => L.t.st.map(x => Object.assign({load: L.n}, x))).filter(x => x.s.r.key === k);
       const topEnd = Math.max(...st.filter(x => !x.s.tankOnly).map(x => x.end)), tank = st.find(x => x.s.tankOnly);
       out.tank = {k, iso, topEnd, tankAt: tank ? tank.at : null, ok: !!tank && tank.at >= topEnd, loads: [...new Set(st.map(x => x.load))].length};
-      window.units816 = u0; RENDER_MEMO.clear(); }
+      window.units816 = u0; window.owner816 = o0; RENDER_MEMO.clear(); }
     // 5. an unknown quantity is shown and counted as unknown, never as one
-    { const i0 = window.itemRows, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure).key;
+    { const i0 = window.itemRows, k = demob816().refs.find(r => r.src === 'proposed' && r.evtPure).key; own(k, 'sub');
       window.itemRows = a => a.key === k ? i0(a).map(x => Object.assign({}, x, {qty_asked: null, qty_supplied: null})) : i0(a); RENDER_MEMO.clear();
       const M = demob816(), r = M.byKey.get(k), L = M.days.flatMap(d => M.day[d].loads).find(L => L.rows.some(x => x.r.key === k));
       DM816.sel = r.iso; DM816.view = 'toilets'; render(); await w(200); const html = document.getElementById('pane-demob').innerText;
       out.unknown = {k, unk: r.units.every(u => u.unknown && u.n === 0), evtN: r.evtN, uncertain: !!(L && L.uncertain), shows: /quantity to confirm/i.test(html) && /total not certain/i.test(html)};
-      window.itemRows = i0; DM816.view = 'list'; RENDER_MEMO.clear(); render(); await w(200); }
+      window.itemRows = i0; window.owner816 = o0; DM816.view = 'list'; RENDER_MEMO.clear(); render(); await w(200); }
     // 6a. a reference added for one day with a typed due-out reaches that day
     { const a0 = window.allAssets, z = {key: 'ZZ816', _added: true, first_date: '2026-10-27', last_date: '2026-10-27', events: [], discipline: 'Generators', item_types: ['Generator'], accessories: [], asset_numbers: []};
       window.allAssets = () => a0().concat([z]); S.delivery.ZZ816 = {out_date: '2026-11-05', out_by: 'test', out_at: new Date().toISOString()}; RENDER_MEMO.clear();
