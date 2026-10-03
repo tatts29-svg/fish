@@ -1,8 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "sourceCommit": "24cb316b9a4440356cd438e0fb83738183d02569",
-  "demobSha256": "9367fc806a72f725ae6d72f50cace9ae7b46e9b67591487a12ef4b72645fdfd3",
-  "candidateSha256": "cf29603544e22000a5d421b7d7435f2c1f507d2bf80a46fcf4ad0c0540c15016",
+  "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
   "passed": 53,
   "failed": 0,
   "interpretationNote": "Outgoing-only gate interpretation agreed. Explicit incoming-delivery cases below verify the documented exception separately; no broader incoming restriction is asserted.",
@@ -609,5 +607,11 @@
       "observed": true,
       "expected": true
     }
-  ]
+  ],
+  "fixtureProvenance": "24cb316b9a4440356cd438e0fb83738183d02569",
+  "fixtureRunDemobSha256": "767f8fd39e2d5b82cc0275903f634aabf3308ed7a3fe6493bf7feb9819504c7f",
+  "testedSourceCommit": "uncommitted working tree on 1382e98 (demob816_src.js 3f18954e; drawer, patch and css as committed in a57de005)",
+  "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+  "testedDrawerSha256": "6f87a42c4ac481bbbbceaab8c33e96adfd0f5b91fa7bc1780618a082d0882125",
+  "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770"
 }

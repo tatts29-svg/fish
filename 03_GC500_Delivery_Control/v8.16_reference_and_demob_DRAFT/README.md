@@ -13,11 +13,14 @@ also stub the page's own push, so no write is even attempted.
 bash toolchain/build.sh v8.16 v8.16_reference_and_demob_DRAFT/patch_v816.py
 ```
 
-- Base: **live v8.14, `6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce`, 9,074,112 bytes** (Codex's
-  Today trim, live 3 Oct). The patch also applies cleanly on v8.13 `f07e92cc…` and on the v8.14 frozen candidate
-  `2595f1cd…` (checked), so its anchors are clear of the six Today cards v8.14 removed.
-- Build: **BUILD-SHA**. check_page: every script parses, no keys (`pk.eyJ` 0, `AIza` 0),
-  author line present.
+- Base: **live v8.15, `35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770`, 9,118,422 bytes** (Codex's
+  Documents, live 3 Oct). The patch also applies cleanly on v8.14 `6365fd09…`, v8.13 `f07e92cc…` and the v8.14 frozen
+  candidate `2595f1cd…` (all checked), so its anchors are clear of the six Today cards v8.14 removed. v8.15 changed none
+  of the functions v8.16 reads (openAssetDraw, the photo outbox, setLight, mergeRecords, the Timeline, the tab row).
+- Build: **`7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0`, 9,244,210 bytes**. check_page: every
+  script parses, no keys (`pk.eyJ` 0, `AIza` 0), author line present.
+- Tested source: `demob816_src.js` `3f18954e…`, `drawer816_src.js` `6f87a42c…`, `patch_v816.py` `9b173605…`, `v816.css`
+  `cd316ad9…` - not yet committed when tested: the working tree on `1382e98`, where only `demob816_src.js` differs from `a57de005` (one legend sentence on the Demob board). Andrew commits.
 - The patch refuses a second run (`v8.16 already applied`) and a page without its anchors (`function place799(`,
   `dest782`, `ZONES782`, `openAssetDraw`, `programmeDaysBefore801`, `dpPrint`). It touches none of v8.09's (the machine)
   anchors.
@@ -298,19 +301,48 @@ with its screws, `.hubtitle`/`h3`, `.chip` (ok / ref / cand / act / crit), `.btn
 ## Space (layout816.cjs, the v7.99 method: container area against its children at natural size)
 | part | desktop 1,440 | phone 390 |
 |---|---|---|
-| Demob board, words / counts | LAY-D-HEAD | LAY-P-HEAD |
-| Demob count tiles | LAY-D-COUNT | LAY-P-COUNT |
-| Demob day strip | LAY-D-STRIP (gutters between 15 tiles) | LAY-P-STRIP (scrolls) |
-| Drawer In / Out tiles | LAY-D-TILES | LAY-P-TILES |
-| Drawer photo strip (WC05) | LAY-D-PH | LAY-P-PH |
-| Drawer Complete it | LAY-D-CMP | LAY-P-CMP |
-| **Today's own lights card (reference)** | LAY-D-TODAY | LAY-P-TODAY |
+| Demob board, words / counts | 4.1% | 4.2% |
+| Demob count tiles | 10.6% | 9.4% |
+| Demob day strip | 18.0% (gutters between 15 tiles) | 0% (scrolls) |
+| Drawer In / Out tiles | 12.8% | 7.2-13.4% |
+| Drawer photo strip (WC05) | 2.0% | 2.5% (P42 4.9%) |
+| Drawer Complete it | 28.1-29.7% | 28.8-31.0% |
+| **Today's own lights card (reference)** | 30.2% | 30.8% |
 
 Complete it is Today's lights component as built (signal head beside the rows), and measures the same as Today's own.
 The day bar (branch buttons left, actions right) is a toolbar, not a card row.
 
 ## Tests (`evidence/`)
-TEST-RESULTS
+Final candidate `7ae89da4…` built on live v8.15 `35ab1366…`, 3 Oct 2026. The standing suites ran on `cf296035…`, which
+differs from it by one sentence in the Demob board's legend (inside `renderDemob816`, nothing Today, Equipment or any other tab
+draws); the affected checks - v816 desktop and phone, every CPU fixture and both sweeps - were rerun on `7ae89da4`. All one browser job at a time under
+the shared lock (`evidence/run_all.sh`). Read only: the harness aborts every write; no record was touched.
+
+| suite | result |
+|---|---|
+| `v816_tests.js` (browser, desktop 1,440 + phone 390) | **115 / 115** |
+| `codex_fixtures816.js` (CPU: Codex's cases and mine, incl. G1-G4, H1-H16, I1-I9, J1-J2) | **71 / 71** |
+| Codex `followup_abbb01b_streams` / `followup_8c821da_ui` / `followup_8c821da_roads` (pin lifted) | **20 / 20 · 20 / 20 · 16 / 16** |
+| Codex `followup_e540cbc_cpu` / `followup_6a0bb20_cpu` / `followup_24cb316_cpu` (with `owner_shim816.js`) | **33 / 33 · 26 / 26 · 53 / 53** |
+| Codex `followup_cpu_968aefb` / `demob_cpu_audit` (observations) | every observation shows the fixed behaviour |
+| Codex Timeline/drawer: `abbb01b`, `e540cbc`, `6a0bb20` (pins lifted, hunk pin kept) / `timeline_drawer_recheck_fixed` | **17 / 17 x3 · 13 / 13**; Timeline hunk SHA-256 `8e9e00f0…` unchanged |
+| v7.99 Today | **23 / 23** desktop, **18 / 18** phone |
+| packed Today (v7.95) | **20 / 20**, **14 / 14** |
+| Equipment (v7.96) | **22 / 22**, **22 / 22** |
+| results navigation (v7.96) | **7 / 7**, **7 / 7** |
+| one-tab (v7.93) | **20 / 24** desktop and phone - **the same four fail on the live base** (20/24, `scratchpad` run on `35ab1366`): they look for Today's Fencing and roads cards that v8.14 removed with Andrew's yes; not v8.16 |
+| navigation | **21 / 21** |
+| rules | **45 / 45** |
+| fresh-after-save | **11 / 11**, 0 page errors |
+| sweeps | **22 tabs** (Demob added) desktop and phone: **0** page errors, **0** console errors |
+| repeat_check | 169 - the same count as v8.14's run; the 7 entries that differ are the same money figures at today's values |
+| same_figures | every line on every tab matches live |
+
+Before/after logs for the last three rounds of fixes: `codex_fixtures816_before_fix_0006166.log`,
+`codex_fixtures816_before_zero_fix.log`. Evidence JSONs from the reruns carry `fixtureProvenance` (the commit each fixture
+was written against), `testedSourceCommit` `a57de005…`, `testedJsSha256` `00a72d68…`, `base` and `candidateSha256`
+(`evidence/stamp_evidence816.py`). Other release folders' evidence the suites rewrote was put back with `git checkout`.
+
 
 ## Open questions for Andrew
 1. **Which toilets are whose (the 24 and the 12-14):** on the record, 70 units are the supplier's (Event Portables on
@@ -328,4 +360,11 @@ TEST-RESULTS
    (a new record collection) rather than kept on each device?
 
 ## Release state
-RELEASE-STATE
+**READY TO UPLOAD (Claude, 3 Oct 2026)** - candidate `7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0`
+(9,244,210 bytes) on live v8.15 `35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770`. Every Codex finding
+(88a716e 8, 968aefb 7, 6a0bb20 3, e540cbc 1, abbb01b 5 + roads 4, 8c821da 2 + 2) is fixed and its fixture passes.
+Claude implemented and tested; Codex reviewed the source in rounds up to 8c821da / 6837e9f and has not reviewed the final
+`3f18954e` demob source (one legend sentence after its last review). Upload is Codex's; Andrew commits. If live changes
+before upload, rebuild with the one patch and rerun `evidence/run_all.sh`. Nothing in this release writes to the record:
+proposed dates, travel times, oversize ticks, capacities and notes stay on the device until a person confirms a date.
+
