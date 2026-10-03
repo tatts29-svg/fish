@@ -107,6 +107,16 @@ async function run(name, dev) {
   ok(PR.pages === PR.expect && PR.pages > 0 && PR.printed === 1, `${name}: Print run sheets lays out one A4 per load and opens print`, {pages: PR.pages, expect: PR.expect, printed: PR.printed});
   ok(/Collection/.test(PR.head) && /Truck \d+ · Load \d+ of \d+/i.test(PR.head) && PR.hours && PR.depot && PR.sign, `${name}: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off`, PR.head);
   ok(PR.empt && PR.notReady, `${name}: run sheets carry the emptied line with a tick box per unit, and NOT READY for a toilet not yet emptied`);
+  // every run sheet of every day fits its one A4 page (the page clips what does not fit), and its tick boxes do not overlap
+  await p.emulateMedia({media: 'print'});
+  const FIT = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms)); window.print = () => {}; const bad = [], boxBad = [], zero = []; let n = 0;
+    for (const d of demob816().days) { printDay816(d, 'all', 'day', 0); await w(150);
+      document.querySelectorAll('#dayprint .rs816').forEach((pg, i) => { n++; if (!pg.clientHeight) zero.push(d + ' ' + (i + 1)); if (pg.scrollHeight > pg.clientHeight + 1) bad.push(d + ' sheet ' + (i + 1) + ' ' + pg.scrollHeight + '>' + pg.clientHeight);
+        pg.querySelectorAll('.rsb816').forEach(b => { const r = [...b.children].map(x => x.getBoundingClientRect()); if (r.some((q, j) => j && r.slice(0, j).some(o => q.left < o.right - 0.5 && q.right > o.left + 0.5 && q.top < o.bottom - 0.5 && q.bottom > o.top + 0.5))) boxBad.push(d + ' sheet ' + (i + 1)); }); });
+      document.body.classList.remove('printing-day'); const wr = document.getElementById('dayprint'); if (wr) { wr.classList.remove('dpwrap'); wr.innerHTML = ''; } document.querySelectorAll('#dayPage').forEach(e => e.remove()); }
+    return {n, bad, boxBad, zero: zero.length}; });
+  await p.emulateMedia({media: 'screen'});
+  ok(FIT.n > 0 && !FIT.zero && !FIT.bad.length && !FIT.boxBad.length, `${name}: all ${FIT.n} run sheets across the 15 days fit their A4 page, tick boxes apart`, FIT);
   // ---------------- toilets, tanks, times
   const D = await p.evaluate(() => { const M = demob816(), all = [];
     M.days.forEach(d => M.day[d].loads.forEach(L => all.push({d, n: L.n, units: L.units, sides: [...new Set(L.rows.map(x => x.r.side))], rows: L.rows.map(x => [x.r.key, x.n])})));

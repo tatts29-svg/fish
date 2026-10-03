@@ -48,16 +48,29 @@ function serve(root, log = [], problems = []) {
   });
   return new Promise(ok => srv.listen(0, '127.0.0.1', () => ok(srv)));
 }
-async function openMachine({root, W = 1440, H = 900, dpr = 1, mobile = false, query = ''}) {
+async function openMachine({root, W = 1440, H = 900, dpr = 1, mobile = false, query = '', entry = 'index.html'}) {
   const provenance = [], errors = [];
   const srv = await serve(path.resolve(root), provenance, errors), port = srv.address().port;
   const browser = await chromium.launch({executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
   const ctx = await browser.newContext({viewport: {width: W, height: H}, deviceScaleFactor: dpr, isMobile: mobile, hasTouch: mobile});
-  const page = await ctx.newPage(), errors = [];
+  /* anything off this machine (the legacy page's Google Fonts stylesheet) is fetched by curl, as toolchain/harness/open_page.js does, so
+     it goes through this machine's proxy and its certificate authority; GET only, logged */
+  await ctx.route(u => !/^(http:\/\/127\.0\.0\.1:|data:|blob:)/.test(String(u)), async route => {
+    const r = route.request(), u = r.url();
+    if (r.method() !== 'GET') { provenance.push({path: u, source: 'external', blocked: r.method()}); return route.abort(); }
+    try { const x = await curlFetch(u, r.headers(), 'GET'); provenance.push({path: u, source: 'external', status: x.status, sha256: sha256(x.body), bytes: x.body.length}); return route.fulfill(x); }
+    catch (e) { provenance.push({path: u, source: 'external', failed: String(e).slice(0, 120)}); return route.abort('failed'); }
+  });
+  const page = await ctx.newPage();
   page.on('pageerror', e => errors.push('page: ' + String(e).slice(0, 300)));
   page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0, 300)); });
-  await page.goto(`http://127.0.0.1:${port}/index.html${query}`, {waitUntil: 'domcontentloaded', timeout: 240000});
-  return {page, errors, port, close: async () => { await browser.close(); srv.close(); }};
+  await page.goto(`http://127.0.0.1:${port}/${entry}${query}`, {waitUntil: 'domcontentloaded', timeout: 240000});
+  const close = async () => {
+    await browser.close(); srv.close();
+    if (process.env.RIG_LOG) fs.appendFileSync(process.env.RIG_LOG, JSON.stringify({at: new Date().toISOString(), script: path.basename(process.argv[1] || ''), argv: process.argv.slice(2),
+      root: path.resolve(root), entry, viewport: {W, H, dpr, mobile}, query, manifest: MANIFEST.sha256, manifestFile: MANIFEST_FILE, problems: errors.filter(e => e.startsWith('rig: ')), files: provenance}) + '\n');
+  };
+  return {page, errors, port, provenance, close};
 }
 module.exports = {openMachine, serve};
 if (require.main === module) (async () => {

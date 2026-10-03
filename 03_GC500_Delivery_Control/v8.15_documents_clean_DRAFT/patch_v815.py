@@ -52,7 +52,7 @@ t = rep(t, ''' const byCategory = {};
 
 # 3. deep links: the old section names, plus Fencing dockets
 t = rep(t, "else if ((m = h.match(/^docs\\/(swms|transport|maps|packs|photos|invoices)$/))) { state.docsec = m[1]; go('docs'); }",
-        "else if ((m = h.match(/^docs\\/(swms|transport|maps|packs|photos|invoices|dockets|fencing)$/))) { state.docsec = m[1]; go('docs'); } /* v8.15 - dockets and fencing land on Fencing dockets */",
+        "else if ((m = h.match(/^docs\\/(swms|transport|maps|packs|photos|invoices|dockets|fencing)$/))) { state.docsec = m[1]; go('docs'); } /* v8.15 - dockets: the signed papers; fencing: the fencing plans under Drawings */",
         'docs deep links', p)
 
 # 4. the header search: up to 8 documents (it stopped at 4, so "SWMS" showed 4 of 6); the merged copy is the one it opens
@@ -66,7 +66,7 @@ t = rep(t, ''' (dc.days || []).forEach(dy => out.push({kind: 'docday', id: dc.id
         ''' (dc.days || []).forEach(dy => out.push({kind: 'docday', id: tw815[dc.id] || dc.id, title, page: dy.page, date: dy.date,''', 'finder docday ids', p)
 t = rep(t, ''' if (href) { window.open(it.kind === 'docday' ? href + '#page=' + it.page : href, '_blank', 'noopener'); return; }
  go('docs'); return;''', ''' if (href) { window.open(it.kind === 'docday' ? href + '#page=' + it.page : href, '_blank', 'noopener'); return; }
- state.docQ815 = it.title || ''; state.docTile815 = null; /* v8.15 - lands on that one document, found by its title */
+ state.docQ815 = it.title || ''; state.docTile815 = null; state.docSel815 = it.id; /* v8.15 - lands on that one document, found by its title and marked */
  go('docs'); return;''', 'finder pick lands on the item', p)
 t = rep(t, ' const cap = {asset: 8, unit: 4, place: 6, sheet: 3, doc: 4, docday: 4},',
         ' const cap = {asset: 8, unit: 4, place: 6, sheet: 3, doc: 8, docday: 4}, /* v8.15 - doc was 4 */', 'finder doc cap', p)

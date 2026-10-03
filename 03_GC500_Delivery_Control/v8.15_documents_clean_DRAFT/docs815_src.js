@@ -44,6 +44,7 @@ function twinIds815(){
   twinIds815.at = DOCS.at; twinIds815.map = map; return map;
  } catch (e) { return {}; }
 }
+const TWIN_KEEP815 = new Set(['id', 'name', 'source', 'availability', 'available', 'category', 'kind', 'ext', 'bytes', 'thumb', '_up', 'drop', 'twin_of', 'twin_title']);
 function twins815(items){
  try {
   const key = d => twinKey815(d.id);
@@ -54,8 +55,10 @@ function twins815(items){
    if (c.source !== 'catalogue' || c.availability !== 'missing') continue;
    const t = up.get(key(c) + '|' + c.category);
    if (!t || t.twin_of) continue;
-   t.twin_of = c.id; t.title = c.title || t.title; t.group = c.group || t.group;
-   ['pages', 'paper', 'orientation', 'doc_ref', 'date_on_page', 'revision'].forEach(k => { if (c[k] != null && t[k] == null) t[k] = c[k]; });
+   t.twin_of = c.id; t.twin_title = t.title; t.title = c.title || t.title; t.group = c.group || t.group;
+   /* everything the catalogue knew that the upload does not say - its note (the pre-start's basis, SWMS revision,
+    scope and who attended), pages, paper, references, the per-day pages - stays with the one document */
+   Object.keys(c).forEach(k => { if (TWIN_KEEP815.has(k) || c[k] == null || c[k] === '') return; if (t[k] == null || t[k] === '') t[k] = c[k]; });
    items.splice(i, 1);
   }
  } catch (e) { /* a failed match leaves both copies listed, as before */ }
@@ -138,12 +141,6 @@ function setLight815(list){
  if (list.some(d => d.availability === 'unchecked')) return '<span class="tl none"><i></i><span class="w">not checked</span></span>';
  return list.length ? '<span class="tl green" title="Every file is there"><i></i></span>' : '';
 }
-/* the card's light: the pip alone - the words are on the line under it */
-function pip815(list){
- const s = list.some(d => d.availability === 'missing') ? ['red', 'Something here is not uploaded'] : list.some(d => d.availability === 'checking') ? ['amber', 'Checking the service']
-  : list.some(d => d.availability === 'unchecked') ? ['none', 'The service did not answer'] : ['green', 'Every file is there'];
- return `<span class="tl ${s[0]}" title="${s[1]}" aria-label="${s[1]}"><i></i></span>`;
-}
 function row815(d, o){
  o = o || {};
  if (o.print) o = Object.assign({}, o, {thumb: false});
@@ -158,7 +155,11 @@ function row815(d, o){
  const open = href ? `<a class="btn sm" href="${esc(href)}" target="_blank" rel="noopener">Open</a>` : '';
  const print = d.map_key && (DATA.sheets || []).some(s => s.key === d.map_key) ? `<button type="button" class="btn sm" data-printsheet="${esc(d.map_key)}">Print sheet</button>` : '';
  const del = d.source === 'uploaded' && canAdd ? `<button type="button" class="btn sm editonly" data-delfile="${esc(d.id)}" title="Remove this file from the service">Remove</button>` : '';
- return `<li class="hubrow row815" ${o.print ? 'data-print815' : 'data-doc815'}="${esc(d.id)}">${lead}${thumb}<span class="w"${d.note ? ` title="${esc(d.note)}"` : ''}><b>${esc(o.title || title815(d))}</b>${meta ? `<span class="anos">${meta}</span>` : ''}${why}</span>${light815(d.availability)}${open}${print}${del}</li>`;
+ /* the catalogue's note (what the paper is, its basis, who signed it) is kept, folded behind Details as it was on the
+  old cards - one press on a phone, never a paragraph on every row */
+ const more = d.note && !o.print ? ` · <button type="button" class="linkish" data-note815 aria-expanded="false">Details</button>` : '';
+ const note = d.note && !o.print ? `<span class="anos note815" hidden>${esc(d.note)}</span>` : '';
+ return `<li class="hubrow row815" ${o.print ? 'data-print815' : 'data-doc815'}="${esc(d.id)}">${lead}${thumb}<span class="w"><b>${esc(o.title || title815(d))}</b>${meta || more ? `<span class="anos">${meta}${meta ? more : more.replace(/^ · /, '')}</span>` : ''}${note}${why}</span>${light815(d.availability)}${open}${print}${del}</li>`;
 }
 const list815 = (items, o) => items.length ? `<ul class="hublist rows815">${items.map(d => row815(d, o)).join('')}</ul>` : '';
 function fold815(key, label, items, body, extra, P){
@@ -226,7 +227,7 @@ function hay815(d){
  const t = TILES815.find(x => x[2] === d.category) || [];
  return [d.title, d.name, d.id, d.doc_ref, d.ref, photoRef815(d), d.branch, d.invoice_no, d.note, t[1], d.category, d.paper,
   docketNo815(d), (d.sheet_ids || []).join(' '), (d.sheets || []).map(s => (s.sheet_id || '') + ' ' + (s.title || '')).join(' '),
-  d.category === 'Fencing dockets' ? title815(d) : '', d.twin_of || ''].filter(Boolean).join(' ').toLowerCase();
+  d.category === 'Fencing dockets' ? title815(d) : '', d.twin_of || '', d.twin_title || ''].filter(Boolean).join(' ').toLowerCase();
 }
 function find815(all, q){
  const toks = String(q || '').toLowerCase().split(/\s+/).filter(Boolean);
@@ -246,15 +247,39 @@ function resultsBody815(found, q){
 }
 
 /* --- the tab */
+/* THE CARDS ARE TODAY'S INSTRUMENTS. Andrew, 3 Oct 2026: "the current super race car look ... icons. and gauges and the
+ red light look. to even as far as the cards". Each category is the dark carbon island with its four screws (Today's
+ lights and dial cards), its figure in the race-card numerals (.racecard .pstat), counted up as the tab arrives
+ (countUpFigures), and the same three-lens signal the register rows carry (dstat + lampSvgLite, drawn from the page's
+ shared lamp parts): red lit when a file in it is not uploaded, amber while the service is asked, green when every
+ file is there. The icon is a 16-box line glyph in the tab bar's own hand (TAB_GLYPH: currentColor, 1.4 stroke). */
+const GLYPH815 = {
+ swms: '<path d="M8 1.6l5.3 2v4.1c0 3.3-2.3 5.5-5.3 6.7-3-1.2-5.3-3.4-5.3-6.7V3.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.5 8.1l1.8 1.8 3.3-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+ transport: '<path d="M1.4 3.8h8.2v6.6H1.4zM9.6 6.2h2.9l2.1 2.6v1.6h-5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="4.4" cy="11.9" r="1.5" fill="currentColor"/><circle cx="11.7" cy="11.9" r="1.5" fill="currentColor"/>',
+ maps: '<path d="M1.8 3.6l4.1-1.5 4.2 1.5 4.1-1.5v10.3l-4.1 1.5-4.2-1.5-4.1 1.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.9 2.1v10.3M10.1 3.6v10.3" stroke="currentColor" stroke-width="1.3"/>',
+ packs: '<path d="M8 1.8l6.2 3.1L8 8 1.8 4.9z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M1.8 8.1L8 11.2l6.2-3.1M1.8 11.1L8 14.2l6.2-3.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>',
+ photos: '<path d="M1.8 5.2a1.2 1.2 0 0 1 1.2-1.2h2.2l1.1-1.8h3.4L10.8 4H13a1.2 1.2 0 0 1 1.2 1.2v7.2A1.2 1.2 0 0 1 13 13.6H3a1.2 1.2 0 0 1-1.2-1.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="8" cy="8.6" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/>',
+ dockets: '<path d="M3.2 3.2h9.6v11.2H3.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.8 1.8h4.4v2.6H5.8z" fill="currentColor"/><path d="M5.4 7.6h5.2M5.4 10.4h3.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>',
+ invoices: TAB_GLYPH.docs};
+const glyph815 = k => GLYPH815[k] ? `<svg class="g815" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">${GLYPH815[k]}</svg>` : '';
+/* the lamp's state for a set of files, in the words the register's instrument uses */
+function lampState815(list){
+ return list.some(d => d.availability === 'missing') ? ['red', 'not uploaded'] : list.some(d => d.availability === 'checking') ? ['amber', 'checking the service']
+  : list.some(d => d.availability === 'unchecked') ? ['none', 'the service did not answer'] : list.length ? ['green', 'every file is there'] : ['none', 'nothing yet'];
+}
+const lamp815 = s => `<span class="dstat ${s[0]} sm bare" role="img" aria-label="${esc(s[1])}" title="${esc(s[1])}">${lampSvgLite(...LAMP_SIZE.sm)}</span>`;
 function tilesHtml815(by, found){
  const sel = state.docTile815;
  return TILES815.filter(([k]) => k !== 'invoices' || by[k].length).map(([k, label]) => {
   const list = by[k], n = found ? found.filter(d => d.category === TILES815.find(x => x[0] === k)[2]).length : list.length;
-  const on = sel === k && !found, miss = list.filter(d => d.availability === 'missing').length;
+  const on = sel === k && !found, miss = list.filter(d => d.availability === 'missing').length, ls = lampState815(list);
   const noun = k === 'photos' ? ['photo', 'photos'] : k === 'dockets' ? ['docket', 'dockets'] : k === 'maps' ? ['drawing', 'drawings'] : ['file', 'files'];
-  return `<div class="card hubcard tile815${on ? ' on815' : ''}${found && !n ? ' dim815' : ''}" role="button" tabindex="0" data-tile815="${k}" aria-pressed="${on}" aria-controls="docBody815">
-   <div class="hubtitle"><h3>${esc(label)}</h3>${pip815(list)}</div>
-   <div class="hubbig"><b>${fmtNum(n)}</b> ${found ? 'found' : esc(n === 1 ? noun[0] : noun[1])}${miss && !found ? ` <span class="w">·</span> ${fmtNum(miss)} not uploaded` : ''}</div>
+  const unit = found ? 'found' : n === 1 ? noun[0] : noun[1];
+  return `<div class="card hubcard island racecard tile815${on ? ' on815' : ''}${found && !n ? ' dim815' : ''}" role="button" tabindex="0" data-tile815="${k}" aria-pressed="${on}" aria-controls="docBody815"
+   aria-label="${esc(label + ': ' + fmtNum(n) + ' ' + unit + (miss && !found ? ', ' + miss + ' not uploaded' : '') + (on ? ', showing below' : ''))}">
+   <div class="hubtitle"><h3>${glyph815(k)}<span>${esc(label)}</span></h3></div>
+   <div class="fig815"><div class="pstat"><b>${fmtNum(n)}</b><span${found ? '' : ' class="u815"'}>${esc(unit)}</span></div>${found ? '' : lamp815(ls)}</div>
+   ${miss && !found ? `<div><span class="chip crit">${fmtNum(miss)} not uploaded</span></div>` : ''}
    <div class="hubgo">${on ? 'Showing below ↓' : 'Show →'}</div></div>`; }).join('');
 }
 function bodyHtml815(all, by, found){
@@ -309,6 +334,18 @@ function renderDocs815(){
  wireDocs815(pane, all);
  if (hadQ) { const q = $('#docQ815'); if (q) { try { q.focus({preventScroll: true}); if (caret) q.setSelectionRange(caret[0], caret[1]); } catch (e) {} } }
  if (land) setTimeout(() => { const el = $('#' + land); if (el && document.contains(el) && state.tab === 'docs') el.scrollIntoView({block: 'start', behavior: 'auto'}); }, 0);
+ selRow815();
+}
+/* THE HEADER SEARCH LANDS ON THE ONE DOCUMENT IT NAMED. Picking a document with no file in the header search sets the
+ find box to its title and names the document; here that row is marked (aria-current) and brought into view with the
+ keyboard on it, so the person is looking at the thing they picked, not at a list to read through again. */
+function selRow815(){
+ const id = state.docSel815; if (!id) return;
+ state.docSel815 = null;
+ const row = [...document.querySelectorAll('#pane-docs #docBody815 [data-doc815]')].find(e => e.dataset.doc815 === id);
+ if (!row) return;
+ row.setAttribute('aria-current', 'true'); row.tabIndex = -1;
+ setTimeout(() => { if (!document.contains(row) || state.tab !== 'docs') return; row.scrollIntoView({block: 'center', behavior: 'auto'}); try { row.focus({preventScroll: true}); } catch (e) {} }, 0);
 }
 /* typing repaints the cards and the list under them, never the box being typed in */
 function paintDocs815(){
@@ -345,6 +382,8 @@ function wireDocs815(pane, all, partial){
  pane.querySelectorAll('[data-printsheet]').forEach(b => b.onclick = () => printSheet(b.dataset.printsheet));
  pane.querySelectorAll('[data-open815]').forEach(b => b.onclick = () => openAsset(b.dataset.open815));
  pane.querySelectorAll('[data-showref815]').forEach(b => b.onclick = () => showRef815(b.dataset.showref815));
+ pane.querySelectorAll('[data-note815]').forEach(b => b.onclick = () => { const n = b.closest('.w') && b.closest('.w').querySelector('.note815'); if (!n) return;
+  n.hidden = !n.hidden; b.setAttribute('aria-expanded', String(!n.hidden)); b.textContent = n.hidden ? 'Details' : 'Less'; });
  pane.querySelectorAll('[data-clear815]').forEach(b => b.onclick = () => { state.docQ815 = ''; const q = $('#docQ815'); if (q) { q.value = ''; q.focus(); } paintDocs815(); });
  pane.querySelectorAll('[data-delfile]').forEach(b => b.onclick = async () => {
   if (b.dataset.sure !== '1') { b.dataset.sure = '1'; b.textContent = 'Remove — press again to confirm'; setTimeout(() => { b.dataset.sure = ''; b.textContent = 'Remove'; }, 4000); return; }

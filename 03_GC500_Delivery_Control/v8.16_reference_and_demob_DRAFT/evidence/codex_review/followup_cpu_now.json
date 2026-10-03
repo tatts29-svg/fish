@@ -1,0 +1,338 @@
+{
+  "author": "Andrew Fisher",
+  "source": "v8.16_reference_and_demob_DRAFT/demob816_src.js",
+  "base": "build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
+  "results": [
+    {
+      "name": "confirm_split_collapses_dates",
+      "observed": {
+        "before": [
+          {
+            "day": "2026-10-26",
+            "units": 24,
+            "keys": [
+              "WC25"
+            ],
+            "uncertain": false
+          },
+          {
+            "day": "2026-10-27",
+            "units": 1,
+            "keys": [
+              "WC25"
+            ],
+            "uncertain": false
+          }
+        ],
+        "stored": {
+          "out_date": "2026-10-27",
+          "out_by": "Fixture operator",
+          "out_at": "2026-10-03T00:21:33.402Z",
+          "out_portions": [
+            {
+              "date": "2026-10-26",
+              "units": 24
+            },
+            {
+              "date": "2026-10-27",
+              "units": 1
+            }
+          ]
+        },
+        "after": [
+          {
+            "day": "2026-10-26",
+            "units": 24,
+            "keys": [
+              "WC25"
+            ],
+            "uncertain": false
+          },
+          {
+            "day": "2026-10-27",
+            "units": 1,
+            "keys": [
+              "WC25"
+            ],
+            "uncertain": false
+          }
+        ]
+      },
+      "requirement": "confirming the proposed portions preserves the agreed dates/quantities"
+    },
+    {
+      "name": "split_early_load_without_pump_task",
+      "observed": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "pumpKeys": [
+            "WC49"
+          ]
+        },
+        {
+          "day": "2026-10-27",
+          "units": 24,
+          "pumpKeys": [
+            "WC49"
+          ]
+        },
+        {
+          "day": "2026-10-28",
+          "units": 1,
+          "pumpKeys": [
+            "WC49"
+          ]
+        }
+      ],
+      "requirement": "pump task on or before every portion, including first day"
+    },
+    {
+      "name": "unknown_confirmed_vanishes_from_run",
+      "observed": {
+        "before": [
+          {
+            "day": "2026-10-26",
+            "units": 0,
+            "keys": [
+              "WCUNK"
+            ],
+            "uncertain": true
+          }
+        ],
+        "after": [
+          {
+            "day": "2026-10-26",
+            "units": 0,
+            "keys": [
+              "WCUNK"
+            ],
+            "uncertain": true
+          }
+        ],
+        "list": [
+          "WCUNK"
+        ],
+        "trucks": 1
+      },
+      "requirement": "unknown reference remains represented in unresolved collection work after date confirmation"
+    },
+    {
+      "name": "unknown_toilet_tank_without_predecessor",
+      "observed": [
+        {
+          "kind": "toilets",
+          "stops": [
+            {
+              "at": 420,
+              "end": 435,
+              "parts": [
+                "FWF"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "normal",
+          "stops": [
+            {
+              "at": 435,
+              "end": 465,
+              "parts": [
+                "Waste tank"
+              ]
+            }
+          ]
+        }
+      ],
+      "requirement": "tank has a represented completed predecessor or is unresolved"
+    },
+    {
+      "name": "merge_equal_time_order_dependent",
+      "observed": {
+        "ab": {
+          "merged": {
+            "deleted": {},
+            "stamps": {},
+            "by": {},
+            "operator": "",
+            "added": [],
+            "accessories": {},
+            "assetNumbers": {},
+            "notes": {},
+            "rates": {},
+            "lineRates": {},
+            "accRates": {},
+            "fenceRates": {},
+            "fenceCosts": {},
+            "weeks": {},
+            "rental": {},
+            "branch": {},
+            "locations": {},
+            "descs": {},
+            "items": {},
+            "qtys": {},
+            "moves": {},
+            "hireStart": {},
+            "mapRef": {},
+            "dropPhotos": {},
+            "photoLinks": {},
+            "gates": {},
+            "units": {},
+            "labour": {},
+            "eventHours": {},
+            "minDays": {},
+            "fixes": {},
+            "entries": {},
+            "places": {},
+            "givenRefs": {},
+            "runRules": {},
+            "answers": {},
+            "spares": {},
+            "subhire": {},
+            "finance745": {},
+            "aside": {},
+            "loads": {},
+            "contracts": {},
+            "purchaseOrders": {},
+            "supplied": {},
+            "variances": [],
+            "fenceDockets": [],
+            "serviceNotes": [],
+            "breakdowns": [],
+            "actions": [],
+            "costs": [],
+            "delivery": {
+              "WC01": {
+                "emptied": false,
+                "emptied_by": "B",
+                "emptied_at": "2026-10-26T00:00:00Z"
+              }
+            },
+            "fenceDone": {},
+            "fenceQuote": null
+          },
+          "report": {
+            "added": 0,
+            "accessories": 0,
+            "assetNumbers": 0,
+            "notes": 0,
+            "supplied": 0,
+            "variances": 0,
+            "delivery": 0,
+            "dockets": 0,
+            "quote": 0,
+            "breakdowns": 0,
+            "actions": 0,
+            "contracts": 0,
+            "rental": 0,
+            "branch": 0,
+            "loads": 0,
+            "costs": 0,
+            "pos": 0,
+            "pins": 0,
+            "finance745": 0,
+            "clashes": [
+              "WC01 emptied (pumped out): this copy had emptied (2026-10-26T00:00:00Z), the other copy had not emptied (2026-10-26T00:00:00Z) - same time, kept not emptied on every copy: pump it out and tick it again"
+            ],
+            "summary": "nothing new · 1 clash written down"
+          }
+        },
+        "ba": {
+          "merged": {
+            "deleted": {},
+            "stamps": {},
+            "by": {},
+            "operator": "",
+            "added": [],
+            "accessories": {},
+            "assetNumbers": {},
+            "notes": {},
+            "rates": {},
+            "lineRates": {},
+            "accRates": {},
+            "fenceRates": {},
+            "fenceCosts": {},
+            "weeks": {},
+            "rental": {},
+            "branch": {},
+            "locations": {},
+            "descs": {},
+            "items": {},
+            "qtys": {},
+            "moves": {},
+            "hireStart": {},
+            "mapRef": {},
+            "dropPhotos": {},
+            "photoLinks": {},
+            "gates": {},
+            "units": {},
+            "labour": {},
+            "eventHours": {},
+            "minDays": {},
+            "fixes": {},
+            "entries": {},
+            "places": {},
+            "givenRefs": {},
+            "runRules": {},
+            "answers": {},
+            "spares": {},
+            "subhire": {},
+            "finance745": {},
+            "aside": {},
+            "loads": {},
+            "contracts": {},
+            "purchaseOrders": {},
+            "supplied": {},
+            "variances": [],
+            "fenceDockets": [],
+            "serviceNotes": [],
+            "breakdowns": [],
+            "actions": [],
+            "costs": [],
+            "delivery": {
+              "WC01": {
+                "emptied": false,
+                "emptied_by": "B",
+                "emptied_at": "2026-10-26T00:00:00Z"
+              }
+            },
+            "fenceDone": {},
+            "fenceQuote": null
+          },
+          "report": {
+            "added": 0,
+            "accessories": 0,
+            "assetNumbers": 0,
+            "notes": 0,
+            "supplied": 0,
+            "variances": 0,
+            "delivery": 0,
+            "dockets": 0,
+            "quote": 0,
+            "breakdowns": 0,
+            "actions": 0,
+            "contracts": 0,
+            "rental": 0,
+            "branch": 0,
+            "loads": 0,
+            "costs": 0,
+            "pos": 0,
+            "pins": 0,
+            "finance745": 0,
+            "clashes": [
+              "WC01 emptied (pumped out): this copy had not emptied (2026-10-26T00:00:00Z), the other copy had emptied (2026-10-26T00:00:00Z) - same time, kept not emptied on every copy: pump it out and tick it again"
+            ],
+            "summary": "nothing new · 1 clash written down"
+          }
+        }
+      },
+      "requirement": "same result and explicit clash regardless of input order; contradictory clearance must not silently permit loading"
+    },
+    {
+      "name": "prior_onsite_amber_gate",
+      "observed": false,
+      "requirement": "false"
+    }
+  ]
+}
