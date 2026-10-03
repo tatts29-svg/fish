@@ -1,10 +1,10 @@
 {
- "version": "v8",
+ "version": "v10",
  "prepared": "2026-10-03",
- "record_version": 3555,
+ "record_version": 3675,
  "author": "Andrew Fisher",
  "source_notes": [
-  "GC500 live record (read only, GET), version 3555.",
+  "GC500 live record (read only, GET), version 3675.",
   "Coates Schedule 3 (planned quantities and dates).",
   "Event Portables supplier sheet, 2 Oct 2026 – WC refs and quantities only.",
   "Quote Q6845 – quantities only.",
@@ -1352,7 +1352,7 @@
   {
    "ref": "WC32",
    "fwf": 1,
-   "source": "Event Portables sheet, 2 Oct 2026"
+   "source": "Cancelled on the record 3 Oct 2026 (Andrew Fisher via Codex)"
   },
   {
    "ref": "WC66",
@@ -1435,9 +1435,9 @@
    "check": "QR codes decoded from the PDFs match the intended URLs",
    "pass": true,
    "detail": {
-    "Friday delivery v8": "23/23 decoded, 0 mismatches",
-    "Load run sheets v1": "13/13 decoded, 0 mismatches",
-    "Inventory v5": "10/10 decoded, 0 mismatches"
+    "Delivery plan v10": "23/23 decoded, 0 mismatches",
+    "Load run sheets v3": "13/13 decoded, 0 mismatches",
+    "Inventory v6": "10/10 decoded, 0 mismatches"
    }
   }
  ],
