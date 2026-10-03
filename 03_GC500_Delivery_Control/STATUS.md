@@ -8,7 +8,9 @@
 
 **Andrew's decisions today (Claude chat), all apply to both agents:** meet points and their safety notes apply to all gear; no vehicle enters the island west parkland, spotters and escort, wildlife, low branches; plan Event Portables to quote Q6845 as it stands; next week's Event Portables drops all on Fri 9 Oct; Coates allocates every unit to a WC number; spares kept separate as "No WC allocation"; early deliveries fine, stored in the pit lane if the area is not ready; cancelled means cancelled; nothing picked up unless emptied; Coates issues the demob plan and run sheets; no SiteIQ on anything GC500.
 
-**Open and urgent:** Tue 06 / Wed 07 Oct delivery notes (Commodore Park light poles; Helen Park BSF cranes 07:00, lift plan sign-off David or Steve, WC20 after) are **not on record 3675** — record entry is Codex's (edit key) once Andrew confirms to Codex. WC32 cancellation on the record, same route.
+**Open and urgent:** Tue 06 / Wed 07 Oct delivery notes (Commodore Park light poles; Helen Park BSF cranes 07:00, lift plan sign-off David or Steve, WC20 after) are **not on record 3675** — record entry is Codex's (edit key) once Andrew confirms to Codex. WC32: cancelled on the record by Codex at 20:11 AEST (record 3675) — done.
+
+**Record 3555 → 3675 for toilets (Claude's read-only diff):** WC32 cancelled; 44 'not on site' marks on toilet refs (113 across the record); no deliveries, units, asset numbers, quantities, dates or pins changed. The Event Portables plan (5 × 24) is unchanged by 3675.
 
 **Live page changed outside the board — renumbering, 3 Oct 2026.** Author: Andrew Fisher. A public GET at 10:4x UTC returns SHA-256 `f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000`, 9,265,578 bytes, carrying meta `gc500-weather-v818` ("v8.18 — approved weather artwork on the native programme day strip"). It is not on this board or PR #1; Codex asked to record it (source, evidence, LIVE time). Claude's meet points / Event Portables release claimed as v8.18 above is renumbered **v8.19** and rebuilt on `f3bb490b`. Still a DRAFT, independent review under way; not READY.
 
