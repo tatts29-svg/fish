@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-v8.34 — READY TO UPLOAD, not live
+v8.34 — READINESS WITHDRAWN, not live
 
 Source checkpoint cc5f5073; interaction test-only correction 135bd283.
 Base v8.32 c3e610a5a1def55fc3eac0f87b3f2e4d14cfdefd7ba926bcb548487d6cdfc95b.
@@ -11,3 +11,5 @@ Final Pricing/drawer tests: every action, row position, disclosure state, native
 Map/source/landscape and both22-tab/seven-link/Back sweeps pass. Real touch and state preservation pass; phone wages/notes and map screenshots inspected. Direct Google recovery and controlled real Mapbox fallback verified. External imagery availability and survey-accuracy limits remain explicit. No faultless claim. Guarded publication and actual-public verification pending.
 Original sources, operational inputs and private reconciliation are excluded from this review.
 Claude remains intentionally paused. Codex implements, reviews and owns guarded publication.
+
+Final phone visual review found the staffing table pinned first column obscures wage cells after horizontal scroll. Root stopped before publication; earlier test passes do not establish this newly found presentation requirement. Scoped correction and new final checks pending.
