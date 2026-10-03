@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
-**Post-v8.33 full audit — CLAIMED by Codex, 4 Oct 2026.** Andrew requested a deep interaction, presentation, duplicate-data, pricing/cost, map accuracy/performance and server-health audit after current staffing work. Preliminary read-only checks are assigned; fixes require reproducible evidence and a separate frozen release. Final desktop/phone sweeps must run after fixes. This is work in progress, not a claim of perfection or of server deployment. Claude remains paused.
+**v8.34 deep cleanup and full audit — CLAIMED by Codex, 4 Oct 2026.** Andrew requested a deep interaction, presentation, duplicate-data, pricing/cost, map accuracy/performance and server-health audit after current staffing work. Preliminary read-only checks are assigned. Reproduced Pricing scroll-context loss, supplied-number projection inconsistency and map provenance wording have guarded fixes assigned in separate files; final integration follows verified v8.33. Final desktop/phone sweeps must run after fixes. This is work in progress, not a claim of perfection or of server deployment. Claude remains paused.
 
 **v8.33 event staffing and event labour reconciliation — CLAIMED by Codex, 4 Oct 2026.** Reconcile the latest user-supplied event roles and planned shifts against existing staffing, customer rates and contractor charges, preserving actual versus planned hours and preventing duplicate costs. Original personnel/source evidence remains private. Begin source review while v8.32 checks finish; implement only against its verified live base. DRAFT, not READY or LIVE. Claude remains paused.
 
