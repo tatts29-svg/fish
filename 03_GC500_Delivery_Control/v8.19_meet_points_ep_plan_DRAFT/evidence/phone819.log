@@ -1,0 +1,20 @@
+# v8.19 checks · source commit f84eddeb8f033f4e93368fffc34d751cefed516f + UNCOMMITTED CHANGES (trial run, not evidence) · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:14:32Z
+# suite: phone-widths · command: env SHOTS=/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v819/final flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/phone819.js
+
+== phone 390
+PASS phone 390: all 5 loads and the fold are open  - {"open":5,"folds":1}
+PASS phone 390: nothing in the card reaches past the screen or the card (13 stop rows)  - {"vw":390,"card":380,"open":5,"folds":1,"page":390,"worst":null,"stops":13}
+PASS phone 390: the page does not scroll sideways  - {"page":390,"vw":390}
+PASS phone 390: WC02 drawer - the meet point box fits the screen and carries the parkland rules  - {"right":358,"vw":390,"worst":0,"park":true}
+PASS phone 390: WC61 drawer - the meet point box fits the screen  - {"right":358,"vw":390,"worst":0,"park":false}
+PASS phone 390: no page errors, no console errors, no write attempted  - {"errors":[],"cons":[],"counts":{"page":1,"live":137,"blocked":0}}
+
+== phone 400
+PASS phone 400: all 5 loads and the fold are open  - {"open":5,"folds":1}
+PASS phone 400: nothing in the card reaches past the screen or the card (13 stop rows)  - {"vw":400,"card":390,"open":5,"folds":1,"page":400,"worst":null,"stops":13}
+PASS phone 400: the page does not scroll sideways  - {"page":400,"vw":400}
+PASS phone 400: WC02 drawer - the meet point box fits the screen and carries the parkland rules  - {"right":368,"vw":400,"worst":0,"park":true}
+PASS phone 400: WC61 drawer - the meet point box fits the screen  - {"right":368,"vw":400,"worst":0,"park":false}
+PASS phone 400: no page errors, no console errors, no write attempted  - {"errors":[],"cons":[],"counts":{"page":1,"live":137,"blocked":0}}
+
+12 passed, 0 failed

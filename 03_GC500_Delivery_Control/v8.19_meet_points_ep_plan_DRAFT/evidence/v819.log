@@ -88,3 +88,73 @@ PASS desktop 1440: keyboard - Tab and Shift-Tab stay inside the run sheet and wr
 PASS desktop 1440: keyboard - Escape closes it and focus goes back to Load 1's Print run sheet button  - {"closed":true,"back":true}
 PASS desktop 1440: the card, the run sheet and its preview bar are labelled "Event Portables delivery plan (to quote Q6845)"  - {"h3":"Event Portables delivery plan (to quote Q6845)","hd":"Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet\nEvent Portables delivery plan (to quote Q6845) · Author: Andrew Fisher","bar":"Event Portables delivery plan (to quote Q6845) · run sheet, Load 2 of 5 · one A4 page","dataLd":0,"inDay":false,"epInDays":false,"data":false}
 PASS desktop 1440: plan loads are not in the Timeline's day lists, programmeDays()/dpLoads() or DATA (the plan lives only in EP819)  - {"h3":"Event Portables delivery plan (to quote Q6845)","hd":"Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet\nEvent Portables delivery plan (to quote Q6845) · Author: Andrew Fisher","bar":"Event Portables delivery plan (to quote Q6845) · run sheet, Load 2 of 5 · one A4 page","dataLd":0,"inDay":false,"epInDays":false,"data":false}
+PASS desktop 1440: 2026-09-28: every driver sheet (7) shows each reference's meet point and its QR inside Where it goes, with no extra band  - [[1,1,1,true],[1,1,1,true],[1,1,1,true],[3,3,3,true],[1,1,1,true],[1,1,1,true],[1,1,1,true]]
+PASS desktop 1440: 2026-09-28: the site rules are on the sheet's own rules line, with the parkland rules only where the load goes to the parkland  - ["iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","
+PASS desktop 1440: 2026-09-28: no driver sheet runs past one page  - []
+PASS desktop 1440: 2026-09-28: each sheet's meet point QRs are its references' meet points, in order
+PASS desktop 1440: 2026-10-06: every driver sheet (6) shows each reference's meet point and its QR inside Where it goes, with no extra band  - [[1,1,1,true],[1,1,1,true],[1,1,1,true],[1,1,1,true],[1,1,1,true],[1,1,1,true]]
+PASS desktop 1440: 2026-10-06: the site rules are on the sheet's own rules line, with the parkland rules only where the load goes to the parkland  - ["iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry"]
+PASS desktop 1440: 2026-10-06: no driver sheet runs past one page  - []
+PASS desktop 1440: 2026-10-06: each sheet's meet point QRs are its references' meet points, in order
+PASS desktop 1440: no page errors  - []
+PASS desktop 1440: no console errors  - []
+PASS desktop 1440: no write was attempted  - {"page":1,"live":916,"blocked":0}
+
+== phone 390
+PASS phone 390: the release marker and the footer read v8.19  - {"meta":"v8.19","foot":"Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · v8.19"}
+PASS phone 390: WC02 drawer shows its meet point box (ISLAND_WEST_PARK)
+PASS phone 390: WC21 drawer shows its meet point box (PITLANE)
+PASS phone 390: WC38 drawer shows its meet point box (COMMODORE)
+PASS phone 390: T0022 and T0023 get the island west parkland point  - {"T0022":{"id":"ISLAND_WEST_PARK","how":"area","kind":"pinned","why":"inside the island west parkland outline"},"T0023":{"id":"ISLAND_WEST_PARK","how":"area","kind":"pinned","why":"inside the island west parkland outline"},"P47":{"id":"COMMODORE","how":"rule","kind":"confirmed","why":"nearest meet point on the same side, about 25 m from the plan position"},"PG01":{"id":"PITLANE","how":"precinct","kind":"report","why":"Pit lane entry – pit garages"}}
+PASS phone 390: P47 gets Commodore Park  - {"id":"COMMODORE","how":"rule","kind":"confirmed","why":"nearest meet point on the same side, about 25 m from the plan position"}
+PASS phone 390: pit garages: "Pit lane entry – pit garages"  - {"id":"PITLANE","how":"precinct","kind":"report","why":"Pit lane entry – pit garages"}
+PASS phone 390: the T0022 drawer carries the parkland safety box
+PASS phone 390: the T0023 drawer carries the parkland safety box
+PASS phone 390: the WC02 drawer carries the parkland rules word for word  - Macintosh Island west parkland (around WC02, WC04, WC05, the OPS compound and the merch strip)
+No vehicle enters the park – trucks stop at the entry point
+Spotters and escort required for every movement
+Wildlife · extremely low branches · very limited room
+PASS phone 390: the Event Portables load plan card is on the Timeline
+PASS phone 390: 5 loads, 24 FWF each, 120 FWF in all  - [{"fwf":24,"n":"1","t":"Fri 9 Oct2026","pr":true},{"fwf":24,"n":"2","t":"Tue 13 Oct2026","pr":true},{"fwf":24,"n":"3","t":"Thu 15 Oct2026","pr":true},{"fwf":24,"n":"4","t":"Mon 19 Oct2026","pr":true},{"fwf":24,"n":"5","t":"Mon 19 Oct2026","pr":true}]
+PASS phone 390: every load has a Print run sheet button
+PASS phone 390: Load 1 is Fri 9 Oct  - Fri 9 Oct2026
+PASS phone 390: site rules word for word from the plan  - ["Site hours 07:00–17:00.","Go to the meet point named for each area – Coates meets you there and places the units.","If unsure, go to the pit lane entry (Gold Coast Hwy, north-west end of the pit lane).","Directions get you to the meet point – follow the Way in and site signage, event road closures apply."]
+PASS phone 390: parkland rules with the site rules
+PASS phone 390: demob notice word for word  - ["Coates will issue a demob plan and run sheets before pick-up. Collect only what is on the Coates run sheet.","Nothing is to be picked up unless it has been emptied. No unit, block or waste tank leaves site until it has been pumped out.","If a unit has not been emptied, leave it and call the Coates lead."]
+PASS phone 390: the demob notice carries every sentence of the brief
+PASS phone 390: the early-delivery rule sits beside the fill-order wording  - Stop order within a load is suggested (nearest next meet point) – Coates may change it on the day. Early is fine: if an area is not ready when its load arrives, Coates stores those units in the pit lane until it is.
+PASS phone 390: the No WC allocation column is highlighted in Coates orange  - ["rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)","rgb(253, 224, 205)"]
+PASS phone 390: No WC allocation 56 / 0 / 0 / 4 / 3, and no total row adding unlike items  - ["56","0","0","4","3"]
+PASS phone 390: the No WC allocation note
+PASS phone 390: the cancelled list WC32, WC66, WC09  - ["WC32","WC66","WC09"]
+PASS phone 390: no money, phone numbers or SiteIQ in the card
+PASS phone 390: no agent named on the card; the cancelled list's last column is Source  - ["WC ref","Planned","Status","Source"]
+PASS phone 390: Load 1 says where the record still shows its references on another day  - ["Record still shows Wed 7 Oct for WC38, WC39, WC40, WC61; Thu 8 Oct for WC09, WC34; Mon 12 Oct for WC57 – moving to Fri 9 Oct per Coates","Record still shows Thu 1 Oct for WC67; Mon 12 Oct for WC67; Mon 19 Oct for WC68, WC72, WC29 – moving to Tue 13 Oct per Coates","Record still shows Mon 19 Oct for WC46, WC55 – moving to Thu 15 Oct per Coates","Record still shows Tue 20 Oct for PG01, PG03, PG05, PG29, WC85 – moving to Mon 19 Oct per Coates"]
+PASS phone 390: the card does not scroll sideways  - {"w":370,"cw":370}
+PASS phone 390: Load 1 opens to its 6 stops, left on truck down to 0  - ["23","19","11","10","2","0"]
+PASS phone 390: each stop links to driving directions to its meet point
+PASS phone 390: an open load stays open through a redraw
+PASS phone 390: Load 1 run sheet fits one A4 page (scale 0.88)
+PASS phone 390: Print run sheet opens the print dialog once
+PASS phone 390: Load 1: 6 stops, a QR per stop to its meet point, counts down to 0  - ["23","19","11","10","2","0"]
+PASS phone 390: Load 1 header  - Load 1 of 5 · Fri 9 Oct 2026 · 24 FWF (+6 pee panels)
+PASS phone 390: Load 1 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
+PASS phone 390: Load 1 run sheet carries the record line and the plan label
+PASS phone 390: Load 1 sheet has no money, phone numbers or SiteIQ
+PASS phone 390: Close puts the page back
+PASS phone 390: Close before the print starts cancels it - nothing is printed afterwards  - {"open":true,"prints":0,"closed":true,"timer":0,"after":false}
+PASS phone 390: Escape before the print starts cancels it - nothing is printed afterwards  - {"open":true,"prints":0,"closed":true,"timer":0,"after":false}
+PASS phone 390: keyboard - opening the run sheet puts focus inside it (on Print / Save as PDF)  - {"inside":true,"go":true,"role":"dialog","modal":"true"}
+PASS phone 390: keyboard - Tab and Shift-Tab stay inside the run sheet and wrap  - ["x","go","x","go","x","go"]
+PASS phone 390: keyboard - Escape closes it and focus goes back to Load 1's Print run sheet button  - {"closed":true,"back":true}
+PASS phone 390: the card, the run sheet and its preview bar are labelled "Event Portables delivery plan (to quote Q6845)"  - {"h3":"Event Portables delivery plan (to quote Q6845)","hd":"Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet\nEvent Portables delivery plan (to quote Q6845) · Author: Andrew Fisher","bar":"Event Portables delivery plan (to quote Q6845) · run sheet, Load 2 of 5 · one A4 page","dataLd":0,"inDay":false,"epInDays":false,"data":false}
+PASS phone 390: plan loads are not in the Timeline's day lists, programmeDays()/dpLoads() or DATA (the plan lives only in EP819)  - {"h3":"Event Portables delivery plan (to quote Q6845)","hd":"Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet\nEvent Portables delivery plan (to quote Q6845) · Author: Andrew Fisher","bar":"Event Portables delivery plan (to quote Q6845) · run sheet, Load 2 of 5 · one A4 page","dataLd":0,"inDay":false,"epInDays":false,"data":false}
+PASS phone 390: 2026-10-06: every driver sheet (6) shows each reference's meet point and its QR inside Where it goes, with no extra band  - [[1,1,1,true],[1,1,1,true],[1,1,1,true],[1,1,1,true],[1,1,1,true],[1,1,1,true]]
+PASS phone 390: 2026-10-06: the site rules are on the sheet's own rules line, with the parkland rules only where the load goes to the parkland  - ["iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry","iday·Go to the meet point – Coates meets you·If unsure, go to the pit lane entry"]
+PASS phone 390: 2026-10-06: no driver sheet runs past one page  - []
+PASS phone 390: 2026-10-06: each sheet's meet point QRs are its references' meet points, in order
+PASS phone 390: no page errors  - []
+PASS phone 390: no console errors  - []
+PASS phone 390: no write was attempted  - {"page":1,"live":171,"blocked":0}
+
+145 passed, 0 failed
