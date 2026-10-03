@@ -1441,5 +1441,10 @@
    }
   }
  ],
- "early_delivery_rule": "Early is fine: if an area is not ready when its load arrives, Coates stores those units in the pit lane until it is (Andrew, 3 Oct 2026)."
+ "early_delivery_rule": "Early is fine: if an area is not ready when its load arrives, Coates stores those units in the pit lane until it is (Andrew, 3 Oct 2026).",
+ "pre_departure_check": {
+  "text": "Before leaving: load restrained and straps checked · deck clean of sand, mud and oil · nothing loose",
+  "source": "Coates Load Restraint Guide 2023, p40 and p42",
+  "andrew": "Yes (3 Oct 2026, adding the guide's pre-departure check to the run sheets)"
+ }
 }
