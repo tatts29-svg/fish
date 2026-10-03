@@ -1,0 +1,10 @@
+# v8.19 checks · source commit 865c1f2700f5a721ac21a4d2c7c4078a7a12410f · candidate sha256 5b952723b5db0883fd0a9f5ffaf109531a78a6ad31a05105c6d2a8d8aa64af9d (9355592 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T13:30:59Z
+# suite: same-figures · command: env BASE=/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.19/base_live.html flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v7.99_today_faster_fuller_DRAFT/evidence/same_figures.js
+SAME today (1110 lines)
+SAME costs (1636 lines)
+SAME fencing (1406 lines)
+SAME questions (381 lines)
+SAME coatesway (130 lines)
+SAME runsheet (44 lines)
+SAME plant (1804 lines)
+every line on every tab matches live
