@@ -1,0 +1,93 @@
+{
+  "author": "Andrew Fisher",
+  "tag": "v815",
+  "mobile": false,
+  "sha256": "665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb",
+  "views": {
+    "as it opens": {
+      "paneHeightPx": 511,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {
+        "Cards": {
+          "heightPx": 141,
+          "emptyPct": 14
+        },
+        "recent rows 1": {
+          "heightPx": 128,
+          "emptyPct": 22.1
+        }
+      },
+      "totalEmptyPct": 17.8
+    },
+    "Packs open": {
+      "paneHeightPx": 805,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {
+        "Cards": {
+          "heightPx": 141,
+          "emptyPct": 14
+        },
+        "docsec-packs rows 1": {
+          "heightPx": 169,
+          "emptyPct": 28
+        },
+        "recent rows 1": {
+          "heightPx": 128,
+          "emptyPct": 22.1
+        }
+      },
+      "totalEmptyPct": 21.7
+    },
+    "Drawings open": {
+      "paneHeightPx": 1196,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {
+        "Cards": {
+          "heightPx": 141,
+          "emptyPct": 14
+        },
+        "docsec-maps rows 1": {
+          "heightPx": 237,
+          "emptyPct": 22.8
+        },
+        "docsec-maps rows 2": {
+          "heightPx": 149,
+          "emptyPct": 15.7
+        },
+        "docsec-maps rows 3": {
+          "heightPx": 45,
+          "emptyPct": 67.7
+        },
+        "recent rows 1": {
+          "heightPx": 128,
+          "emptyPct": 22.1
+        }
+      },
+      "totalEmptyPct": 22.2
+    },
+    "Fencing dockets open": {
+      "paneHeightPx": 1687,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {
+        "Cards": {
+          "heightPx": 141,
+          "emptyPct": 14
+        },
+        "docsec-dockets rows 1": {
+          "heightPx": 1093,
+          "emptyPct": 12.7
+        },
+        "recent rows 1": {
+          "heightPx": 128,
+          "emptyPct": 22.1
+        }
+      },
+      "totalEmptyPct": 13.7
+    }
+  },
+  "errors": []
+}

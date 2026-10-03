@@ -43,7 +43,7 @@ async function paper(file, tag, how) {
   await p.emulateMedia({media: 'print'}); await wait(300);
   Object.assign(r, await p.evaluate(() => { const pane = document.getElementById('pane-docs'), vis = e => !!(e.offsetParent || e.getClientRects().length);
     const ids = [...pane.querySelectorAll('[data-doc], [data-print815]')].filter(vis).map(e => e.dataset.doc || e.dataset.print815);
-    const C = docCollection(), byId = new Map(C.items.map(d => [d.id, d]));
+    const C = holdAssets(() => docCollection()), byId = new Map(C.items.map(d => [d.id, d]));
     return {ids, titles: ids.map(id => (byId.get(id) || {}).title || '').filter(Boolean),
       twins: C.items.filter(d => d.twin_of).map(d => [d.twin_of, d.id]), twinTitles: C.items.filter(d => d.twin_of && d.twin_title).map(d => [d.twin_title, d.title]), screenCards: [...pane.querySelectorAll('.tiles815, #docBody815, .head815')].some(vis)}; }));
   await p.emulateMedia({media: 'screen'});
@@ -56,7 +56,7 @@ async function live(dev) {
   const s = await open({pageFile: BASE, hash: '#docs', ...dev}); const p = s.page; await ready(p); await wait(2500);
   const r = await p.evaluate(() => {
     const pane = document.getElementById('pane-docs'), m = document.querySelector('main'); if (m) m.scrollTop = 0;
-    const C = docCollection(), ids = new Set([...pane.querySelectorAll('[data-doc]')].map(e => e.dataset.doc));
+    const C = holdAssets(() => docCollection()), ids = new Set([...pane.querySelectorAll('[data-doc]')].map(e => e.dataset.doc));
     const firstOpen = [...pane.querySelectorAll('a.btn')].find(a => /^Open/.test(a.textContent.trim()));
     const out = {by: C.byCategory, paneH: pane.offsetHeight, firstOpenY: firstOpen ? Math.round(firstOpen.getBoundingClientRect().top - pane.getBoundingClientRect().top) : null,
       missing: C.items.filter(d => d.availability === 'missing').map(d => d.id), notes: Object.fromEntries(C.items.filter(d => d.note).map(d => [d.id, d.note]))};
@@ -75,7 +75,7 @@ async function build(dev, L, name) {
     const tiles = {}; pane.querySelectorAll('[data-tile815]').forEach(x => { const b = x.querySelector('.pstat b'), lamp = x.querySelector('.dstat');
       tiles[x.dataset.tile815] = {n: Number(b.textContent.replace(/,/g, '')), lamp: lamp ? lamp.className : '', island: x.matches('.card.island.racecard'), glyph: !!x.querySelector('svg.g815'),
         hzLite: !!(lamp && lamp.querySelector('svg.hz.lite use[href="#hzHouse"]')), figPx: parseFloat(getComputedStyle(b).fontSize), figFont: getComputedStyle(b).fontFamily, figStyle: getComputedStyle(b).fontStyle}; });
-    const C = docCollection(), twins = C.items.filter(d => d.twin_of).map(d => ({id: d.id, of: d.twin_of, cat: d.category, av: d.availability, title: d.title, note: d.note || ''}));
+    const C = holdAssets(() => docCollection()), twins = C.items.filter(d => d.twin_of).map(d => ({id: d.id, of: d.twin_of, cat: d.category, av: d.availability, title: d.title, note: d.note || ''}));
     const firstOpen = [...pane.querySelectorAll('a.btn')].find(a => /^Open/.test(a.textContent.trim()));
     return {tiles, twins, by: C.byCategory, paneH: pane.offsetHeight, firstOpenY: firstOpen ? Math.round(firstOpen.getBoundingClientRect().top - pane.getBoundingClientRect().top) : null,
       banner: !!pane.querySelector('.pgban, .rbhero'), maphint: pane.querySelectorAll('.maphint').length, docavail: pane.querySelectorAll('.docavail').length,
@@ -130,6 +130,28 @@ async function build(dev, L, name) {
   ok(Object.values(R.press).every(ms => ms < 500), `${name}: a card opens in under half a second (${JSON.stringify(R.press)} ms)`);
   console.log('  rows per card: ' + JSON.stringify(R.rowsPer));
 
+  // the find box used as a person uses it on the view link: a real click and real key presses, not a value set by script
+  await p.evaluate(() => { const m = document.querySelector('main'); if (m) m.scrollTop = 0; });
+  const ro = await p.evaluate(() => ({readonly: !!SYNC.readonly, disabled: document.getElementById('docQ815').disabled, dataRo: document.getElementById('docQ815').hasAttribute('data-ro')}));
+  await p.click('#docQ815'); await p.keyboard.type('SWMS', {delay: 40}); await wait(700);
+  const typed = await p.evaluate(() => { const res = document.getElementById('docsec-results'), box = document.getElementById('docQ815');
+    return {value: box.value, disabled: box.disabled, focus: document.activeElement === box, rows: res ? [...res.querySelectorAll('[data-doc815]')].map(e => e.dataset.doc815) : [],
+      tiles: [...document.querySelectorAll('#pane-docs [data-tile815] .pstat b')].map(b => b.textContent)}; });
+  ok(ro.readonly && !ro.disabled && ro.dataRo && typed.value === 'SWMS' && !typed.disabled && typed.focus && typed.rows.filter(id => /SWMS/i.test(id)).length >= 4,
+    `${name}: on the view link the find box takes real typing ("SWMS" typed: ${typed.rows.length} rows, cursor kept, tiles ${typed.tiles.join('/')})`, JSON.stringify({ro, typed}));
+  await p.fill('#docQ815', ''); await wait(500);
+  // the cards by keyboard: Enter opens and the focus stays on the card; Space closes and the focus is still that card
+  const where = () => p.evaluate(() => { const a = document.activeElement; return {tile: state.docTile815, active: a ? (a.dataset && a.dataset.tile815) || a.id || a.tagName : null,
+    inside: !!(a && a.closest && a.closest('#docsec-transport')), open: !!document.getElementById('docsec-transport')}; });
+  await p.focus('#pane-docs [data-tile815="transport"]'); await p.keyboard.press('Enter'); await wait(500); const k1 = await where();
+  await p.keyboard.press('Space'); await wait(500); const k2 = await where();
+  await p.focus('#pane-docs [data-tile815="dockets"]'); await p.keyboard.press(' '); await wait(500); const k3 = await where();
+  await p.keyboard.press('Enter'); await wait(500); const k4 = await where();
+  ok(k1.tile === 'transport' && k1.open && (k1.active === 'transport' || k1.inside), `${name}: keyboard: Enter on a card opens it and the focus stays on it`, JSON.stringify(k1));
+  ok(k2.tile === null && !k2.open && k2.active === 'transport', `${name}: keyboard: Space on the open card closes it and the focus is still that card`, JSON.stringify(k2));
+  ok(k3.tile === 'dockets' && k3.active === 'dockets' && k4.tile === null && k4.active === 'dockets', `${name}: keyboard: Space opens and Enter closes another card, focus kept both times`, JSON.stringify({k3, k4}));
+  await p.evaluate(() => { state.docTile815 = null; paintDocs815(); });
+
   // the find box: a SWMS, D022, a WC photo, an uploaded-only file
   const search = async q => p.evaluate(async q => {
     const box = document.getElementById('docQ815'); box.focus(); box.value = q; const a = performance.now(); box.dispatchEvent(new Event('input')); await new Promise(r => setTimeout(r, 450));
@@ -143,7 +165,7 @@ async function build(dev, L, name) {
   ok(dz.rows.includes('D022-26003-02-PORT_BUILDINGS.pdf'), `${name}: find "D022" lists the D022 drawing (${dz.rows.length} rows)`, dz.rows.join(', '));
   const wc = await search('WC');
   ok(wc.refs.filter(r => /^WC/.test(r)).length >= 3 && !wc.over, `${name}: find "WC" lists the WC photographs by reference (${wc.refs.length} references)`, wc.refs.join(', '));
-  const upl = await p.evaluate(() => { const d = docCollection().items.filter(x => x.source === 'uploaded' && x.category !== 'Photographs' && !x.twin_of && x._up && x._up.uploaded).sort((a, b) => String(b._up.uploaded).localeCompare(String(a._up.uploaded)))[0]; return d ? {id: d.id, q: String(d.title).split(/\s+/).slice(0, 4).join(' ')} : null; });
+  const upl = await p.evaluate(() => { const d = holdAssets(() => docCollection()).items.filter(x => x.source === 'uploaded' && x.category !== 'Photographs' && !x.twin_of && x._up && x._up.uploaded).sort((a, b) => String(b._up.uploaded).localeCompare(String(a._up.uploaded)))[0]; return d ? {id: d.id, q: String(d.title).split(/\s+/).slice(0, 4).join(' ')} : null; });
   const us = upl ? await search(upl.q) : {rows: []};
   ok(upl && us.rows.includes(upl.id), `${name}: an uploaded file is found by its title ("${upl && upl.q}" finds ${upl && upl.id})`, us.rows.join(', '));
   const shown = await p.evaluate(async () => {
@@ -158,13 +180,13 @@ async function build(dev, L, name) {
 
   // Recent: the last 5 uploads, newest first
   const rc = await p.evaluate(() => { paintDocs815(); const box = document.querySelector('#pane-docs .recent815'); const ids = box ? [...box.querySelectorAll('[data-doc815]')].map(e => e.dataset.doc815) : [];
-    const want = docCollection().items.filter(d => d._up && d._up.uploaded).sort((a, b) => String(b._up.uploaded).localeCompare(String(a._up.uploaded))).slice(0, 5).map(d => d.id); return {ids, want}; });
+    const want = holdAssets(() => docCollection()).items.filter(d => d._up && d._up.uploaded).sort((a, b) => String(b._up.uploaded).localeCompare(String(a._up.uploaded))).slice(0, 5).map(d => d.id); return {ids, want}; });
   ok(rc.ids.length === 5 && JSON.stringify(rc.ids) === JSON.stringify(rc.want), `${name}: Recent is the last 5 uploads, newest first`, rc.ids.join(', '));
 
   // the merged pre-start's note, folded behind Details
   const nt = await p.evaluate(async () => {
     state.docTile815 = null; paintDocs815(); document.querySelector('[data-tile815="packs"]').click(); await new Promise(r => setTimeout(r, 300));
-    const tw = docCollection().items.find(d => d.twin_of); const row = [...document.querySelectorAll('#docsec-packs [data-doc815]')].find(e => e.dataset.doc815 === tw.id);
+    const tw = holdAssets(() => docCollection()).items.find(d => d.twin_of); const row = [...document.querySelectorAll('#docsec-packs [data-doc815]')].find(e => e.dataset.doc815 === tw.id);
     const btn = row && row.querySelector('[data-note815]'), n = row && row.querySelector('.note815'); const hiddenFirst = !!(n && !n.getClientRects().length);
     if (row) row.closest('details').open = true; if (btn) btn.click();
     const r = {id: tw.id, hiddenFirst, shown: !!(n && n.getClientRects().length), text: n ? n.textContent : '', want: tw.note, label: btn ? btn.textContent : ''};
@@ -180,18 +202,21 @@ async function build(dev, L, name) {
   }
   // the Fencing tab's own "Open the plan on the Documents tab" buttons, pressed for real
   const fen = await p.evaluate(async () => {
-    go('fencing'); await new Promise(r => setTimeout(r, 1200));
-    const btns = [...document.querySelectorAll('#pane-fencing .planupd [data-go="docs"]')], out = {buttons: btns.length, words: btns.map(b => b.textContent.trim()), lands: []};
-    for (let i = 0; i < btns.length; i++) {
-      if (i) { go('fencing'); await new Promise(r => setTimeout(r, 900)); }
-      const b = document.querySelectorAll('#pane-fencing .planupd [data-go="docs"]')[i]; b.click(); await new Promise(r => setTimeout(r, 900));
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    go('fencing'); await sleep(1200);
+    const weeks = [...document.querySelectorAll('#pane-fencing [data-fweek]')].map(b => b.dataset.fweek), out = {weeks: weeks.length, buttons: 0, words: [], lands: []};
+    for (const w of weeks) {   /* the plan card is drawn for the week picked: press each week, as a person would */
+      if (state.tab !== 'fencing') { go('fencing'); await sleep(900); }
+      const wb = [...document.querySelectorAll('#pane-fencing [data-fweek]')].find(b => b.dataset.fweek === w); if (!wb) continue; wb.click(); await sleep(700);
+      const b = document.querySelector('#pane-fencing .planupd [data-go="docs"]'); if (!b) continue;
+      out.buttons++; out.words.push(w + ': ' + b.textContent.trim()); b.click(); await sleep(900);
       const h = document.getElementById('docsub815-fencing'), m = document.querySelector('main');
-      out.lands.push({tab: state.tab, tile: state.docTile815, plans: h ? h.nextElementSibling.querySelectorAll('[data-doc815]').length : 0, dockets: !!document.getElementById('docsec-dockets'),
+      out.lands.push({week: w, tab: state.tab, tile: state.docTile815, plans: h ? h.nextElementSibling.querySelectorAll('[data-doc815]').length : 0, dockets: !!document.getElementById('docsec-dockets'),
         top: h ? Math.round(h.getBoundingClientRect().top - (m ? Math.max(0, m.getBoundingClientRect().top) : 0)) : null});
     }
     return out; });
-  ok(fen.buttons >= 1 && fen.words.every(w => /Open the plan/.test(w)) && fen.lands.every(l => l.tab === 'docs' && l.tile === 'maps' && l.plans >= 5 && !l.dockets && l.top !== null && l.top < 450),
-    `${name}: the Fencing tab's ${fen.buttons} "Open the plan" button(s) land on the fencing plans under Drawings, not the signed dockets`, JSON.stringify(fen));
+  ok(fen.buttons >= 2 && fen.words.every(w => /Open the plan/.test(w)) && fen.lands.every(l => l.tab === 'docs' && l.tile === 'maps' && l.plans >= 5 && !l.dockets && l.top !== null && l.top < 450),
+    `${name}: the Fencing tab's ${fen.buttons} "Open the plan" button(s) (pressed on each of ${fen.weeks} weeks) land on the fencing plans under Drawings, not the signed dockets`, JSON.stringify(fen));
   const inv = await p.evaluate(async () => { location.hash = '#docs/invoices'; await new Promise(r => setTimeout(r, 1200)); const f = document.getElementById('flash'); return {tab: state.tab, flash: f ? f.textContent : ''}; });
   ok(inv.tab === 'docs' && /no files to show/.test(inv.flash), `${name}: #docs/invoices with no invoices opens Documents and says so`, JSON.stringify(inv));
   const tap = await p.evaluate(async () => { location.hash = '#docs'; await new Promise(r => setTimeout(r, 900)); state.docTile815 = null; paintDocs815();
@@ -211,7 +236,7 @@ async function build(dev, L, name) {
     return {found: !!row, docRows: rows.length, words, opened, tab: state.tab, q: state.docQ815, current: cur ? cur.dataset.doc815 : null, focused: !!(cur && document.activeElement === cur),
       inView: cur ? (() => { const b = cur.getBoundingClientRect(); return b.top >= 0 && b.bottom <= innerHeight; })() : false};
   }, [q, pickTitle]);
-  const H = await p.evaluate(() => { const C = docCollection().items, tw = C.find(d => d.twin_of), miss = C.find(d => d.availability === 'missing' && /SWMS/.test(d.id)), avail = C.find(d => d.source === 'catalogue' && d.availability === 'ready' && /SWMS/.test(d.id));
+  const H = await p.evaluate(() => { const C = holdAssets(() => docCollection()).items, tw = C.find(d => d.twin_of), miss = C.find(d => d.availability === 'missing' && /SWMS/.test(d.id)), avail = C.find(d => d.source === 'catalogue' && d.availability === 'ready' && /SWMS/.test(d.id));
     return {tw: {id: tw.id, title: tw.title}, miss: {id: miss.id, title: miss.title}, avail: {id: avail.id, title: avail.title}}; });
   const enc = id => [id, encodeURIComponent(id)];
   const h1 = await header(H.tw.title, H.tw.title);
@@ -231,7 +256,7 @@ async function build(dev, L, name) {
       const b = document.createElement('div'); b.innerHTML = '<ul>' + html + '</ul>'; document.getElementById('pane-docs').appendChild(b); wireDocs815(document.getElementById('pane-docs'), [], true);
       let got = null; const was = window.openAsset; window.openAsset = k => { got = k; }; const btn = b.querySelector('[data-open815]'); if (btn) btn.click(); window.openAsset = was; b.remove();
       out[cat + ' ' + ref] = {says: /filed against/.test(html) && html.includes('>' + ref + '<'), opens: got}; }
-    out.realRows = docCollection().items.filter(d => d.ref && d.category !== 'Photographs').length; return out; });
+    out.realRows = holdAssets(() => docCollection()).items.filter(d => d.ref && d.category !== 'Photographs').length; return out; });
   ok(Object.entries(rl).filter(([k]) => k !== 'realRows').every(([k, v]) => v.says && v.opens === k.split(' ').pop()), `${name}: a map or invoice filed against a reference says so and the reference opens it, known or not (${rl.realRows} such files in the record now)`, JSON.stringify(rl));
 
   // motion: the opening card eases in, unless the page's motion setting is off or the device asks for reduced motion
@@ -243,10 +268,10 @@ async function build(dev, L, name) {
   ok(a1 === 'paneIn' && a2 === 'none' && a3 === 'none', `${name}: the open card eases in; not with Motion off or reduced motion (${a1} / ${a2} / ${a3})`);
 
   // the edit link: "+ Add" with the form behind it, and the reason a red file is red (flags flipped in this browser only)
-  const ed = await p.evaluate(async () => {
+  const ed = await p.evaluate(() => { /* one synchronous task: the page's 4 s poll cannot put the view link back half way */
     const was = SYNC.readonly; SYNC.readonly = false; document.body.classList.remove('viewonly'); state.docTile815 = 'maps'; renderDocs();
     const add = document.getElementById('docAdd815'), card = document.getElementById('docAddCard'); const r = {add: !!add, hiddenFirst: card ? card.hidden : null};
-    if (add) { add.click(); await new Promise(x => setTimeout(x, 100)); r.shown = !card.hidden; r.kind = (document.getElementById('docKind') || {}).value; r.upload = !!document.getElementById('docUpload'); r.file = !!document.getElementById('docFile'); add.click(); }
+    if (add) { add.click(); r.shown = !card.hidden; r.kind = (document.getElementById('docKind') || {}).value; r.upload = !!document.getElementById('docUpload'); r.file = !!document.getElementById('docFile'); add.click(); }
     r.why = document.querySelectorAll('#docsec-maps .anos.editonly').length; r.remove = document.querySelectorAll('#pane-docs [data-delfile]').length;
     SYNC.readonly = was; if (was) document.body.classList.add('viewonly'); state.docAdd815 = false; renderDocs(); r.viewWhy = [...document.querySelectorAll('#pane-docs .anos.editonly')].filter(e => e.offsetParent).length; r.viewAdd = !!document.getElementById('docAdd815');
     r.viewRemove = document.querySelectorAll('#pane-docs [data-delfile]').length; return r; });
