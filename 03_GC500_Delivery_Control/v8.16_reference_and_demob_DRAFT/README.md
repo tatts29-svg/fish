@@ -1,10 +1,11 @@
-# v8.16 — the reference drawer, simple first, and a Demob tab (DRAFT, not live)
+# v8.16 — the reference drawer, simple first, and a Demob tab
 
-Author: Andrew Fisher · Claude implemented and tested; Codex has not reviewed · 3 Oct 2026 (AEST)
+Author: Andrew Fisher · Claude implemented and tested; Codex reviewed the source three times (88a716e, 6485fa9/0019508,
+and the follow-up after 6a0bb20) and every finding is fixed below · 3 Oct 2026 (AEST)
 
-**State: DRAFT.** Not uploaded, not committed by this work, nothing written to the live record. The tests read the live
-record through `toolchain/harness/open_page.js`, which aborts every write; the editor checks also stub the page's own
-push, so no write is even attempted.
+**State: see "Release state" at the end.** Not uploaded and not committed by this work; nothing written to the live record.
+The tests read the live record through `toolchain/harness/open_page.js`, which aborts every write; the editor checks
+also stub the page's own push, so no write is even attempted.
 
 ## Build
 
@@ -12,12 +13,14 @@ push, so no write is even attempted.
 bash toolchain/build.sh v8.16 v8.16_reference_and_demob_DRAFT/patch_v816.py
 ```
 
-- Base: live v8.13, `f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec`, 9,079,773 bytes.
-- Build: **`f44af3d5fcf1939163da90317bcfa9f6ce7be5cd80c1f0a03c385528549c8a03`, 9,169,171 bytes**. check_page: every script
-  parses, no keys (`pk.eyJ` 0, `AIza` 0), author line present.
+- Base: **live v8.14, `6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce`, 9,074,112 bytes** (Codex's
+  Today trim, live 3 Oct). The patch also applies cleanly on v8.13 `f07e92cc…` and on the v8.14 frozen candidate
+  `2595f1cd…` (checked), so its anchors are clear of the six Today cards v8.14 removed.
+- Build: **BUILD-SHA**. check_page: every script parses, no keys (`pk.eyJ` 0, `AIza` 0),
+  author line present.
 - The patch refuses a second run (`v8.16 already applied`) and a page without its anchors (`function place799(`,
   `dest782`, `ZONES782`, `openAssetDraw`, `programmeDaysBefore801`, `dpPrint`). It touches none of v8.09's (the machine)
-  or v8.14's (Today) anchors, so either can go first; whoever is second rebuilds.
+  anchors.
 - Files: `patch_v816.py`, `drawer816_src.js`, `demob816_src.js`, `v816.css`, `evidence/`.
 
 ## What Andrew asked (3 Oct 2026, this job's chat)
@@ -149,14 +152,61 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
 | Site hours | 07:00–17:00 | Andrew, 3 Oct 2026 |
 | No travel | 07:00–09:00, 16:00–18:00 | the PM, 2 Oct 2026 (PEAKS782) — applied both ways |
 
-### Open questions for Andrew
-1. "Event portables": the toilets typed FWF / Pee Panel (233 units), or only the gear sub-hired from **Event Portables**
-   (WC33, WC41, WC42, WC43, WC44, WC56, WC59, WC67, WC71, WC81)? Built as the types; one line changes it.
-2. Oversize: what permit or travel window applies on Gold Coast roads for buildings and toilet blocks? Nothing invented;
-   a note per day on the tab.
-3. The planning assumptions above, and whether the no-travel windows apply to the return run as well.
-4. Where the per-day oversize note and the assumptions should live: they are per device today; the shared record would
-   need a new collection.
+## This pass (3 Oct 2026): what changed since the frozen drafts Codex reviewed
+- **Pump-out gate (968aefb #5):** the "on its way in" exception is now bounded by the first event day as well: from
+  Fri 23 Oct a toilet or tank the record never had on site is treated as possibly used and is refused until emptied.
+- **Portions (after 6a0bb20 #1):** every portion carries a stable id (its day and its place among that day's portions,
+  e.g. `2026-10-26#2`); the day's loads place **every** portion on that day, not the first one found; confirmation
+  writes the ids with the dates and units.
+- **Quantity changed after confirmation (after 6a0bb20 #2):** reconciled and said, never lost or double-counted. More
+  units than the portions hold ride as an *unplanned* portion on the due-out day ("quantity changed from 25 to 28 since
+  confirmed: 3 units unplanned - on the due-out day until moved"); fewer come off the last portions first; a quantity
+  now unknown keeps the portions and makes their loads uncertain. Shown on the pick-up list, the toilet run, the board,
+  the drawer's Out tile, the email and the run sheet.
+- **Uncertain loads (after 6a0bb20 #3):** a load holding any unknown quantity shows the amber `cand` chip "to confirm -
+  total not certain, count on site", never green "full"; the trucks view and the day tile say "+ to confirm" / "WC n+".
+- **Run sheets fit their page:** three toilet-run sheets (28 Oct, 30 Oct, 2 Nov) were taller than A4 and the page
+  clipped their sign-off. A load of more than five stops now prints the same sheet tighter; all 98 sheets across the
+  15 days fit (largest load 11 stops), and a load past 13 stops is named when printing instead of being clipped. The
+  "Pumped out" tick boxes are a grid of six (eight when tight), no longer an overlapping column; short loads get ruled
+  "Notes on site" lines.
+- **Style:** the load gauge was rendering as a tall blue block (the LED strip only lays out inside a `.ctile`); it is
+  now Today's gauge tile with the LED strip. The load heading no longer repeats the gauge's "17 of 24". The run sheet's
+  two greys not on the page (#4a4f54, #9aa0a6) are now the day documents' own `--mute`/`--hair`/`--ink`. Dead CSS
+  (`lw816`, `lt816`, a duplicated rule) removed. The one visible "(Andrew, 3 Oct 2026)" on the assumptions now reads
+  "(the project manager, 3 Oct 2026)", as the scrubber does for every other attribution.
+- **Space:** the Demob board's words and counts were 22% empty (2-line text beside a 2x2 block); the four counts sit in
+  one row from 1,100 px, **4.1%**. The photo strip fills its row (WC05 36% -> 2%; P42 on a phone 29% -> one row).
+
+## Codex's findings, the fix, and the test
+Fixtures: `evidence/codex_fixtures816.js` (CPU, **FIXTURE-COUNT**), Codex's own scripts rerun on this build
+(`evidence/codex_review/*_now.json`, `timeline_drawer_recheck_fixed.log`), and the browser suite `v816_tests.js`.
+
+| # | Codex finding | Fix | Test |
+|---|---|---|---|
+| 88a716e 1 | pump-out gate had a date and a light exception; emptied with no who/when passed | `emptyGate816`: no date or light shortcut; proof = emptied + person + parseable time; `incoming816` is the one named exception (never on site, before the event/collection window); every collection path forced | fixtures 1, 2, 2b, 2c, 2d, 2e, 3; browser [review 1] x3; Codex `gate_*` all false |
+| 88a716e 2 | clearance not tied to the use; local tick beat a newer committed un-tick | `emptiedOf816` newest record wins; a pump-out older than the last arrival is stale; `revokeEmptied816` in `setLight` on a new arrival | fixtures 4, 5, 5b, 5c; browser [review 1, 8], [review 7]; Codex `newer_committed_untick`, `reused_reference_old_pumpout` |
+| 88a716e 3 | merge dropped emptied and its history | `mergeRecords`: value/who/when on their own clock, history unioned | fixtures 9, 9b, 9c; browser [review 2]; Codex `merge_emptied_evidence` |
+| 88a716e 4 | split reference got one date | per-load portions, each with its day; out date = last portion | fixture 7; browser [review 3]; Codex `split_reference_dates` |
+| 88a716e 5 | tank before toilet across runs | toilet run timed first; a tank waits for the latest toilet end of its reference on any truck | fixture 8; browser [review 4] and the all-days tank check; Codex `mixed_toilet_tank_order` |
+| 88a716e 6 | unknown quantity became 1 | counted 0 + `unknown`, "quantity to confirm", load uncertain on screen, print and email | fixture 6; browser [review 5]; Codex `unknown_quantity` |
+| 88a716e 7 | Timeline dropped a same-day added reference's typed removal | the hunk keys on "no remove event", not `out_plan` | Codex recheck 13/13; browser [review 6a] |
+| 88a716e 8 | cancelled reference hid its Out date in the drawer | drawer falls back to typed / plan / contract date, marked cancelled | Codex recheck; browser [review 6b] |
+| 968aefb 1 | an earlier use's pump-out cleared a later collection | stale-by-arrival + revoke on arrival | fixtures 5, 5b, 5c; Codex `reused_reference_old_pumpout` -> `nextCollectionAllowed:false` |
+| 968aefb 2 | confirming a split collapsed it to the last day | `out_portions` saved with the date on the same stamp; merged with the due-out group | fixture F2; Codex `confirm_split_collapses_dates` before = after |
+| 968aefb 3 | pump-out only before the final split day | pump list uses every portion's day | fixture F3; Codex `split_early_load_without_pump_task` pump on all 3 days |
+| 968aefb 4 | unknown portable vanished after confirmation; tank alone | fixed-date path keeps unknown rows on an uncertain load; a tank waits for that stop | fixtures F4a, F4b; Codex `unknown_confirmed_*`, `unknown_toilet_tank_*` |
+| 968aefb 5 | missing history read as an incoming trip | `incoming816` bounded by the first event day, own out date and 26 Oct | fixtures 2, 2c, **2d, 2e (new)** |
+| 968aefb 6 | equal-time merge depended on order | same moment, two answers -> not emptied on every copy, clash written down | fixtures F6, F6b; Codex `merge_equal_time_order_dependent` (both orders false, clash) |
+| 968aefb 7 | added reference lost its explicit removal date | the same-day fallback is dropped only when no dated remove event exists | fixture F7; Codex recheck (its regression assertion flipped: `plan` 5 Nov) |
+| after 6a0bb20 1 | two portions on one day: `.find` kept only the first | portion ids; every portion of the day placed; ids written on confirm | **G1, G1b** - fail on 0006166, pass now |
+| after 6a0bb20 2 | quantity corrected after portions saved | `reconcile816`: unplanned / fewer / now unknown, said everywhere | **G2a-G2e** - fail on 0006166, pass now |
+| after 6a0bb20 3 | uncertain load showed green "full" | amber "to confirm", never "full" | **G3** - fails on 0006166, passes now |
+
+Before/after evidence: `evidence/codex_fixtures816_before_fix_0006166.log` (8 failed: G1, G1b, G2a-e, G3; G2d only
+because the change field did not exist) and `evidence/codex_fixtures816.log` (all pass).
+Codex's unmodified `timeline_drawer_recheck_968aefb.cjs` stops at its own line 61, which asserts the regression it
+found (`proposed`); with the fix the value is `plan` - `timeline_drawer_recheck_fixed.cjs` changes only those two lines.
 
 ## Codex scope: the one Timeline hunk (please review)
 In `programmeDaysBefore801()`, after the `evs.forEach(...)` loop, inside the `allAssets().forEach`:
@@ -164,17 +214,45 @@ In `programmeDaysBefore801()`, after the `evs.forEach(...)` loop, inside the `al
  /* v8.16 - a due-out typed on a reference with no remove event reaches its day as a removal (Andrew, 3 Oct 2026) */
  { const typed816 = deliveryOf(a.key).out_date; if (typed816 && !evs.some(e => e.movement === 'remove')) { const rl = day(typed816).removals; if (!rl.some(r => r.a.key === a.key)) rl.push({a, events: [{date: typed816, sheet: 'due-out typed on the page', activity: null, movement: 'remove', movement_stated: true, quantity_display: null, carrier: null, dd: null, note: null, typed816: true}], moved_from: null}); } }
 ```
-It only adds a removal for a typed due-out where the record has no remove event (an added one-day reference included, review 6a/7); a moved remove event is untouched. Tested: P42 typed
-for Wed 4 Nov shows under DUE OUT on the Timeline, in `calendarDays()` and in `dpLoads` (the day documents).
+It only adds a removal for a typed due-out where the record has no remove event (an added one-day reference included);
+a moved remove event is untouched; one removal per reference per day. Tested: P42 typed for Wed 4 Nov shows under DUE
+OUT on the Timeline, in `calendarDays()` and in `dpLoads` (the day documents); Codex's recheck 13/13.
+
+## Style: Today side by side
+Pictures (scratchpad, not the repo): `v816/compare_today_desktop.png`, `v816/compare_today_phone.png` - Today's cards
+beside the drawer and the Demob tab. Every part is the page's own component: the carbon `.card.hubcard.island.dialcard`
+with its screws, `.hubtitle`/`h3`, `.chip` (ok / ref / cand / act / crit), `.btn`, `refPlate`, the signal head and
+`.hl` light rows, `.ctile` gauge tiles with `.hubbig`-style numerals and the `dashLeds` LED strip, `levelGlyph` /
+`stepsGlyph`, `.daytbl`, and the day documents' `dp-page` for the run sheets. No emoji; every glyph used (✓ · — – → ×
+⇄ ▾) is already on the page; every colour is already on the page; fonts are the page's Barlow Condensed and Inter.
+
+## Space (layout816.cjs, the v7.99 method: container area against its children at natural size)
+| part | desktop 1,440 | phone 390 |
+|---|---|---|
+| Demob board, words / counts | LAY-D-HEAD | LAY-P-HEAD |
+| Demob count tiles | LAY-D-COUNT | LAY-P-COUNT |
+| Demob day strip | LAY-D-STRIP (gutters between 15 tiles) | LAY-P-STRIP (scrolls) |
+| Drawer In / Out tiles | LAY-D-TILES | LAY-P-TILES |
+| Drawer photo strip (WC05) | LAY-D-PH | LAY-P-PH |
+| Drawer Complete it | LAY-D-CMP | LAY-P-CMP |
+| **Today's own lights card (reference)** | LAY-D-TODAY | LAY-P-TODAY |
+
+Complete it is Today's lights component as built (signal head beside the rows), and measures the same as Today's own.
+The day bar (branch buttons left, actions right) is a toolbar, not a card row.
 
 ## Tests (`evidence/`)
-- `v816_tests.js`: **79 / 79 pass** (desktop and phone): drawer short, no $ on the view link (9 drawers, every fold a
-  viewer can open, opened), empty states gone, P42 master plan, controls once, photo slot, folds animate, Demob 197 and
-  15 days, one out date and source each (50 / 15 / 132), week rules, branch filter, print (one page per load) and mailto,
-  run sheet contents, no load over 24, every portable unit in exactly one load, island priority, no tank before its
-  toilet, every time inside 07:00–17:00 and outside the no-travel windows, every toilet/tank on a pump-out list before
-  its pick-up, typed due-out on the Timeline, editors' charges, the emptied gate refusing then allowing a collection,
-  Confirm N through setDate, reduced motion, no page errors, no sideways scroll.
-- `run_all.sh`: the standing suites, one at a time (waits while a 3D rig runs). Results: see below.
+TEST-RESULTS
 
-STANDING-SUITES-RESULTS
+## Open questions for Andrew
+1. **Which toilets count toward the 24:** built as the types FWF and Pee Panel (233 units on 63 references). Or only the
+   gear sub-hired from Event Portables (WC33, WC41, WC42, WC43, WC44, WC56, WC59, WC67, WC71, WC81)? One line changes it.
+   Toilet blocks, accessible toilets, trailers and waste tanks are on the normal list.
+2. **Travel times:** Kingston to the circuit 70 min each way (the page's figure), loading 30 min a stop and 5 min a
+   portable, 4 pieces a truck are planning assumptions, flagged on the tab and editable per device. Are they right, and
+   do the 07:00-09:00 / 16:00-18:00 no-travel windows apply to the run back as well?
+3. **Oversize:** what permit or travel window applies on Gold Coast roads for buildings and toilet blocks? Nothing is
+   invented; every oversize load says "check permit / travel window" and each day has a note.
+4. Should the per-day oversize note and the assumptions be shared (a new record collection) rather than per device?
+
+## Release state
+RELEASE-STATE

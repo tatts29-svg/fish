@@ -133,4 +133,41 @@ block('follow-up 7: an added reference\'s dated removal event is its plan date o
   const r = run(c, "JSON.parse(JSON.stringify([demobOf816('AD1'), demobOf816('AD2')].map(x => ({src: x.src, iso: x.iso}))))");
   ok(r[0].src === 'plan' && r[0].iso === '2026-11-05' && r[1].src === 'proposed', 'F7 an explicit removal event keeps its date (5 Nov); a one-day added reference without one is proposed', r);
 });
+// ---- Codex's follow-up after 6a0bb20 (relayed 3 Oct 2026): three cases, each failing on the source before the fix
+const unitsOn = (c, key) => run(c, `JSON.parse(JSON.stringify(demob816().days.flatMap(d => demob816().day[d].loads.flatMap(l => l.rows.filter(x => x.r.key === '${key}').map(x => ({day: d, n: x.n, unplanned: !!x.unplanned, pid: x.pid || null}))))))`);
+block('G1: two confirmed portions on the same day are both collected', () => {
+  const c = ctx([asset('WS25', [{asked: 'FWF', qty_supplied: 25}])]);
+  c.S.delivery.WS25 = {state: 'on site', out_date: '2026-10-27', out_by: 'A', out_at: '2026-10-03T00:00:00Z', out_portions: [{date: '2026-10-27', units: 24}, {date: '2026-10-27', units: 1}]};
+  const u = unitsOn(c, 'WS25'), sum = u.reduce((s, x) => s + x.n, 0);
+  ok(sum === 25 && u.length === 2 && u.every(x => x.day === '2026-10-27') && new Set(u.map(x => x.pid)).size === 2, 'G1 [after 6a0bb20 #1] a 25-unit reference confirmed as 24 + 1 on the same day: both portions are on the day\'s loads (25 units, two portion ids)', u);
+  /* the same through the real confirmation: a proposed 25 whose two loads land on one day */
+  const c2 = ctx([asset('WS26', [{asked: 'FWF', qty_supplied: 25}])]);
+  vm.runInContext(pageFn('setDate', '\n/* ------------------------------------------------------------------ typed over the schedule') + '\n' + pageFn('deliveryEmpty', '\n/* The tick as a chip'), c2);
+  run(c2, "days816 = () => (DM816.days = ['2026-10-26'])"); run(c2, "RENDER_MEMO.clear()");
+  const pre = unitsOn(c2, 'WS26'); run(c2, "confirm816('2026-10-26', 'all'); RENDER_MEMO.clear(); 1");
+  const post = unitsOn(c2, 'WS26'), rec = run(c2, "JSON.parse(JSON.stringify(S.delivery.WS26))");
+  ok(pre.reduce((s, x) => s + x.n, 0) === 25 && post.reduce((s, x) => s + x.n, 0) === 25 && rec.out_portions && rec.out_portions.every(p => p.id), 'G1b confirming a 25-unit proposal whose two loads share a day writes both portions (with ids) and keeps all 25 units', {pre, post, rec: rec.out_portions});
+});
+block('G2: a quantity corrected after portions were confirmed is reconciled and said', () => {
+  const mk = q => { const c = ctx([asset('WQ', [{asked: 'FWF', qty_supplied: q}])]);
+    c.S.delivery.WQ = {state: 'on site', out_date: '2026-10-27', out_by: 'A', out_at: '2026-10-03T00:00:00Z', out_portions: [{date: '2026-10-26', units: 24}, {date: '2026-10-27', units: 1}]}; return c; };
+  const up = mk(28), uu = unitsOn(up, 'WQ'), uw = run(up, "(demobOf816('WQ').qtyChange || {}).words || ''");
+  ok(uu.reduce((s, x) => s + x.n, 0) === 28 && uu.some(x => x.unplanned && x.n === 3 && x.day === '2026-10-27') && /from 25 to 28 since confirmed: 3 units unplanned/.test(uw), 'G2a [after 6a0bb20 #2] 25 confirmed, now 28: all 28 on loads, 3 marked unplanned on the due-out day, and "quantity changed from 25 to 28 since confirmed: 3 units unplanned"', {uu, uw});
+  const dn = mk(22), du = unitsOn(dn, 'WQ'), dw = run(dn, "(demobOf816('WQ').qtyChange || {}).words || ''");
+  ok(du.reduce((s, x) => s + x.n, 0) === 22 && /from 25 to 22 since confirmed: 3 fewer/.test(dw), 'G2b 25 confirmed, now 22: 22 on loads (none counted twice), and the change is said', {du, dw});
+  const un = ctx([asset('WQ', [{asked: 'FWF', qty_supplied: null, qty_asked: null}])]); un.S.delivery.WQ = mk(25).S.delivery.WQ;
+  const nw = run(un, "(demobOf816('WQ').qtyChange || {}).words || ''"), nl = run(un, "demob816().day['2026-10-26'].loads.concat(demob816().day['2026-10-27'].loads).filter(l => l.rows.some(x => x.r.key === 'WQ')).every(l => l.uncertain)");
+  ok(/now to confirm/.test(nw) && nl === true, 'G2c a confirmed split whose quantity is now unknown says so, and its loads are uncertain', {nw, nl});
+  const same = mk(25); ok(run(same, "demobOf816('WQ').qtyChange") === null, 'G2d an unchanged quantity carries no change note');
+  const html = run(up, "esc = s => String(s); refPlate = k => k; dashLeds = () => ''; kindWord = () => 'toilet'; canEdit = () => false; demob816(); toiletHtml816(demob816().day['2026-10-27'])");
+  ok(/unplanned - quantity changed/.test(html) && /quantity changed from 25 to 28/.test(html), 'G2e the toilet run shows the unplanned units and the change', String(html).slice(0, 120));
+});
+block('G3: a load with an unknown quantity is never green "full"', () => {
+  const c = ctx([asset('WF24', [{asked: 'FWF', qty_supplied: 24}]), asset('WFU', [{asked: 'FWF', qty_supplied: null, qty_asked: null}])]);
+  c.S.delivery.WF24 = {state: 'on site', out_date: '2026-10-27', out_by: 'A', out_at: '2026-10-03T00:00:00Z'};
+  c.S.delivery.WFU = {state: 'on site', out_date: '2026-10-27', out_by: 'A', out_at: '2026-10-03T00:00:00Z'};
+  run(c, "esc = s => String(s); refPlate = k => k; dashLeds = () => ''; kindWord = () => 'toilet'; canEdit = () => false");
+  const html = String(run(c, "toiletHtml816(demob816().day['2026-10-27'])")), unc = run(c, "demob816().day['2026-10-27'].loads.filter(l => l.uncertain).length");
+  ok(unc > 0 && !/chip ok">full/.test(html) && /chip cand[^"]*">to confirm/.test(html), 'G3 [after 6a0bb20 #3] a load holding an unknown quantity shows amber "to confirm", never green "full"', {unc, chips: html.match(/<span class="chip[^"]*">[^<]*/g)});
+});
 console.log(fails ? `\n${fails} FAILED, ${passes} passed` : `\nALL PASSED (${passes})`); process.exitCode = fails ? 1 : 0;

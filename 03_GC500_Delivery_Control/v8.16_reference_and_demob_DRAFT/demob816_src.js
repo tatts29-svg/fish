@@ -165,7 +165,22 @@ function storedPortions816(key, outDate){
 	const raw = ((S.delivery || {})[key] || {}).out_portions;
 	if (!Array.isArray(raw) || raw.length < 2) return null;
 	const P = raw.filter(p => p && /^\d{4}-\d{2}-\d{2}$/.test(p.date) && Number(p.units) > 0).map(p => ({iso: p.date, n: Number(p.units)}));
-	return P.length === raw.length && P.map(p => p.iso).sort().pop() === outDate ? P : null;
+	return P.length === raw.length && P.map(p => p.iso).sort().pop() === outDate ? portionIds816(P) : null;
+}
+/* every portion carries a stable id - its day and its place among that day's portions - so two portions on one day are
+ two portions, never one found twice */
+function portionIds816(P){ const seen = {}; return P.map(p => { const k = seen[p.iso] = (seen[p.iso] || 0) + 1; return Object.assign({}, p, {id: p.iso + '#' + k}); }); }
+/* QUANTITY CHANGED SINCE THE PORTIONS WERE CONFIRMED: never lost, never counted twice, always said. More units than the
+ portions hold ride as an "unplanned" portion on the due-out day; fewer come off the last portions first; a quantity now
+ unknown keeps the portions and says the total is to confirm. */
+function reconcile816(P, evtN, evtUnk, outDate){
+	if (!P) return {portions: null, qty: null};
+	const was = P.reduce((s, p) => s + p.n, 0);
+	if (evtUnk) return {portions: P, qty: {was, now: null, words: 'quantity changed since the portions were confirmed: now to confirm'}};
+	if (evtN === was) return {portions: P, qty: null};
+	if (evtN > was) return {portions: P.concat([{iso: outDate, n: evtN - was, unplanned: true, id: outDate + '#u'}]), qty: {was, now: evtN, words: 'quantity changed from ' + was + ' to ' + evtN + ' since confirmed: ' + (evtN - was) + ' unit' + (evtN - was === 1 ? '' : 's') + ' unplanned - on the due-out day until moved'}};
+	let cut = was - evtN; const Q = P.map(p => Object.assign({}, p)).reverse().map(p => { const k = Math.min(cut, p.n); cut -= k; return Object.assign(p, {n: p.n - k}); }).reverse().filter(p => p.n > 0);
+	return {portions: Q.length ? Q : null, qty: {was, now: evtN, words: 'quantity changed from ' + was + ' to ' + evtN + ' since confirmed: ' + (was - evtN) + ' fewer - taken off the last portion' + (was - evtN === 1 ? '' : 's')}};
 }
 function demob816(){
 	const memo = typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map ? RENDER_MEMO : null;
@@ -180,7 +195,7 @@ function demob816(){
 		if (typeof br !== 'string') br = '—';
 		const src = d.out_date ? 'confirmed' : plan ? 'plan' : c.early ? 'contract' : 'proposed';
 		return {key: a.key, a, kind: refKind(a), branch: br, zone: z.zone, side: z.side, pt: z.pt, src,
-			iso: d.out_date || plan || c.early || null, contractEnd: c.last, units: u, evtN, evtUnk, evtPure: (evtN > 0 || evtUnk) && !other.length, portions: storedPortions816(a.key, d.out_date),
+			iso: d.out_date || plan || c.early || null, contractEnd: c.last, units: u, evtN, evtUnk, evtPure: (evtN > 0 || evtUnk) && !other.length, ...(() => { const rc = reconcile816(storedPortions816(a.key, d.out_date), evtN, evtUnk, d.out_date); return {portions: rc.portions, qtyChange: rc.qty}; })(),
 			empty: needsEmpty816(a), emptied: emptiedOf816(a.key).on, big: refKind(a) === 'building' || u.some(x => !x.evt && (x.n > 0 || x.unknown) && BIG816.test(x.type)),
 			tank: u.some(x => x.tank && (x.n > 0 || x.unknown)), sub: (() => { try { const s = subhireOf(a.key); return s ? s.co : null; } catch (e) { return null; } })()};
 	});
@@ -198,7 +213,7 @@ function demob816(){
 		const n = days.length, base = days.map(d => refs.filter(r => r.iso === d || (r.portions && r.portions.some(p => p.iso === d))).length);
 		/* a reference split over loads keeps a portion per load, each with its own day; its out date is the last of them */
 		const put = (it, k) => { const iso = days[k]; if (!it.load) { it.r.iso = iso; return; } it.load.iso = iso;
-			it.load.rows.forEach(x => { x.iso = iso; if (x.r.split816) { x.r.portions = (x.r.portions || []).concat([{iso, n: x.n}]); x.r.iso = x.r.portions.map(p => p.iso).sort().pop(); } else x.r.iso = iso; }); };
+			it.load.rows.forEach(x => { x.iso = iso; if (x.r.split816) { x.r.portions = portionIds816((x.r.portions || []).concat([{iso, n: x.n}])); x.r.iso = x.r.portions.map(p => p.iso).sort().pop(); } else x.r.iso = iso; }); };
 		/* a toilet load goes whole, onto the day with the most room left in its weeks */
 		Q.filter(it => it.load).forEach(it => { let best = 0; for (let k = 1; k < n; k++) if (base[k] < base[best]) best = k; base[best] += it.size; put(it, best); });
 		/* then the rest, in order, so every day ends as level as it can: the water level L that the singles fill to */
@@ -223,10 +238,12 @@ function demob816(){
 		const loads = planned.filter(L => L.iso === iso).map(L => ({rows: L.rows.map(x => ({r: x.r, n: x.n, part: x.part, iso})), units: L.units, planned: true}));
 		const placed = new Set(loads.flatMap(L => L.rows.map(x => x.r.key)));
 		const rest = list.filter(r => (r.evtN > 0 || r.evtUnk) && !placed.has(r.key));
-		rest.forEach(r => { const P = r.portions && r.portions.find(p => p.iso === iso); let n = P ? P.n : r.evtN, done = false;
-			/* an unknown quantity rides as a row of its own - nothing assumed - so its load says its total is not certain */
-			for (const L of loads) { if (done) break; if (L.rows[0].r.side !== r.side && r.side !== 'unknown') continue; const room = DM816.cap - L.units; if (room >= n) { L.rows.push({r, n, part: !!P, iso}); L.units += n; done = true; } }
-			if (!done) pack816([{r, n}], DM816.cap).forEach(x => { x.rows.forEach(y => { y.iso = iso; y.part = y.part || !!P; }); loads.push(Object.assign(x, {planned: false})); }); });
+		/* each portion of the day is placed on its own (two portions on one day are two portions); a reference without
+		 portions is one piece of work. An unknown quantity rides as a row of its own - nothing assumed. */
+		const work = rest.flatMap(r => r.portions ? r.portions.filter(p => p.iso === iso).map(P => ({r, P, n: P.n})) : [{r, P: null, n: r.evtN}]);
+		work.forEach(({r, P, n}) => { let done = false; const extra = {part: !!P, iso, pid: P ? P.id : null, unplanned: !!(P && P.unplanned)};
+			for (const L of loads) { if (done) break; if (L.rows[0].r.side !== r.side && r.side !== 'unknown') continue; const room = DM816.cap - L.units; if (room >= n) { L.rows.push(Object.assign({r, n}, extra)); L.units += n; done = true; } }
+			if (!done) pack816([{r, n}], DM816.cap).forEach(x => { x.rows.forEach(y => Object.assign(y, extra, {part: y.part || !!P})); loads.push(Object.assign(x, {planned: false})); }); });
 		const sideIx = L => L.rows[0].r.side === 'outside' ? 0 : L.rows[0].r.side === 'inside' ? 1 : 2;
 		loads.sort((x, y) => sideIx(x) - sideIx(y) || cmp816(x.rows[0].r, y.rows[0].r));
 		loads.forEach((L, k) => { L.n = k + 1; L.free = DM816.cap - L.units; L.uncertain = L.rows.some(x => x.r.evtUnk); L.rows.sort((x, y) => cmp816(x.r, y.r)); });
@@ -273,7 +290,7 @@ function part816(y, tank){ return {type: y.type, n: y.n, unknown: !!y.unknown, t
 function stops816(rows, toiletRun){
 	const out = [];
 	rows.forEach(x => { const r = x.r, u = r.units.filter(y => (y.n > 0 || y.unknown) && (toiletRun ? y.evt : !y.evt));
-		if (toiletRun) { out.push({r, n: x.n, part: x.part, area: r.zone, parts: [{type: u.map(y => y.type).join(' + ') || 'event portables', n: x.n, unknown: u.some(y => y.unknown), tank: false}]}); return; }
+		if (toiletRun) { out.push({r, n: x.n, part: x.part, area: r.zone, parts: [{type: (u.map(y => y.type).join(' + ') || 'event portables') + (x.unplanned ? ' (unplanned - quantity changed)' : ''), n: x.n, unknown: u.some(y => y.unknown), tank: false}]}); return; }
 		const top = u.filter(y => !y.tank).map(y => part816(y, false)), tanks = u.filter(y => y.tank).map(y => part816(y, true));
 		if (top.length) out.push({r, n: x.n, part: x.part, area: r.zone, parts: top});
 		if (tanks.length) out.push({r, n: x.n, part: x.part, area: r.zone, parts: tanks, tankOnly: true});
@@ -326,12 +343,12 @@ function renderDemob816(){
 	const pane = $('#pane-demob'); if (!pane) return;
 	const M = demob816(), sel = demobSel816(M), C = M.counts, Dy = M.day[sel];
 	const max = Math.max(1, ...M.days.map(d => M.day[d].list.length));
-	const strip = M.days.map((iso, i) => { const x = M.day[iso], f = fmtDay(iso), tl = x.loads.length, tu = x.loads.reduce((s, L) => s + L.units, 0);
+	const strip = M.days.map((iso, i) => { const x = M.day[iso], f = fmtDay(iso), tl = x.loads.length, tu = x.loads.reduce((s, L) => s + L.units, 0), tq = x.loads.some(L => L.rows.some(y => y.r.evtUnk)) ? '+' : '';
 		const n = 12, o = x.outside / max, b = (x.outside + x.island) / max, u = x.list.length / max;
 		return `<button type="button" class="ctile dday816${iso === sel ? ' on' : ''}${i % 5 === 0 ? ' wks' : ''}" data-dday816="${esc(iso)}" aria-pressed="${iso === sel}" aria-label="${esc(dayWords816(iso) + ': ' + x.list.length + ' to pick up' + (tl ? ', ' + tl + ' toilet load' + (tl === 1 ? '' : 's') : ''))}">
 <span class="wk816">${i % 5 === 0 ? `<span class="chip act">Week ${i / 5 + 1}</span>` : ''}</span><p class="ctk">${esc(f.dow + ' ' + f.dm.slice(3))}</p><b>${esc(String(Number(f.dm.slice(0, 2))))}</b><span>${x.list.length} to pick up</span>
 ${dashLeds([[o, 'o'], [b, 'b'], [u, 'u']], x.outside + ' outside the island, ' + x.island + ' Macintosh Island, ' + x.unknown + ' position to confirm', n)}
-${tl ? `<span class="chip cand tl816" title="the toilet run: ${tl} load${tl === 1 ? '' : 's'}, ${tu} units">WC ${tu}</span>` : '<span class="tl816 none"></span>'}</button>`; }).join('');
+${tl ? `<span class="chip cand tl816" title="the toilet run: ${tl} load${tl === 1 ? '' : 's'}, ${tu} units">WC ${tu}${tq}</span>` : '<span class="tl816 none"></span>'}</button>`; }).join('');
 	const early = M.outside.length ? `<p class="note816">Dated by the plan outside the window: ${M.outside.map(r => `<button type="button" class="linkish" data-k816="${esc(r.key)}">${esc(r.key)}</button> ${esc(dayWords816(r.iso))}`).join(' · ')}.</p>` : '';
 	pane.innerHTML = paneHeadingHtml('demob') + `
 <div class="card hubcard island dialcard racecard dm816 nosfold"><div class="hubtitle"><h3>Demob · pick-up board</h3><span class="chip ref">Mon 26 Oct – Fri 13 Nov</span></div>
@@ -342,6 +359,7 @@ ${tl ? `<span class="chip cand tl816" title="the toilet run: ${tl} load${tl === 
 <div class="cside strip816" role="group" aria-label="Demob days">${strip}</div>
 <p class="note816 leg816">Lights on each day: orange outside the island · blue Macintosh Island · grey position to confirm · WC: event-portable units on that day's toilet run, 24 to a load.</p>
 ${(() => { const q = M.refs.filter(r => r.units.some(u => u.unknown)); return q.length ? `<p class="note816">Quantity to confirm on ${q.length} reference${q.length === 1 ? '' : 's'}: ${q.map(r => `<button type="button" class="linkish" data-k816="${esc(r.key)}">${esc(r.key)}</button>`).join(' · ')} - not assumed; the loads that carry them say their total is not certain.</p>` : ''; })()}
+${(() => { const q = M.refs.filter(r => r.qtyChange); return q.length ? `<p class="note816"><b>Quantity changed since the portions were confirmed:</b> ${q.map(r => `<button type="button" class="linkish" data-k816="${esc(r.key)}">${esc(r.key)}</button> ${esc(r.qtyChange.words)}`).join(' · ')}.</p>` : ''; })()}
 ${early}<div class="hubgo" data-go="timeline" role="link" tabindex="0">Open the Timeline →</div></div>
 <div class="card hubcard dmday816 nosfold" aria-live="polite">${dayHtml816(M, Dy)}</div>
 ${assumeHtml816()}`;
@@ -374,7 +392,7 @@ function rowHtml816(r, extra){
 	const ed = canEdit(), what = [(r.a.item_types || []).join(', ') || r.a.product || kindWord(r.a), r.a.name].filter(Boolean).join(' · ');
 	const open = DM816.menu === r.key;
 	return `<tr data-row816="${esc(r.key)}"><td class="refcell" data-label="GC500 ID"><button type="button" class="linkish plateb" data-k816="${esc(r.key)}" aria-label="Open ${esc(r.key)}">${refPlate(r.key, 15)}</button></td>
-<td data-label="What">${esc(what)}${(r.evtN || r.evtUnk) && !r.evtPure ? `<br><span class="w">+ ${r.evtUnk ? 'quantity to confirm' : r.evtN} on the toilet run</span>` : ''}${r.portions ? `<br><span class="w">${esc(r.portions.map(p => p.n + ' on ' + dayWords816(p.iso)).join(', '))} - out ${esc(dayWords816(r.iso))}</span>` : ''}${r.units.some(u => u.unknown) ? ' <span class="chip crit">quantity to confirm</span>' : ''}${r.side === 'unknown' ? ' <span class="chip cand">position to confirm</span>' : ''}${r.sub ? ` <span class="chip subhirechip">${esc(r.sub)}</span>` : ''}${extra || ''}</td>
+<td data-label="What">${esc(what)}${(r.evtN || r.evtUnk) && !r.evtPure ? `<br><span class="w">+ ${r.evtUnk ? 'quantity to confirm' : r.evtN} on the toilet run</span>` : ''}${r.portions ? `<br><span class="w">${esc(r.portions.map(p => p.n + ' on ' + dayWords816(p.iso)).join(', '))} - out ${esc(dayWords816(r.iso))}</span>` : ''}${r.units.some(u => u.unknown) ? ' <span class="chip crit">quantity to confirm</span>' : ''}${r.qtyChange ? ` <span class="chip crit qc816">${esc(r.qtyChange.words)}</span>` : ''}${r.side === 'unknown' ? ' <span class="chip cand">position to confirm</span>' : ''}${r.sub ? ` <span class="chip subhirechip">${esc(r.sub)}</span>` : ''}${extra || ''}</td>
 <td data-label="Branch">${esc(r.branch)}</td><td data-label="Date from">${srcChip816(r.src)} ${notReady816(r)}</td>
 <td data-label="Actions"><details class="menu816"${open ? ' open' : ''} data-menu816="${esc(r.key)}"><summary class="btn ghost sm" aria-label="More for ${esc(r.key)}">More</summary><div>
 <button type="button" class="btn ghost sm" data-k816="${esc(r.key)}">Open ${esc(r.key)}</button>
@@ -391,9 +409,9 @@ function listHtml816(rows){
 function toiletHtml816(Dy){
 	if (!Dy.loads.length) return '<p class="note816">No event portables come off site on this day.</p>';
 	const M = demob816(), next = M.days[M.days.indexOf(Dy.iso) + 1];
-	return `<p class="note816">Event portables - single portable toilets and urinals (FWF, Pee Panel) - go 24 to a pick-up. Toilet blocks, accessible toilets, trailers and waste tanks are bigger and stay on the pick-up list. <b>Every unit is pumped out before it is loaded.</b></p>` + Dy.loads.map(L => `<div class="card load816 nosfold"><div class="hubtitle"><h3>Load ${L.n} · ${esc(L.rows[0].r.side === 'inside' ? 'Macintosh Island' : L.rows[0].r.side === 'outside' ? 'outside the island' : 'position to confirm')}${L.uncertain ? ' · quantity to confirm' : ''}</h3>${L.uncertain ? '<span class="chip crit">total not certain - count on site</span>' : ''}${L.free && !L.uncertain ? `<span class="chip act">${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top up from ' + esc(dayWords816(next)) : ''}</span>` : '<span class="chip ok">full</span>'}</div>
+	return `<p class="note816">Event portables - single portable toilets and urinals (FWF, Pee Panel) - go 24 to a pick-up. Toilet blocks, accessible toilets, trailers and waste tanks are bigger and stay on the pick-up list. <b>Every unit is pumped out before it is loaded.</b></p>` + Dy.loads.map(L => `<div class="card load816 nosfold"><div class="hubtitle"><h3>Load ${L.n} · ${esc(L.rows[0].r.side === 'inside' ? 'Macintosh Island' : L.rows[0].r.side === 'outside' ? 'outside the island' : 'position to confirm')}${L.uncertain ? ' · quantity to confirm' : ''}</h3>${L.uncertain ? '<span class="chip cand unc816">to confirm - total not certain, count on site</span>' : L.free ? `<span class="chip act">${L.free} space${L.free === 1 ? '' : 's'} left${next ? ' - top up from ' + esc(dayWords816(next)) : ''}</span>` : '<span class="chip ok">full</span>'}</div>
 <div class="cside lg816"><div class="ctile"><p class="ctk">Units on this load</p><b>${L.units}${L.uncertain ? '+' : ''}</b><span>of ${DM816.cap}${L.uncertain ? ' · plus quantity to confirm' : ''}</span>${dashLeds([[L.units / DM816.cap, L.rows[0].r.side === 'inside' ? 'b' : 'o']], L.units + ' of ' + DM816.cap + ' units', DM816.cap)}</div></div>
-<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>#</th><th>GC500 ID</th><th>Units</th><th>Area</th><th>Date from</th></tr></thead><tbody>${L.rows.map((x, i) => `<tr><td class="t" data-label="#">${i + 1}</td><td class="refcell" data-label="GC500 ID">${refPlate(x.r.key, 14)}</td><td data-label="Units">${x.r.evtUnk ? (x.n ? x.n + ' + ' : '') + 'quantity to confirm' : x.n + ' unit' + (x.n === 1 ? '' : 's')}${x.part || x.r.portions ? ' (part of ' + (x.r.evtN) + ')' : ''}</td><td data-label="Area">${esc(DM816.name[x.r.zone])}</td><td data-label="Date from">${srcChip816(x.r.src)} ${notReady816(x.r)}</td></tr>`).join('')}</tbody></table></div>
+<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>#</th><th>GC500 ID</th><th>Units</th><th>Area</th><th>Date from</th></tr></thead><tbody>${L.rows.map((x, i) => `<tr><td class="t" data-label="#">${i + 1}</td><td class="refcell" data-label="GC500 ID">${refPlate(x.r.key, 14)}</td><td data-label="Units">${x.r.evtUnk ? (x.n ? x.n + ' + ' : '') + 'quantity to confirm' : x.n + ' unit' + (x.n === 1 ? '' : 's')}${x.part || x.r.portions ? ' (part of ' + (x.r.evtUnk ? 'a total to confirm' : x.r.evtN) + ')' : ''}${x.unplanned ? ' <span class="chip crit">unplanned - quantity changed</span>' : ''}${x.r.qtyChange && !x.unplanned ? ` <span class="chip cand">${esc(x.r.qtyChange.words)}</span>` : ''}</td><td data-label="Area">${esc(DM816.name[x.r.zone])}</td><td data-label="Date from">${srcChip816(x.r.src)} ${notReady816(x.r)}</td></tr>`).join('')}</tbody></table></div>
 <div class="acts816"><button type="button" class="btn sm" data-print816="load" data-load816="${L.n}">Print this load</button></div></div>`).join('');
 }
 function pumpHtml816(Dy){
@@ -403,7 +421,7 @@ function pumpHtml816(Dy){
 }
 function trucksHtml816(Dy, T){
 	if (!T.length) return '<p class="note816">No truck runs for this branch on this day.</p>';
-	return `<p class="note816">Site hours 07:00–17:00. No travel to or from the Gold Coast 07:00–09:00 or 16:00–18:00. Times are a planning sketch from the assumptions below, not a booking.</p>` + T.map(L => `<div class="card load816 truck816 nosfold"><div class="hubtitle"><h3>${esc(L.group)} · truck ${L.truck} · load ${L.n} of ${L.of}</h3>${L.kind === 'oversize' ? '<span class="chip crit">Oversize: check permit / travel window</span>' : L.kind === 'toilets' ? `<span class="chip cand">toilet run · ${L.toilet.units} of 24</span>` : ''}</div>
+	return `<p class="note816">Site hours 07:00–17:00. No travel to or from the Gold Coast 07:00–09:00 or 16:00–18:00. Times are a planning sketch from the assumptions below, not a booking.</p>` + T.map(L => `<div class="card load816 truck816 nosfold"><div class="hubtitle"><h3>${esc(L.group)} · truck ${L.truck} · load ${L.n} of ${L.of}</h3>${L.kind === 'oversize' ? '<span class="chip crit">Oversize: check permit / travel window</span>' : L.kind === 'toilets' ? `<span class="chip cand">toilet run · ${L.toilet.units}${L.toilet.uncertain ? ' + to confirm' : ''} of 24</span>` : ''}</div>
 <p class="note816">Leave Kingston ${clock816(L.t.dep)} · on site ${clock816(L.t.arrive)} · leave site ${clock816(L.t.leave)} · back ${clock816(L.t.back)}</p>
 <div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>Time</th><th>GC500 ID</th><th>What · units</th><th>Area</th><th></th></tr></thead><tbody>${L.t.st.map(s => `<tr><td class="t" data-label="Time">${clock816(s.at)}</td><td class="refcell" data-label="GC500 ID">${refPlate(s.s.r.key, 14)}</td><td data-label="What">${esc(s.s.parts.map(partWords816).join(', '))}</td><td data-label="Area">${esc(DM816.name[s.s.area])}</td><td data-label="">${notReady816(s.s.r)}</td></tr>`).join('')}</tbody></table></div>${L.t.over ? '<p class="chip crit">This load does not fit the site hours - split it.</p>' : ''}
 <div class="acts816"><button type="button" class="btn sm" data-print816="truck" data-truck816="${L.n}">Print this load</button></div></div>`).join('');
@@ -418,9 +436,9 @@ function assumeHtml816(){
 function mail816(iso, br, rows, T){
 	const L = [`GC500 demob - pick-ups ${dayWords816(iso)}${br === 'all' ? '' : ' - ' + br}`, '', 'Site hours 07:00-17:00. No travel to or from the Gold Coast 07:00-09:00 or 16:00-18:00.', 'Every toilet and waste tank is pumped out before it is loaded - do not load one that is not.', ''];
 	DM816.order.forEach(z => { const rs = rows.filter(r => r.zone === z); if (!rs.length) return;
-		L.push(DM816.name[z] + ':'); rs.forEach(r => L.push('- ' + r.key + ' - ' + ((r.a.item_types || []).join(', ') || kindWord(r.a)) + ' (' + r.branch + ', ' + r.src + ')' + (r.empty && !r.emptied ? ' - NOT READY: empty first' : ''))); L.push(''); });
+		L.push(DM816.name[z] + ':'); rs.forEach(r => L.push('- ' + r.key + ' - ' + ((r.a.item_types || []).join(', ') || kindWord(r.a)) + ' (' + r.branch + ', ' + r.src + ')' + (r.empty && !r.emptied ? ' - NOT READY: empty first' : '') + (r.qtyChange ? ' - ' + r.qtyChange.words.toUpperCase() : ''))); L.push(''); });
 	const Dy = demob816().day[iso];
-	if (Dy && Dy.loads.length) { L.push('Toilet run (24 a load):'); Dy.loads.forEach(Ld => L.push('- Load ' + Ld.n + ' - ' + Ld.units + (Ld.uncertain ? ' + quantity to confirm' : '') + ' of 24: ' + Ld.rows.map(x => x.r.key + ' x' + (x.r.evtUnk ? (x.n ? x.n + '+?' : '? (quantity to confirm)') : x.n)).join(', '))); L.push(''); }
+	if (Dy && Dy.loads.length) { L.push('Toilet run (24 a load):'); Dy.loads.forEach(Ld => L.push('- Load ' + Ld.n + ' - ' + Ld.units + (Ld.uncertain ? ' + quantity to confirm' : '') + ' of 24: ' + Ld.rows.map(x => x.r.key + ' x' + (x.r.evtUnk ? (x.n ? x.n + '+?' : '? (quantity to confirm)') : x.n) + (x.unplanned ? ' (unplanned - quantity changed)' : '')).join(', '))); L.push(''); }
 	L.push('Proposed dates are not booked until they are confirmed on the page. Draft - check before sending.');
 	let body = L.join('\n'); const cap = typeof DP_MAIL_MAX === 'number' ? DP_MAIL_MAX : 1800;
 	if (body.length > cap) body = body.slice(0, cap - 60) + '\n... and more - see the Demob tab.';
@@ -463,7 +481,7 @@ function confirm816(iso, br){
 	try { bump = () => {}; rows.forEach(r => { const d = r.iso || iso;
 		if (setDate(r.key, d, 'out')) { n++;
 			/* a reference picked up over several days keeps each portion on its own day, on the same record and stamp */
-			if (r.portions && r.portions.length > 1 && S.delivery[r.key]) S.delivery[r.key].out_portions = r.portions.map(p => ({date: p.iso, units: p.n})); } }); } finally { bump = b0; }
+			if (r.portions && r.portions.length > 1 && S.delivery[r.key]) S.delivery[r.key].out_portions = r.portions.map(p => ({id: p.id, date: p.iso, units: p.n})); } }); } finally { bump = b0; }
 	DM816.confirm = false; bump();
 	flash(n + ' due-out date' + (n === 1 ? '' : 's') + ' written for ' + dayWords816(iso) + ', in the name of ' + who + '.');
 	return n;
@@ -475,7 +493,7 @@ function sheet816(iso, L){
 	const box = n => '<span class="rsb816">' + '<i></i>'.repeat(Math.max(1, Math.min(n, 30))) + '</span>';
 	const rows = L.t.st.map((x, i) => { const s = x.s, r = s.r;
 		return `<tr><td class="c">${i + 1}</td><td>${clock816(x.at)}</td><td><b>${esc(DM816.name[r.zone])}</b><span>${esc(wayIn816(r.a, {zone: r.zone, sea: null}))}</span></td><td class="pl">${esc(r.key)}</td>
-<td>${s.parts.map(p => `<div>${esc(partWords816(p))}</div>`).join('')}${r.empty && !r.emptied ? '<div class="nr">NOT READY: empty first</div>' : ''}</td>
+<td>${s.parts.map(p => `<div>${esc(partWords816(p))}</div>`).join('')}${r.empty && !r.emptied ? '<div class="nr">NOT READY: empty first</div>' : ''}${r.qtyChange ? `<div class="nr">${esc(r.qtyChange.words)}</div>` : ''}</td>
 <td>${r.empty ? s.parts.map(p => p.unknown ? box(1) + '<span>count them</span>' : box(p.n)).join('') : '<span class="na">-</span>'}</td><td>${box(1)}</td></tr>`; }).join('');
 	return `<div class="dp-page dp-drv rs816${L.t.st.length > 5 ? ' rsc816' : ''}"><header class="dp-hd"><div class="dp-hd-l"><b>Coates</b><span>Industrial Solutions</span></div>
 <div class="dp-hd-m"><span>Demob run sheet · GC500 2026</span><h1>Collection · ${esc(fmtDate(iso))}</h1></div>

@@ -1,5 +1,5 @@
 /* v8.15 - Documents, cleaned up. Layout only: every colour, radius, shadow and font here is one the page already uses
-   (the Today cards, .hubcard:hover, .photocat .pstrip, .btn.sm, .edbar). Nothing new is drawn. */
+   (Today's island and white cards, .hubcard:hover, .card.island:hover, .btn.sm, .edbar). Nothing new is drawn. */
 #pane-docs .head815{align-items:flex-end;margin:2px 0 12px}
 #pane-docs .docfind815{flex:1 1 320px;max-width:520px;margin:0}
 #pane-docs .docfind815 .f, #pane-docs .docfind815 .f:last-child{flex:1 1 auto}

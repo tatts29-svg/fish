@@ -133,7 +133,7 @@ function drawer816(a){
 	sum.innerHTML = `<div class="hubtitle"><h3>${esc(word)}</h3>${zoneChip}</div><p class="since816">${sinceW}</p>
 ${ticks ? `<div class="chips816">${ticks}</div>` : ''}
 <div class="cside"><div class="ctwo"><div class="ctile plan"><p class="ctk">In</p><b>${eff.in ? esc(dayWords816(eff.in)) : '—'}</b><span>${esc(inWhy)}</span></div>
-<div class="ctile ${M && M.src === 'proposed' ? 'pr816' : cxOut ? 'stop' : 'good'} dt816 out"><p class="ctk">Out ${M ? srcChip816(M.src) : cxOut ? '<span class="chip crit">cancelled</span>' : ''}</p><b>${M && M.iso ? esc(dayWords816(M.iso)) : cxOut ? esc(dayWords816(cxOut)) : '—'}</b><span>${esc(outWhy + hireEnd)}</span></div></div></div>
+<div class="ctile ${M && M.src === 'proposed' ? 'pr816' : cxOut ? 'stop' : 'good'} dt816 out"><p class="ctk">Out ${M ? srcChip816(M.src) : cxOut ? '<span class="chip crit">cancelled</span>' : ''}</p><b>${M && M.iso ? esc(dayWords816(M.iso)) : cxOut ? esc(dayWords816(cxOut)) : '—'}</b><span>${esc(outWhy + hireEnd)}</span>${M && M.qtyChange ? `<span class="chip crit">${esc(M.qtyChange.words)}</span>` : ''}</div></div></div>
 ${dForm ? '<button type="button" class="linkish editonly chg816 hubgo" data-chg816="dates" aria-expanded="false">Change the dates →</button><div class="chgp816" data-chgp816="dates" hidden></div>' : ''}`;
 	if (dForm) sum.querySelector('[data-chgp816="dates"]').appendChild(dForm);
 	/* 4. Complete it: Today's lights island for one reference - the signal head, a row per light, a row per tick */
