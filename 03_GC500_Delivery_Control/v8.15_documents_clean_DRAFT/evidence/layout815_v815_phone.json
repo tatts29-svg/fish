@@ -1,0 +1,93 @@
+{
+  "author": "Andrew Fisher",
+  "tag": "v815",
+  "mobile": true,
+  "sha256": "665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb",
+  "views": {
+    "as it opens": {
+      "paneHeightPx": 1102,
+      "viewportWidth": 390,
+      "pageScrollWidth": 390,
+      "sections": {
+        "Cards": {
+          "heightPx": 387,
+          "emptyPct": 11.1
+        },
+        "recent rows 1": {
+          "heightPx": 402,
+          "emptyPct": 4
+        }
+      },
+      "totalEmptyPct": 7.7
+    },
+    "Packs open": {
+      "paneHeightPx": 1657,
+      "viewportWidth": 390,
+      "pageScrollWidth": 390,
+      "sections": {
+        "Cards": {
+          "heightPx": 387,
+          "emptyPct": 11.1
+        },
+        "docsec-packs rows 1": {
+          "heightPx": 432,
+          "emptyPct": 5.6
+        },
+        "recent rows 1": {
+          "heightPx": 402,
+          "emptyPct": 4
+        }
+      },
+      "totalEmptyPct": 6.9
+    },
+    "Drawings open": {
+      "paneHeightPx": 2727,
+      "viewportWidth": 390,
+      "pageScrollWidth": 390,
+      "sections": {
+        "Cards": {
+          "heightPx": 387,
+          "emptyPct": 11.1
+        },
+        "docsec-maps rows 1": {
+          "heightPx": 840,
+          "emptyPct": 3.3
+        },
+        "docsec-maps rows 2": {
+          "heightPx": 486,
+          "emptyPct": 4.1
+        },
+        "docsec-maps rows 3": {
+          "heightPx": 44,
+          "emptyPct": 0
+        },
+        "recent rows 1": {
+          "heightPx": 402,
+          "emptyPct": 4
+        }
+      },
+      "totalEmptyPct": 5.1
+    },
+    "Fencing dockets open": {
+      "paneHeightPx": 5014,
+      "viewportWidth": 390,
+      "pageScrollWidth": 390,
+      "sections": {
+        "Cards": {
+          "heightPx": 387,
+          "emptyPct": 11.1
+        },
+        "docsec-dockets rows 1": {
+          "heightPx": 3830,
+          "emptyPct": 6.1
+        },
+        "recent rows 1": {
+          "heightPx": 402,
+          "emptyPct": 4
+        }
+      },
+      "totalEmptyPct": 6.3
+    }
+  },
+  "errors": []
+}
