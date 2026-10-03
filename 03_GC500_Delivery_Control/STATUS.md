@@ -650,6 +650,12 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 ## Claimed — being worked on now
 
+**Demob rules still to build (from Andrew, relayed by Codex on PR #1, comment 5966807000, 3 Oct 2026):**
+- "we can only ever be at 2 locations at any one time": at most two active locations at once. This limits locations, not trucks or units.
+- "please make note of what needs a crane": a crane truck needed to remove an item is recorded separately from a crane booked on site.
+- "with the sewer tank if there is a toilet block ontop it requires a crane truck to take off the toilet block. Once thats gone we can then do the waste tank": a tank under a block stays blocked until the block has actually been removed. A scheduled pick-up time is not proof of removal.
+- None of these is enforced by the live page yet. Codex owns the equipment and demob register. Any build waits for Andrew's yes.
+
 **v8.14 — Today, trimmed: LIVE 3 Oct 2026 10:04 AEST.** Published by Codex from 89e5054 (dd83f06 plus two audited corrections: Export count kept visible, two-card gap-day packing). Live sha256 6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce, 9,074,112 B; Claude's independent readback matched (PR #1 comment 5963566444). LIVE folder and bookkeeping: `v8.14_today_trimmed_LIVE/` on codex/gc500-v794-lap-cameras (1954b22). Author: Andrew Fisher. Andrew, with screenshots: "starting with today we don't these in here. Unless u think overwise". Off Today: Map, Documents, Also on the schedule — no reference, Roads, Fencing, Your records (its export warning moves to Tools → Export). Next programme day stays only as Due today on delivery days (put to Andrew). No figure changes. Scope: `v8.14_today_trimmed_DRAFT/`. Not READY: tests, pictures, Andrew's yes.
 
 **v8.15 — Documents, clean and tidy: LIVE 3 Oct 2026 12:05 AEST.** Published by Codex from 79f6939 (frozen 8c821da; LIVE folder `v8.15_documents_clean_LIVE/` on codex/gc500-v794-lap-cameras, 7547cf2). Live sha256 35ab1366…, 9,118,422 B. Claude's independent readback matched, with server v5.87 unchanged and Documents opening on desktop and phone with 0 errors (PR #1 comment 5964572319). Release details: Andrew: "lets clean up the document area and increase the look in here and clean it up. make it look clean and tidy"; then "Work with codex and get everything live". Product source frozen at 8c821da. This is e540cbc plus Codex's two verbatim corrections: 6ebb321 (public search `data-ro`, tile focus, fresh collection) and b0e58d2 (selection kept across redraw).
