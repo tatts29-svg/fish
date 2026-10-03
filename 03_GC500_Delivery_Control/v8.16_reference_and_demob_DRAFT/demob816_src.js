@@ -201,7 +201,7 @@ function demob816(){
 		const src = d.out_date ? 'confirmed' : plan ? 'plan' : c.early ? 'contract' : 'proposed';
 		return {key: a.key, a, kind: refKind(a), branch: br, zone: z.zone, side: z.side, pt: z.pt, src,
 			iso: d.out_date || plan || c.early || null, contractEnd: c.last, units: u, evtN, evtUnk, evtPure: (evtN > 0 || evtUnk) && !other.length, ...(() => { const rc = reconcile816(storedPortions816(a.key, d.out_date), evtN, evtUnk, d.out_date); return {portions: rc.portions, qtyChange: rc.qty}; })(),
-			empty: needsEmpty816(a), emptied: emptiedOf816(a.key).on, big: refKind(a) === 'building' || u.some(x => !x.evt && (x.n > 0 || x.unknown) && BIG816.test(x.type)),
+			nothing: u.length > 0 && u.every(x => !x.unknown && x.n === 0), empty: needsEmpty816(a), emptied: emptiedOf816(a.key).on, big: refKind(a) === 'building' || u.some(x => !x.evt && (x.n > 0 || x.unknown) && BIG816.test(x.type)),
 			tank: u.some(x => x.tank && (x.n > 0 || x.unknown)), sub: (() => { try { const s = subhireOf(a.key); return s ? s.co : null; } catch (e) { return null; } })()};
 	});
 	const byKey = new Map(refs.map(r => [r.key, r]));
@@ -209,7 +209,8 @@ function demob816(){
 	const prop = refs.filter(r => r.src === 'proposed').sort(cmp816);
 	const outP = prop.filter(r => r.side === 'outside'), inP = prop.filter(r => r.side === 'inside'), unkP = prop.filter(r => r.side === 'unknown');
 	/* the event portables go as full loads: outside first, then the island (and those with no position last) */
-	const loadsOut = pack816(outP.filter(r => r.evtPure), DM816.cap), loadsIn = pack816(inP.filter(r => r.evtPure), DM816.cap), loadsUnk = pack816(unkP.filter(r => r.evtPure), DM816.cap);
+	const packs = r => r.evtPure && (r.evtN > 0 || r.evtUnk); /* a known quantity of 0 makes no load; an unknown one rides as "to confirm" */
+	const loadsOut = pack816(outP.filter(packs), DM816.cap), loadsIn = pack816(inP.filter(packs), DM816.cap), loadsUnk = pack816(unkP.filter(packs), DM816.cap);
 	const block = L => ({load: L, size: L.rows.length, key: L.rows[0].r});
 	const queue = (rs, Ls) => rs.filter(r => !r.evtPure).map(r => ({r, size: 1, key: r})).concat(Ls.map(block)).sort((x, y) => cmp816(x.key, y.key));
 	/* balanced per day, in order: each day is filled to its share of the window's running total (fixed dates included),
@@ -254,7 +255,7 @@ function demob816(){
 		loads.forEach((L, k) => { L.n = k + 1; L.free = DM816.cap - L.units; L.uncertain = L.rows.some(x => x.r.evtUnk); L.rows.sort((x, y) => cmp816(x.r, y.r)); });
 		const next = D[i + 1];
 		const onDay = (r, d) => r.iso === d || !!(r.portions && r.portions.some(p => p.iso === d));
-		const pump = refs.filter(r => r.empty && !r.emptied && (onDay(r, iso) || (next && onDay(r, next)))).sort(cmp816)
+		const pump = refs.filter(r => r.empty && !r.emptied && !r.nothing && (onDay(r, iso) || (next && onDay(r, next)))).sort(cmp816)
 			.map(r => ({r, when: onDay(r, iso) ? 'today' : 'next'}));
 		day[iso] = {iso, i, list, loads, pump, outside: list.filter(r => r.side === 'outside').length, island: list.filter(r => r.side === 'inside').length, unknown: list.filter(r => r.side === 'unknown').length};
 	});
@@ -299,7 +300,7 @@ function stops816(rows, toiletRun){
 		const top = u.filter(y => !y.tank).map(y => part816(y, false)), tanks = u.filter(y => y.tank).map(y => part816(y, true));
 		if (top.length) out.push({r, n: x.n, part: x.part, area: r.zone, parts: top});
 		if (tanks.length) out.push({r, n: x.n, part: x.part, area: r.zone, parts: tanks, tankOnly: true});
-		if (!top.length && !tanks.length) out.push({r, n: x.n, part: x.part, area: r.zone, parts: [{type: (r.a.item_types || [])[0] || kindWord(r.a), n: 1, tank: false}]}); });
+		if (!top.length && !tanks.length && !r.units.length) out.push({r, n: x.n, part: x.part, area: r.zone, parts: [{type: (r.a.item_types || [])[0] || kindWord(r.a), n: 1, tank: false}]}); });
 	return out;
 }
 function partWords816(p){ return (p.unknown ? 'quantity to confirm' : p.n) + ' × ' + p.type + (p.tank ? ' (the tank, after the toilet on it)' : ''); }
@@ -311,7 +312,7 @@ function trucks816(iso, branch){
 	const A = assume816(), groups = new Map();
 	const add = (g, L) => { if (!groups.has(g)) groups.set(g, []); groups.get(g).push(L); };
 	Dy.loads.filter(L => branch === 'all' || L.rows.some(x => x.r.branch === branch)).forEach(L => add('Toilet run', {kind: 'toilets', toilet: L, stops: stops816(L.rows, true)}));
-	const list = Dy.list.filter(r => !r.evtPure && (branch === 'all' || r.branch === branch));
+	const list = Dy.list.filter(r => !r.evtPure && !r.nothing && (branch === 'all' || r.branch === branch));
 	list.filter(r => r.big).forEach(r => add(r.branch, {kind: 'oversize', stops: stops816([{r, n: 1}], false)}));
 	const small = list.filter(r => !r.big);
 	for (let i = 0; i < small.length; i += A.perLoad.v) { const ch = small.slice(i, i + A.perLoad.v); add(ch[0].branch, {kind: 'normal', stops: stops816(ch.map(r => ({r, n: 1})), false)}); }
@@ -392,12 +393,12 @@ ${DM816.confirm && ed && prop.length ? `<div class="notice warn confirm816" role
 <details class="dsect ovn816"><summary>Oversize: check permit / travel window for ${esc(dayWords816(iso))}</summary><div class="form"><div class="f"><label for="ovn816">Note for this day (kept on this device)</label><textarea id="ovn816" data-ro rows="2" placeholder="Permit, escort or travel window for the buildings and toilet blocks on this day">${esc(ovNote816(iso))}</textarea></div></div></details>`;
 }
 function ovNote816(iso, v){ const k = 'gc500.demob816.oversize.' + iso; try { if (v != null) { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); return v; } return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
-function notReady816(r){ return r.empty && !r.emptied ? '<span class="chip crit nr816" title="No toilet or waste tank is loaded until it is pumped out">NOT READY: empty first</span>' : r.empty ? '<span class="chip ok">emptied</span>' : ''; }
+function notReady816(r){ return r.nothing ? '' : r.empty && !r.emptied ? '<span class="chip crit nr816" title="No toilet or waste tank is loaded until it is pumped out">NOT READY: empty first</span>' : r.empty ? '<span class="chip ok">emptied</span>' : ''; }
 function rowHtml816(r, extra){
 	const ed = canEdit(), what = [(r.a.item_types || []).join(', ') || r.a.product || kindWord(r.a), r.a.name].filter(Boolean).join(' · ');
 	const open = DM816.menu === r.key;
 	return `<tr data-row816="${esc(r.key)}"><td class="refcell" data-label="GC500 ID"><button type="button" class="linkish plateb" data-k816="${esc(r.key)}" aria-label="Open ${esc(r.key)}">${refPlate(r.key, 15)}</button></td>
-<td data-label="What">${esc(what)}${(r.evtN || r.evtUnk) && !r.evtPure ? `<br><span class="w">+ ${r.evtUnk ? 'quantity to confirm' : r.evtN} on the toilet run</span>` : ''}${r.portions ? `<br><span class="w">${esc(r.portions.map(p => p.n + ' on ' + dayWords816(p.iso)).join(', '))} - out ${esc(dayWords816(r.iso))}</span>` : ''}${r.units.some(u => u.unknown) ? ' <span class="chip crit">quantity to confirm</span>' : ''}${r.qtyChange ? ` <span class="chip crit qc816">${esc(r.qtyChange.words)}</span>` : ''}${r.side === 'unknown' ? ' <span class="chip cand">position to confirm</span>' : ''}${r.sub ? ` <span class="chip subhirechip">${esc(r.sub)}</span>` : ''}${extra || ''}</td>
+<td data-label="What">${esc(what)}${(r.evtN || r.evtUnk) && !r.evtPure ? `<br><span class="w">+ ${r.evtUnk ? 'quantity to confirm' : r.evtN} on the toilet run</span>` : ''}${r.portions ? `<br><span class="w">${esc(r.portions.map(p => p.n + ' on ' + dayWords816(p.iso)).join(', '))} - out ${esc(dayWords816(r.iso))}</span>` : ''}${r.units.some(u => u.unknown) ? ' <span class="chip crit">quantity to confirm</span>' : ''}${r.qtyChange ? ` <span class="chip crit qc816">${esc(r.qtyChange.words)}</span>` : ''}${r.nothing ? ' <span class="chip cand">quantity 0 - nothing to collect</span>' : ''}${r.side === 'unknown' ? ' <span class="chip cand">position to confirm</span>' : ''}${r.sub ? ` <span class="chip subhirechip">${esc(r.sub)}</span>` : ''}${extra || ''}</td>
 <td data-label="Branch">${esc(r.branch)}</td><td data-label="Date from">${srcChip816(r.src)} ${notReady816(r)}</td>
 <td data-label="Actions"><details class="menu816"${open ? ' open' : ''} data-menu816="${esc(r.key)}"><summary class="btn ghost sm" aria-label="More for ${esc(r.key)}">More</summary><div>
 <button type="button" class="btn ghost sm" data-k816="${esc(r.key)}">Open ${esc(r.key)}</button>
@@ -441,7 +442,7 @@ function assumeHtml816(){
 function mail816(iso, br, rows, T){
 	const L = [`GC500 demob - pick-ups ${dayWords816(iso)}${br === 'all' ? '' : ' - ' + br}`, '', 'Site hours 07:00-17:00. No travel to or from the Gold Coast 07:00-09:00 or 16:00-18:00.', 'Every toilet and waste tank is pumped out before it is loaded - do not load one that is not.', ''];
 	DM816.order.forEach(z => { const rs = rows.filter(r => r.zone === z); if (!rs.length) return;
-		L.push(DM816.name[z] + ':'); rs.forEach(r => L.push('- ' + r.key + ' - ' + ((r.a.item_types || []).join(', ') || kindWord(r.a)) + ' (' + r.branch + ', ' + r.src + ')' + (r.empty && !r.emptied ? ' - NOT READY: empty first' : '') + (r.qtyChange ? ' - ' + r.qtyChange.words.toUpperCase() : ''))); L.push(''); });
+		L.push(DM816.name[z] + ':'); rs.forEach(r => L.push('- ' + r.key + ' - ' + ((r.a.item_types || []).join(', ') || kindWord(r.a)) + ' (' + r.branch + ', ' + r.src + ')' + (r.nothing ? ' - quantity 0, nothing to collect' : r.empty && !r.emptied ? ' - NOT READY: empty first' : '') + (r.qtyChange ? ' - ' + r.qtyChange.words.toUpperCase() : ''))); L.push(''); });
 	const Dy = demob816().day[iso];
 	if (Dy && Dy.loads.length) { L.push('Toilet run (24 a load):'); Dy.loads.forEach(Ld => L.push('- Load ' + Ld.n + ' - ' + Ld.units + (Ld.uncertain ? ' + quantity to confirm' : '') + ' of 24: ' + Ld.rows.map(x => x.r.key + ' x' + (x.r.evtUnk ? (x.n ? x.n + '+?' : '? (quantity to confirm)') : x.n) + (x.unplanned ? ' (unplanned - quantity changed)' : '')).join(', '))); L.push(''); }
 	L.push('Proposed dates are not booked until they are confirmed on the page. Draft - check before sending.');

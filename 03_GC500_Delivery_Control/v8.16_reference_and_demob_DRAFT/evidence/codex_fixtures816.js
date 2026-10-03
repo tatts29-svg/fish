@@ -179,4 +179,23 @@ block('G3: a load with an unknown quantity is never green "full"', () => {
   const html = String(run(c, "toiletHtml816(demob816().day['2026-10-27'])")), unc = run(c, "demob816().day['2026-10-27'].loads.filter(l => l.uncertain).length");
   ok(unc > 0 && !/chip ok">full/.test(html) && /chip cand[^"]*">to confirm/.test(html), 'G3 [after 6a0bb20 #3] a load holding an unknown quantity shows amber "to confirm", never green "full"', {unc, chips: html.match(/<span class="chip[^"]*">[^<]*/g)});
 });
+// ---- Codex e540cbc (commit 6ebb321): a confirmed quantity corrected to 0 is nothing to collect - no load, no truck, no 1
+block('G4: a confirmed quantity corrected to 0 makes no load and no truck; unknown stays "to confirm"', () => {
+  const c = ctx([asset('WZ', [{asked: 'FWF', qty_supplied: 6}])]);
+  vm.runInContext(pageFn('setDate', '\n/* ------------------------------------------------------------------ typed over the schedule') + '\n' + pageFn('deliveryEmpty', '\n/* The tick as a chip'), c);
+  const d0 = run(c, "demobOf816('WZ').iso"); run(c, `confirm816('${d0}', 'all'); RENDER_MEMO.clear(); 1`);
+  const conf = run(c, "JSON.parse(JSON.stringify({src: demobOf816('WZ').src, iso: demobOf816('WZ').iso}))");
+  const six = unitsOn(c, 'WZ').reduce((s, x) => s + x.n, 0);
+  c.assets[0].rows[0].qty_supplied = 0; run(c, "RENDER_MEMO.clear()");
+  const z = run(c, `JSON.parse(JSON.stringify((() => { const M = demob816(), r = M.byKey.get('WZ'), d = r.iso; const T = trucks816(d, 'all');
+    return {nothing: r.nothing, onList: M.day[d].list.some(x => x.key === 'WZ'), loads: M.days.flatMap(x => M.day[x].loads.filter(l => l.rows.some(y => y.r.key === 'WZ')).map(l => l.units)),
+      truckStops: T.flatMap(L => L.t.st.filter(s => s.s.r.key === 'WZ').map(s => s.s.parts.map(p => p.n + ' ' + p.type))), pump: M.day[d].pump.some(x => x.r.key === 'WZ')}; })()))`);
+  ok(conf.src === 'confirmed' && six === 6 && z.nothing === true && z.onList && !z.loads.length && !z.truckStops.length && !z.pump, 'G4 [e540cbc] confirmed 6, corrected to 0: still listed ("nothing to collect"), no load, no truck stop, no pump-out, never a 1-unit fallback', {conf, six, z});
+  c.assets[0].rows[0].qty_supplied = null; c.assets[0].rows[0].qty_asked = null; run(c, "RENDER_MEMO.clear()");
+  const u = run(c, `JSON.parse(JSON.stringify((() => { const M = demob816(), r = M.byKey.get('WZ'); return {nothing: r.nothing, unk: r.evtUnk, loads: M.days.flatMap(x => M.day[x].loads.filter(l => l.rows.some(y => y.r.key === 'WZ')).map(l => ({units: l.units, uncertain: l.uncertain})))}; })()))`);
+  ok(u.nothing === false && u.unk === true && u.loads.length === 1 && u.loads[0].uncertain, 'G4b the same reference with its quantity unknown: "to confirm" on an uncertain load - 0 and unknown stay distinct', u);
+  const p0 = ctx([asset('WP0', [{asked: 'FWF', qty_supplied: 0}])]);
+  const pz = run(p0, "JSON.parse(JSON.stringify({loads: demob816().planned.length, stops: demob816().days.flatMap(d => trucks816(d, 'all')).length}))");
+  ok(pz.loads === 0 && pz.stops === 0, 'G4c a proposed reference with a known 0 makes no planned load and no truck', pz);
+});
 console.log(fails ? `\n${fails} FAILED, ${passes} passed` : `\nALL PASSED (${passes})`); process.exitCode = fails ? 1 : 0;

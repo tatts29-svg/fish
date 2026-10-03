@@ -2,3 +2,14 @@ PASS style: every colour in v815.css is already on the page (4: #ff8a3a #ff6a13 
 PASS style: no new font
 
 == paper (page.pdf, A4)
+  live: 22 pages, 80 files · v8.15 Ctrl+P: 12 pages, 134 files · button: 12 pages · filtered view: 12 pages
+PASS paper, Ctrl+P from the tab as it opens: every file live prints is on v8.15's paper (80 live -> 134), no screen cards
+PASS paper, Ctrl+P: the PDF itself carries every title live's PDF does (80)
+PASS paper, the Print the list button calls the browser's print once  - {"found":true,"called":1,"text":"Print the list"}
+PASS paper, the button's PDF is the same as Ctrl+P's (12 pages, 134 files)  - {"pages":[12,12],"ids":[134,134],"missing":[]}
+PASS paper, Ctrl+P with a search typed and a fold open still prints the whole list, and the screen is left as it was  - {"pages":12,"before":{"q":"WC","tile":"packs","results":true},"after":{"q":"WC","tile":"packs","results":true}}
+PASS paper: no more pages than live (22 -> 12)
+PASS paper: no page errors  -  |  |  | 
+
+9 passed, 0 failed
+ALL PASSED

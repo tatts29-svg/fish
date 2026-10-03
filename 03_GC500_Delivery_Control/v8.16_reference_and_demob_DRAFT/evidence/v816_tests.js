@@ -131,7 +131,7 @@ async function run(name, dev) {
       L.stops.forEach(s => { const ix = s.parts.map(p => p.tank ? 1 : 0); if (ix.some((v, i) => i && v < ix[i - 1])) tankBad.push(d + ' ' + s.r.key); }); }));
     M.days.forEach(d => { const st = trucks816(d, 'all').flatMap(L => L.t.st); st.filter(x => x.s.tankOnly).forEach(x => { if (st.some(y => !y.s.tankOnly && y.s.r.key === x.s.r.key && y.end > x.at)) tankBad.push(d + ' ' + x.s.r.key + ' by time'); }); });
     const pairs = M.refs.filter(r => r.tank && r.units.some(u => !u.tank && !u.evt && u.n > 0)).map(r => r.key);
-    M.refs.filter(r => r.empty && !r.emptied && r.iso >= M.days[0] && r.iso <= M.days[M.days.length - 1]).forEach(r => { if (!M.days.some(d => d <= r.iso && M.day[d].pump.some(x => x.r.key === r.key))) noPump.push(r.key); });
+    M.refs.filter(r => r.empty && !r.emptied && !r.nothing && r.iso >= M.days[0] && r.iso <= M.days[M.days.length - 1]).forEach(r => { if (!M.days.some(d => d <= r.iso && M.day[d].pump.some(x => x.r.key === r.key))) noPump.push(r.key); });
     return {loads: all.length, over: all.filter(L => L.units > 24).map(L => L.d + ' L' + L.n + ' ' + L.units), mismatch, evtRefs: evt.length, units: evt.reduce((s, r) => s + r.evtN, 0), dayOrder, badWeek: badWeek.length, planned: planned.length, mixedSide: all.filter(L => L.sides.length > 1 && !L.sides.includes('unknown')).length,
       times, tankBad, pairs, noPump, types: [...new Set(M.refs.flatMap(r => r.units.filter(u => u.evt).map(u => u.type)))]}; });
   ok(D.loads > 0 && !D.over.length, `${name}: no toilet load is over 24 units (${D.loads} loads)`, D.over.join(' '));
