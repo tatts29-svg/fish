@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "source": "/tmp/tmp.kQrYpK3l03",
+  "source": "/tmp/tmp.qbTEgYTipW",
   "base": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
   "results": [
     {
@@ -27,7 +27,7 @@
         "stored": {
           "out_date": "2026-10-27",
           "out_by": "Fixture operator",
-          "out_at": "2026-10-03T02:24:37.773Z",
+          "out_at": "2026-10-03T02:35:21.355Z",
           "out_portions": [
             {
               "id": "2026-10-26.sub#1",

@@ -7,7 +7,7 @@ PAGE=$PWD/build/GC500_v8.16/GC500_Delivery_Control_hosted.html; BASE=$PWD/build/
 T=v7.99_today_faster_fuller_DRAFT/evidence; E=v8.16_reference_and_demob_DRAFT/evidence; R=$E/regress; mkdir -p $R
 if [ "$(sha256sum < $PAGE)" = "$(sha256sum < $BASE)" ] || ! grep -q 'v8.16 - reference drawer and Demob tab' $PAGE; then echo 'STOP: the built page is not v8.16 (the patch did not apply)'; exit 1; fi
 quiet() { while pgrep -f "node .*(machine_rig|people_tests|driver_tests|ui_tests|mech_tests|fx_tests)" > /dev/null; do echo "waiting: a 3D test is running"; sleep 60; done; }
-step() { quiet; echo "== $1"; }
+step() { echo "== $1"; }  # the shared browser lock (below) is what makes suites take turns, 3D rigs included
 # the machine is shared: every browser suite takes the shared browser lock, one suite at a time (BROWSER_LOCK)
 LOCK=${BROWSER_LOCK:-/tmp/gc500-browser.lock}
 # Codex's CPU fixtures, rerun against this source and this build (no browser)
