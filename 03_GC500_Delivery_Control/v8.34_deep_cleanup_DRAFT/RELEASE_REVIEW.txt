@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-v8.34 — READINESS WITHDRAWN, not live
+v8.34 — READY TO UPLOAD after corrected final review, not live
 
 Source checkpoint cc5f5073; interaction test-only correction 135bd283.
 Base v8.32 c3e610a5a1def55fc3eac0f87b3f2e4d14cfdefd7ba926bcb548487d6cdfc95b.
@@ -13,3 +13,8 @@ Original sources, operational inputs and private reconciliation are excluded fro
 Claude remains intentionally paused. Codex implements, reviews and owns guarded publication.
 
 Final phone visual review found the staffing table pinned first column obscures wage cells after horizontal scroll. Root stopped before publication; earlier test passes do not establish this newly found presentation requirement. Scoped correction and new final checks pending.
+
+Corrected candidate review, 4 Oct 2026:
+Exact final e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb, 10,169,498 bytes. Late table issue fixed with one wrapper class and max640px first-column positioning only. Root independently inspected the phone wage image. Staff runtime43/43; final desktop and phone each22 tabs/seven deep links/Back, zero page/console errors or attempted native writes. Prior financial/source evidence retained through exact inverse byte proof; these earlier checks were not falsely relabelled as rerun. Original failed and superseded checks remain historical evidence. Guarded upload/public verification pending.
+
+Independent review accepts prior590 financial checks as carried unchanged-source evidence, not newly executed final-candidate checks. Unique298-byte stylesheet plus15-byte wrapper-class addition inverse to exact prior candidate. New43 runtime and both final sweeps bind final bytes; public full-model comparison remains required after upload.

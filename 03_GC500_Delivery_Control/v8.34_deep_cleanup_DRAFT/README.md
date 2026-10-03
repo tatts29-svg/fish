@@ -2,18 +2,16 @@
 
 Author: Andrew Fisher
 
-READINESS WITHDRAWN, not LIVE. Codex owns the combined implementation, final verification and publication. Claude remains paused. Actual-public verification remains pending.
+READY TO UPLOAD; not LIVE. Codex owns implementation, independent review and publication. Claude remains intentionally paused.
 
-This release will compose the checked v8.33 event staffing component on live v8.32 with reproducible interaction, source-projection, map presentation and forecast fallback corrections. Pricing edits preserve the active control, table position and disclosure context. Supplied numbers come from the canonical current projection. Map distance wording identifies the endpoint source without claiming a surveyed route. Future carrier-cost fallback respects exact source task identities, cancellation and non-equipment duties.
+Composes the checked v8.33 staffing component on live v8.32 with pricing interaction preservation, canonical supplied-number projection, map source wording and landscape containment, forecast fallback deduplication, current-card presentation and explicit unknown pay basis. The phone staff table now allows the complete hours and wage columns to be reached.
 
-Additional presentation and landscape containment checks are in progress. Original source inputs, staffing details, commercial reconciliation, generated HTML and browser evidence remain private. Public tests use synthetic identities only.
+Candidate `e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb`, 10,169,498 bytes; base v8.32 `c3e610a5a1def55fc3eac0f87b3f2e4d14cfdefd7ba926bcb548487d6cdfc95b`.
 
-`patch_v834.py` composes guarded helpers, requires an exact reviewed v8.33 intermediate, and rejects source drift or repeat application. Standard builds begin with the verified v8.32 live source, then apply `../v8.33_event_staffing_DRAFT/patch_v833.py` with its private fingerprinted payload before this patch. The v8.33 component is not uploaded separately.
+The earlier candidate `0b3942f0` was held before upload after root found a pinned column obscuring phone wage values. Its financial590 and unaffected interaction/source checks are retained: exact inverse composition proves the final change is only one wrapper class and narrowly scoped CSS. New staff-table runtime43/43 passes at390,640 and641px. Both final22-tab/seven-link/Back sweeps pass without page or console errors or attempted writes. Root inspected the corrected phone image. The staff helper's standard CPU run passes8 with one optional private fixture skipped; its separate private preservation proof passes.
 
-Final source freeze, meaningful regression checks, desktop/phone navigation sweeps and actual-public verification must complete before this folder is marked LIVE. Preliminary map testing does not justify speculative tile-performance changes; verified layout and provenance defects are corrected instead. No coordinates are guessed or moved by this cleanup.
+Earlier external imagery503 failures and verified recovery/real fallback remain documented. No coordinate movement or survey-accuracy claim. Guarded publication and actual-public verification remain pending.
 
-Frozen candidate: `0b3942f0f45757c017797c6b1d8f5fc6bf033d6053068c8f4ad1fa44258bb03e` (10,169,185 bytes). Standard checks and69 portable cleanup tests pass; one fixture is explicitly skipped. Final composed browser checks are pending. Unknown employment types remain unallocated and cannot invent a default overtime calculation from a rate alone.
+`patch_v834.py` requires the reviewed v8.33 intermediate and rejects drift or repeat application. Standard build applies the private fingerprinted v8.33 payload and this patch to verified live v8.32. v8.33 will be incorporated here, not published separately. Private original documents, personnel and financial inputs, generated HTML and browser evidence are excluded from Git.
 
-Final financial/staffing590 checks, interaction desktop53/53 and phone53/53, both22-tab/seven-link/Back sweeps and visual/touch/source-map checks pass. Earlier external imagery503 failures, recovery and working fallback are retained in the qualified review. Source/test checkpoints: cc5f5073 and135bd283.
-
-Publication stopped before upload: final phone visual inspection found inaccessible wage cells behind the pinned name column. Correcting the staff table before refreeze.
+Independent final binding review confirms exact inverse restoration of the earlier reviewed candidate. Prior590 financial checks carry as unchanged-source evidence; new43 staff checks and both full navigation sweeps bind the final bytes. Actual-public full financial parity will be checked after guarded publication.

@@ -12,6 +12,7 @@ from cost_dedup834 import apply_patch as cost_model
 from pricing_presentation834 import apply_patch as pricing_basis
 from map_landscape834 import apply as landscape
 from staff_type834 import apply_patch as staff_type
+from staff_table834 import apply as staff_table
 
 REVIEWED_BASES = {
  '61250dee267029ee9323b413a1955ca6fc28c01d131a46a8d8b75987dcbf6430',
@@ -30,6 +31,7 @@ def build(raw, expected):
  text=pricing_basis(text)
  text=landscape(text)
  text=staff_type(text)
+ text=staff_table(text)
  text=rep(text, "Event crew — planned cover and wage gaps", "Event crew and costs", "Plain event section title", "v8.34")
  text=rep(text, '<p class="sub">Edit people, pay rates and shifts in the existing running sheet. An unknown wage or supplier price is not a zero cost.</p>', '<p><a class="btn" href="#runsheet">Open running sheet</a></p><p class="sub">Edit people, pay rates and shifts there. Unknown wages and supplier prices remain unpriced.</p>', "Direct access to the existing running sheet", "v8.34")
  text=rep(text, '<meta name="gc500-release" content="v8.33">', '<meta name="gc500-release" content="v8.34">', 'Release metadata', 'v8.34')
