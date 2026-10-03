@@ -2,7 +2,7 @@
 """Every reference's meet point on the page against the reference assignment (assign.py, kept private in the
 scratchpad). assign.py is imported unchanged; only its PROBE table is pointed at the build's own probe (the same fields
 its builder read: dest kind and position, zone816, wayIn816), and it is called the way its builders call it: the
-master-plan position, or None.        python3 assign_check818.py <probe818.json> <path/to/assign.py dir>"""
+master-plan position, or None.        python3 assign_check819.py <probe819.json> <path/to/assign.py dir>"""
 import json, sys, importlib
 probe = json.load(open(sys.argv[1])); sys.path.insert(0, sys.argv[2])
 AS = importlib.import_module('assign')

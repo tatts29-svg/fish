@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Decode every QR the browser checks captured (drawer, run sheets, driver sheets) with OpenCV and compare each with
 the URL it must open; decode the QR codes inside each printed run-sheet PDF too, and count its pages (one A4 each).
-    python3 qr_decode818.py <SHOTS dir>"""
+    python3 qr_decode819.py <SHOTS dir>"""
 import json, os, sys, cv2, numpy as np
 import pymupdf
-D = sys.argv[1]; M = json.load(open(os.path.join(D, 'qr818.json')))
+D = sys.argv[1]; M = json.load(open(os.path.join(D, 'qr819.json')))
 det = cv2.QRCodeDetector()
 def decode(img):
     for scale in (1, 2, 3):
