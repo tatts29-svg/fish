@@ -225,6 +225,11 @@
     "andrew": "So take off the spares keelp.the spares seperate.",
     "date": "2026-10-03"
    }
+  },
+  {
+   "rule": "Early deliveries are fine: an area can take its units before its planned day. If the area is not ready, Coates stores them in the pit lane until it is.",
+   "andrew": "They can take early we can store in pit regardless",
+   "date": "2026-10-03"
   }
  ]
 }

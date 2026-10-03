@@ -1440,5 +1440,6 @@
     "Inventory v5": "10/10 decoded, 0 mismatches"
    }
   }
- ]
+ ],
+ "early_delivery_rule": "Early is fine: if an area is not ready when its load arrives, Coates stores those units in the pit lane until it is (Andrew, 3 Oct 2026)."
 }
