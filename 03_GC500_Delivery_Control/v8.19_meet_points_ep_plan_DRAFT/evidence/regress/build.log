@@ -1,8 +1,1 @@
-# v8.19 checks · source commit 865c1f2700f5a721ac21a4d2c7c4078a7a12410f · candidate sha256 5b952723b5db0883fd0a9f5ffaf109531a78a6ad31a05105c6d2a8d8aa64af9d (9355592 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T13:30:59Z
-live page: 9293149 bytes -> /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/base_live.html
-== applying v8.19_meet_points_ep_plan_DRAFT/patch_v819.py
-v8.19 applied: meet points, site rules and the Event Portables load plan
-scrubbed /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/GC500_Delivery_Control_hosted.html 9336518 -> 9336530 | visible code mentions left: 75
-checked /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/GC500_Delivery_Control_hosted.html: 8 inline scripts, 9,355,592 bytes, secrets {'google key': 0, 'mapbox token': 0}
-PASS all checks
-BUILT /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.19/GC500_Delivery_Control_hosted.html
+curl: (18) Transferred a partial file
