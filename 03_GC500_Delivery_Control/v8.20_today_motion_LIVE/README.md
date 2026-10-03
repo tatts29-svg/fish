@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 3 Oct 2026
 
-**READY TO UPLOAD; not yet uploaded.** Codex implemented the production integration. The release reviewer
+**LIVE — 3 Oct 2026, 23:29 AEST.** Codex implemented the production integration. The release reviewer
 owns the independent checks and the publisher owns the guarded upload and live readback.
 
 Andrew asked for a stronger Today design and animation, then requested “talk to claude and get everything live
@@ -35,10 +35,10 @@ Build from the then-current live page:
 
 ```sh
 bash 03_GC500_Delivery_Control/toolchain/build.sh v8.20 \
-  03_GC500_Delivery_Control/v8.20_today_motion_DRAFT/patch_v820.py
-python3 03_GC500_Delivery_Control/v8.20_today_motion_DRAFT/check_today820.py
-CHROMIUM_PATH=/usr/bin/chromium node 03_GC500_Delivery_Control/v8.20_today_motion_DRAFT/check_today820.cjs
-CHROMIUM_PATH=/usr/bin/chromium MOB=1 node 03_GC500_Delivery_Control/v8.20_today_motion_DRAFT/check_today820.cjs
+  03_GC500_Delivery_Control/v8.20_today_motion_LIVE/patch_v820.py
+python3 03_GC500_Delivery_Control/v8.20_today_motion_LIVE/check_today820.py
+CHROMIUM_PATH=/usr/bin/chromium node 03_GC500_Delivery_Control/v8.20_today_motion_LIVE/check_today820.cjs
+CHROMIUM_PATH=/usr/bin/chromium MOB=1 node 03_GC500_Delivery_Control/v8.20_today_motion_LIVE/check_today820.cjs
 ```
 
 Use the shared browser lock when other verification is running. `PAGE`, `BASE` and `OUT` can point tests at a final
@@ -78,3 +78,14 @@ JavaScript, original DATA, visible markup and all native routes are byte-identic
 Eight owner source checks, including the service's full-document signature, pass on the corrected bytes.
 `owner_evidence.json` retains the exact original runtime-check binding; it is not relabelled as a new test run.
 Independent bounded-difference proof and actual public-host smoke bind the correction to that evidence.
+
+## Verified publication
+
+Source correction `d5299615` was uploaded through the guarded uploader at23:29AEST on3Oct2026.
+Public GET serves exactly `88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919`,
+9,293,149 bytes. Independent metadata equivalence10/10 and source/rebuild9/9 checks passed after the correction.
+Actual public-host smoke completed23:31AEST:18/18 desktop/phone checks, both HTTP200 bodies verified before
+execution, no local page override, zero page/console errors or attempted operational writes.
+Private pre/post operational collection fingerprints match exactly across this frontend upload.
+The detailed private evidence and screenshots remain outside Git. Renaming the source directory preserves the
+patch output; later releases must build from this live page. Claude retains the next v8.19 rebuild/freeze.
