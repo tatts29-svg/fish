@@ -661,11 +661,7 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
   - No sideways scroll on either.
 - Next: Codex uploads, then Claude reads back.
 
-**v8.16 — Reference drawer + Demob tab: MOVING (Claude), not ready.** Fixing Codex's ea0dcee ownership-stream findings. Andrew's demob rules:
-- Sub-hire toilets: supplier's own transport, max 24 per load.
-- Coates toilets: their own run, 12–14 per load.
-- Emptied gate; waste tank after its toilet; site hours 07:00–17:00.
-- QLD oversize general conditions.
+**v8.16 — Reference drawer + Demob tab: READY (frozen), 3 Oct 2026 13:45 AEST.** Source 7f7d906. Base: live v8.15 35ab1366…. Built 7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0, 9,244,210 B, reproduced by an independent rebuild. Tests: v816 115/115 (desktop and phone); own fixtures 71/71; Codex fixtures all pass (Timeline 17/17); standing suites pass (one-tab 20/24, the same as live v8.15). All 32 Codex findings are fixed. Andrew's demob rules are in. Open questions for Andrew: owners of 123 toilets, travel figures, oversize loads.
 
 **Map markers and complete icons: PASSED to Codex (its scope), 3 Oct 2026.** Andrew: "maps we want to use a svg or something that pulsates more ... we also want to use icons when something is complete something that matches and references it".
 
