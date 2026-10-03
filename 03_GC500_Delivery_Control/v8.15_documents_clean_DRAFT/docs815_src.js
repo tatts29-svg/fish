@@ -305,14 +305,22 @@ function addFormHtml815(){
  <button class="btn primary" id="docUpload">Upload</button></div>
  <p class="norate" id="docMsg" style="margin:6px 0 0">${DOCS.msg ? esc(DOCS.msg) : S.operator ? 'Recorded as ' + esc(S.operator) + '.' : 'Put your name in “Recording as” first so the upload carries it.'}</p></div>`;
 }
+function activeTileFocus815(){
+ const a = document.activeElement, tile = a && a.closest && a.closest('#docTiles815 [data-tile815]');
+ return tile ? tile.dataset.tile815 : null;
+}
+function restoreTileFocus815(key){
+ if (!key) return;
+ const tile = document.querySelector('#docTiles815 [data-tile815="' + CSS.escape(key) + '"]');
+ if (tile) { try { tile.focus({preventScroll: true}); } catch (e) {} }
+}
 function docsTitle815(){ return '<h2 class="panehead vh" id="panehead-docs">' + esc('Documents — ' + DATA.event.name) + '</h2>'; }
 function renderDocs815(){
  const hosted = !!(SYNC.backend && SYNC.backend.fileUrl), canAdd = hosted && !SYNC.readonly;
  if (hosted) docsRefresh(false);
  state.photoCat = null;
  const COLL = docCollection(), all = COLL.items, by = tileItems815(all);
- coll815.last = {files: DOCS.files, n: Object.keys(DOCS.files || {}).length, at: DOCS.at, state: DOCS.state, COLL};
- /* a deep link (#docs/swms, the fencing papers, Today's card) picks its card */
+/* a deep link (#docs/swms, the fencing papers, Today's card) picks its card */
  let land = null;
  if (state.docsec) {
   const k = DOCSEC815[state.docsec];
@@ -320,12 +328,13 @@ function renderDocs815(){
   else if (!hosted || !['unrequested', 'loading'].includes(DOCS.state)) { flash('That document section has no files to show.'); state.docsec = null; }
  }
  const pane = $('#pane-docs');
+ const focusedTile815 = activeTileFocus815();
  const ae = document.activeElement, hadQ = ae && ae.id === 'docQ815', caret = hadQ ? [ae.selectionStart, ae.selectionEnd] : null;
  const found = find815(all, state.docQ815);
  pane.innerHTML = docsTitle815() + `
  <div class="hubhead head815"><div><h2>Documents</h2></div>
   <div class="edbar docfind815"><div class="f"><label for="docQ815">Find a document</label>
-  <input id="docQ815" type="search" placeholder="SWMS, D022, WC12, a docket number" value="${esc(state.docQ815 || '')}" autocomplete="off" aria-controls="docBody815"></div></div></div>
+<input id="docQ815" data-ro type="search" placeholder="SWMS, D022, WC12, a docket number" value="${esc(state.docQ815 || '')}" autocomplete="off" aria-controls="docBody815"></div></div></div>
  <div class="hub tiles815" id="docTiles815">${tilesHtml815(by, found)}</div>
  <div id="docBody815" aria-live="polite">${bodyHtml815(all, by, found)}</div>
  <div class="daynav docfoot815"><button type="button" class="btn sm" id="docsPrintList">Print the list</button>${hosted ? '<button type="button" class="btn sm" id="docsRefresh">Refresh</button>' : ''}${canAdd ? '<button type="button" class="btn sm editonly" id="docAdd815" aria-expanded="' + !!state.docAdd815 + '">+ Add</button>' : ''}</div>
@@ -333,6 +342,7 @@ function renderDocs815(){
  ${printList815(by)}`;
  state.docAnim815 = false;
  wireDocs815(pane, all);
+ restoreTileFocus815(focusedTile815);
  if (hadQ) { const q = $('#docQ815'); if (q) { try { q.focus({preventScroll: true}); if (caret) q.setSelectionRange(caret[0], caret[1]); } catch (e) {} } }
  if (land) setTimeout(() => { const el = $('#' + land); if (el && document.contains(el) && state.tab === 'docs') el.scrollIntoView({block: 'start', behavior: 'auto'}); }, 0);
  selRow815();
@@ -352,15 +362,16 @@ function selRow815(){
  inside holdAssets: the collection asks, for each of the 324 file names, whether a docket number in it is an asset number,
  and outside a hold each of those questions rebuilds the whole asset list - measured at 100 s for one repaint. */
 function paintDocs815(){ return holdAssets(() => paintDocs815_held()); }
-/* the collection the last full drawing built. A record change, a refresh of the file list or a change of tab draws the
- whole tab again (renderDocs815), so a card press or a keystroke in between can use it as it is */
-function coll815(){ const L = coll815.last; return L && L.files === DOCS.files && L.n === Object.keys(DOCS.files || {}).length && L.at === DOCS.at && L.state === DOCS.state ? L.COLL : docCollection(); }
+/* Read the current collection inside holdAssets. Remote records may change while a focused search defers
+ the full redraw; the next partial repaint must still classify files using those current records. */
 function paintDocs815_held(){
- const COLL = coll815(), all = COLL.items, by = tileItems815(all), found = find815(all, state.docQ815);
+ const focusedTile815 = activeTileFocus815();
+ const COLL = docCollection(), all = COLL.items, by = tileItems815(all), found = find815(all, state.docQ815);
  const t = $('#docTiles815'), b = $('#docBody815'); if (!t || !b) return renderDocs815();
  t.innerHTML = tilesHtml815(by, found); b.innerHTML = bodyHtml815(all, by, found);
  state.docAnim815 = false;
  wireDocs815($('#pane-docs'), all, true);
+ restoreTileFocus815(focusedTile815);
 }
 function pickTile815(k){
  const was = state.docTile815;

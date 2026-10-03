@@ -1,0 +1,16 @@
+PASS style: every colour in v815.css is already on the page (4: #ff8a3a #ff6a13 #0a0706 rgba(0,0,0,.8))
+PASS style: no new font
+
+== desktop
+page.goto: net::ERR_ABORTED; maybe frame was detached?
+Call log:
+[2m  - navigating to "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#docs", waiting until "load"[22m
+
+    at open (/home/user/fish/03_GC500_Delivery_Control/toolchain/harness/open_page.js:26:14)
+    at async live (/home/user/fish/03_GC500_Delivery_Control/v8.15_documents_clean_DRAFT/evidence/v815_tests.js:56:13)
+    at async /home/user/fish/03_GC500_Delivery_Control/v8.15_documents_clean_DRAFT/evidence/v815_tests.js:293:15 {
+  log: [
+    '  - navigating to "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#docs", waiting until "load"'
+  ],
+  name: 'Error'
+}

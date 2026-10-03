@@ -153,7 +153,8 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
 | No travel | 07:00–09:00, 16:00–18:00 | the PM, 2 Oct 2026 (PEAKS782) — applied both ways |
 
 ## This pass (3 Oct 2026): what changed since the frozen drafts Codex reviewed
-- **Pump-out gate, the exact rule (968aefb #5, be47bb5 R1).** *The emptied gate applies to every outgoing movement of a
+- **Pump-out gate, the exact rule (968aefb #5, be47bb5 R1; Codex's e540cbc review records it as an interpretation, and
+  this is it): the emptied gate applies to outgoing movements only - collection, loading, removal.** *The emptied gate applies to every outgoing movement of a
   toilet or a waste tank - collection, loading, carrying it off, taking it off site - and is passed only by an Emptied
   record with a person and a time, newer than the unit's last arrival on site, whatever the date or the light. The one
   movement it does not gate is an incoming delivery, and only when the record says so (`movePurpose816`): no arrival
@@ -173,6 +174,9 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
   confirmed: 3 units unplanned - on the due-out day until moved"); fewer come off the last portions first; a quantity
   now unknown keeps the portions and makes their loads uncertain. Shown on the pick-up list, the toilet run, the board,
   the drawer's Out tile, the email and the run sheet.
+- **Quantity corrected to 0 (e540cbc):** a reference whose every unit is known and 0 has nothing to collect: no load,
+  no truck stop (the old one-piece fallback now applies only to a reference with no unit rows at all), no pump-out; it
+  stays on the pick-up list as "quantity 0 - nothing to collect". 0 and unknown stay distinct.
 - **Uncertain loads (after 6a0bb20 #3):** a load holding any unknown quantity shows the amber `cand` chip "to confirm -
   total not certain, count on site", never green "full"; the trucks view and the day tile say "+ to confirm" / "WC n+".
 - **Run sheets fit their page:** three toilet-run sheets (28 Oct, 30 Oct, 2 Nov) were taller than A4 and the page
@@ -212,9 +216,11 @@ Fixtures: `evidence/codex_fixtures816.js` (CPU, **FIXTURE-COUNT**), Codex's own 
 | after 6a0bb20 1 = be47bb5 R2 | two portions on one day: `.find` kept only the first | portion ids; every portion of the day placed; ids written on confirm | **G1, G1b** - fail on 0006166, pass now |
 | after 6a0bb20 2 = be47bb5 R3 | quantity corrected after portions saved | `reconcile816`: unplanned / fewer / now unknown, said everywhere | **G2a-G2e** - fail on 0006166, pass now |
 | after 6a0bb20 3 = be47bb5 R4 | uncertain load showed green "full" | amber "to confirm", never "full" | **G3** - fails on 0006166, passes now |
+| e540cbc (6ebb321) | a confirmed quantity corrected to 0 became a 1-unit truck stop | `nothing` = every unit known and 0: no load, no truck stop, no pump-out, listed as "quantity 0 - nothing to collect"; the one-piece fallback only for a reference with no unit rows; unknown stays "to confirm" | **G4, G4b, G4c** - fail on 7db16d1, pass now; Codex `followup_e540cbc_cpu` 33/33 |
 
 Before/after evidence: `evidence/codex_fixtures816_before_fix_0006166.log` (8 failed: G1, G1b, G2a-e, G3; G2d only
-because the change field did not exist) and `evidence/codex_fixtures816.log` (all pass).
+because the change field did not exist), `evidence/codex_fixtures816_before_zero_fix.log` (G4, G4b, G4c fail on
+7db16d1; G4b only because the `nothing` field did not exist) and `evidence/codex_fixtures816.log` (all pass).
 Codex's unmodified `timeline_drawer_recheck_968aefb.cjs` stops at its own line 61, which asserts the regression it
 found (`proposed`); with the fix the value is `plan` - `timeline_drawer_recheck_fixed.cjs` changes only those two lines.
 
