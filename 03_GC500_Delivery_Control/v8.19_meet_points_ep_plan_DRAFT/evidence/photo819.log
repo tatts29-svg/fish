@@ -1,4 +1,4 @@
-# v8.19 checks · source commit 7338ed702814b0eb92db3afbce44f6b7377be02c · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:20:23Z
+# v8.19 checks · source commit 865c1f2700f5a721ac21a4d2c7c4078a7a12410f · candidate sha256 5b952723b5db0883fd0a9f5ffaf109531a78a6ad31a05105c6d2a8d8aa64af9d (9355592 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T13:30:59Z
 # suite: photo · command: env BASE=/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.19/base_live.html flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/photo819.js
    live base: 33 driver sheets on 5 days
    build: 33 driver sheets on 5 days
@@ -129,6 +129,6 @@ PASS 2026-10-09 load 4: a meet point and its directions QR for every reference, 
 PASS 2026-10-09 load 4: the site rules fit on the sheet's own rules line (11 -> 11 px)
 PASS 33 driver sheets compared
 PASS 2026-10-07 load 4 (WC86 + T0258, two meet points, the sheet the review found at 0 px): photos at least the live base's, 96.8 -> 96.8 px  - {"load":"4","k":"0.8","pics":96.84375,"rline":11,"over":false,"qrs":2,"mps":["ISLAND_NORTH","PITLANE"],"refs":2,"park":false}
-PASS build: no page errors, no console errors, no write attempted  - {"errors":[],"cons":[],"counts":{"page":1,"live":204,"blocked":0}}
+PASS build: no page errors, no console errors, no write attempted  - {"errors":[],"cons":[],"counts":{"page":1,"live":205,"blocked":0}}
 
 93 passed, 0 failed

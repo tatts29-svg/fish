@@ -1,4 +1,4 @@
-# v8.19 checks · source commit 7338ed702814b0eb92db3afbce44f6b7377be02c · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:20:23Z
+# v8.19 checks · source commit 865c1f2700f5a721ac21a4d2c7c4078a7a12410f · candidate sha256 5b952723b5db0883fd0a9f5ffaf109531a78a6ad31a05105c6d2a8d8aa64af9d (9355592 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T13:30:59Z
 # suite: phone-widths · command: env SHOTS=/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v819/final flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/phone819.js
 
 == phone 390
@@ -7,7 +7,7 @@ PASS phone 390: nothing in the card reaches past the screen or the card (13 stop
 PASS phone 390: the page does not scroll sideways  - {"page":390,"vw":390}
 PASS phone 390: WC02 drawer - the meet point box fits the screen and carries the parkland rules  - {"right":358,"vw":390,"worst":0,"park":true}
 PASS phone 390: WC61 drawer - the meet point box fits the screen  - {"right":358,"vw":390,"worst":0,"park":false}
-PASS phone 390: no page errors, no console errors, no write attempted  - {"errors":[],"cons":[],"counts":{"page":1,"live":137,"blocked":0}}
+PASS phone 390: no page errors, no console errors, no write attempted  - {"errors":[],"cons":[],"counts":{"page":1,"live":138,"blocked":0}}
 
 == phone 400
 PASS phone 400: all 5 loads and the fold are open  - {"open":5,"folds":1}
