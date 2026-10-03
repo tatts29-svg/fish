@@ -54,7 +54,9 @@ shown = sum(1 for v in t.values() if v.get('shown')); pe = sum(len(v.get('errors
 ce = sum(len(v.get('console', [])) for v in t.values()) + len(j.get('cons', [])); links = len(j['hashes']); le = sum(len(v.get('errors', [])) for v in j['hashes'].values())
 back = j.get('back') or {}
 print(f'   {len(t)} tabs, {shown} shown, {links} links, back {back}')
-for c, w in ((rc == 0, 'the sweep ran to the end'), (len(t) in (21, 22) and shown == len(t), f'all {len(t)} tabs shown'), (links == 7 and le == 0, 'seven links open with no errors'),
+VIEW_ONLY = {'register', 'journal', 'breakdowns', 'variances', 'edit', 'add'}   # the view link sends these to Equipment / Today, on the live base too
+hidden = sorted(k for k, v in t.items() if not v.get('shown'))
+for c, w in ((rc == 0, 'the sweep ran to the end'), (len(t) in (21, 22) and set(hidden) <= VIEW_ONLY, f'all {len(t)} tabs swept; {shown} shown; the {len(hidden)} not shown are the view-only ones {hidden}'), (links == 7 and le == 0, 'seven links open with no errors'),
              (bool(back.get('pane')), 'Back returns to a pane'), (pe == 0, f'{pe} page errors'), (ce == 0, f'{ce} console errors'), ((j.get('counts') or {}).get('blocked', -1) == 0, f"no write attempted ({j.get('counts')})")):
     print(('PASS ' if c else 'FAIL ') + w)
 PY
@@ -75,8 +77,8 @@ suite packed-desktop  $R/packed_desktop.log    flock "$LOCK" node v7.95_today_pa
 suite packed-phone    $R/packed_phone.log      env MOB=1 flock "$LOCK" node v7.95_today_packed_DRAFT/evidence/packed_tests.js
 suite equip-desktop   $R/equipment_desktop.log flock "$LOCK" node v7.96_equipment_tab_LIVE/evidence/equipment_tests.js
 suite equip-phone     $R/equipment_phone.log   env MOB=1 flock "$LOCK" node v7.96_equipment_tab_LIVE/evidence/equipment_tests.js
-suite results-desktop $R/results_desktop.log   flock "$LOCK" node $T/results796_tests.cjs
-suite results-phone   $R/results_phone.log     env MOB=1 flock "$LOCK" node $T/results796_tests.cjs
+suite results-desktop $R/results_desktop.log   flock "$LOCK" node $E/results796_tests_819.cjs
+suite results-phone   $R/results_phone.log     env MOB=1 flock "$LOCK" node $E/results796_tests_819.cjs
 suite onetab-desktop  $R/one_tab_desktop.log   env OUTD=$R flock "$LOCK" node v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js
 suite onetab-phone    $R/one_tab_phone.log     env MOB=1 OUTD=$R flock "$LOCK" node v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js
 suite rules           $R/rules.log             env BASE=$BASE OUT=$R/rules.json flock "$LOCK" node v7.84_ways_in_from_andrew_LIVE/evidence/rules_tests.js
@@ -85,7 +87,8 @@ suite same-figures    $R/same_figures.log      env BASE=$BASE flock "$LOCK" node
 sweep sweep-desktop 0
 sweep sweep-phone 1
 # other drafts' evidence that the standing suites rewrite goes back as it was
-git checkout -- v7.95_today_packed_DRAFT/evidence/packed_desktop.json v7.99_today_faster_fuller_DRAFT/evidence/v799_desktop.json v7.99_today_faster_fuller_DRAFT/evidence/v799_phone.json 2>/dev/null
+git checkout -- v7.95_today_packed_DRAFT/evidence/packed_desktop.json v7.99_today_faster_fuller_DRAFT/evidence/v799_desktop.json v7.99_today_faster_fuller_DRAFT/evidence/v799_phone.json v7.96_equipment_tab_LIVE/evidence/equipment_desktop.json v7.96_equipment_tab_LIVE/evidence/equipment_phone.json 2>/dev/null
+git checkout -- v7.99_today_faster_fuller_DRAFT/evidence/review796_results_desktop.json v7.99_today_faster_fuller_DRAFT/evidence/review796_results_phone.json 2>/dev/null
 git status --short -- v7.95_today_packed_DRAFT v7.99_today_faster_fuller_DRAFT v7.96_equipment_tab_LIVE v7.93_one_tab_today_DRAFT v7.84_ways_in_from_andrew_LIVE v7.75_fresh_after_a_save_LIVE
 
 # ---- the table

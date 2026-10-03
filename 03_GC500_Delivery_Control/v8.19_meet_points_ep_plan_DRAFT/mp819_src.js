@@ -32,10 +32,15 @@ function mpZone819(a, D){
 	if (z.sea != null) { if (w.startsWith('seaside') && !z.sea) z.sea = true; else if (w.startsWith('land side') && z.sea) z.sea = false; }
 	return z;
 }
-/* -> {p: the point, m: metres from the position to it or null, how: area | precinct | rule | noside | default | nopin} */
+/* -> {p: the point, m: metres from the position to it or null, how: area | precinct | rule | noside | default | nopin,
+   key: the reference} */
 function meetPoint819(a){
 	const DEF = MP819.def, P = MP819.points;
-	if (!a) return {p: DEF, m: null, how: 'nopin'};
+	if (!a) return {p: DEF, m: null, how: 'nopin', key: ''};
+	const r = meetPointOf819(a); r.key = a.key; return r;
+}
+function meetPointOf819(a){
+	const DEF = MP819.def, P = MP819.points;
 	let D = null; try { D = dest782(a); } catch (e) { D = null; }
 	const real = D && MP_AREA_KINDS819.indexOf(D.kind) >= 0 && D.ll && isFinite(D.ll.lat) && isFinite(D.ll.lon) ? [D.ll.lat, D.ll.lon] : null;
 	for (const p of P) if (p.poly && real && mpInside819(real, p.poly)) return {p, m: mpDist819(real, p.ll), how: 'area'};
@@ -52,6 +57,7 @@ function meetPoint819(a){
 function mpUrl819(p){ return navUrl({lat: p.ll[0], lon: p.ll[1]}); }
 function mpLl819(p){ return p.ll[0].toFixed(6) + ', ' + p.ll[1].toFixed(6); }
 function mpWhy819(r, key){
+	key = key || (r && r.key) || '';
 	return r.how === 'area' ? 'inside the ' + (r.p.area || 'area') + ' outline'
 		: r.how === 'precinct' ? (/^PG/.test(String(key || '')) ? 'Pit lane entry – pit garages' : 'Pit lane entry – the pit lane precinct (WC12, WC16)')
 		: r.how === 'noside' ? 'side not known – pit lane entry'
