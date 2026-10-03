@@ -324,10 +324,11 @@ function renderDocs815(){
  let land = null;
  if (state.docsec) {
   const k = DOCSEC815[state.docsec];
-  if (k && by[k] && by[k].length) { state.docTile815 = k; state.docQ815 = ''; land = DOCSEC_AT815[state.docsec] || 'docsec-' + k; state.docAnim815 = true; state.docsec = null; }
+if (k && by[k] && by[k].length) { clearDocSelection815(); state.docTile815 = k; state.docQ815 = ''; land = DOCSEC_AT815[state.docsec] || 'docsec-' + k; state.docAnim815 = true; state.docsec = null; }
   else if (!hosted || !['unrequested', 'loading'].includes(DOCS.state)) { flash('That document section has no files to show.'); state.docsec = null; }
  }
  const pane = $('#pane-docs');
+ const focusedDoc815 = docFocusBefore815();
  const focusedTile815 = activeTileFocus815();
  const ae = document.activeElement, hadQ = ae && ae.id === 'docQ815', caret = hadQ ? [ae.selectionStart, ae.selectionEnd] : null;
  const found = find815(all, state.docQ815);
@@ -345,18 +346,45 @@ function renderDocs815(){
  restoreTileFocus815(focusedTile815);
  if (hadQ) { const q = $('#docQ815'); if (q) { try { q.focus({preventScroll: true}); if (caret) q.setSelectionRange(caret[0], caret[1]); } catch (e) {} } }
  if (land) setTimeout(() => { const el = $('#' + land); if (el && document.contains(el) && state.tab === 'docs') el.scrollIntoView({block: 'start', behavior: 'auto'}); }, 0);
- selRow815();
+ selRow815(focusedDoc815);
 }
 /* THE HEADER SEARCH LANDS ON THE ONE DOCUMENT IT NAMED. Picking a document with no file in the header search sets the
  find box to its title and names the document; here that row is marked (aria-current) and brought into view with the
  keyboard on it, so the person is looking at the thing they picked, not at a list to read through again. */
-function selRow815(){
- const id = state.docSel815; if (!id) return;
- state.docSel815 = null;
- const row = [...document.querySelectorAll('#pane-docs #docBody815 [data-doc815]')].find(e => e.dataset.doc815 === id);
- if (!row) return;
- row.setAttribute('aria-current', 'true'); row.tabIndex = -1;
- setTimeout(() => { if (!document.contains(row) || state.tab !== 'docs') return; row.scrollIntoView({block: 'center', behavior: 'auto'}); try { row.focus({preventScroll: true}); } catch (e) {} }, 0);
+function clearDocSelection815(){
+ state.docSel815 = null; state.docCurrent815 = null; selRow815.pending = null;
+}
+/* The selected identity survives redraws. A focus request lasts only until it succeeds or the person
+   moves to another control; it resolves the current row instead of keeping a detached DOM node. */
+function docFocusBefore815(){
+ const a = document.activeElement, p = selRow815.pending;
+ if (p && a !== p.from && a !== p.pane) selRow815.pending = null;
+ return {row: a && a.dataset && a.dataset.doc815, pending: selRow815.pending};
+}
+function selRow815(before){
+ const request = state.docSel815;
+ if (request) {
+  state.docSel815 = null; state.docCurrent815 = request;
+  selRow815.pending = {id: request, from: document.activeElement, pane: $('#pane-docs'), scroll: true};
+ } else if (before && before.pending && selRow815.pending === before.pending) {
+  selRow815.pending.from = document.activeElement; /* a preserved search control may itself have been rebuilt */
+ }
+ const id = state.docCurrent815; if (!id) return;
+ const rowOf = () => [...document.querySelectorAll('#pane-docs #docBody815 [data-doc815]')].find(e => e.dataset.doc815 === id);
+ const row = rowOf();
+ if (row) { row.setAttribute('aria-current', 'true'); row.tabIndex = -1; }
+ if (!request && before && before.row === id) selRow815.pending = {id, from: document.activeElement, pane: null, scroll: false};
+ const intent = selRow815.pending;
+ if (!row || !intent || intent.id !== id) return;
+ setTimeout(() => {
+  if (selRow815.pending !== intent || state.docCurrent815 !== id || state.tab !== 'docs') return;
+  const a = document.activeElement;
+  if (a !== intent.from && a !== intent.pane) { selRow815.pending = null; return; }
+  const current = rowOf(); if (!current || !document.contains(current)) return;
+  if (intent.scroll) current.scrollIntoView({block: 'center', behavior: 'auto'});
+  try { current.focus({preventScroll: true}); } catch (e) {}
+  if (document.activeElement === current) selRow815.pending = null;
+ }, 0);
 }
 /* typing repaints the cards and the list under them, never the box being typed in. Like every render on the page it runs
  inside holdAssets: the collection asks, for each of the 324 file names, whether a docket number in it is an asset number,
@@ -365,6 +393,7 @@ function paintDocs815(){ return holdAssets(() => paintDocs815_held()); }
 /* Read the current collection inside holdAssets. Remote records may change while a focused search defers
  the full redraw; the next partial repaint must still classify files using those current records. */
 function paintDocs815_held(){
+ const focusedDoc815 = docFocusBefore815();
  const focusedTile815 = activeTileFocus815();
  const COLL = docCollection(), all = COLL.items, by = tileItems815(all), found = find815(all, state.docQ815);
  const t = $('#docTiles815'), b = $('#docBody815'); if (!t || !b) return renderDocs815();
@@ -372,8 +401,10 @@ function paintDocs815_held(){
  state.docAnim815 = false;
  wireDocs815($('#pane-docs'), all, true);
  restoreTileFocus815(focusedTile815);
+ selRow815(focusedDoc815);
 }
 function pickTile815(k){
+ clearDocSelection815();
  const was = state.docTile815;
  state.docQ815 = ''; const q = $('#docQ815'); if (q) q.value = '';
  state.docTile815 = was === k ? null : k; state.docAnim815 = !!state.docTile815;
@@ -383,6 +414,7 @@ function pickTile815(k){
  if (el) { const r = el.getBoundingClientRect(); if (r.top > innerHeight * 0.6 || r.top < 0) el.scrollIntoView({behavior: motionOff() ? 'auto' : 'smooth', block: 'start'}); }
 }
 function showRef815(ref){
+ clearDocSelection815();
  state.docQ815 = ''; const q = $('#docQ815'); if (q) q.value = '';
  state.docTile815 = 'photos'; state.docAnim815 = true; state.docOpen815 = Object.assign({}, state.docOpen815, {['ph:' + ref]: true});
  setHash('docs/photos'); paintDocs815();
@@ -402,14 +434,14 @@ function wireDocs815(pane, all, partial){
  pane.querySelectorAll('[data-showref815]').forEach(b => b.onclick = () => showRef815(b.dataset.showref815));
  pane.querySelectorAll('[data-note815]').forEach(b => b.onclick = () => { const n = b.closest('.w') && b.closest('.w').querySelector('.note815'); if (!n) return;
   n.hidden = !n.hidden; b.setAttribute('aria-expanded', String(!n.hidden)); b.textContent = n.hidden ? 'Details' : 'Less'; });
- pane.querySelectorAll('[data-clear815]').forEach(b => b.onclick = () => { state.docQ815 = ''; const q = $('#docQ815'); if (q) { q.value = ''; q.focus(); } paintDocs815(); });
+ pane.querySelectorAll('[data-clear815]').forEach(b =>b.onclick = () => { clearDocSelection815(); state.docQ815 = ''; const q = $('#docQ815'); if (q) { q.value = ''; q.focus(); } paintDocs815(); });
  pane.querySelectorAll('[data-delfile]').forEach(b => b.onclick = async () => {
   if (b.dataset.sure !== '1') { b.dataset.sure = '1'; b.textContent = 'Remove — press again to confirm'; setTimeout(() => { b.dataset.sure = ''; b.textContent = 'Remove'; }, 4000); return; }
   try { await SYNC.backend.removeFile(b.dataset.delfile); flash('Removed from the service.'); docsRefresh(true); }
   catch (e) { flash('Could not remove it: ' + (e && e.message || e)); } });
  if (partial) return;
  const q = $('#docQ815');
- if (q) q.oninput = () => { state.docQ815 = q.value; clearTimeout(wireDocs815.t); wireDocs815.t = setTimeout(paintDocs815, 120); };
+ if (q)q.oninput = () => { clearDocSelection815(); state.docQ815 = q.value; clearTimeout(wireDocs815.t); wireDocs815.t = setTimeout(paintDocs815, 120); };
  const pl = $('#docsPrintList'); if (pl) pl.onclick = () => printDocs815();
  const rf = $('#docsRefresh'); if (rf) rf.onclick = () => docsRefresh(true);
  const add = $('#docAdd815'), card = $('#docAddCard');
