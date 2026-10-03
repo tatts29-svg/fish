@@ -109,6 +109,93 @@
    "way_in": "to confirm from the page's seaside wording",
    "fit": "2 pins only (WC60, WC61) - similarity fit, scale 0.227 m/px, map facing east; no residual check possible, allow a few metres",
    "andrew": "Anything here is here (screenshot of S21 / S22 / WC60 / WC61, 3 Oct 2026)"
+  },
+  {
+   "id": "ISLAND_WEST_PARK",
+   "name": "Macintosh Island west parkland - entry and meet point (red dot, by the merch strip)",
+   "covers": "Everything inside Andrew's yellow outline: island west parkland incl. WC02, WC04, WC05, OPS/COA compound, STUNTZ, merch, LOCK/FOR/GRM",
+   "area_polygon": [
+    [
+     -27.983186,
+     153.426706
+    ],
+    [
+     -27.983085,
+     153.426539
+    ],
+    [
+     -27.983,
+     153.42629
+    ],
+    [
+     -27.982978,
+     153.426025
+    ],
+    [
+     -27.983025,
+     153.425781
+    ],
+    [
+     -27.98311,
+     153.425595
+    ],
+    [
+     -27.98321,
+     153.425483
+    ],
+    [
+     -27.983335,
+     153.425451
+    ],
+    [
+     -27.983489,
+     153.425518
+    ],
+    [
+     -27.98371,
+     153.425713
+    ],
+    [
+     -27.983897,
+     153.425974
+    ],
+    [
+     -27.984062,
+     153.426174
+    ],
+    [
+     -27.984194,
+     153.426333
+    ],
+    [
+     -27.984326,
+     153.426493
+    ],
+    [
+     -27.984438,
+     153.426669
+    ],
+    [
+     -27.984073,
+     153.427361
+    ]
+   ],
+   "area_polygon_note": "traced from Andrew's yellow outline; the outline runs off the screenshot to the north-east, so that side is closed along the screen edge - treat the north-east boundary as approximate",
+   "ll": [
+    -27.983873,
+    153.425702
+   ],
+   "way_in": "to confirm from the page's island wording",
+   "fit": "3 pins (WC05, WC04, WC02) exact affine; checked against WC01 (3.7 m) and WC42 (9.6 m, partly off-screen) - allow ~5 m",
+   "safety": [
+    "No vehicle enters the park - trucks stop at the entry/meet point",
+    "Spotters required for every movement",
+    "Escort required - vehicles are escorted in and out",
+    "Wildlife in the area",
+    "Extremely low branches",
+    "Very limited room to manoeuvre"
+   ],
+   "andrew": "Anything inside here inside the yellow. is entry point is meet point will be entry in red. Remember no one enter park. Ensure spotters. Wild life. Extemly low branches. There is not much room hense sptters and excort is a must. A reminder this now should be info for everything now."
   }
  ],
  "not_yet": "Not built into the live page. Which items belong to which point (area boundaries) is to be shown to Andrew on a map before any build.",
@@ -117,6 +204,13 @@
    "area": "Pit lane precinct: pit garages PG01-PG29, S01 garage block, WC12, WC16, podium",
    "goes_to": "PITLANE",
    "andrew": "Anything here is pitlane (screenshot of S01 / PG29 / WC12 / WC16 / Podium, 3 Oct 2026)"
+  }
+ ],
+ "standing_rules": [
+  {
+   "rule": "Meet/entry points and their safety notes apply to ALL gear and equipment (deliveries, pick-ups, demob), not only toilets.",
+   "andrew": "A reminder this now should be info for everything now.",
+   "date": "2026-10-03"
   }
  ]
 }
