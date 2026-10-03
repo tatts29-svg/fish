@@ -1,0 +1,54 @@
+/* Author: Andrew Fisher. v8.18 — approved artwork on the native programme day strip. */
+#pane-timeline .daystrip > .day,#pane-timeline .daystrip > .day .dflag{animation:none!important}
+.day[data-weather-card] .dface{isolation:isolate;overflow:hidden}
+.day[data-weather-card] .dface>.wm-card-scene{position:absolute;z-index:0;inset:13px 0 auto;height:246px;overflow:hidden;pointer-events:none;mask-image:linear-gradient(#000 0%,#000 87%,transparent 100%)}
+.day[data-weather-card] .dface>:not(.wm-card-scene){position:relative;z-index:1}
+.day[data-weather-card] .wm-card-scene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.91) 29%,rgba(255,255,255,.16) 57%,rgba(255,255,255,0) 75%)}
+.day[data-weather-card].on .wm-card-scene::after{background:linear-gradient(90deg,#ff882b 0%,rgba(255,133,33,.96) 30%,rgba(255,126,25,.39) 58%,rgba(255,120,24,.06) 89%)}
+.day[data-weather-card].today:not(.on) .wm-card-scene::after{background:linear-gradient(90deg,#ffe1ce 0%,rgba(255,225,206,.92) 32%,rgba(255,225,206,.28) 65%,rgba(255,225,206,0) 94%)}
+.day[data-weather-card] .dface::before{z-index:3}
+.day[data-weather-card] .dwk{text-shadow:0 1px 3px rgba(255,255,255,.6)}
+.day[data-weather-card].on .dwk{text-shadow:none}
+.day .wxp[data-weather-motion]{isolation:isolate;overflow:hidden;background:linear-gradient(155deg,rgba(40,60,77,.76),rgba(12,24,38,.91));box-shadow:inset 0 1px 0 rgba(225,242,255,.35),inset 0 0 0 1px rgba(206,229,245,.15),0 0 0 1px rgba(8,20,32,.56)}
+.day.on .wxp[data-weather-motion]{background:linear-gradient(155deg,rgba(34,52,68,.86),rgba(10,23,37,.96));box-shadow:inset 0 1px 0 rgba(225,242,255,.4),inset 0 0 0 1px rgba(206,229,245,.17),0 0 0 1px #1b1207,0 4px 10px -4px rgba(27,18,7,.5)}
+.day .wxp[data-weather-motion]::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,22,34,.86) 0%,rgba(8,22,34,.8) 20%,transparent 35%,transparent 60%,rgba(8,22,34,.73) 81%,rgba(8,22,34,.9) 100%),linear-gradient(125deg,rgba(223,239,252,.1),transparent 30%,transparent 75%,rgba(115,175,216,.06))}
+.day .wxp[data-weather-motion]>:not(.wx-motion){position:relative;z-index:1}
+.day .wxp[data-weather-motion]>.sr{position:absolute}
+.day .wx-motion{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;border-radius:inherit;opacity:.73;mask-image:linear-gradient(90deg,#000 0%,#000 20%,transparent 34%);clip-path:inset(19px 0 19px 0)}
+.day .wxp[data-weather-motion] .wx-motion svg{width:52px;height:100%}
+.day .wxp[data-weather-motion] .wxi{opacity:0}
+#pane-timeline .daystrip > .day .wxi,#pane-timeline .daystrip > .day .wxi *{animation:none!important}
+.day .wxp[data-weather-motion] .wxsrc{color:#edf4f8}
+.day .wxp[data-weather-motion] .wxo{color:#d7e4ed}
+.day .wm-card-scene svg,.day .wx-motion svg{display:block;width:100%;height:100%;overflow:hidden}
+.wm-cloud-front{animation:wm-cloud-front 13s ease-in-out infinite alternate}
+.wm-cloud-back{animation:wm-cloud-back 21s ease-in-out infinite alternate}
+.wm-cloud-near{animation:wm-cloud-near 16s ease-in-out infinite alternate}
+.wm-radiance{animation:wm-radiance 11s ease-in-out infinite;transform-origin:146px 42px}
+.wm-shaft{animation:wm-shaft 13s ease-in-out infinite alternate;transform-origin:146px 42px}
+.wm-rain{animation:wm-rain var(--speed,1.8s) linear infinite;animation-delay:var(--phase);opacity:var(--alpha,.6)}
+.wm-rain.heavy{animation-name:wm-heavy}
+.wm-snow{animation:wm-snow var(--speed,6s) linear infinite;animation-delay:var(--phase);opacity:var(--alpha,.7)}
+.wm-fog{animation:wm-fog 17s ease-in-out infinite alternate;animation-delay:var(--phase)}
+.wm-bolt{animation:none!important}
+.day[data-weather-card] .wm-card-scene *, .day .wxp[data-weather-motion] .wx-motion *{animation-play-state:paused!important}
+html[data-weather-playing="true"] .day[data-weather-card][data-weather-active="true"][data-motion-visible="true"] .wm-card-scene *,html[data-weather-playing="true"] .day[data-weather-active="true"] .wxp[data-weather-motion][data-motion-visible="true"] .wx-motion *{animation-play-state:running!important}
+html[data-motion="off"] .day[data-weather-card] .wm-card-scene *,html[data-motion="off"] .day .wxp[data-weather-motion] .wx-motion *,html[data-weather-reduced="true"] .day[data-weather-card] .wm-card-scene *,html[data-weather-reduced="true"] .day .wxp[data-weather-motion] .wx-motion *{animation:none!important}
+@media(prefers-reduced-motion:reduce){.day[data-weather-card] .wm-card-scene *,.day .wxp[data-weather-motion] .wx-motion *{animation:none!important}}
+@media(max-width:470px){.day[data-weather-card] .dface>.wm-card-scene{height:222px}}
+@media print{.wm-card-scene,.wx-motion{display:none!important}.day .wxp[data-weather-motion] .wxi{opacity:1}}
+@keyframes wm-cloud-front{from{transform:translate(-6px,0)}to{transform:translate(7px,1.5px)}}
+@keyframes wm-cloud-back{from{transform:translate(9px,-1px)}to{transform:translate(-10px,1px)}}
+@keyframes wm-cloud-near{from{transform:translate(-7px,1px)}to{transform:translate(9px,-1px)}}
+@keyframes wm-radiance{0%,100%{opacity:.68;transform:scale(.97)}50%{opacity:.94;transform:scale(1.045)}}
+@keyframes wm-shaft{from{opacity:.16;transform:rotate(-2deg)}to{opacity:.28;transform:rotate(2deg)}}
+@keyframes wm-rain{0%{transform:translate(2px,-14px);opacity:0}10%{opacity:var(--alpha,.6)}86%{opacity:var(--alpha,.6)}100%{transform:translate(-7px,37px);opacity:0}}
+@keyframes wm-heavy{0%{transform:translate(11px,-18px);opacity:0}10%{opacity:var(--alpha,.6)}86%{opacity:var(--alpha,.6)}100%{transform:translate(-22px,45px);opacity:0}}
+@keyframes wm-fog{from{transform:translate(-15px,0);opacity:.6}to{transform:translate(15px,3px);opacity:.9}}
+@keyframes wm-snow{0%{transform:translate(-4px,-14px);opacity:.15}14%{opacity:var(--alpha,.7)}85%{opacity:var(--alpha,.7)}100%{transform:translate(13px,43px);opacity:.15}}
+
+/* The approved light artwork retains the native dark-theme text corridor. Selected orange stays unchanged. */
+@media(prefers-color-scheme:dark){
+ #pane-timeline .day[data-weather-card]:not(.on) .wm-card-scene::after{background:linear-gradient(90deg,rgba(26,22,20,.98) 0%,rgba(26,22,20,.94) 30%,rgba(26,22,20,.38) 59%,rgba(26,22,20,.06) 88%)}
+ #pane-timeline .day[data-weather-card]:not(.on) .dwk{text-shadow:0 1px 3px rgba(0,0,0,.75)}
+}
