@@ -14,10 +14,12 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--page',type=Path,default=PROJECT/'build/GC500_v8.15-audit-e540cbc/GC500_Delivery_Control_hosted.html')
 parser.add_argument('--base',type=Path,default=PROJECT/'build/GC500_v8.15-audit-e540cbc/base_live.html')
 parser.add_argument('--out',type=Path,default=Path('/workspace/private-review-e540cbc/standing'))
+parser.add_argument('--report-dir',type=Path,default=EVIDENCE,help='Separate evidence directory for a changed candidate; preserves earlier runs.')
 parser.add_argument('--only',default='')
 parser.add_argument('--prepare-only',action='store_true')
 parser.add_argument('--timeout',type=int,default=1200)
 a=parser.parse_args(); PAGE=a.page.resolve();BASE=a.base.resolve();OUT=a.out.resolve();OUT.mkdir(parents=True,exist_ok=True)
+REPORT=a.report_dir.resolve();REPORT.mkdir(parents=True,exist_ok=True)
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 SPECS=[
  ('packed_desktop','v7.95_today_packed_DRAFT/evidence/packed_tests.js',False,20),
@@ -39,7 +41,7 @@ SPECS=[
 requested=set(a.only.split(',')) if a.only else {s[0] for s in SPECS}
 assert requested <= {s[0] for s in SPECS}, 'Unknown suite requested'
 report={'author':'Andrew Fisher','pageSha256':sha(PAGE),'baseSha256':sha(BASE),'sequential':True,'requiredRuns':[s[0] for s in SPECS],'requestedRuns':[s[0] for s in SPECS if s[0] in requested],'runs':[],'complete':False}
-COPIES=EVIDENCE/'runner_sources';COPIES.mkdir(exist_ok=True)
+COPIES=REPORT/'runner_sources';COPIES.mkdir(exist_ok=True)
 
 def replace_once(s,old,new):
  assert s.count(old)==1,'Adaptation anchor is not unique: '+old[:90]
@@ -79,7 +81,7 @@ def prepare(spec):
  return {'name':name,'source':relative,'sourceSha256':sha(original),'adaptedSha256':sha(copy),'adaptations':changes,'mobile':mob,'minimumAssertions':minimum,'file':str(copy)}
 
 manifest=[prepare(s) for s in SPECS]
-(EVIDENCE/'standing815_sources.json').write_text(json.dumps({'author':'Andrew Fisher','sources':manifest},indent=2)+'\n')
+(REPORT/'standing815_sources.json').write_text(json.dumps({'author':'Andrew Fisher','sources':manifest},indent=2)+'\n')
 if a.prepare_only:
  print('Prepared and syntax-checked '+str(len(manifest))+' sequential suites; no browser launched.');sys.exit(0)
 
@@ -135,7 +137,7 @@ for m in manifest:
   frozen();item=assess(m,code,log,result,harness)
  except Exception as exc:item={'name':name,'pass':False,'error':str(exc)}
  report['runs'].append(item);report['complete']=len(report['runs'])==len(SPECS);report['pass']=bool(report['runs']) and all(r['pass'] for r in report['runs'])
- (EVIDENCE/'standing815_browser.json').write_text(json.dumps(report,indent=2)+'\n')
+ (REPORT/'standing815_browser.json').write_text(json.dumps(report,indent=2)+'\n')
  print(('PASS ' if item['pass'] else 'FAIL ')+name+' '+json.dumps({k:v for k,v in item.items() if k in ('passed','total','tabs','links','error','exitCode')}),flush=True)
 frozen();print('COMPLETE' if report['complete'] else 'PARTIAL', 'PASS' if report['pass'] else 'FAIL',flush=True)
 sys.exit(0 if report['pass'] else 1)
