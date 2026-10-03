@@ -1,0 +1,33 @@
+{
+  "author": "Andrew Fisher",
+  "tag": "live",
+  "mobile": false,
+  "sha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "views": {
+    "as it opens": {
+      "paneHeightPx": 8949,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {
+        "docsec-swms": {
+          "heightPx": 722,
+          "emptyPct": 33.7
+        },
+        "docsec-transport": {
+          "heightPx": 292,
+          "emptyPct": 29.9
+        },
+        "docsec-maps": {
+          "heightPx": 666,
+          "emptyPct": 9.3
+        },
+        "docsec-packs": {
+          "heightPx": 2401,
+          "emptyPct": 19
+        }
+      },
+      "totalEmptyPct": 20.8
+    }
+  },
+  "errors": []
+}
