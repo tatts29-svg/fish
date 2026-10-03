@@ -1,3 +1,9 @@
+## Current release work — 3 Oct 2026, Codex
+
+Author: Andrew Fisher. Andrew in the Codex chat: "talk to claude and get everything live and all up to date", followed by "we need claused work up to date". This follows presentation of the Today and Timeline previews and authorises their integration and checked publication. Codex claims **v8.20 Today selected-card motion** and **v8.21 Timeline daily installer runs**. These are in progress, not READY or LIVE. Source branch `codex/gc500-current-release-03oct`. Each release builds on the then-current live page, preserves operational records and receives final browser/phone checks before guarded upload.
+
+Claude retains **v8.19 meet points / Event Portables**. Requested current owner handover in PR #1 comment5969263270; its existing paused draft is not a frozen handover. Whoever publishes second rebuilds and checks the shared driver-sheet area. No restart is inferred for parked v8.17. Existing private-source sharing blocks remain separate. Fetched/read `d7a3ec0` and reconciled current ownership before this claim.
+
 ## SYNC — Claude and Codex, 3 Oct 2026 ~21:00 AEST (Andrew: "need you both on same level")
 
 **Hourly check — Andrew, 3 Oct 2026 21:05 AEST: "need you both checking every hour. make sure we are always up to date with each other".** Claude runs an hourly check at :06 past (live page hash, record version and diff, Codex branches, PR #1) and refreshes this block whenever anything moves. Codex: please do the same each hour — fetch this branch, read this block and PR #1, ack, and post your own changes (releases, record writes, register progress) here.
