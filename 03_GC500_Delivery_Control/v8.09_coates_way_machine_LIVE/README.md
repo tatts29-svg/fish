@@ -2,7 +2,7 @@
 
 > **Version note:** this release is **v8.09**. Codex claimed v8.08 first, in f4455f0. The folder was first named `v8.08_` and was renamed `v8.09_` once the four builds finished; the version labels in its code and tests say v8.09.
 
-Author: Andrew Fisher · 2 Oct 2026, handover 3 Oct 2026 · **READY TO UPLOAD (machine set)**: Claude built and tested it, Codex reviewed the source. Not live. The live machine set is v8.13 `65c47180…` (`v8.13-maps-satellite`, 219 files). The 56 machine files v8.09 builds on are copied unchanged in `base/`, and the work is in `work/`. See **READY handover** at the end.
+Author: Andrew Fisher · **LIVE, verified 3 Oct 2026 14:32 AEST.** Registered the complete frozen vehicle package after the Demob page release. All 226 public files match the approved hashes and sizes. The v8.16 page, all four map descriptors and operational-record fingerprints are unchanged. [Publication proof](evidence/release_verification.json). Actual public-host desktop and phone open/render/Back checks pass 20/20, with zero page/console errors or attempted writes; both final views inspected. [Live browser proof](evidence/live_smoke_verification.json). The handover below is retained as history.
 
 ## Andrew's words (Claude's chat, 2 Oct 2026)
 
@@ -29,17 +29,17 @@ Each area records its changes in `evidence/CHANGES_*.md`.
 
 **Publishing** needs the edit key, so Codex publishes once this is READY. Mock-up pictures go to Andrew first.
 
-## READY handover
+## Historical READY handover
 
 **READY TO UPLOAD (machine set only).** Claude implemented and tested this. Codex reviewed the source (groups 1–4, frozen-source audit of c1f6fb5, `review_v809_release/`). Codex publishes. Nothing was uploaded, registered or written to the live service in preparing this.
 
 | | |
 |---|---|
-| Source commit | `<SOURCE_COMMIT — filled in after Andrew's commit>` (`work/` is byte-identical to c1f6fb5, the commit Codex audited: all 63 files match `audit_c1f6fb5.json`) |
+| Source commit | `dfec015586208531bbe31fe507d44cc9cc49955e` (`work/` is byte-identical to c1f6fb5, the commit Codex audited: all 63 files match `audit_c1f6fb5.json`) |
 | Base (live, re-read 3 Oct 2026 03:58 UTC) | machine manifest **`65c47180502d9052ca3661e5aedd06683e8168c1e9be9297bcbcb7c2e4d9fe86`**, `v8.13-maps-satellite`, 219 files, 172,184,133 B |
 | Candidate | **`7d2ff39f645696c212197f1bf0c7dfe8e4a01c232c4e3ca1dbea359b53500a1e`**: `evidence/manifest_v809.json`, **226 files, 172,348,506 B** (+164,373 B) |
 | Delta | 17 changed, 7 new, 202 descriptors kept byte-identical, none removed |
-| Live page (not touched) | v8.15 `35ab1366…`. It opens the machine at `/w/<view>/` (entry `index.html`), `explorer/index.html` and `poc3d/index.html`. All three are in the union and none changes; the machine has no links back to the page. |
+| Live page (not touched) | v8.15 `35ab1366…`. It opens the machine at `/w/<view>/` (entry `index.html`), `explorer/index.html` and `poc3d/index.html`. All three paths are in the union; `index.html` is updated, while both map entry files are unchanged. Publication preserved the newer v8.16 page `7ae89da4…`. |
 
 **How the digest is computed.** This is the method in `satellite_explorer/tools/machine_set.py` (Codex's tool, which the service uses): sha256 of the canonical JSON `{schema:"gc500-machine-v1", entry:"index.html", files}`. `files` is sorted by path, each entry is `{bytes, path, sha256, type}`, object keys are sorted and there is no whitespace. Applied to Codex's `machine813_manifest.json`, the same code gives 65c47180, which matches. It agrees with Codex's independent union in `review_v809_release/` (7d2ff39f, 226 files, 172,348,506 B). The `manifest_v809.json` file itself hashes to `b6cedf5839d005d3597608b58037d64700d586086de067d70ec87f140760a59f`, but the service registers by the digest above. Rebuild and check it with `evidence/handover/handover_v809.py union | closure | live`.
 
