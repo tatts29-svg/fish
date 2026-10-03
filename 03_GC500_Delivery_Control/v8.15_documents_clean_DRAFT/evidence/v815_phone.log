@@ -42,3 +42,8 @@ PASS phone: Recent is the last 5 uploads, newest first  - 05_CW2_Fencing_Install
 PASS phone: Details on a merged pre-start unfolds the catalogue's note (GC500_Prestart_ATF_2026-09-14.pdf)  - {"id":"GC500_Prestart_ATF_2026-09-14.pdf","hiddenFirst":true,"shown":true,"text":"The pre-start held that day for Advanced Temporary Fencing, run to THEIR OWN SWMS for the installation, relocation and removal of temporary fencing, revision 18/09/2026: its twelve task steps with their controls and ri
 PASS phone: #docs/swms opens Documents on swms  - {"tab":"docs","tile":"swms","box":true,"on":"swms"}
 PASS phone: #docs/transport opens Documents on transport  - {"tab":"docs","tile":"transport","box":true,"on":"transport"}
+PASS phone: #docs/maps opens Documents on maps  - {"tab":"docs","tile":"maps","box":true,"on":"maps"}
+PASS phone: #docs/packs opens Documents on packs  - {"tab":"docs","tile":"packs","box":true,"on":"packs"}
+PASS phone: #docs/photos opens Documents on photos  - {"tab":"docs","tile":"photos","box":true,"on":"photos"}
+PASS phone: #docs/dockets opens Documents on dockets  - {"tab":"docs","tile":"dockets","box":true,"on":"dockets"}
+PASS phone: #docs/fencing opens Documents on maps  - {"tab":"docs","tile":"maps","box":true,"on":"maps"}
