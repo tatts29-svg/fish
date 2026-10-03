@@ -1,0 +1,16 @@
+Author: Andrew Fisher
+
+DRAFT — combined v8.29. Final browser gates and publication pending.
+
+Base: f7126dd4e0d3217bfc1eb926c401a7668aa3d72f14a9e670fd186d33a9f1c01f
+Standard candidate: 8af09119006f7fad218b4fad3146ccc49d5c7cb6546f5f8a2ab626304484ccbf (10,114,758 bytes)
+Raw composed candidate: 593e161e4a91acf1ad147be6b96b5b829ca0cacc9a7f602fcaba148186f86b16
+Required map asset manifest: d573ed4017f9ebf0c9c8502367b847f4409eac75c9f3d4f59d5977151ffb7b13
+
+The map host component and Fencing presentation ship in one host update. Docket records remain present when a separate scan link is unresolved. Exact source joins distinguish individual documents from supporting summaries. Programme work and current rates provide a working estimate; repeated movements are not unique stock, and incompatible units are not multiplied. A supplied quote retains priority. Estimates do not post to the shared financial record.
+
+Native DATA and financial functions are preserved. The normal toolchain finaliser changes only 27 exact attribution strings between the raw and standard outputs. The source-specific view and catalogue remain authorised private build inputs; this repository deliberately contains neither records nor attachments.
+
+Offline verification: 73 financial/model/source checks and 54 wrapper checks accepted the composed source. A subsequent dedicated caption class prevents native explanation folding from hiding the estimate basis. The bounded fix passed 30 affected checks and exact whole-output preservation; prior financial acceptance carries forward. The final standard page passes 11 inline-script and secret checks. Portable synthetic tests: node tests/presentation829.cjs (15 checks).
+
+The SOURCE_MANIFEST.json files inventory is the wrapper's exact six-file product contract. Tests have their own manifest and are not build inputs. Private evidence retains original failures and corrected assertions. Browser checks block operational writes; no SMS or live quote entry is used as a test.

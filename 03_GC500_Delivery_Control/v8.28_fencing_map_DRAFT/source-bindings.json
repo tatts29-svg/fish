@@ -1,0 +1,34 @@
+{
+  "author": "Andrew Fisher",
+  "state": "Frozen v8.28 component for upcoming v8.29 integration; not a separate live release",
+  "base_host_sha256": "f7126dd4e0d3217bfc1eb926c401a7668aa3d72f14a9e670fd186d33a9f1c01f",
+  "candidate_host_sha256": "ca9f26f604176bba4ac8e35e71ad8a5c3ee2c19f4ce4760bc1e51ee5569d79ea",
+  "private_catalogue_sha256": "9a2f0d55ac97c02ede9923eb66d76bc46bcccc3cafc4d8219822ac8849083e73",
+  "generic_files": {
+    "README.md": "076bf6fb3c55e56e9728be83720e9df13db8048fd170bb34a933d64cfa3c2a8f",
+    "cesium_loader/README.md": "80f37fdc202d5612d029de1aac2658c57b80c887cfc7da912f3018e6038f846c",
+    "cesium_loader/cesium_library_loader.js": "6482f1922f31b3efdcb851fda6988ba1a1e5d7b93a96366bbd7c672e9287c8a7",
+    "cesium_loader/patch_loader.py": "2f0e399ccdcac3c7f91ee11b60443cec5ad9523fa39c46837dae8cfa35cee98f",
+    "cesium_loader/tests/preservation.py": "e06b22b081852f4639b541332b1b00e14f61cba6544517a8244e0ec24a650339",
+    "cesium_loader/tests/synthetic.cjs": "867e2cbc5e7cddaa4df351dd78642966007b4c54455904c7c742a1b74818d04d",
+    "patch_explorer828.py": "4685e673e42683b7acbe53b8013f596dba45144e7956724e97b89a1ce8adcaa6",
+    "patch_v828.py": "e25e552c650fed1498486f1a139a3106f2a1c85aae0de38f7d6eb9421a54670a",
+    "source/fencing-map-core.js": "0c26c3b7777f99573326123e264d4fb4e53196ee0a1882aaa6dd6aa7ea5393ff",
+    "source/fencing-map-explorer.js": "72058f977770652fe3d003dc52965a52cf02fde2aedb5c71d39031527ddb2d18",
+    "source/fencing-map-host.js": "5d788d3af4bfd581dd7b1c4d3a7fd33fed5d952816de92fef0080e63f8972f0e",
+    "source/fencing-map.css": "58a1d5f2d8c0b5b2917c0998a1a4cffcfcf79972d5fb187fa63282c5f26fdf3d",
+    "tests/fencing_model.cjs": "7ec56987c956688c2a6e0bcedca208ac02872af93c944d6912a0f7aae00f13b5"
+  },
+  "private_inputs_excluded": true,
+  "map_assets": {
+    "explorer.js": "65749fbe601b1ae6cd2e99fc2c317e6cdcb985f10dac8c1b0b3ba98ff223a61c",
+    "index.html": "3e87cefe7c210070acf6543456f86ecd0770010cab6475831b39ebfd155eaa22"
+  },
+  "cesium_loader": {
+    "base_sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+    "candidate_sha256": "c463bf4afaa37c28a2b78e83e1c7461e569dea88a2f890948060b8af7e0a35ba",
+    "packaging_changes": "Relative shared-toolchain import; tests take explicit external HTML/report paths. Product loader bytes and candidate unchanged."
+  },
+  "asset_manifest_canonical_sha256": "d573ed4017f9ebf0c9c8502367b847f4409eac75c9f3d4f59d5977151ffb7b13",
+  "asset_manifest_file_sha256": "2a7efcffc74bafaac32458a015437aa2eabc6bd716fd33931b1a3feaa32a9ee0"
+}
