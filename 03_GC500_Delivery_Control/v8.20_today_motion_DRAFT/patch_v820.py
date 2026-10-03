@@ -20,7 +20,7 @@ if text.count(base_marker) != 1 or 'function renderToday(' not in text:
 css = (folder / 'today820_src.css').read_text(encoding='utf-8')
 js = (folder / 'today820_src.js').read_text(encoding='utf-8')
 text = rep(text, base_marker, base_marker + '\n'
-           '<meta name="gc500-today-v820" content="v8.20 — Today selected-card motion">\n'
+           '<meta name="gc500-today-v820" content="GC500 v8.20 — Today selected-card motion">\n'
            '<style id="today-polish-v820">\n' + css + '\n</style>',
            'Today release marker and scoped styles', page)
 

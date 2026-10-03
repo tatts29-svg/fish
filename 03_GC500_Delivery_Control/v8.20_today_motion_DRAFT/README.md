@@ -45,7 +45,8 @@ Use the shared browser lock when other verification is running. `PAGE`, `BASE` a
 rebuild and private evidence directory. Standard desktop and phone sweeps must also pass on the final candidate.
 
 Current checked base: `f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000`.
-Current candidate: `c45062efb28840fa6221d8a16dd428eabd4b4deaf3de0a30e4a2eb8a7944e6d8`, 9,293,143 bytes.
+Final upload candidate: `88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919`, 9,293,149 bytes.
+Runtime-tested candidate: `c45062efb28840fa6221d8a16dd428eabd4b4deaf3de0a30e4a2eb8a7944e6d8`, 9,293,143 bytes.
 The earlier `0c690aaf` candidate is historical and is not the final release: integration testing found that a card
 fully clipped behind the fixed header could keep animating. The final source handles ancestor clipping and nested
 scrolling explicitly. Two earlier test assertions also used window scrolling or assumed a full native redraw could
@@ -67,3 +68,13 @@ and phone sweeps cover22 tabs, seven deep links and Back with zero page or conso
 navigation and current-record shortcut expectations were corrected in the test harness with original failures
 retained privately; the native route, exact reference-set, row count and target-position assertions remain.
 The root reviewer inspected final desktop/phone cards. Guarded publication and actual public-host readback remain.
+
+## Upload signature correction
+
+The first upload of `c45062ef` was refused with HTTP400 before any live-page write. The service requires the
+case-sensitive text `GC500` within the first5,000 characters; inserting the scoped stylesheet had pushed the
+original title beyond that window. The final candidate adds only `GC500 ` to the new metadata content. CSS,
+JavaScript, original DATA, visible markup and all native routes are byte-identical to the runtime-tested candidate.
+Eight owner source checks, including the service's full-document signature, pass on the corrected bytes.
+`owner_evidence.json` retains the exact original runtime-check binding; it is not relabelled as a new test run.
+Independent bounded-difference proof and actual public-host smoke bind the correction to that evidence.

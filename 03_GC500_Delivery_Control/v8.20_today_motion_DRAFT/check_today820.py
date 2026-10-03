@@ -20,6 +20,7 @@ def check(name, value):
     checks.append({'name': name, 'pass': bool(value)})
 
 check('One scoped release marker, stylesheet and controller', all(b.count(x) == 1 for x in ['<meta name="gc500-today-v820"', '<style id="today-polish-v820">', '<script id="today-motion-v820">']))
+check('Service accepts the full-page signature despite early scoped styles', 'GC500' in b[:5000] and bool(re.search(r'</html>\s*$', b[-200:])))
 check('Production controller name and no preview payload', 'TodayMotionPreview' not in b and 'native-snapshot.json' not in b and 'Design preview' not in (here / 'today820_src.js').read_text())
 clean = re.sub(r'<meta name="gc500-today-v820"[^>]+>\n', '', b)
 clean = re.sub(r'<style id="today-polish-v820">.*?</style>', '', clean, flags=re.S)
