@@ -161,20 +161,21 @@ async function run(name, dev) {
     const set = async (el, v) => { el.value = v; el.dispatchEvent(new Event('change', {bubbles: true})); await w(250); };
     const dsing = M.days.find(d => trucks816(d, 'all').some(L => L.kind === 'single'));
     DM816.sel = dsing; DM816.branch = 'all'; DM816.view = 'trucks'; render(); await w(250);
-    const card = () => [...pane().querySelectorAll('.truck816')].find(c => c.querySelector('input[data-ov816]'));
-    out.before = /Oversize: check permit/.test(card().innerText) || false; out.status = /oversize\? the branch to say/.test(card().innerText);
+    const sid = trucks816(dsing, 'all').find(L => L.kind === 'single').ovId; /* chips are upper case on screen: match without case */
+    const card = () => pane().querySelector(`input[data-ov816="${CSS.escape(sid)}"]`).closest('.truck816');
+    out.before = /Oversize: check permit/i.test(card().innerText) || false; out.status = /oversize\? the branch to say/i.test(card().innerText);
     card().querySelector('input[data-ov816]').click(); await w(300);
-    const c1 = card(); out.after = /Oversize: check permit/.test(c1.innerText) && /Check TMR Conditions of Operation Database before each trip/.test(c1.innerText) && /pilot \/ escort: check permit/.test(c1.innerText) && /planning latest departure \d\d:\d\d/.test(c1.innerText);
+    const c1 = card(); out.after = /Oversize: check permit/i.test(c1.innerText) && /Check TMR Conditions of Operation Database before each trip/.test(c1.innerText) && /pilot \/ escort: check permit/.test(c1.innerText) && /planning latest departure \d\d:\d\d/.test(c1.innerText);
     out.tip = /s11\.2 Table 3/.test((c1.querySelector('[title*="Guide v6.0"]') || {}).title || '');
     const tb = pane().querySelector('input[data-trv816="branch"]'); await set(tb, '');
     const c2 = card(); out.blank = /Leave Kingston travel time to confirm/.test(c2.innerText) && /latest departure travel time to confirm/.test(c2.innerText) && /travel time to confirm/.test(c2.innerText);
     await set(pane().querySelector('input[data-trv816="branch"]'), '90'); out.typed = /\(16:00 less the 90 min run/.test(card().innerText) && travel816('branch').v === 90;
-    card().querySelector('input[data-ov816]').click(); await w(250); out.unflag = !/Oversize: check permit/.test(card().innerText);
+    card().querySelector('input[data-ov816]').click(); await w(250); out.unflag = !/Oversize: check permit/i.test(card().innerText);
     try { localStorage.removeItem(TRAVEL816_KEY); localStorage.removeItem(OVFLAG816_KEY); } catch (e) {}
     const dco = M.days.find(d => M.day[d].loads.some(L => L.stream === 'coates')); RENDER_MEMO.clear(); DM816.sel = dco; DM816.view = 'toilets'; render(); await w(250);
     const capIn = pane().querySelector('input[data-cap816]'), key = 'gc500.demob816.cap.' + capIn.dataset.cap816; await set(capIn, '15');
-    out.cap15 = /over 14 - check the truck/.test(pane().innerText) && localStorage.getItem(key) === '15';
-    await set(pane().querySelector('input[data-cap816]'), '12'); out.cap12 = !/over 14 - check the truck/.test(pane().innerText) && localStorage.getItem(key) === null;
+    out.cap15 = /over 14 - check the truck/i.test(pane().innerText) && localStorage.getItem(key) === '15';
+    await set(pane().querySelector('input[data-cap816]'), '12'); out.cap12 = !/over 14 - check the truck/i.test(pane().innerText) && localStorage.getItem(key) === null;
     // print every run type through the page's own buttons: supplier pick-up, Coates toilet run, single piece, branch truck
     window.print = () => {}; const kinds = {}; const errs = [];
     for (const d of M.days) { for (const L of trucks816(d, 'all')) { if (kinds[L.kind]) continue; DM816.sel = d; DM816.view = 'trucks'; render(); await w(120);

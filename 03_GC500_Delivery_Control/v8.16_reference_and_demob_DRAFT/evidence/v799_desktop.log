@@ -9,16 +9,3 @@ PASS a redraw of the record keeps opened folds drawn
 PASS every fold opened at once stays open, and all are drawn
 PASS print draws By branch and On site in full and opens every fold
 PASS after printing the folds close again
-PASS every jump button lands its part at the top, folds opened and drawn
-PASS cards are placed, and the two-wide plates stay two wide
-PASS no overlap and nothing outside its box at 1440 px
-PASS no overlap and nothing outside its box at 1280 px
-PASS no overlap and nothing outside its box at 1000 px
-PASS widening is decided afresh after the window changes, and comes back the same
-PASS the date control replays the day with the folds still waiting
-PASS a print from Equipment leaves its list alone and draws nothing on Today
-PASS opening On site by its line keeps it in place, open, drawn and focused
-PASS opening By branch by its line keeps it in place, open, drawn and focused
-PASS paper has as many pages as live: Ctrl+P on Today and the A4 report
-PASS no page errors
-23/23 desktop · page errors 0
