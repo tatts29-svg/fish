@@ -1,7 +1,7 @@
 {
   "author": "Andrew Fisher",
   "source": "v8.16_reference_and_demob_DRAFT",
-  "baseline": "build/GC500_v8.16/base_live.html",
+  "baseline": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.16/base_live.html",
   "checks": 13,
   "passed": [
     "same-day added reference now has one typed removal",

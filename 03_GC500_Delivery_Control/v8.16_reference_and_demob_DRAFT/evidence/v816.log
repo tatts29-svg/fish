@@ -1,7 +1,7 @@
 
 == desktop
-drawer height (folds closed) before → after: {"P42":4469,"WC05":4907,"P46":3949} → {"P42":1709,"WC05":1874,"P46":1587}
-PASS desktop: the drawer opens short (under 60% of live for P42, WC05, P46)  - {"before":{"P42":4469,"WC05":4907,"P46":3949},"after":{"P42":1709,"WC05":1874,"P46":1587}}
+drawer height (folds closed) before → after: {"P42":4424,"WC05":4907,"P46":3949} → {"P42":1709,"WC05":1924,"P46":1587}
+PASS desktop: the drawer opens short (under 60% of live for P42, WC05, P46)  - {"before":{"P42":4424,"WC05":4907,"P46":3949},"after":{"P42":1709,"WC05":1924,"P46":1587}}
 PASS desktop: no money on the public view (9 drawers, every fold a viewer can open, opened)
 PASS desktop: Contract & charges is in the drawer and hidden from the view link
 PASS desktop: the empty states, precision tags, This link, Demob-week and Off-hire lines and Rental ID are gone
@@ -32,6 +32,7 @@ Every toilet and waste tank is pumped out before it is loaded - do not load o
 PASS desktop: Print run sheets lays out one A4 per load and opens print  - {"pages":8,"expect":8,"printed":1}
 PASS desktop: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off  - Coates INDUSTRIAL SOLUTIONS DEMOB RUN SHEET · GC500 2026 Collection · Wed 28 Oct 2026 Toilet run TRUCK 1 · LOAD 1 OF 8
 PASS desktop: run sheets carry the emptied line with a tick box per unit, and NOT READY for a toilet not yet emptied
+FAIL desktop: all 98 run sheets across the 15 days fit their A4 page, tick boxes apart  - {"n":98,"bad":["2026-10-28 sheet 1 1106>1058","2026-10-30 sheet 1 1168>1058","2026-11-02 sheet 1 1168>1058"],"boxBad":[],"zero":0}
 PASS desktop: no toilet load is over 24 units (13 loads)
 PASS desktop: every event-portable unit is in exactly one load (233 units on 63 references; types FWF, Pee Panel)
 PASS desktop: toilet loads keep the island priority (outside loads first, outside in week 1, island in weeks 2-3, sides not mixed)  - {"dayOrder":[],"badWeek":0,"mixed":0}
@@ -61,8 +62,8 @@ PASS desktop: reduced motion is respected (no bar growth, no pulse, folds open w
 PASS desktop: no page errors (reduced motion)
 
 == phone
-drawer height (folds closed) before → after: {"P42":4933,"WC05":5448,"P46":4396} → {"P42":1908,"WC05":1999,"P46":1685}
-PASS phone: the drawer opens short (under 60% of live for P42, WC05, P46)  - {"before":{"P42":4933,"WC05":5448,"P46":4396},"after":{"P42":1908,"WC05":1999,"P46":1685}}
+drawer height (folds closed) before → after: {"P42":4934,"WC05":5448,"P46":4396} → {"P42":1908,"WC05":1999,"P46":1685}
+PASS phone: the drawer opens short (under 60% of live for P42, WC05, P46)  - {"before":{"P42":4934,"WC05":5448,"P46":4396},"after":{"P42":1908,"WC05":1999,"P46":1685}}
 PASS phone: no money on the public view (9 drawers, every fold a viewer can open, opened)
 PASS phone: Contract & charges is in the drawer and hidden from the view link
 PASS phone: the empty states, precision tags, This link, Demob-week and Off-hire lines and Rental ID are gone
@@ -94,6 +95,7 @@ Every toilet and waste tank is pumped out before it is loaded - do not load o
 PASS phone: Print run sheets lays out one A4 per load and opens print  - {"pages":8,"expect":8,"printed":1}
 PASS phone: a run sheet carries the date, branch, truck and load, site hours, depot and the sign-off  - Coates INDUSTRIAL SOLUTIONS DEMOB RUN SHEET · GC500 2026 Collection · Wed 28 Oct 2026 Toilet run TRUCK 1 · LOAD 1 OF 8
 PASS phone: run sheets carry the emptied line with a tick box per unit, and NOT READY for a toilet not yet emptied
+FAIL phone: all 98 run sheets across the 15 days fit their A4 page, tick boxes apart  - {"n":98,"bad":["2026-10-28 sheet 1 1106>1058","2026-10-30 sheet 1 1168>1058","2026-11-02 sheet 1 1168>1058"],"boxBad":[],"zero":0}
 PASS phone: no toilet load is over 24 units (13 loads)
 PASS phone: every event-portable unit is in exactly one load (233 units on 63 references; types FWF, Pee Panel)
 PASS phone: toilet loads keep the island priority (outside loads first, outside in week 1, island in weeks 2-3, sides not mixed)  - {"dayOrder":[],"badWeek":0,"mixed":0}
@@ -122,4 +124,4 @@ blocked writes: 0 (the harness aborts any)
 PASS phone: reduced motion is respected (no bar growth, no pulse, folds open without sliding)  - {"bar":"none","pin":"none","anims":0,"open":true}
 PASS phone: no page errors (reduced motion)
 
-ALL PASSED (101)
+2 FAILED, 101 passed

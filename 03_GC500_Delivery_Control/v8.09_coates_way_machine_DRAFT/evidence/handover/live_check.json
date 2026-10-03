@@ -1,0 +1,501 @@
+{
+ "author": "Andrew Fisher",
+ "checkedUtc": "2026-10-03T00:43:25.879775+00:00",
+ "liveStatus": {
+  "ready": true,
+  "version": "v8.13-maps-satellite",
+  "label": "The Coates Way machine and GC500 map explorer",
+  "built": null,
+  "entry": "index.html",
+  "files": 219,
+  "bytes": 172184133,
+  "registered": "2026-10-02T10:03:12.566Z",
+  "sha256": "65c47180502d9052ca3661e5aedd06683e8168c1e9be9297bcbcb7c2e4d9fe86"
+ },
+ "liveIsBase": true,
+ "baseFiles": 56,
+ "mapFiles": 4,
+ "mismatches": [],
+ "rows": [
+  {
+   "path": "app.js",
+   "liveSha256": "bac91710fb44caa06ed79e262b2f40c9b0420b98d08b4511612c9ce04b063e34",
+   "liveBytes": 37425,
+   "manifestSha256": "bac91710fb44caa06ed79e262b2f40c9b0420b98d08b4511612c9ce04b063e34",
+   "baseSha256": "bac91710fb44caa06ed79e262b2f40c9b0420b98d08b4511612c9ce04b063e34",
+   "match": true
+  },
+  {
+   "path": "assets/gc500/original-car.js",
+   "liveSha256": "4f07fda08a07b55aeb60b9798d5a0f0148b22c93c4a6b7ac8e03bf7c8a5c2cac",
+   "liveBytes": 224298,
+   "manifestSha256": "4f07fda08a07b55aeb60b9798d5a0f0148b22c93c4a6b7ac8e03bf7c8a5c2cac",
+   "baseSha256": "4f07fda08a07b55aeb60b9798d5a0f0148b22c93c4a6b7ac8e03bf7c8a5c2cac",
+   "match": true
+  },
+  {
+   "path": "car-app.js",
+   "liveSha256": "a6c3a4025be3f5142d9b53cd97224a07c3c7ad8e19fb0712dbf90d529ede9a78",
+   "liveBytes": 129280,
+   "manifestSha256": "a6c3a4025be3f5142d9b53cd97224a07c3c7ad8e19fb0712dbf90d529ede9a78",
+   "baseSha256": "a6c3a4025be3f5142d9b53cd97224a07c3c7ad8e19fb0712dbf90d529ede9a78",
+   "match": true
+  },
+  {
+   "path": "car-body.js",
+   "liveSha256": "f06454e5246dfbb0b96cf9cdb8e186ba2b0fee7db0022dd1aeb0f46615e64a64",
+   "liveBytes": 184,
+   "manifestSha256": "f06454e5246dfbb0b96cf9cdb8e186ba2b0fee7db0022dd1aeb0f46615e64a64",
+   "baseSha256": "f06454e5246dfbb0b96cf9cdb8e186ba2b0fee7db0022dd1aeb0f46615e64a64",
+   "match": true
+  },
+  {
+   "path": "car-cockpit.js",
+   "liveSha256": "259ea8a36bec9ea1e12920f055a90922b308e59c3ce1ea59d4b66cafab64220a",
+   "liveBytes": 88795,
+   "manifestSha256": "259ea8a36bec9ea1e12920f055a90922b308e59c3ce1ea59d4b66cafab64220a",
+   "baseSha256": "259ea8a36bec9ea1e12920f055a90922b308e59c3ce1ea59d4b66cafab64220a",
+   "match": true
+  },
+  {
+   "path": "car-driver.js",
+   "liveSha256": "f26f4a900a8977c5d9745b68b07edbe3db232aed94cfd2a1df028eb61e77aee3",
+   "liveBytes": 23556,
+   "manifestSha256": "f26f4a900a8977c5d9745b68b07edbe3db232aed94cfd2a1df028eb61e77aee3",
+   "baseSha256": "f26f4a900a8977c5d9745b68b07edbe3db232aed94cfd2a1df028eb61e77aee3",
+   "match": true
+  },
+  {
+   "path": "car-fit.js",
+   "liveSha256": "9f8077351367a41375223c15d4aedb75e5e453853c18d3855e38bace26b10527",
+   "liveBytes": 6159,
+   "manifestSha256": "9f8077351367a41375223c15d4aedb75e5e453853c18d3855e38bace26b10527",
+   "baseSha256": "9f8077351367a41375223c15d4aedb75e5e453853c18d3855e38bace26b10527",
+   "match": true
+  },
+  {
+   "path": "car-gc500.js",
+   "liveSha256": "6287ee0e1cd0c87d3925794bc13e936655c15f1f8f76b958b5b16051cab3247f",
+   "liveBytes": 16257,
+   "manifestSha256": "6287ee0e1cd0c87d3925794bc13e936655c15f1f8f76b958b5b16051cab3247f",
+   "baseSha256": "6287ee0e1cd0c87d3925794bc13e936655c15f1f8f76b958b5b16051cab3247f",
+   "match": true
+  },
+  {
+   "path": "car-motion.js",
+   "liveSha256": "4f9e53fbeaddac43e84af707a5340d356839d2b2b62d95a31057bfc773304335",
+   "liveBytes": 18995,
+   "manifestSha256": "4f9e53fbeaddac43e84af707a5340d356839d2b2b62d95a31057bfc773304335",
+   "baseSha256": "4f9e53fbeaddac43e84af707a5340d356839d2b2b62d95a31057bfc773304335",
+   "match": true
+  },
+  {
+   "path": "car-powertrain.js",
+   "liveSha256": "bd0897200c1e65f146355c6fab4eb852090f6d738c7a25092ba3aad58a69cefe",
+   "liveBytes": 41812,
+   "manifestSha256": "bd0897200c1e65f146355c6fab4eb852090f6d738c7a25092ba3aad58a69cefe",
+   "baseSha256": "bd0897200c1e65f146355c6fab4eb852090f6d738c7a25092ba3aad58a69cefe",
+   "match": true
+  },
+  {
+   "path": "car-references.js",
+   "liveSha256": "f728b3bc8e886e762220e2675d41ebcc3b4195642b03faa4ad1397835891189c",
+   "liveBytes": 5457,
+   "manifestSha256": "f728b3bc8e886e762220e2675d41ebcc3b4195642b03faa4ad1397835891189c",
+   "baseSha256": "f728b3bc8e886e762220e2675d41ebcc3b4195642b03faa4ad1397835891189c",
+   "match": true
+  },
+  {
+   "path": "car-scene.js",
+   "liveSha256": "65aa1e52e934e32589a7132a63d2b5cf6f897b3ee94b25e8fdc0e3c8c3d57148",
+   "liveBytes": 4622,
+   "manifestSha256": "65aa1e52e934e32589a7132a63d2b5cf6f897b3ee94b25e8fdc0e3c8c3d57148",
+   "baseSha256": "65aa1e52e934e32589a7132a63d2b5cf6f897b3ee94b25e8fdc0e3c8c3d57148",
+   "match": true
+  },
+  {
+   "path": "car.css",
+   "liveSha256": "78b7b8be0b1c824568731927ee5b43d01a0acaa82dfcdffa511de065f70fbeda",
+   "liveBytes": 24943,
+   "manifestSha256": "78b7b8be0b1c824568731927ee5b43d01a0acaa82dfcdffa511de065f70fbeda",
+   "baseSha256": "78b7b8be0b1c824568731927ee5b43d01a0acaa82dfcdffa511de065f70fbeda",
+   "match": true
+  },
+  {
+   "path": "cockpit-surfaces.js",
+   "liveSha256": "35b9f8672cb041e3860fa71db0c2b9bfb6b87e31c08a59894ccb575c5c51ccba",
+   "liveBytes": 10594,
+   "manifestSha256": "35b9f8672cb041e3860fa71db0c2b9bfb6b87e31c08a59894ccb575c5c51ccba",
+   "baseSha256": "35b9f8672cb041e3860fa71db0c2b9bfb6b87e31c08a59894ccb575c5c51ccba",
+   "match": true
+  },
+  {
+   "path": "cog-meanings.js",
+   "liveSha256": "f968bad28b8c08eb243fda20f1c1166e09af989a8926c5332c334f8c970e64b6",
+   "liveBytes": 8638,
+   "manifestSha256": "f968bad28b8c08eb243fda20f1c1166e09af989a8926c5332c334f8c970e64b6",
+   "baseSha256": "f968bad28b8c08eb243fda20f1c1166e09af989a8926c5332c334f8c970e64b6",
+   "match": true
+  },
+  {
+   "path": "content.js",
+   "liveSha256": "0ba343ffbb2cb04e9ac89e7ca05071ccf6b5ea93bf95a59361f38d9c513175ad",
+   "liveBytes": 4519,
+   "manifestSha256": "0ba343ffbb2cb04e9ac89e7ca05071ccf6b5ea93bf95a59361f38d9c513175ad",
+   "baseSha256": "0ba343ffbb2cb04e9ac89e7ca05071ccf6b5ea93bf95a59361f38d9c513175ad",
+   "match": true
+  },
+  {
+   "path": "crew.js",
+   "liveSha256": "652851251e5c529287747d44956e0f37ae9214b757e8ea8e529f9e79d24db04a",
+   "liveBytes": 144923,
+   "manifestSha256": "652851251e5c529287747d44956e0f37ae9214b757e8ea8e529f9e79d24db04a",
+   "baseSha256": "652851251e5c529287747d44956e0f37ae9214b757e8ea8e529f9e79d24db04a",
+   "match": true
+  },
+  {
+   "path": "drive.js",
+   "liveSha256": "1877d3cf85c9df5a2a9be737ae657f026a93cfd296c38bac7ec8ff2cca7bf0a7",
+   "liveBytes": 6964,
+   "manifestSha256": "1877d3cf85c9df5a2a9be737ae657f026a93cfd296c38bac7ec8ff2cca7bf0a7",
+   "baseSha256": "1877d3cf85c9df5a2a9be737ae657f026a93cfd296c38bac7ec8ff2cca7bf0a7",
+   "match": true
+  },
+  {
+   "path": "engine-accessories.js",
+   "liveSha256": "14654db2ac254837c0ae5b8eacd87b350aa885421503680a2b4bff4cfeca5b4a",
+   "liveBytes": 11065,
+   "manifestSha256": "14654db2ac254837c0ae5b8eacd87b350aa885421503680a2b4bff4cfeca5b4a",
+   "baseSha256": "14654db2ac254837c0ae5b8eacd87b350aa885421503680a2b4bff4cfeca5b4a",
+   "match": true
+  },
+  {
+   "path": "engine-kinematics.js",
+   "liveSha256": "bf166a0f9900bd906e4ed78e652f6100e81f15f02685af460cd37c5d29d15ee5",
+   "liveBytes": 8409,
+   "manifestSha256": "bf166a0f9900bd906e4ed78e652f6100e81f15f02685af460cd37c5d29d15ee5",
+   "baseSha256": "bf166a0f9900bd906e4ed78e652f6100e81f15f02685af460cd37c5d29d15ee5",
+   "match": true
+  },
+  {
+   "path": "engine-systems.js",
+   "liveSha256": "de2ce3e19ff6b1292ff26aed37fee6c2a832fd4051672acf03904595b73f4fb1",
+   "liveBytes": 10577,
+   "manifestSha256": "de2ce3e19ff6b1292ff26aed37fee6c2a832fd4051672acf03904595b73f4fb1",
+   "baseSha256": "de2ce3e19ff6b1292ff26aed37fee6c2a832fd4051672acf03904595b73f4fb1",
+   "match": true
+  },
+  {
+   "path": "exhaust-fx.js",
+   "liveSha256": "583cdbbf20610b1e6828a7f6df4a1ddb9dffcd125d23bd9e7036d0289d356ddc",
+   "liveBytes": 6029,
+   "manifestSha256": "583cdbbf20610b1e6828a7f6df4a1ddb9dffcd125d23bd9e7036d0289d356ddc",
+   "baseSha256": "583cdbbf20610b1e6828a7f6df4a1ddb9dffcd125d23bd9e7036d0289d356ddc",
+   "match": true
+  },
+  {
+   "path": "front-drive.js",
+   "liveSha256": "c425194b4f45b9fac4b1fbcd864a5caa945e2816f7c7fcc127a7b12e2e2a056f",
+   "liveBytes": 5349,
+   "manifestSha256": "c425194b4f45b9fac4b1fbcd864a5caa945e2816f7c7fcc127a7b12e2e2a056f",
+   "baseSha256": "c425194b4f45b9fac4b1fbcd864a5caa945e2816f7c7fcc127a7b12e2e2a056f",
+   "match": true
+  },
+  {
+   "path": "gear-math.js",
+   "liveSha256": "b8933f5e53ace025ac08ae58d07f01a92674c1900801481661933b8a1c96209c",
+   "liveBytes": 1349,
+   "manifestSha256": "b8933f5e53ace025ac08ae58d07f01a92674c1900801481661933b8a1c96209c",
+   "baseSha256": "b8933f5e53ace025ac08ae58d07f01a92674c1900801481661933b8a1c96209c",
+   "match": true
+  },
+  {
+   "path": "index.html",
+   "liveSha256": "f69cfb19e25d5ce2044b7795dae9b7fee67a1b621a462a3d65a3ccb7e43f237c",
+   "liveBytes": 11143,
+   "manifestSha256": "f69cfb19e25d5ce2044b7795dae9b7fee67a1b621a462a3d65a3ccb7e43f237c",
+   "baseSha256": "f69cfb19e25d5ce2044b7795dae9b7fee67a1b621a462a3d65a3ccb7e43f237c",
+   "match": true
+  },
+  {
+   "path": "mechanics.js",
+   "liveSha256": "959b2216623796f8f1a7d60031e39caefe699f0ce94b2c8b1948d4a7d5c941d1",
+   "liveBytes": 5688,
+   "manifestSha256": "959b2216623796f8f1a7d60031e39caefe699f0ce94b2c8b1948d4a7d5c941d1",
+   "baseSha256": "959b2216623796f8f1a7d60031e39caefe699f0ce94b2c8b1948d4a7d5c941d1",
+   "match": true
+  },
+  {
+   "path": "mechanism.html",
+   "liveSha256": "698f48a8695c03be7a00b74f9d9708b31723a2c5c722a289bd8ee528cf975394",
+   "liveBytes": 8531,
+   "manifestSha256": "698f48a8695c03be7a00b74f9d9708b31723a2c5c722a289bd8ee528cf975394",
+   "baseSha256": "698f48a8695c03be7a00b74f9d9708b31723a2c5c722a289bd8ee528cf975394",
+   "match": true
+  },
+  {
+   "path": "model.js",
+   "liveSha256": "86725d2606b9a15e0f5d30682b068e7e26c48681b86000624da59d9f979af582",
+   "liveBytes": 9843,
+   "manifestSha256": "86725d2606b9a15e0f5d30682b068e7e26c48681b86000624da59d9f979af582",
+   "baseSha256": "86725d2606b9a15e0f5d30682b068e7e26c48681b86000624da59d9f979af582",
+   "match": true
+  },
+  {
+   "path": "part-connections.js",
+   "liveSha256": "4856f9632ce260a6a8f4e495b119115da4d252b7cf5889f0d3bc54ecd05d90de",
+   "liveBytes": 11050,
+   "manifestSha256": "4856f9632ce260a6a8f4e495b119115da4d252b7cf5889f0d3bc54ecd05d90de",
+   "baseSha256": "4856f9632ce260a6a8f4e495b119115da4d252b7cf5889f0d3bc54ecd05d90de",
+   "match": true
+  },
+  {
+   "path": "parts-register.js",
+   "liveSha256": "5aa0aa9a99a18275c155a73908fb4152b2d11bfc498ce6ca4b9eeb656395bf74",
+   "liveBytes": 2926,
+   "manifestSha256": "5aa0aa9a99a18275c155a73908fb4152b2d11bfc498ce6ca4b9eeb656395bf74",
+   "baseSha256": "5aa0aa9a99a18275c155a73908fb4152b2d11bfc498ce6ca4b9eeb656395bf74",
+   "match": true
+  },
+  {
+   "path": "parts.js",
+   "liveSha256": "c6a57131c5968037834f0ac381b2f2ca04f49e553c90adb40e5094a0fd7c9ea8",
+   "liveBytes": 28883,
+   "manifestSha256": "c6a57131c5968037834f0ac381b2f2ca04f49e553c90adb40e5094a0fd7c9ea8",
+   "baseSha256": "c6a57131c5968037834f0ac381b2f2ca04f49e553c90adb40e5094a0fd7c9ea8",
+   "match": true
+  },
+  {
+   "path": "pit-garage.js",
+   "liveSha256": "0b88a0386f82abcbc859676cf040112d4d51ccf1995b0025cd436ffedc9ef946",
+   "liveBytes": 96519,
+   "manifestSha256": "0b88a0386f82abcbc859676cf040112d4d51ccf1995b0025cd436ffedc9ef946",
+   "baseSha256": "0b88a0386f82abcbc859676cf040112d4d51ccf1995b0025cd436ffedc9ef946",
+   "match": true
+  },
+  {
+   "path": "pit-machinery.js",
+   "liveSha256": "43a93c2eab9aa04e3595c70433f86fe045ca80e2f65823192b81b04f64db290c",
+   "liveBytes": 37380,
+   "manifestSha256": "43a93c2eab9aa04e3595c70433f86fe045ca80e2f65823192b81b04f64db290c",
+   "baseSha256": "43a93c2eab9aa04e3595c70433f86fe045ca80e2f65823192b81b04f64db290c",
+   "match": true
+  },
+  {
+   "path": "poses.js",
+   "liveSha256": "a8a6b42e872c334490a100bb83719d121dc9ba6b6ba1691af5e70ab200608fc1",
+   "liveBytes": 1270,
+   "manifestSha256": "a8a6b42e872c334490a100bb83719d121dc9ba6b6ba1691af5e70ab200608fc1",
+   "baseSha256": "a8a6b42e872c334490a100bb83719d121dc9ba6b6ba1691af5e70ab200608fc1",
+   "match": true
+  },
+  {
+   "path": "service-parts.js",
+   "liveSha256": "90c2ddbb785c4761add2dda6f73cf77c20675975fccbc02a8ddece5258e65dcf",
+   "liveBytes": 16144,
+   "manifestSha256": "90c2ddbb785c4761add2dda6f73cf77c20675975fccbc02a8ddece5258e65dcf",
+   "baseSha256": "90c2ddbb785c4761add2dda6f73cf77c20675975fccbc02a8ddece5258e65dcf",
+   "match": true
+  },
+  {
+   "path": "style.css",
+   "liveSha256": "fe62a8b23dccd154a007e6752ad645d62576932d0c9707ad828bea774bc3f3d7",
+   "liveBytes": 21827,
+   "manifestSha256": "fe62a8b23dccd154a007e6752ad645d62576932d0c9707ad828bea774bc3f3d7",
+   "baseSha256": "fe62a8b23dccd154a007e6752ad645d62576932d0c9707ad828bea774bc3f3d7",
+   "match": true
+  },
+  {
+   "path": "timing-drive.js",
+   "liveSha256": "448d6d4f9244a62be0b818fdf6ff547ae7105ea2b5f6e80071fe654c864a2331",
+   "liveBytes": 4358,
+   "manifestSha256": "448d6d4f9244a62be0b818fdf6ff547ae7105ea2b5f6e80071fe654c864a2331",
+   "baseSha256": "448d6d4f9244a62be0b818fdf6ff547ae7105ea2b5f6e80071fe654c864a2331",
+   "match": true
+  },
+  {
+   "path": "v8-audio.js",
+   "liveSha256": "a2210e58068faaf2355bf1492b23a08ec033171de7864703610ec401ccad3ce0",
+   "liveBytes": 37810,
+   "manifestSha256": "a2210e58068faaf2355bf1492b23a08ec033171de7864703610ec401ccad3ce0",
+   "baseSha256": "a2210e58068faaf2355bf1492b23a08ec033171de7864703610ec401ccad3ce0",
+   "match": true
+  },
+  {
+   "path": "vendor/OrbitControls.js",
+   "liveSha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e",
+   "liveBytes": 32134,
+   "manifestSha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e",
+   "baseSha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/math/SimplexNoise.js",
+   "liveSha256": "9b8d541b77b0ddc79afaa6a1de8941452c191b8b9006f04e7b8fc422e2b263f7",
+   "liveBytes": 14351,
+   "manifestSha256": "9b8d541b77b0ddc79afaa6a1de8941452c191b8b9006f04e7b8fc422e2b263f7",
+   "baseSha256": "9b8d541b77b0ddc79afaa6a1de8941452c191b8b9006f04e7b8fc422e2b263f7",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/objects/Reflector.js",
+   "liveSha256": "42067cd52f091e8f6d059c9e5a28310d52cfdf4941bfedbc63068142f4f418fa",
+   "liveBytes": 7059,
+   "manifestSha256": "42067cd52f091e8f6d059c9e5a28310d52cfdf4941bfedbc63068142f4f418fa",
+   "baseSha256": "42067cd52f091e8f6d059c9e5a28310d52cfdf4941bfedbc63068142f4f418fa",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/postprocessing/EffectComposer.js",
+   "liveSha256": "d234e578618fa816955ebdc059c049c577e203e650e33cf22bde3f232c29e669",
+   "liveBytes": 4651,
+   "manifestSha256": "d234e578618fa816955ebdc059c049c577e203e650e33cf22bde3f232c29e669",
+   "baseSha256": "d234e578618fa816955ebdc059c049c577e203e650e33cf22bde3f232c29e669",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/postprocessing/GTAOPass.js",
+   "liveSha256": "980b036767c439cf2aadd0e869b2e51b2ec00736a75a5ad1bb69dddb03254fe8",
+   "liveBytes": 16582,
+   "manifestSha256": "980b036767c439cf2aadd0e869b2e51b2ec00736a75a5ad1bb69dddb03254fe8",
+   "baseSha256": "980b036767c439cf2aadd0e869b2e51b2ec00736a75a5ad1bb69dddb03254fe8",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/postprocessing/MaskPass.js",
+   "liveSha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f",
+   "liveBytes": 2231,
+   "manifestSha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f",
+   "baseSha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/postprocessing/OutputPass.js",
+   "liveSha256": "32f879d2179087676631c799857a885586b3cdd13b9731bd3b13f06428bd58b7",
+   "liveBytes": 2524,
+   "manifestSha256": "32f879d2179087676631c799857a885586b3cdd13b9731bd3b13f06428bd58b7",
+   "baseSha256": "32f879d2179087676631c799857a885586b3cdd13b9731bd3b13f06428bd58b7",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/postprocessing/Pass.js",
+   "liveSha256": "b3c6128340eaa37e40a6a2f1b738e894c855239417d50959759b34a2b5e89f92",
+   "liveBytes": 1706,
+   "manifestSha256": "b3c6128340eaa37e40a6a2f1b738e894c855239417d50959759b34a2b5e89f92",
+   "baseSha256": "b3c6128340eaa37e40a6a2f1b738e894c855239417d50959759b34a2b5e89f92",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/postprocessing/RenderPass.js",
+   "liveSha256": "6c9b8a539ea16e898f65e4760f14937ef9ea94043bd9842c141e0301f41903e8",
+   "liveBytes": 1941,
+   "manifestSha256": "6c9b8a539ea16e898f65e4760f14937ef9ea94043bd9842c141e0301f41903e8",
+   "baseSha256": "6c9b8a539ea16e898f65e4760f14937ef9ea94043bd9842c141e0301f41903e8",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/postprocessing/ShaderPass.js",
+   "liveSha256": "3b28a1ee27e0eb96c0eab137a1f442ccf127a926904eced2d51e125ec44af781",
+   "liveBytes": 1576,
+   "manifestSha256": "3b28a1ee27e0eb96c0eab137a1f442ccf127a926904eced2d51e125ec44af781",
+   "baseSha256": "3b28a1ee27e0eb96c0eab137a1f442ccf127a926904eced2d51e125ec44af781",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/shaders/CopyShader.js",
+   "liveSha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d",
+   "liveBytes": 571,
+   "manifestSha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d",
+   "baseSha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/shaders/GTAOShader.js",
+   "liveSha256": "e1f5dd89bca4ee679a4aca50c3ef3513926be71f6860c38e31a62cc9d7120b39",
+   "liveBytes": 12990,
+   "manifestSha256": "e1f5dd89bca4ee679a4aca50c3ef3513926be71f6860c38e31a62cc9d7120b39",
+   "baseSha256": "e1f5dd89bca4ee679a4aca50c3ef3513926be71f6860c38e31a62cc9d7120b39",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/shaders/OutputShader.js",
+   "liveSha256": "4944cecd49c0d4d1520a4d927bde8a590fd43f041ee913252b9451855a01d0f0",
+   "liveBytes": 1490,
+   "manifestSha256": "4944cecd49c0d4d1520a4d927bde8a590fd43f041ee913252b9451855a01d0f0",
+   "baseSha256": "4944cecd49c0d4d1520a4d927bde8a590fd43f041ee913252b9451855a01d0f0",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/shaders/PoissonDenoiseShader.js",
+   "liveSha256": "3dab419b23529f8fd59e2713458502f9f51d2dd3af3e1285dc671fcc451d49fb",
+   "liveBytes": 6614,
+   "manifestSha256": "3dab419b23529f8fd59e2713458502f9f51d2dd3af3e1285dc671fcc451d49fb",
+   "baseSha256": "3dab419b23529f8fd59e2713458502f9f51d2dd3af3e1285dc671fcc451d49fb",
+   "match": true
+  },
+  {
+   "path": "vendor/addons/utils/BufferGeometryUtils.js",
+   "liveSha256": "31afd27ae8035ab828d67fe0b136c552b2de186634b5abd78e0f69729848c3b5",
+   "liveBytes": 31784,
+   "manifestSha256": "31afd27ae8035ab828d67fe0b136c552b2de186634b5abd78e0f69729848c3b5",
+   "baseSha256": "31afd27ae8035ab828d67fe0b136c552b2de186634b5abd78e0f69729848c3b5",
+   "match": true
+  },
+  {
+   "path": "vendor/meshopt_decoder.module.js",
+   "liveSha256": "10b313edaa0e322b0c1b46443f6c8b186b42139fe1eca189d50c09511d0ebedc",
+   "liveBytes": 29019,
+   "manifestSha256": "10b313edaa0e322b0c1b46443f6c8b186b42139fe1eca189d50c09511d0ebedc",
+   "baseSha256": "10b313edaa0e322b0c1b46443f6c8b186b42139fe1eca189d50c09511d0ebedc",
+   "match": true
+  },
+  {
+   "path": "vendor/three.module.js",
+   "liveSha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+   "liveBytes": 1314681,
+   "manifestSha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+   "baseSha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+   "match": true
+  },
+  {
+   "path": "view-fx.js",
+   "liveSha256": "e39a4d405a7b838784e351b63940b77c0e0eceac0954c0792622b9651ef87fc0",
+   "liveBytes": 10897,
+   "manifestSha256": "e39a4d405a7b838784e351b63940b77c0e0eceac0954c0792622b9651ef87fc0",
+   "baseSha256": "e39a4d405a7b838784e351b63940b77c0e0eceac0954c0792622b9651ef87fc0",
+   "match": true
+  },
+  {
+   "path": "explorer/explorer.js",
+   "liveSha256": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+   "liveBytes": 133534,
+   "manifestSha256": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+   "baseSha256": null,
+   "match": true
+  },
+  {
+   "path": "explorer/explorer-merge.js",
+   "liveSha256": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+   "liveBytes": 25146,
+   "manifestSha256": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+   "baseSha256": null,
+   "match": true
+  },
+  {
+   "path": "explorer/index.html",
+   "liveSha256": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+   "liveBytes": 27591,
+   "manifestSha256": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+   "baseSha256": null,
+   "match": true
+  },
+  {
+   "path": "poc3d/index.html",
+   "liveSha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+   "liveBytes": 44565,
+   "manifestSha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+   "baseSha256": null,
+   "match": true
+  }
+ ]
+}

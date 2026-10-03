@@ -311,6 +311,7 @@ function renderDocs815(){
  if (hosted) docsRefresh(false);
  state.photoCat = null;
  const COLL = docCollection(), all = COLL.items, by = tileItems815(all);
+ coll815.last = {files: DOCS.files, n: Object.keys(DOCS.files || {}).length, at: DOCS.at, state: DOCS.state, COLL};
  /* a deep link (#docs/swms, the fencing papers, Today's card) picks its card */
  let land = null;
  if (state.docsec) {
@@ -347,9 +348,15 @@ function selRow815(){
  row.setAttribute('aria-current', 'true'); row.tabIndex = -1;
  setTimeout(() => { if (!document.contains(row) || state.tab !== 'docs') return; row.scrollIntoView({block: 'center', behavior: 'auto'}); try { row.focus({preventScroll: true}); } catch (e) {} }, 0);
 }
-/* typing repaints the cards and the list under them, never the box being typed in */
-function paintDocs815(){
- const COLL = docCollection(), all = COLL.items, by = tileItems815(all), found = find815(all, state.docQ815);
+/* typing repaints the cards and the list under them, never the box being typed in. Like every render on the page it runs
+ inside holdAssets: the collection asks, for each of the 324 file names, whether a docket number in it is an asset number,
+ and outside a hold each of those questions rebuilds the whole asset list - measured at 100 s for one repaint. */
+function paintDocs815(){ return holdAssets(() => paintDocs815_held()); }
+/* the collection the last full drawing built. A record change, a refresh of the file list or a change of tab draws the
+ whole tab again (renderDocs815), so a card press or a keystroke in between can use it as it is */
+function coll815(){ const L = coll815.last; return L && L.files === DOCS.files && L.n === Object.keys(DOCS.files || {}).length && L.at === DOCS.at && L.state === DOCS.state ? L.COLL : docCollection(); }
+function paintDocs815_held(){
+ const COLL = coll815(), all = COLL.items, by = tileItems815(all), found = find815(all, state.docQ815);
  const t = $('#docTiles815'), b = $('#docBody815'); if (!t || !b) return renderDocs815();
  t.innerHTML = tilesHtml815(by, found); b.innerHTML = bodyHtml815(all, by, found);
  state.docAnim815 = false;

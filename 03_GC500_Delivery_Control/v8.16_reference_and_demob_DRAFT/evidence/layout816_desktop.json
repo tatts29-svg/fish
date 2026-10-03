@@ -1,5 +1,12 @@
 {
  "mobile": false,
+ "today (reference)": {
+  "Today lights card": {
+   "w": 372,
+   "h": 402,
+   "emptyPct": 30.2
+  }
+ },
  "drawer P42": {
   "summary In/Out tiles": {
    "w": 400,
@@ -40,8 +47,8 @@
   },
   "photo strip": {
    "w": 392,
-   "h": 94,
-   "emptyPct": 36.1
+   "h": 144,
+   "emptyPct": 2
   }
  },
  "demob 2026-10-28": {
@@ -57,8 +64,8 @@
   },
   "day strip": {
    "w": 1380,
-   "h": 219,
-   "emptyPct": 20.1
+   "h": 217,
+   "emptyPct": 17.9
   },
   "day bar (branches | actions)": {
    "w": 1372,
@@ -79,8 +86,8 @@
   },
   "day strip": {
    "w": 1380,
-   "h": 219,
-   "emptyPct": 20.1
+   "h": 217,
+   "emptyPct": 17.9
   },
   "day bar (branches | actions)": {
    "w": 1372,

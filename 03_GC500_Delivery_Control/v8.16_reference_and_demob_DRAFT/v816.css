@@ -39,7 +39,7 @@
 #drawer.d816 .kv816{margin:0 0 10px}
 #drawer.d816 .kv816 dd small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
 #drawer.d816 .acts816{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.strip816p{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.strip816p{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px}
 .phi816{position:relative;aspect-ratio:4/3;border:0;padding:0;border-radius:12px 0 12px 0;overflow:hidden;background:var(--tint);cursor:zoom-in}
 .phi816 img{width:100%;height:100%;object-fit:cover;display:block}
 .phi816 .chip{position:absolute;left:6px;bottom:6px;max-width:calc(100% - 12px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--paper)}
@@ -123,6 +123,13 @@ html[data-motion="off"] .pin816,html[data-motion="off"] .dmbody816,html[data-mot
 .rs816 .rst816 .nr{color:#b42318;font-weight:800;margin-top:1mm}
 .rs816 .rsb816{display:grid!important;grid-template-columns:repeat(6,3.6mm);gap:1.2mm;width:max-content}.rs816 .rsb816 i{display:block;box-sizing:border-box;width:3.6mm;height:3.6mm;border:.35mm solid var(--ink)}
 .rs816 .rst816 th.pu816{width:31mm}
+/* a load with many stops: the same sheet, tighter, so it stays on its one A4 page */
+.rs816.rsc816 .rsk816 span{padding:1.1mm 2mm}.rs816.rsc816 .rsk816 b{font-size:11pt}
+.rs816.rsc816 .rsw816{padding:1.5mm 3mm;font-size:9.5pt}
+.rs816.rsc816 .rst816{font-size:8pt}.rs816.rsc816 .rst816 td{padding:.9mm 1.5mm}.rs816.rsc816 .rst816 td span{font-size:6.8pt}
+.rs816.rsc816 .rst816 td.pl{font-size:12pt}.rs816.rsc816 .rst816 .nr{margin-top:.4mm}
+.rs816.rsc816 .rsb816{grid-template-columns:repeat(8,3mm);gap:.8mm}.rs816.rsc816 .rsb816 i{width:3mm;height:3mm}
+.rs816.rsc816 .dp-sec p{font-size:7.6pt;line-height:1.3}.rs816.rsc816 .rss816 > div{margin-top:2mm}
 .rs816 .rsn816 i{display:block;border-bottom:.3mm solid var(--hair);height:7mm}
 .rs816 .rss816 > div{display:grid;grid-template-columns:auto 1fr auto 1fr auto 18mm;gap:2mm;align-items:end;margin-top:3mm;font:700 8pt/1 Inter,sans-serif}
 .rs816 .rss816 i{display:block;border-bottom:.35mm solid var(--ink);height:6mm}

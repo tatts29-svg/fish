@@ -98,7 +98,7 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
 ### C. The Demob tab (after Equipment; on a phone in the glyph row, Equipment hyphenates onto two lines to fit)
 - Today's racecard island: 15 working days, the rule in words, the four counts as gauge tiles (proposed dashed), the
   order chips, and a **day strip of gauge tiles** that scrolls inside itself: day, date numeral, count, an LED strip
-  (orange outside, blue island, grey to confirm, lighting in turn) and the toilet run "WC loads·units".
+  (orange outside, blue island, grey to confirm, lighting in turn) and the toilet run's units ("WC 24"); a week starts with its Week chip.
 - The day: branch filter, Confirm the N proposed (editors; an on-page warning with Confirm / Not now, then `setDate(key,
   iso, 'out')` for each, one redraw), Print run sheets, Email the branch(es) (mailto draft only). Four views: Pick-up list
   (the day table, by area, with the source chip, NOT READY, and a More menu: open, move to another day, Emptied, Collected),
@@ -118,7 +118,8 @@ before 13 Nov (`onhireForAsset` rows' `demob_date`, **contract**, 15; a 13 Nov c
   on site — setting a toilet or tank on site again takes an earlier pump-out off, in the setter's name, with the reason.
   The gate: the Demob tab's "Collected — on the truck" is always refused until then; the ordinary lights refuse taking a
   toilet or tank to in transit / not on site the same way, with **one named exception** (`incoming816`): a unit the record
-  has never had on site, before its collection window (its own out date or 26 Oct, whichever is first), is on its way IN.
+  has never had on site, before the first event day (23 Oct), its own out date or 26 Oct, whichever is first, is on its way IN.
+  From the first event day a unit with no recorded arrival may have been used, so it is gated like any other (968aefb #5).
   No date or light-colour shortcut otherwise. `deliveryEmpty` counts the tick; `mergeRecords` keeps value, who, when and
   history (later stamp wins; the same moment keeps "not emptied" on every copy and writes the clash down).
 - **Toilet before tank.** Pairs found in the data (one reference holding a toilet block and its waste tank): **WC05, WC20,

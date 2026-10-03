@@ -477,7 +477,7 @@ function sheet816(iso, L){
 		return `<tr><td class="c">${i + 1}</td><td>${clock816(x.at)}</td><td><b>${esc(DM816.name[r.zone])}</b><span>${esc(wayIn816(r.a, {zone: r.zone, sea: null}))}</span></td><td class="pl">${esc(r.key)}</td>
 <td>${s.parts.map(p => `<div>${esc(partWords816(p))}</div>`).join('')}${r.empty && !r.emptied ? '<div class="nr">NOT READY: empty first</div>' : ''}</td>
 <td>${r.empty ? s.parts.map(p => p.unknown ? box(1) + '<span>count them</span>' : box(p.n)).join('') : '<span class="na">-</span>'}</td><td>${box(1)}</td></tr>`; }).join('');
-	return `<div class="dp-page dp-drv rs816"><header class="dp-hd"><div class="dp-hd-l"><b>Coates</b><span>Industrial Solutions</span></div>
+	return `<div class="dp-page dp-drv rs816${L.t.st.length > 5 ? ' rsc816' : ''}"><header class="dp-hd"><div class="dp-hd-l"><b>Coates</b><span>Industrial Solutions</span></div>
 <div class="dp-hd-m"><span>Demob run sheet · GC500 2026</span><h1>Collection · ${esc(fmtDate(iso))}</h1></div>
 <div class="dp-hd-r"><b>${esc(L.group)}</b><span class="dp-lx">Truck ${L.truck} · Load ${L.n} of ${L.of}</span></div></header>
 <div class="rsk816"><span><label>Site hours</label><b>07:00–17:00</b></span><span><label>Depot</label><b>${esc(dep.name || 'Coates Kingston')}</b>${dep.address ? `<em>${esc(dep.address)}</em>` : ''}</span><span><label>Leave Kingston</label><b>${clock816(L.t.dep)}</b></span><span><label>On site</label><b>${clock816(L.t.arrive)}</b></span><span><label>Leave site</label><b>${clock816(L.t.leave)}</b></span><span><label>Back</label><b>${clock816(L.t.back)}</b></span></div>

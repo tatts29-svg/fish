@@ -1,7 +1,7 @@
 {
   "author": "Andrew Fisher",
   "source": "v8.16_reference_and_demob_DRAFT/demob816_src.js",
-  "base": "build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
+  "base": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.16/GC500_Delivery_Control_hosted.html",
   "results": [
     {
       "name": "gate_before_event_week",
@@ -35,7 +35,7 @@
         "emptied": {
           "on": false,
           "by": "Fixture operator",
-          "at": "2026-10-03T00:21:33.542Z",
+          "at": "2026-10-03T00:42:53.630Z",
           "unproven": false,
           "stale": false
         },
