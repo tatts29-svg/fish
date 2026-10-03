@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "productSourceCommit": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+  "evidenceCommit": "139d917045e6dd0a03ce88dfa6f47a693f13e27a",
+  "readyBoardCommit": "48b346a07a0f68d65af0a0a0fc5f149ac3147332",
+  "candidateSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "testSourceSha256": "066949c7f0995b3de4274615e1390a1568bbccd23924789c3ca3e4f0417fb4b6",
+  "runs": {
+    "desktop": {
+      "passed": 58,
+      "total": 58,
+      "logSha256": "baa258e8f397202d36e54e6bd3c9368a45beb48e81efd430fde934d7d01c6845"
+    },
+    "phone": {
+      "passed": 58,
+      "total": 58,
+      "logSha256": "960b535ae58ac258455e706768ccdc25ade220f1086cc389eb1c4734a996c467"
+    },
+    "paper": {
+      "passed": 9,
+      "total": 9,
+      "logSha256": "ce88ee200cfc450113db8d53af1ee3d6248728964b236bd67d8f8b7c510b3d05"
+    }
+  }
+}

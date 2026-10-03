@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "originalSha256": "b5a3246f2781d72b71d0e3884816b1520dc9b1e2102587a9371976582cd02fb4",
+  "candidateSha256": "ea510aa57aceb51e53f8384c161099cd8e73eb3b746459b91bd00bc90b24dd0b",
+  "checks": [
+    {
+      "name": "all page content before and after the visual module is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "visual module appears once",
+      "pass": true
+    },
+    {
+      "name": "double application refuses",
+      "pass": true
+    },
+    {
+      "name": "different original geometry refuses",
+      "pass": true
+    },
+    {
+      "name": "missing original module refuses",
+      "pass": true
+    },
+    {
+      "name": "duplicate original module refuses",
+      "pass": true
+    }
+  ]
+}

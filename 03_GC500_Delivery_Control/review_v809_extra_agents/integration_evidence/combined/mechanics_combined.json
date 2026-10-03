@@ -1,0 +1,49 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+  "source": "/tmp/v809-integration-replay/03_GC500_Delivery_Control/v8.09_coates_way_machine_DRAFT/work",
+  "proposal": "/workspace/private-v809-support/integration-combined-final/combined",
+  "takeUp": [
+    {
+      "steps": 1,
+      "crankTravel": 0.6666666666666666,
+      "gearboxTravel": 0.3333333333333333,
+      "engaged": 1
+    },
+    {
+      "steps": 2,
+      "crankTravel": 0.6666666666666666,
+      "gearboxTravel": 0.33333333333333326,
+      "engaged": 0.9999999999999999
+    },
+    {
+      "steps": 10,
+      "crankTravel": 0.6666666666666666,
+      "gearboxTravel": 0.33333333333333326,
+      "engaged": 0.9999999999999999
+    },
+    {
+      "steps": 100,
+      "crankTravel": 0.6666666666666666,
+      "gearboxTravel": 0.33333333333333326,
+      "engaged": 0.9999999999999998
+    }
+  ],
+  "firstStarterFrame": {
+    "starting": true,
+    "crankStep": 0.05,
+    "firstFrameInput": 0,
+    "firstFrameEngaged": 0
+  },
+  "sourceCallsAnimateBeforeSetStarter": false,
+  "extended": {
+    "restartCycles": 4,
+    "stoppedSamples": 12,
+    "reversal": [
+      -0.06000000000000002,
+      -0.060000000000000005
+    ],
+    "crossingClamp": 0.1966666666666667
+  },
+  "result": "PASS"
+}

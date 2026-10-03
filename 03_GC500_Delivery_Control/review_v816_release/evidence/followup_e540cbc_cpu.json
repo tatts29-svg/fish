@@ -1,0 +1,469 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "e540cbc31bef88500f9b781688c53f8693932514",
+  "demobSha256": "da701a82b6657f0d1f23d40381a8056b0a61837859e846ac5c1e7d4e92a2617e",
+  "candidateSha256": "202a5125e2a012d0c721410571fc1ba07771b4806376a8551181865a7331cd97",
+  "passed": 31,
+  "failed": 2,
+  "interpretationNote": "The before-event historyless-movement assertion retains the previous review expectation for comparison; its failure is an unresolved incoming-purpose interpretation, not by itself proof of a mandatory policy violation.",
+  "results": [
+    {
+      "name": "on_site_before_event_requires_pumpout",
+      "pass": true,
+      "observed": false,
+      "expected": false
+    },
+    {
+      "name": "clearance_needs_actor_and_time",
+      "pass": true,
+      "observed": false,
+      "expected": false
+    },
+    {
+      "name": "prior_on_site_amber_requires_pumpout",
+      "pass": true,
+      "observed": false,
+      "expected": false
+    },
+    {
+      "name": "historyless_demob_day_requires_pumpout",
+      "pass": true,
+      "observed": false,
+      "expected": false
+    },
+    {
+      "name": "historyless_before_event_cannot_prove_incoming_trip",
+      "pass": false,
+      "observed": true,
+      "expected": false
+    },
+    {
+      "name": "forced_collection_before_event_requires_pumpout",
+      "pass": true,
+      "observed": false,
+      "expected": false
+    },
+    {
+      "name": "newer_committed_untick_wins",
+      "pass": true,
+      "observed": false,
+      "expected": false
+    },
+    {
+      "name": "equal_timestamp_conflicting_clearance_denies",
+      "pass": true,
+      "observed": false,
+      "expected": false
+    },
+    {
+      "name": "older_clearance_than_arrival_is_stale",
+      "pass": true,
+      "observed": {
+        "on": false,
+        "stale": true
+      },
+      "expected": {
+        "on": false,
+        "stale": true
+      }
+    },
+    {
+      "name": "return_on_site_records_revocation",
+      "pass": true,
+      "observed": {
+        "cleared": false,
+        "allowed": false,
+        "reason": "set on site again - a new use"
+      },
+      "expected": {
+        "cleared": false,
+        "allowed": false,
+        "reason": "set on site again - a new use"
+      }
+    },
+    {
+      "name": "merge_keeps_value_actor_time_history",
+      "pass": true,
+      "observed": {
+        "WC01": {
+          "emptied": true,
+          "emptied_by": "A",
+          "emptied_at": "2026-10-26T00:00:00Z",
+          "emptied_history": [
+            {
+              "emptied": true,
+              "by": "A",
+              "at": "2026-10-26T00:00:00Z"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "WC01": {
+          "emptied": true,
+          "emptied_by": "A",
+          "emptied_at": "2026-10-26T00:00:00Z",
+          "emptied_history": [
+            {
+              "emptied": true,
+              "by": "A",
+              "at": "2026-10-26T00:00:00Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "merge_newer_false_wins",
+      "pass": true,
+      "observed": false,
+      "expected": false
+    },
+    {
+      "name": "merge_equal_conflict_false_both_orders_and_clash",
+      "pass": true,
+      "observed": {
+        "ab": false,
+        "ba": false,
+        "clash": 1
+      },
+      "expected": {
+        "ab": false,
+        "ba": false,
+        "clash": 1
+      }
+    },
+    {
+      "name": "merge_idempotent_delivery",
+      "pass": true,
+      "observed": {
+        "WC01": {
+          "emptied": true,
+          "emptied_by": "A",
+          "emptied_at": "2026-10-26T00:00:00Z",
+          "emptied_history": [
+            {
+              "emptied": true,
+              "by": "A",
+              "at": "2026-10-26T00:00:00Z"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "WC01": {
+          "emptied": true,
+          "emptied_by": "A",
+          "emptied_at": "2026-10-26T00:00:00Z",
+          "emptied_history": [
+            {
+              "emptied": true,
+              "by": "A",
+              "at": "2026-10-26T00:00:00Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "25_unit_confirmation_preserves_both_days",
+      "pass": true,
+      "observed": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ],
+      "expected": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "name": "25_unit_json_reload_preserves_both_days",
+      "pass": true,
+      "observed": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ],
+      "expected": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "name": "25_unit_merge_roundtrip_preserves_both_days",
+      "pass": true,
+      "observed": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ],
+      "expected": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "name": "each_portable_load_at_most_24",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "saved_portions_reconcile_after_quantity_increase",
+      "pass": true,
+      "observed": 26,
+      "expected": 26
+    },
+    {
+      "name": "two_portions_on_same_day_survive_confirmation",
+      "pass": true,
+      "observed": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-26",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ],
+      "expected": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-26",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "name": "pump_task_present_for_all_49_unit_portions",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "confirmed_unknown_remains_uncertain_truck",
+      "pass": true,
+      "observed": {
+        "unknown": true,
+        "load": true,
+        "trucks": 1
+      },
+      "expected": {
+        "unknown": true,
+        "load": true,
+        "trucks": 1
+      }
+    },
+    {
+      "name": "unknown_email_carries_uncertainty",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "unknown_load_never_claims_full",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "known_toilet_precedes_tank",
+      "pass": true,
+      "observed": {
+        "toilet": true,
+        "ordered": true
+      },
+      "expected": {
+        "toilet": true,
+        "ordered": true
+      }
+    },
+    {
+      "name": "unknown_toilet_precedes_tank",
+      "pass": true,
+      "observed": {
+        "toilet": true,
+        "ordered": true
+      },
+      "expected": {
+        "toilet": true,
+        "ordered": true
+      }
+    },
+    {
+      "name": "increased_quantity_notice_in_row_load_email_print",
+      "pass": true,
+      "observed": {
+        "row": true,
+        "toilet": true,
+        "email": true,
+        "print": true
+      },
+      "expected": {
+        "row": true,
+        "toilet": true,
+        "email": true,
+        "print": true
+      }
+    },
+    {
+      "name": "extra_unit_is_explicitly_unplanned",
+      "pass": true,
+      "observed": 1,
+      "expected": 1
+    },
+    {
+      "name": "reconciliation_rendering_does_not_rewrite_confirmed_record",
+      "pass": true,
+      "observed": "{\"delivery\":{\"WC25\":{\"out_date\":\"2026-10-27\",\"out_by\":\"Fixture operator\",\"out_at\":\"2026-10-26T08:00:00.000Z\",\"out_portions\":[{\"id\":\"2026-10-26#1\",\"date\":\"2026-10-26\",\"units\":24},{\"id\":\"2026-10-27#1\",\"date\":\"2026-10-27\",\"units\":1}]}}}",
+      "expected": "{\"delivery\":{\"WC25\":{\"out_date\":\"2026-10-27\",\"out_by\":\"Fixture operator\",\"out_at\":\"2026-10-26T08:00:00.000Z\",\"out_portions\":[{\"id\":\"2026-10-26#1\",\"date\":\"2026-10-26\",\"units\":24},{\"id\":\"2026-10-27#1\",\"date\":\"2026-10-27\",\"units\":1}]}}}"
+    },
+    {
+      "name": "decreased_quantity_is_conserved",
+      "pass": true,
+      "observed": 24,
+      "expected": 24
+    },
+    {
+      "name": "decreased_quantity_notice_in_row_load_email_print",
+      "pass": true,
+      "observed": {
+        "row": true,
+        "toilet": true,
+        "email": true,
+        "print": true
+      },
+      "expected": {
+        "row": true,
+        "toilet": true,
+        "email": true,
+        "print": true
+      }
+    },
+    {
+      "name": "quantity_becomes_unknown_keeps_uncertain_portions",
+      "pass": true,
+      "observed": {
+        "unknown": true,
+        "notice": true,
+        "loads": 2,
+        "allUncertain": true
+      },
+      "expected": {
+        "unknown": true,
+        "notice": true,
+        "loads": 2,
+        "allUncertain": true
+      }
+    },
+    {
+      "name": "zero_quantity_does_not_create_fallback_one_unit_truck",
+      "pass": false,
+      "observed": 1,
+      "expected": 0
+    }
+  ]
+}

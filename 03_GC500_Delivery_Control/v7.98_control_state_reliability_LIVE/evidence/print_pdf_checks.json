@@ -1,0 +1,34 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "9a52ec22c794a514d44936ef84335b62a6876c2664fa54f211a35f1315666d95",
+  "results": [
+    {
+      "file": "2026-10-06-drv.pdf",
+      "pages": 2,
+      "A4": true,
+      "completeExactC2Note": true,
+      "instructionOccurrences": 1
+    },
+    {
+      "file": "2026-10-06-ins.pdf",
+      "pages": 1,
+      "A4": true,
+      "completeExactC2Note": true,
+      "instructionOccurrences": 1
+    },
+    {
+      "file": "2026-10-07-drv.pdf",
+      "pages": 2,
+      "A4": true,
+      "completeExactC2Note": true,
+      "instructionOccurrences": 1
+    },
+    {
+      "file": "2026-10-07-ins.pdf",
+      "pages": 1,
+      "A4": true,
+      "completeExactC2Note": true,
+      "instructionOccurrences": 1
+    }
+  ]
+}

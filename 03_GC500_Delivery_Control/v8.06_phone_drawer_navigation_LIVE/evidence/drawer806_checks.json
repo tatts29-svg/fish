@@ -1,0 +1,2806 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "runs": [
+    {
+      "width": 320,
+      "checks": [
+        {
+          "name": "WC31: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC31: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC31: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC31: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC31: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC31: actual Navigate opens the unchanged native Maps URL",
+          "pass": true
+        },
+        {
+          "name": "WC20: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC20: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC20: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC20: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC20: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "P55: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "P55: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "P55: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "P55: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "P55: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "AA: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "AA: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "AA: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "AA: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "AA: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC100: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC100: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC100: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC100: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC100: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "No page errors or service-write attempts",
+          "pass": true
+        }
+      ],
+      "references": [
+        {
+          "key": "WC31",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 209.953125,
+              "right": 320,
+              "bottom": 209.953125
+            },
+            "nav": {
+              "x": 87.390625,
+              "y": 64.03125,
+              "width": 218.609375,
+              "height": 40,
+              "right": 306,
+              "bottom": 104.03125
+            },
+            "short": {
+              "x": 14,
+              "y": 113.171875,
+              "width": 169.25,
+              "height": 49.53125,
+              "right": 183.25,
+              "bottom": 162.703125
+            },
+            "actions": {
+              "x": 199.25,
+              "y": 10,
+              "width": 106.75,
+              "height": 188.953125,
+              "right": 306,
+              "bottom": 198.953125
+            },
+            "text": "WC31\nOn site\n✓ Complete\nSHORT · ACCESSIBLE TOILET 0 OF 1, 16PAN BLOCK 1 OF 2 Toilets · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC31, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.982469,153.425324&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 100.390625,
+                "y": 77.53125,
+                "width": 13,
+                "height": 13,
+                "right": 113.390625,
+                "bottom": 90.53125
+              },
+              {
+                "text": "Navigate",
+                "x": 119.390625,
+                "y": 74.609375,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 178.59375,
+                "bottom": 93.453125
+              },
+              {
+                "text": "master plan",
+                "x": 189.59375,
+                "y": 75.421875,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 279.390625,
+                "bottom": 92.640625
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 209.953125,
+              "right": 320,
+              "bottom": 209.953125
+            },
+            "nav": {
+              "x": 199.25,
+              "y": 44.96875,
+              "width": 106.75,
+              "height": 97.21875,
+              "right": 306,
+              "bottom": 142.1875
+            },
+            "short": {
+              "x": 14,
+              "y": 113.171875,
+              "width": 169.25,
+              "height": 49.53125,
+              "right": 183.25,
+              "bottom": 162.703125
+            },
+            "actions": {
+              "x": 199.25,
+              "y": 10,
+              "width": 106.75,
+              "height": 188.953125,
+              "right": 306,
+              "bottom": 198.953125
+            },
+            "text": "WC31\nOn site\n✓ Complete\nSHORT · ACCESSIBLE TOILET 0 OF 1, 16PAN BLOCK 1 OF 2 Toilets · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC31, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.982469,153.425324&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 212.25,
+                "y": 56.890625,
+                "width": 13,
+                "height": 13,
+                "right": 225.25,
+                "bottom": 69.890625
+              },
+              {
+                "text": "Navigate",
+                "x": 231.25,
+                "y": 53.96875,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 290.453125,
+                "bottom": 72.8125
+              },
+              {
+                "text": "master plan",
+                "x": 217.25,
+                "y": 100.75,
+                "width": 75.75,
+                "height": 32.4375,
+                "right": 293,
+                "bottom": 133.1875
+              }
+            ]
+          }
+        },
+        {
+          "key": "WC20",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 172.15625,
+              "right": 320,
+              "bottom": 172.15625
+            },
+            "nav": {
+              "x": 87.390625,
+              "y": 51.09156036376953,
+              "width": 218.609375,
+              "height": 40,
+              "right": 306,
+              "bottom": 91.09156036376953
+            },
+            "short": null,
+            "actions": {
+              "x": 163.4375,
+              "y": 10,
+              "width": 142.5625,
+              "height": 151.15625,
+              "right": 306,
+              "bottom": 161.15625
+            },
+            "text": "WC20\nNo delivery record\nToilets (Tank Mounted) · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC20, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 100.390625,
+                "y": 64.59156036376953,
+                "width": 13,
+                "height": 13,
+                "right": 113.390625,
+                "bottom": 77.59156036376953
+              },
+              {
+                "text": "Navigate",
+                "x": 119.390625,
+                "y": 61.66968536376953,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 178.59375,
+                "bottom": 80.51343536376953
+              },
+              {
+                "text": "master plan",
+                "x": 189.59375,
+                "y": 62.48218536376953,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 279.390625,
+                "bottom": 79.70093536376953
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 172.15625,
+              "right": 320,
+              "bottom": 172.15625
+            },
+            "nav": {
+              "x": 163.4375,
+              "y": 44.40406036376953,
+              "width": 142.5625,
+              "height": 60.0625,
+              "right": 306,
+              "bottom": 104.46656036376953
+            },
+            "short": null,
+            "actions": {
+              "x": 163.4375,
+              "y": 10,
+              "width": 142.5625,
+              "height": 151.15625,
+              "right": 306,
+              "bottom": 161.15625
+            },
+            "text": "WC20\nNo delivery record\nToilets (Tank Mounted) · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC20, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 176.4375,
+                "y": 56.32593536376953,
+                "width": 13,
+                "height": 13,
+                "right": 189.4375,
+                "bottom": 69.32593536376953
+              },
+              {
+                "text": "Navigate",
+                "x": 195.4375,
+                "y": 53.40406036376953,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 254.640625,
+                "bottom": 72.24781036376953
+              },
+              {
+                "text": "master plan",
+                "x": 181.4375,
+                "y": 78.24781036376953,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 271.234375,
+                "bottom": 95.46656036376953
+              }
+            ]
+          }
+        },
+        {
+          "key": "P55",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 172.15625,
+              "right": 320,
+              "bottom": 172.15625
+            },
+            "nav": {
+              "x": 87.390625,
+              "y": 50.4375,
+              "width": 218.609375,
+              "height": 40,
+              "right": 306,
+              "bottom": 90.4375
+            },
+            "short": null,
+            "actions": {
+              "x": 156.390625,
+              "y": 10,
+              "width": 149.609375,
+              "height": 151.15625,
+              "right": 306,
+              "bottom": 161.15625
+            },
+            "text": "P55\nNo delivery record\nGate 1 Ticket Box · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for P55, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 100.390625,
+                "y": 63.9375,
+                "width": 13,
+                "height": 13,
+                "right": 113.390625,
+                "bottom": 76.9375
+              },
+              {
+                "text": "Navigate",
+                "x": 119.390625,
+                "y": 61.015625,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 178.59375,
+                "bottom": 79.859375
+              },
+              {
+                "text": "master plan",
+                "x": 189.59375,
+                "y": 61.828125,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 279.390625,
+                "bottom": 79.046875
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 172.15625,
+              "right": 320,
+              "bottom": 172.15625
+            },
+            "nav": {
+              "x": 156.390625,
+              "y": 43.75,
+              "width": 149.609375,
+              "height": 60.0625,
+              "right": 306,
+              "bottom": 103.8125
+            },
+            "short": null,
+            "actions": {
+              "x": 156.390625,
+              "y": 10,
+              "width": 149.609375,
+              "height": 151.15625,
+              "right": 306,
+              "bottom": 161.15625
+            },
+            "text": "P55\nNo delivery record\nGate 1 Ticket Box · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for P55, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 169.390625,
+                "y": 55.671875,
+                "width": 13,
+                "height": 13,
+                "right": 182.390625,
+                "bottom": 68.671875
+              },
+              {
+                "text": "Navigate",
+                "x": 188.390625,
+                "y": 52.75,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 247.59375,
+                "bottom": 71.59375
+              },
+              {
+                "text": "master plan",
+                "x": 174.390625,
+                "y": 77.59375,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 264.1875,
+                "bottom": 94.8125
+              }
+            ]
+          }
+        },
+        {
+          "key": "AA",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 235.328125,
+              "right": 320,
+              "bottom": 235.328125
+            },
+            "nav": {
+              "x": 87.390625,
+              "y": 72.38727569580078,
+              "width": 218.609375,
+              "height": 40,
+              "right": 306,
+              "bottom": 112.38727569580078
+            },
+            "short": null,
+            "actions": {
+              "x": 174.984375,
+              "y": 10,
+              "width": 131.015625,
+              "height": 214.328125,
+              "right": 306,
+              "bottom": 224.328125
+            },
+            "text": "AA\nOn site\n✓ Complete\nLevelled\nSteps\nActive Air Crib Room · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for AA, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 100.390625,
+                "y": 85.88727569580078,
+                "width": 13,
+                "height": 13,
+                "right": 113.390625,
+                "bottom": 98.88727569580078
+              },
+              {
+                "text": "Navigate",
+                "x": 119.390625,
+                "y": 82.96540069580078,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 178.59375,
+                "bottom": 101.80915069580078
+              },
+              {
+                "text": "master plan",
+                "x": 189.59375,
+                "y": 83.77790069580078,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 279.390625,
+                "bottom": 100.99665069580078
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 235.328125,
+              "right": 320,
+              "bottom": 235.328125
+            },
+            "nav": {
+              "x": 174.984375,
+              "y": 65.69977569580078,
+              "width": 131.015625,
+              "height": 60.0625,
+              "right": 306,
+              "bottom": 125.76227569580078
+            },
+            "short": null,
+            "actions": {
+              "x": 174.984375,
+              "y": 10,
+              "width": 131.015625,
+              "height": 214.328125,
+              "right": 306,
+              "bottom": 224.328125
+            },
+            "text": "AA\nOn site\n✓ Complete\nLevelled\nSteps\nActive Air Crib Room · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for AA, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 187.984375,
+                "y": 77.62165069580078,
+                "width": 13,
+                "height": 13,
+                "right": 200.984375,
+                "bottom": 90.62165069580078
+              },
+              {
+                "text": "Navigate",
+                "x": 206.984375,
+                "y": 74.69977569580078,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 266.1875,
+                "bottom": 93.54352569580078
+              },
+              {
+                "text": "master plan",
+                "x": 192.984375,
+                "y": 99.54352569580078,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 282.78125,
+                "bottom": 116.76227569580078
+              }
+            ]
+          }
+        },
+        {
+          "key": "WC100",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 160.421875,
+              "right": 320,
+              "bottom": 160.421875
+            },
+            "nav": null,
+            "short": null,
+            "actions": {
+              "x": 156.046875,
+              "y": 10,
+              "width": 149.953125,
+              "height": 139.421875,
+              "right": 306,
+              "bottom": 149.421875
+            },
+            "text": "WC100\nOn site\n✓ Complete\n· Toilets & amenities · Rental ID 9968955\nMoved — position to confirm\nSend to a phone\n×",
+            "href": null,
+            "target": null,
+            "overlap": false,
+            "labelBoxes": []
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 160.421875,
+              "right": 320,
+              "bottom": 160.421875
+            },
+            "nav": null,
+            "short": null,
+            "actions": {
+              "x": 156.046875,
+              "y": 10,
+              "width": 149.953125,
+              "height": 139.421875,
+              "right": 306,
+              "bottom": 149.421875
+            },
+            "text": "WC100\nOn site\n✓ Complete\n· Toilets & amenities · Rental ID 9968955\nMoved — position to confirm\nSend to a phone\n×",
+            "href": null,
+            "target": null,
+            "overlap": false,
+            "labelBoxes": []
+          }
+        }
+      ],
+      "cases": {
+        "keys": [
+          "WC31",
+          "WC20",
+          "P55",
+          "AA",
+          "WC100"
+        ],
+        "long": {
+          "key": "AA",
+          "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+          "label": "master plan"
+        },
+        "plain": {
+          "key": "WC100",
+          "href": null,
+          "label": null
+        }
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 121,
+        "blocked": 0
+      }
+    },
+    {
+      "width": 390,
+      "checks": [
+        {
+          "name": "WC31: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC31: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC31: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC31: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC31: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC31: existing390px header height retained",
+          "pass": true
+        },
+        {
+          "name": "WC31: actual Navigate opens the unchanged native Maps URL",
+          "pass": true
+        },
+        {
+          "name": "WC20: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC20: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC20: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC20: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC20: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "P55: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "P55: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "P55: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "P55: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "P55: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "AA: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "AA: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "AA: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "AA: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "AA: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC100: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC100: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC100: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC100: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC100: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "No page errors or service-write attempts",
+          "pass": true
+        }
+      ],
+      "references": [
+        {
+          "key": "WC31",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 156.109375,
+              "right": 390,
+              "bottom": 156.109375
+            },
+            "nav": {
+              "x": 157.390625,
+              "y": 46.09375,
+              "width": 218.609375,
+              "height": 40,
+              "right": 376,
+              "bottom": 86.09375
+            },
+            "short": {
+              "x": 14,
+              "y": 74.171875,
+              "width": 212.75,
+              "height": 34.6875,
+              "right": 226.75,
+              "bottom": 108.859375
+            },
+            "actions": {
+              "x": 242.75,
+              "y": 10,
+              "width": 133.25,
+              "height": 135.109375,
+              "right": 376,
+              "bottom": 145.109375
+            },
+            "text": "WC31\nOn site\n✓ Complete\nSHORT · ACCESSIBLE TOILET 0 OF 1, 16PAN BLOCK 1 OF 2 Toilets · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC31, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.982469,153.425324&travelmode=driving",
+            "target": "_blank",
+            "overlap": true,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 170.390625,
+                "y": 59.59375,
+                "width": 13,
+                "height": 13,
+                "right": 183.390625,
+                "bottom": 72.59375
+              },
+              {
+                "text": "Navigate",
+                "x": 189.390625,
+                "y": 56.671875,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 248.59375,
+                "bottom": 75.515625
+              },
+              {
+                "text": "master plan",
+                "x": 259.59375,
+                "y": 57.484375,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 349.390625,
+                "bottom": 74.703125
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 156.109375,
+              "right": 390,
+              "bottom": 156.109375
+            },
+            "nav": {
+              "x": 242.75,
+              "y": 39.40625,
+              "width": 133.25,
+              "height": 60.0625,
+              "right": 376,
+              "bottom": 99.46875
+            },
+            "short": {
+              "x": 14,
+              "y": 74.171875,
+              "width": 212.75,
+              "height": 34.6875,
+              "right": 226.75,
+              "bottom": 108.859375
+            },
+            "actions": {
+              "x": 242.75,
+              "y": 10,
+              "width": 133.25,
+              "height": 135.109375,
+              "right": 376,
+              "bottom": 145.109375
+            },
+            "text": "WC31\nOn site\n✓ Complete\nSHORT · ACCESSIBLE TOILET 0 OF 1, 16PAN BLOCK 1 OF 2 Toilets · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC31, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.982469,153.425324&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 255.75,
+                "y": 51.328125,
+                "width": 13,
+                "height": 13,
+                "right": 268.75,
+                "bottom": 64.328125
+              },
+              {
+                "text": "Navigate",
+                "x": 274.75,
+                "y": 48.40625,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 333.953125,
+                "bottom": 67.25
+              },
+              {
+                "text": "master plan",
+                "x": 260.75,
+                "y": 73.25,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 350.546875,
+                "bottom": 90.46875
+              }
+            ]
+          }
+        },
+        {
+          "key": "WC20",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 172.15625,
+              "right": 390,
+              "bottom": 172.15625
+            },
+            "nav": {
+              "x": 157.390625,
+              "y": 50.8621711730957,
+              "width": 218.609375,
+              "height": 39.999996185302734,
+              "right": 376,
+              "bottom": 90.86216735839844
+            },
+            "short": null,
+            "actions": {
+              "x": 198.046875,
+              "y": 10,
+              "width": 177.953125,
+              "height": 151.15625,
+              "right": 376,
+              "bottom": 161.15625
+            },
+            "text": "WC20\nNo delivery record\nToilets (Tank Mounted) · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC20, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 170.390625,
+                "y": 64.36216735839844,
+                "width": 13,
+                "height": 13,
+                "right": 183.390625,
+                "bottom": 77.36216735839844
+              },
+              {
+                "text": "Navigate",
+                "x": 189.390625,
+                "y": 61.4402961730957,
+                "width": 59.203125,
+                "height": 18.843746185302734,
+                "right": 248.59375,
+                "bottom": 80.28404235839844
+              },
+              {
+                "text": "master plan",
+                "x": 259.59375,
+                "y": 62.2527961730957,
+                "width": 89.796875,
+                "height": 17.218746185302734,
+                "right": 349.390625,
+                "bottom": 79.47154235839844
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 172.15625,
+              "right": 390,
+              "bottom": 172.15625
+            },
+            "nav": {
+              "x": 198.046875,
+              "y": 44.1746711730957,
+              "width": 177.953125,
+              "height": 60.062496185302734,
+              "right": 376,
+              "bottom": 104.23716735839844
+            },
+            "short": null,
+            "actions": {
+              "x": 198.046875,
+              "y": 10,
+              "width": 177.953125,
+              "height": 151.15625,
+              "right": 376,
+              "bottom": 161.15625
+            },
+            "text": "WC20\nNo delivery record\nToilets (Tank Mounted) · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC20, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 211.046875,
+                "y": 56.0965461730957,
+                "width": 13,
+                "height": 12.999996185302734,
+                "right": 224.046875,
+                "bottom": 69.09654235839844
+              },
+              {
+                "text": "Navigate",
+                "x": 230.046875,
+                "y": 53.1746711730957,
+                "width": 59.203125,
+                "height": 18.843746185302734,
+                "right": 289.25,
+                "bottom": 72.01841735839844
+              },
+              {
+                "text": "master plan",
+                "x": 216.046875,
+                "y": 78.01841735839844,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 305.84375,
+                "bottom": 95.23716735839844
+              }
+            ]
+          }
+        },
+        {
+          "key": "P55",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 172.15625,
+              "right": 390,
+              "bottom": 172.15625
+            },
+            "nav": {
+              "x": 157.390625,
+              "y": 50.46803665161133,
+              "width": 218.609375,
+              "height": 39.999996185302734,
+              "right": 376,
+              "bottom": 90.46803283691406
+            },
+            "short": null,
+            "actions": {
+              "x": 189.25,
+              "y": 10,
+              "width": 186.75,
+              "height": 151.15625,
+              "right": 376,
+              "bottom": 161.15625
+            },
+            "text": "P55\nNo delivery record\nGate 1 Ticket Box · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for P55, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 170.390625,
+                "y": 63.96803665161133,
+                "width": 13,
+                "height": 12.999996185302734,
+                "right": 183.390625,
+                "bottom": 76.96803283691406
+              },
+              {
+                "text": "Navigate",
+                "x": 189.390625,
+                "y": 61.04616165161133,
+                "width": 59.203125,
+                "height": 18.843746185302734,
+                "right": 248.59375,
+                "bottom": 79.88990783691406
+              },
+              {
+                "text": "master plan",
+                "x": 259.59375,
+                "y": 61.85866165161133,
+                "width": 89.796875,
+                "height": 17.218746185302734,
+                "right": 349.390625,
+                "bottom": 79.07740783691406
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 172.15625,
+              "right": 390,
+              "bottom": 172.15625
+            },
+            "nav": {
+              "x": 189.25,
+              "y": 43.78053665161133,
+              "width": 186.75,
+              "height": 60.062496185302734,
+              "right": 376,
+              "bottom": 103.84303283691406
+            },
+            "short": null,
+            "actions": {
+              "x": 189.25,
+              "y": 10,
+              "width": 186.75,
+              "height": 151.15625,
+              "right": 376,
+              "bottom": 161.15625
+            },
+            "text": "P55\nNo delivery record\nGate 1 Ticket Box · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for P55, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 202.25,
+                "y": 55.70241165161133,
+                "width": 13,
+                "height": 12.999996185302734,
+                "right": 215.25,
+                "bottom": 68.70240783691406
+              },
+              {
+                "text": "Navigate",
+                "x": 221.25,
+                "y": 52.78053665161133,
+                "width": 59.203125,
+                "height": 18.843746185302734,
+                "right": 280.453125,
+                "bottom": 71.62428283691406
+              },
+              {
+                "text": "master plan",
+                "x": 207.25,
+                "y": 77.62428283691406,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 297.046875,
+                "bottom": 94.84303283691406
+              }
+            ]
+          }
+        },
+        {
+          "key": "AA",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 149.8125,
+              "right": 390,
+              "bottom": 149.8125
+            },
+            "nav": {
+              "x": 157.390625,
+              "y": 43.40850067138672,
+              "width": 218.609375,
+              "height": 40,
+              "right": 376,
+              "bottom": 83.40850067138672
+            },
+            "short": null,
+            "actions": {
+              "x": 212.46875,
+              "y": 10,
+              "width": 163.53125,
+              "height": 128.8125,
+              "right": 376,
+              "bottom": 138.8125
+            },
+            "text": "AA\nOn site\n✓ Complete\nLevelled\nSteps\nActive Air Crib Room · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for AA, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 170.390625,
+                "y": 56.90850067138672,
+                "width": 13,
+                "height": 13,
+                "right": 183.390625,
+                "bottom": 69.90850067138672
+              },
+              {
+                "text": "Navigate",
+                "x": 189.390625,
+                "y": 53.98662567138672,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 248.59375,
+                "bottom": 72.83037567138672
+              },
+              {
+                "text": "master plan",
+                "x": 259.59375,
+                "y": 54.79912567138672,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 349.390625,
+                "bottom": 72.01787567138672
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 151.90625,
+              "right": 390,
+              "bottom": 151.90625
+            },
+            "nav": {
+              "x": 212.46875,
+              "y": 37.42412567138672,
+              "width": 163.53125,
+              "height": 60.0625,
+              "right": 376,
+              "bottom": 97.48662567138672
+            },
+            "short": null,
+            "actions": {
+              "x": 212.46875,
+              "y": 10,
+              "width": 163.53125,
+              "height": 130.90625,
+              "right": 376,
+              "bottom": 140.90625
+            },
+            "text": "AA\nOn site\n✓ Complete\nLevelled\nSteps\nActive Air Crib Room · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for AA, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 225.46875,
+                "y": 49.34600067138672,
+                "width": 13,
+                "height": 13,
+                "right": 238.46875,
+                "bottom": 62.34600067138672
+              },
+              {
+                "text": "Navigate",
+                "x": 244.46875,
+                "y": 46.42412567138672,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 303.671875,
+                "bottom": 65.26787567138672
+              },
+              {
+                "text": "master plan",
+                "x": 230.46875,
+                "y": 71.26787567138672,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 320.265625,
+                "bottom": 88.48662567138672
+              }
+            ]
+          }
+        },
+        {
+          "key": "WC100",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 160.421875,
+              "right": 390,
+              "bottom": 160.421875
+            },
+            "nav": null,
+            "short": null,
+            "actions": {
+              "x": 188.8125,
+              "y": 10,
+              "width": 187.1875,
+              "height": 139.421875,
+              "right": 376,
+              "bottom": 149.421875
+            },
+            "text": "WC100\nOn site\n✓ Complete\n· Toilets & amenities · Rental ID 9968955\nMoved — position to confirm\nSend to a phone\n×",
+            "href": null,
+            "target": null,
+            "overlap": false,
+            "labelBoxes": []
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 160.421875,
+              "right": 390,
+              "bottom": 160.421875
+            },
+            "nav": null,
+            "short": null,
+            "actions": {
+              "x": 188.8125,
+              "y": 10,
+              "width": 187.1875,
+              "height": 139.421875,
+              "right": 376,
+              "bottom": 149.421875
+            },
+            "text": "WC100\nOn site\n✓ Complete\n· Toilets & amenities · Rental ID 9968955\nMoved — position to confirm\nSend to a phone\n×",
+            "href": null,
+            "target": null,
+            "overlap": false,
+            "labelBoxes": []
+          }
+        }
+      ],
+      "cases": {
+        "keys": [
+          "WC31",
+          "WC20",
+          "P55",
+          "AA",
+          "WC100"
+        ],
+        "long": {
+          "key": "AA",
+          "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+          "label": "master plan"
+        },
+        "plain": {
+          "key": "WC100",
+          "href": null,
+          "label": null
+        }
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 121,
+        "blocked": 0
+      }
+    },
+    {
+      "width": 430,
+      "checks": [
+        {
+          "name": "WC31: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC31: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC31: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC31: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC31: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC31: actual Navigate opens the unchanged native Maps URL",
+          "pass": true
+        },
+        {
+          "name": "WC20: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC20: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC20: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC20: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC20: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "P55: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "P55: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "P55: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "P55: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "P55: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "AA: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "AA: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "AA: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "AA: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "AA: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC100: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC100: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC100: Navigate stays inside its action column",
+          "pass": true
+        },
+        {
+          "name": "WC100: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC100: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "No page errors or service-write attempts",
+          "pass": true
+        }
+      ],
+      "references": [
+        {
+          "key": "WC31",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 156.109375,
+              "right": 430,
+              "bottom": 156.109375
+            },
+            "nav": {
+              "x": 197.390625,
+              "y": 46.09375,
+              "width": 218.609375,
+              "height": 40,
+              "right": 416,
+              "bottom": 86.09375
+            },
+            "short": {
+              "x": 14,
+              "y": 74.171875,
+              "width": 237.609375,
+              "height": 34.6875,
+              "right": 251.609375,
+              "bottom": 108.859375
+            },
+            "actions": {
+              "x": 267.609375,
+              "y": 10,
+              "width": 148.390625,
+              "height": 135.109375,
+              "right": 416,
+              "bottom": 145.109375
+            },
+            "text": "WC31\nOn site\n✓ Complete\nSHORT · ACCESSIBLE TOILET 0 OF 1, 16PAN BLOCK 1 OF 2 Toilets · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC31, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.982469,153.425324&travelmode=driving",
+            "target": "_blank",
+            "overlap": true,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 210.390625,
+                "y": 59.59375,
+                "width": 13,
+                "height": 13,
+                "right": 223.390625,
+                "bottom": 72.59375
+              },
+              {
+                "text": "Navigate",
+                "x": 229.390625,
+                "y": 56.671875,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 288.59375,
+                "bottom": 75.515625
+              },
+              {
+                "text": "master plan",
+                "x": 299.59375,
+                "y": 57.484375,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 389.390625,
+                "bottom": 74.703125
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 156.109375,
+              "right": 430,
+              "bottom": 156.109375
+            },
+            "nav": {
+              "x": 267.609375,
+              "y": 39.40625,
+              "width": 148.390625,
+              "height": 60.0625,
+              "right": 416,
+              "bottom": 99.46875
+            },
+            "short": {
+              "x": 14,
+              "y": 74.171875,
+              "width": 237.609375,
+              "height": 34.6875,
+              "right": 251.609375,
+              "bottom": 108.859375
+            },
+            "actions": {
+              "x": 267.609375,
+              "y": 10,
+              "width": 148.390625,
+              "height": 135.109375,
+              "right": 416,
+              "bottom": 145.109375
+            },
+            "text": "WC31\nOn site\n✓ Complete\nSHORT · ACCESSIBLE TOILET 0 OF 1, 16PAN BLOCK 1 OF 2 Toilets · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC31, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.982469,153.425324&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 280.609375,
+                "y": 51.328125,
+                "width": 13,
+                "height": 13,
+                "right": 293.609375,
+                "bottom": 64.328125
+              },
+              {
+                "text": "Navigate",
+                "x": 299.609375,
+                "y": 48.40625,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 358.8125,
+                "bottom": 67.25
+              },
+              {
+                "text": "master plan",
+                "x": 285.609375,
+                "y": 73.25,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 375.40625,
+                "bottom": 90.46875
+              }
+            ]
+          }
+        },
+        {
+          "key": "WC20",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 154.03125,
+              "right": 430,
+              "bottom": 154.03125
+            },
+            "nav": {
+              "x": 197.390625,
+              "y": 44.53833770751953,
+              "width": 218.609375,
+              "height": 40,
+              "right": 416,
+              "bottom": 84.53833770751953
+            },
+            "short": null,
+            "actions": {
+              "x": 217.828125,
+              "y": 10,
+              "width": 198.171875,
+              "height": 133.03125,
+              "right": 416,
+              "bottom": 143.03125
+            },
+            "text": "WC20\nNo delivery record\nToilets (Tank Mounted) · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC20, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 210.390625,
+                "y": 58.03833770751953,
+                "width": 13,
+                "height": 13,
+                "right": 223.390625,
+                "bottom": 71.03833770751953
+              },
+              {
+                "text": "Navigate",
+                "x": 229.390625,
+                "y": 55.11646270751953,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 288.59375,
+                "bottom": 73.96021270751953
+              },
+              {
+                "text": "master plan",
+                "x": 299.59375,
+                "y": 55.92896270751953,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 389.390625,
+                "bottom": 73.14771270751953
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 154.03125,
+              "right": 430,
+              "bottom": 154.03125
+            },
+            "nav": {
+              "x": 217.828125,
+              "y": 37.85083770751953,
+              "width": 198.171875,
+              "height": 60.0625,
+              "right": 416,
+              "bottom": 97.91333770751953
+            },
+            "short": null,
+            "actions": {
+              "x": 217.828125,
+              "y": 10,
+              "width": 198.171875,
+              "height": 133.03125,
+              "right": 416,
+              "bottom": 143.03125
+            },
+            "text": "WC20\nNo delivery record\nToilets (Tank Mounted) · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC20, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 230.828125,
+                "y": 49.77271270751953,
+                "width": 13,
+                "height": 13,
+                "right": 243.828125,
+                "bottom": 62.77271270751953
+              },
+              {
+                "text": "Navigate",
+                "x": 249.828125,
+                "y": 46.85083770751953,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 309.03125,
+                "bottom": 65.69458770751953
+              },
+              {
+                "text": "master plan",
+                "x": 235.828125,
+                "y": 71.69458770751953,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 325.625,
+                "bottom": 88.91333770751953
+              }
+            ]
+          }
+        },
+        {
+          "key": "P55",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 154.03125,
+              "right": 430,
+              "bottom": 154.03125
+            },
+            "nav": {
+              "x": 197.390625,
+              "y": 44.538307189941406,
+              "width": 218.609375,
+              "height": 40,
+              "right": 416,
+              "bottom": 84.5383071899414
+            },
+            "short": null,
+            "actions": {
+              "x": 208.03125,
+              "y": 10,
+              "width": 207.96875,
+              "height": 133.03125,
+              "right": 416,
+              "bottom": 143.03125
+            },
+            "text": "P55\nNo delivery record\nGate 1 Ticket Box · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for P55, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 210.390625,
+                "y": 58.038307189941406,
+                "width": 13,
+                "height": 13,
+                "right": 223.390625,
+                "bottom": 71.0383071899414
+              },
+              {
+                "text": "Navigate",
+                "x": 229.390625,
+                "y": 55.116432189941406,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 288.59375,
+                "bottom": 73.9601821899414
+              },
+              {
+                "text": "master plan",
+                "x": 299.59375,
+                "y": 55.928932189941406,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 389.390625,
+                "bottom": 73.1476821899414
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 154.03125,
+              "right": 430,
+              "bottom": 154.03125
+            },
+            "nav": {
+              "x": 208.03125,
+              "y": 37.850807189941406,
+              "width": 207.96875,
+              "height": 60.0625,
+              "right": 416,
+              "bottom": 97.9133071899414
+            },
+            "short": null,
+            "actions": {
+              "x": 208.03125,
+              "y": 10,
+              "width": 207.96875,
+              "height": 133.03125,
+              "right": 416,
+              "bottom": 143.03125
+            },
+            "text": "P55\nNo delivery record\nGate 1 Ticket Box · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for P55, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 221.03125,
+                "y": 49.772682189941406,
+                "width": 13,
+                "height": 13,
+                "right": 234.03125,
+                "bottom": 62.772682189941406
+              },
+              {
+                "text": "Navigate",
+                "x": 240.03125,
+                "y": 46.850807189941406,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 299.234375,
+                "bottom": 65.6945571899414
+              },
+              {
+                "text": "master plan",
+                "x": 226.03125,
+                "y": 71.6945571899414,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 315.828125,
+                "bottom": 88.9133071899414
+              }
+            ]
+          }
+        },
+        {
+          "key": "AA",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 149.8125,
+              "right": 430,
+              "bottom": 149.8125
+            },
+            "nav": {
+              "x": 197.390625,
+              "y": 43.984375,
+              "width": 218.609375,
+              "height": 40,
+              "right": 416,
+              "bottom": 83.984375
+            },
+            "short": null,
+            "actions": {
+              "x": 233.875,
+              "y": 10,
+              "width": 182.125,
+              "height": 128.8125,
+              "right": 416,
+              "bottom": 138.8125
+            },
+            "text": "AA\nOn site\n✓ Complete\nLevelled\nSteps\nActive Air Crib Room · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for AA, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 210.390625,
+                "y": 57.484375,
+                "width": 13,
+                "height": 13,
+                "right": 223.390625,
+                "bottom": 70.484375
+              },
+              {
+                "text": "Navigate",
+                "x": 229.390625,
+                "y": 54.5625,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 288.59375,
+                "bottom": 73.40625
+              },
+              {
+                "text": "master plan",
+                "x": 299.59375,
+                "y": 55.375,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 389.390625,
+                "bottom": 72.59375
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 151.90625,
+              "right": 430,
+              "bottom": 151.90625
+            },
+            "nav": {
+              "x": 233.875,
+              "y": 38,
+              "width": 182.125,
+              "height": 60.0625,
+              "right": 416,
+              "bottom": 98.0625
+            },
+            "short": null,
+            "actions": {
+              "x": 233.875,
+              "y": 10,
+              "width": 182.125,
+              "height": 130.90625,
+              "right": 416,
+              "bottom": 140.90625
+            },
+            "text": "AA\nOn site\n✓ Complete\nLevelled\nSteps\nActive Air Crib Room · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for AA, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 246.875,
+                "y": 49.921875,
+                "width": 13,
+                "height": 13,
+                "right": 259.875,
+                "bottom": 62.921875
+              },
+              {
+                "text": "Navigate",
+                "x": 265.875,
+                "y": 47,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 325.078125,
+                "bottom": 65.84375
+              },
+              {
+                "text": "master plan",
+                "x": 251.875,
+                "y": 71.84375,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 341.671875,
+                "bottom": 89.0625
+              }
+            ]
+          }
+        },
+        {
+          "key": "WC100",
+          "before": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 160.421875,
+              "right": 430,
+              "bottom": 160.421875
+            },
+            "nav": null,
+            "short": null,
+            "actions": {
+              "x": 207.546875,
+              "y": 10,
+              "width": 208.453125,
+              "height": 139.421875,
+              "right": 416,
+              "bottom": 149.421875
+            },
+            "text": "WC100\nOn site\n✓ Complete\n· Toilets & amenities · Rental ID 9968955\nMoved — position to confirm\nSend to a phone\n×",
+            "href": null,
+            "target": null,
+            "overlap": false,
+            "labelBoxes": []
+          },
+          "after": {
+            "header": {
+              "x": 0,
+              "y": 0,
+              "width": 430,
+              "height": 160.421875,
+              "right": 430,
+              "bottom": 160.421875
+            },
+            "nav": null,
+            "short": null,
+            "actions": {
+              "x": 207.546875,
+              "y": 10,
+              "width": 208.453125,
+              "height": 139.421875,
+              "right": 416,
+              "bottom": 149.421875
+            },
+            "text": "WC100\nOn site\n✓ Complete\n· Toilets & amenities · Rental ID 9968955\nMoved — position to confirm\nSend to a phone\n×",
+            "href": null,
+            "target": null,
+            "overlap": false,
+            "labelBoxes": []
+          }
+        }
+      ],
+      "cases": {
+        "keys": [
+          "WC31",
+          "WC20",
+          "P55",
+          "AA",
+          "WC100"
+        ],
+        "long": {
+          "key": "AA",
+          "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+          "label": "master plan"
+        },
+        "plain": {
+          "key": "WC100",
+          "href": null,
+          "label": null
+        }
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 121,
+        "blocked": 0
+      }
+    },
+    {
+      "width": 1440,
+      "checks": [
+        {
+          "name": "WC31: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC31: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC31: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC31: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC31: desktop geometry unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC31: actual Navigate opens the unchanged native Maps URL",
+          "pass": true
+        },
+        {
+          "name": "WC20: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC20: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC20: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC20: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC20: desktop geometry unchanged",
+          "pass": true
+        },
+        {
+          "name": "P55: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "P55: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "P55: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "P55: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "P55: desktop geometry unchanged",
+          "pass": true
+        },
+        {
+          "name": "AA: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "AA: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "AA: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "AA: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "AA: desktop geometry unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC100: native navigation URL and target unchanged",
+          "pass": true
+        },
+        {
+          "name": "WC100: SHORT is clear of Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC100: visible button labels stay inside Navigate",
+          "pass": true
+        },
+        {
+          "name": "WC100: drawer header stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "WC100: desktop geometry unchanged",
+          "pass": true
+        },
+        {
+          "name": "No page errors or service-write attempts",
+          "pass": true
+        }
+      ],
+      "references": [
+        {
+          "key": "WC31",
+          "before": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 163.21875,
+              "right": 1440,
+              "bottom": 163.21875
+            },
+            "nav": {
+              "x": 1047.046875,
+              "y": 14,
+              "width": 218.609375,
+              "height": 36.84375,
+              "right": 1265.65625,
+              "bottom": 50.84375
+            },
+            "short": {
+              "x": 996,
+              "y": 78.171875,
+              "width": 251.421875,
+              "height": 33.34375,
+              "right": 1247.421875,
+              "bottom": 111.515625
+            },
+            "actions": {
+              "x": 1263.421875,
+              "y": 14,
+              "width": 160.578125,
+              "height": 134.21875,
+              "right": 1424,
+              "bottom": 148.21875
+            },
+            "text": "WC31\nOn site\n✓ Complete\nSHORT · ACCESSIBLE TOILET 0 OF 1, 16PAN BLOCK 1 OF 2 Toilets · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC31, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.982469,153.425324&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 1060.046875,
+                "y": 25.921875,
+                "width": 13,
+                "height": 13,
+                "right": 1073.046875,
+                "bottom": 38.921875
+              },
+              {
+                "text": "Navigate",
+                "x": 1079.046875,
+                "y": 23,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 1138.25,
+                "bottom": 41.84375
+              },
+              {
+                "text": "master plan",
+                "x": 1149.25,
+                "y": 23.8125,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 1239.046875,
+                "bottom": 41.03125
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 163.21875,
+              "right": 1440,
+              "bottom": 163.21875
+            },
+            "nav": {
+              "x": 1047.046875,
+              "y": 14,
+              "width": 218.609375,
+              "height": 36.84375,
+              "right": 1265.65625,
+              "bottom": 50.84375
+            },
+            "short": {
+              "x": 996,
+              "y": 78.171875,
+              "width": 251.421875,
+              "height": 33.34375,
+              "right": 1247.421875,
+              "bottom": 111.515625
+            },
+            "actions": {
+              "x": 1263.421875,
+              "y": 14,
+              "width": 160.578125,
+              "height": 134.21875,
+              "right": 1424,
+              "bottom": 148.21875
+            },
+            "text": "WC31\nOn site\n✓ Complete\nSHORT · ACCESSIBLE TOILET 0 OF 1, 16PAN BLOCK 1 OF 2 Toilets · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC31, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.982469,153.425324&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 1060.046875,
+                "y": 25.921875,
+                "width": 13,
+                "height": 13,
+                "right": 1073.046875,
+                "bottom": 38.921875
+              },
+              {
+                "text": "Navigate",
+                "x": 1079.046875,
+                "y": 23,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 1138.25,
+                "bottom": 41.84375
+              },
+              {
+                "text": "master plan",
+                "x": 1149.25,
+                "y": 23.8125,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 1239.046875,
+                "bottom": 41.03125
+              }
+            ]
+          }
+        },
+        {
+          "key": "WC20",
+          "before": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 140.03125,
+              "right": 1440,
+              "bottom": 140.03125
+            },
+            "nav": {
+              "x": 1047.046875,
+              "y": 13.007094383239746,
+              "width": 218.609375,
+              "height": 36.84375,
+              "right": 1265.65625,
+              "bottom": 49.850844383239746
+            },
+            "short": null,
+            "actions": {
+              "x": 1212.6875,
+              "y": 14,
+              "width": 211.3125,
+              "height": 111.03125,
+              "right": 1424,
+              "bottom": 125.03125
+            },
+            "text": "WC20\nNo delivery record\nToilets (Tank Mounted) · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC20, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 1060.046875,
+                "y": 24.928970336914062,
+                "width": 13,
+                "height": 13,
+                "right": 1073.046875,
+                "bottom": 37.92897033691406
+              },
+              {
+                "text": "Navigate",
+                "x": 1079.046875,
+                "y": 22.007095336914062,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 1138.25,
+                "bottom": 40.85084533691406
+              },
+              {
+                "text": "master plan",
+                "x": 1149.25,
+                "y": 22.819595336914062,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 1239.046875,
+                "bottom": 40.03834533691406
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 140.03125,
+              "right": 1440,
+              "bottom": 140.03125
+            },
+            "nav": {
+              "x": 1047.046875,
+              "y": 13.007094383239746,
+              "width": 218.609375,
+              "height": 36.84375,
+              "right": 1265.65625,
+              "bottom": 49.850844383239746
+            },
+            "short": null,
+            "actions": {
+              "x": 1212.6875,
+              "y": 14,
+              "width": 211.3125,
+              "height": 111.03125,
+              "right": 1424,
+              "bottom": 125.03125
+            },
+            "text": "WC20\nNo delivery record\nToilets (Tank Mounted) · Toilets & amenities · Rental ID 9968955\nNavigate\nMASTER PLAN\nto the spot on the master plan for WC20, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 1060.046875,
+                "y": 24.928970336914062,
+                "width": 13,
+                "height": 13,
+                "right": 1073.046875,
+                "bottom": 37.92897033691406
+              },
+              {
+                "text": "Navigate",
+                "x": 1079.046875,
+                "y": 22.007095336914062,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 1138.25,
+                "bottom": 40.85084533691406
+              },
+              {
+                "text": "master plan",
+                "x": 1149.25,
+                "y": 22.819595336914062,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 1239.046875,
+                "bottom": 40.03834533691406
+              }
+            ]
+          }
+        },
+        {
+          "key": "P55",
+          "before": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 140.03125,
+              "right": 1440,
+              "bottom": 140.03125
+            },
+            "nav": {
+              "x": 1047.046875,
+              "y": 13.424042701721191,
+              "width": 218.609375,
+              "height": 36.84375,
+              "right": 1265.65625,
+              "bottom": 50.26779270172119
+            },
+            "short": null,
+            "actions": {
+              "x": 1202.234375,
+              "y": 14,
+              "width": 221.765625,
+              "height": 111.03125,
+              "right": 1424,
+              "bottom": 125.03125
+            },
+            "text": "P55\nNo delivery record\nGate 1 Ticket Box · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for P55, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 1060.046875,
+                "y": 25.345916748046875,
+                "width": 13,
+                "height": 13,
+                "right": 1073.046875,
+                "bottom": 38.345916748046875
+              },
+              {
+                "text": "Navigate",
+                "x": 1079.046875,
+                "y": 22.424041748046875,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 1138.25,
+                "bottom": 41.267791748046875
+              },
+              {
+                "text": "master plan",
+                "x": 1149.25,
+                "y": 23.236541748046875,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 1239.046875,
+                "bottom": 40.455291748046875
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 140.03125,
+              "right": 1440,
+              "bottom": 140.03125
+            },
+            "nav": {
+              "x": 1047.046875,
+              "y": 13.424042701721191,
+              "width": 218.609375,
+              "height": 36.84375,
+              "right": 1265.65625,
+              "bottom": 50.26779270172119
+            },
+            "short": null,
+            "actions": {
+              "x": 1202.234375,
+              "y": 14,
+              "width": 221.765625,
+              "height": 111.03125,
+              "right": 1424,
+              "bottom": 125.03125
+            },
+            "text": "P55\nNo delivery record\nGate 1 Ticket Box · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for P55, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 1060.046875,
+                "y": 25.345916748046875,
+                "width": 13,
+                "height": 13,
+                "right": 1073.046875,
+                "bottom": 38.345916748046875
+              },
+              {
+                "text": "Navigate",
+                "x": 1079.046875,
+                "y": 22.424041748046875,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 1138.25,
+                "bottom": 41.267791748046875
+              },
+              {
+                "text": "master plan",
+                "x": 1149.25,
+                "y": 23.236541748046875,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 1239.046875,
+                "bottom": 40.455291748046875
+              }
+            ]
+          }
+        },
+        {
+          "key": "AA",
+          "before": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 157.8125,
+              "right": 1440,
+              "bottom": 157.8125
+            },
+            "nav": {
+              "x": 1047.046875,
+              "y": 13.887154579162598,
+              "width": 218.609375,
+              "height": 36.84375,
+              "right": 1265.65625,
+              "bottom": 50.7309045791626
+            },
+            "short": null,
+            "actions": {
+              "x": 1229.796875,
+              "y": 14,
+              "width": 194.203125,
+              "height": 128.8125,
+              "right": 1424,
+              "bottom": 142.8125
+            },
+            "text": "AA\nOn site\n✓ Complete\nLevelled\nSteps\nActive Air Crib Room · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for AA, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 1060.046875,
+                "y": 25.80902862548828,
+                "width": 13,
+                "height": 13,
+                "right": 1073.046875,
+                "bottom": 38.80902862548828
+              },
+              {
+                "text": "Navigate",
+                "x": 1079.046875,
+                "y": 22.88715362548828,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 1138.25,
+                "bottom": 41.73090362548828
+              },
+              {
+                "text": "master plan",
+                "x": 1149.25,
+                "y": 23.69965362548828,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 1239.046875,
+                "bottom": 40.91840362548828
+              }
+            ]
+          },
+          "after": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 157.8125,
+              "right": 1440,
+              "bottom": 157.8125
+            },
+            "nav": {
+              "x": 1047.046875,
+              "y": 13.887154579162598,
+              "width": 218.609375,
+              "height": 36.84375,
+              "right": 1265.65625,
+              "bottom": 50.7309045791626
+            },
+            "short": null,
+            "actions": {
+              "x": 1229.796875,
+              "y": 14,
+              "width": 194.203125,
+              "height": 128.8125,
+              "right": 1424,
+              "bottom": 142.8125
+            },
+            "text": "AA\nOn site\n✓ Complete\nLevelled\nSteps\nActive Air Crib Room · Portable buildings · Rental ID 9968862\nNavigate\nMASTER PLAN\nto the spot on the master plan for AA, opens your maps app\nSend to a phone\n×",
+            "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+            "target": "_blank",
+            "overlap": false,
+            "labelBoxes": [
+              {
+                "text": "",
+                "x": 1060.046875,
+                "y": 25.80902862548828,
+                "width": 13,
+                "height": 13,
+                "right": 1073.046875,
+                "bottom": 38.80902862548828
+              },
+              {
+                "text": "Navigate",
+                "x": 1079.046875,
+                "y": 22.88715362548828,
+                "width": 59.203125,
+                "height": 18.84375,
+                "right": 1138.25,
+                "bottom": 41.73090362548828
+              },
+              {
+                "text": "master plan",
+                "x": 1149.25,
+                "y": 23.69965362548828,
+                "width": 89.796875,
+                "height": 17.21875,
+                "right": 1239.046875,
+                "bottom": 40.91840362548828
+              }
+            ]
+          }
+        },
+        {
+          "key": "WC100",
+          "before": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 168.421875,
+              "right": 1440,
+              "bottom": 168.421875
+            },
+            "nav": null,
+            "short": null,
+            "actions": {
+              "x": 1201.71875,
+              "y": 14,
+              "width": 222.28125,
+              "height": 139.421875,
+              "right": 1424,
+              "bottom": 153.421875
+            },
+            "text": "WC100\nOn site\n✓ Complete\n· Toilets & amenities · Rental ID 9968955\nMoved — position to confirm\nSend to a phone\n×",
+            "href": null,
+            "target": null,
+            "overlap": false,
+            "labelBoxes": []
+          },
+          "after": {
+            "header": {
+              "x": 980,
+              "y": 0,
+              "width": 460,
+              "height": 168.421875,
+              "right": 1440,
+              "bottom": 168.421875
+            },
+            "nav": null,
+            "short": null,
+            "actions": {
+              "x": 1201.71875,
+              "y": 14,
+              "width": 222.28125,
+              "height": 139.421875,
+              "right": 1424,
+              "bottom": 153.421875
+            },
+            "text": "WC100\nOn site\n✓ Complete\n· Toilets & amenities · Rental ID 9968955\nMoved — position to confirm\nSend to a phone\n×",
+            "href": null,
+            "target": null,
+            "overlap": false,
+            "labelBoxes": []
+          }
+        }
+      ],
+      "cases": {
+        "keys": [
+          "WC31",
+          "WC20",
+          "P55",
+          "AA",
+          "WC100"
+        ],
+        "long": {
+          "key": "AA",
+          "href": "https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving",
+          "label": "master plan"
+        },
+        "plain": {
+          "key": "WC100",
+          "href": null,
+          "label": null
+        }
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 122,
+        "blocked": 0
+      }
+    }
+  ]
+}

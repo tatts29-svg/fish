@@ -1,0 +1,98 @@
+{
+  "author": "Andrew Fisher",
+  "reviewer": "Independent Astra architecture/detail agent",
+  "candidateSha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+  "helperSha256": "87d2d08fa7a2f4de1b08791bb35641b55501beeda587e3296a50248ffeacd6eb",
+  "status": "Independent bounded source and visual review accepted",
+  "independentReceiptAssertions": {
+    "passed": 34,
+    "failed": 0
+  },
+  "sourceReversalAssertions": {
+    "passed": 13,
+    "failed": 0
+  },
+  "resolvedFindings": [
+    {
+      "finding": "Placeholder identifiers could imply physical receipt",
+      "fixed": "Number fallback now requires nonzero numeric EP serials; independent placeholder cases pass."
+    },
+    {
+      "finding": "Explicit invalid supplied quantity could silently fall back to unit count",
+      "fixed": "Malformed explicit quantities remain unconfirmed and are labelled for reconciliation."
+    }
+  ],
+  "sourcePreservation": "Exact reversal restores the entire v8.07 input byte for byte, including DATA, booking dates/DD pairings/history, destination/source functions, records and non-print code. No operational writes.",
+  "receiptInterpretation": [
+    "Typed per-type quantities take priority; unknown, invalid, substituted or conflicting counts do not become zero remaining.",
+    "Number inference is limited to a sole FWF type, no accessories, numbered EP units and explicit on-site plus Complete.",
+    "Reference receipt totals are not assigned to split DD loads. Booked-number filtering prevents another truck's cargo appearing on the sheet.",
+    "WC32 cancellation discrepancy remains advisory; active system state is not rewritten.",
+    "Zero remaining preserves the original planned row and date; this change does not authorise a new load instruction."
+  ],
+  "visualEvidence": [
+    {
+      "path": "/workspace/private-v808-review/phone-WC31.png",
+      "sha256": "5aeeefb6e1b35570329b6e23a3e8c0d1608bc375279e7c0e7d550cd661f656ea",
+      "candidateSha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+      "reviewed": true
+    },
+    {
+      "path": "/workspace/private-v808-review/ins-WC31.png",
+      "sha256": "47026052d4d41d22a6a9d906d3e61d023726f31ab054ff8435b212e8e6f7befa",
+      "candidateSha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+      "reviewed": true
+    },
+    {
+      "path": "/workspace/private-v808-review/drv-WC33.png",
+      "sha256": "50343746e8a5c6f6faae419e7365018f8d55a2d315c71fd7603408bc40eb593c",
+      "candidateSha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+      "reviewed": true
+    },
+    {
+      "path": "/workspace/private-v808-review/drv-WC32.png",
+      "sha256": "1d100b359a20fb56e4d1c0859df760fa97c9ed7ca396238b8bc35cf87b079d33",
+      "candidateSha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+      "reviewed": true
+    },
+    {
+      "path": "/workspace/private-v808-review/driver-WC20-tank.png",
+      "sha256": "6bbd144becb129d6dddaf6c6193c650eaac45a43e7fdf53fe68738c505d97fc3",
+      "candidateSha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+      "reviewed": true
+    },
+    {
+      "path": "/workspace/private-v808-review/driver-WC20-block.png",
+      "sha256": "8457eacc0abe08f497cf13158f1519e29e0fe3cd2fae539e7f784838cfaa4211",
+      "candidateSha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+      "reviewed": true
+    }
+  ],
+  "limits": [
+    "Independent VM fixtures isolate helper semantics; implementation agent owns actual native browser and A4 tests.",
+    "No claim that count evidence proves physical completeness beyond the explicit current record.",
+    "No live writes, publication, staging, peer source edits or public private-data handover."
+  ],
+  "visualFindings": [
+    "Final normal native390px phone preview fits the full A4 page and clears the wrapped toolbar. Text is small at whole-page scale; this is an A4 preview, not a newly responsive document layout.",
+    "WC31 prints0accessible and1block supplied, remaining1each; Complete is reference-level, not a substitute for item counts.",
+    "WC33 prints17 numbered EP units on site and0 remaining while preserving the planned17 and date.",
+    "WC32 source cancellation warning is visible without changing status.",
+    "WC20 tank/block sheets retain their own DD/time/planned quantity and numbers. Reference totals/unknown receipt allocation are labelled explicitly."
+  ],
+  "implementationAgentNativeEvidence": {
+    "path": "/workspace/private-v808-review/checks.json",
+    "sha256": "c04fd6b3f355743c324014ea521a732288bf5219dd5192f36624dcb9bfed8ac1",
+    "passed": 55,
+    "failed": 0,
+    "pageErrors": [],
+    "blockedRequests": [
+      {
+        "method": "POST",
+        "path": "/v1/createSession"
+      }
+    ],
+    "reviewedNotIndependentlyRerun": true
+  },
+  "rejectedEvidenceHistory": "Initial clipped phone capture was rejected. The harness now enters the actual dpFromLink path and tests the real page bounds; final capture above supersedes it. No product CSS change."
+}

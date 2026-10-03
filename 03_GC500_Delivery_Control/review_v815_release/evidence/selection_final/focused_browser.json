@@ -1,0 +1,540 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "candidateBytes": 9118422,
+  "baseSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "baseImplementationCommit": "c1f69890736fae4c004e4643ff4139bb19cebeeb",
+  "correctedDocumentsSourceSha256": "da33522f35097ce2987e26ede691cd9d99b6e606e6522af8a0e02bb9e07cf134",
+  "correctionPatch": {
+    "path": "../proposal_c1f6989_selection.py",
+    "sha256": "5972e8769cd43972019adb5daf9227814aeebf6f7a215de97462d67d800849e2"
+  },
+  "bindingChecks": {
+    "candidateContainsExactCorrectedSource": true,
+    "nativeRefreshAndRedrawMatchCpuOriginalPage": true
+  },
+  "browser": {
+    "passed": 80,
+    "total": 80,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "attemptedServiceWrites": 0,
+    "selectionRegression": {
+      "originalResultSha256": "d06f9bfe9444fa37232d384bb89065f32094ffe8374c0dc82db7bb73490c769c",
+      "passed": 20,
+      "total": 20,
+      "devices": [
+        {
+          "device": "desktop",
+          "passed": 10,
+          "total": 10,
+          "pageErrors": 0,
+          "consoleErrors": 0,
+          "attemptedServiceWrites": 0,
+          "checks": [
+            {
+              "name": "after actual selection preserves selected row and focus",
+              "pass": true
+            },
+            {
+              "name": "after 1050ms preserves selected row and focus",
+              "pass": true
+            },
+            {
+              "name": "after native docsRedraw preserves selected row and focus",
+              "pass": true
+            },
+            {
+              "name": "after partial repaint preserves selected row and focus",
+              "pass": true
+            },
+            {
+              "name": "Full redraw leaves document search focus alone",
+              "pass": true
+            },
+            {
+              "name": "Partial redraw leaves document search focus alone",
+              "pass": true
+            },
+            {
+              "name": "A new typed query clears the previous row selection without losing search focus",
+              "pass": true
+            },
+            {
+              "name": "A later header selection reacquires the chosen row",
+              "pass": true
+            },
+            {
+              "name": "Choosing another category clears the old selection and keeps category focus",
+              "pass": true
+            },
+            {
+              "name": "Later refresh does not resurrect an old selected row",
+              "pass": true
+            }
+          ]
+        },
+        {
+          "device": "phone",
+          "passed": 10,
+          "total": 10,
+          "pageErrors": 0,
+          "consoleErrors": 0,
+          "attemptedServiceWrites": 0,
+          "checks": [
+            {
+              "name": "after actual selection preserves selected row and focus",
+              "pass": true
+            },
+            {
+              "name": "after 1050ms preserves selected row and focus",
+              "pass": true
+            },
+            {
+              "name": "after native docsRedraw preserves selected row and focus",
+              "pass": true
+            },
+            {
+              "name": "after partial repaint preserves selected row and focus",
+              "pass": true
+            },
+            {
+              "name": "Full redraw leaves document search focus alone",
+              "pass": true
+            },
+            {
+              "name": "Partial redraw leaves document search focus alone",
+              "pass": true
+            },
+            {
+              "name": "A new typed query clears the previous row selection without losing search focus",
+              "pass": true
+            },
+            {
+              "name": "A later header selection reacquires the chosen row",
+              "pass": true
+            },
+            {
+              "name": "Choosing another category clears the old selection and keeps category focus",
+              "pass": true
+            },
+            {
+              "name": "Later refresh does not resurrect an old selected row",
+              "pass": true
+            }
+          ]
+        }
+      ]
+    },
+    "fullSupplement": {
+      "originalResultSha256": "b7b9f272c5fadc84f6d3dd00feb510a1a749bbc8cb036aaf64957d4aeb7d9606",
+      "runnerDesignSourceCommit": "6a0bb204d5bf55e4b65be8cf07866e7b3f1402df",
+      "runnerProvenanceNote": "Earlier runner-design provenance only; actual runtime page and base hashes bind these results to this candidate.",
+      "passed": 60,
+      "total": 60,
+      "devices": [
+        {
+          "device": "desktop",
+          "passed": 30,
+          "total": 30,
+          "pageErrors": 0,
+          "consoleErrors": 0,
+          "attemptedServiceWrites": 0,
+          "checks": [
+            {
+              "name": "Tab reaches the first category control",
+              "pass": true
+            },
+            {
+              "name": "Enter opens the safety category",
+              "pass": true
+            },
+            {
+              "name": "Keyboard opening keeps focus on its control or inside its content",
+              "pass": true
+            },
+            {
+              "name": "Space closes the category and keeps focus on its control",
+              "pass": true
+            },
+            {
+              "name": "Typing filters results without losing search focus",
+              "pass": true
+            },
+            {
+              "name": "Registry-driven redraw preserves the active search and caret",
+              "pass": true
+            },
+            {
+              "name": "A retained safety-context note is available for the search check",
+              "pass": true
+            },
+            {
+              "name": "Filename plus a safety term found only in the note finds the merged paper",
+              "pass": true
+            },
+            {
+              "name": "Note starts folded",
+              "pass": true
+            },
+            {
+              "name": "Details reveals the full retained safety-context note",
+              "pass": true
+            },
+            {
+              "name": "Details closes the note and updates its expanded state",
+              "pass": true
+            },
+            {
+              "name": "Pre-start fold exists for the print-state check",
+              "pass": true
+            },
+            {
+              "name": "folded: native print includes the complete document list and photo groups",
+              "pass": true
+            },
+            {
+              "name": "folded: category, filter and fold state survive before/after print",
+              "pass": true
+            },
+            {
+              "name": "folded: browser generated a PDF",
+              "pass": true
+            },
+            {
+              "name": "filtered: native print includes the complete document list and photo groups",
+              "pass": true
+            },
+            {
+              "name": "filtered: category, filter and fold state survive before/after print",
+              "pass": true
+            },
+            {
+              "name": "filtered: browser generated a PDF",
+              "pass": true
+            },
+            {
+              "name": "A missing safety document is available for header selection",
+              "pass": true
+            },
+            {
+              "name": "Actual header selection shows and focuses the chosen missing document",
+              "pass": true
+            },
+            {
+              "name": "View link has no Add, upload or remove controls",
+              "pass": true
+            },
+            {
+              "name": "Practice edit mode starts with the upload form folded",
+              "pass": true
+            },
+            {
+              "name": "Add opens the form for Drawings and focuses file selection",
+              "pass": true
+            },
+            {
+              "name": "Photo selection offers its required reference without invoice fields",
+              "pass": true
+            },
+            {
+              "name": "An invoice kind is available for the field-toggle check",
+              "pass": true
+            },
+            {
+              "name": "Invoice selection offers reference and invoice fields",
+              "pass": true
+            },
+            {
+              "name": "Add closes the form and resets its expanded state",
+              "pass": true
+            },
+            {
+              "name": "Returning to view mode removes every editing control",
+              "pass": true
+            },
+            {
+              "name": "No page or console errors during supplemental checks",
+              "pass": true
+            },
+            {
+              "name": "No attempted service writes",
+              "pass": true
+            }
+          ]
+        },
+        {
+          "device": "phone",
+          "passed": 30,
+          "total": 30,
+          "pageErrors": 0,
+          "consoleErrors": 0,
+          "attemptedServiceWrites": 0,
+          "checks": [
+            {
+              "name": "Tab reaches the first category control",
+              "pass": true
+            },
+            {
+              "name": "Enter opens the safety category",
+              "pass": true
+            },
+            {
+              "name": "Keyboard opening keeps focus on its control or inside its content",
+              "pass": true
+            },
+            {
+              "name": "Space closes the category and keeps focus on its control",
+              "pass": true
+            },
+            {
+              "name": "Typing filters results without losing search focus",
+              "pass": true
+            },
+            {
+              "name": "Registry-driven redraw preserves the active search and caret",
+              "pass": true
+            },
+            {
+              "name": "A retained safety-context note is available for the search check",
+              "pass": true
+            },
+            {
+              "name": "Filename plus a safety term found only in the note finds the merged paper",
+              "pass": true
+            },
+            {
+              "name": "Note starts folded",
+              "pass": true
+            },
+            {
+              "name": "Details reveals the full retained safety-context note",
+              "pass": true
+            },
+            {
+              "name": "Details closes the note and updates its expanded state",
+              "pass": true
+            },
+            {
+              "name": "Pre-start fold exists for the print-state check",
+              "pass": true
+            },
+            {
+              "name": "folded: native print includes the complete document list and photo groups",
+              "pass": true
+            },
+            {
+              "name": "folded: category, filter and fold state survive before/after print",
+              "pass": true
+            },
+            {
+              "name": "folded: browser generated a PDF",
+              "pass": true
+            },
+            {
+              "name": "filtered: native print includes the complete document list and photo groups",
+              "pass": true
+            },
+            {
+              "name": "filtered: category, filter and fold state survive before/after print",
+              "pass": true
+            },
+            {
+              "name": "filtered: browser generated a PDF",
+              "pass": true
+            },
+            {
+              "name": "A missing safety document is available for header selection",
+              "pass": true
+            },
+            {
+              "name": "Actual header selection shows and focuses the chosen missing document",
+              "pass": true
+            },
+            {
+              "name": "View link has no Add, upload or remove controls",
+              "pass": true
+            },
+            {
+              "name": "Practice edit mode starts with the upload form folded",
+              "pass": true
+            },
+            {
+              "name": "Add opens the form for Drawings and focuses file selection",
+              "pass": true
+            },
+            {
+              "name": "Photo selection offers its required reference without invoice fields",
+              "pass": true
+            },
+            {
+              "name": "An invoice kind is available for the field-toggle check",
+              "pass": true
+            },
+            {
+              "name": "Invoice selection offers reference and invoice fields",
+              "pass": true
+            },
+            {
+              "name": "Add closes the form and resets its expanded state",
+              "pass": true
+            },
+            {
+              "name": "Returning to view mode removes every editing control",
+              "pass": true
+            },
+            {
+              "name": "No page or console errors during supplemental checks",
+              "pass": true
+            },
+            {
+              "name": "No attempted service writes",
+              "pass": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "independentCpu": {
+    "result": "../followup_c1f6989_selection_positive_results.json",
+    "resultSha256": "358e562b6e007242ea7ecdb57db653f76c0dda908369de7e212fb8bd2fd1e843",
+    "sourceSha256": "da33522f35097ce2987e26ede691cd9d99b6e606e6522af8a0e02bb9e07cf134",
+    "originalPageSha256": "665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb",
+    "passed": 70,
+    "total": 70,
+    "preservedPositiveChecks": 43,
+    "selectionChecksPassed": 27,
+    "selectionChecksTotal": 27,
+    "failures": [],
+    "selectionChecks": [
+      {
+        "name": "Refresh after initial focus timer preserves selected marker and focus",
+        "pass": true
+      },
+      {
+        "name": "Refresh ordering false consumes one-shot focus intent",
+        "pass": true
+      },
+      {
+        "name": "Refresh before initial focus timer preserves selected marker and focus",
+        "pass": true
+      },
+      {
+        "name": "Refresh ordering true consumes one-shot focus intent",
+        "pass": true
+      },
+      {
+        "name": "full redraw keeps the selected row marked and focused",
+        "pass": true
+      },
+      {
+        "name": "full redraw restores focus without a new scroll jump",
+        "pass": true
+      },
+      {
+        "name": "full redraw does not steal document search focus (pending selection)",
+        "pass": true
+      },
+      {
+        "name": "full redraw does not steal document search focus (completed selection)",
+        "pass": true
+      },
+      {
+        "name": "full redraw does not steal category focus (pending selection)",
+        "pass": true
+      },
+      {
+        "name": "full redraw does not steal category focus (completed selection)",
+        "pass": true
+      },
+      {
+        "name": "full redraw does not steal other control focus (pending selection)",
+        "pass": true
+      },
+      {
+        "name": "full redraw does not steal other control focus (completed selection)",
+        "pass": true
+      },
+      {
+        "name": "partial redraw keeps the selected row marked and focused",
+        "pass": true
+      },
+      {
+        "name": "partial redraw restores focus without a new scroll jump",
+        "pass": true
+      },
+      {
+        "name": "partial redraw does not steal document search focus (pending selection)",
+        "pass": true
+      },
+      {
+        "name": "partial redraw does not steal document search focus (completed selection)",
+        "pass": true
+      },
+      {
+        "name": "partial redraw does not steal category focus (pending selection)",
+        "pass": true
+      },
+      {
+        "name": "partial redraw does not steal category focus (completed selection)",
+        "pass": true
+      },
+      {
+        "name": "partial redraw does not steal other control focus (pending selection)",
+        "pass": true
+      },
+      {
+        "name": "partial redraw does not steal other control focus (completed selection)",
+        "pass": true
+      },
+      {
+        "name": "Pending timer alone does not steal document search focus",
+        "pass": true
+      },
+      {
+        "name": "Pending timer alone does not steal category focus",
+        "pass": true
+      },
+      {
+        "name": "Pending timer alone does not steal other control focus",
+        "pass": true
+      },
+      {
+        "name": "Typed new query clears the identity, pending intent and stale highlight",
+        "pass": true
+      },
+      {
+        "name": "Chosen category clears the identity, pending intent and stale highlight",
+        "pass": true
+      },
+      {
+        "name": "Deep-linked category clears the identity and pending intent",
+        "pass": true
+      },
+      {
+        "name": "Selection redraws do not mutate catalogue, file metadata or book records",
+        "pass": true
+      }
+    ],
+    "limits": "Actual source and refresh functions with synthetic records, DOM/timer doubles and controlled file-list promise. No browser or geometry/performance claim.",
+    "provenanceNote": "The original page supplies unchanged native refresh/redraw functions; the corrected source supplies the Documents implementation. All previous 43 positive assertions were rerun unchanged with the new source hash, then 27 selection checks ran."
+  },
+  "visualReview": {
+    "method": "Release-owner inspection reported to the evidence consolidator.",
+    "privateArtifacts": [
+      {
+        "artifact": "desktop-after-print.png",
+        "sha256": "35e829a25dd9df7de52a87a1bf3157e0bc81f78cc451fae31324f35bce11c033",
+        "inspection": "Release owner reported inspecting this private screenshot; evidence consolidator did not independently reopen it."
+      },
+      {
+        "artifact": "phone-after-print.png",
+        "sha256": "33531ed4abc647c8b385865d850731cee417c975551cdaeee90437c9d0f500f4",
+        "inspection": "Release owner reported inspecting this private screenshot; evidence consolidator did not independently reopen it."
+      }
+    ]
+  },
+  "privacy": "Allowlisted generic assertions, aggregate counts, source/artifact hashes and pass states only. No operational rows, selected document identities, traces, screenshots or PDFs copied.",
+  "releaseStatus": "Focused evidence only; standing suites, pre-upload verification and publication are recorded separately by the release owner."
+}

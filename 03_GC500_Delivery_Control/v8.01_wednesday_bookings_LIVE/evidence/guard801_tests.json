@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "checks": [
+    {
+      "name": "Repeated application refused without changing file",
+      "pass": true
+    },
+    {
+      "name": "Changed source quantity refused without changing file",
+      "pass": true
+    },
+    {
+      "name": "Canonical DATA declaration remains protected by official attribution scrubber",
+      "pass": true
+    }
+  ]
+}

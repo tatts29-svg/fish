@@ -1,0 +1,58 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Repeated 3D requests share one timer",
+      "pass": true
+    },
+    {
+      "name": "Opening completes once when the map becomes ready",
+      "pass": true
+    },
+    {
+      "name": "Navigation away cancels a pending opening",
+      "pass": true
+    },
+    {
+      "name": "Choosing another drawing cancels hidden 3D startup",
+      "pass": true
+    },
+    {
+      "name": "Explicit 2D selection cancels its timer",
+      "pass": true
+    },
+    {
+      "name": "A failed opening stops and gives a retry instruction",
+      "pass": true
+    },
+    {
+      "name": "A subsequent retry can complete",
+      "pass": true
+    },
+    {
+      "name": "Desktop map ends above the footer and main padding",
+      "pass": true
+    },
+    {
+      "name": "Phone uses its actual map top",
+      "pass": true
+    },
+    {
+      "name": "Host scrolling cannot progressively enlarge the map",
+      "pass": true
+    },
+    {
+      "name": "Full screen reserves its own bottom edge",
+      "pass": true
+    },
+    {
+      "name": "Hidden tab is not resized to an invalid area",
+      "pass": true
+    },
+    {
+      "name": "Short viewport keeps a usable minimum without a fixed 420px CSS minimum",
+      "pass": true
+    }
+  ],
+  "scope": "CPU behavioural fixtures; real desktop and phone geometry is checked separately in the browser."
+}

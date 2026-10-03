@@ -1,0 +1,13 @@
+live page: 8883495 bytes -> /workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/toolchain/../build/GC500_v7.96/base_live.html
+== applying v7.91_today_tidy_full_width_DRAFT/patch_v791.py
+v7.91 applied: Back in the header row, bands capped, Deliveries fills, cards fill each row
+== applying v7.93_one_tab_today_DRAFT/patch_v793.py
+v7.93 applied: Where we are on Today, off the tab row, repeats left off
+== applying v7.95_today_packed_DRAFT/patch_v795.py
+v7.95 applied: Today packed, jump buttons, folding sections
+== applying v7.96_equipment_tab_DRAFT/patch_v796.py
+v7.96 applied: Plant and Inventory as one Equipment tab
+scrubbed /workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/toolchain/../build/GC500_v7.96/GC500_Delivery_Control_hosted.html 8889304 -> 8889304 | visible code mentions left: 46
+checked /workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/toolchain/../build/GC500_v7.96/GC500_Delivery_Control_hosted.html: 6 inline scripts, 8,907,669 bytes, secrets {'google key': 0, 'mapbox token': 0}
+PASS all checks
+BUILT /workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/toolchain/../build/GC500_v7.96/GC500_Delivery_Control_hosted.html

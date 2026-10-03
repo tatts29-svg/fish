@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "c593d4fd12763068810a80f5254b3f6138442250fdcd6912d888f5b7d5a4d5ef",
+  "privateCaptureDirectory": "/workspace/private-v800-opening-tuned",
+  "views": 10,
+  "checks": 45,
+  "errors": [],
+  "blockedWrites": 0,
+  "reviewed": "All 10 desktop/phone normal-product opening/tour/Driver stills",
+  "findings": [
+    "Opening keeps the entire circuit visible in both aspects. At 4.8 s the real simulation contains 218 smoke particles but the default product overview remains clear.",
+    "At 9 s the product road camera shows the car clearly, with no residual smoke particles.",
+    "At 20.533 s approximately 0.77 km the real drift emits 41 smoke particles; both captures keep the car body readable with smoke trailing behind. No opacity/particle change is justified by these actual product views.",
+    "Desktop and phone seam banners now show a clean gap without overlapped artwork. Driver views remain unobstructed, and the ordinary progress map updates along the real frame loop."
+  ],
+  "limits": [
+    "Real frame simulation with intermediate GPU draws suppressed proves deterministic presentation state, not real-device frame rate or temporal smoothness.",
+    "Anti-aliasing capability correction and actual Detail/Front detail UI captures are separate pending gates."
+  ]
+}

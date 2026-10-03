@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "baseSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+  "bytes": 9091870,
+  "addedBytes": 322,
+  "checks": {
+    "single_style_block": true,
+    "scoped_to_phone_native_drawer": true,
+    "exact_reverse_to_live_base": true,
+    "inline_scripts_unchanged": true,
+    "base_is_verified_live803": true
+  },
+  "scope": "Independent source review. Full page minus exact CSS insertion and release marker is byte-identical to verified live803. No scripts, records, markup, existing styles or desktop rules changed."
+}

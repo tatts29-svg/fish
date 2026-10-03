@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "repeat",
+      "pass": true
+    },
+    {
+      "name": "allocation source changed",
+      "pass": true
+    },
+    {
+      "name": "missing camera",
+      "pass": true
+    },
+    {
+      "name": "duplicate lifecycle",
+      "pass": true
+    }
+  ],
+  "baseSha256": "43a74f7bc8ca4ba4339f51dea142dedc845c86274e82107c68e49c68ac264a8f",
+  "candidateSha256": "f7f698b506439c82020b23276f57d49d5de62bca61e6f329d04d0e8b6ca9b619"
+}

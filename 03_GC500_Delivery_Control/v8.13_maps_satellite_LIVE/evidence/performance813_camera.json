@@ -1,0 +1,130 @@
+{
+  "author": "Andrew Fisher",
+  "sourcePath": "/workspace/private-maps813/reliability/explorer.performance813.js",
+  "sourceSha256": "b312edb6cd07a02dcdad4f1ace57f06921b2f3d597d9e23cbd3de6c8f6e6cd43",
+  "baseSha256": "ad9ab5e488d690444c59730f8ad286b2df60ab0353cd1d21dabc40e398a3b5a4",
+  "checks": [
+    {
+      "name": "fit owns camera after zoom",
+      "pass": true
+    },
+    {
+      "name": "fit owns camera after fling",
+      "pass": true
+    },
+    {
+      "name": "fit owns camera after rotate",
+      "pass": true
+    },
+    {
+      "name": "reference owns camera after zoom",
+      "pass": true
+    },
+    {
+      "name": "reference owns camera after fling",
+      "pass": true
+    },
+    {
+      "name": "reference owns camera after rotate",
+      "pass": true
+    },
+    {
+      "name": "typedZoom owns camera after zoom",
+      "pass": true
+    },
+    {
+      "name": "typedZoom owns camera after fling",
+      "pass": true
+    },
+    {
+      "name": "typedZoom owns camera after rotate",
+      "pass": true
+    },
+    {
+      "name": "rotation replaces zoom without a late zoom frame",
+      "pass": true
+    },
+    {
+      "name": "zoom replaces rotation while retaining the requested zoom glide",
+      "pass": true
+    },
+    {
+      "name": "ordinary zoom remains time based and reaches its destination",
+      "pass": true
+    },
+    {
+      "name": "reduced motion remains an immediate zoom",
+      "pass": true
+    },
+    {
+      "name": "fit exact view matches v7.90 when no motion is pending",
+      "pass": true
+    },
+    {
+      "name": "reference exact view matches v7.90 when no motion is pending",
+      "pass": true
+    },
+    {
+      "name": "v7.90 family switch still fits and clears all motion",
+      "pass": true
+    },
+    {
+      "name": "cancelled box gesture never commits a jump or pick",
+      "pass": true
+    },
+    {
+      "name": "cancelled pinch releases both captures and does not reuse a tap",
+      "pass": true
+    },
+    {
+      "name": "completed box gesture still commits the exact rectangle",
+      "pass": true
+    },
+    {
+      "name": "first sharp view resolves readiness without eager workers/fetches/timers",
+      "pass": true
+    },
+    {
+      "name": "georeferencing and tile density preserved",
+      "pass": true
+    },
+    {
+      "name": "affine transforms and resize preserved",
+      "pass": true
+    },
+    {
+      "name": "pyramid rendering, range fetch and detail demand preserved",
+      "pass": true
+    },
+    {
+      "name": "drawing and original aerial demand preserved",
+      "pass": true
+    },
+    {
+      "name": "DPR adaptive backing-store reuse preserved",
+      "pass": true
+    },
+    {
+      "name": "source labels and register picks preserved",
+      "pass": true
+    },
+    {
+      "name": "export detail and source demand preserved",
+      "pass": true
+    },
+    {
+      "name": "scene worker recovery and boot demand preserved",
+      "pass": true
+    },
+    {
+      "name": "DPR stays within pixel budgets and avoids redundant canvas resize",
+      "pass": true
+    }
+  ],
+  "passed": 29,
+  "failed": 0,
+  "limits": [
+    "Isolated exact-source CPU fixtures; browser timing and appearance are checked separately.",
+    "No physical device frame-rate claim. No operational records or source geometry changed."
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "All accepted tree rows, coordinates, height/radius and source ranges remain exact",
+      "pass": true
+    },
+    {
+      "name": "One replacement batch, no additional draw call, same triangle count and 80000-triangle ceiling",
+      "pass": true
+    },
+    {
+      "name": "Full twelve-sector allocation and premium selection preserved",
+      "pass": true
+    },
+    {
+      "name": "Branch tufts double the lobe count while keeping leaf-spray and palm counts unchanged",
+      "pass": true
+    },
+    {
+      "name": "Vertex growth bounded to eight per refined broadleaf, index memory unchanged",
+      "pass": true
+    },
+    {
+      "name": "All normals encode within octahedral range, colours remain finite and restrained",
+      "pass": true
+    },
+    {
+      "name": "Original trunk object and original foliage arrays are not mutated",
+      "pass": true
+    },
+    {
+      "name": "Palms and distant trees retain identical generated mesh bytes",
+      "pass": true
+    },
+    {
+      "name": "Modified broadleaf crowns keep original height envelope and bounded lateral extent",
+      "pass": true
+    },
+    {
+      "name": "Install is idempotent and performs no second allocation",
+      "pass": true
+    },
+    {
+      "name": "Detail-off restores both original mesh identities and frees exactly three GPU handles",
+      "pass": true
+    },
+    {
+      "name": "Re-enable is deterministic, with unchanged source rows and geometry",
+      "pass": true
+    },
+    {
+      "name": "Context-loss disposal skips invalid GPU deletes and rebuilds equivalent geometry",
+      "pass": true
+    },
+    {
+      "name": "Dense 1560-tree full-lap budget remains bounded and matches accepted allocation",
+      "pass": true
+    }
+  ],
+  "passed": 14,
+  "baseline": {
+    "triangles": 157672,
+    "vertices": 227336,
+    "gpuBytes": 10076160
+  },
+  "candidate": {
+    "trees": 360,
+    "sourceTrees": 360,
+    "palms": 72,
+    "broadleaf": 288,
+    "detailedTrees": 336,
+    "refinedTrees": 336,
+    "distantTrees": 24,
+    "crownLobes": 1488,
+    "branchTufts794": 1488,
+    "leafSprays": 6416,
+    "palmFronds": 744,
+    "palmLeaflets": 12528,
+    "coniferProfiles": 78,
+    "coniferTiers": 482,
+    "coniferBranches": 3696,
+    "originalTriangles": 126936,
+    "triangles": 157672,
+    "vertices": 228824,
+    "addedTriangles": 30736,
+    "drawCalls": 1,
+    "additionalDrawCalls": 0,
+    "gpuBytes": 10129728,
+    "sourcePositionsUnchanged": true,
+    "relocatedTrees": 0,
+    "refinementRadiusWorld": null,
+    "fullCircuitSelection": true,
+    "gridRadiusRestriction": false,
+    "addedTriangleBudget": 80000,
+    "premiumTrees": 336,
+    "normalShadedTrees": 336,
+    "sourceDimensionsUnchanged": true,
+    "sourceRangesUnchanged": true,
+    "sourceCrownCentresUnchanged": false,
+    "sourceRowsUnchanged": true,
+    "sourceAnchorsUnchanged": true,
+    "existingPalmsPreserved": true,
+    "coniferPlacementIsIllustrative": true,
+    "sectors": [
+      {
+        "sector": 1,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 12388,
+        "addedTriangles": 1810
+      },
+      {
+        "sector": 2,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 12710,
+        "addedTriangles": 2132
+      },
+      {
+        "sector": 3,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 12864,
+        "addedTriangles": 2286
+      },
+      {
+        "sector": 4,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13410,
+        "addedTriangles": 2832
+      },
+      {
+        "sector": 5,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13382,
+        "addedTriangles": 2804
+      },
+      {
+        "sector": 6,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13060,
+        "addedTriangles": 2482
+      },
+      {
+        "sector": 7,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13186,
+        "addedTriangles": 2608
+      },
+      {
+        "sector": 8,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13508,
+        "addedTriangles": 2930
+      },
+      {
+        "sector": 9,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13634,
+        "addedTriangles": 3056
+      },
+      {
+        "sector": 10,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13060,
+        "addedTriangles": 2482
+      },
+      {
+        "sector": 11,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13186,
+        "addedTriangles": 2608
+      },
+      {
+        "sector": 12,
+        "sourceTrees": 30,
+        "eligibleTrees": 28,
+        "refinedTrees": 28,
+        "premiumTrees": 28,
+        "triangles": 13284,
+        "addedTriangles": 2706
+      }
+    ],
+    "placementRngCalls": 0,
+    "source": "Existing accepted tree positions and dimensions; split branch tufts and uneven tiered coastal crowns informed by photographs and video; no species identification or new planting",
+    "projectedAddedTriangles": 30736,
+    "coverageSectors": 12,
+    "eligibleSectors": 12,
+    "fullEligibleCoverage": true
+  },
+  "limits": "CPU synthetic geometry/lifecycle checks; final browser visual and actual-source performance verification required by integrating owner."
+}

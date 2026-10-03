@@ -31,8 +31,8 @@ step v799-desktop;    BASE=$BASE flock "$LOCK" node $T/v799_tests.js > $E/v799_d
 step v799-phone;      MOB=1 flock "$LOCK" node $T/v799_tests.js > $E/v799_phone.log 2>&1
 step packed-desktop;  flock "$LOCK" node v7.95_today_packed_DRAFT/evidence/packed_tests.js > $R/packed_desktop.log 2>&1
 step packed-phone;    MOB=1 flock "$LOCK" node v7.95_today_packed_DRAFT/evidence/packed_tests.js > $R/packed_phone.log 2>&1
-step equip-desktop;   flock "$LOCK" node v7.96_equipment_tab_DRAFT/evidence/equipment_tests.js > $R/equipment_desktop.log 2>&1
-step equip-phone;     MOB=1 flock "$LOCK" node v7.96_equipment_tab_DRAFT/evidence/equipment_tests.js > $R/equipment_phone.log 2>&1
+step equip-desktop;   flock "$LOCK" node v7.96_equipment_tab_LIVE/evidence/equipment_tests.js > $R/equipment_desktop.log 2>&1
+step equip-phone;     MOB=1 flock "$LOCK" node v7.96_equipment_tab_LIVE/evidence/equipment_tests.js > $R/equipment_phone.log 2>&1
 step results-desktop; flock "$LOCK" node $T/results796_tests.cjs > $R/results_desktop.log 2>&1
 step results-phone;   MOB=1 flock "$LOCK" node $T/results796_tests.cjs > $R/results_phone.log 2>&1
 step onetab-desktop;  OUTD=$R flock "$LOCK" node v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js > $R/one_tab_desktop.log 2>&1
@@ -53,4 +53,4 @@ for f in ['sweep_desktop','sweep_phone']:
   s=open('$R/'+f+'.json').read(); j=json.loads(s[s.index('{'):]); t=j['tabs']
   print(f, len(t),'tabs', sum(len(v.get('errors',[])) for v in t.values()),'page errors', sum(len(v.get('console',[])) for v in t.values()),'console errors', len(j.get('allErrors',[])), 'all errors', len(j.get('cons',[])), 'console')"
 # the standing suites write their own evidence into their release folders; put those back (git checkout --) afterwards:
-#   git status --short -- v7.95_today_packed_DRAFT v7.96_equipment_tab_DRAFT v7.99_today_faster_fuller_DRAFT v7.93_one_tab_today_DRAFT
+#   git status --short -- v7.95_today_packed_DRAFT v7.96_equipment_tab_LIVE v7.99_today_faster_fuller_DRAFT v7.93_one_tab_today_DRAFT

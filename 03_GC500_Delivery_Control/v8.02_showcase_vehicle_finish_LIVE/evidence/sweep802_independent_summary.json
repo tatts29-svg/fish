@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992",
+  "scope": "Sequential read-only desktop and phone standard browser sweeps on the official live70-based v802 build",
+  "renderer": "Ordinary app tabs and deep links; no additional Showcase GL review",
+  "devices": {
+    "desktop": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "goErrors": {},
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    },
+    "phone": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "goErrors": {},
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    }
+  },
+  "readOnlyGuard": "The shared open_page harness serves the local build at the public view URL and aborts record-writing requests. Its standard sweep report does not expose a blocked-request counter."
+}

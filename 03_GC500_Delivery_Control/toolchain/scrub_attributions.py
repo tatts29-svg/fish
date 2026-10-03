@@ -9,7 +9,7 @@ import re, sys, json
 p = sys.argv[1]; s = open(p, encoding='utf-8-sig').read(); bom = open(p, encoding='utf-8').read(1) == '﻿'; n0 = len(s)
 NAME = 'Andrew Fisher'
 DATED = r"Andrew Fisher(?:'s)?,? ?(?:\(|—|–|-)? ?(?:\w{3} )?\d{1,2} \w{3} 2026"
-def scrub_text(t):
+def scrub_text(t, clean_spacing=True):
     if NAME not in t: return t
     t = re.sub(r"\s*\((?:Andrew Fisher|Andrew Fisher's (?:rule|guide|word|instruction))(?:,)? \d{1,2} \w{3} 2026(?:: [^)]*)?\)", '', t)   # (Andrew Fisher, 25 Sep 2026) / (…: hours only)
     t = re.sub(r"\s*[—–-]\s*Andrew Fisher,? \d{1,2} \w{3} 2026\b\.?", '', t)                       # — Andrew Fisher, 25 Sep 2026
@@ -19,13 +19,16 @@ def scrub_text(t):
     t = re.sub(r"\bAndrew Fisher's (rule|guide|word|instructions?|request|tracker|labour|TomTom account|own hand)(?: of \d{1,2} \w{3} 2026| \(\d{1,2} \w{3} 2026\)|, \d{1,2} \w{3} 2026)?", lambda m: {'rule': 'the site rule', 'guide': 'the branch guide', 'word': 'the instruction', 'instruction': 'the instruction', 'instructions': 'the instructions', 'request': 'request', 'tracker': 'the tracker', 'labour': 'the labour', 'TomTom account': 'the TomTom account', 'own hand': 'the hand on the plan'}[m.group(1)], t)
     t = re.sub(r"\bAndrew Fisher's\b", "the project manager's", t)
     t = re.sub(r"\bAndrew Fisher\b", 'the project manager', t)
-    t = re.sub(r"\bthe the\b", 'the', t); t = re.sub(r"  +", ' ', t); t = t.replace(' .', '.').replace(' ,', ',')
+    if clean_spacing:
+        t = re.sub(r"\bthe the\b", 'the', t); t = re.sub(r"  +", ' ', t); t = t.replace(' .', '.').replace(' ,', ',')
     return t
 # 1. the page's code: only string and template text, never comments; the author-credit fallbacks are kept
 KEEP = re.compile(r"(DATA\.brand\.author \|\| )'Andrew Fisher'")
 def scrub_code(js):
     js = KEEP.sub(r"\1'§AUTHOR§'", js).replace('Author: Andrew Fisher', 'Author: §AUTHOR§')
-    return scrub_text(js).replace('§AUTHOR§', 'Andrew Fisher')
+    # This receives a whole script. Prose spacing cleanup can change selectors,
+    # string contents and indentation elsewhere when one attribution is present.
+    return scrub_text(js, clean_spacing=False).replace('§AUTHOR§', 'Andrew Fisher')
 def scrub_code_old(js):
     js = KEEP.sub(r"\1'§AUTHOR§'", js)
     out = []; i = 0; n = len(js); state = None
