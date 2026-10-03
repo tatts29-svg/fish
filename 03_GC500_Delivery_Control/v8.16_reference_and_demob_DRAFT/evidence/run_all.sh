@@ -18,6 +18,8 @@ if [ -n "$C" ]; then SH=$(mktemp); cat v8.16_reference_and_demob_DRAFT/demob816_
   node $C/followup_6a0bb20_cpu.cjs $SH $PAGE > $E/codex_review/followup_6a0bb20_cpu_now.json 2>&1
   [ -f $C/followup_e540cbc_cpu.cjs ] && node $C/followup_e540cbc_cpu.cjs $SH $PAGE > $E/codex_review/followup_e540cbc_cpu_now.json 2>&1
   [ -f $C/followup_24cb316_cpu.cjs ] && node $C/followup_24cb316_cpu.cjs $SH $PAGE > $E/codex_review/followup_24cb316_cpu_now.json 2>&1
+  [ -f $C/followup_8c821da_ui.cjs ] && node $C/followup_8c821da_ui.cjs v8.16_reference_and_demob_DRAFT/demob816_src.js $PAGE > $E/codex_review/followup_8c821da_ui_now.json 2>&1
+  node $E/codex_review/followup_8c821da_roads_current.cjs v8.16_reference_and_demob_DRAFT/demob816_src.js > $E/codex_review/followup_8c821da_roads_now.json 2>&1  # source pin lifted
   [ -f $C/followup_abbb01b_streams.cjs ] && node $C/followup_abbb01b_streams.cjs v8.16_reference_and_demob_DRAFT/demob816_src.js $PAGE > $E/codex_review/followup_abbb01b_streams_now.json 2>&1  # written for the two runs: no shim
   # the two Timeline rechecks take the unpatched v8.13 page (V813, f07e92cc) as Codex wrote them
   if [ -n "${V813:-}" ]; then node $E/codex_review/timeline_drawer_recheck_fixed.cjs $V813 v8.16_reference_and_demob_DRAFT > $E/codex_review/timeline_drawer_recheck_fixed.log 2>&1
