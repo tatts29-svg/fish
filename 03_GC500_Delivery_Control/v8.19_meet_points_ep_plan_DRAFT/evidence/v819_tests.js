@@ -36,7 +36,7 @@ async function run(name, dev) {
   const phone = !!dev.mobile, tag = phone ? 'phone' : 'desktop';
   // ---------------- release marker and footer
   const rel = await p.evaluate(() => ({meta: (document.querySelector('meta[name="gc500-release"]') || {}).content, foot: document.getElementById('footL').textContent}));
-  ok(rel.meta === 'v8.19' && /v8\.18$/.test(rel.foot), `${name}: the release marker and the footer read v8.19`, rel);
+  ok(rel.meta === 'v8.19' && /v8\.19$/.test(rel.foot), `${name}: the release marker and the footer read v8.19`, rel);
   // ---------------- the drawer: every reference carries its meet point; one sample per point is screenshot and its QR decoded
   const keys = await p.evaluate(() => allAssets().map(a => a.key));
   const per = {}, bad = [];
