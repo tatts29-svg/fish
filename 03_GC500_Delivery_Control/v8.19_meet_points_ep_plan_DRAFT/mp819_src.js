@@ -52,6 +52,13 @@ function mpWhy819(r){
 		: r.how === 'default' ? 'no meet point within 150 m on the same side - pit lane entry, the default'
 		: 'no master-plan position - pit lane entry, the default';
 }
+/* the meet point's way in says nothing new when every word of it is already in the way in the page gives for each of
+   its references (v7.84's wayIn816) - then it is left off, so a fact shows once */
+function mpWords819(s){ return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().split(' ').filter(w => w && !/^(the|in|at|via|from|of|and|end|race|direction)$/.test(w)); }
+function mpSameWay819(refWays, pway){
+	const want = mpWords819(pway); if (!want.length) return true;
+	return (refWays || []).length > 0 && refWays.every(w => { const have = new Set(mpWords819(w)); return want.every(x => have.has(x)); });
+}
 function mpParkHtml819(cls){
 	const R = (typeof EP819 !== 'undefined' && EP819.park) || null; if (!R) return '';
 	return `<div class="${cls}" role="note"><b>${esc(R.area)}</b><ul>${R.rules.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
@@ -62,8 +69,7 @@ function mpDrawer819(a){
 	const wh = dr.querySelector('.where816'); if (!wh || wh.querySelector('.mp819')) return;
 	const r = meetPoint819(a), p = r.p, url = mpUrl819(p);
 	let w0 = ''; try { w0 = String(wayIn816(a, zone816(a)) || ''); } catch (e) { w0 = ''; }
-	const norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-	const sameWay = norm(w0).replace(/ race direction$/, '') === norm(p.way).replace(/ race direction$/, '');
+	const sameWay = mpSameWay819([w0], p.way);
 	const box = document.createElement('div'); box.className = 'mp819' + (p.id === MP819.park ? ' park' : ''); box.dataset.mp819 = p.id;
 	box.innerHTML = `<a class="mp819-qr" href="${esc(url)}" target="_blank" rel="noopener noreferrer" data-mp819-url="${esc(url)}" title="${esc('Scan or tap: driving directions to ' + p.name)}" aria-label="${esc('QR code: driving directions to the meet point, ' + p.name)}">${qrSvg(url, 3)}</a>
 <div class="mp819-t"><b class="mp819-n">Meet point: ${esc(p.name)}</b>${sameWay ? '' : `<span>Way in: ${esc(p.way)}</span>`}<span class="mp819-w">${esc(mpWhy819(r))}</span>
@@ -72,17 +78,33 @@ function mpDrawer819(a){
 	const acts = wh.querySelector('.wa816');
 	if (acts) wh.insertBefore(box, acts); else wh.appendChild(box);
 }
-/* the driver's sheet: each meet point the load goes to, with its QR, then the site rules (site hours are already on the
- sheet's rules line, so they are not said twice) */
-function mpDrvSec819(g){
+/* ---------- helpers for any printed sheet (the driver sheet uses them; the installer daily sheet may call them too).
+ mpMeetBlock819(as)  -> HTML: one card per meet point the references go to (in order of first use), each with a QR for
+                        Google Maps driving directions to the meet point (6 decimals), its name, its way in where it says
+                        more than the references' own way in, and which references it serves when there is more than one.
+                        `as` is an array of references (page assets, as allAssets() gives them).
+ mpRulesBlock819()   -> HTML: the site rules for all gear and equipment (less the site hours, which every sheet already
+                        prints) and the island west parkland rules, word for word from the plan data.
+ mpDrvSec819(g)      -> the driver sheet's band: both of the above for a load g (g.rows[].a), in one row.
+ Both blocks take the sheet's --k scale and are styled under .dp-page (v819.css). */
+function mpMeetBlock819(as){
 	const seen = new Map();
-	(g.rows || []).forEach(r => { if (!r || !r.a) return; const m = meetPoint819(r.a); const k = m.p.id;
-		if (!seen.has(k)) seen.set(k, {p: m.p, refs: []}); seen.get(k).refs.push(r.a.key); });
-	const pts = [...seen.values()];
-	const cards = pts.map(x => { const url = mpUrl819(x.p);
-		return `<div class="mp819d"><div class="mp819d-q" data-mp819-url="${esc(url)}">${qrSvg(url, 3)}</div><div class="mp819d-t"><b>${esc(x.p.name)}</b><span>Way in: ${esc(x.p.way)}</span><span><span class="dp-ll">${esc(mpLl819(x.p))}</span> · for ${esc(x.refs.join(', '))}</span><em>Scan: driving directions to the meet point</em></div></div>`; }).join('');
-	const E = typeof EP819 !== 'undefined' ? EP819 : null;
-	const rules = E ? E.site_rules.filter(x => !/^site hours/i.test(x)) : [];
-	const park = E && E.park ? `<li class="mp819d-park"><b>${esc(E.park.area)}:</b> ${E.park.rules.map(esc).join(' · ')}</li>` : '';
-	return `<div class="mp819d-band"><div class="mp819d-g">${cards}</div>${rules.length || park ? `<div class="mp819d-r"><b>SITE RULES</b><ol>${rules.map(x => `<li>${esc(x)}</li>`).join('')}${park}</ol></div>` : ''}</div>`;
+	(as || []).forEach(a => { if (!a) return; const m = meetPoint819(a), k = m.p.id;
+		let w = ''; try { w = String(wayIn816(a, zone816(a)) || ''); } catch (e) { w = ''; }
+		if (!seen.has(k)) seen.set(k, {p: m.p, refs: [], ways: []}); seen.get(k).refs.push(a.key); seen.get(k).ways.push(w); });
+	const pts = [...seen.values()], many = pts.length > 1;
+	return {n: pts.length, html: pts.map(x => { const url = mpUrl819(x.p), same = mpSameWay819(x.ways, x.p.way);
+		return `<div class="mp819d"><div class="mp819d-q" data-mp819-url="${esc(url)}">${qrSvg(url, 3)}</div><div class="mp819d-t"><em>Meet point · scan for directions</em><b>${esc(x.p.name)}</b>${same ? '' : `<span>Way in: ${esc(x.p.way)}</span>`}<span><span class="dp-ll">${esc(mpLl819(x.p))}</span>${many ? ' · for ' + esc(x.refs.join(', ')) : ''}</span></div></div>`; }).join('')};
+}
+function mpRulesBlock819(){
+	const E = typeof EP819 !== 'undefined' ? EP819 : null; if (!E) return '';
+	const rules = (E.site_rules || []).filter(x => !/^site hours/i.test(x));
+	const park = E.park ? `<li class="mp819d-park"><b>${esc(E.park.area)}:</b> ${E.park.rules.map(esc).join(' · ')}</li>` : '';
+	return rules.length || park ? `<div class="mp819d-r"><div class="mp819d-c"><b>Site rules</b><ol>${rules.map(x => `<li>${esc(x)}</li>`).join('')}${park}</ol></div></div>` : '';
+}
+/* the driver's sheet: one band at the foot of Where it goes - the meet point beside the site rules, in one row and with
+ no heading of its own, so the photographs below keep their room */
+function mpDrvSec819(g){
+	const M = mpMeetBlock819((g.rows || []).map(r => r && r.a).filter(Boolean));
+	return `<div class="mp819s mp819d-band${M.n > 1 ? ' many' : ''}"><div class="mp819d-g">${M.html}</div>${mpRulesBlock819()}</div>`;
 }

@@ -91,19 +91,27 @@
  .ep819 .ep819-qt th,.ep819 .ep819-qt td{padding:5px 5px}
  #drawer .mp819-qr{width:84px;height:84px}
 }
-/* the driver's sheet: meet points beside the site rules, one band, so the photographs keep their room */
-.dp-page .mp819d-band{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.7fr);gap:calc(2mm * var(--k));align-items:stretch}
-.dp-page .mp819d-g{display:flex;flex-direction:column;gap:calc(1.2mm * var(--k));min-width:0}
-.dp-page .mp819d{display:flex;gap:2mm;align-items:center;padding:1mm 1.6mm;border:.35mm solid var(--hair);border-left:1.2mm solid var(--acc);border-radius:1.2mm}
-.dp-page .mp819d-q{flex:0 0 auto;width:calc(15mm * var(--k))}
+/* the driver's sheet: one band at the foot of Where it goes - the meet point beside the site rules, in one row and with no
+   heading of its own, so the photographs keep their room. mpMeetBlock819() / mpRulesBlock819() are styled here under
+   .dp-page; outside a sheet that sets --k they take the scale 1. */
+.dp-page .mp819d-band{display:grid;grid-template-columns:auto minmax(0,1fr);gap:calc(1.4mm * var(--k, 1));align-items:stretch;margin-top:calc(.9mm * var(--k, 1))}
+.dp-page .mp819d-band.many{grid-template-columns:minmax(0,1fr)}
+.dp-page .mp819d-g{display:flex;gap:calc(1.4mm * var(--k, 1));min-width:0}
+.dp-page .mp819d-band.many .mp819d-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(48mm,1fr))}
+.dp-page .mp819d{display:flex;gap:1.4mm;align-items:center;padding:.35mm 1.2mm;border:.35mm solid var(--hair);border-left:1.2mm solid var(--acc);border-radius:1.2mm;min-width:0}
+.dp-page .mp819d-band:not(.many) .mp819d{max-width:54mm}
+.dp-page .mp819d-q{flex:0 0 auto;width:calc(12mm * var(--k, 1))}
 .dp-page .mp819d-q svg{display:block;width:100%;height:auto}
-.dp-page .mp819d-t{display:flex;flex-direction:column;gap:.2mm;min-width:0;font-size:.8em;line-height:1.16}
-.dp-page .mp819d-t b{font-size:1.1em}
-.dp-page .mp819d-t em{font-style:normal;font-weight:700;font-size:.92em;color:var(--acc)}
-.dp-page .mp819d-r{display:flex;gap:2mm;align-items:flex-start;padding:1.2mm 2mm;border:.5mm solid var(--ink);border-radius:1.2mm;background:#fafafa}
-.dp-page .mp819d-r > b{flex:0 0 auto;font-size:.8em;font-weight:800;letter-spacing:.1em;padding:1mm 1.8mm;border-radius:.8mm;background:var(--ink);color:#fff}
-.dp-page .mp819d-r ol{flex:1 1 auto;margin:0;padding-left:4mm;font-size:.8em;line-height:1.18;columns:2;column-gap:5mm}
-.dp-page .mp819d-r li{break-inside:avoid}
+.dp-page .mp819d-t{display:flex;flex-direction:column;gap:.1mm;min-width:0;font-size:.74em;line-height:1.12}
+.dp-page .mp819d-t b{font-size:1.12em}
+.dp-page .mp819d-t em{font-style:normal;font-weight:800;font-size:.86em;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.dp-page .mp819d-r{padding:.5mm 1.4mm;border:.45mm solid var(--ink);border-radius:1.2mm;background:#fafafa;min-width:0}
+.dp-page .mp819d-c{columns:3;column-gap:3.4mm;font-size:.71em;line-height:1.11}
+.dp-page .mp819d-band.many .mp819d-c{columns:4}
+.dp-page .mp819d-c > b{float:left;margin:.15mm 1.4mm 0 0;padding:.2mm 1.2mm;border-radius:.6mm;background:var(--ink);color:#fff;font-size:.9em;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.dp-page .mp819d-c ol{margin:0;padding:0;list-style:none}
+.dp-page .mp819d-c li + li{margin-top:.5mm}
+.dp-page .mp819d-c li{orphans:2;widows:2}
 .dp-page .mp819d-park{font-weight:700;color:#b42318}
 /* the run sheet: one A4 page, on screen as a preview over the page and alone on paper */
 #ep819print{display:none}

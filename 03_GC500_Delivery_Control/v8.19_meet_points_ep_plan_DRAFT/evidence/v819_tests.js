@@ -139,6 +139,37 @@ async function run(name, dev) {
     await p.evaluate(() => { const x = document.querySelector('#ep819print [data-ep819-x]'); if (x) x.click(); }); await wait(300); /* page.pdf fires afterprint, which already closes it */
     ok(await p.evaluate(() => !document.body.classList.contains('ep819-printing') && document.getElementById('ep819print').hidden), `${name}: Close puts the page back`);
   }
+  // ---------------- review 1: a print still waiting to start is cancelled by Close and by Escape (the app is never printed)
+  for (const how of ['Close', 'Escape']) {
+    const r = await p.evaluate(async how => { const p0 = window.__prints819; ep819Print(1);
+      const open = document.body.classList.contains('ep819-printing');
+      if (how === 'Close') document.querySelector('#ep819print [data-ep819-x]').click(); else document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
+      await new Promise(r => setTimeout(r, 400));
+      return {open, prints: window.__prints819 - p0, closed: !document.body.classList.contains('ep819-printing'), timer: EPP819.timer, after: !!EPP819.after}; }, how);
+    ok(r.open && r.closed && r.prints === 0 && !r.timer && !r.after, `${name}: ${how} before the print starts cancels it - nothing is printed afterwards`, r);
+  }
+  // ---------------- review 2: the print view as a modal, by keyboard - focus in, Tab / Shift-Tab kept inside, Escape back to the button
+  {
+    await p.evaluate(() => { const b = document.querySelector('[data-ep819-print="1"]'); b.scrollIntoView({block: 'center'}); b.focus(); });
+    await p.keyboard.press('Enter'); await wait(500);
+    const f0 = await p.evaluate(() => { const a = document.activeElement; return {inside: !!a.closest('#ep819print'), go: a.hasAttribute('data-ep819-go'), role: document.getElementById('ep819print').getAttribute('role'), modal: document.getElementById('ep819print').getAttribute('aria-modal')}; });
+    ok(f0.inside && f0.go && f0.role === 'dialog' && f0.modal === 'true', `${name}: keyboard - opening the run sheet puts focus inside it (on Print / Save as PDF)`, f0);
+    const seq = [];
+    for (const k of ['Tab', 'Tab', 'Tab', 'Shift+Tab', 'Shift+Tab', 'Shift+Tab']) { await p.keyboard.press(k); seq.push(await p.evaluate(() => { const a = document.activeElement; return a.closest('#ep819print') ? (a.hasAttribute('data-ep819-go') ? 'go' : a.hasAttribute('data-ep819-x') ? 'x' : 'other') : 'OUTSIDE'; })); }
+    ok(JSON.stringify(seq) === JSON.stringify(['x', 'go', 'x', 'go', 'x', 'go']), `${name}: keyboard - Tab and Shift-Tab stay inside the run sheet and wrap`, seq);
+    await p.keyboard.press('Escape'); await wait(300);
+    const f1 = await p.evaluate(() => ({closed: !document.body.classList.contains('ep819-printing'), back: document.activeElement === document.querySelector('[data-ep819-print="1"]')}));
+    ok(f1.closed && f1.back, `${name}: keyboard - Escape closes it and focus goes back to Load 1's Print run sheet button`, f1);
+  }
+  // ---------------- the source boundary: the plan is labelled as the supplier plan, and stays out of the native day data
+  {
+    const B = await p.evaluate(() => { const c = document.getElementById('ep819'); ep819Print(2, {hold: true}); const hd = document.querySelector('#ep819print .rs-hd').innerText, bar = document.querySelector('#ep819print .ep819-pbar span').textContent; ep819Close();
+      const days = JSON.stringify(programmeDays().map(d => { try { return dpLoads(d).map(g => (g.rows || []).map(r => r.a && r.a.key)); } catch (e) { return String(e); } }));
+      return {h3: c.querySelector('h3').textContent, hd, bar, dataLd: c.querySelectorAll('[data-ld], [data-ldsec]').length, inDay: !!c.closest('.day, .dayblock, [data-day]'), epInDays: /EP819|ep819|Load run sheet/.test(days), data: typeof DATA !== 'undefined' && Object.keys(DATA).some(k => /ep819|event_portables/i.test(k))}; });
+    const L = 'Event Portables delivery plan (to quote Q6845)';
+    ok(B.h3 === L && B.hd.includes(L) && B.bar.includes(L), `${name}: the card, the run sheet and its preview bar are labelled "${L}"`, B);
+    ok(B.dataLd === 0 && !B.inDay && !B.epInDays && !B.data, `${name}: plan loads are not in the Timeline's day lists, programmeDays()/dpLoads() or DATA (the plan lives only in EP819)`, B);
+  }
   // ---------------- the driver sheets: the meet point section, with a QR per meet point and the site rules
   for (const iso of phone ? ['2026-10-06'] : ['2026-09-28', '2026-10-06']) {
     /* the page's own print, as the Drivers button runs it from a link (the #print/drivers route waits in this rig, on live too) */
@@ -149,6 +180,12 @@ async function run(name, dev) {
     ok(D.n > 0 && D.sec.every(Boolean), `${name}: ${iso}: every driver sheet (${D.n}) has the Meet point · site rules section`);
     ok(D.sec.every(x => x && x.qrs.length >= 1 && x.rules === 3 && x.park), `${name}: ${iso}: each has a QR per meet point, the three site rules beyond the hours and the parkland rules`, D.sec.map(x => x && [x.qrs.length, x.rules, x.park]));
     ok(D.last && !(D.last.over || []).length, `${name}: ${iso}: no driver sheet runs past one page`, D.last && D.last.over);
+    /* the photo strip, measured: the band costs the photographs room; reported per sheet, judged on one-meet-point sheets */
+    const PH = await p.evaluate(() => [...document.querySelectorAll('#dayprint .dp-page.dp-drv')].map(pg => ({load: pg.dataset.load, k: pg.style.getPropertyValue('--k'), pts: pg.querySelectorAll('.mp819d').length,
+      pics: Math.round((pg.querySelector('.dp-pics') || {getBoundingClientRect: () => ({height: 0})}).getBoundingClientRect().height), band: Math.round(pg.querySelector('.mp819s').getBoundingClientRect().height)})));
+    console.log(`   ${iso} photo strip px by load:`, PH.map(x => `L${x.load}:${x.pics}${x.pts > 1 ? '(' + x.pts + ' meet points)' : ''}`).join(' '), '· band px', [...new Set(PH.map(x => x.band))].join('/'));
+    const one = PH.filter(x => x.pts === 1);
+    ok(one.length && one.every(x => x.pics >= 100 && x.band <= 50), `${name}: ${iso}: on every one-meet-point sheet the band is at most 50 px and the photo strip keeps at least 100 px (min ${Math.min(...one.map(x => x.pics))})`, one);
     const want = await p.evaluate(() => [...document.querySelectorAll('#dayprint .dp-page.dp-drv')].map(pg => [...pg.querySelectorAll('.dp-tbl .dp-rk, .dp-refg b')].map(x => x.textContent.trim()).filter(Boolean)));
     const truth = await p.evaluate(() => [...document.querySelectorAll('#dayprint .dp-page.dp-drv')].map(pg => [...pg.querySelectorAll('.mp819d')].map(c => c.querySelector('.mp819d-q').dataset.mp819Url)));
     const expect = await p.evaluate(iso => { const d = programmeDays().find(x => x.iso === iso); return dpLoads(d).map(g => [...new Set(g.rows.map(r => navUrl({lat: meetPoint819(r.a).p.ll[0], lon: meetPoint819(r.a).p.ll[1]})))]); }, iso);

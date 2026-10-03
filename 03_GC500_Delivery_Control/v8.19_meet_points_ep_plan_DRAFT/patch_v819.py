@@ -112,16 +112,24 @@ t = rep(t, "try { drawer816(a); } catch (e) { try { console.warn('v8.16 drawer',
         'drawer meet point', p)
 # 2. the driver sheet: a Meet point section after Where it goes
 t = rep(t, "dpSec('Where it goes', dpWhere(g, doc, posOf) + dpDeliveryNotes798(g)), dpSec('Photos', dpPics(g, doc, posOf), 'dp-ph')];",
-        "dpSec('Where it goes', dpWhere(g, doc, posOf) + dpDeliveryNotes798(g))].concat(doc === 'drv' && typeof mpDrvSec819 === 'function' ? [dpSec('Meet point · site rules', mpDrvSec819(g), 'mp819s')] : [], [dpSec('Photos', dpPics(g, doc, posOf), 'dp-ph')]); /* v8.19 - the meet point and the site rules on the driver sheet */",
+        "dpSec('Where it goes', dpWhere(g, doc, posOf) + dpDeliveryNotes798(g) + (doc === 'drv' && typeof mpDrvSec819 === 'function' ? mpDrvSec819(g) : '')), dpSec('Photos', dpPics(g, doc, posOf), 'dp-ph')]; /* v8.19 - the meet point and the site rules: one band at the foot of Where it goes on the driver sheet */",
         'driver sheet meet point', p)
 # 3. the Timeline: the load plan card under the day
 t = rep(t, """(idx >= 0 ? dayBlock(days[idx], true) : '<div class="empty">No scheduled dates in the register.</div>')}""",
         """(idx >= 0 ? dayBlock(days[idx], true) : '<div class="empty">No scheduled dates in the register.</div>')}
  ${typeof ep819Html === 'function' ? ep819Html() : ''}""", 'Timeline load plan card', p)
 # 4. the footer and the release marker
-t = rep(t, "$('#footL').textContent = DATA.brand.footer + ' · built ' + DATA.built + ' · ' + DATA.build_version;",
-        "$('#footL').textContent = DATA.brand.footer + ' · built ' + DATA.built + ' · ' + DATA.build_version + ' · v8.19'; /* v8.19 */", 'footer release', p)
-t = rep(t, '<meta name="gc500-release" content="v8.13">', '<meta name="gc500-release" content="v8.19">', 'release marker', p)
+# matched by pattern, not by their exact text, because a later live release (Codex's Today work) may change either; a
+# missing or doubled anchor stops the build with a plain message rather than landing in the wrong place
+def one(pat, what):
+    ms = list(re.finditer(pat, t))
+    if len(ms) != 1: sys.exit(f'v8.19 patch: the {what} anchor was found {len(ms)} times (want exactly 1) - the live page has moved; '
+                              f'look at it and update the anchor in patch_v819.py. Pattern: {pat}')
+    return ms[0]
+m = one(r"\$\('#footL'\)\.textContent\s*=\s*([^;\n]+);", 'footer (#footL)')
+t = t[:m.start()] + "$('#footL').textContent = String(" + m.group(1).strip() + ").replace(/ · v\\d+\\.\\d+$/, '') + ' · v8.19'; /* v8.19 - the footer names the release once */" + t[m.end():]
+m = one(r'<meta name="gc500-release" content="v[0-9.]+">', 'release marker (meta gc500-release)')
+t = t[:m.start()] + '<meta name="gc500-release" content="v8.19">' + t[m.end():]
 # 5. the code and the look
 t = rep(t, 'function renderPass(){', '/* ================================================================== v8.19 - meet points and the Event Portables load plan  Author: Andrew Fisher. */\n' + js + '\nfunction renderPass(){', 'v8.19 code', p)
 i = t.index('</style>')

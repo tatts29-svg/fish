@@ -28,6 +28,11 @@ function epStopsTable819(l){
 <td>${s.drops.map(x => `<span class="ep819-dr"><b>${esc(x.ref || x.name)}</b> ×${x.fwf}${x.pee_panels ? ' + ' + x.pee_panels + ' pee panels' : ''}${x.no_pin || x.no_wc_number ? ' <i>Coates directs to the spot</i>' : ''}</span>`).join('')}</td>
 <td class="n">${s.fwf}${s.drops.some(x => x.pee_panels) ? `<small>+${s.drops.reduce((t, x) => t + (x.pee_panels || 0), 0)} pee</small>` : ''}</td><td class="n"><b>${s.left_on_truck}</b></td></tr>`).join('')}</tbody></table>`;
 }
+/* THE SOURCE BOUNDARY. EP819 is page data written in at build time from event_portables_plan.json: the Event Portables
+ delivery plan, to quote Q6845 as it stands. It is a supplier plan, not the operational schedule or the record. Nothing
+ here adds its loads to programmeDays(), the Timeline's day lists or any record collection; the card and the run sheets
+ are drawn from EP819 alone and always carry the label below. */
+function epLabel819(){ return 'Event Portables delivery plan (to quote ' + ((EP819 && EP819.quote && EP819.quote.quote) || 'Q6845') + ')'; }
 function ep819Html(){
 	if (typeof EP819 === 'undefined' || !EP819 || !(EP819.loads || []).length) return '';
 	const T = epTotals819(), E = EP819, Q = E.quote;
@@ -43,7 +48,7 @@ function ep819Html(){
 	const qr = Q.rows, tq = qr.reduce((s, r) => s + r.quote, 0), ta = qr.reduce((s, r) => s + r.allocated_to_wc, 0), tn = qr.reduce((s, r) => s + r.no_wc_allocation, 0);
 	const fold = (id, title, n, body) => `<details class="ldsec ep819-f" data-ep819-f="${id}"${EPF819.folds.has(id) ? ' open' : ''}><summary><span class="ldsec-t">${title}</span><span class="ldsec-n">${n}</span><span class="ldsec-x" aria-hidden="true"></span></summary><div class="ldsec-b">${body}</div></details>`;
 	return `<section class="card nosfold ep819" id="ep819" aria-labelledby="ep819h">
-<div class="ep819-hd"><div><h3 id="ep819h">Event Portables · load plan</h3><p class="sub">${T.fwf} FWF${T.pp ? ' and ' + T.pp + ' pee panels' : ''} to WC areas · planned to quote ${esc(Q.quote)} as it stands · first load ${esc(epDay819(first.date))}</p></div></div>
+<div class="ep819-hd"><div><h3 id="ep819h">${esc(epLabel819())}</h3><p class="sub">${T.fwf} FWF${T.pp ? ' and ' + T.pp + ' pee panels' : ''} to WC areas · first load ${esc(epDay819(first.date))} · the supplier's plan as it stands, not the GC500 delivery record</p></div></div>
 <div class="ep819-rules"><div class="ep819-box sr"><h4>Site rules · all gear and equipment</h4><ol>${E.site_rules.map(x => `<li>${esc(x)}</li>`).join('')}</ol>${mpParkHtml819('ep819-park')}</div>
 <div class="ep819-box dm"><h4>${esc(E.demob.heading)}</h4><ul>${E.demob.lines.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>
 <div class="sect">Loads · ${T.n}${T.each ? ' × ' + T.each + ' FWF' : ''}</div>
@@ -66,7 +71,7 @@ function epRunSheet819(l){
 <td class="rs-n">${s.fwf}${s.drops.some(x => x.pee_panels) ? `<small>+${s.drops.reduce((t, x) => t + (x.pee_panels || 0), 0)} pee</small>` : ''}</td><td class="rs-n">${s.left_on_truck}</td>
 <td class="rs-q"><div class="rs-qw"><div class="rs-qr" data-ep819-url="${esc(s.directions_url)}">${qrSvg(s.directions_url, 3)}</div><span>Scan for directions to ${esc(s.meet_point_name)}</span></div></td><td class="rs-done"><i></i></td></tr>`).join('');
 	return `<div class="rs819" data-ep819-sheet="${l.n}">
-<header class="rs-hd"><b>Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet</b><span>Author: Andrew Fisher</span></header>
+<header class="rs-hd"><b>Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet</b><span>${esc(epLabel819())} · Author: Andrew Fisher</span></header>
 <h1 class="rs-bar">Load ${l.n} of ${n} · ${esc(epDay819(l.date))} · ${esc(epCount819(l))}</h1>
 <ul class="rs-rules">${rules}</ul>
 <p class="rs-ord">${esc(E.order)} ${esc(E.early)} ‘Left on truck’ counts down to 0 – tick each stop when dropped.</p>
@@ -84,26 +89,45 @@ function epFit819(w){
 	pg.dataset.k = String(k);
 	return pg.scrollHeight > pg.clientHeight + 1 ? ['load ' + pg.dataset.ep819Sheet] : [];
 }
+/* the print view is a modal: focus goes into it on open, Tab and Shift-Tab stay inside it, Escape or Close shut it and
+ hand focus back to the button that opened it. A print still waiting to start is cancelled when the view is shut, so a
+ late timer never prints the app underneath. */
+const EPP819 = {timer: 0, after: null, opener: null, n: null};
+function epFocusables819(w){ return [...w.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])')].filter(e => !e.disabled && e.getClientRects().length); }
+function epOpen819(){ const w = document.getElementById('ep819print'); return !!(w && !w.hidden && document.body.classList.contains('ep819-printing') && w.querySelector('.rs819')); }
 function ep819Close(){
-	const w = document.getElementById('ep819print'); if (w) { w.innerHTML = ''; w.hidden = true; }
+	if (EPP819.timer) { clearTimeout(EPP819.timer); EPP819.timer = 0; }
+	if (EPP819.after) { window.removeEventListener('afterprint', EPP819.after); EPP819.after = null; }
+	const w = document.getElementById('ep819print'), was = document.body.classList.contains('ep819-printing');
+	if (w) { w.innerHTML = ''; w.hidden = true; }
 	document.body.classList.remove('ep819-printing');
 	const st = document.getElementById('ep819page'); if (st) st.remove();
+	if (was) { let o = EPP819.opener; /* the Timeline may have been drawn again since: find the same load's button */
+		if (!o || !o.isConnected) o = EPP819.n != null ? document.querySelector(`[data-ep819-print="${EPP819.n}"]`) : null;
+		try { if (o) o.focus({preventScroll: true}); } catch (e) {} }
+	EPP819.opener = null; EPP819.n = null;
 }
-/* o.hold: lay it out on screen and stop (the preview and the tests); otherwise open the print dialog */
+/* o.hold: lay it out on screen and stop (the preview and the tests); otherwise open the print dialog. o.opener: the
+   control focus goes back to on close (the Print run sheet button). */
 function ep819Print(n, o){
 	const l = (EP819.loads || []).find(x => x.n === Number(n)); if (!l) return null;
+	const opener = (o && o.opener) || document.activeElement;
+	if (epOpen819()) ep819Close();
 	let w = document.getElementById('ep819print');
 	if (!w) { w = document.createElement('div'); w.id = 'ep819print'; w.setAttribute('role', 'dialog'); w.setAttribute('aria-modal', 'true'); document.body.appendChild(w); }
-	w.setAttribute('aria-label', 'Run sheet, load ' + l.n);
-	w.innerHTML = `<div class="ep819-pbar"><span>Run sheet · Load ${l.n} of ${EP819.loads.length} · one A4 page</span><button type="button" data-ep819-go>Print / Save as PDF</button><button type="button" data-ep819-x>Close</button></div>${epRunSheet819(l)}`;
+	w.setAttribute('aria-label', 'Run sheet, load ' + l.n + ' · ' + epLabel819());
+	w.innerHTML = `<div class="ep819-pbar"><span>${esc(epLabel819())} · run sheet, Load ${l.n} of ${EP819.loads.length} · one A4 page</span><button type="button" data-ep819-go>Print / Save as PDF</button><button type="button" data-ep819-x>Close</button></div>${epRunSheet819(l)}`;
 	w.hidden = false;
 	document.querySelectorAll('#ep819page').forEach(e => e.remove());
 	const st = document.createElement('style'); st.id = 'ep819page'; st.textContent = '@page{size:A4 portrait;margin:8mm}'; document.head.appendChild(st);
 	document.body.classList.add('ep819-printing');
+	EPP819.opener = opener && opener !== document.body ? opener : null; EPP819.n = l.n;
 	w.__over = epFit819(w);
+	try { w.querySelector('[data-ep819-go]').focus({preventScroll: true}); } catch (e) {}
 	if (o && o.hold) return w;
-	window.addEventListener('afterprint', ep819Close, {once: true});
-	setTimeout(() => { try { window.print(); } catch (e) {} }, 80);
+	EPP819.after = () => { EPP819.after = null; ep819Close(); };
+	window.addEventListener('afterprint', EPP819.after, {once: true});
+	EPP819.timer = setTimeout(() => { EPP819.timer = 0; if (!epOpen819()) return; try { window.print(); } catch (e) {} }, 80);
 	return w;
 }
 if (!window.__ep819wired) {
@@ -114,10 +138,19 @@ if (!window.__ep819wired) {
 		if (tg) { const n = Number(tg.dataset.ep819Ld), ld = tg.closest('.ld'), b = ld && ld.querySelector('.ep819-b'); if (!b) return;
 			const on = b.hidden; b.hidden = !on; ld.classList.toggle('on', on); tg.setAttribute('aria-expanded', String(on));
 			if (on) EPF819.open.add(n); else EPF819.open.delete(n); return; }
-		const pr = t.closest('[data-ep819-print]'); if (pr) { ep819Print(pr.dataset.ep819Print); return; }
+		const pr = t.closest('[data-ep819-print]'); if (pr) { ep819Print(pr.dataset.ep819Print, {opener: pr}); return; }
 		if (t.closest('[data-ep819-x]')) { ep819Close(); return; }
-		if (t.closest('[data-ep819-go]')) { try { window.print(); } catch (x) {} return; }
+		if (t.closest('[data-ep819-go]')) { if (epOpen819()) { try { window.print(); } catch (x) {} } return; }
 	});
 	document.addEventListener('toggle', e => { const d = e.target; if (d && d.dataset && d.dataset.ep819F) { if (d.open) EPF819.folds.add(d.dataset.ep819F); else EPF819.folds.delete(d.dataset.ep819F); } }, true);
-	document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('ep819-printing')) ep819Close(); });
+	document.addEventListener('keydown', e => {
+		if (!document.body.classList.contains('ep819-printing')) return;
+		if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); ep819Close(); return; }
+		if (e.key !== 'Tab') return;
+		const w = document.getElementById('ep819print'); if (!w) return;
+		const f = epFocusables819(w); if (!f.length) { e.preventDefault(); return; }
+		const i = f.indexOf(document.activeElement);
+		if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+		else if (!e.shiftKey && (i === -1 || i === f.length - 1)) { e.preventDefault(); f[0].focus(); }
+	}, true);
 }
