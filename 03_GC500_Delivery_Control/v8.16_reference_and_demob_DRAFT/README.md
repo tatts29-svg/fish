@@ -217,8 +217,9 @@ toilets". He also sent the Queensland Access Conditions Guide v6.0 (Dec 2023), w
   in the precinct, 70 min), labelled "planning figure, not a live time", editable per run; a live figure goes in the same
   field later. Blank = "travel time to confirm": no departure or return is worked out.
 - **Oversize - only a load the branch flags** (a tick on each truck load, kept on this device; nothing is guessed). A
-  flagged load shows: on Gold Coast roads 09:00-16:00 only; the latest departure = 16:00 less the travel time (or "travel
-  time to confirm"); a flag when it leaves after that or before 09:00; "stagger departures" when two flagged loads leave
+  flagged load shows: not on Gold Coast roads 07:00-09:00 or 16:00-18:00; a planning latest departure = 16:00 less the
+  run's travel time (a planning figure, not a permit time; or "travel time to confirm"); a flag when it leaves after that,
+  or when its time on the road overlaps either peak; "stagger departures" when two flagged loads leave
   together (no convoys); "pilot / escort: check permit" (never a number); and "Check TMR Conditions of Operation Database
   before each trip". The source sits in a tooltip: QLD Access Conditions Guide v6.0, s11.2 Table 3, s11.3 Table 4, s9,
   s10.2. A reference dated on a weekend or public holiday inside the window is listed as "not a demob day", with the
@@ -254,6 +255,16 @@ Fixtures: `evidence/codex_fixtures816.js` (CPU, **FIXTURE-COUNT**), Codex's own 
 | after 6a0bb20 2 = be47bb5 R3 | quantity corrected after portions saved | `reconcile816`: unplanned / fewer / now unknown, said everywhere | **G2a-G2e** - fail on 0006166, pass now |
 | after 6a0bb20 3 = be47bb5 R4 | uncertain load showed green "full" | amber "to confirm", never "full" | **G3** - fails on 0006166, passes now |
 | e540cbc (6ebb321) | a confirmed quantity corrected to 0 became a 1-unit truck stop | `nothing` = every unit known and 0: no load, no truck stop, no pump-out, listed as "quantity 0 - nothing to collect"; the one-piece fallback only for a reference with no unit rows; unknown stays "to confirm" | **G4, G4b, G4c** - fail on 7db16d1, pass now; Codex `followup_e540cbc_cpu` 33/33 |
+| abbb01b 1 (ea0dcee) | a reference split between owners lost a day on confirmation | each portion carries its run (`s`), saved as `out_portions[].stream`; the reference is on every portion's day; reconciliation per run | **I1-I4**; Codex `mixed_*` 3/3 |
+| abbb01b 2 | Coates loads said "of 24" | cards, gauge, email and trucks use `L.cap` (12, shown 12-14); loads numbered per run with the run named | H3d; Codex `coates_*` 2/2 |
+| abbb01b 3 | supplier "Print this load" selected nothing | selected by the run-aware load id (`sub1`), or a bare number | **I5**; Codex `supplier_print_this_load_selects_supplier_run` |
+| abbb01b 4 | no reason shown for an unassigned owner | "owner to confirm" (with the count) on the row, the toilet runs, the email | H5; Codex `unknown_owner_is_explained_on_pickup_row` |
+| abbb01b 5 | a tank under a supplier's toilet had a clock time and no dependency | the tank stop shows "after the supplier" in place of a time and "HOLD: only after the supplier has lifted the toilet off it, and the tank is emptied" on screen and paper | **I9**; Codex `supplier_tank_dependency_*` 2/2 |
+| roads 1 | every run sheet threw (`A.run`) | the sheet reads the run's own travel time; a supplier sheet is a pick-up list | **I6** (all four run types print); browser "Print this load prints a non-empty sheet for every run type" |
+| roads 2 | oversize tick had no UI; warnings never shown; old permit warning lost | an "Oversize load (the branch's flag)" tick on every truck load; flagged: permit chip, planning latest departure, pilot / escort "check permit", TMR line, guide in a tooltip, convoy flag; unflagged big piece: "oversize? the branch to say - permit not checked" | H13, H14, **I8**; browser test drives the tick on and off |
+| roads 3 | the travel editor was gone and an old override ignored | a travel field per run (Coates toilet run, branch trucks); a figure typed under the old assumptions is kept | **I7**; browser test blanks it and types 90 |
+| roads 4 | supplier times printed as 00:00 | the supplier has no times anywhere; an unknown Coates/branch travel time reads "travel time to confirm" | H7, H8; Codex `supplier_null_travel_times_do_not_render_midnight` |
+| roads (scope) | the 06:00 "peak" overstatement | the peak flag is exactly the guide's 07:00-09:00 / 16:00-18:00 on-road overlap; the latest departure is labelled a planning figure, not a permit time | **H12b** |
 
 Before/after evidence: `evidence/codex_fixtures816_before_fix_0006166.log` (8 failed: G1, G1b, G2a-e, G3; G2d only
 because the change field did not exist), `evidence/codex_fixtures816_before_zero_fix.log` (G4, G4b, G4c fail on

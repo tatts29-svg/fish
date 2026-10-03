@@ -156,6 +156,36 @@ async function run(name, dev) {
     DM816.view = 'list'; render(); await w(150); return r; });
   ok(RN.dc && RN.coates && RN.coates.value === '70' && RN.coates.label && RN.coatesCap, `${name}: the Coates toilet run starts from 70 min, labelled "planning figure, not a live time", with 12–14 per load and an editable capacity`, RN);
   ok(RN.ds && RN.sup && RN.sup.cards > 0 && !RN.sup.times && RN.sup.own, `${name}: the sub-hire pick-up shows no departure, no travel time and no travel field - supplier's own transport`, RN.sup);
+  // the controls, driven as a person drives them (clicks and typing in this test browser; settings are per device - cleared after)
+  const UI = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms)), M = demob816(), pane = () => document.getElementById('pane-demob'), out = {};
+    const set = async (el, v) => { el.value = v; el.dispatchEvent(new Event('change', {bubbles: true})); await w(250); };
+    const dsing = M.days.find(d => trucks816(d, 'all').some(L => L.kind === 'single'));
+    DM816.sel = dsing; DM816.branch = 'all'; DM816.view = 'trucks'; render(); await w(250);
+    const card = () => [...pane().querySelectorAll('.truck816')].find(c => c.querySelector('input[data-ov816]'));
+    out.before = /Oversize: check permit/.test(card().innerText) || false; out.status = /oversize\? the branch to say/.test(card().innerText);
+    card().querySelector('input[data-ov816]').click(); await w(300);
+    const c1 = card(); out.after = /Oversize: check permit/.test(c1.innerText) && /Check TMR Conditions of Operation Database before each trip/.test(c1.innerText) && /pilot \/ escort: check permit/.test(c1.innerText) && /planning latest departure \d\d:\d\d/.test(c1.innerText);
+    out.tip = /s11\.2 Table 3/.test((c1.querySelector('[title*="Guide v6.0"]') || {}).title || '');
+    const tb = pane().querySelector('input[data-trv816="branch"]'); await set(tb, '');
+    const c2 = card(); out.blank = /Leave Kingston travel time to confirm/.test(c2.innerText) && /latest departure travel time to confirm/.test(c2.innerText) && /travel time to confirm/.test(c2.innerText);
+    await set(pane().querySelector('input[data-trv816="branch"]'), '90'); out.typed = /\(16:00 less the 90 min run/.test(card().innerText) && travel816('branch').v === 90;
+    card().querySelector('input[data-ov816]').click(); await w(250); out.unflag = !/Oversize: check permit/.test(card().innerText);
+    try { localStorage.removeItem(TRAVEL816_KEY); localStorage.removeItem(OVFLAG816_KEY); } catch (e) {}
+    const dco = M.days.find(d => M.day[d].loads.some(L => L.stream === 'coates')); RENDER_MEMO.clear(); DM816.sel = dco; DM816.view = 'toilets'; render(); await w(250);
+    const capIn = pane().querySelector('input[data-cap816]'), key = 'gc500.demob816.cap.' + capIn.dataset.cap816; await set(capIn, '15');
+    out.cap15 = /over 14 - check the truck/.test(pane().innerText) && localStorage.getItem(key) === '15';
+    await set(pane().querySelector('input[data-cap816]'), '12'); out.cap12 = !/over 14 - check the truck/.test(pane().innerText) && localStorage.getItem(key) === null;
+    // print every run type through the page's own buttons: supplier pick-up, Coates toilet run, single piece, branch truck
+    window.print = () => {}; const kinds = {}; const errs = [];
+    for (const d of M.days) { for (const L of trucks816(d, 'all')) { if (kinds[L.kind]) continue; DM816.sel = d; DM816.view = 'trucks'; render(); await w(120);
+      const b = pane().querySelector(`[data-print816="truck"][data-truck816="${L.n}"]`); try { b.click(); await w(150); } catch (e) { errs.push(e.message); }
+      const pg = document.querySelectorAll('#dayprint .rs816'); kinds[L.kind] = pg.length === 1 && pg[0].innerText.length > 300 && !/\b00:00\b/.test(pg[0].innerText);
+      document.body.classList.remove('printing-day'); const wr = document.getElementById('dayprint'); if (wr) { wr.classList.remove('dpwrap'); wr.innerHTML = ''; } document.querySelectorAll('#dayPage').forEach(e => e.remove()); } }
+    out.kinds = kinds; out.errs = errs; DM816.view = 'list'; render(); await w(150); return out; });
+  ok(!UI.before && UI.status && UI.after && UI.tip && UI.unflag, `${name}: ticking "Oversize load" shows the permit chip, the planning latest departure, pilot / escort "check permit" and the TMR line, with the guide in a tooltip; un-ticking clears it; unticked, a big piece says "the branch to say"`, UI);
+  ok(UI.blank && UI.typed, `${name}: blanking a run's travel time shows "travel time to confirm" (no departure worked out); typing 90 replans with 90`, UI);
+  ok(UI.cap15 && UI.cap12, `${name}: setting a Coates load to 15 shows "over 14 - check the truck"; back to 12 clears it`, UI);
+  ok(['supplier', 'toilets', 'single', 'normal'].every(k => UI.kinds[k]) && !UI.errs.length, `${name}: "Print this load" prints a non-empty sheet for every run type, with no midnight times`, UI.kinds);
   // ---------------- the Timeline gap: a typed due-out reaches its day
   const TL = await p.evaluate(async () => { const w = ms => new Promise(r => setTimeout(r, ms)), k = 'P42', iso = '2026-11-04';
     const had = (S.delivery || {})[k] ? JSON.parse(JSON.stringify(S.delivery[k])) : null, a = assetOf(k);

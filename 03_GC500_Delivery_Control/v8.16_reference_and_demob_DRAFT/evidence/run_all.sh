@@ -17,10 +17,13 @@ if [ -n "$C" ]; then SH=$(mktemp); cat v8.16_reference_and_demob_DRAFT/demob816_
   node $C/demob_cpu_audit.js $SH $PAGE > $E/codex_review/demob_cpu_audit_now.json 2>&1
   node $C/followup_6a0bb20_cpu.cjs $SH $PAGE > $E/codex_review/followup_6a0bb20_cpu_now.json 2>&1
   [ -f $C/followup_e540cbc_cpu.cjs ] && node $C/followup_e540cbc_cpu.cjs $SH $PAGE > $E/codex_review/followup_e540cbc_cpu_now.json 2>&1
+  [ -f $C/followup_24cb316_cpu.cjs ] && node $C/followup_24cb316_cpu.cjs $SH $PAGE > $E/codex_review/followup_24cb316_cpu_now.json 2>&1
+  [ -f $C/followup_abbb01b_streams.cjs ] && node $C/followup_abbb01b_streams.cjs v8.16_reference_and_demob_DRAFT/demob816_src.js $PAGE > $E/codex_review/followup_abbb01b_streams_now.json 2>&1  # written for the two runs: no shim
   # the two Timeline rechecks take the unpatched v8.13 page (V813, f07e92cc) as Codex wrote them
   if [ -n "${V813:-}" ]; then node $E/codex_review/timeline_drawer_recheck_fixed.cjs $V813 v8.16_reference_and_demob_DRAFT > $E/codex_review/timeline_drawer_recheck_fixed.log 2>&1
     cp $E/codex_review/followup_6a0bb20_timeline_current.cjs $C/_cur816.cjs && node $C/_cur816.cjs $V813 $PWD/v8.16_reference_and_demob_DRAFT > $E/codex_review/followup_6a0bb20_timeline_now.json 2>&1; rm -f $C/_cur816.cjs
-    [ -f $C/followup_e540cbc_timeline.cjs ] && cp $E/codex_review/followup_e540cbc_timeline_current.cjs $C/_cur816e.cjs && node $C/_cur816e.cjs $V813 $PWD/v8.16_reference_and_demob_DRAFT > $E/codex_review/followup_e540cbc_timeline_now.json 2>&1; rm -f $C/_cur816e.cjs; fi; fi
+    [ -f $C/followup_e540cbc_timeline.cjs ] && cp $E/codex_review/followup_e540cbc_timeline_current.cjs $C/_cur816e.cjs && node $C/_cur816e.cjs $V813 $PWD/v8.16_reference_and_demob_DRAFT > $E/codex_review/followup_e540cbc_timeline_now.json 2>&1; rm -f $C/_cur816e.cjs
+    [ -f $C/followup_abbb01b_timeline.cjs ] && cp $E/codex_review/followup_abbb01b_timeline_current.cjs $C/_cur816a.cjs && node $C/_cur816a.cjs $V813 $PWD/v8.16_reference_and_demob_DRAFT > $E/codex_review/followup_abbb01b_timeline_now.json 2>&1; rm -f $C/_cur816a.cjs; fi; fi
 [ -n "${SKIP_V816:-}" ] || step v816; [ -n "${SKIP_V816:-}" ] || flock "$LOCK" node $E/v816_tests.js > $E/v816.log 2>&1
 step v799-desktop;    BASE=$BASE flock "$LOCK" node $T/v799_tests.js > $E/v799_desktop.log 2>&1
 step v799-phone;      MOB=1 flock "$LOCK" node $T/v799_tests.js > $E/v799_phone.log 2>&1

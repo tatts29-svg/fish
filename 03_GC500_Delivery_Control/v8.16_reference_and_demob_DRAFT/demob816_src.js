@@ -185,23 +185,36 @@ function storedPortions816(key, outDate){
 	if (!outDate) return null;
 	const raw = ((S.delivery || {})[key] || {}).out_portions;
 	if (!Array.isArray(raw) || raw.length < 2) return null;
-	const P = raw.filter(p => p && /^\d{4}-\d{2}-\d{2}$/.test(p.date) && Number(p.units) > 0).map(p => ({iso: p.date, n: Number(p.units)}));
+	const P = raw.filter(p => p && /^\d{4}-\d{2}-\d{2}$/.test(p.date) && Number(p.units) > 0).map(p => Object.assign({iso: p.date, n: Number(p.units)}, p.stream ? {s: p.stream} : {}));
 	return P.length === raw.length && P.map(p => p.iso).sort().pop() === outDate ? portionIds816(P) : null;
 }
 /* every portion carries a stable id - its day and its place among that day's portions - so two portions on one day are
  two portions, never one found twice */
-function portionIds816(P){ const seen = {}; return P.map(p => { const k = seen[p.iso] = (seen[p.iso] || 0) + 1; return Object.assign({}, p, {id: p.iso + '#' + k}); }); }
+function portionIds816(P){ const seen = {}; return P.map(p => { if (p.unplanned) return p; const g = p.iso + (p.s ? '.' + p.s : ''), k = seen[g] = (seen[g] || 0) + 1; return Object.assign({}, p, {id: g + '#' + k}); }); }
 /* QUANTITY CHANGED SINCE THE PORTIONS WERE CONFIRMED: never lost, never counted twice, always said. More units than the
  portions hold ride as an "unplanned" portion on the due-out day; fewer come off the last portions first; a quantity now
  unknown keeps the portions and says the total is to confirm. */
-function reconcile816(P, evtN, evtUnk, outDate){
+function reconcile816(P, evtN, evtUnk, outDate, streams){
 	if (!P) return {portions: null, qty: null};
+	const one = streams && streams.length === 1 ? streams[0].s : null;
+	P = P.map(p => p.s || !one ? p : Object.assign({}, p, {s: one}));
 	const was = P.reduce((s, p) => s + p.n, 0);
 	if (evtUnk) return {portions: P, qty: {was, now: null, words: 'quantity changed since the portions were confirmed: now to confirm'}};
-	if (evtN === was) return {portions: P, qty: null};
-	if (evtN > was) return {portions: P.concat([{iso: outDate, n: evtN - was, unplanned: true, id: outDate + '#u'}]), qty: {was, now: evtN, words: 'quantity changed from ' + was + ' to ' + evtN + ' since confirmed: ' + (evtN - was) + ' unit' + (evtN - was === 1 ? '' : 's') + ' unplanned - on the due-out day until moved'}};
-	let cut = was - evtN; const Q = P.map(p => Object.assign({}, p)).reverse().map(p => { const k = Math.min(cut, p.n); cut -= k; return Object.assign(p, {n: p.n - k}); }).reverse().filter(p => p.n > 0);
-	return {portions: Q.length ? Q : null, qty: {was, now: evtN, words: 'quantity changed from ' + was + ' to ' + evtN + ' since confirmed: ' + (was - evtN) + ' fewer - taken off the last portion' + (was - evtN === 1 ? '' : 's')}};
+	/* each run on its own: the units a run holds now against the portions confirmed for it */
+	const want = {}; (streams || []).forEach(x => { want[x.s] = (want[x.s] || 0) + x.n; });
+	const runs = [...new Set(P.map(p => p.s || '').concat(Object.keys(want)))];
+	const now = Object.values(want).reduce((s, x) => s + x, 0);
+	if (runs.every(k => (want[k] || 0) === P.filter(p => (p.s || '') === k).reduce((s, p) => s + p.n, 0))) return {portions: P, qty: null};
+	let Q = [];
+	runs.forEach(k => { const mine = P.filter(p => (p.s || '') === k).map(p => Object.assign({}, p)), have = mine.reduce((s, p) => s + p.n, 0), w = want[k] || 0;
+		if (w > have) mine.push(Object.assign({iso: outDate, n: w - have, unplanned: true, id: outDate + (k ? '.' + k : '') + '#u'}, k ? {s: k} : {}));
+		else if (w < have) { let cut = have - w; mine.reverse().forEach(p => { const x = Math.min(cut, p.n); cut -= x; p.n -= x; }); mine.reverse(); }
+		Q = Q.concat(mine.filter(p => p.n > 0)); });
+	Q.sort((x, y) => x.iso.localeCompare(y.iso));
+	const words = now > was ? 'quantity changed from ' + was + ' to ' + now + ' since confirmed: ' + (now - was) + ' unit' + (now - was === 1 ? '' : 's') + ' unplanned - on the due-out day until moved'
+		: now < was ? 'quantity changed from ' + was + ' to ' + now + ' since confirmed: ' + (was - now) + ' fewer - taken off the last portion' + (was - now === 1 ? '' : 's')
+		: 'the owners changed since the portions were confirmed - re-planned by owner';
+	return {portions: Q.length ? Q : null, qty: {was, now, words}};
 }
 function demob816(){
 	const memo = typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map ? RENDER_MEMO : null;
@@ -217,7 +230,7 @@ function demob816(){
 		const src = d.out_date ? 'confirmed' : plan ? 'plan' : c.early ? 'contract' : 'proposed';
 		const own = owner816(a, u, evtN, evtUnk);
 		return {key: a.key, a, kind: refKind(a), branch: br, zone: z.zone, side: z.side, pt: z.pt, src, streams: own.streams, ownerUnk: own.ownerUnk, subCo: own.co,
-			iso: d.out_date || plan || c.early || null, contractEnd: c.last, units: u, evtN, evtUnk, evtPure: (evtN > 0 || evtUnk) && !other.length, ...(() => { const rc = reconcile816(storedPortions816(a.key, d.out_date), evtN, evtUnk, d.out_date); return {portions: rc.portions, qtyChange: rc.qty}; })(),
+			iso: d.out_date || plan || c.early || null, contractEnd: c.last, units: u, evtN, evtUnk, evtPure: (evtN > 0 || evtUnk) && !other.length, ...(() => { const rc = reconcile816(storedPortions816(a.key, d.out_date), evtN, evtUnk, d.out_date, own.streams); return {portions: rc.portions, qtyChange: rc.qty}; })(),
 			nothing: u.length > 0 && u.every(x => !x.unknown && x.n === 0), empty: needsEmpty816(a), emptied: emptiedOf816(a.key).on, big: refKind(a) === 'building' || u.some(x => !x.evt && (x.n > 0 || x.unknown) && BIG816.test(x.type)),
 			tank: u.some(x => x.tank && (x.n > 0 || x.unknown)), sub: (() => { try { const s = subhireOf(a.key); return s ? s.co : null; } catch (e) { return null; } })()};
 	});
@@ -238,7 +251,7 @@ function demob816(){
 		const n = days.length, base = days.map(d => refs.filter(r => r.iso === d || (r.portions && r.portions.some(p => p.iso === d))).length);
 		/* a reference split over loads keeps a portion per load, each with its own day; its out date is the last of them */
 		const put = (it, k) => { const iso = days[k]; if (!it.load) { it.r.iso = iso; return; } it.load.iso = iso;
-			it.load.rows.forEach(x => { x.iso = iso; if (x.r.split816 && x.r.streams.length === 1) { x.r.portions = portionIds816((x.r.portions || []).concat([{iso, n: x.n}])); x.r.iso = x.r.portions.map(p => p.iso).sort().pop(); } else x.r.iso = iso; }); };
+			it.load.rows.forEach(x => { x.iso = iso; if (x.r.split816 || x.r.streams.length > 1) { x.r.portions = portionIds816((x.r.portions || []).concat([{iso, n: x.n, s: it.load.stream}])); x.r.iso = x.r.portions.map(p => p.iso).sort().pop(); } else x.r.iso = iso; }); };
 		/* a toilet load goes whole, onto the day with the most room left in its weeks */
 		Q.filter(it => it.load).forEach(it => { let best = 0; for (let k = 1; k < n; k++) if (base[k] < base[best]) best = k; base[best] += it.size; put(it, best); });
 		/* then the rest, in order, so every day ends as level as it can: the water level L that the singles fill to */
@@ -265,7 +278,7 @@ function demob816(){
 		const rest = list.filter(r => (r.evtN > 0 || r.evtUnk) && r.streams.length && !placed.has(r.key));
 		/* each portion of the day is placed on its own (two portions on one day are two portions); a reference without
 		 portions is one piece of work. An unknown quantity rides as a row of its own - nothing assumed. */
-		const work = rest.flatMap(r => r.portions && r.streams.length === 1 ? r.portions.filter(p => p.iso === iso).map(P => ({r, P, n: P.n, s: r.streams[0].s})) : r.streams.map(x => ({r, P: null, n: x.n, s: x.s})));
+		const work = rest.flatMap(r => r.portions ? r.portions.filter(p => p.iso === iso).map(P => ({r, P, n: P.n, s: P.s || r.streams[0].s})) : r.streams.map(x => ({r, P: null, n: x.n, s: x.s})));
 		work.forEach(({r, P, n, s}) => { let done = false; const extra = {part: !!P, iso, pid: P ? P.id : null, unplanned: !!(P && P.unplanned)};
 			for (const L of loads) { if (done) break; if (L.stream !== s || (L.rows[0].r.side !== r.side && r.side !== 'unknown')) continue; const room = RUN816[s].cap - L.units; if (room >= n) { L.rows.push(Object.assign({r, n}, extra)); L.units += n; done = true; } }
 			if (!done) pack816([{r, n}], RUN816[s].cap).forEach(x => { x.rows.forEach(y => Object.assign(y, extra, {part: y.part || !!P})); loads.push(Object.assign(x, {planned: false, stream: s})); }); });
@@ -341,6 +354,9 @@ function travel816(run){
 	let mine = {}; try { mine = JSON.parse(localStorage.getItem(TRAVEL816_KEY) || '{}') || {}; } catch (e) { mine = {}; }
 	if (mine[run] === '') return {v: null, edited: true, words: 'travel time to confirm'};
 	const v = Number(mine[run]); if (mine[run] != null && isFinite(v) && v > 0) return {v: Math.round(v), edited: true, words: 'typed for this run on this device'};
+	/* a Kingston-run figure typed before the per-run field existed is kept, not dropped */
+	let old = null; try { old = Number((JSON.parse(localStorage.getItem(ASSUME816_KEY) || '{}') || {}).run); } catch (e) { old = null; }
+	if (old && isFinite(old) && old > 0) return {v: Math.round(old), edited: true, words: 'typed on this device earlier'};
 	let r = null; try { r = run782(); } catch (e) { r = null; }
 	return r ? {v: r, edited: false, words: 'planning figure, not a live time', basis: ((DATA.transport || {}).kingston_run || {}).basis || ''} : {v: null, edited: false, words: 'travel time to confirm'};
 }
@@ -354,8 +370,9 @@ function ovFlag816(id, v){ let m = {}; try { m = JSON.parse(localStorage.getItem
 function ovCheck816(leave, travel){
 	const out = {latest: travel != null ? 16 * 60 - travel : null, flags: []};
 	if (travel == null) out.flags.push('travel time to confirm - no latest departure worked out');
-	if (leave != null && leave < 9 * 60) out.flags.push('on the road before 09:00 - Gold Coast peak');
-	if (out.latest != null && leave != null && leave > out.latest) out.flags.push('leaves site ' + clock816(leave) + ', after the latest departure ' + clock816(out.latest) + ' - it would be on the road after 16:00');
+	const PK = [[7 * 60, 9 * 60], [16 * 60, 18 * 60]], end = leave != null ? leave + (travel != null ? travel : 1) : null;
+	if (leave != null && PK.some(([s, e]) => leave < e && end > s)) out.flags.push('on the road in a Gold Coast peak (07:00-09:00 or 16:00-18:00)');
+	if (out.latest != null && leave != null && leave > out.latest && leave < 16 * 60) out.flags.push('leaves site ' + clock816(leave) + ', after the latest departure ' + clock816(out.latest) + ' - it would be on the road after 16:00');
 	return out;
 }
 function trucks816(iso, branch){
@@ -513,10 +530,10 @@ function pumpHtml816(Dy){
 function ovHtml816(L){
 	if (L.kind === 'toilets' || L.kind === 'supplier') return '';
 	const tog = `<label class="ovt816"><input type="checkbox" data-ro data-ov816="${esc(L.ovId)}"${L.ov ? ' checked' : ''}> Oversize load (the branch's flag)</label>`;
-	if (!L.ov) return `<div class="acts816 ov816">${tog}</div>`;
+	if (!L.ov) return `<div class="acts816 ov816">${tog}${L.kind === 'single' ? `<span class="chip cand" title="${esc(OVSRC816)}">oversize? the branch to say - permit not checked</span>` : ''}</div>`;
 	const c = L.ovc;
 	return `<div class="acts816 ov816">${tog}<span class="chip crit" title="${esc(OVSRC816)}">Oversize: check permit / travel window</span></div>
-<p class="note816" title="${esc(OVSRC816)}">On Gold Coast roads 09:00–16:00 only · latest departure ${c.latest != null ? clock816(c.latest) + ' (16:00 less ' + L.t.travel + ' min)' : 'travel time to confirm'} · pilot / escort: check permit · Check TMR Conditions of Operation Database before each trip</p>
+<p class="note816" title="${esc(OVSRC816)}">Not on Gold Coast roads 07:00–09:00 or 16:00–18:00 · planning latest departure ${c.latest != null ? clock816(c.latest) + ' (16:00 less the ' + L.t.travel + ' min run - a planning figure, not a permit time)' : 'travel time to confirm'} · pilot / escort: check permit · Check TMR Conditions of Operation Database before each trip</p>
 ${c.flags.map(f => `<span class="chip crit ovf816">${esc(f)}</span>`).join(' ')}`;
 }
 function travelHtml816(T){
@@ -535,7 +552,7 @@ function trucksHtml816(Dy, T){
 		: `<div class="card load816 truck816 nosfold"><div class="hubtitle"><h3>${esc(L.group)} · truck ${L.truck} · load ${L.n} of ${L.of}</h3>${L.kind === 'toilets' ? `<span class="chip cand">Coates toilet run · ${L.toilet.units}${L.toilet.uncertain ? ' + to confirm' : ''} of ${L.toilet.cap}</span>` : ''}</div>
 <p class="note816">Leave Kingston ${tm816(L.t.dep)} · on site ${clock816(L.t.arrive)} · leave site ${clock816(L.t.leave)} · back ${tm816(L.t.back)}</p>
 ${ovHtml816(L)}
-<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>Time</th><th>GC500 ID</th><th>What · units</th><th>Area</th><th></th></tr></thead><tbody>${L.t.st.map(s => `<tr><td class="t" data-label="Time">${clock816(s.at)}</td><td class="refcell" data-label="GC500 ID">${refPlate(s.s.r.key, 14)}</td><td data-label="What">${esc(s.s.parts.map(partWords816).join(', '))}${s.s.afterSupplier ? '<br><span class="w">after the supplier has lifted the toilet off it</span>' : ''}</td><td data-label="Area">${esc(DM816.name[s.s.area])}</td><td data-label="">${notReady816(s.s.r)}</td></tr>`).join('')}</tbody></table></div>${L.t.over ? '<p class="chip crit">This load does not fit the site hours - split it.</p>' : ''}
+<div class="tblwrap daywrap"><table class="daytbl dm816t"><thead><tr><th>Time</th><th>GC500 ID</th><th>What · units</th><th>Area</th><th></th></tr></thead><tbody>${L.t.st.map(s => `<tr><td class="t" data-label="Time">${s.s.afterSupplier ? 'after the supplier' : clock816(s.at)}</td><td class="refcell" data-label="GC500 ID">${refPlate(s.s.r.key, 14)}</td><td data-label="What">${esc(s.s.parts.map(partWords816).join(', '))}${s.s.afterSupplier ? '<br><span class="chip crit">hold: after the supplier has lifted the toilet off it, and the tank is emptied</span>' : ''}</td><td data-label="Area">${esc(DM816.name[s.s.area])}</td><td data-label="">${notReady816(s.s.r)}</td></tr>`).join('')}</tbody></table></div>${L.t.over ? '<p class="chip crit">This load does not fit the site hours - split it.</p>' : ''}
 <div class="acts816"><button type="button" class="btn sm" data-print816="truck" data-truck816="${L.n}">Print this load</button></div></div>`).join('');
 }
 function assumeHtml816(){
@@ -603,7 +620,7 @@ function confirm816(iso, br){
 	try { bump = () => {}; rows.forEach(r => { const d = r.iso || iso;
 		if (setDate(r.key, d, 'out')) { n++;
 			/* a reference picked up over several days keeps each portion on its own day, on the same record and stamp */
-			if (r.portions && r.portions.length > 1 && S.delivery[r.key]) S.delivery[r.key].out_portions = r.portions.map(p => ({id: p.id, date: p.iso, units: p.n})); } }); } finally { bump = b0; }
+			if (r.portions && r.portions.length > 1 && S.delivery[r.key]) S.delivery[r.key].out_portions = r.portions.map(p => Object.assign({id: p.id, date: p.iso, units: p.n}, p.s ? {stream: p.s} : {})); } }); } finally { bump = b0; }
 	DM816.confirm = false; bump();
 	flash(n + ' due-out date' + (n === 1 ? '' : 's') + ' written for ' + dayWords816(iso) + ', in the name of ' + who + '.');
 	return n;
@@ -615,13 +632,13 @@ function sheet816(iso, L){
 	const box = n => '<span class="rsb816">' + '<i></i>'.repeat(Math.max(1, Math.min(n, 30))) + '</span>';
 	const emptied = r => { if (!r.empty) return '<span class="na">-</span>'; const e = emptiedOf816(r.key); return e.on ? `<div>emptied · ${esc(e.by || '')}</div><span>${esc(fmtStamp(e.at))}</span>` : '<div class="nr">NOT READY: empty first</div>'; };
 	const rows = L.t.st.map((x, i) => { const s = x.s, r = s.r;
-		return `<tr><td class="c">${i + 1}</td>${sup ? '' : `<td>${clock816(x.at)}</td>`}<td><b>${esc(DM816.name[r.zone])}</b><span>${esc(sup ? where816(r) : wayIn816(r.a, {zone: r.zone, sea: null}))}</span></td><td class="pl">${esc(r.key)}</td>
-<td>${s.parts.map(p => `<div>${esc(partWords816(p))}</div>`).join('')}${s.afterSupplier ? '<div>after the supplier has lifted the toilet off it</div>' : ''}${sup ? '' : r.empty && !r.emptied ? '<div class="nr">NOT READY: empty first</div>' : ''}${r.qtyChange ? `<div class="nr">${esc(r.qtyChange.words)}</div>` : ''}</td>
+		return `<tr><td class="c">${i + 1}</td>${sup ? '' : `<td>${s.afterSupplier ? 'after the supplier' : clock816(x.at)}</td>`}<td><b>${esc(DM816.name[r.zone])}</b><span>${esc(sup ? where816(r) : wayIn816(r.a, {zone: r.zone, sea: null}))}</span></td><td class="pl">${esc(r.key)}</td>
+<td>${s.parts.map(p => `<div>${esc(partWords816(p))}</div>`).join('')}${s.afterSupplier ? '<div class="nr">HOLD: only after the supplier has lifted the toilet off it, and the tank is emptied</div>' : ''}${sup ? '' : r.empty && !r.emptied ? '<div class="nr">NOT READY: empty first</div>' : ''}${r.qtyChange ? `<div class="nr">${esc(r.qtyChange.words)}</div>` : ''}</td>
 ${sup ? `<td>${emptied(r)}</td>` : ''}<td>${r.empty ? s.parts.map(p => p.unknown ? box(1) + '<span>count them</span>' : box(p.n)).join('') : '<span class="na">-</span>'}</td><td>${box(1)}</td></tr>`; }).join('');
 	const keys = sup
 		? `<span><label>Site hours</label><b>07:00–17:00</b></span><span><label>Pick-up</label><b>${esc(dayWords816(iso))}</b></span><span><label>Transport</label><b>Supplier's own</b><em>organised by the supplier (Coopers Plains, Brisbane)</em></span><span><label>Units</label><b>${L.toilet.units}${L.toilet.uncertain ? '+' : ''} of 24</b></span><span><label>Supplier</label><b>${esc(L.co)}</b></span><span><label>Area</label><b>${esc(sideWords816(L.toilet))}</b></span>`
 		: `<span><label>Site hours</label><b>07:00–17:00</b></span><span><label>Depot</label><b>${esc(dep.name || 'Coates Kingston')}</b>${dep.address ? `<em>${esc(dep.address)}</em>` : ''}</span><span><label>Leave Kingston</label><b>${esc(tm816(L.t.dep))}</b></span><span><label>On site</label><b>${clock816(L.t.arrive)}</b></span><span><label>Leave site</label><b>${clock816(L.t.leave)}</b></span><span><label>Back</label><b>${esc(tm816(L.t.back))}</b></span>`;
-	const ov = L.ov ? `<div class="rso816">Oversize (the branch's flag): on Gold Coast roads 09:00–16:00 only · latest departure ${L.ovc.latest != null ? clock816(L.ovc.latest) : 'travel time to confirm'} · pilot / escort: check permit · check the TMR Conditions of Operation Database before each trip.${L.ovc.flags.length ? ' ' + esc(L.ovc.flags.join('; ')) + '.' : ''}${ovNote816(iso) ? ' Note: ' + esc(ovNote816(iso)) : ''}</div>` : '';
+	const ov = L.ov ? `<div class="rso816">Oversize (the branch's flag): not on Gold Coast roads 07:00–09:00 or 16:00–18:00 · planning latest departure ${L.ovc.latest != null ? clock816(L.ovc.latest) : 'travel time to confirm'} · pilot / escort: check permit · check the TMR Conditions of Operation Database before each trip.${L.ovc.flags.length ? ' ' + esc(L.ovc.flags.join('; ')) + '.' : ''}${ovNote816(iso) ? ' Note: ' + esc(ovNote816(iso)) : ''}</div>` : '';
 	const tv = L.run ? travel816(L.run) : null;
 	return `<div class="dp-page dp-drv rs816${L.t.st.length > 5 ? ' rsc816' : ''}"><header class="dp-hd"><div class="dp-hd-l"><b>Coates</b><span>Industrial Solutions</span></div>
 <div class="dp-hd-m"><span>Demob ${sup ? 'pick-up list' : 'run sheet'} · GC500 2026</span><h1>Collection · ${esc(fmtDate(iso))}</h1></div>
@@ -638,9 +655,10 @@ ${L.t.st.length <= 5 ? '<section class="dp-sec rsn816"><h2>Notes on site</h2><i>
 }
 function printDay816(iso, br, what, n){
 	let T = trucks816(iso, br);
-	if (what === 'load') T = T.filter(L => L.toilet && L.toilet.id === n);
+	if (what === 'load') T = T.filter(L => L.toilet && (L.toilet.id === n || (typeof n === 'number' && L.toilet.n === n)));
 	if (what === 'truck') T = T.filter(L => L.n === n);
 	if (!T.length) { flash('Nothing to print for ' + dayWords816(iso) + '.'); return 0; }
+	if (typeof document === 'undefined') return T.length; /* no page to print into (a fixture): the selection is the answer */
 	const wrap = document.getElementById('dayprint') || (() => { const e = document.createElement('div'); e.id = 'dayprint'; document.body.appendChild(e); return e; })();
 	wrap.innerHTML = T.map(L => sheet816(iso, L)).join(''); wrap.classList.remove('ps7wrap'); wrap.classList.add('dpwrap'); wrap.dataset.dp816 = String(T.length);
 	document.querySelectorAll('#dayPage').forEach(e => e.remove());

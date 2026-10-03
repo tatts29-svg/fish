@@ -1,8 +1,8 @@
 {
   "author": "Andrew Fisher",
   "sourceCommit": "e540cbc31bef88500f9b781688c53f8693932514",
-  "demobSha256": "022c9d5131a68a08d2aa6b25d47bb1b4d18dfb29564962ace2bc7471ef39eae3",
-  "candidateSha256": "f93eb9c02fd1b397bff812b2ac1bf1d79cf550d575421ba308d7932e8eaa53c0",
+  "demobSha256": "32e80a5dcda4d816a60c4d924a5925bf3fcf50c458b7bc92ca21bc24a231a6ff",
+  "candidateSha256": "8ea94e1cb51001cf110d89708a31b5316b3dd1da14262d0c04500dc3bbdd757c",
   "passed": 33,
   "failed": 0,
   "interpretationNote": "The before-event historyless-movement assertion retains the previous review expectation for comparison; its failure is an unresolved incoming-purpose interpretation, not by itself proof of a mandatory policy violation.",
@@ -418,8 +418,8 @@
     {
       "name": "reconciliation_rendering_does_not_rewrite_confirmed_record",
       "pass": true,
-      "observed": "{\"delivery\":{\"WC25\":{\"out_date\":\"2026-10-27\",\"out_by\":\"Fixture operator\",\"out_at\":\"2026-10-26T08:00:00.000Z\",\"out_portions\":[{\"id\":\"2026-10-26#1\",\"date\":\"2026-10-26\",\"units\":24},{\"id\":\"2026-10-27#1\",\"date\":\"2026-10-27\",\"units\":1}]}}}",
-      "expected": "{\"delivery\":{\"WC25\":{\"out_date\":\"2026-10-27\",\"out_by\":\"Fixture operator\",\"out_at\":\"2026-10-26T08:00:00.000Z\",\"out_portions\":[{\"id\":\"2026-10-26#1\",\"date\":\"2026-10-26\",\"units\":24},{\"id\":\"2026-10-27#1\",\"date\":\"2026-10-27\",\"units\":1}]}}}"
+      "observed": "{\"delivery\":{\"WC25\":{\"out_date\":\"2026-10-27\",\"out_by\":\"Fixture operator\",\"out_at\":\"2026-10-26T08:00:00.000Z\",\"out_portions\":[{\"id\":\"2026-10-26.sub#1\",\"date\":\"2026-10-26\",\"units\":24,\"stream\":\"sub\"},{\"id\":\"2026-10-27.sub#1\",\"date\":\"2026-10-27\",\"units\":1,\"stream\":\"sub\"}]}}}",
+      "expected": "{\"delivery\":{\"WC25\":{\"out_date\":\"2026-10-27\",\"out_by\":\"Fixture operator\",\"out_at\":\"2026-10-26T08:00:00.000Z\",\"out_portions\":[{\"id\":\"2026-10-26.sub#1\",\"date\":\"2026-10-26\",\"units\":24,\"stream\":\"sub\"},{\"id\":\"2026-10-27.sub#1\",\"date\":\"2026-10-27\",\"units\":1,\"stream\":\"sub\"}]}}}"
     },
     {
       "name": "decreased_quantity_is_conserved",

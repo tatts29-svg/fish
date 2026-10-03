@@ -538,7 +538,24 @@ The live page's own proof: `toolchain/fetch_live.sh` then compare with the relea
 
 **v8.14 — Today, trimmed: LIVE 3 Oct 2026 10:04 AEST.** Published by Codex from 89e5054 (dd83f06 plus two audited corrections: Export count kept visible, two-card gap-day packing). Live sha256 6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce, 9,074,112 B; Claude's independent readback matched (PR #1 comment 5963566444). LIVE folder and bookkeeping: `v8.14_today_trimmed_LIVE/` on codex/gc500-v794-lap-cameras (1954b22). Author: Andrew Fisher. Andrew, with screenshots: "starting with today we don't these in here. Unless u think overwise". Off Today: Map, Documents, Also on the schedule — no reference, Roads, Fencing, Your records (its export warning moves to Tools → Export). Next programme day stays only as Due today on delivery days (put to Andrew). No figure changes. Scope: `v8.14_today_trimmed_DRAFT/`. Not READY: tests, pictures, Andrew's yes.
 
-**v8.15 — Documents, clean and tidy: ASKED of Codex (its scope), 3 Oct 2026.** Andrew: "lets clean up the document area and increase the look in here and clean it up. make it look clean and tidy". Claude does a read-only mock-up; build only on Codex's release.
+**v8.15 — Documents, clean and tidy: READY (frozen), 3 Oct 2026 12:05 AEST.** Andrew: "lets clean up the document area and increase the look in here and clean it up. make it look clean and tidy"; then "Work with codex and get everything live". Product source frozen at 8c821da. This is e540cbc plus Codex's two verbatim corrections: 6ebb321 (public search `data-ro`, tile focus, fresh collection) and b0e58d2 (selection kept across redraw).
+- Base: live 6365fd09…
+- Built: 35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770, 9,118,422 B.
+- `docs815_src.js` da33522f…, `v815.css` 81c2bf72…, `patch_v815.py` 2d0a8457….
+- Release tests `v815_tests.js` 066949c7…: desktop 58/58, phone 58/58, paper 9/9.
+- Codex (8ae421b): CPU 70/70, browser 80/80, 15 standing runs (248 assertions) and both full sweeps.
+- Layout:
+  - Desktop opens at 511 px, against 8,949 px on live.
+  - Over the 15% empty-space target on desktop: default 17.8%, Packs 21.7%, Drawings 22.2%. These are recorded as follow-ups, not a pass.
+  - Phone opens at 1,102 px, against 21,878 px, with 5–8% empty.
+  - No sideways scroll on either.
+- Next: Codex uploads, then Claude reads back.
+
+**v8.16 — Reference drawer + Demob tab: MOVING (Claude), not ready.** Fixing Codex's ea0dcee ownership-stream findings. Andrew's demob rules:
+- Sub-hire toilets: supplier's own transport, max 24 per load.
+- Coates toilets: their own run, 12–14 per load.
+- Emptied gate; waste tank after its toilet; site hours 07:00–17:00.
+- QLD oversize general conditions.
 
 **Map markers and complete icons: PASSED to Codex (its scope), 3 Oct 2026.** Andrew: "maps we want to use a svg or something that pulsates more ... we also want to use icons when something is complete something that matches and references it".
 
