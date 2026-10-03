@@ -45,3 +45,46 @@ PASS desktop 1440: the card does not scroll sideways  - {"w":1408,"cw":1408}
 PASS desktop 1440: Load 1 opens to its 6 stops, left on truck down to 0  - ["23","19","11","10","2","0"]
 PASS desktop 1440: each stop links to driving directions to its meet point
 PASS desktop 1440: an open load stays open through a redraw
+PASS desktop 1440: Load 1 run sheet fits one A4 page (scale 0.91)
+PASS desktop 1440: Print run sheet opens the print dialog once
+PASS desktop 1440: Load 1: 6 stops, a QR per stop to its meet point, counts down to 0  - ["23","19","11","10","2","0"]
+PASS desktop 1440: Load 1 header  - Load 1 of 5 · Fri 9 Oct 2026 · 24 FWF (+6 pee panels)
+PASS desktop 1440: Load 1 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
+PASS desktop 1440: Load 1 run sheet carries the record line and the plan label
+PASS desktop 1440: Load 1 sheet has no money, phone numbers or SiteIQ
+PASS desktop 1440: Close puts the page back
+PASS desktop 1440: Load 2 run sheet fits one A4 page (scale 1)
+PASS desktop 1440: Print run sheet opens the print dialog once
+PASS desktop 1440: Load 2: 2 stops, a QR per stop to its meet point, counts down to 0  - ["7","0"]
+PASS desktop 1440: Load 2 header  - Load 2 of 5 · Tue 13 Oct 2026 · 24 FWF
+PASS desktop 1440: Load 2 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
+PASS desktop 1440: Load 2 sheet has no money, phone numbers or SiteIQ
+PASS desktop 1440: Close puts the page back
+PASS desktop 1440: Load 3 run sheet fits one A4 page (scale 1)
+PASS desktop 1440: Print run sheet opens the print dialog once
+PASS desktop 1440: Load 3: 1 stops, a QR per stop to its meet point, counts down to 0  - ["0"]
+PASS desktop 1440: Load 3 header  - Load 3 of 5 · Thu 15 Oct 2026 · 24 FWF
+PASS desktop 1440: Load 3 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
+PASS desktop 1440: Load 3 sheet has no money, phone numbers or SiteIQ
+PASS desktop 1440: Close puts the page back
+PASS desktop 1440: Load 4 run sheet fits one A4 page (scale 0.97)
+PASS desktop 1440: Print run sheet opens the print dialog once
+PASS desktop 1440: Load 4: 2 stops, a QR per stop to its meet point, counts down to 0  - ["23","0"]
+PASS desktop 1440: Load 4 header  - Load 4 of 5 · Mon 19 Oct 2026 · 24 FWF
+PASS desktop 1440: Load 4 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
+PASS desktop 1440: Load 4 sheet has no money, phone numbers or SiteIQ
+PASS desktop 1440: Close puts the page back
+PASS desktop 1440: Load 5 run sheet fits one A4 page (scale 1)
+PASS desktop 1440: Print run sheet opens the print dialog once
+PASS desktop 1440: Load 5: 2 stops, a QR per stop to its meet point, counts down to 0  - ["21","0"]
+PASS desktop 1440: Load 5 header  - Load 5 of 5 · Mon 19 Oct 2026 · 24 FWF
+PASS desktop 1440: Load 5 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
+PASS desktop 1440: Load 5 sheet has no money, phone numbers or SiteIQ
+PASS desktop 1440: Close puts the page back
+PASS desktop 1440: Close before the print starts cancels it - nothing is printed afterwards  - {"open":true,"prints":0,"closed":true,"timer":0,"after":false}
+PASS desktop 1440: Escape before the print starts cancels it - nothing is printed afterwards  - {"open":true,"prints":0,"closed":true,"timer":0,"after":false}
+PASS desktop 1440: keyboard - opening the run sheet puts focus inside it (on Print / Save as PDF)  - {"inside":true,"go":true,"role":"dialog","modal":"true"}
+PASS desktop 1440: keyboard - Tab and Shift-Tab stay inside the run sheet and wrap  - ["x","go","x","go","x","go"]
+PASS desktop 1440: keyboard - Escape closes it and focus goes back to Load 1's Print run sheet button  - {"closed":true,"back":true}
+PASS desktop 1440: the card, the run sheet and its preview bar are labelled "Event Portables delivery plan (to quote Q6845)"  - {"h3":"Event Portables delivery plan (to quote Q6845)","hd":"Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet\nEvent Portables delivery plan (to quote Q6845) · Author: Andrew Fisher","bar":"Event Portables delivery plan (to quote Q6845) · run sheet, Load 2 of 5 · one A4 page","dataLd":0,"inDay":false,"epInDays":false,"data":false}
+PASS desktop 1440: plan loads are not in the Timeline's day lists, programmeDays()/dpLoads() or DATA (the plan lives only in EP819)  - {"h3":"Event Portables delivery plan (to quote Q6845)","hd":"Coates · GC500 2026 – Supercars Gold Coast 500 · Load run sheet\nEvent Portables delivery plan (to quote Q6845) · Author: Andrew Fisher","bar":"Event Portables delivery plan (to quote Q6845) · run sheet, Load 2 of 5 · one A4 page","dataLd":0,"inDay":false,"epInDays":false,"data":false}
