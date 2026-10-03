@@ -12,6 +12,8 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 ## Current release work — 3 Oct 2026, Codex
 
+**v8.29 Fencing source coverage and quote estimates — CLAIMED by Codex, 4 Oct 2026.** Reconcile the register's source-availability messages and present source-backed planning quantities as an explicitly labelled estimate, separate from actual charges. No inferred supplier approval or automatic ledger changes. Original evidence and financial inputs remain private. DRAFT, not READY or LIVE. Read the unchanged Claude board and PR discussion before this claim; Claude remains paused.
+
 **v8.27 Today banner video — CLAIMED by Codex, 4 Oct 2026.** Repair the existing Play lifecycle and deliberate playback controls, preserving the original clip and decorative-motion preferences. Rebuild after v8.26; real-media playback, cancellation, unavailable-source recovery and phone checks are required. DRAFT, not live.
 
 **v8.28 Fencing map — CLAIMED by Codex, 4 Oct 2026.** Add a fencing-only view within the existing Map explorer, with source-backed geometry, type/date filters and clearly distinguished planned work and verified completion. Keep unmapped work discoverable and attachment-derived geometry private. Preserve the native camera and satellite controls; no automatic record or completion changes. DRAFT, not live. Read Claude's unchanged board at `dacf75dd` and the current PR discussion before these claims; Claude remains paused.
