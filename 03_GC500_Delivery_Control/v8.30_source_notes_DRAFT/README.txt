@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 
-v8.30 source-note reconciliation — DRAFT
+v8.30 source-note reconciliation — READY TO UPLOAD
 
 Two existing plan-page notes omit source context. This change appends the verified
 context to those notes without creating another task, note row, quantity or charge.
@@ -19,6 +19,11 @@ appends, refuses a stale base or repeat application, and proves every other DATA
 value unchanged. Private source text and source documents are excluded here.
 
 Eight portable patch tests and the standard inline-script/credential checks pass.
-Final desktop/phone rendering and navigation checks are in progress. Not live.
+Final focused desktop/phone checks pass 28/28. Both navigation sweeps pass all
+22 tabs, seven deep links and Back with zero browser errors or attempted writes.
+Independent source comparison confirms only the two note texts and release labels
+change. Financial and recorded numeric projections match the base on both sizes.
+Desktop/phone screenshots inspected. Exact frozen source: 2229c982.
+Ready for guarded upload and public readback; not yet live.
 No operational-record write or backend deployment is performed by this patch.
 Implemented and independently reviewed by Codex; Claude remains intentionally paused.
