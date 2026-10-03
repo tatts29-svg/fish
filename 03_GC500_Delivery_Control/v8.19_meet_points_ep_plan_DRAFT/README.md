@@ -48,7 +48,7 @@ already has: `GC500_EventPortables_load_run_sheets_v3.pdf` and `GC500_EventPorta
    - the parkland rules box, where the meet point is the island west parkland.
 
    The meet point's way in is shown only where it says more than the reference's own *Way in* line.
-3. **Driver sheet (GC500-DRV-01).** The photographs keep every pixel they had on live, measured on all 27 driver sheets
+3. **Driver sheet (GC500-DRV-01).** The photographs keep every pixel they had on live, measured on all 26 driver sheets
    for 5–9 Oct.
    - **One reference:** the meet point goes in room the sheet already leaves empty, inside the *Master-plan position*
      box: its QR, "Meet point · scan for directions" and its name.
@@ -169,7 +169,7 @@ and the scale is 1 outside a sheet.
 
 | finding | resolution |
 |---|---|
-| **B1** Driver-sheet photos crushed | No band. The meet point goes in the sheet's existing empty room and the rules go on its own rules line. The way-in rule is shared with the drawer. `photo819.js` fails the run if any 5–9 Oct sheet's photos are lower than live: 27 of 27 are equal (table below) |
+| **B1** Driver-sheet photos crushed | No band. The meet point goes in the sheet's existing empty room and the rules go on its own rules line. The way-in rule is shared with the drawer. `photo819.js` fails the run if any 5–9 Oct sheet's photos are lower than live: 26 of 26 are equal (table below) |
 | **B2** Phone overflow at 400 px | On phones each stop is a card (meet point, FWF, left on truck, then the WC numbers). The quote and cancelled tables wrap and fit. The page-wide `table{min-width:640px}` is lifted for this card only. `phone819.js` checks 390 and 400 px with all 5 loads and the fold open |
 | **B3** Pinned and confirmed gear got no area rules | The area test runs on any real map position, and the nearest rule for master, pinned and confirmed (description and report stay no-pin). The toilets equal `assign.py` unchanged, asserted in `assign_check819.py` |
 | S1 Dates disagree | The load card and its run sheet carry the record line, worked out from the record (above), not hard-coded |
@@ -183,7 +183,14 @@ and the scale is 1 outside a sheet.
 
 `bash toolchain/build.sh v8.19 v8.19_meet_points_ep_plan_DRAFT/patch_v819.py`
 
-BUILD_TABLE
+| | |
+|---|---|
+| source commit | `1cd16dcdc67a62299c7ca244cea5fa87dadeadcc` |
+| base (live at build, Codex v8.20 Today) | `88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919`, 9,293,149 bytes |
+| candidate | `0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c`, 9,356,879 bytes |
+| check_page | PASS (`regress/build.log`): inline scripts parse, no new keys, author line present |
+| first 5,000 characters | byte-identical to the base (the service's identity check reads them; the v8.19 CSS lands after the page's first stylesheet, at about character 14,000) |
+| changed regions | 8: the CSS, the release marker, the drawer call, two lines in `dpPage` (Where it goes, the rules line), the `renderTimeline_held` day line, the v8.19 code before `renderPass`, the footer. None in Today, the weather or their controllers |
 
 **Shared hunk:** the Timeline insertion is the `renderTimeline_held` line ending
 `dayBlock(days[idx], true) : '<div class="empty">No scheduled dates in the register.</div>')}`. Codex's v8.21 also works
@@ -198,12 +205,81 @@ write was attempted. The field is additive; nothing else changed.
 aborts every write, and `window.print` is stubbed. One browser runs at a time, under the shared lock. Each log starts
 with the header below.
 
-RESULTS_TABLE
+| suite | PASS lines | FAIL lines | exit | result |
+|---|---|---|---|---|
+| anchors | 6 | 0 | 0 | PASS |
+| probe | 0 | 0 | 0 | PASS |
+| assign | 3 | 0 | 0 | PASS |
+| v819 | 155 | 0 | 0 | PASS |
+| qr | 5 | 0 | 0 | PASS |
+| fresh819 | 8 | 0 | 0 | PASS |
+| photo | 93 | 0 | 0 | PASS |
+| phone-widths | 12 | 0 | 0 | PASS |
+| v799-desktop | 23 | 0 | 0 | PASS |
+| v799-phone | 18 | 0 | 0 | PASS |
+| packed-desktop | 20 | 0 | 0 | PASS |
+| packed-phone | 14 | 0 | 0 | PASS |
+| equip-desktop | 22 | 0 | 0 | PASS |
+| equip-phone | 22 | 0 | 0 | PASS |
+| results-desktop | 9 | 0 | 0 | PASS (rerun on `90cdfa1`, test-only change, same candidate) |
+| results-phone | 9 | 0 | 0 | PASS (rerun on `90cdfa1`, test-only change, same candidate) |
+| onetab-desktop | 20 | 4 | 1 | FAIL |
+| onetab-phone | 20 | 4 | 1 | FAIL |
+| rules | 45 | 0 | 0 | PASS |
+| fresh | 11 | 0 | 0 | PASS |
+| same-figures | 0 | 0 | 0 | PASS |
+| sweep-desktop | 7 | 0 | 0 | PASS |
+| sweep-phone | 7 | 0 | 0 | PASS |
+
+23 suites; 2 fail, both the inherited one-tab suite (below). Full run: `regress/summary.log` (source `1cd16dc`). The two results suites were rerun on the same candidate after a test-only fix: `regress/summary_results_rerun.log` (source `90cdfa1`). Earlier failed runs are kept: `results_*_on_865c1f2_original.log` (the hard-coded 116) and `results_*_on_1cd16dc_testbug.log` (my copy read the wrong field, then hit the v8.16 More-menu click).
+
+Header on every log of the full run: `# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z`
+
+- **QR codes:** 40 of 40 QR images (drawer, run sheets, driver sheets) decode to exactly `https://www.google.com/maps/dir/?api=1&destination=<lat6>,<lng6>&travelmode=driving` for one of the ten meet points; 5 of 5 printed run-sheet PDFs are one A4 page whose QR codes all decode the same way.
+- **Meet-point assignment:** 131 of 131 master-plan references and WC toilets (all 65 WC among them): page = assign.py unchanged (0 differ) · 70 of 70 other references (pinned, confirmed, description, report, none): page = the same rule with pinned/confirmed included (0 differ) · 201 of 201 references in all · PASS T0022 -> ISLAND_WEST_PARK (want ISLAND_WEST_PARK) · PASS T0023 -> ISLAND_WEST_PARK (want ISLAND_WEST_PARK) · PASS P47 -> COMMODORE (want COMMODORE) · 71 of 71 plan meet points (loads and on-site lists) = the page
+- **Loads:** 5 × 24 = 120 FWF; 6 pee panels on Load 1; early-delivery, site-rule, parkland and demob wording word for word from the plan (v819 suite).
+- **Sweeps** (`regress/sweep-*.log`): desktop and phone. All 22 tabs are swept, plus seven deep links and Back, with 0 page errors, 0 console errors and 0 writes attempted. 16 tabs show; the 6 that do not (register, journal, breakdowns, variances, edit, add) are the view-only redirects, exactly as on the live v8.20 page itself (`regress/basecmp/`). The judge was first written as "every tab shown", stricter than the board's standard; the first run's logs show that failure, and it is corrected to the board's standard.
+- **One-tab (v7.93) suite: 20 pass, 4 fail on desktop and phone, the same four on the live v8.20 page and on the previous live page (`f3bb490b`, weather v8.18) without v8.19** (`regress/basecmp/`). The four are Today assertions written before the v8.14 Today trim (the Fencing and roads cards, the folds, the four-tab round trip). They are inherited and v8.19 does not touch Today. They are reported, not waived and not rewritten here: Today is Codex's scope.
+- **Fresh record lines** (`fresh819.log`): the card equals the native projection before the record loads, after it loads, 8 s later and after a simulated record change through `syncRedraw()`, with no reload.
 
 **Driver-sheet photographs: live base vs v8.19** (`photo819.log`, every driver sheet; 5–9 Oct judged, 28 Sep shown for
 comparison):
 
-PHOTO_TABLE
+| day | load | live base px | v8.19 px | change | meet points |
+|---|---|---|---|---|---|
+| 2026-09-28 | 1 | 177.0 | 177.0 | +0.0 | MEDIAN_PITSTOP |
+| 2026-09-28 | 2 | 166.3 | 166.3 | +0.0 | MEDIAN_PITSTOP |
+| 2026-09-28 | 3 | 177.0 | 177.0 | +0.0 | MEDIAN_PITSTOP |
+| 2026-09-28 | 4 | 14.6 | 0.0 | -14.6 | MEDIAN_PITSTOP, PITLANE, COMMODORE |
+| 2026-09-28 | 5 | 165.9 | 165.9 | +0.0 | MEDIAN_PITSTOP |
+| 2026-09-28 | 6 | 165.9 | 161.5 | -4.4 | MEDIAN_PITSTOP |
+| 2026-09-28 | 7 | 153.0 | 153.0 | +0.0 | ISLAND_NORTH |
+| 2026-10-06 | 1 | 131.6 | 131.6 | +0.0 | COMMODORE |
+| 2026-10-06 | 2 | 131.6 | 131.6 | +0.0 | COMMODORE |
+| 2026-10-06 | 3 | 131.6 | 131.6 | +0.0 | COMMODORE |
+| 2026-10-06 | 4 | 131.9 | 131.9 | +0.0 | COMMODORE |
+| 2026-10-06 | 5 | 176.7 | 176.7 | +0.0 | PITLANE |
+| 2026-10-06 | 6 | 176.7 | 176.7 | +0.0 | PITLANE |
+| 2026-10-07 | 1 | 87.5 | 87.5 | +0.0 | HELEN_PARK |
+| 2026-10-07 | 2 | 87.5 | 87.5 | +0.0 | HELEN_PARK |
+| 2026-10-07 | 3 | 87.5 | 87.5 | +0.0 | HELEN_PARK |
+| 2026-10-07 | 4 | 96.8 | 96.8 | +0.0 | ISLAND_NORTH, PITLANE |
+| 2026-10-07 | 5 | 87.5 | 87.5 | +0.0 | HELEN_PARK |
+| 2026-10-07 | 6 | 87.5 | 87.5 | +0.0 | HELEN_PARK |
+| 2026-10-07 | 7 | 108.2 | 108.2 | +0.0 | ISLAND_NORTH |
+| 2026-10-07 | 8 | 108.2 | 108.2 | +0.0 | ISLAND_NORTH |
+| 2026-10-07 | 9 | 89.3 | 89.3 | +0.0 | ISLAND_NORTH |
+| 2026-10-07 | 10 | 89.3 | 89.3 | +0.0 | ISLAND_NORTH |
+| 2026-10-07 | 11 | 132.6 | 132.6 | +0.0 | COMMODORE |
+| 2026-10-08 | 1 | 179.4 | 179.4 | +0.0 | PITLANE |
+| 2026-10-08 | 2 | 115.0 | 115.0 | +0.0 | MEDIAN_PITSTOP |
+| 2026-10-08 | 3 | 126.3 | 126.3 | +0.0 | HILL_A47 |
+| 2026-10-08 | 4 | 141.9 | 141.9 | +0.0 | MBP_LANDSIDE |
+| 2026-10-08 | 5 | 163.5 | 163.5 | +0.0 | HILL_A47 |
+| 2026-10-09 | 1 | 164.1 | 164.1 | +0.0 | COMMODORE |
+| 2026-10-09 | 2 | 163.8 | 163.8 | +0.0 | COMMODORE |
+| 2026-10-09 | 3 | 163.8 | 163.8 | +0.0 | COMMODORE |
+| 2026-10-09 | 4 | 163.5 | 163.5 | +0.0 | SEASIDE_NORTH |
 
 ## Screenshots (looked at, desktop and phone; in the session scratchpad, not in git)
 
@@ -221,7 +297,15 @@ These are made by `evidence/shots819.js`. The test runs also leave every decoded
 
 ## Limitations
 
-LIMITATIONS
+- **Driver-sheet photographs:** on every judged sheet (5–9 Oct, 26 sheets) the photo strip is exactly the live base's (26 of 26 unchanged). On 28 Sep (past, shown for comparison, not judged) load 4 14.6 → 0.0 px; load 6 165.9 → 161.5 px. There the sheet has no Way in of its own ("Not set") so the meet point's way in is shown, and the three-reference load already had almost no room on live.
+- **QR size on paper:** the driver-sheet meet point QR is 13 mm × the sheet scale (about 10 mm at the usual 0.8), the same as the sheet's own Navigate QRs in the table (12.5 mm × scale); the run sheet QRs are 24 mm. Decoding is proven from the rendered page and the printed PDF; scanning a physical print with a phone has not been done here.
+- **The record line follows the live record.** It is worked out when the page draws; the test works it out independently from the same record. Its wording "moving … per Coates" is used only for Andrew's next-week move onto Fri 9 Oct; other differences are stated, not explained.
+- **Phone driver sheet:** the A4 driver sheet on a phone is the native page wider than the screen, as on live; v8.19 adds nothing to that.
+- **Not touched:** Codex's Demob register and logic, the crane rules, the equipment register, Today, the Timeline messaging and installer preview. The installer daily sheet gets the meet point only when Codex wires the helpers in.
+- Seen in passing, outside this release: the v8.16 drawer's map chip reads "MACINTOSH ISLAND" for WC61 on Main Beach Pde (existing behaviour, unchanged).
+- **Inherited one-tab failures** (above): 4 Today assertions fail on the live pages without v8.19 as well. The suite's exit is therefore non-zero, and `run_all.sh` reports it as a failed suite.
+- The v8.21 row styling changes how the supplier card's load rows look once both are live (see *Source boundary*). That is for Codex to settle when integrating second.
+- No record writes. No upload (no key in this session; Codex publishes after Andrew's yes).
 
 ## Open questions for Andrew / Codex
 
