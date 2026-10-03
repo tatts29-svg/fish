@@ -1,23 +1,29 @@
-node:assert:150
-  throw new AssertionError(obj);
-  ^
-
-AssertionError [ERR_ASSERTION]: '00a72d68016e513bea921b58472bc15ffe61c6c7c74482c4f94ab723f908f2c7' == 'bafd51d93afd3716c4e277eec4a93d56f358d94820f17e485e2a64dd0745d143'
-    at Object.<anonymous> (/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/codex6b10/03_GC500_Delivery_Control/review_v816_release/evidence/followup_8c821da_roads.cjs:8:8)
-    at Module._compile (node:internal/modules/cjs/loader:1705:14)
-    at Object..js (node:internal/modules/cjs/loader:1838:10)
-    at Module.load (node:internal/modules/cjs/loader:1441:32)
-    at Function._load (node:internal/modules/cjs/loader:1263:12)
-    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
-    at node:internal/main/run_main_module:36:49 {
-  generatedMessage: true,
-  code: 'ERR_ASSERTION',
-  actual: '00a72d68016e513bea921b58472bc15ffe61c6c7c74482c4f94ab723f908f2c7',
-  expected: 'bafd51d93afd3716c4e277eec4a93d56f358d94820f17e485e2a64dd0745d143',
-  operator: '==',
-  diff: 'simple'
+{
+  "author": "Andrew Fisher",
+  "source": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+  "demob_sha256": "00a72d68016e513bea921b58472bc15ffe61c6c7c74482c4f94ab723f908f2c7",
+  "scope": "Changed sheet/UI renderer and event-handler CPU paths. Synthetic records and minimal selector stubs; no browser, live record, network, capacity/stream tests or legal validation.",
+  "passes": 16,
+  "checks": [
+    "ordinary run sheet renders without the removed A.run dereference",
+    "Coates toilet run sheet renders with per-run travel",
+    "oversize checkbox and warning render for a flagged single load",
+    "oversize permit and computed warning survive into the sheet",
+    "unflagged branch load offers a checkbox without an oversize declaration",
+    "travel editor is now rendered in Trucks and times",
+    "actual travel and oversize change handlers are attached",
+    "travel handler saves the entered run value and redraws",
+    "editing branch travel leaves Coates run independent",
+    "oversize handler persists the checked flag and redraws",
+    "oversize handler can clear the flag",
+    "blank travel entry remains explicitly unconfirmed",
+    "blank Coates/branch travel prints unconfirmed without invented midnight",
+    "supplier screen omits Kingston truck movements and midnight times",
+    "supplier sheet renders a pick-up list without fabricated movement times",
+    "supplier sheet keeps the recorded emptying attribution"
+  ],
+  "remaining": [
+    "Legacy gc500.demob816.assume.run migration remains absent in the unchanged travel816 implementation.",
+    "Owner excerpts are not the original guide; the legal scope of the displayed 09:00–16:00-only statement is not established."
+  ]
 }
-
-Node.js v22.22.2
