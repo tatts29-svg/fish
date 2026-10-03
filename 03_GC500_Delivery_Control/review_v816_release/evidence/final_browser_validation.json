@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "7f7d9066dbe6bda82eab12f1df0894410fd8845c",
+  "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+  "focusedBrowser": {
+    "passes": 115,
+    "failures": 0,
+    "rawLogSha256": "47a57d6224e3a0b0617778e46255865fd9ea9224157116be763d79816eb2a94f"
+  },
+  "navigation": {
+    "desktop": {
+      "tabs": 22,
+      "links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "rawResultSha256": "7be818a651067872c63c06604a3ba3129e4110fd0eaa26bc105dcf82685e60f9"
+    },
+    "phone": {
+      "tabs": 22,
+      "links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "rawResultSha256": "43f36d90cd6e6acc11b54071229ce8b44237efacf2de171cac0ed4ce03528538"
+    }
+  },
+  "visualInspection": "Root inspected final desktop Demob, phone Demob and phone drawer screenshots; private screenshots retained outside Git.",
+  "visualChecks": [
+    {
+      "device": "desktop",
+      "board": {
+        "shown": true,
+        "overflow": false
+      },
+      "errors": [],
+      "blockedWrites": 0
+    },
+    {
+      "device": "phone",
+      "board": {
+        "shown": true,
+        "overflow": false
+      },
+      "errors": [],
+      "blockedWrites": 0
+    }
+  ]
+}
