@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 3 Oct 2026 AEST.
 
-**READY for guarded upload; not yet live.** Frozen implementation 8c821da, owner evidence 139d917 and READY board 48b346a. Candidate `35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770`, 9,118,422 bytes, built from verified live v8.14 `6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce`.
+**LIVE — 3 Oct 2026, 12:05 AEST.** Guarded upload from committed source `79f6939` succeeded. A fresh public GET serves the tested build byte for byte; all operational record fingerprints and the record version are unchanged across publication. See `evidence/release_verification.json`. Frozen implementation 8c821da, owner evidence 139d917 and READY board 48b346a. Candidate `35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770`, 9,118,422 bytes, built from verified live v8.14 `6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce`.
 
 Documents opens with the existing race-style category cards and a working find box instead of a long catalogue. Files sit under their category; the five duplicated pre-start entries resolve to their uploaded copies while preserving their notes. The existing file-opening, reference links, upload and removal functions remain. Fencing plan links land on drawings; header search retains the exact missing document selected.
 
@@ -14,4 +14,4 @@ Measured initial pane height is 511px on desktop versus 8,949px before, and 1,10
 
 Owner six-run median opening time is 470ms desktop versus 434ms before, and 448ms phone versus 457ms. The desktop measurement is about 8% slower; no universal speed-up, strict no-regression performance target or physical-device frame-rate claim is made. Existing component appearance is retained. The patch docstring's mention of the former collection cache is stale documentation only; the verified source uses a fresh collection inside the existing asset hold.
 
-Implementation and release-specific tests were provided by the implementation owner; bounded corrections, independent review, complete standing tests and publication preparation were performed by the release owner with independent subagent checks. The owner has frozen this source for upload and will independently read back the public release afterwards. Separate v8.16 Demob and v8.09 machine work is excluded.
+Implementation and release-specific tests were provided by the implementation owner; bounded corrections, independent review, complete standing tests and publication preparation were performed by the release owner with independent subagent checks. The owner froze this source for publication and has been asked to independently read back the public release. The release owner has already verified exact public bytes and record preservation. Separate v8.16 Demob and v8.09 machine work is excluded.
