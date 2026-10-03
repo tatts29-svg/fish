@@ -1,0 +1,163 @@
+/* v7.00 - the day for the driver and the day for the installers: one A4 page per truck load, a Coates document */
+#dayprint.dpwrap{width:194mm;max-width:none;margin:0;font:9pt/1.3 Inter,'Segoe UI',system-ui,sans-serif;color:#15181a;background:#fff}
+#dayprint .dp-page{--k:1;--acc:#ff6a13;box-sizing:border-box;width:194mm;height:280mm;overflow:hidden;display:flex;flex-direction:column;
+  gap:calc(1.3mm * var(--k));font-size:calc(9pt * var(--k));line-height:1.3;color:#15181a;background:#fff;
+  break-after:page;page-break-after:always;break-inside:avoid;position:relative}
+#dayprint .dp-page:last-child{break-after:auto;page-break-after:auto}
+#dayprint .dp-page.dp-col{--acc:#0f7c86}
+#dayprint .dp-page *{box-sizing:border-box}
+#dayprint .dp-page > *{flex:0 0 auto}
+/* the header band */
+#dayprint .dp-hd{display:flex;align-items:center;gap:4mm;background:#15181a;color:#fff;padding:1.5mm 3.4mm;border-bottom:1.1mm solid var(--acc)}
+#dayprint .dp-hd-l{flex:0 0 auto;line-height:1}
+#dayprint .dp-hd-l b{display:block;font-size:17pt;font-weight:800;letter-spacing:-.02em;color:#ff6a13;line-height:.95}
+#dayprint .dp-hd-l span{display:block;font-size:5.8pt;letter-spacing:.24em;color:#c9cfd2;margin-top:.8mm}
+#dayprint .dp-hd-m{flex:1 1 auto;min-width:0;border-left:1px solid #3a4145;padding-left:4mm}
+#dayprint .dp-kick{display:block;font-size:6.8pt;letter-spacing:.2em;color:#f07c2a;font-weight:700}
+#dayprint .dp-hd-m h1{margin:.3mm 0 0;font-size:13pt;line-height:1.1;font-weight:800;letter-spacing:-.01em;color:#fff}
+#dayprint .dp-hd-r{flex:0 0 auto;text-align:right;font-size:6.8pt;letter-spacing:.08em;color:#c9cfd2;line-height:1.35}
+#dayprint .dp-hd-r b{display:block;font-size:10.5pt;color:#fff;letter-spacing:.04em}
+#dayprint .dp-hd-r .dp-lx{display:inline-block;margin-top:.6mm;background:var(--acc);color:#fff;font-weight:800;font-size:8pt;padding:.4mm 2mm;border-radius:1mm;letter-spacing:.1em}
+/* the hero: the reference, the size of a fist */
+#dayprint .dp-hero{display:flex;gap:2.4mm;align-items:stretch}
+#dayprint .dp-refs{flex:1 1 auto;min-width:0;display:flex;gap:2mm;border:.5mm solid #15181a;border-top:1.6mm solid var(--acc);border-radius:1mm;padding:1mm 2.6mm 1.2mm;background:#fafafa}
+#dayprint .dp-refs > .dp-lbl{display:none}
+#dayprint .dp-ref{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center}
+#dayprint .dp-ref + .dp-ref{border-left:1px solid #c9cfd2;padding-left:2.4mm}
+#dayprint .dp-ref i{font-style:normal;font-size:.72em;letter-spacing:.16em;font-weight:700;color:#5b6166;text-transform:uppercase}
+#dayprint .dp-ref b{display:block;font-family:'Barlow Condensed','Arial Narrow',Inter,sans-serif;font-style:italic;font-weight:700;
+  font-size:calc(var(--hs,64pt) * var(--k));line-height:.92;letter-spacing:-.01em;color:#15181a;white-space:nowrap}
+#dayprint .dp-ref span{display:block;font-size:1.02em;font-weight:700;line-height:1.2;margin-top:.5mm;color:#15181a}
+#dayprint .dp-ref em{display:block;font-style:normal;font-size:.9em;color:#4a4f53;line-height:1.2}
+#dayprint .dp-side{flex:0 0 112mm;display:flex;flex-direction:column;gap:1.1mm;min-width:0}
+#dayprint .dp-side .dp-safe{flex-direction:column;gap:1.1mm}
+#dayprint .dp-facts{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1mm;align-content:stretch}
+#dayprint .dp-fact{border:1px solid #9aa1a6;border-top:.7mm solid #15181a;border-radius:.8mm;padding:.8mm 1.6mm;min-width:0}
+#dayprint .dp-fact label,#dayprint .dp-cell label{display:block;font-size:.74em;letter-spacing:.14em;text-transform:uppercase;color:#5b6166;font-weight:700;line-height:1.2}
+#dayprint .dp-fact b{display:block;font-size:1.26em;line-height:1.12;font-weight:800}
+#dayprint .dp-fact span{display:block;font-size:.84em;color:#4a4f53;line-height:1.2}
+#dayprint .dp-fact.dp-wide{grid-column:span 2}
+#dayprint .dp-fact.dp-wide b{font-size:1.02em;font-weight:700}
+/* the JSEA requirement and the Take 5, side by side and the same weight */
+#dayprint .dp-safe{display:flex;gap:2.4mm;align-items:stretch}
+#dayprint .dp-safe > *{flex:1 1 0;min-width:0}
+#dayprint .dp-t5{display:flex;align-items:center;gap:2.4mm;border:.6mm solid #15181a;background:#fff8e6;border-radius:1mm;padding:1mm 2.4mm}
+#dayprint .dp-safe > .dp-t5{flex-grow:1.35}
+#dayprint .dp-t5 > b{flex:0 0 auto;background:#15181a;color:#ffb020;font-size:.92em;font-weight:800;letter-spacing:.08em;padding:1mm 2.2mm;border-radius:.8mm;line-height:1.15;text-align:center}
+#dayprint .dp-t5 p{margin:0;font-size:.95em;line-height:1.26;color:#15181a}
+#dayprint .dp-jsea{display:flex;align-items:center;gap:2.4mm;border:.6mm solid #b42318;background:#fff4ed;border-radius:1mm;padding:1mm 2.4mm}
+#dayprint .dp-jsea > b{flex:0 0 auto;background:#b42318;color:#fff;font-size:.92em;font-weight:800;letter-spacing:.08em;padding:1mm 2.2mm;border-radius:.8mm;line-height:1.15;text-align:center}
+#dayprint .dp-jsea p{margin:0;font-size:.95em;line-height:1.26;color:#15181a}
+/* the sections */
+#dayprint .dp-sec{min-width:0}
+#dayprint .dp-page h2{display:flex;align-items:baseline;gap:2mm;margin:0 0 .9mm;font-size:1.02em;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#15181a;line-height:1.2}
+#dayprint .dp-page h2 i{font-style:normal;color:var(--acc);font-variant-numeric:tabular-nums}
+#dayprint .dp-page h2 em{font-style:normal;font-weight:500;letter-spacing:0;text-transform:none;color:#5b6166;font-size:.9em}
+#dayprint .dp-page h2::after{content:'';flex:1 1 auto;height:1px;background:#c9cfd2;align-self:center}
+#dayprint .dp-tbl{width:100%;border-collapse:collapse;font-size:1em}
+#dayprint .dp-page table{font:inherit;color:inherit}
+#dayprint .dp-wtbl{table-layout:fixed}
+#dayprint .dp-wtbl .dp-sm b{font-weight:800;color:#15181a}
+#dayprint .dp-tbl th{text-align:left;font-size:.76em;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:#15181a;font-weight:700;padding:.7mm 1.6mm}
+#dayprint .dp-tbl td{border-bottom:1px solid #c9cfd2;padding:.8mm 1.6mm;vertical-align:top;line-height:1.25}
+#dayprint .dp-tbl tr:nth-child(even) td{background:#f6f7f8}
+#dayprint .dp-tbl td.dp-rk{font-family:'Barlow Condensed','Arial Narrow',Inter,sans-serif;font-style:italic;font-weight:700;font-size:1.6em;line-height:1;white-space:nowrap}
+#dayprint .dp-num{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:1.08em;margin-right:2.4mm;white-space:nowrap}
+#dayprint .dp-none{color:#5b6166;font-style:italic}
+#dayprint .dp-wr{display:block;border-bottom:1.1px solid #15181a;height:4.6mm;min-width:22mm}
+#dayprint .dp-wr.dp-in{display:inline-block;width:40mm;height:3.6mm;vertical-align:bottom}
+#dayprint .dp-sm{display:block;font-size:.84em;color:#4a4f53;line-height:1.22}
+#dayprint .dp-bx{display:inline-block;width:3.2mm;height:3.2mm;border:1.1px solid #15181a;border-radius:.4mm;vertical-align:-.5mm;margin-right:1.2mm;background:#fff}
+/* where it goes */
+#dayprint .dp-where{display:flex;gap:2.4mm;align-items:stretch}
+#dayprint .dp-way{flex:1 1 auto;min-width:0;border:1px solid #9aa1a6;border-radius:.8mm;padding:.9mm 2.2mm;font-size:.95em}
+#dayprint .dp-way ol{margin:.4mm 0 0;padding-left:4.4mm}
+#dayprint .dp-way li{margin:.2mm 0;line-height:1.26}
+#dayprint .dp-addr{font-weight:700;font-size:1.04em;line-height:1.25}
+#dayprint .dp-spot{margin-top:.8mm;padding-top:.8mm;border-top:1px dashed #9aa1a6}
+#dayprint .dp-spot b.dp-big{font-size:1.2em}
+#dayprint .dp-poss{flex:0 0 auto;display:flex;gap:1.6mm}
+#dayprint .dp-pos{width:62mm;border:.5mm solid #15181a;border-radius:1mm;padding:1.2mm 1.8mm;display:flex;gap:1.8mm;background:#fff}
+#dayprint .dp-poss.n2 .dp-pos,#dayprint .dp-poss.n3 .dp-pos{width:auto;flex-direction:column;align-items:center;text-align:center;flex:1 1 0}
+#dayprint .dp-poss.n2,#dayprint .dp-poss.n3{flex:0 1 110mm}
+#dayprint .dp-pos .dp-qr{flex:0 0 auto;width:calc(24mm * var(--k));text-align:center}
+#dayprint .dp-poss.n2 .dp-qr,#dayprint .dp-poss.n3 .dp-qr{width:calc(19mm * var(--k))}
+#dayprint .dp-qr svg{display:block;width:100%;height:auto}
+#dayprint .dp-qr span{display:block;font-size:.7em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:.3mm}
+#dayprint .dp-pos-t{min-width:0}
+#dayprint .dp-pos-t label{display:block;font-size:.74em;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--acc)}
+#dayprint .dp-pos-t .dp-ll{display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:1.06em;line-height:1.25;margin:.4mm 0}
+#dayprint .dp-pos-t .dp-rk2{font-family:'Barlow Condensed','Arial Narrow',Inter,sans-serif;font-style:italic;font-weight:700;font-size:1.5em;line-height:1}
+/* installer: where, cell by cell */
+#dayprint .dp-cells{display:grid;grid-template-columns:repeat(var(--c,4),minmax(0,1fr));gap:1.1mm}
+#dayprint .dp-cell{border:1px solid #9aa1a6;border-radius:.8mm;padding:.8mm 1.6mm;min-width:0}
+#dayprint .dp-cell b{display:block;font-size:1.04em;line-height:1.22}
+#dayprint .dp-cell.dp-w2{grid-column:span 2}
+#dayprint .dp-cell.dp-hl{border:.5mm solid #15181a;border-left:1.6mm solid var(--acc)}
+#dayprint .dp-refrow{display:flex;gap:2mm;align-items:stretch}
+#dayprint .dp-refrow + .dp-refrow{margin-top:1.2mm}
+#dayprint .dp-refrow > .dp-rtag{flex:0 0 16mm;display:flex;align-items:center;justify-content:center;background:#15181a;color:#fff;border-radius:.8mm;
+  font-family:'Barlow Condensed','Arial Narrow',Inter,sans-serif;font-style:italic;font-weight:700;font-size:1.9em}
+#dayprint .dp-refrow > .dp-cells{flex:1 1 auto;min-width:0}
+/* the pictures take whatever the writing leaves */
+#dayprint .dp-pics{flex:1 1 0;min-height:0;display:grid;grid-template-columns:repeat(var(--c,3),minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:1.4mm}
+#dayprint .dp-fig{margin:0;min-width:0;min-height:0;display:flex;flex-direction:column;border:.45mm solid #15181a;border-radius:1mm;overflow:hidden;background:#fff}
+#dayprint .dp-fig.dp-s2{grid-column:span 2}
+#dayprint .dp-win{flex:1 1 auto;min-height:0;position:relative;overflow:hidden;background:#e9ebec}
+#dayprint .dp-win img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;max-width:none}
+#dayprint .dp-win.dp-fitc img{object-fit:contain;background:#fff}
+#dayprint .dp-fig figcaption{flex:0 0 auto;padding:.6mm 1.6mm;font-size:.8em;line-height:1.2;font-weight:600;color:#15181a;background:#f1f2f3;border-top:1px solid #c9cfd2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#dayprint .dp-fig figcaption b{font-weight:800;color:var(--acc);margin-right:1mm}
+#dayprint .dp-ring{position:absolute;width:9mm;height:9mm;margin:-4.5mm 0 0 -4.5mm;border-radius:50%;border:.9mm solid #ff2d17;box-shadow:0 0 0 .5mm #fff,inset 0 0 0 .4mm #fff;pointer-events:none}
+#dayprint .dp-ring.dp-sm{width:5mm;height:5mm;margin:-2.5mm 0 0 -2.5mm;border-width:.7mm}
+#dayprint .dp-ring i{position:absolute;left:100%;top:-1.2mm;margin-left:.6mm;background:#15181a;color:#fff;font-style:normal;font-weight:800;font-size:7pt;line-height:1;padding:.5mm .9mm;border-radius:.6mm;white-space:nowrap}
+#dayprint .dp-tag{position:absolute;left:1.4mm;top:1.4mm;background:#15181a;color:#fff;font-weight:800;font-size:8pt;line-height:1;padding:.7mm 1.3mm;border-radius:.6mm;letter-spacing:.04em}
+#dayprint .dp-tag.dp-o{background:var(--acc)}
+#dayprint .dp-miss{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:3mm;font-size:.9em;color:#5b6166;font-style:italic}
+/* the Coates Life Saving Rules - the pre-start card's own colours */
+#dayprint .dp-lsr{border:.5mm solid #15181a;border-radius:1mm;padding:.9mm 1.4mm 1.1mm}
+#dayprint .dp-lsr-h{display:flex;align-items:baseline;gap:2.4mm;margin-bottom:.7mm}
+#dayprint .dp-lsr-h b{font-size:.95em;font-weight:800;letter-spacing:.12em}
+#dayprint .dp-lsr-h span{font-size:.82em;color:#4a4f53}
+#dayprint .dp-lsr-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7mm 1.2mm}
+#dayprint .dp-lsrow{display:flex;align-items:stretch;border:1px solid #d5dadd;border-radius:.6mm;overflow:hidden;min-width:0}
+#dayprint .dp-lsrn{flex:0 0 16.5mm;display:flex;align-items:center;padding:.5mm 1.2mm;color:#fff;font-weight:800;font-size:.74em;line-height:1.1}
+#dayprint .dp-lsrt{flex:1 1 auto;min-width:0;padding:.45mm 1.2mm;font-size:.68em;line-height:1.18;background:#f4f6f7;color:#15181a}
+#dayprint .dp-lsr .lsr-a{background:#c8463c} #dayprint .dp-lsr .lsr-b{background:#8a8352} #dayprint .dp-lsr .lsr-c{background:#3c4247}
+#dayprint .dp-lsr .lsr-d{background:#ef6b1e} #dayprint .dp-lsr .lsr-e{background:#4d7141} #dayprint .dp-lsr .lsr-f{background:#1f3a5f}
+/* the installer's checklist for one reference, in columns */
+#dayprint .dp-chkl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4mm 4mm;border:1px solid #9aa1a6;border-left:1.2mm solid var(--acc);border-radius:.8mm;padding:1mm 2mm}
+#dayprint .dp-chkl label{display:flex;align-items:center;gap:.4mm;line-height:1.2;min-width:0}
+/* rules, documents, contacts */
+#dayprint .dp-row2{display:flex;gap:2.4mm;align-items:stretch}
+#dayprint .dp-row2 > *{min-width:0}
+#dayprint .dp-rules{flex:1 1 0;border:1px solid #9aa1a6;border-left:1.2mm solid var(--acc);border-radius:.8mm;padding:.8mm 2mm;font-size:.84em;line-height:1.22}
+#dayprint .dp-rules ul{margin:0;padding-left:3.6mm;columns:3;column-gap:5mm}
+#dayprint .dp-rules li{margin:.15mm 0;break-inside:avoid}
+#dayprint .dp-docs{display:flex;gap:1.4mm;flex-wrap:nowrap}
+#dayprint .dp-docs.dp-v{flex-direction:column}
+#dayprint .dp-docs.dp-v .dp-doc{flex:0 0 auto}
+#dayprint .dp-doc{flex:1 1 0;min-width:0;display:flex;gap:1.4mm;align-items:flex-start;border:1px solid #9aa1a6;border-radius:.8mm;padding:1mm}
+#dayprint .dp-doc .dp-qr{flex:0 0 auto;width:calc(16.5mm * var(--k))}
+#dayprint .dp-doc-t{min-width:0;font-size:.84em;line-height:1.2}
+#dayprint .dp-doc-t b{display:block;font-size:1.08em;line-height:1.15}
+#dayprint .dp-doc-t i{display:block;font-style:normal;font-weight:700;color:var(--acc);margin-top:.4mm}
+#dayprint .dp-docnote{font-size:.84em;color:#4a4f53;margin-top:.6mm;line-height:1.25}
+#dayprint .dp-docnote b.dp-warn{color:#b42318}
+#dayprint .dp-chk{width:100%;border-collapse:collapse;font-size:1em;table-layout:fixed}
+#dayprint .dp-chk th{font-size:.76em;letter-spacing:.1em;text-transform:uppercase;background:#15181a;color:#fff;padding:.6mm 1.4mm;text-align:center}
+#dayprint .dp-chk th:first-child{text-align:left}
+#dayprint .dp-chk td{border-bottom:1px solid #c9cfd2;padding:.55mm 1.4mm;line-height:1.2}
+#dayprint .dp-chk td.dp-c{text-align:center;width:14mm}
+#dayprint .dp-chk td .dp-bx{margin:0}
+#dayprint .dp-chk td.dp-na{text-align:center;color:#9aa1a6}
+#dayprint .dp-ring2{display:flex;flex-wrap:wrap;gap:.6mm 3.6mm;align-items:baseline;border:.5mm solid #15181a;border-radius:1mm;padding:1mm 2.2mm;font-size:.92em;line-height:1.3}
+#dayprint .dp-ring2 > b{font-size:1.02em}
+#dayprint .dp-ring2 span{white-space:nowrap}
+#dayprint .dp-ring2 i{font-style:normal;font-size:.84em;color:#5b6166;text-transform:uppercase;letter-spacing:.06em}
+#dayprint .dp-ring2 .dp-tel{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700}
+#dayprint .dp-ring2 .dp-000 .dp-tel{color:#b42318}
+#dayprint .dp-ft{display:flex;justify-content:space-between;gap:4mm;border-top:.5mm solid #15181a;padding-top:.8mm;font-size:.74em;color:#4a4f53;line-height:1.3}
+#dayprint .dp-ft b{color:#15181a}
+#dayprint .dp-ft span:last-child{text-align:right;white-space:nowrap}
+@media print{ #dayprint .dp-page, #dayprint .dp-page *{-webkit-print-color-adjust:exact;print-color-adjust:exact} }

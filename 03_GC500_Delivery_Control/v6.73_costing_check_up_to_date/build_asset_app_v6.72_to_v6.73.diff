@@ -1,0 +1,36 @@
+--- build_asset_app.py.v672	2026-09-26 07:11:12.746560510 +0000
++++ build_asset_app.py	2026-09-26 07:11:13.834953967 +0000
+@@ -10658,7 +10658,9 @@
+       <ul class="hublist compact">
+         <li><span class="w">Coates pays — known so far</span><span class="tm">${esc(money0(M.cost.known))}</span></li>
+         <li><span class="w"><b>Difference so far</b> — not a margin yet</span><span class="tm"${M.difference0 < 0 ? ' style="color:var(--red)"' : ''}>${esc(sd(M.difference0))}</span></li>
+-        ${top.map(s => `<li><span class="w">${esc(s.name)}${s.cost_known ? ` <span style="color:var(--mute)">· Coates pays ${esc(money0(s.cost0))}</span>` : ''}</span><span class="tm">${esc(money0(s.charge0))}</span></li>`).join('')}</ul>
++${top.map(s => `<li><span class="w">${esc(s.name)}${s.cost_known ? ` <span style="color:var(--mute)">· Coates pays ${esc(money0(s.cost0))}</span>` : ''}${
++ /* v6.73 - a stream costing more than it charges says why, when the record says why */
++ s.key === 'toilets' && s.cost_known && s.cost0 > s.charge0 && DATA.toilet_servicing && DATA.toilet_servicing.at_card_total ? `<br><small style="color:var(--mute)">servicing is on no contract yet — ${esc(money0(DATA.toilet_servicing.at_card_total))} at our card rates, not charged</small>` : ''}</span><span class="tm">${esc(money0(s.charge0))}</span></li>`).join('')}</ul>
+       <div class="hubgo">Open costs &amp; charges →</div>
+     </div>`; })()}
+     <div class="card hubcard editonly${att.export ? ' alert' : ''}">
+@@ -15031,7 +15033,7 @@
+             description: `${name} docket ${no} — ${words}, charged at the 2026 card`,
+             amount: d.cost_total, hours: null, overtime_hours: null, supplier: name, reference: no != null ? String(no) : null, ref: null,
+             area: d.location || d.map_ref || null,
+-            note: 'filled in from the fencing docket — what Coates charges the V8s for it, the same figure as the Fencing tab' + dated,
++note: dated ? dated.trim().replace(/^\(|\)$/g, '') : null,   /* v6.73 - the row's description already says docket and card */
+             recorded_by: 'the fencing dockets (from the record)', recorded_on: d.recorded_on || null, updated_at: null, updated_by: null,
+             branch: normBranch(sup.branch_code || '') || null, kind: 'subhire', po_no: null, from: 'record', docket: d.id};
+   });
+@@ -28341,9 +28343,11 @@
+ function dsnBranches(asOf, X){
+   const R = branchRollup(asOf, X);
+   const kinds = COST_KINDS;
+-  const kindRows = g => kinds.filter(k => g.kinds[k.key].lines || ['labour', 'transport', 'damages', 'subhire'].includes(k.key))
++const kindRows = g => { const ks = kinds.filter(k => { const v = g.kinds[k.key]; return v.lines || v.amount || v.hours; });   /* v6.73 - only the kinds with something on them */
++ if (!ks.length) return '<span class="none">nothing else charged yet</span><b class="none">—</b>';
++ return ks
+     .map(k => { const v = g.kinds[k.key]; const val = v.amount ? money0(v.amount0 != null ? v.amount0 : v.amount) : v.hours ? `${fmtNum(v.hours)} h` : null;
+-      return `<span>${esc(k.label)}${v.lines ? ` <small>· ${v.lines} line${v.lines === 1 ? '' : 's'}</small>` : ''}</span><b${val ? '' : ' class="none"'}>${val ? esc(val) : '—'}</b>`; }).join('');
++return `<span>${esc(k.label)}${v.lines ? ` <small>· ${v.lines} line${v.lines === 1 ? '' : 's'}</small>` : ''}</span><b${val ? '' : ' class="none"'}>${val ? esc(val) : '—'}</b>`; }).join(''); };
+   const plate = g => { const groups = [...g.groups.entries()].sort((a, b) => b[1].lines - a[1].lines);
+     return `<div class="grp branch ${g.lines.length ? (g.onLines ? 'part' : 'none') : 'none'}" style="--acc:var(--c-or)" data-branch="${esc(g.code || '')}" role="button" tabindex="0" title="open the register filtered to ${g.code ? 'branch ' + esc(g.code) : 'the lines with no branch'}">
+       <div class="k">${g.code ? `<span class="code">${esc(g.code)}</span> ${esc(g.name || '')}` : 'No branch recorded'}<span>${g.lines.length} line${g.lines.length === 1 ? '' : 's'}${g.contracts.length ? ` · ${g.contracts.length} contract${g.contracts.length === 1 ? '' : 's'}` : ''}</span></div>

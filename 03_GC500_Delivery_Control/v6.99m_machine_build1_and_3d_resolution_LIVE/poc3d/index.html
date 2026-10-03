@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>GC500 3D Proof</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.131.0/Build/Cesium/Widgets/widgets.css">
+<style>
+:root{--or:#ff6a13;--or2:#ff9a4d;--ink:#f3efe9;--mute:#a9a39c;--bg:#0f0d0c;--rule:#2e2723}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.4 Inter,"Segoe UI",system-ui,sans-serif;overflow:hidden}
+#cesium{position:absolute;inset:0}
+header{position:absolute;left:0;right:0;top:0;height:50px;display:flex;align-items:center;gap:12px;padding:0 14px;background:linear-gradient(180deg,rgba(28,22,19,.95),rgba(18,15,13,.9));border-bottom:2px solid var(--or);z-index:3}
+header b{font:700 18px/1 "Barlow Condensed","Arial Narrow",sans-serif;font-style:italic}header b i{color:var(--or);font-style:italic}
+.views{display:flex;gap:4px;background:#0b0908;padding:3px;border-radius:9px;border:1px solid var(--rule)}
+.views button{background:none;border:0;color:var(--mute);padding:7px 11px;border-radius:7px;font:600 12.5px Inter,sans-serif;cursor:pointer}.views button:hover{color:var(--ink)}
+.pill{transition:opacity .3s;position:absolute;left:12px;top:62px;z-index:3;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:9px;padding:7px 10px;font-size:12px;max-width:min(520px,calc(100% - 24px))}.pill b{color:var(--or2)}
+.perf{position:absolute;left:12px;bottom:34px;z-index:3;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:9px;padding:6px 10px;font-size:11.5px;color:var(--mute)}
+.q{position:absolute;right:12px;top:62px;z-index:3;display:flex;gap:6px}.q button{background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--ink);border-radius:8px;height:32px;padding:0 10px;cursor:pointer;font:600 12px Inter,sans-serif}.q button[aria-pressed="true"]{background:var(--or);color:#1b1207}
+.cesium-viewer-bottom{z-index:3!important}.cesium-widget-credits{color:#fff!important;font-size:11px!important;background:rgba(15,13,12,.6)!important;padding:2px 6px!important;border-radius:6px}
+.loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:5;flex-direction:column;gap:8px}.loader.done{display:none}
+.xnav{margin-left:auto;display:flex;gap:4px;align-items:center}.xnav a{color:var(--mute);text-decoration:none;font:600 12px Inter,sans-serif;padding:6px 9px;border-radius:7px;border:1px solid transparent}.xnav a:hover{color:var(--ink);border-color:var(--rule)}.xnav a[aria-current=page]{color:var(--ink);background:#0b0908;border-color:var(--rule)}.xnav[hidden]{display:none}@media(max-width:900px){.xnav a{padding:5px 6px;font-size:11px}}
+/* v6.90: search, the compass, orbit, trade chips */
+:root{--hh:50px}
+.q{top:calc(var(--hh) + 12px)}
+.find{position:absolute;left:12px;top:calc(var(--hh) + 12px);z-index:4;width:min(320px,calc(100% - 24px))}
+.find input{box-sizing:border-box;width:100%;height:36px;border-radius:9px;border:1px solid var(--rule);background:rgba(15,13,12,.92);color:var(--ink);padding:0 12px;font:600 13px Inter,system-ui,sans-serif;outline:none}
+.find input:focus{border-color:var(--or)}
+.hits{margin-top:4px;background:rgba(15,13,12,.96);border:1px solid var(--rule);border-radius:9px;max-height:320px;overflow:auto}
+.hits button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--rule);color:var(--ink);padding:8px 12px;cursor:pointer;font:13px Inter,system-ui,sans-serif}
+.hits button:hover,.hits button:focus-visible{background:#221c18;outline:none}.hits small{color:var(--mute)}.hits .none{padding:10px 12px;color:var(--mute);font-size:12.5px}
+.pill{top:calc(var(--hh) + 56px)}
+.rose3d{position:absolute;right:14px;top:calc(var(--hh) + 56px);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px}
+.dialwrap{position:relative;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle at 50% 45%,#2a221d 0,#15110f 72%);border:1px solid var(--rule);box-shadow:0 3px 14px rgba(0,0,0,.5)}
+.dialwrap::after{content:'';position:absolute;left:50%;top:-1px;margin-left:-6px;border:6px solid transparent;border-top:9px solid var(--or);border-bottom:0}
+#dial{position:absolute;inset:0;border-radius:50%;transition:none}
+#dial::before{content:'';position:absolute;inset:18px;border-radius:50%;border:1.5px solid rgba(243,239,233,.14)}
+#dial [data-face]{position:absolute;left:50%;top:50%;width:28px;height:28px;margin:-14px 0 0 -14px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;color:var(--ink);transform:rotate(var(--b)) translateY(-29px)}
+#dial [data-face] b{display:block;font:800 13px/28px Inter,system-ui,sans-serif;border-radius:50%}
+#dial [data-face="0"]{color:var(--or)}
+#dial [data-face]:hover b,#dial [data-face]:focus-visible b{background:var(--ink);color:#1b1207}
+#dial [data-face]:focus-visible{outline:none}
+.facing{font:700 11px/1 Inter,system-ui,sans-serif;background:rgba(15,13,12,.9);border:1px solid var(--rule);padding:5px 9px;border-radius:10px;white-space:nowrap}
+#orbitBtn{background:rgba(15,13,12,.9);border:1px solid var(--rule);color:var(--ink);border-radius:8px;height:30px;padding:0 10px;cursor:pointer;font:600 12px Inter,sans-serif}
+#orbitBtn[aria-pressed="true"]{background:var(--or);color:#1b1207}
+.chips{position:absolute;left:12px;right:12px;bottom:66px;z-index:3;display:flex;flex-wrap:wrap;gap:5px;pointer-events:none}
+.chips button{pointer-events:auto;display:flex;align-items:center;gap:6px;background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--mute);border-radius:16px;height:28px;padding:0 10px;cursor:pointer;font:600 11.5px Inter,system-ui,sans-serif}
+.chips button i{width:9px;height:9px;border-radius:50%;background:var(--c);opacity:.45}
+.chips button[aria-pressed="true"]{color:var(--ink);border-color:var(--c)}.chips button[aria-pressed="true"] i{opacity:1}
+.chips small{color:var(--mute);font-weight:500}
+@media(max-width:900px){
+  header{height:auto;flex-wrap:wrap;row-gap:6px;padding:6px 10px}header>span{display:none}header b{font-size:15px}
+  .xnav{margin-left:auto}.views{order:3;flex:1 1 100%;overflow-x:auto;scrollbar-width:none}.views button{flex:none;padding:6px 9px}
+  .q{right:10px;gap:5px}.q>span{display:none}.q .fsl{display:none}.q button{padding:0 9px}
+  .q{top:calc(var(--hh) + 8px)}.find{width:calc(100% - 20px);left:10px;top:calc(var(--hh) + 50px)}.pill{left:10px;top:calc(var(--hh) + 96px);max-width:calc(100% - 116px);font-size:11.5px}
+  .rose3d{right:10px;top:calc(var(--hh) + 96px)}.dialwrap{width:74px;height:74px}#dial [data-face]{transform:rotate(var(--b)) translateY(-24px)}#dial::before{inset:15px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;pointer-events:auto;scrollbar-width:none;bottom:62px}.chips button{flex:none}
+  .perf{display:none}}
+/* v6.99 - inside the Map explorer: the model only; the explorer's search and chips drive it */
+body.embed3d .find,body.embed3d .chips,body.embed3d .xnav,body.embed3d .perf{display:none !important}
+body.embed3d .pill{max-width:min(420px,calc(100% - 24px))}
+body.embed3d header>b,body.embed3d header>span{display:none !important}   /* the explorer's own title is above it */
+</style>
+</head>
+<body>
+<div id="cesium"></div>
+<header><b>Coates Industrial Solutions <i>| GC500 2026</i></b><span style="color:var(--mute);font-size:12px">3D proof · Google Photorealistic 3D Tiles in CesiumJS · separate from the dashboard</span>
+  <nav class="xnav" id="xnav" aria-label="Pages"></nav><div class="views"><button data-v="overhead">Overhead</button><button data-v="angled">Angled</button><button data-v="close">Close-up</button><button data-v="island">Macintosh Island</button><button data-v="narrowneck">Narrowneck</button><button data-v="pits">Pit straight</button><button data-v="street">Street level</button><button data-v="ground">Ground</button></div></header>
+<div class="pill" id="status"><b>Loading</b></div>
+<div class="q"><button id="fsBtn" title="Full screen" aria-label="Full screen" style="margin-right:6px">⛶<span class="fsl"> Full screen</span></button><span style="align-self:center;font-size:11.5px;color:var(--mute)">Quality</span><button data-q="auto" aria-pressed="true">Auto</button><button data-q="crisp" aria-pressed="false">Ultra (4K)</button><button data-q="light" aria-pressed="false">Light</button></div>
+<div class="find" role="search"><input id="q" type="search" placeholder="Find a unit: WC23, P12, GN04, BS05…" aria-label="Find a unit on the 3D model" autocomplete="off" spellcheck="false"><div class="hits" id="hits" hidden></div></div>
+<div class="rose3d"><div class="dialwrap" title="Press a letter to face that way"><div id="dial" role="group" aria-label="Compass"><button type="button" data-face="0" style="--b:0deg" aria-label="Face north"><b>N</b></button><button type="button" data-face="90" style="--b:90deg" aria-label="Face east"><b>E</b></button><button type="button" data-face="180" style="--b:180deg" aria-label="Face south"><b>S</b></button><button type="button" data-face="270" style="--b:270deg" aria-label="Face west"><b>W</b></button></div></div><span class="facing" id="facing">Facing east</span><button id="orbitBtn" aria-pressed="false" title="Slowly circle what you are looking at; touch the map to stop">⟳ Orbit</button></div>
+<div class="chips" id="chips" aria-label="Show on the model"></div>
+<div class="perf" id="perf">—</div>
+<div class="loader" id="loader"><b style="font:700 22px 'Barlow Condensed',sans-serif;font-style:italic">3D proof</b><div id="loadText">Asking the service for the Google key…</div></div>
+<script>(function(){ const h = document.querySelector('header'), set = () => document.documentElement.style.setProperty('--hh', h.offsetHeight + 'px'); set(); if (window.ResizeObserver) new ResizeObserver(set).observe(h); })();</script>
+<script src="https://cdn.jsdelivr.net/npm/cesium@1.131.0/Build/Cesium/Cesium.js"></script>
+<script>
+'use strict';
+/* GC500 3D proof, v6.90 (Andrew Fisher, 27 Sep 2026: "high tech attention … more detail, more quality … smoother and
+   clearer"). Google Photorealistic 3D Tiles (Map Tiles API) streamed by CesiumJS for the current view only; the Google key
+   comes from the dashboard service at runtime (never written into this file); Google's attribution stays on screen.
+   Cesium's own buttons are off (their bindings need string eval, which the service's policy refuses).
+   New in v6.90:
+   - SHARPER: each screen draws at its own pixel density, detail is fetched finer at rest, and anti-aliasing (MSAA and
+     FXAA) is on.
+   - SMOOTHER: the camera coasts, tiles along a flight are preloaded, and requests that a move makes stale are culled.
+   - THE JOB ON THE MODEL: every unit the master plan places, and what the other sheets draw, stands on the 3D model as
+     a pin in its trade's colour. Tap one for what it is; search a reference to fly to it.
+   - N, E, S, W: a compass that faces the camera any way, and a slow orbit round what you are looking at.
+   Rendering is on demand (nothing is drawn while the camera is still) and stops when the tab is hidden. */
+const $ = id => document.getElementById(id);
+const PHONE = /Android|iPhone|iPad/.test(navigator.userAgent) || matchMedia('(max-width:900px)').matches;
+const perf = {frames: 0, frameMs: 0, tilesLoaded: 0, bytes: 0, t0: performance.now(), firstFull: null};
+window.__perf = perf;
+const VIEWS = {
+  overhead:  {lon: 153.4255, lat: -27.9885, height: 1400, heading: 89.87, pitch: -89},   /* the D001 way round: the sheet's top bears 89.87°, beach along the top, like every map here */
+  angled:    {lon: 153.4300, lat: -27.9960, height: 520, heading: -35, pitch: -32},
+  close:     {lon: 153.42525, lat: -27.98905, height: 140, heading: 20, pitch: -38},
+  island:    {lon: 153.4232, lat: -27.9870, height: 420, heading: -20, pitch: -45},
+  narrowneck:{lon: 153.4190, lat: -27.9808, height: 600, heading: 40, pitch: -35},
+  pits:      {lon: 153.4245, lat: -27.9890, height: 180, heading: 60, pitch: -25},
+  street:    {lon: 153.42500, lat: -27.98880, height: 45, heading: 35, pitch: -18},
+  ground:    {lon: 153.42480, lat: -27.98890, height: 12, heading: 60, pitch: -6}};
+/* trades, as the dashboard names and colours them */
+const TRADES = {
+  buildings: {name: 'Buildings', c: '#ff9a4d'}, toilets: {name: 'Toilets', c: '#39e07a'}, gensets: {name: 'Generators', c: '#ffd166'},
+  lights: {name: 'Light towers', c: '#ffffff'}, barriers: {name: 'Barriers (ours)', c: '#4cc9f0'}, wbruns: {name: 'Barrier runs', c: '#e8641b'},
+  screens: {name: 'Big screens', c: '#8fa8ff'}, gates: {name: 'Gates', c: '#7bd88f'}, entry: {name: 'Entry points', c: '#35c2e0'},
+  othergens: {name: 'Others\' gensets', c: '#d97bd1'}, iface: {name: 'Interface areas', c: '#ff6b6b'}, drawn: {name: 'Drawn, not ours', c: '#c9a27a'}, other: {name: 'Other', c: '#bdbdbd'}};
+let viewer, tileset, quality = 'auto', qualityChosen = false, PINS = [], pinEntities = [], shown = new Set(['buildings', 'toilets', 'gensets', 'lights', 'barriers', 'screens']), orbit = 0;
+const EMBED3D = new URLSearchParams(location.search).get('embed') === '1';
+if (EMBED3D) document.body.classList.add('embed3d');
+let GROUPS = null, RING = null;
+/* keep it smooth: while the camera moves, if Ultra runs slower than about 30 frames a second for two seconds, step to Auto */
+const GUARD = {last: 0, slow: 0, fast: 0, moving: 0};
+function guardFrame() {
+  const t = performance.now(), dt = GUARD.last ? t - GUARD.last : 0; GUARD.last = t;
+  if (!viewer || qualityChosen || quality !== 'crisp' || !dt || dt > 500) return;
+  if (t - GUARD.moving > 400) return;                         /* only judged while the view is moving */
+  if (dt > 34) GUARD.slow += dt; else GUARD.fast += dt;
+  if (GUARD.slow + GUARD.fast > 2000) {
+    if (GUARD.slow > GUARD.fast) { quality = 'auto'; applyQuality(); setStatus('<b>Auto</b> · stepped down from Ultra (4K) to keep the movement smooth on this screen'); }
+    GUARD.slow = GUARD.fast = 0;
+  }
+}
+/* v7.14b - Andrew Fisher, 27 Sep 2026: "that box shows up and won't go away". It shows, then fades by itself
+   (2.5 s inside the Map explorer, 5 s on its own), and any touch or click anywhere closes it at once. */
+let STATUS_T = 0;
+function setStatus(html) { const el = $('status'); if (!el) return; el.innerHTML = html; el.style.display = ''; el.style.opacity = '1';
+  clearTimeout(STATUS_T); STATUS_T = setTimeout(() => { el.style.opacity = '0'; setTimeout(() => { if (el.style.opacity === '0') el.style.display = 'none'; }, 350); }, EMBED3D ? 2500 : 5000); }
+document.addEventListener('pointerdown', () => { const el = $('status'); if (el) { clearTimeout(STATUS_T); el.style.opacity = '0'; el.style.display = 'none'; } }, true);
+document.addEventListener('wheel', () => { const el = $('status'); if (el) { clearTimeout(STATUS_T); el.style.display = 'none'; } }, {capture: true, passive: true});
+async function key() {
+  const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); const r = await fetch('/api/map-key' + (m ? '?t=' + encodeURIComponent(m[1]) : ''), {cache: 'no-store'}); const j = await r.json(); if (!(j && j.google && /^AIza/.test(j.google.key))) throw new Error('The service did not give this page a Google key.'); return j.google.key;
+}
+/* Auto: the screen's own pixel density (up to 2), fine detail at rest. Ultra: up to 3, finest detail. Light: for an old phone. */
+function applyQuality() {
+  const dprNative = window.devicePixelRatio || 1;
+  /* v7.14c - with useBrowserRecommendedResolution off, Cesium already draws at the device pixel ratio, and resolutionScale
+     multiplies on top of it: the old values squared the ratio (a 2.6 phone drew about 45x its own pixels). Each quality is
+     now its true target ratio divided by the device's own. */
+  if (quality === 'crisp') { viewer.resolutionScale = Math.min(dprNative, 3) / dprNative; tileset.maximumScreenSpaceError = 2; }
+  else if (quality === 'light') { viewer.resolutionScale = 1 / dprNative; tileset.maximumScreenSpaceError = 24; }
+  else { viewer.resolutionScale = Math.min(dprNative, PHONE ? 1.75 : 2) / dprNative; tileset.maximumScreenSpaceError = PHONE ? 8 : 4; }
+  viewer.useBrowserRecommendedResolution = false; viewer.scene.requestRender();
+  document.querySelectorAll('.q button[data-q]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.q === quality)));
+}
+function fly(name, ms = 1500) {
+  const v = VIEWS[name]; if (!v) return; stopOrbit();
+  viewer.camera.flyTo({destination: Cesium.Cartesian3.fromDegrees(v.lon, v.lat, v.height), orientation: {heading: Cesium.Math.toRadians(v.heading), pitch: Cesium.Math.toRadians(v.pitch), roll: 0}, duration: ms / 1000, easingFunction: Cesium.EasingFunction.QUADRATIC_IN_OUT});
+  setStatus(`<b>${name}</b> · camera ${v.height} m above the ground · Google 3D Tiles stream only what this view needs`);
+}
+/* ---- the point the camera looks at (the model under the middle of the screen, else the ground there) ---- */
+function lookTarget() {
+  const s = viewer.scene, c = new Cesium.Cartesian2(s.canvas.clientWidth / 2, s.canvas.clientHeight / 2);
+  let p = null; try { if (s.pickPositionSupported) p = s.pickPosition(c); } catch (e) {}
+  if (!p) { const ray = viewer.camera.getPickRay(c); const t = Cesium.IntersectionTests.rayEllipsoid(ray, Cesium.Ellipsoid.WGS84); if (t) p = Cesium.Ray.getPoint(ray, t.start); }
+  return p;
+}
+/* ---- the compass: face N, E, S or W about the point in the middle of the view ---- */
+let faceAnim = 0;
+function stopFace() { if (!faceAnim) return; cancelAnimationFrame(faceAnim); faceAnim = 0; viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY); }
+function faceTo(deg) {
+  stopOrbit(); stopFace(); const cam = viewer.camera, target = lookTarget(); if (!target) return;
+  const range = Cesium.Cartesian3.distance(cam.positionWC, target), pitch = cam.pitch;
+  const from = cam.heading, to = Cesium.Math.toRadians(deg); let d = Cesium.Math.negativePiToPi(to - from); const t0 = performance.now(), dur = 700;
+  const step = () => { const k = Math.min(1, (performance.now() - t0) / dur), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    cam.lookAt(target, new Cesium.HeadingPitchRange(from + d * e, pitch, range)); viewer.scene.requestRender(); updateCompass();
+    if (k < 1) faceAnim = requestAnimationFrame(step); else { faceAnim = 0; cam.lookAtTransform(Cesium.Matrix4.IDENTITY); } };
+  step();
+}
+const POINTS = ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west'];
+function updateCompass() {
+  const h = Cesium.Math.toDegrees(viewer.camera.heading), el = $('dial'); if (!el) return;
+  el.style.transform = `rotate(${-h}deg)`; el.querySelectorAll('[data-face] b').forEach(b => { b.style.transform = `rotate(${h - +b.parentElement.dataset.face}deg)`; });
+  const w = POINTS[Math.round(((h % 360) + 360) % 360 / 45) % 8]; $('facing').textContent = 'Facing ' + w;
+}
+/* ---- orbit: a slow turn round what the view is on (stops at a touch) ---- */
+function startOrbit() {
+  stopOrbit(); const target = lookTarget(); if (!target) return; const cam = viewer.camera;
+  const range = Cesium.Cartesian3.distance(cam.positionWC, target), pitch = Math.min(cam.pitch, Cesium.Math.toRadians(-12)); let h = cam.heading, last = performance.now();
+  $('orbitBtn').setAttribute('aria-pressed', 'true');
+  const step = t => { const dt = Math.min(50, t - last); last = t; h += dt * 0.00012; cam.lookAt(target, new Cesium.HeadingPitchRange(h, pitch, range)); viewer.scene.requestRender(); updateCompass(); orbit = requestAnimationFrame(step); };
+  orbit = requestAnimationFrame(step);
+}
+function stopOrbit() { if (!orbit) return; cancelAnimationFrame(orbit); orbit = 0; viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY); $('orbitBtn').setAttribute('aria-pressed', 'false'); }
+/* ---- the job on the model: a pin for every unit the master plan places ---- */
+function pinImage(color, ring) {
+  const c = document.createElement('canvas'), W = 40, H = 54; c.width = W * 2; c.height = H * 2; const g = c.getContext('2d'); g.scale(2, 2);
+  g.shadowColor = 'rgba(0,0,0,.55)'; g.shadowBlur = 5; g.shadowOffsetY = 2;
+  g.beginPath(); g.moveTo(20, 52); g.bezierCurveTo(20, 40, 5, 30, 5, 18); g.arc(20, 18, 15, Math.PI, 0); g.bezierCurveTo(35, 30, 20, 40, 20, 52); g.closePath();
+  g.fillStyle = color; g.fill(); g.shadowColor = 'transparent'; g.lineWidth = 2.5; g.strokeStyle = '#fff'; g.stroke();
+  g.beginPath(); g.arc(20, 18, 6, 0, Math.PI * 2); g.fillStyle = ring ? 'rgba(255,255,255,.35)' : '#fff'; g.fill();
+  return c;
+}
+const IMG_BY_C = {};
+function imgFor(c, area) { const k = c + (area ? '_a' : ''); return IMG_BY_C[k] || (IMG_BY_C[k] = pinImage(c, !!area)); }
+function colourOf(p) { return p.c || (TRADES[p.t] || TRADES.other).c; }
+function visible(p) { return GROUPS ? GROUPS.has(p.g) : (p.g ? /^t/.test(p.g) : shown.has(p.t)); }
+function drawPins() {
+  for (const e of pinEntities) viewer.entities.remove(e); pinEntities = [];
+  const far = new Cesium.NearFarScalar(150, 1.0, 4000, 0.45), labelFar = new Cesium.DistanceDisplayCondition(0, PHONE ? 650 : 900);
+  for (const p of PINS) {
+    const c = colourOf(p);
+    const e = viewer.entities.add({position: Cesium.Cartesian3.fromDegrees(p.ll[1], p.ll[0], 0), show: visible(p),
+      billboard: {image: imgFor(c, p.a), width: 26, height: 35, verticalOrigin: Cesium.VerticalOrigin.BOTTOM, heightReference: Cesium.HeightReference.CLAMP_TO_3D_TILE, scaleByDistance: far, disableDepthTestDistance: 2500},
+      label: {text: p.k, font: '700 13px Inter, system-ui, sans-serif', fillColor: Cesium.Color.fromCssColorString(c === '#ffffff' || c === '#ffd166' ? '#15181a' : '#ffffff'), outlineColor: Cesium.Color.fromCssColorString('#0f0d0c'), outlineWidth: 0, style: Cesium.LabelStyle.FILL,
+        verticalOrigin: Cesium.VerticalOrigin.BOTTOM, pixelOffset: new Cesium.Cartesian2(0, -38), heightReference: Cesium.HeightReference.CLAMP_TO_3D_TILE, distanceDisplayCondition: labelFar, scaleByDistance: far, disableDepthTestDistance: 2500,
+        showBackground: true, backgroundColor: Cesium.Color.fromCssColorString(c).withAlpha(.92), backgroundPadding: new Cesium.Cartesian2(6, 3)}});
+    e._gc = p; pinEntities.push(e);
+  }
+  viewer.scene.requestRender();
+}
+function ringAt(p) {
+  if (RING) { viewer.entities.remove(RING); RING = null; }
+  if (!p) return;
+  const orange = Cesium.Color.fromCssColorString('#ff6a13');
+  RING = viewer.entities.add({position: Cesium.Cartesian3.fromDegrees(p.ll[1], p.ll[0], 0),
+    ellipse: {semiMajorAxis: 10, semiMinorAxis: 10, material: orange.withAlpha(.18), outline: true, outlineColor: orange, outlineWidth: 4, classificationType: Cesium.ClassificationType.CESIUM_3D_TILE}});
+}
+async function loadPins() {
+  if (EMBED3D) { if (!PINS.length) { const w = window.__pendingPins; if (w) PINS = w; } drawPins(); return; }
+  try { const j = await (await fetch('units3d.json')).json(); PINS = j.pins || []; } catch (e) { PINS = []; }
+  const imgs = {}; for (const [k, t] of Object.entries(TRADES)) { imgs[k] = pinImage(t.c, false); imgs[k + '_a'] = pinImage(t.c, true); }
+  const far = new Cesium.NearFarScalar(150, 1.0, 4000, 0.45), labelFar = new Cesium.DistanceDisplayCondition(0, PHONE ? 650 : 900);
+  for (const p of PINS) {
+    const t = TRADES[p.t] || TRADES.other;
+    const e = viewer.entities.add({position: Cesium.Cartesian3.fromDegrees(p.ll[1], p.ll[0], 0), show: shown.has(p.t),
+      billboard: {image: imgs[p.a ? p.t + '_a' : p.t] || imgs.other, width: 26, height: 35, verticalOrigin: Cesium.VerticalOrigin.BOTTOM, heightReference: Cesium.HeightReference.CLAMP_TO_3D_TILE, scaleByDistance: far, disableDepthTestDistance: 2500},
+      label: {text: p.k, font: '700 13px Inter, system-ui, sans-serif', fillColor: Cesium.Color.WHITE, outlineColor: Cesium.Color.fromCssColorString('#0f0d0c'), outlineWidth: 4, style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+        verticalOrigin: Cesium.VerticalOrigin.BOTTOM, pixelOffset: new Cesium.Cartesian2(0, -38), heightReference: Cesium.HeightReference.CLAMP_TO_3D_TILE, distanceDisplayCondition: labelFar, scaleByDistance: far, disableDepthTestDistance: 2500,
+        showBackground: true, backgroundColor: Cesium.Color.fromCssColorString(t.c).withAlpha(.9), backgroundPadding: new Cesium.Cartesian2(6, 3)}});
+    e._gc = p; pinEntities.push(e);
+  }
+  chips();
+}
+function chips() {
+  const counts = {}; for (const p of PINS) counts[p.t] = (counts[p.t] || 0) + 1;
+  $('chips').innerHTML = Object.entries(TRADES).filter(([k]) => counts[k]).map(([k, t]) => `<button data-t="${k}" aria-pressed="${shown.has(k)}" style="--c:${t.c}"><i></i>${t.name} <small>${counts[k]}</small></button>`).join('');
+  $('chips').onclick = e => { const b = e.target.closest('[data-t]'); if (!b) return; const k = b.dataset.t; if (shown.has(k)) shown.delete(k); else shown.add(k); b.setAttribute('aria-pressed', String(shown.has(k))); for (const en of pinEntities) en.show = shown.has(en._gc.t); viewer.scene.requestRender(); };
+}
+function describe(p) {
+  const t = TRADES[p.t] || TRADES.other;
+  return `<b>${esc(p.k)}</b> · ${esc(t.name)}${ownName(p) ? '<br>' + esc(ownName(p)) : ''}${p.x ? '<br><i>cancelled on the register</i>' : ''}${p.a ? '<br><i>area only — the master names a place, not a spot</i>' : ''}${p.note ? '<br><small>' + esc(p.note) + '</small>' : ''}<br><small>Position from the master plan D001-26003-03 laid on the ground by image registration (about ±8 m), not a survey.</small>`;
+}
+/* the schedule's own name, unless it only repeats the trade ("Toilets", "Generator") */
+const ownName = p => { const n = (p.n || '').trim(), g = n.toLowerCase().replace(/s$/, ''); return !n || n === p.k || ['toilet', 'generator', 'entry point', 'ee genset', 'gate', 'big screen ' + p.k.toLowerCase()].includes(g) || g === ((TRADES[p.t] || TRADES.other).name.toLowerCase().replace(/s$/, '')) ? '' : n; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+function flyToPin(p, pick = true) {
+  stopOrbit(); if (EMBED3D) { if (!visible(p)) { const en = pinEntities.find(x => x._gc === p); if (en) en.show = true; } ringAt(p); } else if (!shown.has(p.t)) { shown.add(p.t); for (const en of pinEntities) en.show = shown.has(en._gc.t); chips(); }
+  const dest = Cesium.Cartesian3.fromDegrees(p.ll[1], p.ll[0], 0);
+  viewer.camera.flyToBoundingSphere(new Cesium.BoundingSphere(dest, 30), {offset: new Cesium.HeadingPitchRange(viewer.camera.heading, Cesium.Math.toRadians(-35), 170), duration: 1.6});
+  if (pick) setStatus(describe(p));
+}
+function search() {
+  const q = $('q').value.trim().toUpperCase().replace(/\s+/g, ''), box = $('hits'); if (!q) { box.hidden = true; box.innerHTML = ''; return; }
+  const hits = PINS.filter(p => p.k.toUpperCase().replace(/\s+/g, '').includes(q) || (p.n || '').toUpperCase().includes(q)).sort((a, b) => (a.k.toUpperCase() === q ? -1 : 0) - (b.k.toUpperCase() === q ? -1 : 0) || a.k.length - b.k.length).slice(0, 12);
+  box.hidden = false; box.innerHTML = hits.length ? hits.map((p, i) => `<button data-i="${PINS.indexOf(p)}"><b>${esc(p.k)}</b> <small>${esc((TRADES[p.t] || TRADES.other).name)}${ownName(p) ? ' · ' + esc(ownName(p)) : ''}</small></button>`).join('') : '<div class="none">No pin by that name. Units the master plan does not place have no pin.</div>';
+}
+async function boot() {
+  try {
+    const k = await key(); $('loadText').textContent = 'Starting the 3D scene…';
+    viewer = new Cesium.Viewer('cesium', {baseLayer: false, baseLayerPicker: false, geocoder: false, homeButton: false, sceneModePicker: false, navigationHelpButton: false, animation: false, timeline: false, fullscreenButton: false, infoBox: false, selectionIndicator: false,
+      requestRenderMode: true, maximumRenderTimeChange: Infinity, msaaSamples: PHONE ? 2 : 4, contextOptions: {webgl: {powerPreference: 'high-performance', antialias: true}}});
+    const sc = viewer.scene;
+    sc.globe.show = false; sc.skyAtmosphere.show = true; sc.fog.enabled = true; sc.fog.density = 1.2e-4; sc.postProcessStages.fxaa.enabled = true;
+    sc.highDynamicRange = false; sc.backgroundColor = Cesium.Color.fromCssColorString('#0f0d0c');
+    const cc = sc.screenSpaceCameraController; cc.inertiaSpin = .93; cc.inertiaTranslate = .93; cc.inertiaZoom = .85; cc.minimumZoomDistance = 3; cc.maximumZoomDistance = 12000;
+    tileset = await Cesium.Cesium3DTileset.fromUrl('https://tile.googleapis.com/v1/3dtiles/root.json?key=' + encodeURIComponent(k), {showCreditsOnScreen: true, skipLevelOfDetail: true,
+      cacheBytes: PHONE ? 384 * 1048576 : 1024 * 1048576, maximumCacheOverflowBytes: PHONE ? 256 * 1048576 : 512 * 1048576,
+      preloadFlightDestinations: true, cullRequestsWhileMoving: true, cullRequestsWhileMovingMultiplier: 60, foveatedScreenSpaceError: true, foveatedConeSize: .25,
+      dynamicScreenSpaceError: true, dynamicScreenSpaceErrorDensity: 2e-4, dynamicScreenSpaceErrorFactor: 24, progressiveResolutionHeightFraction: .5});
+    sc.primitives.add(tileset); applyQuality();
+    tileset.tileLoad.addEventListener(t => { perf.tilesLoaded++; const c = t.content; if (c && c.byteLength) perf.bytes += c.byteLength; });
+    tileset.allTilesLoaded.addEventListener(() => { if (!EMBED3D && !PHONE && !qualityChosen && !GUARD.upgraded) {   /* v7.14b - inside the Map explorer 3D stays on Auto unless Ultra is pressed */ GUARD.upgraded = true; quality = 'crisp'; applyQuality(); } if (!perf.firstFull) perf.firstFull = Math.round(performance.now() - perf.t0); perfText(); window.__allLoaded = true; });
+    tileset.loadProgress.addEventListener((p, r) => { window.__allLoaded = (p === 0 && r === 0); perfText(); });
+    sc.postRender.addEventListener(() => { perf.frames++; updateCompass(); guardFrame(); });
+    viewer.camera.changed.addEventListener(() => { GUARD.moving = performance.now(); updateCompass(); }); viewer.camera.percentageChanged = .01;
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stopOrbit(); else sc.requestRender(); });
+    $('loader').classList.add('done'); fly('overhead', 0); window.__ready = true;
+    document.querySelectorAll('.views button').forEach(b => b.onclick = () => { window.__allLoaded = false; fly(b.dataset.v); });
+    document.querySelectorAll('.q button[data-q]').forEach(b => b.onclick = () => { quality = b.dataset.q; qualityChosen = true; applyQuality(); });
+    document.querySelectorAll('#dial [data-face]').forEach(b => b.onclick = () => faceTo(+b.dataset.face));
+    $('orbitBtn').onclick = () => orbit ? stopOrbit() : startOrbit();
+    ['pointerdown', 'wheel', 'touchstart'].forEach(ev => viewer.canvas.addEventListener(ev, () => { stopOrbit(); stopFace(); }, {passive: true}));
+    /* tap a pin: what it is */
+    const h = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
+    h.setInputAction(e => { const o = sc.pick(e.position); if (o && o.id && o.id._gc) { if (EMBED3D) { ringAt(o.id._gc); sc.requestRender(); try { window.parent.gc500Explorer3DPick && window.parent.gc500Explorer3DPick(o.id._gc.k); } catch (x) {} } else setStatus(describe(o.id._gc)); } }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    $('q').addEventListener('input', search); $('q').addEventListener('keydown', e => { if (e.key === 'Enter') { const b = $('hits').querySelector('[data-i]'); if (b) b.click(); } if (e.key === 'Escape') { $('q').value = ''; search(); } });
+    $('hits').onclick = e => { const b = e.target.closest('[data-i]'); if (!b) return; flyToPin(PINS[+b.dataset.i]); $('hits').hidden = true; };
+    setInterval(perfText, 1000);
+    $('fsBtn').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(() => {}); };
+    await loadPins(); sc.requestRender();
+    const f = new URLSearchParams(location.search).get('find'); if (f) { const p = PINS.find(x => x.k.toUpperCase() === f.toUpperCase()); if (p) flyToPin(p); }
+  } catch (e) { console.error(e); $('loadText').textContent = String(e.message || e); window.__bootError = String(e); }
+}
+function perfText() {
+  if (!viewer) return; const cam = viewer.camera.positionCartographic; const h = Math.round(cam.height);
+  $('perf').textContent = `tiles ${perf.tilesLoaded} · camera ${h} m · render ${viewer.resolutionScale.toFixed(2)}× · detail ${tileset.maximumScreenSpaceError} · ${quality}`;
+}
+boot();
+window.GC500_3D = {fly, faceTo, startOrbit, stopOrbit,
+  setPins: list => { PINS = (list || []).filter(p => p && p.ll && isFinite(p.ll[0]) && isFinite(p.ll[1])); window.__pendingPins = PINS; if (viewer) drawPins(); },
+  showGroups: ids => { GROUPS = ids ? new Set(ids) : null; for (const en of pinEntities) en.show = visible(en._gc); if (viewer) viewer.scene.requestRender(); },
+  find: code => { const c = String(code || '').toUpperCase().replace(/\s+/g, ''); const p = PINS.find(x => x.k.toUpperCase().replace(/\s+/g, '') === c); if (p && viewer) { flyToPin(p, !EMBED3D); return true; } return false; },
+  ring: code => { const c = String(code || '').toUpperCase().replace(/\s+/g, ''); ringAt(PINS.find(x => x.k.toUpperCase().replace(/\s+/g, '') === c) || null); if (viewer) viewer.scene.requestRender(); }, get state() { return {ready: !!viewer, quality, perf, loaded: window.__allLoaded, pins: PINS.length, heading: viewer ? Cesium.Math.toDegrees(viewer.camera.heading) : null}; }, setQuality: q => { quality = q; applyQuality(); }};
+</script>
+
+<script>
+(function(){ /* page-to-page navigation from the link's own token; hidden inside the dashboard's frame */
+  const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname), nav = document.getElementById('xnav'); if (!nav) return;
+  const framed = (function(){ try { return window.self !== window.top; } catch (e) { return true; } })();
+  if (framed) { document.body.classList.add('framed'); nav.hidden = true; return; }
+  if (!m) { nav.hidden = true; return; }
+  const t = m[1], q = new URLSearchParams(location.search), back = q.get('back') === 'e' ? 'e' : q.get('back') === 'v' ? 'v' : (/\/e\//.test(document.referrer) ? 'e' : 'v');
+  const here = location.pathname.replace(/^\/w\/[^/]+\//, ''), tail = '?back=' + back;
+  const links = [['/' + back + '/' + encodeURIComponent(t), 'Dashboard', ''], ['/w/' + t + '/explorer/index.html' + tail, 'Plan on satellite', 'explorer/index.html'], ['/w/' + t + '/poc3d/index.html' + tail, '3D proof', 'poc3d/index.html'], ['/w/' + t + '/', 'The Coates Way', '__cw']];
+  nav.innerHTML = links.map(([h, n, k]) => `<a href="${h}"${k === here ? ' aria-current="page"' : ''}>${n}</a>`).join('');
+})();
+</script>
+</body>
+</html>

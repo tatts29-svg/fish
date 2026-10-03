@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "mode": "offline synthetic fixtures",
+  "checks": [
+    {
+      "name": "764: outstanding fencing remains visible after the programme week ends",
+      "pass": false,
+      "expected": 100,
+      "actual": 0,
+      "message": "Unchanged outstanding work must not silently disappear at midnight\n\n0 !== 100\n"
+    },
+    {
+      "name": "764: recorded transport replacement supersedes the card forecast",
+      "pass": false,
+      "expected": 300,
+      "actual": 400,
+      "message": "A recorded replacement cannot retain an additional card estimate for the same reference\n\n400 !== 300\n"
+    },
+    {
+      "name": "766: gear and external installation remain separate cost categories",
+      "pass": false,
+      "expected": 150,
+      "actual": 200,
+      "message": "Rehire cost is the gear; the separate installation category is not rehire\n\n200 !== 150\n"
+    },
+    {
+      "name": "766: an NVAC non-forklift marked hired in is retained",
+      "pass": false,
+      "expected": 100,
+      "actual": 0,
+      "message": "Branch exclusion must not hide a marked hired-in machine\n\n0 !== 100\n"
+    },
+    {
+      "name": "766: a toilet marked hired in is counted once",
+      "pass": false,
+      "expected": 100,
+      "actual": 200,
+      "message": "A line already in the toilet group cannot enter the other-machine group\n\n200 !== 100\n"
+    },
+    {
+      "name": "767: different extension dimensions are not asserted to be the same item",
+      "pass": false,
+      "actual": {
+        "branch_code": "MEAD",
+        "item": "EXAMPLE-2400",
+        "description": "Fork Extension 2400mm",
+        "rate_1": 20,
+        "rate_type": "W"
+      },
+      "message": "A keyword match alone cannot justify telling the reader to copy a rate\n+ actual - expected\n\n+ {\n+   branch_code: 'MEAD',\n+   description: 'Fork Extension 2400mm',\n+   item: 'EXAMPLE-2400',\n+   rate_1: 20,\n+   rate_type: 'W'\n+ }\n- undefined\n"
+    }
+  ],
+  "passed": 0,
+  "failed": 6
+}

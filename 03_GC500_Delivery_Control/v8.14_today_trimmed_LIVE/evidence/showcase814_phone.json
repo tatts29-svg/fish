@@ -1,0 +1,134 @@
+{
+  "author": "Andrew Fisher",
+  "purpose": "Distinguish the Showcase dialog from its optional Backdrop selector",
+  "runs": [
+    {
+      "tag": "base",
+      "sha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+      "cycles": [
+        {
+          "opened": {
+            "open": true,
+            "hidden": false,
+            "role": "dialog",
+            "modal": "true",
+            "showing": true,
+            "width": 390,
+            "height": 844,
+            "display": "flex",
+            "backVisible": true,
+            "focusInside": true,
+            "backdropTag": "SELECT",
+            "backdropVisible": false,
+            "backdropParentDisplay": "none",
+            "carFocus": true,
+            "printing": false
+          },
+          "options": {
+            "open": true,
+            "expanded": "true",
+            "backdropVisible": true
+          },
+          "closed": {
+            "open": false,
+            "hidden": true,
+            "showing": false,
+            "appInert": false
+          }
+        },
+        {
+          "opened": {
+            "open": true,
+            "hidden": false,
+            "role": "dialog",
+            "modal": "true",
+            "showing": true,
+            "width": 390,
+            "height": 844,
+            "display": "flex",
+            "backVisible": true,
+            "focusInside": true,
+            "backdropTag": "SELECT",
+            "backdropVisible": true,
+            "backdropParentDisplay": "flex",
+            "carFocus": true,
+            "printing": false
+          },
+          "options": null,
+          "closed": {
+            "open": false,
+            "hidden": true,
+            "showing": false,
+            "appInert": false
+          }
+        }
+      ],
+      "errors": [],
+      "blockedWrites": 0
+    },
+    {
+      "tag": "candidate",
+      "sha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+      "cycles": [
+        {
+          "opened": {
+            "open": true,
+            "hidden": false,
+            "role": "dialog",
+            "modal": "true",
+            "showing": true,
+            "width": 390,
+            "height": 844,
+            "display": "flex",
+            "backVisible": true,
+            "focusInside": true,
+            "backdropTag": "SELECT",
+            "backdropVisible": false,
+            "backdropParentDisplay": "none",
+            "carFocus": true,
+            "printing": false
+          },
+          "options": {
+            "open": true,
+            "expanded": "true",
+            "backdropVisible": true
+          },
+          "closed": {
+            "open": false,
+            "hidden": true,
+            "showing": false,
+            "appInert": false
+          }
+        },
+        {
+          "opened": {
+            "open": true,
+            "hidden": false,
+            "role": "dialog",
+            "modal": "true",
+            "showing": true,
+            "width": 390,
+            "height": 844,
+            "display": "flex",
+            "backVisible": true,
+            "focusInside": true,
+            "backdropTag": "SELECT",
+            "backdropVisible": true,
+            "backdropParentDisplay": "flex",
+            "carFocus": true,
+            "printing": false
+          },
+          "options": null,
+          "closed": {
+            "open": false,
+            "hidden": true,
+            "showing": false,
+            "appInert": false
+          }
+        }
+      ],
+      "errors": [],
+      "blockedWrites": 0
+    }
+  ]
+}

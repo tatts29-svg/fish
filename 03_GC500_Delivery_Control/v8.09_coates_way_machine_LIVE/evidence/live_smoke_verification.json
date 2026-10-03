@@ -1,0 +1,110 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "dfec015586208531bbe31fe507d44cc9cc49955e",
+  "publicPageSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+  "machineSha256": "7d2ff39f645696c212197f1bf0c7dfe8e4a01c232c4e3ca1dbea359b53500a1e",
+  "passed": 20,
+  "failures": 0,
+  "devices": [
+    {
+      "device": "desktop",
+      "checks": [
+        {
+          "name": "Host reports the expected machine set",
+          "pass": true
+        },
+        {
+          "name": "Machine runtime and visible canvas are ready",
+          "pass": true
+        },
+        {
+          "name": "Fresh served machine application matches the audited source",
+          "pass": true
+        },
+        {
+          "name": "Native machine dialog is open",
+          "pass": true
+        },
+        {
+          "name": "Back closes and removes the machine frame",
+          "pass": true
+        },
+        {
+          "name": "Back returns focus to Open the machine",
+          "pass": true
+        },
+        {
+          "name": "Coates Way is usable after closing",
+          "pass": true
+        },
+        {
+          "name": "No runtime page errors",
+          "pass": true
+        },
+        {
+          "name": "No machine console errors",
+          "pass": true
+        },
+        {
+          "name": "No attempted operational writes",
+          "pass": true
+        }
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "appSha256": "d2964c3138eb1b2429a542cfb598adb507ae345b6b92858c78231fdbe49ff3c8"
+    },
+    {
+      "device": "phone",
+      "checks": [
+        {
+          "name": "Host reports the expected machine set",
+          "pass": true
+        },
+        {
+          "name": "Machine runtime and visible canvas are ready",
+          "pass": true
+        },
+        {
+          "name": "Fresh served machine application matches the audited source",
+          "pass": true
+        },
+        {
+          "name": "Native machine dialog is open",
+          "pass": true
+        },
+        {
+          "name": "Back closes and removes the machine frame",
+          "pass": true
+        },
+        {
+          "name": "Back returns focus to Open the machine",
+          "pass": true
+        },
+        {
+          "name": "Coates Way is usable after closing",
+          "pass": true
+        },
+        {
+          "name": "No runtime page errors",
+          "pass": true
+        },
+        {
+          "name": "No machine console errors",
+          "pass": true
+        },
+        {
+          "name": "No attempted operational writes",
+          "pass": true
+        }
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "appSha256": "d2964c3138eb1b2429a542cfb598adb507ae345b6b92858c78231fdbe49ff3c8"
+    }
+  ],
+  "visualInspection": "Root inspected final actual-public-host desktop and phone machine screenshots; private screenshots retained outside Git.",
+  "rawResultSha256": "f2791a0b26a05ceef70f7600e3b710a2308b06f2a80f4e803494c394b183a001"
+}

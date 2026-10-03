@@ -1,0 +1,130 @@
+{
+  "author": "Andrew Fisher",
+  "source": "03_GC500_Delivery_Control/v8.16_reference_and_demob_DRAFT/demob816_src.js",
+  "base": "candidate.html",
+  "results": [
+    {
+      "name": "gate_before_event_week",
+      "observed": false,
+      "requirement": "false: no date exception to pump-out gate"
+    },
+    {
+      "name": "gate_unrecorded_or_non_green_light",
+      "observed": true,
+      "requirement": "false or explicit incoming-trip semantics; collection must not bypass"
+    },
+    {
+      "name": "gate_without_actor_or_time",
+      "observed": false,
+      "requirement": "false: by/when evidence required"
+    },
+    {
+      "name": "newer_committed_untick",
+      "observed": {
+        "on": false,
+        "by": "Newer operator",
+        "at": "2026-10-26T00:00:00Z",
+        "unproven": false
+      },
+      "requirement": "on:false with newer committed stamp"
+    },
+    {
+      "name": "reused_reference_old_pumpout",
+      "observed": {
+        "emptied": {
+          "on": true,
+          "by": "Older operator",
+          "at": "2026-10-25T00:00:00Z",
+          "unproven": false
+        },
+        "nextCollectionAllowed": true
+      },
+      "requirement": "new on-site/use cycle must invalidate prior collection pump-out"
+    },
+    {
+      "name": "unknown_quantity",
+      "observed": [
+        {
+          "units": 0,
+          "rows": [
+            {
+              "key": "WC01",
+              "n": 0
+            }
+          ]
+        }
+      ],
+      "requirement": "unknown quantity must remain visibly unresolved, not a definitive one-unit load"
+    },
+    {
+      "name": "split_reference_dates",
+      "observed": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "referenceDate": "2026-10-27",
+          "onDayList": true,
+          "onPumpList": true
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "referenceDate": "2026-10-27",
+          "onDayList": true,
+          "onPumpList": true
+        }
+      ],
+      "requirement": "each split load must have its own aligned collection/pump/confirmation date"
+    },
+    {
+      "name": "mixed_toilet_tank_order",
+      "observed": [
+        {
+          "kind": "toilets",
+          "group": "Toilet run",
+          "stops": [
+            {
+              "at": 420,
+              "end": 435,
+              "parts": [
+                "FWF"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "normal",
+          "group": "KINP",
+          "stops": [
+            {
+              "at": 435,
+              "end": 465,
+              "parts": [
+                "Waste tank"
+              ]
+            }
+          ]
+        }
+      ],
+      "requirement": "tank loading must begin after the supported toilet has been removed; separate simultaneous runs are not ordered"
+    },
+    {
+      "name": "merge_emptied_evidence",
+      "observed": {
+        "WC01": {
+          "emptied": true,
+          "emptied_by": "Fixture operator",
+          "emptied_at": "2026-10-26T00:00:00Z",
+          "emptied_history": [
+            {
+              "emptied": true,
+              "by": "Fixture operator",
+              "at": "2026-10-26T00:00:00Z"
+            }
+          ]
+        }
+      },
+      "requirement": "WC01 pump-out value, actor, time and history preserved"
+    }
+  ]
+}

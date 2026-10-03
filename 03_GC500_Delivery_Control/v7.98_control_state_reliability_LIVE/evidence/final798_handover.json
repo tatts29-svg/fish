@@ -1,0 +1,59 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "9a52ec22c794a514d44936ef84335b62a6876c2664fa54f211a35f1315666d95",
+  "status": "Independent798 source and visual review complete; included in final801, no intermediate publication",
+  "nativePhotoChecks": 29,
+  "nativePhotoCandidate": "76939c32635b8628b05b577233f827f41c1a60a52fe65270304711abdc6b725e",
+  "nativePhotoScope": "Actual Chromium151 native storage/crypto/locks with synthetic mock transport; desktop and phone emulation. No external requests. Source bound through toolbar-only changes.",
+  "unchangedStandingCandidate": "b2f0bc038dba361647247642001ae52b53be160d37ae49b1e1298b266aa8639a",
+  "unchangedStanding": {
+    "navigation": 21,
+    "equipmentDesktop": 22,
+    "equipmentPhone": 22,
+    "packedDesktop": 20,
+    "packedPhone": 14,
+    "rules": 45,
+    "fresh": 11,
+    "controlCPU": 13,
+    "controlBrowserDesktop": 15,
+    "controlBrowserPhone": 15
+  },
+  "sourceBinding": "final798_source_binding.json",
+  "finalPrintCandidate": "9a52ec22c794a514d44936ef84335b62a6876c2664fa54f211a35f1315666d95",
+  "finalPrintChecks": [
+    [
+      "phone",
+      31,
+      31
+    ],
+    [
+      "desktop",
+      31,
+      31
+    ]
+  ],
+  "finalPrintEvidenceOwner": "App audit agent; independent source/visual review by this reviewer",
+  "visualReview": {
+    "actualPhotoDrawer": "/workspace/private-v798-review/photo-page/",
+    "finalPrintScreens": "/workspace/private-gc500-audit/control798-toolbar-final/",
+    "observed": "Desktop/phone queued and uploaded labels fit without horizontal overflow. Final phone sheet headers clear the toolbar; exact C2 notes are complete and four photos remain. A4 layout retained.",
+    "actualPhotoCaptureCandidate": "0f8f1ef70037e9402595d374fabe13920d71784599ef01dee6c7dc3da1c5e9e7",
+    "photoVisualBinding": "Only print toolbar and print note changes followed this capture; photo source and styles are unchanged."
+  },
+  "findingsResolved": [
+    "Unacknowledged photo links remain in real IndexedDB across reload; no second upload after receipt.",
+    "Native localStorage quota exhaustion retains receipt and recovers.",
+    "Actual IDB abort during Forget reports cancellation incomplete.",
+    "Native Web Locks prevent duplicate cross-tab upload.",
+    "Print notes now reach driver/install sheets and are escaped/reference-scoped.",
+    "Phone toolbar overlap corrected; offset measured after width fitting, including320px resize.",
+    "Exact C2 Tuesday399char note including3-versus4query tested, not only shorter quote."
+  ],
+  "limits": [
+    "Photo device coverage is Chromium desktop/phone emulation, not a physical iOS browser.",
+    "Shared-host timing is not a performance sign-off. Existing796 layout/performance follow-ups remain.",
+    "Superseded mixed-build affected run is explicitly invalid; see final798_superseded_run.json. Final801 full standing suites own final publication evidence.",
+    "One Google tile-session POST console error per sweep is induced by blocking every non-GET request; not an app error."
+  ],
+  "liveWrites": 0
+}

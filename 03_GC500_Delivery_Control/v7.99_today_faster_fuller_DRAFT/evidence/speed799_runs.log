@@ -1,0 +1,3 @@
+base 07d61880 {'today': 326.4, 'plant': 103.2} | candidate 37e77a24 {'today': 282, 'plant': 102.5}
+base 07d61880 {'today': 371.1, 'plant': 96.7} | candidate 37e77a24 {'today': 260.4, 'plant': 107.9}
+base 07d61880 {'today': 310.2, 'plant': 96} | candidate 37e77a24 {'today': 254.9, 'plant': 98.2}

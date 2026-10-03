@@ -1,0 +1,543 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent visual inspection of all 10 final GPU fixture images, using local image viewer only",
+  "candidateSha256": "85adb462803e6830e1a7162a88f20d25fcd678fc854ad2c70d8b95335ae21467",
+  "accepted": true,
+  "images": [
+    {
+      "id": "desktop-car-day",
+      "device": "desktop",
+      "vehicle": "car",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/desktop-car-day.png",
+      "sha256": "d3074dba2819ce51a61f39313330cfef849e2f90d525276f04a59bf842b43f47",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          30.624726737576527,
+          0.31853345825723883,
+          -17.59927106163238
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 29.999999999999996,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0.361,
+        "shiftY": -0.04,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.525535384346966,
+          "maxY": 0.720351757711733,
+          "minDepth": 0.8224143031521507,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "Rounded bonnet and fender highlights, filled projector housings and cabin glass read clearly. Vivid orange is restored after the rejected pale coating; there are no visible missing body faces or detached aero parts."
+    },
+    {
+      "id": "desktop-car-vms-day",
+      "device": "desktop",
+      "vehicle": "car",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/desktop-car-vms-day.png",
+      "sha256": "cfa6828556fb176c70e58ad068fd40fd3e8a37474d7c79433cc26b3bf9728129",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          48.044952455082125,
+          0.8344245081754504,
+          -20.69684422719218
+        ],
+        "target": [
+          50.31484333147019,
+          0.4216337477695164,
+          -22.336126601009667
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 29.999999999999996,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0,
+        "shiftY": 0,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.5068701348551055,
+          "maxY": 0.8164970838609515,
+          "minDepth": 1.929471862579227,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "The complete tow combination fits the fixture. Rounded trailer guards and wheels, chassis and sign housing are visible; the sign face retains the existing emissive pixel pattern."
+    },
+    {
+      "id": "desktop-car-loo-day",
+      "device": "desktop",
+      "vehicle": "car",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/desktop-car-loo-day.png",
+      "sha256": "be9783ac7e604e97e187be7325ddf1140d0ab7bfa974c2d8a7556e9ef5c3be81",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          48.4976068637856,
+          0.6301446880374039,
+          -20.9979003276679
+        ],
+        "target": [
+          50.363747705088606,
+          0.2908351189368629,
+          -22.345596198126874
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 29.999999999999996,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0,
+        "shiftY": 0,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.6324005901395318,
+          "maxY": 0.8222723052069872,
+          "minDepth": 1.4386494360846598,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "The complete tow combination fits the fixture. Trailer guards, chassis and loo moulding remain coherent and attached."
+    },
+    {
+      "id": "desktop-forklift-day",
+      "device": "desktop",
+      "vehicle": "forklift",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/desktop-forklift-day.png",
+      "sha256": "b9bce36a1d7e17c9ca9008cbb549c64fbcd934879e0a3f6449a8d6b15c8bbbfb",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          7.93548400155866,
+          0.5070285634883415,
+          -10.373554641699783
+        ],
+        "target": [
+          8.894381629300147,
+          0.2600905187821885,
+          -11.74722714775958
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 29.999999999999996,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0,
+        "shiftY": 0,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.4186441970734933,
+          "maxY": 0.8292474905070174,
+          "minDepth": 1.2150756969958572,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "Body bevels, tyre tread, pressed rim openings, mast rails and cockpit have distinct depth. No conspicuous normal reversal or disconnected part is visible."
+    },
+    {
+      "id": "desktop-car-night",
+      "device": "desktop",
+      "vehicle": "car",
+      "look": "showcase",
+      "file": "/workspace/private-v802-final-focus/desktop-car-night.png",
+      "sha256": "b3b29879d9a9d728e503989f2e9338b864078e58cabe69d12c4684054a985ba7",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          -23.84837738721395,
+          0.31853345825723883,
+          5.397313642676503
+        ],
+        "target": [
+          -23.42526398052926,
+          0.13325049927961152,
+          4.213690582224891
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 29.999999999999996,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0,
+        "shiftY": 0,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.5696755587381512,
+          "maxY": 0.6836692488351044,
+          "minDepth": 0.8220586102845502,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "Rear lamps are filled red shapes with visible housings, and rear body and aero remain connected. The established night exposure leaves much of the charcoal body dark."
+    },
+    {
+      "id": "phone-boom-day",
+      "device": "phone",
+      "vehicle": "boom",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/phone-boom-day.png",
+      "sha256": "c63112788ba26bc453afdef972387c006cf82dca4184b0f40588b1bcee30b074",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          2.2331220433009986,
+          0.43420485779039775,
+          -8.554782665767116
+        ],
+        "target": [
+          3.095252660983375,
+          0.21710175281268346,
+          -9.748938416152635
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 71.5559303401267,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0.361,
+        "shiftY": -0.04,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.8231467069737572,
+          "maxY": 0.4093745635073455,
+          "minDepth": 0.9054277096131855,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "The complete machine and basket fit the fixture; boom pivots, shaped guards, wheels and basket frame remain visibly coherent."
+    },
+    {
+      "id": "phone-scissor-day",
+      "device": "phone",
+      "vehicle": "scissor",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/phone-scissor-day.png",
+      "sha256": "4150436725d717c4070b96bbdfbe427b8e9b4792c2dfa98310362f2269e076e5",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          -0.19916116309764378,
+          0.46659861552345216,
+          -7.960721441712701
+        ],
+        "target": [
+          0.4046568270909231,
+          0.31376071601987665,
+          -8.803629789005592
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 71.5559303401267,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0,
+        "shiftY": 0,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.8168431853486459,
+          "maxY": 0.5726766837874581,
+          "minDepth": 0.6712750772957756,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "Deck, scissor stack, basket rails, wheels and platform corner details remain aligned. The complete vehicle fits the fixture."
+    },
+    {
+      "id": "phone-tractor-day",
+      "device": "phone",
+      "vehicle": "tractor",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/phone-tractor-day.png",
+      "sha256": "c702fc75189682dd887be9a1a1cf6a972b805713740109aaa4563f57b2e3ebd7",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          12.057950044628367,
+          0.40617438282496926,
+          -12.113060214829302
+        ],
+        "target": [
+          12.682644207791808,
+          0.24723556090011964,
+          -12.991918009321417
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 71.5559303401267,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0,
+        "shiftY": 0,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.8217429201172206,
+          "maxY": 0.5078389038345561,
+          "minDepth": 0.6888337197430516,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "Stepped grille, rounded wheel guards, pressed rims and tyre tread are visible; the complete vehicle fits the fixture."
+    },
+    {
+      "id": "phone-car-wheel-high",
+      "device": "phone",
+      "vehicle": "car",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/phone-car-wheel-high.png",
+      "sha256": "35ca336417b9c0f4f93bacfa608e18fde4fe56be24782254755505daac0a76fd",
+      "graphics": {
+        "version": "1.8",
+        "quality": "high",
+        "samples": 4,
+        "shadowMap": 2048,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": true,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          -26.493224960780758,
+          0.31853345825723883,
+          7.174170095143598
+        ],
+        "target": [
+          -26.095404027575363,
+          0.13325049927961152,
+          5.981808144856376
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 71.5559303401267,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0,
+        "shiftY": 0,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.7932906739263194,
+          "maxY": 0.25427496474009,
+          "minDepth": 0.8220324085141257,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "Stationary close-up resolves broad concave spokes, recessed barrel, tyre shoulder and sidewall. Body cropping is intentional in this wheel inspection fixture."
+    },
+    {
+      "id": "phone-car-restored",
+      "device": "phone",
+      "vehicle": "car",
+      "look": "day",
+      "file": "/workspace/private-v802-final-focus/phone-car-restored.png",
+      "sha256": "1435d01bef81f693f74b4cc12af7c3d90bb90888a74b03c023451b271da843a3",
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "normalUICamera": {
+        "eye": [
+          30.624726737576527,
+          0.31853345825723883,
+          -17.59927106163238
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30,
+        "effectiveVerticalFov": 71.5559303401267,
+        "view": "detail",
+        "shot": "detail",
+        "shiftX": 0.34295,
+        "shiftY": -0.04,
+        "camera800Active": true,
+        "framing": {
+          "maxX": 0.6759586051918564,
+          "maxY": 0.29296891195577,
+          "minDepth": 0.8224143031521507,
+          "inspectionCamera": false
+        }
+      },
+      "visualFinding": "Restored rendering retains the accepted orange, glazing, body geometry and wheel appearance without missing material or parts."
+    }
+  ],
+  "findings": [
+    "The initial broad pale/salmon race-paint response was rejected; the tuned material source 03b4229b455ee3ca42a40bc3020ddf698e3d0b628196e65ef8ef50dbb5e968c3 restores orange without hiding body curvature.",
+    "The final native-resolution captures show cleaner silhouette and railing edges with the supported 4-sample target; narrow high-contrast details and small lettering still show finite-resolution aliasing.",
+    "No observed missing faces, detached components, material dropout or gross surface-normal inversion in the inspected views."
+  ],
+  "limits": [
+    "These are explicit matched inspection camera fixtures; normal UI cameras are covered by the separately recorded actual-control review.",
+    "Smoke was cleared by this inspection harness; real opening/smoke behaviour is covered separately, not inferred from these images.",
+    "No GPU or browser was run by this reviewer. Source and lifecycle checks are separate evidence.",
+    "Still images do not establish physical-device frame rate, temporal shimmer, every possible pose, photorealism or a 10/10 quality score."
+  ],
+  "captureReportSha256": "7e902987991dbfdc029d3669f36a14dd771755fab0a8639cdebc9396b2756068",
+  "reportedCaptureChecks": 82,
+  "reportedErrors": [],
+  "reportedBlockedWrites": 0
+}

@@ -1,0 +1,196 @@
+{
+ "mobile": true,
+ "checks": {
+  "wc60HasItsTankLineFromTheContract": true,
+  "installAndLevellingPricedPerTank": true,
+  "theTwoTanksAreThePieces": true,
+  "toiletBlockTicksStillRead": true,
+  "nothingTickedOnTheTanksYet": true,
+  "otherTankLocationsUntouched": true,
+  "onlyWc60GainedALine": true,
+  "wc60NoLongerOverNumbered": true,
+  "plUnmovedUntilTicked": true,
+  "cardComparisonRisesByTheTanksOnly": true,
+  "liveHadNoTankLine": true,
+  "rehearsedTicksChargeTheTanks": true,
+  "noBrokenValues": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true,
+  "everyWriteBlocked": true
+ },
+ "data": {
+  "tank": {
+   "qty": 2,
+   "state": "from the contract — 9968955 lines 94, 95: 2 sewage holding tanks on this reference; the schedule row named the toilet blocks only",
+   "rate_state": "no rate supplied — hire is included in the toilet-block price",
+   "priceable": true,
+   "lines": [
+    94,
+    95
+   ],
+   "contract": "9968955"
+  },
+  "itemTypes": [
+   "Toilet Block 6m",
+   "Waste tank"
+  ],
+  "lab": {
+   "state": "per piece, on the card",
+   "priced": [
+    [
+     "install",
+     145.74,
+     false
+    ],
+    [
+     "levelling",
+     104.1,
+     false
+    ],
+    [
+     "cleaning",
+     156.15,
+     false
+    ],
+    [
+     "demob",
+     145.74,
+     false
+    ]
+   ],
+   "withheld": [
+    "Steps",
+    "Fire extinguisher"
+   ]
+  },
+  "units": {
+   "tank": [
+    "1328980",
+    "1328981"
+   ],
+   "block": [
+    "1087500",
+    "1119489"
+   ]
+  },
+  "lineNumbers": {
+   "Toilet Block 6m": [
+    "1087500",
+    "1119489"
+   ],
+   "Waste tank": [
+    "1328980",
+    "1328981"
+   ]
+  },
+  "toilets": [
+   {
+    "qty": 2,
+    "labour": 811.98,
+    "ticks": 6
+   }
+  ],
+  "tankMoneyNow": [
+   {
+    "qty": 2,
+    "labour": 0,
+    "ticks": 0,
+    "cardHire": 1501.122
+   }
+  ],
+  "others": [
+   {
+    "key": "WC05",
+    "lines": [
+     "Waste tank x1",
+     "Toilet Block 6m x1"
+    ],
+    "tankLines": 1,
+    "labour": 655.83
+   },
+   {
+    "key": "WC20",
+    "lines": [
+     "Toilet Block 6m x2",
+     "Waste tank x2"
+    ],
+    "tankLines": 1,
+    "labour": 0
+   },
+   {
+    "key": "WC27",
+    "lines": [
+     "Toilet Block 6m x1",
+     "Waste tank x1"
+    ],
+    "tankLines": 1,
+    "labour": 655.83
+   }
+  ],
+  "gained": [
+   "WC60"
+  ],
+  "extra": [
+   "P36"
+  ],
+  "money": {
+   "total": 558017.15,
+   "labour": 19170.02,
+   "ticks": 177,
+   "costKnown": 235371.76,
+   "cardHire": 202265.9,
+   "contracts": 277015.74
+  },
+  "readOnly": true
+ },
+ "live": {
+  "total": 558017.15,
+  "labour": 19170.02,
+  "ticks": 177,
+  "costKnown": 235371.76,
+  "cardHire": 200764.78,
+  "wc60Lines": [
+   "Toilet Block 6m x2"
+  ]
+ },
+ "rehearsal": {
+  "log": [
+   [
+    "1328980",
+    "install",
+    true
+   ],
+   [
+    "1328980",
+    "levelling",
+    true
+   ],
+   [
+    "1328981",
+    "install",
+    true
+   ],
+   [
+    "1328981",
+    "levelling",
+    true
+   ]
+  ],
+  "keys": [
+   "WC60/u1328980|Toilets & amenities|Waste tank|install",
+   "WC60/u1328980|Toilets & amenities|Waste tank|levelling",
+   "WC60/u1328981|Toilets & amenities|Waste tank|install",
+   "WC60/u1328981|Toilets & amenities|Waste tank|levelling"
+  ],
+  "tankLabour": 499.68,
+  "tankTicks": 4,
+  "labourAfter": 499.68,
+  "waiting": 0
+ },
+ "text": "",
+ "overflow": 0,
+ "errors": [],
+ "console": [],
+ "blocked": 0,
+ "pass": true
+}

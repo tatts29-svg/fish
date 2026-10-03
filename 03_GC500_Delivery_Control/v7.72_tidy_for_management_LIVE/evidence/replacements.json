@@ -1,0 +1,20 @@
+[
+ {"tab": "today", "why": "the page's word is Rehire; 'Sub-hire' on the delivery cards was a second word for the same thing",
+  "old": "<small>Sub-hire · ${esc(g.co)} · asset no.</small>",
+  "new": "<small>Rehire · ${esc(g.co)} · asset no.</small>"},
+ {"tab": "progress · costs", "why": "'subhire rehire cost' doubled two words for one thing",
+  "old": "'subhire rehire cost not on the record'",
+  "new": "'rehire cost of the sub-hired lines not on the record'"},
+ {"tab": "costs", "why": "the P&L said every figured load carried a plus; 35 of 37 do",
+  "old": "', each written with a plus, so at least that' : ''",
+  "new": "`, ${schedT.plus === schedT.counted_refs ? 'each' : fmtNum(schedT.plus) + ' of them'} written with a plus, so at least that` : ''"},
+ {"tab": "costs", "why": "the servicing line's tag said 'the card' for a figure that is $85,102 at the card and $13,950 at cost",
+  "old": "the water at what we are charged`, pl767Servicing(), m0(servicing), CARD)",
+  "new": "the water at what we are charged`, pl767Servicing(), m0(servicing), tag('priced by us · the card + at cost', 'est'))"},
+ {"tab": "costs", "why": "a 'last year' sentence printed unconditionally on the Costs to job end card; now said only when the programme file has undated removal weeks, in this year's words",
+  "old": "Removal and V gates are inside the card’s metre; the deconstruction weeks still carry 2025 dates and are not forecast.</p>",
+  "new": "Removal and V gates are inside the card’s metre.${X.fencing.notRolled && X.fencing.notRolled.length ? ' The removal weeks in the programme file are not yet dated for 2026, so removal is not forecast.' : ''}</p>"},
+ {"tab": "costs", "why": "the same sentence in the fencing stream's note",
+  "old": "still carry 2025 dates — a reference, not a plan — so removal is not forecast",
+  "new": "in the programme file are not yet dated for 2026 — a reference, not a plan — so removal is not forecast"}
+]

@@ -1,0 +1,2192 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent CPU geometry and animation/selection preservation audit",
+  "timestamp": "2026-10-02T05:01:29.592Z",
+  "sourceSha256": "0d4f961085ae1d2ae16570d3c03e8cbadd5edb0acd33c28470f88541e9159841",
+  "baselinePageSha256": "ea510aa57aceb51e53f8384c161099cd8e73eb3b746459b91bd00bc90b24dd0b",
+  "candidatePageSha256": "3e8bd7ab65bee0e77cb635194184609e1f2de6f3db356f717f8c7b11b7c8c172",
+  "limitations": [
+    "No GPU browser used; appearance, shader compatibility, real draw timing and phone frame rate require integrated browser checks.",
+    "Outward winding tested on isolated convex primitives; final assemblies checked for winding agreement with stored vertex normals.",
+    "CPU construction timings are diagnostic single samples, not a performance benchmark."
+  ],
+  "passed": 154,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "candidate embeds exact audited fleet source",
+      "pass": true
+    },
+    {
+      "name": "protected setVehicle",
+      "pass": true
+    },
+    {
+      "name": "protected trailerStep",
+      "pass": true
+    },
+    {
+      "name": "protected trailerMatrix",
+      "pass": true
+    },
+    {
+      "name": "protected swayStep",
+      "pass": true
+    },
+    {
+      "name": "protected swayMatrix",
+      "pass": true
+    },
+    {
+      "name": "protected looStep",
+      "pass": true
+    },
+    {
+      "name": "protected hingeY",
+      "pass": true
+    },
+    {
+      "name": "protected hingeZ",
+      "pass": true
+    },
+    {
+      "name": "protected looShot",
+      "pass": true
+    },
+    {
+      "name": "protected looRollParts",
+      "pass": true
+    },
+    {
+      "name": "protected looRolls",
+      "pass": true
+    },
+    {
+      "name": "protected vmsTexture",
+      "pass": true
+    },
+    {
+      "name": "protected finishModel",
+      "pass": true
+    },
+    {
+      "name": "protected PLANT speed grip and engine-note definitions",
+      "pass": true
+    },
+    {
+      "name": "protected VMS hitch length and LED text",
+      "pass": true
+    },
+    {
+      "name": "exact full-page selection preservation",
+      "pass": true
+    },
+    {
+      "name": "exact full-page renderer preservation",
+      "pass": true
+    },
+    {
+      "name": "selection sequence preserves speed grip tow kind reset and note",
+      "pass": true
+    },
+    {
+      "name": "merger preserves exact material/color/wheel/sway/door/arm/vmsFace semantics",
+      "pass": true,
+      "detail": {
+        "inputParts": 26,
+        "outputParts": 13,
+        "renderGroups": 13
+      }
+    },
+    {
+      "name": "box primitive balanced finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 108,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "rounded box primitive balanced finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 108,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "small rounded box primitive balanced finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 108,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "ball primitive balanced finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 168,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "tube primitive balanced finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 52,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "bar primitive balanced finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 12,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "disc primitive balanced finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 48,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "box primitive high finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 108,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "rounded box primitive high finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 300,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "small rounded box primitive high finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 300,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "ball primitive high finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 360,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "tube primitive high finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 60,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "bar primitive high finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 12,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "disc primitive high finite nondegenerate outward mesh",
+      "pass": true,
+      "detail": {
+        "triangles": 48,
+        "degenerate": 0,
+        "opposedNormals": 0,
+        "inward": 0
+      }
+    },
+    {
+      "name": "forklift balanced finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "forklift balanced nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "forklift balanced merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "forklift balanced existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "forklift balanced removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "forklift balanced stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "forklift balanced bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 7308,
+        "triangles": 17704,
+        "baselineDraws": 30,
+        "draws": 18,
+        "triangleRatio": 2.4225506294471812
+      }
+    },
+    {
+      "name": "forklift balanced bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "boom balanced finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "boom balanced nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "boom balanced merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "boom balanced existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "boom balanced removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "boom balanced stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "boom balanced bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 7440,
+        "triangles": 17164,
+        "baselineDraws": 38,
+        "draws": 22,
+        "triangleRatio": 2.306989247311828
+      }
+    },
+    {
+      "name": "boom balanced bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "scissor balanced finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "scissor balanced nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "scissor balanced merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "scissor balanced existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "scissor balanced removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "scissor balanced stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "scissor balanced bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 6492,
+        "triangles": 17692,
+        "baselineDraws": 31,
+        "draws": 18,
+        "triangleRatio": 2.725200246457178
+      }
+    },
+    {
+      "name": "scissor balanced bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "tractor balanced finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "tractor balanced nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "tractor balanced merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "tractor balanced existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "tractor balanced removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "tractor balanced stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "tractor balanced bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 6504,
+        "triangles": 17372,
+        "baselineDraws": 26,
+        "draws": 19,
+        "triangleRatio": 2.6709717097170973
+      }
+    },
+    {
+      "name": "tractor balanced bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "vms balanced finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "vms balanced nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "vms balanced merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "vms balanced existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "vms balanced removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "vms balanced stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "vms balanced bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 2230,
+        "triangles": 14618,
+        "baselineDraws": 23,
+        "draws": 17,
+        "triangleRatio": 6.555156950672646
+      }
+    },
+    {
+      "name": "vms balanced bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "loo balanced finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "loo balanced nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "loo balanced merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "loo balanced existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "loo balanced removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "loo balanced stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "loo balanced bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 3730,
+        "triangles": 16962,
+        "baselineDraws": 36,
+        "draws": 25,
+        "triangleRatio": 4.54745308310992
+      }
+    },
+    {
+      "name": "loo balanced bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "forklift high finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "forklift high nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "forklift high merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "forklift high existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "forklift high removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "forklift high stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "forklift high bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 9168,
+        "triangles": 24668,
+        "baselineDraws": 30,
+        "draws": 18,
+        "triangleRatio": 2.6906631762652706
+      }
+    },
+    {
+      "name": "forklift high bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "boom high finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "boom high nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "boom high merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "boom high existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "boom high removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "boom high stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "boom high bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 9140,
+        "triangles": 23692,
+        "baselineDraws": 38,
+        "draws": 22,
+        "triangleRatio": 2.5921225382932165
+      }
+    },
+    {
+      "name": "boom high bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "scissor high finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "scissor high nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "scissor high merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "scissor high existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "scissor high removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "scissor high stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "scissor high bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 7308,
+        "triangles": 23340,
+        "baselineDraws": 31,
+        "draws": 18,
+        "triangleRatio": 3.19376026272578
+      }
+    },
+    {
+      "name": "scissor high bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "tractor high finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "tractor high nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "tractor high merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "tractor high existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "tractor high removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "tractor high stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "tractor high bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 7700,
+        "triangles": 24488,
+        "baselineDraws": 26,
+        "draws": 19,
+        "triangleRatio": 3.18025974025974
+      }
+    },
+    {
+      "name": "tractor high bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "vms high finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "vms high nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "vms high merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "vms high existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "vms high removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "vms high stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "vms high bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 2578,
+        "triangles": 20106,
+        "baselineDraws": 23,
+        "draws": 17,
+        "triangleRatio": 7.799069045771916
+      }
+    },
+    {
+      "name": "vms high bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "loo high finite attributes valid stride and indices",
+      "pass": true
+    },
+    {
+      "name": "loo high nondegenerate triangles and unit referenced normals",
+      "pass": true,
+      "detail": {
+        "degenerate": 0,
+        "invalidNormals": 0,
+        "opposedNormals": 0
+      }
+    },
+    {
+      "name": "loo high merge exact live triangle attributes and animation groups",
+      "pass": true
+    },
+    {
+      "name": "loo high existing wheel sway door arm and LED motion groups preserved",
+      "pass": true
+    },
+    {
+      "name": "loo high removed collapsed triangle count reported accurately",
+      "pass": true
+    },
+    {
+      "name": "loo high stable immutable model cache",
+      "pass": true
+    },
+    {
+      "name": "loo high bounded triangle and draw costs",
+      "pass": true,
+      "detail": {
+        "triangleLimit": 30000,
+        "baselineTriangles": 4210,
+        "triangles": 22710,
+        "baselineDraws": 36,
+        "draws": 25,
+        "triangleRatio": 5.394299287410926
+      }
+    },
+    {
+      "name": "loo high bounds reported correctly",
+      "pass": true
+    },
+    {
+      "name": "forklift balanced no larger than high",
+      "pass": true
+    },
+    {
+      "name": "forklift quality caches isolated",
+      "pass": true
+    },
+    {
+      "name": "boom balanced no larger than high",
+      "pass": true
+    },
+    {
+      "name": "boom quality caches isolated",
+      "pass": true
+    },
+    {
+      "name": "scissor balanced no larger than high",
+      "pass": true
+    },
+    {
+      "name": "scissor quality caches isolated",
+      "pass": true
+    },
+    {
+      "name": "tractor balanced no larger than high",
+      "pass": true
+    },
+    {
+      "name": "tractor quality caches isolated",
+      "pass": true
+    },
+    {
+      "name": "vms balanced no larger than high",
+      "pass": true
+    },
+    {
+      "name": "vms quality caches isolated",
+      "pass": true
+    },
+    {
+      "name": "loo balanced no larger than high",
+      "pass": true
+    },
+    {
+      "name": "loo quality caches isolated",
+      "pass": true
+    },
+    {
+      "name": "forklift balanced deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "boom balanced deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "scissor balanced deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "tractor balanced deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "vms balanced deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "loo balanced deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "forklift high deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "boom high deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "scissor high deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "tractor high deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "vms high deterministic cold rebuild",
+      "pass": true
+    },
+    {
+      "name": "loo high deterministic cold rebuild",
+      "pass": true
+    }
+  ],
+  "models": [
+    {
+      "kind": "forklift",
+      "quality": "balanced",
+      "baseline": {
+        "parts": 30,
+        "triangles": 7308,
+        "vertices": 8618,
+        "bytes": 363472,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 96,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 12,
+        "minNormalAlignment": -0.013781440561599837,
+        "bounds": {
+          "min": [
+            -0.9100000262260437,
+            -0.0017279705498367548,
+            -0.47254401445388794
+          ],
+          "max": [
+            1.3899999856948853,
+            1.2860000133514404,
+            0.47254401445388794
+          ]
+        },
+        "issues": [
+          {
+            "part": "hi-vis",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 4
+          },
+          {
+            "part": "workwear",
+            "degenerateTriangles": 0,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 4
+          },
+          {
+            "part": "head lamps",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "tail lamps",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "detail black",
+            "degenerateTriangles": 0,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 4
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 18,
+        "triangles": 17704,
+        "vertices": 15775,
+        "bytes": 717248,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.8220956230453214,
+        "bounds": {
+          "min": [
+            -0.9100000262260437,
+            -0.00017957694944925606,
+            -0.45844998955726624
+          ],
+          "max": [
+            1.3899999856948853,
+            1.2860000133514404,
+            0.45844998955726624
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 305.01169100000004,
+      "digest": "759be2c423123ac5679662ab11aac0b06a8d182c2a6e71f93ea85657116cb91f",
+      "mergedFromParts": 35
+    },
+    {
+      "kind": "boom",
+      "quality": "balanced",
+      "baseline": {
+        "parts": 38,
+        "triangles": 7440,
+        "vertices": 8606,
+        "bytes": 364672,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 188,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 2,
+        "minNormalAlignment": -0.010717825269233408,
+        "bounds": {
+          "min": [
+            -0.8706737160682678,
+            -0.002042147098109126,
+            -0.5735520124435425
+          ],
+          "max": [
+            2.1659998893737793,
+            1.0603822469711304,
+            0.5735520124435425
+          ]
+        },
+        "issues": [
+          {
+            "part": "hi-vis",
+            "degenerateTriangles": 88,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "workwear",
+            "degenerateTriangles": 36,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 2
+          },
+          {
+            "part": "head lamps",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "tail lamps",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 22,
+        "triangles": 17164,
+        "vertices": 15374,
+        "bytes": 697936,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.8220984376799954,
+        "bounds": {
+          "min": [
+            -0.8706737160682678,
+            -0.0002122272999258712,
+            -0.5583249926567078
+          ],
+          "max": [
+            2.1659998893737793,
+            1.0603822469711304,
+            0.5583249926567078
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 250.08656599999995,
+      "digest": "8d8424228437c164cdd88a14dd8d0e76f54064f412388fc33d08c994ac7d3367",
+      "mergedFromParts": 46
+    },
+    {
+      "kind": "scissor",
+      "quality": "balanced",
+      "baseline": {
+        "parts": 31,
+        "triangles": 6492,
+        "vertices": 8280,
+        "bytes": 342864,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 96,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 2,
+        "minNormalAlignment": -0.006648500572379509,
+        "bounds": {
+          "min": [
+            -0.7719355225563049,
+            -0.0012474808609113097,
+            -0.4717879891395569
+          ],
+          "max": [
+            1.0199999809265137,
+            1.5360000133514404,
+            0.4717879891395569
+          ]
+        },
+        "issues": [
+          {
+            "part": "hi-vis",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 2
+          },
+          {
+            "part": "head lamps",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "tail lamps",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 18,
+        "triangles": 17692,
+        "vertices": 16221,
+        "bytes": 731376,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.8220954679690223,
+        "bounds": {
+          "min": [
+            -0.7719355225563049,
+            0.0010466966778039932,
+            -0.45875000953674316
+          ],
+          "max": [
+            1.0199999809265137,
+            1.5360000133514404,
+            0.45875000953674316
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 210.74128700000028,
+      "digest": "d227dd8218512601688ce21c784597ecf403c3eac9cfa64d6809d5d4125d6045",
+      "mergedFromParts": 37
+    },
+    {
+      "kind": "tractor",
+      "quality": "balanced",
+      "baseline": {
+        "parts": 26,
+        "triangles": 6504,
+        "vertices": 7806,
+        "bytes": 327840,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 160,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 2,
+        "minNormalAlignment": -0.006648500572379509,
+        "bounds": {
+          "min": [
+            -0.8725000023841858,
+            -0.0028275882359594107,
+            -0.5720440149307251
+          ],
+          "max": [
+            1.0099999904632568,
+            1.2300000190734863,
+            0.5720440149307251
+          ]
+        },
+        "issues": [
+          {
+            "part": "hi-vis",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 2
+          },
+          {
+            "part": "head lamps",
+            "degenerateTriangles": 96,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "tail lamps",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 19,
+        "triangles": 17372,
+        "vertices": 15299,
+        "bytes": 698032,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.822095803564338,
+        "bounds": {
+          "min": [
+            -0.8725000023841858,
+            -0.00029385319794528186,
+            -0.553849995136261
+          ],
+          "max": [
+            1.0099999904632568,
+            1.2300000190734863,
+            0.553849995136261
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 132.37046800000007,
+      "digest": "5c0170100ac1b265651c27b1edc631a17ef54b04639c0e89b0024d8e26506781",
+      "mergedFromParts": 32
+    },
+    {
+      "kind": "vms",
+      "quality": "balanced",
+      "baseline": {
+        "parts": 23,
+        "triangles": 2230,
+        "vertices": 2467,
+        "bytes": 105704,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.9059479861207003,
+        "bounds": {
+          "min": [
+            -0.9300000071525574,
+            -0.00570000009611249,
+            -0.6021299958229065
+          ],
+          "max": [
+            1.9900000095367432,
+            2.140000104904175,
+            0.6021299958229065
+          ]
+        },
+        "issues": []
+      },
+      "candidate": {
+        "parts": 17,
+        "triangles": 14618,
+        "vertices": 10214,
+        "bytes": 502264,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.9139192772607716,
+        "bounds": {
+          "min": [
+            -0.9300000071525574,
+            -0.002850000048056245,
+            -0.5899999737739563
+          ],
+          "max": [
+            1.9900000095367432,
+            2.140000104904175,
+            0.5899999737739563
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 100.21794300000056,
+      "digest": "e9c01619090c2c734c8ce4e8b7ffef0acbf67a527b7e836f020cf9e83a70fbe6",
+      "mergedFromParts": 27
+    },
+    {
+      "kind": "loo",
+      "quality": "balanced",
+      "baseline": {
+        "parts": 36,
+        "triangles": 3730,
+        "vertices": 4423,
+        "bytes": 186296,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 4,
+        "minNormalAlignment": -0.010151292930549081,
+        "bounds": {
+          "min": [
+            -0.6740000247955322,
+            -0.00570000009611249,
+            -0.6321300268173218
+          ],
+          "max": [
+            1.9900000095367432,
+            1.440000057220459,
+            0.6321300268173218
+          ]
+        },
+        "issues": [
+          {
+            "part": "bloke hi-vis",
+            "degenerateTriangles": 0,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 4
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 25,
+        "triangles": 16962,
+        "vertices": 12833,
+        "bytes": 614200,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.9059546475329566,
+        "bounds": {
+          "min": [
+            -0.6740000247955322,
+            -0.002850000048056245,
+            -0.6200000047683716
+          ],
+          "max": [
+            1.9900000095367432,
+            1.440000057220459,
+            0.6200000047683716
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 122.96433900000011,
+      "digest": "0d8340fd453aee4a7ea1c4d59739520a3c1959aa7a5ed0b72f5959baa6e982a6",
+      "mergedFromParts": 40
+    },
+    {
+      "kind": "forklift",
+      "quality": "high",
+      "baseline": {
+        "parts": 30,
+        "triangles": 9168,
+        "vertices": 9780,
+        "bytes": 422976,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 112,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 10,
+        "minNormalAlignment": -0.006839716509485896,
+        "bounds": {
+          "min": [
+            -0.9100000262260437,
+            -0.0017279705498367548,
+            -0.47254401445388794
+          ],
+          "max": [
+            1.3899999856948853,
+            1.2860000133514404,
+            0.47254401445388794
+          ]
+        },
+        "issues": [
+          {
+            "part": "hi-vis",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 4
+          },
+          {
+            "part": "head lamps",
+            "degenerateTriangles": 40,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "tail lamps",
+            "degenerateTriangles": 40,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "detail black",
+            "degenerateTriangles": 0,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 6
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 18,
+        "triangles": 24668,
+        "vertices": 20095,
+        "bytes": 939056,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.865500219477546,
+        "bounds": {
+          "min": [
+            -0.9100000262260437,
+            -0.00017957694944925606,
+            -0.45844998955726624
+          ],
+          "max": [
+            1.3899999856948853,
+            1.2860000133514404,
+            0.45844998955726624
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 191.56762999999955,
+      "digest": "faa8722d1b99ce363c069d7d6c0c7d6e093947fd01f58b6b60b4bd6828e29468",
+      "mergedFromParts": 35
+    },
+    {
+      "kind": "boom",
+      "quality": "high",
+      "baseline": {
+        "parts": 38,
+        "triangles": 9140,
+        "vertices": 9682,
+        "bytes": 419504,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 236,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.8654988834897708,
+        "bounds": {
+          "min": [
+            -0.8706737160682678,
+            -0.002042147098109126,
+            -0.5735520124435425
+          ],
+          "max": [
+            2.1659998893737793,
+            1.0603822469711304,
+            0.5735520124435425
+          ]
+        },
+        "issues": [
+          {
+            "part": "hi-vis",
+            "degenerateTriangles": 104,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "workwear",
+            "degenerateTriangles": 52,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "head lamps",
+            "degenerateTriangles": 40,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "tail lamps",
+            "degenerateTriangles": 40,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 22,
+        "triangles": 23692,
+        "vertices": 19418,
+        "bytes": 905680,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.8654988834897708,
+        "bounds": {
+          "min": [
+            -0.8706737160682678,
+            -0.0002122272999258712,
+            -0.5583249926567078
+          ],
+          "max": [
+            2.1659998893737793,
+            1.0603822469711304,
+            0.5583249926567078
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 209.05788399999983,
+      "digest": "16c7d2145d354700b9326e318d1dc492b6fdd711a4d64605d8cc1878d0818297",
+      "mergedFromParts": 46
+    },
+    {
+      "kind": "scissor",
+      "quality": "high",
+      "baseline": {
+        "parts": 31,
+        "triangles": 7308,
+        "vertices": 8774,
+        "bytes": 368464,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 112,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 2,
+        "minNormalAlignment": -0.0033729805840808772,
+        "bounds": {
+          "min": [
+            -0.7719355225563049,
+            -0.0012474808609113097,
+            -0.4717879891395569
+          ],
+          "max": [
+            1.0199999809265137,
+            1.5360000133514404,
+            0.4717879891395569
+          ]
+        },
+        "issues": [
+          {
+            "part": "hi-vis",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 2
+          },
+          {
+            "part": "head lamps",
+            "degenerateTriangles": 40,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "tail lamps",
+            "degenerateTriangles": 40,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 18,
+        "triangles": 23340,
+        "vertices": 19689,
+        "bytes": 910128,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.8655001587357749,
+        "bounds": {
+          "min": [
+            -0.7719355225563049,
+            0.0010466966778039932,
+            -0.45875000953674316
+          ],
+          "max": [
+            1.0199999809265137,
+            1.5360000133514404,
+            0.45875000953674316
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 189.07363799999985,
+      "digest": "deab860eede0c92c6da3110c15b827b7299acd3a47bdd42e1feac25498522d21",
+      "mergedFromParts": 37
+    },
+    {
+      "kind": "tractor",
+      "quality": "high",
+      "baseline": {
+        "parts": 26,
+        "triangles": 7700,
+        "vertices": 8556,
+        "bytes": 366192,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 192,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 2,
+        "minNormalAlignment": -0.0033729805840808772,
+        "bounds": {
+          "min": [
+            -0.8725000023841858,
+            -0.0028275882359594107,
+            -0.5720440149307251
+          ],
+          "max": [
+            1.0099999904632568,
+            1.2300000190734863,
+            0.5720440149307251
+          ]
+        },
+        "issues": [
+          {
+            "part": "hi-vis",
+            "degenerateTriangles": 32,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 2
+          },
+          {
+            "part": "head lamps",
+            "degenerateTriangles": 120,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          },
+          {
+            "part": "tail lamps",
+            "degenerateTriangles": 40,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 0
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 19,
+        "triangles": 24488,
+        "vertices": 19643,
+        "bytes": 922432,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.8655004855255253,
+        "bounds": {
+          "min": [
+            -0.8725000023841858,
+            -0.00029385319794528186,
+            -0.553849995136261
+          ],
+          "max": [
+            1.0099999904632568,
+            1.2300000190734863,
+            0.553849995136261
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 175.6891599999999,
+      "digest": "2f42a0a5460b7c7e4b0ed02b959f2cd2773e051d064db0360ecab51e3b3397cd",
+      "mergedFromParts": 32
+    },
+    {
+      "kind": "vms",
+      "quality": "high",
+      "baseline": {
+        "parts": 23,
+        "triangles": 2578,
+        "vertices": 2717,
+        "bytes": 117880,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.9059479861207003,
+        "bounds": {
+          "min": [
+            -0.9300000071525574,
+            -0.00570000009611249,
+            -0.6021299958229065
+          ],
+          "max": [
+            1.9900000095367432,
+            2.140000104904175,
+            0.6021299958229065
+          ]
+        },
+        "issues": []
+      },
+      "candidate": {
+        "parts": 17,
+        "triangles": 20106,
+        "vertices": 13466,
+        "bytes": 672184,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.9139192772607716,
+        "bounds": {
+          "min": [
+            -0.9300000071525574,
+            -0.002850000048056245,
+            -0.5899999737739563
+          ],
+          "max": [
+            1.9900000095367432,
+            2.140000104904175,
+            0.5899999737739563
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 122.26957299999958,
+      "digest": "503f19ed1157faafa4f4a42bba6d36adabef6d3f217b81d021911c0b346e55e6",
+      "mergedFromParts": 27
+    },
+    {
+      "kind": "loo",
+      "quality": "high",
+      "baseline": {
+        "parts": 36,
+        "triangles": 4210,
+        "vertices": 4753,
+        "bytes": 202616,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 4,
+        "minNormalAlignment": -0.0051504114790835165,
+        "bounds": {
+          "min": [
+            -0.6740000247955322,
+            -0.00570000009611249,
+            -0.6321300268173218
+          ],
+          "max": [
+            1.9900000095367432,
+            1.440000057220459,
+            0.6321300268173218
+          ]
+        },
+        "issues": [
+          {
+            "part": "bloke hi-vis",
+            "degenerateTriangles": 0,
+            "invalidReferencedNormals": 0,
+            "opposedNormals": 4
+          }
+        ]
+      },
+      "candidate": {
+        "parts": 25,
+        "triangles": 22710,
+        "vertices": 16249,
+        "bytes": 792488,
+        "invalidValues": 0,
+        "invalidIndices": 0,
+        "invalidStride": 0,
+        "degenerateTriangles": 0,
+        "invalidReferencedNormals": 0,
+        "opposedNormals": 0,
+        "minNormalAlignment": 0.9059546475329566,
+        "bounds": {
+          "min": [
+            -0.6740000247955322,
+            -0.002850000048056245,
+            -0.6200000047683716
+          ],
+          "max": [
+            1.9900000095367432,
+            1.440000057220459,
+            0.6200000047683716
+          ]
+        },
+        "issues": []
+      },
+      "buildMs": 157.05163999999968,
+      "digest": "30917960cb160a918dd28eccf2115fcd12793d1255b6574a4c7ee315db18f553",
+      "mergedFromParts": 40
+    }
+  ],
+  "primitives": [
+    {
+      "name": "box",
+      "quality": "balanced",
+      "parts": 1,
+      "triangles": 108,
+      "vertices": 96,
+      "bytes": 4368,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9392451035605494,
+      "bounds": {
+        "min": [
+          -2,
+          -1,
+          -0.699999988079071
+        ],
+        "max": [
+          2,
+          1,
+          0.699999988079071
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "rounded box",
+      "quality": "balanced",
+      "parts": 1,
+      "triangles": 108,
+      "vertices": 96,
+      "bytes": 4368,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9392424609216483,
+      "bounds": {
+        "min": [
+          -2,
+          -1,
+          -0.699999988079071
+        ],
+        "max": [
+          2,
+          1,
+          0.699999988079071
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "small rounded box",
+      "quality": "balanced",
+      "parts": 1,
+      "triangles": 108,
+      "vertices": 96,
+      "bytes": 4368,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9392409166335343,
+      "bounds": {
+        "min": [
+          0.2879999876022339,
+          0.9419999718666077,
+          0.2720000147819519
+        ],
+        "max": [
+          0.3319999873638153,
+          0.9980000257492065,
+          0.328000009059906
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "ball",
+      "quality": "balanced",
+      "parts": 1,
+      "triangles": 168,
+      "vertices": 117,
+      "bytes": 5760,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.983177852902065,
+      "bounds": {
+        "min": [
+          -1,
+          -1,
+          -1
+        ],
+        "max": [
+          1,
+          1,
+          1
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "tube",
+      "quality": "balanced",
+      "parts": 1,
+      "triangles": 52,
+      "vertices": 58,
+      "bytes": 2480,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9848093884542028,
+      "bounds": {
+        "min": [
+          -1,
+          -0.4000000059604645,
+          -0.4000000059604645
+        ],
+        "max": [
+          1,
+          0.4000000059604645,
+          0.4000000059604645
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "bar",
+      "quality": "balanced",
+      "parts": 1,
+      "triangles": 12,
+      "vertices": 24,
+      "bytes": 912,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 1,
+      "bounds": {
+        "min": [
+          -1,
+          -0.20000000298023224,
+          -0.25
+        ],
+        "max": [
+          1,
+          0.20000000298023224,
+          0.25
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "disc",
+      "quality": "balanced",
+      "parts": 1,
+      "triangles": 48,
+      "vertices": 50,
+      "bytes": 2176,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 1,
+      "bounds": {
+        "min": [
+          -1,
+          -1,
+          0
+        ],
+        "max": [
+          1,
+          1,
+          0
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "box",
+      "quality": "high",
+      "parts": 1,
+      "triangles": 108,
+      "vertices": 96,
+      "bytes": 4368,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9392451035605494,
+      "bounds": {
+        "min": [
+          -2,
+          -1,
+          -0.699999988079071
+        ],
+        "max": [
+          2,
+          1,
+          0.699999988079071
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "rounded box",
+      "quality": "high",
+      "parts": 1,
+      "triangles": 300,
+      "vertices": 216,
+      "bytes": 10512,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9745226011963262,
+      "bounds": {
+        "min": [
+          -2,
+          -1,
+          -0.699999988079071
+        ],
+        "max": [
+          2,
+          1,
+          0.699999988079071
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "small rounded box",
+      "quality": "high",
+      "parts": 1,
+      "triangles": 300,
+      "vertices": 216,
+      "bytes": 10512,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9745219846873391,
+      "bounds": {
+        "min": [
+          0.2879999876022339,
+          0.9419999718666077,
+          0.2720000147819519
+        ],
+        "max": [
+          0.3319999873638153,
+          0.9980000257492065,
+          0.328000009059906
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "ball",
+      "quality": "high",
+      "parts": 1,
+      "triangles": 360,
+      "vertices": 231,
+      "bytes": 11712,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9891402170850054,
+      "bounds": {
+        "min": [
+          -1,
+          -1,
+          -1
+        ],
+        "max": [
+          1,
+          1,
+          1
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "tube",
+      "quality": "high",
+      "parts": 1,
+      "triangles": 60,
+      "vertices": 66,
+      "bytes": 2832,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 0.9914451552637722,
+      "bounds": {
+        "min": [
+          -1,
+          -0.4000000059604645,
+          -0.4000000059604645
+        ],
+        "max": [
+          1,
+          0.4000000059604645,
+          0.4000000059604645
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "bar",
+      "quality": "high",
+      "parts": 1,
+      "triangles": 12,
+      "vertices": 24,
+      "bytes": 912,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 1,
+      "bounds": {
+        "min": [
+          -1,
+          -0.20000000298023224,
+          -0.25
+        ],
+        "max": [
+          1,
+          0.20000000298023224,
+          0.25
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    },
+    {
+      "name": "disc",
+      "quality": "high",
+      "parts": 1,
+      "triangles": 48,
+      "vertices": 50,
+      "bytes": 2176,
+      "invalidValues": 0,
+      "invalidIndices": 0,
+      "invalidStride": 0,
+      "degenerateTriangles": 0,
+      "invalidReferencedNormals": 0,
+      "opposedNormals": 0,
+      "minNormalAlignment": 1,
+      "bounds": {
+        "min": [
+          -1,
+          -1,
+          0
+        ],
+        "max": [
+          1,
+          1,
+          0
+        ]
+      },
+      "issues": [],
+      "inward": 0
+    }
+  ]
+}

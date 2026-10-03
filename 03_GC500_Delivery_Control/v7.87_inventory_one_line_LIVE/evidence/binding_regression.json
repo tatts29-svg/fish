@@ -1,0 +1,79 @@
+{
+  "author": "Andrew Fisher",
+  "before": {
+    "bindingResults": [
+      {
+        "host": "tg782",
+        "action": "open",
+        "bound": true
+      },
+      {
+        "host": "tg782",
+        "action": "map",
+        "bound": true
+      },
+      {
+        "host": "invDrill",
+        "action": "open",
+        "bound": false
+      },
+      {
+        "host": "invDrill",
+        "action": "map",
+        "bound": false
+      }
+    ],
+    "actualCalls": [
+      [
+        "open",
+        "DEMO1"
+      ],
+      [
+        "map",
+        "DEMO1"
+      ]
+    ]
+  },
+  "after": {
+    "bindingResults": [
+      {
+        "host": "tg782",
+        "action": "open",
+        "bound": true
+      },
+      {
+        "host": "tg782",
+        "action": "map",
+        "bound": true
+      },
+      {
+        "host": "invDrill",
+        "action": "open",
+        "bound": true
+      },
+      {
+        "host": "invDrill",
+        "action": "map",
+        "bound": true
+      }
+    ],
+    "actualCalls": [
+      [
+        "open",
+        "DEMO1"
+      ],
+      [
+        "map",
+        "DEMO1"
+      ],
+      [
+        "open",
+        "DEMO1"
+      ],
+      [
+        "map",
+        "DEMO1"
+      ]
+    ]
+  }
+}

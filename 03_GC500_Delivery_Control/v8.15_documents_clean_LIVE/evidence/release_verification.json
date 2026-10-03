@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "liveAtAest": "3 Oct 2026 12:05",
+  "publishedSourceCommit": "79f6939",
+  "candidateSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "candidateBytes": 9118422,
+  "servedSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "servedBytes": 9118422,
+  "exactPageMatch": true,
+  "beforeRecordSha256": "089767e7fd7c8fd99e59e98a0ce9a75abd6b6c6cddd16dab6f4d3d4ff2b17edd",
+  "afterRecordSha256": "089767e7fd7c8fd99e59e98a0ce9a75abd6b6c6cddd16dab6f4d3d4ff2b17edd",
+  "recordUnchanged": true,
+  "changedCollections": []
+}

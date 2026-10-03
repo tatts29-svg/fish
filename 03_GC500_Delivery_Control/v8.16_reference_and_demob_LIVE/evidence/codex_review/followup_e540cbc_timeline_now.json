@@ -1,0 +1,80 @@
+{
+  "author": "Andrew Fisher",
+  "hashes": {
+    "baseline_sha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+    "source_sha256": {
+      "patch_v816.py": "9b17360533c8a346b54ed7364c729dc890b4948a7c29be334e50c9a7e2a1d411",
+      "drawer816_src.js": "6f87a42c4ac481bbbbceaab8c33e96adfd0f5b91fa7bc1780618a082d0882125",
+      "demob816_src.js": "da701a82b6657f0d1f23d40381a8056b0a61837859e846ac5c1e7d4e92a2617e"
+    },
+    "timeline_replacement_sha256": "8e9e00f0bd00f01edae6ecef1ed4fa12059fa92e703bfd33f990d79657db7a26"
+  },
+  "scope": "Read-only synthetic CPU fixtures; actual date functions and drawer template; no browser, DOM, CSS, network, record writes or full release verification",
+  "checks": 17,
+  "passed": [
+    "same-day added reference now has one typed removal",
+    "same-day added reference retains its original delivery",
+    "clearing typed date removes the synthetic removal",
+    "ordinary missing-remove case remains correct",
+    "changing typed date leaves no removal on previous date",
+    "existing plan removal is moved once without duplication",
+    "cancelled reference gets no active Timeline removal",
+    "cancelled typed out date remains visible and says cancelled",
+    "cancelled plan date remains visible with its source",
+    "cancelled early contract date remains visible with its source",
+    "active proposed date retains proposal styling and wording",
+    "active confirmed date retains confirmed source and recorder",
+    "dated removal event on a same-day added reference wins in Demob and Timeline",
+    "typed override still wins over the added reference explicit removal",
+    "same-day added reference without a removal event remains proposed",
+    "undated removal does not become an authoritative plan date",
+    "distinct added-reference last date remains the plan fallback"
+  ],
+  "explicitRemovalFixed": {
+    "fixture": {
+      "key": "ADDED",
+      "_added": true,
+      "first_date": "2026-10-20",
+      "last_date": "2026-10-20",
+      "events": [
+        {
+          "date": "2026-10-20",
+          "movement": "place"
+        },
+        {
+          "date": "2026-11-05",
+          "movement": "remove"
+        }
+      ]
+    },
+    "result": {
+      "effective": {
+        "in": "2026-10-20",
+        "in_plan": "2026-10-20",
+        "in_moved": false,
+        "out": "2026-11-05",
+        "out_plan": "2026-11-05",
+        "out_moved": false
+      },
+      "demob": {
+        "src": "plan",
+        "iso": "2026-11-05"
+      },
+      "timeline": [
+        {
+          "iso": "2026-11-05",
+          "refs": [
+            "ADDED"
+          ]
+        }
+      ]
+    }
+  },
+  "remaining_findings_in_scope": [],
+  "fixtureProvenance": "e540cbc31bef88500f9b781688c53f8693932514",
+  "testedSourceCommit": "uncommitted working tree on 1382e98 (demob816_src.js 3f18954e; drawer, patch and css as committed in a57de005)",
+  "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+  "testedDrawerSha256": "6f87a42c4ac481bbbbceaab8c33e96adfd0f5b91fa7bc1780618a082d0882125",
+  "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0"
+}

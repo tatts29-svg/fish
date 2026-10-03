@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "ad9ab5e488d690444c59730f8ad286b2df60ab0353cd1d21dabc40e398a3b5a4",
+  "candidateSha256": "b312edb6cd07a02dcdad4f1ace57f06921b2f3d597d9e23cbd3de6c8f6e6cd43",
+  "checks": [
+    {
+      "name": "Exact verified live Explorer base",
+      "pass": true
+    },
+    {
+      "name": "Offline patch replay is byte exact",
+      "pass": true
+    },
+    {
+      "name": "Already-applied patch is refused",
+      "pass": true
+    },
+    {
+      "name": "Wrong base is refused before replacement",
+      "pass": true
+    },
+    {
+      "name": "Unchanged live source is not overwritten",
+      "pass": true
+    },
+    {
+      "name": "Master-plan dimensions and max/min zoom unchanged",
+      "pass": true
+    },
+    {
+      "name": "Camera starts at the same plan centre",
+      "pass": true
+    },
+    {
+      "name": "Tile request parallelism remains eight",
+      "pass": true
+    },
+    {
+      "name": "Bitmap cache caps remain 90 phone / 200 desktop",
+      "pass": true
+    },
+    {
+      "name": "Vector cache caps and range transport remain unchanged",
+      "pass": true
+    },
+    {
+      "name": "API methods and viewport output remain available",
+      "pass": true
+    }
+  ],
+  "passed": 11,
+  "failed": 0,
+  "scope": "Explorer asset only. Host page, index, merge, worker and source map assets are outside this patch."
+}

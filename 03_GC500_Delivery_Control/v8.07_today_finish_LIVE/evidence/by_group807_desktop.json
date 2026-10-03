@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "mobile": false,
+  "captureMode": "Focused body retake; full sweep separately passed",
+  "screenshots": [
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-by-group-desktop-top.png",
+      "sha256": "0c08a0b78b65a81c86a298dd107742643fe9c7bee5f3f732df213135c3cf2346"
+    },
+    {
+      "path": "/workspace/private-v807-final-35024d43/candidate807-by-group-desktop-bottom.png",
+      "sha256": "42fe3e2eeade3974bc8d96a01ea68ad4edeab5587a5ac95a8859787b6bf3666d"
+    }
+  ],
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 109,
+    "blocked": 0
+  }
+}

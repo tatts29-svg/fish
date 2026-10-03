@@ -1,0 +1,551 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Coates Ampol Utilisation &amp; What-To-Buy Report - 02 Sep 2026 18:30</title><style>/* =====================================================================
+   COATES K2 REPORT DESIGN SYSTEM - print stylesheet
+   Author: Andrew Fisher  -  POWERED BY SITEIQ
+   Matched to the K2 report family (Executive Summary, Stores Stocktake,
+   Store Consumables, Company On-Hire) so every Coates report reads as
+   one house style.
+   A4 portrait. Self-contained - no web fonts, no external requests.
+   ===================================================================== */
+
+
+
+html, body { margin: 0; padding: 0; }
+
+/* Chromium/Edge strips background colours in print unless told not to.
+   WeasyPrint ignores this harmlessly. Without it the Edge-rendered PDF
+   comes out white-on-white. */
+html, body, * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  /* Lato where installed; Calibri on every Coates Windows laptop
+     (Carlito is the metric-matched clone on Linux). */
+  font-family: "Lato", "Calibri", "Carlito", "Segoe UI",
+               "Liberation Sans", sans-serif;
+  color: #35404E;
+}
+
+/* ---------- page + orange frame ------------------------------------ */
+
+/* footer pinned to the bottom of every frame */
+/* content area stops above the footer */
+/* ---------- page 1 dark header panel ------------------------------- */
+
+.hero {
+  background: #1A2430;
+  border-radius: 10px;
+  padding: 21px 24px 19px 24px;
+}
+.hero-grid { width: 100%; }
+.hero-grid td { vertical-align: top; }
+.kicker {
+  color: #F36F21;
+  font-size: 8.8px;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 8px 0 0 0;
+  color: #FFFFFF;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.12;
+}
+.hero .sub {
+  margin-top: 8px;
+  color: #A7B6C4;
+  font-size: 11.6px;
+}
+.hero .meta {
+  margin-top: 10px;
+  color: #8395A6;
+  font-size: 9.4px;
+  line-height: 1.6;
+}
+.hero .meta b { color: #FFFFFF; font-weight: 700; }
+.siteiq {
+  text-align: right;
+  color: #FFFFFF;
+  font-size: 9.8px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  white-space: nowrap;
+}
+.siteiq .q { color: #F36F21; }
+.tagline {
+  text-align: right;
+  color: #8395A6;
+  font-size: 10.4px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+/* ---------- continuation header (pages 2+) ------------------------- */
+
+.chead { width: 100%; }
+.chead td { vertical-align: top; }
+.chead h2 {
+  margin: 5px 0 0 0;
+  color: #16202C;
+  font-size: 15px;
+  font-weight: 700;
+}
+.chead .siteiq { color: #16202C; }
+.asat {
+  text-align: right;
+  color: #8A9AAC;
+  font-size: 9.2px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+.asat b { color: #16202C; font-weight: 700; }
+.pageno {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 2px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- KEY strip --------------------------------------------- */
+
+.key {
+  margin-top: 10px;
+  font-size: 8.4px;
+  line-height: 1.9;
+  color: #7A8A9A;
+}
+.key .kl {
+  color: #8A9AAC;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  margin-right: 6px;
+}
+.key .dot { font-size: 9px; }
+.key b { font-weight: 700; }
+.key .blue  { color: #2F7FD0; }
+.key .amber { color: #E0930F; }
+.key .orange{ color: #F36F21; }
+.key .green { color: #16A34A; }
+
+/* thin gradient rule */
+.grule {
+  height: 2.8px;
+  margin-top: 7px;
+  background-image: linear-gradient(to right, #F36F21 0%, #F5860F 18%,
+              #F0B310 34%, #E3D41C 52%, #C8DA2C 68%, #DDEA92 84%, #FFFFFF 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.page1 .grule { margin-top: 12px; }
+
+/* right-aligned page number on page 1 sits above the rule */
+.p1no {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 8px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- callout (peach) --------------------------------------- */
+
+.callout {
+  background: #FDF0E7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 10px 10px 0;
+  padding: 16px 22px;
+  margin-top: 16px;
+  font-size: 12.4px;
+  line-height: 2.0;
+  color: #1F2A36;
+}
+.callout.tight { font-size: 11.6px; line-height: 1.9; padding: 14px 20px; }
+.callout b { font-weight: 700; }
+.callout .o { color: #D95F14; font-weight: 700; }
+.callout .lead {
+  color: #D95F14;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- section header (grey panel) --------------------------- */
+
+.sect {
+  background: #F4F5F7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 9px 9px 0;
+  padding: 13px 18px;
+  margin-top: 18px;
+}
+.sect h3 { margin: 0; color: #16202C; font-size: 14px; font-weight: 700; }
+
+/* plain sub-heading */
+.sub-h {
+  margin: 18px 0 10px 0;
+  color: #16202C;
+  font-size: 13.8px;
+  font-weight: 700;
+}
+.sub-h .thin { color: #5A6875; font-weight: 400; }
+
+.note {
+  font-size: 9.5px;
+  color: #7A8A9A;
+  line-height: 1.75;
+  margin-top: 9px;
+}
+.note b { color: #16202C; font-weight: 700; }
+.note .o { color: #D95F14; font-weight: 700; }
+
+/* ---------- KPI tiles -------------------------------------------- */
+
+.tiles { width: 100%; table-layout: fixed; border-spacing: 7px 7px;
+         margin: 11px -7px 0 -7px; }
+.tiles td {
+  background: #171F2B;
+  border-radius: 11px;
+  padding: 16px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.t-ico { line-height: 1; margin-bottom: 8px; }
+.t-num {
+  color: #FFFFFF;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+}
+.t-num.sm { font-size: 20px; }
+.t-lab {
+  color: #8A9AAC;
+  font-size: 7.8px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+.t-note { font-size: 8.3px; font-weight: 700; margin-top: 5px; line-height: 1.4; }
+.t-note.red   { color: #F0603E; }
+.t-note.green { color: #22C55E; }
+.t-note.amber { color: #EFA82B; }
+.t-note.grey  { color: #7A8A9A; }
+
+/* ---------- donut ------------------------------------------------- */
+
+.donut-wrap { text-align: center; padding-top: 2px; }
+.donut-cap {
+  color: #98A6B4;
+  font-size: 9px;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* ---------- score bars (K2: fixed-width pill next to the label) --- */
+
+.scores { border-spacing: 0; margin-top: 2px; }
+.scores td { padding: 0; vertical-align: middle; }
+.sc-tick { color: #F5A623; font-size: 10.5px; width: 16px;
+           font-family: "DejaVu Sans", "Segoe UI Symbol", sans-serif; }
+.sc-lab  { color: #1F2A36; font-size: 11.6px; width: 132px;
+           padding-right: 12px; line-height: 1.3; }
+.sc-bar  { width: 236px; }
+.sc-val  { color: #16202C; font-size: 11.6px; font-weight: 700;
+           white-space: nowrap; padding-left: 12px; }
+.sc-form { color: #98A6B4; font-size: 8.9px; line-height: 1.5;
+           padding: 2px 0 13px 0 !important; }
+
+.track  { background: #1A2430; border-radius: 999px; height: 10px; }
+.trackl { background: #E9EDF1; border-radius: 999px; height: 9px; }
+.fill   { height: 10px; border-radius: 999px; }
+.trackl .fill { height: 9px; }
+.f-green { background: #1FA75A; }
+.f-amber { background: #F5A623; }
+.f-red   { background: #EF4444; }
+.f-orange{ background: #F36F21; }
+.f-blue  { background: #3D8BD4; }
+
+/* light progress rows */
+.prog { width: 100%; table-layout: fixed; border-spacing: 0; margin-top: 12px; }
+.prog td { padding: 0 0 10px 0; vertical-align: middle; }
+.pr-lab { color: #6C7A89; font-size: 9.8px; width: 158px; padding-right: 14px;
+          line-height: 1.3; }
+.pr-bar { }
+.pr-val { color: #16202C; font-size: 9.8px; font-weight: 700; text-align: right;
+          white-space: nowrap; width: 64px; padding-left: 14px; }
+
+/* ---------- alerts panel ----------------------------------------- */
+
+.alerts {
+  background: #171F2B;
+  border-radius: 10px;
+  padding: 16px 20px 7px 20px;
+  margin-top: 15px;
+}
+.alerts .ah {
+  color: #F36F21;
+  font-size: 9.3px;
+  font-weight: 700;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.al { width: 100%; border-spacing: 0; }
+.al td { vertical-align: top; padding-bottom: 12px; }
+.al-dot { width: 13px; font-size: 11px; line-height: 1.3; }
+.al-t { color: #FFFFFF; font-size: 10.6px; font-weight: 700; line-height: 1.4; }
+.al-s { color: #8A9AAC; font-size: 9.5px; line-height: 1.55; margin-top: 3px; }
+.d-red { color: #F0603E; } .d-amber { color: #EFA82B; }
+.d-blue { color: #3D8BD4; } .d-green { color: #22C55E; }
+
+/* ---------- tables ----------------------------------------------- */
+
+table.dt { width: 100%; border-collapse: separate; border-spacing: 0;
+           margin-top: 11px; }
+table.dt th {
+  background: #1B2532;
+  color: #FFFFFF;
+  font-size: 8.7px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 10px;
+  line-height: 1.35;
+}
+table.dt th:first-child { border-top-left-radius: 7px; padding-left: 14px; }
+table.dt th:last-child  { border-top-right-radius: 7px; padding-right: 14px; }
+table.dt th.r, table.dt td.r { text-align: right; }
+table.dt th.c, table.dt td.c { text-align: center; }
+table.dt td {
+  font-size: 10.3px;
+  color: #26313D;
+  padding: 10px 10px;
+  border-bottom: 1px solid #E8EBEF;
+  line-height: 1.4;
+}
+table.dt td:first-child { padding-left: 14px; }
+table.dt td:last-child  { padding-right: 14px; }
+table.dt tr.z td { background: #F7F8FA; }
+table.dt td .s2 { display: block; color: #98A6B4; font-size: 8.6px; margin-top: 2px; }
+table.dt td.big { font-size: 17px; font-weight: 700; color: #16202C;
+                  text-align: center; padding: 15px 10px; }
+table.dt td.big + td.big { border-left: 1px solid #E8EBEF; }
+table.dt th.c + th.c { border-left: 1px solid #2A3644; }
+.g { color: #16A34A; font-weight: 700; }
+.a { color: #D9880B; font-weight: 700; }
+.rd { color: #DC2626; font-weight: 700; }
+.or { color: #D95F14; font-weight: 700; }
+.tbc { color: #98A6B4; }
+
+.totrow { width: 100%; border-collapse: collapse; margin-top: 0; }
+.totrow td {
+  font-size: 11.8px; font-weight: 700; color: #16202C;
+  padding: 12px 14px; border-bottom: 1px solid #E8EBEF;
+}
+.totrow td.v { text-align: right; }
+.hl { background: #FFF35C; padding: 2px 7px; border-radius: 2px; }
+
+/* ---------- info cards (lime bar) -------------------------------- */
+
+.cards { width: 100%; table-layout: fixed; border-spacing: 8px 8px;
+         margin: 10px -8px 0 -8px; }
+.cards td {
+  background: #F4F5F7;
+  border-left: 4px solid #C8DA2C;
+  border-radius: 0 7px 7px 0;
+  padding: 13px 16px;
+  vertical-align: top;
+}
+.cd-h {
+  color: #16202C; font-size: 9px; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 7px;
+}
+.cd-b { color: #47566A; font-size: 10px; line-height: 1.72; }
+.cd-b b { color: #16202C; font-weight: 700; }
+
+/* ---------- focus cards (dark, on white page) --------------------- */
+
+.focus { width: 100%; table-layout: fixed; border-spacing: 7px 0;
+         margin: 12px -7px 0 -7px; }
+.focus td {
+  background: #171F2B;
+  border-radius: 10px;
+  border-top: 3px solid #F36F21;
+  padding: 14px 15px 13px 15px;
+  vertical-align: top;
+}
+.fc-co { color: #FFFFFF; font-size: 12px; font-weight: 700; line-height: 1.3; }
+.fc-n  { color: #F0823C; font-size: 9.4px; font-weight: 700; margin-top: 5px; }
+.fc-s  { color: #8A9AAC; font-size: 8.8px; line-height: 1.6; margin-top: 5px; }
+
+/* ---------- team cards ------------------------------------------- */
+
+.team { width: 100%; border-spacing: 8px 0; margin: 13px -8px 0 -8px; }
+.team td {
+  background: #171F2B;
+  border-top: 3px solid #C8DA2C;
+  border-radius: 10px;
+  padding: 15px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.av {
+  width: 42px; height: 42px; border-radius: 999px;
+  background: #55636F; color: #FFFFFF;
+  font-size: 13px; font-weight: 700;
+  text-align: center; line-height: 42px;
+  margin: 0 auto 9px auto;
+}
+.av.lead { background: #F36F21; }
+.tm-n { color: #FFFFFF; font-size: 11.6px; font-weight: 700; line-height: 1.3; }
+.tm-r { color: #C8DA2C; font-size: 8.6px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.8px; margin-top: 5px; line-height: 1.4; }
+.tm-e { color: #7FB3D5; font-size: 8.6px; margin-top: 5px; line-height: 1.4; }
+.tm-d { color: #8A9AAC; font-size: 8.3px; margin-top: 6px; line-height: 1.5; }
+
+/* ---------- misc -------------------------------------------------- */
+
+.two { width: 100%; border-spacing: 0; }
+.two td { vertical-align: top; }
+.chartpanel { background: #171F2B; border-radius: 10px; padding: 15px 17px;
+              margin-top: 11px; }
+.chart-cap { color: #7A8A9A; font-size: 9.4px; line-height: 1.7; margin-top: 9px; }
+.chart-cap b { color: #16202C; }
+
+
+/* ---------- compact tables + tags (02 Sep 2026, gas monitor rebuild) --- */
+
+table.dt.cp th { padding: 8px 8px; font-size: 8.1px; letter-spacing: 1px; }
+table.dt.cp td { padding: 5.5px 8px; font-size: 9.3px; line-height: 1.3; }
+table.dt.cp td:first-child { padding-left: 12px; }
+table.dt.cp td:last-child  { padding-right: 12px; }
+table.dt.cp td .s2 { font-size: 8px; margin-top: 1px; }
+
+.tag {
+  display: inline-block; font-size: 7.2px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; padding: 1px 5px; border-radius: 3px;
+  margin-left: 6px; vertical-align: middle; line-height: 1.5;
+}
+.tag.red   { background: #FDE8E8; color: #C81E1E; }
+.tag.amber { background: #FFF1DB; color: #B45309; }
+.tag.grey  { background: #EEF1F4; color: #5A6875; }
+.tag.green { background: #E4F5EA; color: #15803D; }
+
+table.dt td.dim { color: #98A6B4; }
+table.dt th.nw, table.dt td.nw { white-space: nowrap; }
+table.dt th.w { white-space: nowrap; }
+
+.rules { width: 100%; border-spacing: 0; margin-top: 10px; }
+.rules td { vertical-align: top; padding: 5px 0; border-bottom: 1px solid #E8EBEF;
+            font-size: 9.4px; line-height: 1.55; color: #47566A; }
+.rules td.k { width: 118px; color: #16202C; font-weight: 700; padding-right: 12px; }
+
+/* ---------- flowing-report frame (k2flow) ----------------------------
+   Print-safe pattern: the page margins sit on the frame line (6.5mm);
+   the frame is a fixed element that exactly spans the page area (a
+   fixed element that hangs outside the page area gets tiled by
+   Chromium); the running header and footer bands are the <thead> and
+   <tfoot> of one wrapping table, which Chromium repeats on every page;
+   the page counter is the one thing that needs a margin box. */
+@page {
+  size: A4 portrait;
+  margin: 6.5mm 6.5mm 6.5mm 6.5mm;
+  @bottom-center { content: "Page " counter(page) " of " counter(pages);
+                   font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
+                   font-size: 6.4pt; color: #98A6B4; vertical-align: top; margin-top: 1.2mm; }
+}
+.k2frame { position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+           border: 5px solid #F36F21; border-radius: 26px; pointer-events: none; }
+/* the header and footer bands are FIXED (pinned to the top and bottom of
+   every page, last page included); the wrapping table's thead and tfoot
+   are empty spacers of the same height that reserve the room on each page */
+table.k2wrap { width: 100%; border-collapse: collapse; border-spacing: 0; }
+table.k2wrap > thead { display: table-header-group; }
+table.k2wrap > tfoot { display: table-footer-group; }
+table.k2wrap > thead td, table.k2wrap > tfoot td, table.k2wrap > tbody > tr > td { padding: 0; }
+.k2spacer-t { height: 19.5mm; }
+.k2spacer-b { height: 15.5mm; }
+.k2run { position: fixed; top: 0; left: 0; right: 0; height: 19.5mm; padding: 8.5mm 10mm 0 10mm;
+         box-sizing: border-box; }
+.k2run .bar { border-bottom: 1px solid #E4E8EC; padding-bottom: 5px; position: relative; }
+.k2run .kicker { color: #F36F21; font-size: 8.2px; font-weight: 700; letter-spacing: 2.4px;
+                 text-transform: uppercase; }
+.k2run .t { margin-top: 3px; color: #16202C; font-size: 12.5px; font-weight: 700; }
+.k2run .r { position: absolute; right: 0; top: 0; text-align: right; }
+.k2run .r .siteiq { color: #16202C; text-align: right; }
+.k2run .r .asat { color: #8A9AAC; font-size: 8.8px; margin-top: 4px; white-space: nowrap; }
+.k2run .r .asat b { color: #16202C; }
+.k2foot { position: fixed; bottom: 0; left: 0; right: 0; height: 15.5mm; padding: 0 10mm 8.5mm 10mm;
+          box-sizing: border-box; }
+.k2foot .bar { border-top: 1px solid #E4E8EC; padding-top: 7px; position: relative; }
+.k2foot .fh { color: #F36F21; font-size: 7.4px; font-weight: 700; letter-spacing: 1.9px;
+              text-transform: uppercase; }
+.k2foot .fl { font-size: 8.2px; color: #8A9AAC; line-height: 1.5; margin-top: 3px; }
+.k2foot .fl b { color: #16202C; font-weight: 700; }
+.k2foot .fr { position: absolute; right: 0; top: 8px; text-align: right; font-size: 8.4px;
+              color: #16202C; font-weight: 700; letter-spacing: 1.4px; }
+.k2foot .fr .q { color: #F36F21; }
+.k2body { padding: 6px 10mm 4px 10mm; }
+.k2body .sect { break-after: avoid; page-break-after: avoid; }
+.k2body .sub-h { break-after: avoid; page-break-after: avoid; }
+.k2body table.dt thead { display: table-header-group; }
+.k2body table.dt tr { break-inside: avoid; page-break-inside: avoid; }
+.k2body .tiles, .k2body .callout, .k2body .note, .k2body .chartpanel, .k2body .alerts,
+.k2body .donut-wrap { break-inside: avoid; page-break-inside: avoid; }
+.k2body .pb { break-before: page; page-break-before: always; }
+.k2body .keep { break-inside: avoid; page-break-inside: avoid; }
+.k2body .hero { break-after: avoid; }
+
+.k2body p.para { font-size: 10.6px; line-height: 1.7; color: #35404E; margin: 10px 0 0 0; }
+.k2body p.para b { color: #16202C; font-weight: 700; }
+.k2body ul.rul { margin: 8px 0 0 16px; padding: 0; font-size: 9.5px; color: #47566A;
+                 line-height: 1.7; }
+.k2body ul.rul li { margin: 0 0 4px 0; }
+.k2body ul.rul { break-inside: avoid; page-break-inside: avoid; }
+.k2body .alerts .al-b { color: #C9D6E2; font-size: 9.6px; line-height: 1.55; }
+.k2body .alerts .al td { padding-bottom: 8px; }
+.k2body .chart-cap { break-before: avoid; page-break-before: avoid; }
+.k2body .sect + .note, .k2body .sect + p.para { break-after: avoid; page-break-after: avoid; }
+table.dt.xs th { padding: 6px 5px; font-size: 7.4px; letter-spacing: 0.6px; }
+table.dt.xs td { padding: 4px 5px; font-size: 8.3px; line-height: 1.25; }
+table.dt.xs th:first-child, table.dt.xs td:first-child { padding-left: 9px; }
+table.dt.xs th:last-child, table.dt.xs td:last-child { padding-right: 9px; }
+table.dt.reg th { padding: 7px 8px; font-size: 7.8px; letter-spacing: 1px; }
+table.dt.reg td { padding: 3.5px 8px; font-size: 8.9px; line-height: 1.25; }
+table.dt.reg td:first-child { padding-left: 11px; }
+table.dt.reg td:last-child { padding-right: 11px; }
+table.dt.reg tr.co td { background: #1B2532; color: #FFFFFF; padding: 7px 11px 6px 11px;
+                        border-top: 10px solid #FFFFFF; border-bottom: 0; line-height: 1.35; }
+table.dt.reg tr.co .nm { font-size: 11.4px; font-weight: 700; }
+table.dt.reg tr.co .st { font-size: 8.4px; color: #C9D6E2; margin-left: 10px; }
+table.dt.reg tr.co .ac { font-size: 8.1px; color: #F5B58A; margin-top: 2px; }
+table.dt.reg tr.hr td { background: #E6EAEF; color: #16202C; font-weight: 700;
+                        font-size: 8.9px; padding: 5px 11px; }
+table.dt.reg tr.hr .acc { font-weight: 400; color: #B45309; }
+table.dt.reg tr.co, table.dt.reg tr.hr { break-after: avoid; page-break-after: avoid; }
+table.dt.reg tbody.keep { break-inside: avoid; page-break-inside: avoid; }
+table.dt.reg tr.z td { background: #F7F8FA; }
+</style></head><body><div class="k2frame"></div><div class="k2run"><div class="bar"><div class="kicker">COATES · TOOL STORE · UTILISATION &amp; WHAT TO BUY</div><div class="t">Ampol Utilisation &amp; What-To-Buy Report</div><div class="r"><div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div><div class="asat">AS AT <b>02 SEP 2026 18:30</b></div></div></div></div><div class="k2foot"><div class="bar"><div class="fh">Your Coates Tool Store Team</div><div class="fl"><b>Andrew Fisher</b> Shutdown Manager &nbsp;·&nbsp; Author: <b>Andrew Fisher</b></div><div class="fr">POWERED BY <span class="q">SITEIQ</span></div></div></div><table class="k2wrap"><thead><tr><td><div class="k2spacer-t"></div></td></tr></thead><tfoot><tr><td><div class="k2spacer-b"></div></td></tr></tfoot><tbody><tr><td><div class="k2body"><div class="hero">
+  <table class="hero-grid"><tr>
+    <td>
+      <div class="kicker">COATES · TOOL STORE · UTILISATION &amp; WHAT TO BUY</div>
+      <h1>Ampol Utilisation &amp; What-To-Buy Report</h1>
+      <div class="sub">Ampol Lytton Refinery · Permanent Tool Store</div>
+    </td>
+    <td style="width:172px">
+      <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+      <div class="tagline">Equipped for anything</div>
+    </td>
+  </tr></table>
+  <div class="meta">Generated: <b>02 Sep 2026 23:24</b> &nbsp;|&nbsp;
+    Data as at: <b>02 Sep 2026 18:30</b> (SiteIQ register pull) &nbsp;|&nbsp;
+    Author: <b>Andrew Fisher</b></div>
+</div><div class="key"><span class="kl">KEY</span>  <span class="dot orange">●</span> <b class="orange">LIVE</b> share of a group on hire at the pull  <span class="dot blue">●</span> <b class="blue">YTD</b> hire days against days available this year  <span class="dot amber">●</span> <b class="amber">BUY SIGNAL</b> demand-backed, with the evidence beside it</div><div class="grule"></div><div class="callout"><span class="lead">The position.</span> Utilisation is measured two ways: <b>live</b> (what share of a group is on hire right now) and <b>year-to-date</b> (actual hire days against days available). Groups running hot are where crews wait for gear; groups running cold are capital sitting still. The buy list below is evidence-based - every line shows the demand that justifies it. Figures are computed from the 02 Sep 2026 18:30 SiteIQ exports: 245 days elapsed this year to 02 Sep 2026.</div><table class="tiles"><tr><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10"/><path d="M12 20V4.5"/><path d="M18 20v-6.5"/></svg></div><div class="t-num">1,010</div><div class="t-lab">Equipment groups</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5 3.5 14H10l-1 7.5L18.5 10H12z"/></svg></div><div class="t-num">155</div><div class="t-lab">Buy signals</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s7.5-3.3 7.5-9.3V5.5L12 2.8 4.5 5.5v6.7c0 6 7.5 9.3 7.5 9.3z"/></svg></div><div class="t-num sm">$157,632.00</div><div class="t-lab">Est. buy spend, 1 each</div><div class="t-note grey">34 of 155 priced</div></td></tr></table><table class="tiles"><tr><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 2.5 20h19z"/><path d="M12 9.5v4.5"/><path d="M12 17.2v.05"/></svg></div><div class="t-num">121</div><div class="t-lab">Buy signals unpriced</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.2 12 3 3 8.2v7.6L12 21l9-5.2z"/><path d="M3 8.2l9 5.2 9-5.2"/><path d="M12 13.4V21"/></svg></div><div class="t-num">215</div><div class="t-lab">Right-size candidates</div></td><td style="background:transparent"></td></tr></table><div class="sect"><h3>What To Buy - Demand-Backed (ranked by live utilisation, then hire days)</h3></div><div class="note">The spend estimate covers only the 34 priced groups; 121 buy signals have no catalogue price yet and show a dash - they are not $0.</div><table class="dt xs"><thead><tr><th class="">Equipment Group</th><th class="r">Qty</th><th class="r">On Hire</th><th class="r">Avail</th><th class="r">Live %</th><th class="r">YTD %</th><th class="r">Hirers</th><th class="r">Hire Days</th><th class="r">Buy Price</th><th class="">Source</th><th class="">Recommendation</th></tr></thead><tbody><tr><td class="">Lifting Bag - 55Kg</td><td class="r">11</td><td class="r">11</td><td class="r">0</td><td class="r">100%</td><td class="r">64%</td><td class="r">45</td><td class="r">1715</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Milwaukee M18 Redlithium Battery - 12Ah</td><td class="r">3</td><td class="r">3</td><td class="r">0</td><td class="r">100%</td><td class="r">73%</td><td class="r">26</td><td class="r">537</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Adjustable Spanner 300mm</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">88%</td><td class="r">9</td><td class="r">429</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Secure Pulley Sheave</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">83%</td><td class="r">6</td><td class="r">406</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Milwaukee M18 Cordless Reciprocating Saw</td><td class="r">3</td><td class="r">3</td><td class="r">0</td><td class="r">100%</td><td class="r">53%</td><td class="r">15</td><td class="r">393</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Angle Grinder - 5&quot; 240V</td><td class="r">4</td><td class="r">4</td><td class="r">0</td><td class="r">100%</td><td class="r">39%</td><td class="r">8</td><td class="r">387</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">1/2&quot; Drive Socket 1-7/16&quot;</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">77%</td><td class="r">6</td><td class="r">375</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hydraulic Air Operated Torque Pump</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">60%</td><td class="r">9</td><td class="r">293</td><td class="r">$3,500.00</td><td class="">Enerpac / Industrial Supply/RS Components/Hytorc</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Milwaukee M18 Redlithium Battery - 6Ah</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">59%</td><td class="r">34</td><td class="r">290</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Extension Lead 15 Amp</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">53%</td><td class="r">7</td><td class="r">260</td><td class="r">$65.00</td><td class="">Bunnings / Total Tools/Sydney tools</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Pipe Clamp 5&quot; - 12&quot;</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">50%</td><td class="r">4</td><td class="r">247</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Caddie Welder Kemppi</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">50%</td><td class="r">6</td><td class="r">244</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Fire Hose Nozzle</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">98%</td><td class="r">2</td><td class="r">240</td><td class="r">$85.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Torque Wrench 1/2&quot; Drive 200Nm</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">49%</td><td class="r">8</td><td class="r">240</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Adaptor 3/4&quot; Female X 1&quot; Male</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">98%</td><td class="r">2</td><td class="r">239</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hole Saw 100mm (4&quot;)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">97%</td><td class="r">2</td><td class="r">237</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Girder Clamp - 2T</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">48%</td><td class="r">3</td><td class="r">236</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Flat Head Screwdriver</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">95%</td><td class="r">2</td><td class="r">232</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Phillips Head Screwdriver</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">95%</td><td class="r">2</td><td class="r">232</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Air Drill 1/2&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">94%</td><td class="r">2</td><td class="r">230</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Quick Action Clamp</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">92%</td><td class="r">2</td><td class="r">225</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Spanner Ring Open End 22mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">91%</td><td class="r">3</td><td class="r">224</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Lever Block - 250Kg</td><td class="r">3</td><td class="r">3</td><td class="r">0</td><td class="r">100%</td><td class="r">29%</td><td class="r">7</td><td class="r">214</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Number Punch Set 5/16&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">86%</td><td class="r">2</td><td class="r">211</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">1/2&quot; Drive Socket 27mm</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">42%</td><td class="r">4</td><td class="r">206</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Milwaukee M18 Cordless Impact Wrench - 3/4&quot; Drive</td><td class="r">3</td><td class="r">3</td><td class="r">0</td><td class="r">100%</td><td class="r">28%</td><td class="r">19</td><td class="r">206</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Air Leader Hose</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">82%</td><td class="r">4</td><td class="r">202</td><td class="r">$35.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Intrinsically Safe Camera</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">80%</td><td class="r">2</td><td class="r">197</td><td class="r">$2,450.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Lifting Bag</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">40%</td><td class="r">13</td><td class="r">197</td><td class="r">$368.00</td><td class="">Bunnings / Total Tools/Sydney tools</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Side Cutters</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">78%</td><td class="r">2</td><td class="r">191</td><td class="r">$350.00</td><td class="">Bunnings / Total Tools/Sydney tools</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Air Hose 19mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">76%</td><td class="r">4</td><td class="r">186</td><td class="r">$247.00</td><td class="">Bunnings / Total Tools/Sydney tools</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Magnetic Base Drill</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">76%</td><td class="r">4</td><td class="r">186</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Atlas Copco 60 Kva Diesel Generator</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">74%</td><td class="r">4</td><td class="r">182</td><td class="r">$42,000.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Lifting Bag - 30Kg</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">74%</td><td class="r">2</td><td class="r">182</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Locking Pliers</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">74%</td><td class="r">3</td><td class="r">182</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Samsung Galaxy Tab Active5 10&quot;</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">36%</td><td class="r">2</td><td class="r">177</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">1/2&quot; Drive Impact Socket 1/2&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">71%</td><td class="r">2</td><td class="r">175</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">10-Inch Intrinsically Safe Rugged Tablet  (940125460617)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">10-Inch Intrinsically Safe Rugged Tablet  (940125460946)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">10-Inch Intrinsically Safe Rugged Tablet  (940125460948)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">10-Inch Intrinsically Safe Rugged Tablet  (940125460952)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">10-Inch Intrinsically Safe Rugged Tablet (940125460936)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">10-Inch Intrinsically Safe Rugged Tablet (940125460945)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">10-Inch Intrinsically Safe Rugged Tablet (940125460955)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">10-Inch Intrinsically Safe Rugged Tablet (940125460981)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">10-Inch Intrinsically Safe Rugged Tablet (940125460983)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">10-Inch Intrinsically Safe Rugged Tablet (940125460990)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">170</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Bow Shackle - 1T</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">169</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Carpenter Square 600mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">69%</td><td class="r">2</td><td class="r">169</td><td class="r">$25.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Safety Step</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">68%</td><td class="r">3</td><td class="r">167</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Tube Cutter 3/16&quot; - 1-1/8&quot;</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">34%</td><td class="r">7</td><td class="r">166</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Pipe Clamp 2&quot; - 6&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">67%</td><td class="r">2</td><td class="r">164</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Atlas Copco Led Lighting Tower</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">67%</td><td class="r">3</td><td class="r">163</td><td class="r">$29,000.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Socket Adaptor 1/2&quot; Female X 3/4&quot; Male</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">66%</td><td class="r">2</td><td class="r">161</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Milwaukee Wet/Dry Vacuum 7.5 Litre M18</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">61%</td><td class="r">5</td><td class="r">149</td><td class="r">$320.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Pipe Cutter 6mm - 35mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">60%</td><td class="r">2</td><td class="r">148</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Digital Caliper 0-100mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">57%</td><td class="r">6</td><td class="r">139</td><td class="r">$85.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Milwaukee M18 Brushless Blower</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">57%</td><td class="r">6</td><td class="r">139</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Miniveyor Electric Fan</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">56%</td><td class="r">4</td><td class="r">137</td><td class="r">$600.00</td><td class="">Kennards Sales / Ventilation Supplier</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Air Nut Runner 1&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">55%</td><td class="r">3</td><td class="r">135</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Drip Tray - Small</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">55%</td><td class="r">3</td><td class="r">134</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Milwaukee M18 Cordless Impact Wrench</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">55%</td><td class="r">6</td><td class="r">134</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Hydraulic Ram</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">53%</td><td class="r">7</td><td class="r">131</td><td class="r">$400.00</td><td class="">Enerpac / Industrial Supply/RS Components/Hytorc</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Eyebolt - M16 - 5T</td><td class="r">3</td><td class="r">3</td><td class="r">0</td><td class="r">100%</td><td class="r">17%</td><td class="r">4</td><td class="r">128</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Spanner Ring Open End 2-3/16&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">52%</td><td class="r">2</td><td class="r">127</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hydraulic Battery Operated Torque Pump</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">49%</td><td class="r">5</td><td class="r">120</td><td class="r">$6,500.00</td><td class="">Enerpac / Industrial Supply/RS Components/Hytorc</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Torque Wrench 1/2&quot; Drive 340Nm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">49%</td><td class="r">6</td><td class="r">119</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">3M Adflo Rechargeable Battery</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">48%</td><td class="r">2</td><td class="r">118</td><td class="r">$372.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Hytorc Battery 32 V</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">48%</td><td class="r">13</td><td class="r">118</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hytorc Hydraulic Torque Pump</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">47%</td><td class="r">4</td><td class="r">114</td><td class="r">$8,500.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Torque Wrench 1/2&quot; Drive 300Nm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">47%</td><td class="r">16</td><td class="r">114</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Podger Ratchet 27mm - 32mm</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">23%</td><td class="r">6</td><td class="r">113</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Rope Access Equipment #2</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">46%</td><td class="r">2</td><td class="r">113</td><td class="r">$2,495.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Socket Set 3/8&quot; Drive Metric</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">44%</td><td class="r">2</td><td class="r">108</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Critical Risk Signage</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">43%</td><td class="r">3</td><td class="r">106</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hex Impact Socket Set 10 Piece Metric &amp; Imperial</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">43%</td><td class="r">3</td><td class="r">106</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Plumber&#x27;S Plug 200mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">43%</td><td class="r">2</td><td class="r">105</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Flange Spreader &amp; Prying Tool</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">42%</td><td class="r">8</td><td class="r">104</td><td class="r">$550.00</td><td class="">Industrial Supply / WeldConnect</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">G Clamp 200mm</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">20%</td><td class="r">2</td><td class="r">100</td><td class="r">$60.00</td><td class="">Bunnings / Total Tools/Sydney tools</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Samsung Galaxy Tab Charging Station</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">40%</td><td class="r">2</td><td class="r">99</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Usb Wall Charger</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">40%</td><td class="r">2</td><td class="r">99</td><td class="r">$20.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Flange Alignment Pin 1&quot; Long</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">20%</td><td class="r">2</td><td class="r">96</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Caddy Welder</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">38%</td><td class="r">4</td><td class="r">94</td><td class="r">$1,650.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Thermal Imaging Camera</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">38%</td><td class="r">2</td><td class="r">94</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Laser Level Rl-H5A</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">38%</td><td class="r">3</td><td class="r">93</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Black Panther Industrial Snips</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">38%</td><td class="r">2</td><td class="r">92</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Rope Access Equipment #3</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">37%</td><td class="r">2</td><td class="r">91</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Atlas Copco Compressor 192 Cfm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">36%</td><td class="r">2</td><td class="r">89</td><td class="r">$28,000.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Scissor Lift with Operator Protection 19Ft (5.7M)  Electric</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">36%</td><td class="r">24</td><td class="r">88</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hytorc Hydraulic Hose - (To Be Matched with Pump Wg0014/001)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">36%</td><td class="r">5</td><td class="r">87</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Inspector Beryllium Ball Peen Hammer</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">34%</td><td class="r">2</td><td class="r">84</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Pelican Sabrelite 2000 Torch</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">34%</td><td class="r">2</td><td class="r">84</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Milwaukee M18 Fuel Cordless Magnetic Drill</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">33%</td><td class="r">16</td><td class="r">81</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Anchor Sling - 600mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">33%</td><td class="r">2</td><td class="r">80</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Torque Wrench 3/8&quot; Drive 60Nm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">32%</td><td class="r">8</td><td class="r">79</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Welding Earth Lead</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">16%</td><td class="r">5</td><td class="r">77</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Brady M610 Label Printer</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">31%</td><td class="r">2</td><td class="r">75</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Regulated Laboratory Power Supply 0-30Vdc 0-5A</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">31%</td><td class="r">2</td><td class="r">75</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Split System Air Conditioner Cleaning Bag</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">31%</td><td class="r">2</td><td class="r">75</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Flange Alignment Pin 3/4&quot; Long</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">30%</td><td class="r">3</td><td class="r">74</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Stanley Fatmax Tape Measure 8M</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">30%</td><td class="r">2</td><td class="r">73</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Pinkie - 4.5T</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">29%</td><td class="r">2</td><td class="r">70</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Torque Wrench 3/4&quot; Drive 900Nm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">28%</td><td class="r">4</td><td class="r">69</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Adjustable Spanner 375mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">27%</td><td class="r">11</td><td class="r">67</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Hytorc Hydraulic Actuator (Stealth 4)</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">27%</td><td class="r">2</td><td class="r">66</td><td class="r">$8,500.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Spanner Ring Open End 41mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">26%</td><td class="r">2</td><td class="r">64</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Number Stamp Set 5mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">26%</td><td class="r">3</td><td class="r">63</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Girder Clamp - 1T</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">25%</td><td class="r">3</td><td class="r">62</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Whip Check 2&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">25%</td><td class="r">2</td><td class="r">62</td><td class="r">$60.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Dee Shackle - 6.5T</td><td class="r">3</td><td class="r">3</td><td class="r">0</td><td class="r">100%</td><td class="r">8%</td><td class="r">2</td><td class="r">60</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Beam Clamp</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">24%</td><td class="r">2</td><td class="r">59</td><td class="r">$85.00</td><td class="">Bullivants/Atlas Copco/Height Dynamics</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Flange Tester Kit</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">24%</td><td class="r">4</td><td class="r">59</td><td class="r">$3,500.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Ankle Rescue Cuffs</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">24%</td><td class="r">3</td><td class="r">58</td><td class="r">$160.00</td><td class="">Ferno / Safety Specialist</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Universal Joint 3/4&quot; Drive</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">12%</td><td class="r">4</td><td class="r">58</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">2.4 M X 3 M X 32 mm Yellow Plate</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">23%</td><td class="r">2</td><td class="r">57</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">2.4 M X 4 M X 25 mm Yellow Plate</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">23%</td><td class="r">2</td><td class="r">57</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Ground Protection Plate 1.5M X 3M X 32mm - Yellow</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">23%</td><td class="r">4</td><td class="r">57</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hytorc J Gun 1 - 1/2&quot; Square Drive</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">23%</td><td class="r">2</td><td class="r">56</td><td class="r">$12,000.00</td><td class="">Enerpac / Industrial Supply/RS Components/Hytorc</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Crowfoot Set 14 Piece 1/2&quot; Drive</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">21%</td><td class="r">4</td><td class="r">51</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Milwaukee M18 Vacuum - 7.5L</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">21%</td><td class="r">9</td><td class="r">51</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Flange Alignment Pin 1&quot;</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">10%</td><td class="r">5</td><td class="r">50</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Bow Shackle - 8.5T</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">10%</td><td class="r">3</td><td class="r">49</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Spanner Ring Open End 32mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">20%</td><td class="r">3</td><td class="r">49</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Spanner Ring Open End 18mm</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">10%</td><td class="r">6</td><td class="r">48</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">1/2&quot; Drive Impact Socket 21mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">18%</td><td class="r">3</td><td class="r">45</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hydraulic Cassette 3&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">18%</td><td class="r">2</td><td class="r">44</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Socket Extension Bar 1/2&quot; Drive 250mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">16%</td><td class="r">6</td><td class="r">39</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Milwaukee M18 Cordless Heat Gun</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">16%</td><td class="r">5</td><td class="r">38</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Atlas Copco 14 Kva Diesel Generator</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">15%</td><td class="r">5</td><td class="r">36</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hydraulic Wedge Small</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">14%</td><td class="r">4</td><td class="r">35</td><td class="r">$1,120.00</td><td class="">Enerpac / Industrial Supply/RS Components/Hytorc</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">3/4&quot; Drive Socket 60mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">13%</td><td class="r">3</td><td class="r">32</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hydraulic Flange Alignment Tool 4T</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">13%</td><td class="r">3</td><td class="r">32</td><td class="r">$4,100.00</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Backing Spanner 60mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">13%</td><td class="r">2</td><td class="r">31</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Flogging Spanner 2-3/8&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">13%</td><td class="r">2</td><td class="r">31</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Digital Clamp Meter</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">12%</td><td class="r">3</td><td class="r">30</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">1&quot; Drive Socket 46mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">12%</td><td class="r">2</td><td class="r">29</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Concrete Cutting Saw</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">12%</td><td class="r">2</td><td class="r">29</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Plumber&#x27;S Plug 250mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">12%</td><td class="r">2</td><td class="r">29</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Torque Wrench 3/8&quot; Drive 100Nm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">12%</td><td class="r">8</td><td class="r">29</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Milwaukee M18 Six-Pack Sequential Charging Station</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">11%</td><td class="r">3</td><td class="r">27</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Generator - Small</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">11%</td><td class="r">10</td><td class="r">26</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Bow Shackle - 6.2T</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">10%</td><td class="r">2</td><td class="r">24</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Hytorc J-Gun A1</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">10%</td><td class="r">2</td><td class="r">24</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Rod-Out Reamer Tool</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">9%</td><td class="r">2</td><td class="r">23</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Promac Petrol Generator 4Kva 15L</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">9%</td><td class="r">8</td><td class="r">22</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Hex Impact Socket Set 1/2&quot; Drive</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">9%</td><td class="r">2</td><td class="r">21</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Flogging Spanner 1-3/8&quot;</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">8%</td><td class="r">2</td><td class="r">20</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Die Head Ratchet Handle</td><td class="r">2</td><td class="r">2</td><td class="r">0</td><td class="r">100%</td><td class="r">4%</td><td class="r">4</td><td class="r">18</td><td class="r">$180.00</td><td class="">Plumbing Supply</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">3/4&quot; Drive Socket 27mm</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">7%</td><td class="r">2</td><td class="r">17</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Pipe Thread Rachet</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">7%</td><td class="r">3</td><td class="r">17</td><td class="r">$250.00</td><td class="">Bunnings / Total Tools/Sydney tools</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Acetylene Pressure Gauge</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">6%</td><td class="r">2</td><td class="r">14</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Eyebolt - M24 - 4T</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">5%</td><td class="r">2</td><td class="r">13</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Confined Space Heating Fan 240V</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">2%</td><td class="r">2</td><td class="r">6</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr class="z"><td class="">Milwaukee M18 Fuel Multi-Tool</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">100%</td><td class="r">1%</td><td class="r">2</td><td class="r">2</td><td class="r">-</td><td class="">-</td><td class="">High Priority - No Available Stock</td></tr><tr><td class="">Confined Space Harness - Small</td><td class="r">7</td><td class="r">6</td><td class="r">1</td><td class="r">86%</td><td class="r">25%</td><td class="r">5</td><td class="r">435</td><td class="r">-</td><td class="">-</td><td class="">Consider Additional Stock</td></tr></tbody></table><div class="sect"><h3>Working Hardest (ranked by hire days)</h3></div><div class="keep"><div class="chartpanel"><svg width="636" height="370" viewBox="0 0 636 370"><text x="0" y="17" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Confined Space Harness</text><rect x="172" y="8.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="8.5" width="418.0" height="10" rx="5" fill="#F36F21"/><text x="636" y="17" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">4161</text><text x="0" y="41" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Chain Block - 1T X 3M</text><rect x="172" y="32.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="32.5" width="363.3" height="10" rx="5" fill="#F36F21"/><text x="636" y="41" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">3616</text><text x="0" y="65" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Round Sling - 1T X 1M</text><rect x="172" y="56.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="56.5" width="350.4" height="10" rx="5" fill="#F36F21"/><text x="636" y="65" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">3488</text><text x="0" y="89" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Round Sling - 2T X 2M</text><rect x="172" y="80.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="80.5" width="294.1" height="10" rx="5" fill="#F36F21"/><text x="636" y="89" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">2928</text><text x="0" y="113" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Round Sling - 2T X 1M</text><rect x="172" y="104.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="104.5" width="220.0" height="10" rx="5" fill="#F36F21"/><text x="636" y="113" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">2190</text><text x="0" y="137" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Round Sling - 1T X 0.5M</text><rect x="172" y="128.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="128.5" width="199.8" height="10" rx="5" fill="#F36F21"/><text x="636" y="137" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">1989</text><text x="0" y="161" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Lifting Bag - 55Kg</text><rect x="172" y="152.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="152.5" width="172.3" height="10" rx="5" fill="#F36F21"/><text x="636" y="161" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">1715</text><text x="0" y="185" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Round Sling - 1T X 2M</text><rect x="172" y="176.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="176.5" width="154.5" height="10" rx="5" fill="#F36F21"/><text x="636" y="185" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">1538</text><text x="0" y="209" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Bow Shackle - 2T</text><rect x="172" y="200.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="200.5" width="154.4" height="10" rx="5" fill="#F36F21"/><text x="636" y="209" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">1537</text><text x="0" y="233" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Lever Block - 1.5T</text><rect x="172" y="224.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="224.5" width="144.8" height="10" rx="5" fill="#F36F21"/><text x="636" y="233" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">1441</text><text x="0" y="257" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Bow Shackle - 3.2T</text><rect x="172" y="248.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="248.5" width="130.5" height="10" rx="5" fill="#F36F21"/><text x="636" y="257" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">1299</text><text x="0" y="281" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Round Sling - 2T X 3M</text><rect x="172" y="272.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="272.5" width="112.5" height="10" rx="5" fill="#F36F21"/><text x="636" y="281" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">1120</text><text x="0" y="305" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Chain Block - 1T X 6M</text><rect x="172" y="296.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="296.5" width="108.4" height="10" rx="5" fill="#F36F21"/><text x="636" y="305" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">1079</text><text x="0" y="329" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Lever Block - 750Kg</text><rect x="172" y="320.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="320.5" width="96.6" height="10" rx="5" fill="#F36F21"/><text x="636" y="329" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">962</text><text x="0" y="353" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="9">Chain Block - 2T X 3M</text><rect x="172" y="344.5" width="418" height="10" rx="5" fill="#26313D"/><rect x="172" y="344.5" width="77.2" height="10" rx="5" fill="#F36F21"/><text x="636" y="353" text-anchor="end" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9.4" font-weight="700">768</text></svg></div><div class="chart-cap">Total hire days year to date - showing 15 of 536 equipment groups with hire days recorded.</div></div><table class="dt cp"><thead><tr><th class="">Equipment Group</th><th class="r">Qty</th><th class="r">Live %</th><th class="r">YTD %</th><th class="r">Hire Days</th><th class="r">Hirers</th></tr></thead><tbody><tr><td class="">Confined Space Harness</td><td class="r">34</td><td class="r">71%</td><td class="r">50%</td><td class="r">4161</td><td class="r">117</td></tr><tr class="z"><td class="">Chain Block - 1T X 3M</td><td class="r">39</td><td class="r">36%</td><td class="r">38%</td><td class="r">3616</td><td class="r">70</td></tr><tr><td class="">Round Sling - 1T X 1M</td><td class="r">42</td><td class="r">57%</td><td class="r">34%</td><td class="r">3488</td><td class="r">73</td></tr><tr class="z"><td class="">Round Sling - 2T X 2M</td><td class="r">27</td><td class="r">67%</td><td class="r">44%</td><td class="r">2928</td><td class="r">50</td></tr><tr><td class="">Round Sling - 2T X 1M</td><td class="r">19</td><td class="r">74%</td><td class="r">47%</td><td class="r">2190</td><td class="r">41</td></tr><tr class="z"><td class="">Round Sling - 1T X 0.5M</td><td class="r">15</td><td class="r">80%</td><td class="r">54%</td><td class="r">1989</td><td class="r">38</td></tr><tr><td class="">Lifting Bag - 55Kg</td><td class="r">11</td><td class="r">100%</td><td class="r">64%</td><td class="r">1715</td><td class="r">45</td></tr><tr class="z"><td class="">Round Sling - 1T X 2M</td><td class="r">22</td><td class="r">50%</td><td class="r">29%</td><td class="r">1538</td><td class="r">51</td></tr><tr><td class="">Bow Shackle - 2T</td><td class="r">33</td><td class="r">55%</td><td class="r">19%</td><td class="r">1537</td><td class="r">32</td></tr><tr class="z"><td class="">Lever Block - 1.5T</td><td class="r">16</td><td class="r">44%</td><td class="r">37%</td><td class="r">1441</td><td class="r">39</td></tr><tr><td class="">Bow Shackle - 3.2T</td><td class="r">21</td><td class="r">62%</td><td class="r">25%</td><td class="r">1299</td><td class="r">38</td></tr><tr class="z"><td class="">Round Sling - 2T X 3M</td><td class="r">12</td><td class="r">25%</td><td class="r">38%</td><td class="r">1120</td><td class="r">17</td></tr><tr><td class="">Chain Block - 1T X 6M</td><td class="r">14</td><td class="r">7%</td><td class="r">31%</td><td class="r">1079</td><td class="r">24</td></tr><tr class="z"><td class="">Lever Block - 750Kg</td><td class="r">6</td><td class="r">67%</td><td class="r">65%</td><td class="r">962</td><td class="r">28</td></tr><tr><td class="">Chain Block - 2T X 3M</td><td class="r">10</td><td class="r">60%</td><td class="r">31%</td><td class="r">768</td><td class="r">14</td></tr></tbody></table><p class="para">Showing 15 of 536 groups with hire days recorded - the busiest first.</p><div class="sect"><h3>Potential Overstock - Right-Size Candidates (ranked by YTD utilisation, lowest first)</h3></div><table class="dt cp"><thead><tr><th class="">Equipment Group</th><th class="r">Qty</th><th class="r">On Hire</th><th class="r">Avail</th><th class="r">YTD %</th></tr></thead><tbody><tr><td class="">3/4&quot; Drive Socket 1-3/16&quot;</td><td class="r">3</td><td class="r">0</td><td class="r">3</td><td class="r">0%</td></tr><tr class="z"><td class="">Dee Shackle - 3.2T</td><td class="r">6</td><td class="r">0</td><td class="r">6</td><td class="r">0%</td></tr><tr><td class="">1&quot; Drive Socket 36mm</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr class="z"><td class="">Air Nut Runner 3/4&quot;</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr><td class="">Easy Roll Load Skate 10T Swl</td><td class="r">4</td><td class="r">0</td><td class="r">4</td><td class="r">0%</td></tr><tr class="z"><td class="">Flogging Spanner 2-3/16&quot;</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr><td class="">Phillips Head Screwdriver 150mm</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr class="z"><td class="">Podger Ratchet 36mm - 41mm</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr><td class="">Socket Set 1/2&quot; Drive Metric</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr class="z"><td class="">Spanner Ring Open End 15/16&quot;</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr><td class="">Spanner Ring Open End 2&quot;</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr class="z"><td class="">Spanner Ring Open End 36mm</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr><td class="">Dee Shackle - 2T</td><td class="r">40</td><td class="r">0</td><td class="r">40</td><td class="r">0%</td></tr><tr class="z"><td class="">1&quot; Drive Socket 1-5/8&quot;</td><td class="r">5</td><td class="r">0</td><td class="r">5</td><td class="r">0%</td></tr><tr><td class="">1&quot; Drive Socket 2-3/16&quot;</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">1/2&quot; Drive Socket 22mm</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">1/2&quot; Drive Socket Deep 1-1/16&quot;</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">3/4&quot; Drive Socket 19mm</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">3M Speedglas Welding Helmet Kit - 4 Pack</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Air Needle Gun</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">Ball Pein Hammer</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Brass Brush Kit</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">Cold Cut Saw 240V</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Combination Pliers</td><td class="r">2</td><td class="r">0</td><td class="r">2</td><td class="r">0%</td></tr><tr><td class="">Copper Hammer 1Lb</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Crowfoot Set 14 Piece Metric</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">Digital Caliper</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Eyebolt - M24 - 1T</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">Magnetic Drill 240V</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Milwaukee M12 Green 360° Single Plane Laser</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">Nibbler 240V</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Npt Tap 1/2&quot;</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">Pipe Wrap Medium</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Pipe Wrench Stillson 200 mm</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">Podger Ratchet 24mm - 30mm</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Podger Spanner Ring Open End 2-9/16&quot;</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr><td class="">Pressure Washer</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Rescue Kit - 3 Pack</td><td class="r">3</td><td class="r">0</td><td class="r">3</td><td class="r">0%</td></tr><tr><td class="">Spanner Ring Open End 1-1/2&quot;</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr><tr class="z"><td class="">Spanner Ring Open End 11/16&quot;</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">0%</td></tr></tbody></table><p class="para">Showing 40 of 215 right-size candidates - lowest YTD utilisation first.</p><div class="sect"><h3>Data and method</h3></div><div class="sub-h">Honest limits</div><ul class="rul"><li>Utilisation is computed by this kit from the SiteIQ TRANSACTIONS and RENTAL_STOCK exports, grouped by corrected description, using the same rules as the workbook&#x27;s Tooling Utilisation query (hire days = distinct calendar days a barcode was out since 1 Jan; YTD % = hire days / (qty x days elapsed)). Items without a corrected description are not yet included - Tooling_Description_Mapping.xlsx has 3,415 rows; 2,194 distinct barcodes are usable after the excluded-family filter, and 3,690 of 90,602 transactions (4.1%) feed utilisation. Coverage grows as descriptions are corrected.</li><li>Radios, gas monitors, Dräger equipment, lanyards and steel coil clamps are excluded here exactly as they are from the on-hire reports - one list for both.</li><li>Buy prices are catalogue averages from Ampol_ToolStore_Pricing.xlsx (first price where a description is listed more than once); groups without a price show a dash.</li><li>Data as at: SiteIQ RENTAL_STOCK pull 02 Sep 2026 18:30; SiteIQ TRANSACTIONS pull 02 Sep 2026 18:30 (report period 01/01/2026 06:00:00 - 02/09/2026 05:59:59); SiteIQ STOCKTAKE pull 02 Sep 2026 18:29. Every figure is computed from these exports by this kit - the Excel workbook is not read for any printed number.</li></ul><div class="pb"><div class="sect"><h3>Our standard, honest limits and how to read this report</h3></div><table class="cards"><tr><td><div class="cd-h">Our standard</div><div class="cd-b">Life Saving Rule 5 - Tools and Equipment (SEQ-GL-009): nothing damaged, defective or out of test date is ever reissued. Every issue and every return runs through the double scan &mdash; Two scans. Two looks. One standard.  |  Nothing goes on the shelf unless it is ready for hire.  |  Right first time. Every item. Every time. Daily stocktakes keep eyes on the fleet: nothing in the store goes over 30 days without being scanned, and anything damaged is tagged Out of Service on the spot. We are here to help &mdash; if gear is finished with, hand it back to the tool store and it comes off your list the same day.</div></td><td><div class="cd-h">Honest limits</div><div class="cd-b">Every figure on these pages is counted by this kit from the SiteIQ exports named under Data and method - never from a workbook tab or a typed-in summary. Unpriced items show a dash and never enter a total. Where a rule or a limit matters, it is written out there in plain words.</div></td></tr></table><table class="cards"><tr><td><div class="cd-h">Names as shown</div><div class="cd-b">The site is Ampol on every page: where SiteIQ still carries the former name it is shown under the current one, and the Tooling On-Hire Report's data page says how many lines do. One customer, one name: project accounts roll up to their company and the SiteIQ account is shown against the hirer. Hirer names are as SiteIQ records them.</div></td><td><div class="cd-h">How to read this</div><div class="cd-b">Live is the share of a group on hire at the pull; YTD is hire days against days available this year. Buy signals are ranked by live utilisation then hire days; right-size candidates by YTD utilisation, lowest first. A dash means no catalogue price.</div></td></tr></table><div class="sub-h">Your Coates tool store team</div><table class="team" style="table-layout:fixed"><tr><td style="background:transparent;border-top:none;width:29%"></td><td style="width:42%;padding:18px 15px 16px 15px"><div class="av lead">AF</div><div class="tm-n">Andrew Fisher</div><div class="tm-r">Shutdown Manager</div><div class="tm-e">andrew.fisher@coates.com.au</div><div class="tm-d">Runs the Ampol tool store the Coates Way - every issue and every return double-scanned, every figure counted from SiteIQ.</div></td><td style="background:transparent;border-top:none;width:29%"></td></tr></table><div class="note" style="margin-top:16px;text-align:center">Coates Hire Operations Pty Limited &middot; ABN 50 009 779 338 &middot; www.coates.com.au &middot; Care Deeply &middot; Customer Focused &middot; Be Our Best &middot; One Team &middot; Competitive Spirit</div></div></div></td></tr></tbody></table></body></html>

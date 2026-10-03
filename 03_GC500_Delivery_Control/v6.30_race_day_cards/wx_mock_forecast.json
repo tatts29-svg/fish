@@ -1,0 +1,8 @@
+{"location":{"name":"Surfers Paradise","region":"Queensland","localtime":"2026-09-26 08:00"},
+ "days":[{"date":"2026-09-26","code":1000,"text":"Sunny","max_c":25.4,"min_c":16.2,"avg_c":21,"rain_pc":0,"rain_mm":0,"wind_kph":22.3,"humidity":60,"sunrise":"05:33 AM","sunset":"05:44 PM"},
+  {"date":"2026-09-27","code":1003,"text":"Partly cloudy","max_c":24.1,"min_c":17.5,"avg_c":21,"rain_pc":20,"rain_mm":0.1,"wind_kph":26.6,"humidity":66,"sunrise":"05:32 AM","sunset":"05:45 PM"},
+  {"date":"2026-09-28","code":1183,"text":"Light rain","max_c":22.8,"min_c":18.1,"avg_c":20,"rain_pc":80,"rain_mm":6.4,"wind_kph":31.7,"humidity":78,"sunrise":"05:31 AM","sunset":"05:45 PM"},
+  {"date":"2026-09-29","code":1273,"text":"Patchy light rain with thunder","max_c":23.6,"min_c":18.9,"avg_c":21,"rain_pc":75,"rain_mm":9.8,"wind_kph":35.3,"humidity":80,"sunrise":"05:30 AM","sunset":"05:46 PM"},
+  {"date":"2026-09-30","code":1009,"text":"Overcast","max_c":23.0,"min_c":17.0,"avg_c":20,"rain_pc":30,"rain_mm":0.4,"wind_kph":20.2,"humidity":70,"sunrise":"05:29 AM","sunset":"05:46 PM"},
+  {"date":"2026-10-01","code":1195,"text":"Heavy rain","max_c":21.2,"min_c":17.8,"avg_c":19,"rain_pc":95,"rain_mm":28.5,"wind_kph":40.0,"humidity":88,"sunrise":"05:28 AM","sunset":"05:47 PM"},
+  {"date":"2026-10-02","code":1030,"text":"Mist","max_c":24.0,"min_c":15.5,"avg_c":19,"rain_pc":10,"rain_mm":0,"wind_kph":14.4,"humidity":72,"sunrise":"05:27 AM","sunset":"05:47 PM"}]}

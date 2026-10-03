@@ -1,0 +1,90 @@
+8929c8929
+< function runType(t){ const s = String(t || '').toLowerCase(); return /salary/.test(s) ? 'salary' : /external|hire/.test(s) ? 'hire' : /cna|internal|coates/.test(s) ? 'cna' : ''; }
+---
+> function runType(t){ const s = String(t || '').toLowerCase();return /salar/.test(s) ? 'salary' : /external|hire/.test(s) ? 'hire' : /cna|internal|coates/.test(s) ? 'cna' : ''; }
+8942c8942
+<  if (c.start && c.finish) { const h = shiftHours(c.start, c.finish, runBreak(c)); if (h != null) return h; }
+---
+>  if (c.start && c.finish) { const h = shiftHours(c.start, c.finish, runBreak(c)); if (h != null) return h; if (shiftHours(c.start, c.finish, 0) != null) return 0; }
+8955c8955,8956
+< function runPaidOf(s){ if (s.start && s.finish) { const h = shiftHours(s.start, s.finish, runBreak(s)); if (h != null) return h; } return s.hours || 0; }
+---
+> function runPaidOf(s){ if (s.start && s.finish) { const h = shiftHours(s.start, s.finish, runBreak(s)); if (h != null) return h; if (shiftHours(s.start, s.finish, 0) != null) return 0; } return s.hours || 0; }
+> function runRateOf(P){ const s = P && P.pay_rate != null ? String(P.pay_rate).trim() : '', n = Number(s); return s !== '' && Number.isFinite(n) && n >= 0 ? n : null; }
+8969c8970
+<  const rate = P.pay_rate != null && String(P.pay_rate).trim() !== '' && Number.isFinite(Number(P.pay_rate)) ? Number(P.pay_rate) : null;
+---
+> const rate = runRateOf(P);
+8986c8987
+<  const per = new Map(), P0 = n => { if (!per.has(n)) { const P = pmap.get(n) || {}; per.set(n, {name: n, type: runType(P.type), rate: P.pay_rate != null && String(P.pay_rate).trim() !== '' ? Number(P.pay_rate) : null,
+---
+>  const per = new Map(), P0 = n => { if (!per.has(n)) { const P = pmap.get(n) || {};per.set(n, {name: n, type: runType(P.type), rate: runRateOf(P),
+8992,8994c8993,8995
+<  L.filter(c => c.kind === 'meals' && c.person && c.amount != null).forEach(c => { P0(c.person).meals += Number(c.amount) || 0; });
+<  L.filter(c => c.kind === 'accommodation' && c.person).forEach(c => { const x = P0(c.person); x.nights++; if (c.amount != null) x.accommodation += Number(c.amount) || 0; });
+<  L.filter(c => c.kind === 'misc' && c.who && c.amount != null).forEach(c => { RUN_MISC.forEach(([, k, typ]) => { if (c.id === runMiscId(c.who, c.date, typ)) P0(c.who)[k] += Number(c.amount) || 0; }); });
+---
+> L.filter(c => c.kind === 'meals' && c.usable && c.person && c.amount != null).forEach(c => { P0(c.person).meals += Number(c.amount) || 0; });
+> L.filter(c => c.kind === 'accommodation' && c.usable && c.person).forEach(c => { const x = P0(c.person); x.nights++; if (c.amount != null) x.accommodation += Number(c.amount) || 0; });
+> L.filter(c => c.kind === 'misc' && c.usable && c.who && c.amount != null).forEach(c => { RUN_MISC.forEach(([, k, typ]) => { if (c.id === runMiscId(c.who, c.date, typ)) P0(c.who)[k] += Number(c.amount) || 0; }); });
+9003c9004,9007
+<  const f = Object.assign({}, patch); if ('start' in f || 'finish' in f || 'break_min' in f) f.hours = '';
+---
+> const f = Object.assign({}, patch), prior = ourRawOf(id) && !tombedHere(id) ? ourRawOf(id) : {};
+>  /* v6.81 - hours typed without times stay until both a start and a finish are there to work them out from */
+>  const st = 'start' in f ? f.start : prior.start, fin = 'finish' in f ? f.finish : prior.finish;
+>  if (('start' in f || 'finish' in f || 'break_min' in f)) { if (st && fin) f.hours = ''; else if (prior.hours != null && String(prior.hours).trim() !== '') f.hours = prior.hours; }
+9009c9013
+<  if (s === '' && kind === 'meals') { if (ourRawOf(id) && !tombedHere(id)) removeOurCost(id); return; }
+---
+> if (s === '') { if (ourRawOf(id) && !tombedHere(id)) removeOurCost(id); return; } /* v6.81 - clearing a night removes it, as for meals */
+9026c9030
+<  if (ourCosts().some(c => c.kind === 'person' && c.person.toLowerCase() === n.toLowerCase())) { flash(n + ' is already on the sheet.'); return; }
+---
+> const dup = ourCosts().find(c => c.kind === 'person' && ourSlug(c.person) === ourSlug(n)); if (dup) { flash(dup.person + ' is already on the sheet.'); return; }
+9039c9043
+<  const hh = v => v == null ? '<span class="todo">—</span>' : esc(fmtNum(Math.round(v * 100) / 100));
+---
+> const hh = v => v == null ? '<span class="todo">—</span>' : esc((Math.round(v * 100) / 100).toLocaleString('en-AU', {maximumFractionDigits: 2}));
+9069a9074
+> ${D.rows.some(r => !r.type && r.hours != null) ? `<p class="norate"><b>No type set</b> for ${D.rows.filter(r => !r.type && r.hours != null).map(r => esc(r.name)).join(', ')} — the paid hours are split on the Coates CNA rule until a type is chosen.</p>` : ''}
+9092c9097
+<  pane.querySelectorAll('[data-rsrate]').forEach(i => i.onchange = () => { const s = String(i.value || '').replace(/[$,\s]/g, ''); if (s !== '' && !Number.isFinite(Number(s))) { flash('The rate has to be a number of dollars an hour.'); return; } setOurPerson(i.dataset.rsrate, {pay_rate: s}); render(); });
+---
+>  pane.querySelectorAll('[data-rsrate]').forEach(i => i.onchange = () => { const s = String(i.value || '').replace(/[$,\s]/g, '');if (s !== '' && !(Number.isFinite(Number(s)) && Number(s) >= 0)) { flash('The rate has to be a number of dollars an hour.'); return; } setOurPerson(i.dataset.rsrate, {pay_rate: s}); render(); });
+9102a9108,9109
+> /* v6.81 - a question's id from its words, less the figures in it, so it survives the list changing */
+> function qSlug(s){ return ourSlug(String(s || '').replace(/[\d$.,]+/g, ' ')).slice(0, 60); }
+9119c9126
+<  (c.differs || []).forEach((x, i) => add('By branch', 'br-diff-' + code + '-' + i, contractDiffWords(x), 'The rule and Baseplan\'s prebill read differently — which is the correct bill?', 'costs')); });
+---
+> (c.differs || []).forEach((x, i) => add('By branch', 'br-diff-' + code + '-' + (x.contract != null && x.line != null ? x.contract + '-' + x.line : i), contractDiffWords(x), 'The rule and Baseplan\'s prebill read differently — which is the correct bill?', 'costs')); });
+9128c9135
+<  if (M) M.missing.filter(s => /transport/i.test(s)).forEach((s, i) => add('Transport', 'tr-miss-' + i, s.charAt(0).toUpperCase() + s.slice(1) + ' — when will the rest be known?', 'Transport not on the record is not in the known costs.', 'costs'));
+---
+>  if (M) M.missing.filter(s => /transport/i.test(s)).forEach((s, i) => add('Transport', 'tr-miss-' + qSlug(s), s.charAt(0).toUpperCase() + s.slice(1) + ' — when will the rest be known?', 'Transport not on the record is not in the known costs.', 'costs'));
+9134c9141
+<  if (M) M.missing.filter(s => /event staff|not on the tracker/i.test(s)).forEach((s, i) => add('Labour', 'lb-miss-' + i, s.charAt(0).toUpperCase() + s.slice(1) + ' — who, and at what cost?', 'Not on the record, so not in the costs.', 'costs'));
+---
+>  if (M) M.missing.filter(s => /event staff|not on the tracker/i.test(s)).forEach((s, i) => add('Labour', 'lb-miss-' + qSlug(s), s.charAt(0).toUpperCase() + s.slice(1) + ' — who, and at what cost?', 'Not on the record, so not in the costs.', 'costs'));
+13781c13788,13789
+<  let mins = b - a; if (mins <= 0) mins += 24 * 60;
+---
+> if (a === b) return null; /* v6.81 - the same start and finish is not a 24-hour shift */
+>  let mins = b - a; if (mins < 0) mins += 24 * 60;
+14669c14677
+<  ${moreInfo('costs|tracker', `<p class="hint">The hours rule, stated ${esc(fmtDate(WF.hours_rule.stated_on || '2026-09-24'))}: a standard day of ${esc(String((WF.hours_rule.weekday || {}).ordinary_hours))} h, the next ${esc(String((WF.hours_rule.weekday || {}).then_at_1_5))} h at ×1.5 and the rest at ×2; Saturday ×1.5 for the first ${esc(String((WF.hours_rule.saturday || {}).at_1_5))} h and ×2 after; Sunday ×2 for every hour — applied shift by shift; ${h(L.weighted)} weighted hours outside the race weekend (ordinary + 1.5 × the ×1.5 hours + 2 × the ×2 hours). No dollar is put on an hour — hours only (24 Sep 2026). ${SCOPE ? `The people over the event are charged by the Coates Event Labour Scope on the Pricing tab (25 Sep 2026), not person by person;the tracker's race-day hours are shown here in hours only, as ${esc(raceHoursWord())} (a day still to come is planned), and counted with the wages.` : `The race weekend is what we charge, not our cost (25 Sep 2026) — at the card's hourly event rates by each person's role; Saturday and Sunday are charged at the card's hourly rate, as written, with no loading added.`}</p>
+---
+>  ${moreInfo('costs|tracker', `<p class="hint">The pay rule, as set on the running sheet: Coates CNA ${esc(String(runRule('cna_ord')))} h and labour hire ${esc(String(runRule('lh_ord')))} h normal on a weekday, the next ${esc(String(runRule('ot_x15')))} h at ×1.5 and the rest at ×2; Saturday ×1.5 for the first ${esc(String(runRule('sat_x15')))} h and ×2 after; Sunday ×2 for every hour; a ${esc(String(runRule('wd_break')))} min unpaid weekday break comes off pay only, never off the hours charged — applied shift by shift; ${h(L.weighted)} weighted hours outside the race weekend (ordinary + 1.5 × the ×1.5 hours + 2 × the ×2 hours). No dollar is put on an hour — hours only (24 Sep 2026). ${SCOPE ? `The people over the event are charged by the Coates Event Labour Scope on the Pricing tab (25 Sep 2026), not person by person;the tracker's race-day hours are shown here in hours only, as ${esc(raceHoursWord())} (a day still to come is planned), and counted with the wages.` : `The race weekend is what we charge, not our cost (25 Sep 2026) — at the card's hourly event rates by each person's role; Saturday and Sunday are charged at the card's hourly rate, as written, with no loading added.`}</p>
+21415c21423,21427
+<  try { const ml = moneySummary(td).charge.labour; if (typeof ml === 'number') all.charged = ml; } catch (e) {}
+---
+> try { const ml = moneySummary(td).charge.labour; if (typeof ml === 'number') {
+>  /* v6.81 - ticks on relocated or moved units are in the Costs figure but on no row; they get a row of their own */
+>  const gap = Math.round((ml - all.charged) * 100) / 100;
+>  if (Math.abs(gap) >= 0.01) { const o = zero(); o.charged = gap; byLine.set('Relocated or moved units', o); const b = zero(); b.charged = gap; byBranch.set('~moved', b); }
+>  all.charged = ml; } } catch (e) {}
+21429c21441
+<  const bname = c => c ? `${c}${(branchInfo(c) || {}).name ? ' · ' + branchInfo(c).name : ''}` : 'No branch recorded';
+---
+> const bname = c => c === '~moved' ? 'Relocated or moved units' : c ? `${c}${(branchInfo(c) || {}).name ? ' · ' + branchInfo(c).name : ''}` : 'No branch recorded';

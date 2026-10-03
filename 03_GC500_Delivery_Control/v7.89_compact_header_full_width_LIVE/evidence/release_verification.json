@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.89",
+  "status": "LIVE",
+  "liveAtAEST": "02 Oct 2026 09:44 AEST",
+  "bytes": 8861306,
+  "sha256": "0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac",
+  "publicViewMatchesCandidate": true,
+  "recordVersionBefore": 3538,
+  "recordVersionAfter": 3538,
+  "recordVersionUnchanged": true,
+  "pageOnlyUpload": true,
+  "recordChanges": false,
+  "journalsPosted": false,
+  "realMessagesSent": false,
+  "checks": "Independent header 30/30, fresh-after-save 11/11, both 21-tab/7-link sweeps zero errors, original source preservation, desktop/phone visuals, static checks, dry-run and fresh-base guard."
+}

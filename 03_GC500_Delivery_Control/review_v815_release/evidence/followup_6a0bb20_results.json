@@ -1,0 +1,136 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "6a0bb204d5bf55e4b65be8cf07866e7b3f1402df",
+  "sourceFiles": {
+    "docs815_src.js": "c1b9ff330d049b55c0a508e7b44804437ca55adb8447892695c2afc5d4bc484b",
+    "patch_v815.py": "297ea67049c35aa697f39e0385f09d93e2975c2ee98d13e03591845aee8e31bf",
+    "v815.css": "779f727b970592dc8e4ca699c2394db10bc9e2beea5ca3dfa6ed130e0af6034c"
+  },
+  "baselineSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "baselineExcerptSha256": "6ff6b78ac55daf080952bd3792d1e192158db60a9dbffa2207e62cd7056c76f7",
+  "patchReplacementsExecuted": [
+    "twins in docCollection",
+    "finder doc ids",
+    "finder docday ids",
+    "finder pick lands on the item"
+  ],
+  "method": "NEW positive checks of corrected source and literal replacements parsed from the actual Python patch; synthetic data and DOM/helper doubles only.",
+  "limits": "No browser/PDF/visual/performance validation. Print assertions concern generated full-list markup and source CSS. Classified photo summary is the implementation's documented print format.",
+  "passed": 28,
+  "total": 28,
+  "failures": [],
+  "checks": [
+    {
+      "name": "Five intended twins still merge once",
+      "pass": true
+    },
+    {
+      "name": "All catalogue notes and per-day pages survive merging",
+      "pass": true
+    },
+    {
+      "name": "Uploaded file identity and title alias are retained",
+      "pass": true
+    },
+    {
+      "name": "Retained note and uploaded title remain searchable",
+      "pass": true
+    },
+    {
+      "name": "Retained note has a Details control and reachable note span",
+      "pass": true
+    },
+    {
+      "name": "map retains recorded reference TEST42 and its open action",
+      "pass": true
+    },
+    {
+      "name": "map retains recorded reference UNKNOWN99 and its open action",
+      "pass": true
+    },
+    {
+      "name": "invoice retains recorded reference TEST42 and its open action",
+      "pass": true
+    },
+    {
+      "name": "invoice retains recorded reference UNKNOWN99 and its open action",
+      "pass": true
+    },
+    {
+      "name": "Reference handler calls existing drawer action",
+      "pass": true
+    },
+    {
+      "name": "Details handler reveals the note and updates semantics",
+      "pass": true
+    },
+    {
+      "name": "Details handler closes the note again",
+      "pass": true
+    },
+    {
+      "name": "Existing fencing plan route selects Drawings",
+      "pass": true
+    },
+    {
+      "name": "Existing fencing plan route lands on plan subgroup",
+      "pass": true
+    },
+    {
+      "name": "Signed docket route remains separate",
+      "pass": true
+    },
+    {
+      "name": "Header twin result opens the uploaded file",
+      "pass": true
+    },
+    {
+      "name": "Header file opens with existing safe new-window options",
+      "pass": true
+    },
+    {
+      "name": "Header per-day result preserves the uploaded file and page anchor",
+      "pass": true
+    },
+    {
+      "name": "Missing header result clears unrelated category and selects its title",
+      "pass": true
+    },
+    {
+      "name": "Missing header result is rendered in the destination",
+      "pass": true
+    },
+    {
+      "name": "Missing selected row receives current/focus/scroll treatment",
+      "pass": true
+    },
+    {
+      "name": "Full print list is present on initial render without a button",
+      "pass": true
+    },
+    {
+      "name": "Print list includes every nonphoto exactly once",
+      "pass": true
+    },
+    {
+      "name": "Print list represents photos by reference and has no collapsed details",
+      "pass": true
+    },
+    {
+      "name": "Screen query/category does not restrict the complete print list",
+      "pass": true
+    },
+    {
+      "name": "Native print CSS exposes the persistent list and hides screen results",
+      "pass": true
+    },
+    {
+      "name": "Print button calls native printing without mutating screen state",
+      "pass": true
+    },
+    {
+      "name": "Print failure leaves screen category/query/folds unchanged",
+      "pass": true
+    }
+  ]
+}

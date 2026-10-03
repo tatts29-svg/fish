@@ -1,0 +1,445 @@
+{
+ "root": "/home/user/fish/03_GC500_Delivery_Control/v8.09_coates_way_machine_DRAFT/base",
+ "device": "desk",
+ "at": "2026-10-03T00:08:35.984Z",
+ "controls": {
+  "tour": {
+   "id": "tour",
+   "w": 108,
+   "h": 40,
+   "x": 1149,
+   "y": 19,
+   "font": 14,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "sound": {
+   "id": "sound",
+   "w": 83,
+   "h": 40,
+   "x": 1272,
+   "y": 19,
+   "font": 14,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "fullscreen": {
+   "id": "fullscreen",
+   "w": 40,
+   "h": 40,
+   "x": 1370,
+   "y": 19,
+   "font": 25,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "view-3d": {
+   "id": "view-3d",
+   "w": 43,
+   "h": 32,
+   "x": 360,
+   "y": 107,
+   "font": 13,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "view-front": {
+   "id": "view-front",
+   "w": 59,
+   "h": 32,
+   "x": 403,
+   "y": 107,
+   "font": 13,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "view-back": {
+   "id": "view-back",
+   "w": 61,
+   "h": 32,
+   "x": 461,
+   "y": 107,
+   "font": 13,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "gearbox": {
+   "id": "gearbox",
+   "w": 74,
+   "h": 32,
+   "x": 522,
+   "y": 107,
+   "font": 13,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "zoom-out": {
+   "id": "zoom-out",
+   "w": 33,
+   "h": 32,
+   "x": 1311,
+   "y": 696,
+   "font": 20,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "zoom-in": {
+   "id": "zoom-in",
+   "w": 33,
+   "h": 32,
+   "x": 1344,
+   "y": 696,
+   "font": 20,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "motor": {
+   "id": "motor",
+   "w": 128,
+   "h": 41,
+   "x": 554,
+   "y": 778,
+   "font": 14,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "quality": {
+   "id": "quality",
+   "w": 90,
+   "h": 16,
+   "x": 1127,
+   "y": 870,
+   "font": 12,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "reference": {
+   "id": "reference",
+   "w": 86,
+   "h": 17,
+   "x": 1241,
+   "y": 870,
+   "font": 12,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "help": {
+   "id": "help",
+   "w": 64,
+   "h": 16,
+   "x": 1351,
+   "y": 870,
+   "font": 12,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "part-register": {
+   "id": "part-register",
+   "w": 251,
+   "h": 24,
+   "x": 39,
+   "y": 385,
+   "font": 13,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "info-close": {
+   "id": "info-close",
+   "w": 40,
+   "h": 40,
+   "x": 1046,
+   "y": 143,
+   "font": 28,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  },
+  "register-close": {
+   "id": "register-close",
+   "w": 40,
+   "h": 40,
+   "x": 1046,
+   "y": 70,
+   "font": 28,
+   "shown": true,
+   "onTop": true,
+   "inView": true
+  }
+ },
+ "checks": [
+  {
+   "name": "desk: loads ready (loading cover gone, no graphics fallback)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desk: #tour drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "tour",
+    "w": 108,
+    "h": 40,
+    "x": 1149,
+    "y": 19,
+    "font": 14,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #sound drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "sound",
+    "w": 83,
+    "h": 40,
+    "x": 1272,
+    "y": 19,
+    "font": 14,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #fullscreen drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "fullscreen",
+    "w": 40,
+    "h": 40,
+    "x": 1370,
+    "y": 19,
+    "font": 25,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #view-3d drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "view-3d",
+    "w": 43,
+    "h": 32,
+    "x": 360,
+    "y": 107,
+    "font": 13,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #view-front drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "view-front",
+    "w": 59,
+    "h": 32,
+    "x": 403,
+    "y": 107,
+    "font": 13,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #view-back drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "view-back",
+    "w": 61,
+    "h": 32,
+    "x": 461,
+    "y": 107,
+    "font": 13,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #gearbox drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "gearbox",
+    "w": 74,
+    "h": 32,
+    "x": 522,
+    "y": 107,
+    "font": 13,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #zoom-out drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "zoom-out",
+    "w": 33,
+    "h": 32,
+    "x": 1311,
+    "y": 696,
+    "font": 20,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #zoom-in drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "zoom-in",
+    "w": 33,
+    "h": 32,
+    "x": 1344,
+    "y": 696,
+    "font": 20,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #motor drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "motor",
+    "w": 128,
+    "h": 41,
+    "x": 554,
+    "y": 778,
+    "font": 14,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #quality drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "quality",
+    "w": 90,
+    "h": 16,
+    "x": 1127,
+    "y": 870,
+    "font": 12,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #reference drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "reference",
+    "w": 86,
+    "h": 17,
+    "x": 1241,
+    "y": 870,
+    "font": 12,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #help drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "help",
+    "w": 64,
+    "h": 16,
+    "x": 1351,
+    "y": 870,
+    "font": 12,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: #part-register drawn, on top, text ≥ 11 px",
+   "ok": true,
+   "detail": {
+    "id": "part-register",
+    "w": 251,
+    "h": 24,
+    "x": 39,
+    "y": 385,
+    "font": 13,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: help opens #info; #info-close ≥ 44 × 44, wholly on screen, on top",
+   "ok": false,
+   "detail": {
+    "id": "info-close",
+    "w": 40,
+    "h": 40,
+    "x": 1046,
+    "y": 143,
+    "font": 28,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: a click on #info-close closes #info",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desk: part-register opens #parts-dialog; #register-close ≥ 44 × 44, wholly on screen, on top",
+   "ok": false,
+   "detail": {
+    "id": "register-close",
+    "w": 40,
+    "h": 40,
+    "x": 1046,
+    "y": 70,
+    "font": 28,
+    "shown": true,
+    "onTop": true,
+    "inView": true
+   }
+  },
+  {
+   "name": "desk: a click on #register-close closes #parts-dialog",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desk: no page or console errors",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

@@ -1,0 +1,29 @@
+node:assert:150
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Use the exact reviewed 968aefb source: docs815_src.js
++ actual - expected
+
++ '99b24b0ffe9abebf893004e51c074dfdde572bb4a61e5c2555f38597e9c42e10'
+- '4e482531fca0aac3859966ab3bf4bf29bc42f179764eb171c10b00a9ab1ae5dc'
+
+    at Object.<anonymous> (/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/codex815/03_GC500_Delivery_Control/review_v815_release/evidence/probe.cjs:23:10)
+    at Module._compile (node:internal/modules/cjs/loader:1705:14)
+    at Object..js (node:internal/modules/cjs/loader:1838:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '99b24b0ffe9abebf893004e51c074dfdde572bb4a61e5c2555f38597e9c42e10',
+  expected: '4e482531fca0aac3859966ab3bf4bf29bc42f179764eb171c10b00a9ab1ae5dc',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.2
+codex probe on frozen v8.15 source exit 1

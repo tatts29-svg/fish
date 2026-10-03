@@ -1,0 +1,15 @@
+6376a6377,6390
+>  /* v6.82 - A MISSING QUANTITY WORKED OUT FROM THE ASSET NUMBERS (Andrew, 26 Sep 2026: fill it in automatically).
+>  One line with no quantity, the reference's asset numbers known and more of them than its other lines
+>  account for: the difference is the quantity. The line says how it was worked out and keeps the schedule's words. */
+>  if (!a.relocation && chargeLinesOut && chargeLinesOut.length) {
+>  const unk = chargeLinesOut.filter(l => l.quantity == null);
+>  const schedNums = kept; /* every number kept against the reference: the schedule's, recorded on site, typed here and the rental system's */
+>  const knownQ = chargeLinesOut.reduce((s, l) => s + (l.quantity != null && Number.isFinite(Number(l.quantity)) ? Number(l.quantity) : 0), 0);
+>  const n = schedNums.length - knownQ;
+>  if (unk.length === 1 && schedNums.length && n >= 1 && n <= MAX_QTY) chargeLinesOut = chargeLinesOut.map(l => l !== unk[0] ? l : Object.assign({}, l, {
+>  quantity: n, priceable: true, quantity_auto: true,
+>  quantity_on_the_schedule: 'quantity_on_the_schedule' in l ? l.quantity_on_the_schedule : l.quantity,
+>  quantity_state_on_the_schedule: l.quantity_state_on_the_schedule || l.quantity_state,
+>  quantity_state: `worked out from the asset numbers — ${schedNums.length} on this reference (${schedNums.join(', ')})${knownQ ? `, ${knownQ} of them on its other line${chargeLinesOut.length > 2 ? 's' : ''}` : ''}, so ${n}. The schedule: ${l.quantity_state}`}));
+>  }

@@ -1,0 +1,180 @@
+{
+  "checks": [
+    {
+      "name": "Eleven known trucks have unique identities",
+      "pass": true
+    },
+    {
+      "name": "Out-of-order departure refused without mutation",
+      "pass": true
+    },
+    {
+      "name": "First cargo check appends one event",
+      "pass": true
+    },
+    {
+      "name": "Pending event cannot satisfy readiness",
+      "pass": true
+    },
+    {
+      "name": "Immutable event does not alter native pairing record",
+      "pass": true
+    },
+    {
+      "name": "Three acknowledged current checks make first truck ready",
+      "pass": true
+    },
+    {
+      "name": "An older service capability keeps departure on Hold",
+      "pass": true
+    },
+    {
+      "name": "Explicit durable-service capability enables checked readiness",
+      "pass": true
+    },
+    {
+      "name": "Unchanged-version rollback clears missing capability",
+      "pass": true
+    },
+    {
+      "name": "Stale status-live snapshot cannot authorise departure",
+      "pass": true
+    },
+    {
+      "name": "Malformed checkbox and date records are refused as evidence",
+      "pass": true
+    },
+    {
+      "name": "Missing directions hold a checked truck",
+      "pass": true
+    },
+    {
+      "name": "Actual quota failure rolls back the proposed departure",
+      "pass": true
+    },
+    {
+      "name": "Explicit safe-state retry clears recovered persistence failure",
+      "pass": true
+    },
+    {
+      "name": "Ready truck appends named actual departure",
+      "pass": true
+    },
+    {
+      "name": "Unacknowledged departure remains pending for the next truck",
+      "pass": true
+    },
+    {
+      "name": "Acknowledged departure satisfies predecessor gate",
+      "pass": true
+    },
+    {
+      "name": "Existing immutable event cannot be overwritten",
+      "pass": true
+    },
+    {
+      "name": "Reload through native shared deserialization retains departure and checks",
+      "pass": true
+    },
+    {
+      "name": "Equal-ranked tanks may leave in either order",
+      "pass": true
+    },
+    {
+      "name": "Eighth-ranked blocks wait for both seventh-ranked tanks",
+      "pass": true
+    },
+    {
+      "name": "Both tank departures release the predecessor gate for blocks",
+      "pass": true
+    },
+    {
+      "name": "Generator remains held for missing rank and asset conflict",
+      "pass": true
+    },
+    {
+      "name": "Fencing confirmation appends source-bound event",
+      "pass": true
+    },
+    {
+      "name": "Fencing pending event does not satisfy prerequisite",
+      "pass": true
+    },
+    {
+      "name": "Fencing native acknowledgement satisfies current source",
+      "pass": true
+    },
+    {
+      "name": "Fencing value preserves full JSON within setter limit",
+      "pass": true
+    },
+    {
+      "name": "Actual quota failure does not append fencing revocation",
+      "pass": true
+    },
+    {
+      "name": "Fencing safe-state retry restores a usable control",
+      "pass": true
+    },
+    {
+      "name": "Revocation preserves earlier confirmation and holds",
+      "pass": true
+    },
+    {
+      "name": "Late concurrent confirmation cannot erase unsuperseded revocation",
+      "pass": true
+    },
+    {
+      "name": "Explicit reconfirmation supersedes every observed head",
+      "pass": true
+    },
+    {
+      "name": "Reconfirmation becomes current while all history remains",
+      "pass": true
+    },
+    {
+      "name": "Owned events stay on fencing task; unrelated notes remain in Questions",
+      "pass": true
+    },
+    {
+      "name": "Missing causal parent fails closed",
+      "pass": true
+    },
+    {
+      "name": "Circular causal history fails closed",
+      "pass": true
+    },
+    {
+      "name": "Offline historical confirmation is labelled last-known and cannot satisfy hold",
+      "pass": true
+    },
+    {
+      "name": "No delivery or completed-fencing records changed",
+      "pass": true
+    },
+    {
+      "name": "All event documents stay within page and server size limits",
+      "pass": true
+    },
+    {
+      "name": "Valid event filter leaves every native pairing intact",
+      "pass": true
+    },
+    {
+      "name": "Direct append helper also respects view-only capability",
+      "pass": true
+    }
+  ],
+  "sizes": {
+    "loads": 1693,
+    "answers": 399,
+    "encodedKeys": 84
+  },
+  "candidateSha256": "63673ae8ecd6f8bb7013a4a3767be57979648ad83bfa6a085e22cf50f981ba6b",
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 10,
+    "blocked": 0
+  }
+}

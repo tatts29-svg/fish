@@ -1,0 +1,4 @@
+live page unchanged since the build started - safe to upload
+service: 200 {"version":3538,"updated":"2026-10-01T22:51:12.788Z","level":"edit"}
+page: 200 {"etag":"\"476f0dcca3d97de0\"","bytes":8883495,"uploaded":"2026-10-02T01:19:44.067Z","build_version":"assets-1.0.0","built":"2026-09-25","refs":["AA","CP1","GN01","GN03","GN04","GN06","GN10","GN13","G
+LIVE 02 Oct 2026 11:19 AEST - the view link serves the build byte for byte (8,883,495 bytes, sha256 476f0dcca3d97de0)

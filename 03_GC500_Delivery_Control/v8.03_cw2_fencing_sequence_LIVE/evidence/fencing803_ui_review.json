@@ -1,0 +1,338 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent browser review of the existing Fencing / CON WK2 component, plan-only candidate",
+  "candidateSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+  "sourceSha256": "c6d7f4ec14d8853d4901a700c3328207265d18a53fcca626995c680699c5cbf0",
+  "rendererSha256": "c6447f4d5e0dfa3488e41031078d40db77892ba41f49f3e885db3cd59bec2970",
+  "limitations": [
+    "Phone tables retain horizontal scrolling; long prerequisite lines are read by panning between their beginning and end.",
+    "This plan-only review does not establish editable requirement-confirmation behavior."
+  ],
+  "checks": [
+    {
+      "name": "desktop: existing week control selects CON WK2",
+      "pass": true
+    },
+    {
+      "name": "desktop: 26 source tasks represented once, including the closed Monday notice",
+      "pass": true
+    },
+    {
+      "name": "desktop: five scheduled days remain 5\u20139 October",
+      "pass": true,
+      "detail": [
+        "MON 05 OCT 2026",
+        "TUE 06 OCT 2026",
+        "WED 07 OCT 2026",
+        "THU 08 OCT 2026",
+        "FRI 09 OCT 2026"
+      ]
+    },
+    {
+      "name": "desktop: every dated task location, description and source page is visible",
+      "pass": true
+    },
+    {
+      "name": "desktop: all three unresolved source quantity conflicts remain visible",
+      "pass": true
+    },
+    {
+      "name": "desktop: Friday heading discrepancy remains visible",
+      "pass": true
+    },
+    {
+      "name": "desktop: all source prerequisites and notes remain visible",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "desktop: planned work is explicit with no completion control or green done status",
+      "pass": true
+    },
+    {
+      "name": "desktop: checklist-versus-completion explanation is visible",
+      "pass": true
+    },
+    {
+      "name": "desktop: source basis and original PDF link are visible",
+      "pass": true
+    },
+    {
+      "name": "desktop: tables stay in local scroll containers without page-wide overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "pageWidth": 1440,
+        "wrappers": [
+          {
+            "width": 1337,
+            "scrollWidth": 1337,
+            "overflow": "auto",
+            "tableWidth": 1337
+          },
+          {
+            "width": 1337,
+            "scrollWidth": 1337,
+            "overflow": "auto",
+            "tableWidth": 1337
+          },
+          {
+            "width": 1337,
+            "scrollWidth": 1337,
+            "overflow": "auto",
+            "tableWidth": 1337
+          },
+          {
+            "width": 1337,
+            "scrollWidth": 1337,
+            "overflow": "auto",
+            "tableWidth": 1337
+          },
+          {
+            "width": 1337,
+            "scrollWidth": 1337,
+            "overflow": "auto",
+            "tableWidth": 1337
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop: source history disclosure opens without replacing current tasks",
+      "pass": true
+    },
+    {
+      "name": "desktop: navigation and source-history inspection leave actual quantities and costs unchanged",
+      "pass": true,
+      "detail": {
+        "actualSnapshotSha256": "48c1421dfceebbe164ce2fbd2f5e74c48faac9888b63d45f057d7a55382b129f"
+      }
+    },
+    {
+      "name": "phone: existing week control selects CON WK2",
+      "pass": true
+    },
+    {
+      "name": "phone: 26 source tasks represented once, including the closed Monday notice",
+      "pass": true
+    },
+    {
+      "name": "phone: five scheduled days remain 5\u20139 October",
+      "pass": true,
+      "detail": [
+        "MON 05 OCT 2026",
+        "TUE 06 OCT 2026",
+        "WED 07 OCT 2026",
+        "THU 08 OCT 2026",
+        "FRI 09 OCT 2026"
+      ]
+    },
+    {
+      "name": "phone: every dated task location, description and source page is visible",
+      "pass": true
+    },
+    {
+      "name": "phone: all three unresolved source quantity conflicts remain visible",
+      "pass": true
+    },
+    {
+      "name": "phone: Friday heading discrepancy remains visible",
+      "pass": true
+    },
+    {
+      "name": "phone: all source prerequisites and notes remain visible",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "phone: planned work is explicit with no completion control or green done status",
+      "pass": true
+    },
+    {
+      "name": "phone: checklist-versus-completion explanation is visible",
+      "pass": true
+    },
+    {
+      "name": "phone: source basis and original PDF link are visible",
+      "pass": true
+    },
+    {
+      "name": "phone: tables stay in local scroll containers without page-wide overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "pageWidth": 390,
+        "wrappers": [
+          {
+            "width": 299,
+            "scrollWidth": 640,
+            "overflow": "auto",
+            "tableWidth": 640
+          },
+          {
+            "width": 299,
+            "scrollWidth": 640,
+            "overflow": "auto",
+            "tableWidth": 640
+          },
+          {
+            "width": 299,
+            "scrollWidth": 640,
+            "overflow": "auto",
+            "tableWidth": 640
+          },
+          {
+            "width": 299,
+            "scrollWidth": 640,
+            "overflow": "auto",
+            "tableWidth": 640
+          },
+          {
+            "width": 299,
+            "scrollWidth": 640,
+            "overflow": "auto",
+            "tableWidth": 640
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone: prerequisite text remains readable beyond the first column",
+      "pass": true,
+      "detail": {
+        "scrolled": 341,
+        "max": 341,
+        "cell": {
+          "left": -5.1875,
+          "right": 346
+        },
+        "stickyFirstRight": null,
+        "rightReachable": true,
+        "textStartClear": true
+      }
+    },
+    {
+      "name": "phone: start of QPS prerequisite is reachable by ordinary horizontal scroll",
+      "pass": true,
+      "detail": {
+        "left": 46.8125,
+        "viewportLeft": 46,
+        "firstColumnPosition": "static",
+        "startReachable": true
+      }
+    },
+    {
+      "name": "phone: source history disclosure opens without replacing current tasks",
+      "pass": true
+    },
+    {
+      "name": "phone: navigation and source-history inspection leave actual quantities and costs unchanged",
+      "pass": true,
+      "detail": {
+        "actualSnapshotSha256": "48c1421dfceebbe164ce2fbd2f5e74c48faac9888b63d45f057d7a55382b129f"
+      }
+    },
+    {
+      "name": "no page/console errors or attempted live writes",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "blockedWrites": 0
+      }
+    }
+  ],
+  "devices": [
+    {
+      "device": "desktop",
+      "rows": 25,
+      "closedMonday": 1,
+      "days": [
+        "MON 05 OCT 2026",
+        "TUE 06 OCT 2026",
+        "WED 07 OCT 2026",
+        "THU 08 OCT 2026",
+        "FRI 09 OCT 2026"
+      ],
+      "sourceConflicts": 3,
+      "actualSnapshotSha256": "48c1421dfceebbe164ce2fbd2f5e74c48faac9888b63d45f057d7a55382b129f",
+      "screenshots": [
+        "desktop-club-conflict.png",
+        "desktop-friday-note.png",
+        "desktop-helen-conflict.png",
+        "desktop-qps-conflict.png",
+        "desktop-week-top.png"
+      ]
+    },
+    {
+      "device": "phone",
+      "rows": 25,
+      "closedMonday": 1,
+      "days": [
+        "MON 05 OCT 2026",
+        "TUE 06 OCT 2026",
+        "WED 07 OCT 2026",
+        "THU 08 OCT 2026",
+        "FRI 09 OCT 2026"
+      ],
+      "sourceConflicts": 3,
+      "actualSnapshotSha256": "48c1421dfceebbe164ce2fbd2f5e74c48faac9888b63d45f057d7a55382b129f",
+      "screenshots": [
+        "phone-club-conflict.png",
+        "phone-friday-note.png",
+        "phone-helen-conflict.png",
+        "phone-qps-conflict.png",
+        "phone-qps-prerequisites-end.png",
+        "phone-qps-prerequisites-start.png",
+        "phone-week-top.png"
+      ]
+    }
+  ],
+  "errors": [],
+  "blockedWrites": 0,
+  "navigation": {
+    "tab": "fencing",
+    "weeks": [
+      {
+        "key": "Week 6",
+        "text": "Week 6 \u00b7 6"
+      },
+      {
+        "key": "Week 5",
+        "text": "Week 5 \u00b7 29"
+      },
+      {
+        "key": "Week 4",
+        "text": "Week 4 \u00b7 23"
+      },
+      {
+        "key": "Week 3",
+        "text": "Week 3 \u00b7 5"
+      },
+      {
+        "key": "Week 2",
+        "text": "Week 2"
+      },
+      {
+        "key": "Week 1",
+        "text": "Week 1"
+      },
+      {
+        "key": "Event Week",
+        "text": "Event Week"
+      },
+      {
+        "key": "Demob Week 1",
+        "text": "Demob 1"
+      },
+      {
+        "key": "Demob Week 2",
+        "text": "Demob 2"
+      },
+      {
+        "key": "Demob Week 3",
+        "text": "Demob 3"
+      }
+    ]
+  },
+  "complete": true
+}

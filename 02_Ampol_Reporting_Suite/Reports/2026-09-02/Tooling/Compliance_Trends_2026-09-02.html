@@ -1,0 +1,551 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Coates Ampol Compliance &amp; Trends Report - 02 Sep 2026 18:30</title><style>/* =====================================================================
+   COATES K2 REPORT DESIGN SYSTEM - print stylesheet
+   Author: Andrew Fisher  -  POWERED BY SITEIQ
+   Matched to the K2 report family (Executive Summary, Stores Stocktake,
+   Store Consumables, Company On-Hire) so every Coates report reads as
+   one house style.
+   A4 portrait. Self-contained - no web fonts, no external requests.
+   ===================================================================== */
+
+
+
+html, body { margin: 0; padding: 0; }
+
+/* Chromium/Edge strips background colours in print unless told not to.
+   WeasyPrint ignores this harmlessly. Without it the Edge-rendered PDF
+   comes out white-on-white. */
+html, body, * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  /* Lato where installed; Calibri on every Coates Windows laptop
+     (Carlito is the metric-matched clone on Linux). */
+  font-family: "Lato", "Calibri", "Carlito", "Segoe UI",
+               "Liberation Sans", sans-serif;
+  color: #35404E;
+}
+
+/* ---------- page + orange frame ------------------------------------ */
+
+/* footer pinned to the bottom of every frame */
+/* content area stops above the footer */
+/* ---------- page 1 dark header panel ------------------------------- */
+
+.hero {
+  background: #1A2430;
+  border-radius: 10px;
+  padding: 21px 24px 19px 24px;
+}
+.hero-grid { width: 100%; }
+.hero-grid td { vertical-align: top; }
+.kicker {
+  color: #F36F21;
+  font-size: 8.8px;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 8px 0 0 0;
+  color: #FFFFFF;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.12;
+}
+.hero .sub {
+  margin-top: 8px;
+  color: #A7B6C4;
+  font-size: 11.6px;
+}
+.hero .meta {
+  margin-top: 10px;
+  color: #8395A6;
+  font-size: 9.4px;
+  line-height: 1.6;
+}
+.hero .meta b { color: #FFFFFF; font-weight: 700; }
+.siteiq {
+  text-align: right;
+  color: #FFFFFF;
+  font-size: 9.8px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  white-space: nowrap;
+}
+.siteiq .q { color: #F36F21; }
+.tagline {
+  text-align: right;
+  color: #8395A6;
+  font-size: 10.4px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+/* ---------- continuation header (pages 2+) ------------------------- */
+
+.chead { width: 100%; }
+.chead td { vertical-align: top; }
+.chead h2 {
+  margin: 5px 0 0 0;
+  color: #16202C;
+  font-size: 15px;
+  font-weight: 700;
+}
+.chead .siteiq { color: #16202C; }
+.asat {
+  text-align: right;
+  color: #8A9AAC;
+  font-size: 9.2px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+.asat b { color: #16202C; font-weight: 700; }
+.pageno {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 2px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- KEY strip --------------------------------------------- */
+
+.key {
+  margin-top: 10px;
+  font-size: 8.4px;
+  line-height: 1.9;
+  color: #7A8A9A;
+}
+.key .kl {
+  color: #8A9AAC;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  margin-right: 6px;
+}
+.key .dot { font-size: 9px; }
+.key b { font-weight: 700; }
+.key .blue  { color: #2F7FD0; }
+.key .amber { color: #E0930F; }
+.key .orange{ color: #F36F21; }
+.key .green { color: #16A34A; }
+
+/* thin gradient rule */
+.grule {
+  height: 2.8px;
+  margin-top: 7px;
+  background-image: linear-gradient(to right, #F36F21 0%, #F5860F 18%,
+              #F0B310 34%, #E3D41C 52%, #C8DA2C 68%, #DDEA92 84%, #FFFFFF 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.page1 .grule { margin-top: 12px; }
+
+/* right-aligned page number on page 1 sits above the rule */
+.p1no {
+  text-align: right;
+  color: #98A6B4;
+  font-size: 9.2px;
+  margin-top: 8px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- callout (peach) --------------------------------------- */
+
+.callout {
+  background: #FDF0E7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 10px 10px 0;
+  padding: 16px 22px;
+  margin-top: 16px;
+  font-size: 12.4px;
+  line-height: 2.0;
+  color: #1F2A36;
+}
+.callout.tight { font-size: 11.6px; line-height: 1.9; padding: 14px 20px; }
+.callout b { font-weight: 700; }
+.callout .o { color: #D95F14; font-weight: 700; }
+.callout .lead {
+  color: #D95F14;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- section header (grey panel) --------------------------- */
+
+.sect {
+  background: #F4F5F7;
+  border-left: 4px solid #F36F21;
+  border-radius: 0 9px 9px 0;
+  padding: 13px 18px;
+  margin-top: 18px;
+}
+.sect h3 { margin: 0; color: #16202C; font-size: 14px; font-weight: 700; }
+
+/* plain sub-heading */
+.sub-h {
+  margin: 18px 0 10px 0;
+  color: #16202C;
+  font-size: 13.8px;
+  font-weight: 700;
+}
+.sub-h .thin { color: #5A6875; font-weight: 400; }
+
+.note {
+  font-size: 9.5px;
+  color: #7A8A9A;
+  line-height: 1.75;
+  margin-top: 9px;
+}
+.note b { color: #16202C; font-weight: 700; }
+.note .o { color: #D95F14; font-weight: 700; }
+
+/* ---------- KPI tiles -------------------------------------------- */
+
+.tiles { width: 100%; table-layout: fixed; border-spacing: 7px 7px;
+         margin: 11px -7px 0 -7px; }
+.tiles td {
+  background: #171F2B;
+  border-radius: 11px;
+  padding: 16px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.t-ico { line-height: 1; margin-bottom: 8px; }
+.t-num {
+  color: #FFFFFF;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+}
+.t-num.sm { font-size: 20px; }
+.t-lab {
+  color: #8A9AAC;
+  font-size: 7.8px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+.t-note { font-size: 8.3px; font-weight: 700; margin-top: 5px; line-height: 1.4; }
+.t-note.red   { color: #F0603E; }
+.t-note.green { color: #22C55E; }
+.t-note.amber { color: #EFA82B; }
+.t-note.grey  { color: #7A8A9A; }
+
+/* ---------- donut ------------------------------------------------- */
+
+.donut-wrap { text-align: center; padding-top: 2px; }
+.donut-cap {
+  color: #98A6B4;
+  font-size: 9px;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* ---------- score bars (K2: fixed-width pill next to the label) --- */
+
+.scores { border-spacing: 0; margin-top: 2px; }
+.scores td { padding: 0; vertical-align: middle; }
+.sc-tick { color: #F5A623; font-size: 10.5px; width: 16px;
+           font-family: "DejaVu Sans", "Segoe UI Symbol", sans-serif; }
+.sc-lab  { color: #1F2A36; font-size: 11.6px; width: 132px;
+           padding-right: 12px; line-height: 1.3; }
+.sc-bar  { width: 236px; }
+.sc-val  { color: #16202C; font-size: 11.6px; font-weight: 700;
+           white-space: nowrap; padding-left: 12px; }
+.sc-form { color: #98A6B4; font-size: 8.9px; line-height: 1.5;
+           padding: 2px 0 13px 0 !important; }
+
+.track  { background: #1A2430; border-radius: 999px; height: 10px; }
+.trackl { background: #E9EDF1; border-radius: 999px; height: 9px; }
+.fill   { height: 10px; border-radius: 999px; }
+.trackl .fill { height: 9px; }
+.f-green { background: #1FA75A; }
+.f-amber { background: #F5A623; }
+.f-red   { background: #EF4444; }
+.f-orange{ background: #F36F21; }
+.f-blue  { background: #3D8BD4; }
+
+/* light progress rows */
+.prog { width: 100%; table-layout: fixed; border-spacing: 0; margin-top: 12px; }
+.prog td { padding: 0 0 10px 0; vertical-align: middle; }
+.pr-lab { color: #6C7A89; font-size: 9.8px; width: 158px; padding-right: 14px;
+          line-height: 1.3; }
+.pr-bar { }
+.pr-val { color: #16202C; font-size: 9.8px; font-weight: 700; text-align: right;
+          white-space: nowrap; width: 64px; padding-left: 14px; }
+
+/* ---------- alerts panel ----------------------------------------- */
+
+.alerts {
+  background: #171F2B;
+  border-radius: 10px;
+  padding: 16px 20px 7px 20px;
+  margin-top: 15px;
+}
+.alerts .ah {
+  color: #F36F21;
+  font-size: 9.3px;
+  font-weight: 700;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.al { width: 100%; border-spacing: 0; }
+.al td { vertical-align: top; padding-bottom: 12px; }
+.al-dot { width: 13px; font-size: 11px; line-height: 1.3; }
+.al-t { color: #FFFFFF; font-size: 10.6px; font-weight: 700; line-height: 1.4; }
+.al-s { color: #8A9AAC; font-size: 9.5px; line-height: 1.55; margin-top: 3px; }
+.d-red { color: #F0603E; } .d-amber { color: #EFA82B; }
+.d-blue { color: #3D8BD4; } .d-green { color: #22C55E; }
+
+/* ---------- tables ----------------------------------------------- */
+
+table.dt { width: 100%; border-collapse: separate; border-spacing: 0;
+           margin-top: 11px; }
+table.dt th {
+  background: #1B2532;
+  color: #FFFFFF;
+  font-size: 8.7px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 10px;
+  line-height: 1.35;
+}
+table.dt th:first-child { border-top-left-radius: 7px; padding-left: 14px; }
+table.dt th:last-child  { border-top-right-radius: 7px; padding-right: 14px; }
+table.dt th.r, table.dt td.r { text-align: right; }
+table.dt th.c, table.dt td.c { text-align: center; }
+table.dt td {
+  font-size: 10.3px;
+  color: #26313D;
+  padding: 10px 10px;
+  border-bottom: 1px solid #E8EBEF;
+  line-height: 1.4;
+}
+table.dt td:first-child { padding-left: 14px; }
+table.dt td:last-child  { padding-right: 14px; }
+table.dt tr.z td { background: #F7F8FA; }
+table.dt td .s2 { display: block; color: #98A6B4; font-size: 8.6px; margin-top: 2px; }
+table.dt td.big { font-size: 17px; font-weight: 700; color: #16202C;
+                  text-align: center; padding: 15px 10px; }
+table.dt td.big + td.big { border-left: 1px solid #E8EBEF; }
+table.dt th.c + th.c { border-left: 1px solid #2A3644; }
+.g { color: #16A34A; font-weight: 700; }
+.a { color: #D9880B; font-weight: 700; }
+.rd { color: #DC2626; font-weight: 700; }
+.or { color: #D95F14; font-weight: 700; }
+.tbc { color: #98A6B4; }
+
+.totrow { width: 100%; border-collapse: collapse; margin-top: 0; }
+.totrow td {
+  font-size: 11.8px; font-weight: 700; color: #16202C;
+  padding: 12px 14px; border-bottom: 1px solid #E8EBEF;
+}
+.totrow td.v { text-align: right; }
+.hl { background: #FFF35C; padding: 2px 7px; border-radius: 2px; }
+
+/* ---------- info cards (lime bar) -------------------------------- */
+
+.cards { width: 100%; table-layout: fixed; border-spacing: 8px 8px;
+         margin: 10px -8px 0 -8px; }
+.cards td {
+  background: #F4F5F7;
+  border-left: 4px solid #C8DA2C;
+  border-radius: 0 7px 7px 0;
+  padding: 13px 16px;
+  vertical-align: top;
+}
+.cd-h {
+  color: #16202C; font-size: 9px; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 7px;
+}
+.cd-b { color: #47566A; font-size: 10px; line-height: 1.72; }
+.cd-b b { color: #16202C; font-weight: 700; }
+
+/* ---------- focus cards (dark, on white page) --------------------- */
+
+.focus { width: 100%; table-layout: fixed; border-spacing: 7px 0;
+         margin: 12px -7px 0 -7px; }
+.focus td {
+  background: #171F2B;
+  border-radius: 10px;
+  border-top: 3px solid #F36F21;
+  padding: 14px 15px 13px 15px;
+  vertical-align: top;
+}
+.fc-co { color: #FFFFFF; font-size: 12px; font-weight: 700; line-height: 1.3; }
+.fc-n  { color: #F0823C; font-size: 9.4px; font-weight: 700; margin-top: 5px; }
+.fc-s  { color: #8A9AAC; font-size: 8.8px; line-height: 1.6; margin-top: 5px; }
+
+/* ---------- team cards ------------------------------------------- */
+
+.team { width: 100%; border-spacing: 8px 0; margin: 13px -8px 0 -8px; }
+.team td {
+  background: #171F2B;
+  border-top: 3px solid #C8DA2C;
+  border-radius: 10px;
+  padding: 15px 9px 14px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.av {
+  width: 42px; height: 42px; border-radius: 999px;
+  background: #55636F; color: #FFFFFF;
+  font-size: 13px; font-weight: 700;
+  text-align: center; line-height: 42px;
+  margin: 0 auto 9px auto;
+}
+.av.lead { background: #F36F21; }
+.tm-n { color: #FFFFFF; font-size: 11.6px; font-weight: 700; line-height: 1.3; }
+.tm-r { color: #C8DA2C; font-size: 8.6px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.8px; margin-top: 5px; line-height: 1.4; }
+.tm-e { color: #7FB3D5; font-size: 8.6px; margin-top: 5px; line-height: 1.4; }
+.tm-d { color: #8A9AAC; font-size: 8.3px; margin-top: 6px; line-height: 1.5; }
+
+/* ---------- misc -------------------------------------------------- */
+
+.two { width: 100%; border-spacing: 0; }
+.two td { vertical-align: top; }
+.chartpanel { background: #171F2B; border-radius: 10px; padding: 15px 17px;
+              margin-top: 11px; }
+.chart-cap { color: #7A8A9A; font-size: 9.4px; line-height: 1.7; margin-top: 9px; }
+.chart-cap b { color: #16202C; }
+
+
+/* ---------- compact tables + tags (02 Sep 2026, gas monitor rebuild) --- */
+
+table.dt.cp th { padding: 8px 8px; font-size: 8.1px; letter-spacing: 1px; }
+table.dt.cp td { padding: 5.5px 8px; font-size: 9.3px; line-height: 1.3; }
+table.dt.cp td:first-child { padding-left: 12px; }
+table.dt.cp td:last-child  { padding-right: 12px; }
+table.dt.cp td .s2 { font-size: 8px; margin-top: 1px; }
+
+.tag {
+  display: inline-block; font-size: 7.2px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; padding: 1px 5px; border-radius: 3px;
+  margin-left: 6px; vertical-align: middle; line-height: 1.5;
+}
+.tag.red   { background: #FDE8E8; color: #C81E1E; }
+.tag.amber { background: #FFF1DB; color: #B45309; }
+.tag.grey  { background: #EEF1F4; color: #5A6875; }
+.tag.green { background: #E4F5EA; color: #15803D; }
+
+table.dt td.dim { color: #98A6B4; }
+table.dt th.nw, table.dt td.nw { white-space: nowrap; }
+table.dt th.w { white-space: nowrap; }
+
+.rules { width: 100%; border-spacing: 0; margin-top: 10px; }
+.rules td { vertical-align: top; padding: 5px 0; border-bottom: 1px solid #E8EBEF;
+            font-size: 9.4px; line-height: 1.55; color: #47566A; }
+.rules td.k { width: 118px; color: #16202C; font-weight: 700; padding-right: 12px; }
+
+/* ---------- flowing-report frame (k2flow) ----------------------------
+   Print-safe pattern: the page margins sit on the frame line (6.5mm);
+   the frame is a fixed element that exactly spans the page area (a
+   fixed element that hangs outside the page area gets tiled by
+   Chromium); the running header and footer bands are the <thead> and
+   <tfoot> of one wrapping table, which Chromium repeats on every page;
+   the page counter is the one thing that needs a margin box. */
+@page {
+  size: A4 portrait;
+  margin: 6.5mm 6.5mm 6.5mm 6.5mm;
+  @bottom-center { content: "Page " counter(page) " of " counter(pages);
+                   font-family: "Lato","Calibri","Carlito","Segoe UI",sans-serif;
+                   font-size: 6.4pt; color: #98A6B4; vertical-align: top; margin-top: 1.2mm; }
+}
+.k2frame { position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+           border: 5px solid #F36F21; border-radius: 26px; pointer-events: none; }
+/* the header and footer bands are FIXED (pinned to the top and bottom of
+   every page, last page included); the wrapping table's thead and tfoot
+   are empty spacers of the same height that reserve the room on each page */
+table.k2wrap { width: 100%; border-collapse: collapse; border-spacing: 0; }
+table.k2wrap > thead { display: table-header-group; }
+table.k2wrap > tfoot { display: table-footer-group; }
+table.k2wrap > thead td, table.k2wrap > tfoot td, table.k2wrap > tbody > tr > td { padding: 0; }
+.k2spacer-t { height: 19.5mm; }
+.k2spacer-b { height: 15.5mm; }
+.k2run { position: fixed; top: 0; left: 0; right: 0; height: 19.5mm; padding: 8.5mm 10mm 0 10mm;
+         box-sizing: border-box; }
+.k2run .bar { border-bottom: 1px solid #E4E8EC; padding-bottom: 5px; position: relative; }
+.k2run .kicker { color: #F36F21; font-size: 8.2px; font-weight: 700; letter-spacing: 2.4px;
+                 text-transform: uppercase; }
+.k2run .t { margin-top: 3px; color: #16202C; font-size: 12.5px; font-weight: 700; }
+.k2run .r { position: absolute; right: 0; top: 0; text-align: right; }
+.k2run .r .siteiq { color: #16202C; text-align: right; }
+.k2run .r .asat { color: #8A9AAC; font-size: 8.8px; margin-top: 4px; white-space: nowrap; }
+.k2run .r .asat b { color: #16202C; }
+.k2foot { position: fixed; bottom: 0; left: 0; right: 0; height: 15.5mm; padding: 0 10mm 8.5mm 10mm;
+          box-sizing: border-box; }
+.k2foot .bar { border-top: 1px solid #E4E8EC; padding-top: 7px; position: relative; }
+.k2foot .fh { color: #F36F21; font-size: 7.4px; font-weight: 700; letter-spacing: 1.9px;
+              text-transform: uppercase; }
+.k2foot .fl { font-size: 8.2px; color: #8A9AAC; line-height: 1.5; margin-top: 3px; }
+.k2foot .fl b { color: #16202C; font-weight: 700; }
+.k2foot .fr { position: absolute; right: 0; top: 8px; text-align: right; font-size: 8.4px;
+              color: #16202C; font-weight: 700; letter-spacing: 1.4px; }
+.k2foot .fr .q { color: #F36F21; }
+.k2body { padding: 6px 10mm 4px 10mm; }
+.k2body .sect { break-after: avoid; page-break-after: avoid; }
+.k2body .sub-h { break-after: avoid; page-break-after: avoid; }
+.k2body table.dt thead { display: table-header-group; }
+.k2body table.dt tr { break-inside: avoid; page-break-inside: avoid; }
+.k2body .tiles, .k2body .callout, .k2body .note, .k2body .chartpanel, .k2body .alerts,
+.k2body .donut-wrap { break-inside: avoid; page-break-inside: avoid; }
+.k2body .pb { break-before: page; page-break-before: always; }
+.k2body .keep { break-inside: avoid; page-break-inside: avoid; }
+.k2body .hero { break-after: avoid; }
+
+.k2body p.para { font-size: 10.6px; line-height: 1.7; color: #35404E; margin: 10px 0 0 0; }
+.k2body p.para b { color: #16202C; font-weight: 700; }
+.k2body ul.rul { margin: 8px 0 0 16px; padding: 0; font-size: 9.5px; color: #47566A;
+                 line-height: 1.7; }
+.k2body ul.rul li { margin: 0 0 4px 0; }
+.k2body ul.rul { break-inside: avoid; page-break-inside: avoid; }
+.k2body .alerts .al-b { color: #C9D6E2; font-size: 9.6px; line-height: 1.55; }
+.k2body .alerts .al td { padding-bottom: 8px; }
+.k2body .chart-cap { break-before: avoid; page-break-before: avoid; }
+.k2body .sect + .note, .k2body .sect + p.para { break-after: avoid; page-break-after: avoid; }
+table.dt.xs th { padding: 6px 5px; font-size: 7.4px; letter-spacing: 0.6px; }
+table.dt.xs td { padding: 4px 5px; font-size: 8.3px; line-height: 1.25; }
+table.dt.xs th:first-child, table.dt.xs td:first-child { padding-left: 9px; }
+table.dt.xs th:last-child, table.dt.xs td:last-child { padding-right: 9px; }
+table.dt.reg th { padding: 7px 8px; font-size: 7.8px; letter-spacing: 1px; }
+table.dt.reg td { padding: 3.5px 8px; font-size: 8.9px; line-height: 1.25; }
+table.dt.reg td:first-child { padding-left: 11px; }
+table.dt.reg td:last-child { padding-right: 11px; }
+table.dt.reg tr.co td { background: #1B2532; color: #FFFFFF; padding: 7px 11px 6px 11px;
+                        border-top: 10px solid #FFFFFF; border-bottom: 0; line-height: 1.35; }
+table.dt.reg tr.co .nm { font-size: 11.4px; font-weight: 700; }
+table.dt.reg tr.co .st { font-size: 8.4px; color: #C9D6E2; margin-left: 10px; }
+table.dt.reg tr.co .ac { font-size: 8.1px; color: #F5B58A; margin-top: 2px; }
+table.dt.reg tr.hr td { background: #E6EAEF; color: #16202C; font-weight: 700;
+                        font-size: 8.9px; padding: 5px 11px; }
+table.dt.reg tr.hr .acc { font-weight: 400; color: #B45309; }
+table.dt.reg tr.co, table.dt.reg tr.hr { break-after: avoid; page-break-after: avoid; }
+table.dt.reg tbody.keep { break-inside: avoid; page-break-inside: avoid; }
+table.dt.reg tr.z td { background: #F7F8FA; }
+</style></head><body><div class="k2frame"></div><div class="k2run"><div class="bar"><div class="kicker">COATES · TOOL STORE · COMPLIANCE &amp; TRENDS</div><div class="t">Ampol Compliance &amp; Trends Report</div><div class="r"><div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div><div class="asat">AS AT <b>02 SEP 2026 18:30</b></div></div></div></div><div class="k2foot"><div class="bar"><div class="fh">Your Coates Tool Store Team</div><div class="fl"><b>Andrew Fisher</b> Shutdown Manager &nbsp;·&nbsp; Author: <b>Andrew Fisher</b></div><div class="fr">POWERED BY <span class="q">SITEIQ</span></div></div></div><table class="k2wrap"><thead><tr><td><div class="k2spacer-t"></div></td></tr></thead><tfoot><tr><td><div class="k2spacer-b"></div></td></tr></tfoot><tbody><tr><td><div class="k2body"><div class="hero">
+  <table class="hero-grid"><tr>
+    <td>
+      <div class="kicker">COATES · TOOL STORE · COMPLIANCE &amp; TRENDS</div>
+      <h1>Ampol Compliance &amp; Trends Report</h1>
+      <div class="sub">Ampol Lytton Refinery · Permanent Tool Store</div>
+    </td>
+    <td style="width:172px">
+      <div class="siteiq">POWERED BY <span class="q">SITEIQ</span></div>
+      <div class="tagline">Equipped for anything</div>
+    </td>
+  </tr></table>
+  <div class="meta">Generated: <b>02 Sep 2026 23:24</b> &nbsp;|&nbsp;
+    Data as at: <b>02 Sep 2026 18:30</b> (SiteIQ register pull) &nbsp;|&nbsp;
+    Author: <b>Andrew Fisher</b></div>
+</div><div class="key"><span class="kl">KEY</span>  <span class="dot amber">●</span> <b class="amber">SIGHT</b> not through our hands in three months  <span class="dot green">●</span> <b class="green">CAUGHT</b> parked out of tag by our checks  <span class="dot orange">●</span> <b class="orange">HIGH VALUE</b> the costliest gear in the field</div><div class="grule"></div><div class="callout"><span class="lead">The position.</span> Electrical, rigging and high-torque gear carries test and inspection dates. Anything in those families that has not been through our hands in 90 days is potentially out of test date - not a problem, just a reason for a five-minute visit to the counter. We check the tags, and if it is current it goes straight back with you. That is us doing the compliance work so your crews do not have to think about it.</div><table class="tiles"><tr><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 2.5 20h19z"/><path d="M12 9.5v4.5"/><path d="M12 17.2v.05"/></svg></div><div class="t-num">88</div><div class="t-lab">Not seen 3+ months</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 6.5"/></svg></div><div class="t-num">1</div><div class="t-lab">Caught &amp; parked (out of tag)</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.2 12 3 3 8.2v7.6L12 21l9-5.2z"/><path d="M3 8.2l9 5.2 9-5.2"/><path d="M12 13.4V21"/></svg></div><div class="t-num">176</div><div class="t-lab">High-value items out</div></td><td><div class="t-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F36F21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s7.5-3.3 7.5-9.3V5.5L12 2.8 4.5 5.5v6.7c0 6 7.5 9.3 7.5 9.3z"/></svg></div><div class="t-num sm">$336,534.00</div><div class="t-lab">High-value exposure</div></td></tr></table><div class="sect"><h3>Electrical - Not Sighted In 90+ Days (ranked by last sighted, oldest first)</h3></div><table class="dt cp"><thead><tr><th class="">Company</th><th class="">Hirer</th><th class="">Barcode</th><th class="">Description</th><th class="">Last Sighted</th><th class="r">Replacement</th></tr></thead><tbody><tr><td class="">HIS</td><td class="">Joshua - Laird</td><td class="">SD2004/105</td><td class="">Caddy Welding Earth Lead</td><td class="">05 Jan 2026</td><td class="r">$130.00</td></tr><tr class="z"><td class="">Saunders</td><td class="">Dent - Gardiner</td><td class="">WG0130/003</td><td class="">RCD 240V 15A</td><td class="">08 Jan 2026</td><td class="r">$120.00</td></tr><tr><td class="">HIS</td><td class="">James - Mcintyre</td><td class="">SD1030/038</td><td class="">Extension Lead 32V</td><td class="">12 Jan 2026</td><td class="r">$120.00</td></tr><tr class="z"><td class="">Wood</td><td class="">David - Wood</td><td class="">C0786-144</td><td class="">Air Leader Hose</td><td class="">16 Jan 2026</td><td class="r">$35.00</td></tr><tr><td class="">HIS</td><td class="">Bunthon - Nam</td><td class="">SD4270/006</td><td class="">Extension Lead 240V 15A</td><td class="">19 Jan 2026</td><td class="r">$65.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Dan - Powell</td><td class="">WG0127/007</td><td class="">Extension Lead 240V 15A</td><td class="">20 Jan 2026</td><td class="r">$65.00</td></tr><tr><td class="">HIS</td><td class="">Joshua - Laird</td><td class="">AMP129/031</td><td class="">Argon Gas Extension Lead</td><td class="">27 Jan 2026</td><td class="r">$60.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Sean - Cotton</td><td class="">CTX001/025</td><td class="">RCD 240V 15A</td><td class="">03 Feb 2026</td><td class="r">$120.00</td></tr><tr><td class="">Contract Resources</td><td class="">Robin - Briggs</td><td class="">AMP136/012</td><td class="">Extension Lead 15 Amp</td><td class="">11 Feb 2026</td><td class="r">$65.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Robin - Briggs</td><td class="">CTX001/042</td><td class="">RCD 240V 15A</td><td class="">11 Feb 2026</td><td class="r">$120.00</td></tr><tr><td class="">Wood</td><td class="">Sean - Cotton</td><td class="">SD1026/335</td><td class="">Extension Lead 240V 10A</td><td class="">11 Feb 2026</td><td class="r">$35.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Threyne - Anderson-Thompson</td><td class="">SD2004/023</td><td class="">Caddy Welding Earth Lead</td><td class="">18 Feb 2026</td><td class="r">$130.00</td></tr><tr><td class="">Wood</td><td class="">Paul - Skornsek</td><td class="">AMP129/026</td><td class="">Argon Gas Extension Lead</td><td class="">24 Feb 2026</td><td class="r">$60.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Josh - Latta</td><td class="">SD1026/312</td><td class="">Extension Lead 240V 10A</td><td class="">25 Feb 2026</td><td class="r">$35.00</td></tr><tr><td class="">Ampol</td><td class="">Wynnum - Gardens</td><td class="">AMP174/003</td><td class="">RCD 240V 10A</td><td class="">26 Feb 2026</td><td class="r">$85.00</td></tr><tr class="z"><td class="">Ampol</td><td class="">Wynnum - Gardens</td><td class="">AMP174/006</td><td class="">RCD 240V 10A</td><td class="">27 Feb 2026</td><td class="r">$85.00</td></tr><tr><td class="">Wood</td><td class="">Sean - Cotton</td><td class="">WG0125/016</td><td class="">Angle Grinder - 5&quot; 240V</td><td class="">03 Mar 2026</td><td class="r">$180.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Tuan - Nguyen</td><td class="">AMP129/035</td><td class="">Argon Gas Extension Lead</td><td class="">05 Mar 2026</td><td class="r">$60.00</td></tr><tr><td class="">Wood</td><td class="">Mark - Penwarden</td><td class="">CTX001/006</td><td class="">RCD 240V 15A</td><td class="">20 Mar 2026</td><td class="r">$120.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Sean - Cotton</td><td class="">C0786-156</td><td class="">Air Leader Hose</td><td class="">31 Mar 2026</td><td class="r">$35.00</td></tr><tr><td class="">Wood</td><td class="">Wade - Remfry</td><td class="">CTX001/039</td><td class="">RCD 240V 15A</td><td class="">16 Apr 2026</td><td class="r">$120.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Tuan - Nguyen</td><td class="">SD0010/320</td><td class="">Angle Grinder - 5&quot; 240V</td><td class="">17 Apr 2026</td><td class="r">$220.00</td></tr><tr><td class="">Wood</td><td class="">Warwick - Smith</td><td class="">WG0130/004</td><td class="">RCD 240V 15A</td><td class="">22 Apr 2026</td><td class="r">$120.00</td></tr><tr class="z"><td class="">HIS</td><td class="">Wade - Noack</td><td class="">AMP129/024</td><td class="">Argon Gas Extension Lead</td><td class="">30 Apr 2026</td><td class="r">$60.00</td></tr><tr><td class="">Wood</td><td class="">Todd - Van Der</td><td class="">AMP129/008</td><td class="">Argon Gas Extension Lead</td><td class="">06 May 2026</td><td class="r">$60.00</td></tr><tr class="z"><td class="">Saunders</td><td class="">Aiden - Williamson</td><td class="">WG0126/004</td><td class="">Die Grinder 240V</td><td class="">07 May 2026</td><td class="r">$280.00</td></tr><tr><td class="">Saunders</td><td class="">Aiden - Williamson</td><td class="">WG0126/013</td><td class="">Die Grinder 240V</td><td class="">07 May 2026</td><td class="r">$280.00</td></tr><tr class="z"><td class="">Wood</td><td class="">McLean - Smith</td><td class="">SD1026/102</td><td class="">Extension Lead 240V 10A</td><td class="">13 May 2026</td><td class="r">$35.00</td></tr><tr><td class="">Wood</td><td class="">Craig - Hill</td><td class="">SD4270/014</td><td class="">Extension Lead 240V 15A</td><td class="">14 May 2026</td><td class="r">$65.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Craig - Hill</td><td class="">C0688-109</td><td class="">Welding Earth Lead</td><td class="">14 May 2026</td><td class="r">$20.00</td></tr><tr><td class="">HIS</td><td class="">Connor - Clarke</td><td class="">AMP129/023</td><td class="">Argon Gas Extension Lead</td><td class="">19 May 2026</td><td class="r">$60.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Justin - Robinson</td><td class="">C0786-135</td><td class="">Air Leader Hose</td><td class="">27 May 2026</td><td class="r">$35.00</td></tr><tr><td class="">Wood</td><td class="">Michael - Ekert</td><td class="">C0786-76</td><td class="">Air Leader Hose</td><td class="">27 May 2026</td><td class="r">$35.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Craig - Hill</td><td class="">AMP129/006</td><td class="">Argon Gas Extension Lead</td><td class="">01 Jun 2026</td><td class="r">$60.00</td></tr><tr><td class="">Wood</td><td class="">Craig - Hill</td><td class="">AMP228/005</td><td class="">Hot Box 240V</td><td class="">01 Jun 2026</td><td class="r">$450.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Craig - Hill</td><td class="">C0688-104</td><td class="">Welding Earth Lead</td><td class="">01 Jun 2026</td><td class="r">$20.00</td></tr><tr><td class="">Saunders</td><td class="">Jesse - Aylmg</td><td class="">AMP059/011</td><td class="">Welding Earth Lead</td><td class="">02 Jun 2026</td><td class="r">$85.00</td></tr><tr class="z"><td class="">Saunders</td><td class="">Jesse - Aylmg</td><td class="">C0689-44</td><td class="">Welding Electrode Holder Lead</td><td class="">02 Jun 2026</td><td class="r">$45.00</td></tr></tbody></table><div class="sect"><h3>Rigging - Not Sighted In 90+ Days (ranked by last sighted, oldest first)</h3></div><table class="dt cp"><thead><tr><th class="">Company</th><th class="">Hirer</th><th class="">Barcode</th><th class="">Description</th><th class="">Last Sighted</th><th class="r">Replacement</th></tr></thead><tbody><tr><td class="">Contract Resources</td><td class="">John - Pattel</td><td class="">AMP017/106</td><td class="">Round Sling - 1T x 0.5M</td><td class="">05 Jan 2026</td><td class="r">$8.00</td></tr><tr class="z"><td class="">Universal Cranes</td><td class="">India - Flevell</td><td class="">AMP027/023</td><td class="">Chain Block - 1T x 3M</td><td class="">14 Jan 2026</td><td class="r">$88.00</td></tr><tr><td class="">HIS</td><td class="">James - Mcintyre</td><td class="">AMP004/132</td><td class="">Round Sling - 1T x 1M</td><td class="">23 Jan 2026</td><td class="r">$10.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Robin - Briggs</td><td class="">AMP017/041</td><td class="">Round Sling - 1T x 0.5M</td><td class="">10 Feb 2026</td><td class="r">$8.00</td></tr><tr><td class="">Wood</td><td class="">Paul - Skornsek</td><td class="">AMP007/053</td><td class="">Round Sling - 2T x 2M</td><td class="">10 Feb 2026</td><td class="r">$35.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Paul - Skornsek</td><td class="">AMP007/143</td><td class="">Round Sling - 2T x 2M</td><td class="">10 Feb 2026</td><td class="r">$35.00</td></tr><tr><td class="">Wood</td><td class="">Sean - Cotton</td><td class="">AMP0035/003</td><td class="">Round Sling - 2T x 3M</td><td class="">10 Feb 2026</td><td class="r">$20.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Lee - Hill</td><td class="">AMP026/034</td><td class="">Bow Shackle - 3.2T</td><td class="">19 Feb 2026</td><td class="r">$18.00</td></tr><tr><td class="">Contract Resources</td><td class="">Spencer - Madden</td><td class="">AMP005/103</td><td class="">Round Sling - 2T x 1M</td><td class="">24 Feb 2026</td><td class="r">$10.00</td></tr><tr class="z"><td class="">Ampol</td><td class="">Wade - Mathews</td><td class="">AMP111/007</td><td class="">Round Sling - 3T x 6M</td><td class="">02 Mar 2026</td><td class="r">$44.00</td></tr><tr><td class="">Ampol</td><td class="">Wade - Mathews</td><td class="">AMP111/009</td><td class="">Round Sling - 3T x 6M</td><td class="">02 Mar 2026</td><td class="r">$44.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Josh - Stewart</td><td class="">SD0354/053</td><td class="">Lifting Bag - 30Kg</td><td class="">05 Mar 2026</td><td class="r">$120.00</td></tr><tr><td class="">HIS</td><td class="">Igor - Kozlov</td><td class="">AMP017/109</td><td class="">Round Sling - 1T x 0.5M</td><td class="">12 Mar 2026</td><td class="r">$8.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Daniel - Voros</td><td class="">CTX355/003</td><td class="">Bow Shackle - 1T</td><td class="">18 Mar 2026</td><td class="r">$8.00</td></tr><tr><td class="">Contract Resources</td><td class="">Matai - Vaeau</td><td class="">AMP007/135</td><td class="">Round Sling - 2T x 2M</td><td class="">26 Mar 2026</td><td class="r">$35.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Josh - Stewart</td><td class="">AMP348/007</td><td class="">Lifting Bag - 55Kg</td><td class="">01 Apr 2026</td><td class="r">$368.00</td></tr><tr><td class="">Wood</td><td class="">Sean - Cotton</td><td class="">AMP007/150</td><td class="">Round Sling - 2T x 2M</td><td class="">01 Apr 2026</td><td class="r">$35.00</td></tr><tr class="z"><td class="">Ampol</td><td class="">Jannie - Cloete</td><td class="">AMP026/055</td><td class="">Bow Shackle - 3.2T</td><td class="">10 Apr 2026</td><td class="r">$18.00</td></tr><tr><td class="">Ampol</td><td class="">Jannie - Cloete</td><td class="">AMP007/063</td><td class="">Round Sling - 2T x 2M</td><td class="">10 Apr 2026</td><td class="r">$35.00</td></tr><tr class="z"><td class="">Ampol</td><td class="">Jannie - Cloete</td><td class="">AMP007/067</td><td class="">Round Sling - 2T x 2M</td><td class="">10 Apr 2026</td><td class="r">$35.00</td></tr><tr><td class="">Ampol</td><td class="">Jannie - Cloete</td><td class="">AMP007/132</td><td class="">Round Sling - 2T x 2M</td><td class="">10 Apr 2026</td><td class="r">$35.00</td></tr><tr class="z"><td class="">Ampol</td><td class="">Jannie - Cloete</td><td class="">AMP007/133</td><td class="">Round Sling - 2T x 2M</td><td class="">10 Apr 2026</td><td class="r">$35.00</td></tr><tr><td class="">HIS</td><td class="">Mathew - Redman</td><td class="">AMP004/037</td><td class="">Round Sling - 1T x 1M</td><td class="">15 Apr 2026</td><td class="r">$10.00</td></tr><tr class="z"><td class="">HIS</td><td class="">Mathew - Redman</td><td class="">AMP004/152</td><td class="">Round Sling - 1T x 1M</td><td class="">15 Apr 2026</td><td class="r">$10.00</td></tr><tr><td class="">Contract Resources</td><td class="">Matai - Vaeau</td><td class="">AMP017/056</td><td class="">Round Sling - 1T x 0.5M</td><td class="">20 Apr 2026</td><td class="r">$8.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Wade - Remfry</td><td class="">AMP348/006</td><td class="">Lifting Bag - 55Kg</td><td class="">21 Apr 2026</td><td class="r">$368.00</td></tr><tr><td class="">HIS</td><td class="">Adam - Caldwell</td><td class="">AMP004/159</td><td class="">Round Sling - 1T x 1M</td><td class="">22 Apr 2026</td><td class="r">$10.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Jason - Hughes</td><td class="">AMP027/010</td><td class="">Chain Block - 1T x 3M</td><td class="">24 Apr 2026</td><td class="r">$88.00</td></tr><tr><td class="">Contract Resources</td><td class="">Jarred - Bishop</td><td class="">AMP348/010</td><td class="">Lifting Bag - 55Kg</td><td class="">29 Apr 2026</td><td class="r">$368.00</td></tr><tr class="z"><td class="">Saunders</td><td class="">Quentyn - Faanana</td><td class="">AMP005/028</td><td class="">Round Sling - 2T x 1M</td><td class="">29 Apr 2026</td><td class="r">$10.00</td></tr><tr><td class="">Saunders</td><td class="">Quentyn - Faanana</td><td class="">AMP007/142</td><td class="">Round Sling - 2T x 2M</td><td class="">29 Apr 2026</td><td class="r">$35.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Bradley - Chicken</td><td class="">AMP004/160</td><td class="">Round Sling - 1T x 1M</td><td class="">08 May 2026</td><td class="r">$10.00</td></tr><tr><td class="">Repairs</td><td class="">Atlas Chains - Offsite Repairs</td><td class="">WG0409/002</td><td class="">Chain Block - 2T x 3M</td><td class="">11 May 2026</td><td class="r">$136.00</td></tr><tr class="z"><td class="">Wood</td><td class="">John - Hague</td><td class="">CTX70040/001</td><td class="">Girder Clamp - 2T</td><td class="">12 May 2026</td><td class="r">$140.00</td></tr><tr><td class="">Wood</td><td class="">John - Hague</td><td class="">CTX70040/002</td><td class="">Girder Clamp - 2T</td><td class="">12 May 2026</td><td class="r">$140.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Lee - Hill</td><td class="">AMP017/052</td><td class="">Round Sling - 1T x 0.5M</td><td class="">14 May 2026</td><td class="r">$8.00</td></tr><tr><td class="">Contract Resources</td><td class="">Lee - Hill</td><td class="">AMP017/059</td><td class="">Round Sling - 1T x 0.5M</td><td class="">14 May 2026</td><td class="r">$8.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Brent - Watson</td><td class="">AMP348/005</td><td class="">Lifting Bag - 55Kg</td><td class="">14 May 2026</td><td class="r">$368.00</td></tr><tr><td class="">Contract Resources</td><td class="">John - Pattel</td><td class="">AMP315/003</td><td class="">Chain Block - 2T x 3M</td><td class="">20 May 2026</td><td class="r">$136.00</td></tr><tr class="z"><td class="">Acrow</td><td class="">Josh - Pratt</td><td class="">AMP028/002</td><td class="">Bow Shackle - 2T</td><td class="">21 May 2026</td><td class="r">$15.00</td></tr><tr><td class="">Ampol</td><td class="">Darcy - Bourke</td><td class="">AMP004/155</td><td class="">Round Sling - 1T x 1M</td><td class="">23 May 2026</td><td class="r">$10.00</td></tr><tr class="z"><td class="">Ampol</td><td class="">Darcy - Bourke</td><td class="">AMP004/162</td><td class="">Round Sling - 1T x 1M</td><td class="">23 May 2026</td><td class="r">$10.00</td></tr><tr><td class="">Contract Resources</td><td class="">Phil - Dalley</td><td class="">AMP005/102</td><td class="">Round Sling - 2T x 1M</td><td class="">27 May 2026</td><td class="r">$10.00</td></tr><tr class="z"><td class="">Universal Cranes</td><td class="">Steve - Irwin</td><td class="">AMP315/006</td><td class="">Chain Block - 2T x 3M</td><td class="">01 Jun 2026</td><td class="r">$136.00</td></tr><tr><td class="">Universal Cranes</td><td class="">Steve - Irwin</td><td class="">AMP315/007</td><td class="">Chain Block - 2T x 3M</td><td class="">01 Jun 2026</td><td class="r">$136.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Lance - Mackey</td><td class="">AMP028/038</td><td class="">Bow Shackle - 2T</td><td class="">03 Jun 2026</td><td class="r">$15.00</td></tr></tbody></table><div class="sect"><h3>High Torque - Not Sighted In 90+ Days (ranked by last sighted, oldest first)</h3></div><div class="keep"><table class="dt"><tr><th class="">Company</th><th class="">Hirer</th><th class="">Barcode</th><th class="">Description</th><th class="">Last Sighted</th><th class="r">Replacement</th></tr><tr><td class="">Wood</td><td class="">David - Wood</td><td class="">SD0033-1</td><td class="">Torque Wrench 3/4&quot; Drive 1,000Nm</td><td class="">07 Jan 2026</td><td class="r">$1,200.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">John - Pattel</td><td class="">CTX103/002</td><td class="">Milwaukee M18 Cordless Impact Wrench - 1/2&quot; Drive</td><td class="">02 Apr 2026</td><td class="r">$622.00</td></tr><tr><td class="">HIS</td><td class="">Graham - Bell</td><td class="">CTX043/001</td><td class="">Torque Wrench 1/2&quot; Drive 200Nm</td><td class="">23 Apr 2026</td><td class="r">$350.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Craig - Townsend</td><td class="">CTX043/002</td><td class="">Torque Wrench 1/2&quot; Drive 200Nm</td><td class="">23 Apr 2026</td><td class="r">$350.00</td></tr></table></div><div class="sect"><h3>Already Caught - Parked Out Of Tag (our checks working; A to Z)</h3></div><p class="para">These items were caught by our checks and parked under 'Rigging &amp; 240V - Out Of Tag Date' so they cannot be issued. Nothing goes on the shelf unless it is ready for hire.</p><div class="keep"><table class="dt"><tr><th class="">Barcode</th><th class="">Description</th><th class="">Status</th></tr><tr><td class="">AMP026/013</td><td class="">3.2 tonne bow shackle</td><td class="">On Hire</td></tr></table></div><div class="sect"><h3>High-Value Items On Hire (ranked by replacement value)</h3></div><table class="dt cp"><thead><tr><th class="">Company</th><th class="">Hirer</th><th class="">Barcode</th><th class="">Description</th><th class="">On Hire Since</th><th class="r">Replacement</th></tr></thead><tbody><tr><td class="">Ampol</td><td class="">Lee - Whyte</td><td class="">AMP192CFM005</td><td class="">Atlas Copco Compressor 192 CFM</td><td class="">06 Jun 2026</td><td class="r">$28,000.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">John - Pattel</td><td class="">AMP351/001</td><td class="">Hytorc Hydraulic Actuator (Stealth 4)</td><td class="">29 Jun 2026</td><td class="r">$8,500.00</td></tr><tr><td class="">IPS</td><td class="">Dudit - Istionto</td><td class="">AMPHT003/004</td><td class="">Hytorc Square Drive 1&quot;</td><td class="">14 Jul 2026</td><td class="r">$8,500.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">John - Pattel</td><td class="">WG0027/002</td><td class="">Air Nut Runner 1&quot;</td><td class="">26 Jun 2026</td><td class="r">$8,290.00</td></tr><tr><td class="">HIS</td><td class="">Lloyd - Collins</td><td class="">WG0015/001</td><td class="">Hydraulic Battery Operated Torque Pump</td><td class="">21 Aug 2026</td><td class="r">$6,500.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Arthur - Denehy-Shutdown</td><td class="">AMP291/001</td><td class="">Lithium Series Lion-X Tool 1&quot; Drive</td><td class="">06 Jul 2026</td><td class="r">$6,500.00</td></tr><tr><td class="">Saunders</td><td class="">Alec - Wilson</td><td class="">CTX106/001</td><td class="">Hydraulic Flange Alignment Tool 4T</td><td class="">10 Aug 2026</td><td class="r">$4,100.00</td></tr><tr class="z"><td class="">Ampol</td><td class="">FCCU - 2026 (SFI)</td><td class="">AMP367/001</td><td class="">Flange Tester Kit</td><td class="">18 Aug 2026</td><td class="r">$3,500.00</td></tr><tr><td class="">Contract Resources</td><td class="">John - Pattel</td><td class="">WG0014/001</td><td class="">Hydraulic Air Operated Torque Pump</td><td class="">29 Jun 2026</td><td class="r">$3,500.00</td></tr><tr class="z"><td class="">IPS</td><td class="">Dudit - Istionto</td><td class="">AMPHT002/001</td><td class="">Hydraulic Air Operated Torque Pump</td><td class="">13 Jul 2026</td><td class="r">$3,500.00</td></tr><tr><td class="">Contract Resources</td><td class="">Adrian - Purdue</td><td class="">amp038/010</td><td class="">Gotcha Rescue Kit</td><td class="">09 Jul 2026</td><td class="r">$3,170.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Adrian - Purdue</td><td class="">CTX007/005</td><td class="">Retrieval Inertia Reel</td><td class="">09 Jul 2026</td><td class="r">$3,125.00</td></tr><tr><td class="">Contract Resources</td><td class="">Roth - Kheng</td><td class="">CTX007/008</td><td class="">Retrieval Inertia Reel</td><td class="">02 Sep 2026</td><td class="r">$3,125.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Roth - Kheng</td><td class="">CTX007/011</td><td class="">Retrieval Inertia Reel</td><td class="">02 Sep 2026</td><td class="r">$3,125.00</td></tr><tr><td class="">Enermech</td><td class="">Troy - Willats</td><td class="">WG0052/002</td><td class="">Inertia Reel - 25M</td><td class="">16 Jul 2026</td><td class="r">$3,125.00</td></tr><tr class="z"><td class="">HIS</td><td class="">Mathew - Redman</td><td class="">CTX007/056</td><td class="">Retrieval Inertia Reel</td><td class="">31 Aug 2026</td><td class="r">$3,125.00</td></tr><tr><td class="">Wood</td><td class="">Jason - Hughes</td><td class="">CTX007/052</td><td class="">Retrieval Inertia Reel</td><td class="">01 Sep 2026</td><td class="r">$3,125.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Threyne - Anderson-Thompson</td><td class="">CTX007/006</td><td class="">Retrieval Inertia Reel</td><td class="">22 Jul 2026</td><td class="r">$3,125.00</td></tr><tr><td class="">HIS</td><td class="">Igor - Kozlov</td><td class="">AMP179/008</td><td class="">Inertia Reel - 25M</td><td class="">28 Jan 2026</td><td class="r">$2,987.00</td></tr><tr class="z"><td class="">HIS</td><td class="">Igor - Kozlov</td><td class="">amp038/001</td><td class="">Gotcha Rescue Kit</td><td class="">12 Mar 2026</td><td class="r">$2,786.00</td></tr><tr><td class="">IPS</td><td class="">Dudit - Istionto</td><td class="">WG0007/001</td><td class="">Hytorc Square Drive 1&quot;</td><td class="">20 Aug 2026</td><td class="r">$2,600.00</td></tr><tr class="z"><td class="">Enermech</td><td class="">Alex - Vala</td><td class="">AMP376/001</td><td class="">Rope Access Equipment #2</td><td class="">13 May 2026</td><td class="r">$2,495.00</td></tr><tr><td class="">Ampol</td><td class="">Finlay - Ford</td><td class="">AMP342/006</td><td class="">Intrinsically Safe Camera</td><td class="">28 Jul 2026</td><td class="r">$2,450.00</td></tr><tr class="z"><td class="">Ampol</td><td class="">Finlay - Ford</td><td class="">AMP342/007</td><td class="">Intrinsically Safe Camera</td><td class="">28 Jul 2026</td><td class="r">$2,450.00</td></tr><tr><td class="">Ampol</td><td class="">Wade - Mathews</td><td class="">AMP342/001</td><td class="">Intrinsically Safe Camera</td><td class="">18 Feb 2026</td><td class="r">$2,450.00</td></tr><tr class="z"><td class="">Enermech</td><td class="">James - Smith</td><td class="">AMP342/002</td><td class="">Intrinsically Safe Camera</td><td class="">08 Jun 2026</td><td class="r">$2,450.00</td></tr><tr><td class="">Enermech</td><td class="">Thomas - Caley</td><td class="">AMP342/003</td><td class="">Intrinsically Safe Camera</td><td class="">11 Feb 2026</td><td class="r">$2,450.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Todd - Van Der</td><td class="">CTX160/004</td><td class="">3M Speedglas Welding Helmet Kit - 4 Pack</td><td class="">08 May 2026</td><td class="r">$2,200.00</td></tr><tr><td class="">IPS</td><td class="">Dudit - Istionto</td><td class="">WG0006/001</td><td class="">Hytorc Square Drive 3/4&quot;</td><td class="">28 Jul 2026</td><td class="r">$2,100.00</td></tr><tr class="z"><td class="">HIS</td><td class="">Cass - Doxford</td><td class="">WG0047/004</td><td class="">Caddie Welder Kemppi</td><td class="">29 Jul 2026</td><td class="r">$1,950.00</td></tr><tr><td class="">HIS</td><td class="">Daniel - Hill</td><td class="">WG0047/003</td><td class="">Caddie Welder Kemppi</td><td class="">15 Jun 2026</td><td class="r">$1,950.00</td></tr><tr class="z"><td class="">Saunders</td><td class="">Jesse - Aylmg</td><td class="">WG0047/001</td><td class="">Caddie Welder Kemppi</td><td class="">23 Jun 2026</td><td class="r">$1,950.00</td></tr><tr><td class="">Wood</td><td class="">Stuart - Shea</td><td class="">WG0047/002</td><td class="">Caddie Welder Kemppi</td><td class="">17 Apr 2026</td><td class="r">$1,950.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Threyne - Anderson-Thompson</td><td class="">WG0047/006</td><td class="">Caddie Welder Kemppi</td><td class="">13 Jul 2026</td><td class="r">$1,950.00</td></tr><tr><td class="">Wood</td><td class="">Warwick - Smith</td><td class="">WG0047/011</td><td class="">Caddie Welder Kemppi</td><td class="">23 Jul 2026</td><td class="r">$1,950.00</td></tr><tr class="z"><td class="">Wood</td><td class="">Raymond - Pene</td><td class="">WG0032/008</td><td class="">Gotcha Rescue Kit</td><td class="">18 Mar 2026</td><td class="r">$1,900.00</td></tr><tr><td class="">Ampol</td><td class="">Darren - Parker</td><td class="">LG20</td><td class="">Lifeguard 16 32A</td><td class="">18 Mar 2026</td><td class="r">$1,800.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Shaun - O&#x27;Brien</td><td class="">AMP311/001</td><td class="">Concrete Cutting Saw</td><td class="">05 Aug 2026</td><td class="r">$1,800.00</td></tr><tr><td class="">IPS</td><td class="">Dudit - Istionto</td><td class="">WG0491/001</td><td class="">Hydraulic Cassette 3&quot;</td><td class="">21 Jul 2026</td><td class="r">$1,800.00</td></tr><tr class="z"><td class="">Contract Resources</td><td class="">Phil - Dalley</td><td class="">CTX006/001</td><td class="">Pressure Gauge Digital 10,000 psi (68,000 kPa)</td><td class="">27 Aug 2026</td><td class="r">$1,650.00</td></tr></tbody></table><p class="para">Showing 40 of 176 high-value items - highest replacement cost first.</p><div class="sect"><h3>Tool Store Activity By Month (transactions)</h3></div><div class="keep"><div class="chartpanel"><svg width="636" height="196" viewBox="0 0 636 196"><line x1="8" y1="135.0" x2="602" y2="135.0" stroke="#26313D" stroke-width="0.7"/><line x1="8" y1="100.0" x2="602" y2="100.0" stroke="#26313D" stroke-width="0.7"/><line x1="8" y1="65.0" x2="602" y2="65.0" stroke="#26313D" stroke-width="0.7"/><line x1="8" y1="30.0" x2="602" y2="30.0" stroke="#26313D" stroke-width="0.7"/><line x1="8" y1="170" x2="602" y2="170" stroke="#3A4756" stroke-width="1"/><text x="8.0" y="183" text-anchor="start" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">Jan</text><text x="82.2" y="183" text-anchor="middle" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">Feb</text><text x="156.5" y="183" text-anchor="middle" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">Mar</text><text x="230.8" y="183" text-anchor="middle" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">Apr</text><text x="305.0" y="183" text-anchor="middle" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">May</text><text x="379.2" y="183" text-anchor="middle" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">Jun</text><text x="453.5" y="183" text-anchor="middle" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">Jul</text><text x="527.8" y="183" text-anchor="middle" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">Aug</text><text x="602.0" y="183" text-anchor="middle" fill="#8A9AAC" font-family="Lato, Calibri, sans-serif" font-size="7.2">Sep (partial)</text><polygon points="8,170 8.0,97.1 82.2,84.7 156.5,73.5 230.8,87.2 305.0,81.7 379.2,48.3 453.5,71.4 527.8,102.9 602.0,164.6 602.0,170" fill="#F36F21" fill-opacity="0.13"/><polyline points="8.0,97.1 82.2,84.7 156.5,73.5 230.8,87.2 305.0,81.7 379.2,48.3 453.5,71.4 527.8,102.9 602.0,164.6" fill="none" stroke="#F36F21" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="602.0" cy="164.6" r="3.4" fill="#F36F21"/><text x="608.0" y="168.1" fill="#FFFFFF" font-family="Lato, Calibri, sans-serif" font-size="9" font-weight="700">679</text><circle cx="486" cy="9" r="3.8" fill="#F36F21"/><text x="494" y="12" fill="#C9D6E2" font-family="Lato, Calibri, sans-serif" font-size="8">Transactions</text></svg></div><div class="chart-cap">Tool store transactions per month by SiteIQ start date, export period 01/01/2026 06:00:00 - 02/09/2026 05:59:59. Every account and family is counted (custody and radio / gas movements included); the current month is partial.</div></div><div class="keep"><table class="dt"><tr><th class="">Month</th><th class="r">Transactions</th></tr><tr><td class="">Jan</td><td class="r">9,187</td></tr><tr class="z"><td class="">Feb</td><td class="r">10,751</td></tr><tr><td class="">Mar</td><td class="r">12,166</td></tr><tr class="z"><td class="">Apr</td><td class="r">10,439</td></tr><tr><td class="">May</td><td class="r">11,137</td></tr><tr class="z"><td class="">Jun</td><td class="r">15,350</td></tr><tr><td class="">Jul</td><td class="r">12,427</td></tr><tr class="z"><td class="">Aug</td><td class="r">8,466</td></tr><tr><td class="">Sep (partial)</td><td class="r">679</td></tr></table></div><div class="note">The current month covers only the days inside the export period and is labelled partial - it is not a full month's activity.</div><div class="sect"><h3>Data and method</h3></div><div class="sub-h">Honest limits</div><ul class="rul"><li>&#x27;Not sighted&#x27; uses the SiteIQ STOCKTAKE export (last sighted date per barcode). An item on hire cannot be sighted in store - which is exactly the point: 90+ days out means we have not had hands on it to verify tags.</li><li>Category matching is by keywords in the register description (electrical / rigging / high torque) - anything misfiled, tell us and we correct the mapping. The corrected name is printed where one exists.</li><li>High-value = replacement cost $1,000.00 or more.</li><li>The monthly activity counts every transaction in the export - customer issues and returns plus custody movements (Repairs, Dräger) and the radio / gas families the on-hire pages leave out.</li><li>Data as at: SiteIQ RENTAL_STOCK pull 02 Sep 2026 18:30; SiteIQ TRANSACTIONS pull 02 Sep 2026 18:30 (report period 01/01/2026 06:00:00 - 02/09/2026 05:59:59); SiteIQ STOCKTAKE pull 02 Sep 2026 18:29. Every figure is computed from these exports by this kit - the Excel workbook is not read for any printed number.</li><li>Replacement value is the catalogue new-buy average (Avg Buy Price (New) in Ampol_ToolStore_Pricing.xlsx); where a description is listed more than once the first price is used. Unpriced items show a dash and are excluded from value totals - never estimated.</li></ul><div class="pb"><div class="sect"><h3>Our standard, honest limits and how to read this report</h3></div><table class="cards"><tr><td><div class="cd-h">Our standard</div><div class="cd-b">Life Saving Rule 5 - Tools and Equipment (SEQ-GL-009): nothing damaged, defective or out of test date is ever reissued. Every issue and every return runs through the double scan &mdash; Two scans. Two looks. One standard.  |  Nothing goes on the shelf unless it is ready for hire.  |  Right first time. Every item. Every time. Daily stocktakes keep eyes on the fleet: nothing in the store goes over 30 days without being scanned, and anything damaged is tagged Out of Service on the spot. We are here to help &mdash; if gear is finished with, hand it back to the tool store and it comes off your list the same day.</div></td><td><div class="cd-h">Honest limits</div><div class="cd-b">Every figure on these pages is counted by this kit from the SiteIQ exports named under Data and method - never from a workbook tab or a typed-in summary. Unpriced items show a dash and never enter a total. Where a rule or a limit matters, it is written out there in plain words.</div></td></tr></table><table class="cards"><tr><td><div class="cd-h">Names as shown</div><div class="cd-b">The site is Ampol on every page: where SiteIQ still carries the former name it is shown under the current one, and the Tooling On-Hire Report's data page says how many lines do. One customer, one name: project accounts roll up to their company and the SiteIQ account is shown against the hirer. Hirer names are as SiteIQ records them.</div></td><td><div class="cd-h">How to read this</div><div class="cd-b">Each family lists the gear we have not had hands on for three months, oldest sighting first. Caught and parked means our own checks found it before it could go out. High-value items are ranked by replacement cost.</div></td></tr></table><div class="sub-h">Your Coates tool store team</div><table class="team" style="table-layout:fixed"><tr><td style="background:transparent;border-top:none;width:29%"></td><td style="width:42%;padding:18px 15px 16px 15px"><div class="av lead">AF</div><div class="tm-n">Andrew Fisher</div><div class="tm-r">Shutdown Manager</div><div class="tm-e">andrew.fisher@coates.com.au</div><div class="tm-d">Runs the Ampol tool store the Coates Way - every issue and every return double-scanned, every figure counted from SiteIQ.</div></td><td style="background:transparent;border-top:none;width:29%"></td></tr></table><div class="note" style="margin-top:16px;text-align:center">Coates Hire Operations Pty Limited &middot; ABN 50 009 779 338 &middot; www.coates.com.au &middot; Care Deeply &middot; Customer Focused &middot; Be Our Best &middot; One Team &middot; Competitive Spirit</div></div></div></td></tr></tbody></table></body></html>

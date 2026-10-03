@@ -1,0 +1,210 @@
+[
+ {
+  "name": "Today carries Where we are under its cards",
+  "pass": true,
+  "info": [
+   "rochip",
+   "panehead-today",
+   "dsnband",
+   "dsn",
+   "inst",
+   "dsn",
+   "hub",
+   "pane-progress",
+   "maphint"
+  ]
+ },
+ {
+  "name": "one banner, Today's",
+  "pass": true
+ },
+ {
+  "name": "one \"View only\" line",
+  "pass": true
+ },
+ {
+  "name": "Where we are buttons at the top under \"Today\"",
+  "pass": true,
+  "info": {
+   "title": "Today",
+   "buttons": [
+    "View date",
+    "Email this",
+    "Print",
+    "Start showcase 10 scenes"
+   ]
+  }
+ },
+ {
+  "name": "one set of those buttons on the page",
+  "pass": true,
+  "info": 1
+ },
+ {
+  "name": "instruments kept: lights, deliveries, programme card with its key dates",
+  "pass": true
+ },
+ {
+  "name": "repeats left off: dial panel, strip, As at, Today date line",
+  "pass": true,
+  "info": {
+   "dial": true,
+   "strip": true,
+   "asat": true,
+   "chicane": true,
+   "todayDate": true
+  }
+ },
+ {
+  "name": "Today's Fencing card stays (its dockets, quote and week lines are on no other card); Costs card left off",
+  "pass": true,
+  "info": [
+   "Next programme day",
+   "Delivery updates today",
+   "Also on the schedule that day ",
+   "Who to call",
+   "Fencing",
+   "Map",
+   "Documents",
+   "Roads between Coates Kingston "
+  ]
+ },
+ {
+  "name": "roads card sits with the cards",
+  "pass": true,
+  "info": [
+   "Next programme day",
+   "Delivery updates today",
+   "Also on the schedule that day ",
+   "Who to call",
+   "Fencing",
+   "Map",
+   "Documents",
+   "Roads between Coates Kingston "
+  ]
+ },
+ {
+  "name": "By group, By branch, Money, On site and the detail all there",
+  "pass": false,
+  "info": [
+   "By group"
+  ]
+ },
+ {
+  "name": "Where we are off the tab row",
+  "pass": true,
+  "info": [
+   "Today",
+   "Timeline",
+   "Equipment",
+   "Map explorer",
+   "Documents",
+   "Coates Way"
+  ]
+ },
+ {
+  "name": "Where we are off the Tools list",
+  "pass": true,
+  "info": 14
+ },
+ {
+  "name": "no page wider than the screen",
+  "pass": true,
+  "info": 0
+ },
+ {
+  "name": "no figure doubles up between Today's cards and Where we are (bar the fencing dollars, kept by Andrew)",
+  "pass": true,
+  "info": [
+   "$150,027 -> Fencing [T] | Open the Fencing tab\n Fenc [W]"
+  ]
+ },
+ {
+  "name": "\"Open the summary\" goes to By group on Today",
+  "pass": true,
+  "info": {
+   "tab": "today",
+   "hash": "#today",
+   "top": 12,
+   "scroll": 2383
+  }
+ },
+ {
+  "name": "\"Open the register\" on the lights opens Plant",
+  "pass": true
+ },
+ {
+  "name": "#progress opens Today with Where we are in it",
+  "pass": true,
+  "info": {
+   "hash": "#today",
+   "tab": "today"
+  }
+ },
+ {
+  "name": "round trip through four tabs comes back whole",
+  "pass": false,
+  "info": {
+   "order": [
+    "rochip",
+    "panehead-today",
+    "dsnband",
+    "dsn",
+    "inst",
+    "dsn",
+    "hub",
+    "pane-progress",
+    "maphint"
+   ]
+  }
+ },
+ {
+  "name": "the date control replays Where we are and stays on Today",
+  "pass": true,
+  "info": {
+   "embedded": "pane-today",
+   "hacts": 1,
+   "val": "2026-09-25",
+   "sub": "what is on site over the total on the job, as at 25 Sep"
+  }
+ },
+ {
+  "name": "a By group plate opens Plant filtered to its trade",
+  "pass": true,
+  "info": {
+   "tab": "plant",
+   "disc": "Toilets & amenities",
+   "sd": "Toilets & amenities"
+  }
+ },
+ {
+  "name": "Print starts the Where we are report and tidies up after",
+  "pass": true,
+  "info": {
+   "called": 1,
+   "on": true,
+   "after": false
+  }
+ },
+ {
+  "name": "on paper: the Where we are report as before, without Today's cards",
+  "pass": true,
+  "info": {
+   "todayCards": 0,
+   "head": true,
+   "groups": true
+  }
+ },
+ {
+  "name": "Start showcase opens the showcase",
+  "pass": true,
+  "info": {
+   "open": true
+  }
+ },
+ {
+  "name": "no page errors",
+  "pass": true,
+  "info": []
+ }
+]

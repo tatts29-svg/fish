@@ -1,0 +1,23 @@
+{
+ "root": "v8.09_coates_way_machine_DRAFT/evidence/../work",
+ "at": "2026-10-03T02:34:53.379Z",
+ "checks": [
+  {
+   "dev": "hidden-tab",
+   "name": "back from 8 s in a hidden tab: Balanced stays Balanced (hidden time is not counted as slow frames)",
+   "ok": true,
+   "detail": {
+    "before": "balanced",
+    "after": "balanced",
+    "toast": ""
+   }
+  },
+  {
+   "dev": "hidden-tab",
+   "name": "no page or console errors",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "results": []
+}

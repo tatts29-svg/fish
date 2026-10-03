@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "baselineSha256": "5270f18bee891aabbd64173f0250e0e68d8061c8c2d935bddd74df3ec5e67ce5",
+  "reviewedPrivateStills": [
+    "desktop-car-detail.png",
+    "desktop-car-frontdetail.png",
+    "desktop-car-wheel.png",
+    "desktop-forklift-detail.png",
+    "desktop-tractor-detail.png"
+  ],
+  "findings": [
+    {
+      "source": "Shared surfaced-vehicle fragment shader materials and reflectionWeight",
+      "detail": "Plant coatings and rubber/interior shared kind 3 and a 0.13 reflection multiplier. Explicit named-material semantics separate coating from tyre response."
+    },
+    {
+      "source": "Race livery orange material overrides",
+      "detail": "Orange was forced to roughness 0.40, reflection multiplier 0.24 and clearcoat weight 0.08. Charcoal used clearcoat 0.36. New dielectric coat treats both as coated paint without metallic/chrome response."
+    },
+    {
+      "source": "Glass branch",
+      "detail": "Glass alpha was 0.84 to 0.96 with dark tint and weak front-on reflection. New response uses bounded Fresnel reflection and lower opacity with outward-face rejection."
+    },
+    {
+      "source": "G.syncRaceCarQuality and trailer upload",
+      "detail": "Production race/plant sync already sorts opaque parts before glass and appends race decals. Earlier inference that race-cockpit draw order was defective was corrected after independent review. Trailer upload does not pre-sort; common explicit draw order makes that path consistent. CPU fixture is intentionally unsorted."
+    },
+    {
+      "source": "GGX highlight calculation",
+      "detail": "Existing shader lacked derivative normal-variance filtering. New roughness filter bounds subpixel highlights before stronger coat response."
+    },
+    {
+      "source": "G.raceCarAtlas",
+      "detail": "Existing immutable 1024x512 R8 atlas used linear minification without mipmaps. New mip chain retains glyph bytes and texture count, adding 174763 bytes per context."
+    },
+    {
+      "source": "G.renderSize, G.QUALITY, G.stepDown, GC3D canvas styles",
+      "detail": "No pixelated/crisp-edges canvas CSS found. Balanced requests two-sample MSAA, scale 1 and DPR cap 1.5. Adaptive guard can drop composite and scale to 50%. Guard remains unchanged. Original capture JSON lacked graphics/backbuffer measurements, so no claim is made that adaptation caused those stills."
+    }
+  ],
+  "constraints": {
+    "vertexStride": 8,
+    "newVertexAttributes": 0,
+    "newTextures": 0,
+    "newDrawCalls": 0,
+    "existingEnvironmentLookupsPerFragment": 1,
+    "worldShadersChanged": false,
+    "postprocessChanged": false,
+    "physicsChanged": false,
+    "sourceGlyphBytesChanged": false
+  },
+  "shaderSha256": "f900333bc19409fd8b74c6a6441b9acec58fd255908eca1a6978d313073d09ee",
+  "status": "CPU and independent source checks pass; first integrated GPU compile and matched visual comparison pending"
+}

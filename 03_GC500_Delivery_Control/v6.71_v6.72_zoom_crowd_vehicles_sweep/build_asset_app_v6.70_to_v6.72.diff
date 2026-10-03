@@ -1,0 +1,181 @@
+--- build_asset_app.py.v670	2026-09-26 06:14:40.147501112 +0000
++++ build_asset_app.py	2026-09-26 06:55:16.754583936 +0000
+@@ -4867,7 +4867,12 @@
+ .maptools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+ .mapstage{position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:12px;
+   overflow:hidden;touch-action:none}
+-.mapinner{position:relative;transform-origin:0 0;will-change:transform}
++.mapinner{position:relative;transform-origin:0 0}
++/* v6.71 - while the drawing moves the pills ride their own layers with no transition, so nothing swims behind the
++   sheet and the sheet itself is never re-painted; still again, the class comes off and it is drawn sharp */
++.mapstage.zooming .mapinner{will-change:transform}
++.mapstage.zooming .mapinner img{will-change:transform}
++.mapstage.zooming .mk{transition:none !important;will-change:transform}
+ .mapinner img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+ /* The visible dot stays small so the drawing underneath stays readable, but the thing a finger has to hit is
+    the ::after box: 26px on a mouse, 44px on a touch screen. WCAG 2.2 wants 24px minimum and a thumb wants 44. */
+@@ -5118,6 +5123,12 @@
+ .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--orange);background:var(--paper)}
+ .f .hint{font-size:11.5px;color:var(--mute)}
+ .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
++/* v6.72 - nothing runs past the edge of a small phone */
++.cwork{max-width:100%;overflow-x:auto}
++.ogrid .ano,.oday li{overflow-wrap:anywhere} .ano.misc{white-space:normal}
++.row2>*{min-width:0} .row2 .btn,.row2 button{white-space:normal;max-width:100%}
++@media (max-width:760px){ .dcfl{white-space:normal;letter-spacing:.06em;min-width:0} }
++
+ input.rate{width:110px;text-align:right;padding:5px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--tint2)}
+ input.rate:focus{border-color:var(--orange);background:var(--paper)}
+ .norate{color:var(--mute);font-style:italic;font-size:12px}
+@@ -11759,30 +11770,49 @@
+     else if (k === 'r') turnTo(state.rot + 15);
+     else if (k === 'n' && north != null) turnTo(Math.abs(((state.rot + north) % 360 + 360) % 360) < 0.5 ? 0 : -north);
+   });
+-  stage.querySelectorAll('[data-z]').forEach(b => b.onclick = () => {
+-    const k = b.dataset.z;
+-    if (k === 'reset') { state.zoom = 1; state.ox = 0; state.oy = 0; state.rot = 0; }
+-    else {
+-      const r = stage.getBoundingClientRect(), cx = r.width/2, cy = r.height/2, old = state.zoom;
+-      state.zoom = Math.min(8, Math.max(1, state.zoom * (k === 'in' ? 1.5 : 1/1.5)));
+-      state.ox = cx - (cx - state.ox) * (state.zoom/old);
+-      state.oy = cy - (cy - state.oy) * (state.zoom/old);
+-    }
+-    clamp(); apply();
+-  });
+-  stage.addEventListener('wheel', e => {
+-    e.preventDefault();
+-    if (e.shiftKey) { turnTo(state.rot + ((e.deltaY || e.deltaX) < 0 ? -5 : 5)); return; }
+-const r = stage.getBoundingClientRect(), old = state.zoom;
++  /* v6.71 - SMOOTH ZOOM. A notch, a button, a double-click or a double-tap sets where the zoom is going; the drawing
++    eases there over about a tenth of a second about the point under the cursor or finger, one step a frame. While the
++    drawing moves the stage wears `zooming` (the pills lose their transition and ride their own layers); when it has
++    been still for a moment the class comes off and the sheet is drawn sharp at its new size. */
++ let zAnim = 0, zTarget = state.zoom, zAnchor = {x: 0, y: 0}, zLast = 0, idleT = 0;
++ const busy = () => { stage.classList.add('zooming'); clearTimeout(idleT); idleT = setTimeout(() => stage.classList.remove('zooming'), 240); };
++ const zoomStep = t => {
++  const dt = zLast ? Math.min(0.05, (t - zLast) / 1000) : 1 / 60; zLast = t;
++  const old = state.zoom; let z = old + (zTarget - old) * (1 - Math.exp(-dt * 17));
++  if (Math.abs(zTarget - z) < 0.0015 * zTarget) z = zTarget;
++  state.zoom = z; state.ox = zAnchor.x - (zAnchor.x - state.ox) * (z / old); state.oy = zAnchor.y - (zAnchor.y - state.oy) * (z / old);
++  clamp(); apply(); busy();
++  if (z !== zTarget && stage.isConnected) zAnim = requestAnimationFrame(zoomStep); else { zAnim = 0; zLast = 0; }
++ };
++ const zoomTo = (z, ax, ay) => {
++  zTarget = Math.min(8, Math.max(1, z)); zAnchor = {x: ax, y: ay};
++  if (motionOff()) { if (zAnim) cancelAnimationFrame(zAnim); zAnim = 0; const old = state.zoom; state.zoom = zTarget;
++   state.ox = ax - (ax - state.ox) * (zTarget / old); state.oy = ay - (ay - state.oy) * (zTarget / old); clamp(); apply(); return; }
++  if (!zAnim) { zLast = 0; zAnim = requestAnimationFrame(zoomStep); }
++ };
++ const zoomNow = () => zAnim ? zTarget : state.zoom;
++ const stopZoom = () => { if (zAnim) cancelAnimationFrame(zAnim); zAnim = 0; zLast = 0; zTarget = state.zoom; };
++ stage.querySelectorAll('[data-z]').forEach(b => b.onclick = () => {
++ const k = b.dataset.z;
++ if (k === 'reset') { stopZoom(); state.zoom = 1; zTarget = 1; state.ox = 0; state.oy = 0; state.rot = 0; clamp(); apply(); return; }
++ const r = stage.getBoundingClientRect();
++ zoomTo(zoomNow() * (k === 'in' ? 1.6 : 1 / 1.6), r.width / 2, r.height / 2);
++ });
++ stage.addEventListener('wheel', e => {
++ e.preventDefault();
++ if (e.shiftKey) { turnTo(state.rot + ((e.deltaY || e.deltaX) < 0 ? -5 : 5)); return; }
++ const r = stage.getBoundingClientRect();
+  const { x: cx, y: cy } = unturn(e.clientX - r.left, e.clientY - r.top, r);
+- /* v6.69 - zoom by how far the wheel moved: a mouse notch is the same 18 % it always was, a trackpad's small
+-    steps are small, and a pinch on a trackpad (ctrl + wheel) follows the fingers */
++ /* how far the wheel moved: a mouse notch is about 20 %, a trackpad's small steps are small, a trackpad pinch
++    (ctrl + wheel) follows the fingers */
+  const dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
+- state.zoom = Math.min(8, Math.max(1, state.zoom * Math.exp(-Math.max(-240, Math.min(240, dy)) * (e.ctrlKey ? 0.006 : 0.00138))));
+- state.ox = cx - (cx - state.ox) * (state.zoom/old);
+- state.oy = cy - (cy - state.oy) * (state.zoom/old);
+- clamp(); applySoon();
+-  }, {passive:false});
++ zoomTo(zoomNow() * Math.exp(-Math.max(-240, Math.min(240, dy)) * (e.ctrlKey ? 0.006 : 0.0018)), cx, cy);
++ }, {passive:false});
++ /* a double-click zooms in on the spot; on the last step in it goes back out to the whole sheet */
++ const dblAt = (clientX, clientY) => { const r = stage.getBoundingClientRect(); const p = unturn(clientX - r.left, clientY - r.top, r);
++  const z = zoomNow(); zoomTo(z >= 7.5 ? 1 : z * 2, p.x, p.y); };
++ stage.addEventListener('dblclick', e => { if (e.target.closest('.mk, .zoomctl, .rotctl, button, a')) return; e.preventDefault(); dblAt(e.clientX, e.clientY); });
++ let tap = null, lastTap = null;
+   let drag = null;
+   const pts = new Map();
+   /* every finger is tracked by its pointerId; a cancel (the browser taking the gesture, a call coming in, a palm)
+@@ -11792,7 +11822,8 @@
+     if (e.target.closest('.mk') || e.target.closest('.zoomctl') || e.target.closest('.rotctl')) return;
+     if (pts.size >= 2) { pts.clear(); drag = null; }
+     pts.set(e.pointerId, e); try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+-    if (pts.size === 1) drag = {x:e.clientX, y:e.clientY, ox:state.ox, oy:state.oy};
++if (pts.size === 1) { drag = {x:e.clientX, y:e.clientY, ox:state.ox, oy:state.oy}; stopZoom();
++  tap = e.pointerType === 'touch' ? {x: e.clientX, y: e.clientY, t: performance.now()} : null; } else tap = null;
+   });
+   stage.addEventListener('pointermove', e => {
+     if (!pts.has(e.pointerId)) return;
+@@ -11810,18 +11841,26 @@
+         state.zoom = Math.min(8, Math.max(1, state.zoom * (d/drag.d)));
+         const { x: cx, y: cy } = unturn((a.clientX+b.clientX)/2 - r.left, (a.clientY+b.clientY)/2 - r.top, r);
+         state.ox = cx - (cx - state.ox) * (state.zoom/old);
+-        state.oy = cy - (cy - state.oy) * (state.zoom/old);
+-        clamp(); apply();
+-      }
+-      drag = {d, ang};
++state.oy = cy - (cy - state.oy) * (state.zoom/old);
++ clamp(); applySoon(); busy(); zTarget = state.zoom;
++ }
++ drag = {d, ang};
+     } else if (drag && drag.x != null) {
+       const m = unturnD(e.clientX - drag.x, e.clientY - drag.y);
+       state.ox = drag.ox + m.x;
+-      state.oy = drag.oy + m.y;
+-      clamp(); apply();
++state.oy = drag.oy + m.y;
++ if (tap && Math.hypot(e.clientX - tap.x, e.clientY - tap.y) > 10) tap = null;
++ clamp(); applySoon(); busy();
+     }
+   });
+-  const up = e => { pts.delete(e.pointerId); if (pts.size < 2) drag = null; try { stage.releasePointerCapture(e.pointerId); } catch (err) {} };
++const up = e => { pts.delete(e.pointerId); if (pts.size < 2) drag = null; try { stage.releasePointerCapture(e.pointerId); } catch (err) {}
++ /* v6.71 - a double-tap: two quick taps close together zoom in on the spot, as a double-click does */
++ if (e.type === 'pointerup' && tap && !pts.size && performance.now() - tap.t < 260) {
++  const now = performance.now();
++  if (lastTap && now - lastTap.t < 320 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 34) { lastTap = null; dblAt(e.clientX, e.clientY); }
++  else lastTap = {x: e.clientX, y: e.clientY, t: now};
++ }
++ tap = null; };
+   const cancel = () => { pts.clear(); drag = null; };
+   stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', cancel); stage.addEventListener('lostpointercapture', up);
+   window.addEventListener('blur', cancel); document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') cancel(); });
+@@ -13220,7 +13259,7 @@
+   (MACHINE.inert || []).forEach(el => { try { el.removeAttribute('inert'); } catch (e) {} }); MACHINE.inert = [];
+   if (MACHINE.onKey) { document.removeEventListener('keydown', MACHINE.onKey); MACHINE.onKey = null; }
+   const r = MACHINE.ret; MACHINE.ret = null;
+-  if (r && r.focus && document.contains(r)) try { r.focus(); } catch (e) {}
++  if (r && r.focus && document.contains(r)) try { r.focus({preventScroll: true}); } catch (e) {}   /* v6.72 - no nudge on close */
+ }
+ 
+ function renderPrestarts(){ return holdAssets(renderPrestarts_held); } /* v6.69 - one asset list for the whole draw */
+@@ -17849,7 +17888,7 @@
+     leaveDrawerHash();
+     if (state.satRO) { state.satRO.disconnect(); state.satRO = null; }
+     const rt = state.drawerReturn; state.drawerReturn = null;
+-    if (rt && rt.focus && document.contains(rt)) try { rt.focus(); } catch (e) {} };
++if (rt && rt.focus && document.contains(rt)) try { rt.focus({preventScroll: true}); } catch (e) {} };   /* v6.72 - no nudge on close */
+   state.drawerClose = close;
+   const onKey = ev => {
+     /* A nested dialog owns its own keys, even if its handler just removed it from the document. */
+@@ -25865,7 +25904,7 @@
+     /* transport belongs here as much as the rest — it is the section the QR code on every printed drop sheet
+        opens, so a link that did not route left a driver on the Documents tab hunting. */
+     else if ((m = h.match(/^docs\/(swms|transport|maps|packs|photos|invoices)$/))) { state.docsec = m[1]; go('docs'); }
+-    else go(h && TABS.some(([k]) => k === h) ? h : 'today');
++else { const ok = h && TABS.some(([k]) => k === h); go(ok ? h : 'today'); if (h && !ok) { try { history.replaceState(history.state, '', '#today'); } catch (e) {} } }   /* v6.72 - an unknown page's hash is not kept */
+   } finally { routing = false; }
+   if (!location.hash) setHash(state.tab);
+   else if (!(history.state && typeof history.state.gc === 'number')) { try { history.replaceState({gc: 0}, '', location.href); } catch (e) {} }
+@@ -30055,7 +30094,7 @@
+   if (SHOW.onMotion) { document.removeEventListener('gc500motionchange', SHOW.onMotion); SHOW.onMotion = null; }
+   try { if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {}); } catch (e) {}
+   const r = SHOW.ret; SHOW.ret = null;
+-  if (r && r.focus && document.contains(r)) try { r.focus(); } catch (e) {}
++  if (r && r.focus && document.contains(r)) try { r.focus({preventScroll: true}); } catch (e) {}   /* v6.72 - no nudge on close */
+ }
+ function showMove(n){
+   if (SHOW.launch >= 0) { showClear(); SHOW.launch = -1; showLaunchStep(); }

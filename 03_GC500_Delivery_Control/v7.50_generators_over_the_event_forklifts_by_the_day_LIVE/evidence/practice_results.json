@@ -1,0 +1,421 @@
+{
+ "before": {
+  "revenue": 622221.63,
+  "contracts": 343307.43,
+  "unknown": 2,
+  "servicing": 85101.75,
+  "toilets": {
+   "charge": 154194,
+   "cost": 118575,
+   "diff": 35619,
+   "unrated": 0,
+   "notes": [
+    "Rehire cost: Event Portables $118,575, approved — the final total may change",
+    "servicing $85,102 at our card's pump-out rates is in the revenue — it is on no contract line yet"
+   ]
+  },
+  "buildings": {
+   "charge": 66992,
+   "unrated": 0
+  }
+ },
+ "after": {
+  "revenue": 555929.94,
+  "contracts": 277015.74,
+  "unknown": 2,
+  "servicing": 85101.75,
+  "toilets": {
+   "charge": 154194,
+   "cost": 118575,
+   "diff": 35619,
+   "unrated": 0,
+   "notes": [
+    "Rehire cost: Event Portables $118,575, approved — the final total may change",
+    "servicing $85,102 at our card's pump-out rates is in the revenue — it is on no contract line yet"
+   ]
+  },
+  "buildings": {
+   "charge": 66992,
+   "unrated": 0
+  }
+ },
+ "filled": [
+  {
+   "line": "9961976·1",
+   "what": "Lighting Tower LED Metro",
+   "from": "card",
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·2",
+   "what": "Lighting Tower LED Metro",
+   "from": "card",
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·3",
+   "what": "Lighting Tower LED 76500lm Hybrid",
+   "from": "card",
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·4",
+   "what": "Lighting Tower LED Metro",
+   "from": "card",
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·5",
+   "what": "Lighting Tower LED 76500lm Hybrid",
+   "from": "card",
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·6",
+   "what": "Generator 365kVA Diesel",
+   "from": "card",
+   "rate": 1415.34,
+   "charge": 1415.34,
+   "basis": "no rate on the contract - the card's Generator 315 KVA $471.78 a day x the 3 event days (asked for 350 kVA, 365 kVA supplied: charged as 350 kVA; no 350 kVA line on the card: the next size down) · $1,"
+  },
+  {
+   "line": "9961976·7",
+   "what": "Generator - 60kVA (Diesel)",
+   "from": "card",
+   "rate": 579,
+   "charge": 579,
+   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x the 3 event days · $579.00, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·9",
+   "what": "Generator - Sync - Hardwire Only 150kVA Diesel",
+   "from": "card",
+   "rate": 804.18,
+   "charge": 804.18,
+   "basis": "no rate on the contract - the card's Generator 150 KVA $268.06 a day x the 3 event days · $804.18, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·10",
+   "what": "Generator - 30kVA (Diesel)",
+   "from": "card",
+   "rate": 424.59,
+   "charge": 424.59,
+   "basis": "no rate on the contract - the card's Generator 30 KVA $141.53 a day x the 3 event days · $424.59, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·11",
+   "what": "Generator - 60kVA (Diesel)",
+   "from": "card",
+   "rate": 546.84,
+   "charge": 546.84,
+   "basis": "no rate on the contract - the card's Generator 50 KVA $182.28 a day x the 3 event days (asked for 50 kVA, 60 kVA supplied: charged as 50 kVA) · $546.84, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·12",
+   "what": "Generator - 60kVA (Diesel)",
+   "from": "card",
+   "rate": 527.52,
+   "charge": 527.52,
+   "basis": "no rate on the contract - the card's Generator 45 KVA $175.84 a day x the 3 event days (asked for 45 kVA, 60 kVA supplied: charged as 45 kVA) · $527.52, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·13",
+   "what": "Generator - 60kVA DEL AS 50KVA",
+   "from": "card",
+   "rate": 546.84,
+   "charge": 546.84,
+   "basis": "no rate on the contract - the card's Generator 50 KVA $182.28 a day x the 3 event days (asked for 50 kVA, 60 kVA supplied: charged as 50 kVA) · $546.84, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·14",
+   "what": "Generator - 30kVA (Diesel)",
+   "from": "card",
+   "rate": 424.59,
+   "charge": 424.59,
+   "basis": "no rate on the contract - the card's Generator 30 KVA $141.53 a day x the 3 event days · $424.59, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·15",
+   "what": "Generator - 20kVA (Diesel)",
+   "from": "card",
+   "rate": 366.69,
+   "charge": 366.69,
+   "basis": "no rate on the contract - the card's Generator 20 KVA $122.23 a day x the 3 event days · $366.69, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·16",
+   "what": "Generator - 60kVA (Diesel)",
+   "from": "card",
+   "rate": 579,
+   "charge": 579,
+   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x the 3 event days · $579.00, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·17",
+   "what": "Generator - Diesel - 80kVA",
+   "from": "card",
+   "rate": 656.19,
+   "charge": 656.19,
+   "basis": "no rate on the contract - the card's Generator 80 KVA $218.73 a day x the 3 event days · $656.19, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·18",
+   "what": "Generator - 20kVA (Diesel)",
+   "from": "card",
+   "rate": 366.69,
+   "charge": 366.69,
+   "basis": "no rate on the contract - the card's Generator 20 KVA $122.23 a day x the 3 event days · $366.69, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·19",
+   "what": "Lighting Tower POD Metro",
+   "from": "card",
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·20",
+   "what": "Lighting Tower POD Metro",
+   "from": "card",
+   "rate": 192.99,
+   "charge": 192.99,
+   "basis": "no rate on the contract - the card's Lighting Towers $64.33 a day x the 3 event days · $192.99, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·21",
+   "what": "Forklift 3.0t Container Diesel",
+   "from": "card",
+   "rate": 123.31,
+   "charge": 5548.95,
+   "basis": "no rate on the contract - the card's 2.5t Forklift (Standard) $123.31 a day (no 3 t or 3.5 t line on the card: the 2.5 t standard) · $123.31 a day × 45 days — 11 Sep to 26 Oct (expected term) — from w"
+  },
+  {
+   "line": "9961976·25",
+   "what": "Forklift Rough Terrain 2.5t With Switchable 2WD to 4WD",
+   "from": "card",
+   "rate": 185.4,
+   "charge": 556.2,
+   "basis": "no rate on the contract - the card's 2.5t Forklift (rough) $185.40 a day · $185.40 a day × 3 days — 14 Sep to 17 Sep (off-rented) — from when it went in"
+  },
+  {
+   "line": "9961976·26",
+   "what": "Forklift Rough Terrain 4WD With Rotator 2.5t Diesel",
+   "from": "card",
+   "rate": 185.4,
+   "charge": 7786.8,
+   "basis": "no rate on the contract - the card's 2.5t Forklift (rough) $185.40 a day · $185.40 a day × 42 days — 14 Sep to 26 Oct (expected term) — from when it went in"
+  },
+  {
+   "line": "9961976·27",
+   "what": "orklift 3.5t Diesel",
+   "from": "card",
+   "rate": 123.31,
+   "charge": 2589.51,
+   "basis": "no rate on the contract - the card's 2.5t Forklift (Standard) $123.31 a day (no 3 t or 3.5 t line on the card: the 2.5 t standard) · $123.31 a day × 21 days — 05 Oct to 26 Oct (expected term) — from w"
+  },
+  {
+   "line": "9961976·30",
+   "what": "Forklift 2.5t Container Diesel",
+   "from": "card",
+   "rate": 123.31,
+   "charge": 1726.34,
+   "basis": "no rate on the contract - the card's 2.5t Forklift (Standard) $123.31 a day · $123.31 a day × 14 days — 12 Oct to 26 Oct (expected term) — from when it went in"
+  },
+  {
+   "line": "9961976·31",
+   "what": "5T FORKLIFT 1.8TYNNES",
+   "from": "card",
+   "rate": 268.06,
+   "charge": 12062.7,
+   "basis": "no rate on the contract - the card's 5.0t Manitou Forklift (Rough Terrain) $268.06 a day · $268.06 a day × 45 days — 11 Sep to 26 Oct (expected term) — from when it went in"
+  },
+  {
+   "line": "9961976·32",
+   "what": "Generator - 300kVA (Diesel)",
+   "from": "card",
+   "rate": 1254.51,
+   "charge": 1254.51,
+   "basis": "no rate on the contract - the card's Generator 250 KVA $418.17 a day x the 3 event days (no 300 kVA line on the card: the next size down) · $1,254.51, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·34",
+   "what": "Forklift Rough Terrain 2.5t With Switchable 2WD to 4WD",
+   "from": "card",
+   "rate": 185.4,
+   "charge": 185.4,
+   "basis": "no rate on the contract - the card's 2.5t Forklift (rough) $185.40 a day · $185.40 a day × 1 day — 17 Sep to 18 Sep (expected term) — from when it went in"
+  },
+  {
+   "line": "9961976·35",
+   "what": "Forklift Rough Terrain 2.5t With Switchable 2WD to 4WD",
+   "from": "card",
+   "rate": 185.4,
+   "charge": 4820.4,
+   "basis": "no rate on the contract - the card's 2.5t Forklift (rough) $185.40 a day · $185.40 a day × 26 days — 30 Sep to 26 Oct (expected term) — from when it went in"
+  },
+  {
+   "line": "9961976·36",
+   "what": "Generator - 100kVA (Diesel) - Trailer Mounted",
+   "from": "card",
+   "rate": 675.51,
+   "charge": 675.51,
+   "basis": "no rate on the contract - the card's Generator 100 KVA $225.17 a day x the 3 event days · $675.51, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·38",
+   "what": "Generator - 60kVA (Diesel)",
+   "from": "card",
+   "rate": 579,
+   "charge": 579,
+   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x the 3 event days · $579.00, once — the rate is the whole-event bill"
+  },
+  {
+   "line": "9961976·39",
+   "what": "Generator - 60kVA (Diesel)",
+   "from": "card",
+   "rate": 579,
+   "charge": 579,
+   "basis": "no rate on the contract - the card's Generator 60 KVA $193.00 a day x the 3 event days · $579.00, once — the rate is the whole-event bill"
+  }
+ ],
+ "servicing": {
+  "lines": [
+   {
+    "quote": "Q6844",
+    "description": "Chemical Toilet Fresh Water Flush - Service",
+    "qty": 780,
+    "their_rate": 38.5,
+    "their_amount": 30030,
+    "card_line": "FWF Pump out & Clean & Restock",
+    "card_rate": 72.87,
+    "at_card": 56838.6,
+    "key": "service|FWF Pump out & Clean & Restock",
+    "rate": 72.87,
+    "from": "card",
+    "amount": 56838.6
+   },
+   {
+    "quote": "Q6844",
+    "description": "Holding tank pump out and disposal",
+    "qty": 24,
+    "their_rate": 295,
+    "their_amount": 7080,
+    "card_line": "Tank Pump Out & Clean & Restock",
+    "card_rate": 624.6,
+    "at_card": 14990.4,
+    "key": "service|Tank Pump Out & Clean & Restock",
+    "rate": 624.6,
+    "from": "card",
+    "amount": 14990.4
+   },
+   {
+    "quote": "Q6844",
+    "description": "Toilet Block Cleaning",
+    "qty": 51,
+    "their_rate": 185,
+    "their_amount": 9435,
+    "card_line": "Sewer Connect Units Clean & Restock",
+    "card_rate": 260.25,
+    "at_card": 13272.75,
+    "key": "service|Sewer Connect Units Clean & Restock",
+    "rate": 260.25,
+    "from": "card",
+    "amount": 13272.75
+   }
+  ],
+  "total": 85101.75,
+  "their_total": 46545,
+  "not_on_the_card": [
+   {
+    "quote": "Q6844",
+    "description": "Water Truck",
+    "qty": 1,
+    "their_rate": 6800,
+    "their_amount": 6800
+   },
+   {
+    "quote": "Q6844",
+    "description": "Water Truck - Pre fill",
+    "qty": 1,
+    "their_rate": 2800,
+    "their_amount": 2800
+   },
+   {
+    "quote": "Q6846",
+    "description": "Water delivery",
+    "qty": 6,
+    "their_rate": 375,
+    "their_amount": 2250
+   },
+   {
+    "quote": "Q6846",
+    "description": "3000 Ltr Free Drinking Water Tank",
+    "qty": 1,
+    "their_rate": 350,
+    "their_amount": 350
+   }
+  ]
+ },
+ "mead": [
+  {
+   "line": 1,
+   "what": "Forklift Rough Terrain 2.5t 4WD Diesel",
+   "rate_1": 1483.2,
+   "charge": 1483.2,
+   "days": 8,
+   "basis": "Rate 1 $1,483.20 is the card's 2.5t Forklift (rough) $185.40 a day x 8 days written as one figure - a forklift goes by its day rate · $185.40 a day × 8 days — 1"
+  },
+  {
+   "line": 7,
+   "what": "Forklift Rough Terrain 5.0t 4WD Diesel",
+   "rate_1": 405,
+   "charge": 3240,
+   "days": 8,
+   "basis": "$405.00 a day × 8 days — 19 Oct to 27 Oct (expected term) — from when it went in"
+  }
+ ],
+ "typed": {
+  "card": 579,
+  "typed": 800,
+  "back": 579,
+  "servicingTyped": 75063.15,
+  "rev1": 556150.94,
+  "rev2": 546112.34,
+  "revBack": 555929.94
+ },
+ "decidedStands": {
+  "amount": 0,
+  "how": "Included in toilet-block hire"
+ },
+ "ui": {
+  "shown": true,
+  "boxes": 36,
+  "text": "From the Street Rate Card 2026 · what the card fills · change any rate here\nToilet servicing — on no contract line yet\nSERVICING\tQTY\tRATE FROM\tRATE\tCHARGE\nChemical Toilet Fresh Water Flush - Service (theirs $38.50)\t780\tcard: FWF Pump out & Clean & Restock\t$72.87 \t$56,838.60\nHolding tank pump out and disposal (theirs $295.00)\t24\tcard: Tank Pump Out & Clean & Restock\t$624.60 \t$14,990.40\nToilet Block Cleaning (theirs $185.00)\t51\tcard: Sewer Connect Units Clean & Restock\t$260.25 \t$13,272.75\nServicing charged\t$85,101.75\nContract lines with no rate — charged from the card\nCONTRACT · LINE\tWHAT\tRATE FROM\tRATE\tCHARGE\n9961976 · 1\tLighting Tower LED Metro\tcard: Lighting Towers $64.33 a day × the 3 event days (23 Oct to 25 Oct)\t$192.99 whole event \t$192.99\n9961976 · 2\tLighting Tower LED Metro\tcard: Lighting Towers $64.33 a day × the 3 event days (23 Oct to 25 Oct)\t$192.99 whole event \t$192.99\n996197"
+ },
+ "uiTyped": {
+  "marginShows": true,
+  "revenue": 555600.35,
+  "stored": "95",
+  "charge": 95,
+  "cell": "95"
+ },
+ "uiCleared": {
+  "stored": null,
+  "charge": 424.59
+ },
+ "errors": [],
+ "blockedWrites": 3,
+ "phoneErrors": [],
+ "phoneOverflow": 0
+}

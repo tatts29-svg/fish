@@ -1,0 +1,22 @@
+{
+ "desktop": {
+  "before": {
+   "paneH": 8949,
+   "firstOpenY": 1024,
+   "open": 434
+  },
+  "after": {
+   "paneH": 511,
+   "firstOpenY": 345,
+   "open": 470,
+   "press": {
+    "swms": 357,
+    "transport": 391,
+    "maps": 357,
+    "packs": 355,
+    "photos": 396,
+    "dockets": 406
+   }
+  }
+ }
+}

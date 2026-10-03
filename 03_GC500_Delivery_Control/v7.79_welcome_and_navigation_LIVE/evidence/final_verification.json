@@ -1,0 +1,60 @@
+{
+  "author": "Andrew Fisher",
+  "bytes": 8682654,
+  "sha256": "19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a",
+  "base_sha256": "35e4b00b150e081425e70a642945799d4dbab822bdbc7939c888c0503e5c26ef",
+  "status": "LIVE",
+  "static_checks": "pass",
+  "upload_dry_run": "pass",
+  "phone_visual_review": "pass",
+  "review_comment": "https://github.com/tatts29-svg/fish/pull/1#issuecomment-5931137108",
+  "practice": {
+    "desktop": {
+      "passed": 23,
+      "total": 23,
+      "productionMessagingWrites": 0,
+      "recordWrites": 0,
+      "pageErrors": []
+    },
+    "phone": {
+      "passed": 23,
+      "total": 23,
+      "productionMessagingWrites": 0,
+      "recordWrites": 0,
+      "pageErrors": []
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "message_preservation": {
+    "references": 201,
+    "max_gsm_units": 456,
+    "max_characters": 456,
+    "baseline_delivery_links": 199,
+    "candidate_delivery_links": 200,
+    "lost_links": 0,
+    "baseline_due_lines": 184,
+    "candidate_due_lines": 184,
+    "lost_due_lines": 0
+  },
+  "live_at": "2026-10-01T22:17:11+10:00",
+  "live_verified_at": "2026-10-01T12:19:08.225350+00:00",
+  "live_sha256": "19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a",
+  "live_bytes": 8682654,
+  "server": "v5.87",
+  "record_before": 3521,
+  "record_after": 3521,
+  "record_unchanged": true
+}

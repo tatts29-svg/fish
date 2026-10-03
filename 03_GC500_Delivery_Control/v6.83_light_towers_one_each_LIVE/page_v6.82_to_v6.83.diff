@@ -1,0 +1,10 @@
+6390a6391,6399
+>  /* v6.83 - A LIGHT TOWER IS ONE (Andrew, 27 Sep 2026: "Light towers qty 1 yes") */
+>  if (!a.relocation && chargeLinesOut && chargeLinesOut.length === 1 && chargeLinesOut[0].quantity == null
+>  && /^light tower$/i.test(String(chargeLinesOut[0].item || '').trim()) && /light tower\s*\d+/i.test(String(desc || a.name || ''))) {
+>  const l = chargeLinesOut[0];
+>  chargeLinesOut = [Object.assign({}, l, {quantity: 1, priceable: true, quantity_auto: true,
+>  quantity_on_the_schedule: 'quantity_on_the_schedule' in l ? l.quantity_on_the_schedule : l.quantity,
+>  quantity_state_on_the_schedule: l.quantity_state_on_the_schedule || l.quantity_state,
+>  quantity_state: 'one light tower — the reference names a single numbered tower, and Andrew confirmed one each on 27 Sep 2026. The schedule: ' + l.quantity_state})];
+>  }

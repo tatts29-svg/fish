@@ -1,0 +1,13 @@
+const {open} = require('/tmp/claude-0/stage18/lh18au');
+(async () => { const s = await open({pageFile: process.env.PAGE, hash: '#today', W: 1440, H: 900, gl: false}); const p = s.page;
+ await p.route('**/*', r => r.request().method() === 'GET' ? r.fallback() : r.abort());
+ await p.waitForFunction(() => typeof addReference === 'function' && typeof moneySummary === 'function', null, {timeout: 150000}); await p.waitForTimeout(5000);
+ await p.evaluate(() => { window.capability = () => 'edit'; window.mayWrite = () => true; window.save = () => {}; SYNC.readonly = false; S.operator = 'Andrew Fisher'; const w = document.getElementById('who'); if (w) w.value = 'Andrew Fisher'; });
+ const R = await p.evaluate(() => { const snap = () => { RENDER_MEMO.clear && RENDER_MEMO.clear(); const M = moneySummary(); const X = dsnState(todayIso()); const P = labourPlan(); return {M: JSON.parse(JSON.stringify(M)), dsn: JSON.parse(JSON.stringify(X.totals || X.sum || Object.keys(X))), plan: P.all}; };
+  const before = snap(); const wc = assetTotal(assetOf('WC01'));
+  const k = addReference({key: 'WC01-R1', disc: 'Toilets & amenities', type: 'Accessible Toilet', name: 'Rest of WC01', from: '2026-09-30', loc: 'WC01', note: 'x'});
+  const a = assetOf('WC01-R1'); const after = snap();
+  const flat = (o, pre, out) => { if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => flat(v, pre + '.' + k, out)); else out[pre] = o; return out; };
+  const fb = flat(before, '', {}), fa = flat(after, '', {}); const diff = Object.keys(Object.assign({}, fb, fa)).filter(k => fb[k] !== fa[k]).map(k => [k, fb[k], fa[k]]);
+  return {k, diff, lines: chargeLines(a), total: assetTotal(a), wc01: {known: wc.known}, addedFields: Object.keys((S.added || []).find(x => x.key === 'WC01-R1') || {}), cal: (calendarDays().find(d => d.iso === '2026-09-30') || {}).deliveries.map(r => r.a.key).filter(x => /WC01/.test(x))}; });
+ console.log(JSON.stringify(R, null, 1)); await s.browser.close(); })().catch(e => { console.error('FAIL', e.stack); process.exit(1); });

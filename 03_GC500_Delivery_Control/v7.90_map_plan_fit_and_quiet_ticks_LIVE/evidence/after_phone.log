@@ -1,0 +1,8 @@
+PASS X1 the explorer opens on Satellite + plan
+PASS X2 no Done ticks until asked for (80 finished units known)
+PASS X3 switching to Original plan shows the whole drawing (fitted, not carried over from satellite)
+PASS X4 back to satellite fits the whole circuit again
+PASS X5 tapping Done shows the finished units' ticks
+PASS X6 tapping Done again hides them
+PASS E1 no page errors and nothing written
+after_phone: 7/7

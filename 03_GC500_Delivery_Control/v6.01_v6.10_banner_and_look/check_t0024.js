@@ -1,0 +1,11 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox']});
+  const page = await (await browser.newContext({viewport: {width: 1366, height: 768}})).newPage();
+  await page.goto(process.argv[2], {waitUntil: 'load', timeout: 120000}); await page.waitForTimeout(3500);
+  await page.evaluate(() => go('plant')); await page.waitForTimeout(2500);
+  const heads = await page.evaluate(() => [...document.querySelectorAll('main table thead th')].slice(0, 9).map(t => t.textContent.trim()));
+  await page.evaluate(() => { const tr = [...document.querySelectorAll('main tr')].find(r => /T0024/.test(r.textContent)); tr.scrollIntoView(); const a = tr.querySelector('a,button,[role=button]') || tr; a.click(); });
+  await page.waitForTimeout(1500);
+  const drawer = await page.evaluate(() => { const d = document.querySelector('.drawer, dialog[open], .detail, aside.open, .sheet.open') || [...document.querySelectorAll('main *')].find(e => e.children.length && /Coates compound|compound toilet/.test(e.textContent) && e.textContent.length < 3000); return d ? d.textContent.replace(/\s+/g, ' ').trim().slice(0, 900) : null; });
+  const compound = await page.evaluate(() => document.body.textContent.includes('Coates compound'));
+  console.log(JSON.stringify({heads, compound, drawer})); await browser.close(); })();

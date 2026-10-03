@@ -1,0 +1,1147 @@
+{
+ "root": "v8.09_coates_way_machine_DRAFT/evidence/../work",
+ "at": "2026-10-03T02:33:43.667Z",
+ "checks": [
+  {
+   "dev": "phone",
+   "name": "antialias: multisampled canvas",
+   "ok": true,
+   "detail": {
+    "antialias": true,
+    "samples": 4,
+    "webgl2": true,
+    "maxAniso": 16
+   }
+  },
+  {
+   "dev": "phone",
+   "name": "fx-quality loaded (window.__fx)",
+   "ok": true
+  },
+  {
+   "dev": "phone",
+   "name": "phone starts on Laptop",
+   "ok": true,
+   "detail": "laptop"
+  },
+  {
+   "dev": "phone",
+   "name": "phone: no rim light, per-pixel detail off, anisotropy 8",
+   "ok": true,
+   "detail": {
+    "rim": false,
+    "aniso": 8
+   }
+  },
+  {
+   "dev": "phone",
+   "name": "phone: the Quality button offers Laptop and Balanced only",
+   "ok": true,
+   "detail": [
+    "laptop",
+    "balanced"
+   ]
+  },
+  {
+   "dev": "phone",
+   "name": "laptop: still pixel ratio = 3 (buffer 1170x1533)",
+   "ok": true,
+   "detail": {
+    "ratio": 3,
+    "megapixels": 1.79
+   }
+  },
+  {
+   "dev": "phone",
+   "name": "laptop: prints redrawn at 1x, as far as the budget allows (1x; 71/71, 26.97 MP)",
+   "ok": true
+  },
+  {
+   "dev": "phone",
+   "name": "laptop: prints inside the 20 MP budget for this setting (or every one at its own size)",
+   "ok": true,
+   "detail": "26.97 MP at 1x, budget 20 MP"
+  },
+  {
+   "dev": "phone",
+   "name": "balanced: still pixel ratio = 3 (buffer 1170x1533)",
+   "ok": true,
+   "detail": {
+    "ratio": 3,
+    "megapixels": 1.79
+   }
+  },
+  {
+   "dev": "phone",
+   "name": "balanced: post stack multisampled",
+   "ok": true,
+   "detail": 4
+  },
+  {
+   "dev": "phone",
+   "name": "balanced: prints redrawn at 1.5x, as far as the budget allows (1x; 71/71, 26.97 MP)",
+   "ok": true
+  },
+  {
+   "dev": "phone",
+   "name": "balanced: prints inside the 20 MP budget for this setting (or every one at its own size)",
+   "ok": true,
+   "detail": "26.97 MP at 1x, budget 20 MP"
+  },
+  {
+   "dev": "phone",
+   "name": "phone: high not offered by the Quality button",
+   "ok": true,
+   "detail": "not on the ladder"
+  },
+  {
+   "dev": "phone",
+   "name": "phone: ultra not offered by the Quality button",
+   "ok": true,
+   "detail": "not on the ladder"
+  },
+  {
+   "dev": "phone",
+   "name": "every texture mipmapped (105 textures)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "dev": "phone",
+   "name": "every texture filtered at 8x anisotropy",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "dev": "phone",
+   "name": "livery atlas mipmapped and anisotropic",
+   "ok": true,
+   "detail": {
+    "mip": true,
+    "aniso": 16
+   }
+  },
+  {
+   "dev": "phone",
+   "name": "Quality Balanced/Laptop round and round: the renderer's texture count stays put",
+   "ok": true,
+   "detail": "after rounds 1-3: 82 → 82 → 82"
+  },
+  {
+   "dev": "phone",
+   "name": "4K capture is a 3840 x 2160 PNG",
+   "ok": true,
+   "detail": {
+    "bytes": 10516573
+   }
+  },
+  {
+   "dev": "phone",
+   "name": "4K capture puts the canvas back at its own size",
+   "ok": true,
+   "detail": {
+    "before": [
+     1170,
+     1533
+    ],
+    "after": [
+     1170,
+     1533
+    ]
+   }
+  },
+  {
+   "dev": "phone",
+   "name": "phone: the 4K still is drawn without the post stack",
+   "ok": true,
+   "detail": {
+    "width": 3840,
+    "height": 2160,
+    "post": false
+   }
+  },
+  {
+   "dev": "phone",
+   "name": "no page or console errors",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "results": [
+  {
+   "dev": "phone",
+   "root": "v8.09_coates_way_machine_DRAFT/evidence/../work",
+   "W": 390,
+   "H": 844,
+   "dpr": 3,
+   "presets": {
+    "laptop": {
+     "quality": "laptop",
+     "label": "Quality: Laptop",
+     "ratio": 3,
+     "expected": 3,
+     "buffer": [
+      1170,
+      1533
+     ],
+     "css": [
+      390,
+      511
+     ],
+     "megapixels": 1.79,
+     "composerSamples": null,
+     "shadow": 2048,
+     "dprScale": {
+      "still": 1,
+      "move": 1
+     },
+     "prints": {
+      "count": 71,
+      "scale": 1,
+      "allowed": 1,
+      "budget": 20,
+      "megapixels": 26.97,
+      "done": 71,
+      "failed": 0,
+      "list": [
+       [
+        "tyre lettering",
+        2048,
+        128,
+        1
+       ],
+       [
+        "firewall display",
+        512,
+        200,
+        1
+       ],
+       [
+        "",
+        1539,
+        811,
+        1
+       ],
+       [
+        "",
+        770,
+        88,
+        1
+       ],
+       [
+        "",
+        160,
+        224,
+        1
+       ],
+       [
+        "",
+        624,
+        42,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        546,
+        520,
+        1
+       ],
+       [
+        "",
+        384,
+        384,
+        1
+       ],
+       [
+        "",
+        384,
+        384,
+        1
+       ],
+       [
+        "",
+        384,
+        384,
+        1
+       ],
+       [
+        "",
+        384,
+        384,
+        1
+       ],
+       [
+        "",
+        512,
+        146,
+        1
+       ],
+       [
+        "",
+        128,
+        128,
+        1
+       ],
+       [
+        "",
+        1024,
+        256,
+        1
+       ],
+       [
+        "",
+        1024,
+        236,
+        1
+       ],
+       [
+        "wheel blur",
+        256,
+        256,
+        1
+       ],
+       [
+        "",
+        256,
+        1024,
+        1
+       ],
+       [
+        "",
+        64,
+        64,
+        1
+       ],
+       [
+        "",
+        1024,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        512,
+        1
+       ],
+       [
+        "",
+        1024,
+        796,
+        1
+       ],
+       [
+        "",
+        1024,
+        1024,
+        1
+       ],
+       [
+        "",
+        1536,
+        270,
+        1
+       ],
+       [
+        "",
+        512,
+        128,
+        1
+       ],
+       [
+        "",
+        4,
+        256,
+        1
+       ],
+       [
+        "",
+        256,
+        256,
+        1
+       ],
+       [
+        "",
+        1024,
+        1024,
+        1
+       ],
+       [
+        "",
+        1024,
+        196,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        2048,
+        180,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        288,
+        1
+       ],
+       [
+        "",
+        2048,
+        140,
+        1
+       ],
+       [
+        "",
+        512,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        1024,
+        1
+       ],
+       [
+        "",
+        1024,
+        576,
+        1
+       ],
+       [
+        "",
+        1536,
+        864,
+        1
+       ],
+       [
+        "",
+        2048,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        768,
+        1
+       ],
+       [
+        "",
+        768,
+        260,
+        1
+       ],
+       [
+        "",
+        768,
+        260,
+        1
+       ],
+       [
+        "",
+        1536,
+        2048,
+        1
+       ],
+       [
+        "",
+        1536,
+        1536,
+        1
+       ],
+       [
+        "",
+        768,
+        260,
+        1
+       ],
+       [
+        "",
+        64,
+        64,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        280,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        768,
+        260,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        512,
+        300,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        256,
+        512,
+        1
+       ],
+       [
+        "",
+        4,
+        256,
+        1
+       ]
+      ]
+     },
+     "frameMs": 26,
+     "drawCalls": 1028,
+     "triangles": 849707,
+     "settleFrames": 2
+    },
+    "balanced": {
+     "quality": "balanced",
+     "label": "Quality: Balanced",
+     "ratio": 3,
+     "expected": 3,
+     "buffer": [
+      1170,
+      1533
+     ],
+     "css": [
+      390,
+      511
+     ],
+     "megapixels": 1.79,
+     "composerSamples": 4,
+     "shadow": 4096,
+     "dprScale": {
+      "still": 1,
+      "move": 1
+     },
+     "prints": {
+      "count": 71,
+      "scale": 1.5,
+      "allowed": 1,
+      "budget": 20,
+      "megapixels": 26.97,
+      "done": 71,
+      "failed": 0,
+      "list": [
+       [
+        "tyre lettering",
+        2048,
+        128,
+        1
+       ],
+       [
+        "firewall display",
+        512,
+        200,
+        1
+       ],
+       [
+        "",
+        1539,
+        811,
+        1
+       ],
+       [
+        "",
+        770,
+        88,
+        1
+       ],
+       [
+        "",
+        160,
+        224,
+        1
+       ],
+       [
+        "",
+        624,
+        42,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        235,
+        81,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        160,
+        56,
+        1
+       ],
+       [
+        "",
+        546,
+        520,
+        1
+       ],
+       [
+        "",
+        384,
+        384,
+        1
+       ],
+       [
+        "",
+        384,
+        384,
+        1
+       ],
+       [
+        "",
+        384,
+        384,
+        1
+       ],
+       [
+        "",
+        384,
+        384,
+        1
+       ],
+       [
+        "",
+        512,
+        146,
+        1
+       ],
+       [
+        "",
+        128,
+        128,
+        1
+       ],
+       [
+        "",
+        1024,
+        256,
+        1
+       ],
+       [
+        "",
+        1024,
+        236,
+        1
+       ],
+       [
+        "wheel blur",
+        256,
+        256,
+        1
+       ],
+       [
+        "",
+        256,
+        1024,
+        1
+       ],
+       [
+        "",
+        64,
+        64,
+        1
+       ],
+       [
+        "",
+        1024,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        512,
+        1
+       ],
+       [
+        "",
+        1024,
+        796,
+        1
+       ],
+       [
+        "",
+        1024,
+        1024,
+        1
+       ],
+       [
+        "",
+        1536,
+        270,
+        1
+       ],
+       [
+        "",
+        512,
+        128,
+        1
+       ],
+       [
+        "",
+        4,
+        256,
+        1
+       ],
+       [
+        "",
+        256,
+        256,
+        1
+       ],
+       [
+        "",
+        1024,
+        1024,
+        1
+       ],
+       [
+        "",
+        1024,
+        196,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        2048,
+        180,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        288,
+        1
+       ],
+       [
+        "",
+        2048,
+        140,
+        1
+       ],
+       [
+        "",
+        512,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        1024,
+        1
+       ],
+       [
+        "",
+        1024,
+        576,
+        1
+       ],
+       [
+        "",
+        1536,
+        864,
+        1
+       ],
+       [
+        "",
+        2048,
+        1024,
+        1
+       ],
+       [
+        "",
+        512,
+        768,
+        1
+       ],
+       [
+        "",
+        768,
+        260,
+        1
+       ],
+       [
+        "",
+        768,
+        260,
+        1
+       ],
+       [
+        "",
+        1536,
+        2048,
+        1
+       ],
+       [
+        "",
+        1536,
+        1536,
+        1
+       ],
+       [
+        "",
+        768,
+        260,
+        1
+       ],
+       [
+        "",
+        64,
+        64,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        280,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        768,
+        260,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        512,
+        300,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        1536,
+        240,
+        1
+       ],
+       [
+        "",
+        256,
+        512,
+        1
+       ],
+       [
+        "",
+        4,
+        256,
+        1
+       ]
+      ]
+     },
+     "frameMs": 11539,
+     "drawCalls": 1,
+     "triangles": 1,
+     "settleFrames": 2
+    }
+   },
+   "readyMs": 32164,
+   "picked": "laptop",
+   "gl": {
+    "antialias": true,
+    "samples": 4,
+    "webgl2": true,
+    "maxAniso": 16
+   },
+   "textures": {
+    "total": 105,
+    "need": 8,
+    "max": 16,
+    "low": 0,
+    "lowList": [],
+    "noMip": 0,
+    "noMipList": [],
+    "atlas": {
+     "mip": true,
+     "aniso": 16
+    }
+   },
+   "textureCycles": [
+    82,
+    82,
+    82
+   ],
+   "capture": {
+    "png": true,
+    "width": 3840,
+    "height": 2160,
+    "bytes": 10516573,
+    "restored": true,
+    "before": [
+     1170,
+     1533
+    ],
+    "after": [
+     1170,
+     1533
+    ]
+   },
+   "errors": []
+  }
+ ]
+}

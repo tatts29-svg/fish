@@ -1,0 +1,490 @@
+{
+  "author": "Andrew Fisher",
+  "previousSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "pageSha256": "b9a8d98a0d2a189df5e6523923d8a332ee3b914fdf50734792c575c29dc3a576",
+  "passed": 61,
+  "failed": 0,
+  "limitations": [
+    "CPU camera parity uses identical deterministic inputs, not a complete render or a physical-device performance test.",
+    "Restores original camera-side cue and random-stream behaviour; physics/model/scene source preservation is proved separately.",
+    "Actual moving scene and current vehicle close-ups require independent browser review."
+  ],
+  "checks": [
+    {
+      "name": "hero normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "hero reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "hero towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "hero building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "auto normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": [
+          "grid-intro",
+          "race-line",
+          "kerb-flight",
+          "wheel-pass",
+          "hero-finish",
+          "full-throttle"
+        ]
+      }
+    },
+    {
+      "name": "auto reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": [
+          "grid-intro",
+          "race-line",
+          "kerb-flight",
+          "wheel-pass",
+          "hero-finish",
+          "full-throttle"
+        ]
+      }
+    },
+    {
+      "name": "auto towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": [
+          "grid-intro",
+          "race-line",
+          "kerb-flight",
+          "wheel-pass",
+          "hero-finish",
+          "full-throttle"
+        ]
+      }
+    },
+    {
+      "name": "auto building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": [
+          "grid-intro",
+          "race-line",
+          "kerb-flight",
+          "wheel-pass",
+          "hero-finish",
+          "full-throttle"
+        ]
+      }
+    },
+    {
+      "name": "onboard normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "onboard reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "onboard towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "onboard building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "chase normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "chase reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "chase towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "chase building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "heli normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "heli reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "heli towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "heli building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "top normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "top reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "top towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "top building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "wide normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "wide reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "wide towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "wide building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "detail normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "detail reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "detail towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "detail building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "frontdetail normal 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "frontdetail reduced 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "frontdetail towed 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "frontdetail building 40 seconds / 120 Hz exactly matches original camera",
+      "pass": true,
+      "detail": {
+        "frames": 4801,
+        "firstDifferenceAt": null,
+        "beats": []
+      }
+    },
+    {
+      "name": "portaloo-priority matches original priority/transition/projection",
+      "pass": true
+    },
+    {
+      "name": "open portaloo restores the original trailer look-in shot",
+      "pass": true
+    },
+    {
+      "name": "fireworks-priority matches original priority/transition/projection",
+      "pass": true
+    },
+    {
+      "name": "changed-selection matches original priority/transition/projection",
+      "pass": true
+    },
+    {
+      "name": "paused-selection matches original priority/transition/projection",
+      "pass": true
+    },
+    {
+      "name": "resize-lens matches original priority/transition/projection",
+      "pass": true
+    },
+    {
+      "name": "Auto reacts to actual brake-attack input",
+      "pass": true,
+      "detail": {
+        "shot": "brake",
+        "beat": "brake-attack"
+      }
+    },
+    {
+      "name": "Auto reacts to actual apex-drift input",
+      "pass": true,
+      "detail": {
+        "shot": "quarter",
+        "beat": "apex-drift"
+      }
+    },
+    {
+      "name": "Auto reacts to actual kerb-flight input",
+      "pass": true,
+      "detail": {
+        "shot": "low",
+        "beat": "kerb-flight"
+      }
+    },
+    {
+      "name": "Auto reacts to actual wheel-pass input",
+      "pass": true,
+      "detail": {
+        "shot": "wheel",
+        "beat": "wheel-pass"
+      }
+    },
+    {
+      "name": "Auto reacts to actual hero-finish input",
+      "pass": true,
+      "detail": {
+        "shot": "hero",
+        "beat": "hero-finish"
+      }
+    },
+    {
+      "name": "Auto reacts to actual full-throttle input",
+      "pass": true,
+      "detail": {
+        "shot": "chase",
+        "beat": "full-throttle"
+      }
+    },
+    {
+      "name": "remembered camera null",
+      "pass": true
+    },
+    {
+      "name": "remembered camera tour",
+      "pass": true
+    },
+    {
+      "name": "remembered camera invalid",
+      "pass": true
+    },
+    {
+      "name": "remembered camera hero",
+      "pass": true
+    },
+    {
+      "name": "remembered camera auto",
+      "pass": true
+    },
+    {
+      "name": "remembered camera onboard",
+      "pass": true
+    },
+    {
+      "name": "remembered camera chase",
+      "pass": true
+    },
+    {
+      "name": "remembered camera heli",
+      "pass": true
+    },
+    {
+      "name": "remembered camera top",
+      "pass": true
+    },
+    {
+      "name": "remembered camera wide",
+      "pass": true
+    },
+    {
+      "name": "remembered camera detail",
+      "pass": true
+    },
+    {
+      "name": "remembered camera frontdetail",
+      "pass": true
+    },
+    {
+      "name": "blocked device storage falls back to original Car follow",
+      "pass": true
+    }
+  ]
+}

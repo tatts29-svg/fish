@@ -1,0 +1,34 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Changed sheet/UI renderer and event-handler CPU paths. Synthetic records and minimal selector stubs; no browser, live record, network, capacity/stream tests or legal validation.",
+  "passes": 16,
+  "checks": [
+    "ordinary run sheet renders without the removed A.run dereference",
+    "Coates toilet run sheet renders with per-run travel",
+    "oversize checkbox and warning render for a flagged single load",
+    "oversize permit and computed warning survive into the sheet",
+    "unflagged branch load offers a checkbox without an oversize declaration",
+    "travel editor is now rendered in Trucks and times",
+    "actual travel and oversize change handlers are attached",
+    "travel handler saves the entered run value and redraws",
+    "editing branch travel leaves Coates run independent",
+    "oversize handler persists the checked flag and redraws",
+    "oversize handler can clear the flag",
+    "blank travel entry remains explicitly unconfirmed",
+    "blank Coates/branch travel prints unconfirmed without invented midnight",
+    "supplier screen omits Kingston truck movements and midnight times",
+    "supplier sheet renders a pick-up list without fabricated movement times",
+    "supplier sheet keeps the recorded emptying attribution"
+  ],
+  "remaining": [
+    "Legacy gc500.demob816.assume.run migration remains absent in the unchanged travel816 implementation.",
+    "Owner excerpts are not the original guide; the legal scope of the displayed 09:00\u201316:00-only statement is not established."
+  ],
+  "fixtureProvenance": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+  "fixtureRunDemobSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+  "testedSourceCommit": "uncommitted working tree on 1382e98 (demob816_src.js 3f18954e; drawer, patch and css as committed in a57de005)",
+  "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+  "testedDrawerSha256": "6f87a42c4ac481bbbbceaab8c33e96adfd0f5b91fa7bc1780618a082d0882125",
+  "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0"
+}

@@ -1,0 +1,4 @@
+PASS  hidden-tab  back from 8 s in a hidden tab: Balanced stays Balanced (hidden time is not counted as slow frames)  {"before":"balanced","after":"balanced","toast":""}
+PASS  hidden-tab  no page or console errors  []
+
+2/2 checks passed (v8.09_coates_way_machine_DRAFT/evidence/../work)

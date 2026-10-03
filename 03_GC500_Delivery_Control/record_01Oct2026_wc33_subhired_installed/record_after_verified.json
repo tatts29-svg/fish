@@ -1,0 +1,115 @@
+{
+ "read_at": "2026-10-01T04:10Z (14:10 AEST)",
+ "record_version": 3288,
+ "read_by": "Claude, read-only on the view link",
+ "references": [
+  {
+   "key": "WC33",
+   "subhire": {
+    "co": "Event Portables",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-01T04:03:37.291Z"
+   },
+   "units": [
+    "0634",
+    "0582",
+    "0548",
+    "0782",
+    "0657",
+    "0912",
+    "0554",
+    "0920",
+    "0971",
+    "0586",
+    "0487",
+    "0790",
+    "0297",
+    "0456",
+    "0012",
+    "0938",
+    "0597"
+   ],
+   "numbers": [],
+   "done": true,
+   "done_by": "Andrew Fisher via Codex",
+   "done_at": "2026-10-01T04:03:40.364Z",
+   "levelled": false,
+   "steps": false,
+   "state": "on site",
+   "note": null
+  },
+  {
+   "key": "WC56",
+   "subhire": {
+    "co": "Event Portables",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-01T04:03:40.503Z"
+   },
+   "units": [
+    "0721",
+    "0491",
+    "0190",
+    "0294",
+    "0970",
+    "0974",
+    "0004",
+    "0003",
+    "0445",
+    "0088",
+    "0442",
+    "0009"
+   ],
+   "numbers": [],
+   "done": true,
+   "done_by": "Andrew Fisher via Codex",
+   "done_at": "2026-10-01T04:03:42.730Z",
+   "levelled": false,
+   "steps": false,
+   "state": "on site",
+   "note": null
+  },
+  {
+   "key": "WC59",
+   "subhire": {
+    "co": "Event Portables",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-01T04:03:42.858Z"
+   },
+   "units": [
+    "0492",
+    "0935",
+    "0497",
+    "0633",
+    "0064",
+    "0066",
+    "0533"
+   ],
+   "numbers": [],
+   "done": true,
+   "done_by": "Andrew Fisher via Codex",
+   "done_at": "2026-10-01T04:03:44.294Z",
+   "levelled": false,
+   "steps": false,
+   "state": "on site",
+   "note": null
+  },
+  {
+   "key": "WC60",
+   "subhire": null,
+   "units": [],
+   "numbers": [
+    "1119489",
+    "1328980",
+    "1087500",
+    "1328981"
+   ],
+   "done": true,
+   "done_by": "Andrew Fisher via Codex",
+   "done_at": "2026-10-01T04:03:44.722Z",
+   "levelled": true,
+   "steps": true,
+   "state": "on site",
+   "note": "Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 \u2014 both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026."
+  }
+ ]
+}

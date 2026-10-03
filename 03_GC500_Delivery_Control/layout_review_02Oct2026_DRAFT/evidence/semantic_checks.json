@@ -1,0 +1,222 @@
+{
+  "author": "Andrew Fisher",
+  "status": "DRAFT; semantic and selected-day checks passed; for user layout review only",
+  "base_sha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+  "prototype_sha256": "1d2845f7dff2fe54accb8f9769810271fa36ec6205df48e9ccb08175cd461411",
+  "component_sha256": "33fa43f8e5fdf04514064484300ef92c38e5479f4d57bf02e8e2504e82dcb7ea",
+  "prior_semantic_prototype_sha256": "8202269dc0f2e0b210f2eb50be34e60293c1e01ec9747c9f58cfbd7a8e79a370",
+  "prior_matched_capture_sha256": "9995977b49a53ff77ad2e870287dd64e1e11519e8b8178c156a9edac07f758d9",
+  "semantic_checks": [
+    {
+      "id": "desktop business records/calculations unchanged",
+      "passed": true
+    },
+    {
+      "id": "desktop Difference points to Difference",
+      "passed": true
+    },
+    {
+      "id": "desktop clicked Difference target below navigation",
+      "passed": true
+    },
+    {
+      "id": "desktop full-job link opens all63 original docket rows",
+      "passed": true
+    },
+    {
+      "id": "desktop quote and variation component unchanged",
+      "passed": true
+    },
+    {
+      "id": "desktop day filter matches original docket dates",
+      "passed": true
+    },
+    {
+      "id": "desktop area filter preserves source rows and original metadata table",
+      "passed": true
+    },
+    {
+      "id": "desktop daily person/hour/rate/expense component unchanged",
+      "passed": true
+    },
+    {
+      "id": "desktop per-person totals and controls unchanged",
+      "passed": true
+    },
+    {
+      "id": "desktop accommodation link reveals its own nested detail",
+      "passed": true
+    },
+    {
+      "id": "desktop historical rate/window decisions unchanged",
+      "passed": true
+    },
+    {
+      "id": "desktop rate link opens every required fold",
+      "passed": true
+    },
+    {
+      "id": "phone business records/calculations unchanged",
+      "passed": true
+    },
+    {
+      "id": "phone Difference points to Difference",
+      "passed": true
+    },
+    {
+      "id": "phone clicked Difference target below navigation",
+      "passed": true
+    },
+    {
+      "id": "phone full-job link opens all63 original docket rows",
+      "passed": true
+    },
+    {
+      "id": "phone quote and variation component unchanged",
+      "passed": true
+    },
+    {
+      "id": "phone day filter matches original docket dates",
+      "passed": true
+    },
+    {
+      "id": "phone area filter preserves source rows and original metadata table",
+      "passed": true
+    },
+    {
+      "id": "phone daily person/hour/rate/expense component unchanged",
+      "passed": true
+    },
+    {
+      "id": "phone per-person totals and controls unchanged",
+      "passed": true
+    },
+    {
+      "id": "phone accommodation link reveals its own nested detail",
+      "passed": true
+    },
+    {
+      "id": "phone historical rate/window decisions unchanged",
+      "passed": true
+    },
+    {
+      "id": "phone rate link opens every required fold",
+      "passed": true
+    },
+    {
+      "id": "No page exceptions",
+      "passed": true
+    },
+    {
+      "id": "No service writes",
+      "passed": true
+    }
+  ],
+  "record_model_hashes": [
+    "32ab910b5cc75c221df0736ebdb1e85d07861f7eab387d616e2911c2b7472304"
+  ],
+  "full_comparison_views": 8,
+  "dockets_accessible_in_all_view": 63,
+  "page_overflow": false,
+  "operational_writes": 0,
+  "full_comparison_non_get_blocked": 4,
+  "expected_resource_errors": 4,
+  "scope_binding": "Independent source review: final difference from matched9995977b capture is only existing .day.on selection plus current-strip alignDay() and one debounced resize listener. The26 unchanged semantic checks carry through this exact scope;17 affected selection/resize checks run on final1d2845f7.",
+  "limitations": [
+    "Two nested desktop target borders overlap the navigation edge by3.5\u20135.8px; destination headings/content remain visible.",
+    "Historical v8.03 preview only. Rebase and release verification required after layout approval.",
+    "No tab-performance or empty-space certification."
+  ],
+  "selected_day_checks": [
+    {
+      "id": "desktop initial29Sep active visible and matches heading/rows",
+      "passed": true
+    },
+    {
+      "id": "desktop changed date active visible and matches heading/rows",
+      "passed": true
+    },
+    {
+      "id": "desktop area/day return preserves visible selected date",
+      "passed": true
+    },
+    {
+      "id": "desktop middle date active visible",
+      "passed": true
+    },
+    {
+      "id": "desktop resize390 preserves selected date visibility",
+      "passed": true
+    },
+    {
+      "id": "desktop resize1440 preserves selected date visibility",
+      "passed": true
+    },
+    {
+      "id": "desktop restored29Sep selected",
+      "passed": true
+    },
+    {
+      "id": "desktop all63 remain accessible",
+      "passed": true
+    },
+    {
+      "id": "phone initial29Sep active visible and matches heading/rows",
+      "passed": true
+    },
+    {
+      "id": "phone changed date active visible and matches heading/rows",
+      "passed": true
+    },
+    {
+      "id": "phone area/day return preserves visible selected date",
+      "passed": true
+    },
+    {
+      "id": "phone middle date active visible",
+      "passed": true
+    },
+    {
+      "id": "phone resize320 preserves selected date visibility",
+      "passed": true
+    },
+    {
+      "id": "phone resize844 preserves selected date visibility",
+      "passed": true
+    },
+    {
+      "id": "phone resize390 preserves selected date visibility",
+      "passed": true
+    },
+    {
+      "id": "phone restored29Sep selected",
+      "passed": true
+    },
+    {
+      "id": "phone all63 remain accessible",
+      "passed": true
+    }
+  ],
+  "selected_day_passed": 17,
+  "selected_day_total": 17,
+  "semantic_passed": 26,
+  "semantic_total": 26,
+  "independent_verdict": "APPROVE FOR USER LAYOUT REVIEW ONLY",
+  "final_screenshot_sha256": {
+    "after-desktop-costs-summary.png": "4688bcc17b2c1dfb43eac2bc3029779ec4c758562beccb128da31902e6fa127d",
+    "after-desktop-costs-ledger.png": "794f7eee5b92a85762846f698bec74c2358dbf5efd9982ef7bb48995adecab52",
+    "after-desktop-fencing-register.png": "a7cc1c0113f9f585dba678a2eaf8c3f4334e351e47f65eed79a9e093c0d27d74",
+    "after-desktop-fencing-area.png": "d365c1367fcd1714e509b7e2c2db5318fa59b3ece4ca9bbed2d9043e025e3020",
+    "after-phone-costs-summary.png": "6f2001993aadfbd409c1733638bf2589f6edd265f1af219cb986309178cfb5e8",
+    "after-phone-costs-ledger.png": "f4cbc14011331a4264984b5f09926944d1492aad4de3a172dce45e1c39cd9b06",
+    "after-phone-fencing-register.png": "a897f0eb321a93a291c2b7bd470c8b35eb1576ea7bba0edeb31343e3aadc47fa",
+    "after-phone-fencing-area.png": "e2d19e98d7a5f54c90f10b70b5d96400cd11f351b1674bc6434d003d6ea200f9",
+    "after-phone-costs-summary-lower.png": "bfd0a6b466d9fd827e1c216b71611085c290fe9fd2806855e9bd1b1fbf3e4390"
+  },
+  "final_model_hashes": [
+    "32ab910b5cc75c221df0736ebdb1e85d07861f7eab387d616e2911c2b7472304",
+    "32ab910b5cc75c221df0736ebdb1e85d07861f7eab387d616e2911c2b7472304"
+  ],
+  "final_targeted_non_get_blocked": 2,
+  "screenshot_provenance": "Nine final Costs/Fencing after images bind final1d2845f7; private R4/R5 excerpts and full eight-view height/link comparison remain bound to9995977b. Their untouched scope is preserved by the reviewed selection-only delta."
+}

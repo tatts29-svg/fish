@@ -1,0 +1,266 @@
+{
+ "mobile": false,
+ "checks": {
+  "c1_everyLoadWithAFigureCounted": true,
+  "c1_wc05HasTwoTrucks": true,
+  "c1_transportCostIsEveryLoad": true,
+  "c4_noUndatedDocketInAccruals": true,
+  "c2_relocationNoteOnThePL": true,
+  "card_knownEqualsThePL": true,
+  "card_jobIsKnownPlusToCome": true,
+  "card_fencingToComeIsTheWeeks": true,
+  "card_fencingNamesWhatIsNotRated": true,
+  "card_revenueToJobEnd": true,
+  "card_wagesOnTheirOwnLine": true,
+  "card_gapsListed": true,
+  "pastWeeksWithPlanCarriedAsBehind": true,
+  "ourTransportLinesNotForecastAgain": true,
+  "readOnly": true,
+  "v763_everyMonthStillAddsToRevenue": true,
+  "v760_branchesStillReconcile": true,
+  "wordsPresent": true,
+  "noBrokenValues": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true,
+  "noWriteLeftThePage": true
+ },
+ "present": true,
+ "data": {
+  "transport": {
+   "counted": 22011.39,
+   "countedRefs": 37,
+   "every": 37,
+   "everySum": 22011.39,
+   "refs": 23,
+   "oursRefs": 0,
+   "kAmount": 22011.39,
+   "wc05": 2
+  },
+  "c4": {
+   "undatedInAccruals": 0,
+   "workbookUndated": {
+    "id": "workbook:Week 6:row3",
+    "week": "Week 6",
+    "paid": 2475
+   },
+   "sepFenceCostSources": 63,
+   "sepFenceCostCandidate": 75871.5
+  },
+  "card": {
+   "known": 235371.76,
+   "plKnown": 235371.76,
+   "sumKnown": 235371.76,
+   "toCome": 209039.27,
+   "sumToCome": 209039.27,
+   "job": 444411.03,
+   "wages": {
+    "toDate": 6925.4,
+    "toCome": 24898.58,
+    "unpricedHours": 1626,
+    "known": 6925.4,
+    "toCome2": 24898.58,
+    "job": 31823.98
+   },
+   "revenue": {
+    "record": 571967.15,
+    "fenceToCome": 248809.54,
+    "job": 820776.69,
+    "noCardRate": {
+     "Crowd Control Barriers (m) — Flat Feet": 256,
+     "Temporary Fence (m) — Hoarding": 137,
+     "Crowd Control Barriers (m) — WPF": 135
+    }
+   },
+   "plTotal": 571967.15,
+   "fencing": {
+    "cost": 180090.1,
+    "revenue": 248809.54,
+    "weeksSum": 180090.1,
+    "weeksRev": 248809.54,
+    "weeks": [
+     {
+      "w": "CON WK6",
+      "state": "behind — week ended, metres still on the plan",
+      "cost": 1734.8,
+      "rev": 1710.51,
+      "n": 2
+     },
+     {
+      "w": "CON WK5",
+      "state": "behind — week ended, metres still on the plan",
+      "cost": 25812.4,
+      "rev": 26291.35,
+      "n": 4
+     },
+     {
+      "w": "CON WK4",
+      "state": "behind — week ended, metres still on the plan",
+      "cost": 13563.4,
+      "rev": 20259.97,
+      "n": 5
+     },
+     {
+      "w": "CON WK3",
+      "state": "in progress",
+      "cost": 29112.4,
+      "rev": 33626.85,
+      "n": 7
+     },
+     {
+      "w": "CON WK2",
+      "state": "to come",
+      "cost": 20916.3,
+      "rev": 29439.51,
+      "n": 7
+     },
+     {
+      "w": "CON WK1",
+      "state": "to come",
+      "cost": 54522.8,
+      "rev": 86295.88,
+      "n": 8
+     },
+     {
+      "w": "EVENT WEEK",
+      "state": "to come",
+      "cost": 34428,
+      "rev": 51185.47,
+      "n": 8
+     }
+    ],
+    "hourly": {
+     "Relocation": 809
+    },
+    "noCostRate": {
+     "removal": 968,
+     "Crowd Control Barriers (m) — Flat Feet": 256,
+     "Temporary Fence (m) — Hoarding": 137,
+     "Crowd Control Barriers (m) — WPF": 135
+    },
+    "noCardRate": {
+     "Crowd Control Barriers (m) — Flat Feet": 256,
+     "Temporary Fence (m) — Hoarding": 137,
+     "Crowd Control Barriers (m) — WPF": 135
+    },
+    "notRolled": [
+     "Demob Week 1",
+     "Demob Week 2",
+     "Demob Week 3"
+    ]
+   },
+   "rows": [
+    {
+     "stream": "Fencing — Advanced Temporary Fencing, rehire cost",
+     "toDate": 77121.5,
+     "toCome": 180090.1,
+     "job": 257211.6,
+     "inPl": true
+    },
+    {
+     "stream": "Toilets — Event Portables, rehire cost",
+     "toDate": 118575,
+     "toCome": 0,
+     "job": 118575,
+     "inPl": true
+    },
+    {
+     "stream": "Transport (cartage) — carriers’ charges",
+     "toDate": 22011.39,
+     "toCome": 22364.46,
+     "job": 44375.85,
+     "inPl": true
+    },
+    {
+     "stream": "Accommodation",
+     "toDate": 15564.34,
+     "toCome": 6584.71,
+     "job": 22149.05,
+     "inPl": true
+    },
+    {
+     "stream": "Meals, expenses and equipment R&M",
+     "toDate": 2099.53,
+     "toCome": 0,
+     "job": 2099.53,
+     "inPl": true
+    },
+    {
+     "stream": "Labour — wages (the running sheet)",
+     "toDate": 6925.4,
+     "toCome": 24898.58,
+     "job": 31823.98
+    }
+   ],
+   "gaps": 8
+  },
+  "known": 235371.76,
+  "categories": [
+   [
+    "internal",
+    0
+   ],
+   [
+    "external",
+    0
+   ],
+   [
+    "rehire",
+    118575
+   ],
+   [
+    "equipment",
+    578
+   ],
+   [
+    "fencing",
+    77121.5
+   ],
+   [
+    "installation",
+    0
+   ],
+   [
+    "branch",
+    0
+   ],
+   [
+    "other",
+    39097.26
+   ]
+  ],
+  "fencingPart": [
+   "STPS · Advanced's dockets, at their own sheet — $75,871.50:  Rehire (their gear) $75,021.50 + Installation — external contractors (8.5 h Labour) $850.00 · the relocation metres on 3 dockets are costed by the hour through the green book, not per metre",
+   "Installation — external contractors: the green book, Advanced's labour and truck hours — 12.5 h × $100.00 = $1,250.00"
+  ],
+  "readOnly": true
+ },
+ "behind": {
+  "pastWithPlan": [
+   "CON WK6",
+   "CON WK5",
+   "CON WK4"
+  ],
+  "carried": [
+   "CON WK6",
+   "CON WK5",
+   "CON WK4"
+  ],
+  "states": [
+   "behind — week ended, metres still on the plan",
+   "behind — week ended, metres still on the plan",
+   "behind — week ended, metres still on the plan"
+  ],
+  "ourRefs": 0,
+  "modelOurRefs": 0
+ },
+ "prev": {
+  "accrualsReconcile": true,
+  "plReconciles": true,
+  "ticks": true
+ },
+ "overflow": 0,
+ "errors": [],
+ "console": [],
+ "blocked": 0,
+ "pass": true
+}
