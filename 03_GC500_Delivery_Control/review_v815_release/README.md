@@ -1,6 +1,10 @@
-# Documents — early frozen-source audit
+# Documents — independent release audit
 
 Author: Andrew Fisher · 3 Oct 2026 AEST.
+
+**Current state:** the original five findings below are fixed. Further review found and corrected public-search disabling, lost category keyboard focus and stale categorisation after incoming records. The owner integrated the bounded correction verbatim in `c1f6989`; its candidate exactly matches `665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb` (9,116,658 bytes) on v8.14 base `6365fd09`. Independent source/CPU 43/43 and supplemental desktop/phone browser 60/60 pass. All 15 standing runs now pass:248 assertions plus both 21-tab/seven-link/Back sweeps, zero page/console errors and all browser contexts closed. A fresh public-base rebuild matches the same candidate. The owner's final Documents/layout gates and frozen handover remain. This is not READY or LIVE. The early findings and failed historical runs remain evidence, not current unresolved defects.
+
+## Original draft findings
 
 **Early draft feedback; not READY.** Review source is `968aefba33abd387b7b646b71340d41775679b25`, recovered privately with `git archive`. No implementation file, browser, network resource or live record was changed. The implementation owner retains the moving v8.15 draft.
 
