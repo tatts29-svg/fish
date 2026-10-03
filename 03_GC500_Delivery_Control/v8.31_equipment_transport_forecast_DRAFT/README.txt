@@ -55,3 +55,5 @@ as DATA.transport_forecast831. Every other DATA field is unchanged except the
 34 exact metadata corrections. Private input paths/contents are not committed.
 The root release owner controls the final scope,
 standard build, checks, publication and shared board. No live changes made here.
+
+Integrated into verified live v8.32 on4 Oct2026 at06:17AEST. This component was not uploaded separately. See ../v8.32_transport_banners_and_labels_LIVE/README.md for final candidate and checks.

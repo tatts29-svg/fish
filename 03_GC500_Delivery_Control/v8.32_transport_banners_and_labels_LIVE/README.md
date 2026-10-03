@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD, not yet live. Codex owns implementation, verification and publication; Claude remains paused.
+VERIFIED LIVE:4 Oct 2026 06:17 AEST. Codex owns implementation, verification and publication; Claude remains paused.
 
 This release combines the guarded v8.31 equipment transport forecast with removal of decorative car banners outside Today and clearer labour source labels. Supported uncovered transport estimates enter the job-end forecast; current charges, supplier costs and operational records are preserved. Included transport and uncertain allocations remain separately explained.
 
@@ -17,4 +17,4 @@ Build applies `../v8.31_equipment_transport_forecast_DRAFT/patch_v831.py`, then 
 
 Checks completed: standard page check; banner source 16/16; labour presentation 6/6; exact composition and preservation of Today, financial calculations and native write functions. The v8.31 component passed 151 hydrated financial, desktop, phone and print checks. Final v8.32 runtime parity87/87, banner62/62 and scoped financial/presentation67/67 pass. Desktop and phone sweeps pass22 routes,7 deep links and Back; zero errors or attempted writes. Native record unchanged. Source checkpoint483dc265. Browser screenshot review completed. The initial scoped test used the wrong pane selector; its preserved failure was resolved by navigating normally to Pricing, without changing the candidate.
 
-`tests/test_banners832.cjs` exercises all 22 routes and the original MP4. Browser runs use the shared lock and private output paths. Do not publish this draft until final checks pass and the shared board says READY TO UPLOAD.
+`tests/test_banners832.cjs` exercises all 22 routes and the original MP4. Browser runs use the shared lock and private output paths. Guarded upload from ready source280dcb49 passed. The actual public desktop/phone smoke passed69/69, including exact raw/CDP delivered source identity, financial/native readback, current labels and original MP4 playback. No local HTML substitution, browser errors or operational write attempts. Native record3739 unchanged across33 collections. Private evidence is retained by the release owner.
