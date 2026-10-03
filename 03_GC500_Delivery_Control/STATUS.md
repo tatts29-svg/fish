@@ -6,7 +6,9 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 **Codex owns the remaining handover.** Andrew directly asked Codex to work through PR #1 comment5970309935; receipt is5970331843. Claude has stopped work and his hourly routine. Codex's existing hourly coordination remains active and honours that stop. No automatic restart is inferred from the inconsistent Wednesday/8 October wording. Additional record dates and undecided allocations/prices remain separate decisions.
 
-**Next: v8.21 daily runs and installer messaging**, rebuilding on the new live page and checking supplier-card styling and shared print surfaces. The v8.22–v8.26 previews remain separate, not live. v8.17 stays parked.
+**v8.21 LIVE at 01:19 AEST.** Daily installer runs and explicit team texting are available from Timeline. Exact SHA-256 `a505155e749d35c2231add24762a2db08ae617b9efcd4d06c8aee8507750a414`, 9,568,271 bytes, on v8.19 `0630371d`. Frozen source `774bd0e4` is retained with a supplier CSS boundary adapter and release wrapper. Focused source/send/projection and visual checks passed; final 269 standing assertions and both 22-tab/seven-link/Back sweeps passed. Guarded upload/public readback match; operational collections unchanged. No real SMS or day-page publication was used as a test. Actual public-host desktop/phone smoke passed10/10 with exact HTML, no browser errors and no attempted operational writes. See `v8.21_timeline_daily_runs_LIVE/RELEASE_REVIEW.txt`.
+
+**Next: integrated v8.26** carries the reviewed v8.22–v8.25 presentation work and selected-load checks. It remains a private candidate pending final integrated checks. v8.17 stays parked.
 
 ## Current release work — 3 Oct 2026, Codex
 
