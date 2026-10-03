@@ -71,8 +71,10 @@ already has: `GC500_EventPortables_load_run_sheets_v3.pdf` and `GC500_EventPorta
      day lists (see *Source boundary*). For Andrew's "deliveries for next week we move to the 9th oct" it reads "Record
      still shows Thu 8 Oct for WC09, WC34 – moving to Fri 9 Oct per Coates". Any other difference is stated plainly,
      never as a move: "Record shows Mon 12 Oct for WC57 – this plan has Fri 9 Oct". On record 3675 Load 1 also named
-     WC38, WC39, WC40 and WC61 on Wed 7 Oct. The record moved them to Fri 9 Oct during the session, so the line
-     dropped them by itself;
+     WC38, WC39, WC40 and WC61 on Wed 7 Oct. Codex moved them to Fri 9 Oct on the record (3736), so once the record
+     has loaded the line no longer names them. The line is worked out fresh at every drawing of the card and every
+     printed sheet, with no cache: Codex's preflight found that a 4 s cache, filled before the shared record loaded,
+     kept the stale wording;
    - **Quote Q6845 against WC allocation.** The *No WC allocation* column is in Coates orange (56 / 0 / 0 / 4 / 3),
      with its note. There is no total row: the rows are unlike items;
    - **Cancelled – do not deliver**: WC32, WC66, and 6 of the 10 at WC09, with a *Source* column.
@@ -82,7 +84,13 @@ already has: `GC500_EventPortables_load_run_sheets_v3.pdf` and `GC500_EventPorta
    - the site and parkland rules;
    - the fill-order and early-delivery wording, and the load's record line;
    - the stops, counting down to 0, with a directions QR per meet point and a Done box;
-   - the demob notice, the sign-off block and the footer.
+   - the demob notice and the sign-off block. Above the signatures is a tick box for the Load Restraint Guide's
+     pre-departure check: "Before leaving: load restrained and straps checked · deck clean of sand, mud and oil ·
+     nothing loose" (Coates Load Restraint Guide 2023, p40 and p42). It is read from the plan JSON
+     (`pre_departure_check`) and added on Andrew's yes of 3 Oct 2026;
+   - the footer.
+
+   All five sheets fit one A4 page; the QR codes give way first, never the words (Load 1 scale 0.85).
 
    On screen it is a modal preview with *Print / Save as PDF* and *Close*. On paper it prints alone.
 6. The footer and the `gc500-release` marker read **v8.19**.
@@ -102,6 +110,28 @@ already has: `GC500_EventPortables_load_run_sheets_v3.pdf` and `GC500_EventPorta
   delivery days with the plan's. It never writes, and keeps its reading for 4 s.
 - **Rule for Codex's daily message:** read the native day. Plan loads exist only in `EP819`; any use of them must carry
   `epLabel819()`.
+
+**Shared touch points with Codex's v8.21 (Timeline daily runs, frozen `774bd0e4`), inspected 3 Oct 2026.** Codex's
+files were not edited, because Codex integrates second.
+- **Patches:** both apply cleanly to the live v8.20 page in either order: v8.19 then v8.21, and v8.21 then v8.19.
+  The combined page passes `check_page`. They share no anchor line. v8.21 changes the inside of `dayBlock` (the
+  `dayCards` load list and `dayPanels`). v8.19 adds its card after the `dayBlock(days[idx], true)` call in
+  `renderTimeline_held`. v8.21 inserts its code before `renderTimeline`, v8.19 before `renderPass`.
+- **v8.21 reads v8.19's data and functions:** `meetPoint819`, `mpUrl819`, `mpWhy819`, `MP819.park`,
+  `EP819.site_rules`, `EP819.park` and `EP819.loads` (for its "Date needs confirmation" notice). It calls
+  `mpWhy819(meet)` without the reference key. v8.19 now carries the key in `meetPoint819`'s result (`r.key`), so pit
+  garages still read "Pit lane entry – pit garages".
+- **The `dpLoads` change:** v8.21 alters the booking filter inside `dpLoads` (rescheduled bookings kept). The v8.19
+  record line reads `dpLoads`, so after v8.21 it follows that projection. On the combined page Load 1's line was
+  unchanged.
+- **CSS:** v8.21 restyles the Timeline load rows under `#pane-timeline` (`.ld.go`, `.ldl`, `.ld-go`,
+  `.ldlist.timed .ldl` and others). Those selectors outrank v8.19's `.ep819 …` row overrides. On the combined page the
+  v8.19 card still fits and works (`phone819.js` 12/12 at 390 and 400 px), but its rows take v8.21's look: the date
+  wraps over two lines and the stop summary wraps instead of being cut short. If Codex wants the supplier card's rows
+  unchanged, scoping v8.21's row rules to `:not(.ep819 *)` would leave them as built. Screenshots of the combined page
+  are in `scratchpad/v821/combo/`.
+- **Driver and installer print:** v8.21 does not change `dpPage`, `dpWhere` or `dpRulesLine`, which are v8.19's two
+  `dpPage` anchors. The installer daily page uses the helpers below.
 
 ## Helper contract (Codex integrates the installer daily sheet; these are the final signatures)
 
@@ -132,6 +162,8 @@ and the scale is 1 outside a sheet.
 | — | `run_all.sh` could hide failures | Rewritten as an aggregator: every suite runs, each is judged on its own exit code and PASS/FAIL lines, there is a table at the end, and the exit is non-zero if any suite failed. The proof is in `regress/force_fail_proof.log` (exit 0 normally, exit 1 with one suite forced to fail) | `regress/summary.log` |
 | — | Minimum photo height on every 5–9 Oct sheet, including multi-meet-point sheets, and 7 Oct sheet 4 explicitly | `photo819.js`: base vs build on every driver sheet, 5–9 Oct, plus an explicit WC86 + T0258 check | photo819 |
 | — | Source boundary | the section above | v819: label and boundary checks |
+| — | **Preflight on `5b952723`:** a stale record line, cached before the record loaded | No cache: the record projection is worked out fresh once per drawing of the card and once per printed sheet, so every redraw the page makes after the record loads or changes shows the record as it is. The native programme stays the authority and the plan stays separate | `fresh819.js`: first drawing before the record loaded; after it loaded; 8 s later; a simulated record change (WC38 moved back to 7 Oct, in the page only) through the page's own `syncRedraw()`, then undone; the run sheet |
+| — | `results796` hard-coded 116 references with nothing recorded | A bounded correction in a v8.19 copy (`evidence/results796_tests_819.cjs`; v7.99's file is not changed). Before pressing the no-record control, the page's own rule (`lightMatches` with light `none`: not cancelled and nothing recorded) gives the exact references. The test then asserts the exact keys, their count, the visible rows and the landing position (top ≈ 12 px). The original failed logs are kept as `regress/results_*_on_865c1f2_original.log`, and the same failure on the live v8.20 page itself is in `regress/basecmp/` | results-desktop, results-phone |
 
 **Independent reviewer** (`scratchpad/review819/r2/`)
 

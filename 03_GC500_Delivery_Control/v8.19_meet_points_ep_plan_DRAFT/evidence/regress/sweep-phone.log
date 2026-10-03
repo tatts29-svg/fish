@@ -1,10 +1,10 @@
-# v8.19 checks · source commit 865c1f2700f5a721ac21a4d2c7c4078a7a12410f · candidate sha256 5b952723b5db0883fd0a9f5ffaf109531a78a6ad31a05105c6d2a8d8aa64af9d (9355592 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T13:30:59Z
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
 # suite: sweep-phone · command: python3 - v8.19_meet_points_ep_plan_DRAFT/evidence/regress/sweep-phone.json 0
    22 tabs, 16 shown, 7 links, back {'hash': '#plant', 'pane': 'pane-plant'}
 PASS the sweep ran to the end
-FAIL all 22 tabs shown
+PASS all 22 tabs swept; 16 shown; the 6 not shown are the view-only ones ['add', 'breakdowns', 'edit', 'journal', 'register', 'variances']
 PASS seven links open with no errors
 PASS Back returns to a pane
 PASS 0 page errors
 PASS 0 console errors
-PASS no write attempted ({'page': 1, 'live': 264, 'blocked': 0})
+PASS no write attempted ({'page': 1, 'live': 261, 'blocked': 0})

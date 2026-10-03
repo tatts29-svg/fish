@@ -1,4 +1,4 @@
-# v8.19 checks · source commit 865c1f2700f5a721ac21a4d2c7c4078a7a12410f · candidate sha256 5b952723b5db0883fd0a9f5ffaf109531a78a6ad31a05105c6d2a8d8aa64af9d (9355592 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T13:30:59Z
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
 # suite: v819 · command: env SHOTS=/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v819/final flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/v819_tests.js
 
 == desktop 1440
@@ -45,12 +45,13 @@ PASS desktop 1440: the card does not scroll sideways  - {"w":1408,"cw":1408}
 PASS desktop 1440: Load 1 opens to its 6 stops, left on truck down to 0  - ["23","19","11","10","2","0"]
 PASS desktop 1440: each stop links to driving directions to its meet point
 PASS desktop 1440: an open load stays open through a redraw
-PASS desktop 1440: Load 1 run sheet fits one A4 page (scale 0.91)
+PASS desktop 1440: Load 1 run sheet fits one A4 page (scale 0.85)
 PASS desktop 1440: Print run sheet opens the print dialog once
 PASS desktop 1440: Load 1: 6 stops, a QR per stop to its meet point, counts down to 0  - ["23","19","11","10","2","0"]
 PASS desktop 1440: Load 1 header  - Load 1 of 5 · Fri 9 Oct 2026 · 24 FWF (+6 pee panels)
 PASS desktop 1440: Load 1 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
 PASS desktop 1440: Load 1 run sheet carries the plan label and its record line  - Record still shows Thu 8 Oct for WC09, WC34 – moving to Fri 9 Oct per Coates · Record shows Mon 12 Oct for WC57 – this plan has Fri 9 Oct
+PASS desktop 1440: Load 1 sheet has the pre-departure check as a tick box in the sign-off, above the signatures, with its source  - {"txt":"Before leaving: load restrained and straps checked · deck clean of sand, mud and oil · nothing loose\nCoates Load Restraint Guide 2023, p40 and p42","box":true,"above":true}
 PASS desktop 1440: Load 1 sheet has no money, phone numbers or SiteIQ
 PASS desktop 1440: Close puts the page back
 PASS desktop 1440: Load 2 run sheet fits one A4 page (scale 1)
@@ -59,6 +60,7 @@ PASS desktop 1440: Load 2: 2 stops, a QR per stop to its meet point, counts down
 PASS desktop 1440: Load 2 header  - Load 2 of 5 · Tue 13 Oct 2026 · 24 FWF
 PASS desktop 1440: Load 2 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
 PASS desktop 1440: Load 2 run sheet carries the plan label and its record line  - Record shows Thu 1 Oct for WC67; Mon 12 Oct for WC67; Mon 19 Oct for WC68, WC72, WC29 – this plan has Tue 13 Oct
+PASS desktop 1440: Load 2 sheet has the pre-departure check as a tick box in the sign-off, above the signatures, with its source  - {"txt":"Before leaving: load restrained and straps checked · deck clean of sand, mud and oil · nothing loose\nCoates Load Restraint Guide 2023, p40 and p42","box":true,"above":true}
 PASS desktop 1440: Load 2 sheet has no money, phone numbers or SiteIQ
 PASS desktop 1440: Close puts the page back
 PASS desktop 1440: Load 3 run sheet fits one A4 page (scale 1)
@@ -67,6 +69,7 @@ PASS desktop 1440: Load 3: 1 stops, a QR per stop to its meet point, counts down
 PASS desktop 1440: Load 3 header  - Load 3 of 5 · Thu 15 Oct 2026 · 24 FWF
 PASS desktop 1440: Load 3 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
 PASS desktop 1440: Load 3 run sheet carries the plan label and its record line  - Record shows Mon 19 Oct for WC46, WC55 – this plan has Thu 15 Oct
+PASS desktop 1440: Load 3 sheet has the pre-departure check as a tick box in the sign-off, above the signatures, with its source  - {"txt":"Before leaving: load restrained and straps checked · deck clean of sand, mud and oil · nothing loose\nCoates Load Restraint Guide 2023, p40 and p42","box":true,"above":true}
 PASS desktop 1440: Load 3 sheet has no money, phone numbers or SiteIQ
 PASS desktop 1440: Close puts the page back
 PASS desktop 1440: Load 4 run sheet fits one A4 page (scale 0.97)
@@ -75,6 +78,7 @@ PASS desktop 1440: Load 4: 2 stops, a QR per stop to its meet point, counts down
 PASS desktop 1440: Load 4 header  - Load 4 of 5 · Mon 19 Oct 2026 · 24 FWF
 PASS desktop 1440: Load 4 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
 PASS desktop 1440: Load 4 run sheet carries the plan label and its record line  - Record shows Tue 20 Oct for PG01, PG03, PG05, PG29, WC85 – this plan has Mon 19 Oct
+PASS desktop 1440: Load 4 sheet has the pre-departure check as a tick box in the sign-off, above the signatures, with its source  - {"txt":"Before leaving: load restrained and straps checked · deck clean of sand, mud and oil · nothing loose\nCoates Load Restraint Guide 2023, p40 and p42","box":true,"above":true}
 PASS desktop 1440: Load 4 sheet has no money, phone numbers or SiteIQ
 PASS desktop 1440: Close puts the page back
 PASS desktop 1440: Load 5 run sheet fits one A4 page (scale 1)
@@ -83,6 +87,7 @@ PASS desktop 1440: Load 5: 2 stops, a QR per stop to its meet point, counts down
 PASS desktop 1440: Load 5 header  - Load 5 of 5 · Mon 19 Oct 2026 · 24 FWF
 PASS desktop 1440: Load 5 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
 PASS desktop 1440: Load 5 run sheet carries the plan label
+PASS desktop 1440: Load 5 sheet has the pre-departure check as a tick box in the sign-off, above the signatures, with its source  - {"txt":"Before leaving: load restrained and straps checked · deck clean of sand, mud and oil · nothing loose\nCoates Load Restraint Guide 2023, p40 and p42","box":true,"above":true}
 PASS desktop 1440: Load 5 sheet has no money, phone numbers or SiteIQ
 PASS desktop 1440: Close puts the page back
 PASS desktop 1440: Close before the print starts cancels it - nothing is printed afterwards  - {"open":true,"prints":0,"closed":true,"timer":0,"after":false}
@@ -102,7 +107,7 @@ PASS desktop 1440: 2026-10-06: no driver sheet runs past one page  - []
 PASS desktop 1440: 2026-10-06: each sheet's meet point QRs are its references' meet points, in order
 PASS desktop 1440: no page errors  - []
 PASS desktop 1440: no console errors  - []
-PASS desktop 1440: no write was attempted  - {"page":1,"live":932,"blocked":0}
+PASS desktop 1440: no write was attempted  - {"page":1,"live":917,"blocked":0}
 
 == phone 390
 PASS phone 390: the release marker and the footer read v8.19  - {"meta":"v8.19","foot":"Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · Today v8.20 · v8.19"}
@@ -138,12 +143,13 @@ PASS phone 390: the card does not scroll sideways  - {"w":370,"cw":370}
 PASS phone 390: Load 1 opens to its 6 stops, left on truck down to 0  - ["23","19","11","10","2","0"]
 PASS phone 390: each stop links to driving directions to its meet point
 PASS phone 390: an open load stays open through a redraw
-PASS phone 390: Load 1 run sheet fits one A4 page (scale 0.88)
+PASS phone 390: Load 1 run sheet fits one A4 page (scale 0.85)
 PASS phone 390: Print run sheet opens the print dialog once
 PASS phone 390: Load 1: 6 stops, a QR per stop to its meet point, counts down to 0  - ["23","19","11","10","2","0"]
 PASS phone 390: Load 1 header  - Load 1 of 5 · Fri 9 Oct 2026 · 24 FWF (+6 pee panels)
 PASS phone 390: Load 1 sheet carries the site rules, the early-delivery rule, the demob notice, sign-off and the author
 PASS phone 390: Load 1 run sheet carries the plan label and its record line  - Record still shows Thu 8 Oct for WC09, WC34 – moving to Fri 9 Oct per Coates · Record shows Mon 12 Oct for WC57 – this plan has Fri 9 Oct
+PASS phone 390: Load 1 sheet has the pre-departure check as a tick box in the sign-off, above the signatures, with its source  - {"txt":"Before leaving: load restrained and straps checked · deck clean of sand, mud and oil · nothing loose\nCoates Load Restraint Guide 2023, p40 and p42","box":true,"above":true}
 PASS phone 390: Load 1 sheet has no money, phone numbers or SiteIQ
 PASS phone 390: Close puts the page back
 PASS phone 390: Close before the print starts cancels it - nothing is printed afterwards  - {"open":true,"prints":0,"closed":true,"timer":0,"after":false}
@@ -161,4 +167,4 @@ PASS phone 390: no page errors  - []
 PASS phone 390: no console errors  - []
 PASS phone 390: no write was attempted  - {"page":1,"live":170,"blocked":0}
 
-149 passed, 0 failed
+155 passed, 0 failed

@@ -1,12 +1,12 @@
-# v8.19 checks · source commit 865c1f2700f5a721ac21a4d2c7c4078a7a12410f · candidate sha256 5b952723b5db0883fd0a9f5ffaf109531a78a6ad31a05105c6d2a8d8aa64af9d (9355592 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T13:30:59Z
-# suite: results-desktop · command: flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v7.99_today_faster_fuller_DRAFT/evidence/results796_tests.cjs
-PASS routine first Equipment visit keeps Every reference closed {"tab":"plant","group":"Toilets & amenities","query":"","referenceCount":74,"open":false,"rows":0,"top":2522}
-PASS Inventory hydrates once and visible navigation QR codes render {"calls":1,"codes":7}
-FAIL Today no-record control opens filtered references and lands them in view {"tab":"plant","light":"none","group":null,"query":"","referenceCount":2,"open":true,"rows":2,"top":12}
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
+# suite: results-phone · command: env MOB=1 flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/results796_tests_819.cjs
+PASS routine first Equipment visit keeps Every reference closed {"tab":"plant","group":"Toilets & amenities","query":"","referenceCount":74,"open":false,"rows":0,"top":2904}
+PASS Inventory hydrates once and visible navigation QR codes render {"calls":1,"codes":3}
+FAIL Today no-record control opens filtered references and lands them in view {"want":["P65","T0159"],"got":[null,null],"tab":"plant","light":"none","group":null,"query":"","referenceCount":2,"open":true,"rows":2,"top":12}
 PASS record redraw respects a manually closed filtered-results fold {"tab":"plant","light":"none","group":null,"query":"","referenceCount":2,"open":false,"rows":0,"top":12}
 PASS pressing the same shortcut again reveals the results again {"tab":"plant","light":"none","group":null,"query":"","referenceCount":2,"open":true,"rows":2,"top":12}
 PASS typing a search opens the matching reference rows {"tab":"plant","light":null,"group":"Toilets & amenities","query":"WC","referenceCount":66,"open":true,"rows":66,"top":12}
-PASS search redraw preserves a subsequently closed fold {"tab":"plant","light":null,"group":"Toilets & amenities","query":"WC","referenceCount":66,"open":false,"rows":0,"top":421}
+PASS search redraw preserves a subsequently closed fold {"tab":"plant","light":null,"group":"Toilets & amenities","query":"WC","referenceCount":66,"open":false,"rows":0,"top":198}
 locator.click: Timeout 30000ms exceeded.
 Call log:
 [2m  - waiting for locator('#toPlant')[22m
@@ -25,7 +25,7 @@ Call log:
 [2m     - retrying click action[22m
 [2m       - waiting 500ms[22m
 
-    at /home/user/fish/03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/evidence/results796_tests.cjs:15:149 {
+    at /home/user/fish/03_GC500_Delivery_Control/v8.19_meet_points_ep_plan_DRAFT/evidence/results796_tests_819.cjs:24:149 {
   log: [
     "  - waiting for locator('#toPlant')",
     '    - locator resolved to <button class="btn" id="toPlant">Equipment page</button>',
