@@ -144,7 +144,9 @@ def apply(text, path=None, expected=None):
     from commercial_trace837 import load_commercial
     data['commercial'] = load_commercial(data, read_bound, require)
     source = 'const FENCE_TRACE837 = ' + safe_json(data) + ';\n' + (ROOT / 'source/fencing-trace-core837.js').read_text() + '\n' + (ROOT / 'source/fencing-trace-view837.js').read_text() + '\n' + (ROOT / 'source/fencing-trace-host837.js').read_text()
+    style = '<style id="fencing-trace-host837">\n' + (ROOT / 'source/fencing-trace-host837.css').read_text() + '</style>\n'
     changes = [
+        ('</head>\n<body>', style + '</head>\n<body>', 'Commercial detail styles scoped to the register'),
         ("explorer/index.html?embed=1&back=", "explorer/index.html?embed=1&trace=837&back=", 'Invalidate the previous embedded explorer index'),
         ('function fencePrivatePapers(d){', source + '\nfunction fencePrivatePapers(d){', 'Read-only trace model'),
         ('window.gc500FencingMapSnapshot = function(){', 'window.gc500FencingTraceCatalogue837 = ()=>PRIVATE_INPUT;\nwindow.gc500FencingMapSnapshot = function(){', 'Existing catalogue reader'),

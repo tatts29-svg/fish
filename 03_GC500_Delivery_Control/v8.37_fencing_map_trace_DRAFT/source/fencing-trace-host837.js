@@ -29,12 +29,18 @@ function fenceTraceRegister837(d){
  const areas=trace.areas.filter(a=>row.area_ids.includes(a.id)&&a.state==='current');
  return `<div class="fp-review-detail"><p><b>Recorded work in this area.</b> The link identifies the area, not an exact fence section or completion.</p>${areas.map(a=>`<button type="button" class="btn" data-ro data-fence-trace-map="${esc(row.key)}" data-fence-trace-area="${esc(a.id)}">View ${esc(a.label)} on map →</button>`).join(' ')}</div>`;
 }
+function fenceTraceReveal837(card){
+ const main=$('main');if(!card||!main||!main.contains(card))return false;
+ const delta=card.getBoundingClientRect().top-main.getBoundingClientRect().top-main.clientTop,max=Math.max(0,main.scrollHeight-main.clientHeight);
+ main.scrollTop=Math.max(0,Math.min(max,main.scrollTop+delta));
+ card.querySelector('summary')?.focus({preventScroll:true});return true;
+}
 window.gc500FencingTraceDocket837=function(key){
  const trace=fenceTraceCurrent837(),row=trace.rows.concat(trace.unmapped).find(r=>r.key===key);if(!row)return false;
  const records=[...allDockets(),...serviceNoteRows(),...collectionRows()],matches=records.filter(d=>window.GC500FencingTrace837.key(d)===key);if(matches.length!==1)return false;
  FENCE_PRIVATE_VIEW.book=row.book||'red';FENCE_PRIVATE_VIEW.date='';FENCE_PRIVATE_VIEW.evidence='all';FENCE_PRIVATE_VIEW.opened[row.record_id]=true;
  state.q=row.record_id;const q=$('#q');if(q){q.value=state.q;$('#qx').hidden=false;}go('fencing');
- requestAnimationFrame(()=>{const card=[...document.querySelectorAll('#pane-fencing [data-fp-id]')].find(e=>e.dataset.fpId===row.record_id);if(card){card.scrollIntoView({block:'start'});card.querySelector('summary')?.focus({preventScroll:true});}});return true;
+ requestAnimationFrame(()=>{if(state.tab!=='fencing')return;const card=[...document.querySelectorAll('#pane-fencing [data-fp-id]')].find(e=>e.dataset.fpId===row.record_id);fenceTraceReveal837(card);});return true;
 };
 document.addEventListener('click',event=>{
  const link=event.target.closest('#pane-fencing [data-fmtrace-record]');if(link){if(!window.gc500FencingTraceDocket837(link.dataset.fmtraceRecord))flash('This record is unavailable. Reopen the fencing register to check it.');return;}

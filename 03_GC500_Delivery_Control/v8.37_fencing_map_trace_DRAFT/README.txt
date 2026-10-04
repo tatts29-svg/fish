@@ -9,12 +9,13 @@ Private inputs are not committed. FENCE_TRACE837_INPUT and FENCE_TRACE837_INPUT_
 
 The v8.36 resolver remains the authority for source-reviewed docket-to-P/O associations. The dependency lookup supports its DRAFT-to-LIVE folder rename. Exact machine signature names are JSON-escaped narrowly so the standard attribution scrub does not change their values; visible narrative still follows the existing scrub.
 
-patch_v837.py is the standard single-working-copy release wrapper owned by the release integrator. It requires the exact reviewed v8.36 predecessor and refuses repeat application. fencing_trace837.py changes guarded host anchors only, including an explorer index cache token. patch_explorer837.py requires the three exact registered predecessor assets and prepares only fencing-map-explorer.js, fencing-map.css and index.html. Its index refers to new script/style hashes. The publisher must preserve the complete existing asset manifest and every other asset. These helpers do not register or upload anything.
+patch_v837.py is the standard single-working-copy release wrapper owned by the release integrator. It requires the exact reviewed v8.36 predecessor and refuses repeat application. fencing_trace837.py changes guarded host anchors only, including an explorer index cache token. patch_explorer837.py requires the three exact registered predecessor assets and prepares only fencing-map-explorer.js, fencing-map.css and index.html. Its index refers to new script/style hashes. Host-only register styles separate and group supplier allocation labels without changing the map assets; map-to-record reveal scrolls only the main content pane and preserves the outer header/footer. The publisher must preserve the complete existing asset manifest and every other asset. These helpers do not register or upload anything.
 
 CPU checks:
   python3 tests/test_trace837.py
   node tests/test_trace837.cjs
   node tests/test_trace_view837.cjs
+  node tests/test_trace_host837.cjs
   ASSET=/private/prepared/fencing-map-explorer.js node tests/test_explorer837.cjs
 
 The Python tests use synthetic originals and include the actual standard attribution scrub. Pure core/view tests use synthetic relationships, monetary examples and source fingerprints. Explorer tests exercise the patched marker/filter functions: a reviewed relationship cannot create completion, and explicit reverse navigation clears conflicting filters without changing geometry. No test writes an operational record.
