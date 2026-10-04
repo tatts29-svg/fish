@@ -157,7 +157,7 @@ def media_updates(data, checked):
         result['media'][item['sha256']] = {**{k:item[k] for k in ('file','sha256','type','bytes')}, 'scope':'view'}
     p, full, still = (checked['roles'][k] for k in ('preview','full','poster'))
     ref = lambda item: {'media':item['sha256']}
-    result['machine']['hero'] = {'src':ref(still), 'poster':ref(still), 'still':ref(still), 'mp4':ref(p), 'full_mp4':ref(full), 'width':p['width'], 'height':p['height'], 'still_width':still['width'], 'still_height':still['height'], 'is':'The Coates Way steering wheel in the Coates #26 cockpit', 'caption':'The steering wheel separates into its elements, then comes back together in the cockpit.'}
+    result['machine']['hero'] = {'src':ref(still), 'poster':ref(still), 'still':ref(still), 'mp4':ref(p), 'full_mp4':ref(full), 'width':p['width'], 'height':p['height'], 'still_width':still['width'], 'still_height':still['height'], 'is':'The Coates Way steering wheel', 'caption':'The steering wheel separates into its elements, then comes back together.'}
     result['hostedMedia']['manifest'] = media_manifest(result['media'])['sha256']
     return result
 
