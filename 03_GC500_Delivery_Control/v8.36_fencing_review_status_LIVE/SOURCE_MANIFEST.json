@@ -14,16 +14,16 @@
       "bytes": 9630
     },
     "README.txt": {
-      "sha256": "7fd482cb6790e29e3d1d21e164982a2cc56e79684f459e97162f811e20300303",
-      "bytes": 3807
+      "sha256": "5cb63dfa1f963b0f4589cdddc7486cfddcc2fd11aabf809d24f3efe83642ed09",
+      "bytes": 4300
     },
     "patch_v836.py": {
       "sha256": "f8401a88023dceca37403c2a90543ebc5b6b060c2ee46cbc86df545df2705371",
       "bytes": 1526
     },
     "RELEASE_REVIEW.txt": {
-      "sha256": "9c006d4a37bbb50c97089b6bf27a737fc46c148e6de25cd9519cfa3b62ef41a3",
-      "bytes": 2628
+      "sha256": "5321ab18b3a047dd098846958e5c5ef1a4808358ff4499fac9e62aeacabc0f15",
+      "bytes": 3121
     },
     "fencing_review836.py": {
       "sha256": "1652b8de479cb5b69546be82c6cb89de71b2dd9839e6509071ee4b6cedaff843",

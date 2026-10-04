@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-v8.36 fencing source review and P/O context — LIVE; phone visual follow-up open, 4 Oct 2026 10:58 AEST.
+v8.36 fencing source review and P/O context — VERIFIED LIVE with a capture limitation, 4 Oct 2026 10:58 AEST.
 
 This generic helper adds a source-summary P/O beside the existing docket heading and separates completed source review from any specifically recorded charge query. Andrew's existing automatic docket sign-off remains intact. It never asserts a passed financial audit, approved charges or payment. A false query.open removes the individual query badge; it does not assert charge reconciliation. The supplied charge-scope explanation remains in Details.
 
@@ -17,3 +17,5 @@ Tests use synthetic data only. Run:
 Set BASE to the private checked predecessor HTML for exact preservation and release-wrapper tests. Python input validation needs pypdf, PyMuPDF and Pillow, already present in the build environment.
 
 Status: published from frozen implementation5adbd4fa / READY2d4a9597. Exact live9bf3f47e089913c51a4fbd0bf8fdb20371dbdcd12cc64273e362c8132da5b9ad,10,236,358bytes. Portable46/17, final runtime140, both route sweeps and actual-public141 checks pass. Operational and financial records remain unchanged. See RELEASE_REVIEW.txt for independent review, exact predecessor, qualifications and verification. Claude remains intentionally paused.
+
+Phone follow-up: exact full desktop-to-phone public sequence repeated141/141; initial, next-frame, delayed and layout-read phone images were clean. Baseline and focused public controls were clean, and all character bounds/hit targets were correct. No stable CSS/layout defect was established; no speculative repaint change was made. Earlier intermittent headless raster artefacts remain in private evidence. Real-phone verification is not claimed. Root inspected the final clean frame.
