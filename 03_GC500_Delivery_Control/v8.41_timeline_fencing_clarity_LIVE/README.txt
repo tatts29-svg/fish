@@ -1,7 +1,7 @@
 Author: Andrew Fisher
 GC500 v8.41 — Timeline lights and one Today work board
 
-READY TO UPLOAD, 4 Oct 2026. Final checks complete; not yet live.
+VERIFIED LIVE, 4 Oct 2026 22:01 AEST. Exact public page checked afterwards.
 Owner: Codex. Claude remains intentionally paused. The film remains held.
 
 Andrew asked for sharper cards, automatic animation, more Fencing detail in its
@@ -32,3 +32,9 @@ Implementation checkpoint fa1c5f2f. Final Today review, focused phone motion
 probe12/12 and both22-route/seven-link/Back sweeps pass. Independent visual review
 passes desktop, phone and native4K. Original test expectation/setup failures and
 verification boundaries are retained in RELEASE_REVIEW.txt.
+
+Published from READY53eb4f45 using the standard unchanged-base guard. Actual-public
+Today529/529 and Timeline79/79 pass across desktop, phone and4K with exact
+upstream/browser content, zero HTML substitutions, runtime errors or operational
+write attempts. All33 shared-record collections remain unchanged. No backend or
+media deployment. Refresh an existing GC500 tab once; the footer says v8.41.

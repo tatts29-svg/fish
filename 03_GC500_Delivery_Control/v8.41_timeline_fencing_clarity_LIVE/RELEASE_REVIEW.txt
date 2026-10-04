@@ -1,7 +1,8 @@
 Author: Andrew Fisher
 GC500 v8.41 — Timeline lights and one Today work board
 
-READY TO UPLOAD, 4 Oct 2026. Final review and required checks are complete.
+VERIFIED LIVE, 4 Oct 2026 22:01 AEST. Final candidate and actual-public checks
+are complete. READY commit53eb4f45; implementation checkpoint fa1c5f2f.
 Owner: Codex. Independently reviewed within the Codex team; Claude remains
 intentionally paused and is not claimed as a reviewer. The film remains held.
 
@@ -77,3 +78,22 @@ is part of this frontend release. Private snapshots, commercial values and image
 remain outside Git. Publication must use the standard unchanged-base guard and
 exact public readback, followed by actual-public browser checks. Existing tabs
 need one reload to obtain the new HTML. Physical-device perfection is not claimed.
+
+Publication and actual-public verification
+Standard upload_page.py confirmed the live base was unchanged, checked edit
+capability, accepted the page with its existing media registry and proved exact
+public bytes. Uploaded4 Oct2026 at22:01AEST; no force override.
+
+Actual-public Today529/529 and Timeline79/79 pass on desktop, phone and3840px.
+Upstream SHA and length equal the final candidate. Buffered browser bodies differ
+only by the documented leading UTF-8 BOM; zero local HTML substitutions in every
+view. No runtime errors or operational write attempts. Read-only guards block
+non-GET test traffic; expected blocked map-session messages are matched explicitly
+and excluded from unexpected-console-error counts. Root inspected public phone
+Fencing imagery. All33 collection fingerprints and record version are identical
+before integration, before publication, after upload and after public checks.
+
+Source folder is now LIVE. Private raw reports, source/record snapshots, identity
+proof and images remain outside Git. This is a completed frontend release, not a
+backend update or a claim that the separately held steering-wheel film is ready.
+Claude remains intentionally paused at dacf75dd; no restart is requested.
