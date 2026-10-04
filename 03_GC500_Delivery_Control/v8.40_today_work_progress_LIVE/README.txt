@@ -24,19 +24,21 @@ motion are respected. Work and programme animation are mutually exclusive;
 opening a breakdown pauses decorative motion. Redraws retain native main-scroll
 position, selection and reference identity. Crisp vectors scale through 4K.
 
-Build from the verified live base:
-  toolchain/build.sh v8.40 v8.40_today_work_progress_DRAFT/patch_v840.py
+Build from the verified v8.38 base (not the now-live v8.40):
+  toolchain/build.sh v8.40 v8.40_today_work_progress_LIVE/patch_v840.py
 The patch refuses another base or repeated application. Release assets and
 private shared-record/browser evidence are deliberately not stored in Git.
 
 Checks:
-  node v8.40_today_work_progress_DRAFT/test_metrics840.cjs
-  python3 v8.40_today_work_progress_DRAFT/test_scope840.py --base BASE.html --candidate PAGE.html
-  PAGE=PAGE.html BASE=BASE.html OUT=PRIVATE_DIR node v8.40_today_work_progress_DRAFT/test_today840.cjs
+  node v8.40_today_work_progress_LIVE/test_metrics840.cjs
+  python3 v8.40_today_work_progress_LIVE/test_scope840.py --base BASE.html --candidate PAGE.html
+  PAGE=PAGE.html BASE=BASE.html OUT=PRIVATE_DIR node v8.40_today_work_progress_LIVE/test_today840.cjs
 Use the repository browser harness environment and a private evidence directory.
 The browser suite blocks all non-GET requests before transport.
 
-Release state: READY, not live. The final 205-check integration suite and both
-22-tab/seven-link/Back navigation sweeps passed. Guarded publication and checks
-of the actual public response remain pending. See RELEASE_REVIEW.txt.
+Release state: VERIFIED LIVE, 4 October 2026 at 20:48 AEST.
+Exact public SHA256: 573df8e5440f7cd9c48452a52632114bdc4cedbdf3254db007dc6bff35e48929
+The final 205-check integration suite, both 22-tab/seven-link/Back navigation
+sweeps and 58 checks against the actual public page passed. All 33 shared-record
+collections are unchanged. See RELEASE_REVIEW.txt for verification boundaries.
 The separate v8.39 steering-wheel film is held and is excluded from this release.

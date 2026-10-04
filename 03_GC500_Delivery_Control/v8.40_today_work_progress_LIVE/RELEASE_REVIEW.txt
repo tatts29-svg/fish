@@ -5,6 +5,7 @@ Base: v8.38, 400bb272d392322ad5a615fa23b83d724d38bc15811b0cde242377b0c5777929
 Candidate: 573df8e5440f7cd9c48452a52632114bdc4cedbdf3254db007dc6bff35e48929
 Candidate bytes: 10,482,441
 Implementation: 28e1368b; refresh/navigation corrections: 1e393519.
+Public READY checkpoint: a9a3a73d.
 Owner: Codex. Claude remains intentionally paused at dacf75dd.
 Separate v8.39 film remains held and is excluded.
 
@@ -51,7 +52,32 @@ Navigation sweeps: desktop and phone each passed 22 native tab routes, seven
 deep links and Back navigation, with no runtime or console errors. Existing
 view-only/legacy route redirects are preserved. Map sessions used the standard
 external provider flow; operational writes remained blocked by the harness.
-Publication and actual-public verification: pending.
+Publication: VERIFIED LIVE, 4 October 2026 at 20:48 AEST.
+The guarded uploader verified unchanged v8.38 before publication, confirmed edit
+access and uploaded the candidate. The public response is the exact candidate
+SHA256 and 10,482,441 bytes. Upload response: 2026-10-04T10:48:54.508Z.
+No backend or media deployment was performed.
+
+Actual-public verification: 58/58 checks passed across desktop, phone and native
+4K using the public page, with zero local page substitutions. All three network
+captures match the exact candidate. The browser document in each run matches
+the same content with only its leading UTF-8 BOM removed: 10,482,438 bytes,
+SHA256 709c727a0f7c0d70a6d5d87969d91f48e45f19c375acd212ce1cb6ed005f04d9.
+All six category calculations, first-entry interaction and responsive/dark
+presentation passed. No page runtime errors or operational write attempts.
+Two expected external map-session POSTs were blocked by this strict harness;
+their corresponding console entries are not product failures. Standard native
+navigation sweeps above ran with the usual map behaviour and zero console errors.
+Root inspected fresh live imagery; independent visual review passed.
+
+The first two actual-public attempts hit inspector-cache eviction while reading
+the 10.48 MB document. Their raw network captures already matched the candidate.
+Increasing the capture buffer and reading through the same CDP session completed
+the third run. Published HTML did not change, and earlier evidence is retained.
+
+Before integration, before publication, after publication and after public tests,
+all 33 shared-record collections are identical. No source, completion, financial
+or other operational records were changed by this release.
 
 Detailed browser records, source snapshots and images are held privately.
 Public source/review files contain no copied operational or financial records.
