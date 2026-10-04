@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 GC500 v8.49 — fencing components and separate planning estimates
-State: READY TO UPLOAD; all pre-publication checks pass. Not live yet.
+State: VERIFIED LIVE, 5 Oct 2026 at 09:49 AEST.
 
 Recorded component quantities are now visible beside the existing fencing work
 readings, with expandable links to their original dockets and supplier summaries.
@@ -27,8 +27,15 @@ Candidate SHA-256:
 
 Build from the exact live base using the reviewed private evidence input:
   FENCE_EVIDENCE849_INPUT=/private/path/evidence.json \
-    toolchain/build.sh v8.49 v8.49_fencing_components_DRAFT/patch_v849.py
+    toolchain/build.sh v8.49 v8.49_fencing_components_LIVE/patch_v849.py
 
 Private evidence inputs, originals and detailed source findings remain outside
 Git. The public patch and synthetic tests contain no private fixtures. Review
 state and publication evidence are recorded in RELEASE_REVIEW.txt.
+
+Implementation a3c99efb; READY 99425f18. The guarded upload matched the exact
+unchanged base and the public view serves the tested build byte for byte.
+Actual-public laptop/phone checks pass 82/82, with no local HTML substitutions,
+runtime errors or operational writes. All 33 shared-record collections remain
+unchanged. Server health is OK on v5.87; no backend deployment. Existing tabs need
+one reload to v8.49. Claude remains intentionally paused.

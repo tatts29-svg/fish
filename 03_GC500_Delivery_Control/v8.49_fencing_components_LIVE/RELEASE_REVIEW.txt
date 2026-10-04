@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-GC500 v8.49 — READY TO UPLOAD; not yet live
+GC500 v8.49 — VERIFIED LIVE, 5 Oct 2026 at 09:49 AEST
 
 Base v8.48:
 5d786af57e3986fc912cf34d33f094566a41836ee88a1160f5a3dab05e339a47
@@ -32,9 +32,6 @@ Completed checks
   exact original-file identities verified. Unresolved source differences remain
   separate instead of being silently added to current quantities or charges.
 
-Pending before publication
-- Guarded upload, exact public readback, actual-public browser verification and
-  shared-record preservation/health checks.
 
 Pre-release findings resolved
 The first integrated browser check found that native view-only controls disabled
@@ -76,4 +73,22 @@ Implementation a3c99efb. Both final desktop and phone sweeps pass 22 routes, sev
 deep links and Back with zero JavaScript or console errors. Native access controls
 and redirect destinations match the previous verified release exactly. Existing
 readonly route restrictions are preserved. Candidate SHA-256 and bytes are frozen.
-Guarded publication and actual-public verification are the remaining steps.
+Guarded publication and actual-public verification subsequently passed.
+
+Publication and final public verification
+READY 99425f18 follows implementation a3c99efb. The guarded uploader verified the
+exact unchanged v8.48 base and published at 09:49 AEST on 5 Oct 2026. The public
+view serves all 10,888,612 bytes of the frozen candidate exactly.
+
+Actual-public laptop and phone checks pass 82/82, including exact upstream bytes
+and browser response identity with only normal UTF-8 BOM removal. Both sessions
+used zero local HTML substitutions. Component/source oracles, unchanged original
+totals and financial outputs, planner arithmetic and invalid inputs, permissions,
+focus/scroll, source links and phone layout all pass. Zero runtime errors,
+unexpected console errors or operational write attempts. Published phone output
+was visually inspected.
+
+All 33 shared-record collection fingerprints, content hash and record version
+remain unchanged before/after publication. Health is OK on backend v5.87; no
+server deployment. Existing tabs need one reload. Private originals, manifests,
+commercial details, snapshots and screenshots remain outside Git.
