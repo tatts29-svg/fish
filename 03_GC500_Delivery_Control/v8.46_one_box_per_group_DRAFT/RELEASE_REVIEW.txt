@@ -1,0 +1,42 @@
+Author: Andrew Fisher
+GC500 v8.46 — READY TO UPLOAD
+
+One group instrument now contains the large title and qualified percentage,
+linked Total/Done/Left, and compact rows for every supported type. Red reached
+milestones use the native round LED faces; exact confirmed100% uses five green
+lamps. A travelling reflection animates only the selected visible group.
+Fencing keeps separate work units, percentages and dated plan comparisons.
+Timeline Option A groups larger reference/destination headings, native lamps,
+QR/navigation and the existing Progress/Print actions without changing scope.
+
+Implementation source:351b84530ecea1d4fd4e35bc2d7b70461181cace
+Base v8.45:a290469d9d14777ceca734d13b5f57f5da548206e15995f1bd288c851e541758
+Candidate:e176119c8ad29b8af472d8c740d66b0c20534284ebef260bd8cb9f682b5a4236
+Bytes:10,705,568
+
+Checks: standard build;42 exact native/source preservation checks;21 native
+type-model checks;27 Timeline presentation contracts;47 Timeline browser checks;
+15 native driver-print and31 supplier-print checks. Timeline/print evidence binds
+to byte-preserved native components in the final build. Both final desktop and
+phone sweeps cover22 routes,7 deep links and Back with zero browser/console errors.
+Independent Today review covers five viewport configurations, all51 displayed
+work types and all three count modes for41 asset types, native model arithmetic,
+reference/photo/map provenance, motion lifecycle, date replay, refresh/focus and
+printing. Laptop/phone/4K captures were inspected; no visual blocker remains.
+
+Original test results are retained privately with their resolutions:
+- First113/114: CDP CSS Inspector caused a separate stylesheet certificate error.
+  Before/after inspection isolates it; the stylesheet is applied with63 rules,
+  actual TLS-verified GET is200 and normal-browser checks have zero console errors.
+- Final raw245/251: four checks incorrectly required manual mode after an automatic
+  category selection; captured selected/running state resolves4/4. Phone resume
+  was correctly paused with lamps outside the viewport after test auto-scroll.
+  Revealing the lamps resolves it; the visibility guard remains intact.
+- Continuation135/136: the test compared post-print scroll with a snapshot taken
+  before pointer auto-scroll. The actual native print-entry target is restored.
+  Exact4K lifecycle24/24 and focused print6/6 pass with identical folds/records.
+
+Codex implemented, tested and independently reviewed this release. Claude remains
+intentionally paused at unchanged dacf75dd; separate steering-wheel film held.
+Private records, quantities and captures stay outside Git. No server deployment
+or operational record change is part of this release. READY is not LIVE.
