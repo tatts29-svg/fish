@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 GC500 v8.49 — fencing components and separate planning estimates
-State: DRAFT; focused checks pass, final navigation checks in progress, not live.
+State: READY TO UPLOAD; all pre-publication checks pass. Not live yet.
 
 Recorded component quantities are now visible beside the existing fencing work
 readings, with expandable links to their original dockets and supplier summaries.

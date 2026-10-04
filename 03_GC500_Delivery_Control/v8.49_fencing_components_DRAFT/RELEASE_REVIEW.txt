@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-GC500 v8.49 — DRAFT, focused checks complete; navigation checks in progress
+GC500 v8.49 — READY TO UPLOAD; not yet live
 
 Base v8.48:
 5d786af57e3986fc912cf34d33f094566a41836ee88a1160f5a3dab05e339a47
@@ -33,7 +33,6 @@ Completed checks
   separate instead of being silently added to current quantities or charges.
 
 Pending before publication
-- Both required complete navigation sweeps.
 - Guarded upload, exact public readback, actual-public browser verification and
   shared-record preservation/health checks.
 
@@ -71,3 +70,10 @@ The earlier browser diagnostic also exposed an overly specific test assertion
 about the browser snapshot's collection count; it now verifies successful native
 hydration and compares every returned collection, without assuming that API and
 browser snapshot shapes share a count. Original diagnostics remain retained.
+
+Final navigation and readiness
+Implementation a3c99efb. Both final desktop and phone sweeps pass 22 routes, seven
+deep links and Back with zero JavaScript or console errors. Native access controls
+and redirect destinations match the previous verified release exactly. Existing
+readonly route restrictions are preserved. Candidate SHA-256 and bytes are frozen.
+Guarded publication and actual-public verification are the remaining steps.
