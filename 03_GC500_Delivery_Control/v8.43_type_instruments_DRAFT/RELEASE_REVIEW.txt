@@ -1,0 +1,43 @@
+Author: Andrew Fisher
+GC500 v8.43 — an individual instrument for every supported type
+
+DRAFT. Browser verification and publication remain pending.
+Owner: Codex. Claude remains intentionally paused. The separate steering-wheel
+film is held and excluded.
+
+Verified base v8.42 SHA256:
+d3495d9221414c8997d8962fc83031b86b10b500458c9e477197926b337d154a
+
+Resulting behaviour
+Each supported native item type has a visible instrument within its existing
+group, with its own Total, Done, Left, qualified completion percentage, LED bar,
+native On site / on hire reading and dated on-site plan comparison. Building
+sizes and toilet variants retain their exact source names. Equipment families
+remain distinct. Each fencing work type retains its native quantities and unit.
+
+Matching count buttons open only that type's references and explain source
+qualifications. Unknown physical quantities do not become guessed totals or
+percentages. Conflicting completion evidence retains a labelled lower-bound
+percentage and includes review quantities in Left. Tank scope and unresolved
+track-mat units remain explicit. The plan compares arrival records to due
+references; it does not invent installation deadlines. Mixed references can
+appear in more than one type, so their per-type plan counts are not additive.
+
+Old type tables are removed only after complete source coverage and reference
+reconciliation pass. Unique source, schedule and financial context stays within
+the group. Parent summaries, native records and financial calculations are
+unchanged. No operational status is inferred from decorative animation.
+
+One visible instrument carries the decorative LED motion. As the parent header
+leaves view, its selected category can hand motion to one visible type bar.
+Figures and labels stay still. Pause, reduced motion, global motion settings,
+dialogs, hidden views and printing retain their guards.
+
+Verification and publication requirements
+The standard live-base build, exact source preservation checks, independent
+type arithmetic, phone/laptop/4K layout and count drilldowns, motion guards,
+focus/scroll, and desktop/phone navigation sweeps must pass before publication.
+Publication uses the unchanged-base guard, exact public readback and actual
+public-browser checks. Shared-record fingerprints are compared before and after.
+Private snapshots, source quantities and browser captures remain outside Git.
+No backend, maps, media, SMS or operational-record deployment is in this change.
