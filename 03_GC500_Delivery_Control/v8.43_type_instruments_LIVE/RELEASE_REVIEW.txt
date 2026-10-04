@@ -1,7 +1,8 @@
 Author: Andrew Fisher
 GC500 v8.43 — an individual instrument for every supported type
 
-READY TO UPLOAD, 4 Oct 2026. Candidate checks complete; not yet live.
+VERIFIED LIVE, 4 Oct 2026. Published at 23:06 AEST; public checks complete.
+READY checkpoint: 13f37b25. Public content matches the frozen candidate.
 Owner: Codex. Claude remains intentionally paused. The separate steering-wheel
 film is held and excluded.
 
@@ -82,3 +83,24 @@ Before integration and before publication, all 33 shared-record collections,
 record version and whole-record hash match. Fresh PR discussion and the remote
 Claude branch remain unchanged; Claude stays paused at dacf75dd. Publication
 and actual-public checks are the remaining actions owned by Codex.
+
+Publication and actual-public verification
+The standard upload confirmed the live base was unchanged, the edit capability
+was valid, existing media references were accepted, and the public page served
+exact candidate bytes. No force override was used. Published at 23:06 AEST on
+4 Oct 2026, full SHA256 and byte count as above.
+
+Actual-public checks pass 889/889 across 1366x768, 1280x800, 390x844 DPR2 and
+3840x2160. Exact upstream content and Chromium BOM-normalised body parity pass
+in each view, with zero local HTML substitutions. Independent quantities,
+qualified percentages, dated type plans, source detail, parent summaries and
+responsive layouts pass. No runtime errors, unexpected console errors or
+operational write attempts occurred. Root inspected the actual-public phone
+Toilet instruments. Shared-record and media snapshots remain unchanged.
+
+All 33 shared-record collections, record version and whole-record fingerprints
+match before integration, immediately before upload, after upload and after
+public verification. No backend, media, map or operational-record deployment
+occurred. Existing tabs need one reload to v8.43. Claude remains intentionally
+paused; the separate film remains held. Physical-device perfection is not
+claimed. Source folder is LIVE; private evidence stays private.
