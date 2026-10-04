@@ -1,7 +1,7 @@
 Author: Andrew Fisher
 GC500 v8.44 — completion connected to items, places and photographs
 
-READY TO UPLOAD. Candidate verification is complete; not live yet.
+VERIFIED LIVE, 4 Oct 2026 at 23:36 AEST. Product source 5987def7; READY 6d5099c9.
 Owner: Codex. Claude remains intentionally paused at dacf75dd; the separate
 steering-wheel film is held and excluded.
 
@@ -89,3 +89,25 @@ views. No clipping or visual blocker. Shared-record fingerprints before work
 and before upload agree across all 33 collections. No server deployment.
 Codex owns guarded publication and verification of the actual public bytes.
 Claude remains intentionally paused; this is an independently reviewed release.
+
+Actual publication and public verification
+Guarded upload refused no conflict: the live base remained exactly v8.43.
+Public host serves the final candidate byte for byte:
+5a19106be3a4877a2cd552432eb5870340c334d0e6dfe7adab1fad81300b4dcf
+10,674,380 bytes. Published 4 Oct 2026 at 23:36 AEST.
+Actual-public suite passes 3,647/3,647 across laptop1366, laptop1280, phone
+and 4K, proving exact upstream bytes, browser BOM parity and zero local HTML
+substitutions per viewport. Native linkage, fencing/type quantities, qualified
+parent counts, photo states and actual record/map/photo/supplier/Back routes
+pass. No completion capture or synthetic adapter override ran on public smoke.
+Zero runtime or unexpected console errors and no operational write attempts.
+Shared records and media are unchanged. All 33 collection fingerprints and the
+record version agree before work, before upload and after public verification.
+Root inspected the fresh actual-public phone toilet breakdown.
+
+The original offscreen programme-click timeout cause was not proven. Its
+remaining user-facing scope is covered by the trusted pointer proof and the
+actual-public suite; retained failures are not represented as passing runs.
+The separate steering-wheel film remains held and must rebuild on this live
+host. Claude remains intentionally paused; no restart or reply was requested.
+Existing tabs need one reload to v8.44. Private evidence remains outside Git.
