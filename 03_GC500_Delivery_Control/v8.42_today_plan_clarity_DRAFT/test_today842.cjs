@@ -135,8 +135,8 @@ async function run(){
    const svgIds=geom.cards.flatMap(c=>c.svgIds);check(view.name+' instrument readings remain unfiltered and SVG IDs are unique',geom.cards.filter(c=>c.id!=='fencing').every(c=>c.filter==='none')&&new Set(svgIds).size===svgIds.length,{svgIds,filters:geom.cards.map(c=>c.filter)});
    await p.screenshot({path:path.join(OUT,'today842-'+view.name+'.png')});
    await p.locator('[data-tw840-jump=fencing]').click();await settle(p);await p.screenshot({path:path.join(OUT,'today842-'+view.name+'-fencing.png')});
+   await frontQA.exerciseFront842(p,check,view.name,OUT);
    if(!smoke){
-    await frontQA.exerciseFront842(p,check,view.name,OUT);
     await frontQA.exerciseCounts842(p,check,view.name,model,OUT);
     for(const row of model.summary.fencingRows){
      await p.locator('[data-tw840-fence-detail='+row.id+']').click();await settle(p,100);

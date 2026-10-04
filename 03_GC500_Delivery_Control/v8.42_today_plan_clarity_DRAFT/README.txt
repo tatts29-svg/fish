@@ -23,10 +23,14 @@ provisional; authored dates are not silently shifted to mapped week boundaries.
 Base SHA256:
 59088bb3da40fe01a2db224a538ebd010b26933d4a0c000969c744f9a30c2457
 Candidate SHA256:
-07fa8e8ddb6d4d58f02c08c175a649183ab0b39e00995df46d1896fc3dc92284
-10,597,595 bytes. Standard eleven-script build,26 model checks,13 renderer checks
+d3495d9221414c8997d8962fc83031b86b10b500458c9e477197926b337d154a
+10,600,482 bytes. Standard eleven-script build,26 model checks,13 renderer checks
 and42 source/preservation checks pass. Final actual-page checks are in progress.
 
 Native records, financial models, Timeline stages/printing, media and maps remain
 unchanged. Tests block operational writes. Private records and photographs remain
 outside Git. Existing steering-wheel film remains held and excluded.
+
+Final phone summary is compact with unchanged readable labels. A bounded scroll
+restoration handles temporary layout shrinkage during refresh and yields to user
+input or navigation. Final candidate browser checks are in progress.

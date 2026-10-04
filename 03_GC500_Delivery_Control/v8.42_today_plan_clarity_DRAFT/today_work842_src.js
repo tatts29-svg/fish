@@ -214,6 +214,32 @@ var TodayWork840 = (() => {
     if (saved.main?.isConnected) { saved.main.scrollTop = saved.top; saved.main.scrollLeft = saved.left; }
     if (window.scrollX !== saved.x || window.scrollY !== saved.y) window.scrollTo({left:saved.x, top:saved.y, behavior:'instant'});
   }
+  let cancelPackedScroll = null;
+  function restorePackedScroll(saved) {
+    cancelPackedScroll?.();
+    restoreScroll(saved);
+    const main = saved?.main, root = board();
+    if (!main?.isConnected || !root || Math.abs(main.scrollTop - saved.top) <= 1) return;
+    // Native masonry briefly reduces the scroll range during a redraw. Restore
+    // only that clamped position as its height settles; user input takes over.
+    let frame = 0;
+    const deadline = performance.now() + 500, hadModal = modalOpen();
+    const events = ['wheel', 'touchstart', 'pointerdown', 'keydown', 'resize', 'hashchange'];
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      events.forEach(name => window.removeEventListener(name, stop, true));
+      if (cancelPackedScroll === stop) cancelPackedScroll = null;
+    };
+    const tick = () => {
+      if (performance.now() >= deadline || !main.isConnected || board() !== root || document.hidden || printing || modalOpen() !== hadModal || getComputedStyle(pane()).display === 'none') return stop();
+      restoreScroll(saved);
+      if (Math.abs(main.scrollTop - saved.top) <= 1 || performance.now() >= deadline) return stop();
+      frame = requestAnimationFrame(tick);
+    };
+    cancelPackedScroll = stop;
+    events.forEach(name => window.addEventListener(name, stop, {capture:true, passive:true}));
+    frame = requestAnimationFrame(tick);
+  }
   function focusToken(node, root) {
     if (!node || !root?.contains(node)) return null;
     if (node.dataset.tw840Focus) return {work:node.dataset.tw840Focus};
@@ -263,7 +289,7 @@ var TodayWork840 = (() => {
       const node = resolveFocus(saved.focus, pane());
       if (node) { node.focus({preventScroll:true}); if (saved.start != null && typeof node.setSelectionRange === 'function') node.setSelectionRange(saved.start, saved.end); }
     }
-    restoreScroll(saved.scroll);
+    restorePackedScroll(saved.scroll);
   }
   function detailHtml(area, mode) {
     const done = mode === 'done', total = mode === 'total', fence = area.id === 'fencing';

@@ -1,0 +1,58 @@
+Author: Andrew Fisher
+GC500 v8.42 — clear totals, percentages and programme position
+
+DRAFT. Candidate phone layout and post-print scroll checks remain open.
+Owner: Codex. Claude remains intentionally paused. The separate steering-wheel
+film is held and excluded. No publication is claimed by this draft review.
+
+Base v8.41 SHA256:
+59088bb3da40fe01a2db224a538ebd010b26933d4a0c000969c744f9a30c2457
+Initial implementation checkpoint: d6e8c188.
+Final source, candidate identity and verification will be recorded at freeze.
+
+Resulting behaviour
+- Today retains its motorsport housing with wider laptop instruments. Total,
+  Done, Left, completion percentage and dated plan position are brought forward.
+- A known total remains useful when completion evidence conflicts. Confirmed
+  completion is a rounded-down lower bound, clearly labelled; Left includes
+  work requiring review. Detail rows retain that qualification and known count.
+- On-site plan counts use scheduled active references with explicit arrival or
+  completion evidence. Rental starts alone are insufficient. Early arrivals
+  cannot erase other references due but still missing. This comparison concerns
+  arrival dates; it does not invent installation deadlines.
+- Fencing shows every supported Build work type in its existing instrument,
+  with its own Total, Recorded, Left, percentage and dated plan comparison.
+  Metres and gates remain separate. Over-plan work is identified; overlapping
+  fence work is not combined into a physical track-completion percentage.
+- Source-authored dates remain unchanged. Invalid or unreconciled programme
+  coverage is not presented as confirmed progress. Relevant source conflicts
+  retain useful numeric comparisons with an explicit provisional qualification.
+- Broader type, whole-programme/Demob, source and cost detail remains available
+  within the matching instruments. Docket labour is labelled as that column;
+  it does not claim to include separately recorded crew hours.
+- Matching Total/Done/Left drilldowns, selected-date replay, print expansion,
+  focus, fold state and automatic motion remain connected. Decorative motion
+  runs on one visible selected instrument and respects Pause, reduced motion,
+  hidden views, dialogs, printing and global motion settings.
+
+Verification approach
+The standard build checks all eleven inline scripts. Exact preservation checks
+cover original header, media, maps, source data, native financial calculations,
+Timeline stages and both driver-print paths. Independent browser arithmetic is
+computed against native source data, rather than copying renderer outputs.
+Laptop, phone and 4K checks cover detail links, dates, motion, print, focus and
+scroll. Final desktop and phone navigation sweeps and actual-public checks are
+required before calling this release verified live.
+
+Findings retained
+Initial candidate 07fa8e8d passed the laptop summary-layout checks. Five phone
+cards placed the plan headline below the initial visible card area. A separate
+4K print/refresh scroll finding is under investigation. Original reports and
+screenshots are retained; these failures are not described as passed checks.
+
+Release boundaries
+Tests block operational writes. No live records, financial model, backend,
+media or map deployment is part of this frontend change. Private snapshots,
+commercial values, source photographs and browser captures remain outside Git.
+Publication must use the standard unchanged-base guard, exact public readback,
+actual-public browser checks and before/after shared-record comparisons.
