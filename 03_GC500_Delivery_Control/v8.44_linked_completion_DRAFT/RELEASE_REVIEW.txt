@@ -1,0 +1,38 @@
+Author: Andrew Fisher
+GC500 v8.44 — completion connected to items, places and photographs
+
+DRAFT. Implementation and verification are in progress; not ready or live.
+Owner: Codex. Claude remains intentionally paused at dacf75dd; the separate
+steering-wheel film is held and excluded.
+
+Verified live base v8.43 SHA256:
+6b1c0c142e3633b9a05727f2279fcb5a549969e86191c82e3dc7776f6c7fefb7
+
+Scope
+Existing group and type progress figures keep their authoritative quantities.
+Their detail views connect each reference's quantity to its written destination,
+qualified native map location, current shared status, recorded identifiers and
+available reference photographs. Existing native record controls remain the
+place to update completion; there is no second completion database.
+
+Remaining units can be grouped under fewer references. The presentation must
+retain exact reference quantities without inventing individually identified
+unfinished units. Native asset-number associations and reference photographs
+do not, by themselves, prove which units are unfinished. Current location/photo
+context remains distinct from selected-day completion figures.
+
+Fencing links recorded work to exact contributing dockets, reviewed area/map
+links and signed source papers. Programme locations and area checklist records
+remain separate from the aggregate quantity left. An area sign-off is not a
+type or section completion claim. Supplier toilet scope without a shared
+reference remains accessible through its existing plan, outside item totals.
+
+Verification required
+Preserve native completion arithmetic, record controls, financial calculations,
+Timeline, media and map positions. Independently check row quantities, exact
+action keys, photo provenance and availability, location priority, historical
+labels, captured native completion propagation, return navigation and phone
+readability. Standard desktop/phone sweeps and exact public verification follow.
+Tests block live operational writes. Private records, source values, photographs
+and browser evidence remain outside Git. Publication uses the unchanged-base
+guard and before/after shared-record fingerprints.
