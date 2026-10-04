@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-GC500 v8.48 — READY TO UPLOAD
+GC500 v8.48 — VERIFIED LIVE, 5 Oct 2026 at 08:44 AEST
 
 Implementation commit: 691e612e
 Base v8.47: c2541d7e51dec18187f9163a213fd6c77d607d8a50823b7c3234354019172f21
@@ -63,4 +63,19 @@ proves the candidate reduces byte-for-byte to its base after allowed edits alone
 Final desktop and phone sweeps each pass 22 routes, seven links and Back, with
 zero JavaScript or console errors on the exact frozen candidate.
 
-Guarded publication and actual-public verification remain pending.
+Publication
+READY commit 7502bb75 follows implementation 691e612e. The guarded uploader
+verified the exact unchanged v8.47 base, then published at 08:44 AEST on 5 Oct 2026.
+Public readback matches all 10,837,115 bytes of the frozen candidate.
+
+Actual-public desktop and phone suite 311/311 passed with exact upstream identity,
+zero local HTML substitutions and only normal UTF-8 BOM removal in browser text.
+All corrected assertions, source/model oracles, assessed provenance, disclosure,
+keyboard, print, motion, native rates and financial output checks pass. No
+JavaScript errors or operational writes; expected blocked map-session requests
+are the only console exclusions. Root inspected the published phone capture.
+
+All 33 shared-record collections, content hash and version match before/after.
+Embedded source changes are separately bounded by the exact correction manifest.
+Server health remains OK on v5.87; no backend deployment. Existing tabs need one
+reload. Private findings, values and original attachments stay outside Git.
