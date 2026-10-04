@@ -2,7 +2,10 @@ Author: Andrew Fisher
 GC500 v8.46 — APPROVED IMPLEMENTATION, IN TEST
 Andrew authorised publication after the current animation work.
 Selected one-box group layout and Timeline Option A are now composed on
-exact v8.45 a290469d. First candidate 3da5729c, 10,705,252 bytes.
+exact v8.45 a290469d. Current candidate e176119c, 10,705,568 bytes.
+First review found category navigation could leave another group animating;
+selection now follows the requested group and detail-return origin.
+Print container reset and unknown-percentage colouring are also tightened.
 Standard build and42 preservation checks pass; browser verification is running.
 Not READY or LIVE. Native quantity models, records, costs and media unchanged.
 Codex owns publication. Claude remains intentionally paused; separate film held.

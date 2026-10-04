@@ -504,6 +504,8 @@ var TodayWork840 = (() => {
     // Land once in the native scroll pane; subsequent refreshes preserve this position.
     if (main) main.scrollTo({top:main.scrollTop + node.getBoundingClientRect().top - main.getBoundingClientRect().top - inset, behavior:'instant'});
     else node.scrollIntoView({block:'start', behavior:'instant'});
+    selected = id;
+    checkMotion();
   }
   function onClick(event) {
     const target = event.target instanceof Element ? event.target : null;
@@ -513,6 +515,8 @@ var TodayWork840 = (() => {
     if (target.closest('#' + boardId)) {
       const action = target.closest('[data-tw840-motion],[data-tw840-detail],[data-tw840-jump],[data-tw840-fence-detail],[data-tw840-destination],[data-tw840-reference],[data-tw843-type-detail]');
       if (!action) { const group = target.closest('[data-tw840-area]'); if (group && motionMode !== 'paused') { selected = group.dataset.tw840Area; checkMotion(); } return; }
+      const selectedGroup = action.closest('[data-tw840-area]');
+      if (selectedGroup && !action.hasAttribute('data-tw840-motion')) selected = selectedGroup.dataset.tw840Area;
       event.preventDefault();
       if (action.hasAttribute('data-tw840-motion')) toggleMotion(action.dataset.tw840Motion);
       else if (action.hasAttribute('data-tw840-jump')) jump(action.dataset.tw840Jump);
