@@ -1,0 +1,14 @@
+Author: Andrew Fisher
+v8.36 — READY TO UPLOAD, 4 October 2026
+
+Implementation source: 5adbd4fa. Independent implementation/source review and browser verification completed; Claude remains intentionally paused and is not represented as a reviewer.
+Exact base v8.34: e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb.
+Final candidate: 9bf3f47e089913c51a4fbd0bf8fdb20371dbdcd12cc64273e362c8132da5b9ad, 10,236,358 bytes.
+
+Existing docket headings now show verified source-summary P/O context. Source reviewed and the standing docket sign-off remain distinct from specifically unresolved charge details, financial audit and payment. The same cards link the relevant original page. Identity, source hash and physical-field guards withhold stale/ambiguous review associations; private evidence remains outside Git. No pricing, native-record or calculator changes.
+
+Standard build/page checks passed. Portable JavaScript46/46, Python17/17 and legacy15/15 pass. Independent source14 and guard43 checks pass. Final candidate desktop/phone140/140 pass, including financial/native/source parity, original/source URL handling, stale identities, duplicates and selective status. Both final desktop/phone sweeps cover22 route probes, seven deep links and Back, with zero page/console errors. Six legacy/edit-only aliases redirect as designed; this is not a claim that22 independent panes are visible. Settled phone screenshot inspected by root.
+
+The initial browser run found a test expectation that did not allow the standard author-name scrub; the test now allows only that exact transformation. An immediate phone screenshot had a transient paint artefact; settled repeat and bounds checks were clean. Prior evidence is retained privately. Two late explanatory text refinements were rebuilt; all140 runtime checks and both sweeps were repeated on the final bytes above.
+
+Guarded upload, exact public readback and actual-public smoke are pending. This file does not yet claim LIVE. Separate steering-wheel film and map-trace drafts must use this predecessor once published.
