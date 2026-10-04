@@ -16,10 +16,12 @@ var TodayWork840 = (() => {
   const icon = (id, path) => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + (path || iconPaths[id] || iconPaths.equipment) + '"/></svg>';
   const arrow = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8H13M9 4L13 8L9 12"/></svg>';
   const textOf = item => typeof item === 'string' ? item : item && (item.message || item.label || item.reason || item.detail) || '';
-  let areas = [], fencing = null, installed = false, selected = null, running = null, printing = false, observer = null;
+  let areas = [], fencing = null, groupDetails = null, installed = false, selected = null, running = null, printing = false, observer = null;
   let motionMode = 'auto';
   let healthTimer = 0, healthKey = '', renderedDay = null;
   let observed = [], dialog = null, detail = null, returnFocus = null, returnScroll = null, skipReturn = false;
+  const groupFolds = new Map();
+  let printFolds = null, printScroll = null;
   const mq = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
 
   function digits(value, id, caption) {
@@ -45,22 +47,71 @@ var TodayWork840 = (() => {
     const rows = fencing?.summaryRows || [];
     return '<div class="tw841-fence-summary"><div class="tw841-fence-head" aria-hidden="true"><span>Work type</span><span>Recorded</span><span>Left to record</span></div>' + rows.map(row => {
       const reading = value => '<strong>' + format(value) + '</strong><small>' + escape(row.unit) + '</small>';
-      return '<button type="button" class="tw841-fence-row" data-tw840-fence-row="' + escape(row.id) + '" data-tw840-fence-detail="' + escape(row.id) + '" data-tw840-focus="fence-' + escape(row.id) + '" aria-label="' + escape(row.label + ': ' + format(row.recorded) + ' ' + row.unit + ' recorded; ' + format(row.remaining) + ' ' + row.unit + ' left to record. Review basis.') + '"><span class="tw841-fence-label">' + escape(row.label) + '</span><span class="tw841-fence-value tw841-recorded">' + reading(row.recorded) + '</span><span class="tw841-fence-value tw841-remaining">' + reading(row.remaining) + '</span></button>';
+      const percent = number(row.pct) ? row.planned > 0 && row.recorded > row.planned ? '100% + extra work' : format(row.pct) + '% recorded' : row.loading ? 'Loading programme' : row.kind === 'recorded-only' ? 'Recorded work only' : row.planned === 0 ? 'No programme quantity' : 'Programme quantity unconfirmed';
+      return '<button type="button" class="tw841-fence-row" data-tw840-fence-row="' + escape(row.id) + '" data-tw840-fence-detail="' + escape(row.id) + '" data-tw840-focus="fence-' + escape(row.id) + '" aria-label="' + escape(row.label + ': ' + percent + '; ' + format(row.recorded) + ' ' + row.unit + ' recorded; ' + format(row.remaining) + ' ' + row.unit + ' left to record. Review basis.') + '"><span class="tw841-fence-type"><span class="tw841-fence-label">' + escape(row.label) + '</span><span class="tw841-fence-percent" data-known="' + String(number(row.pct)) + '">' + escape(percent) + '</span></span><span class="tw841-fence-value tw841-recorded">' + reading(row.recorded) + '</span><span class="tw841-fence-value tw841-remaining">' + reading(row.remaining) + '</span></button>';
     }).join('') + '</div><p class="tw841-fence-note">Separate work types and units. Open a row for its programme quantity and basis.</p><button type="button" class="tw841-fence-source" data-tw840-detail="fencing" data-tw840-mode="done" data-tw840-focus="fencing-done">Review clean-fence dockets ' + arrow + '</button>';
+  }
+  function rememberFolds() {
+    if (printing) return;
+    board()?.querySelectorAll('[data-tw841-group-card]').forEach(node => groupFolds.set(node.dataset.tw841GroupCard, node.open));
+  }
+  function groupNotes(values) {
+    const notes = [...new Set((values || []).map(textOf).filter(Boolean))];
+    return notes.length ? '<ul class="tw841-group-notes">' + notes.map(note => '<li>' + escape(note) + '</li>').join('') + '</ul>' : '';
+  }
+  function groupReading(label, value, unit, key) {
+    return '<div' + (key ? ' data-tw841-value="' + escape(key) + '"' : '') + '><dt>' + escape(label) + '</dt><dd>' + format(value) + (unit ? '<small>' + escape(unit) + '</small>' : '') + '</dd></div>';
+  }
+  function groupFacts(facts) {
+    return (facts || []).length ? '<dl class="tw841-group-facts">' + facts.map(fact => '<div data-tw841-fact="' + escape(fact.label) + '"><dt>' + escape(fact.label) + '</dt><dd>' + format(fact.value) + (number(fact.total) ? ' / ' + format(fact.total) : '') + (fact.unit ? ' ' + escape(fact.unit) : '') + '</dd>' + (fact.note ? '<p>' + escape(fact.note) + '</p>' : '') + '</div>').join('') + '</dl>' : '';
+  }
+  function groupDestination(destination, label, token) {
+    if (!destination?.tab) return '';
+    return '<button type="button" class="tw841-group-link" data-tw840-destination="' + escape(destination.tab) + '" data-tw840-group="' + escape(destination.group || '') + '" data-tw840-focus="' + escape(token) + '">' + escape(label) + ' ' + arrow + '</button>';
+  }
+  function groupSection(group, id, showAggregate) {
+    const summary = group.summary || {}, token = id + '-group-' + group.id;
+    const types = (group.types || []).map(type => {
+      const known = type.quantityKnown && type.completionKnown && number(type.total) && type.total > 0 && number(type.complete);
+      const percentage = known ? format(Math.min(100, type.complete / type.total * 100)) + '% complete' : 'Completion percentage unconfirmed';
+      return '<section class="tw841-type" data-tw841-type="' + escape(type.name) + '"><h5>' + escape(type.name) + '</h5><p class="tw841-type-unit">' + escape(type.unit) + '</p><p class="tw841-type-percent" data-known="' + String(!!known) + '">' + escape(percentage) + '</p><dl class="tw841-type-values">' + groupReading('Total', type.total, '', 'total') + groupReading('On site', type.onSite, '', 'onSite') + groupReading('Complete', type.complete, '', 'complete') + groupReading('Left to complete', type.remaining, '', 'remaining') + '</dl>' + groupNotes(type.issues) + '</section>';
+    }).join('');
+    const exclusions = (group.excluded || []).length ? '<div class="tw841-exclusions"><h5>Outside the order total</h5>' + group.excluded.map(row => '<p><button type="button" class="tw841-group-reference" data-tw840-reference="' + escape(row.key) + '" data-tw840-focus="' + escape(token + '-excluded-' + row.key) + '">' + escape(row.key) + '</button> ' + escape(row.name) + ' · ' + escape(row.reason) + '</p>').join('') + '</div>' : '';
+    return '<section class="tw841-native-group" data-tw841-group-id="' + escape(group.id) + '"><h4>' + escape(group.name) + '</h4>' + (showAggregate ? '<p class="tw841-onsite"><strong>' + format(summary.onSite) + '</strong> on site / ' + format(summary.total) + ' ' + escape(group.unit) + '</p>' : '') + types + '<h5 class="tw841-subheading">Schedule position</h5><dl class="tw841-type-values tw841-schedule-values">' + groupReading('Due by selected day', summary.due, group.unit, 'due') + groupReading('Overdue', summary.overdue, group.unit, 'overdue') + groupReading('Next' + (number(summary.nextDays) ? ' ' + format(summary.nextDays) + ' days' : ''), summary.next, group.unit, 'next') + groupReading('No delivery record', summary.noRecord, group.unit, 'noRecord') + '</dl>' + groupFacts(group.facts) + groupNotes([...(group.notes || []), ...(group.issues || [])]) + exclusions + groupDestination(group.drilldown, 'Open Equipment · ' + group.name, token + '-destination') + '</section>';
+  }
+  function groupMoney(card) {
+    const currency = value => number(value) ? value.toLocaleString('en-AU', {style:'currency', currency:'AUD', maximumFractionDigits:2}) : 'Not yet priced';
+    const rows = (card.money || []).map(row => '<section class="tw841-money" data-tw841-money="' + escape(row.id) + '" data-tw841-money-kind="' + escape(row.kind) + '"><h5>' + escape(row.label) + '</h5><p class="tw841-money-amount">' + currency(row.amount) + '</p>' + (number(row.lines) || number(row.unrated) ? '<p class="tw841-money-counts">' + [number(row.lines) ? format(row.lines) + ' lines or notes' : '', number(row.unrated) ? format(row.unrated) + ' without a recorded rate' : ''].filter(Boolean).join(' · ') + '</p>' : '') + '<p>' + escape(row.basis) + '</p>' + groupDestination(row.drilldown, row.drilldown?.tab === 'fencing' ? 'Open Fencing costs' : 'Open Costs', card.id + '-money-' + row.id) + '</section>').join('');
+    const comparisons = (card.comparisons || []).map(row => '<section class="tw841-comparison" data-tw841-comparison="' + escape(row.id) + '"><h5>' + escape(row.group) + '</h5><dl class="tw841-group-facts"><div><dt>Hire estimate</dt><dd>' + currency(row.hire) + '</dd></div><div><dt>Transport estimate</dt><dd>' + currency(row.transport) + '</dd></div></dl><p>' + (number(row.refs) ? format(row.refs) + ' references. ' : '') + escape(row.basis) + '</p>' + groupDestination(row.drilldown, 'Open Pricing', card.id + '-comparison-' + row.id) + '</section>').join('');
+    return (rows ? '<section class="tw841-financial"><h4>Revenue and Direct costs</h4><p class="tw841-group-note">Current cumulative records · ex GST. Financial figures do not replay to the selected day.</p>' + rows + '</section>' : '') + (comparisons ? '<section class="tw841-financial"><h4>Card estimates · comparison only</h4>' + comparisons + '</section>' : '');
+  }
+  function programmeDetails(card) {
+    if (!(card.programmeRows || []).length) return '';
+    return '<section class="tw841-programme"><h4>Whole 2026 programme · including Demob</h4>' + card.programmeRows.map(row => '<section class="tw841-type" data-tw841-programme-row="' + escape(row.id || row.fullName || row.name) + '"><h5>' + escape(row.fullName || row.name) + '</h5><dl class="tw841-type-values">' + groupReading('Whole programme', row.total, row.unit, 'total') + groupReading('Planned by selected day', row.planned, row.unit, 'planned') + groupReading('Work recorded', row.recorded, row.unit, 'recorded') + groupReading('Left to record', row.remaining, row.unit, 'remaining') + '</dl><p class="tw841-programme-gap">' + (number(row.planned) ? format(row.behind) + ' ' + escape(row.unit) + ' behind the selected-day plan' : 'Selected-day planned quantity unconfirmed') + '</p><p>' + escape(row.basis) + '</p></section>').join('') + groupDestination(card.drilldown, 'Open full Fencing programme', 'fencing-programme-destination') + '</section>';
+  }
+  function groupFold(area) {
+    const card = groupDetails?.[area.id]; if (!card) return '';
+    const groups = card.groups || [], one = groups.length === 1 ? groups[0] : null;
+    const subtitle = !card.health?.ready ? card.health?.basis || 'Loading group records' : area.id === 'fencing' ? 'Whole programme, areas and costs' : one ? format(one.summary.onSite) + ' / ' + format(one.summary.total) + ' ' + one.unit + ' on site' : groups.length ? format(groups.length) + ' equipment groups · separate quantities' : 'Recorded quantities and financial scope';
+    return '<details class="tw841-group-details" data-tw841-group-card="' + escape(area.id) + '"' + (groupFolds.get(area.id) || printing ? ' open' : '') + '><summary data-tw840-focus="' + escape(area.id + '-group-fold') + '"><span>By type and costs</span><small>' + escape(subtitle) + '</small></summary><div class="tw841-group-content"><p class="tw841-group-note">' + escape(card.basis) + '</p>' + groups.map(group => groupSection(group, area.id, groups.length !== 1)).join('') + programmeDetails(card) + groupFacts(card.facts) + groupMoney(card) + groupNotes([...(card.notes || []), ...(card.issues || [])]) + '</div></details>';
   }
   function card(area) {
     const fence = area.id === 'fencing', pct = area.loading ? null : area.pct;
     const lit = number(pct) ? Math.round(Math.max(0, Math.min(100, pct)) / 100 * 24) : 0;
     const scope = fence ? 'Build programme · separate work types' : number(area.total) ? format(area.total) + ' ' + area.unit + ' in scope' : 'Scope quantity unconfirmed';
     const healthLabel = area.loading ? 'Loading' : area.health && !area.health.ready ? 'Record unavailable' : area.health?.stale ? 'Last received' : 'Shared record';
-    const body = fence ? fencingRows() : '<div class="tw840-display"><div class="tw840-leds" aria-hidden="true">' + Array.from({length:24}, (_, n) => '<i' + (n < lit ? ' class="lit"' : '') + '></i>').join('') + '</div><div class="tw840-percent">' + digits(pct, area.id, 'recorded complete') + '</div><p class="tw840-caption">' + (area.loading ? 'Loading record' : number(pct) ? 'Recorded complete' : 'Percentage unconfirmed') + '</p><div class="tw840-scale" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div></div><div class="tw840-counts">' + countButton(area, 'done') + countButton(area, 'left') + '</div><div class="tw840-preview"><span>' + (area.issues && area.issues.length ? 'Record to review' : 'Remaining work') + '</span><p>' + escape(noteFor(area)) + '</p></div>';
-    return '<article class="tw840-card' + (fence ? ' tw841-fence-card' : '') + '" id="tw840-card-' + escape(area.id) + '" data-tw840-area="' + escape(area.id) + '"><header class="tw840-top"><div class="tw840-name">' + icon(area.id) + '<h3 tabindex="-1" data-tw840-focus="' + escape(area.id + '-heading') + '">' + escape(area.name) + '</h3></div><button type="button" class="tw840-motion" data-tw840-motion="' + escape(area.id) + '" data-tw840-focus="' + escape(area.id + '-motion') + '" aria-pressed="false" aria-label="Play ' + escape(area.name) + ' display animation" title="Display animation only">' + icon('', 'M8 5L19 12L8 19Z') + '<span>Play</span></button></header><p class="tw840-scope">' + escape(fence ? 'Recorded work by type · Build programme' : area.scope) + '</p><div class="tw841-motion-track" aria-hidden="true"><i></i></div>' + body + '<footer class="tw840-footer"><span>' + escape(scope) + '</span><span>' + escape(healthLabel) + '</span></footer></article>';
+    const body = fence ? fencingRows() : '<div class="tw840-display"><div class="tw840-leds" aria-hidden="true">' + Array.from({length:24}, (_, n) => '<i' + (n < lit ? ' class="lit"' : '') + '></i>').join('') + '</div><div class="tw840-percent">' + digits(pct, area.id, 'recorded complete') + '</div><p class="tw840-caption">' + (area.loading ? 'Loading record' : number(pct) ? area.id === 'equipment' ? 'Forklifts & access · recorded complete' : 'Recorded complete' : 'Percentage unconfirmed') + '</p><div class="tw840-scale" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div></div><div class="tw840-counts">' + countButton(area, 'done') + countButton(area, 'left') + '</div><div class="tw840-preview"><span>' + (area.issues && area.issues.length ? 'Record to review' : 'Remaining work') + '</span><p>' + escape(noteFor(area)) + '</p></div>';
+    return '<article class="tw840-card' + (fence ? ' tw841-fence-card' : '') + '" id="tw840-card-' + escape(area.id) + '" data-tw840-area="' + escape(area.id) + '"><header class="tw840-top"><div class="tw840-name">' + icon(area.id) + '<h3 tabindex="-1" data-tw840-focus="' + escape(area.id + '-heading') + '">' + escape(area.name) + '</h3></div><button type="button" class="tw840-motion" data-tw840-motion="' + escape(area.id) + '" data-tw840-focus="' + escape(area.id + '-motion') + '" aria-pressed="false" aria-label="Play ' + escape(area.name) + ' display animation" title="Display animation only">' + icon('', 'M8 5L19 12L8 19Z') + '<span>Play</span></button></header><p class="tw840-scope">' + escape(fence ? 'Recorded work by type · Build programme' : area.scope) + '</p><div class="tw841-motion-track" aria-hidden="true"><i></i></div>' + body + groupFold(area) + '<footer class="tw840-footer"><span>' + escape(scope) + '</span><span>' + escape(healthLabel) + '</span></footer></article>';
   }
   function build(asOf) {
+    rememberFolds();
     areas = todayWorkMetrics840(asOf);
     fencing = todayFencingSummary841(asOf);
-    renderedDay = asOf; healthKey = JSON.stringify(areas.health || {});
-    return '<section id="' + boardId + '" aria-labelledby="tw840-title"><div class="tw840-heading"><div><h2 id="tw840-title">Work progress</h2><p>Completed and remaining</p></div><span>Open a count to see the work behind it</span></div><nav class="tw840-nav" aria-label="Work categories">' + areas.map(area => '<button type="button" data-tw840-jump="' + escape(area.id) + '" data-tw840-focus="' + escape(area.id + '-jump') + '">' + icon(area.id) + escape(area.name) + '</button>').join('') + '</nav><div class="tw840-grid">' + areas.map(card).join('') + '</div><p class="tw840-basis">Completion uses the recorded work status for each category. Delivery, levelling and steps remain separate records. Open a count for its basis and any gaps.</p></section>';
+    groupDetails = todayGroupDetails841(asOf, areas);
+    renderedDay = asOf; healthKey = JSON.stringify({work:areas.health || {}, groups:groupDetails.health || {}});
+    const merged = groupDetails.__coverage?.ready && groupDetails.__coverage.allRepresented && areas.every(area => groupDetails[area.id]);
+    const dayLabel = /^\d{4}-\d{2}-\d{2}$/.test(asOf || '') ? new Date(asOf + 'T00:00:00Z').toLocaleDateString('en-AU', {day:'numeric', month:'short', year:'numeric', timeZone:'UTC'}) : '';
+    return '<section id="' + boardId + '" data-tw841-groups-merged="' + String(!!merged) + '" aria-labelledby="tw840-title"><div class="tw840-heading"><div><h2 id="tw840-title">Work progress</h2><p>Completed and remaining' + (dayLabel ? ' · ' + escape(dayLabel) : '') + '</p></div><span>Open a count or explore by type and costs</span></div><nav class="tw840-nav" aria-label="Work categories">' + areas.map(area => '<button type="button" data-tw840-jump="' + escape(area.id) + '" data-tw840-focus="' + escape(area.id + '-jump') + '">' + icon(area.id) + escape(area.name) + '</button>').join('') + '</nav><div class="tw840-grid">' + areas.map(card).join('') + '</div><p class="tw840-basis">Completion uses the recorded work status for each category. On site, delivery, levelling and steps remain separate readings. Open a count or type detail for its basis and any gaps.</p></section>';
   }
   function board() { return document.getElementById(boardId); }
   function pane() { return document.getElementById('pane-today'); }
@@ -68,9 +119,18 @@ var TodayWork840 = (() => {
     if (mq && mq.matches || document.documentElement.dataset.motion === 'off') return true;
     try { return typeof window.motionOff === 'function' && window.motionOff(); } catch (_) { return false; }
   }
+  function modalOpen() {
+    if (document.getElementById('drawer')?.classList.contains('on')) return true;
+    if (typeof timeline841ModalOpen === 'function') return timeline841ModalOpen();
+    return [...document.querySelectorAll('dialog[open],[aria-modal="true"]')].some(node => {
+      if (node.hidden || node.closest('[hidden],[aria-hidden="true"]')) return false;
+      const style = getComputedStyle(node), rect = node.getBoundingClientRect();
+      return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0 && rect.right > 0 && rect.left < innerWidth && rect.bottom > 0 && rect.top < innerHeight;
+    });
+  }
   function visible(node) {
     const p = pane();
-    if (!node || !node.isConnected || !p || p.hidden || document.hidden || printing || dialog && dialog.open || getComputedStyle(p).display === 'none') return false;
+    if (!node || !node.isConnected || !p || p.hidden || document.hidden || printing || modalOpen() || getComputedStyle(p).display === 'none') return false;
     // Use the visible decorative track, not a card footer, to choose the running instrument.
     const rect = (node.querySelector('.tw841-motion-track') || node).getBoundingClientRect(), main = p.closest('main');
     const clip = main ? main.getBoundingClientRect() : {top:0, left:0, bottom:innerHeight, right:innerWidth};
@@ -94,7 +154,7 @@ var TodayWork840 = (() => {
   }
   function stop() { motionMode = 'paused'; running = null; controls(); }
   function checkMotion() {
-    if (motionMode === 'paused' || motionOff() || document.hidden || printing || dialog?.open || window.TodayMotion820?.report().running) {
+    if (motionMode === 'paused' || motionOff() || document.hidden || printing || modalOpen() || window.TodayMotion820?.report().running) {
       running = null; controls(); return;
     }
     const nodes = [...(board()?.querySelectorAll('[data-tw840-area]') || [])];
@@ -143,6 +203,7 @@ var TodayWork840 = (() => {
     return node?.tagName === token.tag && node.textContent === token.text ? node : null;
   }
   function capture() {
+    rememberFolds();
     const p = pane();
     if (!p || !board() || getComputedStyle(p).display === 'none') return null;
     const active = document.activeElement;
@@ -154,13 +215,16 @@ var TodayWork840 = (() => {
     if (!board() || document.hidden || getComputedStyle(pane()).display === 'none') return;
     healthTimer = setTimeout(() => {
       healthTimer = 0;
-      const health = typeof todayWorkHealth840 === 'function' ? todayWorkHealth840() : areas.health;
-      if (JSON.stringify(health || {}) !== healthKey && board()) {
+      const health = {work:typeof todayWorkHealth840 === 'function' ? todayWorkHealth840() : areas.health,
+        groups:typeof todayGroupHealth841 === 'function' ? todayGroupHealth841() : groupDetails?.health};
+      if (JSON.stringify(health) !== healthKey && board()) {
         const saved = capture();
-        board().outerHTML = build(renderedDay);
+        // Readiness can also retire the native By group section beneath this board.
+        if (typeof renderToday === 'function') renderToday();
+        else board().outerHTML = build(renderedDay);
         restore(saved);
       } else scheduleHealth();
-    }, areas.health?.ready ? 2000 : 500);
+    }, areas.health?.ready && groupDetails?.health?.ready ? 2000 : 500);
   }
   function restore(saved) {
     mount();
@@ -227,12 +291,14 @@ var TodayWork840 = (() => {
     const target = event.target instanceof Element ? event.target : null;
     if (!target) return;
     if (target.closest('#' + boardId)) {
-      const action = target.closest('[data-tw840-motion],[data-tw840-detail],[data-tw840-jump],[data-tw840-fence-detail]');
+      const action = target.closest('[data-tw840-motion],[data-tw840-detail],[data-tw840-jump],[data-tw840-fence-detail],[data-tw840-destination],[data-tw840-reference]');
       if (!action) return;
       event.preventDefault();
       if (action.hasAttribute('data-tw840-motion')) toggleMotion(action.dataset.tw840Motion);
       else if (action.hasAttribute('data-tw840-jump')) jump(action.dataset.tw840Jump);
       else if (action.hasAttribute('data-tw840-fence-detail')) openFencingDetails(action.dataset.tw840FenceDetail);
+      else if (action.hasAttribute('data-tw840-reference')) openAsset(action.dataset.tw840Reference);
+      else if (action.hasAttribute('data-tw840-destination')) navigate(action);
       else openDetails(action.dataset.tw840Detail, action.dataset.tw840Mode);
     } else if (target.closest('#' + dialogId)) {
       const action = target.closest('[data-tw840-close],[data-tw840-reference],[data-tw840-destination]');
@@ -242,9 +308,16 @@ var TodayWork840 = (() => {
       else {
         skipReturn = true; dialog.close();
         if (action.hasAttribute('data-tw840-reference')) openAsset(action.dataset.tw840Reference);
-        else { if (typeof state !== 'undefined') { state.plantGroup = action.dataset.tw840Group || null; state.light = null; state.q = ''; } go(action.dataset.tw840Destination); }
+        else navigate(action);
       }
     }
+  }
+  function navigate(action) {
+    rememberFolds();
+    if (typeof state !== 'undefined' && action.dataset.tw840Destination === 'plant') {
+      state.plantGroup = action.dataset.tw840Group || null; state.light = null; state.q = '';
+    }
+    go(action.dataset.tw840Destination);
   }
   function install() {
     if (installed) return; installed = true;
@@ -256,18 +329,37 @@ var TodayWork840 = (() => {
     });
     dialog.addEventListener('click', event => { if (event.target !== dialog) return; const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); });
     document.addEventListener('click', onClick);
+    document.addEventListener('toggle', event => {
+      const node = event.target;
+      if (!printing && node instanceof Element && node.matches('[data-tw841-group-card]') && board()?.contains(node)) groupFolds.set(node.dataset.tw841GroupCard, node.open);
+    }, true);
     document.addEventListener('todaymotionselection', event => { if (!String(event.detail?.card || '').startsWith('work840-')) { running = null; controls(); } });
     for (const name of ['visibilitychange','gc500motionchange']) document.addEventListener(name, () => { checkMotion(); scheduleHealth(); });
     for (const name of ['resize','hashchange']) window.addEventListener(name, checkMotion, {passive:true});
     window.addEventListener('scroll', checkMotion, {passive:true, capture:true});
     window.addEventListener('pagehide', () => { running = null; controls(); if (healthTimer) clearTimeout(healthTimer); healthTimer = 0; });
-    window.addEventListener('beforeprint', () => { printing = true; checkMotion(); });
-    window.addEventListener('afterprint', () => { printing = false; checkMotion(); });
+    window.addEventListener('beforeprint', () => {
+      if (printing) return;
+      rememberFolds(); printFolds = new Map(groupFolds); printScroll = scrollSnapshot();
+      printing = true;
+      board()?.querySelectorAll('[data-tw841-group-card]').forEach(node => { node.open = true; });
+      checkMotion();
+    });
+    window.addEventListener('afterprint', () => {
+      if (!printing) return;
+      board()?.querySelectorAll('[data-tw841-group-card]').forEach(node => { node.open = printFolds?.get(node.dataset.tw841GroupCard) || false; });
+      printing = false; printFolds = null; restoreScroll(printScroll); printScroll = null; checkMotion();
+    });
     window.addEventListener('pageshow', checkMotion);
     if (mq?.addEventListener) mq.addEventListener('change', checkMotion); else if (mq?.addListener) mq.addListener(checkMotion);
     const stateWatch = new MutationObserver(() => { checkMotion(); scheduleHealth(); });
     stateWatch.observe(document.documentElement, {attributes:true, attributeFilter:['data-motion']});
     if (pane()) stateWatch.observe(pane(), {attributes:true, attributeFilter:['class','style','hidden']});
+    const modalSelector = 'dialog,[aria-modal="true"],#drawer';
+    const hasModal = node => node.nodeType === 1 && (node.matches(modalSelector) || node.querySelector(modalSelector));
+    new MutationObserver(records => {
+      if (records.some(record => record.type === 'attributes' ? record.target.matches(modalSelector) : [...record.addedNodes, ...record.removedNodes].some(hasModal))) checkMotion();
+    }).observe(document.body, {subtree:true, childList:true, attributes:true, attributeFilter:['hidden','aria-hidden','open','class','style']});
     if (typeof IntersectionObserver === 'function') observer = new IntersectionObserver(checkMotion, {threshold:0});
   }
   function mount() {
@@ -278,6 +370,6 @@ var TodayWork840 = (() => {
     if (selected && !areas.some(area => area.id === selected)) selected = null;
     checkMotion(); updateDialog(); scheduleHealth();
   }
-  return {build, capture, restore, mount, stop, report:() => ({version:'v8.41', mode:motionMode, selected, running, cards:observed.length, dialog:dialog?.open || false, reduced:motionOff()})};
+  return {build, capture, restore, mount, stop, report:() => ({version:'v8.41', asOf:renderedDay, groupsMerged:board()?.dataset.tw841GroupsMerged === 'true', openGroups:[...(board()?.querySelectorAll('[data-tw841-group-card][open]') || [])].map(node => node.dataset.tw841GroupCard), mode:motionMode, selected, running, cards:observed.length, dialog:dialog?.open || false, reduced:motionOff()})};
 })();
 function todayWorkBoard840(asOf) { return TodayWork840.build(asOf); }

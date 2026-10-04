@@ -1,23 +1,28 @@
 Author: Andrew Fisher
-GC500 v8.41 — Timeline lights, fencing detail and clarity
+GC500 v8.41 — Timeline lights and one Today work board
 
-DRAFT, scope extended during review. Not ready or live.
+FROZEN DRAFT, final composed browser and navigation checks running. Not live.
+Owner: Codex. Claude remains intentionally paused. The film remains held.
+
+Andrew asked for sharper cards, automatic animation, more Fencing detail in its
+existing card, and the separate By group section merged into the LED instruments.
+He explicitly asked to keep the percentage.
+
+Includes:
+- Five-stage Timeline lights with automatic visible halos, including Finished.
+- Exact selected-reference Transit policy for native and supplier driver prints.
+- Crisp Today instruments, visible automatic decoration and manual Pause.
+- Fencing work types and meaningful per-type percentages within one card.
+- Type quantities, on-site status, schedule and cost detail inside the matching
+  instruments; the old group section disappears only after coverage is complete.
+- One selected date across the work board, preserved links and printable detail.
+
 Base v8.40 SHA256:
 573df8e5440f7cd9c48452a52632114bdc4cedbdf3254db007dc6bff35e48929
+Candidate SHA256:
+701cc188dc58027925ab520475f4f924debb85231dee3f2ad6849e114fce911b
+10,570,460 bytes. Standard page checks and 35 preservation checks pass.
 
-Codex owns clearer Today instruments with automatic selected-visible motion,
-separate supported fencing work types inside the existing Fencing card, and the
-Timeline five-stage delivery lights. Native evidence, costing and shared records
-remain authoritative. No live record writes in tests. Private evidence stays
-outside Git.
-
-Superseded pre-migration candidate SHA256:
-9ad728970fcf9a522a41b9b65fac296b9f8b139c4873e6c566e06188d36e3d87
-10,529,796 bytes. Standard build and 26 preservation checks pass. The exact
-Timeline candidate passes 52 browser checks and 15 native print checks. Final
-Today, focus and full-navigation results are pending. See RELEASE_REVIEW.txt.
-
-Andrew subsequently requested the separate Today By group information to be
-merged into the matching LED instruments, with the original section removed.
-That integration and the Timeline closed-drawer motion correction are in progress.
-The earlier candidate is not a publication candidate.
+Source records, financial formulae, original header/media and map data are
+unchanged. Tests block operational writes. Private snapshots and screenshots stay
+outside Git. See RELEASE_REVIEW.txt for verification scope and final results.

@@ -44,7 +44,8 @@ check(re.findall(r'^const DATA = .*$', b, re.M) == re.findall(r'^const DATA = .*
 for name in ['buildAllAssets', 'progCard', 'renderPlant', 'renderPlant_held',
              'renderCoatesWay', 'renderCoatesWay_held', 'renderFencing', 'renderFencing_held',
              'renderCosts', 'renderCosts_held', 'chargeLines', 'deliveryAsOf',
-             'dsnBoard', 'syncFirst']:
+             'dsnBoard', 'syncFirst', 'dsnState_', 'tradeCharges', 'contractCharge',
+             'fenceTypes', 'fenceDerived', 'moneySummary', 'greenBookTotals']:
     check(function(b, name) == function(c, name), name + ' preserved')
 check((root.parent / 'v8.40_today_work_progress_LIVE/work_metrics840_src.js').read_text() in c,
       'existing Today work metric model preserved')
@@ -55,5 +56,9 @@ scripts = re.findall(r'<script\b[^>]*>.*?</script>', b, re.S)
 check(all(s in c for s in scripts if 'function renderToday_held()' not in s), 'supporting script blocks preserved')
 check(c.count('id="today-work-v840"') == 1, 'one Today instrument stylesheet')
 check('function todayFencingSummary841(' in c, 'separate fencing summary embedded')
+check('function todayGroupDetails841(' in c, 'group detail adapter embedded')
+group_guard = " if (todayGroupsMerged841()) return ''; /* v8.41: represented once in the work instruments */\n"
+check(function(c, 'dsnGroups').replace(group_guard, '') == function(b, 'dsnGroups'),
+      'original group fallback preserved behind full-coverage guard')
 check('content="v8.41"' in c, 'release metadata updated')
 print(str(passed) + ' preservation checks passed')

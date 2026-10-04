@@ -29,5 +29,63 @@ Boundaries:
   Offscreen, hidden, paused and reduced-motion views stay still.
 - Existing header, media, map data and financial calculations remain unchanged.
 
-Evidence and final release results will be added after the frozen candidate is
-checked. Private records, source snapshots and screenshots remain outside Git.
+Implementation:
+- Native driver print preparation binds its selected inbound references to one
+  generation. Superseded, failed, closed or replaced print preparations cannot
+  dispatch another selection. Later stages survive reprints. The audit describes
+  a print request rather than claiming confirmed truck departure.
+- Location and Installed use explicit dated confirmations and bounded history.
+  Finished uses the native Complete check; a known primary quantity shortage is
+  shown as a review conflict. An on-hire date alone is not placement evidence.
+- The Fencing card contains eight programme work types and supported recorded-only
+  lines. Each keeps its own unit, source basis and detail view. No combined
+  physical-completion percentage is invented from overlapping work.
+- Foreground text and vector lights remain unfiltered. Only decoration moves.
+  Today hands animation to one visible instrument and retains deliberate Pause.
+
+Verification in progress:
+- Standard build parses all eleven inline scripts. All 26 scope/preservation
+  checks pass. Native embedded data, financial renderers, original media, map
+  model and the existing Today metric model are unchanged.
+- Fencing synthetic model: 15 checks. Timeline stage, merge, timestamp, source
+  evidence and print-scope model: 55 checks. Extracted native asynchronous print
+  paths: 15 checks. These are synthetic/captured tests, not real dispatches.
+- Candidate 9ad72897 passed 52 Timeline browser checks. The added real Finished
+  motion probe found a blocker; it must be resolved and rechecked before READY.
+- Earlier Today checks identified an inherited LED entrance animation. Scoped
+  CSS removes that conflict; a remaining native button click-confirmation effect
+  is being checked separately from instrument motion. Original failures remain
+  in private evidence. No failed run is presented as a complete pass.
+
+Final candidate, navigation and public-host results will be recorded after the
+remaining checks. Private records, source snapshots and screenshots stay outside
+Git. No production record write is permitted during verification.
+
+Expanded scope and final candidate:
+Andrew requested the separate Today By group cards to be merged into the LED
+instruments, retaining percentages. The read-only adapter preserves every native
+reference, named subgroup and financial bucket once; original data models remain
+unchanged. On site and Complete are distinct. Unknown quantities do not become
+invented percentages. Equipment subgroups retain their units and Fencing keeps
+Build scope distinct from the whole programme including Demob. Current cumulative
+financial figures are labelled separately from selected-day replay.
+
+The old group section is omitted only after coverage and hydration are complete.
+Legacy links, date changes, source-reference drawers, folds and the native Today
+print flow are integrated. Private data remains outside the repository.
+
+A closed native drawer was incorrectly treated as an open modal, pausing Timeline
+halos. The visibility guard and scoped observer were corrected; interim checks
+passed 70/70 and focus/Finished checks 5/5. Native transient button click feedback
+is separate from instrument motion: target/timing was independently verified,
+with the initial strict test failures retained. Supplier run sheets had a separate
+print path; its exact-reference integration and cross-route print cleanup pass
+31 synthetic tests and independent source review. Earlier competing-print styles
+were corrected before this final build.
+
+Frozen composed candidate:
+701cc188dc58027925ab520475f4f924debb85231dee3f2ad6849e114fce911b
+10,570,460 bytes. Eleven inline scripts parse; 35 source/preservation checks pass.
+Group adapter synthetic checks 14/14 pass. Earlier unchanged model results are
+retained; final composed browser/navigation and actual-public checks remain
+pending. This is not a READY or LIVE declaration.

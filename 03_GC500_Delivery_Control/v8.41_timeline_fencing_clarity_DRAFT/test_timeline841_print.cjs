@@ -32,6 +32,9 @@ function fixture(options={}){
   capability:()=>options.readonly?'view':'edit',assetOf:key=>assets[key],deliveryOf:key=>resolved[key]||{recorded:false,state:'not on site',done:false},chargeLines:()=>[],shortOf:()=>[],movedAway:()=>null,mayWrite:()=>!options.readonly,whoAmI:()=> 'Synthetic operator',
   setLight:(key,state)=>{calls.push(['light',key,state]);raw[key]={state,history:[{state}]};resolved[key]={recorded:true,state};return true;},setDone:()=>{throw new Error('Unexpected Complete write');},bump:()=>calls.push(['bump']),flash:message=>calls.push(['flash',message]),
   programmeDays:()=>days,dpLoads:()=>loads,dpPage:(d,g,doc)=>doc+':'+g.rows[0].a.key+';',pl782Pages:()=>'',PL782_CSS:'',DRV782_CSS:'',drvValid782:()=>false,DRV782_OK:{},DP_DOC:{drv:{kick:'Drivers'},ins:{kick:'Installation'}},DP_MAIL:{drivers:'Drivers',install:'Installation',prestart:'Prestart'},
+  // This fixture has no supplier preview. Actual cross-route cleanup is covered
+  // by test_supplier_print841.cjs with both native and supplier entry functions.
+  supplierPrint841Dismiss:()=>{},epOpen819:()=>false,
   fmtDate:x=>x,esc:x=>x,dpZoomFit:()=>calls.push(['zoom']),setHash:()=>{},render:()=>{},ps7Day:()=>days[0],ps7Print:()=>calls.push(['prestart']),
   drvCheck782:(iso,only,go)=>{calls.push(['check',iso,only]);if(options.deferChecks)checks.push(go);else go();},
   dpWaitDocs:()=>{const d=deferred();docs.push(d);if(!options.deferDocs)d.resolve();return d.promise;},
