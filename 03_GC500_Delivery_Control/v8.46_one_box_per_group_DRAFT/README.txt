@@ -50,3 +50,12 @@ earlier paired-pod proposal. Production integration remains pending the visual
 review; no production files have been built or uploaded.
 Codex owns this preview. Claude remains intentionally paused at dacf75dd;
 the separate film remains held/excluded. Private evidence stays outside Git.
+
+Visible-motion follow-up: still screenshots did not communicate the animation,
+and halo-only motion was obscured by the lamp bezel. The private preview now
+animates the lit SVG dots in a 2.4-second brightness sequence. Unreached lamps,
+numerals, names and source data remain static. The illustrative 100% state
+has its own visible-group lifecycle and Pause control. Browser checks confirm
+visible colour changes, exactly one active group, Pause and reduced-motion
+behaviour for both examples with no runtime errors. Looping GIF/MP4 renders
+are private evidence only; production integration is still pending.
