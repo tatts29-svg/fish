@@ -5,10 +5,14 @@ import argparse
 import hashlib
 import re
 import json
+from copy import deepcopy
+from fencing_corrections847 import apply_corrections, json_value
 
 p = argparse.ArgumentParser()
 p.add_argument('--base', required=True)
 p.add_argument('--candidate', required=True)
+p.add_argument('--corrections', required=True)
+p.add_argument('--catalogue', required=True)
 a = p.parse_args()
 b = Path(a.base).read_text(encoding='utf-8')
 c = Path(a.candidate).read_text(encoding='utf-8')
@@ -51,8 +55,39 @@ def data_of(text):
     return json.JSONDecoder().raw_decode(text[text.index('const DATA = ') + len('const DATA = '):])[0]
 bd, cd = data_of(b), data_of(c)
 review = cd.pop('fence_ccb_review847', None)
-check('all existing operational and financial source data unchanged', bd == cd)
-check('separate source review catalogue exists', isinstance(review, dict) and review.get('schema') == 1)
+manifest = json.loads(Path(a.corrections).read_text())
+catalogue = json.loads(Path(a.catalogue).read_text())
+base_review = json_value(b, 'const FENCE_REVIEW836 = ')[0]
+base_trace = json_value(b, 'const FENCE_TRACE837 = ')[0]
+actual_review = json_value(c, 'const FENCE_REVIEW836 = ')[0]
+actual_trace = json_value(c, 'const FENCE_TRACE837 = ')[0]
+expected_data, expected_review, expected_trace, expected_catalogue = apply_corrections(
+    bd, base_review, base_trace, catalogue, manifest, hashlib.sha256(Path(a.base).read_bytes()).hexdigest())
+check('operational source delta equals the exact private correction manifest', cd == expected_data)
+check('source review delta equals the exact correction bindings', actual_review == expected_review)
+check('map trace delta equals the exact correction bindings with no new geometry', actual_trace == expected_trace)
+check('source review catalogue equals the guarded corrected catalogue', review == expected_catalogue)
+# Independent field constraints do not rely on the mutator's return value.
+allowed = {r['record_id']: r for r in manifest['corrections']}
+restored = deepcopy(cd)
+old_records = {r['id']: r for r in bd['ops']['fencing']['dockets']}
+for record in restored['ops']['fencing']['dockets']:
+    if record['id'] not in allowed:
+        continue
+    old = old_records[record['id']]
+    decision = allowed[record['id']]
+    check('targeted docket keeps every original field except category quantities and appended note',
+          {k:v for k,v in record.items() if k not in {'quantities','note'}} == {k:v for k,v in old.items() if k not in {'quantities','note'}})
+    before_ccb = sum(old['quantities'].get(k,0) for k in ('ccb_event','ccb_demarc'))
+    after_ccb = sum(record['quantities'].get(k,0) for k in ('ccb_event','ccb_demarc'))
+    check('targeted docket retains exact total CCB metres and non-CCB quantities',
+          before_ccb == after_ccb == decision['quantity'] and
+          {k:v for k,v in record['quantities'].items() if k not in {'ccb_event','ccb_demarc'}} == {k:v for k,v in old['quantities'].items() if k not in {'ccb_event','ccb_demarc'}})
+    check('targeted docket note preserves original wording before audit addition', record['note'].startswith(old['note'] + ' '))
+    record['quantities'], record['note'] = deepcopy(old['quantities']), old['note']
+check('all unrelated operational data, cached build costs, rates and source fields unchanged', restored == bd)
+check('existing map geometry, areas, relations and commercial associations unchanged',
+      {k:v for k,v in base_trace.items() if k != 'rows'} == {k:v for k,v in actual_trace.items() if k != 'rows'})
 check('legacy native financial functions are not reassigned', not re.search(r'(?:costDocket|allDockets|fenceByWeek|fenceTypes|fenceDerived)\s*=\s*(?:function|\()', c))
 
 faces = re.findall(r'@font-face\s*\{[^}]+\}', b)

@@ -9,7 +9,9 @@ import sys
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT.parent / 'toolchain'))
+sys.path.insert(0, str(ROOT))
 from rep import rep
+from fencing_corrections847 import apply_corrections, json_value, replace_json_value
 BASE_SHA256 = 'e176119c8ad29b8af472d8c740d66b0c20534284ebef260bd8cb9f682b5a4236'
 
 def read(relative):
@@ -21,7 +23,7 @@ def resolved_day(source):
     spec.loader.exec_module(module)
     return module.resolved_day(source)
 
-def build(raw, catalogue_path=None):
+def build(raw, catalogue_path=None, corrections_path=None):
     if hashlib.sha256(raw).hexdigest() != BASE_SHA256:
         raise ValueError('Refusing changed live base or repeated patch')
     text = raw.decode('utf-8')
@@ -31,8 +33,17 @@ def build(raw, catalogue_path=None):
     catalogue = json.loads(Path(catalogue_path).read_text())
     if catalogue.get('schema') != 1 or catalogue.get('author') != 'Andrew Fisher' or not catalogue.get('sources') or not catalogue.get('rows'):
         raise ValueError('Invalid private review catalogue')
-    encoded = json.dumps(catalogue, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
-    text = rep(text, 'const DATA = {', 'const DATA = {"fence_ccb_review847":' + encoded + ',', 'Category review catalogue', 'v8.47')
+    corrections_path = corrections_path or os.environ.get('FENCE_CCB847_CORRECTIONS')
+    if not corrections_path:
+        raise ValueError('A private exact source-correction manifest is required')
+    manifest = json.loads(Path(corrections_path).read_text())
+    data = json_value(text, 'const DATA = ')[0]
+    review = json_value(text, 'const FENCE_REVIEW836 = ')[0]
+    trace = json_value(text, 'const FENCE_TRACE837 = ')[0]
+    data, review, trace, catalogue = apply_corrections(data, review, trace, catalogue, manifest, BASE_SHA256)
+    text = replace_json_value(text, 'const DATA = ', {'fence_ccb_review847': catalogue, **data})
+    text = replace_json_value(text, 'const FENCE_REVIEW836 = ', review)
+    text = replace_json_value(text, 'const FENCE_TRACE837 = ', trace)
     old_ui = resolved_day(read('v8.46_one_box_per_group_LIVE/today_work846_src.js'))
     additions = '\n\n'.join((ROOT / name).read_text() for name in ['fencing_classification847_src.js', 'fencing_metrics847_src.js', 'work_summary847_src.js', 'fencing_ui847_src.js', 'fencing_other_views847_src.js'])
     text = rep(text, old_ui, additions + '\n\n' + resolved_day((ROOT / 'today_work847_src.js').read_text()), 'Today certainty and installation scope', 'v8.47')
@@ -73,7 +84,7 @@ def build(raw, catalogue_path=None):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        raise SystemExit('Usage: patch_v847.py WORKING_COPY.html (requires FENCE_CCB847_INPUT)')
+        raise SystemExit('Usage: patch_v847.py WORKING_COPY.html (requires FENCE_CCB847_INPUT and FENCE_CCB847_CORRECTIONS)')
     file = Path(sys.argv[1])
     file.write_bytes(build(file.read_bytes()))
-    print('Installation and category evidence corrected; native pricing and records preserved.')
+    print('Source-supported CCB categories corrected; recorded metres, native rates and pricing functions preserved.')

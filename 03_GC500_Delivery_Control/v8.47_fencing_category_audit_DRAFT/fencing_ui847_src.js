@@ -12,7 +12,7 @@ function fenceCcbDetail847(d) {
 function fenceCcbOverview847() {
   const rows = allDockets().filter(d => d.usable), summary = fenceCcbSummary847(rows);
   if (!summary.rows.length) return '';
-  return '<p class="fp-book-note" data-tw847-category-overview><b>Crowd-control barriers (CCB)</b> are separate from temporary fence. Event and Demarcation are usage categories; Event does not mean all fencing for the race.' + (summary.pendingCount ? ' <b>' + esc(fmtQty(summary.pendingMetres, 'm')) + '</b> across ' + summary.pendingCount + ' dockets need category review. Their metres stay in the recorded total; category completion and remaining quantities are unconfirmed.' : ' Current CCB category reviews are confirmed.') + '</p>';
+  return '<p class="fp-book-note" data-tw847-category-overview><b>Crowd-control barriers (CCB)</b> are separate from temporary fence. Event and Demarcation are usage categories; Event does not mean all fencing for the race.' + (summary.pendingCount ? ' <b>' + esc(fmtQty(summary.pendingMetres, 'm')) + '</b> across ' + summary.pendingCount + (summary.pendingCount === 1 ? ' docket needs' : ' dockets need') + ' category review. Their metres stay in the recorded total; category completion and remaining quantities are unconfirmed.' : ' Current CCB category reviews are confirmed.') + '</p>';
 }
 function fenceCcbWeekLine847(line, week) {
   const key = line.column || line.key;
