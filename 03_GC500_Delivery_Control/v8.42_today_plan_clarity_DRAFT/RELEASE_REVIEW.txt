@@ -1,14 +1,17 @@
 Author: Andrew Fisher
 GC500 v8.42 — clear totals, percentages and programme position
 
-DRAFT. Candidate phone layout and post-print scroll checks remain open.
+READY TO UPLOAD, 4 Oct 2026. Final candidate checks are complete.
 Owner: Codex. Claude remains intentionally paused. The separate steering-wheel
-film is held and excluded. No publication is claimed by this draft review.
+film is held and excluded. READY is not a claim that the candidate is live.
 
 Base v8.41 SHA256:
 59088bb3da40fe01a2db224a538ebd010b26933d4a0c000969c744f9a30c2457
 Initial implementation checkpoint: d6e8c188.
-Final source, candidate identity and verification will be recorded at freeze.
+Final implementation checkpoint: 4f40fbdf.
+Candidate SHA256:
+d3495d9221414c8997d8962fc83031b86b10b500458c9e477197926b337d154a
+10,600,482 bytes. Model 9fb0d5e9; UI 9320cab6; CSS 9958bf7b.
 
 Resulting behaviour
 - Today retains its motorsport housing with wider laptop instruments. Total,
@@ -44,11 +47,41 @@ Laptop, phone and 4K checks cover detail links, dates, motion, print, focus and
 scroll. Final desktop and phone navigation sweeps and actual-public checks are
 required before calling this release verified live.
 
+Preservation and final verification
+- Standard build: eleven inline scripts parse, required page and secret checks
+  pass. All 42 exact source/preservation checks pass on the final candidate.
+- All 26 model checks and the 13 renderer checks pass. The 29 selected-source-date
+  provisional UI checks are bound by unchanged-component proof: only Today UI
+  and CSS changed after candidate 07fa8e8d; its metric adapter is unchanged.
+- Final four-view browser suite: 2053/2054 assertions passed. The sole failure
+  sampled focus before the native dialog-close event. Five same-byte focused
+  repetitions prove correct return focus after that event and stable focus and
+  scroll afterwards: 16/16 checks pass. The test now awaits the actual event;
+  product bytes did not change. The original raw result is retained.
+- The scroll correction passes 48/48 focused checks: fresh and post-print
+  refresh, real wheel input, pointer/key/touch cancellation, programmatic
+  detail opening, native tab navigation and subsequent normal refresh.
+- Independent exact-final visual review passes both laptop widths, phone and
+  3840px. Root inspected the final phone Toilet and laptop Fencing captures.
+  Labels and percentages are sharp, and summary quantities and plan headlines
+  fit each category's landing view. Extra detail remains available by scrolling.
+- Final desktop and phone navigation sweeps each pass 22 routes, seven direct
+  links and Back navigation, with exact candidate bytes, expected route guards
+  only, zero runtime/console errors and no operational write attempts.
+
 Findings retained
-Initial candidate 07fa8e8d passed the laptop summary-layout checks. Five phone
-cards placed the plan headline below the initial visible card area. A separate
-4K print/refresh scroll finding is under investigation. Original reports and
-screenshots are retained; these failures are not described as passed checks.
+Initial candidate 07fa8e8d passed 2046/2054 browser checks. Five phone cards put
+plan headlines below the initial visible area; the compact phone layout now
+passes those same assertions. Three related 4K checks exposed a temporary scroll
+range clamp during native packing. A bounded retry restores only that clamped
+position, stops on user input, navigation or modal changes, and expires before
+any late write. The final full suite passes all eight formerly failing checks.
+
+The remaining final-suite dialog assertion was an event-timing race: in one
+focused repetition, motion resumed before the native close event restored
+focus. Waiting for the actual event verified the correct behaviour. Original
+failures and corrected checks remain in private evidence; no unrun repeat is
+represented as a full-suite pass.
 
 Release boundaries
 Tests block operational writes. No live records, financial model, backend,

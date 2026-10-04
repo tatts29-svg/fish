@@ -1,8 +1,8 @@
 Author: Andrew Fisher
 GC500 v8.42 — clear totals, percentages and programme position
 
-FROZEN DRAFT, 4 Oct 2026. Final browser and navigation checks in progress.
-Owner: Codex. Not ready or live; Claude remains intentionally paused.
+READY TO UPLOAD, 4 Oct 2026. Final candidate verification is complete.
+Owner: Codex. Ready is not live; Claude remains intentionally paused.
 
 Andrew requests readable laptop instruments with total, done, left, percentage
 and ahead/behind visible, including all supported fencing work and useful Toilet
@@ -25,7 +25,9 @@ Base SHA256:
 Candidate SHA256:
 d3495d9221414c8997d8962fc83031b86b10b500458c9e477197926b337d154a
 10,600,482 bytes. Standard eleven-script build,26 model checks,13 renderer checks
-and42 source/preservation checks pass. Final actual-page checks are in progress.
+and 42 source/preservation checks pass. Final browser 2053/2054 plus the 16/16
+close-event probe resolve the sole timing assertion. Scroll/takeover 48/48,
+both navigation sweeps and independent visual review pass. See RELEASE_REVIEW.txt.
 
 Native records, financial models, Timeline stages/printing, media and maps remain
 unchanged. Tests block operational writes. Private records and photographs remain
@@ -33,4 +35,4 @@ outside Git. Existing steering-wheel film remains held and excluded.
 
 Final phone summary is compact with unchanged readable labels. A bounded scroll
 restoration handles temporary layout shrinkage during refresh and yields to user
-input or navigation. Final candidate browser checks are in progress.
+input or navigation. Guarded upload and actual-public checks are next.
