@@ -201,8 +201,10 @@ var TodayWork840 = (() => {
     if (!node) return;
     node.querySelector('h3')?.focus({preventScroll:true});
     const nav = board()?.querySelector('.tw840-nav'), inset = (nav?.getBoundingClientRect().height || 0) + 20;
-    if (main) main.scrollTo({top:main.scrollTop + node.getBoundingClientRect().top - main.getBoundingClientRect().top - inset, behavior:motionOff() ? 'instant' : 'smooth'});
-    else node.scrollIntoView({block:'start', behavior:motionOff() ? 'instant' : 'smooth'});
+    // A record refresh can interrupt a smooth scroll before it reaches this category.
+    // Land once in the native scroll pane; subsequent refreshes preserve this position.
+    if (main) main.scrollTo({top:main.scrollTop + node.getBoundingClientRect().top - main.getBoundingClientRect().top - inset, behavior:'instant'});
+    else node.scrollIntoView({block:'start', behavior:'instant'});
   }
   function onClick(event) {
     const target = event.target instanceof Element ? event.target : null;

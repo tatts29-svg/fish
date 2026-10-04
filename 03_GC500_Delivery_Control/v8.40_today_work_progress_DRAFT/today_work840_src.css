@@ -2,6 +2,8 @@
 #gc500-work-board840, #gc500-work-dialog840 { --tw840-complete:#b3f5d1; --tw840-remaining:#ffc18a; --tw840-ink:#f1f7f5; --tw840-muted:#b8c9cd; box-sizing:border-box; }
 #gc500-work-board840 *, #gc500-work-dialog840 * { box-sizing:border-box; }
 #gc500-work-board840 { container-type:inline-size; container-name:work840; margin:0 0 24px; min-width:0; }
+/* The native pane entry effect would translate the whole board on every record refresh. */
+#pane-today > #gc500-work-board840 { animation:none; }
 #gc500-work-board840 button, #gc500-work-dialog840 button { font-family:inherit; cursor:pointer; min-height:44px; }
 #gc500-work-board840 svg, #gc500-work-dialog840 svg { fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
 #gc500-work-board840 .tw840-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }

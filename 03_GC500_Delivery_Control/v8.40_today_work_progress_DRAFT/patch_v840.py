@@ -34,6 +34,9 @@ def build(raw):
     updated = "function renderToday(){ const kept840 = TodayWork840.capture(); return holdAssets(() => { wwaHome793(); const r = renderToday_held(); wwaEmbed793(); pack795(); TodayWork840.restore(kept840); return r; }); } /* v8.40 - preserve main scroll and instrument focus across record redraws */"
     text = rep(text, wrapper, metric + '\n\n' + ui + '\n\n' + updated,
                'Today model, instruments and lifecycle', 'v8.40')
+    text = rep(text, 'function render(){ const r = holdAssets(renderPass); tblFocusSoon(); return r; }',
+               "function render(){ const kept840 = state.tab === 'today' ? TodayWork840.capture() : null; const r = holdAssets(renderPass); tblFocusSoon(); if (kept840) TodayWork840.restore(kept840); return r; } /* v8.40 - restore after capability and layout postprocessing */",
+               'Today full-render scroll continuity', 'v8.40')
     start = text.index('function renderToday_held(){')
     end = text.index('/* ------------------------------------------------------------------ map */', start)
     scope = text[start:end]
