@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-v8.38 — fencing source completion — READY TO UPLOAD
+v8.38 — fencing source completion — VERIFIED LIVE
 
 Owner: Codex. Claude remains intentionally paused; this is an independent release with source, map and preservation reviews completed by additional Codex agents.
 Implementation commit: 64f19550.
@@ -25,4 +25,11 @@ The first candidate put new plan references in a source category the child map r
 Limits
 Area markers locate representative source areas; they are not surveyed points or exact fence lines. Existing unresolved source differences remain visible. Source review is not a formal financial audit. Browser checks use emulated desktop/phone layouts; physical-device verification is not claimed. The separate v8.35 steering-wheel film remains a draft and must rebuild on the resulting live host.
 
-Current state: READY TO UPLOAD. Guarded publication and actual-public verification are still required before calling this release live.
+Publication and public verification
+Guarded host upload succeeded at 14:20 AEST, 4 Oct 2026, from public READY checkpoint 6441569d. The public view serves exactly 400bb272d392322ad5a615fa23b83d724d38bc15811b0cde242377b0c5777929, 10,429,572 bytes. The whole machine manifest and authenticated inventory remain unchanged, including unlisted private server blobs. The healthy server is v5.87; no backend deployment. All 33 shared operational collections and record version 3739 remained unchanged.
+
+Actual-public coverage is 154/154 across the completed phone sequence and full desktop repeat. Both browser sessions received exact public host bytes with no local HTML or asset override and attempted no operational writes. No page or console errors occurred. Root inspected the final live phone and desktop images.
+
+The initial public desktop run timed out on its first keyboard area selection. Fresh instrumented first-entry, warm and six-second focus checks passed. A deliberately forced map refresh replaced the focused button and reproduced lost keyboard focus; this shows a possible mechanism but does not establish the cause of the original uninstrumented timeout. The full desktop sequence then passed without changing its interaction or retrying automatically. The initial result remains in private evidence as an intermittent timing limitation; a permanent product defect or physical-device outcome is not claimed.
+
+Current state: VERIFIED LIVE within the checks and limitations above. The separate steering-wheel film remains a draft.
