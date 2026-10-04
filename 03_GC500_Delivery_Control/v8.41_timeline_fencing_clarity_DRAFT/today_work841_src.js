@@ -69,6 +69,11 @@ var TodayWork840 = (() => {
     if (!destination?.tab) return '';
     return '<button type="button" class="tw841-group-link" data-tw840-destination="' + escape(destination.tab) + '" data-tw840-group="' + escape(destination.group || '') + '" data-tw840-focus="' + escape(token) + '">' + escape(label) + ' ' + arrow + '</button>';
   }
+  function onSitePercentage(group) {
+    const summary = group.summary || {}, types = group.types || [];
+    const known = types.length > 0 && types.every(type => type.quantityKnown) && number(summary.onSite) && summary.onSite >= 0 && number(summary.total) && summary.total > 0;
+    return known ? format(summary.onSite / summary.total * 100) + '% on site' : 'On-site percentage unconfirmed';
+  }
   function groupSection(group, id, showAggregate) {
     const summary = group.summary || {}, token = id + '-group-' + group.id;
     const types = (group.types || []).map(type => {
@@ -77,7 +82,7 @@ var TodayWork840 = (() => {
       return '<section class="tw841-type" data-tw841-type="' + escape(type.name) + '"><h5>' + escape(type.name) + '</h5><p class="tw841-type-unit">' + escape(type.unit) + '</p><p class="tw841-type-percent" data-known="' + String(!!known) + '">' + escape(percentage) + '</p><dl class="tw841-type-values">' + groupReading('Total', type.total, '', 'total') + groupReading('On site', type.onSite, '', 'onSite') + groupReading('Complete', type.complete, '', 'complete') + groupReading('Left to complete', type.remaining, '', 'remaining') + '</dl>' + groupNotes(type.issues) + '</section>';
     }).join('');
     const exclusions = (group.excluded || []).length ? '<div class="tw841-exclusions"><h5>Outside the order total</h5>' + group.excluded.map(row => '<p><button type="button" class="tw841-group-reference" data-tw840-reference="' + escape(row.key) + '" data-tw840-focus="' + escape(token + '-excluded-' + row.key) + '">' + escape(row.key) + '</button> ' + escape(row.name) + ' · ' + escape(row.reason) + '</p>').join('') + '</div>' : '';
-    return '<section class="tw841-native-group" data-tw841-group-id="' + escape(group.id) + '"><h4>' + escape(group.name) + '</h4>' + (showAggregate ? '<p class="tw841-onsite"><strong>' + format(summary.onSite) + '</strong> on site / ' + format(summary.total) + ' ' + escape(group.unit) + '</p>' : '') + types + '<h5 class="tw841-subheading">Schedule position</h5><dl class="tw841-type-values tw841-schedule-values">' + groupReading('Due by selected day', summary.due, group.unit, 'due') + groupReading('Overdue', summary.overdue, group.unit, 'overdue') + groupReading('Next' + (number(summary.nextDays) ? ' ' + format(summary.nextDays) + ' days' : ''), summary.next, group.unit, 'next') + groupReading('No delivery record', summary.noRecord, group.unit, 'noRecord') + '</dl>' + groupFacts(group.facts) + groupNotes([...(group.notes || []), ...(group.issues || [])]) + exclusions + groupDestination(group.drilldown, 'Open Equipment · ' + group.name, token + '-destination') + '</section>';
+    return '<section class="tw841-native-group" data-tw841-group-id="' + escape(group.id) + '"><h4>' + escape(group.name) + '</h4>' + (showAggregate ? '<p class="tw841-onsite"><strong>' + format(summary.onSite) + '</strong> on site / ' + format(summary.total) + ' ' + escape(group.unit) + ' · ' + escape(onSitePercentage(group)) + '</p>' : '') + types + '<h5 class="tw841-subheading">Schedule position</h5><dl class="tw841-type-values tw841-schedule-values">' + groupReading('Due by selected day', summary.due, group.unit, 'due') + groupReading('Overdue', summary.overdue, group.unit, 'overdue') + groupReading('Next' + (number(summary.nextDays) ? ' ' + format(summary.nextDays) + ' days' : ''), summary.next, group.unit, 'next') + groupReading('No delivery record', summary.noRecord, group.unit, 'noRecord') + '</dl>' + groupFacts(group.facts) + groupNotes([...(group.notes || []), ...(group.issues || [])]) + exclusions + groupDestination(group.drilldown, 'Open Equipment · ' + group.name, token + '-destination') + '</section>';
   }
   function groupMoney(card) {
     const currency = value => number(value) ? value.toLocaleString('en-AU', {style:'currency', currency:'AUD', maximumFractionDigits:2}) : 'Not yet priced';
@@ -92,7 +97,7 @@ var TodayWork840 = (() => {
   function groupFold(area) {
     const card = groupDetails?.[area.id]; if (!card) return '';
     const groups = card.groups || [], one = groups.length === 1 ? groups[0] : null;
-    const subtitle = !card.health?.ready ? card.health?.basis || 'Loading group records' : area.id === 'fencing' ? 'Whole programme, areas and costs' : one ? format(one.summary.onSite) + ' / ' + format(one.summary.total) + ' ' + one.unit + ' on site' : groups.length ? format(groups.length) + ' equipment groups · separate quantities' : 'Recorded quantities and financial scope';
+    const subtitle = !card.health?.ready ? card.health?.basis || 'Loading group records' : area.id === 'fencing' ? 'Whole programme, areas and costs' : one ? format(one.summary.onSite) + ' / ' + format(one.summary.total) + ' ' + one.unit + ' on site · ' + onSitePercentage(one) : groups.length ? format(groups.length) + ' equipment groups · separate quantities' : 'Recorded quantities and financial scope';
     return '<details class="tw841-group-details" data-tw841-group-card="' + escape(area.id) + '"' + (groupFolds.get(area.id) || printing ? ' open' : '') + '><summary data-tw840-focus="' + escape(area.id + '-group-fold') + '"><span>By type and costs</span><small>' + escape(subtitle) + '</small></summary><div class="tw841-group-content"><p class="tw841-group-note">' + escape(card.basis) + '</p>' + groups.map(group => groupSection(group, area.id, groups.length !== 1)).join('') + programmeDetails(card) + groupFacts(card.facts) + groupMoney(card) + groupNotes([...(card.notes || []), ...(card.issues || [])]) + '</div></details>';
   }
   function card(area) {

@@ -75,8 +75,10 @@ function todayGroupDetails841(asOf, workAreas) {
           quantityKnown: true, completionKnown: true, noQuantityLines: 0, keys: [], issues: [],
           basis: 'Schedule total and on-site count use the native item reading. Complete is the known item quantity on references marked Complete.'};
         const lines = r.cls.filter(l => l.item === item), quantities = lines.map(l => qtyOf(l));
-        const known = quantities.length > 0 && quantities.every(q => finite(q) && q >= 0);
-        const quantity = quantities.reduce((n, q) => n + (finite(q) && q >= 0 ? q : 0), 0);
+        const physicalUnitKnown = name !== 'Track mat';
+        const validQuantity = q => physicalUnitKnown && finite(q) && q >= 0 && Number.isInteger(q);
+        const known = quantities.length > 0 && quantities.every(validQuantity);
+        const quantity = quantities.reduce((n, q) => n + (validQuantity(q) ? q : 0), 0);
         const matchedShort = !!r.d.done && shorts.some(s => s.item === item);
         // Main instrument completion is deliberately conservative for physical-item conflicts.
         const main = progress.get(r.a.key);
@@ -86,12 +88,15 @@ function todayGroupDetails841(asOf, workAreas) {
         type.onSite += r.onBy.get(item) || 0;
         type.knownQuantity += quantity;
         type.quantityKnown = type.quantityKnown && known;
-        type.completionKnown = type.completionKnown && !conflict && (!r.d.done || known);
+        type.completionKnown = type.completionKnown && physicalUnitKnown && !conflict && (!r.d.done || known);
         if (r.d.done && !conflict) type.knownComplete += quantity;
         type.noQuantityLines += lines.filter(l => l.quantity == null).length;
         type.keys.push(r.a.key);
         if (conflict) type.issues.push(r.a.key + ': Complete recorded with a short-delivery conflict; quantity requires review.');
-        if (!known) type.issues.push(r.a.key + ': quantity unconfirmed; no one-unit completion is inferred.');
+        if (!physicalUnitKnown) {
+          type.basis = 'Native schedule and on-site quantities retain their unresolved unit. No physical completion quantity is inferred until mats versus metres is resolved.';
+          type.issues.push(r.a.key + ': mats versus metres is unconfirmed; physical completion and remaining quantities are unavailable.');
+        } else if (!known) type.issues.push(r.a.key + ': whole-unit quantity unconfirmed; no fractional or one-unit completion is inferred.');
         byType.set(item, type);
       }
     }

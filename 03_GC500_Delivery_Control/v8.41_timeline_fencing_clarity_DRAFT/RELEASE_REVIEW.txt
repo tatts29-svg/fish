@@ -89,3 +89,19 @@ Frozen composed candidate:
 Group adapter synthetic checks 14/14 pass. Earlier unchanged model results are
 retained; final composed browser/navigation and actual-public checks remain
 pending. This is not a READY or LIVE declaration.
+
+Final percentage correction, 4 October 2026:
+Final SHA256 59088bb3da40fe01a2db224a538ebd010b26933d4a0c000969c744f9a30c2457,
+10,571,474 bytes. Standard eleven-script checks and all 35 preservation checks
+pass. Group model is now 16/16, including fractional physical quantities and the
+unresolved Trackmat metres-versus-mats basis. On-site percentage is labelled
+separately from Complete. No percentage is invented for unknown quantities.
+
+Exact byte-replacement proof shows this differs from 701cc188 only in the group
+adapter and Today presentation JavaScript. Timeline, supplier integration, CSS,
+other page components and operational data are identical. Timeline stage55,
+native print15, supplier31, Timeline browser70, Finished/focus5 and supplier
+browser21 checks passed on 701cc188 and are retained through that identity proof.
+Both earlier navigation sweeps passed; final Today and repeat navigation checks
+are in progress on 59088bb3. Private original failures and subsequent corrections
+remain retained. No READY or LIVE claim is made until final checks finish.

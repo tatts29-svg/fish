@@ -70,6 +70,24 @@ test('missing native schedule quantities never become one unit of completion',()
   const t=fixture({rows:[r]}).result.toilets.groups[0].types[0];
   assert.equal(t.total,1);assert.equal(t.complete,null);assert.equal(t.remaining,null);assert.equal(t.noQuantityLines,1);
 });
+test('fractional physical quantities retain native totals without entering completion counts',()=>{
+  for (const [product,disc,item,group] of [['Portable Building','Portable buildings','Building','Portable buildings'],
+    ['Toilet','Toilets & amenities','Toilet','Toilets & amenities'],['Generator','Generators','Generator','Generators'],
+    ['Light Tower','Lighting towers','Light tower','Lighting towers'],['Access','Access & plant','Forklift','Forklifts & access']]) {
+    const r=row('SYN_FRACTION',product,disc,item,1.5,{d:{done:true}});
+    const t=fixture({rows:[r]}).group(group).types[0];
+    assert.equal(t.total,1.5);assert.equal(t.quantityKnown,false);assert.equal(t.knownQuantity,0);
+    assert.equal(t.complete,null);assert.equal(t.remaining,null);assert.equal(t.knownComplete,0);
+  }
+});
+test('track mat never presents unresolved schedule units as physical completion',()=>{
+  for (const done of [false,true]) {
+    const r=row('SYN_MAT','Trakmat','Ground protection','Track mat',8,{d:{done},onBy:new Map([['Track mat',5]]),unitsOn:5});
+    const t=fixture({rows:[r]}).group('Track mat').types[0];
+    assert.equal(t.total,8);assert.equal(t.onSite,5);assert.equal(t.complete,null);assert.equal(t.remaining,null);
+    assert.equal(t.quantityKnown,false);assert.match(t.basis,/unresolved unit/);
+  }
+});
 test('physical Complete conflict matches instrument while accessory short remains separate',()=>{
   const r=row('SYN_B','Portable Building','Portable buildings','Building',2,{d:{done:true},
     cls:[{item:'Building',quantity:2},{item:'Chair',quantity:4}],asked:6,askedBy:new Map([['Building',2],['Chair',4]])});
