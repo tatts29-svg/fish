@@ -1,8 +1,8 @@
 Author: Andrew Fisher
 GC500 v8.42 — clear totals, percentages and programme position
 
-READY TO UPLOAD, 4 Oct 2026. Final candidate verification is complete.
-Owner: Codex. Ready is not live; Claude remains intentionally paused.
+VERIFIED LIVE, 4 Oct 2026. Published at 22:37 AEST; public checks complete.
+Owner: Codex. Claude remains intentionally paused.
 
 Andrew requests readable laptop instruments with total, done, left, percentage
 and ahead/behind visible, including all supported fencing work and useful Toilet
@@ -35,4 +35,6 @@ outside Git. Existing steering-wheel film remains held and excluded.
 
 Final phone summary is compact with unchanged readable labels. A bounded scroll
 restoration handles temporary layout shrinkage during refresh and yields to user
-input or navigation. Guarded upload and actual-public checks are next.
+input or navigation. Guarded upload and actual-public 906/906 checks pass on both laptops, phone
+and 4K. Exact public bytes and all 33 unchanged record collections verified.
+Implementation 4f40fbdf; READY 46447c90. Reload existing tabs once for v8.42.

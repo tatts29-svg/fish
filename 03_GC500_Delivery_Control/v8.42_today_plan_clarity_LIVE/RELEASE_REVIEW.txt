@@ -1,9 +1,9 @@
 Author: Andrew Fisher
 GC500 v8.42 — clear totals, percentages and programme position
 
-READY TO UPLOAD, 4 Oct 2026. Final candidate checks are complete.
+VERIFIED LIVE, 4 Oct 2026. Published at 22:37 AEST; public checks complete.
 Owner: Codex. Claude remains intentionally paused. The separate steering-wheel
-film is held and excluded. READY is not a claim that the candidate is live.
+film is held and excluded. READY checkpoint: 46447c90. Actual public content matches the frozen candidate.
 
 Base v8.41 SHA256:
 59088bb3da40fe01a2db224a538ebd010b26933d4a0c000969c744f9a30c2457
@@ -89,3 +89,22 @@ media or map deployment is part of this frontend change. Private snapshots,
 commercial values, source photographs and browser captures remain outside Git.
 Publication must use the standard unchanged-base guard, exact public readback,
 actual-public browser checks and before/after shared-record comparisons.
+
+Publication and actual-public verification
+The standard upload_page.py confirmed the unchanged live base, edit capability,
+existing media registry and exact public readback. No force override was used.
+Published 4 Oct 2026 at 22:37 AEST, 10,600,482 bytes, full SHA256 as above.
+
+Actual-public checks pass 906/906 across 1366x768, 1280x800, 390x844 DPR2 and
+3840x2160. Upstream bytes and Chromium's documented BOM-normalised body match
+in every view, with zero local HTML substitutions, runtime errors, unexpected
+console errors or operational write attempts. Quantities, percentages, dated
+plan positions and compact first-view layout are checked against native inputs.
+Root inspected the actual-public phone Toilet view.
+
+All 33 shared-record collections and the record version match before integration,
+immediately before publication, after upload and after public checks. No backend,
+media, map or operational-record deployment occurred. Existing tabs need one reload
+to receive v8.42. The separate film remains held. Claude remains intentionally
+paused; independent review here was within the Codex team. Physical-device
+perfection is not claimed. Source folder is now LIVE; private evidence stays private.
