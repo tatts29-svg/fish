@@ -1,9 +1,9 @@
 Author: Andrew Fisher
 GC500 v8.48 — collapsible groups and reconciled fencing readings
-State: DRAFT; candidate built, final browser verification in progress.
+State: READY TO UPLOAD.
 Candidate SHA-256: 5d786af57e3986fc912cf34d33f094566a41836ee88a1160f5a3dab05e339a47
 Standard build, 80 preservation checks, 22 model checks and 48 independent
-source-oracle comparisons pass. Final interactive browser checks remain running.
+source-oracle comparisons pass. Candidate browser checks and both final navigation sweeps pass; see RELEASE_REVIEW.txt.
 
 All six Today groups, including Fencing, use the same native open/close control.
 The selected LED instruments, large headings and motion remain inside each group.

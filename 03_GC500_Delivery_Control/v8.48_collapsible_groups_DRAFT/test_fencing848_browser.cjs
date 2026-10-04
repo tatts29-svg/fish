@@ -169,12 +169,13 @@ function reading(row,mode){
  }
  return fmt(row[mode])+(mode==='pct'&&known(row[mode])?'%':'');
 }
+function validTableHeadings(rows,board){return rows.length===8&&same(rows.map(r=>r.id),board.rows.map(r=>r.id))&&board.headers.length===5&&/Total/i.test(board.headers[1])&&/Recorded|Done/i.test(board.headers[2])&&/Left/i.test(board.headers[3]);}
 async function assertNumbers(page,check,label,model,out){
  const rows=model.summary.fencingRows.filter(r=>r.kind!=='recorded-only');
  const board=await page.locator('[data-tw847-fence-summary]').evaluate(table=>({text:table.innerText,headers:[...table.querySelectorAll('thead th')].map(n=>n.innerText),
   rows:[...table.querySelectorAll('[data-tw847-fence-summary-row]')].map(row=>({id:row.dataset.tw847FenceSummaryRow,text:row.innerText,
    values:Object.fromEntries([...row.querySelectorAll('[data-tw847-fence-value]')].map(button=>[button.dataset.tw847FenceValue,{text:button.querySelector('strong')?.textContent,rect:button.getBoundingClientRect().toJSON(),rangeMin:button.querySelector('[data-tw848-range-min]')?.dataset.tw848RangeMin,rangeMax:button.querySelector('[data-tw848-range-max]')?.dataset.tw848RangeMax,hook:button.dataset.tw840FenceDetail,aria:button.getAttribute('aria-label')}]))}))}));
- check(label+' open Fencing shows every programme work type once and every Total Recorded Left percentage',rows.length===8&&same(rows.map(r=>r.id),board.rows.map(r=>r.id))&&board.headers.length===5&&/Total/.test(board.headers[1])&&/Recorded|Done/.test(board.headers[2])&&/Left/.test(board.headers[3]),board);
+ check(label+' open Fencing shows every programme work type once and every Total Recorded Left percentage',validTableHeadings(rows,board),board);
  for(const row of rows){
   const shown=board.rows.find(r=>r.id===row.id);
   check(label+' '+row.id+' quantities and bounds match its own model and unit',shown&&['total','done','left','pct'].every(mode=>shown.values[mode]?.text===reading(row,mode)&&shown.values[mode]?.hook===row.id),{row,shown});
@@ -275,5 +276,14 @@ async function run(){
   console.log(JSON.stringify({passed:report.passed,total:report.total,out:OUT}));if(report.passed!==report.total)process.exitCode=1;
  }
 }
-module.exports={readModel,viewState,assertDisclosures};
-if(require.main===module)run().catch(error=>{console.error(error.message);process.exitCode=2;});
+function replayHeaders(){
+ const sourceBytes=fs.readFileSync(process.env.REPLAY_HEADERS),original=JSON.parse(sourceBytes),candidateBytes=fs.readFileSync(process.env.PAGE);
+ if(original.candidate!==sha(candidateBytes))throw Error('Captured source and current candidate differ');
+ const checks=original.views.map(view=>({name:view.view.name+' corrected case-insensitive table heading contract',pass:validTableHeadings(view.model.summary.fencingRows.filter(r=>r.kind!=='recorded-only'),view.board),headers:view.board.headers,rows:view.board.rows.map(r=>r.id)}));
+ const unexpected=original.checks.filter(c=>!c.pass&&!c.name.endsWith('open Fencing shows every programme work type once and every Total Recorded Left percentage'));
+ const report={author:'Andrew Fisher',candidate:original.candidate,originalReportSha:sha(sourceBytes),scope:'Replays only the corrected case-insensitive heading predicate against the exact captured browser DOM and model. Original report is preserved.',checks,unexpectedOriginalFailures:unexpected.map(c=>c.name),passed:checks.filter(c=>c.pass).length,total:checks.length};
+ fs.writeFileSync(path.join(process.env.OUT,'heading-case-correction848.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({passed:report.passed,total:report.total,unexpectedOriginalFailures:report.unexpectedOriginalFailures}));
+ if(report.passed!==2||report.total!==2||unexpected.length)process.exitCode=1;
+}
+module.exports={readModel,viewState,assertDisclosures,validTableHeadings};
+if(require.main===module){if(process.env.REPLAY_HEADERS)replayHeaders();else run().catch(error=>{console.error(error.message);process.exitCode=2;});}
