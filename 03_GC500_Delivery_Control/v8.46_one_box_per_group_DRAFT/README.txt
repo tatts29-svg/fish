@@ -40,5 +40,13 @@ Navigation and run-sheet buttons open local explanations; they do not launch
 live maps, print or write Transit. Native production integration is still open.
 
 v8.45 a290469d remains the release base.
+Race-lamp refinement: Andrew rejected the paired round pods and requested the
+same dotted LED lamp faces as Timeline. The revised private Today option uses
+five native lamp geometries with red progress and five green lamps only for
+confirmed 100%. The large percentage stays and uses crisp red/green text;
+decorative glow stays on lamps. The separate finished illustration is labelled
+as an example, with no change to the record snapshot. This supersedes the
+earlier paired-pod proposal. Production integration remains pending the visual
+review; no production files have been built or uploaded.
 Codex owns this preview. Claude remains intentionally paused at dacf75dd;
 the separate film remains held/excluded. Private evidence stays outside Git.
