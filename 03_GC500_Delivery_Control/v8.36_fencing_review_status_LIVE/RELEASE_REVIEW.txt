@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-v8.36 — READY TO UPLOAD, 4 October 2026
+v8.36 — LIVE; phone visual follow-up open, 4 October 2026 10:58 AEST
 
 Implementation source: 5adbd4fa. Independent implementation/source review and browser verification completed; Claude remains intentionally paused and is not represented as a reviewer.
 Exact base v8.34: e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb.
@@ -11,4 +11,4 @@ Standard build/page checks passed. Portable JavaScript46/46, Python17/17 and leg
 
 The initial browser run found a test expectation that did not allow the standard author-name scrub; the test now allows only that exact transformation. An immediate phone screenshot had a transient paint artefact; settled repeat and bounds checks were clean. Prior evidence is retained privately. Two late explanatory text refinements were rebuilt; all140 runtime checks and both sweeps were repeated on the final bytes above.
 
-Guarded upload, exact public readback and actual-public smoke are pending. This file does not yet claim LIVE. Separate steering-wheel film and map-trace drafts must use this predecessor once published.
+READY checkpoint2d4a9597. Guarded upload and exact public readback passed at10:58AEST. Actual-public desktop/phone141/141 passed with raw and browser-delivered source identity, no HTML substitutions, zero page/console/HTTP errors or attempted writes, and financial/native parity. Public phone image has sequence-dependent leading-text clipping after book changes; initial isolated repeats were clean, but the repeated public sequence reproduces it. Visual diagnosis is open. All33 operational collections and record3739 unchanged; server remainsv5.87, no backend deployment. Private evidence and originals remain outside Git. The separate steering-wheel film and map-trace drafts must build on this exact live predecessor.

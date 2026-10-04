@@ -1,0 +1,45 @@
+{
+  "author": "Andrew Fisher",
+  "implementation_commit": "5adbd4fa",
+  "ready_commit": "2d4a9597",
+  "base_sha256": "e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb",
+  "live_sha256": "9bf3f47e089913c51a4fbd0bf8fdb20371dbdcd12cc64273e362c8132da5b9ad",
+  "files": {
+    "fencing_review836.css": {
+      "sha256": "c5ff0f827d4eae8c3f2ffc39d12fdb0159fee076c1e7188f2c793e6edd31db4c",
+      "bytes": 1210
+    },
+    "fencing_review836_src.js": {
+      "sha256": "3371189dfc5d70f9315dff7a13b3974edbdf3aa8d51045bbc8106d6880208ef4",
+      "bytes": 9630
+    },
+    "README.txt": {
+      "sha256": "7fd482cb6790e29e3d1d21e164982a2cc56e79684f459e97162f811e20300303",
+      "bytes": 3807
+    },
+    "patch_v836.py": {
+      "sha256": "f8401a88023dceca37403c2a90543ebc5b6b060c2ee46cbc86df545df2705371",
+      "bytes": 1526
+    },
+    "RELEASE_REVIEW.txt": {
+      "sha256": "9c006d4a37bbb50c97089b6bf27a737fc46c148e6de25cd9519cfa3b62ef41a3",
+      "bytes": 2628
+    },
+    "fencing_review836.py": {
+      "sha256": "1652b8de479cb5b69546be82c6cb89de71b2dd9839e6509071ee4b6cedaff843",
+      "bytes": 10386
+    },
+    "tests/test_fencing_review836.py": {
+      "sha256": "0afe42107de22ca5726a9876bd007d223e50c8e71b86ddfc4c85574379caaf46",
+      "bytes": 11550
+    },
+    "tests/test_fencing_review836.cjs": {
+      "sha256": "e6ac270f916e7fcbfde6428e2cd77da7c792600c56a5a982e0e0d4d1fa31a255",
+      "bytes": 30312
+    },
+    "tests/review836_runtime.cjs": {
+      "sha256": "1220c369ae36aaf2e41aca7d6339aa9d0093c0cd9faef4b85b7aba5ebb252f71",
+      "bytes": 17355
+    }
+  }
+}
