@@ -36,3 +36,29 @@ readability. Standard desktop/phone sweeps and exact public verification follow.
 Tests block live operational writes. Private records, source values, photographs
 and browser evidence remain outside Git. Publication uses the unchanged-base
 guard and before/after shared-record fingerprints.
+
+Final candidate SHA256:
+5a19106be3a4877a2cd552432eb5870340c334d0e6dfe7adab1fad81300b4dcf
+10,674,380 bytes. Original candidate e37b1517 is superseded.
+
+Verification completed so far
+Standard build checks all 11 inline scripts. All 58 preservation checks pass.
+Reference adapter synthetic checks 22/22; fencing adapter 32/32.
+Original four-viewport native suite 3728/3733 passed. Four findings were the
+same supplier heading-focus defect, corrected on the final candidate. The
+remaining selected-day assertion incorrectly compared a date-qualified basis
+as though it were a status value; the corrected test compares the actual status
+fields and verifies the separate historical qualifier. Original results remain.
+Final targeted four-viewport run 166/170 passed all route/focus, photo-state,
+layout and replay checks. Its four new parent-count assertions used an absent
+conflict field. The unchanged authoritative group model defines review as
+recordedComplete && !complete, and includes known review quantity in the
+not-confirmed-complete total. The UI preserves that qualified calculation;
+it does not infer physically unfinished units. A narrow corrected assertion
+checks this model contract before release. No count formula changes.
+
+The captured native Complete test used an isolated in-memory copy and captured
+save boundary, then restored it. Today, native Timeline and Equipment read the
+same resulting reference status. All unrelated types and all shared collections
+remain unchanged. Live writes were blocked throughout. Current reference,
+map and photo evidence is labelled separately from selected-day quantities.

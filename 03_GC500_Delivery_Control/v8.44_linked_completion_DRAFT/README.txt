@@ -4,8 +4,8 @@ GC500 v8.44 — completion linked to items, locations and photographs
 BUILT DRAFT, 4 Oct 2026. Browser review is in progress; not ready or live.
 Codex owns implementation, verification and guarded publication.
 Base: v8.43 6b1c0c142e3633b9a05727f2279fcb5a549969e86191c82e3dc7776f6c7fefb7
-Candidate: e37b15171b4a6edc919e073f49800d5883e284b45b63b692c5e75443e57fafd2
-Candidate bytes: 10,673,892.
+Candidate: 5a19106be3a4877a2cd552432eb5870340c334d0e6dfe7adab1fad81300b4dcf
+Candidate bytes: 10,674,380.
 
 Completion and remaining figures open their exact item/reference scope,
 planned destinations, current shared status and available labelled photographs.
