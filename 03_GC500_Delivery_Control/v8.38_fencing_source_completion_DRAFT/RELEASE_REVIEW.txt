@@ -1,0 +1,28 @@
+Author: Andrew Fisher
+v8.38 — fencing source completion — READY TO UPLOAD
+
+Owner: Codex. Claude remains intentionally paused; this is an independent release with source, map and preservation reviews completed by additional Codex agents.
+Implementation commit: 64f19550.
+Base live v8.37: 7b4999508c0006c56cb580e448b89d2044f556da367684e094038342003544fd.
+Final candidate: 400bb272d392322ad5a615fa23b83d724d38bc15811b0cde242377b0c5777929, 10,429,572 bytes.
+Complete machine manifest retained: e1c9f62d090a8901539b9140a5d84217adab9702a98086c8608d03b47e4c70bf.
+
+Existing register and map cards gain verified source references and reviewed area links. Unmapped records can open their original plan context. A source link establishes neither measured fence extents nor completion or a cost allocation. Private original documents and detailed findings remain outside public Git.
+
+Verification
+- Standard build and page checks pass; 34 CPU tests pass.
+- Independent reviews accepted source identity, area registration, plain-English copy and displayed source-date qualifications. Creation dates are not silently described as work dates.
+- The unchanged child map core accepts all geometry. Existing task rows remain exact; newly recognised rows are already in the native schedule and receive no inferred completion or geometry.
+- Final desktop and phone integration: 151/151 pass, including reviewed-source availability, area selection, docket navigation, Back/camera retention, safe original links and exact financial-model preservation.
+- Both navigation sweeps: 22 tabs, seven deep links and Back; no page or console errors. Scoped interaction tests attempted no operational writes.
+- Root inspected desktop and phone screenshots on the final candidate.
+- Recorded quantities, commercial associations, financial calculations and operational records are unchanged. No additional private filesystem paths enter the host; pre-existing metadata is preserved.
+- Machine assets and backend are unchanged. Fresh read-only asset preflight preserved the complete registered union and private unlisted inventory.
+
+Findings resolved before readiness
+The first candidate put new plan references in a source category the child map rejects. The corrected source catalogue is tested against the actual unchanged child core. Visible date qualifications and readable source notes were then applied. A private Back test was corrected to compare camera centre, zoom, mode and frame identity; responsive view bounds can change without moving the camera. The private sweep validator initially expected every historical tab to render its own pane; comparison with the verified predecessor confirmed the intentional Equipment/Today and view-only redirects are unchanged. Earlier candidates and test failures remain in private evidence and are not described as release passes.
+
+Limits
+Area markers locate representative source areas; they are not surveyed points or exact fence lines. Existing unresolved source differences remain visible. Source review is not a formal financial audit. Browser checks use emulated desktop/phone layouts; physical-device verification is not claimed. The separate v8.35 steering-wheel film remains a draft and must rebuild on the resulting live host.
+
+Current state: READY TO UPLOAD. Guarded publication and actual-public verification are still required before calling this release live.

@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-v8.38 — reviewed fencing source completion — DRAFT
+v8.38 — reviewed fencing source completion — READY TO UPLOAD
 
 This guarded host patch extends existing reviewed-source associations and adds independently reviewed area anchors. Existing geometry, native records, financial calculations, purchase-order associations and source-review safeguards are preserved. The existing content-only map-to-register scroll handling remains intact.
 
@@ -16,4 +16,4 @@ python3 -m unittest discover -s tests -p 'test_*.py'
 node tests/source_context838.cjs
 node tests/explorer_sources838.cjs
 
-Current state: implementation is frozen after the standard build and passing synthetic checks. Affected browser, financial and native-state verification remains required before readiness. This folder is not a publication instruction.
+Current state: READY TO UPLOAD from implementation 64f19550. Final candidate 400bb272d392322ad5a615fa23b83d724d38bc15811b0cde242377b0c5777929. Standard checks, 34 CPU tests, final integration checks and both navigation sweeps pass. Root reviewed the phone presentation. See RELEASE_REVIEW.txt; publication and public verification remain pending.
