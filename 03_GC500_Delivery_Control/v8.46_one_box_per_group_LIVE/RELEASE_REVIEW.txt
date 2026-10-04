@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-GC500 v8.46 — READY TO UPLOAD
+GC500 v8.46 — VERIFIED LIVE, 5 Oct 2026 at 07:43 AEST
 
 One group instrument now contains the large title and qualified percentage,
 linked Total/Done/Left, and compact rows for every supported type. Red reached
@@ -9,9 +9,11 @@ Fencing keeps separate work units, percentages and dated plan comparisons.
 Timeline Option A groups larger reference/destination headings, native lamps,
 QR/navigation and the existing Progress/Print actions without changing scope.
 
-Implementation source:351b84530ecea1d4fd4e35bc2d7b70461181cace
+Implementation source: 351b84530ecea1d4fd4e35bc2d7b70461181cace
+READY checkpoint: 6ce91b67cddd24e76a9fe2485434bc79afaa3197
+Uploaded: 2026-10-04T21:43:08.663Z (5 Oct 2026 at 07:43 AEST)
 Base v8.45:a290469d9d14777ceca734d13b5f57f5da548206e15995f1bd288c851e541758
-Candidate:e176119c8ad29b8af472d8c740d66b0c20534284ebef260bd8cb9f682b5a4236
+Verified public SHA-256: e176119c8ad29b8af472d8c740d66b0c20534284ebef260bd8cb9f682b5a4236
 Bytes:10,705,568
 
 Checks: standard build;42 exact native/source preservation checks;21 native
@@ -36,7 +38,23 @@ Original test results are retained privately with their resolutions:
   before pointer auto-scroll. The actual native print-entry target is restored.
   Exact4K lifecycle24/24 and focused print6/6 pass with identical folds/records.
 
-Codex implemented, tested and independently reviewed this release. Claude remains
+Guarded upload verified the unchanged base and exact public readback. Actual-public
+Today checks pass 114/114 and Timeline checks pass 38/38 on laptop and phone.
+Upstream and browser HTML match the frozen candidate, accounting only for the
+browser's leading UTF-8 BOM removal; there are zero local HTML substitutions.
+All 33 shared-record collections are unchanged across publication. No operational
+writes or JavaScript errors occurred. Today has zero console errors. Timeline's
+only console entries are Google tile session POSTs deliberately blocked by the
+read-only test harness; these are not operational writes or release failures.
+
+The first public Timeline attempt produced no guarded captures because a toolchain
+override loaded another Playwright instance. It stopped before content checks.
+The diagnostic is retained. The shared release toolchain and a fail-fast instance
+check resolved the runner configuration; the subsequent 38/38 run verified the
+actual public page. Production code was unchanged.
+
+Codex implemented, tested, independently reviewed and published this release. Claude remains
 intentionally paused at unchanged dacf75dd; separate steering-wheel film held.
 Private records, quantities and captures stay outside Git. No server deployment
-or operational record change is part of this release. READY is not LIVE.
+or operational record change is part of this release. Server health remains OK
+on v5.87. Existing tabs need one reload to v8.46.

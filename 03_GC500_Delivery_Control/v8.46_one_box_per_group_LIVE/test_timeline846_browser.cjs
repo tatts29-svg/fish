@@ -1,16 +1,27 @@
 // Author: Andrew Fisher. Focused read-only Option A checks against native load data.
+// LIVE=1 reads actual public HTML with no local substitution and verifies its bytes.
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const {installWriteGuard,ready840,nativeSnapshot}=require('../v8.40_today_work_progress_LIVE/test_today840.cjs');
-const {open}=require(path.join(process.env.GC500_TOOLCHAIN||path.join(__dirname,'../toolchain'),'harness/open_page.js'));
+const harnessPath=path.join(process.env.GC500_TOOLCHAIN||path.join(__dirname,'../toolchain'),'harness/open_page.js');
+if(require('node:module').createRequire(harnessPath)('playwright').chromium!==require('playwright').chromium)throw Error('Guard and harness must use the same Playwright instance; use the shared release toolchain');
+const {open}=require(harnessPath);
 const {PAGE,OUT,CANDIDATE_SHA}=process.env;if(!PAGE||!OUT||!CANDIDATE_SHA)throw Error('PAGE, OUT and frozen CANDIDATE_SHA are required');
-const sha=value=>crypto.createHash('sha256').update(value).digest('hex');if(sha(fs.readFileSync(PAGE))!==CANDIDATE_SHA)throw Error('Candidate changed');
-fs.mkdirSync(OUT,{recursive:true});const guard=installWriteGuard(),report={author:'Andrew Fisher',sha:CANDIDATE_SHA,checks:[],views:[]};let session;
+const sha=value=>crypto.createHash('sha256').update(value).digest('hex'),candidateBytes=fs.readFileSync(PAGE),live=process.env.LIVE==='1',expectedUtf8Bom=candidateBytes.subarray(0,3).equals(Buffer.from([239,187,191]));if(sha(candidateBytes)!==CANDIDATE_SHA)throw Error('Candidate changed');
+fs.mkdirSync(OUT,{recursive:true});const guard=installWriteGuard(),report={author:'Andrew Fisher',sha:CANDIDATE_SHA,live,expectedBytes:candidateBytes.length,expectedUtf8Bom,checks:[],views:[]};let session;
 const check=(name,ok,evidence)=>{report.checks.push({name,ok:!!ok,evidence});if(!ok)console.log('FAIL '+name);};
 const save=()=>fs.writeFileSync(path.join(OUT,'timeline846.json'),JSON.stringify(report,null,2));
 (async()=>{try{
 for(const view of [{name:'laptop',W:1366,H:900},{name:'phone',W:390,H:844,dpr:2,mobile:true},{name:'4k',W:3840,H:2160}].filter(v=>!process.env.VIEWS||process.env.VIEWS.split(',').includes(v.name))){
-  session=await open({...view,pageFile:PAGE,hash:'#timeline'});const p=session.page;await ready840(p,false);
+  session=await open({...view,pageFile:live?undefined:PAGE,hash:'#timeline'});const p=session.page;
+  if(live){
+    const upstream=guard.fulfilledDocuments.at(-1),received=guard.documentResponses.at(-1),exact=upstream?.status===200&&upstream.sha===CANDIDATE_SHA&&upstream.bytes===candidateBytes.length,bomStripped=expectedUtf8Bom&&received?.sha===sha(candidateBytes.subarray(3))&&received.bytes===candidateBytes.length-3,browserMatches=received?.status===200&&((received.sha===CANDIDATE_SHA&&received.bytes===candidateBytes.length)||bomStripped);
+    check(view.name+' exact upstream public HTML matches frozen candidate bytes',exact,upstream);
+    check(view.name+' browser HTML matches exact bytes or leading BOM removal only',browserMatches,{received,bomStripped});
+    check(view.name+' actual public HTML has no local page substitution',session.counts.page===0,session.counts);
+    if(!exact||!browserMatches||session.counts.page!==0)throw Error('Public HTML differs from frozen candidate; content checks stopped');
+  }
+  await ready840(p,false);
   const before=await nativeSnapshot(p);
   const expected=await p.evaluate(()=>{const d=programmeDays().filter(d=>d.deliveries.length).sort((a,b)=>b.deliveries.length-a.deliveries.length)[0];state.q='';state.disc=null;state.light=null;state.day=d.iso;state.tlView='day';go('timeline');setHash('day/'+d.iso);render();return {day:d.iso,loads:['deliveries','removals'].flatMap(kind=>ldGroups(d,d[kind],kind).map(({g,n})=>({id:ldId(d,g),kind,n,keys:g.rows.map(r=>r.a.key),stages:g.rows.map(r=>timeline841State(r.a).stage),time:g.time,carrier:g.carrier,url:(()=>{const x=ldGoTarget751(g);return x?navUrl(x.t.ll):null;})()})))};});
   await p.waitForSelector('#pane-timeline .tl846');await p.waitForTimeout(350);
