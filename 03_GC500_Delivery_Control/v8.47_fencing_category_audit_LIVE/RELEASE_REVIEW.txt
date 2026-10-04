@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-GC500 v8.47 — READY TO UPLOAD; actual-public verification pending
+GC500 v8.47 — VERIFIED LIVE, 5 Oct 2026 at 08:19 AEST
 
 Implementation and review
 Codex owns source review, implementation, testing and guarded release. Independent
@@ -57,8 +57,25 @@ superseded by the source-resolved corrections and compact layout; they were neve
 published. Private evidence is retained outside Git and is not a public handover.
 
 Publication
-READY TO UPLOAD. Guarded upload, exact actual-public readback and before/after
-shared-record fingerprints remain required. The fresh pre-upload shared record
-matches the audit-start snapshot; frontend source corrections are separately
-verified and are not claimed as unchanged embedded records. Server health is OK
-on the current backend; this frontend scope does not require server deployment.
+READY commit 7e1006e8 followed implementation 458ae964. Guarded uploader verified
+the exact unchanged v8.46 base before publication, then public readback matched
+all 10,769,344 candidate bytes at 08:19 AEST on 5 Oct 2026.
+
+Actual-public laptop/phone suite: 242/242 passed on exact c2541d7e. No local HTML
+substitution in either live viewport. Upstream bytes match exactly; browser text
+capture differs only by the normal UTF-8 BOM removal. Source/model/price oracles,
+source and map bindings, compact presentation and expanded details pass. No
+JavaScript errors, operational writes or unexpected console errors; the only
+excluded entries are deliberately blocked Google Maps session requests.
+
+Four complete closed-card candidate captures and final live phone/laptop captures
+were inspected. Exact published bytes bind the visual evidence; no clipping or
+lost controls were found at the tested widths. No universal device-performance
+claim is made.
+
+All 33 shared-record collection fingerprints and the record content hash match
+before/after; capture timestamps differ as expected. Embedded docket category
+inputs changed only as specified by the separately checked correction manifest.
+No backend deployment was needed; health is OK on v5.87. Existing tabs require a
+reload to v8.47. Header, native media and the separately held film remain untouched.
+Private source findings, financial values and captures remain outside Git.
