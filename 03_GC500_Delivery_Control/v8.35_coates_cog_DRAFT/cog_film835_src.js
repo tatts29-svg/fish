@@ -84,6 +84,7 @@ function cogFilmUnmount835(){
  const entry=COG_FILM835.inline;if(!entry)return;
  COG_FILM835.inline=null;entry.events.abort();
  if(entry.observer)entry.observer.disconnect();
+ if(entry.contextObserver)entry.contextObserver.disconnect();
  entry.player.dispose();cogFilmReleaseVideo835(entry.video);
 }
 function cogFilmMount835(){
@@ -99,11 +100,12 @@ function cogFilmMount835(){
   if(hero)video.innerHTML=cogFilmSources835(hero,false).map(s=>`<source src="${esc(s.src)}" type="${s.type}">`).join('');
  }
  const events=new AbortController(),toggle=$('#cwFilmPreview');
- const entry={video,events,observer:null,player:null,ratio:0,printing:false,check:null};
+ const entry={video,events,observer:null,contextObserver:null,player:null,ratio:0,printing:false,check:null};
  COG_FILM835.inline=entry;
  video.muted=true;video.loop=true;video.playsInline=true;
  const allowed=()=>COG_FILM835.inline===entry&&pic.isConnected&&state.tab==='coatesway'&&!document.hidden&&!entry.printing&&!motionOff()&&!COG_FILM835.dialog&&!pic.closest('[inert],[hidden]')&&entry.ratio>=.15;
  const paint=()=>{
+  if(entry.player)COG_FILM835.previewPaused=!entry.player.desired();
   video.hidden=motionOff();
   if(toggle){toggle.hidden=motionOff();toggle.textContent=entry.player&&entry.player.status()==='unavailable'?'Retry preview':COG_FILM835.previewPaused?'Play preview':'Pause preview';toggle.setAttribute('aria-pressed',String(!COG_FILM835.previewPaused));}
  };
@@ -118,13 +120,16 @@ function cogFilmMount835(){
  entry.check=()=>{if(!entry.observer)geometry();paint();entry.player.sync();};
  if('IntersectionObserver' in window){entry.observer=new IntersectionObserver(es=>{const e=es.find(e=>e.target===pic);if(e){entry.ratio=e.isIntersecting?e.intersectionRatio:0;entry.check();}},{root:$('main'),threshold:[0,.15]});entry.observer.observe(pic);}
  else {const main=$('main');if(main)main.addEventListener('scroll',entry.check,{passive:true,signal:events.signal});window.addEventListener('resize',entry.check,{signal:events.signal});}
+ /* The interactive car and other overlays make the page inert without moving
+    its hero. Recheck those ancestors even when intersection stays unchanged. */
+ if('MutationObserver' in window){entry.contextObserver=new MutationObserver(entry.check);for(let el=pic;el;el=el.parentElement)entry.contextObserver.observe(el,{attributes:true,attributeFilter:['inert','hidden']});}
  for(const event of ['visibilitychange','gc500motionchange'])document.addEventListener(event,entry.check,{signal:events.signal});
  window.addEventListener('beforeprint',()=>{entry.printing=true;entry.check();},{signal:events.signal});
  window.addEventListener('afterprint',()=>{entry.printing=false;entry.check();},{signal:events.signal});
  window.addEventListener('pagehide',()=>{cogFilmClose835(false);cogFilmUnmount835();},{signal:events.signal});
  if(toggle)toggle.onclick=()=>{
   if(entry.player.status()==='unavailable'){COG_FILM835.previewPaused=false;video.load();entry.player.play();}
-  else {COG_FILM835.previewPaused=!COG_FILM835.previewPaused;if(COG_FILM835.previewPaused)entry.player.pause();else entry.player.play();}
+  else {if(entry.player.desired())entry.player.pause();else entry.player.play();}
   paint();
  };
  entry.check();
