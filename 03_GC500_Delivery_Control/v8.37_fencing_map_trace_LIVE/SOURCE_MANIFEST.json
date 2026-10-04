@@ -1,21 +1,21 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "base_sha256": "9bf3f47e089913c51a4fbd0bf8fdb20371dbdcd12cc64273e362c8132da5b9ad",
   "candidate_sha256": "7b4999508c0006c56cb580e448b89d2044f556da367684e094038342003544fd",
   "candidate_bytes": 10364724,
   "source": {
     "README.txt": {
-      "sha256": "6ffebb8de0faa631516f3079129cc7f0fc8e85ef3af3d4d1bfe14a5968d574e3",
-      "bytes": 3797
+      "sha256": "7ffbff3cb88dd84126606be0b4ae854fb5b6ffd02e544a3b572b7e3ee21d4d75",
+      "bytes": 3843
     },
     "RELEASE_REVIEW.txt": {
-      "sha256": "4bd84c3538df9e4df0d17b53814106678bd4c911154d4d913e9466adb946e0e2",
-      "bytes": 4102
+      "sha256": "40f85c40e0dbc3e70d2de1d39dcde71ee1b08bdd14cc093a270a5e96bcc57d26",
+      "bytes": 5345
     },
     "SOURCE_MANIFEST.json": {
-      "sha256": "648d1d00ce5f4274bbbbada11f5b5648b6c977065c18929f4fa1e17859f3b903",
-      "bytes": 2780
+      "sha256": "31d1116d2fcf5a4af80cdf58fa829b7272db188fc13ad84dba60d09e4cb3abb8",
+      "bytes": 2882
     },
     "commercial_trace837.py": {
       "sha256": "73ed16c6be776cc31e6b5e20c5366a3f33094df303ac6b5cf29f65096e6c39c6",
@@ -75,5 +75,8 @@
     }
   },
   "implementation_commit": "6d460a9f",
-  "asset_manifest_sha256": "e1c9f62d090a8901539b9140a5d84217adab9702a98086c8608d03b47e4c70bf"
+  "asset_manifest_sha256": "e1c9f62d090a8901539b9140a5d84217adab9702a98086c8608d03b47e4c70bf",
+  "live_aest": "4 Oct 2026 11:58 AEST",
+  "ready_commit": "88a5a6da",
+  "actual_public_checks": 36
 }

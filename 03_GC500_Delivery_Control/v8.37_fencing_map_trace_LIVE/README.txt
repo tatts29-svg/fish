@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-v8.37 fencing map, docket and purchase-order trace — READY TO UPLOAD.
+v8.37 fencing map, docket and purchase-order trace — LIVE, 4 Oct 2026 11:58 AEST.
 
 This component adds a read-only area-to-record view within the existing Map detail and Fencing source cards. Reviewed area buttons work with touch and keyboard, and records without defensible map locations remain discoverable. Unmapped register cards expose the same source allocations and shared P/O detail directly, without creating a location or attaching an unnumbered residual to a docket. The existing geometry, camera, planned tasks and completion evidence are preserved. Amber marks recorded work; green remains an actual area sign-off. Neither proves a complete fence line.
 
@@ -20,4 +20,4 @@ CPU checks:
 
 The Python tests use synthetic originals and include the actual standard attribution scrub. Pure core/view tests use synthetic relationships, monetary examples and source fingerprints. Explorer tests exercise the patched marker/filter functions: a reviewed relationship cannot create completion, and explicit reverse navigation clears conflicting filters without changing geometry. No test writes an operational record.
 
-Status: READY TO UPLOAD. Final candidate and checks are recorded in RELEASE_REVIEW.txt. Root owns guarded publication and actual-public verification; not yet LIVE.
+Status: VERIFIED LIVE. Guarded publication and actual-public desktop/phone36/36 passed without host or asset substitution. See RELEASE_REVIEW.txt for exact identities, source scope and limitations.

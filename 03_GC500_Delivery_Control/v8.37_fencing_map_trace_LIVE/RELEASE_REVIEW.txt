@@ -1,7 +1,7 @@
 Author: Andrew Fisher
 v8.37 fencing map, docket and purchase-order trace
 
-State: READY TO UPLOAD. Final implementation checkpoint 6d460a9f; original component checkpoint 9b3426cc. Root owns guarded publication and actual-public verification. Claude remains intentionally paused and has not reviewed this release.
+State: VERIFIED LIVE, 4 Oct 2026 11:58 AEST. Final implementation checkpoint 6d460a9f; original component checkpoint 9b3426cc; READY checkpoint88a5a6da. Codex implemented and published, with independent subagent reviews. Claude remains intentionally paused and has not reviewed this release.
 
 Base live v8.36: 9bf3f47e089913c51a4fbd0bf8fdb20371dbdcd12cc64273e362c8132da5b9ad.
 Final standard candidate: 7b4999508c0006c56cb580e448b89d2044f556da367684e094038342003544fd, 10,364,724 bytes.
@@ -28,3 +28,10 @@ Initial test-fixture failures and the overbroad full-viewport camera comparison 
 
 Scope and limits
 Area association is not a surveyed fence line. Reviewed sources do not establish payment or a financial-statement audit. Native rates, costs, Revenue, saved completion and operational records are not changed. Real-phone hardware verification and universal faultlessness are not claimed. The separate v8.36 intermittent headless text-paint observation remains documented; clean repeat controls found no stable layout defect. Private source evidence, detailed snapshots and publisher credentials remain outside public Git.
+
+Publication and actual-public verification
+Guarded publication registered the exact229-path manifest once and verified all three changed public assets;226 unrelated descriptors and all five unlisted private blobs remain present. Page upload required the original live-base hash, then public readback matched the tested10,364,724bytes exactly. Server remains healthyv5.87; no backend deployment.
+
+Actual-public desktop/phone36/36 completed4Oct2026 at11:59AEST. No local host or asset overrides were used. Raw public host and all three map assets exactly match; browser/CDP comparison accounts explicitly for the standard single UTF-8 BOM removal. Full financial/native parity, map-to-docket and Back, original links, unmapped source access, phone header/footer and boxed labels pass. Zero browser errors or attempted operational writes. Root inspected the actual-public phone allocation image. The complete before/after operational snapshots are identical across all33collections and record3739.
+
+The separate steering-wheel film remains a draft and must rebuild from this current host and preserve this complete map asset union. No claim is made that all project backlog work is complete.
