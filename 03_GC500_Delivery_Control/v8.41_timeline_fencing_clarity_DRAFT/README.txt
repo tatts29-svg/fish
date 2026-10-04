@@ -1,7 +1,7 @@
 Author: Andrew Fisher
 GC500 v8.41 — Timeline lights and one Today work board
 
-FROZEN DRAFT, final composed browser and navigation checks running. Not live.
+READY TO UPLOAD, 4 Oct 2026. Final checks complete; not yet live.
 Owner: Codex. Claude remains intentionally paused. The film remains held.
 
 Andrew asked for sharper cards, automatic animation, more Fencing detail in its
@@ -27,3 +27,8 @@ Candidate SHA256:
 Source records, financial formulae, original header/media and map data are
 unchanged. Tests block operational writes. Private snapshots and screenshots stay
 outside Git. See RELEASE_REVIEW.txt for verification scope and final results.
+
+Implementation checkpoint fa1c5f2f. Final Today review, focused phone motion
+probe12/12 and both22-route/seven-link/Back sweeps pass. Independent visual review
+passes desktop, phone and native4K. Original test expectation/setup failures and
+verification boundaries are retained in RELEASE_REVIEW.txt.
