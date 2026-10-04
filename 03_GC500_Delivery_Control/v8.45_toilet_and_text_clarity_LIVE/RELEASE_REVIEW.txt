@@ -1,6 +1,7 @@
 Author: Andrew Fisher
 GC500 v8.45 — Today text clarity
-READY TO UPLOAD — 4 Oct 2026. Publication has not occurred.
+VERIFIED LIVE — 4 Oct 2026 at 23:53 AEST.
+READY checkpoint 00eed44a.
 Implementation source 5ba138dc702cdfcdf10953e3f752a3bda09302a5.
 
 Ownership and scope
@@ -55,9 +56,20 @@ Final candidate verification
   Maps session request is separately classified.
 - Final candidate, CSS and patch bindings remain unchanged.
 
-Pending after publication
-- Verify exact actual-public bytes, a bounded live laptop/phone check and
-  before/after shared-record fingerprints.
+Actual-public verification
+- Guarded upload accepted only after the base matched. View link serves the
+  exact candidate bytes above; no force override, media or server deployment.
+- 35/35 actual-public checks pass across laptop, fractional zoom-equivalent and
+  phone views, including font proof, Toilet content, exact reference details,
+  normal wheel/reverse scrolling and count-button hit tests.
+- Exact upstream and browser bytes proved (browser BOM removal accounted for),
+  with zero local HTML substitutions. No runtime/unexpected console errors or
+  operational write attempts. Root inspected the actual-public laptop capture;
+  independent reviewer inspected phone and settled zoom scroll captures.
+- All 33 shared-record collections remain identical before/after publication
+  and all tests; figures and financial calculations are unchanged.
+- Existing tabs require one reload to v8.45. The original empty display remains
+  unreplicated; this release corrects typography and verifies fresh content.
 
 Retained test history
 The initial focused run passed 8/9 checks before an over-specific harness wait
