@@ -1,0 +1,95 @@
+/* Author: Andrew Fisher. Option A housing; native Timeline lamp and action semantics retained. */
+#pane-timeline .ld.tl846,
+#pane-timeline .ld.go.tl846 {
+  display:block; padding:19px 20px; border:1px solid #526d77; border-left:5px solid #ff812e;
+  border-radius:14px; color:#edf4f6; background:linear-gradient(115deg,#243941,#13252d 74%);
+  box-shadow:inset 0 1px #daeef01c,0 4px 11px #09202b12;
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+}
+#pane-timeline .ld.out.tl846 { border-left-color:#9daeb8; }
+#pane-timeline .ld.tl846.on { border-color:#e99859; border-left-color:#ff812e; }
+#pane-timeline .tl846-layout { display:grid; grid-template-columns:minmax(0,1fr) 270px; gap:22px; align-items:end; }
+#pane-timeline .ld.tl846 .ldl,
+#pane-timeline .ldlist.timed .ld.tl846 .ldl {
+  display:grid; grid-template-columns:46px minmax(0,1fr) 12px; grid-template-areas:'n refs x';
+  align-items:start; gap:16px; min-height:44px; padding:0; margin:0; border:0; border-radius:8px;
+  background:none; color:inherit; box-shadow:none; transition:none; text-align:left;
+}
+#pane-timeline .ld.tl846 .ldl::before { display:none; }
+#pane-timeline .ld.tl846 .ldl:hover { background:none; box-shadow:none; }
+#pane-timeline .ld.tl846 .ldl:focus-visible { outline:3px solid #ffc48e; outline-offset:6px; }
+#pane-timeline .ld.tl846 .ld-n { padding-top:6px; gap:5px; }
+#pane-timeline .ld.tl846 .ld-n em { font:700 11px/1.2 Inter,"Segoe UI",Arial,sans-serif; letter-spacing:.12em; }
+#pane-timeline .ld.tl846 .ld-n b { margin:0; font:700 34px/1 Inter,"Segoe UI",Arial,sans-serif; font-synthesis:none; }
+#pane-timeline .ld.tl846 .ld-x { margin-top:15px; }
+#pane-timeline .ld.tl846 .ld-refs { display:grid; grid-template-columns:minmax(0,1fr); gap:19px; padding:0; border:0; min-width:0; }
+#pane-timeline .ld.tl846 .ld-ref { display:flex; flex-direction:column; align-items:stretch; gap:0; min-width:0; }
+#pane-timeline .ld.tl846 .ld-ref + .ld-ref { border-top:1px solid #526c77; padding-top:18px; }
+#pane-timeline .tl846-identity { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:9px 14px; }
+#pane-timeline .ld.tl846 .ld-c { display:flex; flex-wrap:wrap; align-items:baseline; gap:5px 14px; min-width:0; flex:1 1 250px; }
+#pane-timeline .ld.tl846 .ld-c>b { font:700 32px/1.2 Inter,"Segoe UI",Arial,sans-serif; font-synthesis:none; letter-spacing:normal; color:#ffcca6; }
+#pane-timeline .tl846-name { min-width:0; overflow-wrap:anywhere; font:700 26px/1.25 Inter,"Segoe UI",Arial,sans-serif; font-synthesis:none; letter-spacing:normal; color:#edf5f6; }
+#pane-timeline .ld.tl846 .tl841-status { margin-top:5px; padding:6px 8px; border:1px solid #61737c; border-radius:6px; font-size:13px; line-height:1.35; white-space:normal; }
+#pane-timeline .ld.tl846 .tl841-status.red { border-color:#ac794f; background:#4b3021; color:#ffd2b2; }
+#pane-timeline .ld.tl846 .tl841-status.finished { border-color:#80d99f; background:#a9ebbf; color:#123922; }
+#pane-timeline .ld.tl846 .ld-w { display:flex; flex-wrap:wrap; gap:5px 12px; max-width:none; margin:9px 0 12px; font-size:15px; line-height:1.45; white-space:normal; overflow:visible; color:#d4e3e8; }
+#pane-timeline .tl846-source { padding-left:12px; border-left:1px solid #607b84; color:#afc6d0; font-size:13px; }
+#pane-timeline .tl846-qualification { margin:0 0 10px; color:#ffd0a8; font-size:13px; line-height:1.45; }
+#pane-timeline .tl846-ticks:empty { display:none; }
+#pane-timeline .tl846-ticks:has(.ld-tks) { display:block; margin:0 0 10px; }
+#pane-timeline .ld.tl846 .tl841-gantry { max-width:none; padding:12px 10px 10px; border-color:#536f78; background:linear-gradient(#061418,#12252d); box-shadow:inset 0 2px 7px #0005; }
+#pane-timeline .ld.tl846 .tl841-lamp { width:54px; }
+#pane-timeline .ld.tl846 .tl841-unit small { font-size:13px; }
+#pane-timeline .tl846-controls { display:flex; flex-direction:column; gap:9px; min-width:0; }
+#pane-timeline .tl846-controls:empty { display:none; }
+#pane-timeline .tl846-layout:has(>.tl846-controls:empty) { grid-template-columns:minmax(0,1fr); }
+#pane-timeline .ld.tl846 .ld-t { display:flex; flex-direction:row; flex-wrap:wrap; align-items:baseline; gap:7px 12px; padding:0 0 5px; border:0; }
+#pane-timeline .ld.tl846 .ld-t b { font:700 21px/1.2 Inter,"Segoe UI",Arial,sans-serif; }
+#pane-timeline .ld.tl846 .ld-t em { font:500 13px/1.4 Inter,"Segoe UI",Arial,sans-serif; letter-spacing:0; white-space:normal; }
+#pane-timeline .ld.tl846 .ld-go { display:grid; grid-template-columns:68px minmax(0,1fr); grid-template-rows:auto; gap:10px; align-items:stretch; margin:0; padding:0; border:0; border-radius:0; background:none; box-shadow:none; }
+#pane-timeline .ld.tl846 .ld-qr { display:grid; align-items:center; justify-items:center; width:68px; min-width:68px; height:68px; padding:4px; border-radius:7px; background:white; }
+#pane-timeline .ld.tl846 .ld-qr svg { width:60px; height:60px; }
+#pane-timeline .ld.tl846 .ld-nav { width:auto; min-width:0; min-height:68px; flex-basis:auto; padding:8px 10px; border-radius:8px; white-space:normal; gap:7px; }
+#pane-timeline .ld.tl846 .ld-nav svg { width:21px; flex:0 0 21px; }
+#pane-timeline .ld.tl846 .ld-nav-t b { font:700 19px/1.2 Inter,"Segoe UI",Arial,sans-serif; font-synthesis:none; }
+#pane-timeline .ld.tl846 .ld-nav-t em { white-space:normal; font-size:11px; line-height:1.3; letter-spacing:0; }
+#pane-timeline .ld.tl846 .tl841-actions { display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; border:0; border-radius:0; background:none; }
+#pane-timeline .ld.tl846 .tl841-actions .btn { flex:1 1 115px; min-height:46px; margin:0; padding:9px 10px; font:600 13px/1.4 Inter,"Segoe UI",Arial,sans-serif; border-color:#708994; background:#243d47; color:#edf5f8; }
+#pane-timeline .ld.tl846 .tl841-actions .btn[data-tl841-print] { border-color:#a98160; color:#ffd0a8; }
+#pane-timeline .ld.tl846 .ldb { margin:17px -20px -19px; padding:14px 14px 2px; border:0; border-top:1px solid #ce9468; border-radius:0 0 10px 10px; }
+@media(max-width:1000px) {
+  #pane-timeline .tl846-layout { grid-template-columns:minmax(0,1fr) 225px; gap:15px; }
+  #pane-timeline .ld.tl846 .ld-c>b { font-size:28px; }
+  #pane-timeline .tl846-name { font-size:23px; }
+  #pane-timeline .ld.tl846 .ldl, #pane-timeline .ldlist.timed .ld.tl846 .ldl { grid-template-columns:36px minmax(0,1fr) 9px; gap:10px; }
+  #pane-timeline .ld.tl846 .tl841-lamp { width:44px; }
+}
+@media(max-width:760px) {
+  #pane-timeline .ld.tl846, #pane-timeline .ld.go.tl846 { padding:14px 12px; }
+  #pane-timeline .tl846-layout { grid-template-columns:minmax(0,1fr); gap:14px; }
+  #pane-timeline .ld.tl846 .ldl, #pane-timeline .ldlist.timed .ld.tl846 .ldl { grid-template-columns:minmax(0,1fr) 12px; grid-template-areas:'n x' 'refs refs'; gap:9px; }
+  #pane-timeline .ld.tl846 .ld-n { flex-direction:row; align-items:baseline; gap:8px; padding:0; }
+  #pane-timeline .ld.tl846 .ld-n b { font-size:25px; }
+  #pane-timeline .ld.tl846 .ld-x { margin-top:7px; }
+  #pane-timeline .ld.tl846 .ld-c { flex-basis:auto; }
+  #pane-timeline .ld.tl846 .ld-c>b { font-size:27px; }
+  #pane-timeline .tl846-name { font-size:22px; }
+  #pane-timeline .ld.tl846 .ld-refs .ld-w { display:flex; font-size:14px; }
+  #pane-timeline .ld.tl846 .tl841-gantry { gap:3px; padding:10px 4px; }
+  #pane-timeline .ld.tl846 .tl841-lamp { width:43px; }
+  #pane-timeline .ld.tl846 .tl841-unit small { font-size:12px; }
+  #pane-timeline .ld.tl846 .ld-t { justify-content:flex-start; }
+  #pane-timeline .ld.tl846 .ld-go { grid-template-columns:68px minmax(0,1fr); }
+  #pane-timeline .ld.tl846 .tl841-actions .btn { flex-basis:calc(50% - 4px); }
+  #pane-timeline .ld.tl846 .ldb { margin:14px -12px -14px; }
+}
+@media(min-width:2200px) {
+  #pane-timeline .tl846-layout { grid-template-columns:minmax(0,1fr) 360px; gap:28px; }
+  #pane-timeline .tl846-name { font-size:32px; }
+  #pane-timeline .ld.tl846 .ld-c>b { font-size:38px; }
+  #pane-timeline .ld.tl846 .ld-w { font-size:18px; }
+  #pane-timeline .tl846-source, #pane-timeline .ld.tl846 .tl841-status, #pane-timeline .ld.tl846 .tl841-unit small { font-size:16px; }
+  #pane-timeline .ld.tl846 .tl841-lamp { width:66px; }
+  #pane-timeline .ld.tl846 .tl841-actions .btn { font-size:16px; }
+}
+@media print { #pane-timeline .ld.tl846 { break-inside:avoid; } }

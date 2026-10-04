@@ -1,4 +1,16 @@
 Author: Andrew Fisher
+GC500 v8.46 — APPROVED IMPLEMENTATION, IN TEST
+Andrew authorised publication after the current animation work.
+Selected one-box group layout and Timeline Option A are now composed on
+exact v8.45 a290469d. First candidate 3da5729c, 10,705,252 bytes.
+Standard build and42 preservation checks pass; browser verification is running.
+Not READY or LIVE. Native quantity models, records, costs and media unchanged.
+Codex owns publication. Claude remains intentionally paused; separate film held.
+Private snapshots and captures stay outside Git.
+
+Earlier preview history (superseded by implementation above):
+
+Author: Andrew Fisher
 GC500 v8.46 — one box per group
 SELECTED MOCK-UP REVISED — 5 Oct 2026 AEST. Not ready or live.
 Andrew asked: "Show me the toilet mock up so we on same page".
