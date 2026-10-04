@@ -1,5 +1,5 @@
 Author: Andrew Fisher
-GC500 v8.47 — source corrections and compact Today cards; final checks, not live.
+GC500 v8.47 — source corrections and compact Today cards; READY TO UPLOAD, not live.
 
 Original docket, operational-plan and master-plan evidence resolves supported
 crowd-control category corrections. Exact private manifests guard each original

@@ -9,6 +9,79 @@ const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b),round=n=>Math.round(n*10
 const number=value=>value==null||String(value).trim()===''||!Number.isFinite(Number(value))?null:Number(value);
 const fmt=value=>typeof value==='number'&&Number.isFinite(value)?value.toLocaleString('en-AU',{maximumFractionDigits:2}):'—';
 const fullPhase=phase=>phase==='Build'||phase==='Event';
+const canonical=value=>Array.isArray(value)?'['+value.map(canonical).join(',')+']':value&&typeof value==='object'?'{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonical(value[k])).join(',')+'}':JSON.stringify(value);
+const equivalent=(a,b)=>canonical(a)===canonical(b);
+function correctedRecord847(record,correction){
+ const value=JSON.parse(JSON.stringify(record)),keys=['ccb_event','ccb_demarc'];
+ if(!keys.includes(correction.from_type)||!keys.includes(correction.to_type)||correction.from_type===correction.to_type||!(correction.quantity>0)||value.id!==correction.record_id||String(value.docket_no)!==String(correction.docket_no))throw Error('Invalid correction identity or category transfer');
+ const before=number(value.quantities?.[correction.from_type]);if(before==null||before<correction.quantity)throw Error('Correction exceeds original source quantity');
+ value.quantities[correction.from_type]=round(before-correction.quantity);if(value.quantities[correction.from_type]===0)delete value.quantities[correction.from_type];
+ value.quantities[correction.to_type]=round((number(value.quantities[correction.to_type])||0)+correction.quantity);
+ if(typeof correction.after_note!=='string'||!correction.after_note.startsWith(String(record.note||'')))throw Error('Correction note must preserve original source text');
+ value.note=correction.after_note;return value;
+}
+function priceOracle847(record,native){
+ const lines=[],unpriced=[],paidUnpriced=[];
+ for(const key of Object.keys(record.quantities||{}).sort()){
+  const qty=number(record.quantities[key]);if(!(qty>0))continue;
+  const column=native.columns.find(c=>c.key===key)||{},rate=native.rates[key].charge,paidRate=native.rates[key].paid;
+  const cost=rate.value==null?null:round(qty*rate.value),paid=paidRate.value==null?null:round(qty*paidRate.value);
+  lines.push({column:key,name:column.name_as_written||key,unit:column.unit,qty,rate:rate.value,rate_source:rate.source,card_line:column.card_line||null,cost,
+   paid_rate:paidRate.value,paid_rate_source:paidRate.source,paid,margin:rate.source!=='included'&&cost!=null&&paid!=null?round(cost-paid):null,inclusion:rate.source==='included'?rate.inclusion:null});
+  if(cost==null)unpriced.push(key);if(paid==null)paidUnpriced.push(key);
+ }
+ const cost_total=round(lines.reduce((sum,l)=>sum+(l.cost||0),0)),paid_total=round(lines.reduce((sum,l)=>sum+(l.paid||0),0));
+ return {lines,cost_total,unpriced,cost_state:lines.length?(unpriced.length?'partly priced':'priced'):'nothing to price',paid_total,paid_unpriced:paidUnpriced,
+  paid_state:lines.length?(paidUnpriced.length?'partly priced':'priced'):'nothing to price',margin:lines.length&&!unpriced.length&&!paidUnpriced.length?round(cost_total-paid_total):null};
+}
+function assertCorrections847(check,label,before,after,manifest){
+ const corrections=manifest?.corrections||[],ids=corrections.map(c=>c.record_id);
+ check(label+' rates and pricing functions are unchanged',equivalent(before.columns,after.columns)&&equivalent(before.rates,after.rates)&&same(before.pricingFunctions,after.pricingFunctions));
+ check(label+' correction manifest names unique original records',new Set(ids).size===ids.length&&corrections.every(c=>before.sourceDockets.filter(d=>d.id===c.record_id&&String(d.docket_no)===String(c.docket_no)).length===1));
+ const expectedSource=before.sourceDockets.map(d=>{const c=corrections.find(c=>c.record_id===d.id);return c?correctedRecord847(d,c):d;});
+ check(label+' committed source changes are exactly the authorised categories and appended notes',equivalent(expectedSource,after.sourceDockets)&&corrections.every(c=>equivalent(c.expected,before.sourceDockets.find(d=>d.id===c.record_id))),{changed:ids});
+ const expectedRuntime=before.dockets.map(d=>{const c=corrections.find(c=>c.record_id===d.id);if(!c)return d;const corrected=correctedRecord847(d,c);return {...corrected,...priceOracle847(corrected,before)};});
+ const bad=expectedRuntime.filter(d=>!equivalent(d,after.dockets.find(a=>a.id===d.id)));
+ check(label+' every runtime docket matches the exact category transfer and current-rate formula',after.dockets.length===expectedRuntime.length&&!bad.length,{changed:ids,mismatched:bad.map(d=>({expected:d,actual:after.dockets.find(a=>a.id===d.id)}))});
+ const total=(rows,key)=>round(rows.filter(d=>d.usable).reduce((sum,d)=>sum+(d[key]||0),0));
+ const revenueDelta=round(total(expectedRuntime,'cost_total')-total(before.dockets,'cost_total')),costDelta=round(total(expectedRuntime,'paid_total')-total(before.dockets,'paid_total'));
+ const expectedMoney=before.groupMoney.map(row=>row.id==='fence-revenue'?{...row,amount:round(row.amount+revenueDelta)}:row.id==='fence-cost'?{...row,amount:round(row.amount+costDelta)}:row);
+ check(label+' aggregate Revenue and Direct costs change only by the exact source-derived delta',equivalent(expectedMoney,after.groupMoney),{revenueDelta,costDelta,expected:expectedMoney,actual:after.groupMoney});
+}
+function assertSourceBindings847(check,label,native,model,manifest,catalogue){
+ if(catalogue){
+  check(label+' installed category catalogue matches the private source-reviewed decisions',equivalent(model.catalogue.sources,catalogue.sources)&&equivalent(model.catalogue.rows,catalogue.rows));
+  const bad=catalogue.rows.filter(row=>{const review=model.reviews.find(r=>r.id===row.record_id)?.review;return !review||review.reviewState!=='current'||review.state!==row.decision.state||row.decision.state==='confirmed'&&review.confirmedType!==row.decision.type;});
+  check(label+' every source-reviewed classification is current with exactly its documented decision',!bad.length,{expected:catalogue.rows.map(r=>({id:r.record_id,decision:r.decision})),bad});
+ }
+ for(const correction of manifest?.corrections||[]){
+  const record=native.dockets.find(d=>d.id===correction.record_id),review=model.sourceReviews.find(r=>r.id===correction.record_id);
+  const bound=review?.expected&&Object.fromEntries(Object.keys(review.expected).map(k=>[k,record[k]]));
+  check(label+' '+correction.record_id+' original-paper review remains current after category correction',review?.state==='current'&&review.paperReady&&equivalent(review.expected,bound),review);
+  const mapped=model.trace.rows.filter(r=>r.record_id===correction.record_id),unmapped=model.trace.unmapped.filter(r=>r.record_id===correction.record_id);
+  check(label+' '+correction.record_id+' original map association remains current or explicitly unmapped',correction.expected_trace?
+   mapped.length===1&&mapped[0].state==='current'&&mapped[0].review_state==='current'&&equivalent(mapped[0].area_ids,correction.expected_trace.area_ids):mapped.length===0&&unmapped.length===1&&unmapped[0].docket_no===correction.docket_no,{mapped,unmapped,expectedAreas:correction.expected_trace?.area_ids||null});
+ }
+}
+
+function assertLegacyViews847(pageFile,check){
+ const vm=require('node:vm'),source=fs.readFileSync(path.join(__dirname,'fencing_other_views847_src.js'),'utf8');
+ check('Legacy display source is bound to exact candidate bytes',fs.readFileSync(pageFile,'utf8').includes(source));
+ let pending=true,seenDay=null;
+ const types=[{key:'clean',name:'Clean',planned:40,total:80,done:25},{key:'ccb_event',name:'Event CCB',planned:20,total:60,done:50},{key:'ccb_demarc',name:'Demarcation CCB',planned:30,total:90,done:10}];
+ const programme={asOf:'2026-10-07',fenceLines:[{column:'clean',behind:15},{column:'ccb_event',behind:0},{column:'ccb_demarc',behind:20}]};
+ const before=JSON.stringify({types,programme}),records=[{id:'synthetic-usable',usable:true},{id:'synthetic-unusable',usable:false}];
+ const context=vm.createContext({todayIso:()=>programme.asOf,docketsAsOf:day=>{seenDay=day;return records;},allDockets:()=>records,
+  fenceCcbSummary847:rows=>({pendingCount:pending?rows.length:0,pendingMetres:pending?12.5:0}),fenceTypes:()=>types,fmtNum:n=>String(n)});
+ vm.runInContext(source,context);
+ const qualified=context.fenceCcbDisplayTypes847(programme),lines=context.fenceCcbDisplayLines847(programme),words=context.fenceCcbDisplayWords847(programme);
+ check('Legacy CCB subtype displays retain quantities but remove definitive planned comparison',qualified.filter(r=>r.key!=='clean').every(r=>r.ccbPending&&r.planned===null&&r.plannedRecorded===types.find(t=>t.key===r.key).planned&&/category needs review/.test(r.name))&&same(qualified.find(r=>r.key==='clean'),types[0]),qualified);
+ check('Legacy CCB shortfalls are unknown while other work remains independently assessed',lines.filter(r=>r.column!=='clean').every(r=>r.ccbPending&&r.behind===null)&&same(lines[0],programme.fenceLines[0]),lines);
+ check('Legacy qualifier follows selected day and usable source records',seenDay===programme.asOf&&/1 dockets/.test(words)&&/not confirmed subtype completion or plan position/.test(words),{seenDay,words});
+ pending=false;
+ check('Confirmed legacy categories keep the native programme reading',same(context.fenceCcbDisplayTypes847(programme),types)&&same(context.fenceCcbDisplayLines847(programme),programme.fenceLines)&&context.fenceCcbDisplayWords847(programme)==='');
+ check('Legacy qualifications never mutate native programme or record inputs',before===JSON.stringify({types,programme}));
+}
 
 // Deliberately derive membership and plan totals from the native records, not the new model.
 function installationOracle(input,id){
@@ -33,12 +106,55 @@ async function readNative(page){return page.evaluate(()=>{
  return {day,weeks:DATA.weeks,columns:FCOL,plans:DATA.weeks.map(w=>({week:w.sheet,plan:progSheetOf(w.sheet)})),
   dockets:allDockets(),papers:allDockets().map(d=>({id:String(d.id),papers:[...docketPapersOf(d.id),...docketPapersByName(d)].filter(p=>p?.id).map(p=>({id:String(p.id),state:photoFor(p).state,url:photoFor(p).url||null}))})),
   groupMoney:todayGroupDetails841(day,todayWorkMetrics840(day)).fencing.money,
+  sourceDockets:FCOM.dockets,rates:Object.fromEntries(FCOL.map(c=>[c.key,{charge:fenceRateFor(c.key),paid:fenceCostFor(c.key)}])),
+  pricingFunctions:{costDocket:costDocket.toString(),fenceRateFor:fenceRateFor.toString(),fenceCostFor:fenceCostFor.toString(),fenceDerived:fenceDerived.toString()},
   assetTypes:todayTypeMetrics843(day).instruments.filter(t=>t.kind==='asset-type')};
  });}
 async function closeDialog(page){
  if(!await page.locator('#gc500-work-dialog840').evaluate(d=>d.open))return;
  await page.evaluate(()=>{window.__closed847=false;document.querySelector('#gc500-work-dialog840').addEventListener('close',()=>{window.__closed847=true;},{once:true});});
  await page.keyboard.press('Escape');await page.waitForFunction(()=>window.__closed847&&!document.querySelector('#gc500-work-dialog840').open);
+}
+async function readCompact847(page){return page.evaluate(()=>[...document.querySelectorAll('[data-tw840-area]')].map(card=>{
+ const fold=card.querySelector('details[data-tw841-group-card]'),outside=selector=>[...card.querySelectorAll(selector)].filter(n=>!fold?.contains(n));
+ return {id:card.dataset.tw840Area,folds:card.querySelectorAll('details[data-tw841-group-card]').length,open:fold?.open,
+  summary:fold?.querySelector('summary')?.textContent,reading:outside('.tw840-reading')[0]?.textContent||null,
+  counts:Object.fromEntries(outside('[data-tw840-mode]').filter(n=>['done','left'].includes(n.dataset.tw840Mode)).map(n=>[n.dataset.tw840Mode,n.querySelector('strong')?.textContent])),
+  totalButtons:outside('[data-tw840-mode="total"]').length,
+  fenceRows:outside('[data-tw847-fence-summary-row]').map(row=>({id:row.dataset.tw847FenceSummaryRow,name:row.querySelector('th')?.textContent,
+   values:Object.fromEntries([...row.querySelectorAll('[data-tw847-fence-value]')].map(b=>[b.dataset.tw847FenceValue,b.querySelector('strong')?.textContent||b.textContent])),text:row.innerText})),
+  outsideTypeRows:outside('[data-tw843-type-id]').length,insideTypeRows:fold?.querySelectorAll('[data-tw843-type-id]').length||0,
+  width:card.clientWidth,scroll:card.scrollWidth,heading:card.querySelector('h3')?.textContent,
+  buttons:outside('button').map(n=>({text:n.innerText,rect:n.getBoundingClientRect().toJSON(),count:['done','left'].includes(n.dataset.tw840Mode),font:parseFloat(getComputedStyle(n.querySelector('span')||n).fontSize)}))};
+ }));}
+async function assertCompact847(page,check,label,model,out){
+ const cards=await readCompact847(page);
+ check(label+' every main group has one closed View details dropdown',cards.length===6&&cards.every(c=>c.folds===1&&c.open===false&&/View details/i.test(c.summary)),cards);
+ for(const card of cards){
+  check(label+' '+card.id+' supporting types stay inside its dropdown',card.outsideTypeRows===0&&card.insideTypeRows===model.types.instruments.filter(t=>t.cardId===card.id).length,{id:card.id,inside:card.insideTypeRows,outside:card.outsideTypeRows});
+  check(label+' '+card.id+' compact card fits horizontally',card.scroll<=card.width+1,{width:card.width,scroll:card.scroll});
+  if(card.id==='fencing'){
+   check(label+' fencing main card never combines unlike units into a percentage or count',card.reading===null&&!Object.keys(card.counts).length,card);
+   const expected=model.summary.fencingRows.filter(row=>row.kind!=='recorded-only');
+   check(label+' compact Fencing shows every programme type once with its own Done Left and percentage',same(card.fenceRows.map(r=>r.id),expected.map(r=>r.id))&&card.fenceRows.every(r=>{
+    const row=expected.find(x=>x.id===r.id),pct=typeof row.pct==='number'&&Number.isFinite(row.pct)?fmt(row.pct)+'%':'—';
+    return r.name?.includes(row.label)&&r.values.done===fmt(row.done)&&r.values.left===fmt(row.left)&&r.values.pct===pct;
+   }),{expected:expected.map(r=>({id:r.id,label:r.label,done:r.done,left:r.left,pct:r.pct})),shown:card.fenceRows});
+   continue;
+  }
+  const row=model.summary.byId[card.id],known=typeof row.pct==='number'&&Number.isFinite(row.pct),bounded=known?Math.max(0,Math.min(100,row.pct)):null;
+  const rounded=known&&row.pctKind==='lower-bound'?Math.floor((bounded+1e-9)*100)/100:bounded;
+  const percent=(known&&row.pctKind==='lower-bound'?'≥':'')+fmt(rounded)+(known?'%':'');
+  check(label+' '+card.id+' main percentage Done and Left retain exact qualified counts',card.reading===percent&&card.counts.done===fmt(row.done)&&card.counts.left===fmt(row.left)&&card.totalButtons===1,{expected:{percent,done:row.done,left:row.left},shown:card});
+  check(label+' '+card.id+' visible controls retain readable counts and touch height',card.buttons.every(b=>b.rect.height>=43.5&&b.rect.width>=43.5&&(!b.count||b.font>=14)),card.buttons);
+ }
+ await page.locator('[data-tw840-area="toilets"]').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,'fencing847-'+label+'-compact-groups.png')});
+ const eventButton=page.locator('[data-tw847-fence-summary-row="ccb_event"] [data-tw847-fence-value="pct"]');await eventButton.scrollIntoViewIfNeeded();
+ await page.screenshot({path:path.join(out,'fencing847-'+label+'-compact-fencing.png')});await eventButton.click();await page.waitForFunction(()=>document.querySelector('#gc500-work-dialog840')?.open);
+ check(label+' compact fencing percentage opens the exact source breakdown while details stay closed',(await page.locator('#tw840-dialog-title').textContent())===model.summary.fencingRows.find(r=>r.id==='ccb_event').label&&!(await page.locator('[data-tw841-group-card="fencing"]').evaluate(d=>d.open)));
+ await closeDialog(page);
+ const fenceFold=page.locator('[data-tw841-group-card="fencing"]');await fenceFold.locator(':scope > summary').click();await page.waitForFunction(()=>document.querySelector('[data-tw841-group-card="fencing"]')?.open);
+ check(label+' Fencing details open through the native disclosure',await fenceFold.evaluate(d=>d.open));
 }
 async function readBoard(page){return page.locator('[data-tw840-area="fencing"]').evaluate(card=>({text:card.innerText,scroll:card.scrollWidth,client:card.clientWidth,
  rows:[...card.querySelectorAll('[data-tw840-fence-row]')].map(row=>({id:row.dataset.tw840FenceRow,text:row.innerText,
@@ -53,13 +169,17 @@ async function readModel(page){return page.evaluate(()=>{
  const day=TodayWork840.report().asOf||todayIso(),fencing=todayFencingSummary847(day),summary=todayWorkSummary847(day),types=todayTypeMetrics843(day);
  return {day,report:TodayWork840.report(),fencing,summary,types,
   linked:fencing.summaryRows.map(row=>({id:row.id,value:todayLinkedFencing844(row.id,day)})),
-  reviews:allDockets().map(d=>({id:String(d.id),review:fenceCcbReview847(d)}))};
+  reviews:allDockets().map(d=>({id:String(d.id),review:fenceCcbReview847(d)})),catalogue:DATA.fence_ccb_review847,
+  sourceReviews:allDockets().map(d=>{const review=fenceReviewContext836(d);return {id:String(d.id),state:review.state,reason:review.reason||null,expected:review.row?.expected||null,paperReady:review.paper?.result?.state==='ready'};}),trace:fenceTraceCurrent837()};
  });}
 
 async function run(){
  const {PAGE,BASE,OUT,CANDIDATE_SHA}=process.env;
  if(!PAGE||!BASE||!OUT||!CANDIDATE_SHA)throw Error('Set frozen PAGE, BASE, CANDIDATE_SHA and private OUT');
  const bytes=fs.readFileSync(PAGE);if(sha(bytes)!==CANDIDATE_SHA)throw Error('Frozen candidate hash differs');
+ const corrections=process.env.CORRECTIONS?JSON.parse(fs.readFileSync(process.env.CORRECTIONS,'utf8')):null;
+ const catalogue=process.env.CATALOGUE?JSON.parse(fs.readFileSync(process.env.CATALOGUE,'utf8')):null;
+ if(corrections&&(corrections.schema!==1||corrections.author!=='Andrew Fisher'||corrections.base_sha256!==sha(fs.readFileSync(BASE))||!Array.isArray(corrections.corrections)))throw Error('Correction manifest identity does not match the frozen base');
  fs.mkdirSync(OUT,{recursive:true});const live=process.env.LIVE==='1',guard=installWriteGuard();
  const {open}=require(path.join(process.env.GC500_TOOLCHAIN||path.resolve(__dirname,'../toolchain'),'harness/open_page.js'));
  const report={author:'Andrew Fisher',at:new Date().toISOString(),candidate:CANDIDATE_SHA,base:sha(fs.readFileSync(BASE)),live,checks:[],views:[]};
@@ -86,10 +206,12 @@ async function run(){
     const format=n=>n.toLocaleString('en-AU',{maximumFractionDigits:2});
     return text.includes('Confirmed recorded: '+format(r.confirmedRecorded))&&text.includes('Pending recorded allocation: '+format(r.pendingRecorded));
    }),null,{timeout:15000});
-   const before=await nativeSnapshot(p),native=await readNative(p),model=await readModel(p),board=await readBoard(p);
+   const before=await nativeSnapshot(p),native=await readNative(p),model=await readModel(p);
+   await assertCompact847(p,check,view.name,model,OUT);const board=await readBoard(p);
    report.views.push({view,native,model,board});
    check(view.name+' candidate preserves all shared collections and native helpers',same(before.collections,baseline.snapshot.collections)&&same(before.functions,baseline.snapshot.functions),{collectionsMatch:same(before.collections,baseline.snapshot.collections),helpersMatch:same(before.functions,baseline.snapshot.functions)});
-   check(view.name+' candidate preserves fencing money rates and native docket records',same(native.dockets,baseline.native.dockets)&&same(native.columns,baseline.native.columns)&&same(native.groupMoney,baseline.native.groupMoney),{docketsMatch:same(native.dockets,baseline.native.dockets),columnsMatch:same(native.columns,baseline.native.columns),groupMoneyMatch:same(native.groupMoney,baseline.native.groupMoney)});
+   assertCorrections847(check,view.name,baseline.native,native,corrections);
+   assertSourceBindings847(check,view.name,native,model,corrections,catalogue);
    check(view.name+' all non-fencing type quantities plans and memberships are preserved',same(native.assetTypes,baseline.native.assetTypes));
    await assertModelAndUI(p,check,view.name,native,model,board,OUT);
    const after=await nativeSnapshot(p),afterNative=await readNative(p);
@@ -199,5 +321,30 @@ async function assertModelAndUI(page,check,label,native,model,board,out){
  await page.locator('#pane-fencing [data-tw847-category-overview]').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,'fencing847-'+label+'-native-book.png')});
  await page.evaluate(()=>go('today'));await page.waitForFunction(()=>document.querySelector('[data-tw840-area="fencing"]'));
 }
-module.exports={installationOracle,readNative,readModel,readBoard};
-if(require.main===module)run().catch(error=>{console.error(error.message);process.exitCode=2;});
+module.exports={installationOracle,readNative,readModel,readBoard,assertLegacyViews847,correctedRecord847,priceOracle847,assertCorrections847,assertCompact847,assertSourceBindings847};
+async function captureFullCards847(){
+ const {PAGE,OUT,CANDIDATE_SHA}=process.env;if(sha(fs.readFileSync(PAGE))!==CANDIDATE_SHA)throw Error('Frozen source mismatch');
+ fs.mkdirSync(OUT,{recursive:true});const guard=installWriteGuard(),{open}=require(path.join(process.env.GC500_TOOLCHAIN||path.resolve(__dirname,'../toolchain'),'harness/open_page.js'));
+ const report={author:'Andrew Fisher',candidate:CANDIDATE_SHA,scope:'Tall viewport captures at tested laptop and phone widths; no physical-device or frame-rate claim.',cards:[]};let session;
+ try{for(const view of [{name:'laptop',W:1366,H:768,dpr:1},{name:'phone',W:390,H:844,dpr:2,mobile:true}]){
+  session=await open({pageFile:PAGE,hash:'#today',...view});const p=session.page;await ready840(p);await p.evaluate(()=>photoIndex());await p.waitForFunction(()=>DOCS.state==='ready');
+  await p.waitForFunction(()=>todayWorkSummary847(TodayWork840.report().asOf).fencingRows.filter(r=>r.classificationPending).every(r=>document.querySelector('[data-tw840-fence-row="'+r.id+'"]')?.textContent.includes('Confirmed recorded: '+r.confirmedRecorded.toLocaleString('en-AU',{maximumFractionDigits:2}))));
+  for(const id of ['fencing','toilets']){const card=p.locator('[data-tw840-area="'+id+'"]');
+   const height=await card.evaluate(c=>Math.ceil(c.getBoundingClientRect().height));await p.setViewportSize({width:view.W,height:Math.max(view.H,height+500)});await card.scrollIntoViewIfNeeded();
+   const file='fencing847-'+view.name+'-'+id+'-closed-full-card.png';await card.screenshot({path:path.join(OUT,file)});
+   report.cards.push({view:view.name,id,file,viewport:p.viewportSize(),closed:await card.locator('[data-tw841-group-card]').evaluate(d=>!d.open),width:await card.evaluate(c=>c.clientWidth),scroll:await card.evaluate(c=>c.scrollWidth)});
+  }
+  report.errors=(report.errors||[]).concat(session.errors);await session.browser.close();session=null;
+ }}finally{if(session)await session.browser.close();await guard.closeAll();report.guard=guard;fs.writeFileSync(path.join(OUT,'full-cards847.json'),JSON.stringify(report,null,2));}
+ if(report.errors.length||guard.nonGetSeen.some(r=>r.operational)||report.cards.some(c=>!c.closed||c.scroll>c.width+1))throw Error('Full-card capture integrity check failed');
+ console.log(JSON.stringify({cards:report.cards.length,errors:report.errors.length,candidate:CANDIDATE_SHA}));
+}
+if(require.main===module){
+ if(process.env.VISUAL_ONLY==='1')captureFullCards847().catch(error=>{console.error(error.message);process.exitCode=2;});
+ else if(process.env.LEGACY_ONLY==='1'){
+  const checks=[];assertLegacyViews847(process.env.PAGE,(name,pass,evidence)=>checks.push({name,pass:!!pass,evidence}));
+  const report={author:'Andrew Fisher',candidate:sha(fs.readFileSync(process.env.PAGE)),passed:checks.filter(c=>c.pass).length,total:checks.length,checks};
+  fs.mkdirSync(process.env.OUT,{recursive:true});fs.writeFileSync(path.join(process.env.OUT,'legacy847.json'),JSON.stringify(report,null,2));
+  console.log(JSON.stringify({passed:report.passed,total:report.total}));if(report.passed!==report.total)process.exitCode=1;
+ }else run().catch(error=>{console.error(error.message);process.exitCode=2;});
+}
