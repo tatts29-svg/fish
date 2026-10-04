@@ -1,0 +1,33 @@
+Author: Andrew Fisher
+GC500 v8.41 — Timeline lights, fencing detail and clarity
+
+DRAFT. Implementation and checks are in progress; this is not READY or LIVE.
+Owner: Codex. Claude remains intentionally paused.
+Base SHA256: 573df8e5440f7cd9c48452a52632114bdc4cedbdf3254db007dc6bff35e48929
+
+Reported gaps:
+- The five-stage Timeline design remained a preview, while v8.40 preserved the
+  old native Timeline. This release connects the design to native records.
+- The Today Fencing instrument represented only clean-fence work. It needs
+  separate supported work types within its existing card, without adding unlike
+  quantities or claiming a combined physical-completion percentage.
+- Supporting type was too small, and instrument motion required a manual click.
+
+Boundaries:
+- Native site records and costing remain authoritative; tests must not write.
+- Fencing comparisons use dated usable Build work and the full mapped Build plan.
+  Scrim upgrades, relocations and removals can concern the same fence. Gates,
+  metres and recorded hours remain separate. Uncertain scope remains explicit.
+- New stage confirmations must use explicit evidence. On-site alone does not
+  establish placement or installation. Existing native completion remains linked
+  to Today and Equipment.
+- Driver print status changes apply only to the exact selected inbound load
+  references when an authorised operator requests their driver sheets. A browser
+  cannot prove a paper copy was printed or a truck physically departed. It must
+  not change status for a preview, email, installer sheet or removal sheet.
+- Automatic decoration must not animate numbers, change statuses or obscure text.
+  Offscreen, hidden, paused and reduced-motion views stay still.
+- Existing header, media, map data and financial calculations remain unchanged.
+
+Evidence and final release results will be added after the frozen candidate is
+checked. Private records, source snapshots and screenshots remain outside Git.
