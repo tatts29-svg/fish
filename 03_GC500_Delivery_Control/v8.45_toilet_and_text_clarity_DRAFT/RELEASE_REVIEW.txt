@@ -1,0 +1,74 @@
+Author: Andrew Fisher
+GC500 v8.45 — Today text clarity
+DRAFT — final candidate checks complete; publication has not occurred.
+
+Ownership and scope
+Codex owns the release. A separate visual agent implemented/reviewed the scoped
+CSS; a separate test agent checks the frozen candidate. Independent metric
+review found no justified quantity change. Claude remains intentionally paused
+at dacf75dd5362ed647f3761a04354aa47bf7e4172. The separate steering-wheel film is
+held and excluded. Claim commit 6e8c11a4; PR #1 comment 5980635160.
+
+Source binding
+Base: 5a19106be3a4877a2cd552432eb5870340c334d0e6dfe7adab1fad81300b4dcf
+Base bytes: 10,674,380
+Candidate: a290469d9d14777ceca734d13b5f57f5da548206e15995f1bd288c851e541758
+Candidate bytes: 10,676,618
+CSS: e19809bd8cf9081e4f45b9f4b430f23a74abb8c4d4faedb97f721c4f1e3fb801
+
+Diagnosis and change
+Fresh actual-public captures show the Toilet headline, qualified completion
+percentage, Total/Done/Left and all supported native types. The reported empty
+view was not reproduced. No missing data is invented and no arithmetic changes.
+Unbundled italic Impact/Arial Narrow/Arial headings used different local font
+fallbacks. Use the page's existing embedded Inter 700 upright, normal tracking,
+with no synthetic heading face or text shadow. Increase supporting subtype
+labels on smaller displays while preserving the native 4K treatment. Remove
+only Today's completed pane entrance transform; instrument motion is unchanged.
+
+Checks already complete
+- Standard build: all 11 inline scripts parse and page checks pass.
+- Exact-base preservation: 6/6 pass, including wrong-base/repeat refusal and
+  exact reversal to every original byte. Operational JS, native quantities,
+  financial calculations, media, maps and navigation remain byte-preserved.
+- Root inspected the candidate laptop Toilet landing: headings, quantities,
+  percentage and plan text are present and legible.
+
+Final candidate verification
+- Focused browser run: 58/59 across six viewport/scaling configurations. The
+  sole failed expectation required all readings inside the initial short
+  viewport. Same-byte real-wheel follow-up: 6/6, proving all count controls are
+  revealed, pass hit testing and reverse-scroll correctly. No product change
+  was needed; vertical scrolling is allowed. Original failed evidence retained.
+- Loaded custom Inter font proved through browser platform-font inspection,
+  with upright weight 700, no synthetic heading style or ancestor transform.
+- Toilet headline, all supported types, percentages and Total/Done/Left match
+  the unchanged native models. Representative toilet/block/tank detail links
+  preserve exact reference quantities, destinations and native record actions.
+- Automatic motion stays on one visible instrument; numeric readings stay still.
+- Phone 390px and additional 320px heading fit pass. Root and independent visual
+  reviewer inspected main Toilet, type instruments and linked details.
+- Desktop and phone sweeps each pass all 22 routes, seven deep links and Back;
+  navigation outcomes match the baseline. No runtime/console errors or
+  operational write attempts. Every non-GET is blocked; the expected Google
+  Maps session request is separately classified.
+- Final candidate, CSS and patch bindings remain unchanged.
+
+Pending after publication
+- Verify exact actual-public bytes, a bounded live laptop/phone check and
+  before/after shared-record fingerprints.
+
+Retained test history
+The initial focused run passed 8/9 checks before an over-specific harness wait
+expected Toilets to be the active animation. On a two-column viewport the
+existing automatic selector can correctly animate the other visible card.
+The corrected test requires one actually visible animated instrument and passes;
+the candidate is unchanged. Raw failed evidence is retained privately. The
+later first-viewport height assumption and real-wheel proof are recorded above.
+
+Evidence handling and limits
+Raw records, screenshots and detailed browser evidence stay outside Git in the
+private release workspace. Fractional DPR emulates display scaling. The reduced
+CSS viewport with DPR 1.25 is labelled zoom-equivalent, not a physical Windows
+laptop or native browser-zoom test. Do not claim all device-specific blur is
+eliminated or that the original blank state was reproduced and repaired.
