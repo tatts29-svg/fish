@@ -1,6 +1,7 @@
 Author: Andrew Fisher
 GC500 v8.45 — toilet information and laptop text clarity
-DRAFT under final verification. Not ready or live.
+READY TO UPLOAD — 4 Oct 2026. Not yet live.
+Implementation source 5ba138dc702cdfcdf10953e3f752a3bda09302a5.
 
 Andrew reports an empty toilet display and blurred names on laptops. Fresh
 public-page diagnosis renders the Toilet summary and every supported type.

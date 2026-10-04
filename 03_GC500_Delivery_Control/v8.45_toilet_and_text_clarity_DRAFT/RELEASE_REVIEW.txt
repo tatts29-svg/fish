@@ -1,6 +1,7 @@
 Author: Andrew Fisher
 GC500 v8.45 — Today text clarity
-DRAFT — final candidate checks complete; publication has not occurred.
+READY TO UPLOAD — 4 Oct 2026. Publication has not occurred.
+Implementation source 5ba138dc702cdfcdf10953e3f752a3bda09302a5.
 
 Ownership and scope
 Codex owns the release. A separate visual agent implemented/reviewed the scoped
