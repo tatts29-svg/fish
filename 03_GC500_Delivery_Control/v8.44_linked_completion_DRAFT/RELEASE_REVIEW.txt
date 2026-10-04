@@ -1,7 +1,7 @@
 Author: Andrew Fisher
 GC500 v8.44 — completion connected to items, places and photographs
 
-DRAFT. Implementation and verification are in progress; not ready or live.
+READY TO UPLOAD. Candidate verification is complete; not live yet.
 Owner: Codex. Claude remains intentionally paused at dacf75dd; the separate
 steering-wheel film is held and excluded.
 
@@ -62,3 +62,30 @@ save boundary, then restored it. Today, native Timeline and Equipment read the
 same resulting reference status. All unrelated types and all shared collections
 remain unchanged. Live writes were blocked throughout. Current reference,
 map and photo evidence is labelled separately from selected-day quantities.
+
+Final resolution and release readiness
+Implementation checkpoints: 0804c867 and final product 5987def70ece26e10794d66e8a5cfb065cd9bdff.
+The corrected narrow parent test passes the affected review-quantity assertions
+at all four viewports. Its raw 26/27 run retains an interrupted offscreen
+programmatic click. A diagnostic 3/4 run proved the click itself succeeds but
+was interrupted by an element detaching during explicit scroll as the native
+photo registry loaded. The final bounded 4K proof uses the full suite's registry
+readiness condition and trusted locator pointer clicks: 9/9 pass, including
+Generators, Lighting and Equipment, recorded click coordinates, exact quantities,
+record preservation and no runtime/console or operational write errors.
+The initial assertion failures are retained; they are not reported as passing.
+Read-only adapters and CSS are byte-identical between original and final
+candidates. The reviewed UI difference is supplier heading focus and concise
+photo availability wording. All original assertions are now resolved.
+
+Both final standard sweeps pass: 22 routes, seven deep links and Back, each on
+desktop and phone. Existing guarded routes match the baseline. Zero runtime or
+console errors and no operational write attempts. The expected external Maps
+session request is separately blocked. Candidate and five implementation/patch
+source hashes remain identical before and after the checks.
+Independent review inspected seven fresh final screenshots across laptops,
+phone and 4K; root also inspected the final phone reference and native return
+views. No clipping or visual blocker. Shared-record fingerprints before work
+and before upload agree across all 33 collections. No server deployment.
+Codex owns guarded publication and verification of the actual public bytes.
+Claude remains intentionally paused; this is an independently reviewed release.
