@@ -1,0 +1,57 @@
+Author: Andrew Fisher
+GC500 v8.40 Today work progress — release review
+
+Base: v8.38, 400bb272d392322ad5a615fa23b83d724d38bc15811b0cde242377b0c5777929
+Candidate: 573df8e5440f7cd9c48452a52632114bdc4cedbdf3254db007dc6bff35e48929
+Candidate bytes: 10,482,441
+Implementation: 28e1368b; refresh/navigation corrections: 1e393519.
+Owner: Codex. Claude remains intentionally paused at dacf75dd.
+Separate v8.39 film remains held and is excluded.
+
+The category dashboard uses the existing completion records and quantities.
+Reference-level complete ticks are not new per-unit physical inspections. On-site
+and rental status do not establish completion. Unknown quantities and conflicting
+short-delivery/completion evidence stay explicit. The current quantity/supply
+record remains the basis when historic completion ticks are replayed.
+
+Clean fencing compares recorded Build work with the quantified Build programme.
+It is not a unique-length or geometric completion measure. Other fence work and
+unplaced/undated evidence remain available through the existing native views.
+
+Verified before publication:
+- Standard build: all 11 inline scripts parse; no new credentials or map tokens.
+- 16 synthetic model checks, including unknown scope, short quantities, product
+  classification, cancellation, hydration, history and fencing phase/scope.
+- 26 source preservation checks: reproducible candidate, wrong/repeated-base
+  refusal, identical native DATA, Timeline/cost/fence/equipment/media functions,
+  existing styles, header shell and supporting scripts.
+- Independent final browser suite: 205/205 on this exact candidate at desktop,
+  390px phone/DPR2 and native 3840px. All six category totals and row membership
+  match native inputs; no operational write attempted.
+- Header comparison retains exact structure except independently changing native
+  attention dots. Existing video descriptors match, actual MP4 playback works,
+  and replaced media is stopped/cleaned up by its existing lifecycle.
+- First entry, category navigation, direct and full redraw, polling, all details,
+  reference identity, keyboard return, reduced motion, Motion Off and programme
+  exclusion passed. Phone probe additionally retained exact scroll and focus
+  through eight redraws and a polling window.
+- Dark-mode heading contrast 14.72:1 and secondary/basis text 8.68:1. Root and
+  independent visual review inspected phone, desktop and 4K captures.
+
+Initial evidence is retained. Earlier candidates revealed decorative programme
+motion behind the work dialog and native post-render/entry-animation scroll
+movement. Both were corrected and the entire final suite passed. Early test
+assumptions about changing attention dots and queued native dialog close events
+were corrected after targeted observation; those earlier runs are not presented
+as passes. The strict dashboard test blocked the external map-session POST as
+well as all operational writes; the separate native navigation sweep uses the
+standard map behaviour. No map implementation was changed.
+
+Navigation sweeps: desktop and phone each passed 22 native tab routes, seven
+deep links and Back navigation, with no runtime or console errors. Existing
+view-only/legacy route redirects are preserved. Map sessions used the standard
+external provider flow; operational writes remained blocked by the harness.
+Publication and actual-public verification: pending.
+
+Detailed browser records, source snapshots and images are held privately.
+Public source/review files contain no copied operational or financial records.

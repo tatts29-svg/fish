@@ -1,5 +1,7 @@
 // Author: Andrew Fisher. Read-only candidate/native integration checks.
 // PAGE, BASE and private OUT are required; optional CANDIDATE_SHA and GC500_TOOLCHAIN.
+// LIVE=1 serves no local candidate HTML: the fresh public response must match PAGE byte-for-byte.
+// INITIAL_ONLY=1 is a post-publication smoke; never run LIVE before the release owner authorises it.
 // This file contains generic logic only. Actual records and screenshots go to private OUT.
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
@@ -41,13 +43,13 @@ function oracle840(input){
 }
 
 function installWriteGuard(){
- const state={nonGetSeen:[],blocked:[],consoleErrors:[]};const safe=value=>{try{const u=new URL(value);return u.origin+(u.pathname.startsWith('/e/')?'/e/[redacted]':u.pathname);}catch{return '[unparseable]';}};
+ const state={nonGetSeen:[],blocked:[],consoleErrors:[],documentResponses:[]};const safe=value=>{try{const u=new URL(value);return u.origin+(u.pathname.startsWith('/e/')?'/e/[redacted]':u.pathname);}catch{return '[unparseable]';}};
  const entry=r=>({method:r.method(),url:safe(r.url()),operational:r.url().startsWith('https://gc500-production.up.railway.app/')});
  const {chromium}=require('playwright'),launch=chromium.launch.bind(chromium);
  chromium.launch=async options=>{const browser=await launch(options),newContext=browser.newContext.bind(browser);browser.newContext=async options=>{
    const context=await newContext({...options,serviceWorkers:'block'});context.on('request',r=>{if(!/^(data|blob):/.test(r.url())&&r.method()!=='GET')state.nonGetSeen.push(entry(r));});
    const wrapRoutes=o=>{const route=o.route.bind(o);o.route=(pattern,handler,options)=>route(pattern,async(r,...args)=>{const q=r.request();if(!/^(data|blob):/.test(q.url())&&q.method()!=='GET'){state.blocked.push(entry(q));return r.abort('blockedbyclient');}return handler(r,...args);},options);};
-   wrapRoutes(context);const newPage=context.newPage.bind(context);context.newPage=async()=>{const p=await newPage();wrapRoutes(p);p.on('console',m=>{if(m.type()==='error')state.consoleErrors.push({text:m.text().replace(/\/e\/[^\s/?]+/g,'/e/[redacted]').slice(0,500),url:safe(m.location()?.url||'')});});return p;};return context;
+   wrapRoutes(context);const newPage=context.newPage.bind(context);context.newPage=async()=>{const p=await newPage();wrapRoutes(p);const goto=p.goto.bind(p);p.goto=async(...args)=>{const response=await goto(...args);if(response&&/^https:\/\/gc500-production\.up\.railway\.app\/v\/Coates-GC500-2026\/?(?:[?#]|$)/.test(response.url())){const body=await response.body(),bom=body.subarray(0,3).equals(Buffer.from([239,187,191]));state.documentResponses.push({url:safe(response.url()),status:response.status(),sha:hash(body),bytes:body.length,utf8Bom:bom,shaWithoutBom:bom?hash(body.subarray(3)):null});}return response;};p.on('console',m=>{if(m.type()==='error')state.consoleErrors.push({text:m.text().replace(/\/e\/[^\s/?]+/g,'/e/[redacted]').slice(0,500),url:safe(m.location()?.url||'')});});return p;};return context;
   };return browser;};return state;
 }
 
@@ -85,15 +87,15 @@ async function model840(page){return page.evaluate(()=>({day:todayIso(),health:t
 async function motion840(page){return page.evaluate(()=>({work:TodayWork840.report(),native:window.TodayMotion820?.report?.()||null,active:[...document.querySelectorAll('#gc500-work-board840 .tw840-running')].map(e=>({id:e.dataset.tw840Area,sheen:getComputedStyle(e.querySelector('.tw840-display'),'::after').animationName,play:getComputedStyle(e.querySelector('.tw840-display'),'::after').animationPlayState})),dialog:!!document.querySelector('#gc500-work-dialog840')?.open}));}
 async function run(){
  const {PAGE,BASE,OUT,CANDIDATE_SHA}=process.env;if(!PAGE||!BASE||!OUT)throw Error('Set PAGE, BASE and a private OUT directory');
- fs.mkdirSync(OUT,{recursive:true});const candidate=hash(fs.readFileSync(PAGE)),base=hash(fs.readFileSync(BASE));if(CANDIDATE_SHA&&candidate!==CANDIDATE_SHA)throw Error('Candidate SHA mismatch before browser launch');
- const initial=process.env.INITIAL_ONLY==='1';
- const report={author:'Andrew Fisher',at:new Date().toISOString(),candidate,base,scope:'Local candidate at public view address; live GETs only; emulated desktop and phone; no publication',initial,checks:[],views:[]};
+ fs.mkdirSync(OUT,{recursive:true});const candidateBytes=fs.readFileSync(PAGE),candidate=hash(candidateBytes),base=hash(fs.readFileSync(BASE));if(CANDIDATE_SHA&&candidate!==CANDIDATE_SHA)throw Error('Candidate SHA mismatch before browser launch');
+ const initial=process.env.INITIAL_ONLY==='1',live=process.env.LIVE==='1';
+ const report={author:'Andrew Fisher',at:new Date().toISOString(),candidate,base,scope:live?'Actual public HTML, no local substitution; live GETs only; no publication':'Local candidate at public view address; live GETs only; emulated desktop and phone; no publication',live,expectedBytes:candidateBytes.length,expectedUtf8Bom:candidateBytes.subarray(0,3).equals(Buffer.from([239,187,191])),initial,checks:[],views:[]};
  const check=(name,pass,evidence)=>{report.checks.push({name,pass:!!pass,evidence});console.log((pass?'PASS ':'FAIL ')+name);fs.writeFileSync(path.join(OUT,'checks-live.json'),JSON.stringify({candidate,checks:report.checks},null,2));};
  const guard=installWriteGuard(),toolchain=process.env.GC500_TOOLCHAIN||path.resolve(__dirname,'../toolchain'),{open}=require(path.join(toolchain,'harness/open_page.js'));let session,baseline;const baselines={};
  try{
   if(!initial){session=await open({pageFile:BASE,hash:'#today',W:1700,H:1100});await ready840(session.page,false);await session.page.evaluate(()=>{localStorage.setItem('gc500.band','shown');go('today');});for(const bview of [{name:'desktop',width:1700,height:1100},{name:'phone',width:390,height:844},{name:'4k',width:3840,height:2160}]){await session.page.setViewportSize({width:bview.width,height:bview.height});await session.page.evaluate(()=>render());await session.page.waitForTimeout(400);baselines[bview.name]=await nativeSnapshot(session.page);}baseline=baselines.desktop;report.baselines=baselines;check('Baseline live hydration',true,{collections:Object.keys(baseline.collections).length});await session.browser.close();session=null;}
   for(const view of [{name:'desktop',W:1700,H:1100,dpr:1},{name:'phone',W:390,H:844,dpr:2,mobile:true},{name:'4k',W:3840,H:2160,dpr:1}]){
-   session=await open({pageFile:PAGE,hash:'#today',...view});const p=session.page;await ready840(p);
+   session=await open({pageFile:live?undefined:PAGE,hash:'#today',...view});const p=session.page;if(live){const received=guard.documentResponses.at(-1),exact=received?.status===200&&received.sha===candidate&&received.bytes===candidateBytes.length;check(view.name+' actual public HTML response matches frozen candidate bytes',exact,received);check(view.name+' actual public HTML has no local page substitution',session.counts.page===0,session.counts);if(!exact||session.counts.page!==0)throw Error('Public HTML differs from frozen candidate; content checks stopped');}await ready840(p);
    await p.locator('[data-tw840-jump=equipment]').click();await p.waitForTimeout(800);const firstJump=await p.evaluate(()=>{const h=document.querySelector('[data-tw840-area=equipment] h3'),nav=document.querySelector('#gc500-work-board840 .tw840-nav'),main=document.querySelector('main'),r=h.getBoundingClientRect(),m=main.getBoundingClientRect();return {focused:document.activeElement===h,heading:r.top,bottom:r.bottom,navBottom:nav.getBoundingClientRect().bottom,mainTop:main.scrollTop,mainBottom:m.bottom,windowX:scrollX,windowY:scrollY};});check(view.name+' first-entry category jump settles on visible heading',firstJump.focused&&firstJump.heading>=firstJump.navBottom-1&&firstJump.bottom<=firstJump.mainBottom&&firstJump.mainTop>0&&firstJump.windowX===0&&firstJump.windowY===0,firstJump);
    const model=await model840(p),input=await nativeInputs(p,model.day),expected=oracle840(input),native=await nativeSnapshot(p);const evidence={view,model,input,expected,native};report.views.push(evidence);
    check(view.name+' full shared-record hydration',model.health.ready&&model.health.status==='live',{health:model.health,collections:Object.keys(native.collections).length});

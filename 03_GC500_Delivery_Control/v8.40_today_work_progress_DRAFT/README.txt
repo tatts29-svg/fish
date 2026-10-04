@@ -36,6 +36,7 @@ Checks:
 Use the repository browser harness environment and a private evidence directory.
 The browser suite blocks all non-GET requests before transport.
 
-Release state: DRAFT. Initial native-data arithmetic and visual review passed;
-final interaction checks, regression sweeps and guarded publication are pending.
+Release state: READY, not live. The final 205-check integration suite and both
+22-tab/seven-link/Back navigation sweeps passed. Guarded publication and checks
+of the actual public response remain pending. See RELEASE_REVIEW.txt.
 The separate v8.39 steering-wheel film is held and is excluded from this release.
