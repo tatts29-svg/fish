@@ -1,4 +1,4 @@
-# v8.64: Map explorer, fast and clear (DRAFT, READY to upload)
+# v8.64: Map explorer, fast and clear (VERIFIED LIVE)
 
 Author: Andrew Fisher.
 
@@ -83,3 +83,8 @@ These are headless Chromium without a GPU, so canvas painting costs more than on
 ## Codex final release review
 
 Author: Andrew Fisher. Imported Claude source `99ec7082` as `cd017766`; made the test harness import portable and added an explicit 3D round-trip assertion. Dashboard and three explorer bytes exactly reproduce the handover. Machine candidate `b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8` contains231 paths,228 unrelated descriptors unchanged. Five unlisted private blobs are verified and backed up privately. Guarded GET-only preflight and43 offline publisher guards pass. Independent browser checks pass: desktop15/15, phone16/16; both3D round trips; both24/24 flicker suites; both21-route/seven-link/Back sweeps, zero runtime/console errors. Phone screenshot inspected. Inverse dashboard source oracle recovers the preceding release exactly; snapshot memoisation remains fresh between builds and resets after exceptions. READY for paired publication under Andrew's direct “Get live” instruction. Local timing measurements are not a guarantee on every physical device. No code edits to geometry, rates, financial models or operational records.
+
+
+## Verified live
+
+Author: Andrew Fisher. Both components published by Codex6 Oct2026 at04:45 AEST. READY `3a64421f`. Dashboard exact public SHA-256 `d725d9acd069a208be3e3ecc757f3b914c9b98bff67a5432475dde6e2ae7a7d2`,11,006,214 bytes; machine full231-path SHA-256 `b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8`. Single guarded registration verified all three changed public assets,228 unrelated descriptors and all five unlisted private blobs. Actual-public map checks desktop15/15 and phone16/16 pass with zero HTML/asset substitutions; both3D round trips pass, zero page errors or attempted writes. Serverv5.87 and record3851 preserved; no backend deployment. Original local measurements remain test evidence, not a physical-device performance guarantee. Claude owns implementation; Codex independently reviewed, published and verified both components. Private publisher evidence stays outside Git.
