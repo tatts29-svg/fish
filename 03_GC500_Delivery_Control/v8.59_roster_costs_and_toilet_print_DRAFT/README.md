@@ -10,4 +10,8 @@ Toilet printing opens a stable one-A4-page preview for each native supplier load
 
 Base: verified v8.58, SHA-256 3b37cef6118920d6e518314356de34caeb6e685c878c34a02c6f63317a9f00e7. No shared-record changes. Private financial evidence, PDFs and the Excel remain outside Git. Codex implements and independently reviews; Claude remains intentionally paused.
 
-Checks are in progress. Not ready or live until the shared board records final candidate evidence.
+The roster uses Employment group, Ordinary and Worked hours; weekday per-item installation Revenue is distinguished from event hourly Revenue. Calculation notes are folded.
+
+Build checks pass for the final candidate: SHA-256 71fdff199e5b09e6d67b2716cb6733ef4e69cb8b2fa3f002db5fec992527e888, 10,974,485 bytes. Focused checks and both sweeps are finishing. Early checks caught a build attribution scrub affecting a literal-name match; attribution now follows the native allowance record. Two test assumptions were corrected: CSS uppercase is compared without case, and legacy bookmarks retain their hash while opening the new Costs destination. Original private diagnostics are retained; no failure is suppressed.
+
+Not ready or live until the board records final checks.

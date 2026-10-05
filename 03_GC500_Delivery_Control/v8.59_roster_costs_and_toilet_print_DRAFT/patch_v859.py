@@ -32,5 +32,12 @@ rep('(Job Connect) · before', '(priced labour and salary allowance forecast) ·
 rep("gap('The fence team of six on the event labour scope'", "if(labourAllowance858())gap('Coates salary — base salary cost', 'The salary allowance forecast does not include base salary or employer on-costs; Finance confirmation remains required.', 'Finance — aggregate salary cost');\n gap('The fence team of six on the event labour scope'")
 rep('${r.pay != null ? esc(money(r.pay))','${r.type===\'salary\'&&!r.pay?\'<span class="w">Base salary pending</span>\':r.pay != null ? esc(money(r.pay))')
 rep('${x.pay ? esc(money(x.pay))','${x.type===\'salary\'&&!x.pay?\'<span class="w">Base salary pending</span>\':x.pay ? esc(money(x.pay))')
+rep('<p class="sub"><b>Worked</b> is every hour', '<details class="sfold"><summary>Hours and costing basis</summary><div class="sfoldbody"><p class="sub"><b>Worked</b> is every hour')
+rep("Amounts ex GST.${ed ? '' : ' <b>View only</b> — open the editing link to change a line.'}</p>", "Amounts ex GST.${ed ? '' : ' <b>View only</b> — open the editing link to change a line.'}</p></div></details>")
+rep("const ok = h && TABS.some(([k]) => k === h); go(ok ? h : 'today');", "const ok = h && (h==='runsheet'||TABS.some(([k]) => k === h)); go(ok ? h : 'today');")
+# Use employment and cost terminology without implying weekday hourly customer charges.
+start=s.index('function renderRunsheet_held(){');end=s.index('/* ================================================================== v6.78',start)
+old=s[start:end];new=old.replace('<th>Type</th>','<th>Employment group</th>').replace('>Normal</th>','>Ordinary</th>').replace('>Worked (charged)</th>','>Worked hours</th>').replace('nothing taken off — charged to the V8s','before unpaid breaks').replace('start to finish — charged to the V8s','start to finish, before unpaid breaks').replace('the V8s are charged every hour worked, start to finish.','Event hourly Revenue follows the event labour scope; weekday installation Revenue is charged per item.')
+assert new!=old;rep(old,new)
 rep('· v8.58', '· v8.59')
 open(p,'w',encoding='utf-8-sig').write(s)
