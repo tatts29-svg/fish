@@ -78,3 +78,12 @@ These are headless Chromium without a GPU, so canvas painting costs more than on
 - The machine publisher preserves the full manifest. This folder does not register anything.
 
 **Order.** Either part can go first. Each works on its own: the page fix removes the Fencing freeze, and the explorer fix adds the labels, closes, Clear and lighter frames. Both are needed for the full result.
+
+## Independent public readback (Claude, 6 Oct 2026 ~05:00 AEST, GET only)
+
+- Page `d725d9acd069a208be3e3ecc757f3b914c9b98bff67a5432475dde6e2ae7a7d2`, 11,006,214 bytes: byte-identical to the candidate.
+- `/api/machine`: `v8.64-map-explorer`, `b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8`, 231 files, registered 2026-10-05T18:45:18Z.
+- `explorer/index.html`, `explorer-fix864.js` and `explorer-fix864.css` are byte-identical to `machine_prepared/`.
+- `explorer.js`, `explorer-merge.js`, `fencing-map-core.js`, `fencing-map-explorer.js` and `fencing-map.css` are unchanged from v8.37.
+- `tests/test_explorer864.cjs` against the actual public explorer files (no local substitution): desktop 14/14, phone 15/15 (`evidence/public_readback_*.log`).
+- Test-harness note: the shared `curlfetch` disk cache can hold an older `index.html`. Run public checks with a fresh `GC500_CACHE`.
