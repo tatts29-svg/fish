@@ -7,6 +7,11 @@ const guard=installWriteGuard(),report={author:'Andrew Fisher',scope:process.env
 (async()=>{let s;try{for(const W of [1366,390]){
  s=await open({pageFile:process.env.PAGE,hash:'#today',W,H:900,mobile:W===390,dpr:W===390?2:1});const p=s.page;await ready840(p);await p.waitForFunction(()=>typeof daily861Message==='function');const before=await nativeSnapshot(p);
  const iso=await p.evaluate(()=>{go('timeline');const d=programmeDays().find(d=>d.iso>=todayIso()&&(d.deliveries||[]).length);if(!d)throw Error('No scheduled day available for preview');state.day=d.iso;state.tlView='day';renderTimeline();return d.iso;});
+ assert.equal(await p.locator('#pane-timeline .dplate').getByText(/^Email(?: ▾)?$/).count(),0,'No generic Email tile');
+ assert.equal(await p.locator('#pane-timeline .tlday-ctl .dpmail').count(),0,'No duplicate per-day Email menu');
+ for(const kind of ['drivers','install'])assert(await p.locator('#pane-timeline .dplate [data-pdf7="'+kind+'"]').count()>0,kind+' group PDF controls remain');
+ assert.equal(await p.locator('#pane-timeline .ep819-hd [data-ep860-inventory]').count(),1,'Timeline supplier inventory remains available');
+ assert(await p.locator('#pane-timeline .ep819-go [data-ep860-email]').count()>0,'Supplier run-sheet email remains available');
  await p.locator('.dplate [data-daily821-toggle="'+iso+'"]').click();const panel=p.locator('[data-daily821-panel="'+iso+'"]');assert(await panel.isVisible());
  await p.locator('[data-daily821-recipient="'+iso+'"]').selectOption({index:1});assert(await panel.locator('.daily861-preview').isVisible());
  const waitPopup=p.waitForEvent('popup');await p.locator('[data-daily821-preview="'+iso+'"]').click();const popup=await waitPopup;await popup.waitForFunction(()=>document.title.includes('Daily deliveries'),null,{timeout:25000});await p.waitForFunction(iso=>daily821Session(iso).prepared&&!daily821Session(iso).busy,iso);
@@ -17,8 +22,19 @@ const guard=installWriteGuard(),report={author:'Andrew Fisher',scope:process.env
  await p.evaluate(()=>renderTimeline());assert(await panel.isVisible());assert.equal(await panel.locator('.daily861-preview pre').textContent(),text);
  assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await panel.scrollIntoViewIfNeeded();await panel.screenshot({path:O+'/personal-message-'+W+'.png'});
  await p.locator('[data-daily821-close="'+iso+'"]').click();assert(!await panel.isVisible());await popup.close();
+ await p.locator('#pane-timeline [data-ep819-print]').first().click();
+ assert(await p.locator('#ep819print [data-ep860-email]').isVisible(),'Run-sheet preview retains Email PDF');
+ await p.locator('[data-ep819-x]').click();
+ await p.evaluate(()=>go('plant'));
+ const inventoryButton=p.locator('#pane-plant .eqtools [data-ep860-inventory]');assert.equal(await inventoryButton.count(),1,'Equipment offers supplier inventory');assert(await inventoryButton.isVisible());
+ await inventoryButton.click();await p.waitForFunction(()=>EP860.file&&document.querySelector('#ep860-dialog [data-ep860-share]'),null,{timeout:120000});
+ const inventory=await p.evaluate(()=>({name:EP860.file.name,pages:EP860.file.pages,size:EP860.file.size,type:EP860.file.file.type,title:document.querySelector('#ep860-title').textContent}));
+ assert(inventory.name.startsWith('GC500_Event_Portables_Inventory_'));assert(inventory.pages>0);assert(inventory.size>1000);assert.equal(inventory.type,'application/pdf');assert.equal(inventory.title,'Inventory print');
+ assert(await p.locator('#ep860-dialog').getByRole('link',{name:'Open / Print PDF',exact:true}).isVisible());
+ await p.screenshot({path:O+'/equipment-inventory-'+W+'.png'});await p.locator('[data-ep860-close]').click();assert.equal(await p.locator('#ep860-dialog').count(),0);
+ assert(await inventoryButton.evaluate(e=>document.activeElement===e),'Inventory close restores focus');
  const after=await nativeSnapshot(p);assert.deepEqual(after.collections,before.collections);assert.equal(s.errors.length,0,s.errors.join('\n'));
- report.views.push({width:W,personalGreeting:true,selectedDate:true,forecastPinned:true,take5:true,linkLast:true,viewCannotSend:true,dayPageReferencesMatch:true,redrawPreservesPreview:true,recordsPreserved:true});
+ report.views.push({width:W,personalGreeting:true,selectedDate:true,forecastPinned:true,take5:true,linkLast:true,viewCannotSend:true,dayPageReferencesMatch:true,redrawPreservesPreview:true,genericEmailRemoved:true,supplierEmailPreserved:true,timelineInventoryPresent:true,equipmentInventoryGenerated:true,inventoryPages:inventory.pages,recordsPreserved:true});
  await s.browser.close();s=null;
  }assert(!guard.nonGetSeen.some(x=>x.operational),'No operational writes');const intentional=guard.consoleErrors.filter(x=>x.url==='https://tile.googleapis.com/v1/createSession'&&/ERR_BLOCKED_BY_CLIENT/.test(x.text));assert.equal(guard.consoleErrors.length,intentional.length,'No unexpected console errors');report.operationalWrites=0;report.unexpectedConsoleErrors=0;report.intentionalMapBlocks=intentional.length;fs.writeFileSync(O+'/native-ui861.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
  }finally{if(s)await s.browser.close();await guard.closeAll();}})().catch(e=>{console.error(e.stack);process.exitCode=1;});
