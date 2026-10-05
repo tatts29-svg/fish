@@ -1,0 +1,105 @@
+{
+ "author": "Andrew Fisher",
+ "received": "6 Oct 2026, photographs of six signed Advanced papers, from Andrew: \"Have more fencing dockets.. these are also to be attached to please.\"",
+ "transcribed_by": "Claude, from the photographs. Every figure is as written on the paper; anything the paper does not say is marked to_confirm and is not charged until Andrew says so.",
+ "for": "Codex (holds the edit key) to enter through the Fencing tab forms, recorded as \"Andrew Fisher\", and to upload the six photographs on the Documents tab as Fencing dockets named by number (36569.jpg ...), which the page matches to each paper by itself. Next ids: F-AFV-0011 to F-AFV-0014, N-AFV-0006 and N-AFV-0007.",
+ "work_date": "2026-10-02",
+ "week": "Week 3",
+ "week_note": "Fri 2 Oct 2026 falls between the Week 3 sheet (27 Sep to 1 Oct) and the Week 2 sheet (6 to 8 Oct). Recorded against Week 3, the sheet of the same working week, as 36568 (1 Oct) was. To confirm with Andrew if he wants it otherwise.",
+ "hire_agreements": [
+  {
+   "docket_no": "36569",
+   "book": "red",
+   "date": "2026-10-02",
+   "location": "Event - ELEC",
+   "map_ref": null,
+   "contact": "Brenden",
+   "quantities": {"clean": 82.5, "scrim": 82.5},
+   "components": {"mesh_panel": 33, "base": 83, "clamp": 85, "brace": 26, "wheels": 2},
+   "note": "Written on the paper: Mesh Fence 82.5 m, Wheels 2; items Mesh Panel 33, Base 83, Clamp 85, Brace 26 (the three item figures are written over corrected entries). Notes relating to installation: \"Braced & Scrimmed\". Scrim 82.5 m, same as the fence, by Andrew's rule of 2 Oct (\"shade cloth same as fencing\"). Prices and totals are blank on the paper.",
+   "to_confirm": ["Scrim at 82.5 m (the fence metres) follows Andrew's 2 Oct rule; the paper writes \"Braced & Scrimmed\" without a metre figure."],
+   "read_with_care": ["Base 83, Clamp 85 and Brace 26 are written over crossed-out figures; read against the paper."],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-10-02"
+  },
+  {
+   "docket_no": "36570",
+   "book": "red",
+   "date": "2026-10-02",
+   "location": "Telstra COW",
+   "map_ref": null,
+   "contact": "Brenden",
+   "quantities": {"scrim": 25},
+   "components": {"base": 8, "clamp": 8, "brace": 4},
+   "note": "Written on the paper: no metres and no panels; items Base 8, Clamp 8, Brace 4. Notes relating to installation: \"Braced ... & Scrim\" (one word crossed out). The scrim metres are on service note 24466 for the same site and day: \"Scrim 25m\". No mesh fence is charged on this paper: the fence at the Telstra COW is not on any docket recorded so far.",
+   "to_confirm": ["Scrim 25 m is taken from service note 24466 (same site, same day); the hire agreement itself carries no metres.", "Whether the Telstra COW fence itself (bracing of an existing run) belongs to an earlier docket or was never docketed."],
+   "read_with_care": ["The crossed-out word in the installation note is not readable."],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-10-02"
+  },
+  {
+   "docket_no": "36571",
+   "book": "red",
+   "date": "2026-10-02",
+   "location": "Triangle to Gate 6 beach run",
+   "map_ref": null,
+   "contact": "Brenden",
+   "quantities": {"clean": 337.5},
+   "components": {"mesh_panel": 135, "base": 129, "clamp": 128, "wheels": 2},
+   "note": "Written on the paper: Mesh Fence 337.5 m, Wheels 2; items Mesh Panel 135 (written over a crossed-out figure), Base 129, Clamp 128, no brace. A word before \"Triangle\" in the site address is crossed out. No installation notes. Prices and totals are blank on the paper. Beside 36562 (S.01 to Gate 6 beach run, 29 Sep): a further run on the same stretch, not a repeat.",
+   "to_confirm": ["Map reference for the triangle to Gate 6 run."],
+   "read_with_care": ["Mesh Panel 135 is written over a crossed-out figure."],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-10-02"
+  },
+  {
+   "docket_no": "36572",
+   "book": "red",
+   "date": "2026-10-02",
+   "location": "S14 construction zone",
+   "map_ref": "S14",
+   "contact": "Brenden",
+   "quantities": {"clean": 15},
+   "components": {"mesh_panel": 6, "base": 4, "clamp": 5, "wheels": 2},
+   "note": "Written on the paper: Mesh Fence 15 m, Wheels 2; items Mesh Panel 6, Base 4, Clamp 5. No installation notes. Prices and totals are blank on the paper.",
+   "to_confirm": [],
+   "read_with_care": ["Site address is a hurried hand: read as \"S14 Construction Zone\"."],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-10-02"
+  }
+ ],
+ "service_notes": [
+  {
+   "note_no": "24466",
+   "book": "green",
+   "date": "2026-10-02",
+   "location": "Telstra COW",
+   "contact": "Brenden",
+   "crew_note": "2 men x 15 mins each (0.5 hr)",
+   "labour_hours": 0.5,
+   "note": "Written on the note: Labour \"2 men x 15 mins each\", quantity 0.5 hrs. Notes: \"Scrim 25m\". Installer signature present. Prices and totals are blank; the tracker labour rate is applied by the page.",
+   "read_with_care": [],
+   "signed_by": "Andrew (2 Oct 2026)"
+  },
+  {
+   "note_no": "24467",
+   "book": "green",
+   "date": "2026-10-02",
+   "location": "Phillip Park - Advanced compound",
+   "contact": "Brenden",
+   "crew_note": "1 man x 15 mins (0.25 hr)",
+   "labour_hours": 0.25,
+   "note": "Written on the note: Labour \"1 man x 15 mins\", quantity 0.25 hrs. Notes: \"XC 03EK - 13:30 to 13:45\" (a rego and the time, best read; as 24465 recorded regos). Installer signature present. Prices and totals are blank; the tracker labour rate is applied by the page.",
+   "read_with_care": ["The rego is hand-written and partly unclear (as read)."],
+   "signed_by": "Andrew (2 Oct 2026)"
+  }
+ ],
+ "effect_at_the_card_as_recorded": {
+  "rates": "2026 card: Clean $16.1607/m charged, $10.00/m paid; Scrim $25.53/m charged, $24.40/m paid; service-note labour at the tracker's $100/h paid, included within the customer fencing rates",
+  "charged": "36569 $3,439.48 (clean $1,333.26 + scrim $2,106.23) + 36570 $638.25 (scrim) + 36571 $5,454.24 + 36572 $242.41 = $9,774.38 (ex GST), of which $2,744.48 rests on the two scrim items to_confirm",
+  "paid_to_advanced": "36569 $2,838.00 (clean $825.00 + scrim $2,013.00) + 36570 $610.00 + 36571 $3,375.00 + 36572 $150.00 = $6,973.00",
+  "service_notes": "0.75 h at the tracker's $100 = $75 paid",
+  "not_charged_until_answered": ["36569 scrim 82.5 m ($2,106.23 charged / $2,013.00 paid) if Andrew's 2 Oct rule does not apply here", "36570 scrim 25 m ($638.25 / $610.00) if the service note's metres are not to be charged on the hire agreement"]
+ },
+ "andrew_answers": []
+}
