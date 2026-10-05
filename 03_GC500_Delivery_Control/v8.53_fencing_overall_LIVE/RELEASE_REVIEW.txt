@@ -1,6 +1,7 @@
 Author: Andrew Fisher
 GC500 v8.53 — overall Fencing instrument
-State: READY TO UPLOAD, 5 Oct 2026 AEST. Implementation baf90162.
+State: VERIFIED LIVE, 5 Oct 2026 at 13:00 AEST.
+Implementation baf90162; READY effde9c5.
 Base: 7a07fac2b357c9c19ea9ff26fd1b863d2f7395c2d505098579ea5ed72c705873
 Candidate: 8edafa7191103aa834af6b6c3091d7beba40041e0ccdb056b056709145e94549
 Bytes: 10,950,874
@@ -30,4 +31,13 @@ Codex implements, reviews and publishes. Claude remains intentionally paused.
 Both final navigation sweeps pass: 22 routes, seven deep links and Back on
 laptop and phone, with zero page/console errors. The final HTML hash is unchanged.
 Fresh PR discussion contains no new comments; Claude branch remains dacf75dd.
-Root owns guarded publication and actual-public verification. READY is not LIVE.
+Guarded publication and exact public byte readback succeeded.
+
+Actual-public focused checks pass 93/93 at laptop, phone and small-phone widths.
+Full-route checks pass 132/132 over 22 routes on laptop and phone. Public sessions
+verify exact upstream/browser document identity (UTF-8 BOM removal only), zero
+local HTML substitutions, runtime errors, unexpected console errors or attempted
+operational writes. Back, wheel/top/bottom scrolling, disclosure and native
+permissions are preserved. Root inspected actual-public phone percentage/counts
+captures. All 33 shared collections are unchanged at record version 3742.
+Server health is OK on v5.87; no backend deployment. Refresh open tabs once.
