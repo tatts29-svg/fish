@@ -30,3 +30,8 @@ function labourAllowanceCard858(){
  const amount=labourAllowance858();if(!amount)return '';
  return '<details class="card"><summary><strong>Forecast salary uplift and living-away allowance</strong> · '+esc(money(amount))+'</summary><p>Included once in forecast employee cost. Base salary and unpriced employee wages remain separate costing gaps. Hotel accommodation remains a separate expense.</p></details>';
 }
+
+function rosterIncludes858(row){
+ const window=(S.finance745||{}).labourRoster858;
+ return !window||(!window.from||row.date>=window.from)&&(!window.to||row.date<=window.to);
+}
