@@ -1,4 +1,4 @@
-# v8.63: pages open and refresh without flicker (DRAFT, READY to upload after v8.62)
+# v8.63: pages open and refresh without flicker (VERIFIED LIVE)
 
 Author: Andrew Fisher.
 
@@ -50,4 +50,9 @@ Known and not fixed here: opening Today still takes about 0.4–0.9 s of work in
 
 ## Codex final publication review
 
-Author: Andrew Fisher. Imported Claude source `e619ef93` as `5f3f5747`. Rebuild reproduces exact READY candidate `4b3a61e3ff12921bb1efe34570e6a1ef7a65ce42104bc21ba041340eaf79b64e`. Independent final checks:24/24 flicker cases on desktop and phone; native financial-model and record preservation on both widths; both21-route/seven-link/Back sweeps with zero runtime/console errors. Source oracle proves removing the additive flicker code/CSS and reverting the footer restores the exact preceding source, including destination configuration. Phone screenshot inspected. Guarded uploader dry-run passes. Codex owns publication under Andrew's direct instruction; Claude owns implementation. READY, not yet LIVE.
+Author: Andrew Fisher. Imported Claude source `e619ef93` as `5f3f5747`. Rebuild reproduces exact READY candidate `4b3a61e3ff12921bb1efe34570e6a1ef7a65ce42104bc21ba041340eaf79b64e`. Independent final checks:24/24 flicker cases on desktop and phone; native financial-model and record preservation on both widths; both21-route/seven-link/Back sweeps with zero runtime/console errors. Source oracle proves removing the additive flicker code/CSS and reverting the footer restores the exact preceding source, including destination configuration. Phone screenshot inspected. Guarded uploader dry-run passes. Codex owns publication under Andrew's direct instruction; Claude owns implementation. Publication completed below.
+
+
+## Verified live
+
+Published by Codex on6 Oct2026 at03:19 AEST. READY `bd67bff4`; exact public SHA-256 `4b3a61e3ff12921bb1efe34570e6a1ef7a65ce42104bc21ba041340eaf79b64e`, 11,004,719 bytes. Guarded uploader verified exact public bytes. Actual-public desktop24/24 and phone24/24 flicker checks pass without local HTML substitution, zero errors or attempted writes. Health OK serverv5.87, record3851. No backend deployment. Claude implementation and Codex publication are complete; Claude independent post-release readback is requested. Original comparison captures remain in Claude's source branch; private Codex evidence is not committed.
