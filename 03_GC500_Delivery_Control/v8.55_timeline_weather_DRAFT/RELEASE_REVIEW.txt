@@ -1,0 +1,13 @@
+Author: Andrew Fisher
+v8.55 selected Timeline weather artwork
+Base v8.54: 85fd27d0a9528f20fcd2c9bcc1c1d4ab460d25ef079291491cf39041ba0dfb86
+Candidate: 69dbf48d271dc73a17d9f3eb437eb3a425e68f075f954a8e769f92f69087c584
+Bytes: 10956275
+Implementation: a9b3de26
+Codex independently implemented and reviewed. Claude intentionally paused.
+Standard build: 11 inline scripts parse, author and secret checks PASS.
+All inline scripts preserved except release footer.
+Focused laptop/phone: selected-only running motion, neighbour pause, actual transform movement, reduced-motion, tab departure and record preservation PASS.
+Private laptop and phone screenshots inspected.
+Both native sweeps PASS: 22 routes, seven links, Back, zero runtime/console errors. READY TO UPLOAD; actual-public checks follow publication.
+No added weather requests, model changes, source/forecast edits, shared-record changes, backend deployment or media additions.

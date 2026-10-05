@@ -1,3 +1,4 @@
+"""Author: Andrew Fisher. Selected native Timeline weather presentation."""
 from pathlib import Path
 import hashlib,sys
 ROOT=Path(__file__).resolve().parent
