@@ -1,6 +1,6 @@
 /* Author: Andrew Fisher. Weather takes the selected card; data keeps a clear text corridor. */
 #pane-timeline .day[data-weather-card].on{--edge:#ff6a13;--face:#122b40;box-shadow:0 0 0 2px #ff6a13,0 9px 22px -9px #192a3e}
-#pane-timeline .day[data-weather-card].on .dface{background:#122b40}
+#pane-timeline .day[data-weather-card].on .dface{background:#122b40;opacity:1}
 #pane-timeline .day[data-weather-card].on .dface>.wm-card-scene{inset:0;height:100%;mask-image:none;opacity:1}
 #pane-timeline .day[data-weather-card].on .wm-card-scene svg{height:100%;width:100%;object-fit:cover}
 #pane-timeline .day[data-weather-card].on .wm-card-scene::after{background:linear-gradient(90deg,rgba(6,18,30,.77) 0%,rgba(6,18,30,.55) 31%,rgba(6,18,30,.06) 69%),linear-gradient(0deg,rgba(8,20,31,.85),transparent 55%)}
