@@ -49,7 +49,7 @@ window.fetch=async (url,opt={})=>{
   if(MOCK.cardMode==='held')await new Promise(r=>window.RELEASE_CARD=r);
   if(MOCK.cardMode==='badurl')return json({url:'https://evil.invalid/d/not-ours'});
   if(MOCK.cardMode==='malformed')return new Response('not JSON',{status:200});
-  return json({url:'/d/fixture-token'});
+  return json({url:'/d/'+(MOCK.cardToken||'fixture-token')});
  }
  if(u.pathname==='/api/sms'&&method==='POST'){
   MOCK.sms.push({body,who:opt.headers['x-gc500-who']});
@@ -92,7 +92,7 @@ window.fetch=async (url,opt={})=>{
  await test('Double click during card publication starts only one card and SMS',async({page})=>{await page.evaluate(()=>{MOCK.cardMode='held';window.FIRST_SEND=daily821Send(SESSION);});await page.waitForFunction(()=>!!window.RELEASE_CARD);await page.evaluate(()=>daily821Send(SESSION));await page.evaluate(()=>RELEASE_CARD());await page.evaluate(()=>FIRST_SEND);const s=await state(page);assert.equal(s.card,1);assert.equal(s.sms,1);});
  await test('Double click during SMS submission cannot submit a duplicate',async({page})=>{await page.evaluate(()=>{MOCK.smsMode='held';window.FIRST_SEND=daily821Send(SESSION);});await page.waitForFunction(()=>!!window.RELEASE_SMS);await page.evaluate(()=>daily821Send(SESSION));await page.evaluate(()=>RELEASE_SMS());await page.evaluate(()=>FIRST_SEND);const s=await state(page);assert.equal(s.card,1);assert.equal(s.sms,1);});
  for(const mode of ['unknown','throw','http500'])await test(mode+' SMS response stays locked through reload',async({page,boot})=>{await page.evaluate(m=>{MOCK.smsMode=m;return daily821Send(SESSION);},mode);const a=await state(page);assert.equal(a.sms,1);assert(a.locked);assert(JSON.parse(a.saved).locked);await boot();await page.evaluate(()=>daily821Send(SESSION));const b=await state(page);assert(b.locked);assert.equal(b.sms,0);assert.equal(b.card,0);});
- await test('Storage failure prevents an unpersisted SMS duplicate lock',async({page})=>{await page.evaluate(()=>{Storage.prototype.setItem=function(){throw new DOMException('Fixture quota','QuotaExceededError');};return daily821Send(SESSION);});const s=await state(page);assert.equal(s.sms,0);assert.match(s.message,/stor|remember|save|lock/i);});
+ await test('Storage failure prevents an unpersisted SMS duplicate lock',async({page})=>{await page.evaluate(()=>{Storage.prototype.setItem=function(){throw new DOMException('Fixture quota','QuotaExceededError');};return daily821Send(SESSION);});const s=await state(page);assert.equal(s.sms,0);assert.match(s.message,/stor|remember|save|lock/i);assert.match(s.message,/send receipt\. Allow session storage before texting; no text was submitted\.$/);});
  await test('Silent storage drop is detected before SMS',async({page})=>{await page.evaluate(()=>{Storage.prototype.setItem=function(){};return daily821Send(SESSION);});const s=await state(page);assert.equal(s.sms,0);assert.match(s.message,/stor|remember|save|lock/i);});
  await test('Read status performs no new POST and distinguishes delivered',async({page})=>{await page.evaluate(()=>daily821Send(SESSION));const before=await state(page);assert.equal(before.sms,1);await page.evaluate(()=>daily821Status(SESSION));const after=await state(page);assert.equal(after.card,before.card);assert.equal(after.sms,before.sms);assert.match(after.message,/Delivered/);});
  await test('Day HTML contains selected day only, no contacts/records/encoded app links',async({page})=>{const html=await page.evaluate(()=>{
@@ -151,14 +151,44 @@ window.fetch=async (url,opt={})=>{
  await test('Forecast changing after preview blocks card publication and SMS',async({page})=>{
   await page.evaluate(()=>daily821Prepare(SESSION));await page.evaluate(()=>{MOCK.forecast.max_c=32;return daily821Send(SESSION);});const s=await state(page);assert.equal(s.card,0);assert.equal(s.sms,0);assert.match(s.message,/Weather changed.*Preview again/i);
  });
- for(const mode of ['changedWeather','expiredWeather'])await test(mode+' during publication prevents stale SMS',async({page})=>{
-  await page.evaluate(m=>{MOCK.cardMode=m;return daily821Send(SESSION);},mode);const s=await state(page);assert.equal(s.card,1);assert.equal(s.sms,0);assert.match(s.message,/Weather changed.*Preview again/i);
+ for(const mode of ['changedWeather','expiredWeather'])await test(mode+' during publication: no stranded page; text keeps the forecast pinned before publishing',async({page})=>{
+  await page.evaluate(()=>daily821Prepare(SESSION));const pinned=await page.evaluate(()=>SESSION.prepared.weather861.text);
+  await page.evaluate(m=>{MOCK.cardMode=m;return daily821Send(SESSION);},mode);const s=await state(page);
+  assert.equal(s.card,1);assert.equal(s.sms,1,'STRANDED: daily page created, no text sent');assert(s.locked);assert.match(s.message,/Accepted/);
+  const text=await page.evaluate(()=>MOCK.sms[0].body.text);assert(text.includes(pinned));assert.match(text,/Sunny, 18-26C/);assert.doesNotMatch(text,/18-31C|unavailable/);
  });
  await test('Restored receipt never invents the original sent message',async({page,boot})=>{
   await page.evaluate(()=>daily821Send(SESSION));assert.match(await page.evaluate(()=>daily861PreviewHtml(SESSION,daily821Contacts()[0])),/Message text/);await boot();assert.equal(await page.evaluate(()=>daily861PreviewHtml(SESSION,daily821Contacts()[0])),'');
  });
- await test('Message above server length limit fails before any SMS',async({page})=>{
-  await page.evaluate(()=>{TEAM.people[0].name='A'.repeat(400);SESSION.recipient=TEAM.people[0].name;return daily821Send(SESSION);});const s=await state(page);assert.equal(s.sms,0);assert.match(s.message,/too long|length/i);
+ await test('Text over the server length limit is refused before any daily page is published',async({page})=>{
+  await page.evaluate(()=>{window.fmtDate=x=>x+' '+'D'.repeat(200);return daily821Send(SESSION);});const s=await state(page);assert.equal(s.card,0,'STRANDED: daily page created, no text sent');assert.equal(s.sms,0);assert.match(s.message,/too long/i);assert.match(s.message,/No daily page was published/);assert.equal(s.locked,false);assert.equal(s.busy,false);
+ });
+ await test('Long name (400 characters) is capped at 30 in the greeting and sends; no stranded page',async({page})=>{
+  await page.evaluate(()=>{TEAM.people[0].name='A'.repeat(400)+' Surname';SESSION.recipient=TEAM.people[0].name;MOCK.cardToken='x'.repeat(64);return daily821Send(SESSION);});const s=await state(page);
+  assert.equal(s.card,1);assert.equal(s.sms,1,'STRANDED: daily page created, no text sent');const text=await page.evaluate(()=>MOCK.sms[0].body.text);assert(text.startsWith('Good morning, '+'A'.repeat(30)+'.\n'));assert(text.length<=480);
+ });
+ for(const side of ['fits','one over'])await test('Strand boundary ('+side+'): the preview and the send agree, and a text that cannot go never publishes a page',async({page})=>{
+  // Pad the date until the worst-case text is exactly at the limit, then send with the longest link the page accepts.
+  const r=await page.evaluate(over=>{const W=daily861Weather(SESSION.iso),team=daily821Contacts()[0],real=fmtDate;let n=0;
+   for(;n<480;n++){window.fmtDate=x=>real(x)+' '+'D'.repeat(n);try{daily861Message(SESSION.iso,team,daily861WorstLink(),W);}catch(e){break;}}
+   const pad=over?n:n-1;window.fmtDate=x=>real(x)+' '+'D'.repeat(pad);MOCK.cardToken='x'.repeat(64);
+   document.querySelector('#host').innerHTML=daily861PreviewHtml({iso:SESSION.iso,locked:false},team);
+   return {pad,preview:!!document.querySelector('#host .daily861-preview'),worst:daily861Body(SESSION.iso,team,daily861WorstLink(),W).length};},side==='one over');
+  await page.evaluate(()=>daily821Send(SESSION));const s=await state(page);
+  if(side==='fits'){assert(r.preview,'preview shows the text');assert.equal(r.worst,480);assert.equal(s.card,1);assert.equal(s.sms,1,'STRANDED: daily page created, no text sent');const text=await page.evaluate(()=>MOCK.sms[0].body.text);assert.equal(text.length,480);assert(text.endsWith('/d/'+'x'.repeat(64)));}
+  else{assert(!r.preview,'preview reports too long');assert.equal(r.worst,481);assert.equal(s.card,0,'STRANDED: daily page created, no text sent');assert.equal(s.sms,0);assert.match(s.message,/too long/i);}
+ });
+ await test('Sent text is GSM-7 only: no degree sign, curly quotes, dashes or accents',async({page})=>{
+  const GSM='@£$¥èéùìòÇ\nØøÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !"#¤%&\'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà';
+  await page.evaluate(()=>{MOCK.forecast.text='Showers – “heavy” at times, it’s 26°C…';TEAM.people[0].name='Seán’s O’Brien';SESSION.recipient=TEAM.people[0].name;window.fmtDate=x=>'Thu 08 Oct – 2026';return daily821Send(SESSION);});
+  const s=await state(page);assert.equal(s.sms,1);const text=await page.evaluate(()=>MOCK.sms[0].body.text);
+  for(const ch of text)assert(GSM.includes(ch),'not GSM-7: '+JSON.stringify(ch)+' in '+JSON.stringify(text));
+  assert.match(text,/^Good morning, Sean's\./);assert.match(text,/Thu 08 Oct - 2026/);assert.match(text,/Showers - "heavy" at times, it's 26C\.\.\., 18-26C/);assert.doesNotMatch(text,/°|Coates/);
+ });
+ await test('A text the service rejects does not leave "Message text / Check delivery below" showing',async({page})=>{
+  await page.evaluate(()=>{MOCK.smsMode='rejected';return daily821Send(SESSION);});const s=await state(page);assert.equal(s.sms,1);assert.equal(s.locked,false);assert.match(s.message,/not accepted/);
+  const html=await page.evaluate(()=>{DAILY821.open=SESSION.iso;document.querySelector('#host').innerHTML=daily821Panel({iso:SESSION.iso});return document.querySelector('#host').innerText;});
+  assert.doesNotMatch(html,/Message text|Check delivery below/);assert.match(html,/Message preview/);
  });
  await test('Unsafe recipient markup is escaped in visible message preview',async({page})=>{
   const result=await page.evaluate(()=>{const s={iso:SESSION.iso,locked:false};document.querySelector('#host').innerHTML=daily861PreviewHtml(s,{name:'<img/onerror=alert(1)> Surname'});return{html:document.querySelector('#host').innerHTML,images:document.querySelectorAll('#host img').length};});assert.equal(result.images,0);assert.match(result.html,/&lt;img/);

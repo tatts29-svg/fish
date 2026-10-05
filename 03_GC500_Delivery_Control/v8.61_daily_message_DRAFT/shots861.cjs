@@ -6,6 +6,9 @@ const fs=require('fs'),path=require('path'),assert=require('node:assert/strict')
 const {open}=require(path.resolve(__dirname,'../toolchain/harness/open_page.js'));
 const SHOTS=process.env.SHOTS;if(!SHOTS||!process.env.PAGE)throw Error('Set PAGE and SHOTS');fs.mkdirSync(SHOTS,{recursive:true});
 const SYN={id:'Sam Example',name:'Sam Example',to:'+61400000000'};
+const GSM861='@£$¥èéùìòÇ\nØøÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !"#¤%&\'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà';
+// The day plate on a phone: Message daily runs sits beside Install (no hole where Email was); Edit takes the full last row.
+const plateGeo861=p=>p.locator('#pane-timeline .dplate').first().evaluate(el=>{const box=c=>{const b=c.getBoundingClientRect();return {l:Math.round(b.left),t:Math.round(b.top),w:Math.round(b.width),h:Math.round(b.height)};};const pick=sel=>{const c=el.querySelector(':scope > '+sel);return c?box(c):null;};const all=[...el.children].filter(c=>!c.classList.contains('dplate-k')).map(c=>c.matches('details')?c.querySelector('summary'):c);return {plate:box(el),install:(()=>{const c=[...el.children].find(c=>/^Install\b/.test(((c.querySelector('.dpt-w')||c).textContent||'').trim()));return c?box(c.matches('details')?c.querySelector('summary'):c):null;})(),msg:pick('.daily821-tile'),edit:pick('.dpt-edit'),tiles:all.map(box)};});
 let pass=0;const ok=(c,w)=>{console.log((c?'PASS ':'FAIL ')+w);if(c)pass++;else process.exitCode=1;};
 (async()=>{for(const [label,W,H,mobile] of [['laptop',1366,900,false],['phone',390,844,true]]){
  const s=await open({pageFile:process.env.PAGE,hash:'#timeline',W,H,mobile,dpr:mobile?2:1});const p=s.page;const cons=[];
@@ -20,6 +23,7 @@ let pass=0;const ok=(c,w)=>{console.log((c?'PASS ':'FAIL ')+w);if(c)pass++;else 
  ok(!tiles.some(t=>/^Email/.test(t)),label+': Timeline day plate has no generic Email tile ('+tiles.join(' | ')+')');
  ok(await p.locator('#pane-timeline .dplate [data-pdf7]').count()>0,label+': document-group PDF/email controls remain');
  await plate.screenshot({path:SHOTS+'/timeline-no-email-tile-'+label+'.png'});
+ const geo=await plateGeo861(p);if(mobile){ok(!!(geo.install&&geo.msg)&&geo.msg.t===geo.install.t&&geo.msg.l>geo.install.l,label+': Message daily runs sits beside Install '+JSON.stringify([geo.install,geo.msg]));ok(!geo.edit||(geo.edit.t>geo.msg.t&&geo.edit.w>geo.msg.w*1.8),label+': Edit takes the full last row');const rows=[...new Set(geo.tiles.map(t=>t.t))];ok(rows.every(t=>{const r=geo.tiles.filter(x=>x.t===t),wid=r.reduce((a,x)=>a+x.w,0);return wid>=geo.plate.w*0.8;}),label+': every plate row is full ('+geo.tiles.length+' tiles in '+rows.length+' rows)');}else ok(new Set(geo.tiles.map(t=>t.t)).size===1,label+': plate tiles on one row');
  await p.locator('.dplate [data-daily821-toggle="'+iso+'"]').click();const panel=p.locator('[data-daily821-panel="'+iso+'"]');
  await p.locator('[data-daily821-recipient="'+iso+'"]').selectOption(SYN.id);
  const popupP=p.waitForEvent('popup');await p.locator('[data-daily821-preview="'+iso+'"]').click();const popup=await popupP;
@@ -28,12 +32,15 @@ let pass=0;const ok=(c,w)=>{console.log((c?'PASS ':'FAIL ')+w);if(c)pass++;else 
  const text=await panel.locator('.daily861-preview pre').textContent();
  ok(text.startsWith('Good morning, Sam.'),label+': greeting uses the synthetic first name');
  ok(text.split('\n').pop()==='[Daily run link]',label+': daily link placeholder is last');
+ const worst=await p.evaluate(iso=>{const s=daily821Session(iso);return daily861Message(iso,daily821Contacts()[0],daily861WorstLink(),s.prepared.weather861);},iso);
+ ok([...worst].every(ch=>GSM861.includes(ch)),label+': text is GSM-7 only (no degree sign, curly quotes or dashes)');ok(!/°/.test(text)&&!/Coates/.test(worst),label+': no degree sign and no "Coates" in the text');ok(worst.length<=480,label+': worst-case link '+worst.length+' characters (limit 480)');
  ok(/Take 5/.test(text),label+': Take 5 reminder');ok(text.length<=480,label+': '+text.length+' characters (limit 480)');
  ok(info.weather.available&&/^Surfers Paradise (forecast|outlook): /.test(info.weather.text),label+': sourced forecast for '+iso+': '+info.weather.text);
  ok(!info.far.available&&/unavailable/.test(info.far.text),label+': 23 Oct (beyond ten days) reads unavailable');
  ok(!info.past.available,label+': a past day reads unavailable');
  ok(info.sendDisabled,label+': view link cannot send');
  await panel.scrollIntoViewIfNeeded();await panel.screenshot({path:SHOTS+'/message-daily-runs-preview-'+label+'.png'});
+ if(mobile){await p.locator('.daily861-preview pre').evaluate(e=>e.scrollIntoView({block:'end'}));await p.evaluate(()=>{const m=document.querySelector('main');if(m)m.scrollTop+=120;});await p.waitForTimeout(500);await p.screenshot({path:SHOTS+'/message-daily-runs-preview-phone-end.png'});}
  const seen=await p.evaluate(()=>document.querySelector('#pane-timeline').innerText);
  ok(!/SiteIQ|Claude|Codex|ChatGPT|\bGPT\b/.test(seen),label+': no SiteIQ or agent/model names in the Timeline text');
  await p.locator('[data-daily821-close="'+iso+'"]').click();

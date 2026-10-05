@@ -1,11 +1,11 @@
 {
   "author": "Andrew Fisher",
   "scope": "v8.61 candidate daily-run flow in isolated Chromium with fixture-only APIs; no real SMS or record writes",
-  "candidateSha256": "fa9e62b9ee8cbb763bc6bd17e418a9c10ceeac41eba6af4484176623b5d21c0f",
-  "helperSha256": "2147afb8c9a22c64bb62b8becd1931c7bdcdb019eee65bff94e9ee6ff4dab516",
-  "sourceSha256": "f0ff0ff32ad11c9c0883641ec201c5c511b7f8e14f45059617cd3dbc58a36b80",
+  "candidateSha256": "a02c7b5eff2c525c69f8890dafc3f9da747da1f443e4f38a8f38360a2ed9cae7",
+  "helperSha256": "c2a221ef8babdabeb8dedb0a311355d19db1e9feb0586e8e4a813a47163472e2",
+  "sourceSha256": "5f48778a4cc2d91b7cc5eaef925b456201207af64ee57078c44672bb151a2ebe",
   "rendererSha256": "47784b436a633842d37ee1be86a8a1a3a148a3696005256a70dc5c49d981b003",
-  "passed": 53,
+  "passed": 44,
   "total": 53,
   "externalRequests": [],
   "errors": [],
@@ -92,7 +92,8 @@
     },
     {
       "name": "Storage failure prevents an unpersisted SMS duplicate lock",
-      "pass": true
+      "pass": false,
+      "error": "The input did not match the regular expression /send receipt\\. Allow session storage before texting; no text was submitted\\.$/. Input:\n\n'This browser cannot keep the send receipt. Allow session storage before texting;no text was submitted.'\n"
     },
     {
       "name": "Silent storage drop is detected before SMS",
@@ -184,11 +185,13 @@
     },
     {
       "name": "changedWeather during publication: no stranded page; text keeps the forecast pinned before publishing",
-      "pass": true
+      "pass": false,
+      "error": "STRANDED: daily page created, no text sent"
     },
     {
       "name": "expiredWeather during publication: no stranded page; text keeps the forecast pinned before publishing",
-      "pass": true
+      "pass": false,
+      "error": "STRANDED: daily page created, no text sent"
     },
     {
       "name": "Restored receipt never invents the original sent message",
@@ -196,27 +199,33 @@
     },
     {
       "name": "Text over the server length limit is refused before any daily page is published",
-      "pass": true
+      "pass": false,
+      "error": "STRANDED: daily page created, no text sent"
     },
     {
       "name": "Long name (400 characters) is capped at 30 in the greeting and sends; no stranded page",
-      "pass": true
+      "pass": false,
+      "error": "STRANDED: daily page created, no text sent"
     },
     {
       "name": "Strand boundary (fits): the preview and the send agree, and a text that cannot go never publishes a page",
-      "pass": true
+      "pass": false,
+      "error": "page.evaluate: ReferenceError: daily861Body is not defined\n    at eval (eval at evaluate (:311:30), <anonymous>:5:134)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
     },
     {
       "name": "Strand boundary (one over): the preview and the send agree, and a text that cannot go never publishes a page",
-      "pass": true
+      "pass": false,
+      "error": "page.evaluate: ReferenceError: daily861Body is not defined\n    at eval (eval at evaluate (:311:30), <anonymous>:5:134)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
     },
     {
       "name": "Sent text is GSM-7 only: no degree sign, curly quotes, dashes or accents",
-      "pass": true
+      "pass": false,
+      "error": "not GSM-7: \"á\" in \"Good morning, Seán’s.\\nGC500 - Thu 08 Oct – 2026\\n\\nSurfers Paradise forecast: Showers – “heavy” at times, it’s 26°C…, 18-26°C, 10% rain chance, wind to 20 km/h (WeatherAPI).\\n\\nPlease do your Take 5 before starting and again if the task or conditions change. If plans change, check with site.\\n\\nYour daily runs:\\nhttps://daily-review.invalid/d/fixture-token\""
     },
     {
       "name": "A text the service rejects does not leave \"Message text / Check delivery below\" showing",
-      "pass": true
+      "pass": false,
+      "error": "The input was expected to not match the regular expression /Message text|Check delivery below/. Input:\n\n'Message daily runs to install teams\\n' +\n  '\\n' +\n  'One link. Only the deliveries for 2026-10-08.\\n' +\n  '\\n' +\n  '×\\n' +\n  'Installer team contact\\n' +\n  'Choose an installer…\\n' +\n  'Installer Alpha\\n' +\n  'Installer Beta\\n' +\n  'Preview daily pageText this day’s deliveries\\n' +\n  'Message text\\n' +\n  '\\n' +\n  'Check delivery below.\\n' +\n  '\\n' +\n  'Good morning, Installer.\\n' +\n  'GC500 - 2026-10-08\\n' +\n  '\\n' +\n  'Surfers Paradise forecast: Sunny, 18-26°C, 10% rain chance, wind to 20 km/h (WeatherAPI).\\n' +\n  '\\n' +\n  'Please do your Take 5 before starting and again if the task or conditions change. If plans change, check with site.\\n' +\n  '\\n' +\n  'Your daily runs:\\n' +\n  'https://daily-review.invalid/d/fixture-token\\n' +\n  '\\n' +\n  'The text was not accepted. Check the result before trying again.\\n' +\n  '\\n' +\n  '+61400000001\\n' +\n  'Not accepted by the messaging service\\n' +\n  'INVALID_RECIPIENT'\n"
     },
     {
       "name": "Unsafe recipient markup is escaped in visible message preview",

@@ -1,4 +1,4 @@
-# v8.61 standing suites · source a79c36549c9402ee954f47467e7414133ed3e729 · candidate a02c7b5eff2c525c69f8890dafc3f9da747da1f443e4f38a8f38360a2ed9cae7 · base ae6880d9fc3e5555f34ad30eed47e31ed873847065927b4b6737dc5604b20073 · run 2026-10-05T12:46:28Z
+# v8.61 standing suites · source 0d4f37cb8954db141e941caf07832abd96b3dd53 · candidate fa9e62b9ee8cbb763bc6bd17e418a9c10ceeac41eba6af4484176623b5d21c0f · base ae6880d9fc3e5555f34ad30eed47e31ed873847065927b4b6737dc5604b20073 · run 2026-10-05T13:35:32Z
 v799-desktop | candidate pass 22 fail 1 exit 0 | base pass 22 fail 1 exit 0
 v799-phone | candidate pass 18 fail 0 exit 0 | base pass 18 fail 0 exit 0
 packed-desktop | candidate pass 6 fail 3 exit 1 | base pass 6 fail 3 exit 1

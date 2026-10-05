@@ -15,15 +15,17 @@ helpers='/* v8.61 daily message helpers START */\n'+root.joinpath('weather861.js
 rep(marker,helpers+marker)
 rep('/* Author: Andrew Fisher. Native supplier actions;',root.joinpath('daily_message861.css').read_text()+'\n/* Author: Andrew Fisher. Native supplier actions;')
 rep('</button></div>${s.blobUrl?', '</button></div>${daily861PreviewHtml(s,chosen)}${s.blobUrl?')
-rep("s.busy=true;s.prepared=null;s.message='Preparing this day’s page…';", "s.busy=true;s.prepared=null;s.text861=null;s.message='Preparing this day’s page and weather…';")
-rep("try{\n  const model=daily821Model(s.iso);", "try{\n  await daily861WeatherReady();const weather861=daily861Weather(s.iso);\n  const model=daily821Model(s.iso);")
+rep("s.busy=true;s.prepared=null;s.message='Preparing this day’s page…';", " s.busy=true;s.prepared=null;s.text861=null;s.message='Preparing this day’s page and weather…';")
+rep("try{\n  const model=daily821Model(s.iso);", " try{\n  await daily861WeatherReady();const weather861=daily861Weather(s.iso);\n  const model=daily821Model(s.iso);")
 rep('recipient:team.id,at:Date.now(),configured};', 'recipient:team.id,at:Date.now(),weather861,configured};')
-rep("s.busy=true;s.message='Checking the current delivery page and texting service…';", "s.busy=true;s.text861=null;s.message='Checking the current delivery page, weather and texting service…';")
-rep("if(!team)throw Error('Choose an installer first.');\n  const initialVersion", "if(!team)throw Error('Choose an installer first.');\n  await daily861WeatherReady();\n  const initialVersion")
+rep("s.busy=true;s.message='Checking the current delivery page and texting service…';", " s.busy=true;s.text861=null;s.message='Checking the current delivery page, weather and texting service…';")
+rep("if(!team)throw Error('Choose an installer first.');\n  const initialVersion", "  if(!team)throw Error('Choose an installer first.');\n  await daily861WeatherReady();\n  const initialVersion")
 rep('recipient:team.id,at:Date.now()};}', 'recipient:team.id,at:Date.now(),weather861:daily861Weather(s.iso)};}')
-rep("if(Date.now()-p.at>120000)throw Error('This preview is over two minutes old. Preview again before sending.');", "if(Date.now()-p.at>120000)throw Error('This preview is over two minutes old. Preview again before sending.');\n  daily861CheckWeather(p,s.iso);")
-rep("const text='Coates GC500 — '+fmtDate(s.iso)+' deliveries for '+team.name+'. '+p.model.loads.length+' loads in order. Open your daily page: '+url+' — issued snapshot; contact the site team if plans change.';", "daily861CheckWeather(p,s.iso);\n  const text=daily861Message(s.iso,team,url,p.weather861);")
-rep("no text was submitted.');}submitting=true;", "no text was submitted.');}submitting=true;s.text861=text;")
+rep("if(Date.now()-p.at>120000)throw Error('This preview is over two minutes old. Preview again before sending.');", "  if(Date.now()-p.at>120000)throw Error('This preview is over two minutes old. Preview again before sending.');\n  daily861CheckWeather(p,s.iso);\n  daily861Message(s.iso,team,daily861WorstLink(),p.weather861);")
+rep("const text='Coates GC500 — '+fmtDate(s.iso)+' deliveries for '+team.name+'. '+p.model.loads.length+' loads in order. Open your daily page: '+url+' — issued snapshot; contact the site team if plans change.';", "  const text=daily861Message(s.iso,team,url,p.weather861);")
+rep("s.rows=[];throw Error('This browser cannot keep the send receipt. Allow session storage before texting; no text was submitted.');}submitting=true;", "s.rows=[];throw Error('This browser cannot keep the send receipt. Allow session storage before texting; no text was submitted.');}submitting=true;s.text861=text;")
+# N4: a text the service did not accept is not left showing as the sent message
+rep("s.locked=s.rows.some(row=>!row.rejected);", "s.locked=s.rows.some(row=>!row.rejected);if(!s.locked)s.text861=null;")
 rep("s.recipient=el.value;s.prepared=null;s.message=", "s.recipient=el.value;s.prepared=null;s.text861=null;s.message=")
 rep("s.locked=false;s.rows=[];s.prepared=null;s.message='Preview the current day", "s.locked=false;s.rows=[];s.prepared=null;s.text861=null;s.message='Preview the current day")
 # Keep email inside its document/supplier group; remove the duplicate Timeline menus.
@@ -41,6 +43,8 @@ rep('display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr));gap:10px;al
 rep('.dplate:has(> .dpt-edit){grid-template-columns:auto repeat(5,minmax(0,1fr))}', '.dplate:has(> .dpt-edit){grid-template-columns:auto repeat(4,minmax(0,1fr))}')
 rep('#pane-timeline .dplate:has(.daily821-tile):not(:where(.ep819 *)){grid-template-columns:auto repeat(5,minmax(0,1fr))}', '#pane-timeline .dplate:has(.daily821-tile):not(:where(.ep819 *)){grid-template-columns:auto repeat(4,minmax(0,1fr))}')
 rep('#pane-timeline .dplate:has(.daily821-tile):has(>.dpt-edit):not(:where(.ep819 *)){grid-template-columns:auto repeat(6,minmax(0,1fr))}', '#pane-timeline .dplate:has(.daily821-tile):has(>.dpt-edit):not(:where(.ep819 *)){grid-template-columns:auto repeat(5,minmax(0,1fr))}')
+# S3: on a phone the plate is two columns; Message daily runs takes the place beside Install that Email left.
+rep('#pane-timeline .daily821-tile:not(:where(.ep819 *)){grid-column:1/-1;grid-template-columns:auto minmax(0,1fr)}', '#pane-timeline .daily821-tile:not(:where(.ep819 *)){grid-column:auto;grid-template-columns:auto minmax(0,1fr)}')
 # The supplier inventory belongs alongside Equipment's existing print controls.
 rep("const tools = head.querySelector('.eqtools'); if (view) tools.appendChild(view);", "const tools = head.querySelector('.eqtools'); if (view) tools.appendChild(view);\n const epInventoryButton = document.createElement('button'); epInventoryButton.type = 'button'; epInventoryButton.className = 'btn sm'; epInventoryButton.setAttribute('data-ep860-inventory', ''); epInventoryButton.textContent = 'Print Event Portables inventory'; tools.appendChild(epInventoryButton);")
 rep('· v8.60', '· v8.61')

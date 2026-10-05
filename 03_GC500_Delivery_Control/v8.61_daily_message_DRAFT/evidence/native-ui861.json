@@ -4,6 +4,8 @@
   "views": [
     {
       "width": 1366,
+      "plateTiles": 5,
+      "gsm7": true,
       "personalGreeting": true,
       "selectedDate": true,
       "forecastPinned": true,
@@ -21,6 +23,9 @@
     },
     {
       "width": 390,
+      "plateTiles": 5,
+      "messageBesideInstall": true,
+      "gsm7": true,
       "personalGreeting": true,
       "selectedDate": true,
       "forecastPinned": true,

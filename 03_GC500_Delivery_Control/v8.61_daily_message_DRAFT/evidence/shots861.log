@@ -1,10 +1,14 @@
 PASS laptop: Timeline day plate has no generic Email tile (Pre-start ▾ | Drivers ▾ | Install ▾ | Message daily runs | Edit)
 PASS laptop: document-group PDF/email controls remain
+PASS laptop: plate tiles on one row
 PASS laptop: greeting uses the synthetic first name
 PASS laptop: daily link placeholder is last
+PASS laptop: text is GSM-7 only (no degree sign, curly quotes or dashes)
+PASS laptop: no degree sign and no "Coates" in the text
+PASS laptop: worst-case link 377 characters (limit 480)
 PASS laptop: Take 5 reminder
-PASS laptop: 288 characters (limit 480)
-PASS laptop: sourced forecast for 2026-10-06: Surfers Paradise forecast: Overcast, 20-23°C, 83% rain chance, wind to 34 km/h (WeatherAPI).
+PASS laptop: 287 characters (limit 480)
+PASS laptop: sourced forecast for 2026-10-06: Surfers Paradise forecast: Overcast, 20-23C, 83% rain chance, wind to 34 km/h (WeatherAPI).
 PASS laptop: 23 Oct (beyond ten days) reads unavailable
 PASS laptop: a past day reads unavailable
 PASS laptop: view link cannot send
@@ -17,11 +21,17 @@ PASS laptop: console errors []
 PASS laptop: attempted writes {"page":1,"live":51,"blocked":0}
 PASS phone: Timeline day plate has no generic Email tile (Pre-start ▾ | Drivers ▾ | Install ▾ | Message daily runs | Edit)
 PASS phone: document-group PDF/email controls remain
+PASS phone: Message daily runs sits beside Install [{"l":27,"t":442,"w":168,"h":68},{"l":203,"t":442,"w":168,"h":68}]
+PASS phone: Edit takes the full last row
+PASS phone: every plate row is full (5 tiles in 3 rows)
 PASS phone: greeting uses the synthetic first name
 PASS phone: daily link placeholder is last
+PASS phone: text is GSM-7 only (no degree sign, curly quotes or dashes)
+PASS phone: no degree sign and no "Coates" in the text
+PASS phone: worst-case link 377 characters (limit 480)
 PASS phone: Take 5 reminder
-PASS phone: 288 characters (limit 480)
-PASS phone: sourced forecast for 2026-10-06: Surfers Paradise forecast: Overcast, 20-23°C, 83% rain chance, wind to 34 km/h (WeatherAPI).
+PASS phone: 287 characters (limit 480)
+PASS phone: sourced forecast for 2026-10-06: Surfers Paradise forecast: Overcast, 20-23C, 83% rain chance, wind to 34 km/h (WeatherAPI).
 PASS phone: 23 Oct (beyond ten days) reads unavailable
 PASS phone: a past day reads unavailable
 PASS phone: view link cannot send
@@ -32,5 +42,4 @@ PASS phone: no SiteIQ or agent/model names in the Equipment text
 PASS phone: 0 page errors
 PASS phone: console errors []
 PASS phone: attempted writes {"page":1,"live":57,"blocked":0}
-shots861: 34 passed
-rc=0
+shots861: 44 passed

@@ -14,8 +14,9 @@ PASS Long conditions use a verbatim prefix without paraphrasing
 PASS Truncation preserves negation and does not invent weather
 PASS Fingerprint ignores refetch time but changes with date or content
 PASS Brisbane midnight uses the new site date
+PASS Plain GSM-7 text: no degree sign, curly quotes, dashes or accents
 PASS Existing loaders may complete synchronously
 PASS Loader exceptions settle without blocking
 PASS Duplicate callbacks cannot prematurely settle both providers
 PASS Missing callbacks settle within the bounded deadline
-Weather861 checks: 20 passed. No network or shared-record access.
+Weather861 checks: 21 passed. No network or shared-record access.
