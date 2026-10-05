@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 GC500 v8.50 — P/O quantities matched to dockets
-State: READY TO UPLOAD; not live. Implementation 1c2fb973.
+State: VERIFIED LIVE — 5 Oct 2026 at 10:11 AEST. Implementation 1c2fb973; final READY c6b7ab7a.
 
 An expandable source comparison shows explicitly documented supplier quantities
 alongside their matched docket components. Source differences stay separate.
@@ -18,7 +18,7 @@ Base v8.49 SHA-256:
 
 Build input is a reviewed private evidence manifest, kept outside Git:
   FENCE_PO850_INPUT=/private/path/evidence.json \
-    toolchain/build.sh v8.50 v8.50_po_gate_progress_DRAFT/patch_v850.py
+    toolchain/build.sh v8.50 v8.50_po_gate_progress_LIVE/patch_v850.py
 
 Codex owns source review, implementation, independent checks and publication.
 Claude remains intentionally paused. Detailed original findings, values, input
@@ -31,3 +31,8 @@ Bytes: 10,932,100
 Checks: standard build; 22 exact preservation; 27 model guards; 12 independent
 patch checks; 66 laptop/phone browser checks; both 22-route/seven-link/Back
 sweeps. Zero runtime errors or operational writes. See RELEASE_REVIEW.txt.
+
+Published at 10:11 AEST on 5 Oct 2026. Actual-public laptop/phone 68/68 pass with
+exact public bytes and zero HTML substitutions or operational writes. All 33
+shared-record collections remain unchanged. Server health OK, no deployment.
+Refresh an existing tab once to load the new page.
