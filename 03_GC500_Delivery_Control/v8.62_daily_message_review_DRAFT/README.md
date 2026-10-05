@@ -8,4 +8,8 @@ The message is checked against the longest supported daily link before the daily
 
 Base: v8.61 `a02c7b5eff2c525c69f8890dafc3f9da747da1f443e4f38a8f38360a2ed9cae7`. Claude owns the original fixes and tests; Codex owns current-base integration, final review and guarded publication. Shared records, financial models and the backend are unchanged. No real messages are sent by tests.
 
-Candidate: `8f4183381d63a31c716a607249a17a2a158ef448a75f5391f17353da659b09fb`, 11,000,304 bytes. Standard build and21 weather checks pass. Rebuilding Claude’s source against its original base reproduces exact candidate `fa9e62b9`; current-base integration differs only in the release footer and line indentation. Final send, native UI and navigation checks are underway. DRAFT, not READY or LIVE.
+Andrew extended this release to addressed Event Portables email drafts and operational/financial separation. Supplier recipients come from a private build-time configuration, excluded from Git and the shared-code download. Drafts retain the PDF attachment and an explicit document subject; no email is sent automatically. Today omits the financial branch and Money renderers, including lazy expansion and print redraws, while Costs keeps its existing financial models. Costs labels distinguish customer charges from workforce costs.
+
+Build requires GC500_EP_EMAIL_DEFAULTS_FILE pointing to a private JSON file with to and cc address arrays (email plus optional name). Do not commit destination addresses or compiled HTML.
+
+DRAFT. Final candidate tests and guarded publication are pending.
