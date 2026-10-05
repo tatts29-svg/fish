@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
-**v8.52 — CLAIMED by Codex, 5 Oct 2026 AEST.** Author: Andrew Fisher. Finish the remaining Fencing presentation tidy-up by moving the native CCB explanation into the existing Count notes drop-down, preserving source logic/figures and checking before and after publication. Base v8.51 `1c2a6632`. DRAFT, not ready/live.
+**v8.52 — READY TO UPLOAD, 5 Oct 2026 AEST.** Author: Andrew Fisher. Finish the remaining Fencing presentation tidy-up by moving the native CCB explanation into the existing Count notes drop-down, preserving source logic/figures and checking before and after publication. Base v8.51 `1c2a6632`; implementation `bbaf82d3`, exact candidate `7a07fac2b357c9c19ea9ff26fd1b863d2f7395c2d505098579ea5ed72c705873`,10,934,744bytes. Standard build,exact patch-only preservation,70focused laptop/phone checks and both22-route/seven-link/Back sweeps pass with zero errors. Phone captures inspected. Codex owns guarded upload and actual-public verification. READY is not LIVE.
 
 **Coates Way cog — REMOVED FROM ACTIVE TASKS, 5 Oct 2026.** Author: Andrew Fisher. Andrew deferred this to another job/day. No cog work, release or automatic rebuild is pending. Existing live assets stay as they are; historical draft references below are superseded for active ownership. Claude remains intentionally paused.
 
