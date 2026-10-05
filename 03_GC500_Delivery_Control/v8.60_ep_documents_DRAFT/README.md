@@ -1,4 +1,4 @@
-# Event Portables documents — DRAFT
+# Event Portables documents — READY TO UPLOAD
 
 Author: Andrew Fisher.
 
@@ -10,4 +10,8 @@ Print Event Portables inventory is available on the supplier Timeline section an
 
 The existing print action, print retry, transit handling, financial models, operational records and backend remain unchanged. Source evidence and generated documents stay outside Git.
 
-Base: verified v8.59, SHA-256 `71fdff199e5b09e6d67b2716cb6733ef4e69cb8b2fa3f002db5fec992527e888`. Codex owns implementation, independent source review, testing and publication. Claude remains intentionally paused. Synthetic inventory/identity/location tests and the standard build checks pass. Browser PDF, attachment, QR, phone and navigation checks are underway. This state is not ready or live.
+Base: verified v8.59, SHA-256 `71fdff199e5b09e6d67b2716cb6733ef4e69cb8b2fa3f002db5fec992527e888`. Codex owns implementation, independent source review, testing and publication. Claude remains intentionally paused. Synthetic inventory/identity/location tests and the standard build checks pass. Final candidate `ae6880d9fc3e5555f34ad30eed47e31ed873847065927b4b6737dc5604b20073`, 10,993,891 bytes, source `b007ee6e`. Ready to upload; not yet live.
+
+Final checks: all five supplier loads generate one A4 page with their exact PDF embedded in an unsent email draft. Desktop and phone inventory PDFs are vector text/QR, preserve recorded identities and decode to the native qualified locations. All load QR codes and inventory QR destinations were raster-decoded. Closing during generation, retry, share cancellation, attachment payloads, draft download and unchanged native records pass. Genuine phone controls invoke production producers and screenshots are inspected. Both exact-candidate sweeps pass: 21 menu routes, seven deep links and Back navigation, zero runtime/console errors.
+
+Initial test-only assertions were corrected for PDF punctuation/word wrapping and specifically identified GET-only guard blocks of Google Maps session POSTs. A separate actual-phone-control check passes with no unexpected errors. Original private diagnostics are retained. Source review also corrected unknown-scope quantities, duplicate spare-location conflicts and expanded printed locations with existing master-plan landmarks. No private record figures or generated documents are included in this repository.
