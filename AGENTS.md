@@ -43,6 +43,8 @@ Claude and Codex both code, build and test. Split independent scopes and coordin
 do not conflict. Codex may also own a change through implementation, testing and publication without waiting for
 Claude's audit. Use judgement about when a second review adds value; it is not mandatory for every release.
 
+Andrew confirmed shared publication authority on 5 Oct 2026: "stop blocking claude from uploading builds" and "You both build he needs the code". Both agents may build and publish ready, tested releases using the same `03_GC500_Delivery_Control/toolchain/` code. This supersedes historical Codex-only ownership and Claude’s pause for shared implementation/publication work. Setup is in `toolchain/README.md`; credentials stay in private environment settings. Coordinate the claimed version and exact source before uploading. Environment access and recurring checks must be confirmed separately.
+
 Run the required checks on the final candidate and resolve known release-blocking findings before publication.
 Record who implemented, tested and reviewed it on `STATUS.md` or the coordination PR, including when the other
 agent has not reviewed it. A handover says **READY TO UPLOAD** only when its agreed scope and checks are complete.
