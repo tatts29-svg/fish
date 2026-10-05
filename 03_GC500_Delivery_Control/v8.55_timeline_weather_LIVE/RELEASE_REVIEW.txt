@@ -9,5 +9,6 @@ Standard build: 11 inline scripts parse, author and secret checks PASS.
 All inline scripts preserved except release footer.
 Focused laptop/phone: selected-only running motion, neighbour pause, actual transform movement, reduced-motion, tab departure and record preservation PASS.
 Private laptop and phone screenshots inspected.
-Both native sweeps PASS: 22 routes, seven links, Back, zero runtime/console errors. READY TO UPLOAD; actual-public checks follow publication.
+Both native sweeps PASS: 22 routes, seven links, Back, zero runtime/console errors. VERIFIED LIVE, 5 Oct 2026 at 14:05 AEST. Exact public byte identity verified by guarded uploader. Actual-public laptop and phone motion/accessibility/record checks PASS. All 33 shared collections unchanged at version3742; server health OK v5.87.
 No added weather requests, model changes, source/forecast edits, shared-record changes, backend deployment or media additions.
+READY checkpoint: 3109e48a
