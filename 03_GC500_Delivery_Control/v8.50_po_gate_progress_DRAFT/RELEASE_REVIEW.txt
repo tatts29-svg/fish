@@ -1,0 +1,42 @@
+Author: Andrew Fisher
+GC500 v8.50 — source quantities matched to dockets
+State: DRAFT; verification in progress, not ready or live.
+
+Base v8.49:
+924955d5560006bcac1fd07765dffb51692154e04585dae1eefcc292ef602fb1
+Candidate:
+4f62cc6c37671381caba4da48e20bcc0d99d2c96e0e45b1c8b9dcdb58f8f53f2
+Bytes: 10,932,068
+
+Scope and ownership
+A closed-by-default disclosure inside the existing Today and Fencing component
+section compares explicit supplier quantities with original docket components.
+Matched sources, source differences and programme-unit evidence remain distinct.
+Supplier units are not converted into programme openings or completion. Existing
+quantities, progress totals, percentages, estimates and all financial inputs and
+outputs stay unchanged. No shared-record changes or backend deployment.
+
+Codex owns source review, implementation, independent checks and publication.
+Claude remains intentionally paused; no Claude review is claimed. The separate
+held film is excluded and must rebuild on a later live base if resumed. Private
+originals, findings, financial values, input manifests and captures stay outside
+Git and public coordination.
+
+Completed offline checks
+The standard build passes all 11 inline scripts, author and credential checks.
+Independent exact preservation passes 22/22: all 70 original JSON declarations,
+DATA, source descriptors, existing models, media and the complete original page
+outside the allowed insertion remain byte-exact. All 27 supplier-evidence guards
+pass, including exact original hashes, docket ID/number/location/snapshot,
+calendar/week/scope, duplicates, changed sources and no conversion or addition.
+Source and quantity expectations were checked against the original papers.
+An independent synthetic-only patch review passes 12 checks for base/repeat and
+missing-input refusal, safe HTML/Unicode roundtrip, author preservation, helper
+binding, no executable string payloads and complete original-page preservation.
+
+Initial browser diagnostic retained
+An immediate test-forced redraw ran before the browser dispatched its queued
+native details toggle event. The unsaved guide values and native outputs remained
+exact, but the fold-cache assertion ran too early. Verification now waits for the
+native toggle state before exercising redraw. The initial diagnostic is retained
+privately; this test correction does not alter the frozen candidate.
