@@ -79,7 +79,7 @@ function fh866Model(){
  return Object.assign({}, o, {stream: o.stream || 'fencing', costedBranch: costed, revenueBranch: rb, receipt: rc, mismatch: !!(costed && rb && costed !== rb), noValue: !(Number(o.amount) > 0)}); });
  const poSum = r2(pos.reduce((s, o) => s + (Number(o.amount) || 0), 0)), receiptedSum = r2(pos.reduce((s, o) => s + (o.receipt.amount || 0), 0));
  const counts = {full: 0, part: 0, none: 0, unknown: 0}; pos.forEach(o => counts[o.receipt.key]++); const noValue = pos.filter(o => o.noValue).length;
- const notConfirmed = r2(pos.filter(o => o.receipt.key === 'unknown' || o.receipt.key === 'none').reduce((s, o) => s + (Number(o.amount) || 0), 0));
+ const notConfirmed = r2(pos.reduce((s, o) => s + Math.max(0, (Number(o.amount) || 0) - (Number(o.receipt.amount) || 0)), 0)); /* Codex: include the unreceipted balance of a part-receipted PO */
  /* the branches, in the order the By branch table uses; the contracts put the branch on every reference */
  const live = allAssets().filter(a => !a._cancelled && !a.rest_of);
  const order = B.map(b => b.code).filter(k => k && k !== 'no branch'); [FBR, TBR].forEach(k => { if (k && !order.includes(k)) order.push(k); });

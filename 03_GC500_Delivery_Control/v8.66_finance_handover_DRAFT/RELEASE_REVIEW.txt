@@ -1,0 +1,14 @@
+Author: Andrew Fisher
+Combined v8.66 release review
+
+Source: Claude branch claude/ampol-reporting-suite-access-h2hy90 at 1a7ff8e4, current board and PR handovers read. v8.65 implementation 2005e51 is included; no separate v8.65 upload.
+Base: v8.64 d725d9acd069a208be3e3ecc757f3b914c9b98bff67a5432475dde6e2ae7a7d2, 11006214 bytes.
+Claude candidate reproduced exactly: 9407ed75ae25deeff8662dadc94453f7e90c04072d22218c22bea122bc6151ae, 11052274 bytes.
+Codex correction: partial PO receipt balance included in outstanding-value headline. No other source change to Claude candidate.
+Final candidate: 6fa8a9f3b71191b3e268272aa80a052cdf1855188e86348642da9f03adef16e4, 11052320 bytes.
+
+Code review: one relocation rule avoids counting a second demob; labour rounded by line to cents and the models reconcile. Whole-job customer labour revenue remains separate from employee cost. Unpriced labour remains explicitly unpriced, so the difference is not final profit. Salary allowance remains within forecast cost. Finance branch splits are stated allocations rather than ledger postings. PO edits remain explicit user saves through existing setPo, with view-only save guards. Non-fencing orders excluded from fencing PO reconciliation and accrual. Publication modifies only page bytes, not shared records or machine/backend.
+
+Initial independent candidate checks: Costs 33/33 desktop and phone; Finance handover 23/23 desktop and phone; flicker 24/24 desktop and phone. Final partial-receipt regression uses in-memory synthetic PO, never saved. Candidate checks and private captures stay outside Git; no private evidence repackaged.
+
+Final independent checks: Finance handover 24/24 laptop and 24/24 phone; both 21-route/seven-link/Back sweeps clean; finance862 preservation PASS 1366 and 390, native financial models and shared-record collections unchanged. Standard build/check_page PASS. Guarded uploader dry-run verifies current base and edit access. Machine remains v8.64 b469a99c, server healthy v5.87.

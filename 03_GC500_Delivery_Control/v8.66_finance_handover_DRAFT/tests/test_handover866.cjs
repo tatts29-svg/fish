@@ -40,14 +40,15 @@ const {open} = require('../../toolchain/harness/open_page');
   ok('Copy text opens with the handover and closes with the author', /Finance handover, as at/.test(M.text) && /Author: Andrew Fisher$/.test(M.text.trim()), {});
   ok('no person’s phone number or email on the page', !/\b0[45]\d{2}[ -]?\d{3}[ -]?\d{3}\b/.test(M.txt) && !/@/.test(M.txt), {});
   /* a non-fencing purchase order added in memory (no save) stays out of the fencing card, the fencing trace and the fencing accrual, and shows here */
-  const N = await p.evaluate(() => holdAssets(() => { S.purchaseOrders = S.purchaseOrders || {}; S.purchaseOrders['9999001'] = {number: '9999001', stream: 'transport', supplier_name: 'Test carrier', branch: 'NOIS', revenue_branch: 'KINP', amount: 1234.5, receipted: 'part', receipted_amount: 1000, by: 'test', at: '2026-10-06T00:00:00Z'};
+  const N = await p.evaluate(() => holdAssets(() => { const outstandingBefore = fh866Model().notConfirmed; S.purchaseOrders = S.purchaseOrders || {}; S.purchaseOrders['9999001'] = {number: '9999001', stream: 'transport', supplier_name: 'Test carrier', branch: 'NOIS', revenue_branch: 'KINP', amount: 1234.5, receipted: 'part', receipted_amount: 1000, by: 'test', at: '2026-10-06T00:00:00Z'};
     try { RENDER_MEMO.clear(); } catch (e) {}
     const all = poAll(), here = all.find(o => o.number === '9999001'), fencing = all.filter(poFencing866).map(o => o.number);
     const H = fh866Model(), row = H.pos.find(o => o.number === '9999001'); const card = typeof poCard === 'function' ? poCard([]) : ''; const A = acc761Model('2026-10');
-    const out = {inAll: !!here, inFencing: fencing.includes('9999001'), inCard: /9999001/.test(card), inAccrual: (A.invoiceRecords || []).some(r => r.number === '9999001'), row: row && {stream: row.stream, costed: row.costedBranch, rev: row.revenueBranch, mismatch: row.mismatch, receipt: row.receipt.words}, transportPos: (H.costs.find(r => r.kind === 'transport') || {}).pos};
+    const out = {outstandingDelta: Math.round((H.notConfirmed - outstandingBefore)*100)/100, inAll: !!here, inFencing: fencing.includes('9999001'), inCard: /9999001/.test(card), inAccrual: (A.invoiceRecords || []).some(r => r.number === '9999001'), row: row && {stream: row.stream, costed: row.costedBranch, rev: row.revenueBranch, mismatch: row.mismatch, receipt: row.receipt.words}, transportPos: (H.costs.find(r => r.kind === 'transport') || {}).pos};
     delete S.purchaseOrders['9999001']; try { RENDER_MEMO.clear(); } catch (e) {} return out; }));
   ok('a non-fencing PO is listed here with its branches, and flagged when costed to a branch the revenue is not in', N.inAll && N.row && N.row.stream === 'transport' && N.row.costed === 'NOIS' && N.row.rev === 'KINP' && N.row.mismatch && /^Part receipted \$1,000\.00$/.test(N.row.receipt) && (N.transportPos || []).includes('9999001'), N);
   ok('a non-fencing PO stays out of the fencing PO card and the fencing accrual', !N.inFencing && !N.inCard && !N.inAccrual, N);
+  ok('part-receipted PO outstanding value includes only its unpaid balance', near(N.outstandingDelta, 234.5), N);
   /* a view-only link cannot save: the button says so and nothing is sent */
   const before = s.counts.blocked;
   const V = await p.evaluate(() => { const b = document.querySelector('#handover866 [data-fh866-save]'); if (!b) return {none: true}; const was = JSON.stringify(S.purchaseOrders || {}); b.click(); return {same: JSON.stringify(S.purchaseOrders || {}) === was, flash: (document.querySelector('.flash, #flash, [role="status"]') || {}).textContent || ''}; });

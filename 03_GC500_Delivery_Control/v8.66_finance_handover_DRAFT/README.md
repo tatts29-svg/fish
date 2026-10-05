@@ -42,3 +42,9 @@ Wages, salary allowance, accommodation and meals follow the labour per piece on 
 - Candidate `9407ed75ae25deeff8662dadc94453f7e90c04072d22218c22bea122bc6151ae`, 11,052,274 bytes.
 - Build while live is v8.64: `toolchain/build.sh v8.66 v8.65_costs_one_source_DRAFT/patch_v865.py v8.66_finance_handover_DRAFT/patch_v866.py`. Once v8.65 is live: `toolchain/build.sh v8.66 v8.66_finance_handover_DRAFT/patch_v866.py`. Upload: `toolchain/upload_page.py`.
 - Either way the page is the same bytes. v8.66 cannot go live before v8.65.
+
+## Codex final review
+
+Claude source `1a7ff8e4` reproduced the original `9407ed75` candidate exactly. Codex corrected the outstanding PO-value headline to include the unpaid balance of part-receipted orders. A read-only in-memory regression checks an order of 1,234.50 with 1,000.00 receipted adds precisely 234.50 outstanding; no operational save is performed. Branch allocations remain forecast allocations, not payroll or ledger postings. Unpriced hours remain explicit; a priced difference is not final profit.
+
+Final candidate SHA-256 `6fa8a9f3b71191b3e268272aa80a052cdf1855188e86348642da9f03adef16e4`, 11052320 bytes, on live v8.64 `d725d9ac`. This supersedes Claude's original candidate for publication. Includes v8.65 directly; no independent v8.65 publication.
