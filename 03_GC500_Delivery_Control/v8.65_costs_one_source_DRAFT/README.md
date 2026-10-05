@@ -1,3 +1,5 @@
+> Included in the verified live combined v8.66 release (6 Oct2026 08:45 AEST). No independent v8.65 upload was performed. Patch remains here for the combined build history.
+
 # v8.65: Costs & P&L, one source for each figure (DRAFT, READY to upload)
 
 Author: Andrew Fisher.
