@@ -1,0 +1,43 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Candidate",
+  "views": [
+    {
+      "width": 1366,
+      "personalGreeting": true,
+      "selectedDate": true,
+      "forecastPinned": true,
+      "take5": true,
+      "linkLast": true,
+      "viewCannotSend": true,
+      "dayPageReferencesMatch": true,
+      "redrawPreservesPreview": true,
+      "genericEmailRemoved": true,
+      "supplierEmailPreserved": true,
+      "timelineInventoryPresent": true,
+      "equipmentInventoryGenerated": true,
+      "inventoryPages": 3,
+      "recordsPreserved": true
+    },
+    {
+      "width": 390,
+      "personalGreeting": true,
+      "selectedDate": true,
+      "forecastPinned": true,
+      "take5": true,
+      "linkLast": true,
+      "viewCannotSend": true,
+      "dayPageReferencesMatch": true,
+      "redrawPreservesPreview": true,
+      "genericEmailRemoved": true,
+      "supplierEmailPreserved": true,
+      "timelineInventoryPresent": true,
+      "equipmentInventoryGenerated": true,
+      "inventoryPages": 3,
+      "recordsPreserved": true
+    }
+  ],
+  "operationalWrites": 0,
+  "unexpectedConsoleErrors": 0,
+  "intentionalMapBlocks": 2
+}

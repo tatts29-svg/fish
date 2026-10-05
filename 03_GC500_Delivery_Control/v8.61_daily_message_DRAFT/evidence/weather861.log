@@ -1,0 +1,21 @@
+PASS Exact selected date and WeatherAPI priority
+PASS Concise temperature, rain and maximum wind with explicit units
+PASS Open-Meteo fallback and no weather model mutation
+PASS Past, invalid and outside-ten-day dates have no invented weather
+PASS Days eight to ten are labelled outlook
+PASS Twelve-hour expiry, future timestamp and invalid timestamp are rejected
+PASS Unusable primary timestamp falls back to valid secondary
+PASS Mismatched source row date is rejected
+PASS Missing and invalid numbers are omitted rather than shown as zero
+PASS Invalid rain and wind values are not stated
+PASS Empty invalid primary falls back to a usable secondary
+PASS Blank condition retains known numbers without an invented sky
+PASS Long conditions use a verbatim prefix without paraphrasing
+PASS Truncation preserves negation and does not invent weather
+PASS Fingerprint ignores refetch time but changes with date or content
+PASS Brisbane midnight uses the new site date
+PASS Existing loaders may complete synchronously
+PASS Loader exceptions settle without blocking
+PASS Duplicate callbacks cannot prematurely settle both providers
+PASS Missing callbacks settle within the bounded deadline
+Weather861 checks: 20 passed. No network or shared-record access.
