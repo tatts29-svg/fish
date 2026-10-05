@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-READY TO UPLOAD, not live. Codex owns implementation and independent review; Claude remains intentionally paused.
+VERIFIED LIVE, 5 Oct 2026 at 14:35 AEST. Codex owns implementation and independent review; Claude remains intentionally paused.
 
 Andrew found the earlier motion too weak and authorised reworking it. The selected card uses a full-depth weather backdrop with a contrasting date corridor and orange selection edge. Clouds travel visibly; sun and rays are stronger. Rain, heavy rain and storm types get a new layered moving rain field. Figures keep their solid data panels. Storms have a larger flashing lightning bolt in the clear sky area. Rain and snow also cross the entire foreground card; transparent, pointer-free layers preserve readability and controls. Sun and partly cloudy scenes have a rotating corona; strong wind follows the native WINDY flag. The native forecast source/values and existing weather classification are retained. Only the selected visible card runs; reduced-motion, hidden/tab-departure and print safeguards remain.
 
@@ -12,3 +12,5 @@ Candidate: `51e3a3876ab8fa20908b81dbc77face665e350871d2bf758e3bd8bf4731ab624`, 1
 Standard build and focused laptop/phone selected-motion checks pass. Final full-colour screenshots inspected; inherited quiet-day opacity is removed only for selected weather cards. New rain layer position movement and full face opacity are verified on phone/laptop. Final native sweeps running. No financial, operational record, weather source/model, load control, server or media changes. Evidence remains private.
 
 Final browser-only weather matrix passes all nine scenes at both widths: sun, partly cloudy, cloud, rain, heavy rain, storm, fog, snow/sleet and sunny strong wind, plus unavailable forecast without invented artwork. Preview captures are labelled sample conditions and remain private. Final release sweeps pass at laptop and phone widths.
+
+Guarded uploader proves exact public bytes. Actual-public focused and all nine weather/unavailable-forecast checks pass at both widths without a local HTML override. Shared record version3742 and all33collections unchanged; server health OK v5.87. No backend deployment.
