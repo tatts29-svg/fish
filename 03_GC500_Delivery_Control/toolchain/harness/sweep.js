@@ -20,4 +20,4 @@ const {open} = require('./open_page');
   // back/forward
   await p.evaluate(() => go('plant')); await p.waitForTimeout(1000); await p.evaluate(() => go('timeline')); await p.waitForTimeout(1000);
   await p.goBack().catch(() => {}); await p.waitForTimeout(1500); R.back = await p.evaluate(() => ({hash: location.hash, pane: (document.querySelector('main .pane:not([hidden])') || {}).id}));
-  R.allErrors = s.errors; R.counts = s.counts; console.log(JSON.stringify(R)); await s.browser.close(); })().catch(e => { console.error('FAIL', e.message); process.exit(1); });
+  R.allErrors = s.errors; console.log(JSON.stringify(R)); await s.browser.close(); })().catch(e => { console.error('FAIL', e.message); process.exit(1); });
