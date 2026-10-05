@@ -1,0 +1,28 @@
+PASS labour ticked: pl760Ticks total equals the P&L charge to the cent {"ticks":19825.88,"charge":19825.88}
+PASS labour ticked: every line total is whole cents {"halfCents":0}
+PASS labour ticked: no phantom "Relocated or moved units" row {"row":"none"}
+PASS labour ticked: Accruals card charged equals the P&L charge {"acc":19825.88,"plan":19825.88,"charge":19825.88}
+PASS one labour forecast: labourRevenue858 job equals the Accruals Labour Install total {"rev858":70877.12,"accInstall":70877.12,"planInstallGroup":70877.12}
+PASS one labour forecast: P&L Installation to job end = labour if all ticked + event people {"instJob":107592.08,"sum":107592.07999999999}
+PASS one labour forecast: P&L Installation on the record = labour ticked + event people {"instNow":56540.84}
+PASS relocation rule: install forecast on a relocation, demob not {"relocInstall":1,"relocDemob":0}
+PASS P&L reconciles: revenue, costs, job end {"revenue":true,"revenueJob":true,"costs":true,"costsJob":true,"quotes":true}
+PASS glance revenue to job end equals the P&L {"revJob":999492.87,"glance":999492.87}
+PASS glance says labour to tick is inside Revenue to job end, with its amount {"labourToCome":51051.24}
+PASS glance has a Labour per piece tile {"tiles":["Revenue","Direct costs","Labour per piece","Difference so far","Month-end for Finance"]}
+PASS Labour tile shows ticked so far and if-all-ticked, matching the models {"nums":["$19,825.88","$70,877.12","$51,051.24","$8,781.76","$49,249.83"],"charge":19825.88,"job":70877.12,"remaining":51051.24}
+PASS glance wages note splits Job Connect from the salary allowance {"snippet":"Priced wages: $49,249.83 — Job Connect $34,549.83 + salary allowance forecast $14,700.00. 1,414.5 h of Coates wages remain unpriced. The job-end difference deducts priced wages."}
+PASS P&L card names the ledger gross margin as such {}
+PASS one place: Forecast P&L header tiles and its Difference line are gone {"kpis":0,"diffLine":0,"metrics":["Ledger gross margin — to job end, before"],"revCount":2,"rev":"$612,654.37","flag":true}
+PASS one place: the P&L-lines card keeps only the ledger gross margin card ["Ledger gross margin — to job end, before"]
+PASS one place: revenue on the record is printed at most 3 times on the page (glance, two table totals) {"revCount":2,"rev":"$612,654.37"}
+PASS sub-view pricing heading reads as its button does {"h":"Customer rates & charges — Boost Mobile Gold Coast 500"}
+PASS sub-view runsheet heading reads as its button does {"h":"Workforce costs — Boost Mobile Gold Coast 500"}
+PASS no money on today {"n":0}
+PASS no money on timeline {"n":0}
+PASS no money on plant {"n":0}
+PASS no money on demob {"n":0}
+PASS no money on coatesway {"n":0}
+PASS no page errors []
+PASS no writes attempted {"page":1,"live":70,"blocked":0}
+phone: 27/27 pass
