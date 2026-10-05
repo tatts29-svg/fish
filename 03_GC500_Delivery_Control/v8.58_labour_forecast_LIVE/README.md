@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — not live. Codex owns implementation and independent review; Claude remains paused.
+LIVE — 5 Oct 2026, 20:47 AEST. Codex owns implementation and independent review; Claude remains paused.
 
 Installation revenue to job end includes remaining priced installation, levelling, steps and demob, using native charge lines and rate precision. Completed charges remain unchanged and are counted once. Event people remain on their existing revenue scope. Cleaning, fire extinguishers and accommodation retain separate categories. The overall forecast and Coates P&L Installation revenue reconcile.
 
@@ -13,3 +13,5 @@ Base: v8.57 SHA-256 `d08b9e77a495657956000512cd0d411d494bcee4e5559dae0e46a0b20a1
 Roster costs are accessible inside Costs & P&L. The operational running sheet retains names and hours while monetary columns are excluded. Job dates and planned/confirmed attendance follow authorised shared configuration, without deleting historical source records. Weekday ordinary hours and overtime follow the approved running-sheet rules. Focused desktop and phone revenue, allowance, roster routing and native-record checks passed; both final 22-route/seven-link/Back sweeps passed without runtime or console errors.
 
 Source: `58ec2a4c`. Candidate SHA-256 `3b37cef6118920d6e518314356de34caeb6e685c878c34a02c6f63317a9f00e7`, 10973155 bytes. Phone screenshot inspected; no records were altered by browser checks.
+
+Guarded publication proves exact host bytes. Actual-public desktop and phone checks passed: complete priced labour forecast, unchanged completed revenue, allowance counted once, roster financial view within Costs & P&L, money-free operational running sheet, and preserved operational collections. Settled actual-public phone screenshot inspected. Missing payroll rates remain explicit; this is not a final-profit certification.
