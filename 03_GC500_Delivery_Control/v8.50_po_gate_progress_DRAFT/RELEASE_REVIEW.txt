@@ -5,8 +5,8 @@ State: READY TO UPLOAD; not live. Implementation 1c2fb973.
 Base v8.49:
 924955d5560006bcac1fd07765dffb51692154e04585dae1eefcc292ef602fb1
 Candidate:
-4f62cc6c37671381caba4da48e20bcc0d99d2c96e0e45b1c8b9dcdb58f8f53f2
-Bytes: 10,932,068
+1b24ad4e267d23f4ae20b03968551d275afda0c29d527f63aee62388ed9ac222
+Bytes: 10,932,100
 
 Scope and ownership
 A closed-by-default disclosure inside the existing Today and Fencing component
@@ -59,3 +59,14 @@ new Claude action; his current branch/board remains dacf75dd. No restart assumed
 
 Codex owns guarded upload and actual-public verification. Candidate bytes and
 base are frozen; private originals and verification captures remain outside Git.
+
+Final display-copy refinement
+The previous READY candidate 4f62cc6 was not published. Final visual review
+improved date spacing and removed an internal field name from two explanatory
+strings. Independent comparison proves that only the source-unit row label and
+conclusion changed inside the supplementary catalogue; every HTML byte outside
+that catalogue and all source quotes, quantities, signatures and logic are exact.
+The final standard build and preservation22 pass. Navigation evidence from the
+previous candidate is retained because no routing or behaviour changed. Final candidate browser checks pass 66/66 after the display refinement;
+laptop and phone captures were inspected. No operational writes or runtime
+errors occurred. No change to the implementation source commit was required.

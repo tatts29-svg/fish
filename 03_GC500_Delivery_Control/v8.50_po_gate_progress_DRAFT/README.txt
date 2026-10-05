@@ -25,8 +25,8 @@ Claude remains intentionally paused. Detailed original findings, values, input
 manifests and browser captures remain outside Git and public coordination.
 
 Candidate SHA-256:
-4f62cc6c37671381caba4da48e20bcc0d99d2c96e0e45b1c8b9dcdb58f8f53f2
-Bytes: 10,932,068
+1b24ad4e267d23f4ae20b03968551d275afda0c29d527f63aee62388ed9ac222
+Bytes: 10,932,100
 
 Checks: standard build; 22 exact preservation; 27 model guards; 12 independent
 patch checks; 66 laptop/phone browser checks; both 22-route/seven-link/Back
