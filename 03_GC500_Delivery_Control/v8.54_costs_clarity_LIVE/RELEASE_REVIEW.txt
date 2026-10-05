@@ -1,0 +1,20 @@
+Author: Andrew Fisher
+v8.54 Costs and P&L presentation
+Implementation: 02f6871e
+Ready checkpoint: 8c3043b3
+Live upload checkpoint: 9b37587a
+LIVE: 5 Oct 2026 13:25 AEST
+Base SHA256: 8edafa7191103aa834af6b6c3091d7beba40041e0ccdb056b056709145e94549
+Public SHA256: 85fd27d0a9528f20fcd2c9bcc1c1d4ab460d25ef079291491cf39041ba0dfb86
+Bytes: 10954072
+
+Codex implemented and reviewed; Claude remains intentionally paused.
+Primary figures use precise native amounts with cents. Supporting source/account/calculation notes use disclosures. Unknown-cost warnings stay visible. Model calculations and charge rules unchanged.
+Standard build: PASS, 11 inline scripts, author and secret checks.
+Focused candidate laptop and phone: native financial checks, headline precision, closed notes, visible warnings, disclosure/scroll retention PASS.
+Candidate and actual-public full route audit: each 132/132 checks, 22 routes at laptop and phone widths, Back, actual scrolling, disclosure and native permissions. Exact upstream/browser public document identity; no local substitution for public checks.
+Native laptop and phone sweeps: each 22 routes, seven deep links, Back, zero runtime/console errors.
+Private laptop/phone screenshots inspected.
+Actual-public focused laptop/phone checks PASS: reconciliation, cents, notes, warnings, disclosure and scroll retention. Evidence private.
+33 shared collections unchanged, version 3742.
+Health OK, server v5.87. No server code, operational record, ledger or media change.
