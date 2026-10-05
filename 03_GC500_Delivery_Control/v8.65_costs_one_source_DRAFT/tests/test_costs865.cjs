@@ -42,6 +42,15 @@ const {open} = require('../../toolchain/harness/open_page');
   ok('one place: Forecast P&L header tiles and its Difference line are gone', D.kpis === 0 && D.diffLine === 0 && D.flag, D);
   ok('one place: the P&L-lines card keeps only the ledger gross margin card', D.metrics.length === 1 && /^Ledger gross margin/.test(D.metrics[0]), D.metrics);
   ok('one place: revenue on the record is printed at most 3 times on the page (glance, two table totals)', D.revCount <= 3, {revCount: D.revCount, rev: D.rev});
+  const LB = await p.evaluate(() => holdAssets(() => { const c = document.getElementById('labour865'); if (!c) return {none: true}; const cell = (re, col) => { const tr = [...c.querySelectorAll('tr')].find(t => re.test(t.textContent)); return tr ? tr.children[col].textContent.trim() : null; };
+    const ev = new Set(EVENT_DAYS), rows = fin745Rows(todayIso()); const race = rows.filter(r => ev.has(r.date)); const paid = race.reduce((s, r) => s + (Number(r.paid) || 0), 0);
+    const inst = pl770Model().rev.find(r => r.code === '1047'), W = cj764Model().wages;
+    return {chargeNow: cell(/Total labour we charge/, 1), chargeJob: cell(/Total labour we charge/, 3), costJob: cell(/Total labour cost priced/, 3), raceRow: cell(/^Race weekend — (?!the people)/, 4), racePaid: paid, instNow: money(inst.now), instJob: money(inst.job), wagesJob: money(W.job), evInCats: !!document.querySelector('details[data-sfold="costs765|cats"] details[data-sfold="costs765|event833"]'), titles: [...document.querySelectorAll('#pane-costs .costs-audit-fold > summary b')].map(b => b.textContent)}; }));
+  ok('labour card: total labour we charge = P&L Installation, now and to job end', LB.chargeNow === LB.instNow && LB.chargeJob === LB.instJob, LB);
+  ok('labour card: total labour cost priced = wages priced to job end', LB.costJob === LB.wagesJob, {costJob: LB.costJob, wagesJob: LB.wagesJob});
+  ok('labour card: race weekend cost row carries the running sheet’s race-day paid hours', !!LB.raceRow && new RegExp(LB.racePaid.toLocaleString('en-AU') + ' h paid').test(LB.raceRow), {raceRow: LB.raceRow, racePaid: LB.racePaid});
+  ok('Event crew card moved into the working, under the people', LB.evInCats, {});
+  ok('fold titles in plain words', LB.titles.some(t => /^By branch — who bills what/.test(t)) && LB.titles.some(t => /^To job end — /.test(t)) && LB.titles.some(t => /^Hired-in gear/.test(t)), LB.titles);
   for (const v of ['pricing', 'runsheet']) { await p.evaluate(v => { const b = document.querySelector(`[data-finance857="${v}"]`); if (b) b.click(); }, v); await p.waitForTimeout(900);
     const h = await p.evaluate(() => { const el = document.querySelector('#finance857-section .panehead'); return el ? el.textContent : ''; });
     ok(`sub-view ${v} heading reads as its button does`, v === 'pricing' ? /^Customer rates & charges — /.test(h) : /^Workforce costs — /.test(h), {h}); }

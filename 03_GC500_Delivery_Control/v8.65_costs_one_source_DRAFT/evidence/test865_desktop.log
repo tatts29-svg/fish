@@ -10,12 +10,17 @@ PASS P&L reconciles: revenue, costs, job end {"revenue":true,"revenueJob":true,"
 PASS glance revenue to job end equals the P&L {"revJob":999492.87,"glance":999492.87}
 PASS glance says labour to tick is inside Revenue to job end, with its amount {"labourToCome":51051.24}
 PASS glance has a Labour per piece tile {"tiles":["Revenue","Direct costs","Labour per piece","Difference so far","Month-end for Finance"]}
-PASS Labour tile shows ticked so far and if-all-ticked, matching the models {"nums":["$19,825.88","$70,877.12","$51,051.24","$8,781.76","$49,249.83"],"charge":19825.88,"job":70877.12,"remaining":51051.24}
+PASS Labour tile shows ticked so far and if-all-ticked, matching the models {"nums":["$19,825.88","$70,877.12","$51,051.24"],"charge":19825.88,"job":70877.12,"remaining":51051.24}
 PASS glance wages note splits Job Connect from the salary allowance {"snippet":"Priced wages: $49,249.83 — Job Connect $34,549.83 + salary allowance forecast $14,700.00. 1,414.5 h of Coates wages remain unpriced. The job-end difference deducts priced wages."}
 PASS P&L card names the ledger gross margin as such {}
 PASS one place: Forecast P&L header tiles and its Difference line are gone {"kpis":0,"diffLine":0,"metrics":["Ledger gross margin — to job end, before"],"revCount":2,"rev":"$612,654.37","flag":true}
 PASS one place: the P&L-lines card keeps only the ledger gross margin card ["Ledger gross margin — to job end, before"]
 PASS one place: revenue on the record is printed at most 3 times on the page (glance, two table totals) {"revCount":2,"rev":"$612,654.37"}
+PASS labour card: total labour we charge = P&L Installation, now and to job end {"chargeNow":"$56,540.84","chargeJob":"$107,592.08","costJob":"$49,249.83","raceRow":"24 shifts, 283 h paid, 8 people · priced 103 h · 180 h with no pay rate yet","racePaid":283,"instNow":"$56,540.84","instJob":"$107,592.08","wagesJob":"$49,249.83","evInCats":true,"titles":["By branch — who bills wh
+PASS labour card: total labour cost priced = wages priced to job end {"costJob":"$49,249.83","wagesJob":"$49,249.83"}
+PASS labour card: race weekend cost row carries the running sheet’s race-day paid hours {"raceRow":"24 shifts, 283 h paid, 8 people · priced 103 h · 180 h with no pay rate yet","racePaid":283}
+PASS Event crew card moved into the working, under the people {}
+PASS fold titles in plain words ["By branch — who bills what, and what each branch’s costs are","On Finance’s P&L lines — the same money on the account codes","To job end — what is still to come, and what has no price yet","Hired-in gear — what it costs us and what we charge for it","Month-end — what Finance should accrue for the 
 PASS sub-view pricing heading reads as its button does {"h":"Customer rates & charges — Boost Mobile Gold Coast 500"}
 PASS sub-view runsheet heading reads as its button does {"h":"Workforce costs — Boost Mobile Gold Coast 500"}
 PASS no money on today {"n":0}
@@ -24,5 +29,5 @@ PASS no money on plant {"n":0}
 PASS no money on demob {"n":0}
 PASS no money on coatesway {"n":0}
 PASS no page errors []
-PASS no writes attempted {"page":1,"live":65,"blocked":0}
-desktop: 27/27 pass
+PASS no writes attempted {"page":1,"live":64,"blocked":0}
+desktop: 32/32 pass
