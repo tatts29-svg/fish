@@ -78,3 +78,8 @@ These are headless Chromium without a GPU, so canvas painting costs more than on
 - The machine publisher preserves the full manifest. This folder does not register anything.
 
 **Order.** Either part can go first. Each works on its own: the page fix removes the Fencing freeze, and the explorer fix adds the labels, closes, Clear and lighter frames. Both are needed for the full result.
+
+
+## Codex final release review
+
+Author: Andrew Fisher. Imported Claude source `99ec7082` as `cd017766`; made the test harness import portable and added an explicit 3D round-trip assertion. Dashboard and three explorer bytes exactly reproduce the handover. Machine candidate `b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8` contains231 paths,228 unrelated descriptors unchanged. Five unlisted private blobs are verified and backed up privately. Guarded GET-only preflight and43 offline publisher guards pass. Independent browser checks pass: desktop15/15, phone16/16; both3D round trips; both24/24 flicker suites; both21-route/seven-link/Back sweeps, zero runtime/console errors. Phone screenshot inspected. Inverse dashboard source oracle recovers the preceding release exactly; snapshot memoisation remains fresh between builds and resets after exceptions. READY for paired publication under Andrew's direct “Get live” instruction. Local timing measurements are not a guarantee on every physical device. No code edits to geometry, rates, financial models or operational records.
