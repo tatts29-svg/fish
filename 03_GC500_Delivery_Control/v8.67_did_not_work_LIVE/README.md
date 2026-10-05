@@ -1,4 +1,4 @@
-# v8.67: Did not work (DRAFT, READY to upload)
+# v8.67: Did not work — VERIFIED LIVE
 
 Author: Andrew Fisher.
 
@@ -25,3 +25,7 @@ The removal is a tombstone on the record (`S.deleted`), the way every other remo
 - Base live v8.66 `6fa8a9f3b71191b3e268272aa80a052cdf1855188e86348642da9f03adef16e4`.
 - Candidate `5a2dd2183464b488bc1c04577d4831c78f2e898846e0af9c5464953318bbd6a5`, 11,054,519 bytes.
 - Build: `toolchain/build.sh v8.67 v8.67_did_not_work_DRAFT/patch_v867.py`. Upload: `toolchain/upload_page.py`.
+
+## Codex publication
+
+Published6 Oct2026 at09:44 AEST. SourceClaude d6366617, integration83dcd355, READY39dc7f73. Exact public SHA-256 `5a2dd2183464b488bc1c04577d4831c78f2e898846e0af9c5464953318bbd6a5`, 11,054,519 bytes, on v8.66 `6fa8a9f3`. Independent shift11/11, Finance24/24 and flicker24/24 laptop/phone; both21-route/seven-link/Back sweeps; finance862 model/record preservation1366/390 pass. Guarded upload verifies exact public bytes. Actual-public shift11/11 laptop and11/11 phone pass, zero local substitutions, errors or attempted writes. Machine manifest exactly unchanged v8.64 `b469a99c`; server health OKv5.87, record4000. No operational shift removed or backend deployed. Claude independent final readback pending. Candidate read-only captures inspected. Use this LIVE folder path for future patch references.
