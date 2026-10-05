@@ -5,7 +5,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'
 from rep import rep as replace
 p = Path(sys.argv[1]); root = Path(__file__).resolve().parent
 BASES = {  # the exact live page this patch is for, and the footer version it carries
-    'a02c7b5eff2c525c69f8890dafc3f9da747da1f443e4f38a8f38360a2ed9cae7': 'v8.61',  # test base only (v8.62 not yet live)
+    'b2df41c3074c49838b5b093e50f17ce5c4ac363cccc296971d538b95c7a7d487': 'v8.62',  # live v8.62 (Codex), the release base
+    'a02c7b5eff2c525c69f8890dafc3f9da747da1f443e4f38a8f38360a2ed9cae7': 'v8.61',  # earlier test base only
 }
 h = hashlib.sha256(p.read_bytes()).hexdigest()
 assert h in BASES or os.environ.get('V863_BASE') == h, 'Wrong live base ' + h

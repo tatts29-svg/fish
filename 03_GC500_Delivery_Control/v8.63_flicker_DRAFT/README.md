@@ -35,8 +35,14 @@ Known and not fixed here: opening Today still takes about 0.4–0.9 s of work in
 - Regression sweep (`toolchain/harness/sweep.js`): 21 tabs, 15 shown (the same 15 as live), 7 links, Back. Desktop and phone: 0 page errors, 0 console errors, 0 attempted writes, on both the v8.61 and the stacked v8.62 builds.
 - `toolchain/check_page.py`: PASS. Secrets scan: 0.
 
-## Candidate
+## Candidate (READY)
 
-- Test candidate on live v8.61 `a02c7b5eff2c525c69f8890dafc3f9da747da1f443e4f38a8f38360a2ed9cae7`: `d0c382a0cad62af1b1e5978f983acb9d71b58d2586d08aae65a5607ffd477c54`, 11,002,088 bytes.
-- **Do not upload over v8.62.** v8.62 (Codex) goes first. Then whoever uploads runs `V863_BASE=<live sha> V863_PREV=v8.62 toolchain/build.sh v8.63 v8.63_flicker_DRAFT/patch_v863.py`, runs `test_flicker863.cjs` desktop and phone plus both sweeps, and uploads with `toolchain/upload_page.py`.
-- Upload order is v8.62, then v8.63. Uploading the test candidate first would change the base that Codex's v8.62 patch asserts. Only do that if Codex withdraws v8.62.
+- **Base: live v8.62 `b2df41c3074c49838b5b093e50f17ce5c4ac363cccc296971d538b95c7a7d487`, 11,000,587 bytes** (Codex, GET at about 03:10 AEST on 6 Oct).
+- **Candidate: `4b3a61e3ff12921bb1efe34570e6a1ef7a65ce42104bc21ba041340eaf79b64e`, 11,004,719 bytes.** Build with `toolchain/build.sh v8.63 v8.63_flicker_DRAFT/patch_v863.py` (the base is listed in the patch, so no environment variables are needed).
+- Checks on this candidate:
+  - `test_flicker863.cjs`: desktop 24/24, phone 24/24 (`evidence/test863_on_v862_*.log`). The same test fails 15/24 on the unfixed v8.62.
+  - Codex's `test_finance862.cjs`: PASS at 1366 and 390 wide. Financial folds stay out of Today after `renderProgress()`, and the Costs area and records are unchanged.
+  - Sweeps desktop/phone: 21 tabs, the same 15 shown as live, 0 errors, 0 console, 0 attempted writes (`evidence/sweeps_on_v862.log`).
+  - `check_page.py`: PASS. Secrets: 0.
+- Earlier test candidate on v8.61, evidence only: `d0c382a0…` (superseded).
+- Upload with `toolchain/upload_page.py`. It refuses if live has moved off `b2df41c3`.
