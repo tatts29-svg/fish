@@ -29,3 +29,28 @@ html[data-motion="off"] #pane-timeline .day .wm-card-scene::before,html[data-wea
 @keyframes wx856-rain{from{background-position:8px 0,27px 39px,17px 67px}to{background-position:8px 112px,27px 151px,17px 179px}}
 @media(prefers-reduced-motion:reduce){#pane-timeline .day .wm-card-scene::before{animation:none!important}}
 @media print{#pane-timeline .day[data-weather-card].on .dface{background:#fff}#pane-timeline .day[data-weather-card].on .dow,#pane-timeline .day[data-weather-card].on .dnum .dd,#pane-timeline .day[data-weather-card].on .dmy b,#pane-timeline .day[data-weather-card].on .dwk,#pane-timeline .day[data-weather-card].on .dsel,#pane-timeline .day[data-weather-card].on .dmy em{color:#111}#pane-timeline .day[data-weather-card].on .dnum,#pane-timeline .day[data-weather-card].on .dwk{background:none}}
+/* Strong wind follows the native forecast flag; it never invents a weather reading. */
+#pane-timeline .day[data-weather-card].on:has(.wxflag.wind) .wm-cloud-front{animation-duration:3.5s}
+#pane-timeline .day[data-weather-card].on:has(.wxflag.wind) .wm-cloud-back{animation-duration:5s}
+#pane-timeline .day[data-weather-card].on:has(.wxflag.wind) .wm-cloud-near{animation-duration:4s}
+#pane-timeline .day[data-weather-card].on:has(.wxflag.wind):not([data-weather-card="rain"]):not([data-weather-card="pour"]):not([data-weather-card="storm"]):not([data-weather-card="sleet"]) .wm-card-scene::before{background-image:radial-gradient(ellipse 47px 1px at 68px 19px,rgba(229,248,255,.78),transparent),radial-gradient(ellipse 32px 1px at 113px 38px,rgba(229,248,255,.52),transparent);background-size:160px 62px;background-repeat:repeat;opacity:.6;animation:wx856-wind 2.3s linear infinite}
+@keyframes wx856-wind{from{background-position:-160px 0,-83px 17px}to{background-position:0 0,77px 17px}}
+/* Foreground weather crosses the whole selected card, including its solid data panels. */
+#pane-timeline .day[data-weather-card].on .dface::after{content:"";position:absolute;inset:-112px -28px;z-index:5;pointer-events:none;animation-play-state:paused!important}
+#pane-timeline .day.on:is([data-weather-card="rain"],[data-weather-card="pour"],[data-weather-card="storm"]) .dface::after{background-image:linear-gradient(transparent 62%,rgba(230,247,255,.95) 63%,rgba(215,239,252,.2) 84%,transparent 85%),linear-gradient(transparent 26%,rgba(240,252,255,.72) 27%,transparent 42%);background-size:41px 112px,67px 112px;background-repeat:repeat;mask-image:repeating-linear-gradient(90deg,transparent 0 17px,#000 17px 18px,transparent 18px 40px,#000 40px 42px,transparent 42px 63px);transform:skewX(-12deg);opacity:.32;animation:wx856-front-rain .9s linear infinite}
+#pane-timeline .day.on:is([data-weather-card="pour"],[data-weather-card="storm"]) .dface::after{opacity:.48;animation-duration:.65s}
+#pane-timeline .day[data-weather-card="sleet"].on .dface::after{background-image:radial-gradient(circle at 12px 31px,#fff 0 1.3px,transparent 1.7px),radial-gradient(circle at 62px 83px,#eefaff 0 2px,transparent 2.5px);background-size:89px 144px,113px 144px;opacity:.6;animation:wx856-front-snow 4.5s linear infinite}
+html[data-weather-playing="true"] #pane-timeline .day[data-weather-active="true"][data-motion-visible="true"] .dface::after{animation-play-state:running!important}
+html[data-motion="off"] #pane-timeline .day .dface::after,html[data-weather-reduced="true"] #pane-timeline .day .dface::after{animation:none!important}
+#pane-timeline .day .wm-lightning856,#pane-timeline .day .wm-storm-flash856{animation:wx856-lightning 8s linear infinite;animation-delay:-1s;opacity:.18}
+#pane-timeline .day .wm-lightning856{filter:drop-shadow(0 0 3px #d5f2ff)}
+#pane-timeline .day .wm-sun-rays856{animation:wx856-sun-rays 18s linear infinite;transform-origin:146px 42px;opacity:.65}
+@keyframes wx856-lightning{0%,12%,20%,29%,100%{opacity:.18}14%,17%{opacity:1}23%,25%{opacity:.88}}
+@keyframes wx856-sun-rays{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes wx856-front-rain{from{background-position:0 37px,21px 78px}to{background-position:0 149px,21px 190px}}
+@keyframes wx856-front-snow{from{background-position:0 0,21px 59px}to{background-position:12px 144px,33px 203px}}
+@media(prefers-reduced-motion:reduce){#pane-timeline .day .dface::after{animation:none!important}}
+@media print{#pane-timeline .day .dface::after{content:none}}
+
+html[data-motion="off"] #pane-timeline .day .wm-lightning856,html[data-weather-reduced="true"] #pane-timeline .day .wm-lightning856{opacity:1}
+@media(prefers-reduced-motion:reduce){#pane-timeline .day .wm-lightning856{opacity:1}}
