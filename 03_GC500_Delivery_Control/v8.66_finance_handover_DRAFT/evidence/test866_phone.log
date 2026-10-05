@@ -1,0 +1,23 @@
+PASS  Costs & P&L has five buttons, Finance handover once
+PASS  Finance handover mounts, with its own heading
+PASS  one row per purchase order on the record
+PASS  every PO row says whether it is receipted
+PASS  PO values add to the record’s purchase orders
+PASS  fencing cost stream carries every fencing PO and the fencing branch
+PASS  costs to Finance add to To job end’s costs + wages priced, to the cent
+PASS  every cost on "the job" is flagged: branch not recorded
+PASS  demob labour we charge, by branch, equals the labour plan’s demob slots still to tick
+PASS  demob forecast total is the sum of its rows
+PASS  invoice block: branches add to Revenue on the record
+PASS  invoice block: branches add to Revenue to job end
+PASS  invoice block: the 31 Oct deadline and the days to it
+PASS  CSV carries the four sections and the author
+PASS  Copy text opens with the handover and closes with the author
+PASS  no person’s phone number or email on the page
+PASS  a non-fencing PO is listed here with its branches, and flagged when costed to a branch the revenue is not in
+PASS  a non-fencing PO stays out of the fencing PO card and the fencing accrual
+PASS  Save on a view-only link changes nothing and sends nothing
+PASS  P&L summary comes back whole, the handover put away
+PASS  no page errors
+PASS  no writes attempted
+phone: 22/22 pass
