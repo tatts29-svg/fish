@@ -1,0 +1,28 @@
+Author: Andrew Fisher
+GC500 v8.53 — overall Fencing instrument
+State: DRAFT; final navigation and live verification pending.
+Base: 7a07fac2b357c9c19ea9ff26fd1b863d2f7395c2d505098579ea5ed72c705873
+Candidate: 8edafa7191103aa834af6b6c3091d7beba40041e0ccdb056b056709145e94549
+Bytes: 10,950,874
+
+Standard build passes all 11 script, author and credential checks.
+23 synthetic calculation checks pass, including type caps, shared CCB allocation
+bounds, incomplete evidence, invalid ranges, gate units and light thresholds.
+Independent preservation passes 95/95: all 71 original JSON literals and values,
+financial/source functions, media and all bytes outside 12 allowed presentation
+additions/hooks are preserved exactly.
+Final candidate browser checks pass 93/93 at laptop, phone and small-phone widths.
+Verified percentage/count arithmetic, all-activity modal, original type/source
+links, selected-visible automatic reflection, pause/reduced motion, disclosures,
+Close focus and scroll, widths, native collection preservation, exact document
+identity and no runtime/unexpected console errors or operational writes.
+Root inspected final phone percentage and counts captures.
+
+The initial browser run passed 77/80. Three failures used element geometry to
+infer paint visibility inside a closed native details element. Corrected checks
+inspect closed ancestors and actual visibility; the original evidence remains
+private. Defensive model findings were corrected before the final build.
+
+No pricing, record, map, media or backend changes are part of this release.
+Private evidence: /workspace/private-fencing-overall-gauge-05Oct2026/
+Codex implements, reviews and publishes. Claude remains intentionally paused.
