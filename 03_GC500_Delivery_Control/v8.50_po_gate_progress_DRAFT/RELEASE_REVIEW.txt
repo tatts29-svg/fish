@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 GC500 v8.50 — source quantities matched to dockets
-State: DRAFT; verification in progress, not ready or live.
+State: READY TO UPLOAD; not live. Implementation 1c2fb973.
 
 Base v8.49:
 924955d5560006bcac1fd07765dffb51692154e04585dae1eefcc292ef602fb1
@@ -40,3 +40,22 @@ native details toggle event. The unsaved guide values and native outputs remaine
 exact, but the fold-cache assertion ran too early. Verification now waits for the
 native toggle state before exercising redraw. The initial diagnostic is retained
 privately; this test correction does not alter the frozen candidate.
+
+Final candidate checks
+The same frozen candidate passes 66/66 focused laptop/phone browser checks on
+Today and Fencing. Matched and differing source quantities agree with an
+independent original-paper oracle. Exact file identities, safe original/P/O
+links, date replay, changed-source and duplicate guards, normal toggle/redraw
+state, keyboard operation, local guide values and phone widths pass. Existing
+eight work readings, full DATA, financial outputs and all native shared state
+remain unchanged. Zero JavaScript errors or operational write attempts; the only
+blocked non-GET requests are native map-session requests.
+
+Both final desktop and phone sweeps pass 22 routes, seven deep links and Back
+with zero JavaScript or console errors. Read-only route permissions and redirect
+destinations match the previous verified release exactly. Root and reviewer
+inspected phone source/overview/conflict captures. Fresh PR comments contain no
+new Claude action; his current branch/board remains dacf75dd. No restart assumed.
+
+Codex owns guarded upload and actual-public verification. Candidate bytes and
+base are frozen; private originals and verification captures remain outside Git.

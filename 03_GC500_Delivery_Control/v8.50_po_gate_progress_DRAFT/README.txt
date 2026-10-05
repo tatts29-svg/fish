@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 GC500 v8.50 — P/O quantities matched to dockets
-State: DRAFT; not ready or live.
+State: READY TO UPLOAD; not live. Implementation 1c2fb973.
 
 An expandable source comparison shows explicitly documented supplier quantities
 alongside their matched docket components. Source differences stay separate.
@@ -23,3 +23,11 @@ Build input is a reviewed private evidence manifest, kept outside Git:
 Codex owns source review, implementation, independent checks and publication.
 Claude remains intentionally paused. Detailed original findings, values, input
 manifests and browser captures remain outside Git and public coordination.
+
+Candidate SHA-256:
+4f62cc6c37671381caba4da48e20bcc0d99d2c96e0e45b1c8b9dcdb58f8f53f2
+Bytes: 10,932,068
+
+Checks: standard build; 22 exact preservation; 27 model guards; 12 independent
+patch checks; 66 laptop/phone browser checks; both 22-route/seven-link/Back
+sweeps. Zero runtime errors or operational writes. See RELEASE_REVIEW.txt.
