@@ -1,4 +1,4 @@
-# Roster costs and toilet run-sheet printing — DRAFT
+# Roster costs and toilet run-sheet printing — LIVE
 
 Author: Andrew Fisher.
 
@@ -14,4 +14,4 @@ The roster uses Employment group, Ordinary and Worked hours; weekday per-item in
 
 Build checks pass for the final candidate: SHA-256 71fdff199e5b09e6d67b2716cb6733ef4e69cb8b2fa3f002db5fec992527e888, 10,974,485 bytes. Final candidate focused checks pass on laptop and phone. Both exact-candidate sweeps pass: 21 menu routes after removing the redundant entry, seven deep links and Back navigation, zero runtime or console errors. All five toilet PDFs are one A4 page with readable content. Phone screenshots inspected. Native collections unchanged; no operational write requests. Early checks caught a build attribution scrub affecting a literal-name match; attribution now follows the native allowance record. Two test assumptions were corrected: CSS uppercase is compared without case, and legacy bookmarks retain their hash while opening the new Costs destination. Original private diagnostics are retained; no failure is suppressed.
 
-READY TO UPLOAD. Source a733a440, final candidate as above; Codex independently reviewed. No publication yet.
+VERIFIED LIVE, 5 Oct 2026 at 21:33 AEST. Implementation a733a440, READY 3705e7f3. Guarded publication verified public bytes exactly. Actual-public laptop/phone checks pass with no local HTML override, all five toilet print/retry flows and unchanged native collections. Health is OK on server v5.87; no backend deployment was needed. Codex independently reviewed; Claude remains paused. Reload existing tabs once.
