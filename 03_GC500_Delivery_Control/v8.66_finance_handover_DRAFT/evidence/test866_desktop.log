@@ -3,11 +3,12 @@ PASS  Finance handover mounts, with its own heading
 PASS  one row per purchase order on the record
 PASS  every PO row says whether it is receipted
 PASS  PO values add to the record’s purchase orders
-PASS  fencing cost stream carries every fencing PO and the fencing branch
+PASS  fencing cost carries every fencing PO, all on the fencing branch
 PASS  costs to Finance add to To job end’s costs + wages priced, to the cent
-PASS  every cost on "the job" is flagged: branch not recorded
+PASS  every cost is split across the contract branches and adds back to its total; no cost left on no branch
+PASS  no notes or requests on the page
 PASS  demob labour we charge, by branch, equals the labour plan’s demob slots still to tick
-PASS  demob forecast total is the sum of its rows
+PASS  demob forecast total is the sum of its rows and of its branch columns
 PASS  invoice block: branches add to Revenue on the record
 PASS  invoice block: branches add to Revenue to job end
 PASS  invoice block: the 31 Oct deadline and the days to it
@@ -20,4 +21,4 @@ PASS  Save on a view-only link changes nothing and sends nothing
 PASS  P&L summary comes back whole, the handover put away
 PASS  no page errors
 PASS  no writes attempted
-desktop: 22/22 pass
+desktop: 23/23 pass

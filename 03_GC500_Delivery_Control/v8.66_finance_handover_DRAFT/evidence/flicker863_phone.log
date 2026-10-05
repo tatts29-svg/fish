@@ -1,25 +1,25 @@
-PASS open today: never faded {"worst":1,"at":-1,"frames":8}
+PASS open today: never faded {"worst":1,"at":-1,"frames":13}
 PASS open today: arrival still marked {"arrived":true}
 PASS open today: arrival cleared after it plays {}
-PASS open timeline: never faded {"worst":1,"at":-1,"frames":46}
+PASS open timeline: never faded {"worst":1,"at":-1,"frames":62}
 PASS open timeline: arrival still marked {"arrived":true}
 PASS open timeline: arrival cleared after it plays {}
-PASS open plant: never faded {"worst":1,"at":-1,"frames":49}
+PASS open plant: never faded {"worst":1,"at":-1,"frames":66}
 PASS open plant: arrival still marked {"arrived":true}
 PASS open plant: arrival cleared after it plays {}
-PASS open demob: never faded {"worst":1,"at":-1,"frames":70}
+PASS open demob: never faded {"worst":1,"at":-1,"frames":63}
 PASS open demob: arrival still marked {"arrived":true}
 PASS open demob: arrival cleared after it plays {}
-PASS open docs: never faded {"worst":1,"at":-1,"frames":48}
+PASS open docs: never faded {"worst":1,"at":-1,"frames":49}
 PASS open docs: arrival still marked {"arrived":true}
 PASS open docs: arrival cleared after it plays {}
-PASS open coatesway: never faded {"worst":1,"at":-1,"frames":69}
+PASS open coatesway: never faded {"worst":1,"at":-1,"frames":70}
 PASS open coatesway: arrival still marked {"arrived":true}
 PASS open coatesway: arrival cleared after it plays {}
-PASS Today refresh: never faded {"worst":1,"at":-1,"frames":52}
+PASS Today refresh: never faded {"worst":1,"at":-1,"frames":55}
 PASS Today refresh: banner picture kept, still decoded {"same":true,"complete":true,"w":1672}
 PASS refresh during arrival: arrival stopped {"arriveAfterRefresh":false}
 PASS Motion: Off: no arrival animations {"running":0}
 PASS no page errors []
-PASS no writes attempted {"page":1,"live":86,"blocked":0}
+PASS no writes attempted {"page":1,"live":85,"blocked":0}
 phone: 24/24 pass

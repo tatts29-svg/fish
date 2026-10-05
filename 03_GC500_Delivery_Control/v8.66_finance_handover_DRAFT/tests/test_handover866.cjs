@@ -12,30 +12,31 @@ const {open} = require('../../toolchain/harness/open_page');
   const M = await p.evaluate(() => holdAssets(() => { const r2 = v => Math.round((v + Number.EPSILON) * 100) / 100;
     const H = fh866Model(), X = cj764Model(), LP = labourPlan(), money = moneySummary(), pos = poAll(); const sec = document.getElementById('handover866');
     const demobSlots = r2(LP.slots.filter(sl => sl.key === 'demob' && sl.state !== 'charged' && sl.value != null).reduce((s, sl) => s + sl.value, 0));
+    const txt = sec ? sec.innerText : '';
     const rows = sec ? [...sec.querySelectorAll('tr[data-fh866-row]')].map(tr => tr.dataset.fh866Row) : [];
     const statusWords = sec ? [...sec.querySelectorAll('tr[data-fh866-row] .fh866-b')].map(b => b.textContent.trim()) : [];
     const today = todayIso(); const days = Math.round((Date.parse('2026-10-31T00:00:00Z') - Date.parse(today + 'T00:00:00Z')) / 86400000);
-    const txt = sec ? sec.innerText : '';
     return {present: !!sec, head: (document.querySelector('#finance857-section .panehead') || {}).textContent || '', poN: pos.length, rows, statusWords, poSum: H.poSum, poSumModel: r2(pos.reduce((s, o) => s + (Number(o.amount) || 0), 0)),
-      costJob: H.costTotal.job, plJob: r2((X.job || 0) + (X.wages.job || 0)), costCheck: H.costCheck, theJobRows: H.costs.filter(r => r.branch === 'the job').map(r => r.needs.some(n => /branch not recorded/.test(n))),
-      fencingRow: H.costs.find(r => r.kind === 'fencing'), demobCharge: r2(H.demobCharge.reduce((s, d) => s + d.amount, 0)), demobSlots, demobRows: H.demob.length, demobTotal: H.demobTotal, demobSum: r2(H.demob.reduce((s, d) => s + (d.forecast || 0), 0)),
+      costJob: H.costTotal.job, plJob: r2((X.job || 0) + (X.wages.job || 0)), costCheck: H.costCheck, splitsOk: H.costs.every(r => Math.abs(r.job - r2(Object.values(r.by).reduce((s, v) => s + v, 0))) < 0.005), colsOk: Math.abs(H.costTotal.job - r2(H.cols.reduce((s, b) => s + (H.costTotal.by[b] || 0), 0))) < 0.005, cols: H.cols, noBranchCol: H.cols.includes('—'),
+      fencingRow: H.costs.find(r => r.kind === 'fencing'), FBR: H.FBR, txtNotes: (txt.match(/Andrew —|What Finance still need|not recorded —/g) || []).length, demobCharge: r2(H.demobCharge.reduce((s, d) => s + d.amount, 0)), demobSlots, demobRows: H.demob.length, demobTotal: H.demobTotal, demobSum: r2(H.demob.reduce((s, d) => s + (d.total || 0), 0)), demobBySum: r2(H.cols.reduce((s, b) => s + (H.demobBy[b] || 0), 0)),
       invOn: H.invTotal.onRecord, revRecord: money.charge.total, invJob: H.invTotal.job, revJob: X.revenue.job, invCheck: H.invCheck, days, daysModel: H.daysLeft,
       hasDeadline: /Invoice by Sat 31 Oct 2026/.test(txt), notYetBilled: H.invTotal.unbilled, csv: fh866Csv(H).split('\r\n'), text: fh866Text(H), txt: txt.slice(0, 20000),
       fencingPos: pos.filter(poFencing866).length}; }));
   ok('Finance handover mounts, with its own heading', M.present && /^Finance handover — /.test(M.head), {head: M.head});
   ok('one row per purchase order on the record', M.rows.length === M.poN && M.rows.length > 0, {rows: M.rows.length, poN: M.poN});
-  ok('every PO row says whether it is receipted', M.statusWords.length === M.poN && M.statusWords.every(w => /^(Receipted in full|Part receipted|Not receipted|Receipting not confirmed)$/.test(w)), M.statusWords.slice(0, 4));
+  ok('every PO row says whether it is receipted', M.statusWords.length === M.poN && M.statusWords.every(w => /^(Receipted in full|Part receipted( \$[\d,]+\.\d\d)?|Not receipted|Not confirmed)$/.test(w)), M.statusWords.slice(0, 4));
   ok('PO values add to the record’s purchase orders', near(M.poSum, M.poSumModel), {poSum: M.poSum, model: M.poSumModel});
-  ok('fencing cost stream carries every fencing PO and the fencing branch', !!M.fencingRow && M.fencingRow.pos.length === M.fencingPos && M.fencingRow.branch === M.fencingRow.revenueWords, M.fencingRow && {pos: M.fencingRow.pos.length, branch: M.fencingRow.branch, rev: M.fencingRow.revenueWords});
+  ok('fencing cost carries every fencing PO, all on the fencing branch', !!M.fencingRow && M.fencingRow.pos.length === M.fencingPos && Object.keys(M.fencingRow.by).every(b => b === M.FBR), M.fencingRow && {pos: M.fencingRow.pos.length, by: M.fencingRow.by, FBR: M.FBR});
   ok('costs to Finance add to To job end’s costs + wages priced, to the cent', near(M.costJob, M.plJob) && M.costCheck, {costJob: M.costJob, plJob: M.plJob});
-  ok('every cost on "the job" is flagged: branch not recorded', M.theJobRows.length > 0 && M.theJobRows.every(Boolean), {rows: M.theJobRows.length});
+  ok('every cost is split across the contract branches and adds back to its total; no cost left on no branch', M.splitsOk && M.colsOk && !M.noBranchCol && M.cols.length >= 3, {cols: M.cols, splitsOk: M.splitsOk, colsOk: M.colsOk});
+  ok('no notes or requests on the page', M.txtNotes === 0, {notes: M.txtNotes});
   ok('demob labour we charge, by branch, equals the labour plan’s demob slots still to tick', near(M.demobCharge, M.demobSlots), {byBranch: M.demobCharge, slots: M.demobSlots});
-  ok('demob forecast total is the sum of its rows', near(M.demobTotal, M.demobSum) && M.demobRows >= 4, {rows: M.demobRows, total: M.demobTotal});
+  ok('demob forecast total is the sum of its rows and of its branch columns', near(M.demobTotal, M.demobSum) && near(M.demobTotal, M.demobBySum) && M.demobRows >= 4, {rows: M.demobRows, total: M.demobTotal, bySum: M.demobBySum});
   ok('invoice block: branches add to Revenue on the record', near(M.invOn, M.revRecord) && M.invCheck.record, {invOn: M.invOn, revRecord: M.revRecord});
   ok('invoice block: branches add to Revenue to job end', near(M.invJob, M.revJob) && M.invCheck.job, {invJob: M.invJob, revJob: M.revJob});
   ok('invoice block: the 31 Oct deadline and the days to it', M.hasDeadline && M.daysModel === M.days, {days: M.daysModel});
   const csvCell = l => l.replace(/^"/, '').replace(/"(,|$).*$/s, '');
-  ok('CSV carries the four sections and the author', csvCell(M.csv[0]) === 'Author: Andrew Fisher' && ['1. Purchase orders', '2. Costs to Finance', '3. Demob by branch', '4. Invoice by 2026-10-31'].every(h => M.csv.some(l => csvCell(l) === h)), {lines: M.csv.length, first: M.csv[0]});
+  ok('CSV carries the four sections and the author', csvCell(M.csv[0]) === 'Author: Andrew Fisher' && ['1. Purchase orders', '2. Costs by branch, to job end', '3. Demob forecast by branch', '4. Invoice by 2026-10-31'].every(h => M.csv.some(l => csvCell(l) === h)), {lines: M.csv.length, first: M.csv[0]});
   ok('Copy text opens with the handover and closes with the author', /Finance handover, as at/.test(M.text) && /Author: Andrew Fisher$/.test(M.text.trim()), {});
   ok('no person’s phone number or email on the page', !/\b0[45]\d{2}[ -]?\d{3}[ -]?\d{3}\b/.test(M.txt) && !/@/.test(M.txt), {});
   /* a non-fencing purchase order added in memory (no save) stays out of the fencing card, the fencing trace and the fencing accrual, and shows here */
@@ -45,7 +46,7 @@ const {open} = require('../../toolchain/harness/open_page');
     const H = fh866Model(), row = H.pos.find(o => o.number === '9999001'); const card = typeof poCard === 'function' ? poCard([]) : ''; const A = acc761Model('2026-10');
     const out = {inAll: !!here, inFencing: fencing.includes('9999001'), inCard: /9999001/.test(card), inAccrual: (A.invoiceRecords || []).some(r => r.number === '9999001'), row: row && {stream: row.stream, costed: row.costedBranch, rev: row.revenueBranch, mismatch: row.mismatch, receipt: row.receipt.words}, transportPos: (H.costs.find(r => r.kind === 'transport') || {}).pos};
     delete S.purchaseOrders['9999001']; try { RENDER_MEMO.clear(); } catch (e) {} return out; }));
-  ok('a non-fencing PO is listed here with its branches, and flagged when costed to a branch the revenue is not in', N.inAll && N.row && N.row.stream === 'transport' && N.row.costed === 'NOIS' && N.row.rev === 'KINP' && N.row.mismatch && /Part receipted — \$1,000\.00 of \$1,234\.50/.test(N.row.receipt) && (N.transportPos || []).includes('9999001'), N);
+  ok('a non-fencing PO is listed here with its branches, and flagged when costed to a branch the revenue is not in', N.inAll && N.row && N.row.stream === 'transport' && N.row.costed === 'NOIS' && N.row.rev === 'KINP' && N.row.mismatch && /^Part receipted \$1,000\.00$/.test(N.row.receipt) && (N.transportPos || []).includes('9999001'), N);
   ok('a non-fencing PO stays out of the fencing PO card and the fencing accrual', !N.inFencing && !N.inCard && !N.inAccrual, N);
   /* a view-only link cannot save: the button says so and nothing is sent */
   const before = s.counts.blocked;

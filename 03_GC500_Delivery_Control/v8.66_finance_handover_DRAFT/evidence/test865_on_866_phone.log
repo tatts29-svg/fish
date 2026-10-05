@@ -30,5 +30,5 @@ PASS no money on plant {"n":0}
 PASS no money on demob {"n":0}
 PASS no money on coatesway {"n":0}
 PASS no page errors []
-PASS no writes attempted {"page":1,"live":70,"blocked":0}
+PASS no writes attempted {"page":1,"live":71,"blocked":0}
 phone: 33/33 pass
