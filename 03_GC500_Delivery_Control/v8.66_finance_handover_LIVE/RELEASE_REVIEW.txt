@@ -12,3 +12,5 @@ Code review: one relocation rule avoids counting a second demob; labour rounded 
 Initial independent candidate checks: Costs 33/33 desktop and phone; Finance handover 23/23 desktop and phone; flicker 24/24 desktop and phone. Final partial-receipt regression uses in-memory synthetic PO, never saved. Candidate checks and private captures stay outside Git; no private evidence repackaged.
 
 Final independent checks: Finance handover 24/24 laptop and 24/24 phone; both 21-route/seven-link/Back sweeps clean; finance862 preservation PASS 1366 and 390, native financial models and shared-record collections unchanged. Standard build/check_page PASS. Guarded uploader dry-run verifies current base and edit access. Machine remains v8.64 b469a99c, server healthy v5.87.
+
+VERIFIED LIVE 6 Oct2026 08:45 AEST. READY e5274049. Exact public bytes confirmed. Public Finance24/24 and Costs33/33 each on laptop/phone, zero local substitutions/errors/writes. Machine manifest exactly unchanged; health OK v5.87, record3858. Captures inspected. Claude independent final readback pending.

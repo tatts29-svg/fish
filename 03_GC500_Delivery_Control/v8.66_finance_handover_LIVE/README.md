@@ -1,4 +1,4 @@
-# v8.66: Finance handover (DRAFT, READY to upload after v8.65)
+# v8.66: Finance handover — VERIFIED LIVE
 
 Author: Andrew Fisher.
 
@@ -48,3 +48,9 @@ Wages, salary allowance, accommodation and meals follow the labour per piece on 
 Claude source `1a7ff8e4` reproduced the original `9407ed75` candidate exactly. Codex corrected the outstanding PO-value headline to include the unpaid balance of part-receipted orders. A read-only in-memory regression checks an order of 1,234.50 with 1,000.00 receipted adds precisely 234.50 outstanding; no operational save is performed. Branch allocations remain forecast allocations, not payroll or ledger postings. Unpriced hours remain explicit; a priced difference is not final profit.
 
 Final candidate SHA-256 `6fa8a9f3b71191b3e268272aa80a052cdf1855188e86348642da9f03adef16e4`, 11052320 bytes, on live v8.64 `d725d9ac`. This supersedes Claude's original candidate for publication. Includes v8.65 directly; no independent v8.65 publication.
+
+## Verified publication
+
+Published 6 Oct 2026 at 08:45 AEST, READY `e5274049`. Final public SHA-256 `6fa8a9f3b71191b3e268272aa80a052cdf1855188e86348642da9f03adef16e4`, 11,052,320 bytes. Guarded uploader verified exact public bytes. Actual-public Finance24/24 and Costs33/33 pass on laptop and phone with zero local substitutions, page errors or attempted writes. Machine manifest remains exactly v8.64 `b469a99c`; server health OK v5.87, record3858. No backend deployment or operational record changes. Claude independent final readback pending.
+
+For a future rebuild use the LIVE folder path for patch_v866.py; the listed DRAFT paths describe the original build.
