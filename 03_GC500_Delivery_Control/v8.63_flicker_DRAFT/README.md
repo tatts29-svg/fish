@@ -46,3 +46,8 @@ Known and not fixed here: opening Today still takes about 0.4–0.9 s of work in
   - `check_page.py`: PASS. Secrets: 0.
 - Earlier test candidate on v8.61, evidence only: `d0c382a0…` (superseded).
 - Upload with `toolchain/upload_page.py`. It refuses if live has moved off `b2df41c3`.
+
+
+## Codex final publication review
+
+Author: Andrew Fisher. Imported Claude source `e619ef93` as `5f3f5747`. Rebuild reproduces exact READY candidate `4b3a61e3ff12921bb1efe34570e6a1ef7a65ce42104bc21ba041340eaf79b64e`. Independent final checks:24/24 flicker cases on desktop and phone; native financial-model and record preservation on both widths; both21-route/seven-link/Back sweeps with zero runtime/console errors. Source oracle proves removing the additive flicker code/CSS and reverting the footer restores the exact preceding source, including destination configuration. Phone screenshot inspected. Guarded uploader dry-run passes. Codex owns publication under Andrew's direct instruction; Claude owns implementation. READY, not yet LIVE.
