@@ -1,4 +1,4 @@
-# Daily-message review fixes — DRAFT
+# Daily-message review fixes — READY
 
 Author: Andrew Fisher.
 
@@ -12,4 +12,4 @@ Andrew extended this release to addressed Event Portables email drafts and opera
 
 Build requires GC500_EP_EMAIL_DEFAULTS_FILE pointing to a private JSON file with to and cc address arrays (email plus optional name). Do not commit destination addresses or compiled HTML.
 
-DRAFT. Final candidate tests and guarded publication are pending.
+READY. Source `cd63c2d2`; exact candidate `b2df41c3074c49838b5b093e50f17ce5c4ac363cccc296971d538b95c7a7d487`, 11,000,587 bytes. Standard build,21 weather cases,53 isolated send cases, laptop/phone financial-model and record preservation, all five load PDFs, native inventory, exact configured draft headers/attachment bytes, scanned location QR checks, cancellation/retry and both21-route/seven-link/Back sweeps pass. Phone captures inspected. Tests send no real messages and make no operational writes. A whitespace replacement error found in the first build was corrected and all affected checks rerun. Guarded uploader dry-run passes with current base unchanged. READY is not LIVE.
