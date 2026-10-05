@@ -1,0 +1,7 @@
+/* v8.63 - Author: Andrew Fisher. NO WHITE FLASH WHEN A PAGE OPENS.
+   The arrival used to start the page and every block on it from invisible (paneIn from .001, v610rise from 0, staggered
+   up to .35 s), so a tab opened as a white sheet and filled in over nearly a second - and because the arrive class stayed
+   on, every record refresh rebuilt the blocks and blanked the page again. The page now arrives fully drawn: the same
+   short settle upwards, never invisible. Reduced motion and Motion: Off still switch it off entirely. */
+@keyframes paneIn{from{transform:translateY(3px)}to{transform:none}}
+@keyframes v610rise{from{transform:translateY(6px)}to{transform:none}}
