@@ -1,5 +1,5 @@
 # Author: Andrew Fisher. Integrate Claude's reviewed message fixes on current live.
-import hashlib, json, os, re, sys
+import base64, hashlib, json, os, re, sys
 from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'toolchain'))
 from rep import rep as replace
@@ -21,7 +21,7 @@ rep("'This browser cannot keep the send receipt. Allow session storage before te
 rep('#pane-timeline .daily821-tile:not(:where(.ep819 *)){grid-column:1/-1;grid-template-columns:auto minmax(0,1fr)}', '#pane-timeline .daily821-tile:not(:where(.ep819 *)){grid-column:auto;grid-template-columns:auto minmax(0,1fr)}')
 rep('· v8.61', '· v8.62')
 # Keep financial renderers out of Today, including lazy fold and print redraws.
-rep('dsnHead(asOf) + dsnGroups(asOf, X) + dsnBranches(asOf, X) + dsnMoney(asOf, X) + dsnOut(asOf)', 'dsnHead(asOf)+dsnGroups(asOf,X)+dsnOut(asOf)')
+rep('return dsnHead(asOf) + dsnGroups(asOf, X) + dsnBranches(asOf, X) + dsnMoney(asOf, X) + dsnOut(asOf);', 'return dsnHead(asOf) + dsnGroups(asOf,X) + dsnOut(asOf);')
 # Private destination configuration is supplied at build time, never committed.
 config=json.loads(Path(os.environ['GC500_EP_EMAIL_DEFAULTS_FILE']).read_text())
 for group in ('to','cc'):
@@ -29,7 +29,7 @@ for group in ('to','cc'):
  for item in config[group]:
   assert re.fullmatch(r'[A-Za-z0-9_.+%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}',item['email'])
   assert not any(c in item.get('name','') for c in '\r\n'), 'Invalid header'
-config_js=json.dumps(config,ensure_ascii=True)
+config_js="JSON.parse(atob("+json.dumps(base64.b64encode(json.dumps(config,ensure_ascii=True).encode()).decode())+"))"
 rep('async function epDraft860(F,alive=()=>true){', 'const epEmailDefaults862='+config_js+';\nfunction epAddress862(rows){return rows.map(r=>r.name?JSON.stringify(r.name)+" <"+r.email+">":r.email).join(", ");}\nasync function epDraft860(F,alive=()=>true){')
 rep("['X-Unsent: 1','MIME-Version: 1.0','Subject: '", "['X-Unsent: 1','MIME-Version: 1.0','To: '+epAddress862(epEmailDefaults862.to),'Cc: '+epAddress862(epEmailDefaults862.cc),'Subject: '")
 rep("'GC500 - Event Portables - Load '", "'GC500 - Event Portables run sheet - Load '")
