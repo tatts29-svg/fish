@@ -11,7 +11,7 @@ function fenceComponentLinks849(row, suppliedCache) {
     if (seen.has(key)) return;
     // Prefer a reviewed page over the same file's unqualified link. Different
     // reviewed pages remain distinct and reachable.
-    if (!parsed.hash && [...seen.keys()].some(value => value.startsWith(base + '#page='))) return;
+    if (!parsed.hash && [...seen.keys()].some(value => value.startsWith(base + '#page=') && /^#page=\d+$/.test(value.slice(base.length)))) return;
     if (pageOnly && seen.has(base)) {
       const prior = seen.get(base), preferred = prior.label + ' · page ' + parsed.hash.slice(6);
       links[prior.index] = '<a href="' + esc(safe) + '" target="_blank" rel="noopener noreferrer">' + esc(preferred) + '</a>';

@@ -1,7 +1,7 @@
 /* Author: Andrew Fisher. Preserve active note disclosures through native refresh. */
 function captureFenceComponents849(scope) {
   const active = document.activeElement, form = active?.closest?.('[data-fc849-guide]');
-  const note = active?.matches?.('summary[data-tw840-focus]') && active.closest('[data-fc851-notes]');
+  const note = active?.matches?.('summary[data-tw840-focus]') ? active.closest('[data-fc851-notes]') : null;
   const section = (form || note)?.closest('[data-fc849-scope]');
   if (!section || section.dataset.fc849Scope !== scope || (!active?.name && !note)) return null;
   for (const fold of section.querySelectorAll('[data-fc849-fold]')) FENCE_COMPONENTS_VIEW849.folds.set(scope + ':' + fold.dataset.fc849Fold, fold.open);
