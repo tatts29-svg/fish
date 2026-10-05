@@ -1,0 +1,21 @@
+Author: Andrew Fisher
+v8.36 fencing source review and P/O context — VERIFIED LIVE with a capture limitation, 4 Oct 2026 10:58 AEST.
+
+This generic helper adds a source-summary P/O beside the existing docket heading and separates completed source review from any specifically recorded charge query. Andrew's existing automatic docket sign-off remains intact. It never asserts a passed financial audit, approved charges or payment. A false query.open removes the individual query badge; it does not assert charge reconciliation. The supplied charge-scope explanation remains in Details.
+
+No real docket identities, P/O references, original documents or financial evidence belong in this folder. Set FENCE_REVIEW836_INPUT to the separately held private manifest. The input requires schema 1, author, sources and reviewed rows; sources bind registry ID/title/SHA-256/private original-file path, while rows bind record ID/docket number/book, review day, original local page and one-page export, optional exact supplier-summary/P/O association, expected physical fields and an explicit boolean query.open plus explanatory text. fencing_review836.apply(text) verifies PDF/JPEG hashes, infers media_type from the bytes and checks each named original page against its one-page export or unmodified JPEG, then strips all filesystem paths before embedding the bounded projection.
+
+Expected physical record fields must match exactly. Missing fields are treated as null at runtime. Changed or ambiguous records show Source review needed and withhold the P/O/review claim. Runtime duplicate docket identities also block the association. There is no week-based P/O fallback. Original and summary registry hashes must both match before current source-review/P/O badges are shown; unavailable checksums show Review links checking/unavailable without calling the record itself changed.
+
+Original PDF page exports remain private build evidence. JPEG originals remain unmodified and count as one page. Live links use the hash-verified original pack PDF with #page=N or the JPEG without a PDF page fragment or page label, through the existing file registry and a same-origin HTTP(S), credential-free URL. Existing ready docket links retain priority. A separately identity/hash/page-verified pack is the missing-paper fallback under Andrew's authorised docket-presence sign-off policy; later edits to physical fields invalidate the review but do not remove that paper/sign-off. Identity, original hash or page failures block the fallback. Existing ready docket links remain untouched.
+
+The helper preserves financial calculators, native record functions, existing card layout and action nodes. It introduces no native keys or save actions. Private source association data enters only at build time. patch_v836.py accepts one working-copy HTML path, requires the exact reviewed v8.34 SHA-256, refuses repeated application and uses FENCE_REVIEW836_INPUT. It changes only the guarded component anchors and release metadata/footer to v8.36, and writes only after every check succeeds.
+
+Tests use synthetic data only. Run:
+  node tests/test_fencing_review836.cjs
+  python3 tests/test_fencing_review836.py
+Set BASE to the private checked predecessor HTML for exact preservation and release-wrapper tests. Python input validation needs pypdf, PyMuPDF and Pillow, already present in the build environment.
+
+Status: published from frozen implementation5adbd4fa / READY2d4a9597. Exact live9bf3f47e089913c51a4fbd0bf8fdb20371dbdcd12cc64273e362c8132da5b9ad,10,236,358bytes. Portable46/17, final runtime140, both route sweeps and actual-public141 checks pass. Operational and financial records remain unchanged. See RELEASE_REVIEW.txt for independent review, exact predecessor, qualifications and verification. Claude remains intentionally paused.
+
+Phone follow-up: exact full desktop-to-phone public sequence repeated141/141; initial, next-frame, delayed and layout-read phone images were clean. Baseline and focused public controls were clean, and all character bounds/hit targets were correct. No stable CSS/layout defect was established; no speculative repaint change was made. Earlier intermittent headless raster artefacts remain in private evidence. Real-phone verification is not claimed. Root inspected the final clean frame.

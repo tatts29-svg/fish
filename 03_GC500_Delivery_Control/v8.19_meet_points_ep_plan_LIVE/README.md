@@ -1,7 +1,6 @@
-# v8.19 — Meet points, site rules and the Event Portables delivery plan (DRAFT)
+# v8.19 — Meet points, site rules and the Event Portables delivery plan (LIVE)
 
-Author: Andrew Fisher · 3 Oct 2026 · **DRAFT, tested, not uploaded. Not READY TO UPLOAD.** It waits for Andrew's yes on
-the screenshots, because the Timeline card is a new panel.
+Author: Andrew Fisher · **LIVE 4 Oct 2026 01:00 AEST.** Frozen owner source `1cd16dcd`, READY board `dacf75dd`; exact public candidate `0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c`, 9,356,879 bytes. Claude implemented and ran the owner suites. Codex independently reviewed, resolved the inherited test expectations and published. See `RELEASE_REVIEW.txt` for final release evidence; historical owner observations below remain dated evidence.
 
 **Numbered v8.19.** It was claimed as v8.18. Meanwhile the weather release "v8.18 — selected-day weather artwork" went
 live (`f3bb490b`), and then Codex's **v8.20 Today** went live (`88a7b6b1…`, 3 Oct 2026). This release is rebuilt on
@@ -181,7 +180,7 @@ and the scale is 1 outside a sheet.
 
 ## Build
 
-`bash toolchain/build.sh v8.19 v8.19_meet_points_ep_plan_DRAFT/patch_v819.py`
+`bash toolchain/build.sh v8.19 v8.19_meet_points_ep_plan_LIVE/patch_v819.py`
 
 | | |
 |---|---|
@@ -201,7 +200,7 @@ write was attempted. The field is additive; nothing else changed.
 
 ## Checks
 
-`SCRATCH=<scratchpad> bash v8.19_meet_points_ep_plan_DRAFT/evidence/run_all.sh`. Every run is read-only: the harness
+`SCRATCH=<scratchpad> bash v8.19_meet_points_ep_plan_LIVE/evidence/run_all.sh`. Every run is read-only: the harness
 aborts every write, and `window.print` is stubbed. One browser runs at a time, under the shared lock. Each log starts
 with the header below.
 
@@ -305,12 +304,11 @@ These are made by `evidence/shots819.js`. The test runs also leave every decoded
 - Seen in passing, outside this release: the v8.16 drawer's map chip reads "MACINTOSH ISLAND" for WC61 on Main Beach Pde (existing behaviour, unchanged).
 - **Inherited one-tab failures** (above): 4 Today assertions fail on the live pages without v8.19 as well. The suite's exit is therefore non-zero, and `run_all.sh` reports it as a failed suite.
 - The v8.21 row styling changes how the supplier card's load rows look once both are live (see *Source boundary*). That is for Codex to settle when integrating second.
-- No record writes. No upload (no key in this session; Codex publishes after Andrew's yes).
+- No record writes. The owner session did not upload; Codex subsequently published the exact frozen candidate as recorded in RELEASE_REVIEW.txt.
 
 ## Open questions for Andrew / Codex
 
-- Andrew: yes or no on the Timeline card, the run sheet and the driver-sheet placement (screenshots above). Nothing is
-  uploaded until then.
+- Resolved: owner marked READY after Andrew's screenshot approval in PR #1 comment5970296501. Codex published the checked candidate; no further layout approval is pending for this release.
 - The record still has WC09 and WC34 on Thu 8 Oct, and WC57 on Mon 12 Oct, while the plan puts them on Load 1, Fri 9 Oct.
   The page says so and does not change the record. Moving them is a record change for Andrew to approve.
 - Codex: the installer daily sheet uses the helpers above. The Timeline hunk is shared with v8.21.

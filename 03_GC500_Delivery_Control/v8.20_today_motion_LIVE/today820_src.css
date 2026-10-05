@@ -1,0 +1,256 @@
+/* Author: Andrew Fisher. Today instrument cards v8.20, 3 Oct 2026. */
+@media screen {
+  #pane-today .inst {
+    grid-template-columns:minmax(300px,.8fr) minmax(0,1.8fr);
+    align-items:start;
+    gap:18px;
+  }
+  #pane-today .inst > .today-enhanced {
+    --edge:#353b3f;
+    --face:#14181b;
+    --mute:#aab2b8;
+    --slate:#aab2b8;
+    --ink2:#d3d8dc;
+    --orange-ink:#ff9c59;
+    min-width:0;
+    padding:19px 22px 15px;
+    border:1px solid #363b3e;
+    border-radius:16px;
+    background:
+      linear-gradient(115deg,rgba(255,255,255,.035),transparent 45%),
+      repeating-linear-gradient(135deg,transparent 0 3px,rgba(255,255,255,.009) 3px 4px),
+      #14181b;
+    box-shadow:0 8px 22px -15px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.045);
+    color:#f3f5f6;
+    transform:none;
+    isolation:isolate;
+  }
+  #pane-today .inst > .today-enhanced:hover {
+    border-color:#51575b;
+    box-shadow:0 8px 22px -15px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.045);
+    transform:none;
+  }
+  #pane-today .inst > .today-enhanced.today-selected {
+    border-color:#b96835;
+    box-shadow:0 0 0 1px rgba(255,131,47,.13),0 8px 22px -15px rgba(0,0,0,.7),inset 0 2px 0 rgba(255,145,61,.24);
+  }
+  #pane-today .inst > .today-enhanced::before,
+  #pane-today .inst > .today-enhanced::after,
+  #pane-today .inst > .today-enhanced .hubtitle::before,
+  #pane-today .inst > .today-enhanced .hubtitle::after {
+    width:5px;height:5px;opacity:.35;
+    background:radial-gradient(circle at 40% 35%,#b5bdc2,#41494e 60%,#15191c);
+    box-shadow:0 0 0 1px #0a0e11;
+    clip-path:none;
+  }
+  #pane-today .inst > .today-enhanced .hubtitle,
+  #pane-today .inst > .today-enhanced .phead {
+    display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;justify-content:flex-start;
+    gap:5px 12px;margin:0 0 14px;
+  }
+  #pane-today .inst > .today-enhanced .hubtitle h3,
+  #pane-today .inst > .today-enhanced .phead h3 {
+    grid-column:1;grid-row:1;margin:0;color:#f5f7f8;
+    font:italic 700 20px/1.1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);
+    letter-spacing:.025em;text-transform:uppercase;
+  }
+  #pane-today .inst > .today-enhanced .chip,
+  #pane-today .inst > .today-enhanced .pphase {
+    grid-column:1;grid-row:2;justify-self:start;
+    padding:4px 8px;border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.04);font-size:11px;line-height:1.25;
+  }
+  #pane-today .inst > .today-enhanced .hubgo {
+    font-size:11px;line-height:1.45;font-weight:650;color:#ffad73;
+    margin-top:12px;
+  }
+  #pane-today .inst > .today-enhanced > .hubgo {
+    border-top:1px solid rgba(255,255,255,.075);border-radius:0;
+    display:block;margin:16px 0 0;padding:12px 0 0;
+  }
+  #pane-today .inst > .today-enhanced .today-motion-button {
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    grid-column:2;grid-row:1/span 2;align-self:center;
+    min-height:36px;flex:0 0 auto;margin:0;padding:7px 10px;
+    font:600 11px/1.4 'Inter',var(--sans,system-ui,sans-serif);
+    letter-spacing:0;text-transform:none;white-space:nowrap;
+    border:1px solid #51575c;border-radius:7px;background:#23292d;color:#e5e9ec;
+    box-shadow:none;cursor:pointer;transition:none;
+  }
+  #pane-today .inst > .today-enhanced .today-motion-button:hover {
+    background:#30373c;border-color:#8a9298;color:#fff;
+  }
+  #pane-today .inst > .today-enhanced .today-motion-button[aria-pressed="true"] {
+    border-color:#cc753d;background:#35281e;color:#ffc295;
+  }
+  #pane-today .inst > .today-enhanced :is(button,[role="link"]):focus-visible {
+    outline:2px solid #ffab70;outline-offset:3px;
+  }
+  #pane-today .inst > .today-enhanced .today-motion-button:disabled {
+    cursor:default;opacity:.6;
+  }
+
+  /* The original signal head and each operational link remain intact. */
+  #pane-today .inst > .today-enhanced.lights .hublights {
+    grid-template-columns:86px minmax(0,1fr);gap:6px 14px;align-items:center;
+  }
+  #pane-today .inst > .today-enhanced.lights .sighead {
+    width:86px;max-width:100%;grid-row:1 / span 4;align-self:center;
+  }
+  #pane-today .inst > .today-enhanced.lights .hl {
+    min-width:0;min-height:43px;padding:7px 9px;gap:10px;
+    background:rgba(255,255,255,.025);border:0;
+    border-bottom:1px solid rgba(255,255,255,.055);border-radius:5px;
+    box-shadow:none;letter-spacing:.02em;font-size:11px;line-height:1.35;
+    color:#c6cdd2;text-align:left;transition:none;
+  }
+  #pane-today .inst > .today-enhanced.lights .hl b {
+    font-size:30px;min-width:43px;text-shadow:none;font-variant-numeric:tabular-nums;
+  }
+  #pane-today .inst > .today-enhanced.lights .hl .w {
+    font-size:11px;letter-spacing:0;color:#aab4bc;
+  }
+  #pane-today .inst > .today-enhanced.lights .hl:is([data-lf-go="done"],[data-lf-go="levelled"],[data-lf-go="steps"]) {
+    grid-column:1/-1;padding-left:12px;padding-right:12px;
+    background:rgba(255,255,255,.035);box-shadow:none;
+  }
+  #pane-today .inst > .today-enhanced.lights .hl[data-lf-go="done"] {
+    margin-top:7px;border-top:1px solid rgba(255,255,255,.09);
+  }
+  #pane-today .inst > .today-enhanced.lights .hl:hover {
+    background:rgba(255,255,255,.065);box-shadow:inset 2px 0 #ff8c44;
+  }
+
+  /* The dial stays the focus; adjacent evidence tiles have a quieter frame. */
+  #pane-today .inst > .today-enhanced.dialcard .cgrid {
+    grid-template-columns:minmax(210px,.95fr) minmax(0,1.1fr);gap:20px;align-items:center;
+  }
+  #pane-today .inst > .today-enhanced.dialcard .giface {max-width:350px;}
+  #pane-today .inst > .today-enhanced.dialcard .gidig b {text-shadow:none;}
+  #pane-today .inst > .today-enhanced.dialcard .gifill {filter:drop-shadow(0 0 3px rgba(255,106,19,.25));}
+  #pane-today .inst > .today-enhanced.dialcard .gitop {font-size:10px;letter-spacing:.06em;line-height:1.4;}
+  #pane-today .inst > .today-enhanced.dialcard .cside {gap:10px;}
+  #pane-today .inst > .today-enhanced.dialcard .ctile {
+    padding:12px;border:1px solid rgba(255,255,255,.075)!important;border-radius:9px;
+    background:rgba(255,255,255,.027)!important;box-shadow:none;
+  }
+  #pane-today .inst > .today-enhanced.dialcard .ctile :is(b,.ctbig) {text-shadow:none;}
+  #pane-today .inst > .today-enhanced.dialcard .ctile .ctk {
+    color:#c0c9cf;font-size:11px;letter-spacing:.035em;line-height:1.4;
+  }
+  #pane-today .inst > .today-enhanced.dialcard .ctile.lead.stop {
+    border-color:rgba(255,108,95,.3)!important;background:rgba(188,61,49,.065)!important;
+  }
+  #pane-today .inst > .today-enhanced.dialcard .ctile.lead.good {
+    border-color:rgba(61,211,126,.3)!important;background:rgba(36,161,92,.055)!important;
+  }
+  #pane-today .inst > .today-enhanced.dialcard .ctile.lead b {
+    font-family:'Inter',var(--sans,system-ui,sans-serif);font-style:normal;font-size:11px;line-height:1.4;
+  }
+  #pane-today .inst > .today-enhanced.dialcard .ctile.lead .ctbig {font-size:32px;}
+  #pane-today .inst > .today-enhanced.dialcard .ctile.lead .ctbig small {max-width:80px;margin-top:4px;color:#c1c9ce;}
+  #pane-today .inst > .today-enhanced.dialcard .ctile.whole {
+    border-width:1px 0 0!important;border-radius:0;background:transparent!important;padding:12px 0 0;
+  }
+  #pane-today .inst > .today-enhanced.dialcard .ctwo > .ctile > b {font-size:35px;margin-top:6px;}
+  #pane-today .inst > .today-enhanced.dialcard .sem {font-size:10px;background:transparent;}
+  #pane-today .inst > .today-enhanced.dialcard .cside .dled {
+    border:0;padding:4px;background:#101518;box-shadow:none;gap:3px;
+  }
+  #pane-today .inst > .today-enhanced.dialcard .cside .dled i {height:7px;}
+  #pane-today .inst > .today-enhanced.dialcard .cside .dled i.on {box-shadow:inset 0 1px 0 rgba(255,255,255,.2);}
+  #pane-today .inst > .today-enhanced.dialcard > .norate {
+    margin:16px 0 0;font-size:11px;line-height:1.65;color:#abb5bc;
+  }
+  #pane-today .inst > .today-enhanced.dialcard > .norate b {color:#e1e6e9;}
+
+  /* Programme positions are native percentages; this only clarifies the reading. */
+  #pane-today .inst > .today-enhanced.racecard {
+    column-gap:28px;row-gap:0;
+  }
+  #pane-today .inst > .today-enhanced.racecard .pgm {
+    --mute:#aab2b8;--ink2:#d3d8dc;--orange-ink:#ff9c59;
+    min-width:0;padding:4px 2px 0;
+  }
+  #pane-today .inst > .today-enhanced.racecard .pstats {margin-bottom:20px;}
+  #pane-today .inst > .today-enhanced.racecard .pstat b {
+    font-size:48px;text-shadow:none;letter-spacing:-.02em;
+  }
+  #pane-today .inst > .today-enhanced.racecard .pstat em {font-size:12px;line-height:1.4;margin-top:7px;}
+  #pane-today .inst > .today-enhanced.racecard .pstat i {font-size:11px;line-height:1.4;color:#aab4bb;}
+  #pane-today .inst > .today-enhanced.racecard .pstat b+span {font-size:11px;margin-left:4px;}
+  #pane-today .inst > .today-enhanced.racecard .prail {
+    background:#353e44;height:7px;margin-top:38px;
+  }
+  #pane-today .inst > .today-enhanced.racecard .prail .pnotch {background:#e0e6e9;}
+  #pane-today .inst > .today-enhanced.racecard .prail .plab {color:#ffad73;font-size:11px;}
+  #pane-today .inst > .today-enhanced.racecard .prail .pdot {
+    width:12px;height:12px;margin:-6px 0 0 -6px;background:#ff9c59;
+    box-shadow:0 0 0 4px #24282b;
+  }
+  #pane-today .inst > .today-enhanced.racecard .pends {font-size:11px;margin-top:12px;}
+  #pane-today .inst > .today-enhanced.racecard .pends b {font-size:11px;color:#eef0f2;}
+  #pane-today .inst > .today-enhanced.racecard .pnote {font-size:11px;line-height:1.5;}
+  #pane-today .inst > .today-enhanced.racecard .pnext {
+    padding:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+    border-top:2px solid #b76e3a;border-radius:9px;box-shadow:none;
+  }
+  #pane-today .inst > .today-enhanced.racecard .pnext h4 {font-size:23px;line-height:1.2;margin:12px 0 7px;}
+  #pane-today .inst > .today-enhanced.racecard .pnk {font-size:11px;letter-spacing:.065em;color:#ffad73;}
+  #pane-today .inst > .today-enhanced.racecard .pnin {font-size:11px;color:#b8c1c8;}
+  #pane-today .inst > .today-enhanced.racecard .pnext p {font-size:11px;color:#b8c1c8;}
+  #pane-today .inst > .today-enhanced.racecard .pnfig {font-size:11px;gap:9px 16px;}
+  #pane-today .inst > .today-enhanced.racecard .pnfig b {font-size:21px;}
+  #pane-today .inst > .today-enhanced.racecard .pkeyhead {font-size:11px;color:#aab4bb;align-items:baseline;}
+  #pane-today .inst > .today-enhanced.racecard .pkeyhead .hubgo {font-size:11px;margin-top:0;padding-top:0;}
+  #pane-today .inst > .today-enhanced.racecard .pkeys li {font-size:12px;line-height:1.5;gap:12px;padding:8px 0;}
+  #pane-today .inst > .today-enhanced.racecard .pkeys li b {text-align:right;}
+
+  /* Existing entrance animations are disabled even before motion is requested. */
+  #pane-today .inst > .today-enhanced *,
+  #pane-today .inst > .today-enhanced *::before,
+  #pane-today .inst > .today-enhanced *::after {animation:none;transition:none;}
+  #pane-today .inst > .today-enhanced .cgauge.gi.sweep .gifill {stroke-dasharray:none;}
+}
+@media screen and (max-width:1100px) {
+  #pane-today .inst {grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);}
+  #pane-today .inst > .today-enhanced.dialcard .cgrid {grid-template-columns:minmax(0,1fr);}
+  #pane-today .inst > .today-enhanced.dialcard .giface {max-width:260px;}
+  #pane-today .inst > .today-enhanced.racecard .pnext {margin-top:24px;}
+}
+@media screen and (max-width:900px) {
+  #pane-today .inst {grid-template-columns:minmax(0,1fr);gap:16px;}
+  #pane-today .inst > .today-enhanced.lights .hublights {grid-template-columns:100px minmax(0,1fr);}
+  #pane-today .inst > .today-enhanced.lights .sighead {width:94px;}
+  #pane-today .inst > .today-enhanced.dialcard .cgrid {grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);}
+}
+@media screen and (max-width:600px) {
+  #pane-today .inst > .today-enhanced {padding:18px 15px 14px;border-radius:13px;}
+  #pane-today .inst > .today-enhanced .hubtitle,
+  #pane-today .inst > .today-enhanced .phead {margin-bottom:16px;gap:6px 8px;}
+  #pane-today .inst > .today-enhanced .hubtitle h3,
+  #pane-today .inst > .today-enhanced .phead h3 {grid-column:1/-1;font-size:20px;}
+  #pane-today .inst > .today-enhanced .today-motion-button {grid-row:2;margin-left:auto;min-height:36px;}
+  #pane-today .inst > .today-enhanced.lights .hublights {grid-template-columns:86px minmax(0,1fr);gap:5px 10px;}
+  #pane-today .inst > .today-enhanced.lights .sighead {width:86px;}
+  #pane-today .inst > .today-enhanced.lights .hl {min-height:44px;}
+  #pane-today .inst > .today-enhanced.dialcard .cgrid {grid-template-columns:minmax(0,1fr);gap:18px;}
+  #pane-today .inst > .today-enhanced.dialcard .giface {max-width:280px;}
+  #pane-today .inst > .today-enhanced.dialcard .ctwo {grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+  #pane-today .inst > .today-enhanced.dialcard .ctile {padding:11px;}
+  #pane-today .inst > .today-enhanced.dialcard .ctile.whole {padding:12px 0 0;}
+  #pane-today .inst > .today-enhanced.dialcard .ctwo > .ctile > b {font-size:32px;}
+  #pane-today .inst > .today-enhanced.racecard .pstat b {font-size:43px;}
+  #pane-today .inst > .today-enhanced.racecard .pkeys li {font-size:11px;}
+}
+@media (prefers-reduced-motion:reduce) {
+  #pane-today .inst > .today-enhanced *,
+  #pane-today .inst > .today-enhanced *::before,
+  #pane-today .inst > .today-enhanced *::after {animation:none!important;transition:none!important;}
+}
+html[data-motion="off"] #pane-today .inst > .today-enhanced *,
+html[data-motion="off"] #pane-today .inst > .today-enhanced *::before,
+html[data-motion="off"] #pane-today .inst > .today-enhanced *::after {animation:none!important;transition:none!important;}
+@media print {
+  #pane-today .inst .today-motion-button {display:none!important;}
+}

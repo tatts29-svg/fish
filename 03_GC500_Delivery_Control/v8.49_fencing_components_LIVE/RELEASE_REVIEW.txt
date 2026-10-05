@@ -1,0 +1,94 @@
+Author: Andrew Fisher
+GC500 v8.49 — VERIFIED LIVE, 5 Oct 2026 at 09:49 AEST
+
+Base v8.48:
+5d786af57e3986fc912cf34d33f094566a41836ee88a1160f5a3dab05e339a47
+Candidate:
+924955d5560006bcac1fd07765dffb51692154e04585dae1eefcc292ef602fb1
+Bytes: 10,888,612
+
+Scope and ownership
+Supplementary component readings, source reconciliation and an unsaved planning
+guide are added to Today and Fencing. Existing DATA, work totals, completion,
+prices, financial outputs and shared records remain unchanged. Recorded component
+activity and source differences are not inferred installation or priced work.
+Estimates cannot replace or add to any existing total. Collections remain separate.
+
+Codex owns implementation, independent source/model review, tests and publication.
+Claude remains intentionally paused; his unchanged board and public discussion
+were checked. No Claude review is claimed. The separate held film is excluded.
+Private originals, record signatures, detailed findings and captures remain
+outside Git and public coordination.
+
+Completed checks
+- Standard build: all 11 inline scripts parse, author present, no new credentials.
+- Exact preservation: 21 checks pass, including all 69 original JSON declarations,
+  DATA, financial/progress helpers, media and full-page byte restoration.
+- Component and planning model: 36 synthetic checks pass; independently reviewed.
+- Evidence guards: 22 synthetic checks pass, including docket renumbering, strict
+  dates, changed originals and malformed entries. Five independent patch checks
+  pass for base/repeat refusal, safe escaping and exact JSON preservation.
+- Source review: original dockets, collection forms and supplier summaries read;
+  exact original-file identities verified. Unresolved source differences remain
+  separate instead of being silently added to current quantities or charges.
+
+
+Pre-release findings resolved
+The first integrated browser check found that native view-only controls disabled
+the unsaved guide. Its form now explicitly permits local calculations while all
+ordinary record fields retain their native permissions. A bounded focus/scroll
+restore runs only when a planner field is active during Fencing redraw. Isolated
+Chromium and final integrated verification pass.
+
+Independent source review tightened the supplementary finding guard to invalidate
+renumbered dockets and impossible dates. No accepted record or current total was
+modified. The superseded candidates were not published. Initial diagnostics and
+corrections are retained privately.
+
+Phone table diagnostic
+The first complete browser run passed all source, financial, local-edit and
+focus/scroll checks, but found inherited minimum table width in the guide at
+phone size. The component table now owns its width and wraps its cells. This
+change is confined to the supplementary guide; its final browser run passes.
+
+Final candidate focused verification
+The exact frozen candidate passes 80/80 browser checks across Today and Fencing
+on laptop and phone. The independent original-paper numerical oracle agrees. All
+eight existing displayed totals/percentages, complete source data, financial
+outputs, native shared collections and media remain exact before/after estimates.
+The calculator works in view mode without enabling ordinary record fields.
+Source and P/O links, separate collections, changed-source invalidation, input
+validation, route state, focus/scroll retention and phone fit all pass. Zero
+JavaScript errors, unexpected console errors or operational write attempts.
+Only deliberately blocked map-session requests are excluded from console checks.
+Root and independent reviewer inspected laptop/phone component and output images.
+
+The earlier browser diagnostic also exposed an overly specific test assertion
+about the browser snapshot's collection count; it now verifies successful native
+hydration and compares every returned collection, without assuming that API and
+browser snapshot shapes share a count. Original diagnostics remain retained.
+
+Final navigation and readiness
+Implementation a3c99efb. Both final desktop and phone sweeps pass 22 routes, seven
+deep links and Back with zero JavaScript or console errors. Native access controls
+and redirect destinations match the previous verified release exactly. Existing
+readonly route restrictions are preserved. Candidate SHA-256 and bytes are frozen.
+Guarded publication and actual-public verification subsequently passed.
+
+Publication and final public verification
+READY 99425f18 follows implementation a3c99efb. The guarded uploader verified the
+exact unchanged v8.48 base and published at 09:49 AEST on 5 Oct 2026. The public
+view serves all 10,888,612 bytes of the frozen candidate exactly.
+
+Actual-public laptop and phone checks pass 82/82, including exact upstream bytes
+and browser response identity with only normal UTF-8 BOM removal. Both sessions
+used zero local HTML substitutions. Component/source oracles, unchanged original
+totals and financial outputs, planner arithmetic and invalid inputs, permissions,
+focus/scroll, source links and phone layout all pass. Zero runtime errors,
+unexpected console errors or operational write attempts. Published phone output
+was visually inspected.
+
+All 33 shared-record collection fingerprints, content hash and record version
+remain unchanged before/after publication. Health is OK on backend v5.87; no
+server deployment. Existing tabs need one reload. Private originals, manifests,
+commercial details, snapshots and screenshots remain outside Git.

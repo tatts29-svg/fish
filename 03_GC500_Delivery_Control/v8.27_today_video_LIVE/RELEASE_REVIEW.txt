@@ -1,0 +1,16 @@
+Author: Andrew Fisher
+v8.27 Today video — verified live 4 Oct 2026, 02:16 AEST
+
+Source checkpoint before publication: 48fd9eba.
+Exact base: cde8d4295b58d6f0ec85d46b49091698afd847bc4f49a4bad90a2c14d17c595e.
+Exact candidate/public page: f7126dd4e0d3217bfc1eb926c401a7668aa3d72f14a9e670fd186d33a9f1c01f, 9,654,749 bytes.
+
+The embedded progress pane no longer disposes Today's Play handler. Explicit video playback works independently of decorative-motion preferences. Stop, cancellation, loading timeout and restored-network Retry are handled without stale playback requests restarting the clip. Original sources, captions and banner template are preserved.
+
+Verified: controller53; build guards14; actual media18; Retry6; native lifecycle11; Today desktop23/phone18; selected-card motion16 each; desktop and phone22-tab/seven-link/Back sweeps. Actual public playback smoke15/15 passed without local page substitution. No browser errors or operational writes in the public smoke. Shared operational collections were unchanged across publication.
+
+Root independently reviewed the source and identified the NETWORK_NO_SOURCE Retry case, then verified the final guarded publication and inspected the phone result. The implementing agent performed affected browser checks and public smoke. Claude remains paused and is not claimed as reviewer.
+
+Two historical phone-test setup corrections are documented in TESTING.md. Product assertions and original failures were retained. Every byte outside wireBoard, two media CSS declarations and two release labels is unchanged from v8.26. Unchanged wider checks were reused; this is not a claim that the full269 suite was repeated. Phone emulation is not physical-device Safari evidence.
+
+Private HTML, shared-record snapshots, screenshots and detailed runtime evidence remain outside Git. Public-safe reproducible tests and source bindings are included.

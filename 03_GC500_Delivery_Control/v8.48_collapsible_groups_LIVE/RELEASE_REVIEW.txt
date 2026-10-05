@@ -1,0 +1,81 @@
+Author: Andrew Fisher
+GC500 v8.48 — VERIFIED LIVE, 5 Oct 2026 at 08:44 AEST
+
+Implementation commit: 691e612e
+Base v8.47: c2541d7e51dec18187f9163a213fd6c77d607d8a50823b7c3234354019172f21
+Candidate: 5d786af57e3986fc912cf34d33f094566a41836ee88a1160f5a3dab05e339a47
+Bytes: 10,837,115
+
+Scope and ownership
+All six Today groups, including Fencing, collapse through native disclosures.
+The expanded fencing table uses the available width and shows each work type's
+Total, Recorded, Left and percentage. Source, schedule and cost detail stays folded.
+Keyboard, category navigation, refresh, print and motion use the disclosure state.
+The existing group instruments, native controls, header and media are retained.
+
+Source reconciliation includes matched compound work and reviewed physical
+movements from service and collection records. Each operation is source-bound
+and checked against current records and duplicate evidence. Original unquantified
+scope can use a signed-complete as-built allowance, while the source plan stays
+intact. Reinstatement is separate from new installation. Undated quantities remain
+separate; no date or precise map placement is invented. Work types retain separate
+units and percentages rather than creating a mixed work/stock total.
+
+The guarded category correction retains original quantity, date, components and
+history, and exposes its assessed method and confidence in audit detail. Native
+rates and pricing functions remain unchanged. The exact source delta, current-rate
+recalculation and linked review/map signatures are independently checked.
+
+Codex owns implementation, source review, independent tests and publication.
+Claude remains intentionally paused and has not reviewed this release. The latest
+PR discussion still ends with the previous verified release; the current Claude
+board is unchanged. The separately held film is excluded and needs a new base if
+resumed. Private originals, manifests, catalogue inputs and detailed findings are
+kept outside Git and public coordination.
+
+Completed checks
+- Standard build: all 11 inline scripts parse, no new credentials, author present.
+- Independent exact preservation and permitted source changes: 80/80.
+- Synthetic source, movement, duplicate, date and closeout model checks: 22/22.
+- Independent original-source numerical oracle: 48/48 comparisons across all
+  eight fencing types, their quantities, percentages and uncertainty flags.
+- Focused disclosure/renderer checks: 18/18.
+- Candidate browser: 307/309 initially, with two test-only case-sensitive heading
+  assertions failing because CSS renders the headings uppercase. The corrected
+  predicate passes 2/2 against the exact saved browser DOM/model; all other checks
+  passed. Original report and correction proof are retained. The live suite uses
+  the corrected runner; application bytes did not change for this assertion fix.
+- Candidate laptop and phone tests verify all disclosures, Enter/Space, category
+  navigation, selection and refresh state, print restoration, visible lamp motion,
+  all eight source-oracle rows, linked physical records, record/source invalidation,
+  assessed provenance and price/output preservation. No JavaScript errors or
+  operational writes. Only deliberately blocked map-session requests appear in
+  the expected console exclusions.
+- Root inspected closed laptop groups and open laptop/phone fencing captures.
+
+Earlier build
+An independent preservation check found that the generic prose scrub altered an
+audit name inside the new evidence catalogue, breaking the exact closeout match.
+The JSON source signature is now preserved semantically through the scrub. The
+superseded first build was never published. The final preservation test also
+proves the candidate reduces byte-for-byte to its base after allowed edits alone.
+
+Final desktop and phone sweeps each pass 22 routes, seven links and Back, with
+zero JavaScript or console errors on the exact frozen candidate.
+
+Publication
+READY commit 7502bb75 follows implementation 691e612e. The guarded uploader
+verified the exact unchanged v8.47 base, then published at 08:44 AEST on 5 Oct 2026.
+Public readback matches all 10,837,115 bytes of the frozen candidate.
+
+Actual-public desktop and phone suite 311/311 passed with exact upstream identity,
+zero local HTML substitutions and only normal UTF-8 BOM removal in browser text.
+All corrected assertions, source/model oracles, assessed provenance, disclosure,
+keyboard, print, motion, native rates and financial output checks pass. No
+JavaScript errors or operational writes; expected blocked map-session requests
+are the only console exclusions. Root inspected the published phone capture.
+
+All 33 shared-record collections, content hash and version match before/after.
+Embedded source changes are separately bounded by the exact correction manifest.
+Server health remains OK on v5.87; no backend deployment. Existing tabs need one
+reload. Private findings, values and original attachments stay outside Git.

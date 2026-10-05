@@ -1,0 +1,32 @@
+Author: Andrew Fisher
+
+LIVE — combined v8.29, 4 Oct 2026 at 02:45 AEST. Exact host and asset publication readbacks verified. Actual-public desktop/phone smoke completed at 02:49 AEST:61/61 passed.
+
+Base: f7126dd4e0d3217bfc1eb926c401a7668aa3d72f14a9e670fd186d33a9f1c01f
+Standard candidate: 8af09119006f7fad218b4fad3146ccc49d5c7cb6546f5f8a2ab626304484ccbf (10,114,758 bytes)
+Raw composed candidate: 593e161e4a91acf1ad147be6b96b5b829ca0cacc9a7f602fcaba148186f86b16
+Required map asset manifest: d573ed4017f9ebf0c9c8502367b847f4409eac75c9f3d4f59d5977151ffb7b13
+
+The map host component and Fencing presentation ship in one host update. Docket records remain present when a separate scan link is unresolved. Exact source joins distinguish individual documents from supporting summaries. Programme work and current rates provide a working estimate; repeated movements are not unique stock, and incompatible units are not multiplied. A supplied quote retains priority. Estimates do not post to the shared financial record.
+
+Native DATA and financial functions are preserved. The normal toolchain finaliser changes only 27 exact attribution strings between the raw and standard outputs. The source-specific view and catalogue remain authorised private build inputs; this repository deliberately contains neither records nor attachments.
+
+Offline verification: 73 financial/model/source checks and 54 wrapper checks accepted the composed source. A subsequent dedicated caption class prevents native explanation folding from hiding the estimate basis. The bounded fix passed 30 affected checks and exact whole-output preservation; prior financial acceptance carries forward. The final standard page passes 11 inline-script and secret checks. Portable synthetic tests: node tests/presentation829.cjs (15 checks).
+
+The SOURCE_MANIFEST.json files inventory is the wrapper's exact six-file product contract. Tests have their own manifest and are not build inputs. Private evidence retains original failures and corrected assertions. Browser checks block operational writes; no SMS or live quote entry is used as a test.
+
+Final pre-publication browser evidence: Fencing 26/26 desktop and 26/26 phone; combined map18/18; both22-tab/seven-link/Back navigation sweeps. Zero page/console errors in those checks, no attempted operational writes. Root inspected desktop, phone, print and export images. The normal native redirects for hidden/edit-only routes are preserved. All six final assets were bound to the sweeps.
+
+Implementation and review: Codex owner agents built the two components; separate Codex reviewers checked source, financial preservation and final map/navigation integration. Root checked bindings and published. Claude remains intentionally paused and is not claimed as a reviewer.
+
+Publication: frozen generic source checkpoint c256343b. Exact old machine base7d2ff39f was checked before registration. The complete229-path union retains223 existing descriptors, changes3 and adds3; all six public asset hashes read back exactly. Five private server blobs remain present and unlisted. Running server remains v5.87; this is not a server deployment. The standard host uploader verified live basef7126dd4 immediately before upload and exact public8af09119 bytes afterwards. All33 operational collections and record3736 remain unchanged across publication.
+
+Limitations: source alignment supports orientation, not set-out. Area sign-offs do not prove each drawn fence run installed. Planned/historical routes are not additive installed totals. A full-master PNG check truthfully marked one unavailable imagery tile; the local-area export completed. Network-dependent imagery may remain incomplete and must retain that label. Software-rendered browser checks are not physical-device performance measurements. No blanket faultlessness claim.
+
+Private originals, detailed source findings, catalogue/joins, record snapshots and browser images remain outside Git. Public-safe model tests and source package reproducibility are retained. Documentation-only LIVE renames do not change product output; the wrapper replay is checked separately.
+
+Actual-public verification: desktop and phone received exact host8af09119 (10,114,758 bytes), complete229-path manifestd573ed40 and all six exact public assets. Each browser fetched the five Explorer assets. Estimate basis, separate supporting-source links, original source responses, native map entry/filter/Locate/park, settled satellite imagery and deliberate MP4/Stop passed. Reduced motion still permits explicit video and leaves decorative animation stopped. Zero page/console errors and zero attempted operational writes; all contexts closed. Root and the smoke owner inspected the phone image.
+
+Smoke fixture corrections are retained privately: Chromium evicted the large host response from its inspector cache; an additional CDP buffer did not fix Playwright's own cache. The final proof captures a fresh live GET response and forwards exactly those bytes unchanged through the existing harness transport, recording its URL/time/browser request/hash. It never supplies a local hosted page or asset. Source assertions also wait for native Documents/index hydration, instead of inspecting a transient loading state. No product changes or weakened final content assertions were made. These failed fixture attempts are not called passing product tests.
+
+The LIVE documentation rename and README hash update reproduced the exact raw593e161e output. Standard finalisation was already independently proved to produce8af09119. Changed financial or operational data were not part of this release.

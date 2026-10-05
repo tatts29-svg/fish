@@ -1,0 +1,64 @@
+/* Author: Andrew Fisher. Clear Today words with the existing embedded Inter faces. */
+
+/* The completed pane entrance retained an identity transform around every card. */
+#pane-today {
+  animation:none!important;
+  transform:none!important;
+}
+
+#gc500-work-board840,
+#gc500-work-dialog840 {
+  --tw845-text:Inter,"Segoe UI",Arial,sans-serif;
+  font-family:var(--tw845-text);
+}
+
+/* Keep each heading's established responsive size; remove platform-specific faux italics. */
+#gc500-work-board840 .tw840-heading h2,
+#gc500-work-board840 .tw840-top h3,
+#gc500-work-board840 .tw843-types>h4,
+#gc500-work-board840 .tw843-family>h4,
+#gc500-work-board840 .tw843-type-instrument h5,
+#gc500-work-board840 .tw841-group-content h4,
+#gc500-work-board840 .tw841-group-content h5,
+#gc500-work-board840 .tw842-plan h4,
+#gc500-work-dialog840 h2,
+#gc500-work-dialog840 h3,
+#gc500-work-dialog840 h4,
+#gc500-work-dialog840 .tw844-linked-item h3,
+#gc500-work-dialog840 .tw844-linked-item h4 {
+  font-family:var(--tw845-text);
+  font-style:normal;
+  font-weight:700;
+  font-synthesis:none;
+  letter-spacing:normal;
+  text-shadow:none;
+}
+
+/* Explicit legacy text families also use Inter; instrument figures keep their own face. */
+#gc500-work-board840 .tw841-group-details,
+#gc500-work-board840 .tw841-group-link,
+#gc500-work-board840 .tw841-group-reference,
+#gc500-work-board840 .tw843-type-counts button,
+#gc500-work-board840 .tw841-fence-percent small,
+#gc500-work-board840 .tw840-motion>span,
+#gc500-work-dialog840 .tw843-row-unit,
+#gc500-work-dialog840 .tw842-review-label,
+#gc500-work-dialog840 .tw844-item-actions button {
+  font-family:var(--tw845-text);
+  font-style:normal;
+}
+
+/* A small increase for subtype words; preserve the existing larger native-4K treatment. */
+@container work840 (max-width:2199px) {
+  #gc500-work-board840 .tw843-type-unit,
+  #gc500-work-board840 .tw843-type-caption,
+  #gc500-work-board840 .tw843-type-counts button,
+  #gc500-work-board840 .tw843-type-onsite,
+  #gc500-work-board840 .tw843-type-review,
+  #gc500-work-board840 .tw843-type-scope,
+  #gc500-work-board840 .tw843-type-plan,
+  #gc500-work-board840 .tw843-type-pending {
+    font-size:15px;
+    line-height:1.45;
+  }
+}
