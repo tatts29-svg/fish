@@ -1,0 +1,21 @@
+/* Author: Andrew Fisher. Sourced weather scenes; only native selected/visible motion runs. */
+#pane-timeline .day[data-weather-card] .dface>.wm-card-scene{height:270px;inset:8px 0 auto}
+#pane-timeline .day[data-weather-card].on .wm-card-scene::after{background:linear-gradient(90deg,#ff882b 0%,rgba(255,133,33,.94) 28%,rgba(255,126,25,.2) 56%,rgba(255,120,24,.025) 90%)}
+#pane-timeline .day[data-weather-card].on .wm-card-scene{opacity:1}
+#pane-timeline .day .wm-cloud-front{animation-name:wx855-cloud-front;animation-duration:8s}
+#pane-timeline .day .wm-cloud-back{animation-name:wx855-cloud-back;animation-duration:13s}
+#pane-timeline .day .wm-cloud-near{animation-name:wx855-cloud-near;animation-duration:10s}
+#pane-timeline .day .wm-radiance{animation-name:wx855-sun;animation-duration:6s}
+#pane-timeline .day .wm-shaft{animation-name:wx855-rays;animation-duration:8s}
+#pane-timeline .day .wm-fog{animation-name:wx855-fog;animation-duration:10s}
+#pane-timeline .day[data-weather-card="rain"] .wm-card-scene,#pane-timeline .day[data-weather-card="pour"] .wm-card-scene{opacity:.95}
+#pane-timeline .day[data-weather-card].on .dwk{font-weight:700;text-shadow:0 1px 1px rgba(255,205,160,.6)}
+@keyframes wx855-cloud-front{from{transform:translate(-14px,-1px)}to{transform:translate(16px,3px)}}
+@keyframes wx855-cloud-back{from{transform:translate(19px,-2px)}to{transform:translate(-19px,2px)}}
+@keyframes wx855-cloud-near{from{transform:translate(-15px,2px)}to{transform:translate(17px,-2px)}}
+@keyframes wx855-sun{0%,100%{opacity:.65;transform:scale(.94)}50%{opacity:1;transform:scale(1.11)}}
+@keyframes wx855-rays{from{opacity:.22;transform:rotate(-6deg)}to{opacity:.47;transform:rotate(6deg)}}
+@keyframes wx855-fog{from{transform:translate(-24px,-1px);opacity:.55}to{transform:translate(24px,4px);opacity:.94}}
+@media(max-width:470px){#pane-timeline .day[data-weather-card] .dface>.wm-card-scene{height:240px}}
+@media(prefers-reduced-motion:reduce){#pane-timeline .day[data-weather-card] .wm-card-scene *,#pane-timeline .day .wx-motion *{animation:none!important}}
+@media print{#pane-timeline .wm-card-scene,#pane-timeline .wx-motion{display:none!important}}
