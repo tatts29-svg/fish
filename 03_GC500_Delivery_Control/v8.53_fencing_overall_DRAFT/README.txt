@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 GC500 v8.53 — overall Fencing instrument
-State: DRAFT pending final navigation checks and guarded publication.
+State: READY TO UPLOAD, 5 Oct 2026 AEST. Implementation baf90162.
 
 Today’s Fencing group has the existing five-light instrument, large title and
 percentage, with programme work metres recorded and left. The six metre-based
