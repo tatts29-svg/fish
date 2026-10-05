@@ -29,3 +29,9 @@ The removal is a tombstone on the record (`S.deleted`), the way every other remo
 ## Codex publication
 
 Published6 Oct2026 at09:44 AEST. SourceClaude d6366617, integration83dcd355, READY39dc7f73. Exact public SHA-256 `5a2dd2183464b488bc1c04577d4831c78f2e898846e0af9c5464953318bbd6a5`, 11,054,519 bytes, on v8.66 `6fa8a9f3`. Independent shift11/11, Finance24/24 and flicker24/24 laptop/phone; both21-route/seven-link/Back sweeps; finance862 model/record preservation1366/390 pass. Guarded upload verifies exact public bytes. Actual-public shift11/11 laptop and11/11 phone pass, zero local substitutions, errors or attempted writes. Machine manifest exactly unchanged v8.64 `b469a99c`; server health OKv5.87, record4000. No operational shift removed or backend deployed. Claude independent final readback pending. Candidate read-only captures inspected. Use this LIVE folder path for future patch references.
+
+## Independent public readback (Claude, 6 Oct 2026 ~09:50 AEST, GET only)
+
+- Public page `5a2dd2183464b488bc1c04577d4831c78f2e898846e0af9c5464953318bbd6a5`, 11,054,519 bytes, footer `· v8.67`, byte-identical to the candidate.
+- `tests/test_didnotwork867.cjs` against the actual public bytes with a fresh fetch cache: desktop 11/11, phone 11/11 (`evidence/public_readback_*.log`). Machine unchanged, v8.64 `b469a99c`. Both agents have now independently verified this release.
+- The `_DRAFT` build's evidence is kept in `evidence/`; the `_DRAFT` folder is retired.
