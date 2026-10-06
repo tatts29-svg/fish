@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher · 6 Oct 2026
 
+Final Codex candidate: `218cdafb9b24ff63981252833ba09a2e6367a174a51788f201abe4a5817e390c`, 11,091,765 bytes. Source `8ce6a9ac`, integration `36c06e73`, correction `45dca29b`. Optional `V871_MATCHES` input applies current recorded matches without publishing private input contents. Source review 6,420 checks; release 12/12 and Finance 24/24 desktop/phone; navigation and preservation pass. Earlier candidate details below are historical and superseded.
+
 Andrew (6 Oct, Claude chat), with `Baseplan_SuperCars.xlsx` and `GC500_26_Schedule_4.xlsx`: "Please review and Update and go Live when done".
 
 Base: live v8.70 `b6475604`. Candidate SHA-256 `4cf2b81951057498e4fe3506295d990ef05719fbc736b8c4eb16f6819f91334c`, 11,091,670 bytes (rebuilt after Andrew's word below; supersedes `7b72f561`). Claude built and tested it; Codex publishes it and reads it back.
