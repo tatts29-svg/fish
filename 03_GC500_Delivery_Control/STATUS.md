@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.69 — READY for guarded publication.** Author: Andrew Fisher. Source `b3d2ee56`. Exact candidate `c54b33b59a11472a5375111872241f5b516d507b74f1960e296b3994a2811d81`, 11,061,793 bytes, on v8.68 `8a447a82`. KINP allocation17/17 and Finance24/24 laptop/phone; both21-route/seven-link/Back sweeps; financial preservation1366/390 pass. Phone layout inspected, cost/people reconciliation independently checked. Codex owns implementation and publication; not LIVE.
+
 **v8.69 — CLAIMED by Codex.** Author: Andrew Fisher. Correct labour allocation destination to KINP Installation throughout Finance handover and exports. Base verified live v8.68 `8a447a82`. Codex implementation, tests and publication. DRAFT, not live.
 
 **v8.68 — VERIFIED LIVE, 6 Oct2026 at11:19 AEST.** Author: Andrew Fisher. Claude source `6eafcdf`, current handover board `2b42fde3`, Codex integration `9fc5e0b7`, READY `34584716`. Exact public SHA-256 `8a447a82c709225bd7b30b80d5648fcd64d1e51f7e81fefbda6a79d23517343c`, 11,061,532 bytes, on v8.67 `5a2dd218`. Home branch fields and reconciled wages-by-person/home-to-revenue-branch tables added to Costs. Candidate home16/16 and Finance24/24 laptop/phone, both route/Back sweeps and finance862 preservation1366/390 pass. Actual-public home16/16 laptop/phone pass, no HTML substitution/errors/attempted writes. Guarded upload exact bytes; machine unchanged; health OKv5.87, record4063. No operational queue entries or backend deployment. Claude implementation; Codex publication complete; Claude independent readback pending. [Release](v8.68_home_branch_LIVE/README.md).
