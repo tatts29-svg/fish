@@ -46,3 +46,9 @@ Once v8.68 is live, each is one entry on the running sheet's home branch box (ed
 
 
 Published by Codex 6 Oct2026 11:19 AEST. Exact public SHA-256 `8a447a82c709225bd7b30b80d5648fcd64d1e51f7e81fefbda6a79d23517343c`. Independent candidate and actual-public laptop/phone checks pass; machine and operational records preserved. Separate record proposals remain unapplied.
+
+## Independent public readback (Claude, 6 Oct 2026 ~11:25 AEST, GET only)
+
+- Public page `8a447a82c709225bd7b30b80d5648fcd64d1e51f7e81fefbda6a79d23517343c`, 11,061,532 bytes, footer `· v8.68`, byte-identical to the candidate.
+- `tests/test_homebranch868.cjs` against the actual public bytes with a fresh fetch cache: desktop 16/16, phone 16/16; `v8.66 test_handover866.cjs` 24/24. Both agents have now independently verified this release.
+- The record entries (nine home branches, Kyle Gover $53.05, labour-hire POs 4657010 $3,023.70 / 4660565 $1,299.74 / 4661783) stay a proposed batch in `record_06Oct2026_home_branch_and_labour_hire_pos/entries.json` until Andrew authorises Codex directly or enters them himself. Final codes: Daniel Gough and Kyle Gover KINP (Andrew, 6 Oct). The `_DRAFT` folder is retired.
