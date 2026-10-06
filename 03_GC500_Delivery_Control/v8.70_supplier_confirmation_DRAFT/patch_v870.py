@@ -23,5 +23,6 @@ rep("'Recorded unit locations. Supplier delivery plans are separate; an area or 
 rep('${esc(epLabel819())} · Author: Andrew Fisher</span>', '${esc(epLabel819())}${E.confirmation ? \' · FWF confirmed supply \' + E.confirmation.total : \'\'} · Author: Andrew Fisher</span>', 'run sheet confirmed supply')
 rep('<style id="homebranch868">','<style id="supplier870">.ep870-supply{border:1px solid #cbd2d5;border-left:4px solid #ff6a13;padding:12px;margin:12px 0;background:#fff;color:#18282d;display:flex;flex-wrap:wrap;gap:8px 20px}.ep870-supply>b,.ep870-supply>details{flex-basis:100%}.ep870-supply strong{font-size:22px}.ep870-supply summary{cursor:pointer;font-weight:600}.ep870-supply p{margin:8px 0}</style>\n<style id="homebranch868">','supplier layout')
 rep(' ${q}\n <div class="kpis" style="margin-top:12', ' ${epScopeHtml870()}${q}\n <div class="kpis" style="margin-top:12', 'Costs supplier scope')
+rep('${cj765Glance()}\n ${labourWholeJob865()}', '${epScopeHtml870()}${cj765Glance()}\n ${labourWholeJob865()}', 'main Costs supplier scope')
 rep('· v8.69','· v8.70','version')
 p.write_text(s,encoding='utf-8-sig')
