@@ -1,6 +1,8 @@
-# v8.71 — the 6 Oct Baseplan export and Schedule 4 on the page (READY)
+# v8.71 — the 6 Oct Baseplan export and Schedule 4 on the page (LIVE)
 
 Author: Andrew Fisher · 6 Oct 2026
+
+Published and exact public bytes verified. Actual-public release checks: 12/12 desktop and 12/12 phone, no local HTML substitution, runtime errors or attempted operational writes. Health OK v5.87. Claude independent readback pending.
 
 Final Codex candidate: `218cdafb9b24ff63981252833ba09a2e6367a174a51788f201abe4a5817e390c`, 11,091,765 bytes. Source `8ce6a9ac`, integration `36c06e73`, correction `45dca29b`. Optional `V871_MATCHES` input applies current recorded matches without publishing private input contents. Source review 6,420 checks; release 12/12 and Finance 24/24 desktop/phone; navigation and preservation pass. Earlier candidate details below are historical and superseded.
 
