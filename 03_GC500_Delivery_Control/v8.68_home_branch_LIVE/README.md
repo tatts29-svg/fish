@@ -43,3 +43,6 @@ Once v8.68 is live, each is one entry on the running sheet's home branch box (ed
 - Base live v8.67 `5a2dd2183464b488bc1c04577d4831c78f2e898846e0af9c5464953318bbd6a5`.
 - Candidate `8a447a82c709225bd7b30b80d5648fcd64d1e51f7e81fefbda6a79d23517343c`, 11,061,532 bytes.
 - Build: `toolchain/build.sh v8.68 v8.68_home_branch_DRAFT/patch_v868.py`. Upload: `toolchain/upload_page.py`.
+
+
+Published by Codex 6 Oct2026 11:19 AEST. Exact public SHA-256 `8a447a82c709225bd7b30b80d5648fcd64d1e51f7e81fefbda6a79d23517343c`. Independent candidate and actual-public laptop/phone checks pass; machine and operational records preserved. Separate record proposals remain unapplied.
