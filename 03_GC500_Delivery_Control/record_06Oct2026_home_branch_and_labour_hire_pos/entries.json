@@ -49,7 +49,8 @@
    "period": "w/e 20 Sep 2026",
    "branch": "KINP",
    "revenue_branch": "KINP",
-   "amount": null
+   "amount": 3023.7,
+   "note": "Job Connect invoice $3,023.70, all GC500"
   },
   {
    "number": "4660565",
@@ -59,7 +60,8 @@
    "period": "w/e 27 Sep 2026",
    "branch": "KINP",
    "revenue_branch": "KINP",
-   "amount": null
+   "amount": 1299.74,
+   "note": "GC500 share of Job Connect invoice $3,044.97 (24.5 h of the week); balance $1,745.23 not GC500"
   },
   {
    "number": "4661783",
@@ -103,6 +105,25 @@
    "was": 52.53,
    "why": "Andrew, 6 Oct: \"i want his hourly rate to match the invoice\". Job Connect invoice for w/e 20 Sep 2026 (PO 4657010) is $3,023.70 for 57 equivalent hours (5 days x 7.6 ordinary + 2 x1.5 + 0.4 x2); $3,023.70 / 57 = $53.047. At $53.05 the week is $3,023.85 (15c over, the nearest a 2-decimal rate gets); at $53.04 it is $3,023.30 (40c under).",
    "how": "running sheet, Kyle's row, Rate $/h box (edit link), or setOurPerson('Kyle Gover', {pay_rate: 53.05})"
+  }
+ ],
+ "labour_hire_invoices": [
+  {
+   "po": "4657010",
+   "person": "Kyle Gover",
+   "week_ending": "2026-09-20",
+   "invoice_total": 3023.7,
+   "ours": 3023.7,
+   "basis": "whole week with us: 14-18 Sep, 5 x 06:30-17:00, 50 paid h = 57 equivalent h; at $53.05 the running sheet reads $3,023.85"
+  },
+  {
+   "po": "4660565",
+   "person": "Kyle Gover",
+   "week_ending": "2026-09-27",
+   "invoice_total": 3044.97,
+   "ours": 1299.74,
+   "not_ours": 1745.23,
+   "basis": "Andrew, 6 Oct: \"Kyle was not with us for the whole week, so not all should be for us\". With us 22-24 Sep 10:00-17:00 and 25 Sep 12:00-17:00: 24.5 paid h, all ordinary, x $53.05 = $1,299.74. The invoice is 57.4 equivalent hours at $53.05, so the rate holds; the balance $1,745.23 belongs to his other work that week and is not GC500's."
   }
  ]
 }
