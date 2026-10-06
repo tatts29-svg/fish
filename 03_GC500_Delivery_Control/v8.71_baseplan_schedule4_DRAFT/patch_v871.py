@@ -385,6 +385,17 @@ ANDREW_4126 = {"GN01": ["1276507"], "P08": ["421138"], "P13": ["1097346"], "P15"
                "WC06": ["1195658", "1212523"], "WC100": ["1248439", "1288823"], "WC11": ["1211969", "1211976"],
                "WC12": ["1002565", "1200601", "1211961", "1211963"], "WC21": ["1002747", "1103497", "1211964", "1211971", "1211977", "1212172"],
                "WC27": ["1328979"], "WC50": ["1211974"], "WC60": ["1087500", "1119489", "1328980", "1328981"]}
+# Publication may use a freshly verified private snapshot instead of the earlier
+# handover snapshot. Keep operational identifiers out of new public source/logs.
+matches_path = os.environ.get('V871_MATCHES')
+if matches_path:
+    matches = json.loads(Path(matches_path).read_text())
+    assert isinstance(matches, dict), 'recorded matches must be a reference map'
+    known_refs = set(A) | {p['key'] for p in D['plant_lines']['lines']} | {p['task_id'] for p in D.get('unreferenced') or []}
+    assert all(k in known_refs and isinstance(ns, list) and all(isinstance(n, str) and PLANT.fullmatch(n) for n in ns) for k, ns in matches.items()), 'invalid recorded matches'
+    numbers = [n for ns in matches.values() for n in ns]
+    assert len(numbers) == len(set(numbers)), 'one recorded number has multiple owners'
+    ANDREW_4126 = matches
 ANDREW_OF = {n: k for k, ns in ANDREW_4126.items() for n in ns}
 for a in ASSETS:
     kept = [n for n in (a.get('asset_numbers') or []) if ANDREW_OF.get(str(n), a['key']) == a['key']]
