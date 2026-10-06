@@ -25,7 +25,7 @@ Names as the record holds them; branch codes only (no contact details go into th
 | Andrew Fisher | NOIS | QLD Industrial Services |
 | Daniel Gough | NOIS | labour hire |
 | Jayden Paul | KINP | Brisbane Portables (P) |
-| Kyle Gover | MEAD | labour hire, Brisbane Mechanical Specialist |
+| Kyle Gover | WOOS | labour hire (Andrew, 6 Oct: changed from MEAD) |
 | Frank Devilles | BFIS | Brisbane Field Service (Andrew spells it De Villiers) |
 | Ludwig Chee | NSNA | QLD SE Admin |
 | Wayne Crimmin | STPS | Brisbane Traffic (T) |

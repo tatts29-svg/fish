@@ -2,7 +2,7 @@
 //   PAGE=build/GC500_v8.68/GC500_Delivery_Control_hosted.html [MOB=1] node v8.68_home_branch_DRAFT/tests/test_homebranch868.cjs
 const {open} = require('../../toolchain/harness/open_page');
 /* the branches Andrew gave on 6 Oct 2026, set in memory only - never saved */
-const HOME = {'Aaron Zelvis': 'KINP', 'Alfie Harris': 'NTSP', 'Andrew Fisher': 'NOIS', 'Daniel Gough': 'NOIS', 'Jayden Paul': 'KINP', 'Kyle Gover': 'MEAD', 'Frank Devilles': 'BFIS', 'Ludwig Chee': 'NSNA', 'Wayne Crimmin': 'STPS'};
+const HOME = {'Aaron Zelvis': 'KINP', 'Alfie Harris': 'NTSP', 'Andrew Fisher': 'NOIS', 'Daniel Gough': 'NOIS', 'Jayden Paul': 'KINP', 'Kyle Gover': 'WOOS', 'Frank Devilles': 'BFIS', 'Ludwig Chee': 'NSNA', 'Wayne Crimmin': 'STPS'};
 (async () => { const MOB = !!process.env.MOB, R = []; const ok = (name, pass, detail) => R.push({name, pass: !!pass, detail});
   const s = await open(MOB ? {pageFile: process.env.PAGE, W: 390, H: 844, dpr: 2, mobile: true} : {pageFile: process.env.PAGE, W: 1440, H: 900}); const p = s.page;
   await p.waitForFunction(() => typeof go === 'function' && typeof TABS !== 'undefined', null, {timeout: 150000}); await p.waitForTimeout(2500);
