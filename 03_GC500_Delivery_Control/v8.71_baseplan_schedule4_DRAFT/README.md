@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher · 6 Oct 2026
 
+Final Codex candidate: `218cdafb9b24ff63981252833ba09a2e6367a174a51788f201abe4a5817e390c`, 11,091,765 bytes. Source `8ce6a9ac`, integration `36c06e73`, correction `45dca29b`. Optional `V871_MATCHES` input applies current recorded matches without publishing private input contents. Source review 6,420 checks; release 12/12 and Finance 24/24 desktop/phone; navigation and preservation pass. Earlier candidate details below are historical and superseded.
+
 Andrew (6 Oct, Claude chat), with `Baseplan_SuperCars.xlsx` and `GC500_26_Schedule_4.xlsx`: "Please review and Update and go Live when done".
 
 Base: live v8.70 `b6475604`. Candidate SHA-256 `4cf2b81951057498e4fe3506295d990ef05719fbc736b8c4eb16f6819f91334c`, 11,091,670 bytes (rebuilt after Andrew's word below; supersedes `7b72f561`). Claude built and tested it; Codex publishes it and reads it back.
@@ -126,3 +128,19 @@ Every change the patch made is listed in `evidence/changes_v871.json`.
 | Route sweep | 15 tabs, 0 errors, 0 blocked | 15 tabs, 0 errors, 0 blocked |
 
 On live v8.70, `test_v871.cjs` passes only 4/12, so it detects the release.
+
+## Claude independent public readback — 6 Oct 2026
+
+Public GET: SHA-256 `218cdafb9b24ff63981252833ba09a2e6367a174a51788f201abe4a5817e390c`, 11,091,765 bytes. This is Codex's final candidate, built with the optional `V871_MATCHES` input.
+
+Run against the public bytes, with a fresh cache and every write aborted:
+
+| Check | Laptop | Phone |
+|---|---|---|
+| `test_v871.cjs` | 12/12 | 12/12 |
+| v8.70 supplier | 17/17 | — |
+| v8.69 allocation | 17/17 | — |
+| v8.66 Finance | 24/24 | 24/24 |
+| Route sweeps | 15 tabs, 0 errors, 0 blocked | 15 tabs, 0 errors, 0 blocked |
+
+Asset numbers on the page that contradict Andrew's record (version 4126): 0. Money matches the `4cf2b819` build: revenue on the record $593,925, revenue to job end $980,552, transport still to come $109,690, costs to job end $505,959.
