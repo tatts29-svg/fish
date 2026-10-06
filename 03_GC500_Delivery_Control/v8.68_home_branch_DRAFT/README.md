@@ -23,9 +23,9 @@ Names as the record holds them; branch codes only (no contact details go into th
 | Aaron Zelvis | KINP | Brisbane Portables (P) |
 | Alfie Harris | NTSP | North Transport Hub |
 | Andrew Fisher | NOIS | QLD Industrial Services |
-| Daniel Gough | NOIS | labour hire |
+| Daniel Gough | KINP | labour hire, Job Connect — costed where the invoice lands (Andrew, 6 Oct) |
 | Jayden Paul | KINP | Brisbane Portables (P) |
-| Kyle Gover | WOOS | labour hire (Andrew, 6 Oct: changed from MEAD) |
+| Kyle Gover | KINP | labour hire, Job Connect — costed where the invoice lands (Andrew, 6 Oct) |
 | Frank Devilles | BFIS | Brisbane Field Service (Andrew spells it De Villiers) |
 | Ludwig Chee | NSNA | QLD SE Admin |
 | Wayne Crimmin | STPS | Brisbane Traffic (T) |
