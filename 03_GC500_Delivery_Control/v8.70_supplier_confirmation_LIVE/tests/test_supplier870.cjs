@@ -20,6 +20,7 @@ ok('labour and P&L remain reconciled',x.modelCheck);
 await p.evaluate(()=>go('timeline'));await p.waitForTimeout(1200);ok('Timeline confirmation is visible',await p.locator('#pane-timeline [data-ep870-supply]').count()>0);
 await p.evaluate(()=>go('plant'));await p.waitForTimeout(1200);ok('Equipment confirmation is visible',await p.locator('#pane-plant [data-ep870-supply]').count()>0);
 if(process.env.OUT){await p.locator('#pane-plant [data-ep870-supply]').scrollIntoViewIfNeeded();await p.screenshot({path:process.env.OUT+'-'+(mobile?'phone':'desktop')+'.png'});}
+await p.evaluate(()=>go('costs'));await p.waitForTimeout(1000);ok('Costs supplier scope reads the same confirmation',await p.locator('#pane-costs [data-ep870-scope]').count()>0);
 ok('no runtime errors',s.errors.length===0);ok('no operational writes attempted',s.counts.blocked===0);
 for(const [n,b]of R)console.log((b?'PASS ':'FAIL ')+n);console.log((mobile?'phone':'desktop')+': '+R.filter(r=>r[1]).length+'/'+R.length+' pass');await s.browser.close();if(R.some(r=>!r[1]))process.exit(1);
 })().catch(e=>{console.error(e.message);process.exit(2)});

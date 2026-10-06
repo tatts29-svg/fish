@@ -8,10 +8,11 @@ function epPlan870(){
  const rows=E.quote.rows.map(r=>{if(!/^FWF\b/.test(r.item))return r;const unallocated=Math.max(0,c.total-Number(r.allocated_to_wc||0));return {...r,original_quote:r.quote,quote:c.total,no_wc_allocation:unallocated,note:'Supplier-confirmed total; location allocation shown separately.'};});
  return {...E,quote:{...E.quote,rows},confirmation:c};
 }
-function epSupply870(){
+function epSupply870(rows){
  const c=epConfirmation870();if(!c)return null;
+ if(!rows)return epInventory860().summary.fwfSupply;
  const E=epPlan870(),r=E.quote.rows.find(r=>/^FWF\b/.test(r.item));
- const I=inventory().list.find(r=>r.item==='FWF'),at=Number(I?.sub?.['Event Portables']||0),spare=Number(I?.spareSub?.['Event Portables']||0),on=at+spare;
+ const fwf=rows.filter(r=>r.qty===1 && r.description==='FWF' && r._on),at=fwf.filter(r=>!r._spare).length,spare=fwf.filter(r=>r._spare).length,on=at+spare;
  return {total:c.total,on,at,spare,left:Math.max(0,c.total-on),allocated:Number(r?.allocated_to_wc||0),unallocated:Number(r?.no_wc_allocation||0),inLoads:epTotals819().fwf,over:Math.max(0,on-c.total)};
 }
 function epSupplyHtml870(){
