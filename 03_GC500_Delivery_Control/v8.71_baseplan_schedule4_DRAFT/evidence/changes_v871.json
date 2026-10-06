@@ -86,7 +86,7 @@
    "item": "1272166",
    "description": "Supply Forklift 5.0t Diesel",
    "status": "Delivered",
-   "joined_to": null
+   "joined_to": "T0085"
   },
   {
    "line": "9987005/2",
@@ -94,7 +94,7 @@
    "item": "1262224",
    "description": "Supply Telehandler Fork Extension 1800mm",
    "status": "Pending",
-   "joined_to": "T0085"
+   "joined_to": null
   },
   {
    "line": "9987005/3",
@@ -110,7 +110,7 @@
    "item": "1214298",
    "description": "Event Forklift 2.5t Container Diesel",
    "status": "Pending",
-   "joined_to": "T0109"
+   "joined_to": null
   },
   {
    "line": "9987005/5",
@@ -980,10 +980,46 @@
  ],
  "rejoined": [
   {
-   "line": "9968955/46",
+   "line": "9968955/4",
+   "was": "WC11",
+   "now": "WC12",
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/15",
+   "was": "WC12",
+   "now": "WC06",
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/22",
    "was": null,
    "now": "WC50",
-   "via": "delivery docket"
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/23",
+   "was": null,
+   "now": "WC11",
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/44",
+   "was": null,
+   "now": "WC04",
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/45",
+   "was": null,
+   "now": "WC02",
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/46",
+   "was": null,
+   "now": "WC01",
+   "via": "asset number"
   },
   {
    "line": "9968955/49",
@@ -1007,13 +1043,31 @@
    "line": "9968955/54",
    "was": null,
    "now": "WC27",
-   "via": "delivery docket"
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/57",
+   "was": null,
+   "now": "WC01",
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/58",
+   "was": null,
+   "now": "WC06",
+   "via": "asset number"
   },
   {
    "line": "9968955/69",
    "was": null,
-   "now": "WC42",
-   "via": "delivery docket"
+   "now": "WC01",
+   "via": "asset number"
+  },
+  {
+   "line": "9968955/91",
+   "was": null,
+   "now": "WC60",
+   "via": "asset number"
   },
   {
    "line": "9968955/93",
@@ -1022,34 +1076,34 @@
    "via": "delivery docket"
   },
   {
-   "line": "9968862/64",
+   "line": "9968862/4",
    "was": null,
-   "now": "P06",
-   "via": "delivery docket"
+   "now": "P51",
+   "via": "asset number"
   },
   {
-   "line": "9968862/66",
+   "line": "9968862/51",
    "was": null,
-   "now": "P06",
-   "via": "delivery docket"
+   "now": "P13",
+   "via": "asset number"
   },
   {
-   "line": "9968862/68",
+   "line": "9968862/55",
    "was": null,
-   "now": "P06",
-   "via": "delivery docket"
+   "now": "P15",
+   "via": "asset number"
   },
   {
-   "line": "9968862/69",
-   "was": null,
-   "now": "P06",
-   "via": "delivery docket"
+   "line": "9968862/61",
+   "was": "P58",
+   "now": "P44",
+   "via": "asset number"
   },
   {
-   "line": "9968862/79",
+   "line": "9968862/63",
    "was": null,
-   "now": "P52",
-   "via": "delivery docket"
+   "now": "P41",
+   "via": "asset number"
   },
   {
    "line": "9968862/81",
@@ -1062,6 +1116,12 @@
    "was": null,
    "now": "P57",
    "via": "delivery docket"
+  },
+  {
+   "line": "9968862/100",
+   "was": "P51",
+   "now": "P46",
+   "via": "asset number"
   },
   {
    "line": "9974042/1",
@@ -1100,7 +1160,7 @@
    "contract_lines_before": 1,
    "after": 2,
    "added": [
-    "9987005/2"
+    "9987005/1"
    ],
    "gone": []
   },
@@ -1114,15 +1174,6 @@
    "gone": [
     "9961265/10"
    ]
-  },
-  {
-   "line": "T0109",
-   "contract_lines_before": 1,
-   "after": 2,
-   "added": [
-    "9987005/4"
-   ],
-   "gone": []
   }
  ],
  "schedule": [
@@ -1538,16 +1589,158 @@
    "what": [
     "fencing semi x1 $576.31+"
    ]
+  },
+  {
+   "ref": "P13",
+   "what": "number off - Andrew has it elsewhere",
+   "was": [
+    "1097345"
+   ],
+   "now": [],
+   "moved_to": [
+    "P15"
+   ]
+  },
+  {
+   "ref": "P51",
+   "what": "number off - Andrew has it elsewhere",
+   "was": [
+    "1327215"
+   ],
+   "now": [],
+   "moved_to": [
+    "P46"
+   ]
+  },
+  {
+   "ref": "P58",
+   "what": "number off - Andrew has it elsewhere",
+   "was": [
+    "198481"
+   ],
+   "now": [],
+   "moved_to": [
+    "P44"
+   ]
+  },
+  {
+   "ref": "P65",
+   "what": "number off - Andrew has it elsewhere",
+   "was": [
+    "1189412"
+   ],
+   "now": [],
+   "moved_to": [
+    "P41"
+   ]
+  },
+  {
+   "ref": "T0001",
+   "what": "numbers as Andrew matched them",
+   "was": [],
+   "now": [
+    "1182999",
+    "1191877",
+    "1211354",
+    "1211359",
+    "1211370",
+    "1211383",
+    "1211404",
+    "1271129"
+   ]
+  },
+  {
+   "ref": "T0023",
+   "what": "numbers as Andrew matched them",
+   "was": [],
+   "now": [
+    "1257261"
+   ]
+  },
+  {
+   "ref": "T0085",
+   "what": "numbers as Andrew matched them",
+   "was": [
+    "1262224"
+   ],
+   "now": [
+    "1272166"
+   ]
+  },
+  {
+   "ref": "T0001",
+   "what": "numbers as Andrew matched them",
+   "was": [],
+   "now": [
+    "1182999",
+    "1191877",
+    "1211354",
+    "1211359",
+    "1211370",
+    "1211383",
+    "1211404",
+    "1271129"
+   ]
+  },
+  {
+   "ref": "T0023",
+   "what": "numbers as Andrew matched them",
+   "was": [],
+   "now": [
+    "1257261"
+   ]
+  },
+  {
+   "ref": "T0085",
+   "what": "numbers as Andrew matched them",
+   "was": [
+    "1262224"
+   ],
+   "now": [
+    "1272166"
+   ]
   }
  ],
  "flags": [
   {
+   "asset_no": "1189410",
+   "lines": [
+    "9968862/93 Delivered 2026-09-14..2026-11-13 P36 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "9968862/108 Pending 2026-09-14..2026-11-13 P67 Commentary Booth 6.0M x 3.0M"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  },
+  {
+   "asset_no": "1189412",
+   "lines": [
+    "9968862/63 Delivered 2026-09-23..2026-11-13 P41 Portable Building Shell 6.0M x 3.0M",
+    "9968862/110 Pending 2026-09-14..2026-11-13 P65 Commentary Booth 6.0M x 3.0M"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  },
+  {
+   "asset_no": "1211404",
+   "lines": [
+    "9961265/1 Delivered 2026-09-07..2026-11-13 Variable Message Board Senior",
+    "9961265/12 Pending 2026-10-08..2026-10-27 VMS09 Variable Message Board Senior"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  },
+  {
    "asset_no": "1272166",
    "lines": [
-    "9968726/10 Del Req 2026-10-19..2026-10-27",
-    "9987005/1 Delivered 2026-10-05..2026-10-30"
+    "9968726/10 Del Req 2026-10-19..2026-10-27 Forklift 5.0t Diesel",
+    "9987005/1 Delivered 2026-10-05..2026-10-30 Supply Forklift 5.0t Diesel"
    ],
-   "why": "the same unit is priced on two contracts over overlapping dates"
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  },
+  {
+   "asset_no": "1327213",
+   "lines": [
+    "9968862/7 Delivered 2026-09-14..2026-11-13 P04 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+    "9968862/94 Del Req 2026-09-14..2026-11-13 P46 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
   }
  ]
 }

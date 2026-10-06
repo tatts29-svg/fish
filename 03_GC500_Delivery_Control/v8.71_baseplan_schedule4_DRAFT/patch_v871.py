@@ -373,6 +373,38 @@ for sheet, i, t in semis:
     LOG['schedule'].append({'ref': tid, 'sheet': sheet, 'date': date, 'what': [f'fencing semi x{qty} {tc["as_written"] if tc else ""}'.strip()]})
 FR.sort(key=lambda r: (r['date'] or '', r['task_id']))
 
+# ANDREW'S MATCHES WIN. Andrew, 6 Oct 2026: "good chance baseplan and spreadsheet allocation of asset numbers are
+# wrong. What i have matched up and completed is correct." The asset numbers he has put on each reference, as the
+# shared record held them at version 4126 (6 Oct 13:56 AEST), are the authority: each number comes off any other
+# reference the schedule gave it to, and a contract line carrying it joins his reference. (The page still reads his
+# record live; this takes the files' contrary allocations out of the page's own sources.)
+ANDREW_4126 = {"GN01": ["1276507"], "P08": ["421138"], "P13": ["1097346"], "P15": ["1097345"], "P21": ["1327220"], "P41": ["1189412"],
+               "P44": ["198481"], "P46": ["1327215"], "P51": ["1322579"],
+               "T0001": ["1182999", "1191877", "1211354", "1211359", "1211370", "1211383", "1211404", "1271129"], "T0023": ["1257261"],
+               "T0085": ["1272166"], "WC01": ["1211958", "1211967", "1317644"], "WC02": ["1058086"], "WC04": ["1212502"], "WC05": ["1328978"],
+               "WC06": ["1195658", "1212523"], "WC100": ["1248439", "1288823"], "WC11": ["1211969", "1211976"],
+               "WC12": ["1002565", "1200601", "1211961", "1211963"], "WC21": ["1002747", "1103497", "1211964", "1211971", "1211977", "1212172"],
+               "WC27": ["1328979"], "WC50": ["1211974"], "WC60": ["1087500", "1119489", "1328980", "1328981"]}
+ANDREW_OF = {n: k for k, ns in ANDREW_4126.items() for n in ns}
+for a in ASSETS:
+    kept = [n for n in (a.get('asset_numbers') or []) if ANDREW_OF.get(str(n), a['key']) == a['key']]
+    if kept != list(a.get('asset_numbers') or []):
+        LOG['schedule'].append({'ref': a['key'], 'what': 'number off - Andrew has it elsewhere',
+                                'was': a.get('asset_numbers'), 'now': kept,
+                                'moved_to': sorted({ANDREW_OF[str(n)] for n in a['asset_numbers'] if str(n) not in kept})})
+        a['asset_numbers'] = kept
+        if not kept:
+            a['asset_no_state'] = 'not supplied'
+
+for coll, idk in ((D['plant_lines']['lines'], 'key'), (D.get('unreferenced') or [], 'task_id')):
+    for u in coll:
+        k = u[idk]
+        was = [str(n) for n in (u.get('asset_numbers') or [])]
+        now = list(ANDREW_4126[k]) if k in ANDREW_4126 else [n for n in was if ANDREW_OF.get(n, k) == k]
+        if now != was:
+            u['asset_numbers'] = now
+            LOG['schedule'].append({'ref': k, 'what': "numbers as Andrew matched them", 'was': was, 'now': now})
+
 # every register number -> its reference, after Schedule 4 (the join the contracts use)
 NUM_OWNER = {}
 for a in ASSETS:
@@ -392,9 +424,32 @@ for pl in D['plant_lines']['lines']:
             DOCKET_OWNER.setdefault(dn, set()).add(('unreferenced row', pl['key']))
 
 
+# Baseplan writes some numbers on more than one line (separate machines, one of them misnumbered). Andrew's number
+# then takes the delivered line only; the others keep their own join and are listed for him.
+CARRIERS = {}
+for (_c, _l), _d in NEW.items():
+    _it = txt(_d['Item'])
+    if _it and PLANT.match(_it):
+        CARRIERS.setdefault(_it, []).append((_c, _l, txt(_d['Status']) in ('Delivered', 'Returned')))
+
+
+def andrew_takes(row):
+    cs = CARRIERS.get(str(row.get('asset_no')), [])
+    if len(cs) <= 1:
+        return True
+    return bool(row.get('delivered')) and sum(1 for c in cs if c[2]) == 1
+
+
 def join(row):
-    """the join a line gets when its number is new to it: asset number, then delivery docket"""
+    """the join a line gets when its number is new to it: Andrew's match, then asset number, then delivery docket"""
     no = str(row.get('asset_no') or '')
+    if row.get('asset_no_is_plant_number') and not andrew_takes(row):
+        return None   # a number on more than one line: only the delivered line follows it; this one keeps its join
+    if row.get('asset_no_is_plant_number') and no in ANDREW_OF:
+        k = ANDREW_OF[no]
+        to = 'asset' if k in A else 'unreferenced row'
+        return {'state': 'same asset number', 'to': to, 'key': k if to == 'asset' else None, 'task_id': None if to == 'asset' else k,
+                'via': 'asset number', 'basis': f"asset number {no} is on {k}, matched on site by Andrew Fisher, and on line {row['line']} of contract {row['rental_contract']}"}
     owners = NUM_OWNER.get(no, []) if row.get('asset_no_is_plant_number') else []
     if len(owners) == 1:
         to, key = owners[0]
@@ -404,7 +459,10 @@ def join(row):
     if len(owners) > 1:
         return {'state': 'ambiguous', 'to': None, 'key': None, 'task_id': None, 'via': None,
                 'basis': f"asset number {no} is on {', '.join(k for _, k in owners)} in the register"}
-    dk = DOCKET_OWNER.get(str(row.get('delivery_number') or ''), set())
+    # Andrew, 6 Oct 2026: "good chance baseplan and spreadsheet allocation of asset numbers are wrong. What i have
+    # matched up and completed is correct." A docket only joins a line that carries no plant number: a numbered line
+    # goes where its number is recorded (by Andrew on site, which the page reads live), never where a docket guesses.
+    dk = set() if row.get('asset_no_is_plant_number') else DOCKET_OWNER.get(str(row.get('delivery_number') or ''), set())
     if len(dk) == 1:
         to, key = next(iter(dk))
         return {'state': 'same delivery docket', 'to': to, 'key': key if to == 'asset' else None,
@@ -430,7 +488,7 @@ for r in OLDROWS:
             r[c] = f[c]
     if 'description' in diffs:
         r['what'] = what_of(r['description'])
-    if 'asset_no' in diffs or 'delivery_number' in diffs:
+    if 'asset_no' in diffs or 'delivery_number' in diffs or (r.get('asset_no_is_plant_number') and str(r.get('asset_no')) in ANDREW_OF):
         j = join(r)
         old_m = r.get('match') or {}
         if j and (j.get('key'), j.get('task_id')) != (old_m.get('key'), old_m.get('task_id')):
@@ -499,9 +557,9 @@ for r in rows_out:
         by_no.setdefault(r['asset_no'], []).append(r)
 for no, rs in sorted(by_no.items()):
     priced = [x for x in rs if isinstance(x.get('rate_1'), float)]
-    if len({x['rental_contract'] for x in rs}) > 1 and len(priced) > 1:
-        LOG['flags'].append({'asset_no': no, 'lines': [f"{x['rental_contract']}/{x['line']} {x['status_as_written']} {x['booked_delivery_date']}..{x['demob_date']}" for x in rs],
-                             'why': 'the same unit is priced on two contracts over overlapping dates'})
+    if len(priced) > 1:
+        LOG['flags'].append({'asset_no': no, 'lines': [f"{x['rental_contract']}/{x['line']} {x['status_as_written']} {x['booked_delivery_date']}..{x['demob_date']} {x['description']}" for x in rs],
+                             'why': 'one number on two priced lines: two machines with one misnumbered, or one machine charged twice'})
 
 # ------------------------------------------------------------------ 5. contracts, assignments, summary
 CON_OLD = {str(c['rental_contract']): c for c in R['contracts']}
@@ -595,7 +653,7 @@ for pl in D['plant_lines']['lines']:
         k = (str(r['rental_contract']), int(r['line']))
         if k in have or r['charge_line']:
             continue
-        if (r['asset_no_is_plant_number'] and r['asset_no'] in nums) or (r.get('delivery_number') and r['delivery_number'] in dockets):
+        if (r['asset_no_is_plant_number'] and r['asset_no'] in nums and andrew_takes(r)) or (not r['asset_no_is_plant_number'] and r.get('delivery_number') and r['delivery_number'] in dockets):
             fresh.append(copy_of(r))
     fresh.sort(key=lambda y: (str(y['rental_contract']), int(y['line'])))
     after = [(y['rental_contract'], y['line']) for y in fresh]
@@ -613,8 +671,8 @@ for pl in D['plant_lines']['lines']:
 LOG['plant_line_copies'] = [x for x in LOG['plant_line_copies'] if x['added'] or x['gone']]
 
 # ------------------------------------------------------------------ write back
-assert {k: v for k, v in D.items() if k not in ('rental_on_hire', 'assets', 'plant_lines')} == \
-       {k: v for k, v in ORIG.items() if k not in ('rental_on_hire', 'assets', 'plant_lines')}
+SOURCES = ('rental_on_hire', 'assets', 'plant_lines', 'unreferenced')
+assert {k: v for k, v in D.items() if k not in SOURCES} == {k: v for k, v in ORIG.items() if k not in SOURCES}
 out = text[:m.start(1)] + json.dumps(D, ensure_ascii=False, separators=(',', ':')) + text[m.end(1):]
 out = out.replace("· v8.70", "· v8.71", 1) if "· v8.70" in out else out
 page.write_bytes((b'\xef\xbb\xbf' if bom else b'') + out.encode('utf-8'))
