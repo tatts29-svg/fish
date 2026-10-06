@@ -2,6 +2,10 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.69 — VERIFIED LIVE, 6 Oct2026 at11:38 AEST.** Author: Andrew Fisher. Source `b3d2ee56`, READY `55b0fe02`; exact public SHA-256 `c54b33b59a11472a5375111872241f5b516d507b74f1960e296b3994a2811d81`, 11,061,793 bytes, on v8.68 `8a447a82`. KINP Installation is the labour allocation destination in Finance, Costs by branch, demob and exports. Candidate17/17 allocation and24/24 Finance laptop/phone; both21-route/seven-link/Back sweeps; financial preservation1366/390; phone layout and model reconciliation pass. Actual-public17/17 laptop/phone, zero substitutions/errors/attempted writes. Codex implementation, checks and publication; Claude independent readback pending. This summary does not post an accounting journal.
+
+**v8.70 — CLAIMED by Codex.** Author: Andrew Fisher. Central supplier quantity confirmation used by delivery plan, supplier inventory and PDFs; preserve reference requirements and received units. Base v8.69 `c54b33b5`. Codex implementation/testing/publication. DRAFT, not LIVE.
+
 **v8.69 — READY for guarded publication.** Author: Andrew Fisher. Source `b3d2ee56`. Exact candidate `c54b33b59a11472a5375111872241f5b516d507b74f1960e296b3994a2811d81`, 11,061,793 bytes, on v8.68 `8a447a82`. KINP allocation17/17 and Finance24/24 laptop/phone; both21-route/seven-link/Back sweeps; financial preservation1366/390 pass. Phone layout inspected, cost/people reconciliation independently checked. Codex owns implementation and publication; not LIVE.
 
 **v8.69 — CLAIMED by Codex.** Author: Andrew Fisher. Correct labour allocation destination to KINP Installation throughout Finance handover and exports. Base verified live v8.68 `8a447a82`. Codex implementation, tests and publication. DRAFT, not live.
