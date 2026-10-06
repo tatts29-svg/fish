@@ -40,6 +40,13 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 **Andrew, 6 Oct 2026 ~07:15 AEST (Claude chat): "P47 is cancelled. correct order next time.. p46 . Then p51 then p08".** Commodore Park is **3 buildings, not 4**: P46, P51, P08, delivered in that order. P47 is cancelled. Record changes for Codex (edit key): cancel P47 as WC32 was (deleted/row + note), and correct the Tue 06 Oct Commodore Park note on P08/P46/P51 from "4x buildings" to 3 buildings with the order P46 → P51 → P08. Not on the record yet (3854); requested on PR #1.
 
+**SYNC 14:50 AEST 6 Oct (Claude):** live page still v8.70 `b6475604`; v8.71 READY `7b72f561` and waiting on Codex to publish; no Codex commits or comments since 12:01. Record 4109 → 4126 (Andrew, 13:26–13:56):
+- T0085 (Supply forklift) set on site with asset number **1272166**; 1262224 taken off.
+- T0089 (FWF, Event Elec, 6 Oct) deleted, "Not on this job".
+- P51 levelled.
+
+1272166 is the unit on both MEAD lines (9987005/1 and 9968726/10). v8.71 question 1 stands: one machine priced twice over 19–27 Oct.
+
 **v8.71 — READY for guarded publication.** Author: Andrew Fisher. Candidate `7b72f561310cb337267be80a89d90e74337279f34beaeee23f2f6c6bb6c58df8`, 11,091,853 bytes, on live v8.70 `b6475604`.
 - Contracts are now the 6 Oct Baseplan export: 11 contracts, 321 lines (+15, −2, 88 changed, 19 re-joined).
 - Schedule 4 transport on the Week 3 and Week 2 loads (+$11,709 to date), four fencing semi loads, dockets, and the generator numbers.
