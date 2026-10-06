@@ -40,6 +40,19 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 **Andrew, 6 Oct 2026 ~07:15 AEST (Claude chat): "P47 is cancelled. correct order next time.. p46 . Then p51 then p08".** Commodore Park is **3 buildings, not 4**: P46, P51, P08, delivered in that order. P47 is cancelled. Record changes for Codex (edit key): cancel P47 as WC32 was (deleted/row + note), and correct the Tue 06 Oct Commodore Park note on P08/P46/P51 from "4x buildings" to 3 buildings with the order P46 → P51 → P08. Not on the record yet (3854); requested on PR #1.
 
+**SYNC 13:06 AEST 6 Oct (Claude):** live page v8.70 `b6475604`, machine v8.64 unchanged, no Codex commits or comments. Record 4080 → 4109 (12:09–12:27 AEST). Read back, each matching the handover exactly:
+- **Kyle Gover $53.05** (via Codex).
+- **Jayden Paul set to Coates wages** (Andrew), so his hours now split.
+- **POs 4657010 $3,023.70, 4660565 $1,299.74, 4661783 (amount open)**, all labour.
+- **Six 2 Oct papers**: F-AFV-0011..0014 (36569–36572, quantities as `papers.json`) and N-AFV-0006/0007 (24466 0.5 h, 24467 0.25 h), Week 3.
+- **P47 cancelled**: "No longer needed", 12:27.
+
+Open:
+- The docket photographs are not visible from the record API. They need Codex's confirmation on the Documents tab, then the encrypted file can be removed.
+- Daniel's PO 4661783 has no amount yet.
+- The Commodore Park note count is not rechecked.
+- Event Portables FWF confirmed at 194 against 190 allocated.
+
 **SYNC 12:06 AEST 6 Oct (Claude):** live page v8.70 `b6475604` (both agents verified), machine v8.64 unchanged; no Codex commits or comments since the v8.70 LIVE post. Record 4048 → 4080:
 - Jayden Paul's planned shifts 12–16 Oct taken off with Did not work (11:14 AEST).
 - The nine home branches entered (11:29).
