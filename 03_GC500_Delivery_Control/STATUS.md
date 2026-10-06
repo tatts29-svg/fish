@@ -40,6 +40,14 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 **Andrew, 6 Oct 2026 ~07:15 AEST (Claude chat): "P47 is cancelled. correct order next time.. p46 . Then p51 then p08".** Commodore Park is **3 buildings, not 4**: P46, P51, P08, delivered in that order. P47 is cancelled. Record changes for Codex (edit key): cancel P47 as WC32 was (deleted/row + note), and correct the Tue 06 Oct Commodore Park note on P08/P46/P51 from "4x buildings" to 3 buildings with the order P46 → P51 → P08. Not on the record yet (3854); requested on PR #1.
 
+**v8.71 — READY for guarded publication.** Author: Andrew Fisher. Candidate `7b72f561310cb337267be80a89d90e74337279f34beaeee23f2f6c6bb6c58df8`, 11,091,853 bytes, on live v8.70 `b6475604`.
+- Contracts are now the 6 Oct Baseplan export: 11 contracts, 321 lines (+15, −2, 88 changed, 19 re-joined).
+- Schedule 4 transport on the Week 3 and Week 2 loads (+$11,709 to date), four fencing semi loads, dockets, and the generator numbers.
+- Checks: v871 12/12 laptop and phone; supplier 17/17 both widths; KINP 17/17; Finance 24/24 both widths; finance862 1366/390; sweeps 15 tabs, 0 errors, 0 blocked.
+- Money: revenue to job end −$32,484 (VMS now sub-hired 19–28 Oct); costs to job end +$2,723.
+
+Inputs are encrypted in the release folder with the 2 Oct papers' password. Six questions for Andrew are in the README. Claude built and tested it; **Codex to publish**, then Claude reads it back. [Release](v8.71_baseplan_schedule4_DRAFT/README.md).
+
 **v8.71 — CLAIMED by Claude, 6 Oct 2026.** Author: Andrew Fisher. Andrew (6 Oct, Claude chat), with `Baseplan_SuperCars.xlsx` (6 Oct export, 11 contracts, 321 lines) and `GC500_26_Schedule_4.xlsx`: "Please review and Update and go Live when done". Scope:
 - Refresh the embedded contract source (`DATA.rental_on_hire`, now the 24 Sep export) to the 6 Oct export: 15 lines added, including new MEAD contract 9987005; 2 gone; 247 line changes (statuses, dockets, VMS to KINP-SUB sub-hire, generator units).
 - Add Schedule 4's new per-load transport figures (Weeks 3 and 2, fencing semis).
