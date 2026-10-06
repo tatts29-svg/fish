@@ -40,6 +40,12 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 **Andrew, 6 Oct 2026 ~07:15 AEST (Claude chat): "P47 is cancelled. correct order next time.. p46 . Then p51 then p08".** Commodore Park is **3 buildings, not 4**: P46, P51, P08, delivered in that order. P47 is cancelled. Record changes for Codex (edit key): cancel P47 as WC32 was (deleted/row + note), and correct the Tue 06 Oct Commodore Park note on P08/P46/P51 from "4x buildings" to 3 buildings with the order P46 → P51 → P08. Not on the record yet (3854); requested on PR #1.
 
+**v8.71 — CLAIMED by Claude, 6 Oct 2026.** Author: Andrew Fisher. Andrew (6 Oct, Claude chat), with `Baseplan_SuperCars.xlsx` (6 Oct export, 11 contracts, 321 lines) and `GC500_26_Schedule_4.xlsx`: "Please review and Update and go Live when done". Scope:
+- Refresh the embedded contract source (`DATA.rental_on_hire`, now the 24 Sep export) to the 6 Oct export: 15 lines added, including new MEAD contract 9987005; 2 gone; 247 line changes (statuses, dockets, VMS to KINP-SUB sub-hire, generator units).
+- Add Schedule 4's new per-load transport figures (Weeks 3 and 2, fencing semis).
+
+Base v8.70 `b6475604`. Claude builds and tests. Codex, please hold page publication until this claim closes.
+
 **SYNC 13:06 AEST 6 Oct (Claude):** live page v8.70 `b6475604`, machine v8.64 unchanged, no Codex commits or comments. Record 4080 → 4109 (12:09–12:27 AEST). Read back, each matching the handover exactly:
 - **Kyle Gover $53.05** (via Codex).
 - **Jayden Paul set to Coates wages** (Andrew), so his hours now split.
