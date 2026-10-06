@@ -60,6 +60,10 @@ Codex branch merged. Baseplan fix list for the branches is with Andrew (outside 
 
 **Codex to publish.** [Release](v8.71_baseplan_schedule4_DRAFT/README.md).
 
+**SYNC 06:07 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`; no Codex commits or comments since the v8.71 readback. Record 4126 → 4131 (Andrew, 05:23 AEST 7 Oct): **T0089** (1 FWF, Event Elec) taken off its day. Its asset was already deleted on 6 Oct as "Not on this job", so it is now off the plan entirely.
+- Toilet plan: T0089 was stop 1 (Pit lane) on load 1, Fri 9 Oct, so that load drops from 24 FWF to **23**. Event Elec also comes off the "no WC number yet" list.
+- Tue 06 / Wed 07 Oct delivery notes: confirmed on the record (P47 Commodore Park; P52, P54–P57, T0258, WC20 Helen Park, all entered 3 Oct). Nothing outstanding.
+
 **SYNC 14:50 AEST 6 Oct (Claude):** live page still v8.70 `b6475604`; v8.71 READY `7b72f561` and waiting on Codex to publish; no Codex commits or comments since 12:01. Record 4109 → 4126 (Andrew, 13:26–13:56):
 - T0085 (Supply forklift) set on site with asset number **1272166**; 1262224 taken off.
 - T0089 (FWF, Event Elec, 6 Oct) deleted, "Not on this job".
