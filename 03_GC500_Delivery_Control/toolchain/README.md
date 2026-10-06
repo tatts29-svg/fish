@@ -47,3 +47,16 @@ The uploader proves that the public view serves the candidate byte for byte. Ver
 `build.sh`, `fetch_live.sh`, `rep.py`, attribution scrub/check scripts, browser harness and `upload_page.py` are the common toolchain. The v8.61 source/tests illustrate a completed release; its patch is deliberately bound to the v8.60 base and must not be reapplied to the newer live page.
 
 Code availability does not prove that either agent's environment has an edit token or network access. The agent setting up the environment should confirm the dry run result. Recurring checks also require explicit confirmation that they are enabled.
+
+## Claude secure API credential
+
+For a cloud environment that injects a credential on outbound requests, configure its secure credential for the exact host `gc500-production.up.railway.app`, header `x-gc500-token`, empty prefix, and the private edit-key value. Do not use `Authorization: Bearer` for this service. The environment name is a label, not the key binding. Keep the credential out of the visible Environment variables field.
+
+Use the explicit proxy option when the key is injected by the platform instead of available as a private process binding:
+
+```bash
+python3 toolchain/upload_page.py build/GC500_v8.NN/GC500_Delivery_Control_hosted.html --credential-proxy --dry-run
+python3 toolchain/upload_page.py build/GC500_v8.NN/GC500_Delivery_Control_hosted.html --credential-proxy
+```
+
+The dry run must report that the service grants edit access. Merely saving the environment does not prove access. The unchanged-base guard and exact public-byte check still apply; never bypass them. Without working credential injection the dry run stops without a write. Start a session with the saved environment selected.
