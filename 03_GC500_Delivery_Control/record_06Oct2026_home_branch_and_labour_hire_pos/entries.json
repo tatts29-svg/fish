@@ -3,25 +3,106 @@
  "received": "6 Oct 2026, Andrew in his Claude chat: the home branch of every person on the roster; labour hire Daniel Gough and Kyle Gover on KINP (\"yes switch both to KINP\"); and the weekly purchase orders raised for the labour hire: \"for Kyle week ending 20/09 P/O 4657010 then week ending 27/09/2026 P/O 4660565, for Daniel week ending 04/10/2026 P/O 4661783\".",
  "for": "Codex (edit key), after v8.68 is live: enter as \"Andrew Fisher\". Home branches through the running sheet's home branch box or setOurPerson(name, {branch}); purchase orders through setPo (Costs & P&L > Finance handover > Add PO does the same). Names as the record holds them; no contact details.",
  "home_branches": [
-  {"person": "Aaron Zelvis", "branch": "KINP"},
-  {"person": "Alfie Harris", "branch": "NTSP"},
-  {"person": "Andrew Fisher", "branch": "NOIS"},
-  {"person": "Daniel Gough", "branch": "KINP"},
-  {"person": "Jayden Paul", "branch": "KINP"},
-  {"person": "Kyle Gover", "branch": "KINP"},
-  {"person": "Frank Devilles", "branch": "BFIS"},
-  {"person": "Ludwig Chee", "branch": "NSNA"},
-  {"person": "Wayne Crimmin", "branch": "STPS"}
+  {
+   "person": "Aaron Zelvis",
+   "branch": "KINP"
+  },
+  {
+   "person": "Alfie Harris",
+   "branch": "NTSP"
+  },
+  {
+   "person": "Andrew Fisher",
+   "branch": "NOIS"
+  },
+  {
+   "person": "Daniel Gough",
+   "branch": "KINP"
+  },
+  {
+   "person": "Jayden Paul",
+   "branch": "KINP"
+  },
+  {
+   "person": "Kyle Gover",
+   "branch": "KINP"
+  },
+  {
+   "person": "Frank Devilles",
+   "branch": "BFIS"
+  },
+  {
+   "person": "Ludwig Chee",
+   "branch": "NSNA"
+  },
+  {
+   "person": "Wayne Crimmin",
+   "branch": "STPS"
+  }
  ],
  "purchase_orders": [
-  {"number": "4657010", "supplier_name": "Job Connect", "stream": "labour", "what": "Kyle Gover - week ending 20 Sep 2026", "period": "w/e 20 Sep 2026", "branch": "KINP", "revenue_branch": "KINP", "amount": null},
-  {"number": "4660565", "supplier_name": "Job Connect", "stream": "labour", "what": "Kyle Gover - week ending 27 Sep 2026", "period": "w/e 27 Sep 2026", "branch": "KINP", "revenue_branch": "KINP", "amount": null},
-  {"number": "4661783", "supplier_name": "Job Connect", "stream": "labour", "what": "Daniel Gough - week ending 4 Oct 2026", "period": "w/e 4 Oct 2026", "branch": "KINP", "revenue_branch": "KINP", "amount": null}
+  {
+   "number": "4657010",
+   "supplier_name": "Job Connect",
+   "stream": "labour",
+   "what": "Kyle Gover - week ending 20 Sep 2026",
+   "period": "w/e 20 Sep 2026",
+   "branch": "KINP",
+   "revenue_branch": "KINP",
+   "amount": null
+  },
+  {
+   "number": "4660565",
+   "supplier_name": "Job Connect",
+   "stream": "labour",
+   "what": "Kyle Gover - week ending 27 Sep 2026",
+   "period": "w/e 27 Sep 2026",
+   "branch": "KINP",
+   "revenue_branch": "KINP",
+   "amount": null
+  },
+  {
+   "number": "4661783",
+   "supplier_name": "Job Connect",
+   "stream": "labour",
+   "what": "Daniel Gough - week ending 4 Oct 2026",
+   "period": "w/e 4 Oct 2026",
+   "branch": "KINP",
+   "revenue_branch": "KINP",
+   "amount": null
+  }
  ],
  "reference_running_sheet": {
   "note": "For checking against each PO's value when it is known; not entered as the PO value.",
-  "4657010": {"person": "Kyle Gover", "dates": "14-18 Sep 2026", "shifts": 5, "paid_hours": 50, "cost_at_record_rates": 2994.20},
-  "4660565": {"person": "Kyle Gover", "dates": "22-25 Sep 2026", "shifts": 4, "paid_hours": 24.5, "cost_at_record_rates": 1287.00},
-  "4661783": {"person": "Daniel Gough", "dates": "28 Sep - 2 Oct 2026", "shifts": 5, "paid_hours": 50.5, "cost_at_record_rates": 3230.60}
- }
+  "4657010": {
+   "person": "Kyle Gover",
+   "dates": "14-18 Sep 2026",
+   "shifts": 5,
+   "paid_hours": 50,
+   "cost_at_record_rates": 2994.2
+  },
+  "4660565": {
+   "person": "Kyle Gover",
+   "dates": "22-25 Sep 2026",
+   "shifts": 4,
+   "paid_hours": 24.5,
+   "cost_at_record_rates": 1287.0
+  },
+  "4661783": {
+   "person": "Daniel Gough",
+   "dates": "28 Sep - 2 Oct 2026",
+   "shifts": 5,
+   "paid_hours": 50.5,
+   "cost_at_record_rates": 3230.6
+  }
+ },
+ "pay_rate_changes": [
+  {
+   "person": "Kyle Gover",
+   "pay_rate": 53.05,
+   "was": 52.53,
+   "why": "Andrew, 6 Oct: \"i want his hourly rate to match the invoice\". Job Connect invoice for w/e 20 Sep 2026 (PO 4657010) is $3,023.70 for 57 equivalent hours (5 days x 7.6 ordinary + 2 x1.5 + 0.4 x2); $3,023.70 / 57 = $53.047. At $53.05 the week is $3,023.85 (15c over, the nearest a 2-decimal rate gets); at $53.04 it is $3,023.30 (40c under).",
+   "how": "running sheet, Kyle's row, Rate $/h box (edit link), or setOurPerson('Kyle Gover', {pay_rate: 53.05})"
+  }
+ ]
 }
