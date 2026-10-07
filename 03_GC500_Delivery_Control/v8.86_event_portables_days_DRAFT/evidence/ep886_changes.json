@@ -1,0 +1,397 @@
+{
+ "plan": "v10",
+ "prepared": "2026-10-03",
+ "source": "Event Portables plan v10, 3 Oct",
+ "approved_at": "2026-10-07T14:20:00Z",
+ "moved": [
+  {
+   "key": "WC09",
+   "task_id": "T0101",
+   "item": "FWF",
+   "qty": 4,
+   "from": "2026-10-08",
+   "to": "2026-10-09",
+   "load": 1
+  },
+  {
+   "key": "WC09",
+   "task_id": "T0259",
+   "item": "Pee Panel",
+   "qty": 6,
+   "from": "2026-10-08",
+   "to": "2026-10-09",
+   "load": 1
+  },
+  {
+   "key": "WC38",
+   "task_id": "T0091",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-07",
+   "to": "2026-10-09",
+   "load": 1
+  },
+  {
+   "key": "WC39",
+   "task_id": "T0092",
+   "item": "FWF",
+   "qty": 2,
+   "from": "2026-10-07",
+   "to": "2026-10-09",
+   "load": 1
+  },
+  {
+   "key": "WC40",
+   "task_id": "T0093",
+   "item": "FWF",
+   "qty": 5,
+   "from": "2026-10-07",
+   "to": "2026-10-09",
+   "load": 1
+  },
+  {
+   "key": "WC34",
+   "task_id": "T0099",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-08",
+   "to": "2026-10-09",
+   "load": 1
+  },
+  {
+   "key": "WC61",
+   "task_id": "T0095",
+   "item": "FWF",
+   "qty": 8,
+   "from": "2026-10-07",
+   "to": "2026-10-09",
+   "load": 1
+  },
+  {
+   "key": "WC57",
+   "task_id": "T0108",
+   "item": "FWF",
+   "qty": 2,
+   "from": "2026-10-12",
+   "to": "2026-10-09",
+   "load": 1
+  },
+  {
+   "key": "WC67",
+   "task_id": "T0262",
+   "item": "FWF",
+   "qty": 2,
+   "from": "2026-10-12",
+   "to": "2026-10-13",
+   "load": 2
+  },
+  {
+   "key": "WC68",
+   "task_id": "T0155",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-19",
+   "to": "2026-10-13",
+   "load": 2
+  },
+  {
+   "key": "WC72",
+   "task_id": "T0156",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-19",
+   "to": "2026-10-13",
+   "load": 2
+  },
+  {
+   "key": "WC29",
+   "task_id": "T0148",
+   "item": "FWF",
+   "qty": 7,
+   "from": "2026-10-19",
+   "to": "2026-10-13",
+   "load": 2
+  },
+  {
+   "key": "WC46",
+   "task_id": "T0151",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-19",
+   "to": "2026-10-15",
+   "load": 3
+  },
+  {
+   "key": "WC55",
+   "task_id": "T0152",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-19",
+   "to": "2026-10-15",
+   "load": 3
+  },
+  {
+   "key": "PG01",
+   "task_id": "T0164",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-20",
+   "to": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "PG03",
+   "task_id": "T0165",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-20",
+   "to": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "PG05",
+   "task_id": "T0166",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-20",
+   "to": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "PG29",
+   "task_id": "T0167",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-20",
+   "to": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "WC85",
+   "task_id": "T0168",
+   "item": "FWF",
+   "qty": 1,
+   "from": "2026-10-20",
+   "to": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "T0176",
+   "task_id": "T0176",
+   "item": "FWF",
+   "qty": 2,
+   "from": "2026-10-22",
+   "to": "2026-10-19",
+   "load": 4
+  }
+ ],
+ "already_on_the_load_day": [
+  {
+   "key": "WC69",
+   "task_id": "T0263",
+   "item": "FWF",
+   "qty": 12,
+   "date": "2026-10-13",
+   "load": 2
+  },
+  {
+   "key": "WC70",
+   "task_id": "T0264",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-13",
+   "load": 2
+  },
+  {
+   "key": "WC48",
+   "task_id": "T0119",
+   "item": "FWF",
+   "qty": 4,
+   "date": "2026-10-15",
+   "load": 3
+  },
+  {
+   "key": "WC49",
+   "task_id": "T0118",
+   "item": "FWF",
+   "qty": 3,
+   "date": "2026-10-15",
+   "load": 3
+  },
+  {
+   "key": "WC51",
+   "task_id": "T0122",
+   "item": "FWF",
+   "qty": 6,
+   "date": "2026-10-15",
+   "load": 3
+  },
+  {
+   "key": "WC53",
+   "task_id": "T0120",
+   "item": "FWF",
+   "qty": 3,
+   "date": "2026-10-15",
+   "load": 3
+  },
+  {
+   "key": "WC54",
+   "task_id": "T0123",
+   "item": "FWF",
+   "qty": 6,
+   "date": "2026-10-15",
+   "load": 3
+  },
+  {
+   "key": "WC65",
+   "task_id": "T0154",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "T0162",
+   "task_id": "T0162",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "WC10",
+   "task_id": "T0138",
+   "item": "FWF",
+   "qty": 3,
+   "date": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "WC28",
+   "task_id": "T0147",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "WC30",
+   "task_id": "T0149",
+   "item": "FWF",
+   "qty": 8,
+   "date": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "WC35",
+   "task_id": "T0150",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 4
+  },
+  {
+   "key": "WC19",
+   "task_id": "T0141",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC73",
+   "task_id": "T0157",
+   "item": "FWF",
+   "qty": 2,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC13",
+   "task_id": "T0146",
+   "item": "FWF",
+   "qty": 2,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC23",
+   "task_id": "T0143",
+   "item": "FWF",
+   "qty": 5,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC24",
+   "task_id": "T0145",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC25",
+   "task_id": "T0142",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC26",
+   "task_id": "T0144",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC45",
+   "task_id": "T0139",
+   "item": "FWF",
+   "qty": 8,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC47",
+   "task_id": "T0140",
+   "item": "FWF",
+   "qty": 1,
+   "date": "2026-10-19",
+   "load": 5
+  },
+  {
+   "key": "WC62",
+   "task_id": "T0153",
+   "item": "FWF",
+   "qty": 2,
+   "date": "2026-10-19",
+   "load": 5
+  }
+ ],
+ "off_plan": [
+  {
+   "load": 1,
+   "task_ref": "T0089",
+   "name": "Event Elec (T0089)",
+   "fwf": 1,
+   "why": "off the plan on the record (Andrew Fisher, 7 Oct 2026): the row stays where the record put it"
+  }
+ ],
+ "unmatched": [
+  {
+   "load": 4,
+   "name": "Brad Jones Racing (no task ref)",
+   "fwf": 1,
+   "why": "no WC number and no task reference: nothing on the page carries this drop yet"
+  },
+  {
+   "load": 4,
+   "name": "Shell V-Power (no task ref)",
+   "fwf": 1,
+   "why": "no WC number and no task reference: nothing on the page carries this drop yet"
+  }
+ ]
+}

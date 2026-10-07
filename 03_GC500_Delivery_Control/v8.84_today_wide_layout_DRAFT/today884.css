@@ -1,0 +1,25 @@
+/* Author: Andrew Fisher. v8.84: Today uses the full screen width on every size; no empty side margins. */
+@media screen {
+ #pane-today.today876 {max-width:none!important;width:100%;padding:0 clamp(16px,1.6vw,36px) 28px!important;box-sizing:border-box;}
+ #pane-today:focus,#pane-today:focus-visible {outline:none!important;}
+ /* Banner: one full-width dark band, picture centred and kept to a sensible height, matching the header. */
+ #pane-today.today876 > .dsnband {max-width:none!important;width:100%;margin:12px 0 18px!important;padding:12px;box-sizing:border-box;display:flex;justify-content:center;border-radius:14px;background:linear-gradient(180deg,#141c21,#0b1114);box-shadow:inset 0 0 0 1px #ffffff12;}
+ #pane-today.today876 > .dsnband > .bhero {width:min(100%,calc(42vh * 1672 / 575),1760px);margin:0 auto;}
+ #pane-today.today876 > .acts793 {margin:0 0 22px;}
+ /* Progress cards: equal heights side by side; three across on wide screens, Fencing stays full width. */
+ #pane-today.today876 .tw840-grid {align-items:stretch;grid-auto-flow:row dense;}
+ #pane-today.today876 .tw840-grid > .tw848-card {height:100%;box-sizing:border-box;}
+ /* Gauge titles keep whole words. Once the gauge sits beside the counts (card 640 px and up), the title scales with its card. */
+ @container tw846group (min-width:640px) {
+  #pane-today.today876 .tw848-card:not(.tw841-fence-card) .tw846-title {font-size:clamp(28px,calc(6.2cqi - 6px),42px);overflow-wrap:normal;word-break:keep-all;}
+ }
+}
+@media screen and (min-width:1960px) {
+ #pane-today.today876 .tw840-grid {grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+ #pane-today.today876 .teamhub .tm-list {grid-template-columns:repeat(4,minmax(0,1fr));}
+}
+@media screen and (max-width:720px) {
+ #pane-today.today876 {padding:0 12px 24px!important;}
+ #pane-today.today876 > .dsnband {padding:6px;border-radius:10px;margin:8px 0 14px!important;}
+ #pane-today.today876 > .dsnband > .bhero {width:100%;}
+}

@@ -1,0 +1,408 @@
+{
+ "pdf_sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+ "pdf_bytes": 12189113,
+ "old_master_sha256": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f",
+ "shift_px": 28,
+ "sheet_media": {
+  "file": "fa5081d4a91c487499add2ff78fa84a9666f0d33920a329bf2997047ab2c3405.webp",
+  "sha256": "fa5081d4a91c487499add2ff78fa84a9666f0d33920a329bf2997047ab2c3405",
+  "type": "image/webp",
+  "bytes": 652414,
+  "scope": "view"
+ },
+ "media": [
+  {
+   "file": "fa5081d4a91c487499add2ff78fa84a9666f0d33920a329bf2997047ab2c3405.webp",
+   "sha256": "fa5081d4a91c487499add2ff78fa84a9666f0d33920a329bf2997047ab2c3405",
+   "type": "image/webp",
+   "bytes": 652414,
+   "scope": "view"
+  },
+  {
+   "file": "5b1002f0eb3125eddda5a4f4f8c5f1f2e5e6fb6cf6a1206b38ac894da0ac9566.webp",
+   "sha256": "5b1002f0eb3125eddda5a4f4f8c5f1f2e5e6fb6cf6a1206b38ac894da0ac9566",
+   "type": "image/webp",
+   "bytes": 71972,
+   "scope": "view"
+  },
+  {
+   "file": "dca3726ddd152a7c98f9a1f8ab9700b39b33300d4b76e89a576a7e82804549fa.webp",
+   "sha256": "dca3726ddd152a7c98f9a1f8ab9700b39b33300d4b76e89a576a7e82804549fa",
+   "type": "image/webp",
+   "bytes": 76000,
+   "scope": "view"
+  },
+  {
+   "file": "163ab9343d25c2e1d472f38be4ebf43730ad9d6428a3ce767a482d04aa90e812.webp",
+   "sha256": "163ab9343d25c2e1d472f38be4ebf43730ad9d6428a3ce767a482d04aa90e812",
+   "type": "image/webp",
+   "bytes": 41958,
+   "scope": "view"
+  },
+  {
+   "file": "2a3de433226a6088d8e2c9e3132d6f09a35eadd2e032485569594646444b8fad.webp",
+   "sha256": "2a3de433226a6088d8e2c9e3132d6f09a35eadd2e032485569594646444b8fad",
+   "type": "image/webp",
+   "bytes": 105864,
+   "scope": "view"
+  },
+  {
+   "file": "c3036dc5d492e480e331be84ca47cfc9105ef1a21cc25990f46afffb45ac019a.webp",
+   "sha256": "c3036dc5d492e480e331be84ca47cfc9105ef1a21cc25990f46afffb45ac019a",
+   "type": "image/webp",
+   "bytes": 38378,
+   "scope": "view"
+  },
+  {
+   "file": "6557c6b3850e8a2dcd6442254bb5462014937e16c46cbc947fb8c839d8f5e9de.webp",
+   "sha256": "6557c6b3850e8a2dcd6442254bb5462014937e16c46cbc947fb8c839d8f5e9de",
+   "type": "image/webp",
+   "bytes": 100926,
+   "scope": "view"
+  },
+  {
+   "file": "537d93c2caa00c0f629191d49b2969123e7d06be7b062a992020c0496f7315bf.webp",
+   "sha256": "537d93c2caa00c0f629191d49b2969123e7d06be7b062a992020c0496f7315bf",
+   "type": "image/webp",
+   "bytes": 62098,
+   "scope": "view"
+  },
+  {
+   "file": "56754ed048a74a7587ea1d4d1ac1455b47f663d872db1d48983883868ba3730a.webp",
+   "sha256": "56754ed048a74a7587ea1d4d1ac1455b47f663d872db1d48983883868ba3730a",
+   "type": "image/webp",
+   "bytes": 82858,
+   "scope": "view"
+  },
+  {
+   "file": "89e4eb467cf2c065001444f07cdd853bb0ee42ee0676387e109d983f0d978241.webp",
+   "sha256": "89e4eb467cf2c065001444f07cdd853bb0ee42ee0676387e109d983f0d978241",
+   "type": "image/webp",
+   "bytes": 43400,
+   "scope": "view"
+  },
+  {
+   "file": "b2801a970f587314e73f89562a702e290c87bef6aac9761e4bb55714058a2d21.webp",
+   "sha256": "b2801a970f587314e73f89562a702e290c87bef6aac9761e4bb55714058a2d21",
+   "type": "image/webp",
+   "bytes": 117498,
+   "scope": "view"
+  }
+ ],
+ "master_loc": {
+  "P45": {
+   "ll": [
+    -27.988891,
+    153.430071
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 85 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
+   "prec": "unit",
+   "img": [
+    "5b1002f0eb3125eddda5a4f4f8c5f1f2e5e6fb6cf6a1206b38ac894da0ac9566",
+    "dca3726ddd152a7c98f9a1f8ab9700b39b33300d4b76e89a576a7e82804549fa"
+   ],
+   "pt": [
+    0.50738,
+    0.19555
+   ]
+  },
+  "WC38": {
+   "ll": [
+    -27.983631,
+    153.424238
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 13 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
+   "near": [
+    "Gate 2 (~30 m)",
+    "Commodore (~55 m)"
+   ],
+   "next": [
+    "GEM"
+   ],
+   "beside": [
+    "P08",
+    "P51"
+   ],
+   "prec": "unit",
+   "img": [
+    "163ab9343d25c2e1d472f38be4ebf43730ad9d6428a3ce767a482d04aa90e812",
+    "2a3de433226a6088d8e2c9e3132d6f09a35eadd2e032485569594646444b8fad"
+   ],
+   "pt": [
+    0.20889,
+    0.68542
+   ],
+   "sec": "S10"
+  },
+  "WC39": {
+   "ll": [
+    -27.983559,
+    153.423886
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 9 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
+   "near": [
+    "Gate 2 (~55 m)",
+    "Park (~35 m)"
+   ],
+   "next": [
+    "COW",
+    "OPT"
+   ],
+   "beside": [
+    "OP14",
+    "P46"
+   ],
+   "prec": "unit",
+   "img": [
+    "c3036dc5d492e480e331be84ca47cfc9105ef1a21cc25990f46afffb45ac019a",
+    "6557c6b3850e8a2dcd6442254bb5462014937e16c46cbc947fb8c839d8f5e9de"
+   ],
+   "pt": [
+    0.20915,
+    0.69716
+   ]
+  },
+  "WC51": {
+   "ll": [
+    -27.993005,
+    153.430532
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 18 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
+   "near": [
+    "Gate 6 (~30 m)"
+   ],
+   "next": [
+    "SCALES"
+   ],
+   "prec": "unit",
+   "img": [
+    "537d93c2caa00c0f629191d49b2969123e7d06be7b062a992020c0496f7315bf",
+    "56754ed048a74a7587ea1d4d1ac1455b47f663d872db1d48983883868ba3730a"
+   ],
+   "pt": [
+    0.81939,
+    0.1626
+   ]
+  },
+  "WC10": {
+   "pt": [
+    0.26896,
+    0.38855
+   ],
+   "ll": [
+    -27.9845026,
+    153.4277044
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (new on this issue; navigation pin read off the drawing, not yet checked on site)",
+   "prec": "unit",
+   "img": [
+    "89e4eb467cf2c065001444f07cdd853bb0ee42ee0676387e109d983f0d978241",
+    "b2801a970f587314e73f89562a702e290c87bef6aac9761e4bb55714058a2d21"
+   ],
+   "sec": "S01"
+  },
+  "WC81": {
+   "ll": [
+    -27.997491,
+    153.42851
+   ],
+   "how": "tag on the unit, master D001",
+   "near": [
+    "Surfers Paradise Blvd (~50 m)"
+   ],
+   "beside": [
+    "P68"
+   ],
+   "prec": "unit",
+   "img": [
+    "7502df7b1d7956b8f4dbbb980ef1b94afe75b8082311a202283b82c746156956",
+    "b5441f3172f0c72ce0a8c53abcbbb5a8b4a6c7551bc15af5ce84375d06636aeb"
+   ],
+   "pt": [
+    0.91736,
+    0.74246
+   ]
+  },
+  "CP1": {
+   "ll": [
+    -27.99749,
+    153.428257
+   ],
+   "how": "leader line from callout CP1 on D022",
+   "prec": "unit",
+   "img": [
+    "2993c29f0990473e176e97628be6b6e2794948d5e330afe03cafca8e53f5ff22",
+    "09660fa712412894c02ac72ac94cd7960a84f6b7ea2474bd802b099a9d0b6bc8"
+   ],
+   "pt": [
+    0.91719,
+    0.76348
+   ]
+  },
+  "T0265": {
+   "ll": [
+    -27.99729,
+    153.427182
+   ],
+   "how": "OP42 label on the master",
+   "near": [
+    "Gold Coast Hwy (~25 m)"
+   ],
+   "prec": "area",
+   "pt": [
+    0.90381,
+    0.85273
+   ]
+  },
+  "WC69": {
+   "ll": [
+    -27.981495,
+    153.424185
+   ],
+   "how": "tag on the unit, master D001 (the second of its two tags; D023 callout WC69 and zone page K228 both put it here); one tag on the 2 Oct issue",
+   "near": [
+    "Breaker St (~55 m)",
+    "S23 (~15 m)",
+    "Gate 1 (~65 m)",
+    "Helen (~50 m)"
+   ],
+   "prec": "unit",
+   "img": [
+    "3663b1483d991d5104c2f7fa42b4272b71379e74eacb544bb3beb42d214ba353",
+    "c4694ae2fbf610791368c03e28d2ea89ccd1afb0c702e49537cb25c445120793"
+   ],
+   "pt": [
+    0.07047,
+    0.67874
+   ],
+   "sec": "S23"
+  },
+  "WC40": {
+   "ll": [
+    -27.983644,
+    153.424458
+   ],
+   "how": "tag on the unit, master D001; the 2 Oct issue drops the second tag (WC40a)",
+   "near": [
+    "S10 (~80 m)",
+    "Gate 2 (~30 m)",
+    "Commodore (~65 m)"
+   ],
+   "prec": "unit",
+   "img": [
+    "db182e39fb6ccae27a2bfd710803a1e8a85039302c22be74d459aa0a98a1ed41",
+    "f98598736b4bcd1623cf2675dfd2bdc68f73eb18f87258ef3cb10cacdd13ac9b"
+   ],
+   "pt": [
+    0.21195,
+    0.65665
+   ],
+   "sec": "S10"
+  },
+  "WC32": {
+   "ll": [
+    -27.982793,
+    153.424621
+   ],
+   "how": "tag on the unit, master D001 issued 17 Sep (not drawn on the 2 Oct issue)",
+   "near": [
+    "S25 (~55 m)",
+    "Gate 2 (~70 m)",
+    "The Hill (~75 m)"
+   ],
+   "prec": "unit",
+   "img": [
+    "4c421a0214c0069a677b5399dc9fd388f1710fa893aaf0522eb1455b3c8a850e",
+    "34ed2e206ec279a87d60e254f0d6ea7c5a9b8c55ca330467ad19d127f2cc5536"
+   ],
+   "pt": [
+    0.15596,
+    0.64299
+   ],
+   "sec": "S25"
+  }
+ },
+ "notes": [
+  {
+   "ref": "P45",
+   "moved_m": 85,
+   "fit_worst_m": 0.1,
+   "pt": [
+    0.50738,
+    0.19555
+   ],
+   "ll": [
+    -27.988891,
+    153.430071
+   ]
+  },
+  {
+   "ref": "WC38",
+   "moved_m": 13,
+   "fit_worst_m": 0.12,
+   "pt": [
+    0.20889,
+    0.68542
+   ],
+   "ll": [
+    -27.983631,
+    153.424238
+   ]
+  },
+  {
+   "ref": "WC39",
+   "moved_m": 9,
+   "fit_worst_m": 0.11,
+   "pt": [
+    0.20915,
+    0.69716
+   ],
+   "ll": [
+    -27.983559,
+    153.423886
+   ]
+  },
+  {
+   "ref": "WC51",
+   "moved_m": 18,
+   "fit_worst_m": 0.1,
+   "pt": [
+    0.81939,
+    0.1626
+   ],
+   "ll": [
+    -27.993005,
+    153.430532
+   ]
+  },
+  {
+   "ref": "WC10",
+   "moved_m": null,
+   "fit_worst_m": 0.1,
+   "pt": [
+    0.26896,
+    0.38855
+   ],
+   "ll": [
+    -27.9845026,
+    153.4277044
+   ]
+  },
+  {
+   "ref": "WC81",
+   "inset_shift_px": 28
+  },
+  {
+   "ref": "CP1",
+   "inset_shift_px": 28
+  },
+  {
+   "ref": "T0265",
+   "inset_shift_px": 28
+  }
+ ],
+ "sector_check": {
+  "agree": 95,
+  "with_sec": 104
+ }
+}
