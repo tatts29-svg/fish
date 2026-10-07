@@ -1,0 +1,1014 @@
+{
+ "tag": "laptop",
+ "timing": {
+  "iso": "2026-10-19",
+  "loads": 30,
+  "runs": [
+   579,
+   534,
+   782,
+   704,
+   429,
+   468,
+   488,
+   433,
+   460
+  ],
+  "median": 488,
+  "dpLoads30ms": 18,
+  "flow": true
+ },
+ "results": [
+  {
+   "name": "render time of the day view is reasonable (488 ms median, 30 loads; the before/after measure is timing.cjs on a quiet machine)",
+   "pass": true,
+   "detail": {
+    "iso": "2026-10-19",
+    "loads": 30,
+    "runs": [
+     579,
+     534,
+     782,
+     704,
+     429,
+     468,
+     488,
+     433,
+     460
+    ],
+    "median": 488,
+    "dpLoads30ms": 18,
+    "flow": true
+   }
+  },
+  {
+   "name": "the rules carry their source (the project manager, 8 Oct 2026 — the page’s own words for Andrew): Main Beach 1, Helen Park 4, oversized guide 7, holding 4",
+   "pass": true,
+   "detail": {
+    "source": "the project manager, 8 Oct 2026, 03:40 AEST",
+    "maxHelen": 4,
+    "maxMain": 1,
+    "ov": 7,
+    "holdMax": 4,
+    "len": 50.17659479102371,
+    "toLabel": 40.23890723468016,
+    "toMp": 74.97720071028327,
+    "pinsSame": true,
+    "pit": [
+     [
+      "2026-09-10",
+      6,
+      "up to 6 trucks (Week 6)"
+     ],
+     [
+      "2026-09-15",
+      6,
+      "up to 6 trucks (Week 5)"
+     ],
+     [
+      "2026-09-22",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Week 4)"
+     ],
+     [
+      "2026-10-03",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Week 3)"
+     ],
+     [
+      "2026-10-08",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Week 2)"
+     ],
+     [
+      "2026-10-19",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Event Week)"
+     ],
+     [
+      "2026-10-27",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Demob Week 1)"
+     ],
+     [
+      "2026-09-01",
+      null,
+      "not set — before the programme (the first allowance is Week 6)"
+     ]
+    ],
+    "checklist": [
+     "Site aware of truck status",
+     "Loads all ready",
+     "Truck doors loaded on the correct side",
+     "Trucks staggered"
+    ]
+   }
+  },
+  {
+   "name": "Helen Park holding strip: about 50 m, within 60 m of the master’s Helen Park label and 100 m of the Helen Park meet point; no pin moved",
+   "pass": true,
+   "detail": {
+    "source": "the project manager, 8 Oct 2026, 03:40 AEST",
+    "maxHelen": 4,
+    "maxMain": 1,
+    "ov": 7,
+    "holdMax": 4,
+    "len": 50.17659479102371,
+    "toLabel": 40.23890723468016,
+    "toMp": 74.97720071028327,
+    "pinsSame": true,
+    "pit": [
+     [
+      "2026-09-10",
+      6,
+      "up to 6 trucks (Week 6)"
+     ],
+     [
+      "2026-09-15",
+      6,
+      "up to 6 trucks (Week 5)"
+     ],
+     [
+      "2026-09-22",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Week 4)"
+     ],
+     [
+      "2026-10-03",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Week 3)"
+     ],
+     [
+      "2026-10-08",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Week 2)"
+     ],
+     [
+      "2026-10-19",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Event Week)"
+     ],
+     [
+      "2026-10-27",
+      2,
+      "max 2 trucks (Week 4 onwards; this day is Demob Week 1)"
+     ],
+     [
+      "2026-09-01",
+      null,
+      "not set — before the programme (the first allowance is Week 6)"
+     ]
+    ],
+    "checklist": [
+     "Site aware of truck status",
+     "Loads all ready",
+     "Truck doors loaded on the correct side",
+     "Trucks staggered"
+    ]
+   }
+  },
+  {
+   "name": "pit lane allowance follows the programme weeks: Weeks 6–5 up to 6, Week 4 onwards 2 (gaps take the week before), before the programme not set",
+   "pass": true,
+   "detail": [
+    [
+     "2026-09-10",
+     6,
+     "up to 6 trucks (Week 6)"
+    ],
+    [
+     "2026-09-15",
+     6,
+     "up to 6 trucks (Week 5)"
+    ],
+    [
+     "2026-09-22",
+     2,
+     "max 2 trucks (Week 4 onwards; this day is Week 4)"
+    ],
+    [
+     "2026-10-03",
+     2,
+     "max 2 trucks (Week 4 onwards; this day is Week 3)"
+    ],
+    [
+     "2026-10-08",
+     2,
+     "max 2 trucks (Week 4 onwards; this day is Week 2)"
+    ],
+    [
+     "2026-10-19",
+     2,
+     "max 2 trucks (Week 4 onwards; this day is Event Week)"
+    ],
+    [
+     "2026-10-27",
+     2,
+     "max 2 trucks (Week 4 onwards; this day is Demob Week 1)"
+    ],
+    [
+     "2026-09-01",
+     null,
+     "not set — before the programme (the first allowance is Week 6)"
+    ]
+   ]
+  },
+  {
+   "name": "the printed checklist is Andrew’s four lines",
+   "pass": true,
+   "detail": [
+    "Site aware of truck status",
+    "Loads all ready",
+    "Truck doors loaded on the correct side",
+    "Trucks staggered"
+   ]
+  },
+  {
+   "name": "with no saved order every day reads exactly as before (43 days)",
+   "pass": true,
+   "detail": {
+    "same": true,
+    "days": 43,
+    "wc60": true,
+    "gn18": false,
+    "fwf": false,
+    "late": {
+     "state": "late",
+     "words": "loaded 08:30 — on the road in the 07:00–09:00 restriction; the earliest run is away from Kingston by 05:00, on site before 07:00",
+     "fix": "Make it Load 1 and give the carrier a 05:00 load time"
+    },
+    "ok": {
+     "state": "ok",
+     "words": "on the earliest run — loaded 04:30, away by 05:00, on site before 07:00"
+    },
+    "early": {
+     "state": "ok",
+     "words": "loaded 05:30, on site about 06:40, before the 07:00 restriction (the page’s rule says away by 05:00)"
+    },
+    "unknown": {
+     "state": "unknown",
+     "words": "Kingston load time not known — the earliest run is loaded and away by 05:00, on site before 07:00"
+    },
+    "none": null,
+    "win": {
+     "start": 370,
+     "finish": 400,
+     "known": true,
+     "basis": "from the 05:00 Kingston load time (about 70 min run, 30 min to unload)",
+     "planned": false
+    },
+    "winAfter": {
+     "start": 420,
+     "finish": 450,
+     "known": true,
+     "basis": "from the 05:00 Kingston load time (about 70 min run, 30 min to unload)",
+     "planned": false
+    },
+    "winNone": {
+     "start": null,
+     "finish": null,
+     "known": false,
+     "basis": "not known — no planned unloading window (Crew) and no Kingston load time"
+    }
+   }
+  },
+  {
+   "name": "oversized reads the item words: WC60’s Toilet Block 6m yes, GN18 generator no, FWF toilets no",
+   "pass": true,
+   "detail": {
+    "same": true,
+    "days": 43,
+    "wc60": true,
+    "gn18": false,
+    "fwf": false,
+    "late": {
+     "state": "late",
+     "words": "loaded 08:30 — on the road in the 07:00–09:00 restriction; the earliest run is away from Kingston by 05:00, on site before 07:00",
+     "fix": "Make it Load 1 and give the carrier a 05:00 load time"
+    },
+    "ok": {
+     "state": "ok",
+     "words": "on the earliest run — loaded 04:30, away by 05:00, on site before 07:00"
+    },
+    "early": {
+     "state": "ok",
+     "words": "loaded 05:30, on site about 06:40, before the 07:00 restriction (the page’s rule says away by 05:00)"
+    },
+    "unknown": {
+     "state": "unknown",
+     "words": "Kingston load time not known — the earliest run is loaded and away by 05:00, on site before 07:00"
+    },
+    "none": null,
+    "win": {
+     "start": 370,
+     "finish": 400,
+     "known": true,
+     "basis": "from the 05:00 Kingston load time (about 70 min run, 30 min to unload)",
+     "planned": false
+    },
+    "winAfter": {
+     "start": 420,
+     "finish": 450,
+     "known": true,
+     "basis": "from the 05:00 Kingston load time (about 70 min run, 30 min to unload)",
+     "planned": false
+    },
+    "winNone": {
+     "start": null,
+     "finish": null,
+     "known": false,
+     "basis": "not known — no planned unloading window (Crew) and no Kingston load time"
+    }
+   }
+  },
+  {
+   "name": "curfew first: an oversized load loaded 08:30 is on the road in the 07:00–09:00 restriction; 04:30 is the earliest run; no time says so; not oversized is not flagged",
+   "pass": true,
+   "detail": {
+    "same": true,
+    "days": 43,
+    "wc60": true,
+    "gn18": false,
+    "fwf": false,
+    "late": {
+     "state": "late",
+     "words": "loaded 08:30 — on the road in the 07:00–09:00 restriction; the earliest run is away from Kingston by 05:00, on site before 07:00",
+     "fix": "Make it Load 1 and give the carrier a 05:00 load time"
+    },
+    "ok": {
+     "state": "ok",
+     "words": "on the earliest run — loaded 04:30, away by 05:00, on site before 07:00"
+    },
+    "early": {
+     "state": "ok",
+     "words": "loaded 05:30, on site about 06:40, before the 07:00 restriction (the page’s rule says away by 05:00)"
+    },
+    "unknown": {
+     "state": "unknown",
+     "words": "Kingston load time not known — the earliest run is loaded and away by 05:00, on site before 07:00"
+    },
+    "none": null,
+    "win": {
+     "start": 370,
+     "finish": 400,
+     "known": true,
+     "basis": "from the 05:00 Kingston load time (about 70 min run, 30 min to unload)",
+     "planned": false
+    },
+    "winAfter": {
+     "start": 420,
+     "finish": 450,
+     "known": true,
+     "basis": "from the 05:00 Kingston load time (about 70 min run, 30 min to unload)",
+     "planned": false
+    },
+    "winNone": {
+     "start": null,
+     "finish": null,
+     "known": false,
+     "basis": "not known — no planned unloading window (Crew) and no Kingston load time"
+    }
+   }
+  },
+  {
+   "name": "arrival windows: a 05:00 booking lands 06:10–06:40 (70 min run, 30 min unload); a 05:00 schedule load waits for the 07:00 access; no time means not known",
+   "pass": true,
+   "detail": {
+    "same": true,
+    "days": 43,
+    "wc60": true,
+    "gn18": false,
+    "fwf": false,
+    "late": {
+     "state": "late",
+     "words": "loaded 08:30 — on the road in the 07:00–09:00 restriction; the earliest run is away from Kingston by 05:00, on site before 07:00",
+     "fix": "Make it Load 1 and give the carrier a 05:00 load time"
+    },
+    "ok": {
+     "state": "ok",
+     "words": "on the earliest run — loaded 04:30, away by 05:00, on site before 07:00"
+    },
+    "early": {
+     "state": "ok",
+     "words": "loaded 05:30, on site about 06:40, before the 07:00 restriction (the page’s rule says away by 05:00)"
+    },
+    "unknown": {
+     "state": "unknown",
+     "words": "Kingston load time not known — the earliest run is loaded and away by 05:00, on site before 07:00"
+    },
+    "none": null,
+    "win": {
+     "start": 370,
+     "finish": 400,
+     "known": true,
+     "basis": "from the 05:00 Kingston load time (about 70 min run, 30 min to unload)",
+     "planned": false
+    },
+    "winAfter": {
+     "start": 420,
+     "finish": 450,
+     "known": true,
+     "basis": "from the 05:00 Kingston load time (about 70 min run, 30 min to unload)",
+     "planned": false
+    },
+    "winNone": {
+     "start": null,
+     "finish": null,
+     "known": false,
+     "basis": "not known — no planned unloading window (Crew) and no Kingston load time"
+    }
+   }
+  },
+  {
+   "name": "a coming day with several delivery loads exists for the practice (2026-10-08)",
+   "pass": true,
+   "detail": "2026-10-08"
+  },
+  {
+   "name": "the Truck flow card sits on the day under its figures, headed by who is on and the loads (People on: not set · 4 loads)",
+   "pass": true,
+   "detail": {
+    "h3": "People on: not set · 4 loads",
+    "rows": [
+     "Order",
+     "Main Beach",
+     "Pit lane",
+     "Helen Park",
+     "Oversized",
+     "Curfew first",
+     "Could share a truck"
+    ]
+   }
+  },
+  {
+   "name": "people on is not set until somebody sets it, and the card says what the number gives",
+   "pass": true,
+   "detail": {
+    "h3": "People on: not set · 4 loads",
+    "sub": "Set who is on for the day — that gives the day its numbers (2 people attend each unload; the site takes 2 trucks loading or unloading at once)."
+   }
+  },
+  {
+   "name": "every delivery load line carries the order controls (grip, ▲, ▼) and reads Load k of N; the ends are disabled",
+   "pass": true,
+   "detail": {
+    "lines": 4,
+    "D": 4,
+    "ords": [
+     "Load 1 of 4",
+     "Load 2 of 4",
+     "Load 3 of 4",
+     "Load 4 of 4"
+    ]
+   }
+  },
+  {
+   "name": "the rules fold is closed, names its source and carries a Navigate link to the Helen Park holding strip",
+   "pass": true,
+   "detail": {
+    "rulesOpen": false,
+    "nav": true
+   }
+  },
+  {
+   "name": "could share a truck: same-area pairs are listed but none is suggested — weights and dimensions are not on the page; the guide is linked",
+   "pass": true,
+   "detail": {
+    "n": 0
+   }
+  },
+  {
+   "name": "loads with no arrival window are counted and the card says how to give them one",
+   "pass": true,
+   "detail": {
+    "unknown": 0
+   }
+  },
+  {
+   "name": "on the view link a reorder is refused the page’s way (View only …) and nothing moves",
+   "pass": true,
+   "detail": {
+    "flash": "View only — this link shows the shared record and cannot change it. The day’s load order was not made.",
+    "same": true,
+    "cap": "view"
+   }
+  },
+  {
+   "name": "▼ on Load 1 swaps it with Load 2 and every label renumbers at once: the list, the Drivers plate menu, the sheet header, the message model and the pre-dispatch scope",
+   "pass": true,
+   "detail": {
+    "ids0": [
+     "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312",
+     "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+     "2026-10-08|deliveries|T0103",
+     "2026-10-08|deliveries|WC31"
+    ],
+    "ids1": [
+     "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+     "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312",
+     "2026-10-08|deliveries|T0103",
+     "2026-10-08|deliveries|WC31"
+    ],
+    "plate": [
+     "Load 1 WC09 10:00 · SFL",
+     "Load 2 WC09 09:30 · SFL",
+     "Load 3 T0103 09:00 · KEV"
+    ],
+    "sig0": "WC09@10:00",
+    "modelSig": "WC09@10:00",
+    "scope0": "Load 1 · Delivery · WC09 · 10:00 load time · SFL",
+    "ords": [
+     "Load 1 of 4",
+     "Load 2 of 4",
+     "Load 3 of 4",
+     "Load 4 of 4"
+    ]
+   }
+  },
+  {
+   "name": "the order is saved on the crew planning record: one day document with the loads in order, and each reference’s planned arrival order (crew883) set to match — stamped, named, in the synced documents, and the later stamp wins a merge both ways",
+   "pass": true,
+   "detail": {
+    "doc": {
+     "kind": "flow891",
+     "ids": [
+      "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+      "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312",
+      "2026-10-08|deliveries|T0103",
+      "2026-10-08|deliveries|WC31"
+     ],
+     "by": "Isolated check",
+     "stamped": true
+    },
+    "rec": [
+     {
+      "ref": "WC09",
+      "order": 1,
+      "kind": "crew883",
+      "by": "Isolated check",
+      "stamped": true
+     },
+     {
+      "ref": "T0103",
+      "order": 3,
+      "kind": "crew883",
+      "by": "Isolated check",
+      "stamped": true
+     },
+     {
+      "ref": "WC31",
+      "order": 4,
+      "kind": "crew883",
+      "by": "Isolated check",
+      "stamped": true
+     }
+    ],
+    "refsAll": 3,
+    "inDocs": true,
+    "merge": true,
+    "flash": "Load order saved — the Load numbers now read this way on the Drivers and Install PDFs, the messages and this day."
+   }
+  },
+  {
+   "name": "no scroll jump on reorder (0 px) and the focus stays on the control that was pressed",
+   "pass": true,
+   "detail": {
+    "jump": 0,
+    "focused": "down"
+   }
+  },
+  {
+   "name": "Alt + ↑ on the grip moves the load up (keyboard), and the grip keeps focus",
+   "pass": true,
+   "detail": {
+    "moved": true,
+    "focusGrip": true
+   }
+  },
+  {
+   "name": "drag and drop reorders (desktop pointer drag left it; the drop rule itself puts a load after another)",
+   "pass": true,
+   "detail": {
+    "dragged": {
+     "before": [
+      "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312",
+      "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+      "2026-10-08|deliveries|T0103",
+      "2026-10-08|deliveries|WC31"
+     ],
+     "after": [
+      "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312",
+      "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+      "2026-10-08|deliveries|T0103",
+      "2026-10-08|deliveries|WC31"
+     ],
+     "changed": false
+    },
+    "Dfn": {
+     "r": true,
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "people on sets the day’s numbers: 3 people on → 1 unload at a time (2 people each); blank → not set",
+   "pass": true,
+   "detail": {
+    "h": "3 people on · 4 loads",
+    "sub": "allows 1 unload at a time (2 people each; site limit 2 trucks at once)",
+    "count": 3,
+    "unset": "People on: not set · 4 loads",
+    "countAfter": null
+   }
+  },
+  {
+   "name": "Main Beach: two trucks planned 09:00–09:30 are flagged (limit 1) with the fix — stagger the later one to 09:30, or hold it at Helen Park; an Area full chip sits on the line",
+   "pass": true,
+   "detail": {
+    "iso": "2026-10-09",
+    "loads": [
+     2,
+     6
+    ],
+    "peak": 2,
+    "conflicts": [
+     {
+      "at": 540,
+      "loads": [
+       2,
+       6
+      ],
+      "to": 570
+     }
+    ],
+    "flagged": true,
+    "chip": [
+     "Area full",
+     "Area full"
+    ],
+    "to": 570,
+    "after": 0,
+    "movedStart": "09:30",
+    "movedFinish": "10:00",
+    "cleared": true
+   }
+  },
+  {
+   "name": "one tap staggers the later load to 09:30 through the crew record (planned unloading window 09:30–10:00) and the flag clears",
+   "pass": true,
+   "detail": {
+    "iso": "2026-10-09",
+    "loads": [
+     2,
+     6
+    ],
+    "peak": 2,
+    "conflicts": [
+     {
+      "at": 540,
+      "loads": [
+       2,
+       6
+      ],
+      "to": 570
+     }
+    ],
+    "flagged": true,
+    "chip": [
+     "Area full",
+     "Area full"
+    ],
+    "to": 570,
+    "after": 0,
+    "movedStart": "09:30",
+    "movedFinish": "10:00",
+    "cleared": true
+   }
+  },
+  {
+   "name": "7 Oct: the oversized buildings loaded 08:30 (P57, P52) are flagged curfew-first; the 05:00 loads are on the earliest run; WC60 (1 Oct, loaded 08:30) reads the same",
+   "pass": true,
+   "detail": {
+    "late": [
+     "P57",
+     "P52",
+     "WC20",
+     "WC20"
+    ],
+    "ok": [
+     "P55",
+     "P56",
+     "P54",
+     "WC86 + T0258"
+    ],
+    "wc60": "late",
+    "wc60words": "loaded 08:30 — on the road in the 07:00–09:00 restriction; the earliest run is away from Kingston by 05:00, on site before 07:00",
+    "flagged": true,
+    "hadBtn": true,
+    "movedFirst": true,
+    "chips": [
+     "Curfew first",
+     "Curfew first",
+     "Curfew first",
+     "Curfew first"
+    ]
+   }
+  },
+  {
+   "name": "one tap makes a flagged load Load 1 (the day’s order), and the lines carry a Curfew first chip",
+   "pass": true,
+   "detail": {
+    "late": [
+     "P57",
+     "P52",
+     "WC20",
+     "WC20"
+    ],
+    "ok": [
+     "P55",
+     "P56",
+     "P54",
+     "WC86 + T0258"
+    ],
+    "wc60": "late",
+    "wc60words": "loaded 08:30 — on the road in the 07:00–09:00 restriction; the earliest run is away from Kingston by 05:00, on site before 07:00",
+    "flagged": true,
+    "hadBtn": true,
+    "movedFirst": true,
+    "chips": [
+     "Curfew first",
+     "Curfew first",
+     "Curfew first",
+     "Curfew first"
+    ]
+   }
+  },
+  {
+   "name": "Printed by needs a first and last name: one word is “name not recorded”; the operator’s full name counts; the remembered name counts, with the 24-hour stamp",
+   "pass": true,
+   "detail": {
+    "noName": "Printed by — name not recorded",
+    "opName": "Printed by Andrew Fisher · 08 Oct 2026, 05:41 AEST",
+    "stored": "Printed by Andrew Fisher · 08 Oct 2026, 05:41 AEST",
+    "drvCk": true,
+    "insCk": true,
+    "drvBy": true,
+    "insBy": true,
+    "order": true,
+    "hold": true,
+    "window": true,
+    "orderInHead": true,
+    "insNoOrder": true,
+    "inHero": true,
+    "signsBy": true,
+    "snapClean": true,
+    "dropBy": true,
+    "once": true,
+    "inHead": true,
+    "noBlock": true
+   }
+  },
+  {
+   "name": "the Drivers and Install sheets carry Printed by once, under the sheet title, and the four tick boxes as a row of the hero’s facts (no line of their own, so the photographs keep their room)",
+   "pass": true,
+   "detail": {
+    "noName": "Printed by — name not recorded",
+    "opName": "Printed by Andrew Fisher · 08 Oct 2026, 05:41 AEST",
+    "stored": "Printed by Andrew Fisher · 08 Oct 2026, 05:41 AEST",
+    "drvCk": true,
+    "insCk": true,
+    "drvBy": true,
+    "insBy": true,
+    "order": true,
+    "hold": true,
+    "window": true,
+    "orderInHead": true,
+    "insNoOrder": true,
+    "inHero": true,
+    "signsBy": true,
+    "snapClean": true,
+    "dropBy": true,
+    "once": true,
+    "inHead": true,
+    "noBlock": true
+   }
+  },
+  {
+   "name": "the Drivers sheet’s header carries the allocated order and the arrival window, and its rules line the Helen Park holding instruction; the Install sheet does not repeat them",
+   "pass": true,
+   "detail": {
+    "noName": "Printed by — name not recorded",
+    "opName": "Printed by Andrew Fisher · 08 Oct 2026, 05:41 AEST",
+    "stored": "Printed by Andrew Fisher · 08 Oct 2026, 05:41 AEST",
+    "drvCk": true,
+    "insCk": true,
+    "drvBy": true,
+    "insBy": true,
+    "order": true,
+    "hold": true,
+    "window": true,
+    "orderInHead": true,
+    "insNoOrder": true,
+    "inHero": true,
+    "signsBy": true,
+    "snapClean": true,
+    "dropBy": true,
+    "once": true,
+    "inHead": true,
+    "noBlock": true
+   }
+  },
+  {
+   "name": "the location signs and the drop sheet carry Printed by; the pre-dispatch check’s snapshot of the signs stays clean (no stamp, so a minute ticking over cannot fail a print)",
+   "pass": true,
+   "detail": {
+    "noName": "Printed by — name not recorded",
+    "opName": "Printed by Andrew Fisher · 08 Oct 2026, 05:41 AEST",
+    "stored": "Printed by Andrew Fisher · 08 Oct 2026, 05:41 AEST",
+    "drvCk": true,
+    "insCk": true,
+    "drvBy": true,
+    "insBy": true,
+    "order": true,
+    "hold": true,
+    "window": true,
+    "orderInHead": true,
+    "insNoOrder": true,
+    "inHero": true,
+    "signsBy": true,
+    "snapClean": true,
+    "dropBy": true,
+    "once": true,
+    "inHead": true,
+    "noBlock": true
+   }
+  },
+  {
+   "name": "the pre-dispatch check lists “Site is aware of the status of the trucks” and “The loads are all ready”, wants a first AND last name, and Escape closes it",
+   "pass": true,
+   "detail": {
+    "texts": [
+     "I have agreed arrival times and departure order with site, with trucks staggered.",
+     "Site is aware of the status of the trucks.",
+     "The loads are all ready.",
+     "The crew and required lifting equipment are available for the agreed arrivals.",
+     "Each driver knows the meet point, way in and applicable route/permit conditions. Unresolved instructions hold the truck.",
+     "Any change to the plan has been agreed with site before dispatch.",
+     "The building pre-transit check is complete: windows and doors locked, air conditioners and loose items secured.",
+     "I have checked the applicable Coates load restraint standard for these loads with each driver.",
+     "I have checked each building/toilet’s loading instruction, including any Not applicable selection, with the driver before loading.",
+     "The reference unloading methods, equipment capacity and site arrangements are confirmed with the driver and site team."
+    ],
+    "one": true,
+    "two": false,
+    "ph": "First and last name",
+    "small": "Your first and last name and the time print on every sheet (Checked by · Printed by). Manual check; no slot or crew reservation.",
+    "closed": true,
+    "went": false
+   }
+  },
+  {
+   "name": "the name prompt has Close (×), Not now and Escape; one word is not enough; nothing prints until a name is given",
+   "pass": true,
+   "detail": {
+    "hasX": true,
+    "hasNo": true,
+    "disabled0": true,
+    "disabled1": true,
+    "closedByEsc": true,
+    "noPdf": true,
+    "gone": true,
+    "pdf": true,
+    "pdfClose": true,
+    "remembered": "Andrew Fisher",
+    "again": false,
+    "pdf2": true
+   }
+  },
+  {
+   "name": "a first and last name continues to the PDFs (the panel has Close), is remembered on the device and is not asked again",
+   "pass": true,
+   "detail": {
+    "hasX": true,
+    "hasNo": true,
+    "disabled0": true,
+    "disabled1": true,
+    "closedByEsc": true,
+    "noPdf": true,
+    "gone": true,
+    "pdf": true,
+    "pdfClose": true,
+    "remembered": "Andrew Fisher",
+    "again": false,
+    "pdf2": true
+   }
+  },
+  {
+   "name": "a message needs the sender’s first and last name in Recording as; with it the text says “Sent by Andrew Fisher.” and stays under the texting limit",
+   "pass": true,
+   "detail": {
+    "oneWord": "Enter your first and last name in Recording as (Tools) — every message to an install team carries the sender’s full name.",
+    "sent": true,
+    "len": 238,
+    "notes1": "Site hours 07:00–17:00. | Go to the meet point named for each area – Coates meets you there and places the units. | If unsure, go to the pit lane entry (Gold Coast Hwy, north-west end of the pit lane). | Directions get you to the meet point – follow the Way in and site signage, event road closures apply. | Load 1 of 4 — the trucks arrive in this order; a truck out of order delays everyone. Arrival window 11:10–11:40. If early or the area is full, hold at Helen Park — red line, Rankin Pde (up to 4 trucks at any one time).",
+    "every": true,
+    "prepared": true,
+    "orderLine": true,
+    "sender": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "every reference in the message model carries its load’s order, arrival window and the Helen Park holding words; the daily page says Prepared by and the arrival order",
+   "pass": true,
+   "detail": {
+    "notes1": "Site hours 07:00–17:00. | Go to the meet point named for each area – Coates meets you there and places the units. | If unsure, go to the pit lane entry (Gold Coast Hwy, north-west end of the pit lane)",
+    "prepared": true,
+    "orderLine": true
+   }
+  },
+  {
+   "name": "the local record is put back byte for byte and the link is view-only again",
+   "pass": true,
+   "detail": {
+    "restored": true,
+    "cap": "view"
+   }
+  },
+  {
+   "name": "no money figure changed through any of it (moneySummary and the Finance handover model identical)",
+   "pass": true,
+   "detail": {
+    "same": true
+   }
+  },
+  {
+   "name": "layout: no horizontal overflow, the card fits its pane, every control is at least 40 px tall, rows keep two columns",
+   "pass": true,
+   "detail": {
+    "overflow": true,
+    "paneOverflow": true,
+    "cardW": 1372,
+    "paneW": 1408,
+    "minBtn": 40,
+    "cols": 2,
+    "motion": "all"
+   }
+  },
+  {
+   "name": "the Drivers sheet as laid out for the PDF: one A4, header under 19 mm with Printed by inside it, the tick boxes inside the 47 mm hero, the footer on the page, no empty picture left to stop the PDF maker",
+   "pass": true,
+   "detail": {
+    "pages": 2,
+    "headH": 17.4,
+    "heroH": 47,
+    "byInHead": true,
+    "ckInHero": true,
+    "footInside": true,
+    "photosH": 0.5,
+    "pageH": 280,
+    "k": "0.78",
+    "emptyImgs": 0,
+    "fit": {
+     "failed": 4,
+     "over": [],
+     "pages": 1
+    }
+   }
+  },
+  {
+   "name": "the Install sheet as laid out for the PDF: one A4, header under 19 mm with Printed by inside it, the tick boxes inside the 47 mm hero, the footer on the page, no empty picture left to stop the PDF maker",
+   "pass": true,
+   "detail": {
+    "pages": 1,
+    "headH": 14.4,
+    "heroH": 47,
+    "byInHead": true,
+    "ckInHero": true,
+    "footInside": true,
+    "photosH": 11.2,
+    "pageH": 280,
+    "k": "0.8",
+    "emptyImgs": 0,
+    "fit": {
+     "failed": 0,
+     "over": [],
+     "pages": 1
+    }
+   }
+  },
+  {
+   "name": "no page errors",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "no attempted live writes",
+   "pass": true,
+   "detail": {
+    "page": 1,
+    "live": 76,
+    "blocked": 0
+   }
+  }
+ ]
+}

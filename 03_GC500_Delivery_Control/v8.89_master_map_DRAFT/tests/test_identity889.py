@@ -44,8 +44,9 @@ for k in removed:
     check(k == 'd0df399ee0f4adb179772cddaec164db1be0c026aac10473883d1211a5afc567' or any(k in (BL.get(r, {}).get('img') or []) for r in C['master_loc']), 'removed media still in use: ' + k)
 check({k: v for k, v in BL.items() if k not in C['master_loc']} == {k: v for k, v in NL.items() if k not in C['master_loc']}, 'a pin outside the change list moved')
 check(all(NL[k] == v for k, v in C['master_loc'].items()), 'a changed pin differs from the change list')
-# Andrew, 8 Oct 2026: "All navigation pin points are correct." No existing navigation pin (ll) may move.
-check(all(NL[k].get('ll') == v.get('ll') for k, v in BL.items() if k in NL), 'an existing navigation pin moved')
+# Andrew, 8 Oct 2026: "the master I gave you is the new truth". Only the units the 2 Oct master moves may change their
+# navigation pin (ll); every other navigation pin stays exactly as it is.
+check(all(NL[k].get('ll') == v.get('ll') for k, v in BL.items() if k in NL and k not in C['master_loc']), 'a navigation pin outside the change list moved')
 if fails:
     print('FAIL', '; '.join(fails)); sys.exit(1)
 print('PASS only the master picture, its register entry, the media list and the', len(C['master_loc']), 'listed pins changed (+%d/-%d media)' % (len(added), len(removed)))

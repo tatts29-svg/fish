@@ -1,0 +1,92 @@
+PASS the plan moves 20 schedule rows (19 referenced, 1 unreferenced)
+PASS T0089 is not among them
+PASS WC09 moves its FWF and pee panel rows only
+PASS DATA.fence_ccb_review847 identical
+PASS DATA.event_staffing833 identical
+PASS DATA.transport_forecast831 identical
+PASS DATA.brand identical
+PASS DATA.event identical
+PASS DATA.race_days identical
+PASS DATA.first_truck identical
+PASS DATA.car identical
+PASS DATA.board identical
+PASS DATA.raceBanners identical
+PASS DATA.pageBanners identical
+PASS DATA.circuit identical
+PASS DATA.surrounds identical
+PASS DATA.geoFrame identical
+PASS DATA.tomtom identical
+PASS DATA.workforce identical
+PASS DATA.barriers identical
+PASS DATA.holidays identical
+PASS DATA.showSound identical
+PASS DATA.broadcast identical
+PASS DATA.machine identical
+PASS DATA.built identical
+PASS DATA.sources_taken identical
+PASS DATA.build_version identical
+PASS DATA.dataset_sha256 identical
+PASS DATA.register_sha256 identical
+PASS DATA.design identical
+PASS DATA.aerial_hi identical
+PASS DATA.aerial_hi_px identical
+PASS DATA.edition identical
+PASS DATA.docs identical
+PASS DATA.hosting_note identical
+PASS DATA.orientation identical
+PASS DATA.product_photos identical
+PASS DATA.georef identical
+PASS DATA.access identical
+PASS DATA.aerial_note identical
+PASS DATA.boq identical
+PASS DATA.authority identical
+PASS DATA.accessory_authority identical
+PASS DATA.pricing_authority identical
+PASS DATA.summary identical
+PASS DATA.orphan_rows identical
+PASS DATA.rental_on_hire identical
+PASS DATA.plant_lines identical
+PASS DATA.rate_card identical
+PASS DATA.accessory_rate_card identical
+PASS DATA.rate_match identical
+PASS DATA.charge_basis identical
+PASS DATA.rehire_quotes identical
+PASS DATA.toilet_servicing identical
+PASS DATA.event_scope identical
+PASS DATA.sheets identical
+PASS DATA.weeks identical
+PASS DATA.states_legend identical
+PASS DATA.transport identical
+PASS DATA.driver_rules identical
+PASS DATA.open_items identical
+PASS DATA.ops identical
+PASS DATA.cost_categories identical
+PASS DATA.team identical
+PASS DATA.branches identical
+PASS DATA.purchase_orders identical
+PASS DATA.fencing identical
+PASS DATA.variance_types identical
+PASS DATA.fence identical
+PASS DATA.closures identical
+PASS DATA.fence_contractor identical
+PASS DATA.depot identical
+PASS DATA.fence_sheets identical
+PASS DATA.chargeable_states identical
+PASS DATA.site identical
+PASS DATA.media identical
+PASS DATA.hostedMedia identical
+PASS DATA.hzmap identical
+PASS DATA.aerial_mid identical
+PASS DATA.aerial_mid_px identical
+PASS DATA.schedule_review875 identical
+PASS no DATA key added or removed
+PASS same number of assets
+PASS every moved referenced row is exactly the plan's set
+PASS same number of unreferenced rows
+PASS T0176 (Red Bull, no WC number) reads Mon 19 Oct from Load 4; T0089 untouched
+PASS WC09: FWF x4 and Pee Panel x6 on Fri 9 Oct, the two 6 m toilet blocks still Thu 8 Oct
+PASS WC57 Mon 12 -> Fri 9 Oct; WC34 Thu 8 -> Fri 9 Oct
+PASS WC67: the 2 FWF on site since 1 Oct untouched, the second 2 move Mon 12 -> Tue 13 Oct
+PASS WC32 and WC66 (cancelled) untouched
+PASS WC29 keeps its Mon 26 Oct removal
+data886: PASS - DATA identical to live except the 20 plan rows and their references' span fields

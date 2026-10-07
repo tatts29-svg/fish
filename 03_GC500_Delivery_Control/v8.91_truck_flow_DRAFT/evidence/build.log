@@ -1,0 +1,39 @@
+live page: 11138554 bytes -> /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.91/base_live.html
+== applying v8.84_today_wide_layout_DRAFT/patch_v884.py
+== applying v8.85_where_we_are_DRAFT/patch_v885.py
+== applying v8.86_event_portables_days_DRAFT/patch_v886.py
+v8.86 applied: 20 rows moved to their Event Portables load day, 23 already on it, 1 off the plan, 2 with nothing to carry them
+  WC09   T0101  FWF        x4   2026-10-08 -> 2026-10-09  (Load 1)
+  WC09   T0259  Pee Panel  x6   2026-10-08 -> 2026-10-09  (Load 1)
+  WC38   T0091  FWF        x1   2026-10-07 -> 2026-10-09  (Load 1)
+  WC39   T0092  FWF        x2   2026-10-07 -> 2026-10-09  (Load 1)
+  WC40   T0093  FWF        x5   2026-10-07 -> 2026-10-09  (Load 1)
+  WC34   T0099  FWF        x1   2026-10-08 -> 2026-10-09  (Load 1)
+  WC61   T0095  FWF        x8   2026-10-07 -> 2026-10-09  (Load 1)
+  WC57   T0108  FWF        x2   2026-10-12 -> 2026-10-09  (Load 1)
+  WC67   T0262  FWF        x2   2026-10-12 -> 2026-10-13  (Load 2)
+  WC68   T0155  FWF        x1   2026-10-19 -> 2026-10-13  (Load 2)
+  WC72   T0156  FWF        x1   2026-10-19 -> 2026-10-13  (Load 2)
+  WC29   T0148  FWF        x7   2026-10-19 -> 2026-10-13  (Load 2)
+  WC46   T0151  FWF        x1   2026-10-19 -> 2026-10-15  (Load 3)
+  WC55   T0152  FWF        x1   2026-10-19 -> 2026-10-15  (Load 3)
+  PG01   T0164  FWF        x1   2026-10-20 -> 2026-10-19  (Load 4)
+  PG03   T0165  FWF        x1   2026-10-20 -> 2026-10-19  (Load 4)
+  PG05   T0166  FWF        x1   2026-10-20 -> 2026-10-19  (Load 4)
+  PG29   T0167  FWF        x1   2026-10-20 -> 2026-10-19  (Load 4)
+  WC85   T0168  FWF        x1   2026-10-20 -> 2026-10-19  (Load 4)
+  T0176  T0176  FWF        x2   2026-10-22 -> 2026-10-19  (Load 4)
+  off the plan: Event Elec (T0089) (Load 1) - off the plan on the record (Andrew Fisher, 7 Oct 2026): the row stays where the record put it
+  unmatched: Brad Jones Racing (no task ref) x1 (Load 4) - no WC number and no task reference: nothing on the page carries this drop yet
+  unmatched: Shell V-Power (no task ref) x1 (Load 4) - no WC number and no task reference: nothing on the page carries this drop yet
+== applying v8.87_map_explorer_DRAFT/patch_v887.py
+== applying v8.88_costs_transport_DRAFT/patch_v888.py
+v8.88 applied
+== applying v8.89_master_map_DRAFT/patch_v889.py
+v8.89 master: sheet fa5081d4a91c | media + 11 | pins 11 | dropped 9 | manifest 1aa4a3b1ac15 1958
+== applying v8.91_truck_flow_DRAFT/patch_v891.py
+v8.91 applied
+scrubbed /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.91/GC500_Delivery_Control_hosted.html 11291795 -> 11291807 | visible code mentions left: 152
+checked /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.91/GC500_Delivery_Control_hosted.html: 16 inline scripts, 11,312,797 bytes, secrets {'google key': 0, 'mapbox token': 0}
+PASS all checks
+BUILT /home/user/fish/03_GC500_Delivery_Control/toolchain/../build/GC500_v8.91/GC500_Delivery_Control_hosted.html

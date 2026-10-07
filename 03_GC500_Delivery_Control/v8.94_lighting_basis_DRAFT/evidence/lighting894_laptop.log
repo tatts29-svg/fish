@@ -1,0 +1,36 @@
+PASS register counts real towers once: 3 rows, 7 towers (LT05, LT06, T0002 ×5)
+PASS 18 rows leave the register: 4 D024 keyed callouts, 13 circuit fans, 1 copy
+PASS the circuit fans are big-screen symbols, not in the register
+PASS every left-out row is still reachable through assetOf
+PASS their charge lines are empty; T0002 keeps its line
+PASS counts behind the words: 7 on record, 5 complete, D024 keys 6, 13 screens, 17 symbols, BOQ still to be done
+PASS the chip equals the card (66.67%)
+PASS no ≥ anywhere for Lighting
+PASS the six other groups still show their readings
+PASS state: confirmed against the map’s 6 towers
+PASS Lighting = credited ÷ 6, worked out independently (4 of 6 = 66.67%)
+PASS the cap per location: Molendinar credits 4 of 5 delivered; Seaway credits 0 of 2
+PASS the kind is confirmed, with no ≥ and no range
+PASS the card’s counts read the map’s scope (Done4Review · Left2Review)
+PASS the surplus note is shown once on the card
+PASS the chip carries the tag once and says the scope
+PASS the Lighting card says the same (once)
+PASS the whole job returns under the seven-group rule (60.53 = 60.53)
+PASS all-green only at a confirmed 100%
+PASS the basis names the map’s scope and cites the words once
+PASS the Lighting card fold carries one scope note with the locations
+PASS no "unconfirmed" or "scope audit pending" wording is left on the card
+PASS a confirmed 100% in every group would light all five (fixture)
+PASS LT01 opens from its link on the D024 sheet with the callout notice, first in the drawer (once)
+PASS LTC01 opens with the big-screen notice, citing the confirmation
+PASS NVLT opens with the copy notice: counted with T0002
+PASS T0002 names its copy and its surplus against D024, and offers to open the copy
+PASS the LT01 pill on D024 is a keyboard button; Enter opens its drawer with the notice; focus is in the drawer
+PASS the finder finds LT01 and a pick goes to its callout on D024
+PASS redraws keep one note in each place
+PASS readings unchanged by the redraw
+PASS the record is unchanged
+PASS no horizontal overflow
+PASS no runtime errors
+PASS no attempted live writes
+1440 px confirmed: 35/35

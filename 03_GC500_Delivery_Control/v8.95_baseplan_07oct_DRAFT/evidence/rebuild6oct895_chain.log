@@ -1,0 +1,11 @@
+PASS the page carries the 6 Oct export as its contract source
+PASS DATA round-trips byte for byte
+PASS the 6 Oct export reads as 11 contracts and 321 lines
+PASS the builder changes nothing: every row, contract, assignment, summary count and plant line identical (0 differences)
+PASS it adds no line, removes none, changes none and re-joins none
+PASS the five two-line numbers v8.71 flagged are the same five
+PASS with the record step off, what the record of 7 Oct would move is exactly the two lines Andrew matched after 6 Oct (9968862/50 to P37, 9968862/79 to P52)
+PASS with the record step on, exactly 9968862/50 joins P37 and 9968862/79 joins P52 (record_joined), nothing from the export
+PASS those two lines change in their join only; every other line is identical
+PASS beyond those joins only rental_on_hire moves: the assignments of P37 and P52, contract 9968862's summary and the summary counts
+rebuild6oct895: PASS - the same builder on the 6 Oct export reproduces the page's DATA exactly; its record step alone moves only the two lines his record carries

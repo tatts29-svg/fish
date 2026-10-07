@@ -1,0 +1,105 @@
+
+##### idle on today for 20 s: 0 long tasks (0 ms), 0 layout shifts, record version 4370
+long tasks: []
+shifts: []
+-- self --
+12 ms (anon) @10389
+8 ms rentalOf_ @10634
+6 ms syncFooter @47684
+6 ms tpodPaint @44561
+6 ms querySelectorAll @-1
+5 ms deliveryOf @11070
+5 ms timeOfStamp @42976
+5 ms drawImage @-1
+4 ms tombedHere @10226
+3 ms (anon) @10307
+3 ms tpodParts @44493
+3 ms contentsType @10303
+3 ms tpodTick @44615
+3 ms (anon) @9537
+-- inclusive --
+46 ms window.gc500DoneKeys @32552
+46 ms done782Pull @902
+37 ms buildAllAssets @10372
+37 ms allAssets @10365
+35 ms (anon) @10389
+17 ms tpodTick @44615
+16 ms pull @48477
+14 ms tpodPaint @44561
+13 ms syncFooter @47684
+11 ms draw @46325
+11 ms (anon) @46348
+9 ms rentalOf_ @10634
+9 ms (anon) @10633
+8 ms knownNumbersExtra @10250
+
+##### idle on about for 14 s: 0 long tasks (0 ms), 0 layout shifts, record version 4370
+long tasks: []
+shifts: []
+-- self --
+7 ms rentalOf_ @10634
+7 ms (anon) @10389
+4 ms tpodParts @44493
+3 ms deliveryOf @11070
+2 ms tpodPaint @44561
+2 ms contentsType @10303
+2 ms syncFooter @47684
+2 ms timeOfStamp @42976
+2 ms buildAllAssets @10372
+2 ms (anon) @10307
+1 ms (anon) @10589
+1 ms anySelected @42
+1 ms unitsOf @35052
+1 ms fetch @-1
+-- inclusive --
+36 ms done782Pull @902
+35 ms window.gc500DoneKeys @32552
+31 ms buildAllAssets @10372
+31 ms allAssets @10365
+29 ms (anon) @10389
+10 ms tpodPaint @44561
+10 ms tpodTick @44615
+9 ms knownNumbersExtra @10250
+9 ms rentalOf_ @10634
+9 ms (anon) @10633
+7 ms pull @48477
+6 ms foldContents @10313
+5 ms syncFooter @47684
+4 ms contentsType @10303
+
+##### idle on timeline for 14 s: 1 long tasks (77 ms), 0 layout shifts, record version 4370
+long tasks: [{"at":0.8,"d":77}]
+shifts: []
+-- self --
+14 ms (anon) @10389
+5 ms tpodParts @44493
+4 ms syncFooter @47684
+4 ms (anon) @32552
+3 ms knownNumbersExtra @10250
+3 ms pull @48477
+2 ms rentalOf_ @10634
+2 ms (anon) @10540
+2 ms deliveryOf @11070
+2 ms tpodPaint @44561
+2 ms timeOfStamp @42976
+1 ms tombedHere @10226
+1 ms unitsOf @35052
+1 ms fetch @-1
+-- inclusive --
+42 ms window.gc500DoneKeys @32552
+42 ms done782Pull @902
+35 ms buildAllAssets @10372
+35 ms allAssets @10365
+34 ms (anon) @10389
+11 ms pull @48477
+8 ms tpodTick @44615
+8 ms tpodPaint @44561
+7 ms (anon) @32552
+7 ms syncFooter @47684
+7 ms knownNumbersExtra @10250
+5 ms tpodParts @44493
+5 ms tpodRead @44506
+4 ms (anon) @10633
+
+##### Timeline redraw scroll: {"y0":900,"y1":900,"afterRender":947,"h0":3786,"h2":3786,"settled":947,"h3":3786}
+##### Equipment redraw scroll: {"y0":900,"afterRender":900,"h0":1663,"h2":1663,"settled":900,"h3":1663}

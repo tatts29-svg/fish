@@ -1,0 +1,168 @@
+{
+ "what": "v8.96 equipment pictures for the Today group cards and the Where we are plate, cut from the staged v8.81 atlas",
+ "source": {
+  "file": "v8.81_progress_scene_DRAFT/assets/equipment-atlas.png",
+  "sha256": "1856205cc543dad12503cdacc10c4dafa993b2a27e8bf413375e70ad59d71787",
+  "bytes": 2711749,
+  "px": [
+   1774,
+   887
+  ]
+ },
+ "quality": 58,
+ "cells": [
+  {
+   "id": "buildings",
+   "name": "Buildings",
+   "cell": [
+    4,
+    4,
+    438,
+    437
+   ],
+   "px": [
+    434,
+    433
+   ],
+   "file": "ac529b13fa6fb4c1da0543689cfe090a6d8c558be435ab2efef1fdf4bcdc8d56.webp",
+   "sha256": "ac529b13fa6fb4c1da0543689cfe090a6d8c558be435ab2efef1fdf4bcdc8d56",
+   "type": "image/webp",
+   "bytes": 15206,
+   "scope": "view"
+  },
+  {
+   "id": "toilets",
+   "name": "Toilets",
+   "cell": [
+    449,
+    4,
+    881,
+    437
+   ],
+   "px": [
+    432,
+    433
+   ],
+   "file": "8a866a5e84333e7a56ba9a4d76f7249715d5cd975e09bc481ec201936a0169ae.webp",
+   "sha256": "8a866a5e84333e7a56ba9a4d76f7249715d5cd975e09bc481ec201936a0169ae",
+   "type": "image/webp",
+   "bytes": 13810,
+   "scope": "view"
+  },
+  {
+   "id": "fencing",
+   "name": "Fencing",
+   "cell": [
+    893,
+    4,
+    1325,
+    437
+   ],
+   "px": [
+    432,
+    433
+   ],
+   "file": "e16e2161d84cca7820c99608839ecaa4137998614ffed734793380e5097813eb.webp",
+   "sha256": "e16e2161d84cca7820c99608839ecaa4137998614ffed734793380e5097813eb",
+   "type": "image/webp",
+   "bytes": 23134,
+   "scope": "view"
+  },
+  {
+   "id": "generators",
+   "name": "Generators",
+   "cell": [
+    1337,
+    4,
+    1770,
+    437
+   ],
+   "px": [
+    433,
+    433
+   ],
+   "file": "56dcf40c0635eb4d93fb6b09cf277aeddd72ef7a31f2de06ea9c7ce2c0b3fe83.webp",
+   "sha256": "56dcf40c0635eb4d93fb6b09cf277aeddd72ef7a31f2de06ea9c7ce2c0b3fe83",
+   "type": "image/webp",
+   "bytes": 17894,
+   "scope": "view"
+  },
+  {
+   "id": "lighting",
+   "name": "Lighting",
+   "cell": [
+    4,
+    449,
+    438,
+    883
+   ],
+   "px": [
+    434,
+    434
+   ],
+   "file": "1a0ca0d28ecf077bcdefe9eb6e11102bbfbbd4eb5454f98b643448ba986dfb26.webp",
+   "sha256": "1a0ca0d28ecf077bcdefe9eb6e11102bbfbbd4eb5454f98b643448ba986dfb26",
+   "type": "image/webp",
+   "bytes": 22680,
+   "scope": "view"
+  },
+  {
+   "id": "vms",
+   "name": "VMS boards",
+   "cell": [
+    449,
+    449,
+    881,
+    883
+   ],
+   "px": [
+    432,
+    434
+   ],
+   "file": "b710fc3ab1528ae2e924685df06fe1caf1bfe3519e244a9f1704af7a8cff8bb5.webp",
+   "sha256": "b710fc3ab1528ae2e924685df06fe1caf1bfe3519e244a9f1704af7a8cff8bb5",
+   "type": "image/webp",
+   "bytes": 22866,
+   "scope": "view"
+  },
+  {
+   "id": "equipment",
+   "name": "Equipment",
+   "cell": [
+    893,
+    449,
+    1325,
+    883
+   ],
+   "px": [
+    432,
+    434
+   ],
+   "file": "30275100df359390f18270224969e5432efd425f5ff0ccbee0828e3a1dfa4586.webp",
+   "sha256": "30275100df359390f18270224969e5432efd425f5ff0ccbee0828e3a1dfa4586",
+   "type": "image/webp",
+   "bytes": 21406,
+   "scope": "view"
+  },
+  {
+   "id": "yard",
+   "name": "The yard (behind the Where we are plate)",
+   "cell": [
+    1337,
+    449,
+    1770,
+    883
+   ],
+   "px": [
+    433,
+    434
+   ],
+   "file": "01f867bda5e238d9537acf8245fb5ddc4333c530179f92e81e26f1a14d1d12b9.webp",
+   "sha256": "01f867bda5e238d9537acf8245fb5ddc4333c530179f92e81e26f1a14d1d12b9",
+   "type": "image/webp",
+   "bytes": 18652,
+   "scope": "view"
+  }
+ ],
+ "total_bytes": 155648
+}
