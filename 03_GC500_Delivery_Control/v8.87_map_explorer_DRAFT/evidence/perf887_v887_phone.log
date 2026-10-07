@@ -1,0 +1,1 @@
+{"tag":"v887","device":"phone","measure":"zoom_fencingOff","raf":{"n":189,"mean":20.11,"p50":16.7,"p95":33.4,"max":66.6,"over50":2,"over33":32},"draw":{"n":156,"mean":2.12,"p50":0.5,"p95":6.3,"max":42.4,"over50":0,"over33":5},"fencePaint":{"n":0},"fencePaintTotalMs":0,"canvasResizes":2,"light":{"moving":false,"next":true},"taskMs":2957}
