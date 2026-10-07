@@ -24,7 +24,9 @@ main{overflow-anchor:none}
    centred on it, and a × gets a 44 px square. Fold headings get the room a thumb needs. */
 @media (pointer:coarse){
  .btn.sm,.btn.tiny,.linkish,.invn,a.chip,.filters button,.jb95,#bOpen,.bplay,.hubgo[data-go],#searchBtn,#moreBtn,#navBack,.tabmoremenu button{position:relative}
- .btn.sm::after,.btn.tiny::after,.linkish::after,.invn::after,a.chip::after,.filters button::after,.jb95::after,#bOpen::after,.bplay::after,.hubgo[data-go]::after,#searchBtn::after,#moreBtn::after,#navBack::after{content:'';position:absolute;left:-6px;right:-6px;top:50%;height:44px;transform:translateY(-50%)}
+ .btn.sm::after,.btn.tiny::after,.linkish::after,.invn::after,a.chip::after,.filters button::after,.jb95::after,#bOpen::after,.bplay::after,.hubgo[data-go]::after,#searchBtn::after,#moreBtn::after,#navBack::after{content:'';position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}
+ /* not inside a box that scrolls: a hit area poking out of a table box or a strip would give it a scrollbar */
+ .tblwrap .btn.sm::after,.tblwrap .btn.tiny::after,.tblwrap .linkish::after,.tblwrap .invn::after,.tblwrap a.chip::after,.cside .btn.sm::after,.cside .linkish::after,.cside .invn::after,.daystrip .btn.sm::after,.daystrip .linkish::after,.moremenu .btn.sm::after,.finder .linkish::after,.tabmoremenu .btn.sm::after,nav.tabs .btn.sm::after{content:none}
  .close{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
  summary{box-sizing:border-box;min-height:44px;padding-top:max(0px,calc((44px - 1.6em)/2));padding-bottom:max(0px,calc((44px - 1.6em)/2))}
 }

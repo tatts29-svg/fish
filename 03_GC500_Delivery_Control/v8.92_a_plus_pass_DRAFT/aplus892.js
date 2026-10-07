@@ -109,5 +109,13 @@
   }
   return r; }; }
 
- W.aplus892 = {version: 'v8.92', held: ['dropFileIndex', 'bookNumbers', 'docketNoInName', 'docketPapersByName', 'fin745Events', 'fin745History', 'fin745Rows', 'labourPlan'], batched: ['tblFocusSoon', 'timeline841Motion'], keeps: ['render scroll']};
+ /* 8. typing in the search box. The finder answers every keystroke (that list is the answer). The redraw of the page behind it,
+    160 ms after the typing pauses, filters the tabs that read the search text — Equipment, Costs & P&L, Fencing, Timeline, the map
+    and the set-aside registers. Today, Documents, Demob, Pre-starts, the Coates Way, Questions, Change deliveries and About never
+    read it, so on those the redraw (650–800 ms on a phone) drew the same page again for nothing; it is skipped there. A tab
+    opened afterwards is drawn with the search text as before. */
+ if (typeof searchRender === 'function') { const raw = searchRender, NO_Q = new Set(['today', 'docs', 'demob', 'prestarts', 'coatesway', 'questions', 'change', 'about']);
+  W.searchRender = function (now) { if (NO_Q.has(state.tab)) { if (searchTimer) { clearTimeout(searchTimer); searchTimer = null; } return; } return raw(now); }; }
+
+ W.aplus892 = {version: 'v8.92', held: ['dropFileIndex', 'bookNumbers', 'docketNoInName', 'docketPapersByName', 'fin745Events', 'fin745History', 'fin745Rows', 'labourPlan'], batched: ['tblFocusSoon', 'timeline841Motion'], keeps: ['render scroll'], skips: ['search redraw on tabs that never read it']};
 })();

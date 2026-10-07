@@ -286,19 +286,21 @@ dayPanels = function(d){ let card = ''; try { card = flow891Card(d); } catch (e)
    to keep the photographs), so nothing here takes a line of its own: Printed by, and the driver's order, window and holding words, go
    under the sheet's title in the room the Coates mark already gives the header; the four tick boxes are one more row of the hero's
    facts column, whose height is fixed. */
+/* Printed by joins the header's kick line (DELIVERY DRIVER SHEET · GC500 2026 · …), which has the room; the driver's order and window
+   are one line under the title. The area and its limit stay on the day's card, so the header keeps its height. */
+function flow891HeadKick(){ return ' · <span class="dp891-by">' + esc(flow891PrintedBy()) + '</span>'; }
 function flow891HeadLines(d, g, doc, i, n){
- let out = '<span class="dp891-by">' + esc(flow891PrintedBy()) + '</span>';
- if (doc !== 'drv') return out;
+ if (doc !== 'drv') return '';
  let x = null; try { x = flow891Day(d).deliveries.find(y => y.id === ldId(d, g)) || null; } catch (e) { x = null; }
- const win = x ? x.win : flow891Window(d, g); /* the area and its limit stay on the day's card: one line here, so the header keeps its height */
- return out + '<span class="dp891-rl"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '</b>; out of order delays everyone · Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? '' : ' — agree it with site') + '</span>';
+ const win = x ? x.win : flow891Window(d, g);
+ return '<span class="dp891-rl"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '</b>; out of order delays everyone · Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? '' : ' — agree it with site') + '</span>';
 }
 /* the holding instruction is a site rule, so it joins the driver sheet's rules line (PPE · site hours · meet point · if unsure …) */
 function flow891HoldRule(){ return '<i>·</i><span class="dp891-hold">If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks)</span>'; }
 function flow891FactRow(){ return '<div class="dp-f dp891-f"><label>Before it leaves</label><span class="dp891-ck">' + FLOW891.checklist.map(c => '<span>' + dpBx() + esc(c) + '</span>').join('') + '</span></div>'; }
 const dpPageBefore891 = dpPage;
 dpPage = function(d, g, doc, i, n){ let h = dpPageBefore891(d, g, doc, i, n);
- try { h = h.replace('</h1></div>', '</h1>' + flow891HeadLines(d, g, doc, i, n) + '</div>'); /* the header's middle block: kick, title, then these */
+ try { h = h.replace(' · GC500 2026</span><h1>', ' · GC500 2026' + flow891HeadKick() + '</span><h1>'); h = h.replace('</h1></div>', '</h1>' + flow891HeadLines(d, g, doc, i, n) + '</div>'); /* the header's middle block: kick (with Printed by), title, then the driver's line */
   const k = h.indexOf('<div class="dp-facts">'); if (k >= 0) { const e = h.indexOf('</div></div>', k); if (e > k) h = h.slice(0, e + 6) + flow891FactRow() + h.slice(e + 6); } /* after the last fact's own closing tag, inside the facts column */
   if (doc === 'drv') { const r = h.indexOf('<div class="dp-rline">'); if (r >= 0) { const e = h.indexOf('</div>', r); if (e > r) h = h.slice(0, e) + flow891HoldRule() + h.slice(e); }
    else h = h.replace('<h2>Safety</h2>', '<h2>Safety</h2><div class="dp-rline">' + flow891HoldRule().replace(/^<i>·<\/i>/, '') + '</div>'); } } catch (e) {}

@@ -1,0 +1,125 @@
+/* Author: Andrew Fisher. v8.96 Today scene: the selected day's weather across the Where we are plate, a faint picture of each
+   group's equipment behind its card, and the race-day banner parked in a fold at the foot of Today. Nothing here redraws a
+   component: the plate, the lights, the figure, the cards, the banner and its controls are the page's own; these rules only add
+   layers behind them and a fold around the banner. Every animation moves a transform or an opacity (compositor only). */
+
+/* ---- the plate: the sky sits behind the lights and the figure, inside the plate's own rounded edge ---- */
+#pane-today #where885 .w885-gauge {position:relative;isolation:isolate;}
+#where885 .s896-sky {position:absolute;inset:0;z-index:-1;overflow:hidden;border-radius:inherit;pointer-events:none;}
+#where885 .s896-sky > * {position:absolute;display:none;}
+/* the middle of the plate keeps the plate's own dark, whatever the sky does, so the figure, its caption and its notes keep their
+   contrast; the weather plays around them */
+#where885 .s896-sky::after {content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 64% at 50% 58%,#07171c 0%,#07171cf2 40%,#07171c00 76%);}
+
+/* the yard: the rendered equipment picture as the ground, faint, fading up into the sky */
+#where885 .s896-yard {display:block;left:0;right:0;bottom:0;height:58%;background:50% 100% / cover no-repeat;opacity:.13;
+ -webkit-mask-image:linear-gradient(180deg,#0000 0%,#000 60%,#000 100%);mask-image:linear-gradient(180deg,#0000 0%,#000 60%,#000 100%);}
+
+/* sun: a warm glow in the top corner, breathing, and a slow shaft of light across the plate */
+#where885 .s896-glow {inset:-30% -20% 20% -20%;background:radial-gradient(ellipse at 78% 18%,#ffd9a3 0%,#ffbe72 9%,#ffbe7200 42%);opacity:.18;transform-origin:78% 18%;animation:s896-breathe 9s ease-in-out infinite alternate;}
+#where885 .s896-shaft {inset:-40%;background:linear-gradient(118deg,#ffd08200 40%,#ffd08226 50%,#ffd08200 60%);animation:s896-shaft 18s ease-in-out infinite alternate;}
+/* cloud: three soft masses drifting at different speeds */
+#where885 .s896-cloud {width:62%;height:48%;border-radius:50%;background:radial-gradient(closest-side,#c7dbe1 0%,#c7dbe1d0 30%,#c7dbe160 62%,#c7dbe100 100%);opacity:.12;}
+#where885 .s896-c1 {left:-14%;top:-12%;animation:s896-drift-a 26s ease-in-out infinite alternate;}
+#where885 .s896-c2 {right:-18%;top:4%;width:58%;height:40%;animation:s896-drift-b 34s ease-in-out infinite alternate;}
+#where885 .s896-c3 {left:24%;top:40%;width:70%;height:40%;opacity:.07;animation:s896-drift-c 40s ease-in-out infinite alternate;}
+/* mist and fog: two bands of haze sliding past each other */
+#where885 .s896-mist {inset:0 -20%;background:repeating-linear-gradient(180deg,#d7ece300 0 14%,#d7ece324 20% 27%,#d7ece300 33% 50%);animation:s896-mist 24s ease-in-out infinite alternate;}
+#where885 .s896-mist2 {inset:8% -20% -8%;background:repeating-linear-gradient(180deg,#d7ece300 0 22%,#d7ece31c 28% 34%,#d7ece300 40% 50%);animation:s896-mist 31s ease-in-out infinite alternate-reverse;}
+/* rain: two sheets of short streaks, near and far, falling on a 12 degree slant; the travel is a whole number of streak rows,
+   so the loop never jumps */
+#where885 .s896-rain {inset:-320px -40% -40%;transform:rotate(12deg);background-repeat:repeat;}
+#where885 .s896-r1 {background-image:linear-gradient(180deg,#cfe6f500 0 62%,#cfe6f54d 76% 100%);background-size:22px 48px;opacity:.55;animation:s896-rain 1.3s linear infinite;}
+#where885 .s896-r2 {background-image:linear-gradient(180deg,#cfe6f500 0 60%,#cfe6f538 74% 100%);background-size:16px 40px;opacity:.4;animation:s896-rain 1.9s -.7s linear infinite;}
+#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r1 {opacity:.7;animation-duration:.95s;}
+#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r2 {opacity:.5;animation-duration:1.4s;}
+#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-cloud {background:radial-gradient(closest-side,#8fa6b0 0%,#8fa6b0d0 30%,#8fa6b060 62%,#8fa6b000 100%);opacity:.16;}
+#where885 .s896-sky[data-kind=storm] .s896-cloud {background:radial-gradient(closest-side,#7d929c 0%,#7d929cd0 30%,#7d929c60 62%,#7d929c00 100%);}
+/* storm: a bolt in the top corner now and then, and the briefest brightening of the whole sky with it */
+#where885 .s896-bolt {top:-4%;right:9%;width:min(22%,180px);height:60%;opacity:0;filter:drop-shadow(0 0 6px #98d8fc);animation:s896-bolt 13s 4s linear infinite;}
+#where885 .s896-flash {inset:0;background:#9fc8e0;opacity:0;animation:s896-flash 13s 4s linear infinite;}
+/* sleet and snow: two depths of flakes, drifting as they fall */
+#where885 .s896-sleet {inset:-200px -20% -20%;background-image:radial-gradient(circle,#e4f1f5 0 1.3px,#e4f1f500 2px);background-size:20px 20px;opacity:.45;animation:s896-sleet 6.5s linear infinite;}
+#where885 .s896-s2 {background-size:18px 18px;opacity:.28;animation:s896-sleet 9s -3s linear infinite;}
+
+/* which layers each kind of day shows; a day with no forecast shows none */
+#where885 .s896-sky[data-kind=sun] :is(.s896-glow,.s896-shaft),
+#where885 .s896-sky[data-kind=part] :is(.s896-glow,.s896-c1,.s896-c2),
+#where885 .s896-sky[data-kind=cloud] :is(.s896-c1,.s896-c2,.s896-c3),
+#where885 .s896-sky[data-kind=fog] :is(.s896-mist,.s896-mist2),
+#where885 .s896-sky[data-kind=rain] :is(.s896-c1,.s896-c2,.s896-r1,.s896-r2),
+#where885 .s896-sky[data-kind=pour] :is(.s896-c1,.s896-c2,.s896-c3,.s896-r1,.s896-r2),
+#where885 .s896-sky[data-kind=storm] :is(.s896-c1,.s896-c2,.s896-c3,.s896-r1,.s896-r2,.s896-bolt,.s896-flash),
+#where885 .s896-sky[data-kind=sleet] :is(.s896-c1,.s896-c2,.s896-s1,.s896-s2) {display:block;}
+#where885 .s896-sky[data-kind=part] .s896-glow {opacity:.13;}
+
+@keyframes s896-breathe {from {transform:scale(.96);opacity:.15;} to {transform:scale(1.06);opacity:.2;}}
+@keyframes s896-shaft {from {transform:translateX(-8%) rotate(-2deg);} to {transform:translateX(9%) rotate(3deg);}}
+@keyframes s896-drift-a {from {transform:translate(-4%,0);} to {transform:translate(6%,3%);}}
+@keyframes s896-drift-b {from {transform:translate(5%,2%);} to {transform:translate(-6%,-2%);}}
+@keyframes s896-drift-c {from {transform:translate(-5%,1%);} to {transform:translate(4%,-2%);}}
+@keyframes s896-mist {from {transform:translateX(-7%);} to {transform:translateX(7%);}}
+@keyframes s896-rain {from {transform:rotate(12deg) translateY(0);} to {transform:rotate(12deg) translateY(240px);}}
+@keyframes s896-sleet {0% {transform:translate(0,0);} 50% {transform:translate(7px,90px);} 100% {transform:translate(0,180px);}}
+@keyframes s896-bolt {0%,30%,36%,100% {opacity:0;} 32%,33% {opacity:.7;} 34% {opacity:.2;}}
+@keyframes s896-flash {0%,31.5%,34.5%,100% {opacity:0;} 32.3% {opacity:.09;} 33.5% {opacity:.04;}}
+
+/* the sky plays only while the plate is on screen and allowed to (the script sets s896-run); otherwise it holds its frame */
+#where885 .s896-sky * {animation-play-state:paused;}
+#where885 .w885-gauge.s896-run .s896-sky * {animation-play-state:running;}
+#where885 .s896-wx .wxi .rays {animation-play-state:paused;}
+#where885 .w885-gauge.s896-run .s896-wx .wxi .rays {animation-play-state:running;}
+
+/* the weather line under the figure: the page's own words and icon for the day shown, on its own dark pill */
+#where885 .s896-wx {display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 10px;max-width:100%;margin:16px 0 0;padding:7px 16px;border-radius:999px;background:#07171cd9;color:#dceee6;font:600 clamp(13px,2.6cqi,15px)/1.35 Inter,"Segoe UI",Arial,sans-serif;text-align:center;}
+#where885 .s896-wx:empty {display:none;}
+#where885 .s896-wx .wxi {width:24px;height:24px;color:#cfe0e0;}
+#where885 .s896-wx .wxi svg {width:24px;height:24px;}
+#where885 .s896-wx .wxi .c {fill:#c9dde3;fill-opacity:.85;}
+#where885 .s896-wx .wxi .d {stroke:#8fd0ff;}
+#where885 .s896-wx .wxi .b {fill:#ffe08a;}
+#where885 .s896-wx .wxw {color:#eff8f6;}
+#where885 .s896-wx strong {color:#eff8f6;font-weight:700;}
+#where885 .s896-wx small {color:#aec3c3;font:600 11px/1.2 Inter,Arial,sans-serif;letter-spacing:.04em;}
+#where885 .s896-wx[data-kind=unknown] span {color:#aec3c3;font-weight:500;}
+
+/* ---- the group cards: a faint rendered picture of the group's equipment behind the instrument and the counts ---- */
+#gc500-work-board840 .tw846-summary {position:relative;isolation:isolate;}
+#gc500-work-board840 .tw846-summary::before {content:'';position:absolute;inset:-6px -30px -10px;z-index:-1;pointer-events:none;background-size:cover;background-position:50% 62%;background-repeat:no-repeat;opacity:.22;
+ -webkit-mask-image:linear-gradient(90deg,#0000 0%,#000a 30%,#000 60%,#000 100%);mask-image:linear-gradient(90deg,#0000 0%,#000a 30%,#000 60%,#000 100%);}
+
+/* ---- the banner and its clip, parked: the same dark band, now a fold at the foot of Today ---- */
+@media screen {
+ #pane-today.today876 > .dsnband.s896-park {display:block;padding:0 14px;margin:18px 0 0!important;}
+ #pane-today .s896-showcase {margin:0;}
+ #pane-today .s896-showcase > summary {list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;min-height:48px;padding:12px 4px;cursor:pointer;color:#eef6f5;font:600 15px/1.3 Inter,"Segoe UI",Arial,sans-serif;}
+ #pane-today .s896-showcase > summary::-webkit-details-marker {display:none;}
+ #pane-today .s896-showcase > summary::marker {content:"";}
+ #pane-today .s896-showcase > summary:focus-visible {outline:2px solid #ffbd85;outline-offset:3px;border-radius:6px;}
+ #pane-today .s896-showcase-name {font-weight:800;font-size:17px;white-space:nowrap;}
+ #pane-today .s896-showcase-words {flex:1 1 260px;min-width:0;color:#b7c9c9;font-weight:500;font-size:13px;}
+ #pane-today .s896-showcase-action {margin-left:auto;color:#ffbd85;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+ #pane-today .s896-showcase-action::after {content:" \25BE";}
+ #pane-today .s896-showcase[open] > summary .s896-showcase-action::after {content:" \25B4";}
+ #pane-today .s896-showcase > summary .s896-close {display:none;}
+ #pane-today .s896-showcase[open] > summary .s896-open {display:none;}
+ #pane-today .s896-showcase[open] > summary .s896-close {display:inline;}
+ /* the banner itself keeps v8.84's size: centred, capped at 42% of the screen height */
+ #pane-today .s896-showcase > .bhero {width:min(100%,calc(42vh * 1672 / 575),1760px);margin:0 auto 12px;}
+ @media (max-width:720px) {
+  #pane-today.today876 > .dsnband.s896-park {padding:0 8px;margin:14px 0 0!important;}
+  #pane-today .s896-showcase > .bhero {width:100%;}
+  #pane-today .s896-showcase-words {flex-basis:100%;}
+ }
+}
+
+@media (prefers-reduced-motion:reduce) {
+ #where885 .s896-sky *,#where885 .s896-wx .wxi .rays {animation:none!important;}
+}
+:root[data-motion="off"] #where885 :is(.s896-sky *,.s896-wx .wxi .rays) {animation:none!important;}
+@media print {
+ #where885 .s896-sky *,#where885 .s896-wx .wxi .rays {animation-play-state:paused!important;}
+ #where885 .s896-wx {background:none;color:#000;}
+ #where885 .s896-wx :is(strong,.wxw,small,span) {color:#000;}
+ #pane-today .s896-showcase-action {display:none;}
+}
