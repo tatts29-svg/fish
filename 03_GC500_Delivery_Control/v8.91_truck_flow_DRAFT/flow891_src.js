@@ -291,7 +291,7 @@ function flow891FactRow(){ return '<div class="dp-f dp891-f"><label>Before it le
 const dpPageBefore891 = dpPage;
 dpPage = function(d, g, doc, i, n){ let h = dpPageBefore891(d, g, doc, i, n);
  try { h = h.replace('</h1></div>', '</h1>' + flow891HeadLines(d, g, doc, i, n) + '</div>'); /* the header's middle block: kick, title, then these */
-  const k = h.indexOf('<div class="dp-facts">'); if (k >= 0) { const e = h.indexOf('</div></div>', k); if (e > k) h = h.slice(0, e) + flow891FactRow() + h.slice(e); } } catch (e) {}
+  const k = h.indexOf('<div class="dp-facts">'); if (k >= 0) { const e = h.indexOf('</div></div>', k); if (e > k) h = h.slice(0, e + 6) + flow891FactRow() + h.slice(e + 6); } /* after the last fact's own closing tag, inside the facts column */ } catch (e) {}
  return h; };
 /* a photograph with no room on a full page is left off and said so, instead of an empty picture stopping the PDF maker */
 const dpCutBefore891 = dpCut;
