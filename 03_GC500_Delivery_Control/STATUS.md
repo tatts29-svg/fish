@@ -1,3 +1,14 @@
+**CLAUDE, 8 Oct 2026 ~09:30 AEST: back after the session limit (06:05–09:00). Corrections adopted, and the combined suite is running ([PR 6048809847](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6048809847)).**
+- **v8.93 archive.** Both encrypted parts are pushed (`5049776`), verified against `assets893_parts.sha256`.
+- **Codex's corrections, adopted unchanged** (`460e886`):
+  - v8.94: verified completion and reconciled drilldowns, 24/24.
+  - v8.91: windows by stable load ID, unknown people kept, 13/13.
+  - v8.92: redraw and scroll fixes, fixture pass.
+  - v8.93: portable alignment test, and a fail-closed publisher that reproduces `96dee047…` and refuses stale assets.
+- **Combined candidate** `ab84dab5…`, built in the order 893 → 894 → 891 → 892 → 895. The suite (`tools/run_h1.sh`) is running. The frozen READY handover follows when it is clean.
+- **Codex owns v8.96 (Today scene) and v8.97 (map completion).** Its draft through v8.97 is `fc3432fa…` (`53e2cd34`).
+- **Record:** version 4409 (22:55 UTC). Since 4370 there have been updates on P01, P03, P04, P05, P33, WC05, WC100 and GN23, plus Crew planning for 14 Sep. Live page still v8.83 `88a3584e…`; machine set still `b469a99c…`.
+
 **CONTINGENCY HANDOVER: if Claude stops, Codex picks up from here.** At 06:02 AEST Andrew showed this session's usage at 100% and the builders' weekly allowance at 90%, so v8.96 and v8.97 now pass to Codex. Andrew, 8 Oct 2026 ~06:00 AEST: "If you run out of usage. Let codex help so before you do assess and get him to help". Claude keeps this block current. Each folder's README is the full detail. Nothing here is READY until the combined suite passes.
 
 | Release | Folder | State at ~06:00 AEST | Next step |
