@@ -77,11 +77,17 @@ Run on 8 Oct 2026, 03:05–04:00 AEST, on candidate `fe52302c…`. Logs are in `
 
 **The final Map explorer pair:** v8.87's final files with the v8.90 patch on top, in `machine_code_v887_v890/` with SHA-256s, plus the v8.90 drawing assets (`explorer890_final_*`). Results:
 
-FINAL890
+**17/17 on laptop and 17/17 on phone.** The pair was tested with the full-chain page:
+- the 2 Oct scene: 301,253 records, attribution "issued 2 Oct";
+- 26 pyramid levels fetched by byte range, with tiles in every mode;
+- P45, WC10, WC51, WC38 and WC39 found at their 2 Oct places; WC69 and WC40 one label each; WC32 has no place on the drawing;
+- the fencing layer accepts the frame and draws a 17 Sep run at its place, with no "Master drawing changed" alert;
+- deep zoom draws from the new scene;
+- no page errors, and no writes.
 
 ## Decisions for Andrew (the page holds all of these and guesses none)
 
-1. **WC32** is not on the 2 Oct master. Its pin is kept, marked as from the 17 Sep issue. Cancel it, or keep it?
+1. **WC32** is already cancelled on the record and is not on the 2 Oct master. The page keeps its old pin, marked as from the 17 Sep issue. Say if you want the pin gone.
 2. **The western edge of the 2 Oct sheet** shows 9 mm less of the Main Beach end, and labels G7, G8, OP11, MAIN BEACH TOWER and others sat in that strip. No page pin is affected. Ask iEDM to reissue, or accept?
 3. **Event Portables:**
    - Brad Jones Racing and Shell V-Power (Load 4) have no WC number, so the page cannot carry their day.

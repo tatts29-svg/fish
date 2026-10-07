@@ -1,3 +1,23 @@
+**FULL RELEASE READY TO UPLOAD: page v8.84 to v8.89 (one build) + Map explorer set v8.87 + v8.90 (one registration), 8 Oct 2026 04:10 AEST.** Author: Andrew Fisher. Andrew approved at 00:20: "Approved and get everything done". The whole thing is in [`v8.89_full_chain_08Oct2026/README.md`](v8.89_full_chain_08Oct2026/README.md).
+- **Page:**
+  - On live v8.83 `88a3584e`: `fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`, 11,256,999 bytes, check PASS.
+  - Media manifest `1aa4a3b1ac15…` (1,958 files).
+  - It supersedes the separate v8.85 and v8.89 candidates.
+- **Map explorer set:** the v8.87 final files with the v8.90 patch (`machine_code_v887_v890/` and its SHA-256s), plus the v8.90 drawing assets (encrypted archive). The base must be the live `b469a99c`.
+- **Publish order:**
+  1. v8.89 media and manifest;
+  2. the page;
+  3. the machine set (v8.90 README → Publish).
+
+  Then read back.
+- **Full-chain checks (laptop and phone):**
+  - **Data:** DATA accounting PASS. Live → v8.84–v8.88 changes only v8.86's 20 rows; v8.88 chain → full chain changes only v8.89's master.
+  - **New checks:** ep886 31/31; explorer887 23/23 laptop and 24/24 phone; transport888 29/29 (also 29/29 at 2560); costs865 33/33; master889 16/16; where885 24/24 ×4; wide884 21/21 ×4.
+  - **Standing checks:** layout 18, crew 34, VMS 18, Finance 24, asset 40, loading 26, unloading 34, paired881 18; sweeps 15 tabs, 0 errors, 0 writes.
+  - **Final explorer pair:** explorer890 17/17 laptop and phone with this page.
+  - handling875 and paired879 match live.
+- **Waiting on:** the edit key. Codex is asked to take a second look and publish (PR comment below).
+
 **v8.90 MAP EXPLORER DRAWS THE 2 OCT MASTER — READY (machine set, with v8.87), 8 Oct 2026 02:30 AEST.** Author: Andrew Fisher. Claude source [`v8.90_explorer_master_DRAFT/`](v8.90_explorer_master_DRAFT/README.md). It is the explorer's half of Andrew's "over write the current master".
 - **Converter proven exact.** The live explorer drawing is MuPDF's SVG cut into records. The converter rebuilt the 17 Sep scene from the old PDF with all 254,316 records identical, and its tiles are pixel-identical to the live pyramid (20/20 at L0, 247/247 at L2). It was then run on the 2 Oct PDF.
 - **Aligned in the live frame:**
@@ -8,6 +28,21 @@
 - **The western strip:** the 2 Oct sheet shows 9 mm less of the Main Beach end, and that strip is blank, as on the page picture. No page pin lies in it.
 - **Checks:** explorer890 17/17 on laptop and phone, 0 writes; 88 before/after shots.
 - **Publish:** compose with v8.87 in one machine-set registration, steps in the README. The encrypted assets are in `archive/` (2 parts, papers password).
+
+**v8.87 MAP EXPLORER: FAST, SAYS WHAT'S DONE, FENCING CLOSES — READY (page part in the combined build; explorer files in the machine set with v8.90), 8 Oct 2026 03:55 AEST.** Author: Andrew Fisher. Claude source [`v8.87_map_explorer_DRAFT/`](v8.87_map_explorer_DRAFT/README.md). Andrew, 7 Oct: "very very clunky … slow … click on a building nothing is clearly saying what has been done … tap fencing or close fencing to close that".
+- **Speed (paired live vs v8.87 measurements):**
+  - Fencing paint per frame: 3.4–3.8 ms → 0.3–0.5 ms. With Fencing off: painted every frame → never.
+  - Canvas resizes per zoom: 14 → 2.
+  - Hidden-tab polling: 3 polls in 10 s → 0.
+  - Main-thread time when zooming with Fencing on: down about 18% on laptop and 29% on phone.
+- **Behaviour:**
+  - The stuck pointer after a fence tap was reproduced on live and is now gone.
+  - Tap any unit, no chip needed. Its card shows the Timeline stage (Off site → … → Finished), who and when, the due day and what's left, and it stays through a pan.
+  - Fencing closes with ×, with Escape from anywhere (one press) or with a map tap, on laptop and phone.
+- **Candidates:**
+  - Page part on v8.84 + v8.85: `33c6501f…`.
+  - Explorer set `c96c1d1b…` (233 files); its seven files are in `explorer/` with hashes.
+- **Checks:** test_explorer887 23/23 laptop and 24/24 phone; every standing suite matches v8.85.
 
 **v8.88 COSTS RECONCILE + TRANSPORT VIEW — READY (to ship in the combined build), 8 Oct 2026 02:10 AEST.** Author: Andrew Fisher. Claude source [`v8.88_costs_transport_DRAFT/`](v8.88_costs_transport_DRAFT/README.md). Andrew, 7 Oct: "in costing we need to ensure everything in here talks … another tab in costings to do with transport … right down to the branch".
 - **One transport model.** It replaces three separate loops that each worked out "the loads". These P&L figures are unchanged to the cent: moneySummary, Costs to job end, the P&L lines, the Additional transport forecast and the Finance handover cost total. 554 of 587 compared values are identical; the 33 that differ are the intended fixes below.
