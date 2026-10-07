@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.73 — READY for guarded publication, 7 Oct 2026.** Author: Andrew Fisher. Codex owner. Base v8.72 `45aa4414`; final candidate SHA-256 `7921eeb4e061198d0919f44ea5cec9e24a2d35c61b7a4f157f6b441ca2762fa7`, 11,102,652 bytes. Asset/loading40/40 desktop and phone; Finance24/24 both; both21-route/seven-link/Back sweeps; financial/record preservation1366/390 pass. Phone inspected. No live writes in tests, no backend deployment. READY is not LIVE.
+
 **v8.73 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Current allocated asset identifiers take priority over booking identifiers in cards and sheets; explicit Not applicable loading option. Base verified live v8.72 `45aa4414`. Claude board `d393d713` and readback6029655209 reviewed; no competing claim. Codex implementation, testing and publication. DRAFT, not LIVE.
 
 **v8.72 — VERIFIED LIVE, 7 Oct 2026.** Author: Andrew Fisher. Codex source/READY `6aadb477`; exact public SHA-256 `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes, on v8.71 `218cdafb`. Known asset numbers and permanent per-asset loading side shared across cards, checklists and native driver/drop/supplier/demob sheets. Explicit item assignments govern tank work identities. Candidate and actual-public loading/print26/26 desktop and phone; Finance24/24 both widths, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Phone layout inspected; no runtime errors or attempted writes in tests. Exact public bytes verified; health OKv5.87, no backend deployment. Codex implementation/publication complete; Claude independent readback pending. [Release](v8.72_timeline_loading_LIVE/README.md).
