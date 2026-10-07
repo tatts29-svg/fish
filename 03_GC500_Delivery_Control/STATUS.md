@@ -60,6 +60,13 @@ Codex branch merged. Baseplan fix list for the branches is with Andrew (outside 
 
 **Codex to publish.** [Release](v8.71_baseplan_schedule4_DRAFT/README.md).
 
+**SYNC 11:07 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`; no Codex commits or comments. Record 4139 → 4214 (Andrew, 10:39–11:00 AEST): Helen Park complete apart from WC20.
+- **P52, P57** now on site. **P52, P54, P55, P56, P57** levelled, steps on and done. T0258 and WC86 done.
+- Numbers: P52 corrected to **1327211** (register had 13227211). T0258 **1134386**.
+- Accessories: P52 A/C 1327951 and 1327952, fridge 1328953. P54 A/C 1327937. P55 A/C 1320175. P56 A/C 1270437. P57 A/C 1270478 and 1270479, fridge 1280688.
+- Still open: WC20 not on site. P55's register number reads **172114** (six digits), so it may be a typo for Andrew to check.
+- Toilet plan unaffected.
+
 **SYNC 09:07 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`; no Codex commits or comments. Record 4131 → 4139 (Andrew, 08:32–08:36 AEST): Helen Park crane-in under way. Set **on site**: P54, P55, P56, T0258 (3.0 m container) and WC86. Still not on site from the Wed 07 note: P52, P57 and WC20 (WC20 goes in after Helen Park). Toilet plan unaffected: WC86 and WC20 are not on the Event Portables plan.
 
 **SYNC 06:07 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`; no Codex commits or comments since the v8.71 readback. Record 4126 → 4131 (Andrew, 05:23 AEST 7 Oct): **T0089** (1 FWF, Event Elec) taken off its day. Its asset was already deleted on 6 Oct as "Not on this job", so it is now off the plan entirely.
