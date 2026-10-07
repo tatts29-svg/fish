@@ -1,0 +1,130 @@
+PASS no DATA key added or removed
+PASS DATA.fence_ccb_review847 identical
+PASS DATA.event_staffing833 identical
+PASS DATA.transport_forecast831 identical
+PASS DATA.brand identical
+PASS DATA.event identical
+PASS DATA.race_days identical
+PASS DATA.first_truck identical
+PASS DATA.car identical
+PASS DATA.board identical
+PASS DATA.raceBanners identical
+PASS DATA.pageBanners identical
+PASS DATA.circuit identical
+PASS DATA.surrounds identical
+PASS DATA.geoFrame identical
+PASS DATA.tomtom identical
+PASS DATA.workforce identical
+PASS DATA.barriers identical
+PASS DATA.holidays identical
+PASS DATA.showSound identical
+PASS DATA.broadcast identical
+PASS DATA.machine identical
+PASS DATA.built identical
+PASS DATA.sources_taken identical
+PASS DATA.build_version identical
+PASS DATA.dataset_sha256 identical
+PASS DATA.register_sha256 identical
+PASS DATA.design identical
+PASS DATA.aerial_hi identical
+PASS DATA.aerial_hi_px identical
+PASS DATA.edition identical
+PASS DATA.docs identical
+PASS DATA.hosting_note identical
+PASS DATA.orientation identical
+PASS DATA.product_photos identical
+PASS DATA.georef identical
+PASS DATA.access identical
+PASS DATA.aerial_note identical
+PASS DATA.boq identical
+PASS DATA.authority identical
+PASS DATA.accessory_authority identical
+PASS DATA.pricing_authority identical
+PASS DATA.summary identical
+PASS DATA.assets identical
+PASS DATA.orphan_rows identical
+PASS DATA.unreferenced identical
+PASS DATA.plant_lines identical
+PASS DATA.rate_card identical
+PASS DATA.accessory_rate_card identical
+PASS DATA.rate_match identical
+PASS DATA.charge_basis identical
+PASS DATA.rehire_quotes identical
+PASS DATA.toilet_servicing identical
+PASS DATA.event_scope identical
+PASS DATA.sheets identical
+PASS DATA.weeks identical
+PASS DATA.states_legend identical
+PASS DATA.transport identical
+PASS DATA.driver_rules identical
+PASS DATA.open_items identical
+PASS DATA.ops identical
+PASS DATA.cost_categories identical
+PASS DATA.team identical
+PASS DATA.branches identical
+PASS DATA.purchase_orders identical
+PASS DATA.fencing identical
+PASS DATA.variance_types identical
+PASS DATA.fence identical
+PASS DATA.closures identical
+PASS DATA.fence_contractor identical
+PASS DATA.depot identical
+PASS DATA.fence_sheets identical
+PASS DATA.chargeable_states identical
+PASS DATA.site identical
+PASS DATA.media identical
+PASS DATA.hostedMedia identical
+PASS DATA.hzmap identical
+PASS DATA.aerial_mid identical
+PASS DATA.aerial_mid_px identical
+PASS DATA.schedule_review875 identical
+PASS MASTER_LOC identical
+PASS outside DATA the page differs only in the release footer
+PASS the footer reads v8.95 once
+PASS rental_on_hire keys unchanged
+PASS rental_on_hire.supplied_by identical
+PASS rental_on_hire.transcription_state identical
+PASS rental_on_hire.authority identical
+PASS rental_on_hire.notes identical
+PASS rental_on_hire.columns identical
+PASS rental_on_hire.differences identical
+PASS the source is the 7 Oct export
+PASS one supplement added, for v8.95, bound to the export by SHA-256
+PASS 323 lines: the 321 of the 6 Oct export and the two the 7 Oct export adds
+PASS the lines are in contract and line order
+PASS every line outside the export's 25 is identical, field for field
+PASS the 25 changed lines change only in the export's fields and what v8.71 derives from them
+PASS row shape unchanged: every kept line has the base's keys in the base's order, every added line the standard keys
+PASS WC07's 20 FWF lines (9968955/24-43): Delivered on 22 Sep, each with its Baseplan asset number, docket 26081411 kept
+PASS the 20 WC07 lines keep their rates (the export did not change them)
+PASS lines 24 and 39: the WC07 prefix came off the description, the thing itself unchanged
+PASS 19 WC07 lines join WC07 by the number Andrew recorded (as supplied, 22 Sep 2026); their old join was none
+PASS line 38 (1317643) joins nothing: Andrew's WC07 record carries 1317743, not 1317643 - held for him
+PASS P56 building (9968862/89): Delivered, on hire from 7 Oct (was Del Req, booked 14 Sep); its join to P56 unchanged
+PASS WC31 accessible toilet (9968955/97): Pending -> Del Req on docket 26115307, joined to WC31 by that docket
+PASS WC09 toilet blocks (9968955/103, 105): Pending -> Del Req on dockets 26115312 and 26115316, joined to WC09 by those dockets
+PASS NVAC forklift (9961976/27): the description typo is fixed and the thing reads Forklift 3.5t Diesel
+PASS two new NVAC lines 42 and 43: 200 kVA Concert generators 1316182 and 1316183, Pending, booked 12-26 Oct, no rate, joined to GN? by the register's numbers
+PASS the new lines carry every field a line has (the v8.71 skeleton), with no money on them
+PASS a Pending line is not on hire: no start date, not delivered (v8.71's rule)
+PASS no rate of 0 anywhere (a 0 is no rate) and every delivered line is on hire from a date
+PASS every line's carried fields equal the 7 Oct export's cells (323 lines)
+PASS no line joins a reference that contradicts Andrew's record (shared record 4370 or the as-supplied record)
+PASS the recorded numbers whose line is not joined are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110) and the two lines his record moved after 6 Oct (9968862/50, 9968862/79)
+PASS the register's WC07 carries no numbers of its own (his are on the as-supplied record and the shared record, which the page reads live)
+PASS 11 contracts, the same eleven
+PASS every contract summary is exactly what its lines give, and its other fields are the base's
+PASS only 9961976, 9968862 and 9968955 change their summary
+PASS 9961976: 36 lines, 30 matched, two more plant numbers
+PASS 9968862: only the new delivered date 7 Oct
+PASS 9968955: 22 more matched lines, 22 Sep among its delivered dates, the three new dockets, the 20 numbers
+PASS assignments: the same references, only GN?, WC07, WC09 and WC31 change
+PASS each changed assignment is exactly what its joined lines give
+PASS WC07: KINP, contract 9968955, 19 lines, delivered 22 Sep on docket 26081411 (was by kind of item)
+PASS GN?: NVAC, contract 9961976, lines 42 and 43, not delivered (was by kind of item)
+PASS WC09 and WC31 keep KINP and 9968955, now by their dockets, not delivered
+PASS the summary counts are exactly what the lines give
+PASS the summary's other fields are the base's
+PASS summary: 323 lines, 164 plant numbers, 142 delivered lines, 135 joined by number, 30 by docket, 151 unjoined
+PASS plant_lines identical (no plant line carries a changed contract line)
+identity895: PASS - DATA identical to the base except DATA.rental_on_hire, and there only the 7 Oct export's 25 changed and 2 added lines with what v8.71 derives from them

@@ -110,7 +110,31 @@ toolchain/build.sh v8.95 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 
 `tests/test_contracts895.cjs` checks: the contracts are the 7 Oct export (323 lines, 11 contracts, the v8.95 supplement bound by SHA-256); the two new NVAC lines are on the page, Pending, no rate, joined to GN?; a Pending line is off hire and the generators are charged at the card's 200 kVA line once for the three event days; the two are a small share of NVAC and of the contracts; WC07's 20 lines are Delivered from 22 Sep with their numbers; Andrew's numbers win (19 join, line 38 does not, the page shows his 20 with 1317743 and never 1317643, WC07 on hire from 22 Sep by the rental system); the toilet charge did not move; P56 on hire from 7 Oct; the three Del Req lines join WC31 and WC09 by docket and are not on hire; the forklift line reads Forklift 3.5t Diesel and still goes by the day rate; no contract line contradicts his record; every Pending line is off hire; all 17 tie-outs tied; the P&L and the Finance handover's checks hold; Revenue on the record and to job end, Transport to date, to come and Transport Revenue read the same wherever shown; the branches add to the contracts charge; the Costs tab names the 7 Oct export; WC07's drawer shows Rental 9968955 and his numbers; no overflow; a redraw changes no figure; no errors; no writes.
 
-RESULTS_TABLE
+| Check | Laptop | Phone | Other |
+|---|---|---|---|
+| v8.95 identity (`identity895`, chain through v8.94 → candidate) | PASS (129 checks) | — | the 6 Oct export reproduces the live DATA: 0 differences |
+| v8.95 contracts (`contracts895`, new) | 23/23 | 23/23 |  |
+| v8.88 Transport view (`transport888`) | 29/29 | 29/29 | 29/29 at 2560 px |
+| v8.65 Costs (`costs865`) | 33/33 | 33/33 |  |
+| v8.66 Finance handover (`finance866`) | 24/24 | 24/24 |  |
+| v8.86 Event Portables days (`ep886`) | 31/31 | 31/31 |  |
+| v8.87 Map explorer (`explorer887`) | 23/23 | 24/24 |  |
+| v8.89 master (`master889`) | 16/16 | 16/16 |  |
+| v8.76 layout (`layout876`) | 18/18 | 18/18 |  |
+| v8.74 VMS (`vms874`) | 18/18 | 18/18 |  |
+| v8.73 Equipment (`asset873`) | 40/40 | 40/40 |  |
+| v8.72 loading (`loading872`) | 26/26 | 26/26 |  |
+| v8.81 unloading (`unloading881`) | 34/34 | 34/34 |  |
+| v8.81 paired (`paired881`) | 18/18 | 18/18 |  |
+| v8.75 handling (`handling875`, out of date, identical on the chain) | 22/28 | 22/28 |  |
+| v8.79 paired run sheets (`paired879`, out of date, identical on the chain) | 17/18 | 17/18 | the same one check fails on the chain without v8.95 |
+| v8.83 crew (`crew883`) | 34/34 | 34/34 | |
+| v8.85 Where we are (`where885`) | 24/24 at 1600 · 24/24 at 1440 | 24/24 | 24/24 at 2560 |
+| v8.84 wide layout (`wide884`) | 21/21 at 1600 · 21/21 at 1440 | 21/21 | 21/21 at 2560 |
+| v8.71 (`test_v871`) | 11/12 | — | its first check still asks for the 6 Oct export, which v8.95 supersedes; every other check passes |
+| v8.70 supplier (`supplier870`) · v8.69 KINP (`kinp869`) | 17/17 · 17/17 | — | |
+| 15-tab sweep | 15 tabs shown, 0 errors, 0 blocked | 15 tabs shown, 0 errors, 0 blocked | |
+| Chain data accounting | data886 (live → v8.84–v8.88): PASS · identity889 (v8.88 chain → chain through v8.94): PASS | | |
 
 Screenshots (WC07's drawer and the Everything reconciles line, laptop and phone) stay local because they show figures.
 
@@ -121,4 +145,4 @@ Screenshots (WC07's drawer and the Everything reconciles line, laptop and phone)
 3. **Your record since 6 Oct would move two more lines.** You have typed 1105053 on P37 and 1327211 on P52 since the 6 Oct export; the contract lines carrying them (9968862/50, Delivered, and 9968862/79, Del Req) are not joined to anything. v8.95 changes only what the export changes, so they stay as they are and the page still shows your numbers live. Say yes and the builder's `REJOIN_RECORD` switch joins them (listed in the change log as `record_would_move`).
 4. **WC31 and WC09 on Thu 8 Oct.** Their lines are Del Req with the SFL dockets; once Baseplan has them Delivered, the next export puts them on hire from their booked date.
 
-Not LIVE: this session has no edit key. If the chain goes live first, build with `patch_v895.py` alone on the live page; the patch's base check is the contract source, not the footer.
+Not LIVE: this session has no edit key. If the chain goes live first, build with `patch_v895.py` alone on the live page: its footer then carries one of ` · v8.89` … ` · v8.94`, which the footer step expects, and its contract source is still v8.71's 6 Oct export, which the base check expects.

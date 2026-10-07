@@ -55,15 +55,23 @@ function flow891Sender(){ const op = (S.operator || '').trim(); return flow891Fu
 function flow891Oversize(r){ const a = r.a || r; let w = ''; try { if (r.a) w = dpItemsWords(r); } catch (e) { w = ''; }
  try { if (/oversize/i.test(crew883Transport(a))) return true; } catch (e) {}
  return FLOW891_BIG.test([w, a.product, a.discipline].concat(a.item_types || []).join(' ')); }
-/* the area a load unloads in: the position's zone first (where the truck stands), then the meet point it reports to */
+/* the area a load unloads in: the position's zone first (where the truck stands), then the meet point it reports to. Worked out
+   once per reference and kept while the record stands (the zone and meet point read pins and positions, which only a record
+   change moves): emptied on every local save and whenever the shared record's version moves. */
+const FLOW891_CACHE = {v: undefined, area: new Map()};
+function flow891CacheCheck(){ let v = null; try { v = SYNC.backend && typeof SYNC.backend.readVersion821 === 'function' ? SYNC.backend.readVersion821() : null; } catch (e) { v = null; }
+ if (v !== FLOW891_CACHE.v) { FLOW891_CACHE.v = v; FLOW891_CACHE.area.clear(); } }
 function flow891AreaOf(a){
+ flow891CacheCheck(); const hit = FLOW891_CACHE.area.get(a.key); if (hit) return hit;
  let z = null, mp = null; try { z = zone816(a); } catch (e) { z = null; } try { mp = meetPoint819(a); } catch (e) { mp = null; }
- const A = FLOW891.areas, byZone = z && z.zone ? Object.keys(A).find(k => A[k].zones.includes(z.zone)) : null;
- if (byZone) return {key: byZone, name: A[byZone].name, how: 'zone ' + z.zone, mp: mp && mp.p ? mp.p.id : null};
- const id = mp && mp.p ? mp.p.id : null, byMp = id ? Object.keys(A).find(k => A[k].mp.includes(id)) : null;
- if (byMp) return {key: byMp, name: A[byMp].name, how: 'meet point ' + mp.p.name + (mp.how === 'nopin' || mp.how === 'default' ? ' (no position on the map yet)' : ''), mp: id};
- return {key: null, name: 'area not known', how: 'no position or meet point', mp: id};
+ const A = FLOW891.areas, byZone = z && z.zone ? Object.keys(A).find(k => A[k].zones.includes(z.zone)) : null, id = mp && mp.p ? mp.p.id : null, byMp = id ? Object.keys(A).find(k => A[k].mp.includes(id)) : null;
+ const out = byZone ? {key: byZone, name: A[byZone].name, how: 'zone ' + z.zone, mp: id}
+  : byMp ? {key: byMp, name: A[byMp].name, how: 'meet point ' + mp.p.name + (mp.how === 'nopin' || mp.how === 'default' ? ' (no position on the map yet)' : ''), mp: id}
+  : {key: null, name: 'area not known', how: 'no position or meet point', mp: id};
+ FLOW891_CACHE.area.set(a.key, out); return out;
 }
+const saveBefore891 = save;
+save = function(){ FLOW891_CACHE.area.clear(); return saveBefore891.apply(this, arguments); };
 /* the pit lane allowance for a day, by the programme's own week sheets */
 function flow891PitLaneMax(iso){
  const W = DATA.weeks || [], P = FLOW891.areas.pitLane; if (!W.length || !iso) return {max: null, words: 'not set', sheet: null};

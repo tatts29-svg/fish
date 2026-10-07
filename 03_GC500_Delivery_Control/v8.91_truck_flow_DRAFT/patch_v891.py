@@ -17,7 +17,7 @@ for fn in ['function crew883Plan(', 'function crew883SaveDay(', 'function crew88
            'function dpPage(', 'function pl782Pages(', 'function dropPage(', 'function checkDialog826(', 'function checks826(', 'function daily821Model(', 'function daily821Html(',
            'function daily861Body(', 'function dayPanels(', 'function pdf7Open(', 'function dpPrint(', 'function meetPoint819(', 'function zone816(', 'function drvStamp782(',
            'function hhmm782(', 'function clock782(', 'function run782(', 'const PEAKS782', 'const LOAD_BY782', 'const UNLOAD_MIN782', 'const GUIDE826', 'function motionOff816(',
-           'function ldScroller(', 'function dpBx(', 'function navUrl(', 'function assetOf(', 'function whereText(', 'function hasTank782(', 'function dpItemsWords(']:
+           'function ldScroller(', 'function dpBx(', 'function navUrl(', 'function assetOf(', 'function whereText(', 'function hasTank782(', 'function dpItemsWords(', 'function save(', 'function dpCut(', 'function dpFail(']:
     assert fn in s, 'base is missing ' + fn
 assert 'flow891-style' not in s and 'function flow891Build(' not in s, 'v8.91 is already applied'
 
