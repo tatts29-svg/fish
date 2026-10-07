@@ -101,6 +101,8 @@ const Where885=(()=>{
   el.innerHTML=markup(m,phase);
   board.before(el);
   if(prog)el.querySelector('.w885-programme').append(prog);else el.querySelector('.w885-programme').remove();
+  // The page enhances the programme panel after each redraw; doing it now keeps its height steady while scroll is restored.
+  window.TodayMotion820?.refresh?.();
   const gauge=el.querySelector('.w885-gauge');visible=inView(gauge);
   if(el.dataset.key===playedKey||still())settle(el);else if(visible&&!paused)play(el);
   observer=new IntersectionObserver(seen,{threshold:[0]});observer.observe(gauge);

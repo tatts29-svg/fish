@@ -37,7 +37,7 @@ The equal weighting comes from the agreed design in the staged model. Equipment 
 
 - **Model:** `progress881_model.js` is the seven-group model staged in `v8.81_progress_scene_DRAFT`, used unchanged with its 12 tests (`tests/test_model881.cjs`).
 - **Not taken from that draft:** the banner moved into a fold, the weather art, the 2.7 MB equipment picture and the card restyling. Andrew did not ask for those here.
-- **Card code:** `where885.js` and `where885.css`. The card mounts inside the Today redraw, before scroll and focus are restored, so a record refresh never jumps the page.
+- **Card code:** `where885.js` and `where885.css`. The card mounts inside the Today redraw, before scroll and focus are restored. The programme panel is enhanced in the same step (the page's own `TodayMotion820.refresh()`), so its height is steady and a record refresh never jumps the page. The first build without this moved content by 38 px on a redraw, which `test_wide884` caught.
 
 ## Build
 
@@ -47,7 +47,7 @@ v8.84 is not live yet, so the build chains both patches:
 
 Once v8.84 is live: `toolchain/build.sh v8.85 v8.85_where_we_are_DRAFT/patch_v885.py`.
 
-Candidate on live v8.83 `88a3584e` (v8.84 included): `6f97528f169fc83af8109e9e1ae6040e199a142dec659e0c9100cf2cc835aff5`, 11,166,740 bytes.
+Candidate on live v8.83 `88a3584e` (v8.84 included): `6a7193334bf9e44b8537f65f27e80f6a64381075408007a9bc3d5d4d165e95f4`, 11,166,903 bytes.
 
 ## Checks
 
