@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.79 — READY, 7 Oct 2026.** Author: Andrew Fisher. Codex source `a0db2138`, base v8.76 `4ec46478`; candidate SHA-256 `8efe943f4c6995bb9b98b7210a69895f1ee056b33bffc36a9584ff890f6d7681`, 11,120,789 bytes. Paired-sheet18/18, allocation40/40, lifting28/28, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. All DATA identical. No backend or operational-record changes. Claude retains map/Costs ownership. READY is not LIVE.
+
 **v8.79 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Native paired-unit run-sheet presentation, from live v8.76 `4ec46478`. Explicit recorded unit relationships only; no source quantities, money or operational-record changes. Claude owns v8.77 Maps and v8.78 Costs on fresh board `a903df6`; no overlap. DRAFT, not LIVE.
 
 **v8.76 — VERIFIED LIVE, 7 Oct 2026 13:57 AEST.** Author: Andrew Fisher. Source/READY `e0e9a181`; exact public SHA-256 `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes. Actual-public layout18/18 desktop/phone; candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Ultrawide layout and all-DATA preservation pass; screenshots inspected. All progress groups open by default, details retained in folds, consistent Today rail and full-width contacts. Codex implementation/publication complete; Claude independent readback pending. Health OK v5.87, no backend or operational-record changes. Separate dispatch/loading handover remains outside this presentation release. [Release](v8.76_today_layout_LIVE/README.md).
