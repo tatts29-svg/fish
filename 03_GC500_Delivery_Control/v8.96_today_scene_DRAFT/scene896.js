@@ -13,7 +13,7 @@ const Scene896 = (() => {
  const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  /* the WeatherAPI condition codes the page draws (the same list its day cards use); any other code is not a forecast we know */
  const WAPI = new Set([1000, 1003, 1006, 1009, 1030, 1063, 1066, 1069, 1072, 1087, 1114, 1117, 1135, 1147, 1150, 1153, 1168, 1171, 1180, 1183, 1186, 1189, 1192, 1195, 1198, 1201, 1204, 1207, 1210, 1213, 1216, 1219, 1222, 1225, 1237, 1240, 1243, 1246, 1249, 1252, 1255, 1258, 1261, 1264, 1273, 1276, 1279, 1282]);
- let io = null, mo = null, moFrame = 0, visible = false, printing = false, showcaseOpen = false;
+ let io = null, mo = null, moFrame = 0, visible = false, printing = false, showcaseOpen = false, asked = 0;
  const num = v => typeof v === 'number' && Number.isFinite(v);
  const fn = name => typeof window[name] === 'function';
  const gauge = () => document.querySelector('#pane-today #where885 .w885-gauge');
@@ -99,6 +99,15 @@ const Scene896 = (() => {
    try { if (typeof BOARD_RUN !== 'undefined' && BOARD_RUN.reconcile) BOARD_RUN.reconcile(); } catch (e) {}
   });
  }
+ /* the forecast itself: Today's own draw asks only for the current reading (the banner's), the Timeline asks for the ten-day
+    forecast. The plate asks the same way the Timeline does, through the page's own loaders (cached for the hour, shared, one
+    fetch at a time), and at most once every ten minutes from here; the answer repaints through wxfPaint, above */
+ function ask() {
+  if (!fn('wxfLoad') || !fn('wxoLoad') || !fn('wxfPaint') || state.tab !== 'today') return;
+  const now = Date.now(); if (now - asked < 600000) return; asked = now;
+  try { wxfLoad(wxfPaint); } catch (e) {}
+  try { wxoLoad(wxfPaint); } catch (e) {}
+ }
  function watch(g) {
   if (!io) io = new IntersectionObserver(entries => { for (const e of entries) if (e.target.isConnected) visible = e.isIntersecting; sync(); }, {threshold: [0, .01]});
   io.disconnect(); visible = inView(g); io.observe(g);
@@ -113,7 +122,7 @@ const Scene896 = (() => {
   const g = gauge(); if (!g) { if (io) io.disconnect(); visible = false; return; }
   if (!g.querySelector('.s896-sky')) g.insertAdjacentHTML('afterbegin', sky());
   if (!g.querySelector('.s896-wx')) g.insertAdjacentHTML('beforeend', '<p class="s896-wx" data-s896-wx data-kind="unknown"></p>');
-  atlas(); basis(); weather(); watch(g); sync();
+  atlas(); basis(); weather(); watch(g); sync(); ask();
  }
  /* mounted inside the Today redraw, after the Where we are card (v8.85) and its notes (v8.94), before scroll and focus are put back */
  if (fn('renderToday_held')) { const held = renderToday_held; renderToday_held = function (...args) { const r = held.apply(this, args); try { mount(); } catch (err) { console.error('Today scene', err); } return r; }; }

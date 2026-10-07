@@ -76,8 +76,8 @@ html[data-motion="off"] .ld.flow891-flip{transition:none}
 #flow891name .b-no{background:transparent;color:inherit;border:1.5px solid rgba(0,0,0,.2)!important}
 /* on the printed sheets: Printed by and the four tick boxes in the header's right block (no line of its own); the driver's order,
    window and holding words on the sheet's rules line; the printer's name on each location sign */
-#dayprint .dp-hd-m .dp891-by{font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--ink);white-space:nowrap}
-#dayprint .dp-hd-m .dp891-rl{display:block;margin:.6mm 0 0;font:500 6pt/1.25 Inter,'Segoe UI',system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--ink)}
+#dayprint .dp-hd-m .dp891-by{font:600 5.8pt/1 Inter,'Segoe UI',system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--ink);white-space:nowrap}
+#dayprint .dp-hd-m .dp891-rl{display:block;margin:.6mm 0 0;font:500 5.6pt/1.25 Inter,'Segoe UI',system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--ink)}
 #dayprint .dp-hd-m .dp891-rl b{font-weight:800;letter-spacing:0;text-transform:none}
 #dayprint .dp-facts .dp891-f{flex:2.2 1 0;flex-direction:column;align-items:stretch;justify-content:center;gap:.3mm;overflow:hidden}
 #dayprint .dp-facts .dp891-f label{flex:0 0 auto}

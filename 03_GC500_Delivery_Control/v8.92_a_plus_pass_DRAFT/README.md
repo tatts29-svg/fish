@@ -77,6 +77,24 @@ sheet" for the Drivers print, "Subhired · no Coates number" on the drop sheet, 
 Demob run sheets, "oversize" in the run-sheet sign-off and the crew planning category, and two orange-on-white links in the
 loading lines (2.9:1).
 
+## What is left, and why
+
+- **The page's load** (about 2.5–4 s to Today drawn on this rig) is the 8 MB record parsing and the first draw. v8.92 does not
+  touch how the record is carried in the page; that is a build-shape change for a release of its own.
+- **Costs & P&L** opens in about 0.7–0.9 s on a revisit (was 1.2–1.5 s). What is left is the layout of its 19,000 elements and the
+  P&L models themselves (`moneySummary`, the tie-outs), which are worked out once a draw already.
+- **Scrolling the Timeline on the 2560 px screen** still drops frames on this headless rig: the frames are limited by software
+  rasterising a very wide page, not by the page's own work (the lamp check is now one layout a frame).
+- **The compact header** (v7.89) moves the lockup, search and tab row up 80 px when the work area scrolls past the top and back
+  when it returns. It registers as a layout shift of 0.145 on a laptop or wide screen; it is the page's designed response to the
+  person's own scrolling and is left as built.
+- **Search typing on a tab that filters by the search text** (Equipment, Costs & P&L, Fencing, Timeline) still redraws that tab
+  160 ms after the typing pauses — that is the filter working. Today and the other tabs that never read the search text are no
+  longer redrawn.
+- **In v8.91's area**, listed in the terminology report and the audit notes: the "driver sheet" words, the drop sheet's
+  "Subhired", the Demob run sheets' "Sub-hire", "oversize" in the sign-off and the crew category, and two orange-on-white links
+  in the loading lines.
+
 ## For Andrew
 
 1. The Map explorer tab's sheet button (and the machine's page) say **Plan on satellite**; the tab says **Map explorer**. One
