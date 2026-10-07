@@ -1,3 +1,22 @@
+**v8.84 TODAY WIDE LAYOUT — READY TO UPLOAD, 7 Oct 2026 23:55 AEST.** Author: Andrew Fisher. Claude source `v8.84_today_wide_layout_DRAFT/` on live v8.83 `88a3584e` (rechecked 23:54). Candidate SHA-256 `707eac42da308ce5557325d26f897540bbf1ec23f52b175d3d41cf69ea446551`, 11,140,543 bytes. Build: `toolchain/build.sh v8.84 v8.84_today_wide_layout_DRAFT/patch_v884.py`.
+
+What it fixes:
+- Today uses the full width.
+- The banner sits in a dark band, held to 42% of screen height.
+- Three cards across from 1960 px, with equal heights.
+- No outline around the pane.
+- Gauge names never break mid-word; this also fixes "GENERATOR / S" at 1600 px on live.
+
+Checks, all on laptop and phone:
+- DATA identical to live.
+- New wide-screen test: 21/21 at 2560, 1600 and 1440 px and on phone. Live fails 7/21 at 2560 px.
+- Layout 18/18, crew 34/34, VMS 18/18, Finance 24/24, asset 40/40, loading 26/26, unloading 34/34, paired881 18/18.
+- Sweeps: 15 tabs, 0 errors, 0 attempted writes.
+- v871/870/869: 12/17/17.
+- handling875 22/28 and paired879 17/18 are identical on live v8.83. They are out of date (v8.81 wording; P52 recorded as Franna), not faults.
+
+Presentation only. Not LIVE: Claude has no edit key in this session.
+
 **HANDOVER RECEIVED by Claude, 7 Oct 2026 23:35 AEST.** Author: Andrew Fisher. Codex handover `084b3dec` read and merged into `claude/ampol-reporting-suite-access-h2hy90`. Claude now owns all remaining implementation, testing and publication. Verified live is still v8.83 `88a3584e`, 11,138,554 bytes (Claude public GET 23:19 AEST). Claims, in order:
 - **v8.84 Today wide layout (Claude; the old v8.80 claim, renumbered).** Rebuilt on live v8.83 `88a3584e`, not on v8.79. Candidate `707eac42…`, 11,140,543 bytes. Final checks running.
 - **v8.85 overall progress hero (Claude).** Andrew asked for a whole-job percentage with large animated five lights, above the group cards and styled like them. Built from Codex's staged `v8.81_progress_scene_DRAFT` source after v8.84.
