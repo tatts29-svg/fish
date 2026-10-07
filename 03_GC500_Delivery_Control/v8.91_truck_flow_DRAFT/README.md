@@ -1,0 +1,85 @@
+# v8.91 — Truck flow: daily runs that get trucks in early, in order, and never over-crowd an area (DRAFT, candidate built and tested)
+
+Author: Andrew Fisher. Built on live v8.83 `88a3584e` with the full chain v8.84 → v8.89 applied first (`fe52302c…`). **Not LIVE** — no edit key in this session; the lead publishes.
+
+## What Andrew asked (8 Oct 2026, ~03:40 AEST)
+
+> "This need to be all A+ class perfection. Every look. Every movement. Smooth. Fast. No lag. Navigation needs to be easy. Terminology needs to be correct …
+> Selection of staff is chosen by staff who is on for that day. That gives you your numbers for that day. If you have 6 loads for the day you can change the order … If it's 5 of 7 you change to 4 of 7.
+> Part of the checklist that gets printed off: Is site aware of status of trucks. Is loads all ready. Are truck doors loaded on correct side. Trucks should be staggered.
+> Whoever prints these, they must have their name, and their name come up on the daily run, as well as on the attached somewhere. First and last name.
+> … not over-crowding areas, and ensuring drivers are aware they are going, and they must turn up in their allocated order … Anything on Main Beach only one truck at a time. Pit lane we can have max 2 trucks in there from week 4. Week 5, week 6 we can fit up to 6 trucks in there, if we needed to hold any truck.
+> The whole point is to get trucks that are on a curfew to site on the earliest run possible. WC60 is a perfect example … We can also have 4 trucks park at any one time at Helen Park where the red line is … at any one time on any day we can fit up to 7 oversized — 4 at Helen Park, 2 at pit lane and 1 at location. I'm not saying this is the way we do it, but we need to be smarter. Earlier the better.
+> Some loads, for example generators, some of these could possibly go on the same truck as other items too … We don't want to over-complicate things either."
+
+And later (relayed): "No bugs. No errors. No scrolling issues. No presentation issues. No navigation around page issues. Nothing is blocking things. We have back buttons we have close buttons. Easy simple. And all cost align and correct."
+
+## What changed, in Andrew's words
+
+1. **Staff on the day sets the numbers.** On the Timeline, every day now has a **Truck flow** card under its figures. It starts with who is on: "**3 people on · 7 loads** — allows 1 unload at a time (2 people each; site limit 2 trucks at once)". Until somebody sets the number it says **People on: not set** and asks for it; the number is typed right there and saved on the crew planning record (the same "People available for the day" that Crew uses). No roster is invented.
+2. **Reorder the day's loads.** Each delivery load on the day's list has a grip and ▲ ▼. Drag on a desktop, ▲ ▼ on a phone, Alt + arrows on a keyboard. The list slides into its new order (transform only; none with reduced motion), the focus stays on the button pressed, and nothing scrolls. **Every label renumbers at once**: the list, the Drivers and Install plate menus, "Load 4 of 7" on every sheet and PDF, the pre-dispatch check, the message to the install teams and the daily page. The order is saved on the crew planning record (one day document with the loads in order, plus each reference's planned arrival order set to match, so Crew still reads "planned order N"). On the view link the buttons are there and refuse the page's way ("View only …"), exactly like every other edit.
+3. **Area limits, checked and shown.** The card reads each area from the page's own meet points and zones, works out every truck's arrival window (the planned unloading window in Crew where there is one, else the Kingston load time plus the 70-minute run, 30 minutes to unload) and shows the busiest moment against the limit. A plan over a limit is flagged in red on the card and with an **Area full** chip on the load's line, with the simplest fix in words — "stagger Load 7 (WC61) to 09:30, or hold it at Helen Park — red line, Rankin Pde until 09:30" — and a one-tap **Stagger to 09:30** that writes the planned unloading window through Crew. A load with no window yet is counted and the card says how to give it one. The limits live in one place (`FLOW891` at the top of `flow891_src.js`) with Andrew's words beside each.
+4. **Curfew first.** Every oversized load (a building, toilet block, ticket box or container — the page's own planning category since v8.83, plus the item words, so WC60's "Toilet Block 6m" counts) is checked against the earliest run: away from Kingston by 05:00, on site before 07:00, never on the road 07:00–09:00 (the page's own rules since v7.82). A load that misses it is flagged — "loaded 08:30 — on the road in the 07:00–09:00 restriction" — with a one-tap **Make it Load 1** and the words to give the carrier a 05:00 load time. A load with no Kingston load time says so instead of guessing. WC60 on 1 Oct (loaded 08:30) reads exactly as Andrew described it; so do P57 and P52 on 7 Oct.
+5. **Could share a truck.** The card lists loads on the same day and area that are not oversized or tanks — "Load 3 (WC38) + Load 4 (WC39) (Commodore Park)" — but **suggests none**: the page holds no weights or dimensions for these items, so it says so and points at the Coates Load Restraint Guide 2023 instead. Nothing is ever applied. When weights and dimensions are on the page (`FLOW891.specs`), the same check turns them into suggestions with the basis in one line.
+6. **Printed checklist and Printed by.** Every Drivers and Install sheet carries the four tick boxes — **Site aware of truck status · Loads all ready · Truck doors loaded on the correct side · Trucks staggered** — as one more row of the sheet's facts, and **Printed by First Last · 08 Oct 2026, 04:49 AEST** under the sheet's title; the location signs and the drop sheets carry Printed by too. Printing needs a first and last name: the pre-dispatch check now wants both; Install PDFs and the deep-link web view ask once ("Who is printing?" — Close ×, Not now, Escape) and the device remembers. The page's own operator name is used when it has both parts. The pre-dispatch check also lists "Site is aware of the status of the trucks" and "The loads are all ready" (door side and stagger were already on it).
+7. **Drivers know and keep their order.** Each driver sheet says, under its title: "Arrive in your allocated order — load 3 of 7; out of order delays everyone · Arrival window 09:40–10:10 · Main Beach (one truck at a time) · If early or the area is full, hold at Helen Park — red line, Rankin Pde (up to 4 trucks)". The message to the install teams carries "Sent by First Last", every reference's notes carry the load's order, window and the holding words, and the daily page says "Prepared by First Last" and "In load order — the trucks arrive in this order".
+8. **A+.** No layout jank: the only motion is the list sliding on reorder (transform, 250 ms, off with reduced motion). Two taps to plan (Timeline → the day), reorder (▲ ▼ on the line) or print (plate → load). Phone, laptop and 2560 layouts. No money figure changes. Render time of the day view measured before and after (table below).
+
+## The rules, in one place (`FLOW891`, source: the project manager, 8 Oct 2026, 03:40 AEST)
+
+On the page Andrew is "the project manager" (his own rule of 25 Sep 2026, v5.97: no "Andrew Fisher said" in the page's words).
+
+| Rule | On the page | Andrew's words |
+|---|---|---|
+| Main Beach | limit 1 truck at a time (zones Main Beach Pde and the Surfers end; meet points Main Beach, Main Beach Pde land side, Seaside north, The Hill A47) | "Anything on Main Beach only one truck at a time." |
+| Pit lane | **Weeks 6 and 5 (7–18 Sep): up to 6 · Week 4 (21 Sep) onwards: max 2** — the programme's own week sheets, which count down to the event; a day between sheets takes the sheet before it; a day before the programme: not set, not available for holding | "Pit lane we can have max 2 trucks in there from week 4. Week 5, week 6 we can fit up to 6 trucks in there, if we needed to hold any truck." |
+| Helen Park | limit 4 trucks at any one time, for any task (the holding strip below counts in it) | "We can also have 4 trucks park at any one time at Helen Park where the red line is … to keep trucks out of congested areas." |
+| Commodore Park | no limit given — shown, not checked | — |
+| Oversized | a planning guide: up to 7 at any one time — 4 at Helen Park, 2 in the pit lane, 1 at location; the card shows the day's count and busiest moment against it | "I'm not saying this is the way we do it, but we need to be smarter. Earlier the better." |
+| Curfew first | oversized loads on the earliest run: away from Kingston by 05:00, on site before 07:00, no travel 07:00–09:00 or 16:00–18:00 (v7.82 rules) | "WC60 is a perfect example: these oversized toilets need to be on the early morning run, prior to restrictions." |
+| Order | drivers arrive in their allocated order | "They must turn up in their allocated order, as they themselves can cause delays if they become out of sync." |
+| Checklist | Site aware of truck status · Loads all ready · Truck doors loaded on the correct side · Trucks staggered | "Part of the checklist that gets printed off …" |
+| Helen Park holding — the red line, Rankin Pde | a 50 m strip, centre −27.981308, 153.423360, with a Navigate link; **approximate (about 10 m) — Andrew to confirm on the map** | "where the red line is" |
+
+**How the red line was fixed** (`evidence/helen_park_holding_on_master.png`): Andrew's satellite picture shows the strip on the highway-side verge of Rankin Pde, west of the bus stop near Breaker St. On the master D001 (the live picture, same frame as the live unit tags) that is the service road along the south-west edge of Helen Park between the Breaker St corner and gate G1, before the light rail station. The two ends were read off the drawing and turned into GPS the way the page does it (v7.82): a fit through the 12 nearest unit tags (P55, P56, P54, P53, WC71, P52, WC67, WC70, P57, WC69, LTC07, WC68; worst fit 0.07 m on the tags). The strip's centre is 40 m from the master's own Helen Park label and 75 m from the Helen Park meet point. **No pin was moved** (Andrew, 8 Oct 04:00: "All navigation pin points are correct"); the strip is a new holding point in the rules table, not a pin on a unit.
+
+**Week reading.** "Week 4" is the programme's own sheet (21–25 Sep, three weeks before the event); Weeks 5 and 6 are 7–18 Sep. Read that way, the pit lane allows 2 trucks now and for the event, which matches Andrew's "2 at pit lane" in his oversized count. If he meant build weeks counted up from the start (week 4 = 28 Sep, weeks 5–6 = 5–18 Oct), the labels in `FLOW891.areas.pitLane` change in one place — see the open questions.
+
+## What each print now shows
+
+| Print | Before | After |
+|---|---|---|
+| Drivers sheet (GC500-DRV-01) | header: Coates · sheet kind · date · "Load i of n" | the same, plus under the title: **Printed by First Last · date, 24 h time** and **"Arrive in your allocated order — load i of n; out of order delays everyone · Arrival window HH:MM–HH:MM · <area> (<limit>) · If early or the area is full, hold at Helen Park — red line, Rankin Pde (up to 4 trucks)"**; the hero facts gain a row **Before it leaves ☐ Site aware of truck status ☐ Loads all ready ☐ Truck doors loaded on the correct side ☐ Trucks staggered** |
+| Install sheet (GC500-INS-01) | as above | **Printed by** under the title and the **Before it leaves** row (the order and holding words are the drivers') |
+| Location signs (one A4 per item) | no name | **Printed by First Last · stamp** bottom left |
+| Drop sheets | footer line | footer line starts **Printed by First Last · stamp ·** |
+| Pre-dispatch check (before Drivers PDFs or the day's run sheets) | "Checked by" one word or more | **First and last name** required; two new lines: "Site is aware of the status of the trucks", "The loads are all ready" |
+| Message to install teams | "Good morning … Your daily runs: link" | adds **"Sent by First Last."**; sending needs the sender's first and last name in Recording as |
+| Daily page (the link in the message) | "Issued · stamp", "In load order" | **"Prepared by First Last · Issued · stamp"**, **"In load order — the trucks arrive in this order. If early or the area is full, hold at Helen Park — red line, Rankin Pde (up to 4 trucks at any one time)."**, and each reference's notes carry its load's order and window |
+
+The sheets were already full (the page's fit shrinks their type to keep the photographs), so nothing new takes a line of its own: Printed by and the driver's words sit in the room the header already has beside the Coates mark (the header grows about 2 mm), and the tick boxes are a sixth row of the hero's fixed 47 mm facts column. One robustness fix came out of this: a photograph with no room on a very full page is now left off and said so, where before an empty picture made the page's PDF maker fail with "[object Event]" (found on the 8 Oct WC09 install sheet while testing — see evidence/print).
+
+## Before and after (the day view, 8 Oct 2026)
+
+Before: the day's documents plate, the day's figures, then the loads list — the order fixed by the carrier's bookings and load times; no people count; no area or curfew check; "Checked by" with any name; no checklist on the sheets.
+
+After (`evidence/shots/card_laptop.png`, `card_phone.png`, `card_wide.png`): the Truck flow card — people on, the order with each load's window, one row per area with the busiest moment and the limit, the oversized guide, curfew first with the one-tap fix, could share a truck, and the rules fold with the source — then the loads list with the grip and ▲ ▼ on every line and the Curfew first / Area full chips (`reorder_laptop.png`, `areas_laptop.png`, `curfew_laptop.png`). The name prompt (`name_prompt_laptop.png`) and the pre-dispatch check (`check_dialog_laptop.png`). The real PDFs the page makes are in `evidence/print/` (rendered pages in `evidence/print/*.png`).
+
+## Results
+
+__RESULTS__
+
+## Open questions for Andrew
+
+1. **Pit lane weeks.** Read as the programme's own sheets (Week 4 = 21 Sep): 2 trucks from 21 Sep on, 6 in the two weeks before. If you meant build weeks counted up from 7 Sep, say so and the two labels change in one place.
+2. **Helen Park red line.** Fixed from the master to about 10 m — please confirm the strip on the map (Navigate link in the rules fold), and whether the holding strip's 4 trucks are the same 4 as "4 oversized at Helen Park".
+3. **Main Beach.** "Anything on Main Beach" is read as the whole of Main Beach Pde, including the Surfers end. Is the Surfers end a separate area?
+4. **Weights and dimensions.** The page holds none, so no load is suggested as a shared truck. A table of item weights and loaded dimensions (or the pages of the Coates Load Restraint Guide 2023 that apply) would switch the check on.
+5. **Curfew times.** The restrictions used are the page's own: no travel to the Gold Coast 07:00–09:00 and 16:00–18:00, the morning run away from Kingston by 05:00 (v7.82, your words of 2 Oct) and the QLD oversize windows (v8.16). If a curfew for a particular load differs (a permit time, a council window), say which and the check reads it.
+6. **Arrival windows.** A load with no Kingston load time and no planned window in Crew is counted but cannot be checked against an area; the card names them each day.
+
+## Files
+
+`patch_v891.py` (exact-once replacements; footer marker ` · v8.89` / ` · v8.90` / ` · v8.93` / ` · v8.94` → ` · v8.91`), `flow891_src.js`, `flow891.css`, `tests/test_flow891.cjs` (every point above; laptop, 2560, phone), `tests/timing891.cjs` (before/after render time), `tests/print_check891.cjs` (the real PDFs, the daily page, the day's lines), `evidence/` (logs, screenshots, rendered PDFs, timings; no money figures, phone numbers or contact names).
+
+Build: `toolchain/build.sh v8.91 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where_we_are_DRAFT/patch_v885.py v8.86_event_portables_days_DRAFT/patch_v886.py v8.87_map_explorer_DRAFT/patch_v887.py v8.88_costs_transport_DRAFT/patch_v888.py v8.89_master_map_DRAFT/patch_v889.py v8.91_truck_flow_DRAFT/patch_v891.py`
