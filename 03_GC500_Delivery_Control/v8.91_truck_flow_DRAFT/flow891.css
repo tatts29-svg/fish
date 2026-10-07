@@ -80,7 +80,7 @@ html[data-motion="off"] .ld.flow891-flip{transition:none}
 #dayprint .dp-hd-m .dp891-by{font-weight:700}
 #dayprint .dp-hd-m .dp891-rl{margin-top:.3mm}
 #dayprint .dp-hd-m .dp891-rl b{font-weight:800;letter-spacing:0;text-transform:none}
-#dayprint .dp-facts .dp891-f{flex:2 1 0;flex-direction:column;align-items:stretch;justify-content:center;gap:.3mm;overflow:hidden}
+#dayprint .dp-facts .dp891-f{flex:2.2 1 0;flex-direction:column;align-items:stretch;justify-content:center;gap:.3mm;overflow:hidden}
 #dayprint .dp-facts .dp891-f label{flex:0 0 auto}
 #dayprint .dp-facts .dp891-ck{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:.2mm 1.8mm;font-size:.72em;line-height:1.15;font-weight:700;color:var(--ink)}
 #dayprint .dp-facts .dp891-ck span{display:inline-flex;align-items:center;white-space:nowrap}

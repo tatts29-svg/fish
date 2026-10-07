@@ -290,10 +290,8 @@ function flow891HeadLines(d, g, doc, i, n){
  let out = '<span class="dp891-by">' + esc(flow891PrintedBy()) + '</span>';
  if (doc !== 'drv') return out;
  let x = null; try { x = flow891Day(d).deliveries.find(y => y.id === ldId(d, g)) || null; } catch (e) { x = null; }
- const win = x ? x.win : flow891Window(d, g), area = x && x.area && x.area.key ? x.area : null, A = area ? FLOW891.areas[area.key] : null;
- const lim = A ? (area.key === 'pitLane' ? flow891PitLaneMax(d.iso).words : A.words) : '';
- return out + '<span class="dp891-rl"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '</b>; out of order delays everyone · Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? '' : ' — agree it with site') +
-  (area ? ' · ' + esc(area.name) + (lim ? ' (' + esc(lim) + ')' : '') : '') + '</span>';
+ const win = x ? x.win : flow891Window(d, g); /* the area and its limit stay on the day's card: one line here, so the header keeps its height */
+ return out + '<span class="dp891-rl"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '</b>; out of order delays everyone · Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? '' : ' — agree it with site') + '</span>';
 }
 /* the holding instruction is a site rule, so it joins the driver sheet's rules line (PPE · site hours · meet point · if unsure …) */
 function flow891HoldRule(){ return '<i>·</i><span class="dp891-hold">If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks)</span>'; }
