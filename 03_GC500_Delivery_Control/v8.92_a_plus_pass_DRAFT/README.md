@@ -119,3 +119,8 @@ release's, so its overrides land last), and proves DATA and MASTER_LOC are the o
 ## Results
 
 [filled in below once every run is in]
+
+**A note on `ep886` (Event Portables load days):** on 8 Oct from about 05:30 AEST it reads 24/31 on this build **and the same
+24/31 on the base chain**, with the same seven lines (WC57, WC67 and T0089). The live record moved between the full-chain run
+and this one — a day recorded on the record wins over the plan, which is v8.86's rule — so the difference is the record, not the
+release (`evidence/tests/ep886_base_laptop.log` beside the candidate's log).
