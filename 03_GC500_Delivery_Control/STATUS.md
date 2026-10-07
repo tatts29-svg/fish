@@ -2,6 +2,11 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.77 / v8.78 — CLAIMED by Claude for tonight, 7 Oct 2026.** Author: Andrew Fisher. Andrew's direct request (13:46 AEST). Builds from whatever is live after Codex's Today tidy-up, which goes first; no overlap with Codex's Today or dispatch/loading work.
+- **v8.77 Maps.** Replace the master with the new **D001-26003-03-MASTER.pdf issued 2 Oct** (sha256 `8753d875…`), replacing the 17 Sep issue `37792f0a…`, and re-derive every position and record that uses it. First diff: the whole sheet is shifted 9 mm. Real changes: P45 moved (~43 mm on paper), WC69 now one label (was two), WC38 and WC39 nudged, **WC10 added**, **WC32 and WC40a gone**. Map explorer: faster and smoother; tapping a building shows clearly what's done; Fencing closes like every other panel.
+- **v8.78 Costs.** Every cost figure reconciles across tabs. New **Transport** tab in Costs covering every transport fact (Schedule 4 TPORT COST, carriers, dockets, load times, still-to-come forecast, internal vs external), down to branch.
+- Claude builds, tests and writes READY; Codex publishes; Claude reads back. DRAFT, not LIVE.
+
 **v8.75 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:50 AEST).** Author: Andrew Fisher. Claude's public GET is `f981c57a799a7794c8e5fce68a02363223698b3027751fd0b312d99752c447dd`, 11,111,874 bytes, identical to Codex's hash. Against the public bytes:
 - Source protection v8.74 → v8.75: PASS (protected sections and unrelated fields identical).
 - Handling 28/28, VMS 18/18, asset/loading 40/40, Finance 24/24, all on laptop and phone.
