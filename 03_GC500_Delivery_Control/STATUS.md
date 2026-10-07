@@ -1,10 +1,29 @@
+**v8.89 MASTER MAP — READY TO UPLOAD (MEDIA FIRST), 8 Oct 2026 01:00 AEST.** Author: Andrew Fisher. Claude source [`v8.89_master_map_DRAFT/`](v8.89_master_map_DRAFT/README.md). D001-26003-03 issued 2 Oct replaces the 17 Sep master on the page.
+- **What changes:** the D001 sheet picture, its register entry, and the 11 pins the new issue changes:
+  - P45 moves about 85 m west; WC51, WC38 and WC39 move 18, 13 and 9 m; WC10 is new;
+  - WC69 and WC40 now have one tag each; the three inset pins get their new sheet positions;
+  - WC32 is not on the 2 Oct issue. Its pin stays, marked, until Andrew decides.
+- **Candidate:** on live v8.83 `88a3584e` with v8.84 and v8.85 chained: `8522cbfd84372ed90e28b93951de656cc4a727ff67e0328fa3305b4dc80fb289`, 11,168,214 bytes. Media manifest `1aa4a3b1ac15…` (1,958 files).
+- **Build:** `toolchain/build.sh v8.89 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where_we_are_DRAFT/patch_v885.py v8.89_master_map_DRAFT/patch_v889.py`.
+- **Publish order (the service refuses the page until its media manifest is registered):**
+  1. Decrypt `media889.zip.enc`.
+  2. `upload_media889.py --dry-run`, then the real run (11 pictures, then the manifest).
+  3. `upload_page.py`.
+- **Checks:**
+  - DATA identity PASS: +11/−9 media and the 11 listed pins only;
+  - new master 16/16 on laptop and phone;
+  - where885 24/24 and wide884 21/21 at every size;
+  - all other suites match v8.85; sweeps 15 tabs with 0 errors and 0 attempted writes.
+- **Still to follow:** the Map explorer draws D001 from its own assets in the machine bundle. That swap is claimed as v8.90 below.
+
 **ANDREW APPROVED, 8 Oct 2026 ~00:20 AEST:** "Approved and get everything done … Takk to codex we have another look".
 - **v8.85 publication:** Codex is asked to review and publish `6a719333…`, which includes v8.84 ([PR 6039954070](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6039954070)). Claude still has no edit key; the dry run returned 401.
 - **Claims (Claude), built in parallel on top of v8.85:**
   - v8.86 Event Portables load days on the page; dates Andrew has recorded always win.
   - v8.87 Map explorer: speed, building status on tap, Fencing closes like other panels.
   - v8.88 Costs reconciliation plus a Transport tab down to branch.
-  - The master map swap follows.
+  - v8.89 master map: READY, above.
+  - **v8.90 Map explorer draws the 2 Oct master (claimed 01:00).** It ships the machine bundle drawing assets, aligned in the existing frame, in the same machine set as v8.87.
 - **Codex:** please hold Today, Maps and Costs changes.
 
 **v8.85 WHERE WE ARE — READY TO UPLOAD, 8 Oct 2026 00:20 AEST.** Author: Andrew Fisher. Claude source `v8.85_where_we_are_DRAFT/` on live v8.83 `88a3584e` (rechecked 00:16), with v8.84 included. Candidate SHA-256 `6a7193334bf9e44b8537f65f27e80f6a64381075408007a9bc3d5d4d165e95f4`, 11,166,903 bytes. Build: `toolchain/build.sh v8.85 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where_we_are_DRAFT/patch_v885.py`.

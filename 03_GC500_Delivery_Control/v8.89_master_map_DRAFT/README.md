@@ -94,6 +94,27 @@ Publish in this order. Each step needs the edit key:
   - the inset;
   - the new pictures, which load at their sizes when served locally;
   - Map tab, no errors, no live writes.
-- Results from the full regression suite are recorded in `evidence/`.
+## Results (8 Oct 2026 ~00:55 AEST, candidate `8522cbfd…`)
+
+All logs are in `evidence/`.
+
+| Check | Laptop | Phone |
+|---|---|---|
+| Data identity (`test_identity889.py`) | PASS: +11/−9 media, the 11 listed pins, manifest = media list | — |
+| New master (`test_master889.cjs`, new pictures served locally) | 16/16 | 16/16 |
+| Where we are card (v8.85) | 24/24 at 2560, 1600 and 1440 | 24/24 |
+| Today wide layout (v8.84) | 21/21 at 2560, 1600 and 1440 | 21/21 |
+| Layout 876 · VMS 874 · Equipment 873 | 18/18 · 18/18 · 40/40 | 18/18 · 18/18 · 40/40 |
+| Crew 883 | 34/34 | 34/34 |
+| Finance 866 · Loading 872 · Unloading 881 · Paired 881 | 24/24 · 26/26 · 34/34 · 18/18 | 24/24 · 26/26 · 34/34 · 18/18 |
+| v8.71 · Supplier 870 · KINP 869 | 12/12 · 17/17 · 17/17 | — |
+| 15-tab sweep | 15 shown, 0 errors, 0 blocked | 15 shown, 0 errors, 0 blocked |
+| Handling 875 · Paired 879 (out of date) | 22/28 · 17/18 | 22/28 · 17/18 |
+
+**Handling 875 and Paired 879 are out of date, not regressions.** They give the identical result on live v8.83:
+- v8.81 renamed "Franna required" to "Franna crane unloading";
+- Andrew recorded P52 as Franna.
+
+No test attempted a live write.
 
 See also `explorer_findings.md` (why the map explorer is clunky).

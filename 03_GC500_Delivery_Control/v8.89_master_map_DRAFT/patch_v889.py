@@ -1,6 +1,6 @@
 # Author: Andrew Fisher. v8.89: the master is now D001-26003-03 issued 2 Oct (Andrew, 7 Oct: "this is to over write the current master").
 # The 2 Oct sheet is laid over the live picture's frame (the drawing sits 9 mm further left on the new paper), so the fencing
-# geometry and 157 pins traced on the 17 Sep issue stay exact. Pins the new issue moves are re-read off it.
+# geometry and 158 of the 165 pins traced on the 17 Sep issue stay exact. Pins the new issue moves are re-read off it.
 # Needs changes889.json beside this file (made by make_master889.py) and the new media uploaded before release.
 import json, re, sys
 from pathlib import Path
